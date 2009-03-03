@@ -74,7 +74,7 @@ Then make the library and shell tools:
 Make the daemon and NFS server:
   mkdir daemon/build
   pushd daemon/build
-  ../configure
+  ../configure [--disable-nfsv4 --disable-gss]
   make
   popd
 
@@ -83,7 +83,7 @@ server too:
 
   mkdir daemon/build-32
   pushd daemon/build-32
-  ../configure --enable-32bit
+  ../configure --enable-32bit [--disable-nfsv4 --disable-gss]
   make
   popd
 

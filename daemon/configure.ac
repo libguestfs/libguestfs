@@ -29,7 +29,7 @@ dnl If the user specified --enable-32bit, then force the C compiler
 dnl to build 32 bit binaries (gcc -m32).
 AC_ARG_ENABLE([32bit],
   [AS_HELP_STRING([--enable-32bit], [build 32 bit binaries (gcc -m32)])],
-  [CC="gcc -m32"],
+  [export CC="gcc -m32"],
   [enable_32bit=no])
 
 dnl Check for basic C environment.
