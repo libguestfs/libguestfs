@@ -17,6 +17,7 @@
 
 AC_INIT([libguestfs],[0.1])
 AM_INIT_AUTOMAKE
+AC_PROG_LIBTOOL
 
 dnl Make sure the user has created the link to nfs-utils source.
 if ! test -e $srcdir/daemon/nfs-utils \
@@ -35,6 +36,9 @@ test "x$U" != "x" && AC_MSG_ERROR([Compiler not ANSI compliant])
 
 AC_PROG_CC_C_O
 
+dnl Headers.
+AC_CHECK_HEADERS([errno.h sys/types.h sys/un.h sys/wait.h sys/socket.h])
+
 dnl Check for rpcgen and XDR library.  rpcgen is optional.
 AC_CHECK_PROG([RPCGEN],[rpcgen],[rpcgen],[no])
 AM_CONDITIONAL([RPCGEN],[test "x$RPCGEN" != "xno"])
@@ -49,6 +53,7 @@ dnl on several factors explained in the README.
 AC_PATH_PROG([QEMU],[qemu],[no],
 	[$PATH$PATH_SEPARATOR/usr/sbin$PATH_SEPARATOR/sbin])
 test "x$QEMU" = "xno" && AC_MSG_ERROR([No 'qemu' program found])
+AC_DEFINE_UNQUOTED([QEMU],["$QEMU"],[Location of qemu binary.])
 
 dnl Check for mkinitrd, cpio.
 AC_PATH_PROG([MKINITRD],[mkinitrd],[no],
@@ -59,5 +64,5 @@ test "x$CPIO" = "xno" && AC_MSG_ERROR([No 'cpio' program found])
 
 dnl Produce output files.
 AC_CONFIG_HEADERS([config.h])
-AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([Makefile src/Makefile examples/Makefile])
 AC_OUTPUT

@@ -1,4 +1,3 @@
-#!/bin/sh -
 # libguestfs
 # Copyright (C) 2009 Red Hat Inc.
 #
@@ -15,14 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-#
-# Rebuild the autotools environment.
 
-set -e
-set -v
-export AUTOMAKE='automake --foreign'
-aclocal
-libtoolize
-autoreconf
-cd daemon
-autoreconf
+lib_LTLIBRARIES = libguestfs.la
+
+libguestfs_la_SOURCES = guestfs.c guestfs.h

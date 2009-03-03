@@ -1,3 +1,4 @@
+.deps
 Makefile.in
 Makefile
 aclocal.m4
@@ -7,4 +8,5 @@ config.h.in
 config.log
 config.status
 configure
+libtool
 stamp-h1
