@@ -36,10 +36,9 @@ extern int guestfs_add_cdrom (guestfs_h *g, const char *filename);
 /* Steps to start up the guest. */
 extern int guestfs_launch (guestfs_h *g);
 extern int guestfs_wait_ready (guestfs_h *g);
-extern int guestfs_ready (guestfs_h *g);
 
 /* Kill the guest subprocess. */
-extern int guestfs_kill_subprocess (guestfs_h *g);
+extern void guestfs_kill_subprocess (guestfs_h *g);
 
 /* Error handling. */
 typedef void (*guestfs_abort_fn) (void);
