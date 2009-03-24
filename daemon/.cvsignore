@@ -5,6 +5,9 @@ autom4te.cache
 build*
 config.h
 config.h.in
+config.log
+config.status
 configure
 install-sh
 missing
+stamp-h1

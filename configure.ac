@@ -15,16 +15,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-AC_INIT([libguestfs],[0.1])
+AC_INIT([libguestfs],[0.2])
 AM_INIT_AUTOMAKE
 AC_PROG_LIBTOOL
-
-dnl Make sure the user has created the link to nfs-utils source.
-if ! test -e $srcdir/daemon/nfs-utils \
-    -o -f $srcdir/daemon/nfs-utils/utils/nfsd/nfsd.c; then
-  AC_MSG_ERROR([$srcdir/daemon/nfs-utils must be a symlink to the unpacked nfs-utils sources.
-See the README file for more information.])
-fi
 
 dnl Check for basic C environment.
 AC_PROG_CC
@@ -46,21 +39,20 @@ AC_CHECK_LIB([portablexdr],[xdrmem_create],[],[
 	AC_SEARCH_LIBS([xdrmem_create],[rpc xdr nsl])
 	])
 
+dnl Check for febootstrap.
+AC_CHECK_PROG([FEBOOTSTRAP],[febootstrap],[febootstrap],[no])
+test "x$FEBOOTSTRAP" = "xno" && AC_MSG_ERROR([febootstrap must be installed])
+
 dnl Check for QEMU.  We only check for the basic 'qemu' program here
 dnl (ie. the i386 full system qemu).  But at runtime we might choose
-dnl a different qemu to run, eg. qemu-system-ppc.  What we run depends
-dnl on several factors explained in the README.
+dnl a different qemu to run, eg. qemu-system-ppc.
 AC_PATH_PROG([QEMU],[qemu],[no],
 	[$PATH$PATH_SEPARATOR/usr/sbin$PATH_SEPARATOR/sbin])
-test "x$QEMU" = "xno" && AC_MSG_ERROR([No 'qemu' program found])
+test "x$QEMU" = "xno" && AC_MSG_ERROR([qemu must be installed])
 AC_DEFINE_UNQUOTED([QEMU],["$QEMU"],[Location of qemu binary.])
 
-dnl Check for mkinitrd, cpio.
-AC_PATH_PROG([MKINITRD],[mkinitrd],[no],
-	[$PATH$PATH_SEPARATOR/usr/sbin$PATH_SEPARATOR/sbin])
-test "x$MKINITRD" = "xno" && AC_MSG_ERROR([No 'mkinitrd' program found])
-AC_CHECK_PROG([CPIO],[cpio],[cpio],[no])
-test "x$CPIO" = "xno" && AC_MSG_ERROR([No 'cpio' program found])
+dnl Run in subdirs.
+AC_CONFIG_SUBDIRS([daemon])
 
 dnl Produce output files.
 AC_CONFIG_HEADERS([config.h])

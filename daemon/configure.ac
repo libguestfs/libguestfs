@@ -15,15 +15,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-AC_INIT([libguestfs-daemon],[0.1])
+AC_INIT([libguestfs-daemon],[0.2])
 AM_INIT_AUTOMAKE
-
-dnl Make sure the user has created the link to nfs-utils source.
-if ! test -e $srcdir/nfs-utils \
-    -o -f $srcdir/nfs-utils/utils/nfsd/nfsd.c; then
-  AC_MSG_ERROR([$srcdir/nfs-utils must be a symlink to the unpacked nfs-utils sources.
-See the README file for more information.])
-fi
 
 dnl If the user specified --enable-32bit, then force the C compiler
 dnl to build 32 bit binaries (gcc -m32).
@@ -46,9 +39,6 @@ dnl Check for XDR library.
 AC_CHECK_LIB([portablexdr],[xdrmem_create],[],[
 	AC_SEARCH_LIBS([xdrmem_create],[rpc xdr nsl])
 	])
-
-dnl Run in subdirs.
-AC_CONFIG_SUBDIRS([nfs-utils])
 
 dnl Produce output files.
 AC_CONFIG_HEADERS([config.h])

@@ -1,4 +1,4 @@
-#!/bin/sh -
+#!/bin/bash -
 # libguestfs
 # Copyright (C) 2009 Red Hat Inc.
 #
@@ -24,5 +24,7 @@ export AUTOMAKE='automake --foreign'
 aclocal
 libtoolize
 autoreconf
-cd daemon
+pushd daemon
 autoreconf
+popd
+./configure "$@"

@@ -30,23 +30,13 @@ For discussion please use the fedora-virt mailing list:
 Requirements
 ----------------------------------------------------------------------
 
-- nfs-utils source, unpacked
-  http://download.sourceforge.net/nfs
-
 - Recent QEMU with vmchannel support
 
-- Compiled Linux kernels for 32 and/or 64 bit (see note below).
-
-- mkinitrd
-
-- cpio
+- febootstrap >= 1.2
 
 - XDR, rpcgen
 
-- If you are running a 64 bit or non-x86 machine, see note below.
-
-We don't support initramfs at the moment.  Patches gratefully
-received.
+- (Optional) Local Fedora mirror
 
 Running ./configure will check you have all the requirements installed
 on your machine.
@@ -55,41 +45,14 @@ on your machine.
 Building
 ----------------------------------------------------------------------
 
-Unpack nfs-utils source into a directory somewhere, then create a
-symlink daemon/nfs-utils to where you unpacked it.  For example:
+Then make the daemon, library and root filesystem:
 
-  pushd daemon
-  tar zxf /path/to/nfs-utils-1.1.4.tar.gz
-  ln -s nfs-utils-1.1.4 nfs-utils
-  popd
-
-For nfs-utils 1.1.4, you may find that the patch
-(nfs-utils-1.1.4-build.patch) helps.
-
-Then make the library and shell tools:
-
-  ./configure
+  ./configure [--mirror=URI]
   make
 
-Make the daemon and NFS server:
-  mkdir daemon/build
-  pushd daemon/build
-  ../configure [--disable-nfsv4 --disable-gss]
-  make
-  popd
-
-For 64 bit you'll probably want to build the 32 bit daemon and NFS
-server too:
-
-  mkdir daemon/build-32
-  pushd daemon/build-32
-  ../configure --enable-32bit [--disable-nfsv4 --disable-gss]
-  make
-  popd
-
-For complex cross-architecture environments, you may want to build
-other versions of the daemon and NFS server as well.  See the note
-below.
+Use the optional --mirror parameter to specify the URI of a local
+Fedora mirror.  See the discussion of the MIRROR parameter in the
+febootstrap(8) manpage.
 
 Finally run the tests:
 
@@ -100,69 +63,19 @@ these commands as root:
 
   make install
 
-  pushd daemon/build
-  make install
-  popd
-  # Repeat for each daemon/build* directory you made above.
-
-
-Note on 64 bit and non-x86 architectures
+Notes on cross-architecture support
 ----------------------------------------------------------------------
 
-The library runs the Linux kernel code in QEMU.  It also runs a small
-control daemon inside QEMU.  It might also run an NFS server.  It
-might also run programs from the guest's disk/environment (if asked to).
+At the moment we basically don't support cross-architecture or
+32-on-64.  This limits what is possible for some guests.  Filesystem
+operations and NFS export will work fine, but running commands in
+guests may not be possible.
 
-This leaves open the question of which QEMU do we run, eg. qemu (the
-i386 emulator) or qemu-system-x86_64 or qemu-system-ppc64 or ...?
+To enable this requires work for cross-architecture and 32-on-64
+support in febootstrap.
 
-Several factors influence the choice:
-
-(a) The host architecture.
-
-(b) The guest architecture.
-
-(c) What kernel(s) we find at runtime.
-
-(d) What compiler(s) we find at configure time.
-
-(e) In general, we would prefer to run a 32 bit kernel over a 64 bit
-kernel, because that reduces the amount of system memory we have to
-give to qemu significantly, and makes libguestfs smaller, faster and
-use less memory.
-
-For example, if (a) the host is x86-64, then it might be running a
-mixture of (b) i386 and x86-64 guests.  Disk formats are stable, even
-across 32 and 64 bit and endianness changes, so it doesn't really
-matter what kernel we use if we just want to access files in the
-guest.  In the absence of any other factors, we would choose an i386
-kernel and run it in plain 'qemu', because that would use the least
-amount of memory.
-
-But if we wanted to enable the feature of running a guest program in
-an x86-64 guest, then we have to run an x86-64 kernel and
-qemu-system-x86_64 (an i386 kernel can't run 64 bit programs).  The
-same applies if we didn't find a 32 bit kernel at runtime, or if we
-couldn't run "gcc -m32" at configure time (because we can't compile
-the daemon).
-
-SO: to enable maximum features on 64 bit architectures:
-
-(1) Ensure that "gcc -m32" can create usable binaries.
-
-(2) Provide 32 and 64 bit kernels binaries at runtime.
-
-If you have a really weird environment, eg. you want to run programs
-inside PPC64 guests on your MIPS machine, then:
-
-(3) Provide gcc cross-compiler and glibc for each architecture, and
-cross-compile the daemon and NFS server:
-
-  mkdir daemon/build-ppc64
-  pushd daemon/build-ppc64
-  ../configure --host=ppc64-gnu-linux
-  make
-  popd
+The daemon/ directory contains its own configure script.  This is so
+that in future we will be able to cross-compile the daemon.
 
 
 Copyright and license information
