@@ -8,5 +8,9 @@ config.h.in
 config.log
 config.status
 configure
+initramfs
+initramfs.*.img
 libtool
+make-initramfs.sh
 stamp-h1
+vmlinuz.*

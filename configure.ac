@@ -39,10 +39,6 @@ AC_CHECK_LIB([portablexdr],[xdrmem_create],[],[
 	AC_SEARCH_LIBS([xdrmem_create],[rpc xdr nsl])
 	])
 
-dnl Check for febootstrap.
-AC_CHECK_PROG([FEBOOTSTRAP],[febootstrap],[febootstrap],[no])
-test "x$FEBOOTSTRAP" = "xno" && AC_MSG_ERROR([febootstrap must be installed])
-
 dnl Check for QEMU.  We only check for the basic 'qemu' program here
 dnl (ie. the i386 full system qemu).  But at runtime we might choose
 dnl a different qemu to run, eg. qemu-system-ppc.
@@ -51,10 +47,45 @@ AC_PATH_PROG([QEMU],[qemu],[no],
 test "x$QEMU" = "xno" && AC_MSG_ERROR([qemu must be installed])
 AC_DEFINE_UNQUOTED([QEMU],["$QEMU"],[Location of qemu binary.])
 
+dnl Check for febootstrap etc.
+AC_CHECK_PROG([FEBOOTSTRAP],
+	[febootstrap],[febootstrap],[no])
+test "x$FEBOOTSTRAP" = "xno" && \
+     AC_MSG_ERROR([febootstrap must be installed])
+AC_CHECK_PROG([FEBOOTSTRAP_MINIMIZE],
+	[febootstrap-minimize],[febootstrap-minimize],[no])
+test "x$FEBOOTSTRAP_MINIMIZE" = "xno" && \
+     AC_MSG_ERROR([febootstrap-minimize must be installed])
+AC_CHECK_PROG([FEBOOTSTRAP_TO_INITRAMFS],
+	[febootstrap-to-initramfs],[febootstrap-to-initramfs],[no])
+test "x$FEBOOTSTRAP_TO_INITRAMFS" = "xno" && \
+     AC_MSG_ERROR([febootstrap-to-initramfs must be installed])
+
+dnl --with-repo to specify a Fedora repository.
+AC_ARG_WITH([repo],
+	[AS_HELP_STRING([--with-repo],
+	  [set name of Fedora repository @<:@default=fedora-10@:>@])],
+	[],
+	[with_repo=fedora-10])
+REPO="$with_repo"
+AC_SUBST(REPO)
+
+dnl --with-mirror to specify a local Fedora mirror.
+AC_ARG_WITH([mirror],
+	[AS_HELP_STRING([--with-mirror],
+	  [set URI of a local Fedora mirror])],
+	[],
+	[with_mirror=])
+MIRROR="$with_mirror"
+AC_SUBST(MIRROR)
+
 dnl Run in subdirs.
 AC_CONFIG_SUBDIRS([daemon])
 
 dnl Produce output files.
 AC_CONFIG_HEADERS([config.h])
-AC_CONFIG_FILES([Makefile src/Makefile examples/Makefile])
+AC_CONFIG_FILES([Makefile src/Makefile examples/Makefile make-initramfs.sh])
 AC_OUTPUT
+
+dnl WTF?
+chmod +x make-initramfs.sh

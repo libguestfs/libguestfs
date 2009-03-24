@@ -15,4 +15,27 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-SUBDIRS = daemon src examples
+SUBDIRS = src daemon examples
+
+EXTRA_DIST = make-initramfs.sh
+
+# Build the root filesystem.
+# Currently this is arch-dependent, so it seems like putting it in
+# $(libdir) is best.  When we build cross-architecture filesystems we
+# should probably move them to $(datadir).
+
+fsdir = $(libdir)/guestfs
+
+fs_DATA = initramfs.$(REPO).$(host_cpu).img vmlinuz.$(REPO).$(host_cpu)
+
+$(fs_DATA): make-initramfs.sh.in daemon/guestfsd
+	$(builddir)/make-initramfs.sh
+
+.PHONY: daemon/guestfsd
+
+# Make clean.
+
+CLEANFILES = $(fs_DATA)
+
+clean-local:
+	rm -rf initramfs

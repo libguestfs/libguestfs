@@ -1,0 +1,110 @@
+#!/bin/bash -
+# @configure_input@
+# Copyright (C) 2009 Red Hat Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+# This is called from the Makefile to build the initramfs.
+
+set -e
+
+# If you want to do some extra debugging and diagnosis of the
+# initramfs image, then uncomment this line.  This makes the image
+# larger.
+debug=yes
+
+modules="-i kernel -i bash -i coreutils -i lvm2 -i ntfs-3g -i nfs-utils -i util-linux-ng -i MAKEDEV -i net-tools"
+
+if [ "x$debug" = "xyes" ]; then
+    modules="$modules -i module-init-tools -i procps -i strace -i iputils"
+fi
+
+# Decide on names for the final output.  These have to match Makefile.am.
+output=initramfs.@REPO@.@host_cpu@.img
+koutput=vmlinuz.@REPO@.@host_cpu@
+rm -f $output $koutput
+
+# Create the basic initramfs.
+@FEBOOTSTRAP@ $modules @REPO@ initramfs @MIRROR@
+
+# Nuke some stuff.  The kernel pulls in plymouth crapola which pulls in
+# all of Python.  Sheez.
+find initramfs -name '*plymouth*' -print0 | xargs -0 rm -rf
+find initramfs -name '*python*' -print0 | xargs -0 rm -rf
+
+# Modules take up nearly half of the image.  It's a rough guess that
+# we don't need any drivers (which take up most of the space).
+# (We need to keep kernel/net/sunrpc for NFS)
+rm -rf initramfs/lib/modules/*/kernel/{drivers,sound}
+rm -rf initramfs/lib/modules/*/kernel/arch/x86/kvm
+
+# Pull the kernel out into the current directory.  We don't want it in
+# the initramfs image.
+mv initramfs/boot/vmlinuz* $koutput
+rm -rf initramfs/boot
+
+# Older versions of febootstrap-minimize didn't remove this, so:
+rm -rf initramfs/usr/share/gnome/help
+
+# Minimize the image.
+@FEBOOTSTRAP_MINIMIZE@ initramfs
+
+# Add some missing configuration files.
+if [ ! -f initramfs/etc/hosts ]; then
+    cat > initramfs/etc/hosts <<'__EOF__'
+127.0.0.1 guestfs localhost.localdomain localhost
+::1       localhost6.localdomain6 localhost6
+__EOF__
+fi
+
+if [ ! -f initramfs/etc/fstab ]; then
+    touch initramfs/etc/fstab
+fi
+
+# Copy the daemon into the filesystem.
+#cp daemon/guestfsd initramfs/sbin
+
+# Create the init script.
+cat > initramfs/init <<'__EOF__'
+#!/bin/sh
+PATH=/sbin:/usr/sbin:$PATH
+MAKEDEV mem null port zero core full ram tty console fd \
+  hda hdb hdc hdd sda sdb sdc sdd loop sd
+mount -t proc /proc /proc
+mount -t sysfs /sys /sys
+mount -t devpts -o gid=5,mode=620 /dev/pts /dev/pts
+modprobe nfsd
+/sbin/ifconfig lo 127.0.0.1
+lvm vgscan --ignorelockingfailure
+lvm vgchange -ay --ignorelockingfailure
+rpcbind
+rpc.statd
+rpc.nfsd 4
+rpc.mountd
+__EOF__
+
+if [ "x$debug" != "xyes" ]; then
+    echo exec guestfsd -f >> initramfs/init
+else
+    echo guestfsd >> initramfs/init
+    echo exec bash -i >> initramfs/init
+fi
+
+chmod +x initramfs/init
+
+# Generate final image.
+@FEBOOTSTRAP_TO_INITRAMFS@ initramfs > $output-t
+mv $output-t $output
+ls -lh $output

@@ -30,13 +30,13 @@ For discussion please use the fedora-virt mailing list:
 Requirements
 ----------------------------------------------------------------------
 
-- Recent QEMU with vmchannel support
+- recent QEMU with vmchannel support
 
 - febootstrap >= 1.2
 
 - XDR, rpcgen
 
-- (Optional) Local Fedora mirror
+- (Optional) local Fedora mirror
 
 Running ./configure will check you have all the requirements installed
 on your machine.
@@ -47,10 +47,10 @@ Building
 
 Then make the daemon, library and root filesystem:
 
-  ./configure [--mirror=URI]
+  ./configure [--with-mirror=URI]
   make
 
-Use the optional --mirror parameter to specify the URI of a local
+Use the optional --with-mirror parameter to specify the URI of a local
 Fedora mirror.  See the discussion of the MIRROR parameter in the
 febootstrap(8) manpage.
 
