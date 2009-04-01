@@ -63,6 +63,7 @@ these commands as root:
 
   make install
 
+
 Notes on cross-architecture support
 ----------------------------------------------------------------------
 
@@ -72,10 +73,25 @@ operations and NFS export will work fine, but running commands in
 guests may not be possible.
 
 To enable this requires work for cross-architecture and 32-on-64
-support in febootstrap.
+support in febootstrap, fakeroot and fakechroot.
 
 The daemon/ directory contains its own configure script.  This is so
 that in future we will be able to cross-compile the daemon.
+
+
+Mirroring tip
+----------------------------------------------------------------------
+
+Having a local Fedora mirror makes a massive difference to the time it
+takes to build and rebuild initramfs images.
+
+Failing that, use squid to cache yum downloads, but read this first:
+https://lists.dulug.duke.edu/pipermail/yum/2006-August/009041.html
+(In brief, because yum chooses random mirrors each time, squid doesn't
+work very well with default yum configuration.  To get around this,
+choose a Fedora mirror which is close to you, set this with
+'./configure --with-mirror=[...]', and then proxy the whole lot
+through squid by setting http_proxy environment variable).
 
 
 Copyright and license information

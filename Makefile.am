@@ -15,6 +15,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+ACLOCAL_AMFLAGS = -I m4
+
 SUBDIRS = src daemon examples
 
 EXTRA_DIST = make-initramfs.sh
@@ -26,16 +28,35 @@ EXTRA_DIST = make-initramfs.sh
 
 fsdir = $(libdir)/guestfs
 
-fs_DATA = initramfs.$(REPO).$(host_cpu).img vmlinuz.$(REPO).$(host_cpu)
+INITRAMFSIMG = initramfs.$(REPO).$(host_cpu).img
+VMLINUZ = vmlinuz.$(REPO).$(host_cpu)
 
-$(fs_DATA): make-initramfs.sh.in daemon/guestfsd
+fs_DATA =  $(INITRAMFSIMG) $(VMLINUZ)
+
+$(VMLINUZ) $(INITRAMFSIMG): initramfs.timestamp
+
+initramfs.timestamp: make-initramfs.sh.in daemon/guestfsd
+	rm -f $@
 	$(builddir)/make-initramfs.sh
+	touch $@
 
 .PHONY: daemon/guestfsd
 
 # Make clean.
 
-CLEANFILES = $(fs_DATA)
+CLEANFILES = $(fs_DATA) initramfs.timestamp
 
 clean-local:
 	rm -rf initramfs
+
+# Test-boot the image.
+
+test-boot-image:
+	rm -f emptydisk
+	dd if=/dev/zero of=emptydisk bs=1024 count=1440
+	echo 0, | sfdisk -C 80 -H 2 -S 18 emptydisk
+	qemu-system-$(host_cpu) \
+	  -m 384 \
+	  -kernel $(VMLINUZ) -initrd $(INITRAMFSIMG) \
+	  -hda emptydisk -boot c
+	rm -f emptydisk

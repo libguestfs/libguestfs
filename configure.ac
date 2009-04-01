@@ -17,6 +17,9 @@
 
 AC_INIT([libguestfs],[0.2])
 AM_INIT_AUTOMAKE
+
+AC_CONFIG_MACRO_DIR([m4])
+
 AC_PROG_LIBTOOL
 
 dnl Check for basic C environment.

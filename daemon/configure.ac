@@ -18,6 +18,8 @@
 AC_INIT([libguestfs-daemon],[0.2])
 AM_INIT_AUTOMAKE
 
+AC_CONFIG_MACRO_DIR([m4])
+
 dnl If the user specified --enable-32bit, then force the C compiler
 dnl to build 32 bit binaries (gcc -m32).
 AC_ARG_ENABLE([32bit],
