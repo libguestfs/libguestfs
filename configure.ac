@@ -55,6 +55,10 @@ AC_CHECK_PROG([FEBOOTSTRAP],
 	[febootstrap],[febootstrap],[no])
 test "x$FEBOOTSTRAP" = "xno" && \
      AC_MSG_ERROR([febootstrap must be installed])
+AC_CHECK_PROG([FEBOOTSTRAP_RUN],
+	[febootstrap-run],[febootstrap-run],[no])
+test "x$FEBOOTSTRAP_RUN" = "xno" && \
+     AC_MSG_ERROR([febootstrap-run must be installed])
 AC_CHECK_PROG([FEBOOTSTRAP_MINIMIZE],
 	[febootstrap-minimize],[febootstrap-minimize],[no])
 test "x$FEBOOTSTRAP_MINIMIZE" = "xno" && \
