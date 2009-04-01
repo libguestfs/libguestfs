@@ -23,8 +23,8 @@ set -v
 export AUTOMAKE='automake --foreign'
 aclocal
 libtoolize
-autoreconf
+autoreconf -i
 pushd daemon
-autoreconf
+autoreconf -i
 popd
 ./configure "$@"
