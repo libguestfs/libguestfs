@@ -60,21 +60,24 @@ rm -rf initramfs/boot
 
 # Add some missing configuration files.
 if [ ! -f initramfs/etc/hosts ]; then
-    cat > initramfs/etc/hosts <<'__EOF__'
+    cat > initramfs/etc/hosts.new <<'__EOF__'
 127.0.0.1 guestfs localhost.localdomain localhost
 ::1       localhost6.localdomain6 localhost6
 __EOF__
+    @FEBOOTSTRAP_RUN@ initramfs -- \
+	install -m 0644 -o root -g root /etc/hosts.new /etc/hosts
+    rm initramfs/etc/hosts.new
 fi
 
 if [ ! -f initramfs/etc/fstab ]; then
-    touch initramfs/etc/fstab
+    @FEBOOTSTRAP_RUN@ initramfs -- touch /etc/fstab
 fi
 
 # Copy the daemon into the filesystem.
 #cp daemon/guestfsd initramfs/sbin
 
 # Create the init script.
-cat > initramfs/init <<'__EOF__'
+cat > initramfs/init.new <<'__EOF__'
 #!/bin/sh
 PATH=/sbin:/usr/sbin:$PATH
 MAKEDEV mem null port zero core full ram tty console fd \
@@ -93,13 +96,14 @@ rpc.mountd
 __EOF__
 
 if [ "x$debug" != "xyes" ]; then
-    echo exec guestfsd -f >> initramfs/init
+    echo exec guestfsd -f >> initramfs/init.new
 else
-    echo guestfsd >> initramfs/init
-    echo exec bash -i >> initramfs/init
+    echo guestfsd >> initramfs/init.new
+    echo exec bash -i >> initramfs/init.new
 fi
 
-chmod +x initramfs/init
+@FEBOOTSTRAP_RUN@ initramfs -- install -m 0755 -o root -g root /init.new /init
+rm initramfs/init.new
 
 # Generate final image.
 @FEBOOTSTRAP_TO_INITRAMFS@ initramfs > $output-t
