@@ -39,7 +39,7 @@ rm -f $output $koutput
 # Create the basic initramfs.
 @FEBOOTSTRAP@ $modules @REPO@ initramfs @MIRROR@
 
-# Nuke some stuff.  The kernel pulls in plymouth crapola which pulls in
+# Nuke some stuff.  The kernel pulls mkinitrd and plymouth which pulls in
 # all of Python.  Sheez.
 find initramfs -name '*plymouth*' -print0 | xargs -0 rm -rf
 find initramfs -name '*python*' -print0 | xargs -0 rm -rf
@@ -54,9 +54,6 @@ rm -rf initramfs/lib/modules/*/kernel/arch/x86/kvm
 # the initramfs image.
 mv initramfs/boot/vmlinuz* $koutput
 rm -rf initramfs/boot
-
-# Older versions of febootstrap-minimize didn't remove this, so:
-rm -rf initramfs/usr/share/gnome/help
 
 # Minimize the image.
 @FEBOOTSTRAP_MINIMIZE@ initramfs
@@ -108,3 +105,4 @@ chmod +x initramfs/init
 @FEBOOTSTRAP_TO_INITRAMFS@ initramfs > $output-t
 mv $output-t $output
 ls -lh $output
+ls -lh $koutput
