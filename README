@@ -1,4 +1,4 @@
-libguestfs is a library for accessing and modifying guest disk images.
+Libguestfs is a library for accessing and modifying guest disk images.
 Amongst the things this is good for: making batch configuration
 changes to guests, getting disk used/free statistics (see also:
 virt-df), migrating between virtualization systems (see also:
@@ -6,22 +6,22 @@ virt-p2v), performing partial backups, performing partial guest
 clones, cloning guests and changing registry/UUID/hostname info, and
 much else besides.
 
-libguestfs uses Linux kernel and qemu code, and can access any type of
+Libguestfs uses Linux kernel and qemu code, and can access any type of
 guest filesystem that Linux and qemu can, including but not limited
 to: ext2/3/4, btrfs, FAT and NTFS, LVM, many different disk partition
 schemes, qcow, qcow2, vmdk.
 
-libguestfs provides ways to enumerate guest storage (eg. partitions,
+Libguestfs provides ways to enumerate guest storage (eg. partitions,
 LVs, what filesystem is in each LV, etc.).  It can also run commands
 in the context of the guest.  Also you can mount guest filesystems on
 the host (requires root privs and NFS).
 
-libguestfs is a library that can be linked with C and C++ management
+Libguestfs is a library that can be linked with C and C++ management
 programs (or management programs written in other languages, if people
 contribute the language bindings).  You can also use it from shell
 scripts or the command line.
 
-libguestfs was written by Richard W.M. Jones (rjones@redhat.com).
+Libguestfs was written by Richard W.M. Jones (rjones@redhat.com).
 For discussion please use the fedora-virt mailing list:
 
   https://www.redhat.com/mailman/listinfo/fedora-virt

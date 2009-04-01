@@ -1,0 +1,355 @@
+=encoding utf8
+
+=head1 NAME
+
+guestfs - Library for accessing and modifying virtual machine images
+
+=head1 SYNOPSIS
+
+ guestfs_h handle = guestfs_create ();
+ guestfs_add_drive (handle, "guest.img");
+ guestfs_launch (handle);
+ guestfs_wait_ready (handle);
+ guestfs_mount (handle, "/dev/sda1", "/");
+ guestfs_touch_file (handle, "/hello");
+ guestfs_sync (handle);
+ guestfs_close (handle);
+
+=head1 DESCRIPTION
+
+Libguestfs is a library for accessing and modifying guest disk images.
+Amongst the things this is good for: making batch configuration
+changes to guests, getting disk used/free statistics (see also:
+virt-df), migrating between virtualization systems (see also:
+virt-p2v), performing partial backups, performing partial guest
+clones, cloning guests and changing registry/UUID/hostname info, and
+much else besides.
+
+Libguestfs uses Linux kernel and qemu code, and can access any type of
+guest filesystem that Linux and qemu can, including but not limited
+to: ext2/3/4, btrfs, FAT and NTFS, LVM, many different disk partition
+schemes, qcow, qcow2, vmdk.
+
+Libguestfs provides ways to enumerate guest storage (eg. partitions,
+LVs, what filesystem is in each LV, etc.).  It can also run commands
+in the context of the guest.  Also you can mount guest filesystems on
+the host (requires root privs and NFS).
+
+Libguestfs is a library that can be linked with C and C++ management
+programs (or management programs written in other languages, if people
+contribute the language bindings).  You can also use it from shell
+scripts or the command line.
+
+=head1 CONNECTION MANAGEMENT
+
+
+
+
+
+
+=head1 CONFIGURATION MANAGEMENT
+
+
+
+
+
+
+=head1 HIGH-LEVEL API
+
+
+
+
+
+
+
+
+
+=head1 ERROR HANDLING
+
+
+
+
+
+
+=head1 STATE MACHINE AND LOW-LEVEL EVENT API
+
+Internally, libguestfs is implemented by running a virtual machine
+using L<qemu(1)>.  QEmu runs as a child process of the main program,
+and most of this discussion won't make sense unless you understand
+that the complexity is dealing with the (asynchronous) actions of the
+child process.
+
+=head2 STATE MACHINE
+
+libguestfs uses a state machine to model the child process:
+
+                         |
+                    guestfs_create
+                         |
+                         |
+                     ____V_____
+                    /          \
+                    |  CONFIG  |
+                    \__________/
+                     ^ ^   ^  \
+                    /  |    \  \ guestfs_launch
+                   /   |    _\__V______
+                  /    |   /           \
+                 /     |   | LAUNCHING |
+                /      |   \___________/
+               /       |       /
+              /        |  guestfs_wait_ready
+             /         |     /
+    ______  /        __|____V
+   /      \ ------> /        \
+   | BUSY |         | READY  |
+   \______/ <------ \________/
+
+The normal transitions are (1) CONFIG (when the handle is created, but
+there is no child process), (2) LAUNCHING (when the child process is
+booting up), (3) alternating between READY and BUSY as commands are
+issued to, and carried out by, the child process.
+
+The guest may be killed by C<guestfs_kill_subprocess>, or may die
+asynchronously at any time (eg. due to some internal error), and that
+causes the state to transition back to CONFIG.
+
+Configuration commands for qemu such as C<guestfs_add_drive> can only
+be issued when in the CONFIG state.
+
+The high-level API offers two calls that go from CONFIG through
+LAUNCHING to READY.  C<guestfs_launch> is a non-blocking call that
+starts up the child process, immediately moving from CONFIG to
+LAUNCHING.  C<guestfs_wait_ready> blocks until the child process is
+READY to accept commands (or until some failure or timeout).  The
+low-level event API described below provides a non-blocking way to
+replace C<guestfs_wait_ready>.
+
+High-level API actions such as C<guestfs_mount> can only be issued
+when in the READY state.  These high-level API calls block waiting for
+the command to be carried out (ie. the state to transition to BUSY and
+then back to READY).  But using the low-level event API, you get
+non-blocking versions.  (But you can still only carry out one
+operation per handle at a time - that is a limitation of the
+communications protocol we use).
+
+Finally, the child process sends asynchronous messages back to the
+main program, such as kernel log messages.  Mostly these are ignored
+by the high-level API, but using the low-level event API you can
+register to receive these messages.
+
+=head2 SETTING CALLBACKS TO HANDLE EVENTS
+
+The child process generates events in some situations.  Current events
+include: receiving a reply message after some action, receiving a log
+message, the child process exits, &c.
+
+Use the C<guestfs_set_*_callback> functions to set a callback for
+different types of events.
+
+Only I<one callback of each type> can be registered for each handle.
+Calling C<guestfs_set_*_callback> again overwrites the previous
+callback of that type.  Cancel all callbacks of this type by calling
+this function with C<cb> set to C<NULL>.
+
+=head2 NON-BLOCKING ACTIONS
+
+C<guestfs_set_reply_callback> is the most interesting callback to
+play with, since it allows you to perform actions without blocking.
+
+For example:
+
+ do_it ()
+ {
+   start_call ();
+   guestfs_main_loop_run (); /* --> blocks, then calls my_cb */
+ }
+
+ start_call ()
+ {
+   guestfs_set_reply_callback (handle, my_cb, data);
+   guestfs_nb_[action] (handle, [other parameters ...]);
+   /* returns immediately */
+ }
+ 
+ my_cb (guestfs_h handle, void *data)
+ {
+   retval = guestfs_nb_[action]_r (handle);
+   /* ... */
+ }
+
+There are C<guestfs_nb_*> and C<guestfs_nb_*_r> functions
+corresponding to (very nearly) every C<guestfs_*> action in the
+high-level API.
+
+=head2 guestfs_set_reply_callback
+
+ void guestfs_set_reply_callback (guestfs_handle h,
+                                  guestfs_reply_cb cb,
+                                  void *opaque);
+
+The callback function C<cb> will be called whenever a reply is
+received from the child process.  (This corresponds to a transition
+from the BUSY state to the READY state).
+
+Note (I<important!>) that high-level API calls overwrite this
+callback.
+
+=head2 guestfs_set_log_message_callback
+
+ void guestfs_set_log_message_callback (guestfs_handle h,
+                                        guestfs_log_message_cb cb,
+                                        void *opaque);
+
+The callback function C<cb> will be called whenever qemu or the guest
+writes anything to the console.
+
+Use this function to capture kernel messages and similar.
+
+Normally there is no log message handler, and log messages are just
+discarded.
+
+=head2 guestfs_set_subprocess_quit_callback
+
+ void guestfs_set_subprocess_quit_callback (guestfs_handle h,
+                                            guestfs_subprocess_quit_cb cb,
+                                            void *opaque);
+
+The callback function C<cb> will be called when the child process
+quits, either asynchronously or if killed by
+C<guestfs_kill_subprocess>.  (This corresponds to a transition from
+any state to the CONFIG state).
+
+=head2 guestfs_set_ready_callback
+
+ void guestfs_set_ready_callback (guestfs_handle h,
+                                  guestfs_ready_cb cb,
+                                  void *opaque);
+
+The callback function C<cb> will be called when the child process
+becomes ready.  (This corresponds to a transition from I<either>
+LAUNCHING I<or> BUSY to the READY state).
+
+You can use this instead of C<guestfs_wait_ready> to implement a
+non-blocking wait for the child process to finish booting up.
+
+=head2 EVENT MAIN LOOP
+
+To use the low-level event API, you have to provide an event "main
+loop".  You can write your own, but if you don't want to write one,
+two are provided for you:
+
+=over 4
+
+=item libguestfs-poll
+
+A simple main loop that is implemented using L<poll(2)>.
+
+This is the default main loop unless you call C<guestfs_set_main_loop>
+or C<guestfs_glib_set_main_loop>.
+
+=item libguestfs-glib
+
+An implementation which can be used with GLib and GTK+ programs.  You
+can use this to write graphical (GTK+) programs which use libguestfs
+without hanging during long or slow operations.
+
+=back
+
+=head2 guestfs_set_main_loop
+
+ void guestfs_set_main_loop (guestfs_main_loop *);
+
+This call sets the current main loop to the list of callbacks
+contained in the C<guestfs_main_loop> structure.
+
+Only one main loop implementation can be used by libguestfs, so
+calling this replaces the previous one.  (So this is something that
+has to be done by the main program, but only the main program "knows"
+that it is a GTK+ program or whatever).
+
+You should call this early in the main program, certainly before
+calling C<guestfs_create>.
+
+=head2 guestfs_glib_set_main_loop
+
+ void guestfs_glib_set_main_loop (GMainLoop *);
+
+This helper calls C<guestfs_set_main_loop> with the correct callbacks
+for integrating with the GLib main loop.
+
+The libguestfs-glib main loop is contained in a separate library, so
+that libguestfs doesn't depend on the whole of GLib:
+
+ #include <glib.h>
+ #include <guestfs-glib.h>
+
+ main ()
+ {
+   GMainLoop *loop =
+     g_main_loop_new (g_main_context_default (), 1);
+   ...
+   guestfs_glib_set_main_loop (loop);
+   ...
+   g_main_loop_run (loop);
+ }
+
+To use this main loop you must link with C<-lguestfs-glib>.  (See also
+the GLib and GTK+ documentation).
+
+=head2 guestfs_main_loop_run
+
+ void guestfs_main_loop_run (void);
+
+This calls the main loop.
+
+For some types of main loop you may want or prefer to call another
+function, eg. C<g_main_loop_run>, or the main loop may already be
+invoked by another part of your program.  In those cases, ignore this
+call.
+
+=head2 guestfs_main_loop_quit
+
+ void guestfs_main_loop_quit (void);
+
+This instructs the main loop to quit.  In other words,
+C<guestfs_main_loop_run> will return.
+
+For some types of main loop you may want or prefer to call another
+function, eg. C<g_main_loop_quit>.  In those cases, ignore this call.
+
+=head2 WRITING A CUSTOM MAIN LOOP
+
+This isn't documented.  Please see the libguestfs-poll and libguestfs-glib
+implementations.
+
+=head1 SEE ALSO
+
+L<qemu(1)>
+
+
+
+
+
+=head1 AUTHORS
+
+Richard W.M. Jones (C<rjones at redhat dot com>)
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009 Red Hat Inc.
+L<http://et.redhat.com/~rjones/libguestfs>
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
