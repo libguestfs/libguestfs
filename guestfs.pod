@@ -483,9 +483,9 @@ two are provided for you:
 
 =over 4
 
-=item libguestfs-poll
+=item libguestfs-select
 
-A simple main loop that is implemented using L<poll(2)>.
+A simple main loop that is implemented using L<select(2)>.
 
 This is the default main loop unless you call C<guestfs_set_main_loop>
 or C<guestfs_glib_set_main_loop>.
@@ -562,8 +562,8 @@ function, eg. C<g_main_loop_quit>.  In those cases, ignore this call.
 
 =head2 WRITING A CUSTOM MAIN LOOP
 
-This isn't documented.  Please see the libguestfs-poll and libguestfs-glib
-implementations.
+This isn't documented.  Please see the libguestfs-select and
+libguestfs-glib implementations.
 
 =head1 SEE ALSO
 

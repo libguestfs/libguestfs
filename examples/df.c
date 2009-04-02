@@ -16,21 +16,16 @@ main (int argc, char *argv[])
   }
 
   g = guestfs_create ();
-  if (!g) {
-    perror ("guestfs_create");
-    exit (1);
-  }
+  if (!g) exit (1);
 
-  guestfs_set_exit_on_error (g, 1);
   guestfs_set_verbose (g, 1);
-
   guestfs_add_drive (g, argv[1]);
 
+  guestfs_launch (g);
   guestfs_wait_ready (g);
 
 
 
-
-  guestfs_free (g);
+  guestfs_close (g);
   return 0;
 }

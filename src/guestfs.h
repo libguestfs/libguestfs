@@ -19,36 +19,80 @@
 #ifndef GUESTFS_H_
 #define GUESTFS_H_
 
-/* For API documentation, please read the manual page guestfs(3). */
+/* IMPORTANT NOTE!
+ * All API documentation is in the manual page --> guestfs(3) <--
+ * Go and read it now, I'll wait.
+ */
 
 typedef struct guestfs_h guestfs_h;
 
-/* Create and destroy the guest handle. */
+/* Connection management. */
 extern guestfs_h *guestfs_create (void);
-extern void guestfs_free (guestfs_h *g);
+extern void guestfs_close (guestfs_h *g);
+extern int guestfs_launch (guestfs_h *g);
+extern int guestfs_wait_ready (guestfs_h *g);
+extern int guestfs_kill_subprocess (guestfs_h *g);
 
-/* Guest configuration. */
+/* Configuration management. */
 extern int guestfs_config (guestfs_h *g,
 			   const char *qemu_param, const char *qemu_value);
 extern int guestfs_add_drive (guestfs_h *g, const char *filename);
 extern int guestfs_add_cdrom (guestfs_h *g, const char *filename);
 
-/* Steps to start up the guest. */
-extern int guestfs_launch (guestfs_h *g);
-extern int guestfs_wait_ready (guestfs_h *g);
-
-/* Kill the guest subprocess. */
-extern void guestfs_kill_subprocess (guestfs_h *g);
-
 /* Error handling. */
-typedef void (*guestfs_abort_fn) (void);
-extern void guestfs_set_out_of_memory_handler (guestfs_h *g, guestfs_abort_fn);
-extern guestfs_abort_fn guestfs_get_out_of_memory_handler (guestfs_h *g);
+typedef void (*guestfs_error_handler_cb) (guestfs_h *g, void *data, const char *msg);
+typedef void (*guestfs_abort_cb) (void);
 
-extern void guestfs_set_exit_on_error (guestfs_h *g, int exit_on_error);
-extern int guestfs_get_exit_on_error (guestfs_h *g);
+extern void guestfs_set_error_handler (guestfs_h *g, guestfs_error_handler_cb cb, void *data);
+extern guestfs_error_handler_cb guestfs_get_error_handler (guestfs_h *g, void **data_rtn);
+
+extern void guestfs_set_out_of_memory_handler (guestfs_h *g, guestfs_abort_cb);
+extern guestfs_abort_cb guestfs_get_out_of_memory_handler (guestfs_h *g);
 
 extern void guestfs_set_verbose (guestfs_h *g, int verbose);
 extern int guestfs_get_verbose (guestfs_h *g);
+
+/* Actions. XXX Will be auto-generated */
+extern int guestfs_sync (guestfs_h *g);
+
+/* Low-level event API. */
+typedef void (*guestfs_reply_cb) (guestfs_h *g, void *data /* , ... */);
+typedef void (*guestfs_log_message_cb) (guestfs_h *g, void *data, char *buf, int len);
+typedef void (*guestfs_subprocess_quit_cb) (guestfs_h *g, void *data);
+typedef void (*guestfs_launch_done_cb) (guestfs_h *g, void *data /* , ... */);
+
+extern void guestfs_set_reply_callback (guestfs_h *g, guestfs_reply_cb cb, void *opaque);
+extern void guestfs_set_log_message_callback (guestfs_h *g, guestfs_log_message_cb cb, void *opaque);
+extern void guestfs_set_subprocess_quit_callback (guestfs_h *g, guestfs_subprocess_quit_cb cb, void *opaque);
+extern void guestfs_set_launch_done_callback (guestfs_h *g, guestfs_launch_done_cb cb, void *opaque);
+
+/* Main loop. */
+#define GUESTFS_HANDLE_READABLE 0x1
+#define GUESTFS_HANDLE_WRITABLE 0x2
+#define GUESTFS_HANDLE_HANGUP   0x4
+#define GUESTFS_HANDLE_ERROR    0x8
+
+typedef void (*guestfs_handle_event_cb) (void *data, int watch, int fd, int events);
+typedef int (*guestfs_add_handle_cb) (guestfs_h *g, int fd, int events, guestfs_handle_event_cb cb, void *data);
+typedef int (*guestfs_remove_handle_cb) (guestfs_h *g, int watch);
+typedef void (*guestfs_handle_timeout_cb) (void *data, int timer);
+typedef int (*guestfs_add_timeout_cb) (guestfs_h *g, int interval, guestfs_handle_timeout_cb cb, void *data);
+typedef int (*guestfs_remove_timeout_cb) (guestfs_h *g, int timer);
+typedef void (*guestfs_main_loop_run_cb) (guestfs_h *g);
+typedef void (*guestfs_main_loop_quit_cb) (guestfs_h *g);
+
+struct guestfs_main_loop {
+  guestfs_add_handle_cb add_handle;
+  guestfs_remove_handle_cb remove_handle;
+  guestfs_add_timeout_cb add_timeout;
+  guestfs_remove_timeout_cb remove_timeout;
+  guestfs_main_loop_run_cb main_loop_run;
+  guestfs_main_loop_quit_cb main_loop_quit;
+};
+typedef struct guestfs_main_loop guestfs_main_loop;
+
+extern void guestfs_set_main_loop (guestfs_main_loop *);
+extern void guestfs_main_loop_run (void);
+extern void guestfs_main_loop_quit (void);
 
 #endif /* GUESTFS_H_ */

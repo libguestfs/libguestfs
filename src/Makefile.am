@@ -18,3 +18,4 @@
 lib_LTLIBRARIES = libguestfs.la
 
 libguestfs_la_SOURCES = guestfs.c guestfs.h
+libguestfs_la_CFLAGS = -Wall -Werror

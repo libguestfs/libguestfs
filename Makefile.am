@@ -35,12 +35,11 @@ fs_DATA =  $(INITRAMFSIMG) $(VMLINUZ)
 
 $(VMLINUZ) $(INITRAMFSIMG): initramfs.timestamp
 
-initramfs.timestamp: make-initramfs.sh.in daemon/guestfsd
+#initramfs.timestamp: make-initramfs.sh.in daemon/guestfsd
+initramfs.timestamp: make-initramfs.sh.in
 	rm -f $@
-	$(builddir)/make-initramfs.sh
+	bash $(builddir)/make-initramfs.sh
 	touch $@
-
-.PHONY: daemon/guestfsd
 
 # Make clean.
 
