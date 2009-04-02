@@ -129,6 +129,12 @@ STATE MACHINE AND LOW-LEVEL EVENT API below.
 You should call these two functions after configuring the handle
 (eg. adding drives) but before performing any actions.
 
+=head2 guestfs_kill_subprocess
+
+ int guestfs_kill_subprocess (guestfs_h *handle);
+
+This kills the qemu subprocess.  You should never need to call this.
+
 =head1 CONFIGURATION MANAGEMENT
 
 The configuration functions allow you to configure which drive images
@@ -189,7 +195,9 @@ handler using C<guestfs_set_out_of_memory_handler>.
 
 =head2 guestfs_set_error_handler
 
- typedef void (*guestfs_error_handler_cb) (void *data, const char *msg);
+ typedef void (*guestfs_error_handler_cb) (guestfs_h *handle,
+                                           void *data,
+                                           const char *msg);
  void guestfs_set_error_handler (guestfs_h *handle,
                                  guestfs_error_handler_cb cb,
                                  void *data);
@@ -205,7 +213,8 @@ message is completely discarded.
 
 =head2 guestfs_get_error_handler
 
- guestfs_error_handler_cb guestfs_get_error_handler (guestfs_h *handle);
+ guestfs_error_handler_cb guestfs_get_error_handler (guestfs_h *handle,
+                                                     void **data_rtn);
 
 Returns the current error handler callback.
 
@@ -427,9 +436,6 @@ high-level API.
 The callback function C<cb> will be called whenever a reply is
 received from the child process.  (This corresponds to a transition
 from the BUSY state to the READY state).
-
-Note (I<important!>) that high-level API calls overwrite this
-callback.
 
 =head2 guestfs_set_log_message_callback
 
