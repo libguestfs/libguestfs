@@ -6,12 +6,14 @@ guestfs - Library for accessing and modifying virtual machine images
 
 =head1 SYNOPSIS
 
- guestfs_h handle = guestfs_create ();
+ #include <guestfs.h>
+ 
+ guestfs_h *handle = guestfs_create ();
  guestfs_add_drive (handle, "guest.img");
  guestfs_launch (handle);
  guestfs_wait_ready (handle);
  guestfs_mount (handle, "/dev/sda1", "/");
- guestfs_touch_file (handle, "/hello");
+ guestfs_touch (handle, "/hello");
  guestfs_sync (handle);
  guestfs_close (handle);
 
@@ -40,31 +42,248 @@ programs (or management programs written in other languages, if people
 contribute the language bindings).  You can also use it from shell
 scripts or the command line.
 
+You don't need to be root to use libguestfs, although obviously you do
+need enough permissions to access the disk images.
+
 =head1 CONNECTION MANAGEMENT
 
+If you are using the high-level API, then you should call the
+functions in the following order:
 
+ guestfs_h *handle = guestfs_create ();
+ 
+ guestfs_add_drive (handle, "guest.img");
+ /* call guestfs_add_drive additional times if the guest has
+  * multiple disks
+  */
+ 
+ guestfs_launch (handle);
+ guestfs_wait_ready (handle);
 
+ /* now you can examine what partitions, LVs etc are available
+  * you have to mount / at least
+  */ 
+ guestfs_mount (handle, "/dev/sda1", "/");
 
+ /* now you can perform actions on the guest disk image */
+ guestfs_touch (handle, "/hello");
+ 
+ /* you only need to call guestfs_sync if you have made
+  * changes to the guest image
+  */
+ guestfs_sync (handle);
+ 
+ guestfs_close (handle);
 
+C<guestfs_wait_ready> and all of the actions including C<guestfs_sync>
+are blocking calls.  You can use the low-level event API to do
+non-blocking operations instead.
+
+All functions that return integers, return C<-1> on error.  See
+section ERROR HANDLING below for how to handle errors.
+
+=head2 guestfs_h *
+
+C<guestfs_h> is the opaque type representing a connection handle.
+Create a handle by calling C<guestfs_create>.  Call C<guestfs_close>
+to free the handle and release all resources used.
+
+Handles and operations on handles are not thread safe.  However you
+can use a separate handle for each thread (but not on the same disk
+image).
+
+=head2 guestfs_create
+
+ guestfs_h *guestfs_create (void);
+
+Create a connection handle.
+
+You have to call C<guestfs_add_drive> on the handle at least once.
+See CONFIGURATION MANAGEMENT section below.
+
+This function returns a non-NULL pointer to a handle on success or
+NULL on error.
+
+After configuring the handle, you have to call C<guestfs_launch> and
+C<guestfs_wait_ready>.
+
+You may also want to configure error handling for the handle.  See
+ERROR HANDLING section below.
+
+=head2 guestfs_close
+
+ void guestfs_close (guestfs_h *handle);
+
+This closes the connection handle and frees up all resources used.
+
+=head2 guestfs_launch, guestfs_wait_ready
+
+ int guestfs_launch (guestfs_h *handle);
+ int guestfs_wait_ready (guestfs_h *handle);
+
+Internally libguestfs is implemented by running a virtual machine
+using L<qemu(1)>.  These calls are necessary in order to boot the
+virtual machine.  More discussion of this is available in the section
+STATE MACHINE AND LOW-LEVEL EVENT API below.
+
+You should call these two functions after configuring the handle
+(eg. adding drives) but before performing any actions.
 
 =head1 CONFIGURATION MANAGEMENT
 
+The configuration functions allow you to configure which drive images
+will be examined or modified, and set other aspects of the L<qemu(1)>
+virtual machine that we will be running.  You need to call only
+C<guestfs_add_drive> at least once for each guest image that you want
+to examine.
 
+=head2 guestfs_add_drive
 
+ int guestfs_add_drive (guestfs_h *handle, const char *filename);
 
+This function adds a virtual machine disk image C<filename> to the
+guest.  The first time you call this function, the disk appears as IDE
+disk 0 (C</dev/sda>) in the guest, the second time as C</dev/sdb>, and
+so on.
 
+You don't necessarily need to be root when using libguestfs.  However
+you obviously do need sufficient permissions to access the filename
+for whatever operations you want to perform (ie. read access if you
+just want to read the image or write access if you want to modify the
+image).
 
-=head1 HIGH-LEVEL API
+This is equivalent to the qemu parameter C<-drive file=filename>.
 
+=head2 guestfs_add_cdrom
 
+ int guestfs_add_cdrom (guestfs_h *handle, const char *filename);
 
+This function adds a virtual CD-ROM disk image to the guest.
 
+This is equivalent to the qemu parameter C<-cdrom filename>.
 
+=head2 guestfs_config
 
+ int guestfs_config (guestfs_h *handle,
+                     const char *qemu_param, const char *qemu_value);
 
+This can be used to add arbitrary qemu command line parameters
+of the form C<-param value>.  Actually it's not quite arbitrary - we
+prevent you from setting some parameters which would interfere with
+parameters that we use.
 
+The first character of C<qemu_param> string must be a C<-> (dash).
+
+C<qemu_value> can be NULL.
 
 =head1 ERROR HANDLING
+
+The convention in all functions that return C<int> is that they return
+C<-1> to indicate an error.  You can get additional information on
+errors by calling C<guestfs_set_error_handler>.  The default error
+handler prints the information string to C<stderr>.
+
+Out of memory errors are handled differently.  The default action is
+to call L<abort(3)>.  If this is undesirable, then you can set a
+handler using C<guestfs_set_out_of_memory_handler>.
+
+=head2 guestfs_set_error_handler
+
+ typedef void (*guestfs_error_handler_cb) (void *data, const char *msg);
+ void guestfs_set_error_handler (guestfs_h *handle,
+                                 guestfs_error_handler_cb cb,
+                                 void *data);
+
+The callback C<cb> will be called if there is an error.  The
+parameters passed to the callback are an opaque data pointer and the
+error message string.
+
+The default handler prints messages on C<stderr>.
+
+If you set C<cb> to C<NULL> then I<no> handler is called and the error
+message is completely discarded.
+
+=head2 guestfs_get_error_handler
+
+ guestfs_error_handler_cb guestfs_get_error_handler (guestfs_h *handle);
+
+Returns the current error handler callback.
+
+=head2 guestfs_set_out_of_memory_handler 
+
+ typedef void (*guestfs_abort_cb) (void);
+ int guestfs_set_out_of_memory_handler (guestfs_h *handle,
+                                        guestfs_abort_cb);
+
+The callback C<cb> will be called if there is an out of memory
+situation.  I<Note this callback must not return>.
+
+The default is to call L<abort(3)>.
+
+You cannot set C<cb> to C<NULL>.  You can't ignore out of memory
+situations.
+
+=head2 guestfs_get_out_of_memory_handler
+
+ guestfs_abort_fn guestfs_get_out_of_memory_handler (guestfs_h *handle);
+
+This returns the current out of memory handler.
+
+=head1 VERBOSE MESSAGES
+
+=head2 guestfs_set_verbose
+
+ void guestfs_set_verbose (guestfs_h *handle, int verbose);
+
+If C<verbose> is true, this turns on verbose messages (to C<stderr>).
+
+Verbose messages are disabled unless the environment variable
+C<LIBGUESTFS_DEBUG> is defined and set to C<1>.
+
+=head2 guestfs_get_verbose
+
+ int guestfs_get_verbose (guestfs_h *handle);
+
+This returns the verbose messages flag.
+
+=head1 HIGH-LEVEL API ACTIONS
+
+=head2 guestfs_sync
+
+ int guestfs_sync (guestfs_h *handle);
+
+This syncs the disk, so that any writes are flushed through to the
+underlying disk image.
+
+You should always call this if you have modified a disk image, before
+calling C<guestfs_close>.
+
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+Documentation will be auto-generated from here, including for
+guestfs_sync.
+
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+ do_[action] ([parameters])
+ {
+   guestfs_set_reply_callback (handle, [action]_cb, data);
+   guestfs_nb_[action] (handle, [parameters ...]);
+
+   guestfs_main_loop_run (); /* --> blocks, then calls my_cb */
+ }
+
+ [action]_cb (guestfs_h *handle, void *data)
+ {
+   retval = guestfs_nb_[action]_r (handle);
+   /* ... */
+   guestfs_main_loop_quit ();
+   return retval;
+ }
+
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+
 
 
 
@@ -78,6 +297,23 @@ using L<qemu(1)>.  QEmu runs as a child process of the main program,
 and most of this discussion won't make sense unless you understand
 that the complexity is dealing with the (asynchronous) actions of the
 child process.
+
+                            child process
+  ___________________       _________________________
+ /                   \     /                         \
+ | main program      |     | qemu +-----------------+|
+ |                   |     |      | Linux kernel    ||
+ +-------------------+     |      +-----------------+|
+ | libguestfs     <-------------->| guestfsd        ||
+ |                   |     |      +-----------------+|
+ \___________________/     \_________________________/
+
+The diagram above shows libguestfs communicating with the guestfsd
+daemon running inside the qemu child process.  There are several
+points of failure here: qemu can fail to start, the virtual machine
+inside qemu can fail to boot, guestfsd can fail to start or not
+establish communication, any component can start successfully but fail
+asynchronously later, and so on.
 
 =head2 STATE MACHINE
 
@@ -172,7 +408,7 @@ For example:
    /* returns immediately */
  }
  
- my_cb (guestfs_h handle, void *data)
+ my_cb (guestfs_h *handle, void *data)
  {
    retval = guestfs_nb_[action]_r (handle);
    /* ... */
@@ -184,7 +420,7 @@ high-level API.
 
 =head2 guestfs_set_reply_callback
 
- void guestfs_set_reply_callback (guestfs_handle h,
+ void guestfs_set_reply_callback (guestfs_h *handle,
                                   guestfs_reply_cb cb,
                                   void *opaque);
 
@@ -197,7 +433,7 @@ callback.
 
 =head2 guestfs_set_log_message_callback
 
- void guestfs_set_log_message_callback (guestfs_handle h,
+ void guestfs_set_log_message_callback (guestfs_h *handle,
                                         guestfs_log_message_cb cb,
                                         void *opaque);
 
@@ -211,7 +447,7 @@ discarded.
 
 =head2 guestfs_set_subprocess_quit_callback
 
- void guestfs_set_subprocess_quit_callback (guestfs_handle h,
+ void guestfs_set_subprocess_quit_callback (guestfs_h *handle,
                                             guestfs_subprocess_quit_cb cb,
                                             void *opaque);
 
@@ -220,15 +456,15 @@ quits, either asynchronously or if killed by
 C<guestfs_kill_subprocess>.  (This corresponds to a transition from
 any state to the CONFIG state).
 
-=head2 guestfs_set_ready_callback
+=head2 guestfs_set_launch_done_callback
 
- void guestfs_set_ready_callback (guestfs_handle h,
-                                  guestfs_ready_cb cb,
-                                  void *opaque);
+ void guestfs_set_launch_done_callback (guestfs_h *handle,
+                                        guestfs_ready_cb cb,
+                                        void *opaque);
 
 The callback function C<cb> will be called when the child process
-becomes ready.  (This corresponds to a transition from I<either>
-LAUNCHING I<or> BUSY to the READY state).
+becomes ready first time after it has been launched.  (This
+corresponds to a transition from LAUNCHING to the READY state).
 
 You can use this instead of C<guestfs_wait_ready> to implement a
 non-blocking wait for the child process to finish booting up.
