@@ -20,6 +20,7 @@ daemon/missing
 depcomp
 emptydisk
 examples/df
+guestfs.3
 initramfs
 initramfs.timestamp
 initramfs.*.img
