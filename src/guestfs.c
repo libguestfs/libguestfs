@@ -899,6 +899,7 @@ static fd_set wset;
 static fd_set xset;
 static int select_init_done = 0;
 static int max_fd = -1;
+static int nr_fds = 0;
 static struct handle_cb_data *handle_cb_data = NULL;
 
 static void
@@ -962,6 +963,8 @@ select_add_handle (guestfs_h *g, int fd, int events,
   handle_cb_data[fd].cb = cb;
   handle_cb_data[fd].data = data;
 
+  nr_fds++;
+
   /* Any integer >= 0 can be the handle, and this is as good as any ... */
   return fd;
 }
@@ -990,6 +993,8 @@ select_remove_handle (guestfs_h *g, int fd)
     handle_cb_data = safe_realloc (g, handle_cb_data,
 				   sizeof (struct handle_cb_data) * (max_fd+1));
   }
+
+  nr_fds--;
 
   return 0;
 }
@@ -1024,6 +1029,11 @@ select_main_loop_run (guestfs_h *g)
 
   old_level = level++;
   while (level > old_level) {
+    if (nr_fds == 0) {
+      level = old_level;
+      break;
+    }
+
     rset2 = rset;
     wset2 = wset;
     xset2 = xset;
