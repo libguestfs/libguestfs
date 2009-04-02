@@ -24,6 +24,8 @@
  * Go and read it now, I'll wait.
  */
 
+#include <rpc/xdr.h>
+
 typedef struct guestfs_h guestfs_h;
 
 /* Connection management. */
@@ -56,10 +58,10 @@ extern int guestfs_get_verbose (guestfs_h *g);
 extern int guestfs_sync (guestfs_h *g);
 
 /* Low-level event API. */
-typedef void (*guestfs_reply_cb) (guestfs_h *g, void *data /* , ... */);
+typedef void (*guestfs_reply_cb) (guestfs_h *g, void *data, XDR *xdr);
 typedef void (*guestfs_log_message_cb) (guestfs_h *g, void *data, char *buf, int len);
 typedef void (*guestfs_subprocess_quit_cb) (guestfs_h *g, void *data);
-typedef void (*guestfs_launch_done_cb) (guestfs_h *g, void *data /* , ... */);
+typedef void (*guestfs_launch_done_cb) (guestfs_h *g, void *data);
 
 extern void guestfs_set_reply_callback (guestfs_h *g, guestfs_reply_cb cb, void *opaque);
 extern void guestfs_set_log_message_callback (guestfs_h *g, guestfs_log_message_cb cb, void *opaque);

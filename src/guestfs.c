@@ -29,6 +29,9 @@
 #include <string.h>
 #include <fcntl.h>
 #include <time.h>
+#include <sys/select.h>
+#include <rpc/types.h>
+#include <rpc/xdr.h>
 
 #ifdef HAVE_ERRNO_H
 #include <errno.h>
@@ -49,8 +52,6 @@
 #ifdef HAVE_SYS_UN_H
 #include <sys/un.h>
 #endif
-
-#include <sys/select.h>
 
 #include "guestfs.h"
 
@@ -131,6 +132,12 @@ struct guestfs_h
   void *                     reply_cb_internal_data;
   guestfs_launch_done_cb     launch_done_cb_internal;
   void *                     launch_done_cb_internal_data;
+
+  /* Messages sent and received from the daemon. */
+  char *msg_in;
+  int msg_in_size, msg_in_allocated;
+  char *msg_out;
+  int msg_out_size;
 };
 
 guestfs_h *
@@ -206,7 +213,7 @@ guestfs_close (guestfs_h *g)
 static void
 default_error_cb (guestfs_h *g, void *data, const char *msg)
 {
-  fprintf (stderr, "libguestfs: %s\n", msg);
+  fprintf (stderr, "libguestfs: error: %s\n", msg);
 }
 
 static void
@@ -445,6 +452,7 @@ guestfs_launch (guestfs_h *g)
   }
 
   snprintf (unixsock, sizeof unixsock, "%s/sock", g->tmpdir);
+  unlink (unixsock);
 
   if (pipe (wfd) == -1 || pipe (rfd) == -1) {
     perrorf (g, "pipe");
@@ -587,6 +595,14 @@ guestfs_launch (guestfs_h *g)
 
  connected:
   /* Watch the file descriptors. */
+  free (g->msg_in);
+  g->msg_in = NULL;
+  g->msg_in_size = g->msg_in_allocated = 0;
+
+  free (g->msg_out);
+  g->msg_out = NULL;
+  g->msg_out_size = 0;
+
   g->stdout_watch =
     main_loop.add_handle (g, g->fd[1],
 			  GUESTFS_HANDLE_READABLE,
@@ -769,14 +785,106 @@ stdout_event (void *data, int watch, int fd, int events)
 static void
 sock_read_event (void *data, int watch, int fd, int events)
 {
-  /*guestfs_h *g = (guestfs_h *) data;*/
+  guestfs_h *g = (guestfs_h *) data;
+  XDR xdr;
+  unsigned len;
+  int n;
 
+  if (g->verbose)
+    fprintf (stderr,
+	     "sock_event: %p g->state = %d, fd = %d, events = 0x%x\n",
+	     g, g->state, fd, events);
 
+  if (g->sock != fd) {
+    error (g, "sock_read_event: internal error: %d != %d", g->sock, fd);
+    return;
+  }
 
+  if (g->msg_in_size <= g->msg_in_allocated) {
+    g->msg_in_allocated += 4096;
+    g->msg_in = safe_realloc (g, g->msg_in, g->msg_in_allocated);
+  }
+  n = read (g->sock, g->msg_in + g->msg_in_size,
+	    g->msg_in_allocated - g->msg_in_size);
+  if (n == 0)
+    /* Disconnected?  Ignore it because stdout_watch will get called
+     * and will do the cleanup.
+     */
+    return;
 
+  if (n == -1) {
+    if (errno != EAGAIN)
+      perrorf (g, "read");
+    return;
+  }
 
+  g->msg_in_size += n;
 
+  /* Have we got enough of a message to be able to process it yet? */
+  if (g->msg_in_size < 4) return;
 
+  xdrmem_create (&xdr, g->msg_in, g->msg_in_size, XDR_DECODE);
+  if (!xdr_uint32_t (&xdr, &len)) {
+    error (g, "can't decode length word");
+    goto cleanup;
+  }
+
+  /* Length is normally the length of the message, but when guestfsd
+   * starts up it sends a "magic" value (longer than any possible
+   * message).  Check for this.
+   */
+  if (len == 0xf5f5f5f5) {
+    if (g->state != LAUNCHING)
+      error (g, "received magic signature from guestfsd, but in state %d",
+	     g->state);
+    else if (g->msg_in_size != 4)
+      error (g, "received magic signature from guestfsd, but msg size is %d",
+	     g->msg_in_size);
+    else {
+      g->state = READY;
+      if (g->launch_done_cb_internal)
+	g->launch_done_cb_internal (g, g->launch_done_cb_internal_data);
+      if (g->launch_done_cb)
+	g->launch_done_cb (g, g->launch_done_cb_data);
+    }
+
+    goto cleanup;
+  }
+
+  if (g->msg_in_size < len) return; /* Need more of this message. */
+
+  /* This should not happen, and if it does it probably means we've
+   * lost all hope of synchronization.
+   */
+  if (g->msg_in_size > len) {
+    error (g, "len = %d, but msg_in_size = %d", len, g->msg_in_size);
+    goto cleanup;
+  }
+
+  /* Not in the expected state. */
+  if (g->state != BUSY)
+    error (g, "state %d != BUSY", g->state);
+
+  /* Push the message up to the higher layer.  Note that unlike
+   * launch_done_cb / launch_done_cb_internal, we only call at
+   * most one of the callback functions here.
+   */
+  g->state = READY;
+  if (g->reply_cb_internal)
+    g->reply_cb_internal (g, g->reply_cb_internal_data, &xdr);
+  else if (g->reply_cb)
+    g->reply_cb (g, g->reply_cb, &xdr);
+
+ cleanup:
+  /* Free the message buffer if it's grown excessively large. */
+  if (g->msg_in_allocated > 65536) {
+    free (g->msg_in);
+    g->msg_in = NULL;
+    g->msg_in_size = g->msg_in_allocated = 0;
+  } else
+    g->msg_in_size = 0;
+
+  xdr_destroy (&xdr);
 }
 
 /* This is the default main loop implementation, using select(2). */
