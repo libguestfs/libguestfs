@@ -19,7 +19,12 @@
 #ifndef FISH_H
 #define FISH_H
 
+#include <guestfs.h>
+
 /* in fish.c */
+extern guestfs_h *g;
+extern int g_launched;
+extern int quit;
 extern void pod2text (const char *heading, const char *body);
 
 /* in cmds.c (auto-generated) */
