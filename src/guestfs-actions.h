@@ -19,18 +19,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-/* guestfs_mount */
-
-struct guestfs_mount_args {
-  string device<>;
-  string mountpoint<>;
-};
-
-/* guestfs_sync */
-
-/* guestfs_touch */
-
-struct guestfs_touch_args {
-  string path<>;
-};
-
+extern int guestfs_mount (guestfs_h *handle, const char *device, const char *mountpoint);
+extern int guestfs_sync (guestfs_h *handle);
+extern int guestfs_touch (guestfs_h *handle, const char *path);

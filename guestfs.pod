@@ -405,6 +405,10 @@ The callback function C<cb> will be called whenever a reply is
 received from the child process.  (This corresponds to a transition
 from the BUSY state to the READY state).
 
+Note that the C<xdr> that you get in the callback is in C<XDR_DECODE>
+mode, and you need to consume it before you return from the callback
+function (since it gets destroyed after).
+
 =head2 guestfs_set_log_message_callback
 
  typedef void (*guestfs_log_message_cb) (guestfs_h *g, void *opaque,

@@ -1,6 +1,8 @@
 =head2 guestfs_mount
 
- int guestfs_mount (guestfs_h *handle, const char *device, const char *mountpoint);
+ int guestfs_mount (guestfs_h *handle,
+		const char *device,
+		const char *mountpoint);
 
 Mount a guest disk at a position in the filesystem.  Block devices
 are named C</dev/sda>, C</dev/sdb> and so on, as they were added to
@@ -13,6 +15,8 @@ first be mounted on C</> before others can be mounted.  Other
 filesystems can only be mounted on directories which already
 exist.
 
+This function return 0 on success or -1 on error.
+
 =head2 guestfs_sync
 
  int guestfs_sync (guestfs_h *handle);
@@ -23,11 +27,16 @@ underlying disk image.
 You should always call this if you have modified a disk image, before
 calling C<guestfs_close>.
 
+This function return 0 on success or -1 on error.
+
 =head2 guestfs_touch
 
- int guestfs_touch (guestfs_h *handle, const char *path);
+ int guestfs_touch (guestfs_h *handle,
+		const char *path);
 
 Touch acts like the L<touch(1)> command.  It can be used to
 update the filesystems on a file, or, if the file does not exist,
 to create a new zero-length file.
+
+This function return 0 on success or -1 on error.
 

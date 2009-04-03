@@ -54,8 +54,7 @@ extern guestfs_abort_cb guestfs_get_out_of_memory_handler (guestfs_h *g);
 extern void guestfs_set_verbose (guestfs_h *g, int verbose);
 extern int guestfs_get_verbose (guestfs_h *g);
 
-/* Actions. XXX Will be auto-generated */
-extern int guestfs_sync (guestfs_h *g);
+#include <guestfs-actions.h>
 
 /* Low-level event API. */
 typedef void (*guestfs_reply_cb) (guestfs_h *g, void *data, XDR *xdr);
