@@ -34,7 +34,8 @@ fi
 # Decide on names for the final output.  These have to match Makefile.am.
 output=initramfs.@REPO@.@host_cpu@.img
 koutput=vmlinuz.@REPO@.@host_cpu@
-rm -f $output $koutput
+rm -f $output
+rm -f $koutput
 
 # Create the basic initramfs.
 @FEBOOTSTRAP@ $modules @REPO@ initramfs @MIRROR@
@@ -47,7 +48,7 @@ find initramfs -name '*python*' -print0 | xargs -0 rm -rf
 # Modules take up nearly half of the image.  It's a rough guess that
 # we don't need any drivers (which take up most of the space).
 # (We need to keep kernel/net/sunrpc for NFS)
-rm -rf initramfs/lib/modules/*/kernel/{drivers,sound}
+#rm -rf initramfs/lib/modules/*/kernel/{drivers,sound}
 rm -rf initramfs/lib/modules/*/kernel/arch/x86/kvm
 
 # Pull the kernel out into the current directory.  We don't want it in
@@ -72,9 +73,6 @@ fi
 if [ ! -f initramfs/etc/fstab ]; then
     @FEBOOTSTRAP_RUN@ initramfs -- touch /etc/fstab
 fi
-
-# Copy the daemon into the filesystem.
-#cp daemon/guestfsd initramfs/sbin
 
 # Create the init script.
 cat > initramfs/init.new <<'__EOF__'
@@ -104,6 +102,12 @@ fi
 
 @FEBOOTSTRAP_RUN@ initramfs -- install -m 0755 -o root -g root /init.new /init
 rm initramfs/init.new
+
+# Copy the daemon into the filesystem.
+cp @abs_builddir@/daemon/guestfsd initramfs/sbin/guestfsd.new
+@FEBOOTSTRAP_RUN@ initramfs -- \
+  install -m 0755 -o root -g root /sbin/guestfsd.new /sbin/guestfsd
+rm initramfs/sbin/guestfsd.new
 
 # Generate final image.
 @FEBOOTSTRAP_TO_INITRAMFS@ initramfs > $output-t

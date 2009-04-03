@@ -33,17 +33,21 @@ VMLINUZ = vmlinuz.$(REPO).$(host_cpu)
 
 fs_DATA =  $(INITRAMFSIMG) $(VMLINUZ)
 
-$(VMLINUZ) $(INITRAMFSIMG): initramfs.timestamp
+$(INITRAMFSIMG) $(VMLINUZ): initramfs/fakeroot.log
 
-#initramfs.timestamp: make-initramfs.sh.in daemon/guestfsd
-initramfs.timestamp: make-initramfs.sh.in
+initramfs/fakeroot.log: make-initramfs.sh.in
+	-mv $(INITRAMFSIMG) $(INITRAMFSIMG).bak
+	-mv $(VMLINUZ) $(VMLINUZ).bak
+	bash $(builddir)/make-initramfs.sh || rm -f $@
+
+$(INITRAMFSIMG): initramfs/fakeroot.log daemon/guestfsd
 	rm -f $@
-	bash $(builddir)/make-initramfs.sh
+	bash $(builddir)/update-initramfs.sh
 	touch $@
 
 # Make clean.
 
-CLEANFILES = $(fs_DATA) initramfs.timestamp emptydisk
+CLEANFILES = $(fs_DATA) emptydisk
 
 clean-local:
 	rm -rf initramfs

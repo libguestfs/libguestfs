@@ -91,7 +91,8 @@ AC_CONFIG_SUBDIRS([daemon])
 
 dnl Produce output files.
 AC_CONFIG_HEADERS([config.h])
-AC_CONFIG_FILES([Makefile src/Makefile examples/Makefile make-initramfs.sh])
+AC_CONFIG_FILES([Makefile src/Makefile examples/Makefile
+	         make-initramfs.sh update-initramfs.sh])
 AC_OUTPUT
 
 dnl WTF?
