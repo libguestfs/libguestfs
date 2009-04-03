@@ -204,6 +204,26 @@ xwrite (int sock, const void *buf, size_t len)
   }
 }
 
+void
+xread (int sock, void *buf, size_t len)
+{
+  int r;
+
+  while (len > 0) {
+    r = read (sock, buf, len);
+    if (r == -1) {
+      perror ("read");
+      exit (1);
+    }
+    if (r == 0) {
+      fprintf (stderr, "read: unexpected end of file on comms socket\n");
+      exit (1);
+    }
+    buf += r;
+    len -= r;
+  }
+}
+
 static void
 usage (void)
 {

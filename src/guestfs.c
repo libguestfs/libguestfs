@@ -170,6 +170,11 @@ guestfs_create (void)
   str = getenv ("LIBGUESTFS_DEBUG");
   g->verbose = str != NULL && strcmp (str, "1") == 0;
 
+  /* Start with large serial numbers so they are easy to spot
+   * inside the protocol.
+   */
+  g->msg_next_serial = 0x00123400;
+
   return g;
 }
 
@@ -862,13 +867,13 @@ sock_read_event (void *data, int watch, int fd, int events)
     goto cleanup;
   }
 
-  if (g->msg_in_size < len) return; /* Need more of this message. */
+  if (g->msg_in_size-4 < len) return; /* Need more of this message. */
 
   /* This should not happen, and if it does it probably means we've
    * lost all hope of synchronization.
    */
-  if (g->msg_in_size > len) {
-    error (g, "len = %d, but msg_in_size = %d", len, g->msg_in_size);
+  if (g->msg_in_size-4 > len) {
+    error (g, "len = %d, but msg_in_size-4 = %d", len, g->msg_in_size-4);
     goto cleanup;
   }
 
@@ -944,7 +949,7 @@ sock_write_event (void *data, int watch, int fd, int events)
     return;
 
   if (g->verbose)
-    fprintf (stderr, "sock_write_event: done writing, switching back to reading events\n", n);
+    fprintf (stderr, "sock_write_event: done writing, switching back to reading events\n");
 
   free (g->msg_out);
   g->msg_out_pos = g->msg_out_size = 0;

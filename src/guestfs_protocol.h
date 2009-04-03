@@ -47,6 +47,12 @@ enum guestfs_message_status {
 	GUESTFS_STATUS_ERROR = 1,
 };
 typedef enum guestfs_message_status guestfs_message_status;
+#define GUESTFS_ERROR_LEN 256
+
+struct guestfs_message_error {
+	char *error;
+};
+typedef struct guestfs_message_error guestfs_message_error;
 
 struct guestfs_message_header {
 	u_int prog;
@@ -66,6 +72,7 @@ extern  bool_t xdr_guestfs_touch_args (XDR *, guestfs_touch_args*);
 extern  bool_t xdr_guestfs_procedure (XDR *, guestfs_procedure*);
 extern  bool_t xdr_guestfs_message_direction (XDR *, guestfs_message_direction*);
 extern  bool_t xdr_guestfs_message_status (XDR *, guestfs_message_status*);
+extern  bool_t xdr_guestfs_message_error (XDR *, guestfs_message_error*);
 extern  bool_t xdr_guestfs_message_header (XDR *, guestfs_message_header*);
 
 #else /* K&R C */
@@ -74,6 +81,7 @@ extern bool_t xdr_guestfs_touch_args ();
 extern bool_t xdr_guestfs_procedure ();
 extern bool_t xdr_guestfs_message_direction ();
 extern bool_t xdr_guestfs_message_status ();
+extern bool_t xdr_guestfs_message_error ();
 extern bool_t xdr_guestfs_message_header ();
 
 #endif /* K&R C */

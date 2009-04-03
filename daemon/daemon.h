@@ -25,6 +25,7 @@
 
 /* in guestfsd.c */
 extern void xwrite (int sock, const void *buf, size_t len);
+extern void xread (int sock, void *buf, size_t len);
 
 /* in proto.c */
 extern int proc_nr;
@@ -36,6 +37,7 @@ extern void dispatch_incoming_message (XDR *);
 /* in proto.c */
 extern void main_loop (int sock);
 extern void reply_with_error (const char *fs, ...);
-extern void reply (xdrproc_t, XDR *);
+extern void reply_with_perror (const char *fs, ...);
+extern void reply (xdrproc_t xdrp, char *ret);
 
 #endif /* GUESTFSD_DAEMON_H */

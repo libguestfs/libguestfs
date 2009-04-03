@@ -32,6 +32,8 @@ static void mount_stub (XDR *xdr_in)
   const char *device;
   const char *mountpoint;
 
+  memset (&args, 0, sizeof args);
+
   if (!xdr_guestfs_mount_args (xdr_in, &args)) {
     reply_with_error ("mount: daemon failed to decode procedure arguments");
     return;
@@ -64,6 +66,8 @@ static void touch_stub (XDR *xdr_in)
   int r;
   struct guestfs_touch_args args;
   const char *path;
+
+  memset (&args, 0, sizeof args);
 
   if (!xdr_guestfs_touch_args (xdr_in, &args)) {
     reply_with_error ("touch: daemon failed to decode procedure arguments");

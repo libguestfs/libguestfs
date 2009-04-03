@@ -208,6 +208,12 @@ enum guestfs_message_status {
   GUESTFS_STATUS_ERROR = 1
 };
 
+const GUESTFS_ERROR_LEN = 256;
+
+struct guestfs_message_error {
+  string error<GUESTFS_ERROR_LEN>;   /* error message */
+};
+
 struct guestfs_message_header {
   unsigned prog;                     /* GUESTFS_PROGRAM */
   unsigned vers;                     /* GUESTFS_PROTOCOL_VERSION */
@@ -239,10 +245,10 @@ and generate_client_actions () =
       pr "struct %s_rv {\n" shortname;
       pr "  int err_code;      /* 0 OK or -1 error */\n";
       pr "  int serial;        /* serial number of reply */\n";
-      pr "  char err_str[256]; /* error from daemon */\n";
+      pr "  char err_str[GUESTFS_ERROR_LEN]; /* error from daemon */\n";
       (match style with
        | (Err, _) -> ()
-    (* | _ -> pr "  struct %s_ret ret;\n" name; *)
+    (* | _ -> pr "  struct %s_ret ret;\n" name; REMEMBER TO MEMSET *)
       );
       pr "};\n\n";
 
@@ -366,6 +372,8 @@ and generate_daemon_actions () =
       (match style with
        | (_, P0) -> ()
        | (_, args) ->
+	   pr "  memset (&args, 0, sizeof args);\n";
+	   pr "\n";
 	   pr "  if (!xdr_guestfs_%s_args (xdr_in, &args)) {\n" name;
 	   pr "    reply_with_error (\"%s: daemon failed to decode procedure arguments\");\n" name;
 	   pr "    return;\n";

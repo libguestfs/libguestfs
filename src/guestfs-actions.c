@@ -22,7 +22,7 @@
 struct mount_rv {
   int err_code;      /* 0 OK or -1 error */
   int serial;        /* serial number of reply */
-  char err_str[256]; /* error from daemon */
+  char err_str[GUESTFS_ERROR_LEN]; /* error from daemon */
 };
 
 static void mount_cb (guestfs_h *g, void *data, XDR *xdr)
@@ -78,7 +78,7 @@ int guestfs_mount (guestfs_h *g,
 struct sync_rv {
   int err_code;      /* 0 OK or -1 error */
   int serial;        /* serial number of reply */
-  char err_str[256]; /* error from daemon */
+  char err_str[GUESTFS_ERROR_LEN]; /* error from daemon */
 };
 
 static void sync_cb (guestfs_h *g, void *data, XDR *xdr)
@@ -127,7 +127,7 @@ int guestfs_sync (guestfs_h *g)
 struct touch_rv {
   int err_code;      /* 0 OK or -1 error */
   int serial;        /* serial number of reply */
-  char err_str[256]; /* error from daemon */
+  char err_str[GUESTFS_ERROR_LEN]; /* error from daemon */
 };
 
 static void touch_cb (guestfs_h *g, void *data, XDR *xdr)

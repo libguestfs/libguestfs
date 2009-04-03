@@ -58,6 +58,16 @@ xdr_guestfs_message_status (XDR *xdrs, guestfs_message_status *objp)
 }
 
 bool_t
+xdr_guestfs_message_error (XDR *xdrs, guestfs_message_error *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->error, GUESTFS_ERROR_LEN))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
 xdr_guestfs_message_header (XDR *xdrs, guestfs_message_header *objp)
 {
 	register int32_t *buf;

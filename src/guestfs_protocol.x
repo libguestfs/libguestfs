@@ -56,6 +56,12 @@ enum guestfs_message_status {
   GUESTFS_STATUS_ERROR = 1
 };
 
+const GUESTFS_ERROR_LEN = 256;
+
+struct guestfs_message_error {
+  string error<GUESTFS_ERROR_LEN>;   /* error message */
+};
+
 struct guestfs_message_header {
   unsigned prog;                     /* GUESTFS_PROGRAM */
   unsigned vers;                     /* GUESTFS_PROTOCOL_VERSION */
