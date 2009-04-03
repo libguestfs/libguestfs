@@ -16,3 +16,8 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 ACLOCAL_AMFLAGS = -I m4
+
+noinst_PROGRAMS = guestfsd
+guestfsd_SOURCES = guestfsd.c
+
+guestfsd_CFLAGS = -Wall -Werror
