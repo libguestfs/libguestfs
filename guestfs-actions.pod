@@ -15,6 +15,12 @@ first be mounted on C</> before others can be mounted.  Other
 filesystems can only be mounted on directories which already
 exist.
 
+The mounted filesystem is writable, if we have sufficient permissions
+on the underlying device.
+
+The filesystem options C<sync> and C<noatime> are set with this
+call, in order to improve reliability.
+
 This function return 0 on success or -1 on error.
 
 =head2 guestfs_sync

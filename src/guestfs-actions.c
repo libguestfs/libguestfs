@@ -61,7 +61,6 @@ int guestfs_mount (guestfs_h *g,
 
   memset (&rv, 0, sizeof rv);
 
-
   args.device = (char *) device;
   args.mountpoint = (char *) mountpoint;
   serial = dispatch (g, GUESTFS_PROC_MOUNT,
@@ -196,7 +195,6 @@ int guestfs_touch (guestfs_h *g,
   }
 
   memset (&rv, 0, sizeof rv);
-
 
   args.path = (char *) path;
   serial = dispatch (g, GUESTFS_PROC_TOUCH,

@@ -318,7 +318,6 @@ and generate_client_actions () =
 	   pr "  serial = dispatch (g, GUESTFS_PROC_%s, NULL, NULL);\n"
 	     (String.uppercase shortname)
        | (_, args) ->
-	   pr "\n";
 	   iter_args (
 	     function
 	     | String name -> pr "  args.%s = (char *) %s;\n" name name
