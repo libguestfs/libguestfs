@@ -36,6 +36,11 @@ Requirements
 
 - XDR, rpcgen
 
+- (Optional) perldoc to generate the manual pages
+
+- (Optional) OCaml if you want to modify the code or rebuild certain
+generated files.
+
 - (Optional) local Fedora mirror
 
 Running ./configure will check you have all the requirements installed

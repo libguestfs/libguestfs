@@ -75,6 +75,7 @@ static void select_main_loop_quit (guestfs_h *g);
 
 #define UNIX_PATH_MAX 108
 
+/* Also in guestfsd.c */
 #define VMCHANNEL_PORT 6666
 #define VMCHANNEL_ADDR "10.0.2.4"
 
@@ -833,7 +834,7 @@ sock_read_event (void *data, int watch, int fd, int events)
    * starts up it sends a "magic" value (longer than any possible
    * message).  Check for this.
    */
-  if (len == 0xf5f5f5f5) {
+  if (len == 0xf5f55ff5) {
     if (g->state != LAUNCHING)
       error (g, "received magic signature from guestfsd, but in state %d",
 	     g->state);

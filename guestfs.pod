@@ -257,40 +257,7 @@ This returns the verbose messages flag.
 
 =head1 HIGH-LEVEL API ACTIONS
 
-=head2 guestfs_sync
 
- int guestfs_sync (guestfs_h *handle);
-
-This syncs the disk, so that any writes are flushed through to the
-underlying disk image.
-
-You should always call this if you have modified a disk image, before
-calling C<guestfs_close>.
-
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-Documentation will be auto-generated from here, including for
-guestfs_sync.
-
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
- do_[action] ([parameters])
- {
-   guestfs_set_reply_callback (handle, [action]_cb, data);
-   guestfs_nb_[action] (handle, [parameters ...]);
-
-   guestfs_main_loop_run (); /* --> blocks, then calls my_cb */
- }
-
- [action]_cb (guestfs_h *handle, void *data)
- {
-   retval = guestfs_nb_[action]_r (handle);
-   /* ... */
-   guestfs_main_loop_quit ();
-   return retval;
- }
-
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 
 
