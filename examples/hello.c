@@ -17,7 +17,6 @@ main (int argc, char *argv[])
 
   if (!(g = guestfs_create ())) exit (1);
 
-  guestfs_set_verbose (g, 1);
   if (guestfs_add_drive (g, argv[1]) == -1) exit (1);
 
   if (guestfs_launch (g) == -1) exit (1);
