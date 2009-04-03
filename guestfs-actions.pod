@@ -41,7 +41,7 @@ This function return 0 on success or -1 on error.
 		const char *path);
 
 Touch acts like the L<touch(1)> command.  It can be used to
-update the filesystems on a file, or, if the file does not exist,
+update the timestamps on a file, or, if the file does not exist,
 to create a new zero-length file.
 
 This function return 0 on success or -1 on error.

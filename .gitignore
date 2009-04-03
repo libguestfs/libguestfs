@@ -23,6 +23,7 @@ depcomp
 emptydisk
 examples/df
 examples/hello
+fish/guestfish
 guestfs.3
 initramfs
 initramfs.timestamp

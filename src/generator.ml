@@ -74,7 +74,7 @@ calling C<guestfs_close>.");
    "Update file timestamps or create a new file",
    "\
 Touch acts like the L<touch(1)> command.  It can be used to
-update the filesystems on a file, or, if the file does not exist,
+update the timestamps on a file, or, if the file does not exist,
 to create a new zero-length file.");
 ]
 
@@ -86,6 +86,11 @@ let iter_args f = function
   | P0 -> ()
   | P1 arg1 -> f arg1
   | P2 (arg1, arg2) -> f arg1; f arg2
+
+let map_args f = function
+  | P0 -> []
+  | P1 arg1 -> [f arg1]
+  | P2 (arg1, arg2) -> [f arg1; f arg2]
 
 type comment_style = CStyle | HashStyle | OCamlStyle
 type license = GPLv2 | LGPLv2
@@ -446,7 +451,60 @@ and generate_daemon_actions () =
   pr "    default:\n";
   pr "      reply_with_error (\"dispatch_incoming_message: unknown procedure number %%d\", proc_nr);\n";
   pr "  }\n";
+  pr "}\n"
+
+and generate_fish_cmds () =
+  generate_header CStyle GPLv2;
+
+  pr "#include <stdio.h>\n";
+  pr "#include <stdlib.h>\n";
+  pr "#include <string.h>\n";
+  pr "\n";
+  pr "#include \"fish.h\"\n";
+  pr "\n";
+
+  (* list_commands function, which implements guestfish -h *)
+  pr "void list_commands (void)\n";
+  pr "{\n";
+  pr "  printf (\"%%-20s %%s\\n\", \"Command\", \"Description\");\n";
+  List.iter (
+    fun (name, _, _, shortdesc, _) ->
+      pr "  printf (\"%%-20s %%s\\n\", \"%s\", \"%s\");\n"
+	name shortdesc
+  ) functions;
+  pr "  printf (\"Use -h <cmd> to show detailed help for a command.\\n\");\n";
   pr "}\n";
+  pr "\n";
+
+  (* display_command function, which implements guestfish -h cmd *)
+  pr "void display_command (const char *cmd)\n";
+  pr "{\n";
+  List.iter (
+    fun (name, style, _, shortdesc, longdesc) ->
+      let synopsis =
+	match style with
+	| (Err, P0) -> name
+	| (Err, args) ->
+	    sprintf "%s <%s>"
+	      name (
+		String.concat "> <" (
+		  map_args (function
+			    | String n -> n) args
+		)
+	      ) in
+
+      pr "  if (strcasecmp (cmd, \"%s\") == 0)\n" name;
+      pr "    pod2text (\"%s - %s\", %S);\n"
+	name shortdesc
+	(" " ^ synopsis ^ "\n\n" ^ longdesc);
+      pr "  else\n"
+  ) functions;
+  pr "  {\n";
+  pr "    fprintf (stderr, \"%%s: command not known, use -h to list all commands\\n\", cmd);\n";
+  pr "    exit (1);\n";
+  pr "  }\n";
+  pr "}\n";
+  pr "\n"
 
 (* Generate a C function prototype. *)
 and generate_prototype ?(extern = true) ?(static = false) ?(semicolon = true)
@@ -525,6 +583,10 @@ let () =
 
   let close = output_to "daemon/stubs.c" in
   generate_daemon_actions ();
+  close ();
+
+  let close = output_to "fish/cmds.c" in
+  generate_fish_cmds ();
   close ();
 
   let close = output_to "guestfs-actions.pod" in

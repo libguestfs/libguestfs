@@ -17,7 +17,7 @@
 
 ACLOCAL_AMFLAGS = -I m4
 
-SUBDIRS = src daemon examples
+SUBDIRS = src daemon fish examples
 
 EXTRA_DIST = make-initramfs.sh
 
