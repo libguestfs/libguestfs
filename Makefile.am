@@ -38,7 +38,7 @@ $(INITRAMFSIMG) $(VMLINUZ): initramfs/fakeroot.log
 initramfs/fakeroot.log: make-initramfs.sh.in
 	-mv $(INITRAMFSIMG) $(INITRAMFSIMG).bak
 	-mv $(VMLINUZ) $(VMLINUZ).bak
-	bash $(builddir)/make-initramfs.sh || rm -f $@
+	if ! bash $(builddir)/make-initramfs.sh; then rm -f $@; exit 1; fi
 
 $(INITRAMFSIMG): initramfs/fakeroot.log daemon/guestfsd
 	rm -f $@
