@@ -22,7 +22,7 @@
 #include <rpc/types.h>
 #include <rpc/xdr.h>
 #include "daemon.h"
-#include "../src/guest_protocol.h"
+#include "../src/guestfs_protocol.h"
 #include "actions.h"
 
 static void mount_stub (XDR *xdr_in)
@@ -79,3 +79,19 @@ static void touch_stub (XDR *xdr_in)
   reply (NULL, NULL);
 }
 
+void dispatch_incoming_message (XDR *xdr_in)
+{
+  switch (proc_nr) {
+    case GUESTFS_PROC_MOUNT:
+      mount_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_SYNC:
+      sync_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_TOUCH:
+      touch_stub (xdr_in);
+      break;
+    default:
+      reply_with_error ("dispatch_incoming_message: unknown procedure number %d", proc_nr);
+  }
+}

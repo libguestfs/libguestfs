@@ -27,7 +27,10 @@
 #include <getopt.h>
 #include <netdb.h>
 
-static void xwrite (int sock, const void *buf, size_t len);
+#include "daemon.h"
+
+void xwrite (int sock, const void *buf, size_t len);
+
 static void usage (void);
 
 /* Also in guestfs.c */
@@ -177,12 +180,15 @@ main (int argc, char *argv[])
 
 
 
-  sleep (1000000);
+
+
+
+  main_loop (sock);
 
   exit (0);
 }
 
-static void
+void
 xwrite (int sock, const void *buf, size_t len)
 {
   int r;
@@ -202,4 +208,19 @@ static void
 usage (void)
 {
   fprintf (stderr, "guestfsd [-f] [-h host -p port]\n");
+}
+
+/* Some unimplemented actions. */
+int
+do_mount (const char *device, const char *mountpoint)
+{
+  reply_with_error ("mount not implemented");
+  return -1;
+}
+
+int
+do_touch (const char *path)
+{
+  reply_with_error ("touch not implemented");
+  return -1;
 }

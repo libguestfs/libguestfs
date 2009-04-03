@@ -20,15 +20,17 @@
  */
 
 struct mount_rv {
-  int err_code; /* 0 or -1 */
-  char err_str[256];
+  int err_code;      /* 0 OK or -1 error */
+  int serial;        /* serial number of reply */
+  char err_str[256]; /* error from daemon */
 };
 
 static void mount_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   struct mount_rv *rv = (struct mount_rv *) data;
 
-  /* XXX */ rv.code = 0;
+  /* XXX */ rv->err_code = 0;
+  /* XXX rv->serial = ?; */
   main_loop.main_loop_quit (g);
 }
 
@@ -38,6 +40,7 @@ int guestfs_mount (guestfs_h *g,
 {
   struct guestfs_mount_args args;
   struct mount_rv rv;
+  int serial;
 
   if (g->state != READY) {
     error (g, "guestfs_mount called from the wrong state, %d != READY",
@@ -47,7 +50,9 @@ int guestfs_mount (guestfs_h *g,
 
   args.device = (char *) device;
   args.mountpoint = (char *) mountpoint;
-  if (dispatch (g, (xdrproc_t) xdr_guestfs_mount_args, (char *) &args) == -1)
+  serial = dispatch (g, GUESTFS_PROC_MOUNT,
+                     (xdrproc_t) xdr_guestfs_mount_args, (char *) &args);
+  if (serial == -1)
     return -1;
 
   rv.err_code = 42;
@@ -65,31 +70,40 @@ int guestfs_mount (guestfs_h *g,
     return -1;
   }
 
+  /* XXX check serial number agrees */
+
   return 0;
 }
 
 struct sync_rv {
-  int err_code; /* 0 or -1 */
-  char err_str[256];
+  int err_code;      /* 0 OK or -1 error */
+  int serial;        /* serial number of reply */
+  char err_str[256]; /* error from daemon */
 };
 
 static void sync_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   struct sync_rv *rv = (struct sync_rv *) data;
 
-  /* XXX */ rv.code = 0;
+  /* XXX */ rv->err_code = 0;
+  /* XXX rv->serial = ?; */
   main_loop.main_loop_quit (g);
 }
 
 int guestfs_sync (guestfs_h *g)
 {
   struct sync_rv rv;
+  int serial;
 
   if (g->state != READY) {
     error (g, "guestfs_sync called from the wrong state, %d != READY",
       g->state);
     return -1;
   }
+  serial = dispatch (g, GUESTFS_PROC_SYNC, NULL, NULL);
+  if (serial == -1)
+    return -1;
+
   rv.err_code = 42;
   g->reply_cb_internal = sync_cb;
   g->reply_cb_internal_data = &rv;
@@ -105,19 +119,23 @@ int guestfs_sync (guestfs_h *g)
     return -1;
   }
 
+  /* XXX check serial number agrees */
+
   return 0;
 }
 
 struct touch_rv {
-  int err_code; /* 0 or -1 */
-  char err_str[256];
+  int err_code;      /* 0 OK or -1 error */
+  int serial;        /* serial number of reply */
+  char err_str[256]; /* error from daemon */
 };
 
 static void touch_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   struct touch_rv *rv = (struct touch_rv *) data;
 
-  /* XXX */ rv.code = 0;
+  /* XXX */ rv->err_code = 0;
+  /* XXX rv->serial = ?; */
   main_loop.main_loop_quit (g);
 }
 
@@ -126,6 +144,7 @@ int guestfs_touch (guestfs_h *g,
 {
   struct guestfs_touch_args args;
   struct touch_rv rv;
+  int serial;
 
   if (g->state != READY) {
     error (g, "guestfs_touch called from the wrong state, %d != READY",
@@ -134,7 +153,9 @@ int guestfs_touch (guestfs_h *g,
   }
 
   args.path = (char *) path;
-  if (dispatch (g, (xdrproc_t) xdr_guestfs_touch_args, (char *) &args) == -1)
+  serial = dispatch (g, GUESTFS_PROC_TOUCH,
+                     (xdrproc_t) xdr_guestfs_touch_args, (char *) &args);
+  if (serial == -1)
     return -1;
 
   rv.err_code = 42;
@@ -151,6 +172,8 @@ int guestfs_touch (guestfs_h *g,
     error (g, "%s", rv.err_str);
     return -1;
   }
+
+  /* XXX check serial number agrees */
 
   return 0;
 }

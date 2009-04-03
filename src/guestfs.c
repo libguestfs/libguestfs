@@ -54,6 +54,7 @@
 #endif
 
 #include "guestfs.h"
+#include "guestfs_protocol.h"
 
 static void error (guestfs_h *g, const char *fs, ...);
 static void perrorf (guestfs_h *g, const char *fs, ...);
@@ -64,7 +65,7 @@ static char *safe_strdup (guestfs_h *g, const char *str);
 static void default_error_cb (guestfs_h *g, void *data, const char *msg);
 static void stdout_event (void *data, int watch, int fd, int events);
 static void sock_read_event (void *data, int watch, int fd, int events);
-//static void sock_write_event (void *data, int watch, int fd, int events);
+static void sock_write_event (void *data, int watch, int fd, int events);
 
 static int select_add_handle (guestfs_h *g, int fd, int events, guestfs_handle_event_cb cb, void *data);
 static int select_remove_handle (guestfs_h *g, int watch);
@@ -138,7 +139,9 @@ struct guestfs_h
   char *msg_in;
   int msg_in_size, msg_in_allocated;
   char *msg_out;
-  int msg_out_size;
+  int msg_out_size, msg_out_pos;
+
+  int msg_next_serial;
 };
 
 guestfs_h *
@@ -587,7 +590,8 @@ guestfs_launch (guestfs_h *g)
     if ((r == -1 && errno == EINPROGRESS) || r == 0)
       goto connected;
 
-    perrorf (g, "connect");
+    if (errno != ENOENT)
+      perrorf (g, "connect");
     tries--;
   }
 
@@ -603,6 +607,7 @@ guestfs_launch (guestfs_h *g)
   free (g->msg_out);
   g->msg_out = NULL;
   g->msg_out_size = 0;
+  g->msg_out_pos = 0;
 
   g->stdout_watch =
     main_loop.add_handle (g, g->fd[1],
@@ -615,9 +620,7 @@ guestfs_launch (guestfs_h *g)
 
   g->sock_watch =
     main_loop.add_handle (g, g->sock,
-			  GUESTFS_HANDLE_READABLE |
-			  GUESTFS_HANDLE_HANGUP |
-			  GUESTFS_HANDLE_ERROR,
+			  GUESTFS_HANDLE_READABLE,
 			  sock_read_event, g);
   if (g->sock_watch == -1) {
     error (g, "could not watch daemon communications socket");
@@ -793,7 +796,7 @@ sock_read_event (void *data, int watch, int fd, int events)
 
   if (g->verbose)
     fprintf (stderr,
-	     "sock_event: %p g->state = %d, fd = %d, events = 0x%x\n",
+	     "sock_read_event: %p g->state = %d, fd = %d, events = 0x%x\n",
 	     g, g->state, fd, events);
 
   if (g->sock != fd) {
@@ -852,6 +855,13 @@ sock_read_event (void *data, int watch, int fd, int events)
     goto cleanup;
   }
 
+  /* If this happens, it's pretty bad and we've probably lost synchronization.*/
+  if (len > GUESTFS_MESSAGE_MAX) {
+    error (g, "message length (%u) > maximum possible size (%d)",
+	   len, GUESTFS_MESSAGE_MAX);
+    goto cleanup;
+  }
+
   if (g->msg_in_size < len) return; /* Need more of this message. */
 
   /* This should not happen, and if it does it probably means we've
@@ -887,6 +897,160 @@ sock_read_event (void *data, int watch, int fd, int events)
 
   xdr_destroy (&xdr);
 }
+
+/* The function is called whenever we can write something on the
+ * guestfsd (daemon inside the guest) communication socket.
+ */
+static void
+sock_write_event (void *data, int watch, int fd, int events)
+{
+  guestfs_h *g = (guestfs_h *) data;
+  int n;
+
+  if (g->verbose)
+    fprintf (stderr,
+	     "sock_write_event: %p g->state = %d, fd = %d, events = 0x%x\n",
+	     g, g->state, fd, events);
+
+  if (g->sock != fd) {
+    error (g, "sock_write_event: internal error: %d != %d", g->sock, fd);
+    return;
+  }
+
+  if (g->state != BUSY) {
+    error (g, "sock_write_event: state %d != BUSY", g->state);
+    return;
+  }
+
+  if (g->verbose)
+    fprintf (stderr, "sock_write_event: writing %d bytes ...\n",
+	     g->msg_out_size - g->msg_out_pos);
+
+  n = write (g->sock, g->msg_out + g->msg_out_pos,
+	     g->msg_out_size - g->msg_out_pos);
+  if (n == -1) {
+    if (errno != EAGAIN)
+      perrorf (g, "write");
+    return;
+  }
+
+  if (g->verbose)
+    fprintf (stderr, "sock_write_event: wrote %d bytes\n", n);
+
+  g->msg_out_pos += n;
+
+  /* More to write? */
+  if (g->msg_out_pos < g->msg_out_size)
+    return;
+
+  if (g->verbose)
+    fprintf (stderr, "sock_write_event: done writing, switching back to reading events\n", n);
+
+  free (g->msg_out);
+  g->msg_out_pos = g->msg_out_size = 0;
+
+  if (main_loop.remove_handle (g, g->sock_watch) == -1) {
+    error (g, "remove_handle failed in sock_write_event");
+    return;
+  }
+  g->sock_watch =
+    main_loop.add_handle (g, g->sock,
+			  GUESTFS_HANDLE_READABLE,
+			  sock_read_event, g);
+  if (g->sock_watch == -1) {
+    error (g, "add_handle failed in sock_write_event");
+    return;
+  }
+}
+
+/* Dispatch a call to the remote daemon.  This function just queues
+ * the call in msg_out, to be sent when we next enter the main loop.
+ * Returns -1 for error, or the message serial number.
+ */
+static int
+dispatch (guestfs_h *g, int proc_nr, xdrproc_t xdrp, char *args)
+{
+  char buffer[GUESTFS_MESSAGE_MAX];
+  struct guestfs_message_header hdr;
+  XDR xdr;
+  unsigned len;
+  int serial = g->msg_next_serial++;
+
+  if (g->state != READY) {
+    error (g, "dispatch: state %d != READY", g->state);
+    return -1;
+  }
+
+  /* Serialize the header. */
+  hdr.prog = GUESTFS_PROGRAM;
+  hdr.vers = GUESTFS_PROTOCOL_VERSION;
+  hdr.proc = proc_nr;
+  hdr.direction = GUESTFS_DIRECTION_CALL;
+  hdr.serial = serial;
+  hdr.status = GUESTFS_STATUS_OK;
+
+  xdrmem_create (&xdr, buffer, sizeof buffer, XDR_ENCODE);
+  if (!xdr_guestfs_message_header (&xdr, &hdr)) {
+    error (g, "xdr_guestfs_message_header failed");
+    return -1;
+  }
+
+  /* Serialize the args.  If any, because some message types
+   * have no parameters.
+   */
+  if (xdrp) {
+    if (!(*xdrp) (&xdr, args)) {
+      error (g, "dispatch failed to marshal args");
+      return -1;
+    }
+  }
+
+  len = xdr_getpos (&xdr);
+  xdr_destroy (&xdr);
+
+  /* Allocate the outgoing message buffer. */
+  g->msg_out = safe_malloc (g, len + 4);
+
+  g->msg_out_size = len + 4;
+  g->msg_out_pos = 0;
+  g->state = BUSY;
+
+  xdrmem_create (&xdr, g->msg_out, 4, XDR_ENCODE);
+  if (!xdr_uint32_t (&xdr, &len)) {
+    error (g, "xdr_uint32_t failed in dispatch");
+    goto cleanup1;
+  }
+
+  memcpy (g->msg_out + 4, buffer, len);
+
+  /* Change the handle to sock_write_event. */
+  if (main_loop.remove_handle (g, g->sock_watch) == -1) {
+    error (g, "remove_handle failed in dispatch");
+    goto cleanup1;
+  }
+  g->sock_watch =
+    main_loop.add_handle (g, g->sock,
+			  GUESTFS_HANDLE_WRITABLE,
+			  sock_write_event, g);
+  if (g->sock_watch == -1) {
+    error (g, "add_handle failed in dispatch");
+    goto cleanup1;
+  }
+
+  return serial;
+
+ cleanup1:
+  free (g->msg_out);
+  g->msg_out = NULL;
+  g->msg_out_size = 0;
+  g->state = READY;
+  return -1;
+}
+
+/* The high-level actions are autogenerated by generator.ml.  Include
+ * them here.
+ */
+#include "guestfs-actions.c"
 
 /* This is the default main loop implementation, using select(2). */
 

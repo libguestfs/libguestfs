@@ -41,7 +41,7 @@ and argt =
   | String of string	(* const char *name, cannot be NULL *)
 
 let functions = [
-  ("mount", (Err, P2 (String "device", String "mountpoint")),
+  ("mount", (Err, P2 (String "device", String "mountpoint")), 1,
    "Mount a guest disk at a position in the filesystem",
    "\
 Mount a guest disk at a position in the filesystem.  Block devices
@@ -55,7 +55,7 @@ first be mounted on C</> before others can be mounted.  Other
 filesystems can only be mounted on directories which already
 exist.");
 
-  ("sync", (Err, P0),
+  ("sync", (Err, P0), 2,
    "Sync disks, writes are flushed through to the disk image",
    "\
 This syncs the disk, so that any writes are flushed through to the
@@ -64,7 +64,7 @@ underlying disk image.
 You should always call this if you have modified a disk image, before
 calling C<guestfs_close>.");
 
-  ("touch", (Err, P1 (String "path")),
+  ("touch", (Err, P1 (String "path")), 3,
    "Update file timestamps or create a new file",
    "\
 Touch acts like the L<touch(1)> command.  It can be used to
@@ -137,11 +137,11 @@ let rec generate_header comment license =
 (* Generate the pod documentation for the C API. *)
 and generate_pod () =
   List.iter (
-    fun (shortname, style, _, longdesc) ->
+    fun (shortname, style, _, _, longdesc) ->
       let name = "guestfs_" ^ shortname in
       pr "=head2 %s\n\n" name;
       pr " ";
-      generate_prototype ~extern:false name style;
+      generate_prototype ~extern:false ~handle:"handle" name style;
       pr "\n\n";
       pr "%s\n\n" longdesc;
       (match style with
@@ -153,8 +153,9 @@ and generate_pod () =
 (* Generate the protocol (XDR) file. *)
 and generate_xdr () =
   generate_header CStyle LGPLv2;
+
   List.iter (
-    fun (shortname, style, _, _) ->
+    fun (shortname, style, _, _, _) ->
       let name = "guestfs_" ^ shortname in
       pr "/* %s */\n\n" name;
       (match style with
@@ -169,30 +170,76 @@ and generate_xdr () =
       );
       (match style with
        | (Err, _) -> () 
-    (* | ... -> pr "struct %s_ret ...\n" name; *)
+	   (* | ... -> pr "struct %s_ret ...\n" name; *)
       );
-  ) functions
+  ) functions;
+
+  (* Table of procedure numbers. *)
+  pr "enum guestfs_procedure {\n";
+  List.iter (
+    fun (shortname, _, proc_nr, _, _) ->
+      pr "  GUESTFS_PROC_%s = %d,\n" (String.uppercase shortname) proc_nr
+  ) functions;
+  pr "  GUESTFS_PROC_dummy\n"; (* so we don't have a "hanging comma" *)
+  pr "};\n";
+  pr "\n";
+
+  (* Having to choose a maximum message size is annoying for several
+   * reasons (it limits what we can do in the API), but it (a) makes
+   * the protocol a lot simpler, and (b) provides a bound on the size
+   * of the daemon which operates in limited memory space.  For large
+   * file transfers you should use FTP.
+   *)
+  pr "const GUESTFS_MESSAGE_MAX = %d;\n" (4 * 1024 * 1024);
+  pr "\n";
+
+  (* Message header, etc. *)
+  pr "\
+const GUESTFS_PROGRAM = 0x2000F5F5;
+const GUESTFS_PROTOCOL_VERSION = 1;
+
+enum guestfs_message_direction {
+  GUESTFS_DIRECTION_CALL = 0,        /* client -> daemon */
+  GUESTFS_DIRECTION_REPLY = 1        /* daemon -> client */
+};
+
+enum guestfs_message_status {
+  GUESTFS_STATUS_OK = 0,
+  GUESTFS_STATUS_ERROR = 1
+};
+
+struct guestfs_message_header {
+  unsigned prog;                     /* GUESTFS_PROGRAM */
+  unsigned vers;                     /* GUESTFS_PROTOCOL_VERSION */
+  guestfs_procedure proc;            /* GUESTFS_PROC_x */
+  guestfs_message_direction direction;
+  unsigned serial;                   /* message serial number */
+  guestfs_message_status status;
+};
+"
 
 (* Generate the guestfs-actions.h file. *)
 and generate_actions_h () =
   generate_header CStyle LGPLv2;
   List.iter (
-    fun (shortname, style, _, _) ->
+    fun (shortname, style, _, _, _) ->
       let name = "guestfs_" ^ shortname in
-      generate_prototype ~single_line:true ~newline:true name style
+      generate_prototype ~single_line:true ~newline:true ~handle:"handle"
+	name style
   ) functions
 
 (* Generate the client-side dispatch stubs. *)
 and generate_client_actions () =
   generate_header CStyle LGPLv2;
   List.iter (
-    fun (shortname, style, _, _) ->
+    fun (shortname, style, _, _, _) ->
       let name = "guestfs_" ^ shortname in
 
       (* Generate the return value struct. *)
       pr "struct %s_rv {\n" shortname;
-      pr "  int err_code; /* 0 or -1 */\n";
-      pr "  char err_str[256];\n";
+      pr "  int err_code;      /* 0 OK or -1 error */\n";
+      pr "  int serial;        /* serial number of reply */\n";
+      pr "  char err_str[256]; /* error from daemon */\n";
       (match style with
        | (Err, _) -> ()
     (* | _ -> pr "  struct %s_ret ret;\n" name; *)
@@ -204,7 +251,8 @@ and generate_client_actions () =
       pr "{\n";
       pr "  struct %s_rv *rv = (struct %s_rv *) data;\n" shortname shortname;
       pr "\n";
-      pr "  /* XXX */ rv.code = 0;\n";
+      pr "  /* XXX */ rv->err_code = 0;\n";
+      pr "  /* XXX rv->serial = ?; */\n";
       pr "  main_loop.main_loop_quit (g);\n";
       pr "}\n\n";
 
@@ -224,6 +272,7 @@ and generate_client_actions () =
       );
 
       pr "  struct %s_rv rv;\n" shortname;
+      pr "  int serial;\n";
       pr "\n";
       pr "  if (g->state != READY) {\n";
       pr "    error (g, \"%s called from the wrong state, %%d != READY\",\n"
@@ -233,18 +282,23 @@ and generate_client_actions () =
       pr "  }\n";
 
       (match style with
-       | (_, P0) -> ()
+       | (_, P0) ->
+	   pr "  serial = dispatch (g, GUESTFS_PROC_%s, NULL, NULL);\n"
+	     (String.uppercase shortname)
        | (_, args) ->
 	   pr "\n";
 	   iter_args (
 	     function
 	     | String name -> pr "  args.%s = (char *) %s;\n" name name
 	   ) args;
-	   pr "  if (dispatch (g, (xdrproc_t) xdr_%s_args, (char *) &args) == -1)\n"
+	   pr "  serial = dispatch (g, GUESTFS_PROC_%s,\n"
+	     (String.uppercase shortname);
+	   pr "                     (xdrproc_t) xdr_%s_args, (char *) &args);\n"
 	     name;
-	   pr "    return %s;\n" error_code;
-	   pr "\n";
       );
+      pr "  if (serial == -1)\n";
+      pr "    return %s;\n" error_code;
+      pr "\n";
 
       pr "  rv.err_code = 42;\n";
       pr "  g->reply_cb_internal = %s_cb;\n" shortname;
@@ -262,6 +316,8 @@ and generate_client_actions () =
       pr "  }\n";
       pr "\n";
 
+      pr "  /* XXX check serial number agrees */\n\n";
+
       (match style with
        | (Err, _) -> pr "  return 0;\n"
       );
@@ -273,7 +329,7 @@ and generate_client_actions () =
 and generate_daemon_actions_h () =
   generate_header CStyle GPLv2;
   List.iter (
-    fun (name, style, _, _) ->
+    fun (name, style, _, _, _) ->
       generate_prototype ~single_line:true ~newline:true ("do_" ^ name) style;
   ) functions
 
@@ -284,12 +340,12 @@ and generate_daemon_actions () =
   pr "#include <rpc/types.h>\n";
   pr "#include <rpc/xdr.h>\n";
   pr "#include \"daemon.h\"\n";
-  pr "#include \"../src/guest_protocol.h\"\n";
+  pr "#include \"../src/guestfs_protocol.h\"\n";
   pr "#include \"actions.h\"\n";
   pr "\n";
 
   List.iter (
-    fun (name, style, _, _) ->
+    fun (name, style, _, _, _) ->
       (* Generate server-side stubs. *)
       pr "static void %s_stub (XDR *xdr_in)\n" name;
       pr "{\n";
@@ -335,19 +391,46 @@ and generate_daemon_actions () =
       );
 
       pr "}\n\n";
-  ) functions
+  ) functions;
+
+  (* Dispatch function. *)
+  pr "void dispatch_incoming_message (XDR *xdr_in)\n";
+  pr "{\n";
+  pr "  switch (proc_nr) {\n";
+
+  List.iter (
+    fun (name, style, _, _, _) ->
+      pr "    case GUESTFS_PROC_%s:\n" (String.uppercase name);
+      pr "      %s_stub (xdr_in);\n" name;
+      pr "      break;\n"
+  ) functions;
+
+  pr "    default:\n";
+  pr "      reply_with_error (\"dispatch_incoming_message: unknown procedure number %%d\", proc_nr);\n";
+  pr "  }\n";
+  pr "}\n";
 
 (* Generate a C function prototype. *)
 and generate_prototype ?(extern = true) ?(static = false) ?(semicolon = true)
     ?(single_line = false) ?(newline = false)
-    ?(handle = "handle") name style =
+    ?handle name style =
   if extern then pr "extern ";
   if static then pr "static ";
   (match style with
    | (Err, _) -> pr "int "
   );
-  pr "%s (guestfs_h *%s" name handle;
-  let next () = if single_line then pr ", " else pr ",\n\t\t" in
+  pr "%s (" name;
+  let comma = ref false in
+  (match handle with
+   | None -> ()
+   | Some handle -> pr "guestfs_h *%s" handle; comma := true
+  );
+  let next () =
+    if !comma then (
+      if single_line then pr ", " else pr ",\n\t\t"
+    );
+    comma := true
+  in
   iter_args (
     function
     | String name -> next (); pr "const char *%s" name

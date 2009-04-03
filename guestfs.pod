@@ -34,8 +34,7 @@ schemes, qcow, qcow2, vmdk.
 
 Libguestfs provides ways to enumerate guest storage (eg. partitions,
 LVs, what filesystem is in each LV, etc.).  It can also run commands
-in the context of the guest.  Also you can mount guest filesystems on
-the host (requires root privs and NFS).
+in the context of the guest.  Also you can access filesystems over FTP.
 
 Libguestfs is a library that can be linked with C and C++ management
 programs (or management programs written in other languages, if people
@@ -366,6 +365,8 @@ this function with C<cb> set to C<NULL>.
 
 =head2 NON-BLOCKING ACTIONS
 
+XXX NOT IMPLEMENTED YET XXX
+
 C<guestfs_set_reply_callback> is the most interesting callback to
 play with, since it allows you to perform actions without blocking.
 
@@ -391,8 +392,7 @@ For example:
  }
 
 There are C<guestfs_nb_*> and C<guestfs_nb_*_r> functions
-corresponding to (very nearly) every C<guestfs_*> action in the
-high-level API.
+corresponding to every C<guestfs_*> action in the high-level API.
 
 =head2 guestfs_set_reply_callback
 

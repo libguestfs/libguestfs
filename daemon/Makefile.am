@@ -18,6 +18,14 @@
 ACLOCAL_AMFLAGS = -I m4
 
 noinst_PROGRAMS = guestfsd
-guestfsd_SOURCES = guestfsd.c
+guestfsd_SOURCES = \
+	actions.h \
+	daemon.h \
+	guestfsd.c \
+	proto.c \
+	stubs.c \
+	sync.c \
+	../src/guestfs_protocol.h \
+	../src/guestfs_protocol.c
 
-guestfsd_CFLAGS = -Wall -Werror
+guestfsd_CFLAGS = -Wall

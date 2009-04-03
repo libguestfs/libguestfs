@@ -22,6 +22,7 @@ daemon/missing
 depcomp
 emptydisk
 examples/df
+examples/hello
 guestfs.3
 initramfs
 initramfs.timestamp

@@ -17,5 +17,27 @@
 
 lib_LTLIBRARIES = libguestfs.la
 
-libguestfs_la_SOURCES = guestfs.c guestfs.h
-libguestfs_la_CFLAGS = -Wall -Werror
+# NB. guestfs-actions.c is #include'd into guestfs.c, so it should not
+# be listed as a source file.
+EXTRA_DIST = guestfs-actions.c
+
+libguestfs_la_SOURCES = \
+	guestfs.c \
+	guestfs.h \
+	guestfs_protocol.c \
+	guestfs_protocol.h \
+	guestfs-actions.h
+
+libguestfs_la_CFLAGS = -Wall
+
+if RPCGEN
+guestfs_protocol.c: guestfs_protocol.x
+	rm -f $@-t
+	$(RPCGEN) -c -o $@-t $<
+	mv $@-t $@
+
+guestfs_protocol.h: guestfs_protocol.x
+	rm -f $@-t
+	$(RPCGEN) -h -o $@-t $<
+	mv $@-t $@
+endif

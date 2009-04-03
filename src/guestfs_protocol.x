@@ -34,3 +34,33 @@ struct guestfs_touch_args {
   string path<>;
 };
 
+enum guestfs_procedure {
+  GUESTFS_PROC_MOUNT = 1,
+  GUESTFS_PROC_SYNC = 2,
+  GUESTFS_PROC_TOUCH = 3,
+  GUESTFS_PROC_dummy
+};
+
+const GUESTFS_MESSAGE_MAX = 4194304;
+
+const GUESTFS_PROGRAM = 0x2000F5F5;
+const GUESTFS_PROTOCOL_VERSION = 1;
+
+enum guestfs_message_direction {
+  GUESTFS_DIRECTION_CALL = 0,        /* client -> daemon */
+  GUESTFS_DIRECTION_REPLY = 1        /* daemon -> client */
+};
+
+enum guestfs_message_status {
+  GUESTFS_STATUS_OK = 0,
+  GUESTFS_STATUS_ERROR = 1
+};
+
+struct guestfs_message_header {
+  unsigned prog;                     /* GUESTFS_PROGRAM */
+  unsigned vers;                     /* GUESTFS_PROTOCOL_VERSION */
+  guestfs_procedure proc;            /* GUESTFS_PROC_x */
+  guestfs_message_direction direction;
+  unsigned serial;                   /* message serial number */
+  guestfs_message_status status;
+};
