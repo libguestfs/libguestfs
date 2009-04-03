@@ -1,0 +1,28 @@
+Adding a new action
+----------------------------------------------------------------------
+
+All action functions are generated automatically, so there are only
+two files you need to edit:
+
+(1) src/generator.ml: Add your new action, parameters, description,
+etc. to the big list called 'functions' at the top of this file.
+
+(2) Edit/create a C file in daemon/ subdirectory which implements your
+'do_action' function.  Take a look at one of the numerous examples
+there.
+
+You will need to run src/generator.ml (from the top directory) which
+regenerates all the auto-generated files, and then continue with the
+ordinary build process.
+
+Formatting
+----------------------------------------------------------------------
+
+Try to use GNU / Emacs default formatting, following the convention
+used elsewhere in the source.
+
+Patches
+----------------------------------------------------------------------
+
+Submit patches to the fedora-virt mailing list:
+http://www.redhat.com/mailman/listinfo/fedora-virt
