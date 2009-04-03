@@ -74,6 +74,11 @@ if [ ! -f initramfs/etc/fstab ]; then
     @FEBOOTSTRAP_RUN@ initramfs -- touch /etc/fstab
 fi
 
+echo nameserver 10.0.2.3 > initramfs/etc/resolv.conf.new
+@FEBOOTSTRAP_RUN@ initramfs -- \
+    install -m 0644 -o root -g root /etc/resolv.conf.new /etc/resolv.conf
+rm initramfs/etc/resolv.conf.new
+
 # Create the init script.
 cat > initramfs/init.new <<'__EOF__'
 #!/bin/sh
@@ -83,8 +88,10 @@ MAKEDEV mem null port zero core full ram tty console fd \
 mount -t proc /proc /proc
 mount -t sysfs /sys /sys
 mount -t devpts -o gid=5,mode=620 /dev/pts /dev/pts
-modprobe nfsd
+modprobe nfsd 8139cp
 /sbin/ifconfig lo 127.0.0.1
+/sbin/ifconfig eth0 10.0.2.10
+/sbin/route add default gw 10.0.2.2
 lvm vgscan --ignorelockingfailure
 lvm vgchange -ay --ignorelockingfailure
 rpcbind
