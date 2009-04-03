@@ -13,8 +13,7 @@ schemes, qcow, qcow2, vmdk.
 
 Libguestfs provides ways to enumerate guest storage (eg. partitions,
 LVs, what filesystem is in each LV, etc.).  It can also run commands
-in the context of the guest.  Also you can mount guest filesystems on
-the host (requires root privs and NFS).
+in the context of the guest.  Also you can access filesystems over FTP.
 
 Libguestfs is a library that can be linked with C and C++ management
 programs (or management programs written in other languages, if people
@@ -74,7 +73,7 @@ Notes on cross-architecture support
 
 At the moment we basically don't support cross-architecture or
 32-on-64.  This limits what is possible for some guests.  Filesystem
-operations and NFS export will work fine, but running commands in
+operations and FTP export will work fine, but running commands in
 guests may not be possible.
 
 To enable this requires work for cross-architecture and 32-on-64
@@ -97,6 +96,13 @@ work very well with default yum configuration.  To get around this,
 choose a Fedora mirror which is close to you, set this with
 './configure --with-mirror=[...]', and then proxy the whole lot
 through squid by setting http_proxy environment variable).
+
+You will also need to substantially increase the squid configuration
+limits:
+http://fedoraproject.org/wiki/Using_Mock_to_test_package_builds#Using_Squid_to_Speed_Up_Mock_package_downloads
+
+IntelligentMirror is another possibility, although I couldn't get it
+to work for me.
 
 
 Copyright and license information

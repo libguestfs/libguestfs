@@ -25,7 +25,7 @@ set -e
 # larger.
 debug=yes
 
-modules="-i kernel -i bash -i coreutils -i lvm2 -i ntfs-3g -i nfs-utils -i util-linux-ng -i MAKEDEV -i net-tools"
+modules="-i kernel -i bash -i coreutils -i lvm2 -i ntfs-3g -i util-linux-ng -i MAKEDEV -i net-tools"
 
 if [ "x$debug" = "xyes" ]; then
     modules="$modules -i module-init-tools -i procps -i strace -i iputils"
@@ -40,6 +40,22 @@ rm -f $koutput
 # Create the basic initramfs.
 @FEBOOTSTRAP@ $modules @REPO@ initramfs @MIRROR@
 
+# Make a safe 'install_file' function to install files into the
+# filesystem.  XXX We need a 'febootstrap-install' utility.
+# Usage: install_file <local-file> <target-pathname> mode owner[.group]
+install_file ()
+{
+    cp "$1" initramfs/"$2"
+    # Get the inode of the new file and remove it from fakeroot.log.
+    ino=$(ls -i initramfs/"$2" | awk '{print $1}')
+    cp initramfs/fakeroot.log fakeroot.log.old
+    grep -v "ino=$ino," fakeroot.log.old > initramfs/fakeroot.log
+    rm fakeroot.log.old
+    # Set mode, owner and group as desired.
+    @FEBOOTSTRAP_RUN@ initramfs -- chmod "$3" "$2"
+    @FEBOOTSTRAP_RUN@ initramfs -- chown "$4" "$2"
+}
+
 # Nuke some stuff.  The kernel pulls mkinitrd and plymouth which pulls in
 # all of Python.  Sheez.
 find initramfs -name '*plymouth*' -print0 | xargs -0 rm -rf
@@ -47,7 +63,6 @@ find initramfs -name '*python*' -print0 | xargs -0 rm -rf
 
 # Modules take up nearly half of the image.  It's a rough guess that
 # we don't need any drivers (which take up most of the space).
-# (We need to keep kernel/net/sunrpc for NFS)
 #rm -rf initramfs/lib/modules/*/kernel/{drivers,sound}
 rm -rf initramfs/lib/modules/*/kernel/arch/x86/kvm
 
@@ -61,26 +76,24 @@ rm -rf initramfs/boot
 
 # Add some missing configuration files.
 if [ ! -f initramfs/etc/hosts ]; then
-    cat > initramfs/etc/hosts.new <<'__EOF__'
+    cat > hosts.new <<'__EOF__'
 127.0.0.1 guestfs localhost.localdomain localhost
 ::1       localhost6.localdomain6 localhost6
 __EOF__
-    @FEBOOTSTRAP_RUN@ initramfs -- \
-	install -m 0644 -o root -g root /etc/hosts.new /etc/hosts
-    rm initramfs/etc/hosts.new
+    install_file hosts.new /etc/hosts 0644 root.root
+    rm hosts.new
 fi
 
 if [ ! -f initramfs/etc/fstab ]; then
     @FEBOOTSTRAP_RUN@ initramfs -- touch /etc/fstab
 fi
 
-echo nameserver 10.0.2.3 > initramfs/etc/resolv.conf.new
-@FEBOOTSTRAP_RUN@ initramfs -- \
-    install -m 0644 -o root -g root /etc/resolv.conf.new /etc/resolv.conf
-rm initramfs/etc/resolv.conf.new
+echo nameserver 10.0.2.3 > resolv.conf.new
+install_file resolv.conf.new /etc/resolv.conf 0644 root.root
+rm resolv.conf.new
 
 # Create the init script.
-cat > initramfs/init.new <<'__EOF__'
+cat > init.new <<'__EOF__'
 #!/bin/sh
 PATH=/sbin:/usr/sbin:$PATH
 MAKEDEV mem null port zero core full ram tty console fd \
@@ -88,33 +101,26 @@ MAKEDEV mem null port zero core full ram tty console fd \
 mount -t proc /proc /proc
 mount -t sysfs /sys /sys
 mount -t devpts -o gid=5,mode=620 /dev/pts /dev/pts
-modprobe nfsd 8139cp
+modprobe 8139cp
 /sbin/ifconfig lo 127.0.0.1
 /sbin/ifconfig eth0 10.0.2.10
 /sbin/route add default gw 10.0.2.2
 lvm vgscan --ignorelockingfailure
 lvm vgchange -ay --ignorelockingfailure
-rpcbind
-rpc.statd
-rpc.nfsd 4
-rpc.mountd
 __EOF__
 
 if [ "x$debug" != "xyes" ]; then
-    echo exec guestfsd -f >> initramfs/init.new
+    echo exec guestfsd -f >> init.new
 else
-    echo guestfsd >> initramfs/init.new
-    echo exec bash -i >> initramfs/init.new
+    echo guestfsd >> init.new
+    echo exec bash -i >> init.new
 fi
 
-@FEBOOTSTRAP_RUN@ initramfs -- install -m 0755 -o root -g root /init.new /init
-rm initramfs/init.new
+install_file init.new /init 0755 root.root
+rm init.new
 
 # Copy the daemon into the filesystem.
-cp @abs_builddir@/daemon/guestfsd initramfs/sbin/guestfsd.new
-@FEBOOTSTRAP_RUN@ initramfs -- \
-  install -m 0755 -o root -g root /sbin/guestfsd.new /sbin/guestfsd
-rm initramfs/sbin/guestfsd.new
+install_file @abs_builddir@/daemon/guestfsd /sbin/guestfsd 0755 root.root
 
 # Generate final image.
 @FEBOOTSTRAP_TO_INITRAMFS@ initramfs > $output-t
