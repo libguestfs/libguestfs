@@ -25,6 +25,7 @@
 #include <unistd.h>
 #include <errno.h>
 #include <ctype.h>
+#include <sys/param.h>		/* defines MIN */
 #include <rpc/types.h>
 #include <rpc/xdr.h>
 
@@ -77,8 +78,6 @@ main_loop (int _sock)
 
 #if DEBUG
     int i, j;
-
-#define MIN(a,b) ((a)<(b)?(a):(b))
 
     for (i = 0; i < len; i += 16) {
       printf ("%04x: ", i);

@@ -20,17 +20,28 @@
  */
 
 struct mount_rv {
-  int err_code;      /* 0 OK or -1 error */
-  int serial;        /* serial number of reply */
-  char err_str[GUESTFS_ERROR_LEN]; /* error from daemon */
+  int cb_done;  /* flag to indicate callback was called */
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
 };
 
 static void mount_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   struct mount_rv *rv = (struct mount_rv *) data;
 
-  /* XXX */ rv->err_code = 0;
-  /* XXX rv->serial = ?; */
+  if (!xdr_guestfs_message_header (xdr, &rv->hdr)) {
+    error (g, "guestfs_mount: failed to parse reply header");
+    return;
+  }
+  if (rv->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &rv->err)) {
+      error (g, "guestfs_mount: failed to parse reply error");
+      return;
+    }
+    goto done;
+  }
+ done:
+  rv->cb_done = 1;
   main_loop.main_loop_quit (g);
 }
 
@@ -48,6 +59,9 @@ int guestfs_mount (guestfs_h *g,
     return -1;
   }
 
+  memset (&rv, 0, sizeof rv);
+
+
   args.device = (char *) device;
   args.mountpoint = (char *) mountpoint;
   serial = dispatch (g, GUESTFS_PROC_MOUNT,
@@ -55,38 +69,51 @@ int guestfs_mount (guestfs_h *g,
   if (serial == -1)
     return -1;
 
-  rv.err_code = 42;
+  rv.cb_done = 0;
   g->reply_cb_internal = mount_cb;
   g->reply_cb_internal_data = &rv;
   main_loop.main_loop_run (g);
   g->reply_cb_internal = NULL;
   g->reply_cb_internal_data = NULL;
-  if (rv.err_code == 42) { /* callback wasn't called */
+  if (!rv.cb_done) {
     error (g, "guestfs_mount failed, see earlier error messages");
     return -1;
   }
-  else if (rv.err_code == -1) { /* error from remote end */
-    error (g, "%s", rv.err_str);
+
+  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_MOUNT, serial) == -1)
+    return -1;
+
+  if (rv.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", rv.err.error);
     return -1;
   }
-
-  /* XXX check serial number agrees */
 
   return 0;
 }
 
 struct sync_rv {
-  int err_code;      /* 0 OK or -1 error */
-  int serial;        /* serial number of reply */
-  char err_str[GUESTFS_ERROR_LEN]; /* error from daemon */
+  int cb_done;  /* flag to indicate callback was called */
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
 };
 
 static void sync_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   struct sync_rv *rv = (struct sync_rv *) data;
 
-  /* XXX */ rv->err_code = 0;
-  /* XXX rv->serial = ?; */
+  if (!xdr_guestfs_message_header (xdr, &rv->hdr)) {
+    error (g, "guestfs_sync: failed to parse reply header");
+    return;
+  }
+  if (rv->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &rv->err)) {
+      error (g, "guestfs_sync: failed to parse reply error");
+      return;
+    }
+    goto done;
+  }
+ done:
+  rv->cb_done = 1;
   main_loop.main_loop_quit (g);
 }
 
@@ -100,42 +127,58 @@ int guestfs_sync (guestfs_h *g)
       g->state);
     return -1;
   }
+
+  memset (&rv, 0, sizeof rv);
+
   serial = dispatch (g, GUESTFS_PROC_SYNC, NULL, NULL);
   if (serial == -1)
     return -1;
 
-  rv.err_code = 42;
+  rv.cb_done = 0;
   g->reply_cb_internal = sync_cb;
   g->reply_cb_internal_data = &rv;
   main_loop.main_loop_run (g);
   g->reply_cb_internal = NULL;
   g->reply_cb_internal_data = NULL;
-  if (rv.err_code == 42) { /* callback wasn't called */
+  if (!rv.cb_done) {
     error (g, "guestfs_sync failed, see earlier error messages");
     return -1;
   }
-  else if (rv.err_code == -1) { /* error from remote end */
-    error (g, "%s", rv.err_str);
+
+  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_SYNC, serial) == -1)
+    return -1;
+
+  if (rv.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", rv.err.error);
     return -1;
   }
-
-  /* XXX check serial number agrees */
 
   return 0;
 }
 
 struct touch_rv {
-  int err_code;      /* 0 OK or -1 error */
-  int serial;        /* serial number of reply */
-  char err_str[GUESTFS_ERROR_LEN]; /* error from daemon */
+  int cb_done;  /* flag to indicate callback was called */
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
 };
 
 static void touch_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   struct touch_rv *rv = (struct touch_rv *) data;
 
-  /* XXX */ rv->err_code = 0;
-  /* XXX rv->serial = ?; */
+  if (!xdr_guestfs_message_header (xdr, &rv->hdr)) {
+    error (g, "guestfs_touch: failed to parse reply header");
+    return;
+  }
+  if (rv->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &rv->err)) {
+      error (g, "guestfs_touch: failed to parse reply error");
+      return;
+    }
+    goto done;
+  }
+ done:
+  rv->cb_done = 1;
   main_loop.main_loop_quit (g);
 }
 
@@ -152,28 +195,33 @@ int guestfs_touch (guestfs_h *g,
     return -1;
   }
 
+  memset (&rv, 0, sizeof rv);
+
+
   args.path = (char *) path;
   serial = dispatch (g, GUESTFS_PROC_TOUCH,
                      (xdrproc_t) xdr_guestfs_touch_args, (char *) &args);
   if (serial == -1)
     return -1;
 
-  rv.err_code = 42;
+  rv.cb_done = 0;
   g->reply_cb_internal = touch_cb;
   g->reply_cb_internal_data = &rv;
   main_loop.main_loop_run (g);
   g->reply_cb_internal = NULL;
   g->reply_cb_internal_data = NULL;
-  if (rv.err_code == 42) { /* callback wasn't called */
+  if (!rv.cb_done) {
     error (g, "guestfs_touch failed, see earlier error messages");
     return -1;
   }
-  else if (rv.err_code == -1) { /* error from remote end */
-    error (g, "%s", rv.err_str);
+
+  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_TOUCH, serial) == -1)
+    return -1;
+
+  if (rv.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", rv.err.error);
     return -1;
   }
-
-  /* XXX check serial number agrees */
 
   return 0;
 }

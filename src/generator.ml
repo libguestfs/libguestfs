@@ -243,12 +243,12 @@ and generate_client_actions () =
 
       (* Generate the return value struct. *)
       pr "struct %s_rv {\n" shortname;
-      pr "  int err_code;      /* 0 OK or -1 error */\n";
-      pr "  int serial;        /* serial number of reply */\n";
-      pr "  char err_str[GUESTFS_ERROR_LEN]; /* error from daemon */\n";
+      pr "  int cb_done;  /* flag to indicate callback was called */\n";
+      pr "  struct guestfs_message_header hdr;\n";
+      pr "  struct guestfs_message_error err;\n";
       (match style with
        | (Err, _) -> ()
-    (* | _ -> pr "  struct %s_ret ret;\n" name; REMEMBER TO MEMSET *)
+    (* | _ -> pr "  struct %s_ret ret;\n" name; *)
       );
       pr "};\n\n";
 
@@ -257,8 +257,25 @@ and generate_client_actions () =
       pr "{\n";
       pr "  struct %s_rv *rv = (struct %s_rv *) data;\n" shortname shortname;
       pr "\n";
-      pr "  /* XXX */ rv->err_code = 0;\n";
-      pr "  /* XXX rv->serial = ?; */\n";
+      pr "  if (!xdr_guestfs_message_header (xdr, &rv->hdr)) {\n";
+      pr "    error (g, \"%s: failed to parse reply header\");\n" name;
+      pr "    return;\n";
+      pr "  }\n";
+      pr "  if (rv->hdr.status == GUESTFS_STATUS_ERROR) {\n";
+      pr "    if (!xdr_guestfs_message_error (xdr, &rv->err)) {\n";
+      pr "      error (g, \"%s: failed to parse reply error\");\n" name;
+      pr "      return;\n";
+      pr "    }\n";
+      pr "    goto done;\n";
+      pr "  }\n";
+
+      (match style with
+       | (Err, _) -> ()
+    (* |  _ -> pr "  if (!xdr_%s_ret (&xdr, &rv->ret)) ..." *)
+      );
+
+      pr " done:\n";
+      pr "  rv->cb_done = 1;\n";
       pr "  main_loop.main_loop_quit (g);\n";
       pr "}\n\n";
 
@@ -286,6 +303,9 @@ and generate_client_actions () =
       pr "      g->state);\n";
       pr "    return %s;\n" error_code;
       pr "  }\n";
+      pr "\n";
+      pr "  memset (&rv, 0, sizeof rv);\n";
+      pr "\n";
 
       (match style with
        | (_, P0) ->
@@ -306,23 +326,28 @@ and generate_client_actions () =
       pr "    return %s;\n" error_code;
       pr "\n";
 
-      pr "  rv.err_code = 42;\n";
+      pr "  rv.cb_done = 0;\n";
       pr "  g->reply_cb_internal = %s_cb;\n" shortname;
       pr "  g->reply_cb_internal_data = &rv;\n";
       pr "  main_loop.main_loop_run (g);\n";
       pr "  g->reply_cb_internal = NULL;\n";
       pr "  g->reply_cb_internal_data = NULL;\n";
-      pr "  if (rv.err_code == 42) { /* callback wasn't called */\n";
+      pr "  if (!rv.cb_done) {\n";
       pr "    error (g, \"%s failed, see earlier error messages\");\n" name;
-      pr "    return %s;\n" error_code;
-      pr "  }\n";
-      pr "  else if (rv.err_code == -1) { /* error from remote end */\n";
-      pr "    error (g, \"%%s\", rv.err_str);\n";
       pr "    return %s;\n" error_code;
       pr "  }\n";
       pr "\n";
 
-      pr "  /* XXX check serial number agrees */\n\n";
+      pr "  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_%s, serial) == -1)\n"
+	(String.uppercase shortname);
+      pr "    return %s;\n" error_code;
+      pr "\n";
+
+      pr "  if (rv.hdr.status == GUESTFS_STATUS_ERROR) {\n";
+      pr "    error (g, \"%%s\", rv.err.error);\n";
+      pr "    return %s;\n" error_code;
+      pr "  }\n";
+      pr "\n";
 
       (match style with
        | (Err, _) -> pr "  return 0;\n"
