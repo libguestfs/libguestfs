@@ -67,6 +67,8 @@ static void stdout_event (void *data, int watch, int fd, int events);
 static void sock_read_event (void *data, int watch, int fd, int events);
 static void sock_write_event (void *data, int watch, int fd, int events);
 
+static void close_handles (void);
+
 static int select_add_handle (guestfs_h *g, int fd, int events, guestfs_handle_event_cb cb, void *data);
 static int select_remove_handle (guestfs_h *g, int watch);
 static int select_add_timeout (guestfs_h *g, int interval, guestfs_handle_timeout_cb cb, void *data);
@@ -95,6 +97,8 @@ enum state { CONFIG, LAUNCHING, READY, BUSY, NO_HANDLE };
 
 struct guestfs_h
 {
+  struct guestfs_h *next;	/* Linked list of open handles. */
+
   /* State: see the state machine diagram in the man page guestfs(3). */
   enum state state;
 
@@ -144,6 +148,9 @@ struct guestfs_h
   int msg_next_serial;
 };
 
+static guestfs_h *handles = NULL;
+static int atexit_handler_set = 0;
+
 guestfs_h *
 guestfs_create (void)
 {
@@ -175,6 +182,21 @@ guestfs_create (void)
    */
   g->msg_next_serial = 0x00123400;
 
+  /* Link the handles onto a global list.  This is the one area
+   * where the library needs to be made thread-safe. (XXX)
+   */
+  /* acquire mutex (XXX) */
+  g->next = handles;
+  handles = g;
+  if (!atexit_handler_set) {
+    atexit (close_handles);
+    atexit_handler_set = 1;
+  }
+  /* release mutex (XXX) */
+
+  if (g->verbose)
+    fprintf (stderr, "new guestfs handle %p\n", g);
+
   return g;
 }
 
@@ -183,12 +205,16 @@ guestfs_close (guestfs_h *g)
 {
   int i;
   char filename[256];
+  guestfs_h *gg;
 
   if (g->state == NO_HANDLE) {
     /* Not safe to call 'error' here, so ... */
     fprintf (stderr, "guestfs_close: called twice on the same handle\n");
     return;
   }
+
+  if (g->verbose)
+    fprintf (stderr, "closing guestfs handle %p (state %d)\n", g, g->state);
 
   /* Remove any handlers that might be called back before we kill the
    * subprocess.
@@ -216,7 +242,24 @@ guestfs_close (guestfs_h *g)
   /* Mark the handle as dead before freeing it. */
   g->state = NO_HANDLE;
 
+  /* acquire mutex (XXX) */
+  if (handles == g)
+    handles = g->next;
+  else {
+    for (gg = handles; gg->next != g; gg = gg->next)
+      ;
+    gg->next = g->next;
+  }
+  /* release mutex (XXX) */
+
   free (g);
+}
+
+/* Close all open handles (called from atexit(3)). */
+static void
+close_handles (void)
+{
+  while (handles) guestfs_close (handles);
 }
 
 static void
@@ -531,6 +574,8 @@ guestfs_launch (guestfs_h *g)
     close (rfd[0]);
     dup (wfd[0]);
     dup (rfd[1]);
+    close (wfd[0]);
+    close (rfd[1]);
 
 #if 0
     /* Set up a new process group, so we can signal this process

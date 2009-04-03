@@ -53,7 +53,13 @@ names can be used.
 The rules are the same as for L<mount(2)>:  A filesystem must
 first be mounted on C</> before others can be mounted.  Other
 filesystems can only be mounted on directories which already
-exist.");
+exist.
+
+The mounted filesystem is writable, if we have sufficient permissions
+on the underlying device.
+
+The filesystem options C<sync> and C<noatime> are set with this
+call, in order to improve reliability.");
 
   ("sync", (Err, P0), 2,
    "Sync disks, writes are flushed through to the disk image",

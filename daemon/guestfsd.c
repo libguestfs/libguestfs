@@ -18,6 +18,8 @@
 
 #include <config.h>
 
+#define _BSD_SOURCE		/* for daemon(3) */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -26,6 +28,10 @@
 #include <rpc/xdr.h>
 #include <getopt.h>
 #include <netdb.h>
+#include <sys/param.h>
+#include <sys/select.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 #include "daemon.h"
 
@@ -170,19 +176,15 @@ main (int argc, char *argv[])
 
   xdr_destroy (&xdr);
 
-  /* XXX Fork into the background. */
+  /* Fork into the background. */
+  if (!dont_fork) {
+    if (daemon (0, 1) == -1) {
+      perror ("daemon");
+      exit (1);
+    }
+  }
 
-
-
-
-
-
-
-
-
-
-
-
+  /* Enter the main loop, reading and performing actions. */
   main_loop (sock);
 
   exit (0);
@@ -230,17 +232,164 @@ usage (void)
   fprintf (stderr, "guestfsd [-f] [-h host -p port]\n");
 }
 
-/* Some unimplemented actions. */
+/* This is a more sane version of 'system(3)' for running external
+ * commands.  It uses fork/execvp, so we don't need to worry about
+ * quoting of parameters, and it allows us to capture any error
+ * messages in a buffer.
+ */
 int
-do_mount (const char *device, const char *mountpoint)
+command (char **stdoutput, char **stderror, const char *name, ...)
 {
-  reply_with_error ("mount not implemented");
-  return -1;
-}
+  int so_size = 0, se_size = 0;
+  int so_fd[2], se_fd[2];
+  int pid, r, quit;
+  fd_set rset, rset2;
+  char buf[256];
 
-int
-do_touch (const char *path)
-{
-  reply_with_error ("touch not implemented");
-  return -1;
+  if (stdoutput) *stdoutput = NULL;
+  if (stderror) *stderror = NULL;
+
+  if (pipe (so_fd) == -1 || pipe (se_fd) == -1) {
+    perror ("pipe");
+    return -1;
+  }
+
+  pid = fork ();
+  if (pid == -1) {
+    perror ("fork");
+    return -1;
+  }
+
+  if (pid == 0) {		/* Child process. */
+    va_list args;
+    char **argv;
+    char *s;
+    int i;
+
+    /* Collect the command line arguments into an array. */
+    va_start (args, name);
+
+    i = 2;
+    argv = malloc (sizeof (char *) * i);
+    argv[0] = (char *) name;
+    argv[1] = NULL;
+
+    while ((s = va_arg (args, char *)) != NULL) {
+      argv = realloc (argv, sizeof (char *) * (++i));
+      argv[i-2] = s;
+      argv[i-1] = NULL;
+    }
+
+    close (0);
+    close (so_fd[0]);
+    close (se_fd[0]);
+    dup2 (so_fd[1], 1);
+    dup2 (se_fd[1], 2);
+    close (so_fd[1]);
+    close (se_fd[1]);
+
+    execvp (name, argv);
+    perror (name);
+    _exit (1);
+  }
+
+  /* Parent process. */
+  close (so_fd[1]);
+  close (se_fd[1]);
+
+  FD_ZERO (&rset);
+  FD_SET (so_fd[0], &rset);
+  FD_SET (se_fd[0], &rset);
+
+  quit = 0;
+  while (!quit) {
+    rset2 = rset;
+    r = select (MAX (so_fd[0], se_fd[0]) + 1, &rset2, NULL, NULL, NULL);
+    if (r == -1) {
+      perror ("select");
+      waitpid (pid, NULL, 0);
+      return -1;
+    }
+
+    if (FD_ISSET (so_fd[0], &rset2)) { /* something on stdout */
+      r = read (so_fd[0], buf, sizeof buf);
+      if (r == -1) {
+	perror ("read");
+	waitpid (pid, NULL, 0);
+	return -1;
+      }
+      if (r == 0) quit = 1;
+
+      if (r > 0 && stdoutput) {
+	so_size += r;
+	*stdoutput = realloc (*stdoutput, so_size);
+	if (*stdoutput == NULL) {
+	  perror ("realloc");
+	  *stdoutput = NULL;
+	  continue;
+	}
+	memcpy (*stdoutput + so_size - r, buf, r);
+      }
+    }
+
+    if (FD_ISSET (se_fd[0], &rset2)) { /* something on stderr */
+      r = read (se_fd[0], buf, sizeof buf);
+      if (r == -1) {
+	perror ("read");
+	waitpid (pid, NULL, 0);
+	return -1;
+      }
+      if (r == 0) quit = 1;
+
+      if (r > 0 && stderror) {
+	se_size += r;
+	*stderror = realloc (*stderror, se_size);
+	if (*stderror == NULL) {
+	  perror ("realloc");
+	  *stderror = NULL;
+	  continue;
+	}
+	memcpy (*stderror + se_size - r, buf, r);
+      }
+    }
+  }
+
+  /* Make sure the output buffers are \0-terminated.  Also remove any
+   * trailing \n characters.
+   */
+  if (stdoutput) {
+    *stdoutput = realloc (*stdoutput, so_size+1);
+    if (*stdoutput == NULL) {
+      perror ("realloc");
+      *stdoutput = NULL;
+    } else {
+      (*stdoutput)[so_size] = '\0';
+      so_size--;
+      while (so_size >= 0 && (*stdoutput)[so_size] == '\n')
+	(*stdoutput)[so_size--] = '\0';
+    }
+  }
+  if (stderror) {
+    *stderror = realloc (*stderror, se_size+1);
+    if (*stderror == NULL) {
+      perror ("realloc");
+      *stderror = NULL;
+    } else {
+      (*stderror)[se_size] = '\0';
+      se_size--;
+      while (se_size >= 0 && (*stderror)[se_size] == '\n')
+	(*stderror)[se_size--] = '\0';
+    }
+  }
+
+  /* Get the exit status of the command. */
+  waitpid (pid, &r, 0);
+
+  if (WIFEXITED (r)) {
+    if (WEXITSTATUS (r) == 0)
+      return 0;
+    else
+      return -1;
+  } else
+    return -1;
 }

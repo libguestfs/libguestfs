@@ -40,6 +40,9 @@ rm -f $koutput
 # Create the basic initramfs.
 @FEBOOTSTRAP@ $modules @REPO@ initramfs @MIRROR@
 
+# /sysroot is where the guest root filesystem will be mounted.
+mkdir initramfs/sysroot
+
 # Make a safe 'install_file' function to install files into the
 # filesystem.  XXX We need a 'febootstrap-install' utility.
 # Usage: install_file <local-file> <target-pathname> mode owner[.group]

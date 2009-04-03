@@ -38,5 +38,6 @@ m4/ltsugar.m4
 m4/ltversion.m4
 m4/lt~obsolete.m4
 stamp-h1
+test*.img
 update-initramfs.sh
 vmlinuz.*
