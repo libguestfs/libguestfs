@@ -497,7 +497,8 @@ guestfs_launch (guestfs_h *g)
 	      "console=ttyS0 guestfs=%s:%d", VMCHANNEL_ADDR, VMCHANNEL_PORT);
 
     add_cmdline (g, "-m");
-    add_cmdline (g, "384");	/* XXX Choose best size. */
+    add_cmdline (g, "384");	  /* XXX Choose best size. */
+    add_cmdline (g, "-no-kqemu"); /* Avoids a warning. */
     add_cmdline (g, "-kernel");
     add_cmdline (g, (char *) kernel);
     add_cmdline (g, "-initrd");
