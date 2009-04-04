@@ -29,22 +29,22 @@ void list_commands (void)
 {
   printf ("    %-16s     %s\n", "Command", "Description");
   list_builtin_commands ();
-  printf ("%-20s %s\n", "mount", "Mount a guest disk at a position in the filesystem");
-  printf ("%-20s %s\n", "sync", "Sync disks, writes are flushed through to the disk image");
-  printf ("%-20s %s\n", "touch", "Update file timestamps or create a new file");
-  printf ("Use -h <cmd> to show detailed help for a command.\n");
+  printf ("%-20s %s\n", "mount", "mount a guest disk at a position in the filesystem");
+  printf ("%-20s %s\n", "sync", "sync disks, writes are flushed through to the disk image");
+  printf ("%-20s %s\n", "touch", "update file timestamps or create a new file");
+  printf ("    Use -h <cmd> / help <cmd> to show detailed help for a command.\n");
 }
 
 void display_command (const char *cmd)
 {
   if (strcasecmp (cmd, "mount") == 0)
-    pod2text ("mount - Mount a guest disk at a position in the filesystem", " mount <device> <mountpoint>\n\nMount a guest disk at a position in the filesystem.  Block devices\nare named C</dev/sda>, C</dev/sdb> and so on, as they were added to\nthe guest.  If those block devices contain partitions, they will have\nthe usual names (eg. C</dev/sda1>).  Also LVM C</dev/VG/LV>-style\nnames can be used.\n\nThe rules are the same as for L<mount(2)>:  A filesystem must\nfirst be mounted on C</> before others can be mounted.  Other\nfilesystems can only be mounted on directories which already\nexist.\n\nThe mounted filesystem is writable, if we have sufficient permissions\non the underlying device.\n\nThe filesystem options C<sync> and C<noatime> are set with this\ncall, in order to improve reliability.");
+    pod2text ("mount - mount a guest disk at a position in the filesystem", " mount <device> <mountpoint>\n\nMount a guest disk at a position in the filesystem.  Block devices\nare named C</dev/sda>, C</dev/sdb> and so on, as they were added to\nthe guest.  If those block devices contain partitions, they will have\nthe usual names (eg. C</dev/sda1>).  Also LVM C</dev/VG/LV>-style\nnames can be used.\n\nThe rules are the same as for L<mount(2)>:  A filesystem must\nfirst be mounted on C</> before others can be mounted.  Other\nfilesystems can only be mounted on directories which already\nexist.\n\nThe mounted filesystem is writable, if we have sufficient permissions\non the underlying device.\n\nThe filesystem options C<sync> and C<noatime> are set with this\ncall, in order to improve reliability.");
   else
   if (strcasecmp (cmd, "sync") == 0)
-    pod2text ("sync - Sync disks, writes are flushed through to the disk image", " sync\n\nThis syncs the disk, so that any writes are flushed through to the\nunderlying disk image.\n\nYou should always call this if you have modified a disk image, before\ncalling C<guestfs_close>.");
+    pod2text ("sync - sync disks, writes are flushed through to the disk image", " sync\n\nThis syncs the disk, so that any writes are flushed through to the\nunderlying disk image.\n\nYou should always call this if you have modified a disk image, before\ncalling C<guestfs_close>.");
   else
   if (strcasecmp (cmd, "touch") == 0)
-    pod2text ("touch - Update file timestamps or create a new file", " touch <path>\n\nTouch acts like the L<touch(1)> command.  It can be used to\nupdate the timestamps on a file, or, if the file does not exist,\nto create a new zero-length file.");
+    pod2text ("touch - update file timestamps or create a new file", " touch <path>\n\nTouch acts like the L<touch(1)> command.  It can be used to\nupdate the timestamps on a file, or, if the file does not exist,\nto create a new zero-length file.");
   else
     display_builtin_command (cmd);
 }

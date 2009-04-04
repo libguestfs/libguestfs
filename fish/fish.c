@@ -239,7 +239,8 @@ script (int prompt)
   int len, i;
 
   if (prompt)
-    printf ("Welcome to guestfish, the libguestfs filesystem interactive shell for\n"
+    printf ("\n"
+	    "Welcome to guestfish, the libguestfs filesystem interactive shell for\n"
 	    "editing virtual machine filesystems.\n"
 	    "\n"
 	    "Type: 'help' for help with commands\n"
@@ -334,7 +335,7 @@ issue_command (const char *cmd, char *argv[])
   }
   else if (strcasecmp (cmd, "cdrom") == 0) {
     if (argc != 1) {
-      fprintf (stderr, "use 'cdrom image' to add a guest cdrom\n");
+      fprintf (stderr, "use 'cdrom image' to add a CD-ROM image\n");
       return -1;
     }
     else
@@ -360,9 +361,9 @@ list_builtin_commands (void)
   printf ("%-20s %s\n",
 	  "quit", "quit guestfish");
   printf ("%-20s %s\n",
-	  "add", "add  a guest image to be examined or modified");
+	  "add", "add a guest image to be examined or modified");
   printf ("%-20s %s\n",
-	  "cdrom", "add  a guest CD-ROM image to be examined");
+	  "cdrom", "add a CD-ROM image to be examined");
   printf ("%-20s %s\n",
 	  "launch", "launch the subprocess");
 }
@@ -374,7 +375,7 @@ display_builtin_command (const char *cmd)
     printf ("add - add a guest image to be examined or modified\n"
 	    "     add <image>\n");
   else if (strcasecmp (cmd, "cdrom") == 0)
-    printf ("cdrom - add a guest CD-ROM image to be examined\n"
+    printf ("cdrom - add a CD-ROM image to be examined\n"
 	    "     cdrom <iso-file>\n");
   else if (strcasecmp (cmd, "help") == 0)
     printf ("help - display a list of commands or help on a command\n"

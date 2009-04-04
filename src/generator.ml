@@ -42,7 +42,7 @@ and argt =
 
 let functions = [
   ("mount", (Err, P2 (String "device", String "mountpoint")), 1,
-   "Mount a guest disk at a position in the filesystem",
+   "mount a guest disk at a position in the filesystem",
    "\
 Mount a guest disk at a position in the filesystem.  Block devices
 are named C</dev/sda>, C</dev/sdb> and so on, as they were added to
@@ -62,7 +62,7 @@ The filesystem options C<sync> and C<noatime> are set with this
 call, in order to improve reliability.");
 
   ("sync", (Err, P0), 2,
-   "Sync disks, writes are flushed through to the disk image",
+   "sync disks, writes are flushed through to the disk image",
    "\
 This syncs the disk, so that any writes are flushed through to the
 underlying disk image.
@@ -71,7 +71,7 @@ You should always call this if you have modified a disk image, before
 calling C<guestfs_close>.");
 
   ("touch", (Err, P1 (String "path")), 3,
-   "Update file timestamps or create a new file",
+   "update file timestamps or create a new file",
    "\
 Touch acts like the L<touch(1)> command.  It can be used to
 update the timestamps on a file, or, if the file does not exist,
@@ -473,7 +473,7 @@ and generate_fish_cmds () =
       pr "  printf (\"%%-20s %%s\\n\", \"%s\", \"%s\");\n"
 	name shortdesc
   ) functions;
-  pr "  printf (\"Use -h <cmd> to show detailed help for a command.\\n\");\n";
+  pr "  printf (\"    Use -h <cmd> / help <cmd> to show detailed help for a command.\\n\");\n";
   pr "}\n";
   pr "\n";
 
