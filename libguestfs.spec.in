@@ -1,0 +1,121 @@
+# @configure_input@
+
+%global mirror http://hakodate/mirrors/fedora/10/Fedora/x86_64/os/
+
+Summary:     Access and modify virtual machine disk images
+Name:        libguestfs
+Version:     @VERSION@
+Release:     1%{?dist}
+License:     LGPLv2+
+Group:       Development/Libraries
+URL:         http://et.redhat.com/~rjones/libguestfs/
+Source0:     http://et.redhat.com/~rjones/libguestfs/files/%{name}-%{version}.tar.gz
+BuildRoot:   %{_tmppath}/%{name}-%{version}-%{release}-root
+
+BuildRequires: /usr/bin/pod2man
+BuildRequires: /usr/bin/pod2text
+BuildRequires: febootstrap
+
+Requires:    qemu
+
+
+%description
+Libguestfs is a library for accessing and modifying guest disk images.
+Amongst the things this is good for: making batch configuration
+changes to guests, getting disk used/free statistics (see also:
+virt-df), migrating between virtualization systems (see also:
+virt-p2v), performing partial backups, performing partial guest
+clones, cloning guests and changing registry/UUID/hostname info, and
+much else besides.
+
+Libguestfs uses Linux kernel and qemu code, and can access any type of
+guest filesystem that Linux and qemu can, including but not limited
+to: ext2/3/4, btrfs, FAT and NTFS, LVM, many different disk partition
+schemes, qcow, qcow2, vmdk.
+
+Libguestfs provides ways to enumerate guest storage (eg. partitions,
+LVs, what filesystem is in each LV, etc.).  It can also run commands
+in the context of the guest.  Also you can access filesystems over FTP.
+
+Libguestfs is a library that can be linked with C and C++ management
+programs.
+
+See also the 'guestfish' package for shell scripting and command line
+access.
+
+
+%package devel
+Summary:     Development tools and libraries for %{name}
+Group:       Development/Libraries
+Requires:    %{name} = %{version}-%{release}
+
+
+%description devel
+%{name}-devel contains development tools and libraries
+for %{name}.
+
+
+%package -n guestfish
+Summary:     Shell for accessing and modifying virtual machine disk images
+Group:       Development/Tools
+License:     GPLv2+
+Requires:    %{name} = %{version}-%{release}
+Requires:    /usr/bin/pod2text
+
+
+%description -n guestfish
+Guestfish is the Filesystem Interactive SHell, for accessing and
+modifying virtual machine disk images from the command line and shell
+scripts.
+
+
+%prep
+%setup -q
+
+
+%build
+%configure --with-mirror=%{mirror}
+make
+
+
+%install
+rm -rf $RPM_BUILD_ROOT
+make DESTDIR=$RPM_BUILD_ROOT install
+
+rm $RPM_BUILD_ROOT%{_libdir}/libguestfs.a
+rm $RPM_BUILD_ROOT%{_libdir}/libguestfs.la
+
+# Clean up the examples/ directory which will get installed in %doc.
+pushd examples
+make clean
+rm Makefile*
+rm -rf .deps .libs
+popd
+
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+
+%files
+%defattr(-,root,root,-)
+%doc COPYING
+%{_libdir}/guestfs/
+%{_libdir}/libguestfs.so.*
+
+
+%files devel
+%defattr(-,root,root,-)
+%doc HACKING README examples
+%{_libdir}/libguestfs.so
+%{_mandir}/man3/guestfs.3*
+
+
+%files -n guestfish
+%defattr(-,root,root,-)
+%{_bindir}/guestfish
+
+
+%changelog
+* Sat Apr  4 2009 Richard Jones <rjones@redhat.com> - @VERSION@-1
+- Initial build.

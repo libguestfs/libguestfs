@@ -21,7 +21,9 @@ SUBDIRS = src daemon fish examples
 
 EXTRA_DIST = \
 	make-initramfs.sh update-initramfs.sh \
-	guestfs.pod guestfs-actions.pod
+	guestfs.pod guestfs-actions.pod \
+	libguestfs.spec \
+	HACKING
 
 # Build the root filesystem.
 # Currently this is arch-dependent, so it seems like putting it in
@@ -65,6 +67,7 @@ guestfs.3: guestfs.pod guestfs-actions.pod
 	$(POD2MAN) \
 	  --section 3 \
 	  -c "Virtualization Support" \
+	  --name "guestfs" \
 	  --release "$(PACKAGE_NAME)-$(PACKAGE_VERSION)" \
 	  > $@
 

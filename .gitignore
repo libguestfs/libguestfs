@@ -30,6 +30,8 @@ initramfs.timestamp
 initramfs.*.img
 install-sh
 missing
+libguestfs.spec
+libguestfs-*.tar.gz
 libtool
 ltmain.sh
 make-initramfs.sh

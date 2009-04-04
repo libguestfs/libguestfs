@@ -15,7 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-AC_INIT([libguestfs],[0.2])
+AC_INIT([libguestfs],[0.3])
 AM_INIT_AUTOMAKE
 
 AC_CONFIG_MACRO_DIR([m4])
@@ -100,7 +100,8 @@ AC_CONFIG_SUBDIRS([daemon])
 dnl Produce output files.
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile src/Makefile fish/Makefile examples/Makefile
-	         make-initramfs.sh update-initramfs.sh])
+	         make-initramfs.sh update-initramfs.sh
+		 libguestfs.spec])
 AC_OUTPUT
 
 dnl WTF?

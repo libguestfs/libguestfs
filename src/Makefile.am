@@ -15,12 +15,17 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-lib_LTLIBRARIES = libguestfs.la
-
 # NB. guestfs-actions.c is #include'd into guestfs.c, so it should not
 # be listed as a source file.
 EXTRA_DIST = guestfs-actions.c
 
+EXTRA_DIST += guestfs_protocol.x \
+	guestfs_protocol.c \
+	guestfs_protocol.h
+
+lib_LTLIBRARIES = libguestfs.la
+
+libguestfs_la_LDFLAGS = -version-info 0:0:0
 libguestfs_la_SOURCES = \
 	guestfs.c \
 	guestfs.h \
