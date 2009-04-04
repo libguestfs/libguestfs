@@ -27,7 +27,8 @@
 
 void list_commands (void)
 {
-  printf ("%-20s %s\n", "Command", "Description");
+  printf ("    %-16s     %s\n", "Command", "Description");
+  list_builtin_commands ();
   printf ("%-20s %s\n", "mount", "Mount a guest disk at a position in the filesystem");
   printf ("%-20s %s\n", "sync", "Sync disks, writes are flushed through to the disk image");
   printf ("%-20s %s\n", "touch", "Update file timestamps or create a new file");
@@ -45,9 +46,24 @@ void display_command (const char *cmd)
   if (strcasecmp (cmd, "touch") == 0)
     pod2text ("touch - Update file timestamps or create a new file", " touch <path>\n\nTouch acts like the L<touch(1)> command.  It can be used to\nupdate the timestamps on a file, or, if the file does not exist,\nto create a new zero-length file.");
   else
-  {
-    fprintf (stderr, "%s: command not known, use -h to list all commands\n", cmd);
-    exit (1);
-  }
+    display_builtin_command (cmd);
+}
+
+int run_action (const char *cmd, int argc, char *argv[])
+{
+  if (strcasecmp (cmd, "mount") == 0)
+    printf ("running mount ...\n");
+  else
+  if (strcasecmp (cmd, "sync") == 0)
+    printf ("running sync ...\n");
+  else
+  if (strcasecmp (cmd, "touch") == 0)
+    printf ("running touch ...\n");
+  else
+    {
+      fprintf (stderr, "%s: unknown command\n", cmd);
+      return -1;
+    }
+  return 0;
 }
 

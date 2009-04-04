@@ -466,7 +466,8 @@ and generate_fish_cmds () =
   (* list_commands function, which implements guestfish -h *)
   pr "void list_commands (void)\n";
   pr "{\n";
-  pr "  printf (\"%%-20s %%s\\n\", \"Command\", \"Description\");\n";
+  pr "  printf (\"    %%-16s     %%s\\n\", \"Command\", \"Description\");\n";
+  pr "  list_builtin_commands ();\n";
   List.iter (
     fun (name, _, _, shortdesc, _) ->
       pr "  printf (\"%%-20s %%s\\n\", \"%s\", \"%s\");\n"
@@ -499,10 +500,24 @@ and generate_fish_cmds () =
 	(" " ^ synopsis ^ "\n\n" ^ longdesc);
       pr "  else\n"
   ) functions;
-  pr "  {\n";
-  pr "    fprintf (stderr, \"%%s: command not known, use -h to list all commands\\n\", cmd);\n";
-  pr "    exit (1);\n";
-  pr "  }\n";
+  pr "    display_builtin_command (cmd);\n";
+  pr "}\n";
+  pr "\n";
+
+  (* run_action function *)
+  pr "int run_action (const char *cmd, int argc, char *argv[])\n";
+  pr "{\n";
+  List.iter (
+    fun (name, style, _, _, _) ->
+      pr "  if (strcasecmp (cmd, \"%s\") == 0)\n" name;
+      pr "    printf (\"running %s ...\\n\");\n" name;
+      pr "  else\n";
+  ) functions;
+  pr "    {\n";
+  pr "      fprintf (stderr, \"%%s: unknown command\\n\", cmd);\n";
+  pr "      return -1;\n";
+  pr "    }\n";
+  pr "  return 0;\n";
   pr "}\n";
   pr "\n"
 

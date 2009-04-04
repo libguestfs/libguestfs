@@ -25,10 +25,14 @@
 extern guestfs_h *g;
 extern int g_launched;
 extern int quit;
+extern int verbose;
 extern void pod2text (const char *heading, const char *body);
+extern void list_builtin_commands (void);
+extern void display_builtin_command (const char *cmd);
 
 /* in cmds.c (auto-generated) */
 extern void list_commands (void);
 extern void display_command (const char *cmd);
+extern int run_action (const char *cmd, int argc, char *argv[]);
 
 #endif /* FISH_H */

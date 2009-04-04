@@ -39,24 +39,26 @@ static void interactive (void);
 static void shell_script (void);
 static void script (int prompt);
 static void cmdline (char *argv[], int optind, int argc);
-static void issue_command (const char *cmd, char *argv[]);
+static int issue_command (const char *cmd, char *argv[]);
 
 /* Currently open libguestfs handle. */
 guestfs_h *g;
 int g_launched = 0;
 
 int quit = 0;
+int verbose = 0;
 
-void
+int
 launch (void)
 {
   if (!g_launched) {
     if (guestfs_launch (g) == -1)
-      exit (1);
+      return -1;
     if (guestfs_wait_ready (g) == -1)
-      exit (1);
+      return -1;
     g_launched = 1;
   }
+  return 0;
 }
 
 static void
@@ -67,7 +69,7 @@ usage (void)
 	   "guestfish lets you edit virtual machine filesystems\n"
 	   "Copyright (C) 2009 Red Hat Inc.\n"
 	   "Usage:\n"
-	   "  guestfish [--options] cmd [: cmd ...]\n"
+	   "  guestfish [--options] cmd [: cmd : cmd ...]\n"
 	   "or for interactive use:\n"
 	   "  guestfish\n"
 	   "or from a shell script:\n"
@@ -151,6 +153,11 @@ main (int argc, char *argv[])
       mps = mp->next;
       break;
 
+    case 'v':
+      verbose++;
+      guestfs_set_verbose (g, verbose);
+      break;
+
     case '?':
       usage ();
       exit (0);
@@ -163,7 +170,7 @@ main (int argc, char *argv[])
 
   /* If we've got mountpoints, we must launch the guest and mount them. */
   if (mps != NULL) {
-    launch ();
+    if (launch () == -1) exit (1);
     mount_mps (mps);
   }
 
@@ -263,7 +270,7 @@ script (int prompt)
       exit (1);
     }
 
-    issue_command (cmd, argv);
+    (void) issue_command (cmd, argv);
   }
   if (prompt) printf ("\n");
 }
@@ -287,27 +294,99 @@ cmdline (char *argv[], int optind, int argc)
   while (optind < argc && strcmp (argv[optind], ":") != 0)
     optind++;
 
-  if (optind == argc)
-    issue_command (cmd, params);
-  else {
+  if (optind == argc) {
+    if (issue_command (cmd, params) == -1) exit (1);
+  } else {
     argv[optind] = NULL;
-    issue_command (cmd, params);
+    if (issue_command (cmd, params) == -1) exit (1);
     cmdline (argv, optind+1, argc);
   }
 }
 
-static void
+static int
 issue_command (const char *cmd, char *argv[])
 {
-  int i;
+  int argc;
 
-  fprintf (stderr, "cmd = %s", cmd);
-  for (i = 0; argv[i] != NULL; ++i)
-    fprintf (stderr, ", arg[%d]=%s", i, argv[i]);
-  fprintf (stderr, "\n");
+  for (argc = 0; argv[argc] != NULL; ++argc)
+    ;
 
+  if (strcasecmp (cmd, "help") == 0) {
+    if (argc == 0)
+      list_commands ();
+    else
+      display_command (argv[0]);
+    return 0;
+  }
+  else if (strcasecmp (cmd, "quit") == 0 ||
+	   strcasecmp (cmd, "exit") == 0 ||
+	   strcasecmp (cmd, "q") == 0)
+    exit (0);
+  else if (strcasecmp (cmd, "add") == 0 ||
+	   strcasecmp (cmd, "drive") == 0 ||
+	   strcasecmp (cmd, "add_drive") == 0) {
+    if (argc != 1) {
+      fprintf (stderr, "use 'add image' to add a guest image\n");
+      return -1;
+    }
+    else
+      return guestfs_add_drive (g, argv[0]);
+  }
+  else if (strcasecmp (cmd, "cdrom") == 0) {
+    if (argc != 1) {
+      fprintf (stderr, "use 'cdrom image' to add a guest cdrom\n");
+      return -1;
+    }
+    else
+      return guestfs_add_cdrom (g, argv[0]);
+  }
+  else if (strcasecmp (cmd, "launch") == 0) {
+    if (argc != 0) {
+      fprintf (stderr, "'launch' command takes no parameters\n");
+      return -1;
+    }
+    else
+      return launch ();
+  }
+  else
+    return run_action (cmd, argc, argv);
+}
 
+void
+list_builtin_commands (void)
+{
+  printf ("%-20s %s\n",
+	  "help", "display a list of commands or help on a command");
+  printf ("%-20s %s\n",
+	  "quit", "quit guestfish");
+  printf ("%-20s %s\n",
+	  "add", "add  a guest image to be examined or modified");
+  printf ("%-20s %s\n",
+	  "cdrom", "add  a guest CD-ROM image to be examined");
+  printf ("%-20s %s\n",
+	  "launch", "launch the subprocess");
+}
 
-
-
+void
+display_builtin_command (const char *cmd)
+{
+  if (strcasecmp (cmd, "add") == 0)
+    printf ("add - add a guest image to be examined or modified\n"
+	    "     add <image>\n");
+  else if (strcasecmp (cmd, "cdrom") == 0)
+    printf ("cdrom - add a guest CD-ROM image to be examined\n"
+	    "     cdrom <iso-file>\n");
+  else if (strcasecmp (cmd, "help") == 0)
+    printf ("help - display a list of commands or help on a command\n"
+	    "     help cmd\n"
+	    "     help\n");
+  else if (strcasecmp (cmd, "quit") == 0)
+    printf ("quit - quit guestfish\n"
+	    "     quit\n");
+  else if (strcasecmp (cmd, "launch") == 0)
+    printf ("launch - launch the subprocess\n"
+	    "     launch\n");
+  else
+    fprintf (stderr, "%s: command not known, use -h to list all commands\n",
+	     cmd);
 }
