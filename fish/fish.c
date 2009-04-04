@@ -82,6 +82,7 @@ usage (void)
 	   "  -h|--cmd-help cmd   Display detailed help on 'cmd'\n"
 	   "  -a image            Add image\n"
 	   "  -m dev[:mnt]        Mount dev on mnt (if omitted, /)\n"
+	   "  -n|--no-sync        Don't autosync\n"
 	   /*"  --ro|-r             All mounts are read-only\n"*/
 	   "  -v|--verbose        Verbose messages\n"
 	   "For more information, see the manpage guestfish(1).\n");
@@ -96,6 +97,7 @@ main (int argc, char *argv[])
     { "cmd-help", 2, 0, 'h' },
     { "help", 0, 0, '?' },
     { "mount", 1, 0, 'm' },
+    { "no-sync", 0, 0, 'n' },
     { "verbose", 0, 0, 'v' },
     { 0, 0, 0, 0 }
   };
@@ -112,6 +114,8 @@ main (int argc, char *argv[])
     fprintf (stderr, "guestfs_create: failed to create handle\n");
     exit (1);
   }
+
+  guestfs_set_autosync (g, 1);
 
   for (;;) {
     c = getopt_long (argc, argv, options, long_options, NULL);
@@ -151,6 +155,10 @@ main (int argc, char *argv[])
       mp->device = optarg;
       mp->next = mps;
       mps = mp->next;
+      break;
+
+    case 'n':
+      guestfs_set_autosync (g, 0);
       break;
 
     case 'v':

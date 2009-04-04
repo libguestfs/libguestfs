@@ -237,6 +237,22 @@ situations.
 
 This returns the current out of memory handler.
 
+=head1 AUTOSYNC
+
+=head2 guestfs_set_autosync
+
+ void guestfs_set_autosync (guestfs_h *handle, int autosync);
+
+If C<autosync> is true, this enables autosync.  Libguestfs will make a
+best effort attempt to run C<guestfs_sync> when the handle is closed
+(also if the program exits without closing handles).
+
+=head2 guestfs_get_autosync
+
+ int guestfs_get_autosync (guestfs_h *handle);
+
+Get the autosync flag.
+
 =head1 VERBOSE MESSAGES
 
 =head2 guestfs_set_verbose

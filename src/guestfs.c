@@ -116,6 +116,7 @@ struct guestfs_h
   int cmdline_size;
 
   int verbose;
+  int autosync;
 
   /* Callbacks. */
   guestfs_abort_cb           abort_cb;
@@ -215,6 +216,10 @@ guestfs_close (guestfs_h *g)
 
   if (g->verbose)
     fprintf (stderr, "closing guestfs handle %p (state %d)\n", g, g->state);
+
+  /* Try to sync if autosync flag is set. */
+  if (g->autosync && g->state == READY)
+    guestfs_sync (g);
 
   /* Remove any handlers that might be called back before we kill the
    * subprocess.
@@ -376,6 +381,18 @@ int
 guestfs_get_verbose (guestfs_h *g)
 {
   return g->verbose;
+}
+
+void
+guestfs_set_autosync (guestfs_h *g, int a)
+{
+  g->autosync = a;
+}
+
+int
+guestfs_get_autosync (guestfs_h *g)
+{
+  return g->autosync;
 }
 
 /* Add a string to the current command line. */

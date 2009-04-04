@@ -51,8 +51,11 @@ extern guestfs_error_handler_cb guestfs_get_error_handler (guestfs_h *g, void **
 extern void guestfs_set_out_of_memory_handler (guestfs_h *g, guestfs_abort_cb);
 extern guestfs_abort_cb guestfs_get_out_of_memory_handler (guestfs_h *g);
 
+/* Misc. */
 extern void guestfs_set_verbose (guestfs_h *g, int verbose);
 extern int guestfs_get_verbose (guestfs_h *g);
+extern void guestfs_set_autosync (guestfs_h *g, int a);
+extern int guestfs_get_autosync (guestfs_h *g);
 
 #include <guestfs-actions.h>
 
