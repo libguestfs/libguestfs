@@ -508,7 +508,7 @@ int
 guestfs_launch (guestfs_h *g)
 {
   static const char *dir_template = "/tmp/libguestfsXXXXXX";
-  int r, i, len;
+  int r, i, len, pmore;
   int wfd[2], rfd[2];
   int tries;
   const char *kernel_name = "vmlinuz." REPO "." host_cpu;
@@ -533,6 +533,7 @@ guestfs_launch (guestfs_h *g)
   pelem = path = safe_strdup (g, g->path);
   do {
     pend = strchrnul (pelem, ':');
+    pmore = *pend == ':';
     *pend = '\0';
     len = pend - pelem;
 
@@ -564,8 +565,8 @@ guestfs_launch (guestfs_h *g)
       kernel = initrd = NULL;
     }
 
-    pelem = pend;
-  } while (*pelem++ != '\0');
+    pelem = pend + 1;
+  } while (pmore);
 
   free (path);
 
