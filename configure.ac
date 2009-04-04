@@ -15,7 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-AC_INIT([libguestfs],[0.3])
+AC_INIT([libguestfs],[0.4])
 AM_INIT_AUTOMAKE
 
 AC_CONFIG_MACRO_DIR([m4])
@@ -31,6 +31,9 @@ AC_C_PROTOTYPES
 test "x$U" != "x" && AC_MSG_ERROR([Compiler not ANSI compliant])
 
 AC_PROG_CC_C_O
+
+dnl Check support for 64 bit file offsets.
+AC_SYS_LARGEFILE
 
 dnl Headers.
 AC_CHECK_HEADERS([errno.h sys/types.h sys/un.h sys/wait.h sys/socket.h])

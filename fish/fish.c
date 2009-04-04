@@ -22,7 +22,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <fcntl.h>
 #include <getopt.h>
+#include <inttypes.h>
 
 #include <guestfs.h>
 
@@ -40,6 +42,7 @@ static void shell_script (void);
 static void script (int prompt);
 static void cmdline (char *argv[], int optind, int argc);
 static int issue_command (const char *cmd, char *argv[]);
+static int parse_size (const char *str, off_t *size_rtn);
 
 /* Currently open libguestfs handle. */
 guestfs_h *g;
@@ -287,7 +290,9 @@ script (int prompt)
       exit (1);
     }
 
-    (void) issue_command (cmd, argv);
+    if (issue_command (cmd, argv) == -1) {
+      if (!prompt) exit (1);
+    }
   }
   if (prompt) printf ("\n");
 }
@@ -337,10 +342,13 @@ issue_command (const char *cmd, char *argv[])
   }
   else if (strcasecmp (cmd, "quit") == 0 ||
 	   strcasecmp (cmd, "exit") == 0 ||
-	   strcasecmp (cmd, "q") == 0)
-    exit (0);
+	   strcasecmp (cmd, "q") == 0) {
+    quit = 1;
+    return 0;
+  }
   else if (strcasecmp (cmd, "add") == 0 ||
 	   strcasecmp (cmd, "drive") == 0 ||
+	   strcasecmp (cmd, "add-drive") == 0 ||
 	   strcasecmp (cmd, "add_drive") == 0) {
     if (argc != 1) {
       fprintf (stderr, "use 'add image' to add a guest image\n");
@@ -349,7 +357,9 @@ issue_command (const char *cmd, char *argv[])
     else
       return guestfs_add_drive (g, argv[0]);
   }
-  else if (strcasecmp (cmd, "cdrom") == 0) {
+  else if (strcasecmp (cmd, "cdrom") == 0 ||
+	   strcasecmp (cmd, "add-cdrom") == 0 ||
+	   strcasecmp (cmd, "add_cdrom") == 0) {
     if (argc != 1) {
       fprintf (stderr, "use 'cdrom image' to add a CD-ROM image\n");
       return -1;
@@ -357,7 +367,53 @@ issue_command (const char *cmd, char *argv[])
     else
       return guestfs_add_cdrom (g, argv[0]);
   }
-  else if (strcasecmp (cmd, "launch") == 0) {
+  else if (strcasecmp (cmd, "alloc") == 0 ||
+	   strcasecmp (cmd, "allocate") == 0) {
+    if (argc != 2) {
+      fprintf (stderr, "use 'alloc file size' to create an image\n");
+      return -1;
+    }
+    else {
+      off_t size;
+      int fd;
+
+      if (parse_size (argv[1], &size) == -1)
+	return -1;
+
+      if (g_launched) {
+	fprintf (stderr, "can't allocate or add disks after launching\n");
+	return -1;
+      }
+
+      fd = open (argv[0], O_WRONLY|O_CREAT|O_NOCTTY|O_NONBLOCK|O_TRUNC, 0666);
+      if (fd == -1) {
+	perror (argv[0]);
+	return -1;
+      }
+
+      if (posix_fallocate (fd, 0, size) == -1) {
+	perror ("fallocate");
+	close (fd);
+	unlink (argv[0]);
+	return -1;
+      }
+
+      if (close (fd) == -1) {
+	perror (argv[0]);
+	unlink (argv[0]);
+	return -1;
+      }
+
+      if (guestfs_add_drive (g, argv[0]) == -1) {
+	unlink (argv[0]);
+	return -1;
+      }
+
+      return 0;
+    }
+  }
+  else if (strcasecmp (cmd, "launch") == 0 ||
+	   strcasecmp (cmd, "run") == 0) {
     if (argc != 0) {
       fprintf (stderr, "'launch' command takes no parameters\n");
       return -1;
@@ -372,24 +428,49 @@ issue_command (const char *cmd, char *argv[])
 void
 list_builtin_commands (void)
 {
+  /* help and quit should appear at the top */
   printf ("%-20s %s\n",
 	  "help", "display a list of commands or help on a command");
   printf ("%-20s %s\n",
 	  "quit", "quit guestfish");
+
+  /* then the non-actions, in alphabetical order */
   printf ("%-20s %s\n",
 	  "add", "add a guest image to be examined or modified");
+  printf ("%-20s %s\n",
+	  "alloc", "allocate an image");
   printf ("%-20s %s\n",
 	  "cdrom", "add a CD-ROM image to be examined");
   printf ("%-20s %s\n",
 	  "launch", "launch the subprocess");
+
+  /* actions are printed after this (see list_commands) */
 }
 
 void
 display_builtin_command (const char *cmd)
 {
+  /* help for actions is auto-generated, see display_command */
+
   if (strcasecmp (cmd, "add") == 0)
     printf ("add - add a guest image to be examined or modified\n"
 	    "     add <image>\n");
+  else if (strcasecmp (cmd, "alloc") == 0)
+    printf ("alloc - allocate an image\n"
+	    "     alloc <filename> <size>\n"
+	    "\n"
+	    "    This creates an empty (zeroed) file of the given size,\n"
+	    "    and then adds so it can be further examined.\n"
+	    "\n"
+	    "    For more advanced image creation, see qemu-img utility.\n"
+	    "\n"
+	    "    Size can be specified (where <nn> means a number):\n"
+	    "    <nn>             number of kilobytes\n"
+	    "      eg: 1440       standard 3.5\" floppy\n"
+	    "    <nn>K or <nn>KB  number of kilobytes\n"
+	    "    <nn>M or <nn>MB  number of megabytes\n"
+	    "    <nn>G or <nn>GB  number of gigabytes\n"
+	    "    <nn>sects        number of 512 byte sectors\n");
   else if (strcasecmp (cmd, "cdrom") == 0)
     printf ("cdrom - add a CD-ROM image to be examined\n"
 	    "     cdrom <iso-file>\n");
@@ -406,4 +487,42 @@ display_builtin_command (const char *cmd)
   else
     fprintf (stderr, "%s: command not known, use -h to list all commands\n",
 	     cmd);
+}
+
+/* Parse size parameter of alloc command. */
+static int
+parse_size (const char *str, off_t *size_rtn)
+{
+  uint64_t size;
+  char type;
+
+  /* Note that the parsing here is looser than what is specified in the
+   * help, but we may tighten it up in future so beware.
+   */
+  if (sscanf (str, "%"SCNu64"%c", &size, &type) == 2) {
+    switch (type) {
+    case 'k': case 'K': size *= 1024; break;
+    case 'm': case 'M': size *= 1024 * 1024; break;
+    case 'g': case 'G': size *= 1024 * 1024 * 1024; break;
+    case 's': size *= 512; break;
+    default:
+      fprintf (stderr, "could not parse size specification '%s'\n", str);
+      return -1;
+    }
+  }
+  else if (sscanf (str, "%"SCNu64, &size) == 1)
+    size *= 1024;
+  else {
+    fprintf (stderr, "could not parse size specification '%s'\n", str);
+    return -1;
+  }
+
+  printf ("size = %lu\n", size);
+
+  /* XXX 32 bit file offsets, if anyone uses them?  GCC should give
+   * a warning here anyhow.
+   */
+  *size_rtn = size;
+
+  return 0;
 }
