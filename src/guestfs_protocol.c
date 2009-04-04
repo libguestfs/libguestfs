@@ -6,6 +6,77 @@
 #include "guestfs_protocol.h"
 
 bool_t
+xdr_str (XDR *xdrs, str *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, objp, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_cat_args (XDR *xdrs, guestfs_cat_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->path, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_cat_ret (XDR *xdrs, guestfs_cat_ret *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->content, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_ll_args (XDR *xdrs, guestfs_ll_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->directory, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_ll_ret (XDR *xdrs, guestfs_ll_ret *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->listing, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_ls_args (XDR *xdrs, guestfs_ls_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->directory, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_ls_ret (XDR *xdrs, guestfs_ls_ret *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_array (xdrs, (char **)&objp->listing.listing_val, (u_int *) &objp->listing.listing_len, ~0,
+		sizeof (str), (xdrproc_t) xdr_str))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
 xdr_guestfs_mount_args (XDR *xdrs, guestfs_mount_args *objp)
 {
 	register int32_t *buf;

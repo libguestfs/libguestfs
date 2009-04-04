@@ -32,6 +32,11 @@ and ret =
      * indication, ie. 0 or -1.
      *)
   | Err
+    (* "RString" and "RStringList" require special treatment because
+     * the caller must free them.
+     *)
+  | RString of string
+  | RStringList of string
 and args =
     (* 0 arguments, 1 argument, etc. The guestfs_h param is implicit. *)
   | P0
@@ -40,8 +45,33 @@ and args =
 and argt =
   | String of string	(* const char *name, cannot be NULL *)
 
+type flags = ProtocolLimitWarning
+
 let functions = [
-  ("mount", (Err, P2 (String "device", String "mountpoint")), 1,
+  ("cat", (RString "content", P1 (String "path")), 4, [ProtocolLimitWarning],
+   "list the files in a directory (long format)",
+   "\
+Return the contents of the file named C<path>.");
+
+  ("ll", (RString "listing", P1 (String "directory")), 5, [],
+   "list the files in a directory (long format)",
+   "\
+List the files in C<directory> (relative to the root directory,
+there is no cwd) in the format of 'ls -la'.
+
+This command is mostly useful for interactive sessions.  It
+is I<not> intended that you try to parse the output string.");
+
+  ("ls", (RStringList "listing", P1 (String "directory")), 6, [],
+   "list the files in a directory",
+   "\
+List the files in C<directory> (relative to the root directory,
+there is no cwd).  The '.' and '..' entries are not returned, but
+hidden files are shown.
+
+This command is mostly useful for interactive sessions.");
+
+  ("mount", (Err, P2 (String "device", String "mountpoint")), 1, [],
    "mount a guest disk at a position in the filesystem",
    "\
 Mount a guest disk at a position in the filesystem.  Block devices
@@ -61,7 +91,7 @@ on the underlying device.
 The filesystem options C<sync> and C<noatime> are set with this
 call, in order to improve reliability.");
 
-  ("sync", (Err, P0), 2,
+  ("sync", (Err, P0), 2, [],
    "sync disks, writes are flushed through to the disk image",
    "\
 This syncs the disk, so that any writes are flushed through to the
@@ -70,7 +100,7 @@ underlying disk image.
 You should always call this if you have modified a disk image, before
 calling C<guestfs_close>.");
 
-  ("touch", (Err, P1 (String "path")), 3,
+  ("touch", (Err, P1 (String "path")), 3, [],
    "update file timestamps or create a new file",
    "\
 Touch acts like the L<touch(1)> command.  It can be used to
@@ -155,30 +185,46 @@ let rec generate_header comment license =
 (* Generate the pod documentation for the C API. *)
 and generate_pod () =
   List.iter (
-    fun (shortname, style, _, _, longdesc) ->
+    fun (shortname, style, _, flags, _, longdesc) ->
       let name = "guestfs_" ^ shortname in
       pr "=head2 %s\n\n" name;
       pr " ";
       generate_prototype ~extern:false ~handle:"handle" name style;
       pr "\n\n";
       pr "%s\n\n" longdesc;
-      (match style with
-       | (Err, _) ->
-	   pr "This function return 0 on success or -1 on error.\n\n"
+      (match fst style with
+       | Err ->
+	   pr "This function returns 0 on success or -1 on error.\n\n"
+       | RString _ ->
+	   pr "This function returns a string or NULL on error.  The caller
+must free the returned string after use.\n\n"
+       | RStringList _ ->
+	   pr "This function returns a NULL-terminated array of strings
+(like L<environ(3)>), or NULL if there was an error.
+
+The caller must free the strings I<and> the array after use.\n\n"
       );
+      if List.mem ProtocolLimitWarning flags then
+	pr "Because of the message protocol, there is a transfer limit 
+of somewhere between 2MB and 4MB.  To transfer large files you should use
+FTP.\n\n";
   ) functions
 
 (* Generate the protocol (XDR) file. *)
 and generate_xdr () =
   generate_header CStyle LGPLv2;
 
+  (* This has to be defined to get around a limitation in Sun's rpcgen. *)
+  pr "typedef string str<>;\n";
+  pr "\n";
+
   List.iter (
-    fun (shortname, style, _, _, _) ->
+    fun (shortname, style, _, _, _, _) ->
       let name = "guestfs_" ^ shortname in
       pr "/* %s */\n\n" name;
-      (match style with
-       | (_, P0) -> ()
-       | (_, args) ->
+      (match snd style with
+       | P0 -> ()
+       | args ->
 	   pr "struct %s_args {\n" name;
 	   iter_args (
 	     function
@@ -186,16 +232,23 @@ and generate_xdr () =
 	   ) args;
 	   pr "};\n\n"
       );
-      (match style with
-       | (Err, _) -> () 
-	   (* | ... -> pr "struct %s_ret ...\n" name; *)
+      (match fst style with
+       | Err -> () 
+       | RString n ->
+	   pr "struct %s_ret {\n" name;
+	   pr "  string %s<>;\n" n;
+	   pr "};\n\n"
+       | RStringList n ->
+	   pr "struct %s_ret {\n" name;
+	   pr "  str %s<>;\n" n;
+	   pr "};\n\n"
       );
   ) functions;
 
   (* Table of procedure numbers. *)
   pr "enum guestfs_procedure {\n";
   List.iter (
-    fun (shortname, _, proc_nr, _, _) ->
+    fun (shortname, _, proc_nr, _, _, _) ->
       pr "  GUESTFS_PROC_%s = %d,\n" (String.uppercase shortname) proc_nr
   ) functions;
   pr "  GUESTFS_PROC_dummy\n"; (* so we don't have a "hanging comma" *)
@@ -246,7 +299,7 @@ struct guestfs_message_header {
 and generate_actions_h () =
   generate_header CStyle LGPLv2;
   List.iter (
-    fun (shortname, style, _, _, _) ->
+    fun (shortname, style, _, _, _, _) ->
       let name = "guestfs_" ^ shortname in
       generate_prototype ~single_line:true ~newline:true ~handle:"handle"
 	name style
@@ -256,7 +309,7 @@ and generate_actions_h () =
 and generate_client_actions () =
   generate_header CStyle LGPLv2;
   List.iter (
-    fun (shortname, style, _, _, _) ->
+    fun (shortname, style, _, _, _, _) ->
       let name = "guestfs_" ^ shortname in
 
       (* Generate the return value struct. *)
@@ -264,9 +317,9 @@ and generate_client_actions () =
       pr "  int cb_done;  /* flag to indicate callback was called */\n";
       pr "  struct guestfs_message_header hdr;\n";
       pr "  struct guestfs_message_error err;\n";
-      (match style with
-       | (Err, _) -> ()
-    (* | _ -> pr "  struct %s_ret ret;\n" name; *)
+      (match fst style with
+       | Err -> ()
+       | RString _ | RStringList _ -> pr "  struct %s_ret ret;\n" name;
       );
       pr "};\n\n";
 
@@ -287,9 +340,13 @@ and generate_client_actions () =
       pr "    goto done;\n";
       pr "  }\n";
 
-      (match style with
-       | (Err, _) -> ()
-    (* |  _ -> pr "  if (!xdr_%s_ret (&xdr, &rv->ret)) ..." *)
+      (match fst style with
+       | Err -> ()
+       |  RString _ | RStringList _ ->
+	    pr "  if (!xdr_%s_ret (xdr, &rv->ret)) {\n" name;
+	    pr "    error (g, \"%s: failed to parse reply\");\n" name;
+	    pr "    return;\n";
+	    pr "  }\n";
       );
 
       pr " done:\n";
@@ -302,13 +359,14 @@ and generate_client_actions () =
 	~handle:"g" name style;
 
       let error_code =
-	match style with
-	| (Err, _) -> "-1" in
+	match fst style with
+	| Err -> "-1"
+	| RString _ | RStringList _ -> "NULL" in
 
       pr "{\n";
 
-      (match style with
-       | (_, P0) -> ()
+      (match snd style with
+       | P0 -> ()
        | _ -> pr "  struct %s_args args;\n" name
       );
 
@@ -325,11 +383,11 @@ and generate_client_actions () =
       pr "  memset (&rv, 0, sizeof rv);\n";
       pr "\n";
 
-      (match style with
-       | (_, P0) ->
+      (match snd style with
+       | P0 ->
 	   pr "  serial = dispatch (g, GUESTFS_PROC_%s, NULL, NULL);\n"
 	     (String.uppercase shortname)
-       | (_, args) ->
+       | args ->
 	   iter_args (
 	     function
 	     | String name -> pr "  args.%s = (char *) %s;\n" name name
@@ -366,8 +424,15 @@ and generate_client_actions () =
       pr "  }\n";
       pr "\n";
 
-      (match style with
-       | (Err, _) -> pr "  return 0;\n"
+      (match fst style with
+       | Err -> pr "  return 0;\n"
+       | RString n ->
+	   pr "  return rv.ret.%s; /* caller will free */\n" n
+       | RStringList n ->
+	   pr "  /* caller will free this, but we need to add a NULL entry */\n";
+	   pr "  rv.ret.%s.%s_val = safe_realloc (g, rv.ret.%s.%s_val, rv.ret.%s.%s_len + 1);\n" n n n n n n;
+	   pr "  rv.ret.%s.%s_val[rv.ret.%s.%s_len] = NULL;\n" n n n n;
+	   pr "  return rv.ret.%s.%s_val;\n" n n
       );
 
       pr "}\n\n"
@@ -377,7 +442,7 @@ and generate_client_actions () =
 and generate_daemon_actions_h () =
   generate_header CStyle GPLv2;
   List.iter (
-    fun (name, style, _, _, _) ->
+    fun (name, style, _, _, _, _) ->
       generate_prototype ~single_line:true ~newline:true ("do_" ^ name) style;
   ) functions
 
@@ -393,16 +458,18 @@ and generate_daemon_actions () =
   pr "\n";
 
   List.iter (
-    fun (name, style, _, _, _) ->
+    fun (name, style, _, _, _, _) ->
       (* Generate server-side stubs. *)
       pr "static void %s_stub (XDR *xdr_in)\n" name;
       pr "{\n";
       let error_code =
-	match style with
-	| (Err, _) -> pr "  int r;\n"; "-1" in
-      (match style with
-       | (_, P0) -> ()
-       | (_, args) ->
+	match fst style with
+	| Err -> pr "  int r;\n"; "-1"
+	| RString _ -> pr "  char *r;\n"; "NULL"
+	| RStringList _ -> pr "  char **r;\n"; "NULL" in
+      (match snd style with
+       | P0 -> ()
+       | args ->
 	   pr "  struct guestfs_%s_args args;\n" name;
 	   iter_args (
 	     function
@@ -411,9 +478,9 @@ and generate_daemon_actions () =
       );
       pr "\n";
 
-      (match style with
-       | (_, P0) -> ()
-       | (_, args) ->
+      (match snd style with
+       | P0 -> ()
+       | args ->
 	   pr "  memset (&args, 0, sizeof args);\n";
 	   pr "\n";
 	   pr "  if (!xdr_guestfs_%s_args (xdr_in, &args)) {\n" name;
@@ -436,8 +503,19 @@ and generate_daemon_actions () =
       pr "    return;\n";
       pr "\n";
 
-      (match style with
-       | (Err, _) -> pr "  reply (NULL, NULL);\n"
+      (match fst style with
+       | Err -> pr "  reply (NULL, NULL);\n"
+       | RString n ->
+	   pr "  struct guestfs_%s_ret ret;\n" name;
+	   pr "  ret.%s = r;\n" n;
+	   pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n" name;
+	   pr "  free (r);\n"
+       | RStringList n ->
+	   pr "  struct guestfs_%s_ret ret;\n" name;
+	   pr "  ret.%s.%s_len = count_strings (r);\n" n n;
+	   pr "  ret.%s.%s_val = r;\n" n n;
+	   pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n" name;
+	   pr "  free_strings (r);\n"
       );
 
       pr "}\n\n";
@@ -449,7 +527,7 @@ and generate_daemon_actions () =
   pr "  switch (proc_nr) {\n";
 
   List.iter (
-    fun (name, style, _, _, _) ->
+    fun (name, style, _, _, _, _) ->
       pr "    case GUESTFS_PROC_%s:\n" (String.uppercase name);
       pr "      %s_stub (xdr_in);\n" name;
       pr "      break;\n"
@@ -477,7 +555,7 @@ and generate_fish_cmds () =
   pr "  printf (\"    %%-16s     %%s\\n\", \"Command\", \"Description\");\n";
   pr "  list_builtin_commands ();\n";
   List.iter (
-    fun (name, _, _, shortdesc, _) ->
+    fun (name, _, _, _, shortdesc, _) ->
       pr "  printf (\"%%-20s %%s\\n\", \"%s\", \"%s\");\n"
 	name shortdesc
   ) functions;
@@ -489,11 +567,11 @@ and generate_fish_cmds () =
   pr "void display_command (const char *cmd)\n";
   pr "{\n";
   List.iter (
-    fun (name, style, _, shortdesc, longdesc) ->
+    fun (name, style, _, flags, shortdesc, longdesc) ->
       let synopsis =
-	match style with
-	| (Err, P0) -> name
-	| (Err, args) ->
+	match snd style with
+	| P0 -> name
+	| args ->
 	    sprintf "%s <%s>"
 	      name (
 		String.concat "> <" (
@@ -502,10 +580,17 @@ and generate_fish_cmds () =
 		)
 	      ) in
 
+      let warnings =
+	if List.mem ProtocolLimitWarning flags then
+	  "\n\nBecause of the message protocol, there is a transfer limit 
+of somewhere between 2MB and 4MB.  To transfer large files you should use
+FTP."
+	else "" in
+
       pr "  if (strcasecmp (cmd, \"%s\") == 0)\n" name;
       pr "    pod2text (\"%s - %s\", %S);\n"
 	name shortdesc
-	(" " ^ synopsis ^ "\n\n" ^ longdesc);
+	(" " ^ synopsis ^ "\n\n" ^ longdesc ^ warnings);
       pr "  else\n"
   ) functions;
   pr "    display_builtin_command (cmd);\n";
@@ -514,11 +599,13 @@ and generate_fish_cmds () =
 
   (* run_<action> actions *)
   List.iter (
-    fun (name, style, _, _, _) ->
+    fun (name, style, _, _, _, _) ->
       pr "static int run_%s (const char *cmd, int argc, char *argv[])\n" name;
       pr "{\n";
-      (match style with
-       | (Err, _) -> pr "  int r;\n"
+      (match fst style with
+       | Err -> pr "  int r;\n"
+       | RString _ -> pr "  char *r;\n"
+       | RStringList _ -> pr "  char **r;\n"
       );
       iter_args (
 	function
@@ -544,9 +631,19 @@ and generate_fish_cmds () =
       generate_call_args ~handle:"g" style;
       pr ";\n";
 
-      (* Check return value for errors. *)
-      (match style with
-       | (Err, _) -> pr "  return r;\n"
+      (* Check return value for errors and display command results. *)
+      (match fst style with
+       | Err -> pr "  return r;\n"
+       | RString _ ->
+	   pr "  if (r == NULL) return -1;\n";
+	   pr "  printf (\"%%s\", r);\n";
+	   pr "  free (r);\n";
+	   pr "  return 0;\n"
+       | RStringList _ ->
+	   pr "  if (r == NULL) return -1;\n";
+	   pr "  print_strings (r);\n";
+	   pr "  free_strings (r);\n";
+	   pr "  return 0;\n"
       );
       pr "}\n";
       pr "\n"
@@ -556,7 +653,7 @@ and generate_fish_cmds () =
   pr "int run_action (const char *cmd, int argc, char *argv[])\n";
   pr "{\n";
   List.iter (
-    fun (name, _, _, _, _) ->
+    fun (name, _, _, _, _, _) ->
       pr "  if (strcasecmp (cmd, \"%s\") == 0)\n" name;
       pr "    return run_%s (cmd, argc, argv);\n" name;
       pr "  else\n";
@@ -575,8 +672,10 @@ and generate_prototype ?(extern = true) ?(static = false) ?(semicolon = true)
     ?handle name style =
   if extern then pr "extern ";
   if static then pr "static ";
-  (match style with
-   | (Err, _) -> pr "int "
+  (match fst style with
+   | Err -> pr "int "
+   | RString _ -> pr "char *"
+   | RStringList _ -> pr "char **"
   );
   pr "%s (" name;
   let comma = ref false in

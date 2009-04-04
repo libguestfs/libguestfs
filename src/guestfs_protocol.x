@@ -19,6 +19,38 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
+typedef string str<>;
+
+/* guestfs_cat */
+
+struct guestfs_cat_args {
+  string path<>;
+};
+
+struct guestfs_cat_ret {
+  string content<>;
+};
+
+/* guestfs_ll */
+
+struct guestfs_ll_args {
+  string directory<>;
+};
+
+struct guestfs_ll_ret {
+  string listing<>;
+};
+
+/* guestfs_ls */
+
+struct guestfs_ls_args {
+  string directory<>;
+};
+
+struct guestfs_ls_ret {
+  str listing<>;
+};
+
 /* guestfs_mount */
 
 struct guestfs_mount_args {
@@ -35,6 +67,9 @@ struct guestfs_touch_args {
 };
 
 enum guestfs_procedure {
+  GUESTFS_PROC_CAT = 4,
+  GUESTFS_PROC_LL = 5,
+  GUESTFS_PROC_LS = 6,
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
   GUESTFS_PROC_TOUCH = 3,

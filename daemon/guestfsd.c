@@ -35,8 +35,6 @@
 
 #include "daemon.h"
 
-void xwrite (int sock, const void *buf, size_t len);
-
 static void usage (void);
 
 /* Also in guestfs.c */
@@ -232,6 +230,26 @@ usage (void)
   fprintf (stderr, "guestfsd [-f] [-h host -p port]\n");
 }
 
+int
+count_strings (char **argv)
+{
+  int argc;
+
+  for (argc = 0; argv[argc] != NULL; ++argc)
+    ;
+  return argc;
+}
+
+void
+free_strings (char **argv)
+{
+  int argc;
+
+  for (argc = 0; argv[argc] != NULL; ++argc)
+    free (argv[argc]);
+  free (argv);
+}
+
 /* This is a more sane version of 'system(3)' for running external
  * commands.  It uses fork/execvp, so we don't need to worry about
  * quoting of parameters, and it allows us to capture any error
@@ -355,19 +373,15 @@ command (char **stdoutput, char **stderror, const char *name, ...)
   }
 
   /* Make sure the output buffers are \0-terminated.  Also remove any
-   * trailing \n characters.
+   * trailing \n characters from the error buffer (not from stdout).
    */
   if (stdoutput) {
     *stdoutput = realloc (*stdoutput, so_size+1);
     if (*stdoutput == NULL) {
       perror ("realloc");
       *stdoutput = NULL;
-    } else {
+    } else
       (*stdoutput)[so_size] = '\0';
-      so_size--;
-      while (so_size >= 0 && (*stdoutput)[so_size] == '\n')
-	(*stdoutput)[so_size--] = '\0';
-    }
   }
   if (stderror) {
     *stderror = realloc (*stderror, se_size+1);

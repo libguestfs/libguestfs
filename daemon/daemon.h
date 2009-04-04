@@ -26,6 +26,8 @@
 /* in guestfsd.c */
 extern void xwrite (int sock, const void *buf, size_t len);
 extern void xread (int sock, void *buf, size_t len);
+extern int count_strings (char **argv);
+extern void free_strings (char **argv);
 extern int command (char **stdoutput, char **stderror, const char *name, ...);
 
 /* in proto.c */

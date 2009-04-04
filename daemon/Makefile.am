@@ -23,6 +23,7 @@ guestfsd_SOURCES = \
 	daemon.h \
 	file.c \
 	guestfsd.c \
+	ls.c \
 	mount.c \
 	proto.c \
 	stubs.c \

@@ -29,6 +29,9 @@ void list_commands (void)
 {
   printf ("    %-16s     %s\n", "Command", "Description");
   list_builtin_commands ();
+  printf ("%-20s %s\n", "cat", "list the files in a directory (long format)");
+  printf ("%-20s %s\n", "ll", "list the files in a directory (long format)");
+  printf ("%-20s %s\n", "ls", "list the files in a directory");
   printf ("%-20s %s\n", "mount", "mount a guest disk at a position in the filesystem");
   printf ("%-20s %s\n", "sync", "sync disks, writes are flushed through to the disk image");
   printf ("%-20s %s\n", "touch", "update file timestamps or create a new file");
@@ -37,6 +40,15 @@ void list_commands (void)
 
 void display_command (const char *cmd)
 {
+  if (strcasecmp (cmd, "cat") == 0)
+    pod2text ("cat - list the files in a directory (long format)", " cat <path>\n\nReturn the contents of the file named C<path>.\n\nBecause of the message protocol, there is a transfer limit \nof somewhere between 2MB and 4MB.  To transfer large files you should use\nFTP.");
+  else
+  if (strcasecmp (cmd, "ll") == 0)
+    pod2text ("ll - list the files in a directory (long format)", " ll <directory>\n\nList the files in C<directory> (relative to the root directory,\nthere is no cwd) in the format of 'ls -la'.\n\nThis command is mostly useful for interactive sessions.  It\nis I<not> intended that you try to parse the output string.");
+  else
+  if (strcasecmp (cmd, "ls") == 0)
+    pod2text ("ls - list the files in a directory", " ls <directory>\n\nList the files in C<directory> (relative to the root directory,\nthere is no cwd).  The '.' and '..' entries are not returned, but\nhidden files are shown.\n\nThis command is mostly useful for interactive sessions.");
+  else
   if (strcasecmp (cmd, "mount") == 0)
     pod2text ("mount - mount a guest disk at a position in the filesystem", " mount <device> <mountpoint>\n\nMount a guest disk at a position in the filesystem.  Block devices\nare named C</dev/sda>, C</dev/sdb> and so on, as they were added to\nthe guest.  If those block devices contain partitions, they will have\nthe usual names (eg. C</dev/sda1>).  Also LVM C</dev/VG/LV>-style\nnames can be used.\n\nThe rules are the same as for L<mount(2)>:  A filesystem must\nfirst be mounted on C</> before others can be mounted.  Other\nfilesystems can only be mounted on directories which already\nexist.\n\nThe mounted filesystem is writable, if we have sufficient permissions\non the underlying device.\n\nThe filesystem options C<sync> and C<noatime> are set with this\ncall, in order to improve reliability.");
   else
@@ -47,6 +59,57 @@ void display_command (const char *cmd)
     pod2text ("touch - update file timestamps or create a new file", " touch <path>\n\nTouch acts like the L<touch(1)> command.  It can be used to\nupdate the timestamps on a file, or, if the file does not exist,\nto create a new zero-length file.");
   else
     display_builtin_command (cmd);
+}
+
+static int run_cat (const char *cmd, int argc, char *argv[])
+{
+  char *r;
+  const char *path;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  path = argv[0];
+  r = guestfs_cat (g, path);
+  if (r == NULL) return -1;
+  printf ("%s", r);
+  free (r);
+  return 0;
+}
+
+static int run_ll (const char *cmd, int argc, char *argv[])
+{
+  char *r;
+  const char *directory;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  directory = argv[0];
+  r = guestfs_ll (g, directory);
+  if (r == NULL) return -1;
+  printf ("%s", r);
+  free (r);
+  return 0;
+}
+
+static int run_ls (const char *cmd, int argc, char *argv[])
+{
+  char **r;
+  const char *directory;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  directory = argv[0];
+  r = guestfs_ls (g, directory);
+  if (r == NULL) return -1;
+  print_strings (r);
+  free_strings (r);
+  return 0;
 }
 
 static int run_mount (const char *cmd, int argc, char *argv[])
@@ -93,6 +156,15 @@ static int run_touch (const char *cmd, int argc, char *argv[])
 
 int run_action (const char *cmd, int argc, char *argv[])
 {
+  if (strcasecmp (cmd, "cat") == 0)
+    return run_cat (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "ll") == 0)
+    return run_ll (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "ls") == 0)
+    return run_ls (cmd, argc, argv);
+  else
   if (strcasecmp (cmd, "mount") == 0)
     return run_mount (cmd, argc, argv);
   else

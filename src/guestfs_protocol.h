@@ -14,6 +14,41 @@ extern "C" {
 #endif
 
 
+typedef char *str;
+
+struct guestfs_cat_args {
+	char *path;
+};
+typedef struct guestfs_cat_args guestfs_cat_args;
+
+struct guestfs_cat_ret {
+	char *content;
+};
+typedef struct guestfs_cat_ret guestfs_cat_ret;
+
+struct guestfs_ll_args {
+	char *directory;
+};
+typedef struct guestfs_ll_args guestfs_ll_args;
+
+struct guestfs_ll_ret {
+	char *listing;
+};
+typedef struct guestfs_ll_ret guestfs_ll_ret;
+
+struct guestfs_ls_args {
+	char *directory;
+};
+typedef struct guestfs_ls_args guestfs_ls_args;
+
+struct guestfs_ls_ret {
+	struct {
+		u_int listing_len;
+		str *listing_val;
+	} listing;
+};
+typedef struct guestfs_ls_ret guestfs_ls_ret;
+
 struct guestfs_mount_args {
 	char *device;
 	char *mountpoint;
@@ -26,6 +61,9 @@ struct guestfs_touch_args {
 typedef struct guestfs_touch_args guestfs_touch_args;
 
 enum guestfs_procedure {
+	GUESTFS_PROC_CAT = 4,
+	GUESTFS_PROC_LL = 5,
+	GUESTFS_PROC_LS = 6,
 	GUESTFS_PROC_MOUNT = 1,
 	GUESTFS_PROC_SYNC = 2,
 	GUESTFS_PROC_TOUCH = 3,
@@ -67,6 +105,13 @@ typedef struct guestfs_message_header guestfs_message_header;
 /* the xdr functions */
 
 #if defined(__STDC__) || defined(__cplusplus)
+extern  bool_t xdr_str (XDR *, str*);
+extern  bool_t xdr_guestfs_cat_args (XDR *, guestfs_cat_args*);
+extern  bool_t xdr_guestfs_cat_ret (XDR *, guestfs_cat_ret*);
+extern  bool_t xdr_guestfs_ll_args (XDR *, guestfs_ll_args*);
+extern  bool_t xdr_guestfs_ll_ret (XDR *, guestfs_ll_ret*);
+extern  bool_t xdr_guestfs_ls_args (XDR *, guestfs_ls_args*);
+extern  bool_t xdr_guestfs_ls_ret (XDR *, guestfs_ls_ret*);
 extern  bool_t xdr_guestfs_mount_args (XDR *, guestfs_mount_args*);
 extern  bool_t xdr_guestfs_touch_args (XDR *, guestfs_touch_args*);
 extern  bool_t xdr_guestfs_procedure (XDR *, guestfs_procedure*);
@@ -76,6 +121,13 @@ extern  bool_t xdr_guestfs_message_error (XDR *, guestfs_message_error*);
 extern  bool_t xdr_guestfs_message_header (XDR *, guestfs_message_header*);
 
 #else /* K&R C */
+extern bool_t xdr_str ();
+extern bool_t xdr_guestfs_cat_args ();
+extern bool_t xdr_guestfs_cat_ret ();
+extern bool_t xdr_guestfs_ll_args ();
+extern bool_t xdr_guestfs_ll_ret ();
+extern bool_t xdr_guestfs_ls_args ();
+extern bool_t xdr_guestfs_ls_ret ();
 extern bool_t xdr_guestfs_mount_args ();
 extern bool_t xdr_guestfs_touch_args ();
 extern bool_t xdr_guestfs_procedure ();

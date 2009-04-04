@@ -25,6 +25,82 @@
 #include "../src/guestfs_protocol.h"
 #include "actions.h"
 
+static void cat_stub (XDR *xdr_in)
+{
+  char *r;
+  struct guestfs_cat_args args;
+  const char *path;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_cat_args (xdr_in, &args)) {
+    reply_with_error ("cat: daemon failed to decode procedure arguments");
+    return;
+  }
+  path = args.path;
+
+  r = do_cat (path);
+  if (r == NULL)
+    /* do_cat has already called reply_with_error, so just return */
+    return;
+
+  struct guestfs_cat_ret ret;
+  ret.content = r;
+  reply ((xdrproc_t) &xdr_guestfs_cat_ret, (char *) &ret);
+  free (r);
+}
+
+static void ll_stub (XDR *xdr_in)
+{
+  char *r;
+  struct guestfs_ll_args args;
+  const char *directory;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_ll_args (xdr_in, &args)) {
+    reply_with_error ("ll: daemon failed to decode procedure arguments");
+    return;
+  }
+  directory = args.directory;
+
+  r = do_ll (directory);
+  if (r == NULL)
+    /* do_ll has already called reply_with_error, so just return */
+    return;
+
+  struct guestfs_ll_ret ret;
+  ret.listing = r;
+  reply ((xdrproc_t) &xdr_guestfs_ll_ret, (char *) &ret);
+  free (r);
+}
+
+static void ls_stub (XDR *xdr_in)
+{
+  char **r;
+  struct guestfs_ls_args args;
+  const char *directory;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_ls_args (xdr_in, &args)) {
+    reply_with_error ("ls: daemon failed to decode procedure arguments");
+    return;
+  }
+  directory = args.directory;
+
+  r = do_ls (directory);
+  if (r == NULL)
+    /* do_ls has already called reply_with_error, so just return */
+    return;
+
+  struct guestfs_ls_ret ret;
+  ret.listing.listing_len = count_strings (r);
+  ret.listing.listing_val = r;
+  reply ((xdrproc_t) &xdr_guestfs_ls_ret, (char *) &ret);
+  free_strings (r);
+}
+
 static void mount_stub (XDR *xdr_in)
 {
   int r;
@@ -86,6 +162,15 @@ static void touch_stub (XDR *xdr_in)
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
+    case GUESTFS_PROC_CAT:
+      cat_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_LL:
+      ll_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_LS:
+      ls_stub (xdr_in);
+      break;
     case GUESTFS_PROC_MOUNT:
       mount_stub (xdr_in);
       break;

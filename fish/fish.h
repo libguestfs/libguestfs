@@ -29,6 +29,8 @@ extern int verbose;
 extern void pod2text (const char *heading, const char *body);
 extern void list_builtin_commands (void);
 extern void display_builtin_command (const char *cmd);
+extern void free_strings (char **argv);
+extern void print_strings (char **argv);
 
 /* in cmds.c (auto-generated) */
 extern void list_commands (void);

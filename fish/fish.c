@@ -526,3 +526,22 @@ parse_size (const char *str, off_t *size_rtn)
 
   return 0;
 }
+
+void
+free_strings (char **argv)
+{
+  int argc;
+
+  for (argc = 0; argv[argc] != NULL; ++argc)
+    free (argv[argc]);
+  free (argv);
+}
+
+void
+print_strings (char **argv)
+{
+  int argc;
+
+  for (argc = 0; argv[argc] != NULL; ++argc)
+    printf ("%s\n", argv[argc]);
+}

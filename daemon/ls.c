@@ -18,8 +18,6 @@
 
 #include <config.h>
 
-#define _GNU_SOURCE		/* for futimens(2) */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -30,41 +28,48 @@
 #include "daemon.h"
 #include "actions.h"
 
-int
-do_touch (const char *path)
+char **
+do_ls (const char *path)
 {
-  int fd;
-
-  NEED_ROOT;
-
-  if (path[0] != '/') {
-    reply_with_error ("touch: path must start with a / character");
-    return -1;
-  }
-
-  CHROOT_IN;
-  fd = open (path, O_WRONLY | O_CREAT | O_NOCTTY | O_NONBLOCK, 0666);
-  CHROOT_OUT;
-
-  if (fd == -1) {
-    reply_with_perror ("open: %s", path);
-    close (fd);
-    return -1;
-  }
-
-  if (futimens (fd, NULL) == -1) {
-    reply_with_perror ("futimens: %s", path);
-    close (fd);
-    return -1;
-  }
-
-  close (fd);
-  return 0;
+  reply_with_error ("ls command is not yet implemented");
+  return NULL;
 }
 
 char *
-do_cat (const char *path)
+do_ll (const char *path)
 {
-  reply_with_error ("cat command is not yet implemented");
-  return NULL;
+  int r, len;
+  char *out, *err;
+  char *spath;
+
+  if (path[0] != '/') {
+    reply_with_error ("ll: path must start with a / character");
+    return NULL;
+  }
+
+  /* This exposes the /sysroot, because we can't chroot and run the ls
+   * command (since 'ls' won't necessarily exist in the chroot).  This
+   * command is not meant for serious use anyway, just for quick
+   * interactive sessions.  For the same reason, you can also "escape"
+   * the sysroot (eg. 'll /..').
+   */
+  len = strlen (path) + 9;
+  spath = malloc (len);
+  if (!spath) {
+    reply_with_perror ("malloc");
+    return NULL;
+  }
+  snprintf (spath, len, "/sysroot%s", path);
+
+  r = command (&out, &err, "ls", "-la", spath, NULL);
+  free (spath);
+  if (r == -1) {
+    reply_with_error ("%s", err);
+    free (out);
+    free (err);
+    return NULL;
+  }
+
+  free (err);
+  return out;			/* caller frees */
 }

@@ -1,3 +1,47 @@
+=head2 guestfs_cat
+
+ char *guestfs_cat (guestfs_h *handle,
+		const char *path);
+
+Return the contents of the file named C<path>.
+
+This function returns a string or NULL on error.  The caller
+must free the returned string after use.
+
+Because of the message protocol, there is a transfer limit 
+of somewhere between 2MB and 4MB.  To transfer large files you should use
+FTP.
+
+=head2 guestfs_ll
+
+ char *guestfs_ll (guestfs_h *handle,
+		const char *directory);
+
+List the files in C<directory> (relative to the root directory,
+there is no cwd) in the format of 'ls -la'.
+
+This command is mostly useful for interactive sessions.  It
+is I<not> intended that you try to parse the output string.
+
+This function returns a string or NULL on error.  The caller
+must free the returned string after use.
+
+=head2 guestfs_ls
+
+ char **guestfs_ls (guestfs_h *handle,
+		const char *directory);
+
+List the files in C<directory> (relative to the root directory,
+there is no cwd).  The '.' and '..' entries are not returned, but
+hidden files are shown.
+
+This command is mostly useful for interactive sessions.
+
+This function returns a NULL-terminated array of strings
+(like L<environ(3)>), or NULL if there was an error.
+
+The caller must free the strings I<and> the array after use.
+
 =head2 guestfs_mount
 
  int guestfs_mount (guestfs_h *handle,
@@ -21,7 +65,7 @@ on the underlying device.
 The filesystem options C<sync> and C<noatime> are set with this
 call, in order to improve reliability.
 
-This function return 0 on success or -1 on error.
+This function returns 0 on success or -1 on error.
 
 =head2 guestfs_sync
 
@@ -33,7 +77,7 @@ underlying disk image.
 You should always call this if you have modified a disk image, before
 calling C<guestfs_close>.
 
-This function return 0 on success or -1 on error.
+This function returns 0 on success or -1 on error.
 
 =head2 guestfs_touch
 
@@ -44,5 +88,5 @@ Touch acts like the L<touch(1)> command.  It can be used to
 update the timestamps on a file, or, if the file does not exist,
 to create a new zero-length file.
 
-This function return 0 on success or -1 on error.
+This function returns 0 on success or -1 on error.
 
