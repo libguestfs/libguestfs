@@ -117,6 +117,14 @@ main (int argc, char *argv[])
 
   guestfs_set_autosync (g, 1);
 
+  /* If developing, add . to the path.  Note that libtools interferes
+   * with this because uninstalled guestfish is a shell script that runs
+   * the real program with an absolute path.  Detect that too.
+   */
+  if (argv[0] &&
+      (argv[0][0] != '/' || strstr (argv[0], "/.libs/lt-") != NULL))
+    guestfs_set_path (g, ".:" GUESTFS_DEFAULT_PATH);
+
   for (;;) {
     c = getopt_long (argc, argv, options, long_options, NULL);
     if (c == -1) break;

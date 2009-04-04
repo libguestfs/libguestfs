@@ -109,6 +109,8 @@ rm -rf $RPM_BUILD_ROOT
 %doc HACKING README examples
 %{_libdir}/libguestfs.so
 %{_mandir}/man3/guestfs.3*
+%{_includedir}/guestfs.h
+%{_includedir}/guestfs-actions.h
 
 
 %files -n guestfish

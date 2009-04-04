@@ -56,6 +56,8 @@ extern void guestfs_set_verbose (guestfs_h *g, int verbose);
 extern int guestfs_get_verbose (guestfs_h *g);
 extern void guestfs_set_autosync (guestfs_h *g, int a);
 extern int guestfs_get_autosync (guestfs_h *g);
+extern void guestfs_set_path (guestfs_h *g, const char *path);
+extern const char *guestfs_get_path (guestfs_h *g);
 
 #include <guestfs-actions.h>
 

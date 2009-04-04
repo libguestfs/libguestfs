@@ -50,10 +50,9 @@ AC_CHECK_PROG([POD2TEXT],[pod2text],[pod2text],[no])
 test "x$POD2TEXT" = "xno" &&
      AC_MSG_ERROR([pod2text must be installed])
 
-dnl Check for QEMU.  We only check for the basic 'qemu' program here
-dnl (ie. the i386 full system qemu).  But at runtime we might choose
-dnl a different qemu to run, eg. qemu-system-ppc.
-AC_PATH_PROG([QEMU],[qemu],[no],
+dnl Check for QEMU for running binaries on this $host_cpu, fall
+dnl back to basic 'qemu'.
+AC_PATH_PROGS([QEMU],[qemu-system-$host_cpu qemu],[no],
 	[$PATH$PATH_SEPARATOR/usr/sbin$PATH_SEPARATOR/sbin])
 test "x$QEMU" = "xno" && AC_MSG_ERROR([qemu must be installed])
 AC_DEFINE_UNQUOTED([QEMU],["$QEMU"],[Location of qemu binary.])
@@ -84,6 +83,9 @@ AC_ARG_WITH([repo],
 	[with_repo=fedora-10])
 REPO="$with_repo"
 AC_SUBST(REPO)
+AC_DEFINE_UNQUOTED([REPO],["$REPO"],[Name of Fedora repository.])
+
+AC_DEFINE_UNQUOTED([host_cpu],["$host_cpu"],[Host architecture.])
 
 dnl --with-mirror to specify a local Fedora mirror.
 AC_ARG_WITH([mirror],

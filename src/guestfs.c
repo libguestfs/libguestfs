@@ -19,7 +19,7 @@
 #include <config.h>
 
 #define _BSD_SOURCE /* for mkdtemp, usleep */
-#define _GNU_SOURCE /* for vasprintf, GNU strerror_r */
+#define _GNU_SOURCE /* for vasprintf, GNU strerror_r, strchrnul */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -118,6 +118,8 @@ struct guestfs_h
   int verbose;
   int autosync;
 
+  const char *path;
+
   /* Callbacks. */
   guestfs_abort_cb           abort_cb;
   guestfs_error_handler_cb   error_cb;
@@ -177,6 +179,10 @@ guestfs_create (void)
 
   str = getenv ("LIBGUESTFS_DEBUG");
   g->verbose = str != NULL && strcmp (str, "1") == 0;
+
+  str = getenv ("LIBGUESTFS_PATH");
+  g->path = str != NULL ? str : GUESTFS_DEFAULT_PATH;
+  /* XXX We should probably make QEMU configurable as well. */
 
   /* Start with large serial numbers so they are easy to spot
    * inside the protocol.
@@ -395,6 +401,21 @@ guestfs_get_autosync (guestfs_h *g)
   return g->autosync;
 }
 
+void
+guestfs_set_path (guestfs_h *g, const char *path)
+{
+  if (path == NULL)
+    g->path = GUESTFS_DEFAULT_PATH;
+  else
+    g->path = path;
+}
+
+const char *
+guestfs_get_path (guestfs_h *g)
+{
+  return g->path;
+}
+
 /* Add a string to the current command line. */
 static void
 incr_cmdline_size (guestfs_h *g)
@@ -487,18 +508,15 @@ int
 guestfs_launch (guestfs_h *g)
 {
   static const char *dir_template = "/tmp/libguestfsXXXXXX";
-  int r, i;
+  int r, i, len;
   int wfd[2], rfd[2];
   int tries;
-  /*const char *qemu = QEMU;*/	/* XXX */
-  const char *qemu = "/usr/bin/qemu-system-x86_64";
-  const char *kernel = "vmlinuz.fedora-10.x86_64";
-  const char *initrd = "initramfs.fedora-10.x86_64.img";
+  const char *kernel_name = "vmlinuz." REPO "." host_cpu;
+  const char *initrd_name = "initramfs." REPO "." host_cpu ".img";
+  char *path, *pelem, *pend;
+  char *kernel = NULL, *initrd = NULL;
   char unixsock[256];
   struct sockaddr_un addr;
-
-  /* XXX Choose which qemu to run. */
-  /* XXX Choose initrd, etc. */
 
   /* Configured? */
   if (!g->cmdline) {
@@ -511,12 +529,58 @@ guestfs_launch (guestfs_h *g)
     return -1;
   }
 
+  /* Search g->path for the kernel and initrd. */
+  pelem = path = safe_strdup (g, g->path);
+  do {
+    pend = strchrnul (pelem, ':');
+    *pend = '\0';
+    len = pend - pelem;
+
+    /* Empty element or "." means cwd. */
+    if (len == 0 || (len == 1 && *pelem == '.')) {
+      if (g->verbose)
+	fprintf (stderr,
+		 "looking for kernel and initrd in current directory\n");
+      if (access (kernel_name, F_OK) == 0 && access (initrd_name, F_OK) == 0) {
+	kernel = safe_strdup (g, kernel_name);
+	initrd = safe_strdup (g, initrd_name);
+	break;
+      }
+    }
+    /* Look at <path>/kernel etc. */
+    else {
+      kernel = safe_malloc (g, len + strlen (kernel_name) + 2);
+      initrd = safe_malloc (g, len + strlen (initrd_name) + 2);
+      sprintf (kernel, "%s/%s", pelem, kernel_name);
+      sprintf (initrd, "%s/%s", pelem, initrd_name);
+
+      if (g->verbose)
+	fprintf (stderr, "looking for %s and %s\n", kernel, initrd);
+
+      if (access (kernel, F_OK) == 0 && access (initrd, F_OK) == 0)
+	break;
+      free (kernel);
+      free (initrd);
+      kernel = initrd = NULL;
+    }
+
+    pelem = pend;
+  } while (*pelem++ != '\0');
+
+  free (path);
+
+  if (kernel == NULL || initrd == NULL) {
+    error (g, "cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)",
+	   kernel_name, initrd_name, g->path);
+    goto cleanup0;
+  }
+
   /* Make the temporary directory containing the socket. */
   if (!g->tmpdir) {
     g->tmpdir = safe_strdup (g, dir_template);
     if (mkdtemp (g->tmpdir) == NULL) {
       perrorf (g, "%s: cannot create temporary directory", dir_template);
-      return -1;
+      goto cleanup0;
     }
   }
 
@@ -525,7 +589,7 @@ guestfs_launch (guestfs_h *g)
 
   if (pipe (wfd) == -1 || pipe (rfd) == -1) {
     perrorf (g, "pipe");
-    return -1;
+    goto cleanup0;
   }
 
   r = fork ();
@@ -535,7 +599,7 @@ guestfs_launch (guestfs_h *g)
     close (wfd[1]);
     close (rfd[0]);
     close (rfd[1]);
-    return -1;
+    goto cleanup0;
   }
 
   if (r == 0) {			/* Child (qemu). */
@@ -545,7 +609,7 @@ guestfs_launch (guestfs_h *g)
     /* Set up the full command line.  Do this in the subprocess so we
      * don't need to worry about cleaning up.
      */
-    g->cmdline[0] = (char *) qemu;
+    g->cmdline[0] = (char *) QEMU;
 
     /* Construct the -net channel parameter for qemu. */
     snprintf (vmchannel, sizeof vmchannel,
@@ -578,7 +642,7 @@ guestfs_launch (guestfs_h *g)
     g->cmdline[g->cmdline_size-1] = NULL;
 
     if (g->verbose) {
-      fprintf (stderr, "%s", qemu);
+      fprintf (stderr, "%s", QEMU);
       for (i = 0; g->cmdline[i]; ++i)
 	fprintf (stderr, " %s", g->cmdline[i]);
       fprintf (stderr, "\n");
@@ -601,8 +665,8 @@ guestfs_launch (guestfs_h *g)
     setpgid (0, 0);
 #endif
 
-    execv (qemu, g->cmdline);	/* Run qemu. */
-    perror (qemu);
+    execv (QEMU, g->cmdline);	/* Run qemu. */
+    perror (QEMU);
     _exit (1);
   }
 
@@ -719,6 +783,10 @@ guestfs_launch (guestfs_h *g)
   g->start_t = 0;
   g->stdout_watch = -1;
   g->sock_watch = -1;
+
+ cleanup0:
+  free (kernel);
+  free (initrd);
   return -1;
 }
 
@@ -779,7 +847,7 @@ guestfs_kill_subprocess (guestfs_h *g)
   }
 
   if (g->verbose)
-    fprintf (stderr, "sending SIGTERM to process group %d\n", g->pid);
+    fprintf (stderr, "sending SIGTERM to process %d\n", g->pid);
 
   kill (g->pid, SIGTERM);
 

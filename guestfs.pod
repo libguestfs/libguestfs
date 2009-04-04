@@ -237,6 +237,44 @@ situations.
 
 This returns the current out of memory handler.
 
+=head1 PATH
+
+Libguestfs needs a kernel and initrd.img, which it finds by looking
+along an internal path.
+
+By default it looks for these in the directory C<$libdir/guestfs>
+(eg. C</usr/local/lib/guestfs> or C</usr/lib64/guestfs>).
+
+Use C<guestfs_set_path> or set the environment variable
+C<LIBGUESTFS_PATH> to change the directories that libguestfs will
+search in.  The value is a colon-separated list of paths.  The current
+directory is I<not> searched unless the path contains an empty element
+or C<.>.  For example C<LIBGUESTFS_PATH=:/usr/lib/guestfs> would
+search the current directory and then C</usr/lib/guestfs>.
+
+=head2 guestfs_set_path
+
+ void guestfs_set_path (guestfs_h *handle, const char *path);
+
+Set the path that libguestfs searches for kernel and initrd.img.
+
+The default is C<$libdir/guestfs> unless overridden by setting
+C<LIBGUESTFS_PATH> environment variable.
+
+The string C<path> is stashed in the libguestfs handle, so the caller
+must make sure it remains valid for the lifetime of the handle.
+
+Setting C<path> to C<NULL> restores the default path.
+
+=head2 guestfs_get_path
+
+ const char *guestfs_get_path (guestfs_h *handle);
+
+Return the current search path.
+
+This is always non-NULL.  If it wasn't set already, then this will
+return the default path.
+
 =head1 AUTOSYNC
 
 =head2 guestfs_set_autosync
@@ -550,13 +588,28 @@ function, eg. C<g_main_loop_quit>.  In those cases, ignore this call.
 This isn't documented.  Please see the libguestfs-select and
 libguestfs-glib implementations.
 
+=head1 ENVIRONMENT VARIABLES
+
+=over 4
+
+=item LIBGUESTFS_DEBUG
+
+Set C<LIBGUESTFS_DEBUG=1> to enable verbose messages.  This
+has the same effect as calling C<guestfs_set_verbose (handle, 1)>.
+
+=item LIBGUESTFS_PATH
+
+Set the path that libguestfs uses to search for kernel and initrd.img.
+See the discussion of paths in C<guestfs_set_path> above.
+
+=back
+
 =head1 SEE ALSO
 
-L<qemu(1)>
-
-
-
-
+L<guestfish(1)>,
+L<qemu(1)>,
+L<febootstrap(1)>,
+L<http://et.redhat.com/~rjones/libguestfs>.
 
 =head1 AUTHORS
 

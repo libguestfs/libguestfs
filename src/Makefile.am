@@ -23,6 +23,8 @@ EXTRA_DIST += guestfs_protocol.x \
 	guestfs_protocol.c \
 	guestfs_protocol.h
 
+include_HEADERS = guestfs.h guestfs-actions.h
+
 lib_LTLIBRARIES = libguestfs.la
 
 libguestfs_la_LDFLAGS = -version-info 0:0:0
@@ -33,7 +35,7 @@ libguestfs_la_SOURCES = \
 	guestfs_protocol.h \
 	guestfs-actions.h
 
-libguestfs_la_CFLAGS = -Wall
+libguestfs_la_CFLAGS = -Wall -DGUESTFS_DEFAULT_PATH='"$(libdir)/guestfs"'
 
 if RPCGEN
 guestfs_protocol.c: guestfs_protocol.x
