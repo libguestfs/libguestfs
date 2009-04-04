@@ -35,7 +35,8 @@ Requirements
 
 - XDR, rpcgen
 
-- (Optional) perldoc to generate the manual pages
+- perldoc (pod2man, pod2text) to generate the manual pages and
+other documentation.
 
 - (Optional) OCaml if you want to modify the code or rebuild certain
 generated files.

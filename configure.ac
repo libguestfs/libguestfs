@@ -42,6 +42,14 @@ AC_CHECK_LIB([portablexdr],[xdrmem_create],[],[
 	AC_SEARCH_LIBS([xdrmem_create],[rpc xdr nsl])
 	])
 
+dnl Check for pod2man and pod2text.
+AC_CHECK_PROG([POD2MAN],[pod2man],[pod2man],[no])
+test "x$POD2MAN" = "xno" &&
+     AC_MSG_ERROR([pod2man must be installed])
+AC_CHECK_PROG([POD2TEXT],[pod2text],[pod2text],[no])
+test "x$POD2TEXT" = "xno" &&
+     AC_MSG_ERROR([pod2text must be installed])
+
 dnl Check for QEMU.  We only check for the basic 'qemu' program here
 dnl (ie. the i386 full system qemu).  But at runtime we might choose
 dnl a different qemu to run, eg. qemu-system-ppc.

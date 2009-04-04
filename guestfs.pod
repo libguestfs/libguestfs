@@ -256,14 +256,7 @@ This returns the verbose messages flag.
 
 =head1 HIGH-LEVEL API ACTIONS
 
-
-
-
-
-
-
-
-
+@ACTIONS@
 
 =head1 STATE MACHINE AND LOW-LEVEL EVENT API
 
