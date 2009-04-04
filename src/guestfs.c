@@ -488,6 +488,11 @@ guestfs_add_drive (guestfs_h *g, const char *filename)
     return -1;
   }
 
+  if (access (filename, F_OK) == -1) {
+    perrorf (g, "%s", filename);
+    return -1;
+  }
+
   snprintf (buf, len, "file=%s", filename);
 
   return guestfs_config (g, "-drive", buf);
@@ -498,6 +503,11 @@ guestfs_add_cdrom (guestfs_h *g, const char *filename)
 {
   if (strchr (filename, ',') != NULL) {
     error (g, "filename cannot contain ',' (comma) character");
+    return -1;
+  }
+
+  if (access (filename, F_OK) == -1) {
+    perrorf (g, "%s", filename);
     return -1;
   }
 
