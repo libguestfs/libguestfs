@@ -29,7 +29,7 @@ void list_commands (void)
 {
   printf ("    %-16s     %s\n", "Command", "Description");
   list_builtin_commands ();
-  printf ("%-20s %s\n", "cat", "list the files in a directory (long format)");
+  printf ("%-20s %s\n", "cat", "list the contents of a file");
   printf ("%-20s %s\n", "ll", "list the files in a directory (long format)");
   printf ("%-20s %s\n", "ls", "list the files in a directory");
   printf ("%-20s %s\n", "mount", "mount a guest disk at a position in the filesystem");
@@ -41,7 +41,7 @@ void list_commands (void)
 void display_command (const char *cmd)
 {
   if (strcasecmp (cmd, "cat") == 0)
-    pod2text ("cat - list the files in a directory (long format)", " cat <path>\n\nReturn the contents of the file named C<path>.\n\nBecause of the message protocol, there is a transfer limit \nof somewhere between 2MB and 4MB.  To transfer large files you should use\nFTP.");
+    pod2text ("cat - list the contents of a file", " cat <path>\n\nReturn the contents of the file named C<path>.\n\nBecause of the message protocol, there is a transfer limit \nof somewhere between 2MB and 4MB.  To transfer large files you should use\nFTP.");
   else
   if (strcasecmp (cmd, "ll") == 0)
     pod2text ("ll - list the files in a directory (long format)", " ll <directory>\n\nList the files in C<directory> (relative to the root directory,\nthere is no cwd) in the format of 'ls -la'.\n\nThis command is mostly useful for interactive sessions.  It\nis I<not> intended that you try to parse the output string.");

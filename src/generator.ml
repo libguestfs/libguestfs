@@ -49,7 +49,7 @@ type flags = ProtocolLimitWarning
 
 let functions = [
   ("cat", (RString "content", P1 (String "path")), 4, [ProtocolLimitWarning],
-   "list the files in a directory (long format)",
+   "list the contents of a file",
    "\
 Return the contents of the file named C<path>.");
 
