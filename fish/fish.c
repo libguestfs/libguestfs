@@ -78,14 +78,14 @@ usage (void)
 	   "  ...\n"
 	   "  EOF\n"
 	   "Options:\n"
-	   "  -h|--cmd-help       List available commands\n"
-	   "  -h|--cmd-help cmd   Display detailed help on 'cmd'\n"
-	   "  -a image            Add image\n"
-	   "  -m dev[:mnt]        Mount dev on mnt (if omitted, /)\n"
-	   "  -n|--no-sync        Don't autosync\n"
-	   /*"  --ro|-r             All mounts are read-only\n"*/
-	   "  -v|--verbose        Verbose messages\n"
-	   "For more information, see the manpage guestfish(1).\n");
+	   "  -h|--cmd-help        List available commands\n"
+	   "  -h|--cmd-help cmd    Display detailed help on 'cmd'\n"
+	   "  -a|--add image       Add image\n"
+	   "  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
+	   "  -n|--no-sync         Don't autosync\n"
+	 /*"  --ro|-r              All mounts are read-only\n"*/
+	   "  -v|--verbose         Verbose messages\n"
+	   "For more information,  see the manpage guestfish(1).\n");
 }
 
 int
