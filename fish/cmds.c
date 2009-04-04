@@ -49,16 +49,58 @@ void display_command (const char *cmd)
     display_builtin_command (cmd);
 }
 
+static int run_mount (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *device;
+  const char *mountpoint;
+  if (argc != 2) {
+    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  device = argv[0];
+  mountpoint = argv[1];
+  r = guestfs_mount (g, device, mountpoint);
+  return r;
+}
+
+static int run_sync (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  if (argc != 0) {
+    fprintf (stderr, "%s should have 0 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  r = guestfs_sync (g);
+  return r;
+}
+
+static int run_touch (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *path;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  path = argv[0];
+  r = guestfs_touch (g, path);
+  return r;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "mount") == 0)
-    printf ("running mount ...\n");
+    return run_mount (cmd, argc, argv);
   else
   if (strcasecmp (cmd, "sync") == 0)
-    printf ("running sync ...\n");
+    return run_sync (cmd, argc, argv);
   else
   if (strcasecmp (cmd, "touch") == 0)
-    printf ("running touch ...\n");
+    return run_touch (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

@@ -87,10 +87,17 @@ let iter_args f = function
   | P1 arg1 -> f arg1
   | P2 (arg1, arg2) -> f arg1; f arg2
 
+let iteri_args f = function
+  | P0 -> ()
+  | P1 arg1 -> f 0 arg1
+  | P2 (arg1, arg2) -> f 0 arg1; f 1 arg2
+
 let map_args f = function
   | P0 -> []
   | P1 arg1 -> [f arg1]
   | P2 (arg1, arg2) -> [f arg1; f arg2]
+
+let nr_args = function | P0 -> 0 | P1 _ -> 1 | P2 _ -> 2
 
 type comment_style = CStyle | HashStyle | OCamlStyle
 type license = GPLv2 | LGPLv2
@@ -453,6 +460,7 @@ and generate_daemon_actions () =
   pr "  }\n";
   pr "}\n"
 
+(* Generate a lot of different functions for guestfish. *)
 and generate_fish_cmds () =
   generate_header CStyle GPLv2;
 
@@ -504,13 +512,53 @@ and generate_fish_cmds () =
   pr "}\n";
   pr "\n";
 
+  (* run_<action> actions *)
+  List.iter (
+    fun (name, style, _, _, _) ->
+      pr "static int run_%s (const char *cmd, int argc, char *argv[])\n" name;
+      pr "{\n";
+      (match style with
+       | (Err, _) -> pr "  int r;\n"
+      );
+      iter_args (
+	function
+	| String name -> pr "  const char *%s;\n" name
+      ) (snd style);
+
+      (* Check and convert parameters. *)
+      let argc_expected = nr_args (snd style) in
+      pr "  if (argc != %d) {\n" argc_expected;
+      pr "    fprintf (stderr, \"%%s should have %d parameter(s)\\n\", cmd);\n"
+	argc_expected;
+      pr "    fprintf (stderr, \"type 'help %%s' for help on %%s\\n\", cmd, cmd);\n";
+      pr "    return -1;\n";
+      pr "  }\n";
+      iteri_args (
+	fun i ->
+	  function
+	  | String name -> pr "  %s = argv[%d];\n" name i
+      ) (snd style);
+
+      (* Call C API function. *)
+      pr "  r = guestfs_%s " name;
+      generate_call_args ~handle:"g" style;
+      pr ";\n";
+
+      (* Check return value for errors. *)
+      (match style with
+       | (Err, _) -> pr "  return r;\n"
+      );
+      pr "}\n";
+      pr "\n"
+  ) functions;
+
   (* run_action function *)
   pr "int run_action (const char *cmd, int argc, char *argv[])\n";
   pr "{\n";
   List.iter (
-    fun (name, style, _, _, _) ->
+    fun (name, _, _, _, _) ->
       pr "  if (strcasecmp (cmd, \"%s\") == 0)\n" name;
-      pr "    printf (\"running %s ...\\n\");\n" name;
+      pr "    return run_%s (cmd, argc, argv);\n" name;
       pr "  else\n";
   ) functions;
   pr "    {\n";
