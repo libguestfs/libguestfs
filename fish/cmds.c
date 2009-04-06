@@ -30,6 +30,8 @@ void list_commands (void)
   printf ("    %-16s     %s\n", "Command", "Description");
   list_builtin_commands ();
   printf ("%-20s %s\n", "cat", "list the contents of a file");
+  printf ("%-20s %s\n", "list-devices", "list the block devices");
+  printf ("%-20s %s\n", "list-partitions", "list the partitions");
   printf ("%-20s %s\n", "ll", "list the files in a directory (long format)");
   printf ("%-20s %s\n", "ls", "list the files in a directory");
   printf ("%-20s %s\n", "mount", "mount a guest disk at a position in the filesystem");
@@ -40,15 +42,6 @@ void list_commands (void)
 
 void display_command (const char *cmd)
 {
-  if (strcasecmp (cmd, "cat") == 0)
-    pod2text ("cat - list the contents of a file", " cat <path>\n\nReturn the contents of the file named C<path>.\n\nNote that this function cannot correctly handle binary files\n(specifically, files containing C<\\0> character which is treated\nas end of string).  For those you need to use the C<guestfs_read>\nfunction which has a more complex interface.\n\nBecause of the message protocol, there is a transfer limit \nof somewhere between 2MB and 4MB.  To transfer large files you should use\nFTP.");
-  else
-  if (strcasecmp (cmd, "ll") == 0)
-    pod2text ("ll - list the files in a directory (long format)", " ll <directory>\n\nList the files in C<directory> (relative to the root directory,\nthere is no cwd) in the format of 'ls -la'.\n\nThis command is mostly useful for interactive sessions.  It\nis I<not> intended that you try to parse the output string.");
-  else
-  if (strcasecmp (cmd, "ls") == 0)
-    pod2text ("ls - list the files in a directory", " ls <directory>\n\nList the files in C<directory> (relative to the root directory,\nthere is no cwd).  The '.' and '..' entries are not returned, but\nhidden files are shown.\n\nThis command is mostly useful for interactive sessions.  Programs\nshould probably use C<guestfs_readdir> instead.");
-  else
   if (strcasecmp (cmd, "mount") == 0)
     pod2text ("mount - mount a guest disk at a position in the filesystem", " mount <device> <mountpoint>\n\nMount a guest disk at a position in the filesystem.  Block devices\nare named C</dev/sda>, C</dev/sdb> and so on, as they were added to\nthe guest.  If those block devices contain partitions, they will have\nthe usual names (eg. C</dev/sda1>).  Also LVM C</dev/VG/LV>-style\nnames can be used.\n\nThe rules are the same as for L<mount(2)>:  A filesystem must\nfirst be mounted on C</> before others can be mounted.  Other\nfilesystems can only be mounted on directories which already\nexist.\n\nThe mounted filesystem is writable, if we have sufficient permissions\non the underlying device.\n\nThe filesystem options C<sync> and C<noatime> are set with this\ncall, in order to improve reliability.");
   else
@@ -58,7 +51,64 @@ void display_command (const char *cmd)
   if (strcasecmp (cmd, "touch") == 0)
     pod2text ("touch - update file timestamps or create a new file", " touch <path>\n\nTouch acts like the L<touch(1)> command.  It can be used to\nupdate the timestamps on a file, or, if the file does not exist,\nto create a new zero-length file.");
   else
+  if (strcasecmp (cmd, "cat") == 0)
+    pod2text ("cat - list the contents of a file", " cat <path>\n\nReturn the contents of the file named C<path>.\n\nNote that this function cannot correctly handle binary files\n(specifically, files containing C<\\0> character which is treated\nas end of string).  For those you need to use the C<guestfs_read_file>\nfunction which has a more complex interface.\n\nBecause of the message protocol, there is a transfer limit \nof somewhere between 2MB and 4MB.  To transfer large files you should use\nFTP.");
+  else
+  if (strcasecmp (cmd, "ll") == 0)
+    pod2text ("ll - list the files in a directory (long format)", " ll <directory>\n\nList the files in C<directory> (relative to the root directory,\nthere is no cwd) in the format of 'ls -la'.\n\nThis command is mostly useful for interactive sessions.  It\nis I<not> intended that you try to parse the output string.");
+  else
+  if (strcasecmp (cmd, "ls") == 0)
+    pod2text ("ls - list the files in a directory", " ls <directory>\n\nList the files in C<directory> (relative to the root directory,\nthere is no cwd).  The '.' and '..' entries are not returned, but\nhidden files are shown.\n\nThis command is mostly useful for interactive sessions.  Programs\nshould probably use C<guestfs_readdir> instead.");
+  else
+  if (strcasecmp (cmd, "list_devices") == 0 || strcasecmp (cmd, "list-devices") == 0)
+    pod2text ("list-devices - list the block devices", " list-devices\n\nList all the block devices.\n\nThe full block device names are returned, eg. C</dev/sda>\n");
+  else
+  if (strcasecmp (cmd, "list_partitions") == 0 || strcasecmp (cmd, "list-partitions") == 0)
+    pod2text ("list-partitions - list the partitions", " list-partitions\n\nList all the partitions detected on all block devices.\n\nThe full partition device names are returned, eg. C</dev/sda1>\n\nThis does not return logical volumes.  For that you will need to\ncall C<guestfs_lvs>.");
+  else
     display_builtin_command (cmd);
+}
+
+static int run_mount (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *device;
+  const char *mountpoint;
+  if (argc != 2) {
+    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  device = argv[0];
+  mountpoint = argv[1];
+  r = guestfs_mount (g, device, mountpoint);
+  return r;
+}
+
+static int run_sync (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  if (argc != 0) {
+    fprintf (stderr, "%s should have 0 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  r = guestfs_sync (g);
+  return r;
+}
+
+static int run_touch (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *path;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  path = argv[0];
+  r = guestfs_touch (g, path);
+  return r;
 }
 
 static int run_cat (const char *cmd, int argc, char *argv[])
@@ -112,50 +162,47 @@ static int run_ls (const char *cmd, int argc, char *argv[])
   return 0;
 }
 
-static int run_mount (const char *cmd, int argc, char *argv[])
+static int run_list_devices (const char *cmd, int argc, char *argv[])
 {
-  int r;
-  const char *device;
-  const char *mountpoint;
-  if (argc != 2) {
-    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
-    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
-    return -1;
-  }
-  device = argv[0];
-  mountpoint = argv[1];
-  r = guestfs_mount (g, device, mountpoint);
-  return r;
-}
-
-static int run_sync (const char *cmd, int argc, char *argv[])
-{
-  int r;
+  char **r;
   if (argc != 0) {
     fprintf (stderr, "%s should have 0 parameter(s)\n", cmd);
     fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
     return -1;
   }
-  r = guestfs_sync (g);
-  return r;
+  r = guestfs_list_devices (g);
+  if (r == NULL) return -1;
+  print_strings (r);
+  free_strings (r);
+  return 0;
 }
 
-static int run_touch (const char *cmd, int argc, char *argv[])
+static int run_list_partitions (const char *cmd, int argc, char *argv[])
 {
-  int r;
-  const char *path;
-  if (argc != 1) {
-    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+  char **r;
+  if (argc != 0) {
+    fprintf (stderr, "%s should have 0 parameter(s)\n", cmd);
     fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
     return -1;
   }
-  path = argv[0];
-  r = guestfs_touch (g, path);
-  return r;
+  r = guestfs_list_partitions (g);
+  if (r == NULL) return -1;
+  print_strings (r);
+  free_strings (r);
+  return 0;
 }
 
 int run_action (const char *cmd, int argc, char *argv[])
 {
+  if (strcasecmp (cmd, "mount") == 0)
+    return run_mount (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "sync") == 0)
+    return run_sync (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "touch") == 0)
+    return run_touch (cmd, argc, argv);
+  else
   if (strcasecmp (cmd, "cat") == 0)
     return run_cat (cmd, argc, argv);
   else
@@ -165,14 +212,11 @@ int run_action (const char *cmd, int argc, char *argv[])
   if (strcasecmp (cmd, "ls") == 0)
     return run_ls (cmd, argc, argv);
   else
-  if (strcasecmp (cmd, "mount") == 0)
-    return run_mount (cmd, argc, argv);
+  if (strcasecmp (cmd, "list_devices") == 0 || strcasecmp (cmd, "list-devices") == 0)
+    return run_list_devices (cmd, argc, argv);
   else
-  if (strcasecmp (cmd, "sync") == 0)
-    return run_sync (cmd, argc, argv);
-  else
-  if (strcasecmp (cmd, "touch") == 0)
-    return run_touch (cmd, argc, argv);
+  if (strcasecmp (cmd, "list_partitions") == 0 || strcasecmp (cmd, "list-partitions") == 0)
+    return run_list_partitions (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

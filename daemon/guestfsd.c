@@ -272,6 +272,20 @@ count_strings (char **argv)
   return argc;
 }
 
+static int
+compare (const void *vp1, const void *vp2)
+{
+  char * const *p1 = (char * const *) vp1;
+  char * const *p2 = (char * const *) vp2;
+  return strcmp (*p1, *p2);
+}
+
+void
+sort_strings (char **argv, int len)
+{
+  qsort (argv, len, sizeof (char *), compare);
+}
+
 void
 free_strings (char **argv)
 {
@@ -279,6 +293,16 @@ free_strings (char **argv)
 
   for (argc = 0; argv[argc] != NULL; ++argc)
     free (argv[argc]);
+  free (argv);
+}
+
+void
+free_stringslen (char **argv, int len)
+{
+  int i;
+
+  for (i = 0; i < len; ++i)
+    free (argv[i]);
   free (argv);
 }
 

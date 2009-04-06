@@ -16,6 +16,28 @@ xdr_str (XDR *xdrs, str *objp)
 }
 
 bool_t
+xdr_guestfs_mount_args (XDR *xdrs, guestfs_mount_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->device, ~0))
+		 return FALSE;
+	 if (!xdr_string (xdrs, &objp->mountpoint, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_touch_args (XDR *xdrs, guestfs_touch_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->path, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
 xdr_guestfs_cat_args (XDR *xdrs, guestfs_cat_args *objp)
 {
 	register int32_t *buf;
@@ -77,23 +99,23 @@ xdr_guestfs_ls_ret (XDR *xdrs, guestfs_ls_ret *objp)
 }
 
 bool_t
-xdr_guestfs_mount_args (XDR *xdrs, guestfs_mount_args *objp)
+xdr_guestfs_list_devices_ret (XDR *xdrs, guestfs_list_devices_ret *objp)
 {
 	register int32_t *buf;
 
-	 if (!xdr_string (xdrs, &objp->device, ~0))
-		 return FALSE;
-	 if (!xdr_string (xdrs, &objp->mountpoint, ~0))
+	 if (!xdr_array (xdrs, (char **)&objp->devices.devices_val, (u_int *) &objp->devices.devices_len, ~0,
+		sizeof (str), (xdrproc_t) xdr_str))
 		 return FALSE;
 	return TRUE;
 }
 
 bool_t
-xdr_guestfs_touch_args (XDR *xdrs, guestfs_touch_args *objp)
+xdr_guestfs_list_partitions_ret (XDR *xdrs, guestfs_list_partitions_ret *objp)
 {
 	register int32_t *buf;
 
-	 if (!xdr_string (xdrs, &objp->path, ~0))
+	 if (!xdr_array (xdrs, (char **)&objp->partitions.partitions_val, (u_int *) &objp->partitions.partitions_len, ~0,
+		sizeof (str), (xdrproc_t) xdr_str))
 		 return FALSE;
 	return TRUE;
 }

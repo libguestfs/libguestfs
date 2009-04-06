@@ -29,7 +29,9 @@ extern void xread (int sock, void *buf, size_t len);
 
 extern int add_string (char ***argv, int *size, int *alloc, const char *str);
 extern int count_strings (char **argv);
+extern void sort_strings (char **argv, int len);
 extern void free_strings (char **argv);
+extern void free_stringslen (char **argv, int len);
 
 extern int command (char **stdoutput, char **stderror, const char *name, ...);
 

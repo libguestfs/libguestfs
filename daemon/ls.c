@@ -29,14 +29,6 @@
 #include "daemon.h"
 #include "actions.h"
 
-static int
-compare (const void *vp1, const void *vp2)
-{
-  char * const *p1 = (char * const *) vp1;
-  char * const *p2 = (char * const *) vp2;
-  return strcmp (*p1, *p2);
-}
-
 char **
 do_ls (const char *path)
 {
@@ -78,7 +70,7 @@ do_ls (const char *path)
     return NULL;
   }
 
-  qsort (r, size-1, sizeof (char *), compare);
+  sort_strings (r, size-1);
   return r;
 }
 

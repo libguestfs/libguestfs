@@ -21,6 +21,21 @@
 
 typedef string str<>;
 
+/* guestfs_mount */
+
+struct guestfs_mount_args {
+  string device<>;
+  string mountpoint<>;
+};
+
+/* guestfs_sync */
+
+/* guestfs_touch */
+
+struct guestfs_touch_args {
+  string path<>;
+};
+
 /* guestfs_cat */
 
 struct guestfs_cat_args {
@@ -51,28 +66,27 @@ struct guestfs_ls_ret {
   str listing<>;
 };
 
-/* guestfs_mount */
+/* guestfs_list_devices */
 
-struct guestfs_mount_args {
-  string device<>;
-  string mountpoint<>;
+struct guestfs_list_devices_ret {
+  str devices<>;
 };
 
-/* guestfs_sync */
+/* guestfs_list_partitions */
 
-/* guestfs_touch */
-
-struct guestfs_touch_args {
-  string path<>;
+struct guestfs_list_partitions_ret {
+  str partitions<>;
 };
 
 enum guestfs_procedure {
-  GUESTFS_PROC_CAT = 4,
-  GUESTFS_PROC_LL = 5,
-  GUESTFS_PROC_LS = 6,
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
   GUESTFS_PROC_TOUCH = 3,
+  GUESTFS_PROC_CAT = 4,
+  GUESTFS_PROC_LL = 5,
+  GUESTFS_PROC_LS = 6,
+  GUESTFS_PROC_LIST_DEVICES = 7,
+  GUESTFS_PROC_LIST_PARTITIONS = 8,
   GUESTFS_PROC_dummy
 };
 

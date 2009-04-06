@@ -16,6 +16,17 @@ extern "C" {
 
 typedef char *str;
 
+struct guestfs_mount_args {
+	char *device;
+	char *mountpoint;
+};
+typedef struct guestfs_mount_args guestfs_mount_args;
+
+struct guestfs_touch_args {
+	char *path;
+};
+typedef struct guestfs_touch_args guestfs_touch_args;
+
 struct guestfs_cat_args {
 	char *path;
 };
@@ -49,25 +60,32 @@ struct guestfs_ls_ret {
 };
 typedef struct guestfs_ls_ret guestfs_ls_ret;
 
-struct guestfs_mount_args {
-	char *device;
-	char *mountpoint;
+struct guestfs_list_devices_ret {
+	struct {
+		u_int devices_len;
+		str *devices_val;
+	} devices;
 };
-typedef struct guestfs_mount_args guestfs_mount_args;
+typedef struct guestfs_list_devices_ret guestfs_list_devices_ret;
 
-struct guestfs_touch_args {
-	char *path;
+struct guestfs_list_partitions_ret {
+	struct {
+		u_int partitions_len;
+		str *partitions_val;
+	} partitions;
 };
-typedef struct guestfs_touch_args guestfs_touch_args;
+typedef struct guestfs_list_partitions_ret guestfs_list_partitions_ret;
 
 enum guestfs_procedure {
-	GUESTFS_PROC_CAT = 4,
-	GUESTFS_PROC_LL = 5,
-	GUESTFS_PROC_LS = 6,
 	GUESTFS_PROC_MOUNT = 1,
 	GUESTFS_PROC_SYNC = 2,
 	GUESTFS_PROC_TOUCH = 3,
-	GUESTFS_PROC_dummy = 3 + 1,
+	GUESTFS_PROC_CAT = 4,
+	GUESTFS_PROC_LL = 5,
+	GUESTFS_PROC_LS = 6,
+	GUESTFS_PROC_LIST_DEVICES = 7,
+	GUESTFS_PROC_LIST_PARTITIONS = 8,
+	GUESTFS_PROC_dummy = 8 + 1,
 };
 typedef enum guestfs_procedure guestfs_procedure;
 #define GUESTFS_MESSAGE_MAX 4194304
@@ -106,14 +124,16 @@ typedef struct guestfs_message_header guestfs_message_header;
 
 #if defined(__STDC__) || defined(__cplusplus)
 extern  bool_t xdr_str (XDR *, str*);
+extern  bool_t xdr_guestfs_mount_args (XDR *, guestfs_mount_args*);
+extern  bool_t xdr_guestfs_touch_args (XDR *, guestfs_touch_args*);
 extern  bool_t xdr_guestfs_cat_args (XDR *, guestfs_cat_args*);
 extern  bool_t xdr_guestfs_cat_ret (XDR *, guestfs_cat_ret*);
 extern  bool_t xdr_guestfs_ll_args (XDR *, guestfs_ll_args*);
 extern  bool_t xdr_guestfs_ll_ret (XDR *, guestfs_ll_ret*);
 extern  bool_t xdr_guestfs_ls_args (XDR *, guestfs_ls_args*);
 extern  bool_t xdr_guestfs_ls_ret (XDR *, guestfs_ls_ret*);
-extern  bool_t xdr_guestfs_mount_args (XDR *, guestfs_mount_args*);
-extern  bool_t xdr_guestfs_touch_args (XDR *, guestfs_touch_args*);
+extern  bool_t xdr_guestfs_list_devices_ret (XDR *, guestfs_list_devices_ret*);
+extern  bool_t xdr_guestfs_list_partitions_ret (XDR *, guestfs_list_partitions_ret*);
 extern  bool_t xdr_guestfs_procedure (XDR *, guestfs_procedure*);
 extern  bool_t xdr_guestfs_message_direction (XDR *, guestfs_message_direction*);
 extern  bool_t xdr_guestfs_message_status (XDR *, guestfs_message_status*);
@@ -122,14 +142,16 @@ extern  bool_t xdr_guestfs_message_header (XDR *, guestfs_message_header*);
 
 #else /* K&R C */
 extern bool_t xdr_str ();
+extern bool_t xdr_guestfs_mount_args ();
+extern bool_t xdr_guestfs_touch_args ();
 extern bool_t xdr_guestfs_cat_args ();
 extern bool_t xdr_guestfs_cat_ret ();
 extern bool_t xdr_guestfs_ll_args ();
 extern bool_t xdr_guestfs_ll_ret ();
 extern bool_t xdr_guestfs_ls_args ();
 extern bool_t xdr_guestfs_ls_ret ();
-extern bool_t xdr_guestfs_mount_args ();
-extern bool_t xdr_guestfs_touch_args ();
+extern bool_t xdr_guestfs_list_devices_ret ();
+extern bool_t xdr_guestfs_list_partitions_ret ();
 extern bool_t xdr_guestfs_procedure ();
 extern bool_t xdr_guestfs_message_direction ();
 extern bool_t xdr_guestfs_message_status ();

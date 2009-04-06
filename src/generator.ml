@@ -48,35 +48,6 @@ and argt =
 type flags = ProtocolLimitWarning
 
 let functions = [
-  ("cat", (RString "content", P1 (String "path")), 4, [ProtocolLimitWarning],
-   "list the contents of a file",
-   "\
-Return the contents of the file named C<path>.
-
-Note that this function cannot correctly handle binary files
-(specifically, files containing C<\\0> character which is treated
-as end of string).  For those you need to use the C<guestfs_read>
-function which has a more complex interface.");
-
-  ("ll", (RString "listing", P1 (String "directory")), 5, [],
-   "list the files in a directory (long format)",
-   "\
-List the files in C<directory> (relative to the root directory,
-there is no cwd) in the format of 'ls -la'.
-
-This command is mostly useful for interactive sessions.  It
-is I<not> intended that you try to parse the output string.");
-
-  ("ls", (RStringList "listing", P1 (String "directory")), 6, [],
-   "list the files in a directory",
-   "\
-List the files in C<directory> (relative to the root directory,
-there is no cwd).  The '.' and '..' entries are not returned, but
-hidden files are shown.
-
-This command is mostly useful for interactive sessions.  Programs
-should probably use C<guestfs_readdir> instead.");
-
   ("mount", (Err, P2 (String "device", String "mountpoint")), 1, [],
    "mount a guest disk at a position in the filesystem",
    "\
@@ -112,7 +83,73 @@ calling C<guestfs_close>.");
 Touch acts like the L<touch(1)> command.  It can be used to
 update the timestamps on a file, or, if the file does not exist,
 to create a new zero-length file.");
+
+  ("cat", (RString "content", P1 (String "path")), 4, [ProtocolLimitWarning],
+   "list the contents of a file",
+   "\
+Return the contents of the file named C<path>.
+
+Note that this function cannot correctly handle binary files
+(specifically, files containing C<\\0> character which is treated
+as end of string).  For those you need to use the C<guestfs_read_file>
+function which has a more complex interface.");
+
+  ("ll", (RString "listing", P1 (String "directory")), 5, [],
+   "list the files in a directory (long format)",
+   "\
+List the files in C<directory> (relative to the root directory,
+there is no cwd) in the format of 'ls -la'.
+
+This command is mostly useful for interactive sessions.  It
+is I<not> intended that you try to parse the output string.");
+
+  ("ls", (RStringList "listing", P1 (String "directory")), 6, [],
+   "list the files in a directory",
+   "\
+List the files in C<directory> (relative to the root directory,
+there is no cwd).  The '.' and '..' entries are not returned, but
+hidden files are shown.
+
+This command is mostly useful for interactive sessions.  Programs
+should probably use C<guestfs_readdir> instead.");
+
+  ("list_devices", (RStringList "devices", P0), 7, [],
+   "list the block devices",
+   "\
+List all the block devices.
+
+The full block device names are returned, eg. C</dev/sda>
+");
+
+  ("list_partitions", (RStringList "partitions", P0), 8, [],
+   "list the partitions",
+   "\
+List all the partitions detected on all block devices.
+
+The full partition device names are returned, eg. C</dev/sda1>
+
+This does not return logical volumes.  For that you will need to
+call C<guestfs_lvs>.");
 ]
+
+(* In some places we want the functions to be displayed sorted
+ * alphabetically, so this is useful:
+ *)
+let sorted_functions =
+  List.sort (fun (n1,_,_,_,_,_) (n2,_,_,_,_,_) -> compare n1 n2) functions
+
+(* Useful functions. *)
+let failwithf fs = ksprintf failwith fs
+let replace s c1 c2 =
+  let s2 = String.copy s in
+  let r = ref false in
+  for i = 0 to String.length s2 - 1 do
+    if String.unsafe_get s2 i = c1 then (
+      String.unsafe_set s2 i c2;
+      r := true
+    )
+  done;
+  if not !r then s else s2
 
 (* 'pr' prints to the current output file. *)
 let chan = ref stdout
@@ -134,6 +171,30 @@ let map_args f = function
   | P2 (arg1, arg2) -> [f arg1; f arg2]
 
 let nr_args = function | P0 -> 0 | P1 _ -> 1 | P2 _ -> 2
+
+(* Check function names etc. for consistency. *)
+let check_functions () =
+  List.iter (
+    fun (name, _, _, _, _, _) ->
+      if String.contains name '-' then
+	failwithf "Function name '%s' should not contain '-', use '_' instead."
+	  name
+  ) functions;
+
+  let proc_nrs =
+    List.map (fun (name, _, proc_nr, _, _, _) -> name, proc_nr) functions in
+  let proc_nrs =
+    List.sort (fun (_,nr1) (_,nr2) -> compare nr1 nr2) proc_nrs in
+  let rec loop = function
+    | [] -> ()
+    | [_] -> ()
+    | (name1,nr1) :: ((name2,nr2) :: _ as rest) when nr1 < nr2 ->
+	loop rest
+    | (name1,nr1) :: (name2,nr2) :: _ ->
+	failwithf "'%s' and '%s' have conflicting procedure numbers (%d, %d)"
+	  name1 name2 nr1 nr2
+  in
+  loop proc_nrs
 
 type comment_style = CStyle | HashStyle | OCamlStyle
 type license = GPLv2 | LGPLv2
@@ -202,19 +263,18 @@ and generate_pod () =
        | Err ->
 	   pr "This function returns 0 on success or -1 on error.\n\n"
        | RString _ ->
-	   pr "This function returns a string or NULL on error.  The caller
-must free the returned string after use.\n\n"
+	   pr "This function returns a string or NULL on error.
+I<The caller must free the returned string after use>.\n\n"
        | RStringList _ ->
 	   pr "This function returns a NULL-terminated array of strings
 (like L<environ(3)>), or NULL if there was an error.
-
-The caller must free the strings I<and> the array after use.\n\n"
+I<The caller must free the strings and the array after use>.\n\n"
       );
       if List.mem ProtocolLimitWarning flags then
 	pr "Because of the message protocol, there is a transfer limit 
 of somewhere between 2MB and 4MB.  To transfer large files you should use
 FTP.\n\n";
-  ) functions
+  ) sorted_functions
 
 (* Generate the protocol (XDR) file. *)
 and generate_xdr () =
@@ -562,9 +622,10 @@ and generate_fish_cmds () =
   pr "  list_builtin_commands ();\n";
   List.iter (
     fun (name, _, _, _, shortdesc, _) ->
+      let name = replace name '_' '-' in
       pr "  printf (\"%%-20s %%s\\n\", \"%s\", \"%s\");\n"
 	name shortdesc
-  ) functions;
+  ) sorted_functions;
   pr "  printf (\"    Use -h <cmd> / help <cmd> to show detailed help for a command.\\n\");\n";
   pr "}\n";
   pr "\n";
@@ -574,12 +635,13 @@ and generate_fish_cmds () =
   pr "{\n";
   List.iter (
     fun (name, style, _, flags, shortdesc, longdesc) ->
+      let name2 = replace name '_' '-' in
       let synopsis =
 	match snd style with
-	| P0 -> name
+	| P0 -> name2
 	| args ->
 	    sprintf "%s <%s>"
-	      name (
+	      name2 (
 		String.concat "> <" (
 		  map_args (function
 			    | String n -> n) args
@@ -593,9 +655,13 @@ of somewhere between 2MB and 4MB.  To transfer large files you should use
 FTP."
 	else "" in
 
-      pr "  if (strcasecmp (cmd, \"%s\") == 0)\n" name;
+      pr "  if (";
+      pr "strcasecmp (cmd, \"%s\") == 0" name;
+      if name <> name2 then
+	pr " || strcasecmp (cmd, \"%s\") == 0" name2;
+      pr ")\n";
       pr "    pod2text (\"%s - %s\", %S);\n"
-	name shortdesc
+	name2 shortdesc
 	(" " ^ synopsis ^ "\n\n" ^ longdesc ^ warnings);
       pr "  else\n"
   ) functions;
@@ -660,7 +726,12 @@ FTP."
   pr "{\n";
   List.iter (
     fun (name, _, _, _, _, _) ->
-      pr "  if (strcasecmp (cmd, \"%s\") == 0)\n" name;
+      let name2 = replace name '_' '-' in
+      pr "  if (";
+      pr "strcasecmp (cmd, \"%s\") == 0" name;
+      if name <> name2 then
+	pr " || strcasecmp (cmd, \"%s\") == 0" name2;
+      pr ")\n";
       pr "    return run_%s (cmd, argc, argv);\n" name;
       pr "  else\n";
   ) functions;
@@ -733,6 +804,8 @@ let output_to filename =
 
 (* Main program. *)
 let () =
+  check_functions ();
+
   let close = output_to "src/guestfs_protocol.x" in
   generate_xdr ();
   close ();

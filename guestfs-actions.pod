@@ -7,15 +7,43 @@ Return the contents of the file named C<path>.
 
 Note that this function cannot correctly handle binary files
 (specifically, files containing C<\0> character which is treated
-as end of string).  For those you need to use the C<guestfs_read>
+as end of string).  For those you need to use the C<guestfs_read_file>
 function which has a more complex interface.
 
-This function returns a string or NULL on error.  The caller
-must free the returned string after use.
+This function returns a string or NULL on error.
+I<The caller must free the returned string after use>.
 
 Because of the message protocol, there is a transfer limit 
 of somewhere between 2MB and 4MB.  To transfer large files you should use
 FTP.
+
+=head2 guestfs_list_devices
+
+ char **guestfs_list_devices (guestfs_h *handle);
+
+List all the block devices.
+
+The full block device names are returned, eg. C</dev/sda>
+
+
+This function returns a NULL-terminated array of strings
+(like L<environ(3)>), or NULL if there was an error.
+I<The caller must free the strings and the array after use>.
+
+=head2 guestfs_list_partitions
+
+ char **guestfs_list_partitions (guestfs_h *handle);
+
+List all the partitions detected on all block devices.
+
+The full partition device names are returned, eg. C</dev/sda1>
+
+This does not return logical volumes.  For that you will need to
+call C<guestfs_lvs>.
+
+This function returns a NULL-terminated array of strings
+(like L<environ(3)>), or NULL if there was an error.
+I<The caller must free the strings and the array after use>.
 
 =head2 guestfs_ll
 
@@ -28,8 +56,8 @@ there is no cwd) in the format of 'ls -la'.
 This command is mostly useful for interactive sessions.  It
 is I<not> intended that you try to parse the output string.
 
-This function returns a string or NULL on error.  The caller
-must free the returned string after use.
+This function returns a string or NULL on error.
+I<The caller must free the returned string after use>.
 
 =head2 guestfs_ls
 
@@ -45,8 +73,7 @@ should probably use C<guestfs_readdir> instead.
 
 This function returns a NULL-terminated array of strings
 (like L<environ(3)>), or NULL if there was an error.
-
-The caller must free the strings I<and> the array after use.
+I<The caller must free the strings and the array after use>.
 
 =head2 guestfs_mount
 

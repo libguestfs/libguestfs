@@ -25,6 +25,64 @@
 #include "../src/guestfs_protocol.h"
 #include "actions.h"
 
+static void mount_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_mount_args args;
+  const char *device;
+  const char *mountpoint;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_mount_args (xdr_in, &args)) {
+    reply_with_error ("mount: daemon failed to decode procedure arguments");
+    return;
+  }
+  device = args.device;
+  mountpoint = args.mountpoint;
+
+  r = do_mount (device, mountpoint);
+  if (r == -1)
+    /* do_mount has already called reply_with_error, so just return */
+    return;
+
+  reply (NULL, NULL);
+}
+
+static void sync_stub (XDR *xdr_in)
+{
+  int r;
+
+  r = do_sync ();
+  if (r == -1)
+    /* do_sync has already called reply_with_error, so just return */
+    return;
+
+  reply (NULL, NULL);
+}
+
+static void touch_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_touch_args args;
+  const char *path;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_touch_args (xdr_in, &args)) {
+    reply_with_error ("touch: daemon failed to decode procedure arguments");
+    return;
+  }
+  path = args.path;
+
+  r = do_touch (path);
+  if (r == -1)
+    /* do_touch has already called reply_with_error, so just return */
+    return;
+
+  reply (NULL, NULL);
+}
+
 static void cat_stub (XDR *xdr_in)
 {
   char *r;
@@ -101,67 +159,50 @@ static void ls_stub (XDR *xdr_in)
   free_strings (r);
 }
 
-static void mount_stub (XDR *xdr_in)
+static void list_devices_stub (XDR *xdr_in)
 {
-  int r;
-  struct guestfs_mount_args args;
-  const char *device;
-  const char *mountpoint;
+  char **r;
 
-  memset (&args, 0, sizeof args);
-
-  if (!xdr_guestfs_mount_args (xdr_in, &args)) {
-    reply_with_error ("mount: daemon failed to decode procedure arguments");
-    return;
-  }
-  device = args.device;
-  mountpoint = args.mountpoint;
-
-  r = do_mount (device, mountpoint);
-  if (r == -1)
-    /* do_mount has already called reply_with_error, so just return */
+  r = do_list_devices ();
+  if (r == NULL)
+    /* do_list_devices has already called reply_with_error, so just return */
     return;
 
-  reply (NULL, NULL);
+  struct guestfs_list_devices_ret ret;
+  ret.devices.devices_len = count_strings (r);
+  ret.devices.devices_val = r;
+  reply ((xdrproc_t) &xdr_guestfs_list_devices_ret, (char *) &ret);
+  free_strings (r);
 }
 
-static void sync_stub (XDR *xdr_in)
+static void list_partitions_stub (XDR *xdr_in)
 {
-  int r;
+  char **r;
 
-  r = do_sync ();
-  if (r == -1)
-    /* do_sync has already called reply_with_error, so just return */
+  r = do_list_partitions ();
+  if (r == NULL)
+    /* do_list_partitions has already called reply_with_error, so just return */
     return;
 
-  reply (NULL, NULL);
-}
-
-static void touch_stub (XDR *xdr_in)
-{
-  int r;
-  struct guestfs_touch_args args;
-  const char *path;
-
-  memset (&args, 0, sizeof args);
-
-  if (!xdr_guestfs_touch_args (xdr_in, &args)) {
-    reply_with_error ("touch: daemon failed to decode procedure arguments");
-    return;
-  }
-  path = args.path;
-
-  r = do_touch (path);
-  if (r == -1)
-    /* do_touch has already called reply_with_error, so just return */
-    return;
-
-  reply (NULL, NULL);
+  struct guestfs_list_partitions_ret ret;
+  ret.partitions.partitions_len = count_strings (r);
+  ret.partitions.partitions_val = r;
+  reply ((xdrproc_t) &xdr_guestfs_list_partitions_ret, (char *) &ret);
+  free_strings (r);
 }
 
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
+    case GUESTFS_PROC_MOUNT:
+      mount_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_SYNC:
+      sync_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_TOUCH:
+      touch_stub (xdr_in);
+      break;
     case GUESTFS_PROC_CAT:
       cat_stub (xdr_in);
       break;
@@ -171,14 +212,11 @@ void dispatch_incoming_message (XDR *xdr_in)
     case GUESTFS_PROC_LS:
       ls_stub (xdr_in);
       break;
-    case GUESTFS_PROC_MOUNT:
-      mount_stub (xdr_in);
+    case GUESTFS_PROC_LIST_DEVICES:
+      list_devices_stub (xdr_in);
       break;
-    case GUESTFS_PROC_SYNC:
-      sync_stub (xdr_in);
-      break;
-    case GUESTFS_PROC_TOUCH:
-      touch_stub (xdr_in);
+    case GUESTFS_PROC_LIST_PARTITIONS:
+      list_partitions_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d", proc_nr);
