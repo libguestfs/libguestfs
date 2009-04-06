@@ -21,8 +21,19 @@ Formatting
 Try to use GNU / Emacs default formatting, following the convention
 used elsewhere in the source.
 
+Please make sure that the code compiles without warnings.
+
+Please test any changes
+
+Debugging
+----------------------------------------------------------------------
+
+Use 'guestfish -v', which will show error messages etc from the
+daemon.
+
 Patches
 ----------------------------------------------------------------------
 
 Submit patches to the fedora-virt mailing list:
 http://www.redhat.com/mailman/listinfo/fedora-virt
+and CC to rjones@redhat.com
