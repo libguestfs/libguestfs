@@ -231,6 +231,38 @@ usage (void)
 }
 
 int
+add_string (char ***argv, int *size, int *alloc, const char *str)
+{
+  char **new_argv;
+  char *new_str;
+
+  if (*size >= *alloc) {
+    *alloc += 64;
+    new_argv = realloc (*argv, *alloc * sizeof (char *));
+    if (new_argv == NULL) {
+      reply_with_perror ("realloc");
+      free_strings (*argv);
+      return -1;
+    }
+    *argv = new_argv;
+  }
+
+  if (str) {
+    new_str = strdup (str);
+    if (new_str == NULL) {
+      reply_with_perror ("strdup");
+      free_strings (*argv);
+    }
+  } else
+    new_str = NULL;
+
+  (*argv)[*size] = new_str;
+
+  (*size)++;
+  return 0;
+}
+
+int
 count_strings (char **argv)
 {
   int argc;

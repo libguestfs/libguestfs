@@ -51,7 +51,12 @@ let functions = [
   ("cat", (RString "content", P1 (String "path")), 4, [ProtocolLimitWarning],
    "list the contents of a file",
    "\
-Return the contents of the file named C<path>.");
+Return the contents of the file named C<path>.
+
+Note that this function cannot correctly handle binary files
+(specifically, files containing C<\\0> character which is treated
+as end of string).  For those you need to use the C<guestfs_read>
+function which has a more complex interface.");
 
   ("ll", (RString "listing", P1 (String "directory")), 5, [],
    "list the files in a directory (long format)",
@@ -69,7 +74,8 @@ List the files in C<directory> (relative to the root directory,
 there is no cwd).  The '.' and '..' entries are not returned, but
 hidden files are shown.
 
-This command is mostly useful for interactive sessions.");
+This command is mostly useful for interactive sessions.  Programs
+should probably use C<guestfs_readdir> instead.");
 
   ("mount", (Err, P2 (String "device", String "mountpoint")), 1, [],
    "mount a guest disk at a position in the filesystem",

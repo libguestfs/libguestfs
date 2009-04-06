@@ -23,16 +23,63 @@
 #include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <dirent.h>
 #include <sys/stat.h>
 
 #include "daemon.h"
 #include "actions.h"
 
+static int
+compare (const void *vp1, const void *vp2)
+{
+  char * const *p1 = (char * const *) vp1;
+  char * const *p2 = (char * const *) vp2;
+  return strcmp (*p1, *p2);
+}
+
 char **
 do_ls (const char *path)
 {
-  reply_with_error ("ls command is not yet implemented");
-  return NULL;
+  char **r = NULL;
+  int size = 0, alloc = 0;
+  DIR *dir;
+  struct dirent *d;
+
+  NEED_ROOT (NULL);
+  ABS_PATH (path, NULL);
+
+  CHROOT_IN;
+  dir = opendir (path);
+  CHROOT_OUT;
+
+  if (!dir) {
+    reply_with_perror ("opendir: %s", path);
+    return NULL;
+  }
+
+  while ((d = readdir (dir)) != NULL) {
+    if (strcmp (d->d_name, ".") == 0 || strcmp (d->d_name, "..") == 0)
+      continue;
+
+    if (add_string (&r, &size, &alloc, d->d_name) == -1) {
+      closedir (dir);
+      return NULL;
+    }
+  }
+
+  if (add_string (&r, &size, &alloc, NULL) == -1) {
+    closedir (dir);
+    return NULL;
+  }
+
+  if (closedir (dir) == -1) {
+    reply_with_perror ("closedir: %s", path);
+    free_strings (r);
+    return NULL;
+  }
+
+  qsort (r, size-1, sizeof (char *), compare);
+  return r;
 }
 
 char *
@@ -42,10 +89,8 @@ do_ll (const char *path)
   char *out, *err;
   char *spath;
 
-  if (path[0] != '/') {
-    reply_with_error ("ll: path must start with a / character");
-    return NULL;
-  }
+  //NEED_ROOT
+  ABS_PATH (path, NULL);
 
   /* This exposes the /sysroot, because we can't chroot and run the ls
    * command (since 'ls' won't necessarily exist in the chroot).  This

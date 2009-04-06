@@ -41,13 +41,13 @@ void list_commands (void)
 void display_command (const char *cmd)
 {
   if (strcasecmp (cmd, "cat") == 0)
-    pod2text ("cat - list the contents of a file", " cat <path>\n\nReturn the contents of the file named C<path>.\n\nBecause of the message protocol, there is a transfer limit \nof somewhere between 2MB and 4MB.  To transfer large files you should use\nFTP.");
+    pod2text ("cat - list the contents of a file", " cat <path>\n\nReturn the contents of the file named C<path>.\n\nNote that this function cannot correctly handle binary files\n(specifically, files containing C<\\0> character which is treated\nas end of string).  For those you need to use the C<guestfs_read>\nfunction which has a more complex interface.\n\nBecause of the message protocol, there is a transfer limit \nof somewhere between 2MB and 4MB.  To transfer large files you should use\nFTP.");
   else
   if (strcasecmp (cmd, "ll") == 0)
     pod2text ("ll - list the files in a directory (long format)", " ll <directory>\n\nList the files in C<directory> (relative to the root directory,\nthere is no cwd) in the format of 'ls -la'.\n\nThis command is mostly useful for interactive sessions.  It\nis I<not> intended that you try to parse the output string.");
   else
   if (strcasecmp (cmd, "ls") == 0)
-    pod2text ("ls - list the files in a directory", " ls <directory>\n\nList the files in C<directory> (relative to the root directory,\nthere is no cwd).  The '.' and '..' entries are not returned, but\nhidden files are shown.\n\nThis command is mostly useful for interactive sessions.");
+    pod2text ("ls - list the files in a directory", " ls <directory>\n\nList the files in C<directory> (relative to the root directory,\nthere is no cwd).  The '.' and '..' entries are not returned, but\nhidden files are shown.\n\nThis command is mostly useful for interactive sessions.  Programs\nshould probably use C<guestfs_readdir> instead.");
   else
   if (strcasecmp (cmd, "mount") == 0)
     pod2text ("mount - mount a guest disk at a position in the filesystem", " mount <device> <mountpoint>\n\nMount a guest disk at a position in the filesystem.  Block devices\nare named C</dev/sda>, C</dev/sdb> and so on, as they were added to\nthe guest.  If those block devices contain partitions, they will have\nthe usual names (eg. C</dev/sda1>).  Also LVM C</dev/VG/LV>-style\nnames can be used.\n\nThe rules are the same as for L<mount(2)>:  A filesystem must\nfirst be mounted on C</> before others can be mounted.  Other\nfilesystems can only be mounted on directories which already\nexist.\n\nThe mounted filesystem is writable, if we have sufficient permissions\non the underlying device.\n\nThe filesystem options C<sync> and C<noatime> are set with this\ncall, in order to improve reliability.");

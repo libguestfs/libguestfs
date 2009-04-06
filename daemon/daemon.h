@@ -26,8 +26,11 @@
 /* in guestfsd.c */
 extern void xwrite (int sock, const void *buf, size_t len);
 extern void xread (int sock, void *buf, size_t len);
+
+extern int add_string (char ***argv, int *size, int *alloc, const char *str);
 extern int count_strings (char **argv);
 extern void free_strings (char **argv);
+
 extern int command (char **stdoutput, char **stderror, const char *name, ...);
 
 /* in proto.c */
@@ -46,14 +49,22 @@ extern void reply_with_error (const char *fs, ...);
 extern void reply_with_perror (const char *fs, ...);
 extern void reply (xdrproc_t xdrp, char *ret);
 
-#define NEED_ROOT							\
+#define NEED_ROOT(errcode)						\
   do {									\
     if (!root_mounted) {						\
       reply_with_error ("%s: you must call 'mount' first to mount the root filesystem", __func__); \
-      return -1;							\
+      return (errcode);							\
     }									\
   }									\
   while (0)
+
+#define ABS_PATH(path,errcode)						\
+  do {									\
+    if ((path)[0] != '/') {						\
+      reply_with_error ("%s: path must start with a / character", __func__); \
+      return (errcode);							\
+    }									\
+  } while (0)
 
 /* NB:
  * (1) You must match CHROOT_IN and CHROOT_OUT even along error paths.
