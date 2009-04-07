@@ -135,43 +135,56 @@ The full partition device names are returned, eg. C</dev/sda1>
 This does not return logical volumes.  For that you will need to
 call C<guestfs_lvs>.");
 
-(*
-  ("pvs", (RPVList "physvols", P0), 9, [],
+  ("pvs", (RStringList "physvols", P0), 9, [],
    "list the LVM physical volumes (PVs)",
    "\
 List all the physical volumes detected.  This is the equivalent
-of the L<pvs(8)> command.");
+of the L<pvs(8)> command.
 
-  ("vgs", (RVGList "volgroups", P0), 10, [],
+This returns a list of just the device names that contain
+PVs (eg. C</dev/sda2>).
+
+See also C<guestfs_pvs_full>.");
+
+  ("vgs", (RStringList "volgroups", P0), 10, [],
    "list the LVM volume groups (VGs)",
    "\
 List all the volumes groups detected.  This is the equivalent
-of the L<vgs(8)> command.");
+of the L<vgs(8)> command.
 
-  ("lvs", (RLVList "logvols", P0), 11, [],
+This returns a list of just the volume group names that were
+detected (eg. C<VolGroup00>).
+
+See also C<guestfs_vgs_full>.");
+
+  ("lvs", (RStringList "logvols", P0), 11, [],
    "list the LVM logical volumes (LVs)",
    "\
 List all the logical volumes detected.  This is the equivalent
-of the L<lvs(8)> command.");
-*)
+of the L<lvs(8)> command.
+
+This returns a list of the logical volume device names
+(eg. C</dev/VolGroup00/LogVol00>).
+
+See also C<guestfs_lvs_full>.");
 
   ("pvs_full", (RPVList "physvols", P0), 12, [],
    "list the LVM physical volumes (PVs)",
    "\
 List all the physical volumes detected.  This is the equivalent
-of the L<pvs(8)> command.");
+of the L<pvs(8)> command.  The \"full\" version includes all fields.");
 
   ("vgs_full", (RVGList "volgroups", P0), 13, [],
    "list the LVM volume groups (VGs)",
    "\
 List all the volumes groups detected.  This is the equivalent
-of the L<vgs(8)> command.");
+of the L<vgs(8)> command.  The \"full\" version includes all fields.");
 
   ("lvs_full", (RLVList "logvols", P0), 14, [],
    "list the LVM logical volumes (LVs)",
    "\
 List all the logical volumes detected.  This is the equivalent
-of the L<lvs(8)> command.");
+of the L<lvs(8)> command.  The \"full\" version includes all fields.");
 ]
 
 (* Column names and types from LVM PVs/VGs/LVs. *)

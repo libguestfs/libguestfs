@@ -199,6 +199,54 @@ static void list_partitions_stub (XDR *xdr_in)
   free_strings (r);
 }
 
+static void pvs_stub (XDR *xdr_in)
+{
+  char **r;
+
+  r = do_pvs ();
+  if (r == NULL)
+    /* do_pvs has already called reply_with_error, so just return */
+    return;
+
+  struct guestfs_pvs_ret ret;
+  ret.physvols.physvols_len = count_strings (r);
+  ret.physvols.physvols_val = r;
+  reply ((xdrproc_t) &xdr_guestfs_pvs_ret, (char *) &ret);
+  free_strings (r);
+}
+
+static void vgs_stub (XDR *xdr_in)
+{
+  char **r;
+
+  r = do_vgs ();
+  if (r == NULL)
+    /* do_vgs has already called reply_with_error, so just return */
+    return;
+
+  struct guestfs_vgs_ret ret;
+  ret.volgroups.volgroups_len = count_strings (r);
+  ret.volgroups.volgroups_val = r;
+  reply ((xdrproc_t) &xdr_guestfs_vgs_ret, (char *) &ret);
+  free_strings (r);
+}
+
+static void lvs_stub (XDR *xdr_in)
+{
+  char **r;
+
+  r = do_lvs ();
+  if (r == NULL)
+    /* do_lvs has already called reply_with_error, so just return */
+    return;
+
+  struct guestfs_lvs_ret ret;
+  ret.logvols.logvols_len = count_strings (r);
+  ret.logvols.logvols_val = r;
+  reply ((xdrproc_t) &xdr_guestfs_lvs_ret, (char *) &ret);
+  free_strings (r);
+}
+
 static void pvs_full_stub (XDR *xdr_in)
 {
   guestfs_lvm_int_pv_list *r;
@@ -270,6 +318,15 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_LIST_PARTITIONS:
       list_partitions_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_PVS:
+      pvs_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_VGS:
+      vgs_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_LVS:
+      lvs_stub (xdr_in);
       break;
     case GUESTFS_PROC_PVS_FULL:
       pvs_full_stub (xdr_in);

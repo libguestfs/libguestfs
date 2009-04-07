@@ -31,6 +31,121 @@
  * of writing it hasn't progressed very far.
  */
 
+static char **
+convert_lvm_output (char *out, char *prefix)
+{
+  char *p, *pend;
+  char **r = NULL;
+  int size = 0, alloc = 0;
+  char buf[256];
+  char *str;
+
+  p = out;
+  while (p) {
+    pend = strchr (p, '\n');	/* Get the next line of output. */
+    if (pend) {
+      *pend = '\0';
+      pend++;
+    }
+
+    while (*p && isspace (*p))	/* Skip any leading whitespace. */
+      p++;
+
+    if (!*p) {			/* Empty line?  Skip it. */
+      p = pend;
+      continue;
+    }
+
+    /* Prefix? */
+    if (prefix) {
+      snprintf (buf, sizeof buf, "%s%s", prefix, p);
+      str = buf;
+    } else
+      str = p;
+
+    if (add_string (&r, &size, &alloc, str) == -1) {
+      free (out);
+      return NULL;
+    }
+
+    p = pend;
+  }
+
+  free (out);
+
+  if (add_string (&r, &size, &alloc, NULL) == -1)
+    return NULL;
+
+  sort_strings (r, size-1);
+  return r;
+}
+
+char **
+do_pvs (void)
+{
+  char *out, *err;
+  int r;
+
+  r = command (&out, &err,
+	       "/sbin/lvm", "pvs", "-o", "pv_name", "--noheadings", NULL);
+  if (r == -1) {
+    reply_with_error ("%s", err);
+    free (out);
+    free (err);
+    return NULL;
+  }
+
+  free (err);
+
+  return convert_lvm_output (out, NULL);
+}
+
+char **
+do_vgs (void)
+{
+  char *out, *err;
+  int r;
+
+  r = command (&out, &err,
+	       "/sbin/lvm", "vgs", "-o", "vg_name", "--noheadings", NULL);
+  if (r == -1) {
+    reply_with_error ("%s", err);
+    free (out);
+    free (err);
+    return NULL;
+  }
+
+  free (err);
+
+  return convert_lvm_output (out, NULL);
+}
+
+char **
+do_lvs (void)
+{
+  char *out, *err;
+  int r;
+
+  r = command (&out, &err,
+	       "/sbin/lvm", "lvs",
+	       "-o", "vg_name,lv_name", "--noheadings",
+	       "--separator", "/", NULL);
+  if (r == -1) {
+    reply_with_error ("%s", err);
+    free (out);
+    free (err);
+    return NULL;
+  }
+
+  free (err);
+
+  return convert_lvm_output (out, "/dev/");
+}
+
+/* These were so complex to implement that I ended up auto-generating
+ * the code.  That code is in stubs.c, and it is generated as usual
+ * by generator.ml.
+ */
 guestfs_lvm_int_pv_list *
 do_pvs_full (void)
 {

@@ -279,6 +279,39 @@ xdr_guestfs_list_partitions_ret (XDR *xdrs, guestfs_list_partitions_ret *objp)
 }
 
 bool_t
+xdr_guestfs_pvs_ret (XDR *xdrs, guestfs_pvs_ret *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_array (xdrs, (char **)&objp->physvols.physvols_val, (u_int *) &objp->physvols.physvols_len, ~0,
+		sizeof (str), (xdrproc_t) xdr_str))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_vgs_ret (XDR *xdrs, guestfs_vgs_ret *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_array (xdrs, (char **)&objp->volgroups.volgroups_val, (u_int *) &objp->volgroups.volgroups_len, ~0,
+		sizeof (str), (xdrproc_t) xdr_str))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_lvs_ret (XDR *xdrs, guestfs_lvs_ret *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_array (xdrs, (char **)&objp->logvols.logvols_val, (u_int *) &objp->logvols.logvols_len, ~0,
+		sizeof (str), (xdrproc_t) xdr_str))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
 xdr_guestfs_pvs_full_ret (XDR *xdrs, guestfs_pvs_full_ret *objp)
 {
 	register int32_t *buf;

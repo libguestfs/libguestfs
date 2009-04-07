@@ -595,6 +595,225 @@ char **guestfs_list_partitions (guestfs_h *g)
   return rv.ret.partitions.partitions_val;
 }
 
+struct pvs_rv {
+  int cb_done;  /* flag to indicate callback was called */
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+  struct guestfs_pvs_ret ret;
+};
+
+static void pvs_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  struct pvs_rv *rv = (struct pvs_rv *) data;
+
+  if (!xdr_guestfs_message_header (xdr, &rv->hdr)) {
+    error (g, "guestfs_pvs: failed to parse reply header");
+    return;
+  }
+  if (rv->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &rv->err)) {
+      error (g, "guestfs_pvs: failed to parse reply error");
+      return;
+    }
+    goto done;
+  }
+  if (!xdr_guestfs_pvs_ret (xdr, &rv->ret)) {
+    error (g, "guestfs_pvs: failed to parse reply");
+    return;
+  }
+ done:
+  rv->cb_done = 1;
+  main_loop.main_loop_quit (g);
+}
+
+char **guestfs_pvs (guestfs_h *g)
+{
+  struct pvs_rv rv;
+  int serial;
+
+  if (g->state != READY) {
+    error (g, "guestfs_pvs called from the wrong state, %d != READY",
+      g->state);
+    return NULL;
+  }
+
+  memset (&rv, 0, sizeof rv);
+
+  serial = dispatch (g, GUESTFS_PROC_PVS, NULL, NULL);
+  if (serial == -1)
+    return NULL;
+
+  rv.cb_done = 0;
+  g->reply_cb_internal = pvs_cb;
+  g->reply_cb_internal_data = &rv;
+  main_loop.main_loop_run (g);
+  g->reply_cb_internal = NULL;
+  g->reply_cb_internal_data = NULL;
+  if (!rv.cb_done) {
+    error (g, "guestfs_pvs failed, see earlier error messages");
+    return NULL;
+  }
+
+  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_PVS, serial) == -1)
+    return NULL;
+
+  if (rv.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", rv.err.error);
+    return NULL;
+  }
+
+  /* caller will free this, but we need to add a NULL entry */
+  rv.ret.physvols.physvols_val = safe_realloc (g, rv.ret.physvols.physvols_val, rv.ret.physvols.physvols_len + 1);
+  rv.ret.physvols.physvols_val[rv.ret.physvols.physvols_len] = NULL;
+  return rv.ret.physvols.physvols_val;
+}
+
+struct vgs_rv {
+  int cb_done;  /* flag to indicate callback was called */
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+  struct guestfs_vgs_ret ret;
+};
+
+static void vgs_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  struct vgs_rv *rv = (struct vgs_rv *) data;
+
+  if (!xdr_guestfs_message_header (xdr, &rv->hdr)) {
+    error (g, "guestfs_vgs: failed to parse reply header");
+    return;
+  }
+  if (rv->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &rv->err)) {
+      error (g, "guestfs_vgs: failed to parse reply error");
+      return;
+    }
+    goto done;
+  }
+  if (!xdr_guestfs_vgs_ret (xdr, &rv->ret)) {
+    error (g, "guestfs_vgs: failed to parse reply");
+    return;
+  }
+ done:
+  rv->cb_done = 1;
+  main_loop.main_loop_quit (g);
+}
+
+char **guestfs_vgs (guestfs_h *g)
+{
+  struct vgs_rv rv;
+  int serial;
+
+  if (g->state != READY) {
+    error (g, "guestfs_vgs called from the wrong state, %d != READY",
+      g->state);
+    return NULL;
+  }
+
+  memset (&rv, 0, sizeof rv);
+
+  serial = dispatch (g, GUESTFS_PROC_VGS, NULL, NULL);
+  if (serial == -1)
+    return NULL;
+
+  rv.cb_done = 0;
+  g->reply_cb_internal = vgs_cb;
+  g->reply_cb_internal_data = &rv;
+  main_loop.main_loop_run (g);
+  g->reply_cb_internal = NULL;
+  g->reply_cb_internal_data = NULL;
+  if (!rv.cb_done) {
+    error (g, "guestfs_vgs failed, see earlier error messages");
+    return NULL;
+  }
+
+  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_VGS, serial) == -1)
+    return NULL;
+
+  if (rv.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", rv.err.error);
+    return NULL;
+  }
+
+  /* caller will free this, but we need to add a NULL entry */
+  rv.ret.volgroups.volgroups_val = safe_realloc (g, rv.ret.volgroups.volgroups_val, rv.ret.volgroups.volgroups_len + 1);
+  rv.ret.volgroups.volgroups_val[rv.ret.volgroups.volgroups_len] = NULL;
+  return rv.ret.volgroups.volgroups_val;
+}
+
+struct lvs_rv {
+  int cb_done;  /* flag to indicate callback was called */
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+  struct guestfs_lvs_ret ret;
+};
+
+static void lvs_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  struct lvs_rv *rv = (struct lvs_rv *) data;
+
+  if (!xdr_guestfs_message_header (xdr, &rv->hdr)) {
+    error (g, "guestfs_lvs: failed to parse reply header");
+    return;
+  }
+  if (rv->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &rv->err)) {
+      error (g, "guestfs_lvs: failed to parse reply error");
+      return;
+    }
+    goto done;
+  }
+  if (!xdr_guestfs_lvs_ret (xdr, &rv->ret)) {
+    error (g, "guestfs_lvs: failed to parse reply");
+    return;
+  }
+ done:
+  rv->cb_done = 1;
+  main_loop.main_loop_quit (g);
+}
+
+char **guestfs_lvs (guestfs_h *g)
+{
+  struct lvs_rv rv;
+  int serial;
+
+  if (g->state != READY) {
+    error (g, "guestfs_lvs called from the wrong state, %d != READY",
+      g->state);
+    return NULL;
+  }
+
+  memset (&rv, 0, sizeof rv);
+
+  serial = dispatch (g, GUESTFS_PROC_LVS, NULL, NULL);
+  if (serial == -1)
+    return NULL;
+
+  rv.cb_done = 0;
+  g->reply_cb_internal = lvs_cb;
+  g->reply_cb_internal_data = &rv;
+  main_loop.main_loop_run (g);
+  g->reply_cb_internal = NULL;
+  g->reply_cb_internal_data = NULL;
+  if (!rv.cb_done) {
+    error (g, "guestfs_lvs failed, see earlier error messages");
+    return NULL;
+  }
+
+  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_LVS, serial) == -1)
+    return NULL;
+
+  if (rv.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", rv.err.error);
+    return NULL;
+  }
+
+  /* caller will free this, but we need to add a NULL entry */
+  rv.ret.logvols.logvols_val = safe_realloc (g, rv.ret.logvols.logvols_val, rv.ret.logvols.logvols_len + 1);
+  rv.ret.logvols.logvols_val[rv.ret.logvols.logvols_len] = NULL;
+  return rv.ret.logvols.logvols_val;
+}
+
 struct pvs_full_rv {
   int cb_done;  /* flag to indicate callback was called */
   struct guestfs_message_header hdr;
