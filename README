@@ -39,9 +39,13 @@ Requirements
 other documentation.
 
 - (Optional) OCaml if you want to modify the code or rebuild certain
-generated files.
+generated files, and also to build the OCaml bindings
 
 - (Optional) local Fedora mirror
+
+- (Optional) Perl if you want to build the perl bindings
+
+- (Optional) Python if you want to build the python bindings
 
 Running ./configure will check you have all the requirements installed
 on your machine.

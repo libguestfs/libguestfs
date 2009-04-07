@@ -15,6 +15,9 @@ You will need to run src/generator.ml (from the top directory) which
 regenerates all the auto-generated files, and then continue with the
 ordinary build process.
 
+PLEASE LOOK AT THE TOP OF EACH FILE BEFORE EDITING to see whether it
+is automatically generated or not.
+
 Formatting
 ----------------------------------------------------------------------
 
@@ -23,10 +26,44 @@ used elsewhere in the source.
 
 Please make sure that the code compiles without warnings.
 
-Please test any changes
+Please test any changes.
+
+Directories
+----------------------------------------------------------------------
+
+daemon/
+	The daemon that runs inside the guest and carries out actions.
+
+examples/
+	The examples.
+
+fish/
+	Guestfish (the command-line program / shell)
+
+images/
+	Some guest images to test against.  These are gzipped to save
+	space.  You have to unzip them before use.
+
+m4/
+	M4 macros used by autoconf.
+
+ocaml/
+	OCaml bindings.
+
+perl/
+	Perl bindings.
+
+python/
+	Python bindings.
+
+src/
+	Source code to the C library.
+	Also contains the crucial generator program.
 
 Debugging
 ----------------------------------------------------------------------
+
+It's a good idea to use guestfish to try out new commands.
 
 Use 'guestfish -v', which will show error messages etc from the
 daemon.

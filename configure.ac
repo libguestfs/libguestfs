@@ -15,7 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-AC_INIT([libguestfs],[0.4])
+AC_INIT([libguestfs],[0.5])
 AM_INIT_AUTOMAKE
 
 AC_CONFIG_MACRO_DIR([m4])
@@ -40,7 +40,7 @@ AC_CHECK_HEADERS([errno.h sys/types.h sys/un.h sys/wait.h sys/socket.h])
 
 dnl Check for rpcgen and XDR library.  rpcgen is optional.
 AC_CHECK_PROG([RPCGEN],[rpcgen],[rpcgen],[no])
-AM_CONDITIONAL([RPCGEN],[test "x$RPCGEN" != "xno"])
+AM_CONDITIONAL([HAVE_RPCGEN],[test "x$RPCGEN" != "xno"])
 AC_CHECK_LIB([portablexdr],[xdrmem_create],[],[
 	AC_SEARCH_LIBS([xdrmem_create],[rpc xdr nsl])
 	])
@@ -99,12 +99,28 @@ AC_ARG_WITH([mirror],
 MIRROR="$with_mirror"
 AC_SUBST(MIRROR)
 
+dnl Check for OCaml (optional, for OCaml bindings).
+AC_PROG_OCAML
+AM_CONDITIONAL([HAVE_OCAML],[test "x$OCAMLC" != "xno"])
+
+dnl Check for Perl (optional, for Perl bindings).
+dnl XXX This isn't quite right, we should check for devel libraries.
+AC_CHECK_PROG([PERL],[perl],[perl],[no])
+AM_CONDITIONAL([HAVE_PERL],[test "x$PERL" != "xno"])
+
+dnl Check for Python (optional, for Python bindings).
+dnl XXX This isn't quite right, we should check for devel libraries.
+AC_CHECK_PROG([PYTHON],[python],[python],[no])
+AM_CONDITIONAL([HAVE_PYTHON],[test "x$PYTHON" != "xno"])
+
 dnl Run in subdirs.
 AC_CONFIG_SUBDIRS([daemon])
 
 dnl Produce output files.
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile src/Makefile fish/Makefile examples/Makefile
+		 images/Makefile ocaml/Makefile perl/Makefile
+		 python/Makefile
 	         make-initramfs.sh update-initramfs.sh
 		 libguestfs.spec])
 AC_OUTPUT

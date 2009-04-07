@@ -17,7 +17,17 @@
 
 ACLOCAL_AMFLAGS = -I m4
 
-SUBDIRS = src daemon fish examples
+SUBDIRS = src daemon fish examples images
+
+if HAVE_OCAML
+SUBDIRS += ocaml
+endif
+if HAVE_PERL
+SUBDIRS += perl
+endif
+if HAVE_PYTHON
+SUBDIRS += python
+endif
 
 EXTRA_DIST = \
 	make-initramfs.sh update-initramfs.sh \

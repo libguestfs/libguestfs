@@ -37,7 +37,7 @@ libguestfs_la_SOURCES = \
 
 libguestfs_la_CFLAGS = -Wall -DGUESTFS_DEFAULT_PATH='"$(libdir)/guestfs"'
 
-if RPCGEN
+if HAVE_RPCGEN
 guestfs_protocol.c: guestfs_protocol.x
 	rm -f $@-t
 	$(RPCGEN) -c -o $@-t $<
