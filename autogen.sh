@@ -21,6 +21,7 @@
 set -e
 set -v
 export AUTOMAKE='automake --foreign'
+mkdir -p daemon/m4
 aclocal
 libtoolize
 autoreconf -i
