@@ -23,7 +23,7 @@ EXTRA_DIST += guestfs_protocol.x \
 	guestfs_protocol.c \
 	guestfs_protocol.h
 
-include_HEADERS = guestfs.h guestfs-actions.h
+include_HEADERS = guestfs.h guestfs-actions.h guestfs-structs.h
 
 lib_LTLIBRARIES = libguestfs.la
 

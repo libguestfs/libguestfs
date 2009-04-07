@@ -16,6 +16,82 @@ extern "C" {
 
 typedef char *str;
 
+struct guestfs_lvm_int_pv {
+	char *pv_name;
+	char pv_uuid[32];
+	char *pv_fmt;
+	quad_t pv_size;
+	quad_t dev_size;
+	quad_t pv_free;
+	quad_t pv_used;
+	char *pv_attr;
+	quad_t pv_pe_count;
+	quad_t pv_pe_alloc_count;
+	char *pv_tags;
+	quad_t pe_start;
+	quad_t pv_mda_count;
+	quad_t pv_mda_free;
+};
+typedef struct guestfs_lvm_int_pv guestfs_lvm_int_pv;
+
+typedef struct {
+	u_int guestfs_lvm_int_pv_list_len;
+	guestfs_lvm_int_pv *guestfs_lvm_int_pv_list_val;
+} guestfs_lvm_int_pv_list;
+
+struct guestfs_lvm_int_vg {
+	char *vg_name;
+	char vg_uuid[32];
+	char *vg_fmt;
+	char *vg_attr;
+	quad_t vg_size;
+	quad_t vg_free;
+	char *vg_sysid;
+	quad_t vg_extent_size;
+	quad_t vg_extent_count;
+	quad_t vg_free_count;
+	quad_t max_lv;
+	quad_t max_pv;
+	quad_t pv_count;
+	quad_t lv_count;
+	quad_t snap_count;
+	quad_t vg_seqno;
+	char *vg_tags;
+	quad_t vg_mda_count;
+	quad_t vg_mda_free;
+};
+typedef struct guestfs_lvm_int_vg guestfs_lvm_int_vg;
+
+typedef struct {
+	u_int guestfs_lvm_int_vg_list_len;
+	guestfs_lvm_int_vg *guestfs_lvm_int_vg_list_val;
+} guestfs_lvm_int_vg_list;
+
+struct guestfs_lvm_int_lv {
+	char *lv_name;
+	char lv_uuid[32];
+	char *lv_attr;
+	quad_t lv_major;
+	quad_t lv_minor;
+	quad_t lv_kernel_major;
+	quad_t lv_kernel_minor;
+	quad_t lv_size;
+	quad_t seg_count;
+	char *origin;
+	float snap_percent;
+	float copy_percent;
+	char *move_pv;
+	char *lv_tags;
+	char *mirror_log;
+	char *modules;
+};
+typedef struct guestfs_lvm_int_lv guestfs_lvm_int_lv;
+
+typedef struct {
+	u_int guestfs_lvm_int_lv_list_len;
+	guestfs_lvm_int_lv *guestfs_lvm_int_lv_list_val;
+} guestfs_lvm_int_lv_list;
+
 struct guestfs_mount_args {
 	char *device;
 	char *mountpoint;
@@ -76,6 +152,21 @@ struct guestfs_list_partitions_ret {
 };
 typedef struct guestfs_list_partitions_ret guestfs_list_partitions_ret;
 
+struct guestfs_pvs_ret {
+	guestfs_lvm_int_pv_list physvols;
+};
+typedef struct guestfs_pvs_ret guestfs_pvs_ret;
+
+struct guestfs_vgs_ret {
+	guestfs_lvm_int_vg_list volgroups;
+};
+typedef struct guestfs_vgs_ret guestfs_vgs_ret;
+
+struct guestfs_lvs_ret {
+	guestfs_lvm_int_lv_list logvols;
+};
+typedef struct guestfs_lvs_ret guestfs_lvs_ret;
+
 enum guestfs_procedure {
 	GUESTFS_PROC_MOUNT = 1,
 	GUESTFS_PROC_SYNC = 2,
@@ -85,7 +176,10 @@ enum guestfs_procedure {
 	GUESTFS_PROC_LS = 6,
 	GUESTFS_PROC_LIST_DEVICES = 7,
 	GUESTFS_PROC_LIST_PARTITIONS = 8,
-	GUESTFS_PROC_dummy = 8 + 1,
+	GUESTFS_PROC_PVS = 9,
+	GUESTFS_PROC_VGS = 10,
+	GUESTFS_PROC_LVS = 11,
+	GUESTFS_PROC_dummy = 11 + 1,
 };
 typedef enum guestfs_procedure guestfs_procedure;
 #define GUESTFS_MESSAGE_MAX 4194304
@@ -124,6 +218,12 @@ typedef struct guestfs_message_header guestfs_message_header;
 
 #if defined(__STDC__) || defined(__cplusplus)
 extern  bool_t xdr_str (XDR *, str*);
+extern  bool_t xdr_guestfs_lvm_int_pv (XDR *, guestfs_lvm_int_pv*);
+extern  bool_t xdr_guestfs_lvm_int_pv_list (XDR *, guestfs_lvm_int_pv_list*);
+extern  bool_t xdr_guestfs_lvm_int_vg (XDR *, guestfs_lvm_int_vg*);
+extern  bool_t xdr_guestfs_lvm_int_vg_list (XDR *, guestfs_lvm_int_vg_list*);
+extern  bool_t xdr_guestfs_lvm_int_lv (XDR *, guestfs_lvm_int_lv*);
+extern  bool_t xdr_guestfs_lvm_int_lv_list (XDR *, guestfs_lvm_int_lv_list*);
 extern  bool_t xdr_guestfs_mount_args (XDR *, guestfs_mount_args*);
 extern  bool_t xdr_guestfs_touch_args (XDR *, guestfs_touch_args*);
 extern  bool_t xdr_guestfs_cat_args (XDR *, guestfs_cat_args*);
@@ -134,6 +234,9 @@ extern  bool_t xdr_guestfs_ls_args (XDR *, guestfs_ls_args*);
 extern  bool_t xdr_guestfs_ls_ret (XDR *, guestfs_ls_ret*);
 extern  bool_t xdr_guestfs_list_devices_ret (XDR *, guestfs_list_devices_ret*);
 extern  bool_t xdr_guestfs_list_partitions_ret (XDR *, guestfs_list_partitions_ret*);
+extern  bool_t xdr_guestfs_pvs_ret (XDR *, guestfs_pvs_ret*);
+extern  bool_t xdr_guestfs_vgs_ret (XDR *, guestfs_vgs_ret*);
+extern  bool_t xdr_guestfs_lvs_ret (XDR *, guestfs_lvs_ret*);
 extern  bool_t xdr_guestfs_procedure (XDR *, guestfs_procedure*);
 extern  bool_t xdr_guestfs_message_direction (XDR *, guestfs_message_direction*);
 extern  bool_t xdr_guestfs_message_status (XDR *, guestfs_message_status*);
@@ -142,6 +245,12 @@ extern  bool_t xdr_guestfs_message_header (XDR *, guestfs_message_header*);
 
 #else /* K&R C */
 extern bool_t xdr_str ();
+extern bool_t xdr_guestfs_lvm_int_pv ();
+extern bool_t xdr_guestfs_lvm_int_pv_list ();
+extern bool_t xdr_guestfs_lvm_int_vg ();
+extern bool_t xdr_guestfs_lvm_int_vg_list ();
+extern bool_t xdr_guestfs_lvm_int_lv ();
+extern bool_t xdr_guestfs_lvm_int_lv_list ();
 extern bool_t xdr_guestfs_mount_args ();
 extern bool_t xdr_guestfs_touch_args ();
 extern bool_t xdr_guestfs_cat_args ();
@@ -152,6 +261,9 @@ extern bool_t xdr_guestfs_ls_args ();
 extern bool_t xdr_guestfs_ls_ret ();
 extern bool_t xdr_guestfs_list_devices_ret ();
 extern bool_t xdr_guestfs_list_partitions_ret ();
+extern bool_t xdr_guestfs_pvs_ret ();
+extern bool_t xdr_guestfs_vgs_ret ();
+extern bool_t xdr_guestfs_lvs_ret ();
 extern bool_t xdr_guestfs_procedure ();
 extern bool_t xdr_guestfs_message_direction ();
 extern bool_t xdr_guestfs_message_status ();

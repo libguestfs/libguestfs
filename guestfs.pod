@@ -312,6 +312,10 @@ This returns the verbose messages flag.
 
 @ACTIONS@
 
+=head1 STRUCTURES
+
+@STRUCTS@
+
 =head1 STATE MACHINE AND LOW-LEVEL EVENT API
 
 Internally, libguestfs is implemented by running a virtual machine

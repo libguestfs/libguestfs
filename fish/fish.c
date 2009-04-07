@@ -165,7 +165,7 @@ main (int argc, char *argv[])
 	mp->mountpoint = "/";
       mp->device = optarg;
       mp->next = mps;
-      mps = mp->next;
+      mps = mp;
       break;
 
     case 'n':

@@ -75,6 +75,16 @@ This function returns a NULL-terminated array of strings
 (like L<environ(3)>), or NULL if there was an error.
 I<The caller must free the strings and the array after use>.
 
+=head2 guestfs_lvs
+
+ struct guestfs_lvm_lv_list *guestfs_lvs (guestfs_h *handle);
+
+List all the logical volumes detected.  This is the equivalent
+of the L<lvs(8)> command.
+
+This function returns a C<struct guestfs_lvm_lv_list>.
+I<The caller must call C<guestfs_free_lvm_lv_list> after use.>.
+
 =head2 guestfs_mount
 
  int guestfs_mount (guestfs_h *handle,
@@ -100,6 +110,16 @@ call, in order to improve reliability.
 
 This function returns 0 on success or -1 on error.
 
+=head2 guestfs_pvs
+
+ struct guestfs_lvm_pv_list *guestfs_pvs (guestfs_h *handle);
+
+List all the physical volumes detected.  This is the equivalent
+of the L<pvs(8)> command.
+
+This function returns a C<struct guestfs_lvm_pv_list>.
+I<The caller must call C<guestfs_free_lvm_pv_list> after use.>.
+
 =head2 guestfs_sync
 
  int guestfs_sync (guestfs_h *handle);
@@ -122,4 +142,14 @@ update the timestamps on a file, or, if the file does not exist,
 to create a new zero-length file.
 
 This function returns 0 on success or -1 on error.
+
+=head2 guestfs_vgs
+
+ struct guestfs_lvm_vg_list *guestfs_vgs (guestfs_h *handle);
+
+List all the volumes groups detected.  This is the equivalent
+of the L<vgs(8)> command.
+
+This function returns a C<struct guestfs_lvm_vg_list>.
+I<The caller must call C<guestfs_free_lvm_vg_list> after use.>.
 

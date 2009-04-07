@@ -35,7 +35,7 @@
 /* XXX We should make this configurable from /proc/cmdline so that the
  * verbose setting of the guestfs_h can be inherited here.
  */
-#define DEBUG 1
+#define DEBUG 0
 
 /* The message currently being processed. */
 int proc_nr;

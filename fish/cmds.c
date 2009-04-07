@@ -22,7 +22,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <inttypes.h>
 
+#include <guestfs.h>
 #include "fish.h"
 
 void list_commands (void)
@@ -34,9 +36,12 @@ void list_commands (void)
   printf ("%-20s %s\n", "list-partitions", "list the partitions");
   printf ("%-20s %s\n", "ll", "list the files in a directory (long format)");
   printf ("%-20s %s\n", "ls", "list the files in a directory");
+  printf ("%-20s %s\n", "lvs", "list the LVM logical volumes (LVs)");
   printf ("%-20s %s\n", "mount", "mount a guest disk at a position in the filesystem");
+  printf ("%-20s %s\n", "pvs", "list the LVM physical volumes (PVs)");
   printf ("%-20s %s\n", "sync", "sync disks, writes are flushed through to the disk image");
   printf ("%-20s %s\n", "touch", "update file timestamps or create a new file");
+  printf ("%-20s %s\n", "vgs", "list the LVM volume groups (VGs)");
   printf ("    Use -h <cmd> / help <cmd> to show detailed help for a command.\n");
 }
 
@@ -66,7 +71,118 @@ void display_command (const char *cmd)
   if (strcasecmp (cmd, "list_partitions") == 0 || strcasecmp (cmd, "list-partitions") == 0)
     pod2text ("list-partitions - list the partitions", " list-partitions\n\nList all the partitions detected on all block devices.\n\nThe full partition device names are returned, eg. C</dev/sda1>\n\nThis does not return logical volumes.  For that you will need to\ncall C<guestfs_lvs>.");
   else
+  if (strcasecmp (cmd, "pvs") == 0)
+    pod2text ("pvs - list the LVM physical volumes (PVs)", " pvs\n\nList all the physical volumes detected.  This is the equivalent\nof the L<pvs(8)> command.");
+  else
+  if (strcasecmp (cmd, "vgs") == 0)
+    pod2text ("vgs - list the LVM volume groups (VGs)", " vgs\n\nList all the volumes groups detected.  This is the equivalent\nof the L<vgs(8)> command.");
+  else
+  if (strcasecmp (cmd, "lvs") == 0)
+    pod2text ("lvs - list the LVM logical volumes (LVs)", " lvs\n\nList all the logical volumes detected.  This is the equivalent\nof the L<lvs(8)> command.");
+  else
     display_builtin_command (cmd);
+}
+
+static void print_pv (struct guestfs_lvm_pv *pv)
+{
+  int i;
+
+  printf ("pv_name: %s\n", pv->pv_name);
+  printf ("pv_uuid: ");
+  for (i = 0; i < 32; ++i)
+    printf ("%c", pv->pv_uuid[i]);
+  printf ("\n");
+  printf ("pv_fmt: %s\n", pv->pv_fmt);
+  printf ("pv_size: %" PRIu64 "\n", pv->pv_size);
+  printf ("dev_size: %" PRIu64 "\n", pv->dev_size);
+  printf ("pv_free: %" PRIu64 "\n", pv->pv_free);
+  printf ("pv_used: %" PRIu64 "\n", pv->pv_used);
+  printf ("pv_attr: %s\n", pv->pv_attr);
+  printf ("pv_pe_count: %" PRIi64 "\n", pv->pv_pe_count);
+  printf ("pv_pe_alloc_count: %" PRIi64 "\n", pv->pv_pe_alloc_count);
+  printf ("pv_tags: %s\n", pv->pv_tags);
+  printf ("pe_start: %" PRIu64 "\n", pv->pe_start);
+  printf ("pv_mda_count: %" PRIi64 "\n", pv->pv_mda_count);
+  printf ("pv_mda_free: %" PRIu64 "\n", pv->pv_mda_free);
+}
+
+static void print_pv_list (struct guestfs_lvm_pv_list *pvs)
+{
+  int i;
+
+  for (i = 0; i < pvs->len; ++i)
+    print_pv (&pvs->val[i]);
+}
+
+static void print_vg (struct guestfs_lvm_vg *vg)
+{
+  int i;
+
+  printf ("vg_name: %s\n", vg->vg_name);
+  printf ("vg_uuid: ");
+  for (i = 0; i < 32; ++i)
+    printf ("%c", vg->vg_uuid[i]);
+  printf ("\n");
+  printf ("vg_fmt: %s\n", vg->vg_fmt);
+  printf ("vg_attr: %s\n", vg->vg_attr);
+  printf ("vg_size: %" PRIu64 "\n", vg->vg_size);
+  printf ("vg_free: %" PRIu64 "\n", vg->vg_free);
+  printf ("vg_sysid: %s\n", vg->vg_sysid);
+  printf ("vg_extent_size: %" PRIu64 "\n", vg->vg_extent_size);
+  printf ("vg_extent_count: %" PRIi64 "\n", vg->vg_extent_count);
+  printf ("vg_free_count: %" PRIi64 "\n", vg->vg_free_count);
+  printf ("max_lv: %" PRIi64 "\n", vg->max_lv);
+  printf ("max_pv: %" PRIi64 "\n", vg->max_pv);
+  printf ("pv_count: %" PRIi64 "\n", vg->pv_count);
+  printf ("lv_count: %" PRIi64 "\n", vg->lv_count);
+  printf ("snap_count: %" PRIi64 "\n", vg->snap_count);
+  printf ("vg_seqno: %" PRIi64 "\n", vg->vg_seqno);
+  printf ("vg_tags: %s\n", vg->vg_tags);
+  printf ("vg_mda_count: %" PRIi64 "\n", vg->vg_mda_count);
+  printf ("vg_mda_free: %" PRIu64 "\n", vg->vg_mda_free);
+}
+
+static void print_vg_list (struct guestfs_lvm_vg_list *vgs)
+{
+  int i;
+
+  for (i = 0; i < vgs->len; ++i)
+    print_vg (&vgs->val[i]);
+}
+
+static void print_lv (struct guestfs_lvm_lv *lv)
+{
+  int i;
+
+  printf ("lv_name: %s\n", lv->lv_name);
+  printf ("lv_uuid: ");
+  for (i = 0; i < 32; ++i)
+    printf ("%c", lv->lv_uuid[i]);
+  printf ("\n");
+  printf ("lv_attr: %s\n", lv->lv_attr);
+  printf ("lv_major: %" PRIi64 "\n", lv->lv_major);
+  printf ("lv_minor: %" PRIi64 "\n", lv->lv_minor);
+  printf ("lv_kernel_major: %" PRIi64 "\n", lv->lv_kernel_major);
+  printf ("lv_kernel_minor: %" PRIi64 "\n", lv->lv_kernel_minor);
+  printf ("lv_size: %" PRIu64 "\n", lv->lv_size);
+  printf ("seg_count: %" PRIi64 "\n", lv->seg_count);
+  printf ("origin: %s\n", lv->origin);
+  if (lv->snap_percent >= 0) printf ("snap_percent: %g %%\n", lv->snap_percent);
+  else printf ("snap_percent: \n");
+  if (lv->copy_percent >= 0) printf ("copy_percent: %g %%\n", lv->copy_percent);
+  else printf ("copy_percent: \n");
+  printf ("move_pv: %s\n", lv->move_pv);
+  printf ("lv_tags: %s\n", lv->lv_tags);
+  printf ("mirror_log: %s\n", lv->mirror_log);
+  printf ("modules: %s\n", lv->modules);
+}
+
+static void print_lv_list (struct guestfs_lvm_lv_list *lvs)
+{
+  int i;
+
+  for (i = 0; i < lvs->len; ++i)
+    print_lv (&lvs->val[i]);
 }
 
 static int run_mount (const char *cmd, int argc, char *argv[])
@@ -192,6 +308,51 @@ static int run_list_partitions (const char *cmd, int argc, char *argv[])
   return 0;
 }
 
+static int run_pvs (const char *cmd, int argc, char *argv[])
+{
+  struct guestfs_lvm_pv_list *r;
+  if (argc != 0) {
+    fprintf (stderr, "%s should have 0 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  r = guestfs_pvs (g);
+  if (r == NULL) return -1;
+  print_pv_list (r);
+  guestfs_free_lvm_pv_list (r);
+  return 0;
+}
+
+static int run_vgs (const char *cmd, int argc, char *argv[])
+{
+  struct guestfs_lvm_vg_list *r;
+  if (argc != 0) {
+    fprintf (stderr, "%s should have 0 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  r = guestfs_vgs (g);
+  if (r == NULL) return -1;
+  print_vg_list (r);
+  guestfs_free_lvm_vg_list (r);
+  return 0;
+}
+
+static int run_lvs (const char *cmd, int argc, char *argv[])
+{
+  struct guestfs_lvm_lv_list *r;
+  if (argc != 0) {
+    fprintf (stderr, "%s should have 0 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  r = guestfs_lvs (g);
+  if (r == NULL) return -1;
+  print_lv_list (r);
+  guestfs_free_lvm_lv_list (r);
+  return 0;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "mount") == 0)
@@ -217,6 +378,15 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "list_partitions") == 0 || strcasecmp (cmd, "list-partitions") == 0)
     return run_list_partitions (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "pvs") == 0)
+    return run_pvs (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "vgs") == 0)
+    return run_vgs (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "lvs") == 0)
+    return run_lvs (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

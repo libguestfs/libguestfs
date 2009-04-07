@@ -25,6 +25,7 @@ guestfsd_SOURCES = \
 	file.c \
 	guestfsd.c \
 	ls.c \
+	lvm.c \
 	mount.c \
 	proto.c \
 	stubs.c \

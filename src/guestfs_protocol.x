@@ -21,6 +21,70 @@
 
 typedef string str<>;
 
+struct guestfs_lvm_int_pv {
+  string pv_name<>;
+  opaque pv_uuid[32];
+  string pv_fmt<>;
+  hyper pv_size;
+  hyper dev_size;
+  hyper pv_free;
+  hyper pv_used;
+  string pv_attr<>;
+  hyper pv_pe_count;
+  hyper pv_pe_alloc_count;
+  string pv_tags<>;
+  hyper pe_start;
+  hyper pv_mda_count;
+  hyper pv_mda_free;
+};
+
+typedef struct guestfs_lvm_int_pv guestfs_lvm_int_pv_list<>;
+
+struct guestfs_lvm_int_vg {
+  string vg_name<>;
+  opaque vg_uuid[32];
+  string vg_fmt<>;
+  string vg_attr<>;
+  hyper vg_size;
+  hyper vg_free;
+  string vg_sysid<>;
+  hyper vg_extent_size;
+  hyper vg_extent_count;
+  hyper vg_free_count;
+  hyper max_lv;
+  hyper max_pv;
+  hyper pv_count;
+  hyper lv_count;
+  hyper snap_count;
+  hyper vg_seqno;
+  string vg_tags<>;
+  hyper vg_mda_count;
+  hyper vg_mda_free;
+};
+
+typedef struct guestfs_lvm_int_vg guestfs_lvm_int_vg_list<>;
+
+struct guestfs_lvm_int_lv {
+  string lv_name<>;
+  opaque lv_uuid[32];
+  string lv_attr<>;
+  hyper lv_major;
+  hyper lv_minor;
+  hyper lv_kernel_major;
+  hyper lv_kernel_minor;
+  hyper lv_size;
+  hyper seg_count;
+  string origin<>;
+  float snap_percent;
+  float copy_percent;
+  string move_pv<>;
+  string lv_tags<>;
+  string mirror_log<>;
+  string modules<>;
+};
+
+typedef struct guestfs_lvm_int_lv guestfs_lvm_int_lv_list<>;
+
 /* guestfs_mount */
 
 struct guestfs_mount_args {
@@ -78,6 +142,24 @@ struct guestfs_list_partitions_ret {
   str partitions<>;
 };
 
+/* guestfs_pvs */
+
+struct guestfs_pvs_ret {
+  guestfs_lvm_int_pv_list physvols;
+};
+
+/* guestfs_vgs */
+
+struct guestfs_vgs_ret {
+  guestfs_lvm_int_vg_list volgroups;
+};
+
+/* guestfs_lvs */
+
+struct guestfs_lvs_ret {
+  guestfs_lvm_int_lv_list logvols;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -87,6 +169,9 @@ enum guestfs_procedure {
   GUESTFS_PROC_LS = 6,
   GUESTFS_PROC_LIST_DEVICES = 7,
   GUESTFS_PROC_LIST_PARTITIONS = 8,
+  GUESTFS_PROC_PVS = 9,
+  GUESTFS_PROC_VGS = 10,
+  GUESTFS_PROC_LVS = 11,
   GUESTFS_PROC_dummy
 };
 

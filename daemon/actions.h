@@ -19,6 +19,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+#include "../src/guestfs_protocol.h"
+
 extern int do_mount (const char *device, const char *mountpoint);
 extern int do_sync ();
 extern int do_touch (const char *path);
@@ -27,3 +29,6 @@ extern char *do_ll (const char *directory);
 extern char **do_ls (const char *directory);
 extern char **do_list_devices ();
 extern char **do_list_partitions ();
+extern guestfs_lvm_int_pv_list *do_pvs ();
+extern guestfs_lvm_int_vg_list *do_vgs ();
+extern guestfs_lvm_int_lv_list *do_lvs ();

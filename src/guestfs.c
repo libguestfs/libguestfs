@@ -58,9 +58,10 @@
 
 static void error (guestfs_h *g, const char *fs, ...);
 static void perrorf (guestfs_h *g, const char *fs, ...);
-static void *safe_malloc (guestfs_h *g, int nbytes);
+static void *safe_malloc (guestfs_h *g, size_t nbytes);
 static void *safe_realloc (guestfs_h *g, void *ptr, int nbytes);
 static char *safe_strdup (guestfs_h *g, const char *str);
+static void *safe_memdup (guestfs_h *g, void *ptr, size_t size);
 
 static void default_error_cb (guestfs_h *g, void *data, const char *msg);
 static void stdout_event (void *data, int watch, int fd, int events);
@@ -328,7 +329,7 @@ perrorf (guestfs_h *g, const char *fs, ...)
 }
 
 static void *
-safe_malloc (guestfs_h *g, int nbytes)
+safe_malloc (guestfs_h *g, size_t nbytes)
 {
   void *ptr = malloc (nbytes);
   if (!ptr) g->abort_cb ();
@@ -349,6 +350,15 @@ safe_strdup (guestfs_h *g, const char *str)
   char *s = strdup (str);
   if (!s) g->abort_cb ();
   return s;
+}
+
+static void *
+safe_memdup (guestfs_h *g, void *ptr, size_t size)
+{
+  void *p = malloc (size);
+  if (!p) g->abort_cb ();
+  memcpy (p, ptr, size);
+  return p;
 }
 
 void
@@ -1019,6 +1029,28 @@ sock_read_event (void *data, int watch, int fd, int events)
     goto cleanup;
   }
 
+  /* Got the full message, begin processing it. */
+  if (g->verbose) {
+    int i, j;
+
+    for (i = 0; i < g->msg_in_size; i += 16) {
+      printf ("%04x: ", i);
+      for (j = i; j < MIN (i+16, g->msg_in_size); ++j)
+	printf ("%02x ", (unsigned char) g->msg_in[j]);
+      for (; j < i+16; ++j)
+	printf ("   ");
+      printf ("|");
+      for (j = i; j < MIN (i+16, g->msg_in_size); ++j)
+	if (isprint (g->msg_in[j]))
+	  printf ("%c", g->msg_in[j]);
+	else
+	  printf (".");
+      for (; j < i+16; ++j)
+	printf (" ");
+      printf ("|\n");
+    }
+  }
+
   /* Not in the expected state. */
   if (g->state != BUSY)
     error (g, "state %d != BUSY", g->state);
@@ -1230,6 +1262,31 @@ check_reply_header (guestfs_h *g,
  * them here.
  */
 #include "guestfs-actions.c"
+
+/* Structure-freeing functions.  These rely on the fact that the
+ * structure format is identical to the XDR format.  See note in
+ * generator.ml.
+ */
+void
+guestfs_free_lvm_pv_list (struct guestfs_lvm_pv_list *x)
+{
+  xdr_free ((xdrproc_t) xdr_guestfs_lvm_int_pv_list, (char *) x);
+  free (x);
+}
+
+void
+guestfs_free_lvm_vg_list (struct guestfs_lvm_vg_list *x)
+{
+  xdr_free ((xdrproc_t) xdr_guestfs_lvm_int_vg_list, (char *) x);
+  free (x);
+}
+
+void
+guestfs_free_lvm_lv_list (struct guestfs_lvm_lv_list *x)
+{
+  xdr_free ((xdrproc_t) xdr_guestfs_lvm_int_lv_list, (char *) x);
+  free (x);
+}
 
 /* This is the default main loop implementation, using select(2). */
 

@@ -59,7 +59,12 @@ extern int guestfs_get_autosync (guestfs_h *g);
 extern void guestfs_set_path (guestfs_h *g, const char *path);
 extern const char *guestfs_get_path (guestfs_h *g);
 
+#include <guestfs-structs.h>
 #include <guestfs-actions.h>
+
+extern void guestfs_free_lvm_pv_list (struct guestfs_lvm_pv_list *);
+extern void guestfs_free_lvm_vg_list (struct guestfs_lvm_vg_list *);
+extern void guestfs_free_lvm_lv_list (struct guestfs_lvm_lv_list *);
 
 /* Low-level event API. */
 typedef void (*guestfs_reply_cb) (guestfs_h *g, void *data, XDR *xdr);

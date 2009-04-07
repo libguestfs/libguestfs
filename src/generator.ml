@@ -1,4 +1,4 @@
-#!/usr/bin/ocamlrun ocaml
+#!/usr/bin/env ocaml
 (* libguestfs
  * Copyright (C) 2009 Red Hat Inc.
  *
@@ -37,6 +37,10 @@ and ret =
      *)
   | RString of string
   | RStringList of string
+    (* LVM PVs, VGs and LVs. *)
+  | RPVList of string
+  | RVGList of string
+  | RLVList of string
 and args =
     (* 0 arguments, 1 argument, etc. The guestfs_h param is implicit. *)
   | P0
@@ -130,6 +134,87 @@ The full partition device names are returned, eg. C</dev/sda1>
 
 This does not return logical volumes.  For that you will need to
 call C<guestfs_lvs>.");
+
+  ("pvs", (RPVList "physvols", P0), 9, [],
+   "list the LVM physical volumes (PVs)",
+   "\
+List all the physical volumes detected.  This is the equivalent
+of the L<pvs(8)> command.");
+
+  ("vgs", (RVGList "volgroups", P0), 10, [],
+   "list the LVM volume groups (VGs)",
+   "\
+List all the volumes groups detected.  This is the equivalent
+of the L<vgs(8)> command.");
+
+  ("lvs", (RLVList "logvols", P0), 11, [],
+   "list the LVM logical volumes (LVs)",
+   "\
+List all the logical volumes detected.  This is the equivalent
+of the L<lvs(8)> command.");
+]
+
+(* Column names and types from LVM PVs/VGs/LVs. *)
+let pv_cols = [
+  "pv_name", `String;
+  "pv_uuid", `UUID;
+  "pv_fmt", `String;
+  "pv_size", `Bytes;
+  "dev_size", `Bytes;
+  "pv_free", `Bytes;
+  "pv_used", `Bytes;
+  "pv_attr", `String (* XXX *);
+  "pv_pe_count", `Int;
+  "pv_pe_alloc_count", `Int;
+  "pv_tags", `String;
+  "pe_start", `Bytes;
+  "pv_mda_count", `Int;
+  "pv_mda_free", `Bytes;
+(* Not in Fedora 10:
+  "pv_mda_size", `Bytes;
+*)
+]
+let vg_cols = [
+  "vg_name", `String;
+  "vg_uuid", `UUID;
+  "vg_fmt", `String;
+  "vg_attr", `String (* XXX *);
+  "vg_size", `Bytes;
+  "vg_free", `Bytes;
+  "vg_sysid", `String;
+  "vg_extent_size", `Bytes;
+  "vg_extent_count", `Int;
+  "vg_free_count", `Int;
+  "max_lv", `Int;
+  "max_pv", `Int;
+  "pv_count", `Int;
+  "lv_count", `Int;
+  "snap_count", `Int;
+  "vg_seqno", `Int;
+  "vg_tags", `String;
+  "vg_mda_count", `Int;
+  "vg_mda_free", `Bytes;
+(* Not in Fedora 10:
+  "vg_mda_size", `Bytes;
+*)
+]
+let lv_cols = [
+  "lv_name", `String;
+  "lv_uuid", `UUID;
+  "lv_attr", `String (* XXX *);
+  "lv_major", `Int;
+  "lv_minor", `Int;
+  "lv_kernel_major", `Int;
+  "lv_kernel_minor", `Int;
+  "lv_size", `Bytes;
+  "seg_count", `Int;
+  "origin", `String;
+  "snap_percent", `OptPercent;
+  "copy_percent", `OptPercent;
+  "move_pv", `String;
+  "lv_tags", `String;
+  "mirror_log", `String;
+  "modules", `String;
 ]
 
 (* In some places we want the functions to be displayed sorted
@@ -250,7 +335,7 @@ let rec generate_header comment license =
   pr "\n"
 
 (* Generate the pod documentation for the C API. *)
-and generate_pod () =
+and generate_actions_pod () =
   List.iter (
     fun (shortname, style, _, flags, _, longdesc) ->
       let name = "guestfs_" ^ shortname in
@@ -269,6 +354,15 @@ I<The caller must free the returned string after use>.\n\n"
 	   pr "This function returns a NULL-terminated array of strings
 (like L<environ(3)>), or NULL if there was an error.
 I<The caller must free the strings and the array after use>.\n\n"
+       | RPVList _ ->
+	   pr "This function returns a C<struct guestfs_lvm_pv_list>.
+I<The caller must call C<guestfs_free_lvm_pv_list> after use.>.\n\n"
+       | RVGList _ ->
+	   pr "This function returns a C<struct guestfs_lvm_vg_list>.
+I<The caller must call C<guestfs_free_lvm_vg_list> after use.>.\n\n"
+       | RLVList _ ->
+	   pr "This function returns a C<struct guestfs_lvm_lv_list>.
+I<The caller must call C<guestfs_free_lvm_lv_list> after use.>.\n\n"
       );
       if List.mem ProtocolLimitWarning flags then
 	pr "Because of the message protocol, there is a transfer limit 
@@ -276,13 +370,67 @@ of somewhere between 2MB and 4MB.  To transfer large files you should use
 FTP.\n\n";
   ) sorted_functions
 
-(* Generate the protocol (XDR) file. *)
+and generate_structs_pod () =
+  (* LVM structs documentation. *)
+  List.iter (
+    fun (typ, cols) ->
+      pr "=head2 guestfs_lvm_%s\n" typ;
+      pr "\n";
+      pr " struct guestfs_lvm_%s {\n" typ;
+      List.iter (
+	function
+	| name, `String -> pr "  char *%s;\n" name
+	| name, `UUID ->
+	    pr "  /* The next field is NOT nul-terminated, be careful when printing it: */\n";
+	    pr "  char %s[32];\n" name
+	| name, `Bytes -> pr "  uint64_t %s;\n" name
+	| name, `Int -> pr "  int64_t %s;\n" name
+	| name, `OptPercent ->
+	    pr "  /* The next field is [0..100] or -1 meaning 'not present': */\n";
+	    pr "  float %s;\n" name
+      ) cols;
+      pr " \n";
+      pr " struct guestfs_lvm_%s_list {\n" typ;
+      pr "   uint32_t len; /* Number of elements in list. */\n";
+      pr "   struct guestfs_lvm_%s *val; /* Elements. */\n" typ;
+      pr " };\n";
+      pr " \n";
+      pr " void guestfs_free_lvm_%s_list (struct guestfs_free_lvm_%s_list *);\n"
+	typ typ;
+      pr "\n"
+  ) ["pv", pv_cols; "vg", vg_cols; "lv", lv_cols]
+
+(* Generate the protocol (XDR) file, 'guestfs_protocol.x' and
+ * indirectly 'guestfs_protocol.h' and 'guestfs_protocol.c'.  We
+ * have to use an underscore instead of a dash because otherwise
+ * rpcgen generates incorrect code.
+ *
+ * This header is NOT exported to clients, but see also generate_structs_h.
+ *)
 and generate_xdr () =
   generate_header CStyle LGPLv2;
 
   (* This has to be defined to get around a limitation in Sun's rpcgen. *)
   pr "typedef string str<>;\n";
   pr "\n";
+
+  (* LVM internal structures. *)
+  List.iter (
+    function
+    | typ, cols ->
+	pr "struct guestfs_lvm_int_%s {\n" typ;
+	List.iter (function
+		   | name, `String -> pr "  string %s<>;\n" name
+		   | name, `UUID -> pr "  opaque %s[32];\n" name
+		   | name, `Bytes -> pr "  hyper %s;\n" name
+		   | name, `Int -> pr "  hyper %s;\n" name
+		   | name, `OptPercent -> pr "  float %s;\n" name
+		  ) cols;
+	pr "};\n";
+	pr "\n";
+	pr "typedef struct guestfs_lvm_int_%s guestfs_lvm_int_%s_list<>;\n" typ typ;
+	pr "\n";
+  ) ["pv", pv_cols; "vg", vg_cols; "lv", lv_cols];
 
   List.iter (
     fun (shortname, style, _, _, _, _) ->
@@ -307,6 +455,18 @@ and generate_xdr () =
        | RStringList n ->
 	   pr "struct %s_ret {\n" name;
 	   pr "  str %s<>;\n" n;
+	   pr "};\n\n"
+       | RPVList n ->
+	   pr "struct %s_ret {\n" name;
+	   pr "  guestfs_lvm_int_pv_list %s;\n" n;
+	   pr "};\n\n"
+       | RVGList n ->
+	   pr "struct %s_ret {\n" name;
+	   pr "  guestfs_lvm_int_vg_list %s;\n" n;
+	   pr "};\n\n"
+       | RLVList n ->
+	   pr "struct %s_ret {\n" name;
+	   pr "  guestfs_lvm_int_lv_list %s;\n" n;
 	   pr "};\n\n"
       );
   ) functions;
@@ -361,6 +521,46 @@ struct guestfs_message_header {
 };
 "
 
+(* Generate the guestfs-structs.h file. *)
+and generate_structs_h () =
+  generate_header CStyle LGPLv2;
+
+  (* This is a public exported header file containing various
+   * structures.  The structures are carefully written to have
+   * exactly the same in-memory format as the XDR structures that
+   * we use on the wire to the daemon.  The reason for creating
+   * copies of these structures here is just so we don't have to
+   * export the whole of guestfs_protocol.h (which includes much
+   * unrelated and XDR-dependent stuff that we don't want to be
+   * public, or required by clients).
+   *
+   * To reiterate, we will pass these structures to and from the
+   * client with a simple assignment or memcpy, so the format
+   * must be identical to what rpcgen / the RFC defines.
+   *)
+
+  (* LVM public structures. *)
+  List.iter (
+    function
+    | typ, cols ->
+	pr "struct guestfs_lvm_%s {\n" typ;
+	List.iter (
+	  function
+	  | name, `String -> pr "  char *%s;\n" name
+	  | name, `UUID -> pr "  char %s[32]; /* this is NOT nul-terminated, be careful when printing */\n" name
+	  | name, `Bytes -> pr "  uint64_t %s;\n" name
+	  | name, `Int -> pr "  int64_t %s;\n" name
+	  | name, `OptPercent -> pr "  float %s; /* [0..100] or -1 */\n" name
+	) cols;
+	pr "};\n";
+	pr "\n";
+	pr "struct guestfs_lvm_%s_list {\n" typ;
+	pr "  uint32_t len;\n";
+	pr "  struct guestfs_lvm_%s *val;\n" typ;
+	pr "};\n";
+	pr "\n"
+  ) ["pv", pv_cols; "vg", vg_cols; "lv", lv_cols]
+
 (* Generate the guestfs-actions.h file. *)
 and generate_actions_h () =
   generate_header CStyle LGPLv2;
@@ -374,6 +574,8 @@ and generate_actions_h () =
 (* Generate the client-side dispatch stubs. *)
 and generate_client_actions () =
   generate_header CStyle LGPLv2;
+
+  (* Client-side stubs for each function. *)
   List.iter (
     fun (shortname, style, _, _, _, _) ->
       let name = "guestfs_" ^ shortname in
@@ -385,7 +587,8 @@ and generate_client_actions () =
       pr "  struct guestfs_message_error err;\n";
       (match fst style with
        | Err -> ()
-       | RString _ | RStringList _ -> pr "  struct %s_ret ret;\n" name;
+       | RString _ | RStringList _ | RPVList _ | RVGList _ | RLVList _ ->
+	   pr "  struct %s_ret ret;\n" name
       );
       pr "};\n\n";
 
@@ -408,7 +611,7 @@ and generate_client_actions () =
 
       (match fst style with
        | Err -> ()
-       |  RString _ | RStringList _ ->
+       | RString _ | RStringList _ | RPVList _ | RVGList _ | RLVList _ ->
 	    pr "  if (!xdr_%s_ret (xdr, &rv->ret)) {\n" name;
 	    pr "    error (g, \"%s: failed to parse reply\");\n" name;
 	    pr "    return;\n";
@@ -427,7 +630,8 @@ and generate_client_actions () =
       let error_code =
 	match fst style with
 	| Err -> "-1"
-	| RString _ | RStringList _ -> "NULL" in
+	| RString _ | RStringList _ | RPVList _ | RVGList _ | RLVList _ ->
+	    "NULL" in
 
       pr "{\n";
 
@@ -499,6 +703,15 @@ and generate_client_actions () =
 	   pr "  rv.ret.%s.%s_val = safe_realloc (g, rv.ret.%s.%s_val, rv.ret.%s.%s_len + 1);\n" n n n n n n;
 	   pr "  rv.ret.%s.%s_val[rv.ret.%s.%s_len] = NULL;\n" n n n n;
 	   pr "  return rv.ret.%s.%s_val;\n" n n
+       | RPVList n ->
+	   pr "  /* caller will free this */\n";
+	   pr "  return safe_memdup (g, &rv.ret.%s, sizeof (rv.ret.%s));\n" n n
+       | RVGList n ->
+	   pr "  /* caller will free this */\n";
+	   pr "  return safe_memdup (g, &rv.ret.%s, sizeof (rv.ret.%s));\n" n n
+       | RLVList n ->
+	   pr "  /* caller will free this */\n";
+	   pr "  return safe_memdup (g, &rv.ret.%s, sizeof (rv.ret.%s));\n" n n
       );
 
       pr "}\n\n"
@@ -507,17 +720,30 @@ and generate_client_actions () =
 (* Generate daemon/actions.h. *)
 and generate_daemon_actions_h () =
   generate_header CStyle GPLv2;
+
+  pr "#include \"../src/guestfs_protocol.h\"\n";
+  pr "\n";
+
   List.iter (
     fun (name, style, _, _, _, _) ->
-      generate_prototype ~single_line:true ~newline:true ("do_" ^ name) style;
+      generate_prototype
+	~single_line:true ~newline:true ~in_daemon:true ("do_" ^ name) style;
   ) functions
 
 (* Generate the server-side stubs. *)
 and generate_daemon_actions () =
   generate_header CStyle GPLv2;
 
+  pr "#define _GNU_SOURCE // for strchrnul\n";
+  pr "\n";
+  pr "#include <stdio.h>\n";
+  pr "#include <stdlib.h>\n";
+  pr "#include <string.h>\n";
+  pr "#include <inttypes.h>\n";
+  pr "#include <ctype.h>\n";
   pr "#include <rpc/types.h>\n";
   pr "#include <rpc/xdr.h>\n";
+  pr "\n";
   pr "#include \"daemon.h\"\n";
   pr "#include \"../src/guestfs_protocol.h\"\n";
   pr "#include \"actions.h\"\n";
@@ -532,7 +758,11 @@ and generate_daemon_actions () =
 	match fst style with
 	| Err -> pr "  int r;\n"; "-1"
 	| RString _ -> pr "  char *r;\n"; "NULL"
-	| RStringList _ -> pr "  char **r;\n"; "NULL" in
+	| RStringList _ -> pr "  char **r;\n"; "NULL"
+	| RPVList _ -> pr "  guestfs_lvm_int_pv_list *r;\n"; "NULL"
+	| RVGList _ -> pr "  guestfs_lvm_int_vg_list *r;\n"; "NULL"
+	| RLVList _ -> pr "  guestfs_lvm_int_lv_list *r;\n"; "NULL" in
+
       (match snd style with
        | P0 -> ()
        | args ->
@@ -582,6 +812,21 @@ and generate_daemon_actions () =
 	   pr "  ret.%s.%s_val = r;\n" n n;
 	   pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n" name;
 	   pr "  free_strings (r);\n"
+       | RPVList n ->
+	   pr "  struct guestfs_%s_ret ret;\n" name;
+	   pr "  ret.%s = *r;\n" n;
+	   pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n" name;
+	   pr "  xdr_free ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n" name
+       | RVGList n ->
+	   pr "  struct guestfs_%s_ret ret;\n" name;
+	   pr "  ret.%s = *r;\n" n;
+	   pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n" name;
+	   pr "  xdr_free ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n" name
+       | RLVList n ->
+	   pr "  struct guestfs_%s_ret ret;\n" name;
+	   pr "  ret.%s = *r;\n" n;
+	   pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n" name;
+	   pr "  xdr_free ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n" name
       );
 
       pr "}\n\n";
@@ -602,7 +847,173 @@ and generate_daemon_actions () =
   pr "    default:\n";
   pr "      reply_with_error (\"dispatch_incoming_message: unknown procedure number %%d\", proc_nr);\n";
   pr "  }\n";
-  pr "}\n"
+  pr "}\n";
+  pr "\n";
+
+  (* LVM columns and tokenization functions. *)
+  (* XXX This generates crap code.  We should rethink how we
+   * do this parsing.
+   *)
+  List.iter (
+    function
+    | typ, cols ->
+	pr "static const char *lvm_%s_cols = \"%s\";\n"
+	  typ (String.concat "," (List.map fst cols));
+	pr "\n";
+
+	pr "static int lvm_tokenize_%s (char *str, struct guestfs_lvm_int_%s *r)\n" typ typ;
+	pr "{\n";
+	pr "  char *tok, *p, *next;\n";
+	pr "  int i, j;\n";
+	pr "\n";
+	(*
+	pr "  fprintf (stderr, \"%%s: <<%%s>>\\n\", __func__, str);\n";
+	pr "\n";
+	*)
+	pr "  if (!str) {\n";
+	pr "    fprintf (stderr, \"%%s: failed: passed a NULL string\\n\", __func__);\n";
+	pr "    return -1;\n";
+	pr "  }\n";
+	pr "  if (!*str || isspace (*str)) {\n";
+	pr "    fprintf (stderr, \"%%s: failed: passed a empty string or one beginning with whitespace\\n\", __func__);\n";
+	pr "    return -1;\n";
+	pr "  }\n";
+	pr "  tok = str;\n";
+	List.iter (
+	  fun (name, coltype) ->
+	    pr "  if (!tok) {\n";
+	    pr "    fprintf (stderr, \"%%s: failed: string finished early, around token %%s\\n\", __func__, \"%s\");\n" name;
+	    pr "    return -1;\n";
+	    pr "  }\n";
+	    pr "  p = strchrnul (tok, ',');\n";
+	    pr "  if (*p) next = p+1; else next = NULL;\n";
+	    pr "  *p = '\\0';\n";
+	    (match coltype with
+	     | `String ->
+		 pr "  r->%s = strdup (tok);\n" name;
+		 pr "  if (r->%s == NULL) {\n" name;
+		 pr "    perror (\"strdup\");\n";
+		 pr "    return -1;\n";
+		 pr "  }\n"
+	     | `UUID ->
+		 pr "  for (i = j = 0; i < 32; ++j) {\n";
+		 pr "    if (tok[j] == '\\0') {\n";
+		 pr "      fprintf (stderr, \"%%s: failed to parse UUID from '%%s'\\n\", __func__, tok);\n";
+		 pr "      return -1;\n";
+		 pr "    } else if (tok[j] != '-')\n";
+		 pr "      r->%s[i++] = tok[j];\n" name;
+		 pr "  }\n";
+	     | `Bytes ->
+		 pr "  if (sscanf (tok, \"%%\"SCNu64, &r->%s) != 1) {\n" name;
+		 pr "    fprintf (stderr, \"%%s: failed to parse size '%%s' from token %%s\\n\", __func__, tok, \"%s\");\n" name;
+		 pr "    return -1;\n";
+		 pr "  }\n";
+	     | `Int ->
+		 pr "  if (sscanf (tok, \"%%\"SCNi64, &r->%s) != 1) {\n" name;
+		 pr "    fprintf (stderr, \"%%s: failed to parse int '%%s' from token %%s\\n\", __func__, tok, \"%s\");\n" name;
+		 pr "    return -1;\n";
+		 pr "  }\n";
+	     | `OptPercent ->
+		 pr "  if (tok[0] == '\\0')\n";
+		 pr "    r->%s = -1;\n" name;
+		 pr "  else if (sscanf (tok, \"%%f\", &r->%s) != 1) {\n" name;
+		 pr "    fprintf (stderr, \"%%s: failed to parse float '%%s' from token %%s\\n\", __func__, tok, \"%s\");\n" name;
+		 pr "    return -1;\n";
+		 pr "  }\n";
+	    );
+	    pr "  tok = next;\n";
+	) cols;
+
+	pr "  if (tok != NULL) {\n";
+	pr "    fprintf (stderr, \"%%s: failed: extra tokens at end of string\\n\", __func__);\n";
+	pr "    return -1;\n";
+	pr "  }\n";
+	pr "  return 0;\n";
+	pr "}\n";
+	pr "\n";
+
+	pr "guestfs_lvm_int_%s_list *\n" typ;
+	pr "parse_command_line_%ss (void)\n" typ;
+	pr "{\n";
+	pr "  char *out, *err;\n";
+	pr "  char *p, *pend;\n";
+	pr "  int r, i;\n";
+	pr "  guestfs_lvm_int_%s_list *ret;\n" typ;
+	pr "  void *newp;\n";
+	pr "\n";
+	pr "  ret = malloc (sizeof *ret);\n";
+	pr "  if (!ret) {\n";
+	pr "    reply_with_perror (\"malloc\");\n";
+	pr "    return NULL;\n";
+	pr "  }\n";
+	pr "\n";
+	pr "  ret->guestfs_lvm_int_%s_list_len = 0;\n" typ;
+	pr "  ret->guestfs_lvm_int_%s_list_val = NULL;\n" typ;
+	pr "\n";
+	pr "  r = command (&out, &err,\n";
+	pr "	       \"/sbin/lvm\", \"%ss\",\n" typ;
+	pr "	       \"-o\", lvm_%s_cols, \"--unbuffered\", \"--noheadings\",\n" typ;
+	pr "	       \"--nosuffix\", \"--separator\", \",\", \"--units\", \"b\", NULL);\n";
+	pr "  if (r == -1) {\n";
+	pr "    reply_with_error (\"%%s\", err);\n";
+	pr "    free (out);\n";
+	pr "    free (err);\n";
+	pr "    return NULL;\n";
+	pr "  }\n";
+	pr "\n";
+	pr "  free (err);\n";
+	pr "\n";
+	pr "  /* Tokenize each line of the output. */\n";
+	pr "  p = out;\n";
+	pr "  i = 0;\n";
+	pr "  while (p) {\n";
+	pr "    pend = strchr (p, '\\n');	/* Get the next line of output. */\n";
+	pr "    if (pend) {\n";
+	pr "      *pend = '\\0';\n";
+	pr "      pend++;\n";
+	pr "    }\n";
+	pr "\n";
+	pr "    while (*p && isspace (*p))	/* Skip any leading whitespace. */\n";
+	pr "      p++;\n";
+	pr "\n";
+	pr "    if (!*p) {			/* Empty line?  Skip it. */\n";
+	pr "      p = pend;\n";
+	pr "      continue;\n";
+	pr "    }\n";
+	pr "\n";
+	pr "    /* Allocate some space to store this next entry. */\n";
+	pr "    newp = realloc (ret->guestfs_lvm_int_%s_list_val,\n" typ;
+	pr "		    sizeof (guestfs_lvm_int_%s) * (i+1));\n" typ;
+	pr "    if (newp == NULL) {\n";
+	pr "      reply_with_perror (\"realloc\");\n";
+	pr "      free (ret->guestfs_lvm_int_%s_list_val);\n" typ;
+	pr "      free (ret);\n";
+	pr "      free (out);\n";
+	pr "      return NULL;\n";
+	pr "    }\n";
+	pr "    ret->guestfs_lvm_int_%s_list_val = newp;\n" typ;
+	pr "\n";
+	pr "    /* Tokenize the next entry. */\n";
+	pr "    r = lvm_tokenize_%s (p, &ret->guestfs_lvm_int_%s_list_val[i]);\n" typ typ;
+	pr "    if (r == -1) {\n";
+	pr "      reply_with_error (\"failed to parse output of '%ss' command\");\n" typ;
+        pr "      free (ret->guestfs_lvm_int_%s_list_val);\n" typ;
+        pr "      free (ret);\n";
+	pr "      free (out);\n";
+	pr "      return NULL;\n";
+	pr "    }\n";
+	pr "\n";
+	pr "    ++i;\n";
+	pr "    p = pend;\n";
+	pr "  }\n";
+	pr "\n";
+	pr "  ret->guestfs_lvm_int_%s_list_len = i;\n" typ;
+	pr "\n";
+	pr "  free (out);\n";
+	pr "  return ret;\n";
+	pr "}\n"
+
+  ) ["pv", pv_cols; "vg", vg_cols; "lv", lv_cols]
 
 (* Generate a lot of different functions for guestfish. *)
 and generate_fish_cmds () =
@@ -611,7 +1022,9 @@ and generate_fish_cmds () =
   pr "#include <stdio.h>\n";
   pr "#include <stdlib.h>\n";
   pr "#include <string.h>\n";
+  pr "#include <inttypes.h>\n";
   pr "\n";
+  pr "#include <guestfs.h>\n";
   pr "#include \"fish.h\"\n";
   pr "\n";
 
@@ -669,6 +1082,45 @@ FTP."
   pr "}\n";
   pr "\n";
 
+  (* print_{pv,vg,lv}_list functions *)
+  List.iter (
+    function
+    | typ, cols ->
+	pr "static void print_%s (struct guestfs_lvm_%s *%s)\n" typ typ typ;
+	pr "{\n";
+	pr "  int i;\n";
+	pr "\n";
+	List.iter (
+	  function
+	  | name, `String ->
+	      pr "  printf (\"%s: %%s\\n\", %s->%s);\n" name typ name
+	  | name, `UUID ->
+	      pr "  printf (\"%s: \");\n" name;
+	      pr "  for (i = 0; i < 32; ++i)\n";
+	      pr "    printf (\"%%c\", %s->%s[i]);\n" typ name;
+	      pr "  printf (\"\\n\");\n"
+	  | name, `Bytes ->
+	      pr "  printf (\"%s: %%\" PRIu64 \"\\n\", %s->%s);\n" name typ name
+	  | name, `Int ->
+	      pr "  printf (\"%s: %%\" PRIi64 \"\\n\", %s->%s);\n" name typ name
+	  | name, `OptPercent ->
+	      pr "  if (%s->%s >= 0) printf (\"%s: %%g %%%%\\n\", %s->%s);\n"
+		typ name name typ name;
+	      pr "  else printf (\"%s: \\n\");\n" name
+	) cols;
+	pr "}\n";
+	pr "\n";
+	pr "static void print_%s_list (struct guestfs_lvm_%s_list *%ss)\n"
+	  typ typ typ;
+	pr "{\n";
+	pr "  int i;\n";
+	pr "\n";
+	pr "  for (i = 0; i < %ss->len; ++i)\n" typ;
+	pr "    print_%s (&%ss->val[i]);\n" typ typ;
+	pr "}\n";
+	pr "\n";
+  ) ["pv", pv_cols; "vg", vg_cols; "lv", lv_cols];
+
   (* run_<action> actions *)
   List.iter (
     fun (name, style, _, _, _, _) ->
@@ -678,6 +1130,9 @@ FTP."
        | Err -> pr "  int r;\n"
        | RString _ -> pr "  char *r;\n"
        | RStringList _ -> pr "  char **r;\n"
+       | RPVList _ -> pr "  struct guestfs_lvm_pv_list *r;\n"
+       | RVGList _ -> pr "  struct guestfs_lvm_vg_list *r;\n"
+       | RLVList _ -> pr "  struct guestfs_lvm_lv_list *r;\n"
       );
       iter_args (
 	function
@@ -716,6 +1171,21 @@ FTP."
 	   pr "  print_strings (r);\n";
 	   pr "  free_strings (r);\n";
 	   pr "  return 0;\n"
+       | RPVList _ ->
+	   pr "  if (r == NULL) return -1;\n";
+	   pr "  print_pv_list (r);\n";
+	   pr "  guestfs_free_lvm_pv_list (r);\n";
+	   pr "  return 0;\n"
+       | RVGList _ ->
+	   pr "  if (r == NULL) return -1;\n";
+	   pr "  print_vg_list (r);\n";
+	   pr "  guestfs_free_lvm_vg_list (r);\n";
+	   pr "  return 0;\n"
+       | RLVList _ ->
+	   pr "  if (r == NULL) return -1;\n";
+	   pr "  print_lv_list (r);\n";
+	   pr "  guestfs_free_lvm_lv_list (r);\n";
+	   pr "  return 0;\n"
       );
       pr "}\n";
       pr "\n"
@@ -745,7 +1215,7 @@ FTP."
 
 (* Generate a C function prototype. *)
 and generate_prototype ?(extern = true) ?(static = false) ?(semicolon = true)
-    ?(single_line = false) ?(newline = false)
+    ?(single_line = false) ?(newline = false) ?(in_daemon = false)
     ?handle name style =
   if extern then pr "extern ";
   if static then pr "static ";
@@ -753,6 +1223,15 @@ and generate_prototype ?(extern = true) ?(static = false) ?(semicolon = true)
    | Err -> pr "int "
    | RString _ -> pr "char *"
    | RStringList _ -> pr "char **"
+   | RPVList _ ->
+       if not in_daemon then pr "struct guestfs_lvm_pv_list *"
+       else pr "guestfs_lvm_int_pv_list *"
+   | RVGList _ ->
+       if not in_daemon then pr "struct guestfs_lvm_vg_list *"
+       else pr "guestfs_lvm_int_vg_list *"
+   | RLVList _ ->
+       if not in_daemon then pr "struct guestfs_lvm_lv_list *"
+       else pr "guestfs_lvm_int_lv_list *"
   );
   pr "%s (" name;
   let comma = ref false in
@@ -810,6 +1289,10 @@ let () =
   generate_xdr ();
   close ();
 
+  let close = output_to "src/guestfs-structs.h" in
+  generate_structs_h ();
+  close ();
+
   let close = output_to "src/guestfs-actions.h" in
   generate_actions_h ();
   close ();
@@ -830,6 +1313,10 @@ let () =
   generate_fish_cmds ();
   close ();
 
+  let close = output_to "guestfs-structs.pod" in
+  generate_structs_pod ();
+  close ();
+
   let close = output_to "guestfs-actions.pod" in
-  generate_pod ();
+  generate_actions_pod ();
   close ()

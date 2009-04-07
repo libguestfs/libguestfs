@@ -19,6 +19,8 @@
 #ifndef GUESTFSD_DAEMON_H
 #define GUESTFSD_DAEMON_H
 
+#include "../src/guestfs_protocol.h"
+
 #include <stdarg.h>
 #include <rpc/types.h>
 #include <rpc/xdr.h>
@@ -44,6 +46,9 @@ extern int root_mounted;
 
 /* in stubs.c (auto-generated) */
 extern void dispatch_incoming_message (XDR *);
+extern guestfs_lvm_int_pv_list *parse_command_line_pvs (void);
+extern guestfs_lvm_int_vg_list *parse_command_line_vgs (void);
+extern guestfs_lvm_int_lv_list *parse_command_line_lvs (void);
 
 /* in proto.c */
 extern void main_loop (int sock);
