@@ -733,7 +733,10 @@ and generate_client_actions () =
 	   pr "  return rv.ret.%s; /* caller will free */\n" n
        | RStringList n ->
 	   pr "  /* caller will free this, but we need to add a NULL entry */\n";
-	   pr "  rv.ret.%s.%s_val = safe_realloc (g, rv.ret.%s.%s_val, rv.ret.%s.%s_len + 1);\n" n n n n n n;
+	   pr "  rv.ret.%s.%s_val =" n n;
+	   pr "    safe_realloc (g, rv.ret.%s.%s_val,\n" n n;
+	   pr "                  sizeof (char *) * (rv.ret.%s.%s_len + 1));\n"
+	     n n;
 	   pr "  rv.ret.%s.%s_val[rv.ret.%s.%s_len] = NULL;\n" n n n n;
 	   pr "  return rv.ret.%s.%s_val;\n" n n
        | RPVList n ->

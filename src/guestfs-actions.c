@@ -444,7 +444,8 @@ char **guestfs_ls (guestfs_h *g,
   }
 
   /* caller will free this, but we need to add a NULL entry */
-  rv.ret.listing.listing_val = safe_realloc (g, rv.ret.listing.listing_val, rv.ret.listing.listing_len + 1);
+  rv.ret.listing.listing_val =    safe_realloc (g, rv.ret.listing.listing_val,
+                  sizeof (char *) * (rv.ret.listing.listing_len + 1));
   rv.ret.listing.listing_val[rv.ret.listing.listing_len] = NULL;
   return rv.ret.listing.listing_val;
 }
@@ -517,7 +518,8 @@ char **guestfs_list_devices (guestfs_h *g)
   }
 
   /* caller will free this, but we need to add a NULL entry */
-  rv.ret.devices.devices_val = safe_realloc (g, rv.ret.devices.devices_val, rv.ret.devices.devices_len + 1);
+  rv.ret.devices.devices_val =    safe_realloc (g, rv.ret.devices.devices_val,
+                  sizeof (char *) * (rv.ret.devices.devices_len + 1));
   rv.ret.devices.devices_val[rv.ret.devices.devices_len] = NULL;
   return rv.ret.devices.devices_val;
 }
@@ -590,7 +592,8 @@ char **guestfs_list_partitions (guestfs_h *g)
   }
 
   /* caller will free this, but we need to add a NULL entry */
-  rv.ret.partitions.partitions_val = safe_realloc (g, rv.ret.partitions.partitions_val, rv.ret.partitions.partitions_len + 1);
+  rv.ret.partitions.partitions_val =    safe_realloc (g, rv.ret.partitions.partitions_val,
+                  sizeof (char *) * (rv.ret.partitions.partitions_len + 1));
   rv.ret.partitions.partitions_val[rv.ret.partitions.partitions_len] = NULL;
   return rv.ret.partitions.partitions_val;
 }
@@ -663,7 +666,8 @@ char **guestfs_pvs (guestfs_h *g)
   }
 
   /* caller will free this, but we need to add a NULL entry */
-  rv.ret.physvols.physvols_val = safe_realloc (g, rv.ret.physvols.physvols_val, rv.ret.physvols.physvols_len + 1);
+  rv.ret.physvols.physvols_val =    safe_realloc (g, rv.ret.physvols.physvols_val,
+                  sizeof (char *) * (rv.ret.physvols.physvols_len + 1));
   rv.ret.physvols.physvols_val[rv.ret.physvols.physvols_len] = NULL;
   return rv.ret.physvols.physvols_val;
 }
@@ -736,7 +740,8 @@ char **guestfs_vgs (guestfs_h *g)
   }
 
   /* caller will free this, but we need to add a NULL entry */
-  rv.ret.volgroups.volgroups_val = safe_realloc (g, rv.ret.volgroups.volgroups_val, rv.ret.volgroups.volgroups_len + 1);
+  rv.ret.volgroups.volgroups_val =    safe_realloc (g, rv.ret.volgroups.volgroups_val,
+                  sizeof (char *) * (rv.ret.volgroups.volgroups_len + 1));
   rv.ret.volgroups.volgroups_val[rv.ret.volgroups.volgroups_len] = NULL;
   return rv.ret.volgroups.volgroups_val;
 }
@@ -809,7 +814,8 @@ char **guestfs_lvs (guestfs_h *g)
   }
 
   /* caller will free this, but we need to add a NULL entry */
-  rv.ret.logvols.logvols_val = safe_realloc (g, rv.ret.logvols.logvols_val, rv.ret.logvols.logvols_len + 1);
+  rv.ret.logvols.logvols_val =    safe_realloc (g, rv.ret.logvols.logvols_val,
+                  sizeof (char *) * (rv.ret.logvols.logvols_len + 1));
   rv.ret.logvols.logvols_val[rv.ret.logvols.logvols_len] = NULL;
   return rv.ret.logvols.logvols_val;
 }
