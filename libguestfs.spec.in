@@ -12,10 +12,17 @@ URL:         http://et.redhat.com/~rjones/libguestfs/
 Source0:     http://et.redhat.com/~rjones/libguestfs/files/%{name}-%{version}.tar.gz
 BuildRoot:   %{_tmppath}/%{name}-%{version}-%{release}-root
 
+# Basic build requirements:
 BuildRequires: /usr/bin/pod2man
 BuildRequires: /usr/bin/pod2text
 BuildRequires: febootstrap
 
+# If you want to build the bindings for different languages:
+BuildRequires: ocaml
+BuildRequires: perl-devel
+BuildRequires: python-devel
+
+# Runtime requires:
 Requires:    qemu
 
 
@@ -69,6 +76,50 @@ modifying virtual machine disk images from the command line and shell
 scripts.
 
 
+%package ocaml
+Summary:     OCaml bindings for %{name}
+Group:       Development/Libraries
+Requires:    %{name} = %{version}-%{release}
+
+
+%description ocaml
+%{name}-ocaml contains OCaml bindings for %{name}.
+
+This is for toplevel and scripting access only.  To compile OCaml
+programs which use %{name} you will also need %{name}-ocaml-devel.
+
+
+%package ocaml-devel
+Summary:     OCaml bindings for %{name}
+Group:       Development/Libraries
+Requires:    %{name}-ocaml = %{version}-%{release}
+
+
+%description ocaml-devel
+%{name}-ocaml-devel contains development libraries
+required to use the OCaml bindings for %{name}.
+
+
+%package perl
+Summary:     Perl bindings for %{name}
+Group:       Development/Libraries
+Requires:    %{name} = %{version}-%{release}
+
+
+%description perl
+%{name}-perl contains Perl bindings for %{name}.
+
+
+%package python
+Summary:     Python bindings for %{name}
+Group:       Development/Libraries
+Requires:    %{name} = %{version}-%{release}
+
+
+%description python
+%{name}-python contains Python bindings for %{name}.
+
+
 %prep
 %setup -q
 
@@ -101,6 +152,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %postun -p /sbin/ldconfig
 
+
 %files
 %defattr(-,root,root,-)
 %doc COPYING
@@ -122,6 +174,22 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %{_bindir}/guestfish
 %{_mandir}/man1/guestfish.1*
+
+
+%files ocaml
+%defattr(-,root,root,-)
+
+
+%files ocaml-devel
+%defattr(-,root,root,-)
+
+
+%files perl
+%defattr(-,root,root,-)
+
+
+%files python
+%defattr(-,root,root,-)
 
 
 %changelog

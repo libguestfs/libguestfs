@@ -1,0 +1,5 @@
+name="guestfs"
+version="@PACKAGE_VERSION@"
+description="libguestfs bindings for OCaml"
+archive(byte)="mlguestfs.cma"
+archive(native)="mlguestfs.cmxa"

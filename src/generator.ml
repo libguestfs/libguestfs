@@ -1322,6 +1322,150 @@ and generate_call_args ?handle style =
   ) (snd style);
   pr ")"
 
+(* Generate the OCaml bindings interface. *)
+and generate_ocaml_mli () =
+  generate_header OCamlStyle LGPLv2;
+
+  pr "\
+(** For API documentation you should refer to the C API
+    in the guestfs(3) manual page.  The OCaml API uses almost
+    exactly the same calls. *)
+
+type t
+(** A [guestfs_h] handle. *)
+
+exception Error of string
+(** This exception is raised when there is an error. *)
+
+val create : unit -> t
+
+val close : t -> unit
+(** Handles are closed by the garbage collector when they become
+    unreferenced, but callers can also call this in order to
+    provide predictable cleanup. *)
+
+val launch : t -> unit
+val wait_ready : t -> unit
+val kill_subprocess : t -> unit
+
+val add_drive : t -> string -> unit
+val add_cdrom : t -> string -> unit
+val config : t -> string -> string option -> unit
+
+val set_path : t -> string option -> unit
+val get_path : t -> string
+val set_autosync : t -> bool -> unit
+val get_autosync : t -> bool
+val set_verbose : t -> bool -> unit
+val get_verbose : t -> bool
+
+";
+  generate_ocaml_lvm_structure_decls ();
+
+  (* The actions. *)
+  List.iter (
+    fun (name, style, _, _, shortdesc, _) ->
+      generate_ocaml_prototype name style;
+      pr "(** %s *)\n" shortdesc;
+      pr "\n"
+  ) sorted_functions
+
+(* Generate the OCaml bindings implementation. *)
+and generate_ocaml_ml () =
+  generate_header OCamlStyle LGPLv2;
+
+  pr "\
+type t
+exception Error of string
+external create : unit -> t = \"ocaml_guestfs_create\"
+external close : t -> unit = \"ocaml_guestfs_create\"
+external launch : t -> unit = \"ocaml_guestfs_launch\"
+external wait_ready : t -> unit = \"ocaml_guestfs_wait_ready\"
+external kill_subprocess : t -> unit = \"ocaml_guestfs_kill_subprocess\"
+external add_drive : t -> string -> unit = \"ocaml_guestfs_add_drive\"
+external add_cdrom : t -> string -> unit = \"ocaml_guestfs_add_cdrom\"
+external config : t -> string -> string option -> unit = \"ocaml_guestfs_config\"
+external set_path : t -> string option -> unit = \"ocaml_guestfs_set_path\"
+external get_path : t -> string = \"ocaml_guestfs_get_path\"
+external set_autosync : t -> bool -> unit = \"ocaml_guestfs_set_autosync\"
+external get_autosync : t -> bool = \"ocaml_guestfs_get_autosync\"
+external set_verbose : t -> bool -> unit = \"ocaml_guestfs_set_verbose\"
+external get_verbose : t -> bool = \"ocaml_guestfs_get_verbose\"
+
+";
+  generate_ocaml_lvm_structure_decls ();
+
+  (* The actions. *)
+  List.iter (
+    fun (name, style, _, _, shortdesc, _) ->
+      generate_ocaml_prototype ~is_external:true name style;
+  ) sorted_functions
+
+(* Generate the OCaml bindings C implementation. *)
+and generate_ocaml_c () =
+  generate_header CStyle LGPLv2;
+
+  pr "#include <stdio.h>\n";
+  pr "#include <stdlib.h>\n";
+  pr "\n";
+  pr "#include <guestfs.h>\n";
+  pr "\n";
+  pr "#include <caml/config.h>\n";
+  pr "#include <caml/alloc.h>\n";
+  pr "#include <caml/callback.h>\n";
+  pr "#include <caml/fail.h>\n";
+  pr "#include <caml/memory.h>\n";
+  pr "#include <caml/mlvalues.h>\n";
+  pr "\n";
+  pr "#include \"guestfs_c.h\"\n";
+  pr "\n";
+
+  List.iter (
+    fun (name, style, _, _, _, _) ->
+      pr "CAMLprim value\n";
+      pr "ocaml_guestfs_%s (value hv /* XXX */)\n" name;
+      pr "{\n";
+      pr "  CAMLparam1 (hv); /* XXX */\n";
+      pr "/* XXX write something here */\n";
+      pr "  CAMLreturn (Val_unit); /* XXX */\n";
+      pr "}\n";
+      pr "\n"
+  ) sorted_functions
+
+and generate_ocaml_lvm_structure_decls () =
+  List.iter (
+    fun (typ, cols) ->
+      pr "type lvm_%s = {\n" typ;
+      List.iter (
+	function
+	| name, `String -> pr "  %s : string;\n" name
+	| name, `UUID -> pr "  %s : string;\n" name
+	| name, `Bytes -> pr "  %s : int64;\n" name
+	| name, `Int -> pr "  %s : int64;\n" name
+	| name, `OptPercent -> pr "  %s : float option;\n" name
+      ) cols;
+      pr "}\n";
+      pr "\n"
+  ) ["pv", pv_cols; "vg", vg_cols; "lv", lv_cols]
+
+and generate_ocaml_prototype ?(is_external = false) name style =
+  if is_external then pr "external " else pr "val ";
+  pr "%s : t -> " name;
+  iter_args (
+    function
+    | String _ -> pr "string -> " (* note String is not allowed to be NULL *)
+  ) (snd style);
+  (match fst style with
+   | Err -> pr "unit" (* all errors are turned into exceptions *)
+   | RString _ -> pr "string"
+   | RStringList _ -> pr "string list"
+   | RPVList _ -> pr "lvm_pv list"
+   | RVGList _ -> pr "lvm_vg list"
+   | RLVList _ -> pr "lvm_lv list"
+  );
+  if is_external then pr " = \"ocaml_guestfs_%s\"" name;
+  pr "\n"
+
 let output_to filename =
   let filename_new = filename ^ ".new" in
   chan := open_out filename_new;
@@ -1375,4 +1519,16 @@ let () =
 
   let close = output_to "guestfish-actions.pod" in
   generate_fish_actions_pod ();
-  close ()
+  close ();
+
+  let close = output_to "ocaml/guestfs.mli" in
+  generate_ocaml_mli ();
+  close ();
+
+  let close = output_to "ocaml/guestfs.ml" in
+  generate_ocaml_ml ();
+  close ();
+
+  let close = output_to "ocaml/guestfs_c_actions.c" in
+  generate_ocaml_c ();
+  close ();

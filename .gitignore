@@ -9,6 +9,7 @@ Makefile.in
 Makefile
 aclocal.m4
 autom4te.cache
+compile
 config.h
 config.h.in
 config.guess
@@ -41,6 +42,14 @@ m4/ltoptions.m4
 m4/ltsugar.m4
 m4/ltversion.m4
 m4/lt~obsolete.m4
+ocaml/META
+ocaml/*.cmi
+ocaml/*.cmo
+ocaml/*.cmx
+ocaml/*.cma
+ocaml/*.cmxa
+ocaml/*.a
+ocaml/*.so
 stamp-h1
 test*.img
 update-initramfs.sh

@@ -30,7 +30,7 @@ AC_PROG_CPP
 AC_C_PROTOTYPES
 test "x$U" != "x" && AC_MSG_ERROR([Compiler not ANSI compliant])
 
-AC_PROG_CC_C_O
+AM_PROG_CC_C_O
 
 dnl Check support for 64 bit file offsets.
 AC_SYS_LARGEFILE
@@ -101,7 +101,8 @@ AC_SUBST(MIRROR)
 
 dnl Check for OCaml (optional, for OCaml bindings).
 AC_PROG_OCAML
-AM_CONDITIONAL([HAVE_OCAML],[test "x$OCAMLC" != "xno"])
+AC_PROG_FINDLIB
+AM_CONDITIONAL([HAVE_OCAML],[test "x$OCAMLC" != "xno" -a "x$OCAMLFIND" != "xno"])
 
 dnl Check for Perl (optional, for Perl bindings).
 dnl XXX This isn't quite right, we should check for devel libraries.
@@ -122,7 +123,8 @@ AC_CONFIG_FILES([Makefile src/Makefile fish/Makefile examples/Makefile
 		 images/Makefile ocaml/Makefile perl/Makefile
 		 python/Makefile
 	         make-initramfs.sh update-initramfs.sh
-		 libguestfs.spec])
+		 libguestfs.spec
+		 ocaml/META])
 AC_OUTPUT
 
 dnl WTF?
