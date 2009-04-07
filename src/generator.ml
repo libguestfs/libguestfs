@@ -1249,6 +1249,22 @@ FTP."
   pr "}\n";
   pr "\n"
 
+(* Generate the POD documentation for guestfish. *)
+and generate_fish_actions_pod () =
+  List.iter (
+    fun (name, style, _, _, _, longdesc) ->
+      let name = replace name '_' '-' in
+      pr "=head2 %s\n\n" name;
+      pr " %s" name;
+      iter_args (
+	function
+	| String n -> pr " %s" n
+      ) (snd style);
+      pr "\n";
+      pr "\n";
+      pr "%s\n\n" longdesc
+  ) sorted_functions
+
 (* Generate a C function prototype. *)
 and generate_prototype ?(extern = true) ?(static = false) ?(semicolon = true)
     ?(single_line = false) ?(newline = false) ?(in_daemon = false)
@@ -1355,4 +1371,8 @@ let () =
 
   let close = output_to "guestfs-actions.pod" in
   generate_actions_pod ();
+  close ();
+
+  let close = output_to "guestfish-actions.pod" in
+  generate_fish_actions_pod ();
   close ()

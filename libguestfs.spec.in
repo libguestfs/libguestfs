@@ -121,6 +121,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -n guestfish
 %defattr(-,root,root,-)
 %{_bindir}/guestfish
+%{_mandir}/man1/guestfish.1*
 
 
 %changelog

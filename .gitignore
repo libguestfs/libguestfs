@@ -24,6 +24,7 @@ emptydisk
 examples/df
 examples/hello
 fish/guestfish
+guestfish.1
 guestfs.3
 initramfs
 initramfs.timestamp
