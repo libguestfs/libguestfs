@@ -66,8 +66,11 @@ find initramfs -name '*python*' -print0 | xargs -0 rm -rf
 
 # Modules take up nearly half of the image.  It's a rough guess that
 # we don't need any drivers (which take up most of the space).
-#rm -rf initramfs/lib/modules/*/kernel/{drivers,sound}
-rm -rf initramfs/lib/modules/*/kernel/arch/x86/kvm
+find initramfs/lib/modules/*/kernel \
+  -name '*.ko' \
+  -a ! -name 'mii.ko' \
+  -a ! -name '8139cp.ko' \
+  -a -delete
 
 # Pull the kernel out into the current directory.  We don't want it in
 # the initramfs image.
