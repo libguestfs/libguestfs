@@ -142,21 +142,21 @@ struct guestfs_list_partitions_ret {
   str partitions<>;
 };
 
-/* guestfs_pvs */
+/* guestfs_pvs_full */
 
-struct guestfs_pvs_ret {
+struct guestfs_pvs_full_ret {
   guestfs_lvm_int_pv_list physvols;
 };
 
-/* guestfs_vgs */
+/* guestfs_vgs_full */
 
-struct guestfs_vgs_ret {
+struct guestfs_vgs_full_ret {
   guestfs_lvm_int_vg_list volgroups;
 };
 
-/* guestfs_lvs */
+/* guestfs_lvs_full */
 
-struct guestfs_lvs_ret {
+struct guestfs_lvs_full_ret {
   guestfs_lvm_int_lv_list logvols;
 };
 
@@ -169,9 +169,9 @@ enum guestfs_procedure {
   GUESTFS_PROC_LS = 6,
   GUESTFS_PROC_LIST_DEVICES = 7,
   GUESTFS_PROC_LIST_PARTITIONS = 8,
-  GUESTFS_PROC_PVS = 9,
-  GUESTFS_PROC_VGS = 10,
-  GUESTFS_PROC_LVS = 11,
+  GUESTFS_PROC_PVS_FULL = 12,
+  GUESTFS_PROC_VGS_FULL = 13,
+  GUESTFS_PROC_LVS_FULL = 14,
   GUESTFS_PROC_dummy
 };
 

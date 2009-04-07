@@ -279,7 +279,7 @@ xdr_guestfs_list_partitions_ret (XDR *xdrs, guestfs_list_partitions_ret *objp)
 }
 
 bool_t
-xdr_guestfs_pvs_ret (XDR *xdrs, guestfs_pvs_ret *objp)
+xdr_guestfs_pvs_full_ret (XDR *xdrs, guestfs_pvs_full_ret *objp)
 {
 	register int32_t *buf;
 
@@ -289,7 +289,7 @@ xdr_guestfs_pvs_ret (XDR *xdrs, guestfs_pvs_ret *objp)
 }
 
 bool_t
-xdr_guestfs_vgs_ret (XDR *xdrs, guestfs_vgs_ret *objp)
+xdr_guestfs_vgs_full_ret (XDR *xdrs, guestfs_vgs_full_ret *objp)
 {
 	register int32_t *buf;
 
@@ -299,7 +299,7 @@ xdr_guestfs_vgs_ret (XDR *xdrs, guestfs_vgs_ret *objp)
 }
 
 bool_t
-xdr_guestfs_lvs_ret (XDR *xdrs, guestfs_lvs_ret *objp)
+xdr_guestfs_lvs_full_ret (XDR *xdrs, guestfs_lvs_full_ret *objp)
 {
 	register int32_t *buf;
 

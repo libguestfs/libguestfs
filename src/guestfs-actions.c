@@ -595,30 +595,30 @@ char **guestfs_list_partitions (guestfs_h *g)
   return rv.ret.partitions.partitions_val;
 }
 
-struct pvs_rv {
+struct pvs_full_rv {
   int cb_done;  /* flag to indicate callback was called */
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
-  struct guestfs_pvs_ret ret;
+  struct guestfs_pvs_full_ret ret;
 };
 
-static void pvs_cb (guestfs_h *g, void *data, XDR *xdr)
+static void pvs_full_cb (guestfs_h *g, void *data, XDR *xdr)
 {
-  struct pvs_rv *rv = (struct pvs_rv *) data;
+  struct pvs_full_rv *rv = (struct pvs_full_rv *) data;
 
   if (!xdr_guestfs_message_header (xdr, &rv->hdr)) {
-    error (g, "guestfs_pvs: failed to parse reply header");
+    error (g, "guestfs_pvs_full: failed to parse reply header");
     return;
   }
   if (rv->hdr.status == GUESTFS_STATUS_ERROR) {
     if (!xdr_guestfs_message_error (xdr, &rv->err)) {
-      error (g, "guestfs_pvs: failed to parse reply error");
+      error (g, "guestfs_pvs_full: failed to parse reply error");
       return;
     }
     goto done;
   }
-  if (!xdr_guestfs_pvs_ret (xdr, &rv->ret)) {
-    error (g, "guestfs_pvs: failed to parse reply");
+  if (!xdr_guestfs_pvs_full_ret (xdr, &rv->ret)) {
+    error (g, "guestfs_pvs_full: failed to parse reply");
     return;
   }
  done:
@@ -626,35 +626,35 @@ static void pvs_cb (guestfs_h *g, void *data, XDR *xdr)
   main_loop.main_loop_quit (g);
 }
 
-struct guestfs_lvm_pv_list *guestfs_pvs (guestfs_h *g)
+struct guestfs_lvm_pv_list *guestfs_pvs_full (guestfs_h *g)
 {
-  struct pvs_rv rv;
+  struct pvs_full_rv rv;
   int serial;
 
   if (g->state != READY) {
-    error (g, "guestfs_pvs called from the wrong state, %d != READY",
+    error (g, "guestfs_pvs_full called from the wrong state, %d != READY",
       g->state);
     return NULL;
   }
 
   memset (&rv, 0, sizeof rv);
 
-  serial = dispatch (g, GUESTFS_PROC_PVS, NULL, NULL);
+  serial = dispatch (g, GUESTFS_PROC_PVS_FULL, NULL, NULL);
   if (serial == -1)
     return NULL;
 
   rv.cb_done = 0;
-  g->reply_cb_internal = pvs_cb;
+  g->reply_cb_internal = pvs_full_cb;
   g->reply_cb_internal_data = &rv;
   main_loop.main_loop_run (g);
   g->reply_cb_internal = NULL;
   g->reply_cb_internal_data = NULL;
   if (!rv.cb_done) {
-    error (g, "guestfs_pvs failed, see earlier error messages");
+    error (g, "guestfs_pvs_full failed, see earlier error messages");
     return NULL;
   }
 
-  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_PVS, serial) == -1)
+  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_PVS_FULL, serial) == -1)
     return NULL;
 
   if (rv.hdr.status == GUESTFS_STATUS_ERROR) {
@@ -666,30 +666,30 @@ struct guestfs_lvm_pv_list *guestfs_pvs (guestfs_h *g)
   return safe_memdup (g, &rv.ret.physvols, sizeof (rv.ret.physvols));
 }
 
-struct vgs_rv {
+struct vgs_full_rv {
   int cb_done;  /* flag to indicate callback was called */
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
-  struct guestfs_vgs_ret ret;
+  struct guestfs_vgs_full_ret ret;
 };
 
-static void vgs_cb (guestfs_h *g, void *data, XDR *xdr)
+static void vgs_full_cb (guestfs_h *g, void *data, XDR *xdr)
 {
-  struct vgs_rv *rv = (struct vgs_rv *) data;
+  struct vgs_full_rv *rv = (struct vgs_full_rv *) data;
 
   if (!xdr_guestfs_message_header (xdr, &rv->hdr)) {
-    error (g, "guestfs_vgs: failed to parse reply header");
+    error (g, "guestfs_vgs_full: failed to parse reply header");
     return;
   }
   if (rv->hdr.status == GUESTFS_STATUS_ERROR) {
     if (!xdr_guestfs_message_error (xdr, &rv->err)) {
-      error (g, "guestfs_vgs: failed to parse reply error");
+      error (g, "guestfs_vgs_full: failed to parse reply error");
       return;
     }
     goto done;
   }
-  if (!xdr_guestfs_vgs_ret (xdr, &rv->ret)) {
-    error (g, "guestfs_vgs: failed to parse reply");
+  if (!xdr_guestfs_vgs_full_ret (xdr, &rv->ret)) {
+    error (g, "guestfs_vgs_full: failed to parse reply");
     return;
   }
  done:
@@ -697,35 +697,35 @@ static void vgs_cb (guestfs_h *g, void *data, XDR *xdr)
   main_loop.main_loop_quit (g);
 }
 
-struct guestfs_lvm_vg_list *guestfs_vgs (guestfs_h *g)
+struct guestfs_lvm_vg_list *guestfs_vgs_full (guestfs_h *g)
 {
-  struct vgs_rv rv;
+  struct vgs_full_rv rv;
   int serial;
 
   if (g->state != READY) {
-    error (g, "guestfs_vgs called from the wrong state, %d != READY",
+    error (g, "guestfs_vgs_full called from the wrong state, %d != READY",
       g->state);
     return NULL;
   }
 
   memset (&rv, 0, sizeof rv);
 
-  serial = dispatch (g, GUESTFS_PROC_VGS, NULL, NULL);
+  serial = dispatch (g, GUESTFS_PROC_VGS_FULL, NULL, NULL);
   if (serial == -1)
     return NULL;
 
   rv.cb_done = 0;
-  g->reply_cb_internal = vgs_cb;
+  g->reply_cb_internal = vgs_full_cb;
   g->reply_cb_internal_data = &rv;
   main_loop.main_loop_run (g);
   g->reply_cb_internal = NULL;
   g->reply_cb_internal_data = NULL;
   if (!rv.cb_done) {
-    error (g, "guestfs_vgs failed, see earlier error messages");
+    error (g, "guestfs_vgs_full failed, see earlier error messages");
     return NULL;
   }
 
-  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_VGS, serial) == -1)
+  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_VGS_FULL, serial) == -1)
     return NULL;
 
   if (rv.hdr.status == GUESTFS_STATUS_ERROR) {
@@ -737,30 +737,30 @@ struct guestfs_lvm_vg_list *guestfs_vgs (guestfs_h *g)
   return safe_memdup (g, &rv.ret.volgroups, sizeof (rv.ret.volgroups));
 }
 
-struct lvs_rv {
+struct lvs_full_rv {
   int cb_done;  /* flag to indicate callback was called */
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
-  struct guestfs_lvs_ret ret;
+  struct guestfs_lvs_full_ret ret;
 };
 
-static void lvs_cb (guestfs_h *g, void *data, XDR *xdr)
+static void lvs_full_cb (guestfs_h *g, void *data, XDR *xdr)
 {
-  struct lvs_rv *rv = (struct lvs_rv *) data;
+  struct lvs_full_rv *rv = (struct lvs_full_rv *) data;
 
   if (!xdr_guestfs_message_header (xdr, &rv->hdr)) {
-    error (g, "guestfs_lvs: failed to parse reply header");
+    error (g, "guestfs_lvs_full: failed to parse reply header");
     return;
   }
   if (rv->hdr.status == GUESTFS_STATUS_ERROR) {
     if (!xdr_guestfs_message_error (xdr, &rv->err)) {
-      error (g, "guestfs_lvs: failed to parse reply error");
+      error (g, "guestfs_lvs_full: failed to parse reply error");
       return;
     }
     goto done;
   }
-  if (!xdr_guestfs_lvs_ret (xdr, &rv->ret)) {
-    error (g, "guestfs_lvs: failed to parse reply");
+  if (!xdr_guestfs_lvs_full_ret (xdr, &rv->ret)) {
+    error (g, "guestfs_lvs_full: failed to parse reply");
     return;
   }
  done:
@@ -768,35 +768,35 @@ static void lvs_cb (guestfs_h *g, void *data, XDR *xdr)
   main_loop.main_loop_quit (g);
 }
 
-struct guestfs_lvm_lv_list *guestfs_lvs (guestfs_h *g)
+struct guestfs_lvm_lv_list *guestfs_lvs_full (guestfs_h *g)
 {
-  struct lvs_rv rv;
+  struct lvs_full_rv rv;
   int serial;
 
   if (g->state != READY) {
-    error (g, "guestfs_lvs called from the wrong state, %d != READY",
+    error (g, "guestfs_lvs_full called from the wrong state, %d != READY",
       g->state);
     return NULL;
   }
 
   memset (&rv, 0, sizeof rv);
 
-  serial = dispatch (g, GUESTFS_PROC_LVS, NULL, NULL);
+  serial = dispatch (g, GUESTFS_PROC_LVS_FULL, NULL, NULL);
   if (serial == -1)
     return NULL;
 
   rv.cb_done = 0;
-  g->reply_cb_internal = lvs_cb;
+  g->reply_cb_internal = lvs_full_cb;
   g->reply_cb_internal_data = &rv;
   main_loop.main_loop_run (g);
   g->reply_cb_internal = NULL;
   g->reply_cb_internal_data = NULL;
   if (!rv.cb_done) {
-    error (g, "guestfs_lvs failed, see earlier error messages");
+    error (g, "guestfs_lvs_full failed, see earlier error messages");
     return NULL;
   }
 
-  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_LVS, serial) == -1)
+  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_LVS_FULL, serial) == -1)
     return NULL;
 
   if (rv.hdr.status == GUESTFS_STATUS_ERROR) {

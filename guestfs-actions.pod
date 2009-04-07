@@ -75,9 +75,9 @@ This function returns a NULL-terminated array of strings
 (like L<environ(3)>), or NULL if there was an error.
 I<The caller must free the strings and the array after use>.
 
-=head2 guestfs_lvs
+=head2 guestfs_lvs_full
 
- struct guestfs_lvm_lv_list *guestfs_lvs (guestfs_h *handle);
+ struct guestfs_lvm_lv_list *guestfs_lvs_full (guestfs_h *handle);
 
 List all the logical volumes detected.  This is the equivalent
 of the L<lvs(8)> command.
@@ -110,9 +110,9 @@ call, in order to improve reliability.
 
 This function returns 0 on success or -1 on error.
 
-=head2 guestfs_pvs
+=head2 guestfs_pvs_full
 
- struct guestfs_lvm_pv_list *guestfs_pvs (guestfs_h *handle);
+ struct guestfs_lvm_pv_list *guestfs_pvs_full (guestfs_h *handle);
 
 List all the physical volumes detected.  This is the equivalent
 of the L<pvs(8)> command.
@@ -143,9 +143,9 @@ to create a new zero-length file.
 
 This function returns 0 on success or -1 on error.
 
-=head2 guestfs_vgs
+=head2 guestfs_vgs_full
 
- struct guestfs_lvm_vg_list *guestfs_vgs (guestfs_h *handle);
+ struct guestfs_lvm_vg_list *guestfs_vgs_full (guestfs_h *handle);
 
 List all the volumes groups detected.  This is the equivalent
 of the L<vgs(8)> command.

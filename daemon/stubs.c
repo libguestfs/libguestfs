@@ -199,49 +199,49 @@ static void list_partitions_stub (XDR *xdr_in)
   free_strings (r);
 }
 
-static void pvs_stub (XDR *xdr_in)
+static void pvs_full_stub (XDR *xdr_in)
 {
   guestfs_lvm_int_pv_list *r;
 
-  r = do_pvs ();
+  r = do_pvs_full ();
   if (r == NULL)
-    /* do_pvs has already called reply_with_error, so just return */
+    /* do_pvs_full has already called reply_with_error, so just return */
     return;
 
-  struct guestfs_pvs_ret ret;
+  struct guestfs_pvs_full_ret ret;
   ret.physvols = *r;
-  reply ((xdrproc_t) &xdr_guestfs_pvs_ret, (char *) &ret);
-  xdr_free ((xdrproc_t) xdr_guestfs_pvs_ret, (char *) &ret);
+  reply ((xdrproc_t) &xdr_guestfs_pvs_full_ret, (char *) &ret);
+  xdr_free ((xdrproc_t) xdr_guestfs_pvs_full_ret, (char *) &ret);
 }
 
-static void vgs_stub (XDR *xdr_in)
+static void vgs_full_stub (XDR *xdr_in)
 {
   guestfs_lvm_int_vg_list *r;
 
-  r = do_vgs ();
+  r = do_vgs_full ();
   if (r == NULL)
-    /* do_vgs has already called reply_with_error, so just return */
+    /* do_vgs_full has already called reply_with_error, so just return */
     return;
 
-  struct guestfs_vgs_ret ret;
+  struct guestfs_vgs_full_ret ret;
   ret.volgroups = *r;
-  reply ((xdrproc_t) &xdr_guestfs_vgs_ret, (char *) &ret);
-  xdr_free ((xdrproc_t) xdr_guestfs_vgs_ret, (char *) &ret);
+  reply ((xdrproc_t) &xdr_guestfs_vgs_full_ret, (char *) &ret);
+  xdr_free ((xdrproc_t) xdr_guestfs_vgs_full_ret, (char *) &ret);
 }
 
-static void lvs_stub (XDR *xdr_in)
+static void lvs_full_stub (XDR *xdr_in)
 {
   guestfs_lvm_int_lv_list *r;
 
-  r = do_lvs ();
+  r = do_lvs_full ();
   if (r == NULL)
-    /* do_lvs has already called reply_with_error, so just return */
+    /* do_lvs_full has already called reply_with_error, so just return */
     return;
 
-  struct guestfs_lvs_ret ret;
+  struct guestfs_lvs_full_ret ret;
   ret.logvols = *r;
-  reply ((xdrproc_t) &xdr_guestfs_lvs_ret, (char *) &ret);
-  xdr_free ((xdrproc_t) xdr_guestfs_lvs_ret, (char *) &ret);
+  reply ((xdrproc_t) &xdr_guestfs_lvs_full_ret, (char *) &ret);
+  xdr_free ((xdrproc_t) xdr_guestfs_lvs_full_ret, (char *) &ret);
 }
 
 void dispatch_incoming_message (XDR *xdr_in)
@@ -271,14 +271,14 @@ void dispatch_incoming_message (XDR *xdr_in)
     case GUESTFS_PROC_LIST_PARTITIONS:
       list_partitions_stub (xdr_in);
       break;
-    case GUESTFS_PROC_PVS:
-      pvs_stub (xdr_in);
+    case GUESTFS_PROC_PVS_FULL:
+      pvs_full_stub (xdr_in);
       break;
-    case GUESTFS_PROC_VGS:
-      vgs_stub (xdr_in);
+    case GUESTFS_PROC_VGS_FULL:
+      vgs_full_stub (xdr_in);
       break;
-    case GUESTFS_PROC_LVS:
-      lvs_stub (xdr_in);
+    case GUESTFS_PROC_LVS_FULL:
+      lvs_full_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d", proc_nr);

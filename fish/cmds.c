@@ -36,12 +36,12 @@ void list_commands (void)
   printf ("%-20s %s\n", "list-partitions", "list the partitions");
   printf ("%-20s %s\n", "ll", "list the files in a directory (long format)");
   printf ("%-20s %s\n", "ls", "list the files in a directory");
-  printf ("%-20s %s\n", "lvs", "list the LVM logical volumes (LVs)");
+  printf ("%-20s %s\n", "lvs-full", "list the LVM logical volumes (LVs)");
   printf ("%-20s %s\n", "mount", "mount a guest disk at a position in the filesystem");
-  printf ("%-20s %s\n", "pvs", "list the LVM physical volumes (PVs)");
+  printf ("%-20s %s\n", "pvs-full", "list the LVM physical volumes (PVs)");
   printf ("%-20s %s\n", "sync", "sync disks, writes are flushed through to the disk image");
   printf ("%-20s %s\n", "touch", "update file timestamps or create a new file");
-  printf ("%-20s %s\n", "vgs", "list the LVM volume groups (VGs)");
+  printf ("%-20s %s\n", "vgs-full", "list the LVM volume groups (VGs)");
   printf ("    Use -h <cmd> / help <cmd> to show detailed help for a command.\n");
 }
 
@@ -71,14 +71,14 @@ void display_command (const char *cmd)
   if (strcasecmp (cmd, "list_partitions") == 0 || strcasecmp (cmd, "list-partitions") == 0)
     pod2text ("list-partitions - list the partitions", " list-partitions\n\nList all the partitions detected on all block devices.\n\nThe full partition device names are returned, eg. C</dev/sda1>\n\nThis does not return logical volumes.  For that you will need to\ncall C<guestfs_lvs>.");
   else
-  if (strcasecmp (cmd, "pvs") == 0)
-    pod2text ("pvs - list the LVM physical volumes (PVs)", " pvs\n\nList all the physical volumes detected.  This is the equivalent\nof the L<pvs(8)> command.");
+  if (strcasecmp (cmd, "pvs_full") == 0 || strcasecmp (cmd, "pvs-full") == 0)
+    pod2text ("pvs-full - list the LVM physical volumes (PVs)", " pvs-full\n\nList all the physical volumes detected.  This is the equivalent\nof the L<pvs(8)> command.");
   else
-  if (strcasecmp (cmd, "vgs") == 0)
-    pod2text ("vgs - list the LVM volume groups (VGs)", " vgs\n\nList all the volumes groups detected.  This is the equivalent\nof the L<vgs(8)> command.");
+  if (strcasecmp (cmd, "vgs_full") == 0 || strcasecmp (cmd, "vgs-full") == 0)
+    pod2text ("vgs-full - list the LVM volume groups (VGs)", " vgs-full\n\nList all the volumes groups detected.  This is the equivalent\nof the L<vgs(8)> command.");
   else
-  if (strcasecmp (cmd, "lvs") == 0)
-    pod2text ("lvs - list the LVM logical volumes (LVs)", " lvs\n\nList all the logical volumes detected.  This is the equivalent\nof the L<lvs(8)> command.");
+  if (strcasecmp (cmd, "lvs_full") == 0 || strcasecmp (cmd, "lvs-full") == 0)
+    pod2text ("lvs-full - list the LVM logical volumes (LVs)", " lvs-full\n\nList all the logical volumes detected.  This is the equivalent\nof the L<lvs(8)> command.");
   else
     display_builtin_command (cmd);
 }
@@ -308,7 +308,7 @@ static int run_list_partitions (const char *cmd, int argc, char *argv[])
   return 0;
 }
 
-static int run_pvs (const char *cmd, int argc, char *argv[])
+static int run_pvs_full (const char *cmd, int argc, char *argv[])
 {
   struct guestfs_lvm_pv_list *r;
   if (argc != 0) {
@@ -316,14 +316,14 @@ static int run_pvs (const char *cmd, int argc, char *argv[])
     fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
     return -1;
   }
-  r = guestfs_pvs (g);
+  r = guestfs_pvs_full (g);
   if (r == NULL) return -1;
   print_pv_list (r);
   guestfs_free_lvm_pv_list (r);
   return 0;
 }
 
-static int run_vgs (const char *cmd, int argc, char *argv[])
+static int run_vgs_full (const char *cmd, int argc, char *argv[])
 {
   struct guestfs_lvm_vg_list *r;
   if (argc != 0) {
@@ -331,14 +331,14 @@ static int run_vgs (const char *cmd, int argc, char *argv[])
     fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
     return -1;
   }
-  r = guestfs_vgs (g);
+  r = guestfs_vgs_full (g);
   if (r == NULL) return -1;
   print_vg_list (r);
   guestfs_free_lvm_vg_list (r);
   return 0;
 }
 
-static int run_lvs (const char *cmd, int argc, char *argv[])
+static int run_lvs_full (const char *cmd, int argc, char *argv[])
 {
   struct guestfs_lvm_lv_list *r;
   if (argc != 0) {
@@ -346,7 +346,7 @@ static int run_lvs (const char *cmd, int argc, char *argv[])
     fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
     return -1;
   }
-  r = guestfs_lvs (g);
+  r = guestfs_lvs_full (g);
   if (r == NULL) return -1;
   print_lv_list (r);
   guestfs_free_lvm_lv_list (r);
@@ -379,14 +379,14 @@ int run_action (const char *cmd, int argc, char *argv[])
   if (strcasecmp (cmd, "list_partitions") == 0 || strcasecmp (cmd, "list-partitions") == 0)
     return run_list_partitions (cmd, argc, argv);
   else
-  if (strcasecmp (cmd, "pvs") == 0)
-    return run_pvs (cmd, argc, argv);
+  if (strcasecmp (cmd, "pvs_full") == 0 || strcasecmp (cmd, "pvs-full") == 0)
+    return run_pvs_full (cmd, argc, argv);
   else
-  if (strcasecmp (cmd, "vgs") == 0)
-    return run_vgs (cmd, argc, argv);
+  if (strcasecmp (cmd, "vgs_full") == 0 || strcasecmp (cmd, "vgs-full") == 0)
+    return run_vgs_full (cmd, argc, argv);
   else
-  if (strcasecmp (cmd, "lvs") == 0)
-    return run_lvs (cmd, argc, argv);
+  if (strcasecmp (cmd, "lvs_full") == 0 || strcasecmp (cmd, "lvs-full") == 0)
+    return run_lvs_full (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

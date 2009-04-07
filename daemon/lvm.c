@@ -32,19 +32,19 @@
  */
 
 guestfs_lvm_int_pv_list *
-do_pvs (void)
+do_pvs_full (void)
 {
   return parse_command_line_pvs ();
 }
 
 guestfs_lvm_int_vg_list *
-do_vgs (void)
+do_vgs_full (void)
 {
   return parse_command_line_vgs ();
 }
 
 guestfs_lvm_int_lv_list *
-do_lvs (void)
+do_lvs_full (void)
 {
   return parse_command_line_lvs ();
 }
