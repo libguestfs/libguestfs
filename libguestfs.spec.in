@@ -115,6 +115,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/guestfs.3*
 %{_includedir}/guestfs.h
 %{_includedir}/guestfs-actions.h
+%{_includedir}/guestfs-structs.h
 
 
 %files -n guestfish
