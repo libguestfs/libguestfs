@@ -37,9 +37,8 @@ LVs, what filesystem is in each LV, etc.).  It can also run commands
 in the context of the guest.  Also you can access filesystems over FTP.
 
 Libguestfs is a library that can be linked with C and C++ management
-programs (or management programs written in other languages, if people
-contribute the language bindings).  You can also use it from shell
-scripts or the command line.
+programs (or management programs written in OCaml or Perl).
+You can also use it from shell scripts or the command line.
 
 You don't need to be root to use libguestfs, although obviously you do
 need enough permissions to access the disk images.
@@ -204,6 +203,10 @@ handler using C<guestfs_set_out_of_memory_handler>.
 The callback C<cb> will be called if there is an error.  The
 parameters passed to the callback are an opaque data pointer and the
 error message string.
+
+Note that the message string C<msg> is freed as soon as the callback
+function returns, so if you want to stash it somewhere you must make
+your own copy.
 
 The default handler prints messages on C<stderr>.
 
