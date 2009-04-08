@@ -17,7 +17,6 @@
 
 EXTRA_DIST = \
 	guestfs.mli guestfs.ml \
-	guestfs_internal.ml \
 	guestfs_c.c guestfs_c.h guestfs_c_actions.c \
 	.depend META.in
 
@@ -25,10 +24,10 @@ if HAVE_OCAML
 
 noinst_DATA = mlguestfs.cma mlguestfs.cmxa META
 
-mlguestfs.cma: guestfs_c.o guestfs_c_actions.o guestfs_internal.cmo guestfs.cmo
+mlguestfs.cma: guestfs_c.o guestfs_c_actions.o guestfs.cmo
 	$(OCAMLMKLIB) -o mlguestfs $^ -lguestfs
 
-mlguestfs.cmxa: guestfs_c.o guestfs_c_actions.o guestfs_internal.cmx guestfs.cmx
+mlguestfs.cmxa: guestfs_c.o guestfs_c_actions.o guestfs.cmx
 	$(OCAMLMKLIB) -o mlguestfs $^ -lguestfs
 
 guestfs_c.o: guestfs_c.c
@@ -56,7 +55,11 @@ SUFFIXES = .cmo .cmi .cmx .ml .mli .mll .mly
 
 # Do the installation by hand, because we want to run ocamlfind.
 install-data-hook:
-	$(OCAMLFIND) install -destdir $(DESTDIR) guestfs \
+	mkdir -p $(DESTDIR)$(OCAMLLIB)
+	mkdir -p $(DESTDIR)$(OCAMLLIB)/stublibs
+	$(OCAMLFIND) install \
+	  -ldconf ignore -destdir $(DESTDIR)$(OCAMLLIB) \
+	  guestfs \
 	  META *.so *.a *.cma *.cmx *.cmxa *.cmi *.mli
 
 endif

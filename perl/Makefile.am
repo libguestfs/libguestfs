@@ -18,9 +18,12 @@
 EXTRA_DIST = \
 	Makefile.PL.in \
 	Guestfs.xs \
-	guestfs_perl.c \
 	typemap \
-	perl/lib/Sys/Guestfs.pm
+	lib/Sys/Guestfs.pm \
+	examples/README \
+	examples/LICENSE \
+	examples/*.pl \
+	t/*.t
 
 if HAVE_PERL
 
@@ -29,11 +32,13 @@ if HAVE_PERL
 
 TESTS = run-perl-tests
 
+INSTALLDIRS = site
+
 all:
-	perl Makefile.PL
-	make -f Makefile-pl
+	perl Makefile.PL INSTALLDIRS=$(INSTALLDIRS) PREFIX=$(prefix)
+	$(MAKE) -f Makefile-pl
 
 install-data-hook:
-	make -f Makefile-pl DESTDIR=$(DESTDIR) install
+	$(MAKE) -f Makefile-pl DESTDIR=$(DESTDIR) install
 
 endif

@@ -20,7 +20,10 @@ BuildRequires: febootstrap
 # If you want to build the bindings for different languages:
 BuildRequires: ocaml
 BuildRequires: perl-devel
-BuildRequires: python-devel
+BuildRequires: perl-Test-Pod
+BuildRequires: perl-Test-Pod-Coverage
+BuildRequires: perl-ExtUtils-MakeMaker
+# BuildRequires: python-devel
 
 # Runtime requires:
 Requires:    qemu
@@ -104,20 +107,21 @@ required to use the OCaml bindings for %{name}.
 Summary:     Perl bindings for %{name}
 Group:       Development/Libraries
 Requires:    %{name} = %{version}-%{release}
+Requires:    perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 
 %description perl
 %{name}-perl contains Perl bindings for %{name}.
 
 
-%package python
-Summary:     Python bindings for %{name}
-Group:       Development/Libraries
-Requires:    %{name} = %{version}-%{release}
+# %package python
+# Summary:     Python bindings for %{name}
+# Group:       Development/Libraries
+# Requires:    %{name} = %{version}-%{release}
 
 
-%description python
-%{name}-python contains Python bindings for %{name}.
+# %description python
+# %{name}-python contains Python bindings for %{name}.
 
 
 %prep
@@ -126,11 +130,15 @@ Requires:    %{name} = %{version}-%{release}
 
 %build
 %configure --with-mirror=%{mirror}
-make
+
+# 'INSTALLDIRS' ensures that perl libs are installed in the vendor dir
+# not the site dir.
+make INSTALLDIRS=vendor
 
 
 %install
 rm -rf $RPM_BUILD_ROOT
+
 make DESTDIR=$RPM_BUILD_ROOT install
 
 rm $RPM_BUILD_ROOT%{_libdir}/libguestfs.a
@@ -142,6 +150,9 @@ make clean
 rm Makefile*
 rm -rf .deps .libs
 popd
+
+find $RPM_BUILD_ROOT -name perllocal.pod -delete
+find $RPM_BUILD_ROOT -name .packlist -delete
 
 
 %clean
@@ -178,18 +189,32 @@ rm -rf $RPM_BUILD_ROOT
 
 %files ocaml
 %defattr(-,root,root,-)
+%{_libdir}/ocaml/guestfs
+%exclude %{_libdir}/ocaml/guestfs/*.a
+%exclude %{_libdir}/ocaml/guestfs/*.cmxa
+%exclude %{_libdir}/ocaml/guestfs/*.cmx
+%exclude %{_libdir}/ocaml/guestfs/*.mli
+%{_libdir}/ocaml/stublibs/*.so
+%{_libdir}/ocaml/stublibs/*.so.owner
 
 
 %files ocaml-devel
 %defattr(-,root,root,-)
+%{_libdir}/ocaml/guestfs/*.a
+%{_libdir}/ocaml/guestfs/*.cmxa
+%{_libdir}/ocaml/guestfs/*.cmx
+%{_libdir}/ocaml/guestfs/*.mli
 
 
 %files perl
 %defattr(-,root,root,-)
+%doc perl/examples
+%{perl_vendorarch}/*
+%{_mandir}/man3/Sys::Guestfs.3pm*
 
 
-%files python
-%defattr(-,root,root,-)
+# %files python
+# %defattr(-,root,root,-)
 
 
 %changelog
