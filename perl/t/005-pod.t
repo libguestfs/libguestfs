@@ -1,4 +1,4 @@
-# libguestfs Perl bindings
+# libguestfs Perl bindings -*- perl -*-
 # Copyright (C) 2009 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -15,25 +15,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-EXTRA_DIST = \
-	Makefile.PL.in \
-	Guestfs.xs \
-	guestfs_perl.c \
-	typemap \
-	perl/lib/Sys/Guestfs.pm
+use Test::More;
+use strict;
+use warnings;
 
-if HAVE_PERL
-
-# Interfacing automake and ExtUtils::MakeMaker known to be
-# a nightmare, news at 11.
-
-TESTS = run-perl-tests
-
-all:
-	perl Makefile.PL
-	make -f Makefile-pl
-
-install-data-hook:
-	make -f Makefile-pl DESTDIR=$(DESTDIR) install
-
-endif
+eval "use Test::Pod 1.00";
+plan skip_all => "Test::Pod 1.00 required for testing POD" if $@;
+all_pod_files_ok ();

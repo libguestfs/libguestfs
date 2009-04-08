@@ -91,6 +91,62 @@ sub new {
   return $self;
 }
 
+=item $h->add_drive ($filename);
+
+=item $h->add_cdrom ($filename);
+
+This function adds a virtual machine disk image C<filename> to the
+guest.  The first time you call this function, the disk appears as IDE
+disk 0 (C</dev/sda>) in the guest, the second time as C</dev/sdb>, and
+so on.
+
+You don't necessarily need to be root when using libguestfs.  However
+you obviously do need sufficient permissions to access the filename
+for whatever operations you want to perform (ie. read access if you
+just want to read the image or write access if you want to modify the
+image).
+
+The C<add_cdrom> variation adds a CD-ROM device.
+
+=item $h->config ($param, $value);
+
+=item $h->config ($param);
+
+Use this to add arbitrary parameters to the C<qemu> command line.
+See L<qemu(1)>.
+
+=item $h->launch ();
+
+=item $h->wait_ready ();
+
+Internally libguestfs is implemented by running a virtual machine
+using L<qemu(1)>.  These calls are necessary in order to boot the
+virtual machine.
+
+You should call these two functions after configuring the handle
+(eg. adding drives) but before performing any actions.
+
+=item $h->set_path ($path);
+
+=item $path = $h->get_path ();
+
+See the discussion of C<PATH> in the L<guestfs(3)>
+manpage.
+
+=item $h->set_autosync ($autosync);
+
+=item $autosync = $h->get_autosync ();
+
+See the discussion of I<AUTOSYNC> in the L<guestfs(3)>
+manpage.
+
+=item $h->set_verbose ($verbose);
+
+=item $verbose = $h->get_verbose ();
+
+This sets or gets the verbose messages flag.  Verbose
+messages are sent to C<stderr>.
+
 =item $content = $h->cat (path);
 
 Return the contents of the file named C<path>.

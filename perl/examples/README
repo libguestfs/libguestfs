@@ -1,0 +1,17 @@
+This directory contains various example programs which use the perl
+Sys::Guestfs bindings to the libguestfs API.
+
+As they are examples, these are licensed so they can be freely copied
+and used without any restrictions.
+
+Tips:
+
+(1) To enable verbose messages, set environment variable LIBGUESTFS_DEBUG=1
+
+(2) To run a program without installing the library, set PERL5LIB and
+LIBGUESTFS_PATH as in this example (if run from the root directory of
+the source distribution):
+
+  LIBGUESTFS_PATH=$(pwd) \
+  PERL5LIB=$(pwd)/perl/blib/lib:$(pwd)/perl/blib/arch/auto/Sys/Guestfs \
+  perl/examples/foo

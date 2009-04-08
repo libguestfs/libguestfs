@@ -25,8 +25,6 @@
 
 #include <guestfs.h>
 
-/* #include cannot be used for local files in XS */
-
 #ifndef PRId64
 #define PRId64 "lld"
 #endif
@@ -79,19 +77,112 @@ MODULE = Sys::Guestfs  PACKAGE = Sys::Guestfs
 
 guestfs_h *
 _create ()
-CODE:
-    RETVAL = guestfs_create ();
-    if (!RETVAL)
-      croak ("could not create guestfs handle");
-    guestfs_set_error_handler (RETVAL, error_handler, NULL);
-OUTPUT:
-    RETVAL
+   CODE:
+      RETVAL = guestfs_create ();
+      if (!RETVAL)
+        croak ("could not create guestfs handle");
+      guestfs_set_error_handler (RETVAL, error_handler, NULL);
+ OUTPUT:
+      RETVAL
 
 void
 DESTROY (g)
-    guestfs_h *g;
-PPCODE:
-    guestfs_close (g);
+      guestfs_h *g;
+ PPCODE:
+      guestfs_close (g);
+
+void
+add_drive (g, filename)
+      guestfs_h *g;
+      const char *filename;
+   CODE:
+      if (guestfs_add_drive (g, filename) == -1)
+        croak ("add_drive: %s", last_error);
+
+void
+add_cdrom (g, filename)
+      guestfs_h *g;
+      const char *filename;
+   CODE:
+      if (guestfs_add_cdrom (g, filename) == -1)
+        croak ("add_cdrom: %s", last_error);
+
+void
+config (g, param, value)
+      guestfs_h *g;
+      const char *param;
+      const char *value;
+   CODE:
+      if (guestfs_config (g, param, value) == -1)
+        croak ("config: %s", last_error);
+
+void
+launch (g)
+      guestfs_h *g;
+   CODE:
+      if (guestfs_launch (g) == -1)
+        croak ("launch: %s", last_error);
+
+void
+wait_ready (g)
+      guestfs_h *g;
+   CODE:
+      if (guestfs_wait_ready (g) == -1)
+        croak ("wait_ready: %s", last_error);
+
+void
+set_path (g, path)
+      guestfs_h *g;
+      const char *path;
+   CODE:
+      guestfs_set_path (g, path);
+
+SV *
+get_path (g)
+      guestfs_h *g;
+PREINIT:
+      const char *path;
+   CODE:
+      path = guestfs_get_path (g);
+      RETVAL = newSVpv (path, 0);
+ OUTPUT:
+      RETVAL
+
+void
+set_autosync (g, autosync)
+      guestfs_h *g;
+      int autosync;
+   CODE:
+      guestfs_set_autosync (g, autosync);
+
+SV *
+get_autosync (g)
+      guestfs_h *g;
+PREINIT:
+      int autosync;
+   CODE:
+      autosync = guestfs_get_autosync (g);
+      RETVAL = newSViv (autosync);
+ OUTPUT:
+      RETVAL
+
+void
+set_verbose (g, verbose)
+      guestfs_h *g;
+      int verbose;
+   CODE:
+      guestfs_set_verbose (g, verbose);
+
+SV *
+get_verbose (g)
+      guestfs_h *g;
+PREINIT:
+      int verbose;
+   CODE:
+      verbose = guestfs_get_verbose (g);
+      RETVAL = newSViv (verbose);
+ OUTPUT:
+      RETVAL
 
 void
 mount (g, device, mountpoint)
