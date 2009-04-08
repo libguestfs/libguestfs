@@ -37,6 +37,7 @@ convert_lvm_output (char *out, char *prefix)
   char *p, *pend;
   char **r = NULL;
   int size = 0, alloc = 0;
+  int len;
   char buf[256];
   char *str;
 
@@ -50,6 +51,11 @@ convert_lvm_output (char *out, char *prefix)
 
     while (*p && isspace (*p))	/* Skip any leading whitespace. */
       p++;
+
+    /* Sigh, skip trailing whitespace too.  "pvs", I'm looking at you. */
+    len = strlen (p)-1;
+    while (*p && isspace (p[len]))
+      p[len--] = '\0';
 
     if (!*p) {			/* Empty line?  Skip it. */
       p = pend;
