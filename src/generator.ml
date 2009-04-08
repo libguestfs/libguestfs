@@ -437,6 +437,13 @@ let rec find_map f = function
       | Some y -> y
       | None -> find_map f xs
 
+let iteri f xs =
+  let rec loop i = function
+    | [] -> ()
+    | x :: xs -> f i x; loop (i+1) xs
+  in
+  loop 0 xs
+
 (* 'pr' prints to the current output file. *)
 let chan = ref stdout
 let pr fs = ksprintf (output_string !chan) fs
@@ -1655,9 +1662,13 @@ and generate_ocaml_ml () =
 type t
 exception Error of string
 external create : unit -> t = \"ocaml_guestfs_create\"
-external close : t -> unit = \"ocaml_guestfs_create\"
+external close : t -> unit = \"ocaml_guestfs_close\"
+
+let () =
+  Callback.register_exception \"ocaml_guestfs_error\" (Error \"\")
 
 ";
+
   generate_ocaml_lvm_structure_decls ();
 
   (* The actions. *)
@@ -1672,8 +1683,7 @@ and generate_ocaml_c () =
 
   pr "#include <stdio.h>\n";
   pr "#include <stdlib.h>\n";
-  pr "\n";
-  pr "#include <guestfs.h>\n";
+  pr "#include <string.h>\n";
   pr "\n";
   pr "#include <caml/config.h>\n";
   pr "#include <caml/alloc.h>\n";
@@ -1681,18 +1691,164 @@ and generate_ocaml_c () =
   pr "#include <caml/fail.h>\n";
   pr "#include <caml/memory.h>\n";
   pr "#include <caml/mlvalues.h>\n";
+  pr "#include <caml/signals.h>\n";
+  pr "\n";
+  pr "#include <guestfs.h>\n";
   pr "\n";
   pr "#include \"guestfs_c.h\"\n";
   pr "\n";
 
+  (* LVM struct copy functions. *)
+  List.iter (
+    fun (typ, cols) ->
+      let has_optpercent_col =
+	List.exists (function (_, `OptPercent) -> true | _ -> false) cols in
+
+      pr "static CAMLprim value\n";
+      pr "copy_lvm_%s (const struct guestfs_lvm_%s *%s)\n" typ typ typ;
+      pr "{\n";
+      pr "  CAMLparam0 ();\n";
+      if has_optpercent_col then
+	pr "  CAMLlocal3 (rv, v, v2);\n"
+      else
+	pr "  CAMLlocal2 (rv, v);\n";
+      pr "\n";
+      pr "  rv = caml_alloc (%d, 0);\n" (List.length cols);
+      iteri (
+	fun i col ->
+	  (match col with
+	   | name, `String ->
+	       pr "  v = caml_copy_string (%s->%s);\n" typ name
+	   | name, `UUID ->
+	       pr "  v = caml_alloc_string (32);\n";
+	       pr "  memcpy (String_val (v), %s->%s, 32);\n" typ name
+	   | name, `Bytes
+	   | name, `Int ->
+	       pr "  v = caml_copy_int64 (%s->%s);\n" typ name
+	   | name, `OptPercent ->
+	       pr "  if (%s->%s >= 0) { /* Some %s */\n" typ name name;
+	       pr "    v2 = caml_copy_double (%s->%s);\n" typ name;
+	       pr "    v = caml_alloc (1, 0);\n";
+	       pr "    Store_field (v, 0, v2);\n";
+	       pr "  } else /* None */\n";
+	       pr "    v = Val_int (0);\n";
+	  );
+	  pr "  Store_field (rv, %d, v);\n" i
+      ) cols;
+      pr "  CAMLreturn (rv);\n";
+      pr "}\n";
+      pr "\n";
+
+      pr "static CAMLprim value\n";
+      pr "copy_lvm_%s_list (const struct guestfs_lvm_%s_list *%ss)\n"
+	typ typ typ;
+      pr "{\n";
+      pr "  CAMLparam0 ();\n";
+      pr "  CAMLlocal2 (rv, v);\n";
+      pr "  int i;\n";
+      pr "\n";
+      pr "  if (%ss->len == 0)\n" typ;
+      pr "    CAMLreturn (Atom (0));\n";
+      pr "  else {\n";
+      pr "    rv = caml_alloc (%ss->len, 0);\n" typ;
+      pr "    for (i = 0; i < %ss->len; ++i) {\n" typ;
+      pr "      v = copy_lvm_%s (&%ss->val[i]);\n" typ typ;
+      pr "      caml_modify (&Field (rv, i), v);\n";
+      pr "    }\n";
+      pr "    CAMLreturn (rv);\n";
+      pr "  }\n";
+      pr "}\n";
+      pr "\n";
+  ) ["pv", pv_cols; "vg", vg_cols; "lv", lv_cols];
+
   List.iter (
     fun (name, style, _, _, _, _) ->
       pr "CAMLprim value\n";
-      pr "ocaml_guestfs_%s (value hv /* XXX */)\n" name;
+      pr "ocaml_guestfs_%s (value gv" name;
+      iter_args (
+	function
+	| String n | OptString n | Bool n -> pr ", value %sv" n
+      ) (snd style);
+      pr ")\n";
       pr "{\n";
-      pr "  CAMLparam1 (hv); /* XXX */\n";
-      pr "/* XXX write something here */\n";
-      pr "  CAMLreturn (Val_unit); /* XXX */\n";
+      pr "  CAMLparam%d (gv" (1 + (nr_args (snd style)));
+      iter_args (
+	function
+	| String n | OptString n | Bool n -> pr ", %sv" n
+      ) (snd style);
+      pr ");\n";
+      pr "  CAMLlocal1 (rv);\n";
+      pr "\n";
+
+      pr "  guestfs_h *g = Guestfs_val (gv);\n";
+      pr "  if (g == NULL)\n";
+      pr "    caml_failwith (\"%s: used handle after closing it\");\n" name;
+      pr "\n";
+
+      iter_args (
+	function
+	| String n ->
+	    pr "  const char *%s = String_val (%sv);\n" n n
+	| OptString n ->
+	    pr "  const char *%s =\n" n;
+	    pr "    %sv != Val_int (0) ? String_val (Field (%sv, 0)) : NULL;\n"
+	      n n
+	| Bool n ->
+	    pr "  int %s = Bool_val (%sv);\n" n n
+      ) (snd style);
+      let error_code =
+	match fst style with
+	| Err -> pr "  int r;\n"; "-1"
+	| RBool _ -> pr "  int r;\n"; "-1"
+	| RConstString _ -> pr "  const char *r;\n"; "NULL"
+	| RString _ -> pr "  char *r;\n"; "NULL"
+	| RStringList _ ->
+	    pr "  int i;\n";
+	    pr "  char **r;\n";
+	    "NULL"
+	| RPVList _ ->
+	    pr "  struct guestfs_lvm_pv_list *r;\n";
+	    "NULL"
+	| RVGList _ ->
+	    pr "  struct guestfs_lvm_vg_list *r;\n";
+	    "NULL"
+	| RLVList _ ->
+	    pr "  struct guestfs_lvm_lv_list *r;\n";
+	    "NULL" in
+      pr "\n";
+
+      pr "  caml_enter_blocking_section ();\n";
+      pr "  r = guestfs_%s " name;
+      generate_call_args ~handle:"g" style;
+      pr ";\n";
+      pr "  caml_leave_blocking_section ();\n";
+      pr "  if (r == %s)\n" error_code;
+      pr "    ocaml_guestfs_raise_error (g, \"%s\");\n" name;
+      pr "\n";
+
+      (match fst style with
+       | Err -> pr "  rv = Val_unit;\n"
+       | RBool _ -> pr "  rv = r ? Val_true : Val_false;\n"
+       | RConstString _ -> pr "  rv = caml_copy_string (r);\n"
+       | RString _ ->
+	   pr "  rv = caml_copy_string (r);\n";
+	   pr "  free (r);\n"
+       | RStringList _ ->
+	   pr "  rv = caml_copy_string_array ((const char **) r);\n";
+	   pr "  for (i = 0; r[i] != NULL; ++i) free (r[i]);\n";
+	   pr "  free (r);\n"
+       | RPVList _ ->
+	   pr "  rv = copy_lvm_pv_list (r);\n";
+	   pr "  guestfs_free_lvm_pv_list (r);\n";
+       | RVGList _ ->
+	   pr "  rv = copy_lvm_vg_list (r);\n";
+	   pr "  guestfs_free_lvm_vg_list (r);\n";
+       | RLVList _ ->
+	   pr "  rv = copy_lvm_lv_list (r);\n";
+	   pr "  guestfs_free_lvm_lv_list (r);\n";
+      );
+
+      pr "  CAMLreturn (rv);\n";
       pr "}\n";
       pr "\n"
   ) all_functions
@@ -1727,10 +1883,10 @@ and generate_ocaml_prototype ?(is_external = false) name style =
    | RBool _ -> pr "bool"
    | RConstString _ -> pr "string"
    | RString _ -> pr "string"
-   | RStringList _ -> pr "string list"
-   | RPVList _ -> pr "lvm_pv list"
-   | RVGList _ -> pr "lvm_vg list"
-   | RLVList _ -> pr "lvm_lv list"
+   | RStringList _ -> pr "string array"
+   | RPVList _ -> pr "lvm_pv array"
+   | RVGList _ -> pr "lvm_vg array"
+   | RLVList _ -> pr "lvm_lv array"
   );
   if is_external then pr " = \"ocaml_guestfs_%s\"" name;
   pr "\n"

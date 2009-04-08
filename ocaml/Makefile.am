@@ -31,10 +31,10 @@ mlguestfs.cmxa: guestfs_c.o guestfs_c_actions.o guestfs.cmx
 	$(OCAMLMKLIB) -o mlguestfs $^ -lguestfs
 
 guestfs_c.o: guestfs_c.c
-	$(CC) $(CFLAGS) -I$(OCAMLLIB) -c $<
+	$(CC) $(CFLAGS) -I$(OCAMLLIB) -I$(top_builddir)/src -fPIC -Wall -c $<
 
 guestfs_c_actions.o: guestfs_c_actions.c
-	$(CC) $(CFLAGS) -I$(OCAMLLIB) -c $<
+	$(CC) $(CFLAGS) -I$(OCAMLLIB) -I$(top_builddir)/src -fPIC -Wall -c $<
 
 .mli.cmi:
 	$(OCAMLFIND) ocamlc -c $<

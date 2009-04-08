@@ -18,24 +18,104 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include <guestfs.h>
 
 #include <caml/config.h>
 #include <caml/alloc.h>
 #include <caml/callback.h>
+#include <caml/custom.h>
 #include <caml/fail.h>
 #include <caml/memory.h>
 #include <caml/mlvalues.h>
 
 #include "guestfs_c.h"
 
-CAMLprim value
-ocaml_guestfs_create (value hv /* XXX */)
+/* Allocate handles and deal with finalization. */
+static void
+guestfs_finalize (value gv)
 {
-  CAMLparam1 (hv); /* XXX */
-/* XXX write something here */
-  CAMLreturn (Val_unit); /* XXX */
+  guestfs_h *g = Guestfs_val (gv);
+  if (g) guestfs_close (g);
 }
 
-/* etc */
+static struct custom_operations guestfs_custom_operations = {
+  "guestfs_custom_operations",
+  guestfs_finalize,
+  custom_compare_default,
+  custom_hash_default,
+  custom_serialize_default,
+  custom_deserialize_default
+};
+
+static value
+Val_guestfs (guestfs_h *g)
+{
+  CAMLparam0 ();
+  CAMLlocal1 (rv);
+
+  rv = caml_alloc_custom (&guestfs_custom_operations,
+                          sizeof (guestfs_h *), 0, 1);
+  Guestfs_val (rv) = g;
+
+  CAMLreturn (rv);
+}
+
+/* Handle errors. */
+/* XXX Like the current Perl bindings, this is unsafe in a multi-
+ * threaded environment.
+ */
+static char *last_error = NULL;
+
+static void
+error_handler (guestfs_h *g,
+	       void *data,
+	       const char *msg)
+{
+  if (last_error != NULL) free (last_error);
+  last_error = strdup (msg);
+}
+
+void
+ocaml_guestfs_raise_error (guestfs_h *g, const char *func)
+{
+  CAMLparam0 ();
+  CAMLlocal1 (v);
+
+  v = caml_copy_string (last_error);
+  caml_raise_with_arg (*caml_named_value ("ocaml_guestfs_error"), v);
+  CAMLnoreturn;
+}
+
+/* Guestfs.create */
+CAMLprim value
+ocaml_guestfs_create (void)
+{
+  CAMLparam0 ();
+  CAMLlocal1 (gv);
+  guestfs_h *g;
+
+  g = guestfs_create ();
+  if (g == NULL)
+    caml_failwith ("failed to create guestfs handle");
+
+  guestfs_set_error_handler (g, error_handler, NULL);
+
+  gv = Val_guestfs (g);
+  CAMLreturn (gv);
+}
+
+/* Guestfs.close */
+CAMLprim value
+ocaml_guestfs_close (value gv)
+{
+  CAMLparam1 (gv);
+
+  guestfs_finalize (gv);
+
+  /* So we don't double-free in the finalizer. */
+  Guestfs_val (gv) = NULL;
+
+  CAMLreturn (Val_unit);
+}

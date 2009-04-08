@@ -145,30 +145,30 @@ val cat : t -> string -> string
 val ll : t -> string -> string
 (** list the files in a directory (long format) *)
 
-val ls : t -> string -> string list
+val ls : t -> string -> string array
 (** list the files in a directory *)
 
-val list_devices : t -> string list
+val list_devices : t -> string array
 (** list the block devices *)
 
-val list_partitions : t -> string list
+val list_partitions : t -> string array
 (** list the partitions *)
 
-val pvs : t -> string list
+val pvs : t -> string array
 (** list the LVM physical volumes (PVs) *)
 
-val vgs : t -> string list
+val vgs : t -> string array
 (** list the LVM volume groups (VGs) *)
 
-val lvs : t -> string list
+val lvs : t -> string array
 (** list the LVM logical volumes (LVs) *)
 
-val pvs_full : t -> lvm_pv list
+val pvs_full : t -> lvm_pv array
 (** list the LVM physical volumes (PVs) *)
 
-val vgs_full : t -> lvm_vg list
+val vgs_full : t -> lvm_vg array
 (** list the LVM volume groups (VGs) *)
 
-val lvs_full : t -> lvm_lv list
+val lvs_full : t -> lvm_lv array
 (** list the LVM logical volumes (LVs) *)
 

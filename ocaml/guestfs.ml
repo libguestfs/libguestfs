@@ -22,7 +22,10 @@
 type t
 exception Error of string
 external create : unit -> t = "ocaml_guestfs_create"
-external close : t -> unit = "ocaml_guestfs_create"
+external close : t -> unit = "ocaml_guestfs_close"
+
+let () =
+  Callback.register_exception "ocaml_guestfs_error" (Error "")
 
 type lvm_pv = {
   pv_name : string;
@@ -99,12 +102,12 @@ external sync : t -> unit = "ocaml_guestfs_sync"
 external touch : t -> string -> unit = "ocaml_guestfs_touch"
 external cat : t -> string -> string = "ocaml_guestfs_cat"
 external ll : t -> string -> string = "ocaml_guestfs_ll"
-external ls : t -> string -> string list = "ocaml_guestfs_ls"
-external list_devices : t -> string list = "ocaml_guestfs_list_devices"
-external list_partitions : t -> string list = "ocaml_guestfs_list_partitions"
-external pvs : t -> string list = "ocaml_guestfs_pvs"
-external vgs : t -> string list = "ocaml_guestfs_vgs"
-external lvs : t -> string list = "ocaml_guestfs_lvs"
-external pvs_full : t -> lvm_pv list = "ocaml_guestfs_pvs_full"
-external vgs_full : t -> lvm_vg list = "ocaml_guestfs_vgs_full"
-external lvs_full : t -> lvm_lv list = "ocaml_guestfs_lvs_full"
+external ls : t -> string -> string array = "ocaml_guestfs_ls"
+external list_devices : t -> string array = "ocaml_guestfs_list_devices"
+external list_partitions : t -> string array = "ocaml_guestfs_list_partitions"
+external pvs : t -> string array = "ocaml_guestfs_pvs"
+external vgs : t -> string array = "ocaml_guestfs_vgs"
+external lvs : t -> string array = "ocaml_guestfs_lvs"
+external pvs_full : t -> lvm_pv array = "ocaml_guestfs_pvs_full"
+external vgs_full : t -> lvm_vg array = "ocaml_guestfs_vgs_full"
+external lvs_full : t -> lvm_lv array = "ocaml_guestfs_lvs_full"
