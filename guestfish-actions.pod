@@ -6,7 +6,7 @@ Return the contents of the file named C<path>.
 
 Note that this function cannot correctly handle binary files
 (specifically, files containing C<\0> character which is treated
-as end of string).  For those you need to use the C<guestfs_read_file>
+as end of string).  For those you need to use the C<read_file>
 function which has a more complex interface.
 
 =head2 list-devices
@@ -17,7 +17,6 @@ List all the block devices.
 
 The full block device names are returned, eg. C</dev/sda>
 
-
 =head2 list-partitions
 
  list-partitions
@@ -27,7 +26,7 @@ List all the partitions detected on all block devices.
 The full partition device names are returned, eg. C</dev/sda1>
 
 This does not return logical volumes.  For that you will need to
-call C<guestfs_lvs>.
+call C<lvs>.
 
 =head2 ll
 
@@ -48,7 +47,7 @@ there is no cwd).  The '.' and '..' entries are not returned, but
 hidden files are shown.
 
 This command is mostly useful for interactive sessions.  Programs
-should probably use C<guestfs_readdir> instead.
+should probably use C<readdir> instead.
 
 =head2 lvs
 
@@ -60,7 +59,7 @@ of the L<lvs(8)> command.
 This returns a list of the logical volume device names
 (eg. C</dev/VolGroup00/LogVol00>).
 
-See also C<guestfs_lvs_full>.
+See also C<lvs_full>.
 
 =head2 lvs-full
 
@@ -100,7 +99,7 @@ of the L<pvs(8)> command.
 This returns a list of just the device names that contain
 PVs (eg. C</dev/sda2>).
 
-See also C<guestfs_pvs_full>.
+See also C<pvs_full>.
 
 =head2 pvs-full
 
@@ -117,7 +116,7 @@ This syncs the disk, so that any writes are flushed through to the
 underlying disk image.
 
 You should always call this if you have modified a disk image, before
-calling C<guestfs_close>.
+closing the handle.
 
 =head2 touch
 
@@ -137,7 +136,7 @@ of the L<vgs(8)> command.
 This returns a list of just the volume group names that were
 detected (eg. C<VolGroup00>).
 
-See also C<guestfs_vgs_full>.
+See also C<vgs_full>.
 
 =head2 vgs-full
 

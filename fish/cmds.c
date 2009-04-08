@@ -54,34 +54,34 @@ void display_command (const char *cmd)
     pod2text ("mount - mount a guest disk at a position in the filesystem", " mount <device> <mountpoint>\n\nMount a guest disk at a position in the filesystem.  Block devices\nare named C</dev/sda>, C</dev/sdb> and so on, as they were added to\nthe guest.  If those block devices contain partitions, they will have\nthe usual names (eg. C</dev/sda1>).  Also LVM C</dev/VG/LV>-style\nnames can be used.\n\nThe rules are the same as for L<mount(2)>:  A filesystem must\nfirst be mounted on C</> before others can be mounted.  Other\nfilesystems can only be mounted on directories which already\nexist.\n\nThe mounted filesystem is writable, if we have sufficient permissions\non the underlying device.\n\nThe filesystem options C<sync> and C<noatime> are set with this\ncall, in order to improve reliability.");
   else
   if (strcasecmp (cmd, "sync") == 0)
-    pod2text ("sync - sync disks, writes are flushed through to the disk image", " sync\n\nThis syncs the disk, so that any writes are flushed through to the\nunderlying disk image.\n\nYou should always call this if you have modified a disk image, before\ncalling C<guestfs_close>.");
+    pod2text ("sync - sync disks, writes are flushed through to the disk image", " sync\n\nThis syncs the disk, so that any writes are flushed through to the\nunderlying disk image.\n\nYou should always call this if you have modified a disk image, before\nclosing the handle.");
   else
   if (strcasecmp (cmd, "touch") == 0)
     pod2text ("touch - update file timestamps or create a new file", " touch <path>\n\nTouch acts like the L<touch(1)> command.  It can be used to\nupdate the timestamps on a file, or, if the file does not exist,\nto create a new zero-length file.");
   else
   if (strcasecmp (cmd, "cat") == 0)
-    pod2text ("cat - list the contents of a file", " cat <path>\n\nReturn the contents of the file named C<path>.\n\nNote that this function cannot correctly handle binary files\n(specifically, files containing C<\\0> character which is treated\nas end of string).  For those you need to use the C<guestfs_read_file>\nfunction which has a more complex interface.\n\nBecause of the message protocol, there is a transfer limit \nof somewhere between 2MB and 4MB.  To transfer large files you should use\nFTP.");
+    pod2text ("cat - list the contents of a file", " cat <path>\n\nReturn the contents of the file named C<path>.\n\nNote that this function cannot correctly handle binary files\n(specifically, files containing C<\\0> character which is treated\nas end of string).  For those you need to use the C<read_file>\nfunction which has a more complex interface.\n\nBecause of the message protocol, there is a transfer limit \nof somewhere between 2MB and 4MB.  To transfer large files you should use\nFTP.");
   else
   if (strcasecmp (cmd, "ll") == 0)
     pod2text ("ll - list the files in a directory (long format)", " ll <directory>\n\nList the files in C<directory> (relative to the root directory,\nthere is no cwd) in the format of 'ls -la'.\n\nThis command is mostly useful for interactive sessions.  It\nis I<not> intended that you try to parse the output string.");
   else
   if (strcasecmp (cmd, "ls") == 0)
-    pod2text ("ls - list the files in a directory", " ls <directory>\n\nList the files in C<directory> (relative to the root directory,\nthere is no cwd).  The '.' and '..' entries are not returned, but\nhidden files are shown.\n\nThis command is mostly useful for interactive sessions.  Programs\nshould probably use C<guestfs_readdir> instead.");
+    pod2text ("ls - list the files in a directory", " ls <directory>\n\nList the files in C<directory> (relative to the root directory,\nthere is no cwd).  The '.' and '..' entries are not returned, but\nhidden files are shown.\n\nThis command is mostly useful for interactive sessions.  Programs\nshould probably use C<readdir> instead.");
   else
   if (strcasecmp (cmd, "list_devices") == 0 || strcasecmp (cmd, "list-devices") == 0)
-    pod2text ("list-devices - list the block devices", " list-devices\n\nList all the block devices.\n\nThe full block device names are returned, eg. C</dev/sda>\n");
+    pod2text ("list-devices - list the block devices", " list-devices\n\nList all the block devices.\n\nThe full block device names are returned, eg. C</dev/sda>");
   else
   if (strcasecmp (cmd, "list_partitions") == 0 || strcasecmp (cmd, "list-partitions") == 0)
-    pod2text ("list-partitions - list the partitions", " list-partitions\n\nList all the partitions detected on all block devices.\n\nThe full partition device names are returned, eg. C</dev/sda1>\n\nThis does not return logical volumes.  For that you will need to\ncall C<guestfs_lvs>.");
+    pod2text ("list-partitions - list the partitions", " list-partitions\n\nList all the partitions detected on all block devices.\n\nThe full partition device names are returned, eg. C</dev/sda1>\n\nThis does not return logical volumes.  For that you will need to\ncall C<lvs>.");
   else
   if (strcasecmp (cmd, "pvs") == 0)
-    pod2text ("pvs - list the LVM physical volumes (PVs)", " pvs\n\nList all the physical volumes detected.  This is the equivalent\nof the L<pvs(8)> command.\n\nThis returns a list of just the device names that contain\nPVs (eg. C</dev/sda2>).\n\nSee also C<guestfs_pvs_full>.");
+    pod2text ("pvs - list the LVM physical volumes (PVs)", " pvs\n\nList all the physical volumes detected.  This is the equivalent\nof the L<pvs(8)> command.\n\nThis returns a list of just the device names that contain\nPVs (eg. C</dev/sda2>).\n\nSee also C<pvs_full>.");
   else
   if (strcasecmp (cmd, "vgs") == 0)
-    pod2text ("vgs - list the LVM volume groups (VGs)", " vgs\n\nList all the volumes groups detected.  This is the equivalent\nof the L<vgs(8)> command.\n\nThis returns a list of just the volume group names that were\ndetected (eg. C<VolGroup00>).\n\nSee also C<guestfs_vgs_full>.");
+    pod2text ("vgs - list the LVM volume groups (VGs)", " vgs\n\nList all the volumes groups detected.  This is the equivalent\nof the L<vgs(8)> command.\n\nThis returns a list of just the volume group names that were\ndetected (eg. C<VolGroup00>).\n\nSee also C<vgs_full>.");
   else
   if (strcasecmp (cmd, "lvs") == 0)
-    pod2text ("lvs - list the LVM logical volumes (LVs)", " lvs\n\nList all the logical volumes detected.  This is the equivalent\nof the L<lvs(8)> command.\n\nThis returns a list of the logical volume device names\n(eg. C</dev/VolGroup00/LogVol00>).\n\nSee also C<guestfs_lvs_full>.");
+    pod2text ("lvs - list the LVM logical volumes (LVs)", " lvs\n\nList all the logical volumes detected.  This is the equivalent\nof the L<lvs(8)> command.\n\nThis returns a list of the logical volume device names\n(eg. C</dev/VolGroup00/LogVol00>).\n\nSee also C<lvs_full>.");
   else
   if (strcasecmp (cmd, "pvs_full") == 0 || strcasecmp (cmd, "pvs-full") == 0)
     pod2text ("pvs-full - list the LVM physical volumes (PVs)", " pvs-full\n\nList all the physical volumes detected.  This is the equivalent\nof the L<pvs(8)> command.  The \"full\" version includes all fields.");

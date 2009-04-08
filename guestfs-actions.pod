@@ -25,7 +25,6 @@ List all the block devices.
 
 The full block device names are returned, eg. C</dev/sda>
 
-
 This function returns a NULL-terminated array of strings
 (like L<environ(3)>), or NULL if there was an error.
 I<The caller must free the strings and the array after use>.
@@ -160,7 +159,7 @@ This syncs the disk, so that any writes are flushed through to the
 underlying disk image.
 
 You should always call this if you have modified a disk image, before
-calling C<guestfs_close>.
+closing the handle.
 
 This function returns 0 on success or -1 on error.
 
