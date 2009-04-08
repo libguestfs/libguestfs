@@ -50,6 +50,10 @@ ocaml/*.cma
 ocaml/*.cmxa
 ocaml/*.a
 ocaml/*.so
+ocaml/examples/*.cmi
+ocaml/examples/*.cmo
+ocaml/examples/*.cmx
+ocaml/examples/lvs
 perl/Guestfs.c
 perl/Guestfs.bs
 perl/Makefile-pl

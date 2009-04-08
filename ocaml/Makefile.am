@@ -20,6 +20,8 @@ EXTRA_DIST = \
 	guestfs_c.c guestfs_c.h guestfs_c_actions.c \
 	.depend META.in
 
+SUBDIRS = examples
+
 if HAVE_OCAML
 
 noinst_DATA = mlguestfs.cma mlguestfs.cmxa META

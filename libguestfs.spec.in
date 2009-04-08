@@ -151,6 +151,12 @@ rm Makefile*
 rm -rf .deps .libs
 popd
 
+# Same for ocaml/examples.
+pushd ocaml/examples
+make clean
+rm Makefile*
+popd
+
 find $RPM_BUILD_ROOT -name perllocal.pod -delete
 find $RPM_BUILD_ROOT -name .packlist -delete
 
@@ -200,6 +206,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files ocaml-devel
 %defattr(-,root,root,-)
+%doc ocaml/examples
 %{_libdir}/ocaml/guestfs/*.a
 %{_libdir}/ocaml/guestfs/*.cmxa
 %{_libdir}/ocaml/guestfs/*.cmx

@@ -120,7 +120,9 @@ AC_CONFIG_SUBDIRS([daemon])
 dnl Produce output files.
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile src/Makefile fish/Makefile examples/Makefile
-		 images/Makefile ocaml/Makefile perl/Makefile
+		 images/Makefile
+		 ocaml/Makefile ocaml/examples/Makefile
+		 perl/Makefile
 		 python/Makefile
 	         make-initramfs.sh update-initramfs.sh
 		 libguestfs.spec
