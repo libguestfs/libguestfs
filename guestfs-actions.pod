@@ -247,6 +247,25 @@ of the L<pvs(8)> command.  The "full" version includes all fields.
 This function returns a C<struct guestfs_lvm_pv_list>.
 I<The caller must call C<guestfs_free_lvm_pv_list> after use.>.
 
+=head2 guestfs_read_lines
+
+ char **guestfs_read_lines (guestfs_h *handle,
+		const char *path);
+
+Return the contents of the file named C<path>.
+
+The file contents are returned as a list of lines.  Trailing
+C<LF> and C<CRLF> character sequences are I<not> returned.
+
+Note that this function cannot correctly handle binary files
+(specifically, files containing C<\0> character which is treated
+as end of line).  For those you need to use the C<guestfs_read_file>
+function which has a more complex interface.
+
+This function returns a NULL-terminated array of strings
+(like L<environ(3)>), or NULL if there was an error.
+I<The caller must free the strings and the array after use>.
+
 =head2 guestfs_set_autosync
 
  int guestfs_set_autosync (guestfs_h *handle,

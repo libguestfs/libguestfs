@@ -1033,3 +1033,81 @@ struct guestfs_lvm_lv_list *guestfs_lvs_full (guestfs_h *g)
   return safe_memdup (g, &rv.ret.logvols, sizeof (rv.ret.logvols));
 }
 
+struct read_lines_rv {
+  int cb_done;  /* flag to indicate callback was called */
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+  struct guestfs_read_lines_ret ret;
+};
+
+static void read_lines_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  struct read_lines_rv *rv = (struct read_lines_rv *) data;
+
+  if (!xdr_guestfs_message_header (xdr, &rv->hdr)) {
+    error (g, "guestfs_read_lines: failed to parse reply header");
+    return;
+  }
+  if (rv->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &rv->err)) {
+      error (g, "guestfs_read_lines: failed to parse reply error");
+      return;
+    }
+    goto done;
+  }
+  if (!xdr_guestfs_read_lines_ret (xdr, &rv->ret)) {
+    error (g, "guestfs_read_lines: failed to parse reply");
+    return;
+  }
+ done:
+  rv->cb_done = 1;
+  main_loop.main_loop_quit (g);
+}
+
+char **guestfs_read_lines (guestfs_h *g,
+		const char *path)
+{
+  struct guestfs_read_lines_args args;
+  struct read_lines_rv rv;
+  int serial;
+
+  if (g->state != READY) {
+    error (g, "guestfs_read_lines called from the wrong state, %d != READY",
+      g->state);
+    return NULL;
+  }
+
+  memset (&rv, 0, sizeof rv);
+
+  args.path = (char *) path;
+  serial = dispatch (g, GUESTFS_PROC_READ_LINES,
+                     (xdrproc_t) xdr_guestfs_read_lines_args, (char *) &args);
+  if (serial == -1)
+    return NULL;
+
+  rv.cb_done = 0;
+  g->reply_cb_internal = read_lines_cb;
+  g->reply_cb_internal_data = &rv;
+  main_loop.main_loop_run (g);
+  g->reply_cb_internal = NULL;
+  g->reply_cb_internal_data = NULL;
+  if (!rv.cb_done) {
+    error (g, "guestfs_read_lines failed, see earlier error messages");
+    return NULL;
+  }
+
+  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_READ_LINES, serial) == -1)
+    return NULL;
+
+  if (rv.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", rv.err.error);
+    return NULL;
+  }
+
+  /* caller will free this, but we need to add a NULL entry */
+  rv.ret.lines.lines_val =    safe_realloc (g, rv.ret.lines.lines_val,
+                  sizeof (char *) * (rv.ret.lines.lines_len + 1));
+  rv.ret.lines.lines_val[rv.ret.lines.lines_len] = NULL;
+  return rv.ret.lines.lines_val;
+}
+

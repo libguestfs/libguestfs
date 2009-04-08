@@ -49,6 +49,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "mount", "mount a guest disk at a position in the filesystem");
   printf ("%-20s %s\n", "pvs", "list the LVM physical volumes (PVs)");
   printf ("%-20s %s\n", "pvs-full", "list the LVM physical volumes (PVs)");
+  printf ("%-20s %s\n", "read-lines", "read file as lines");
   printf ("%-20s %s\n", "set-autosync", "set autosync mode");
   printf ("%-20s %s\n", "set-path", "set the search path");
   printf ("%-20s %s\n", "set-verbose", "set verbose mode");
@@ -135,6 +136,9 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "lvs_full") == 0 || strcasecmp (cmd, "lvs-full") == 0)
     pod2text ("lvs-full - list the LVM logical volumes (LVs)", " lvs-full\n\nList all the logical volumes detected.  This is the equivalent\nof the L<lvs(8)> command.  The \"full\" version includes all fields.");
+  else
+  if (strcasecmp (cmd, "read_lines") == 0 || strcasecmp (cmd, "read-lines") == 0)
+    pod2text ("read-lines - read file as lines", " read-lines <path>\n\nReturn the contents of the file named C<path>.\n\nThe file contents are returned as a list of lines.  Trailing\nC<LF> and C<CRLF> character sequences are I<not> returned.\n\nNote that this function cannot correctly handle binary files\n(specifically, files containing C<\\0> character which is treated\nas end of line).  For those you need to use the C<read_file>\nfunction which has a more complex interface.");
   else
     display_builtin_command (cmd);
 }
@@ -606,6 +610,23 @@ static int run_lvs_full (const char *cmd, int argc, char *argv[])
   return 0;
 }
 
+static int run_read_lines (const char *cmd, int argc, char *argv[])
+{
+  char **r;
+  const char *path;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  path = argv[0];
+  r = guestfs_read_lines (g, path);
+  if (r == NULL) return -1;
+  print_strings (r);
+  free_strings (r);
+  return 0;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -682,6 +703,9 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "lvs_full") == 0 || strcasecmp (cmd, "lvs-full") == 0)
     return run_lvs_full (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "read_lines") == 0 || strcasecmp (cmd, "read-lines") == 0)
+    return run_read_lines (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

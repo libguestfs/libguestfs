@@ -35,3 +35,4 @@ extern char **do_lvs ();
 extern guestfs_lvm_int_pv_list *do_pvs_full ();
 extern guestfs_lvm_int_vg_list *do_vgs_full ();
 extern guestfs_lvm_int_lv_list *do_lvs_full ();
+extern char **do_read_lines (const char *path);

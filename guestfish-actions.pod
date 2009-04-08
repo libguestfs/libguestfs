@@ -183,6 +183,20 @@ See also C<pvs_full>.
 List all the physical volumes detected.  This is the equivalent
 of the L<pvs(8)> command.  The "full" version includes all fields.
 
+=head2 read-lines
+
+ read-lines path
+
+Return the contents of the file named C<path>.
+
+The file contents are returned as a list of lines.  Trailing
+C<LF> and C<CRLF> character sequences are I<not> returned.
+
+Note that this function cannot correctly handle binary files
+(specifically, files containing C<\0> character which is treated
+as end of line).  For those you need to use the C<read_file>
+function which has a more complex interface.
+
 =head2 set-autosync | autosync
 
  set-autosync true|false

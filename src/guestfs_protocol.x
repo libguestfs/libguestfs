@@ -178,6 +178,16 @@ struct guestfs_lvs_full_ret {
   guestfs_lvm_int_lv_list logvols;
 };
 
+/* guestfs_read_lines */
+
+struct guestfs_read_lines_args {
+  string path<>;
+};
+
+struct guestfs_read_lines_ret {
+  str lines<>;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -193,6 +203,7 @@ enum guestfs_procedure {
   GUESTFS_PROC_PVS_FULL = 12,
   GUESTFS_PROC_VGS_FULL = 13,
   GUESTFS_PROC_LVS_FULL = 14,
+  GUESTFS_PROC_READ_LINES = 15,
   GUESTFS_PROC_dummy
 };
 

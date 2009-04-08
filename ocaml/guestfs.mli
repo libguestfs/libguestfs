@@ -172,3 +172,6 @@ val vgs_full : t -> lvm_vg array
 val lvs_full : t -> lvm_lv array
 (** list the LVM logical volumes (LVs) *)
 
+val read_lines : t -> string -> string array
+(** read file as lines *)
+

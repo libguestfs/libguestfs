@@ -466,3 +466,22 @@ PREINIT:
       }
       guestfs_free_lvm_lv_list (logvols);
 
+void
+read_lines (g, path)
+      guestfs_h *g;
+      char *path;
+PREINIT:
+      char **lines;
+      int i, n;
+ PPCODE:
+      lines = guestfs_read_lines (g, path);
+      if (lines == NULL)
+        croak ("read_lines: %s", last_error);
+      for (n = 0; lines[n] != NULL; ++n) /**/;
+      EXTEND (SP, n);
+      for (i = 0; i < n; ++i) {
+        PUSHs (sv_2mortal (newSVpv (lines[i], 0)));
+        free (lines[i]);
+      }
+      free (lines);
+

@@ -292,6 +292,32 @@ static void lvs_full_stub (XDR *xdr_in)
   xdr_free ((xdrproc_t) xdr_guestfs_lvs_full_ret, (char *) &ret);
 }
 
+static void read_lines_stub (XDR *xdr_in)
+{
+  char **r;
+  struct guestfs_read_lines_args args;
+  const char *path;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_read_lines_args (xdr_in, &args)) {
+    reply_with_error ("read_lines: daemon failed to decode procedure arguments");
+    return;
+  }
+  path = args.path;
+
+  r = do_read_lines (path);
+  if (r == NULL)
+    /* do_read_lines has already called reply_with_error, so just return */
+    return;
+
+  struct guestfs_read_lines_ret ret;
+  ret.lines.lines_len = count_strings (r);
+  ret.lines.lines_val = r;
+  reply ((xdrproc_t) &xdr_guestfs_read_lines_ret, (char *) &ret);
+  free_strings (r);
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -336,6 +362,9 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_LVS_FULL:
       lvs_full_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_READ_LINES:
+      read_lines_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d", proc_nr);

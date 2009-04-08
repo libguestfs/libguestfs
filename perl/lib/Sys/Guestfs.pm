@@ -244,6 +244,18 @@ See also C<$h-E<gt>pvs_full>.
 List all the physical volumes detected.  This is the equivalent
 of the L<pvs(8)> command.  The "full" version includes all fields.
 
+=item @lines = $h->read_lines (path);
+
+Return the contents of the file named C<path>.
+
+The file contents are returned as a list of lines.  Trailing
+C<LF> and C<CRLF> character sequences are I<not> returned.
+
+Note that this function cannot correctly handle binary files
+(specifically, files containing C<\0> character which is treated
+as end of line).  For those you need to use the C<$h-E<gt>read_file>
+function which has a more complex interface.
+
 =item $h->set_autosync (autosync);
 
 If C<autosync> is true, this enables autosync.  Libguestfs will make a

@@ -191,6 +191,19 @@ struct guestfs_lvs_full_ret {
 };
 typedef struct guestfs_lvs_full_ret guestfs_lvs_full_ret;
 
+struct guestfs_read_lines_args {
+	char *path;
+};
+typedef struct guestfs_read_lines_args guestfs_read_lines_args;
+
+struct guestfs_read_lines_ret {
+	struct {
+		u_int lines_len;
+		str *lines_val;
+	} lines;
+};
+typedef struct guestfs_read_lines_ret guestfs_read_lines_ret;
+
 enum guestfs_procedure {
 	GUESTFS_PROC_MOUNT = 1,
 	GUESTFS_PROC_SYNC = 2,
@@ -206,7 +219,8 @@ enum guestfs_procedure {
 	GUESTFS_PROC_PVS_FULL = 12,
 	GUESTFS_PROC_VGS_FULL = 13,
 	GUESTFS_PROC_LVS_FULL = 14,
-	GUESTFS_PROC_dummy = 14 + 1,
+	GUESTFS_PROC_READ_LINES = 15,
+	GUESTFS_PROC_dummy = 15 + 1,
 };
 typedef enum guestfs_procedure guestfs_procedure;
 #define GUESTFS_MESSAGE_MAX 4194304
@@ -267,6 +281,8 @@ extern  bool_t xdr_guestfs_lvs_ret (XDR *, guestfs_lvs_ret*);
 extern  bool_t xdr_guestfs_pvs_full_ret (XDR *, guestfs_pvs_full_ret*);
 extern  bool_t xdr_guestfs_vgs_full_ret (XDR *, guestfs_vgs_full_ret*);
 extern  bool_t xdr_guestfs_lvs_full_ret (XDR *, guestfs_lvs_full_ret*);
+extern  bool_t xdr_guestfs_read_lines_args (XDR *, guestfs_read_lines_args*);
+extern  bool_t xdr_guestfs_read_lines_ret (XDR *, guestfs_read_lines_ret*);
 extern  bool_t xdr_guestfs_procedure (XDR *, guestfs_procedure*);
 extern  bool_t xdr_guestfs_message_direction (XDR *, guestfs_message_direction*);
 extern  bool_t xdr_guestfs_message_status (XDR *, guestfs_message_status*);
@@ -297,6 +313,8 @@ extern bool_t xdr_guestfs_lvs_ret ();
 extern bool_t xdr_guestfs_pvs_full_ret ();
 extern bool_t xdr_guestfs_vgs_full_ret ();
 extern bool_t xdr_guestfs_lvs_full_ret ();
+extern bool_t xdr_guestfs_read_lines_args ();
+extern bool_t xdr_guestfs_read_lines_ret ();
 extern bool_t xdr_guestfs_procedure ();
 extern bool_t xdr_guestfs_message_direction ();
 extern bool_t xdr_guestfs_message_status ();

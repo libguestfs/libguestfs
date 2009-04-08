@@ -45,3 +45,4 @@ extern char **guestfs_lvs (guestfs_h *handle);
 extern struct guestfs_lvm_pv_list *guestfs_pvs_full (guestfs_h *handle);
 extern struct guestfs_lvm_vg_list *guestfs_vgs_full (guestfs_h *handle);
 extern struct guestfs_lvm_lv_list *guestfs_lvs_full (guestfs_h *handle);
+extern char **guestfs_read_lines (guestfs_h *handle, const char *path);
