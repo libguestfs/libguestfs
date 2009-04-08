@@ -51,6 +51,7 @@ ocaml/*.cmxa
 ocaml/*.a
 ocaml/*.so
 perl/Guestfs.c
+perl/Guestfs.bs
 perl/Makefile-pl
 perl/Makefile.PL
 perl/blib
