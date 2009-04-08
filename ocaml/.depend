@@ -1,5 +1,3 @@
 guestfs.cmi: 
-guestfs_internal.cmo: 
-guestfs_internal.cmx: 
 guestfs.cmo: guestfs.cmi 
 guestfs.cmx: guestfs.cmi 
