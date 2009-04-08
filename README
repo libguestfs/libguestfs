@@ -45,8 +45,6 @@ generated files, and also to build the OCaml bindings
 
 - (Optional) Perl if you want to build the perl bindings
 
-- (Optional) Python if you want to build the python bindings
-
 Running ./configure will check you have all the requirements installed
 on your machine.
 
