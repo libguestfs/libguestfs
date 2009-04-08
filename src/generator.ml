@@ -32,9 +32,15 @@ and ret =
      * indication, ie. 0 or -1.
      *)
   | Err
-    (* "RString" and "RStringList" require special treatment because
-     * the caller must free them.
+    (* "RBool" is a bool return value which can be true/false or
+     * -1 for error.
      *)
+  | RBool of string
+    (* "RConstString" is a string that refers to a constant value.
+     * Try to avoid using this.
+     *)
+  | RConstString of string
+    (* "RString" and "RStringList" are caller-frees. *)
   | RString of string
   | RStringList of string
     (* LVM PVs, VGs and LVs. *)
@@ -48,8 +54,14 @@ and args =
   | P2 of argt * argt
 and argt =
   | String of string	(* const char *name, cannot be NULL *)
+  | OptString of string	(* const char *name, may be NULL *)
+  | Bool of string	(* boolean *)
 
-type flags = ProtocolLimitWarning
+type flags =
+  | ProtocolLimitWarning  (* display warning about protocol size limits *)
+  | FishAlias of string	  (* provide an alias for this cmd in guestfish *)
+  | FishAction of string  (* call this function in guestfish *)
+  | NotInFish		  (* do not export via guestfish *)
 
 (* Note about long descriptions: When referring to another
  * action, use the format C<guestfs_other> (ie. the full name of
@@ -59,7 +71,113 @@ type flags = ProtocolLimitWarning
  * Apart from that, long descriptions are just perldoc paragraphs.
  *)
 
-let functions = [
+let non_daemon_functions = [
+  ("launch", (Err, P0), -1, [FishAlias "run"; FishAction "launch"],
+   "launch the qemu subprocess",
+   "\
+Internally libguestfs is implemented by running a virtual machine
+using L<qemu(1)>.
+
+You should call this after configuring the handle
+(eg. adding drives) but before performing any actions.");
+
+  ("wait_ready", (Err, P0), -1, [NotInFish],
+   "wait until the qemu subprocess launches",
+   "\
+Internally libguestfs is implemented by running a virtual machine
+using L<qemu(1)>.
+
+You should call this after C<guestfs_launch> to wait for the launch
+to complete.");
+
+  ("kill_subprocess", (Err, P0), -1, [],
+   "kill the qemu subprocess",
+   "\
+This kills the qemu subprocess.  You should never need to call this.");
+
+  ("add_drive", (Err, P1 (String "filename")), -1, [FishAlias "add"],
+   "add an image to examine or modify",
+   "\
+This function adds a virtual machine disk image C<filename> to the
+guest.  The first time you call this function, the disk appears as IDE
+disk 0 (C</dev/sda>) in the guest, the second time as C</dev/sdb>, and
+so on.
+
+You don't necessarily need to be root when using libguestfs.  However
+you obviously do need sufficient permissions to access the filename
+for whatever operations you want to perform (ie. read access if you
+just want to read the image or write access if you want to modify the
+image).
+
+This is equivalent to the qemu parameter C<-drive file=filename>.");
+
+  ("add_cdrom", (Err, P1 (String "filename")), -1, [FishAlias "cdrom"],
+   "add a CD-ROM disk image to examine",
+   "\
+This function adds a virtual CD-ROM disk image to the guest.
+
+This is equivalent to the qemu parameter C<-cdrom filename>.");
+
+  ("config", (Err, P2 (String "qemuparam", OptString "qemuvalue")), -1, [],
+   "add qemu parameters",
+   "\
+This can be used to add arbitrary qemu command line parameters
+of the form C<-param value>.  Actually it's not quite arbitrary - we
+prevent you from setting some parameters which would interfere with
+parameters that we use.
+
+The first character of C<param> string must be a C<-> (dash).
+
+C<value> can be NULL.");
+
+  ("set_path", (Err, P1 (String "path")), -1, [FishAlias "path"],
+   "set the search path",
+   "\
+Set the path that libguestfs searches for kernel and initrd.img.
+
+The default is C<$libdir/guestfs> unless overridden by setting
+C<LIBGUESTFS_PATH> environment variable.
+
+The string C<path> is stashed in the libguestfs handle, so the caller
+must make sure it remains valid for the lifetime of the handle.
+
+Setting C<path> to C<NULL> restores the default path.");
+
+  ("get_path", (RConstString "path", P0), -1, [],
+   "get the search path",
+   "\
+Return the current search path.
+
+This is always non-NULL.  If it wasn't set already, then this will
+return the default path.");
+
+  ("set_autosync", (Err, P1 (Bool "autosync")), -1, [FishAlias "autosync"],
+   "set autosync mode",
+   "\
+If C<autosync> is true, this enables autosync.  Libguestfs will make a
+best effort attempt to run C<guestfs_sync> when the handle is closed
+(also if the program exits without closing handles).");
+
+  ("get_autosync", (RBool "autosync", P0), -1, [],
+   "get autosync mode",
+   "\
+Get the autosync flag.");
+
+  ("set_verbose", (Err, P1 (Bool "verbose")), -1, [FishAlias "verbose"],
+   "set verbose mode",
+   "\
+If C<verbose> is true, this turns on verbose messages (to C<stderr>).
+
+Verbose messages are disabled unless the environment variable
+C<LIBGUESTFS_DEBUG> is defined and set to C<1>.");
+
+  ("get_verbose", (RBool "verbose", P0), -1, [],
+   "get verbose mode",
+   "\
+This returns the verbose messages flag.")
+]
+
+let daemon_functions = [
   ("mount", (Err, P2 (String "device", String "mountpoint")), 1, [],
    "mount a guest disk at a position in the filesystem",
    "\
@@ -194,6 +312,14 @@ List all the logical volumes detected.  This is the equivalent
 of the L<lvs(8)> command.  The \"full\" version includes all fields.");
 ]
 
+let all_functions = non_daemon_functions @ daemon_functions
+
+(* In some places we want the functions to be displayed sorted
+ * alphabetically, so this is useful:
+ *)
+let all_functions_sorted =
+  List.sort (fun (n1,_,_,_,_,_) (n2,_,_,_,_,_) -> compare n1 n2) all_functions
+
 (* Column names and types from LVM PVs/VGs/LVs. *)
 let pv_cols = [
   "pv_name", `String;
@@ -257,12 +383,6 @@ let lv_cols = [
   "modules", `String;
 ]
 
-(* In some places we want the functions to be displayed sorted
- * alphabetically, so this is useful:
- *)
-let sorted_functions =
-  List.sort (fun (n1,_,_,_,_,_) (n2,_,_,_,_,_) -> compare n1 n2) functions
-
 (* Useful functions.
  * Note we don't want to use any external OCaml libraries which
  * makes this a bit harder than it should be.
@@ -310,6 +430,13 @@ let rec replace_str s s1 s2 =
     s' ^ s2 ^ replace_str s'' s1 s2
   )
 
+let rec find_map f = function
+  | [] -> raise Not_found
+  | x :: xs ->
+      match f x with
+      | Some y -> y
+      | None -> find_map f xs
+
 (* 'pr' prints to the current output file. *)
 let chan = ref stdout
 let pr fs = ksprintf (output_string !chan) fs
@@ -336,14 +463,27 @@ let check_functions () =
   List.iter (
     fun (name, _, _, _, _, longdesc) ->
       if String.contains name '-' then
-	failwithf "Function name '%s' should not contain '-', use '_' instead."
+	failwithf "function name '%s' should not contain '-', use '_' instead."
 	  name;
       if longdesc.[String.length longdesc-1] = '\n' then
-	failwithf "Long description of %s should not end with \\n." name
-  ) functions;
+	failwithf "long description of %s should not end with \\n." name
+  ) all_functions;
+
+  List.iter (
+    fun (name, _, proc_nr, _, _, _) ->
+      if proc_nr <= 0 then
+	failwithf "daemon function %s should have proc_nr > 0" name
+  ) daemon_functions;
+
+  List.iter (
+    fun (name, _, proc_nr, _, _, _) ->
+      if proc_nr <> -1 then
+	failwithf "non-daemon function %s should have proc_nr -1" name
+  ) non_daemon_functions;
 
   let proc_nrs =
-    List.map (fun (name, _, proc_nr, _, _, _) -> name, proc_nr) functions in
+    List.map (fun (name, _, proc_nr, _, _, _) -> name, proc_nr)
+      daemon_functions in
   let proc_nrs =
     List.sort (fun (_,nr1) (_,nr2) -> compare nr1 nr2) proc_nrs in
   let rec loop = function
@@ -423,6 +563,11 @@ and generate_actions_pod () =
       (match fst style with
        | Err ->
 	   pr "This function returns 0 on success or -1 on error.\n\n"
+       | RBool _ ->
+	   pr "This function returns a C truth value on success or -1 on error.\n\n"
+       | RConstString _ ->
+	   pr "This function returns a string or NULL on error.
+The string is owned by the guest handle and must I<not> be freed.\n\n"
        | RString _ ->
 	   pr "This function returns a string or NULL on error.
 I<The caller must free the returned string after use>.\n\n"
@@ -444,7 +589,7 @@ I<The caller must call C<guestfs_free_lvm_lv_list> after use.>.\n\n"
 	pr "Because of the message protocol, there is a transfer limit 
 of somewhere between 2MB and 4MB.  To transfer large files you should use
 FTP.\n\n";
-  ) sorted_functions
+  ) all_functions_sorted
 
 and generate_structs_pod () =
   (* LVM structs documentation. *)
@@ -509,7 +654,7 @@ and generate_xdr () =
   ) ["pv", pv_cols; "vg", vg_cols; "lv", lv_cols];
 
   List.iter (
-    fun (shortname, style, _, _, _, _) ->
+    fun(shortname, style, _, _, _, _) ->
       let name = "guestfs_" ^ shortname in
       pr "/* %s */\n\n" name;
       (match snd style with
@@ -519,11 +664,19 @@ and generate_xdr () =
 	   iter_args (
 	     function
 	     | String name -> pr "  string %s<>;\n" name
+	     | OptString name -> pr "  string *%s<>;\n" name
+	     | Bool name -> pr "  bool %s;\n" name
 	   ) args;
 	   pr "};\n\n"
       );
       (match fst style with
-       | Err -> () 
+       | Err -> ()
+       | RBool n ->
+	   pr "struct %s_ret {\n" name;
+	   pr "  bool %s;\n" n;
+	   pr "};\n\n"
+       | RConstString _ ->
+	   failwithf "RConstString cannot be returned from a daemon function"
        | RString n ->
 	   pr "struct %s_ret {\n" name;
 	   pr "  string %s<>;\n" n;
@@ -545,14 +698,14 @@ and generate_xdr () =
 	   pr "  guestfs_lvm_int_lv_list %s;\n" n;
 	   pr "};\n\n"
       );
-  ) functions;
+  ) daemon_functions;
 
   (* Table of procedure numbers. *)
   pr "enum guestfs_procedure {\n";
   List.iter (
     fun (shortname, _, proc_nr, _, _, _) ->
       pr "  GUESTFS_PROC_%s = %d,\n" (String.uppercase shortname) proc_nr
-  ) functions;
+  ) daemon_functions;
   pr "  GUESTFS_PROC_dummy\n"; (* so we don't have a "hanging comma" *)
   pr "};\n";
   pr "\n";
@@ -645,7 +798,7 @@ and generate_actions_h () =
       let name = "guestfs_" ^ shortname in
       generate_prototype ~single_line:true ~newline:true ~handle:"handle"
 	name style
-  ) functions
+  ) all_functions
 
 (* Generate the client-side dispatch stubs. *)
 and generate_client_actions () =
@@ -663,7 +816,10 @@ and generate_client_actions () =
       pr "  struct guestfs_message_error err;\n";
       (match fst style with
        | Err -> ()
-       | RString _ | RStringList _ | RPVList _ | RVGList _ | RLVList _ ->
+       | RConstString _ ->
+	   failwithf "RConstString cannot be returned from a daemon function"
+       | RBool _ | RString _ | RStringList _
+       | RPVList _ | RVGList _ | RLVList _ ->
 	   pr "  struct %s_ret ret;\n" name
       );
       pr "};\n\n";
@@ -687,7 +843,10 @@ and generate_client_actions () =
 
       (match fst style with
        | Err -> ()
-       | RString _ | RStringList _ | RPVList _ | RVGList _ | RLVList _ ->
+       | RConstString _ ->
+	   failwithf "RConstString cannot be returned from a daemon function"
+       | RBool _ | RString _ | RStringList _
+       | RPVList _ | RVGList _ | RLVList _ ->
 	    pr "  if (!xdr_%s_ret (xdr, &rv->ret)) {\n" name;
 	    pr "    error (g, \"%s: failed to parse reply\");\n" name;
 	    pr "    return;\n";
@@ -705,7 +864,9 @@ and generate_client_actions () =
 
       let error_code =
 	match fst style with
-	| Err -> "-1"
+	| Err | RBool _ -> "-1"
+	| RConstString _ ->
+	    failwithf "RConstString cannot be returned from a daemon function"
 	| RString _ | RStringList _ | RPVList _ | RVGList _ | RLVList _ ->
 	    "NULL" in
 
@@ -736,7 +897,12 @@ and generate_client_actions () =
        | args ->
 	   iter_args (
 	     function
-	     | String name -> pr "  args.%s = (char *) %s;\n" name name
+	     | String name ->
+		 pr "  args.%s = (char *) %s;\n" name name
+	     | OptString name ->
+		 pr "  args.%s = %s ? *%s : NULL;\n" name name name
+	     | Bool name ->
+		 pr "  args.%s = %s;\n" name name
 	   ) args;
 	   pr "  serial = dispatch (g, GUESTFS_PROC_%s,\n"
 	     (String.uppercase shortname);
@@ -772,6 +938,9 @@ and generate_client_actions () =
 
       (match fst style with
        | Err -> pr "  return 0;\n"
+       | RBool n -> pr "  return rv.ret.%s;\n" n
+       | RConstString _ ->
+	   failwithf "RConstString cannot be returned from a daemon function"
        | RString n ->
 	   pr "  return rv.ret.%s; /* caller will free */\n" n
        | RStringList n ->
@@ -794,7 +963,7 @@ and generate_client_actions () =
       );
 
       pr "}\n\n"
-  ) functions
+  ) daemon_functions
 
 (* Generate daemon/actions.h. *)
 and generate_daemon_actions_h () =
@@ -805,9 +974,9 @@ and generate_daemon_actions_h () =
 
   List.iter (
     fun (name, style, _, _, _, _) ->
-      generate_prototype
-	~single_line:true ~newline:true ~in_daemon:true ("do_" ^ name) style;
-  ) functions
+	generate_prototype
+	  ~single_line:true ~newline:true ~in_daemon:true ("do_" ^ name) style;
+  ) daemon_functions
 
 (* Generate the server-side stubs. *)
 and generate_daemon_actions () =
@@ -836,6 +1005,9 @@ and generate_daemon_actions () =
       let error_code =
 	match fst style with
 	| Err -> pr "  int r;\n"; "-1"
+	| RBool _ -> pr "  int r;\n"; "-1"
+	| RConstString _ ->
+	    failwithf "RConstString cannot be returned from a daemon function"
 	| RString _ -> pr "  char *r;\n"; "NULL"
 	| RStringList _ -> pr "  char **r;\n"; "NULL"
 	| RPVList _ -> pr "  guestfs_lvm_int_pv_list *r;\n"; "NULL"
@@ -848,7 +1020,9 @@ and generate_daemon_actions () =
 	   pr "  struct guestfs_%s_args args;\n" name;
 	   iter_args (
 	     function
-	     | String name -> pr "  const char *%s;\n" name
+	     | String name
+	     | OptString name -> pr "  const char *%s;\n" name
+	     | Bool name -> pr "  int %s;\n" name
 	   ) args
       );
       pr "\n";
@@ -865,6 +1039,8 @@ and generate_daemon_actions () =
 	   iter_args (
 	     function
 	     | String name -> pr "  %s = args.%s;\n" name name
+	     | OptString name -> pr "  %s = args.%s;\n" name name (* XXX? *)
+	     | Bool name -> pr "  %s = args.%s;\n" name name
 	   ) args;
 	   pr "\n"
       );
@@ -880,6 +1056,12 @@ and generate_daemon_actions () =
 
       (match fst style with
        | Err -> pr "  reply (NULL, NULL);\n"
+       | RBool n ->
+	   pr "  struct guestfs_%s_ret ret;\n" name;
+	   pr "  ret.%s = r;\n" n;
+	   pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n" name
+       | RConstString _ ->
+	   failwithf "RConstString cannot be returned from a daemon function"
        | RString n ->
 	   pr "  struct guestfs_%s_ret ret;\n" name;
 	   pr "  ret.%s = r;\n" n;
@@ -909,7 +1091,7 @@ and generate_daemon_actions () =
       );
 
       pr "}\n\n";
-  ) functions;
+  ) daemon_functions;
 
   (* Dispatch function. *)
   pr "void dispatch_incoming_message (XDR *xdr_in)\n";
@@ -918,10 +1100,10 @@ and generate_daemon_actions () =
 
   List.iter (
     fun (name, style, _, _, _, _) ->
-      pr "    case GUESTFS_PROC_%s:\n" (String.uppercase name);
-      pr "      %s_stub (xdr_in);\n" name;
-      pr "      break;\n"
-  ) functions;
+	pr "    case GUESTFS_PROC_%s:\n" (String.uppercase name);
+	pr "      %s_stub (xdr_in);\n" name;
+	pr "      break;\n"
+  ) daemon_functions;
 
   pr "    default:\n";
   pr "      reply_with_error (\"dispatch_incoming_message: unknown procedure number %%d\", proc_nr);\n";
@@ -1098,6 +1280,15 @@ and generate_daemon_actions () =
 and generate_fish_cmds () =
   generate_header CStyle GPLv2;
 
+  let all_functions =
+    List.filter (
+      fun (_, _, _, flags, _, _) -> not (List.mem NotInFish flags)
+    ) all_functions in
+  let all_functions_sorted =
+    List.filter (
+      fun (_, _, _, flags, _, _) -> not (List.mem NotInFish flags)
+    ) all_functions_sorted in
+
   pr "#include <stdio.h>\n";
   pr "#include <stdlib.h>\n";
   pr "#include <string.h>\n";
@@ -1113,11 +1304,11 @@ and generate_fish_cmds () =
   pr "  printf (\"    %%-16s     %%s\\n\", \"Command\", \"Description\");\n";
   pr "  list_builtin_commands ();\n";
   List.iter (
-    fun (name, _, _, _, shortdesc, _) ->
+    fun (name, _, _, flags, shortdesc, _) ->
       let name = replace_char name '_' '-' in
       pr "  printf (\"%%-20s %%s\\n\", \"%s\", \"%s\");\n"
 	name shortdesc
-  ) sorted_functions;
+  ) all_functions_sorted;
   pr "  printf (\"    Use -h <cmd> / help <cmd> to show detailed help for a command.\\n\");\n";
   pr "}\n";
   pr "\n";
@@ -1128,6 +1319,9 @@ and generate_fish_cmds () =
   List.iter (
     fun (name, style, _, flags, shortdesc, longdesc) ->
       let name2 = replace_char name '_' '-' in
+      let alias =
+	try find_map (function FishAlias n -> Some n | _ -> None) flags
+	with Not_found -> name in
       let longdesc = replace_str longdesc "C<guestfs_" "C<" in
       let synopsis =
 	match snd style with
@@ -1137,7 +1331,7 @@ and generate_fish_cmds () =
 	      name2 (
 		String.concat "> <" (
 		  map_args (function
-			    | String n -> n) args
+			    | String n | OptString n | Bool n -> n) args
 		)
 	      ) in
 
@@ -1148,16 +1342,23 @@ of somewhere between 2MB and 4MB.  To transfer large files you should use
 FTP."
 	else "" in
 
+      let describe_alias =
+	if name <> alias then
+	  sprintf "\n\nYou can use '%s' as an alias for this command." alias
+	else "" in
+
       pr "  if (";
       pr "strcasecmp (cmd, \"%s\") == 0" name;
       if name <> name2 then
 	pr " || strcasecmp (cmd, \"%s\") == 0" name2;
+      if name <> alias then
+	pr " || strcasecmp (cmd, \"%s\") == 0" alias;
       pr ")\n";
       pr "    pod2text (\"%s - %s\", %S);\n"
 	name2 shortdesc
-	(" " ^ synopsis ^ "\n\n" ^ longdesc ^ warnings);
+	(" " ^ synopsis ^ "\n\n" ^ longdesc ^ warnings ^ describe_alias);
       pr "  else\n"
-  ) functions;
+  ) all_functions;
   pr "    display_builtin_command (cmd);\n";
   pr "}\n";
   pr "\n";
@@ -1203,11 +1404,13 @@ FTP."
 
   (* run_<action> actions *)
   List.iter (
-    fun (name, style, _, _, _, _) ->
+    fun (name, style, _, flags, _, _) ->
       pr "static int run_%s (const char *cmd, int argc, char *argv[])\n" name;
       pr "{\n";
       (match fst style with
-       | Err -> pr "  int r;\n"
+       | Err
+       | RBool _ -> pr "  int r;\n"
+       | RConstString _ -> pr "  const char *r;\n"
        | RString _ -> pr "  char *r;\n"
        | RStringList _ -> pr "  char **r;\n"
        | RPVList _ -> pr "  struct guestfs_lvm_pv_list *r;\n"
@@ -1217,6 +1420,8 @@ FTP."
       iter_args (
 	function
 	| String name -> pr "  const char *%s;\n" name
+	| OptString name -> pr "  const char *%s;\n" name
+	| Bool name -> pr "  int %s;\n" name
       ) (snd style);
 
       (* Check and convert parameters. *)
@@ -1231,19 +1436,35 @@ FTP."
 	fun i ->
 	  function
 	  | String name -> pr "  %s = argv[%d];\n" name i
+	  | OptString name ->
+	      pr "  %s = strcmp (argv[%d], \"\") != 0 ? argv[%d] : NULL;\n"
+		name i i
+	  | Bool name ->
+	      pr "  %s = is_true (argv[%d]) ? 1 : 0;\n" name i
       ) (snd style);
 
       (* Call C API function. *)
-      pr "  r = guestfs_%s " name;
+      let fn =
+	try find_map (function FishAction n -> Some n | _ -> None) flags
+	with Not_found -> sprintf "guestfs_%s" name in
+      pr "  r = %s " fn;
       generate_call_args ~handle:"g" style;
       pr ";\n";
 
       (* Check return value for errors and display command results. *)
       (match fst style with
        | Err -> pr "  return r;\n"
+       | RBool _ ->
+	   pr "  if (r == -1) return -1;\n";
+	   pr "  if (r) printf (\"true\\n\"); else printf (\"false\\n\");\n";
+	   pr "  return 0;\n"
+       | RConstString _ ->
+	   pr "  if (r == NULL) return -1;\n";
+	   pr "  printf (\"%%s\\n\", r);\n";
+	   pr "  return 0;\n"
        | RString _ ->
 	   pr "  if (r == NULL) return -1;\n";
-	   pr "  printf (\"%%s\", r);\n";
+	   pr "  printf (\"%%s\\n\", r);\n";
 	   pr "  free (r);\n";
 	   pr "  return 0;\n"
        | RStringList _ ->
@@ -1269,22 +1490,27 @@ FTP."
       );
       pr "}\n";
       pr "\n"
-  ) functions;
+  ) all_functions;
 
   (* run_action function *)
   pr "int run_action (const char *cmd, int argc, char *argv[])\n";
   pr "{\n";
   List.iter (
-    fun (name, _, _, _, _, _) ->
+    fun (name, _, _, flags, _, _) ->
       let name2 = replace_char name '_' '-' in
+      let alias =
+	try find_map (function FishAlias n -> Some n | _ -> None) flags
+	with Not_found -> name in
       pr "  if (";
       pr "strcasecmp (cmd, \"%s\") == 0" name;
       if name <> name2 then
 	pr " || strcasecmp (cmd, \"%s\") == 0" name2;
+      if name <> alias then
+	pr " || strcasecmp (cmd, \"%s\") == 0" alias;
       pr ")\n";
       pr "    return run_%s (cmd, argc, argv);\n" name;
       pr "  else\n";
-  ) functions;
+  ) all_functions;
   pr "    {\n";
   pr "      fprintf (stderr, \"%%s: unknown command\\n\", cmd);\n";
   pr "      return -1;\n";
@@ -1295,20 +1521,35 @@ FTP."
 
 (* Generate the POD documentation for guestfish. *)
 and generate_fish_actions_pod () =
+  let all_functions_sorted =
+    List.filter (
+      fun (_, _, _, flags, _, _) -> not (List.mem NotInFish flags)
+    ) all_functions_sorted in
+
   List.iter (
-    fun (name, style, _, _, _, longdesc) ->
+    fun (name, style, _, flags, _, longdesc) ->
       let longdesc = replace_str longdesc "C<guestfs_" "C<" in
       let name = replace_char name '_' '-' in
-      pr "=head2 %s\n\n" name;
+      let alias =
+	try find_map (function FishAlias n -> Some n | _ -> None) flags
+	with Not_found -> name in
+
+      pr "=head2 %s" name;
+      if name <> alias then
+	pr " | %s" alias;
+      pr "\n";
+      pr "\n";
       pr " %s" name;
       iter_args (
 	function
 	| String n -> pr " %s" n
+	| OptString n -> pr " %s" n
+	| Bool _ -> pr " true|false"
       ) (snd style);
       pr "\n";
       pr "\n";
       pr "%s\n\n" longdesc
-  ) sorted_functions
+  ) all_functions_sorted
 
 (* Generate a C function prototype. *)
 and generate_prototype ?(extern = true) ?(static = false) ?(semicolon = true)
@@ -1318,6 +1559,8 @@ and generate_prototype ?(extern = true) ?(static = false) ?(semicolon = true)
   if static then pr "static ";
   (match fst style with
    | Err -> pr "int "
+   | RBool _ -> pr "int "
+   | RConstString _ -> pr "const char *"
    | RString _ -> pr "char *"
    | RStringList _ -> pr "char **"
    | RPVList _ ->
@@ -1345,6 +1588,8 @@ and generate_prototype ?(extern = true) ?(static = false) ?(semicolon = true)
   iter_args (
     function
     | String name -> next (); pr "const char *%s" name
+    | OptString name -> next (); pr "const char *%s" name
+    | Bool name -> next (); pr "int %s" name
   ) (snd style);
   pr ")";
   if semicolon then pr ";";
@@ -1364,6 +1609,8 @@ and generate_call_args ?handle style =
       comma := true;
       match arg with
       | String name -> pr "%s" name
+      | OptString name -> pr "%s" name
+      | Bool name -> pr "%s" name
   ) (snd style);
   pr ")"
 
@@ -1389,21 +1636,6 @@ val close : t -> unit
     unreferenced, but callers can also call this in order to
     provide predictable cleanup. *)
 
-val launch : t -> unit
-val wait_ready : t -> unit
-val kill_subprocess : t -> unit
-
-val add_drive : t -> string -> unit
-val add_cdrom : t -> string -> unit
-val config : t -> string -> string option -> unit
-
-val set_path : t -> string option -> unit
-val get_path : t -> string
-val set_autosync : t -> bool -> unit
-val get_autosync : t -> bool
-val set_verbose : t -> bool -> unit
-val get_verbose : t -> bool
-
 ";
   generate_ocaml_lvm_structure_decls ();
 
@@ -1413,7 +1645,7 @@ val get_verbose : t -> bool
       generate_ocaml_prototype name style;
       pr "(** %s *)\n" shortdesc;
       pr "\n"
-  ) sorted_functions
+  ) all_functions
 
 (* Generate the OCaml bindings implementation. *)
 and generate_ocaml_ml () =
@@ -1424,18 +1656,6 @@ type t
 exception Error of string
 external create : unit -> t = \"ocaml_guestfs_create\"
 external close : t -> unit = \"ocaml_guestfs_create\"
-external launch : t -> unit = \"ocaml_guestfs_launch\"
-external wait_ready : t -> unit = \"ocaml_guestfs_wait_ready\"
-external kill_subprocess : t -> unit = \"ocaml_guestfs_kill_subprocess\"
-external add_drive : t -> string -> unit = \"ocaml_guestfs_add_drive\"
-external add_cdrom : t -> string -> unit = \"ocaml_guestfs_add_cdrom\"
-external config : t -> string -> string option -> unit = \"ocaml_guestfs_config\"
-external set_path : t -> string option -> unit = \"ocaml_guestfs_set_path\"
-external get_path : t -> string = \"ocaml_guestfs_get_path\"
-external set_autosync : t -> bool -> unit = \"ocaml_guestfs_set_autosync\"
-external get_autosync : t -> bool = \"ocaml_guestfs_get_autosync\"
-external set_verbose : t -> bool -> unit = \"ocaml_guestfs_set_verbose\"
-external get_verbose : t -> bool = \"ocaml_guestfs_get_verbose\"
 
 ";
   generate_ocaml_lvm_structure_decls ();
@@ -1444,7 +1664,7 @@ external get_verbose : t -> bool = \"ocaml_guestfs_get_verbose\"
   List.iter (
     fun (name, style, _, _, shortdesc, _) ->
       generate_ocaml_prototype ~is_external:true name style;
-  ) sorted_functions
+  ) all_functions
 
 (* Generate the OCaml bindings C implementation. *)
 and generate_ocaml_c () =
@@ -1475,7 +1695,7 @@ and generate_ocaml_c () =
       pr "  CAMLreturn (Val_unit); /* XXX */\n";
       pr "}\n";
       pr "\n"
-  ) sorted_functions
+  ) all_functions
 
 and generate_ocaml_lvm_structure_decls () =
   List.iter (
@@ -1498,10 +1718,14 @@ and generate_ocaml_prototype ?(is_external = false) name style =
   pr "%s : t -> " name;
   iter_args (
     function
-    | String _ -> pr "string -> " (* note String is not allowed to be NULL *)
+    | String _ -> pr "string -> "
+    | OptString _ -> pr "string option -> "
+    | Bool _ -> pr "bool -> "
   ) (snd style);
   (match fst style with
    | Err -> pr "unit" (* all errors are turned into exceptions *)
+   | RBool _ -> pr "bool"
+   | RConstString _ -> pr "string"
    | RString _ -> pr "string"
    | RStringList _ -> pr "string list"
    | RPVList _ -> pr "lvm_pv list"
@@ -1588,105 +1812,14 @@ DESTROY (g)
  PPCODE:
       guestfs_close (g);
 
-void
-add_drive (g, filename)
-      guestfs_h *g;
-      const char *filename;
-   CODE:
-      if (guestfs_add_drive (g, filename) == -1)
-        croak (\"add_drive: %%s\", last_error);
-
-void
-add_cdrom (g, filename)
-      guestfs_h *g;
-      const char *filename;
-   CODE:
-      if (guestfs_add_cdrom (g, filename) == -1)
-        croak (\"add_cdrom: %%s\", last_error);
-
-void
-config (g, param, value)
-      guestfs_h *g;
-      const char *param;
-      const char *value;
-   CODE:
-      if (guestfs_config (g, param, value) == -1)
-        croak (\"config: %%s\", last_error);
-
-void
-launch (g)
-      guestfs_h *g;
-   CODE:
-      if (guestfs_launch (g) == -1)
-        croak (\"launch: %%s\", last_error);
-
-void
-wait_ready (g)
-      guestfs_h *g;
-   CODE:
-      if (guestfs_wait_ready (g) == -1)
-        croak (\"wait_ready: %%s\", last_error);
-
-void
-set_path (g, path)
-      guestfs_h *g;
-      const char *path;
-   CODE:
-      guestfs_set_path (g, path);
-
-SV *
-get_path (g)
-      guestfs_h *g;
-PREINIT:
-      const char *path;
-   CODE:
-      path = guestfs_get_path (g);
-      RETVAL = newSVpv (path, 0);
- OUTPUT:
-      RETVAL
-
-void
-set_autosync (g, autosync)
-      guestfs_h *g;
-      int autosync;
-   CODE:
-      guestfs_set_autosync (g, autosync);
-
-SV *
-get_autosync (g)
-      guestfs_h *g;
-PREINIT:
-      int autosync;
-   CODE:
-      autosync = guestfs_get_autosync (g);
-      RETVAL = newSViv (autosync);
- OUTPUT:
-      RETVAL
-
-void
-set_verbose (g, verbose)
-      guestfs_h *g;
-      int verbose;
-   CODE:
-      guestfs_set_verbose (g, verbose);
-
-SV *
-get_verbose (g)
-      guestfs_h *g;
-PREINIT:
-      int verbose;
-   CODE:
-      verbose = guestfs_get_verbose (g);
-      RETVAL = newSViv (verbose);
- OUTPUT:
-      RETVAL
-
 ";
 
   List.iter (
     fun (name, style, _, _, _, _) ->
       (match fst style with
        | Err -> pr "void\n"
+       | RBool _ -> pr "SV *\n"
+       | RConstString _ -> pr "SV *\n"
        | RString _ -> pr "SV *\n"
        | RStringList _
        | RPVList _ | RVGList _ | RLVList _ ->
@@ -1700,6 +1833,8 @@ PREINIT:
       iter_args (
 	function
 	| String n -> pr "      char *%s;\n" n
+	| OptString n -> pr "      char *%s;\n" n
+	| Bool n -> pr "      int %s;\n" n
       ) (snd style);
       (* Code. *)
       (match fst style with
@@ -1709,6 +1844,18 @@ PREINIT:
 	   generate_call_args ~handle:"g" style;
 	   pr " == -1)\n";
 	   pr "        croak (\"%s: %%s\", last_error);\n" name
+       | RConstString n ->
+	   pr "PREINIT:\n";
+	   pr "      const char *%s;\n" n;
+	   pr "   CODE:\n";
+	   pr "      %s = guestfs_%s " n name;
+	   generate_call_args ~handle:"g" style;
+	   pr ";\n";
+	   pr "      if (%s == NULL)\n" n;
+	   pr "        croak (\"%s: %%s\", last_error);\n" name;
+	   pr "      RETVAL = newSVpv (%s, 0);\n" n;
+	   pr " OUTPUT:\n";
+	   pr "      RETVAL\n"
        | RString n ->
 	   pr "PREINIT:\n";
 	   pr "      char *%s;\n" n;
@@ -1720,6 +1867,18 @@ PREINIT:
 	   pr "        croak (\"%s: %%s\", last_error);\n" name;
 	   pr "      RETVAL = newSVpv (%s, 0);\n" n;
 	   pr "      free (%s);\n" n;
+	   pr " OUTPUT:\n";
+	   pr "      RETVAL\n"
+       | RBool n ->
+	   pr "PREINIT:\n";
+	   pr "      int %s;\n" n;
+	   pr "   CODE:\n";
+	   pr "      %s = guestfs_%s " n name;
+	   generate_call_args ~handle:"g" style;
+	   pr ";\n";
+	   pr "      if (%s == -1)\n" n;
+	   pr "        croak (\"%s: %%s\", last_error);\n" name;
+	   pr "      RETVAL = newSViv (%s);\n" n;
 	   pr " OUTPUT:\n";
 	   pr "      RETVAL\n"
        | RStringList n ->
@@ -1747,7 +1906,7 @@ PREINIT:
 	   generate_perl_lvm_code "lv" lv_cols name style n;
       );
       pr "\n"
-  ) functions
+  ) all_functions
 
 and generate_perl_lvm_code typ cols name style n =
   pr "PREINIT:\n";
@@ -1863,62 +2022,6 @@ sub new {
   return $self;
 }
 
-=item $h->add_drive ($filename);
-
-=item $h->add_cdrom ($filename);
-
-This function adds a virtual machine disk image C<filename> to the
-guest.  The first time you call this function, the disk appears as IDE
-disk 0 (C</dev/sda>) in the guest, the second time as C</dev/sdb>, and
-so on.
-
-You don't necessarily need to be root when using libguestfs.  However
-you obviously do need sufficient permissions to access the filename
-for whatever operations you want to perform (ie. read access if you
-just want to read the image or write access if you want to modify the
-image).
-
-The C<add_cdrom> variation adds a CD-ROM device.
-
-=item $h->config ($param, $value);
-
-=item $h->config ($param);
-
-Use this to add arbitrary parameters to the C<qemu> command line.
-See L<qemu(1)>.
-
-=item $h->launch ();
-
-=item $h->wait_ready ();
-
-Internally libguestfs is implemented by running a virtual machine
-using L<qemu(1)>.  These calls are necessary in order to boot the
-virtual machine.
-
-You should call these two functions after configuring the handle
-(eg. adding drives) but before performing any actions.
-
-=item $h->set_path ($path);
-
-=item $path = $h->get_path ();
-
-See the discussion of C<PATH> in the L<guestfs(3)>
-manpage.
-
-=item $h->set_autosync ($autosync);
-
-=item $autosync = $h->get_autosync ();
-
-See the discussion of I<AUTOSYNC> in the L<guestfs(3)>
-manpage.
-
-=item $h->set_verbose ($verbose);
-
-=item $verbose = $h->get_verbose ();
-
-This sets or gets the verbose messages flag.  Verbose
-messages are sent to C<stderr>.
-
 ";
 
   (* Actions.  We only need to print documentation for these as
@@ -1935,7 +2038,7 @@ messages are sent to C<stderr>.
 	pr "Because of the message protocol, there is a transfer limit 
 of somewhere between 2MB and 4MB.  To transfer large files you should use
 FTP.\n\n";
-  ) sorted_functions;
+  ) all_functions_sorted;
 
   (* End of file. *)
   pr "\
@@ -1963,6 +2066,8 @@ L<guestfs(3)>, L<guestfish(1)>.
 and generate_perl_prototype name style =
   (match fst style with
    | Err -> ()
+   | RBool n
+   | RConstString n
    | RString n -> pr "$%s = " n
    | RStringList n
    | RPVList n
@@ -1977,6 +2082,8 @@ and generate_perl_prototype name style =
       comma := true;
       match arg with
       | String n -> pr "%s" n
+      | OptString n -> pr "%s" n
+      | Bool n -> pr "%s" n
   ) (snd style);
   pr ");"
 

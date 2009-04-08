@@ -1,3 +1,28 @@
+=head2 add-cdrom | cdrom
+
+ add-cdrom filename
+
+This function adds a virtual CD-ROM disk image to the guest.
+
+This is equivalent to the qemu parameter C<-cdrom filename>.
+
+=head2 add-drive | add
+
+ add-drive filename
+
+This function adds a virtual machine disk image C<filename> to the
+guest.  The first time you call this function, the disk appears as IDE
+disk 0 (C</dev/sda>) in the guest, the second time as C</dev/sdb>, and
+so on.
+
+You don't necessarily need to be root when using libguestfs.  However
+you obviously do need sufficient permissions to access the filename
+for whatever operations you want to perform (ie. read access if you
+just want to read the image or write access if you want to modify the
+image).
+
+This is equivalent to the qemu parameter C<-drive file=filename>.
+
 =head2 cat
 
  cat path
@@ -8,6 +33,56 @@ Note that this function cannot correctly handle binary files
 (specifically, files containing C<\0> character which is treated
 as end of string).  For those you need to use the C<read_file>
 function which has a more complex interface.
+
+=head2 config
+
+ config qemuparam qemuvalue
+
+This can be used to add arbitrary qemu command line parameters
+of the form C<-param value>.  Actually it's not quite arbitrary - we
+prevent you from setting some parameters which would interfere with
+parameters that we use.
+
+The first character of C<param> string must be a C<-> (dash).
+
+C<value> can be NULL.
+
+=head2 get-autosync
+
+ get-autosync
+
+Get the autosync flag.
+
+=head2 get-path
+
+ get-path
+
+Return the current search path.
+
+This is always non-NULL.  If it wasn't set already, then this will
+return the default path.
+
+=head2 get-verbose
+
+ get-verbose
+
+This returns the verbose messages flag.
+
+=head2 kill-subprocess
+
+ kill-subprocess
+
+This kills the qemu subprocess.  You should never need to call this.
+
+=head2 launch | run
+
+ launch
+
+Internally libguestfs is implemented by running a virtual machine
+using L<qemu(1)>.
+
+You should call this after configuring the handle
+(eg. adding drives) but before performing any actions.
 
 =head2 list-devices
 
@@ -107,6 +182,37 @@ See also C<pvs_full>.
 
 List all the physical volumes detected.  This is the equivalent
 of the L<pvs(8)> command.  The "full" version includes all fields.
+
+=head2 set-autosync | autosync
+
+ set-autosync true|false
+
+If C<autosync> is true, this enables autosync.  Libguestfs will make a
+best effort attempt to run C<sync> when the handle is closed
+(also if the program exits without closing handles).
+
+=head2 set-path | path
+
+ set-path path
+
+Set the path that libguestfs searches for kernel and initrd.img.
+
+The default is C<$libdir/guestfs> unless overridden by setting
+C<LIBGUESTFS_PATH> environment variable.
+
+The string C<path> is stashed in the libguestfs handle, so the caller
+must make sure it remains valid for the lifetime of the handle.
+
+Setting C<path> to C<NULL> restores the default path.
+
+=head2 set-verbose | verbose
+
+ set-verbose true|false
+
+If C<verbose> is true, this turns on verbose messages (to C<stderr>).
+
+Verbose messages are disabled unless the environment variable
+C<LIBGUESTFS_DEBUG> is defined and set to C<1>.
 
 =head2 sync
 

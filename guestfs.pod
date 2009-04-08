@@ -97,7 +97,6 @@ image).
 Create a connection handle.
 
 You have to call C<guestfs_add_drive> on the handle at least once.
-See CONFIGURATION MANAGEMENT section below.
 
 This function returns a non-NULL pointer to a handle on success or
 NULL on error.
@@ -113,72 +112,6 @@ ERROR HANDLING section below.
  void guestfs_close (guestfs_h *handle);
 
 This closes the connection handle and frees up all resources used.
-
-=head2 guestfs_launch, guestfs_wait_ready
-
- int guestfs_launch (guestfs_h *handle);
- int guestfs_wait_ready (guestfs_h *handle);
-
-Internally libguestfs is implemented by running a virtual machine
-using L<qemu(1)>.  These calls are necessary in order to boot the
-virtual machine.  More discussion of this is available in the section
-STATE MACHINE AND LOW-LEVEL EVENT API below.
-
-You should call these two functions after configuring the handle
-(eg. adding drives) but before performing any actions.
-
-=head2 guestfs_kill_subprocess
-
- int guestfs_kill_subprocess (guestfs_h *handle);
-
-This kills the qemu subprocess.  You should never need to call this.
-
-=head1 CONFIGURATION MANAGEMENT
-
-The configuration functions allow you to configure which drive images
-will be examined or modified, and set other aspects of the L<qemu(1)>
-virtual machine that we will be running.  You need to call only
-C<guestfs_add_drive> at least once for each guest image that you want
-to examine.
-
-=head2 guestfs_add_drive
-
- int guestfs_add_drive (guestfs_h *handle, const char *filename);
-
-This function adds a virtual machine disk image C<filename> to the
-guest.  The first time you call this function, the disk appears as IDE
-disk 0 (C</dev/sda>) in the guest, the second time as C</dev/sdb>, and
-so on.
-
-You don't necessarily need to be root when using libguestfs.  However
-you obviously do need sufficient permissions to access the filename
-for whatever operations you want to perform (ie. read access if you
-just want to read the image or write access if you want to modify the
-image).
-
-This is equivalent to the qemu parameter C<-drive file=filename>.
-
-=head2 guestfs_add_cdrom
-
- int guestfs_add_cdrom (guestfs_h *handle, const char *filename);
-
-This function adds a virtual CD-ROM disk image to the guest.
-
-This is equivalent to the qemu parameter C<-cdrom filename>.
-
-=head2 guestfs_config
-
- int guestfs_config (guestfs_h *handle,
-                     const char *qemu_param, const char *qemu_value);
-
-This can be used to add arbitrary qemu command line parameters
-of the form C<-param value>.  Actually it's not quite arbitrary - we
-prevent you from setting some parameters which would interfere with
-parameters that we use.
-
-The first character of C<qemu_param> string must be a C<-> (dash).
-
-C<qemu_value> can be NULL.
 
 =head1 ERROR HANDLING
 
@@ -254,62 +187,6 @@ search in.  The value is a colon-separated list of paths.  The current
 directory is I<not> searched unless the path contains an empty element
 or C<.>.  For example C<LIBGUESTFS_PATH=:/usr/lib/guestfs> would
 search the current directory and then C</usr/lib/guestfs>.
-
-=head2 guestfs_set_path
-
- void guestfs_set_path (guestfs_h *handle, const char *path);
-
-Set the path that libguestfs searches for kernel and initrd.img.
-
-The default is C<$libdir/guestfs> unless overridden by setting
-C<LIBGUESTFS_PATH> environment variable.
-
-The string C<path> is stashed in the libguestfs handle, so the caller
-must make sure it remains valid for the lifetime of the handle.
-
-Setting C<path> to C<NULL> restores the default path.
-
-=head2 guestfs_get_path
-
- const char *guestfs_get_path (guestfs_h *handle);
-
-Return the current search path.
-
-This is always non-NULL.  If it wasn't set already, then this will
-return the default path.
-
-=head1 AUTOSYNC
-
-=head2 guestfs_set_autosync
-
- void guestfs_set_autosync (guestfs_h *handle, int autosync);
-
-If C<autosync> is true, this enables autosync.  Libguestfs will make a
-best effort attempt to run C<guestfs_sync> when the handle is closed
-(also if the program exits without closing handles).
-
-=head2 guestfs_get_autosync
-
- int guestfs_get_autosync (guestfs_h *handle);
-
-Get the autosync flag.
-
-=head1 VERBOSE MESSAGES
-
-=head2 guestfs_set_verbose
-
- void guestfs_set_verbose (guestfs_h *handle, int verbose);
-
-If C<verbose> is true, this turns on verbose messages (to C<stderr>).
-
-Verbose messages are disabled unless the environment variable
-C<LIBGUESTFS_DEBUG> is defined and set to C<1>.
-
-=head2 guestfs_get_verbose
-
- int guestfs_get_verbose (guestfs_h *handle);
-
-This returns the verbose messages flag.
 
 =head1 HIGH-LEVEL API ACTIONS
 
@@ -607,7 +484,7 @@ has the same effect as calling C<guestfs_set_verbose (handle, 1)>.
 =item LIBGUESTFS_PATH
 
 Set the path that libguestfs uses to search for kernel and initrd.img.
-See the discussion of paths in C<guestfs_set_path> above.
+See the discussion of paths in section PATH above.
 
 =back
 

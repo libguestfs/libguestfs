@@ -170,18 +170,6 @@ parameter, this displays detailed help for a command.
 
 This exits guestfish.  You can also use C<^D> key.
 
-=head2 add | drive | add-drive
-
- add filename
-
-This adds a block device to be examined or modified.
-
-=head2 cdrom | add-cdrom
-
- cdrom iso-file
-
-This adds a CD-ROM device to be examined.
-
 =head2 alloc | allocate
 
  alloc filename size
@@ -216,10 +204,6 @@ number of gigabytes
 number of 512 byte sectors
 
 =back
-
-=head2 launch | run
-
-Launch the guest so that you can issue other commands (see below).
 
 @ACTIONS@
 

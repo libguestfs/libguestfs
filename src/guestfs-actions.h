@@ -19,6 +19,18 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
+extern int guestfs_launch (guestfs_h *handle);
+extern int guestfs_wait_ready (guestfs_h *handle);
+extern int guestfs_kill_subprocess (guestfs_h *handle);
+extern int guestfs_add_drive (guestfs_h *handle, const char *filename);
+extern int guestfs_add_cdrom (guestfs_h *handle, const char *filename);
+extern int guestfs_config (guestfs_h *handle, const char *qemuparam, const char *qemuvalue);
+extern int guestfs_set_path (guestfs_h *handle, const char *path);
+extern const char *guestfs_get_path (guestfs_h *handle);
+extern int guestfs_set_autosync (guestfs_h *handle, int autosync);
+extern int guestfs_get_autosync (guestfs_h *handle);
+extern int guestfs_set_verbose (guestfs_h *handle, int verbose);
+extern int guestfs_get_verbose (guestfs_h *handle);
 extern int guestfs_mount (guestfs_h *handle, const char *device, const char *mountpoint);
 extern int guestfs_sync (guestfs_h *handle);
 extern int guestfs_touch (guestfs_h *handle, const char *path);

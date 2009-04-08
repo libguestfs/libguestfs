@@ -36,21 +36,6 @@ val close : t -> unit
     unreferenced, but callers can also call this in order to
     provide predictable cleanup. *)
 
-val launch : t -> unit
-val wait_ready : t -> unit
-val kill_subprocess : t -> unit
-
-val add_drive : t -> string -> unit
-val add_cdrom : t -> string -> unit
-val config : t -> string -> string option -> unit
-
-val set_path : t -> string option -> unit
-val get_path : t -> string
-val set_autosync : t -> bool -> unit
-val get_autosync : t -> bool
-val set_verbose : t -> bool -> unit
-val get_verbose : t -> bool
-
 type lvm_pv = {
   pv_name : string;
   pv_uuid : string;
@@ -109,35 +94,44 @@ type lvm_lv = {
   modules : string;
 }
 
-val cat : t -> string -> string
-(** list the contents of a file *)
+val launch : t -> unit
+(** launch the qemu subprocess *)
 
-val list_devices : t -> string list
-(** list the block devices *)
+val wait_ready : t -> unit
+(** wait until the qemu subprocess launches *)
 
-val list_partitions : t -> string list
-(** list the partitions *)
+val kill_subprocess : t -> unit
+(** kill the qemu subprocess *)
 
-val ll : t -> string -> string
-(** list the files in a directory (long format) *)
+val add_drive : t -> string -> unit
+(** add an image to examine or modify *)
 
-val ls : t -> string -> string list
-(** list the files in a directory *)
+val add_cdrom : t -> string -> unit
+(** add a CD-ROM disk image to examine *)
 
-val lvs : t -> string list
-(** list the LVM logical volumes (LVs) *)
+val config : t -> string -> string option -> unit
+(** add qemu parameters *)
 
-val lvs_full : t -> lvm_lv list
-(** list the LVM logical volumes (LVs) *)
+val set_path : t -> string -> unit
+(** set the search path *)
+
+val get_path : t -> string
+(** get the search path *)
+
+val set_autosync : t -> bool -> unit
+(** set autosync mode *)
+
+val get_autosync : t -> bool
+(** get autosync mode *)
+
+val set_verbose : t -> bool -> unit
+(** set verbose mode *)
+
+val get_verbose : t -> bool
+(** get verbose mode *)
 
 val mount : t -> string -> string -> unit
 (** mount a guest disk at a position in the filesystem *)
-
-val pvs : t -> string list
-(** list the LVM physical volumes (PVs) *)
-
-val pvs_full : t -> lvm_pv list
-(** list the LVM physical volumes (PVs) *)
 
 val sync : t -> unit
 (** sync disks, writes are flushed through to the disk image *)
@@ -145,9 +139,36 @@ val sync : t -> unit
 val touch : t -> string -> unit
 (** update file timestamps or create a new file *)
 
+val cat : t -> string -> string
+(** list the contents of a file *)
+
+val ll : t -> string -> string
+(** list the files in a directory (long format) *)
+
+val ls : t -> string -> string list
+(** list the files in a directory *)
+
+val list_devices : t -> string list
+(** list the block devices *)
+
+val list_partitions : t -> string list
+(** list the partitions *)
+
+val pvs : t -> string list
+(** list the LVM physical volumes (PVs) *)
+
 val vgs : t -> string list
 (** list the LVM volume groups (VGs) *)
 
+val lvs : t -> string list
+(** list the LVM logical volumes (LVs) *)
+
+val pvs_full : t -> lvm_pv list
+(** list the LVM physical volumes (PVs) *)
+
 val vgs_full : t -> lvm_vg list
 (** list the LVM volume groups (VGs) *)
+
+val lvs_full : t -> lvm_lv list
+(** list the LVM logical volumes (LVs) *)
 

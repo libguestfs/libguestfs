@@ -25,6 +25,7 @@
 #include <fcntl.h>
 #include <getopt.h>
 #include <inttypes.h>
+#include <assert.h>
 
 #include <guestfs.h>
 
@@ -52,8 +53,10 @@ int quit = 0;
 int verbose = 0;
 
 int
-launch (void)
+launch (guestfs_h *_g)
 {
+  assert (_g == g);
+
   if (!g_launched) {
     if (guestfs_launch (g) == -1)
       return -1;
@@ -189,7 +192,7 @@ main (int argc, char *argv[])
 
   /* If we've got mountpoints, we must launch the guest and mount them. */
   if (mps != NULL) {
-    if (launch () == -1) exit (1);
+    if (launch (g) == -1) exit (1);
     mount_mps (mps);
   }
 
@@ -346,27 +349,6 @@ issue_command (const char *cmd, char *argv[])
     quit = 1;
     return 0;
   }
-  else if (strcasecmp (cmd, "add") == 0 ||
-	   strcasecmp (cmd, "drive") == 0 ||
-	   strcasecmp (cmd, "add-drive") == 0 ||
-	   strcasecmp (cmd, "add_drive") == 0) {
-    if (argc != 1) {
-      fprintf (stderr, "use 'add image' to add a guest image\n");
-      return -1;
-    }
-    else
-      return guestfs_add_drive (g, argv[0]);
-  }
-  else if (strcasecmp (cmd, "cdrom") == 0 ||
-	   strcasecmp (cmd, "add-cdrom") == 0 ||
-	   strcasecmp (cmd, "add_cdrom") == 0) {
-    if (argc != 1) {
-      fprintf (stderr, "use 'cdrom image' to add a CD-ROM image\n");
-      return -1;
-    }
-    else
-      return guestfs_add_cdrom (g, argv[0]);
-  }
   else if (strcasecmp (cmd, "alloc") == 0 ||
 	   strcasecmp (cmd, "allocate") == 0) {
     if (argc != 2) {
@@ -412,15 +394,6 @@ issue_command (const char *cmd, char *argv[])
       return 0;
     }
   }
-  else if (strcasecmp (cmd, "launch") == 0 ||
-	   strcasecmp (cmd, "run") == 0) {
-    if (argc != 0) {
-      fprintf (stderr, "'launch' command takes no parameters\n");
-      return -1;
-    }
-    else
-      return launch ();
-  }
   else
     return run_action (cmd, argc, argv);
 }
@@ -434,15 +407,8 @@ list_builtin_commands (void)
   printf ("%-20s %s\n",
 	  "quit", "quit guestfish");
 
-  /* then the non-actions, in alphabetical order */
-  printf ("%-20s %s\n",
-	  "add", "add a guest image to be examined or modified");
   printf ("%-20s %s\n",
 	  "alloc", "allocate an image");
-  printf ("%-20s %s\n",
-	  "cdrom", "add a CD-ROM image to be examined");
-  printf ("%-20s %s\n",
-	  "launch", "launch the subprocess");
 
   /* actions are printed after this (see list_commands) */
 }
@@ -452,10 +418,7 @@ display_builtin_command (const char *cmd)
 {
   /* help for actions is auto-generated, see display_command */
 
-  if (strcasecmp (cmd, "add") == 0)
-    printf ("add - add a guest image to be examined or modified\n"
-	    "     add <image>\n");
-  else if (strcasecmp (cmd, "alloc") == 0)
+  if (strcasecmp (cmd, "alloc") == 0)
     printf ("alloc - allocate an image\n"
 	    "     alloc <filename> <size>\n"
 	    "\n"
@@ -471,9 +434,6 @@ display_builtin_command (const char *cmd)
 	    "    <nn>M or <nn>MB  number of megabytes\n"
 	    "    <nn>G or <nn>GB  number of gigabytes\n"
 	    "    <nn>sects        number of 512 byte sectors\n");
-  else if (strcasecmp (cmd, "cdrom") == 0)
-    printf ("cdrom - add a CD-ROM image to be examined\n"
-	    "     cdrom <iso-file>\n");
   else if (strcasecmp (cmd, "help") == 0)
     printf ("help - display a list of commands or help on a command\n"
 	    "     help cmd\n"
@@ -481,9 +441,6 @@ display_builtin_command (const char *cmd)
   else if (strcasecmp (cmd, "quit") == 0)
     printf ("quit - quit guestfish\n"
 	    "     quit\n");
-  else if (strcasecmp (cmd, "launch") == 0)
-    printf ("launch - launch the subprocess\n"
-	    "     launch\n");
   else
     fprintf (stderr, "%s: command not known, use -h to list all commands\n",
 	     cmd);
@@ -544,4 +501,15 @@ print_strings (char **argv)
 
   for (argc = 0; argv[argc] != NULL; ++argc)
     printf ("%s\n", argv[argc]);
+}
+
+int
+is_true (const char *str)
+{
+  return
+    strcasecmp (str, "0") != 0 &&
+    strcasecmp (str, "f") != 0 &&
+    strcasecmp (str, "false") != 0 &&
+    strcasecmp (str, "n") != 0 &&
+    strcasecmp (str, "no") != 0;
 }

@@ -387,10 +387,11 @@ guestfs_get_error_handler (guestfs_h *g, void **data_rtn)
   return g->error_cb;
 }
 
-void
+int
 guestfs_set_verbose (guestfs_h *g, int v)
 {
-  g->verbose = v;
+  g->verbose = !!v;
+  return 0;
 }
 
 int
@@ -399,10 +400,11 @@ guestfs_get_verbose (guestfs_h *g)
   return g->verbose;
 }
 
-void
+int
 guestfs_set_autosync (guestfs_h *g, int a)
 {
-  g->autosync = a;
+  g->autosync = !!a;
+  return 0;
 }
 
 int
@@ -411,13 +413,14 @@ guestfs_get_autosync (guestfs_h *g)
   return g->autosync;
 }
 
-void
+int
 guestfs_set_path (guestfs_h *g, const char *path)
 {
   if (path == NULL)
     g->path = GUESTFS_DEFAULT_PATH;
   else
     g->path = path;
+  return 0;
 }
 
 const char *

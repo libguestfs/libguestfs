@@ -34,7 +34,7 @@
 #include "guestfs_c.h"
 
 CAMLprim value
-ocaml_guestfs_cat (value hv /* XXX */)
+ocaml_guestfs_launch (value hv /* XXX */)
 {
   CAMLparam1 (hv); /* XXX */
 /* XXX write something here */
@@ -42,7 +42,7 @@ ocaml_guestfs_cat (value hv /* XXX */)
 }
 
 CAMLprim value
-ocaml_guestfs_list_devices (value hv /* XXX */)
+ocaml_guestfs_wait_ready (value hv /* XXX */)
 {
   CAMLparam1 (hv); /* XXX */
 /* XXX write something here */
@@ -50,7 +50,7 @@ ocaml_guestfs_list_devices (value hv /* XXX */)
 }
 
 CAMLprim value
-ocaml_guestfs_list_partitions (value hv /* XXX */)
+ocaml_guestfs_kill_subprocess (value hv /* XXX */)
 {
   CAMLparam1 (hv); /* XXX */
 /* XXX write something here */
@@ -58,7 +58,7 @@ ocaml_guestfs_list_partitions (value hv /* XXX */)
 }
 
 CAMLprim value
-ocaml_guestfs_ll (value hv /* XXX */)
+ocaml_guestfs_add_drive (value hv /* XXX */)
 {
   CAMLparam1 (hv); /* XXX */
 /* XXX write something here */
@@ -66,7 +66,7 @@ ocaml_guestfs_ll (value hv /* XXX */)
 }
 
 CAMLprim value
-ocaml_guestfs_ls (value hv /* XXX */)
+ocaml_guestfs_add_cdrom (value hv /* XXX */)
 {
   CAMLparam1 (hv); /* XXX */
 /* XXX write something here */
@@ -74,7 +74,7 @@ ocaml_guestfs_ls (value hv /* XXX */)
 }
 
 CAMLprim value
-ocaml_guestfs_lvs (value hv /* XXX */)
+ocaml_guestfs_config (value hv /* XXX */)
 {
   CAMLparam1 (hv); /* XXX */
 /* XXX write something here */
@@ -82,7 +82,47 @@ ocaml_guestfs_lvs (value hv /* XXX */)
 }
 
 CAMLprim value
-ocaml_guestfs_lvs_full (value hv /* XXX */)
+ocaml_guestfs_set_path (value hv /* XXX */)
+{
+  CAMLparam1 (hv); /* XXX */
+/* XXX write something here */
+  CAMLreturn (Val_unit); /* XXX */
+}
+
+CAMLprim value
+ocaml_guestfs_get_path (value hv /* XXX */)
+{
+  CAMLparam1 (hv); /* XXX */
+/* XXX write something here */
+  CAMLreturn (Val_unit); /* XXX */
+}
+
+CAMLprim value
+ocaml_guestfs_set_autosync (value hv /* XXX */)
+{
+  CAMLparam1 (hv); /* XXX */
+/* XXX write something here */
+  CAMLreturn (Val_unit); /* XXX */
+}
+
+CAMLprim value
+ocaml_guestfs_get_autosync (value hv /* XXX */)
+{
+  CAMLparam1 (hv); /* XXX */
+/* XXX write something here */
+  CAMLreturn (Val_unit); /* XXX */
+}
+
+CAMLprim value
+ocaml_guestfs_set_verbose (value hv /* XXX */)
+{
+  CAMLparam1 (hv); /* XXX */
+/* XXX write something here */
+  CAMLreturn (Val_unit); /* XXX */
+}
+
+CAMLprim value
+ocaml_guestfs_get_verbose (value hv /* XXX */)
 {
   CAMLparam1 (hv); /* XXX */
 /* XXX write something here */
@@ -91,22 +131,6 @@ ocaml_guestfs_lvs_full (value hv /* XXX */)
 
 CAMLprim value
 ocaml_guestfs_mount (value hv /* XXX */)
-{
-  CAMLparam1 (hv); /* XXX */
-/* XXX write something here */
-  CAMLreturn (Val_unit); /* XXX */
-}
-
-CAMLprim value
-ocaml_guestfs_pvs (value hv /* XXX */)
-{
-  CAMLparam1 (hv); /* XXX */
-/* XXX write something here */
-  CAMLreturn (Val_unit); /* XXX */
-}
-
-CAMLprim value
-ocaml_guestfs_pvs_full (value hv /* XXX */)
 {
   CAMLparam1 (hv); /* XXX */
 /* XXX write something here */
@@ -130,6 +154,54 @@ ocaml_guestfs_touch (value hv /* XXX */)
 }
 
 CAMLprim value
+ocaml_guestfs_cat (value hv /* XXX */)
+{
+  CAMLparam1 (hv); /* XXX */
+/* XXX write something here */
+  CAMLreturn (Val_unit); /* XXX */
+}
+
+CAMLprim value
+ocaml_guestfs_ll (value hv /* XXX */)
+{
+  CAMLparam1 (hv); /* XXX */
+/* XXX write something here */
+  CAMLreturn (Val_unit); /* XXX */
+}
+
+CAMLprim value
+ocaml_guestfs_ls (value hv /* XXX */)
+{
+  CAMLparam1 (hv); /* XXX */
+/* XXX write something here */
+  CAMLreturn (Val_unit); /* XXX */
+}
+
+CAMLprim value
+ocaml_guestfs_list_devices (value hv /* XXX */)
+{
+  CAMLparam1 (hv); /* XXX */
+/* XXX write something here */
+  CAMLreturn (Val_unit); /* XXX */
+}
+
+CAMLprim value
+ocaml_guestfs_list_partitions (value hv /* XXX */)
+{
+  CAMLparam1 (hv); /* XXX */
+/* XXX write something here */
+  CAMLreturn (Val_unit); /* XXX */
+}
+
+CAMLprim value
+ocaml_guestfs_pvs (value hv /* XXX */)
+{
+  CAMLparam1 (hv); /* XXX */
+/* XXX write something here */
+  CAMLreturn (Val_unit); /* XXX */
+}
+
+CAMLprim value
 ocaml_guestfs_vgs (value hv /* XXX */)
 {
   CAMLparam1 (hv); /* XXX */
@@ -138,7 +210,31 @@ ocaml_guestfs_vgs (value hv /* XXX */)
 }
 
 CAMLprim value
+ocaml_guestfs_lvs (value hv /* XXX */)
+{
+  CAMLparam1 (hv); /* XXX */
+/* XXX write something here */
+  CAMLreturn (Val_unit); /* XXX */
+}
+
+CAMLprim value
+ocaml_guestfs_pvs_full (value hv /* XXX */)
+{
+  CAMLparam1 (hv); /* XXX */
+/* XXX write something here */
+  CAMLreturn (Val_unit); /* XXX */
+}
+
+CAMLprim value
 ocaml_guestfs_vgs_full (value hv /* XXX */)
+{
+  CAMLparam1 (hv); /* XXX */
+/* XXX write something here */
+  CAMLreturn (Val_unit); /* XXX */
+}
+
+CAMLprim value
+ocaml_guestfs_lvs_full (value hv /* XXX */)
 {
   CAMLparam1 (hv); /* XXX */
 /* XXX write something here */

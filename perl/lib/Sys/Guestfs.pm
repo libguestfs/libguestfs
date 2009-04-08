@@ -91,9 +91,13 @@ sub new {
   return $self;
 }
 
-=item $h->add_drive ($filename);
+=item $h->add_cdrom (filename);
 
-=item $h->add_cdrom ($filename);
+This function adds a virtual CD-ROM disk image to the guest.
+
+This is equivalent to the qemu parameter C<-cdrom filename>.
+
+=item $h->add_drive (filename);
 
 This function adds a virtual machine disk image C<filename> to the
 guest.  The first time you call this function, the disk appears as IDE
@@ -106,46 +110,7 @@ for whatever operations you want to perform (ie. read access if you
 just want to read the image or write access if you want to modify the
 image).
 
-The C<add_cdrom> variation adds a CD-ROM device.
-
-=item $h->config ($param, $value);
-
-=item $h->config ($param);
-
-Use this to add arbitrary parameters to the C<qemu> command line.
-See L<qemu(1)>.
-
-=item $h->launch ();
-
-=item $h->wait_ready ();
-
-Internally libguestfs is implemented by running a virtual machine
-using L<qemu(1)>.  These calls are necessary in order to boot the
-virtual machine.
-
-You should call these two functions after configuring the handle
-(eg. adding drives) but before performing any actions.
-
-=item $h->set_path ($path);
-
-=item $path = $h->get_path ();
-
-See the discussion of C<PATH> in the L<guestfs(3)>
-manpage.
-
-=item $h->set_autosync ($autosync);
-
-=item $autosync = $h->get_autosync ();
-
-See the discussion of I<AUTOSYNC> in the L<guestfs(3)>
-manpage.
-
-=item $h->set_verbose ($verbose);
-
-=item $verbose = $h->get_verbose ();
-
-This sets or gets the verbose messages flag.  Verbose
-messages are sent to C<stderr>.
+This is equivalent to the qemu parameter C<-drive file=filename>.
 
 =item $content = $h->cat (path);
 
@@ -159,6 +124,44 @@ function which has a more complex interface.
 Because of the message protocol, there is a transfer limit 
 of somewhere between 2MB and 4MB.  To transfer large files you should use
 FTP.
+
+=item $h->config (qemuparam, qemuvalue);
+
+This can be used to add arbitrary qemu command line parameters
+of the form C<-param value>.  Actually it's not quite arbitrary - we
+prevent you from setting some parameters which would interfere with
+parameters that we use.
+
+The first character of C<param> string must be a C<-> (dash).
+
+C<value> can be NULL.
+
+=item $autosync = $h->get_autosync ();
+
+Get the autosync flag.
+
+=item $path = $h->get_path ();
+
+Return the current search path.
+
+This is always non-NULL.  If it wasn't set already, then this will
+return the default path.
+
+=item $verbose = $h->get_verbose ();
+
+This returns the verbose messages flag.
+
+=item $h->kill_subprocess ();
+
+This kills the qemu subprocess.  You should never need to call this.
+
+=item $h->launch ();
+
+Internally libguestfs is implemented by running a virtual machine
+using L<qemu(1)>.
+
+You should call this after configuring the handle
+(eg. adding drives) but before performing any actions.
 
 =item @devices = $h->list_devices ();
 
@@ -241,6 +244,31 @@ See also C<$h-E<gt>pvs_full>.
 List all the physical volumes detected.  This is the equivalent
 of the L<pvs(8)> command.  The "full" version includes all fields.
 
+=item $h->set_autosync (autosync);
+
+If C<autosync> is true, this enables autosync.  Libguestfs will make a
+best effort attempt to run C<$h-E<gt>sync> when the handle is closed
+(also if the program exits without closing handles).
+
+=item $h->set_path (path);
+
+Set the path that libguestfs searches for kernel and initrd.img.
+
+The default is C<$libdir/guestfs> unless overridden by setting
+C<LIBGUESTFS_PATH> environment variable.
+
+The string C<path> is stashed in the libguestfs handle, so the caller
+must make sure it remains valid for the lifetime of the handle.
+
+Setting C<path> to C<NULL> restores the default path.
+
+=item $h->set_verbose (verbose);
+
+If C<verbose> is true, this turns on verbose messages (to C<stderr>).
+
+Verbose messages are disabled unless the environment variable
+C<LIBGUESTFS_DEBUG> is defined and set to C<1>.
+
 =item $h->sync ();
 
 This syncs the disk, so that any writes are flushed through to the
@@ -269,6 +297,14 @@ See also C<$h-E<gt>vgs_full>.
 
 List all the volumes groups detected.  This is the equivalent
 of the L<vgs(8)> command.  The "full" version includes all fields.
+
+=item $h->wait_ready ();
+
+Internally libguestfs is implemented by running a virtual machine
+using L<qemu(1)>.
+
+You should call this after C<$h-E<gt>launch> to wait for the launch
+to complete.
 
 =cut
 

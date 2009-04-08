@@ -1,3 +1,34 @@
+=head2 guestfs_add_cdrom
+
+ int guestfs_add_cdrom (guestfs_h *handle,
+		const char *filename);
+
+This function adds a virtual CD-ROM disk image to the guest.
+
+This is equivalent to the qemu parameter C<-cdrom filename>.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_add_drive
+
+ int guestfs_add_drive (guestfs_h *handle,
+		const char *filename);
+
+This function adds a virtual machine disk image C<filename> to the
+guest.  The first time you call this function, the disk appears as IDE
+disk 0 (C</dev/sda>) in the guest, the second time as C</dev/sdb>, and
+so on.
+
+You don't necessarily need to be root when using libguestfs.  However
+you obviously do need sufficient permissions to access the filename
+for whatever operations you want to perform (ie. read access if you
+just want to read the image or write access if you want to modify the
+image).
+
+This is equivalent to the qemu parameter C<-drive file=filename>.
+
+This function returns 0 on success or -1 on error.
+
 =head2 guestfs_cat
 
  char *guestfs_cat (guestfs_h *handle,
@@ -16,6 +47,71 @@ I<The caller must free the returned string after use>.
 Because of the message protocol, there is a transfer limit 
 of somewhere between 2MB and 4MB.  To transfer large files you should use
 FTP.
+
+=head2 guestfs_config
+
+ int guestfs_config (guestfs_h *handle,
+		const char *qemuparam,
+		const char *qemuvalue);
+
+This can be used to add arbitrary qemu command line parameters
+of the form C<-param value>.  Actually it's not quite arbitrary - we
+prevent you from setting some parameters which would interfere with
+parameters that we use.
+
+The first character of C<param> string must be a C<-> (dash).
+
+C<value> can be NULL.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_get_autosync
+
+ int guestfs_get_autosync (guestfs_h *handle);
+
+Get the autosync flag.
+
+This function returns a C truth value on success or -1 on error.
+
+=head2 guestfs_get_path
+
+ const char *guestfs_get_path (guestfs_h *handle);
+
+Return the current search path.
+
+This is always non-NULL.  If it wasn't set already, then this will
+return the default path.
+
+This function returns a string or NULL on error.
+The string is owned by the guest handle and must I<not> be freed.
+
+=head2 guestfs_get_verbose
+
+ int guestfs_get_verbose (guestfs_h *handle);
+
+This returns the verbose messages flag.
+
+This function returns a C truth value on success or -1 on error.
+
+=head2 guestfs_kill_subprocess
+
+ int guestfs_kill_subprocess (guestfs_h *handle);
+
+This kills the qemu subprocess.  You should never need to call this.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_launch
+
+ int guestfs_launch (guestfs_h *handle);
+
+Internally libguestfs is implemented by running a virtual machine
+using L<qemu(1)>.
+
+You should call this after configuring the handle
+(eg. adding drives) but before performing any actions.
+
+This function returns 0 on success or -1 on error.
 
 =head2 guestfs_list_devices
 
@@ -151,6 +247,46 @@ of the L<pvs(8)> command.  The "full" version includes all fields.
 This function returns a C<struct guestfs_lvm_pv_list>.
 I<The caller must call C<guestfs_free_lvm_pv_list> after use.>.
 
+=head2 guestfs_set_autosync
+
+ int guestfs_set_autosync (guestfs_h *handle,
+		int autosync);
+
+If C<autosync> is true, this enables autosync.  Libguestfs will make a
+best effort attempt to run C<guestfs_sync> when the handle is closed
+(also if the program exits without closing handles).
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_set_path
+
+ int guestfs_set_path (guestfs_h *handle,
+		const char *path);
+
+Set the path that libguestfs searches for kernel and initrd.img.
+
+The default is C<$libdir/guestfs> unless overridden by setting
+C<LIBGUESTFS_PATH> environment variable.
+
+The string C<path> is stashed in the libguestfs handle, so the caller
+must make sure it remains valid for the lifetime of the handle.
+
+Setting C<path> to C<NULL> restores the default path.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_set_verbose
+
+ int guestfs_set_verbose (guestfs_h *handle,
+		int verbose);
+
+If C<verbose> is true, this turns on verbose messages (to C<stderr>).
+
+Verbose messages are disabled unless the environment variable
+C<LIBGUESTFS_DEBUG> is defined and set to C<1>.
+
+This function returns 0 on success or -1 on error.
+
 =head2 guestfs_sync
 
  int guestfs_sync (guestfs_h *handle);
@@ -199,4 +335,16 @@ of the L<vgs(8)> command.  The "full" version includes all fields.
 
 This function returns a C<struct guestfs_lvm_vg_list>.
 I<The caller must call C<guestfs_free_lvm_vg_list> after use.>.
+
+=head2 guestfs_wait_ready
+
+ int guestfs_wait_ready (guestfs_h *handle);
+
+Internally libguestfs is implemented by running a virtual machine
+using L<qemu(1)>.
+
+You should call this after C<guestfs_launch> to wait for the launch
+to complete.
+
+This function returns 0 on success or -1 on error.
 

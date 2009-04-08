@@ -92,50 +92,58 @@ DESTROY (g)
       guestfs_close (g);
 
 void
-add_drive (g, filename)
-      guestfs_h *g;
-      const char *filename;
-   CODE:
-      if (guestfs_add_drive (g, filename) == -1)
-        croak ("add_drive: %s", last_error);
-
-void
-add_cdrom (g, filename)
-      guestfs_h *g;
-      const char *filename;
-   CODE:
-      if (guestfs_add_cdrom (g, filename) == -1)
-        croak ("add_cdrom: %s", last_error);
-
-void
-config (g, param, value)
-      guestfs_h *g;
-      const char *param;
-      const char *value;
-   CODE:
-      if (guestfs_config (g, param, value) == -1)
-        croak ("config: %s", last_error);
-
-void
 launch (g)
       guestfs_h *g;
-   CODE:
+ PPCODE:
       if (guestfs_launch (g) == -1)
         croak ("launch: %s", last_error);
 
 void
 wait_ready (g)
       guestfs_h *g;
-   CODE:
+ PPCODE:
       if (guestfs_wait_ready (g) == -1)
         croak ("wait_ready: %s", last_error);
 
 void
+kill_subprocess (g)
+      guestfs_h *g;
+ PPCODE:
+      if (guestfs_kill_subprocess (g) == -1)
+        croak ("kill_subprocess: %s", last_error);
+
+void
+add_drive (g, filename)
+      guestfs_h *g;
+      char *filename;
+ PPCODE:
+      if (guestfs_add_drive (g, filename) == -1)
+        croak ("add_drive: %s", last_error);
+
+void
+add_cdrom (g, filename)
+      guestfs_h *g;
+      char *filename;
+ PPCODE:
+      if (guestfs_add_cdrom (g, filename) == -1)
+        croak ("add_cdrom: %s", last_error);
+
+void
+config (g, qemuparam, qemuvalue)
+      guestfs_h *g;
+      char *qemuparam;
+      char *qemuvalue;
+ PPCODE:
+      if (guestfs_config (g, qemuparam, qemuvalue) == -1)
+        croak ("config: %s", last_error);
+
+void
 set_path (g, path)
       guestfs_h *g;
-      const char *path;
-   CODE:
-      guestfs_set_path (g, path);
+      char *path;
+ PPCODE:
+      if (guestfs_set_path (g, path) == -1)
+        croak ("set_path: %s", last_error);
 
 SV *
 get_path (g)
@@ -144,6 +152,8 @@ PREINIT:
       const char *path;
    CODE:
       path = guestfs_get_path (g);
+      if (path == NULL)
+        croak ("get_path: %s", last_error);
       RETVAL = newSVpv (path, 0);
  OUTPUT:
       RETVAL
@@ -152,8 +162,9 @@ void
 set_autosync (g, autosync)
       guestfs_h *g;
       int autosync;
-   CODE:
-      guestfs_set_autosync (g, autosync);
+ PPCODE:
+      if (guestfs_set_autosync (g, autosync) == -1)
+        croak ("set_autosync: %s", last_error);
 
 SV *
 get_autosync (g)
@@ -162,6 +173,8 @@ PREINIT:
       int autosync;
    CODE:
       autosync = guestfs_get_autosync (g);
+      if (autosync == -1)
+        croak ("get_autosync: %s", last_error);
       RETVAL = newSViv (autosync);
  OUTPUT:
       RETVAL
@@ -170,8 +183,9 @@ void
 set_verbose (g, verbose)
       guestfs_h *g;
       int verbose;
-   CODE:
-      guestfs_set_verbose (g, verbose);
+ PPCODE:
+      if (guestfs_set_verbose (g, verbose) == -1)
+        croak ("set_verbose: %s", last_error);
 
 SV *
 get_verbose (g)
@@ -180,6 +194,8 @@ PREINIT:
       int verbose;
    CODE:
       verbose = guestfs_get_verbose (g);
+      if (verbose == -1)
+        croak ("get_verbose: %s", last_error);
       RETVAL = newSViv (verbose);
  OUTPUT:
       RETVAL

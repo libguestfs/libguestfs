@@ -31,15 +31,6 @@ typedef struct guestfs_h guestfs_h;
 /* Connection management. */
 extern guestfs_h *guestfs_create (void);
 extern void guestfs_close (guestfs_h *g);
-extern int guestfs_launch (guestfs_h *g);
-extern int guestfs_wait_ready (guestfs_h *g);
-extern int guestfs_kill_subprocess (guestfs_h *g);
-
-/* Configuration management. */
-extern int guestfs_config (guestfs_h *g,
-			   const char *qemu_param, const char *qemu_value);
-extern int guestfs_add_drive (guestfs_h *g, const char *filename);
-extern int guestfs_add_cdrom (guestfs_h *g, const char *filename);
 
 /* Error handling. */
 typedef void (*guestfs_error_handler_cb) (guestfs_h *g, void *data, const char *msg);
@@ -50,14 +41,6 @@ extern guestfs_error_handler_cb guestfs_get_error_handler (guestfs_h *g, void **
 
 extern void guestfs_set_out_of_memory_handler (guestfs_h *g, guestfs_abort_cb);
 extern guestfs_abort_cb guestfs_get_out_of_memory_handler (guestfs_h *g);
-
-/* Misc. */
-extern void guestfs_set_verbose (guestfs_h *g, int verbose);
-extern int guestfs_get_verbose (guestfs_h *g);
-extern void guestfs_set_autosync (guestfs_h *g, int a);
-extern int guestfs_get_autosync (guestfs_h *g);
-extern void guestfs_set_path (guestfs_h *g, const char *path);
-extern const char *guestfs_get_path (guestfs_h *g);
 
 #include <guestfs-structs.h>
 #include <guestfs-actions.h>

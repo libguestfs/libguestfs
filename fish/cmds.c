@@ -31,7 +31,15 @@ void list_commands (void)
 {
   printf ("    %-16s     %s\n", "Command", "Description");
   list_builtin_commands ();
+  printf ("%-20s %s\n", "add-cdrom", "add a CD-ROM disk image to examine");
+  printf ("%-20s %s\n", "add-drive", "add an image to examine or modify");
   printf ("%-20s %s\n", "cat", "list the contents of a file");
+  printf ("%-20s %s\n", "config", "add qemu parameters");
+  printf ("%-20s %s\n", "get-autosync", "get autosync mode");
+  printf ("%-20s %s\n", "get-path", "get the search path");
+  printf ("%-20s %s\n", "get-verbose", "get verbose mode");
+  printf ("%-20s %s\n", "kill-subprocess", "kill the qemu subprocess");
+  printf ("%-20s %s\n", "launch", "launch the qemu subprocess");
   printf ("%-20s %s\n", "list-devices", "list the block devices");
   printf ("%-20s %s\n", "list-partitions", "list the partitions");
   printf ("%-20s %s\n", "ll", "list the files in a directory (long format)");
@@ -41,6 +49,9 @@ void list_commands (void)
   printf ("%-20s %s\n", "mount", "mount a guest disk at a position in the filesystem");
   printf ("%-20s %s\n", "pvs", "list the LVM physical volumes (PVs)");
   printf ("%-20s %s\n", "pvs-full", "list the LVM physical volumes (PVs)");
+  printf ("%-20s %s\n", "set-autosync", "set autosync mode");
+  printf ("%-20s %s\n", "set-path", "set the search path");
+  printf ("%-20s %s\n", "set-verbose", "set verbose mode");
   printf ("%-20s %s\n", "sync", "sync disks, writes are flushed through to the disk image");
   printf ("%-20s %s\n", "touch", "update file timestamps or create a new file");
   printf ("%-20s %s\n", "vgs", "list the LVM volume groups (VGs)");
@@ -50,6 +61,39 @@ void list_commands (void)
 
 void display_command (const char *cmd)
 {
+  if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
+    pod2text ("launch - launch the qemu subprocess", " launch\n\nInternally libguestfs is implemented by running a virtual machine\nusing L<qemu(1)>.\n\nYou should call this after configuring the handle\n(eg. adding drives) but before performing any actions.\n\nYou can use 'run' as an alias for this command.");
+  else
+  if (strcasecmp (cmd, "kill_subprocess") == 0 || strcasecmp (cmd, "kill-subprocess") == 0)
+    pod2text ("kill-subprocess - kill the qemu subprocess", " kill-subprocess\n\nThis kills the qemu subprocess.  You should never need to call this.");
+  else
+  if (strcasecmp (cmd, "add_drive") == 0 || strcasecmp (cmd, "add-drive") == 0 || strcasecmp (cmd, "add") == 0)
+    pod2text ("add-drive - add an image to examine or modify", " add-drive <filename>\n\nThis function adds a virtual machine disk image C<filename> to the\nguest.  The first time you call this function, the disk appears as IDE\ndisk 0 (C</dev/sda>) in the guest, the second time as C</dev/sdb>, and\nso on.\n\nYou don't necessarily need to be root when using libguestfs.  However\nyou obviously do need sufficient permissions to access the filename\nfor whatever operations you want to perform (ie. read access if you\njust want to read the image or write access if you want to modify the\nimage).\n\nThis is equivalent to the qemu parameter C<-drive file=filename>.\n\nYou can use 'add' as an alias for this command.");
+  else
+  if (strcasecmp (cmd, "add_cdrom") == 0 || strcasecmp (cmd, "add-cdrom") == 0 || strcasecmp (cmd, "cdrom") == 0)
+    pod2text ("add-cdrom - add a CD-ROM disk image to examine", " add-cdrom <filename>\n\nThis function adds a virtual CD-ROM disk image to the guest.\n\nThis is equivalent to the qemu parameter C<-cdrom filename>.\n\nYou can use 'cdrom' as an alias for this command.");
+  else
+  if (strcasecmp (cmd, "config") == 0)
+    pod2text ("config - add qemu parameters", " config <qemuparam> <qemuvalue>\n\nThis can be used to add arbitrary qemu command line parameters\nof the form C<-param value>.  Actually it's not quite arbitrary - we\nprevent you from setting some parameters which would interfere with\nparameters that we use.\n\nThe first character of C<param> string must be a C<-> (dash).\n\nC<value> can be NULL.");
+  else
+  if (strcasecmp (cmd, "set_path") == 0 || strcasecmp (cmd, "set-path") == 0 || strcasecmp (cmd, "path") == 0)
+    pod2text ("set-path - set the search path", " set-path <path>\n\nSet the path that libguestfs searches for kernel and initrd.img.\n\nThe default is C<$libdir/guestfs> unless overridden by setting\nC<LIBGUESTFS_PATH> environment variable.\n\nThe string C<path> is stashed in the libguestfs handle, so the caller\nmust make sure it remains valid for the lifetime of the handle.\n\nSetting C<path> to C<NULL> restores the default path.\n\nYou can use 'path' as an alias for this command.");
+  else
+  if (strcasecmp (cmd, "get_path") == 0 || strcasecmp (cmd, "get-path") == 0)
+    pod2text ("get-path - get the search path", " get-path\n\nReturn the current search path.\n\nThis is always non-NULL.  If it wasn't set already, then this will\nreturn the default path.");
+  else
+  if (strcasecmp (cmd, "set_autosync") == 0 || strcasecmp (cmd, "set-autosync") == 0 || strcasecmp (cmd, "autosync") == 0)
+    pod2text ("set-autosync - set autosync mode", " set-autosync <autosync>\n\nIf C<autosync> is true, this enables autosync.  Libguestfs will make a\nbest effort attempt to run C<sync> when the handle is closed\n(also if the program exits without closing handles).\n\nYou can use 'autosync' as an alias for this command.");
+  else
+  if (strcasecmp (cmd, "get_autosync") == 0 || strcasecmp (cmd, "get-autosync") == 0)
+    pod2text ("get-autosync - get autosync mode", " get-autosync\n\nGet the autosync flag.");
+  else
+  if (strcasecmp (cmd, "set_verbose") == 0 || strcasecmp (cmd, "set-verbose") == 0 || strcasecmp (cmd, "verbose") == 0)
+    pod2text ("set-verbose - set verbose mode", " set-verbose <verbose>\n\nIf C<verbose> is true, this turns on verbose messages (to C<stderr>).\n\nVerbose messages are disabled unless the environment variable\nC<LIBGUESTFS_DEBUG> is defined and set to C<1>.\n\nYou can use 'verbose' as an alias for this command.");
+  else
+  if (strcasecmp (cmd, "get_verbose") == 0 || strcasecmp (cmd, "get-verbose") == 0)
+    pod2text ("get-verbose - get verbose mode", " get-verbose\n\nThis returns the verbose messages flag.");
+  else
   if (strcasecmp (cmd, "mount") == 0)
     pod2text ("mount - mount a guest disk at a position in the filesystem", " mount <device> <mountpoint>\n\nMount a guest disk at a position in the filesystem.  Block devices\nare named C</dev/sda>, C</dev/sdb> and so on, as they were added to\nthe guest.  If those block devices contain partitions, they will have\nthe usual names (eg. C</dev/sda1>).  Also LVM C</dev/VG/LV>-style\nnames can be used.\n\nThe rules are the same as for L<mount(2)>:  A filesystem must\nfirst be mounted on C</> before others can be mounted.  Other\nfilesystems can only be mounted on directories which already\nexist.\n\nThe mounted filesystem is writable, if we have sufficient permissions\non the underlying device.\n\nThe filesystem options C<sync> and C<noatime> are set with this\ncall, in order to improve reliability.");
   else
@@ -197,6 +241,158 @@ static void print_lv_list (struct guestfs_lvm_lv_list *lvs)
     print_lv (&lvs->val[i]);
 }
 
+static int run_launch (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  if (argc != 0) {
+    fprintf (stderr, "%s should have 0 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  r = launch (g);
+  return r;
+}
+
+static int run_kill_subprocess (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  if (argc != 0) {
+    fprintf (stderr, "%s should have 0 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  r = guestfs_kill_subprocess (g);
+  return r;
+}
+
+static int run_add_drive (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *filename;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  filename = argv[0];
+  r = guestfs_add_drive (g, filename);
+  return r;
+}
+
+static int run_add_cdrom (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *filename;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  filename = argv[0];
+  r = guestfs_add_cdrom (g, filename);
+  return r;
+}
+
+static int run_config (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *qemuparam;
+  const char *qemuvalue;
+  if (argc != 2) {
+    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  qemuparam = argv[0];
+  qemuvalue = strcmp (argv[1], "") != 0 ? argv[1] : NULL;
+  r = guestfs_config (g, qemuparam, qemuvalue);
+  return r;
+}
+
+static int run_set_path (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *path;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  path = argv[0];
+  r = guestfs_set_path (g, path);
+  return r;
+}
+
+static int run_get_path (const char *cmd, int argc, char *argv[])
+{
+  const char *r;
+  if (argc != 0) {
+    fprintf (stderr, "%s should have 0 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  r = guestfs_get_path (g);
+  if (r == NULL) return -1;
+  printf ("%s\n", r);
+  return 0;
+}
+
+static int run_set_autosync (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  int autosync;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  autosync = is_true (argv[0]) ? 1 : 0;
+  r = guestfs_set_autosync (g, autosync);
+  return r;
+}
+
+static int run_get_autosync (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  if (argc != 0) {
+    fprintf (stderr, "%s should have 0 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  r = guestfs_get_autosync (g);
+  if (r == -1) return -1;
+  if (r) printf ("true\n"); else printf ("false\n");
+  return 0;
+}
+
+static int run_set_verbose (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  int verbose;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  verbose = is_true (argv[0]) ? 1 : 0;
+  r = guestfs_set_verbose (g, verbose);
+  return r;
+}
+
+static int run_get_verbose (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  if (argc != 0) {
+    fprintf (stderr, "%s should have 0 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  r = guestfs_get_verbose (g);
+  if (r == -1) return -1;
+  if (r) printf ("true\n"); else printf ("false\n");
+  return 0;
+}
+
 static int run_mount (const char *cmd, int argc, char *argv[])
 {
   int r;
@@ -251,7 +447,7 @@ static int run_cat (const char *cmd, int argc, char *argv[])
   path = argv[0];
   r = guestfs_cat (g, path);
   if (r == NULL) return -1;
-  printf ("%s", r);
+  printf ("%s\n", r);
   free (r);
   return 0;
 }
@@ -268,7 +464,7 @@ static int run_ll (const char *cmd, int argc, char *argv[])
   directory = argv[0];
   r = guestfs_ll (g, directory);
   if (r == NULL) return -1;
-  printf ("%s", r);
+  printf ("%s\n", r);
   free (r);
   return 0;
 }
@@ -412,6 +608,39 @@ static int run_lvs_full (const char *cmd, int argc, char *argv[])
 
 int run_action (const char *cmd, int argc, char *argv[])
 {
+  if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
+    return run_launch (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "kill_subprocess") == 0 || strcasecmp (cmd, "kill-subprocess") == 0)
+    return run_kill_subprocess (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "add_drive") == 0 || strcasecmp (cmd, "add-drive") == 0 || strcasecmp (cmd, "add") == 0)
+    return run_add_drive (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "add_cdrom") == 0 || strcasecmp (cmd, "add-cdrom") == 0 || strcasecmp (cmd, "cdrom") == 0)
+    return run_add_cdrom (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "config") == 0)
+    return run_config (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "set_path") == 0 || strcasecmp (cmd, "set-path") == 0 || strcasecmp (cmd, "path") == 0)
+    return run_set_path (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "get_path") == 0 || strcasecmp (cmd, "get-path") == 0)
+    return run_get_path (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "set_autosync") == 0 || strcasecmp (cmd, "set-autosync") == 0 || strcasecmp (cmd, "autosync") == 0)
+    return run_set_autosync (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "get_autosync") == 0 || strcasecmp (cmd, "get-autosync") == 0)
+    return run_get_autosync (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "set_verbose") == 0 || strcasecmp (cmd, "set-verbose") == 0 || strcasecmp (cmd, "verbose") == 0)
+    return run_set_verbose (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "get_verbose") == 0 || strcasecmp (cmd, "get-verbose") == 0)
+    return run_get_verbose (cmd, argc, argv);
+  else
   if (strcasecmp (cmd, "mount") == 0)
     return run_mount (cmd, argc, argv);
   else
