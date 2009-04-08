@@ -310,6 +310,19 @@ of the L<vgs(8)> command.  The \"full\" version includes all fields.");
    "\
 List all the logical volumes detected.  This is the equivalent
 of the L<lvs(8)> command.  The \"full\" version includes all fields.");
+
+  ("read_lines", (RStringList "lines", P1 (String "path")), 15, [],
+   "read file as lines",
+   "\
+Return the contents of the file named C<path>.
+
+The file contents are returned as a list of lines.  Trailing
+C<LF> and C<CRLF> character sequences are I<not> returned.
+
+Note that this function cannot correctly handle binary files
+(specifically, files containing C<\\0> character which is treated
+as end of line).  For those you need to use the C<guestfs_read_file>
+function which has a more complex interface.");
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
