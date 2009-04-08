@@ -17,8 +17,31 @@
 
 use strict;
 use warnings;
-use Test::More tests => 1;
+use Test::More tests => 7;
 
-BEGIN {
-    use_ok ("Sys::Guestfs");
-}
+use Sys::Guestfs;
+
+my $h = Sys::Guestfs->new ();
+ok ($h);
+
+$h->set_verbose (1);
+ok ($h->get_verbose () == 1, "verbose not true");
+$h->set_verbose (0);
+ok ($h->get_verbose () == 0, "verbose not false");
+$h->set_autosync (1);
+ok ($h->get_autosync () == 1, "autosync not true");
+$h->set_autosync (0);
+ok ($h->get_autosync () == 0, "autosync not false");
+
+# This probably doesn't work at the moment because
+# the binding for set_path does not ensure the string
+# remains around for the lifetime of the handle.
+#$h->set_path (".");
+#ok ($h->get_path () eq ".", "path not dot");
+#$h->set_path (undef);
+#ok ($h->get_path () ne "", "path is empty");
+
+$h->add_drive ("/dev/null");
+ok (1, "add drive");
+$h->add_cdrom ("/dev/zero");
+ok (1, "add cdrom");

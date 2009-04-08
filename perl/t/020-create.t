@@ -17,8 +17,13 @@
 
 use strict;
 use warnings;
-use Test::More tests => 1;
+use Test::More tests => 2;
 
-BEGIN {
-    use_ok ("Sys::Guestfs");
+use Sys::Guestfs;
+
+# Put it in a block so the handle gets destroyed as well.
+{
+    my $h = Sys::Guestfs->new ();
+    ok ($h);
 }
+ok (1);
