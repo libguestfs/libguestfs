@@ -15,13 +15,13 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-if HAVE_OCAML
-
 EXTRA_DIST = \
 	guestfs.mli guestfs.ml \
 	guestfs_internal.ml \
 	guestfs_c.c guestfs_c.h guestfs_c_actions.c \
 	.depend META.in
+
+if HAVE_OCAML
 
 noinst_DATA = mlguestfs.cma mlguestfs.cmxa META
 
