@@ -51,6 +51,14 @@ and argt =
 
 type flags = ProtocolLimitWarning
 
+(* Note about long descriptions: When referring to another
+ * action, use the format C<guestfs_other> (ie. the full name of
+ * the C function).  This will be replaced as appropriate in other
+ * language bindings.
+ *
+ * Apart from that, long descriptions are just perldoc paragraphs.
+ *)
+
 let functions = [
   ("mount", (Err, P2 (String "device", String "mountpoint")), 1, [],
    "mount a guest disk at a position in the filesystem",
@@ -79,7 +87,7 @@ This syncs the disk, so that any writes are flushed through to the
 underlying disk image.
 
 You should always call this if you have modified a disk image, before
-calling C<guestfs_close>.");
+closing the handle.");
 
   ("touch", (Err, P1 (String "path")), 3, [],
    "update file timestamps or create a new file",
@@ -122,8 +130,7 @@ should probably use C<guestfs_readdir> instead.");
    "\
 List all the block devices.
 
-The full block device names are returned, eg. C</dev/sda>
-");
+The full block device names are returned, eg. C</dev/sda>");
 
   ("list_partitions", (RStringList "partitions", P0), 8, [],
    "list the partitions",
@@ -256,9 +263,13 @@ let lv_cols = [
 let sorted_functions =
   List.sort (fun (n1,_,_,_,_,_) (n2,_,_,_,_,_) -> compare n1 n2) functions
 
-(* Useful functions. *)
+(* Useful functions.
+ * Note we don't want to use any external OCaml libraries which
+ * makes this a bit harder than it should be.
+ *)
 let failwithf fs = ksprintf failwith fs
-let replace s c1 c2 =
+
+let replace_char s c1 c2 =
   let s2 = String.copy s in
   let r = ref false in
   for i = 0 to String.length s2 - 1 do
@@ -268,6 +279,36 @@ let replace s c1 c2 =
     )
   done;
   if not !r then s else s2
+
+let rec find s sub =
+  let len = String.length s in
+  let sublen = String.length sub in
+  let rec loop i =
+    if i <= len-sublen then (
+      let rec loop2 j =
+	if j < sublen then (
+	  if s.[i+j] = sub.[j] then loop2 (j+1)
+	  else -1
+	) else
+	  i (* found *)
+      in
+      let r = loop2 0 in
+      if r = -1 then loop (i+1) else r
+    ) else
+      -1 (* not found *)
+  in
+  loop 0
+
+let rec replace_str s s1 s2 =
+  let len = String.length s in
+  let sublen = String.length s1 in
+  let i = find s s1 in
+  if i = -1 then s
+  else (
+    let s' = String.sub s 0 i in
+    let s'' = String.sub s (i+sublen) (len-i-sublen) in
+    s' ^ s2 ^ replace_str s'' s1 s2
+  )
 
 (* 'pr' prints to the current output file. *)
 let chan = ref stdout
@@ -293,10 +334,12 @@ let nr_args = function | P0 -> 0 | P1 _ -> 1 | P2 _ -> 2
 (* Check function names etc. for consistency. *)
 let check_functions () =
   List.iter (
-    fun (name, _, _, _, _, _) ->
+    fun (name, _, _, _, _, longdesc) ->
       if String.contains name '-' then
 	failwithf "Function name '%s' should not contain '-', use '_' instead."
-	  name
+	  name;
+      if longdesc.[String.length longdesc-1] = '\n' then
+	failwithf "Long description of %s should not end with \\n." name
   ) functions;
 
   let proc_nrs =
@@ -1071,7 +1114,7 @@ and generate_fish_cmds () =
   pr "  list_builtin_commands ();\n";
   List.iter (
     fun (name, _, _, _, shortdesc, _) ->
-      let name = replace name '_' '-' in
+      let name = replace_char name '_' '-' in
       pr "  printf (\"%%-20s %%s\\n\", \"%s\", \"%s\");\n"
 	name shortdesc
   ) sorted_functions;
@@ -1084,7 +1127,8 @@ and generate_fish_cmds () =
   pr "{\n";
   List.iter (
     fun (name, style, _, flags, shortdesc, longdesc) ->
-      let name2 = replace name '_' '-' in
+      let name2 = replace_char name '_' '-' in
+      let longdesc = replace_str longdesc "C<guestfs_" "C<" in
       let synopsis =
 	match snd style with
 	| P0 -> name2
@@ -1232,7 +1276,7 @@ FTP."
   pr "{\n";
   List.iter (
     fun (name, _, _, _, _, _) ->
-      let name2 = replace name '_' '-' in
+      let name2 = replace_char name '_' '-' in
       pr "  if (";
       pr "strcasecmp (cmd, \"%s\") == 0" name;
       if name <> name2 then
@@ -1253,7 +1297,8 @@ FTP."
 and generate_fish_actions_pod () =
   List.iter (
     fun (name, style, _, _, _, longdesc) ->
-      let name = replace name '_' '-' in
+      let longdesc = replace_str longdesc "C<guestfs_" "C<" in
+      let name = replace_char name '_' '-' in
       pr "=head2 %s\n\n" name;
       pr " %s" name;
       iter_args (
@@ -1466,6 +1511,326 @@ and generate_ocaml_prototype ?(is_external = false) name style =
   if is_external then pr " = \"ocaml_guestfs_%s\"" name;
   pr "\n"
 
+(* Generate Perl xs code, a sort of crazy variation of C with macros. *)
+and generate_perl_xs () =
+  generate_header CStyle LGPLv2;
+
+  pr "\
+#include \"EXTERN.h\"
+#include \"perl.h\"
+#include \"XSUB.h\"
+
+#include <guestfs.h>
+
+#ifndef PRId64
+#define PRId64 \"lld\"
+#endif
+
+static SV *
+my_newSVll(long long val) {
+#ifdef USE_64_BIT_ALL
+  return newSViv(val);
+#else
+  char buf[100];
+  int len;
+  len = snprintf(buf, 100, \"%%\" PRId64, val);
+  return newSVpv(buf, len);
+#endif
+}
+
+#ifndef PRIu64
+#define PRIu64 \"llu\"
+#endif
+
+static SV *
+my_newSVull(unsigned long long val) {
+#ifdef USE_64_BIT_ALL
+  return newSVuv(val);
+#else
+  char buf[100];
+  int len;
+  len = snprintf(buf, 100, \"%%\" PRIu64, val);
+  return newSVpv(buf, len);
+#endif
+}
+
+/* XXX Not thread-safe, and in general not safe if the caller is
+ * issuing multiple requests in parallel (on different guestfs
+ * handles).  We should use the guestfs_h handle passed to the
+ * error handle to distinguish these cases.
+ */
+static char *last_error = NULL;
+
+static void
+error_handler (guestfs_h *g,
+	       void *data,
+	       const char *msg)
+{
+  if (last_error != NULL) free (last_error);
+  last_error = strdup (msg);
+}
+
+MODULE = Sys::Guestfs  PACKAGE = Sys::Guestfs
+
+guestfs_h *
+_create ()
+CODE:
+    RETVAL = guestfs_create ();
+    if (!RETVAL)
+      croak (\"could not create guestfs handle\");
+    guestfs_set_error_handler (RETVAL, error_handler, NULL);
+OUTPUT:
+    RETVAL
+
+void
+DESTROY (g)
+    guestfs_h *g;
+PPCODE:
+    guestfs_close (g);
+
+";
+
+  List.iter (
+    fun (name, style, _, _, _, _) ->
+      (match fst style with
+       | Err -> pr "void\n"
+       | RString _ -> pr "SV *\n"
+       | RStringList _
+       | RPVList _ | RVGList _ | RLVList _ ->
+	   pr "void\n" (* all lists returned implictly on the stack *)
+      );
+      (* Call and arguments. *)
+      pr "%s " name;
+      generate_call_args ~handle:"g" style;
+      pr "\n";
+      pr "      guestfs_h *g;\n";
+      iter_args (
+	function
+	| String n -> pr "      char *%s;\n" n
+      ) (snd style);
+      (* Code. *)
+      (match fst style with
+       | Err ->
+	   pr " PPCODE:\n";
+	   pr "      if (guestfs_%s " name;
+	   generate_call_args ~handle:"g" style;
+	   pr " == -1)\n";
+	   pr "        croak (\"%s: %%s\", last_error);\n" name
+       | RString n ->
+	   pr "PREINIT:\n";
+	   pr "      char *%s;\n" n;
+	   pr "   CODE:\n";
+	   pr "      %s = guestfs_%s " n name;
+	   generate_call_args ~handle:"g" style;
+	   pr ";\n";
+	   pr "      if (%s == NULL)\n" n;
+	   pr "        croak (\"%s: %%s\", last_error);\n" name;
+	   pr "      RETVAL = newSVpv (%s, 0);\n" n;
+	   pr "      free (%s);\n" n;
+	   pr " OUTPUT:\n";
+	   pr "      RETVAL\n"
+       | RStringList n ->
+	   pr "PREINIT:\n";
+	   pr "      char **%s;\n" n;
+	   pr "      int i, n;\n";
+	   pr " PPCODE:\n";
+	   pr "      %s = guestfs_%s " n name;
+	   generate_call_args ~handle:"g" style;
+	   pr ";\n";
+	   pr "      if (%s == NULL)\n" n;
+	   pr "        croak (\"%s: %%s\", last_error);\n" name;
+	   pr "      for (n = 0; %s[n] != NULL; ++n) /**/;\n" n;
+	   pr "      EXTEND (SP, n);\n";
+	   pr "      for (i = 0; i < n; ++i) {\n";
+	   pr "        PUSHs (sv_2mortal (newSVpv (%s[i], 0)));\n" n;
+	   pr "        free (%s[i]);\n" n;
+	   pr "      }\n";
+	   pr "      free (%s);\n" n;
+       | RPVList n ->
+	   generate_perl_lvm_code "pv" pv_cols name style n;
+       | RVGList n ->
+	   generate_perl_lvm_code "vg" vg_cols name style n;
+       | RLVList n ->
+	   generate_perl_lvm_code "lv" lv_cols name style n;
+      );
+      pr "\n"
+  ) functions
+
+and generate_perl_lvm_code typ cols name style n =
+  pr "PREINIT:\n";
+  pr "      struct guestfs_lvm_%s_list *%s;\n" typ n;
+  pr "      int i;\n";
+  pr "      HV *hv;\n";
+  pr " PPCODE:\n";
+  pr "      %s = guestfs_%s " n name;
+  generate_call_args ~handle:"g" style;
+  pr ";\n";
+  pr "      if (%s == NULL)\n" n;
+  pr "        croak (\"%s: %%s\", last_error);\n" name;
+  pr "      EXTEND (SP, %s->len);\n" n;
+  pr "      for (i = 0; i < %s->len; ++i) {\n" n;
+  pr "        hv = newHV ();\n";
+  List.iter (
+    function
+    | name, `String ->
+	pr "        (void) hv_store (hv, \"%s\", %d, newSVpv (%s->val[i].%s, 0), 0);\n"
+	  name (String.length name) n name
+    | name, `UUID ->
+	pr "        (void) hv_store (hv, \"%s\", %d, newSVpv (%s->val[i].%s, 32), 0);\n"
+	  name (String.length name) n name
+    | name, `Bytes ->
+	pr "        (void) hv_store (hv, \"%s\", %d, my_newSVull (%s->val[i].%s), 0);\n"
+	  name (String.length name) n name
+    | name, `Int ->
+	pr "        (void) hv_store (hv, \"%s\", %d, my_newSVll (%s->val[i].%s), 0);\n"
+	  name (String.length name) n name
+    | name, `OptPercent ->
+	pr "        (void) hv_store (hv, \"%s\", %d, newSVnv (%s->val[i].%s), 0);\n"
+	  name (String.length name) n name
+  ) cols;
+  pr "        PUSHs (sv_2mortal ((SV *) hv));\n";
+  pr "      }\n";
+  pr "      guestfs_free_lvm_%s_list (%s);\n" typ n
+
+(* Generate Sys/Guestfs.pm. *)
+and generate_perl_pm () =
+  generate_header HashStyle LGPLv2;
+
+  pr "\
+=pod
+
+=head1 NAME
+
+Sys::Guestfs - Perl bindings for libguestfs
+
+=head1 SYNOPSIS
+
+ use Sys::Guestfs;
+ 
+ my $h = Sys::Guestfs->new ();
+ $h->add_drive ('guest.img');
+ $h->launch ();
+ $h->wait_ready ();
+ $h->mount ('/dev/sda1', '/');
+ $h->touch ('/hello');
+ $h->sync ();
+
+=head1 DESCRIPTION
+
+The C<Sys::Guestfs> module provides a Perl XS binding to the
+libguestfs API for examining and modifying virtual machine
+disk images.
+
+Amongst the things this is good for: making batch configuration
+changes to guests, getting disk used/free statistics (see also:
+virt-df), migrating between virtualization systems (see also:
+virt-p2v), performing partial backups, performing partial guest
+clones, cloning guests and changing registry/UUID/hostname info, and
+much else besides.
+
+Libguestfs uses Linux kernel and qemu code, and can access any type of
+guest filesystem that Linux and qemu can, including but not limited
+to: ext2/3/4, btrfs, FAT and NTFS, LVM, many different disk partition
+schemes, qcow, qcow2, vmdk.
+
+Libguestfs provides ways to enumerate guest storage (eg. partitions,
+LVs, what filesystem is in each LV, etc.).  It can also run commands
+in the context of the guest.  Also you can access filesystems over FTP.
+
+=head1 ERRORS
+
+All errors turn into calls to C<croak> (see L<Carp(3)>).
+
+=head1 METHODS
+
+=over 4
+
+=cut
+
+package Sys::Guestfs;
+
+use strict;
+use warnings;
+
+require XSLoader;
+XSLoader::load ('Sys::Guestfs');
+
+=item $h = Sys::Guestfs->new ();
+
+Create a new guestfs handle.
+
+=cut
+
+sub new {
+  my $proto = shift;
+  my $class = ref ($proto) || $proto;
+
+  my $self = Sys::Guestfs::_create ();
+  bless $self, $class;
+  return $self;
+}
+
+";
+
+  (* Actions.  We only need to print documentation for these as
+   * they are pulled in from the XS code automatically.
+   *)
+  List.iter (
+    fun (name, style, _, flags, _, longdesc) ->
+      let longdesc = replace_str longdesc "C<guestfs_" "C<$h-E<gt>" in
+      pr "=item ";
+      generate_perl_prototype name style;
+      pr "\n\n";
+      pr "%s\n\n" longdesc;
+      if List.mem ProtocolLimitWarning flags then
+	pr "Because of the message protocol, there is a transfer limit 
+of somewhere between 2MB and 4MB.  To transfer large files you should use
+FTP.\n\n";
+  ) sorted_functions;
+
+  (* End of file. *)
+  pr "\
+=cut
+
+1;
+
+=back
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009 Red Hat Inc.
+
+=head1 LICENSE
+
+Please see the file COPYING.LIB for the full license.
+
+=head1 SEE ALSO
+
+L<guestfs(3)>, L<guestfish(1)>.
+
+=cut
+"
+
+and generate_perl_prototype name style =
+  (match fst style with
+   | Err -> ()
+   | RString n -> pr "$%s = " n
+   | RStringList n
+   | RPVList n
+   | RVGList n
+   | RLVList n -> pr "@%s = " n
+  );
+  pr "$h->%s (" name;
+  let comma = ref false in
+  iter_args (
+    fun arg ->
+      if !comma then pr ", ";
+      comma := true;
+      match arg with
+      | String n -> pr "%s" n
+  ) (snd style);
+  pr ");"
+
 let output_to filename =
   let filename_new = filename ^ ".new" in
   chan := open_out filename_new;
@@ -1531,4 +1896,12 @@ let () =
 
   let close = output_to "ocaml/guestfs_c_actions.c" in
   generate_ocaml_c ();
+  close ();
+
+  let close = output_to "perl/Guestfs.xs" in
+  generate_perl_xs ();
+  close ();
+
+  let close = output_to "perl/lib/Sys/Guestfs.pm" in
+  generate_perl_pm ();
   close ();

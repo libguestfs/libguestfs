@@ -124,7 +124,7 @@ AC_CONFIG_FILES([Makefile src/Makefile fish/Makefile examples/Makefile
 		 python/Makefile
 	         make-initramfs.sh update-initramfs.sh
 		 libguestfs.spec
-		 ocaml/META])
+		 ocaml/META perl/Makefile.PL])
 AC_OUTPUT
 
 dnl WTF?

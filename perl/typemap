@@ -1,0 +1,17 @@
+TYPEMAP
+char *		T_PV
+const char *	T_PV
+guestfs_h *	O_OBJECT_guestfs_h
+
+INPUT
+O_OBJECT_guestfs_h
+    if (sv_isobject ($arg) && SvTYPE (SvRV ($arg)) == SVt_PVMG)
+        $var = ($type) SvIV ((SV *) SvRV ($arg));
+    else {
+        warn (\"${Package}::$func_name(): $var is not a blessed SV reference\");
+	XSRETURN_UNDEF;
+    }
+
+OUTPUT
+O_OBJECT_guestfs_h
+    sv_setref_pv ($arg, "Sys::Guestfs", (void *) $var);

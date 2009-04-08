@@ -15,22 +15,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-EXTRA_DIST = \
-	Makefile.PL.in \
-	Guestfs.xs \
-	guestfs_perl.c \
-	typemap \
-	perl/lib/Sys/Guestfs.pm
+use ExtUtils::MakeMaker;
 
-if HAVE_PERL
+WriteMakefile (
+    FIRST_MAKEFILE => 'Makefile-pl',
 
-# Interfacing automake and ExtUtils::MakeMaker known to be
-# a nightmare, news at 11.
-all:
-	perl Makefile.PL
-	make -f Makefile-pl
+    NAME => 'Sys::Guestfs',
+    VERSION => '@PACKAGE_VERSION@',
 
-install-data-hook:
-	make -f Makefile-pl DESTDIR=$(DESTDIR) install
-
-endif
+    LIBS => '-L@abs_top_builddir@/src/.libs -lguestfs',
+    INC => '-Wall @CFLAGS@ -I@abs_top_builddir@/src',
+    );

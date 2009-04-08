@@ -50,6 +50,11 @@ ocaml/*.cma
 ocaml/*.cmxa
 ocaml/*.a
 ocaml/*.so
+perl/Guestfs.c
+perl/Makefile-pl
+perl/Makefile.PL
+perl/blib
+perl/pm_to_blib
 stamp-h1
 test*.img
 update-initramfs.sh
