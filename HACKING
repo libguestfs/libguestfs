@@ -65,8 +65,9 @@ Debugging
 
 It's a good idea to use guestfish to try out new commands.
 
-Use 'guestfish -v', which will show error messages etc from the
-daemon.
+Debugging the daemon is a problem because it runs inside a minimal
+qemu environment.  However you can print messages from the daemon, and
+they will show up if you use 'guestfish -v'.
 
 Patches
 ----------------------------------------------------------------------
