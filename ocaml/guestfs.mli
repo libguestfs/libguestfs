@@ -175,3 +175,39 @@ val lvs_full : t -> lvm_lv array
 val read_lines : t -> string -> string array
 (** read file as lines *)
 
+val aug_init : t -> string -> int -> unit
+(** create a new Augeas handle *)
+
+val aug_close : t -> unit
+(** close the current Augeas handle *)
+
+val aug_defvar : t -> string -> string option -> int
+(** define an Augeas variable *)
+
+val aug_defnode : t -> string -> string -> string -> int * bool
+(** define an Augeas node *)
+
+val aug_get : t -> string -> string
+(** look up the value of an Augeas path *)
+
+val aug_set : t -> string -> string -> unit
+(** set Augeas path to value *)
+
+val aug_insert : t -> string -> string -> bool -> unit
+(** insert a sibling Augeas node *)
+
+val aug_rm : t -> string -> int
+(** remove an Augeas path *)
+
+val aug_mv : t -> string -> string -> unit
+(** move Augeas node *)
+
+val aug_match : t -> string -> string array
+(** return Augeas nodes which match path *)
+
+val aug_save : t -> unit
+(** write all pending Augeas changes to disk *)
+
+val aug_load : t -> unit
+(** load files into the tree *)
+

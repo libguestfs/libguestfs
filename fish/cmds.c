@@ -33,6 +33,18 @@ void list_commands (void)
   list_builtin_commands ();
   printf ("%-20s %s\n", "add-cdrom", "add a CD-ROM disk image to examine");
   printf ("%-20s %s\n", "add-drive", "add an image to examine or modify");
+  printf ("%-20s %s\n", "aug-close", "close the current Augeas handle");
+  printf ("%-20s %s\n", "aug-defnode", "define an Augeas node");
+  printf ("%-20s %s\n", "aug-defvar", "define an Augeas variable");
+  printf ("%-20s %s\n", "aug-get", "look up the value of an Augeas path");
+  printf ("%-20s %s\n", "aug-init", "create a new Augeas handle");
+  printf ("%-20s %s\n", "aug-insert", "insert a sibling Augeas node");
+  printf ("%-20s %s\n", "aug-load", "load files into the tree");
+  printf ("%-20s %s\n", "aug-match", "return Augeas nodes which match path");
+  printf ("%-20s %s\n", "aug-mv", "move Augeas node");
+  printf ("%-20s %s\n", "aug-rm", "remove an Augeas path");
+  printf ("%-20s %s\n", "aug-save", "write all pending Augeas changes to disk");
+  printf ("%-20s %s\n", "aug-set", "set Augeas path to value");
   printf ("%-20s %s\n", "cat", "list the contents of a file");
   printf ("%-20s %s\n", "config", "add qemu parameters");
   printf ("%-20s %s\n", "get-autosync", "get autosync mode");
@@ -139,6 +151,42 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "read_lines") == 0 || strcasecmp (cmd, "read-lines") == 0)
     pod2text ("read-lines - read file as lines", " read-lines <path>\n\nReturn the contents of the file named C<path>.\n\nThe file contents are returned as a list of lines.  Trailing\nC<LF> and C<CRLF> character sequences are I<not> returned.\n\nNote that this function cannot correctly handle binary files\n(specifically, files containing C<\\0> character which is treated\nas end of line).  For those you need to use the C<read_file>\nfunction which has a more complex interface.");
+  else
+  if (strcasecmp (cmd, "aug_init") == 0 || strcasecmp (cmd, "aug-init") == 0)
+    pod2text ("aug-init - create a new Augeas handle", " aug-init <root> <flags>\n\nCreate a new Augeas handle for editing configuration files.\nIf there was any previous Augeas handle associated with this\nguestfs session, then it is closed.\n\nYou must call this before using any other C<aug_*>\ncommands.\n\nC<root> is the filesystem root.  C<root> must not be NULL,\nuse C</> instead.\n\nThe flags are the same as the flags defined in\nE<lt>augeas.hE<gt>, the logical I<or> of the following\nintegers:\n\n=over 4\n\n=item 1 C<AUG_SAVE_BACKUP>\n\nKeep the original file with a C<.augsave> extension.\n\n=item 2 C<AUG_SAVE_NEWFILE>\n\nSave changes into a file with extension C<.augnew>, and\ndo not overwrite original.  Overrides C<AUG_SAVE_BACKUP>.\n\n=item 4 C<AUG_TYPE_CHECK>\n\nTypecheck lenses (can be expensive).\n\n=item 8 C<AUG_NO_STDINC>\n\nDo not use standard load path for modules.\n\n=item 16 C<AUG_SAVE_NOOP>\n\nMake save a no-op, just record what would have been changed.\n\n=item 32 C<AUG_NO_LOAD>\n\nDo not load the tree in C<aug_init>.\n\n=back\n\nTo close the handle, you can call C<aug_close>.\n\nTo find out more about Augeas, see L<http://augeas.net/>.");
+  else
+  if (strcasecmp (cmd, "aug_close") == 0 || strcasecmp (cmd, "aug-close") == 0)
+    pod2text ("aug-close - close the current Augeas handle", " aug-close\n\nClose the current Augeas handle and free up any resources\nused by it.  After calling this, you have to call\nC<aug_init> again before you can use any other\nAugeas functions.");
+  else
+  if (strcasecmp (cmd, "aug_defvar") == 0 || strcasecmp (cmd, "aug-defvar") == 0)
+    pod2text ("aug-defvar - define an Augeas variable", " aug-defvar <name> <expr>\n\nDefines an Augeas variable C<name> whose value is the result\nof evaluating C<expr>.  If C<expr> is NULL, then C<name> is\nundefined.\n\nOn success this returns the number of nodes in C<expr>, or\nC<0> if C<expr> evaluates to something which is not a nodeset.");
+  else
+  if (strcasecmp (cmd, "aug_defnode") == 0 || strcasecmp (cmd, "aug-defnode") == 0)
+    pod2text ("aug-defnode - define an Augeas node", " aug-defnode <name> <expr> <val>\n\nDefines a variable C<name> whose value is the result of\nevaluating C<expr>.\n\nIf C<expr> evaluates to an empty nodeset, a node is created,\nequivalent to calling C<aug_set> C<expr>, C<value>.\nC<name> will be the nodeset containing that single node.\n\nOn success this returns a pair containing the\nnumber of nodes in the nodeset, and a boolean flag\nif a node was created.");
+  else
+  if (strcasecmp (cmd, "aug_get") == 0 || strcasecmp (cmd, "aug-get") == 0)
+    pod2text ("aug-get - look up the value of an Augeas path", " aug-get <path>\n\nLook up the value associated with C<path>.  If C<path>\nmatches exactly one node, the C<value> is returned.");
+  else
+  if (strcasecmp (cmd, "aug_set") == 0 || strcasecmp (cmd, "aug-set") == 0)
+    pod2text ("aug-set - set Augeas path to value", " aug-set <path> <val>\n\nSet the value associated with C<path> to C<value>.");
+  else
+  if (strcasecmp (cmd, "aug_insert") == 0 || strcasecmp (cmd, "aug-insert") == 0)
+    pod2text ("aug-insert - insert a sibling Augeas node", " aug-insert <path> <label> <before>\n\nCreate a new sibling C<label> for C<path>, inserting it into\nthe tree before or after C<path> (depending on the boolean\nflag C<before>).\n\nC<path> must match exactly one existing node in the tree, and\nC<label> must be a label, ie. not contain C</>, C<*> or end\nwith a bracketed index C<[N]>.");
+  else
+  if (strcasecmp (cmd, "aug_rm") == 0 || strcasecmp (cmd, "aug-rm") == 0)
+    pod2text ("aug-rm - remove an Augeas path", " aug-rm <path>\n\nRemove C<path> and all of its children.\n\nOn success this returns the number of entries which were removed.");
+  else
+  if (strcasecmp (cmd, "aug_mv") == 0 || strcasecmp (cmd, "aug-mv") == 0)
+    pod2text ("aug-mv - move Augeas node", " aug-mv <src> <dest>\n\nMove the node C<src> to C<dest>.  C<src> must match exactly\none node.  C<dest> is overwritten if it exists.");
+  else
+  if (strcasecmp (cmd, "aug_match") == 0 || strcasecmp (cmd, "aug-match") == 0)
+    pod2text ("aug-match - return Augeas nodes which match path", " aug-match <path>\n\nReturns a list of paths which match the path expression C<path>.\nThe returned paths are sufficiently qualified so that they match\nexactly one node in the current tree.");
+  else
+  if (strcasecmp (cmd, "aug_save") == 0 || strcasecmp (cmd, "aug-save") == 0)
+    pod2text ("aug-save - write all pending Augeas changes to disk", " aug-save\n\nThis writes all pending changes to disk.\n\nThe flags which were passed to C<aug_init> affect exactly\nhow files are saved.");
+  else
+  if (strcasecmp (cmd, "aug_load") == 0 || strcasecmp (cmd, "aug-load") == 0)
+    pod2text ("aug-load - load files into the tree", " aug-load\n\nLoad files into the tree.\n\nSee C<aug_load> in the Augeas documentation for the full gory\ndetails.");
   else
     display_builtin_command (cmd);
 }
@@ -627,6 +675,198 @@ static int run_read_lines (const char *cmd, int argc, char *argv[])
   return 0;
 }
 
+static int run_aug_init (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *root;
+  int flags;
+  if (argc != 2) {
+    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  root = argv[0];
+  flags = atoi (argv[1]);
+  r = guestfs_aug_init (g, root, flags);
+  return r;
+}
+
+static int run_aug_close (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  if (argc != 0) {
+    fprintf (stderr, "%s should have 0 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  r = guestfs_aug_close (g);
+  return r;
+}
+
+static int run_aug_defvar (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *name;
+  const char *expr;
+  if (argc != 2) {
+    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  name = argv[0];
+  expr = strcmp (argv[1], "") != 0 ? argv[1] : NULL;
+  r = guestfs_aug_defvar (g, name, expr);
+  if (r == -1) return -1;
+  if (r) printf ("%d\n", r);
+  return 0;
+}
+
+static int run_aug_defnode (const char *cmd, int argc, char *argv[])
+{
+  struct guestfs_int_bool *r;
+  const char *name;
+  const char *expr;
+  const char *val;
+  if (argc != 3) {
+    fprintf (stderr, "%s should have 3 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  name = argv[0];
+  expr = argv[1];
+  val = argv[2];
+  r = guestfs_aug_defnode (g, name, expr, val);
+  if (r == NULL) return -1;
+  printf ("%d, %s\n", r->i,
+    r->b ? "true" : "false");
+  guestfs_free_int_bool (r);
+  return 0;
+}
+
+static int run_aug_get (const char *cmd, int argc, char *argv[])
+{
+  char *r;
+  const char *path;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  path = argv[0];
+  r = guestfs_aug_get (g, path);
+  if (r == NULL) return -1;
+  printf ("%s\n", r);
+  free (r);
+  return 0;
+}
+
+static int run_aug_set (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *path;
+  const char *val;
+  if (argc != 2) {
+    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  path = argv[0];
+  val = argv[1];
+  r = guestfs_aug_set (g, path, val);
+  return r;
+}
+
+static int run_aug_insert (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *path;
+  const char *label;
+  int before;
+  if (argc != 3) {
+    fprintf (stderr, "%s should have 3 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  path = argv[0];
+  label = argv[1];
+  before = is_true (argv[2]) ? 1 : 0;
+  r = guestfs_aug_insert (g, path, label, before);
+  return r;
+}
+
+static int run_aug_rm (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *path;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  path = argv[0];
+  r = guestfs_aug_rm (g, path);
+  if (r == -1) return -1;
+  if (r) printf ("%d\n", r);
+  return 0;
+}
+
+static int run_aug_mv (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *src;
+  const char *dest;
+  if (argc != 2) {
+    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  src = argv[0];
+  dest = argv[1];
+  r = guestfs_aug_mv (g, src, dest);
+  return r;
+}
+
+static int run_aug_match (const char *cmd, int argc, char *argv[])
+{
+  char **r;
+  const char *path;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  path = argv[0];
+  r = guestfs_aug_match (g, path);
+  if (r == NULL) return -1;
+  print_strings (r);
+  free_strings (r);
+  return 0;
+}
+
+static int run_aug_save (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  if (argc != 0) {
+    fprintf (stderr, "%s should have 0 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  r = guestfs_aug_save (g);
+  return r;
+}
+
+static int run_aug_load (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  if (argc != 0) {
+    fprintf (stderr, "%s should have 0 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  r = guestfs_aug_load (g);
+  return r;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -706,6 +946,42 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "read_lines") == 0 || strcasecmp (cmd, "read-lines") == 0)
     return run_read_lines (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "aug_init") == 0 || strcasecmp (cmd, "aug-init") == 0)
+    return run_aug_init (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "aug_close") == 0 || strcasecmp (cmd, "aug-close") == 0)
+    return run_aug_close (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "aug_defvar") == 0 || strcasecmp (cmd, "aug-defvar") == 0)
+    return run_aug_defvar (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "aug_defnode") == 0 || strcasecmp (cmd, "aug-defnode") == 0)
+    return run_aug_defnode (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "aug_get") == 0 || strcasecmp (cmd, "aug-get") == 0)
+    return run_aug_get (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "aug_set") == 0 || strcasecmp (cmd, "aug-set") == 0)
+    return run_aug_set (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "aug_insert") == 0 || strcasecmp (cmd, "aug-insert") == 0)
+    return run_aug_insert (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "aug_rm") == 0 || strcasecmp (cmd, "aug-rm") == 0)
+    return run_aug_rm (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "aug_mv") == 0 || strcasecmp (cmd, "aug-mv") == 0)
+    return run_aug_mv (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "aug_match") == 0 || strcasecmp (cmd, "aug-match") == 0)
+    return run_aug_match (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "aug_save") == 0 || strcasecmp (cmd, "aug-save") == 0)
+    return run_aug_save (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "aug_load") == 0 || strcasecmp (cmd, "aug-load") == 0)
+    return run_aug_load (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

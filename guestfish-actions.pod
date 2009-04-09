@@ -23,6 +23,158 @@ image).
 
 This is equivalent to the qemu parameter C<-drive file=filename>.
 
+=head2 aug-close
+
+ aug-close
+
+Close the current Augeas handle and free up any resources
+used by it.  After calling this, you have to call
+C<aug_init> again before you can use any other
+Augeas functions.
+
+=head2 aug-defnode
+
+ aug-defnode name expr val
+
+Defines a variable C<name> whose value is the result of
+evaluating C<expr>.
+
+If C<expr> evaluates to an empty nodeset, a node is created,
+equivalent to calling C<aug_set> C<expr>, C<value>.
+C<name> will be the nodeset containing that single node.
+
+On success this returns a pair containing the
+number of nodes in the nodeset, and a boolean flag
+if a node was created.
+
+=head2 aug-defvar
+
+ aug-defvar name expr
+
+Defines an Augeas variable C<name> whose value is the result
+of evaluating C<expr>.  If C<expr> is NULL, then C<name> is
+undefined.
+
+On success this returns the number of nodes in C<expr>, or
+C<0> if C<expr> evaluates to something which is not a nodeset.
+
+=head2 aug-get
+
+ aug-get path
+
+Look up the value associated with C<path>.  If C<path>
+matches exactly one node, the C<value> is returned.
+
+=head2 aug-init
+
+ aug-init root flags
+
+Create a new Augeas handle for editing configuration files.
+If there was any previous Augeas handle associated with this
+guestfs session, then it is closed.
+
+You must call this before using any other C<aug_*>
+commands.
+
+C<root> is the filesystem root.  C<root> must not be NULL,
+use C</> instead.
+
+The flags are the same as the flags defined in
+E<lt>augeas.hE<gt>, the logical I<or> of the following
+integers:
+
+=over 4
+
+=item 1 C<AUG_SAVE_BACKUP>
+
+Keep the original file with a C<.augsave> extension.
+
+=item 2 C<AUG_SAVE_NEWFILE>
+
+Save changes into a file with extension C<.augnew>, and
+do not overwrite original.  Overrides C<AUG_SAVE_BACKUP>.
+
+=item 4 C<AUG_TYPE_CHECK>
+
+Typecheck lenses (can be expensive).
+
+=item 8 C<AUG_NO_STDINC>
+
+Do not use standard load path for modules.
+
+=item 16 C<AUG_SAVE_NOOP>
+
+Make save a no-op, just record what would have been changed.
+
+=item 32 C<AUG_NO_LOAD>
+
+Do not load the tree in C<aug_init>.
+
+=back
+
+To close the handle, you can call C<aug_close>.
+
+To find out more about Augeas, see L<http://augeas.net/>.
+
+=head2 aug-insert
+
+ aug-insert path label true|false
+
+Create a new sibling C<label> for C<path>, inserting it into
+the tree before or after C<path> (depending on the boolean
+flag C<before>).
+
+C<path> must match exactly one existing node in the tree, and
+C<label> must be a label, ie. not contain C</>, C<*> or end
+with a bracketed index C<[N]>.
+
+=head2 aug-load
+
+ aug-load
+
+Load files into the tree.
+
+See C<aug_load> in the Augeas documentation for the full gory
+details.
+
+=head2 aug-match
+
+ aug-match path
+
+Returns a list of paths which match the path expression C<path>.
+The returned paths are sufficiently qualified so that they match
+exactly one node in the current tree.
+
+=head2 aug-mv
+
+ aug-mv src dest
+
+Move the node C<src> to C<dest>.  C<src> must match exactly
+one node.  C<dest> is overwritten if it exists.
+
+=head2 aug-rm
+
+ aug-rm path
+
+Remove C<path> and all of its children.
+
+On success this returns the number of entries which were removed.
+
+=head2 aug-save
+
+ aug-save
+
+This writes all pending changes to disk.
+
+The flags which were passed to C<aug_init> affect exactly
+how files are saved.
+
+=head2 aug-set
+
+ aug-set path val
+
+Set the value associated with C<path> to C<value>.
+
 =head2 cat
 
  cat path

@@ -20,6 +20,7 @@ ACLOCAL_AMFLAGS = -I m4
 noinst_PROGRAMS = guestfsd
 guestfsd_SOURCES = \
 	actions.h \
+	augeas.c \
 	daemon.h \
 	devsparts.c \
 	file.c \

@@ -22,17 +22,29 @@
 #include "../src/guestfs_protocol.h"
 
 extern int do_mount (const char *device, const char *mountpoint);
-extern int do_sync ();
+extern int do_sync (void);
 extern int do_touch (const char *path);
 extern char *do_cat (const char *path);
 extern char *do_ll (const char *directory);
 extern char **do_ls (const char *directory);
-extern char **do_list_devices ();
-extern char **do_list_partitions ();
-extern char **do_pvs ();
-extern char **do_vgs ();
-extern char **do_lvs ();
-extern guestfs_lvm_int_pv_list *do_pvs_full ();
-extern guestfs_lvm_int_vg_list *do_vgs_full ();
-extern guestfs_lvm_int_lv_list *do_lvs_full ();
+extern char **do_list_devices (void);
+extern char **do_list_partitions (void);
+extern char **do_pvs (void);
+extern char **do_vgs (void);
+extern char **do_lvs (void);
+extern guestfs_lvm_int_pv_list *do_pvs_full (void);
+extern guestfs_lvm_int_vg_list *do_vgs_full (void);
+extern guestfs_lvm_int_lv_list *do_lvs_full (void);
 extern char **do_read_lines (const char *path);
+extern int do_aug_init (const char *root, int flags);
+extern int do_aug_close (void);
+extern int do_aug_defvar (const char *name, const char *expr);
+extern guestfs_aug_defnode_ret *do_aug_defnode (const char *name, const char *expr, const char *val);
+extern char *do_aug_get (const char *path);
+extern int do_aug_set (const char *path, const char *val);
+extern int do_aug_insert (const char *path, const char *label, int before);
+extern int do_aug_rm (const char *path);
+extern int do_aug_mv (const char *src, const char *dest);
+extern char **do_aug_match (const char *path);
+extern int do_aug_save (void);
+extern int do_aug_load (void);

@@ -32,17 +32,25 @@ and ret =
      * indication, ie. 0 or -1.
      *)
   | Err
+    (* "Int" as a return value means an int which is -1 for error
+     * or any value >= 0 on success.
+     *)
+  | RInt of string
     (* "RBool" is a bool return value which can be true/false or
      * -1 for error.
      *)
   | RBool of string
     (* "RConstString" is a string that refers to a constant value.
-     * Try to avoid using this.
+     * Try to avoid using this.  In particular you cannot use this
+     * for values returned from the daemon, because there is no
+     * thread-safe way to return them in the C API.
      *)
   | RConstString of string
     (* "RString" and "RStringList" are caller-frees. *)
   | RString of string
   | RStringList of string
+    (* Some limited tuples are possible: *)
+  | RIntBool of string * string
     (* LVM PVs, VGs and LVs. *)
   | RPVList of string
   | RVGList of string
@@ -52,10 +60,12 @@ and args =
   | P0
   | P1 of argt
   | P2 of argt * argt
+  | P3 of argt * argt * argt
 and argt =
   | String of string	(* const char *name, cannot be NULL *)
   | OptString of string	(* const char *name, may be NULL *)
   | Bool of string	(* boolean *)
+  | Int of string	(* int (smallish ints, signed, <= 31 bits) *)
 
 type flags =
   | ProtocolLimitWarning  (* display warning about protocol size limits *)
@@ -323,6 +333,146 @@ Note that this function cannot correctly handle binary files
 (specifically, files containing C<\\0> character which is treated
 as end of line).  For those you need to use the C<guestfs_read_file>
 function which has a more complex interface.");
+
+  ("aug_init", (Err, P2 (String "root", Int "flags")), 16, [],
+   "create a new Augeas handle",
+   "\
+Create a new Augeas handle for editing configuration files.
+If there was any previous Augeas handle associated with this
+guestfs session, then it is closed.
+
+You must call this before using any other C<guestfs_aug_*>
+commands.
+
+C<root> is the filesystem root.  C<root> must not be NULL,
+use C</> instead.
+
+The flags are the same as the flags defined in
+E<lt>augeas.hE<gt>, the logical I<or> of the following
+integers:
+
+=over 4
+
+=item 1 C<AUG_SAVE_BACKUP>
+
+Keep the original file with a C<.augsave> extension.
+
+=item 2 C<AUG_SAVE_NEWFILE>
+
+Save changes into a file with extension C<.augnew>, and
+do not overwrite original.  Overrides C<AUG_SAVE_BACKUP>.
+
+=item 4 C<AUG_TYPE_CHECK>
+
+Typecheck lenses (can be expensive).
+
+=item 8 C<AUG_NO_STDINC>
+
+Do not use standard load path for modules.
+
+=item 16 C<AUG_SAVE_NOOP>
+
+Make save a no-op, just record what would have been changed.
+
+=item 32 C<AUG_NO_LOAD>
+
+Do not load the tree in C<guestfs_aug_init>.
+
+=back
+
+To close the handle, you can call C<guestfs_aug_close>.
+
+To find out more about Augeas, see L<http://augeas.net/>.");
+
+  ("aug_close", (Err, P0), 26, [],
+   "close the current Augeas handle",
+   "\
+Close the current Augeas handle and free up any resources
+used by it.  After calling this, you have to call
+C<guestfs_aug_init> again before you can use any other
+Augeas functions.");
+
+  ("aug_defvar", (RInt "nrnodes", P2 (String "name", OptString "expr")), 17, [],
+   "define an Augeas variable",
+   "\
+Defines an Augeas variable C<name> whose value is the result
+of evaluating C<expr>.  If C<expr> is NULL, then C<name> is
+undefined.
+
+On success this returns the number of nodes in C<expr>, or
+C<0> if C<expr> evaluates to something which is not a nodeset.");
+
+  ("aug_defnode", (RIntBool ("nrnodes", "created"), P3 (String "name", String "expr", String "val")), 18, [],
+   "define an Augeas node",
+   "\
+Defines a variable C<name> whose value is the result of
+evaluating C<expr>.
+
+If C<expr> evaluates to an empty nodeset, a node is created,
+equivalent to calling C<guestfs_aug_set> C<expr>, C<value>.
+C<name> will be the nodeset containing that single node.
+
+On success this returns a pair containing the
+number of nodes in the nodeset, and a boolean flag
+if a node was created.");
+
+  ("aug_get", (RString "val", P1 (String "path")), 19, [],
+   "look up the value of an Augeas path",
+   "\
+Look up the value associated with C<path>.  If C<path>
+matches exactly one node, the C<value> is returned.");
+
+  ("aug_set", (Err, P2 (String "path", String "val")), 20, [],
+   "set Augeas path to value",
+   "\
+Set the value associated with C<path> to C<value>.");
+
+  ("aug_insert", (Err, P3 (String "path", String "label", Bool "before")), 21, [],
+   "insert a sibling Augeas node",
+   "\
+Create a new sibling C<label> for C<path>, inserting it into
+the tree before or after C<path> (depending on the boolean
+flag C<before>).
+
+C<path> must match exactly one existing node in the tree, and
+C<label> must be a label, ie. not contain C</>, C<*> or end
+with a bracketed index C<[N]>.");
+
+  ("aug_rm", (RInt "nrnodes", P1 (String "path")), 22, [],
+   "remove an Augeas path",
+   "\
+Remove C<path> and all of its children.
+
+On success this returns the number of entries which were removed.");
+
+  ("aug_mv", (Err, P2 (String "src", String "dest")), 23, [],
+   "move Augeas node",
+   "\
+Move the node C<src> to C<dest>.  C<src> must match exactly
+one node.  C<dest> is overwritten if it exists.");
+
+  ("aug_match", (RStringList "matches", P1 (String "path")), 24, [],
+   "return Augeas nodes which match path",
+   "\
+Returns a list of paths which match the path expression C<path>.
+The returned paths are sufficiently qualified so that they match
+exactly one node in the current tree.");
+
+  ("aug_save", (Err, P0), 25, [],
+   "write all pending Augeas changes to disk",
+   "\
+This writes all pending changes to disk.
+
+The flags which were passed to C<guestfs_aug_init> affect exactly
+how files are saved.");
+
+  ("aug_load", (Err, P0), 27, [],
+   "load files into the tree",
+   "\
+Load files into the tree.
+
+See C<aug_load> in the Augeas documentation for the full gory
+details.");
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
@@ -465,18 +615,25 @@ let iter_args f = function
   | P0 -> ()
   | P1 arg1 -> f arg1
   | P2 (arg1, arg2) -> f arg1; f arg2
+  | P3 (arg1, arg2, arg3) -> f arg1; f arg2; f arg3
 
 let iteri_args f = function
   | P0 -> ()
   | P1 arg1 -> f 0 arg1
   | P2 (arg1, arg2) -> f 0 arg1; f 1 arg2
+  | P3 (arg1, arg2, arg3) -> f 0 arg1; f 1 arg2; f 2 arg3
 
 let map_args f = function
   | P0 -> []
   | P1 arg1 -> [f arg1]
-  | P2 (arg1, arg2) -> [f arg1; f arg2]
+  | P2 (arg1, arg2) ->
+      let n1 = f arg1 in let n2 = f arg2 in [n1; n2]
+  | P3 (arg1, arg2, arg3) ->
+      let n1 = f arg1 in let n2 = f arg2 in let n3 = f arg3 in [n1; n2; n3]
 
-let nr_args = function | P0 -> 0 | P1 _ -> 1 | P2 _ -> 2
+let nr_args = function | P0 -> 0 | P1 _ -> 1 | P2 _ -> 2 | P3 _ -> 3
+
+let name_of_argt = function String n | OptString n | Bool n | Int n -> n
 
 (* Check function names etc. for consistency. *)
 let check_functions () =
@@ -583,6 +740,8 @@ and generate_actions_pod () =
       (match fst style with
        | Err ->
 	   pr "This function returns 0 on success or -1 on error.\n\n"
+       | RInt _ ->
+	   pr "On error this function returns -1.\n\n"
        | RBool _ ->
 	   pr "This function returns a C truth value on success or -1 on error.\n\n"
        | RConstString _ ->
@@ -595,14 +754,17 @@ I<The caller must free the returned string after use>.\n\n"
 	   pr "This function returns a NULL-terminated array of strings
 (like L<environ(3)>), or NULL if there was an error.
 I<The caller must free the strings and the array after use>.\n\n"
+       | RIntBool _ ->
+	   pr "This function returns a C<struct guestfs_int_bool *>.
+I<The caller must call C<guestfs_free_int_bool> after use.>.\n\n"
        | RPVList _ ->
-	   pr "This function returns a C<struct guestfs_lvm_pv_list>.
+	   pr "This function returns a C<struct guestfs_lvm_pv_list *>.
 I<The caller must call C<guestfs_free_lvm_pv_list> after use.>.\n\n"
        | RVGList _ ->
-	   pr "This function returns a C<struct guestfs_lvm_vg_list>.
+	   pr "This function returns a C<struct guestfs_lvm_vg_list *>.
 I<The caller must call C<guestfs_free_lvm_vg_list> after use.>.\n\n"
        | RLVList _ ->
-	   pr "This function returns a C<struct guestfs_lvm_lv_list>.
+	   pr "This function returns a C<struct guestfs_lvm_lv_list *>.
 I<The caller must call C<guestfs_free_lvm_lv_list> after use.>.\n\n"
       );
       if List.mem ProtocolLimitWarning flags then
@@ -676,21 +838,26 @@ and generate_xdr () =
   List.iter (
     fun(shortname, style, _, _, _, _) ->
       let name = "guestfs_" ^ shortname in
-      pr "/* %s */\n\n" name;
+
       (match snd style with
        | P0 -> ()
        | args ->
 	   pr "struct %s_args {\n" name;
 	   iter_args (
 	     function
-	     | String name -> pr "  string %s<>;\n" name
-	     | OptString name -> pr "  string *%s<>;\n" name
-	     | Bool name -> pr "  bool %s;\n" name
+	     | String n -> pr "  string %s<>;\n" n
+	     | OptString n -> pr "  str *%s;\n" n
+	     | Bool n -> pr "  bool %s;\n" n
+	     | Int n -> pr "  int %s;\n" n
 	   ) args;
 	   pr "};\n\n"
       );
       (match fst style with
        | Err -> ()
+       | RInt n ->
+	   pr "struct %s_ret {\n" name;
+	   pr "  int %s;\n" n;
+	   pr "};\n\n"
        | RBool n ->
 	   pr "struct %s_ret {\n" name;
 	   pr "  bool %s;\n" n;
@@ -704,6 +871,11 @@ and generate_xdr () =
        | RStringList n ->
 	   pr "struct %s_ret {\n" name;
 	   pr "  str %s<>;\n" n;
+	   pr "};\n\n"
+       | RIntBool (n,m) ->
+	   pr "struct %s_ret {\n" name;
+	   pr "  int %s;\n" n;
+	   pr "  bool %s;\n" m;
 	   pr "};\n\n"
        | RPVList n ->
 	   pr "struct %s_ret {\n" name;
@@ -788,6 +960,13 @@ and generate_structs_h () =
    * must be identical to what rpcgen / the RFC defines.
    *)
 
+  (* guestfs_int_bool structure. *)
+  pr "struct guestfs_int_bool {\n";
+  pr "  int32_t i;\n";
+  pr "  int32_t b;\n";
+  pr "};\n";
+  pr "\n";
+
   (* LVM public structures. *)
   List.iter (
     function
@@ -838,7 +1017,9 @@ and generate_client_actions () =
        | Err -> ()
        | RConstString _ ->
 	   failwithf "RConstString cannot be returned from a daemon function"
+       | RInt _
        | RBool _ | RString _ | RStringList _
+       | RIntBool _
        | RPVList _ | RVGList _ | RLVList _ ->
 	   pr "  struct %s_ret ret;\n" name
       );
@@ -865,7 +1046,9 @@ and generate_client_actions () =
        | Err -> ()
        | RConstString _ ->
 	   failwithf "RConstString cannot be returned from a daemon function"
+       | RInt _
        | RBool _ | RString _ | RStringList _
+       | RIntBool _
        | RPVList _ | RVGList _ | RLVList _ ->
 	    pr "  if (!xdr_%s_ret (xdr, &rv->ret)) {\n" name;
 	    pr "    error (g, \"%s: failed to parse reply\");\n" name;
@@ -884,10 +1067,11 @@ and generate_client_actions () =
 
       let error_code =
 	match fst style with
-	| Err | RBool _ -> "-1"
+	| Err | RInt _ | RBool _ -> "-1"
 	| RConstString _ ->
 	    failwithf "RConstString cannot be returned from a daemon function"
-	| RString _ | RStringList _ | RPVList _ | RVGList _ | RLVList _ ->
+	| RString _ | RStringList _ | RIntBool _
+	| RPVList _ | RVGList _ | RLVList _ ->
 	    "NULL" in
 
       pr "{\n";
@@ -917,12 +1101,14 @@ and generate_client_actions () =
        | args ->
 	   iter_args (
 	     function
-	     | String name ->
-		 pr "  args.%s = (char *) %s;\n" name name
-	     | OptString name ->
-		 pr "  args.%s = %s ? *%s : NULL;\n" name name name
-	     | Bool name ->
-		 pr "  args.%s = %s;\n" name name
+	     | String n ->
+		 pr "  args.%s = (char *) %s;\n" n n
+	     | OptString n ->
+		 pr "  args.%s = %s ? (char **) &%s : NULL;\n" n n n
+	     | Bool n ->
+		 pr "  args.%s = %s;\n" n n
+	     | Int n ->
+		 pr "  args.%s = %s;\n" n n
 	   ) args;
 	   pr "  serial = dispatch (g, GUESTFS_PROC_%s,\n"
 	     (String.uppercase shortname);
@@ -958,6 +1144,7 @@ and generate_client_actions () =
 
       (match fst style with
        | Err -> pr "  return 0;\n"
+       | RInt n
        | RBool n -> pr "  return rv.ret.%s;\n" n
        | RConstString _ ->
 	   failwithf "RConstString cannot be returned from a daemon function"
@@ -971,6 +1158,9 @@ and generate_client_actions () =
 	     n n;
 	   pr "  rv.ret.%s.%s_val[rv.ret.%s.%s_len] = NULL;\n" n n n n;
 	   pr "  return rv.ret.%s.%s_val;\n" n n
+       | RIntBool _ ->
+	   pr "  /* caller with free this */\n";
+	   pr "  return safe_memdup (g, &rv.ret, sizeof (rv.ret));\n"
        | RPVList n ->
 	   pr "  /* caller will free this */\n";
 	   pr "  return safe_memdup (g, &rv.ret.%s, sizeof (rv.ret.%s));\n" n n
@@ -995,7 +1185,8 @@ and generate_daemon_actions_h () =
   List.iter (
     fun (name, style, _, _, _, _) ->
 	generate_prototype
-	  ~single_line:true ~newline:true ~in_daemon:true ("do_" ^ name) style;
+	  ~single_line:true ~newline:true ~in_daemon:true ~prefix:"do_"
+	  name style;
   ) daemon_functions
 
 (* Generate the server-side stubs. *)
@@ -1024,12 +1215,13 @@ and generate_daemon_actions () =
       pr "{\n";
       let error_code =
 	match fst style with
-	| Err -> pr "  int r;\n"; "-1"
+	| Err | RInt _ -> pr "  int r;\n"; "-1"
 	| RBool _ -> pr "  int r;\n"; "-1"
 	| RConstString _ ->
 	    failwithf "RConstString cannot be returned from a daemon function"
 	| RString _ -> pr "  char *r;\n"; "NULL"
 	| RStringList _ -> pr "  char **r;\n"; "NULL"
+	| RIntBool _ -> pr "  guestfs_%s_ret *r;\n" name; "NULL"
 	| RPVList _ -> pr "  guestfs_lvm_int_pv_list *r;\n"; "NULL"
 	| RVGList _ -> pr "  guestfs_lvm_int_vg_list *r;\n"; "NULL"
 	| RLVList _ -> pr "  guestfs_lvm_int_lv_list *r;\n"; "NULL" in
@@ -1040,9 +1232,10 @@ and generate_daemon_actions () =
 	   pr "  struct guestfs_%s_args args;\n" name;
 	   iter_args (
 	     function
-	     | String name
-	     | OptString name -> pr "  const char *%s;\n" name
-	     | Bool name -> pr "  int %s;\n" name
+	     | String n
+	     | OptString n -> pr "  const char *%s;\n" n
+	     | Bool n -> pr "  int %s;\n" n
+	     | Int n -> pr "  int %s;\n" n
 	   ) args
       );
       pr "\n";
@@ -1053,14 +1246,15 @@ and generate_daemon_actions () =
 	   pr "  memset (&args, 0, sizeof args);\n";
 	   pr "\n";
 	   pr "  if (!xdr_guestfs_%s_args (xdr_in, &args)) {\n" name;
-	   pr "    reply_with_error (\"%s: daemon failed to decode procedure arguments\");\n" name;
+	   pr "    reply_with_error (\"%%s: daemon failed to decode procedure arguments\", \"%s\");\n" name;
 	   pr "    return;\n";
 	   pr "  }\n";
 	   iter_args (
 	     function
-	     | String name -> pr "  %s = args.%s;\n" name name
-	     | OptString name -> pr "  %s = args.%s;\n" name name (* XXX? *)
-	     | Bool name -> pr "  %s = args.%s;\n" name name
+	     | String n -> pr "  %s = args.%s;\n" n n
+	     | OptString n -> pr "  %s = args.%s ? *args.%s : NULL;\n" n n n
+	     | Bool n -> pr "  %s = args.%s;\n" n n
+	     | Int n -> pr "  %s = args.%s;\n" n n
 	   ) args;
 	   pr "\n"
       );
@@ -1076,6 +1270,10 @@ and generate_daemon_actions () =
 
       (match fst style with
        | Err -> pr "  reply (NULL, NULL);\n"
+       | RInt n ->
+	   pr "  struct guestfs_%s_ret ret;\n" name;
+	   pr "  ret.%s = r;\n" n;
+	   pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n" name
        | RBool n ->
 	   pr "  struct guestfs_%s_ret ret;\n" name;
 	   pr "  ret.%s = r;\n" n;
@@ -1093,20 +1291,23 @@ and generate_daemon_actions () =
 	   pr "  ret.%s.%s_val = r;\n" n n;
 	   pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n" name;
 	   pr "  free_strings (r);\n"
+       | RIntBool _ ->
+	   pr "  reply ((xdrproc_t) xdr_guestfs_%s_ret, (char *) r);\n" name;
+	   pr "  xdr_free ((xdrproc_t) xdr_guestfs_%s_ret, (char *) r);\n" name
        | RPVList n ->
 	   pr "  struct guestfs_%s_ret ret;\n" name;
 	   pr "  ret.%s = *r;\n" n;
-	   pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n" name;
+	   pr "  reply ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n" name;
 	   pr "  xdr_free ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n" name
        | RVGList n ->
 	   pr "  struct guestfs_%s_ret ret;\n" name;
 	   pr "  ret.%s = *r;\n" n;
-	   pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n" name;
+	   pr "  reply ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n" name;
 	   pr "  xdr_free ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n" name
        | RLVList n ->
 	   pr "  struct guestfs_%s_ret ret;\n" name;
 	   pr "  ret.%s = *r;\n" n;
-	   pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n" name;
+	   pr "  reply ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n" name;
 	   pr "  xdr_free ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n" name
       );
 
@@ -1348,12 +1549,7 @@ and generate_fish_cmds () =
 	| P0 -> name2
 	| args ->
 	    sprintf "%s <%s>"
-	      name2 (
-		String.concat "> <" (
-		  map_args (function
-			    | String n | OptString n | Bool n -> n) args
-		)
-	      ) in
+	      name2 (String.concat "> <" (map_args name_of_argt args)) in
 
       let warnings =
 	if List.mem ProtocolLimitWarning flags then
@@ -1429,19 +1625,22 @@ FTP."
       pr "{\n";
       (match fst style with
        | Err
+       | RInt _
        | RBool _ -> pr "  int r;\n"
        | RConstString _ -> pr "  const char *r;\n"
        | RString _ -> pr "  char *r;\n"
        | RStringList _ -> pr "  char **r;\n"
+       | RIntBool _ -> pr "  struct guestfs_int_bool *r;\n"
        | RPVList _ -> pr "  struct guestfs_lvm_pv_list *r;\n"
        | RVGList _ -> pr "  struct guestfs_lvm_vg_list *r;\n"
        | RLVList _ -> pr "  struct guestfs_lvm_lv_list *r;\n"
       );
       iter_args (
 	function
-	| String name -> pr "  const char *%s;\n" name
-	| OptString name -> pr "  const char *%s;\n" name
-	| Bool name -> pr "  int %s;\n" name
+	| String n -> pr "  const char *%s;\n" n
+	| OptString n -> pr "  const char *%s;\n" n
+	| Bool n -> pr "  int %s;\n" n
+	| Int n -> pr "  int %s;\n" n
       ) (snd style);
 
       (* Check and convert parameters. *)
@@ -1461,6 +1660,8 @@ FTP."
 		name i i
 	  | Bool name ->
 	      pr "  %s = is_true (argv[%d]) ? 1 : 0;\n" name i
+	  | Int name ->
+	      pr "  %s = atoi (argv[%d]);\n" name i
       ) (snd style);
 
       (* Call C API function. *)
@@ -1474,6 +1675,10 @@ FTP."
       (* Check return value for errors and display command results. *)
       (match fst style with
        | Err -> pr "  return r;\n"
+       | RInt _ ->
+	   pr "  if (r == -1) return -1;\n";
+	   pr "  if (r) printf (\"%%d\\n\", r);\n";
+	   pr "  return 0;\n"
        | RBool _ ->
 	   pr "  if (r == -1) return -1;\n";
 	   pr "  if (r) printf (\"true\\n\"); else printf (\"false\\n\");\n";
@@ -1491,6 +1696,12 @@ FTP."
 	   pr "  if (r == NULL) return -1;\n";
 	   pr "  print_strings (r);\n";
 	   pr "  free_strings (r);\n";
+	   pr "  return 0;\n"
+       | RIntBool _ ->
+	   pr "  if (r == NULL) return -1;\n";
+	   pr "  printf (\"%%d, %%s\\n\", r->i,\n";
+	   pr "    r->b ? \"true\" : \"false\");\n";
+	   pr "  guestfs_free_int_bool (r);\n";
 	   pr "  return 0;\n"
        | RPVList _ ->
 	   pr "  if (r == NULL) return -1;\n";
@@ -1565,6 +1776,7 @@ and generate_fish_actions_pod () =
 	| String n -> pr " %s" n
 	| OptString n -> pr " %s" n
 	| Bool _ -> pr " true|false"
+	| Int n -> pr " %s" n
       ) (snd style);
       pr "\n";
       pr "\n";
@@ -1574,15 +1786,20 @@ and generate_fish_actions_pod () =
 (* Generate a C function prototype. *)
 and generate_prototype ?(extern = true) ?(static = false) ?(semicolon = true)
     ?(single_line = false) ?(newline = false) ?(in_daemon = false)
+    ?(prefix = "")
     ?handle name style =
   if extern then pr "extern ";
   if static then pr "static ";
   (match fst style with
    | Err -> pr "int "
+   | RInt _ -> pr "int "
    | RBool _ -> pr "int "
    | RConstString _ -> pr "const char *"
    | RString _ -> pr "char *"
    | RStringList _ -> pr "char **"
+   | RIntBool _ ->
+       if not in_daemon then pr "struct guestfs_int_bool *"
+       else pr "guestfs_%s_ret *" name
    | RPVList _ ->
        if not in_daemon then pr "struct guestfs_lvm_pv_list *"
        else pr "guestfs_lvm_int_pv_list *"
@@ -1593,24 +1810,29 @@ and generate_prototype ?(extern = true) ?(static = false) ?(semicolon = true)
        if not in_daemon then pr "struct guestfs_lvm_lv_list *"
        else pr "guestfs_lvm_int_lv_list *"
   );
-  pr "%s (" name;
-  let comma = ref false in
-  (match handle with
-   | None -> ()
-   | Some handle -> pr "guestfs_h *%s" handle; comma := true
-  );
-  let next () =
-    if !comma then (
-      if single_line then pr ", " else pr ",\n\t\t"
+  pr "%s%s (" prefix name;
+  if handle = None && nr_args (snd style) = 0 then
+    pr "void"
+  else (
+    let comma = ref false in
+    (match handle with
+     | None -> ()
+     | Some handle -> pr "guestfs_h *%s" handle; comma := true
     );
-    comma := true
-  in
-  iter_args (
-    function
-    | String name -> next (); pr "const char *%s" name
-    | OptString name -> next (); pr "const char *%s" name
-    | Bool name -> next (); pr "int %s" name
-  ) (snd style);
+    let next () =
+      if !comma then (
+	if single_line then pr ", " else pr ",\n\t\t"
+      );
+      comma := true
+    in
+    iter_args (
+      function
+      | String n -> next (); pr "const char *%s" n
+      | OptString n -> next (); pr "const char *%s" n
+      | Bool n -> next (); pr "int %s" n
+      | Int n -> next (); pr "int %s" n
+    ) (snd style);
+  );
   pr ")";
   if semicolon then pr ";";
   if newline then pr "\n"
@@ -1628,9 +1850,10 @@ and generate_call_args ?handle style =
       if !comma then pr ", ";
       comma := true;
       match arg with
-      | String name -> pr "%s" name
-      | OptString name -> pr "%s" name
-      | Bool name -> pr "%s" name
+      | String n -> pr "%s" n
+      | OptString n -> pr "%s" n
+      | Bool n -> pr "%s" n
+      | Int n -> pr "%s" n
   ) (snd style);
   pr ")"
 
@@ -1779,15 +2002,13 @@ and generate_ocaml_c () =
       pr "CAMLprim value\n";
       pr "ocaml_guestfs_%s (value gv" name;
       iter_args (
-	function
-	| String n | OptString n | Bool n -> pr ", value %sv" n
+	fun arg -> pr ", value %sv" (name_of_argt arg)
       ) (snd style);
       pr ")\n";
       pr "{\n";
       pr "  CAMLparam%d (gv" (1 + (nr_args (snd style)));
       iter_args (
-	function
-	| String n | OptString n | Bool n -> pr ", %sv" n
+	fun arg -> pr ", %sv" (name_of_argt arg)
       ) (snd style);
       pr ");\n";
       pr "  CAMLlocal1 (rv);\n";
@@ -1808,16 +2029,22 @@ and generate_ocaml_c () =
 	      n n
 	| Bool n ->
 	    pr "  int %s = Bool_val (%sv);\n" n n
+	| Int n ->
+	    pr "  int %s = Int_val (%sv);\n" n n
       ) (snd style);
       let error_code =
 	match fst style with
 	| Err -> pr "  int r;\n"; "-1"
+	| RInt _ -> pr "  int r;\n"; "-1"
 	| RBool _ -> pr "  int r;\n"; "-1"
 	| RConstString _ -> pr "  const char *r;\n"; "NULL"
 	| RString _ -> pr "  char *r;\n"; "NULL"
 	| RStringList _ ->
 	    pr "  int i;\n";
 	    pr "  char **r;\n";
+	    "NULL"
+	| RIntBool _ ->
+	    pr "  struct guestfs_int_bool *r;\n";
 	    "NULL"
 	| RPVList _ ->
 	    pr "  struct guestfs_lvm_pv_list *r;\n";
@@ -1841,7 +2068,8 @@ and generate_ocaml_c () =
 
       (match fst style with
        | Err -> pr "  rv = Val_unit;\n"
-       | RBool _ -> pr "  rv = r ? Val_true : Val_false;\n"
+       | RInt _ -> pr "  rv = Val_int (r);\n"
+       | RBool _ -> pr "  rv = Val_bool (r);\n"
        | RConstString _ -> pr "  rv = caml_copy_string (r);\n"
        | RString _ ->
 	   pr "  rv = caml_copy_string (r);\n";
@@ -1850,6 +2078,11 @@ and generate_ocaml_c () =
 	   pr "  rv = caml_copy_string_array ((const char **) r);\n";
 	   pr "  for (i = 0; r[i] != NULL; ++i) free (r[i]);\n";
 	   pr "  free (r);\n"
+       | RIntBool _ ->
+	   pr "  rv = caml_alloc (2, 0);\n";
+	   pr "  Store_field (rv, 0, Val_int (r->i));\n";
+	   pr "  Store_field (rv, 1, Val_bool (r->b));\n";
+	   pr "  guestfs_free_int_bool (r);\n";
        | RPVList _ ->
 	   pr "  rv = copy_lvm_pv_list (r);\n";
 	   pr "  guestfs_free_lvm_pv_list (r);\n";
@@ -1890,13 +2123,16 @@ and generate_ocaml_prototype ?(is_external = false) name style =
     | String _ -> pr "string -> "
     | OptString _ -> pr "string option -> "
     | Bool _ -> pr "bool -> "
+    | Int _ -> pr "int -> "
   ) (snd style);
   (match fst style with
    | Err -> pr "unit" (* all errors are turned into exceptions *)
+   | RInt _ -> pr "int"
    | RBool _ -> pr "bool"
    | RConstString _ -> pr "string"
    | RString _ -> pr "string"
    | RStringList _ -> pr "string array"
+   | RIntBool _ -> pr "int * bool"
    | RPVList _ -> pr "lvm_pv array"
    | RVGList _ -> pr "lvm_vg array"
    | RLVList _ -> pr "lvm_lv array"
@@ -1987,10 +2223,12 @@ DESTROY (g)
     fun (name, style, _, _, _, _) ->
       (match fst style with
        | Err -> pr "void\n"
+       | RInt _ -> pr "SV *\n"
        | RBool _ -> pr "SV *\n"
        | RConstString _ -> pr "SV *\n"
        | RString _ -> pr "SV *\n"
        | RStringList _
+       | RIntBool _
        | RPVList _ | RVGList _ | RLVList _ ->
 	   pr "void\n" (* all lists returned implictly on the stack *)
       );
@@ -2004,6 +2242,7 @@ DESTROY (g)
 	| String n -> pr "      char *%s;\n" n
 	| OptString n -> pr "      char *%s;\n" n
 	| Bool n -> pr "      int %s;\n" n
+	| Int n -> pr "      int %s;\n" n
       ) (snd style);
       (* Code. *)
       (match fst style with
@@ -2013,6 +2252,19 @@ DESTROY (g)
 	   generate_call_args ~handle:"g" style;
 	   pr " == -1)\n";
 	   pr "        croak (\"%s: %%s\", last_error);\n" name
+       | RInt n
+       | RBool n ->
+	   pr "PREINIT:\n";
+	   pr "      int %s;\n" n;
+	   pr "   CODE:\n";
+	   pr "      %s = guestfs_%s " n name;
+	   generate_call_args ~handle:"g" style;
+	   pr ";\n";
+	   pr "      if (%s == -1)\n" n;
+	   pr "        croak (\"%s: %%s\", last_error);\n" name;
+	   pr "      RETVAL = newSViv (%s);\n" n;
+	   pr " OUTPUT:\n";
+	   pr "      RETVAL\n"
        | RConstString n ->
 	   pr "PREINIT:\n";
 	   pr "      const char *%s;\n" n;
@@ -2038,18 +2290,6 @@ DESTROY (g)
 	   pr "      free (%s);\n" n;
 	   pr " OUTPUT:\n";
 	   pr "      RETVAL\n"
-       | RBool n ->
-	   pr "PREINIT:\n";
-	   pr "      int %s;\n" n;
-	   pr "   CODE:\n";
-	   pr "      %s = guestfs_%s " n name;
-	   generate_call_args ~handle:"g" style;
-	   pr ";\n";
-	   pr "      if (%s == -1)\n" n;
-	   pr "        croak (\"%s: %%s\", last_error);\n" name;
-	   pr "      RETVAL = newSViv (%s);\n" n;
-	   pr " OUTPUT:\n";
-	   pr "      RETVAL\n"
        | RStringList n ->
 	   pr "PREINIT:\n";
 	   pr "      char **%s;\n" n;
@@ -2067,6 +2307,19 @@ DESTROY (g)
 	   pr "        free (%s[i]);\n" n;
 	   pr "      }\n";
 	   pr "      free (%s);\n" n;
+       | RIntBool _ ->
+	   pr "PREINIT:\n";
+	   pr "      struct guestfs_int_bool *r;\n";
+	   pr " PPCODE:\n";
+	   pr "      r = guestfs_%s " name;
+	   generate_call_args ~handle:"g" style;
+	   pr ";\n";
+	   pr "      if (r == NULL)\n";
+	   pr "        croak (\"%s: %%s\", last_error);\n" name;
+	   pr "      EXTEND (SP, 2);\n";
+	   pr "      PUSHs (sv_2mortal (newSViv (r->i)));\n";
+	   pr "      PUSHs (sv_2mortal (newSViv (r->b)));\n";
+	   pr "      guestfs_free_int_bool (r);\n";
        | RPVList n ->
 	   generate_perl_lvm_code "pv" pv_cols name style n;
        | RVGList n ->
@@ -2236,8 +2489,10 @@ and generate_perl_prototype name style =
   (match fst style with
    | Err -> ()
    | RBool n
+   | RInt n
    | RConstString n
    | RString n -> pr "$%s = " n
+   | RIntBool (n, m) -> pr "($%s, $%s) = " n m
    | RStringList n
    | RPVList n
    | RVGList n
@@ -2249,10 +2504,7 @@ and generate_perl_prototype name style =
     fun arg ->
       if !comma then pr ", ";
       comma := true;
-      match arg with
-      | String n -> pr "%s" n
-      | OptString n -> pr "%s" n
-      | Bool n -> pr "%s" n
+      pr "%s" (name_of_argt arg)
   ) (snd style);
   pr ");"
 

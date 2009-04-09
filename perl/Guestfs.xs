@@ -485,3 +485,141 @@ PREINIT:
       }
       free (lines);
 
+void
+aug_init (g, root, flags)
+      guestfs_h *g;
+      char *root;
+      int flags;
+ PPCODE:
+      if (guestfs_aug_init (g, root, flags) == -1)
+        croak ("aug_init: %s", last_error);
+
+void
+aug_close (g)
+      guestfs_h *g;
+ PPCODE:
+      if (guestfs_aug_close (g) == -1)
+        croak ("aug_close: %s", last_error);
+
+SV *
+aug_defvar (g, name, expr)
+      guestfs_h *g;
+      char *name;
+      char *expr;
+PREINIT:
+      int nrnodes;
+   CODE:
+      nrnodes = guestfs_aug_defvar (g, name, expr);
+      if (nrnodes == -1)
+        croak ("aug_defvar: %s", last_error);
+      RETVAL = newSViv (nrnodes);
+ OUTPUT:
+      RETVAL
+
+void
+aug_defnode (g, name, expr, val)
+      guestfs_h *g;
+      char *name;
+      char *expr;
+      char *val;
+PREINIT:
+      struct guestfs_int_bool *r;
+ PPCODE:
+      r = guestfs_aug_defnode (g, name, expr, val);
+      if (r == NULL)
+        croak ("aug_defnode: %s", last_error);
+      EXTEND (SP, 2);
+      PUSHs (sv_2mortal (newSViv (r->i)));
+      PUSHs (sv_2mortal (newSViv (r->b)));
+      guestfs_free_int_bool (r);
+
+SV *
+aug_get (g, path)
+      guestfs_h *g;
+      char *path;
+PREINIT:
+      char *val;
+   CODE:
+      val = guestfs_aug_get (g, path);
+      if (val == NULL)
+        croak ("aug_get: %s", last_error);
+      RETVAL = newSVpv (val, 0);
+      free (val);
+ OUTPUT:
+      RETVAL
+
+void
+aug_set (g, path, val)
+      guestfs_h *g;
+      char *path;
+      char *val;
+ PPCODE:
+      if (guestfs_aug_set (g, path, val) == -1)
+        croak ("aug_set: %s", last_error);
+
+void
+aug_insert (g, path, label, before)
+      guestfs_h *g;
+      char *path;
+      char *label;
+      int before;
+ PPCODE:
+      if (guestfs_aug_insert (g, path, label, before) == -1)
+        croak ("aug_insert: %s", last_error);
+
+SV *
+aug_rm (g, path)
+      guestfs_h *g;
+      char *path;
+PREINIT:
+      int nrnodes;
+   CODE:
+      nrnodes = guestfs_aug_rm (g, path);
+      if (nrnodes == -1)
+        croak ("aug_rm: %s", last_error);
+      RETVAL = newSViv (nrnodes);
+ OUTPUT:
+      RETVAL
+
+void
+aug_mv (g, src, dest)
+      guestfs_h *g;
+      char *src;
+      char *dest;
+ PPCODE:
+      if (guestfs_aug_mv (g, src, dest) == -1)
+        croak ("aug_mv: %s", last_error);
+
+void
+aug_match (g, path)
+      guestfs_h *g;
+      char *path;
+PREINIT:
+      char **matches;
+      int i, n;
+ PPCODE:
+      matches = guestfs_aug_match (g, path);
+      if (matches == NULL)
+        croak ("aug_match: %s", last_error);
+      for (n = 0; matches[n] != NULL; ++n) /**/;
+      EXTEND (SP, n);
+      for (i = 0; i < n; ++i) {
+        PUSHs (sv_2mortal (newSVpv (matches[i], 0)));
+        free (matches[i]);
+      }
+      free (matches);
+
+void
+aug_save (g)
+      guestfs_h *g;
+ PPCODE:
+      if (guestfs_aug_save (g) == -1)
+        croak ("aug_save: %s", last_error);
+
+void
+aug_load (g)
+      guestfs_h *g;
+ PPCODE:
+      if (guestfs_aug_load (g) == -1)
+        croak ("aug_load: %s", last_error);
+

@@ -204,6 +204,88 @@ struct guestfs_read_lines_ret {
 };
 typedef struct guestfs_read_lines_ret guestfs_read_lines_ret;
 
+struct guestfs_aug_init_args {
+	char *root;
+	int flags;
+};
+typedef struct guestfs_aug_init_args guestfs_aug_init_args;
+
+struct guestfs_aug_defvar_args {
+	char *name;
+	str *expr;
+};
+typedef struct guestfs_aug_defvar_args guestfs_aug_defvar_args;
+
+struct guestfs_aug_defvar_ret {
+	int nrnodes;
+};
+typedef struct guestfs_aug_defvar_ret guestfs_aug_defvar_ret;
+
+struct guestfs_aug_defnode_args {
+	char *name;
+	char *expr;
+	char *val;
+};
+typedef struct guestfs_aug_defnode_args guestfs_aug_defnode_args;
+
+struct guestfs_aug_defnode_ret {
+	int nrnodes;
+	bool_t created;
+};
+typedef struct guestfs_aug_defnode_ret guestfs_aug_defnode_ret;
+
+struct guestfs_aug_get_args {
+	char *path;
+};
+typedef struct guestfs_aug_get_args guestfs_aug_get_args;
+
+struct guestfs_aug_get_ret {
+	char *val;
+};
+typedef struct guestfs_aug_get_ret guestfs_aug_get_ret;
+
+struct guestfs_aug_set_args {
+	char *path;
+	char *val;
+};
+typedef struct guestfs_aug_set_args guestfs_aug_set_args;
+
+struct guestfs_aug_insert_args {
+	char *path;
+	char *label;
+	bool_t before;
+};
+typedef struct guestfs_aug_insert_args guestfs_aug_insert_args;
+
+struct guestfs_aug_rm_args {
+	char *path;
+};
+typedef struct guestfs_aug_rm_args guestfs_aug_rm_args;
+
+struct guestfs_aug_rm_ret {
+	int nrnodes;
+};
+typedef struct guestfs_aug_rm_ret guestfs_aug_rm_ret;
+
+struct guestfs_aug_mv_args {
+	char *src;
+	char *dest;
+};
+typedef struct guestfs_aug_mv_args guestfs_aug_mv_args;
+
+struct guestfs_aug_match_args {
+	char *path;
+};
+typedef struct guestfs_aug_match_args guestfs_aug_match_args;
+
+struct guestfs_aug_match_ret {
+	struct {
+		u_int matches_len;
+		str *matches_val;
+	} matches;
+};
+typedef struct guestfs_aug_match_ret guestfs_aug_match_ret;
+
 enum guestfs_procedure {
 	GUESTFS_PROC_MOUNT = 1,
 	GUESTFS_PROC_SYNC = 2,
@@ -220,7 +302,19 @@ enum guestfs_procedure {
 	GUESTFS_PROC_VGS_FULL = 13,
 	GUESTFS_PROC_LVS_FULL = 14,
 	GUESTFS_PROC_READ_LINES = 15,
-	GUESTFS_PROC_dummy = 15 + 1,
+	GUESTFS_PROC_AUG_INIT = 16,
+	GUESTFS_PROC_AUG_CLOSE = 26,
+	GUESTFS_PROC_AUG_DEFVAR = 17,
+	GUESTFS_PROC_AUG_DEFNODE = 18,
+	GUESTFS_PROC_AUG_GET = 19,
+	GUESTFS_PROC_AUG_SET = 20,
+	GUESTFS_PROC_AUG_INSERT = 21,
+	GUESTFS_PROC_AUG_RM = 22,
+	GUESTFS_PROC_AUG_MV = 23,
+	GUESTFS_PROC_AUG_MATCH = 24,
+	GUESTFS_PROC_AUG_SAVE = 25,
+	GUESTFS_PROC_AUG_LOAD = 27,
+	GUESTFS_PROC_dummy = 27 + 1,
 };
 typedef enum guestfs_procedure guestfs_procedure;
 #define GUESTFS_MESSAGE_MAX 4194304
@@ -283,6 +377,20 @@ extern  bool_t xdr_guestfs_vgs_full_ret (XDR *, guestfs_vgs_full_ret*);
 extern  bool_t xdr_guestfs_lvs_full_ret (XDR *, guestfs_lvs_full_ret*);
 extern  bool_t xdr_guestfs_read_lines_args (XDR *, guestfs_read_lines_args*);
 extern  bool_t xdr_guestfs_read_lines_ret (XDR *, guestfs_read_lines_ret*);
+extern  bool_t xdr_guestfs_aug_init_args (XDR *, guestfs_aug_init_args*);
+extern  bool_t xdr_guestfs_aug_defvar_args (XDR *, guestfs_aug_defvar_args*);
+extern  bool_t xdr_guestfs_aug_defvar_ret (XDR *, guestfs_aug_defvar_ret*);
+extern  bool_t xdr_guestfs_aug_defnode_args (XDR *, guestfs_aug_defnode_args*);
+extern  bool_t xdr_guestfs_aug_defnode_ret (XDR *, guestfs_aug_defnode_ret*);
+extern  bool_t xdr_guestfs_aug_get_args (XDR *, guestfs_aug_get_args*);
+extern  bool_t xdr_guestfs_aug_get_ret (XDR *, guestfs_aug_get_ret*);
+extern  bool_t xdr_guestfs_aug_set_args (XDR *, guestfs_aug_set_args*);
+extern  bool_t xdr_guestfs_aug_insert_args (XDR *, guestfs_aug_insert_args*);
+extern  bool_t xdr_guestfs_aug_rm_args (XDR *, guestfs_aug_rm_args*);
+extern  bool_t xdr_guestfs_aug_rm_ret (XDR *, guestfs_aug_rm_ret*);
+extern  bool_t xdr_guestfs_aug_mv_args (XDR *, guestfs_aug_mv_args*);
+extern  bool_t xdr_guestfs_aug_match_args (XDR *, guestfs_aug_match_args*);
+extern  bool_t xdr_guestfs_aug_match_ret (XDR *, guestfs_aug_match_ret*);
 extern  bool_t xdr_guestfs_procedure (XDR *, guestfs_procedure*);
 extern  bool_t xdr_guestfs_message_direction (XDR *, guestfs_message_direction*);
 extern  bool_t xdr_guestfs_message_status (XDR *, guestfs_message_status*);
@@ -315,6 +423,20 @@ extern bool_t xdr_guestfs_vgs_full_ret ();
 extern bool_t xdr_guestfs_lvs_full_ret ();
 extern bool_t xdr_guestfs_read_lines_args ();
 extern bool_t xdr_guestfs_read_lines_ret ();
+extern bool_t xdr_guestfs_aug_init_args ();
+extern bool_t xdr_guestfs_aug_defvar_args ();
+extern bool_t xdr_guestfs_aug_defvar_ret ();
+extern bool_t xdr_guestfs_aug_defnode_args ();
+extern bool_t xdr_guestfs_aug_defnode_ret ();
+extern bool_t xdr_guestfs_aug_get_args ();
+extern bool_t xdr_guestfs_aug_get_ret ();
+extern bool_t xdr_guestfs_aug_set_args ();
+extern bool_t xdr_guestfs_aug_insert_args ();
+extern bool_t xdr_guestfs_aug_rm_args ();
+extern bool_t xdr_guestfs_aug_rm_ret ();
+extern bool_t xdr_guestfs_aug_mv_args ();
+extern bool_t xdr_guestfs_aug_match_args ();
+extern bool_t xdr_guestfs_aug_match_ret ();
 extern bool_t xdr_guestfs_procedure ();
 extern bool_t xdr_guestfs_message_direction ();
 extern bool_t xdr_guestfs_message_status ();

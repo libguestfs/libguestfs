@@ -19,6 +19,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
+struct guestfs_int_bool {
+  int32_t i;
+  int32_t b;
+};
+
 struct guestfs_lvm_pv {
   char *pv_name;
   char pv_uuid[32]; /* this is NOT nul-terminated, be careful when printing */

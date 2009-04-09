@@ -29,6 +29,203 @@ This is equivalent to the qemu parameter C<-drive file=filename>.
 
 This function returns 0 on success or -1 on error.
 
+=head2 guestfs_aug_close
+
+ int guestfs_aug_close (guestfs_h *handle);
+
+Close the current Augeas handle and free up any resources
+used by it.  After calling this, you have to call
+C<guestfs_aug_init> again before you can use any other
+Augeas functions.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_aug_defnode
+
+ struct guestfs_int_bool *guestfs_aug_defnode (guestfs_h *handle,
+		const char *name,
+		const char *expr,
+		const char *val);
+
+Defines a variable C<name> whose value is the result of
+evaluating C<expr>.
+
+If C<expr> evaluates to an empty nodeset, a node is created,
+equivalent to calling C<guestfs_aug_set> C<expr>, C<value>.
+C<name> will be the nodeset containing that single node.
+
+On success this returns a pair containing the
+number of nodes in the nodeset, and a boolean flag
+if a node was created.
+
+This function returns a C<struct guestfs_int_bool *>.
+I<The caller must call C<guestfs_free_int_bool> after use.>.
+
+=head2 guestfs_aug_defvar
+
+ int guestfs_aug_defvar (guestfs_h *handle,
+		const char *name,
+		const char *expr);
+
+Defines an Augeas variable C<name> whose value is the result
+of evaluating C<expr>.  If C<expr> is NULL, then C<name> is
+undefined.
+
+On success this returns the number of nodes in C<expr>, or
+C<0> if C<expr> evaluates to something which is not a nodeset.
+
+On error this function returns -1.
+
+=head2 guestfs_aug_get
+
+ char *guestfs_aug_get (guestfs_h *handle,
+		const char *path);
+
+Look up the value associated with C<path>.  If C<path>
+matches exactly one node, the C<value> is returned.
+
+This function returns a string or NULL on error.
+I<The caller must free the returned string after use>.
+
+=head2 guestfs_aug_init
+
+ int guestfs_aug_init (guestfs_h *handle,
+		const char *root,
+		int flags);
+
+Create a new Augeas handle for editing configuration files.
+If there was any previous Augeas handle associated with this
+guestfs session, then it is closed.
+
+You must call this before using any other C<guestfs_aug_*>
+commands.
+
+C<root> is the filesystem root.  C<root> must not be NULL,
+use C</> instead.
+
+The flags are the same as the flags defined in
+E<lt>augeas.hE<gt>, the logical I<or> of the following
+integers:
+
+=over 4
+
+=item 1 C<AUG_SAVE_BACKUP>
+
+Keep the original file with a C<.augsave> extension.
+
+=item 2 C<AUG_SAVE_NEWFILE>
+
+Save changes into a file with extension C<.augnew>, and
+do not overwrite original.  Overrides C<AUG_SAVE_BACKUP>.
+
+=item 4 C<AUG_TYPE_CHECK>
+
+Typecheck lenses (can be expensive).
+
+=item 8 C<AUG_NO_STDINC>
+
+Do not use standard load path for modules.
+
+=item 16 C<AUG_SAVE_NOOP>
+
+Make save a no-op, just record what would have been changed.
+
+=item 32 C<AUG_NO_LOAD>
+
+Do not load the tree in C<guestfs_aug_init>.
+
+=back
+
+To close the handle, you can call C<guestfs_aug_close>.
+
+To find out more about Augeas, see L<http://augeas.net/>.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_aug_insert
+
+ int guestfs_aug_insert (guestfs_h *handle,
+		const char *path,
+		const char *label,
+		int before);
+
+Create a new sibling C<label> for C<path>, inserting it into
+the tree before or after C<path> (depending on the boolean
+flag C<before>).
+
+C<path> must match exactly one existing node in the tree, and
+C<label> must be a label, ie. not contain C</>, C<*> or end
+with a bracketed index C<[N]>.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_aug_load
+
+ int guestfs_aug_load (guestfs_h *handle);
+
+Load files into the tree.
+
+See C<aug_load> in the Augeas documentation for the full gory
+details.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_aug_match
+
+ char **guestfs_aug_match (guestfs_h *handle,
+		const char *path);
+
+Returns a list of paths which match the path expression C<path>.
+The returned paths are sufficiently qualified so that they match
+exactly one node in the current tree.
+
+This function returns a NULL-terminated array of strings
+(like L<environ(3)>), or NULL if there was an error.
+I<The caller must free the strings and the array after use>.
+
+=head2 guestfs_aug_mv
+
+ int guestfs_aug_mv (guestfs_h *handle,
+		const char *src,
+		const char *dest);
+
+Move the node C<src> to C<dest>.  C<src> must match exactly
+one node.  C<dest> is overwritten if it exists.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_aug_rm
+
+ int guestfs_aug_rm (guestfs_h *handle,
+		const char *path);
+
+Remove C<path> and all of its children.
+
+On success this returns the number of entries which were removed.
+
+On error this function returns -1.
+
+=head2 guestfs_aug_save
+
+ int guestfs_aug_save (guestfs_h *handle);
+
+This writes all pending changes to disk.
+
+The flags which were passed to C<guestfs_aug_init> affect exactly
+how files are saved.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_aug_set
+
+ int guestfs_aug_set (guestfs_h *handle,
+		const char *path,
+		const char *val);
+
+Set the value associated with C<path> to C<value>.
+
+This function returns 0 on success or -1 on error.
+
 =head2 guestfs_cat
 
  char *guestfs_cat (guestfs_h *handle,
@@ -193,7 +390,7 @@ I<The caller must free the strings and the array after use>.
 List all the logical volumes detected.  This is the equivalent
 of the L<lvs(8)> command.  The "full" version includes all fields.
 
-This function returns a C<struct guestfs_lvm_lv_list>.
+This function returns a C<struct guestfs_lvm_lv_list *>.
 I<The caller must call C<guestfs_free_lvm_lv_list> after use.>.
 
 =head2 guestfs_mount
@@ -244,7 +441,7 @@ I<The caller must free the strings and the array after use>.
 List all the physical volumes detected.  This is the equivalent
 of the L<pvs(8)> command.  The "full" version includes all fields.
 
-This function returns a C<struct guestfs_lvm_pv_list>.
+This function returns a C<struct guestfs_lvm_pv_list *>.
 I<The caller must call C<guestfs_free_lvm_pv_list> after use.>.
 
 =head2 guestfs_read_lines
@@ -352,7 +549,7 @@ I<The caller must free the strings and the array after use>.
 List all the volumes groups detected.  This is the equivalent
 of the L<vgs(8)> command.  The "full" version includes all fields.
 
-This function returns a C<struct guestfs_lvm_vg_list>.
+This function returns a C<struct guestfs_lvm_vg_list *>.
 I<The caller must call C<guestfs_free_lvm_vg_list> after use.>.
 
 =head2 guestfs_wait_ready

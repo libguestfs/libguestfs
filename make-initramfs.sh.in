@@ -25,7 +25,7 @@ set -e
 # larger.
 debug=yes
 
-modules="-i kernel -i bash -i coreutils -i lvm2 -i ntfs-3g -i util-linux-ng -i MAKEDEV -i net-tools"
+modules="-i kernel -i bash -i coreutils -i lvm2 -i ntfs-3g -i util-linux-ng -i MAKEDEV -i net-tools -i augeas-libs"
 
 if [ "x$debug" = "xyes" ]; then
     modules="$modules -i module-init-tools -i procps -i strace -i iputils"
@@ -38,7 +38,7 @@ rm -f $output
 rm -f $koutput
 
 # Create the basic initramfs.
-@FEBOOTSTRAP@ $modules @REPO@ initramfs @MIRROR@
+@FEBOOTSTRAP@ $modules -u @UPDATES@ @REPO@ initramfs @MIRROR@
 
 # /sysroot is where the guest root filesystem will be mounted.
 mkdir initramfs/sysroot

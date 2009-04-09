@@ -43,7 +43,7 @@ static void mount_stub (XDR *xdr_in)
   memset (&args, 0, sizeof args);
 
   if (!xdr_guestfs_mount_args (xdr_in, &args)) {
-    reply_with_error ("mount: daemon failed to decode procedure arguments");
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "mount");
     return;
   }
   device = args.device;
@@ -78,7 +78,7 @@ static void touch_stub (XDR *xdr_in)
   memset (&args, 0, sizeof args);
 
   if (!xdr_guestfs_touch_args (xdr_in, &args)) {
-    reply_with_error ("touch: daemon failed to decode procedure arguments");
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "touch");
     return;
   }
   path = args.path;
@@ -100,7 +100,7 @@ static void cat_stub (XDR *xdr_in)
   memset (&args, 0, sizeof args);
 
   if (!xdr_guestfs_cat_args (xdr_in, &args)) {
-    reply_with_error ("cat: daemon failed to decode procedure arguments");
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "cat");
     return;
   }
   path = args.path;
@@ -125,7 +125,7 @@ static void ll_stub (XDR *xdr_in)
   memset (&args, 0, sizeof args);
 
   if (!xdr_guestfs_ll_args (xdr_in, &args)) {
-    reply_with_error ("ll: daemon failed to decode procedure arguments");
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "ll");
     return;
   }
   directory = args.directory;
@@ -150,7 +150,7 @@ static void ls_stub (XDR *xdr_in)
   memset (&args, 0, sizeof args);
 
   if (!xdr_guestfs_ls_args (xdr_in, &args)) {
-    reply_with_error ("ls: daemon failed to decode procedure arguments");
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "ls");
     return;
   }
   directory = args.directory;
@@ -258,7 +258,7 @@ static void pvs_full_stub (XDR *xdr_in)
 
   struct guestfs_pvs_full_ret ret;
   ret.physvols = *r;
-  reply ((xdrproc_t) &xdr_guestfs_pvs_full_ret, (char *) &ret);
+  reply ((xdrproc_t) xdr_guestfs_pvs_full_ret, (char *) &ret);
   xdr_free ((xdrproc_t) xdr_guestfs_pvs_full_ret, (char *) &ret);
 }
 
@@ -273,7 +273,7 @@ static void vgs_full_stub (XDR *xdr_in)
 
   struct guestfs_vgs_full_ret ret;
   ret.volgroups = *r;
-  reply ((xdrproc_t) &xdr_guestfs_vgs_full_ret, (char *) &ret);
+  reply ((xdrproc_t) xdr_guestfs_vgs_full_ret, (char *) &ret);
   xdr_free ((xdrproc_t) xdr_guestfs_vgs_full_ret, (char *) &ret);
 }
 
@@ -288,7 +288,7 @@ static void lvs_full_stub (XDR *xdr_in)
 
   struct guestfs_lvs_full_ret ret;
   ret.logvols = *r;
-  reply ((xdrproc_t) &xdr_guestfs_lvs_full_ret, (char *) &ret);
+  reply ((xdrproc_t) xdr_guestfs_lvs_full_ret, (char *) &ret);
   xdr_free ((xdrproc_t) xdr_guestfs_lvs_full_ret, (char *) &ret);
 }
 
@@ -301,7 +301,7 @@ static void read_lines_stub (XDR *xdr_in)
   memset (&args, 0, sizeof args);
 
   if (!xdr_guestfs_read_lines_args (xdr_in, &args)) {
-    reply_with_error ("read_lines: daemon failed to decode procedure arguments");
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "read_lines");
     return;
   }
   path = args.path;
@@ -316,6 +316,268 @@ static void read_lines_stub (XDR *xdr_in)
   ret.lines.lines_val = r;
   reply ((xdrproc_t) &xdr_guestfs_read_lines_ret, (char *) &ret);
   free_strings (r);
+}
+
+static void aug_init_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_aug_init_args args;
+  const char *root;
+  int flags;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_aug_init_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "aug_init");
+    return;
+  }
+  root = args.root;
+  flags = args.flags;
+
+  r = do_aug_init (root, flags);
+  if (r == -1)
+    /* do_aug_init has already called reply_with_error, so just return */
+    return;
+
+  reply (NULL, NULL);
+}
+
+static void aug_close_stub (XDR *xdr_in)
+{
+  int r;
+
+  r = do_aug_close ();
+  if (r == -1)
+    /* do_aug_close has already called reply_with_error, so just return */
+    return;
+
+  reply (NULL, NULL);
+}
+
+static void aug_defvar_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_aug_defvar_args args;
+  const char *name;
+  const char *expr;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_aug_defvar_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "aug_defvar");
+    return;
+  }
+  name = args.name;
+  expr = args.expr ? *args.expr : NULL;
+
+  r = do_aug_defvar (name, expr);
+  if (r == -1)
+    /* do_aug_defvar has already called reply_with_error, so just return */
+    return;
+
+  struct guestfs_aug_defvar_ret ret;
+  ret.nrnodes = r;
+  reply ((xdrproc_t) &xdr_guestfs_aug_defvar_ret, (char *) &ret);
+}
+
+static void aug_defnode_stub (XDR *xdr_in)
+{
+  guestfs_aug_defnode_ret *r;
+  struct guestfs_aug_defnode_args args;
+  const char *name;
+  const char *expr;
+  const char *val;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_aug_defnode_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "aug_defnode");
+    return;
+  }
+  name = args.name;
+  expr = args.expr;
+  val = args.val;
+
+  r = do_aug_defnode (name, expr, val);
+  if (r == NULL)
+    /* do_aug_defnode has already called reply_with_error, so just return */
+    return;
+
+  reply ((xdrproc_t) xdr_guestfs_aug_defnode_ret, (char *) r);
+  xdr_free ((xdrproc_t) xdr_guestfs_aug_defnode_ret, (char *) r);
+}
+
+static void aug_get_stub (XDR *xdr_in)
+{
+  char *r;
+  struct guestfs_aug_get_args args;
+  const char *path;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_aug_get_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "aug_get");
+    return;
+  }
+  path = args.path;
+
+  r = do_aug_get (path);
+  if (r == NULL)
+    /* do_aug_get has already called reply_with_error, so just return */
+    return;
+
+  struct guestfs_aug_get_ret ret;
+  ret.val = r;
+  reply ((xdrproc_t) &xdr_guestfs_aug_get_ret, (char *) &ret);
+  free (r);
+}
+
+static void aug_set_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_aug_set_args args;
+  const char *path;
+  const char *val;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_aug_set_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "aug_set");
+    return;
+  }
+  path = args.path;
+  val = args.val;
+
+  r = do_aug_set (path, val);
+  if (r == -1)
+    /* do_aug_set has already called reply_with_error, so just return */
+    return;
+
+  reply (NULL, NULL);
+}
+
+static void aug_insert_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_aug_insert_args args;
+  const char *path;
+  const char *label;
+  int before;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_aug_insert_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "aug_insert");
+    return;
+  }
+  path = args.path;
+  label = args.label;
+  before = args.before;
+
+  r = do_aug_insert (path, label, before);
+  if (r == -1)
+    /* do_aug_insert has already called reply_with_error, so just return */
+    return;
+
+  reply (NULL, NULL);
+}
+
+static void aug_rm_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_aug_rm_args args;
+  const char *path;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_aug_rm_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "aug_rm");
+    return;
+  }
+  path = args.path;
+
+  r = do_aug_rm (path);
+  if (r == -1)
+    /* do_aug_rm has already called reply_with_error, so just return */
+    return;
+
+  struct guestfs_aug_rm_ret ret;
+  ret.nrnodes = r;
+  reply ((xdrproc_t) &xdr_guestfs_aug_rm_ret, (char *) &ret);
+}
+
+static void aug_mv_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_aug_mv_args args;
+  const char *src;
+  const char *dest;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_aug_mv_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "aug_mv");
+    return;
+  }
+  src = args.src;
+  dest = args.dest;
+
+  r = do_aug_mv (src, dest);
+  if (r == -1)
+    /* do_aug_mv has already called reply_with_error, so just return */
+    return;
+
+  reply (NULL, NULL);
+}
+
+static void aug_match_stub (XDR *xdr_in)
+{
+  char **r;
+  struct guestfs_aug_match_args args;
+  const char *path;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_aug_match_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "aug_match");
+    return;
+  }
+  path = args.path;
+
+  r = do_aug_match (path);
+  if (r == NULL)
+    /* do_aug_match has already called reply_with_error, so just return */
+    return;
+
+  struct guestfs_aug_match_ret ret;
+  ret.matches.matches_len = count_strings (r);
+  ret.matches.matches_val = r;
+  reply ((xdrproc_t) &xdr_guestfs_aug_match_ret, (char *) &ret);
+  free_strings (r);
+}
+
+static void aug_save_stub (XDR *xdr_in)
+{
+  int r;
+
+  r = do_aug_save ();
+  if (r == -1)
+    /* do_aug_save has already called reply_with_error, so just return */
+    return;
+
+  reply (NULL, NULL);
+}
+
+static void aug_load_stub (XDR *xdr_in)
+{
+  int r;
+
+  r = do_aug_load ();
+  if (r == -1)
+    /* do_aug_load has already called reply_with_error, so just return */
+    return;
+
+  reply (NULL, NULL);
 }
 
 void dispatch_incoming_message (XDR *xdr_in)
@@ -365,6 +627,42 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_READ_LINES:
       read_lines_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_AUG_INIT:
+      aug_init_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_AUG_CLOSE:
+      aug_close_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_AUG_DEFVAR:
+      aug_defvar_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_AUG_DEFNODE:
+      aug_defnode_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_AUG_GET:
+      aug_get_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_AUG_SET:
+      aug_set_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_AUG_INSERT:
+      aug_insert_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_AUG_RM:
+      aug_rm_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_AUG_MV:
+      aug_mv_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_AUG_MATCH:
+      aug_match_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_AUG_SAVE:
+      aug_save_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_AUG_LOAD:
+      aug_load_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d", proc_nr);

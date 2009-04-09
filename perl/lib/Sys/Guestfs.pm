@@ -112,6 +112,134 @@ image).
 
 This is equivalent to the qemu parameter C<-drive file=filename>.
 
+=item $h->aug_close ();
+
+Close the current Augeas handle and free up any resources
+used by it.  After calling this, you have to call
+C<$h-E<gt>aug_init> again before you can use any other
+Augeas functions.
+
+=item ($nrnodes, $created) = $h->aug_defnode (name, expr, val);
+
+Defines a variable C<name> whose value is the result of
+evaluating C<expr>.
+
+If C<expr> evaluates to an empty nodeset, a node is created,
+equivalent to calling C<$h-E<gt>aug_set> C<expr>, C<value>.
+C<name> will be the nodeset containing that single node.
+
+On success this returns a pair containing the
+number of nodes in the nodeset, and a boolean flag
+if a node was created.
+
+=item $nrnodes = $h->aug_defvar (name, expr);
+
+Defines an Augeas variable C<name> whose value is the result
+of evaluating C<expr>.  If C<expr> is NULL, then C<name> is
+undefined.
+
+On success this returns the number of nodes in C<expr>, or
+C<0> if C<expr> evaluates to something which is not a nodeset.
+
+=item $val = $h->aug_get (path);
+
+Look up the value associated with C<path>.  If C<path>
+matches exactly one node, the C<value> is returned.
+
+=item $h->aug_init (root, flags);
+
+Create a new Augeas handle for editing configuration files.
+If there was any previous Augeas handle associated with this
+guestfs session, then it is closed.
+
+You must call this before using any other C<$h-E<gt>aug_*>
+commands.
+
+C<root> is the filesystem root.  C<root> must not be NULL,
+use C</> instead.
+
+The flags are the same as the flags defined in
+E<lt>augeas.hE<gt>, the logical I<or> of the following
+integers:
+
+=over 4
+
+=item 1 C<AUG_SAVE_BACKUP>
+
+Keep the original file with a C<.augsave> extension.
+
+=item 2 C<AUG_SAVE_NEWFILE>
+
+Save changes into a file with extension C<.augnew>, and
+do not overwrite original.  Overrides C<AUG_SAVE_BACKUP>.
+
+=item 4 C<AUG_TYPE_CHECK>
+
+Typecheck lenses (can be expensive).
+
+=item 8 C<AUG_NO_STDINC>
+
+Do not use standard load path for modules.
+
+=item 16 C<AUG_SAVE_NOOP>
+
+Make save a no-op, just record what would have been changed.
+
+=item 32 C<AUG_NO_LOAD>
+
+Do not load the tree in C<$h-E<gt>aug_init>.
+
+=back
+
+To close the handle, you can call C<$h-E<gt>aug_close>.
+
+To find out more about Augeas, see L<http://augeas.net/>.
+
+=item $h->aug_insert (path, label, before);
+
+Create a new sibling C<label> for C<path>, inserting it into
+the tree before or after C<path> (depending on the boolean
+flag C<before>).
+
+C<path> must match exactly one existing node in the tree, and
+C<label> must be a label, ie. not contain C</>, C<*> or end
+with a bracketed index C<[N]>.
+
+=item $h->aug_load ();
+
+Load files into the tree.
+
+See C<aug_load> in the Augeas documentation for the full gory
+details.
+
+=item @matches = $h->aug_match (path);
+
+Returns a list of paths which match the path expression C<path>.
+The returned paths are sufficiently qualified so that they match
+exactly one node in the current tree.
+
+=item $h->aug_mv (src, dest);
+
+Move the node C<src> to C<dest>.  C<src> must match exactly
+one node.  C<dest> is overwritten if it exists.
+
+=item $nrnodes = $h->aug_rm (path);
+
+Remove C<path> and all of its children.
+
+On success this returns the number of entries which were removed.
+
+=item $h->aug_save ();
+
+This writes all pending changes to disk.
+
+The flags which were passed to C<$h-E<gt>aug_init> affect exactly
+how files are saved.
+
+=item $h->aug_set (path, val);
+
+Set the value associated with C<path> to C<value>.
+
 =item $content = $h->cat (path);
 
 Return the contents of the file named C<path>.

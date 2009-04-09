@@ -85,22 +85,14 @@ struct guestfs_lvm_int_lv {
 
 typedef struct guestfs_lvm_int_lv guestfs_lvm_int_lv_list<>;
 
-/* guestfs_mount */
-
 struct guestfs_mount_args {
   string device<>;
   string mountpoint<>;
 };
 
-/* guestfs_sync */
-
-/* guestfs_touch */
-
 struct guestfs_touch_args {
   string path<>;
 };
-
-/* guestfs_cat */
 
 struct guestfs_cat_args {
   string path<>;
@@ -110,8 +102,6 @@ struct guestfs_cat_ret {
   string content<>;
 };
 
-/* guestfs_ll */
-
 struct guestfs_ll_args {
   string directory<>;
 };
@@ -119,8 +109,6 @@ struct guestfs_ll_args {
 struct guestfs_ll_ret {
   string listing<>;
 };
-
-/* guestfs_ls */
 
 struct guestfs_ls_args {
   string directory<>;
@@ -130,55 +118,37 @@ struct guestfs_ls_ret {
   str listing<>;
 };
 
-/* guestfs_list_devices */
-
 struct guestfs_list_devices_ret {
   str devices<>;
 };
-
-/* guestfs_list_partitions */
 
 struct guestfs_list_partitions_ret {
   str partitions<>;
 };
 
-/* guestfs_pvs */
-
 struct guestfs_pvs_ret {
   str physvols<>;
 };
-
-/* guestfs_vgs */
 
 struct guestfs_vgs_ret {
   str volgroups<>;
 };
 
-/* guestfs_lvs */
-
 struct guestfs_lvs_ret {
   str logvols<>;
 };
-
-/* guestfs_pvs_full */
 
 struct guestfs_pvs_full_ret {
   guestfs_lvm_int_pv_list physvols;
 };
 
-/* guestfs_vgs_full */
-
 struct guestfs_vgs_full_ret {
   guestfs_lvm_int_vg_list volgroups;
 };
 
-/* guestfs_lvs_full */
-
 struct guestfs_lvs_full_ret {
   guestfs_lvm_int_lv_list logvols;
 };
-
-/* guestfs_read_lines */
 
 struct guestfs_read_lines_args {
   string path<>;
@@ -186,6 +156,71 @@ struct guestfs_read_lines_args {
 
 struct guestfs_read_lines_ret {
   str lines<>;
+};
+
+struct guestfs_aug_init_args {
+  string root<>;
+  int flags;
+};
+
+struct guestfs_aug_defvar_args {
+  string name<>;
+  str *expr;
+};
+
+struct guestfs_aug_defvar_ret {
+  int nrnodes;
+};
+
+struct guestfs_aug_defnode_args {
+  string name<>;
+  string expr<>;
+  string val<>;
+};
+
+struct guestfs_aug_defnode_ret {
+  int nrnodes;
+  bool created;
+};
+
+struct guestfs_aug_get_args {
+  string path<>;
+};
+
+struct guestfs_aug_get_ret {
+  string val<>;
+};
+
+struct guestfs_aug_set_args {
+  string path<>;
+  string val<>;
+};
+
+struct guestfs_aug_insert_args {
+  string path<>;
+  string label<>;
+  bool before;
+};
+
+struct guestfs_aug_rm_args {
+  string path<>;
+};
+
+struct guestfs_aug_rm_ret {
+  int nrnodes;
+};
+
+struct guestfs_aug_mv_args {
+  string src<>;
+  string dest<>;
+};
+
+struct guestfs_aug_match_args {
+  string path<>;
+};
+
+struct guestfs_aug_match_ret {
+  str matches<>;
 };
 
 enum guestfs_procedure {
@@ -204,6 +239,18 @@ enum guestfs_procedure {
   GUESTFS_PROC_VGS_FULL = 13,
   GUESTFS_PROC_LVS_FULL = 14,
   GUESTFS_PROC_READ_LINES = 15,
+  GUESTFS_PROC_AUG_INIT = 16,
+  GUESTFS_PROC_AUG_CLOSE = 26,
+  GUESTFS_PROC_AUG_DEFVAR = 17,
+  GUESTFS_PROC_AUG_DEFNODE = 18,
+  GUESTFS_PROC_AUG_GET = 19,
+  GUESTFS_PROC_AUG_SET = 20,
+  GUESTFS_PROC_AUG_INSERT = 21,
+  GUESTFS_PROC_AUG_RM = 22,
+  GUESTFS_PROC_AUG_MV = 23,
+  GUESTFS_PROC_AUG_MATCH = 24,
+  GUESTFS_PROC_AUG_SAVE = 25,
+  GUESTFS_PROC_AUG_LOAD = 27,
   GUESTFS_PROC_dummy
 };
 

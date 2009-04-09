@@ -15,7 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-AC_INIT([libguestfs],[0.6])
+AC_INIT([libguestfs],[0.7])
 AM_INIT_AUTOMAKE
 
 AC_CONFIG_MACRO_DIR([m4])
@@ -87,6 +87,18 @@ AC_ARG_WITH([repo],
 REPO="$with_repo"
 AC_SUBST(REPO)
 AC_DEFINE_UNQUOTED([REPO],["$REPO"],[Name of Fedora repository.])
+
+AC_DEFINE_UNQUOTED([host_cpu],["$host_cpu"],[Host architecture.])
+
+dnl --with-updates to specify a Fedora updates repository.
+AC_ARG_WITH([updates],
+	[AS_HELP_STRING([--with-updates],
+	  [set name of Fedora updates repository @<:@default=updates-released-f10@:>@])],
+	[],
+	[with_updates=updates-released-f10])
+UPDATES="$with_updates"
+AC_SUBST(UPDATES)
+AC_DEFINE_UNQUOTED([UPDATES],["$UPDATES"],[Name of Fedora updates repository.])
 
 AC_DEFINE_UNQUOTED([host_cpu],["$host_cpu"],[Host architecture.])
 

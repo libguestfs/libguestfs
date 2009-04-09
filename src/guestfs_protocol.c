@@ -363,6 +363,165 @@ xdr_guestfs_read_lines_ret (XDR *xdrs, guestfs_read_lines_ret *objp)
 }
 
 bool_t
+xdr_guestfs_aug_init_args (XDR *xdrs, guestfs_aug_init_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->root, ~0))
+		 return FALSE;
+	 if (!xdr_int (xdrs, &objp->flags))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_aug_defvar_args (XDR *xdrs, guestfs_aug_defvar_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->name, ~0))
+		 return FALSE;
+	 if (!xdr_pointer (xdrs, (char **)&objp->expr, sizeof (str), (xdrproc_t) xdr_str))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_aug_defvar_ret (XDR *xdrs, guestfs_aug_defvar_ret *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_int (xdrs, &objp->nrnodes))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_aug_defnode_args (XDR *xdrs, guestfs_aug_defnode_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->name, ~0))
+		 return FALSE;
+	 if (!xdr_string (xdrs, &objp->expr, ~0))
+		 return FALSE;
+	 if (!xdr_string (xdrs, &objp->val, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_aug_defnode_ret (XDR *xdrs, guestfs_aug_defnode_ret *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_int (xdrs, &objp->nrnodes))
+		 return FALSE;
+	 if (!xdr_bool (xdrs, &objp->created))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_aug_get_args (XDR *xdrs, guestfs_aug_get_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->path, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_aug_get_ret (XDR *xdrs, guestfs_aug_get_ret *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->val, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_aug_set_args (XDR *xdrs, guestfs_aug_set_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->path, ~0))
+		 return FALSE;
+	 if (!xdr_string (xdrs, &objp->val, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_aug_insert_args (XDR *xdrs, guestfs_aug_insert_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->path, ~0))
+		 return FALSE;
+	 if (!xdr_string (xdrs, &objp->label, ~0))
+		 return FALSE;
+	 if (!xdr_bool (xdrs, &objp->before))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_aug_rm_args (XDR *xdrs, guestfs_aug_rm_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->path, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_aug_rm_ret (XDR *xdrs, guestfs_aug_rm_ret *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_int (xdrs, &objp->nrnodes))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_aug_mv_args (XDR *xdrs, guestfs_aug_mv_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->src, ~0))
+		 return FALSE;
+	 if (!xdr_string (xdrs, &objp->dest, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_aug_match_args (XDR *xdrs, guestfs_aug_match_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->path, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_aug_match_ret (XDR *xdrs, guestfs_aug_match_ret *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_array (xdrs, (char **)&objp->matches.matches_val, (u_int *) &objp->matches.matches_len, ~0,
+		sizeof (str), (xdrproc_t) xdr_str))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
 xdr_guestfs_procedure (XDR *xdrs, guestfs_procedure *objp)
 {
 	register int32_t *buf;

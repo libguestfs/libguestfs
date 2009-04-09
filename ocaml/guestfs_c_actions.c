@@ -456,7 +456,7 @@ ocaml_guestfs_get_autosync (value gv)
   if (r == -1)
     ocaml_guestfs_raise_error (g, "get_autosync");
 
-  rv = r ? Val_true : Val_false;
+  rv = Val_bool (r);
   CAMLreturn (rv);
 }
 
@@ -501,7 +501,7 @@ ocaml_guestfs_get_verbose (value gv)
   if (r == -1)
     ocaml_guestfs_raise_error (g, "get_verbose");
 
-  rv = r ? Val_true : Val_false;
+  rv = Val_bool (r);
   CAMLreturn (rv);
 }
 
@@ -865,6 +865,295 @@ ocaml_guestfs_read_lines (value gv, value pathv)
   rv = caml_copy_string_array ((const char **) r);
   for (i = 0; r[i] != NULL; ++i) free (r[i]);
   free (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_aug_init (value gv, value rootv, value flagsv)
+{
+  CAMLparam3 (gv, rootv, flagsv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("aug_init: used handle after closing it");
+
+  const char *root = String_val (rootv);
+  int flags = Int_val (flagsv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_aug_init (g, root, flags);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "aug_init");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_aug_close (value gv)
+{
+  CAMLparam1 (gv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("aug_close: used handle after closing it");
+
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_aug_close (g);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "aug_close");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_aug_defvar (value gv, value namev, value exprv)
+{
+  CAMLparam3 (gv, namev, exprv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("aug_defvar: used handle after closing it");
+
+  const char *name = String_val (namev);
+  const char *expr =
+    exprv != Val_int (0) ? String_val (Field (exprv, 0)) : NULL;
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_aug_defvar (g, name, expr);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "aug_defvar");
+
+  rv = Val_int (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_aug_defnode (value gv, value namev, value exprv, value valv)
+{
+  CAMLparam4 (gv, namev, exprv, valv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("aug_defnode: used handle after closing it");
+
+  const char *name = String_val (namev);
+  const char *expr = String_val (exprv);
+  const char *val = String_val (valv);
+  struct guestfs_int_bool *r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_aug_defnode (g, name, expr, val);
+  caml_leave_blocking_section ();
+  if (r == NULL)
+    ocaml_guestfs_raise_error (g, "aug_defnode");
+
+  rv = caml_alloc (2, 0);
+  Store_field (rv, 0, Val_int (r->i));
+  Store_field (rv, 1, Val_bool (r->b));
+  guestfs_free_int_bool (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_aug_get (value gv, value pathv)
+{
+  CAMLparam2 (gv, pathv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("aug_get: used handle after closing it");
+
+  const char *path = String_val (pathv);
+  char *r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_aug_get (g, path);
+  caml_leave_blocking_section ();
+  if (r == NULL)
+    ocaml_guestfs_raise_error (g, "aug_get");
+
+  rv = caml_copy_string (r);
+  free (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_aug_set (value gv, value pathv, value valv)
+{
+  CAMLparam3 (gv, pathv, valv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("aug_set: used handle after closing it");
+
+  const char *path = String_val (pathv);
+  const char *val = String_val (valv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_aug_set (g, path, val);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "aug_set");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_aug_insert (value gv, value pathv, value labelv, value beforev)
+{
+  CAMLparam4 (gv, pathv, labelv, beforev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("aug_insert: used handle after closing it");
+
+  const char *path = String_val (pathv);
+  const char *label = String_val (labelv);
+  int before = Bool_val (beforev);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_aug_insert (g, path, label, before);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "aug_insert");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_aug_rm (value gv, value pathv)
+{
+  CAMLparam2 (gv, pathv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("aug_rm: used handle after closing it");
+
+  const char *path = String_val (pathv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_aug_rm (g, path);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "aug_rm");
+
+  rv = Val_int (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_aug_mv (value gv, value srcv, value destv)
+{
+  CAMLparam3 (gv, srcv, destv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("aug_mv: used handle after closing it");
+
+  const char *src = String_val (srcv);
+  const char *dest = String_val (destv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_aug_mv (g, src, dest);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "aug_mv");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_aug_match (value gv, value pathv)
+{
+  CAMLparam2 (gv, pathv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("aug_match: used handle after closing it");
+
+  const char *path = String_val (pathv);
+  int i;
+  char **r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_aug_match (g, path);
+  caml_leave_blocking_section ();
+  if (r == NULL)
+    ocaml_guestfs_raise_error (g, "aug_match");
+
+  rv = caml_copy_string_array ((const char **) r);
+  for (i = 0; r[i] != NULL; ++i) free (r[i]);
+  free (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_aug_save (value gv)
+{
+  CAMLparam1 (gv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("aug_save: used handle after closing it");
+
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_aug_save (g);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "aug_save");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_aug_load (value gv)
+{
+  CAMLparam1 (gv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("aug_load: used handle after closing it");
+
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_aug_load (g);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "aug_load");
+
+  rv = Val_unit;
   CAMLreturn (rv);
 }
 

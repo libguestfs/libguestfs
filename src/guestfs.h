@@ -45,6 +45,7 @@ extern guestfs_abort_cb guestfs_get_out_of_memory_handler (guestfs_h *g);
 #include <guestfs-structs.h>
 #include <guestfs-actions.h>
 
+extern void guestfs_free_int_bool (struct guestfs_int_bool *);
 extern void guestfs_free_lvm_pv_list (struct guestfs_lvm_pv_list *);
 extern void guestfs_free_lvm_vg_list (struct guestfs_lvm_vg_list *);
 extern void guestfs_free_lvm_lv_list (struct guestfs_lvm_lv_list *);

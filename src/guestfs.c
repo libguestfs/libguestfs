@@ -1271,6 +1271,12 @@ check_reply_header (guestfs_h *g,
  * generator.ml.
  */
 void
+guestfs_free_int_bool (struct guestfs_int_bool *x)
+{
+  free (x);
+}
+
+void
 guestfs_free_lvm_pv_list (struct guestfs_lvm_pv_list *x)
 {
   xdr_free ((xdrproc_t) xdr_guestfs_lvm_int_pv_list, (char *) x);
