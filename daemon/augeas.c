@@ -276,3 +276,46 @@ do_aug_load (void)
 
   return 0;
 }
+
+/* Simpler version of aug-match, which also sorts the output. */
+char **
+do_aug_ls (const char *path)
+{
+  char **matches;
+  char *buf;
+  int len;
+
+  NEED_AUG (NULL);
+
+  ABS_PATH (path, NULL);
+
+  len = strlen (path);
+
+  if (len > 1 &&
+      (path[len-1] == '/' || path[len-1] == ']' || path[len-1] == '*')) {
+    reply_with_error ("don't use aug-ls with a path that ends with / ] *");
+    return NULL;
+  }
+
+  if (len == 1)
+    /* we know path must be "/" because of ABS_PATH above */
+    matches = do_aug_match ("/");
+  else {
+    len += 3;			/* / * + terminating \0 */
+    buf = malloc (len);
+    if (buf == NULL) {
+      reply_with_perror ("malloc");
+      return NULL;
+    }
+
+    snprintf (buf, len, "%s/*", path);
+    matches = do_aug_match (buf);
+    free (buf);
+  }
+
+  if (matches == NULL)
+    return NULL;		/* do_aug_match has already sent the error */
+
+  sort_strings (matches, count_strings (matches));
+  return matches;		/* Caller frees. */
+}

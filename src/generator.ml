@@ -473,6 +473,12 @@ Load files into the tree.
 
 See C<aug_load> in the Augeas documentation for the full gory
 details.");
+
+  ("aug_ls", (RStringList "matches", P1 (String "path")), 28, [],
+   "list Augeas nodes under a path",
+   "\
+This is just a shortcut for listing C<guestfs_aug_match>
+C<path/*> and sorting the files into alphabetical order.");
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
