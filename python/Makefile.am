@@ -17,6 +17,8 @@
 
 EXTRA_DIST = README-python-bindings
 
+CLEANFILES = *~
+
 if HAVE_PYTHON
 
 endif

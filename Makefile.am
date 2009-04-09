@@ -146,7 +146,7 @@ test-boot-realistic: emptydisk
 
 # Make clean.
 
-CLEANFILES = $(fs_DATA) emptydisk pod2htm?.tmp
+CLEANFILES = $(fs_DATA) emptydisk pod2htm?.tmp *~ html/*~
 
 clean-local:
 	rm -rf initramfs

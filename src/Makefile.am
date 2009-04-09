@@ -48,3 +48,5 @@ guestfs_protocol.h: guestfs_protocol.x
 	$(RPCGEN) -h -o $@-t $<
 	mv $@-t $@
 endif
+
+CLEANFILES = *~

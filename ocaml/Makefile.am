@@ -22,6 +22,8 @@ EXTRA_DIST = \
 
 SUBDIRS = examples
 
+CLEANFILES = *~
+
 if HAVE_OCAML
 
 noinst_DATA = mlguestfs.cma mlguestfs.cmxa META

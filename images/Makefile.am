@@ -16,3 +16,5 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 EXTRA_DIST	= mbr-ext2-empty.img.gz
+
+CLEANFILES = *~

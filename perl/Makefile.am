@@ -25,6 +25,8 @@ EXTRA_DIST = \
 	examples/*.pl \
 	t/*.t
 
+CLEANFILES = *~ examples/*~ t/*~
+
 if HAVE_PERL
 
 # Interfacing automake and ExtUtils::MakeMaker known to be
