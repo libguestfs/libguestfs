@@ -109,28 +109,28 @@ integers:
 
 =over 4
 
-=item 1 C<AUG_SAVE_BACKUP>
+=item C<AUG_SAVE_BACKUP> = 1
 
 Keep the original file with a C<.augsave> extension.
 
-=item 2 C<AUG_SAVE_NEWFILE>
+=item C<AUG_SAVE_NEWFILE> = 2
 
 Save changes into a file with extension C<.augnew>, and
 do not overwrite original.  Overrides C<AUG_SAVE_BACKUP>.
 
-=item 4 C<AUG_TYPE_CHECK>
+=item C<AUG_TYPE_CHECK> = 4
 
 Typecheck lenses (can be expensive).
 
-=item 8 C<AUG_NO_STDINC>
+=item C<AUG_NO_STDINC> = 8
 
 Do not use standard load path for modules.
 
-=item 16 C<AUG_SAVE_NOOP>
+=item C<AUG_SAVE_NOOP> = 16
 
 Make save a no-op, just record what would have been changed.
 
-=item 32 C<AUG_NO_LOAD>
+=item C<AUG_NO_LOAD> = 32
 
 Do not load the tree in C<guestfs_aug_init>.
 

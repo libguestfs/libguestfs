@@ -183,13 +183,9 @@ Size can be specified (where C<nn> means a number):
 
 =over 4
 
-=item C<nn>
+=item C<nn> or C<nn>K or C<nn>KB
 
 number of kilobytes, eg: C<1440> = standard 3.5in floppy
-
-=item C<nn>K or C<nn>KB
-
-number of kilobytes
 
 =item C<nn>M or C<nn>MB
 

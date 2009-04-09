@@ -1,0 +1,24 @@
+/* CSS to make pod2html files look a little bit better. */
+@import url("http://et.redhat.com/~rjones/css/standard.css");
+
+/* Put the index on the right hand side in a floating box. */
+div[name="index"] {
+    float: right;
+    width: 24em;
+    background-color: white;
+    margin-right: 2em;
+}
+
+/* Get rid of those horrible <hr>'s :-( */
+hr { display: none; }
+
+/* Demote <h1>'s. */
+h1 {
+    font-size: 100%;
+    border-bottom: none;
+}
+
+h2 {
+    font-size: 120%;
+    border-bottom: none;
+}
