@@ -478,7 +478,7 @@ details.");
    "list Augeas nodes under a path",
    "\
 This is just a shortcut for listing C<guestfs_aug_match>
-C<path/*> and sorting the files into alphabetical order.");
+C<path/*> and sorting the resulting nodes into alphabetical order.");
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
