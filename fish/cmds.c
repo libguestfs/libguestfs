@@ -40,6 +40,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "aug-init", "create a new Augeas handle");
   printf ("%-20s %s\n", "aug-insert", "insert a sibling Augeas node");
   printf ("%-20s %s\n", "aug-load", "load files into the tree");
+  printf ("%-20s %s\n", "aug-ls", "list Augeas nodes under a path");
   printf ("%-20s %s\n", "aug-match", "return Augeas nodes which match path");
   printf ("%-20s %s\n", "aug-mv", "move Augeas node");
   printf ("%-20s %s\n", "aug-rm", "remove an Augeas path");
@@ -187,6 +188,9 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "aug_load") == 0 || strcasecmp (cmd, "aug-load") == 0)
     pod2text ("aug-load - load files into the tree", " aug-load\n\nLoad files into the tree.\n\nSee C<aug_load> in the Augeas documentation for the full gory\ndetails.");
+  else
+  if (strcasecmp (cmd, "aug_ls") == 0 || strcasecmp (cmd, "aug-ls") == 0)
+    pod2text ("aug-ls - list Augeas nodes under a path", " aug-ls <path>\n\nThis is just a shortcut for listing C<aug_match>\nC<path/*> and sorting the files into alphabetical order.");
   else
     display_builtin_command (cmd);
 }
@@ -867,6 +871,23 @@ static int run_aug_load (const char *cmd, int argc, char *argv[])
   return r;
 }
 
+static int run_aug_ls (const char *cmd, int argc, char *argv[])
+{
+  char **r;
+  const char *path;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  path = argv[0];
+  r = guestfs_aug_ls (g, path);
+  if (r == NULL) return -1;
+  print_strings (r);
+  free_strings (r);
+  return 0;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -982,6 +1003,9 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "aug_load") == 0 || strcasecmp (cmd, "aug-load") == 0)
     return run_aug_load (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "aug_ls") == 0 || strcasecmp (cmd, "aug-ls") == 0)
+    return run_aug_ls (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

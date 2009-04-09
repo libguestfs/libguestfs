@@ -286,6 +286,19 @@ struct guestfs_aug_match_ret {
 };
 typedef struct guestfs_aug_match_ret guestfs_aug_match_ret;
 
+struct guestfs_aug_ls_args {
+	char *path;
+};
+typedef struct guestfs_aug_ls_args guestfs_aug_ls_args;
+
+struct guestfs_aug_ls_ret {
+	struct {
+		u_int matches_len;
+		str *matches_val;
+	} matches;
+};
+typedef struct guestfs_aug_ls_ret guestfs_aug_ls_ret;
+
 enum guestfs_procedure {
 	GUESTFS_PROC_MOUNT = 1,
 	GUESTFS_PROC_SYNC = 2,
@@ -314,7 +327,8 @@ enum guestfs_procedure {
 	GUESTFS_PROC_AUG_MATCH = 24,
 	GUESTFS_PROC_AUG_SAVE = 25,
 	GUESTFS_PROC_AUG_LOAD = 27,
-	GUESTFS_PROC_dummy = 27 + 1,
+	GUESTFS_PROC_AUG_LS = 28,
+	GUESTFS_PROC_dummy = 28 + 1,
 };
 typedef enum guestfs_procedure guestfs_procedure;
 #define GUESTFS_MESSAGE_MAX 4194304
@@ -391,6 +405,8 @@ extern  bool_t xdr_guestfs_aug_rm_ret (XDR *, guestfs_aug_rm_ret*);
 extern  bool_t xdr_guestfs_aug_mv_args (XDR *, guestfs_aug_mv_args*);
 extern  bool_t xdr_guestfs_aug_match_args (XDR *, guestfs_aug_match_args*);
 extern  bool_t xdr_guestfs_aug_match_ret (XDR *, guestfs_aug_match_ret*);
+extern  bool_t xdr_guestfs_aug_ls_args (XDR *, guestfs_aug_ls_args*);
+extern  bool_t xdr_guestfs_aug_ls_ret (XDR *, guestfs_aug_ls_ret*);
 extern  bool_t xdr_guestfs_procedure (XDR *, guestfs_procedure*);
 extern  bool_t xdr_guestfs_message_direction (XDR *, guestfs_message_direction*);
 extern  bool_t xdr_guestfs_message_status (XDR *, guestfs_message_status*);
@@ -437,6 +453,8 @@ extern bool_t xdr_guestfs_aug_rm_ret ();
 extern bool_t xdr_guestfs_aug_mv_args ();
 extern bool_t xdr_guestfs_aug_match_args ();
 extern bool_t xdr_guestfs_aug_match_ret ();
+extern bool_t xdr_guestfs_aug_ls_args ();
+extern bool_t xdr_guestfs_aug_ls_ret ();
 extern bool_t xdr_guestfs_procedure ();
 extern bool_t xdr_guestfs_message_direction ();
 extern bool_t xdr_guestfs_message_status ();

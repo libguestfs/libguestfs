@@ -170,6 +170,18 @@ details.
 
 This function returns 0 on success or -1 on error.
 
+=head2 guestfs_aug_ls
+
+ char **guestfs_aug_ls (guestfs_h *handle,
+		const char *path);
+
+This is just a shortcut for listing C<guestfs_aug_match>
+C<path/*> and sorting the files into alphabetical order.
+
+This function returns a NULL-terminated array of strings
+(like L<environ(3)>), or NULL if there was an error.
+I<The caller must free the strings and the array after use>.
+
 =head2 guestfs_aug_match
 
  char **guestfs_aug_match (guestfs_h *handle,

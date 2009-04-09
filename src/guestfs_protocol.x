@@ -223,6 +223,14 @@ struct guestfs_aug_match_ret {
   str matches<>;
 };
 
+struct guestfs_aug_ls_args {
+  string path<>;
+};
+
+struct guestfs_aug_ls_ret {
+  str matches<>;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -251,6 +259,7 @@ enum guestfs_procedure {
   GUESTFS_PROC_AUG_MATCH = 24,
   GUESTFS_PROC_AUG_SAVE = 25,
   GUESTFS_PROC_AUG_LOAD = 27,
+  GUESTFS_PROC_AUG_LS = 28,
   GUESTFS_PROC_dummy
 };
 

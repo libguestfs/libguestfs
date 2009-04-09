@@ -137,6 +137,13 @@ Load files into the tree.
 See C<aug_load> in the Augeas documentation for the full gory
 details.
 
+=head2 aug-ls
+
+ aug-ls path
+
+This is just a shortcut for listing C<aug_match>
+C<path/*> and sorting the files into alphabetical order.
+
 =head2 aug-match
 
  aug-match path

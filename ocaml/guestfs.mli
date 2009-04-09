@@ -211,3 +211,6 @@ val aug_save : t -> unit
 val aug_load : t -> unit
 (** load files into the tree *)
 
+val aug_ls : t -> string -> string array
+(** list Augeas nodes under a path *)
+

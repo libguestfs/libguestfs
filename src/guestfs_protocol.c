@@ -522,6 +522,27 @@ xdr_guestfs_aug_match_ret (XDR *xdrs, guestfs_aug_match_ret *objp)
 }
 
 bool_t
+xdr_guestfs_aug_ls_args (XDR *xdrs, guestfs_aug_ls_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->path, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_aug_ls_ret (XDR *xdrs, guestfs_aug_ls_ret *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_array (xdrs, (char **)&objp->matches.matches_val, (u_int *) &objp->matches.matches_len, ~0,
+		sizeof (str), (xdrproc_t) xdr_str))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
 xdr_guestfs_procedure (XDR *xdrs, guestfs_procedure *objp)
 {
 	register int32_t *buf;

@@ -58,3 +58,4 @@ extern int guestfs_aug_mv (guestfs_h *handle, const char *src, const char *dest)
 extern char **guestfs_aug_match (guestfs_h *handle, const char *path);
 extern int guestfs_aug_save (guestfs_h *handle);
 extern int guestfs_aug_load (guestfs_h *handle);
+extern char **guestfs_aug_ls (guestfs_h *handle, const char *path);

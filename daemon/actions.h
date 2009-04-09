@@ -48,3 +48,4 @@ extern int do_aug_mv (const char *src, const char *dest);
 extern char **do_aug_match (const char *path);
 extern int do_aug_save (void);
 extern int do_aug_load (void);
+extern char **do_aug_ls (const char *path);

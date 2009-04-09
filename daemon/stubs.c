@@ -580,6 +580,32 @@ static void aug_load_stub (XDR *xdr_in)
   reply (NULL, NULL);
 }
 
+static void aug_ls_stub (XDR *xdr_in)
+{
+  char **r;
+  struct guestfs_aug_ls_args args;
+  const char *path;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_aug_ls_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "aug_ls");
+    return;
+  }
+  path = args.path;
+
+  r = do_aug_ls (path);
+  if (r == NULL)
+    /* do_aug_ls has already called reply_with_error, so just return */
+    return;
+
+  struct guestfs_aug_ls_ret ret;
+  ret.matches.matches_len = count_strings (r);
+  ret.matches.matches_val = r;
+  reply ((xdrproc_t) &xdr_guestfs_aug_ls_ret, (char *) &ret);
+  free_strings (r);
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -663,6 +689,9 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_AUG_LOAD:
       aug_load_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_AUG_LS:
+      aug_ls_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d", proc_nr);

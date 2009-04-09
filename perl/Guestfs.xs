@@ -623,3 +623,22 @@ aug_load (g)
       if (guestfs_aug_load (g) == -1)
         croak ("aug_load: %s", last_error);
 
+void
+aug_ls (g, path)
+      guestfs_h *g;
+      char *path;
+PREINIT:
+      char **matches;
+      int i, n;
+ PPCODE:
+      matches = guestfs_aug_ls (g, path);
+      if (matches == NULL)
+        croak ("aug_ls: %s", last_error);
+      for (n = 0; matches[n] != NULL; ++n) /**/;
+      EXTEND (SP, n);
+      for (i = 0; i < n; ++i) {
+        PUSHs (sv_2mortal (newSVpv (matches[i], 0)));
+        free (matches[i]);
+      }
+      free (matches);
+

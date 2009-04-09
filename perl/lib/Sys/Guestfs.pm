@@ -212,6 +212,11 @@ Load files into the tree.
 See C<aug_load> in the Augeas documentation for the full gory
 details.
 
+=item @matches = $h->aug_ls (path);
+
+This is just a shortcut for listing C<$h-E<gt>aug_match>
+C<path/*> and sorting the files into alphabetical order.
+
 =item @matches = $h->aug_match (path);
 
 Returns a list of paths which match the path expression C<path>.
