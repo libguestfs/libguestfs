@@ -1,6 +1,6 @@
 # @configure_input@
 
-%global mirror http://hakodate/mirrors/fedora/10/Fedora/x86_64/os/
+#%global mirror http://hakodate/mirrors/fedora/10/Fedora/x86_64/os/
 
 Summary:     Access and modify virtual machine disk images
 Name:        libguestfs
@@ -130,7 +130,8 @@ Requires:    perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version)
 
 
 %build
-%configure --with-mirror=%{mirror}
+#%configure --with-mirror=%{mirror}
+%configure
 
 # 'INSTALLDIRS' ensures that perl libs are installed in the vendor dir
 # not the site dir.
@@ -180,7 +181,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(-,root,root,-)
-%doc HACKING README examples
+%doc HACKING README examples html/guestfs.3.html html/pod.css
 %{_libdir}/libguestfs.so
 %{_mandir}/man3/guestfs.3*
 %{_includedir}/guestfs.h
@@ -190,6 +191,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n guestfish
 %defattr(-,root,root,-)
+%doc html/guestfish.1.html html/pod.css
 %{_bindir}/guestfish
 %{_mandir}/man1/guestfish.1*
 
