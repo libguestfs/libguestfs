@@ -15,11 +15,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- *
- * This script generates a large amount of code and documentation for
+ *)
+
+(* This script generates a large amount of code and documentation for
  * all the daemon actions.  To add a new action there are only two
  * files you need to change, this one to describe the interface, and
  * daemon/<somefile>.c to write the implementation.
+ *
+ * After editing this file, run it (./src/generator.ml) to regenerate
+ * all the output files.
+ *
+ * IMPORTANT: This script should not print any warnings.  If it prints
+ * warnings, you should treat them as errors.
+ * [Need to add -warn-error to ocaml command line]
  *)
 
 #load "unix.cma";;
@@ -32,7 +40,7 @@ and ret =
      * indication, ie. 0 or -1.
      *)
   | Err
-    (* "Int" as a return value means an int which is -1 for error
+    (* "RInt" as a return value means an int which is -1 for error
      * or any value >= 0 on success.
      *)
   | RInt of string
