@@ -142,7 +142,7 @@ details.
  aug-ls path
 
 This is just a shortcut for listing C<aug_match>
-C<path/*> and sorting the files into alphabetical order.
+C<path/*> and sorting the resulting nodes into alphabetical order.
 
 =head2 aug-match
 

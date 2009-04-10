@@ -190,7 +190,7 @@ void display_command (const char *cmd)
     pod2text ("aug-load - load files into the tree", " aug-load\n\nLoad files into the tree.\n\nSee C<aug_load> in the Augeas documentation for the full gory\ndetails.");
   else
   if (strcasecmp (cmd, "aug_ls") == 0 || strcasecmp (cmd, "aug-ls") == 0)
-    pod2text ("aug-ls - list Augeas nodes under a path", " aug-ls <path>\n\nThis is just a shortcut for listing C<aug_match>\nC<path/*> and sorting the files into alphabetical order.");
+    pod2text ("aug-ls - list Augeas nodes under a path", " aug-ls <path>\n\nThis is just a shortcut for listing C<aug_match>\nC<path/*> and sorting the resulting nodes into alphabetical order.");
   else
     display_builtin_command (cmd);
 }

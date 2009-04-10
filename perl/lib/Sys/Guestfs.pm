@@ -215,7 +215,7 @@ details.
 =item @matches = $h->aug_ls (path);
 
 This is just a shortcut for listing C<$h-E<gt>aug_match>
-C<path/*> and sorting the files into alphabetical order.
+C<path/*> and sorting the resulting nodes into alphabetical order.
 
 =item @matches = $h->aug_match (path);
 
