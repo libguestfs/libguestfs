@@ -19,11 +19,13 @@
 #ifndef GUESTFSD_DAEMON_H
 #define GUESTFSD_DAEMON_H
 
-#include "../src/guestfs_protocol.h"
-
 #include <stdarg.h>
+#include <errno.h>
+
 #include <rpc/types.h>
 #include <rpc/xdr.h>
+
+#include "../src/guestfs_protocol.h"
 
 /* in guestfsd.c */
 extern void xwrite (int sock, const void *buf, size_t len);
@@ -78,8 +80,10 @@ extern void reply (xdrproc_t xdrp, char *ret);
  * (2) You must not change directory!  cwd must always be "/", otherwise
  *     we can't escape our own chroot.
  * (3) All paths specified must be absolute.
+ * (4) CHROOT_OUT does not affect errno.
  */
 #define CHROOT_IN chroot ("/sysroot");
-#define CHROOT_OUT chroot (".");
+#define CHROOT_OUT \
+  do { int old_errno = errno; chroot ("."); errno = old_errno; } while (0)
 
 #endif /* GUESTFSD_DAEMON_H */
