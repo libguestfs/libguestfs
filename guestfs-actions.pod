@@ -59,7 +59,7 @@ number of nodes in the nodeset, and a boolean flag
 if a node was created.
 
 This function returns a C<struct guestfs_int_bool *>.
-I<The caller must call C<guestfs_free_int_bool> after use.>.
+I<The caller must call C<guestfs_free_int_bool> after use>.
 
 =head2 guestfs_aug_defvar
 
@@ -403,7 +403,7 @@ List all the logical volumes detected.  This is the equivalent
 of the L<lvs(8)> command.  The "full" version includes all fields.
 
 This function returns a C<struct guestfs_lvm_lv_list *>.
-I<The caller must call C<guestfs_free_lvm_lv_list> after use.>.
+I<The caller must call C<guestfs_free_lvm_lv_list> after use>.
 
 =head2 guestfs_mount
 
@@ -454,7 +454,7 @@ List all the physical volumes detected.  This is the equivalent
 of the L<pvs(8)> command.  The "full" version includes all fields.
 
 This function returns a C<struct guestfs_lvm_pv_list *>.
-I<The caller must call C<guestfs_free_lvm_pv_list> after use.>.
+I<The caller must call C<guestfs_free_lvm_pv_list> after use>.
 
 =head2 guestfs_read_lines
 
@@ -562,7 +562,7 @@ List all the volumes groups detected.  This is the equivalent
 of the L<vgs(8)> command.  The "full" version includes all fields.
 
 This function returns a C<struct guestfs_lvm_vg_list *>.
-I<The caller must call C<guestfs_free_lvm_vg_list> after use.>.
+I<The caller must call C<guestfs_free_lvm_vg_list> after use>.
 
 =head2 guestfs_wait_ready
 

@@ -796,16 +796,16 @@ I<The caller must free the returned string after use>.\n\n"
 I<The caller must free the strings and the array after use>.\n\n"
        | RIntBool _ ->
 	   pr "This function returns a C<struct guestfs_int_bool *>.
-I<The caller must call C<guestfs_free_int_bool> after use.>.\n\n"
+I<The caller must call C<guestfs_free_int_bool> after use>.\n\n"
        | RPVList _ ->
 	   pr "This function returns a C<struct guestfs_lvm_pv_list *>.
-I<The caller must call C<guestfs_free_lvm_pv_list> after use.>.\n\n"
+I<The caller must call C<guestfs_free_lvm_pv_list> after use>.\n\n"
        | RVGList _ ->
 	   pr "This function returns a C<struct guestfs_lvm_vg_list *>.
-I<The caller must call C<guestfs_free_lvm_vg_list> after use.>.\n\n"
+I<The caller must call C<guestfs_free_lvm_vg_list> after use>.\n\n"
        | RLVList _ ->
 	   pr "This function returns a C<struct guestfs_lvm_lv_list *>.
-I<The caller must call C<guestfs_free_lvm_lv_list> after use.>.\n\n"
+I<The caller must call C<guestfs_free_lvm_lv_list> after use>.\n\n"
       );
       if List.mem ProtocolLimitWarning flags then
 	pr "Because of the message protocol, there is a transfer limit 
