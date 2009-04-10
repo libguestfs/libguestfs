@@ -170,7 +170,7 @@ main (int argc, char *argv[])
     exit (1);
   }
 
-  xwrite (sock, buf, xdr_getpos (&xdr));
+  (void) xwrite (sock, buf, xdr_getpos (&xdr));
 
   xdr_destroy (&xdr);
 
@@ -188,7 +188,7 @@ main (int argc, char *argv[])
   exit (0);
 }
 
-void
+int
 xwrite (int sock, const void *buf, size_t len)
 {
   int r;
@@ -197,14 +197,16 @@ xwrite (int sock, const void *buf, size_t len)
     r = write (sock, buf, len);
     if (r == -1) {
       perror ("write");
-      exit (1);
+      return -1;
     }
     buf += r;
     len -= r;
   }
+
+  return 0;
 }
 
-void
+int
 xread (int sock, void *buf, size_t len)
 {
   int r;
@@ -213,15 +215,17 @@ xread (int sock, void *buf, size_t len)
     r = read (sock, buf, len);
     if (r == -1) {
       perror ("read");
-      exit (1);
+      return -1;
     }
     if (r == 0) {
-      fprintf (stderr, "read: unexpected end of file on comms socket\n");
-      exit (1);
+      fprintf (stderr, "read: unexpected end of file on fd %d\n", sock);
+      return -1;
     }
     buf += r;
     len -= r;
   }
+
+  return 0;
 }
 
 static void
@@ -263,7 +267,7 @@ add_string (char ***argv, int *size, int *alloc, const char *str)
 }
 
 int
-count_strings (char **argv)
+count_strings (char * const* const argv)
 {
   int argc;
 
@@ -314,14 +318,51 @@ free_stringslen (char **argv, int len)
 int
 command (char **stdoutput, char **stderror, const char *name, ...)
 {
+  va_list args;
+  char **argv;
+  char *s;
+  int i, r;
+
+  /* Collect the command line arguments into an array. */
+  va_start (args, name);
+
+  i = 2;
+  argv = malloc (sizeof (char *) * i);
+  argv[0] = (char *) name;
+  argv[1] = NULL;
+
+  while ((s = va_arg (args, char *)) != NULL) {
+    argv = realloc (argv, sizeof (char *) * (++i));
+    argv[i-2] = s;
+    argv[i-1] = NULL;
+  }
+
+  va_end (args);
+
+  r = commandv (stdoutput, stderror, argv);
+
+  /* NB: Mustn't free the strings which are on the stack. */
+  free (argv);
+
+  return r;
+}
+
+int
+commandv (char **stdoutput, char **stderror, char * const* const argv)
+{
   int so_size = 0, se_size = 0;
   int so_fd[2], se_fd[2];
-  int pid, r, quit;
+  int pid, r, quit, i;
   fd_set rset, rset2;
   char buf[256];
 
   if (stdoutput) *stdoutput = NULL;
   if (stderror) *stderror = NULL;
+
+  printf ("%s", argv[0]);
+  for (i = 1; argv[i] != NULL; ++i)
+    printf (" %s", argv[i]);
+  printf ("\n");
 
   if (pipe (so_fd) == -1 || pipe (se_fd) == -1) {
     perror ("pipe");
@@ -335,25 +376,6 @@ command (char **stdoutput, char **stderror, const char *name, ...)
   }
 
   if (pid == 0) {		/* Child process. */
-    va_list args;
-    char **argv;
-    char *s;
-    int i;
-
-    /* Collect the command line arguments into an array. */
-    va_start (args, name);
-
-    i = 2;
-    argv = malloc (sizeof (char *) * i);
-    argv[0] = (char *) name;
-    argv[1] = NULL;
-
-    while ((s = va_arg (args, char *)) != NULL) {
-      argv = realloc (argv, sizeof (char *) * (++i));
-      argv[i-2] = s;
-      argv[i-1] = NULL;
-    }
-
     close (0);
     close (so_fd[0]);
     close (se_fd[0]);
@@ -362,8 +384,8 @@ command (char **stdoutput, char **stderror, const char *name, ...)
     close (so_fd[1]);
     close (se_fd[1]);
 
-    execvp (name, argv);
-    perror (name);
+    execvp (argv[0], argv);
+    perror (argv[0]);
     _exit (1);
   }
 
@@ -376,7 +398,7 @@ command (char **stdoutput, char **stderror, const char *name, ...)
   FD_SET (se_fd[0], &rset);
 
   quit = 0;
-  while (!quit) {
+  while (quit < 2) {
     rset2 = rset;
     r = select (MAX (so_fd[0], se_fd[0]) + 1, &rset2, NULL, NULL, NULL);
     if (r == -1) {
@@ -392,7 +414,7 @@ command (char **stdoutput, char **stderror, const char *name, ...)
 	waitpid (pid, NULL, 0);
 	return -1;
       }
-      if (r == 0) quit = 1;
+      if (r == 0) { FD_CLR (so_fd[0], &rset); quit++; }
 
       if (r > 0 && stdoutput) {
 	so_size += r;
@@ -413,7 +435,7 @@ command (char **stdoutput, char **stderror, const char *name, ...)
 	waitpid (pid, NULL, 0);
 	return -1;
       }
-      if (r == 0) quit = 1;
+      if (r == 0) { FD_CLR (se_fd[0], &rset); quit++; }
 
       if (r > 0 && stderror) {
 	se_size += r;

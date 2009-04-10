@@ -50,20 +50,28 @@ void list_commands (void)
   printf ("%-20s %s\n", "chmod", "change file mode");
   printf ("%-20s %s\n", "chown", "change file owner and group");
   printf ("%-20s %s\n", "config", "add qemu parameters");
+  printf ("%-20s %s\n", "exists", "test if file or directory exists");
   printf ("%-20s %s\n", "get-autosync", "get autosync mode");
   printf ("%-20s %s\n", "get-path", "get the search path");
   printf ("%-20s %s\n", "get-verbose", "get verbose mode");
+  printf ("%-20s %s\n", "is-dir", "test if file exists");
+  printf ("%-20s %s\n", "is-file", "test if file exists");
   printf ("%-20s %s\n", "kill-subprocess", "kill the qemu subprocess");
   printf ("%-20s %s\n", "launch", "launch the qemu subprocess");
   printf ("%-20s %s\n", "list-devices", "list the block devices");
   printf ("%-20s %s\n", "list-partitions", "list the partitions");
   printf ("%-20s %s\n", "ll", "list the files in a directory (long format)");
   printf ("%-20s %s\n", "ls", "list the files in a directory");
+  printf ("%-20s %s\n", "lvcreate", "create an LVM volume group");
+  printf ("%-20s %s\n", "lvm-remove-all", "remove all LVM LVs, VGs and PVs");
   printf ("%-20s %s\n", "lvs", "list the LVM logical volumes (LVs)");
   printf ("%-20s %s\n", "lvs-full", "list the LVM logical volumes (LVs)");
   printf ("%-20s %s\n", "mkdir", "create a directory");
   printf ("%-20s %s\n", "mkdir-p", "create a directory and parents");
+  printf ("%-20s %s\n", "mkfs", "make a filesystem");
   printf ("%-20s %s\n", "mount", "mount a guest disk at a position in the filesystem");
+  printf ("%-20s %s\n", "mounts", "show mounted filesystems");
+  printf ("%-20s %s\n", "pvcreate", "create an LVM physical volume");
   printf ("%-20s %s\n", "pvs", "list the LVM physical volumes (PVs)");
   printf ("%-20s %s\n", "pvs-full", "list the LVM physical volumes (PVs)");
   printf ("%-20s %s\n", "read-lines", "read file as lines");
@@ -73,10 +81,15 @@ void list_commands (void)
   printf ("%-20s %s\n", "set-autosync", "set autosync mode");
   printf ("%-20s %s\n", "set-path", "set the search path");
   printf ("%-20s %s\n", "set-verbose", "set verbose mode");
+  printf ("%-20s %s\n", "sfdisk", "create partitions on a block device");
   printf ("%-20s %s\n", "sync", "sync disks, writes are flushed through to the disk image");
   printf ("%-20s %s\n", "touch", "update file timestamps or create a new file");
+  printf ("%-20s %s\n", "umount", "unmount a filesystem");
+  printf ("%-20s %s\n", "umount-all", "unmount all filesystems");
+  printf ("%-20s %s\n", "vgcreate", "create an LVM volume group");
   printf ("%-20s %s\n", "vgs", "list the LVM volume groups (VGs)");
   printf ("%-20s %s\n", "vgs-full", "list the LVM volume groups (VGs)");
+  printf ("%-20s %s\n", "write-file", "Create a file");
   printf ("    Use -h <cmd> / help <cmd> to show detailed help for a command.\n");
 }
 
@@ -219,6 +232,45 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "chown") == 0)
     pod2text ("chown - change file owner and group", " chown <owner> <group> <path>\n\nChange the file owner to C<owner> and group to C<group>.\n\nOnly numeric uid and gid are supported.  If you want to use\nnames, you will need to locate and parse the password file\nyourself (Augeas support makes this relatively easy).");
+  else
+  if (strcasecmp (cmd, "exists") == 0)
+    pod2text ("exists - test if file or directory exists", " exists <path>\n\nThis returns C<true> if and only if there is a file, directory\n(or anything) with the given C<path> name.\n\nSee also C<is_file>, C<is_dir>, C<stat>.");
+  else
+  if (strcasecmp (cmd, "is_file") == 0 || strcasecmp (cmd, "is-file") == 0)
+    pod2text ("is-file - test if file exists", " is-file <path>\n\nThis returns C<true> if and only if there is a file\nwith the given C<path> name.  Note that it returns false for\nother objects like directories.\n\nSee also C<stat>.");
+  else
+  if (strcasecmp (cmd, "is_dir") == 0 || strcasecmp (cmd, "is-dir") == 0)
+    pod2text ("is-dir - test if file exists", " is-dir <path>\n\nThis returns C<true> if and only if there is a directory\nwith the given C<path> name.  Note that it returns false for\nother objects like files.\n\nSee also C<stat>.");
+  else
+  if (strcasecmp (cmd, "pvcreate") == 0)
+    pod2text ("pvcreate - create an LVM physical volume", " pvcreate <device>\n\nThis creates an LVM physical volume on the named C<device>,\nwhere C<device> should usually be a partition name such\nas C</dev/sda1>.");
+  else
+  if (strcasecmp (cmd, "vgcreate") == 0)
+    pod2text ("vgcreate - create an LVM volume group", " vgcreate <volgroup> <physvols>\n\nThis creates an LVM volume group called C<volgroup>\nfrom the non-empty list of physical volumes C<physvols>.");
+  else
+  if (strcasecmp (cmd, "lvcreate") == 0)
+    pod2text ("lvcreate - create an LVM volume group", " lvcreate <logvol> <volgroup> <mbytes>\n\nThis creates an LVM volume group called C<logvol>\non the volume group C<volgroup>, with C<size> megabytes.");
+  else
+  if (strcasecmp (cmd, "mkfs") == 0)
+    pod2text ("mkfs - make a filesystem", " mkfs <fstype> <device>\n\nThis creates a filesystem on C<device> (usually a partition\nof LVM logical volume).  The filesystem type is C<fstype>, for\nexample C<ext3>.");
+  else
+  if (strcasecmp (cmd, "sfdisk") == 0)
+    pod2text ("sfdisk - create partitions on a block device", " sfdisk <device> <cyls> <heads> <sectors> <lines>\n\nThis is a direct interface to the L<sfdisk(8)> program for creating\npartitions on block devices.\n\nC<device> should be a block device, for example C</dev/sda>.\n\nC<cyls>, C<heads> and C<sectors> are the number of cylinders, heads\nand sectors on the device, which are passed directly to sfdisk as\nthe I<-C>, I<-H> and I<-S> parameters.  If you pass C<0> for any\nof these, then the corresponding parameter is omitted.  Usually for\n'large' disks, you can just pass C<0> for these, but for small\n(floppy-sized) disks, sfdisk (or rather, the kernel) cannot work\nout the right geometry and you will need to tell it.\n\nC<lines> is a list of lines that we feed to C<sfdisk>.  For more\ninformation refer to the L<sfdisk(8)> manpage.\n\nTo create a single partition occupying the whole disk, you would\npass C<lines> as a single element list, when the single element being\nthe string C<,> (comma).\n\nB<This command is dangerous.  Without careful use you\ncan easily destroy all your data>.");
+  else
+  if (strcasecmp (cmd, "write_file") == 0 || strcasecmp (cmd, "write-file") == 0)
+    pod2text ("write-file - Create a file", " write-file <path> <content> <size>\n\nThis call creates a file called C<path>.  The contents of the\nfile is the string C<content> (which can contain any 8 bit data),\nwith length C<size>.\n\nAs a special case, if C<size> is C<0>\nthen the length is calculated using C<strlen> (so in this case\nthe content cannot contain embedded ASCII NULs).\n\nBecause of the message protocol, there is a transfer limit \nof somewhere between 2MB and 4MB.  To transfer large files you should use\nFTP.");
+  else
+  if (strcasecmp (cmd, "umount") == 0 || strcasecmp (cmd, "unmount") == 0)
+    pod2text ("umount - unmount a filesystem", " umount <pathordevice>\n\nThis unmounts the given filesystem.  The filesystem may be\nspecified either by its mountpoint (path) or the device which\ncontains the filesystem.\n\nYou can use 'unmount' as an alias for this command.");
+  else
+  if (strcasecmp (cmd, "mounts") == 0)
+    pod2text ("mounts - show mounted filesystems", " mounts\n\nThis returns the list of currently mounted filesystems.  It returns\nthe list of devices (eg. C</dev/sda1>, C</dev/VG/LV>).\n\nSome internal mounts are not shown.");
+  else
+  if (strcasecmp (cmd, "umount_all") == 0 || strcasecmp (cmd, "umount-all") == 0 || strcasecmp (cmd, "unmount-all") == 0)
+    pod2text ("umount-all - unmount all filesystems", " umount-all\n\nThis unmounts all mounted filesystems.\n\nSome internal mounts are not unmounted by this call.\n\nYou can use 'unmount-all' as an alias for this command.");
+  else
+  if (strcasecmp (cmd, "lvm_remove_all") == 0 || strcasecmp (cmd, "lvm-remove-all") == 0)
+    pod2text ("lvm-remove-all - remove all LVM LVs, VGs and PVs", " lvm-remove-all\n\nThis command removes all LVM logical volumes, volume groups\nand physical volumes.\n\nB<This command is dangerous.  Without careful use you\ncan easily destroy all your data>.");
   else
     display_builtin_command (cmd);
 }
@@ -1020,6 +1072,211 @@ static int run_chown (const char *cmd, int argc, char *argv[])
   return r;
 }
 
+static int run_exists (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *path;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  path = argv[0];
+  r = guestfs_exists (g, path);
+  if (r == -1) return -1;
+  if (r) printf ("true\n"); else printf ("false\n");
+  return 0;
+}
+
+static int run_is_file (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *path;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  path = argv[0];
+  r = guestfs_is_file (g, path);
+  if (r == -1) return -1;
+  if (r) printf ("true\n"); else printf ("false\n");
+  return 0;
+}
+
+static int run_is_dir (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *path;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  path = argv[0];
+  r = guestfs_is_dir (g, path);
+  if (r == -1) return -1;
+  if (r) printf ("true\n"); else printf ("false\n");
+  return 0;
+}
+
+static int run_pvcreate (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *device;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  device = argv[0];
+  r = guestfs_pvcreate (g, device);
+  return r;
+}
+
+static int run_vgcreate (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *volgroup;
+  char **physvols;
+  if (argc != 2) {
+    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  volgroup = argv[0];
+  physvols = parse_string_list (argv[1]);
+  r = guestfs_vgcreate (g, volgroup, physvols);
+  return r;
+}
+
+static int run_lvcreate (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *logvol;
+  const char *volgroup;
+  int mbytes;
+  if (argc != 3) {
+    fprintf (stderr, "%s should have 3 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  logvol = argv[0];
+  volgroup = argv[1];
+  mbytes = atoi (argv[2]);
+  r = guestfs_lvcreate (g, logvol, volgroup, mbytes);
+  return r;
+}
+
+static int run_mkfs (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *fstype;
+  const char *device;
+  if (argc != 2) {
+    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  fstype = argv[0];
+  device = argv[1];
+  r = guestfs_mkfs (g, fstype, device);
+  return r;
+}
+
+static int run_sfdisk (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *device;
+  int cyls;
+  int heads;
+  int sectors;
+  char **lines;
+  if (argc != 5) {
+    fprintf (stderr, "%s should have 5 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  device = argv[0];
+  cyls = atoi (argv[1]);
+  heads = atoi (argv[2]);
+  sectors = atoi (argv[3]);
+  lines = parse_string_list (argv[4]);
+  r = guestfs_sfdisk (g, device, cyls, heads, sectors, lines);
+  return r;
+}
+
+static int run_write_file (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *path;
+  const char *content;
+  int size;
+  if (argc != 3) {
+    fprintf (stderr, "%s should have 3 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  path = argv[0];
+  content = argv[1];
+  size = atoi (argv[2]);
+  r = guestfs_write_file (g, path, content, size);
+  return r;
+}
+
+static int run_umount (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *pathordevice;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  pathordevice = argv[0];
+  r = guestfs_umount (g, pathordevice);
+  return r;
+}
+
+static int run_mounts (const char *cmd, int argc, char *argv[])
+{
+  char **r;
+  if (argc != 0) {
+    fprintf (stderr, "%s should have 0 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  r = guestfs_mounts (g);
+  if (r == NULL) return -1;
+  print_strings (r);
+  free_strings (r);
+  return 0;
+}
+
+static int run_umount_all (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  if (argc != 0) {
+    fprintf (stderr, "%s should have 0 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  r = guestfs_umount_all (g);
+  return r;
+}
+
+static int run_lvm_remove_all (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  if (argc != 0) {
+    fprintf (stderr, "%s should have 0 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  r = guestfs_lvm_remove_all (g);
+  return r;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -1159,6 +1416,45 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "chown") == 0)
     return run_chown (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "exists") == 0)
+    return run_exists (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "is_file") == 0 || strcasecmp (cmd, "is-file") == 0)
+    return run_is_file (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "is_dir") == 0 || strcasecmp (cmd, "is-dir") == 0)
+    return run_is_dir (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "pvcreate") == 0)
+    return run_pvcreate (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "vgcreate") == 0)
+    return run_vgcreate (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "lvcreate") == 0)
+    return run_lvcreate (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "mkfs") == 0)
+    return run_mkfs (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "sfdisk") == 0)
+    return run_sfdisk (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "write_file") == 0 || strcasecmp (cmd, "write-file") == 0)
+    return run_write_file (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "umount") == 0 || strcasecmp (cmd, "unmount") == 0)
+    return run_umount (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "mounts") == 0)
+    return run_mounts (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "umount_all") == 0 || strcasecmp (cmd, "umount-all") == 0 || strcasecmp (cmd, "unmount-all") == 0)
+    return run_umount_all (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "lvm_remove_all") == 0 || strcasecmp (cmd, "lvm-remove-all") == 0)
+    return run_lvm_remove_all (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

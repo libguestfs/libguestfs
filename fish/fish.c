@@ -18,6 +18,8 @@
 
 #include <config.h>
 
+#define _GNU_SOURCE // for strchrnul
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -495,7 +497,7 @@ free_strings (char **argv)
 }
 
 void
-print_strings (char **argv)
+print_strings (char * const * const argv)
 {
   int argc;
 
@@ -512,4 +514,35 @@ is_true (const char *str)
     strcasecmp (str, "false") != 0 &&
     strcasecmp (str, "n") != 0 &&
     strcasecmp (str, "no") != 0;
+}
+
+/* This is quite inadequate for real use.  For example, there is no way
+ * to specify an empty list.  We need to use a real parser to allow
+ * quoting, empty lists, etc.
+ */
+char **
+parse_string_list (const char *str)
+{
+  char **argv;
+  const char *p, *pend;
+  int argc, i;
+
+  argc = 1;
+  for (i = 0; str[i]; ++i)
+    if (str[i] == ':') argc++;
+
+  argv = malloc (sizeof (char *) * (argc+1));
+  if (argv == NULL) { perror ("malloc"); exit (1); }
+
+  p = str;
+  i = 0;
+  while (*p) {
+    pend = strchrnul (p, ':');
+    argv[i] = strndup (p, pend-p);
+    i++;
+    p = *pend == ':' ? pend+1 : p;
+  }
+  argv[i] = NULL;
+
+  return argv;
 }

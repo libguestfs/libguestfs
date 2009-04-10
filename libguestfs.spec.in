@@ -138,6 +138,10 @@ Requires:    perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version)
 make INSTALLDIRS=vendor
 
 
+%check
+make check
+
+
 %install
 rm -rf $RPM_BUILD_ROOT
 

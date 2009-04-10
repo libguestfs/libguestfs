@@ -240,3 +240,77 @@ do_chown (int owner, int group, const char *path)
 
   return 0;
 }
+
+int
+do_exists (const char *path)
+{
+  int r;
+
+  NEED_ROOT (-1);
+  ABS_PATH (path, -1);
+
+  CHROOT_IN;
+  r = access (path, F_OK);
+  CHROOT_OUT;
+
+  return r == 0;
+}
+
+int
+do_is_file (const char *path)
+{
+  int r;
+  struct stat buf;
+
+  NEED_ROOT (-1);
+  ABS_PATH (path, -1);
+
+  CHROOT_IN;
+  r = lstat (path, &buf);
+  CHROOT_OUT;
+
+  if (r == -1) {
+    if (errno != ENOENT && errno != ENOTDIR) {
+      reply_with_perror ("stat: %s", path);
+      return -1;
+    }
+    else
+      return 0;			/* Not a file. */
+  }
+
+  return S_ISREG (buf.st_mode);
+}
+
+int
+do_write_file (const char *path, const char *content, int size)
+{
+  int fd;
+
+  NEED_ROOT (-1);
+  ABS_PATH (path, -1);
+
+  if (size == 0)
+    size = strlen (content);
+
+  CHROOT_IN;
+  fd = open (path, O_WRONLY | O_CREAT | O_NOCTTY | O_NONBLOCK, 0666);
+  CHROOT_OUT;
+
+  if (fd == -1) {
+    reply_with_perror ("open: %s", path);
+    return -1;
+  }
+
+  if (xwrite (fd, content, size) == -1) {
+    reply_with_perror ("write");
+    close (fd);
+    return -1;
+  }
+
+  if (close (fd) == -1) {
+    reply_with_perror ("close: %s", path);
+    return -1;
+  }
+
+  return 0;
+}

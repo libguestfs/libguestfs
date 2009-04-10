@@ -1347,3 +1347,321 @@ ocaml_guestfs_chown (value gv, value ownerv, value groupv, value pathv)
   CAMLreturn (rv);
 }
 
+CAMLprim value
+ocaml_guestfs_exists (value gv, value pathv)
+{
+  CAMLparam2 (gv, pathv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("exists: used handle after closing it");
+
+  const char *path = String_val (pathv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_exists (g, path);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "exists");
+
+  rv = Val_bool (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_is_file (value gv, value pathv)
+{
+  CAMLparam2 (gv, pathv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("is_file: used handle after closing it");
+
+  const char *path = String_val (pathv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_is_file (g, path);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "is_file");
+
+  rv = Val_bool (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_is_dir (value gv, value pathv)
+{
+  CAMLparam2 (gv, pathv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("is_dir: used handle after closing it");
+
+  const char *path = String_val (pathv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_is_dir (g, path);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "is_dir");
+
+  rv = Val_bool (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_pvcreate (value gv, value devicev)
+{
+  CAMLparam2 (gv, devicev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("pvcreate: used handle after closing it");
+
+  const char *device = String_val (devicev);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_pvcreate (g, device);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "pvcreate");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_vgcreate (value gv, value volgroupv, value physvolsv)
+{
+  CAMLparam3 (gv, volgroupv, physvolsv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("vgcreate: used handle after closing it");
+
+  const char *volgroup = String_val (volgroupv);
+  char **physvols = ocaml_guestfs_strings_val (physvolsv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_vgcreate (g, volgroup, physvols);
+  caml_leave_blocking_section ();
+  ocaml_guestfs_free_strings (physvols);
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "vgcreate");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_lvcreate (value gv, value logvolv, value volgroupv, value mbytesv)
+{
+  CAMLparam4 (gv, logvolv, volgroupv, mbytesv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("lvcreate: used handle after closing it");
+
+  const char *logvol = String_val (logvolv);
+  const char *volgroup = String_val (volgroupv);
+  int mbytes = Int_val (mbytesv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_lvcreate (g, logvol, volgroup, mbytes);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "lvcreate");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_mkfs (value gv, value fstypev, value devicev)
+{
+  CAMLparam3 (gv, fstypev, devicev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("mkfs: used handle after closing it");
+
+  const char *fstype = String_val (fstypev);
+  const char *device = String_val (devicev);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_mkfs (g, fstype, device);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "mkfs");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_sfdisk (value gv, value devicev, value cylsv, value headsv, value sectorsv, value linesv)
+{
+  CAMLparam5 (gv, devicev, cylsv, headsv, sectorsv);
+  CAMLxparam1 (linesv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("sfdisk: used handle after closing it");
+
+  const char *device = String_val (devicev);
+  int cyls = Int_val (cylsv);
+  int heads = Int_val (headsv);
+  int sectors = Int_val (sectorsv);
+  char **lines = ocaml_guestfs_strings_val (linesv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_sfdisk (g, device, cyls, heads, sectors, lines);
+  caml_leave_blocking_section ();
+  ocaml_guestfs_free_strings (lines);
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "sfdisk");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_sfdisk_byte (value *argv, int argn)
+{
+  return ocaml_guestfs_sfdisk (argv[0], argv[0], argv[1], argv[2], argv[3], argv[4]);
+}
+
+CAMLprim value
+ocaml_guestfs_write_file (value gv, value pathv, value contentv, value sizev)
+{
+  CAMLparam4 (gv, pathv, contentv, sizev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("write_file: used handle after closing it");
+
+  const char *path = String_val (pathv);
+  const char *content = String_val (contentv);
+  int size = Int_val (sizev);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_write_file (g, path, content, size);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "write_file");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_umount (value gv, value pathordevicev)
+{
+  CAMLparam2 (gv, pathordevicev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("umount: used handle after closing it");
+
+  const char *pathordevice = String_val (pathordevicev);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_umount (g, pathordevice);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "umount");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_mounts (value gv)
+{
+  CAMLparam1 (gv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("mounts: used handle after closing it");
+
+  int i;
+  char **r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_mounts (g);
+  caml_leave_blocking_section ();
+  if (r == NULL)
+    ocaml_guestfs_raise_error (g, "mounts");
+
+  rv = caml_copy_string_array ((const char **) r);
+  for (i = 0; r[i] != NULL; ++i) free (r[i]);
+  free (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_umount_all (value gv)
+{
+  CAMLparam1 (gv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("umount_all: used handle after closing it");
+
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_umount_all (g);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "umount_all");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_lvm_remove_all (value gv)
+{
+  CAMLparam1 (gv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("lvm_remove_all: used handle after closing it");
+
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_lvm_remove_all (g);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "lvm_remove_all");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+

@@ -131,3 +131,65 @@ do_list_partitions (void)
   sort_strings (r, size-1);
   return r;
 }
+
+int
+do_mkfs (const char *fstype, const char *device)
+{
+  char *err;
+  int r;
+
+  IS_DEVICE (device, -1);
+
+  r = command (NULL, &err, "/sbin/mkfs", "-t", fstype, device, NULL);
+  if (r == -1) {
+    reply_with_error ("mkfs: %s", err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+  return 0;
+}
+
+int
+do_sfdisk (const char *device, int cyls, int heads, int sectors,
+	   char * const* const lines)
+{
+  FILE *fp;
+  char buf[256];
+  int i;
+
+  IS_DEVICE (device, -1);
+
+  /* Safe because of IS_DEVICE above. */
+  strcpy (buf, "/sbin/sfdisk");
+  if (cyls)
+    sprintf (buf + strlen (buf), " -C %d", cyls);
+  if (heads)
+    sprintf (buf + strlen (buf), " -H %d", heads);
+  if (sectors)
+    sprintf (buf + strlen (buf), " -S %d", sectors);
+  sprintf (buf + strlen (buf), " %s", device);
+
+  fp = popen (buf, "w");
+  if (fp == NULL) {
+    reply_with_perror (buf);
+    return -1;
+  }
+
+  for (i = 0; lines[i] != NULL; ++i) {
+    if (fprintf (fp, "%s\n", lines[i]) < 0) {
+      reply_with_perror (buf);
+      fclose (fp);
+      return -1;
+    }
+  }
+
+  if (fclose (fp) == EOF) {
+    reply_with_perror (buf);
+    fclose (fp);
+    return -1;
+  }
+
+  return 0;
+}

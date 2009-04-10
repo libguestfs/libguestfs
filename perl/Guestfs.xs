@@ -73,6 +73,35 @@ error_handler (guestfs_h *g,
   last_error = strdup (msg);
 }
 
+/* http://www.perlmonks.org/?node_id=680842 */
+static char **
+XS_unpack_charPtrPtr (SV *arg) {
+  char **ret;
+  AV *av;
+  I32 i;
+
+  if (!arg || !SvOK (arg) || !SvROK (arg) || SvTYPE (SvRV (arg)) != SVt_PVAV) {
+    croak ("array reference expected");
+  }
+
+  av = (AV *)SvRV (arg);
+  ret = (char **)malloc (av_len (av) + 1 + 1);
+
+  for (i = 0; i <= av_len (av); i++) {
+    SV **elem = av_fetch (av, i, 0);
+
+      if (!elem || !*elem) {
+        croak ("missing element in list");
+      }
+
+      ret[i] = SvPV_nolen (*elem);
+  }
+
+  ret[i + 1] = NULL;
+
+  return ret;
+}
+
 MODULE = Sys::Guestfs  PACKAGE = Sys::Guestfs
 
 guestfs_h *
@@ -95,38 +124,43 @@ void
 launch (g)
       guestfs_h *g;
  PPCODE:
-      if (guestfs_launch (g) == -1)
+      if (guestfs_launch (g) == -1) {
         croak ("launch: %s", last_error);
+      }
 
 void
 wait_ready (g)
       guestfs_h *g;
  PPCODE:
-      if (guestfs_wait_ready (g) == -1)
+      if (guestfs_wait_ready (g) == -1) {
         croak ("wait_ready: %s", last_error);
+      }
 
 void
 kill_subprocess (g)
       guestfs_h *g;
  PPCODE:
-      if (guestfs_kill_subprocess (g) == -1)
+      if (guestfs_kill_subprocess (g) == -1) {
         croak ("kill_subprocess: %s", last_error);
+      }
 
 void
 add_drive (g, filename)
       guestfs_h *g;
       char *filename;
  PPCODE:
-      if (guestfs_add_drive (g, filename) == -1)
+      if (guestfs_add_drive (g, filename) == -1) {
         croak ("add_drive: %s", last_error);
+      }
 
 void
 add_cdrom (g, filename)
       guestfs_h *g;
       char *filename;
  PPCODE:
-      if (guestfs_add_cdrom (g, filename) == -1)
+      if (guestfs_add_cdrom (g, filename) == -1) {
         croak ("add_cdrom: %s", last_error);
+      }
 
 void
 config (g, qemuparam, qemuvalue)
@@ -134,16 +168,18 @@ config (g, qemuparam, qemuvalue)
       char *qemuparam;
       char *qemuvalue;
  PPCODE:
-      if (guestfs_config (g, qemuparam, qemuvalue) == -1)
+      if (guestfs_config (g, qemuparam, qemuvalue) == -1) {
         croak ("config: %s", last_error);
+      }
 
 void
 set_path (g, path)
       guestfs_h *g;
       char *path;
  PPCODE:
-      if (guestfs_set_path (g, path) == -1)
+      if (guestfs_set_path (g, path) == -1) {
         croak ("set_path: %s", last_error);
+      }
 
 SV *
 get_path (g)
@@ -152,8 +188,9 @@ PREINIT:
       const char *path;
    CODE:
       path = guestfs_get_path (g);
-      if (path == NULL)
+      if (path == NULL) {
         croak ("get_path: %s", last_error);
+      }
       RETVAL = newSVpv (path, 0);
  OUTPUT:
       RETVAL
@@ -163,8 +200,9 @@ set_autosync (g, autosync)
       guestfs_h *g;
       int autosync;
  PPCODE:
-      if (guestfs_set_autosync (g, autosync) == -1)
+      if (guestfs_set_autosync (g, autosync) == -1) {
         croak ("set_autosync: %s", last_error);
+      }
 
 SV *
 get_autosync (g)
@@ -173,8 +211,9 @@ PREINIT:
       int autosync;
    CODE:
       autosync = guestfs_get_autosync (g);
-      if (autosync == -1)
+      if (autosync == -1) {
         croak ("get_autosync: %s", last_error);
+      }
       RETVAL = newSViv (autosync);
  OUTPUT:
       RETVAL
@@ -184,8 +223,9 @@ set_verbose (g, verbose)
       guestfs_h *g;
       int verbose;
  PPCODE:
-      if (guestfs_set_verbose (g, verbose) == -1)
+      if (guestfs_set_verbose (g, verbose) == -1) {
         croak ("set_verbose: %s", last_error);
+      }
 
 SV *
 get_verbose (g)
@@ -194,8 +234,9 @@ PREINIT:
       int verbose;
    CODE:
       verbose = guestfs_get_verbose (g);
-      if (verbose == -1)
+      if (verbose == -1) {
         croak ("get_verbose: %s", last_error);
+      }
       RETVAL = newSViv (verbose);
  OUTPUT:
       RETVAL
@@ -206,23 +247,26 @@ mount (g, device, mountpoint)
       char *device;
       char *mountpoint;
  PPCODE:
-      if (guestfs_mount (g, device, mountpoint) == -1)
+      if (guestfs_mount (g, device, mountpoint) == -1) {
         croak ("mount: %s", last_error);
+      }
 
 void
 sync (g)
       guestfs_h *g;
  PPCODE:
-      if (guestfs_sync (g) == -1)
+      if (guestfs_sync (g) == -1) {
         croak ("sync: %s", last_error);
+      }
 
 void
 touch (g, path)
       guestfs_h *g;
       char *path;
  PPCODE:
-      if (guestfs_touch (g, path) == -1)
+      if (guestfs_touch (g, path) == -1) {
         croak ("touch: %s", last_error);
+      }
 
 SV *
 cat (g, path)
@@ -232,8 +276,9 @@ PREINIT:
       char *content;
    CODE:
       content = guestfs_cat (g, path);
-      if (content == NULL)
+      if (content == NULL) {
         croak ("cat: %s", last_error);
+      }
       RETVAL = newSVpv (content, 0);
       free (content);
  OUTPUT:
@@ -247,8 +292,9 @@ PREINIT:
       char *listing;
    CODE:
       listing = guestfs_ll (g, directory);
-      if (listing == NULL)
+      if (listing == NULL) {
         croak ("ll: %s", last_error);
+      }
       RETVAL = newSVpv (listing, 0);
       free (listing);
  OUTPUT:
@@ -263,8 +309,9 @@ PREINIT:
       int i, n;
  PPCODE:
       listing = guestfs_ls (g, directory);
-      if (listing == NULL)
+      if (listing == NULL) {
         croak ("ls: %s", last_error);
+      }
       for (n = 0; listing[n] != NULL; ++n) /**/;
       EXTEND (SP, n);
       for (i = 0; i < n; ++i) {
@@ -281,8 +328,9 @@ PREINIT:
       int i, n;
  PPCODE:
       devices = guestfs_list_devices (g);
-      if (devices == NULL)
+      if (devices == NULL) {
         croak ("list_devices: %s", last_error);
+      }
       for (n = 0; devices[n] != NULL; ++n) /**/;
       EXTEND (SP, n);
       for (i = 0; i < n; ++i) {
@@ -299,8 +347,9 @@ PREINIT:
       int i, n;
  PPCODE:
       partitions = guestfs_list_partitions (g);
-      if (partitions == NULL)
+      if (partitions == NULL) {
         croak ("list_partitions: %s", last_error);
+      }
       for (n = 0; partitions[n] != NULL; ++n) /**/;
       EXTEND (SP, n);
       for (i = 0; i < n; ++i) {
@@ -317,8 +366,9 @@ PREINIT:
       int i, n;
  PPCODE:
       physvols = guestfs_pvs (g);
-      if (physvols == NULL)
+      if (physvols == NULL) {
         croak ("pvs: %s", last_error);
+      }
       for (n = 0; physvols[n] != NULL; ++n) /**/;
       EXTEND (SP, n);
       for (i = 0; i < n; ++i) {
@@ -335,8 +385,9 @@ PREINIT:
       int i, n;
  PPCODE:
       volgroups = guestfs_vgs (g);
-      if (volgroups == NULL)
+      if (volgroups == NULL) {
         croak ("vgs: %s", last_error);
+      }
       for (n = 0; volgroups[n] != NULL; ++n) /**/;
       EXTEND (SP, n);
       for (i = 0; i < n; ++i) {
@@ -353,8 +404,9 @@ PREINIT:
       int i, n;
  PPCODE:
       logvols = guestfs_lvs (g);
-      if (logvols == NULL)
+      if (logvols == NULL) {
         croak ("lvs: %s", last_error);
+      }
       for (n = 0; logvols[n] != NULL; ++n) /**/;
       EXTEND (SP, n);
       for (i = 0; i < n; ++i) {
@@ -475,8 +527,9 @@ PREINIT:
       int i, n;
  PPCODE:
       lines = guestfs_read_lines (g, path);
-      if (lines == NULL)
+      if (lines == NULL) {
         croak ("read_lines: %s", last_error);
+      }
       for (n = 0; lines[n] != NULL; ++n) /**/;
       EXTEND (SP, n);
       for (i = 0; i < n; ++i) {
@@ -491,15 +544,17 @@ aug_init (g, root, flags)
       char *root;
       int flags;
  PPCODE:
-      if (guestfs_aug_init (g, root, flags) == -1)
+      if (guestfs_aug_init (g, root, flags) == -1) {
         croak ("aug_init: %s", last_error);
+      }
 
 void
 aug_close (g)
       guestfs_h *g;
  PPCODE:
-      if (guestfs_aug_close (g) == -1)
+      if (guestfs_aug_close (g) == -1) {
         croak ("aug_close: %s", last_error);
+      }
 
 SV *
 aug_defvar (g, name, expr)
@@ -510,8 +565,9 @@ PREINIT:
       int nrnodes;
    CODE:
       nrnodes = guestfs_aug_defvar (g, name, expr);
-      if (nrnodes == -1)
+      if (nrnodes == -1) {
         croak ("aug_defvar: %s", last_error);
+      }
       RETVAL = newSViv (nrnodes);
  OUTPUT:
       RETVAL
@@ -526,8 +582,9 @@ PREINIT:
       struct guestfs_int_bool *r;
  PPCODE:
       r = guestfs_aug_defnode (g, name, expr, val);
-      if (r == NULL)
+      if (r == NULL) {
         croak ("aug_defnode: %s", last_error);
+      }
       EXTEND (SP, 2);
       PUSHs (sv_2mortal (newSViv (r->i)));
       PUSHs (sv_2mortal (newSViv (r->b)));
@@ -541,8 +598,9 @@ PREINIT:
       char *val;
    CODE:
       val = guestfs_aug_get (g, path);
-      if (val == NULL)
+      if (val == NULL) {
         croak ("aug_get: %s", last_error);
+      }
       RETVAL = newSVpv (val, 0);
       free (val);
  OUTPUT:
@@ -554,8 +612,9 @@ aug_set (g, path, val)
       char *path;
       char *val;
  PPCODE:
-      if (guestfs_aug_set (g, path, val) == -1)
+      if (guestfs_aug_set (g, path, val) == -1) {
         croak ("aug_set: %s", last_error);
+      }
 
 void
 aug_insert (g, path, label, before)
@@ -564,8 +623,9 @@ aug_insert (g, path, label, before)
       char *label;
       int before;
  PPCODE:
-      if (guestfs_aug_insert (g, path, label, before) == -1)
+      if (guestfs_aug_insert (g, path, label, before) == -1) {
         croak ("aug_insert: %s", last_error);
+      }
 
 SV *
 aug_rm (g, path)
@@ -575,8 +635,9 @@ PREINIT:
       int nrnodes;
    CODE:
       nrnodes = guestfs_aug_rm (g, path);
-      if (nrnodes == -1)
+      if (nrnodes == -1) {
         croak ("aug_rm: %s", last_error);
+      }
       RETVAL = newSViv (nrnodes);
  OUTPUT:
       RETVAL
@@ -587,8 +648,9 @@ aug_mv (g, src, dest)
       char *src;
       char *dest;
  PPCODE:
-      if (guestfs_aug_mv (g, src, dest) == -1)
+      if (guestfs_aug_mv (g, src, dest) == -1) {
         croak ("aug_mv: %s", last_error);
+      }
 
 void
 aug_match (g, path)
@@ -599,8 +661,9 @@ PREINIT:
       int i, n;
  PPCODE:
       matches = guestfs_aug_match (g, path);
-      if (matches == NULL)
+      if (matches == NULL) {
         croak ("aug_match: %s", last_error);
+      }
       for (n = 0; matches[n] != NULL; ++n) /**/;
       EXTEND (SP, n);
       for (i = 0; i < n; ++i) {
@@ -613,15 +676,17 @@ void
 aug_save (g)
       guestfs_h *g;
  PPCODE:
-      if (guestfs_aug_save (g) == -1)
+      if (guestfs_aug_save (g) == -1) {
         croak ("aug_save: %s", last_error);
+      }
 
 void
 aug_load (g)
       guestfs_h *g;
  PPCODE:
-      if (guestfs_aug_load (g) == -1)
+      if (guestfs_aug_load (g) == -1) {
         croak ("aug_load: %s", last_error);
+      }
 
 void
 aug_ls (g, path)
@@ -632,8 +697,9 @@ PREINIT:
       int i, n;
  PPCODE:
       matches = guestfs_aug_ls (g, path);
-      if (matches == NULL)
+      if (matches == NULL) {
         croak ("aug_ls: %s", last_error);
+      }
       for (n = 0; matches[n] != NULL; ++n) /**/;
       EXTEND (SP, n);
       for (i = 0; i < n; ++i) {
@@ -647,40 +713,45 @@ rm (g, path)
       guestfs_h *g;
       char *path;
  PPCODE:
-      if (guestfs_rm (g, path) == -1)
+      if (guestfs_rm (g, path) == -1) {
         croak ("rm: %s", last_error);
+      }
 
 void
 rmdir (g, path)
       guestfs_h *g;
       char *path;
  PPCODE:
-      if (guestfs_rmdir (g, path) == -1)
+      if (guestfs_rmdir (g, path) == -1) {
         croak ("rmdir: %s", last_error);
+      }
 
 void
 rm_rf (g, path)
       guestfs_h *g;
       char *path;
  PPCODE:
-      if (guestfs_rm_rf (g, path) == -1)
+      if (guestfs_rm_rf (g, path) == -1) {
         croak ("rm_rf: %s", last_error);
+      }
 
 void
 mkdir (g, path)
       guestfs_h *g;
       char *path;
  PPCODE:
-      if (guestfs_mkdir (g, path) == -1)
+      if (guestfs_mkdir (g, path) == -1) {
         croak ("mkdir: %s", last_error);
+      }
 
 void
 mkdir_p (g, path)
       guestfs_h *g;
       char *path;
  PPCODE:
-      if (guestfs_mkdir_p (g, path) == -1)
+      if (guestfs_mkdir_p (g, path) == -1) {
         croak ("mkdir_p: %s", last_error);
+      }
 
 void
 chmod (g, mode, path)
@@ -688,8 +759,9 @@ chmod (g, mode, path)
       int mode;
       char *path;
  PPCODE:
-      if (guestfs_chmod (g, mode, path) == -1)
+      if (guestfs_chmod (g, mode, path) == -1) {
         croak ("chmod: %s", last_error);
+      }
 
 void
 chown (g, owner, group, path)
@@ -698,6 +770,164 @@ chown (g, owner, group, path)
       int group;
       char *path;
  PPCODE:
-      if (guestfs_chown (g, owner, group, path) == -1)
+      if (guestfs_chown (g, owner, group, path) == -1) {
         croak ("chown: %s", last_error);
+      }
+
+SV *
+exists (g, path)
+      guestfs_h *g;
+      char *path;
+PREINIT:
+      int existsflag;
+   CODE:
+      existsflag = guestfs_exists (g, path);
+      if (existsflag == -1) {
+        croak ("exists: %s", last_error);
+      }
+      RETVAL = newSViv (existsflag);
+ OUTPUT:
+      RETVAL
+
+SV *
+is_file (g, path)
+      guestfs_h *g;
+      char *path;
+PREINIT:
+      int fileflag;
+   CODE:
+      fileflag = guestfs_is_file (g, path);
+      if (fileflag == -1) {
+        croak ("is_file: %s", last_error);
+      }
+      RETVAL = newSViv (fileflag);
+ OUTPUT:
+      RETVAL
+
+SV *
+is_dir (g, path)
+      guestfs_h *g;
+      char *path;
+PREINIT:
+      int dirflag;
+   CODE:
+      dirflag = guestfs_is_dir (g, path);
+      if (dirflag == -1) {
+        croak ("is_dir: %s", last_error);
+      }
+      RETVAL = newSViv (dirflag);
+ OUTPUT:
+      RETVAL
+
+void
+pvcreate (g, device)
+      guestfs_h *g;
+      char *device;
+ PPCODE:
+      if (guestfs_pvcreate (g, device) == -1) {
+        croak ("pvcreate: %s", last_error);
+      }
+
+void
+vgcreate (g, volgroup, physvols)
+      guestfs_h *g;
+      char *volgroup;
+      char **physvols;
+ PPCODE:
+      if (guestfs_vgcreate (g, volgroup, physvols) == -1) {
+        free (physvols);
+        croak ("vgcreate: %s", last_error);
+      }
+        free (physvols);
+
+void
+lvcreate (g, logvol, volgroup, mbytes)
+      guestfs_h *g;
+      char *logvol;
+      char *volgroup;
+      int mbytes;
+ PPCODE:
+      if (guestfs_lvcreate (g, logvol, volgroup, mbytes) == -1) {
+        croak ("lvcreate: %s", last_error);
+      }
+
+void
+mkfs (g, fstype, device)
+      guestfs_h *g;
+      char *fstype;
+      char *device;
+ PPCODE:
+      if (guestfs_mkfs (g, fstype, device) == -1) {
+        croak ("mkfs: %s", last_error);
+      }
+
+void
+sfdisk (g, device, cyls, heads, sectors, lines)
+      guestfs_h *g;
+      char *device;
+      int cyls;
+      int heads;
+      int sectors;
+      char **lines;
+ PPCODE:
+      if (guestfs_sfdisk (g, device, cyls, heads, sectors, lines) == -1) {
+        free (lines);
+        croak ("sfdisk: %s", last_error);
+      }
+        free (lines);
+
+void
+write_file (g, path, content, size)
+      guestfs_h *g;
+      char *path;
+      char *content;
+      int size;
+ PPCODE:
+      if (guestfs_write_file (g, path, content, size) == -1) {
+        croak ("write_file: %s", last_error);
+      }
+
+void
+umount (g, pathordevice)
+      guestfs_h *g;
+      char *pathordevice;
+ PPCODE:
+      if (guestfs_umount (g, pathordevice) == -1) {
+        croak ("umount: %s", last_error);
+      }
+
+void
+mounts (g)
+      guestfs_h *g;
+PREINIT:
+      char **devices;
+      int i, n;
+ PPCODE:
+      devices = guestfs_mounts (g);
+      if (devices == NULL) {
+        croak ("mounts: %s", last_error);
+      }
+      for (n = 0; devices[n] != NULL; ++n) /**/;
+      EXTEND (SP, n);
+      for (i = 0; i < n; ++i) {
+        PUSHs (sv_2mortal (newSVpv (devices[i], 0)));
+        free (devices[i]);
+      }
+      free (devices);
+
+void
+umount_all (g)
+      guestfs_h *g;
+ PPCODE:
+      if (guestfs_umount_all (g) == -1) {
+        croak ("umount_all: %s", last_error);
+      }
+
+void
+lvm_remove_all (g)
+      guestfs_h *g;
+ PPCODE:
+      if (guestfs_lvm_remove_all (g) == -1) {
+        croak ("lvm_remove_all: %s", last_error);
+      }
 

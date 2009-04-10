@@ -76,7 +76,7 @@ do_rm_rf (const char *path)
 
   snprintf (buf, len, "/sysroot%s", path);
 
-  r = command (NULL, &err, "rm", "-rf", buf);
+  r = command (NULL, &err, "rm", "-rf", buf, NULL);
   free (buf);
 
   /* rm -rf is never supposed to fail.  I/O errors perhaps? */
@@ -164,4 +164,29 @@ do_mkdir_p (const char *path)
   }
 
   return 0;
+}
+
+int
+do_is_dir (const char *path)
+{
+  int r;
+  struct stat buf;
+
+  NEED_ROOT (-1);
+  ABS_PATH (path, -1);
+
+  CHROOT_IN;
+  r = lstat (path, &buf);
+  CHROOT_OUT;
+
+  if (r == -1) {
+    if (errno != ENOENT && errno != ENOTDIR) {
+      reply_with_perror ("stat: %s", path);
+      return -1;
+    }
+    else
+      return 0;			/* Not a directory. */
+  }
+
+  return S_ISDIR (buf.st_mode);
 }

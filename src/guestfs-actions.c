@@ -2540,3 +2540,934 @@ int guestfs_chown (guestfs_h *g,
   return 0;
 }
 
+struct exists_rv {
+  int cb_done;  /* flag to indicate callback was called */
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+  struct guestfs_exists_ret ret;
+};
+
+static void exists_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  struct exists_rv *rv = (struct exists_rv *) data;
+
+  if (!xdr_guestfs_message_header (xdr, &rv->hdr)) {
+    error (g, "guestfs_exists: failed to parse reply header");
+    return;
+  }
+  if (rv->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &rv->err)) {
+      error (g, "guestfs_exists: failed to parse reply error");
+      return;
+    }
+    goto done;
+  }
+  if (!xdr_guestfs_exists_ret (xdr, &rv->ret)) {
+    error (g, "guestfs_exists: failed to parse reply");
+    return;
+  }
+ done:
+  rv->cb_done = 1;
+  main_loop.main_loop_quit (g);
+}
+
+int guestfs_exists (guestfs_h *g,
+		const char *path)
+{
+  struct guestfs_exists_args args;
+  struct exists_rv rv;
+  int serial;
+
+  if (g->state != READY) {
+    error (g, "guestfs_exists called from the wrong state, %d != READY",
+      g->state);
+    return -1;
+  }
+
+  memset (&rv, 0, sizeof rv);
+
+  args.path = (char *) path;
+  serial = dispatch (g, GUESTFS_PROC_EXISTS,
+                     (xdrproc_t) xdr_guestfs_exists_args, (char *) &args);
+  if (serial == -1)
+    return -1;
+
+  rv.cb_done = 0;
+  g->reply_cb_internal = exists_cb;
+  g->reply_cb_internal_data = &rv;
+  main_loop.main_loop_run (g);
+  g->reply_cb_internal = NULL;
+  g->reply_cb_internal_data = NULL;
+  if (!rv.cb_done) {
+    error (g, "guestfs_exists failed, see earlier error messages");
+    return -1;
+  }
+
+  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_EXISTS, serial) == -1)
+    return -1;
+
+  if (rv.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", rv.err.error);
+    return -1;
+  }
+
+  return rv.ret.existsflag;
+}
+
+struct is_file_rv {
+  int cb_done;  /* flag to indicate callback was called */
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+  struct guestfs_is_file_ret ret;
+};
+
+static void is_file_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  struct is_file_rv *rv = (struct is_file_rv *) data;
+
+  if (!xdr_guestfs_message_header (xdr, &rv->hdr)) {
+    error (g, "guestfs_is_file: failed to parse reply header");
+    return;
+  }
+  if (rv->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &rv->err)) {
+      error (g, "guestfs_is_file: failed to parse reply error");
+      return;
+    }
+    goto done;
+  }
+  if (!xdr_guestfs_is_file_ret (xdr, &rv->ret)) {
+    error (g, "guestfs_is_file: failed to parse reply");
+    return;
+  }
+ done:
+  rv->cb_done = 1;
+  main_loop.main_loop_quit (g);
+}
+
+int guestfs_is_file (guestfs_h *g,
+		const char *path)
+{
+  struct guestfs_is_file_args args;
+  struct is_file_rv rv;
+  int serial;
+
+  if (g->state != READY) {
+    error (g, "guestfs_is_file called from the wrong state, %d != READY",
+      g->state);
+    return -1;
+  }
+
+  memset (&rv, 0, sizeof rv);
+
+  args.path = (char *) path;
+  serial = dispatch (g, GUESTFS_PROC_IS_FILE,
+                     (xdrproc_t) xdr_guestfs_is_file_args, (char *) &args);
+  if (serial == -1)
+    return -1;
+
+  rv.cb_done = 0;
+  g->reply_cb_internal = is_file_cb;
+  g->reply_cb_internal_data = &rv;
+  main_loop.main_loop_run (g);
+  g->reply_cb_internal = NULL;
+  g->reply_cb_internal_data = NULL;
+  if (!rv.cb_done) {
+    error (g, "guestfs_is_file failed, see earlier error messages");
+    return -1;
+  }
+
+  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_IS_FILE, serial) == -1)
+    return -1;
+
+  if (rv.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", rv.err.error);
+    return -1;
+  }
+
+  return rv.ret.fileflag;
+}
+
+struct is_dir_rv {
+  int cb_done;  /* flag to indicate callback was called */
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+  struct guestfs_is_dir_ret ret;
+};
+
+static void is_dir_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  struct is_dir_rv *rv = (struct is_dir_rv *) data;
+
+  if (!xdr_guestfs_message_header (xdr, &rv->hdr)) {
+    error (g, "guestfs_is_dir: failed to parse reply header");
+    return;
+  }
+  if (rv->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &rv->err)) {
+      error (g, "guestfs_is_dir: failed to parse reply error");
+      return;
+    }
+    goto done;
+  }
+  if (!xdr_guestfs_is_dir_ret (xdr, &rv->ret)) {
+    error (g, "guestfs_is_dir: failed to parse reply");
+    return;
+  }
+ done:
+  rv->cb_done = 1;
+  main_loop.main_loop_quit (g);
+}
+
+int guestfs_is_dir (guestfs_h *g,
+		const char *path)
+{
+  struct guestfs_is_dir_args args;
+  struct is_dir_rv rv;
+  int serial;
+
+  if (g->state != READY) {
+    error (g, "guestfs_is_dir called from the wrong state, %d != READY",
+      g->state);
+    return -1;
+  }
+
+  memset (&rv, 0, sizeof rv);
+
+  args.path = (char *) path;
+  serial = dispatch (g, GUESTFS_PROC_IS_DIR,
+                     (xdrproc_t) xdr_guestfs_is_dir_args, (char *) &args);
+  if (serial == -1)
+    return -1;
+
+  rv.cb_done = 0;
+  g->reply_cb_internal = is_dir_cb;
+  g->reply_cb_internal_data = &rv;
+  main_loop.main_loop_run (g);
+  g->reply_cb_internal = NULL;
+  g->reply_cb_internal_data = NULL;
+  if (!rv.cb_done) {
+    error (g, "guestfs_is_dir failed, see earlier error messages");
+    return -1;
+  }
+
+  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_IS_DIR, serial) == -1)
+    return -1;
+
+  if (rv.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", rv.err.error);
+    return -1;
+  }
+
+  return rv.ret.dirflag;
+}
+
+struct pvcreate_rv {
+  int cb_done;  /* flag to indicate callback was called */
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+};
+
+static void pvcreate_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  struct pvcreate_rv *rv = (struct pvcreate_rv *) data;
+
+  if (!xdr_guestfs_message_header (xdr, &rv->hdr)) {
+    error (g, "guestfs_pvcreate: failed to parse reply header");
+    return;
+  }
+  if (rv->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &rv->err)) {
+      error (g, "guestfs_pvcreate: failed to parse reply error");
+      return;
+    }
+    goto done;
+  }
+ done:
+  rv->cb_done = 1;
+  main_loop.main_loop_quit (g);
+}
+
+int guestfs_pvcreate (guestfs_h *g,
+		const char *device)
+{
+  struct guestfs_pvcreate_args args;
+  struct pvcreate_rv rv;
+  int serial;
+
+  if (g->state != READY) {
+    error (g, "guestfs_pvcreate called from the wrong state, %d != READY",
+      g->state);
+    return -1;
+  }
+
+  memset (&rv, 0, sizeof rv);
+
+  args.device = (char *) device;
+  serial = dispatch (g, GUESTFS_PROC_PVCREATE,
+                     (xdrproc_t) xdr_guestfs_pvcreate_args, (char *) &args);
+  if (serial == -1)
+    return -1;
+
+  rv.cb_done = 0;
+  g->reply_cb_internal = pvcreate_cb;
+  g->reply_cb_internal_data = &rv;
+  main_loop.main_loop_run (g);
+  g->reply_cb_internal = NULL;
+  g->reply_cb_internal_data = NULL;
+  if (!rv.cb_done) {
+    error (g, "guestfs_pvcreate failed, see earlier error messages");
+    return -1;
+  }
+
+  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_PVCREATE, serial) == -1)
+    return -1;
+
+  if (rv.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", rv.err.error);
+    return -1;
+  }
+
+  return 0;
+}
+
+struct vgcreate_rv {
+  int cb_done;  /* flag to indicate callback was called */
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+};
+
+static void vgcreate_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  struct vgcreate_rv *rv = (struct vgcreate_rv *) data;
+
+  if (!xdr_guestfs_message_header (xdr, &rv->hdr)) {
+    error (g, "guestfs_vgcreate: failed to parse reply header");
+    return;
+  }
+  if (rv->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &rv->err)) {
+      error (g, "guestfs_vgcreate: failed to parse reply error");
+      return;
+    }
+    goto done;
+  }
+ done:
+  rv->cb_done = 1;
+  main_loop.main_loop_quit (g);
+}
+
+int guestfs_vgcreate (guestfs_h *g,
+		const char *volgroup,
+		char * const* const physvols)
+{
+  struct guestfs_vgcreate_args args;
+  struct vgcreate_rv rv;
+  int serial;
+
+  if (g->state != READY) {
+    error (g, "guestfs_vgcreate called from the wrong state, %d != READY",
+      g->state);
+    return -1;
+  }
+
+  memset (&rv, 0, sizeof rv);
+
+  args.volgroup = (char *) volgroup;
+  args.physvols.physvols_val = (char **) physvols;
+  for (args.physvols.physvols_len = 0; physvols[args.physvols.physvols_len]; args.physvols.physvols_len++) ;
+  serial = dispatch (g, GUESTFS_PROC_VGCREATE,
+                     (xdrproc_t) xdr_guestfs_vgcreate_args, (char *) &args);
+  if (serial == -1)
+    return -1;
+
+  rv.cb_done = 0;
+  g->reply_cb_internal = vgcreate_cb;
+  g->reply_cb_internal_data = &rv;
+  main_loop.main_loop_run (g);
+  g->reply_cb_internal = NULL;
+  g->reply_cb_internal_data = NULL;
+  if (!rv.cb_done) {
+    error (g, "guestfs_vgcreate failed, see earlier error messages");
+    return -1;
+  }
+
+  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_VGCREATE, serial) == -1)
+    return -1;
+
+  if (rv.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", rv.err.error);
+    return -1;
+  }
+
+  return 0;
+}
+
+struct lvcreate_rv {
+  int cb_done;  /* flag to indicate callback was called */
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+};
+
+static void lvcreate_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  struct lvcreate_rv *rv = (struct lvcreate_rv *) data;
+
+  if (!xdr_guestfs_message_header (xdr, &rv->hdr)) {
+    error (g, "guestfs_lvcreate: failed to parse reply header");
+    return;
+  }
+  if (rv->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &rv->err)) {
+      error (g, "guestfs_lvcreate: failed to parse reply error");
+      return;
+    }
+    goto done;
+  }
+ done:
+  rv->cb_done = 1;
+  main_loop.main_loop_quit (g);
+}
+
+int guestfs_lvcreate (guestfs_h *g,
+		const char *logvol,
+		const char *volgroup,
+		int mbytes)
+{
+  struct guestfs_lvcreate_args args;
+  struct lvcreate_rv rv;
+  int serial;
+
+  if (g->state != READY) {
+    error (g, "guestfs_lvcreate called from the wrong state, %d != READY",
+      g->state);
+    return -1;
+  }
+
+  memset (&rv, 0, sizeof rv);
+
+  args.logvol = (char *) logvol;
+  args.volgroup = (char *) volgroup;
+  args.mbytes = mbytes;
+  serial = dispatch (g, GUESTFS_PROC_LVCREATE,
+                     (xdrproc_t) xdr_guestfs_lvcreate_args, (char *) &args);
+  if (serial == -1)
+    return -1;
+
+  rv.cb_done = 0;
+  g->reply_cb_internal = lvcreate_cb;
+  g->reply_cb_internal_data = &rv;
+  main_loop.main_loop_run (g);
+  g->reply_cb_internal = NULL;
+  g->reply_cb_internal_data = NULL;
+  if (!rv.cb_done) {
+    error (g, "guestfs_lvcreate failed, see earlier error messages");
+    return -1;
+  }
+
+  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_LVCREATE, serial) == -1)
+    return -1;
+
+  if (rv.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", rv.err.error);
+    return -1;
+  }
+
+  return 0;
+}
+
+struct mkfs_rv {
+  int cb_done;  /* flag to indicate callback was called */
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+};
+
+static void mkfs_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  struct mkfs_rv *rv = (struct mkfs_rv *) data;
+
+  if (!xdr_guestfs_message_header (xdr, &rv->hdr)) {
+    error (g, "guestfs_mkfs: failed to parse reply header");
+    return;
+  }
+  if (rv->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &rv->err)) {
+      error (g, "guestfs_mkfs: failed to parse reply error");
+      return;
+    }
+    goto done;
+  }
+ done:
+  rv->cb_done = 1;
+  main_loop.main_loop_quit (g);
+}
+
+int guestfs_mkfs (guestfs_h *g,
+		const char *fstype,
+		const char *device)
+{
+  struct guestfs_mkfs_args args;
+  struct mkfs_rv rv;
+  int serial;
+
+  if (g->state != READY) {
+    error (g, "guestfs_mkfs called from the wrong state, %d != READY",
+      g->state);
+    return -1;
+  }
+
+  memset (&rv, 0, sizeof rv);
+
+  args.fstype = (char *) fstype;
+  args.device = (char *) device;
+  serial = dispatch (g, GUESTFS_PROC_MKFS,
+                     (xdrproc_t) xdr_guestfs_mkfs_args, (char *) &args);
+  if (serial == -1)
+    return -1;
+
+  rv.cb_done = 0;
+  g->reply_cb_internal = mkfs_cb;
+  g->reply_cb_internal_data = &rv;
+  main_loop.main_loop_run (g);
+  g->reply_cb_internal = NULL;
+  g->reply_cb_internal_data = NULL;
+  if (!rv.cb_done) {
+    error (g, "guestfs_mkfs failed, see earlier error messages");
+    return -1;
+  }
+
+  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_MKFS, serial) == -1)
+    return -1;
+
+  if (rv.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", rv.err.error);
+    return -1;
+  }
+
+  return 0;
+}
+
+struct sfdisk_rv {
+  int cb_done;  /* flag to indicate callback was called */
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+};
+
+static void sfdisk_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  struct sfdisk_rv *rv = (struct sfdisk_rv *) data;
+
+  if (!xdr_guestfs_message_header (xdr, &rv->hdr)) {
+    error (g, "guestfs_sfdisk: failed to parse reply header");
+    return;
+  }
+  if (rv->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &rv->err)) {
+      error (g, "guestfs_sfdisk: failed to parse reply error");
+      return;
+    }
+    goto done;
+  }
+ done:
+  rv->cb_done = 1;
+  main_loop.main_loop_quit (g);
+}
+
+int guestfs_sfdisk (guestfs_h *g,
+		const char *device,
+		int cyls,
+		int heads,
+		int sectors,
+		char * const* const lines)
+{
+  struct guestfs_sfdisk_args args;
+  struct sfdisk_rv rv;
+  int serial;
+
+  if (g->state != READY) {
+    error (g, "guestfs_sfdisk called from the wrong state, %d != READY",
+      g->state);
+    return -1;
+  }
+
+  memset (&rv, 0, sizeof rv);
+
+  args.device = (char *) device;
+  args.cyls = cyls;
+  args.heads = heads;
+  args.sectors = sectors;
+  args.lines.lines_val = (char **) lines;
+  for (args.lines.lines_len = 0; lines[args.lines.lines_len]; args.lines.lines_len++) ;
+  serial = dispatch (g, GUESTFS_PROC_SFDISK,
+                     (xdrproc_t) xdr_guestfs_sfdisk_args, (char *) &args);
+  if (serial == -1)
+    return -1;
+
+  rv.cb_done = 0;
+  g->reply_cb_internal = sfdisk_cb;
+  g->reply_cb_internal_data = &rv;
+  main_loop.main_loop_run (g);
+  g->reply_cb_internal = NULL;
+  g->reply_cb_internal_data = NULL;
+  if (!rv.cb_done) {
+    error (g, "guestfs_sfdisk failed, see earlier error messages");
+    return -1;
+  }
+
+  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_SFDISK, serial) == -1)
+    return -1;
+
+  if (rv.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", rv.err.error);
+    return -1;
+  }
+
+  return 0;
+}
+
+struct write_file_rv {
+  int cb_done;  /* flag to indicate callback was called */
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+};
+
+static void write_file_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  struct write_file_rv *rv = (struct write_file_rv *) data;
+
+  if (!xdr_guestfs_message_header (xdr, &rv->hdr)) {
+    error (g, "guestfs_write_file: failed to parse reply header");
+    return;
+  }
+  if (rv->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &rv->err)) {
+      error (g, "guestfs_write_file: failed to parse reply error");
+      return;
+    }
+    goto done;
+  }
+ done:
+  rv->cb_done = 1;
+  main_loop.main_loop_quit (g);
+}
+
+int guestfs_write_file (guestfs_h *g,
+		const char *path,
+		const char *content,
+		int size)
+{
+  struct guestfs_write_file_args args;
+  struct write_file_rv rv;
+  int serial;
+
+  if (g->state != READY) {
+    error (g, "guestfs_write_file called from the wrong state, %d != READY",
+      g->state);
+    return -1;
+  }
+
+  memset (&rv, 0, sizeof rv);
+
+  args.path = (char *) path;
+  args.content = (char *) content;
+  args.size = size;
+  serial = dispatch (g, GUESTFS_PROC_WRITE_FILE,
+                     (xdrproc_t) xdr_guestfs_write_file_args, (char *) &args);
+  if (serial == -1)
+    return -1;
+
+  rv.cb_done = 0;
+  g->reply_cb_internal = write_file_cb;
+  g->reply_cb_internal_data = &rv;
+  main_loop.main_loop_run (g);
+  g->reply_cb_internal = NULL;
+  g->reply_cb_internal_data = NULL;
+  if (!rv.cb_done) {
+    error (g, "guestfs_write_file failed, see earlier error messages");
+    return -1;
+  }
+
+  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_WRITE_FILE, serial) == -1)
+    return -1;
+
+  if (rv.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", rv.err.error);
+    return -1;
+  }
+
+  return 0;
+}
+
+struct umount_rv {
+  int cb_done;  /* flag to indicate callback was called */
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+};
+
+static void umount_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  struct umount_rv *rv = (struct umount_rv *) data;
+
+  if (!xdr_guestfs_message_header (xdr, &rv->hdr)) {
+    error (g, "guestfs_umount: failed to parse reply header");
+    return;
+  }
+  if (rv->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &rv->err)) {
+      error (g, "guestfs_umount: failed to parse reply error");
+      return;
+    }
+    goto done;
+  }
+ done:
+  rv->cb_done = 1;
+  main_loop.main_loop_quit (g);
+}
+
+int guestfs_umount (guestfs_h *g,
+		const char *pathordevice)
+{
+  struct guestfs_umount_args args;
+  struct umount_rv rv;
+  int serial;
+
+  if (g->state != READY) {
+    error (g, "guestfs_umount called from the wrong state, %d != READY",
+      g->state);
+    return -1;
+  }
+
+  memset (&rv, 0, sizeof rv);
+
+  args.pathordevice = (char *) pathordevice;
+  serial = dispatch (g, GUESTFS_PROC_UMOUNT,
+                     (xdrproc_t) xdr_guestfs_umount_args, (char *) &args);
+  if (serial == -1)
+    return -1;
+
+  rv.cb_done = 0;
+  g->reply_cb_internal = umount_cb;
+  g->reply_cb_internal_data = &rv;
+  main_loop.main_loop_run (g);
+  g->reply_cb_internal = NULL;
+  g->reply_cb_internal_data = NULL;
+  if (!rv.cb_done) {
+    error (g, "guestfs_umount failed, see earlier error messages");
+    return -1;
+  }
+
+  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_UMOUNT, serial) == -1)
+    return -1;
+
+  if (rv.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", rv.err.error);
+    return -1;
+  }
+
+  return 0;
+}
+
+struct mounts_rv {
+  int cb_done;  /* flag to indicate callback was called */
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+  struct guestfs_mounts_ret ret;
+};
+
+static void mounts_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  struct mounts_rv *rv = (struct mounts_rv *) data;
+
+  if (!xdr_guestfs_message_header (xdr, &rv->hdr)) {
+    error (g, "guestfs_mounts: failed to parse reply header");
+    return;
+  }
+  if (rv->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &rv->err)) {
+      error (g, "guestfs_mounts: failed to parse reply error");
+      return;
+    }
+    goto done;
+  }
+  if (!xdr_guestfs_mounts_ret (xdr, &rv->ret)) {
+    error (g, "guestfs_mounts: failed to parse reply");
+    return;
+  }
+ done:
+  rv->cb_done = 1;
+  main_loop.main_loop_quit (g);
+}
+
+char **guestfs_mounts (guestfs_h *g)
+{
+  struct mounts_rv rv;
+  int serial;
+
+  if (g->state != READY) {
+    error (g, "guestfs_mounts called from the wrong state, %d != READY",
+      g->state);
+    return NULL;
+  }
+
+  memset (&rv, 0, sizeof rv);
+
+  serial = dispatch (g, GUESTFS_PROC_MOUNTS, NULL, NULL);
+  if (serial == -1)
+    return NULL;
+
+  rv.cb_done = 0;
+  g->reply_cb_internal = mounts_cb;
+  g->reply_cb_internal_data = &rv;
+  main_loop.main_loop_run (g);
+  g->reply_cb_internal = NULL;
+  g->reply_cb_internal_data = NULL;
+  if (!rv.cb_done) {
+    error (g, "guestfs_mounts failed, see earlier error messages");
+    return NULL;
+  }
+
+  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_MOUNTS, serial) == -1)
+    return NULL;
+
+  if (rv.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", rv.err.error);
+    return NULL;
+  }
+
+  /* caller will free this, but we need to add a NULL entry */
+  rv.ret.devices.devices_val =    safe_realloc (g, rv.ret.devices.devices_val,
+                  sizeof (char *) * (rv.ret.devices.devices_len + 1));
+  rv.ret.devices.devices_val[rv.ret.devices.devices_len] = NULL;
+  return rv.ret.devices.devices_val;
+}
+
+struct umount_all_rv {
+  int cb_done;  /* flag to indicate callback was called */
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+};
+
+static void umount_all_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  struct umount_all_rv *rv = (struct umount_all_rv *) data;
+
+  if (!xdr_guestfs_message_header (xdr, &rv->hdr)) {
+    error (g, "guestfs_umount_all: failed to parse reply header");
+    return;
+  }
+  if (rv->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &rv->err)) {
+      error (g, "guestfs_umount_all: failed to parse reply error");
+      return;
+    }
+    goto done;
+  }
+ done:
+  rv->cb_done = 1;
+  main_loop.main_loop_quit (g);
+}
+
+int guestfs_umount_all (guestfs_h *g)
+{
+  struct umount_all_rv rv;
+  int serial;
+
+  if (g->state != READY) {
+    error (g, "guestfs_umount_all called from the wrong state, %d != READY",
+      g->state);
+    return -1;
+  }
+
+  memset (&rv, 0, sizeof rv);
+
+  serial = dispatch (g, GUESTFS_PROC_UMOUNT_ALL, NULL, NULL);
+  if (serial == -1)
+    return -1;
+
+  rv.cb_done = 0;
+  g->reply_cb_internal = umount_all_cb;
+  g->reply_cb_internal_data = &rv;
+  main_loop.main_loop_run (g);
+  g->reply_cb_internal = NULL;
+  g->reply_cb_internal_data = NULL;
+  if (!rv.cb_done) {
+    error (g, "guestfs_umount_all failed, see earlier error messages");
+    return -1;
+  }
+
+  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_UMOUNT_ALL, serial) == -1)
+    return -1;
+
+  if (rv.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", rv.err.error);
+    return -1;
+  }
+
+  return 0;
+}
+
+struct lvm_remove_all_rv {
+  int cb_done;  /* flag to indicate callback was called */
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+};
+
+static void lvm_remove_all_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  struct lvm_remove_all_rv *rv = (struct lvm_remove_all_rv *) data;
+
+  if (!xdr_guestfs_message_header (xdr, &rv->hdr)) {
+    error (g, "guestfs_lvm_remove_all: failed to parse reply header");
+    return;
+  }
+  if (rv->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &rv->err)) {
+      error (g, "guestfs_lvm_remove_all: failed to parse reply error");
+      return;
+    }
+    goto done;
+  }
+ done:
+  rv->cb_done = 1;
+  main_loop.main_loop_quit (g);
+}
+
+int guestfs_lvm_remove_all (guestfs_h *g)
+{
+  struct lvm_remove_all_rv rv;
+  int serial;
+
+  if (g->state != READY) {
+    error (g, "guestfs_lvm_remove_all called from the wrong state, %d != READY",
+      g->state);
+    return -1;
+  }
+
+  memset (&rv, 0, sizeof rv);
+
+  serial = dispatch (g, GUESTFS_PROC_LVM_REMOVE_ALL, NULL, NULL);
+  if (serial == -1)
+    return -1;
+
+  rv.cb_done = 0;
+  g->reply_cb_internal = lvm_remove_all_cb;
+  g->reply_cb_internal_data = &rv;
+  main_loop.main_loop_run (g);
+  g->reply_cb_internal = NULL;
+  g->reply_cb_internal_data = NULL;
+  if (!rv.cb_done) {
+    error (g, "guestfs_lvm_remove_all failed, see earlier error messages");
+    return -1;
+  }
+
+  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_LVM_REMOVE_ALL, serial) == -1)
+    return -1;
+
+  if (rv.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", rv.err.error);
+    return -1;
+  }
+
+  return 0;
+}
+

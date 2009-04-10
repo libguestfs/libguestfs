@@ -119,3 +119,29 @@ ocaml_guestfs_close (value gv)
 
   CAMLreturn (Val_unit);
 }
+
+/* Copy string array value. */
+char **
+ocaml_guestfs_strings_val (value sv)
+{
+  CAMLparam1 (sv);
+  char **r;
+  int i;
+
+  r = malloc (sizeof (char *) * (Wosize_val (sv) + 1));
+  for (i = 0; i < Wosize_val (sv); ++i)
+    r[i] = String_val (Field (sv, i));
+  r[i] = NULL;
+
+  CAMLreturnT (char **, r);
+}
+
+/* Free array of strings. */
+void
+ocaml_guestfs_free_strings (char **argv)
+{
+  /* Don't free the actual strings - they are String_vals on
+   * the OCaml heap.
+   */
+  free (argv);
+}

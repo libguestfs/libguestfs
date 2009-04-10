@@ -262,6 +262,72 @@ struct guestfs_chown_args {
   string path<>;
 };
 
+struct guestfs_exists_args {
+  string path<>;
+};
+
+struct guestfs_exists_ret {
+  bool existsflag;
+};
+
+struct guestfs_is_file_args {
+  string path<>;
+};
+
+struct guestfs_is_file_ret {
+  bool fileflag;
+};
+
+struct guestfs_is_dir_args {
+  string path<>;
+};
+
+struct guestfs_is_dir_ret {
+  bool dirflag;
+};
+
+struct guestfs_pvcreate_args {
+  string device<>;
+};
+
+struct guestfs_vgcreate_args {
+  string volgroup<>;
+  str physvols<>;
+};
+
+struct guestfs_lvcreate_args {
+  string logvol<>;
+  string volgroup<>;
+  int mbytes;
+};
+
+struct guestfs_mkfs_args {
+  string fstype<>;
+  string device<>;
+};
+
+struct guestfs_sfdisk_args {
+  string device<>;
+  int cyls;
+  int heads;
+  int sectors;
+  str lines<>;
+};
+
+struct guestfs_write_file_args {
+  string path<>;
+  string content<>;
+  int size;
+};
+
+struct guestfs_umount_args {
+  string pathordevice<>;
+};
+
+struct guestfs_mounts_ret {
+  str devices<>;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -298,6 +364,19 @@ enum guestfs_procedure {
   GUESTFS_PROC_MKDIR_P = 33,
   GUESTFS_PROC_CHMOD = 34,
   GUESTFS_PROC_CHOWN = 35,
+  GUESTFS_PROC_EXISTS = 36,
+  GUESTFS_PROC_IS_FILE = 37,
+  GUESTFS_PROC_IS_DIR = 38,
+  GUESTFS_PROC_PVCREATE = 39,
+  GUESTFS_PROC_VGCREATE = 40,
+  GUESTFS_PROC_LVCREATE = 41,
+  GUESTFS_PROC_MKFS = 42,
+  GUESTFS_PROC_SFDISK = 43,
+  GUESTFS_PROC_WRITE_FILE = 44,
+  GUESTFS_PROC_UMOUNT = 45,
+  GUESTFS_PROC_MOUNTS = 46,
+  GUESTFS_PROC_UMOUNT_ALL = 47,
+  GUESTFS_PROC_LVM_REMOVE_ALL = 48,
   GUESTFS_PROC_dummy
 };
 

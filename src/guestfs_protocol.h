@@ -337,6 +337,95 @@ struct guestfs_chown_args {
 };
 typedef struct guestfs_chown_args guestfs_chown_args;
 
+struct guestfs_exists_args {
+	char *path;
+};
+typedef struct guestfs_exists_args guestfs_exists_args;
+
+struct guestfs_exists_ret {
+	bool_t existsflag;
+};
+typedef struct guestfs_exists_ret guestfs_exists_ret;
+
+struct guestfs_is_file_args {
+	char *path;
+};
+typedef struct guestfs_is_file_args guestfs_is_file_args;
+
+struct guestfs_is_file_ret {
+	bool_t fileflag;
+};
+typedef struct guestfs_is_file_ret guestfs_is_file_ret;
+
+struct guestfs_is_dir_args {
+	char *path;
+};
+typedef struct guestfs_is_dir_args guestfs_is_dir_args;
+
+struct guestfs_is_dir_ret {
+	bool_t dirflag;
+};
+typedef struct guestfs_is_dir_ret guestfs_is_dir_ret;
+
+struct guestfs_pvcreate_args {
+	char *device;
+};
+typedef struct guestfs_pvcreate_args guestfs_pvcreate_args;
+
+struct guestfs_vgcreate_args {
+	char *volgroup;
+	struct {
+		u_int physvols_len;
+		str *physvols_val;
+	} physvols;
+};
+typedef struct guestfs_vgcreate_args guestfs_vgcreate_args;
+
+struct guestfs_lvcreate_args {
+	char *logvol;
+	char *volgroup;
+	int mbytes;
+};
+typedef struct guestfs_lvcreate_args guestfs_lvcreate_args;
+
+struct guestfs_mkfs_args {
+	char *fstype;
+	char *device;
+};
+typedef struct guestfs_mkfs_args guestfs_mkfs_args;
+
+struct guestfs_sfdisk_args {
+	char *device;
+	int cyls;
+	int heads;
+	int sectors;
+	struct {
+		u_int lines_len;
+		str *lines_val;
+	} lines;
+};
+typedef struct guestfs_sfdisk_args guestfs_sfdisk_args;
+
+struct guestfs_write_file_args {
+	char *path;
+	char *content;
+	int size;
+};
+typedef struct guestfs_write_file_args guestfs_write_file_args;
+
+struct guestfs_umount_args {
+	char *pathordevice;
+};
+typedef struct guestfs_umount_args guestfs_umount_args;
+
+struct guestfs_mounts_ret {
+	struct {
+		u_int devices_len;
+		str *devices_val;
+	} devices;
+};
+typedef struct guestfs_mounts_ret guestfs_mounts_ret;
+
 enum guestfs_procedure {
 	GUESTFS_PROC_MOUNT = 1,
 	GUESTFS_PROC_SYNC = 2,
@@ -373,7 +462,20 @@ enum guestfs_procedure {
 	GUESTFS_PROC_MKDIR_P = 33,
 	GUESTFS_PROC_CHMOD = 34,
 	GUESTFS_PROC_CHOWN = 35,
-	GUESTFS_PROC_dummy = 35 + 1,
+	GUESTFS_PROC_EXISTS = 36,
+	GUESTFS_PROC_IS_FILE = 37,
+	GUESTFS_PROC_IS_DIR = 38,
+	GUESTFS_PROC_PVCREATE = 39,
+	GUESTFS_PROC_VGCREATE = 40,
+	GUESTFS_PROC_LVCREATE = 41,
+	GUESTFS_PROC_MKFS = 42,
+	GUESTFS_PROC_SFDISK = 43,
+	GUESTFS_PROC_WRITE_FILE = 44,
+	GUESTFS_PROC_UMOUNT = 45,
+	GUESTFS_PROC_MOUNTS = 46,
+	GUESTFS_PROC_UMOUNT_ALL = 47,
+	GUESTFS_PROC_LVM_REMOVE_ALL = 48,
+	GUESTFS_PROC_dummy = 48 + 1,
 };
 typedef enum guestfs_procedure guestfs_procedure;
 #define GUESTFS_MESSAGE_MAX 4194304
@@ -459,6 +561,20 @@ extern  bool_t xdr_guestfs_mkdir_args (XDR *, guestfs_mkdir_args*);
 extern  bool_t xdr_guestfs_mkdir_p_args (XDR *, guestfs_mkdir_p_args*);
 extern  bool_t xdr_guestfs_chmod_args (XDR *, guestfs_chmod_args*);
 extern  bool_t xdr_guestfs_chown_args (XDR *, guestfs_chown_args*);
+extern  bool_t xdr_guestfs_exists_args (XDR *, guestfs_exists_args*);
+extern  bool_t xdr_guestfs_exists_ret (XDR *, guestfs_exists_ret*);
+extern  bool_t xdr_guestfs_is_file_args (XDR *, guestfs_is_file_args*);
+extern  bool_t xdr_guestfs_is_file_ret (XDR *, guestfs_is_file_ret*);
+extern  bool_t xdr_guestfs_is_dir_args (XDR *, guestfs_is_dir_args*);
+extern  bool_t xdr_guestfs_is_dir_ret (XDR *, guestfs_is_dir_ret*);
+extern  bool_t xdr_guestfs_pvcreate_args (XDR *, guestfs_pvcreate_args*);
+extern  bool_t xdr_guestfs_vgcreate_args (XDR *, guestfs_vgcreate_args*);
+extern  bool_t xdr_guestfs_lvcreate_args (XDR *, guestfs_lvcreate_args*);
+extern  bool_t xdr_guestfs_mkfs_args (XDR *, guestfs_mkfs_args*);
+extern  bool_t xdr_guestfs_sfdisk_args (XDR *, guestfs_sfdisk_args*);
+extern  bool_t xdr_guestfs_write_file_args (XDR *, guestfs_write_file_args*);
+extern  bool_t xdr_guestfs_umount_args (XDR *, guestfs_umount_args*);
+extern  bool_t xdr_guestfs_mounts_ret (XDR *, guestfs_mounts_ret*);
 extern  bool_t xdr_guestfs_procedure (XDR *, guestfs_procedure*);
 extern  bool_t xdr_guestfs_message_direction (XDR *, guestfs_message_direction*);
 extern  bool_t xdr_guestfs_message_status (XDR *, guestfs_message_status*);
@@ -514,6 +630,20 @@ extern bool_t xdr_guestfs_mkdir_args ();
 extern bool_t xdr_guestfs_mkdir_p_args ();
 extern bool_t xdr_guestfs_chmod_args ();
 extern bool_t xdr_guestfs_chown_args ();
+extern bool_t xdr_guestfs_exists_args ();
+extern bool_t xdr_guestfs_exists_ret ();
+extern bool_t xdr_guestfs_is_file_args ();
+extern bool_t xdr_guestfs_is_file_ret ();
+extern bool_t xdr_guestfs_is_dir_args ();
+extern bool_t xdr_guestfs_is_dir_ret ();
+extern bool_t xdr_guestfs_pvcreate_args ();
+extern bool_t xdr_guestfs_vgcreate_args ();
+extern bool_t xdr_guestfs_lvcreate_args ();
+extern bool_t xdr_guestfs_mkfs_args ();
+extern bool_t xdr_guestfs_sfdisk_args ();
+extern bool_t xdr_guestfs_write_file_args ();
+extern bool_t xdr_guestfs_umount_args ();
+extern bool_t xdr_guestfs_mounts_ret ();
 extern bool_t xdr_guestfs_procedure ();
 extern bool_t xdr_guestfs_message_direction ();
 extern bool_t xdr_guestfs_message_status ();

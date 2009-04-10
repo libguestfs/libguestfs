@@ -91,13 +91,13 @@ sub new {
   return $self;
 }
 
-=item $h->add_cdrom (filename);
+=item $h->add_cdrom ($filename);
 
 This function adds a virtual CD-ROM disk image to the guest.
 
 This is equivalent to the qemu parameter C<-cdrom filename>.
 
-=item $h->add_drive (filename);
+=item $h->add_drive ($filename);
 
 This function adds a virtual machine disk image C<filename> to the
 guest.  The first time you call this function, the disk appears as IDE
@@ -119,7 +119,7 @@ used by it.  After calling this, you have to call
 C<$h-E<gt>aug_init> again before you can use any other
 Augeas functions.
 
-=item ($nrnodes, $created) = $h->aug_defnode (name, expr, val);
+=item ($nrnodes, $created) = $h->aug_defnode ($name, $expr, $val);
 
 Defines a variable C<name> whose value is the result of
 evaluating C<expr>.
@@ -132,7 +132,7 @@ On success this returns a pair containing the
 number of nodes in the nodeset, and a boolean flag
 if a node was created.
 
-=item $nrnodes = $h->aug_defvar (name, expr);
+=item $nrnodes = $h->aug_defvar ($name, $expr);
 
 Defines an Augeas variable C<name> whose value is the result
 of evaluating C<expr>.  If C<expr> is NULL, then C<name> is
@@ -141,12 +141,12 @@ undefined.
 On success this returns the number of nodes in C<expr>, or
 C<0> if C<expr> evaluates to something which is not a nodeset.
 
-=item $val = $h->aug_get (path);
+=item $val = $h->aug_get ($path);
 
 Look up the value associated with C<path>.  If C<path>
 matches exactly one node, the C<value> is returned.
 
-=item $h->aug_init (root, flags);
+=item $h->aug_init ($root, $flags);
 
 Create a new Augeas handle for editing configuration files.
 If there was any previous Augeas handle associated with this
@@ -195,7 +195,7 @@ To close the handle, you can call C<$h-E<gt>aug_close>.
 
 To find out more about Augeas, see L<http://augeas.net/>.
 
-=item $h->aug_insert (path, label, before);
+=item $h->aug_insert ($path, $label, $before);
 
 Create a new sibling C<label> for C<path>, inserting it into
 the tree before or after C<path> (depending on the boolean
@@ -212,23 +212,23 @@ Load files into the tree.
 See C<aug_load> in the Augeas documentation for the full gory
 details.
 
-=item @matches = $h->aug_ls (path);
+=item @matches = $h->aug_ls ($path);
 
 This is just a shortcut for listing C<$h-E<gt>aug_match>
 C<path/*> and sorting the resulting nodes into alphabetical order.
 
-=item @matches = $h->aug_match (path);
+=item @matches = $h->aug_match ($path);
 
 Returns a list of paths which match the path expression C<path>.
 The returned paths are sufficiently qualified so that they match
 exactly one node in the current tree.
 
-=item $h->aug_mv (src, dest);
+=item $h->aug_mv ($src, $dest);
 
 Move the node C<src> to C<dest>.  C<src> must match exactly
 one node.  C<dest> is overwritten if it exists.
 
-=item $nrnodes = $h->aug_rm (path);
+=item $nrnodes = $h->aug_rm ($path);
 
 Remove C<path> and all of its children.
 
@@ -241,11 +241,11 @@ This writes all pending changes to disk.
 The flags which were passed to C<$h-E<gt>aug_init> affect exactly
 how files are saved.
 
-=item $h->aug_set (path, val);
+=item $h->aug_set ($path, $val);
 
 Set the value associated with C<path> to C<value>.
 
-=item $content = $h->cat (path);
+=item $content = $h->cat ($path);
 
 Return the contents of the file named C<path>.
 
@@ -258,12 +258,12 @@ Because of the message protocol, there is a transfer limit
 of somewhere between 2MB and 4MB.  To transfer large files you should use
 FTP.
 
-=item $h->chmod (mode, path);
+=item $h->chmod ($mode, $path);
 
 Change the mode (permissions) of C<path> to C<mode>.  Only
 numeric modes are supported.
 
-=item $h->chown (owner, group, path);
+=item $h->chown ($owner, $group, $path);
 
 Change the file owner to C<owner> and group to C<group>.
 
@@ -271,7 +271,7 @@ Only numeric uid and gid are supported.  If you want to use
 names, you will need to locate and parse the password file
 yourself (Augeas support makes this relatively easy).
 
-=item $h->config (qemuparam, qemuvalue);
+=item $h->config ($qemuparam, $qemuvalue);
 
 This can be used to add arbitrary qemu command line parameters
 of the form C<-param value>.  Actually it's not quite arbitrary - we
@@ -281,6 +281,13 @@ parameters that we use.
 The first character of C<param> string must be a C<-> (dash).
 
 C<value> can be NULL.
+
+=item $existsflag = $h->exists ($path);
+
+This returns C<true> if and only if there is a file, directory
+(or anything) with the given C<path> name.
+
+See also C<$h-E<gt>is_file>, C<$h-E<gt>is_dir>, C<$h-E<gt>stat>.
 
 =item $autosync = $h->get_autosync ();
 
@@ -296,6 +303,22 @@ return the default path.
 =item $verbose = $h->get_verbose ();
 
 This returns the verbose messages flag.
+
+=item $dirflag = $h->is_dir ($path);
+
+This returns C<true> if and only if there is a directory
+with the given C<path> name.  Note that it returns false for
+other objects like files.
+
+See also C<$h-E<gt>stat>.
+
+=item $fileflag = $h->is_file ($path);
+
+This returns C<true> if and only if there is a file
+with the given C<path> name.  Note that it returns false for
+other objects like directories.
+
+See also C<$h-E<gt>stat>.
 
 =item $h->kill_subprocess ();
 
@@ -324,7 +347,7 @@ The full partition device names are returned, eg. C</dev/sda1>
 This does not return logical volumes.  For that you will need to
 call C<$h-E<gt>lvs>.
 
-=item $listing = $h->ll (directory);
+=item $listing = $h->ll ($directory);
 
 List the files in C<directory> (relative to the root directory,
 there is no cwd) in the format of 'ls -la'.
@@ -332,7 +355,7 @@ there is no cwd) in the format of 'ls -la'.
 This command is mostly useful for interactive sessions.  It
 is I<not> intended that you try to parse the output string.
 
-=item @listing = $h->ls (directory);
+=item @listing = $h->ls ($directory);
 
 List the files in C<directory> (relative to the root directory,
 there is no cwd).  The '.' and '..' entries are not returned, but
@@ -340,6 +363,19 @@ hidden files are shown.
 
 This command is mostly useful for interactive sessions.  Programs
 should probably use C<$h-E<gt>readdir> instead.
+
+=item $h->lvcreate ($logvol, $volgroup, $mbytes);
+
+This creates an LVM volume group called C<logvol>
+on the volume group C<volgroup>, with C<size> megabytes.
+
+=item $h->lvm_remove_all ();
+
+This command removes all LVM logical volumes, volume groups
+and physical volumes.
+
+B<This command is dangerous.  Without careful use you
+can easily destroy all your data>.
 
 =item @logvols = $h->lvs ();
 
@@ -356,16 +392,22 @@ See also C<$h-E<gt>lvs_full>.
 List all the logical volumes detected.  This is the equivalent
 of the L<lvs(8)> command.  The "full" version includes all fields.
 
-=item $h->mkdir (path);
+=item $h->mkdir ($path);
 
 Create a directory named C<path>.
 
-=item $h->mkdir_p (path);
+=item $h->mkdir_p ($path);
 
 Create a directory named C<path>, creating any parent directories
 as necessary.  This is like the C<mkdir -p> shell command.
 
-=item $h->mount (device, mountpoint);
+=item $h->mkfs ($fstype, $device);
+
+This creates a filesystem on C<device> (usually a partition
+of LVM logical volume).  The filesystem type is C<fstype>, for
+example C<ext3>.
+
+=item $h->mount ($device, $mountpoint);
 
 Mount a guest disk at a position in the filesystem.  Block devices
 are named C</dev/sda>, C</dev/sdb> and so on, as they were added to
@@ -384,6 +426,19 @@ on the underlying device.
 The filesystem options C<sync> and C<noatime> are set with this
 call, in order to improve reliability.
 
+=item @devices = $h->mounts ();
+
+This returns the list of currently mounted filesystems.  It returns
+the list of devices (eg. C</dev/sda1>, C</dev/VG/LV>).
+
+Some internal mounts are not shown.
+
+=item $h->pvcreate ($device);
+
+This creates an LVM physical volume on the named C<device>,
+where C<device> should usually be a partition name such
+as C</dev/sda1>.
+
 =item @physvols = $h->pvs ();
 
 List all the physical volumes detected.  This is the equivalent
@@ -399,7 +454,7 @@ See also C<$h-E<gt>pvs_full>.
 List all the physical volumes detected.  This is the equivalent
 of the L<pvs(8)> command.  The "full" version includes all fields.
 
-=item @lines = $h->read_lines (path);
+=item @lines = $h->read_lines ($path);
 
 Return the contents of the file named C<path>.
 
@@ -411,27 +466,27 @@ Note that this function cannot correctly handle binary files
 as end of line).  For those you need to use the C<$h-E<gt>read_file>
 function which has a more complex interface.
 
-=item $h->rm (path);
+=item $h->rm ($path);
 
 Remove the single file C<path>.
 
-=item $h->rm_rf (path);
+=item $h->rm_rf ($path);
 
 Remove the file or directory C<path>, recursively removing the
 contents if its a directory.  This is like the C<rm -rf> shell
 command.
 
-=item $h->rmdir (path);
+=item $h->rmdir ($path);
 
 Remove the single directory C<path>.
 
-=item $h->set_autosync (autosync);
+=item $h->set_autosync ($autosync);
 
 If C<autosync> is true, this enables autosync.  Libguestfs will make a
 best effort attempt to run C<$h-E<gt>sync> when the handle is closed
 (also if the program exits without closing handles).
 
-=item $h->set_path (path);
+=item $h->set_path ($path);
 
 Set the path that libguestfs searches for kernel and initrd.img.
 
@@ -443,12 +498,37 @@ must make sure it remains valid for the lifetime of the handle.
 
 Setting C<path> to C<NULL> restores the default path.
 
-=item $h->set_verbose (verbose);
+=item $h->set_verbose ($verbose);
 
 If C<verbose> is true, this turns on verbose messages (to C<stderr>).
 
 Verbose messages are disabled unless the environment variable
 C<LIBGUESTFS_DEBUG> is defined and set to C<1>.
+
+=item $h->sfdisk ($device, $cyls, $heads, $sectors, \@lines);
+
+This is a direct interface to the L<sfdisk(8)> program for creating
+partitions on block devices.
+
+C<device> should be a block device, for example C</dev/sda>.
+
+C<cyls>, C<heads> and C<sectors> are the number of cylinders, heads
+and sectors on the device, which are passed directly to sfdisk as
+the I<-C>, I<-H> and I<-S> parameters.  If you pass C<0> for any
+of these, then the corresponding parameter is omitted.  Usually for
+'large' disks, you can just pass C<0> for these, but for small
+(floppy-sized) disks, sfdisk (or rather, the kernel) cannot work
+out the right geometry and you will need to tell it.
+
+C<lines> is a list of lines that we feed to C<sfdisk>.  For more
+information refer to the L<sfdisk(8)> manpage.
+
+To create a single partition occupying the whole disk, you would
+pass C<lines> as a single element list, when the single element being
+the string C<,> (comma).
+
+B<This command is dangerous.  Without careful use you
+can easily destroy all your data>.
 
 =item $h->sync ();
 
@@ -458,11 +538,28 @@ underlying disk image.
 You should always call this if you have modified a disk image, before
 closing the handle.
 
-=item $h->touch (path);
+=item $h->touch ($path);
 
 Touch acts like the L<touch(1)> command.  It can be used to
 update the timestamps on a file, or, if the file does not exist,
 to create a new zero-length file.
+
+=item $h->umount ($pathordevice);
+
+This unmounts the given filesystem.  The filesystem may be
+specified either by its mountpoint (path) or the device which
+contains the filesystem.
+
+=item $h->umount_all ();
+
+This unmounts all mounted filesystems.
+
+Some internal mounts are not unmounted by this call.
+
+=item $h->vgcreate ($volgroup, \@physvols);
+
+This creates an LVM volume group called C<volgroup>
+from the non-empty list of physical volumes C<physvols>.
 
 =item @volgroups = $h->vgs ();
 
@@ -486,6 +583,20 @@ using L<qemu(1)>.
 
 You should call this after C<$h-E<gt>launch> to wait for the launch
 to complete.
+
+=item $h->write_file ($path, $content, $size);
+
+This call creates a file called C<path>.  The contents of the
+file is the string C<content> (which can contain any 8 bit data),
+with length C<size>.
+
+As a special case, if C<size> is C<0>
+then the length is calculated using C<strlen> (so in this case
+the content cannot contain embedded ASCII NULs).
+
+Because of the message protocol, there is a transfer limit 
+of somewhere between 2MB and 4MB.  To transfer large files you should use
+FTP.
 
 =cut
 

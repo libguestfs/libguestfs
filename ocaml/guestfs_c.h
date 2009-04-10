@@ -22,5 +22,7 @@
 #define Guestfs_val(v) (*((guestfs_h **)Data_custom_val(v)))
 extern void ocaml_guestfs_raise_error (guestfs_h *g, const char *func)
   Noreturn;
+extern char **ocaml_guestfs_strings_val (value sv);
+extern void ocaml_guestfs_free_strings (char **r);
 
 #endif /* GUESTFS_OCAML_C_H */

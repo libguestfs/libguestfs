@@ -27,6 +27,5 @@ int
 do_sync ()
 {
   sync ();
-  fprintf (stderr, "guestfsd: disk synched\n");
   return 0;
 }

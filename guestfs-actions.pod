@@ -300,6 +300,18 @@ C<value> can be NULL.
 
 This function returns 0 on success or -1 on error.
 
+=head2 guestfs_exists
+
+ int guestfs_exists (guestfs_h *handle,
+		const char *path);
+
+This returns C<true> if and only if there is a file, directory
+(or anything) with the given C<path> name.
+
+See also C<guestfs_is_file>, C<guestfs_is_dir>, C<guestfs_stat>.
+
+This function returns a C truth value on success or -1 on error.
+
 =head2 guestfs_get_autosync
 
  int guestfs_get_autosync (guestfs_h *handle);
@@ -325,6 +337,32 @@ The string is owned by the guest handle and must I<not> be freed.
  int guestfs_get_verbose (guestfs_h *handle);
 
 This returns the verbose messages flag.
+
+This function returns a C truth value on success or -1 on error.
+
+=head2 guestfs_is_dir
+
+ int guestfs_is_dir (guestfs_h *handle,
+		const char *path);
+
+This returns C<true> if and only if there is a directory
+with the given C<path> name.  Note that it returns false for
+other objects like files.
+
+See also C<guestfs_stat>.
+
+This function returns a C truth value on success or -1 on error.
+
+=head2 guestfs_is_file
+
+ int guestfs_is_file (guestfs_h *handle,
+		const char *path);
+
+This returns C<true> if and only if there is a file
+with the given C<path> name.  Note that it returns false for
+other objects like directories.
+
+See also C<guestfs_stat>.
 
 This function returns a C truth value on success or -1 on error.
 
@@ -405,6 +443,30 @@ This function returns a NULL-terminated array of strings
 (like L<environ(3)>), or NULL if there was an error.
 I<The caller must free the strings and the array after use>.
 
+=head2 guestfs_lvcreate
+
+ int guestfs_lvcreate (guestfs_h *handle,
+		const char *logvol,
+		const char *volgroup,
+		int mbytes);
+
+This creates an LVM volume group called C<logvol>
+on the volume group C<volgroup>, with C<size> megabytes.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_lvm_remove_all
+
+ int guestfs_lvm_remove_all (guestfs_h *handle);
+
+This command removes all LVM logical volumes, volume groups
+and physical volumes.
+
+This function returns 0 on success or -1 on error.
+
+B<This command is dangerous.  Without careful use you
+can easily destroy all your data>.
+
 =head2 guestfs_lvs
 
  char **guestfs_lvs (guestfs_h *handle);
@@ -450,6 +512,18 @@ as necessary.  This is like the C<mkdir -p> shell command.
 
 This function returns 0 on success or -1 on error.
 
+=head2 guestfs_mkfs
+
+ int guestfs_mkfs (guestfs_h *handle,
+		const char *fstype,
+		const char *device);
+
+This creates a filesystem on C<device> (usually a partition
+of LVM logical volume).  The filesystem type is C<fstype>, for
+example C<ext3>.
+
+This function returns 0 on success or -1 on error.
+
 =head2 guestfs_mount
 
  int guestfs_mount (guestfs_h *handle,
@@ -472,6 +546,30 @@ on the underlying device.
 
 The filesystem options C<sync> and C<noatime> are set with this
 call, in order to improve reliability.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_mounts
+
+ char **guestfs_mounts (guestfs_h *handle);
+
+This returns the list of currently mounted filesystems.  It returns
+the list of devices (eg. C</dev/sda1>, C</dev/VG/LV>).
+
+Some internal mounts are not shown.
+
+This function returns a NULL-terminated array of strings
+(like L<environ(3)>), or NULL if there was an error.
+I<The caller must free the strings and the array after use>.
+
+=head2 guestfs_pvcreate
+
+ int guestfs_pvcreate (guestfs_h *handle,
+		const char *device);
+
+This creates an LVM physical volume on the named C<device>,
+where C<device> should usually be a partition name such
+as C</dev/sda1>.
 
 This function returns 0 on success or -1 on error.
 
@@ -589,6 +687,40 @@ C<LIBGUESTFS_DEBUG> is defined and set to C<1>.
 
 This function returns 0 on success or -1 on error.
 
+=head2 guestfs_sfdisk
+
+ int guestfs_sfdisk (guestfs_h *handle,
+		const char *device,
+		int cyls,
+		int heads,
+		int sectors,
+		char * const* const lines);
+
+This is a direct interface to the L<sfdisk(8)> program for creating
+partitions on block devices.
+
+C<device> should be a block device, for example C</dev/sda>.
+
+C<cyls>, C<heads> and C<sectors> are the number of cylinders, heads
+and sectors on the device, which are passed directly to sfdisk as
+the I<-C>, I<-H> and I<-S> parameters.  If you pass C<0> for any
+of these, then the corresponding parameter is omitted.  Usually for
+'large' disks, you can just pass C<0> for these, but for small
+(floppy-sized) disks, sfdisk (or rather, the kernel) cannot work
+out the right geometry and you will need to tell it.
+
+C<lines> is a list of lines that we feed to C<sfdisk>.  For more
+information refer to the L<sfdisk(8)> manpage.
+
+To create a single partition occupying the whole disk, you would
+pass C<lines> as a single element list, when the single element being
+the string C<,> (comma).
+
+This function returns 0 on success or -1 on error.
+
+B<This command is dangerous.  Without careful use you
+can easily destroy all your data>.
+
 =head2 guestfs_sync
 
  int guestfs_sync (guestfs_h *handle);
@@ -609,6 +741,38 @@ This function returns 0 on success or -1 on error.
 Touch acts like the L<touch(1)> command.  It can be used to
 update the timestamps on a file, or, if the file does not exist,
 to create a new zero-length file.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_umount
+
+ int guestfs_umount (guestfs_h *handle,
+		const char *pathordevice);
+
+This unmounts the given filesystem.  The filesystem may be
+specified either by its mountpoint (path) or the device which
+contains the filesystem.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_umount_all
+
+ int guestfs_umount_all (guestfs_h *handle);
+
+This unmounts all mounted filesystems.
+
+Some internal mounts are not unmounted by this call.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_vgcreate
+
+ int guestfs_vgcreate (guestfs_h *handle,
+		const char *volgroup,
+		char * const* const physvols);
+
+This creates an LVM volume group called C<volgroup>
+from the non-empty list of physical volumes C<physvols>.
 
 This function returns 0 on success or -1 on error.
 
@@ -649,4 +813,25 @@ You should call this after C<guestfs_launch> to wait for the launch
 to complete.
 
 This function returns 0 on success or -1 on error.
+
+=head2 guestfs_write_file
+
+ int guestfs_write_file (guestfs_h *handle,
+		const char *path,
+		const char *content,
+		int size);
+
+This call creates a file called C<path>.  The contents of the
+file is the string C<content> (which can contain any 8 bit data),
+with length C<size>.
+
+As a special case, if C<size> is C<0>
+then the length is calculated using C<strlen> (so in this case
+the content cannot contain embedded ASCII NULs).
+
+This function returns 0 on success or -1 on error.
+
+Because of the message protocol, there is a transfer limit 
+of somewhere between 2MB and 4MB.  To transfer large files you should use
+FTP.
 

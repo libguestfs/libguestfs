@@ -77,59 +77,74 @@ and args = argt list	(* Function parameters, guestfs handle is implicit. *)
 and argt =
   | String of string	(* const char *name, cannot be NULL *)
   | OptString of string	(* const char *name, may be NULL *)
+  | StringList of string(* list of strings (each string cannot be NULL) *)
   | Bool of string	(* boolean *)
   | Int of string	(* int (smallish ints, signed, <= 31 bits) *)
 
 type flags =
   | ProtocolLimitWarning  (* display warning about protocol size limits *)
+  | DangerWillRobinson	  (* flags particularly dangerous commands *)
   | FishAlias of string	  (* provide an alias for this cmd in guestfish *)
   | FishAction of string  (* call this function in guestfish *)
   | NotInFish		  (* do not export via guestfish *)
 
+let protocol_limit_warning =
+  "Because of the message protocol, there is a transfer limit 
+of somewhere between 2MB and 4MB.  To transfer large files you should use
+FTP."
+
+let danger_will_robinson =
+  "B<This command is dangerous.  Without careful use you
+can easily destroy all your data>."
+
 (* You can supply zero or as many tests as you want per API call.
  *
- * Note that the test environment has 3 block devices, of size 10M, 20M
- * and 30M (respectively /dev/sda, /dev/sdb, /dev/sdc).  To run the
- * tests in a reasonable amount of time, the virtual machine and
- * block devices are reused between tests. So don't try testing
- * kill_subprocess :-x
+ * Note that the test environment has 3 block devices, of size 500MB,
+ * 50MB and 10MB (respectively /dev/sda, /dev/sdb, /dev/sdc).
+ * Note for partitioning purposes, the 500MB device has 63 cylinders.
+ *
+ * To be able to run the tests in a reasonable amount of time,
+ * the virtual machine and block devices are reused between tests.
+ * So don't try testing kill_subprocess :-x
+ *
+ * Between each test we umount-all and lvm-remove-all.
  *
  * Don't assume anything about the previous contents of the block
  * devices.  Use 'Init*' to create some initial scenarios.
  *)
-type tests = test list
+type tests = (test_init * test) list
 and test =
     (* Run the command sequence and just expect nothing to fail. *)
-  | TestRun of test_init * seq
+  | TestRun of seq
     (* Run the command sequence and expect the output of the final
      * command to be the string.
      *)
-  | TestOutput of test_init * seq * string
+  | TestOutput of seq * string
     (* Run the command sequence and expect the output of the final
      * command to be the list of strings.
      *)
-  | TestOutputList of test_init * seq * string list
+  | TestOutputList of seq * string list
     (* Run the command sequence and expect the output of the final
      * command to be the integer.
      *)
-  | TestOutputInt of test_init * seq * int
+  | TestOutputInt of seq * int
     (* Run the command sequence and expect the output of the final
      * command to be a true value (!= 0 or != NULL).
      *)
-  | TestOutputTrue of test_init * seq
+  | TestOutputTrue of seq
     (* Run the command sequence and expect the output of the final
      * command to be a false value (== 0 or == NULL, but not an error).
      *)
-  | TestOutputFalse of test_init * seq
+  | TestOutputFalse of seq
     (* Run the command sequence and expect the output of the final
      * command to be a list of the given length (but don't care about
      * content).
      *)
-  | TestOutputLength of test_init * seq * int
+  | TestOutputLength of seq * int
     (* Run the command sequence and expect the final command (only)
      * to fail.
      *)
-  | TestLastFail of test_init * seq
+  | TestLastFail of seq
 
 (* Some initial scenarios for testing. *)
 and test_init =
@@ -143,7 +158,7 @@ and test_init =
   | InitEmpty
     (* /dev/sda:
      *   /dev/sda1 (is a PV):
-     *     /dev/VG/LV:
+     *     /dev/VG/LV (size 8MB):
      *       formatted as ext2, empty [except for lost+found], mounted on /
      * /dev/sdb and /dev/sdc may have random content.
      *)
@@ -281,9 +296,8 @@ This returns the verbose messages flag.")
 
 let daemon_functions = [
   ("mount", (RErr, [String "device"; String "mountpoint"]), 1, [],
-   [TestOutput (
-      InitNone,
-      [["sfdisk"];
+   [InitNone, TestOutput (
+      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
        ["mkfs"; "ext2"; "/dev/sda1"];
        ["mount"; "/dev/sda1"; "/"];
        ["write_file"; "/new"; "new file contents"; "0"];
@@ -308,7 +322,7 @@ The filesystem options C<sync> and C<noatime> are set with this
 call, in order to improve reliability.");
 
   ("sync", (RErr, []), 2, [],
-   [ TestRun (InitNone, [["sync"]])],
+   [ InitNone, TestRun [["sync"]]],
    "sync disks, writes are flushed through to the disk image",
    "\
 This syncs the disk, so that any writes are flushed through to the
@@ -318,8 +332,7 @@ You should always call this if you have modified a disk image, before
 closing the handle.");
 
   ("touch", (RErr, [String "path"]), 3, [],
-   [TestOutputTrue (
-      InitEmpty,
+   [InitEmpty, TestOutputTrue (
       [["touch"; "/new"];
        ["exists"; "/new"]])],
    "update file timestamps or create a new file",
@@ -329,8 +342,7 @@ update the timestamps on a file, or, if the file does not exist,
 to create a new zero-length file.");
 
   ("cat", (RString "content", [String "path"]), 4, [ProtocolLimitWarning],
-   [TestOutput (
-      InitEmpty,
+   [InitEmpty, TestOutput (
       [["write_file"; "/new"; "new file contents"; "0"];
        ["cat"; "/new"]], "new file contents")],
    "list the contents of a file",
@@ -355,8 +367,7 @@ This command is mostly useful for interactive sessions.  It
 is I<not> intended that you try to parse the output string.");
 
   ("ls", (RStringList "listing", [String "directory"]), 6, [],
-   [TestOutputList (
-      InitEmpty,
+   [InitEmpty, TestOutputList (
       [["touch"; "/new"];
        ["touch"; "/newer"];
        ["touch"; "/newest"];
@@ -371,8 +382,7 @@ This command is mostly useful for interactive sessions.  Programs
 should probably use C<guestfs_readdir> instead.");
 
   ("list_devices", (RStringList "devices", []), 7, [],
-   [TestOutputList (
-      InitNone,
+   [InitNone, TestOutputList (
       [["list_devices"]], ["/dev/sda"; "/dev/sdb"; "/dev/sdc"])],
    "list the block devices",
    "\
@@ -381,12 +391,10 @@ List all the block devices.
 The full block device names are returned, eg. C</dev/sda>");
 
   ("list_partitions", (RStringList "partitions", []), 8, [],
-   [TestOutputList (
-      InitEmpty,
+   [InitEmpty, TestOutputList (
       [["list_partitions"]], ["/dev/sda1"]);
-    TestOutputList (
-      InitEmpty,
-      [["sfdisk"];
+    InitNone, TestOutputList (
+      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
        ["list_partitions"]], ["/dev/sda1"; "/dev/sda2"; "/dev/sda3"])],
    "list the partitions",
    "\
@@ -398,12 +406,10 @@ This does not return logical volumes.  For that you will need to
 call C<guestfs_lvs>.");
 
   ("pvs", (RStringList "physvols", []), 9, [],
-   [TestOutputList (
-      InitEmptyLVM,
+   [InitEmptyLVM, TestOutputList (
       [["pvs"]], ["/dev/sda1"]);
-    TestOutputList (
-      InitNone,
-      [["sfdisk"];
+    InitNone, TestOutputList (
+      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
        ["pvcreate"; "/dev/sda3"];
@@ -419,12 +425,10 @@ PVs (eg. C</dev/sda2>).
 See also C<guestfs_pvs_full>.");
 
   ("vgs", (RStringList "volgroups", []), 10, [],
-   [TestOutputList (
-      InitEmptyLVM,
+   [InitEmptyLVM, TestOutputList (
       [["vgs"]], ["VG"]);
-    TestOutputList (
-      InitNone,
-      [["sfdisk"];
+    InitNone, TestOutputList (
+      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
        ["pvcreate"; "/dev/sda3"];
@@ -442,21 +446,19 @@ detected (eg. C<VolGroup00>).
 See also C<guestfs_vgs_full>.");
 
   ("lvs", (RStringList "logvols", []), 11, [],
-   [TestOutputList (
-      InitEmptyLVM,
+   [InitEmptyLVM, TestOutputList (
       [["lvs"]], ["/dev/VG/LV"]);
-    TestOutputList (
-      InitNone,
-      [["sfdisk"];
+    InitNone, TestOutputList (
+      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
        ["pvcreate"; "/dev/sda3"];
        ["vgcreate"; "VG1"; "/dev/sda1 /dev/sda2"];
        ["vgcreate"; "VG2"; "/dev/sda3"];
-       ["lvcreate"; "LV1"; "VG1"; "5000"];
-       ["lvcreate"; "LV2"; "VG1"; "5000"];
-       ["lvcreate"; "LV3"; "VG2"; "5000"];
-       ["lvs"]], ["LV1"; "LV2"; "LV3"])],
+       ["lvcreate"; "LV1"; "VG1"; "50"];
+       ["lvcreate"; "LV2"; "VG1"; "50"];
+       ["lvcreate"; "LV3"; "VG2"; "50"];
+       ["lvs"]], ["/dev/VG1/LV1"; "/dev/VG1/LV2"; "/dev/VG2/LV3"])],
    "list the LVM logical volumes (LVs)",
    "\
 List all the logical volumes detected.  This is the equivalent
@@ -468,8 +470,7 @@ This returns a list of the logical volume device names
 See also C<guestfs_lvs_full>.");
 
   ("pvs_full", (RPVList "physvols", []), 12, [],
-   [TestOutputLength (
-      InitEmptyLVM,
+   [InitEmptyLVM, TestOutputLength (
       [["pvs"]], 1)],
    "list the LVM physical volumes (PVs)",
    "\
@@ -477,8 +478,7 @@ List all the physical volumes detected.  This is the equivalent
 of the L<pvs(8)> command.  The \"full\" version includes all fields.");
 
   ("vgs_full", (RVGList "volgroups", []), 13, [],
-   [TestOutputLength (
-      InitEmptyLVM,
+   [InitEmptyLVM, TestOutputLength (
       [["pvs"]], 1)],
    "list the LVM volume groups (VGs)",
    "\
@@ -486,8 +486,7 @@ List all the volumes groups detected.  This is the equivalent
 of the L<vgs(8)> command.  The \"full\" version includes all fields.");
 
   ("lvs_full", (RLVList "logvols", []), 14, [],
-   [TestOutputLength (
-      InitEmptyLVM,
+   [InitEmptyLVM, TestOutputLength (
       [["pvs"]], 1)],
    "list the LVM logical volumes (LVs)",
    "\
@@ -495,12 +494,10 @@ List all the logical volumes detected.  This is the equivalent
 of the L<lvs(8)> command.  The \"full\" version includes all fields.");
 
   ("read_lines", (RStringList "lines", [String "path"]), 15, [],
-   [TestOutputList (
-      InitEmpty,
+   [InitEmpty, TestOutputList (
       [["write_file"; "/new"; "line1\r\nline2\nline3"; "0"];
        ["read_lines"; "/new"]], ["line1"; "line2"; "line3"]);
-    TestOutputList (
-      InitEmpty,
+    InitEmpty, TestOutputList (
       [["write_file"; "/new"; ""; "0"];
        ["read_lines"; "/new"]], [])],
    "read file as lines",
@@ -675,45 +672,38 @@ This is just a shortcut for listing C<guestfs_aug_match>
 C<path/*> and sorting the resulting nodes into alphabetical order.");
 
   ("rm", (RErr, [String "path"]), 29, [],
-   [TestRun (
-      InitEmpty,
+   [InitEmpty, TestRun
       [["touch"; "/new"];
-       ["rm"; "/new"]]);
-    TestLastFail (
-      InitEmpty,
-      [["rm"; "/new"]]);
-    TestLastFail (
-      InitEmpty,
+       ["rm"; "/new"]];
+    InitEmpty, TestLastFail
+      [["rm"; "/new"]];
+    InitEmpty, TestLastFail
       [["mkdir"; "/new"];
-       ["rm"; "/new"]])],
+       ["rm"; "/new"]]],
    "remove a file",
    "\
 Remove the single file C<path>.");
 
   ("rmdir", (RErr, [String "path"]), 30, [],
-   [TestRun (
-      InitEmpty,
+   [InitEmpty, TestRun
       [["mkdir"; "/new"];
-       ["rmdir"; "/new"]]);
-    TestLastFail (
-      InitEmpty,
-      [["rmdir"; "/new"]]);
-    TestLastFail (
-      InitEmpty,
+       ["rmdir"; "/new"]];
+    InitEmpty, TestLastFail
+      [["rmdir"; "/new"]];
+    InitEmpty, TestLastFail
       [["touch"; "/new"];
-       ["rmdir"; "/new"]])],
+       ["rmdir"; "/new"]]],
    "remove a directory",
    "\
 Remove the single directory C<path>.");
 
   ("rm_rf", (RErr, [String "path"]), 31, [],
-   [TestOutputFalse (
-      InitEmpty,
+   [InitEmpty, TestOutputFalse
       [["mkdir"; "/new"];
        ["mkdir"; "/new/foo"];
        ["touch"; "/new/foo/bar"];
        ["rm_rf"; "/new"];
-       ["exists"; "/new"]])],
+       ["exists"; "/new"]]],
    "remove a file or directory recursively",
    "\
 Remove the file or directory C<path>, recursively removing the
@@ -721,27 +711,25 @@ contents if its a directory.  This is like the C<rm -rf> shell
 command.");
 
   ("mkdir", (RErr, [String "path"]), 32, [],
-   [TestOutputTrue (
-      InitEmpty,
+   [InitEmpty, TestOutputTrue
       [["mkdir"; "/new"];
-       ["is_dir"; "/new"]])],
+       ["is_dir"; "/new"]];
+    InitEmpty, TestLastFail
+      [["mkdir"; "/new/foo/bar"]]],
    "create a directory",
    "\
 Create a directory named C<path>.");
 
   ("mkdir_p", (RErr, [String "path"]), 33, [],
-   [TestOutputTrue (
-      InitEmpty,
+   [InitEmpty, TestOutputTrue
       [["mkdir_p"; "/new/foo/bar"];
-       ["is_dir"; "/new/foo/bar"]]);
-    TestOutputTrue (
-      InitEmpty,
+       ["is_dir"; "/new/foo/bar"]];
+    InitEmpty, TestOutputTrue
       [["mkdir_p"; "/new/foo/bar"];
-       ["is_dir"; "/new/foo"]]);
-    TestOutputTrue (
-      InitEmpty,
+       ["is_dir"; "/new/foo"]];
+    InitEmpty, TestOutputTrue
       [["mkdir_p"; "/new/foo/bar"];
-       ["is_dir"; "/new"]])],
+       ["is_dir"; "/new"]]],
    "create a directory and parents",
    "\
 Create a directory named C<path>, creating any parent directories
@@ -763,6 +751,200 @@ Change the file owner to C<owner> and group to C<group>.
 Only numeric uid and gid are supported.  If you want to use
 names, you will need to locate and parse the password file
 yourself (Augeas support makes this relatively easy).");
+
+  ("exists", (RBool "existsflag", [String "path"]), 36, [],
+   [InitEmpty, TestOutputTrue (
+      [["touch"; "/new"];
+       ["exists"; "/new"]]);
+    InitEmpty, TestOutputTrue (
+      [["mkdir"; "/new"];
+       ["exists"; "/new"]])],
+   "test if file or directory exists",
+   "\
+This returns C<true> if and only if there is a file, directory
+(or anything) with the given C<path> name.
+
+See also C<guestfs_is_file>, C<guestfs_is_dir>, C<guestfs_stat>.");
+
+  ("is_file", (RBool "fileflag", [String "path"]), 37, [],
+   [InitEmpty, TestOutputTrue (
+      [["touch"; "/new"];
+       ["is_file"; "/new"]]);
+    InitEmpty, TestOutputFalse (
+      [["mkdir"; "/new"];
+       ["is_file"; "/new"]])],
+   "test if file exists",
+   "\
+This returns C<true> if and only if there is a file
+with the given C<path> name.  Note that it returns false for
+other objects like directories.
+
+See also C<guestfs_stat>.");
+
+  ("is_dir", (RBool "dirflag", [String "path"]), 38, [],
+   [InitEmpty, TestOutputFalse (
+      [["touch"; "/new"];
+       ["is_dir"; "/new"]]);
+    InitEmpty, TestOutputTrue (
+      [["mkdir"; "/new"];
+       ["is_dir"; "/new"]])],
+   "test if file exists",
+   "\
+This returns C<true> if and only if there is a directory
+with the given C<path> name.  Note that it returns false for
+other objects like files.
+
+See also C<guestfs_stat>.");
+
+  ("pvcreate", (RErr, [String "device"]), 39, [],
+   [InitNone, TestOutputList (
+      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
+       ["pvcreate"; "/dev/sda1"];
+       ["pvcreate"; "/dev/sda2"];
+       ["pvcreate"; "/dev/sda3"];
+       ["pvs"]], ["/dev/sda1"; "/dev/sda2"; "/dev/sda3"])],
+   "create an LVM physical volume",
+   "\
+This creates an LVM physical volume on the named C<device>,
+where C<device> should usually be a partition name such
+as C</dev/sda1>.");
+
+  ("vgcreate", (RErr, [String "volgroup"; StringList "physvols"]), 40, [],
+   [InitNone, TestOutputList (
+      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
+       ["pvcreate"; "/dev/sda1"];
+       ["pvcreate"; "/dev/sda2"];
+       ["pvcreate"; "/dev/sda3"];
+       ["vgcreate"; "VG1"; "/dev/sda1 /dev/sda2"];
+       ["vgcreate"; "VG2"; "/dev/sda3"];
+       ["vgs"]], ["VG1"; "VG2"])],
+   "create an LVM volume group",
+   "\
+This creates an LVM volume group called C<volgroup>
+from the non-empty list of physical volumes C<physvols>.");
+
+  ("lvcreate", (RErr, [String "logvol"; String "volgroup"; Int "mbytes"]), 41, [],
+   [InitNone, TestOutputList (
+      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
+       ["pvcreate"; "/dev/sda1"];
+       ["pvcreate"; "/dev/sda2"];
+       ["pvcreate"; "/dev/sda3"];
+       ["vgcreate"; "VG1"; "/dev/sda1 /dev/sda2"];
+       ["vgcreate"; "VG2"; "/dev/sda3"];
+       ["lvcreate"; "LV1"; "VG1"; "50"];
+       ["lvcreate"; "LV2"; "VG1"; "50"];
+       ["lvcreate"; "LV3"; "VG2"; "50"];
+       ["lvcreate"; "LV4"; "VG2"; "50"];
+       ["lvcreate"; "LV5"; "VG2"; "50"];
+       ["lvs"]],
+      ["/dev/VG1/LV1"; "/dev/VG1/LV2";
+       "/dev/VG2/LV3"; "/dev/VG2/LV4"; "/dev/VG2/LV5"])],
+   "create an LVM volume group",
+   "\
+This creates an LVM volume group called C<logvol>
+on the volume group C<volgroup>, with C<size> megabytes.");
+
+  ("mkfs", (RErr, [String "fstype"; String "device"]), 42, [],
+   [InitNone, TestOutput (
+      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+       ["mkfs"; "ext2"; "/dev/sda1"];
+       ["mount"; "/dev/sda1"; "/"];
+       ["write_file"; "/new"; "new file contents"; "0"];
+       ["cat"; "/new"]], "new file contents")],
+   "make a filesystem",
+   "\
+This creates a filesystem on C<device> (usually a partition
+of LVM logical volume).  The filesystem type is C<fstype>, for
+example C<ext3>.");
+
+  ("sfdisk", (RErr, [String "device";
+		     Int "cyls"; Int "heads"; Int "sectors";
+		     StringList "lines"]), 43, [DangerWillRobinson],
+   [],
+   "create partitions on a block device",
+   "\
+This is a direct interface to the L<sfdisk(8)> program for creating
+partitions on block devices.
+
+C<device> should be a block device, for example C</dev/sda>.
+
+C<cyls>, C<heads> and C<sectors> are the number of cylinders, heads
+and sectors on the device, which are passed directly to sfdisk as
+the I<-C>, I<-H> and I<-S> parameters.  If you pass C<0> for any
+of these, then the corresponding parameter is omitted.  Usually for
+'large' disks, you can just pass C<0> for these, but for small
+(floppy-sized) disks, sfdisk (or rather, the kernel) cannot work
+out the right geometry and you will need to tell it.
+
+C<lines> is a list of lines that we feed to C<sfdisk>.  For more
+information refer to the L<sfdisk(8)> manpage.
+
+To create a single partition occupying the whole disk, you would
+pass C<lines> as a single element list, when the single element being
+the string C<,> (comma).");
+
+  ("write_file", (RErr, [String "path"; String "content"; Int "size"]), 44, [ProtocolLimitWarning],
+   [InitNone, TestOutput (
+      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+       ["mkfs"; "ext2"; "/dev/sda1"];
+       ["mount"; "/dev/sda1"; "/"];
+       ["write_file"; "/new"; "new file contents"; "0"];
+       ["cat"; "/new"]], "new file contents")],
+   "Create a file",
+   "\
+This call creates a file called C<path>.  The contents of the
+file is the string C<content> (which can contain any 8 bit data),
+with length C<size>.
+
+As a special case, if C<size> is C<0>
+then the length is calculated using C<strlen> (so in this case
+the content cannot contain embedded ASCII NULs).");
+
+  ("umount", (RErr, [String "pathordevice"]), 45, [FishAlias "unmount"],
+   [InitNone, TestOutputList (
+      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+       ["mkfs"; "ext2"; "/dev/sda1"];
+       ["mount"; "/dev/sda1"; "/"];
+       ["mounts"]], ["/dev/sda1"]);
+    InitNone, TestOutputList (
+      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+       ["mkfs"; "ext2"; "/dev/sda1"];
+       ["mount"; "/dev/sda1"; "/"];
+       ["umount"; "/"];
+       ["mounts"]], [])],
+   "unmount a filesystem",
+   "\
+This unmounts the given filesystem.  The filesystem may be
+specified either by its mountpoint (path) or the device which
+contains the filesystem.");
+
+  ("mounts", (RStringList "devices", []), 46, [],
+   [InitEmpty, TestOutputList (
+      [["mounts"]], ["/dev/sda1"])],
+   "show mounted filesystems",
+   "\
+This returns the list of currently mounted filesystems.  It returns
+the list of devices (eg. C</dev/sda1>, C</dev/VG/LV>).
+
+Some internal mounts are not shown.");
+
+  ("umount_all", (RErr, []), 47, [FishAlias "unmount-all"],
+   [InitEmpty, TestOutputList (
+      [["umount_all"];
+       ["mounts"]], [])],
+   "unmount all filesystems",
+   "\
+This unmounts all mounted filesystems.
+
+Some internal mounts are not unmounted by this call.");
+
+  ("lvm_remove_all", (RErr, []), 48, [DangerWillRobinson],
+   [],
+   "remove all LVM LVs, VGs and PVs",
+   "\
+This command removes all LVM logical volumes, volume groups
+and physical volumes.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
@@ -884,6 +1066,17 @@ let rec replace_str s s1 s2 =
     s' ^ s2 ^ replace_str s'' s1 s2
   )
 
+let rec string_split sep str =
+  let len = String.length str in
+  let seplen = String.length sep in
+  let i = find str sep in
+  if i = -1 then [str]
+  else (
+    let s' = String.sub str 0 i in
+    let s'' = String.sub str (i+seplen) (len-i-seplen) in
+    s' :: string_split sep s''
+  )
+
 let rec find_map f = function
   | [] -> raise Not_found
   | x :: xs ->
@@ -898,7 +1091,15 @@ let iteri f xs =
   in
   loop 0 xs
 
-let name_of_argt = function String n | OptString n | Bool n | Int n -> n
+let mapi f xs =
+  let rec loop i = function
+    | [] -> []
+    | x :: xs -> let r = f i x in r :: loop (i+1) xs
+  in
+  loop 0 xs
+
+let name_of_argt = function
+  | String n | OptString n | StringList n | Bool n | Int n -> n
 
 (* Check function names etc. for consistency. *)
 let check_functions () =
@@ -1089,9 +1290,9 @@ I<The caller must call C<guestfs_free_lvm_vg_list> after use>.\n\n"
 I<The caller must call C<guestfs_free_lvm_lv_list> after use>.\n\n"
       );
       if List.mem ProtocolLimitWarning flags then
-	pr "Because of the message protocol, there is a transfer limit 
-of somewhere between 2MB and 4MB.  To transfer large files you should use
-FTP.\n\n";
+	pr "%s\n\n" protocol_limit_warning;
+      if List.mem DangerWillRobinson flags then
+	pr "%s\n\n" danger_will_robinson;
   ) all_functions_sorted
 
 and generate_structs_pod () =
@@ -1169,6 +1370,7 @@ and generate_xdr () =
 	     function
 	     | String n -> pr "  string %s<>;\n" n
 	     | OptString n -> pr "  str *%s;\n" n
+	     | StringList n -> pr "  str %s<>;\n" n
 	     | Bool n -> pr "  bool %s;\n" n
 	     | Int n -> pr "  int %s;\n" n
 	   ) args;
@@ -1427,6 +1629,9 @@ and generate_client_actions () =
 		 pr "  args.%s = (char *) %s;\n" n n
 	     | OptString n ->
 		 pr "  args.%s = %s ? (char **) &%s : NULL;\n" n n n
+	     | StringList n ->
+		 pr "  args.%s.%s_val = (char **) %s;\n" n n n;
+		 pr "  for (args.%s.%s_len = 0; %s[args.%s.%s_len]; args.%s.%s_len++) ;\n" n n n n n n n;
 	     | Bool n ->
 		 pr "  args.%s = %s;\n" n n
 	     | Int n ->
@@ -1556,6 +1761,7 @@ and generate_daemon_actions () =
 	     function
 	     | String n
 	     | OptString n -> pr "  const char *%s;\n" n
+	     | StringList n -> pr "  char **%s;\n" n
 	     | Bool n -> pr "  int %s;\n" n
 	     | Int n -> pr "  int %s;\n" n
 	   ) args
@@ -1575,6 +1781,10 @@ and generate_daemon_actions () =
 	     function
 	     | String n -> pr "  %s = args.%s;\n" n n
 	     | OptString n -> pr "  %s = args.%s ? *args.%s : NULL;\n" n n n
+	     | StringList n ->
+		 pr "  args.%s.%s_val = realloc (args.%s.%s_val, sizeof (char *) * (args.%s.%s_len+1));\n" n n n n n n;
+		 pr "  args.%s.%s_val[args.%s.%s_len] = NULL;\n" n n n n;
+		 pr "  %s = args.%s.%s_val;\n" n n n
 	     | Bool n -> pr "  %s = args.%s;\n" n n
 	     | Int n -> pr "  %s = args.%s;\n" n n
 	   ) args;
@@ -1586,8 +1796,8 @@ and generate_daemon_actions () =
       pr ";\n";
 
       pr "  if (r == %s)\n" error_code;
-      pr "    /* do_%s has already called reply_with_error, so just return */\n" name;
-      pr "    return;\n";
+      pr "    /* do_%s has already called reply_with_error */\n" name;
+      pr "    goto done;\n";
       pr "\n";
 
       (match fst style with
@@ -1631,6 +1841,16 @@ and generate_daemon_actions () =
 	   pr "  ret.%s = *r;\n" n;
 	   pr "  reply ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n" name;
 	   pr "  xdr_free ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n" name
+      );
+
+      (* Free the args. *)
+      (match snd style with
+       | [] ->
+	   pr "done: ;\n";
+       | _ ->
+	   pr "done:\n";
+	   pr "  xdr_free ((xdrproc_t) xdr_guestfs_%s_args, (char *) &args);\n"
+	     name
       );
 
       pr "}\n\n";
@@ -1823,19 +2043,458 @@ and generate_daemon_actions () =
 and generate_tests () =
   generate_header CStyle GPLv2;
 
-  pr "#include <stdio.h>\n";
-  pr "#include <stdlib.h>\n";
-  pr "#include <string.h>\n";
+  pr "\
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <fcntl.h>
+
+#include \"guestfs.h\"
+
+static guestfs_h *g;
+static int suppress_error = 0;
+
+static void print_error (guestfs_h *g, void *data, const char *msg)
+{
+  if (!suppress_error)
+    fprintf (stderr, \"%%s\\n\", msg);
+}
+
+static void print_strings (char * const * const argv)
+{
+  int argc;
+
+  for (argc = 0; argv[argc] != NULL; ++argc)
+    printf (\"\\t%%s\\n\", argv[argc]);
+}
+
+";
+
+  let test_names =
+    List.map (
+      fun (name, _, _, _, tests, _, _) ->
+	mapi (generate_one_test name) tests
+    ) all_functions in
+  let test_names = List.concat test_names in
+  let nr_tests = List.length test_names in
+
+  pr "\
+int main (int argc, char *argv[])
+{
+  char c = 0;
+  int failed = 0;
+  const char *srcdir;
+  int fd;
+  char buf[256];
+
+  g = guestfs_create ();
+  if (g == NULL) {
+    printf (\"guestfs_create FAILED\\n\");
+    exit (1);
+  }
+
+  guestfs_set_error_handler (g, print_error, NULL);
+
+  srcdir = getenv (\"srcdir\");
+  if (!srcdir) srcdir = \".\";
+  guestfs_set_path (g, srcdir);
+
+  snprintf (buf, sizeof buf, \"%%s/test1.img\", srcdir);
+  fd = open (buf, O_WRONLY|O_CREAT|O_NOCTTY|O_NONBLOCK|O_TRUNC, 0666);
+  if (fd == -1) {
+    perror (buf);
+    exit (1);
+  }
+  if (lseek (fd, %d, SEEK_SET) == -1) {
+    perror (\"lseek\");
+    close (fd);
+    unlink (buf);
+    exit (1);
+  }
+  if (write (fd, &c, 1) == -1) {
+    perror (\"write\");
+    close (fd);
+    unlink (buf);
+    exit (1);
+  }
+  if (close (fd) == -1) {
+    perror (buf);
+    unlink (buf);
+    exit (1);
+  }
+  if (guestfs_add_drive (g, buf) == -1) {
+    printf (\"guestfs_add_drive %%s FAILED\\n\", buf);
+    exit (1);
+  }
+
+  snprintf (buf, sizeof buf, \"%%s/test2.img\", srcdir);
+  fd = open (buf, O_WRONLY|O_CREAT|O_NOCTTY|O_NONBLOCK|O_TRUNC, 0666);
+  if (fd == -1) {
+    perror (buf);
+    exit (1);
+  }
+  if (lseek (fd, %d, SEEK_SET) == -1) {
+    perror (\"lseek\");
+    close (fd);
+    unlink (buf);
+    exit (1);
+  }
+  if (write (fd, &c, 1) == -1) {
+    perror (\"write\");
+    close (fd);
+    unlink (buf);
+    exit (1);
+  }
+  if (close (fd) == -1) {
+    perror (buf);
+    unlink (buf);
+    exit (1);
+  }
+  if (guestfs_add_drive (g, buf) == -1) {
+    printf (\"guestfs_add_drive %%s FAILED\\n\", buf);
+    exit (1);
+  }
+
+  snprintf (buf, sizeof buf, \"%%s/test3.img\", srcdir);
+  fd = open (buf, O_WRONLY|O_CREAT|O_NOCTTY|O_NONBLOCK|O_TRUNC, 0666);
+  if (fd == -1) {
+    perror (buf);
+    exit (1);
+  }
+  if (lseek (fd, %d, SEEK_SET) == -1) {
+    perror (\"lseek\");
+    close (fd);
+    unlink (buf);
+    exit (1);
+  }
+  if (write (fd, &c, 1) == -1) {
+    perror (\"write\");
+    close (fd);
+    unlink (buf);
+    exit (1);
+  }
+  if (close (fd) == -1) {
+    perror (buf);
+    unlink (buf);
+    exit (1);
+  }
+  if (guestfs_add_drive (g, buf) == -1) {
+    printf (\"guestfs_add_drive %%s FAILED\\n\", buf);
+    exit (1);
+  }
+
+  if (guestfs_launch (g) == -1) {
+    printf (\"guestfs_launch FAILED\\n\");
+    exit (1);
+  }
+  if (guestfs_wait_ready (g) == -1) {
+    printf (\"guestfs_wait_ready FAILED\\n\");
+    exit (1);
+  }
+
+" (500 * 1024 * 1024) (50 * 1024 * 1024) (10 * 1024 * 1024);
+
+  iteri (
+    fun i test_name ->
+      pr "  printf (\"%3d/%3d %s\\n\");\n" (i+1) nr_tests test_name;
+      pr "  if (%s () == -1) {\n" test_name;
+      pr "    printf (\"%s FAILED\\n\");\n" test_name;
+      pr "    failed++;\n";
+      pr "  }\n";
+  ) test_names;
   pr "\n";
-  pr "#include \"guestfs.h\"\n";
+
+  pr "  guestfs_close (g);\n";
+  pr "  snprintf (buf, sizeof buf, \"%%s/test1.img\", srcdir);\n";
+  pr "  unlink (buf);\n";
+  pr "  snprintf (buf, sizeof buf, \"%%s/test2.img\", srcdir);\n";
+  pr "  unlink (buf);\n";
+  pr "  snprintf (buf, sizeof buf, \"%%s/test3.img\", srcdir);\n";
+  pr "  unlink (buf);\n";
   pr "\n";
 
+  pr "  if (failed > 0) {\n";
+  pr "    printf (\"***** %%d / %d tests FAILED *****\\n\", failed);\n"
+    nr_tests;
+  pr "    exit (1);\n";
+  pr "  }\n";
+  pr "\n";
 
-
-  pr "int main (int argc, char *argv[])\n";
-  pr "{\n";
   pr "  exit (0);\n";
   pr "}\n"
+
+and generate_one_test name i (init, test) =
+  let test_name = sprintf "test_%s_%d" name i in
+
+  pr "static int %s (void)\n" test_name;
+  pr "{\n";
+
+  (match init with
+   | InitNone ->
+       pr "  /* InitNone for %s (%d) */\n" name i;
+       List.iter (generate_test_command_call test_name)
+	 [["umount_all"];
+	  ["lvm_remove_all"]]
+   | InitEmpty ->
+       pr "  /* InitEmpty for %s (%d): create ext2 on /dev/sda1 */\n" name i;
+       List.iter (generate_test_command_call test_name)
+	 [["umount_all"];
+	  ["lvm_remove_all"];
+	  ["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+	  ["mkfs"; "ext2"; "/dev/sda1"];
+	  ["mount"; "/dev/sda1"; "/"]]
+   | InitEmptyLVM ->
+       pr "  /* InitEmptyLVM for %s (%d): create ext2 on /dev/VG/LV */\n"
+	 name i;
+       List.iter (generate_test_command_call test_name)
+	 [["umount_all"];
+	  ["lvm_remove_all"];
+	  ["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+	  ["pvcreate"; "/dev/sda1"];
+	  ["vgcreate"; "VG"; "/dev/sda1"];
+	  ["lvcreate"; "LV"; "VG"; "8"];
+	  ["mkfs"; "ext2"; "/dev/VG/LV"];
+	  ["mount"; "/dev/VG/LV"; "/"]]
+  );
+
+  let get_seq_last = function
+    | [] ->
+	failwithf "%s: you cannot use [] (empty list) when expecting a command"
+	  test_name
+    | seq ->
+	let seq = List.rev seq in
+	List.rev (List.tl seq), List.hd seq
+  in
+
+  (match test with
+   | TestRun seq ->
+       pr "  /* TestRun for %s (%d) */\n" name i;
+       List.iter (generate_test_command_call test_name) seq
+   | TestOutput (seq, expected) ->
+       pr "  /* TestOutput for %s (%d) */\n" name i;
+       let seq, last = get_seq_last seq in
+       let test () =
+	 pr "    if (strcmp (r, \"%s\") != 0) {\n" (c_quote expected);
+	 pr "      fprintf (stderr, \"%s: expected \\\"%s\\\" but got \\\"%%s\\\"\\n\", r);\n" test_name (c_quote expected);
+	 pr "      return -1;\n";
+	 pr "    }\n"
+       in
+       List.iter (generate_test_command_call test_name) seq;
+       generate_test_command_call ~test test_name last
+   | TestOutputList (seq, expected) ->
+       pr "  /* TestOutputList for %s (%d) */\n" name i;
+       let seq, last = get_seq_last seq in
+       let test () =
+	 iteri (
+	   fun i str ->
+	     pr "    if (!r[%d]) {\n" i;
+	     pr "      fprintf (stderr, \"%s: short list returned from command\\n\");\n" test_name;
+	     pr "      print_strings (r);\n";
+	     pr "      return -1;\n";
+	     pr "    }\n";
+	     pr "    if (strcmp (r[%d], \"%s\") != 0) {\n" i (c_quote str);
+	     pr "      fprintf (stderr, \"%s: expected \\\"%s\\\" but got \\\"%%s\\\"\\n\", r[%d]);\n" test_name (c_quote str) i;
+	     pr "      return -1;\n";
+	     pr "    }\n"
+	 ) expected;
+	 pr "    if (r[%d] != NULL) {\n" (List.length expected);
+	 pr "      fprintf (stderr, \"%s: extra elements returned from command\\n\");\n"
+	   test_name;
+	 pr "      print_strings (r);\n";
+	 pr "      return -1;\n";
+	 pr "    }\n"
+       in
+       List.iter (generate_test_command_call test_name) seq;
+       generate_test_command_call ~test test_name last
+   | TestOutputInt (seq, expected) ->
+       pr "  /* TestOutputInt for %s (%d) */\n" name i;
+       let seq, last = get_seq_last seq in
+       let test () =
+	 pr "    if (r != %d) {\n" expected;
+	 pr "      fprintf (stderr, \"%s: expected %d but got %%d\\n\", r);\n"
+	   test_name expected;
+	 pr "      return -1;\n";
+	 pr "    }\n"
+       in
+       List.iter (generate_test_command_call test_name) seq;
+       generate_test_command_call ~test test_name last
+   | TestOutputTrue seq ->
+       pr "  /* TestOutputTrue for %s (%d) */\n" name i;
+       let seq, last = get_seq_last seq in
+       let test () =
+	 pr "    if (!r) {\n";
+	 pr "      fprintf (stderr, \"%s: expected true, got false\\n\");\n"
+	   test_name;
+	 pr "      return -1;\n";
+	 pr "    }\n"
+       in
+       List.iter (generate_test_command_call test_name) seq;
+       generate_test_command_call ~test test_name last
+   | TestOutputFalse seq ->
+       pr "  /* TestOutputFalse for %s (%d) */\n" name i;
+       let seq, last = get_seq_last seq in
+       let test () =
+	 pr "    if (r) {\n";
+	 pr "      fprintf (stderr, \"%s: expected false, got true\\n\");\n"
+	   test_name;
+	 pr "      return -1;\n";
+	 pr "    }\n"
+       in
+       List.iter (generate_test_command_call test_name) seq;
+       generate_test_command_call ~test test_name last
+   | TestOutputLength (seq, expected) ->
+       pr "  /* TestOutputLength for %s (%d) */\n" name i;
+       let seq, last = get_seq_last seq in
+       let test () =
+	 pr "    int j;\n";
+	 pr "    for (j = 0; j < %d; ++j)\n" expected;
+	 pr "      if (r[j] == NULL) {\n";
+	 pr "        fprintf (stderr, \"%s: short list returned\\n\");\n"
+	   test_name;
+	 pr "        print_strings (r);\n";
+	 pr "        return -1;\n";
+	 pr "      }\n";
+	 pr "    if (r[j] != NULL) {\n";
+	 pr "      fprintf (stderr, \"%s: long list returned\\n\");\n"
+	   test_name;
+	 pr "      print_strings (r);\n";
+	 pr "      return -1;\n";
+	 pr "    }\n"
+       in
+       List.iter (generate_test_command_call test_name) seq;
+       generate_test_command_call ~test test_name last
+   | TestLastFail seq ->
+       pr "  /* TestLastFail for %s (%d) */\n" name i;
+       let seq, last = get_seq_last seq in
+       List.iter (generate_test_command_call test_name) seq;
+       generate_test_command_call test_name ~expect_error:true last
+  );
+
+  pr "  return 0;\n";
+  pr "}\n";
+  pr "\n";
+  test_name
+
+(* Generate the code to run a command, leaving the result in 'r'.
+ * If you expect to get an error then you should set expect_error:true.
+ *)
+and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
+  match cmd with
+  | [] -> assert false
+  | name :: args ->
+      (* Look up the command to find out what args/ret it has. *)
+      let style =
+	try
+	  let _, style, _, _, _, _, _ =
+	    List.find (fun (n, _, _, _, _, _, _) -> n = name) all_functions in
+	  style
+	with Not_found ->
+	  failwithf "%s: in test, command %s was not found" test_name name in
+
+      if List.length (snd style) <> List.length args then
+	failwithf "%s: in test, wrong number of args given to %s"
+	  test_name name;
+
+      pr "  {\n";
+
+      List.iter (
+	function
+	| String _, _
+	| OptString _, _
+	| Int _, _
+	| Bool _, _ -> ()
+	| StringList n, arg ->
+	    pr "    char *%s[] = {\n" n;
+	    let strs = string_split " " arg in
+	    List.iter (
+	      fun str -> pr "      \"%s\",\n" (c_quote str)
+	    ) strs;
+	    pr "      NULL\n";
+	    pr "    };\n";
+      ) (List.combine (snd style) args);
+
+      let error_code =
+	match fst style with
+	| RErr | RInt _ | RBool _ -> pr "    int r;\n"; "-1"
+	| RConstString _ -> pr "    const char *r;\n"; "NULL"
+	| RString _ -> pr "    char *r;\n"; "NULL"
+	| RStringList _ ->
+	    pr "    char **r;\n";
+	    pr "    int i;\n";
+	    "NULL"
+	| RIntBool _ ->
+	    pr "    struct guestfs_int_bool *r;\n";
+	    "NULL"
+	| RPVList _ ->
+	    pr "    struct guestfs_lvm_pv_list *r;\n";
+	    "NULL"
+	| RVGList _ ->
+	    pr "    struct guestfs_lvm_vg_list *r;\n";
+	    "NULL"
+	| RLVList _ ->
+	    pr "    struct guestfs_lvm_lv_list *r;\n";
+	    "NULL" in
+
+      pr "    suppress_error = %d;\n" (if expect_error then 1 else 0);
+      pr "    r = guestfs_%s (g" name;
+
+      (* Generate the parameters. *)
+      List.iter (
+	function
+	| String _, arg -> pr ", \"%s\"" (c_quote arg)
+	| OptString _, arg ->
+	    if arg = "NULL" then pr ", NULL" else pr ", \"%s\"" (c_quote arg)
+	| StringList n, _ ->
+	    pr ", %s" n
+	| Int _, arg ->
+	    let i =
+	      try int_of_string arg
+	      with Failure "int_of_string" ->
+		failwithf "%s: expecting an int, but got '%s'" test_name arg in
+	    pr ", %d" i
+	| Bool _, arg ->
+	    let b = bool_of_string arg in pr ", %d" (if b then 1 else 0)
+      ) (List.combine (snd style) args);
+
+      pr ");\n";
+      if not expect_error then
+	pr "    if (r == %s)\n" error_code
+      else
+	pr "    if (r != %s)\n" error_code;
+      pr "      return -1;\n";
+
+      (* Insert the test code. *)
+      (match test with
+       | None -> ()
+       | Some f -> f ()
+      );
+
+      (match fst style with
+       | RErr | RInt _ | RBool _ | RConstString _ -> ()
+       | RString _ -> pr "    free (r);\n"
+       | RStringList _ ->
+	   pr "    for (i = 0; r[i] != NULL; ++i)\n";
+	   pr "      free (r[i]);\n";
+	   pr "    free (r);\n"
+       | RIntBool _ ->
+	   pr "    guestfs_free_int_bool (r);\n"
+       | RPVList _ ->
+	   pr "    guestfs_free_lvm_pv_list (r);\n"
+       | RVGList _ ->
+	   pr "    guestfs_free_lvm_vg_list (r);\n"
+       | RLVList _ ->
+	   pr "    guestfs_free_lvm_lv_list (r);\n"
+      );
+
+      pr "  }\n"
+
+and c_quote str =
+  let str = replace_str str "\r" "\\r" in
+  let str = replace_str str "\n" "\\n" in
+  let str = replace_str str "\t" "\\t" in
+  str
 
 (* Generate a lot of different functions for guestfish. *)
 and generate_fish_cmds () =
@@ -1893,10 +2552,18 @@ and generate_fish_cmds () =
 
       let warnings =
 	if List.mem ProtocolLimitWarning flags then
-	  "\n\nBecause of the message protocol, there is a transfer limit 
-of somewhere between 2MB and 4MB.  To transfer large files you should use
-FTP."
+	  ("\n\n" ^ protocol_limit_warning)
 	else "" in
+
+      (* For DangerWillRobinson commands, we should probably have
+       * guestfish prompt before allowing you to use them (especially
+       * in interactive mode). XXX
+       *)
+      let warnings =
+	warnings ^
+	  if List.mem DangerWillRobinson flags then
+	    ("\n\n" ^ danger_will_robinson)
+	  else "" in
 
       let describe_alias =
 	if name <> alias then
@@ -1977,8 +2644,9 @@ FTP."
       );
       List.iter (
 	function
-	| String n -> pr "  const char *%s;\n" n
+	| String n
 	| OptString n -> pr "  const char *%s;\n" n
+	| StringList n -> pr "  char **%s;\n" n
 	| Bool n -> pr "  int %s;\n" n
 	| Int n -> pr "  int %s;\n" n
       ) (snd style);
@@ -1998,6 +2666,8 @@ FTP."
 	  | OptString name ->
 	      pr "  %s = strcmp (argv[%d], \"\") != 0 ? argv[%d] : NULL;\n"
 		name i i
+	  | StringList name ->
+	      pr "  %s = parse_string_list (argv[%d]);\n" name i
 	  | Bool name ->
 	      pr "  %s = is_true (argv[%d]) ? 1 : 0;\n" name i
 	  | Int name ->
@@ -2115,12 +2785,19 @@ and generate_fish_actions_pod () =
 	function
 	| String n -> pr " %s" n
 	| OptString n -> pr " %s" n
+	| StringList n -> pr " %s,..." n
 	| Bool _ -> pr " true|false"
 	| Int n -> pr " %s" n
       ) (snd style);
       pr "\n";
       pr "\n";
-      pr "%s\n\n" longdesc
+      pr "%s\n\n" longdesc;
+
+      if List.mem ProtocolLimitWarning flags then
+	pr "%s\n\n" protocol_limit_warning;
+
+      if List.mem DangerWillRobinson flags then
+	pr "%s\n\n" danger_will_robinson
   ) all_functions_sorted
 
 (* Generate a C function prototype. *)
@@ -2169,6 +2846,7 @@ and generate_prototype ?(extern = true) ?(static = false) ?(semicolon = true)
       function
       | String n -> next (); pr "const char *%s" n
       | OptString n -> next (); pr "const char *%s" n
+      | StringList n -> next (); pr "char * const* const %s" n
       | Bool n -> next (); pr "int %s" n
       | Int n -> next (); pr "int %s" n
     ) (snd style);
@@ -2190,9 +2868,10 @@ and generate_call_args ?handle style =
       if !comma then pr ", ";
       comma := true;
       match arg with
-      | String n -> pr "%s" n
-      | OptString n -> pr "%s" n
-      | Bool n -> pr "%s" n
+      | String n
+      | OptString n
+      | StringList n
+      | Bool n
       | Int n -> pr "%s" n
   ) (snd style);
   pr ")"
@@ -2339,18 +3018,23 @@ and generate_ocaml_c () =
 
   List.iter (
     fun (name, style, _, _, _, _, _) ->
+      let params =
+	"gv" :: List.map (fun arg -> name_of_argt arg ^ "v") (snd style) in
+
       pr "CAMLprim value\n";
-      pr "ocaml_guestfs_%s (value gv" name;
-      List.iter (
-	fun arg -> pr ", value %sv" (name_of_argt arg)
-      ) (snd style);
+      pr "ocaml_guestfs_%s (value %s" name (List.hd params);
+      List.iter (pr ", value %s") (List.tl params);
       pr ")\n";
       pr "{\n";
-      pr "  CAMLparam%d (gv" (1 + (List.length (snd style)));
-      List.iter (
-	fun arg -> pr ", %sv" (name_of_argt arg)
-      ) (snd style);
-      pr ");\n";
+
+      (match params with
+       | p1 :: p2 :: p3 :: p4 :: p5 :: rest ->
+	   pr "  CAMLparam5 (%s);\n" (String.concat ", " [p1; p2; p3; p4; p5]);
+	   pr "  CAMLxparam%d (%s);\n"
+	     (List.length rest) (String.concat ", " rest)
+       | ps ->
+	   pr "  CAMLparam%d (%s);\n" (List.length ps) (String.concat ", " ps)
+      );
       pr "  CAMLlocal1 (rv);\n";
       pr "\n";
 
@@ -2367,6 +3051,8 @@ and generate_ocaml_c () =
 	    pr "  const char *%s =\n" n;
 	    pr "    %sv != Val_int (0) ? String_val (Field (%sv, 0)) : NULL;\n"
 	      n n
+	| StringList n ->
+	    pr "  char **%s = ocaml_guestfs_strings_val (%sv);\n" n n
 	| Bool n ->
 	    pr "  int %s = Bool_val (%sv);\n" n n
 	| Int n ->
@@ -2402,6 +3088,14 @@ and generate_ocaml_c () =
       generate_call_args ~handle:"g" style;
       pr ";\n";
       pr "  caml_leave_blocking_section ();\n";
+
+      List.iter (
+	function
+	| StringList n ->
+	    pr "  ocaml_guestfs_free_strings (%s);\n" n;
+	| String _ | OptString _ | Bool _ | Int _ -> ()
+      ) (snd style);
+
       pr "  if (r == %s)\n" error_code;
       pr "    ocaml_guestfs_raise_error (g, \"%s\");\n" name;
       pr "\n";
@@ -2436,7 +3130,18 @@ and generate_ocaml_c () =
 
       pr "  CAMLreturn (rv);\n";
       pr "}\n";
-      pr "\n"
+      pr "\n";
+
+      if List.length params > 5 then (
+	pr "CAMLprim value\n";
+	pr "ocaml_guestfs_%s_byte (value *argv, int argn)\n" name;
+	pr "{\n";
+	pr "  return ocaml_guestfs_%s (argv[0]" name;
+	iteri (fun i _ -> pr ", argv[%d]" i) (List.tl params);
+	pr ");\n";
+	pr "}\n";
+	pr "\n"
+      )
   ) all_functions
 
 and generate_ocaml_lvm_structure_decls () =
@@ -2462,6 +3167,7 @@ and generate_ocaml_prototype ?(is_external = false) name style =
     function
     | String _ -> pr "string -> "
     | OptString _ -> pr "string option -> "
+    | StringList _ -> pr "string array -> "
     | Bool _ -> pr "bool -> "
     | Int _ -> pr "int -> "
   ) (snd style);
@@ -2477,7 +3183,12 @@ and generate_ocaml_prototype ?(is_external = false) name style =
    | RVGList _ -> pr "lvm_vg array"
    | RLVList _ -> pr "lvm_lv array"
   );
-  if is_external then pr " = \"ocaml_guestfs_%s\"" name;
+  if is_external then (
+    pr " = ";
+    if List.length (snd style) + 1 > 5 then
+      pr "\"ocaml_guestfs_%s_byte\" " name;
+    pr "\"ocaml_guestfs_%s\"" name
+  );
   pr "\n"
 
 (* Generate Perl xs code, a sort of crazy variation of C with macros. *)
@@ -2539,6 +3250,35 @@ error_handler (guestfs_h *g,
   last_error = strdup (msg);
 }
 
+/* http://www.perlmonks.org/?node_id=680842 */
+static char **
+XS_unpack_charPtrPtr (SV *arg) {
+  char **ret;
+  AV *av;
+  I32 i;
+
+  if (!arg || !SvOK (arg) || !SvROK (arg) || SvTYPE (SvRV (arg)) != SVt_PVAV) {
+    croak (\"array reference expected\");
+  }
+
+  av = (AV *)SvRV (arg);
+  ret = (char **)malloc (av_len (av) + 1 + 1);
+
+  for (i = 0; i <= av_len (av); i++) {
+    SV **elem = av_fetch (av, i, 0);
+
+      if (!elem || !*elem) {
+        croak (\"missing element in list\");
+      }
+
+      ret[i] = SvPV_nolen (*elem);
+  }
+
+  ret[i + 1] = NULL;
+
+  return ret;
+}
+
 MODULE = Sys::Guestfs  PACKAGE = Sys::Guestfs
 
 guestfs_h *
@@ -2581,17 +3321,32 @@ DESTROY (g)
 	function
 	| String n -> pr "      char *%s;\n" n
 	| OptString n -> pr "      char *%s;\n" n
+	| StringList n -> pr "      char **%s;\n" n
 	| Bool n -> pr "      int %s;\n" n
 	| Int n -> pr "      int %s;\n" n
       ) (snd style);
+
+      let do_cleanups () =
+	List.iter (
+	  function
+	  | String _
+	  | OptString _
+	  | Bool _
+	  | Int _ -> ()
+	  | StringList n -> pr "        free (%s);\n" n
+	) (snd style)
+      in
+
       (* Code. *)
       (match fst style with
        | RErr ->
 	   pr " PPCODE:\n";
 	   pr "      if (guestfs_%s " name;
 	   generate_call_args ~handle:"g" style;
-	   pr " == -1)\n";
-	   pr "        croak (\"%s: %%s\", last_error);\n" name
+	   pr " == -1) {\n";
+	   do_cleanups ();
+	   pr "        croak (\"%s: %%s\", last_error);\n" name;
+	   pr "      }\n"
        | RInt n
        | RBool n ->
 	   pr "PREINIT:\n";
@@ -2600,8 +3355,10 @@ DESTROY (g)
 	   pr "      %s = guestfs_%s " n name;
 	   generate_call_args ~handle:"g" style;
 	   pr ";\n";
-	   pr "      if (%s == -1)\n" n;
+	   pr "      if (%s == -1) {\n" n;
+	   do_cleanups ();
 	   pr "        croak (\"%s: %%s\", last_error);\n" name;
+	   pr "      }\n";
 	   pr "      RETVAL = newSViv (%s);\n" n;
 	   pr " OUTPUT:\n";
 	   pr "      RETVAL\n"
@@ -2612,8 +3369,10 @@ DESTROY (g)
 	   pr "      %s = guestfs_%s " n name;
 	   generate_call_args ~handle:"g" style;
 	   pr ";\n";
-	   pr "      if (%s == NULL)\n" n;
+	   pr "      if (%s == NULL) {\n" n;
+	   do_cleanups ();
 	   pr "        croak (\"%s: %%s\", last_error);\n" name;
+	   pr "      }\n";
 	   pr "      RETVAL = newSVpv (%s, 0);\n" n;
 	   pr " OUTPUT:\n";
 	   pr "      RETVAL\n"
@@ -2624,8 +3383,10 @@ DESTROY (g)
 	   pr "      %s = guestfs_%s " n name;
 	   generate_call_args ~handle:"g" style;
 	   pr ";\n";
-	   pr "      if (%s == NULL)\n" n;
+	   pr "      if (%s == NULL) {\n" n;
+	   do_cleanups ();
 	   pr "        croak (\"%s: %%s\", last_error);\n" name;
+	   pr "      }\n";
 	   pr "      RETVAL = newSVpv (%s, 0);\n" n;
 	   pr "      free (%s);\n" n;
 	   pr " OUTPUT:\n";
@@ -2638,8 +3399,10 @@ DESTROY (g)
 	   pr "      %s = guestfs_%s " n name;
 	   generate_call_args ~handle:"g" style;
 	   pr ";\n";
-	   pr "      if (%s == NULL)\n" n;
+	   pr "      if (%s == NULL) {\n" n;
+	   do_cleanups ();
 	   pr "        croak (\"%s: %%s\", last_error);\n" name;
+	   pr "      }\n";
 	   pr "      for (n = 0; %s[n] != NULL; ++n) /**/;\n" n;
 	   pr "      EXTEND (SP, n);\n";
 	   pr "      for (i = 0; i < n; ++i) {\n";
@@ -2654,8 +3417,10 @@ DESTROY (g)
 	   pr "      r = guestfs_%s " name;
 	   generate_call_args ~handle:"g" style;
 	   pr ";\n";
-	   pr "      if (r == NULL)\n";
+	   pr "      if (r == NULL) {\n";
+	   do_cleanups ();
 	   pr "        croak (\"%s: %%s\", last_error);\n" name;
+	   pr "      }\n";
 	   pr "      EXTEND (SP, 2);\n";
 	   pr "      PUSHs (sv_2mortal (newSViv (r->i)));\n";
 	   pr "      PUSHs (sv_2mortal (newSViv (r->b)));\n";
@@ -2667,6 +3432,9 @@ DESTROY (g)
        | RLVList n ->
 	   generate_perl_lvm_code "lv" lv_cols name style n;
       );
+
+      do_cleanups ();
+
       pr "\n"
   ) all_functions
 
@@ -2797,9 +3565,9 @@ sub new {
       pr "\n\n";
       pr "%s\n\n" longdesc;
       if List.mem ProtocolLimitWarning flags then
-	pr "Because of the message protocol, there is a transfer limit 
-of somewhere between 2MB and 4MB.  To transfer large files you should use
-FTP.\n\n";
+	pr "%s\n\n" protocol_limit_warning;
+      if List.mem DangerWillRobinson flags then
+	pr "%s\n\n" danger_will_robinson
   ) all_functions_sorted;
 
   (* End of file. *)
@@ -2844,7 +3612,11 @@ and generate_perl_prototype name style =
     fun arg ->
       if !comma then pr ", ";
       comma := true;
-      pr "%s" (name_of_argt arg)
+      match arg with
+      | String n | OptString n | Bool n | Int n ->
+	  pr "$%s" n
+      | StringList n ->
+	  pr "\\@%s" n
   ) (snd style);
   pr ");"
 

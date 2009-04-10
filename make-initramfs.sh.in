@@ -65,11 +65,13 @@ find initramfs -name '*plymouth*' -print0 | xargs -0 rm -rf
 find initramfs -name '*python*' -print0 | xargs -0 rm -rf
 
 # Modules take up nearly half of the image.  It's a rough guess that
-# we don't need any drivers (which take up most of the space).
+# we don't need many drivers (which take up most of the space).
 find initramfs/lib/modules/*/kernel \
   -name '*.ko' \
   -a ! -name 'mii.ko' \
   -a ! -name '8139cp.ko' \
+  -a ! -name 'ext2.ko' \
+  -a ! -name 'ext4.ko' \
   -a -delete
 
 # Pull the kernel out into the current directory.  We don't want it in

@@ -206,8 +206,8 @@ send_error (const char *msg)
   xdr_uint32_t (&xdr, &len);
   xdr_destroy (&xdr);
 
-  xwrite (sock, lenbuf, 4);
-  xwrite (sock, buf, len);
+  (void) xwrite (sock, lenbuf, 4);
+  (void) xwrite (sock, buf, len);
 }
 
 void
@@ -247,6 +247,6 @@ reply (xdrproc_t xdrp, char *ret)
   xdr_uint32_t (&xdr, &len);
   xdr_destroy (&xdr);
 
-  xwrite (sock, lenbuf, 4);
-  xwrite (sock, buf, len);
+  (void) xwrite (sock, lenbuf, 4);
+  (void) xwrite (sock, buf, len);
 }

@@ -235,3 +235,42 @@ val chmod : t -> int -> string -> unit
 val chown : t -> int -> int -> string -> unit
 (** change file owner and group *)
 
+val exists : t -> string -> bool
+(** test if file or directory exists *)
+
+val is_file : t -> string -> bool
+(** test if file exists *)
+
+val is_dir : t -> string -> bool
+(** test if file exists *)
+
+val pvcreate : t -> string -> unit
+(** create an LVM physical volume *)
+
+val vgcreate : t -> string -> string array -> unit
+(** create an LVM volume group *)
+
+val lvcreate : t -> string -> string -> int -> unit
+(** create an LVM volume group *)
+
+val mkfs : t -> string -> string -> unit
+(** make a filesystem *)
+
+val sfdisk : t -> string -> int -> int -> int -> string array -> unit
+(** create partitions on a block device *)
+
+val write_file : t -> string -> string -> int -> unit
+(** Create a file *)
+
+val umount : t -> string -> unit
+(** unmount a filesystem *)
+
+val mounts : t -> string array
+(** show mounted filesystems *)
+
+val umount_all : t -> unit
+(** unmount all filesystems *)
+
+val lvm_remove_all : t -> unit
+(** remove all LVM LVs, VGs and PVs *)
+

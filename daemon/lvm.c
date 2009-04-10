@@ -169,3 +169,134 @@ do_lvs_full (void)
 {
   return parse_command_line_lvs ();
 }
+
+int
+do_pvcreate (const char *device)
+{
+  char *err;
+  int r;
+
+  r = command (NULL, &err,
+	       "/sbin/lvm", "pvcreate", device, NULL);
+  if (r == -1) {
+    reply_with_error ("%s", err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+  return 0;
+}
+
+int
+do_vgcreate (const char *volgroup, char * const* const physvols)
+{
+  char *err;
+  int r, argc, i;
+  const char **argv;
+
+  argc = count_strings (physvols) + 3;
+  argv = malloc (sizeof (char *) * (argc + 1));
+  argv[0] = "/sbin/lvm";
+  argv[1] = "vgcreate";
+  argv[2] = volgroup;
+  for (i = 3; i <= argc; ++i)
+    argv[i] = physvols[i-3];
+
+  r = commandv (NULL, &err, argv);
+  if (r == -1) {
+    reply_with_error ("%s", err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+  return 0;
+}
+
+int
+do_lvcreate (const char *logvol, const char *volgroup, int mbytes)
+{
+  char *err;
+  int r;
+  char size[64];
+
+  snprintf (size, sizeof size, "%d", mbytes);
+
+  r = command (NULL, &err,
+	       "/sbin/lvm", "lvcreate",
+	       "-L", size, "-n", logvol, volgroup, NULL);
+  if (r == -1) {
+    reply_with_error ("%s", err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+  return 0;
+}
+
+/* Super-dangerous command used for testing.  It removes all
+ * LVs, VGs and PVs permanently.
+ */
+int
+do_lvm_remove_all (void)
+{
+  char **xs;
+  int i, r;
+  char *err;
+
+  /* Remove LVs. */
+  xs = do_lvs ();
+  if (xs == NULL)
+    return -1;
+
+  for (i = 0; xs[i] != NULL; ++i) {
+    r = command (NULL, &err, "/sbin/lvm", "lvremove", "-f", xs[i], NULL);
+    if (r == -1) {
+      reply_with_error ("lvremove: %s: %s", xs[i], err);
+      free (err);
+      free_strings (xs);
+      return -1;
+    }
+    free (err);
+  }
+  free_strings (xs);
+
+  /* Remove VGs. */
+  xs = do_vgs ();
+  if (xs == NULL)
+    return -1;
+
+  for (i = 0; xs[i] != NULL; ++i) {
+    r = command (NULL, &err, "/sbin/lvm", "vgremove", "-f", xs[i], NULL);
+    if (r == -1) {
+      reply_with_error ("vgremove: %s: %s", xs[i], err);
+      free (err);
+      free_strings (xs);
+      return -1;
+    }
+    free (err);
+  }
+  free_strings (xs);
+
+  /* Remove PVs. */
+  xs = do_pvs ();
+  if (xs == NULL)
+    return -1;
+
+  for (i = 0; xs[i] != NULL; ++i) {
+    r = command (NULL, &err, "/sbin/lvm", "pvremove", "-f", xs[i], NULL);
+    if (r == -1) {
+      reply_with_error ("pvremove: %s: %s", xs[i], err);
+      free (err);
+      free_strings (xs);
+      return -1;
+    }
+    free (err);
+  }
+  free_strings (xs);
+
+  /* There, that was easy, sorry about your data. */
+  return 0;
+}

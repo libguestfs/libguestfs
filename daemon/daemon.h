@@ -21,6 +21,9 @@
 
 #include <stdarg.h>
 #include <errno.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 #include <rpc/types.h>
 #include <rpc/xdr.h>
@@ -28,16 +31,18 @@
 #include "../src/guestfs_protocol.h"
 
 /* in guestfsd.c */
-extern void xwrite (int sock, const void *buf, size_t len);
-extern void xread (int sock, void *buf, size_t len);
+extern int xwrite (int sock, const void *buf, size_t len);
+extern int xread (int sock, void *buf, size_t len);
 
 extern int add_string (char ***argv, int *size, int *alloc, const char *str);
-extern int count_strings (char **argv);
+extern int count_strings (char * const* const argv);
 extern void sort_strings (char **argv, int len);
 extern void free_strings (char **argv);
 extern void free_stringslen (char **argv, int len);
 
 extern int command (char **stdoutput, char **stderror, const char *name, ...);
+extern int commandv (char **stdoutput, char **stderror,
+		     char * const* const argv);
 
 /* in proto.c */
 extern int proc_nr;
@@ -75,6 +80,19 @@ extern void reply (xdrproc_t xdrp, char *ret);
     }									\
   } while (0)
 
+#define IS_DEVICE(path,errcode)						\
+  do {									\
+    struct stat statbuf;						\
+    if (strncmp ((path), "/dev/", 5) != 0) {				\
+      reply_with_error ("%s: %s: expecting a device name", __func__, (path)); \
+      return (errcode);							\
+    }									\
+    if (stat ((path), &statbuf) == -1) {				\
+      reply_with_perror ("%s: %s", __func__, (path));			\
+      return (errcode);							\
+    }									\
+  } while (0)
+
 /* NB:
  * (1) You must match CHROOT_IN and CHROOT_OUT even along error paths.
  * (2) You must not change directory!  cwd must always be "/", otherwise
@@ -85,5 +103,12 @@ extern void reply (xdrproc_t xdrp, char *ret);
 #define CHROOT_IN chroot ("/sysroot");
 #define CHROOT_OUT \
   do { int old_errno = errno; chroot ("."); errno = old_errno; } while (0)
+
+#define XXX_NOT_IMPL(errcode)						\
+  do {									\
+    reply_with_error ("%s: function not implemented", __func__);	\
+    return (errcode);							\
+  }									\
+  while (0)
 
 #endif /* GUESTFSD_DAEMON_H */

@@ -51,10 +51,12 @@ static void mount_stub (XDR *xdr_in)
 
   r = do_mount (device, mountpoint);
   if (r == -1)
-    /* do_mount has already called reply_with_error, so just return */
-    return;
+    /* do_mount has already called reply_with_error */
+    goto done;
 
   reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_mount_args, (char *) &args);
 }
 
 static void sync_stub (XDR *xdr_in)
@@ -63,10 +65,11 @@ static void sync_stub (XDR *xdr_in)
 
   r = do_sync ();
   if (r == -1)
-    /* do_sync has already called reply_with_error, so just return */
-    return;
+    /* do_sync has already called reply_with_error */
+    goto done;
 
   reply (NULL, NULL);
+done: ;
 }
 
 static void touch_stub (XDR *xdr_in)
@@ -85,10 +88,12 @@ static void touch_stub (XDR *xdr_in)
 
   r = do_touch (path);
   if (r == -1)
-    /* do_touch has already called reply_with_error, so just return */
-    return;
+    /* do_touch has already called reply_with_error */
+    goto done;
 
   reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_touch_args, (char *) &args);
 }
 
 static void cat_stub (XDR *xdr_in)
@@ -107,13 +112,15 @@ static void cat_stub (XDR *xdr_in)
 
   r = do_cat (path);
   if (r == NULL)
-    /* do_cat has already called reply_with_error, so just return */
-    return;
+    /* do_cat has already called reply_with_error */
+    goto done;
 
   struct guestfs_cat_ret ret;
   ret.content = r;
   reply ((xdrproc_t) &xdr_guestfs_cat_ret, (char *) &ret);
   free (r);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_cat_args, (char *) &args);
 }
 
 static void ll_stub (XDR *xdr_in)
@@ -132,13 +139,15 @@ static void ll_stub (XDR *xdr_in)
 
   r = do_ll (directory);
   if (r == NULL)
-    /* do_ll has already called reply_with_error, so just return */
-    return;
+    /* do_ll has already called reply_with_error */
+    goto done;
 
   struct guestfs_ll_ret ret;
   ret.listing = r;
   reply ((xdrproc_t) &xdr_guestfs_ll_ret, (char *) &ret);
   free (r);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_ll_args, (char *) &args);
 }
 
 static void ls_stub (XDR *xdr_in)
@@ -157,14 +166,16 @@ static void ls_stub (XDR *xdr_in)
 
   r = do_ls (directory);
   if (r == NULL)
-    /* do_ls has already called reply_with_error, so just return */
-    return;
+    /* do_ls has already called reply_with_error */
+    goto done;
 
   struct guestfs_ls_ret ret;
   ret.listing.listing_len = count_strings (r);
   ret.listing.listing_val = r;
   reply ((xdrproc_t) &xdr_guestfs_ls_ret, (char *) &ret);
   free_strings (r);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_ls_args, (char *) &args);
 }
 
 static void list_devices_stub (XDR *xdr_in)
@@ -173,14 +184,15 @@ static void list_devices_stub (XDR *xdr_in)
 
   r = do_list_devices ();
   if (r == NULL)
-    /* do_list_devices has already called reply_with_error, so just return */
-    return;
+    /* do_list_devices has already called reply_with_error */
+    goto done;
 
   struct guestfs_list_devices_ret ret;
   ret.devices.devices_len = count_strings (r);
   ret.devices.devices_val = r;
   reply ((xdrproc_t) &xdr_guestfs_list_devices_ret, (char *) &ret);
   free_strings (r);
+done: ;
 }
 
 static void list_partitions_stub (XDR *xdr_in)
@@ -189,14 +201,15 @@ static void list_partitions_stub (XDR *xdr_in)
 
   r = do_list_partitions ();
   if (r == NULL)
-    /* do_list_partitions has already called reply_with_error, so just return */
-    return;
+    /* do_list_partitions has already called reply_with_error */
+    goto done;
 
   struct guestfs_list_partitions_ret ret;
   ret.partitions.partitions_len = count_strings (r);
   ret.partitions.partitions_val = r;
   reply ((xdrproc_t) &xdr_guestfs_list_partitions_ret, (char *) &ret);
   free_strings (r);
+done: ;
 }
 
 static void pvs_stub (XDR *xdr_in)
@@ -205,14 +218,15 @@ static void pvs_stub (XDR *xdr_in)
 
   r = do_pvs ();
   if (r == NULL)
-    /* do_pvs has already called reply_with_error, so just return */
-    return;
+    /* do_pvs has already called reply_with_error */
+    goto done;
 
   struct guestfs_pvs_ret ret;
   ret.physvols.physvols_len = count_strings (r);
   ret.physvols.physvols_val = r;
   reply ((xdrproc_t) &xdr_guestfs_pvs_ret, (char *) &ret);
   free_strings (r);
+done: ;
 }
 
 static void vgs_stub (XDR *xdr_in)
@@ -221,14 +235,15 @@ static void vgs_stub (XDR *xdr_in)
 
   r = do_vgs ();
   if (r == NULL)
-    /* do_vgs has already called reply_with_error, so just return */
-    return;
+    /* do_vgs has already called reply_with_error */
+    goto done;
 
   struct guestfs_vgs_ret ret;
   ret.volgroups.volgroups_len = count_strings (r);
   ret.volgroups.volgroups_val = r;
   reply ((xdrproc_t) &xdr_guestfs_vgs_ret, (char *) &ret);
   free_strings (r);
+done: ;
 }
 
 static void lvs_stub (XDR *xdr_in)
@@ -237,14 +252,15 @@ static void lvs_stub (XDR *xdr_in)
 
   r = do_lvs ();
   if (r == NULL)
-    /* do_lvs has already called reply_with_error, so just return */
-    return;
+    /* do_lvs has already called reply_with_error */
+    goto done;
 
   struct guestfs_lvs_ret ret;
   ret.logvols.logvols_len = count_strings (r);
   ret.logvols.logvols_val = r;
   reply ((xdrproc_t) &xdr_guestfs_lvs_ret, (char *) &ret);
   free_strings (r);
+done: ;
 }
 
 static void pvs_full_stub (XDR *xdr_in)
@@ -253,13 +269,14 @@ static void pvs_full_stub (XDR *xdr_in)
 
   r = do_pvs_full ();
   if (r == NULL)
-    /* do_pvs_full has already called reply_with_error, so just return */
-    return;
+    /* do_pvs_full has already called reply_with_error */
+    goto done;
 
   struct guestfs_pvs_full_ret ret;
   ret.physvols = *r;
   reply ((xdrproc_t) xdr_guestfs_pvs_full_ret, (char *) &ret);
   xdr_free ((xdrproc_t) xdr_guestfs_pvs_full_ret, (char *) &ret);
+done: ;
 }
 
 static void vgs_full_stub (XDR *xdr_in)
@@ -268,13 +285,14 @@ static void vgs_full_stub (XDR *xdr_in)
 
   r = do_vgs_full ();
   if (r == NULL)
-    /* do_vgs_full has already called reply_with_error, so just return */
-    return;
+    /* do_vgs_full has already called reply_with_error */
+    goto done;
 
   struct guestfs_vgs_full_ret ret;
   ret.volgroups = *r;
   reply ((xdrproc_t) xdr_guestfs_vgs_full_ret, (char *) &ret);
   xdr_free ((xdrproc_t) xdr_guestfs_vgs_full_ret, (char *) &ret);
+done: ;
 }
 
 static void lvs_full_stub (XDR *xdr_in)
@@ -283,13 +301,14 @@ static void lvs_full_stub (XDR *xdr_in)
 
   r = do_lvs_full ();
   if (r == NULL)
-    /* do_lvs_full has already called reply_with_error, so just return */
-    return;
+    /* do_lvs_full has already called reply_with_error */
+    goto done;
 
   struct guestfs_lvs_full_ret ret;
   ret.logvols = *r;
   reply ((xdrproc_t) xdr_guestfs_lvs_full_ret, (char *) &ret);
   xdr_free ((xdrproc_t) xdr_guestfs_lvs_full_ret, (char *) &ret);
+done: ;
 }
 
 static void read_lines_stub (XDR *xdr_in)
@@ -308,14 +327,16 @@ static void read_lines_stub (XDR *xdr_in)
 
   r = do_read_lines (path);
   if (r == NULL)
-    /* do_read_lines has already called reply_with_error, so just return */
-    return;
+    /* do_read_lines has already called reply_with_error */
+    goto done;
 
   struct guestfs_read_lines_ret ret;
   ret.lines.lines_len = count_strings (r);
   ret.lines.lines_val = r;
   reply ((xdrproc_t) &xdr_guestfs_read_lines_ret, (char *) &ret);
   free_strings (r);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_read_lines_args, (char *) &args);
 }
 
 static void aug_init_stub (XDR *xdr_in)
@@ -336,10 +357,12 @@ static void aug_init_stub (XDR *xdr_in)
 
   r = do_aug_init (root, flags);
   if (r == -1)
-    /* do_aug_init has already called reply_with_error, so just return */
-    return;
+    /* do_aug_init has already called reply_with_error */
+    goto done;
 
   reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_aug_init_args, (char *) &args);
 }
 
 static void aug_close_stub (XDR *xdr_in)
@@ -348,10 +371,11 @@ static void aug_close_stub (XDR *xdr_in)
 
   r = do_aug_close ();
   if (r == -1)
-    /* do_aug_close has already called reply_with_error, so just return */
-    return;
+    /* do_aug_close has already called reply_with_error */
+    goto done;
 
   reply (NULL, NULL);
+done: ;
 }
 
 static void aug_defvar_stub (XDR *xdr_in)
@@ -372,12 +396,14 @@ static void aug_defvar_stub (XDR *xdr_in)
 
   r = do_aug_defvar (name, expr);
   if (r == -1)
-    /* do_aug_defvar has already called reply_with_error, so just return */
-    return;
+    /* do_aug_defvar has already called reply_with_error */
+    goto done;
 
   struct guestfs_aug_defvar_ret ret;
   ret.nrnodes = r;
   reply ((xdrproc_t) &xdr_guestfs_aug_defvar_ret, (char *) &ret);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_aug_defvar_args, (char *) &args);
 }
 
 static void aug_defnode_stub (XDR *xdr_in)
@@ -400,11 +426,13 @@ static void aug_defnode_stub (XDR *xdr_in)
 
   r = do_aug_defnode (name, expr, val);
   if (r == NULL)
-    /* do_aug_defnode has already called reply_with_error, so just return */
-    return;
+    /* do_aug_defnode has already called reply_with_error */
+    goto done;
 
   reply ((xdrproc_t) xdr_guestfs_aug_defnode_ret, (char *) r);
   xdr_free ((xdrproc_t) xdr_guestfs_aug_defnode_ret, (char *) r);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_aug_defnode_args, (char *) &args);
 }
 
 static void aug_get_stub (XDR *xdr_in)
@@ -423,13 +451,15 @@ static void aug_get_stub (XDR *xdr_in)
 
   r = do_aug_get (path);
   if (r == NULL)
-    /* do_aug_get has already called reply_with_error, so just return */
-    return;
+    /* do_aug_get has already called reply_with_error */
+    goto done;
 
   struct guestfs_aug_get_ret ret;
   ret.val = r;
   reply ((xdrproc_t) &xdr_guestfs_aug_get_ret, (char *) &ret);
   free (r);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_aug_get_args, (char *) &args);
 }
 
 static void aug_set_stub (XDR *xdr_in)
@@ -450,10 +480,12 @@ static void aug_set_stub (XDR *xdr_in)
 
   r = do_aug_set (path, val);
   if (r == -1)
-    /* do_aug_set has already called reply_with_error, so just return */
-    return;
+    /* do_aug_set has already called reply_with_error */
+    goto done;
 
   reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_aug_set_args, (char *) &args);
 }
 
 static void aug_insert_stub (XDR *xdr_in)
@@ -476,10 +508,12 @@ static void aug_insert_stub (XDR *xdr_in)
 
   r = do_aug_insert (path, label, before);
   if (r == -1)
-    /* do_aug_insert has already called reply_with_error, so just return */
-    return;
+    /* do_aug_insert has already called reply_with_error */
+    goto done;
 
   reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_aug_insert_args, (char *) &args);
 }
 
 static void aug_rm_stub (XDR *xdr_in)
@@ -498,12 +532,14 @@ static void aug_rm_stub (XDR *xdr_in)
 
   r = do_aug_rm (path);
   if (r == -1)
-    /* do_aug_rm has already called reply_with_error, so just return */
-    return;
+    /* do_aug_rm has already called reply_with_error */
+    goto done;
 
   struct guestfs_aug_rm_ret ret;
   ret.nrnodes = r;
   reply ((xdrproc_t) &xdr_guestfs_aug_rm_ret, (char *) &ret);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_aug_rm_args, (char *) &args);
 }
 
 static void aug_mv_stub (XDR *xdr_in)
@@ -524,10 +560,12 @@ static void aug_mv_stub (XDR *xdr_in)
 
   r = do_aug_mv (src, dest);
   if (r == -1)
-    /* do_aug_mv has already called reply_with_error, so just return */
-    return;
+    /* do_aug_mv has already called reply_with_error */
+    goto done;
 
   reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_aug_mv_args, (char *) &args);
 }
 
 static void aug_match_stub (XDR *xdr_in)
@@ -546,14 +584,16 @@ static void aug_match_stub (XDR *xdr_in)
 
   r = do_aug_match (path);
   if (r == NULL)
-    /* do_aug_match has already called reply_with_error, so just return */
-    return;
+    /* do_aug_match has already called reply_with_error */
+    goto done;
 
   struct guestfs_aug_match_ret ret;
   ret.matches.matches_len = count_strings (r);
   ret.matches.matches_val = r;
   reply ((xdrproc_t) &xdr_guestfs_aug_match_ret, (char *) &ret);
   free_strings (r);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_aug_match_args, (char *) &args);
 }
 
 static void aug_save_stub (XDR *xdr_in)
@@ -562,10 +602,11 @@ static void aug_save_stub (XDR *xdr_in)
 
   r = do_aug_save ();
   if (r == -1)
-    /* do_aug_save has already called reply_with_error, so just return */
-    return;
+    /* do_aug_save has already called reply_with_error */
+    goto done;
 
   reply (NULL, NULL);
+done: ;
 }
 
 static void aug_load_stub (XDR *xdr_in)
@@ -574,10 +615,11 @@ static void aug_load_stub (XDR *xdr_in)
 
   r = do_aug_load ();
   if (r == -1)
-    /* do_aug_load has already called reply_with_error, so just return */
-    return;
+    /* do_aug_load has already called reply_with_error */
+    goto done;
 
   reply (NULL, NULL);
+done: ;
 }
 
 static void aug_ls_stub (XDR *xdr_in)
@@ -596,14 +638,16 @@ static void aug_ls_stub (XDR *xdr_in)
 
   r = do_aug_ls (path);
   if (r == NULL)
-    /* do_aug_ls has already called reply_with_error, so just return */
-    return;
+    /* do_aug_ls has already called reply_with_error */
+    goto done;
 
   struct guestfs_aug_ls_ret ret;
   ret.matches.matches_len = count_strings (r);
   ret.matches.matches_val = r;
   reply ((xdrproc_t) &xdr_guestfs_aug_ls_ret, (char *) &ret);
   free_strings (r);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_aug_ls_args, (char *) &args);
 }
 
 static void rm_stub (XDR *xdr_in)
@@ -622,10 +666,12 @@ static void rm_stub (XDR *xdr_in)
 
   r = do_rm (path);
   if (r == -1)
-    /* do_rm has already called reply_with_error, so just return */
-    return;
+    /* do_rm has already called reply_with_error */
+    goto done;
 
   reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_rm_args, (char *) &args);
 }
 
 static void rmdir_stub (XDR *xdr_in)
@@ -644,10 +690,12 @@ static void rmdir_stub (XDR *xdr_in)
 
   r = do_rmdir (path);
   if (r == -1)
-    /* do_rmdir has already called reply_with_error, so just return */
-    return;
+    /* do_rmdir has already called reply_with_error */
+    goto done;
 
   reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_rmdir_args, (char *) &args);
 }
 
 static void rm_rf_stub (XDR *xdr_in)
@@ -666,10 +714,12 @@ static void rm_rf_stub (XDR *xdr_in)
 
   r = do_rm_rf (path);
   if (r == -1)
-    /* do_rm_rf has already called reply_with_error, so just return */
-    return;
+    /* do_rm_rf has already called reply_with_error */
+    goto done;
 
   reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_rm_rf_args, (char *) &args);
 }
 
 static void mkdir_stub (XDR *xdr_in)
@@ -688,10 +738,12 @@ static void mkdir_stub (XDR *xdr_in)
 
   r = do_mkdir (path);
   if (r == -1)
-    /* do_mkdir has already called reply_with_error, so just return */
-    return;
+    /* do_mkdir has already called reply_with_error */
+    goto done;
 
   reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_mkdir_args, (char *) &args);
 }
 
 static void mkdir_p_stub (XDR *xdr_in)
@@ -710,10 +762,12 @@ static void mkdir_p_stub (XDR *xdr_in)
 
   r = do_mkdir_p (path);
   if (r == -1)
-    /* do_mkdir_p has already called reply_with_error, so just return */
-    return;
+    /* do_mkdir_p has already called reply_with_error */
+    goto done;
 
   reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_mkdir_p_args, (char *) &args);
 }
 
 static void chmod_stub (XDR *xdr_in)
@@ -734,10 +788,12 @@ static void chmod_stub (XDR *xdr_in)
 
   r = do_chmod (mode, path);
   if (r == -1)
-    /* do_chmod has already called reply_with_error, so just return */
-    return;
+    /* do_chmod has already called reply_with_error */
+    goto done;
 
   reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_chmod_args, (char *) &args);
 }
 
 static void chown_stub (XDR *xdr_in)
@@ -760,10 +816,325 @@ static void chown_stub (XDR *xdr_in)
 
   r = do_chown (owner, group, path);
   if (r == -1)
-    /* do_chown has already called reply_with_error, so just return */
-    return;
+    /* do_chown has already called reply_with_error */
+    goto done;
 
   reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_chown_args, (char *) &args);
+}
+
+static void exists_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_exists_args args;
+  const char *path;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_exists_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "exists");
+    return;
+  }
+  path = args.path;
+
+  r = do_exists (path);
+  if (r == -1)
+    /* do_exists has already called reply_with_error */
+    goto done;
+
+  struct guestfs_exists_ret ret;
+  ret.existsflag = r;
+  reply ((xdrproc_t) &xdr_guestfs_exists_ret, (char *) &ret);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_exists_args, (char *) &args);
+}
+
+static void is_file_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_is_file_args args;
+  const char *path;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_is_file_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "is_file");
+    return;
+  }
+  path = args.path;
+
+  r = do_is_file (path);
+  if (r == -1)
+    /* do_is_file has already called reply_with_error */
+    goto done;
+
+  struct guestfs_is_file_ret ret;
+  ret.fileflag = r;
+  reply ((xdrproc_t) &xdr_guestfs_is_file_ret, (char *) &ret);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_is_file_args, (char *) &args);
+}
+
+static void is_dir_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_is_dir_args args;
+  const char *path;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_is_dir_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "is_dir");
+    return;
+  }
+  path = args.path;
+
+  r = do_is_dir (path);
+  if (r == -1)
+    /* do_is_dir has already called reply_with_error */
+    goto done;
+
+  struct guestfs_is_dir_ret ret;
+  ret.dirflag = r;
+  reply ((xdrproc_t) &xdr_guestfs_is_dir_ret, (char *) &ret);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_is_dir_args, (char *) &args);
+}
+
+static void pvcreate_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_pvcreate_args args;
+  const char *device;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_pvcreate_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "pvcreate");
+    return;
+  }
+  device = args.device;
+
+  r = do_pvcreate (device);
+  if (r == -1)
+    /* do_pvcreate has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_pvcreate_args, (char *) &args);
+}
+
+static void vgcreate_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_vgcreate_args args;
+  const char *volgroup;
+  char **physvols;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_vgcreate_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "vgcreate");
+    return;
+  }
+  volgroup = args.volgroup;
+  args.physvols.physvols_val = realloc (args.physvols.physvols_val, sizeof (char *) * (args.physvols.physvols_len+1));
+  args.physvols.physvols_val[args.physvols.physvols_len] = NULL;
+  physvols = args.physvols.physvols_val;
+
+  r = do_vgcreate (volgroup, physvols);
+  if (r == -1)
+    /* do_vgcreate has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_vgcreate_args, (char *) &args);
+}
+
+static void lvcreate_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_lvcreate_args args;
+  const char *logvol;
+  const char *volgroup;
+  int mbytes;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_lvcreate_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "lvcreate");
+    return;
+  }
+  logvol = args.logvol;
+  volgroup = args.volgroup;
+  mbytes = args.mbytes;
+
+  r = do_lvcreate (logvol, volgroup, mbytes);
+  if (r == -1)
+    /* do_lvcreate has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_lvcreate_args, (char *) &args);
+}
+
+static void mkfs_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_mkfs_args args;
+  const char *fstype;
+  const char *device;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_mkfs_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "mkfs");
+    return;
+  }
+  fstype = args.fstype;
+  device = args.device;
+
+  r = do_mkfs (fstype, device);
+  if (r == -1)
+    /* do_mkfs has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_mkfs_args, (char *) &args);
+}
+
+static void sfdisk_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_sfdisk_args args;
+  const char *device;
+  int cyls;
+  int heads;
+  int sectors;
+  char **lines;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_sfdisk_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "sfdisk");
+    return;
+  }
+  device = args.device;
+  cyls = args.cyls;
+  heads = args.heads;
+  sectors = args.sectors;
+  args.lines.lines_val = realloc (args.lines.lines_val, sizeof (char *) * (args.lines.lines_len+1));
+  args.lines.lines_val[args.lines.lines_len] = NULL;
+  lines = args.lines.lines_val;
+
+  r = do_sfdisk (device, cyls, heads, sectors, lines);
+  if (r == -1)
+    /* do_sfdisk has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_sfdisk_args, (char *) &args);
+}
+
+static void write_file_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_write_file_args args;
+  const char *path;
+  const char *content;
+  int size;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_write_file_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "write_file");
+    return;
+  }
+  path = args.path;
+  content = args.content;
+  size = args.size;
+
+  r = do_write_file (path, content, size);
+  if (r == -1)
+    /* do_write_file has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_write_file_args, (char *) &args);
+}
+
+static void umount_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_umount_args args;
+  const char *pathordevice;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_umount_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "umount");
+    return;
+  }
+  pathordevice = args.pathordevice;
+
+  r = do_umount (pathordevice);
+  if (r == -1)
+    /* do_umount has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_umount_args, (char *) &args);
+}
+
+static void mounts_stub (XDR *xdr_in)
+{
+  char **r;
+
+  r = do_mounts ();
+  if (r == NULL)
+    /* do_mounts has already called reply_with_error */
+    goto done;
+
+  struct guestfs_mounts_ret ret;
+  ret.devices.devices_len = count_strings (r);
+  ret.devices.devices_val = r;
+  reply ((xdrproc_t) &xdr_guestfs_mounts_ret, (char *) &ret);
+  free_strings (r);
+done: ;
+}
+
+static void umount_all_stub (XDR *xdr_in)
+{
+  int r;
+
+  r = do_umount_all ();
+  if (r == -1)
+    /* do_umount_all has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done: ;
+}
+
+static void lvm_remove_all_stub (XDR *xdr_in)
+{
+  int r;
+
+  r = do_lvm_remove_all ();
+  if (r == -1)
+    /* do_lvm_remove_all has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done: ;
 }
 
 void dispatch_incoming_message (XDR *xdr_in)
@@ -873,6 +1244,45 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_CHOWN:
       chown_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_EXISTS:
+      exists_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_IS_FILE:
+      is_file_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_IS_DIR:
+      is_dir_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_PVCREATE:
+      pvcreate_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_VGCREATE:
+      vgcreate_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_LVCREATE:
+      lvcreate_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_MKFS:
+      mkfs_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_SFDISK:
+      sfdisk_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_WRITE_FILE:
+      write_file_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_UMOUNT:
+      umount_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_MOUNTS:
+      mounts_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_UMOUNT_ALL:
+      umount_all_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_LVM_REMOVE_ALL:
+      lvm_remove_all_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d", proc_nr);

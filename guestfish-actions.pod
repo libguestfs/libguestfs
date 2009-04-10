@@ -193,6 +193,10 @@ Note that this function cannot correctly handle binary files
 as end of string).  For those you need to use the C<read_file>
 function which has a more complex interface.
 
+Because of the message protocol, there is a transfer limit 
+of somewhere between 2MB and 4MB.  To transfer large files you should use
+FTP.
+
 =head2 chmod
 
  chmod mode path
@@ -223,6 +227,15 @@ The first character of C<param> string must be a C<-> (dash).
 
 C<value> can be NULL.
 
+=head2 exists
+
+ exists path
+
+This returns C<true> if and only if there is a file, directory
+(or anything) with the given C<path> name.
+
+See also C<is_file>, C<is_dir>, C<stat>.
+
 =head2 get-autosync
 
  get-autosync
@@ -243,6 +256,26 @@ return the default path.
  get-verbose
 
 This returns the verbose messages flag.
+
+=head2 is-dir
+
+ is-dir path
+
+This returns C<true> if and only if there is a directory
+with the given C<path> name.  Note that it returns false for
+other objects like files.
+
+See also C<stat>.
+
+=head2 is-file
+
+ is-file path
+
+This returns C<true> if and only if there is a file
+with the given C<path> name.  Note that it returns false for
+other objects like directories.
+
+See also C<stat>.
 
 =head2 kill-subprocess
 
@@ -300,6 +333,23 @@ hidden files are shown.
 This command is mostly useful for interactive sessions.  Programs
 should probably use C<readdir> instead.
 
+=head2 lvcreate
+
+ lvcreate logvol volgroup mbytes
+
+This creates an LVM volume group called C<logvol>
+on the volume group C<volgroup>, with C<size> megabytes.
+
+=head2 lvm-remove-all
+
+ lvm-remove-all
+
+This command removes all LVM logical volumes, volume groups
+and physical volumes.
+
+B<This command is dangerous.  Without careful use you
+can easily destroy all your data>.
+
 =head2 lvs
 
  lvs
@@ -332,6 +382,14 @@ Create a directory named C<path>.
 Create a directory named C<path>, creating any parent directories
 as necessary.  This is like the C<mkdir -p> shell command.
 
+=head2 mkfs
+
+ mkfs fstype device
+
+This creates a filesystem on C<device> (usually a partition
+of LVM logical volume).  The filesystem type is C<fstype>, for
+example C<ext3>.
+
 =head2 mount
 
  mount device mountpoint
@@ -352,6 +410,23 @@ on the underlying device.
 
 The filesystem options C<sync> and C<noatime> are set with this
 call, in order to improve reliability.
+
+=head2 mounts
+
+ mounts
+
+This returns the list of currently mounted filesystems.  It returns
+the list of devices (eg. C</dev/sda1>, C</dev/VG/LV>).
+
+Some internal mounts are not shown.
+
+=head2 pvcreate
+
+ pvcreate device
+
+This creates an LVM physical volume on the named C<device>,
+where C<device> should usually be a partition name such
+as C</dev/sda1>.
 
 =head2 pvs
 
@@ -437,6 +512,33 @@ If C<verbose> is true, this turns on verbose messages (to C<stderr>).
 Verbose messages are disabled unless the environment variable
 C<LIBGUESTFS_DEBUG> is defined and set to C<1>.
 
+=head2 sfdisk
+
+ sfdisk device cyls heads sectors lines,...
+
+This is a direct interface to the L<sfdisk(8)> program for creating
+partitions on block devices.
+
+C<device> should be a block device, for example C</dev/sda>.
+
+C<cyls>, C<heads> and C<sectors> are the number of cylinders, heads
+and sectors on the device, which are passed directly to sfdisk as
+the I<-C>, I<-H> and I<-S> parameters.  If you pass C<0> for any
+of these, then the corresponding parameter is omitted.  Usually for
+'large' disks, you can just pass C<0> for these, but for small
+(floppy-sized) disks, sfdisk (or rather, the kernel) cannot work
+out the right geometry and you will need to tell it.
+
+C<lines> is a list of lines that we feed to C<sfdisk>.  For more
+information refer to the L<sfdisk(8)> manpage.
+
+To create a single partition occupying the whole disk, you would
+pass C<lines> as a single element list, when the single element being
+the string C<,> (comma).
+
+B<This command is dangerous.  Without careful use you
+can easily destroy all your data>.
+
 =head2 sync
 
  sync
@@ -454,6 +556,29 @@ closing the handle.
 Touch acts like the L<touch(1)> command.  It can be used to
 update the timestamps on a file, or, if the file does not exist,
 to create a new zero-length file.
+
+=head2 umount | unmount
+
+ umount pathordevice
+
+This unmounts the given filesystem.  The filesystem may be
+specified either by its mountpoint (path) or the device which
+contains the filesystem.
+
+=head2 umount-all | unmount-all
+
+ umount-all
+
+This unmounts all mounted filesystems.
+
+Some internal mounts are not unmounted by this call.
+
+=head2 vgcreate
+
+ vgcreate volgroup physvols,...
+
+This creates an LVM volume group called C<volgroup>
+from the non-empty list of physical volumes C<physvols>.
 
 =head2 vgs
 
@@ -473,4 +598,20 @@ See also C<vgs_full>.
 
 List all the volumes groups detected.  This is the equivalent
 of the L<vgs(8)> command.  The "full" version includes all fields.
+
+=head2 write-file
+
+ write-file path content size
+
+This call creates a file called C<path>.  The contents of the
+file is the string C<content> (which can contain any 8 bit data),
+with length C<size>.
+
+As a special case, if C<size> is C<0>
+then the length is calculated using C<strlen> (so in this case
+the content cannot contain embedded ASCII NULs).
+
+Because of the message protocol, there is a transfer limit 
+of somewhere between 2MB and 4MB.  To transfer large files you should use
+FTP.
 

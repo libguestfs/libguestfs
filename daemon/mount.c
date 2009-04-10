@@ -74,3 +74,118 @@ do_mount (const char *device, const char *mountpoint)
 
   return 0;
 }
+
+/* Again, use the external /bin/umount program, so that /etc/mtab
+ * is kept updated.
+ */
+int
+do_umount (const char *pathordevice)
+{
+  int len, freeit = 0, r;
+  char *buf;
+  char *err;
+
+  if (strncmp (pathordevice, "/dev/", 5) == 0)
+    buf = (char *) pathordevice;
+  else {
+    len = strlen (pathordevice) + 9;
+    freeit = 1;
+    buf = malloc (len);
+    if (buf == NULL) {
+      reply_with_perror ("malloc");
+      return -1;
+    }
+    snprintf (buf, len, "/sysroot%s", pathordevice);
+  }
+
+  r = command (NULL, &err, "umount", buf, NULL);
+  if (freeit) free (buf);
+  if (r == -1) {
+    reply_with_error ("umount: %s: %s", pathordevice, err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+
+  /* update root_mounted? */
+
+  return 0;
+}
+
+char **
+do_mounts (void)
+{
+  char *out, *err;
+  int r;
+  char **ret = NULL;
+  int size = 0, alloc = 0;
+  char *p, *pend, *p2;
+
+  r = command (&out, &err, "mount", NULL);
+  if (r == -1) {
+    reply_with_error ("mount: %s", err);
+    free (out);
+    free (err);
+    return NULL;
+  }
+
+  free (err);
+
+  p = out;
+  while (p) {
+    pend = strchr (p, '\n');
+    if (pend) {
+      *pend = '\0';
+      pend++;
+    }
+
+    /* Lines have the format:
+     *   /dev/foo on /mountpoint type ...
+     */
+    p2 = strstr (p, " on /sysroot");
+    if (p2 != NULL) {
+      *p2 = '\0';
+      if (add_string (&ret, &size, &alloc, p) == -1) {
+	free (out);
+	return NULL;
+      }
+    }
+
+    p = pend;
+  }
+
+  free (out);
+
+  if (add_string (&ret, &size, &alloc, NULL) == -1)
+    return NULL;
+
+  return ret;
+}
+
+/* Only unmount stuff under /sysroot */
+int
+do_umount_all (void)
+{
+  char **mounts;
+  int i, r;
+  char *err;
+
+  mounts = do_mounts ();
+  if (mounts == NULL)		/* do_mounts has already replied */
+    return -1;
+
+  for (i = 0; mounts[i] != NULL; ++i) {
+    r = command (NULL, &err, "umount", mounts[i], NULL);
+    if (r == -1) {
+      reply_with_error ("umount: %s: %s", mounts[i], err);
+      free (err);
+      free_strings (mounts);
+      return -1;
+    }
+    free (err);
+  }
+
+  free_strings (mounts);
+  return 0;
+}
