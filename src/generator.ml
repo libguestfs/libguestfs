@@ -482,6 +482,7 @@ details.");
    "\
 This is just a shortcut for listing C<guestfs_aug_match>
 C<path/*> and sorting the resulting nodes into alphabetical order.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
@@ -624,15 +625,65 @@ let name_of_argt = function String n | OptString n | Bool n | Int n -> n
 
 (* Check function names etc. for consistency. *)
 let check_functions () =
+  let contains_uppercase str =
+    let len = String.length str in
+    let rec loop i =
+      if i >= len then false
+      else (
+	let c = str.[i] in
+	if c >= 'A' && c <= 'Z' then true
+	else loop (i+1)
+      )
+    in
+    loop 0
+  in
+
+  (* Check function names. *)
+  List.iter (
+    fun (name, _, _, _, _, _) ->
+      if String.length name >= 7 && String.sub name 0 7 = "guestfs" then
+	failwithf "function name %s does not need 'guestfs' prefix" name;
+      if contains_uppercase name then
+	failwithf "function name %s should not contain uppercase chars" name;
+      if String.contains name '-' then
+	failwithf "function name %s should not contain '-', use '_' instead."
+	  name
+  ) all_functions;
+
+  (* Check function parameter/return names. *)
+  List.iter (
+    fun (name, style, _, _, _, _) ->
+      let check_arg_ret_name n =
+	if contains_uppercase n then
+	  failwithf "%s param/ret %s should not contain uppercase chars"
+	    name n;
+	if String.contains n '-' || String.contains n '_' then
+	  failwithf "%s param/ret %s should not contain '-' or '_'"
+	    name n;
+	if n = "value" then
+	  failwithf "%s has a param/ret called 'value', which causes conflicts in the OCaml bindings, use something like 'val' or a more descriptive name" n
+      in
+
+      (match fst style with
+       | Err -> ()
+       | RInt n | RBool n | RConstString n | RString n
+       | RStringList n | RPVList n | RVGList n | RLVList n ->
+	   check_arg_ret_name n
+       | RIntBool (n,m) ->
+	   check_arg_ret_name n;
+	   check_arg_ret_name m
+      );
+      List.iter (fun arg -> check_arg_ret_name (name_of_argt arg)) (snd style)
+  ) all_functions;
+
+  (* Check long dscriptions. *)
   List.iter (
     fun (name, _, _, _, _, longdesc) ->
-      if String.contains name '-' then
-	failwithf "function name '%s' should not contain '-', use '_' instead."
-	  name;
       if longdesc.[String.length longdesc-1] = '\n' then
 	failwithf "long description of %s should not end with \\n." name
   ) all_functions;
 
+  (* Check proc_nrs. *)
   List.iter (
     fun (name, _, proc_nr, _, _, _) ->
       if proc_nr <= 0 then
@@ -656,7 +707,7 @@ let check_functions () =
     | (name1,nr1) :: ((name2,nr2) :: _ as rest) when nr1 < nr2 ->
 	loop rest
     | (name1,nr1) :: (name2,nr2) :: _ ->
-	failwithf "'%s' and '%s' have conflicting procedure numbers (%d, %d)"
+	failwithf "%s and %s have conflicting procedure numbers (%d, %d)"
 	  name1 name2 nr1 nr2
   in
   loop proc_nrs
