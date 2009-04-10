@@ -57,7 +57,7 @@ do_aug_init (const char *root, int flags)
     aug = NULL;
   }
 
-  len = strlen (root) + 8;
+  len = strlen (root) + 9;
   buf = malloc (len);
   if (!buf) {
     reply_with_perror ("malloc");
