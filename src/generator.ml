@@ -18,8 +18,10 @@
  *)
 
 (* This script generates a large amount of code and documentation for
- * all the daemon actions.  To add a new action there are only two
- * files you need to change, this one to describe the interface, and
+ * all the daemon actions.
+ *
+ * To add a new action there are only two files you need to change,
+ * this one to describe the interface (see the big table below), and
  * daemon/<somefile>.c to write the implementation.
  *
  * After editing this file, run it (./src/generator.ml) to regenerate
@@ -84,6 +86,73 @@ type flags =
   | FishAction of string  (* call this function in guestfish *)
   | NotInFish		  (* do not export via guestfish *)
 
+(* You can supply zero or as many tests as you want per API call.
+ *
+ * Note that the test environment has 3 block devices, of size 10M, 20M
+ * and 30M (respectively /dev/sda, /dev/sdb, /dev/sdc).  To run the
+ * tests in a reasonable amount of time, the virtual machine and
+ * block devices are reused between tests. So don't try testing
+ * kill_subprocess :-x
+ *
+ * Don't assume anything about the previous contents of the block
+ * devices.  Use 'Init*' to create some initial scenarios.
+ *)
+type tests = test list
+and test =
+    (* Run the command sequence and just expect nothing to fail. *)
+  | TestRun of test_init * seq
+    (* Run the command sequence and expect the output of the final
+     * command to be the string.
+     *)
+  | TestOutput of test_init * seq * string
+    (* Run the command sequence and expect the output of the final
+     * command to be the list of strings.
+     *)
+  | TestOutputList of test_init * seq * string list
+    (* Run the command sequence and expect the output of the final
+     * command to be the integer.
+     *)
+  | TestOutputInt of test_init * seq * int
+    (* Run the command sequence and expect the output of the final
+     * command to be a true value (!= 0 or != NULL).
+     *)
+  | TestOutputTrue of test_init * seq
+    (* Run the command sequence and expect the output of the final
+     * command to be a false value (== 0 or == NULL, but not an error).
+     *)
+  | TestOutputFalse of test_init * seq
+    (* Run the command sequence and expect the output of the final
+     * command to be a list of the given length (but don't care about
+     * content).
+     *)
+  | TestOutputLength of test_init * seq * int
+    (* Run the command sequence and expect the final command (only)
+     * to fail.
+     *)
+  | TestLastFail of test_init * seq
+
+(* Some initial scenarios for testing. *)
+and test_init =
+    (* Do nothing, block devices could contain random stuff. *)
+  | InitNone
+    (* /dev/sda contains a single partition /dev/sda1, which is formatted
+     * as ext2, empty [except for lost+found] and mounted on /.
+     * /dev/sdb and /dev/sdc may have random content.
+     * No LVM.
+     *)
+  | InitEmpty
+    (* /dev/sda:
+     *   /dev/sda1 (is a PV):
+     *     /dev/VG/LV:
+     *       formatted as ext2, empty [except for lost+found], mounted on /
+     * /dev/sdb and /dev/sdc may have random content.
+     *)
+  | InitEmptyLVM
+
+(* Sequence of commands for testing. *)
+and seq = cmd list
+and cmd = string list
+
 (* Note about long descriptions: When referring to another
  * action, use the format C<guestfs_other> (ie. the full name of
  * the C function).  This will be replaced as appropriate in other
@@ -94,6 +163,7 @@ type flags =
 
 let non_daemon_functions = [
   ("launch", (RErr, []), -1, [FishAlias "run"; FishAction "launch"],
+   [],
    "launch the qemu subprocess",
    "\
 Internally libguestfs is implemented by running a virtual machine
@@ -103,6 +173,7 @@ You should call this after configuring the handle
 (eg. adding drives) but before performing any actions.");
 
   ("wait_ready", (RErr, []), -1, [NotInFish],
+   [],
    "wait until the qemu subprocess launches",
    "\
 Internally libguestfs is implemented by running a virtual machine
@@ -112,11 +183,13 @@ You should call this after C<guestfs_launch> to wait for the launch
 to complete.");
 
   ("kill_subprocess", (RErr, []), -1, [],
+   [],
    "kill the qemu subprocess",
    "\
 This kills the qemu subprocess.  You should never need to call this.");
 
   ("add_drive", (RErr, [String "filename"]), -1, [FishAlias "add"],
+   [],
    "add an image to examine or modify",
    "\
 This function adds a virtual machine disk image C<filename> to the
@@ -133,6 +206,7 @@ image).
 This is equivalent to the qemu parameter C<-drive file=filename>.");
 
   ("add_cdrom", (RErr, [String "filename"]), -1, [FishAlias "cdrom"],
+   [],
    "add a CD-ROM disk image to examine",
    "\
 This function adds a virtual CD-ROM disk image to the guest.
@@ -140,6 +214,7 @@ This function adds a virtual CD-ROM disk image to the guest.
 This is equivalent to the qemu parameter C<-cdrom filename>.");
 
   ("config", (RErr, [String "qemuparam"; OptString "qemuvalue"]), -1, [],
+   [],
    "add qemu parameters",
    "\
 This can be used to add arbitrary qemu command line parameters
@@ -152,6 +227,7 @@ The first character of C<param> string must be a C<-> (dash).
 C<value> can be NULL.");
 
   ("set_path", (RErr, [String "path"]), -1, [FishAlias "path"],
+   [],
    "set the search path",
    "\
 Set the path that libguestfs searches for kernel and initrd.img.
@@ -165,6 +241,7 @@ must make sure it remains valid for the lifetime of the handle.
 Setting C<path> to C<NULL> restores the default path.");
 
   ("get_path", (RConstString "path", []), -1, [],
+   [],
    "get the search path",
    "\
 Return the current search path.
@@ -173,6 +250,7 @@ This is always non-NULL.  If it wasn't set already, then this will
 return the default path.");
 
   ("set_autosync", (RErr, [Bool "autosync"]), -1, [FishAlias "autosync"],
+   [],
    "set autosync mode",
    "\
 If C<autosync> is true, this enables autosync.  Libguestfs will make a
@@ -180,11 +258,13 @@ best effort attempt to run C<guestfs_sync> when the handle is closed
 (also if the program exits without closing handles).");
 
   ("get_autosync", (RBool "autosync", []), -1, [],
+   [],
    "get autosync mode",
    "\
 Get the autosync flag.");
 
   ("set_verbose", (RErr, [Bool "verbose"]), -1, [FishAlias "verbose"],
+   [],
    "set verbose mode",
    "\
 If C<verbose> is true, this turns on verbose messages (to C<stderr>).
@@ -193,6 +273,7 @@ Verbose messages are disabled unless the environment variable
 C<LIBGUESTFS_DEBUG> is defined and set to C<1>.");
 
   ("get_verbose", (RBool "verbose", []), -1, [],
+   [],
    "get verbose mode",
    "\
 This returns the verbose messages flag.")
@@ -200,6 +281,13 @@ This returns the verbose messages flag.")
 
 let daemon_functions = [
   ("mount", (RErr, [String "device"; String "mountpoint"]), 1, [],
+   [TestOutput (
+      InitNone,
+      [["sfdisk"];
+       ["mkfs"; "ext2"; "/dev/sda1"];
+       ["mount"; "/dev/sda1"; "/"];
+       ["write_file"; "/new"; "new file contents"; "0"];
+       ["cat"; "/new"]], "new file contents")],
    "mount a guest disk at a position in the filesystem",
    "\
 Mount a guest disk at a position in the filesystem.  Block devices
@@ -220,6 +308,7 @@ The filesystem options C<sync> and C<noatime> are set with this
 call, in order to improve reliability.");
 
   ("sync", (RErr, []), 2, [],
+   [ TestRun (InitNone, [["sync"]])],
    "sync disks, writes are flushed through to the disk image",
    "\
 This syncs the disk, so that any writes are flushed through to the
@@ -229,6 +318,10 @@ You should always call this if you have modified a disk image, before
 closing the handle.");
 
   ("touch", (RErr, [String "path"]), 3, [],
+   [TestOutputTrue (
+      InitEmpty,
+      [["touch"; "/new"];
+       ["exists"; "/new"]])],
    "update file timestamps or create a new file",
    "\
 Touch acts like the L<touch(1)> command.  It can be used to
@@ -236,6 +329,10 @@ update the timestamps on a file, or, if the file does not exist,
 to create a new zero-length file.");
 
   ("cat", (RString "content", [String "path"]), 4, [ProtocolLimitWarning],
+   [TestOutput (
+      InitEmpty,
+      [["write_file"; "/new"; "new file contents"; "0"];
+       ["cat"; "/new"]], "new file contents")],
    "list the contents of a file",
    "\
 Return the contents of the file named C<path>.
@@ -246,6 +343,9 @@ as end of string).  For those you need to use the C<guestfs_read_file>
 function which has a more complex interface.");
 
   ("ll", (RString "listing", [String "directory"]), 5, [],
+   [], (* XXX Tricky to test because it depends on the exact format
+	* of the 'ls -l' command, which changes between F10 and F11.
+	*)
    "list the files in a directory (long format)",
    "\
 List the files in C<directory> (relative to the root directory,
@@ -255,6 +355,12 @@ This command is mostly useful for interactive sessions.  It
 is I<not> intended that you try to parse the output string.");
 
   ("ls", (RStringList "listing", [String "directory"]), 6, [],
+   [TestOutputList (
+      InitEmpty,
+      [["touch"; "/new"];
+       ["touch"; "/newer"];
+       ["touch"; "/newest"];
+       ["ls"; "/"]], ["lost+found"; "new"; "newer"; "newest"])],
    "list the files in a directory",
    "\
 List the files in C<directory> (relative to the root directory,
@@ -265,6 +371,9 @@ This command is mostly useful for interactive sessions.  Programs
 should probably use C<guestfs_readdir> instead.");
 
   ("list_devices", (RStringList "devices", []), 7, [],
+   [TestOutputList (
+      InitNone,
+      [["list_devices"]], ["/dev/sda"; "/dev/sdb"; "/dev/sdc"])],
    "list the block devices",
    "\
 List all the block devices.
@@ -272,6 +381,13 @@ List all the block devices.
 The full block device names are returned, eg. C</dev/sda>");
 
   ("list_partitions", (RStringList "partitions", []), 8, [],
+   [TestOutputList (
+      InitEmpty,
+      [["list_partitions"]], ["/dev/sda1"]);
+    TestOutputList (
+      InitEmpty,
+      [["sfdisk"];
+       ["list_partitions"]], ["/dev/sda1"; "/dev/sda2"; "/dev/sda3"])],
    "list the partitions",
    "\
 List all the partitions detected on all block devices.
@@ -282,6 +398,16 @@ This does not return logical volumes.  For that you will need to
 call C<guestfs_lvs>.");
 
   ("pvs", (RStringList "physvols", []), 9, [],
+   [TestOutputList (
+      InitEmptyLVM,
+      [["pvs"]], ["/dev/sda1"]);
+    TestOutputList (
+      InitNone,
+      [["sfdisk"];
+       ["pvcreate"; "/dev/sda1"];
+       ["pvcreate"; "/dev/sda2"];
+       ["pvcreate"; "/dev/sda3"];
+       ["pvs"]], ["/dev/sda1"; "/dev/sda2"; "/dev/sda3"])],
    "list the LVM physical volumes (PVs)",
    "\
 List all the physical volumes detected.  This is the equivalent
@@ -293,6 +419,18 @@ PVs (eg. C</dev/sda2>).
 See also C<guestfs_pvs_full>.");
 
   ("vgs", (RStringList "volgroups", []), 10, [],
+   [TestOutputList (
+      InitEmptyLVM,
+      [["vgs"]], ["VG"]);
+    TestOutputList (
+      InitNone,
+      [["sfdisk"];
+       ["pvcreate"; "/dev/sda1"];
+       ["pvcreate"; "/dev/sda2"];
+       ["pvcreate"; "/dev/sda3"];
+       ["vgcreate"; "VG1"; "/dev/sda1 /dev/sda2"];
+       ["vgcreate"; "VG2"; "/dev/sda3"];
+       ["vgs"]], ["VG1"; "VG2"])],
    "list the LVM volume groups (VGs)",
    "\
 List all the volumes groups detected.  This is the equivalent
@@ -304,6 +442,21 @@ detected (eg. C<VolGroup00>).
 See also C<guestfs_vgs_full>.");
 
   ("lvs", (RStringList "logvols", []), 11, [],
+   [TestOutputList (
+      InitEmptyLVM,
+      [["lvs"]], ["/dev/VG/LV"]);
+    TestOutputList (
+      InitNone,
+      [["sfdisk"];
+       ["pvcreate"; "/dev/sda1"];
+       ["pvcreate"; "/dev/sda2"];
+       ["pvcreate"; "/dev/sda3"];
+       ["vgcreate"; "VG1"; "/dev/sda1 /dev/sda2"];
+       ["vgcreate"; "VG2"; "/dev/sda3"];
+       ["lvcreate"; "LV1"; "VG1"; "5000"];
+       ["lvcreate"; "LV2"; "VG1"; "5000"];
+       ["lvcreate"; "LV3"; "VG2"; "5000"];
+       ["lvs"]], ["LV1"; "LV2"; "LV3"])],
    "list the LVM logical volumes (LVs)",
    "\
 List all the logical volumes detected.  This is the equivalent
@@ -315,24 +468,41 @@ This returns a list of the logical volume device names
 See also C<guestfs_lvs_full>.");
 
   ("pvs_full", (RPVList "physvols", []), 12, [],
+   [TestOutputLength (
+      InitEmptyLVM,
+      [["pvs"]], 1)],
    "list the LVM physical volumes (PVs)",
    "\
 List all the physical volumes detected.  This is the equivalent
 of the L<pvs(8)> command.  The \"full\" version includes all fields.");
 
   ("vgs_full", (RVGList "volgroups", []), 13, [],
+   [TestOutputLength (
+      InitEmptyLVM,
+      [["pvs"]], 1)],
    "list the LVM volume groups (VGs)",
    "\
 List all the volumes groups detected.  This is the equivalent
 of the L<vgs(8)> command.  The \"full\" version includes all fields.");
 
   ("lvs_full", (RLVList "logvols", []), 14, [],
+   [TestOutputLength (
+      InitEmptyLVM,
+      [["pvs"]], 1)],
    "list the LVM logical volumes (LVs)",
    "\
 List all the logical volumes detected.  This is the equivalent
 of the L<lvs(8)> command.  The \"full\" version includes all fields.");
 
   ("read_lines", (RStringList "lines", [String "path"]), 15, [],
+   [TestOutputList (
+      InitEmpty,
+      [["write_file"; "/new"; "line1\r\nline2\nline3"; "0"];
+       ["read_lines"; "/new"]], ["line1"; "line2"; "line3"]);
+    TestOutputList (
+      InitEmpty,
+      [["write_file"; "/new"; ""; "0"];
+       ["read_lines"; "/new"]], [])],
    "read file as lines",
    "\
 Return the contents of the file named C<path>.
@@ -346,6 +516,7 @@ as end of line).  For those you need to use the C<guestfs_read_file>
 function which has a more complex interface.");
 
   ("aug_init", (RErr, [String "root"; Int "flags"]), 16, [],
+   [], (* XXX Augeas code needs tests. *)
    "create a new Augeas handle",
    "\
 Create a new Augeas handle for editing configuration files.
@@ -396,6 +567,7 @@ To close the handle, you can call C<guestfs_aug_close>.
 To find out more about Augeas, see L<http://augeas.net/>.");
 
   ("aug_close", (RErr, []), 26, [],
+   [], (* XXX Augeas code needs tests. *)
    "close the current Augeas handle",
    "\
 Close the current Augeas handle and free up any resources
@@ -404,6 +576,7 @@ C<guestfs_aug_init> again before you can use any other
 Augeas functions.");
 
   ("aug_defvar", (RInt "nrnodes", [String "name"; OptString "expr"]), 17, [],
+   [], (* XXX Augeas code needs tests. *)
    "define an Augeas variable",
    "\
 Defines an Augeas variable C<name> whose value is the result
@@ -414,6 +587,7 @@ On success this returns the number of nodes in C<expr>, or
 C<0> if C<expr> evaluates to something which is not a nodeset.");
 
   ("aug_defnode", (RIntBool ("nrnodes", "created"), [String "name"; String "expr"; String "val"]), 18, [],
+   [], (* XXX Augeas code needs tests. *)
    "define an Augeas node",
    "\
 Defines a variable C<name> whose value is the result of
@@ -428,17 +602,20 @@ number of nodes in the nodeset, and a boolean flag
 if a node was created.");
 
   ("aug_get", (RString "val", [String "path"]), 19, [],
+   [], (* XXX Augeas code needs tests. *)
    "look up the value of an Augeas path",
    "\
 Look up the value associated with C<path>.  If C<path>
 matches exactly one node, the C<value> is returned.");
 
   ("aug_set", (RErr, [String "path"; String "val"]), 20, [],
+   [], (* XXX Augeas code needs tests. *)
    "set Augeas path to value",
    "\
 Set the value associated with C<path> to C<value>.");
 
   ("aug_insert", (RErr, [String "path"; String "label"; Bool "before"]), 21, [],
+   [], (* XXX Augeas code needs tests. *)
    "insert a sibling Augeas node",
    "\
 Create a new sibling C<label> for C<path>, inserting it into
@@ -450,6 +627,7 @@ C<label> must be a label, ie. not contain C</>, C<*> or end
 with a bracketed index C<[N]>.");
 
   ("aug_rm", (RInt "nrnodes", [String "path"]), 22, [],
+   [], (* XXX Augeas code needs tests. *)
    "remove an Augeas path",
    "\
 Remove C<path> and all of its children.
@@ -457,12 +635,14 @@ Remove C<path> and all of its children.
 On success this returns the number of entries which were removed.");
 
   ("aug_mv", (RErr, [String "src"; String "dest"]), 23, [],
+   [], (* XXX Augeas code needs tests. *)
    "move Augeas node",
    "\
 Move the node C<src> to C<dest>.  C<src> must match exactly
 one node.  C<dest> is overwritten if it exists.");
 
   ("aug_match", (RStringList "matches", [String "path"]), 24, [],
+   [], (* XXX Augeas code needs tests. *)
    "return Augeas nodes which match path",
    "\
 Returns a list of paths which match the path expression C<path>.
@@ -470,6 +650,7 @@ The returned paths are sufficiently qualified so that they match
 exactly one node in the current tree.");
 
   ("aug_save", (RErr, []), 25, [],
+   [], (* XXX Augeas code needs tests. *)
    "write all pending Augeas changes to disk",
    "\
 This writes all pending changes to disk.
@@ -478,6 +659,7 @@ The flags which were passed to C<guestfs_aug_init> affect exactly
 how files are saved.");
 
   ("aug_load", (RErr, []), 27, [],
+   [], (* XXX Augeas code needs tests. *)
    "load files into the tree",
    "\
 Load files into the tree.
@@ -486,22 +668,52 @@ See C<aug_load> in the Augeas documentation for the full gory
 details.");
 
   ("aug_ls", (RStringList "matches", [String "path"]), 28, [],
+   [], (* XXX Augeas code needs tests. *)
    "list Augeas nodes under a path",
    "\
 This is just a shortcut for listing C<guestfs_aug_match>
 C<path/*> and sorting the resulting nodes into alphabetical order.");
 
   ("rm", (RErr, [String "path"]), 29, [],
+   [TestRun (
+      InitEmpty,
+      [["touch"; "/new"];
+       ["rm"; "/new"]]);
+    TestLastFail (
+      InitEmpty,
+      [["rm"; "/new"]]);
+    TestLastFail (
+      InitEmpty,
+      [["mkdir"; "/new"];
+       ["rm"; "/new"]])],
    "remove a file",
    "\
 Remove the single file C<path>.");
 
   ("rmdir", (RErr, [String "path"]), 30, [],
+   [TestRun (
+      InitEmpty,
+      [["mkdir"; "/new"];
+       ["rmdir"; "/new"]]);
+    TestLastFail (
+      InitEmpty,
+      [["rmdir"; "/new"]]);
+    TestLastFail (
+      InitEmpty,
+      [["touch"; "/new"];
+       ["rmdir"; "/new"]])],
    "remove a directory",
    "\
 Remove the single directory C<path>.");
 
   ("rm_rf", (RErr, [String "path"]), 31, [],
+   [TestOutputFalse (
+      InitEmpty,
+      [["mkdir"; "/new"];
+       ["mkdir"; "/new/foo"];
+       ["touch"; "/new/foo/bar"];
+       ["rm_rf"; "/new"];
+       ["exists"; "/new"]])],
    "remove a file or directory recursively",
    "\
 Remove the file or directory C<path>, recursively removing the
@@ -509,23 +721,41 @@ contents if its a directory.  This is like the C<rm -rf> shell
 command.");
 
   ("mkdir", (RErr, [String "path"]), 32, [],
+   [TestOutputTrue (
+      InitEmpty,
+      [["mkdir"; "/new"];
+       ["is_dir"; "/new"]])],
    "create a directory",
    "\
 Create a directory named C<path>.");
 
   ("mkdir_p", (RErr, [String "path"]), 33, [],
+   [TestOutputTrue (
+      InitEmpty,
+      [["mkdir_p"; "/new/foo/bar"];
+       ["is_dir"; "/new/foo/bar"]]);
+    TestOutputTrue (
+      InitEmpty,
+      [["mkdir_p"; "/new/foo/bar"];
+       ["is_dir"; "/new/foo"]]);
+    TestOutputTrue (
+      InitEmpty,
+      [["mkdir_p"; "/new/foo/bar"];
+       ["is_dir"; "/new"]])],
    "create a directory and parents",
    "\
 Create a directory named C<path>, creating any parent directories
 as necessary.  This is like the C<mkdir -p> shell command.");
 
   ("chmod", (RErr, [Int "mode"; String "path"]), 34, [],
+   [], (* XXX Need stat command to test *)
    "change file mode",
    "\
 Change the mode (permissions) of C<path> to C<mode>.  Only
 numeric modes are supported.");
 
   ("chown", (RErr, [Int "owner"; Int "group"; String "path"]), 35, [],
+   [], (* XXX Need stat command to test *)
    "change file owner and group",
    "\
 Change the file owner to C<owner> and group to C<group>.
@@ -541,7 +771,8 @@ let all_functions = non_daemon_functions @ daemon_functions
  * alphabetically, so this is useful:
  *)
 let all_functions_sorted =
-  List.sort (fun (n1,_,_,_,_,_) (n2,_,_,_,_,_) -> compare n1 n2) all_functions
+  List.sort (fun (n1,_,_,_,_,_,_) (n2,_,_,_,_,_,_) ->
+	       compare n1 n2) all_functions
 
 (* Column names and types from LVM PVs/VGs/LVs. *)
 let pv_cols = [
@@ -686,7 +917,7 @@ let check_functions () =
 
   (* Check function names. *)
   List.iter (
-    fun (name, _, _, _, _, _) ->
+    fun (name, _, _, _, _, _, _) ->
       if String.length name >= 7 && String.sub name 0 7 = "guestfs" then
 	failwithf "function name %s does not need 'guestfs' prefix" name;
       if contains_uppercase name then
@@ -698,7 +929,7 @@ let check_functions () =
 
   (* Check function parameter/return names. *)
   List.iter (
-    fun (name, style, _, _, _, _) ->
+    fun (name, style, _, _, _, _, _) ->
       let check_arg_ret_name n =
 	if contains_uppercase n then
 	  failwithf "%s param/ret %s should not contain uppercase chars"
@@ -724,26 +955,26 @@ let check_functions () =
 
   (* Check long dscriptions. *)
   List.iter (
-    fun (name, _, _, _, _, longdesc) ->
+    fun (name, _, _, _, _, _, longdesc) ->
       if longdesc.[String.length longdesc-1] = '\n' then
 	failwithf "long description of %s should not end with \\n." name
   ) all_functions;
 
   (* Check proc_nrs. *)
   List.iter (
-    fun (name, _, proc_nr, _, _, _) ->
+    fun (name, _, proc_nr, _, _, _, _) ->
       if proc_nr <= 0 then
 	failwithf "daemon function %s should have proc_nr > 0" name
   ) daemon_functions;
 
   List.iter (
-    fun (name, _, proc_nr, _, _, _) ->
+    fun (name, _, proc_nr, _, _, _, _) ->
       if proc_nr <> -1 then
 	failwithf "non-daemon function %s should have proc_nr -1" name
   ) non_daemon_functions;
 
   let proc_nrs =
-    List.map (fun (name, _, proc_nr, _, _, _) -> name, proc_nr)
+    List.map (fun (name, _, proc_nr, _, _, _, _) -> name, proc_nr)
       daemon_functions in
   let proc_nrs =
     List.sort (fun (_,nr1) (_,nr2) -> compare nr1 nr2) proc_nrs in
@@ -820,7 +1051,7 @@ let generate_header comment license =
 (* Generate the pod documentation for the C API. *)
 let rec generate_actions_pod () =
   List.iter (
-    fun (shortname, style, _, flags, _, longdesc) ->
+    fun (shortname, style, _, flags, _, _, longdesc) ->
       let name = "guestfs_" ^ shortname in
       pr "=head2 %s\n\n" name;
       pr " ";
@@ -927,7 +1158,7 @@ and generate_xdr () =
   ) ["pv", pv_cols; "vg", vg_cols; "lv", lv_cols];
 
   List.iter (
-    fun(shortname, style, _, _, _, _) ->
+    fun (shortname, style, _, _, _, _, _) ->
       let name = "guestfs_" ^ shortname in
 
       (match snd style with
@@ -986,7 +1217,7 @@ and generate_xdr () =
   (* Table of procedure numbers. *)
   pr "enum guestfs_procedure {\n";
   List.iter (
-    fun (shortname, _, proc_nr, _, _, _) ->
+    fun (shortname, _, proc_nr, _, _, _, _) ->
       pr "  GUESTFS_PROC_%s = %d,\n" (String.uppercase shortname) proc_nr
   ) daemon_functions;
   pr "  GUESTFS_PROC_dummy\n"; (* so we don't have a "hanging comma" *)
@@ -1084,7 +1315,7 @@ and generate_structs_h () =
 and generate_actions_h () =
   generate_header CStyle LGPLv2;
   List.iter (
-    fun (shortname, style, _, _, _, _) ->
+    fun (shortname, style, _, _, _, _, _) ->
       let name = "guestfs_" ^ shortname in
       generate_prototype ~single_line:true ~newline:true ~handle:"handle"
 	name style
@@ -1096,7 +1327,7 @@ and generate_client_actions () =
 
   (* Client-side stubs for each function. *)
   List.iter (
-    fun (shortname, style, _, _, _, _) ->
+    fun (shortname, style, _, _, _, _, _) ->
       let name = "guestfs_" ^ shortname in
 
       (* Generate the return value struct. *)
@@ -1274,7 +1505,7 @@ and generate_daemon_actions_h () =
   pr "\n";
 
   List.iter (
-    fun (name, style, _, _, _, _) ->
+    fun (name, style, _, _, _, _, _) ->
 	generate_prototype
 	  ~single_line:true ~newline:true ~in_daemon:true ~prefix:"do_"
 	  name style;
@@ -1300,7 +1531,7 @@ and generate_daemon_actions () =
   pr "\n";
 
   List.iter (
-    fun (name, style, _, _, _, _) ->
+    fun (name, style, _, _, _, _, _) ->
       (* Generate server-side stubs. *)
       pr "static void %s_stub (XDR *xdr_in)\n" name;
       pr "{\n";
@@ -1411,7 +1642,7 @@ and generate_daemon_actions () =
   pr "  switch (proc_nr) {\n";
 
   List.iter (
-    fun (name, style, _, _, _, _) ->
+    fun (name, style, _, _, _, _, _) ->
 	pr "    case GUESTFS_PROC_%s:\n" (String.uppercase name);
 	pr "      %s_stub (xdr_in);\n" name;
 	pr "      break;\n"
@@ -1588,17 +1819,35 @@ and generate_daemon_actions () =
 
   ) ["pv", pv_cols; "vg", vg_cols; "lv", lv_cols]
 
+(* Generate the tests. *)
+and generate_tests () =
+  generate_header CStyle GPLv2;
+
+  pr "#include <stdio.h>\n";
+  pr "#include <stdlib.h>\n";
+  pr "#include <string.h>\n";
+  pr "\n";
+  pr "#include \"guestfs.h\"\n";
+  pr "\n";
+
+
+
+  pr "int main (int argc, char *argv[])\n";
+  pr "{\n";
+  pr "  exit (0);\n";
+  pr "}\n"
+
 (* Generate a lot of different functions for guestfish. *)
 and generate_fish_cmds () =
   generate_header CStyle GPLv2;
 
   let all_functions =
     List.filter (
-      fun (_, _, _, flags, _, _) -> not (List.mem NotInFish flags)
+      fun (_, _, _, flags, _, _, _) -> not (List.mem NotInFish flags)
     ) all_functions in
   let all_functions_sorted =
     List.filter (
-      fun (_, _, _, flags, _, _) -> not (List.mem NotInFish flags)
+      fun (_, _, _, flags, _, _, _) -> not (List.mem NotInFish flags)
     ) all_functions_sorted in
 
   pr "#include <stdio.h>\n";
@@ -1616,7 +1865,7 @@ and generate_fish_cmds () =
   pr "  printf (\"    %%-16s     %%s\\n\", \"Command\", \"Description\");\n";
   pr "  list_builtin_commands ();\n";
   List.iter (
-    fun (name, _, _, flags, shortdesc, _) ->
+    fun (name, _, _, flags, _, shortdesc, _) ->
       let name = replace_char name '_' '-' in
       pr "  printf (\"%%-20s %%s\\n\", \"%s\", \"%s\");\n"
 	name shortdesc
@@ -1629,7 +1878,7 @@ and generate_fish_cmds () =
   pr "void display_command (const char *cmd)\n";
   pr "{\n";
   List.iter (
-    fun (name, style, _, flags, shortdesc, longdesc) ->
+    fun (name, style, _, flags, _, shortdesc, longdesc) ->
       let name2 = replace_char name '_' '-' in
       let alias =
 	try find_map (function FishAlias n -> Some n | _ -> None) flags
@@ -1711,7 +1960,7 @@ FTP."
 
   (* run_<action> actions *)
   List.iter (
-    fun (name, style, _, flags, _, _) ->
+    fun (name, style, _, flags, _, _, _) ->
       pr "static int run_%s (const char *cmd, int argc, char *argv[])\n" name;
       pr "{\n";
       (match fst style with
@@ -1818,7 +2067,7 @@ FTP."
   pr "int run_action (const char *cmd, int argc, char *argv[])\n";
   pr "{\n";
   List.iter (
-    fun (name, _, _, flags, _, _) ->
+    fun (name, _, _, flags, _, _, _) ->
       let name2 = replace_char name '_' '-' in
       let alias =
 	try find_map (function FishAlias n -> Some n | _ -> None) flags
@@ -1845,11 +2094,11 @@ FTP."
 and generate_fish_actions_pod () =
   let all_functions_sorted =
     List.filter (
-      fun (_, _, _, flags, _, _) -> not (List.mem NotInFish flags)
+      fun (_, _, _, flags, _, _, _) -> not (List.mem NotInFish flags)
     ) all_functions_sorted in
 
   List.iter (
-    fun (name, style, _, flags, _, longdesc) ->
+    fun (name, style, _, flags, _, _, longdesc) ->
       let longdesc = replace_str longdesc "C<guestfs_" "C<" in
       let name = replace_char name '_' '-' in
       let alias =
@@ -1975,7 +2224,7 @@ val close : t -> unit
 
   (* The actions. *)
   List.iter (
-    fun (name, style, _, _, shortdesc, _) ->
+    fun (name, style, _, _, _, shortdesc, _) ->
       generate_ocaml_prototype name style;
       pr "(** %s *)\n" shortdesc;
       pr "\n"
@@ -2000,7 +2249,7 @@ let () =
 
   (* The actions. *)
   List.iter (
-    fun (name, style, _, _, shortdesc, _) ->
+    fun (name, style, _, _, _, shortdesc, _) ->
       generate_ocaml_prototype ~is_external:true name style;
   ) all_functions
 
@@ -2089,7 +2338,7 @@ and generate_ocaml_c () =
   ) ["pv", pv_cols; "vg", vg_cols; "lv", lv_cols];
 
   List.iter (
-    fun (name, style, _, _, _, _) ->
+    fun (name, style, _, _, _, _, _) ->
       pr "CAMLprim value\n";
       pr "ocaml_guestfs_%s (value gv" name;
       List.iter (
@@ -2311,7 +2560,7 @@ DESTROY (g)
 ";
 
   List.iter (
-    fun (name, style, _, _, _, _) ->
+    fun (name, style, _, _, _, _, _) ->
       (match fst style with
        | RErr -> pr "void\n"
        | RInt _ -> pr "SV *\n"
@@ -2541,7 +2790,7 @@ sub new {
    * they are pulled in from the XS code automatically.
    *)
   List.iter (
-    fun (name, style, _, flags, _, longdesc) ->
+    fun (name, style, _, flags, _, _, longdesc) ->
       let longdesc = replace_str longdesc "C<guestfs_" "C<$h-E<gt>" in
       pr "=item ";
       generate_perl_prototype name style;
@@ -2645,6 +2894,10 @@ Run it from the top source directory using the command
 
   let close = output_to "daemon/stubs.c" in
   generate_daemon_actions ();
+  close ();
+
+  let close = output_to "tests.c" in
+  generate_tests ();
   close ();
 
   let close = output_to "fish/cmds.c" in
