@@ -36,10 +36,10 @@ open Printf
 
 type style = ret * args
 and ret =
-    (* "Err" as a return value means an int used as a simple error
+    (* "RErr" as a return value means an int used as a simple error
      * indication, ie. 0 or -1.
      *)
-  | Err
+  | RErr
     (* "RInt" as a return value means an int which is -1 for error
      * or any value >= 0 on success.
      *)
@@ -85,7 +85,7 @@ type flags =
  *)
 
 let non_daemon_functions = [
-  ("launch", (Err, []), -1, [FishAlias "run"; FishAction "launch"],
+  ("launch", (RErr, []), -1, [FishAlias "run"; FishAction "launch"],
    "launch the qemu subprocess",
    "\
 Internally libguestfs is implemented by running a virtual machine
@@ -94,7 +94,7 @@ using L<qemu(1)>.
 You should call this after configuring the handle
 (eg. adding drives) but before performing any actions.");
 
-  ("wait_ready", (Err, []), -1, [NotInFish],
+  ("wait_ready", (RErr, []), -1, [NotInFish],
    "wait until the qemu subprocess launches",
    "\
 Internally libguestfs is implemented by running a virtual machine
@@ -103,12 +103,12 @@ using L<qemu(1)>.
 You should call this after C<guestfs_launch> to wait for the launch
 to complete.");
 
-  ("kill_subprocess", (Err, []), -1, [],
+  ("kill_subprocess", (RErr, []), -1, [],
    "kill the qemu subprocess",
    "\
 This kills the qemu subprocess.  You should never need to call this.");
 
-  ("add_drive", (Err, [String "filename"]), -1, [FishAlias "add"],
+  ("add_drive", (RErr, [String "filename"]), -1, [FishAlias "add"],
    "add an image to examine or modify",
    "\
 This function adds a virtual machine disk image C<filename> to the
@@ -124,14 +124,14 @@ image).
 
 This is equivalent to the qemu parameter C<-drive file=filename>.");
 
-  ("add_cdrom", (Err, [String "filename"]), -1, [FishAlias "cdrom"],
+  ("add_cdrom", (RErr, [String "filename"]), -1, [FishAlias "cdrom"],
    "add a CD-ROM disk image to examine",
    "\
 This function adds a virtual CD-ROM disk image to the guest.
 
 This is equivalent to the qemu parameter C<-cdrom filename>.");
 
-  ("config", (Err, [String "qemuparam"; OptString "qemuvalue"]), -1, [],
+  ("config", (RErr, [String "qemuparam"; OptString "qemuvalue"]), -1, [],
    "add qemu parameters",
    "\
 This can be used to add arbitrary qemu command line parameters
@@ -143,7 +143,7 @@ The first character of C<param> string must be a C<-> (dash).
 
 C<value> can be NULL.");
 
-  ("set_path", (Err, [String "path"]), -1, [FishAlias "path"],
+  ("set_path", (RErr, [String "path"]), -1, [FishAlias "path"],
    "set the search path",
    "\
 Set the path that libguestfs searches for kernel and initrd.img.
@@ -164,7 +164,7 @@ Return the current search path.
 This is always non-NULL.  If it wasn't set already, then this will
 return the default path.");
 
-  ("set_autosync", (Err, [Bool "autosync"]), -1, [FishAlias "autosync"],
+  ("set_autosync", (RErr, [Bool "autosync"]), -1, [FishAlias "autosync"],
    "set autosync mode",
    "\
 If C<autosync> is true, this enables autosync.  Libguestfs will make a
@@ -176,7 +176,7 @@ best effort attempt to run C<guestfs_sync> when the handle is closed
    "\
 Get the autosync flag.");
 
-  ("set_verbose", (Err, [Bool "verbose"]), -1, [FishAlias "verbose"],
+  ("set_verbose", (RErr, [Bool "verbose"]), -1, [FishAlias "verbose"],
    "set verbose mode",
    "\
 If C<verbose> is true, this turns on verbose messages (to C<stderr>).
@@ -191,7 +191,7 @@ This returns the verbose messages flag.")
 ]
 
 let daemon_functions = [
-  ("mount", (Err, [String "device"; String "mountpoint"]), 1, [],
+  ("mount", (RErr, [String "device"; String "mountpoint"]), 1, [],
    "mount a guest disk at a position in the filesystem",
    "\
 Mount a guest disk at a position in the filesystem.  Block devices
@@ -211,7 +211,7 @@ on the underlying device.
 The filesystem options C<sync> and C<noatime> are set with this
 call, in order to improve reliability.");
 
-  ("sync", (Err, []), 2, [],
+  ("sync", (RErr, []), 2, [],
    "sync disks, writes are flushed through to the disk image",
    "\
 This syncs the disk, so that any writes are flushed through to the
@@ -220,7 +220,7 @@ underlying disk image.
 You should always call this if you have modified a disk image, before
 closing the handle.");
 
-  ("touch", (Err, [String "path"]), 3, [],
+  ("touch", (RErr, [String "path"]), 3, [],
    "update file timestamps or create a new file",
    "\
 Touch acts like the L<touch(1)> command.  It can be used to
@@ -337,7 +337,7 @@ Note that this function cannot correctly handle binary files
 as end of line).  For those you need to use the C<guestfs_read_file>
 function which has a more complex interface.");
 
-  ("aug_init", (Err, [String "root"; Int "flags"]), 16, [],
+  ("aug_init", (RErr, [String "root"; Int "flags"]), 16, [],
    "create a new Augeas handle",
    "\
 Create a new Augeas handle for editing configuration files.
@@ -387,7 +387,7 @@ To close the handle, you can call C<guestfs_aug_close>.
 
 To find out more about Augeas, see L<http://augeas.net/>.");
 
-  ("aug_close", (Err, []), 26, [],
+  ("aug_close", (RErr, []), 26, [],
    "close the current Augeas handle",
    "\
 Close the current Augeas handle and free up any resources
@@ -425,12 +425,12 @@ if a node was created.");
 Look up the value associated with C<path>.  If C<path>
 matches exactly one node, the C<value> is returned.");
 
-  ("aug_set", (Err, [String "path"; String "val"]), 20, [],
+  ("aug_set", (RErr, [String "path"; String "val"]), 20, [],
    "set Augeas path to value",
    "\
 Set the value associated with C<path> to C<value>.");
 
-  ("aug_insert", (Err, [String "path"; String "label"; Bool "before"]), 21, [],
+  ("aug_insert", (RErr, [String "path"; String "label"; Bool "before"]), 21, [],
    "insert a sibling Augeas node",
    "\
 Create a new sibling C<label> for C<path>, inserting it into
@@ -448,7 +448,7 @@ Remove C<path> and all of its children.
 
 On success this returns the number of entries which were removed.");
 
-  ("aug_mv", (Err, [String "src"; String "dest"]), 23, [],
+  ("aug_mv", (RErr, [String "src"; String "dest"]), 23, [],
    "move Augeas node",
    "\
 Move the node C<src> to C<dest>.  C<src> must match exactly
@@ -461,7 +461,7 @@ Returns a list of paths which match the path expression C<path>.
 The returned paths are sufficiently qualified so that they match
 exactly one node in the current tree.");
 
-  ("aug_save", (Err, []), 25, [],
+  ("aug_save", (RErr, []), 25, [],
    "write all pending Augeas changes to disk",
    "\
 This writes all pending changes to disk.
@@ -469,7 +469,7 @@ This writes all pending changes to disk.
 The flags which were passed to C<guestfs_aug_init> affect exactly
 how files are saved.");
 
-  ("aug_load", (Err, []), 27, [],
+  ("aug_load", (RErr, []), 27, [],
    "load files into the tree",
    "\
 Load files into the tree.
@@ -661,7 +661,7 @@ let check_functions () =
       in
 
       (match fst style with
-       | Err -> ()
+       | RErr -> ()
        | RInt n | RBool n | RConstString n | RString n
        | RStringList n | RPVList n | RVGList n | RLVList n ->
 	   check_arg_ret_name n
@@ -778,7 +778,7 @@ let rec generate_actions_pod () =
       pr "\n\n";
       pr "%s\n\n" longdesc;
       (match fst style with
-       | Err ->
+       | RErr ->
 	   pr "This function returns 0 on success or -1 on error.\n\n"
        | RInt _ ->
 	   pr "On error this function returns -1.\n\n"
@@ -894,7 +894,7 @@ and generate_xdr () =
 	   pr "};\n\n"
       );
       (match fst style with
-       | Err -> ()
+       | RErr -> ()
        | RInt n ->
 	   pr "struct %s_ret {\n" name;
 	   pr "  int %s;\n" n;
@@ -1055,7 +1055,7 @@ and generate_client_actions () =
       pr "  struct guestfs_message_header hdr;\n";
       pr "  struct guestfs_message_error err;\n";
       (match fst style with
-       | Err -> ()
+       | RErr -> ()
        | RConstString _ ->
 	   failwithf "RConstString cannot be returned from a daemon function"
        | RInt _
@@ -1084,7 +1084,7 @@ and generate_client_actions () =
       pr "  }\n";
 
       (match fst style with
-       | Err -> ()
+       | RErr -> ()
        | RConstString _ ->
 	   failwithf "RConstString cannot be returned from a daemon function"
        | RInt _
@@ -1108,7 +1108,7 @@ and generate_client_actions () =
 
       let error_code =
 	match fst style with
-	| Err | RInt _ | RBool _ -> "-1"
+	| RErr | RInt _ | RBool _ -> "-1"
 	| RConstString _ ->
 	    failwithf "RConstString cannot be returned from a daemon function"
 	| RString _ | RStringList _ | RIntBool _
@@ -1184,7 +1184,7 @@ and generate_client_actions () =
       pr "\n";
 
       (match fst style with
-       | Err -> pr "  return 0;\n"
+       | RErr -> pr "  return 0;\n"
        | RInt n
        | RBool n -> pr "  return rv.ret.%s;\n" n
        | RConstString _ ->
@@ -1256,7 +1256,7 @@ and generate_daemon_actions () =
       pr "{\n";
       let error_code =
 	match fst style with
-	| Err | RInt _ -> pr "  int r;\n"; "-1"
+	| RErr | RInt _ -> pr "  int r;\n"; "-1"
 	| RBool _ -> pr "  int r;\n"; "-1"
 	| RConstString _ ->
 	    failwithf "RConstString cannot be returned from a daemon function"
@@ -1310,7 +1310,7 @@ and generate_daemon_actions () =
       pr "\n";
 
       (match fst style with
-       | Err -> pr "  reply (NULL, NULL);\n"
+       | RErr -> pr "  reply (NULL, NULL);\n"
        | RInt n ->
 	   pr "  struct guestfs_%s_ret ret;\n" name;
 	   pr "  ret.%s = r;\n" n;
@@ -1665,7 +1665,7 @@ FTP."
       pr "static int run_%s (const char *cmd, int argc, char *argv[])\n" name;
       pr "{\n";
       (match fst style with
-       | Err
+       | RErr
        | RInt _
        | RBool _ -> pr "  int r;\n"
        | RConstString _ -> pr "  const char *r;\n"
@@ -1715,7 +1715,7 @@ FTP."
 
       (* Check return value for errors and display command results. *)
       (match fst style with
-       | Err -> pr "  return r;\n"
+       | RErr -> pr "  return r;\n"
        | RInt _ ->
 	   pr "  if (r == -1) return -1;\n";
 	   pr "  if (r) printf (\"%%d\\n\", r);\n";
@@ -1832,7 +1832,7 @@ and generate_prototype ?(extern = true) ?(static = false) ?(semicolon = true)
   if extern then pr "extern ";
   if static then pr "static ";
   (match fst style with
-   | Err -> pr "int "
+   | RErr -> pr "int "
    | RInt _ -> pr "int "
    | RBool _ -> pr "int "
    | RConstString _ -> pr "const char *"
@@ -2075,7 +2075,7 @@ and generate_ocaml_c () =
       ) (snd style);
       let error_code =
 	match fst style with
-	| Err -> pr "  int r;\n"; "-1"
+	| RErr -> pr "  int r;\n"; "-1"
 	| RInt _ -> pr "  int r;\n"; "-1"
 	| RBool _ -> pr "  int r;\n"; "-1"
 	| RConstString _ -> pr "  const char *r;\n"; "NULL"
@@ -2108,7 +2108,7 @@ and generate_ocaml_c () =
       pr "\n";
 
       (match fst style with
-       | Err -> pr "  rv = Val_unit;\n"
+       | RErr -> pr "  rv = Val_unit;\n"
        | RInt _ -> pr "  rv = Val_int (r);\n"
        | RBool _ -> pr "  rv = Val_bool (r);\n"
        | RConstString _ -> pr "  rv = caml_copy_string (r);\n"
@@ -2167,7 +2167,7 @@ and generate_ocaml_prototype ?(is_external = false) name style =
     | Int _ -> pr "int -> "
   ) (snd style);
   (match fst style with
-   | Err -> pr "unit" (* all errors are turned into exceptions *)
+   | RErr -> pr "unit" (* all errors are turned into exceptions *)
    | RInt _ -> pr "int"
    | RBool _ -> pr "bool"
    | RConstString _ -> pr "string"
@@ -2263,7 +2263,7 @@ DESTROY (g)
   List.iter (
     fun (name, style, _, _, _, _) ->
       (match fst style with
-       | Err -> pr "void\n"
+       | RErr -> pr "void\n"
        | RInt _ -> pr "SV *\n"
        | RBool _ -> pr "SV *\n"
        | RConstString _ -> pr "SV *\n"
@@ -2287,7 +2287,7 @@ DESTROY (g)
       ) (snd style);
       (* Code. *)
       (match fst style with
-       | Err ->
+       | RErr ->
 	   pr " PPCODE:\n";
 	   pr "      if (guestfs_%s " name;
 	   generate_call_args ~handle:"g" style;
@@ -2528,7 +2528,7 @@ L<guestfs(3)>, L<guestfish(1)>.
 
 and generate_perl_prototype name style =
   (match fst style with
-   | Err -> ()
+   | RErr -> ()
    | RBool n
    | RInt n
    | RConstString n
