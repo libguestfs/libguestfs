@@ -231,6 +231,37 @@ struct guestfs_aug_ls_ret {
   str matches<>;
 };
 
+struct guestfs_rm_args {
+  string path<>;
+};
+
+struct guestfs_rmdir_args {
+  string path<>;
+};
+
+struct guestfs_rm_rf_args {
+  string path<>;
+};
+
+struct guestfs_mkdir_args {
+  string path<>;
+};
+
+struct guestfs_mkdir_p_args {
+  string path<>;
+};
+
+struct guestfs_chmod_args {
+  int mode;
+  string path<>;
+};
+
+struct guestfs_chown_args {
+  int owner;
+  int group;
+  string path<>;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -260,6 +291,13 @@ enum guestfs_procedure {
   GUESTFS_PROC_AUG_SAVE = 25,
   GUESTFS_PROC_AUG_LOAD = 27,
   GUESTFS_PROC_AUG_LS = 28,
+  GUESTFS_PROC_RM = 29,
+  GUESTFS_PROC_RMDIR = 30,
+  GUESTFS_PROC_RM_RF = 31,
+  GUESTFS_PROC_MKDIR = 32,
+  GUESTFS_PROC_MKDIR_P = 33,
+  GUESTFS_PROC_CHMOD = 34,
+  GUESTFS_PROC_CHOWN = 35,
   GUESTFS_PROC_dummy
 };
 

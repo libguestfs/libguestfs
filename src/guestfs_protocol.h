@@ -299,6 +299,44 @@ struct guestfs_aug_ls_ret {
 };
 typedef struct guestfs_aug_ls_ret guestfs_aug_ls_ret;
 
+struct guestfs_rm_args {
+	char *path;
+};
+typedef struct guestfs_rm_args guestfs_rm_args;
+
+struct guestfs_rmdir_args {
+	char *path;
+};
+typedef struct guestfs_rmdir_args guestfs_rmdir_args;
+
+struct guestfs_rm_rf_args {
+	char *path;
+};
+typedef struct guestfs_rm_rf_args guestfs_rm_rf_args;
+
+struct guestfs_mkdir_args {
+	char *path;
+};
+typedef struct guestfs_mkdir_args guestfs_mkdir_args;
+
+struct guestfs_mkdir_p_args {
+	char *path;
+};
+typedef struct guestfs_mkdir_p_args guestfs_mkdir_p_args;
+
+struct guestfs_chmod_args {
+	int mode;
+	char *path;
+};
+typedef struct guestfs_chmod_args guestfs_chmod_args;
+
+struct guestfs_chown_args {
+	int owner;
+	int group;
+	char *path;
+};
+typedef struct guestfs_chown_args guestfs_chown_args;
+
 enum guestfs_procedure {
 	GUESTFS_PROC_MOUNT = 1,
 	GUESTFS_PROC_SYNC = 2,
@@ -328,7 +366,14 @@ enum guestfs_procedure {
 	GUESTFS_PROC_AUG_SAVE = 25,
 	GUESTFS_PROC_AUG_LOAD = 27,
 	GUESTFS_PROC_AUG_LS = 28,
-	GUESTFS_PROC_dummy = 28 + 1,
+	GUESTFS_PROC_RM = 29,
+	GUESTFS_PROC_RMDIR = 30,
+	GUESTFS_PROC_RM_RF = 31,
+	GUESTFS_PROC_MKDIR = 32,
+	GUESTFS_PROC_MKDIR_P = 33,
+	GUESTFS_PROC_CHMOD = 34,
+	GUESTFS_PROC_CHOWN = 35,
+	GUESTFS_PROC_dummy = 35 + 1,
 };
 typedef enum guestfs_procedure guestfs_procedure;
 #define GUESTFS_MESSAGE_MAX 4194304
@@ -407,6 +452,13 @@ extern  bool_t xdr_guestfs_aug_match_args (XDR *, guestfs_aug_match_args*);
 extern  bool_t xdr_guestfs_aug_match_ret (XDR *, guestfs_aug_match_ret*);
 extern  bool_t xdr_guestfs_aug_ls_args (XDR *, guestfs_aug_ls_args*);
 extern  bool_t xdr_guestfs_aug_ls_ret (XDR *, guestfs_aug_ls_ret*);
+extern  bool_t xdr_guestfs_rm_args (XDR *, guestfs_rm_args*);
+extern  bool_t xdr_guestfs_rmdir_args (XDR *, guestfs_rmdir_args*);
+extern  bool_t xdr_guestfs_rm_rf_args (XDR *, guestfs_rm_rf_args*);
+extern  bool_t xdr_guestfs_mkdir_args (XDR *, guestfs_mkdir_args*);
+extern  bool_t xdr_guestfs_mkdir_p_args (XDR *, guestfs_mkdir_p_args*);
+extern  bool_t xdr_guestfs_chmod_args (XDR *, guestfs_chmod_args*);
+extern  bool_t xdr_guestfs_chown_args (XDR *, guestfs_chown_args*);
 extern  bool_t xdr_guestfs_procedure (XDR *, guestfs_procedure*);
 extern  bool_t xdr_guestfs_message_direction (XDR *, guestfs_message_direction*);
 extern  bool_t xdr_guestfs_message_status (XDR *, guestfs_message_status*);
@@ -455,6 +507,13 @@ extern bool_t xdr_guestfs_aug_match_args ();
 extern bool_t xdr_guestfs_aug_match_ret ();
 extern bool_t xdr_guestfs_aug_ls_args ();
 extern bool_t xdr_guestfs_aug_ls_ret ();
+extern bool_t xdr_guestfs_rm_args ();
+extern bool_t xdr_guestfs_rmdir_args ();
+extern bool_t xdr_guestfs_rm_rf_args ();
+extern bool_t xdr_guestfs_mkdir_args ();
+extern bool_t xdr_guestfs_mkdir_p_args ();
+extern bool_t xdr_guestfs_chmod_args ();
+extern bool_t xdr_guestfs_chown_args ();
 extern bool_t xdr_guestfs_procedure ();
 extern bool_t xdr_guestfs_message_direction ();
 extern bool_t xdr_guestfs_message_status ();

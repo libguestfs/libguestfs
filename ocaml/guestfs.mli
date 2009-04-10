@@ -214,3 +214,24 @@ val aug_load : t -> unit
 val aug_ls : t -> string -> string array
 (** list Augeas nodes under a path *)
 
+val rm : t -> string -> unit
+(** remove a file *)
+
+val rmdir : t -> string -> unit
+(** remove a directory *)
+
+val rm_rf : t -> string -> unit
+(** remove a file or directory recursively *)
+
+val mkdir : t -> string -> unit
+(** create a directory *)
+
+val mkdir_p : t -> string -> unit
+(** create a directory and parents *)
+
+val chmod : t -> int -> string -> unit
+(** change file mode *)
+
+val chown : t -> int -> int -> string -> unit
+(** change file owner and group *)
+

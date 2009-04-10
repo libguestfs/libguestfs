@@ -543,6 +543,82 @@ xdr_guestfs_aug_ls_ret (XDR *xdrs, guestfs_aug_ls_ret *objp)
 }
 
 bool_t
+xdr_guestfs_rm_args (XDR *xdrs, guestfs_rm_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->path, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_rmdir_args (XDR *xdrs, guestfs_rmdir_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->path, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_rm_rf_args (XDR *xdrs, guestfs_rm_rf_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->path, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_mkdir_args (XDR *xdrs, guestfs_mkdir_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->path, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_mkdir_p_args (XDR *xdrs, guestfs_mkdir_p_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->path, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_chmod_args (XDR *xdrs, guestfs_chmod_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_int (xdrs, &objp->mode))
+		 return FALSE;
+	 if (!xdr_string (xdrs, &objp->path, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_chown_args (XDR *xdrs, guestfs_chown_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_int (xdrs, &objp->owner))
+		 return FALSE;
+	 if (!xdr_int (xdrs, &objp->group))
+		 return FALSE;
+	 if (!xdr_string (xdrs, &objp->path, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
 xdr_guestfs_procedure (XDR *xdrs, guestfs_procedure *objp)
 {
 	register int32_t *buf;

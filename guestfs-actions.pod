@@ -257,6 +257,32 @@ Because of the message protocol, there is a transfer limit
 of somewhere between 2MB and 4MB.  To transfer large files you should use
 FTP.
 
+=head2 guestfs_chmod
+
+ int guestfs_chmod (guestfs_h *handle,
+		int mode,
+		const char *path);
+
+Change the mode (permissions) of C<path> to C<mode>.  Only
+numeric modes are supported.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_chown
+
+ int guestfs_chown (guestfs_h *handle,
+		int owner,
+		int group,
+		const char *path);
+
+Change the file owner to C<owner> and group to C<group>.
+
+Only numeric uid and gid are supported.  If you want to use
+names, you will need to locate and parse the password file
+yourself (Augeas support makes this relatively easy).
+
+This function returns 0 on success or -1 on error.
+
 =head2 guestfs_config
 
  int guestfs_config (guestfs_h *handle,
@@ -405,6 +431,25 @@ of the L<lvs(8)> command.  The "full" version includes all fields.
 This function returns a C<struct guestfs_lvm_lv_list *>.
 I<The caller must call C<guestfs_free_lvm_lv_list> after use>.
 
+=head2 guestfs_mkdir
+
+ int guestfs_mkdir (guestfs_h *handle,
+		const char *path);
+
+Create a directory named C<path>.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_mkdir_p
+
+ int guestfs_mkdir_p (guestfs_h *handle,
+		const char *path);
+
+Create a directory named C<path>, creating any parent directories
+as necessary.  This is like the C<mkdir -p> shell command.
+
+This function returns 0 on success or -1 on error.
+
 =head2 guestfs_mount
 
  int guestfs_mount (guestfs_h *handle,
@@ -474,6 +519,35 @@ function which has a more complex interface.
 This function returns a NULL-terminated array of strings
 (like L<environ(3)>), or NULL if there was an error.
 I<The caller must free the strings and the array after use>.
+
+=head2 guestfs_rm
+
+ int guestfs_rm (guestfs_h *handle,
+		const char *path);
+
+Remove the single file C<path>.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_rm_rf
+
+ int guestfs_rm_rf (guestfs_h *handle,
+		const char *path);
+
+Remove the file or directory C<path>, recursively removing the
+contents if its a directory.  This is like the C<rm -rf> shell
+command.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_rmdir
+
+ int guestfs_rmdir (guestfs_h *handle,
+		const char *path);
+
+Remove the single directory C<path>.
+
+This function returns 0 on success or -1 on error.
 
 =head2 guestfs_set_autosync
 

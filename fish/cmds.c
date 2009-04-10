@@ -47,6 +47,8 @@ void list_commands (void)
   printf ("%-20s %s\n", "aug-save", "write all pending Augeas changes to disk");
   printf ("%-20s %s\n", "aug-set", "set Augeas path to value");
   printf ("%-20s %s\n", "cat", "list the contents of a file");
+  printf ("%-20s %s\n", "chmod", "change file mode");
+  printf ("%-20s %s\n", "chown", "change file owner and group");
   printf ("%-20s %s\n", "config", "add qemu parameters");
   printf ("%-20s %s\n", "get-autosync", "get autosync mode");
   printf ("%-20s %s\n", "get-path", "get the search path");
@@ -59,10 +61,15 @@ void list_commands (void)
   printf ("%-20s %s\n", "ls", "list the files in a directory");
   printf ("%-20s %s\n", "lvs", "list the LVM logical volumes (LVs)");
   printf ("%-20s %s\n", "lvs-full", "list the LVM logical volumes (LVs)");
+  printf ("%-20s %s\n", "mkdir", "create a directory");
+  printf ("%-20s %s\n", "mkdir-p", "create a directory and parents");
   printf ("%-20s %s\n", "mount", "mount a guest disk at a position in the filesystem");
   printf ("%-20s %s\n", "pvs", "list the LVM physical volumes (PVs)");
   printf ("%-20s %s\n", "pvs-full", "list the LVM physical volumes (PVs)");
   printf ("%-20s %s\n", "read-lines", "read file as lines");
+  printf ("%-20s %s\n", "rm", "remove a file");
+  printf ("%-20s %s\n", "rm-rf", "remove a file or directory recursively");
+  printf ("%-20s %s\n", "rmdir", "remove a directory");
   printf ("%-20s %s\n", "set-autosync", "set autosync mode");
   printf ("%-20s %s\n", "set-path", "set the search path");
   printf ("%-20s %s\n", "set-verbose", "set verbose mode");
@@ -191,6 +198,27 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "aug_ls") == 0 || strcasecmp (cmd, "aug-ls") == 0)
     pod2text ("aug-ls - list Augeas nodes under a path", " aug-ls <path>\n\nThis is just a shortcut for listing C<aug_match>\nC<path/*> and sorting the resulting nodes into alphabetical order.");
+  else
+  if (strcasecmp (cmd, "rm") == 0)
+    pod2text ("rm - remove a file", " rm <path>\n\nRemove the single file C<path>.");
+  else
+  if (strcasecmp (cmd, "rmdir") == 0)
+    pod2text ("rmdir - remove a directory", " rmdir <path>\n\nRemove the single directory C<path>.");
+  else
+  if (strcasecmp (cmd, "rm_rf") == 0 || strcasecmp (cmd, "rm-rf") == 0)
+    pod2text ("rm-rf - remove a file or directory recursively", " rm-rf <path>\n\nRemove the file or directory C<path>, recursively removing the\ncontents if its a directory.  This is like the C<rm -rf> shell\ncommand.");
+  else
+  if (strcasecmp (cmd, "mkdir") == 0)
+    pod2text ("mkdir - create a directory", " mkdir <path>\n\nCreate a directory named C<path>.");
+  else
+  if (strcasecmp (cmd, "mkdir_p") == 0 || strcasecmp (cmd, "mkdir-p") == 0)
+    pod2text ("mkdir-p - create a directory and parents", " mkdir-p <path>\n\nCreate a directory named C<path>, creating any parent directories\nas necessary.  This is like the C<mkdir -p> shell command.");
+  else
+  if (strcasecmp (cmd, "chmod") == 0)
+    pod2text ("chmod - change file mode", " chmod <mode> <path>\n\nChange the mode (permissions) of C<path> to C<mode>.  Only\nnumeric modes are supported.");
+  else
+  if (strcasecmp (cmd, "chown") == 0)
+    pod2text ("chown - change file owner and group", " chown <owner> <group> <path>\n\nChange the file owner to C<owner> and group to C<group>.\n\nOnly numeric uid and gid are supported.  If you want to use\nnames, you will need to locate and parse the password file\nyourself (Augeas support makes this relatively easy).");
   else
     display_builtin_command (cmd);
 }
@@ -888,6 +916,110 @@ static int run_aug_ls (const char *cmd, int argc, char *argv[])
   return 0;
 }
 
+static int run_rm (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *path;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  path = argv[0];
+  r = guestfs_rm (g, path);
+  return r;
+}
+
+static int run_rmdir (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *path;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  path = argv[0];
+  r = guestfs_rmdir (g, path);
+  return r;
+}
+
+static int run_rm_rf (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *path;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  path = argv[0];
+  r = guestfs_rm_rf (g, path);
+  return r;
+}
+
+static int run_mkdir (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *path;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  path = argv[0];
+  r = guestfs_mkdir (g, path);
+  return r;
+}
+
+static int run_mkdir_p (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *path;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  path = argv[0];
+  r = guestfs_mkdir_p (g, path);
+  return r;
+}
+
+static int run_chmod (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  int mode;
+  const char *path;
+  if (argc != 2) {
+    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  mode = atoi (argv[0]);
+  path = argv[1];
+  r = guestfs_chmod (g, mode, path);
+  return r;
+}
+
+static int run_chown (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  int owner;
+  int group;
+  const char *path;
+  if (argc != 3) {
+    fprintf (stderr, "%s should have 3 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  owner = atoi (argv[0]);
+  group = atoi (argv[1]);
+  path = argv[2];
+  r = guestfs_chown (g, owner, group, path);
+  return r;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -1006,6 +1138,27 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "aug_ls") == 0 || strcasecmp (cmd, "aug-ls") == 0)
     return run_aug_ls (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "rm") == 0)
+    return run_rm (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "rmdir") == 0)
+    return run_rmdir (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "rm_rf") == 0 || strcasecmp (cmd, "rm-rf") == 0)
+    return run_rm_rf (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "mkdir") == 0)
+    return run_mkdir (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "mkdir_p") == 0 || strcasecmp (cmd, "mkdir-p") == 0)
+    return run_mkdir_p (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "chmod") == 0)
+    return run_chmod (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "chown") == 0)
+    return run_chown (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

@@ -258,6 +258,19 @@ Because of the message protocol, there is a transfer limit
 of somewhere between 2MB and 4MB.  To transfer large files you should use
 FTP.
 
+=item $h->chmod (mode, path);
+
+Change the mode (permissions) of C<path> to C<mode>.  Only
+numeric modes are supported.
+
+=item $h->chown (owner, group, path);
+
+Change the file owner to C<owner> and group to C<group>.
+
+Only numeric uid and gid are supported.  If you want to use
+names, you will need to locate and parse the password file
+yourself (Augeas support makes this relatively easy).
+
 =item $h->config (qemuparam, qemuvalue);
 
 This can be used to add arbitrary qemu command line parameters
@@ -343,6 +356,15 @@ See also C<$h-E<gt>lvs_full>.
 List all the logical volumes detected.  This is the equivalent
 of the L<lvs(8)> command.  The "full" version includes all fields.
 
+=item $h->mkdir (path);
+
+Create a directory named C<path>.
+
+=item $h->mkdir_p (path);
+
+Create a directory named C<path>, creating any parent directories
+as necessary.  This is like the C<mkdir -p> shell command.
+
 =item $h->mount (device, mountpoint);
 
 Mount a guest disk at a position in the filesystem.  Block devices
@@ -388,6 +410,20 @@ Note that this function cannot correctly handle binary files
 (specifically, files containing C<\0> character which is treated
 as end of line).  For those you need to use the C<$h-E<gt>read_file>
 function which has a more complex interface.
+
+=item $h->rm (path);
+
+Remove the single file C<path>.
+
+=item $h->rm_rf (path);
+
+Remove the file or directory C<path>, recursively removing the
+contents if its a directory.  This is like the C<rm -rf> shell
+command.
+
+=item $h->rmdir (path);
+
+Remove the single directory C<path>.
 
 =item $h->set_autosync (autosync);
 

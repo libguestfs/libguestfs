@@ -1183,3 +1183,167 @@ ocaml_guestfs_aug_ls (value gv, value pathv)
   CAMLreturn (rv);
 }
 
+CAMLprim value
+ocaml_guestfs_rm (value gv, value pathv)
+{
+  CAMLparam2 (gv, pathv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("rm: used handle after closing it");
+
+  const char *path = String_val (pathv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_rm (g, path);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "rm");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_rmdir (value gv, value pathv)
+{
+  CAMLparam2 (gv, pathv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("rmdir: used handle after closing it");
+
+  const char *path = String_val (pathv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_rmdir (g, path);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "rmdir");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_rm_rf (value gv, value pathv)
+{
+  CAMLparam2 (gv, pathv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("rm_rf: used handle after closing it");
+
+  const char *path = String_val (pathv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_rm_rf (g, path);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "rm_rf");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_mkdir (value gv, value pathv)
+{
+  CAMLparam2 (gv, pathv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("mkdir: used handle after closing it");
+
+  const char *path = String_val (pathv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_mkdir (g, path);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "mkdir");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_mkdir_p (value gv, value pathv)
+{
+  CAMLparam2 (gv, pathv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("mkdir_p: used handle after closing it");
+
+  const char *path = String_val (pathv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_mkdir_p (g, path);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "mkdir_p");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_chmod (value gv, value modev, value pathv)
+{
+  CAMLparam3 (gv, modev, pathv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("chmod: used handle after closing it");
+
+  int mode = Int_val (modev);
+  const char *path = String_val (pathv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_chmod (g, mode, path);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "chmod");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_chown (value gv, value ownerv, value groupv, value pathv)
+{
+  CAMLparam4 (gv, ownerv, groupv, pathv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("chown: used handle after closing it");
+
+  int owner = Int_val (ownerv);
+  int group = Int_val (groupv);
+  const char *path = String_val (pathv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_chown (g, owner, group, path);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "chown");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+

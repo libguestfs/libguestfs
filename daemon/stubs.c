@@ -606,6 +606,166 @@ static void aug_ls_stub (XDR *xdr_in)
   free_strings (r);
 }
 
+static void rm_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_rm_args args;
+  const char *path;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_rm_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "rm");
+    return;
+  }
+  path = args.path;
+
+  r = do_rm (path);
+  if (r == -1)
+    /* do_rm has already called reply_with_error, so just return */
+    return;
+
+  reply (NULL, NULL);
+}
+
+static void rmdir_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_rmdir_args args;
+  const char *path;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_rmdir_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "rmdir");
+    return;
+  }
+  path = args.path;
+
+  r = do_rmdir (path);
+  if (r == -1)
+    /* do_rmdir has already called reply_with_error, so just return */
+    return;
+
+  reply (NULL, NULL);
+}
+
+static void rm_rf_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_rm_rf_args args;
+  const char *path;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_rm_rf_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "rm_rf");
+    return;
+  }
+  path = args.path;
+
+  r = do_rm_rf (path);
+  if (r == -1)
+    /* do_rm_rf has already called reply_with_error, so just return */
+    return;
+
+  reply (NULL, NULL);
+}
+
+static void mkdir_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_mkdir_args args;
+  const char *path;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_mkdir_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "mkdir");
+    return;
+  }
+  path = args.path;
+
+  r = do_mkdir (path);
+  if (r == -1)
+    /* do_mkdir has already called reply_with_error, so just return */
+    return;
+
+  reply (NULL, NULL);
+}
+
+static void mkdir_p_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_mkdir_p_args args;
+  const char *path;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_mkdir_p_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "mkdir_p");
+    return;
+  }
+  path = args.path;
+
+  r = do_mkdir_p (path);
+  if (r == -1)
+    /* do_mkdir_p has already called reply_with_error, so just return */
+    return;
+
+  reply (NULL, NULL);
+}
+
+static void chmod_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_chmod_args args;
+  int mode;
+  const char *path;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_chmod_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "chmod");
+    return;
+  }
+  mode = args.mode;
+  path = args.path;
+
+  r = do_chmod (mode, path);
+  if (r == -1)
+    /* do_chmod has already called reply_with_error, so just return */
+    return;
+
+  reply (NULL, NULL);
+}
+
+static void chown_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_chown_args args;
+  int owner;
+  int group;
+  const char *path;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_chown_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "chown");
+    return;
+  }
+  owner = args.owner;
+  group = args.group;
+  path = args.path;
+
+  r = do_chown (owner, group, path);
+  if (r == -1)
+    /* do_chown has already called reply_with_error, so just return */
+    return;
+
+  reply (NULL, NULL);
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -692,6 +852,27 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_AUG_LS:
       aug_ls_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_RM:
+      rm_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_RMDIR:
+      rmdir_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_RM_RF:
+      rm_rf_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_MKDIR:
+      mkdir_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_MKDIR_P:
+      mkdir_p_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_CHMOD:
+      chmod_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_CHOWN:
+      chown_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d", proc_nr);

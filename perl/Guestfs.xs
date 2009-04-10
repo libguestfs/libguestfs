@@ -642,3 +642,62 @@ PREINIT:
       }
       free (matches);
 
+void
+rm (g, path)
+      guestfs_h *g;
+      char *path;
+ PPCODE:
+      if (guestfs_rm (g, path) == -1)
+        croak ("rm: %s", last_error);
+
+void
+rmdir (g, path)
+      guestfs_h *g;
+      char *path;
+ PPCODE:
+      if (guestfs_rmdir (g, path) == -1)
+        croak ("rmdir: %s", last_error);
+
+void
+rm_rf (g, path)
+      guestfs_h *g;
+      char *path;
+ PPCODE:
+      if (guestfs_rm_rf (g, path) == -1)
+        croak ("rm_rf: %s", last_error);
+
+void
+mkdir (g, path)
+      guestfs_h *g;
+      char *path;
+ PPCODE:
+      if (guestfs_mkdir (g, path) == -1)
+        croak ("mkdir: %s", last_error);
+
+void
+mkdir_p (g, path)
+      guestfs_h *g;
+      char *path;
+ PPCODE:
+      if (guestfs_mkdir_p (g, path) == -1)
+        croak ("mkdir_p: %s", last_error);
+
+void
+chmod (g, mode, path)
+      guestfs_h *g;
+      int mode;
+      char *path;
+ PPCODE:
+      if (guestfs_chmod (g, mode, path) == -1)
+        croak ("chmod: %s", last_error);
+
+void
+chown (g, owner, group, path)
+      guestfs_h *g;
+      int owner;
+      int group;
+      char *path;
+ PPCODE:
+      if (guestfs_chown (g, owner, group, path) == -1)
+        croak ("chown: %s", last_error);
+
