@@ -23,6 +23,7 @@ guestfsd_SOURCES = \
 	augeas.c \
 	daemon.h \
 	devsparts.c \
+	dir.c \
 	file.c \
 	guestfsd.c \
 	ls.c \

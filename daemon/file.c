@@ -180,3 +180,63 @@ do_read_lines (const char *path)
 
   return r;
 }
+
+int
+do_rm (const char *path)
+{
+  int r;
+
+  NEED_ROOT (-1);
+  ABS_PATH (path, -1);
+
+  CHROOT_IN;
+  r = unlink (path);
+  CHROOT_OUT;
+
+  if (r == -1) {
+    reply_with_perror ("unlink: %s", path);
+    return -1;
+  }
+
+  return 0;
+}
+
+int
+do_chmod (int mode, const char *path)
+{
+  int r;
+
+  NEED_ROOT (-1);
+  ABS_PATH (path, -1);
+
+  CHROOT_IN;
+  r = chmod (path, mode);
+  CHROOT_OUT;
+
+  if (r == -1) {
+    reply_with_perror ("chmod: %s: 0%o", path, mode);
+    return -1;
+  }
+
+  return 0;
+}
+
+int
+do_chown (int owner, int group, const char *path)
+{
+  int r;
+
+  NEED_ROOT (-1);
+  ABS_PATH (path, -1);
+
+  CHROOT_IN;
+  r = chown (path, owner, group);
+  CHROOT_OUT;
+
+  if (r == -1) {
+    reply_with_perror ("chown: %s: %d.%d", path, owner, group);
+    return -1;
+  }
+
+  return 0;
+}

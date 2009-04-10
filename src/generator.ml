@@ -64,6 +64,14 @@ and ret =
   | RVGList of string
   | RLVList of string
 and args = argt list	(* Function parameters, guestfs handle is implicit. *)
+
+    (* Note in future we should allow a "variable args" parameter as
+     * the final parameter, to allow commands like
+     *   chmod mode file [file(s)...]
+     * This is not implemented yet, but many commands (such as chmod)
+     * are currently defined with the argument order keeping this future
+     * possibility in mind.
+     *)
 and argt =
   | String of string	(* const char *name, cannot be NULL *)
   | OptString of string	(* const char *name, may be NULL *)
@@ -483,6 +491,48 @@ details.");
 This is just a shortcut for listing C<guestfs_aug_match>
 C<path/*> and sorting the resulting nodes into alphabetical order.");
 
+  ("rm", (RErr, [String "path"]), 29, [],
+   "remove a file",
+   "\
+Remove the single file C<path>.");
+
+  ("rmdir", (RErr, [String "path"]), 30, [],
+   "remove a directory",
+   "\
+Remove the single directory C<path>.");
+
+  ("rm_rf", (RErr, [String "path"]), 31, [],
+   "remove a file or directory recursively",
+   "\
+Remove the file or directory C<path>, recursively removing the
+contents if its a directory.  This is like the C<rm -rf> shell
+command.");
+
+  ("mkdir", (RErr, [String "path"]), 32, [],
+   "create a directory",
+   "\
+Create a directory named C<path>.");
+
+  ("mkdir_p", (RErr, [String "path"]), 33, [],
+   "create a directory and parents",
+   "\
+Create a directory named C<path>, creating any parent directories
+as necessary.  This is like the C<mkdir -p> shell command.");
+
+  ("chmod", (RErr, [Int "mode"; String "path"]), 34, [],
+   "change file mode",
+   "\
+Change the mode (permissions) of C<path> to C<mode>.  Only
+numeric modes are supported.");
+
+  ("chown", (RErr, [Int "owner"; Int "group"; String "path"]), 35, [],
+   "change file owner and group",
+   "\
+Change the file owner to C<owner> and group to C<group>.
+
+Only numeric uid and gid are supported.  If you want to use
+names, you will need to locate and parse the password file
+yourself (Augeas support makes this relatively easy).");
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
