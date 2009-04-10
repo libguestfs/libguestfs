@@ -25,7 +25,7 @@
  * After editing this file, run it (./src/generator.ml) to regenerate
  * all the output files.
  *
- * IMPORTANT: This script should not print any warnings.  If it prints
+ * IMPORTANT: This script should NOT print any warnings.  If it prints
  * warnings, you should treat them as errors.
  * [Need to add -warn-error to ocaml command line]
  *)
@@ -617,10 +617,6 @@ let iteri f xs =
   in
   loop 0 xs
 
-(* 'pr' prints to the current output file. *)
-let chan = ref stdout
-let pr fs = ksprintf (output_string !chan) fs
-
 let name_of_argt = function String n | OptString n | Bool n | Int n -> n
 
 (* Check function names etc. for consistency. *)
@@ -712,11 +708,15 @@ let check_functions () =
   in
   loop proc_nrs
 
+(* 'pr' prints to the current output file. *)
+let chan = ref stdout
+let pr fs = ksprintf (output_string !chan) fs
+
+(* Generate a header block in a number of standard styles. *)
 type comment_style = CStyle | HashStyle | OCamlStyle
 type license = GPLv2 | LGPLv2
 
-(* Generate a header block in a number of standard styles. *)
-let rec generate_header comment license =
+let generate_header comment license =
   let c = match comment with
     | CStyle ->     pr "/* "; " *"
     | HashStyle ->  pr "# ";  "#"
@@ -765,8 +765,10 @@ let rec generate_header comment license =
   );
   pr "\n"
 
+(* Start of main code generation functions below this line. *)
+
 (* Generate the pod documentation for the C API. *)
-and generate_actions_pod () =
+let rec generate_actions_pod () =
   List.iter (
     fun (shortname, style, _, flags, _, longdesc) ->
       let name = "guestfs_" ^ shortname in
@@ -842,8 +844,9 @@ and generate_structs_pod () =
   ) ["pv", pv_cols; "vg", vg_cols; "lv", lv_cols]
 
 (* Generate the protocol (XDR) file, 'guestfs_protocol.x' and
- * indirectly 'guestfs_protocol.h' and 'guestfs_protocol.c'.  We
- * have to use an underscore instead of a dash because otherwise
+ * indirectly 'guestfs_protocol.h' and 'guestfs_protocol.c'.
+ *
+ * We have to use an underscore instead of a dash because otherwise
  * rpcgen generates incorrect code.
  *
  * This header is NOT exported to clients, but see also generate_structs_h.
@@ -2560,6 +2563,15 @@ let output_to filename =
 (* Main program. *)
 let () =
   check_functions ();
+
+  if not (Sys.file_exists "configure.ac") then (
+    eprintf "\
+You are probably running this from the wrong directory.
+Run it from the top source directory using the command
+  src/generator.ml
+";
+    exit 1
+  );
 
   let close = output_to "src/guestfs_protocol.x" in
   generate_xdr ();
