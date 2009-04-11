@@ -18,12 +18,13 @@
 EXTRA_DIST = \
 	Makefile.PL.in \
 	Guestfs.xs \
-	typemap \
-	lib/Sys/Guestfs.pm \
 	examples/README \
 	examples/LICENSE \
 	examples/*.pl \
-	t/*.t
+	lib/Sys/Guestfs.pm \
+	run-perl-tests \
+	t/*.t \
+	typemap
 
 CLEANFILES = *~ examples/*~ t/*~
 

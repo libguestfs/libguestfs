@@ -161,8 +161,8 @@ rm -rf .deps .libs
 popd
 
 # Same for ocaml/examples.
-cp -a ocaml/examples ocaml-ex
-pushd ocaml-ex
+cp -a ocaml/examples ocaml/ex
+pushd ocaml/ex
 make clean
 rm Makefile*
 popd
@@ -217,7 +217,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files ocaml-devel
 %defattr(-,root,root,-)
-%doc ocaml-ex
+%doc ocaml/ex
 %{_libdir}/ocaml/guestfs/*.a
 %{_libdir}/ocaml/guestfs/*.cmxa
 %{_libdir}/ocaml/guestfs/*.cmx
