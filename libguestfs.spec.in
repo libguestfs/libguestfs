@@ -151,14 +151,18 @@ rm $RPM_BUILD_ROOT%{_libdir}/libguestfs.a
 rm $RPM_BUILD_ROOT%{_libdir}/libguestfs.la
 
 # Clean up the examples/ directory which will get installed in %doc.
-pushd examples
+# Note we can't delete the original examples/Makefile because that
+# will be needed by the check section later in the RPM build.
+cp -a examples ex
+pushd ex
 make clean
 rm Makefile*
 rm -rf .deps .libs
 popd
 
 # Same for ocaml/examples.
-pushd ocaml/examples
+cp -a ocaml/examples ocaml-ex
+pushd ocaml-ex
 make clean
 rm Makefile*
 popd
@@ -185,7 +189,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(-,root,root,-)
-%doc HACKING README examples html/guestfs.3.html html/pod.css
+%doc HACKING README ex html/guestfs.3.html html/pod.css
 %{_libdir}/libguestfs.so
 %{_mandir}/man3/guestfs.3*
 %{_includedir}/guestfs.h
@@ -213,7 +217,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files ocaml-devel
 %defattr(-,root,root,-)
-%doc ocaml/examples
+%doc ocaml-ex
 %{_libdir}/ocaml/guestfs/*.a
 %{_libdir}/ocaml/guestfs/*.cmxa
 %{_libdir}/ocaml/guestfs/*.cmx
