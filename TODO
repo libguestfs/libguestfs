@@ -1,0 +1,32 @@
+We badly need to actually implement the FTP server mentioned in the
+documentation.
+
+----------------------------------------------------------------------
+
+Use a real scanner in guestfish.  Suggest:
+
+    "..."	strings
+    '...'
+    [...]	matching [ and ]
+
+----------------------------------------------------------------------
+
+(From Ján ONDREJ (SAL))
+
+We should provide a way to stream partitions in and out.
+
+Thus:
+
+dd-out /dev/sda1 > [some file]
+
+dd-in /dev/sda1 < [some file]
+
+Along with this, we need to be able to call the resize2fs program to
+resize the filesystem in case it is larger or smaller than the target
+partition.
+
+Another useful feature would be to allow rsync to/from a stream for
+whole filesystems and subdirectories.
+
+The current protocol is message-oriented and doesn't support
+streaming.  But it's simple enough that we could add this.
