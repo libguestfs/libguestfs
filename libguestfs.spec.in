@@ -16,11 +16,12 @@ BuildRoot:   %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires: /usr/bin/pod2man
 BuildRequires: /usr/bin/pod2text
 BuildRequires: febootstrap >= 1.5
-BuildRequires: augeas-devel
+BuildRequires: augeas-devel >= 0.5.0
 BuildRequires: qemu
 
 # If you want to build the bindings for different languages:
 BuildRequires: ocaml
+BuildRequires: ocaml-findlib-devel
 BuildRequires: perl-devel
 BuildRequires: perl-Test-Pod
 BuildRequires: perl-Test-Pod-Coverage
