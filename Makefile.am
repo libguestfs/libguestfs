@@ -35,7 +35,7 @@ EXTRA_DIST = \
 	guestfish.pod guestfish-actions.pod \
 	libguestfs.spec \
 	html/pod.css \
-	HACKING \
+	HACKING TODO \
 	tests.c
 
 # Build the root filesystem.

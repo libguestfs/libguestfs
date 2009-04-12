@@ -191,7 +191,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(-,root,root,-)
-%doc HACKING README ex html/guestfs.3.html html/pod.css
+%doc HACKING TODO README ex html/guestfs.3.html html/pod.css
 %{_libdir}/libguestfs.so
 %{_mandir}/man3/guestfs.3*
 %{_includedir}/guestfs.h
