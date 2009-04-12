@@ -476,8 +476,6 @@ parse_size (const char *str, off_t *size_rtn)
     return -1;
   }
 
-  printf ("size = %lu\n", size);
-
   /* XXX 32 bit file offsets, if anyone uses them?  GCC should give
    * a warning here anyhow.
    */
@@ -540,7 +538,7 @@ parse_string_list (const char *str)
     pend = strchrnul (p, ':');
     argv[i] = strndup (p, pend-p);
     i++;
-    p = *pend == ':' ? pend+1 : p;
+    p = *pend == ':' ? pend+1 : pend;
   }
   argv[i] = NULL;
 
