@@ -90,6 +90,7 @@ do_aug_close (void)
 int
 do_aug_defvar (const char *name, const char *expr)
 {
+#ifdef HAVE_AUG_DEFVAR
   int r;
 
   NEED_AUG (-1);
@@ -100,11 +101,16 @@ do_aug_defvar (const char *name, const char *expr)
     return -1;
   }
   return r;
+#else
+  reply_with_error ("aug_defvar is not available");
+  return -1;
+#endif
 }
 
 guestfs_aug_defnode_ret *
 do_aug_defnode (const char *name, const char *expr, const char *val)
 {
+#ifdef HAVE_AUG_DEFNODE
   static guestfs_aug_defnode_ret r;
   int created;
 
@@ -117,6 +123,10 @@ do_aug_defnode (const char *name, const char *expr, const char *val)
   }
   r.created = created;
   return &r;
+#else
+  reply_with_error ("aug_defvar is not available");
+  return NULL;
+#endif
 }
 
 char *
@@ -267,6 +277,7 @@ do_aug_save (void)
 int
 do_aug_load (void)
 {
+#ifdef HAVE_AUG_LOAD
   NEED_AUG (-1);
 
   if (aug_load (aug) == -1) {
@@ -275,6 +286,10 @@ do_aug_load (void)
   }
 
   return 0;
+#else
+  reply_with_error ("aug_load is not available");
+  return -1;
+#endif
 }
 
 /* Simpler version of aug-match, which also sorts the output. */

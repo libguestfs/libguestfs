@@ -15,7 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-AC_INIT([libguestfs-daemon],[0.7])
+AC_INIT([libguestfs-daemon],[0.8.2])
 AM_INIT_AUTOMAKE
 
 AC_CONFIG_MACRO_DIR([m4])
@@ -41,6 +41,9 @@ dnl Check for Augeas.
 AC_CHECK_LIB([augeas],[aug_match],,[
 	AC_MSG_ERROR([Augeas library not found])
 	])
+
+dnl Check for functions not available in earlier versions of Augeas.
+AC_CHECK_FUNC([aug_load aug_defvar aug_defnode])
 
 dnl Check for XDR library.
 AC_CHECK_LIB([portablexdr],[xdrmem_create],[],[
