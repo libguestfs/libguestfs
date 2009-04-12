@@ -17,6 +17,7 @@ BuildRequires: /usr/bin/pod2man
 BuildRequires: /usr/bin/pod2text
 BuildRequires: febootstrap >= 1.5
 BuildRequires: augeas-devel
+BuildRequires: qemu
 
 # If you want to build the bindings for different languages:
 BuildRequires: ocaml
