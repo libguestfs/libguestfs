@@ -1,3 +1,8 @@
+aug_load, aug_defvar, aug_defnode: These are not present in some
+older versions of Augeas.
+
+----------------------------------------------------------------------
+
 We badly need to actually implement the FTP server mentioned in the
 documentation.
 
@@ -30,3 +35,9 @@ whole filesystems and subdirectories.
 
 The current protocol is message-oriented and doesn't support
 streaming.  But it's simple enough that we could add this.
+
+----------------------------------------------------------------------
+
+(From Ján ONDREJ (SAL))
+
+guestfish edit <filename>
