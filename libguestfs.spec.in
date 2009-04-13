@@ -123,6 +123,8 @@ Summary:     Python bindings for %{name}
 Group:       Development/Libraries
 Requires:    %{name} = %{version}-%{release}
 
+%{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
+%{!?python_sitearch: %global python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib(1)")}
 
 %description python
 %{name}-python contains Python bindings for %{name}.
@@ -193,6 +195,7 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(-,root,root,-)
 %doc HACKING TODO README ex html/guestfs.3.html html/pod.css
+%doc src/generator.ml
 %{_libdir}/libguestfs.so
 %{_mandir}/man3/guestfs.3*
 %{_includedir}/guestfs.h

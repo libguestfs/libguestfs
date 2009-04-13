@@ -18,11 +18,13 @@
 EXTRA_DIST = \
 	guestfs.mli guestfs.ml \
 	guestfs_c.c guestfs_c.h guestfs_c_actions.c \
-	.depend META.in
+	.depend META.in \
+	t/*.ml
 
 SUBDIRS = examples
 
 CLEANFILES = *~ *.cmi *.cmo *.cmx *.cma *.cmxa *.o *.a *.so
+CLEANFILES += t/*~ t/*.cmi t/*.cmo t/*.o t/*.a t/*.so
 
 if HAVE_OCAML
 
@@ -39,6 +41,22 @@ guestfs_c.o: guestfs_c.c
 
 guestfs_c_actions.o: guestfs_c_actions.c
 	$(CC) $(CFLAGS) -I$(OCAMLLIB) -I$(top_builddir)/src -fPIC -Wall -c $<
+
+TESTS_ENVIRONMENT = \
+	LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs \
+	LIBGUESTFS_PATH=$(abs_top_builddir)
+
+TESTS = t/guestfs_005_load t/guestfs_010_launch t/guestfs_050_lvcreate
+noinst_DATA += $(TESTS)
+
+t/guestfs_005_load: t/guestfs_005_load.ml
+	$(OCAMLFIND) ocamlopt -cclib -L$(top_builddir)/src/.libs -I . unix.cmxa mlguestfs.cmxa $< -o $@
+
+t/guestfs_010_launch: t/guestfs_010_launch.ml
+	$(OCAMLFIND) ocamlopt -cclib -L$(top_builddir)/src/.libs -I . unix.cmxa mlguestfs.cmxa $< -o $@
+
+t/guestfs_050_lvcreate: t/guestfs_050_lvcreate.ml
+	$(OCAMLFIND) ocamlopt -cclib -L$(top_builddir)/src/.libs -I . unix.cmxa mlguestfs.cmxa $< -o $@
 
 .mli.cmi:
 	$(OCAMLFIND) ocamlc -c $<
@@ -65,5 +83,7 @@ install-data-hook:
 	  -ldconf ignore -destdir $(DESTDIR)$(OCAMLLIB) \
 	  guestfs \
 	  META *.so *.a *.cma *.cmx *.cmxa *.cmi *.mli
+
+CLEANFILES += $(noinst_DATA)
 
 endif

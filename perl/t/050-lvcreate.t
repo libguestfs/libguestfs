@@ -57,4 +57,4 @@ ok (1);
 undef $h;
 ok (1);
 
-#unlink ("test.img");
+unlink ("test.img");
