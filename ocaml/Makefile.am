@@ -49,13 +49,13 @@ TESTS_ENVIRONMENT = \
 TESTS = t/guestfs_005_load t/guestfs_010_launch t/guestfs_050_lvcreate
 noinst_DATA += $(TESTS)
 
-t/guestfs_005_load: t/guestfs_005_load.ml
+t/guestfs_005_load: t/guestfs_005_load.ml mlguestfs.cmxa
 	$(OCAMLFIND) ocamlopt -cclib -L$(top_builddir)/src/.libs -I . unix.cmxa mlguestfs.cmxa $< -o $@
 
-t/guestfs_010_launch: t/guestfs_010_launch.ml
+t/guestfs_010_launch: t/guestfs_010_launch.ml mlguestfs.cmxa
 	$(OCAMLFIND) ocamlopt -cclib -L$(top_builddir)/src/.libs -I . unix.cmxa mlguestfs.cmxa $< -o $@
 
-t/guestfs_050_lvcreate: t/guestfs_050_lvcreate.ml
+t/guestfs_050_lvcreate: t/guestfs_050_lvcreate.ml mlguestfs.cmxa
 	$(OCAMLFIND) ocamlopt -cclib -L$(top_builddir)/src/.libs -I . unix.cmxa mlguestfs.cmxa $< -o $@
 
 .mli.cmi:
