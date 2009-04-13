@@ -26,6 +26,8 @@ if HAVE_PYTHON
 
 pythondir = $(PYTHON_SITE_PACKAGES)
 
+python_DATA = guestfs.py
+
 python_LTLIBRARIES = libguestfsmod.la
 
 libguestfsmod_la_SOURCES = guestfs-py.c
