@@ -22,17 +22,17 @@ EXTRA_DIST = \
 
 SUBDIRS = examples
 
-CLEANFILES = *~
+CLEANFILES = *~ *.cmi *.cmo *.cmx *.cma *.cmxa *.o *.a *.so
 
 if HAVE_OCAML
 
 noinst_DATA = mlguestfs.cma mlguestfs.cmxa META
 
 mlguestfs.cma: guestfs_c.o guestfs_c_actions.o guestfs.cmo
-	$(OCAMLMKLIB) -o mlguestfs $^ -lguestfs
+	$(OCAMLMKLIB) -o mlguestfs $^ -L$(top_builddir)/src/.libs -lguestfs
 
 mlguestfs.cmxa: guestfs_c.o guestfs_c_actions.o guestfs.cmx
-	$(OCAMLMKLIB) -o mlguestfs $^ -lguestfs
+	$(OCAMLMKLIB) -o mlguestfs $^ -L$(top_builddir)/src/.libs -lguestfs
 
 guestfs_c.o: guestfs_c.c
 	$(CC) $(CFLAGS) -I$(OCAMLLIB) -I$(top_builddir)/src -fPIC -Wall -c $<
