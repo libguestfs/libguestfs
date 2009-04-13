@@ -23,10 +23,11 @@ BuildRequires: qemu
 BuildRequires: ocaml
 BuildRequires: ocaml-findlib-devel
 BuildRequires: perl-devel
+BuildRequires: perl-Test-Simple
 BuildRequires: perl-Test-Pod
 BuildRequires: perl-Test-Pod-Coverage
 BuildRequires: perl-ExtUtils-MakeMaker
-# BuildRequires: python-devel
+BuildRequires: python-devel
 
 # Runtime requires:
 Requires:    qemu
@@ -117,14 +118,14 @@ Requires:    perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version)
 %{name}-perl contains Perl bindings for %{name}.
 
 
-# %package python
-# Summary:     Python bindings for %{name}
-# Group:       Development/Libraries
-# Requires:    %{name} = %{version}-%{release}
+%package python
+Summary:     Python bindings for %{name}
+Group:       Development/Libraries
+Requires:    %{name} = %{version}-%{release}
 
 
-# %description python
-# %{name}-python contains Python bindings for %{name}.
+%description python
+%{name}-python contains Python bindings for %{name}.
 
 
 %prep
@@ -233,8 +234,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/Sys::Guestfs.3pm*
 
 
-# %files python
-# %defattr(-,root,root,-)
+%files python
+%defattr(-,root,root,-)
 
 
 %changelog

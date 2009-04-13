@@ -47,7 +47,7 @@ static void print_strings (char * const * const argv)
 
 static int test_mount_0 (void)
 {
-  /* InitNone for mount (0) */
+  /* InitEmpty for mount (0) */
   {
     int r;
     suppress_error = 0;
@@ -112,7 +112,7 @@ static int test_mount_0 (void)
 
 static int test_sync_0 (void)
 {
-  /* InitNone for sync (0) */
+  /* InitEmpty for sync (0) */
   {
     int r;
     suppress_error = 0;
@@ -140,7 +140,7 @@ static int test_sync_0 (void)
 
 static int test_touch_0 (void)
 {
-  /* InitEmpty for touch (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for touch (0): create ext2 on /dev/sda1 */
   {
     int r;
     suppress_error = 0;
@@ -204,7 +204,7 @@ static int test_touch_0 (void)
 
 static int test_cat_0 (void)
 {
-  /* InitEmpty for cat (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for cat (0): create ext2 on /dev/sda1 */
   {
     int r;
     suppress_error = 0;
@@ -269,7 +269,7 @@ static int test_cat_0 (void)
 
 static int test_ls_0 (void)
 {
-  /* InitEmpty for ls (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for ls (0): create ext2 on /dev/sda1 */
   {
     int r;
     suppress_error = 0;
@@ -388,7 +388,7 @@ static int test_ls_0 (void)
 
 static int test_list_devices_0 (void)
 {
-  /* InitNone for list_devices (0) */
+  /* InitEmpty for list_devices (0) */
   {
     int r;
     suppress_error = 0;
@@ -452,7 +452,7 @@ static int test_list_devices_0 (void)
 
 static int test_list_partitions_0 (void)
 {
-  /* InitEmpty for list_partitions (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for list_partitions (0): create ext2 on /dev/sda1 */
   {
     int r;
     suppress_error = 0;
@@ -523,7 +523,7 @@ static int test_list_partitions_0 (void)
 
 static int test_list_partitions_1 (void)
 {
-  /* InitNone for list_partitions (1) */
+  /* InitEmpty for list_partitions (1) */
   {
     int r;
     suppress_error = 0;
@@ -600,7 +600,7 @@ static int test_list_partitions_1 (void)
 
 static int test_pvs_0 (void)
 {
-  /* InitEmptyLVM for pvs (0): create ext2 on /dev/VG/LV */
+  /* InitBasicFSonLVM for pvs (0): create ext2 on /dev/VG/LV */
   {
     int r;
     suppress_error = 0;
@@ -696,7 +696,7 @@ static int test_pvs_0 (void)
 
 static int test_pvs_1 (void)
 {
-  /* InitNone for pvs (1) */
+  /* InitEmpty for pvs (1) */
   {
     int r;
     suppress_error = 0;
@@ -794,7 +794,7 @@ static int test_pvs_1 (void)
 
 static int test_vgs_0 (void)
 {
-  /* InitEmptyLVM for vgs (0): create ext2 on /dev/VG/LV */
+  /* InitBasicFSonLVM for vgs (0): create ext2 on /dev/VG/LV */
   {
     int r;
     suppress_error = 0;
@@ -890,7 +890,7 @@ static int test_vgs_0 (void)
 
 static int test_vgs_1 (void)
 {
-  /* InitNone for vgs (1) */
+  /* InitEmpty for vgs (1) */
   {
     int r;
     suppress_error = 0;
@@ -1002,7 +1002,7 @@ static int test_vgs_1 (void)
 
 static int test_lvs_0 (void)
 {
-  /* InitEmptyLVM for lvs (0): create ext2 on /dev/VG/LV */
+  /* InitBasicFSonLVM for lvs (0): create ext2 on /dev/VG/LV */
   {
     int r;
     suppress_error = 0;
@@ -1098,7 +1098,7 @@ static int test_lvs_0 (void)
 
 static int test_lvs_1 (void)
 {
-  /* InitNone for lvs (1) */
+  /* InitEmpty for lvs (1) */
   {
     int r;
     suppress_error = 0;
@@ -1240,7 +1240,7 @@ static int test_lvs_1 (void)
 
 static int test_pvs_full_0 (void)
 {
-  /* InitEmptyLVM for pvs_full (0): create ext2 on /dev/VG/LV */
+  /* InitBasicFSonLVM for pvs_full (0): create ext2 on /dev/VG/LV */
   {
     int r;
     suppress_error = 0;
@@ -1334,7 +1334,7 @@ static int test_pvs_full_0 (void)
 
 static int test_vgs_full_0 (void)
 {
-  /* InitEmptyLVM for vgs_full (0): create ext2 on /dev/VG/LV */
+  /* InitBasicFSonLVM for vgs_full (0): create ext2 on /dev/VG/LV */
   {
     int r;
     suppress_error = 0;
@@ -1428,7 +1428,7 @@ static int test_vgs_full_0 (void)
 
 static int test_lvs_full_0 (void)
 {
-  /* InitEmptyLVM for lvs_full (0): create ext2 on /dev/VG/LV */
+  /* InitBasicFSonLVM for lvs_full (0): create ext2 on /dev/VG/LV */
   {
     int r;
     suppress_error = 0;
@@ -1522,7 +1522,7 @@ static int test_lvs_full_0 (void)
 
 static int test_read_lines_0 (void)
 {
-  /* InitEmpty for read_lines (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for read_lines (0): create ext2 on /dev/sda1 */
   {
     int r;
     suppress_error = 0;
@@ -1618,7 +1618,7 @@ static int test_read_lines_0 (void)
 
 static int test_read_lines_1 (void)
 {
-  /* InitEmpty for read_lines (1): create ext2 on /dev/sda1 */
+  /* InitBasicFS for read_lines (1): create ext2 on /dev/sda1 */
   {
     int r;
     suppress_error = 0;
@@ -1687,7 +1687,7 @@ static int test_read_lines_1 (void)
 
 static int test_rm_0 (void)
 {
-  /* InitEmpty for rm (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for rm (0): create ext2 on /dev/sda1 */
   {
     int r;
     suppress_error = 0;
@@ -1747,7 +1747,7 @@ static int test_rm_0 (void)
 
 static int test_rm_1 (void)
 {
-  /* InitEmpty for rm (1): create ext2 on /dev/sda1 */
+  /* InitBasicFS for rm (1): create ext2 on /dev/sda1 */
   {
     int r;
     suppress_error = 0;
@@ -1800,7 +1800,7 @@ static int test_rm_1 (void)
 
 static int test_rm_2 (void)
 {
-  /* InitEmpty for rm (2): create ext2 on /dev/sda1 */
+  /* InitBasicFS for rm (2): create ext2 on /dev/sda1 */
   {
     int r;
     suppress_error = 0;
@@ -1860,7 +1860,7 @@ static int test_rm_2 (void)
 
 static int test_rmdir_0 (void)
 {
-  /* InitEmpty for rmdir (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for rmdir (0): create ext2 on /dev/sda1 */
   {
     int r;
     suppress_error = 0;
@@ -1920,7 +1920,7 @@ static int test_rmdir_0 (void)
 
 static int test_rmdir_1 (void)
 {
-  /* InitEmpty for rmdir (1): create ext2 on /dev/sda1 */
+  /* InitBasicFS for rmdir (1): create ext2 on /dev/sda1 */
   {
     int r;
     suppress_error = 0;
@@ -1973,7 +1973,7 @@ static int test_rmdir_1 (void)
 
 static int test_rmdir_2 (void)
 {
-  /* InitEmpty for rmdir (2): create ext2 on /dev/sda1 */
+  /* InitBasicFS for rmdir (2): create ext2 on /dev/sda1 */
   {
     int r;
     suppress_error = 0;
@@ -2033,7 +2033,7 @@ static int test_rmdir_2 (void)
 
 static int test_rm_rf_0 (void)
 {
-  /* InitEmpty for rm_rf (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for rm_rf (0): create ext2 on /dev/sda1 */
   {
     int r;
     suppress_error = 0;
@@ -2118,7 +2118,7 @@ static int test_rm_rf_0 (void)
 
 static int test_mkdir_0 (void)
 {
-  /* InitEmpty for mkdir (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for mkdir (0): create ext2 on /dev/sda1 */
   {
     int r;
     suppress_error = 0;
@@ -2182,7 +2182,7 @@ static int test_mkdir_0 (void)
 
 static int test_mkdir_1 (void)
 {
-  /* InitEmpty for mkdir (1): create ext2 on /dev/sda1 */
+  /* InitBasicFS for mkdir (1): create ext2 on /dev/sda1 */
   {
     int r;
     suppress_error = 0;
@@ -2235,7 +2235,7 @@ static int test_mkdir_1 (void)
 
 static int test_mkdir_p_0 (void)
 {
-  /* InitEmpty for mkdir_p (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for mkdir_p (0): create ext2 on /dev/sda1 */
   {
     int r;
     suppress_error = 0;
@@ -2299,7 +2299,7 @@ static int test_mkdir_p_0 (void)
 
 static int test_mkdir_p_1 (void)
 {
-  /* InitEmpty for mkdir_p (1): create ext2 on /dev/sda1 */
+  /* InitBasicFS for mkdir_p (1): create ext2 on /dev/sda1 */
   {
     int r;
     suppress_error = 0;
@@ -2363,7 +2363,7 @@ static int test_mkdir_p_1 (void)
 
 static int test_mkdir_p_2 (void)
 {
-  /* InitEmpty for mkdir_p (2): create ext2 on /dev/sda1 */
+  /* InitBasicFS for mkdir_p (2): create ext2 on /dev/sda1 */
   {
     int r;
     suppress_error = 0;
@@ -2427,7 +2427,7 @@ static int test_mkdir_p_2 (void)
 
 static int test_exists_0 (void)
 {
-  /* InitEmpty for exists (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for exists (0): create ext2 on /dev/sda1 */
   {
     int r;
     suppress_error = 0;
@@ -2491,7 +2491,7 @@ static int test_exists_0 (void)
 
 static int test_exists_1 (void)
 {
-  /* InitEmpty for exists (1): create ext2 on /dev/sda1 */
+  /* InitBasicFS for exists (1): create ext2 on /dev/sda1 */
   {
     int r;
     suppress_error = 0;
@@ -2555,7 +2555,7 @@ static int test_exists_1 (void)
 
 static int test_is_file_0 (void)
 {
-  /* InitEmpty for is_file (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for is_file (0): create ext2 on /dev/sda1 */
   {
     int r;
     suppress_error = 0;
@@ -2619,7 +2619,7 @@ static int test_is_file_0 (void)
 
 static int test_is_file_1 (void)
 {
-  /* InitEmpty for is_file (1): create ext2 on /dev/sda1 */
+  /* InitBasicFS for is_file (1): create ext2 on /dev/sda1 */
   {
     int r;
     suppress_error = 0;
@@ -2683,7 +2683,7 @@ static int test_is_file_1 (void)
 
 static int test_is_dir_0 (void)
 {
-  /* InitEmpty for is_dir (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for is_dir (0): create ext2 on /dev/sda1 */
   {
     int r;
     suppress_error = 0;
@@ -2747,7 +2747,7 @@ static int test_is_dir_0 (void)
 
 static int test_is_dir_1 (void)
 {
-  /* InitEmpty for is_dir (1): create ext2 on /dev/sda1 */
+  /* InitBasicFS for is_dir (1): create ext2 on /dev/sda1 */
   {
     int r;
     suppress_error = 0;
@@ -2811,7 +2811,7 @@ static int test_is_dir_1 (void)
 
 static int test_pvcreate_0 (void)
 {
-  /* InitNone for pvcreate (0) */
+  /* InitEmpty for pvcreate (0) */
   {
     int r;
     suppress_error = 0;
@@ -2909,7 +2909,7 @@ static int test_pvcreate_0 (void)
 
 static int test_vgcreate_0 (void)
 {
-  /* InitNone for vgcreate (0) */
+  /* InitEmpty for vgcreate (0) */
   {
     int r;
     suppress_error = 0;
@@ -3021,7 +3021,7 @@ static int test_vgcreate_0 (void)
 
 static int test_lvcreate_0 (void)
 {
-  /* InitNone for lvcreate (0) */
+  /* InitEmpty for lvcreate (0) */
   {
     int r;
     suppress_error = 0;
@@ -3195,7 +3195,7 @@ static int test_lvcreate_0 (void)
 
 static int test_mkfs_0 (void)
 {
-  /* InitNone for mkfs (0) */
+  /* InitEmpty for mkfs (0) */
   {
     int r;
     suppress_error = 0;
@@ -3260,7 +3260,7 @@ static int test_mkfs_0 (void)
 
 static int test_write_file_0 (void)
 {
-  /* InitNone for write_file (0) */
+  /* InitEmpty for write_file (0) */
   {
     int r;
     suppress_error = 0;
@@ -3325,7 +3325,7 @@ static int test_write_file_0 (void)
 
 static int test_umount_0 (void)
 {
-  /* InitNone for umount (0) */
+  /* InitEmpty for umount (0) */
   {
     int r;
     suppress_error = 0;
@@ -3396,7 +3396,7 @@ static int test_umount_0 (void)
 
 static int test_umount_1 (void)
 {
-  /* InitNone for umount (1) */
+  /* InitEmpty for umount (1) */
   {
     int r;
     suppress_error = 0;
@@ -3465,7 +3465,7 @@ static int test_umount_1 (void)
 
 static int test_mounts_0 (void)
 {
-  /* InitEmpty for mounts (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for mounts (0): create ext2 on /dev/sda1 */
   {
     int r;
     suppress_error = 0;
@@ -3536,7 +3536,7 @@ static int test_mounts_0 (void)
 
 static int test_umount_all_0 (void)
 {
-  /* InitEmpty for umount_all (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for umount_all (0): create ext2 on /dev/sda1 */
   {
     int r;
     suppress_error = 0;

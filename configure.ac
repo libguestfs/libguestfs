@@ -122,9 +122,53 @@ AC_CHECK_PROG([PERL],[perl],[perl],[no])
 AM_CONDITIONAL([HAVE_PERL],[test "x$PERL" != "xno"])
 
 dnl Check for Python (optional, for Python bindings).
-dnl XXX This isn't quite right, we should check for devel libraries.
 AC_CHECK_PROG([PYTHON],[python],[python],[no])
-AM_CONDITIONAL([HAVE_PYTHON],[test "x$PYTHON" != "xno"])
+
+PYTHON_PREFIX=
+PYTHON_VERSION=
+PYTHON_INCLUDEDIR=
+PYTHON_SITE_PACKAGES=
+
+if test "x$PYTHON" != "xno"; then
+    PYTHON_PREFIX=`$PYTHON -c "import sys; print sys.prefix"`
+    PYTHON_VERSION=`$PYTHON -c "import sys; print sys.version[[0:3]]"`
+    for d in \
+        $PYTHON_PREFIX/include/python$PYTHON_VERSION \
+        /usr/include/python$PYTHON_VERSION \
+        /usr/local/include/python$PYTHON_VERSION
+    do
+        AC_MSG_CHECKING([Python.h in $d])
+        if test -r "$d/Python.h"; then
+	    AC_MSG_RESULT([found])
+	    PYTHON_INCLUDEDIR=$d
+	    break
+	fi
+	AC_MSG_RESULT([not found])
+    done
+    for d in \
+        $PYTHON_PREFIX/lib64/python$PYTHON_VERSION/site-packages \
+        $PYTHON_PREFIX/lib/python$PYTHON_VERSION/site-packages \
+        /usr/lib64/python$PYTHON_VERSION/site-packages \
+        /usr/lib/python$PYTHON_VERSION/site-packages \
+        /usr/local/lib/python$PYTHON_VERSION/site-packages
+    do
+        AC_MSG_CHECKING([for $d])
+        if test -d "$d"; then
+	    AC_MSG_RESULT([found])
+	    PYTHON_SITE_PACKAGES=$d
+	    break
+	fi
+	AC_MSG_RESULT([not found])
+    done
+fi
+
+AC_SUBST(PYTHON_PREFIX)
+AC_SUBST(PYTHON_VERSION)
+AC_SUBST(PYTHON_INCLUDEDIR)
+AC_SUBST(PYTHON_SITE_PACKAGES)
+
+AM_CONDITIONAL([HAVE_PYTHON],
+    [test "x$PYTHON_INCLUDEDIR" != "x" && test "x$PYTHON_SITE_PACKAGES" != "x"])
 
 dnl Run in subdirs.
 AC_CONFIG_SUBDIRS([daemon])

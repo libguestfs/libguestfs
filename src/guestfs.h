@@ -33,6 +33,8 @@ extern guestfs_h *guestfs_create (void);
 extern void guestfs_close (guestfs_h *g);
 
 /* Error handling. */
+extern const char *guestfs_last_error (guestfs_h *g);
+
 typedef void (*guestfs_error_handler_cb) (guestfs_h *g, void *data, const char *msg);
 typedef void (*guestfs_abort_cb) (void);
 

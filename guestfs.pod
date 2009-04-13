@@ -117,12 +117,29 @@ This closes the connection handle and frees up all resources used.
 
 The convention in all functions that return C<int> is that they return
 C<-1> to indicate an error.  You can get additional information on
-errors by calling C<guestfs_set_error_handler>.  The default error
-handler prints the information string to C<stderr>.
+errors by calling C<guestfs_last_error> and/or by setting up an error
+handler with C<guestfs_set_error_handler>.
+
+The default error handler prints the information string to C<stderr>.
 
 Out of memory errors are handled differently.  The default action is
 to call L<abort(3)>.  If this is undesirable, then you can set a
 handler using C<guestfs_set_out_of_memory_handler>.
+
+=head2 guestfs_last_error
+
+ const char *guestfs_last_error (guestfs_h *handle);
+
+This returns the last error message that happened on C<handle>.  If
+there has not been an error since the handle was created, then this
+returns C<NULL>.
+
+The lifetime of the returned string is until the next error occurs, or
+C<guestfs_close> is called.
+
+The error string is not localized (ie. is always in English), because
+this makes searching for error messages in search engines give the
+largest number of results.
 
 =head2 guestfs_set_error_handler
 
@@ -143,8 +160,7 @@ your own copy.
 
 The default handler prints messages on C<stderr>.
 
-If you set C<cb> to C<NULL> then I<no> handler is called and the error
-message is completely discarded.
+If you set C<cb> to C<NULL> then I<no> handler is called.
 
 =head2 guestfs_get_error_handler
 

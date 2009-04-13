@@ -121,6 +121,8 @@ struct guestfs_h
 
   const char *path;
 
+  char *last_error;
+
   /* Callbacks. */
   guestfs_abort_cb           abort_cb;
   guestfs_error_handler_cb   error_cb;
@@ -264,6 +266,7 @@ guestfs_close (guestfs_h *g)
   }
   /* release mutex (XXX) */
 
+  free (g->last_error);
   free (g);
 }
 
@@ -272,6 +275,19 @@ static void
 close_handles (void)
 {
   while (handles) guestfs_close (handles);
+}
+
+const char *
+guestfs_last_error (guestfs_h *g)
+{
+  return g->last_error;
+}
+
+static void
+set_last_error (guestfs_h *g, const char *msg)
+{
+  free (g->last_error);
+  g->last_error = strdup (msg);
 }
 
 static void
@@ -286,13 +302,12 @@ error (guestfs_h *g, const char *fs, ...)
   va_list args;
   char *msg;
 
-  if (!g->error_cb) return;
-
   va_start (args, fs);
   vasprintf (&msg, fs, args);
   va_end (args);
 
-  g->error_cb (g, g->error_cb_data, msg);
+  if (g->error_cb) g->error_cb (g, g->error_cb_data, msg);
+  set_last_error (g, msg);
 
   free (msg);
 }
@@ -303,8 +318,6 @@ perrorf (guestfs_h *g, const char *fs, ...)
   va_list args;
   char *msg;
   int err = errno;
-
-  if (!g->error_cb) return;
 
   va_start (args, fs);
   vasprintf (&msg, fs, args);
@@ -323,7 +336,8 @@ perrorf (guestfs_h *g, const char *fs, ...)
   strcat (msg, ": ");
   strcat (msg, buf);
 
-  g->error_cb (g, g->error_cb_data, msg);
+  if (g->error_cb) g->error_cb (g, g->error_cb_data, msg);
+  set_last_error (g, msg);
 
   free (msg);
 }

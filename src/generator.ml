@@ -148,21 +148,26 @@ and test =
 
 (* Some initial scenarios for testing. *)
 and test_init =
-    (* Do nothing, block devices could contain random stuff. *)
+    (* Do nothing, block devices could contain random stuff including
+     * LVM PVs, and some filesystems might be mounted.  This is usually
+     * a bad idea.
+     *)
   | InitNone
+    (* Block devices are empty and no filesystems are mounted. *)
+  | InitEmpty
     (* /dev/sda contains a single partition /dev/sda1, which is formatted
      * as ext2, empty [except for lost+found] and mounted on /.
      * /dev/sdb and /dev/sdc may have random content.
      * No LVM.
      *)
-  | InitEmpty
+  | InitBasicFS
     (* /dev/sda:
      *   /dev/sda1 (is a PV):
      *     /dev/VG/LV (size 8MB):
      *       formatted as ext2, empty [except for lost+found], mounted on /
      * /dev/sdb and /dev/sdc may have random content.
      *)
-  | InitEmptyLVM
+  | InitBasicFSonLVM
 
 (* Sequence of commands for testing. *)
 and seq = cmd list
@@ -296,7 +301,7 @@ This returns the verbose messages flag.")
 
 let daemon_functions = [
   ("mount", (RErr, [String "device"; String "mountpoint"]), 1, [],
-   [InitNone, TestOutput (
+   [InitEmpty, TestOutput (
       [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
        ["mkfs"; "ext2"; "/dev/sda1"];
        ["mount"; "/dev/sda1"; "/"];
@@ -322,7 +327,7 @@ The filesystem options C<sync> and C<noatime> are set with this
 call, in order to improve reliability.");
 
   ("sync", (RErr, []), 2, [],
-   [ InitNone, TestRun [["sync"]]],
+   [ InitEmpty, TestRun [["sync"]]],
    "sync disks, writes are flushed through to the disk image",
    "\
 This syncs the disk, so that any writes are flushed through to the
@@ -332,7 +337,7 @@ You should always call this if you have modified a disk image, before
 closing the handle.");
 
   ("touch", (RErr, [String "path"]), 3, [],
-   [InitEmpty, TestOutputTrue (
+   [InitBasicFS, TestOutputTrue (
       [["touch"; "/new"];
        ["exists"; "/new"]])],
    "update file timestamps or create a new file",
@@ -342,7 +347,7 @@ update the timestamps on a file, or, if the file does not exist,
 to create a new zero-length file.");
 
   ("cat", (RString "content", [String "path"]), 4, [ProtocolLimitWarning],
-   [InitEmpty, TestOutput (
+   [InitBasicFS, TestOutput (
       [["write_file"; "/new"; "new file contents"; "0"];
        ["cat"; "/new"]], "new file contents")],
    "list the contents of a file",
@@ -367,7 +372,7 @@ This command is mostly useful for interactive sessions.  It
 is I<not> intended that you try to parse the output string.");
 
   ("ls", (RStringList "listing", [String "directory"]), 6, [],
-   [InitEmpty, TestOutputList (
+   [InitBasicFS, TestOutputList (
       [["touch"; "/new"];
        ["touch"; "/newer"];
        ["touch"; "/newest"];
@@ -382,7 +387,7 @@ This command is mostly useful for interactive sessions.  Programs
 should probably use C<guestfs_readdir> instead.");
 
   ("list_devices", (RStringList "devices", []), 7, [],
-   [InitNone, TestOutputList (
+   [InitEmpty, TestOutputList (
       [["list_devices"]], ["/dev/sda"; "/dev/sdb"; "/dev/sdc"])],
    "list the block devices",
    "\
@@ -391,9 +396,9 @@ List all the block devices.
 The full block device names are returned, eg. C</dev/sda>");
 
   ("list_partitions", (RStringList "partitions", []), 8, [],
-   [InitEmpty, TestOutputList (
+   [InitBasicFS, TestOutputList (
       [["list_partitions"]], ["/dev/sda1"]);
-    InitNone, TestOutputList (
+    InitEmpty, TestOutputList (
       [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
        ["list_partitions"]], ["/dev/sda1"; "/dev/sda2"; "/dev/sda3"])],
    "list the partitions",
@@ -406,9 +411,9 @@ This does not return logical volumes.  For that you will need to
 call C<guestfs_lvs>.");
 
   ("pvs", (RStringList "physvols", []), 9, [],
-   [InitEmptyLVM, TestOutputList (
+   [InitBasicFSonLVM, TestOutputList (
       [["pvs"]], ["/dev/sda1"]);
-    InitNone, TestOutputList (
+    InitEmpty, TestOutputList (
       [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
@@ -425,9 +430,9 @@ PVs (eg. C</dev/sda2>).
 See also C<guestfs_pvs_full>.");
 
   ("vgs", (RStringList "volgroups", []), 10, [],
-   [InitEmptyLVM, TestOutputList (
+   [InitBasicFSonLVM, TestOutputList (
       [["vgs"]], ["VG"]);
-    InitNone, TestOutputList (
+    InitEmpty, TestOutputList (
       [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
@@ -446,9 +451,9 @@ detected (eg. C<VolGroup00>).
 See also C<guestfs_vgs_full>.");
 
   ("lvs", (RStringList "logvols", []), 11, [],
-   [InitEmptyLVM, TestOutputList (
+   [InitBasicFSonLVM, TestOutputList (
       [["lvs"]], ["/dev/VG/LV"]);
-    InitNone, TestOutputList (
+    InitEmpty, TestOutputList (
       [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
@@ -470,7 +475,7 @@ This returns a list of the logical volume device names
 See also C<guestfs_lvs_full>.");
 
   ("pvs_full", (RPVList "physvols", []), 12, [],
-   [InitEmptyLVM, TestOutputLength (
+   [InitBasicFSonLVM, TestOutputLength (
       [["pvs"]], 1)],
    "list the LVM physical volumes (PVs)",
    "\
@@ -478,7 +483,7 @@ List all the physical volumes detected.  This is the equivalent
 of the L<pvs(8)> command.  The \"full\" version includes all fields.");
 
   ("vgs_full", (RVGList "volgroups", []), 13, [],
-   [InitEmptyLVM, TestOutputLength (
+   [InitBasicFSonLVM, TestOutputLength (
       [["pvs"]], 1)],
    "list the LVM volume groups (VGs)",
    "\
@@ -486,7 +491,7 @@ List all the volumes groups detected.  This is the equivalent
 of the L<vgs(8)> command.  The \"full\" version includes all fields.");
 
   ("lvs_full", (RLVList "logvols", []), 14, [],
-   [InitEmptyLVM, TestOutputLength (
+   [InitBasicFSonLVM, TestOutputLength (
       [["pvs"]], 1)],
    "list the LVM logical volumes (LVs)",
    "\
@@ -494,10 +499,10 @@ List all the logical volumes detected.  This is the equivalent
 of the L<lvs(8)> command.  The \"full\" version includes all fields.");
 
   ("read_lines", (RStringList "lines", [String "path"]), 15, [],
-   [InitEmpty, TestOutputList (
+   [InitBasicFS, TestOutputList (
       [["write_file"; "/new"; "line1\r\nline2\nline3"; "0"];
        ["read_lines"; "/new"]], ["line1"; "line2"; "line3"]);
-    InitEmpty, TestOutputList (
+    InitBasicFS, TestOutputList (
       [["write_file"; "/new"; ""; "0"];
        ["read_lines"; "/new"]], [])],
    "read file as lines",
@@ -672,12 +677,12 @@ This is just a shortcut for listing C<guestfs_aug_match>
 C<path/*> and sorting the resulting nodes into alphabetical order.");
 
   ("rm", (RErr, [String "path"]), 29, [],
-   [InitEmpty, TestRun
+   [InitBasicFS, TestRun
       [["touch"; "/new"];
        ["rm"; "/new"]];
-    InitEmpty, TestLastFail
+    InitBasicFS, TestLastFail
       [["rm"; "/new"]];
-    InitEmpty, TestLastFail
+    InitBasicFS, TestLastFail
       [["mkdir"; "/new"];
        ["rm"; "/new"]]],
    "remove a file",
@@ -685,12 +690,12 @@ C<path/*> and sorting the resulting nodes into alphabetical order.");
 Remove the single file C<path>.");
 
   ("rmdir", (RErr, [String "path"]), 30, [],
-   [InitEmpty, TestRun
+   [InitBasicFS, TestRun
       [["mkdir"; "/new"];
        ["rmdir"; "/new"]];
-    InitEmpty, TestLastFail
+    InitBasicFS, TestLastFail
       [["rmdir"; "/new"]];
-    InitEmpty, TestLastFail
+    InitBasicFS, TestLastFail
       [["touch"; "/new"];
        ["rmdir"; "/new"]]],
    "remove a directory",
@@ -698,7 +703,7 @@ Remove the single file C<path>.");
 Remove the single directory C<path>.");
 
   ("rm_rf", (RErr, [String "path"]), 31, [],
-   [InitEmpty, TestOutputFalse
+   [InitBasicFS, TestOutputFalse
       [["mkdir"; "/new"];
        ["mkdir"; "/new/foo"];
        ["touch"; "/new/foo/bar"];
@@ -711,23 +716,23 @@ contents if its a directory.  This is like the C<rm -rf> shell
 command.");
 
   ("mkdir", (RErr, [String "path"]), 32, [],
-   [InitEmpty, TestOutputTrue
+   [InitBasicFS, TestOutputTrue
       [["mkdir"; "/new"];
        ["is_dir"; "/new"]];
-    InitEmpty, TestLastFail
+    InitBasicFS, TestLastFail
       [["mkdir"; "/new/foo/bar"]]],
    "create a directory",
    "\
 Create a directory named C<path>.");
 
   ("mkdir_p", (RErr, [String "path"]), 33, [],
-   [InitEmpty, TestOutputTrue
+   [InitBasicFS, TestOutputTrue
       [["mkdir_p"; "/new/foo/bar"];
        ["is_dir"; "/new/foo/bar"]];
-    InitEmpty, TestOutputTrue
+    InitBasicFS, TestOutputTrue
       [["mkdir_p"; "/new/foo/bar"];
        ["is_dir"; "/new/foo"]];
-    InitEmpty, TestOutputTrue
+    InitBasicFS, TestOutputTrue
       [["mkdir_p"; "/new/foo/bar"];
        ["is_dir"; "/new"]]],
    "create a directory and parents",
@@ -753,10 +758,10 @@ names, you will need to locate and parse the password file
 yourself (Augeas support makes this relatively easy).");
 
   ("exists", (RBool "existsflag", [String "path"]), 36, [],
-   [InitEmpty, TestOutputTrue (
+   [InitBasicFS, TestOutputTrue (
       [["touch"; "/new"];
        ["exists"; "/new"]]);
-    InitEmpty, TestOutputTrue (
+    InitBasicFS, TestOutputTrue (
       [["mkdir"; "/new"];
        ["exists"; "/new"]])],
    "test if file or directory exists",
@@ -767,10 +772,10 @@ This returns C<true> if and only if there is a file, directory
 See also C<guestfs_is_file>, C<guestfs_is_dir>, C<guestfs_stat>.");
 
   ("is_file", (RBool "fileflag", [String "path"]), 37, [],
-   [InitEmpty, TestOutputTrue (
+   [InitBasicFS, TestOutputTrue (
       [["touch"; "/new"];
        ["is_file"; "/new"]]);
-    InitEmpty, TestOutputFalse (
+    InitBasicFS, TestOutputFalse (
       [["mkdir"; "/new"];
        ["is_file"; "/new"]])],
    "test if file exists",
@@ -782,10 +787,10 @@ other objects like directories.
 See also C<guestfs_stat>.");
 
   ("is_dir", (RBool "dirflag", [String "path"]), 38, [],
-   [InitEmpty, TestOutputFalse (
+   [InitBasicFS, TestOutputFalse (
       [["touch"; "/new"];
        ["is_dir"; "/new"]]);
-    InitEmpty, TestOutputTrue (
+    InitBasicFS, TestOutputTrue (
       [["mkdir"; "/new"];
        ["is_dir"; "/new"]])],
    "test if file exists",
@@ -797,7 +802,7 @@ other objects like files.
 See also C<guestfs_stat>.");
 
   ("pvcreate", (RErr, [String "device"]), 39, [],
-   [InitNone, TestOutputList (
+   [InitEmpty, TestOutputList (
       [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
@@ -810,7 +815,7 @@ where C<device> should usually be a partition name such
 as C</dev/sda1>.");
 
   ("vgcreate", (RErr, [String "volgroup"; StringList "physvols"]), 40, [],
-   [InitNone, TestOutputList (
+   [InitEmpty, TestOutputList (
       [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
@@ -824,7 +829,7 @@ This creates an LVM volume group called C<volgroup>
 from the non-empty list of physical volumes C<physvols>.");
 
   ("lvcreate", (RErr, [String "logvol"; String "volgroup"; Int "mbytes"]), 41, [],
-   [InitNone, TestOutputList (
+   [InitEmpty, TestOutputList (
       [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
@@ -845,7 +850,7 @@ This creates an LVM volume group called C<logvol>
 on the volume group C<volgroup>, with C<size> megabytes.");
 
   ("mkfs", (RErr, [String "fstype"; String "device"]), 42, [],
-   [InitNone, TestOutput (
+   [InitEmpty, TestOutput (
       [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
        ["mkfs"; "ext2"; "/dev/sda1"];
        ["mount"; "/dev/sda1"; "/"];
@@ -884,7 +889,7 @@ pass C<lines> as a single element list, when the single element being
 the string C<,> (comma).");
 
   ("write_file", (RErr, [String "path"; String "content"; Int "size"]), 44, [ProtocolLimitWarning],
-   [InitNone, TestOutput (
+   [InitEmpty, TestOutput (
       [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
        ["mkfs"; "ext2"; "/dev/sda1"];
        ["mount"; "/dev/sda1"; "/"];
@@ -901,12 +906,12 @@ then the length is calculated using C<strlen> (so in this case
 the content cannot contain embedded ASCII NULs).");
 
   ("umount", (RErr, [String "pathordevice"]), 45, [FishAlias "unmount"],
-   [InitNone, TestOutputList (
+   [InitEmpty, TestOutputList (
       [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
        ["mkfs"; "ext2"; "/dev/sda1"];
        ["mount"; "/dev/sda1"; "/"];
        ["mounts"]], ["/dev/sda1"]);
-    InitNone, TestOutputList (
+    InitEmpty, TestOutputList (
       [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
        ["mkfs"; "ext2"; "/dev/sda1"];
        ["mount"; "/dev/sda1"; "/"];
@@ -919,7 +924,7 @@ specified either by its mountpoint (path) or the device which
 contains the filesystem.");
 
   ("mounts", (RStringList "devices", []), 46, [],
-   [InitEmpty, TestOutputList (
+   [InitBasicFS, TestOutputList (
       [["mounts"]], ["/dev/sda1"])],
    "show mounted filesystems",
    "\
@@ -929,7 +934,7 @@ the list of devices (eg. C</dev/sda1>, C</dev/VG/LV>).
 Some internal mounts are not shown.");
 
   ("umount_all", (RErr, []), 47, [FishAlias "unmount-all"],
-   [InitEmpty, TestOutputList (
+   [InitBasicFS, TestOutputList (
       [["umount_all"];
        ["mounts"]], [])],
    "unmount all filesystems",
@@ -2242,21 +2247,22 @@ and generate_one_test name i (init, test) =
   pr "{\n";
 
   (match init with
-   | InitNone ->
-       pr "  /* InitNone for %s (%d) */\n" name i;
+   | InitNone -> ()
+   | InitEmpty ->
+       pr "  /* InitEmpty for %s (%d) */\n" name i;
        List.iter (generate_test_command_call test_name)
 	 [["umount_all"];
 	  ["lvm_remove_all"]]
-   | InitEmpty ->
-       pr "  /* InitEmpty for %s (%d): create ext2 on /dev/sda1 */\n" name i;
+   | InitBasicFS ->
+       pr "  /* InitBasicFS for %s (%d): create ext2 on /dev/sda1 */\n" name i;
        List.iter (generate_test_command_call test_name)
 	 [["umount_all"];
 	  ["lvm_remove_all"];
 	  ["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
 	  ["mkfs"; "ext2"; "/dev/sda1"];
 	  ["mount"; "/dev/sda1"; "/"]]
-   | InitEmptyLVM ->
-       pr "  /* InitEmptyLVM for %s (%d): create ext2 on /dev/VG/LV */\n"
+   | InitBasicFSonLVM ->
+       pr "  /* InitBasicFSonLVM for %s (%d): create ext2 on /dev/VG/LV */\n"
 	 name i;
        List.iter (generate_test_command_call test_name)
 	 [["umount_all"];
@@ -3244,22 +3250,6 @@ my_newSVull(unsigned long long val) {
 #endif
 }
 
-/* XXX Not thread-safe, and in general not safe if the caller is
- * issuing multiple requests in parallel (on different guestfs
- * handles).  We should use the guestfs_h handle passed to the
- * error handle to distinguish these cases.
- */
-static char *last_error = NULL;
-
-static void
-error_handler (guestfs_h *g,
-	       void *data,
-	       const char *msg)
-{
-  if (last_error != NULL) free (last_error);
-  last_error = strdup (msg);
-}
-
 /* http://www.perlmonks.org/?node_id=680842 */
 static char **
 XS_unpack_charPtrPtr (SV *arg) {
@@ -3277,14 +3267,13 @@ XS_unpack_charPtrPtr (SV *arg) {
   for (i = 0; i <= av_len (av); i++) {
     SV **elem = av_fetch (av, i, 0);
 
-      if (!elem || !*elem) {
-        croak (\"missing element in list\");
-      }
+    if (!elem || !*elem)
+      croak (\"missing element in list\");
 
-      ret[i] = SvPV_nolen (*elem);
+    ret[i] = SvPV_nolen (*elem);
   }
 
-  ret[i + 1] = NULL;
+  ret[i] = NULL;
 
   return ret;
 }
@@ -3297,7 +3286,7 @@ _create ()
       RETVAL = guestfs_create ();
       if (!RETVAL)
         croak (\"could not create guestfs handle\");
-      guestfs_set_error_handler (RETVAL, error_handler, NULL);
+      guestfs_set_error_handler (RETVAL, NULL, NULL);
  OUTPUT:
       RETVAL
 
@@ -3355,7 +3344,7 @@ DESTROY (g)
 	   generate_call_args ~handle:"g" style;
 	   pr " == -1) {\n";
 	   do_cleanups ();
-	   pr "        croak (\"%s: %%s\", last_error);\n" name;
+	   pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
 	   pr "      }\n"
        | RInt n
        | RBool n ->
@@ -3367,7 +3356,7 @@ DESTROY (g)
 	   pr ";\n";
 	   pr "      if (%s == -1) {\n" n;
 	   do_cleanups ();
-	   pr "        croak (\"%s: %%s\", last_error);\n" name;
+	   pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
 	   pr "      }\n";
 	   pr "      RETVAL = newSViv (%s);\n" n;
 	   pr " OUTPUT:\n";
@@ -3381,7 +3370,7 @@ DESTROY (g)
 	   pr ";\n";
 	   pr "      if (%s == NULL) {\n" n;
 	   do_cleanups ();
-	   pr "        croak (\"%s: %%s\", last_error);\n" name;
+	   pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
 	   pr "      }\n";
 	   pr "      RETVAL = newSVpv (%s, 0);\n" n;
 	   pr " OUTPUT:\n";
@@ -3395,7 +3384,7 @@ DESTROY (g)
 	   pr ";\n";
 	   pr "      if (%s == NULL) {\n" n;
 	   do_cleanups ();
-	   pr "        croak (\"%s: %%s\", last_error);\n" name;
+	   pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
 	   pr "      }\n";
 	   pr "      RETVAL = newSVpv (%s, 0);\n" n;
 	   pr "      free (%s);\n" n;
@@ -3411,7 +3400,7 @@ DESTROY (g)
 	   pr ";\n";
 	   pr "      if (%s == NULL) {\n" n;
 	   do_cleanups ();
-	   pr "        croak (\"%s: %%s\", last_error);\n" name;
+	   pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
 	   pr "      }\n";
 	   pr "      for (n = 0; %s[n] != NULL; ++n) /**/;\n" n;
 	   pr "      EXTEND (SP, n);\n";
@@ -3429,7 +3418,7 @@ DESTROY (g)
 	   pr ";\n";
 	   pr "      if (r == NULL) {\n";
 	   do_cleanups ();
-	   pr "        croak (\"%s: %%s\", last_error);\n" name;
+	   pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
 	   pr "      }\n";
 	   pr "      EXTEND (SP, 2);\n";
 	   pr "      PUSHs (sv_2mortal (newSViv (r->i)));\n";
@@ -3458,7 +3447,7 @@ and generate_perl_lvm_code typ cols name style n =
   generate_call_args ~handle:"g" style;
   pr ";\n";
   pr "      if (%s == NULL)\n" n;
-  pr "        croak (\"%s: %%s\", last_error);\n" name;
+  pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
   pr "      EXTEND (SP, %s->len);\n" n;
   pr "      for (i = 0; i < %s->len; ++i) {\n" n;
   pr "        hv = newHV ();\n";
@@ -3630,6 +3619,354 @@ and generate_perl_prototype name style =
   ) (snd style);
   pr ");"
 
+(* Generate Python C module. *)
+and generate_python_c () =
+  generate_header CStyle LGPLv2;
+
+  pr "\
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+
+#include <Python.h>
+
+#include \"guestfs.h\"
+
+typedef struct {
+  PyObject_HEAD
+  guestfs_h *g;
+} Pyguestfs_Object;
+
+static guestfs_h *
+get_handle (PyObject *obj)
+{
+  assert (obj);
+  assert (obj != Py_None);
+  return ((Pyguestfs_Object *) obj)->g;
+}
+
+static PyObject *
+put_handle (guestfs_h *g)
+{
+  assert (g);
+  return
+    PyCObject_FromVoidPtrAndDesc ((void *) g, (char *) \"guestfs_h\", NULL);
+}
+
+/* This list should be freed (but not the strings) after use. */
+static const char **
+get_string_list (PyObject *obj)
+{
+  int i, len;
+  const char **r;
+
+  assert (obj);
+
+  if (!PyList_Check (obj)) {
+    PyErr_SetString (PyExc_RuntimeError, \"expecting a list parameter\");
+    return NULL;
+  }
+
+  len = PyList_Size (obj);
+  r = malloc (sizeof (char *) * (len+1));
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, \"get_string_list: out of memory\");
+    return NULL;
+  }
+
+  for (i = 0; i < len; ++i)
+    r[i] = PyString_AsString (PyList_GetItem (obj, i));
+  r[len] = NULL;
+
+  return r;
+}
+
+static PyObject *
+put_string_list (char * const * const argv)
+{
+  PyObject *list;
+  int argc, i;
+
+  for (argc = 0; argv[argc] != NULL; ++argc)
+    ;
+
+  list = PyList_New (argc);
+  for (i = 0; i < argc; ++i)
+    PyList_SetItem (list, i, PyString_FromString (argv[i]));
+
+  return list;
+}
+
+static void
+free_strings (char **argv)
+{
+  int argc;
+
+  for (argc = 0; argv[argc] != NULL; ++argc)
+    free (argv[argc]);
+  free (argv);
+}
+
+static PyObject *
+py_guestfs_create (PyObject *self, PyObject *args)
+{
+  guestfs_h *g;
+
+  g = guestfs_create ();
+  if (g == NULL) {
+    PyErr_SetString (PyExc_RuntimeError,
+                     \"guestfs.create: failed to allocate handle\");
+    return NULL;
+  }
+  guestfs_set_error_handler (g, NULL, NULL);
+  return put_handle (g);
+}
+
+static PyObject *
+py_guestfs_close (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+
+  if (!PyArg_ParseTuple (args, (char *) \"O:guestfs_close\", &py_g))
+    return NULL;
+  g = get_handle (py_g);
+
+  guestfs_close (g);
+
+  Py_INCREF (Py_None);
+  return Py_None;
+}
+
+";
+
+  (* LVM structures, turned into Python dictionaries. *)
+  List.iter (
+    fun (typ, cols) ->
+      pr "static PyObject *\n";
+      pr "put_lvm_%s (struct guestfs_lvm_%s *%s)\n" typ typ typ;
+      pr "{\n";
+      pr "  PyObject *dict;\n";
+      pr "\n";
+      pr "  dict = PyDict_New ();\n";
+      List.iter (
+	function
+	| name, `String ->
+	    pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
+	    pr "                        PyString_FromString (%s->%s));\n"
+	      typ name
+	| name, `UUID ->
+	    pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
+	    pr "                        PyString_FromStringAndSize (%s->%s, 32));\n"
+	      typ name
+	| name, `Bytes ->
+	    pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
+	    pr "                        PyLong_FromUnsignedLongLong (%s->%s));\n"
+	      typ name
+	| name, `Int ->
+	    pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
+	    pr "                        PyLong_FromLongLong (%s->%s));\n"
+	      typ name
+	| name, `OptPercent ->
+	    pr "  if (%s->%s >= 0)\n" typ name;
+	    pr "    PyDict_SetItemString (dict, \"%s\",\n" name;
+	    pr "                          PyFloat_FromDouble ((double) %s->%s));\n"
+	      typ name;
+	    pr "  else {\n";
+	    pr "    Py_INCREF (Py_None);\n";
+	    pr "    PyDict_SetItemString (dict, \"%s\", Py_None);" name;
+	    pr "  }\n"
+      ) cols;
+      pr "  return dict;\n";
+      pr "};\n";
+      pr "\n";
+
+      pr "static PyObject *\n";
+      pr "put_lvm_%s_list (struct guestfs_lvm_%s_list *%ss)\n" typ typ typ;
+      pr "{\n";
+      pr "  PyObject *list;\n";
+      pr "  int i;\n";
+      pr "\n";
+      pr "  list = PyList_New (%ss->len);\n" typ;
+      pr "  for (i = 0; i < %ss->len; ++i)\n" typ;
+      pr "    PyList_SetItem (list, i, put_lvm_%s (&%ss->val[i]));\n" typ typ;
+      pr "  return list;\n";
+      pr "};\n";
+      pr "\n"
+  ) ["pv", pv_cols; "vg", vg_cols; "lv", lv_cols];
+
+  (* Python wrapper functions. *)
+  List.iter (
+    fun (name, style, _, _, _, _, _) ->
+      pr "static PyObject *\n";
+      pr "py_guestfs_%s (PyObject *self, PyObject *args)\n" name;
+      pr "{\n";
+
+      pr "  PyObject *py_g;\n";
+      pr "  guestfs_h *g;\n";
+      pr "  PyObject *py_r;\n";
+
+      let error_code =
+	match fst style with
+	| RErr | RInt _ | RBool _ -> pr "  int r;\n"; "-1"
+	| RConstString _ -> pr "  const char *r;\n"; "NULL"
+	| RString _ -> pr "  char *r;\n"; "NULL"
+	| RStringList _ -> pr "  char **r;\n"; "NULL"
+	| RIntBool _ -> pr "  struct guestfs_int_bool *r;\n"; "NULL"
+	| RPVList n -> pr "  struct guestfs_lvm_pv_list *r;\n"; "NULL"
+	| RVGList n -> pr "  struct guestfs_lvm_vg_list *r;\n"; "NULL"
+	| RLVList n -> pr "  struct guestfs_lvm_lv_list *r;\n"; "NULL" in
+
+      List.iter (
+	function
+	| String n -> pr "  const char *%s;\n" n
+	| OptString n -> pr "  const char *%s;\n" n
+	| StringList n ->
+	    pr "  PyObject *py_%s;\n" n;
+	    pr "  const char **%s;\n" n
+	| Bool n -> pr "  int %s;\n" n
+	| Int n -> pr "  int %s;\n" n
+      ) (snd style);
+
+      pr "\n";
+
+      (* Convert the parameters. *)
+      pr "  if (!PyArg_ParseTuple (args, (char *) \"O";
+      List.iter (
+	function
+	| String _ -> pr "s"
+	| OptString _ -> pr "z"
+	| StringList _ -> pr "O"
+	| Bool _ -> pr "i" (* XXX Python has booleans? *)
+	| Int _ -> pr "i"
+      ) (snd style);
+      pr ":guestfs_%s\",\n" name;
+      pr "                         &py_g";
+      List.iter (
+	function
+	| String n -> pr ", &%s" n
+	| OptString n -> pr ", &%s" n
+	| StringList n -> pr ", &py_%s" n
+	| Bool n -> pr ", &%s" n
+	| Int n -> pr ", &%s" n
+      ) (snd style);
+
+      pr "))\n";
+      pr "    return NULL;\n";
+
+      pr "  g = get_handle (py_g);\n";
+      List.iter (
+	function
+	| String _ | OptString _ | Bool _ | Int _ -> ()
+	| StringList n ->
+	    pr "  %s = get_string_list (py_%s);\n" n n;
+	    pr "  if (!%s) return NULL;\n" n
+      ) (snd style);
+
+      pr "\n";
+
+      pr "  r = guestfs_%s " name;
+      generate_call_args ~handle:"g" style;
+      pr ";\n";
+
+      List.iter (
+	function
+	| String _ | OptString _ | Bool _ | Int _ -> ()
+	| StringList n ->
+	    pr "  free (%s);\n" n
+      ) (snd style);
+
+      pr "  if (r == %s) {\n" error_code;
+      pr "    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));\n";
+      pr "    return NULL;\n";
+      pr "  }\n";
+      pr "\n";
+
+      (match fst style with
+       | RErr ->
+	   pr "  Py_INCREF (Py_None);\n";
+	   pr "  py_r = Py_None;\n"
+       | RInt _
+       | RBool _ -> pr "  py_r = PyInt_FromLong ((long) r);\n"
+       | RConstString _ -> pr "  py_r = PyString_FromString (r);\n"
+       | RString _ ->
+	   pr "  py_r = PyString_FromString (r);\n";
+	   pr "  free (r);\n"
+       | RStringList _ ->
+	   pr "  py_r = put_string_list (r);\n";
+	   pr "  free_strings (r);\n"
+       | RIntBool _ ->
+	   pr "  py_r = PyTuple_New (2);\n";
+	   pr "  PyTuple_SetItem (py_r, 0, PyInt_FromLong ((long) r->i));\n";
+	   pr "  PyTuple_SetItem (py_r, 1, PyInt_FromLong ((long) r->b));\n";
+	   pr "  guestfs_free_int_bool (r);\n"
+       | RPVList n ->
+	   pr "  py_r = put_lvm_pv_list (r);\n";
+	   pr "  guestfs_free_lvm_pv_list (r);\n"
+       | RVGList n ->
+	   pr "  py_r = put_lvm_vg_list (r);\n";
+	   pr "  guestfs_free_lvm_vg_list (r);\n"
+       | RLVList n ->
+	   pr "  py_r = put_lvm_lv_list (r);\n";
+	   pr "  guestfs_free_lvm_lv_list (r);\n"
+      );
+
+      pr "  return py_r;\n";
+      pr "}\n";
+      pr "\n"
+  ) all_functions;
+
+  (* Table of functions. *)
+  pr "static PyMethodDef methods[] = {\n";
+  pr "  { (char *) \"create\", py_guestfs_create, METH_VARARGS, NULL },\n";
+  pr "  { (char *) \"close\", py_guestfs_close, METH_VARARGS, NULL },\n";
+  List.iter (
+    fun (name, _, _, _, _, _, _) ->
+      pr "  { (char *) \"%s\", py_guestfs_%s, METH_VARARGS, NULL },\n"
+	name name
+  ) all_functions;
+  pr "  { NULL, NULL, 0, NULL }\n";
+  pr "};\n";
+  pr "\n";
+
+  (* Init function. *)
+  pr "\
+void
+initlibguestfsmod (void)
+{
+  static int initialized = 0;
+
+  if (initialized) return;
+  Py_InitModule ((char *) \"libguestfsmod\", methods);
+  initialized = 1;
+}
+"
+
+(* Generate Python module. *)
+and generate_python_py () =
+  generate_header HashStyle LGPLv2;
+
+  pr "import libguestfsmod\n";
+  pr "\n";
+  pr "class guestfs:\n";
+  pr "    def __init__ (self):\n";
+  pr "        self._o = libguestfsmod.create ()\n";
+  pr "\n";
+  pr "    def __del__ (self):\n";
+  pr "        libguestfsmod.close (self._o)\n";
+  pr "\n";
+
+  List.iter (
+    fun (name, style, _, _, _, _, _) ->
+      pr "    def %s " name;
+      generate_call_args ~handle:"self" style;
+      pr ":\n";
+      pr "        return libguestfsmod.%s " name;
+      generate_call_args ~handle:"self._o" style;
+      pr "\n";
+      pr "\n";
+  ) all_functions
+
 let output_to filename =
   let filename_new = filename ^ ".new" in
   chan := open_out filename_new;
@@ -3716,4 +4053,12 @@ Run it from the top source directory using the command
 
   let close = output_to "perl/lib/Sys/Guestfs.pm" in
   generate_perl_pm ();
+  close ();
+
+  let close = output_to "python/guestfs-py.c" in
+  generate_python_c ();
+  close ();
+
+  let close = output_to "python/guestfs.py" in
+  generate_python_py ();
   close ();

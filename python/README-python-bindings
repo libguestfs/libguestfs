@@ -1,7 +1,0 @@
-There are no Python bindings right now.
-
-Know Python?  Why not contribute some!
-
-You will need to autogenerate them by adding the appropriate code
-snippets to src/generator.ml.  For inspiration, I suggest looking at
-how the OCaml and Perl bindings were done.

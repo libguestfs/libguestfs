@@ -62,28 +62,19 @@ Val_guestfs (guestfs_h *g)
   CAMLreturn (rv);
 }
 
-/* Handle errors. */
-/* XXX Like the current Perl bindings, this is unsafe in a multi-
- * threaded environment.
- */
-static char *last_error = NULL;
-
-static void
-error_handler (guestfs_h *g,
-	       void *data,
-	       const char *msg)
-{
-  if (last_error != NULL) free (last_error);
-  last_error = strdup (msg);
-}
-
 void
 ocaml_guestfs_raise_error (guestfs_h *g, const char *func)
 {
   CAMLparam0 ();
   CAMLlocal1 (v);
+  const char *msg;
 
-  v = caml_copy_string (last_error);
+  msg = guestfs_last_error (g);
+
+  if (msg)
+    v = caml_copy_string (msg);
+  else
+    v = caml_copy_string (func);
   caml_raise_with_arg (*caml_named_value ("ocaml_guestfs_error"), v);
   CAMLnoreturn;
 }
@@ -100,7 +91,7 @@ ocaml_guestfs_create (void)
   if (g == NULL)
     caml_failwith ("failed to create guestfs handle");
 
-  guestfs_set_error_handler (g, error_handler, NULL);
+  guestfs_set_error_handler (g, NULL, NULL);
 
   gv = Val_guestfs (g);
   CAMLreturn (gv);

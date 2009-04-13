@@ -15,10 +15,27 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-EXTRA_DIST = README-python-bindings
+EXTRA_DIST = \
+	guestfs.py \
+	guestfs-py.c \
+	t/*.py
 
 CLEANFILES = *~
 
 if HAVE_PYTHON
+
+pythondir = $(PYTHON_SITE_PACKAGES)
+
+python_LTLIBRARIES = libguestfsmod.la
+
+libguestfsmod_la_SOURCES = guestfs-py.c
+libguestfsmod_la_CFLAGS = -Wall -I$(PYTHON_INCLUDEDIR) -I$(top_builddir)/src
+libguestfsmod_la_LIBADD = $(top_builddir)/src/libguestfs.la
+
+TESTS_ENVIRONMENT = \
+	LIBGUESTFS_PATH=$(abs_top_builddir) \
+	PYTHONPATH=$(abs_top_builddir)/python:$(abs_top_builddir)/python/.libs \
+	$(PYTHON)
+TESTS = t/005-import.py t/010-launch.py t/050-lvcreate.py
 
 endif

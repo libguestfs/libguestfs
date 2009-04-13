@@ -1,5 +1,4 @@
-#!/bin/sh -
-# libguestfs Perl bindings
+# libguestfs Perl bindings -*- perl -*-
 # Copyright (C) 2009 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -16,6 +15,46 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-export LD_LIBRARY_PATH=../src/.libs
-export LIBGUESTFS_PATH=$(cd .. && pwd)
-make -f Makefile-pl test "$@"
+use strict;
+use warnings;
+use Test::More tests => 12;
+
+use Sys::Guestfs;
+
+my $h = Sys::Guestfs->new ();
+ok ($h);
+open FILE, ">test.img";
+truncate FILE, 500*1024*1024;
+close FILE;
+ok (1);
+
+$h->add_drive ("test.img");
+ok (1);
+
+$h->launch ();
+ok (1);
+$h->wait_ready ();
+ok (1);
+
+$h->pvcreate ("/dev/sda");
+ok (1);
+$h->vgcreate ("VG", ["/dev/sda"]);
+ok (1);
+$h->lvcreate ("LV1", "VG", 200);
+ok (1);
+$h->lvcreate ("LV2", "VG", 200);
+ok (1);
+
+my @lvs = $h->lvs ();
+if (@lvs != 2 || $lvs[0] ne "/dev/VG/LV1" || $lvs[1] ne "/dev/VG/LV2") {
+    die "h->lvs() returned incorrect result"
+}
+ok (1);
+
+$h->sync ();
+ok (1);
+
+undef $h;
+ok (1);
+
+#unlink ("test.img");

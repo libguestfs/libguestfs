@@ -1,5 +1,4 @@
-#!/bin/sh -
-# libguestfs Perl bindings
+# libguestfs Python bindings
 # Copyright (C) 2009 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -16,6 +15,4 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-export LD_LIBRARY_PATH=../src/.libs
-export LIBGUESTFS_PATH=$(cd .. && pwd)
-make -f Makefile-pl test "$@"
+import guestfs
