@@ -89,7 +89,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "vgcreate", "create an LVM volume group");
   printf ("%-20s %s\n", "vgs", "list the LVM volume groups (VGs)");
   printf ("%-20s %s\n", "vgs-full", "list the LVM volume groups (VGs)");
-  printf ("%-20s %s\n", "write-file", "Create a file");
+  printf ("%-20s %s\n", "write-file", "create a file");
   printf ("    Use -h <cmd> / help <cmd> to show detailed help for a command.\n");
 }
 
@@ -258,7 +258,7 @@ void display_command (const char *cmd)
     pod2text ("sfdisk - create partitions on a block device", " sfdisk <device> <cyls> <heads> <sectors> <lines>\n\nThis is a direct interface to the L<sfdisk(8)> program for creating\npartitions on block devices.\n\nC<device> should be a block device, for example C</dev/sda>.\n\nC<cyls>, C<heads> and C<sectors> are the number of cylinders, heads\nand sectors on the device, which are passed directly to sfdisk as\nthe I<-C>, I<-H> and I<-S> parameters.  If you pass C<0> for any\nof these, then the corresponding parameter is omitted.  Usually for\n'large' disks, you can just pass C<0> for these, but for small\n(floppy-sized) disks, sfdisk (or rather, the kernel) cannot work\nout the right geometry and you will need to tell it.\n\nC<lines> is a list of lines that we feed to C<sfdisk>.  For more\ninformation refer to the L<sfdisk(8)> manpage.\n\nTo create a single partition occupying the whole disk, you would\npass C<lines> as a single element list, when the single element being\nthe string C<,> (comma).\n\nB<This command is dangerous.  Without careful use you\ncan easily destroy all your data>.");
   else
   if (strcasecmp (cmd, "write_file") == 0 || strcasecmp (cmd, "write-file") == 0)
-    pod2text ("write-file - Create a file", " write-file <path> <content> <size>\n\nThis call creates a file called C<path>.  The contents of the\nfile is the string C<content> (which can contain any 8 bit data),\nwith length C<size>.\n\nAs a special case, if C<size> is C<0>\nthen the length is calculated using C<strlen> (so in this case\nthe content cannot contain embedded ASCII NULs).\n\nBecause of the message protocol, there is a transfer limit \nof somewhere between 2MB and 4MB.  To transfer large files you should use\nFTP.");
+    pod2text ("write-file - create a file", " write-file <path> <content> <size>\n\nThis call creates a file called C<path>.  The contents of the\nfile is the string C<content> (which can contain any 8 bit data),\nwith length C<size>.\n\nAs a special case, if C<size> is C<0>\nthen the length is calculated using C<strlen> (so in this case\nthe content cannot contain embedded ASCII NULs).\n\nBecause of the message protocol, there is a transfer limit \nof somewhere between 2MB and 4MB.  To transfer large files you should use\nFTP.");
   else
   if (strcasecmp (cmd, "umount") == 0 || strcasecmp (cmd, "unmount") == 0)
     pod2text ("umount - unmount a filesystem", " umount <pathordevice>\n\nThis unmounts the given filesystem.  The filesystem may be\nspecified either by its mountpoint (path) or the device which\ncontains the filesystem.\n\nYou can use 'unmount' as an alias for this command.");

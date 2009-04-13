@@ -260,7 +260,7 @@ val sfdisk : t -> string -> int -> int -> int -> string array -> unit
 (** create partitions on a block device *)
 
 val write_file : t -> string -> string -> int -> unit
-(** Create a file *)
+(** create a file *)
 
 val umount : t -> string -> unit
 (** unmount a filesystem *)

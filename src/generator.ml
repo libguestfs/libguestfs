@@ -890,7 +890,7 @@ the string C<,> (comma).");
        ["mount"; "/dev/sda1"; "/"];
        ["write_file"; "/new"; "new file contents"; "0"];
        ["cat"; "/new"]], "new file contents")],
-   "Create a file",
+   "create a file",
    "\
 This call creates a file called C<path>.  The contents of the
 file is the string C<content> (which can contain any 8 bit data),
@@ -1152,6 +1152,16 @@ let check_functions () =
 	   check_arg_ret_name m
       );
       List.iter (fun arg -> check_arg_ret_name (name_of_argt arg)) (snd style)
+  ) all_functions;
+
+  (* Check short descriptions. *)
+  List.iter (
+    fun (name, _, _, _, _, shortdesc, _) ->
+      if shortdesc.[0] <> Char.lowercase shortdesc.[0] then
+	failwithf "short description of %s should begin with lowercase." name;
+      let c = shortdesc.[String.length shortdesc-1] in
+      if c = '\n' || c = '.' then
+	failwithf "short description of %s should not end with . or \\n." name
   ) all_functions;
 
   (* Check long dscriptions. *)
