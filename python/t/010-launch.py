@@ -18,7 +18,7 @@
 import os
 import guestfs
 
-g = guestfs.guestfs()
+g = guestfs.GuestFS()
 f = open ("test.img", "w")
 f.truncate (500 * 1024 * 1024)
 f.close ()

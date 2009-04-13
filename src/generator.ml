@@ -3948,7 +3948,7 @@ and generate_python_py () =
 
   pr "import libguestfsmod\n";
   pr "\n";
-  pr "class guestfs:\n";
+  pr "class GuestFS:\n";
   pr "    def __init__ (self):\n";
   pr "        self._o = libguestfsmod.create ()\n";
   pr "\n";

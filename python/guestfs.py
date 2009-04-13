@@ -20,7 +20,7 @@
 
 import libguestfsmod
 
-class guestfs:
+class GuestFS:
     def __init__ (self):
         self._o = libguestfsmod.create ()
 
