@@ -51,6 +51,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "chown", "change file owner and group");
   printf ("%-20s %s\n", "config", "add qemu parameters");
   printf ("%-20s %s\n", "exists", "test if file or directory exists");
+  printf ("%-20s %s\n", "file", "determine file type");
   printf ("%-20s %s\n", "get-autosync", "get autosync mode");
   printf ("%-20s %s\n", "get-path", "get the search path");
   printf ("%-20s %s\n", "get-verbose", "get verbose mode");
@@ -271,6 +272,9 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "lvm_remove_all") == 0 || strcasecmp (cmd, "lvm-remove-all") == 0)
     pod2text ("lvm-remove-all - remove all LVM LVs, VGs and PVs", " lvm-remove-all\n\nThis command removes all LVM logical volumes, volume groups\nand physical volumes.\n\nB<This command is dangerous.  Without careful use you\ncan easily destroy all your data>.");
+  else
+  if (strcasecmp (cmd, "file") == 0)
+    pod2text ("file - determine file type", " file <path>\n\nThis call uses the standard L<file(1)> command to determine\nthe type or contents of the file.  This also works on devices,\nfor example to find out whether a partition contains a filesystem.\n\nThe exact command which runs is C<file -bsL path>.  Note in\nparticular that the filename is not prepended to the output\n(the C<-b> option).");
   else
     display_builtin_command (cmd);
 }
@@ -1277,6 +1281,23 @@ static int run_lvm_remove_all (const char *cmd, int argc, char *argv[])
   return r;
 }
 
+static int run_file (const char *cmd, int argc, char *argv[])
+{
+  char *r;
+  const char *path;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  path = argv[0];
+  r = guestfs_file (g, path);
+  if (r == NULL) return -1;
+  printf ("%s\n", r);
+  free (r);
+  return 0;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -1455,6 +1476,9 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "lvm_remove_all") == 0 || strcasecmp (cmd, "lvm-remove-all") == 0)
     return run_lvm_remove_all (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "file") == 0)
+    return run_file (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

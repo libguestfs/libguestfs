@@ -3603,6 +3603,190 @@ static int test_umount_all_0 (void)
   return 0;
 }
 
+static int test_file_0 (void)
+{
+  /* InitBasicFS for file (0): create ext2 on /dev/sda1 */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *lines[] = {
+      ",",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for file (0) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_touch (g, "/new");
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *r;
+    suppress_error = 0;
+    r = guestfs_file (g, "/new");
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, "empty") != 0) {
+      fprintf (stderr, "test_file_0: expected \"empty\" but got \"%s\"\n", r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
+static int test_file_1 (void)
+{
+  /* InitBasicFS for file (1): create ext2 on /dev/sda1 */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *lines[] = {
+      ",",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for file (1) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_write_file (g, "/new", "some content\n", 0);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *r;
+    suppress_error = 0;
+    r = guestfs_file (g, "/new");
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, "ASCII text") != 0) {
+      fprintf (stderr, "test_file_1: expected \"ASCII text\" but got \"%s\"\n", r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
+static int test_file_2 (void)
+{
+  /* InitBasicFS for file (2): create ext2 on /dev/sda1 */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *lines[] = {
+      ",",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  /* TestLastFail for file (2) */
+  {
+    char *r;
+    suppress_error = 1;
+    r = guestfs_file (g, "/nofile");
+    if (r != NULL)
+      return -1;
+    free (r);
+  }
+  return 0;
+}
+
 int main (int argc, char *argv[])
 {
   char c = 0;
@@ -3716,234 +3900,249 @@ int main (int argc, char *argv[])
     exit (1);
   }
 
-  printf ("  1/ 46 test_mount_0\n");
+  printf ("  1/ 49 test_mount_0\n");
   if (test_mount_0 () == -1) {
     printf ("test_mount_0 FAILED\n");
     failed++;
   }
-  printf ("  2/ 46 test_sync_0\n");
+  printf ("  2/ 49 test_sync_0\n");
   if (test_sync_0 () == -1) {
     printf ("test_sync_0 FAILED\n");
     failed++;
   }
-  printf ("  3/ 46 test_touch_0\n");
+  printf ("  3/ 49 test_touch_0\n");
   if (test_touch_0 () == -1) {
     printf ("test_touch_0 FAILED\n");
     failed++;
   }
-  printf ("  4/ 46 test_cat_0\n");
+  printf ("  4/ 49 test_cat_0\n");
   if (test_cat_0 () == -1) {
     printf ("test_cat_0 FAILED\n");
     failed++;
   }
-  printf ("  5/ 46 test_ls_0\n");
+  printf ("  5/ 49 test_ls_0\n");
   if (test_ls_0 () == -1) {
     printf ("test_ls_0 FAILED\n");
     failed++;
   }
-  printf ("  6/ 46 test_list_devices_0\n");
+  printf ("  6/ 49 test_list_devices_0\n");
   if (test_list_devices_0 () == -1) {
     printf ("test_list_devices_0 FAILED\n");
     failed++;
   }
-  printf ("  7/ 46 test_list_partitions_0\n");
+  printf ("  7/ 49 test_list_partitions_0\n");
   if (test_list_partitions_0 () == -1) {
     printf ("test_list_partitions_0 FAILED\n");
     failed++;
   }
-  printf ("  8/ 46 test_list_partitions_1\n");
+  printf ("  8/ 49 test_list_partitions_1\n");
   if (test_list_partitions_1 () == -1) {
     printf ("test_list_partitions_1 FAILED\n");
     failed++;
   }
-  printf ("  9/ 46 test_pvs_0\n");
+  printf ("  9/ 49 test_pvs_0\n");
   if (test_pvs_0 () == -1) {
     printf ("test_pvs_0 FAILED\n");
     failed++;
   }
-  printf (" 10/ 46 test_pvs_1\n");
+  printf (" 10/ 49 test_pvs_1\n");
   if (test_pvs_1 () == -1) {
     printf ("test_pvs_1 FAILED\n");
     failed++;
   }
-  printf (" 11/ 46 test_vgs_0\n");
+  printf (" 11/ 49 test_vgs_0\n");
   if (test_vgs_0 () == -1) {
     printf ("test_vgs_0 FAILED\n");
     failed++;
   }
-  printf (" 12/ 46 test_vgs_1\n");
+  printf (" 12/ 49 test_vgs_1\n");
   if (test_vgs_1 () == -1) {
     printf ("test_vgs_1 FAILED\n");
     failed++;
   }
-  printf (" 13/ 46 test_lvs_0\n");
+  printf (" 13/ 49 test_lvs_0\n");
   if (test_lvs_0 () == -1) {
     printf ("test_lvs_0 FAILED\n");
     failed++;
   }
-  printf (" 14/ 46 test_lvs_1\n");
+  printf (" 14/ 49 test_lvs_1\n");
   if (test_lvs_1 () == -1) {
     printf ("test_lvs_1 FAILED\n");
     failed++;
   }
-  printf (" 15/ 46 test_pvs_full_0\n");
+  printf (" 15/ 49 test_pvs_full_0\n");
   if (test_pvs_full_0 () == -1) {
     printf ("test_pvs_full_0 FAILED\n");
     failed++;
   }
-  printf (" 16/ 46 test_vgs_full_0\n");
+  printf (" 16/ 49 test_vgs_full_0\n");
   if (test_vgs_full_0 () == -1) {
     printf ("test_vgs_full_0 FAILED\n");
     failed++;
   }
-  printf (" 17/ 46 test_lvs_full_0\n");
+  printf (" 17/ 49 test_lvs_full_0\n");
   if (test_lvs_full_0 () == -1) {
     printf ("test_lvs_full_0 FAILED\n");
     failed++;
   }
-  printf (" 18/ 46 test_read_lines_0\n");
+  printf (" 18/ 49 test_read_lines_0\n");
   if (test_read_lines_0 () == -1) {
     printf ("test_read_lines_0 FAILED\n");
     failed++;
   }
-  printf (" 19/ 46 test_read_lines_1\n");
+  printf (" 19/ 49 test_read_lines_1\n");
   if (test_read_lines_1 () == -1) {
     printf ("test_read_lines_1 FAILED\n");
     failed++;
   }
-  printf (" 20/ 46 test_rm_0\n");
+  printf (" 20/ 49 test_rm_0\n");
   if (test_rm_0 () == -1) {
     printf ("test_rm_0 FAILED\n");
     failed++;
   }
-  printf (" 21/ 46 test_rm_1\n");
+  printf (" 21/ 49 test_rm_1\n");
   if (test_rm_1 () == -1) {
     printf ("test_rm_1 FAILED\n");
     failed++;
   }
-  printf (" 22/ 46 test_rm_2\n");
+  printf (" 22/ 49 test_rm_2\n");
   if (test_rm_2 () == -1) {
     printf ("test_rm_2 FAILED\n");
     failed++;
   }
-  printf (" 23/ 46 test_rmdir_0\n");
+  printf (" 23/ 49 test_rmdir_0\n");
   if (test_rmdir_0 () == -1) {
     printf ("test_rmdir_0 FAILED\n");
     failed++;
   }
-  printf (" 24/ 46 test_rmdir_1\n");
+  printf (" 24/ 49 test_rmdir_1\n");
   if (test_rmdir_1 () == -1) {
     printf ("test_rmdir_1 FAILED\n");
     failed++;
   }
-  printf (" 25/ 46 test_rmdir_2\n");
+  printf (" 25/ 49 test_rmdir_2\n");
   if (test_rmdir_2 () == -1) {
     printf ("test_rmdir_2 FAILED\n");
     failed++;
   }
-  printf (" 26/ 46 test_rm_rf_0\n");
+  printf (" 26/ 49 test_rm_rf_0\n");
   if (test_rm_rf_0 () == -1) {
     printf ("test_rm_rf_0 FAILED\n");
     failed++;
   }
-  printf (" 27/ 46 test_mkdir_0\n");
+  printf (" 27/ 49 test_mkdir_0\n");
   if (test_mkdir_0 () == -1) {
     printf ("test_mkdir_0 FAILED\n");
     failed++;
   }
-  printf (" 28/ 46 test_mkdir_1\n");
+  printf (" 28/ 49 test_mkdir_1\n");
   if (test_mkdir_1 () == -1) {
     printf ("test_mkdir_1 FAILED\n");
     failed++;
   }
-  printf (" 29/ 46 test_mkdir_p_0\n");
+  printf (" 29/ 49 test_mkdir_p_0\n");
   if (test_mkdir_p_0 () == -1) {
     printf ("test_mkdir_p_0 FAILED\n");
     failed++;
   }
-  printf (" 30/ 46 test_mkdir_p_1\n");
+  printf (" 30/ 49 test_mkdir_p_1\n");
   if (test_mkdir_p_1 () == -1) {
     printf ("test_mkdir_p_1 FAILED\n");
     failed++;
   }
-  printf (" 31/ 46 test_mkdir_p_2\n");
+  printf (" 31/ 49 test_mkdir_p_2\n");
   if (test_mkdir_p_2 () == -1) {
     printf ("test_mkdir_p_2 FAILED\n");
     failed++;
   }
-  printf (" 32/ 46 test_exists_0\n");
+  printf (" 32/ 49 test_exists_0\n");
   if (test_exists_0 () == -1) {
     printf ("test_exists_0 FAILED\n");
     failed++;
   }
-  printf (" 33/ 46 test_exists_1\n");
+  printf (" 33/ 49 test_exists_1\n");
   if (test_exists_1 () == -1) {
     printf ("test_exists_1 FAILED\n");
     failed++;
   }
-  printf (" 34/ 46 test_is_file_0\n");
+  printf (" 34/ 49 test_is_file_0\n");
   if (test_is_file_0 () == -1) {
     printf ("test_is_file_0 FAILED\n");
     failed++;
   }
-  printf (" 35/ 46 test_is_file_1\n");
+  printf (" 35/ 49 test_is_file_1\n");
   if (test_is_file_1 () == -1) {
     printf ("test_is_file_1 FAILED\n");
     failed++;
   }
-  printf (" 36/ 46 test_is_dir_0\n");
+  printf (" 36/ 49 test_is_dir_0\n");
   if (test_is_dir_0 () == -1) {
     printf ("test_is_dir_0 FAILED\n");
     failed++;
   }
-  printf (" 37/ 46 test_is_dir_1\n");
+  printf (" 37/ 49 test_is_dir_1\n");
   if (test_is_dir_1 () == -1) {
     printf ("test_is_dir_1 FAILED\n");
     failed++;
   }
-  printf (" 38/ 46 test_pvcreate_0\n");
+  printf (" 38/ 49 test_pvcreate_0\n");
   if (test_pvcreate_0 () == -1) {
     printf ("test_pvcreate_0 FAILED\n");
     failed++;
   }
-  printf (" 39/ 46 test_vgcreate_0\n");
+  printf (" 39/ 49 test_vgcreate_0\n");
   if (test_vgcreate_0 () == -1) {
     printf ("test_vgcreate_0 FAILED\n");
     failed++;
   }
-  printf (" 40/ 46 test_lvcreate_0\n");
+  printf (" 40/ 49 test_lvcreate_0\n");
   if (test_lvcreate_0 () == -1) {
     printf ("test_lvcreate_0 FAILED\n");
     failed++;
   }
-  printf (" 41/ 46 test_mkfs_0\n");
+  printf (" 41/ 49 test_mkfs_0\n");
   if (test_mkfs_0 () == -1) {
     printf ("test_mkfs_0 FAILED\n");
     failed++;
   }
-  printf (" 42/ 46 test_write_file_0\n");
+  printf (" 42/ 49 test_write_file_0\n");
   if (test_write_file_0 () == -1) {
     printf ("test_write_file_0 FAILED\n");
     failed++;
   }
-  printf (" 43/ 46 test_umount_0\n");
+  printf (" 43/ 49 test_umount_0\n");
   if (test_umount_0 () == -1) {
     printf ("test_umount_0 FAILED\n");
     failed++;
   }
-  printf (" 44/ 46 test_umount_1\n");
+  printf (" 44/ 49 test_umount_1\n");
   if (test_umount_1 () == -1) {
     printf ("test_umount_1 FAILED\n");
     failed++;
   }
-  printf (" 45/ 46 test_mounts_0\n");
+  printf (" 45/ 49 test_mounts_0\n");
   if (test_mounts_0 () == -1) {
     printf ("test_mounts_0 FAILED\n");
     failed++;
   }
-  printf (" 46/ 46 test_umount_all_0\n");
+  printf (" 46/ 49 test_umount_all_0\n");
   if (test_umount_all_0 () == -1) {
     printf ("test_umount_all_0 FAILED\n");
+    failed++;
+  }
+  printf (" 47/ 49 test_file_0\n");
+  if (test_file_0 () == -1) {
+    printf ("test_file_0 FAILED\n");
+    failed++;
+  }
+  printf (" 48/ 49 test_file_1\n");
+  if (test_file_1 () == -1) {
+    printf ("test_file_1 FAILED\n");
+    failed++;
+  }
+  printf (" 49/ 49 test_file_2\n");
+  if (test_file_2 () == -1) {
+    printf ("test_file_2 FAILED\n");
     failed++;
   }
 
@@ -3956,7 +4155,7 @@ int main (int argc, char *argv[])
   unlink (buf);
 
   if (failed > 0) {
-    printf ("***** %d / 46 tests FAILED *****\n", failed);
+    printf ("***** %d / 49 tests FAILED *****\n", failed);
     exit (1);
   }
 

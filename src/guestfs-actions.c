@@ -3471,3 +3471,77 @@ int guestfs_lvm_remove_all (guestfs_h *g)
   return 0;
 }
 
+struct file_rv {
+  int cb_done;  /* flag to indicate callback was called */
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+  struct guestfs_file_ret ret;
+};
+
+static void file_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  struct file_rv *rv = (struct file_rv *) data;
+
+  if (!xdr_guestfs_message_header (xdr, &rv->hdr)) {
+    error (g, "guestfs_file: failed to parse reply header");
+    return;
+  }
+  if (rv->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &rv->err)) {
+      error (g, "guestfs_file: failed to parse reply error");
+      return;
+    }
+    goto done;
+  }
+  if (!xdr_guestfs_file_ret (xdr, &rv->ret)) {
+    error (g, "guestfs_file: failed to parse reply");
+    return;
+  }
+ done:
+  rv->cb_done = 1;
+  main_loop.main_loop_quit (g);
+}
+
+char *guestfs_file (guestfs_h *g,
+		const char *path)
+{
+  struct guestfs_file_args args;
+  struct file_rv rv;
+  int serial;
+
+  if (g->state != READY) {
+    error (g, "guestfs_file called from the wrong state, %d != READY",
+      g->state);
+    return NULL;
+  }
+
+  memset (&rv, 0, sizeof rv);
+
+  args.path = (char *) path;
+  serial = dispatch (g, GUESTFS_PROC_FILE,
+                     (xdrproc_t) xdr_guestfs_file_args, (char *) &args);
+  if (serial == -1)
+    return NULL;
+
+  rv.cb_done = 0;
+  g->reply_cb_internal = file_cb;
+  g->reply_cb_internal_data = &rv;
+  main_loop.main_loop_run (g);
+  g->reply_cb_internal = NULL;
+  g->reply_cb_internal_data = NULL;
+  if (!rv.cb_done) {
+    error (g, "guestfs_file failed, see earlier error messages");
+    return NULL;
+  }
+
+  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_FILE, serial) == -1)
+    return NULL;
+
+  if (rv.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", rv.err.error);
+    return NULL;
+  }
+
+  return rv.ret.description; /* caller will free */
+}
+

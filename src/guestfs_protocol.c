@@ -827,6 +827,26 @@ xdr_guestfs_mounts_ret (XDR *xdrs, guestfs_mounts_ret *objp)
 }
 
 bool_t
+xdr_guestfs_file_args (XDR *xdrs, guestfs_file_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->path, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_file_ret (XDR *xdrs, guestfs_file_ret *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->description, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
 xdr_guestfs_procedure (XDR *xdrs, guestfs_procedure *objp)
 {
 	register int32_t *buf;

@@ -79,3 +79,4 @@ extern int guestfs_umount (guestfs_h *handle, const char *pathordevice);
 extern char **guestfs_mounts (guestfs_h *handle);
 extern int guestfs_umount_all (guestfs_h *handle);
 extern int guestfs_lvm_remove_all (guestfs_h *handle);
+extern char *guestfs_file (guestfs_h *handle, const char *path);

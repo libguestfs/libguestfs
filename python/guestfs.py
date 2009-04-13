@@ -207,3 +207,6 @@ class GuestFS:
     def lvm_remove_all (self):
         return libguestfsmod.lvm_remove_all (self._o)
 
+    def file (self, path):
+        return libguestfsmod.file (self._o, path)
+

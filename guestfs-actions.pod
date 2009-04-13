@@ -312,6 +312,22 @@ See also C<guestfs_is_file>, C<guestfs_is_dir>, C<guestfs_stat>.
 
 This function returns a C truth value on success or -1 on error.
 
+=head2 guestfs_file
+
+ char *guestfs_file (guestfs_h *handle,
+		const char *path);
+
+This call uses the standard L<file(1)> command to determine
+the type or contents of the file.  This also works on devices,
+for example to find out whether a partition contains a filesystem.
+
+The exact command which runs is C<file -bsL path>.  Note in
+particular that the filename is not prepended to the output
+(the C<-b> option).
+
+This function returns a string or NULL on error.
+I<The caller must free the returned string after use>.
+
 =head2 guestfs_get_autosync
 
  int guestfs_get_autosync (guestfs_h *handle);

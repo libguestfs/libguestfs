@@ -274,3 +274,6 @@ val umount_all : t -> unit
 val lvm_remove_all : t -> unit
 (** remove all LVM LVs, VGs and PVs *)
 
+val file : t -> string -> string
+(** determine file type *)
+

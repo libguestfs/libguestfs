@@ -1806,6 +1806,31 @@ py_guestfs_lvm_remove_all (PyObject *self, PyObject *args)
   return py_r;
 }
 
+static PyObject *
+py_guestfs_file (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  char *r;
+  const char *path;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_file",
+                         &py_g, &path))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_file (g, path);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyString_FromString (r);
+  free (r);
+  return py_r;
+}
+
 static PyMethodDef methods[] = {
   { (char *) "create", py_guestfs_create, METH_VARARGS, NULL },
   { (char *) "close", py_guestfs_close, METH_VARARGS, NULL },
@@ -1869,6 +1894,7 @@ static PyMethodDef methods[] = {
   { (char *) "mounts", py_guestfs_mounts, METH_VARARGS, NULL },
   { (char *) "umount_all", py_guestfs_umount_all, METH_VARARGS, NULL },
   { (char *) "lvm_remove_all", py_guestfs_lvm_remove_all, METH_VARARGS, NULL },
+  { (char *) "file", py_guestfs_file, METH_VARARGS, NULL },
   { NULL, NULL, 0, NULL }
 };
 

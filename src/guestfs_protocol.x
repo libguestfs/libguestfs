@@ -328,6 +328,14 @@ struct guestfs_mounts_ret {
   str devices<>;
 };
 
+struct guestfs_file_args {
+  string path<>;
+};
+
+struct guestfs_file_ret {
+  string description<>;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -377,6 +385,7 @@ enum guestfs_procedure {
   GUESTFS_PROC_MOUNTS = 46,
   GUESTFS_PROC_UMOUNT_ALL = 47,
   GUESTFS_PROC_LVM_REMOVE_ALL = 48,
+  GUESTFS_PROC_FILE = 49,
   GUESTFS_PROC_dummy
 };
 

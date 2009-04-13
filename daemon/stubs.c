@@ -1137,6 +1137,33 @@ static void lvm_remove_all_stub (XDR *xdr_in)
 done: ;
 }
 
+static void file_stub (XDR *xdr_in)
+{
+  char *r;
+  struct guestfs_file_args args;
+  const char *path;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_file_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "file");
+    return;
+  }
+  path = args.path;
+
+  r = do_file (path);
+  if (r == NULL)
+    /* do_file has already called reply_with_error */
+    goto done;
+
+  struct guestfs_file_ret ret;
+  ret.description = r;
+  reply ((xdrproc_t) &xdr_guestfs_file_ret, (char *) &ret);
+  free (r);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_file_args, (char *) &args);
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -1283,6 +1310,9 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_LVM_REMOVE_ALL:
       lvm_remove_all_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_FILE:
+      file_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d", proc_nr);

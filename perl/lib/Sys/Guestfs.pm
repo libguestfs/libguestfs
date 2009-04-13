@@ -289,6 +289,16 @@ This returns C<true> if and only if there is a file, directory
 
 See also C<$h-E<gt>is_file>, C<$h-E<gt>is_dir>, C<$h-E<gt>stat>.
 
+=item $description = $h->file ($path);
+
+This call uses the standard L<file(1)> command to determine
+the type or contents of the file.  This also works on devices,
+for example to find out whether a partition contains a filesystem.
+
+The exact command which runs is C<file -bsL path>.  Note in
+particular that the filename is not prepended to the output
+(the C<-b> option).
+
 =item $autosync = $h->get_autosync ();
 
 Get the autosync flag.

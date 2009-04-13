@@ -914,3 +914,19 @@ lvm_remove_all (g)
         croak ("lvm_remove_all: %s", guestfs_last_error (g));
       }
 
+SV *
+file (g, path)
+      guestfs_h *g;
+      char *path;
+PREINIT:
+      char *description;
+   CODE:
+      description = guestfs_file (g, path);
+      if (description == NULL) {
+        croak ("file: %s", guestfs_last_error (g));
+      }
+      RETVAL = newSVpv (description, 0);
+      free (description);
+ OUTPUT:
+      RETVAL
+

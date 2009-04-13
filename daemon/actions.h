@@ -69,3 +69,4 @@ extern int do_umount (const char *pathordevice);
 extern char **do_mounts (void);
 extern int do_umount_all (void);
 extern int do_lvm_remove_all (void);
+extern char *do_file (const char *path);
