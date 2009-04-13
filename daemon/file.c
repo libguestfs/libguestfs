@@ -314,3 +314,52 @@ do_write_file (const char *path, const char *content, int size)
 
   return 0;
 }
+
+/* This runs the 'file' command. */
+char *
+do_file (const char *path)
+{
+  char *out, *err;
+  int r, len;
+  char *buf;
+
+  NEED_ROOT (NULL);
+  ABS_PATH (path, NULL);
+
+  len = strlen (path) + 9;
+  buf = malloc (len);
+  if (!buf) {
+    reply_with_perror ("malloc");
+    return NULL;
+  }
+  snprintf (buf, len, "/sysroot%s", path);
+
+  /* file(1) manpage claims "file returns 0 on success, and non-zero on
+   * error", but this is evidently not true.  It always returns 0, in
+   * every scenario I can think up.  So check the target is readable
+   * first.
+   */
+  if (access (buf, R_OK) == -1) {
+    free (buf);
+    reply_with_perror ("access: %s", path);
+    return NULL;
+  }
+
+  r = command (&out, &err, "file", "-bsL", buf, NULL);
+  free (buf);
+
+  if (r == -1) {
+    free (out);
+    reply_with_error ("file: %s: %s", path, err);
+    free (err);
+    return NULL;
+  }
+  free (err);
+
+  /* We need to remove the trailing \n from output of file(1). */
+  len = strlen (out);
+  if (out[len-1] == '\n')
+    out[len-1] = '\0';
+
+  return out;			/* caller frees */
+}

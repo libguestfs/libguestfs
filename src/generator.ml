@@ -950,6 +950,25 @@ Some internal mounts are not unmounted by this call.");
 This command removes all LVM logical volumes, volume groups
 and physical volumes.");
 
+  ("file", (RString "description", [String "path"]), 49, [],
+   [InitBasicFS, TestOutput (
+      [["touch"; "/new"];
+       ["file"; "/new"]], "empty");
+    InitBasicFS, TestOutput (
+      [["write_file"; "/new"; "some content\n"; "0"];
+       ["file"; "/new"]], "ASCII text");
+    InitBasicFS, TestLastFail (
+      [["file"; "/nofile"]])],
+   "determine file type",
+   "\
+This call uses the standard L<file(1)> command to determine
+the type or contents of the file.  This also works on devices,
+for example to find out whether a partition contains a filesystem.
+
+The exact command which runs is C<file -bsL path>.  Note in
+particular that the filename is not prepended to the output
+(the C<-b> option).");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
