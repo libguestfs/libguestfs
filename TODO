@@ -1,5 +1,4 @@
-aug_load, aug_defvar, aug_defnode: These are not present in some
-older versions of Augeas.
+/tmp/libguestfs temporary directory is not cleaned up.
 
 ----------------------------------------------------------------------
 
