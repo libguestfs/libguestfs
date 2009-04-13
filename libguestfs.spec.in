@@ -150,7 +150,7 @@ make INSTALLDIRS=vendor
 
 
 %check
-make check
+test -n "$QUICK_RPMBUILD" || make check
 
 
 %install
@@ -180,6 +180,13 @@ popd
 
 find $RPM_BUILD_ROOT -name perllocal.pod -delete
 find $RPM_BUILD_ROOT -name .packlist -delete
+
+rm $RPM_BUILD_ROOT%{python_sitearch}/libguestfsmod.a
+rm $RPM_BUILD_ROOT%{python_sitearch}/libguestfsmod.la
+
+mkdir -p $RPM_BUILD_ROOT%{python_sitelib}
+mv $RPM_BUILD_ROOT%{python_sitearch}/guestfs.py* \
+  $RPM_BUILD_ROOT%{python_sitelib}/
 
 
 %clean
@@ -245,6 +252,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %files python
 %defattr(-,root,root,-)
+%{python_sitearch}/*
+%{python_sitelib}/*.py
+%{python_sitelib}/*.pyc
+%{python_sitelib}/*.pyo
 
 
 %changelog
