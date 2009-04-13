@@ -24,7 +24,7 @@ EXTRA_DIST = \
 SUBDIRS = examples
 
 CLEANFILES = *~ *.cmi *.cmo *.cmx *.cma *.cmxa *.o *.a *.so
-CLEANFILES += t/*~ t/*.cmi t/*.cmo t/*.o t/*.a t/*.so
+CLEANFILES += t/*~ t/*.cmi t/*.cmo t/*.cmx t/*.o t/*.a t/*.so
 
 if HAVE_OCAML
 

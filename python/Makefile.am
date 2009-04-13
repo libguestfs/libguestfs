@@ -20,7 +20,7 @@ EXTRA_DIST = \
 	guestfs-py.c \
 	t/*.py
 
-CLEANFILES = *~
+CLEANFILES = *~ t/*~
 
 if HAVE_PYTHON
 
