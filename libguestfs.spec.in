@@ -57,6 +57,12 @@ programs.
 See also the 'guestfish' package for shell scripting and command line
 access.
 
+For Perl bindings, see 'libguestfs-perl'.
+
+For OCaml bindings, see 'libguestfs-ocaml-devel'.
+
+For Python bindings, see 'libguestfs-python'.
+
 
 %package devel
 Summary:     Development tools and libraries for %{name}

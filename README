@@ -16,9 +16,8 @@ LVs, what filesystem is in each LV, etc.).  It can also run commands
 in the context of the guest.  Also you can access filesystems over FTP.
 
 Libguestfs is a library that can be linked with C and C++ management
-programs (or management programs written in other languages, if people
-contribute the language bindings).  You can also use it from shell
-scripts or the command line.
+programs (or management programs written in OCaml, Perl or Python).
+You can also use it from shell scripts or the command line.
 
 Libguestfs was written by Richard W.M. Jones (rjones@redhat.com).
 For discussion please use the fedora-virt mailing list:
