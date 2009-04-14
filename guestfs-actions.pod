@@ -84,7 +84,7 @@ On error this function returns -1.
 Look up the value associated with C<path>.  If C<path>
 matches exactly one node, the C<value> is returned.
 
-This function returns a string or NULL on error.
+This function returns a string, or NULL on error.
 I<The caller must free the returned string after use>.
 
 =head2 guestfs_aug_init
@@ -250,7 +250,7 @@ Note that this function cannot correctly handle binary files
 as end of string).  For those you need to use the C<guestfs_read_file>
 function which has a more complex interface.
 
-This function returns a string or NULL on error.
+This function returns a string, or NULL on error.
 I<The caller must free the returned string after use>.
 
 Because of the message protocol, there is a transfer limit 
@@ -288,7 +288,7 @@ This function returns 0 on success or -1 on error.
  char *guestfs_command (guestfs_h *handle,
 		char * const* const arguments);
 
-This calls runs a command from the guest filesystem.  The
+This call runs a command from the guest filesystem.  The
 filesystem must be mounted, and must contain a compatible
 operating system (ie. something Linux, with the same
 or compatible processor architecture).
@@ -309,7 +309,7 @@ correct places.  It is the caller's responsibility to ensure
 all filesystems that are needed are mounted at the right
 locations.
 
-This function returns a string or NULL on error.
+This function returns a string, or NULL on error.
 I<The caller must free the returned string after use>.
 
 =head2 guestfs_command_lines
@@ -366,7 +366,7 @@ The exact command which runs is C<file -bsL path>.  Note in
 particular that the filename is not prepended to the output
 (the C<-b> option).
 
-This function returns a string or NULL on error.
+This function returns a string, or NULL on error.
 I<The caller must free the returned string after use>.
 
 =head2 guestfs_get_autosync
@@ -386,7 +386,7 @@ Return the current search path.
 This is always non-NULL.  If it wasn't set already, then this will
 return the default path.
 
-This function returns a string or NULL on error.
+This function returns a string, or NULL on error.
 The string is owned by the guest handle and must I<not> be freed.
 
 =head2 guestfs_get_verbose
@@ -481,7 +481,7 @@ there is no cwd) in the format of 'ls -la'.
 This command is mostly useful for interactive sessions.  It
 is I<not> intended that you try to parse the output string.
 
-This function returns a string or NULL on error.
+This function returns a string, or NULL on error.
 I<The caller must free the returned string after use>.
 
 =head2 guestfs_ls

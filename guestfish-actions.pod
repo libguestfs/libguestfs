@@ -218,7 +218,7 @@ yourself (Augeas support makes this relatively easy).
 
  command arguments,...
 
-This calls runs a command from the guest filesystem.  The
+This call runs a command from the guest filesystem.  The
 filesystem must be mounted, and must contain a compatible
 operating system (ie. something Linux, with the same
 or compatible processor architecture).

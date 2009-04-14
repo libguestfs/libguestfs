@@ -973,7 +973,7 @@ particular that the filename is not prepended to the output
    [], (* XXX how to test? *)
    "run a command from the guest filesystem",
    "\
-This calls runs a command from the guest filesystem.  The
+This call runs a command from the guest filesystem.  The
 filesystem must be mounted, and must contain a compatible
 operating system (ie. something Linux, with the same
 or compatible processor architecture).
@@ -1335,10 +1335,10 @@ let rec generate_actions_pod () =
        | RBool _ ->
 	   pr "This function returns a C truth value on success or -1 on error.\n\n"
        | RConstString _ ->
-	   pr "This function returns a string or NULL on error.
+	   pr "This function returns a string, or NULL on error.
 The string is owned by the guest handle and must I<not> be freed.\n\n"
        | RString _ ->
-	   pr "This function returns a string or NULL on error.
+	   pr "This function returns a string, or NULL on error.
 I<The caller must free the returned string after use>.\n\n"
        | RStringList _ ->
 	   pr "This function returns a NULL-terminated array of strings
