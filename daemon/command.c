@@ -79,10 +79,10 @@ do_command_lines (char * const * const argv)
     if (pend) {
       *pend = '\0';
       pend++;
-    }
 
-    /* Final \n?  Don't return an empty final element. */
-    if (pend && *pend == '\0') break;
+      /* Final \n?  Don't return an empty final element. */
+      if (*pend == '\0') break;
+    }
 
     if (add_string (&lines, &size, &alloc, p) == -1) {
       free (out);
@@ -97,5 +97,5 @@ do_command_lines (char * const * const argv)
   if (add_string (&lines, &size, &alloc, NULL) == -1)
     return NULL;
 
-  return lines;
+  return lines;			/* Caller frees. */
 }
