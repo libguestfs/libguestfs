@@ -308,8 +308,9 @@ script (int prompt)
 {
   char *buf;
   char *cmd;
+  char *p, *pend;
   char *argv[64];
-  int i;
+  int i, len;
 
   if (prompt)
     printf ("\n"
@@ -327,23 +328,118 @@ script (int prompt)
       break;
     }
 
-    /* Split the buffer up at whitespace. */
-    cmd = strtok (buf, " \t");
-    if (cmd == NULL)
-      continue;
+    /* Skip any initial whitespace before the command. */
+    while (*buf && isspace (*buf))
+      buf++;
 
+    /* Get the command (cannot be quoted). */
+    len = strcspn (buf, " \t");
+
+    if (len == 0) continue;
+
+    cmd = buf;
     i = 0;
-    while (i < sizeof argv / sizeof argv[0] &&
-	   (argv[i] = strtok (NULL, " \t")) != NULL)
-      i++;
-    if (i == sizeof argv / sizeof argv[0]) {
-      fprintf (stderr, "guestfish: too many arguments in command\n");
-      exit (1);
+    if (buf[len] == '\0') {
+      argv[0] = NULL;
+      goto got_command;
     }
 
+    buf[len] = '\0';
+    p = &buf[len+1];
+    p += strspn (p, " \t");
+
+    /* Get the parameters. */
+    while (*p && i < sizeof argv / sizeof argv[0]) {
+      /* Parameters which start with quotes or square brackets
+       * are treated specially.  Bare parameters are delimited
+       * by whitespace.
+       */
+      if (*p == '"') {
+	p++;
+	len = strcspn (p, "\"");
+	if (p[len] == '\0') {
+	  fprintf (stderr, "guestfish: unterminated double quote\n");
+	  if (!prompt) exit (1);
+	  goto next_command;
+	}
+	if (p[len+1] && (p[len+1] != ' ' && p[len+1] != '\t')) {
+	  fprintf (stderr, "guestfish: command arguments not separated by whitespace\n");
+	  if (!prompt) exit (1);
+	  goto next_command;
+	}
+	p[len] = '\0';
+	pend = &p[len+2];
+      } else if (*p == '\'') {
+	p++;
+	len = strcspn (p, "'");
+	if (p[len] == '\0') {
+	  fprintf (stderr, "guestfish: unterminated single quote\n");
+	  if (!prompt) exit (1);
+	  goto next_command;
+	}
+	if (p[len+1] && (p[len+1] != ' ' && p[len+1] != '\t')) {
+	  fprintf (stderr, "guestfish: command arguments not separated by whitespace\n");
+	  if (!prompt) exit (1);
+	  goto next_command;
+	}
+	p[len] = '\0';
+	pend = &p[len+2];
+	/*
+      } else if (*p == '[') {
+	int c = 1;
+	p++;
+	pend = p;
+	while (*pend && c != 0) {
+	  if (*pend == '[') c++;
+	  else if (*pend == ']') c--;
+	  pend++;
+	}
+	if (c != 0) {
+	  fprintf (stderr, "guestfish: unterminated \"[...]\" sequence\n");
+	  if (!prompt) exit (1);
+	  goto next_command;
+	}
+	if (*pend && (*pend != ' ' && *pend != '\t')) {
+	  fprintf (stderr, "guestfish: command arguments not separated by whitespace\n");
+	  if (!prompt) exit (1);
+	  goto next_command;
+	}
+	*(pend-1) = '\0';
+	*/
+      } else if (*p != ' ' && *p != '\t') {
+	len = strcspn (p, " \t");
+	if (p[len]) {
+	  p[len] = '\0';
+	  pend = &p[len+1];
+	} else
+	  pend = &p[len];
+      } else {
+	fprintf (stderr, "guestfish: internal error parsing string at '%s'\n",
+		 p);
+	abort ();
+      }
+
+      argv[i++] = p;
+      p = pend;
+
+      if (*p)
+	p += strspn (p, " \t");
+    }
+
+    if (i == sizeof argv / sizeof argv[0]) {
+      fprintf (stderr, "guestfish: too many arguments\n");
+      if (!prompt) exit (1);
+      goto next_command;
+    }
+
+    argv[i] = NULL;
+
+  got_command:
     if (issue_command (cmd, argv) == -1) {
       if (!prompt) exit (1);
     }
+
+  next_command:;
   }
   if (prompt) printf ("\n");
 }
@@ -560,10 +656,7 @@ is_true (const char *str)
     strcasecmp (str, "no") != 0;
 }
 
-/* This is quite inadequate for real use.  For example, there is no way
- * to specify an empty list.  We need to use a real parser to allow
- * quoting, empty lists, etc.
- */
+/* XXX We could improve list parsing. */
 char **
 parse_string_list (const char *str)
 {
@@ -573,7 +666,7 @@ parse_string_list (const char *str)
 
   argc = 1;
   for (i = 0; str[i]; ++i)
-    if (str[i] == ':') argc++;
+    if (str[i] == ' ') argc++;
 
   argv = malloc (sizeof (char *) * (argc+1));
   if (argv == NULL) { perror ("malloc"); exit (1); }
@@ -581,10 +674,10 @@ parse_string_list (const char *str)
   p = str;
   i = 0;
   while (*p) {
-    pend = strchrnul (p, ':');
+    pend = strchrnul (p, ' ');
     argv[i] = strndup (p, pend-p);
     i++;
-    p = *pend == ':' ? pend+1 : pend;
+    p = *pend == ' ' ? pend+1 : pend;
   }
   argv[i] = NULL;
 

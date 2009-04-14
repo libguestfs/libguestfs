@@ -156,6 +156,22 @@ The only exception is that if the C<-m> or C<--mount> option was
 given, the guest is automatically run for you (simply because
 guestfish can't mount the disks you asked for without doing this).
 
+=head1 QUOTING
+
+You can quote ordinary parameters using either single or double
+quotes.  For example:
+
+ add "file with a space.img"
+
+ rm '/file name'
+
+ rm '/"'
+
+A few commands require a list of strings to be passed.  For these, use
+a space-separated list, enclosed in quotes.  For example:
+
+ vgcreate VG "/dev/sda1 /dev/sdb1"
+
 =head1 COMMANDS
 
 =head2 help

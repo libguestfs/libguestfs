@@ -7,14 +7,6 @@ documentation.
 
 ----------------------------------------------------------------------
 
-Use a real scanner in guestfish.  Suggest:
-
-    "..."	strings
-    '...'
-    [...]	matching [ and ]
-
-----------------------------------------------------------------------
-
 (From Ján ONDREJ (SAL))
 
 We should provide a way to stream partitions in and out.
