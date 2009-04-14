@@ -320,19 +320,24 @@ char *
 do_file (const char *path)
 {
   char *out, *err;
-  int r, len;
+  int r, len, freeit = 0;
   char *buf;
 
-  NEED_ROOT (NULL);
+  /*NEED_ROOT (NULL); - no: we allow people to run this on /dev devices. */
   ABS_PATH (path, NULL);
 
-  len = strlen (path) + 9;
-  buf = malloc (len);
-  if (!buf) {
-    reply_with_perror ("malloc");
-    return NULL;
+  if (strncmp (path, "/dev/", 5) == 0)
+    buf = (char *) path;
+  else {
+    len = strlen (path) + 9;
+    buf = malloc (len);
+    if (!buf) {
+      reply_with_perror ("malloc");
+      return NULL;
+    }
+    snprintf (buf, len, "/sysroot%s", path);
+    freeit = 1;
   }
-  snprintf (buf, len, "/sysroot%s", path);
 
   /* file(1) manpage claims "file returns 0 on success, and non-zero on
    * error", but this is evidently not true.  It always returns 0, in
@@ -340,13 +345,13 @@ do_file (const char *path)
    * first.
    */
   if (access (buf, R_OK) == -1) {
-    free (buf);
+    if (freeit) free (buf);
     reply_with_perror ("access: %s", path);
     return NULL;
   }
 
   r = command (&out, &err, "file", "-bsL", buf, NULL);
-  free (buf);
+  if (freeit) free (buf);
 
   if (r == -1) {
     free (out);
