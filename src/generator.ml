@@ -2829,6 +2829,87 @@ and generate_fish_cmds () =
   pr "}\n";
   pr "\n"
 
+(* Readline completion for guestfish. *)
+and generate_fish_completion () =
+  generate_header CStyle GPLv2;
+
+  let all_functions =
+    List.filter (
+      fun (_, _, _, flags, _, _, _) -> not (List.mem NotInFish flags)
+    ) all_functions in
+
+  pr "\
+#include <config.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#ifdef HAVE_LIBREADLINE
+#include <readline/readline.h>
+#endif
+
+#include \"fish.h\"
+
+#ifdef HAVE_LIBREADLINE
+
+static const char *commands[] = {
+";
+
+  (* Get the commands and sort them, including the aliases. *)
+  let commands =
+    List.map (
+      fun (name, _, _, flags, _, _, _) ->
+	let name2 = replace_char name '_' '-' in
+	let alias =
+	  try find_map (function FishAlias n -> Some n | _ -> None) flags
+	  with Not_found -> name in
+
+	if name <> alias then [name2; alias] else [name2]
+    ) all_functions in
+  let commands = List.flatten commands in
+  let commands = List.sort compare commands in
+
+  List.iter (pr "  \"%s\",\n") commands;
+
+  pr "  NULL
+};
+
+static char *
+generator (const char *text, int state)
+{
+  static int index, len;
+  const char *name;
+
+  if (!state) {
+    index = 0;
+    len = strlen (text);
+  }
+
+  while ((name = commands[index]) != NULL) {
+    index++;
+    if (strncasecmp (name, text, len) == 0)
+      return strdup (name);
+  }
+
+  return NULL;
+}
+
+#endif /* HAVE_LIBREADLINE */
+
+char **do_completion (const char *text, int start, int end)
+{
+  char **matches = NULL;
+
+#ifdef HAVE_LIBREADLINE
+  if (start == 0)
+    matches = rl_completion_matches (text, generator);
+#endif
+
+  return matches;
+}
+";
+
 (* Generate the POD documentation for guestfish. *)
 and generate_fish_actions_pod () =
   let all_functions_sorted =
@@ -4070,6 +4151,10 @@ Run it from the top source directory using the command
 
   let close = output_to "fish/cmds.c" in
   generate_fish_cmds ();
+  close ();
+
+  let close = output_to "fish/completion.c" in
+  generate_fish_completion ();
   close ();
 
   let close = output_to "guestfs-structs.pod" in

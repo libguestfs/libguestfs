@@ -29,6 +29,11 @@
 #include <inttypes.h>
 #include <assert.h>
 
+#ifdef HAVE_LIBREADLINE
+#include <readline/readline.h>
+#include <readline/history.h>
+#endif
+
 #include <guestfs.h>
 
 #include "fish.h"
@@ -46,6 +51,9 @@ static void script (int prompt);
 static void cmdline (char *argv[], int optind, int argc);
 static int issue_command (const char *cmd, char *argv[]);
 static int parse_size (const char *str, off_t *size_rtn);
+static void initialize_readline (void);
+static void cleanup_readline (void);
+static void add_history_line (const char *);
 
 /* Currently open libguestfs handle. */
 guestfs_h *g;
@@ -113,6 +121,8 @@ main (int argc, char *argv[])
   struct mp *mp;
   char *p;
   int c;
+
+  initialize_readline ();
 
   /* guestfs_create is meant to be a lightweight operation, so
    * it's OK to do it early here.
@@ -208,6 +218,8 @@ main (int argc, char *argv[])
   else
     cmdline (argv, optind, argc);
 
+  cleanup_readline ();
+
   exit (0);
 }
 
@@ -254,13 +266,50 @@ shell_script (void)
   script (0);
 }
 
+#define FISH "><fs> "
+
+static char *line_read = NULL;
+
+static char *
+rl_gets (int prompt)
+{
+#ifdef HAVE_LIBREADLINE
+
+  if (line_read) {
+    free (line_read);
+    line_read = NULL;
+  }
+
+  line_read = readline (prompt ? FISH : "");
+
+  if (prompt && line_read && *line_read)
+    add_history_line (line_read);
+
+#else /* !HAVE_LIBREADLINE */
+
+  static char buf[8192];
+  int len;
+
+  if (prompt) printf (FISH);
+  line_read = fgets (buf, sizeof buf, stdin);
+
+  if (line_read) {
+    len = strlen (line_read);
+    if (len > 0 && buf[len-1] == '\n') buf[len-1] = '\0';
+  }
+
+#endif /* !HAVE_LIBREADLINE */
+
+  return line_read;
+}
+
 static void
 script (int prompt)
 {
-  char buf[8192];
+  char *buf;
   char *cmd;
   char *argv[64];
-  int len, i;
+  int i;
 
   if (prompt)
     printf ("\n"
@@ -272,14 +321,11 @@ script (int prompt)
 	    "\n");
 
   while (!quit) {
-    if (prompt) printf ("><fs> ");
-    if (fgets (buf, sizeof buf, stdin) == NULL) {
+    buf = rl_gets (prompt);
+    if (!buf) {
       quit = 1;
       break;
     }
-
-    len = strlen (buf);
-    if (len > 0 && buf[len-1] == '\n') buf[len-1] = '\0';
 
     /* Split the buffer up at whitespace. */
     cmd = strtok (buf, " \t");
@@ -543,4 +589,55 @@ parse_string_list (const char *str)
   argv[i] = NULL;
 
   return argv;
+}
+
+#ifdef HAVE_LIBREADLINE
+static char histfile[1024];
+static int nr_history_lines = 0;
+#endif
+
+static void
+initialize_readline (void)
+{
+#ifdef HAVE_LIBREADLINE
+  const char *home;
+
+  home = getenv ("HOME");
+  if (home) {
+    snprintf (histfile, sizeof histfile, "%s/.guestfish", home);
+    using_history ();
+    (void) read_history (histfile);
+  }
+
+  rl_readline_name = "guestfish";
+  rl_attempted_completion_function = do_completion;
+#endif
+}
+
+static void
+cleanup_readline (void)
+{
+#ifdef HAVE_LIBREADLINE
+  int fd;
+
+  if (histfile[0] != '\0') {
+    fd = open (histfile, O_WRONLY|O_CREAT, 0644);
+    if (fd == -1) {
+      perror (histfile);
+      return;
+    }
+    close (fd);
+
+    (void) append_history (nr_history_lines, histfile);
+  }
+#endif
+}
+
+static void
+add_history_line (const char *line)
+{
+#ifdef HAVE_LIBREADLINE
+  add_history (line);
+  nr_history_lines++;
+#endif
 }

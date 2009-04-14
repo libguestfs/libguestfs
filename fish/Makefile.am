@@ -19,11 +19,12 @@ bin_PROGRAMS = guestfish
 
 guestfish_SOURCES = \
 	cmds.c \
+	completion.c \
 	fish.c \
 	fish.h
 guestfish_CFLAGS = \
 	-I$(top_builddir)/src -Wall \
 	-DGUESTFS_DEFAULT_PATH='"$(libdir)/guestfs"'
-guestfish_LDADD = $(top_builddir)/src/libguestfs.la
+guestfish_LDADD = $(top_builddir)/src/libguestfs.la $(LIBREADLINE)
 
 CLEANFILES = *~

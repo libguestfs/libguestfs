@@ -30,7 +30,7 @@ Requirements
 
 - recent QEMU with vmchannel support
 
-- febootstrap >= 1.2
+- febootstrap >= 1.5
 
 - XDR, rpcgen
 
@@ -38,6 +38,8 @@ Requirements
 
 - perldoc (pod2man, pod2text) to generate the manual pages and
 other documentation.
+
+- (Optional) Readline to have nicer command-line editing in guestfish.
 
 - (Optional) OCaml if you want to rebuild the generated files, and
 also to build the OCaml bindings

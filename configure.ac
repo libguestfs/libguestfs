@@ -111,6 +111,26 @@ AC_ARG_WITH([mirror],
 MIRROR="$with_mirror"
 AC_SUBST(MIRROR)
 
+dnl Readline.
+AC_ARG_WITH([readline],
+    [AS_HELP_STRING([--with-readline],
+        [support fancy command line editing @<:@default=check@:>@])],
+    [],
+    [with_readline=check])
+
+LIBREADLINE=
+AS_IF([test "x$with_readline" != xno],
+    [AC_CHECK_LIB([readline], [main],
+        [AC_SUBST([LIBREADLINE], ["-lreadline -lncurses"])
+         AC_DEFINE([HAVE_LIBREADLINE], [1],
+                   [Define if you have libreadline])
+        ],
+        [if test "x$with_readline" != xcheck; then
+         AC_MSG_FAILURE(
+             [--with-readline was given, but test for readline failed])
+         fi
+        ], -lncurses)])
+
 dnl Check for OCaml (optional, for OCaml bindings).
 AC_PROG_OCAML
 AC_PROG_FINDLIB

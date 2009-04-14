@@ -40,4 +40,7 @@ extern void list_commands (void);
 extern void display_command (const char *cmd);
 extern int run_action (const char *cmd, int argc, char *argv[]);
 
+/* in completion.c (auto-generated) */
+extern char **do_completion (const char *text, int start, int end);
+
 #endif /* FISH_H */

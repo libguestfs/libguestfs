@@ -217,6 +217,11 @@ same effect as using the B<-v> option.
 Set the path that guestfish uses to search for kernel and initrd.img.
 See the discussion of paths in L<guestfs(3)>.
 
+=item HOME
+
+If compiled with GNU readline support, then the command history
+is saved in C<$HOME/.guestfish>
+
 =back
 
 =head1 SEE ALSO
