@@ -277,3 +277,9 @@ val lvm_remove_all : t -> unit
 val file : t -> string -> string
 (** determine file type *)
 
+val command : t -> string array -> string
+(** run a command from the guest filesystem *)
+
+val command_lines : t -> string array -> string array
+(** run a command, returning lines *)
+

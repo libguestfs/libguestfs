@@ -80,3 +80,5 @@ extern char **guestfs_mounts (guestfs_h *handle);
 extern int guestfs_umount_all (guestfs_h *handle);
 extern int guestfs_lvm_remove_all (guestfs_h *handle);
 extern char *guestfs_file (guestfs_h *handle, const char *path);
+extern char *guestfs_command (guestfs_h *handle, char * const* const arguments);
+extern char **guestfs_command_lines (guestfs_h *handle, char * const* const arguments);

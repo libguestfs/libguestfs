@@ -210,3 +210,9 @@ class GuestFS:
     def file (self, path):
         return libguestfsmod.file (self._o, path)
 
+    def command (self, arguments):
+        return libguestfsmod.command (self._o, arguments)
+
+    def command_lines (self, arguments):
+        return libguestfsmod.command_lines (self._o, arguments)
+

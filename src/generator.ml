@@ -969,6 +969,38 @@ The exact command which runs is C<file -bsL path>.  Note in
 particular that the filename is not prepended to the output
 (the C<-b> option).");
 
+  ("command", (RString "output", [StringList "arguments"]), 50, [],
+   [], (* XXX how to test? *)
+   "run a command from the guest filesystem",
+   "\
+This calls runs a command from the guest filesystem.  The
+filesystem must be mounted, and must contain a compatible
+operating system (ie. something Linux, with the same
+or compatible processor architecture).
+
+The single parameter is an argv-style list of arguments.
+The first element is the name of the program to run.
+Subsequent elements are parameters.  The list must be
+non-empty (ie. must contain a program name).
+
+The C<$PATH> environment variable will contain at least
+C</usr/bin> and C</bin>.  If you require a program from
+another location, you should provide the full path in the
+first parameter.
+
+Shared libraries and data files required by the program
+must be available on filesystems which are mounted in the
+correct places.  It is the caller's responsibility to ensure
+all filesystems that are needed are mounted at the right
+locations.");
+
+  ("command_lines", (RStringList "lines", [StringList "arguments"]), 51, [],
+   [], (* XXX how to test? *)
+   "run a command, returning lines",
+   "\
+This is the same as C<guestfs_command>, but splits the
+result into a list of lines.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
@@ -1163,7 +1195,9 @@ let check_functions () =
 	  failwithf "%s param/ret %s should not contain '-' or '_'"
 	    name n;
 	if n = "value" then
-	  failwithf "%s has a param/ret called 'value', which causes conflicts in the OCaml bindings, use something like 'val' or a more descriptive name" n
+	  failwithf "%s has a param/ret called 'value', which causes conflicts in the OCaml bindings, use something like 'val' or a more descriptive name" n;
+	if n = "argv" || n = "args" then
+	  failwithf "%s has a param/ret called 'argv' or 'args', which will cause some conflicts in the generated code" n
       in
 
       (match fst style with
@@ -3351,20 +3385,22 @@ DESTROY (g)
 	  | OptString _
 	  | Bool _
 	  | Int _ -> ()
-	  | StringList n -> pr "        free (%s);\n" n
+	  | StringList n -> pr "      free (%s);\n" n
 	) (snd style)
       in
 
       (* Code. *)
       (match fst style with
        | RErr ->
+	   pr "PREINIT:\n";
+	   pr "      int r;\n";
 	   pr " PPCODE:\n";
-	   pr "      if (guestfs_%s " name;
+	   pr "      r = guestfs_%s " name;
 	   generate_call_args ~handle:"g" style;
-	   pr " == -1) {\n";
+	   pr ";\n";
 	   do_cleanups ();
+	   pr "      if (r == -1)\n";
 	   pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
-	   pr "      }\n"
        | RInt n
        | RBool n ->
 	   pr "PREINIT:\n";
@@ -3373,10 +3409,9 @@ DESTROY (g)
 	   pr "      %s = guestfs_%s " n name;
 	   generate_call_args ~handle:"g" style;
 	   pr ";\n";
-	   pr "      if (%s == -1) {\n" n;
 	   do_cleanups ();
+	   pr "      if (%s == -1)\n" n;
 	   pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
-	   pr "      }\n";
 	   pr "      RETVAL = newSViv (%s);\n" n;
 	   pr " OUTPUT:\n";
 	   pr "      RETVAL\n"
@@ -3387,10 +3422,9 @@ DESTROY (g)
 	   pr "      %s = guestfs_%s " n name;
 	   generate_call_args ~handle:"g" style;
 	   pr ";\n";
-	   pr "      if (%s == NULL) {\n" n;
 	   do_cleanups ();
+	   pr "      if (%s == NULL)\n" n;
 	   pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
-	   pr "      }\n";
 	   pr "      RETVAL = newSVpv (%s, 0);\n" n;
 	   pr " OUTPUT:\n";
 	   pr "      RETVAL\n"
@@ -3401,10 +3435,9 @@ DESTROY (g)
 	   pr "      %s = guestfs_%s " n name;
 	   generate_call_args ~handle:"g" style;
 	   pr ";\n";
-	   pr "      if (%s == NULL) {\n" n;
 	   do_cleanups ();
+	   pr "      if (%s == NULL)\n" n;
 	   pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
-	   pr "      }\n";
 	   pr "      RETVAL = newSVpv (%s, 0);\n" n;
 	   pr "      free (%s);\n" n;
 	   pr " OUTPUT:\n";
@@ -3417,10 +3450,9 @@ DESTROY (g)
 	   pr "      %s = guestfs_%s " n name;
 	   generate_call_args ~handle:"g" style;
 	   pr ";\n";
-	   pr "      if (%s == NULL) {\n" n;
 	   do_cleanups ();
+	   pr "      if (%s == NULL)\n" n;
 	   pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
-	   pr "      }\n";
 	   pr "      for (n = 0; %s[n] != NULL; ++n) /**/;\n" n;
 	   pr "      EXTEND (SP, n);\n";
 	   pr "      for (i = 0; i < n; ++i) {\n";
@@ -3435,28 +3467,25 @@ DESTROY (g)
 	   pr "      r = guestfs_%s " name;
 	   generate_call_args ~handle:"g" style;
 	   pr ";\n";
-	   pr "      if (r == NULL) {\n";
 	   do_cleanups ();
+	   pr "      if (r == NULL)\n";
 	   pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
-	   pr "      }\n";
 	   pr "      EXTEND (SP, 2);\n";
 	   pr "      PUSHs (sv_2mortal (newSViv (r->i)));\n";
 	   pr "      PUSHs (sv_2mortal (newSViv (r->b)));\n";
 	   pr "      guestfs_free_int_bool (r);\n";
        | RPVList n ->
-	   generate_perl_lvm_code "pv" pv_cols name style n;
+	   generate_perl_lvm_code "pv" pv_cols name style n do_cleanups;
        | RVGList n ->
-	   generate_perl_lvm_code "vg" vg_cols name style n;
+	   generate_perl_lvm_code "vg" vg_cols name style n do_cleanups;
        | RLVList n ->
-	   generate_perl_lvm_code "lv" lv_cols name style n;
+	   generate_perl_lvm_code "lv" lv_cols name style n do_cleanups;
       );
-
-      do_cleanups ();
 
       pr "\n"
   ) all_functions
 
-and generate_perl_lvm_code typ cols name style n =
+and generate_perl_lvm_code typ cols name style n do_cleanups =
   pr "PREINIT:\n";
   pr "      struct guestfs_lvm_%s_list *%s;\n" typ n;
   pr "      int i;\n";
@@ -3465,6 +3494,7 @@ and generate_perl_lvm_code typ cols name style n =
   pr "      %s = guestfs_%s " n name;
   generate_call_args ~handle:"g" style;
   pr ";\n";
+  do_cleanups ();
   pr "      if (%s == NULL)\n" n;
   pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
   pr "      EXTEND (SP, %s->len);\n" n;

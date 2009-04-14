@@ -1831,6 +1831,64 @@ py_guestfs_file (PyObject *self, PyObject *args)
   return py_r;
 }
 
+static PyObject *
+py_guestfs_command (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  char *r;
+  PyObject *py_arguments;
+  const char **arguments;
+
+  if (!PyArg_ParseTuple (args, (char *) "OO:guestfs_command",
+                         &py_g, &py_arguments))
+    return NULL;
+  g = get_handle (py_g);
+  arguments = get_string_list (py_arguments);
+  if (!arguments) return NULL;
+
+  r = guestfs_command (g, arguments);
+  free (arguments);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyString_FromString (r);
+  free (r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_command_lines (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  char **r;
+  PyObject *py_arguments;
+  const char **arguments;
+
+  if (!PyArg_ParseTuple (args, (char *) "OO:guestfs_command_lines",
+                         &py_g, &py_arguments))
+    return NULL;
+  g = get_handle (py_g);
+  arguments = get_string_list (py_arguments);
+  if (!arguments) return NULL;
+
+  r = guestfs_command_lines (g, arguments);
+  free (arguments);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = put_string_list (r);
+  free_strings (r);
+  return py_r;
+}
+
 static PyMethodDef methods[] = {
   { (char *) "create", py_guestfs_create, METH_VARARGS, NULL },
   { (char *) "close", py_guestfs_close, METH_VARARGS, NULL },
@@ -1895,6 +1953,8 @@ static PyMethodDef methods[] = {
   { (char *) "umount_all", py_guestfs_umount_all, METH_VARARGS, NULL },
   { (char *) "lvm_remove_all", py_guestfs_lvm_remove_all, METH_VARARGS, NULL },
   { (char *) "file", py_guestfs_file, METH_VARARGS, NULL },
+  { (char *) "command", py_guestfs_command, METH_VARARGS, NULL },
+  { (char *) "command_lines", py_guestfs_command_lines, METH_VARARGS, NULL },
   { NULL, NULL, 0, NULL }
 };
 

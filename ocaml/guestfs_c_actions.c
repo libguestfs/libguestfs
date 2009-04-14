@@ -1689,3 +1689,55 @@ ocaml_guestfs_file (value gv, value pathv)
   CAMLreturn (rv);
 }
 
+CAMLprim value
+ocaml_guestfs_command (value gv, value argumentsv)
+{
+  CAMLparam2 (gv, argumentsv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("command: used handle after closing it");
+
+  char **arguments = ocaml_guestfs_strings_val (argumentsv);
+  char *r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_command (g, arguments);
+  caml_leave_blocking_section ();
+  ocaml_guestfs_free_strings (arguments);
+  if (r == NULL)
+    ocaml_guestfs_raise_error (g, "command");
+
+  rv = caml_copy_string (r);
+  free (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_command_lines (value gv, value argumentsv)
+{
+  CAMLparam2 (gv, argumentsv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("command_lines: used handle after closing it");
+
+  char **arguments = ocaml_guestfs_strings_val (argumentsv);
+  int i;
+  char **r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_command_lines (g, arguments);
+  caml_leave_blocking_section ();
+  ocaml_guestfs_free_strings (arguments);
+  if (r == NULL)
+    ocaml_guestfs_raise_error (g, "command_lines");
+
+  rv = caml_copy_string_array ((const char **) r);
+  for (i = 0; r[i] != NULL; ++i) free (r[i]);
+  free (r);
+  CAMLreturn (rv);
+}
+

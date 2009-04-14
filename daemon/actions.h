@@ -70,3 +70,5 @@ extern char **do_mounts (void);
 extern int do_umount_all (void);
 extern int do_lvm_remove_all (void);
 extern char *do_file (const char *path);
+extern char *do_command (char * const* const arguments);
+extern char **do_command_lines (char * const* const arguments);

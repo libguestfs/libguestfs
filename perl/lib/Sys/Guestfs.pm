@@ -271,6 +271,34 @@ Only numeric uid and gid are supported.  If you want to use
 names, you will need to locate and parse the password file
 yourself (Augeas support makes this relatively easy).
 
+=item $output = $h->command (\@arguments);
+
+This calls runs a command from the guest filesystem.  The
+filesystem must be mounted, and must contain a compatible
+operating system (ie. something Linux, with the same
+or compatible processor architecture).
+
+The single parameter is an argv-style list of arguments.
+The first element is the name of the program to run.
+Subsequent elements are parameters.  The list must be
+non-empty (ie. must contain a program name).
+
+The C<$PATH> environment variable will contain at least
+C</usr/bin> and C</bin>.  If you require a program from
+another location, you should provide the full path in the
+first parameter.
+
+Shared libraries and data files required by the program
+must be available on filesystems which are mounted in the
+correct places.  It is the caller's responsibility to ensure
+all filesystems that are needed are mounted at the right
+locations.
+
+=item @lines = $h->command_lines (\@arguments);
+
+This is the same as C<$h-E<gt>command>, but splits the
+result into a list of lines.
+
 =item $h->config ($qemuparam, $qemuvalue);
 
 This can be used to add arbitrary qemu command line parameters

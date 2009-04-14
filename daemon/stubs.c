@@ -1164,6 +1164,65 @@ done:
   xdr_free ((xdrproc_t) xdr_guestfs_file_args, (char *) &args);
 }
 
+static void command_stub (XDR *xdr_in)
+{
+  char *r;
+  struct guestfs_command_args args;
+  char **arguments;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_command_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "command");
+    return;
+  }
+  args.arguments.arguments_val = realloc (args.arguments.arguments_val, sizeof (char *) * (args.arguments.arguments_len+1));
+  args.arguments.arguments_val[args.arguments.arguments_len] = NULL;
+  arguments = args.arguments.arguments_val;
+
+  r = do_command (arguments);
+  if (r == NULL)
+    /* do_command has already called reply_with_error */
+    goto done;
+
+  struct guestfs_command_ret ret;
+  ret.output = r;
+  reply ((xdrproc_t) &xdr_guestfs_command_ret, (char *) &ret);
+  free (r);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_command_args, (char *) &args);
+}
+
+static void command_lines_stub (XDR *xdr_in)
+{
+  char **r;
+  struct guestfs_command_lines_args args;
+  char **arguments;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_command_lines_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "command_lines");
+    return;
+  }
+  args.arguments.arguments_val = realloc (args.arguments.arguments_val, sizeof (char *) * (args.arguments.arguments_len+1));
+  args.arguments.arguments_val[args.arguments.arguments_len] = NULL;
+  arguments = args.arguments.arguments_val;
+
+  r = do_command_lines (arguments);
+  if (r == NULL)
+    /* do_command_lines has already called reply_with_error */
+    goto done;
+
+  struct guestfs_command_lines_ret ret;
+  ret.lines.lines_len = count_strings (r);
+  ret.lines.lines_val = r;
+  reply ((xdrproc_t) &xdr_guestfs_command_lines_ret, (char *) &ret);
+  free_strings (r);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_command_lines_args, (char *) &args);
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -1313,6 +1372,12 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_FILE:
       file_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_COMMAND:
+      command_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_COMMAND_LINES:
+      command_lines_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d", proc_nr);

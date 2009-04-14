@@ -436,6 +436,35 @@ struct guestfs_file_ret {
 };
 typedef struct guestfs_file_ret guestfs_file_ret;
 
+struct guestfs_command_args {
+	struct {
+		u_int arguments_len;
+		str *arguments_val;
+	} arguments;
+};
+typedef struct guestfs_command_args guestfs_command_args;
+
+struct guestfs_command_ret {
+	char *output;
+};
+typedef struct guestfs_command_ret guestfs_command_ret;
+
+struct guestfs_command_lines_args {
+	struct {
+		u_int arguments_len;
+		str *arguments_val;
+	} arguments;
+};
+typedef struct guestfs_command_lines_args guestfs_command_lines_args;
+
+struct guestfs_command_lines_ret {
+	struct {
+		u_int lines_len;
+		str *lines_val;
+	} lines;
+};
+typedef struct guestfs_command_lines_ret guestfs_command_lines_ret;
+
 enum guestfs_procedure {
 	GUESTFS_PROC_MOUNT = 1,
 	GUESTFS_PROC_SYNC = 2,
@@ -486,7 +515,9 @@ enum guestfs_procedure {
 	GUESTFS_PROC_UMOUNT_ALL = 47,
 	GUESTFS_PROC_LVM_REMOVE_ALL = 48,
 	GUESTFS_PROC_FILE = 49,
-	GUESTFS_PROC_dummy = 49 + 1,
+	GUESTFS_PROC_COMMAND = 50,
+	GUESTFS_PROC_COMMAND_LINES = 51,
+	GUESTFS_PROC_dummy = 51 + 1,
 };
 typedef enum guestfs_procedure guestfs_procedure;
 #define GUESTFS_MESSAGE_MAX 4194304
@@ -588,6 +619,10 @@ extern  bool_t xdr_guestfs_umount_args (XDR *, guestfs_umount_args*);
 extern  bool_t xdr_guestfs_mounts_ret (XDR *, guestfs_mounts_ret*);
 extern  bool_t xdr_guestfs_file_args (XDR *, guestfs_file_args*);
 extern  bool_t xdr_guestfs_file_ret (XDR *, guestfs_file_ret*);
+extern  bool_t xdr_guestfs_command_args (XDR *, guestfs_command_args*);
+extern  bool_t xdr_guestfs_command_ret (XDR *, guestfs_command_ret*);
+extern  bool_t xdr_guestfs_command_lines_args (XDR *, guestfs_command_lines_args*);
+extern  bool_t xdr_guestfs_command_lines_ret (XDR *, guestfs_command_lines_ret*);
 extern  bool_t xdr_guestfs_procedure (XDR *, guestfs_procedure*);
 extern  bool_t xdr_guestfs_message_direction (XDR *, guestfs_message_direction*);
 extern  bool_t xdr_guestfs_message_status (XDR *, guestfs_message_status*);
@@ -659,6 +694,10 @@ extern bool_t xdr_guestfs_umount_args ();
 extern bool_t xdr_guestfs_mounts_ret ();
 extern bool_t xdr_guestfs_file_args ();
 extern bool_t xdr_guestfs_file_ret ();
+extern bool_t xdr_guestfs_command_args ();
+extern bool_t xdr_guestfs_command_ret ();
+extern bool_t xdr_guestfs_command_lines_args ();
+extern bool_t xdr_guestfs_command_lines_ret ();
 extern bool_t xdr_guestfs_procedure ();
 extern bool_t xdr_guestfs_message_direction ();
 extern bool_t xdr_guestfs_message_status ();

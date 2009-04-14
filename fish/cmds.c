@@ -49,6 +49,8 @@ void list_commands (void)
   printf ("%-20s %s\n", "cat", "list the contents of a file");
   printf ("%-20s %s\n", "chmod", "change file mode");
   printf ("%-20s %s\n", "chown", "change file owner and group");
+  printf ("%-20s %s\n", "command", "run a command from the guest filesystem");
+  printf ("%-20s %s\n", "command-lines", "run a command, returning lines");
   printf ("%-20s %s\n", "config", "add qemu parameters");
   printf ("%-20s %s\n", "exists", "test if file or directory exists");
   printf ("%-20s %s\n", "file", "determine file type");
@@ -275,6 +277,12 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "file") == 0)
     pod2text ("file - determine file type", " file <path>\n\nThis call uses the standard L<file(1)> command to determine\nthe type or contents of the file.  This also works on devices,\nfor example to find out whether a partition contains a filesystem.\n\nThe exact command which runs is C<file -bsL path>.  Note in\nparticular that the filename is not prepended to the output\n(the C<-b> option).");
+  else
+  if (strcasecmp (cmd, "command") == 0)
+    pod2text ("command - run a command from the guest filesystem", " command <arguments>\n\nThis calls runs a command from the guest filesystem.  The\nfilesystem must be mounted, and must contain a compatible\noperating system (ie. something Linux, with the same\nor compatible processor architecture).\n\nThe single parameter is an argv-style list of arguments.\nThe first element is the name of the program to run.\nSubsequent elements are parameters.  The list must be\nnon-empty (ie. must contain a program name).\n\nThe C<$PATH> environment variable will contain at least\nC</usr/bin> and C</bin>.  If you require a program from\nanother location, you should provide the full path in the\nfirst parameter.\n\nShared libraries and data files required by the program\nmust be available on filesystems which are mounted in the\ncorrect places.  It is the caller's responsibility to ensure\nall filesystems that are needed are mounted at the right\nlocations.");
+  else
+  if (strcasecmp (cmd, "command_lines") == 0 || strcasecmp (cmd, "command-lines") == 0)
+    pod2text ("command-lines - run a command, returning lines", " command-lines <arguments>\n\nThis is the same as C<command>, but splits the\nresult into a list of lines.");
   else
     display_builtin_command (cmd);
 }
@@ -1298,6 +1306,40 @@ static int run_file (const char *cmd, int argc, char *argv[])
   return 0;
 }
 
+static int run_command (const char *cmd, int argc, char *argv[])
+{
+  char *r;
+  char **arguments;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  arguments = parse_string_list (argv[0]);
+  r = guestfs_command (g, arguments);
+  if (r == NULL) return -1;
+  printf ("%s\n", r);
+  free (r);
+  return 0;
+}
+
+static int run_command_lines (const char *cmd, int argc, char *argv[])
+{
+  char **r;
+  char **arguments;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  arguments = parse_string_list (argv[0]);
+  r = guestfs_command_lines (g, arguments);
+  if (r == NULL) return -1;
+  print_strings (r);
+  free_strings (r);
+  return 0;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -1479,6 +1521,12 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "file") == 0)
     return run_file (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "command") == 0)
+    return run_command (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "command_lines") == 0 || strcasecmp (cmd, "command-lines") == 0)
+    return run_command_lines (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

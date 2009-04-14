@@ -336,6 +336,22 @@ struct guestfs_file_ret {
   string description<>;
 };
 
+struct guestfs_command_args {
+  str arguments<>;
+};
+
+struct guestfs_command_ret {
+  string output<>;
+};
+
+struct guestfs_command_lines_args {
+  str arguments<>;
+};
+
+struct guestfs_command_lines_ret {
+  str lines<>;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -386,6 +402,8 @@ enum guestfs_procedure {
   GUESTFS_PROC_UMOUNT_ALL = 47,
   GUESTFS_PROC_LVM_REMOVE_ALL = 48,
   GUESTFS_PROC_FILE = 49,
+  GUESTFS_PROC_COMMAND = 50,
+  GUESTFS_PROC_COMMAND_LINES = 51,
   GUESTFS_PROC_dummy
 };
 
