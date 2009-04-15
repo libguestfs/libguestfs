@@ -21,6 +21,7 @@ guestfish_SOURCES = \
 	alloc.c \
 	cmds.c \
 	completion.c \
+	edit.c \
 	fish.c \
 	fish.h
 guestfish_CFLAGS = \

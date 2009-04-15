@@ -30,7 +30,7 @@
 static int parse_size (const char *str, off_t *size_rtn);
 
 int
-do_alloc (int argc, char *argv[])
+do_alloc (const char *cmd, int argc, char *argv[])
 {
   off_t size;
   int fd;
@@ -48,7 +48,7 @@ do_alloc (int argc, char *argv[])
     return -1;
   }
 
-  fd = open (argv[0], O_WRONLY|O_CREAT|O_NOCTTY|O_NONBLOCK|O_TRUNC, 0666);
+  fd = open (argv[0], O_WRONLY|O_CREAT|O_NOCTTY|O_TRUNC, 0666);
   if (fd == -1) {
     perror (argv[0]);
     return -1;

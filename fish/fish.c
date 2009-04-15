@@ -493,7 +493,11 @@ issue_command (const char *cmd, char *argv[])
   }
   else if (strcasecmp (cmd, "alloc") == 0 ||
 	   strcasecmp (cmd, "allocate") == 0)
-    return do_alloc (argc, argv);
+    return do_alloc (cmd, argc, argv);
+  else if (strcasecmp (cmd, "edit") == 0 ||
+	   strcasecmp (cmd, "vi") == 0 ||
+	   strcasecmp (cmd, "emacs") == 0)
+    return do_edit (cmd, argc, argv);
   else
     return run_action (cmd, argc, argv);
 }
@@ -509,6 +513,8 @@ list_builtin_commands (void)
 
   printf ("%-20s %s\n",
 	  "alloc", "allocate an image");
+  printf ("%-20s %s\n",
+	  "edit", "edit a file in the image");
 
   /* actions are printed after this (see list_commands) */
 }
@@ -518,7 +524,8 @@ display_builtin_command (const char *cmd)
 {
   /* help for actions is auto-generated, see display_command */
 
-  if (strcasecmp (cmd, "alloc") == 0)
+  if (strcasecmp (cmd, "alloc") == 0 ||
+      strcasecmp (cmd, "allocate") == 0)
     printf ("alloc - allocate an image\n"
 	    "     alloc <filename> <size>\n"
 	    "\n"
@@ -534,11 +541,29 @@ display_builtin_command (const char *cmd)
 	    "    <nn>M or <nn>MB  number of megabytes\n"
 	    "    <nn>G or <nn>GB  number of gigabytes\n"
 	    "    <nn>sects        number of 512 byte sectors\n");
+  else if (strcasecmp (cmd, "edit") == 0 ||
+	   strcasecmp (cmd, "vi") == 0 ||
+	   strcasecmp (cmd, "emacs") == 0)
+    printf ("edit - edit a file in the image\n"
+	    "     edit <filename>\n"
+	    "\n"
+	    "    This is used to edit a file.\n"
+	    "\n"
+	    "    It is the equivalent of (and is implemented by)\n"
+	    "    running \"cat\", editing locally, and then \"write-file\".\n"
+	    "\n"
+	    "    Normally it uses $EDITOR, but if you use the aliases\n"
+	    "    \"vi\" or \"emacs\" you will get those editors.\n"
+	    "\n"
+	    "    NOTE: This will not work reliably for large files\n"
+	    "    (> 2 MB) or binary files containing \\0 bytes.\n");
   else if (strcasecmp (cmd, "help") == 0)
     printf ("help - display a list of commands or help on a command\n"
 	    "     help cmd\n"
 	    "     help\n");
-  else if (strcasecmp (cmd, "quit") == 0)
+  else if (strcasecmp (cmd, "quit") == 0 ||
+	   strcasecmp (cmd, "exit") == 0 ||
+	   strcasecmp (cmd, "q") == 0)
     printf ("quit - quit guestfish\n"
 	    "     quit\n");
   else

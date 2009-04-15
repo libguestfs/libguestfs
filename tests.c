@@ -1064,7 +1064,7 @@ static int test_umount_1 (void)
 
 static int test_write_file_0 (void)
 {
-  /* InitEmpty for write_file (0) */
+  /* InitBasicFS for write_file (0): create ext2 on /dev/sda1 */
   {
     int r;
     suppress_error = 0;
@@ -1079,7 +1079,6 @@ static int test_write_file_0 (void)
     if (r == -1)
       return -1;
   }
-  /* TestOutput for write_file (0) */
   {
     char *lines[] = {
       ",",
@@ -1105,6 +1104,7 @@ static int test_write_file_0 (void)
     if (r == -1)
       return -1;
   }
+  /* TestOutput for write_file (0) */
   {
     int r;
     suppress_error = 0;
@@ -1120,6 +1120,331 @@ static int test_write_file_0 (void)
       return -1;
     if (strcmp (r, "new file contents") != 0) {
       fprintf (stderr, "test_write_file_0: expected \"new file contents\" but got \"%s\"\n", r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
+static int test_write_file_1 (void)
+{
+  /* InitBasicFS for write_file (1): create ext2 on /dev/sda1 */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *lines[] = {
+      ",",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for write_file (1) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_write_file (g, "/new", "\nnew file contents\n", 0);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *r;
+    suppress_error = 0;
+    r = guestfs_cat (g, "/new");
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, "\nnew file contents\n") != 0) {
+      fprintf (stderr, "test_write_file_1: expected \"\nnew file contents\n\" but got \"%s\"\n", r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
+static int test_write_file_2 (void)
+{
+  /* InitBasicFS for write_file (2): create ext2 on /dev/sda1 */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *lines[] = {
+      ",",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for write_file (2) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_write_file (g, "/new", "\n\n", 0);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *r;
+    suppress_error = 0;
+    r = guestfs_cat (g, "/new");
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, "\n\n") != 0) {
+      fprintf (stderr, "test_write_file_2: expected \"\n\n\" but got \"%s\"\n", r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
+static int test_write_file_3 (void)
+{
+  /* InitBasicFS for write_file (3): create ext2 on /dev/sda1 */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *lines[] = {
+      ",",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for write_file (3) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_write_file (g, "/new", "", 0);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *r;
+    suppress_error = 0;
+    r = guestfs_cat (g, "/new");
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, "") != 0) {
+      fprintf (stderr, "test_write_file_3: expected \"\" but got \"%s\"\n", r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
+static int test_write_file_4 (void)
+{
+  /* InitBasicFS for write_file (4): create ext2 on /dev/sda1 */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *lines[] = {
+      ",",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for write_file (4) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_write_file (g, "/new", "\n\n\n", 0);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *r;
+    suppress_error = 0;
+    r = guestfs_cat (g, "/new");
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, "\n\n\n") != 0) {
+      fprintf (stderr, "test_write_file_4: expected \"\n\n\n\" but got \"%s\"\n", r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
+static int test_write_file_5 (void)
+{
+  /* InitBasicFS for write_file (5): create ext2 on /dev/sda1 */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *lines[] = {
+      ",",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for write_file (5) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_write_file (g, "/new", "\n", 0);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *r;
+    suppress_error = 0;
+    r = guestfs_cat (g, "/new");
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, "\n") != 0) {
+      fprintf (stderr, "test_write_file_5: expected \"\n\" but got \"%s\"\n", r);
       return -1;
     }
     free (r);
@@ -4174,7 +4499,7 @@ int main (int argc, char *argv[])
     exit (1);
   }
 
-  nr_tests = 58;
+  nr_tests = 63;
 
   test_num++;
   printf ("%3d/%3d test_blockdev_rereadpt_0\n", test_num, nr_tests);
@@ -4294,6 +4619,36 @@ int main (int argc, char *argv[])
   printf ("%3d/%3d test_write_file_0\n", test_num, nr_tests);
   if (test_write_file_0 () == -1) {
     printf ("test_write_file_0 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_write_file_1\n", test_num, nr_tests);
+  if (test_write_file_1 () == -1) {
+    printf ("test_write_file_1 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_write_file_2\n", test_num, nr_tests);
+  if (test_write_file_2 () == -1) {
+    printf ("test_write_file_2 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_write_file_3\n", test_num, nr_tests);
+  if (test_write_file_3 () == -1) {
+    printf ("test_write_file_3 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_write_file_4\n", test_num, nr_tests);
+  if (test_write_file_4 () == -1) {
+    printf ("test_write_file_4 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_write_file_5\n", test_num, nr_tests);
+  if (test_write_file_5 () == -1) {
+    printf ("test_write_file_5 FAILED\n");
     failed++;
   }
   test_num++;

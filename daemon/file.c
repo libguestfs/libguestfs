@@ -40,7 +40,7 @@ do_touch (const char *path)
   ABS_PATH (path, -1);
 
   CHROOT_IN;
-  fd = open (path, O_WRONLY | O_CREAT | O_NOCTTY | O_NONBLOCK, 0666);
+  fd = open (path, O_WRONLY | O_CREAT | O_NOCTTY, 0666);
   CHROOT_OUT;
 
   if (fd == -1) {
@@ -293,7 +293,7 @@ do_write_file (const char *path, const char *content, int size)
     size = strlen (content);
 
   CHROOT_IN;
-  fd = open (path, O_WRONLY | O_CREAT | O_NOCTTY | O_NONBLOCK, 0666);
+  fd = open (path, O_WRONLY | O_TRUNC | O_CREAT | O_NOCTTY, 0666);
   CHROOT_OUT;
 
   if (fd == -1) {

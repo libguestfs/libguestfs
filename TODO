@@ -26,9 +26,3 @@ whole filesystems and subdirectories.
 
 The current protocol is message-oriented and doesn't support
 streaming.  But it's simple enough that we could add this.
-
-----------------------------------------------------------------------
-
-(From Ján ONDREJ (SAL))
-
-guestfish edit <filename>

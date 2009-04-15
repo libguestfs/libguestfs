@@ -18,7 +18,7 @@ Create a new C</etc/motd> file in a guest:
  add disk.img
  run
  mount /dev/VolGroup00/LogVol00 /
- upload new_motd /etc/motd
+ write_file /etc/motd "Hello users" 0
  _EOF_
 
 List the LVs in a guest:

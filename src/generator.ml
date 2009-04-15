@@ -914,12 +914,24 @@ pass C<lines> as a single element list, when the single element being
 the string C<,> (comma).");
 
   ("write_file", (RErr, [String "path"; String "content"; Int "size"]), 44, [ProtocolLimitWarning],
-   [InitEmpty, TestOutput (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
-       ["mkfs"; "ext2"; "/dev/sda1"];
-       ["mount"; "/dev/sda1"; "/"];
-       ["write_file"; "/new"; "new file contents"; "0"];
-       ["cat"; "/new"]], "new file contents")],
+   [InitBasicFS, TestOutput (
+      [["write_file"; "/new"; "new file contents"; "0"];
+       ["cat"; "/new"]], "new file contents");
+    InitBasicFS, TestOutput (
+      [["write_file"; "/new"; "\nnew file contents\n"; "0"];
+       ["cat"; "/new"]], "\nnew file contents\n");
+    InitBasicFS, TestOutput (
+      [["write_file"; "/new"; "\n\n"; "0"];
+       ["cat"; "/new"]], "\n\n");
+    InitBasicFS, TestOutput (
+      [["write_file"; "/new"; ""; "0"];
+       ["cat"; "/new"]], "");
+    InitBasicFS, TestOutput (
+      [["write_file"; "/new"; "\n\n\n"; "0"];
+       ["cat"; "/new"]], "\n\n\n");
+    InitBasicFS, TestOutput (
+      [["write_file"; "/new"; "\n"; "0"];
+       ["cat"; "/new"]], "\n")],
    "create a file",
    "\
 This call creates a file called C<path>.  The contents of the
