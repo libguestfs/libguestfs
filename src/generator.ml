@@ -68,6 +68,15 @@ and ret =
     (* Stat buffers. *)
   | RStat of string
   | RStatVFS of string
+    (* Key-value pairs of untyped strings.  Turns into a hashtable or
+     * dictionary in languages which support it.  DON'T use this as a
+     * general "bucket" for results.  Prefer a stronger typed return
+     * value if one is available, or write a custom struct.  Don't use
+     * this if the list could potentially be very long, since it is
+     * inefficient.  Keys should be unique.  NULLs are not permitted.
+     *)
+  | RHashtable of string
+
 and args = argt list	(* Function parameters, guestfs handle is implicit. *)
 
     (* Note in future we should allow a "variable args" parameter as
@@ -1048,6 +1057,18 @@ C<path> should be a file or directory in the mounted file system
 
 This is the same as the C<statvfs(2)> system call.");
 
+  ("tune2fs_l", (RHashtable "superblock", [String "device"]), 55, [],
+   [], (* XXX test *)
+   "get ext2/ext3 superblock details",
+   "\
+This returns the contents of the ext2 or ext3 filesystem superblock
+on C<device>.
+
+It is the same as running C<tune2fs -l device>.  See L<tune2fs(8)>
+manpage for more details.  The list of fields returned isn't
+clearly defined, and depends on both the version of C<tune2fs>
+that libguestfs was built against, and the filesystem itself.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
@@ -1284,7 +1305,8 @@ let check_functions () =
        | RErr -> ()
        | RInt n | RBool n | RConstString n | RString n
        | RStringList n | RPVList n | RVGList n | RLVList n
-       | RStat n | RStatVFS n ->
+       | RStat n | RStatVFS n
+       | RHashtable n ->
 	   check_arg_ret_name n
        | RIntBool (n,m) ->
 	   check_arg_ret_name n;
@@ -1454,6 +1476,12 @@ I<The caller must call C<free> after use>.\n\n"
 (see L<statvfs(2)> and E<lt>guestfs-structs.hE<gt>),
 or NULL if there was an error.
 I<The caller must call C<free> after use>.\n\n"
+       | RHashtable _ ->
+	   pr "This function returns a NULL-terminated array of
+strings, or NULL if there was an error.
+The array of strings will always have length C<2n+1>, where
+C<n> keys and values alternate, followed by the trailing NULL entry.
+I<The caller must free the strings and the array after use>.\n\n"
       );
       if List.mem ProtocolLimitWarning flags then
 	pr "%s\n\n" protocol_limit_warning;
@@ -1594,11 +1622,15 @@ and generate_xdr () =
        | RStat n ->
 	   pr "struct %s_ret {\n" name;
 	   pr "  guestfs_int_stat %s;\n" n;
-	   pr "};\n\n";
+	   pr "};\n\n"
        | RStatVFS n ->
 	   pr "struct %s_ret {\n" name;
 	   pr "  guestfs_int_statvfs %s;\n" n;
-	   pr "};\n\n";
+	   pr "};\n\n"
+       | RHashtable n ->
+	   pr "struct %s_ret {\n" name;
+	   pr "  str %s<>;\n" n;
+	   pr "};\n\n"
       );
   ) daemon_functions;
 
@@ -1744,7 +1776,8 @@ and generate_client_actions () =
        | RBool _ | RString _ | RStringList _
        | RIntBool _
        | RPVList _ | RVGList _ | RLVList _
-       | RStat _ | RStatVFS _ ->
+       | RStat _ | RStatVFS _
+       | RHashtable _ ->
 	   pr "  struct %s_ret ret;\n" name
       );
       pr "};\n\n";
@@ -1774,7 +1807,8 @@ and generate_client_actions () =
        | RBool _ | RString _ | RStringList _
        | RIntBool _
        | RPVList _ | RVGList _ | RLVList _
-       | RStat _ | RStatVFS _ ->
+       | RStat _ | RStatVFS _
+       | RHashtable _ ->
 	    pr "  if (!xdr_%s_ret (xdr, &rv->ret)) {\n" name;
 	    pr "    error (g, \"%s: failed to parse reply\");\n" name;
 	    pr "    return;\n";
@@ -1797,7 +1831,8 @@ and generate_client_actions () =
 	    failwithf "RConstString cannot be returned from a daemon function"
 	| RString _ | RStringList _ | RIntBool _
 	| RPVList _ | RVGList _ | RLVList _
-	| RStat _ | RStatVFS _ ->
+	| RStat _ | RStatVFS _
+	| RHashtable _ ->
 	    "NULL" in
 
       pr "{\n";
@@ -1879,7 +1914,7 @@ and generate_client_actions () =
 	   failwithf "RConstString cannot be returned from a daemon function"
        | RString n ->
 	   pr "  return rv.ret.%s; /* caller will free */\n" n
-       | RStringList n ->
+       | RStringList n | RHashtable n ->
 	   pr "  /* caller will free this, but we need to add a NULL entry */\n";
 	   pr "  rv.ret.%s.%s_val =" n n;
 	   pr "    safe_realloc (g, rv.ret.%s.%s_val,\n" n n;
@@ -1890,19 +1925,8 @@ and generate_client_actions () =
        | RIntBool _ ->
 	   pr "  /* caller with free this */\n";
 	   pr "  return safe_memdup (g, &rv.ret, sizeof (rv.ret));\n"
-       | RPVList n ->
-	   pr "  /* caller will free this */\n";
-	   pr "  return safe_memdup (g, &rv.ret.%s, sizeof (rv.ret.%s));\n" n n
-       | RVGList n ->
-	   pr "  /* caller will free this */\n";
-	   pr "  return safe_memdup (g, &rv.ret.%s, sizeof (rv.ret.%s));\n" n n
-       | RLVList n ->
-	   pr "  /* caller will free this */\n";
-	   pr "  return safe_memdup (g, &rv.ret.%s, sizeof (rv.ret.%s));\n" n n
-       | RStat n ->
-	   pr "  /* caller will free this */\n";
-	   pr "  return safe_memdup (g, &rv.ret.%s, sizeof (rv.ret.%s));\n" n n
-       | RStatVFS n ->
+       | RPVList n | RVGList n | RLVList n
+       | RStat n | RStatVFS n ->
 	   pr "  /* caller will free this */\n";
 	   pr "  return safe_memdup (g, &rv.ret.%s, sizeof (rv.ret.%s));\n" n n
       );
@@ -1955,7 +1979,7 @@ and generate_daemon_actions () =
 	| RConstString _ ->
 	    failwithf "RConstString cannot be returned from a daemon function"
 	| RString _ -> pr "  char *r;\n"; "NULL"
-	| RStringList _ -> pr "  char **r;\n"; "NULL"
+	| RStringList _ | RHashtable _ -> pr "  char **r;\n"; "NULL"
 	| RIntBool _ -> pr "  guestfs_%s_ret *r;\n" name; "NULL"
 	| RPVList _ -> pr "  guestfs_lvm_int_pv_list *r;\n"; "NULL"
 	| RVGList _ -> pr "  guestfs_lvm_int_vg_list *r;\n"; "NULL"
@@ -2027,7 +2051,7 @@ and generate_daemon_actions () =
 	   pr "  ret.%s = r;\n" n;
 	   pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n" name;
 	   pr "  free (r);\n"
-       | RStringList n ->
+       | RStringList n | RHashtable n ->
 	   pr "  struct guestfs_%s_ret ret;\n" name;
 	   pr "  ret.%s.%s_len = count_strings (r);\n" n n;
 	   pr "  ret.%s.%s_val = r;\n" n n;
@@ -2036,7 +2060,8 @@ and generate_daemon_actions () =
        | RIntBool _ ->
 	   pr "  reply ((xdrproc_t) xdr_guestfs_%s_ret, (char *) r);\n" name;
 	   pr "  xdr_free ((xdrproc_t) xdr_guestfs_%s_ret, (char *) r);\n" name
-       | RPVList n | RVGList n | RLVList n | RStat n | RStatVFS n ->
+       | RPVList n | RVGList n | RLVList n
+       | RStat n | RStatVFS n ->
 	   pr "  struct guestfs_%s_ret ret;\n" name;
 	   pr "  ret.%s = *r;\n" n;
 	   pr "  reply ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n" name;
@@ -2268,6 +2293,14 @@ static void print_strings (char * const * const argv)
 
   for (argc = 0; argv[argc] != NULL; ++argc)
     printf (\"\\t%%s\\n\", argv[argc]);
+}
+
+static void print_table (char * const * const argv)
+{
+  int i;
+
+  for (i = 0; argv[i] != NULL; i += 2)
+    printf (\"%%s: %%s\\n\", argv[i], argv[i+1]);
 }
 
 ";
@@ -2660,7 +2693,7 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
 	| RErr | RInt _ | RBool _ -> pr "    int r;\n"; "-1"
 	| RConstString _ -> pr "    const char *r;\n"; "NULL"
 	| RString _ -> pr "    char *r;\n"; "NULL"
-	| RStringList _ ->
+	| RStringList _ | RHashtable _ ->
 	    pr "    char **r;\n";
 	    pr "    int i;\n";
 	    "NULL"
@@ -2714,7 +2747,7 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
       (match fst style with
        | RErr | RInt _ | RBool _ | RConstString _ -> ()
        | RString _ -> pr "    free (r);\n"
-       | RStringList _ ->
+       | RStringList _ | RHashtable _ ->
 	   pr "    for (i = 0; r[i] != NULL; ++i)\n";
 	   pr "      free (r[i]);\n";
 	   pr "    free (r);\n"
@@ -2893,7 +2926,7 @@ and generate_fish_cmds () =
        | RBool _ -> pr "  int r;\n"
        | RConstString _ -> pr "  const char *r;\n"
        | RString _ -> pr "  char *r;\n"
-       | RStringList _ -> pr "  char **r;\n"
+       | RStringList _ | RHashtable _ -> pr "  char **r;\n"
        | RIntBool _ -> pr "  struct guestfs_int_bool *r;\n"
        | RPVList _ -> pr "  struct guestfs_lvm_pv_list *r;\n"
        | RVGList _ -> pr "  struct guestfs_lvm_vg_list *r;\n"
@@ -2996,6 +3029,11 @@ and generate_fish_cmds () =
 	   pr "  if (r == NULL) return -1;\n";
 	   pr "  print_statvfs (r);\n";
 	   pr "  free (r);\n";
+	   pr "  return 0;\n"
+       | RHashtable _ ->
+	   pr "  if (r == NULL) return -1;\n";
+	   pr "  print_table (r);\n";
+	   pr "  free_strings (r);\n";
 	   pr "  return 0;\n"
       );
       pr "}\n";
@@ -3163,7 +3201,7 @@ and generate_prototype ?(extern = true) ?(static = false) ?(semicolon = true)
    | RBool _ -> pr "int "
    | RConstString _ -> pr "const char *"
    | RString _ -> pr "char *"
-   | RStringList _ -> pr "char **"
+   | RStringList _ | RHashtable _ -> pr "char **"
    | RIntBool _ ->
        if not in_daemon then pr "struct guestfs_int_bool *"
        else pr "guestfs_%s_ret *" name
@@ -3296,22 +3334,51 @@ let () =
 and generate_ocaml_c () =
   generate_header CStyle LGPLv2;
 
-  pr "#include <stdio.h>\n";
-  pr "#include <stdlib.h>\n";
-  pr "#include <string.h>\n";
-  pr "\n";
-  pr "#include <caml/config.h>\n";
-  pr "#include <caml/alloc.h>\n";
-  pr "#include <caml/callback.h>\n";
-  pr "#include <caml/fail.h>\n";
-  pr "#include <caml/memory.h>\n";
-  pr "#include <caml/mlvalues.h>\n";
-  pr "#include <caml/signals.h>\n";
-  pr "\n";
-  pr "#include <guestfs.h>\n";
-  pr "\n";
-  pr "#include \"guestfs_c.h\"\n";
-  pr "\n";
+  pr "\
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include <caml/config.h>
+#include <caml/alloc.h>
+#include <caml/callback.h>
+#include <caml/fail.h>
+#include <caml/memory.h>
+#include <caml/mlvalues.h>
+#include <caml/signals.h>
+
+#include <guestfs.h>
+
+#include \"guestfs_c.h\"
+
+/* Copy a hashtable of string pairs into an assoc-list.  We return
+ * the list in reverse order, but hashtables aren't supposed to be
+ * ordered anyway.
+ */
+static CAMLprim value
+copy_table (char * const * argv)
+{
+  CAMLparam0 ();
+  CAMLlocal5 (rv, pairv, kv, vv, cons);
+  int i;
+
+  rv = Val_int (0);
+  for (i = 0; argv[i] != NULL; i += 2) {
+    kv = caml_copy_string (argv[i]);
+    vv = caml_copy_string (argv[i+1]);
+    pairv = caml_alloc (2, 0);
+    Store_field (pairv, 0, kv);
+    Store_field (pairv, 1, vv);
+    cons = caml_alloc (2, 0);
+    Store_field (cons, 1, rv);
+    rv = cons;
+    Store_field (cons, 0, pairv);
+  }
+
+  CAMLreturn (rv);
+}
+
+";
 
   (* LVM struct copy functions. *)
   List.iter (
@@ -3464,7 +3531,10 @@ and generate_ocaml_c () =
 	| RStat _ ->
 	    pr "  struct guestfs_stat *r;\n"; "NULL"
 	| RStatVFS _ ->
-	    pr "  struct guestfs_statvfs *r;\n"; "NULL" in
+	    pr "  struct guestfs_statvfs *r;\n"; "NULL"
+	| RHashtable _ ->
+	    pr "  char **r;\n";
+	    "NULL" in
       pr "\n";
 
       pr "  caml_enter_blocking_section ();\n";
@@ -3515,6 +3585,9 @@ and generate_ocaml_c () =
 	   pr "  free (r);\n";
        | RStatVFS _ ->
 	   pr "  rv = copy_statvfs (r);\n";
+	   pr "  free (r);\n";
+       | RHashtable _ ->
+	   pr "  rv = copy_table (r);\n";
 	   pr "  free (r);\n";
       );
 
@@ -3586,6 +3659,7 @@ and generate_ocaml_prototype ?(is_external = false) name style =
    | RLVList _ -> pr "lvm_lv array"
    | RStat _ -> pr "stat"
    | RStatVFS _ -> pr "statvfs"
+   | RHashtable _ -> pr "(string * string) list"
   );
   if is_external then (
     pr " = ";
@@ -3697,7 +3771,8 @@ DESTROY (g)
        | RStringList _
        | RIntBool _
        | RPVList _ | RVGList _ | RLVList _
-       | RStat _ | RStatVFS _ ->
+       | RStat _ | RStatVFS _
+       | RHashtable _ ->
 	   pr "void\n" (* all lists returned implictly on the stack *)
       );
       (* Call and arguments. *)
@@ -3778,7 +3853,7 @@ DESTROY (g)
 	   pr "      free (%s);\n" n;
 	   pr " OUTPUT:\n";
 	   pr "      RETVAL\n"
-       | RStringList n ->
+       | RStringList n | RHashtable n ->
 	   pr "PREINIT:\n";
 	   pr "      char **%s;\n" n;
 	   pr "      int i, n;\n";
@@ -4013,7 +4088,8 @@ and generate_perl_prototype name style =
    | RVGList n
    | RLVList n -> pr "@%s = " n
    | RStat n
-   | RStatVFS n -> pr "%%%s = " n
+   | RStatVFS n
+   | RHashtable n -> pr "%%%s = " n
   );
   pr "$h->%s (" name;
   let comma = ref false in
@@ -4103,6 +4179,27 @@ put_string_list (char * const * const argv)
   list = PyList_New (argc);
   for (i = 0; i < argc; ++i)
     PyList_SetItem (list, i, PyString_FromString (argv[i]));
+
+  return list;
+}
+
+static PyObject *
+put_table (char * const * const argv)
+{
+  PyObject *list, *item;
+  int argc, i;
+
+  for (argc = 0; argv[argc] != NULL; ++argc)
+    ;
+
+  list = PyList_New (argc >> 1);
+  for (i = 0; i < argc; i += 2) {
+    PyObject *item;
+    item = PyTuple_New (2);
+    PyTuple_SetItem (item, 0, PyString_FromString (argv[i]));
+    PyTuple_SetItem (item, 1, PyString_FromString (argv[i+1]));
+    PyList_SetItem (list, i >> 1, item);
+  }
 
   return list;
 }
@@ -4242,7 +4339,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
 	| RErr | RInt _ | RBool _ -> pr "  int r;\n"; "-1"
 	| RConstString _ -> pr "  const char *r;\n"; "NULL"
 	| RString _ -> pr "  char *r;\n"; "NULL"
-	| RStringList _ -> pr "  char **r;\n"; "NULL"
+	| RStringList _ | RHashtable _ -> pr "  char **r;\n"; "NULL"
 	| RIntBool _ -> pr "  struct guestfs_int_bool *r;\n"; "NULL"
 	| RPVList n -> pr "  struct guestfs_lvm_pv_list *r;\n"; "NULL"
 	| RVGList n -> pr "  struct guestfs_lvm_vg_list *r;\n"; "NULL"
@@ -4347,6 +4444,9 @@ py_guestfs_close (PyObject *self, PyObject *args)
 	   pr "  free (r);\n"
        | RStatVFS n ->
 	   pr "  py_r = put_statvfs (r);\n";
+	   pr "  free (r);\n"
+       | RHashtable n ->
+	   pr "  py_r = put_table (r);\n";
 	   pr "  free (r);\n"
       );
 
