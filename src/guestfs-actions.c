@@ -3924,3 +3924,81 @@ struct guestfs_statvfs *guestfs_statvfs (guestfs_h *g,
   return safe_memdup (g, &rv.ret.statbuf, sizeof (rv.ret.statbuf));
 }
 
+struct tune2fs_l_rv {
+  int cb_done;  /* flag to indicate callback was called */
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+  struct guestfs_tune2fs_l_ret ret;
+};
+
+static void tune2fs_l_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  struct tune2fs_l_rv *rv = (struct tune2fs_l_rv *) data;
+
+  if (!xdr_guestfs_message_header (xdr, &rv->hdr)) {
+    error (g, "guestfs_tune2fs_l: failed to parse reply header");
+    return;
+  }
+  if (rv->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &rv->err)) {
+      error (g, "guestfs_tune2fs_l: failed to parse reply error");
+      return;
+    }
+    goto done;
+  }
+  if (!xdr_guestfs_tune2fs_l_ret (xdr, &rv->ret)) {
+    error (g, "guestfs_tune2fs_l: failed to parse reply");
+    return;
+  }
+ done:
+  rv->cb_done = 1;
+  main_loop.main_loop_quit (g);
+}
+
+char **guestfs_tune2fs_l (guestfs_h *g,
+		const char *device)
+{
+  struct guestfs_tune2fs_l_args args;
+  struct tune2fs_l_rv rv;
+  int serial;
+
+  if (g->state != READY) {
+    error (g, "guestfs_tune2fs_l called from the wrong state, %d != READY",
+      g->state);
+    return NULL;
+  }
+
+  memset (&rv, 0, sizeof rv);
+
+  args.device = (char *) device;
+  serial = dispatch (g, GUESTFS_PROC_TUNE2FS_L,
+                     (xdrproc_t) xdr_guestfs_tune2fs_l_args, (char *) &args);
+  if (serial == -1)
+    return NULL;
+
+  rv.cb_done = 0;
+  g->reply_cb_internal = tune2fs_l_cb;
+  g->reply_cb_internal_data = &rv;
+  main_loop.main_loop_run (g);
+  g->reply_cb_internal = NULL;
+  g->reply_cb_internal_data = NULL;
+  if (!rv.cb_done) {
+    error (g, "guestfs_tune2fs_l failed, see earlier error messages");
+    return NULL;
+  }
+
+  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_TUNE2FS_L, serial) == -1)
+    return NULL;
+
+  if (rv.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", rv.err.error);
+    return NULL;
+  }
+
+  /* caller will free this, but we need to add a NULL entry */
+  rv.ret.superblock.superblock_val =    safe_realloc (g, rv.ret.superblock.superblock_val,
+                  sizeof (char *) * (rv.ret.superblock.superblock_len + 1));
+  rv.ret.superblock.superblock_val[rv.ret.superblock.superblock_len] = NULL;
+  return rv.ret.superblock.superblock_val;
+}
+

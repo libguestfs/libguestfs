@@ -527,6 +527,19 @@ struct guestfs_statvfs_ret {
 };
 typedef struct guestfs_statvfs_ret guestfs_statvfs_ret;
 
+struct guestfs_tune2fs_l_args {
+	char *device;
+};
+typedef struct guestfs_tune2fs_l_args guestfs_tune2fs_l_args;
+
+struct guestfs_tune2fs_l_ret {
+	struct {
+		u_int superblock_len;
+		str *superblock_val;
+	} superblock;
+};
+typedef struct guestfs_tune2fs_l_ret guestfs_tune2fs_l_ret;
+
 enum guestfs_procedure {
 	GUESTFS_PROC_MOUNT = 1,
 	GUESTFS_PROC_SYNC = 2,
@@ -582,7 +595,8 @@ enum guestfs_procedure {
 	GUESTFS_PROC_STAT = 52,
 	GUESTFS_PROC_LSTAT = 53,
 	GUESTFS_PROC_STATVFS = 54,
-	GUESTFS_PROC_dummy = 54 + 1,
+	GUESTFS_PROC_TUNE2FS_L = 55,
+	GUESTFS_PROC_dummy = 55 + 1,
 };
 typedef enum guestfs_procedure guestfs_procedure;
 #define GUESTFS_MESSAGE_MAX 4194304
@@ -696,6 +710,8 @@ extern  bool_t xdr_guestfs_lstat_args (XDR *, guestfs_lstat_args*);
 extern  bool_t xdr_guestfs_lstat_ret (XDR *, guestfs_lstat_ret*);
 extern  bool_t xdr_guestfs_statvfs_args (XDR *, guestfs_statvfs_args*);
 extern  bool_t xdr_guestfs_statvfs_ret (XDR *, guestfs_statvfs_ret*);
+extern  bool_t xdr_guestfs_tune2fs_l_args (XDR *, guestfs_tune2fs_l_args*);
+extern  bool_t xdr_guestfs_tune2fs_l_ret (XDR *, guestfs_tune2fs_l_ret*);
 extern  bool_t xdr_guestfs_procedure (XDR *, guestfs_procedure*);
 extern  bool_t xdr_guestfs_message_direction (XDR *, guestfs_message_direction*);
 extern  bool_t xdr_guestfs_message_status (XDR *, guestfs_message_status*);
@@ -779,6 +795,8 @@ extern bool_t xdr_guestfs_lstat_args ();
 extern bool_t xdr_guestfs_lstat_ret ();
 extern bool_t xdr_guestfs_statvfs_args ();
 extern bool_t xdr_guestfs_statvfs_ret ();
+extern bool_t xdr_guestfs_tune2fs_l_args ();
+extern bool_t xdr_guestfs_tune2fs_l_ret ();
 extern bool_t xdr_guestfs_procedure ();
 extern bool_t xdr_guestfs_message_direction ();
 extern bool_t xdr_guestfs_message_status ();

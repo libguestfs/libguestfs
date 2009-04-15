@@ -1087,3 +1087,22 @@ PREINIT:
       PUSHs (sv_2mortal (my_newSVll (statbuf->namemax)));
       free (statbuf);
 
+void
+tune2fs_l (g, device)
+      guestfs_h *g;
+      char *device;
+PREINIT:
+      char **superblock;
+      int i, n;
+ PPCODE:
+      superblock = guestfs_tune2fs_l (g, device);
+      if (superblock == NULL)
+        croak ("tune2fs_l: %s", guestfs_last_error (g));
+      for (n = 0; superblock[n] != NULL; ++n) /**/;
+      EXTEND (SP, n);
+      for (i = 0; i < n; ++i) {
+        PUSHs (sv_2mortal (newSVpv (superblock[i], 0)));
+        free (superblock[i]);
+      }
+      free (superblock);
+

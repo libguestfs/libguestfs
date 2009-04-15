@@ -1304,6 +1304,34 @@ done:
   xdr_free ((xdrproc_t) xdr_guestfs_statvfs_args, (char *) &args);
 }
 
+static void tune2fs_l_stub (XDR *xdr_in)
+{
+  char **r;
+  struct guestfs_tune2fs_l_args args;
+  const char *device;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_tune2fs_l_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "tune2fs_l");
+    return;
+  }
+  device = args.device;
+
+  r = do_tune2fs_l (device);
+  if (r == NULL)
+    /* do_tune2fs_l has already called reply_with_error */
+    goto done;
+
+  struct guestfs_tune2fs_l_ret ret;
+  ret.superblock.superblock_len = count_strings (r);
+  ret.superblock.superblock_val = r;
+  reply ((xdrproc_t) &xdr_guestfs_tune2fs_l_ret, (char *) &ret);
+  free_strings (r);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_tune2fs_l_args, (char *) &args);
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -1468,6 +1496,9 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_STATVFS:
       statvfs_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_TUNE2FS_L:
+      tune2fs_l_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d", proc_nr);

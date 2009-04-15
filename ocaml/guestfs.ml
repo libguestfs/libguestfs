@@ -181,3 +181,4 @@ external command_lines : t -> string array -> string array = "ocaml_guestfs_comm
 external stat : t -> string -> stat = "ocaml_guestfs_stat"
 external lstat : t -> string -> stat = "ocaml_guestfs_lstat"
 external statvfs : t -> string -> statvfs = "ocaml_guestfs_statvfs"
+external tune2fs_l : t -> string -> (string * string) list = "ocaml_guestfs_tune2fs_l"

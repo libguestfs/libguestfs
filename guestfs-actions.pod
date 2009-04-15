@@ -854,6 +854,25 @@ to create a new zero-length file.
 
 This function returns 0 on success or -1 on error.
 
+=head2 guestfs_tune2fs_l
+
+ char **guestfs_tune2fs_l (guestfs_h *handle,
+		const char *device);
+
+This returns the contents of the ext2 or ext3 filesystem superblock
+on C<device>.
+
+It is the same as running C<tune2fs -l device>.  See L<tune2fs(8)>
+manpage for more details.  The list of fields returned isn't
+clearly defined, and depends on both the version of C<tune2fs>
+that libguestfs was built against, and the filesystem itself.
+
+This function returns a NULL-terminated array of
+strings, or NULL if there was an error.
+The array of strings will always have length C<2n+1>, where
+C<n> keys and values alternate, followed by the trailing NULL entry.
+I<The caller must free the strings and the array after use>.
+
 =head2 guestfs_umount
 
  int guestfs_umount (guestfs_h *handle,

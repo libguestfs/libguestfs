@@ -85,3 +85,4 @@ extern char **guestfs_command_lines (guestfs_h *handle, char * const* const argu
 extern struct guestfs_stat *guestfs_stat (guestfs_h *handle, const char *path);
 extern struct guestfs_stat *guestfs_lstat (guestfs_h *handle, const char *path);
 extern struct guestfs_statvfs *guestfs_statvfs (guestfs_h *handle, const char *path);
+extern char **guestfs_tune2fs_l (guestfs_h *handle, const char *device);

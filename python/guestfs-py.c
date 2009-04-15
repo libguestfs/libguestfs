@@ -92,6 +92,27 @@ put_string_list (char * const * const argv)
   return list;
 }
 
+static PyObject *
+put_table (char * const * const argv)
+{
+  PyObject *list, *item;
+  int argc, i;
+
+  for (argc = 0; argv[argc] != NULL; ++argc)
+    ;
+
+  list = PyList_New (argc >> 1);
+  for (i = 0; i < argc; i += 2) {
+    PyObject *item;
+    item = PyTuple_New (2);
+    PyTuple_SetItem (item, 0, PyString_FromString (argv[i]));
+    PyTuple_SetItem (item, 1, PyString_FromString (argv[i+1]));
+    PyList_SetItem (list, i >> 1, item);
+  }
+
+  return list;
+}
+
 static void
 free_strings (char **argv)
 {
@@ -2030,6 +2051,31 @@ py_guestfs_statvfs (PyObject *self, PyObject *args)
   return py_r;
 }
 
+static PyObject *
+py_guestfs_tune2fs_l (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  char **r;
+  const char *device;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_tune2fs_l",
+                         &py_g, &device))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_tune2fs_l (g, device);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = put_table (r);
+  free (r);
+  return py_r;
+}
+
 static PyMethodDef methods[] = {
   { (char *) "create", py_guestfs_create, METH_VARARGS, NULL },
   { (char *) "close", py_guestfs_close, METH_VARARGS, NULL },
@@ -2099,6 +2145,7 @@ static PyMethodDef methods[] = {
   { (char *) "stat", py_guestfs_stat, METH_VARARGS, NULL },
   { (char *) "lstat", py_guestfs_lstat, METH_VARARGS, NULL },
   { (char *) "statvfs", py_guestfs_statvfs, METH_VARARGS, NULL },
+  { (char *) "tune2fs_l", py_guestfs_tune2fs_l, METH_VARARGS, NULL },
   { NULL, NULL, 0, NULL }
 };
 

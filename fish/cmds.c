@@ -90,6 +90,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "statvfs", "get file system statistics");
   printf ("%-20s %s\n", "sync", "sync disks, writes are flushed through to the disk image");
   printf ("%-20s %s\n", "touch", "update file timestamps or create a new file");
+  printf ("%-20s %s\n", "tune2fs-l", "get ext2/ext3 superblock details");
   printf ("%-20s %s\n", "umount", "unmount a filesystem");
   printf ("%-20s %s\n", "umount-all", "unmount all filesystems");
   printf ("%-20s %s\n", "vgcreate", "create an LVM volume group");
@@ -295,6 +296,9 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "statvfs") == 0)
     pod2text ("statvfs - get file system statistics", " statvfs <path>\n\nReturns file system statistics for any mounted file system.\nC<path> should be a file or directory in the mounted file system\n(typically it is the mount point itself, but it doesn't need to be).\n\nThis is the same as the C<statvfs(2)> system call.");
+  else
+  if (strcasecmp (cmd, "tune2fs_l") == 0 || strcasecmp (cmd, "tune2fs-l") == 0)
+    pod2text ("tune2fs-l - get ext2/ext3 superblock details", " tune2fs-l <device>\n\nThis returns the contents of the ext2 or ext3 filesystem superblock\non C<device>.\n\nIt is the same as running C<tune2fs -l device>.  See L<tune2fs(8)>\nmanpage for more details.  The list of fields returned isn't\nclearly defined, and depends on both the version of C<tune2fs>\nthat libguestfs was built against, and the filesystem itself.");
   else
     display_builtin_command (cmd);
 }
@@ -1435,6 +1439,23 @@ static int run_statvfs (const char *cmd, int argc, char *argv[])
   return 0;
 }
 
+static int run_tune2fs_l (const char *cmd, int argc, char *argv[])
+{
+  char **r;
+  const char *device;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  device = argv[0];
+  r = guestfs_tune2fs_l (g, device);
+  if (r == NULL) return -1;
+  print_table (r);
+  free_strings (r);
+  return 0;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -1631,6 +1652,9 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "statvfs") == 0)
     return run_statvfs (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "tune2fs_l") == 0 || strcasecmp (cmd, "tune2fs-l") == 0)
+    return run_tune2fs_l (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

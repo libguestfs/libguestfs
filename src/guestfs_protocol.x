@@ -406,6 +406,14 @@ struct guestfs_statvfs_ret {
   guestfs_int_statvfs statbuf;
 };
 
+struct guestfs_tune2fs_l_args {
+  string device<>;
+};
+
+struct guestfs_tune2fs_l_ret {
+  str superblock<>;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -461,6 +469,7 @@ enum guestfs_procedure {
   GUESTFS_PROC_STAT = 52,
   GUESTFS_PROC_LSTAT = 53,
   GUESTFS_PROC_STATVFS = 54,
+  GUESTFS_PROC_TUNE2FS_L = 55,
   GUESTFS_PROC_dummy
 };
 

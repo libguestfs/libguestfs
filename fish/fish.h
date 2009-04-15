@@ -31,6 +31,7 @@ extern void list_builtin_commands (void);
 extern void display_builtin_command (const char *cmd);
 extern void free_strings (char **argv);
 extern void print_strings (char * const * const argv);
+extern void print_table (char * const * const argv);
 extern int launch (guestfs_h *);
 extern int is_true (const char *str);
 extern char **parse_string_list (const char *str);

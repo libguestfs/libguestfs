@@ -75,3 +75,4 @@ extern char **do_command_lines (char * const* const arguments);
 extern guestfs_int_stat *do_stat (const char *path);
 extern guestfs_int_stat *do_lstat (const char *path);
 extern guestfs_int_statvfs *do_statvfs (const char *path);
+extern char **do_tune2fs_l (const char *device);

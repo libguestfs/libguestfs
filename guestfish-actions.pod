@@ -631,6 +631,18 @@ Touch acts like the L<touch(1)> command.  It can be used to
 update the timestamps on a file, or, if the file does not exist,
 to create a new zero-length file.
 
+=head2 tune2fs-l
+
+ tune2fs-l device
+
+This returns the contents of the ext2 or ext3 filesystem superblock
+on C<device>.
+
+It is the same as running C<tune2fs -l device>.  See L<tune2fs(8)>
+manpage for more details.  The list of fields returned isn't
+clearly defined, and depends on both the version of C<tune2fs>
+that libguestfs was built against, and the filesystem itself.
+
 =head2 umount | unmount
 
  umount pathordevice

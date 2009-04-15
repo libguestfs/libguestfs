@@ -225,3 +225,6 @@ class GuestFS:
     def statvfs (self, path):
         return libguestfsmod.statvfs (self._o, path)
 
+    def tune2fs_l (self, device):
+        return libguestfsmod.tune2fs_l (self._o, device)
+

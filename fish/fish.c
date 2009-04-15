@@ -645,6 +645,15 @@ print_strings (char * const * const argv)
     printf ("%s\n", argv[argc]);
 }
 
+void
+print_table (char * const * const argv)
+{
+  int i;
+
+  for (i = 0; argv[i] != NULL; i += 2)
+    printf ("%s: %s\n", argv[i], argv[i+1]);
+}
+
 int
 is_true (const char *str)
 {

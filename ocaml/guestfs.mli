@@ -322,3 +322,6 @@ val lstat : t -> string -> stat
 val statvfs : t -> string -> statvfs
 (** get file system statistics *)
 
+val tune2fs_l : t -> string -> (string * string) list
+(** get ext2/ext3 superblock details *)
+

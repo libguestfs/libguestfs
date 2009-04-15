@@ -35,6 +35,33 @@
 
 #include "guestfs_c.h"
 
+/* Copy a hashtable of string pairs into an assoc-list.  We return
+ * the list in reverse order, but hashtables aren't supposed to be
+ * ordered anyway.
+ */
+static CAMLprim value
+copy_table (char * const * argv)
+{
+  CAMLparam0 ();
+  CAMLlocal5 (rv, pairv, kv, vv, cons);
+  int i;
+
+  rv = Val_int (0);
+  for (i = 0; argv[i] != NULL; i += 2) {
+    kv = caml_copy_string (argv[i]);
+    vv = caml_copy_string (argv[i+1]);
+    pairv = caml_alloc (2, 0);
+    Store_field (pairv, 0, kv);
+    Store_field (pairv, 1, vv);
+    cons = caml_alloc (2, 0);
+    Store_field (cons, 1, rv);
+    rv = cons;
+    Store_field (cons, 0, pairv);
+  }
+
+  CAMLreturn (rv);
+}
+
 static CAMLprim value
 copy_lvm_pv (const struct guestfs_lvm_pv *pv)
 {
@@ -1877,6 +1904,30 @@ ocaml_guestfs_statvfs (value gv, value pathv)
     ocaml_guestfs_raise_error (g, "statvfs");
 
   rv = copy_statvfs (r);
+  free (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_tune2fs_l (value gv, value devicev)
+{
+  CAMLparam2 (gv, devicev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("tune2fs_l: used handle after closing it");
+
+  const char *device = String_val (devicev);
+  char **r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_tune2fs_l (g, device);
+  caml_leave_blocking_section ();
+  if (r == NULL)
+    ocaml_guestfs_raise_error (g, "tune2fs_l");
+
+  rv = copy_table (r);
   free (r);
   CAMLreturn (rv);
 }

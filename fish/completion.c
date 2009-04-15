@@ -98,6 +98,7 @@ static const char *commands[] = {
   "statvfs",
   "sync",
   "touch",
+  "tune2fs-l",
   "umount",
   "umount-all",
   "unmount",
