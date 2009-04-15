@@ -23,6 +23,7 @@
 
 static void display_partition (guestfs_h *g, const char *dev);
 static void display_partitions (guestfs_h *g, const char *dev);
+static void display_ext23 (guestfs_h *g, const char *dev, const char *fstype);
 
 int
 main (int argc, char *argv[])
@@ -114,10 +115,12 @@ display_partition (guestfs_h *g, const char *dev)
     display_partitions (g, dev);
   else if (strncmp (what, "LVM2", 4) == 0)
     printf ("<physvol/>\n");
-  else if (strstr (what, "ext2 filesystem data") == 0)
-    printf ("<fs type=\"ext2\"/>\n");
-  else if (strstr (what, "ext3 filesystem data") == 0)
-    printf ("<fs type=\"ext3\"/>\n");
+  else if (strstr (what, "ext2 filesystem data") != NULL)
+    display_ext23 (g, dev, "ext2");
+  else if (strstr (what, "ext3 filesystem data") != NULL)
+    display_ext23 (g, dev, "ext3");
+  else if (strstr (what, "Linux/i386 swap file") != NULL)
+    printf ("<linux-swap/>\n");
   else
     printf ("<unknown/>\n");
 
@@ -155,4 +158,31 @@ display_partitions (guestfs_h *g, const char *dev)
   }
   free (parts);
   printf ("</partitions>\n");
+}
+
+/* Display some details on the ext2/3 filesystem on dev. */
+static void
+display_ext23 (guestfs_h *g, const char *dev, const char *fstype)
+{
+  char **sbfields;
+  int i;
+
+  printf ("<fs type=\"%s\">\n", fstype);
+  CALL (sbfields = guestfs_tune2fs_l (g, dev), NULL);
+
+  for (i = 0; sbfields[i] != NULL; i += 2) {
+    /* Just pick out a few important fields to display.  There
+     * is much more that could be displayed here.
+     */
+    if (strcmp (sbfields[i], "Filesystem UUID") == 0)
+      printf ("<uuid>%s</uuid>\n", sbfields[i+1]);
+    else if (strcmp (sbfields[i], "Block size") == 0)
+      printf ("<blocksize>%s</blocksize>\n", sbfields[i+1]);
+
+    free (sbfields[i]);
+    free (sbfields[i+1]);
+  }
+  free (sbfields);
+
+  printf ("</fs>\n");
 }
