@@ -43,9 +43,15 @@ and ret =
      *)
   | RErr
     (* "RInt" as a return value means an int which is -1 for error
-     * or any value >= 0 on success.
+     * or any value >= 0 on success.  Only use this for smallish
+     * positive ints (0 <= i < 2^30).
      *)
   | RInt of string
+    (* "RInt64" is the same as RInt, but is guaranteed to be able
+     * to return a full 64 bit value, _except_ that -1 means error
+     * (so -1 cannot be a valid, non-error return value).
+     *)
+  | RInt64 of string
     (* "RBool" is a bool return value which can be true/false or
      * -1 for error.
      *)
@@ -1069,6 +1075,117 @@ manpage for more details.  The list of fields returned isn't
 clearly defined, and depends on both the version of C<tune2fs>
 that libguestfs was built against, and the filesystem itself.");
 
+  ("blockdev_setro", (RErr, [String "device"]), 56, [],
+   [InitEmpty, TestOutputTrue (
+      [["blockdev_setro"; "/dev/sda"];
+       ["blockdev_getro"; "/dev/sda"]])],
+   "set block device to read-only",
+   "\
+Sets the block device named C<device> to read-only.
+
+This uses the L<blockdev(8)> command.");
+
+  ("blockdev_setrw", (RErr, [String "device"]), 57, [],
+   [InitEmpty, TestOutputFalse (
+      [["blockdev_setrw"; "/dev/sda"];
+       ["blockdev_getro"; "/dev/sda"]])],
+   "set block device to read-write",
+   "\
+Sets the block device named C<device> to read-write.
+
+This uses the L<blockdev(8)> command.");
+
+  ("blockdev_getro", (RBool "ro", [String "device"]), 58, [],
+   [InitEmpty, TestOutputTrue (
+      [["blockdev_setro"; "/dev/sda"];
+       ["blockdev_getro"; "/dev/sda"]])],
+   "is block device set to read-only",
+   "\
+Returns a boolean indicating if the block device is read-only
+(true if read-only, false if not).
+
+This uses the L<blockdev(8)> command.");
+
+  ("blockdev_getss", (RInt "sectorsize", [String "device"]), 59, [],
+   [InitEmpty, TestOutputInt (
+      [["blockdev_getss"; "/dev/sda"]], 512)],
+   "get sectorsize of block device",
+   "\
+This returns the size of sectors on a block device.
+Usually 512, but can be larger for modern devices.
+
+(Note, this is not the size in sectors, use C<guestfs_blockdev_getsz>
+for that).
+
+This uses the L<blockdev(8)> command.");
+
+  ("blockdev_getbsz", (RInt "blocksize", [String "device"]), 60, [],
+   [InitEmpty, TestOutputInt (
+      [["blockdev_getbsz"; "/dev/sda"]], 4096)],
+   "get blocksize of block device",
+   "\
+This returns the block size of a device.
+
+(Note this is different from both I<size in blocks> and
+I<filesystem block size>).
+
+This uses the L<blockdev(8)> command.");
+
+  ("blockdev_setbsz", (RErr, [String "device"; Int "blocksize"]), 61, [],
+   [], (* XXX test *)
+   "set blocksize of block device",
+   "\
+This sets the block size of a device.
+
+(Note this is different from both I<size in blocks> and
+I<filesystem block size>).
+
+This uses the L<blockdev(8)> command.");
+
+  ("blockdev_getsz", (RInt64 "sizeinsectors", [String "device"]), 62, [],
+   [InitEmpty, TestOutputInt (
+      [["blockdev_getsz"; "/dev/sda"]], 1024000)],
+   "get total size of device in 512-byte sectors",
+   "\
+This returns the size of the device in units of 512-byte sectors
+(even if the sectorsize isn't 512 bytes ... weird).
+
+See also C<guestfs_blockdev_getss> for the real sector size of
+the device, and C<guestfs_blockdev_getsize64> for the more
+useful I<size in bytes>.
+
+This uses the L<blockdev(8)> command.");
+
+  ("blockdev_getsize64", (RInt64 "sizeinbytes", [String "device"]), 63, [],
+   [InitEmpty, TestOutputInt (
+      [["blockdev_getsize64"; "/dev/sda"]], 524288000)],
+   "get total size of device in bytes",
+   "\
+This returns the size of the device in bytes.
+
+See also C<guestfs_blockdev_getsz>.
+
+This uses the L<blockdev(8)> command.");
+
+  ("blockdev_flushbufs", (RErr, [String "device"]), 64, [],
+   [InitEmpty, TestRun
+      [["blockdev_flushbufs"; "/dev/sda"]]],
+   "flush device buffers",
+   "\
+This tells the kernel to flush internal buffers associated
+with C<device>.
+
+This uses the L<blockdev(8)> command.");
+
+  ("blockdev_rereadpt", (RErr, [String "device"]), 65, [],
+   [InitEmpty, TestRun
+      [["blockdev_rereadpt"; "/dev/sda"]]],
+   "reread partition table",
+   "\
+Reread the partition table on C<device>.
+
+This uses the L<blockdev(8)> command.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
@@ -1309,7 +1426,7 @@ let check_functions () =
 
       (match fst style with
        | RErr -> ()
-       | RInt n | RBool n | RConstString n | RString n
+       | RInt n | RInt64 n | RBool n | RConstString n | RString n
        | RStringList n | RPVList n | RVGList n | RLVList n
        | RStat n | RStatVFS n
        | RHashtable n ->
@@ -1465,6 +1582,8 @@ let rec generate_actions_pod () =
 	   pr "This function returns 0 on success or -1 on error.\n\n"
        | RInt _ ->
 	   pr "On error this function returns -1.\n\n"
+       | RInt64 _ ->
+	   pr "On error this function returns -1.\n\n"
        | RBool _ ->
 	   pr "This function returns a C truth value on success or -1 on error.\n\n"
        | RConstString _ ->
@@ -1617,6 +1736,10 @@ and generate_xdr () =
        | RInt n ->
 	   pr "struct %s_ret {\n" name;
 	   pr "  int %s;\n" n;
+	   pr "};\n\n"
+       | RInt64 n ->
+	   pr "struct %s_ret {\n" name;
+	   pr "  hyper %s;\n" n;
 	   pr "};\n\n"
        | RBool n ->
 	   pr "struct %s_ret {\n" name;
@@ -1802,7 +1925,7 @@ and generate_client_actions () =
        | RErr -> ()
        | RConstString _ ->
 	   failwithf "RConstString cannot be returned from a daemon function"
-       | RInt _
+       | RInt _ | RInt64 _
        | RBool _ | RString _ | RStringList _
        | RIntBool _
        | RPVList _ | RVGList _ | RLVList _
@@ -1833,7 +1956,7 @@ and generate_client_actions () =
        | RErr -> ()
        | RConstString _ ->
 	   failwithf "RConstString cannot be returned from a daemon function"
-       | RInt _
+       | RInt _ | RInt64 _
        | RBool _ | RString _ | RStringList _
        | RIntBool _
        | RPVList _ | RVGList _ | RLVList _
@@ -1856,7 +1979,7 @@ and generate_client_actions () =
 
       let error_code =
 	match fst style with
-	| RErr | RInt _ | RBool _ -> "-1"
+	| RErr | RInt _ | RInt64 _ | RBool _ -> "-1"
 	| RConstString _ ->
 	    failwithf "RConstString cannot be returned from a daemon function"
 	| RString _ | RStringList _ | RIntBool _
@@ -1938,8 +2061,8 @@ and generate_client_actions () =
 
       (match fst style with
        | RErr -> pr "  return 0;\n"
-       | RInt n
-       | RBool n -> pr "  return rv.ret.%s;\n" n
+       | RInt n | RInt64 n | RBool n ->
+	   pr "  return rv.ret.%s;\n" n
        | RConstString _ ->
 	   failwithf "RConstString cannot be returned from a daemon function"
        | RString n ->
@@ -2005,6 +2128,7 @@ and generate_daemon_actions () =
       let error_code =
 	match fst style with
 	| RErr | RInt _ -> pr "  int r;\n"; "-1"
+	| RInt64 _ -> pr "  int64_t r;\n"; "-1"
 	| RBool _ -> pr "  int r;\n"; "-1"
 	| RConstString _ ->
 	    failwithf "RConstString cannot be returned from a daemon function"
@@ -2066,11 +2190,7 @@ and generate_daemon_actions () =
 
       (match fst style with
        | RErr -> pr "  reply (NULL, NULL);\n"
-       | RInt n ->
-	   pr "  struct guestfs_%s_ret ret;\n" name;
-	   pr "  ret.%s = r;\n" n;
-	   pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n" name
-       | RBool n ->
+       | RInt n | RInt64 n | RBool n ->
 	   pr "  struct guestfs_%s_ret ret;\n" name;
 	   pr "  ret.%s = r;\n" n;
 	   pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n" name
@@ -2325,6 +2445,7 @@ static void print_strings (char * const * const argv)
     printf (\"\\t%%s\\n\", argv[argc]);
 }
 
+/*
 static void print_table (char * const * const argv)
 {
   int i;
@@ -2332,6 +2453,7 @@ static void print_table (char * const * const argv)
   for (i = 0; argv[i] != NULL; i += 2)
     printf (\"%%s: %%s\\n\", argv[i], argv[i+1]);
 }
+*/
 
 static void no_test_warnings (void)
 {
@@ -2340,18 +2462,23 @@ static void no_test_warnings (void)
   List.iter (
     function
     | name, _, _, _, [], _, _ ->
-	pr "  fprintf (stderr, \"warning: \\\"%s\\\" has no tests\\n\");\n" name
+	pr "  fprintf (stderr, \"warning: \\\"guestfs_%s\\\" has no tests\\n\");\n" name
     | name, _, _, _, tests, _, _ -> ()
   ) all_functions;
 
   pr "}\n";
   pr "\n";
 
+  (* Generate the actual tests.  Note that we generate the tests
+   * in reverse order, deliberately, so that (in general) the
+   * newest tests run first.  This makes it quicker and easier to
+   * debug them.
+   *)
   let test_names =
     List.map (
       fun (name, _, _, _, tests, _, _) ->
 	mapi (generate_one_test name) tests
-    ) all_functions in
+    ) (List.rev all_functions) in
   let test_names = List.concat test_names in
   let nr_tests = List.length test_names in
 
@@ -2363,7 +2490,7 @@ int main (int argc, char *argv[])
   const char *srcdir;
   int fd;
   char buf[256];
-  int nr_tests;
+  int nr_tests, test_num = 0;
 
   no_test_warnings ();
 
@@ -2473,11 +2600,13 @@ int main (int argc, char *argv[])
   }
 
   nr_tests = %d;
+
 " (500 * 1024 * 1024) (50 * 1024 * 1024) (10 * 1024 * 1024) nr_tests;
 
   iteri (
     fun i test_name ->
-      pr "  printf (\"%3d/%%3d %s\\n\", nr_tests);\n" (i+1) test_name;
+      pr "  test_num++;\n";
+      pr "  printf (\"%%3d/%%3d %s\\n\", test_num, nr_tests);\n" test_name;
       pr "  if (%s () == -1) {\n" test_name;
       pr "    printf (\"%s FAILED\\n\");\n" test_name;
       pr "    failed++;\n";
@@ -2592,8 +2721,9 @@ and generate_one_test name i (init, test) =
        let seq, last = get_seq_last seq in
        let test () =
 	 pr "    if (r != %d) {\n" expected;
-	 pr "      fprintf (stderr, \"%s: expected %d but got %%d\\n\", r);\n"
+	 pr "      fprintf (stderr, \"%s: expected %d but got %%d\\n\","
 	   test_name expected;
+	 pr "               (int) r);\n";
 	 pr "      return -1;\n";
 	 pr "    }\n"
        in
@@ -2735,6 +2865,7 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
       let error_code =
 	match fst style with
 	| RErr | RInt _ | RBool _ -> pr "    int r;\n"; "-1"
+	| RInt64 _ -> pr "    int64_t r;\n"; "-1"
 	| RConstString _ -> pr "    const char *r;\n"; "NULL"
 	| RString _ -> pr "    char *r;\n"; "NULL"
 	| RStringList _ | RHashtable _ ->
@@ -2789,7 +2920,7 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
       );
 
       (match fst style with
-       | RErr | RInt _ | RBool _ | RConstString _ -> ()
+       | RErr | RInt _ | RInt64 _ | RBool _ | RConstString _ -> ()
        | RString _ -> pr "    free (r);\n"
        | RStringList _ | RHashtable _ ->
 	   pr "    for (i = 0; r[i] != NULL; ++i)\n";
@@ -2968,6 +3099,7 @@ and generate_fish_cmds () =
        | RErr
        | RInt _
        | RBool _ -> pr "  int r;\n"
+       | RInt64 _ -> pr "  int64_t r;\n"
        | RConstString _ -> pr "  const char *r;\n"
        | RString _ -> pr "  char *r;\n"
        | RStringList _ | RHashtable _ -> pr "  char **r;\n"
@@ -3023,7 +3155,11 @@ and generate_fish_cmds () =
        | RErr -> pr "  return r;\n"
        | RInt _ ->
 	   pr "  if (r == -1) return -1;\n";
-	   pr "  if (r) printf (\"%%d\\n\", r);\n";
+	   pr "  printf (\"%%d\\n\", r);\n";
+	   pr "  return 0;\n"
+       | RInt64 _ ->
+	   pr "  if (r == -1) return -1;\n";
+	   pr "  printf (\"%%\" PRIi64 \"\\n\", r);\n";
 	   pr "  return 0;\n"
        | RBool _ ->
 	   pr "  if (r == -1) return -1;\n";
@@ -3242,6 +3378,7 @@ and generate_prototype ?(extern = true) ?(static = false) ?(semicolon = true)
   (match fst style with
    | RErr -> pr "int "
    | RInt _ -> pr "int "
+   | RInt64 _ -> pr "int64_t "
    | RBool _ -> pr "int "
    | RConstString _ -> pr "const char *"
    | RString _ -> pr "char *"
@@ -3557,6 +3694,7 @@ copy_table (char * const * argv)
 	match fst style with
 	| RErr -> pr "  int r;\n"; "-1"
 	| RInt _ -> pr "  int r;\n"; "-1"
+	| RInt64 _ -> pr "  int64_t r;\n"; "-1"
 	| RBool _ -> pr "  int r;\n"; "-1"
 	| RConstString _ -> pr "  const char *r;\n"; "NULL"
 	| RString _ -> pr "  char *r;\n"; "NULL"
@@ -3602,6 +3740,8 @@ copy_table (char * const * argv)
       (match fst style with
        | RErr -> pr "  rv = Val_unit;\n"
        | RInt _ -> pr "  rv = Val_int (r);\n"
+       | RInt64 _ ->
+	   pr "  rv = caml_copy_int64 (r);\n"
        | RBool _ -> pr "  rv = Val_bool (r);\n"
        | RConstString _ -> pr "  rv = caml_copy_string (r);\n"
        | RString _ ->
@@ -3695,6 +3835,7 @@ and generate_ocaml_prototype ?(is_external = false) name style =
   (match fst style with
    | RErr -> pr "unit" (* all errors are turned into exceptions *)
    | RInt _ -> pr "int"
+   | RInt64 _ -> pr "int64"
    | RBool _ -> pr "bool"
    | RConstString _ -> pr "string"
    | RString _ -> pr "string"
@@ -3811,6 +3952,7 @@ DESTROY (g)
       (match fst style with
        | RErr -> pr "void\n"
        | RInt _ -> pr "SV *\n"
+       | RInt64 _ -> pr "SV *\n"
        | RBool _ -> pr "SV *\n"
        | RConstString _ -> pr "SV *\n"
        | RString _ -> pr "SV *\n"
@@ -3870,6 +4012,19 @@ DESTROY (g)
 	   pr "      if (%s == -1)\n" n;
 	   pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
 	   pr "      RETVAL = newSViv (%s);\n" n;
+	   pr " OUTPUT:\n";
+	   pr "      RETVAL\n"
+       | RInt64 n ->
+	   pr "PREINIT:\n";
+	   pr "      int64_t %s;\n" n;
+	   pr "   CODE:\n";
+	   pr "      %s = guestfs_%s " n name;
+	   generate_call_args ~handle:"g" style;
+	   pr ";\n";
+	   do_cleanups ();
+	   pr "      if (%s == -1)\n" n;
+	   pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
+	   pr "      RETVAL = my_newSVll (%s);\n" n;
 	   pr " OUTPUT:\n";
 	   pr "      RETVAL\n"
        | RConstString n ->
@@ -4126,6 +4281,7 @@ and generate_perl_prototype name style =
    | RErr -> ()
    | RBool n
    | RInt n
+   | RInt64 n
    | RConstString n
    | RString n -> pr "$%s = " n
    | RIntBool (n, m) -> pr "($%s, $%s) = " n m
@@ -4383,6 +4539,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
       let error_code =
 	match fst style with
 	| RErr | RInt _ | RBool _ -> pr "  int r;\n"; "-1"
+	| RInt64 _ -> pr "  int64_t r;\n"; "-1"
 	| RConstString _ -> pr "  const char *r;\n"; "NULL"
 	| RString _ -> pr "  char *r;\n"; "NULL"
 	| RStringList _ | RHashtable _ -> pr "  char **r;\n"; "NULL"
@@ -4464,6 +4621,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
 	   pr "  py_r = Py_None;\n"
        | RInt _
        | RBool _ -> pr "  py_r = PyInt_FromLong ((long) r);\n"
+       | RInt64 _ -> pr "  py_r = PyLong_FromLongLong (r);\n"
        | RConstString _ -> pr "  py_r = PyString_FromString (r);\n"
        | RString _ ->
 	   pr "  py_r = PyString_FromString (r);\n";

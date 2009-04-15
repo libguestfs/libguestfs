@@ -21,6 +21,7 @@ noinst_PROGRAMS = guestfsd
 guestfsd_SOURCES = \
 	actions.h \
 	augeas.c \
+	blockdev.c \
 	command.c \
 	daemon.h \
 	devsparts.c \
