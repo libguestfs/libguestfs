@@ -53,6 +53,46 @@ static void print_table (char * const * const argv)
     printf ("%s: %s\n", argv[i], argv[i+1]);
 }
 
+static void no_test_warnings (void)
+{
+  fprintf (stderr, "warning: \"launch\" has no tests\n");
+  fprintf (stderr, "warning: \"wait_ready\" has no tests\n");
+  fprintf (stderr, "warning: \"kill_subprocess\" has no tests\n");
+  fprintf (stderr, "warning: \"add_drive\" has no tests\n");
+  fprintf (stderr, "warning: \"add_cdrom\" has no tests\n");
+  fprintf (stderr, "warning: \"config\" has no tests\n");
+  fprintf (stderr, "warning: \"set_path\" has no tests\n");
+  fprintf (stderr, "warning: \"get_path\" has no tests\n");
+  fprintf (stderr, "warning: \"set_autosync\" has no tests\n");
+  fprintf (stderr, "warning: \"get_autosync\" has no tests\n");
+  fprintf (stderr, "warning: \"set_verbose\" has no tests\n");
+  fprintf (stderr, "warning: \"get_verbose\" has no tests\n");
+  fprintf (stderr, "warning: \"ll\" has no tests\n");
+  fprintf (stderr, "warning: \"pvs_full\" has no tests\n");
+  fprintf (stderr, "warning: \"vgs_full\" has no tests\n");
+  fprintf (stderr, "warning: \"lvs_full\" has no tests\n");
+  fprintf (stderr, "warning: \"aug_init\" has no tests\n");
+  fprintf (stderr, "warning: \"aug_close\" has no tests\n");
+  fprintf (stderr, "warning: \"aug_defvar\" has no tests\n");
+  fprintf (stderr, "warning: \"aug_defnode\" has no tests\n");
+  fprintf (stderr, "warning: \"aug_get\" has no tests\n");
+  fprintf (stderr, "warning: \"aug_set\" has no tests\n");
+  fprintf (stderr, "warning: \"aug_insert\" has no tests\n");
+  fprintf (stderr, "warning: \"aug_rm\" has no tests\n");
+  fprintf (stderr, "warning: \"aug_mv\" has no tests\n");
+  fprintf (stderr, "warning: \"aug_match\" has no tests\n");
+  fprintf (stderr, "warning: \"aug_save\" has no tests\n");
+  fprintf (stderr, "warning: \"aug_load\" has no tests\n");
+  fprintf (stderr, "warning: \"aug_ls\" has no tests\n");
+  fprintf (stderr, "warning: \"chmod\" has no tests\n");
+  fprintf (stderr, "warning: \"chown\" has no tests\n");
+  fprintf (stderr, "warning: \"sfdisk\" has no tests\n");
+  fprintf (stderr, "warning: \"lvm_remove_all\" has no tests\n");
+  fprintf (stderr, "warning: \"command\" has no tests\n");
+  fprintf (stderr, "warning: \"command_lines\" has no tests\n");
+  fprintf (stderr, "warning: \"tune2fs_l\" has no tests\n");
+}
+
 static int test_mount_0 (void)
 {
   /* InitEmpty for mount (0) */
@@ -3722,6 +3762,8 @@ int main (int argc, char *argv[])
   int fd;
   char buf[256];
   int nr_tests;
+
+  no_test_warnings ();
 
   g = guestfs_create ();
   if (g == NULL) {

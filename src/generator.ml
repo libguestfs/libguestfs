@@ -1258,6 +1258,12 @@ let mapi f xs =
 let name_of_argt = function
   | String n | OptString n | StringList n | Bool n | Int n -> n
 
+let seq_of_test = function
+  | TestRun s | TestOutput (s, _) | TestOutputList (s, _)
+  | TestOutputInt (s, _) | TestOutputTrue s | TestOutputFalse s
+  | TestOutputLength (s, _) | TestOutputStruct (s, _)
+  | TestLastFail s -> s
+
 (* Check function names etc. for consistency. *)
 let check_functions () =
   let contains_uppercase str =
@@ -1359,7 +1365,31 @@ let check_functions () =
 	failwithf "%s and %s have conflicting procedure numbers (%d, %d)"
 	  name1 name2 nr1 nr2
   in
-  loop proc_nrs
+  loop proc_nrs;
+
+  (* Check tests. *)
+  List.iter (
+    function
+      (* Ignore functions that have no tests.  We generate a
+       * warning when the user does 'make check' instead.
+       *)
+    | name, _, _, _, [], _, _ -> ()
+    | name, _, _, _, tests, _, _ ->
+	let funcs =
+	  List.map (
+	    fun (_, test) ->
+	      match seq_of_test test with
+	      | [] ->
+		  failwithf "%s has a test containing an empty sequence" name
+	      | cmds -> List.map List.hd cmds
+	  ) tests in
+	let funcs = List.flatten funcs in
+
+	let tested = List.mem name funcs in
+
+	if not tested then
+	  failwithf "function %s has tests but does not test itself" name
+  ) all_functions
 
 (* 'pr' prints to the current output file. *)
 let chan = ref stdout
@@ -2303,7 +2333,19 @@ static void print_table (char * const * const argv)
     printf (\"%%s: %%s\\n\", argv[i], argv[i+1]);
 }
 
+static void no_test_warnings (void)
+{
 ";
+
+  List.iter (
+    function
+    | name, _, _, _, [], _, _ ->
+	pr "  fprintf (stderr, \"warning: \\\"%s\\\" has no tests\\n\");\n" name
+    | name, _, _, _, tests, _, _ -> ()
+  ) all_functions;
+
+  pr "}\n";
+  pr "\n";
 
   let test_names =
     List.map (
@@ -2322,6 +2364,8 @@ int main (int argc, char *argv[])
   int fd;
   char buf[256];
   int nr_tests;
+
+  no_test_warnings ();
 
   g = guestfs_create ();
   if (g == NULL) {
