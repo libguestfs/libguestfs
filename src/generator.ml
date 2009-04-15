@@ -3533,6 +3533,7 @@ copy_table (char * const * argv)
 	| RStatVFS _ ->
 	    pr "  struct guestfs_statvfs *r;\n"; "NULL"
 	| RHashtable _ ->
+	    pr "  int i;\n";
 	    pr "  char **r;\n";
 	    "NULL" in
       pr "\n";
@@ -3588,6 +3589,7 @@ copy_table (char * const * argv)
 	   pr "  free (r);\n";
        | RHashtable _ ->
 	   pr "  rv = copy_table (r);\n";
+	   pr "  for (i = 0; r[i] != NULL; ++i) free (r[i]);\n";
 	   pr "  free (r);\n";
       );
 
@@ -4447,7 +4449,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
 	   pr "  free (r);\n"
        | RHashtable n ->
 	   pr "  py_r = put_table (r);\n";
-	   pr "  free (r);\n"
+	   pr "  free_strings (r);\n"
       );
 
       pr "  return py_r;\n";

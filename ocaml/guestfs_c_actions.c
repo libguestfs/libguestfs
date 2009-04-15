@@ -1919,6 +1919,7 @@ ocaml_guestfs_tune2fs_l (value gv, value devicev)
     caml_failwith ("tune2fs_l: used handle after closing it");
 
   const char *device = String_val (devicev);
+  int i;
   char **r;
 
   caml_enter_blocking_section ();
@@ -1928,6 +1929,7 @@ ocaml_guestfs_tune2fs_l (value gv, value devicev)
     ocaml_guestfs_raise_error (g, "tune2fs_l");
 
   rv = copy_table (r);
+  for (i = 0; r[i] != NULL; ++i) free (r[i]);
   free (r);
   CAMLreturn (rv);
 }

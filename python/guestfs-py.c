@@ -2072,7 +2072,7 @@ py_guestfs_tune2fs_l (PyObject *self, PyObject *args)
   }
 
   py_r = put_table (r);
-  free (r);
+  free_strings (r);
   return py_r;
 }
 
