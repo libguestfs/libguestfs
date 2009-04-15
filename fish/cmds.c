@@ -65,6 +65,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "list-partitions", "list the partitions");
   printf ("%-20s %s\n", "ll", "list the files in a directory (long format)");
   printf ("%-20s %s\n", "ls", "list the files in a directory");
+  printf ("%-20s %s\n", "lstat", "get file information for a symbolic link");
   printf ("%-20s %s\n", "lvcreate", "create an LVM volume group");
   printf ("%-20s %s\n", "lvm-remove-all", "remove all LVM LVs, VGs and PVs");
   printf ("%-20s %s\n", "lvs", "list the LVM logical volumes (LVs)");
@@ -85,6 +86,8 @@ void list_commands (void)
   printf ("%-20s %s\n", "set-path", "set the search path");
   printf ("%-20s %s\n", "set-verbose", "set verbose mode");
   printf ("%-20s %s\n", "sfdisk", "create partitions on a block device");
+  printf ("%-20s %s\n", "stat", "get file information");
+  printf ("%-20s %s\n", "statvfs", "get file system statistics");
   printf ("%-20s %s\n", "sync", "sync disks, writes are flushed through to the disk image");
   printf ("%-20s %s\n", "touch", "update file timestamps or create a new file");
   printf ("%-20s %s\n", "umount", "unmount a filesystem");
@@ -284,6 +287,15 @@ void display_command (const char *cmd)
   if (strcasecmp (cmd, "command_lines") == 0 || strcasecmp (cmd, "command-lines") == 0)
     pod2text ("command-lines - run a command, returning lines", " command-lines <arguments>\n\nThis is the same as C<command>, but splits the\nresult into a list of lines.");
   else
+  if (strcasecmp (cmd, "stat") == 0)
+    pod2text ("stat - get file information", " stat <path>\n\nReturns file information for the given C<path>.\n\nThis is the same as the C<stat(2)> system call.");
+  else
+  if (strcasecmp (cmd, "lstat") == 0)
+    pod2text ("lstat - get file information for a symbolic link", " lstat <path>\n\nReturns file information for the given C<path>.\n\nThis is the same as C<stat> except that if C<path>\nis a symbolic link, then the link is stat-ed, not the file it\nrefers to.\n\nThis is the same as the C<lstat(2)> system call.");
+  else
+  if (strcasecmp (cmd, "statvfs") == 0)
+    pod2text ("statvfs - get file system statistics", " statvfs <path>\n\nReturns file system statistics for any mounted file system.\nC<path> should be a file or directory in the mounted file system\n(typically it is the mount point itself, but it doesn't need to be).\n\nThis is the same as the C<statvfs(2)> system call.");
+  else
     display_builtin_command (cmd);
 }
 
@@ -387,6 +399,38 @@ static void print_lv_list (struct guestfs_lvm_lv_list *lvs)
 
   for (i = 0; i < lvs->len; ++i)
     print_lv (&lvs->val[i]);
+}
+
+static void print_stat (struct guestfs_stat *stat)
+{
+  printf ("dev: %" PRIi64 "\n", stat->dev);
+  printf ("ino: %" PRIi64 "\n", stat->ino);
+  printf ("mode: %" PRIi64 "\n", stat->mode);
+  printf ("nlink: %" PRIi64 "\n", stat->nlink);
+  printf ("uid: %" PRIi64 "\n", stat->uid);
+  printf ("gid: %" PRIi64 "\n", stat->gid);
+  printf ("rdev: %" PRIi64 "\n", stat->rdev);
+  printf ("size: %" PRIi64 "\n", stat->size);
+  printf ("blksize: %" PRIi64 "\n", stat->blksize);
+  printf ("blocks: %" PRIi64 "\n", stat->blocks);
+  printf ("atime: %" PRIi64 "\n", stat->atime);
+  printf ("mtime: %" PRIi64 "\n", stat->mtime);
+  printf ("ctime: %" PRIi64 "\n", stat->ctime);
+}
+
+static void print_statvfs (struct guestfs_statvfs *statvfs)
+{
+  printf ("bsize: %" PRIi64 "\n", statvfs->bsize);
+  printf ("frsize: %" PRIi64 "\n", statvfs->frsize);
+  printf ("blocks: %" PRIi64 "\n", statvfs->blocks);
+  printf ("bfree: %" PRIi64 "\n", statvfs->bfree);
+  printf ("bavail: %" PRIi64 "\n", statvfs->bavail);
+  printf ("files: %" PRIi64 "\n", statvfs->files);
+  printf ("ffree: %" PRIi64 "\n", statvfs->ffree);
+  printf ("favail: %" PRIi64 "\n", statvfs->favail);
+  printf ("fsid: %" PRIi64 "\n", statvfs->fsid);
+  printf ("flag: %" PRIi64 "\n", statvfs->flag);
+  printf ("namemax: %" PRIi64 "\n", statvfs->namemax);
 }
 
 static int run_launch (const char *cmd, int argc, char *argv[])
@@ -1340,6 +1384,57 @@ static int run_command_lines (const char *cmd, int argc, char *argv[])
   return 0;
 }
 
+static int run_stat (const char *cmd, int argc, char *argv[])
+{
+  struct guestfs_stat *r;
+  const char *path;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  path = argv[0];
+  r = guestfs_stat (g, path);
+  if (r == NULL) return -1;
+  print_stat (r);
+  free (r);
+  return 0;
+}
+
+static int run_lstat (const char *cmd, int argc, char *argv[])
+{
+  struct guestfs_stat *r;
+  const char *path;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  path = argv[0];
+  r = guestfs_lstat (g, path);
+  if (r == NULL) return -1;
+  print_stat (r);
+  free (r);
+  return 0;
+}
+
+static int run_statvfs (const char *cmd, int argc, char *argv[])
+{
+  struct guestfs_statvfs *r;
+  const char *path;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  path = argv[0];
+  r = guestfs_statvfs (g, path);
+  if (r == NULL) return -1;
+  print_statvfs (r);
+  free (r);
+  return 0;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -1527,6 +1622,15 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "command_lines") == 0 || strcasecmp (cmd, "command-lines") == 0)
     return run_command_lines (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "stat") == 0)
+    return run_stat (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "lstat") == 0)
+    return run_lstat (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "statvfs") == 0)
+    return run_statvfs (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

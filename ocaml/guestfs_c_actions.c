@@ -233,6 +233,74 @@ copy_lvm_lv_list (const struct guestfs_lvm_lv_list *lvs)
   }
 }
 
+static CAMLprim value
+copy_stat (const struct guestfs_stat *stat)
+{
+  CAMLparam0 ();
+  CAMLlocal2 (rv, v);
+
+  rv = caml_alloc (13, 0);
+  v = caml_copy_int64 (stat->dev);
+  Store_field (rv, 0, v);
+  v = caml_copy_int64 (stat->ino);
+  Store_field (rv, 1, v);
+  v = caml_copy_int64 (stat->mode);
+  Store_field (rv, 2, v);
+  v = caml_copy_int64 (stat->nlink);
+  Store_field (rv, 3, v);
+  v = caml_copy_int64 (stat->uid);
+  Store_field (rv, 4, v);
+  v = caml_copy_int64 (stat->gid);
+  Store_field (rv, 5, v);
+  v = caml_copy_int64 (stat->rdev);
+  Store_field (rv, 6, v);
+  v = caml_copy_int64 (stat->size);
+  Store_field (rv, 7, v);
+  v = caml_copy_int64 (stat->blksize);
+  Store_field (rv, 8, v);
+  v = caml_copy_int64 (stat->blocks);
+  Store_field (rv, 9, v);
+  v = caml_copy_int64 (stat->atime);
+  Store_field (rv, 10, v);
+  v = caml_copy_int64 (stat->mtime);
+  Store_field (rv, 11, v);
+  v = caml_copy_int64 (stat->ctime);
+  Store_field (rv, 12, v);
+  CAMLreturn (rv);
+}
+
+static CAMLprim value
+copy_statvfs (const struct guestfs_statvfs *statvfs)
+{
+  CAMLparam0 ();
+  CAMLlocal2 (rv, v);
+
+  rv = caml_alloc (11, 0);
+  v = caml_copy_int64 (statvfs->bsize);
+  Store_field (rv, 0, v);
+  v = caml_copy_int64 (statvfs->frsize);
+  Store_field (rv, 1, v);
+  v = caml_copy_int64 (statvfs->blocks);
+  Store_field (rv, 2, v);
+  v = caml_copy_int64 (statvfs->bfree);
+  Store_field (rv, 3, v);
+  v = caml_copy_int64 (statvfs->bavail);
+  Store_field (rv, 4, v);
+  v = caml_copy_int64 (statvfs->files);
+  Store_field (rv, 5, v);
+  v = caml_copy_int64 (statvfs->ffree);
+  Store_field (rv, 6, v);
+  v = caml_copy_int64 (statvfs->favail);
+  Store_field (rv, 7, v);
+  v = caml_copy_int64 (statvfs->fsid);
+  Store_field (rv, 8, v);
+  v = caml_copy_int64 (statvfs->flag);
+  Store_field (rv, 9, v);
+  v = caml_copy_int64 (statvfs->namemax);
+  Store_field (rv, 10, v);
+  CAMLreturn (rv);
+}
+
 CAMLprim value
 ocaml_guestfs_launch (value gv)
 {
@@ -1737,6 +1805,78 @@ ocaml_guestfs_command_lines (value gv, value argumentsv)
 
   rv = caml_copy_string_array ((const char **) r);
   for (i = 0; r[i] != NULL; ++i) free (r[i]);
+  free (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_stat (value gv, value pathv)
+{
+  CAMLparam2 (gv, pathv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("stat: used handle after closing it");
+
+  const char *path = String_val (pathv);
+  struct guestfs_stat *r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_stat (g, path);
+  caml_leave_blocking_section ();
+  if (r == NULL)
+    ocaml_guestfs_raise_error (g, "stat");
+
+  rv = copy_stat (r);
+  free (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_lstat (value gv, value pathv)
+{
+  CAMLparam2 (gv, pathv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("lstat: used handle after closing it");
+
+  const char *path = String_val (pathv);
+  struct guestfs_stat *r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_lstat (g, path);
+  caml_leave_blocking_section ();
+  if (r == NULL)
+    ocaml_guestfs_raise_error (g, "lstat");
+
+  rv = copy_stat (r);
+  free (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_statvfs (value gv, value pathv)
+{
+  CAMLparam2 (gv, pathv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("statvfs: used handle after closing it");
+
+  const char *path = String_val (pathv);
+  struct guestfs_statvfs *r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_statvfs (g, path);
+  caml_leave_blocking_section ();
+  if (r == NULL)
+    ocaml_guestfs_raise_error (g, "statvfs");
+
+  rv = copy_statvfs (r);
   free (r);
   CAMLreturn (rv);
 }

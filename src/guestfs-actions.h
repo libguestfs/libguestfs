@@ -82,3 +82,6 @@ extern int guestfs_lvm_remove_all (guestfs_h *handle);
 extern char *guestfs_file (guestfs_h *handle, const char *path);
 extern char *guestfs_command (guestfs_h *handle, char * const* const arguments);
 extern char **guestfs_command_lines (guestfs_h *handle, char * const* const arguments);
+extern struct guestfs_stat *guestfs_stat (guestfs_h *handle, const char *path);
+extern struct guestfs_stat *guestfs_lstat (guestfs_h *handle, const char *path);
+extern struct guestfs_statvfs *guestfs_statvfs (guestfs_h *handle, const char *path);

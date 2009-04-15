@@ -94,6 +94,36 @@ type lvm_lv = {
   modules : string;
 }
 
+type stat = {
+  dev : int64;
+  ino : int64;
+  mode : int64;
+  nlink : int64;
+  uid : int64;
+  gid : int64;
+  rdev : int64;
+  size : int64;
+  blksize : int64;
+  blocks : int64;
+  atime : int64;
+  mtime : int64;
+  ctime : int64;
+}
+
+type statvfs = {
+  bsize : int64;
+  frsize : int64;
+  blocks : int64;
+  bfree : int64;
+  bavail : int64;
+  files : int64;
+  ffree : int64;
+  favail : int64;
+  fsid : int64;
+  flag : int64;
+  namemax : int64;
+}
+
 val launch : t -> unit
 (** launch the qemu subprocess *)
 
@@ -282,4 +312,13 @@ val command : t -> string array -> string
 
 val command_lines : t -> string array -> string array
 (** run a command, returning lines *)
+
+val stat : t -> string -> stat
+(** get file information *)
+
+val lstat : t -> string -> stat
+(** get file information for a symbolic link *)
+
+val statvfs : t -> string -> statvfs
+(** get file system statistics *)
 

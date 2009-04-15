@@ -85,6 +85,36 @@ type lvm_lv = {
   modules : string;
 }
 
+type stat = {
+  dev : int64;
+  ino : int64;
+  mode : int64;
+  nlink : int64;
+  uid : int64;
+  gid : int64;
+  rdev : int64;
+  size : int64;
+  blksize : int64;
+  blocks : int64;
+  atime : int64;
+  mtime : int64;
+  ctime : int64;
+}
+
+type statvfs = {
+  bsize : int64;
+  frsize : int64;
+  blocks : int64;
+  bfree : int64;
+  bavail : int64;
+  files : int64;
+  ffree : int64;
+  favail : int64;
+  fsid : int64;
+  flag : int64;
+  namemax : int64;
+}
+
 external launch : t -> unit = "ocaml_guestfs_launch"
 external wait_ready : t -> unit = "ocaml_guestfs_wait_ready"
 external kill_subprocess : t -> unit = "ocaml_guestfs_kill_subprocess"
@@ -148,3 +178,6 @@ external lvm_remove_all : t -> unit = "ocaml_guestfs_lvm_remove_all"
 external file : t -> string -> string = "ocaml_guestfs_file"
 external command : t -> string array -> string = "ocaml_guestfs_command"
 external command_lines : t -> string array -> string array = "ocaml_guestfs_command_lines"
+external stat : t -> string -> stat = "ocaml_guestfs_stat"
+external lstat : t -> string -> stat = "ocaml_guestfs_lstat"
+external statvfs : t -> string -> statvfs = "ocaml_guestfs_statvfs"

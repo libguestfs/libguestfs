@@ -1011,3 +1011,79 @@ PREINIT:
       }
       free (lines);
 
+void
+stat (g, path)
+      guestfs_h *g;
+      char *path;
+PREINIT:
+      struct guestfs_stat *statbuf;
+ PPCODE:
+      statbuf = guestfs_stat (g, path);
+      if (statbuf == NULL)
+        croak ("stat: %s", guestfs_last_error (g));
+      EXTEND (SP, 13);
+      PUSHs (sv_2mortal (my_newSVll (statbuf->dev)));
+      PUSHs (sv_2mortal (my_newSVll (statbuf->ino)));
+      PUSHs (sv_2mortal (my_newSVll (statbuf->mode)));
+      PUSHs (sv_2mortal (my_newSVll (statbuf->nlink)));
+      PUSHs (sv_2mortal (my_newSVll (statbuf->uid)));
+      PUSHs (sv_2mortal (my_newSVll (statbuf->gid)));
+      PUSHs (sv_2mortal (my_newSVll (statbuf->rdev)));
+      PUSHs (sv_2mortal (my_newSVll (statbuf->size)));
+      PUSHs (sv_2mortal (my_newSVll (statbuf->blksize)));
+      PUSHs (sv_2mortal (my_newSVll (statbuf->blocks)));
+      PUSHs (sv_2mortal (my_newSVll (statbuf->atime)));
+      PUSHs (sv_2mortal (my_newSVll (statbuf->mtime)));
+      PUSHs (sv_2mortal (my_newSVll (statbuf->ctime)));
+      free (statbuf);
+
+void
+lstat (g, path)
+      guestfs_h *g;
+      char *path;
+PREINIT:
+      struct guestfs_stat *statbuf;
+ PPCODE:
+      statbuf = guestfs_lstat (g, path);
+      if (statbuf == NULL)
+        croak ("lstat: %s", guestfs_last_error (g));
+      EXTEND (SP, 13);
+      PUSHs (sv_2mortal (my_newSVll (statbuf->dev)));
+      PUSHs (sv_2mortal (my_newSVll (statbuf->ino)));
+      PUSHs (sv_2mortal (my_newSVll (statbuf->mode)));
+      PUSHs (sv_2mortal (my_newSVll (statbuf->nlink)));
+      PUSHs (sv_2mortal (my_newSVll (statbuf->uid)));
+      PUSHs (sv_2mortal (my_newSVll (statbuf->gid)));
+      PUSHs (sv_2mortal (my_newSVll (statbuf->rdev)));
+      PUSHs (sv_2mortal (my_newSVll (statbuf->size)));
+      PUSHs (sv_2mortal (my_newSVll (statbuf->blksize)));
+      PUSHs (sv_2mortal (my_newSVll (statbuf->blocks)));
+      PUSHs (sv_2mortal (my_newSVll (statbuf->atime)));
+      PUSHs (sv_2mortal (my_newSVll (statbuf->mtime)));
+      PUSHs (sv_2mortal (my_newSVll (statbuf->ctime)));
+      free (statbuf);
+
+void
+statvfs (g, path)
+      guestfs_h *g;
+      char *path;
+PREINIT:
+      struct guestfs_statvfs *statbuf;
+ PPCODE:
+      statbuf = guestfs_statvfs (g, path);
+      if (statbuf == NULL)
+        croak ("statvfs: %s", guestfs_last_error (g));
+      EXTEND (SP, 11);
+      PUSHs (sv_2mortal (my_newSVll (statbuf->bsize)));
+      PUSHs (sv_2mortal (my_newSVll (statbuf->frsize)));
+      PUSHs (sv_2mortal (my_newSVll (statbuf->blocks)));
+      PUSHs (sv_2mortal (my_newSVll (statbuf->bfree)));
+      PUSHs (sv_2mortal (my_newSVll (statbuf->bavail)));
+      PUSHs (sv_2mortal (my_newSVll (statbuf->files)));
+      PUSHs (sv_2mortal (my_newSVll (statbuf->ffree)));
+      PUSHs (sv_2mortal (my_newSVll (statbuf->favail)));
+      PUSHs (sv_2mortal (my_newSVll (statbuf->fsid)));
+      PUSHs (sv_2mortal (my_newSVll (statbuf->flag)));
+      PUSHs (sv_2mortal (my_newSVll (statbuf->namemax)));
+      free (statbuf);
+

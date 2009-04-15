@@ -216,3 +216,12 @@ class GuestFS:
     def command_lines (self, arguments):
         return libguestfsmod.command_lines (self._o, arguments)
 
+    def stat (self, path):
+        return libguestfsmod.stat (self._o, path)
+
+    def lstat (self, path):
+        return libguestfsmod.lstat (self._o, path)
+
+    def statvfs (self, path):
+        return libguestfsmod.statvfs (self._o, path)
+

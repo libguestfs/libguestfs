@@ -402,6 +402,16 @@ hidden files are shown.
 This command is mostly useful for interactive sessions.  Programs
 should probably use C<$h-E<gt>readdir> instead.
 
+=item %statbuf = $h->lstat ($path);
+
+Returns file information for the given C<path>.
+
+This is the same as C<$h-E<gt>stat> except that if C<path>
+is a symbolic link, then the link is stat-ed, not the file it
+refers to.
+
+This is the same as the C<lstat(2)> system call.
+
 =item $h->lvcreate ($logvol, $volgroup, $mbytes);
 
 This creates an LVM volume group called C<logvol>
@@ -567,6 +577,20 @@ the string C<,> (comma).
 
 B<This command is dangerous.  Without careful use you
 can easily destroy all your data>.
+
+=item %statbuf = $h->stat ($path);
+
+Returns file information for the given C<path>.
+
+This is the same as the C<stat(2)> system call.
+
+=item %statbuf = $h->statvfs ($path);
+
+Returns file system statistics for any mounted file system.
+C<path> should be a file or directory in the mounted file system
+(typically it is the mount point itself, but it doesn't need to be).
+
+This is the same as the C<statvfs(2)> system call.
 
 =item $h->sync ();
 

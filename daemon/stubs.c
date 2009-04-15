@@ -1223,6 +1223,87 @@ done:
   xdr_free ((xdrproc_t) xdr_guestfs_command_lines_args, (char *) &args);
 }
 
+static void stat_stub (XDR *xdr_in)
+{
+  guestfs_int_stat *r;
+  struct guestfs_stat_args args;
+  const char *path;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_stat_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "stat");
+    return;
+  }
+  path = args.path;
+
+  r = do_stat (path);
+  if (r == NULL)
+    /* do_stat has already called reply_with_error */
+    goto done;
+
+  struct guestfs_stat_ret ret;
+  ret.statbuf = *r;
+  reply ((xdrproc_t) xdr_guestfs_stat_ret, (char *) &ret);
+  xdr_free ((xdrproc_t) xdr_guestfs_stat_ret, (char *) &ret);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_stat_args, (char *) &args);
+}
+
+static void lstat_stub (XDR *xdr_in)
+{
+  guestfs_int_stat *r;
+  struct guestfs_lstat_args args;
+  const char *path;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_lstat_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "lstat");
+    return;
+  }
+  path = args.path;
+
+  r = do_lstat (path);
+  if (r == NULL)
+    /* do_lstat has already called reply_with_error */
+    goto done;
+
+  struct guestfs_lstat_ret ret;
+  ret.statbuf = *r;
+  reply ((xdrproc_t) xdr_guestfs_lstat_ret, (char *) &ret);
+  xdr_free ((xdrproc_t) xdr_guestfs_lstat_ret, (char *) &ret);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_lstat_args, (char *) &args);
+}
+
+static void statvfs_stub (XDR *xdr_in)
+{
+  guestfs_int_statvfs *r;
+  struct guestfs_statvfs_args args;
+  const char *path;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_statvfs_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "statvfs");
+    return;
+  }
+  path = args.path;
+
+  r = do_statvfs (path);
+  if (r == NULL)
+    /* do_statvfs has already called reply_with_error */
+    goto done;
+
+  struct guestfs_statvfs_ret ret;
+  ret.statbuf = *r;
+  reply ((xdrproc_t) xdr_guestfs_statvfs_ret, (char *) &ret);
+  xdr_free ((xdrproc_t) xdr_guestfs_statvfs_ret, (char *) &ret);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_statvfs_args, (char *) &args);
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -1378,6 +1459,15 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_COMMAND_LINES:
       command_lines_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_STAT:
+      stat_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_LSTAT:
+      lstat_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_STATVFS:
+      statvfs_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d", proc_nr);

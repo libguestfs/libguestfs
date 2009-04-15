@@ -97,3 +97,33 @@ struct guestfs_lvm_lv_list {
   struct guestfs_lvm_lv *val;
 };
 
+struct guestfs_stat {
+  int64_t dev;
+  int64_t ino;
+  int64_t mode;
+  int64_t nlink;
+  int64_t uid;
+  int64_t gid;
+  int64_t rdev;
+  int64_t size;
+  int64_t blksize;
+  int64_t blocks;
+  int64_t atime;
+  int64_t mtime;
+  int64_t ctime;
+};
+
+struct guestfs_statvfs {
+  int64_t bsize;
+  int64_t frsize;
+  int64_t blocks;
+  int64_t bfree;
+  int64_t bavail;
+  int64_t files;
+  int64_t ffree;
+  int64_t favail;
+  int64_t fsid;
+  int64_t flag;
+  int64_t namemax;
+};
+

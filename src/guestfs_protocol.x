@@ -85,6 +85,36 @@ struct guestfs_lvm_int_lv {
 
 typedef struct guestfs_lvm_int_lv guestfs_lvm_int_lv_list<>;
 
+struct guestfs_int_stat {
+  hyper dev;
+  hyper ino;
+  hyper mode;
+  hyper nlink;
+  hyper uid;
+  hyper gid;
+  hyper rdev;
+  hyper size;
+  hyper blksize;
+  hyper blocks;
+  hyper atime;
+  hyper mtime;
+  hyper ctime;
+};
+
+struct guestfs_int_statvfs {
+  hyper bsize;
+  hyper frsize;
+  hyper blocks;
+  hyper bfree;
+  hyper bavail;
+  hyper files;
+  hyper ffree;
+  hyper favail;
+  hyper fsid;
+  hyper flag;
+  hyper namemax;
+};
+
 struct guestfs_mount_args {
   string device<>;
   string mountpoint<>;
@@ -352,6 +382,30 @@ struct guestfs_command_lines_ret {
   str lines<>;
 };
 
+struct guestfs_stat_args {
+  string path<>;
+};
+
+struct guestfs_stat_ret {
+  guestfs_int_stat statbuf;
+};
+
+struct guestfs_lstat_args {
+  string path<>;
+};
+
+struct guestfs_lstat_ret {
+  guestfs_int_stat statbuf;
+};
+
+struct guestfs_statvfs_args {
+  string path<>;
+};
+
+struct guestfs_statvfs_ret {
+  guestfs_int_statvfs statbuf;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -404,6 +458,9 @@ enum guestfs_procedure {
   GUESTFS_PROC_FILE = 49,
   GUESTFS_PROC_COMMAND = 50,
   GUESTFS_PROC_COMMAND_LINES = 51,
+  GUESTFS_PROC_STAT = 52,
+  GUESTFS_PROC_LSTAT = 53,
+  GUESTFS_PROC_STATVFS = 54,
   GUESTFS_PROC_dummy
 };
 

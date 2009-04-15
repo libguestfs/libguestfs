@@ -303,6 +303,72 @@ put_lvm_lv_list (struct guestfs_lvm_lv_list *lvs)
 };
 
 static PyObject *
+put_stat (struct guestfs_stat *stat)
+{
+  PyObject *dict;
+
+  dict = PyDict_New ();
+  PyDict_SetItemString (dict, "dev",
+                        PyLong_FromLongLong (stat->dev));
+  PyDict_SetItemString (dict, "ino",
+                        PyLong_FromLongLong (stat->ino));
+  PyDict_SetItemString (dict, "mode",
+                        PyLong_FromLongLong (stat->mode));
+  PyDict_SetItemString (dict, "nlink",
+                        PyLong_FromLongLong (stat->nlink));
+  PyDict_SetItemString (dict, "uid",
+                        PyLong_FromLongLong (stat->uid));
+  PyDict_SetItemString (dict, "gid",
+                        PyLong_FromLongLong (stat->gid));
+  PyDict_SetItemString (dict, "rdev",
+                        PyLong_FromLongLong (stat->rdev));
+  PyDict_SetItemString (dict, "size",
+                        PyLong_FromLongLong (stat->size));
+  PyDict_SetItemString (dict, "blksize",
+                        PyLong_FromLongLong (stat->blksize));
+  PyDict_SetItemString (dict, "blocks",
+                        PyLong_FromLongLong (stat->blocks));
+  PyDict_SetItemString (dict, "atime",
+                        PyLong_FromLongLong (stat->atime));
+  PyDict_SetItemString (dict, "mtime",
+                        PyLong_FromLongLong (stat->mtime));
+  PyDict_SetItemString (dict, "ctime",
+                        PyLong_FromLongLong (stat->ctime));
+  return dict;
+};
+
+static PyObject *
+put_statvfs (struct guestfs_statvfs *statvfs)
+{
+  PyObject *dict;
+
+  dict = PyDict_New ();
+  PyDict_SetItemString (dict, "bsize",
+                        PyLong_FromLongLong (statvfs->bsize));
+  PyDict_SetItemString (dict, "frsize",
+                        PyLong_FromLongLong (statvfs->frsize));
+  PyDict_SetItemString (dict, "blocks",
+                        PyLong_FromLongLong (statvfs->blocks));
+  PyDict_SetItemString (dict, "bfree",
+                        PyLong_FromLongLong (statvfs->bfree));
+  PyDict_SetItemString (dict, "bavail",
+                        PyLong_FromLongLong (statvfs->bavail));
+  PyDict_SetItemString (dict, "files",
+                        PyLong_FromLongLong (statvfs->files));
+  PyDict_SetItemString (dict, "ffree",
+                        PyLong_FromLongLong (statvfs->ffree));
+  PyDict_SetItemString (dict, "favail",
+                        PyLong_FromLongLong (statvfs->favail));
+  PyDict_SetItemString (dict, "fsid",
+                        PyLong_FromLongLong (statvfs->fsid));
+  PyDict_SetItemString (dict, "flag",
+                        PyLong_FromLongLong (statvfs->flag));
+  PyDict_SetItemString (dict, "namemax",
+                        PyLong_FromLongLong (statvfs->namemax));
+  return dict;
+};
+
+static PyObject *
 py_guestfs_launch (PyObject *self, PyObject *args)
 {
   PyObject *py_g;
@@ -1889,6 +1955,81 @@ py_guestfs_command_lines (PyObject *self, PyObject *args)
   return py_r;
 }
 
+static PyObject *
+py_guestfs_stat (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  struct guestfs_stat *r;
+  const char *path;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_stat",
+                         &py_g, &path))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_stat (g, path);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = put_stat (r);
+  free (r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_lstat (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  struct guestfs_stat *r;
+  const char *path;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_lstat",
+                         &py_g, &path))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_lstat (g, path);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = put_stat (r);
+  free (r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_statvfs (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  struct guestfs_statvfs *r;
+  const char *path;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_statvfs",
+                         &py_g, &path))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_statvfs (g, path);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = put_statvfs (r);
+  free (r);
+  return py_r;
+}
+
 static PyMethodDef methods[] = {
   { (char *) "create", py_guestfs_create, METH_VARARGS, NULL },
   { (char *) "close", py_guestfs_close, METH_VARARGS, NULL },
@@ -1955,6 +2096,9 @@ static PyMethodDef methods[] = {
   { (char *) "file", py_guestfs_file, METH_VARARGS, NULL },
   { (char *) "command", py_guestfs_command, METH_VARARGS, NULL },
   { (char *) "command_lines", py_guestfs_command_lines, METH_VARARGS, NULL },
+  { (char *) "stat", py_guestfs_stat, METH_VARARGS, NULL },
+  { (char *) "lstat", py_guestfs_lstat, METH_VARARGS, NULL },
+  { (char *) "statvfs", py_guestfs_statvfs, METH_VARARGS, NULL },
   { NULL, NULL, 0, NULL }
 };
 
