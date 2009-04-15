@@ -31,6 +31,7 @@ guestfsd_SOURCES = \
 	lvm.c \
 	mount.c \
 	proto.c \
+	stat.c \
 	stubs.c \
 	sync.c \
 	../src/guestfs_protocol.h \
