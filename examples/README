@@ -4,5 +4,12 @@ libguestfs API.
 As they are examples, these are licensed so they can be freely copied
 and used without any restrictions.
 
-Tip: To enable verbose messages, set environment variable
+Tips:
+
+(1) To enable verbose messages, set environment variable
 LIBGUESTFS_DEBUG=1
+
+(2) If you haven't installed libguestfs, run the examples like this:
+LIBGUESTFS_PATH=. examples/to-xml
+(the path should point to the directory containing vmlinuz.* and
+initramfs.* files).

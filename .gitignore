@@ -29,8 +29,8 @@ daemon/install-sh
 daemon/missing
 depcomp
 emptydisk
-examples/df
 examples/hello
+examples/to-xml
 fish/guestfish
 guestfish.1
 guestfs.3
