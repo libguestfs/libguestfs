@@ -18,6 +18,7 @@
 bin_PROGRAMS = guestfish
 
 guestfish_SOURCES = \
+	alloc.c \
 	cmds.c \
 	completion.c \
 	fish.c \

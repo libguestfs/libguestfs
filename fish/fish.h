@@ -44,4 +44,7 @@ extern int run_action (const char *cmd, int argc, char *argv[]);
 /* in completion.c (auto-generated) */
 extern char **do_completion (const char *text, int start, int end);
 
+/* in alloc.c */
+extern int do_alloc (int argc, char *argv[]);
+
 #endif /* FISH_H */

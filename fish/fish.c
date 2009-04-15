@@ -26,7 +26,6 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <getopt.h>
-#include <inttypes.h>
 #include <assert.h>
 
 #ifdef HAVE_LIBREADLINE
@@ -50,7 +49,6 @@ static void shell_script (void);
 static void script (int prompt);
 static void cmdline (char *argv[], int optind, int argc);
 static int issue_command (const char *cmd, char *argv[]);
-static int parse_size (const char *str, off_t *size_rtn);
 static void initialize_readline (void);
 static void cleanup_readline (void);
 static void add_history_line (const char *);
@@ -494,50 +492,8 @@ issue_command (const char *cmd, char *argv[])
     return 0;
   }
   else if (strcasecmp (cmd, "alloc") == 0 ||
-	   strcasecmp (cmd, "allocate") == 0) {
-    if (argc != 2) {
-      fprintf (stderr, "use 'alloc file size' to create an image\n");
-      return -1;
-    }
-    else {
-      off_t size;
-      int fd;
-
-      if (parse_size (argv[1], &size) == -1)
-	return -1;
-
-      if (g_launched) {
-	fprintf (stderr, "can't allocate or add disks after launching\n");
-	return -1;
-      }
-
-      fd = open (argv[0], O_WRONLY|O_CREAT|O_NOCTTY|O_NONBLOCK|O_TRUNC, 0666);
-      if (fd == -1) {
-	perror (argv[0]);
-	return -1;
-      }
-
-      if (posix_fallocate (fd, 0, size) == -1) {
-	perror ("fallocate");
-	close (fd);
-	unlink (argv[0]);
-	return -1;
-      }
-
-      if (close (fd) == -1) {
-	perror (argv[0]);
-	unlink (argv[0]);
-	return -1;
-      }
-
-      if (guestfs_add_drive (g, argv[0]) == -1) {
-	unlink (argv[0]);
-	return -1;
-      }
-
-      return 0;
-    }
-  }
+	   strcasecmp (cmd, "allocate") == 0)
+    return do_alloc (argc, argv);
   else
     return run_action (cmd, argc, argv);
 }
@@ -588,42 +544,6 @@ display_builtin_command (const char *cmd)
   else
     fprintf (stderr, "%s: command not known, use -h to list all commands\n",
 	     cmd);
-}
-
-/* Parse size parameter of alloc command. */
-static int
-parse_size (const char *str, off_t *size_rtn)
-{
-  uint64_t size;
-  char type;
-
-  /* Note that the parsing here is looser than what is specified in the
-   * help, but we may tighten it up in future so beware.
-   */
-  if (sscanf (str, "%"SCNu64"%c", &size, &type) == 2) {
-    switch (type) {
-    case 'k': case 'K': size *= 1024; break;
-    case 'm': case 'M': size *= 1024 * 1024; break;
-    case 'g': case 'G': size *= 1024 * 1024 * 1024; break;
-    case 's': size *= 512; break;
-    default:
-      fprintf (stderr, "could not parse size specification '%s'\n", str);
-      return -1;
-    }
-  }
-  else if (sscanf (str, "%"SCNu64, &size) == 1)
-    size *= 1024;
-  else {
-    fprintf (stderr, "could not parse size specification '%s'\n", str);
-    return -1;
-  }
-
-  /* XXX 32 bit file offsets, if anyone uses them?  GCC should give
-   * a warning here anyhow.
-   */
-  *size_rtn = size;
-
-  return 0;
 }
 
 void
