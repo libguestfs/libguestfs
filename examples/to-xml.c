@@ -10,6 +10,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
+#include <inttypes.h>
 #include <unistd.h>
 
 #include <guestfs.h>
@@ -56,7 +58,9 @@ main (int argc, char *argv[])
   CALL (devices = guestfs_list_devices (g), NULL);
   printf ("<devices>\n");
   for (i = 0; devices[i] != NULL; ++i) {
-    printf ("<device dev=\"%s\">\n", devices[i]);
+    int64_t size;
+    CALL (size = guestfs_blockdev_getsize64 (g, devices[i]), -1);
+    printf ("<device dev=\"%s\" size=\"%" PRIi64 "\">\n", devices[i], size);
     display_partition (g, devices[i]);
     free (devices[i]);
     printf ("</device>\n");
@@ -83,7 +87,9 @@ main (int argc, char *argv[])
       if (strncmp (lvs[j], "/dev/", 5) == 0 &&
 	  strncmp (&lvs[j][5], vgs[i], len) == 0 &&
 	  lvs[j][len+5] == '/') {
-	printf ("<logvol name=\"%s\">\n", lvs[j]);
+	int64_t size;
+	CALL (size = guestfs_blockdev_getsize64 (g, lvs[j]), -1);
+	printf ("<logvol name=\"%s\" size=\"%" PRIi64 "\">\n", lvs[j], size);
 	display_partition (g, lvs[j]);
 	printf ("</logvol>\n");
 	free (lvs[j]);
@@ -149,7 +155,9 @@ display_partitions (guestfs_h *g, const char *dev)
   for (i = 0; parts[i] != NULL; ++i) {
     /* Only display partition if it's in the device. */
     if (strncmp (parts[i], dev, len) == 0) {
-      printf ("<partition dev=\"%s\">\n", parts[i]);
+      int64_t size;
+      CALL (size = guestfs_blockdev_getsize64 (g, dev), -1);
+      printf ("<partition dev=\"%s\" size=\"%" PRIi64 "\">\n", parts[i], size);
       display_partition (g, parts[i]);
       printf ("</partition>\n");
     }
