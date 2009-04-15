@@ -540,6 +540,82 @@ struct guestfs_tune2fs_l_ret {
 };
 typedef struct guestfs_tune2fs_l_ret guestfs_tune2fs_l_ret;
 
+struct guestfs_blockdev_setro_args {
+	char *device;
+};
+typedef struct guestfs_blockdev_setro_args guestfs_blockdev_setro_args;
+
+struct guestfs_blockdev_setrw_args {
+	char *device;
+};
+typedef struct guestfs_blockdev_setrw_args guestfs_blockdev_setrw_args;
+
+struct guestfs_blockdev_getro_args {
+	char *device;
+};
+typedef struct guestfs_blockdev_getro_args guestfs_blockdev_getro_args;
+
+struct guestfs_blockdev_getro_ret {
+	bool_t ro;
+};
+typedef struct guestfs_blockdev_getro_ret guestfs_blockdev_getro_ret;
+
+struct guestfs_blockdev_getss_args {
+	char *device;
+};
+typedef struct guestfs_blockdev_getss_args guestfs_blockdev_getss_args;
+
+struct guestfs_blockdev_getss_ret {
+	int sectorsize;
+};
+typedef struct guestfs_blockdev_getss_ret guestfs_blockdev_getss_ret;
+
+struct guestfs_blockdev_getbsz_args {
+	char *device;
+};
+typedef struct guestfs_blockdev_getbsz_args guestfs_blockdev_getbsz_args;
+
+struct guestfs_blockdev_getbsz_ret {
+	int blocksize;
+};
+typedef struct guestfs_blockdev_getbsz_ret guestfs_blockdev_getbsz_ret;
+
+struct guestfs_blockdev_setbsz_args {
+	char *device;
+	int blocksize;
+};
+typedef struct guestfs_blockdev_setbsz_args guestfs_blockdev_setbsz_args;
+
+struct guestfs_blockdev_getsz_args {
+	char *device;
+};
+typedef struct guestfs_blockdev_getsz_args guestfs_blockdev_getsz_args;
+
+struct guestfs_blockdev_getsz_ret {
+	quad_t sizeinsectors;
+};
+typedef struct guestfs_blockdev_getsz_ret guestfs_blockdev_getsz_ret;
+
+struct guestfs_blockdev_getsize64_args {
+	char *device;
+};
+typedef struct guestfs_blockdev_getsize64_args guestfs_blockdev_getsize64_args;
+
+struct guestfs_blockdev_getsize64_ret {
+	quad_t sizeinbytes;
+};
+typedef struct guestfs_blockdev_getsize64_ret guestfs_blockdev_getsize64_ret;
+
+struct guestfs_blockdev_flushbufs_args {
+	char *device;
+};
+typedef struct guestfs_blockdev_flushbufs_args guestfs_blockdev_flushbufs_args;
+
+struct guestfs_blockdev_rereadpt_args {
+	char *device;
+};
+typedef struct guestfs_blockdev_rereadpt_args guestfs_blockdev_rereadpt_args;
+
 enum guestfs_procedure {
 	GUESTFS_PROC_MOUNT = 1,
 	GUESTFS_PROC_SYNC = 2,
@@ -596,7 +672,17 @@ enum guestfs_procedure {
 	GUESTFS_PROC_LSTAT = 53,
 	GUESTFS_PROC_STATVFS = 54,
 	GUESTFS_PROC_TUNE2FS_L = 55,
-	GUESTFS_PROC_dummy = 55 + 1,
+	GUESTFS_PROC_BLOCKDEV_SETRO = 56,
+	GUESTFS_PROC_BLOCKDEV_SETRW = 57,
+	GUESTFS_PROC_BLOCKDEV_GETRO = 58,
+	GUESTFS_PROC_BLOCKDEV_GETSS = 59,
+	GUESTFS_PROC_BLOCKDEV_GETBSZ = 60,
+	GUESTFS_PROC_BLOCKDEV_SETBSZ = 61,
+	GUESTFS_PROC_BLOCKDEV_GETSZ = 62,
+	GUESTFS_PROC_BLOCKDEV_GETSIZE64 = 63,
+	GUESTFS_PROC_BLOCKDEV_FLUSHBUFS = 64,
+	GUESTFS_PROC_BLOCKDEV_REREADPT = 65,
+	GUESTFS_PROC_dummy = 65 + 1,
 };
 typedef enum guestfs_procedure guestfs_procedure;
 #define GUESTFS_MESSAGE_MAX 4194304
@@ -712,6 +798,21 @@ extern  bool_t xdr_guestfs_statvfs_args (XDR *, guestfs_statvfs_args*);
 extern  bool_t xdr_guestfs_statvfs_ret (XDR *, guestfs_statvfs_ret*);
 extern  bool_t xdr_guestfs_tune2fs_l_args (XDR *, guestfs_tune2fs_l_args*);
 extern  bool_t xdr_guestfs_tune2fs_l_ret (XDR *, guestfs_tune2fs_l_ret*);
+extern  bool_t xdr_guestfs_blockdev_setro_args (XDR *, guestfs_blockdev_setro_args*);
+extern  bool_t xdr_guestfs_blockdev_setrw_args (XDR *, guestfs_blockdev_setrw_args*);
+extern  bool_t xdr_guestfs_blockdev_getro_args (XDR *, guestfs_blockdev_getro_args*);
+extern  bool_t xdr_guestfs_blockdev_getro_ret (XDR *, guestfs_blockdev_getro_ret*);
+extern  bool_t xdr_guestfs_blockdev_getss_args (XDR *, guestfs_blockdev_getss_args*);
+extern  bool_t xdr_guestfs_blockdev_getss_ret (XDR *, guestfs_blockdev_getss_ret*);
+extern  bool_t xdr_guestfs_blockdev_getbsz_args (XDR *, guestfs_blockdev_getbsz_args*);
+extern  bool_t xdr_guestfs_blockdev_getbsz_ret (XDR *, guestfs_blockdev_getbsz_ret*);
+extern  bool_t xdr_guestfs_blockdev_setbsz_args (XDR *, guestfs_blockdev_setbsz_args*);
+extern  bool_t xdr_guestfs_blockdev_getsz_args (XDR *, guestfs_blockdev_getsz_args*);
+extern  bool_t xdr_guestfs_blockdev_getsz_ret (XDR *, guestfs_blockdev_getsz_ret*);
+extern  bool_t xdr_guestfs_blockdev_getsize64_args (XDR *, guestfs_blockdev_getsize64_args*);
+extern  bool_t xdr_guestfs_blockdev_getsize64_ret (XDR *, guestfs_blockdev_getsize64_ret*);
+extern  bool_t xdr_guestfs_blockdev_flushbufs_args (XDR *, guestfs_blockdev_flushbufs_args*);
+extern  bool_t xdr_guestfs_blockdev_rereadpt_args (XDR *, guestfs_blockdev_rereadpt_args*);
 extern  bool_t xdr_guestfs_procedure (XDR *, guestfs_procedure*);
 extern  bool_t xdr_guestfs_message_direction (XDR *, guestfs_message_direction*);
 extern  bool_t xdr_guestfs_message_status (XDR *, guestfs_message_status*);
@@ -797,6 +898,21 @@ extern bool_t xdr_guestfs_statvfs_args ();
 extern bool_t xdr_guestfs_statvfs_ret ();
 extern bool_t xdr_guestfs_tune2fs_l_args ();
 extern bool_t xdr_guestfs_tune2fs_l_ret ();
+extern bool_t xdr_guestfs_blockdev_setro_args ();
+extern bool_t xdr_guestfs_blockdev_setrw_args ();
+extern bool_t xdr_guestfs_blockdev_getro_args ();
+extern bool_t xdr_guestfs_blockdev_getro_ret ();
+extern bool_t xdr_guestfs_blockdev_getss_args ();
+extern bool_t xdr_guestfs_blockdev_getss_ret ();
+extern bool_t xdr_guestfs_blockdev_getbsz_args ();
+extern bool_t xdr_guestfs_blockdev_getbsz_ret ();
+extern bool_t xdr_guestfs_blockdev_setbsz_args ();
+extern bool_t xdr_guestfs_blockdev_getsz_args ();
+extern bool_t xdr_guestfs_blockdev_getsz_ret ();
+extern bool_t xdr_guestfs_blockdev_getsize64_args ();
+extern bool_t xdr_guestfs_blockdev_getsize64_ret ();
+extern bool_t xdr_guestfs_blockdev_flushbufs_args ();
+extern bool_t xdr_guestfs_blockdev_rereadpt_args ();
 extern bool_t xdr_guestfs_procedure ();
 extern bool_t xdr_guestfs_message_direction ();
 extern bool_t xdr_guestfs_message_status ();

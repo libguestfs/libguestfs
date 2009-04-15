@@ -245,6 +245,85 @@ how files are saved.
 
 Set the value associated with C<path> to C<value>.
 
+=item $h->blockdev_flushbufs ($device);
+
+This tells the kernel to flush internal buffers associated
+with C<device>.
+
+This uses the L<blockdev(8)> command.
+
+=item $blocksize = $h->blockdev_getbsz ($device);
+
+This returns the block size of a device.
+
+(Note this is different from both I<size in blocks> and
+I<filesystem block size>).
+
+This uses the L<blockdev(8)> command.
+
+=item $ro = $h->blockdev_getro ($device);
+
+Returns a boolean indicating if the block device is read-only
+(true if read-only, false if not).
+
+This uses the L<blockdev(8)> command.
+
+=item $sizeinbytes = $h->blockdev_getsize64 ($device);
+
+This returns the size of the device in bytes.
+
+See also C<$h-E<gt>blockdev_getsz>.
+
+This uses the L<blockdev(8)> command.
+
+=item $sectorsize = $h->blockdev_getss ($device);
+
+This returns the size of sectors on a block device.
+Usually 512, but can be larger for modern devices.
+
+(Note, this is not the size in sectors, use C<$h-E<gt>blockdev_getsz>
+for that).
+
+This uses the L<blockdev(8)> command.
+
+=item $sizeinsectors = $h->blockdev_getsz ($device);
+
+This returns the size of the device in units of 512-byte sectors
+(even if the sectorsize isn't 512 bytes ... weird).
+
+See also C<$h-E<gt>blockdev_getss> for the real sector size of
+the device, and C<$h-E<gt>blockdev_getsize64> for the more
+useful I<size in bytes>.
+
+This uses the L<blockdev(8)> command.
+
+=item $h->blockdev_rereadpt ($device);
+
+Reread the partition table on C<device>.
+
+This uses the L<blockdev(8)> command.
+
+=item $h->blockdev_setbsz ($device, $blocksize);
+
+This sets the block size of a device.
+
+(Note this is different from both I<size in blocks> and
+I<filesystem block size>).
+
+This uses the L<blockdev(8)> command.
+
+=item $h->blockdev_setro ($device);
+
+Sets the block device named C<device> to read-only.
+
+This uses the L<blockdev(8)> command.
+
+=item $h->blockdev_setrw ($device);
+
+Sets the block device named C<device> to read-write.
+
+This uses the L<blockdev(8)> command.
+
 =item $content = $h->cat ($path);
 
 Return the contents of the file named C<path>.

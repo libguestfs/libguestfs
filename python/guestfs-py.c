@@ -2076,6 +2076,252 @@ py_guestfs_tune2fs_l (PyObject *self, PyObject *args)
   return py_r;
 }
 
+static PyObject *
+py_guestfs_blockdev_setro (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *device;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_blockdev_setro",
+                         &py_g, &device))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_blockdev_setro (g, device);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_blockdev_setrw (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *device;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_blockdev_setrw",
+                         &py_g, &device))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_blockdev_setrw (g, device);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_blockdev_getro (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *device;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_blockdev_getro",
+                         &py_g, &device))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_blockdev_getro (g, device);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyInt_FromLong ((long) r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_blockdev_getss (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *device;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_blockdev_getss",
+                         &py_g, &device))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_blockdev_getss (g, device);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyInt_FromLong ((long) r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_blockdev_getbsz (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *device;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_blockdev_getbsz",
+                         &py_g, &device))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_blockdev_getbsz (g, device);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyInt_FromLong ((long) r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_blockdev_setbsz (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *device;
+  int blocksize;
+
+  if (!PyArg_ParseTuple (args, (char *) "Osi:guestfs_blockdev_setbsz",
+                         &py_g, &device, &blocksize))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_blockdev_setbsz (g, device, blocksize);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_blockdev_getsz (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int64_t r;
+  const char *device;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_blockdev_getsz",
+                         &py_g, &device))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_blockdev_getsz (g, device);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyLong_FromLongLong (r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_blockdev_getsize64 (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int64_t r;
+  const char *device;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_blockdev_getsize64",
+                         &py_g, &device))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_blockdev_getsize64 (g, device);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyLong_FromLongLong (r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_blockdev_flushbufs (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *device;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_blockdev_flushbufs",
+                         &py_g, &device))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_blockdev_flushbufs (g, device);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_blockdev_rereadpt (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *device;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_blockdev_rereadpt",
+                         &py_g, &device))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_blockdev_rereadpt (g, device);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
 static PyMethodDef methods[] = {
   { (char *) "create", py_guestfs_create, METH_VARARGS, NULL },
   { (char *) "close", py_guestfs_close, METH_VARARGS, NULL },
@@ -2146,6 +2392,16 @@ static PyMethodDef methods[] = {
   { (char *) "lstat", py_guestfs_lstat, METH_VARARGS, NULL },
   { (char *) "statvfs", py_guestfs_statvfs, METH_VARARGS, NULL },
   { (char *) "tune2fs_l", py_guestfs_tune2fs_l, METH_VARARGS, NULL },
+  { (char *) "blockdev_setro", py_guestfs_blockdev_setro, METH_VARARGS, NULL },
+  { (char *) "blockdev_setrw", py_guestfs_blockdev_setrw, METH_VARARGS, NULL },
+  { (char *) "blockdev_getro", py_guestfs_blockdev_getro, METH_VARARGS, NULL },
+  { (char *) "blockdev_getss", py_guestfs_blockdev_getss, METH_VARARGS, NULL },
+  { (char *) "blockdev_getbsz", py_guestfs_blockdev_getbsz, METH_VARARGS, NULL },
+  { (char *) "blockdev_setbsz", py_guestfs_blockdev_setbsz, METH_VARARGS, NULL },
+  { (char *) "blockdev_getsz", py_guestfs_blockdev_getsz, METH_VARARGS, NULL },
+  { (char *) "blockdev_getsize64", py_guestfs_blockdev_getsize64, METH_VARARGS, NULL },
+  { (char *) "blockdev_flushbufs", py_guestfs_blockdev_flushbufs, METH_VARARGS, NULL },
+  { (char *) "blockdev_rereadpt", py_guestfs_blockdev_rereadpt, METH_VARARGS, NULL },
   { NULL, NULL, 0, NULL }
 };
 

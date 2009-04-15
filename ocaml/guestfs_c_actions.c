@@ -1934,3 +1934,234 @@ ocaml_guestfs_tune2fs_l (value gv, value devicev)
   CAMLreturn (rv);
 }
 
+CAMLprim value
+ocaml_guestfs_blockdev_setro (value gv, value devicev)
+{
+  CAMLparam2 (gv, devicev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("blockdev_setro: used handle after closing it");
+
+  const char *device = String_val (devicev);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_blockdev_setro (g, device);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "blockdev_setro");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_blockdev_setrw (value gv, value devicev)
+{
+  CAMLparam2 (gv, devicev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("blockdev_setrw: used handle after closing it");
+
+  const char *device = String_val (devicev);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_blockdev_setrw (g, device);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "blockdev_setrw");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_blockdev_getro (value gv, value devicev)
+{
+  CAMLparam2 (gv, devicev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("blockdev_getro: used handle after closing it");
+
+  const char *device = String_val (devicev);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_blockdev_getro (g, device);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "blockdev_getro");
+
+  rv = Val_bool (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_blockdev_getss (value gv, value devicev)
+{
+  CAMLparam2 (gv, devicev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("blockdev_getss: used handle after closing it");
+
+  const char *device = String_val (devicev);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_blockdev_getss (g, device);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "blockdev_getss");
+
+  rv = Val_int (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_blockdev_getbsz (value gv, value devicev)
+{
+  CAMLparam2 (gv, devicev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("blockdev_getbsz: used handle after closing it");
+
+  const char *device = String_val (devicev);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_blockdev_getbsz (g, device);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "blockdev_getbsz");
+
+  rv = Val_int (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_blockdev_setbsz (value gv, value devicev, value blocksizev)
+{
+  CAMLparam3 (gv, devicev, blocksizev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("blockdev_setbsz: used handle after closing it");
+
+  const char *device = String_val (devicev);
+  int blocksize = Int_val (blocksizev);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_blockdev_setbsz (g, device, blocksize);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "blockdev_setbsz");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_blockdev_getsz (value gv, value devicev)
+{
+  CAMLparam2 (gv, devicev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("blockdev_getsz: used handle after closing it");
+
+  const char *device = String_val (devicev);
+  int64_t r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_blockdev_getsz (g, device);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "blockdev_getsz");
+
+  rv = caml_copy_int64 (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_blockdev_getsize64 (value gv, value devicev)
+{
+  CAMLparam2 (gv, devicev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("blockdev_getsize64: used handle after closing it");
+
+  const char *device = String_val (devicev);
+  int64_t r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_blockdev_getsize64 (g, device);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "blockdev_getsize64");
+
+  rv = caml_copy_int64 (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_blockdev_flushbufs (value gv, value devicev)
+{
+  CAMLparam2 (gv, devicev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("blockdev_flushbufs: used handle after closing it");
+
+  const char *device = String_val (devicev);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_blockdev_flushbufs (g, device);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "blockdev_flushbufs");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_blockdev_rereadpt (value gv, value devicev)
+{
+  CAMLparam2 (gv, devicev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("blockdev_rereadpt: used handle after closing it");
+
+  const char *device = String_val (devicev);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_blockdev_rereadpt (g, device);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "blockdev_rereadpt");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+

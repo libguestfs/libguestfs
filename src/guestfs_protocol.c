@@ -1035,6 +1035,158 @@ xdr_guestfs_tune2fs_l_ret (XDR *xdrs, guestfs_tune2fs_l_ret *objp)
 }
 
 bool_t
+xdr_guestfs_blockdev_setro_args (XDR *xdrs, guestfs_blockdev_setro_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->device, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_blockdev_setrw_args (XDR *xdrs, guestfs_blockdev_setrw_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->device, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_blockdev_getro_args (XDR *xdrs, guestfs_blockdev_getro_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->device, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_blockdev_getro_ret (XDR *xdrs, guestfs_blockdev_getro_ret *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_bool (xdrs, &objp->ro))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_blockdev_getss_args (XDR *xdrs, guestfs_blockdev_getss_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->device, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_blockdev_getss_ret (XDR *xdrs, guestfs_blockdev_getss_ret *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_int (xdrs, &objp->sectorsize))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_blockdev_getbsz_args (XDR *xdrs, guestfs_blockdev_getbsz_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->device, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_blockdev_getbsz_ret (XDR *xdrs, guestfs_blockdev_getbsz_ret *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_int (xdrs, &objp->blocksize))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_blockdev_setbsz_args (XDR *xdrs, guestfs_blockdev_setbsz_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->device, ~0))
+		 return FALSE;
+	 if (!xdr_int (xdrs, &objp->blocksize))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_blockdev_getsz_args (XDR *xdrs, guestfs_blockdev_getsz_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->device, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_blockdev_getsz_ret (XDR *xdrs, guestfs_blockdev_getsz_ret *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_quad_t (xdrs, &objp->sizeinsectors))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_blockdev_getsize64_args (XDR *xdrs, guestfs_blockdev_getsize64_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->device, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_blockdev_getsize64_ret (XDR *xdrs, guestfs_blockdev_getsize64_ret *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_quad_t (xdrs, &objp->sizeinbytes))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_blockdev_flushbufs_args (XDR *xdrs, guestfs_blockdev_flushbufs_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->device, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_blockdev_rereadpt_args (XDR *xdrs, guestfs_blockdev_rereadpt_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->device, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
 xdr_guestfs_procedure (XDR *xdrs, guestfs_procedure *objp)
 {
 	register int32_t *buf;

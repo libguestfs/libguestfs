@@ -1106,3 +1106,129 @@ PREINIT:
       }
       free (superblock);
 
+void
+blockdev_setro (g, device)
+      guestfs_h *g;
+      char *device;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_blockdev_setro (g, device);
+      if (r == -1)
+        croak ("blockdev_setro: %s", guestfs_last_error (g));
+
+void
+blockdev_setrw (g, device)
+      guestfs_h *g;
+      char *device;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_blockdev_setrw (g, device);
+      if (r == -1)
+        croak ("blockdev_setrw: %s", guestfs_last_error (g));
+
+SV *
+blockdev_getro (g, device)
+      guestfs_h *g;
+      char *device;
+PREINIT:
+      int ro;
+   CODE:
+      ro = guestfs_blockdev_getro (g, device);
+      if (ro == -1)
+        croak ("blockdev_getro: %s", guestfs_last_error (g));
+      RETVAL = newSViv (ro);
+ OUTPUT:
+      RETVAL
+
+SV *
+blockdev_getss (g, device)
+      guestfs_h *g;
+      char *device;
+PREINIT:
+      int sectorsize;
+   CODE:
+      sectorsize = guestfs_blockdev_getss (g, device);
+      if (sectorsize == -1)
+        croak ("blockdev_getss: %s", guestfs_last_error (g));
+      RETVAL = newSViv (sectorsize);
+ OUTPUT:
+      RETVAL
+
+SV *
+blockdev_getbsz (g, device)
+      guestfs_h *g;
+      char *device;
+PREINIT:
+      int blocksize;
+   CODE:
+      blocksize = guestfs_blockdev_getbsz (g, device);
+      if (blocksize == -1)
+        croak ("blockdev_getbsz: %s", guestfs_last_error (g));
+      RETVAL = newSViv (blocksize);
+ OUTPUT:
+      RETVAL
+
+void
+blockdev_setbsz (g, device, blocksize)
+      guestfs_h *g;
+      char *device;
+      int blocksize;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_blockdev_setbsz (g, device, blocksize);
+      if (r == -1)
+        croak ("blockdev_setbsz: %s", guestfs_last_error (g));
+
+SV *
+blockdev_getsz (g, device)
+      guestfs_h *g;
+      char *device;
+PREINIT:
+      int64_t sizeinsectors;
+   CODE:
+      sizeinsectors = guestfs_blockdev_getsz (g, device);
+      if (sizeinsectors == -1)
+        croak ("blockdev_getsz: %s", guestfs_last_error (g));
+      RETVAL = my_newSVll (sizeinsectors);
+ OUTPUT:
+      RETVAL
+
+SV *
+blockdev_getsize64 (g, device)
+      guestfs_h *g;
+      char *device;
+PREINIT:
+      int64_t sizeinbytes;
+   CODE:
+      sizeinbytes = guestfs_blockdev_getsize64 (g, device);
+      if (sizeinbytes == -1)
+        croak ("blockdev_getsize64: %s", guestfs_last_error (g));
+      RETVAL = my_newSVll (sizeinbytes);
+ OUTPUT:
+      RETVAL
+
+void
+blockdev_flushbufs (g, device)
+      guestfs_h *g;
+      char *device;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_blockdev_flushbufs (g, device);
+      if (r == -1)
+        croak ("blockdev_flushbufs: %s", guestfs_last_error (g));
+
+void
+blockdev_rereadpt (g, device)
+      guestfs_h *g;
+      char *device;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_blockdev_rereadpt (g, device);
+      if (r == -1)
+        croak ("blockdev_rereadpt: %s", guestfs_last_error (g));
+

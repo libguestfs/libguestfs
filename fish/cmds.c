@@ -46,6 +46,16 @@ void list_commands (void)
   printf ("%-20s %s\n", "aug-rm", "remove an Augeas path");
   printf ("%-20s %s\n", "aug-save", "write all pending Augeas changes to disk");
   printf ("%-20s %s\n", "aug-set", "set Augeas path to value");
+  printf ("%-20s %s\n", "blockdev-flushbufs", "flush device buffers");
+  printf ("%-20s %s\n", "blockdev-getbsz", "get blocksize of block device");
+  printf ("%-20s %s\n", "blockdev-getro", "is block device set to read-only");
+  printf ("%-20s %s\n", "blockdev-getsize64", "get total size of device in bytes");
+  printf ("%-20s %s\n", "blockdev-getss", "get sectorsize of block device");
+  printf ("%-20s %s\n", "blockdev-getsz", "get total size of device in 512-byte sectors");
+  printf ("%-20s %s\n", "blockdev-rereadpt", "reread partition table");
+  printf ("%-20s %s\n", "blockdev-setbsz", "set blocksize of block device");
+  printf ("%-20s %s\n", "blockdev-setro", "set block device to read-only");
+  printf ("%-20s %s\n", "blockdev-setrw", "set block device to read-write");
   printf ("%-20s %s\n", "cat", "list the contents of a file");
   printf ("%-20s %s\n", "chmod", "change file mode");
   printf ("%-20s %s\n", "chown", "change file owner and group");
@@ -299,6 +309,36 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "tune2fs_l") == 0 || strcasecmp (cmd, "tune2fs-l") == 0)
     pod2text ("tune2fs-l - get ext2/ext3 superblock details", " tune2fs-l <device>\n\nThis returns the contents of the ext2 or ext3 filesystem superblock\non C<device>.\n\nIt is the same as running C<tune2fs -l device>.  See L<tune2fs(8)>\nmanpage for more details.  The list of fields returned isn't\nclearly defined, and depends on both the version of C<tune2fs>\nthat libguestfs was built against, and the filesystem itself.");
+  else
+  if (strcasecmp (cmd, "blockdev_setro") == 0 || strcasecmp (cmd, "blockdev-setro") == 0)
+    pod2text ("blockdev-setro - set block device to read-only", " blockdev-setro <device>\n\nSets the block device named C<device> to read-only.\n\nThis uses the L<blockdev(8)> command.");
+  else
+  if (strcasecmp (cmd, "blockdev_setrw") == 0 || strcasecmp (cmd, "blockdev-setrw") == 0)
+    pod2text ("blockdev-setrw - set block device to read-write", " blockdev-setrw <device>\n\nSets the block device named C<device> to read-write.\n\nThis uses the L<blockdev(8)> command.");
+  else
+  if (strcasecmp (cmd, "blockdev_getro") == 0 || strcasecmp (cmd, "blockdev-getro") == 0)
+    pod2text ("blockdev-getro - is block device set to read-only", " blockdev-getro <device>\n\nReturns a boolean indicating if the block device is read-only\n(true if read-only, false if not).\n\nThis uses the L<blockdev(8)> command.");
+  else
+  if (strcasecmp (cmd, "blockdev_getss") == 0 || strcasecmp (cmd, "blockdev-getss") == 0)
+    pod2text ("blockdev-getss - get sectorsize of block device", " blockdev-getss <device>\n\nThis returns the size of sectors on a block device.\nUsually 512, but can be larger for modern devices.\n\n(Note, this is not the size in sectors, use C<blockdev_getsz>\nfor that).\n\nThis uses the L<blockdev(8)> command.");
+  else
+  if (strcasecmp (cmd, "blockdev_getbsz") == 0 || strcasecmp (cmd, "blockdev-getbsz") == 0)
+    pod2text ("blockdev-getbsz - get blocksize of block device", " blockdev-getbsz <device>\n\nThis returns the block size of a device.\n\n(Note this is different from both I<size in blocks> and\nI<filesystem block size>).\n\nThis uses the L<blockdev(8)> command.");
+  else
+  if (strcasecmp (cmd, "blockdev_setbsz") == 0 || strcasecmp (cmd, "blockdev-setbsz") == 0)
+    pod2text ("blockdev-setbsz - set blocksize of block device", " blockdev-setbsz <device> <blocksize>\n\nThis sets the block size of a device.\n\n(Note this is different from both I<size in blocks> and\nI<filesystem block size>).\n\nThis uses the L<blockdev(8)> command.");
+  else
+  if (strcasecmp (cmd, "blockdev_getsz") == 0 || strcasecmp (cmd, "blockdev-getsz") == 0)
+    pod2text ("blockdev-getsz - get total size of device in 512-byte sectors", " blockdev-getsz <device>\n\nThis returns the size of the device in units of 512-byte sectors\n(even if the sectorsize isn't 512 bytes ... weird).\n\nSee also C<blockdev_getss> for the real sector size of\nthe device, and C<blockdev_getsize64> for the more\nuseful I<size in bytes>.\n\nThis uses the L<blockdev(8)> command.");
+  else
+  if (strcasecmp (cmd, "blockdev_getsize64") == 0 || strcasecmp (cmd, "blockdev-getsize64") == 0)
+    pod2text ("blockdev-getsize64 - get total size of device in bytes", " blockdev-getsize64 <device>\n\nThis returns the size of the device in bytes.\n\nSee also C<blockdev_getsz>.\n\nThis uses the L<blockdev(8)> command.");
+  else
+  if (strcasecmp (cmd, "blockdev_flushbufs") == 0 || strcasecmp (cmd, "blockdev-flushbufs") == 0)
+    pod2text ("blockdev-flushbufs - flush device buffers", " blockdev-flushbufs <device>\n\nThis tells the kernel to flush internal buffers associated\nwith C<device>.\n\nThis uses the L<blockdev(8)> command.");
+  else
+  if (strcasecmp (cmd, "blockdev_rereadpt") == 0 || strcasecmp (cmd, "blockdev-rereadpt") == 0)
+    pod2text ("blockdev-rereadpt - reread partition table", " blockdev-rereadpt <device>\n\nReread the partition table on C<device>.\n\nThis uses the L<blockdev(8)> command.");
   else
     display_builtin_command (cmd);
 }
@@ -861,7 +901,7 @@ static int run_aug_defvar (const char *cmd, int argc, char *argv[])
   expr = strcmp (argv[1], "") != 0 ? argv[1] : NULL;
   r = guestfs_aug_defvar (g, name, expr);
   if (r == -1) return -1;
-  if (r) printf ("%d\n", r);
+  printf ("%d\n", r);
   return 0;
 }
 
@@ -950,7 +990,7 @@ static int run_aug_rm (const char *cmd, int argc, char *argv[])
   path = argv[0];
   r = guestfs_aug_rm (g, path);
   if (r == -1) return -1;
-  if (r) printf ("%d\n", r);
+  printf ("%d\n", r);
   return 0;
 }
 
@@ -1456,6 +1496,158 @@ static int run_tune2fs_l (const char *cmd, int argc, char *argv[])
   return 0;
 }
 
+static int run_blockdev_setro (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *device;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  device = argv[0];
+  r = guestfs_blockdev_setro (g, device);
+  return r;
+}
+
+static int run_blockdev_setrw (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *device;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  device = argv[0];
+  r = guestfs_blockdev_setrw (g, device);
+  return r;
+}
+
+static int run_blockdev_getro (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *device;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  device = argv[0];
+  r = guestfs_blockdev_getro (g, device);
+  if (r == -1) return -1;
+  if (r) printf ("true\n"); else printf ("false\n");
+  return 0;
+}
+
+static int run_blockdev_getss (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *device;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  device = argv[0];
+  r = guestfs_blockdev_getss (g, device);
+  if (r == -1) return -1;
+  printf ("%d\n", r);
+  return 0;
+}
+
+static int run_blockdev_getbsz (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *device;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  device = argv[0];
+  r = guestfs_blockdev_getbsz (g, device);
+  if (r == -1) return -1;
+  printf ("%d\n", r);
+  return 0;
+}
+
+static int run_blockdev_setbsz (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *device;
+  int blocksize;
+  if (argc != 2) {
+    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  device = argv[0];
+  blocksize = atoi (argv[1]);
+  r = guestfs_blockdev_setbsz (g, device, blocksize);
+  return r;
+}
+
+static int run_blockdev_getsz (const char *cmd, int argc, char *argv[])
+{
+  int64_t r;
+  const char *device;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  device = argv[0];
+  r = guestfs_blockdev_getsz (g, device);
+  if (r == -1) return -1;
+  printf ("%" PRIi64 "\n", r);
+  return 0;
+}
+
+static int run_blockdev_getsize64 (const char *cmd, int argc, char *argv[])
+{
+  int64_t r;
+  const char *device;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  device = argv[0];
+  r = guestfs_blockdev_getsize64 (g, device);
+  if (r == -1) return -1;
+  printf ("%" PRIi64 "\n", r);
+  return 0;
+}
+
+static int run_blockdev_flushbufs (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *device;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  device = argv[0];
+  r = guestfs_blockdev_flushbufs (g, device);
+  return r;
+}
+
+static int run_blockdev_rereadpt (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *device;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  device = argv[0];
+  r = guestfs_blockdev_rereadpt (g, device);
+  return r;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -1655,6 +1847,36 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "tune2fs_l") == 0 || strcasecmp (cmd, "tune2fs-l") == 0)
     return run_tune2fs_l (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "blockdev_setro") == 0 || strcasecmp (cmd, "blockdev-setro") == 0)
+    return run_blockdev_setro (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "blockdev_setrw") == 0 || strcasecmp (cmd, "blockdev-setrw") == 0)
+    return run_blockdev_setrw (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "blockdev_getro") == 0 || strcasecmp (cmd, "blockdev-getro") == 0)
+    return run_blockdev_getro (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "blockdev_getss") == 0 || strcasecmp (cmd, "blockdev-getss") == 0)
+    return run_blockdev_getss (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "blockdev_getbsz") == 0 || strcasecmp (cmd, "blockdev-getbsz") == 0)
+    return run_blockdev_getbsz (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "blockdev_setbsz") == 0 || strcasecmp (cmd, "blockdev-setbsz") == 0)
+    return run_blockdev_setbsz (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "blockdev_getsz") == 0 || strcasecmp (cmd, "blockdev-getsz") == 0)
+    return run_blockdev_getsz (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "blockdev_getsize64") == 0 || strcasecmp (cmd, "blockdev-getsize64") == 0)
+    return run_blockdev_getsize64 (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "blockdev_flushbufs") == 0 || strcasecmp (cmd, "blockdev-flushbufs") == 0)
+    return run_blockdev_flushbufs (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "blockdev_rereadpt") == 0 || strcasecmp (cmd, "blockdev-rereadpt") == 0)
+    return run_blockdev_rereadpt (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

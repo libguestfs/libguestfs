@@ -325,3 +325,33 @@ val statvfs : t -> string -> statvfs
 val tune2fs_l : t -> string -> (string * string) list
 (** get ext2/ext3 superblock details *)
 
+val blockdev_setro : t -> string -> unit
+(** set block device to read-only *)
+
+val blockdev_setrw : t -> string -> unit
+(** set block device to read-write *)
+
+val blockdev_getro : t -> string -> bool
+(** is block device set to read-only *)
+
+val blockdev_getss : t -> string -> int
+(** get sectorsize of block device *)
+
+val blockdev_getbsz : t -> string -> int
+(** get blocksize of block device *)
+
+val blockdev_setbsz : t -> string -> int -> unit
+(** set blocksize of block device *)
+
+val blockdev_getsz : t -> string -> int64
+(** get total size of device in 512-byte sectors *)
+
+val blockdev_getsize64 : t -> string -> int64
+(** get total size of device in bytes *)
+
+val blockdev_flushbufs : t -> string -> unit
+(** flush device buffers *)
+
+val blockdev_rereadpt : t -> string -> unit
+(** reread partition table *)
+

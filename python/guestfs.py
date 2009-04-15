@@ -228,3 +228,33 @@ class GuestFS:
     def tune2fs_l (self, device):
         return libguestfsmod.tune2fs_l (self._o, device)
 
+    def blockdev_setro (self, device):
+        return libguestfsmod.blockdev_setro (self._o, device)
+
+    def blockdev_setrw (self, device):
+        return libguestfsmod.blockdev_setrw (self._o, device)
+
+    def blockdev_getro (self, device):
+        return libguestfsmod.blockdev_getro (self._o, device)
+
+    def blockdev_getss (self, device):
+        return libguestfsmod.blockdev_getss (self._o, device)
+
+    def blockdev_getbsz (self, device):
+        return libguestfsmod.blockdev_getbsz (self._o, device)
+
+    def blockdev_setbsz (self, device, blocksize):
+        return libguestfsmod.blockdev_setbsz (self._o, device, blocksize)
+
+    def blockdev_getsz (self, device):
+        return libguestfsmod.blockdev_getsz (self._o, device)
+
+    def blockdev_getsize64 (self, device):
+        return libguestfsmod.blockdev_getsize64 (self._o, device)
+
+    def blockdev_flushbufs (self, device):
+        return libguestfsmod.blockdev_flushbufs (self._o, device)
+
+    def blockdev_rereadpt (self, device):
+        return libguestfsmod.blockdev_rereadpt (self._o, device)
+

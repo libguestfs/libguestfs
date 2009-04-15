@@ -182,6 +182,105 @@ how files are saved.
 
 Set the value associated with C<path> to C<value>.
 
+=head2 blockdev-flushbufs
+
+ blockdev-flushbufs device
+
+This tells the kernel to flush internal buffers associated
+with C<device>.
+
+This uses the L<blockdev(8)> command.
+
+=head2 blockdev-getbsz
+
+ blockdev-getbsz device
+
+This returns the block size of a device.
+
+(Note this is different from both I<size in blocks> and
+I<filesystem block size>).
+
+This uses the L<blockdev(8)> command.
+
+=head2 blockdev-getro
+
+ blockdev-getro device
+
+Returns a boolean indicating if the block device is read-only
+(true if read-only, false if not).
+
+This uses the L<blockdev(8)> command.
+
+=head2 blockdev-getsize64
+
+ blockdev-getsize64 device
+
+This returns the size of the device in bytes.
+
+See also C<blockdev_getsz>.
+
+This uses the L<blockdev(8)> command.
+
+=head2 blockdev-getss
+
+ blockdev-getss device
+
+This returns the size of sectors on a block device.
+Usually 512, but can be larger for modern devices.
+
+(Note, this is not the size in sectors, use C<blockdev_getsz>
+for that).
+
+This uses the L<blockdev(8)> command.
+
+=head2 blockdev-getsz
+
+ blockdev-getsz device
+
+This returns the size of the device in units of 512-byte sectors
+(even if the sectorsize isn't 512 bytes ... weird).
+
+See also C<blockdev_getss> for the real sector size of
+the device, and C<blockdev_getsize64> for the more
+useful I<size in bytes>.
+
+This uses the L<blockdev(8)> command.
+
+=head2 blockdev-rereadpt
+
+ blockdev-rereadpt device
+
+Reread the partition table on C<device>.
+
+This uses the L<blockdev(8)> command.
+
+=head2 blockdev-setbsz
+
+ blockdev-setbsz device blocksize
+
+This sets the block size of a device.
+
+(Note this is different from both I<size in blocks> and
+I<filesystem block size>).
+
+This uses the L<blockdev(8)> command.
+
+=head2 blockdev-setro
+
+ blockdev-setro device
+
+Sets the block device named C<device> to read-only.
+
+This uses the L<blockdev(8)> command.
+
+=head2 blockdev-setrw
+
+ blockdev-setrw device
+
+Sets the block device named C<device> to read-write.
+
+This uses the L<blockdev(8)> command.
+
 =head2 cat
 
  cat path

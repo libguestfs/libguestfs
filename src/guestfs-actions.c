@@ -4002,3 +4002,720 @@ char **guestfs_tune2fs_l (guestfs_h *g,
   return rv.ret.superblock.superblock_val;
 }
 
+struct blockdev_setro_rv {
+  int cb_done;  /* flag to indicate callback was called */
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+};
+
+static void blockdev_setro_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  struct blockdev_setro_rv *rv = (struct blockdev_setro_rv *) data;
+
+  if (!xdr_guestfs_message_header (xdr, &rv->hdr)) {
+    error (g, "guestfs_blockdev_setro: failed to parse reply header");
+    return;
+  }
+  if (rv->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &rv->err)) {
+      error (g, "guestfs_blockdev_setro: failed to parse reply error");
+      return;
+    }
+    goto done;
+  }
+ done:
+  rv->cb_done = 1;
+  main_loop.main_loop_quit (g);
+}
+
+int guestfs_blockdev_setro (guestfs_h *g,
+		const char *device)
+{
+  struct guestfs_blockdev_setro_args args;
+  struct blockdev_setro_rv rv;
+  int serial;
+
+  if (g->state != READY) {
+    error (g, "guestfs_blockdev_setro called from the wrong state, %d != READY",
+      g->state);
+    return -1;
+  }
+
+  memset (&rv, 0, sizeof rv);
+
+  args.device = (char *) device;
+  serial = dispatch (g, GUESTFS_PROC_BLOCKDEV_SETRO,
+                     (xdrproc_t) xdr_guestfs_blockdev_setro_args, (char *) &args);
+  if (serial == -1)
+    return -1;
+
+  rv.cb_done = 0;
+  g->reply_cb_internal = blockdev_setro_cb;
+  g->reply_cb_internal_data = &rv;
+  main_loop.main_loop_run (g);
+  g->reply_cb_internal = NULL;
+  g->reply_cb_internal_data = NULL;
+  if (!rv.cb_done) {
+    error (g, "guestfs_blockdev_setro failed, see earlier error messages");
+    return -1;
+  }
+
+  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_BLOCKDEV_SETRO, serial) == -1)
+    return -1;
+
+  if (rv.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", rv.err.error);
+    return -1;
+  }
+
+  return 0;
+}
+
+struct blockdev_setrw_rv {
+  int cb_done;  /* flag to indicate callback was called */
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+};
+
+static void blockdev_setrw_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  struct blockdev_setrw_rv *rv = (struct blockdev_setrw_rv *) data;
+
+  if (!xdr_guestfs_message_header (xdr, &rv->hdr)) {
+    error (g, "guestfs_blockdev_setrw: failed to parse reply header");
+    return;
+  }
+  if (rv->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &rv->err)) {
+      error (g, "guestfs_blockdev_setrw: failed to parse reply error");
+      return;
+    }
+    goto done;
+  }
+ done:
+  rv->cb_done = 1;
+  main_loop.main_loop_quit (g);
+}
+
+int guestfs_blockdev_setrw (guestfs_h *g,
+		const char *device)
+{
+  struct guestfs_blockdev_setrw_args args;
+  struct blockdev_setrw_rv rv;
+  int serial;
+
+  if (g->state != READY) {
+    error (g, "guestfs_blockdev_setrw called from the wrong state, %d != READY",
+      g->state);
+    return -1;
+  }
+
+  memset (&rv, 0, sizeof rv);
+
+  args.device = (char *) device;
+  serial = dispatch (g, GUESTFS_PROC_BLOCKDEV_SETRW,
+                     (xdrproc_t) xdr_guestfs_blockdev_setrw_args, (char *) &args);
+  if (serial == -1)
+    return -1;
+
+  rv.cb_done = 0;
+  g->reply_cb_internal = blockdev_setrw_cb;
+  g->reply_cb_internal_data = &rv;
+  main_loop.main_loop_run (g);
+  g->reply_cb_internal = NULL;
+  g->reply_cb_internal_data = NULL;
+  if (!rv.cb_done) {
+    error (g, "guestfs_blockdev_setrw failed, see earlier error messages");
+    return -1;
+  }
+
+  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_BLOCKDEV_SETRW, serial) == -1)
+    return -1;
+
+  if (rv.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", rv.err.error);
+    return -1;
+  }
+
+  return 0;
+}
+
+struct blockdev_getro_rv {
+  int cb_done;  /* flag to indicate callback was called */
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+  struct guestfs_blockdev_getro_ret ret;
+};
+
+static void blockdev_getro_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  struct blockdev_getro_rv *rv = (struct blockdev_getro_rv *) data;
+
+  if (!xdr_guestfs_message_header (xdr, &rv->hdr)) {
+    error (g, "guestfs_blockdev_getro: failed to parse reply header");
+    return;
+  }
+  if (rv->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &rv->err)) {
+      error (g, "guestfs_blockdev_getro: failed to parse reply error");
+      return;
+    }
+    goto done;
+  }
+  if (!xdr_guestfs_blockdev_getro_ret (xdr, &rv->ret)) {
+    error (g, "guestfs_blockdev_getro: failed to parse reply");
+    return;
+  }
+ done:
+  rv->cb_done = 1;
+  main_loop.main_loop_quit (g);
+}
+
+int guestfs_blockdev_getro (guestfs_h *g,
+		const char *device)
+{
+  struct guestfs_blockdev_getro_args args;
+  struct blockdev_getro_rv rv;
+  int serial;
+
+  if (g->state != READY) {
+    error (g, "guestfs_blockdev_getro called from the wrong state, %d != READY",
+      g->state);
+    return -1;
+  }
+
+  memset (&rv, 0, sizeof rv);
+
+  args.device = (char *) device;
+  serial = dispatch (g, GUESTFS_PROC_BLOCKDEV_GETRO,
+                     (xdrproc_t) xdr_guestfs_blockdev_getro_args, (char *) &args);
+  if (serial == -1)
+    return -1;
+
+  rv.cb_done = 0;
+  g->reply_cb_internal = blockdev_getro_cb;
+  g->reply_cb_internal_data = &rv;
+  main_loop.main_loop_run (g);
+  g->reply_cb_internal = NULL;
+  g->reply_cb_internal_data = NULL;
+  if (!rv.cb_done) {
+    error (g, "guestfs_blockdev_getro failed, see earlier error messages");
+    return -1;
+  }
+
+  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_BLOCKDEV_GETRO, serial) == -1)
+    return -1;
+
+  if (rv.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", rv.err.error);
+    return -1;
+  }
+
+  return rv.ret.ro;
+}
+
+struct blockdev_getss_rv {
+  int cb_done;  /* flag to indicate callback was called */
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+  struct guestfs_blockdev_getss_ret ret;
+};
+
+static void blockdev_getss_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  struct blockdev_getss_rv *rv = (struct blockdev_getss_rv *) data;
+
+  if (!xdr_guestfs_message_header (xdr, &rv->hdr)) {
+    error (g, "guestfs_blockdev_getss: failed to parse reply header");
+    return;
+  }
+  if (rv->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &rv->err)) {
+      error (g, "guestfs_blockdev_getss: failed to parse reply error");
+      return;
+    }
+    goto done;
+  }
+  if (!xdr_guestfs_blockdev_getss_ret (xdr, &rv->ret)) {
+    error (g, "guestfs_blockdev_getss: failed to parse reply");
+    return;
+  }
+ done:
+  rv->cb_done = 1;
+  main_loop.main_loop_quit (g);
+}
+
+int guestfs_blockdev_getss (guestfs_h *g,
+		const char *device)
+{
+  struct guestfs_blockdev_getss_args args;
+  struct blockdev_getss_rv rv;
+  int serial;
+
+  if (g->state != READY) {
+    error (g, "guestfs_blockdev_getss called from the wrong state, %d != READY",
+      g->state);
+    return -1;
+  }
+
+  memset (&rv, 0, sizeof rv);
+
+  args.device = (char *) device;
+  serial = dispatch (g, GUESTFS_PROC_BLOCKDEV_GETSS,
+                     (xdrproc_t) xdr_guestfs_blockdev_getss_args, (char *) &args);
+  if (serial == -1)
+    return -1;
+
+  rv.cb_done = 0;
+  g->reply_cb_internal = blockdev_getss_cb;
+  g->reply_cb_internal_data = &rv;
+  main_loop.main_loop_run (g);
+  g->reply_cb_internal = NULL;
+  g->reply_cb_internal_data = NULL;
+  if (!rv.cb_done) {
+    error (g, "guestfs_blockdev_getss failed, see earlier error messages");
+    return -1;
+  }
+
+  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_BLOCKDEV_GETSS, serial) == -1)
+    return -1;
+
+  if (rv.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", rv.err.error);
+    return -1;
+  }
+
+  return rv.ret.sectorsize;
+}
+
+struct blockdev_getbsz_rv {
+  int cb_done;  /* flag to indicate callback was called */
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+  struct guestfs_blockdev_getbsz_ret ret;
+};
+
+static void blockdev_getbsz_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  struct blockdev_getbsz_rv *rv = (struct blockdev_getbsz_rv *) data;
+
+  if (!xdr_guestfs_message_header (xdr, &rv->hdr)) {
+    error (g, "guestfs_blockdev_getbsz: failed to parse reply header");
+    return;
+  }
+  if (rv->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &rv->err)) {
+      error (g, "guestfs_blockdev_getbsz: failed to parse reply error");
+      return;
+    }
+    goto done;
+  }
+  if (!xdr_guestfs_blockdev_getbsz_ret (xdr, &rv->ret)) {
+    error (g, "guestfs_blockdev_getbsz: failed to parse reply");
+    return;
+  }
+ done:
+  rv->cb_done = 1;
+  main_loop.main_loop_quit (g);
+}
+
+int guestfs_blockdev_getbsz (guestfs_h *g,
+		const char *device)
+{
+  struct guestfs_blockdev_getbsz_args args;
+  struct blockdev_getbsz_rv rv;
+  int serial;
+
+  if (g->state != READY) {
+    error (g, "guestfs_blockdev_getbsz called from the wrong state, %d != READY",
+      g->state);
+    return -1;
+  }
+
+  memset (&rv, 0, sizeof rv);
+
+  args.device = (char *) device;
+  serial = dispatch (g, GUESTFS_PROC_BLOCKDEV_GETBSZ,
+                     (xdrproc_t) xdr_guestfs_blockdev_getbsz_args, (char *) &args);
+  if (serial == -1)
+    return -1;
+
+  rv.cb_done = 0;
+  g->reply_cb_internal = blockdev_getbsz_cb;
+  g->reply_cb_internal_data = &rv;
+  main_loop.main_loop_run (g);
+  g->reply_cb_internal = NULL;
+  g->reply_cb_internal_data = NULL;
+  if (!rv.cb_done) {
+    error (g, "guestfs_blockdev_getbsz failed, see earlier error messages");
+    return -1;
+  }
+
+  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_BLOCKDEV_GETBSZ, serial) == -1)
+    return -1;
+
+  if (rv.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", rv.err.error);
+    return -1;
+  }
+
+  return rv.ret.blocksize;
+}
+
+struct blockdev_setbsz_rv {
+  int cb_done;  /* flag to indicate callback was called */
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+};
+
+static void blockdev_setbsz_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  struct blockdev_setbsz_rv *rv = (struct blockdev_setbsz_rv *) data;
+
+  if (!xdr_guestfs_message_header (xdr, &rv->hdr)) {
+    error (g, "guestfs_blockdev_setbsz: failed to parse reply header");
+    return;
+  }
+  if (rv->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &rv->err)) {
+      error (g, "guestfs_blockdev_setbsz: failed to parse reply error");
+      return;
+    }
+    goto done;
+  }
+ done:
+  rv->cb_done = 1;
+  main_loop.main_loop_quit (g);
+}
+
+int guestfs_blockdev_setbsz (guestfs_h *g,
+		const char *device,
+		int blocksize)
+{
+  struct guestfs_blockdev_setbsz_args args;
+  struct blockdev_setbsz_rv rv;
+  int serial;
+
+  if (g->state != READY) {
+    error (g, "guestfs_blockdev_setbsz called from the wrong state, %d != READY",
+      g->state);
+    return -1;
+  }
+
+  memset (&rv, 0, sizeof rv);
+
+  args.device = (char *) device;
+  args.blocksize = blocksize;
+  serial = dispatch (g, GUESTFS_PROC_BLOCKDEV_SETBSZ,
+                     (xdrproc_t) xdr_guestfs_blockdev_setbsz_args, (char *) &args);
+  if (serial == -1)
+    return -1;
+
+  rv.cb_done = 0;
+  g->reply_cb_internal = blockdev_setbsz_cb;
+  g->reply_cb_internal_data = &rv;
+  main_loop.main_loop_run (g);
+  g->reply_cb_internal = NULL;
+  g->reply_cb_internal_data = NULL;
+  if (!rv.cb_done) {
+    error (g, "guestfs_blockdev_setbsz failed, see earlier error messages");
+    return -1;
+  }
+
+  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_BLOCKDEV_SETBSZ, serial) == -1)
+    return -1;
+
+  if (rv.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", rv.err.error);
+    return -1;
+  }
+
+  return 0;
+}
+
+struct blockdev_getsz_rv {
+  int cb_done;  /* flag to indicate callback was called */
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+  struct guestfs_blockdev_getsz_ret ret;
+};
+
+static void blockdev_getsz_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  struct blockdev_getsz_rv *rv = (struct blockdev_getsz_rv *) data;
+
+  if (!xdr_guestfs_message_header (xdr, &rv->hdr)) {
+    error (g, "guestfs_blockdev_getsz: failed to parse reply header");
+    return;
+  }
+  if (rv->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &rv->err)) {
+      error (g, "guestfs_blockdev_getsz: failed to parse reply error");
+      return;
+    }
+    goto done;
+  }
+  if (!xdr_guestfs_blockdev_getsz_ret (xdr, &rv->ret)) {
+    error (g, "guestfs_blockdev_getsz: failed to parse reply");
+    return;
+  }
+ done:
+  rv->cb_done = 1;
+  main_loop.main_loop_quit (g);
+}
+
+int64_t guestfs_blockdev_getsz (guestfs_h *g,
+		const char *device)
+{
+  struct guestfs_blockdev_getsz_args args;
+  struct blockdev_getsz_rv rv;
+  int serial;
+
+  if (g->state != READY) {
+    error (g, "guestfs_blockdev_getsz called from the wrong state, %d != READY",
+      g->state);
+    return -1;
+  }
+
+  memset (&rv, 0, sizeof rv);
+
+  args.device = (char *) device;
+  serial = dispatch (g, GUESTFS_PROC_BLOCKDEV_GETSZ,
+                     (xdrproc_t) xdr_guestfs_blockdev_getsz_args, (char *) &args);
+  if (serial == -1)
+    return -1;
+
+  rv.cb_done = 0;
+  g->reply_cb_internal = blockdev_getsz_cb;
+  g->reply_cb_internal_data = &rv;
+  main_loop.main_loop_run (g);
+  g->reply_cb_internal = NULL;
+  g->reply_cb_internal_data = NULL;
+  if (!rv.cb_done) {
+    error (g, "guestfs_blockdev_getsz failed, see earlier error messages");
+    return -1;
+  }
+
+  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_BLOCKDEV_GETSZ, serial) == -1)
+    return -1;
+
+  if (rv.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", rv.err.error);
+    return -1;
+  }
+
+  return rv.ret.sizeinsectors;
+}
+
+struct blockdev_getsize64_rv {
+  int cb_done;  /* flag to indicate callback was called */
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+  struct guestfs_blockdev_getsize64_ret ret;
+};
+
+static void blockdev_getsize64_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  struct blockdev_getsize64_rv *rv = (struct blockdev_getsize64_rv *) data;
+
+  if (!xdr_guestfs_message_header (xdr, &rv->hdr)) {
+    error (g, "guestfs_blockdev_getsize64: failed to parse reply header");
+    return;
+  }
+  if (rv->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &rv->err)) {
+      error (g, "guestfs_blockdev_getsize64: failed to parse reply error");
+      return;
+    }
+    goto done;
+  }
+  if (!xdr_guestfs_blockdev_getsize64_ret (xdr, &rv->ret)) {
+    error (g, "guestfs_blockdev_getsize64: failed to parse reply");
+    return;
+  }
+ done:
+  rv->cb_done = 1;
+  main_loop.main_loop_quit (g);
+}
+
+int64_t guestfs_blockdev_getsize64 (guestfs_h *g,
+		const char *device)
+{
+  struct guestfs_blockdev_getsize64_args args;
+  struct blockdev_getsize64_rv rv;
+  int serial;
+
+  if (g->state != READY) {
+    error (g, "guestfs_blockdev_getsize64 called from the wrong state, %d != READY",
+      g->state);
+    return -1;
+  }
+
+  memset (&rv, 0, sizeof rv);
+
+  args.device = (char *) device;
+  serial = dispatch (g, GUESTFS_PROC_BLOCKDEV_GETSIZE64,
+                     (xdrproc_t) xdr_guestfs_blockdev_getsize64_args, (char *) &args);
+  if (serial == -1)
+    return -1;
+
+  rv.cb_done = 0;
+  g->reply_cb_internal = blockdev_getsize64_cb;
+  g->reply_cb_internal_data = &rv;
+  main_loop.main_loop_run (g);
+  g->reply_cb_internal = NULL;
+  g->reply_cb_internal_data = NULL;
+  if (!rv.cb_done) {
+    error (g, "guestfs_blockdev_getsize64 failed, see earlier error messages");
+    return -1;
+  }
+
+  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_BLOCKDEV_GETSIZE64, serial) == -1)
+    return -1;
+
+  if (rv.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", rv.err.error);
+    return -1;
+  }
+
+  return rv.ret.sizeinbytes;
+}
+
+struct blockdev_flushbufs_rv {
+  int cb_done;  /* flag to indicate callback was called */
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+};
+
+static void blockdev_flushbufs_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  struct blockdev_flushbufs_rv *rv = (struct blockdev_flushbufs_rv *) data;
+
+  if (!xdr_guestfs_message_header (xdr, &rv->hdr)) {
+    error (g, "guestfs_blockdev_flushbufs: failed to parse reply header");
+    return;
+  }
+  if (rv->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &rv->err)) {
+      error (g, "guestfs_blockdev_flushbufs: failed to parse reply error");
+      return;
+    }
+    goto done;
+  }
+ done:
+  rv->cb_done = 1;
+  main_loop.main_loop_quit (g);
+}
+
+int guestfs_blockdev_flushbufs (guestfs_h *g,
+		const char *device)
+{
+  struct guestfs_blockdev_flushbufs_args args;
+  struct blockdev_flushbufs_rv rv;
+  int serial;
+
+  if (g->state != READY) {
+    error (g, "guestfs_blockdev_flushbufs called from the wrong state, %d != READY",
+      g->state);
+    return -1;
+  }
+
+  memset (&rv, 0, sizeof rv);
+
+  args.device = (char *) device;
+  serial = dispatch (g, GUESTFS_PROC_BLOCKDEV_FLUSHBUFS,
+                     (xdrproc_t) xdr_guestfs_blockdev_flushbufs_args, (char *) &args);
+  if (serial == -1)
+    return -1;
+
+  rv.cb_done = 0;
+  g->reply_cb_internal = blockdev_flushbufs_cb;
+  g->reply_cb_internal_data = &rv;
+  main_loop.main_loop_run (g);
+  g->reply_cb_internal = NULL;
+  g->reply_cb_internal_data = NULL;
+  if (!rv.cb_done) {
+    error (g, "guestfs_blockdev_flushbufs failed, see earlier error messages");
+    return -1;
+  }
+
+  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_BLOCKDEV_FLUSHBUFS, serial) == -1)
+    return -1;
+
+  if (rv.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", rv.err.error);
+    return -1;
+  }
+
+  return 0;
+}
+
+struct blockdev_rereadpt_rv {
+  int cb_done;  /* flag to indicate callback was called */
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+};
+
+static void blockdev_rereadpt_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  struct blockdev_rereadpt_rv *rv = (struct blockdev_rereadpt_rv *) data;
+
+  if (!xdr_guestfs_message_header (xdr, &rv->hdr)) {
+    error (g, "guestfs_blockdev_rereadpt: failed to parse reply header");
+    return;
+  }
+  if (rv->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &rv->err)) {
+      error (g, "guestfs_blockdev_rereadpt: failed to parse reply error");
+      return;
+    }
+    goto done;
+  }
+ done:
+  rv->cb_done = 1;
+  main_loop.main_loop_quit (g);
+}
+
+int guestfs_blockdev_rereadpt (guestfs_h *g,
+		const char *device)
+{
+  struct guestfs_blockdev_rereadpt_args args;
+  struct blockdev_rereadpt_rv rv;
+  int serial;
+
+  if (g->state != READY) {
+    error (g, "guestfs_blockdev_rereadpt called from the wrong state, %d != READY",
+      g->state);
+    return -1;
+  }
+
+  memset (&rv, 0, sizeof rv);
+
+  args.device = (char *) device;
+  serial = dispatch (g, GUESTFS_PROC_BLOCKDEV_REREADPT,
+                     (xdrproc_t) xdr_guestfs_blockdev_rereadpt_args, (char *) &args);
+  if (serial == -1)
+    return -1;
+
+  rv.cb_done = 0;
+  g->reply_cb_internal = blockdev_rereadpt_cb;
+  g->reply_cb_internal_data = &rv;
+  main_loop.main_loop_run (g);
+  g->reply_cb_internal = NULL;
+  g->reply_cb_internal_data = NULL;
+  if (!rv.cb_done) {
+    error (g, "guestfs_blockdev_rereadpt failed, see earlier error messages");
+    return -1;
+  }
+
+  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_BLOCKDEV_REREADPT, serial) == -1)
+    return -1;
+
+  if (rv.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", rv.err.error);
+    return -1;
+  }
+
+  return 0;
+}
+

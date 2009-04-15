@@ -1332,6 +1332,258 @@ done:
   xdr_free ((xdrproc_t) xdr_guestfs_tune2fs_l_args, (char *) &args);
 }
 
+static void blockdev_setro_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_blockdev_setro_args args;
+  const char *device;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_blockdev_setro_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "blockdev_setro");
+    return;
+  }
+  device = args.device;
+
+  r = do_blockdev_setro (device);
+  if (r == -1)
+    /* do_blockdev_setro has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_blockdev_setro_args, (char *) &args);
+}
+
+static void blockdev_setrw_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_blockdev_setrw_args args;
+  const char *device;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_blockdev_setrw_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "blockdev_setrw");
+    return;
+  }
+  device = args.device;
+
+  r = do_blockdev_setrw (device);
+  if (r == -1)
+    /* do_blockdev_setrw has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_blockdev_setrw_args, (char *) &args);
+}
+
+static void blockdev_getro_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_blockdev_getro_args args;
+  const char *device;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_blockdev_getro_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "blockdev_getro");
+    return;
+  }
+  device = args.device;
+
+  r = do_blockdev_getro (device);
+  if (r == -1)
+    /* do_blockdev_getro has already called reply_with_error */
+    goto done;
+
+  struct guestfs_blockdev_getro_ret ret;
+  ret.ro = r;
+  reply ((xdrproc_t) &xdr_guestfs_blockdev_getro_ret, (char *) &ret);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_blockdev_getro_args, (char *) &args);
+}
+
+static void blockdev_getss_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_blockdev_getss_args args;
+  const char *device;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_blockdev_getss_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "blockdev_getss");
+    return;
+  }
+  device = args.device;
+
+  r = do_blockdev_getss (device);
+  if (r == -1)
+    /* do_blockdev_getss has already called reply_with_error */
+    goto done;
+
+  struct guestfs_blockdev_getss_ret ret;
+  ret.sectorsize = r;
+  reply ((xdrproc_t) &xdr_guestfs_blockdev_getss_ret, (char *) &ret);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_blockdev_getss_args, (char *) &args);
+}
+
+static void blockdev_getbsz_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_blockdev_getbsz_args args;
+  const char *device;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_blockdev_getbsz_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "blockdev_getbsz");
+    return;
+  }
+  device = args.device;
+
+  r = do_blockdev_getbsz (device);
+  if (r == -1)
+    /* do_blockdev_getbsz has already called reply_with_error */
+    goto done;
+
+  struct guestfs_blockdev_getbsz_ret ret;
+  ret.blocksize = r;
+  reply ((xdrproc_t) &xdr_guestfs_blockdev_getbsz_ret, (char *) &ret);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_blockdev_getbsz_args, (char *) &args);
+}
+
+static void blockdev_setbsz_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_blockdev_setbsz_args args;
+  const char *device;
+  int blocksize;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_blockdev_setbsz_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "blockdev_setbsz");
+    return;
+  }
+  device = args.device;
+  blocksize = args.blocksize;
+
+  r = do_blockdev_setbsz (device, blocksize);
+  if (r == -1)
+    /* do_blockdev_setbsz has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_blockdev_setbsz_args, (char *) &args);
+}
+
+static void blockdev_getsz_stub (XDR *xdr_in)
+{
+  int64_t r;
+  struct guestfs_blockdev_getsz_args args;
+  const char *device;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_blockdev_getsz_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "blockdev_getsz");
+    return;
+  }
+  device = args.device;
+
+  r = do_blockdev_getsz (device);
+  if (r == -1)
+    /* do_blockdev_getsz has already called reply_with_error */
+    goto done;
+
+  struct guestfs_blockdev_getsz_ret ret;
+  ret.sizeinsectors = r;
+  reply ((xdrproc_t) &xdr_guestfs_blockdev_getsz_ret, (char *) &ret);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_blockdev_getsz_args, (char *) &args);
+}
+
+static void blockdev_getsize64_stub (XDR *xdr_in)
+{
+  int64_t r;
+  struct guestfs_blockdev_getsize64_args args;
+  const char *device;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_blockdev_getsize64_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "blockdev_getsize64");
+    return;
+  }
+  device = args.device;
+
+  r = do_blockdev_getsize64 (device);
+  if (r == -1)
+    /* do_blockdev_getsize64 has already called reply_with_error */
+    goto done;
+
+  struct guestfs_blockdev_getsize64_ret ret;
+  ret.sizeinbytes = r;
+  reply ((xdrproc_t) &xdr_guestfs_blockdev_getsize64_ret, (char *) &ret);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_blockdev_getsize64_args, (char *) &args);
+}
+
+static void blockdev_flushbufs_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_blockdev_flushbufs_args args;
+  const char *device;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_blockdev_flushbufs_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "blockdev_flushbufs");
+    return;
+  }
+  device = args.device;
+
+  r = do_blockdev_flushbufs (device);
+  if (r == -1)
+    /* do_blockdev_flushbufs has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_blockdev_flushbufs_args, (char *) &args);
+}
+
+static void blockdev_rereadpt_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_blockdev_rereadpt_args args;
+  const char *device;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_blockdev_rereadpt_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "blockdev_rereadpt");
+    return;
+  }
+  device = args.device;
+
+  r = do_blockdev_rereadpt (device);
+  if (r == -1)
+    /* do_blockdev_rereadpt has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_blockdev_rereadpt_args, (char *) &args);
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -1499,6 +1751,36 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_TUNE2FS_L:
       tune2fs_l_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_BLOCKDEV_SETRO:
+      blockdev_setro_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_BLOCKDEV_SETRW:
+      blockdev_setrw_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_BLOCKDEV_GETRO:
+      blockdev_getro_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_BLOCKDEV_GETSS:
+      blockdev_getss_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_BLOCKDEV_GETBSZ:
+      blockdev_getbsz_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_BLOCKDEV_SETBSZ:
+      blockdev_setbsz_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_BLOCKDEV_GETSZ:
+      blockdev_getsz_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_BLOCKDEV_GETSIZE64:
+      blockdev_getsize64_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_BLOCKDEV_FLUSHBUFS:
+      blockdev_flushbufs_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_BLOCKDEV_REREADPT:
+      blockdev_rereadpt_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d", proc_nr);

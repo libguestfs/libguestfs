@@ -414,6 +414,67 @@ struct guestfs_tune2fs_l_ret {
   str superblock<>;
 };
 
+struct guestfs_blockdev_setro_args {
+  string device<>;
+};
+
+struct guestfs_blockdev_setrw_args {
+  string device<>;
+};
+
+struct guestfs_blockdev_getro_args {
+  string device<>;
+};
+
+struct guestfs_blockdev_getro_ret {
+  bool ro;
+};
+
+struct guestfs_blockdev_getss_args {
+  string device<>;
+};
+
+struct guestfs_blockdev_getss_ret {
+  int sectorsize;
+};
+
+struct guestfs_blockdev_getbsz_args {
+  string device<>;
+};
+
+struct guestfs_blockdev_getbsz_ret {
+  int blocksize;
+};
+
+struct guestfs_blockdev_setbsz_args {
+  string device<>;
+  int blocksize;
+};
+
+struct guestfs_blockdev_getsz_args {
+  string device<>;
+};
+
+struct guestfs_blockdev_getsz_ret {
+  hyper sizeinsectors;
+};
+
+struct guestfs_blockdev_getsize64_args {
+  string device<>;
+};
+
+struct guestfs_blockdev_getsize64_ret {
+  hyper sizeinbytes;
+};
+
+struct guestfs_blockdev_flushbufs_args {
+  string device<>;
+};
+
+struct guestfs_blockdev_rereadpt_args {
+  string device<>;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -470,6 +531,16 @@ enum guestfs_procedure {
   GUESTFS_PROC_LSTAT = 53,
   GUESTFS_PROC_STATVFS = 54,
   GUESTFS_PROC_TUNE2FS_L = 55,
+  GUESTFS_PROC_BLOCKDEV_SETRO = 56,
+  GUESTFS_PROC_BLOCKDEV_SETRW = 57,
+  GUESTFS_PROC_BLOCKDEV_GETRO = 58,
+  GUESTFS_PROC_BLOCKDEV_GETSS = 59,
+  GUESTFS_PROC_BLOCKDEV_GETBSZ = 60,
+  GUESTFS_PROC_BLOCKDEV_SETBSZ = 61,
+  GUESTFS_PROC_BLOCKDEV_GETSZ = 62,
+  GUESTFS_PROC_BLOCKDEV_GETSIZE64 = 63,
+  GUESTFS_PROC_BLOCKDEV_FLUSHBUFS = 64,
+  GUESTFS_PROC_BLOCKDEV_REREADPT = 65,
   GUESTFS_PROC_dummy
 };
 
