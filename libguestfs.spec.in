@@ -1,4 +1,4 @@
-@configure_input@
+# @configure_input@
 
 Summary:     Access and modify virtual machine disk images
 Name:        libguestfs
@@ -217,8 +217,8 @@ fi
 # Install ruby bindings by hand.
 mkdir -p $RPM_BUILD_ROOT%{ruby_sitelib}
 mkdir -p $RPM_BUILD_ROOT%{ruby_sitearch}
-install -p -m0644 ruby/lib/libvirt.rb $RPM_BUILD_ROOT%{ruby_sitelib}
-install -p -m0755 ruby/ext/libvirt/_libvirt.so $RPM_BUILD_ROOT%{ruby_sitearch}
+install -p -m0644 ruby/lib/guestfs.rb $RPM_BUILD_ROOT%{ruby_sitelib}
+install -p -m0755 ruby/ext/guestfs/_guestfs.so $RPM_BUILD_ROOT%{ruby_sitearch}
 
 
 %clean
