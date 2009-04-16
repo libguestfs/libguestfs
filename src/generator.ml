@@ -1322,6 +1322,31 @@ let replace_char s c1 c2 =
   done;
   if not !r then s else s2
 
+let isspace c =
+  c = ' '
+  (* || c = '\f' *) || c = '\n' || c = '\r' || c = '\t' (* || c = '\v' *)
+
+let triml ?(test = isspace) str =
+  let i = ref 0 in
+  let n = ref (String.length str) in
+  while !n > 0 && test str.[!i]; do
+    decr n;
+    incr i
+  done;
+  if !i = 0 then str
+  else String.sub str !i !n
+
+let trimr ?(test = isspace) str =
+  let n = ref (String.length str) in
+  while !n > 0 && test str.[!n-1]; do
+    decr n
+  done;
+  if !n = String.length str then str
+  else String.sub str 0 !n
+
+let trim ?(test = isspace) str =
+  trimr ~test (triml ~test str)
+
 let rec find s sub =
   let len = String.length s in
   let sublen = String.length sub in
@@ -4701,26 +4726,141 @@ initlibguestfsmod (void)
 and generate_python_py () =
   generate_header HashStyle LGPLv2;
 
-  pr "import libguestfsmod\n";
-  pr "\n";
-  pr "class GuestFS:\n";
-  pr "    def __init__ (self):\n";
-  pr "        self._o = libguestfsmod.create ()\n";
-  pr "\n";
-  pr "    def __del__ (self):\n";
-  pr "        libguestfsmod.close (self._o)\n";
-  pr "\n";
+  pr "\
+u\"\"\"Python bindings for libguestfs
+
+import guestfs
+g = guestfs.GuestFS ()
+g.add_drive (\"guest.img\")
+g.launch ()
+g.wait_ready ()
+parts = g.list_partitions ()
+
+The guestfs module provides a Python binding to the libguestfs API
+for examining and modifying virtual machine disk images.
+
+Amongst the things this is good for: making batch configuration
+changes to guests, getting disk used/free statistics (see also:
+virt-df), migrating between virtualization systems (see also:
+virt-p2v), performing partial backups, performing partial guest
+clones, cloning guests and changing registry/UUID/hostname info, and
+much else besides.
+
+Libguestfs uses Linux kernel and qemu code, and can access any type of
+guest filesystem that Linux and qemu can, including but not limited
+to: ext2/3/4, btrfs, FAT and NTFS, LVM, many different disk partition
+schemes, qcow, qcow2, vmdk.
+
+Libguestfs provides ways to enumerate guest storage (eg. partitions,
+LVs, what filesystem is in each LV, etc.).  It can also run commands
+in the context of the guest.  Also you can access filesystems over FTP.
+
+Errors which happen while using the API are turned into Python
+RuntimeError exceptions.
+
+To create a guestfs handle you usually have to perform the following
+sequence of calls:
+
+# Create the handle, call add_drive at least once, and possibly
+# several times if the guest has multiple block devices:
+g = guestfs.GuestFS ()
+g.add_drive (\"guest.img\")
+
+# Launch the qemu subprocess and wait for it to become ready:
+g.launch ()
+g.wait_ready ()
+
+# Now you can issue commands, for example:
+logvols = g.lvs ()
+
+\"\"\"
+
+import libguestfsmod
+
+class GuestFS:
+    \"\"\"Instances of this class are libguestfs API handles.\"\"\"
+
+    def __init__ (self):
+        \"\"\"Create a new libguestfs handle.\"\"\"
+        self._o = libguestfsmod.create ()
+
+    def __del__ (self):
+        libguestfsmod.close (self._o)
+
+";
 
   List.iter (
-    fun (name, style, _, _, _, _, _) ->
+    fun (name, style, _, flags, _, _, longdesc) ->
+      let doc = replace_str longdesc "C<guestfs_" "C<g." in
+      let doc =
+        match fst style with
+	| RErr | RInt _ | RInt64 _ | RBool _ | RConstString _
+	| RString _ -> doc
+	| RStringList _ ->
+	    doc ^ "\n\nThis function returns a list of strings."
+	| RIntBool _ ->
+	    doc ^ "\n\nThis function returns a tuple (int, bool).\n"
+	| RPVList _ ->
+	    doc ^ "\n\nThis function returns a list of PVs.  Each PV is represented as a dictionary."
+	| RVGList _ ->
+	    doc ^ "\n\nThis function returns a list of VGs.  Each VG is represented as a dictionary."
+	| RLVList _ ->
+	    doc ^ "\n\nThis function returns a list of LVs.  Each LV is represented as a dictionary."
+	| RStat _ ->
+	    doc ^ "\n\nThis function returns a dictionary, with keys matching the various fields in the stat structure."
+       | RStatVFS _ ->
+	    doc ^ "\n\nThis function returns a dictionary, with keys matching the various fields in the statvfs structure."
+       | RHashtable _ ->
+	    doc ^ "\n\nThis function returns a dictionary." in
+      let doc =
+	if List.mem ProtocolLimitWarning flags then
+	  doc ^ "\n\n" ^ protocol_limit_warning
+	else doc in
+      let doc =
+	if List.mem DangerWillRobinson flags then
+	  doc ^ "\n\n" ^ danger_will_robinson
+	else doc in
+      let doc = pod2text ~width:60 name doc in
+      let doc = List.map (fun line -> replace_str line "\\" "\\\\") doc in
+      let doc = String.concat "\n        " doc in
+
       pr "    def %s " name;
       generate_call_args ~handle:"self" style;
       pr ":\n";
+      pr "        u\"\"\"%s\"\"\"\n" doc;
       pr "        return libguestfsmod.%s " name;
       generate_call_args ~handle:"self._o" style;
       pr "\n";
       pr "\n";
   ) all_functions
+
+(* Useful if you need the longdesc POD text as plain text.  Returns a
+ * list of lines.
+ *)
+and pod2text ~width name longdesc =
+  let filename, chan = Filename.open_temp_file "gen" ".tmp" in
+  fprintf chan "=head1 %s\n\n%s\n" name longdesc;
+  close_out chan;
+  let cmd = sprintf "pod2text -w %d %s" width (Filename.quote filename) in
+  let chan = Unix.open_process_in cmd in
+  let lines = ref [] in
+  let rec loop i =
+    let line = input_line chan in
+    if i = 1 then		(* discard the first line of output *)
+      loop (i+1)
+    else (
+      let line = triml line in
+      lines := line :: !lines;
+      loop (i+1)
+    ) in
+  let lines = try loop 1 with End_of_file -> List.rev !lines in
+  Unix.unlink filename;
+  match Unix.close_process_in chan with
+  | Unix.WEXITED 0 -> lines
+  | Unix.WEXITED i ->
+      failwithf "pod2text: process exited with non-zero status (%d)" i
+  | Unix.WSIGNALED i | Unix.WSTOPPED i ->
+      failwithf "pod2text: process signalled or stopped by signal %d" i
 
 let output_to filename =
   let filename_new = filename ^ ".new" in
