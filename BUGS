@@ -1,1 +1,4 @@
 [guestfish] Built-in commands like 'alloc' and 'help' don't auto-complete.
+
+[libguestfs] /tmp/libguestfs temporary directory is not cleaned up
+(sometimes).
