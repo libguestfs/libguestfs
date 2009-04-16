@@ -1,0 +1,103 @@
+# libguestfs Ruby bindings -*- ruby -*-
+# @configure_input@
+# Copyright (C) 2009 Red Hat Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+require 'rake/clean'
+require 'rake/rdoctask'
+require 'rake/testtask'
+require 'rake/gempackagetask'
+
+PKG_NAME='@PACKAGE_NAME@'
+PKG_VERSION='@PACKAGE_VERSION@'
+
+EXT_CONF='ext/guestfs/extconf.rb'
+MAKEFILE='ext/guestfs/Makefile'
+GUESTFS_MODULE='ext/guestfs/_guestfs.so'
+GUESTFS_SRC='ext/guestfs/_guestfs.c'
+
+CLEAN.include [ "ext/**/*.o", GUESTFS_MODULE,
+                "ext/**/depend" ]
+
+CLOBBER.include [ "config.save", "ext/**/mkmf.log",
+                  MAKEFILE ]
+
+# Build locally
+
+file MAKEFILE => EXT_CONF do |t|
+    Dir::chdir(File::dirname(EXT_CONF)) do
+         unless sh "ruby #{File::basename(EXT_CONF)}"
+             $stderr.puts "Failed to run extconf"
+             break
+         end
+    end
+end
+file GUESTFS_MODULE => [ MAKEFILE, GUESTFS_SRC ] do |t|
+    Dir::chdir(File::dirname(EXT_CONF)) do
+         unless sh "make"
+             $stderr.puts "make failed"
+             break
+         end
+     end
+end
+desc "Build the native library"
+task :build => GUESTFS_MODULE
+
+Rake::TestTask.new(:test) do |t|
+    t.test_files = FileList['tests/tc_*.rb']
+    t.libs = [ 'lib', 'ext/guestfs' ]
+end
+task :test => :build
+
+Rake::RDocTask.new do |rd|
+    rd.main = "README.rdoc"
+    rd.rdoc_dir = "doc/site/api"
+    rd.rdoc_files.include("README.rdoc", "lib/**/*.rb", "ext/**/*.[ch]")
+end
+
+# Package tasks
+
+PKG_FILES = FileList[
+  "Rakefile", "COPYING", "README", "NEWS", "README.rdoc",
+  "lib/**/*.rb",
+  "ext/**/*.[ch]", "ext/**/MANIFEST", "ext/**/extconf.rb",
+  "tests/**/*",
+  "spec/**/*"
+]
+
+DIST_FILES = FileList[
+  "pkg/*.src.rpm",  "pkg/*.gem",  "pkg/*.zip", "pkg/*.tgz"
+]
+
+SPEC = Gem::Specification.new do |s|
+    s.name = PKG_NAME
+    s.version = PKG_VERSION
+    s.email = "rjones@redhat.com"
+    s.homepage = "http://et.redhat.com/~rjones/libguestfs/"
+    s.summary = "Ruby bindings for libguestfs"
+    s.files = PKG_FILES
+    s.autorequire = "guestfs"
+    s.required_ruby_version = '>= 1.8.1'
+    s.extensions = "ext/guestfs/extconf.rb"
+    s.description = <<EOF
+Ruby bindings for libguestfs.
+EOF
+end
+
+Rake::GemPackageTask.new(SPEC) do |pkg|
+    pkg.need_tar = true
+    pkg.need_zip = true
+end

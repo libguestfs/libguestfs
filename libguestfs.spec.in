@@ -35,6 +35,8 @@ BuildRequires: perl-Test-Pod
 BuildRequires: perl-Test-Pod-Coverage
 BuildRequires: perl-ExtUtils-MakeMaker
 BuildRequires: python-devel
+BuildRequires: ruby-devel
+BuildRequires: rubygem-rake
 
 # Runtime requires:
 Requires:    qemu >= 0.10-7
@@ -69,6 +71,8 @@ For Perl bindings, see 'libguestfs-perl'.
 For OCaml bindings, see 'libguestfs-ocaml-devel'.
 
 For Python bindings, see 'libguestfs-python'.
+
+For Ruby bindings, see 'libguestfs-ruby'.
 
 
 %package devel
@@ -143,6 +147,20 @@ Requires:    %{name} = %{version}-%{release}
 %{name}-python contains Python bindings for %{name}.
 
 
+%package ruby
+Summary:     Ruby bindings for %{name}
+Group:       Development/Libraries
+Requires:    %{name} = %{version}-%{release}
+Requires:    ruby(abi) = 1.8
+Provides:    ruby(guestfs) = %{version}
+
+%{!?ruby_sitelib: %define ruby_sitelib %(ruby -rrbconfig -e "puts Config::CONFIG['sitelibdir']")}
+%{!?ruby_sitearch: %define ruby_sitearch %(ruby -rrbconfig -e "puts Config::CONFIG['sitearchdir']")}
+
+%description ruby
+%{name}-ruby contains Ruby bindings for %{name}.
+
+
 %prep
 %setup -q
 
@@ -195,6 +213,12 @@ if [ "$RPM_BUILD_ROOT%{python_sitearch}" != "$RPM_BUILD_ROOT%{python_sitelib}" ]
    mv $RPM_BUILD_ROOT%{python_sitearch}/guestfs.py* \
      $RPM_BUILD_ROOT%{python_sitelib}/
 fi
+
+# Install ruby bindings by hand.
+mkdir -p $RPM_BUILD_ROOT%{ruby_sitelib}
+mkdir -p $RPM_BUILD_ROOT%{ruby_sitearch}
+install -p -m0644 ruby/lib/libvirt.rb $RPM_BUILD_ROOT%{ruby_sitelib}
+install -p -m0755 ruby/ext/libvirt/_libvirt.so $RPM_BUILD_ROOT%{ruby_sitearch}
 
 
 %clean
@@ -264,6 +288,12 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/*.py
 %{python_sitelib}/*.pyc
 %{python_sitelib}/*.pyo
+
+
+%files ruby
+%defattr(-,root,root,-)
+%{ruby_sitelib}/guestfs.rb
+%{ruby_sitearch}/_guestfs.so
 
 
 %changelog

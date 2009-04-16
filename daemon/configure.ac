@@ -15,7 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-AC_INIT([libguestfs-daemon],[0.8.2])
+AC_INIT([libguestfs-daemon],[1.0.0])
 AM_INIT_AUTOMAKE
 
 AC_CONFIG_MACRO_DIR([m4])

@@ -15,7 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-AC_INIT([libguestfs],[0.9.9])
+AC_INIT([libguestfs],[1.0.0])
 AM_INIT_AUTOMAKE
 
 AC_CONFIG_MACRO_DIR([m4])
@@ -188,7 +188,16 @@ AC_SUBST(PYTHON_INCLUDEDIR)
 AC_SUBST(PYTHON_SITE_PACKAGES)
 
 AM_CONDITIONAL([HAVE_PYTHON],
-    [test "x$PYTHON_INCLUDEDIR" != "x" && test "x$PYTHON_SITE_PACKAGES" != "x"])
+    [test "x$PYTHON_INCLUDEDIR" != "x" -a "x$PYTHON_SITE_PACKAGES" != "x"])
+
+dnl Check for Ruby and rake (optional, for Ruby bindings).
+old_libs="$LIBS"
+AC_CHECK_LIB([ruby],[ruby_init])
+LIBS="$old_libs"
+AC_CHECK_PROG([RAKE],[rake],[rake],[no])
+
+AM_CONDITIONAL([HAVE_RUBY],
+    [test "x$RAKE" != "xno" -a -n "x$HAVE_LIBRUBY"])
 
 dnl Run in subdirs.
 AC_CONFIG_SUBDIRS([daemon])
@@ -200,6 +209,7 @@ AC_CONFIG_FILES([Makefile src/Makefile fish/Makefile examples/Makefile
 		 ocaml/Makefile ocaml/examples/Makefile
 		 perl/Makefile
 		 python/Makefile
+		 ruby/Makefile ruby/Rakefile
 	         make-initramfs.sh update-initramfs.sh
 		 libguestfs.spec
 		 ocaml/META perl/Makefile.PL])

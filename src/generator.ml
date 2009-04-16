@@ -4863,6 +4863,242 @@ and pod2text ~width name longdesc =
   | Unix.WSIGNALED i | Unix.WSTOPPED i ->
       failwithf "pod2text: process signalled or stopped by signal %d" i
 
+(* Generate ruby bindings. *)
+and generate_ruby_c () =
+  generate_header CStyle LGPLv2;
+
+  pr "\
+#include <stdio.h>
+#include <stdlib.h>
+
+#include <ruby.h>
+
+#include \"guestfs.h\"
+
+#include \"extconf.h\"
+
+static VALUE m_guestfs;			/* guestfs module */
+static VALUE c_guestfs;			/* guestfs_h handle */
+static VALUE e_Error;			/* used for all errors */
+
+static void ruby_guestfs_free (void *p)
+{
+  if (!p) return;
+  guestfs_close ((guestfs_h *) p);
+}
+
+static VALUE ruby_guestfs_create (VALUE m)
+{
+  guestfs_h *g;
+
+  g = guestfs_create ();
+  if (!g)
+    rb_raise (e_Error, \"failed to create guestfs handle\");
+
+  /* Don't print error messages to stderr by default. */
+  guestfs_set_error_handler (g, NULL, NULL);
+
+  /* Wrap it, and make sure the close function is called when the
+   * handle goes away.
+   */
+  return Data_Wrap_Struct (c_guestfs, NULL, ruby_guestfs_free, g);
+}
+
+static VALUE ruby_guestfs_close (VALUE gv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+
+  ruby_guestfs_free (g);
+  DATA_PTR (gv) = NULL;
+
+  return Qnil;
+}
+
+";
+
+  List.iter (
+    fun (name, style, _, _, _, _, _) ->
+      pr "static VALUE ruby_guestfs_%s (VALUE gv" name;
+      List.iter (fun arg -> pr ", VALUE %sv" (name_of_argt arg)) (snd style);
+      pr ")\n";
+      pr "{\n";
+      pr "  guestfs_h *g;\n";
+      pr "  Data_Get_Struct (gv, guestfs_h, g);\n";
+      pr "  if (!g)\n";
+      pr "    rb_raise (rb_eArgError, \"%%s: used handle after closing it\", \"%s\");\n"
+	name;
+      pr "\n";
+
+      List.iter (
+	function
+	| String n ->
+	    pr "  const char *%s = StringValueCStr (%sv);\n" n n;
+	    pr "  if (!%s)\n" n;
+	    pr "    rb_raise (rb_eTypeError, \"expected string for parameter %%s of %%s\",\n";
+	    pr "              \"%s\", \"%s\");\n" n name
+	| OptString n ->
+	    pr "  const char *%s = StringValueCStr (%sv);\n" n n
+	| StringList n ->
+	    pr "  char **%s;" n;
+	    pr "  {\n";
+	    pr "    int i, len;\n";
+	    pr "    len = RARRAY_LEN (%sv);\n" n;
+	    pr "    %s = malloc (sizeof (char *) * (len+1));\n" n;
+	    pr "    for (i = 0; i < len; ++i) {\n";
+	    pr "      VALUE v = rb_ary_entry (%sv, i);\n" n;
+	    pr "      %s[i] = StringValueCStr (v);\n" n;
+	    pr "    }\n";
+	    pr "  }\n";
+	| Bool n
+	| Int n ->
+	    pr "  int %s = NUM2INT (%sv);\n" n n
+      ) (snd style);
+      pr "\n";
+
+      let error_code =
+	match fst style with
+	| RErr | RInt _ | RBool _ -> pr "  int r;\n"; "-1"
+	| RInt64 _ -> pr "  int64_t r;\n"; "-1"
+	| RConstString _ -> pr "  const char *r;\n"; "NULL"
+	| RString _ -> pr "  char *r;\n"; "NULL"
+	| RStringList _ | RHashtable _ -> pr "  char **r;\n"; "NULL"
+	| RIntBool _ -> pr "  struct guestfs_int_bool *r;\n"; "NULL"
+	| RPVList n -> pr "  struct guestfs_lvm_pv_list *r;\n"; "NULL"
+	| RVGList n -> pr "  struct guestfs_lvm_vg_list *r;\n"; "NULL"
+	| RLVList n -> pr "  struct guestfs_lvm_lv_list *r;\n"; "NULL"
+	| RStat n -> pr "  struct guestfs_stat *r;\n"; "NULL"
+	| RStatVFS n -> pr "  struct guestfs_statvfs *r;\n"; "NULL" in
+      pr "\n";
+
+      pr "  r = guestfs_%s " name;
+      generate_call_args ~handle:"g" style;
+      pr ";\n";
+
+      List.iter (
+	function
+	| String _ | OptString _ | Bool _ | Int _ -> ()
+	| StringList n ->
+	    pr "  free (%s);\n" n
+      ) (snd style);
+
+      pr "  if (r == %s)\n" error_code;
+      pr "    rb_raise (e_Error, \"%%s\", guestfs_last_error (g));\n";
+      pr "\n";
+
+      (match fst style with
+       | RErr ->
+	   pr "  return Qnil;\n"
+       | RInt _ | RBool _ ->
+	   pr "  return INT2NUM (r);\n"
+       | RInt64 _ ->
+	   pr "  return ULL2NUM (r);\n"
+       | RConstString _ ->
+	   pr "  return rb_str_new2 (r);\n";
+       | RString _ ->
+	   pr "  VALUE rv = rb_str_new2 (r);\n";
+	   pr "  free (r);\n";
+	   pr "  return rv;\n";
+       | RStringList _ ->
+	   pr "  int i, len = 0;\n";
+	   pr "  for (i = 0; r[i] != NULL; ++i) len++;\n";
+	   pr "  VALUE rv = rb_ary_new2 (len);\n";
+	   pr "  for (i = 0; r[i] != NULL; ++i) {\n";
+	   pr "    rb_ary_push (rv, rb_str_new2 (r[i]));\n";
+	   pr "    free (r[i]);\n";
+	   pr "  }\n";
+	   pr "  free (r);\n";
+	   pr "  return rv;\n"
+       | RIntBool _ ->
+	   pr "  VALUE rv = rb_ary_new2 (2);\n";
+	   pr "  rb_ary_push (rv, INT2NUM (r->i));\n";
+	   pr "  rb_ary_push (rv, INT2NUM (r->b));\n";
+	   pr "  guestfs_free_int_bool (r);\n";
+	   pr "  return rv;\n"
+       | RPVList n ->
+	   generate_ruby_lvm_code "pv" pv_cols
+       | RVGList n ->
+	   generate_ruby_lvm_code "vg" vg_cols
+       | RLVList n ->
+	   generate_ruby_lvm_code "lv" lv_cols
+       | RStat n ->
+	   pr "  VALUE rv = rb_hash_new ();\n";
+	   List.iter (
+	     function
+	     | name, `Int ->
+		 pr "  rb_hash_aset (rv, rb_str_new2 (\"%s\"), ULL2NUM (r->%s));\n" name name
+	   ) stat_cols;
+	   pr "  free (r);\n";
+	   pr "  return rv;\n"
+       | RStatVFS n ->
+	   pr "  VALUE rv = rb_hash_new ();\n";
+	   List.iter (
+	     function
+	     | name, `Int ->
+		 pr "  rb_hash_aset (rv, rb_str_new2 (\"%s\"), ULL2NUM (r->%s));\n" name name
+	   ) statvfs_cols;
+	   pr "  free (r);\n";
+	   pr "  return rv;\n"
+       | RHashtable _ ->
+	   pr "  VALUE rv = rb_hash_new ();\n";
+	   pr "  int i;\n";
+	   pr "  for (i = 0; r[i] != NULL; i+=2) {\n";
+	   pr "    rb_hash_aset (rv, rb_str_new2 (r[i]), rb_str_new2 (r[i+1]));\n";
+	   pr "    free (r[i]);\n";
+	   pr "    free (r[i+1]);\n";
+	   pr "  }\n";
+	   pr "  free (r);\n";
+	   pr "  return rv;\n"
+      );
+
+      pr "}\n";
+      pr "\n"
+  ) all_functions;
+
+  pr "\
+/* Initialize the module. */
+void Init__guestfs ()
+{
+  m_guestfs = rb_define_module (\"Guestfs\");
+  c_guestfs = rb_define_class_under (m_guestfs, \"Guestfs\", rb_cObject);
+  e_Error = rb_define_class_under (m_guestfs, \"Error\", rb_eStandardError);
+
+  rb_define_module_function (m_guestfs, \"create\", ruby_guestfs_create, 0);
+  rb_define_method (c_guestfs, \"close\", ruby_guestfs_close, 0);
+
+";
+  (* Define the rest of the methods. *)
+  List.iter (
+    fun (name, style, _, _, _, _, _) ->
+      pr "  rb_define_method (c_guestfs, \"%s\",\n" name;
+      pr "        ruby_guestfs_%s, %d);\n" name (List.length (snd style))
+  ) all_functions;
+
+  pr "}\n"
+
+(* Ruby code to return an LVM struct list. *)
+and generate_ruby_lvm_code typ cols =
+  pr "  VALUE rv = rb_ary_new2 (r->len);\n";
+  pr "  int i;\n";
+  pr "  for (i = 0; i < r->len; ++i) {\n";
+  pr "    VALUE hv = rb_hash_new ();\n";
+  List.iter (
+    function
+    | name, `String ->
+	pr "    rb_hash_aset (rv, rb_str_new2 (\"%s\"), rb_str_new2 (r->val[i].%s));\n" name name
+    | name, `UUID ->
+	pr "    rb_hash_aset (rv, rb_str_new2 (\"%s\"), rb_str_new (r->val[i].%s, 32));\n" name name
+    | name, `Bytes
+    | name, `Int ->
+	pr "    rb_hash_aset (rv, rb_str_new2 (\"%s\"), ULL2NUM (r->val[i].%s));\n" name name
+    | name, `OptPercent ->
+	pr "    rb_hash_aset (rv, rb_str_new2 (\"%s\"), rb_dbl2big (r->val[i].%s));\n" name name
+  ) cols;
+  pr "    rb_ary_push (rv, hv);\n";
+  pr "  }\n";
+  pr "  guestfs_free_lvm_%s_list (r);\n" typ;
+  pr "  return rv;\n"
+
 let output_to filename =
   let filename_new = filename ^ ".new" in
   chan := open_out filename_new;
@@ -4961,4 +5197,8 @@ Run it from the top source directory using the command
 
   let close = output_to "python/guestfs.py" in
   generate_python_py ();
+  close ();
+
+  let close = output_to "ruby/ext/guestfs/_guestfs.c" in
+  generate_ruby_c ();
   close ();

@@ -28,6 +28,9 @@ endif
 if HAVE_PYTHON
 SUBDIRS += python
 endif
+if HAVE_RUBY
+SUBDIRS += ruby
+endif
 
 EXTRA_DIST = \
 	make-initramfs.sh update-initramfs.sh \

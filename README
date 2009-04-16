@@ -50,6 +50,8 @@ also to build the OCaml bindings
 
 - (Optional) Python if you want to build the python bindings
 
+- (Optional) Ruby, rake if you want to build the ruby bindings
+
 Running ./configure will check you have all the requirements installed
 on your machine.
 

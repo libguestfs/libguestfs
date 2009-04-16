@@ -63,6 +63,9 @@ perl/Makefile.PL
 perl/blib
 perl/pm_to_blib
 python/guestfs.pyc
+ruby/Rakefile
+ruby/ext/guestfs/extconf.h
+ruby/ext/guestfs/mkmf.log
 pod2htm?.tmp
 stamp-h1
 test*.img
