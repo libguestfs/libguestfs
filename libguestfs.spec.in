@@ -18,7 +18,7 @@ BuildRequires: /usr/bin/pod2text
 BuildRequires: febootstrap >= 1.5
 BuildRequires: augeas-devel >= 0.5.0
 BuildRequires: readline-devel
-BuildRequires: qemu
+BuildRequires: qemu >= 0.10-7
 
 # These are only required if you want to build the bindings for
 # different languages:
@@ -32,7 +32,7 @@ BuildRequires: perl-ExtUtils-MakeMaker
 BuildRequires: python-devel
 
 # Runtime requires:
-Requires:    qemu
+Requires:    qemu >= 0.10-7
 
 
 %description
