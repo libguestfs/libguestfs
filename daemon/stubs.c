@@ -2011,6 +2011,7 @@ parse_command_line_pvs (void)
     reply_with_error ("%s", err);
     free (out);
     free (err);
+    free (ret);
     return NULL;
   }
 
@@ -2350,6 +2351,7 @@ parse_command_line_vgs (void)
     reply_with_error ("%s", err);
     free (out);
     free (err);
+    free (ret);
     return NULL;
   }
 
@@ -2659,6 +2661,7 @@ parse_command_line_lvs (void)
     reply_with_error ("%s", err);
     free (out);
     free (err);
+    free (ret);
     return NULL;
   }
 

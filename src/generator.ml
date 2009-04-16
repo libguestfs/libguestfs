@@ -2394,6 +2394,7 @@ and generate_daemon_actions () =
 	pr "    reply_with_error (\"%%s\", err);\n";
 	pr "    free (out);\n";
 	pr "    free (err);\n";
+	pr "    free (ret);\n";
 	pr "    return NULL;\n";
 	pr "  }\n";
 	pr "\n";
