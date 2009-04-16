@@ -2,3 +2,7 @@
 
 [libguestfs] /tmp/libguestfs temporary directory is not cleaned up
 (sometimes).
+
+[kernel?] Kernel boot times are significantly slower for Fedora 11/12
+than for Fedora 10, like 2-3 times slower.  This greatly affects the
+time it takes to launch the subprocess (although it does still work).
