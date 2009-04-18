@@ -103,7 +103,6 @@ put_table (char * const * const argv)
 
   list = PyList_New (argc >> 1);
   for (i = 0; i < argc; i += 2) {
-    PyObject *item;
     item = PyTuple_New (2);
     PyTuple_SetItem (item, 0, PyString_FromString (argv[i]));
     PyTuple_SetItem (item, 1, PyString_FromString (argv[i+1]));

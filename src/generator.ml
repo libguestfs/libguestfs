@@ -98,6 +98,16 @@ and argt =
   | StringList of string(* list of strings (each string cannot be NULL) *)
   | Bool of string	(* boolean *)
   | Int of string	(* int (smallish ints, signed, <= 31 bits) *)
+    (* These are treated as filenames (simple string parameters) in
+     * the C API and bindings.  But in the RPC protocol, we transfer
+     * the actual file content up to or down from the daemon.
+     * FileIn: local machine -> daemon (in request)
+     * FileOut: daemon -> local machine (in reply)
+     * In guestfish (only), the special name "-" means read from
+     * stdin or write to stdout.
+     *)
+  | FileIn of string
+  | FileOut of string
 
 type flags =
   | ProtocolLimitWarning  (* display warning about protocol size limits *)
@@ -384,7 +394,7 @@ Return the contents of the file named C<path>.
 
 Note that this function cannot correctly handle binary files
 (specifically, files containing C<\\0> character which is treated
-as end of string).  For those you need to use the C<guestfs_read_file>
+as end of string).  For those you need to use the C<guestfs_download>
 function which has a more complex interface.");
 
   ("ll", (RString "listing", [String "directory"]), 5, [],
@@ -1198,6 +1208,30 @@ Reread the partition table on C<device>.
 
 This uses the L<blockdev(8)> command.");
 
+(*
+  ("upload", (RErr, [FileIn "filename"; String "remotefilename"]), 66, [],
+   [],
+   "upload a file from the local machine",
+   "\
+Upload local file C<filename> to C<remotefilename> on the
+filesystem.
+
+C<filename> can also be a named pipe.
+
+See also C<guestfs_upload>.");
+
+  ("download", (RErr, [String "remotefilename"; FileOut "filename"]), 67, [],
+   [],
+   "download a file to the local machine",
+   "\
+Download file C<remotefilename> and save it as C<filename>
+on the local machine.
+
+C<filename> can also be a named pipe.
+
+See also C<guestfs_download>, C<guestfs_cat>.");
+*)
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
@@ -1410,7 +1444,8 @@ let mapi f xs =
   loop 0 xs
 
 let name_of_argt = function
-  | String n | OptString n | StringList n | Bool n | Int n -> n
+  | String n | OptString n | StringList n | Bool n | Int n
+  | FileIn n | FileOut n -> n
 
 let seq_of_test = function
   | TestRun s | TestOutput (s, _) | TestOutputList (s, _)
@@ -1765,6 +1800,7 @@ and generate_xdr () =
 	     | StringList n -> pr "  str %s<>;\n" n
 	     | Bool n -> pr "  bool %s;\n" n
 	     | Int n -> pr "  int %s;\n" n
+	     | FileIn _ | FileOut _ -> ()
 	   ) args;
 	   pr "};\n\n"
       );
@@ -1830,7 +1866,7 @@ and generate_xdr () =
     fun (shortname, _, proc_nr, _, _, _, _) ->
       pr "  GUESTFS_PROC_%s = %d,\n" (String.uppercase shortname) proc_nr
   ) daemon_functions;
-  pr "  GUESTFS_PROC_dummy\n"; (* so we don't have a "hanging comma" *)
+  pr "  GUESTFS_PROC_NR_PROCS\n";
   pr "};\n";
   pr "\n";
 
@@ -1864,6 +1900,19 @@ struct guestfs_message_error {
   string error<GUESTFS_ERROR_LEN>;   /* error message */
 };
 
+/* For normal requests and replies (not involving any FileIn or
+ * FileOut parameters), the protocol is:
+ *
+ * For requests:
+ *   total length (header + args, but not including length word itself)
+ *   header
+ *   guestfs_foo_args struct
+ * For replies:
+ *   total length (as above)
+ *   header
+ *   guestfs_foo_ret struct
+ */
+
 struct guestfs_message_header {
   unsigned prog;                     /* GUESTFS_PROGRAM */
   unsigned vers;                     /* GUESTFS_PROTOCOL_VERSION */
@@ -1871,6 +1920,31 @@ struct guestfs_message_header {
   guestfs_message_direction direction;
   unsigned serial;                   /* message serial number */
   guestfs_message_status status;
+};
+
+/* Chunked encoding used to transfer files, for FileIn and FileOut
+ * parameters.
+ *
+ * For requests which have >= 1 FileIn parameter:
+ *   length of header + args (but not length word itself, and not chunks)
+ *   header
+ *   guestfs_foo_args struct
+ *   sequence of chunks for FileIn param #0
+ *   sequence of chunks for FileIn param #1 etc
+ *
+ * For replies which have >= 1 FileOut parameter:
+ *   length of header + ret (but not length word itself, and not chunks)
+ *   header
+ *   guestfs_foo_ret struct
+ *   sequence of chunks for FileOut param #0
+ *   sequence of chunks for FileOut param #1 etc
+ */
+const GUESTFS_MAX_CHUNK_SIZE = 8192;
+
+struct guestfs_chunk {
+  int cancel;			     /* if non-zero, transfer is cancelled */
+  /* data size is 0 bytes if the transfer has finished successfully */
+  opaque data<GUESTFS_MAX_CHUNK_SIZE>;
 };
 "
 
@@ -1953,9 +2027,14 @@ and generate_client_actions () =
     fun (shortname, style, _, _, _, _, _) ->
       let name = "guestfs_" ^ shortname in
 
-      (* Generate the return value struct. *)
-      pr "struct %s_rv {\n" shortname;
-      pr "  int cb_done;  /* flag to indicate callback was called */\n";
+      (* Generate the state struct which stores the high-level
+       * state between callback functions.  The callback(s) are:
+       *   <name>_cb_header_sent      header was sent
+       *   <name>_cb_file_sent        FileIn file was sent
+       *   <name>_cb_reply_received   reply received
+       *)
+      pr "struct %s_state {\n" shortname;
+      pr "  int cb_done;\n";
       pr "  struct guestfs_message_header hdr;\n";
       pr "  struct guestfs_message_error err;\n";
       (match fst style with
@@ -1970,19 +2049,20 @@ and generate_client_actions () =
        | RHashtable _ ->
 	   pr "  struct %s_ret ret;\n" name
       );
-      pr "};\n\n";
+      pr "};\n";
+      pr "\n";
 
       (* Generate the callback function. *)
       pr "static void %s_cb (guestfs_h *g, void *data, XDR *xdr)\n" shortname;
       pr "{\n";
-      pr "  struct %s_rv *rv = (struct %s_rv *) data;\n" shortname shortname;
+      pr "  struct %s_state *state = (struct %s_state *) data;\n" shortname shortname;
       pr "\n";
-      pr "  if (!xdr_guestfs_message_header (xdr, &rv->hdr)) {\n";
+      pr "  if (!xdr_guestfs_message_header (xdr, &state->hdr)) {\n";
       pr "    error (g, \"%s: failed to parse reply header\");\n" name;
       pr "    return;\n";
       pr "  }\n";
-      pr "  if (rv->hdr.status == GUESTFS_STATUS_ERROR) {\n";
-      pr "    if (!xdr_guestfs_message_error (xdr, &rv->err)) {\n";
+      pr "  if (state->hdr.status == GUESTFS_STATUS_ERROR) {\n";
+      pr "    if (!xdr_guestfs_message_error (xdr, &state->err)) {\n";
       pr "      error (g, \"%s: failed to parse reply error\");\n" name;
       pr "      return;\n";
       pr "    }\n";
@@ -1999,15 +2079,15 @@ and generate_client_actions () =
        | RPVList _ | RVGList _ | RLVList _
        | RStat _ | RStatVFS _
        | RHashtable _ ->
-	    pr "  if (!xdr_%s_ret (xdr, &rv->ret)) {\n" name;
+	    pr "  if (!xdr_%s_ret (xdr, &state->ret)) {\n" name;
 	    pr "    error (g, \"%s: failed to parse reply\");\n" name;
 	    pr "    return;\n";
 	    pr "  }\n";
       );
 
       pr " done:\n";
-      pr "  rv->cb_done = 1;\n";
-      pr "  main_loop.main_loop_quit (g);\n";
+      pr "  state->cb_done = 1;\n";
+      pr "  g->main_loop->main_loop_quit (g->main_loop, g);\n";
       pr "}\n\n";
 
       (* Generate the action stub. *)
@@ -2032,19 +2112,26 @@ and generate_client_actions () =
        | _ -> pr "  struct %s_args args;\n" name
       );
 
-      pr "  struct %s_rv rv;\n" shortname;
+      pr "  struct %s_state state;\n" shortname;
       pr "  int serial;\n";
       pr "\n";
       pr "  if (g->state != READY) {\n";
-      pr "    error (g, \"%s called from the wrong state, %%d != READY\",\n"
-	name;
-      pr "      g->state);\n";
+      pr "    if (g->state == CONFIG)\n";
+      pr "      error (g, \"%%s: call launch() before using this function\",\n";
+      pr "        \"%s\");\n" name;
+      pr "    else if (g->state == LAUNCHING)\n";
+      pr "      error (g, \"%%s: call wait_ready() before using this function\",\n";
+      pr "        \"%s\");\n" name;
+      pr "    else\n";
+      pr "      error (g, \"%%s called from the wrong state, %%d != READY\",\n";
+      pr "        \"%s\", g->state);\n" name;
       pr "    return %s;\n" error_code;
       pr "  }\n";
       pr "\n";
-      pr "  memset (&rv, 0, sizeof rv);\n";
+      pr "  memset (&state, 0, sizeof state);\n";
       pr "\n";
 
+      (* Dispatch the main header and arguments. *)
       (match snd style with
        | [] ->
 	   pr "  serial = dispatch (g, GUESTFS_PROC_%s, NULL, NULL);\n"
@@ -2063,6 +2150,7 @@ and generate_client_actions () =
 		 pr "  args.%s = %s;\n" n n
 	     | Int n ->
 		 pr "  args.%s = %s;\n" n n
+	     | FileIn _ | FileOut _ -> ()
 	   ) args;
 	   pr "  serial = dispatch (g, GUESTFS_PROC_%s,\n"
 	     (String.uppercase shortname);
@@ -2073,52 +2161,73 @@ and generate_client_actions () =
       pr "    return %s;\n" error_code;
       pr "\n";
 
-      pr "  rv.cb_done = 0;\n";
+      (* Send any additional files requested. *)
+      List.iter (
+	function
+	| FileIn n ->
+	    pr "  if (send_file (g, %s) == -1)\n" n;
+	    pr "    return %s;\n" error_code;
+	    pr "\n";
+	| _ -> ()
+      ) (snd style);
+
+      (* Wait for the reply from the remote end. *)
+      pr "  state.cb_done = 0;\n";
       pr "  g->reply_cb_internal = %s_cb;\n" shortname;
-      pr "  g->reply_cb_internal_data = &rv;\n";
-      pr "  main_loop.main_loop_run (g);\n";
+      pr "  g->reply_cb_internal_data = &state;\n";
+      pr "  (void) g->main_loop->main_loop_run (g->main_loop, g);\n";
       pr "  g->reply_cb_internal = NULL;\n";
       pr "  g->reply_cb_internal_data = NULL;\n";
-      pr "  if (!rv.cb_done) {\n";
+      pr "  if (!state.cb_done) {\n";
       pr "    error (g, \"%s failed, see earlier error messages\");\n" name;
       pr "    return %s;\n" error_code;
       pr "  }\n";
       pr "\n";
 
-      pr "  if (check_reply_header (g, &rv.hdr, GUESTFS_PROC_%s, serial) == -1)\n"
+      pr "  if (check_reply_header (g, &state.hdr, GUESTFS_PROC_%s, serial) == -1)\n"
 	(String.uppercase shortname);
       pr "    return %s;\n" error_code;
       pr "\n";
 
-      pr "  if (rv.hdr.status == GUESTFS_STATUS_ERROR) {\n";
-      pr "    error (g, \"%%s\", rv.err.error);\n";
+      pr "  if (state.hdr.status == GUESTFS_STATUS_ERROR) {\n";
+      pr "    error (g, \"%%s\", state.err.error);\n";
       pr "    return %s;\n" error_code;
       pr "  }\n";
       pr "\n";
 
+      (* Expecting to receive further files (FileOut)? *)
+      List.iter (
+	function
+	| FileOut n ->
+	    pr "  if (receive_file (g, %s) == -1)\n" n;
+	    pr "    return %s;\n" error_code;
+	    pr "\n";
+	| _ -> ()
+      ) (snd style);
+
       (match fst style with
        | RErr -> pr "  return 0;\n"
        | RInt n | RInt64 n | RBool n ->
-	   pr "  return rv.ret.%s;\n" n
+	   pr "  return state.ret.%s;\n" n
        | RConstString _ ->
 	   failwithf "RConstString cannot be returned from a daemon function"
        | RString n ->
-	   pr "  return rv.ret.%s; /* caller will free */\n" n
+	   pr "  return state.ret.%s; /* caller will free */\n" n
        | RStringList n | RHashtable n ->
 	   pr "  /* caller will free this, but we need to add a NULL entry */\n";
-	   pr "  rv.ret.%s.%s_val =" n n;
-	   pr "    safe_realloc (g, rv.ret.%s.%s_val,\n" n n;
-	   pr "                  sizeof (char *) * (rv.ret.%s.%s_len + 1));\n"
+	   pr "  state.ret.%s.%s_val =" n n;
+	   pr "    safe_realloc (g, state.ret.%s.%s_val,\n" n n;
+	   pr "                  sizeof (char *) * (state.ret.%s.%s_len + 1));\n"
 	     n n;
-	   pr "  rv.ret.%s.%s_val[rv.ret.%s.%s_len] = NULL;\n" n n n n;
-	   pr "  return rv.ret.%s.%s_val;\n" n n
+	   pr "  state.ret.%s.%s_val[state.ret.%s.%s_len] = NULL;\n" n n n n;
+	   pr "  return state.ret.%s.%s_val;\n" n n
        | RIntBool _ ->
 	   pr "  /* caller with free this */\n";
-	   pr "  return safe_memdup (g, &rv.ret, sizeof (rv.ret));\n"
+	   pr "  return safe_memdup (g, &state.ret, sizeof (state.ret));\n"
        | RPVList n | RVGList n | RLVList n
        | RStat n | RStatVFS n ->
 	   pr "  /* caller will free this */\n";
-	   pr "  return safe_memdup (g, &rv.ret.%s, sizeof (rv.ret.%s));\n" n n
+	   pr "  return safe_memdup (g, &state.ret.%s, sizeof (state.ret.%s));\n" n n
       );
 
       pr "}\n\n"
@@ -2189,6 +2298,7 @@ and generate_daemon_actions () =
 	     | StringList n -> pr "  char **%s;\n" n
 	     | Bool n -> pr "  int %s;\n" n
 	     | Int n -> pr "  int %s;\n" n
+	     | FileIn _ | FileOut _ -> ()
 	   ) args
       );
       pr "\n";
@@ -2212,12 +2322,19 @@ and generate_daemon_actions () =
 		 pr "  %s = args.%s.%s_val;\n" n n n
 	     | Bool n -> pr "  %s = args.%s;\n" n n
 	     | Int n -> pr "  %s = args.%s;\n" n n
+	     | FileIn _ | FileOut _ -> ()
 	   ) args;
 	   pr "\n"
       );
 
+      (* Don't want to call the impl with any FileIn or FileOut
+       * parameters, since these go "outside" the RPC protocol.
+       *)
+      let argsnofile =
+	List.filter (function FileIn _ | FileOut _ -> false | _ -> true)
+	  (snd style) in
       pr "  r = do_%s " name;
-      generate_call_args style;
+      generate_call_args argsnofile;
       pr ";\n";
 
       pr "  if (r == %s)\n" error_code;
@@ -2225,34 +2342,48 @@ and generate_daemon_actions () =
       pr "    goto done;\n";
       pr "\n";
 
-      (match fst style with
-       | RErr -> pr "  reply (NULL, NULL);\n"
-       | RInt n | RInt64 n | RBool n ->
-	   pr "  struct guestfs_%s_ret ret;\n" name;
-	   pr "  ret.%s = r;\n" n;
-	   pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n" name
-       | RConstString _ ->
-	   failwithf "RConstString cannot be returned from a daemon function"
-       | RString n ->
-	   pr "  struct guestfs_%s_ret ret;\n" name;
-	   pr "  ret.%s = r;\n" n;
-	   pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n" name;
-	   pr "  free (r);\n"
-       | RStringList n | RHashtable n ->
-	   pr "  struct guestfs_%s_ret ret;\n" name;
-	   pr "  ret.%s.%s_len = count_strings (r);\n" n n;
-	   pr "  ret.%s.%s_val = r;\n" n n;
-	   pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n" name;
-	   pr "  free_strings (r);\n"
-       | RIntBool _ ->
-	   pr "  reply ((xdrproc_t) xdr_guestfs_%s_ret, (char *) r);\n" name;
-	   pr "  xdr_free ((xdrproc_t) xdr_guestfs_%s_ret, (char *) r);\n" name
-       | RPVList n | RVGList n | RLVList n
-       | RStat n | RStatVFS n ->
-	   pr "  struct guestfs_%s_ret ret;\n" name;
-	   pr "  ret.%s = *r;\n" n;
-	   pr "  reply ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n" name;
-	   pr "  xdr_free ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n" name
+      (* If there are any FileOut parameters, then the impl must
+       * send its own reply.
+       *)
+      let no_reply =
+	List.exists (function FileOut _ -> true | _ -> false) (snd style) in
+      if no_reply then
+	pr "  /* do_%s has already sent a reply */\n" name
+      else (
+	match fst style with
+	| RErr -> pr "  reply (NULL, NULL);\n"
+	| RInt n | RInt64 n | RBool n ->
+	    pr "  struct guestfs_%s_ret ret;\n" name;
+	    pr "  ret.%s = r;\n" n;
+	    pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n"
+	      name
+	| RConstString _ ->
+	    failwithf "RConstString cannot be returned from a daemon function"
+	| RString n ->
+	    pr "  struct guestfs_%s_ret ret;\n" name;
+	    pr "  ret.%s = r;\n" n;
+	    pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n"
+	      name;
+	    pr "  free (r);\n"
+	| RStringList n | RHashtable n ->
+	    pr "  struct guestfs_%s_ret ret;\n" name;
+	    pr "  ret.%s.%s_len = count_strings (r);\n" n n;
+	    pr "  ret.%s.%s_val = r;\n" n n;
+	    pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n"
+	      name;
+	    pr "  free_strings (r);\n"
+	| RIntBool _ ->
+	    pr "  reply ((xdrproc_t) xdr_guestfs_%s_ret, (char *) r);\n"
+	      name;
+	    pr "  xdr_free ((xdrproc_t) xdr_guestfs_%s_ret, (char *) r);\n" name
+	| RPVList n | RVGList n | RLVList n
+	| RStat n | RStatVFS n ->
+	    pr "  struct guestfs_%s_ret ret;\n" name;
+	    pr "  ret.%s = *r;\n" n;
+	    pr "  reply ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n"
+	      name;
+	    pr "  xdr_free ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n"
+	      name
       );
 
       (* Free the args. *)
@@ -2890,6 +3021,7 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
 	| OptString _, _
 	| Int _, _
 	| Bool _, _ -> ()
+	| FileIn _, _ | FileOut _, _ -> ()
 	| StringList n, arg ->
 	    pr "    char *%s[] = {\n" n;
 	    let strs = string_split " " arg in
@@ -2929,7 +3061,9 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
       (* Generate the parameters. *)
       List.iter (
 	function
-	| String _, arg -> pr ", \"%s\"" (c_quote arg)
+	| String _, arg
+	| FileIn _, arg | FileOut _, arg ->
+	    pr ", \"%s\"" (c_quote arg)
 	| OptString _, arg ->
 	    if arg = "NULL" then pr ", NULL" else pr ", \"%s\"" (c_quote arg)
 	| StringList n, _ ->
@@ -3151,7 +3285,9 @@ and generate_fish_cmds () =
       List.iter (
 	function
 	| String n
-	| OptString n -> pr "  const char *%s;\n" n
+	| OptString n
+	| FileIn n
+	| FileOut n -> pr "  const char *%s;\n" n
 	| StringList n -> pr "  char **%s;\n" n
 	| Bool n -> pr "  int %s;\n" n
 	| Int n -> pr "  int %s;\n" n
@@ -3172,6 +3308,12 @@ and generate_fish_cmds () =
 	  | OptString name ->
 	      pr "  %s = strcmp (argv[%d], \"\") != 0 ? argv[%d] : NULL;\n"
 		name i i
+	  | FileIn name ->
+	      pr "  %s = strcmp (argv[%d], \"-\") != 0 ? argv[%d] : \"/dev/stdin\";\n"
+		name i i
+	  | FileOut name ->
+	      pr "  %s = strcmp (argv[%d], \"-\") != 0 ? argv[%d] : \"/dev/stdout\";\n"
+		name i i
 	  | StringList name ->
 	      pr "  %s = parse_string_list (argv[%d]);\n" name i
 	  | Bool name ->
@@ -3185,7 +3327,7 @@ and generate_fish_cmds () =
 	try find_map (function FishAction n -> Some n | _ -> None) flags
 	with Not_found -> sprintf "guestfs_%s" name in
       pr "  r = %s " fn;
-      generate_call_args ~handle:"g" style;
+      generate_call_args ~handle:"g" (snd style);
       pr ";\n";
 
       (* Check return value for errors and display command results. *)
@@ -3394,10 +3536,15 @@ and generate_fish_actions_pod () =
 	| StringList n -> pr " %s,..." n
 	| Bool _ -> pr " true|false"
 	| Int n -> pr " %s" n
+	| FileIn n | FileOut n -> pr " (%s|-)" n
       ) (snd style);
       pr "\n";
       pr "\n";
       pr "%s\n\n" longdesc;
+
+      if List.exists (function FileIn _ | FileOut _ -> true
+		      | _ -> false) (snd style) then
+	pr "Use C<-> instead of a filename to read/write from stdin/stdout.\n\n";
 
       if List.mem ProtocolLimitWarning flags then
 	pr "%s\n\n" protocol_limit_warning;
@@ -3457,11 +3604,14 @@ and generate_prototype ?(extern = true) ?(static = false) ?(semicolon = true)
     in
     List.iter (
       function
-      | String n -> next (); pr "const char *%s" n
+      | String n
       | OptString n -> next (); pr "const char *%s" n
       | StringList n -> next (); pr "char * const* const %s" n
       | Bool n -> next (); pr "int %s" n
       | Int n -> next (); pr "int %s" n
+      | FileIn n
+      | FileOut n ->
+	  if not in_daemon then (next (); pr "const char *%s" n)
     ) (snd style);
   );
   pr ")";
@@ -3469,7 +3619,7 @@ and generate_prototype ?(extern = true) ?(static = false) ?(semicolon = true)
   if newline then pr "\n"
 
 (* Generate C call arguments, eg "(handle, foo, bar)" *)
-and generate_call_args ?handle style =
+and generate_call_args ?handle args =
   pr "(";
   let comma = ref false in
   (match handle with
@@ -3480,13 +3630,8 @@ and generate_call_args ?handle style =
     fun arg ->
       if !comma then pr ", ";
       comma := true;
-      match arg with
-      | String n
-      | OptString n
-      | StringList n
-      | Bool n
-      | Int n -> pr "%s" n
-  ) (snd style);
+      pr "%s" (name_of_argt arg)
+  ) args;
   pr ")"
 
 (* Generate the OCaml bindings interface. *)
@@ -3715,7 +3860,9 @@ copy_table (char * const * argv)
 
       List.iter (
 	function
-	| String n ->
+	| String n
+	| FileIn n
+	| FileOut n ->
 	    pr "  const char *%s = String_val (%sv);\n" n n
 	| OptString n ->
 	    pr "  const char *%s =\n" n;
@@ -3760,7 +3907,7 @@ copy_table (char * const * argv)
 
       pr "  caml_enter_blocking_section ();\n";
       pr "  r = guestfs_%s " name;
-      generate_call_args ~handle:"g" style;
+      generate_call_args ~handle:"g" (snd style);
       pr ";\n";
       pr "  caml_leave_blocking_section ();\n";
 
@@ -3768,7 +3915,7 @@ copy_table (char * const * argv)
 	function
 	| StringList n ->
 	    pr "  ocaml_guestfs_free_strings (%s);\n" n;
-	| String _ | OptString _ | Bool _ | Int _ -> ()
+	| String _ | OptString _ | Bool _ | Int _ | FileIn _ | FileOut _ -> ()
       ) (snd style);
 
       pr "  if (r == %s)\n" error_code;
@@ -3864,7 +4011,7 @@ and generate_ocaml_prototype ?(is_external = false) name style =
   pr "%s : t -> " name;
   List.iter (
     function
-    | String _ -> pr "string -> "
+    | String _ | FileIn _ | FileOut _ -> pr "string -> "
     | OptString _ -> pr "string option -> "
     | StringList _ -> pr "string array -> "
     | Bool _ -> pr "bool -> "
@@ -4003,12 +4150,12 @@ DESTROY (g)
       );
       (* Call and arguments. *)
       pr "%s " name;
-      generate_call_args ~handle:"g" style;
+      generate_call_args ~handle:"g" (snd style);
       pr "\n";
       pr "      guestfs_h *g;\n";
       List.iter (
 	function
-	| String n -> pr "      char *%s;\n" n
+	| String n | FileIn n | FileOut n -> pr "      char *%s;\n" n
 	| OptString n -> pr "      char *%s;\n" n
 	| StringList n -> pr "      char **%s;\n" n
 	| Bool n -> pr "      int %s;\n" n
@@ -4018,10 +4165,8 @@ DESTROY (g)
       let do_cleanups () =
 	List.iter (
 	  function
-	  | String _
-	  | OptString _
-	  | Bool _
-	  | Int _ -> ()
+	  | String _ | OptString _ | Bool _ | Int _
+	  | FileIn _ | FileOut _ -> ()
 	  | StringList n -> pr "      free (%s);\n" n
 	) (snd style)
       in
@@ -4033,7 +4178,7 @@ DESTROY (g)
 	   pr "      int r;\n";
 	   pr " PPCODE:\n";
 	   pr "      r = guestfs_%s " name;
-	   generate_call_args ~handle:"g" style;
+	   generate_call_args ~handle:"g" (snd style);
 	   pr ";\n";
 	   do_cleanups ();
 	   pr "      if (r == -1)\n";
@@ -4044,7 +4189,7 @@ DESTROY (g)
 	   pr "      int %s;\n" n;
 	   pr "   CODE:\n";
 	   pr "      %s = guestfs_%s " n name;
-	   generate_call_args ~handle:"g" style;
+	   generate_call_args ~handle:"g" (snd style);
 	   pr ";\n";
 	   do_cleanups ();
 	   pr "      if (%s == -1)\n" n;
@@ -4057,7 +4202,7 @@ DESTROY (g)
 	   pr "      int64_t %s;\n" n;
 	   pr "   CODE:\n";
 	   pr "      %s = guestfs_%s " n name;
-	   generate_call_args ~handle:"g" style;
+	   generate_call_args ~handle:"g" (snd style);
 	   pr ";\n";
 	   do_cleanups ();
 	   pr "      if (%s == -1)\n" n;
@@ -4070,7 +4215,7 @@ DESTROY (g)
 	   pr "      const char *%s;\n" n;
 	   pr "   CODE:\n";
 	   pr "      %s = guestfs_%s " n name;
-	   generate_call_args ~handle:"g" style;
+	   generate_call_args ~handle:"g" (snd style);
 	   pr ";\n";
 	   do_cleanups ();
 	   pr "      if (%s == NULL)\n" n;
@@ -4083,7 +4228,7 @@ DESTROY (g)
 	   pr "      char *%s;\n" n;
 	   pr "   CODE:\n";
 	   pr "      %s = guestfs_%s " n name;
-	   generate_call_args ~handle:"g" style;
+	   generate_call_args ~handle:"g" (snd style);
 	   pr ";\n";
 	   do_cleanups ();
 	   pr "      if (%s == NULL)\n" n;
@@ -4098,7 +4243,7 @@ DESTROY (g)
 	   pr "      int i, n;\n";
 	   pr " PPCODE:\n";
 	   pr "      %s = guestfs_%s " n name;
-	   generate_call_args ~handle:"g" style;
+	   generate_call_args ~handle:"g" (snd style);
 	   pr ";\n";
 	   do_cleanups ();
 	   pr "      if (%s == NULL)\n" n;
@@ -4115,7 +4260,7 @@ DESTROY (g)
 	   pr "      struct guestfs_int_bool *r;\n";
 	   pr " PPCODE:\n";
 	   pr "      r = guestfs_%s " name;
-	   generate_call_args ~handle:"g" style;
+	   generate_call_args ~handle:"g" (snd style);
 	   pr ";\n";
 	   do_cleanups ();
 	   pr "      if (r == NULL)\n";
@@ -4147,7 +4292,7 @@ and generate_perl_lvm_code typ cols name style n do_cleanups =
   pr "      HV *hv;\n";
   pr " PPCODE:\n";
   pr "      %s = guestfs_%s " n name;
-  generate_call_args ~handle:"g" style;
+  generate_call_args ~handle:"g" (snd style);
   pr ";\n";
   do_cleanups ();
   pr "      if (%s == NULL)\n" n;
@@ -4182,7 +4327,7 @@ and generate_perl_stat_code typ cols name style n do_cleanups =
   pr "      struct guestfs_%s *%s;\n" typ n;
   pr " PPCODE:\n";
   pr "      %s = guestfs_%s " n name;
-  generate_call_args ~handle:"g" style;
+  generate_call_args ~handle:"g" (snd style);
   pr ";\n";
   do_cleanups ();
   pr "      if (%s == NULL)\n" n;
@@ -4338,7 +4483,7 @@ and generate_perl_prototype name style =
       if !comma then pr ", ";
       comma := true;
       match arg with
-      | String n | OptString n | Bool n | Int n ->
+      | String n | OptString n | Bool n | Int n | FileIn n | FileOut n ->
 	  pr "$%s" n
       | StringList n ->
 	  pr "\\@%s" n
@@ -4434,7 +4579,6 @@ put_table (char * const * const argv)
 
   list = PyList_New (argc >> 1);
   for (i = 0; i < argc; i += 2) {
-    PyObject *item;
     item = PyTuple_New (2);
     PyTuple_SetItem (item, 0, PyString_FromString (argv[i]));
     PyTuple_SetItem (item, 1, PyString_FromString (argv[i+1]));
@@ -4590,7 +4734,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
 
       List.iter (
 	function
-	| String n -> pr "  const char *%s;\n" n
+	| String n | FileIn n | FileOut n -> pr "  const char *%s;\n" n
 	| OptString n -> pr "  const char *%s;\n" n
 	| StringList n ->
 	    pr "  PyObject *py_%s;\n" n;
@@ -4605,7 +4749,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
       pr "  if (!PyArg_ParseTuple (args, (char *) \"O";
       List.iter (
 	function
-	| String _ -> pr "s"
+	| String _ | FileIn _ | FileOut _ -> pr "s"
 	| OptString _ -> pr "z"
 	| StringList _ -> pr "O"
 	| Bool _ -> pr "i" (* XXX Python has booleans? *)
@@ -4615,7 +4759,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
       pr "                         &py_g";
       List.iter (
 	function
-	| String n -> pr ", &%s" n
+	| String n | FileIn n | FileOut n -> pr ", &%s" n
 	| OptString n -> pr ", &%s" n
 	| StringList n -> pr ", &py_%s" n
 	| Bool n -> pr ", &%s" n
@@ -4628,7 +4772,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
       pr "  g = get_handle (py_g);\n";
       List.iter (
 	function
-	| String _ | OptString _ | Bool _ | Int _ -> ()
+	| String _ | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ -> ()
 	| StringList n ->
 	    pr "  %s = get_string_list (py_%s);\n" n n;
 	    pr "  if (!%s) return NULL;\n" n
@@ -4637,12 +4781,12 @@ py_guestfs_close (PyObject *self, PyObject *args)
       pr "\n";
 
       pr "  r = guestfs_%s " name;
-      generate_call_args ~handle:"g" style;
+      generate_call_args ~handle:"g" (snd style);
       pr ";\n";
 
       List.iter (
 	function
-	| String _ | OptString _ | Bool _ | Int _ -> ()
+	| String _ | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ -> ()
 	| StringList n ->
 	    pr "  free (%s);\n" n
       ) (snd style);
@@ -4826,11 +4970,11 @@ class GuestFS:
       let doc = String.concat "\n        " doc in
 
       pr "    def %s " name;
-      generate_call_args ~handle:"self" style;
+      generate_call_args ~handle:"self" (snd style);
       pr ":\n";
       pr "        u\"\"\"%s\"\"\"\n" doc;
       pr "        return libguestfsmod.%s " name;
-      generate_call_args ~handle:"self._o" style;
+      generate_call_args ~handle:"self._o" (snd style);
       pr "\n";
       pr "\n";
   ) all_functions
@@ -4932,7 +5076,7 @@ static VALUE ruby_guestfs_close (VALUE gv)
 
       List.iter (
 	function
-	| String n ->
+	| String n | FileIn n | FileOut n ->
 	    pr "  const char *%s = StringValueCStr (%sv);\n" n n;
 	    pr "  if (!%s)\n" n;
 	    pr "    rb_raise (rb_eTypeError, \"expected string for parameter %%s of %%s\",\n";
@@ -4972,12 +5116,12 @@ static VALUE ruby_guestfs_close (VALUE gv)
       pr "\n";
 
       pr "  r = guestfs_%s " name;
-      generate_call_args ~handle:"g" style;
+      generate_call_args ~handle:"g" (snd style);
       pr ";\n";
 
       List.iter (
 	function
-	| String _ | OptString _ | Bool _ | Int _ -> ()
+	| String _ | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ -> ()
 	| StringList n ->
 	    pr "  free (%s);\n" n
       ) (snd style);

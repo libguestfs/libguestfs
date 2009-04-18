@@ -541,7 +541,7 @@ enum guestfs_procedure {
   GUESTFS_PROC_BLOCKDEV_GETSIZE64 = 63,
   GUESTFS_PROC_BLOCKDEV_FLUSHBUFS = 64,
   GUESTFS_PROC_BLOCKDEV_REREADPT = 65,
-  GUESTFS_PROC_dummy
+  GUESTFS_PROC_NR_PROCS
 };
 
 const GUESTFS_MESSAGE_MAX = 4194304;
@@ -565,6 +565,19 @@ struct guestfs_message_error {
   string error<GUESTFS_ERROR_LEN>;   /* error message */
 };
 
+/* For normal requests and replies (not involving any FileIn or
+ * FileOut parameters), the protocol is:
+ *
+ * For requests:
+ *   total length (header + args, but not including length word itself)
+ *   header
+ *   guestfs_foo_args struct
+ * For replies:
+ *   total length (as above)
+ *   header
+ *   guestfs_foo_ret struct
+ */
+
 struct guestfs_message_header {
   unsigned prog;                     /* GUESTFS_PROGRAM */
   unsigned vers;                     /* GUESTFS_PROTOCOL_VERSION */
@@ -572,4 +585,29 @@ struct guestfs_message_header {
   guestfs_message_direction direction;
   unsigned serial;                   /* message serial number */
   guestfs_message_status status;
+};
+
+/* Chunked encoding used to transfer files, for FileIn and FileOut
+ * parameters.
+ *
+ * For requests which have >= 1 FileIn parameter:
+ *   length of header + args (but not length word itself, and not chunks)
+ *   header
+ *   guestfs_foo_args struct
+ *   sequence of chunks for FileIn param #0
+ *   sequence of chunks for FileIn param #1 etc
+ *
+ * For replies which have >= 1 FileOut parameter:
+ *   length of header + ret (but not length word itself, and not chunks)
+ *   header
+ *   guestfs_foo_ret struct
+ *   sequence of chunks for FileOut param #0
+ *   sequence of chunks for FileOut param #1 etc
+ */
+const GUESTFS_MAX_CHUNK_SIZE = 8192;
+
+struct guestfs_chunk {
+  int cancel;			     /* if non-zero, transfer is cancelled */
+  /* data size is 0 bytes if the transfer has finished successfully */
+  opaque data<GUESTFS_MAX_CHUNK_SIZE>;
 };

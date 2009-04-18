@@ -330,7 +330,7 @@ Return the contents of the file named C<path>.
 
 Note that this function cannot correctly handle binary files
 (specifically, files containing C<\0> character which is treated
-as end of string).  For those you need to use the C<$h-E<gt>read_file>
+as end of string).  For those you need to use the C<$h-E<gt>download>
 function which has a more complex interface.
 
 Because of the message protocol, there is a transfer limit 

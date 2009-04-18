@@ -36,6 +36,7 @@ guestfsd_SOURCES = \
 	stubs.c \
 	sync.c \
 	tune2fs.c \
+	upload.c \
 	../src/guestfs_protocol.h \
 	../src/guestfs_protocol.c
 

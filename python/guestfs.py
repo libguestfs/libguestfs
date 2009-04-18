@@ -236,7 +236,7 @@ class GuestFS:
         Note that this function cannot correctly handle binary
         files (specifically, files containing "\\0" character
         which is treated as end of string). For those you need
-        to use the "g.read_file" function which has a more
+        to use the "g.download" function which has a more
         complex interface.
         
         Because of the message protocol, there is a transfer

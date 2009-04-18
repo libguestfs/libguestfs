@@ -64,34 +64,70 @@ static char *safe_strdup (guestfs_h *g, const char *str);
 static void *safe_memdup (guestfs_h *g, void *ptr, size_t size);
 
 static void default_error_cb (guestfs_h *g, void *data, const char *msg);
-static void stdout_event (void *data, int watch, int fd, int events);
-static void sock_read_event (void *data, int watch, int fd, int events);
-static void sock_write_event (void *data, int watch, int fd, int events);
+static void stdout_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data, int watch, int fd, int events);
+static void sock_read_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data, int watch, int fd, int events);
+static void sock_write_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data, int watch, int fd, int events);
 
 static void close_handles (void);
 
-static int select_add_handle (guestfs_h *g, int fd, int events, guestfs_handle_event_cb cb, void *data);
-static int select_remove_handle (guestfs_h *g, int watch);
-static int select_add_timeout (guestfs_h *g, int interval, guestfs_handle_timeout_cb cb, void *data);
-static int select_remove_timeout (guestfs_h *g, int timer);
-static void select_main_loop_run (guestfs_h *g);
-static void select_main_loop_quit (guestfs_h *g);
+static int select_add_handle (guestfs_main_loop *ml, guestfs_h *g, int fd, int events, guestfs_handle_event_cb cb, void *data);
+static int select_remove_handle (guestfs_main_loop *ml, guestfs_h *g, int watch);
+static int select_add_timeout (guestfs_main_loop *ml, guestfs_h *g, int interval, guestfs_handle_timeout_cb cb, void *data);
+static int select_remove_timeout (guestfs_main_loop *ml, guestfs_h *g, int timer);
+static int select_main_loop_run (guestfs_main_loop *ml, guestfs_h *g);
+static int select_main_loop_quit (guestfs_main_loop *ml, guestfs_h *g);
 
-#define UNIX_PATH_MAX 108
+/* Default select-based main loop. */
+struct select_handle_cb_data {
+  guestfs_handle_event_cb cb;
+  guestfs_h *g;
+  void *data;
+};
 
-/* Also in guestfsd.c */
-#define VMCHANNEL_PORT 6666
-#define VMCHANNEL_ADDR "10.0.2.4"
+struct select_main_loop {
+  /* NB. These fields must be the same as in struct guestfs_main_loop: */
+  guestfs_add_handle_cb add_handle;
+  guestfs_remove_handle_cb remove_handle;
+  guestfs_add_timeout_cb add_timeout;
+  guestfs_remove_timeout_cb remove_timeout;
+  guestfs_main_loop_run_cb main_loop_run;
+  guestfs_main_loop_quit_cb main_loop_quit;
 
-/* Current main loop. */
-static guestfs_main_loop main_loop = {
+  /* Additional private data: */
+  int is_running;
+
+  fd_set rset;
+  fd_set wset;
+  fd_set xset;
+
+  int max_fd;
+  int nr_fds;
+  struct select_handle_cb_data *handle_cb_data;
+};
+
+/* Default main loop. */
+static struct select_main_loop default_main_loop = {
   .add_handle = select_add_handle,
   .remove_handle = select_remove_handle,
   .add_timeout = select_add_timeout,
   .remove_timeout = select_remove_timeout,
   .main_loop_run = select_main_loop_run,
   .main_loop_quit = select_main_loop_quit,
+
+  /* XXX hopefully .rset, .wset, .xset are initialized to the empty
+   * set by the normal action of everything being initialized to zero.
+   */
+  .is_running = 0,
+  .max_fd = -1,
+  .nr_fds = 0,
+  .handle_cb_data = NULL,
 };
+
+#define UNIX_PATH_MAX 108
+
+/* Also in guestfsd.c */
+#define VMCHANNEL_PORT 6666
+#define VMCHANNEL_ADDR "10.0.2.4"
 
 /* GuestFS handle and connection. */
 enum state { CONFIG, LAUNCHING, READY, BUSY, NO_HANDLE };
@@ -127,6 +163,8 @@ struct guestfs_h
   guestfs_abort_cb           abort_cb;
   guestfs_error_handler_cb   error_cb;
   void *                     error_cb_data;
+  guestfs_send_cb            send_cb;
+  void *                     send_cb_data;
   guestfs_reply_cb           reply_cb;
   void *                     reply_cb_data;
   guestfs_log_message_cb     log_message_cb;
@@ -136,14 +174,20 @@ struct guestfs_h
   guestfs_launch_done_cb     launch_done_cb;
   void *                     launch_done_cb_data;
 
-  /* These callbacks are called before reply_cb and launch_done_cb,
-   * and are used to implement the high-level API without needing to
-   * interfere with callbacks that the user might have set.
+  /* These callbacks are called before send_cb, reply_cb and
+   * launch_done_cb, and are used to implement the high-level
+   * API without needing to interfere with callbacks that the
+   * user might have set.
    */
+  guestfs_send_cb            send_cb_internal;
+  void *                     send_cb_internal_data;
   guestfs_reply_cb           reply_cb_internal;
   void *                     reply_cb_internal_data;
   guestfs_launch_done_cb     launch_done_cb_internal;
   void *                     launch_done_cb_internal_data;
+
+  /* Main loop used by this handle. */
+  guestfs_main_loop *main_loop;
 
   /* Messages sent and received from the daemon. */
   char *msg_in;
@@ -186,6 +230,8 @@ guestfs_create (void)
   str = getenv ("LIBGUESTFS_PATH");
   g->path = str != NULL ? str : GUESTFS_DEFAULT_PATH;
   /* XXX We should probably make QEMU configurable as well. */
+
+  g->main_loop = (guestfs_main_loop *) &default_main_loop;
 
   /* Start with large serial numbers so they are easy to spot
    * inside the protocol.
@@ -780,18 +826,18 @@ guestfs_launch (guestfs_h *g)
   g->msg_out_pos = 0;
 
   g->stdout_watch =
-    main_loop.add_handle (g, g->fd[1],
-			  GUESTFS_HANDLE_READABLE,
-			  stdout_event, g);
+    g->main_loop->add_handle (g->main_loop, g, g->fd[1],
+			      GUESTFS_HANDLE_READABLE,
+			      stdout_event, NULL);
   if (g->stdout_watch == -1) {
     error (g, "could not watch qemu stdout");
     goto cleanup3;
   }
 
   g->sock_watch =
-    main_loop.add_handle (g, g->sock,
-			  GUESTFS_HANDLE_READABLE,
-			  sock_read_event, g);
+    g->main_loop->add_handle (g->main_loop, g, g->sock,
+			      GUESTFS_HANDLE_READABLE,
+			      sock_read_event, NULL);
   if (g->sock_watch == -1) {
     error (g, "could not watch daemon communications socket");
     goto cleanup3;
@@ -802,9 +848,9 @@ guestfs_launch (guestfs_h *g)
 
  cleanup3:
   if (g->stdout_watch >= 0)
-    main_loop.remove_handle (g, g->stdout_watch);
+    g->main_loop->remove_handle (g->main_loop, g, g->stdout_watch);
   if (g->sock_watch >= 0)
-    main_loop.remove_handle (g, g->sock_watch);
+    g->main_loop->remove_handle (g->main_loop, g, g->sock_watch);
 
  cleanup2:
   close (g->sock);
@@ -831,14 +877,17 @@ guestfs_launch (guestfs_h *g)
 static void
 finish_wait_ready (guestfs_h *g, void *vp)
 {
+  if (g->verbose)
+    fprintf (stderr, "finish_wait_ready called, %p, vp = %p\n", g, vp);
+
   *((int *)vp) = 1;
-  main_loop.main_loop_quit (g);
+  g->main_loop->main_loop_quit (g->main_loop, g);
 }
 
 int
 guestfs_wait_ready (guestfs_h *g)
 {
-  int r = 0;
+  int finished = 0, r;
 
   if (g->state == READY) return 0;
 
@@ -853,12 +902,14 @@ guestfs_wait_ready (guestfs_h *g)
   }
 
   g->launch_done_cb_internal = finish_wait_ready;
-  g->launch_done_cb_internal_data = &r;
-  main_loop.main_loop_run (g);
+  g->launch_done_cb_internal_data = &finished;
+  r = g->main_loop->main_loop_run (g->main_loop, g);
   g->launch_done_cb_internal = NULL;
   g->launch_done_cb_internal_data = NULL;
 
-  if (r != 1) {
+  if (r == -1) return -1;
+
+  if (finished != 1) {
     error (g, "guestfs_wait_ready failed, see earlier error messages");
     return -1;
   }
@@ -897,9 +948,9 @@ guestfs_kill_subprocess (guestfs_h *g)
  * we see kernel messages here too.
  */
 static void
-stdout_event (void *data, int watch, int fd, int events)
+stdout_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
+	      int watch, int fd, int events)
 {
-  guestfs_h *g = (guestfs_h *) data;
   char buf[4096];
   int n;
 
@@ -923,9 +974,9 @@ stdout_event (void *data, int watch, int fd, int events)
     /*kill (g->pid, SIGTERM);*/
     waitpid (g->pid, NULL, 0);
     if (g->stdout_watch >= 0)
-      main_loop.remove_handle (g, g->stdout_watch);
+      g->main_loop->remove_handle (g->main_loop, g, g->stdout_watch);
     if (g->sock_watch >= 0)
-      main_loop.remove_handle (g, g->sock_watch);
+      g->main_loop->remove_handle (g->main_loop, g, g->sock_watch);
     close (g->fd[0]);
     close (g->fd[1]);
     close (g->sock);
@@ -961,9 +1012,9 @@ stdout_event (void *data, int watch, int fd, int events)
  * guestfsd (daemon inside the guest) communication socket.
  */
 static void
-sock_read_event (void *data, int watch, int fd, int events)
+sock_read_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
+		 int watch, int fd, int events)
 {
-  guestfs_h *g = (guestfs_h *) data;
   XDR xdr;
   unsigned len;
   int n;
@@ -1098,9 +1149,9 @@ sock_read_event (void *data, int watch, int fd, int events)
  * guestfsd (daemon inside the guest) communication socket.
  */
 static void
-sock_write_event (void *data, int watch, int fd, int events)
+sock_write_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
+		  int watch, int fd, int events)
 {
-  guestfs_h *g = (guestfs_h *) data;
   int n;
 
   if (g->verbose)
@@ -1145,14 +1196,14 @@ sock_write_event (void *data, int watch, int fd, int events)
   free (g->msg_out);
   g->msg_out_pos = g->msg_out_size = 0;
 
-  if (main_loop.remove_handle (g, g->sock_watch) == -1) {
+  if (g->main_loop->remove_handle (g->main_loop, g, g->sock_watch) == -1) {
     error (g, "remove_handle failed in sock_write_event");
     return;
   }
   g->sock_watch =
-    main_loop.add_handle (g, g->sock,
-			  GUESTFS_HANDLE_READABLE,
-			  sock_read_event, g);
+    g->main_loop->add_handle (g->main_loop, g, g->sock,
+			      GUESTFS_HANDLE_READABLE,
+			      sock_read_event, NULL);
   if (g->sock_watch == -1) {
     error (g, "add_handle failed in sock_write_event");
     return;
@@ -1220,14 +1271,14 @@ dispatch (guestfs_h *g, int proc_nr, xdrproc_t xdrp, char *args)
   memcpy (g->msg_out + 4, buffer, len);
 
   /* Change the handle to sock_write_event. */
-  if (main_loop.remove_handle (g, g->sock_watch) == -1) {
+  if (g->main_loop->remove_handle (g->main_loop, g, g->sock_watch) == -1) {
     error (g, "remove_handle failed in dispatch");
     goto cleanup1;
   }
   g->sock_watch =
-    main_loop.add_handle (g, g->sock,
-			  GUESTFS_HANDLE_WRITABLE,
-			  sock_write_event, g);
+    g->main_loop->add_handle (g->main_loop, g, g->sock,
+			      GUESTFS_HANDLE_WRITABLE,
+			      sock_write_event, NULL);
   if (g->sock_watch == -1) {
     error (g, "add_handle failed in dispatch");
     goto cleanup1;
@@ -1242,6 +1293,139 @@ dispatch (guestfs_h *g, int proc_nr, xdrproc_t xdrp, char *args)
   g->state = READY;
   return -1;
 }
+
+#if 0
+static int cancel = 0; /* XXX Implement file cancellation. */
+
+static int
+send_file (guestfs_h *g, const char *filename)
+{
+  char buf[GUESTFS_MAX_CHUNK_SIZE];
+  int fd, r;
+
+  fd = open (filename, O_RDONLY);
+  if (fd == -1) {
+    perrorf (g, "open: %s", filename);
+    send_file_cancellation (g);
+    /* Daemon sees cancellation and won't reply, so caller can
+     * just return here.
+     */
+    return -1;
+  }
+
+  /* Send file in chunked encoding. */
+  while (!cancel && (r = read (fd, buf, sizeof buf)) > 0) {
+    if (send_file_data (g, buf, r) == -1)
+      return -1;
+  }
+
+  if (cancel) {
+    send_file_cancellation (g);
+    return -1;
+  }
+
+  if (r == -1) {
+    perrorf (g, "read: %s", filename);
+    send_file_cancellation (g);
+    return -1;
+  }
+
+  /* End of file, but before we send that, we need to close
+   * the file and check for errors.
+   */
+  if (close (fd) == -1) {
+    perrorf (g, "close: %s", filename);
+    send_file_cancellation (g);
+    return -1;
+  }
+
+  return send_file_complete (g);
+}
+
+/* Send a chunk, cancellation or end of file, wait for it to go. */
+static int
+send_file_chunk (guestfs_h *g, int cancel, const char *buf, size_t len)
+{
+  void *data;
+  guestfs_chunk chunk;
+  XDR xdr;
+
+  if (g->state != BUSY) {
+    error (g, "send_file_chunk: state %d != READY", g->state);
+    return -1;
+  }
+
+  /* Serialize the chunk. */
+  chunk.cancel = cancel;
+  chunk.data.data_len = len;
+  chunk.data.data_val = (char *) buf;
+
+  data = safe_malloc (g, GUESTFS_MAX_CHUNK_SIZE + 48);
+  xdrmem_create (&xdr, data, GUESTFS_MAX_CHUNK_SIZE + 48, XDR_ENCODE);
+  if (xdr_guestfs_chunk (&xdr, &chunk)) {
+    error (g, "xdr_guestfs_chunk failed");
+    free (data);
+    return -1;
+  }
+
+  chunkdatalen = xdr_getpos (&xdr);
+  xdr_destroy (&xdr);
+
+  len = xdr_getpos (&xdr);
+  xdr_destroy (&xdr);
+
+  data = safe_realloc (g, data, len);
+  g->msg_out = data;
+  g->msg_out_size = len;
+  g->msg_out_pos = 0;
+
+  /* Change the handle to sock_write_event. */
+  if (g->main_loop->remove_handle (g->main_loop, g, g->sock_watch) == -1) {
+    error (g, "remove_handle failed in dispatch");
+    goto cleanup1;
+  }
+  g->sock_watch =
+    g->main_loop->add_handle (g->main_loop, g, g->sock,
+			      GUESTFS_HANDLE_WRITABLE,
+			      sock_write_event, NULL);
+  if (g->sock_watch == -1) {
+    error (g, "add_handle failed in dispatch");
+    goto cleanup1;
+  }
+
+  return 0;
+
+ cleanup1:
+  free (g->msg_out);
+  g->msg_out = NULL;
+  g->msg_out_size = 0;
+  g->state = READY;
+  return -1;
+}
+
+/* Send a chunk of file data. */
+static int
+send_file_data (guestfs_h *g, const char *buf, size_t len)
+{
+  return send_file_chunk (g, 0, buf, len);
+}
+
+/* Send a cancellation message. */
+static int
+send_file_cancellation (guestfs_h *g)
+{
+  char buf[1];
+  return send_file_chunk (g, 1, buf, 0);
+}
+
+/* Send a file complete chunk. */
+static int
+send_file_complete (guestfs_h *g)
+{
+  char buf[0];
+  return send_file_chunk (g, 0, buf, 0);
+}
+#endif
 
 /* Check the return message from a call for validity. */
 static int
@@ -1313,36 +1497,11 @@ guestfs_free_lvm_lv_list (struct guestfs_lvm_lv_list *x)
 
 /* This is the default main loop implementation, using select(2). */
 
-struct handle_cb_data {
-  guestfs_handle_event_cb cb;
-  void *data;
-};
-
-static fd_set rset;
-static fd_set wset;
-static fd_set xset;
-static int select_init_done = 0;
-static int max_fd = -1;
-static int nr_fds = 0;
-static struct handle_cb_data *handle_cb_data = NULL;
-
-static void
-select_init (void)
-{
-  if (!select_init_done) {
-    FD_ZERO (&rset);
-    FD_ZERO (&wset);
-    FD_ZERO (&xset);
-
-    select_init_done = 1;
-  }
-}
-
 static int
-select_add_handle (guestfs_h *g, int fd, int events,
+select_add_handle (guestfs_main_loop *mlv, guestfs_h *g, int fd, int events,
 		   guestfs_handle_event_cb cb, void *data)
 {
-  select_init ();
+  struct select_main_loop *ml = (struct select_main_loop *) mlv;
 
   if (fd < 0 || fd >= FD_SETSIZE) {
     error (g, "fd %d is out of range", fd);
@@ -1362,7 +1521,9 @@ select_add_handle (guestfs_h *g, int fd, int events,
     return -1;
   }
 
-  if (FD_ISSET (fd, &rset) || FD_ISSET (fd, &wset) || FD_ISSET (fd, &xset)) {
+  if (FD_ISSET (fd, &ml->rset) ||
+      FD_ISSET (fd, &ml->wset) ||
+      FD_ISSET (fd, &ml->xset)) {
     error (g, "fd %d is already registered", fd);
     return -1;
   }
@@ -1373,102 +1534,111 @@ select_add_handle (guestfs_h *g, int fd, int events,
   }
 
   if ((events & GUESTFS_HANDLE_READABLE))
-    FD_SET (fd, &rset);
+    FD_SET (fd, &ml->rset);
   if ((events & GUESTFS_HANDLE_WRITABLE))
-    FD_SET (fd, &wset);
+    FD_SET (fd, &ml->wset);
   if ((events & GUESTFS_HANDLE_HANGUP) || (events & GUESTFS_HANDLE_ERROR))
-    FD_SET (fd, &xset);
+    FD_SET (fd, &ml->xset);
 
-  if (fd > max_fd) {
-    max_fd = fd;
-    handle_cb_data = safe_realloc (g, handle_cb_data,
-				   sizeof (struct handle_cb_data) * (max_fd+1));
+  if (fd > ml->max_fd) {
+    ml->max_fd = fd;
+    ml->handle_cb_data =
+      safe_realloc (g, ml->handle_cb_data,
+		    sizeof (struct select_handle_cb_data) * (ml->max_fd+1));
   }
-  handle_cb_data[fd].cb = cb;
-  handle_cb_data[fd].data = data;
+  ml->handle_cb_data[fd].cb = cb;
+  ml->handle_cb_data[fd].g = g;
+  ml->handle_cb_data[fd].data = data;
 
-  nr_fds++;
+  ml->nr_fds++;
 
   /* Any integer >= 0 can be the handle, and this is as good as any ... */
   return fd;
 }
 
 static int
-select_remove_handle (guestfs_h *g, int fd)
+select_remove_handle (guestfs_main_loop *mlv, guestfs_h *g, int fd)
 {
-  select_init ();
+  struct select_main_loop *ml = (struct select_main_loop *) mlv;
 
   if (fd < 0 || fd >= FD_SETSIZE) {
     error (g, "fd %d is out of range", fd);
     return -1;
   }
 
-  if (!FD_ISSET (fd, &rset) && !FD_ISSET (fd, &wset) && !FD_ISSET (fd, &xset)) {
+  if (!FD_ISSET (fd, &ml->rset) &&
+      !FD_ISSET (fd, &ml->wset) &&
+      !FD_ISSET (fd, &ml->xset)) {
     error (g, "fd %d was not registered", fd);
     return -1;
   }
 
-  FD_CLR (fd, &rset);
-  FD_CLR (fd, &wset);
-  FD_CLR (fd, &xset);
+  FD_CLR (fd, &ml->rset);
+  FD_CLR (fd, &ml->wset);
+  FD_CLR (fd, &ml->xset);
 
-  if (fd == max_fd) {
-    max_fd--;
-    handle_cb_data = safe_realloc (g, handle_cb_data,
-				   sizeof (struct handle_cb_data) * (max_fd+1));
+  if (fd == ml->max_fd) {
+    ml->max_fd--;
+    ml->handle_cb_data =
+      safe_realloc (g, ml->handle_cb_data,
+		    sizeof (struct select_handle_cb_data) * (ml->max_fd+1));
   }
 
-  nr_fds--;
+  ml->nr_fds--;
 
   return 0;
 }
 
 static int
-select_add_timeout (guestfs_h *g, int interval,
+select_add_timeout (guestfs_main_loop *mlv, guestfs_h *g, int interval,
 		    guestfs_handle_timeout_cb cb, void *data)
 {
-  select_init ();
+  //struct select_main_loop *ml = (struct select_main_loop *) mlv;
 
   abort ();			/* XXX not implemented yet */
 }
 
 static int
-select_remove_timeout (guestfs_h *g, int timer)
+select_remove_timeout (guestfs_main_loop *mlv, guestfs_h *g, int timer)
 {
-  select_init ();
+  //struct select_main_loop *ml = (struct select_main_loop *) mlv;
 
   abort ();			/* XXX not implemented yet */
 }
 
-/* Note that main loops can be nested. */
-static int level = 0;
-
-static void
-select_main_loop_run (guestfs_h *g)
+/* The 'g' parameter is just used for error reporting.  Events
+ * for multiple handles can be dispatched by running the main
+ * loop.
+ */
+static int
+select_main_loop_run (guestfs_main_loop *mlv, guestfs_h *g)
 {
-  int old_level, fd, r, events;
+  struct select_main_loop *ml = (struct select_main_loop *) mlv;
+  int fd, r, events;
   fd_set rset2, wset2, xset2;
 
-  select_init ();
+  if (ml->is_running) {
+    error (g, "select_main_loop_run: this cannot be called recursively");
+    return -1;
+  }
 
-  old_level = level++;
-  while (level > old_level) {
-    if (nr_fds == 0) {
-      level = old_level;
+  ml->is_running = 1;
+
+  while (ml->is_running) {
+    if (ml->nr_fds == 0)
       break;
-    }
 
-    rset2 = rset;
-    wset2 = wset;
-    xset2 = xset;
-    r = select (max_fd+1, &rset2, &wset2, &xset2, NULL);
+    rset2 = ml->rset;
+    wset2 = ml->wset;
+    xset2 = ml->xset;
+    r = select (ml->max_fd+1, &rset2, &wset2, &xset2, NULL);
     if (r == -1) {
       perrorf (g, "select");
-      level = old_level;
-      break;
+      ml->is_running = 0;
+      return -1;
     }
 
-    for (fd = 0; r > 0 && fd <= max_fd; ++fd) {
+    for (fd = 0; r > 0 && fd <= ml->max_fd; ++fd) {
       events = 0;
       if (FD_ISSET (fd, &rset2))
 	events |= GUESTFS_HANDLE_READABLE;
@@ -1478,22 +1648,28 @@ select_main_loop_run (guestfs_h *g)
 	events |= GUESTFS_HANDLE_ERROR | GUESTFS_HANDLE_HANGUP;
       if (events) {
 	r--;
-	handle_cb_data[fd].cb (handle_cb_data[fd].data,
-			       fd, fd, events);
+	ml->handle_cb_data[fd].cb ((guestfs_main_loop *) ml,
+				   ml->handle_cb_data[fd].g,
+				   ml->handle_cb_data[fd].data,
+				   fd, fd, events);
       }
     }
   }
+
+  ml->is_running = 0;
+  return 0;
 }
 
-static void
-select_main_loop_quit (guestfs_h *g)
+static int
+select_main_loop_quit (guestfs_main_loop *mlv, guestfs_h *g)
 {
-  select_init ();
+  struct select_main_loop *ml = (struct select_main_loop *) mlv;
 
-  if (level == 0) {
-    error (g, "cannot quit, we are not in a main loop");
-    return;
+  if (!ml->is_running) {
+    error (g, "cannot quit, we are not running in a main loop");
+    return -1;
   }
 
-  level--;
+  ml->is_running = 0;
+  return 0;
 }

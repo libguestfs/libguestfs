@@ -1245,3 +1245,15 @@ xdr_guestfs_message_header (XDR *xdrs, guestfs_message_header *objp)
 		 return FALSE;
 	return TRUE;
 }
+
+bool_t
+xdr_guestfs_chunk (XDR *xdrs, guestfs_chunk *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_int (xdrs, &objp->cancel))
+		 return FALSE;
+	 if (!xdr_bytes (xdrs, (char **)&objp->data.data_val, (u_int *) &objp->data.data_len, GUESTFS_MAX_CHUNK_SIZE))
+		 return FALSE;
+	return TRUE;
+}

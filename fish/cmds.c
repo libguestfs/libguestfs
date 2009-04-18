@@ -155,7 +155,7 @@ void display_command (const char *cmd)
     pod2text ("touch - update file timestamps or create a new file", " touch <path>\n\nTouch acts like the L<touch(1)> command.  It can be used to\nupdate the timestamps on a file, or, if the file does not exist,\nto create a new zero-length file.");
   else
   if (strcasecmp (cmd, "cat") == 0)
-    pod2text ("cat - list the contents of a file", " cat <path>\n\nReturn the contents of the file named C<path>.\n\nNote that this function cannot correctly handle binary files\n(specifically, files containing C<\\0> character which is treated\nas end of string).  For those you need to use the C<read_file>\nfunction which has a more complex interface.\n\nBecause of the message protocol, there is a transfer limit \nof somewhere between 2MB and 4MB.  To transfer large files you should use\nFTP.");
+    pod2text ("cat - list the contents of a file", " cat <path>\n\nReturn the contents of the file named C<path>.\n\nNote that this function cannot correctly handle binary files\n(specifically, files containing C<\\0> character which is treated\nas end of string).  For those you need to use the C<download>\nfunction which has a more complex interface.\n\nBecause of the message protocol, there is a transfer limit \nof somewhere between 2MB and 4MB.  To transfer large files you should use\nFTP.");
   else
   if (strcasecmp (cmd, "ll") == 0)
     pod2text ("ll - list the files in a directory (long format)", " ll <directory>\n\nList the files in C<directory> (relative to the root directory,\nthere is no cwd) in the format of 'ls -la'.\n\nThis command is mostly useful for interactive sessions.  It\nis I<not> intended that you try to parse the output string.");

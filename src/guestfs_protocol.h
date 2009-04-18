@@ -682,7 +682,7 @@ enum guestfs_procedure {
 	GUESTFS_PROC_BLOCKDEV_GETSIZE64 = 63,
 	GUESTFS_PROC_BLOCKDEV_FLUSHBUFS = 64,
 	GUESTFS_PROC_BLOCKDEV_REREADPT = 65,
-	GUESTFS_PROC_dummy = 65 + 1,
+	GUESTFS_PROC_NR_PROCS = 65 + 1,
 };
 typedef enum guestfs_procedure guestfs_procedure;
 #define GUESTFS_MESSAGE_MAX 4194304
@@ -716,6 +716,16 @@ struct guestfs_message_header {
 	guestfs_message_status status;
 };
 typedef struct guestfs_message_header guestfs_message_header;
+#define GUESTFS_MAX_CHUNK_SIZE 8192
+
+struct guestfs_chunk {
+	int cancel;
+	struct {
+		u_int data_len;
+		char *data_val;
+	} data;
+};
+typedef struct guestfs_chunk guestfs_chunk;
 
 /* the xdr functions */
 
@@ -818,6 +828,7 @@ extern  bool_t xdr_guestfs_message_direction (XDR *, guestfs_message_direction*)
 extern  bool_t xdr_guestfs_message_status (XDR *, guestfs_message_status*);
 extern  bool_t xdr_guestfs_message_error (XDR *, guestfs_message_error*);
 extern  bool_t xdr_guestfs_message_header (XDR *, guestfs_message_header*);
+extern  bool_t xdr_guestfs_chunk (XDR *, guestfs_chunk*);
 
 #else /* K&R C */
 extern bool_t xdr_str ();
@@ -918,6 +929,7 @@ extern bool_t xdr_guestfs_message_direction ();
 extern bool_t xdr_guestfs_message_status ();
 extern bool_t xdr_guestfs_message_error ();
 extern bool_t xdr_guestfs_message_header ();
+extern bool_t xdr_guestfs_chunk ();
 
 #endif /* K&R C */
 

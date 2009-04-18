@@ -30,7 +30,7 @@
 
 #include "../src/guestfs_protocol.h"
 
-/* in guestfsd.c */
+/*-- in guestfsd.c --*/
 extern int xwrite (int sock, const void *buf, size_t len);
 extern int xread (int sock, void *buf, size_t len);
 
@@ -44,25 +44,37 @@ extern int command (char **stdoutput, char **stderror, const char *name, ...);
 extern int commandv (char **stdoutput, char **stderror,
 		     char * const* const argv);
 
-/* in proto.c */
+/*-- in proto.c --*/
 extern int proc_nr;
 extern int serial;
 
-/* in mount.c */
+/*-- in mount.c --*/
 extern int root_mounted;
 
-/* in stubs.c (auto-generated) */
+/*-- in stubs.c (auto-generated) --*/
 extern void dispatch_incoming_message (XDR *);
 extern guestfs_lvm_int_pv_list *parse_command_line_pvs (void);
 extern guestfs_lvm_int_vg_list *parse_command_line_vgs (void);
 extern guestfs_lvm_int_lv_list *parse_command_line_lvs (void);
 
-/* in proto.c */
+/*-- in proto.c --*/
 extern void main_loop (int sock);
+
+/* ordinary daemon functions use these to indicate errors */
 extern void reply_with_error (const char *fs, ...);
 extern void reply_with_perror (const char *fs, ...);
+
+/* daemon functions that return files (FileOut) should call
+ * reply, then send_file for each FileOut parameter.
+ */
+#if 0
+extern void send_file ();
+#endif
+
+/* only call this if there is a FileOut parameter */
 extern void reply (xdrproc_t xdrp, char *ret);
 
+/* Helper for functions that need a root filesystem mounted. */
 #define NEED_ROOT(errcode)						\
   do {									\
     if (!root_mounted) {						\
@@ -72,6 +84,7 @@ extern void reply (xdrproc_t xdrp, char *ret);
   }									\
   while (0)
 
+/* Helper for functions that need an argument ("path") that is absolute. */
 #define ABS_PATH(path,errcode)						\
   do {									\
     if ((path)[0] != '/') {						\
@@ -80,6 +93,7 @@ extern void reply (xdrproc_t xdrp, char *ret);
     }									\
   } while (0)
 
+/* Helper for functions that need an argument ("path") that is a device. */
 #define IS_DEVICE(path,errcode)						\
   do {									\
     struct stat statbuf;						\
@@ -104,6 +118,7 @@ extern void reply (xdrproc_t xdrp, char *ret);
 #define CHROOT_OUT \
   do { int old_errno = errno; chroot ("."); errno = old_errno; } while (0)
 
+/* Marks functions which are not implemented. */
 #define XXX_NOT_IMPL(errcode)						\
   do {									\
     reply_with_error ("%s: function not implemented", __func__);	\

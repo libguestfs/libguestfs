@@ -53,11 +53,13 @@ extern void guestfs_free_lvm_vg_list (struct guestfs_lvm_vg_list *);
 extern void guestfs_free_lvm_lv_list (struct guestfs_lvm_lv_list *);
 
 /* Low-level event API. */
+typedef void (*guestfs_send_cb) (guestfs_h *g, void *data);
 typedef void (*guestfs_reply_cb) (guestfs_h *g, void *data, XDR *xdr);
 typedef void (*guestfs_log_message_cb) (guestfs_h *g, void *data, char *buf, int len);
 typedef void (*guestfs_subprocess_quit_cb) (guestfs_h *g, void *data);
 typedef void (*guestfs_launch_done_cb) (guestfs_h *g, void *data);
 
+extern void guestfs_set_send_callback (guestfs_h *g, guestfs_send_cb cb, void *opaque);
 extern void guestfs_set_reply_callback (guestfs_h *g, guestfs_reply_cb cb, void *opaque);
 extern void guestfs_set_log_message_callback (guestfs_h *g, guestfs_log_message_cb cb, void *opaque);
 extern void guestfs_set_subprocess_quit_callback (guestfs_h *g, guestfs_subprocess_quit_cb cb, void *opaque);
@@ -69,15 +71,20 @@ extern void guestfs_set_launch_done_callback (guestfs_h *g, guestfs_launch_done_
 #define GUESTFS_HANDLE_HANGUP   0x4
 #define GUESTFS_HANDLE_ERROR    0x8
 
-typedef void (*guestfs_handle_event_cb) (void *data, int watch, int fd, int events);
-typedef int (*guestfs_add_handle_cb) (guestfs_h *g, int fd, int events, guestfs_handle_event_cb cb, void *data);
-typedef int (*guestfs_remove_handle_cb) (guestfs_h *g, int watch);
-typedef void (*guestfs_handle_timeout_cb) (void *data, int timer);
-typedef int (*guestfs_add_timeout_cb) (guestfs_h *g, int interval, guestfs_handle_timeout_cb cb, void *data);
-typedef int (*guestfs_remove_timeout_cb) (guestfs_h *g, int timer);
-typedef void (*guestfs_main_loop_run_cb) (guestfs_h *g);
-typedef void (*guestfs_main_loop_quit_cb) (guestfs_h *g);
+struct guestfs_main_loop;
 
+typedef void (*guestfs_handle_event_cb) (struct guestfs_main_loop *ml, guestfs_h *g, void *data, int watch, int fd, int events);
+typedef int (*guestfs_add_handle_cb) (struct guestfs_main_loop *ml, guestfs_h *g, int fd, int events, guestfs_handle_event_cb cb, void *data);
+typedef int (*guestfs_remove_handle_cb) (struct guestfs_main_loop *ml, guestfs_h *g, int watch);
+typedef void (*guestfs_handle_timeout_cb) (struct guestfs_main_loop *ml, guestfs_h *g, void *data, int timer);
+typedef int (*guestfs_add_timeout_cb) (struct guestfs_main_loop *ml, guestfs_h *g, int interval, guestfs_handle_timeout_cb cb, void *data);
+typedef int (*guestfs_remove_timeout_cb) (struct guestfs_main_loop *ml, guestfs_h *g, int timer);
+typedef int (*guestfs_main_loop_run_cb) (struct guestfs_main_loop *ml, guestfs_h *g);
+typedef int (*guestfs_main_loop_quit_cb) (struct guestfs_main_loop *ml, guestfs_h *g);
+
+/* This is the head of the main loop structure.  Concrete implementations
+ * use additional private data after this struct.
+ */
 struct guestfs_main_loop {
   guestfs_add_handle_cb add_handle;
   guestfs_remove_handle_cb remove_handle;
@@ -88,8 +95,11 @@ struct guestfs_main_loop {
 };
 typedef struct guestfs_main_loop guestfs_main_loop;
 
-extern void guestfs_set_main_loop (guestfs_main_loop *);
-extern void guestfs_main_loop_run (void);
-extern void guestfs_main_loop_quit (void);
+extern void guestfs_set_main_loop (guestfs_h *handle, guestfs_main_loop *main_loop);
+extern guestfs_main_loop *guestfs_get_main_loop (guestfs_h *handle);
+extern guestfs_main_loop *guestfs_get_default_main_loop (void);
+
+extern guestfs_main_loop *guestfs_create_main_loop (void);
+extern void guestfs_free_main_loop (guestfs_main_loop *);
 
 #endif /* GUESTFS_H_ */
