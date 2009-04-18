@@ -125,7 +125,7 @@ int guestfs_mount (guestfs_h *g,
 
   args.device = (char *) device;
   args.mountpoint = (char *) mountpoint;
-  serial = guestfs_send (g, GUESTFS_PROC_MOUNT,
+  serial = guestfs__send (g, GUESTFS_PROC_MOUNT,
                      (xdrproc_t) xdr_guestfs_mount_args, (char *) &args);
   if (serial == -1)
     return -1;
@@ -187,7 +187,7 @@ int guestfs_sync (guestfs_h *g)
 
   memset (&state, 0, sizeof state);
 
-  serial = guestfs_send (g, GUESTFS_PROC_SYNC, NULL, NULL);
+  serial = guestfs__send (g, GUESTFS_PROC_SYNC, NULL, NULL);
   if (serial == -1)
     return -1;
 
@@ -251,7 +251,7 @@ int guestfs_touch (guestfs_h *g,
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
-  serial = guestfs_send (g, GUESTFS_PROC_TOUCH,
+  serial = guestfs__send (g, GUESTFS_PROC_TOUCH,
                      (xdrproc_t) xdr_guestfs_touch_args, (char *) &args);
   if (serial == -1)
     return -1;
@@ -321,7 +321,7 @@ char *guestfs_cat (guestfs_h *g,
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
-  serial = guestfs_send (g, GUESTFS_PROC_CAT,
+  serial = guestfs__send (g, GUESTFS_PROC_CAT,
                      (xdrproc_t) xdr_guestfs_cat_args, (char *) &args);
   if (serial == -1)
     return NULL;
@@ -391,7 +391,7 @@ char *guestfs_ll (guestfs_h *g,
   memset (&state, 0, sizeof state);
 
   args.directory = (char *) directory;
-  serial = guestfs_send (g, GUESTFS_PROC_LL,
+  serial = guestfs__send (g, GUESTFS_PROC_LL,
                      (xdrproc_t) xdr_guestfs_ll_args, (char *) &args);
   if (serial == -1)
     return NULL;
@@ -461,7 +461,7 @@ char **guestfs_ls (guestfs_h *g,
   memset (&state, 0, sizeof state);
 
   args.directory = (char *) directory;
-  serial = guestfs_send (g, GUESTFS_PROC_LS,
+  serial = guestfs__send (g, GUESTFS_PROC_LS,
                      (xdrproc_t) xdr_guestfs_ls_args, (char *) &args);
   if (serial == -1)
     return NULL;
@@ -533,7 +533,7 @@ char **guestfs_list_devices (guestfs_h *g)
 
   memset (&state, 0, sizeof state);
 
-  serial = guestfs_send (g, GUESTFS_PROC_LIST_DEVICES, NULL, NULL);
+  serial = guestfs__send (g, GUESTFS_PROC_LIST_DEVICES, NULL, NULL);
   if (serial == -1)
     return NULL;
 
@@ -604,7 +604,7 @@ char **guestfs_list_partitions (guestfs_h *g)
 
   memset (&state, 0, sizeof state);
 
-  serial = guestfs_send (g, GUESTFS_PROC_LIST_PARTITIONS, NULL, NULL);
+  serial = guestfs__send (g, GUESTFS_PROC_LIST_PARTITIONS, NULL, NULL);
   if (serial == -1)
     return NULL;
 
@@ -675,7 +675,7 @@ char **guestfs_pvs (guestfs_h *g)
 
   memset (&state, 0, sizeof state);
 
-  serial = guestfs_send (g, GUESTFS_PROC_PVS, NULL, NULL);
+  serial = guestfs__send (g, GUESTFS_PROC_PVS, NULL, NULL);
   if (serial == -1)
     return NULL;
 
@@ -746,7 +746,7 @@ char **guestfs_vgs (guestfs_h *g)
 
   memset (&state, 0, sizeof state);
 
-  serial = guestfs_send (g, GUESTFS_PROC_VGS, NULL, NULL);
+  serial = guestfs__send (g, GUESTFS_PROC_VGS, NULL, NULL);
   if (serial == -1)
     return NULL;
 
@@ -817,7 +817,7 @@ char **guestfs_lvs (guestfs_h *g)
 
   memset (&state, 0, sizeof state);
 
-  serial = guestfs_send (g, GUESTFS_PROC_LVS, NULL, NULL);
+  serial = guestfs__send (g, GUESTFS_PROC_LVS, NULL, NULL);
   if (serial == -1)
     return NULL;
 
@@ -888,7 +888,7 @@ struct guestfs_lvm_pv_list *guestfs_pvs_full (guestfs_h *g)
 
   memset (&state, 0, sizeof state);
 
-  serial = guestfs_send (g, GUESTFS_PROC_PVS_FULL, NULL, NULL);
+  serial = guestfs__send (g, GUESTFS_PROC_PVS_FULL, NULL, NULL);
   if (serial == -1)
     return NULL;
 
@@ -955,7 +955,7 @@ struct guestfs_lvm_vg_list *guestfs_vgs_full (guestfs_h *g)
 
   memset (&state, 0, sizeof state);
 
-  serial = guestfs_send (g, GUESTFS_PROC_VGS_FULL, NULL, NULL);
+  serial = guestfs__send (g, GUESTFS_PROC_VGS_FULL, NULL, NULL);
   if (serial == -1)
     return NULL;
 
@@ -1022,7 +1022,7 @@ struct guestfs_lvm_lv_list *guestfs_lvs_full (guestfs_h *g)
 
   memset (&state, 0, sizeof state);
 
-  serial = guestfs_send (g, GUESTFS_PROC_LVS_FULL, NULL, NULL);
+  serial = guestfs__send (g, GUESTFS_PROC_LVS_FULL, NULL, NULL);
   if (serial == -1)
     return NULL;
 
@@ -1092,7 +1092,7 @@ char **guestfs_read_lines (guestfs_h *g,
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
-  serial = guestfs_send (g, GUESTFS_PROC_READ_LINES,
+  serial = guestfs__send (g, GUESTFS_PROC_READ_LINES,
                      (xdrproc_t) xdr_guestfs_read_lines_args, (char *) &args);
   if (serial == -1)
     return NULL;
@@ -1164,7 +1164,7 @@ int guestfs_aug_init (guestfs_h *g,
 
   args.root = (char *) root;
   args.flags = flags;
-  serial = guestfs_send (g, GUESTFS_PROC_AUG_INIT,
+  serial = guestfs__send (g, GUESTFS_PROC_AUG_INIT,
                      (xdrproc_t) xdr_guestfs_aug_init_args, (char *) &args);
   if (serial == -1)
     return -1;
@@ -1226,7 +1226,7 @@ int guestfs_aug_close (guestfs_h *g)
 
   memset (&state, 0, sizeof state);
 
-  serial = guestfs_send (g, GUESTFS_PROC_AUG_CLOSE, NULL, NULL);
+  serial = guestfs__send (g, GUESTFS_PROC_AUG_CLOSE, NULL, NULL);
   if (serial == -1)
     return -1;
 
@@ -1297,7 +1297,7 @@ int guestfs_aug_defvar (guestfs_h *g,
 
   args.name = (char *) name;
   args.expr = expr ? (char **) &expr : NULL;
-  serial = guestfs_send (g, GUESTFS_PROC_AUG_DEFVAR,
+  serial = guestfs__send (g, GUESTFS_PROC_AUG_DEFVAR,
                      (xdrproc_t) xdr_guestfs_aug_defvar_args, (char *) &args);
   if (serial == -1)
     return -1;
@@ -1371,7 +1371,7 @@ struct guestfs_int_bool *guestfs_aug_defnode (guestfs_h *g,
   args.name = (char *) name;
   args.expr = (char *) expr;
   args.val = (char *) val;
-  serial = guestfs_send (g, GUESTFS_PROC_AUG_DEFNODE,
+  serial = guestfs__send (g, GUESTFS_PROC_AUG_DEFNODE,
                      (xdrproc_t) xdr_guestfs_aug_defnode_args, (char *) &args);
   if (serial == -1)
     return NULL;
@@ -1442,7 +1442,7 @@ char *guestfs_aug_get (guestfs_h *g,
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
-  serial = guestfs_send (g, GUESTFS_PROC_AUG_GET,
+  serial = guestfs__send (g, GUESTFS_PROC_AUG_GET,
                      (xdrproc_t) xdr_guestfs_aug_get_args, (char *) &args);
   if (serial == -1)
     return NULL;
@@ -1509,7 +1509,7 @@ int guestfs_aug_set (guestfs_h *g,
 
   args.path = (char *) path;
   args.val = (char *) val;
-  serial = guestfs_send (g, GUESTFS_PROC_AUG_SET,
+  serial = guestfs__send (g, GUESTFS_PROC_AUG_SET,
                      (xdrproc_t) xdr_guestfs_aug_set_args, (char *) &args);
   if (serial == -1)
     return -1;
@@ -1578,7 +1578,7 @@ int guestfs_aug_insert (guestfs_h *g,
   args.path = (char *) path;
   args.label = (char *) label;
   args.before = before;
-  serial = guestfs_send (g, GUESTFS_PROC_AUG_INSERT,
+  serial = guestfs__send (g, GUESTFS_PROC_AUG_INSERT,
                      (xdrproc_t) xdr_guestfs_aug_insert_args, (char *) &args);
   if (serial == -1)
     return -1;
@@ -1648,7 +1648,7 @@ int guestfs_aug_rm (guestfs_h *g,
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
-  serial = guestfs_send (g, GUESTFS_PROC_AUG_RM,
+  serial = guestfs__send (g, GUESTFS_PROC_AUG_RM,
                      (xdrproc_t) xdr_guestfs_aug_rm_args, (char *) &args);
   if (serial == -1)
     return -1;
@@ -1715,7 +1715,7 @@ int guestfs_aug_mv (guestfs_h *g,
 
   args.src = (char *) src;
   args.dest = (char *) dest;
-  serial = guestfs_send (g, GUESTFS_PROC_AUG_MV,
+  serial = guestfs__send (g, GUESTFS_PROC_AUG_MV,
                      (xdrproc_t) xdr_guestfs_aug_mv_args, (char *) &args);
   if (serial == -1)
     return -1;
@@ -1785,7 +1785,7 @@ char **guestfs_aug_match (guestfs_h *g,
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
-  serial = guestfs_send (g, GUESTFS_PROC_AUG_MATCH,
+  serial = guestfs__send (g, GUESTFS_PROC_AUG_MATCH,
                      (xdrproc_t) xdr_guestfs_aug_match_args, (char *) &args);
   if (serial == -1)
     return NULL;
@@ -1852,7 +1852,7 @@ int guestfs_aug_save (guestfs_h *g)
 
   memset (&state, 0, sizeof state);
 
-  serial = guestfs_send (g, GUESTFS_PROC_AUG_SAVE, NULL, NULL);
+  serial = guestfs__send (g, GUESTFS_PROC_AUG_SAVE, NULL, NULL);
   if (serial == -1)
     return -1;
 
@@ -1913,7 +1913,7 @@ int guestfs_aug_load (guestfs_h *g)
 
   memset (&state, 0, sizeof state);
 
-  serial = guestfs_send (g, GUESTFS_PROC_AUG_LOAD, NULL, NULL);
+  serial = guestfs__send (g, GUESTFS_PROC_AUG_LOAD, NULL, NULL);
   if (serial == -1)
     return -1;
 
@@ -1982,7 +1982,7 @@ char **guestfs_aug_ls (guestfs_h *g,
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
-  serial = guestfs_send (g, GUESTFS_PROC_AUG_LS,
+  serial = guestfs__send (g, GUESTFS_PROC_AUG_LS,
                      (xdrproc_t) xdr_guestfs_aug_ls_args, (char *) &args);
   if (serial == -1)
     return NULL;
@@ -2052,7 +2052,7 @@ int guestfs_rm (guestfs_h *g,
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
-  serial = guestfs_send (g, GUESTFS_PROC_RM,
+  serial = guestfs__send (g, GUESTFS_PROC_RM,
                      (xdrproc_t) xdr_guestfs_rm_args, (char *) &args);
   if (serial == -1)
     return -1;
@@ -2117,7 +2117,7 @@ int guestfs_rmdir (guestfs_h *g,
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
-  serial = guestfs_send (g, GUESTFS_PROC_RMDIR,
+  serial = guestfs__send (g, GUESTFS_PROC_RMDIR,
                      (xdrproc_t) xdr_guestfs_rmdir_args, (char *) &args);
   if (serial == -1)
     return -1;
@@ -2182,7 +2182,7 @@ int guestfs_rm_rf (guestfs_h *g,
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
-  serial = guestfs_send (g, GUESTFS_PROC_RM_RF,
+  serial = guestfs__send (g, GUESTFS_PROC_RM_RF,
                      (xdrproc_t) xdr_guestfs_rm_rf_args, (char *) &args);
   if (serial == -1)
     return -1;
@@ -2247,7 +2247,7 @@ int guestfs_mkdir (guestfs_h *g,
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
-  serial = guestfs_send (g, GUESTFS_PROC_MKDIR,
+  serial = guestfs__send (g, GUESTFS_PROC_MKDIR,
                      (xdrproc_t) xdr_guestfs_mkdir_args, (char *) &args);
   if (serial == -1)
     return -1;
@@ -2312,7 +2312,7 @@ int guestfs_mkdir_p (guestfs_h *g,
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
-  serial = guestfs_send (g, GUESTFS_PROC_MKDIR_P,
+  serial = guestfs__send (g, GUESTFS_PROC_MKDIR_P,
                      (xdrproc_t) xdr_guestfs_mkdir_p_args, (char *) &args);
   if (serial == -1)
     return -1;
@@ -2379,7 +2379,7 @@ int guestfs_chmod (guestfs_h *g,
 
   args.mode = mode;
   args.path = (char *) path;
-  serial = guestfs_send (g, GUESTFS_PROC_CHMOD,
+  serial = guestfs__send (g, GUESTFS_PROC_CHMOD,
                      (xdrproc_t) xdr_guestfs_chmod_args, (char *) &args);
   if (serial == -1)
     return -1;
@@ -2448,7 +2448,7 @@ int guestfs_chown (guestfs_h *g,
   args.owner = owner;
   args.group = group;
   args.path = (char *) path;
-  serial = guestfs_send (g, GUESTFS_PROC_CHOWN,
+  serial = guestfs__send (g, GUESTFS_PROC_CHOWN,
                      (xdrproc_t) xdr_guestfs_chown_args, (char *) &args);
   if (serial == -1)
     return -1;
@@ -2518,7 +2518,7 @@ int guestfs_exists (guestfs_h *g,
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
-  serial = guestfs_send (g, GUESTFS_PROC_EXISTS,
+  serial = guestfs__send (g, GUESTFS_PROC_EXISTS,
                      (xdrproc_t) xdr_guestfs_exists_args, (char *) &args);
   if (serial == -1)
     return -1;
@@ -2588,7 +2588,7 @@ int guestfs_is_file (guestfs_h *g,
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
-  serial = guestfs_send (g, GUESTFS_PROC_IS_FILE,
+  serial = guestfs__send (g, GUESTFS_PROC_IS_FILE,
                      (xdrproc_t) xdr_guestfs_is_file_args, (char *) &args);
   if (serial == -1)
     return -1;
@@ -2658,7 +2658,7 @@ int guestfs_is_dir (guestfs_h *g,
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
-  serial = guestfs_send (g, GUESTFS_PROC_IS_DIR,
+  serial = guestfs__send (g, GUESTFS_PROC_IS_DIR,
                      (xdrproc_t) xdr_guestfs_is_dir_args, (char *) &args);
   if (serial == -1)
     return -1;
@@ -2723,7 +2723,7 @@ int guestfs_pvcreate (guestfs_h *g,
   memset (&state, 0, sizeof state);
 
   args.device = (char *) device;
-  serial = guestfs_send (g, GUESTFS_PROC_PVCREATE,
+  serial = guestfs__send (g, GUESTFS_PROC_PVCREATE,
                      (xdrproc_t) xdr_guestfs_pvcreate_args, (char *) &args);
   if (serial == -1)
     return -1;
@@ -2791,7 +2791,7 @@ int guestfs_vgcreate (guestfs_h *g,
   args.volgroup = (char *) volgroup;
   args.physvols.physvols_val = (char **) physvols;
   for (args.physvols.physvols_len = 0; physvols[args.physvols.physvols_len]; args.physvols.physvols_len++) ;
-  serial = guestfs_send (g, GUESTFS_PROC_VGCREATE,
+  serial = guestfs__send (g, GUESTFS_PROC_VGCREATE,
                      (xdrproc_t) xdr_guestfs_vgcreate_args, (char *) &args);
   if (serial == -1)
     return -1;
@@ -2860,7 +2860,7 @@ int guestfs_lvcreate (guestfs_h *g,
   args.logvol = (char *) logvol;
   args.volgroup = (char *) volgroup;
   args.mbytes = mbytes;
-  serial = guestfs_send (g, GUESTFS_PROC_LVCREATE,
+  serial = guestfs__send (g, GUESTFS_PROC_LVCREATE,
                      (xdrproc_t) xdr_guestfs_lvcreate_args, (char *) &args);
   if (serial == -1)
     return -1;
@@ -2927,7 +2927,7 @@ int guestfs_mkfs (guestfs_h *g,
 
   args.fstype = (char *) fstype;
   args.device = (char *) device;
-  serial = guestfs_send (g, GUESTFS_PROC_MKFS,
+  serial = guestfs__send (g, GUESTFS_PROC_MKFS,
                      (xdrproc_t) xdr_guestfs_mkfs_args, (char *) &args);
   if (serial == -1)
     return -1;
@@ -3001,7 +3001,7 @@ int guestfs_sfdisk (guestfs_h *g,
   args.sectors = sectors;
   args.lines.lines_val = (char **) lines;
   for (args.lines.lines_len = 0; lines[args.lines.lines_len]; args.lines.lines_len++) ;
-  serial = guestfs_send (g, GUESTFS_PROC_SFDISK,
+  serial = guestfs__send (g, GUESTFS_PROC_SFDISK,
                      (xdrproc_t) xdr_guestfs_sfdisk_args, (char *) &args);
   if (serial == -1)
     return -1;
@@ -3070,7 +3070,7 @@ int guestfs_write_file (guestfs_h *g,
   args.path = (char *) path;
   args.content = (char *) content;
   args.size = size;
-  serial = guestfs_send (g, GUESTFS_PROC_WRITE_FILE,
+  serial = guestfs__send (g, GUESTFS_PROC_WRITE_FILE,
                      (xdrproc_t) xdr_guestfs_write_file_args, (char *) &args);
   if (serial == -1)
     return -1;
@@ -3135,7 +3135,7 @@ int guestfs_umount (guestfs_h *g,
   memset (&state, 0, sizeof state);
 
   args.pathordevice = (char *) pathordevice;
-  serial = guestfs_send (g, GUESTFS_PROC_UMOUNT,
+  serial = guestfs__send (g, GUESTFS_PROC_UMOUNT,
                      (xdrproc_t) xdr_guestfs_umount_args, (char *) &args);
   if (serial == -1)
     return -1;
@@ -3202,7 +3202,7 @@ char **guestfs_mounts (guestfs_h *g)
 
   memset (&state, 0, sizeof state);
 
-  serial = guestfs_send (g, GUESTFS_PROC_MOUNTS, NULL, NULL);
+  serial = guestfs__send (g, GUESTFS_PROC_MOUNTS, NULL, NULL);
   if (serial == -1)
     return NULL;
 
@@ -3268,7 +3268,7 @@ int guestfs_umount_all (guestfs_h *g)
 
   memset (&state, 0, sizeof state);
 
-  serial = guestfs_send (g, GUESTFS_PROC_UMOUNT_ALL, NULL, NULL);
+  serial = guestfs__send (g, GUESTFS_PROC_UMOUNT_ALL, NULL, NULL);
   if (serial == -1)
     return -1;
 
@@ -3329,7 +3329,7 @@ int guestfs_lvm_remove_all (guestfs_h *g)
 
   memset (&state, 0, sizeof state);
 
-  serial = guestfs_send (g, GUESTFS_PROC_LVM_REMOVE_ALL, NULL, NULL);
+  serial = guestfs__send (g, GUESTFS_PROC_LVM_REMOVE_ALL, NULL, NULL);
   if (serial == -1)
     return -1;
 
@@ -3398,7 +3398,7 @@ char *guestfs_file (guestfs_h *g,
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
-  serial = guestfs_send (g, GUESTFS_PROC_FILE,
+  serial = guestfs__send (g, GUESTFS_PROC_FILE,
                      (xdrproc_t) xdr_guestfs_file_args, (char *) &args);
   if (serial == -1)
     return NULL;
@@ -3469,7 +3469,7 @@ char *guestfs_command (guestfs_h *g,
 
   args.arguments.arguments_val = (char **) arguments;
   for (args.arguments.arguments_len = 0; arguments[args.arguments.arguments_len]; args.arguments.arguments_len++) ;
-  serial = guestfs_send (g, GUESTFS_PROC_COMMAND,
+  serial = guestfs__send (g, GUESTFS_PROC_COMMAND,
                      (xdrproc_t) xdr_guestfs_command_args, (char *) &args);
   if (serial == -1)
     return NULL;
@@ -3540,7 +3540,7 @@ char **guestfs_command_lines (guestfs_h *g,
 
   args.arguments.arguments_val = (char **) arguments;
   for (args.arguments.arguments_len = 0; arguments[args.arguments.arguments_len]; args.arguments.arguments_len++) ;
-  serial = guestfs_send (g, GUESTFS_PROC_COMMAND_LINES,
+  serial = guestfs__send (g, GUESTFS_PROC_COMMAND_LINES,
                      (xdrproc_t) xdr_guestfs_command_lines_args, (char *) &args);
   if (serial == -1)
     return NULL;
@@ -3615,7 +3615,7 @@ struct guestfs_stat *guestfs_stat (guestfs_h *g,
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
-  serial = guestfs_send (g, GUESTFS_PROC_STAT,
+  serial = guestfs__send (g, GUESTFS_PROC_STAT,
                      (xdrproc_t) xdr_guestfs_stat_args, (char *) &args);
   if (serial == -1)
     return NULL;
@@ -3686,7 +3686,7 @@ struct guestfs_stat *guestfs_lstat (guestfs_h *g,
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
-  serial = guestfs_send (g, GUESTFS_PROC_LSTAT,
+  serial = guestfs__send (g, GUESTFS_PROC_LSTAT,
                      (xdrproc_t) xdr_guestfs_lstat_args, (char *) &args);
   if (serial == -1)
     return NULL;
@@ -3757,7 +3757,7 @@ struct guestfs_statvfs *guestfs_statvfs (guestfs_h *g,
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
-  serial = guestfs_send (g, GUESTFS_PROC_STATVFS,
+  serial = guestfs__send (g, GUESTFS_PROC_STATVFS,
                      (xdrproc_t) xdr_guestfs_statvfs_args, (char *) &args);
   if (serial == -1)
     return NULL;
@@ -3828,7 +3828,7 @@ char **guestfs_tune2fs_l (guestfs_h *g,
   memset (&state, 0, sizeof state);
 
   args.device = (char *) device;
-  serial = guestfs_send (g, GUESTFS_PROC_TUNE2FS_L,
+  serial = guestfs__send (g, GUESTFS_PROC_TUNE2FS_L,
                      (xdrproc_t) xdr_guestfs_tune2fs_l_args, (char *) &args);
   if (serial == -1)
     return NULL;
@@ -3898,7 +3898,7 @@ int guestfs_blockdev_setro (guestfs_h *g,
   memset (&state, 0, sizeof state);
 
   args.device = (char *) device;
-  serial = guestfs_send (g, GUESTFS_PROC_BLOCKDEV_SETRO,
+  serial = guestfs__send (g, GUESTFS_PROC_BLOCKDEV_SETRO,
                      (xdrproc_t) xdr_guestfs_blockdev_setro_args, (char *) &args);
   if (serial == -1)
     return -1;
@@ -3963,7 +3963,7 @@ int guestfs_blockdev_setrw (guestfs_h *g,
   memset (&state, 0, sizeof state);
 
   args.device = (char *) device;
-  serial = guestfs_send (g, GUESTFS_PROC_BLOCKDEV_SETRW,
+  serial = guestfs__send (g, GUESTFS_PROC_BLOCKDEV_SETRW,
                      (xdrproc_t) xdr_guestfs_blockdev_setrw_args, (char *) &args);
   if (serial == -1)
     return -1;
@@ -4033,7 +4033,7 @@ int guestfs_blockdev_getro (guestfs_h *g,
   memset (&state, 0, sizeof state);
 
   args.device = (char *) device;
-  serial = guestfs_send (g, GUESTFS_PROC_BLOCKDEV_GETRO,
+  serial = guestfs__send (g, GUESTFS_PROC_BLOCKDEV_GETRO,
                      (xdrproc_t) xdr_guestfs_blockdev_getro_args, (char *) &args);
   if (serial == -1)
     return -1;
@@ -4103,7 +4103,7 @@ int guestfs_blockdev_getss (guestfs_h *g,
   memset (&state, 0, sizeof state);
 
   args.device = (char *) device;
-  serial = guestfs_send (g, GUESTFS_PROC_BLOCKDEV_GETSS,
+  serial = guestfs__send (g, GUESTFS_PROC_BLOCKDEV_GETSS,
                      (xdrproc_t) xdr_guestfs_blockdev_getss_args, (char *) &args);
   if (serial == -1)
     return -1;
@@ -4173,7 +4173,7 @@ int guestfs_blockdev_getbsz (guestfs_h *g,
   memset (&state, 0, sizeof state);
 
   args.device = (char *) device;
-  serial = guestfs_send (g, GUESTFS_PROC_BLOCKDEV_GETBSZ,
+  serial = guestfs__send (g, GUESTFS_PROC_BLOCKDEV_GETBSZ,
                      (xdrproc_t) xdr_guestfs_blockdev_getbsz_args, (char *) &args);
   if (serial == -1)
     return -1;
@@ -4240,7 +4240,7 @@ int guestfs_blockdev_setbsz (guestfs_h *g,
 
   args.device = (char *) device;
   args.blocksize = blocksize;
-  serial = guestfs_send (g, GUESTFS_PROC_BLOCKDEV_SETBSZ,
+  serial = guestfs__send (g, GUESTFS_PROC_BLOCKDEV_SETBSZ,
                      (xdrproc_t) xdr_guestfs_blockdev_setbsz_args, (char *) &args);
   if (serial == -1)
     return -1;
@@ -4310,7 +4310,7 @@ int64_t guestfs_blockdev_getsz (guestfs_h *g,
   memset (&state, 0, sizeof state);
 
   args.device = (char *) device;
-  serial = guestfs_send (g, GUESTFS_PROC_BLOCKDEV_GETSZ,
+  serial = guestfs__send (g, GUESTFS_PROC_BLOCKDEV_GETSZ,
                      (xdrproc_t) xdr_guestfs_blockdev_getsz_args, (char *) &args);
   if (serial == -1)
     return -1;
@@ -4380,7 +4380,7 @@ int64_t guestfs_blockdev_getsize64 (guestfs_h *g,
   memset (&state, 0, sizeof state);
 
   args.device = (char *) device;
-  serial = guestfs_send (g, GUESTFS_PROC_BLOCKDEV_GETSIZE64,
+  serial = guestfs__send (g, GUESTFS_PROC_BLOCKDEV_GETSIZE64,
                      (xdrproc_t) xdr_guestfs_blockdev_getsize64_args, (char *) &args);
   if (serial == -1)
     return -1;
@@ -4445,7 +4445,7 @@ int guestfs_blockdev_flushbufs (guestfs_h *g,
   memset (&state, 0, sizeof state);
 
   args.device = (char *) device;
-  serial = guestfs_send (g, GUESTFS_PROC_BLOCKDEV_FLUSHBUFS,
+  serial = guestfs__send (g, GUESTFS_PROC_BLOCKDEV_FLUSHBUFS,
                      (xdrproc_t) xdr_guestfs_blockdev_flushbufs_args, (char *) &args);
   if (serial == -1)
     return -1;
@@ -4510,7 +4510,7 @@ int guestfs_blockdev_rereadpt (guestfs_h *g,
   memset (&state, 0, sizeof state);
 
   args.device = (char *) device;
-  serial = guestfs_send (g, GUESTFS_PROC_BLOCKDEV_REREADPT,
+  serial = guestfs__send (g, GUESTFS_PROC_BLOCKDEV_REREADPT,
                      (xdrproc_t) xdr_guestfs_blockdev_rereadpt_args, (char *) &args);
   if (serial == -1)
     return -1;

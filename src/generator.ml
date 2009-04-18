@@ -2234,7 +2234,7 @@ check_state (guestfs_h *g, const char *caller)
       (* Dispatch the main header and arguments. *)
       (match snd style with
        | [] ->
-	   pr "  serial = guestfs_send (g, GUESTFS_PROC_%s, NULL, NULL);\n"
+	   pr "  serial = guestfs__send (g, GUESTFS_PROC_%s, NULL, NULL);\n"
 	     (String.uppercase shortname)
        | args ->
 	   List.iter (
@@ -2252,7 +2252,7 @@ check_state (guestfs_h *g, const char *caller)
 		 pr "  args.%s = %s;\n" n n
 	     | FileIn _ | FileOut _ -> ()
 	   ) args;
-	   pr "  serial = guestfs_send (g, GUESTFS_PROC_%s,\n"
+	   pr "  serial = guestfs__send (g, GUESTFS_PROC_%s,\n"
 	     (String.uppercase shortname);
 	   pr "                     (xdrproc_t) xdr_%s_args, (char *) &args);\n"
 	     name;

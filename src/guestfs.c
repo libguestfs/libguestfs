@@ -1325,7 +1325,7 @@ guestfs_get_default_main_loop (void)
  * number.
  */
 int
-guestfs_send (guestfs_h *g, int proc_nr, xdrproc_t xdrp, char *args)
+guestfs__send (guestfs_h *g, int proc_nr, xdrproc_t xdrp, char *args)
 {
   char buffer[GUESTFS_MESSAGE_MAX];
   struct guestfs_message_header hdr;

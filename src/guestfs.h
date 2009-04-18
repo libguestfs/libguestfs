@@ -73,7 +73,7 @@ extern void *guestfs_safe_realloc (guestfs_h *g, void *ptr, int nbytes);
 extern char *guestfs_safe_strdup (guestfs_h *g, const char *str);
 extern void *guestfs_safe_memdup (guestfs_h *g, void *ptr, size_t size);
 
-extern int guestfs_send (guestfs_h *g, int proc_nr, xdrproc_t xdrp, char *args);
+extern int guestfs__send (guestfs_h *g, int proc_nr, xdrproc_t xdrp, char *args);
 
 /* Main loop. */
 #define GUESTFS_HANDLE_READABLE 0x1
