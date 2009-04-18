@@ -1,3 +1,6 @@
+PLEASE LOOK AT THE TOP OF EACH FILE BEFORE EDITING TO SEE WHETHER IT
+IS AUTOMATICALLY GENERATED OR NOT.
+
 Adding a new action
 ----------------------------------------------------------------------
 
@@ -14,9 +17,6 @@ there.
 You will need to run src/generator.ml (from the top directory) which
 regenerates all the auto-generated files, and then continue with the
 ordinary build process.
-
-PLEASE LOOK AT THE TOP OF EACH FILE BEFORE EDITING to see whether it
-is automatically generated or not.
 
 Formatting
 ----------------------------------------------------------------------
@@ -55,6 +55,9 @@ perl/
 
 python/
 	Python bindings.
+
+ruby/
+	Ruby bindings.
 
 src/
 	Source code to the C library.
