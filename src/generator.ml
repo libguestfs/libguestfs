@@ -334,7 +334,52 @@ C<LIBGUESTFS_DEBUG> is defined and set to C<1>.");
    [],
    "get verbose mode",
    "\
-This returns the verbose messages flag.")
+This returns the verbose messages flag.");
+
+  ("is_ready", (RBool "ready", []), -1, [],
+   [],
+   "is ready to accept commands",
+   "\
+This returns true iff this handle is ready to accept commands
+(in the C<READY> state).
+
+For more information on states, see L<guestfs(3)>.");
+
+  ("is_config", (RBool "config", []), -1, [],
+   [],
+   "is in configuration state",
+   "\
+This returns true iff this handle is being configured
+(in the C<CONFIG> state).
+
+For more information on states, see L<guestfs(3)>.");
+
+  ("is_launching", (RBool "launching", []), -1, [],
+   [],
+   "is launching subprocess",
+   "\
+This returns true iff this handle is launching the subprocess
+(in the C<LAUNCHING> state).
+
+For more information on states, see L<guestfs(3)>.");
+
+  ("is_busy", (RBool "busy", []), -1, [],
+   [],
+   "is busy processing a command",
+   "\
+This returns true iff this handle is busy processing a command
+(in the C<BUSY> state).
+
+For more information on states, see L<guestfs(3)>.");
+
+  ("get_state", (RInt "state", []), -1, [],
+   [],
+   "get the current state",
+   "\
+This returns the current state as an opaque integer.  This is
+only useful for printing debug and internal error messages.
+
+For more information on states, see L<guestfs(3)>.");
 ]
 
 let daemon_functions = [
@@ -1218,7 +1263,7 @@ filesystem.
 
 C<filename> can also be a named pipe.
 
-See also C<guestfs_upload>.");
+See also C<guestfs_download>.");
 
   ("download", (RErr, [String "remotefilename"; FileOut "filename"]), 67, [],
    [],
@@ -1229,7 +1274,7 @@ on the local machine.
 
 C<filename> can also be a named pipe.
 
-See also C<guestfs_download>, C<guestfs_cat>.");
+See also C<guestfs_upload>, C<guestfs_cat>.");
 *)
 
 ]
@@ -1897,7 +1942,7 @@ enum guestfs_message_status {
 const GUESTFS_ERROR_LEN = 256;
 
 struct guestfs_message_error {
-  string error<GUESTFS_ERROR_LEN>;   /* error message */
+  string error_message<GUESTFS_ERROR_LEN>;
 };
 
 /* For normal requests and replies (not involving any FileIn or
@@ -2022,19 +2067,83 @@ and generate_actions_h () =
 and generate_client_actions () =
   generate_header CStyle LGPLv2;
 
+  pr "\
+#include <stdio.h>
+#include <stdlib.h>
+
+#include \"guestfs.h\"
+#include \"guestfs_protocol.h\"
+
+#define error guestfs_error
+#define perrorf guestfs_perrorf
+#define safe_malloc guestfs_safe_malloc
+#define safe_realloc guestfs_safe_realloc
+#define safe_strdup guestfs_safe_strdup
+#define safe_memdup guestfs_safe_memdup
+
+/* Check the return message from a call for validity. */
+static int
+check_reply_header (guestfs_h *g,
+                    const struct guestfs_message_header *hdr,
+                    int proc_nr, int serial)
+{
+  if (hdr->prog != GUESTFS_PROGRAM) {
+    error (g, \"wrong program (%%d/%%d)\", hdr->prog, GUESTFS_PROGRAM);
+    return -1;
+  }
+  if (hdr->vers != GUESTFS_PROTOCOL_VERSION) {
+    error (g, \"wrong protocol version (%%d/%%d)\",
+	   hdr->vers, GUESTFS_PROTOCOL_VERSION);
+    return -1;
+  }
+  if (hdr->direction != GUESTFS_DIRECTION_REPLY) {
+    error (g, \"unexpected message direction (%%d/%%d)\",
+	   hdr->direction, GUESTFS_DIRECTION_REPLY);
+    return -1;
+  }
+  if (hdr->proc != proc_nr) {
+    error (g, \"unexpected procedure number (%%d/%%d)\", hdr->proc, proc_nr);
+    return -1;
+  }
+  if (hdr->serial != serial) {
+    error (g, \"unexpected serial (%%d/%%d)\", hdr->serial, serial);
+    return -1;
+  }
+
+  return 0;
+}
+
+/* Check we are in the right state to run a high-level action. */
+static int
+check_state (guestfs_h *g, const char *caller)
+{
+  if (!guestfs_is_ready (g)) {
+    if (guestfs_is_config (g))
+      error (g, \"%%s: call launch() before using this function\",
+        caller);
+    else if (guestfs_is_launching (g))
+      error (g, \"%%s: call wait_ready() before using this function\",
+        caller);
+    else
+      error (g, \"%%s called from the wrong state, %%d != READY\",
+        caller, guestfs_get_state (g));
+    return -1;
+  }
+  return 0;
+}
+
+";
+
   (* Client-side stubs for each function. *)
   List.iter (
     fun (shortname, style, _, _, _, _, _) ->
       let name = "guestfs_" ^ shortname in
 
       (* Generate the state struct which stores the high-level
-       * state between callback functions.  The callback(s) are:
-       *   <name>_cb_header_sent      header was sent
-       *   <name>_cb_file_sent        FileIn file was sent
-       *   <name>_cb_reply_received   reply received
+       * state between callback functions.
        *)
       pr "struct %s_state {\n" shortname;
-      pr "  int cb_done;\n";
+      pr "  int cb_state;\n";
       pr "  struct guestfs_message_header hdr;\n";
       pr "  struct guestfs_message_error err;\n";
       (match fst style with
@@ -2055,6 +2164,7 @@ and generate_client_actions () =
       (* Generate the callback function. *)
       pr "static void %s_cb (guestfs_h *g, void *data, XDR *xdr)\n" shortname;
       pr "{\n";
+      pr "  guestfs_main_loop *ml = guestfs_get_main_loop (g);\n";
       pr "  struct %s_state *state = (struct %s_state *) data;\n" shortname shortname;
       pr "\n";
       pr "  if (!xdr_guestfs_message_header (xdr, &state->hdr)) {\n";
@@ -2086,8 +2196,8 @@ and generate_client_actions () =
       );
 
       pr " done:\n";
-      pr "  state->cb_done = 1;\n";
-      pr "  g->main_loop->main_loop_quit (g->main_loop, g);\n";
+      pr "  state->cb_state = 1;\n";
+      pr "  ml->main_loop_quit (ml, g);\n";
       pr "}\n\n";
 
       (* Generate the action stub. *)
@@ -2113,20 +2223,10 @@ and generate_client_actions () =
       );
 
       pr "  struct %s_state state;\n" shortname;
+      pr "  guestfs_main_loop *ml = guestfs_get_main_loop (g);\n";
       pr "  int serial;\n";
       pr "\n";
-      pr "  if (g->state != READY) {\n";
-      pr "    if (g->state == CONFIG)\n";
-      pr "      error (g, \"%%s: call launch() before using this function\",\n";
-      pr "        \"%s\");\n" name;
-      pr "    else if (g->state == LAUNCHING)\n";
-      pr "      error (g, \"%%s: call wait_ready() before using this function\",\n";
-      pr "        \"%s\");\n" name;
-      pr "    else\n";
-      pr "      error (g, \"%%s called from the wrong state, %%d != READY\",\n";
-      pr "        \"%s\", g->state);\n" name;
-      pr "    return %s;\n" error_code;
-      pr "  }\n";
+      pr "  if (check_state (g, \"%s\") == -1) return %s;\n" name error_code;
       pr "\n";
       pr "  memset (&state, 0, sizeof state);\n";
       pr "\n";
@@ -2134,7 +2234,7 @@ and generate_client_actions () =
       (* Dispatch the main header and arguments. *)
       (match snd style with
        | [] ->
-	   pr "  serial = dispatch (g, GUESTFS_PROC_%s, NULL, NULL);\n"
+	   pr "  serial = guestfs_send (g, GUESTFS_PROC_%s, NULL, NULL);\n"
 	     (String.uppercase shortname)
        | args ->
 	   List.iter (
@@ -2152,7 +2252,7 @@ and generate_client_actions () =
 		 pr "  args.%s = %s;\n" n n
 	     | FileIn _ | FileOut _ -> ()
 	   ) args;
-	   pr "  serial = dispatch (g, GUESTFS_PROC_%s,\n"
+	   pr "  serial = guestfs_send (g, GUESTFS_PROC_%s,\n"
 	     (String.uppercase shortname);
 	   pr "                     (xdrproc_t) xdr_%s_args, (char *) &args);\n"
 	     name;
@@ -2172,13 +2272,11 @@ and generate_client_actions () =
       ) (snd style);
 
       (* Wait for the reply from the remote end. *)
-      pr "  state.cb_done = 0;\n";
-      pr "  g->reply_cb_internal = %s_cb;\n" shortname;
-      pr "  g->reply_cb_internal_data = &state;\n";
-      pr "  (void) g->main_loop->main_loop_run (g->main_loop, g);\n";
-      pr "  g->reply_cb_internal = NULL;\n";
-      pr "  g->reply_cb_internal_data = NULL;\n";
-      pr "  if (!state.cb_done) {\n";
+      pr "  state.cb_state = 0;\n";
+      pr "  guestfs_set_reply_callback (g, %s_cb, &state);\n" shortname;
+      pr "  (void) ml->main_loop_run (ml, g);\n";
+      pr "  guestfs_set_reply_callback (g, NULL, NULL);\n";
+      pr "  if (!state.cb_state) {\n";
       pr "    error (g, \"%s failed, see earlier error messages\");\n" name;
       pr "    return %s;\n" error_code;
       pr "  }\n";
@@ -2190,7 +2288,7 @@ and generate_client_actions () =
       pr "\n";
 
       pr "  if (state.hdr.status == GUESTFS_STATUS_ERROR) {\n";
-      pr "    error (g, \"%%s\", state.err.error);\n";
+      pr "    error (g, \"%%s\", state.err.error_message);\n";
       pr "    return %s;\n" error_code;
       pr "  }\n";
       pr "\n";
@@ -2215,7 +2313,7 @@ and generate_client_actions () =
 	   pr "  return state.ret.%s; /* caller will free */\n" n
        | RStringList n | RHashtable n ->
 	   pr "  /* caller will free this, but we need to add a NULL entry */\n";
-	   pr "  state.ret.%s.%s_val =" n n;
+	   pr "  state.ret.%s.%s_val =\n" n n;
 	   pr "    safe_realloc (g, state.ret.%s.%s_val,\n" n n;
 	   pr "                  sizeof (char *) * (state.ret.%s.%s_len + 1));\n"
 	     n n;

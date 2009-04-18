@@ -417,9 +417,30 @@ Return the current search path.
 This is always non-NULL.  If it wasn't set already, then this will
 return the default path.
 
+=item $state = $h->get_state ();
+
+This returns the current state as an opaque integer.  This is
+only useful for printing debug and internal error messages.
+
+For more information on states, see L<guestfs(3)>.
+
 =item $verbose = $h->get_verbose ();
 
 This returns the verbose messages flag.
+
+=item $busy = $h->is_busy ();
+
+This returns true iff this handle is busy processing a command
+(in the C<BUSY> state).
+
+For more information on states, see L<guestfs(3)>.
+
+=item $config = $h->is_config ();
+
+This returns true iff this handle is being configured
+(in the C<CONFIG> state).
+
+For more information on states, see L<guestfs(3)>.
 
 =item $dirflag = $h->is_dir ($path);
 
@@ -436,6 +457,20 @@ with the given C<path> name.  Note that it returns false for
 other objects like directories.
 
 See also C<$h-E<gt>stat>.
+
+=item $launching = $h->is_launching ();
+
+This returns true iff this handle is launching the subprocess
+(in the C<LAUNCHING> state).
+
+For more information on states, see L<guestfs(3)>.
+
+=item $ready = $h->is_ready ();
+
+This returns true iff this handle is ready to accept commands
+(in the C<READY> state).
+
+For more information on states, see L<guestfs(3)>.
 
 =item $h->kill_subprocess ();
 

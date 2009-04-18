@@ -703,7 +703,7 @@ typedef enum guestfs_message_status guestfs_message_status;
 #define GUESTFS_ERROR_LEN 256
 
 struct guestfs_message_error {
-	char *error;
+	char *error_message;
 };
 typedef struct guestfs_message_error guestfs_message_error;
 

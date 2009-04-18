@@ -192,7 +192,7 @@ send_error (const char *msg)
     exit (1);
   }
 
-  err.error = (char *) msg;
+  err.error_message = (char *) msg;
 
   if (!xdr_guestfs_message_error (&xdr, &err)) {
     fprintf (stderr, "guestfsd: failed to encode error message body\n");

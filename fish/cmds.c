@@ -66,9 +66,14 @@ void list_commands (void)
   printf ("%-20s %s\n", "file", "determine file type");
   printf ("%-20s %s\n", "get-autosync", "get autosync mode");
   printf ("%-20s %s\n", "get-path", "get the search path");
+  printf ("%-20s %s\n", "get-state", "get the current state");
   printf ("%-20s %s\n", "get-verbose", "get verbose mode");
+  printf ("%-20s %s\n", "is-busy", "is busy processing a command");
+  printf ("%-20s %s\n", "is-config", "is in configuration state");
   printf ("%-20s %s\n", "is-dir", "test if file exists");
   printf ("%-20s %s\n", "is-file", "test if file exists");
+  printf ("%-20s %s\n", "is-launching", "is launching subprocess");
+  printf ("%-20s %s\n", "is-ready", "is ready to accept commands");
   printf ("%-20s %s\n", "kill-subprocess", "kill the qemu subprocess");
   printf ("%-20s %s\n", "launch", "launch the qemu subprocess");
   printf ("%-20s %s\n", "list-devices", "list the block devices");
@@ -144,6 +149,21 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "get_verbose") == 0 || strcasecmp (cmd, "get-verbose") == 0)
     pod2text ("get-verbose - get verbose mode", " get-verbose\n\nThis returns the verbose messages flag.");
+  else
+  if (strcasecmp (cmd, "is_ready") == 0 || strcasecmp (cmd, "is-ready") == 0)
+    pod2text ("is-ready - is ready to accept commands", " is-ready\n\nThis returns true iff this handle is ready to accept commands\n(in the C<READY> state).\n\nFor more information on states, see L<guestfs(3)>.");
+  else
+  if (strcasecmp (cmd, "is_config") == 0 || strcasecmp (cmd, "is-config") == 0)
+    pod2text ("is-config - is in configuration state", " is-config\n\nThis returns true iff this handle is being configured\n(in the C<CONFIG> state).\n\nFor more information on states, see L<guestfs(3)>.");
+  else
+  if (strcasecmp (cmd, "is_launching") == 0 || strcasecmp (cmd, "is-launching") == 0)
+    pod2text ("is-launching - is launching subprocess", " is-launching\n\nThis returns true iff this handle is launching the subprocess\n(in the C<LAUNCHING> state).\n\nFor more information on states, see L<guestfs(3)>.");
+  else
+  if (strcasecmp (cmd, "is_busy") == 0 || strcasecmp (cmd, "is-busy") == 0)
+    pod2text ("is-busy - is busy processing a command", " is-busy\n\nThis returns true iff this handle is busy processing a command\n(in the C<BUSY> state).\n\nFor more information on states, see L<guestfs(3)>.");
+  else
+  if (strcasecmp (cmd, "get_state") == 0 || strcasecmp (cmd, "get-state") == 0)
+    pod2text ("get-state - get the current state", " get-state\n\nThis returns the current state as an opaque integer.  This is\nonly useful for printing debug and internal error messages.\n\nFor more information on states, see L<guestfs(3)>.");
   else
   if (strcasecmp (cmd, "mount") == 0)
     pod2text ("mount - mount a guest disk at a position in the filesystem", " mount <device> <mountpoint>\n\nMount a guest disk at a position in the filesystem.  Block devices\nare named C</dev/sda>, C</dev/sdb> and so on, as they were added to\nthe guest.  If those block devices contain partitions, they will have\nthe usual names (eg. C</dev/sda1>).  Also LVM C</dev/VG/LV>-style\nnames can be used.\n\nThe rules are the same as for L<mount(2)>:  A filesystem must\nfirst be mounted on C</> before others can be mounted.  Other\nfilesystems can only be mounted on directories which already\nexist.\n\nThe mounted filesystem is writable, if we have sufficient permissions\non the underlying device.\n\nThe filesystem options C<sync> and C<noatime> are set with this\ncall, in order to improve reliability.");
@@ -626,6 +646,76 @@ static int run_get_verbose (const char *cmd, int argc, char *argv[])
   r = guestfs_get_verbose (g);
   if (r == -1) return -1;
   if (r) printf ("true\n"); else printf ("false\n");
+  return 0;
+}
+
+static int run_is_ready (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  if (argc != 0) {
+    fprintf (stderr, "%s should have 0 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  r = guestfs_is_ready (g);
+  if (r == -1) return -1;
+  if (r) printf ("true\n"); else printf ("false\n");
+  return 0;
+}
+
+static int run_is_config (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  if (argc != 0) {
+    fprintf (stderr, "%s should have 0 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  r = guestfs_is_config (g);
+  if (r == -1) return -1;
+  if (r) printf ("true\n"); else printf ("false\n");
+  return 0;
+}
+
+static int run_is_launching (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  if (argc != 0) {
+    fprintf (stderr, "%s should have 0 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  r = guestfs_is_launching (g);
+  if (r == -1) return -1;
+  if (r) printf ("true\n"); else printf ("false\n");
+  return 0;
+}
+
+static int run_is_busy (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  if (argc != 0) {
+    fprintf (stderr, "%s should have 0 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  r = guestfs_is_busy (g);
+  if (r == -1) return -1;
+  if (r) printf ("true\n"); else printf ("false\n");
+  return 0;
+}
+
+static int run_get_state (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  if (argc != 0) {
+    fprintf (stderr, "%s should have 0 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  r = guestfs_get_state (g);
+  if (r == -1) return -1;
+  printf ("%d\n", r);
   return 0;
 }
 
@@ -1682,6 +1772,21 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "get_verbose") == 0 || strcasecmp (cmd, "get-verbose") == 0)
     return run_get_verbose (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "is_ready") == 0 || strcasecmp (cmd, "is-ready") == 0)
+    return run_is_ready (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "is_config") == 0 || strcasecmp (cmd, "is-config") == 0)
+    return run_is_config (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "is_launching") == 0 || strcasecmp (cmd, "is-launching") == 0)
+    return run_is_launching (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "is_busy") == 0 || strcasecmp (cmd, "is-busy") == 0)
+    return run_is_busy (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "get_state") == 0 || strcasecmp (cmd, "get-state") == 0)
+    return run_get_state (cmd, argc, argv);
   else
   if (strcasecmp (cmd, "mount") == 0)
     return run_mount (cmd, argc, argv);

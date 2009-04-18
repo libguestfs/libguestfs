@@ -19,14 +19,79 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "guestfs.h"
+#include "guestfs_protocol.h"
+
+#define error guestfs_error
+#define perrorf guestfs_perrorf
+#define safe_malloc guestfs_safe_malloc
+#define safe_realloc guestfs_safe_realloc
+#define safe_strdup guestfs_safe_strdup
+#define safe_memdup guestfs_safe_memdup
+
+/* Check the return message from a call for validity. */
+static int
+check_reply_header (guestfs_h *g,
+                    const struct guestfs_message_header *hdr,
+                    int proc_nr, int serial)
+{
+  if (hdr->prog != GUESTFS_PROGRAM) {
+    error (g, "wrong program (%d/%d)", hdr->prog, GUESTFS_PROGRAM);
+    return -1;
+  }
+  if (hdr->vers != GUESTFS_PROTOCOL_VERSION) {
+    error (g, "wrong protocol version (%d/%d)",
+	   hdr->vers, GUESTFS_PROTOCOL_VERSION);
+    return -1;
+  }
+  if (hdr->direction != GUESTFS_DIRECTION_REPLY) {
+    error (g, "unexpected message direction (%d/%d)",
+	   hdr->direction, GUESTFS_DIRECTION_REPLY);
+    return -1;
+  }
+  if (hdr->proc != proc_nr) {
+    error (g, "unexpected procedure number (%d/%d)", hdr->proc, proc_nr);
+    return -1;
+  }
+  if (hdr->serial != serial) {
+    error (g, "unexpected serial (%d/%d)", hdr->serial, serial);
+    return -1;
+  }
+
+  return 0;
+}
+
+/* Check we are in the right state to run a high-level action. */
+static int
+check_state (guestfs_h *g, const char *caller)
+{
+  if (!guestfs_is_ready (g)) {
+    if (guestfs_is_config (g))
+      error (g, "%s: call launch() before using this function",
+        caller);
+    else if (guestfs_is_launching (g))
+      error (g, "%s: call wait_ready() before using this function",
+        caller);
+    else
+      error (g, "%s called from the wrong state, %d != READY",
+        caller, guestfs_get_state (g));
+    return -1;
+  }
+  return 0;
+}
+
 struct mount_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
 };
 
 static void mount_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct mount_state *state = (struct mount_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -41,8 +106,8 @@ static void mount_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_mount (guestfs_h *g,
@@ -51,37 +116,25 @@ int guestfs_mount (guestfs_h *g,
 {
   struct guestfs_mount_args args;
   struct mount_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_mount");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_mount");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_mount", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_mount") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
   args.device = (char *) device;
   args.mountpoint = (char *) mountpoint;
-  serial = dispatch (g, GUESTFS_PROC_MOUNT,
+  serial = guestfs_send (g, GUESTFS_PROC_MOUNT,
                      (xdrproc_t) xdr_guestfs_mount_args, (char *) &args);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = mount_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, mount_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_mount failed, see earlier error messages");
     return -1;
   }
@@ -90,7 +143,7 @@ int guestfs_mount (guestfs_h *g,
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -98,13 +151,14 @@ int guestfs_mount (guestfs_h *g,
 }
 
 struct sync_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
 };
 
 static void sync_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct sync_state *state = (struct sync_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -119,41 +173,29 @@ static void sync_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_sync (guestfs_h *g)
 {
   struct sync_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_sync");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_sync");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_sync", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_sync") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
-  serial = dispatch (g, GUESTFS_PROC_SYNC, NULL, NULL);
+  serial = guestfs_send (g, GUESTFS_PROC_SYNC, NULL, NULL);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = sync_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, sync_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_sync failed, see earlier error messages");
     return -1;
   }
@@ -162,7 +204,7 @@ int guestfs_sync (guestfs_h *g)
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -170,13 +212,14 @@ int guestfs_sync (guestfs_h *g)
 }
 
 struct touch_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
 };
 
 static void touch_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct touch_state *state = (struct touch_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -191,8 +234,8 @@ static void touch_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_touch (guestfs_h *g,
@@ -200,36 +243,24 @@ int guestfs_touch (guestfs_h *g,
 {
   struct guestfs_touch_args args;
   struct touch_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_touch");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_touch");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_touch", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_touch") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
-  serial = dispatch (g, GUESTFS_PROC_TOUCH,
+  serial = guestfs_send (g, GUESTFS_PROC_TOUCH,
                      (xdrproc_t) xdr_guestfs_touch_args, (char *) &args);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = touch_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, touch_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_touch failed, see earlier error messages");
     return -1;
   }
@@ -238,7 +269,7 @@ int guestfs_touch (guestfs_h *g,
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -246,7 +277,7 @@ int guestfs_touch (guestfs_h *g,
 }
 
 struct cat_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
   struct guestfs_cat_ret ret;
@@ -254,6 +285,7 @@ struct cat_state {
 
 static void cat_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct cat_state *state = (struct cat_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -272,8 +304,8 @@ static void cat_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 char *guestfs_cat (guestfs_h *g,
@@ -281,36 +313,24 @@ char *guestfs_cat (guestfs_h *g,
 {
   struct guestfs_cat_args args;
   struct cat_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_cat");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_cat");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_cat", g->state);
-    return NULL;
-  }
+  if (check_state (g, "guestfs_cat") == -1) return NULL;
 
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
-  serial = dispatch (g, GUESTFS_PROC_CAT,
+  serial = guestfs_send (g, GUESTFS_PROC_CAT,
                      (xdrproc_t) xdr_guestfs_cat_args, (char *) &args);
   if (serial == -1)
     return NULL;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = cat_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, cat_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_cat failed, see earlier error messages");
     return NULL;
   }
@@ -319,7 +339,7 @@ char *guestfs_cat (guestfs_h *g,
     return NULL;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return NULL;
   }
 
@@ -327,7 +347,7 @@ char *guestfs_cat (guestfs_h *g,
 }
 
 struct ll_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
   struct guestfs_ll_ret ret;
@@ -335,6 +355,7 @@ struct ll_state {
 
 static void ll_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct ll_state *state = (struct ll_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -353,8 +374,8 @@ static void ll_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 char *guestfs_ll (guestfs_h *g,
@@ -362,36 +383,24 @@ char *guestfs_ll (guestfs_h *g,
 {
   struct guestfs_ll_args args;
   struct ll_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_ll");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_ll");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_ll", g->state);
-    return NULL;
-  }
+  if (check_state (g, "guestfs_ll") == -1) return NULL;
 
   memset (&state, 0, sizeof state);
 
   args.directory = (char *) directory;
-  serial = dispatch (g, GUESTFS_PROC_LL,
+  serial = guestfs_send (g, GUESTFS_PROC_LL,
                      (xdrproc_t) xdr_guestfs_ll_args, (char *) &args);
   if (serial == -1)
     return NULL;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = ll_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, ll_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_ll failed, see earlier error messages");
     return NULL;
   }
@@ -400,7 +409,7 @@ char *guestfs_ll (guestfs_h *g,
     return NULL;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return NULL;
   }
 
@@ -408,7 +417,7 @@ char *guestfs_ll (guestfs_h *g,
 }
 
 struct ls_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
   struct guestfs_ls_ret ret;
@@ -416,6 +425,7 @@ struct ls_state {
 
 static void ls_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct ls_state *state = (struct ls_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -434,8 +444,8 @@ static void ls_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 char **guestfs_ls (guestfs_h *g,
@@ -443,36 +453,24 @@ char **guestfs_ls (guestfs_h *g,
 {
   struct guestfs_ls_args args;
   struct ls_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_ls");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_ls");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_ls", g->state);
-    return NULL;
-  }
+  if (check_state (g, "guestfs_ls") == -1) return NULL;
 
   memset (&state, 0, sizeof state);
 
   args.directory = (char *) directory;
-  serial = dispatch (g, GUESTFS_PROC_LS,
+  serial = guestfs_send (g, GUESTFS_PROC_LS,
                      (xdrproc_t) xdr_guestfs_ls_args, (char *) &args);
   if (serial == -1)
     return NULL;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = ls_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, ls_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_ls failed, see earlier error messages");
     return NULL;
   }
@@ -481,19 +479,20 @@ char **guestfs_ls (guestfs_h *g,
     return NULL;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return NULL;
   }
 
   /* caller will free this, but we need to add a NULL entry */
-  state.ret.listing.listing_val =    safe_realloc (g, state.ret.listing.listing_val,
+  state.ret.listing.listing_val =
+    safe_realloc (g, state.ret.listing.listing_val,
                   sizeof (char *) * (state.ret.listing.listing_len + 1));
   state.ret.listing.listing_val[state.ret.listing.listing_len] = NULL;
   return state.ret.listing.listing_val;
 }
 
 struct list_devices_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
   struct guestfs_list_devices_ret ret;
@@ -501,6 +500,7 @@ struct list_devices_state {
 
 static void list_devices_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct list_devices_state *state = (struct list_devices_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -519,41 +519,29 @@ static void list_devices_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 char **guestfs_list_devices (guestfs_h *g)
 {
   struct list_devices_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_list_devices");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_list_devices");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_list_devices", g->state);
-    return NULL;
-  }
+  if (check_state (g, "guestfs_list_devices") == -1) return NULL;
 
   memset (&state, 0, sizeof state);
 
-  serial = dispatch (g, GUESTFS_PROC_LIST_DEVICES, NULL, NULL);
+  serial = guestfs_send (g, GUESTFS_PROC_LIST_DEVICES, NULL, NULL);
   if (serial == -1)
     return NULL;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = list_devices_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, list_devices_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_list_devices failed, see earlier error messages");
     return NULL;
   }
@@ -562,19 +550,20 @@ char **guestfs_list_devices (guestfs_h *g)
     return NULL;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return NULL;
   }
 
   /* caller will free this, but we need to add a NULL entry */
-  state.ret.devices.devices_val =    safe_realloc (g, state.ret.devices.devices_val,
+  state.ret.devices.devices_val =
+    safe_realloc (g, state.ret.devices.devices_val,
                   sizeof (char *) * (state.ret.devices.devices_len + 1));
   state.ret.devices.devices_val[state.ret.devices.devices_len] = NULL;
   return state.ret.devices.devices_val;
 }
 
 struct list_partitions_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
   struct guestfs_list_partitions_ret ret;
@@ -582,6 +571,7 @@ struct list_partitions_state {
 
 static void list_partitions_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct list_partitions_state *state = (struct list_partitions_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -600,41 +590,29 @@ static void list_partitions_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 char **guestfs_list_partitions (guestfs_h *g)
 {
   struct list_partitions_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_list_partitions");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_list_partitions");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_list_partitions", g->state);
-    return NULL;
-  }
+  if (check_state (g, "guestfs_list_partitions") == -1) return NULL;
 
   memset (&state, 0, sizeof state);
 
-  serial = dispatch (g, GUESTFS_PROC_LIST_PARTITIONS, NULL, NULL);
+  serial = guestfs_send (g, GUESTFS_PROC_LIST_PARTITIONS, NULL, NULL);
   if (serial == -1)
     return NULL;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = list_partitions_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, list_partitions_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_list_partitions failed, see earlier error messages");
     return NULL;
   }
@@ -643,19 +621,20 @@ char **guestfs_list_partitions (guestfs_h *g)
     return NULL;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return NULL;
   }
 
   /* caller will free this, but we need to add a NULL entry */
-  state.ret.partitions.partitions_val =    safe_realloc (g, state.ret.partitions.partitions_val,
+  state.ret.partitions.partitions_val =
+    safe_realloc (g, state.ret.partitions.partitions_val,
                   sizeof (char *) * (state.ret.partitions.partitions_len + 1));
   state.ret.partitions.partitions_val[state.ret.partitions.partitions_len] = NULL;
   return state.ret.partitions.partitions_val;
 }
 
 struct pvs_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
   struct guestfs_pvs_ret ret;
@@ -663,6 +642,7 @@ struct pvs_state {
 
 static void pvs_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct pvs_state *state = (struct pvs_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -681,41 +661,29 @@ static void pvs_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 char **guestfs_pvs (guestfs_h *g)
 {
   struct pvs_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_pvs");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_pvs");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_pvs", g->state);
-    return NULL;
-  }
+  if (check_state (g, "guestfs_pvs") == -1) return NULL;
 
   memset (&state, 0, sizeof state);
 
-  serial = dispatch (g, GUESTFS_PROC_PVS, NULL, NULL);
+  serial = guestfs_send (g, GUESTFS_PROC_PVS, NULL, NULL);
   if (serial == -1)
     return NULL;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = pvs_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, pvs_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_pvs failed, see earlier error messages");
     return NULL;
   }
@@ -724,19 +692,20 @@ char **guestfs_pvs (guestfs_h *g)
     return NULL;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return NULL;
   }
 
   /* caller will free this, but we need to add a NULL entry */
-  state.ret.physvols.physvols_val =    safe_realloc (g, state.ret.physvols.physvols_val,
+  state.ret.physvols.physvols_val =
+    safe_realloc (g, state.ret.physvols.physvols_val,
                   sizeof (char *) * (state.ret.physvols.physvols_len + 1));
   state.ret.physvols.physvols_val[state.ret.physvols.physvols_len] = NULL;
   return state.ret.physvols.physvols_val;
 }
 
 struct vgs_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
   struct guestfs_vgs_ret ret;
@@ -744,6 +713,7 @@ struct vgs_state {
 
 static void vgs_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct vgs_state *state = (struct vgs_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -762,41 +732,29 @@ static void vgs_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 char **guestfs_vgs (guestfs_h *g)
 {
   struct vgs_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_vgs");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_vgs");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_vgs", g->state);
-    return NULL;
-  }
+  if (check_state (g, "guestfs_vgs") == -1) return NULL;
 
   memset (&state, 0, sizeof state);
 
-  serial = dispatch (g, GUESTFS_PROC_VGS, NULL, NULL);
+  serial = guestfs_send (g, GUESTFS_PROC_VGS, NULL, NULL);
   if (serial == -1)
     return NULL;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = vgs_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, vgs_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_vgs failed, see earlier error messages");
     return NULL;
   }
@@ -805,19 +763,20 @@ char **guestfs_vgs (guestfs_h *g)
     return NULL;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return NULL;
   }
 
   /* caller will free this, but we need to add a NULL entry */
-  state.ret.volgroups.volgroups_val =    safe_realloc (g, state.ret.volgroups.volgroups_val,
+  state.ret.volgroups.volgroups_val =
+    safe_realloc (g, state.ret.volgroups.volgroups_val,
                   sizeof (char *) * (state.ret.volgroups.volgroups_len + 1));
   state.ret.volgroups.volgroups_val[state.ret.volgroups.volgroups_len] = NULL;
   return state.ret.volgroups.volgroups_val;
 }
 
 struct lvs_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
   struct guestfs_lvs_ret ret;
@@ -825,6 +784,7 @@ struct lvs_state {
 
 static void lvs_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct lvs_state *state = (struct lvs_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -843,41 +803,29 @@ static void lvs_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 char **guestfs_lvs (guestfs_h *g)
 {
   struct lvs_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_lvs");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_lvs");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_lvs", g->state);
-    return NULL;
-  }
+  if (check_state (g, "guestfs_lvs") == -1) return NULL;
 
   memset (&state, 0, sizeof state);
 
-  serial = dispatch (g, GUESTFS_PROC_LVS, NULL, NULL);
+  serial = guestfs_send (g, GUESTFS_PROC_LVS, NULL, NULL);
   if (serial == -1)
     return NULL;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = lvs_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, lvs_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_lvs failed, see earlier error messages");
     return NULL;
   }
@@ -886,19 +834,20 @@ char **guestfs_lvs (guestfs_h *g)
     return NULL;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return NULL;
   }
 
   /* caller will free this, but we need to add a NULL entry */
-  state.ret.logvols.logvols_val =    safe_realloc (g, state.ret.logvols.logvols_val,
+  state.ret.logvols.logvols_val =
+    safe_realloc (g, state.ret.logvols.logvols_val,
                   sizeof (char *) * (state.ret.logvols.logvols_len + 1));
   state.ret.logvols.logvols_val[state.ret.logvols.logvols_len] = NULL;
   return state.ret.logvols.logvols_val;
 }
 
 struct pvs_full_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
   struct guestfs_pvs_full_ret ret;
@@ -906,6 +855,7 @@ struct pvs_full_state {
 
 static void pvs_full_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct pvs_full_state *state = (struct pvs_full_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -924,41 +874,29 @@ static void pvs_full_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 struct guestfs_lvm_pv_list *guestfs_pvs_full (guestfs_h *g)
 {
   struct pvs_full_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_pvs_full");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_pvs_full");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_pvs_full", g->state);
-    return NULL;
-  }
+  if (check_state (g, "guestfs_pvs_full") == -1) return NULL;
 
   memset (&state, 0, sizeof state);
 
-  serial = dispatch (g, GUESTFS_PROC_PVS_FULL, NULL, NULL);
+  serial = guestfs_send (g, GUESTFS_PROC_PVS_FULL, NULL, NULL);
   if (serial == -1)
     return NULL;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = pvs_full_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, pvs_full_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_pvs_full failed, see earlier error messages");
     return NULL;
   }
@@ -967,7 +905,7 @@ struct guestfs_lvm_pv_list *guestfs_pvs_full (guestfs_h *g)
     return NULL;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return NULL;
   }
 
@@ -976,7 +914,7 @@ struct guestfs_lvm_pv_list *guestfs_pvs_full (guestfs_h *g)
 }
 
 struct vgs_full_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
   struct guestfs_vgs_full_ret ret;
@@ -984,6 +922,7 @@ struct vgs_full_state {
 
 static void vgs_full_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct vgs_full_state *state = (struct vgs_full_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -1002,41 +941,29 @@ static void vgs_full_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 struct guestfs_lvm_vg_list *guestfs_vgs_full (guestfs_h *g)
 {
   struct vgs_full_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_vgs_full");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_vgs_full");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_vgs_full", g->state);
-    return NULL;
-  }
+  if (check_state (g, "guestfs_vgs_full") == -1) return NULL;
 
   memset (&state, 0, sizeof state);
 
-  serial = dispatch (g, GUESTFS_PROC_VGS_FULL, NULL, NULL);
+  serial = guestfs_send (g, GUESTFS_PROC_VGS_FULL, NULL, NULL);
   if (serial == -1)
     return NULL;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = vgs_full_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, vgs_full_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_vgs_full failed, see earlier error messages");
     return NULL;
   }
@@ -1045,7 +972,7 @@ struct guestfs_lvm_vg_list *guestfs_vgs_full (guestfs_h *g)
     return NULL;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return NULL;
   }
 
@@ -1054,7 +981,7 @@ struct guestfs_lvm_vg_list *guestfs_vgs_full (guestfs_h *g)
 }
 
 struct lvs_full_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
   struct guestfs_lvs_full_ret ret;
@@ -1062,6 +989,7 @@ struct lvs_full_state {
 
 static void lvs_full_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct lvs_full_state *state = (struct lvs_full_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -1080,41 +1008,29 @@ static void lvs_full_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 struct guestfs_lvm_lv_list *guestfs_lvs_full (guestfs_h *g)
 {
   struct lvs_full_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_lvs_full");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_lvs_full");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_lvs_full", g->state);
-    return NULL;
-  }
+  if (check_state (g, "guestfs_lvs_full") == -1) return NULL;
 
   memset (&state, 0, sizeof state);
 
-  serial = dispatch (g, GUESTFS_PROC_LVS_FULL, NULL, NULL);
+  serial = guestfs_send (g, GUESTFS_PROC_LVS_FULL, NULL, NULL);
   if (serial == -1)
     return NULL;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = lvs_full_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, lvs_full_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_lvs_full failed, see earlier error messages");
     return NULL;
   }
@@ -1123,7 +1039,7 @@ struct guestfs_lvm_lv_list *guestfs_lvs_full (guestfs_h *g)
     return NULL;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return NULL;
   }
 
@@ -1132,7 +1048,7 @@ struct guestfs_lvm_lv_list *guestfs_lvs_full (guestfs_h *g)
 }
 
 struct read_lines_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
   struct guestfs_read_lines_ret ret;
@@ -1140,6 +1056,7 @@ struct read_lines_state {
 
 static void read_lines_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct read_lines_state *state = (struct read_lines_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -1158,8 +1075,8 @@ static void read_lines_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 char **guestfs_read_lines (guestfs_h *g,
@@ -1167,36 +1084,24 @@ char **guestfs_read_lines (guestfs_h *g,
 {
   struct guestfs_read_lines_args args;
   struct read_lines_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_read_lines");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_read_lines");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_read_lines", g->state);
-    return NULL;
-  }
+  if (check_state (g, "guestfs_read_lines") == -1) return NULL;
 
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
-  serial = dispatch (g, GUESTFS_PROC_READ_LINES,
+  serial = guestfs_send (g, GUESTFS_PROC_READ_LINES,
                      (xdrproc_t) xdr_guestfs_read_lines_args, (char *) &args);
   if (serial == -1)
     return NULL;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = read_lines_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, read_lines_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_read_lines failed, see earlier error messages");
     return NULL;
   }
@@ -1205,25 +1110,27 @@ char **guestfs_read_lines (guestfs_h *g,
     return NULL;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return NULL;
   }
 
   /* caller will free this, but we need to add a NULL entry */
-  state.ret.lines.lines_val =    safe_realloc (g, state.ret.lines.lines_val,
+  state.ret.lines.lines_val =
+    safe_realloc (g, state.ret.lines.lines_val,
                   sizeof (char *) * (state.ret.lines.lines_len + 1));
   state.ret.lines.lines_val[state.ret.lines.lines_len] = NULL;
   return state.ret.lines.lines_val;
 }
 
 struct aug_init_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
 };
 
 static void aug_init_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_init_state *state = (struct aug_init_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -1238,8 +1145,8 @@ static void aug_init_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_aug_init (guestfs_h *g,
@@ -1248,37 +1155,25 @@ int guestfs_aug_init (guestfs_h *g,
 {
   struct guestfs_aug_init_args args;
   struct aug_init_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_aug_init");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_aug_init");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_aug_init", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_aug_init") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
   args.root = (char *) root;
   args.flags = flags;
-  serial = dispatch (g, GUESTFS_PROC_AUG_INIT,
+  serial = guestfs_send (g, GUESTFS_PROC_AUG_INIT,
                      (xdrproc_t) xdr_guestfs_aug_init_args, (char *) &args);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = aug_init_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, aug_init_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_aug_init failed, see earlier error messages");
     return -1;
   }
@@ -1287,7 +1182,7 @@ int guestfs_aug_init (guestfs_h *g,
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -1295,13 +1190,14 @@ int guestfs_aug_init (guestfs_h *g,
 }
 
 struct aug_close_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
 };
 
 static void aug_close_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_close_state *state = (struct aug_close_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -1316,41 +1212,29 @@ static void aug_close_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_aug_close (guestfs_h *g)
 {
   struct aug_close_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_aug_close");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_aug_close");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_aug_close", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_aug_close") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
-  serial = dispatch (g, GUESTFS_PROC_AUG_CLOSE, NULL, NULL);
+  serial = guestfs_send (g, GUESTFS_PROC_AUG_CLOSE, NULL, NULL);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = aug_close_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, aug_close_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_aug_close failed, see earlier error messages");
     return -1;
   }
@@ -1359,7 +1243,7 @@ int guestfs_aug_close (guestfs_h *g)
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -1367,7 +1251,7 @@ int guestfs_aug_close (guestfs_h *g)
 }
 
 struct aug_defvar_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
   struct guestfs_aug_defvar_ret ret;
@@ -1375,6 +1259,7 @@ struct aug_defvar_state {
 
 static void aug_defvar_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_defvar_state *state = (struct aug_defvar_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -1393,8 +1278,8 @@ static void aug_defvar_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_aug_defvar (guestfs_h *g,
@@ -1403,37 +1288,25 @@ int guestfs_aug_defvar (guestfs_h *g,
 {
   struct guestfs_aug_defvar_args args;
   struct aug_defvar_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_aug_defvar");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_aug_defvar");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_aug_defvar", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_aug_defvar") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
   args.name = (char *) name;
   args.expr = expr ? (char **) &expr : NULL;
-  serial = dispatch (g, GUESTFS_PROC_AUG_DEFVAR,
+  serial = guestfs_send (g, GUESTFS_PROC_AUG_DEFVAR,
                      (xdrproc_t) xdr_guestfs_aug_defvar_args, (char *) &args);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = aug_defvar_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, aug_defvar_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_aug_defvar failed, see earlier error messages");
     return -1;
   }
@@ -1442,7 +1315,7 @@ int guestfs_aug_defvar (guestfs_h *g,
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -1450,7 +1323,7 @@ int guestfs_aug_defvar (guestfs_h *g,
 }
 
 struct aug_defnode_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
   struct guestfs_aug_defnode_ret ret;
@@ -1458,6 +1331,7 @@ struct aug_defnode_state {
 
 static void aug_defnode_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_defnode_state *state = (struct aug_defnode_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -1476,8 +1350,8 @@ static void aug_defnode_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 struct guestfs_int_bool *guestfs_aug_defnode (guestfs_h *g,
@@ -1487,38 +1361,26 @@ struct guestfs_int_bool *guestfs_aug_defnode (guestfs_h *g,
 {
   struct guestfs_aug_defnode_args args;
   struct aug_defnode_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_aug_defnode");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_aug_defnode");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_aug_defnode", g->state);
-    return NULL;
-  }
+  if (check_state (g, "guestfs_aug_defnode") == -1) return NULL;
 
   memset (&state, 0, sizeof state);
 
   args.name = (char *) name;
   args.expr = (char *) expr;
   args.val = (char *) val;
-  serial = dispatch (g, GUESTFS_PROC_AUG_DEFNODE,
+  serial = guestfs_send (g, GUESTFS_PROC_AUG_DEFNODE,
                      (xdrproc_t) xdr_guestfs_aug_defnode_args, (char *) &args);
   if (serial == -1)
     return NULL;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = aug_defnode_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, aug_defnode_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_aug_defnode failed, see earlier error messages");
     return NULL;
   }
@@ -1527,7 +1389,7 @@ struct guestfs_int_bool *guestfs_aug_defnode (guestfs_h *g,
     return NULL;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return NULL;
   }
 
@@ -1536,7 +1398,7 @@ struct guestfs_int_bool *guestfs_aug_defnode (guestfs_h *g,
 }
 
 struct aug_get_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
   struct guestfs_aug_get_ret ret;
@@ -1544,6 +1406,7 @@ struct aug_get_state {
 
 static void aug_get_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_get_state *state = (struct aug_get_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -1562,8 +1425,8 @@ static void aug_get_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 char *guestfs_aug_get (guestfs_h *g,
@@ -1571,36 +1434,24 @@ char *guestfs_aug_get (guestfs_h *g,
 {
   struct guestfs_aug_get_args args;
   struct aug_get_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_aug_get");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_aug_get");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_aug_get", g->state);
-    return NULL;
-  }
+  if (check_state (g, "guestfs_aug_get") == -1) return NULL;
 
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
-  serial = dispatch (g, GUESTFS_PROC_AUG_GET,
+  serial = guestfs_send (g, GUESTFS_PROC_AUG_GET,
                      (xdrproc_t) xdr_guestfs_aug_get_args, (char *) &args);
   if (serial == -1)
     return NULL;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = aug_get_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, aug_get_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_aug_get failed, see earlier error messages");
     return NULL;
   }
@@ -1609,7 +1460,7 @@ char *guestfs_aug_get (guestfs_h *g,
     return NULL;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return NULL;
   }
 
@@ -1617,13 +1468,14 @@ char *guestfs_aug_get (guestfs_h *g,
 }
 
 struct aug_set_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
 };
 
 static void aug_set_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_set_state *state = (struct aug_set_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -1638,8 +1490,8 @@ static void aug_set_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_aug_set (guestfs_h *g,
@@ -1648,37 +1500,25 @@ int guestfs_aug_set (guestfs_h *g,
 {
   struct guestfs_aug_set_args args;
   struct aug_set_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_aug_set");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_aug_set");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_aug_set", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_aug_set") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
   args.val = (char *) val;
-  serial = dispatch (g, GUESTFS_PROC_AUG_SET,
+  serial = guestfs_send (g, GUESTFS_PROC_AUG_SET,
                      (xdrproc_t) xdr_guestfs_aug_set_args, (char *) &args);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = aug_set_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, aug_set_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_aug_set failed, see earlier error messages");
     return -1;
   }
@@ -1687,7 +1527,7 @@ int guestfs_aug_set (guestfs_h *g,
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -1695,13 +1535,14 @@ int guestfs_aug_set (guestfs_h *g,
 }
 
 struct aug_insert_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
 };
 
 static void aug_insert_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_insert_state *state = (struct aug_insert_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -1716,8 +1557,8 @@ static void aug_insert_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_aug_insert (guestfs_h *g,
@@ -1727,38 +1568,26 @@ int guestfs_aug_insert (guestfs_h *g,
 {
   struct guestfs_aug_insert_args args;
   struct aug_insert_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_aug_insert");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_aug_insert");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_aug_insert", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_aug_insert") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
   args.label = (char *) label;
   args.before = before;
-  serial = dispatch (g, GUESTFS_PROC_AUG_INSERT,
+  serial = guestfs_send (g, GUESTFS_PROC_AUG_INSERT,
                      (xdrproc_t) xdr_guestfs_aug_insert_args, (char *) &args);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = aug_insert_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, aug_insert_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_aug_insert failed, see earlier error messages");
     return -1;
   }
@@ -1767,7 +1596,7 @@ int guestfs_aug_insert (guestfs_h *g,
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -1775,7 +1604,7 @@ int guestfs_aug_insert (guestfs_h *g,
 }
 
 struct aug_rm_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
   struct guestfs_aug_rm_ret ret;
@@ -1783,6 +1612,7 @@ struct aug_rm_state {
 
 static void aug_rm_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_rm_state *state = (struct aug_rm_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -1801,8 +1631,8 @@ static void aug_rm_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_aug_rm (guestfs_h *g,
@@ -1810,36 +1640,24 @@ int guestfs_aug_rm (guestfs_h *g,
 {
   struct guestfs_aug_rm_args args;
   struct aug_rm_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_aug_rm");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_aug_rm");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_aug_rm", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_aug_rm") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
-  serial = dispatch (g, GUESTFS_PROC_AUG_RM,
+  serial = guestfs_send (g, GUESTFS_PROC_AUG_RM,
                      (xdrproc_t) xdr_guestfs_aug_rm_args, (char *) &args);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = aug_rm_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, aug_rm_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_aug_rm failed, see earlier error messages");
     return -1;
   }
@@ -1848,7 +1666,7 @@ int guestfs_aug_rm (guestfs_h *g,
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -1856,13 +1674,14 @@ int guestfs_aug_rm (guestfs_h *g,
 }
 
 struct aug_mv_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
 };
 
 static void aug_mv_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_mv_state *state = (struct aug_mv_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -1877,8 +1696,8 @@ static void aug_mv_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_aug_mv (guestfs_h *g,
@@ -1887,37 +1706,25 @@ int guestfs_aug_mv (guestfs_h *g,
 {
   struct guestfs_aug_mv_args args;
   struct aug_mv_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_aug_mv");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_aug_mv");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_aug_mv", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_aug_mv") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
   args.src = (char *) src;
   args.dest = (char *) dest;
-  serial = dispatch (g, GUESTFS_PROC_AUG_MV,
+  serial = guestfs_send (g, GUESTFS_PROC_AUG_MV,
                      (xdrproc_t) xdr_guestfs_aug_mv_args, (char *) &args);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = aug_mv_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, aug_mv_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_aug_mv failed, see earlier error messages");
     return -1;
   }
@@ -1926,7 +1733,7 @@ int guestfs_aug_mv (guestfs_h *g,
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -1934,7 +1741,7 @@ int guestfs_aug_mv (guestfs_h *g,
 }
 
 struct aug_match_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
   struct guestfs_aug_match_ret ret;
@@ -1942,6 +1749,7 @@ struct aug_match_state {
 
 static void aug_match_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_match_state *state = (struct aug_match_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -1960,8 +1768,8 @@ static void aug_match_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 char **guestfs_aug_match (guestfs_h *g,
@@ -1969,36 +1777,24 @@ char **guestfs_aug_match (guestfs_h *g,
 {
   struct guestfs_aug_match_args args;
   struct aug_match_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_aug_match");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_aug_match");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_aug_match", g->state);
-    return NULL;
-  }
+  if (check_state (g, "guestfs_aug_match") == -1) return NULL;
 
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
-  serial = dispatch (g, GUESTFS_PROC_AUG_MATCH,
+  serial = guestfs_send (g, GUESTFS_PROC_AUG_MATCH,
                      (xdrproc_t) xdr_guestfs_aug_match_args, (char *) &args);
   if (serial == -1)
     return NULL;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = aug_match_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, aug_match_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_aug_match failed, see earlier error messages");
     return NULL;
   }
@@ -2007,25 +1803,27 @@ char **guestfs_aug_match (guestfs_h *g,
     return NULL;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return NULL;
   }
 
   /* caller will free this, but we need to add a NULL entry */
-  state.ret.matches.matches_val =    safe_realloc (g, state.ret.matches.matches_val,
+  state.ret.matches.matches_val =
+    safe_realloc (g, state.ret.matches.matches_val,
                   sizeof (char *) * (state.ret.matches.matches_len + 1));
   state.ret.matches.matches_val[state.ret.matches.matches_len] = NULL;
   return state.ret.matches.matches_val;
 }
 
 struct aug_save_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
 };
 
 static void aug_save_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_save_state *state = (struct aug_save_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -2040,41 +1838,29 @@ static void aug_save_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_aug_save (guestfs_h *g)
 {
   struct aug_save_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_aug_save");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_aug_save");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_aug_save", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_aug_save") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
-  serial = dispatch (g, GUESTFS_PROC_AUG_SAVE, NULL, NULL);
+  serial = guestfs_send (g, GUESTFS_PROC_AUG_SAVE, NULL, NULL);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = aug_save_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, aug_save_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_aug_save failed, see earlier error messages");
     return -1;
   }
@@ -2083,7 +1869,7 @@ int guestfs_aug_save (guestfs_h *g)
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -2091,13 +1877,14 @@ int guestfs_aug_save (guestfs_h *g)
 }
 
 struct aug_load_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
 };
 
 static void aug_load_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_load_state *state = (struct aug_load_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -2112,41 +1899,29 @@ static void aug_load_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_aug_load (guestfs_h *g)
 {
   struct aug_load_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_aug_load");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_aug_load");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_aug_load", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_aug_load") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
-  serial = dispatch (g, GUESTFS_PROC_AUG_LOAD, NULL, NULL);
+  serial = guestfs_send (g, GUESTFS_PROC_AUG_LOAD, NULL, NULL);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = aug_load_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, aug_load_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_aug_load failed, see earlier error messages");
     return -1;
   }
@@ -2155,7 +1930,7 @@ int guestfs_aug_load (guestfs_h *g)
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -2163,7 +1938,7 @@ int guestfs_aug_load (guestfs_h *g)
 }
 
 struct aug_ls_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
   struct guestfs_aug_ls_ret ret;
@@ -2171,6 +1946,7 @@ struct aug_ls_state {
 
 static void aug_ls_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_ls_state *state = (struct aug_ls_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -2189,8 +1965,8 @@ static void aug_ls_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 char **guestfs_aug_ls (guestfs_h *g,
@@ -2198,36 +1974,24 @@ char **guestfs_aug_ls (guestfs_h *g,
 {
   struct guestfs_aug_ls_args args;
   struct aug_ls_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_aug_ls");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_aug_ls");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_aug_ls", g->state);
-    return NULL;
-  }
+  if (check_state (g, "guestfs_aug_ls") == -1) return NULL;
 
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
-  serial = dispatch (g, GUESTFS_PROC_AUG_LS,
+  serial = guestfs_send (g, GUESTFS_PROC_AUG_LS,
                      (xdrproc_t) xdr_guestfs_aug_ls_args, (char *) &args);
   if (serial == -1)
     return NULL;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = aug_ls_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, aug_ls_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_aug_ls failed, see earlier error messages");
     return NULL;
   }
@@ -2236,25 +2000,27 @@ char **guestfs_aug_ls (guestfs_h *g,
     return NULL;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return NULL;
   }
 
   /* caller will free this, but we need to add a NULL entry */
-  state.ret.matches.matches_val =    safe_realloc (g, state.ret.matches.matches_val,
+  state.ret.matches.matches_val =
+    safe_realloc (g, state.ret.matches.matches_val,
                   sizeof (char *) * (state.ret.matches.matches_len + 1));
   state.ret.matches.matches_val[state.ret.matches.matches_len] = NULL;
   return state.ret.matches.matches_val;
 }
 
 struct rm_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
 };
 
 static void rm_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct rm_state *state = (struct rm_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -2269,8 +2035,8 @@ static void rm_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_rm (guestfs_h *g,
@@ -2278,36 +2044,24 @@ int guestfs_rm (guestfs_h *g,
 {
   struct guestfs_rm_args args;
   struct rm_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_rm");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_rm");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_rm", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_rm") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
-  serial = dispatch (g, GUESTFS_PROC_RM,
+  serial = guestfs_send (g, GUESTFS_PROC_RM,
                      (xdrproc_t) xdr_guestfs_rm_args, (char *) &args);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = rm_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, rm_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_rm failed, see earlier error messages");
     return -1;
   }
@@ -2316,7 +2070,7 @@ int guestfs_rm (guestfs_h *g,
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -2324,13 +2078,14 @@ int guestfs_rm (guestfs_h *g,
 }
 
 struct rmdir_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
 };
 
 static void rmdir_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct rmdir_state *state = (struct rmdir_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -2345,8 +2100,8 @@ static void rmdir_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_rmdir (guestfs_h *g,
@@ -2354,36 +2109,24 @@ int guestfs_rmdir (guestfs_h *g,
 {
   struct guestfs_rmdir_args args;
   struct rmdir_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_rmdir");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_rmdir");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_rmdir", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_rmdir") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
-  serial = dispatch (g, GUESTFS_PROC_RMDIR,
+  serial = guestfs_send (g, GUESTFS_PROC_RMDIR,
                      (xdrproc_t) xdr_guestfs_rmdir_args, (char *) &args);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = rmdir_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, rmdir_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_rmdir failed, see earlier error messages");
     return -1;
   }
@@ -2392,7 +2135,7 @@ int guestfs_rmdir (guestfs_h *g,
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -2400,13 +2143,14 @@ int guestfs_rmdir (guestfs_h *g,
 }
 
 struct rm_rf_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
 };
 
 static void rm_rf_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct rm_rf_state *state = (struct rm_rf_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -2421,8 +2165,8 @@ static void rm_rf_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_rm_rf (guestfs_h *g,
@@ -2430,36 +2174,24 @@ int guestfs_rm_rf (guestfs_h *g,
 {
   struct guestfs_rm_rf_args args;
   struct rm_rf_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_rm_rf");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_rm_rf");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_rm_rf", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_rm_rf") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
-  serial = dispatch (g, GUESTFS_PROC_RM_RF,
+  serial = guestfs_send (g, GUESTFS_PROC_RM_RF,
                      (xdrproc_t) xdr_guestfs_rm_rf_args, (char *) &args);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = rm_rf_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, rm_rf_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_rm_rf failed, see earlier error messages");
     return -1;
   }
@@ -2468,7 +2200,7 @@ int guestfs_rm_rf (guestfs_h *g,
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -2476,13 +2208,14 @@ int guestfs_rm_rf (guestfs_h *g,
 }
 
 struct mkdir_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
 };
 
 static void mkdir_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct mkdir_state *state = (struct mkdir_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -2497,8 +2230,8 @@ static void mkdir_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_mkdir (guestfs_h *g,
@@ -2506,36 +2239,24 @@ int guestfs_mkdir (guestfs_h *g,
 {
   struct guestfs_mkdir_args args;
   struct mkdir_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_mkdir");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_mkdir");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_mkdir", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_mkdir") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
-  serial = dispatch (g, GUESTFS_PROC_MKDIR,
+  serial = guestfs_send (g, GUESTFS_PROC_MKDIR,
                      (xdrproc_t) xdr_guestfs_mkdir_args, (char *) &args);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = mkdir_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, mkdir_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_mkdir failed, see earlier error messages");
     return -1;
   }
@@ -2544,7 +2265,7 @@ int guestfs_mkdir (guestfs_h *g,
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -2552,13 +2273,14 @@ int guestfs_mkdir (guestfs_h *g,
 }
 
 struct mkdir_p_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
 };
 
 static void mkdir_p_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct mkdir_p_state *state = (struct mkdir_p_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -2573,8 +2295,8 @@ static void mkdir_p_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_mkdir_p (guestfs_h *g,
@@ -2582,36 +2304,24 @@ int guestfs_mkdir_p (guestfs_h *g,
 {
   struct guestfs_mkdir_p_args args;
   struct mkdir_p_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_mkdir_p");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_mkdir_p");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_mkdir_p", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_mkdir_p") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
-  serial = dispatch (g, GUESTFS_PROC_MKDIR_P,
+  serial = guestfs_send (g, GUESTFS_PROC_MKDIR_P,
                      (xdrproc_t) xdr_guestfs_mkdir_p_args, (char *) &args);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = mkdir_p_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, mkdir_p_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_mkdir_p failed, see earlier error messages");
     return -1;
   }
@@ -2620,7 +2330,7 @@ int guestfs_mkdir_p (guestfs_h *g,
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -2628,13 +2338,14 @@ int guestfs_mkdir_p (guestfs_h *g,
 }
 
 struct chmod_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
 };
 
 static void chmod_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct chmod_state *state = (struct chmod_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -2649,8 +2360,8 @@ static void chmod_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_chmod (guestfs_h *g,
@@ -2659,37 +2370,25 @@ int guestfs_chmod (guestfs_h *g,
 {
   struct guestfs_chmod_args args;
   struct chmod_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_chmod");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_chmod");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_chmod", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_chmod") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
   args.mode = mode;
   args.path = (char *) path;
-  serial = dispatch (g, GUESTFS_PROC_CHMOD,
+  serial = guestfs_send (g, GUESTFS_PROC_CHMOD,
                      (xdrproc_t) xdr_guestfs_chmod_args, (char *) &args);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = chmod_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, chmod_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_chmod failed, see earlier error messages");
     return -1;
   }
@@ -2698,7 +2397,7 @@ int guestfs_chmod (guestfs_h *g,
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -2706,13 +2405,14 @@ int guestfs_chmod (guestfs_h *g,
 }
 
 struct chown_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
 };
 
 static void chown_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct chown_state *state = (struct chown_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -2727,8 +2427,8 @@ static void chown_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_chown (guestfs_h *g,
@@ -2738,38 +2438,26 @@ int guestfs_chown (guestfs_h *g,
 {
   struct guestfs_chown_args args;
   struct chown_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_chown");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_chown");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_chown", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_chown") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
   args.owner = owner;
   args.group = group;
   args.path = (char *) path;
-  serial = dispatch (g, GUESTFS_PROC_CHOWN,
+  serial = guestfs_send (g, GUESTFS_PROC_CHOWN,
                      (xdrproc_t) xdr_guestfs_chown_args, (char *) &args);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = chown_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, chown_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_chown failed, see earlier error messages");
     return -1;
   }
@@ -2778,7 +2466,7 @@ int guestfs_chown (guestfs_h *g,
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -2786,7 +2474,7 @@ int guestfs_chown (guestfs_h *g,
 }
 
 struct exists_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
   struct guestfs_exists_ret ret;
@@ -2794,6 +2482,7 @@ struct exists_state {
 
 static void exists_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct exists_state *state = (struct exists_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -2812,8 +2501,8 @@ static void exists_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_exists (guestfs_h *g,
@@ -2821,36 +2510,24 @@ int guestfs_exists (guestfs_h *g,
 {
   struct guestfs_exists_args args;
   struct exists_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_exists");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_exists");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_exists", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_exists") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
-  serial = dispatch (g, GUESTFS_PROC_EXISTS,
+  serial = guestfs_send (g, GUESTFS_PROC_EXISTS,
                      (xdrproc_t) xdr_guestfs_exists_args, (char *) &args);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = exists_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, exists_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_exists failed, see earlier error messages");
     return -1;
   }
@@ -2859,7 +2536,7 @@ int guestfs_exists (guestfs_h *g,
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -2867,7 +2544,7 @@ int guestfs_exists (guestfs_h *g,
 }
 
 struct is_file_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
   struct guestfs_is_file_ret ret;
@@ -2875,6 +2552,7 @@ struct is_file_state {
 
 static void is_file_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct is_file_state *state = (struct is_file_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -2893,8 +2571,8 @@ static void is_file_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_is_file (guestfs_h *g,
@@ -2902,36 +2580,24 @@ int guestfs_is_file (guestfs_h *g,
 {
   struct guestfs_is_file_args args;
   struct is_file_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_is_file");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_is_file");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_is_file", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_is_file") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
-  serial = dispatch (g, GUESTFS_PROC_IS_FILE,
+  serial = guestfs_send (g, GUESTFS_PROC_IS_FILE,
                      (xdrproc_t) xdr_guestfs_is_file_args, (char *) &args);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = is_file_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, is_file_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_is_file failed, see earlier error messages");
     return -1;
   }
@@ -2940,7 +2606,7 @@ int guestfs_is_file (guestfs_h *g,
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -2948,7 +2614,7 @@ int guestfs_is_file (guestfs_h *g,
 }
 
 struct is_dir_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
   struct guestfs_is_dir_ret ret;
@@ -2956,6 +2622,7 @@ struct is_dir_state {
 
 static void is_dir_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct is_dir_state *state = (struct is_dir_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -2974,8 +2641,8 @@ static void is_dir_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_is_dir (guestfs_h *g,
@@ -2983,36 +2650,24 @@ int guestfs_is_dir (guestfs_h *g,
 {
   struct guestfs_is_dir_args args;
   struct is_dir_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_is_dir");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_is_dir");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_is_dir", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_is_dir") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
-  serial = dispatch (g, GUESTFS_PROC_IS_DIR,
+  serial = guestfs_send (g, GUESTFS_PROC_IS_DIR,
                      (xdrproc_t) xdr_guestfs_is_dir_args, (char *) &args);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = is_dir_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, is_dir_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_is_dir failed, see earlier error messages");
     return -1;
   }
@@ -3021,7 +2676,7 @@ int guestfs_is_dir (guestfs_h *g,
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -3029,13 +2684,14 @@ int guestfs_is_dir (guestfs_h *g,
 }
 
 struct pvcreate_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
 };
 
 static void pvcreate_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct pvcreate_state *state = (struct pvcreate_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -3050,8 +2706,8 @@ static void pvcreate_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_pvcreate (guestfs_h *g,
@@ -3059,36 +2715,24 @@ int guestfs_pvcreate (guestfs_h *g,
 {
   struct guestfs_pvcreate_args args;
   struct pvcreate_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_pvcreate");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_pvcreate");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_pvcreate", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_pvcreate") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
   args.device = (char *) device;
-  serial = dispatch (g, GUESTFS_PROC_PVCREATE,
+  serial = guestfs_send (g, GUESTFS_PROC_PVCREATE,
                      (xdrproc_t) xdr_guestfs_pvcreate_args, (char *) &args);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = pvcreate_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, pvcreate_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_pvcreate failed, see earlier error messages");
     return -1;
   }
@@ -3097,7 +2741,7 @@ int guestfs_pvcreate (guestfs_h *g,
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -3105,13 +2749,14 @@ int guestfs_pvcreate (guestfs_h *g,
 }
 
 struct vgcreate_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
 };
 
 static void vgcreate_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct vgcreate_state *state = (struct vgcreate_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -3126,8 +2771,8 @@ static void vgcreate_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_vgcreate (guestfs_h *g,
@@ -3136,38 +2781,26 @@ int guestfs_vgcreate (guestfs_h *g,
 {
   struct guestfs_vgcreate_args args;
   struct vgcreate_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_vgcreate");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_vgcreate");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_vgcreate", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_vgcreate") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
   args.volgroup = (char *) volgroup;
   args.physvols.physvols_val = (char **) physvols;
   for (args.physvols.physvols_len = 0; physvols[args.physvols.physvols_len]; args.physvols.physvols_len++) ;
-  serial = dispatch (g, GUESTFS_PROC_VGCREATE,
+  serial = guestfs_send (g, GUESTFS_PROC_VGCREATE,
                      (xdrproc_t) xdr_guestfs_vgcreate_args, (char *) &args);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = vgcreate_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, vgcreate_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_vgcreate failed, see earlier error messages");
     return -1;
   }
@@ -3176,7 +2809,7 @@ int guestfs_vgcreate (guestfs_h *g,
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -3184,13 +2817,14 @@ int guestfs_vgcreate (guestfs_h *g,
 }
 
 struct lvcreate_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
 };
 
 static void lvcreate_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct lvcreate_state *state = (struct lvcreate_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -3205,8 +2839,8 @@ static void lvcreate_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_lvcreate (guestfs_h *g,
@@ -3216,38 +2850,26 @@ int guestfs_lvcreate (guestfs_h *g,
 {
   struct guestfs_lvcreate_args args;
   struct lvcreate_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_lvcreate");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_lvcreate");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_lvcreate", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_lvcreate") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
   args.logvol = (char *) logvol;
   args.volgroup = (char *) volgroup;
   args.mbytes = mbytes;
-  serial = dispatch (g, GUESTFS_PROC_LVCREATE,
+  serial = guestfs_send (g, GUESTFS_PROC_LVCREATE,
                      (xdrproc_t) xdr_guestfs_lvcreate_args, (char *) &args);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = lvcreate_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, lvcreate_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_lvcreate failed, see earlier error messages");
     return -1;
   }
@@ -3256,7 +2878,7 @@ int guestfs_lvcreate (guestfs_h *g,
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -3264,13 +2886,14 @@ int guestfs_lvcreate (guestfs_h *g,
 }
 
 struct mkfs_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
 };
 
 static void mkfs_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct mkfs_state *state = (struct mkfs_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -3285,8 +2908,8 @@ static void mkfs_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_mkfs (guestfs_h *g,
@@ -3295,37 +2918,25 @@ int guestfs_mkfs (guestfs_h *g,
 {
   struct guestfs_mkfs_args args;
   struct mkfs_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_mkfs");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_mkfs");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_mkfs", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_mkfs") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
   args.fstype = (char *) fstype;
   args.device = (char *) device;
-  serial = dispatch (g, GUESTFS_PROC_MKFS,
+  serial = guestfs_send (g, GUESTFS_PROC_MKFS,
                      (xdrproc_t) xdr_guestfs_mkfs_args, (char *) &args);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = mkfs_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, mkfs_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_mkfs failed, see earlier error messages");
     return -1;
   }
@@ -3334,7 +2945,7 @@ int guestfs_mkfs (guestfs_h *g,
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -3342,13 +2953,14 @@ int guestfs_mkfs (guestfs_h *g,
 }
 
 struct sfdisk_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
 };
 
 static void sfdisk_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct sfdisk_state *state = (struct sfdisk_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -3363,8 +2975,8 @@ static void sfdisk_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_sfdisk (guestfs_h *g,
@@ -3376,20 +2988,10 @@ int guestfs_sfdisk (guestfs_h *g,
 {
   struct guestfs_sfdisk_args args;
   struct sfdisk_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_sfdisk");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_sfdisk");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_sfdisk", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_sfdisk") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
@@ -3399,18 +3001,16 @@ int guestfs_sfdisk (guestfs_h *g,
   args.sectors = sectors;
   args.lines.lines_val = (char **) lines;
   for (args.lines.lines_len = 0; lines[args.lines.lines_len]; args.lines.lines_len++) ;
-  serial = dispatch (g, GUESTFS_PROC_SFDISK,
+  serial = guestfs_send (g, GUESTFS_PROC_SFDISK,
                      (xdrproc_t) xdr_guestfs_sfdisk_args, (char *) &args);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = sfdisk_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, sfdisk_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_sfdisk failed, see earlier error messages");
     return -1;
   }
@@ -3419,7 +3019,7 @@ int guestfs_sfdisk (guestfs_h *g,
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -3427,13 +3027,14 @@ int guestfs_sfdisk (guestfs_h *g,
 }
 
 struct write_file_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
 };
 
 static void write_file_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct write_file_state *state = (struct write_file_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -3448,8 +3049,8 @@ static void write_file_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_write_file (guestfs_h *g,
@@ -3459,38 +3060,26 @@ int guestfs_write_file (guestfs_h *g,
 {
   struct guestfs_write_file_args args;
   struct write_file_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_write_file");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_write_file");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_write_file", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_write_file") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
   args.content = (char *) content;
   args.size = size;
-  serial = dispatch (g, GUESTFS_PROC_WRITE_FILE,
+  serial = guestfs_send (g, GUESTFS_PROC_WRITE_FILE,
                      (xdrproc_t) xdr_guestfs_write_file_args, (char *) &args);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = write_file_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, write_file_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_write_file failed, see earlier error messages");
     return -1;
   }
@@ -3499,7 +3088,7 @@ int guestfs_write_file (guestfs_h *g,
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -3507,13 +3096,14 @@ int guestfs_write_file (guestfs_h *g,
 }
 
 struct umount_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
 };
 
 static void umount_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct umount_state *state = (struct umount_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -3528,8 +3118,8 @@ static void umount_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_umount (guestfs_h *g,
@@ -3537,36 +3127,24 @@ int guestfs_umount (guestfs_h *g,
 {
   struct guestfs_umount_args args;
   struct umount_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_umount");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_umount");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_umount", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_umount") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
   args.pathordevice = (char *) pathordevice;
-  serial = dispatch (g, GUESTFS_PROC_UMOUNT,
+  serial = guestfs_send (g, GUESTFS_PROC_UMOUNT,
                      (xdrproc_t) xdr_guestfs_umount_args, (char *) &args);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = umount_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, umount_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_umount failed, see earlier error messages");
     return -1;
   }
@@ -3575,7 +3153,7 @@ int guestfs_umount (guestfs_h *g,
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -3583,7 +3161,7 @@ int guestfs_umount (guestfs_h *g,
 }
 
 struct mounts_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
   struct guestfs_mounts_ret ret;
@@ -3591,6 +3169,7 @@ struct mounts_state {
 
 static void mounts_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct mounts_state *state = (struct mounts_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -3609,41 +3188,29 @@ static void mounts_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 char **guestfs_mounts (guestfs_h *g)
 {
   struct mounts_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_mounts");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_mounts");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_mounts", g->state);
-    return NULL;
-  }
+  if (check_state (g, "guestfs_mounts") == -1) return NULL;
 
   memset (&state, 0, sizeof state);
 
-  serial = dispatch (g, GUESTFS_PROC_MOUNTS, NULL, NULL);
+  serial = guestfs_send (g, GUESTFS_PROC_MOUNTS, NULL, NULL);
   if (serial == -1)
     return NULL;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = mounts_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, mounts_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_mounts failed, see earlier error messages");
     return NULL;
   }
@@ -3652,25 +3219,27 @@ char **guestfs_mounts (guestfs_h *g)
     return NULL;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return NULL;
   }
 
   /* caller will free this, but we need to add a NULL entry */
-  state.ret.devices.devices_val =    safe_realloc (g, state.ret.devices.devices_val,
+  state.ret.devices.devices_val =
+    safe_realloc (g, state.ret.devices.devices_val,
                   sizeof (char *) * (state.ret.devices.devices_len + 1));
   state.ret.devices.devices_val[state.ret.devices.devices_len] = NULL;
   return state.ret.devices.devices_val;
 }
 
 struct umount_all_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
 };
 
 static void umount_all_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct umount_all_state *state = (struct umount_all_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -3685,41 +3254,29 @@ static void umount_all_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_umount_all (guestfs_h *g)
 {
   struct umount_all_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_umount_all");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_umount_all");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_umount_all", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_umount_all") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
-  serial = dispatch (g, GUESTFS_PROC_UMOUNT_ALL, NULL, NULL);
+  serial = guestfs_send (g, GUESTFS_PROC_UMOUNT_ALL, NULL, NULL);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = umount_all_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, umount_all_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_umount_all failed, see earlier error messages");
     return -1;
   }
@@ -3728,7 +3285,7 @@ int guestfs_umount_all (guestfs_h *g)
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -3736,13 +3293,14 @@ int guestfs_umount_all (guestfs_h *g)
 }
 
 struct lvm_remove_all_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
 };
 
 static void lvm_remove_all_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct lvm_remove_all_state *state = (struct lvm_remove_all_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -3757,41 +3315,29 @@ static void lvm_remove_all_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_lvm_remove_all (guestfs_h *g)
 {
   struct lvm_remove_all_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_lvm_remove_all");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_lvm_remove_all");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_lvm_remove_all", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_lvm_remove_all") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
-  serial = dispatch (g, GUESTFS_PROC_LVM_REMOVE_ALL, NULL, NULL);
+  serial = guestfs_send (g, GUESTFS_PROC_LVM_REMOVE_ALL, NULL, NULL);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = lvm_remove_all_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, lvm_remove_all_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_lvm_remove_all failed, see earlier error messages");
     return -1;
   }
@@ -3800,7 +3346,7 @@ int guestfs_lvm_remove_all (guestfs_h *g)
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -3808,7 +3354,7 @@ int guestfs_lvm_remove_all (guestfs_h *g)
 }
 
 struct file_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
   struct guestfs_file_ret ret;
@@ -3816,6 +3362,7 @@ struct file_state {
 
 static void file_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct file_state *state = (struct file_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -3834,8 +3381,8 @@ static void file_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 char *guestfs_file (guestfs_h *g,
@@ -3843,36 +3390,24 @@ char *guestfs_file (guestfs_h *g,
 {
   struct guestfs_file_args args;
   struct file_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_file");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_file");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_file", g->state);
-    return NULL;
-  }
+  if (check_state (g, "guestfs_file") == -1) return NULL;
 
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
-  serial = dispatch (g, GUESTFS_PROC_FILE,
+  serial = guestfs_send (g, GUESTFS_PROC_FILE,
                      (xdrproc_t) xdr_guestfs_file_args, (char *) &args);
   if (serial == -1)
     return NULL;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = file_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, file_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_file failed, see earlier error messages");
     return NULL;
   }
@@ -3881,7 +3416,7 @@ char *guestfs_file (guestfs_h *g,
     return NULL;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return NULL;
   }
 
@@ -3889,7 +3424,7 @@ char *guestfs_file (guestfs_h *g,
 }
 
 struct command_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
   struct guestfs_command_ret ret;
@@ -3897,6 +3432,7 @@ struct command_state {
 
 static void command_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct command_state *state = (struct command_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -3915,8 +3451,8 @@ static void command_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 char *guestfs_command (guestfs_h *g,
@@ -3924,37 +3460,25 @@ char *guestfs_command (guestfs_h *g,
 {
   struct guestfs_command_args args;
   struct command_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_command");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_command");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_command", g->state);
-    return NULL;
-  }
+  if (check_state (g, "guestfs_command") == -1) return NULL;
 
   memset (&state, 0, sizeof state);
 
   args.arguments.arguments_val = (char **) arguments;
   for (args.arguments.arguments_len = 0; arguments[args.arguments.arguments_len]; args.arguments.arguments_len++) ;
-  serial = dispatch (g, GUESTFS_PROC_COMMAND,
+  serial = guestfs_send (g, GUESTFS_PROC_COMMAND,
                      (xdrproc_t) xdr_guestfs_command_args, (char *) &args);
   if (serial == -1)
     return NULL;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = command_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, command_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_command failed, see earlier error messages");
     return NULL;
   }
@@ -3963,7 +3487,7 @@ char *guestfs_command (guestfs_h *g,
     return NULL;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return NULL;
   }
 
@@ -3971,7 +3495,7 @@ char *guestfs_command (guestfs_h *g,
 }
 
 struct command_lines_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
   struct guestfs_command_lines_ret ret;
@@ -3979,6 +3503,7 @@ struct command_lines_state {
 
 static void command_lines_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct command_lines_state *state = (struct command_lines_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -3997,8 +3522,8 @@ static void command_lines_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 char **guestfs_command_lines (guestfs_h *g,
@@ -4006,37 +3531,25 @@ char **guestfs_command_lines (guestfs_h *g,
 {
   struct guestfs_command_lines_args args;
   struct command_lines_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_command_lines");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_command_lines");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_command_lines", g->state);
-    return NULL;
-  }
+  if (check_state (g, "guestfs_command_lines") == -1) return NULL;
 
   memset (&state, 0, sizeof state);
 
   args.arguments.arguments_val = (char **) arguments;
   for (args.arguments.arguments_len = 0; arguments[args.arguments.arguments_len]; args.arguments.arguments_len++) ;
-  serial = dispatch (g, GUESTFS_PROC_COMMAND_LINES,
+  serial = guestfs_send (g, GUESTFS_PROC_COMMAND_LINES,
                      (xdrproc_t) xdr_guestfs_command_lines_args, (char *) &args);
   if (serial == -1)
     return NULL;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = command_lines_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, command_lines_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_command_lines failed, see earlier error messages");
     return NULL;
   }
@@ -4045,19 +3558,20 @@ char **guestfs_command_lines (guestfs_h *g,
     return NULL;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return NULL;
   }
 
   /* caller will free this, but we need to add a NULL entry */
-  state.ret.lines.lines_val =    safe_realloc (g, state.ret.lines.lines_val,
+  state.ret.lines.lines_val =
+    safe_realloc (g, state.ret.lines.lines_val,
                   sizeof (char *) * (state.ret.lines.lines_len + 1));
   state.ret.lines.lines_val[state.ret.lines.lines_len] = NULL;
   return state.ret.lines.lines_val;
 }
 
 struct stat_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
   struct guestfs_stat_ret ret;
@@ -4065,6 +3579,7 @@ struct stat_state {
 
 static void stat_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct stat_state *state = (struct stat_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -4083,8 +3598,8 @@ static void stat_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 struct guestfs_stat *guestfs_stat (guestfs_h *g,
@@ -4092,36 +3607,24 @@ struct guestfs_stat *guestfs_stat (guestfs_h *g,
 {
   struct guestfs_stat_args args;
   struct stat_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_stat");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_stat");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_stat", g->state);
-    return NULL;
-  }
+  if (check_state (g, "guestfs_stat") == -1) return NULL;
 
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
-  serial = dispatch (g, GUESTFS_PROC_STAT,
+  serial = guestfs_send (g, GUESTFS_PROC_STAT,
                      (xdrproc_t) xdr_guestfs_stat_args, (char *) &args);
   if (serial == -1)
     return NULL;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = stat_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, stat_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_stat failed, see earlier error messages");
     return NULL;
   }
@@ -4130,7 +3633,7 @@ struct guestfs_stat *guestfs_stat (guestfs_h *g,
     return NULL;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return NULL;
   }
 
@@ -4139,7 +3642,7 @@ struct guestfs_stat *guestfs_stat (guestfs_h *g,
 }
 
 struct lstat_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
   struct guestfs_lstat_ret ret;
@@ -4147,6 +3650,7 @@ struct lstat_state {
 
 static void lstat_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct lstat_state *state = (struct lstat_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -4165,8 +3669,8 @@ static void lstat_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 struct guestfs_stat *guestfs_lstat (guestfs_h *g,
@@ -4174,36 +3678,24 @@ struct guestfs_stat *guestfs_lstat (guestfs_h *g,
 {
   struct guestfs_lstat_args args;
   struct lstat_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_lstat");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_lstat");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_lstat", g->state);
-    return NULL;
-  }
+  if (check_state (g, "guestfs_lstat") == -1) return NULL;
 
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
-  serial = dispatch (g, GUESTFS_PROC_LSTAT,
+  serial = guestfs_send (g, GUESTFS_PROC_LSTAT,
                      (xdrproc_t) xdr_guestfs_lstat_args, (char *) &args);
   if (serial == -1)
     return NULL;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = lstat_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, lstat_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_lstat failed, see earlier error messages");
     return NULL;
   }
@@ -4212,7 +3704,7 @@ struct guestfs_stat *guestfs_lstat (guestfs_h *g,
     return NULL;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return NULL;
   }
 
@@ -4221,7 +3713,7 @@ struct guestfs_stat *guestfs_lstat (guestfs_h *g,
 }
 
 struct statvfs_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
   struct guestfs_statvfs_ret ret;
@@ -4229,6 +3721,7 @@ struct statvfs_state {
 
 static void statvfs_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct statvfs_state *state = (struct statvfs_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -4247,8 +3740,8 @@ static void statvfs_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 struct guestfs_statvfs *guestfs_statvfs (guestfs_h *g,
@@ -4256,36 +3749,24 @@ struct guestfs_statvfs *guestfs_statvfs (guestfs_h *g,
 {
   struct guestfs_statvfs_args args;
   struct statvfs_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_statvfs");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_statvfs");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_statvfs", g->state);
-    return NULL;
-  }
+  if (check_state (g, "guestfs_statvfs") == -1) return NULL;
 
   memset (&state, 0, sizeof state);
 
   args.path = (char *) path;
-  serial = dispatch (g, GUESTFS_PROC_STATVFS,
+  serial = guestfs_send (g, GUESTFS_PROC_STATVFS,
                      (xdrproc_t) xdr_guestfs_statvfs_args, (char *) &args);
   if (serial == -1)
     return NULL;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = statvfs_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, statvfs_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_statvfs failed, see earlier error messages");
     return NULL;
   }
@@ -4294,7 +3775,7 @@ struct guestfs_statvfs *guestfs_statvfs (guestfs_h *g,
     return NULL;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return NULL;
   }
 
@@ -4303,7 +3784,7 @@ struct guestfs_statvfs *guestfs_statvfs (guestfs_h *g,
 }
 
 struct tune2fs_l_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
   struct guestfs_tune2fs_l_ret ret;
@@ -4311,6 +3792,7 @@ struct tune2fs_l_state {
 
 static void tune2fs_l_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct tune2fs_l_state *state = (struct tune2fs_l_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -4329,8 +3811,8 @@ static void tune2fs_l_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 char **guestfs_tune2fs_l (guestfs_h *g,
@@ -4338,36 +3820,24 @@ char **guestfs_tune2fs_l (guestfs_h *g,
 {
   struct guestfs_tune2fs_l_args args;
   struct tune2fs_l_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_tune2fs_l");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_tune2fs_l");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_tune2fs_l", g->state);
-    return NULL;
-  }
+  if (check_state (g, "guestfs_tune2fs_l") == -1) return NULL;
 
   memset (&state, 0, sizeof state);
 
   args.device = (char *) device;
-  serial = dispatch (g, GUESTFS_PROC_TUNE2FS_L,
+  serial = guestfs_send (g, GUESTFS_PROC_TUNE2FS_L,
                      (xdrproc_t) xdr_guestfs_tune2fs_l_args, (char *) &args);
   if (serial == -1)
     return NULL;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = tune2fs_l_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, tune2fs_l_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_tune2fs_l failed, see earlier error messages");
     return NULL;
   }
@@ -4376,25 +3846,27 @@ char **guestfs_tune2fs_l (guestfs_h *g,
     return NULL;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return NULL;
   }
 
   /* caller will free this, but we need to add a NULL entry */
-  state.ret.superblock.superblock_val =    safe_realloc (g, state.ret.superblock.superblock_val,
+  state.ret.superblock.superblock_val =
+    safe_realloc (g, state.ret.superblock.superblock_val,
                   sizeof (char *) * (state.ret.superblock.superblock_len + 1));
   state.ret.superblock.superblock_val[state.ret.superblock.superblock_len] = NULL;
   return state.ret.superblock.superblock_val;
 }
 
 struct blockdev_setro_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
 };
 
 static void blockdev_setro_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct blockdev_setro_state *state = (struct blockdev_setro_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -4409,8 +3881,8 @@ static void blockdev_setro_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_blockdev_setro (guestfs_h *g,
@@ -4418,36 +3890,24 @@ int guestfs_blockdev_setro (guestfs_h *g,
 {
   struct guestfs_blockdev_setro_args args;
   struct blockdev_setro_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_blockdev_setro");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_blockdev_setro");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_blockdev_setro", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_blockdev_setro") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
   args.device = (char *) device;
-  serial = dispatch (g, GUESTFS_PROC_BLOCKDEV_SETRO,
+  serial = guestfs_send (g, GUESTFS_PROC_BLOCKDEV_SETRO,
                      (xdrproc_t) xdr_guestfs_blockdev_setro_args, (char *) &args);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = blockdev_setro_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, blockdev_setro_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_blockdev_setro failed, see earlier error messages");
     return -1;
   }
@@ -4456,7 +3916,7 @@ int guestfs_blockdev_setro (guestfs_h *g,
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -4464,13 +3924,14 @@ int guestfs_blockdev_setro (guestfs_h *g,
 }
 
 struct blockdev_setrw_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
 };
 
 static void blockdev_setrw_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct blockdev_setrw_state *state = (struct blockdev_setrw_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -4485,8 +3946,8 @@ static void blockdev_setrw_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_blockdev_setrw (guestfs_h *g,
@@ -4494,36 +3955,24 @@ int guestfs_blockdev_setrw (guestfs_h *g,
 {
   struct guestfs_blockdev_setrw_args args;
   struct blockdev_setrw_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_blockdev_setrw");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_blockdev_setrw");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_blockdev_setrw", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_blockdev_setrw") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
   args.device = (char *) device;
-  serial = dispatch (g, GUESTFS_PROC_BLOCKDEV_SETRW,
+  serial = guestfs_send (g, GUESTFS_PROC_BLOCKDEV_SETRW,
                      (xdrproc_t) xdr_guestfs_blockdev_setrw_args, (char *) &args);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = blockdev_setrw_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, blockdev_setrw_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_blockdev_setrw failed, see earlier error messages");
     return -1;
   }
@@ -4532,7 +3981,7 @@ int guestfs_blockdev_setrw (guestfs_h *g,
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -4540,7 +3989,7 @@ int guestfs_blockdev_setrw (guestfs_h *g,
 }
 
 struct blockdev_getro_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
   struct guestfs_blockdev_getro_ret ret;
@@ -4548,6 +3997,7 @@ struct blockdev_getro_state {
 
 static void blockdev_getro_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct blockdev_getro_state *state = (struct blockdev_getro_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -4566,8 +4016,8 @@ static void blockdev_getro_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_blockdev_getro (guestfs_h *g,
@@ -4575,36 +4025,24 @@ int guestfs_blockdev_getro (guestfs_h *g,
 {
   struct guestfs_blockdev_getro_args args;
   struct blockdev_getro_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_blockdev_getro");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_blockdev_getro");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_blockdev_getro", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_blockdev_getro") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
   args.device = (char *) device;
-  serial = dispatch (g, GUESTFS_PROC_BLOCKDEV_GETRO,
+  serial = guestfs_send (g, GUESTFS_PROC_BLOCKDEV_GETRO,
                      (xdrproc_t) xdr_guestfs_blockdev_getro_args, (char *) &args);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = blockdev_getro_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, blockdev_getro_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_blockdev_getro failed, see earlier error messages");
     return -1;
   }
@@ -4613,7 +4051,7 @@ int guestfs_blockdev_getro (guestfs_h *g,
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -4621,7 +4059,7 @@ int guestfs_blockdev_getro (guestfs_h *g,
 }
 
 struct blockdev_getss_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
   struct guestfs_blockdev_getss_ret ret;
@@ -4629,6 +4067,7 @@ struct blockdev_getss_state {
 
 static void blockdev_getss_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct blockdev_getss_state *state = (struct blockdev_getss_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -4647,8 +4086,8 @@ static void blockdev_getss_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_blockdev_getss (guestfs_h *g,
@@ -4656,36 +4095,24 @@ int guestfs_blockdev_getss (guestfs_h *g,
 {
   struct guestfs_blockdev_getss_args args;
   struct blockdev_getss_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_blockdev_getss");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_blockdev_getss");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_blockdev_getss", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_blockdev_getss") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
   args.device = (char *) device;
-  serial = dispatch (g, GUESTFS_PROC_BLOCKDEV_GETSS,
+  serial = guestfs_send (g, GUESTFS_PROC_BLOCKDEV_GETSS,
                      (xdrproc_t) xdr_guestfs_blockdev_getss_args, (char *) &args);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = blockdev_getss_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, blockdev_getss_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_blockdev_getss failed, see earlier error messages");
     return -1;
   }
@@ -4694,7 +4121,7 @@ int guestfs_blockdev_getss (guestfs_h *g,
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -4702,7 +4129,7 @@ int guestfs_blockdev_getss (guestfs_h *g,
 }
 
 struct blockdev_getbsz_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
   struct guestfs_blockdev_getbsz_ret ret;
@@ -4710,6 +4137,7 @@ struct blockdev_getbsz_state {
 
 static void blockdev_getbsz_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct blockdev_getbsz_state *state = (struct blockdev_getbsz_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -4728,8 +4156,8 @@ static void blockdev_getbsz_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_blockdev_getbsz (guestfs_h *g,
@@ -4737,36 +4165,24 @@ int guestfs_blockdev_getbsz (guestfs_h *g,
 {
   struct guestfs_blockdev_getbsz_args args;
   struct blockdev_getbsz_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_blockdev_getbsz");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_blockdev_getbsz");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_blockdev_getbsz", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_blockdev_getbsz") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
   args.device = (char *) device;
-  serial = dispatch (g, GUESTFS_PROC_BLOCKDEV_GETBSZ,
+  serial = guestfs_send (g, GUESTFS_PROC_BLOCKDEV_GETBSZ,
                      (xdrproc_t) xdr_guestfs_blockdev_getbsz_args, (char *) &args);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = blockdev_getbsz_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, blockdev_getbsz_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_blockdev_getbsz failed, see earlier error messages");
     return -1;
   }
@@ -4775,7 +4191,7 @@ int guestfs_blockdev_getbsz (guestfs_h *g,
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -4783,13 +4199,14 @@ int guestfs_blockdev_getbsz (guestfs_h *g,
 }
 
 struct blockdev_setbsz_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
 };
 
 static void blockdev_setbsz_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct blockdev_setbsz_state *state = (struct blockdev_setbsz_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -4804,8 +4221,8 @@ static void blockdev_setbsz_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_blockdev_setbsz (guestfs_h *g,
@@ -4814,37 +4231,25 @@ int guestfs_blockdev_setbsz (guestfs_h *g,
 {
   struct guestfs_blockdev_setbsz_args args;
   struct blockdev_setbsz_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_blockdev_setbsz");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_blockdev_setbsz");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_blockdev_setbsz", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_blockdev_setbsz") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
   args.device = (char *) device;
   args.blocksize = blocksize;
-  serial = dispatch (g, GUESTFS_PROC_BLOCKDEV_SETBSZ,
+  serial = guestfs_send (g, GUESTFS_PROC_BLOCKDEV_SETBSZ,
                      (xdrproc_t) xdr_guestfs_blockdev_setbsz_args, (char *) &args);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = blockdev_setbsz_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, blockdev_setbsz_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_blockdev_setbsz failed, see earlier error messages");
     return -1;
   }
@@ -4853,7 +4258,7 @@ int guestfs_blockdev_setbsz (guestfs_h *g,
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -4861,7 +4266,7 @@ int guestfs_blockdev_setbsz (guestfs_h *g,
 }
 
 struct blockdev_getsz_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
   struct guestfs_blockdev_getsz_ret ret;
@@ -4869,6 +4274,7 @@ struct blockdev_getsz_state {
 
 static void blockdev_getsz_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct blockdev_getsz_state *state = (struct blockdev_getsz_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -4887,8 +4293,8 @@ static void blockdev_getsz_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int64_t guestfs_blockdev_getsz (guestfs_h *g,
@@ -4896,36 +4302,24 @@ int64_t guestfs_blockdev_getsz (guestfs_h *g,
 {
   struct guestfs_blockdev_getsz_args args;
   struct blockdev_getsz_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_blockdev_getsz");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_blockdev_getsz");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_blockdev_getsz", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_blockdev_getsz") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
   args.device = (char *) device;
-  serial = dispatch (g, GUESTFS_PROC_BLOCKDEV_GETSZ,
+  serial = guestfs_send (g, GUESTFS_PROC_BLOCKDEV_GETSZ,
                      (xdrproc_t) xdr_guestfs_blockdev_getsz_args, (char *) &args);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = blockdev_getsz_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, blockdev_getsz_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_blockdev_getsz failed, see earlier error messages");
     return -1;
   }
@@ -4934,7 +4328,7 @@ int64_t guestfs_blockdev_getsz (guestfs_h *g,
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -4942,7 +4336,7 @@ int64_t guestfs_blockdev_getsz (guestfs_h *g,
 }
 
 struct blockdev_getsize64_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
   struct guestfs_blockdev_getsize64_ret ret;
@@ -4950,6 +4344,7 @@ struct blockdev_getsize64_state {
 
 static void blockdev_getsize64_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct blockdev_getsize64_state *state = (struct blockdev_getsize64_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -4968,8 +4363,8 @@ static void blockdev_getsize64_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int64_t guestfs_blockdev_getsize64 (guestfs_h *g,
@@ -4977,36 +4372,24 @@ int64_t guestfs_blockdev_getsize64 (guestfs_h *g,
 {
   struct guestfs_blockdev_getsize64_args args;
   struct blockdev_getsize64_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_blockdev_getsize64");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_blockdev_getsize64");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_blockdev_getsize64", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_blockdev_getsize64") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
   args.device = (char *) device;
-  serial = dispatch (g, GUESTFS_PROC_BLOCKDEV_GETSIZE64,
+  serial = guestfs_send (g, GUESTFS_PROC_BLOCKDEV_GETSIZE64,
                      (xdrproc_t) xdr_guestfs_blockdev_getsize64_args, (char *) &args);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = blockdev_getsize64_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, blockdev_getsize64_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_blockdev_getsize64 failed, see earlier error messages");
     return -1;
   }
@@ -5015,7 +4398,7 @@ int64_t guestfs_blockdev_getsize64 (guestfs_h *g,
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -5023,13 +4406,14 @@ int64_t guestfs_blockdev_getsize64 (guestfs_h *g,
 }
 
 struct blockdev_flushbufs_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
 };
 
 static void blockdev_flushbufs_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct blockdev_flushbufs_state *state = (struct blockdev_flushbufs_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -5044,8 +4428,8 @@ static void blockdev_flushbufs_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_blockdev_flushbufs (guestfs_h *g,
@@ -5053,36 +4437,24 @@ int guestfs_blockdev_flushbufs (guestfs_h *g,
 {
   struct guestfs_blockdev_flushbufs_args args;
   struct blockdev_flushbufs_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_blockdev_flushbufs");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_blockdev_flushbufs");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_blockdev_flushbufs", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_blockdev_flushbufs") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
   args.device = (char *) device;
-  serial = dispatch (g, GUESTFS_PROC_BLOCKDEV_FLUSHBUFS,
+  serial = guestfs_send (g, GUESTFS_PROC_BLOCKDEV_FLUSHBUFS,
                      (xdrproc_t) xdr_guestfs_blockdev_flushbufs_args, (char *) &args);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = blockdev_flushbufs_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, blockdev_flushbufs_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_blockdev_flushbufs failed, see earlier error messages");
     return -1;
   }
@@ -5091,7 +4463,7 @@ int guestfs_blockdev_flushbufs (guestfs_h *g,
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 
@@ -5099,13 +4471,14 @@ int guestfs_blockdev_flushbufs (guestfs_h *g,
 }
 
 struct blockdev_rereadpt_state {
-  int cb_done;
+  int cb_state;
   struct guestfs_message_header hdr;
   struct guestfs_message_error err;
 };
 
 static void blockdev_rereadpt_cb (guestfs_h *g, void *data, XDR *xdr)
 {
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct blockdev_rereadpt_state *state = (struct blockdev_rereadpt_state *) data;
 
   if (!xdr_guestfs_message_header (xdr, &state->hdr)) {
@@ -5120,8 +4493,8 @@ static void blockdev_rereadpt_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  state->cb_done = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
+  state->cb_state = 1;
+  ml->main_loop_quit (ml, g);
 }
 
 int guestfs_blockdev_rereadpt (guestfs_h *g,
@@ -5129,36 +4502,24 @@ int guestfs_blockdev_rereadpt (guestfs_h *g,
 {
   struct guestfs_blockdev_rereadpt_args args;
   struct blockdev_rereadpt_state state;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
   int serial;
 
-  if (g->state != READY) {
-    if (g->state == CONFIG)
-      error (g, "%s: call launch() before using this function",
-        "guestfs_blockdev_rereadpt");
-    else if (g->state == LAUNCHING)
-      error (g, "%s: call wait_ready() before using this function",
-        "guestfs_blockdev_rereadpt");
-    else
-      error (g, "%s called from the wrong state, %d != READY",
-        "guestfs_blockdev_rereadpt", g->state);
-    return -1;
-  }
+  if (check_state (g, "guestfs_blockdev_rereadpt") == -1) return -1;
 
   memset (&state, 0, sizeof state);
 
   args.device = (char *) device;
-  serial = dispatch (g, GUESTFS_PROC_BLOCKDEV_REREADPT,
+  serial = guestfs_send (g, GUESTFS_PROC_BLOCKDEV_REREADPT,
                      (xdrproc_t) xdr_guestfs_blockdev_rereadpt_args, (char *) &args);
   if (serial == -1)
     return -1;
 
-  state.cb_done = 0;
-  g->reply_cb_internal = blockdev_rereadpt_cb;
-  g->reply_cb_internal_data = &state;
-  (void) g->main_loop->main_loop_run (g->main_loop, g);
-  g->reply_cb_internal = NULL;
-  g->reply_cb_internal_data = NULL;
-  if (!state.cb_done) {
+  state.cb_state = 0;
+  guestfs_set_reply_callback (g, blockdev_rereadpt_cb, &state);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (!state.cb_state) {
     error (g, "guestfs_blockdev_rereadpt failed, see earlier error messages");
     return -1;
   }
@@ -5167,7 +4528,7 @@ int guestfs_blockdev_rereadpt (guestfs_h *g,
     return -1;
 
   if (state.hdr.status == GUESTFS_STATUS_ERROR) {
-    error (g, "%s", state.err.error);
+    error (g, "%s", state.err.error_message);
     return -1;
   }
 

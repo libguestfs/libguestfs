@@ -56,12 +56,19 @@
 #include "guestfs.h"
 #include "guestfs_protocol.h"
 
-static void error (guestfs_h *g, const char *fs, ...);
-static void perrorf (guestfs_h *g, const char *fs, ...);
-static void *safe_malloc (guestfs_h *g, size_t nbytes);
-static void *safe_realloc (guestfs_h *g, void *ptr, int nbytes);
-static char *safe_strdup (guestfs_h *g, const char *str);
-static void *safe_memdup (guestfs_h *g, void *ptr, size_t size);
+void guestfs_error (guestfs_h *g, const char *fs, ...);
+void guestfs_perrorf (guestfs_h *g, const char *fs, ...);
+void *guestfs_safe_malloc (guestfs_h *g, size_t nbytes);
+void *guestfs_safe_realloc (guestfs_h *g, void *ptr, int nbytes);
+char *guestfs_safe_strdup (guestfs_h *g, const char *str);
+void *guestfs_safe_memdup (guestfs_h *g, void *ptr, size_t size);
+
+#define error guestfs_error
+#define perrorf guestfs_perrorf
+#define safe_malloc guestfs_safe_malloc
+#define safe_realloc guestfs_safe_realloc
+#define safe_strdup guestfs_safe_strdup
+#define safe_memdup guestfs_safe_memdup
 
 static void default_error_cb (guestfs_h *g, void *data, const char *msg);
 static void stdout_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data, int watch, int fd, int events);
@@ -174,18 +181,6 @@ struct guestfs_h
   guestfs_launch_done_cb     launch_done_cb;
   void *                     launch_done_cb_data;
 
-  /* These callbacks are called before send_cb, reply_cb and
-   * launch_done_cb, and are used to implement the high-level
-   * API without needing to interfere with callbacks that the
-   * user might have set.
-   */
-  guestfs_send_cb            send_cb_internal;
-  void *                     send_cb_internal_data;
-  guestfs_reply_cb           reply_cb_internal;
-  void *                     reply_cb_internal_data;
-  guestfs_launch_done_cb     launch_done_cb_internal;
-  void *                     launch_done_cb_internal_data;
-
   /* Main loop used by this handle. */
   guestfs_main_loop *main_loop;
 
@@ -231,7 +226,7 @@ guestfs_create (void)
   g->path = str != NULL ? str : GUESTFS_DEFAULT_PATH;
   /* XXX We should probably make QEMU configurable as well. */
 
-  g->main_loop = (guestfs_main_loop *) &default_main_loop;
+  g->main_loop = guestfs_get_default_main_loop ();
 
   /* Start with large serial numbers so they are easy to spot
    * inside the protocol.
@@ -342,8 +337,8 @@ default_error_cb (guestfs_h *g, void *data, const char *msg)
   fprintf (stderr, "libguestfs: error: %s\n", msg);
 }
 
-static void
-error (guestfs_h *g, const char *fs, ...)
+void
+guestfs_error (guestfs_h *g, const char *fs, ...)
 {
   va_list args;
   char *msg;
@@ -358,8 +353,8 @@ error (guestfs_h *g, const char *fs, ...)
   free (msg);
 }
 
-static void
-perrorf (guestfs_h *g, const char *fs, ...)
+void
+guestfs_perrorf (guestfs_h *g, const char *fs, ...)
 {
   va_list args;
   char *msg;
@@ -388,32 +383,32 @@ perrorf (guestfs_h *g, const char *fs, ...)
   free (msg);
 }
 
-static void *
-safe_malloc (guestfs_h *g, size_t nbytes)
+void *
+guestfs_safe_malloc (guestfs_h *g, size_t nbytes)
 {
   void *ptr = malloc (nbytes);
   if (!ptr) g->abort_cb ();
   return ptr;
 }
 
-static void *
-safe_realloc (guestfs_h *g, void *ptr, int nbytes)
+void *
+guestfs_safe_realloc (guestfs_h *g, void *ptr, int nbytes)
 {
   void *p = realloc (ptr, nbytes);
   if (!p) g->abort_cb ();
   return p;
 }
 
-static char *
-safe_strdup (guestfs_h *g, const char *str)
+char *
+guestfs_safe_strdup (guestfs_h *g, const char *str)
 {
   char *s = strdup (str);
   if (!s) g->abort_cb ();
   return s;
 }
 
-static void *
-safe_memdup (guestfs_h *g, void *ptr, size_t size)
+void *
+guestfs_safe_memdup (guestfs_h *g, void *ptr, size_t size)
 {
   void *p = malloc (size);
   if (!p) g->abort_cb ();
@@ -901,11 +896,11 @@ guestfs_wait_ready (guestfs_h *g)
     return -1;
   }
 
-  g->launch_done_cb_internal = finish_wait_ready;
-  g->launch_done_cb_internal_data = &finished;
+  g->launch_done_cb = finish_wait_ready;
+  g->launch_done_cb_data = &finished;
   r = g->main_loop->main_loop_run (g->main_loop, g);
-  g->launch_done_cb_internal = NULL;
-  g->launch_done_cb_internal_data = NULL;
+  g->launch_done_cb = NULL;
+  g->launch_done_cb_data = NULL;
 
   if (r == -1) return -1;
 
@@ -941,6 +936,68 @@ guestfs_kill_subprocess (guestfs_h *g)
   kill (g->pid, SIGTERM);
 
   return 0;
+}
+
+/* Access current state. */
+int
+guestfs_is_config (guestfs_h *g)
+{
+  return g->state == CONFIG;
+}
+
+int
+guestfs_is_launching (guestfs_h *g)
+{
+  return g->state == LAUNCHING;
+}
+
+int
+guestfs_is_ready (guestfs_h *g)
+{
+  return g->state == READY;
+}
+
+int
+guestfs_is_busy (guestfs_h *g)
+{
+  return g->state == BUSY;
+}
+
+int
+guestfs_get_state (guestfs_h *g)
+{
+  return g->state;
+}
+
+/* Structure-freeing functions.  These rely on the fact that the
+ * structure format is identical to the XDR format.  See note in
+ * generator.ml.
+ */
+void
+guestfs_free_int_bool (struct guestfs_int_bool *x)
+{
+  free (x);
+}
+
+void
+guestfs_free_lvm_pv_list (struct guestfs_lvm_pv_list *x)
+{
+  xdr_free ((xdrproc_t) xdr_guestfs_lvm_int_pv_list, (char *) x);
+  free (x);
+}
+
+void
+guestfs_free_lvm_vg_list (struct guestfs_lvm_vg_list *x)
+{
+  xdr_free ((xdrproc_t) xdr_guestfs_lvm_int_vg_list, (char *) x);
+  free (x);
+}
+
+void
+guestfs_free_lvm_lv_list (struct guestfs_lvm_lv_list *x)
+{
+  xdr_free ((xdrproc_t) xdr_guestfs_lvm_int_lv_list, (char *) x);
+  free (x);
 }
 
 /* This function is called whenever qemu prints something on stdout.
@@ -1071,8 +1128,6 @@ sock_read_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
 	     g->msg_in_size);
     else {
       g->state = READY;
-      if (g->launch_done_cb_internal)
-	g->launch_done_cb_internal (g, g->launch_done_cb_internal_data);
       if (g->launch_done_cb)
 	g->launch_done_cb (g, g->launch_done_cb_data);
     }
@@ -1123,15 +1178,10 @@ sock_read_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
   if (g->state != BUSY)
     error (g, "state %d != BUSY", g->state);
 
-  /* Push the message up to the higher layer.  Note that unlike
-   * launch_done_cb / launch_done_cb_internal, we only call at
-   * most one of the callback functions here.
-   */
+  /* Push the message up to the higher layer. */
   g->state = READY;
-  if (g->reply_cb_internal)
-    g->reply_cb_internal (g, g->reply_cb_internal_data, &xdr);
-  else if (g->reply_cb)
-    g->reply_cb (g, g->reply_cb, &xdr);
+  if (g->reply_cb)
+    g->reply_cb (g, g->reply_cb_data, &xdr);
 
  cleanup:
   /* Free the message buffer if it's grown excessively large. */
@@ -1210,12 +1260,72 @@ sock_write_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
   }
 }
 
-/* Dispatch a call to the remote daemon.  This function just queues
- * the call in msg_out, to be sent when we next enter the main loop.
- * Returns -1 for error, or the message serial number.
+void
+guestfs_set_send_callback (guestfs_h *g,
+			   guestfs_send_cb cb, void *opaque)
+{
+  g->send_cb = cb;
+  g->send_cb_data = opaque;
+}
+
+void
+guestfs_set_reply_callback (guestfs_h *g,
+			    guestfs_reply_cb cb, void *opaque)
+{
+  g->reply_cb = cb;
+  g->reply_cb_data = opaque;
+}
+
+void
+guestfs_set_log_message_callback (guestfs_h *g,
+				  guestfs_log_message_cb cb, void *opaque)
+{
+  g->log_message_cb = cb;
+  g->log_message_cb_data = opaque;
+}
+
+void
+guestfs_set_subprocess_quit_callback (guestfs_h *g,
+				      guestfs_subprocess_quit_cb cb, void *opaque)
+{
+  g->subprocess_quit_cb = cb;
+  g->subprocess_quit_cb_data = opaque;
+}
+
+void
+guestfs_set_launch_done_callback (guestfs_h *g,
+				  guestfs_launch_done_cb cb, void *opaque)
+{
+  g->launch_done_cb = cb;
+  g->launch_done_cb_data = opaque;
+}
+
+/* Access to the handle's main loop and the default main loop. */
+void
+guestfs_set_main_loop (guestfs_h *g, guestfs_main_loop *main_loop)
+{
+  g->main_loop = main_loop;
+}
+
+guestfs_main_loop *
+guestfs_get_main_loop (guestfs_h *g)
+{
+  return g->main_loop;
+}
+
+guestfs_main_loop *
+guestfs_get_default_main_loop (void)
+{
+  return (guestfs_main_loop *) &default_main_loop;
+}
+
+/* Dispatch a call (len + header + args) to the remote daemon.  This
+ * function just queues the call in msg_out, to be sent when we next
+ * enter the main loop.  Returns -1 for error, or the message serial
+ * number.
  */
-static int
-dispatch (guestfs_h *g, int proc_nr, xdrproc_t xdrp, char *args)
+int
+guestfs_send (guestfs_h *g, int proc_nr, xdrproc_t xdrp, char *args)
 {
   char buffer[GUESTFS_MESSAGE_MAX];
   struct guestfs_message_header hdr;
@@ -1426,74 +1536,6 @@ send_file_complete (guestfs_h *g)
   return send_file_chunk (g, 0, buf, 0);
 }
 #endif
-
-/* Check the return message from a call for validity. */
-static int
-check_reply_header (guestfs_h *g,
-		    const struct guestfs_message_header *hdr,
-		    int proc_nr, int serial)
-{
-  if (hdr->prog != GUESTFS_PROGRAM) {
-    error (g, "wrong program (%d/%d)", hdr->prog, GUESTFS_PROGRAM);
-    return -1;
-  }
-  if (hdr->vers != GUESTFS_PROTOCOL_VERSION) {
-    error (g, "wrong protocol version (%d/%d)",
-	   hdr->vers, GUESTFS_PROTOCOL_VERSION);
-    return -1;
-  }
-  if (hdr->direction != GUESTFS_DIRECTION_REPLY) {
-    error (g, "unexpected message direction (%d/%d)",
-	   hdr->direction, GUESTFS_DIRECTION_REPLY);
-    return -1;
-  }
-  if (hdr->proc != proc_nr) {
-    error (g, "unexpected procedure number (%d/%d)", hdr->proc, proc_nr);
-    return -1;
-  }
-  if (hdr->serial != serial) {
-    error (g, "unexpected serial (%d/%d)", hdr->serial, serial);
-    return -1;
-  }
-
-  return 0;
-}
-
-/* The high-level actions are autogenerated by generator.ml.  Include
- * them here.
- */
-#include "guestfs-actions.c"
-
-/* Structure-freeing functions.  These rely on the fact that the
- * structure format is identical to the XDR format.  See note in
- * generator.ml.
- */
-void
-guestfs_free_int_bool (struct guestfs_int_bool *x)
-{
-  free (x);
-}
-
-void
-guestfs_free_lvm_pv_list (struct guestfs_lvm_pv_list *x)
-{
-  xdr_free ((xdrproc_t) xdr_guestfs_lvm_int_pv_list, (char *) x);
-  free (x);
-}
-
-void
-guestfs_free_lvm_vg_list (struct guestfs_lvm_vg_list *x)
-{
-  xdr_free ((xdrproc_t) xdr_guestfs_lvm_int_vg_list, (char *) x);
-  free (x);
-}
-
-void
-guestfs_free_lvm_lv_list (struct guestfs_lvm_lv_list *x)
-{
-  xdr_free ((xdrproc_t) xdr_guestfs_lvm_int_lv_list, (char *) x);
-  free (x);
-}
 
 /* This is the default main loop implementation, using select(2). */
 

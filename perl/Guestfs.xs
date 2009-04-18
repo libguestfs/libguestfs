@@ -239,6 +239,71 @@ PREINIT:
  OUTPUT:
       RETVAL
 
+SV *
+is_ready (g)
+      guestfs_h *g;
+PREINIT:
+      int ready;
+   CODE:
+      ready = guestfs_is_ready (g);
+      if (ready == -1)
+        croak ("is_ready: %s", guestfs_last_error (g));
+      RETVAL = newSViv (ready);
+ OUTPUT:
+      RETVAL
+
+SV *
+is_config (g)
+      guestfs_h *g;
+PREINIT:
+      int config;
+   CODE:
+      config = guestfs_is_config (g);
+      if (config == -1)
+        croak ("is_config: %s", guestfs_last_error (g));
+      RETVAL = newSViv (config);
+ OUTPUT:
+      RETVAL
+
+SV *
+is_launching (g)
+      guestfs_h *g;
+PREINIT:
+      int launching;
+   CODE:
+      launching = guestfs_is_launching (g);
+      if (launching == -1)
+        croak ("is_launching: %s", guestfs_last_error (g));
+      RETVAL = newSViv (launching);
+ OUTPUT:
+      RETVAL
+
+SV *
+is_busy (g)
+      guestfs_h *g;
+PREINIT:
+      int busy;
+   CODE:
+      busy = guestfs_is_busy (g);
+      if (busy == -1)
+        croak ("is_busy: %s", guestfs_last_error (g));
+      RETVAL = newSViv (busy);
+ OUTPUT:
+      RETVAL
+
+SV *
+get_state (g)
+      guestfs_h *g;
+PREINIT:
+      int state;
+   CODE:
+      state = guestfs_get_state (g);
+      if (state == -1)
+        croak ("get_state: %s", guestfs_last_error (g));
+      RETVAL = newSViv (state);
+ OUTPUT:
+      RETVAL
+
 void
 mount (g, device, mountpoint)
       guestfs_h *g;

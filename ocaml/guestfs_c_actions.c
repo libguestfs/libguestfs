@@ -601,6 +601,116 @@ ocaml_guestfs_get_verbose (value gv)
 }
 
 CAMLprim value
+ocaml_guestfs_is_ready (value gv)
+{
+  CAMLparam1 (gv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("is_ready: used handle after closing it");
+
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_is_ready (g);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "is_ready");
+
+  rv = Val_bool (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_is_config (value gv)
+{
+  CAMLparam1 (gv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("is_config: used handle after closing it");
+
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_is_config (g);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "is_config");
+
+  rv = Val_bool (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_is_launching (value gv)
+{
+  CAMLparam1 (gv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("is_launching: used handle after closing it");
+
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_is_launching (g);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "is_launching");
+
+  rv = Val_bool (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_is_busy (value gv)
+{
+  CAMLparam1 (gv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("is_busy: used handle after closing it");
+
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_is_busy (g);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "is_busy");
+
+  rv = Val_bool (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_get_state (value gv)
+{
+  CAMLparam1 (gv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("get_state: used handle after closing it");
+
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_get_state (g);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "get_state");
+
+  rv = Val_int (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
 ocaml_guestfs_mount (value gv, value devicev, value mountpointv)
 {
   CAMLparam3 (gv, devicev, mountpointv);

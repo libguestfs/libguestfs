@@ -681,6 +681,121 @@ py_guestfs_get_verbose (PyObject *self, PyObject *args)
 }
 
 static PyObject *
+py_guestfs_is_ready (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+
+  if (!PyArg_ParseTuple (args, (char *) "O:guestfs_is_ready",
+                         &py_g))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_is_ready (g);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyInt_FromLong ((long) r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_is_config (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+
+  if (!PyArg_ParseTuple (args, (char *) "O:guestfs_is_config",
+                         &py_g))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_is_config (g);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyInt_FromLong ((long) r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_is_launching (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+
+  if (!PyArg_ParseTuple (args, (char *) "O:guestfs_is_launching",
+                         &py_g))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_is_launching (g);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyInt_FromLong ((long) r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_is_busy (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+
+  if (!PyArg_ParseTuple (args, (char *) "O:guestfs_is_busy",
+                         &py_g))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_is_busy (g);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyInt_FromLong ((long) r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_get_state (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+
+  if (!PyArg_ParseTuple (args, (char *) "O:guestfs_get_state",
+                         &py_g))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_get_state (g);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyInt_FromLong ((long) r);
+  return py_r;
+}
+
+static PyObject *
 py_guestfs_mount (PyObject *self, PyObject *args)
 {
   PyObject *py_g;
@@ -2336,6 +2451,11 @@ static PyMethodDef methods[] = {
   { (char *) "get_autosync", py_guestfs_get_autosync, METH_VARARGS, NULL },
   { (char *) "set_verbose", py_guestfs_set_verbose, METH_VARARGS, NULL },
   { (char *) "get_verbose", py_guestfs_get_verbose, METH_VARARGS, NULL },
+  { (char *) "is_ready", py_guestfs_is_ready, METH_VARARGS, NULL },
+  { (char *) "is_config", py_guestfs_is_config, METH_VARARGS, NULL },
+  { (char *) "is_launching", py_guestfs_is_launching, METH_VARARGS, NULL },
+  { (char *) "is_busy", py_guestfs_is_busy, METH_VARARGS, NULL },
+  { (char *) "get_state", py_guestfs_get_state, METH_VARARGS, NULL },
   { (char *) "mount", py_guestfs_mount, METH_VARARGS, NULL },
   { (char *) "sync", py_guestfs_sync, METH_VARARGS, NULL },
   { (char *) "touch", py_guestfs_touch, METH_VARARGS, NULL },

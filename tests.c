@@ -69,6 +69,11 @@ static void no_test_warnings (void)
   fprintf (stderr, "warning: \"guestfs_get_autosync\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_set_verbose\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_get_verbose\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_is_ready\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_is_config\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_is_launching\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_is_busy\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_get_state\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_ll\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_pvs_full\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_vgs_full\" has no tests\n");

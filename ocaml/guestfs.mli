@@ -160,6 +160,21 @@ val set_verbose : t -> bool -> unit
 val get_verbose : t -> bool
 (** get verbose mode *)
 
+val is_ready : t -> bool
+(** is ready to accept commands *)
+
+val is_config : t -> bool
+(** is in configuration state *)
+
+val is_launching : t -> bool
+(** is launching subprocess *)
+
+val is_busy : t -> bool
+(** is busy processing a command *)
+
+val get_state : t -> int
+(** get the current state *)
+
 val mount : t -> string -> string -> unit
 (** mount a guest disk at a position in the filesystem *)
 

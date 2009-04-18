@@ -193,6 +193,47 @@ class GuestFS:
         """
         return libguestfsmod.get_verbose (self._o)
 
+    def is_ready (self):
+        u"""This returns true iff this handle is ready to accept
+        commands (in the "READY" state).
+        
+        For more information on states, see guestfs(3).
+        """
+        return libguestfsmod.is_ready (self._o)
+
+    def is_config (self):
+        u"""This returns true iff this handle is being configured
+        (in the "CONFIG" state).
+        
+        For more information on states, see guestfs(3).
+        """
+        return libguestfsmod.is_config (self._o)
+
+    def is_launching (self):
+        u"""This returns true iff this handle is launching the
+        subprocess (in the "LAUNCHING" state).
+        
+        For more information on states, see guestfs(3).
+        """
+        return libguestfsmod.is_launching (self._o)
+
+    def is_busy (self):
+        u"""This returns true iff this handle is busy processing a
+        command (in the "BUSY" state).
+        
+        For more information on states, see guestfs(3).
+        """
+        return libguestfsmod.is_busy (self._o)
+
+    def get_state (self):
+        u"""This returns the current state as an opaque integer.
+        This is only useful for printing debug and internal
+        error messages.
+        
+        For more information on states, see guestfs(3).
+        """
+        return libguestfsmod.get_state (self._o)
+
     def mount (self, device, mountpoint):
         u"""Mount a guest disk at a position in the filesystem.
         Block devices are named "/dev/sda", "/dev/sdb" and so

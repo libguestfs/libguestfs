@@ -15,11 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-# NB. guestfs-actions.c is #include'd into guestfs.c, so it should not
-# be listed as a source file.
-EXTRA_DIST = guestfs-actions.c
-
-EXTRA_DIST += guestfs_protocol.x \
+EXTRA_DIST = guestfs_protocol.x \
 	guestfs_protocol.c \
 	guestfs_protocol.h
 
@@ -35,7 +31,8 @@ libguestfs_la_SOURCES = \
 	guestfs.h \
 	guestfs_protocol.c \
 	guestfs_protocol.h \
-	guestfs-actions.h
+	guestfs-actions.h \
+	guestfs-actions.c
 
 libguestfs_la_CFLAGS = -Wall -DGUESTFS_DEFAULT_PATH='"$(libdir)/guestfs"'
 

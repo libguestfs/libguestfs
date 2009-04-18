@@ -1221,7 +1221,7 @@ xdr_guestfs_message_error (XDR *xdrs, guestfs_message_error *objp)
 {
 	register int32_t *buf;
 
-	 if (!xdr_string (xdrs, &objp->error, GUESTFS_ERROR_LEN))
+	 if (!xdr_string (xdrs, &objp->error_message, GUESTFS_ERROR_LEN))
 		 return FALSE;
 	return TRUE;
 }

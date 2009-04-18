@@ -289,6 +289,91 @@ static VALUE ruby_guestfs_get_verbose (VALUE gv)
   return INT2NUM (r);
 }
 
+static VALUE ruby_guestfs_is_ready (VALUE gv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "is_ready");
+
+
+  int r;
+
+  r = guestfs_is_ready (g);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return INT2NUM (r);
+}
+
+static VALUE ruby_guestfs_is_config (VALUE gv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "is_config");
+
+
+  int r;
+
+  r = guestfs_is_config (g);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return INT2NUM (r);
+}
+
+static VALUE ruby_guestfs_is_launching (VALUE gv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "is_launching");
+
+
+  int r;
+
+  r = guestfs_is_launching (g);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return INT2NUM (r);
+}
+
+static VALUE ruby_guestfs_is_busy (VALUE gv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "is_busy");
+
+
+  int r;
+
+  r = guestfs_is_busy (g);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return INT2NUM (r);
+}
+
+static VALUE ruby_guestfs_get_state (VALUE gv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "get_state");
+
+
+  int r;
+
+  r = guestfs_get_state (g);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return INT2NUM (r);
+}
+
 static VALUE ruby_guestfs_mount (VALUE gv, VALUE devicev, VALUE mountpointv)
 {
   guestfs_h *g;
@@ -1931,6 +2016,16 @@ void Init__guestfs ()
         ruby_guestfs_set_verbose, 1);
   rb_define_method (c_guestfs, "get_verbose",
         ruby_guestfs_get_verbose, 0);
+  rb_define_method (c_guestfs, "is_ready",
+        ruby_guestfs_is_ready, 0);
+  rb_define_method (c_guestfs, "is_config",
+        ruby_guestfs_is_config, 0);
+  rb_define_method (c_guestfs, "is_launching",
+        ruby_guestfs_is_launching, 0);
+  rb_define_method (c_guestfs, "is_busy",
+        ruby_guestfs_is_busy, 0);
+  rb_define_method (c_guestfs, "get_state",
+        ruby_guestfs_get_state, 0);
   rb_define_method (c_guestfs, "mount",
         ruby_guestfs_mount, 2);
   rb_define_method (c_guestfs, "sync",

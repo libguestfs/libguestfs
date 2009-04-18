@@ -47,6 +47,7 @@ extern guestfs_abort_cb guestfs_get_out_of_memory_handler (guestfs_h *g);
 #include <guestfs-structs.h>
 #include <guestfs-actions.h>
 
+/* Free up return values. */
 extern void guestfs_free_int_bool (struct guestfs_int_bool *);
 extern void guestfs_free_lvm_pv_list (struct guestfs_lvm_pv_list *);
 extern void guestfs_free_lvm_vg_list (struct guestfs_lvm_vg_list *);
@@ -64,6 +65,15 @@ extern void guestfs_set_reply_callback (guestfs_h *g, guestfs_reply_cb cb, void 
 extern void guestfs_set_log_message_callback (guestfs_h *g, guestfs_log_message_cb cb, void *opaque);
 extern void guestfs_set_subprocess_quit_callback (guestfs_h *g, guestfs_subprocess_quit_cb cb, void *opaque);
 extern void guestfs_set_launch_done_callback (guestfs_h *g, guestfs_launch_done_cb cb, void *opaque);
+
+extern void guestfs_error (guestfs_h *g, const char *fs, ...);
+extern void guestfs_perrorf (guestfs_h *g, const char *fs, ...);
+extern void *guestfs_safe_malloc (guestfs_h *g, size_t nbytes);
+extern void *guestfs_safe_realloc (guestfs_h *g, void *ptr, int nbytes);
+extern char *guestfs_safe_strdup (guestfs_h *g, const char *str);
+extern void *guestfs_safe_memdup (guestfs_h *g, void *ptr, size_t size);
+
+extern int guestfs_send (guestfs_h *g, int proc_nr, xdrproc_t xdrp, char *args);
 
 /* Main loop. */
 #define GUESTFS_HANDLE_READABLE 0x1

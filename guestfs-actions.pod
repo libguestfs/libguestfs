@@ -520,11 +520,44 @@ return the default path.
 This function returns a string, or NULL on error.
 The string is owned by the guest handle and must I<not> be freed.
 
+=head2 guestfs_get_state
+
+ int guestfs_get_state (guestfs_h *handle);
+
+This returns the current state as an opaque integer.  This is
+only useful for printing debug and internal error messages.
+
+For more information on states, see L<guestfs(3)>.
+
+On error this function returns -1.
+
 =head2 guestfs_get_verbose
 
  int guestfs_get_verbose (guestfs_h *handle);
 
 This returns the verbose messages flag.
+
+This function returns a C truth value on success or -1 on error.
+
+=head2 guestfs_is_busy
+
+ int guestfs_is_busy (guestfs_h *handle);
+
+This returns true iff this handle is busy processing a command
+(in the C<BUSY> state).
+
+For more information on states, see L<guestfs(3)>.
+
+This function returns a C truth value on success or -1 on error.
+
+=head2 guestfs_is_config
+
+ int guestfs_is_config (guestfs_h *handle);
+
+This returns true iff this handle is being configured
+(in the C<CONFIG> state).
+
+For more information on states, see L<guestfs(3)>.
 
 This function returns a C truth value on success or -1 on error.
 
@@ -551,6 +584,28 @@ with the given C<path> name.  Note that it returns false for
 other objects like directories.
 
 See also C<guestfs_stat>.
+
+This function returns a C truth value on success or -1 on error.
+
+=head2 guestfs_is_launching
+
+ int guestfs_is_launching (guestfs_h *handle);
+
+This returns true iff this handle is launching the subprocess
+(in the C<LAUNCHING> state).
+
+For more information on states, see L<guestfs(3)>.
+
+This function returns a C truth value on success or -1 on error.
+
+=head2 guestfs_is_ready
+
+ int guestfs_is_ready (guestfs_h *handle);
+
+This returns true iff this handle is ready to accept commands
+(in the C<READY> state).
+
+For more information on states, see L<guestfs(3)>.
 
 This function returns a C truth value on success or -1 on error.
 

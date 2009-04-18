@@ -562,7 +562,7 @@ enum guestfs_message_status {
 const GUESTFS_ERROR_LEN = 256;
 
 struct guestfs_message_error {
-  string error<GUESTFS_ERROR_LEN>;   /* error message */
+  string error_message<GUESTFS_ERROR_LEN>;
 };
 
 /* For normal requests and replies (not involving any FileIn or
