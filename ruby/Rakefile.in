@@ -39,7 +39,7 @@ CLOBBER.include [ "config.save", "ext/**/mkmf.log",
 
 file MAKEFILE => EXT_CONF do |t|
     Dir::chdir(File::dirname(EXT_CONF)) do
-         unless sh "ruby #{File::basename(EXT_CONF)}"
+         unless sh "ruby #{File::basename(EXT_CONF)} --with-_guestfs-include=../../../src --with-_guestfs-lib=../../../src/.libs"
              $stderr.puts "Failed to run extconf"
              break
          end
