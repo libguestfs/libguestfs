@@ -74,6 +74,8 @@ extern char *guestfs_safe_strdup (guestfs_h *g, const char *str);
 extern void *guestfs_safe_memdup (guestfs_h *g, void *ptr, size_t size);
 
 extern int guestfs__send (guestfs_h *g, int proc_nr, xdrproc_t xdrp, char *args);
+extern int guestfs__switch_to_sending (guestfs_h *g);
+extern int guestfs__switch_to_receiving (guestfs_h *g);
 
 /* Main loop. */
 #define GUESTFS_HANDLE_READABLE 0x1

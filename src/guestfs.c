@@ -829,14 +829,8 @@ guestfs_launch (guestfs_h *g)
     goto cleanup3;
   }
 
-  g->sock_watch =
-    g->main_loop->add_handle (g->main_loop, g, g->sock,
-			      GUESTFS_HANDLE_READABLE,
-			      sock_read_event, NULL);
-  if (g->sock_watch == -1) {
-    error (g, "could not watch daemon communications socket");
+  if (guestfs__switch_to_receiving (g) == -1)
     goto cleanup3;
-  }
 
   g->state = LAUNCHING;
   return 0;
@@ -1244,20 +1238,12 @@ sock_write_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
     fprintf (stderr, "sock_write_event: done writing, switching back to reading events\n");
 
   free (g->msg_out);
+  g->msg_out = NULL;
   g->msg_out_pos = g->msg_out_size = 0;
 
-  if (g->main_loop->remove_handle (g->main_loop, g, g->sock_watch) == -1) {
-    error (g, "remove_handle failed in sock_write_event");
-    return;
-  }
-  g->sock_watch =
-    g->main_loop->add_handle (g->main_loop, g, g->sock,
-			      GUESTFS_HANDLE_READABLE,
-			      sock_read_event, NULL);
-  if (g->sock_watch == -1) {
-    error (g, "add_handle failed in sock_write_event");
-    return;
-  }
+  /* Done writing, call the higher layer. */
+  if (g->send_cb)
+    g->send_cb (g, g->send_cb_data);
 }
 
 void
@@ -1380,19 +1366,8 @@ guestfs__send (guestfs_h *g, int proc_nr, xdrproc_t xdrp, char *args)
 
   memcpy (g->msg_out + 4, buffer, len);
 
-  /* Change the handle to sock_write_event. */
-  if (g->main_loop->remove_handle (g->main_loop, g, g->sock_watch) == -1) {
-    error (g, "remove_handle failed in dispatch");
+  if (guestfs__switch_to_sending (g) == -1)
     goto cleanup1;
-  }
-  g->sock_watch =
-    g->main_loop->add_handle (g->main_loop, g, g->sock,
-			      GUESTFS_HANDLE_WRITABLE,
-			      sock_write_event, NULL);
-  if (g->sock_watch == -1) {
-    error (g, "add_handle failed in dispatch");
-    goto cleanup1;
-  }
 
   return serial;
 
@@ -1402,6 +1377,55 @@ guestfs__send (guestfs_h *g, int proc_nr, xdrproc_t xdrp, char *args)
   g->msg_out_size = 0;
   g->state = READY;
   return -1;
+}
+
+/* Change the daemon socket handler so that we are now writing.
+ * This sets the handle to sock_write_event.
+ */
+int
+guestfs__switch_to_sending (guestfs_h *g)
+{
+  if (g->sock_watch >= 0) {
+    if (g->main_loop->remove_handle (g->main_loop, g, g->sock_watch) == -1) {
+      error (g, "remove_handle failed");
+      g->sock_watch = -1;
+      return -1;
+    }
+  }
+
+  g->sock_watch =
+    g->main_loop->add_handle (g->main_loop, g, g->sock,
+			      GUESTFS_HANDLE_WRITABLE,
+			      sock_write_event, NULL);
+  if (g->sock_watch == -1) {
+    error (g, "add_handle failed");
+    return -1;
+  }
+
+  return 0;
+}
+
+int
+guestfs__switch_to_receiving (guestfs_h *g)
+{
+  if (g->sock_watch >= 0) {
+    if (g->main_loop->remove_handle (g->main_loop, g, g->sock_watch) == -1) {
+      error (g, "remove_handle failed");
+      g->sock_watch = -1;
+      return -1;
+    }
+  }
+
+  g->sock_watch =
+    g->main_loop->add_handle (g->main_loop, g, g->sock,
+			      GUESTFS_HANDLE_READABLE,
+			      sock_read_event, NULL);
+  if (g->sock_watch == -1) {
+    error (g, "add_handle failed");
+    return -1;
+  }
+
+  return 0;
 }
 
 #if 0
@@ -1489,19 +1513,8 @@ send_file_chunk (guestfs_h *g, int cancel, const char *buf, size_t len)
   g->msg_out_size = len;
   g->msg_out_pos = 0;
 
-  /* Change the handle to sock_write_event. */
-  if (g->main_loop->remove_handle (g->main_loop, g, g->sock_watch) == -1) {
-    error (g, "remove_handle failed in dispatch");
+  if (guestfs__switch_to_sending (g) == -1)
     goto cleanup1;
-  }
-  g->sock_watch =
-    g->main_loop->add_handle (g->main_loop, g, g->sock,
-			      GUESTFS_HANDLE_WRITABLE,
-			      sock_write_event, NULL);
-  if (g->sock_watch == -1) {
-    error (g, "add_handle failed in dispatch");
-    goto cleanup1;
-  }
 
   return 0;
 

@@ -2139,11 +2139,17 @@ check_state (guestfs_h *g, const char *caller)
     fun (shortname, style, _, _, _, _, _) ->
       let name = "guestfs_" ^ shortname in
 
-      (* Generate the state struct which stores the high-level
+      (* Generate the context struct which stores the high-level
        * state between callback functions.
        *)
-      pr "struct %s_state {\n" shortname;
-      pr "  int cb_state;\n";
+      pr "struct %s_ctx {\n" shortname;
+      pr "  /* This flag is set by the callbacks, so we know we've done\n";
+      pr "   * the callbacks as expected, and in the right sequence.\n";
+      pr "   * 0 = not called, 1 = send called,\n";
+      pr "   * 2.. = send_file called,\n";
+      pr "   * 1000 = reply called.\n";
+      pr "   */\n";
+      pr "  int cb_sequence;\n";
       pr "  struct guestfs_message_header hdr;\n";
       pr "  struct guestfs_message_error err;\n";
       (match fst style with
@@ -2161,19 +2167,32 @@ check_state (guestfs_h *g, const char *caller)
       pr "};\n";
       pr "\n";
 
-      (* Generate the callback function. *)
-      pr "static void %s_cb (guestfs_h *g, void *data, XDR *xdr)\n" shortname;
+      (* Generate the send callback function. *)
+      pr "static void %s_send_cb (guestfs_h *g, void *data)\n" shortname;
       pr "{\n";
       pr "  guestfs_main_loop *ml = guestfs_get_main_loop (g);\n";
-      pr "  struct %s_state *state = (struct %s_state *) data;\n" shortname shortname;
+      pr "  struct %s_ctx *ctx = (struct %s_ctx *) data;\n" shortname shortname;
       pr "\n";
-      pr "  if (!xdr_guestfs_message_header (xdr, &state->hdr)) {\n";
-      pr "    error (g, \"%s: failed to parse reply header\");\n" name;
+      pr "  guestfs__switch_to_receiving (g);\n";
+      pr "  ctx->cb_sequence = 1;\n";
+      pr "  ml->main_loop_quit (ml, g);\n";
+      pr "}\n";
+      pr "\n";
+
+      (* Generate the reply callback function. *)
+      pr "static void %s_reply_cb (guestfs_h *g, void *data, XDR *xdr)\n" shortname;
+      pr "{\n";
+      pr "  guestfs_main_loop *ml = guestfs_get_main_loop (g);\n";
+      pr "  struct %s_ctx *ctx = (struct %s_ctx *) data;\n" shortname shortname;
+      pr "\n";
+      pr "  if (!xdr_guestfs_message_header (xdr, &ctx->hdr)) {\n";
+      pr "    error (g, \"%%s: failed to parse reply header\", \"%s\");\n" name;
       pr "    return;\n";
       pr "  }\n";
-      pr "  if (state->hdr.status == GUESTFS_STATUS_ERROR) {\n";
-      pr "    if (!xdr_guestfs_message_error (xdr, &state->err)) {\n";
-      pr "      error (g, \"%s: failed to parse reply error\");\n" name;
+      pr "  if (ctx->hdr.status == GUESTFS_STATUS_ERROR) {\n";
+      pr "    if (!xdr_guestfs_message_error (xdr, &ctx->err)) {\n";
+      pr "      error (g, \"%%s: failed to parse reply error\", \"%s\");\n"
+	name;
       pr "      return;\n";
       pr "    }\n";
       pr "    goto done;\n";
@@ -2189,14 +2208,14 @@ check_state (guestfs_h *g, const char *caller)
        | RPVList _ | RVGList _ | RLVList _
        | RStat _ | RStatVFS _
        | RHashtable _ ->
-	    pr "  if (!xdr_%s_ret (xdr, &state->ret)) {\n" name;
-	    pr "    error (g, \"%s: failed to parse reply\");\n" name;
+	    pr "  if (!xdr_%s_ret (xdr, &ctx->ret)) {\n" name;
+	    pr "    error (g, \"%%s: failed to parse reply\", \"%s\");\n" name;
 	    pr "    return;\n";
 	    pr "  }\n";
       );
 
       pr " done:\n";
-      pr "  state->cb_state = 1;\n";
+      pr "  ctx->cb_sequence = 1000;\n";
       pr "  ml->main_loop_quit (ml, g);\n";
       pr "}\n\n";
 
@@ -2222,13 +2241,13 @@ check_state (guestfs_h *g, const char *caller)
        | _ -> pr "  struct %s_args args;\n" name
       );
 
-      pr "  struct %s_state state;\n" shortname;
+      pr "  struct %s_ctx ctx;\n" shortname;
       pr "  guestfs_main_loop *ml = guestfs_get_main_loop (g);\n";
       pr "  int serial;\n";
       pr "\n";
       pr "  if (check_state (g, \"%s\") == -1) return %s;\n" name error_code;
       pr "\n";
-      pr "  memset (&state, 0, sizeof state);\n";
+      pr "  memset (&ctx, 0, sizeof ctx);\n";
       pr "\n";
 
       (* Dispatch the main header and arguments. *)
@@ -2254,11 +2273,22 @@ check_state (guestfs_h *g, const char *caller)
 	   ) args;
 	   pr "  serial = guestfs__send (g, GUESTFS_PROC_%s,\n"
 	     (String.uppercase shortname);
-	   pr "                     (xdrproc_t) xdr_%s_args, (char *) &args);\n"
+	   pr "        (xdrproc_t) xdr_%s_args, (char *) &args);\n"
 	     name;
       );
       pr "  if (serial == -1)\n";
       pr "    return %s;\n" error_code;
+      pr "\n";
+
+      (* Send the request. *)
+      pr "  ctx.cb_sequence = 0;\n";
+      pr "  guestfs_set_send_callback (g, %s_send_cb, &ctx);\n" shortname;
+      pr "  (void) ml->main_loop_run (ml, g);\n";
+      pr "  guestfs_set_send_callback (g, NULL, NULL);\n";
+      pr "  if (ctx.cb_sequence != 1) {\n";
+      pr "    error (g, \"%%s send failed, see earlier error messages\", \"%s\");\n" name;
+      pr "    return %s;\n" error_code;
+      pr "  }\n";
       pr "\n";
 
       (* Send any additional files requested. *)
@@ -2272,23 +2302,23 @@ check_state (guestfs_h *g, const char *caller)
       ) (snd style);
 
       (* Wait for the reply from the remote end. *)
-      pr "  state.cb_state = 0;\n";
-      pr "  guestfs_set_reply_callback (g, %s_cb, &state);\n" shortname;
+      pr "  ctx.cb_sequence = 0;\n";
+      pr "  guestfs_set_reply_callback (g, %s_reply_cb, &ctx);\n" shortname;
       pr "  (void) ml->main_loop_run (ml, g);\n";
       pr "  guestfs_set_reply_callback (g, NULL, NULL);\n";
-      pr "  if (!state.cb_state) {\n";
-      pr "    error (g, \"%s failed, see earlier error messages\");\n" name;
+      pr "  if (ctx.cb_sequence != 1000) {\n";
+      pr "    error (g, \"%%s reply failed, see earlier error messages\", \"%s\");\n" name;
       pr "    return %s;\n" error_code;
       pr "  }\n";
       pr "\n";
 
-      pr "  if (check_reply_header (g, &state.hdr, GUESTFS_PROC_%s, serial) == -1)\n"
+      pr "  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_%s, serial) == -1)\n"
 	(String.uppercase shortname);
       pr "    return %s;\n" error_code;
       pr "\n";
 
-      pr "  if (state.hdr.status == GUESTFS_STATUS_ERROR) {\n";
-      pr "    error (g, \"%%s\", state.err.error_message);\n";
+      pr "  if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {\n";
+      pr "    error (g, \"%%s\", ctx.err.error_message);\n";
       pr "    return %s;\n" error_code;
       pr "  }\n";
       pr "\n";
@@ -2306,26 +2336,26 @@ check_state (guestfs_h *g, const char *caller)
       (match fst style with
        | RErr -> pr "  return 0;\n"
        | RInt n | RInt64 n | RBool n ->
-	   pr "  return state.ret.%s;\n" n
+	   pr "  return ctx.ret.%s;\n" n
        | RConstString _ ->
 	   failwithf "RConstString cannot be returned from a daemon function"
        | RString n ->
-	   pr "  return state.ret.%s; /* caller will free */\n" n
+	   pr "  return ctx.ret.%s; /* caller will free */\n" n
        | RStringList n | RHashtable n ->
 	   pr "  /* caller will free this, but we need to add a NULL entry */\n";
-	   pr "  state.ret.%s.%s_val =\n" n n;
-	   pr "    safe_realloc (g, state.ret.%s.%s_val,\n" n n;
-	   pr "                  sizeof (char *) * (state.ret.%s.%s_len + 1));\n"
+	   pr "  ctx.ret.%s.%s_val =\n" n n;
+	   pr "    safe_realloc (g, ctx.ret.%s.%s_val,\n" n n;
+	   pr "                  sizeof (char *) * (ctx.ret.%s.%s_len + 1));\n"
 	     n n;
-	   pr "  state.ret.%s.%s_val[state.ret.%s.%s_len] = NULL;\n" n n n n;
-	   pr "  return state.ret.%s.%s_val;\n" n n
+	   pr "  ctx.ret.%s.%s_val[ctx.ret.%s.%s_len] = NULL;\n" n n n n;
+	   pr "  return ctx.ret.%s.%s_val;\n" n n
        | RIntBool _ ->
 	   pr "  /* caller with free this */\n";
-	   pr "  return safe_memdup (g, &state.ret, sizeof (state.ret));\n"
+	   pr "  return safe_memdup (g, &ctx.ret, sizeof (ctx.ret));\n"
        | RPVList n | RVGList n | RLVList n
        | RStat n | RStatVFS n ->
 	   pr "  /* caller will free this */\n";
-	   pr "  return safe_memdup (g, &state.ret.%s, sizeof (state.ret.%s));\n" n n
+	   pr "  return safe_memdup (g, &ctx.ret.%s, sizeof (ctx.ret.%s));\n" n n
       );
 
       pr "}\n\n"
