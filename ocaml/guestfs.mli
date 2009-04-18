@@ -370,3 +370,9 @@ val blockdev_flushbufs : t -> string -> unit
 val blockdev_rereadpt : t -> string -> unit
 (** reread partition table *)
 
+val upload : t -> string -> string -> unit
+(** upload a file from the local machine *)
+
+val download : t -> string -> string -> unit
+(** download a file to the local machine *)
+

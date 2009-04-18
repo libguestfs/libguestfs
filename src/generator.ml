@@ -1253,7 +1253,6 @@ Reread the partition table on C<device>.
 
 This uses the L<blockdev(8)> command.");
 
-(*
   ("upload", (RErr, [FileIn "filename"; String "remotefilename"]), 66, [],
    [],
    "upload a file from the local machine",
@@ -1275,7 +1274,6 @@ on the local machine.
 C<filename> can also be a named pipe.
 
 See also C<guestfs_upload>, C<guestfs_cat>.");
-*)
 
 ]
 
@@ -2146,8 +2144,7 @@ check_state (guestfs_h *g, const char *caller)
       pr "  /* This flag is set by the callbacks, so we know we've done\n";
       pr "   * the callbacks as expected, and in the right sequence.\n";
       pr "   * 0 = not called, 1 = send called,\n";
-      pr "   * 2.. = send_file called,\n";
-      pr "   * 1000 = reply called.\n";
+      pr "   * 1001 = reply called.\n";
       pr "   */\n";
       pr "  int cb_sequence;\n";
       pr "  struct guestfs_message_header hdr;\n";
@@ -2173,7 +2170,6 @@ check_state (guestfs_h *g, const char *caller)
       pr "  guestfs_main_loop *ml = guestfs_get_main_loop (g);\n";
       pr "  struct %s_ctx *ctx = (struct %s_ctx *) data;\n" shortname shortname;
       pr "\n";
-      pr "  guestfs__switch_to_receiving (g);\n";
       pr "  ctx->cb_sequence = 1;\n";
       pr "  ml->main_loop_quit (ml, g);\n";
       pr "}\n";
@@ -2215,7 +2211,7 @@ check_state (guestfs_h *g, const char *caller)
       );
 
       pr " done:\n";
-      pr "  ctx->cb_sequence = 1000;\n";
+      pr "  ctx->cb_sequence = 1001;\n";
       pr "  ml->main_loop_quit (ml, g);\n";
       pr "}\n\n";
 
@@ -2291,22 +2287,23 @@ check_state (guestfs_h *g, const char *caller)
       pr "  }\n";
       pr "\n";
 
-      (* Send any additional files requested. *)
+      (* Send any additional files (FileIn) requested. *)
       List.iter (
 	function
 	| FileIn n ->
-	    pr "  if (send_file (g, %s) == -1)\n" n;
+	    pr "  if (guestfs__send_file_sync (ml, g, %s) == -1)\n" n;
 	    pr "    return %s;\n" error_code;
 	    pr "\n";
 	| _ -> ()
       ) (snd style);
 
       (* Wait for the reply from the remote end. *)
+      pr "  guestfs__switch_to_receiving (g);\n";
       pr "  ctx.cb_sequence = 0;\n";
       pr "  guestfs_set_reply_callback (g, %s_reply_cb, &ctx);\n" shortname;
       pr "  (void) ml->main_loop_run (ml, g);\n";
       pr "  guestfs_set_reply_callback (g, NULL, NULL);\n";
-      pr "  if (ctx.cb_sequence != 1000) {\n";
+      pr "  if (ctx.cb_sequence != 1001) {\n";
       pr "    error (g, \"%%s reply failed, see earlier error messages\", \"%s\");\n" name;
       pr "    return %s;\n" error_code;
       pr "  }\n";
@@ -2327,7 +2324,7 @@ check_state (guestfs_h *g, const char *caller)
       List.iter (
 	function
 	| FileOut n ->
-	    pr "  if (receive_file (g, %s) == -1)\n" n;
+	    pr "  if (guestfs__receive_file_sync (ml, g, %s) == -1)\n" n;
 	    pr "    return %s;\n" error_code;
 	    pr "\n";
 	| _ -> ()

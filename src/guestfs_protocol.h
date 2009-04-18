@@ -616,6 +616,16 @@ struct guestfs_blockdev_rereadpt_args {
 };
 typedef struct guestfs_blockdev_rereadpt_args guestfs_blockdev_rereadpt_args;
 
+struct guestfs_upload_args {
+	char *remotefilename;
+};
+typedef struct guestfs_upload_args guestfs_upload_args;
+
+struct guestfs_download_args {
+	char *remotefilename;
+};
+typedef struct guestfs_download_args guestfs_download_args;
+
 enum guestfs_procedure {
 	GUESTFS_PROC_MOUNT = 1,
 	GUESTFS_PROC_SYNC = 2,
@@ -682,7 +692,9 @@ enum guestfs_procedure {
 	GUESTFS_PROC_BLOCKDEV_GETSIZE64 = 63,
 	GUESTFS_PROC_BLOCKDEV_FLUSHBUFS = 64,
 	GUESTFS_PROC_BLOCKDEV_REREADPT = 65,
-	GUESTFS_PROC_NR_PROCS = 65 + 1,
+	GUESTFS_PROC_UPLOAD = 66,
+	GUESTFS_PROC_DOWNLOAD = 67,
+	GUESTFS_PROC_NR_PROCS = 67 + 1,
 };
 typedef enum guestfs_procedure guestfs_procedure;
 #define GUESTFS_MESSAGE_MAX 4194304
@@ -823,6 +835,8 @@ extern  bool_t xdr_guestfs_blockdev_getsize64_args (XDR *, guestfs_blockdev_gets
 extern  bool_t xdr_guestfs_blockdev_getsize64_ret (XDR *, guestfs_blockdev_getsize64_ret*);
 extern  bool_t xdr_guestfs_blockdev_flushbufs_args (XDR *, guestfs_blockdev_flushbufs_args*);
 extern  bool_t xdr_guestfs_blockdev_rereadpt_args (XDR *, guestfs_blockdev_rereadpt_args*);
+extern  bool_t xdr_guestfs_upload_args (XDR *, guestfs_upload_args*);
+extern  bool_t xdr_guestfs_download_args (XDR *, guestfs_download_args*);
 extern  bool_t xdr_guestfs_procedure (XDR *, guestfs_procedure*);
 extern  bool_t xdr_guestfs_message_direction (XDR *, guestfs_message_direction*);
 extern  bool_t xdr_guestfs_message_status (XDR *, guestfs_message_status*);
@@ -924,6 +938,8 @@ extern bool_t xdr_guestfs_blockdev_getsize64_args ();
 extern bool_t xdr_guestfs_blockdev_getsize64_ret ();
 extern bool_t xdr_guestfs_blockdev_flushbufs_args ();
 extern bool_t xdr_guestfs_blockdev_rereadpt_args ();
+extern bool_t xdr_guestfs_upload_args ();
+extern bool_t xdr_guestfs_download_args ();
 extern bool_t xdr_guestfs_procedure ();
 extern bool_t xdr_guestfs_message_direction ();
 extern bool_t xdr_guestfs_message_status ();

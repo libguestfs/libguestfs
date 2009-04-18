@@ -472,6 +472,21 @@ C<value> can be NULL.
 
 This function returns 0 on success or -1 on error.
 
+=head2 guestfs_download
+
+ int guestfs_download (guestfs_h *handle,
+		const char *remotefilename,
+		const char *filename);
+
+Download file C<remotefilename> and save it as C<filename>
+on the local machine.
+
+C<filename> can also be a named pipe.
+
+See also C<guestfs_upload>, C<guestfs_cat>.
+
+This function returns 0 on success or -1 on error.
+
 =head2 guestfs_exists
 
  int guestfs_exists (guestfs_h *handle,
@@ -1076,6 +1091,21 @@ This function returns 0 on success or -1 on error.
 This unmounts all mounted filesystems.
 
 Some internal mounts are not unmounted by this call.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_upload
+
+ int guestfs_upload (guestfs_h *handle,
+		const char *filename,
+		const char *remotefilename);
+
+Upload local file C<filename> to C<remotefilename> on the
+filesystem.
+
+C<filename> can also be a named pipe.
+
+See also C<guestfs_download>.
 
 This function returns 0 on success or -1 on error.
 

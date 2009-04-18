@@ -2436,6 +2436,58 @@ py_guestfs_blockdev_rereadpt (PyObject *self, PyObject *args)
   return py_r;
 }
 
+static PyObject *
+py_guestfs_upload (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *filename;
+  const char *remotefilename;
+
+  if (!PyArg_ParseTuple (args, (char *) "Oss:guestfs_upload",
+                         &py_g, &filename, &remotefilename))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_upload (g, filename, remotefilename);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_download (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *remotefilename;
+  const char *filename;
+
+  if (!PyArg_ParseTuple (args, (char *) "Oss:guestfs_download",
+                         &py_g, &remotefilename, &filename))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_download (g, remotefilename, filename);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
 static PyMethodDef methods[] = {
   { (char *) "create", py_guestfs_create, METH_VARARGS, NULL },
   { (char *) "close", py_guestfs_close, METH_VARARGS, NULL },
@@ -2521,6 +2573,8 @@ static PyMethodDef methods[] = {
   { (char *) "blockdev_getsize64", py_guestfs_blockdev_getsize64, METH_VARARGS, NULL },
   { (char *) "blockdev_flushbufs", py_guestfs_blockdev_flushbufs, METH_VARARGS, NULL },
   { (char *) "blockdev_rereadpt", py_guestfs_blockdev_rereadpt, METH_VARARGS, NULL },
+  { (char *) "upload", py_guestfs_upload, METH_VARARGS, NULL },
+  { (char *) "download", py_guestfs_download, METH_VARARGS, NULL },
   { NULL, NULL, 0, NULL }
 };
 

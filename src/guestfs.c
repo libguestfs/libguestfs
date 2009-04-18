@@ -1428,11 +1428,25 @@ guestfs__switch_to_receiving (guestfs_h *g)
   return 0;
 }
 
+int
+guestfs__send_file_sync (guestfs_main_loop *ml, guestfs_h *g,
+			 const char *filename)
+{
+  return -1;
+}
+
+int
+guestfs__receive_file_sync (guestfs_main_loop *ml, guestfs_h *g,
+			    const char *filename)
+{
+  return -1;
+}
+
 #if 0
 static int cancel = 0; /* XXX Implement file cancellation. */
 
-static int
-send_file (guestfs_h *g, const char *filename)
+int
+guestfs__send_file (guestfs_h *g, const char *filename)
 {
   char buf[GUESTFS_MAX_CHUNK_SIZE];
   int fd, r;

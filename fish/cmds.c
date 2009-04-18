@@ -62,6 +62,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "command", "run a command from the guest filesystem");
   printf ("%-20s %s\n", "command-lines", "run a command, returning lines");
   printf ("%-20s %s\n", "config", "add qemu parameters");
+  printf ("%-20s %s\n", "download", "download a file to the local machine");
   printf ("%-20s %s\n", "exists", "test if file or directory exists");
   printf ("%-20s %s\n", "file", "determine file type");
   printf ("%-20s %s\n", "get-autosync", "get autosync mode");
@@ -108,6 +109,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "tune2fs-l", "get ext2/ext3 superblock details");
   printf ("%-20s %s\n", "umount", "unmount a filesystem");
   printf ("%-20s %s\n", "umount-all", "unmount all filesystems");
+  printf ("%-20s %s\n", "upload", "upload a file from the local machine");
   printf ("%-20s %s\n", "vgcreate", "create an LVM volume group");
   printf ("%-20s %s\n", "vgs", "list the LVM volume groups (VGs)");
   printf ("%-20s %s\n", "vgs-full", "list the LVM volume groups (VGs)");
@@ -359,6 +361,12 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "blockdev_rereadpt") == 0 || strcasecmp (cmd, "blockdev-rereadpt") == 0)
     pod2text ("blockdev-rereadpt - reread partition table", " blockdev-rereadpt <device>\n\nReread the partition table on C<device>.\n\nThis uses the L<blockdev(8)> command.");
+  else
+  if (strcasecmp (cmd, "upload") == 0)
+    pod2text ("upload - upload a file from the local machine", " upload <filename> <remotefilename>\n\nUpload local file C<filename> to C<remotefilename> on the\nfilesystem.\n\nC<filename> can also be a named pipe.\n\nSee also C<download>.");
+  else
+  if (strcasecmp (cmd, "download") == 0)
+    pod2text ("download - download a file to the local machine", " download <remotefilename> <filename>\n\nDownload file C<remotefilename> and save it as C<filename>\non the local machine.\n\nC<filename> can also be a named pipe.\n\nSee also C<upload>, C<cat>.");
   else
     display_builtin_command (cmd);
 }
@@ -1738,6 +1746,38 @@ static int run_blockdev_rereadpt (const char *cmd, int argc, char *argv[])
   return r;
 }
 
+static int run_upload (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *filename;
+  const char *remotefilename;
+  if (argc != 2) {
+    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  filename = strcmp (argv[0], "-") != 0 ? argv[0] : "/dev/stdin";
+  remotefilename = argv[1];
+  r = guestfs_upload (g, filename, remotefilename);
+  return r;
+}
+
+static int run_download (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *remotefilename;
+  const char *filename;
+  if (argc != 2) {
+    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  remotefilename = argv[0];
+  filename = strcmp (argv[1], "-") != 0 ? argv[1] : "/dev/stdout";
+  r = guestfs_download (g, remotefilename, filename);
+  return r;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -1982,6 +2022,12 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "blockdev_rereadpt") == 0 || strcasecmp (cmd, "blockdev-rereadpt") == 0)
     return run_blockdev_rereadpt (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "upload") == 0)
+    return run_upload (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "download") == 0)
+    return run_download (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

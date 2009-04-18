@@ -1584,6 +1584,54 @@ done:
   xdr_free ((xdrproc_t) xdr_guestfs_blockdev_rereadpt_args, (char *) &args);
 }
 
+static void upload_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_upload_args args;
+  const char *remotefilename;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_upload_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "upload");
+    return;
+  }
+  remotefilename = args.remotefilename;
+
+  r = do_upload (remotefilename);
+  if (r == -1)
+    /* do_upload has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_upload_args, (char *) &args);
+}
+
+static void download_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_download_args args;
+  const char *remotefilename;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_download_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "download");
+    return;
+  }
+  remotefilename = args.remotefilename;
+
+  r = do_download (remotefilename);
+  if (r == -1)
+    /* do_download has already called reply_with_error */
+    goto done;
+
+  /* do_download has already sent a reply */
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_download_args, (char *) &args);
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -1781,6 +1829,12 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_BLOCKDEV_REREADPT:
       blockdev_rereadpt_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_UPLOAD:
+      upload_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_DOWNLOAD:
+      download_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d", proc_nr);

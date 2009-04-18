@@ -87,8 +87,7 @@ struct mount_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -100,7 +99,6 @@ static void mount_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct mount_ctx *ctx = (struct mount_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -122,7 +120,7 @@ static void mount_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -155,11 +153,12 @@ int guestfs_mount (guestfs_h *g,
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, mount_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_mount");
     return -1;
   }
@@ -179,8 +178,7 @@ struct sync_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -192,7 +190,6 @@ static void sync_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct sync_ctx *ctx = (struct sync_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -214,7 +211,7 @@ static void sync_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -241,11 +238,12 @@ int guestfs_sync (guestfs_h *g)
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, sync_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_sync");
     return -1;
   }
@@ -265,8 +263,7 @@ struct touch_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -278,7 +275,6 @@ static void touch_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct touch_ctx *ctx = (struct touch_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -300,7 +296,7 @@ static void touch_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -331,11 +327,12 @@ int guestfs_touch (guestfs_h *g,
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, touch_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_touch");
     return -1;
   }
@@ -355,8 +352,7 @@ struct cat_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -369,7 +365,6 @@ static void cat_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct cat_ctx *ctx = (struct cat_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -395,7 +390,7 @@ static void cat_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -426,11 +421,12 @@ char *guestfs_cat (guestfs_h *g,
     return NULL;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, cat_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_cat");
     return NULL;
   }
@@ -450,8 +446,7 @@ struct ll_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -464,7 +459,6 @@ static void ll_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct ll_ctx *ctx = (struct ll_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -490,7 +484,7 @@ static void ll_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -521,11 +515,12 @@ char *guestfs_ll (guestfs_h *g,
     return NULL;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, ll_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_ll");
     return NULL;
   }
@@ -545,8 +540,7 @@ struct ls_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -559,7 +553,6 @@ static void ls_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct ls_ctx *ctx = (struct ls_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -585,7 +578,7 @@ static void ls_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -616,11 +609,12 @@ char **guestfs_ls (guestfs_h *g,
     return NULL;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, ls_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_ls");
     return NULL;
   }
@@ -645,8 +639,7 @@ struct list_devices_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -659,7 +652,6 @@ static void list_devices_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct list_devices_ctx *ctx = (struct list_devices_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -685,7 +677,7 @@ static void list_devices_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -712,11 +704,12 @@ char **guestfs_list_devices (guestfs_h *g)
     return NULL;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, list_devices_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_list_devices");
     return NULL;
   }
@@ -741,8 +734,7 @@ struct list_partitions_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -755,7 +747,6 @@ static void list_partitions_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct list_partitions_ctx *ctx = (struct list_partitions_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -781,7 +772,7 @@ static void list_partitions_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -808,11 +799,12 @@ char **guestfs_list_partitions (guestfs_h *g)
     return NULL;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, list_partitions_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_list_partitions");
     return NULL;
   }
@@ -837,8 +829,7 @@ struct pvs_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -851,7 +842,6 @@ static void pvs_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct pvs_ctx *ctx = (struct pvs_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -877,7 +867,7 @@ static void pvs_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -904,11 +894,12 @@ char **guestfs_pvs (guestfs_h *g)
     return NULL;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, pvs_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_pvs");
     return NULL;
   }
@@ -933,8 +924,7 @@ struct vgs_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -947,7 +937,6 @@ static void vgs_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct vgs_ctx *ctx = (struct vgs_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -973,7 +962,7 @@ static void vgs_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -1000,11 +989,12 @@ char **guestfs_vgs (guestfs_h *g)
     return NULL;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, vgs_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_vgs");
     return NULL;
   }
@@ -1029,8 +1019,7 @@ struct lvs_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -1043,7 +1032,6 @@ static void lvs_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct lvs_ctx *ctx = (struct lvs_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -1069,7 +1057,7 @@ static void lvs_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -1096,11 +1084,12 @@ char **guestfs_lvs (guestfs_h *g)
     return NULL;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, lvs_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_lvs");
     return NULL;
   }
@@ -1125,8 +1114,7 @@ struct pvs_full_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -1139,7 +1127,6 @@ static void pvs_full_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct pvs_full_ctx *ctx = (struct pvs_full_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -1165,7 +1152,7 @@ static void pvs_full_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -1192,11 +1179,12 @@ struct guestfs_lvm_pv_list *guestfs_pvs_full (guestfs_h *g)
     return NULL;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, pvs_full_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_pvs_full");
     return NULL;
   }
@@ -1217,8 +1205,7 @@ struct vgs_full_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -1231,7 +1218,6 @@ static void vgs_full_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct vgs_full_ctx *ctx = (struct vgs_full_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -1257,7 +1243,7 @@ static void vgs_full_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -1284,11 +1270,12 @@ struct guestfs_lvm_vg_list *guestfs_vgs_full (guestfs_h *g)
     return NULL;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, vgs_full_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_vgs_full");
     return NULL;
   }
@@ -1309,8 +1296,7 @@ struct lvs_full_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -1323,7 +1309,6 @@ static void lvs_full_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct lvs_full_ctx *ctx = (struct lvs_full_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -1349,7 +1334,7 @@ static void lvs_full_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -1376,11 +1361,12 @@ struct guestfs_lvm_lv_list *guestfs_lvs_full (guestfs_h *g)
     return NULL;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, lvs_full_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_lvs_full");
     return NULL;
   }
@@ -1401,8 +1387,7 @@ struct read_lines_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -1415,7 +1400,6 @@ static void read_lines_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct read_lines_ctx *ctx = (struct read_lines_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -1441,7 +1425,7 @@ static void read_lines_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -1472,11 +1456,12 @@ char **guestfs_read_lines (guestfs_h *g,
     return NULL;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, read_lines_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_read_lines");
     return NULL;
   }
@@ -1501,8 +1486,7 @@ struct aug_init_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -1514,7 +1498,6 @@ static void aug_init_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_init_ctx *ctx = (struct aug_init_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -1536,7 +1519,7 @@ static void aug_init_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -1569,11 +1552,12 @@ int guestfs_aug_init (guestfs_h *g,
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_init_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_init");
     return -1;
   }
@@ -1593,8 +1577,7 @@ struct aug_close_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -1606,7 +1589,6 @@ static void aug_close_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_close_ctx *ctx = (struct aug_close_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -1628,7 +1610,7 @@ static void aug_close_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -1655,11 +1637,12 @@ int guestfs_aug_close (guestfs_h *g)
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_close_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_close");
     return -1;
   }
@@ -1679,8 +1662,7 @@ struct aug_defvar_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -1693,7 +1675,6 @@ static void aug_defvar_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_defvar_ctx *ctx = (struct aug_defvar_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -1719,7 +1700,7 @@ static void aug_defvar_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -1752,11 +1733,12 @@ int guestfs_aug_defvar (guestfs_h *g,
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_defvar_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_defvar");
     return -1;
   }
@@ -1776,8 +1758,7 @@ struct aug_defnode_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -1790,7 +1771,6 @@ static void aug_defnode_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_defnode_ctx *ctx = (struct aug_defnode_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -1816,7 +1796,7 @@ static void aug_defnode_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -1851,11 +1831,12 @@ struct guestfs_int_bool *guestfs_aug_defnode (guestfs_h *g,
     return NULL;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_defnode_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_defnode");
     return NULL;
   }
@@ -1876,8 +1857,7 @@ struct aug_get_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -1890,7 +1870,6 @@ static void aug_get_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_get_ctx *ctx = (struct aug_get_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -1916,7 +1895,7 @@ static void aug_get_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -1947,11 +1926,12 @@ char *guestfs_aug_get (guestfs_h *g,
     return NULL;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_get_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_get");
     return NULL;
   }
@@ -1971,8 +1951,7 @@ struct aug_set_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -1984,7 +1963,6 @@ static void aug_set_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_set_ctx *ctx = (struct aug_set_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -2006,7 +1984,7 @@ static void aug_set_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -2039,11 +2017,12 @@ int guestfs_aug_set (guestfs_h *g,
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_set_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_set");
     return -1;
   }
@@ -2063,8 +2042,7 @@ struct aug_insert_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -2076,7 +2054,6 @@ static void aug_insert_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_insert_ctx *ctx = (struct aug_insert_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -2098,7 +2075,7 @@ static void aug_insert_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -2133,11 +2110,12 @@ int guestfs_aug_insert (guestfs_h *g,
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_insert_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_insert");
     return -1;
   }
@@ -2157,8 +2135,7 @@ struct aug_rm_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -2171,7 +2148,6 @@ static void aug_rm_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_rm_ctx *ctx = (struct aug_rm_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -2197,7 +2173,7 @@ static void aug_rm_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -2228,11 +2204,12 @@ int guestfs_aug_rm (guestfs_h *g,
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_rm_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_rm");
     return -1;
   }
@@ -2252,8 +2229,7 @@ struct aug_mv_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -2265,7 +2241,6 @@ static void aug_mv_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_mv_ctx *ctx = (struct aug_mv_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -2287,7 +2262,7 @@ static void aug_mv_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -2320,11 +2295,12 @@ int guestfs_aug_mv (guestfs_h *g,
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_mv_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_mv");
     return -1;
   }
@@ -2344,8 +2320,7 @@ struct aug_match_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -2358,7 +2333,6 @@ static void aug_match_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_match_ctx *ctx = (struct aug_match_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -2384,7 +2358,7 @@ static void aug_match_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -2415,11 +2389,12 @@ char **guestfs_aug_match (guestfs_h *g,
     return NULL;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_match_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_match");
     return NULL;
   }
@@ -2444,8 +2419,7 @@ struct aug_save_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -2457,7 +2431,6 @@ static void aug_save_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_save_ctx *ctx = (struct aug_save_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -2479,7 +2452,7 @@ static void aug_save_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -2506,11 +2479,12 @@ int guestfs_aug_save (guestfs_h *g)
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_save_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_save");
     return -1;
   }
@@ -2530,8 +2504,7 @@ struct aug_load_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -2543,7 +2516,6 @@ static void aug_load_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_load_ctx *ctx = (struct aug_load_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -2565,7 +2537,7 @@ static void aug_load_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -2592,11 +2564,12 @@ int guestfs_aug_load (guestfs_h *g)
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_load_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_load");
     return -1;
   }
@@ -2616,8 +2589,7 @@ struct aug_ls_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -2630,7 +2602,6 @@ static void aug_ls_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_ls_ctx *ctx = (struct aug_ls_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -2656,7 +2627,7 @@ static void aug_ls_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -2687,11 +2658,12 @@ char **guestfs_aug_ls (guestfs_h *g,
     return NULL;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_ls_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_ls");
     return NULL;
   }
@@ -2716,8 +2688,7 @@ struct rm_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -2729,7 +2700,6 @@ static void rm_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct rm_ctx *ctx = (struct rm_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -2751,7 +2721,7 @@ static void rm_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -2782,11 +2752,12 @@ int guestfs_rm (guestfs_h *g,
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, rm_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_rm");
     return -1;
   }
@@ -2806,8 +2777,7 @@ struct rmdir_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -2819,7 +2789,6 @@ static void rmdir_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct rmdir_ctx *ctx = (struct rmdir_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -2841,7 +2810,7 @@ static void rmdir_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -2872,11 +2841,12 @@ int guestfs_rmdir (guestfs_h *g,
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, rmdir_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_rmdir");
     return -1;
   }
@@ -2896,8 +2866,7 @@ struct rm_rf_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -2909,7 +2878,6 @@ static void rm_rf_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct rm_rf_ctx *ctx = (struct rm_rf_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -2931,7 +2899,7 @@ static void rm_rf_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -2962,11 +2930,12 @@ int guestfs_rm_rf (guestfs_h *g,
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, rm_rf_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_rm_rf");
     return -1;
   }
@@ -2986,8 +2955,7 @@ struct mkdir_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -2999,7 +2967,6 @@ static void mkdir_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct mkdir_ctx *ctx = (struct mkdir_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -3021,7 +2988,7 @@ static void mkdir_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -3052,11 +3019,12 @@ int guestfs_mkdir (guestfs_h *g,
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, mkdir_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_mkdir");
     return -1;
   }
@@ -3076,8 +3044,7 @@ struct mkdir_p_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -3089,7 +3056,6 @@ static void mkdir_p_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct mkdir_p_ctx *ctx = (struct mkdir_p_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -3111,7 +3077,7 @@ static void mkdir_p_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -3142,11 +3108,12 @@ int guestfs_mkdir_p (guestfs_h *g,
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, mkdir_p_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_mkdir_p");
     return -1;
   }
@@ -3166,8 +3133,7 @@ struct chmod_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -3179,7 +3145,6 @@ static void chmod_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct chmod_ctx *ctx = (struct chmod_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -3201,7 +3166,7 @@ static void chmod_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -3234,11 +3199,12 @@ int guestfs_chmod (guestfs_h *g,
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, chmod_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_chmod");
     return -1;
   }
@@ -3258,8 +3224,7 @@ struct chown_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -3271,7 +3236,6 @@ static void chown_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct chown_ctx *ctx = (struct chown_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -3293,7 +3257,7 @@ static void chown_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -3328,11 +3292,12 @@ int guestfs_chown (guestfs_h *g,
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, chown_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_chown");
     return -1;
   }
@@ -3352,8 +3317,7 @@ struct exists_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -3366,7 +3330,6 @@ static void exists_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct exists_ctx *ctx = (struct exists_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -3392,7 +3355,7 @@ static void exists_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -3423,11 +3386,12 @@ int guestfs_exists (guestfs_h *g,
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, exists_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_exists");
     return -1;
   }
@@ -3447,8 +3411,7 @@ struct is_file_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -3461,7 +3424,6 @@ static void is_file_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct is_file_ctx *ctx = (struct is_file_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -3487,7 +3449,7 @@ static void is_file_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -3518,11 +3480,12 @@ int guestfs_is_file (guestfs_h *g,
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, is_file_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_is_file");
     return -1;
   }
@@ -3542,8 +3505,7 @@ struct is_dir_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -3556,7 +3518,6 @@ static void is_dir_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct is_dir_ctx *ctx = (struct is_dir_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -3582,7 +3543,7 @@ static void is_dir_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -3613,11 +3574,12 @@ int guestfs_is_dir (guestfs_h *g,
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, is_dir_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_is_dir");
     return -1;
   }
@@ -3637,8 +3599,7 @@ struct pvcreate_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -3650,7 +3611,6 @@ static void pvcreate_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct pvcreate_ctx *ctx = (struct pvcreate_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -3672,7 +3632,7 @@ static void pvcreate_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -3703,11 +3663,12 @@ int guestfs_pvcreate (guestfs_h *g,
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, pvcreate_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_pvcreate");
     return -1;
   }
@@ -3727,8 +3688,7 @@ struct vgcreate_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -3740,7 +3700,6 @@ static void vgcreate_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct vgcreate_ctx *ctx = (struct vgcreate_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -3762,7 +3721,7 @@ static void vgcreate_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -3796,11 +3755,12 @@ int guestfs_vgcreate (guestfs_h *g,
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, vgcreate_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_vgcreate");
     return -1;
   }
@@ -3820,8 +3780,7 @@ struct lvcreate_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -3833,7 +3792,6 @@ static void lvcreate_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct lvcreate_ctx *ctx = (struct lvcreate_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -3855,7 +3813,7 @@ static void lvcreate_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -3890,11 +3848,12 @@ int guestfs_lvcreate (guestfs_h *g,
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, lvcreate_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_lvcreate");
     return -1;
   }
@@ -3914,8 +3873,7 @@ struct mkfs_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -3927,7 +3885,6 @@ static void mkfs_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct mkfs_ctx *ctx = (struct mkfs_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -3949,7 +3906,7 @@ static void mkfs_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -3982,11 +3939,12 @@ int guestfs_mkfs (guestfs_h *g,
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, mkfs_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_mkfs");
     return -1;
   }
@@ -4006,8 +3964,7 @@ struct sfdisk_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -4019,7 +3976,6 @@ static void sfdisk_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct sfdisk_ctx *ctx = (struct sfdisk_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -4041,7 +3997,7 @@ static void sfdisk_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -4081,11 +4037,12 @@ int guestfs_sfdisk (guestfs_h *g,
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, sfdisk_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_sfdisk");
     return -1;
   }
@@ -4105,8 +4062,7 @@ struct write_file_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -4118,7 +4074,6 @@ static void write_file_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct write_file_ctx *ctx = (struct write_file_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -4140,7 +4095,7 @@ static void write_file_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -4175,11 +4130,12 @@ int guestfs_write_file (guestfs_h *g,
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, write_file_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_write_file");
     return -1;
   }
@@ -4199,8 +4155,7 @@ struct umount_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -4212,7 +4167,6 @@ static void umount_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct umount_ctx *ctx = (struct umount_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -4234,7 +4188,7 @@ static void umount_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -4265,11 +4219,12 @@ int guestfs_umount (guestfs_h *g,
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, umount_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_umount");
     return -1;
   }
@@ -4289,8 +4244,7 @@ struct mounts_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -4303,7 +4257,6 @@ static void mounts_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct mounts_ctx *ctx = (struct mounts_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -4329,7 +4282,7 @@ static void mounts_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -4356,11 +4309,12 @@ char **guestfs_mounts (guestfs_h *g)
     return NULL;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, mounts_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_mounts");
     return NULL;
   }
@@ -4385,8 +4339,7 @@ struct umount_all_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -4398,7 +4351,6 @@ static void umount_all_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct umount_all_ctx *ctx = (struct umount_all_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -4420,7 +4372,7 @@ static void umount_all_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -4447,11 +4399,12 @@ int guestfs_umount_all (guestfs_h *g)
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, umount_all_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_umount_all");
     return -1;
   }
@@ -4471,8 +4424,7 @@ struct lvm_remove_all_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -4484,7 +4436,6 @@ static void lvm_remove_all_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct lvm_remove_all_ctx *ctx = (struct lvm_remove_all_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -4506,7 +4457,7 @@ static void lvm_remove_all_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -4533,11 +4484,12 @@ int guestfs_lvm_remove_all (guestfs_h *g)
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, lvm_remove_all_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_lvm_remove_all");
     return -1;
   }
@@ -4557,8 +4509,7 @@ struct file_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -4571,7 +4522,6 @@ static void file_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct file_ctx *ctx = (struct file_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -4597,7 +4547,7 @@ static void file_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -4628,11 +4578,12 @@ char *guestfs_file (guestfs_h *g,
     return NULL;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, file_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_file");
     return NULL;
   }
@@ -4652,8 +4603,7 @@ struct command_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -4666,7 +4616,6 @@ static void command_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct command_ctx *ctx = (struct command_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -4692,7 +4641,7 @@ static void command_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -4724,11 +4673,12 @@ char *guestfs_command (guestfs_h *g,
     return NULL;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, command_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_command");
     return NULL;
   }
@@ -4748,8 +4698,7 @@ struct command_lines_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -4762,7 +4711,6 @@ static void command_lines_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct command_lines_ctx *ctx = (struct command_lines_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -4788,7 +4736,7 @@ static void command_lines_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -4820,11 +4768,12 @@ char **guestfs_command_lines (guestfs_h *g,
     return NULL;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, command_lines_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_command_lines");
     return NULL;
   }
@@ -4849,8 +4798,7 @@ struct stat_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -4863,7 +4811,6 @@ static void stat_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct stat_ctx *ctx = (struct stat_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -4889,7 +4836,7 @@ static void stat_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -4920,11 +4867,12 @@ struct guestfs_stat *guestfs_stat (guestfs_h *g,
     return NULL;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, stat_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_stat");
     return NULL;
   }
@@ -4945,8 +4893,7 @@ struct lstat_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -4959,7 +4906,6 @@ static void lstat_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct lstat_ctx *ctx = (struct lstat_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -4985,7 +4931,7 @@ static void lstat_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -5016,11 +4962,12 @@ struct guestfs_stat *guestfs_lstat (guestfs_h *g,
     return NULL;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, lstat_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_lstat");
     return NULL;
   }
@@ -5041,8 +4988,7 @@ struct statvfs_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -5055,7 +5001,6 @@ static void statvfs_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct statvfs_ctx *ctx = (struct statvfs_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -5081,7 +5026,7 @@ static void statvfs_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -5112,11 +5057,12 @@ struct guestfs_statvfs *guestfs_statvfs (guestfs_h *g,
     return NULL;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, statvfs_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_statvfs");
     return NULL;
   }
@@ -5137,8 +5083,7 @@ struct tune2fs_l_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -5151,7 +5096,6 @@ static void tune2fs_l_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct tune2fs_l_ctx *ctx = (struct tune2fs_l_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -5177,7 +5121,7 @@ static void tune2fs_l_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -5208,11 +5152,12 @@ char **guestfs_tune2fs_l (guestfs_h *g,
     return NULL;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, tune2fs_l_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_tune2fs_l");
     return NULL;
   }
@@ -5237,8 +5182,7 @@ struct blockdev_setro_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -5250,7 +5194,6 @@ static void blockdev_setro_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct blockdev_setro_ctx *ctx = (struct blockdev_setro_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -5272,7 +5215,7 @@ static void blockdev_setro_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -5303,11 +5246,12 @@ int guestfs_blockdev_setro (guestfs_h *g,
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, blockdev_setro_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_blockdev_setro");
     return -1;
   }
@@ -5327,8 +5271,7 @@ struct blockdev_setrw_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -5340,7 +5283,6 @@ static void blockdev_setrw_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct blockdev_setrw_ctx *ctx = (struct blockdev_setrw_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -5362,7 +5304,7 @@ static void blockdev_setrw_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -5393,11 +5335,12 @@ int guestfs_blockdev_setrw (guestfs_h *g,
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, blockdev_setrw_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_blockdev_setrw");
     return -1;
   }
@@ -5417,8 +5360,7 @@ struct blockdev_getro_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -5431,7 +5373,6 @@ static void blockdev_getro_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct blockdev_getro_ctx *ctx = (struct blockdev_getro_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -5457,7 +5398,7 @@ static void blockdev_getro_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -5488,11 +5429,12 @@ int guestfs_blockdev_getro (guestfs_h *g,
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, blockdev_getro_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_blockdev_getro");
     return -1;
   }
@@ -5512,8 +5454,7 @@ struct blockdev_getss_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -5526,7 +5467,6 @@ static void blockdev_getss_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct blockdev_getss_ctx *ctx = (struct blockdev_getss_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -5552,7 +5492,7 @@ static void blockdev_getss_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -5583,11 +5523,12 @@ int guestfs_blockdev_getss (guestfs_h *g,
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, blockdev_getss_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_blockdev_getss");
     return -1;
   }
@@ -5607,8 +5548,7 @@ struct blockdev_getbsz_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -5621,7 +5561,6 @@ static void blockdev_getbsz_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct blockdev_getbsz_ctx *ctx = (struct blockdev_getbsz_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -5647,7 +5586,7 @@ static void blockdev_getbsz_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -5678,11 +5617,12 @@ int guestfs_blockdev_getbsz (guestfs_h *g,
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, blockdev_getbsz_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_blockdev_getbsz");
     return -1;
   }
@@ -5702,8 +5642,7 @@ struct blockdev_setbsz_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -5715,7 +5654,6 @@ static void blockdev_setbsz_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct blockdev_setbsz_ctx *ctx = (struct blockdev_setbsz_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -5737,7 +5675,7 @@ static void blockdev_setbsz_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -5770,11 +5708,12 @@ int guestfs_blockdev_setbsz (guestfs_h *g,
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, blockdev_setbsz_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_blockdev_setbsz");
     return -1;
   }
@@ -5794,8 +5733,7 @@ struct blockdev_getsz_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -5808,7 +5746,6 @@ static void blockdev_getsz_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct blockdev_getsz_ctx *ctx = (struct blockdev_getsz_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -5834,7 +5771,7 @@ static void blockdev_getsz_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -5865,11 +5802,12 @@ int64_t guestfs_blockdev_getsz (guestfs_h *g,
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, blockdev_getsz_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_blockdev_getsz");
     return -1;
   }
@@ -5889,8 +5827,7 @@ struct blockdev_getsize64_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -5903,7 +5840,6 @@ static void blockdev_getsize64_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct blockdev_getsize64_ctx *ctx = (struct blockdev_getsize64_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -5929,7 +5865,7 @@ static void blockdev_getsize64_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -5960,11 +5896,12 @@ int64_t guestfs_blockdev_getsize64 (guestfs_h *g,
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, blockdev_getsize64_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_blockdev_getsize64");
     return -1;
   }
@@ -5984,8 +5921,7 @@ struct blockdev_flushbufs_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -5997,7 +5933,6 @@ static void blockdev_flushbufs_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct blockdev_flushbufs_ctx *ctx = (struct blockdev_flushbufs_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -6019,7 +5954,7 @@ static void blockdev_flushbufs_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -6050,11 +5985,12 @@ int guestfs_blockdev_flushbufs (guestfs_h *g,
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, blockdev_flushbufs_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_blockdev_flushbufs");
     return -1;
   }
@@ -6074,8 +6010,7 @@ struct blockdev_rereadpt_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
    * 0 = not called, 1 = send called,
-   * 2.. = send_file called,
-   * 1000 = reply called.
+   * 1001 = reply called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -6087,7 +6022,6 @@ static void blockdev_rereadpt_send_cb (guestfs_h *g, void *data)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct blockdev_rereadpt_ctx *ctx = (struct blockdev_rereadpt_ctx *) data;
 
-  guestfs__switch_to_receiving (g);
   ctx->cb_sequence = 1;
   ml->main_loop_quit (ml, g);
 }
@@ -6109,7 +6043,7 @@ static void blockdev_rereadpt_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1000;
+  ctx->cb_sequence = 1001;
   ml->main_loop_quit (ml, g);
 }
 
@@ -6140,11 +6074,12 @@ int guestfs_blockdev_rereadpt (guestfs_h *g,
     return -1;
   }
 
+  guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, blockdev_rereadpt_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1000) {
+  if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_blockdev_rereadpt");
     return -1;
   }
@@ -6156,6 +6091,192 @@ int guestfs_blockdev_rereadpt (guestfs_h *g,
     error (g, "%s", ctx.err.error_message);
     return -1;
   }
+
+  return 0;
+}
+
+struct upload_ctx {
+  /* This flag is set by the callbacks, so we know we've done
+   * the callbacks as expected, and in the right sequence.
+   * 0 = not called, 1 = send called,
+   * 1001 = reply called.
+   */
+  int cb_sequence;
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+};
+
+static void upload_send_cb (guestfs_h *g, void *data)
+{
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  struct upload_ctx *ctx = (struct upload_ctx *) data;
+
+  ctx->cb_sequence = 1;
+  ml->main_loop_quit (ml, g);
+}
+
+static void upload_reply_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  struct upload_ctx *ctx = (struct upload_ctx *) data;
+
+  if (!xdr_guestfs_message_header (xdr, &ctx->hdr)) {
+    error (g, "%s: failed to parse reply header", "guestfs_upload");
+    return;
+  }
+  if (ctx->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &ctx->err)) {
+      error (g, "%s: failed to parse reply error", "guestfs_upload");
+      return;
+    }
+    goto done;
+  }
+ done:
+  ctx->cb_sequence = 1001;
+  ml->main_loop_quit (ml, g);
+}
+
+int guestfs_upload (guestfs_h *g,
+		const char *filename,
+		const char *remotefilename)
+{
+  struct guestfs_upload_args args;
+  struct upload_ctx ctx;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  int serial;
+
+  if (check_state (g, "guestfs_upload") == -1) return -1;
+
+  memset (&ctx, 0, sizeof ctx);
+
+  args.remotefilename = (char *) remotefilename;
+  serial = guestfs__send (g, GUESTFS_PROC_UPLOAD,
+        (xdrproc_t) xdr_guestfs_upload_args, (char *) &args);
+  if (serial == -1)
+    return -1;
+
+  ctx.cb_sequence = 0;
+  guestfs_set_send_callback (g, upload_send_cb, &ctx);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_send_callback (g, NULL, NULL);
+  if (ctx.cb_sequence != 1) {
+    error (g, "%s send failed, see earlier error messages", "guestfs_upload");
+    return -1;
+  }
+
+  if (guestfs__send_file_sync (ml, g, filename) == -1)
+    return -1;
+
+  guestfs__switch_to_receiving (g);
+  ctx.cb_sequence = 0;
+  guestfs_set_reply_callback (g, upload_reply_cb, &ctx);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (ctx.cb_sequence != 1001) {
+    error (g, "%s reply failed, see earlier error messages", "guestfs_upload");
+    return -1;
+  }
+
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_UPLOAD, serial) == -1)
+    return -1;
+
+  if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", ctx.err.error_message);
+    return -1;
+  }
+
+  return 0;
+}
+
+struct download_ctx {
+  /* This flag is set by the callbacks, so we know we've done
+   * the callbacks as expected, and in the right sequence.
+   * 0 = not called, 1 = send called,
+   * 1001 = reply called.
+   */
+  int cb_sequence;
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+};
+
+static void download_send_cb (guestfs_h *g, void *data)
+{
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  struct download_ctx *ctx = (struct download_ctx *) data;
+
+  ctx->cb_sequence = 1;
+  ml->main_loop_quit (ml, g);
+}
+
+static void download_reply_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  struct download_ctx *ctx = (struct download_ctx *) data;
+
+  if (!xdr_guestfs_message_header (xdr, &ctx->hdr)) {
+    error (g, "%s: failed to parse reply header", "guestfs_download");
+    return;
+  }
+  if (ctx->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &ctx->err)) {
+      error (g, "%s: failed to parse reply error", "guestfs_download");
+      return;
+    }
+    goto done;
+  }
+ done:
+  ctx->cb_sequence = 1001;
+  ml->main_loop_quit (ml, g);
+}
+
+int guestfs_download (guestfs_h *g,
+		const char *remotefilename,
+		const char *filename)
+{
+  struct guestfs_download_args args;
+  struct download_ctx ctx;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  int serial;
+
+  if (check_state (g, "guestfs_download") == -1) return -1;
+
+  memset (&ctx, 0, sizeof ctx);
+
+  args.remotefilename = (char *) remotefilename;
+  serial = guestfs__send (g, GUESTFS_PROC_DOWNLOAD,
+        (xdrproc_t) xdr_guestfs_download_args, (char *) &args);
+  if (serial == -1)
+    return -1;
+
+  ctx.cb_sequence = 0;
+  guestfs_set_send_callback (g, download_send_cb, &ctx);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_send_callback (g, NULL, NULL);
+  if (ctx.cb_sequence != 1) {
+    error (g, "%s send failed, see earlier error messages", "guestfs_download");
+    return -1;
+  }
+
+  guestfs__switch_to_receiving (g);
+  ctx.cb_sequence = 0;
+  guestfs_set_reply_callback (g, download_reply_cb, &ctx);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (ctx.cb_sequence != 1001) {
+    error (g, "%s reply failed, see earlier error messages", "guestfs_download");
+    return -1;
+  }
+
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_DOWNLOAD, serial) == -1)
+    return -1;
+
+  if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", ctx.err.error_message);
+    return -1;
+  }
+
+  if (guestfs__receive_file_sync (ml, g, filename) == -1)
+    return -1;
 
   return 0;
 }

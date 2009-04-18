@@ -1982,6 +1982,56 @@ static VALUE ruby_guestfs_blockdev_rereadpt (VALUE gv, VALUE devicev)
   return Qnil;
 }
 
+static VALUE ruby_guestfs_upload (VALUE gv, VALUE filenamev, VALUE remotefilenamev)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "upload");
+
+  const char *filename = StringValueCStr (filenamev);
+  if (!filename)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "filename", "upload");
+  const char *remotefilename = StringValueCStr (remotefilenamev);
+  if (!remotefilename)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "remotefilename", "upload");
+
+  int r;
+
+  r = guestfs_upload (g, filename, remotefilename);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
+static VALUE ruby_guestfs_download (VALUE gv, VALUE remotefilenamev, VALUE filenamev)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "download");
+
+  const char *remotefilename = StringValueCStr (remotefilenamev);
+  if (!remotefilename)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "remotefilename", "download");
+  const char *filename = StringValueCStr (filenamev);
+  if (!filename)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "filename", "download");
+
+  int r;
+
+  r = guestfs_download (g, remotefilename, filename);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
 /* Initialize the module. */
 void Init__guestfs ()
 {
@@ -2156,4 +2206,8 @@ void Init__guestfs ()
         ruby_guestfs_blockdev_flushbufs, 1);
   rb_define_method (c_guestfs, "blockdev_rereadpt",
         ruby_guestfs_blockdev_rereadpt, 1);
+  rb_define_method (c_guestfs, "upload",
+        ruby_guestfs_upload, 2);
+  rb_define_method (c_guestfs, "download",
+        ruby_guestfs_download, 2);
 }

@@ -86,3 +86,5 @@ extern int64_t do_blockdev_getsz (const char *device);
 extern int64_t do_blockdev_getsize64 (const char *device);
 extern int do_blockdev_flushbufs (const char *device);
 extern int do_blockdev_rereadpt (const char *device);
+extern int do_upload (const char *remotefilename);
+extern int do_download (const char *remotefilename);

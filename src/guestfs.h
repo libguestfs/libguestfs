@@ -27,6 +27,7 @@
 #include <rpc/xdr.h>
 
 typedef struct guestfs_h guestfs_h;
+typedef struct guestfs_main_loop guestfs_main_loop;
 
 /* Connection management. */
 extern guestfs_h *guestfs_create (void);
@@ -76,6 +77,8 @@ extern void *guestfs_safe_memdup (guestfs_h *g, void *ptr, size_t size);
 extern int guestfs__send (guestfs_h *g, int proc_nr, xdrproc_t xdrp, char *args);
 extern int guestfs__switch_to_sending (guestfs_h *g);
 extern int guestfs__switch_to_receiving (guestfs_h *g);
+extern int guestfs__send_file_sync (guestfs_main_loop *ml, guestfs_h *g, const char *filename);
+extern int guestfs__receive_file_sync (guestfs_main_loop *ml, guestfs_h *g, const char *filename);
 
 /* Main loop. */
 #define GUESTFS_HANDLE_READABLE 0x1
@@ -83,16 +86,14 @@ extern int guestfs__switch_to_receiving (guestfs_h *g);
 #define GUESTFS_HANDLE_HANGUP   0x4
 #define GUESTFS_HANDLE_ERROR    0x8
 
-struct guestfs_main_loop;
-
-typedef void (*guestfs_handle_event_cb) (struct guestfs_main_loop *ml, guestfs_h *g, void *data, int watch, int fd, int events);
-typedef int (*guestfs_add_handle_cb) (struct guestfs_main_loop *ml, guestfs_h *g, int fd, int events, guestfs_handle_event_cb cb, void *data);
-typedef int (*guestfs_remove_handle_cb) (struct guestfs_main_loop *ml, guestfs_h *g, int watch);
-typedef void (*guestfs_handle_timeout_cb) (struct guestfs_main_loop *ml, guestfs_h *g, void *data, int timer);
-typedef int (*guestfs_add_timeout_cb) (struct guestfs_main_loop *ml, guestfs_h *g, int interval, guestfs_handle_timeout_cb cb, void *data);
-typedef int (*guestfs_remove_timeout_cb) (struct guestfs_main_loop *ml, guestfs_h *g, int timer);
-typedef int (*guestfs_main_loop_run_cb) (struct guestfs_main_loop *ml, guestfs_h *g);
-typedef int (*guestfs_main_loop_quit_cb) (struct guestfs_main_loop *ml, guestfs_h *g);
+typedef void (*guestfs_handle_event_cb) (guestfs_main_loop *ml, guestfs_h *g, void *data, int watch, int fd, int events);
+typedef int (*guestfs_add_handle_cb) (guestfs_main_loop *ml, guestfs_h *g, int fd, int events, guestfs_handle_event_cb cb, void *data);
+typedef int (*guestfs_remove_handle_cb) (guestfs_main_loop *ml, guestfs_h *g, int watch);
+typedef void (*guestfs_handle_timeout_cb) (guestfs_main_loop *ml, guestfs_h *g, void *data, int timer);
+typedef int (*guestfs_add_timeout_cb) (guestfs_main_loop *ml, guestfs_h *g, int interval, guestfs_handle_timeout_cb cb, void *data);
+typedef int (*guestfs_remove_timeout_cb) (guestfs_main_loop *ml, guestfs_h *g, int timer);
+typedef int (*guestfs_main_loop_run_cb) (guestfs_main_loop *ml, guestfs_h *g);
+typedef int (*guestfs_main_loop_quit_cb) (guestfs_main_loop *ml, guestfs_h *g);
 
 /* This is the head of the main loop structure.  Concrete implementations
  * use additional private data after this struct.
@@ -105,7 +106,6 @@ struct guestfs_main_loop {
   guestfs_main_loop_run_cb main_loop_run;
   guestfs_main_loop_quit_cb main_loop_quit;
 };
-typedef struct guestfs_main_loop guestfs_main_loop;
 
 extern void guestfs_set_main_loop (guestfs_h *handle, guestfs_main_loop *main_loop);
 extern guestfs_main_loop *guestfs_get_main_loop (guestfs_h *handle);

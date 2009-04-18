@@ -99,6 +99,8 @@ static void no_test_warnings (void)
   fprintf (stderr, "warning: \"guestfs_command_lines\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_tune2fs_l\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_blockdev_setbsz\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_upload\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_download\" has no tests\n");
 }
 
 static int test_blockdev_rereadpt_0 (void)

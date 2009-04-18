@@ -923,3 +923,23 @@ class GuestFS:
         """
         return libguestfsmod.blockdev_rereadpt (self._o, device)
 
+    def upload (self, filename, remotefilename):
+        u"""Upload local file "filename" to "remotefilename" on the
+        filesystem.
+        
+        "filename" can also be a named pipe.
+        
+        See also "g.download".
+        """
+        return libguestfsmod.upload (self._o, filename, remotefilename)
+
+    def download (self, remotefilename, filename):
+        u"""Download file "remotefilename" and save it as "filename"
+        on the local machine.
+        
+        "filename" can also be a named pipe.
+        
+        See also "g.upload", "g.cat".
+        """
+        return libguestfsmod.download (self._o, remotefilename, filename)
+

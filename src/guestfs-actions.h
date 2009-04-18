@@ -101,3 +101,5 @@ extern int64_t guestfs_blockdev_getsz (guestfs_h *handle, const char *device);
 extern int64_t guestfs_blockdev_getsize64 (guestfs_h *handle, const char *device);
 extern int guestfs_blockdev_flushbufs (guestfs_h *handle, const char *device);
 extern int guestfs_blockdev_rereadpt (guestfs_h *handle, const char *device);
+extern int guestfs_upload (guestfs_h *handle, const char *filename, const char *remotefilename);
+extern int guestfs_download (guestfs_h *handle, const char *remotefilename, const char *filename);

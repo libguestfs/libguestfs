@@ -475,6 +475,14 @@ struct guestfs_blockdev_rereadpt_args {
   string device<>;
 };
 
+struct guestfs_upload_args {
+  string remotefilename<>;
+};
+
+struct guestfs_download_args {
+  string remotefilename<>;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -541,6 +549,8 @@ enum guestfs_procedure {
   GUESTFS_PROC_BLOCKDEV_GETSIZE64 = 63,
   GUESTFS_PROC_BLOCKDEV_FLUSHBUFS = 64,
   GUESTFS_PROC_BLOCKDEV_REREADPT = 65,
+  GUESTFS_PROC_UPLOAD = 66,
+  GUESTFS_PROC_DOWNLOAD = 67,
   GUESTFS_PROC_NR_PROCS
 };
 

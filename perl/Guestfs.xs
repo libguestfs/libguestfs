@@ -1297,3 +1297,27 @@ PREINIT:
       if (r == -1)
         croak ("blockdev_rereadpt: %s", guestfs_last_error (g));
 
+void
+upload (g, filename, remotefilename)
+      guestfs_h *g;
+      char *filename;
+      char *remotefilename;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_upload (g, filename, remotefilename);
+      if (r == -1)
+        croak ("upload: %s", guestfs_last_error (g));
+
+void
+download (g, remotefilename, filename)
+      guestfs_h *g;
+      char *remotefilename;
+      char *filename;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_download (g, remotefilename, filename);
+      if (r == -1)
+        croak ("download: %s", guestfs_last_error (g));
+

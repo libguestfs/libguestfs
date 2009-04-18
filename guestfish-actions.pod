@@ -358,6 +358,19 @@ The first character of C<param> string must be a C<-> (dash).
 
 C<value> can be NULL.
 
+=head2 download
+
+ download remotefilename (filename|-)
+
+Download file C<remotefilename> and save it as C<filename>
+on the local machine.
+
+C<filename> can also be a named pipe.
+
+See also C<upload>, C<cat>.
+
+Use C<-> instead of a filename to read/write from stdin/stdout.
+
 =head2 exists
 
  exists path
@@ -802,6 +815,19 @@ contains the filesystem.
 This unmounts all mounted filesystems.
 
 Some internal mounts are not unmounted by this call.
+
+=head2 upload
+
+ upload (filename|-) remotefilename
+
+Upload local file C<filename> to C<remotefilename> on the
+filesystem.
+
+C<filename> can also be a named pipe.
+
+See also C<download>.
+
+Use C<-> instead of a filename to read/write from stdin/stdout.
 
 =head2 vgcreate
 

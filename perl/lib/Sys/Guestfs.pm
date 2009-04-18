@@ -389,6 +389,15 @@ The first character of C<param> string must be a C<-> (dash).
 
 C<value> can be NULL.
 
+=item $h->download ($remotefilename, $filename);
+
+Download file C<remotefilename> and save it as C<filename>
+on the local machine.
+
+C<filename> can also be a named pipe.
+
+See also C<$h-E<gt>upload>, C<$h-E<gt>cat>.
+
 =item $existsflag = $h->exists ($path);
 
 This returns C<true> if and only if there is a file, directory
@@ -741,6 +750,15 @@ contains the filesystem.
 This unmounts all mounted filesystems.
 
 Some internal mounts are not unmounted by this call.
+
+=item $h->upload ($filename, $remotefilename);
+
+Upload local file C<filename> to C<remotefilename> on the
+filesystem.
+
+C<filename> can also be a named pipe.
+
+See also C<$h-E<gt>download>.
 
 =item $h->vgcreate ($volgroup, \@physvols);
 

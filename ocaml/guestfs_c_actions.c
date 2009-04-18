@@ -2275,3 +2275,51 @@ ocaml_guestfs_blockdev_rereadpt (value gv, value devicev)
   CAMLreturn (rv);
 }
 
+CAMLprim value
+ocaml_guestfs_upload (value gv, value filenamev, value remotefilenamev)
+{
+  CAMLparam3 (gv, filenamev, remotefilenamev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("upload: used handle after closing it");
+
+  const char *filename = String_val (filenamev);
+  const char *remotefilename = String_val (remotefilenamev);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_upload (g, filename, remotefilename);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "upload");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_download (value gv, value remotefilenamev, value filenamev)
+{
+  CAMLparam3 (gv, remotefilenamev, filenamev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("download: used handle after closing it");
+
+  const char *remotefilename = String_val (remotefilenamev);
+  const char *filename = String_val (filenamev);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_download (g, remotefilename, filename);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "download");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+

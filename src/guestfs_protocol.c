@@ -1187,6 +1187,26 @@ xdr_guestfs_blockdev_rereadpt_args (XDR *xdrs, guestfs_blockdev_rereadpt_args *o
 }
 
 bool_t
+xdr_guestfs_upload_args (XDR *xdrs, guestfs_upload_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->remotefilename, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_download_args (XDR *xdrs, guestfs_download_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->remotefilename, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
 xdr_guestfs_procedure (XDR *xdrs, guestfs_procedure *objp)
 {
 	register int32_t *buf;
