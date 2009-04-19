@@ -1924,8 +1924,16 @@ and generate_xdr () =
 
   (* Message header, etc. *)
   pr "\
+/* The communication protocol is now documented in the guestfs(3)
+ * manpage.
+ */
+
 const GUESTFS_PROGRAM = 0x2000F5F5;
 const GUESTFS_PROTOCOL_VERSION = 1;
+
+/* These constants must be larger than any possible message length. */
+const GUESTFS_LAUNCH_FLAG = 0xf5f55f5f;
+const GUESTFS_CANCEL_FLAG = 0xffffeeee;
 
 enum guestfs_message_direction {
   GUESTFS_DIRECTION_CALL = 0,        /* client -> daemon */
@@ -1943,19 +1951,6 @@ struct guestfs_message_error {
   string error_message<GUESTFS_ERROR_LEN>;
 };
 
-/* For normal requests and replies (not involving any FileIn or
- * FileOut parameters), the protocol is:
- *
- * For requests:
- *   total length (header + args, but not including length word itself)
- *   header
- *   guestfs_foo_args struct
- * For replies:
- *   total length (as above)
- *   header
- *   guestfs_foo_ret struct
- */
-
 struct guestfs_message_header {
   unsigned prog;                     /* GUESTFS_PROGRAM */
   unsigned vers;                     /* GUESTFS_PROTOCOL_VERSION */
@@ -1965,23 +1960,6 @@ struct guestfs_message_header {
   guestfs_message_status status;
 };
 
-/* Chunked encoding used to transfer files, for FileIn and FileOut
- * parameters.
- *
- * For requests which have >= 1 FileIn parameter:
- *   length of header + args (but not length word itself, and not chunks)
- *   header
- *   guestfs_foo_args struct
- *   sequence of chunks for FileIn param #0
- *   sequence of chunks for FileIn param #1 etc
- *
- * For replies which have >= 1 FileOut parameter:
- *   length of header + ret (but not length word itself, and not chunks)
- *   header
- *   guestfs_foo_ret struct
- *   sequence of chunks for FileOut param #0
- *   sequence of chunks for FileOut param #1 etc
- */
 const GUESTFS_MAX_CHUNK_SIZE = 8192;
 
 struct guestfs_chunk {
