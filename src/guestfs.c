@@ -416,6 +416,24 @@ guestfs_safe_memdup (guestfs_h *g, void *ptr, size_t size)
   return p;
 }
 
+static int
+xwrite (int fd, const void *buf, size_t len)
+{
+  int r;
+
+  while (len > 0) {
+    r = write (fd, buf, len);
+    if (r == -1) {
+      perror ("write");
+      return -1;
+    }
+    buf += r;
+    len -= r;
+  }
+
+  return 0;
+}
+
 void
 guestfs_set_out_of_memory_handler (guestfs_h *g, guestfs_abort_cb cb)
 {
@@ -1305,19 +1323,80 @@ guestfs_get_default_main_loop (void)
   return (guestfs_main_loop *) &default_main_loop;
 }
 
-/* Dispatch a call (len + header + args) to the remote daemon.  This
- * function just queues the call in msg_out, to be sent when we next
- * enter the main loop.  Returns -1 for error, or the message serial
- * number.
+/* Change the daemon socket handler so that we are now writing.
+ * This sets the handle to sock_write_event.
  */
 int
-guestfs__send (guestfs_h *g, int proc_nr, xdrproc_t xdrp, char *args)
+guestfs__switch_to_sending (guestfs_h *g)
+{
+  if (g->sock_watch >= 0) {
+    if (g->main_loop->remove_handle (g->main_loop, g, g->sock_watch) == -1) {
+      error (g, "remove_handle failed");
+      g->sock_watch = -1;
+      return -1;
+    }
+  }
+
+  g->sock_watch =
+    g->main_loop->add_handle (g->main_loop, g, g->sock,
+			      GUESTFS_HANDLE_WRITABLE,
+			      sock_write_event, NULL);
+  if (g->sock_watch == -1) {
+    error (g, "add_handle failed");
+    return -1;
+  }
+
+  return 0;
+}
+
+int
+guestfs__switch_to_receiving (guestfs_h *g)
+{
+  if (g->sock_watch >= 0) {
+    if (g->main_loop->remove_handle (g->main_loop, g, g->sock_watch) == -1) {
+      error (g, "remove_handle failed");
+      g->sock_watch = -1;
+      return -1;
+    }
+  }
+
+  g->sock_watch =
+    g->main_loop->add_handle (g->main_loop, g, g->sock,
+			      GUESTFS_HANDLE_READABLE,
+			      sock_read_event, NULL);
+  if (g->sock_watch == -1) {
+    error (g, "add_handle failed");
+    return -1;
+  }
+
+  return 0;
+}
+
+/* Dispatch a call (len + header + args) to the remote daemon,
+ * synchronously (ie. using the guest's main loop to wait until
+ * it has been sent).  Returns -1 for error, or the serial
+ * number of the message.
+ */
+static void
+send_cb (guestfs_h *g, void *data)
+{
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+
+  *((int *)data) = 1;
+  ml->main_loop_quit (ml, g);
+}
+
+int
+guestfs__send_sync (guestfs_h *g, int proc_nr,
+		    xdrproc_t xdrp, char *args)
 {
   char buffer[GUESTFS_MESSAGE_MAX];
   struct guestfs_message_header hdr;
   XDR xdr;
   unsigned len;
   int serial = g->msg_next_serial++;
+  int sent;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
 
   if (g->state != READY) {
     error (g, "dispatch: state %d != READY", g->state);
@@ -1369,6 +1448,15 @@ guestfs__send (guestfs_h *g, int proc_nr, xdrproc_t xdrp, char *args)
   if (guestfs__switch_to_sending (g) == -1)
     goto cleanup1;
 
+  sent = 0;
+  guestfs_set_send_callback (g, send_cb, &sent);
+  if (ml->main_loop_run (ml, g) == -1)
+    goto cleanup1;
+  if (sent != 1) {
+    error (g, "send failed, see earlier error messages");
+    goto cleanup1;
+  }
+
   return serial;
 
  cleanup1:
@@ -1379,74 +1467,15 @@ guestfs__send (guestfs_h *g, int proc_nr, xdrproc_t xdrp, char *args)
   return -1;
 }
 
-/* Change the daemon socket handler so that we are now writing.
- * This sets the handle to sock_write_event.
- */
-int
-guestfs__switch_to_sending (guestfs_h *g)
-{
-  if (g->sock_watch >= 0) {
-    if (g->main_loop->remove_handle (g->main_loop, g, g->sock_watch) == -1) {
-      error (g, "remove_handle failed");
-      g->sock_watch = -1;
-      return -1;
-    }
-  }
-
-  g->sock_watch =
-    g->main_loop->add_handle (g->main_loop, g, g->sock,
-			      GUESTFS_HANDLE_WRITABLE,
-			      sock_write_event, NULL);
-  if (g->sock_watch == -1) {
-    error (g, "add_handle failed");
-    return -1;
-  }
-
-  return 0;
-}
-
-int
-guestfs__switch_to_receiving (guestfs_h *g)
-{
-  if (g->sock_watch >= 0) {
-    if (g->main_loop->remove_handle (g->main_loop, g, g->sock_watch) == -1) {
-      error (g, "remove_handle failed");
-      g->sock_watch = -1;
-      return -1;
-    }
-  }
-
-  g->sock_watch =
-    g->main_loop->add_handle (g->main_loop, g, g->sock,
-			      GUESTFS_HANDLE_READABLE,
-			      sock_read_event, NULL);
-  if (g->sock_watch == -1) {
-    error (g, "add_handle failed");
-    return -1;
-  }
-
-  return 0;
-}
-
-int
-guestfs__send_file_sync (guestfs_main_loop *ml, guestfs_h *g,
-			 const char *filename)
-{
-  return -1;
-}
-
-int
-guestfs__receive_file_sync (guestfs_main_loop *ml, guestfs_h *g,
-			    const char *filename)
-{
-  return -1;
-}
-
-#if 0
 static int cancel = 0; /* XXX Implement file cancellation. */
+static int send_file_chunk_sync (guestfs_h *g, int cancel, const char *buf, size_t len);
+static int send_file_data_sync (guestfs_h *g, const char *buf, size_t len);
+static int send_file_cancellation_sync (guestfs_h *g);
+static int send_file_complete_sync (guestfs_h *g);
 
+/* Synchronously send a file. */
 int
-guestfs__send_file (guestfs_h *g, const char *filename)
+guestfs__send_file_sync (guestfs_h *g, const char *filename)
 {
   char buf[GUESTFS_MAX_CHUNK_SIZE];
   int fd, r;
@@ -1454,7 +1483,7 @@ guestfs__send_file (guestfs_h *g, const char *filename)
   fd = open (filename, O_RDONLY);
   if (fd == -1) {
     perrorf (g, "open: %s", filename);
-    send_file_cancellation (g);
+    send_file_cancellation_sync (g);
     /* Daemon sees cancellation and won't reply, so caller can
      * just return here.
      */
@@ -1463,18 +1492,18 @@ guestfs__send_file (guestfs_h *g, const char *filename)
 
   /* Send file in chunked encoding. */
   while (!cancel && (r = read (fd, buf, sizeof buf)) > 0) {
-    if (send_file_data (g, buf, r) == -1)
+    if (send_file_data_sync (g, buf, r) == -1)
       return -1;
   }
 
   if (cancel) {
-    send_file_cancellation (g);
+    send_file_cancellation_sync (g);
     return -1;
   }
 
   if (r == -1) {
     perrorf (g, "read: %s", filename);
-    send_file_cancellation (g);
+    send_file_cancellation_sync (g);
     return -1;
   }
 
@@ -1483,20 +1512,48 @@ guestfs__send_file (guestfs_h *g, const char *filename)
    */
   if (close (fd) == -1) {
     perrorf (g, "close: %s", filename);
-    send_file_cancellation (g);
+    send_file_cancellation_sync (g);
     return -1;
   }
 
-  return send_file_complete (g);
+  return send_file_complete_sync (g);
 }
 
-/* Send a chunk, cancellation or end of file, wait for it to go. */
+/* Send a chunk of file data. */
 static int
-send_file_chunk (guestfs_h *g, int cancel, const char *buf, size_t len)
+send_file_data_sync (guestfs_h *g, const char *buf, size_t len)
+{
+  return send_file_chunk_sync (g, 0, buf, len);
+}
+
+/* Send a cancellation message. */
+static int
+send_file_cancellation_sync (guestfs_h *g)
+{
+  char buf[1];
+  return send_file_chunk_sync (g, 1, buf, 0);
+}
+
+/* Send a file complete chunk. */
+static int
+send_file_complete_sync (guestfs_h *g)
+{
+  char buf[1];
+  return send_file_chunk_sync (g, 0, buf, 0);
+}
+
+/* Send a chunk, cancellation or end of file, synchronously (ie. wait
+ * for it to go).
+ */
+static int
+send_file_chunk_sync (guestfs_h *g, int cancel, const char *buf, size_t len)
 {
   void *data;
+  unsigned datalen;
+  int sent;
   guestfs_chunk chunk;
   XDR xdr;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
 
   if (g->state != BUSY) {
     error (g, "send_file_chunk: state %d != READY", g->state);
@@ -1516,19 +1573,25 @@ send_file_chunk (guestfs_h *g, int cancel, const char *buf, size_t len)
     return -1;
   }
 
-  chunkdatalen = xdr_getpos (&xdr);
+  datalen = xdr_getpos (&xdr);
   xdr_destroy (&xdr);
 
-  len = xdr_getpos (&xdr);
-  xdr_destroy (&xdr);
-
-  data = safe_realloc (g, data, len);
+  data = safe_realloc (g, data, datalen);
   g->msg_out = data;
-  g->msg_out_size = len;
+  g->msg_out_size = datalen;
   g->msg_out_pos = 0;
 
   if (guestfs__switch_to_sending (g) == -1)
     goto cleanup1;
+
+  sent = 0;
+  guestfs_set_send_callback (g, send_cb, &sent);
+  if (ml->main_loop_run (ml, g) == -1)
+    goto cleanup1;
+  if (sent != 1) {
+    error (g, "send file chunk failed, see earlier error messages");
+    goto cleanup1;
+  }
 
   return 0;
 
@@ -1540,29 +1603,104 @@ send_file_chunk (guestfs_h *g, int cancel, const char *buf, size_t len)
   return -1;
 }
 
-/* Send a chunk of file data. */
-static int
-send_file_data (guestfs_h *g, const char *buf, size_t len)
+/* Synchronously receive a file.
+ * XXX No way to cancel file receives.  We would need to send an
+ * error to the daemon and have it see this and stop sending.
+ */
+static int receive_file_data_sync (guestfs_h *g, void **buf);
+
+int
+guestfs__receive_file_sync (guestfs_h *g, const char *filename)
 {
-  return send_file_chunk (g, 0, buf, len);
+  void *buf;
+  int fd, r;
+
+  fd = open (filename, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY);
+  if (fd == -1) {
+    perrorf (g, "open: %s", filename);
+    return -1;
+  }
+
+  /* Receive the file in chunked encoding. */
+  while ((r = receive_file_data_sync (g, &buf)) > 0) {
+    if (xwrite (fd, buf, r) == -1) {
+      free (buf);
+      return -1;
+    }
+    free (buf);
+  }
+
+  if (r == -1) {
+    error (g, "%s: error in chunked encoding", filename);
+    return -1;
+  }
+
+  if (close (fd) == -1) {
+    perrorf (g, "close: %s", filename);
+    return -1;
+  }
+
+  return 0;
 }
 
-/* Send a cancellation message. */
-static int
-send_file_cancellation (guestfs_h *g)
+struct receive_file_ctx {
+  int code;
+  void **buf;
+};
+
+static void
+receive_file_cb (guestfs_h *g, void *data, XDR *xdr)
 {
-  char buf[1];
-  return send_file_chunk (g, 1, buf, 0);
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  struct receive_file_ctx *ctx = (struct receive_file_ctx *) data;
+  guestfs_chunk chunk;
+
+  ml->main_loop_quit (ml, g);
+
+  if (!xdr_guestfs_chunk (xdr, &chunk)) {
+    error (g, "failed to parse file chunk");
+    ctx->code = -1;
+    return;
+  }
+  if (chunk.cancel) {
+    error (g, "file receive cancelled by daemon");
+    ctx->code = -2;
+    return;
+  }
+  if (chunk.data.data_len == 0) { /* end of transfer */
+    ctx->code = 0;
+    return;
+  }
+
+  ctx->code = chunk.data.data_len;
+  *ctx->buf = chunk.data.data_val; /* caller frees */
 }
 
-/* Send a file complete chunk. */
+/* Receive a chunk of file data. */
 static int
-send_file_complete (guestfs_h *g)
+receive_file_data_sync (guestfs_h *g, void **buf)
 {
-  char buf[0];
-  return send_file_chunk (g, 0, buf, 0);
+  struct receive_file_ctx ctx;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+
+  ctx.code = -3;
+  ctx.buf = buf;
+
+  guestfs_set_reply_callback (g, receive_file_cb, &ctx);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  switch (ctx.code) {
+  case 0:			/* end of file */
+    return 0;
+  case -1: case -2:
+    return -1;
+  case -3:
+    error (g, "failed to call receive_file_cb");
+    return -1;
+  default:			/* received n bytes of data */
+    return ctx.code;
+  }
 }
-#endif
 
 /* This is the default main loop implementation, using select(2). */
 

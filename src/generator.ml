@@ -2164,22 +2164,13 @@ check_state (guestfs_h *g, const char *caller)
       pr "};\n";
       pr "\n";
 
-      (* Generate the send callback function. *)
-      pr "static void %s_send_cb (guestfs_h *g, void *data)\n" shortname;
-      pr "{\n";
-      pr "  guestfs_main_loop *ml = guestfs_get_main_loop (g);\n";
-      pr "  struct %s_ctx *ctx = (struct %s_ctx *) data;\n" shortname shortname;
-      pr "\n";
-      pr "  ctx->cb_sequence = 1;\n";
-      pr "  ml->main_loop_quit (ml, g);\n";
-      pr "}\n";
-      pr "\n";
-
       (* Generate the reply callback function. *)
       pr "static void %s_reply_cb (guestfs_h *g, void *data, XDR *xdr)\n" shortname;
       pr "{\n";
       pr "  guestfs_main_loop *ml = guestfs_get_main_loop (g);\n";
       pr "  struct %s_ctx *ctx = (struct %s_ctx *) data;\n" shortname shortname;
+      pr "\n";
+      pr "  ml->main_loop_quit (ml, g);\n";
       pr "\n";
       pr "  if (!xdr_guestfs_message_header (xdr, &ctx->hdr)) {\n";
       pr "    error (g, \"%%s: failed to parse reply header\", \"%s\");\n" name;
@@ -2212,7 +2203,6 @@ check_state (guestfs_h *g, const char *caller)
 
       pr " done:\n";
       pr "  ctx->cb_sequence = 1001;\n";
-      pr "  ml->main_loop_quit (ml, g);\n";
       pr "}\n\n";
 
       (* Generate the action stub. *)
@@ -2246,10 +2236,10 @@ check_state (guestfs_h *g, const char *caller)
       pr "  memset (&ctx, 0, sizeof ctx);\n";
       pr "\n";
 
-      (* Dispatch the main header and arguments. *)
+      (* Send the main header and arguments. *)
       (match snd style with
        | [] ->
-	   pr "  serial = guestfs__send (g, GUESTFS_PROC_%s, NULL, NULL);\n"
+	   pr "  serial = guestfs__send_sync (g, GUESTFS_PROC_%s, NULL, NULL);\n"
 	     (String.uppercase shortname)
        | args ->
 	   List.iter (
@@ -2267,7 +2257,7 @@ check_state (guestfs_h *g, const char *caller)
 		 pr "  args.%s = %s;\n" n n
 	     | FileIn _ | FileOut _ -> ()
 	   ) args;
-	   pr "  serial = guestfs__send (g, GUESTFS_PROC_%s,\n"
+	   pr "  serial = guestfs__send_sync (g, GUESTFS_PROC_%s,\n"
 	     (String.uppercase shortname);
 	   pr "        (xdrproc_t) xdr_%s_args, (char *) &args);\n"
 	     name;
@@ -2276,22 +2266,11 @@ check_state (guestfs_h *g, const char *caller)
       pr "    return %s;\n" error_code;
       pr "\n";
 
-      (* Send the request. *)
-      pr "  ctx.cb_sequence = 0;\n";
-      pr "  guestfs_set_send_callback (g, %s_send_cb, &ctx);\n" shortname;
-      pr "  (void) ml->main_loop_run (ml, g);\n";
-      pr "  guestfs_set_send_callback (g, NULL, NULL);\n";
-      pr "  if (ctx.cb_sequence != 1) {\n";
-      pr "    error (g, \"%%s send failed, see earlier error messages\", \"%s\");\n" name;
-      pr "    return %s;\n" error_code;
-      pr "  }\n";
-      pr "\n";
-
       (* Send any additional files (FileIn) requested. *)
       List.iter (
 	function
 	| FileIn n ->
-	    pr "  if (guestfs__send_file_sync (ml, g, %s) == -1)\n" n;
+	    pr "  if (guestfs__send_file_sync (g, %s) == -1)\n" n;
 	    pr "    return %s;\n" error_code;
 	    pr "\n";
 	| _ -> ()
@@ -2324,7 +2303,7 @@ check_state (guestfs_h *g, const char *caller)
       List.iter (
 	function
 	| FileOut n ->
-	    pr "  if (guestfs__receive_file_sync (ml, g, %s) == -1)\n" n;
+	    pr "  if (guestfs__receive_file_sync (g, %s) == -1)\n" n;
 	    pr "    return %s;\n" error_code;
 	    pr "\n";
 	| _ -> ()

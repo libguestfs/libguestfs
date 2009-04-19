@@ -64,6 +64,13 @@ extern void main_loop (int sock);
 extern void reply_with_error (const char *fs, ...);
 extern void reply_with_perror (const char *fs, ...);
 
+/* daemon functions that receive files (FileIn) should call
+ * receive_file for each FileIn parameter.
+ */
+#if 0
+extern void receive_file ();
+#endif
+
 /* daemon functions that return files (FileOut) should call
  * reply, then send_file for each FileOut parameter.
  */

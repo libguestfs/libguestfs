@@ -74,11 +74,15 @@ extern void *guestfs_safe_realloc (guestfs_h *g, void *ptr, int nbytes);
 extern char *guestfs_safe_strdup (guestfs_h *g, const char *str);
 extern void *guestfs_safe_memdup (guestfs_h *g, void *ptr, size_t size);
 
-extern int guestfs__send (guestfs_h *g, int proc_nr, xdrproc_t xdrp, char *args);
 extern int guestfs__switch_to_sending (guestfs_h *g);
 extern int guestfs__switch_to_receiving (guestfs_h *g);
-extern int guestfs__send_file_sync (guestfs_main_loop *ml, guestfs_h *g, const char *filename);
-extern int guestfs__receive_file_sync (guestfs_main_loop *ml, guestfs_h *g, const char *filename);
+
+/* These *_sync calls wait until the action is performed, using the
+ * main loop.  We should implement asynchronous versions too.
+ */
+extern int guestfs__send_sync (guestfs_h *g, int proc_nr, xdrproc_t xdrp, char *args);
+extern int guestfs__send_file_sync (guestfs_h *g, const char *filename);
+extern int guestfs__receive_file_sync (guestfs_h *g, const char *filename);
 
 /* Main loop. */
 #define GUESTFS_HANDLE_READABLE 0x1
