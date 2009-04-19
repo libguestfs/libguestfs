@@ -63,7 +63,7 @@ main (int argc, char *argv[])
   struct addrinfo *res, *rr;
   struct addrinfo hints;
   XDR xdr;
-  unsigned len;
+  uint32_t len;
 
   for (;;) {
     c = getopt_long (argc, argv, options, long_options, NULL);
@@ -163,7 +163,7 @@ main (int argc, char *argv[])
   /* Send the magic length message which indicates that
    * userspace is up inside the guest.
    */
-  len = 0xf5f55ff5;
+  len = GUESTFS_LAUNCH_FLAG;
   xdrmem_create (&xdr, buf, sizeof buf, XDR_ENCODE);
   if (!xdr_uint32_t (&xdr, &len)) {
     fprintf (stderr, "xdr_uint32_t failed\n");
