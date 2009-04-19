@@ -114,6 +114,19 @@ extern void reply (xdrproc_t xdrp, char *ret);
     }									\
   } while (0)
 
+/* Helper for functions which need either an absolute path in the
+ * mounted filesystem, OR a /dev/ device which exists.
+ */
+#define NEED_ROOT_OR_IS_DEVICE(path,errcode) \
+  do {									\
+    if (strncmp ((path), "/dev/", 5) == 0)				\
+      IS_DEVICE ((path),(errcode));					\
+    else {								\
+      NEED_ROOT ((path),(errcode));					\
+      ABS_PATH ((path),(errcode));					\
+    }									\
+  } while (0)
+
 /* NB:
  * (1) You must match CHROOT_IN and CHROOT_OUT even along error paths.
  * (2) You must not change directory!  cwd must always be "/", otherwise

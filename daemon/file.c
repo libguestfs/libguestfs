@@ -323,7 +323,7 @@ do_file (const char *path)
   int r, len, freeit = 0;
   char *buf;
 
-  /*NEED_ROOT (NULL); - no: we allow people to run this on /dev devices. */
+  NEED_ROOT_OR_IS_DEVICE (path, NULL);
   ABS_PATH (path, NULL);
 
   if (strncmp (path, "/dev/", 5) == 0)
