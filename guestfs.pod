@@ -615,6 +615,13 @@ parameters, but with the roles of daemon and library reversed.
  sequence of chunks for FileOut param #0
  sequence of chunks for FileOut param #1 etc.
 
+=head3 INITIAL MESSAGE
+
+Because the underlying channel (QEmu -net channel) doesn't have any
+sort of connection control, when the daemon launches it sends an
+initial word (C<GUESTFS_LAUNCH_FLAG>) which indicates that the guest
+and daemon is alive.  This is what C<guestfs_wait_ready> waits for.
+
 =head1 ENVIRONMENT VARIABLES
 
 =over 4
