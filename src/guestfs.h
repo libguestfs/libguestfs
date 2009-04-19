@@ -67,8 +67,10 @@ extern void guestfs_set_log_message_callback (guestfs_h *g, guestfs_log_message_
 extern void guestfs_set_subprocess_quit_callback (guestfs_h *g, guestfs_subprocess_quit_cb cb, void *opaque);
 extern void guestfs_set_launch_done_callback (guestfs_h *g, guestfs_launch_done_cb cb, void *opaque);
 
-extern void guestfs_error (guestfs_h *g, const char *fs, ...);
-extern void guestfs_perrorf (guestfs_h *g, const char *fs, ...);
+extern void guestfs_error (guestfs_h *g, const char *fs, ...)
+  __attribute__((format (printf,2,3)));
+extern void guestfs_perrorf (guestfs_h *g, const char *fs, ...)
+  __attribute__((format (printf,2,3)));
 extern void *guestfs_safe_malloc (guestfs_h *g, size_t nbytes);
 extern void *guestfs_safe_realloc (guestfs_h *g, void *ptr, int nbytes);
 extern char *guestfs_safe_strdup (guestfs_h *g, const char *str);

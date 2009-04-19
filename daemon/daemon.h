@@ -44,6 +44,8 @@ extern int command (char **stdoutput, char **stderror, const char *name, ...);
 extern int commandv (char **stdoutput, char **stderror,
 		     char * const* const argv);
 
+extern int verbose;
+
 /*-- in proto.c --*/
 extern int proc_nr;
 extern int serial;
@@ -61,22 +63,29 @@ extern guestfs_lvm_int_lv_list *parse_command_line_lvs (void);
 extern void main_loop (int sock);
 
 /* ordinary daemon functions use these to indicate errors */
-extern void reply_with_error (const char *fs, ...);
-extern void reply_with_perror (const char *fs, ...);
+extern void reply_with_error (const char *fs, ...)
+  __attribute__((format (printf,1,2)));
+extern void reply_with_perror (const char *fs, ...)
+  __attribute__((format (printf,1,2)));
 
 /* daemon functions that receive files (FileIn) should call
  * receive_file for each FileIn parameter.
  */
-#if 0
-extern void receive_file ();
-#endif
+typedef int (*receive_cb) (void *opaque, const void *buf, int len);
+extern int receive_file (receive_cb cb, void *opaque);
+
+/* daemon functions that receive files (FileIn) can call this
+ * to cancel incoming transfers (eg. if there is a local error),
+ * but they MUST then call reply_with_error or reply_with_perror.
+ */
+extern void cancel_receive (void);
 
 /* daemon functions that return files (FileOut) should call
- * reply, then send_file for each FileOut parameter.
+ * reply, then send_file_* for each FileOut parameter.
+ * Note max write size if GUESTFS_MAX_CHUNK_SIZE.
  */
-#if 0
-extern void send_file ();
-#endif
+extern int send_file_write (const void *buf, int len);
+extern void send_file_end (int cancel);
 
 /* only call this if there is a FileOut parameter */
 extern void reply (xdrproc_t xdrp, char *ret);
@@ -122,7 +131,7 @@ extern void reply (xdrproc_t xdrp, char *ret);
     if (strncmp ((path), "/dev/", 5) == 0)				\
       IS_DEVICE ((path),(errcode));					\
     else {								\
-      NEED_ROOT ((path),(errcode));					\
+      NEED_ROOT ((errcode));						\
       ABS_PATH ((path),(errcode));					\
     }									\
   } while (0)

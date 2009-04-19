@@ -700,6 +700,8 @@ typedef enum guestfs_procedure guestfs_procedure;
 #define GUESTFS_MESSAGE_MAX 4194304
 #define GUESTFS_PROGRAM 0x2000F5F5
 #define GUESTFS_PROTOCOL_VERSION 1
+#define GUESTFS_LAUNCH_FLAG 0xf5f55ff5
+#define GUESTFS_CANCEL_FLAG 0xffffeeee
 
 enum guestfs_message_direction {
 	GUESTFS_DIRECTION_CALL = 0,

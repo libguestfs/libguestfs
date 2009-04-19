@@ -32,11 +32,6 @@
 #include "daemon.h"
 #include "../src/guestfs_protocol.h"
 
-/* XXX We should make this configurable from /proc/cmdline so that the
- * verbose setting of the guestfs_h can be inherited here.
- */
-#define DEBUG 0
-
 /* The message currently being processed. */
 int proc_nr;
 int serial;
@@ -76,26 +71,26 @@ main_loop (int _sock)
 
     xread (sock, buf, len);
 
-#if DEBUG
-    int i, j;
+    if (verbose) {
+      int i, j;
 
-    for (i = 0; i < len; i += 16) {
-      printf ("%04x: ", i);
-      for (j = i; j < MIN (i+16, len); ++j)
-	printf ("%02x ", (unsigned char) buf[j]);
-      for (; j < i+16; ++j)
-	printf ("   ");
-      printf ("|");
-      for (j = i; j < MIN (i+16, len); ++j)
-	if (isprint (buf[j]))
-	  printf ("%c", buf[j]);
-	else
-	  printf (".");
-      for (; j < i+16; ++j)
-	printf (" ");
-      printf ("|\n");
+      for (i = 0; i < len; i += 16) {
+	printf ("%04x: ", i);
+	for (j = i; j < MIN (i+16, len); ++j)
+	  printf ("%02x ", (unsigned char) buf[j]);
+	for (; j < i+16; ++j)
+	  printf ("   ");
+	printf ("|");
+	for (j = i; j < MIN (i+16, len); ++j)
+	  if (isprint (buf[j]))
+	    printf ("%c", buf[j]);
+	  else
+	    printf (".");
+	for (; j < i+16; ++j)
+	  printf (" ");
+	printf ("|\n");
+      }
     }
-#endif
 
     /* Decode the message header. */
     xdrmem_create (&xdr, buf, len, XDR_DECODE);
@@ -249,4 +244,211 @@ reply (xdrproc_t xdrp, char *ret)
 
   (void) xwrite (sock, lenbuf, 4);
   (void) xwrite (sock, buf, len);
+}
+
+/* Receive file chunks, repeatedly calling 'cb'. */
+int
+receive_file (receive_cb cb, void *opaque)
+{
+  guestfs_chunk chunk;
+  char lenbuf[4];
+  char *buf;
+  XDR xdr;
+  int r;
+  uint32_t len;
+
+  for (;;) {
+    /* Read the length word. */
+    xread (sock, lenbuf, 4);
+    xdrmem_create (&xdr, lenbuf, 4, XDR_DECODE);
+    xdr_uint32_t (&xdr, &len);
+    xdr_destroy (&xdr);
+
+    if (len == GUESTFS_CANCEL_FLAG)
+      continue;			/* Just ignore it. */
+
+    if (len > GUESTFS_MESSAGE_MAX) {
+      fprintf (stderr, "guestfsd: incoming message is too long (%u bytes)\n",
+	       len);
+      exit (1);
+    }
+
+    buf = malloc (len);
+    if (!buf) {
+      perror ("malloc");
+      return -1;
+    }
+
+    xread (sock, buf, len);
+
+    xdrmem_create (&xdr, buf, len, XDR_DECODE);
+    memset (&chunk, 0, sizeof chunk);
+    if (!xdr_guestfs_chunk (&xdr, &chunk)) {
+      xdr_destroy (&xdr);
+      free (buf);
+      return -1;
+    }
+    xdr_destroy (&xdr);
+    free (buf);
+
+    if (verbose)
+      printf ("receive_file: got chunk: cancel = %d, len = %d, buf = %p\n",
+	      chunk.cancel, chunk.data.data_len, chunk.data.data_val);
+
+    if (chunk.cancel) {
+      fprintf (stderr, "receive_file: received cancellation from library\n");
+      xdr_free ((xdrproc_t) xdr_guestfs_chunk, (char *) &chunk);
+      return -2;
+    }
+    if (chunk.data.data_len == 0) {
+      xdr_free ((xdrproc_t) xdr_guestfs_chunk, (char *) &chunk);
+      return 0;			/* end of file */
+    }
+
+    if (cb)
+      r = cb (opaque, chunk.data.data_val, chunk.data.data_len);
+    else
+      r = 0;
+
+    xdr_free ((xdrproc_t) xdr_guestfs_chunk, (char *) &chunk);
+    if (r == -1)		/* write error */
+      return -1;
+  }
+}
+
+/* Send a cancellation flag back to the library. */
+void
+cancel_receive (void)
+{
+  XDR xdr;
+  char fbuf[4];
+  uint32_t flag = GUESTFS_CANCEL_FLAG;
+
+  xdrmem_create (&xdr, fbuf, sizeof fbuf, XDR_ENCODE);
+  xdr_uint32_t (&xdr, &flag);
+  xdr_destroy (&xdr);
+
+  if (xwrite (sock, fbuf, sizeof fbuf) == -1) {
+    perror ("write to socket");
+    return;
+  }
+
+  /* Keep receiving chunks and discarding, until library sees cancel. */
+  (void) receive_file (NULL, NULL);
+}
+
+static int check_for_library_cancellation (void);
+static int send_chunk (const guestfs_chunk *);
+
+/* Also check if the library sends us a cancellation message. */
+int
+send_file_write (const void *buf, int len)
+{
+  guestfs_chunk chunk;
+  int cancel;
+
+  if (len > GUESTFS_MAX_CHUNK_SIZE) {
+    fprintf (stderr, "send_file_write: len (%d) > GUESTFS_MAX_CHUNK_SIZE (%d)\n",
+	     len, GUESTFS_MAX_CHUNK_SIZE);
+    return -1;
+  }
+
+  cancel = check_for_library_cancellation ();
+
+  if (cancel) {
+    chunk.cancel = 1;
+    chunk.data.data_len = 0;
+    chunk.data.data_val = NULL;
+  } else {
+    chunk.cancel = 0;
+    chunk.data.data_len = len;
+    chunk.data.data_val = (char *) buf;
+  }
+
+  if (send_chunk (&chunk) == -1)
+    return -1;
+
+  if (cancel) return -2;
+  return 0;
+}
+
+static int
+check_for_library_cancellation (void)
+{
+  fd_set rset;
+  struct timeval tv;
+  int r;
+  char buf[4];
+  uint32_t flag;
+  XDR xdr;
+
+  FD_ZERO (&rset);
+  FD_SET (sock, &rset);
+  tv.tv_sec = 0;
+  tv.tv_usec = 0;
+  r = select (sock+1, &rset, NULL, NULL, &tv);
+  if (r == -1) {
+    perror ("select");
+    return 0;
+  }
+  if (r == 0)
+    return 0;
+
+  /* Read the message from the daemon. */
+  r = xread (sock, buf, sizeof buf);
+  if (r == -1) {
+    perror ("read");
+    return 0;
+  }
+
+  xdrmem_create (&xdr, buf, sizeof buf, XDR_DECODE);
+  xdr_uint32_t (&xdr, &flag);
+  xdr_destroy (&xdr);
+
+  if (flag != GUESTFS_CANCEL_FLAG) {
+    fprintf (stderr, "check_for_library_cancellation: read 0x%x from library, expected 0x%x\n",
+	     flag, GUESTFS_CANCEL_FLAG);
+    return 0;
+  }
+
+  return 1;
+}
+
+void
+send_file_end (int cancel)
+{
+  guestfs_chunk chunk;
+
+  chunk.cancel = cancel;
+  chunk.data.data_len = 0;
+  chunk.data.data_val = NULL;
+  send_chunk (&chunk);
+}
+
+static int
+send_chunk (const guestfs_chunk *chunk)
+{
+  char buf[GUESTFS_MAX_CHUNK_SIZE + 48];
+  char lenbuf[4];
+  XDR xdr;
+  uint32_t len;
+
+  xdrmem_create (&xdr, buf, sizeof buf, XDR_ENCODE);
+  if (!xdr_guestfs_chunk (&xdr, (guestfs_chunk *) chunk)) {
+    fprintf (stderr, "send_chunk: failed to encode chunk\n");
+    xdr_destroy (&xdr);
+    return -1;
+  }
+
+  len = xdr_getpos (&xdr);
+  xdr_destroy (&xdr);
+
+  xdrmem_create (&xdr, lenbuf, 4, XDR_ENCODE);
+  xdr_uint32_t (&xdr, &len);
+  xdr_destroy (&xdr);
+
+  (void) xwrite (sock, lenbuf, 4);
+  (void) xwrite (sock, buf, len);
+
+  return 0;
 }

@@ -56,13 +56,6 @@
 #include "guestfs.h"
 #include "guestfs_protocol.h"
 
-void guestfs_error (guestfs_h *g, const char *fs, ...);
-void guestfs_perrorf (guestfs_h *g, const char *fs, ...);
-void *guestfs_safe_malloc (guestfs_h *g, size_t nbytes);
-void *guestfs_safe_realloc (guestfs_h *g, void *ptr, int nbytes);
-char *guestfs_safe_strdup (guestfs_h *g, const char *str);
-void *guestfs_safe_memdup (guestfs_h *g, void *ptr, size_t size);
-
 #define error guestfs_error
 #define perrorf guestfs_perrorf
 #define safe_malloc guestfs_safe_malloc
@@ -423,10 +416,26 @@ xwrite (int fd, const void *buf, size_t len)
 
   while (len > 0) {
     r = write (fd, buf, len);
-    if (r == -1) {
-      perror ("write");
+    if (r == -1)
       return -1;
-    }
+
+    buf += r;
+    len -= r;
+  }
+
+  return 0;
+}
+
+static int
+xread (int fd, void *buf, size_t len)
+{
+  int r;
+
+  while (len > 0) {
+    r = read (fd, buf, len);
+    if (r == -1)
+      return -1;
+
     buf += r;
     len -= r;
   }
@@ -715,7 +724,9 @@ guestfs_launch (guestfs_h *g)
 
     /* Linux kernel command line. */
     snprintf (append, sizeof append,
-	      "console=ttyS0 guestfs=%s:%d", VMCHANNEL_ADDR, VMCHANNEL_PORT);
+	      "console=ttyS0 guestfs=%s:%d%s",
+	      VMCHANNEL_ADDR, VMCHANNEL_PORT,
+	      g->verbose ? " guestfs_verbose=1" : "");
 
     add_cmdline (g, "-m");
     add_cmdline (g, "384");	  /* XXX Choose best size. */
@@ -981,6 +992,28 @@ guestfs_get_state (guestfs_h *g)
   return g->state;
 }
 
+int
+guestfs_set_ready (guestfs_h *g)
+{
+  if (g->state != BUSY) {
+    error (g, "guestfs_set_ready: called when in state %d != BUSY", g->state);
+    return -1;
+  }
+  g->state = READY;
+  return 0;
+}
+
+int
+guestfs_set_busy (guestfs_h *g)
+{
+  if (g->state != READY) {
+    error (g, "guestfs_set_busy: called when in state %d != READY", g->state);
+    return -1;
+  }
+  g->state = BUSY;
+  return 0;
+}
+
 /* Structure-freeing functions.  These rely on the fact that the
  * structure format is identical to the XDR format.  See note in
  * generator.ml.
@@ -1119,6 +1152,7 @@ sock_read_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
   g->msg_in_size += n;
 
   /* Have we got enough of a message to be able to process it yet? */
+ again:
   if (g->msg_in_size < 4) return;
 
   xdrmem_create (&xdr, g->msg_in, g->msg_in_size, XDR_DECODE);
@@ -1131,7 +1165,7 @@ sock_read_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
    * starts up it sends a "magic" value (longer than any possible
    * message).  Check for this.
    */
-  if (len == 0xf5f55ff5) {
+  if (len == GUESTFS_LAUNCH_FLAG) {
     if (g->state != LAUNCHING)
       error (g, "received magic signature from guestfsd, but in state %d",
 	     g->state);
@@ -1147,7 +1181,19 @@ sock_read_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
     goto cleanup;
   }
 
-  /* If this happens, it's pretty bad and we've probably lost synchronization.*/
+  /* This can happen if a cancellation happens right at the end
+   * of us sending a FileIn parameter to the daemon.  Discard.  The
+   * daemon should send us an error message next.
+   */
+  if (len == GUESTFS_CANCEL_FLAG) {
+    g->msg_in_size -= 4;
+    memmove (g->msg_in, g->msg_in+4, g->msg_in_size);
+    goto again;
+  }
+
+  /* If this happens, it's pretty bad and we've probably lost
+   * synchronization.
+   */
   if (len > GUESTFS_MESSAGE_MAX) {
     error (g, "message length (%u) > maximum possible size (%d)",
 	   len, GUESTFS_MESSAGE_MAX);
@@ -1155,14 +1201,6 @@ sock_read_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
   }
 
   if (g->msg_in_size-4 < len) return; /* Need more of this message. */
-
-  /* This should not happen, and if it does it probably means we've
-   * lost all hope of synchronization.
-   */
-  if (g->msg_in_size-4 > len) {
-    error (g, "len = %d, but msg_in_size-4 = %d", len, g->msg_in_size-4);
-    goto cleanup;
-  }
 
   /* Got the full message, begin processing it. */
   if (g->verbose) {
@@ -1191,9 +1229,12 @@ sock_read_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
     error (g, "state %d != BUSY", g->state);
 
   /* Push the message up to the higher layer. */
-  g->state = READY;
   if (g->reply_cb)
     g->reply_cb (g, g->reply_cb_data, &xdr);
+
+  g->msg_in_size -= len + 4;
+  memmove (g->msg_in, g->msg_in+len+4, g->msg_in_size);
+  if (g->msg_in_size > 0) goto again;
 
  cleanup:
   /* Free the message buffer if it's grown excessively large. */
@@ -1253,7 +1294,7 @@ sock_write_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
     return;
 
   if (g->verbose)
-    fprintf (stderr, "sock_write_event: done writing, switching back to reading events\n");
+    fprintf (stderr, "sock_write_event: done writing, calling send_cb\n");
 
   free (g->msg_out);
   g->msg_out = NULL;
@@ -1398,8 +1439,8 @@ guestfs__send_sync (guestfs_h *g, int proc_nr,
   int sent;
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
 
-  if (g->state != READY) {
-    error (g, "dispatch: state %d != READY", g->state);
+  if (g->state != BUSY) {
+    error (g, "guestfs__send_sync: state %d != BUSY", g->state);
     return -1;
   }
 
@@ -1435,13 +1476,9 @@ guestfs__send_sync (guestfs_h *g, int proc_nr,
 
   g->msg_out_size = len + 4;
   g->msg_out_pos = 0;
-  g->state = BUSY;
 
   xdrmem_create (&xdr, g->msg_out, 4, XDR_ENCODE);
-  if (!xdr_uint32_t (&xdr, &len)) {
-    error (g, "xdr_uint32_t failed in dispatch");
-    goto cleanup1;
-  }
+  xdr_uint32_t (&xdr, &len);
 
   memcpy (g->msg_out + 4, buffer, len);
 
@@ -1463,7 +1500,6 @@ guestfs__send_sync (guestfs_h *g, int proc_nr,
   free (g->msg_out);
   g->msg_out = NULL;
   g->msg_out_size = 0;
-  g->state = READY;
   return -1;
 }
 
@@ -1473,12 +1509,17 @@ static int send_file_data_sync (guestfs_h *g, const char *buf, size_t len);
 static int send_file_cancellation_sync (guestfs_h *g);
 static int send_file_complete_sync (guestfs_h *g);
 
-/* Synchronously send a file. */
+/* Synchronously send a file.
+ * Returns:
+ *   0 OK
+ *   -1 error
+ *   -2 daemon cancelled (we must read the error message)
+ */
 int
 guestfs__send_file_sync (guestfs_h *g, const char *filename)
 {
   char buf[GUESTFS_MAX_CHUNK_SIZE];
-  int fd, r;
+  int fd, r, err;
 
   fd = open (filename, O_RDONLY);
   if (fd == -1) {
@@ -1492,8 +1533,9 @@ guestfs__send_file_sync (guestfs_h *g, const char *filename)
 
   /* Send file in chunked encoding. */
   while (!cancel && (r = read (fd, buf, sizeof buf)) > 0) {
-    if (send_file_data_sync (g, buf, r) == -1)
-      return -1;
+    err = send_file_data_sync (g, buf, r);
+    if (err < 0)
+      return err;
   }
 
   if (cancel) {
@@ -1530,8 +1572,7 @@ send_file_data_sync (guestfs_h *g, const char *buf, size_t len)
 static int
 send_file_cancellation_sync (guestfs_h *g)
 {
-  char buf[1];
-  return send_file_chunk_sync (g, 1, buf, 0);
+  return send_file_chunk_sync (g, 1, NULL, 0);
 }
 
 /* Send a file complete chunk. */
@@ -1545,10 +1586,12 @@ send_file_complete_sync (guestfs_h *g)
 /* Send a chunk, cancellation or end of file, synchronously (ie. wait
  * for it to go).
  */
+static int check_for_daemon_cancellation (guestfs_h *g);
+
 static int
 send_file_chunk_sync (guestfs_h *g, int cancel, const char *buf, size_t len)
 {
-  void *data;
+  char data[GUESTFS_MAX_CHUNK_SIZE + 48];
   unsigned datalen;
   int sent;
   guestfs_chunk chunk;
@@ -1556,30 +1599,38 @@ send_file_chunk_sync (guestfs_h *g, int cancel, const char *buf, size_t len)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
 
   if (g->state != BUSY) {
-    error (g, "send_file_chunk: state %d != READY", g->state);
+    error (g, "send_file_chunk_sync: state %d != READY", g->state);
     return -1;
   }
+
+  /* Did the daemon send a cancellation message? */
+  if (check_for_daemon_cancellation (g))
+    return -2;
 
   /* Serialize the chunk. */
   chunk.cancel = cancel;
   chunk.data.data_len = len;
   chunk.data.data_val = (char *) buf;
 
-  data = safe_malloc (g, GUESTFS_MAX_CHUNK_SIZE + 48);
-  xdrmem_create (&xdr, data, GUESTFS_MAX_CHUNK_SIZE + 48, XDR_ENCODE);
-  if (xdr_guestfs_chunk (&xdr, &chunk)) {
-    error (g, "xdr_guestfs_chunk failed");
-    free (data);
+  xdrmem_create (&xdr, data, sizeof data, XDR_ENCODE);
+  if (!xdr_guestfs_chunk (&xdr, &chunk)) {
+    error (g, "xdr_guestfs_chunk failed (buf = %p, len = %zu)", buf, len);
+    xdr_destroy (&xdr);
     return -1;
   }
 
   datalen = xdr_getpos (&xdr);
   xdr_destroy (&xdr);
 
-  data = safe_realloc (g, data, datalen);
-  g->msg_out = data;
-  g->msg_out_size = datalen;
+  /* Allocate outgoing message buffer. */
+  g->msg_out = safe_malloc (g, datalen + 4);
+  g->msg_out_size = datalen + 4;
   g->msg_out_pos = 0;
+
+  xdrmem_create (&xdr, g->msg_out, 4, XDR_ENCODE);
+  xdr_uint32_t (&xdr, &datalen);
+
+  memcpy (g->msg_out + 4, data, datalen);
 
   if (guestfs__switch_to_sending (g) == -1)
     goto cleanup1;
@@ -1599,14 +1650,57 @@ send_file_chunk_sync (guestfs_h *g, int cancel, const char *buf, size_t len)
   free (g->msg_out);
   g->msg_out = NULL;
   g->msg_out_size = 0;
-  g->state = READY;
   return -1;
 }
 
-/* Synchronously receive a file.
- * XXX No way to cancel file receives.  We would need to send an
- * error to the daemon and have it see this and stop sending.
+/* At this point we are sending FileIn file(s) to the guest, and not
+ * expecting to read anything, so if we do read anything, it must be
+ * a cancellation message.  This checks for this case without blocking.
  */
+static int
+check_for_daemon_cancellation (guestfs_h *g)
+{
+  fd_set rset;
+  struct timeval tv;
+  int r;
+  char buf[4];
+  uint32_t flag;
+  XDR xdr;
+
+  FD_ZERO (&rset);
+  FD_SET (g->sock, &rset);
+  tv.tv_sec = 0;
+  tv.tv_usec = 0;
+  r = select (g->sock+1, &rset, NULL, NULL, &tv);
+  if (r == -1) {
+    perrorf (g, "select");
+    return 0;
+  }
+  if (r == 0)
+    return 0;
+
+  /* Read the message from the daemon. */
+  r = xread (g->sock, buf, sizeof buf);
+  if (r == -1) {
+    perrorf (g, "read");
+    return 0;
+  }
+
+  xdrmem_create (&xdr, buf, sizeof buf, XDR_DECODE);
+  xdr_uint32_t (&xdr, &flag);
+  xdr_destroy (&xdr);
+
+  if (flag != GUESTFS_CANCEL_FLAG) {
+    error (g, "check_for_daemon_cancellation: read 0x%x from daemon, expected 0x%x\n",
+	   flag, GUESTFS_CANCEL_FLAG);
+    return 0;
+  }
+
+  return 1;
+}
+
+/* Synchronously receive a file. */
+
 static int receive_file_data_sync (guestfs_h *g, void **buf);
 
 int
@@ -1615,17 +1709,18 @@ guestfs__receive_file_sync (guestfs_h *g, const char *filename)
   void *buf;
   int fd, r;
 
-  fd = open (filename, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY);
+  fd = open (filename, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY, 0666);
   if (fd == -1) {
     perrorf (g, "open: %s", filename);
-    return -1;
+    goto cancel;
   }
 
   /* Receive the file in chunked encoding. */
   while ((r = receive_file_data_sync (g, &buf)) > 0) {
     if (xwrite (fd, buf, r) == -1) {
+      perrorf (g, "%s: write", filename);
       free (buf);
-      return -1;
+      goto cancel;
     }
     free (buf);
   }
@@ -1641,6 +1736,28 @@ guestfs__receive_file_sync (guestfs_h *g, const char *filename)
   }
 
   return 0;
+
+ cancel: ;
+  /* Send cancellation message to daemon, then wait until it
+   * cancels (just throwing away data).
+   */
+  XDR xdr;
+  char fbuf[4];
+  uint32_t flag = GUESTFS_CANCEL_FLAG;
+
+  xdrmem_create (&xdr, fbuf, sizeof fbuf, XDR_ENCODE);
+  xdr_uint32_t (&xdr, &flag);
+  xdr_destroy (&xdr);
+
+  if (xwrite (g->sock, fbuf, sizeof fbuf) == -1) {
+    perrorf (g, "write to daemon socket");
+    return -1;
+  }
+
+  while ((r = receive_file_data_sync (g, &buf)) > 0)
+    free (buf);			/* just discard it */
+
+  return -1;
 }
 
 struct receive_file_ctx {
@@ -1656,6 +1773,8 @@ receive_file_cb (guestfs_h *g, void *data, XDR *xdr)
   guestfs_chunk chunk;
 
   ml->main_loop_quit (ml, g);
+
+  memset (&chunk, 0, sizeof chunk);
 
   if (!xdr_guestfs_chunk (xdr, &chunk)) {
     error (g, "failed to parse file chunk");
@@ -1689,6 +1808,10 @@ receive_file_data_sync (guestfs_h *g, void **buf)
   guestfs_set_reply_callback (g, receive_file_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
+
+  if (g->verbose)
+    fprintf (stderr, "receive_file_data_sync: code %d\n", ctx.code);
+
   switch (ctx.code) {
   case 0:			/* end of file */
     return 0;
@@ -1872,10 +1995,9 @@ select_main_loop_quit (guestfs_main_loop *mlv, guestfs_h *g)
 {
   struct select_main_loop *ml = (struct select_main_loop *) mlv;
 
-  if (!ml->is_running) {
-    error (g, "cannot quit, we are not running in a main loop");
-    return -1;
-  }
+  /* Note that legitimately ml->is_running can be zero when
+   * this function is called.
+   */
 
   ml->is_running = 0;
   return 0;

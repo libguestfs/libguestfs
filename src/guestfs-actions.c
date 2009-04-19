@@ -126,6 +126,7 @@ int guestfs_mount (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_mount") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
@@ -133,9 +134,12 @@ int guestfs_mount (guestfs_h *g,
   args.mountpoint = (char *) mountpoint;
   serial = guestfs__send_sync (g, GUESTFS_PROC_MOUNT,
         (xdrproc_t) xdr_guestfs_mount_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, mount_reply_cb, &ctx);
@@ -143,17 +147,22 @@ int guestfs_mount (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_mount");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_MOUNT, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_MOUNT, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return 0;
 }
 
@@ -197,13 +206,17 @@ int guestfs_sync (guestfs_h *g)
   int serial;
 
   if (check_state (g, "guestfs_sync") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   serial = guestfs__send_sync (g, GUESTFS_PROC_SYNC, NULL, NULL);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, sync_reply_cb, &ctx);
@@ -211,17 +224,22 @@ int guestfs_sync (guestfs_h *g)
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_sync");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_SYNC, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_SYNC, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return 0;
 }
 
@@ -267,15 +285,19 @@ int guestfs_touch (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_touch") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   args.path = (char *) path;
   serial = guestfs__send_sync (g, GUESTFS_PROC_TOUCH,
         (xdrproc_t) xdr_guestfs_touch_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, touch_reply_cb, &ctx);
@@ -283,17 +305,22 @@ int guestfs_touch (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_touch");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_TOUCH, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_TOUCH, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return 0;
 }
 
@@ -344,15 +371,19 @@ char *guestfs_cat (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_cat") == -1) return NULL;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   args.path = (char *) path;
   serial = guestfs__send_sync (g, GUESTFS_PROC_CAT,
         (xdrproc_t) xdr_guestfs_cat_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, cat_reply_cb, &ctx);
@@ -360,17 +391,22 @@ char *guestfs_cat (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_cat");
+    guestfs_set_ready (g);
     return NULL;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_CAT, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_CAT, serial) == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return NULL;
   }
 
+  guestfs_set_ready (g);
   return ctx.ret.content; /* caller will free */
 }
 
@@ -421,15 +457,19 @@ char *guestfs_ll (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_ll") == -1) return NULL;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   args.directory = (char *) directory;
   serial = guestfs__send_sync (g, GUESTFS_PROC_LL,
         (xdrproc_t) xdr_guestfs_ll_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, ll_reply_cb, &ctx);
@@ -437,17 +477,22 @@ char *guestfs_ll (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_ll");
+    guestfs_set_ready (g);
     return NULL;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_LL, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_LL, serial) == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return NULL;
   }
 
+  guestfs_set_ready (g);
   return ctx.ret.listing; /* caller will free */
 }
 
@@ -498,15 +543,19 @@ char **guestfs_ls (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_ls") == -1) return NULL;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   args.directory = (char *) directory;
   serial = guestfs__send_sync (g, GUESTFS_PROC_LS,
         (xdrproc_t) xdr_guestfs_ls_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, ls_reply_cb, &ctx);
@@ -514,17 +563,22 @@ char **guestfs_ls (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_ls");
+    guestfs_set_ready (g);
     return NULL;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_LS, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_LS, serial) == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return NULL;
   }
 
+  guestfs_set_ready (g);
   /* caller will free this, but we need to add a NULL entry */
   ctx.ret.listing.listing_val =
     safe_realloc (g, ctx.ret.listing.listing_val,
@@ -578,13 +632,17 @@ char **guestfs_list_devices (guestfs_h *g)
   int serial;
 
   if (check_state (g, "guestfs_list_devices") == -1) return NULL;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   serial = guestfs__send_sync (g, GUESTFS_PROC_LIST_DEVICES, NULL, NULL);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, list_devices_reply_cb, &ctx);
@@ -592,17 +650,22 @@ char **guestfs_list_devices (guestfs_h *g)
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_list_devices");
+    guestfs_set_ready (g);
     return NULL;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_LIST_DEVICES, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_LIST_DEVICES, serial) == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return NULL;
   }
 
+  guestfs_set_ready (g);
   /* caller will free this, but we need to add a NULL entry */
   ctx.ret.devices.devices_val =
     safe_realloc (g, ctx.ret.devices.devices_val,
@@ -656,13 +719,17 @@ char **guestfs_list_partitions (guestfs_h *g)
   int serial;
 
   if (check_state (g, "guestfs_list_partitions") == -1) return NULL;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   serial = guestfs__send_sync (g, GUESTFS_PROC_LIST_PARTITIONS, NULL, NULL);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, list_partitions_reply_cb, &ctx);
@@ -670,17 +737,22 @@ char **guestfs_list_partitions (guestfs_h *g)
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_list_partitions");
+    guestfs_set_ready (g);
     return NULL;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_LIST_PARTITIONS, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_LIST_PARTITIONS, serial) == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return NULL;
   }
 
+  guestfs_set_ready (g);
   /* caller will free this, but we need to add a NULL entry */
   ctx.ret.partitions.partitions_val =
     safe_realloc (g, ctx.ret.partitions.partitions_val,
@@ -734,13 +806,17 @@ char **guestfs_pvs (guestfs_h *g)
   int serial;
 
   if (check_state (g, "guestfs_pvs") == -1) return NULL;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   serial = guestfs__send_sync (g, GUESTFS_PROC_PVS, NULL, NULL);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, pvs_reply_cb, &ctx);
@@ -748,17 +824,22 @@ char **guestfs_pvs (guestfs_h *g)
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_pvs");
+    guestfs_set_ready (g);
     return NULL;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_PVS, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_PVS, serial) == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return NULL;
   }
 
+  guestfs_set_ready (g);
   /* caller will free this, but we need to add a NULL entry */
   ctx.ret.physvols.physvols_val =
     safe_realloc (g, ctx.ret.physvols.physvols_val,
@@ -812,13 +893,17 @@ char **guestfs_vgs (guestfs_h *g)
   int serial;
 
   if (check_state (g, "guestfs_vgs") == -1) return NULL;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   serial = guestfs__send_sync (g, GUESTFS_PROC_VGS, NULL, NULL);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, vgs_reply_cb, &ctx);
@@ -826,17 +911,22 @@ char **guestfs_vgs (guestfs_h *g)
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_vgs");
+    guestfs_set_ready (g);
     return NULL;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_VGS, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_VGS, serial) == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return NULL;
   }
 
+  guestfs_set_ready (g);
   /* caller will free this, but we need to add a NULL entry */
   ctx.ret.volgroups.volgroups_val =
     safe_realloc (g, ctx.ret.volgroups.volgroups_val,
@@ -890,13 +980,17 @@ char **guestfs_lvs (guestfs_h *g)
   int serial;
 
   if (check_state (g, "guestfs_lvs") == -1) return NULL;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   serial = guestfs__send_sync (g, GUESTFS_PROC_LVS, NULL, NULL);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, lvs_reply_cb, &ctx);
@@ -904,17 +998,22 @@ char **guestfs_lvs (guestfs_h *g)
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_lvs");
+    guestfs_set_ready (g);
     return NULL;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_LVS, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_LVS, serial) == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return NULL;
   }
 
+  guestfs_set_ready (g);
   /* caller will free this, but we need to add a NULL entry */
   ctx.ret.logvols.logvols_val =
     safe_realloc (g, ctx.ret.logvols.logvols_val,
@@ -968,13 +1067,17 @@ struct guestfs_lvm_pv_list *guestfs_pvs_full (guestfs_h *g)
   int serial;
 
   if (check_state (g, "guestfs_pvs_full") == -1) return NULL;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   serial = guestfs__send_sync (g, GUESTFS_PROC_PVS_FULL, NULL, NULL);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, pvs_full_reply_cb, &ctx);
@@ -982,17 +1085,22 @@ struct guestfs_lvm_pv_list *guestfs_pvs_full (guestfs_h *g)
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_pvs_full");
+    guestfs_set_ready (g);
     return NULL;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_PVS_FULL, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_PVS_FULL, serial) == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return NULL;
   }
 
+  guestfs_set_ready (g);
   /* caller will free this */
   return safe_memdup (g, &ctx.ret.physvols, sizeof (ctx.ret.physvols));
 }
@@ -1042,13 +1150,17 @@ struct guestfs_lvm_vg_list *guestfs_vgs_full (guestfs_h *g)
   int serial;
 
   if (check_state (g, "guestfs_vgs_full") == -1) return NULL;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   serial = guestfs__send_sync (g, GUESTFS_PROC_VGS_FULL, NULL, NULL);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, vgs_full_reply_cb, &ctx);
@@ -1056,17 +1168,22 @@ struct guestfs_lvm_vg_list *guestfs_vgs_full (guestfs_h *g)
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_vgs_full");
+    guestfs_set_ready (g);
     return NULL;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_VGS_FULL, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_VGS_FULL, serial) == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return NULL;
   }
 
+  guestfs_set_ready (g);
   /* caller will free this */
   return safe_memdup (g, &ctx.ret.volgroups, sizeof (ctx.ret.volgroups));
 }
@@ -1116,13 +1233,17 @@ struct guestfs_lvm_lv_list *guestfs_lvs_full (guestfs_h *g)
   int serial;
 
   if (check_state (g, "guestfs_lvs_full") == -1) return NULL;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   serial = guestfs__send_sync (g, GUESTFS_PROC_LVS_FULL, NULL, NULL);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, lvs_full_reply_cb, &ctx);
@@ -1130,17 +1251,22 @@ struct guestfs_lvm_lv_list *guestfs_lvs_full (guestfs_h *g)
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_lvs_full");
+    guestfs_set_ready (g);
     return NULL;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_LVS_FULL, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_LVS_FULL, serial) == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return NULL;
   }
 
+  guestfs_set_ready (g);
   /* caller will free this */
   return safe_memdup (g, &ctx.ret.logvols, sizeof (ctx.ret.logvols));
 }
@@ -1192,15 +1318,19 @@ char **guestfs_read_lines (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_read_lines") == -1) return NULL;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   args.path = (char *) path;
   serial = guestfs__send_sync (g, GUESTFS_PROC_READ_LINES,
         (xdrproc_t) xdr_guestfs_read_lines_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, read_lines_reply_cb, &ctx);
@@ -1208,17 +1338,22 @@ char **guestfs_read_lines (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_read_lines");
+    guestfs_set_ready (g);
     return NULL;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_READ_LINES, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_READ_LINES, serial) == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return NULL;
   }
 
+  guestfs_set_ready (g);
   /* caller will free this, but we need to add a NULL entry */
   ctx.ret.lines.lines_val =
     safe_realloc (g, ctx.ret.lines.lines_val,
@@ -1270,6 +1405,7 @@ int guestfs_aug_init (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_aug_init") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
@@ -1277,9 +1413,12 @@ int guestfs_aug_init (guestfs_h *g,
   args.flags = flags;
   serial = guestfs__send_sync (g, GUESTFS_PROC_AUG_INIT,
         (xdrproc_t) xdr_guestfs_aug_init_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_init_reply_cb, &ctx);
@@ -1287,17 +1426,22 @@ int guestfs_aug_init (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_init");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_AUG_INIT, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_AUG_INIT, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return 0;
 }
 
@@ -1341,13 +1485,17 @@ int guestfs_aug_close (guestfs_h *g)
   int serial;
 
   if (check_state (g, "guestfs_aug_close") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   serial = guestfs__send_sync (g, GUESTFS_PROC_AUG_CLOSE, NULL, NULL);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_close_reply_cb, &ctx);
@@ -1355,17 +1503,22 @@ int guestfs_aug_close (guestfs_h *g)
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_close");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_AUG_CLOSE, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_AUG_CLOSE, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return 0;
 }
 
@@ -1417,6 +1570,7 @@ int guestfs_aug_defvar (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_aug_defvar") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
@@ -1424,9 +1578,12 @@ int guestfs_aug_defvar (guestfs_h *g,
   args.expr = expr ? (char **) &expr : NULL;
   serial = guestfs__send_sync (g, GUESTFS_PROC_AUG_DEFVAR,
         (xdrproc_t) xdr_guestfs_aug_defvar_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_defvar_reply_cb, &ctx);
@@ -1434,17 +1591,22 @@ int guestfs_aug_defvar (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_defvar");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_AUG_DEFVAR, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_AUG_DEFVAR, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return ctx.ret.nrnodes;
 }
 
@@ -1497,6 +1659,7 @@ struct guestfs_int_bool *guestfs_aug_defnode (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_aug_defnode") == -1) return NULL;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
@@ -1505,9 +1668,12 @@ struct guestfs_int_bool *guestfs_aug_defnode (guestfs_h *g,
   args.val = (char *) val;
   serial = guestfs__send_sync (g, GUESTFS_PROC_AUG_DEFNODE,
         (xdrproc_t) xdr_guestfs_aug_defnode_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_defnode_reply_cb, &ctx);
@@ -1515,17 +1681,22 @@ struct guestfs_int_bool *guestfs_aug_defnode (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_defnode");
+    guestfs_set_ready (g);
     return NULL;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_AUG_DEFNODE, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_AUG_DEFNODE, serial) == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return NULL;
   }
 
+  guestfs_set_ready (g);
   /* caller with free this */
   return safe_memdup (g, &ctx.ret, sizeof (ctx.ret));
 }
@@ -1577,15 +1748,19 @@ char *guestfs_aug_get (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_aug_get") == -1) return NULL;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   args.path = (char *) path;
   serial = guestfs__send_sync (g, GUESTFS_PROC_AUG_GET,
         (xdrproc_t) xdr_guestfs_aug_get_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_get_reply_cb, &ctx);
@@ -1593,17 +1768,22 @@ char *guestfs_aug_get (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_get");
+    guestfs_set_ready (g);
     return NULL;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_AUG_GET, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_AUG_GET, serial) == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return NULL;
   }
 
+  guestfs_set_ready (g);
   return ctx.ret.val; /* caller will free */
 }
 
@@ -1650,6 +1830,7 @@ int guestfs_aug_set (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_aug_set") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
@@ -1657,9 +1838,12 @@ int guestfs_aug_set (guestfs_h *g,
   args.val = (char *) val;
   serial = guestfs__send_sync (g, GUESTFS_PROC_AUG_SET,
         (xdrproc_t) xdr_guestfs_aug_set_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_set_reply_cb, &ctx);
@@ -1667,17 +1851,22 @@ int guestfs_aug_set (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_set");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_AUG_SET, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_AUG_SET, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return 0;
 }
 
@@ -1725,6 +1914,7 @@ int guestfs_aug_insert (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_aug_insert") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
@@ -1733,9 +1923,12 @@ int guestfs_aug_insert (guestfs_h *g,
   args.before = before;
   serial = guestfs__send_sync (g, GUESTFS_PROC_AUG_INSERT,
         (xdrproc_t) xdr_guestfs_aug_insert_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_insert_reply_cb, &ctx);
@@ -1743,17 +1936,22 @@ int guestfs_aug_insert (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_insert");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_AUG_INSERT, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_AUG_INSERT, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return 0;
 }
 
@@ -1804,15 +2002,19 @@ int guestfs_aug_rm (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_aug_rm") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   args.path = (char *) path;
   serial = guestfs__send_sync (g, GUESTFS_PROC_AUG_RM,
         (xdrproc_t) xdr_guestfs_aug_rm_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_rm_reply_cb, &ctx);
@@ -1820,17 +2022,22 @@ int guestfs_aug_rm (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_rm");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_AUG_RM, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_AUG_RM, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return ctx.ret.nrnodes;
 }
 
@@ -1877,6 +2084,7 @@ int guestfs_aug_mv (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_aug_mv") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
@@ -1884,9 +2092,12 @@ int guestfs_aug_mv (guestfs_h *g,
   args.dest = (char *) dest;
   serial = guestfs__send_sync (g, GUESTFS_PROC_AUG_MV,
         (xdrproc_t) xdr_guestfs_aug_mv_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_mv_reply_cb, &ctx);
@@ -1894,17 +2105,22 @@ int guestfs_aug_mv (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_mv");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_AUG_MV, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_AUG_MV, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return 0;
 }
 
@@ -1955,15 +2171,19 @@ char **guestfs_aug_match (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_aug_match") == -1) return NULL;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   args.path = (char *) path;
   serial = guestfs__send_sync (g, GUESTFS_PROC_AUG_MATCH,
         (xdrproc_t) xdr_guestfs_aug_match_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_match_reply_cb, &ctx);
@@ -1971,17 +2191,22 @@ char **guestfs_aug_match (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_match");
+    guestfs_set_ready (g);
     return NULL;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_AUG_MATCH, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_AUG_MATCH, serial) == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return NULL;
   }
 
+  guestfs_set_ready (g);
   /* caller will free this, but we need to add a NULL entry */
   ctx.ret.matches.matches_val =
     safe_realloc (g, ctx.ret.matches.matches_val,
@@ -2030,13 +2255,17 @@ int guestfs_aug_save (guestfs_h *g)
   int serial;
 
   if (check_state (g, "guestfs_aug_save") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   serial = guestfs__send_sync (g, GUESTFS_PROC_AUG_SAVE, NULL, NULL);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_save_reply_cb, &ctx);
@@ -2044,17 +2273,22 @@ int guestfs_aug_save (guestfs_h *g)
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_save");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_AUG_SAVE, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_AUG_SAVE, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return 0;
 }
 
@@ -2098,13 +2332,17 @@ int guestfs_aug_load (guestfs_h *g)
   int serial;
 
   if (check_state (g, "guestfs_aug_load") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   serial = guestfs__send_sync (g, GUESTFS_PROC_AUG_LOAD, NULL, NULL);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_load_reply_cb, &ctx);
@@ -2112,17 +2350,22 @@ int guestfs_aug_load (guestfs_h *g)
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_load");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_AUG_LOAD, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_AUG_LOAD, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return 0;
 }
 
@@ -2173,15 +2416,19 @@ char **guestfs_aug_ls (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_aug_ls") == -1) return NULL;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   args.path = (char *) path;
   serial = guestfs__send_sync (g, GUESTFS_PROC_AUG_LS,
         (xdrproc_t) xdr_guestfs_aug_ls_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_ls_reply_cb, &ctx);
@@ -2189,17 +2436,22 @@ char **guestfs_aug_ls (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_ls");
+    guestfs_set_ready (g);
     return NULL;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_AUG_LS, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_AUG_LS, serial) == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return NULL;
   }
 
+  guestfs_set_ready (g);
   /* caller will free this, but we need to add a NULL entry */
   ctx.ret.matches.matches_val =
     safe_realloc (g, ctx.ret.matches.matches_val,
@@ -2250,15 +2502,19 @@ int guestfs_rm (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_rm") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   args.path = (char *) path;
   serial = guestfs__send_sync (g, GUESTFS_PROC_RM,
         (xdrproc_t) xdr_guestfs_rm_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, rm_reply_cb, &ctx);
@@ -2266,17 +2522,22 @@ int guestfs_rm (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_rm");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_RM, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_RM, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return 0;
 }
 
@@ -2322,15 +2583,19 @@ int guestfs_rmdir (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_rmdir") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   args.path = (char *) path;
   serial = guestfs__send_sync (g, GUESTFS_PROC_RMDIR,
         (xdrproc_t) xdr_guestfs_rmdir_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, rmdir_reply_cb, &ctx);
@@ -2338,17 +2603,22 @@ int guestfs_rmdir (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_rmdir");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_RMDIR, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_RMDIR, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return 0;
 }
 
@@ -2394,15 +2664,19 @@ int guestfs_rm_rf (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_rm_rf") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   args.path = (char *) path;
   serial = guestfs__send_sync (g, GUESTFS_PROC_RM_RF,
         (xdrproc_t) xdr_guestfs_rm_rf_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, rm_rf_reply_cb, &ctx);
@@ -2410,17 +2684,22 @@ int guestfs_rm_rf (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_rm_rf");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_RM_RF, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_RM_RF, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return 0;
 }
 
@@ -2466,15 +2745,19 @@ int guestfs_mkdir (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_mkdir") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   args.path = (char *) path;
   serial = guestfs__send_sync (g, GUESTFS_PROC_MKDIR,
         (xdrproc_t) xdr_guestfs_mkdir_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, mkdir_reply_cb, &ctx);
@@ -2482,17 +2765,22 @@ int guestfs_mkdir (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_mkdir");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_MKDIR, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_MKDIR, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return 0;
 }
 
@@ -2538,15 +2826,19 @@ int guestfs_mkdir_p (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_mkdir_p") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   args.path = (char *) path;
   serial = guestfs__send_sync (g, GUESTFS_PROC_MKDIR_P,
         (xdrproc_t) xdr_guestfs_mkdir_p_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, mkdir_p_reply_cb, &ctx);
@@ -2554,17 +2846,22 @@ int guestfs_mkdir_p (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_mkdir_p");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_MKDIR_P, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_MKDIR_P, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return 0;
 }
 
@@ -2611,6 +2908,7 @@ int guestfs_chmod (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_chmod") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
@@ -2618,9 +2916,12 @@ int guestfs_chmod (guestfs_h *g,
   args.path = (char *) path;
   serial = guestfs__send_sync (g, GUESTFS_PROC_CHMOD,
         (xdrproc_t) xdr_guestfs_chmod_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, chmod_reply_cb, &ctx);
@@ -2628,17 +2929,22 @@ int guestfs_chmod (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_chmod");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_CHMOD, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_CHMOD, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return 0;
 }
 
@@ -2686,6 +2992,7 @@ int guestfs_chown (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_chown") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
@@ -2694,9 +3001,12 @@ int guestfs_chown (guestfs_h *g,
   args.path = (char *) path;
   serial = guestfs__send_sync (g, GUESTFS_PROC_CHOWN,
         (xdrproc_t) xdr_guestfs_chown_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, chown_reply_cb, &ctx);
@@ -2704,17 +3014,22 @@ int guestfs_chown (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_chown");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_CHOWN, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_CHOWN, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return 0;
 }
 
@@ -2765,15 +3080,19 @@ int guestfs_exists (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_exists") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   args.path = (char *) path;
   serial = guestfs__send_sync (g, GUESTFS_PROC_EXISTS,
         (xdrproc_t) xdr_guestfs_exists_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, exists_reply_cb, &ctx);
@@ -2781,17 +3100,22 @@ int guestfs_exists (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_exists");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_EXISTS, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_EXISTS, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return ctx.ret.existsflag;
 }
 
@@ -2842,15 +3166,19 @@ int guestfs_is_file (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_is_file") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   args.path = (char *) path;
   serial = guestfs__send_sync (g, GUESTFS_PROC_IS_FILE,
         (xdrproc_t) xdr_guestfs_is_file_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, is_file_reply_cb, &ctx);
@@ -2858,17 +3186,22 @@ int guestfs_is_file (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_is_file");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_IS_FILE, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_IS_FILE, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return ctx.ret.fileflag;
 }
 
@@ -2919,15 +3252,19 @@ int guestfs_is_dir (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_is_dir") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   args.path = (char *) path;
   serial = guestfs__send_sync (g, GUESTFS_PROC_IS_DIR,
         (xdrproc_t) xdr_guestfs_is_dir_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, is_dir_reply_cb, &ctx);
@@ -2935,17 +3272,22 @@ int guestfs_is_dir (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_is_dir");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_IS_DIR, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_IS_DIR, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return ctx.ret.dirflag;
 }
 
@@ -2991,15 +3333,19 @@ int guestfs_pvcreate (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_pvcreate") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   args.device = (char *) device;
   serial = guestfs__send_sync (g, GUESTFS_PROC_PVCREATE,
         (xdrproc_t) xdr_guestfs_pvcreate_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, pvcreate_reply_cb, &ctx);
@@ -3007,17 +3353,22 @@ int guestfs_pvcreate (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_pvcreate");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_PVCREATE, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_PVCREATE, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return 0;
 }
 
@@ -3064,6 +3415,7 @@ int guestfs_vgcreate (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_vgcreate") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
@@ -3072,9 +3424,12 @@ int guestfs_vgcreate (guestfs_h *g,
   for (args.physvols.physvols_len = 0; physvols[args.physvols.physvols_len]; args.physvols.physvols_len++) ;
   serial = guestfs__send_sync (g, GUESTFS_PROC_VGCREATE,
         (xdrproc_t) xdr_guestfs_vgcreate_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, vgcreate_reply_cb, &ctx);
@@ -3082,17 +3437,22 @@ int guestfs_vgcreate (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_vgcreate");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_VGCREATE, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_VGCREATE, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return 0;
 }
 
@@ -3140,6 +3500,7 @@ int guestfs_lvcreate (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_lvcreate") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
@@ -3148,9 +3509,12 @@ int guestfs_lvcreate (guestfs_h *g,
   args.mbytes = mbytes;
   serial = guestfs__send_sync (g, GUESTFS_PROC_LVCREATE,
         (xdrproc_t) xdr_guestfs_lvcreate_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, lvcreate_reply_cb, &ctx);
@@ -3158,17 +3522,22 @@ int guestfs_lvcreate (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_lvcreate");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_LVCREATE, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_LVCREATE, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return 0;
 }
 
@@ -3215,6 +3584,7 @@ int guestfs_mkfs (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_mkfs") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
@@ -3222,9 +3592,12 @@ int guestfs_mkfs (guestfs_h *g,
   args.device = (char *) device;
   serial = guestfs__send_sync (g, GUESTFS_PROC_MKFS,
         (xdrproc_t) xdr_guestfs_mkfs_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, mkfs_reply_cb, &ctx);
@@ -3232,17 +3605,22 @@ int guestfs_mkfs (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_mkfs");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_MKFS, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_MKFS, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return 0;
 }
 
@@ -3292,6 +3670,7 @@ int guestfs_sfdisk (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_sfdisk") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
@@ -3303,9 +3682,12 @@ int guestfs_sfdisk (guestfs_h *g,
   for (args.lines.lines_len = 0; lines[args.lines.lines_len]; args.lines.lines_len++) ;
   serial = guestfs__send_sync (g, GUESTFS_PROC_SFDISK,
         (xdrproc_t) xdr_guestfs_sfdisk_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, sfdisk_reply_cb, &ctx);
@@ -3313,17 +3695,22 @@ int guestfs_sfdisk (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_sfdisk");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_SFDISK, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_SFDISK, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return 0;
 }
 
@@ -3371,6 +3758,7 @@ int guestfs_write_file (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_write_file") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
@@ -3379,9 +3767,12 @@ int guestfs_write_file (guestfs_h *g,
   args.size = size;
   serial = guestfs__send_sync (g, GUESTFS_PROC_WRITE_FILE,
         (xdrproc_t) xdr_guestfs_write_file_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, write_file_reply_cb, &ctx);
@@ -3389,17 +3780,22 @@ int guestfs_write_file (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_write_file");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_WRITE_FILE, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_WRITE_FILE, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return 0;
 }
 
@@ -3445,15 +3841,19 @@ int guestfs_umount (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_umount") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   args.pathordevice = (char *) pathordevice;
   serial = guestfs__send_sync (g, GUESTFS_PROC_UMOUNT,
         (xdrproc_t) xdr_guestfs_umount_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, umount_reply_cb, &ctx);
@@ -3461,17 +3861,22 @@ int guestfs_umount (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_umount");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_UMOUNT, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_UMOUNT, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return 0;
 }
 
@@ -3520,13 +3925,17 @@ char **guestfs_mounts (guestfs_h *g)
   int serial;
 
   if (check_state (g, "guestfs_mounts") == -1) return NULL;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   serial = guestfs__send_sync (g, GUESTFS_PROC_MOUNTS, NULL, NULL);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, mounts_reply_cb, &ctx);
@@ -3534,17 +3943,22 @@ char **guestfs_mounts (guestfs_h *g)
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_mounts");
+    guestfs_set_ready (g);
     return NULL;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_MOUNTS, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_MOUNTS, serial) == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return NULL;
   }
 
+  guestfs_set_ready (g);
   /* caller will free this, but we need to add a NULL entry */
   ctx.ret.devices.devices_val =
     safe_realloc (g, ctx.ret.devices.devices_val,
@@ -3593,13 +4007,17 @@ int guestfs_umount_all (guestfs_h *g)
   int serial;
 
   if (check_state (g, "guestfs_umount_all") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   serial = guestfs__send_sync (g, GUESTFS_PROC_UMOUNT_ALL, NULL, NULL);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, umount_all_reply_cb, &ctx);
@@ -3607,17 +4025,22 @@ int guestfs_umount_all (guestfs_h *g)
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_umount_all");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_UMOUNT_ALL, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_UMOUNT_ALL, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return 0;
 }
 
@@ -3661,13 +4084,17 @@ int guestfs_lvm_remove_all (guestfs_h *g)
   int serial;
 
   if (check_state (g, "guestfs_lvm_remove_all") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   serial = guestfs__send_sync (g, GUESTFS_PROC_LVM_REMOVE_ALL, NULL, NULL);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, lvm_remove_all_reply_cb, &ctx);
@@ -3675,17 +4102,22 @@ int guestfs_lvm_remove_all (guestfs_h *g)
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_lvm_remove_all");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_LVM_REMOVE_ALL, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_LVM_REMOVE_ALL, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return 0;
 }
 
@@ -3736,15 +4168,19 @@ char *guestfs_file (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_file") == -1) return NULL;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   args.path = (char *) path;
   serial = guestfs__send_sync (g, GUESTFS_PROC_FILE,
         (xdrproc_t) xdr_guestfs_file_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, file_reply_cb, &ctx);
@@ -3752,17 +4188,22 @@ char *guestfs_file (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_file");
+    guestfs_set_ready (g);
     return NULL;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_FILE, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_FILE, serial) == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return NULL;
   }
 
+  guestfs_set_ready (g);
   return ctx.ret.description; /* caller will free */
 }
 
@@ -3813,6 +4254,7 @@ char *guestfs_command (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_command") == -1) return NULL;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
@@ -3820,9 +4262,12 @@ char *guestfs_command (guestfs_h *g,
   for (args.arguments.arguments_len = 0; arguments[args.arguments.arguments_len]; args.arguments.arguments_len++) ;
   serial = guestfs__send_sync (g, GUESTFS_PROC_COMMAND,
         (xdrproc_t) xdr_guestfs_command_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, command_reply_cb, &ctx);
@@ -3830,17 +4275,22 @@ char *guestfs_command (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_command");
+    guestfs_set_ready (g);
     return NULL;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_COMMAND, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_COMMAND, serial) == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return NULL;
   }
 
+  guestfs_set_ready (g);
   return ctx.ret.output; /* caller will free */
 }
 
@@ -3891,6 +4341,7 @@ char **guestfs_command_lines (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_command_lines") == -1) return NULL;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
@@ -3898,9 +4349,12 @@ char **guestfs_command_lines (guestfs_h *g,
   for (args.arguments.arguments_len = 0; arguments[args.arguments.arguments_len]; args.arguments.arguments_len++) ;
   serial = guestfs__send_sync (g, GUESTFS_PROC_COMMAND_LINES,
         (xdrproc_t) xdr_guestfs_command_lines_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, command_lines_reply_cb, &ctx);
@@ -3908,17 +4362,22 @@ char **guestfs_command_lines (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_command_lines");
+    guestfs_set_ready (g);
     return NULL;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_COMMAND_LINES, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_COMMAND_LINES, serial) == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return NULL;
   }
 
+  guestfs_set_ready (g);
   /* caller will free this, but we need to add a NULL entry */
   ctx.ret.lines.lines_val =
     safe_realloc (g, ctx.ret.lines.lines_val,
@@ -3974,15 +4433,19 @@ struct guestfs_stat *guestfs_stat (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_stat") == -1) return NULL;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   args.path = (char *) path;
   serial = guestfs__send_sync (g, GUESTFS_PROC_STAT,
         (xdrproc_t) xdr_guestfs_stat_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, stat_reply_cb, &ctx);
@@ -3990,17 +4453,22 @@ struct guestfs_stat *guestfs_stat (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_stat");
+    guestfs_set_ready (g);
     return NULL;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_STAT, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_STAT, serial) == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return NULL;
   }
 
+  guestfs_set_ready (g);
   /* caller will free this */
   return safe_memdup (g, &ctx.ret.statbuf, sizeof (ctx.ret.statbuf));
 }
@@ -4052,15 +4520,19 @@ struct guestfs_stat *guestfs_lstat (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_lstat") == -1) return NULL;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   args.path = (char *) path;
   serial = guestfs__send_sync (g, GUESTFS_PROC_LSTAT,
         (xdrproc_t) xdr_guestfs_lstat_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, lstat_reply_cb, &ctx);
@@ -4068,17 +4540,22 @@ struct guestfs_stat *guestfs_lstat (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_lstat");
+    guestfs_set_ready (g);
     return NULL;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_LSTAT, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_LSTAT, serial) == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return NULL;
   }
 
+  guestfs_set_ready (g);
   /* caller will free this */
   return safe_memdup (g, &ctx.ret.statbuf, sizeof (ctx.ret.statbuf));
 }
@@ -4130,15 +4607,19 @@ struct guestfs_statvfs *guestfs_statvfs (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_statvfs") == -1) return NULL;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   args.path = (char *) path;
   serial = guestfs__send_sync (g, GUESTFS_PROC_STATVFS,
         (xdrproc_t) xdr_guestfs_statvfs_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, statvfs_reply_cb, &ctx);
@@ -4146,17 +4627,22 @@ struct guestfs_statvfs *guestfs_statvfs (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_statvfs");
+    guestfs_set_ready (g);
     return NULL;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_STATVFS, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_STATVFS, serial) == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return NULL;
   }
 
+  guestfs_set_ready (g);
   /* caller will free this */
   return safe_memdup (g, &ctx.ret.statbuf, sizeof (ctx.ret.statbuf));
 }
@@ -4208,15 +4694,19 @@ char **guestfs_tune2fs_l (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_tune2fs_l") == -1) return NULL;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   args.device = (char *) device;
   serial = guestfs__send_sync (g, GUESTFS_PROC_TUNE2FS_L,
         (xdrproc_t) xdr_guestfs_tune2fs_l_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, tune2fs_l_reply_cb, &ctx);
@@ -4224,17 +4714,22 @@ char **guestfs_tune2fs_l (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_tune2fs_l");
+    guestfs_set_ready (g);
     return NULL;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_TUNE2FS_L, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_TUNE2FS_L, serial) == -1) {
+    guestfs_set_ready (g);
     return NULL;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return NULL;
   }
 
+  guestfs_set_ready (g);
   /* caller will free this, but we need to add a NULL entry */
   ctx.ret.superblock.superblock_val =
     safe_realloc (g, ctx.ret.superblock.superblock_val,
@@ -4285,15 +4780,19 @@ int guestfs_blockdev_setro (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_blockdev_setro") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   args.device = (char *) device;
   serial = guestfs__send_sync (g, GUESTFS_PROC_BLOCKDEV_SETRO,
         (xdrproc_t) xdr_guestfs_blockdev_setro_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, blockdev_setro_reply_cb, &ctx);
@@ -4301,17 +4800,22 @@ int guestfs_blockdev_setro (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_blockdev_setro");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_BLOCKDEV_SETRO, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_BLOCKDEV_SETRO, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return 0;
 }
 
@@ -4357,15 +4861,19 @@ int guestfs_blockdev_setrw (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_blockdev_setrw") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   args.device = (char *) device;
   serial = guestfs__send_sync (g, GUESTFS_PROC_BLOCKDEV_SETRW,
         (xdrproc_t) xdr_guestfs_blockdev_setrw_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, blockdev_setrw_reply_cb, &ctx);
@@ -4373,17 +4881,22 @@ int guestfs_blockdev_setrw (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_blockdev_setrw");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_BLOCKDEV_SETRW, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_BLOCKDEV_SETRW, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return 0;
 }
 
@@ -4434,15 +4947,19 @@ int guestfs_blockdev_getro (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_blockdev_getro") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   args.device = (char *) device;
   serial = guestfs__send_sync (g, GUESTFS_PROC_BLOCKDEV_GETRO,
         (xdrproc_t) xdr_guestfs_blockdev_getro_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, blockdev_getro_reply_cb, &ctx);
@@ -4450,17 +4967,22 @@ int guestfs_blockdev_getro (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_blockdev_getro");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_BLOCKDEV_GETRO, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_BLOCKDEV_GETRO, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return ctx.ret.ro;
 }
 
@@ -4511,15 +5033,19 @@ int guestfs_blockdev_getss (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_blockdev_getss") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   args.device = (char *) device;
   serial = guestfs__send_sync (g, GUESTFS_PROC_BLOCKDEV_GETSS,
         (xdrproc_t) xdr_guestfs_blockdev_getss_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, blockdev_getss_reply_cb, &ctx);
@@ -4527,17 +5053,22 @@ int guestfs_blockdev_getss (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_blockdev_getss");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_BLOCKDEV_GETSS, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_BLOCKDEV_GETSS, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return ctx.ret.sectorsize;
 }
 
@@ -4588,15 +5119,19 @@ int guestfs_blockdev_getbsz (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_blockdev_getbsz") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   args.device = (char *) device;
   serial = guestfs__send_sync (g, GUESTFS_PROC_BLOCKDEV_GETBSZ,
         (xdrproc_t) xdr_guestfs_blockdev_getbsz_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, blockdev_getbsz_reply_cb, &ctx);
@@ -4604,17 +5139,22 @@ int guestfs_blockdev_getbsz (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_blockdev_getbsz");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_BLOCKDEV_GETBSZ, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_BLOCKDEV_GETBSZ, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return ctx.ret.blocksize;
 }
 
@@ -4661,6 +5201,7 @@ int guestfs_blockdev_setbsz (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_blockdev_setbsz") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
@@ -4668,9 +5209,12 @@ int guestfs_blockdev_setbsz (guestfs_h *g,
   args.blocksize = blocksize;
   serial = guestfs__send_sync (g, GUESTFS_PROC_BLOCKDEV_SETBSZ,
         (xdrproc_t) xdr_guestfs_blockdev_setbsz_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, blockdev_setbsz_reply_cb, &ctx);
@@ -4678,17 +5222,22 @@ int guestfs_blockdev_setbsz (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_blockdev_setbsz");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_BLOCKDEV_SETBSZ, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_BLOCKDEV_SETBSZ, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return 0;
 }
 
@@ -4739,15 +5288,19 @@ int64_t guestfs_blockdev_getsz (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_blockdev_getsz") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   args.device = (char *) device;
   serial = guestfs__send_sync (g, GUESTFS_PROC_BLOCKDEV_GETSZ,
         (xdrproc_t) xdr_guestfs_blockdev_getsz_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, blockdev_getsz_reply_cb, &ctx);
@@ -4755,17 +5308,22 @@ int64_t guestfs_blockdev_getsz (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_blockdev_getsz");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_BLOCKDEV_GETSZ, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_BLOCKDEV_GETSZ, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return ctx.ret.sizeinsectors;
 }
 
@@ -4816,15 +5374,19 @@ int64_t guestfs_blockdev_getsize64 (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_blockdev_getsize64") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   args.device = (char *) device;
   serial = guestfs__send_sync (g, GUESTFS_PROC_BLOCKDEV_GETSIZE64,
         (xdrproc_t) xdr_guestfs_blockdev_getsize64_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, blockdev_getsize64_reply_cb, &ctx);
@@ -4832,17 +5394,22 @@ int64_t guestfs_blockdev_getsize64 (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_blockdev_getsize64");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_BLOCKDEV_GETSIZE64, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_BLOCKDEV_GETSIZE64, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return ctx.ret.sizeinbytes;
 }
 
@@ -4888,15 +5455,19 @@ int guestfs_blockdev_flushbufs (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_blockdev_flushbufs") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   args.device = (char *) device;
   serial = guestfs__send_sync (g, GUESTFS_PROC_BLOCKDEV_FLUSHBUFS,
         (xdrproc_t) xdr_guestfs_blockdev_flushbufs_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, blockdev_flushbufs_reply_cb, &ctx);
@@ -4904,17 +5475,22 @@ int guestfs_blockdev_flushbufs (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_blockdev_flushbufs");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_BLOCKDEV_FLUSHBUFS, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_BLOCKDEV_FLUSHBUFS, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return 0;
 }
 
@@ -4960,15 +5536,19 @@ int guestfs_blockdev_rereadpt (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_blockdev_rereadpt") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   args.device = (char *) device;
   serial = guestfs__send_sync (g, GUESTFS_PROC_BLOCKDEV_REREADPT,
         (xdrproc_t) xdr_guestfs_blockdev_rereadpt_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, blockdev_rereadpt_reply_cb, &ctx);
@@ -4976,17 +5556,22 @@ int guestfs_blockdev_rereadpt (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_blockdev_rereadpt");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_BLOCKDEV_REREADPT, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_BLOCKDEV_REREADPT, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return 0;
 }
 
@@ -5033,18 +5618,31 @@ int guestfs_upload (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_upload") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   args.remotefilename = (char *) remotefilename;
   serial = guestfs__send_sync (g, GUESTFS_PROC_UPLOAD,
         (xdrproc_t) xdr_guestfs_upload_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
-  if (guestfs__send_file_sync (g, filename) == -1)
-    return -1;
+  {
+    int r;
 
+    r = guestfs__send_file_sync (g, filename);
+    if (r == -1) {
+      guestfs_set_ready (g);
+      return -1;
+    }
+    if (r == -2) /* daemon cancelled */
+      goto read_reply;
+  }
+
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, upload_reply_cb, &ctx);
@@ -5052,17 +5650,22 @@ int guestfs_upload (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_upload");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_UPLOAD, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_UPLOAD, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
+  guestfs_set_ready (g);
   return 0;
 }
 
@@ -5109,15 +5712,19 @@ int guestfs_download (guestfs_h *g,
   int serial;
 
   if (check_state (g, "guestfs_download") == -1) return -1;
+  guestfs_set_busy (g);
 
   memset (&ctx, 0, sizeof ctx);
 
   args.remotefilename = (char *) remotefilename;
   serial = guestfs__send_sync (g, GUESTFS_PROC_DOWNLOAD,
         (xdrproc_t) xdr_guestfs_download_args, (char *) &args);
-  if (serial == -1)
+  if (serial == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+ read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, download_reply_cb, &ctx);
@@ -5125,20 +5732,27 @@ int guestfs_download (guestfs_h *g,
   guestfs_set_reply_callback (g, NULL, NULL);
   if (ctx.cb_sequence != 1001) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_download");
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_DOWNLOAD, serial) == -1)
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_DOWNLOAD, serial) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
   if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
     error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
     return -1;
   }
 
-  if (guestfs__receive_file_sync (g, filename) == -1)
+  if (guestfs__receive_file_sync (g, filename) == -1) {
+    guestfs_set_ready (g);
     return -1;
+  }
 
+  guestfs_set_ready (g);
   return 0;
 }
 

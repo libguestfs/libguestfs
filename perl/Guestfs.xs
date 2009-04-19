@@ -305,6 +305,26 @@ PREINIT:
       RETVAL
 
 void
+set_busy (g)
+      guestfs_h *g;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_set_busy (g);
+      if (r == -1)
+        croak ("set_busy: %s", guestfs_last_error (g));
+
+void
+set_ready (g)
+      guestfs_h *g;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_set_ready (g);
+      if (r == -1)
+        croak ("set_ready: %s", guestfs_last_error (g));
+
+void
 mount (g, device, mountpoint)
       guestfs_h *g;
       char *device;

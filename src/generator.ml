@@ -380,6 +380,25 @@ This returns the current state as an opaque integer.  This is
 only useful for printing debug and internal error messages.
 
 For more information on states, see L<guestfs(3)>.");
+
+  ("set_busy", (RErr, []), -1, [NotInFish],
+   [],
+   "set state to busy",
+   "\
+This sets the state to C<BUSY>.  This is only used when implementing
+actions using the low-level API.
+
+For more information on states, see L<guestfs(3)>.");
+
+  ("set_ready", (RErr, []), -1, [NotInFish],
+   [],
+   "set state to ready",
+   "\
+This sets the state to C<READY>.  This is only used when implementing
+actions using the low-level API.
+
+For more information on states, see L<guestfs(3)>.");
+
 ]
 
 let daemon_functions = [
@@ -1932,7 +1951,7 @@ const GUESTFS_PROGRAM = 0x2000F5F5;
 const GUESTFS_PROTOCOL_VERSION = 1;
 
 /* These constants must be larger than any possible message length. */
-const GUESTFS_LAUNCH_FLAG = 0xf5f55f5f;
+const GUESTFS_LAUNCH_FLAG = 0xf5f55ff5;
 const GUESTFS_CANCEL_FLAG = 0xffffeeee;
 
 enum guestfs_message_direction {
@@ -2210,6 +2229,7 @@ check_state (guestfs_h *g, const char *caller)
       pr "  int serial;\n";
       pr "\n";
       pr "  if (check_state (g, \"%s\") == -1) return %s;\n" name error_code;
+      pr "  guestfs_set_busy (g);\n";
       pr "\n";
       pr "  memset (&ctx, 0, sizeof ctx);\n";
       pr "\n";
@@ -2240,21 +2260,33 @@ check_state (guestfs_h *g, const char *caller)
 	   pr "        (xdrproc_t) xdr_%s_args, (char *) &args);\n"
 	     name;
       );
-      pr "  if (serial == -1)\n";
+      pr "  if (serial == -1) {\n";
+      pr "    guestfs_set_ready (g);\n";
       pr "    return %s;\n" error_code;
+      pr "  }\n";
       pr "\n";
 
       (* Send any additional files (FileIn) requested. *)
       List.iter (
 	function
 	| FileIn n ->
-	    pr "  if (guestfs__send_file_sync (g, %s) == -1)\n" n;
-	    pr "    return %s;\n" error_code;
+	    pr "  {\n";
+	    pr "    int r;\n";
+	    pr "\n";
+	    pr "    r = guestfs__send_file_sync (g, %s);\n" n;
+	    pr "    if (r == -1) {\n";
+	    pr "      guestfs_set_ready (g);\n";
+	    pr "      return %s;\n" error_code;
+	    pr "    }\n";
+	    pr "    if (r == -2) /* daemon cancelled */\n";
+	    pr "      goto read_reply;\n";
+	    pr "  }\n";
 	    pr "\n";
 	| _ -> ()
       ) (snd style);
 
       (* Wait for the reply from the remote end. *)
+      pr " read_reply:\n";
       pr "  guestfs__switch_to_receiving (g);\n";
       pr "  ctx.cb_sequence = 0;\n";
       pr "  guestfs_set_reply_callback (g, %s_reply_cb, &ctx);\n" shortname;
@@ -2262,17 +2294,21 @@ check_state (guestfs_h *g, const char *caller)
       pr "  guestfs_set_reply_callback (g, NULL, NULL);\n";
       pr "  if (ctx.cb_sequence != 1001) {\n";
       pr "    error (g, \"%%s reply failed, see earlier error messages\", \"%s\");\n" name;
+      pr "    guestfs_set_ready (g);\n";
       pr "    return %s;\n" error_code;
       pr "  }\n";
       pr "\n";
 
-      pr "  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_%s, serial) == -1)\n"
+      pr "  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_%s, serial) == -1) {\n"
 	(String.uppercase shortname);
+      pr "    guestfs_set_ready (g);\n";
       pr "    return %s;\n" error_code;
+      pr "  }\n";
       pr "\n";
 
       pr "  if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {\n";
       pr "    error (g, \"%%s\", ctx.err.error_message);\n";
+      pr "    guestfs_set_ready (g);\n";
       pr "    return %s;\n" error_code;
       pr "  }\n";
       pr "\n";
@@ -2281,11 +2317,15 @@ check_state (guestfs_h *g, const char *caller)
       List.iter (
 	function
 	| FileOut n ->
-	    pr "  if (guestfs__receive_file_sync (g, %s) == -1)\n" n;
+	    pr "  if (guestfs__receive_file_sync (g, %s) == -1) {\n" n;
+	    pr "    guestfs_set_ready (g);\n";
 	    pr "    return %s;\n" error_code;
+	    pr "  }\n";
 	    pr "\n";
 	| _ -> ()
       ) (snd style);
+
+      pr "  guestfs_set_ready (g);\n";
 
       (match fst style with
        | RErr -> pr "  return 0;\n"

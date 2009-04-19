@@ -657,6 +657,13 @@ If C<autosync> is true, this enables autosync.  Libguestfs will make a
 best effort attempt to run C<$h-E<gt>sync> when the handle is closed
 (also if the program exits without closing handles).
 
+=item $h->set_busy ();
+
+This sets the state to C<BUSY>.  This is only used when implementing
+actions using the low-level API.
+
+For more information on states, see L<guestfs(3)>.
+
 =item $h->set_path ($path);
 
 Set the path that libguestfs searches for kernel and initrd.img.
@@ -668,6 +675,13 @@ The string C<path> is stashed in the libguestfs handle, so the caller
 must make sure it remains valid for the lifetime of the handle.
 
 Setting C<path> to C<NULL> restores the default path.
+
+=item $h->set_ready ();
+
+This sets the state to C<READY>.  This is only used when implementing
+actions using the low-level API.
+
+For more information on states, see L<guestfs(3)>.
 
 =item $h->set_verbose ($verbose);
 

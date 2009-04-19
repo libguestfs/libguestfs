@@ -41,6 +41,8 @@ static void usage (void);
 #define VMCHANNEL_PORT "6666"
 #define VMCHANNEL_ADDR "10.0.2.4"
 
+int verbose = 0;
+
 int
 main (int argc, char *argv[])
 {
@@ -107,6 +109,14 @@ main (int argc, char *argv[])
     n = fread (buf, 1, sizeof buf - 1, fp);
     fclose (fp);
     buf[n] = '\0';
+
+    /* Set the verbose flag.  Not quite right because this will only
+     * set the flag if host and port aren't set on the command line.
+     * Don't worry about this for now. (XXX)
+     */
+    verbose = strstr (buf, "guestfs_verbose=1") != NULL;
+    if (verbose)
+      printf ("verbose daemon enabled\n");
 
     p = strstr (buf, "guestfs=");
 
@@ -359,10 +369,12 @@ commandv (char **stdoutput, char **stderror, char * const* const argv)
   if (stdoutput) *stdoutput = NULL;
   if (stderror) *stderror = NULL;
 
-  printf ("%s", argv[0]);
-  for (i = 1; argv[i] != NULL; ++i)
-    printf (" %s", argv[i]);
-  printf ("\n");
+  if (verbose) {
+    printf ("%s", argv[0]);
+    for (i = 1; argv[i] != NULL; ++i)
+      printf (" %s", argv[i]);
+    printf ("\n");
+  }
 
   if (pipe (so_fd) == -1 || pipe (se_fd) == -1) {
     perror ("pipe");

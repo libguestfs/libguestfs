@@ -938,6 +938,17 @@ best effort attempt to run C<guestfs_sync> when the handle is closed
 
 This function returns 0 on success or -1 on error.
 
+=head2 guestfs_set_busy
+
+ int guestfs_set_busy (guestfs_h *handle);
+
+This sets the state to C<BUSY>.  This is only used when implementing
+actions using the low-level API.
+
+For more information on states, see L<guestfs(3)>.
+
+This function returns 0 on success or -1 on error.
+
 =head2 guestfs_set_path
 
  int guestfs_set_path (guestfs_h *handle,
@@ -952,6 +963,17 @@ The string C<path> is stashed in the libguestfs handle, so the caller
 must make sure it remains valid for the lifetime of the handle.
 
 Setting C<path> to C<NULL> restores the default path.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_set_ready
+
+ int guestfs_set_ready (guestfs_h *handle);
+
+This sets the state to C<READY>.  This is only used when implementing
+actions using the low-level API.
+
+For more information on states, see L<guestfs(3)>.
 
 This function returns 0 on success or -1 on error.
 

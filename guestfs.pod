@@ -518,8 +518,8 @@ For ordinary functions, the request message is:
 
  total length (header + arguments,
       but not including the length word itself)
- struct guestfs_message_header
- struct guestfs_<foo>_args
+ struct guestfs_message_header (encoded as XDR)
+ struct guestfs_<foo>_args (encoded as XDR)
 
 The total length field allows the daemon to allocate a fixed size
 buffer into which it slurps the rest of the message.  As a result, the
@@ -538,8 +538,8 @@ The reply message for ordinary functions is:
 
  total length (header + ret,
       but not including the length word itself)
- struct guestfs_message_header
- struct guestfs_<foo>_ret
+ struct guestfs_message_header (encoded as XDR)
+ struct guestfs_<foo>_ret (encoded as XDR)
 
 As above the C<guestfs_I<foo>_ret> structure may be completely omitted
 for functions that return no formal return values.
@@ -552,8 +552,8 @@ message is slightly changed:
 
  total length (header + error,
       but not including the length word itself)
- struct guestfs_message_header
- struct guestfs_message_error
+ struct guestfs_message_header (encoded as XDR)
+ struct guestfs_message_error (encoded as XDR)
 
 The C<guestfs_message_error> structure contains the error message as a
 string.
@@ -567,19 +567,29 @@ is followed by a sequence of file chunks.
  total length (header + arguments,
       but not including the length word itself,
       and not including the chunks)
- struct guestfs_message_header
- struct guestfs_<foo>_args
+ struct guestfs_message_header (encoded as XDR)
+ struct guestfs_<foo>_args (encoded as XDR)
  sequence of chunks for FileIn param #0
  sequence of chunks for FileIn param #1 etc.
 
-The sequence of chunks is a sequence of C<struct guestfs_chunk>.  A
+The "sequence of chunks" is:
+
+ length of chunk (not including length word itself)
+ struct guestfs_chunk (encoded as XDR)
+ length of chunk
+ struct guestfs_chunk (encoded as XDR)
+   ...
+ length of chunk
+ struct guestfs_chunk (with data.data_len == 0)
+
+The final chunk has the C<data_len> field set to zero.  Additionally a
 flag is set in the final chunk to indicate either successful
 completion or early cancellation.
 
 At time of writing there are no functions that have more than one
 FileIn parameter.  However this is (theoretically) supported, by
-sending the chunks for each FileIn parameter one after another (from
-left to right).
+sending the sequence of chunks for each FileIn parameter one after
+another (from left to right).
 
 Both the library (sender) I<and> the daemon (receiver) may cancel the
 transfer.  The library does this by sending a chunk with a special
@@ -610,8 +620,8 @@ parameters, but with the roles of daemon and library reversed.
  total length (header + ret,
       but not including the length word itself,
       and not including the chunks)
- struct guestfs_message_header
- struct guestfs_<foo>_ret
+ struct guestfs_message_header (encoded as XDR)
+ struct guestfs_<foo>_ret (encoded as XDR)
  sequence of chunks for FileOut param #0
  sequence of chunks for FileOut param #1 etc.
 

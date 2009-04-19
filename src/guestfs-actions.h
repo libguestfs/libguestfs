@@ -36,6 +36,8 @@ extern int guestfs_is_config (guestfs_h *handle);
 extern int guestfs_is_launching (guestfs_h *handle);
 extern int guestfs_is_busy (guestfs_h *handle);
 extern int guestfs_get_state (guestfs_h *handle);
+extern int guestfs_set_busy (guestfs_h *handle);
+extern int guestfs_set_ready (guestfs_h *handle);
 extern int guestfs_mount (guestfs_h *handle, const char *device, const char *mountpoint);
 extern int guestfs_sync (guestfs_h *handle);
 extern int guestfs_touch (guestfs_h *handle, const char *path);

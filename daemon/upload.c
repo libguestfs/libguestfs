@@ -27,14 +27,101 @@
 #include "daemon.h"
 #include "actions.h"
 
-int
-do_upload (const char *remote_filename)
+static int
+write_cb (void *fd_ptr, const void *buf, int len)
 {
-  XXX_NOT_IMPL (-1);
+  int fd = *(int *)fd_ptr;
+  return xwrite (fd, buf, len);
 }
 
+/* Has one FileIn parameter. */
 int
-do_download (const char *remote_filename)
+do_upload (const char *filename)
 {
-  XXX_NOT_IMPL (-1);
+  int err, fd, r, is_dev;
+
+  NEED_ROOT_OR_IS_DEVICE (filename, -1);
+
+  is_dev = strncmp (filename, "/dev/", 5) == 0;
+
+  if (!is_dev) CHROOT_IN;
+  fd = open (filename, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY, 0666);
+  if (!is_dev) CHROOT_OUT;
+  if (fd == -1) {
+    err = errno;
+    cancel_receive ();
+    errno = err;
+    reply_with_perror ("%s", filename);
+    return -1;
+  }
+
+  r = receive_file (write_cb, &fd);
+  if (r == -1) {		/* write error */
+    err = errno;
+    cancel_receive ();
+    errno = err;
+    reply_with_perror ("write: %s", filename);
+    return -1;
+  }
+  if (r == -2) {		/* cancellation from library */
+    close (fd);
+    /* Do NOT send any error. */
+    return -1;
+  }
+
+  if (close (fd) == -1) {
+    err = errno;
+    cancel_receive ();
+    errno = err;
+    reply_with_perror ("close: %s", filename);
+    return -1;
+  }
+
+  return 0;
+}
+
+/* Has one FileOut parameter. */
+int
+do_download (const char *filename)
+{
+  int fd, r, is_dev;
+  char buf[GUESTFS_MAX_CHUNK_SIZE];
+
+  NEED_ROOT_OR_IS_DEVICE (filename, -1);
+
+  is_dev = strncmp (filename, "/dev/", 5) == 0;
+
+  if (!is_dev) CHROOT_IN;
+  fd = open (filename, O_RDONLY);
+  if (!is_dev) CHROOT_OUT;
+  if (fd == -1) {
+    reply_with_perror ("%s", filename);
+    return -1;
+  }
+
+  /* Now we must send the reply message, before the file contents.  After
+   * this there is no opportunity in the protocol to send any error
+   * message back.  Instead we can only cancel the transfer.
+   */
+  reply (NULL, NULL);
+
+  while ((r = read (fd, buf, sizeof buf)) > 0) {
+    if (send_file_write (buf, r) < 0)
+      return -1;
+  }
+
+  if (r == -1) {
+    perror (filename);
+    send_file_end (1);		/* Cancel. */
+    return -1;
+  }
+
+  if (close (fd) == -1) {
+    perror (filename);
+    send_file_end (1);		/* Cancel. */
+    return -1;
+  }
+
+  send_file_end (0);		/* Normal end of file. */
+  return 0;
 }

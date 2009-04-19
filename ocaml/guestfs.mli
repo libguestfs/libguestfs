@@ -175,6 +175,12 @@ val is_busy : t -> bool
 val get_state : t -> int
 (** get the current state *)
 
+val set_busy : t -> unit
+(** set state to busy *)
+
+val set_ready : t -> unit
+(** set state to ready *)
+
 val mount : t -> string -> string -> unit
 (** mount a guest disk at a position in the filesystem *)
 
