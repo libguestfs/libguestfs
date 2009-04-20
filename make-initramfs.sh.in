@@ -20,6 +20,8 @@
 
 set -e
 
+unset CDPATH
+
 # If you want to do some extra debugging and diagnosis of the
 # initramfs image, then uncomment this line.  This makes the image
 # larger.
