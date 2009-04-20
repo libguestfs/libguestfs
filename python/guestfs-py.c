@@ -2562,6 +2562,110 @@ py_guestfs_checksum (PyObject *self, PyObject *args)
   return py_r;
 }
 
+static PyObject *
+py_guestfs_tar_in (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *tarfile;
+  const char *directory;
+
+  if (!PyArg_ParseTuple (args, (char *) "Oss:guestfs_tar_in",
+                         &py_g, &tarfile, &directory))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_tar_in (g, tarfile, directory);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_tar_out (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *directory;
+  const char *tarfile;
+
+  if (!PyArg_ParseTuple (args, (char *) "Oss:guestfs_tar_out",
+                         &py_g, &directory, &tarfile))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_tar_out (g, directory, tarfile);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_tgz_in (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *tarball;
+  const char *directory;
+
+  if (!PyArg_ParseTuple (args, (char *) "Oss:guestfs_tgz_in",
+                         &py_g, &tarball, &directory))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_tgz_in (g, tarball, directory);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_tgz_out (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *directory;
+  const char *tarball;
+
+  if (!PyArg_ParseTuple (args, (char *) "Oss:guestfs_tgz_out",
+                         &py_g, &directory, &tarball))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_tgz_out (g, directory, tarball);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
 static PyMethodDef methods[] = {
   { (char *) "create", py_guestfs_create, METH_VARARGS, NULL },
   { (char *) "close", py_guestfs_close, METH_VARARGS, NULL },
@@ -2652,6 +2756,10 @@ static PyMethodDef methods[] = {
   { (char *) "upload", py_guestfs_upload, METH_VARARGS, NULL },
   { (char *) "download", py_guestfs_download, METH_VARARGS, NULL },
   { (char *) "checksum", py_guestfs_checksum, METH_VARARGS, NULL },
+  { (char *) "tar_in", py_guestfs_tar_in, METH_VARARGS, NULL },
+  { (char *) "tar_out", py_guestfs_tar_out, METH_VARARGS, NULL },
+  { (char *) "tgz_in", py_guestfs_tgz_in, METH_VARARGS, NULL },
+  { (char *) "tgz_out", py_guestfs_tgz_out, METH_VARARGS, NULL },
   { NULL, NULL, 0, NULL }
 };
 

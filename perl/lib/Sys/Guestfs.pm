@@ -780,6 +780,34 @@ underlying disk image.
 You should always call this if you have modified a disk image, before
 closing the handle.
 
+=item $h->tar_in ($tarfile, $directory);
+
+This command uploads and unpacks local file C<tarfile> (an
+I<uncompressed> tar file) into C<directory>.
+
+To upload a compressed tarball, use C<$h-E<gt>tgz_in>.
+
+=item $h->tar_out ($directory, $tarfile);
+
+This command packs the contents of C<directory> and downloads
+it to local file C<tarfile>.
+
+To download a compressed tarball, use C<$h-E<gt>tgz_out>.
+
+=item $h->tgz_in ($tarball, $directory);
+
+This command uploads and unpacks local file C<tarball> (a
+I<gzip compressed> tar file) into C<directory>.
+
+To upload an uncompressed tarball, use C<$h-E<gt>tar_in>.
+
+=item $h->tgz_out ($directory, $tarball);
+
+This command packs the contents of C<directory> and downloads
+it to local file C<tarball>.
+
+To download an uncompressed tarball, use C<$h-E<gt>tar_out>.
+
 =item $h->touch ($path);
 
 Touch acts like the L<touch(1)> command.  It can be used to

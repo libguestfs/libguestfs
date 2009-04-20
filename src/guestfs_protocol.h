@@ -637,6 +637,26 @@ struct guestfs_checksum_ret {
 };
 typedef struct guestfs_checksum_ret guestfs_checksum_ret;
 
+struct guestfs_tar_in_args {
+	char *directory;
+};
+typedef struct guestfs_tar_in_args guestfs_tar_in_args;
+
+struct guestfs_tar_out_args {
+	char *directory;
+};
+typedef struct guestfs_tar_out_args guestfs_tar_out_args;
+
+struct guestfs_tgz_in_args {
+	char *directory;
+};
+typedef struct guestfs_tgz_in_args guestfs_tgz_in_args;
+
+struct guestfs_tgz_out_args {
+	char *directory;
+};
+typedef struct guestfs_tgz_out_args guestfs_tgz_out_args;
+
 enum guestfs_procedure {
 	GUESTFS_PROC_MOUNT = 1,
 	GUESTFS_PROC_SYNC = 2,
@@ -706,7 +726,11 @@ enum guestfs_procedure {
 	GUESTFS_PROC_UPLOAD = 66,
 	GUESTFS_PROC_DOWNLOAD = 67,
 	GUESTFS_PROC_CHECKSUM = 68,
-	GUESTFS_PROC_NR_PROCS = 68 + 1,
+	GUESTFS_PROC_TAR_IN = 69,
+	GUESTFS_PROC_TAR_OUT = 70,
+	GUESTFS_PROC_TGZ_IN = 71,
+	GUESTFS_PROC_TGZ_OUT = 72,
+	GUESTFS_PROC_NR_PROCS = 72 + 1,
 };
 typedef enum guestfs_procedure guestfs_procedure;
 #define GUESTFS_MESSAGE_MAX 4194304
@@ -853,6 +877,10 @@ extern  bool_t xdr_guestfs_upload_args (XDR *, guestfs_upload_args*);
 extern  bool_t xdr_guestfs_download_args (XDR *, guestfs_download_args*);
 extern  bool_t xdr_guestfs_checksum_args (XDR *, guestfs_checksum_args*);
 extern  bool_t xdr_guestfs_checksum_ret (XDR *, guestfs_checksum_ret*);
+extern  bool_t xdr_guestfs_tar_in_args (XDR *, guestfs_tar_in_args*);
+extern  bool_t xdr_guestfs_tar_out_args (XDR *, guestfs_tar_out_args*);
+extern  bool_t xdr_guestfs_tgz_in_args (XDR *, guestfs_tgz_in_args*);
+extern  bool_t xdr_guestfs_tgz_out_args (XDR *, guestfs_tgz_out_args*);
 extern  bool_t xdr_guestfs_procedure (XDR *, guestfs_procedure*);
 extern  bool_t xdr_guestfs_message_direction (XDR *, guestfs_message_direction*);
 extern  bool_t xdr_guestfs_message_status (XDR *, guestfs_message_status*);
@@ -958,6 +986,10 @@ extern bool_t xdr_guestfs_upload_args ();
 extern bool_t xdr_guestfs_download_args ();
 extern bool_t xdr_guestfs_checksum_args ();
 extern bool_t xdr_guestfs_checksum_ret ();
+extern bool_t xdr_guestfs_tar_in_args ();
+extern bool_t xdr_guestfs_tar_out_args ();
+extern bool_t xdr_guestfs_tgz_in_args ();
+extern bool_t xdr_guestfs_tgz_out_args ();
 extern bool_t xdr_guestfs_procedure ();
 extern bool_t xdr_guestfs_message_direction ();
 extern bool_t xdr_guestfs_message_status ();

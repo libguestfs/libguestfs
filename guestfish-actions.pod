@@ -825,6 +825,50 @@ underlying disk image.
 You should always call this if you have modified a disk image, before
 closing the handle.
 
+=head2 tar-in
+
+ tar-in (tarfile|-) directory
+
+This command uploads and unpacks local file C<tarfile> (an
+I<uncompressed> tar file) into C<directory>.
+
+To upload a compressed tarball, use C<tgz_in>.
+
+Use C<-> instead of a filename to read/write from stdin/stdout.
+
+=head2 tar-out
+
+ tar-out directory (tarfile|-)
+
+This command packs the contents of C<directory> and downloads
+it to local file C<tarfile>.
+
+To download a compressed tarball, use C<tgz_out>.
+
+Use C<-> instead of a filename to read/write from stdin/stdout.
+
+=head2 tgz-in
+
+ tgz-in (tarball|-) directory
+
+This command uploads and unpacks local file C<tarball> (a
+I<gzip compressed> tar file) into C<directory>.
+
+To upload an uncompressed tarball, use C<tar_in>.
+
+Use C<-> instead of a filename to read/write from stdin/stdout.
+
+=head2 tgz-out
+
+ tgz-out directory (tarball|-)
+
+This command packs the contents of C<directory> and downloads
+it to local file C<tarball>.
+
+To download an uncompressed tarball, use C<tar_out>.
+
+Use C<-> instead of a filename to read/write from stdin/stdout.
+
 =head2 touch
 
  touch path

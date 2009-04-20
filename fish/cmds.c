@@ -106,6 +106,10 @@ void list_commands (void)
   printf ("%-20s %s\n", "stat", "get file information");
   printf ("%-20s %s\n", "statvfs", "get file system statistics");
   printf ("%-20s %s\n", "sync", "sync disks, writes are flushed through to the disk image");
+  printf ("%-20s %s\n", "tar-in", "unpack tarfile to directory");
+  printf ("%-20s %s\n", "tar-out", "pack directory into tarfile");
+  printf ("%-20s %s\n", "tgz-in", "unpack compressed tarball to directory");
+  printf ("%-20s %s\n", "tgz-out", "pack directory into compressed tarball");
   printf ("%-20s %s\n", "touch", "update file timestamps or create a new file");
   printf ("%-20s %s\n", "tune2fs-l", "get ext2/ext3 superblock details");
   printf ("%-20s %s\n", "umount", "unmount a filesystem");
@@ -371,6 +375,18 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "checksum") == 0)
     pod2text ("checksum - compute MD5, SHAx or CRC checksum of file", " checksum <csumtype> <path>\n\nThis call computes the MD5, SHAx or CRC checksum of the\nfile named C<path>.\n\nThe type of checksum to compute is given by the C<csumtype>\nparameter which must have one of the following values:\n\n=over 4\n\n=item C<crc>\n\nCompute the cyclic redundancy check (CRC) specified by POSIX\nfor the C<cksum> command.\n\n=item C<md5>\n\nCompute the MD5 hash (using the C<md5sum> program).\n\n=item C<sha1>\n\nCompute the SHA1 hash (using the C<sha1sum> program).\n\n=item C<sha224>\n\nCompute the SHA224 hash (using the C<sha224sum> program).\n\n=item C<sha256>\n\nCompute the SHA256 hash (using the C<sha256sum> program).\n\n=item C<sha384>\n\nCompute the SHA384 hash (using the C<sha384sum> program).\n\n=item C<sha512>\n\nCompute the SHA512 hash (using the C<sha512sum> program).\n\n=back\n\nThe checksum is returned as a printable string.");
+  else
+  if (strcasecmp (cmd, "tar_in") == 0 || strcasecmp (cmd, "tar-in") == 0)
+    pod2text ("tar-in - unpack tarfile to directory", " tar-in <tarfile> <directory>\n\nThis command uploads and unpacks local file C<tarfile> (an\nI<uncompressed> tar file) into C<directory>.\n\nTo upload a compressed tarball, use C<tgz_in>.");
+  else
+  if (strcasecmp (cmd, "tar_out") == 0 || strcasecmp (cmd, "tar-out") == 0)
+    pod2text ("tar-out - pack directory into tarfile", " tar-out <directory> <tarfile>\n\nThis command packs the contents of C<directory> and downloads\nit to local file C<tarfile>.\n\nTo download a compressed tarball, use C<tgz_out>.");
+  else
+  if (strcasecmp (cmd, "tgz_in") == 0 || strcasecmp (cmd, "tgz-in") == 0)
+    pod2text ("tgz-in - unpack compressed tarball to directory", " tgz-in <tarball> <directory>\n\nThis command uploads and unpacks local file C<tarball> (a\nI<gzip compressed> tar file) into C<directory>.\n\nTo upload an uncompressed tarball, use C<tar_in>.");
+  else
+  if (strcasecmp (cmd, "tgz_out") == 0 || strcasecmp (cmd, "tgz-out") == 0)
+    pod2text ("tgz-out - pack directory into compressed tarball", " tgz-out <directory> <tarball>\n\nThis command packs the contents of C<directory> and downloads\nit to local file C<tarball>.\n\nTo download an uncompressed tarball, use C<tar_out>.");
   else
     display_builtin_command (cmd);
 }
@@ -1801,6 +1817,70 @@ static int run_checksum (const char *cmd, int argc, char *argv[])
   return 0;
 }
 
+static int run_tar_in (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *tarfile;
+  const char *directory;
+  if (argc != 2) {
+    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  tarfile = strcmp (argv[0], "-") != 0 ? argv[0] : "/dev/stdin";
+  directory = argv[1];
+  r = guestfs_tar_in (g, tarfile, directory);
+  return r;
+}
+
+static int run_tar_out (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *directory;
+  const char *tarfile;
+  if (argc != 2) {
+    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  directory = argv[0];
+  tarfile = strcmp (argv[1], "-") != 0 ? argv[1] : "/dev/stdout";
+  r = guestfs_tar_out (g, directory, tarfile);
+  return r;
+}
+
+static int run_tgz_in (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *tarball;
+  const char *directory;
+  if (argc != 2) {
+    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  tarball = strcmp (argv[0], "-") != 0 ? argv[0] : "/dev/stdin";
+  directory = argv[1];
+  r = guestfs_tgz_in (g, tarball, directory);
+  return r;
+}
+
+static int run_tgz_out (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *directory;
+  const char *tarball;
+  if (argc != 2) {
+    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  directory = argv[0];
+  tarball = strcmp (argv[1], "-") != 0 ? argv[1] : "/dev/stdout";
+  r = guestfs_tgz_out (g, directory, tarball);
+  return r;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -2054,6 +2134,18 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "checksum") == 0)
     return run_checksum (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "tar_in") == 0 || strcasecmp (cmd, "tar-in") == 0)
+    return run_tar_in (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "tar_out") == 0 || strcasecmp (cmd, "tar-out") == 0)
+    return run_tar_out (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "tgz_in") == 0 || strcasecmp (cmd, "tgz-in") == 0)
+    return run_tgz_in (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "tgz_out") == 0 || strcasecmp (cmd, "tgz-out") == 0)
+    return run_tgz_out (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

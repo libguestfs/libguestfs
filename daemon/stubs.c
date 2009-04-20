@@ -1661,6 +1661,102 @@ done:
   xdr_free ((xdrproc_t) xdr_guestfs_checksum_args, (char *) &args);
 }
 
+static void tar_in_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_tar_in_args args;
+  const char *directory;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_tar_in_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "tar_in");
+    return;
+  }
+  directory = args.directory;
+
+  r = do_tar_in (directory);
+  if (r == -1)
+    /* do_tar_in has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_tar_in_args, (char *) &args);
+}
+
+static void tar_out_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_tar_out_args args;
+  const char *directory;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_tar_out_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "tar_out");
+    return;
+  }
+  directory = args.directory;
+
+  r = do_tar_out (directory);
+  if (r == -1)
+    /* do_tar_out has already called reply_with_error */
+    goto done;
+
+  /* do_tar_out has already sent a reply */
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_tar_out_args, (char *) &args);
+}
+
+static void tgz_in_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_tgz_in_args args;
+  const char *directory;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_tgz_in_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "tgz_in");
+    return;
+  }
+  directory = args.directory;
+
+  r = do_tgz_in (directory);
+  if (r == -1)
+    /* do_tgz_in has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_tgz_in_args, (char *) &args);
+}
+
+static void tgz_out_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_tgz_out_args args;
+  const char *directory;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_tgz_out_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "tgz_out");
+    return;
+  }
+  directory = args.directory;
+
+  r = do_tgz_out (directory);
+  if (r == -1)
+    /* do_tgz_out has already called reply_with_error */
+    goto done;
+
+  /* do_tgz_out has already sent a reply */
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_tgz_out_args, (char *) &args);
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -1867,6 +1963,18 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_CHECKSUM:
       checksum_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_TAR_IN:
+      tar_in_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_TAR_OUT:
+      tar_out_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_TGZ_IN:
+      tgz_in_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_TGZ_OUT:
+      tgz_out_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d", proc_nr);

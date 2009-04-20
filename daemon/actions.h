@@ -89,3 +89,7 @@ extern int do_blockdev_rereadpt (const char *device);
 extern int do_upload (const char *remotefilename);
 extern int do_download (const char *remotefilename);
 extern char *do_checksum (const char *csumtype, const char *path);
+extern int do_tar_in (const char *directory);
+extern int do_tar_out (const char *directory);
+extern int do_tgz_in (const char *directory);
+extern int do_tgz_out (const char *directory);

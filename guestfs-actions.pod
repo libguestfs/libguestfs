@@ -1115,6 +1115,58 @@ closing the handle.
 
 This function returns 0 on success or -1 on error.
 
+=head2 guestfs_tar_in
+
+ int guestfs_tar_in (guestfs_h *handle,
+		const char *tarfile,
+		const char *directory);
+
+This command uploads and unpacks local file C<tarfile> (an
+I<uncompressed> tar file) into C<directory>.
+
+To upload a compressed tarball, use C<guestfs_tgz_in>.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_tar_out
+
+ int guestfs_tar_out (guestfs_h *handle,
+		const char *directory,
+		const char *tarfile);
+
+This command packs the contents of C<directory> and downloads
+it to local file C<tarfile>.
+
+To download a compressed tarball, use C<guestfs_tgz_out>.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_tgz_in
+
+ int guestfs_tgz_in (guestfs_h *handle,
+		const char *tarball,
+		const char *directory);
+
+This command uploads and unpacks local file C<tarball> (a
+I<gzip compressed> tar file) into C<directory>.
+
+To upload an uncompressed tarball, use C<guestfs_tar_in>.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_tgz_out
+
+ int guestfs_tgz_out (guestfs_h *handle,
+		const char *directory,
+		const char *tarball);
+
+This command packs the contents of C<directory> and downloads
+it to local file C<tarball>.
+
+To download an uncompressed tarball, use C<guestfs_tar_out>.
+
+This function returns 0 on success or -1 on error.
+
 =head2 guestfs_touch
 
  int guestfs_touch (guestfs_h *handle,

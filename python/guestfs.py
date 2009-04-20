@@ -997,3 +997,35 @@ class GuestFS:
         """
         return libguestfsmod.checksum (self._o, csumtype, path)
 
+    def tar_in (self, tarfile, directory):
+        u"""This command uploads and unpacks local file "tarfile"
+        (an *uncompressed* tar file) into "directory".
+        
+        To upload a compressed tarball, use "g.tgz_in".
+        """
+        return libguestfsmod.tar_in (self._o, tarfile, directory)
+
+    def tar_out (self, directory, tarfile):
+        u"""This command packs the contents of "directory" and
+        downloads it to local file "tarfile".
+        
+        To download a compressed tarball, use "g.tgz_out".
+        """
+        return libguestfsmod.tar_out (self._o, directory, tarfile)
+
+    def tgz_in (self, tarball, directory):
+        u"""This command uploads and unpacks local file "tarball" (a
+        *gzip compressed* tar file) into "directory".
+        
+        To upload an uncompressed tarball, use "g.tar_in".
+        """
+        return libguestfsmod.tgz_in (self._o, tarball, directory)
+
+    def tgz_out (self, directory, tarball):
+        u"""This command packs the contents of "directory" and
+        downloads it to local file "tarball".
+        
+        To download an uncompressed tarball, use "g.tar_out".
+        """
+        return libguestfsmod.tgz_out (self._o, directory, tarball)
+

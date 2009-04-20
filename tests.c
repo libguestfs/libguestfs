@@ -101,6 +101,138 @@ static void no_test_warnings (void)
   fprintf (stderr, "warning: \"guestfs_command_lines\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_tune2fs_l\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_blockdev_setbsz\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_tar_out\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_tgz_out\" has no tests\n");
+}
+
+static int test_tgz_in_0 (void)
+{
+  /* InitBasicFS for tgz_in (0): create ext2 on /dev/sda1 */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *lines[] = {
+      ",",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for tgz_in (0) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_tgz_in (g, "images/helloworld.tar.gz", "/");
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *r;
+    suppress_error = 0;
+    r = guestfs_cat (g, "/hello");
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, "hello\n") != 0) {
+      fprintf (stderr, "test_tgz_in_0: expected \"hello\n\" but got \"%s\"\n", r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
+static int test_tar_in_0 (void)
+{
+  /* InitBasicFS for tar_in (0): create ext2 on /dev/sda1 */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *lines[] = {
+      ",",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for tar_in (0) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_tar_in (g, "images/helloworld.tar", "/");
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *r;
+    suppress_error = 0;
+    r = guestfs_cat (g, "/hello");
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, "hello\n") != 0) {
+      fprintf (stderr, "test_tar_in_0: expected \"hello\n\" but got \"%s\"\n", r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
 }
 
 static int test_checksum_0 (void)
@@ -5048,8 +5180,8 @@ int main (int argc, char *argv[])
   char c = 0;
   int failed = 0;
   const char *srcdir;
+  const char *filename;
   int fd;
-  char buf[256];
   int nr_tests, test_num = 0;
 
   no_test_warnings ();
@@ -5064,89 +5196,90 @@ int main (int argc, char *argv[])
 
   srcdir = getenv ("srcdir");
   if (!srcdir) srcdir = ".";
-  guestfs_set_path (g, srcdir);
+  chdir (srcdir);
+  guestfs_set_path (g, ".");
 
-  snprintf (buf, sizeof buf, "%s/test1.img", srcdir);
-  fd = open (buf, O_WRONLY|O_CREAT|O_NOCTTY|O_NONBLOCK|O_TRUNC, 0666);
+  filename = "test1.img";
+  fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_NONBLOCK|O_TRUNC, 0666);
   if (fd == -1) {
-    perror (buf);
+    perror (filename);
     exit (1);
   }
   if (lseek (fd, 524288000, SEEK_SET) == -1) {
     perror ("lseek");
     close (fd);
-    unlink (buf);
+    unlink (filename);
     exit (1);
   }
   if (write (fd, &c, 1) == -1) {
     perror ("write");
     close (fd);
-    unlink (buf);
+    unlink (filename);
     exit (1);
   }
   if (close (fd) == -1) {
-    perror (buf);
-    unlink (buf);
+    perror (filename);
+    unlink (filename);
     exit (1);
   }
-  if (guestfs_add_drive (g, buf) == -1) {
-    printf ("guestfs_add_drive %s FAILED\n", buf);
+  if (guestfs_add_drive (g, filename) == -1) {
+    printf ("guestfs_add_drive %s FAILED\n", filename);
     exit (1);
   }
 
-  snprintf (buf, sizeof buf, "%s/test2.img", srcdir);
-  fd = open (buf, O_WRONLY|O_CREAT|O_NOCTTY|O_NONBLOCK|O_TRUNC, 0666);
+  filename = "test2.img";
+  fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_NONBLOCK|O_TRUNC, 0666);
   if (fd == -1) {
-    perror (buf);
+    perror (filename);
     exit (1);
   }
   if (lseek (fd, 52428800, SEEK_SET) == -1) {
     perror ("lseek");
     close (fd);
-    unlink (buf);
+    unlink (filename);
     exit (1);
   }
   if (write (fd, &c, 1) == -1) {
     perror ("write");
     close (fd);
-    unlink (buf);
+    unlink (filename);
     exit (1);
   }
   if (close (fd) == -1) {
-    perror (buf);
-    unlink (buf);
+    perror (filename);
+    unlink (filename);
     exit (1);
   }
-  if (guestfs_add_drive (g, buf) == -1) {
-    printf ("guestfs_add_drive %s FAILED\n", buf);
+  if (guestfs_add_drive (g, filename) == -1) {
+    printf ("guestfs_add_drive %s FAILED\n", filename);
     exit (1);
   }
 
-  snprintf (buf, sizeof buf, "%s/test3.img", srcdir);
-  fd = open (buf, O_WRONLY|O_CREAT|O_NOCTTY|O_NONBLOCK|O_TRUNC, 0666);
+  filename = "test3.img";
+  fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_NONBLOCK|O_TRUNC, 0666);
   if (fd == -1) {
-    perror (buf);
+    perror (filename);
     exit (1);
   }
   if (lseek (fd, 10485760, SEEK_SET) == -1) {
     perror ("lseek");
     close (fd);
-    unlink (buf);
+    unlink (filename);
     exit (1);
   }
   if (write (fd, &c, 1) == -1) {
     perror ("write");
     close (fd);
-    unlink (buf);
+    unlink (filename);
     exit (1);
   }
   if (close (fd) == -1) {
-    perror (buf);
-    unlink (buf);
+    perror (filename);
+    unlink (filename);
     exit (1);
   }
-  if (guestfs_add_drive (g, buf) == -1) {
-    printf ("guestfs_add_drive %s FAILED\n", buf);
+  if (guestfs_add_drive (g, filename) == -1) {
+    printf ("guestfs_add_drive %s FAILED\n", filename);
     exit (1);
   }
 
@@ -5159,8 +5292,20 @@ int main (int argc, char *argv[])
     exit (1);
   }
 
-  nr_tests = 73;
+  nr_tests = 75;
 
+  test_num++;
+  printf ("%3d/%3d test_tgz_in_0\n", test_num, nr_tests);
+  if (test_tgz_in_0 () == -1) {
+    printf ("test_tgz_in_0 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_tar_in_0\n", test_num, nr_tests);
+  if (test_tar_in_0 () == -1) {
+    printf ("test_tar_in_0 FAILED\n");
+    failed++;
+  }
   test_num++;
   printf ("%3d/%3d test_checksum_0\n", test_num, nr_tests);
   if (test_checksum_0 () == -1) {
@@ -5601,12 +5746,9 @@ int main (int argc, char *argv[])
   }
 
   guestfs_close (g);
-  snprintf (buf, sizeof buf, "%s/test1.img", srcdir);
-  unlink (buf);
-  snprintf (buf, sizeof buf, "%s/test2.img", srcdir);
-  unlink (buf);
-  snprintf (buf, sizeof buf, "%s/test3.img", srcdir);
-  unlink (buf);
+  unlink ("test1.img");
+  unlink ("test2.img");
+  unlink ("test3.img");
 
   if (failed > 0) {
     printf ("***** %d / %d tests FAILED *****\n", failed, nr_tests);

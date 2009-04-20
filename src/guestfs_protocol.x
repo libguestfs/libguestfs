@@ -492,6 +492,22 @@ struct guestfs_checksum_ret {
   string checksum<>;
 };
 
+struct guestfs_tar_in_args {
+  string directory<>;
+};
+
+struct guestfs_tar_out_args {
+  string directory<>;
+};
+
+struct guestfs_tgz_in_args {
+  string directory<>;
+};
+
+struct guestfs_tgz_out_args {
+  string directory<>;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -561,6 +577,10 @@ enum guestfs_procedure {
   GUESTFS_PROC_UPLOAD = 66,
   GUESTFS_PROC_DOWNLOAD = 67,
   GUESTFS_PROC_CHECKSUM = 68,
+  GUESTFS_PROC_TAR_IN = 69,
+  GUESTFS_PROC_TAR_OUT = 70,
+  GUESTFS_PROC_TGZ_IN = 71,
+  GUESTFS_PROC_TGZ_OUT = 72,
   GUESTFS_PROC_NR_PROCS
 };
 

@@ -385,3 +385,15 @@ val download : t -> string -> string -> unit
 val checksum : t -> string -> string -> string
 (** compute MD5, SHAx or CRC checksum of file *)
 
+val tar_in : t -> string -> string -> unit
+(** unpack tarfile to directory *)
+
+val tar_out : t -> string -> string -> unit
+(** pack directory into tarfile *)
+
+val tgz_in : t -> string -> string -> unit
+(** unpack compressed tarball to directory *)
+
+val tgz_out : t -> string -> string -> unit
+(** pack directory into compressed tarball *)
+

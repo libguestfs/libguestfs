@@ -44,6 +44,8 @@ images/
 	Some guest images to test against.  These are gzipped to save
 	space.  You have to unzip them before use.
 
+	Also contains some files used by the test suite.
+
 m4/
 	M4 macros used by autoconf.
 

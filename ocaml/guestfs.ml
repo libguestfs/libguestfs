@@ -202,3 +202,7 @@ external blockdev_rereadpt : t -> string -> unit = "ocaml_guestfs_blockdev_rerea
 external upload : t -> string -> string -> unit = "ocaml_guestfs_upload"
 external download : t -> string -> string -> unit = "ocaml_guestfs_download"
 external checksum : t -> string -> string -> string = "ocaml_guestfs_checksum"
+external tar_in : t -> string -> string -> unit = "ocaml_guestfs_tar_in"
+external tar_out : t -> string -> string -> unit = "ocaml_guestfs_tar_out"
+external tgz_in : t -> string -> string -> unit = "ocaml_guestfs_tgz_in"
+external tgz_out : t -> string -> string -> unit = "ocaml_guestfs_tgz_out"

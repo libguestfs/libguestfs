@@ -1229,6 +1229,46 @@ xdr_guestfs_checksum_ret (XDR *xdrs, guestfs_checksum_ret *objp)
 }
 
 bool_t
+xdr_guestfs_tar_in_args (XDR *xdrs, guestfs_tar_in_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->directory, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_tar_out_args (XDR *xdrs, guestfs_tar_out_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->directory, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_tgz_in_args (XDR *xdrs, guestfs_tgz_in_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->directory, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_tgz_out_args (XDR *xdrs, guestfs_tgz_out_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->directory, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
 xdr_guestfs_procedure (XDR *xdrs, guestfs_procedure *objp)
 {
 	register int32_t *buf;

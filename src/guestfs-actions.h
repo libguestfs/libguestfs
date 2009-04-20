@@ -106,3 +106,7 @@ extern int guestfs_blockdev_rereadpt (guestfs_h *handle, const char *device);
 extern int guestfs_upload (guestfs_h *handle, const char *filename, const char *remotefilename);
 extern int guestfs_download (guestfs_h *handle, const char *remotefilename, const char *filename);
 extern char *guestfs_checksum (guestfs_h *handle, const char *csumtype, const char *path);
+extern int guestfs_tar_in (guestfs_h *handle, const char *tarfile, const char *directory);
+extern int guestfs_tar_out (guestfs_h *handle, const char *directory, const char *tarfile);
+extern int guestfs_tgz_in (guestfs_h *handle, const char *tarball, const char *directory);
+extern int guestfs_tgz_out (guestfs_h *handle, const char *directory, const char *tarball);

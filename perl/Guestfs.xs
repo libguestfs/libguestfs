@@ -1357,3 +1357,51 @@ PREINIT:
  OUTPUT:
       RETVAL
 
+void
+tar_in (g, tarfile, directory)
+      guestfs_h *g;
+      char *tarfile;
+      char *directory;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_tar_in (g, tarfile, directory);
+      if (r == -1)
+        croak ("tar_in: %s", guestfs_last_error (g));
+
+void
+tar_out (g, directory, tarfile)
+      guestfs_h *g;
+      char *directory;
+      char *tarfile;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_tar_out (g, directory, tarfile);
+      if (r == -1)
+        croak ("tar_out: %s", guestfs_last_error (g));
+
+void
+tgz_in (g, tarball, directory)
+      guestfs_h *g;
+      char *tarball;
+      char *directory;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_tgz_in (g, tarball, directory);
+      if (r == -1)
+        croak ("tgz_in: %s", guestfs_last_error (g));
+
+void
+tgz_out (g, directory, tarball)
+      guestfs_h *g;
+      char *directory;
+      char *tarball;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_tgz_out (g, directory, tarball);
+      if (r == -1)
+        croak ("tgz_out: %s", guestfs_last_error (g));
+

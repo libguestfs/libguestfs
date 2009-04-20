@@ -2392,3 +2392,99 @@ ocaml_guestfs_checksum (value gv, value csumtypev, value pathv)
   CAMLreturn (rv);
 }
 
+CAMLprim value
+ocaml_guestfs_tar_in (value gv, value tarfilev, value directoryv)
+{
+  CAMLparam3 (gv, tarfilev, directoryv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("tar_in: used handle after closing it");
+
+  const char *tarfile = String_val (tarfilev);
+  const char *directory = String_val (directoryv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_tar_in (g, tarfile, directory);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "tar_in");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_tar_out (value gv, value directoryv, value tarfilev)
+{
+  CAMLparam3 (gv, directoryv, tarfilev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("tar_out: used handle after closing it");
+
+  const char *directory = String_val (directoryv);
+  const char *tarfile = String_val (tarfilev);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_tar_out (g, directory, tarfile);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "tar_out");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_tgz_in (value gv, value tarballv, value directoryv)
+{
+  CAMLparam3 (gv, tarballv, directoryv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("tgz_in: used handle after closing it");
+
+  const char *tarball = String_val (tarballv);
+  const char *directory = String_val (directoryv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_tgz_in (g, tarball, directory);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "tgz_in");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_tgz_out (value gv, value directoryv, value tarballv)
+{
+  CAMLparam3 (gv, directoryv, tarballv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("tgz_out: used handle after closing it");
+
+  const char *directory = String_val (directoryv);
+  const char *tarball = String_val (tarballv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_tgz_out (g, directory, tarball);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "tgz_out");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+

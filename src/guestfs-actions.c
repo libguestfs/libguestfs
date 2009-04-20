@@ -5777,3 +5777,363 @@ char *guestfs_checksum (guestfs_h *g,
   return ctx.ret.checksum; /* caller will free */
 }
 
+struct tar_in_ctx {
+  /* This flag is set by the callbacks, so we know we've done
+   * the callbacks as expected, and in the right sequence.
+   * 0 = not called, 1 = send called,
+   * 1001 = reply called.
+   */
+  int cb_sequence;
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+};
+
+static void tar_in_reply_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  struct tar_in_ctx *ctx = (struct tar_in_ctx *) data;
+
+  ml->main_loop_quit (ml, g);
+
+  if (!xdr_guestfs_message_header (xdr, &ctx->hdr)) {
+    error (g, "%s: failed to parse reply header", "guestfs_tar_in");
+    return;
+  }
+  if (ctx->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &ctx->err)) {
+      error (g, "%s: failed to parse reply error", "guestfs_tar_in");
+      return;
+    }
+    goto done;
+  }
+ done:
+  ctx->cb_sequence = 1001;
+}
+
+int guestfs_tar_in (guestfs_h *g,
+		const char *tarfile,
+		const char *directory)
+{
+  struct guestfs_tar_in_args args;
+  struct tar_in_ctx ctx;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  int serial;
+
+  if (check_state (g, "guestfs_tar_in") == -1) return -1;
+  guestfs_set_busy (g);
+
+  memset (&ctx, 0, sizeof ctx);
+
+  args.directory = (char *) directory;
+  serial = guestfs__send_sync (g, GUESTFS_PROC_TAR_IN,
+        (xdrproc_t) xdr_guestfs_tar_in_args, (char *) &args);
+  if (serial == -1) {
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  {
+    int r;
+
+    r = guestfs__send_file_sync (g, tarfile);
+    if (r == -1) {
+      guestfs_set_ready (g);
+      return -1;
+    }
+    if (r == -2) /* daemon cancelled */
+      goto read_reply;
+  }
+
+ read_reply:
+  guestfs__switch_to_receiving (g);
+  ctx.cb_sequence = 0;
+  guestfs_set_reply_callback (g, tar_in_reply_cb, &ctx);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (ctx.cb_sequence != 1001) {
+    error (g, "%s reply failed, see earlier error messages", "guestfs_tar_in");
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_TAR_IN, serial) == -1) {
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  guestfs_set_ready (g);
+  return 0;
+}
+
+struct tar_out_ctx {
+  /* This flag is set by the callbacks, so we know we've done
+   * the callbacks as expected, and in the right sequence.
+   * 0 = not called, 1 = send called,
+   * 1001 = reply called.
+   */
+  int cb_sequence;
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+};
+
+static void tar_out_reply_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  struct tar_out_ctx *ctx = (struct tar_out_ctx *) data;
+
+  ml->main_loop_quit (ml, g);
+
+  if (!xdr_guestfs_message_header (xdr, &ctx->hdr)) {
+    error (g, "%s: failed to parse reply header", "guestfs_tar_out");
+    return;
+  }
+  if (ctx->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &ctx->err)) {
+      error (g, "%s: failed to parse reply error", "guestfs_tar_out");
+      return;
+    }
+    goto done;
+  }
+ done:
+  ctx->cb_sequence = 1001;
+}
+
+int guestfs_tar_out (guestfs_h *g,
+		const char *directory,
+		const char *tarfile)
+{
+  struct guestfs_tar_out_args args;
+  struct tar_out_ctx ctx;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  int serial;
+
+  if (check_state (g, "guestfs_tar_out") == -1) return -1;
+  guestfs_set_busy (g);
+
+  memset (&ctx, 0, sizeof ctx);
+
+  args.directory = (char *) directory;
+  serial = guestfs__send_sync (g, GUESTFS_PROC_TAR_OUT,
+        (xdrproc_t) xdr_guestfs_tar_out_args, (char *) &args);
+  if (serial == -1) {
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  guestfs__switch_to_receiving (g);
+  ctx.cb_sequence = 0;
+  guestfs_set_reply_callback (g, tar_out_reply_cb, &ctx);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (ctx.cb_sequence != 1001) {
+    error (g, "%s reply failed, see earlier error messages", "guestfs_tar_out");
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_TAR_OUT, serial) == -1) {
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  if (guestfs__receive_file_sync (g, tarfile) == -1) {
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  guestfs_set_ready (g);
+  return 0;
+}
+
+struct tgz_in_ctx {
+  /* This flag is set by the callbacks, so we know we've done
+   * the callbacks as expected, and in the right sequence.
+   * 0 = not called, 1 = send called,
+   * 1001 = reply called.
+   */
+  int cb_sequence;
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+};
+
+static void tgz_in_reply_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  struct tgz_in_ctx *ctx = (struct tgz_in_ctx *) data;
+
+  ml->main_loop_quit (ml, g);
+
+  if (!xdr_guestfs_message_header (xdr, &ctx->hdr)) {
+    error (g, "%s: failed to parse reply header", "guestfs_tgz_in");
+    return;
+  }
+  if (ctx->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &ctx->err)) {
+      error (g, "%s: failed to parse reply error", "guestfs_tgz_in");
+      return;
+    }
+    goto done;
+  }
+ done:
+  ctx->cb_sequence = 1001;
+}
+
+int guestfs_tgz_in (guestfs_h *g,
+		const char *tarball,
+		const char *directory)
+{
+  struct guestfs_tgz_in_args args;
+  struct tgz_in_ctx ctx;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  int serial;
+
+  if (check_state (g, "guestfs_tgz_in") == -1) return -1;
+  guestfs_set_busy (g);
+
+  memset (&ctx, 0, sizeof ctx);
+
+  args.directory = (char *) directory;
+  serial = guestfs__send_sync (g, GUESTFS_PROC_TGZ_IN,
+        (xdrproc_t) xdr_guestfs_tgz_in_args, (char *) &args);
+  if (serial == -1) {
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  {
+    int r;
+
+    r = guestfs__send_file_sync (g, tarball);
+    if (r == -1) {
+      guestfs_set_ready (g);
+      return -1;
+    }
+    if (r == -2) /* daemon cancelled */
+      goto read_reply;
+  }
+
+ read_reply:
+  guestfs__switch_to_receiving (g);
+  ctx.cb_sequence = 0;
+  guestfs_set_reply_callback (g, tgz_in_reply_cb, &ctx);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (ctx.cb_sequence != 1001) {
+    error (g, "%s reply failed, see earlier error messages", "guestfs_tgz_in");
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_TGZ_IN, serial) == -1) {
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  guestfs_set_ready (g);
+  return 0;
+}
+
+struct tgz_out_ctx {
+  /* This flag is set by the callbacks, so we know we've done
+   * the callbacks as expected, and in the right sequence.
+   * 0 = not called, 1 = send called,
+   * 1001 = reply called.
+   */
+  int cb_sequence;
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+};
+
+static void tgz_out_reply_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  struct tgz_out_ctx *ctx = (struct tgz_out_ctx *) data;
+
+  ml->main_loop_quit (ml, g);
+
+  if (!xdr_guestfs_message_header (xdr, &ctx->hdr)) {
+    error (g, "%s: failed to parse reply header", "guestfs_tgz_out");
+    return;
+  }
+  if (ctx->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &ctx->err)) {
+      error (g, "%s: failed to parse reply error", "guestfs_tgz_out");
+      return;
+    }
+    goto done;
+  }
+ done:
+  ctx->cb_sequence = 1001;
+}
+
+int guestfs_tgz_out (guestfs_h *g,
+		const char *directory,
+		const char *tarball)
+{
+  struct guestfs_tgz_out_args args;
+  struct tgz_out_ctx ctx;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  int serial;
+
+  if (check_state (g, "guestfs_tgz_out") == -1) return -1;
+  guestfs_set_busy (g);
+
+  memset (&ctx, 0, sizeof ctx);
+
+  args.directory = (char *) directory;
+  serial = guestfs__send_sync (g, GUESTFS_PROC_TGZ_OUT,
+        (xdrproc_t) xdr_guestfs_tgz_out_args, (char *) &args);
+  if (serial == -1) {
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  guestfs__switch_to_receiving (g);
+  ctx.cb_sequence = 0;
+  guestfs_set_reply_callback (g, tgz_out_reply_cb, &ctx);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (ctx.cb_sequence != 1001) {
+    error (g, "%s reply failed, see earlier error messages", "guestfs_tgz_out");
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_TGZ_OUT, serial) == -1) {
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  if (guestfs__receive_file_sync (g, tarball) == -1) {
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  guestfs_set_ready (g);
+  return 0;
+}
+

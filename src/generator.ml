@@ -1369,6 +1369,46 @@ Compute the SHA512 hash (using the C<sha512sum> program).
 
 The checksum is returned as a printable string.");
 
+  ("tar_in", (RErr, [FileIn "tarfile"; String "directory"]), 69, [],
+   [InitBasicFS, TestOutput (
+      [["tar_in"; "images/helloworld.tar"; "/"];
+       ["cat"; "/hello"]], "hello\n")],
+   "unpack tarfile to directory",
+   "\
+This command uploads and unpacks local file C<tarfile> (an
+I<uncompressed> tar file) into C<directory>.
+
+To upload a compressed tarball, use C<guestfs_tgz_in>.");
+
+  ("tar_out", (RErr, [String "directory"; FileOut "tarfile"]), 70, [],
+   [],
+   "pack directory into tarfile",
+   "\
+This command packs the contents of C<directory> and downloads
+it to local file C<tarfile>.
+
+To download a compressed tarball, use C<guestfs_tgz_out>.");
+
+  ("tgz_in", (RErr, [FileIn "tarball"; String "directory"]), 71, [],
+   [InitBasicFS, TestOutput (
+      [["tgz_in"; "images/helloworld.tar.gz"; "/"];
+       ["cat"; "/hello"]], "hello\n")],
+   "unpack compressed tarball to directory",
+   "\
+This command uploads and unpacks local file C<tarball> (a
+I<gzip compressed> tar file) into C<directory>.
+
+To upload an uncompressed tarball, use C<guestfs_tar_in>.");
+
+  ("tgz_out", (RErr, [String "directory"; FileOut "tarball"]), 72, [],
+   [],
+   "pack directory into compressed tarball",
+   "\
+This command packs the contents of C<directory> and downloads
+it to local file C<tarball>.
+
+To download an uncompressed tarball, use C<guestfs_tar_out>.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
@@ -2856,8 +2896,8 @@ int main (int argc, char *argv[])
   char c = 0;
   int failed = 0;
   const char *srcdir;
+  const char *filename;
   int fd;
-  char buf[256];
   int nr_tests, test_num = 0;
 
   no_test_warnings ();
@@ -2872,89 +2912,90 @@ int main (int argc, char *argv[])
 
   srcdir = getenv (\"srcdir\");
   if (!srcdir) srcdir = \".\";
-  guestfs_set_path (g, srcdir);
+  chdir (srcdir);
+  guestfs_set_path (g, \".\");
 
-  snprintf (buf, sizeof buf, \"%%s/test1.img\", srcdir);
-  fd = open (buf, O_WRONLY|O_CREAT|O_NOCTTY|O_NONBLOCK|O_TRUNC, 0666);
+  filename = \"test1.img\";
+  fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_NONBLOCK|O_TRUNC, 0666);
   if (fd == -1) {
-    perror (buf);
+    perror (filename);
     exit (1);
   }
   if (lseek (fd, %d, SEEK_SET) == -1) {
     perror (\"lseek\");
     close (fd);
-    unlink (buf);
+    unlink (filename);
     exit (1);
   }
   if (write (fd, &c, 1) == -1) {
     perror (\"write\");
     close (fd);
-    unlink (buf);
+    unlink (filename);
     exit (1);
   }
   if (close (fd) == -1) {
-    perror (buf);
-    unlink (buf);
+    perror (filename);
+    unlink (filename);
     exit (1);
   }
-  if (guestfs_add_drive (g, buf) == -1) {
-    printf (\"guestfs_add_drive %%s FAILED\\n\", buf);
+  if (guestfs_add_drive (g, filename) == -1) {
+    printf (\"guestfs_add_drive %%s FAILED\\n\", filename);
     exit (1);
   }
 
-  snprintf (buf, sizeof buf, \"%%s/test2.img\", srcdir);
-  fd = open (buf, O_WRONLY|O_CREAT|O_NOCTTY|O_NONBLOCK|O_TRUNC, 0666);
+  filename = \"test2.img\";
+  fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_NONBLOCK|O_TRUNC, 0666);
   if (fd == -1) {
-    perror (buf);
+    perror (filename);
     exit (1);
   }
   if (lseek (fd, %d, SEEK_SET) == -1) {
     perror (\"lseek\");
     close (fd);
-    unlink (buf);
+    unlink (filename);
     exit (1);
   }
   if (write (fd, &c, 1) == -1) {
     perror (\"write\");
     close (fd);
-    unlink (buf);
+    unlink (filename);
     exit (1);
   }
   if (close (fd) == -1) {
-    perror (buf);
-    unlink (buf);
+    perror (filename);
+    unlink (filename);
     exit (1);
   }
-  if (guestfs_add_drive (g, buf) == -1) {
-    printf (\"guestfs_add_drive %%s FAILED\\n\", buf);
+  if (guestfs_add_drive (g, filename) == -1) {
+    printf (\"guestfs_add_drive %%s FAILED\\n\", filename);
     exit (1);
   }
 
-  snprintf (buf, sizeof buf, \"%%s/test3.img\", srcdir);
-  fd = open (buf, O_WRONLY|O_CREAT|O_NOCTTY|O_NONBLOCK|O_TRUNC, 0666);
+  filename = \"test3.img\";
+  fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_NONBLOCK|O_TRUNC, 0666);
   if (fd == -1) {
-    perror (buf);
+    perror (filename);
     exit (1);
   }
   if (lseek (fd, %d, SEEK_SET) == -1) {
     perror (\"lseek\");
     close (fd);
-    unlink (buf);
+    unlink (filename);
     exit (1);
   }
   if (write (fd, &c, 1) == -1) {
     perror (\"write\");
     close (fd);
-    unlink (buf);
+    unlink (filename);
     exit (1);
   }
   if (close (fd) == -1) {
-    perror (buf);
-    unlink (buf);
+    perror (filename);
+    unlink (filename);
     exit (1);
   }
-  if (guestfs_add_drive (g, buf) == -1) {
-    printf (\"guestfs_add_drive %%s FAILED\\n\", buf);
+  if (guestfs_add_drive (g, filename) == -1) {
+    printf (\"guestfs_add_drive %%s FAILED\\n\", filename);
     exit (1);
   }
 
@@ -2983,12 +3024,9 @@ int main (int argc, char *argv[])
   pr "\n";
 
   pr "  guestfs_close (g);\n";
-  pr "  snprintf (buf, sizeof buf, \"%%s/test1.img\", srcdir);\n";
-  pr "  unlink (buf);\n";
-  pr "  snprintf (buf, sizeof buf, \"%%s/test2.img\", srcdir);\n";
-  pr "  unlink (buf);\n";
-  pr "  snprintf (buf, sizeof buf, \"%%s/test3.img\", srcdir);\n";
-  pr "  unlink (buf);\n";
+  pr "  unlink (\"test1.img\");\n";
+  pr "  unlink (\"test2.img\");\n";
+  pr "  unlink (\"test3.img\");\n";
   pr "\n";
 
   pr "  if (failed > 0) {\n";

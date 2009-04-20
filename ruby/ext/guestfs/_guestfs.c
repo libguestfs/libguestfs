@@ -2093,6 +2093,106 @@ static VALUE ruby_guestfs_checksum (VALUE gv, VALUE csumtypev, VALUE pathv)
   return rv;
 }
 
+static VALUE ruby_guestfs_tar_in (VALUE gv, VALUE tarfilev, VALUE directoryv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "tar_in");
+
+  const char *tarfile = StringValueCStr (tarfilev);
+  if (!tarfile)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "tarfile", "tar_in");
+  const char *directory = StringValueCStr (directoryv);
+  if (!directory)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "directory", "tar_in");
+
+  int r;
+
+  r = guestfs_tar_in (g, tarfile, directory);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
+static VALUE ruby_guestfs_tar_out (VALUE gv, VALUE directoryv, VALUE tarfilev)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "tar_out");
+
+  const char *directory = StringValueCStr (directoryv);
+  if (!directory)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "directory", "tar_out");
+  const char *tarfile = StringValueCStr (tarfilev);
+  if (!tarfile)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "tarfile", "tar_out");
+
+  int r;
+
+  r = guestfs_tar_out (g, directory, tarfile);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
+static VALUE ruby_guestfs_tgz_in (VALUE gv, VALUE tarballv, VALUE directoryv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "tgz_in");
+
+  const char *tarball = StringValueCStr (tarballv);
+  if (!tarball)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "tarball", "tgz_in");
+  const char *directory = StringValueCStr (directoryv);
+  if (!directory)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "directory", "tgz_in");
+
+  int r;
+
+  r = guestfs_tgz_in (g, tarball, directory);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
+static VALUE ruby_guestfs_tgz_out (VALUE gv, VALUE directoryv, VALUE tarballv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "tgz_out");
+
+  const char *directory = StringValueCStr (directoryv);
+  if (!directory)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "directory", "tgz_out");
+  const char *tarball = StringValueCStr (tarballv);
+  if (!tarball)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "tarball", "tgz_out");
+
+  int r;
+
+  r = guestfs_tgz_out (g, directory, tarball);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
 /* Initialize the module. */
 void Init__guestfs ()
 {
@@ -2277,4 +2377,12 @@ void Init__guestfs ()
         ruby_guestfs_download, 2);
   rb_define_method (c_guestfs, "checksum",
         ruby_guestfs_checksum, 2);
+  rb_define_method (c_guestfs, "tar_in",
+        ruby_guestfs_tar_in, 2);
+  rb_define_method (c_guestfs, "tar_out",
+        ruby_guestfs_tar_out, 2);
+  rb_define_method (c_guestfs, "tgz_in",
+        ruby_guestfs_tgz_in, 2);
+  rb_define_method (c_guestfs, "tgz_out",
+        ruby_guestfs_tgz_out, 2);
 }
