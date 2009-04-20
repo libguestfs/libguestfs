@@ -44,6 +44,8 @@ extern int command (char **stdoutput, char **stderror, const char *name, ...);
 extern int commandv (char **stdoutput, char **stderror,
 		     char * const* const argv);
 
+extern int shell_quote (char *out, int len, const char *in);
+
 extern int verbose;
 
 /*-- in proto.c --*/
@@ -90,7 +92,9 @@ extern void send_file_end (int cancel);
 /* only call this if there is a FileOut parameter */
 extern void reply (xdrproc_t xdrp, char *ret);
 
-/* Helper for functions that need a root filesystem mounted. */
+/* Helper for functions that need a root filesystem mounted.
+ * NB. Cannot be used for FileIn functions.
+ */
 #define NEED_ROOT(errcode)						\
   do {									\
     if (!root_mounted) {						\
@@ -100,7 +104,9 @@ extern void reply (xdrproc_t xdrp, char *ret);
   }									\
   while (0)
 
-/* Helper for functions that need an argument ("path") that is absolute. */
+/* Helper for functions that need an argument ("path") that is absolute.
+ * NB. Cannot be used for FileIn functions.
+ */
 #define ABS_PATH(path,errcode)						\
   do {									\
     if ((path)[0] != '/') {						\
@@ -109,7 +115,9 @@ extern void reply (xdrproc_t xdrp, char *ret);
     }									\
   } while (0)
 
-/* Helper for functions that need an argument ("path") that is a device. */
+/* Helper for functions that need an argument ("path") that is a device.
+ * NB. Cannot be used for FileIn functions.
+ */
 #define IS_DEVICE(path,errcode)						\
   do {									\
     struct stat statbuf;						\
@@ -125,6 +133,7 @@ extern void reply (xdrproc_t xdrp, char *ret);
 
 /* Helper for functions which need either an absolute path in the
  * mounted filesystem, OR a /dev/ device which exists.
+ * NB. Cannot be used for FileIn functions.
  */
 #define NEED_ROOT_OR_IS_DEVICE(path,errcode) \
   do {									\
@@ -147,7 +156,9 @@ extern void reply (xdrproc_t xdrp, char *ret);
 #define CHROOT_OUT \
   do { int old_errno = errno; chroot ("."); errno = old_errno; } while (0)
 
-/* Marks functions which are not implemented. */
+/* Marks functions which are not implemented.
+ * NB. Cannot be used for FileIn functions.
+ */
 #define XXX_NOT_IMPL(errcode)						\
   do {									\
     reply_with_error ("%s: function not implemented", __func__);	\

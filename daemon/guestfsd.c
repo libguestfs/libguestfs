@@ -32,6 +32,8 @@
 #include <sys/select.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <ctype.h>
+#include <signal.h>
 
 #include "daemon.h"
 
@@ -66,6 +68,7 @@ main (int argc, char *argv[])
   struct addrinfo hints;
   XDR xdr;
   uint32_t len;
+  struct sigaction sa;
 
   for (;;) {
     c = getopt_long (argc, argv, options, long_options, NULL);
@@ -139,6 +142,13 @@ main (int argc, char *argv[])
     host = VMCHANNEL_ADDR;
     port = VMCHANNEL_PORT;
   }
+
+  /* Make sure SIGPIPE doesn't kill us. */
+  memset (&sa, 0, sizeof sa);
+  sa.sa_handler = SIG_IGN;
+  sa.sa_flags = 0;
+  if (sigaction (SIGPIPE, &sa, NULL) == -1)
+    perror ("sigaction SIGPIPE"); /* but try to continue anyway ... */
 
   /* Resolve the hostname. */
   memset (&hints, 0, sizeof hints);
@@ -509,4 +519,41 @@ commandv (char **stdoutput, char **stderror, char * const* const argv)
       return -1;
   } else
     return -1;
+}
+
+/* Quote 'in' for the shell, and write max len-1 bytes to out.  The
+ * result will be NUL-terminated, even if it is truncated.
+ *
+ * Returns number of bytes needed, so if result >= len then the buffer
+ * should have been longer.
+ *
+ * XXX This doesn't quote \n correctly (but is still safe).
+ */
+int
+shell_quote (char *out, int len, const char *in)
+{
+#define SAFE(c) (isalnum((c)) ||					\
+		 (c) == '/' || (c) == '-' || (c) == '_' || (c) == '.')
+  int i, j;
+  int outlen = strlen (in);
+
+  /* Calculate how much output space this really needs. */
+  for (i = 0; in[i]; ++i)
+    if (!SAFE (in[i])) outlen++;
+
+  /* Now copy the string, but only up to len-1 bytes. */
+  for (i = 0, j = 0; in[i]; ++i) {
+    int is_safe = SAFE (in[i]);
+
+    /* Enough space left to write this character? */
+    if (j >= len-1 || (!is_safe && j >= len-2))
+      break;
+
+    if (!is_safe) out[j++] = '\\';
+    out[j++] = in[i];
+  }
+
+  out[j] = '\0';
+
+  return outlen;
 }
