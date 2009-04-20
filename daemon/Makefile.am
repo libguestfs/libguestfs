@@ -22,6 +22,7 @@ guestfsd_SOURCES = \
 	actions.h \
 	augeas.c \
 	blockdev.c \
+	checksum.c \
 	command.c \
 	daemon.h \
 	devsparts.c \

@@ -1294,6 +1294,73 @@ C<filename> can also be a named pipe.
 
 See also C<guestfs_upload>, C<guestfs_cat>.");
 
+  ("checksum", (RString "checksum", [String "csumtype"; String "path"]), 68, [],
+   [InitBasicFS, TestOutput (
+      [["write_file"; "/new"; "test\n"; "0"];
+       ["checksum"; "crc"; "/new"]], "935282863");
+    InitBasicFS, TestLastFail (
+      [["checksum"; "crc"; "/new"]]);
+    InitBasicFS, TestOutput (
+      [["write_file"; "/new"; "test\n"; "0"];
+       ["checksum"; "md5"; "/new"]], "d8e8fca2dc0f896fd7cb4cb0031ba249");
+    InitBasicFS, TestOutput (
+      [["write_file"; "/new"; "test\n"; "0"];
+       ["checksum"; "sha1"; "/new"]], "4e1243bd22c66e76c2ba9eddc1f91394e57f9f83");
+    InitBasicFS, TestOutput (
+      [["write_file"; "/new"; "test\n"; "0"];
+       ["checksum"; "sha224"; "/new"]], "52f1bf093f4b7588726035c176c0cdb4376cfea53819f1395ac9e6ec");
+    InitBasicFS, TestOutput (
+      [["write_file"; "/new"; "test\n"; "0"];
+       ["checksum"; "sha256"; "/new"]], "f2ca1bb6c7e907d06dafe4687e579fce76b37e4e93b7605022da52e6ccc26fd2");
+    InitBasicFS, TestOutput (
+      [["write_file"; "/new"; "test\n"; "0"];
+       ["checksum"; "sha384"; "/new"]], "109bb6b5b6d5547c1ce03c7a8bd7d8f80c1cb0957f50c4f7fda04692079917e4f9cad52b878f3d8234e1a170b154b72d");
+    InitBasicFS, TestOutput (
+      [["write_file"; "/new"; "test\n"; "0"];
+       ["checksum"; "sha512"; "/new"]], "0e3e75234abc68f4378a86b3f4b32a198ba301845b0cd6e50106e874345700cc6663a86c1ea125dc5e92be17c98f9a0f85ca9d5f595db2012f7cc3571945c123")],
+   "compute MD5, SHAx or CRC checksum of file",
+   "\
+This call computes the MD5, SHAx or CRC checksum of the
+file named C<path>.
+
+The type of checksum to compute is given by the C<csumtype>
+parameter which must have one of the following values:
+
+=over 4
+
+=item C<crc>
+
+Compute the cyclic redundancy check (CRC) specified by POSIX
+for the C<cksum> command.
+
+=item C<md5>
+
+Compute the MD5 hash (using the C<md5sum> program).
+
+=item C<sha1>
+
+Compute the SHA1 hash (using the C<sha1sum> program).
+
+=item C<sha224>
+
+Compute the SHA224 hash (using the C<sha224sum> program).
+
+=item C<sha256>
+
+Compute the SHA256 hash (using the C<sha256sum> program).
+
+=item C<sha384>
+
+Compute the SHA384 hash (using the C<sha384sum> program).
+
+=item C<sha512>
+
+Compute the SHA512 hash (using the C<sha512sum> program).
+
+=back
+
+The checksum is returned as a printable string.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
