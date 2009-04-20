@@ -40,9 +40,14 @@ do_upload (const char *filename)
 {
   int err, fd, r, is_dev;
 
-  NEED_ROOT_OR_IS_DEVICE (filename, -1);
-
   is_dev = strncmp (filename, "/dev/", 5) == 0;
+  if (!is_dev) {
+    if (!root_mounted || filename[0] != '/') {
+      cancel_receive ();
+      reply_with_error ("upload: root must be mounted and path must be absolute");
+      return -1;
+    }
+  }
 
   if (!is_dev) CHROOT_IN;
   fd = open (filename, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY, 0666);
@@ -61,6 +66,7 @@ do_upload (const char *filename)
     cancel_receive ();
     errno = err;
     reply_with_perror ("write: %s", filename);
+    close (fd);
     return -1;
   }
   if (r == -2) {		/* cancellation from library */
@@ -106,13 +112,16 @@ do_download (const char *filename)
   reply (NULL, NULL);
 
   while ((r = read (fd, buf, sizeof buf)) > 0) {
-    if (send_file_write (buf, r) < 0)
+    if (send_file_write (buf, r) < 0) {
+      close (fd);
       return -1;
+    }
   }
 
   if (r == -1) {
     perror (filename);
     send_file_end (1);		/* Cancel. */
+    close (fd);
     return -1;
   }
 
