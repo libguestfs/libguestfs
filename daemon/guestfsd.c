@@ -384,6 +384,10 @@ commandv (char **stdoutput, char **stderror, char * const* const argv)
   pid = fork ();
   if (pid == -1) {
     perror ("fork");
+    close (so_fd[0]);
+    close (so_fd[1]);
+    close (se_fd[0]);
+    close (se_fd[1]);
     return -1;
   }
 
@@ -415,6 +419,8 @@ commandv (char **stdoutput, char **stderror, char * const* const argv)
     r = select (MAX (so_fd[0], se_fd[0]) + 1, &rset2, NULL, NULL, NULL);
     if (r == -1) {
       perror ("select");
+      close (so_fd[0]);
+      close (se_fd[0]);
       waitpid (pid, NULL, 0);
       return -1;
     }
@@ -423,6 +429,8 @@ commandv (char **stdoutput, char **stderror, char * const* const argv)
       r = read (so_fd[0], buf, sizeof buf);
       if (r == -1) {
 	perror ("read");
+	close (so_fd[0]);
+	close (se_fd[0]);
 	waitpid (pid, NULL, 0);
 	return -1;
       }
@@ -444,6 +452,8 @@ commandv (char **stdoutput, char **stderror, char * const* const argv)
       r = read (se_fd[0], buf, sizeof buf);
       if (r == -1) {
 	perror ("read");
+	close (so_fd[0]);
+	close (se_fd[0]);
 	waitpid (pid, NULL, 0);
 	return -1;
       }
@@ -461,6 +471,9 @@ commandv (char **stdoutput, char **stderror, char * const* const argv)
       }
     }
   }
+
+  close (so_fd[0]);
+  close (se_fd[0]);
 
   /* Make sure the output buffers are \0-terminated.  Also remove any
    * trailing \n characters from the error buffer (not from stdout).

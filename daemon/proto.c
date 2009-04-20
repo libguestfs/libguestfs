@@ -51,6 +51,14 @@ main_loop (int _sock)
   sock = _sock;
 
   for (;;) {
+#if 0
+    /* Most common errors are leaked memory and leaked file descriptors,
+     * so run this between each command:
+     */
+    if (verbose)
+      system ("ls -l /proc/self/fd");
+#endif
+
     /* Read the length word. */
     xread (sock, lenbuf, 4);
     xdrmem_create (&xdr, lenbuf, 4, XDR_DECODE);
