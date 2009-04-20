@@ -69,6 +69,7 @@ ruby/ext/guestfs/mkmf.log
 pod2htm?.tmp
 stamp-h1
 test*.img
+test*.tmp
 tests
 update-initramfs.sh
 vmlinuz.*

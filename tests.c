@@ -101,8 +101,6 @@ static void no_test_warnings (void)
   fprintf (stderr, "warning: \"guestfs_command_lines\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_tune2fs_l\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_blockdev_setbsz\" has no tests\n");
-  fprintf (stderr, "warning: \"guestfs_upload\" has no tests\n");
-  fprintf (stderr, "warning: \"guestfs_download\" has no tests\n");
 }
 
 static int test_checksum_0 (void)
@@ -607,6 +605,150 @@ static int test_checksum_7 (void)
       return -1;
     if (strcmp (r, "0e3e75234abc68f4378a86b3f4b32a198ba301845b0cd6e50106e874345700cc6663a86c1ea125dc5e92be17c98f9a0f85ca9d5f595db2012f7cc3571945c123") != 0) {
       fprintf (stderr, "test_checksum_7: expected \"0e3e75234abc68f4378a86b3f4b32a198ba301845b0cd6e50106e874345700cc6663a86c1ea125dc5e92be17c98f9a0f85ca9d5f595db2012f7cc3571945c123\" but got \"%s\"\n", r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
+static int test_download_0 (void)
+{
+  /* InitBasicFS for download (0): create ext2 on /dev/sda1 */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *lines[] = {
+      ",",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for download (0) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_upload (g, "COPYING.LIB", "/COPYING.LIB");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_download (g, "/COPYING.LIB", "testdownload.tmp");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_upload (g, "testdownload.tmp", "/upload");
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *r;
+    suppress_error = 0;
+    r = guestfs_checksum (g, "md5", "/upload");
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, "e3eda01d9815f8d24aae2dbd89b68b06") != 0) {
+      fprintf (stderr, "test_download_0: expected \"e3eda01d9815f8d24aae2dbd89b68b06\" but got \"%s\"\n", r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
+static int test_upload_0 (void)
+{
+  /* InitBasicFS for upload (0): create ext2 on /dev/sda1 */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *lines[] = {
+      ",",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for upload (0) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_upload (g, "COPYING.LIB", "/COPYING.LIB");
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *r;
+    suppress_error = 0;
+    r = guestfs_checksum (g, "md5", "/COPYING.LIB");
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, "e3eda01d9815f8d24aae2dbd89b68b06") != 0) {
+      fprintf (stderr, "test_upload_0: expected \"e3eda01d9815f8d24aae2dbd89b68b06\" but got \"%s\"\n", r);
       return -1;
     }
     free (r);
@@ -5017,7 +5159,7 @@ int main (int argc, char *argv[])
     exit (1);
   }
 
-  nr_tests = 71;
+  nr_tests = 73;
 
   test_num++;
   printf ("%3d/%3d test_checksum_0\n", test_num, nr_tests);
@@ -5065,6 +5207,18 @@ int main (int argc, char *argv[])
   printf ("%3d/%3d test_checksum_7\n", test_num, nr_tests);
   if (test_checksum_7 () == -1) {
     printf ("test_checksum_7 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_download_0\n", test_num, nr_tests);
+  if (test_download_0 () == -1) {
+    printf ("test_download_0 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_upload_0\n", test_num, nr_tests);
+  if (test_upload_0 () == -1) {
+    printf ("test_upload_0 FAILED\n");
     failed++;
   }
   test_num++;
