@@ -13,6 +13,10 @@ URL:         http://et.redhat.com/~rjones/libguestfs/
 Source0:     http://et.redhat.com/~rjones/libguestfs/files/%{name}-%{version}.tar.gz
 BuildRoot:   %{_tmppath}/%{name}-%{version}-%{release}-root
 
+# Currently fails on non-x86 because of this error:
+# "qemu: linux kernel too old to load a ram disk"
+ExclusiveArch: %{ix86} x86_64
+
 # Basic build requirements:
 BuildRequires: /usr/bin/pod2man
 BuildRequires: /usr/bin/pod2text
