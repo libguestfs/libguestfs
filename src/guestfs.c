@@ -1534,11 +1534,14 @@ guestfs__send_file_sync (guestfs_h *g, const char *filename)
   /* Send file in chunked encoding. */
   while (!cancel && (r = read (fd, buf, sizeof buf)) > 0) {
     err = send_file_data_sync (g, buf, r);
-    if (err < 0)
+    if (err < 0) {
+      if (err == -2)		/* daemon sent cancellation */
+	send_file_cancellation_sync (g);
       return err;
+    }
   }
 
-  if (cancel) {
+  if (cancel) {			/* cancel from either end */
     send_file_cancellation_sync (g);
     return -1;
   }
@@ -1604,13 +1607,21 @@ send_file_chunk_sync (guestfs_h *g, int cancel, const char *buf, size_t len)
   }
 
   /* Did the daemon send a cancellation message? */
-  if (check_for_daemon_cancellation (g))
+  if (check_for_daemon_cancellation (g)) {
+    if (g->verbose)
+      fprintf (stderr, "got daemon cancellation\n");
     return -2;
+  }
 
   /* Serialize the chunk. */
   chunk.cancel = cancel;
   chunk.data.data_len = len;
   chunk.data.data_val = (char *) buf;
+
+  if (g->verbose)
+    fprintf (stderr,
+	     "library sending chunk cancel = %d, len = %zu, buf = %p\n",
+	     cancel, len, buf);
 
   xdrmem_create (&xdr, data, sizeof data, XDR_ENCODE);
   if (!xdr_guestfs_chunk (&xdr, &chunk)) {
