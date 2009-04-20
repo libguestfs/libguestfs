@@ -26,6 +26,10 @@
 
 #include <rpc/xdr.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct guestfs_h guestfs_h;
 typedef struct guestfs_main_loop guestfs_main_loop;
 
@@ -119,5 +123,9 @@ extern guestfs_main_loop *guestfs_get_default_main_loop (void);
 
 extern guestfs_main_loop *guestfs_create_main_loop (void);
 extern void guestfs_free_main_loop (guestfs_main_loop *);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* GUESTFS_H_ */
