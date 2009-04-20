@@ -88,3 +88,4 @@ extern int do_blockdev_flushbufs (const char *device);
 extern int do_blockdev_rereadpt (const char *device);
 extern int do_upload (const char *remotefilename);
 extern int do_download (const char *remotefilename);
+extern char *do_checksum (const char *csumtype, const char *path);

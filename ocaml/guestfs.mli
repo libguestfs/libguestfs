@@ -382,3 +382,6 @@ val upload : t -> string -> string -> unit
 val download : t -> string -> string -> unit
 (** download a file to the local machine *)
 
+val checksum : t -> string -> string -> string
+(** compute MD5, SHAx or CRC checksum of file *)
+

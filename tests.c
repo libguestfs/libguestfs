@@ -105,6 +105,515 @@ static void no_test_warnings (void)
   fprintf (stderr, "warning: \"guestfs_download\" has no tests\n");
 }
 
+static int test_checksum_0 (void)
+{
+  /* InitBasicFS for checksum (0): create ext2 on /dev/sda1 */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *lines[] = {
+      ",",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for checksum (0) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_write_file (g, "/new", "test\n", 0);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *r;
+    suppress_error = 0;
+    r = guestfs_checksum (g, "crc", "/new");
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, "935282863") != 0) {
+      fprintf (stderr, "test_checksum_0: expected \"935282863\" but got \"%s\"\n", r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
+static int test_checksum_1 (void)
+{
+  /* InitBasicFS for checksum (1): create ext2 on /dev/sda1 */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *lines[] = {
+      ",",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  /* TestLastFail for checksum (1) */
+  {
+    char *r;
+    suppress_error = 1;
+    r = guestfs_checksum (g, "crc", "/new");
+    if (r != NULL)
+      return -1;
+    free (r);
+  }
+  return 0;
+}
+
+static int test_checksum_2 (void)
+{
+  /* InitBasicFS for checksum (2): create ext2 on /dev/sda1 */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *lines[] = {
+      ",",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for checksum (2) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_write_file (g, "/new", "test\n", 0);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *r;
+    suppress_error = 0;
+    r = guestfs_checksum (g, "md5", "/new");
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, "d8e8fca2dc0f896fd7cb4cb0031ba249") != 0) {
+      fprintf (stderr, "test_checksum_2: expected \"d8e8fca2dc0f896fd7cb4cb0031ba249\" but got \"%s\"\n", r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
+static int test_checksum_3 (void)
+{
+  /* InitBasicFS for checksum (3): create ext2 on /dev/sda1 */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *lines[] = {
+      ",",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for checksum (3) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_write_file (g, "/new", "test\n", 0);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *r;
+    suppress_error = 0;
+    r = guestfs_checksum (g, "sha1", "/new");
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, "4e1243bd22c66e76c2ba9eddc1f91394e57f9f83") != 0) {
+      fprintf (stderr, "test_checksum_3: expected \"4e1243bd22c66e76c2ba9eddc1f91394e57f9f83\" but got \"%s\"\n", r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
+static int test_checksum_4 (void)
+{
+  /* InitBasicFS for checksum (4): create ext2 on /dev/sda1 */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *lines[] = {
+      ",",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for checksum (4) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_write_file (g, "/new", "test\n", 0);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *r;
+    suppress_error = 0;
+    r = guestfs_checksum (g, "sha224", "/new");
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, "52f1bf093f4b7588726035c176c0cdb4376cfea53819f1395ac9e6ec") != 0) {
+      fprintf (stderr, "test_checksum_4: expected \"52f1bf093f4b7588726035c176c0cdb4376cfea53819f1395ac9e6ec\" but got \"%s\"\n", r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
+static int test_checksum_5 (void)
+{
+  /* InitBasicFS for checksum (5): create ext2 on /dev/sda1 */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *lines[] = {
+      ",",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for checksum (5) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_write_file (g, "/new", "test\n", 0);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *r;
+    suppress_error = 0;
+    r = guestfs_checksum (g, "sha256", "/new");
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, "f2ca1bb6c7e907d06dafe4687e579fce76b37e4e93b7605022da52e6ccc26fd2") != 0) {
+      fprintf (stderr, "test_checksum_5: expected \"f2ca1bb6c7e907d06dafe4687e579fce76b37e4e93b7605022da52e6ccc26fd2\" but got \"%s\"\n", r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
+static int test_checksum_6 (void)
+{
+  /* InitBasicFS for checksum (6): create ext2 on /dev/sda1 */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *lines[] = {
+      ",",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for checksum (6) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_write_file (g, "/new", "test\n", 0);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *r;
+    suppress_error = 0;
+    r = guestfs_checksum (g, "sha384", "/new");
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, "109bb6b5b6d5547c1ce03c7a8bd7d8f80c1cb0957f50c4f7fda04692079917e4f9cad52b878f3d8234e1a170b154b72d") != 0) {
+      fprintf (stderr, "test_checksum_6: expected \"109bb6b5b6d5547c1ce03c7a8bd7d8f80c1cb0957f50c4f7fda04692079917e4f9cad52b878f3d8234e1a170b154b72d\" but got \"%s\"\n", r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
+static int test_checksum_7 (void)
+{
+  /* InitBasicFS for checksum (7): create ext2 on /dev/sda1 */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *lines[] = {
+      ",",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for checksum (7) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_write_file (g, "/new", "test\n", 0);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *r;
+    suppress_error = 0;
+    r = guestfs_checksum (g, "sha512", "/new");
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, "0e3e75234abc68f4378a86b3f4b32a198ba301845b0cd6e50106e874345700cc6663a86c1ea125dc5e92be17c98f9a0f85ca9d5f595db2012f7cc3571945c123") != 0) {
+      fprintf (stderr, "test_checksum_7: expected \"0e3e75234abc68f4378a86b3f4b32a198ba301845b0cd6e50106e874345700cc6663a86c1ea125dc5e92be17c98f9a0f85ca9d5f595db2012f7cc3571945c123\" but got \"%s\"\n", r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
 static int test_blockdev_rereadpt_0 (void)
 {
   /* InitEmpty for blockdev_rereadpt (0) */
@@ -4508,8 +5017,56 @@ int main (int argc, char *argv[])
     exit (1);
   }
 
-  nr_tests = 63;
+  nr_tests = 71;
 
+  test_num++;
+  printf ("%3d/%3d test_checksum_0\n", test_num, nr_tests);
+  if (test_checksum_0 () == -1) {
+    printf ("test_checksum_0 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_checksum_1\n", test_num, nr_tests);
+  if (test_checksum_1 () == -1) {
+    printf ("test_checksum_1 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_checksum_2\n", test_num, nr_tests);
+  if (test_checksum_2 () == -1) {
+    printf ("test_checksum_2 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_checksum_3\n", test_num, nr_tests);
+  if (test_checksum_3 () == -1) {
+    printf ("test_checksum_3 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_checksum_4\n", test_num, nr_tests);
+  if (test_checksum_4 () == -1) {
+    printf ("test_checksum_4 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_checksum_5\n", test_num, nr_tests);
+  if (test_checksum_5 () == -1) {
+    printf ("test_checksum_5 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_checksum_6\n", test_num, nr_tests);
+  if (test_checksum_6 () == -1) {
+    printf ("test_checksum_6 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_checksum_7\n", test_num, nr_tests);
+  if (test_checksum_7 () == -1) {
+    printf ("test_checksum_7 FAILED\n");
+    failed++;
+  }
   test_num++;
   printf ("%3d/%3d test_blockdev_rereadpt_0\n", test_num, nr_tests);
   if (test_blockdev_rereadpt_0 () == -1) {

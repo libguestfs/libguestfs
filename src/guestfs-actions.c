@@ -5756,3 +5756,91 @@ int guestfs_download (guestfs_h *g,
   return 0;
 }
 
+struct checksum_ctx {
+  /* This flag is set by the callbacks, so we know we've done
+   * the callbacks as expected, and in the right sequence.
+   * 0 = not called, 1 = send called,
+   * 1001 = reply called.
+   */
+  int cb_sequence;
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+  struct guestfs_checksum_ret ret;
+};
+
+static void checksum_reply_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  struct checksum_ctx *ctx = (struct checksum_ctx *) data;
+
+  ml->main_loop_quit (ml, g);
+
+  if (!xdr_guestfs_message_header (xdr, &ctx->hdr)) {
+    error (g, "%s: failed to parse reply header", "guestfs_checksum");
+    return;
+  }
+  if (ctx->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &ctx->err)) {
+      error (g, "%s: failed to parse reply error", "guestfs_checksum");
+      return;
+    }
+    goto done;
+  }
+  if (!xdr_guestfs_checksum_ret (xdr, &ctx->ret)) {
+    error (g, "%s: failed to parse reply", "guestfs_checksum");
+    return;
+  }
+ done:
+  ctx->cb_sequence = 1001;
+}
+
+char *guestfs_checksum (guestfs_h *g,
+		const char *csumtype,
+		const char *path)
+{
+  struct guestfs_checksum_args args;
+  struct checksum_ctx ctx;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  int serial;
+
+  if (check_state (g, "guestfs_checksum") == -1) return NULL;
+  guestfs_set_busy (g);
+
+  memset (&ctx, 0, sizeof ctx);
+
+  args.csumtype = (char *) csumtype;
+  args.path = (char *) path;
+  serial = guestfs__send_sync (g, GUESTFS_PROC_CHECKSUM,
+        (xdrproc_t) xdr_guestfs_checksum_args, (char *) &args);
+  if (serial == -1) {
+    guestfs_set_ready (g);
+    return NULL;
+  }
+
+ read_reply:
+  guestfs__switch_to_receiving (g);
+  ctx.cb_sequence = 0;
+  guestfs_set_reply_callback (g, checksum_reply_cb, &ctx);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (ctx.cb_sequence != 1001) {
+    error (g, "%s reply failed, see earlier error messages", "guestfs_checksum");
+    guestfs_set_ready (g);
+    return NULL;
+  }
+
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_CHECKSUM, serial) == -1) {
+    guestfs_set_ready (g);
+    return NULL;
+  }
+
+  if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
+    return NULL;
+  }
+
+  guestfs_set_ready (g);
+  return ctx.ret.checksum; /* caller will free */
+}
+

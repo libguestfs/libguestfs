@@ -1632,6 +1632,35 @@ done:
   xdr_free ((xdrproc_t) xdr_guestfs_download_args, (char *) &args);
 }
 
+static void checksum_stub (XDR *xdr_in)
+{
+  char *r;
+  struct guestfs_checksum_args args;
+  const char *csumtype;
+  const char *path;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_checksum_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "checksum");
+    return;
+  }
+  csumtype = args.csumtype;
+  path = args.path;
+
+  r = do_checksum (csumtype, path);
+  if (r == NULL)
+    /* do_checksum has already called reply_with_error */
+    goto done;
+
+  struct guestfs_checksum_ret ret;
+  ret.checksum = r;
+  reply ((xdrproc_t) &xdr_guestfs_checksum_ret, (char *) &ret);
+  free (r);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_checksum_args, (char *) &args);
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -1835,6 +1864,9 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_DOWNLOAD:
       download_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_CHECKSUM:
+      checksum_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d", proc_nr);

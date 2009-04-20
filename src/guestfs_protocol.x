@@ -483,6 +483,15 @@ struct guestfs_download_args {
   string remotefilename<>;
 };
 
+struct guestfs_checksum_args {
+  string csumtype<>;
+  string path<>;
+};
+
+struct guestfs_checksum_ret {
+  string checksum<>;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -551,6 +560,7 @@ enum guestfs_procedure {
   GUESTFS_PROC_BLOCKDEV_REREADPT = 65,
   GUESTFS_PROC_UPLOAD = 66,
   GUESTFS_PROC_DOWNLOAD = 67,
+  GUESTFS_PROC_CHECKSUM = 68,
   GUESTFS_PROC_NR_PROCS
 };
 

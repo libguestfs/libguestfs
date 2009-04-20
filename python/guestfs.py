@@ -959,3 +959,41 @@ class GuestFS:
         """
         return libguestfsmod.download (self._o, remotefilename, filename)
 
+    def checksum (self, csumtype, path):
+        u"""This call computes the MD5, SHAx or CRC checksum of the
+        file named "path".
+        
+        The type of checksum to compute is given by the
+        "csumtype" parameter which must have one of the
+        following values:
+        
+        "crc"
+        Compute the cyclic redundancy check (CRC) specified
+        by POSIX for the "cksum" command.
+        
+        "md5"
+        Compute the MD5 hash (using the "md5sum" program).
+        
+        "sha1"
+        Compute the SHA1 hash (using the "sha1sum" program).
+        
+        "sha224"
+        Compute the SHA224 hash (using the "sha224sum"
+        program).
+        
+        "sha256"
+        Compute the SHA256 hash (using the "sha256sum"
+        program).
+        
+        "sha384"
+        Compute the SHA384 hash (using the "sha384sum"
+        program).
+        
+        "sha512"
+        Compute the SHA512 hash (using the "sha512sum"
+        program).
+        
+        The checksum is returned as a printable string.
+        """
+        return libguestfsmod.checksum (self._o, csumtype, path)
+

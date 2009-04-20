@@ -201,3 +201,4 @@ external blockdev_flushbufs : t -> string -> unit = "ocaml_guestfs_blockdev_flus
 external blockdev_rereadpt : t -> string -> unit = "ocaml_guestfs_blockdev_rereadpt"
 external upload : t -> string -> string -> unit = "ocaml_guestfs_upload"
 external download : t -> string -> string -> unit = "ocaml_guestfs_download"
+external checksum : t -> string -> string -> string = "ocaml_guestfs_checksum"

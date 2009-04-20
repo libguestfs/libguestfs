@@ -2066,6 +2066,33 @@ static VALUE ruby_guestfs_download (VALUE gv, VALUE remotefilenamev, VALUE filen
   return Qnil;
 }
 
+static VALUE ruby_guestfs_checksum (VALUE gv, VALUE csumtypev, VALUE pathv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "checksum");
+
+  const char *csumtype = StringValueCStr (csumtypev);
+  if (!csumtype)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "csumtype", "checksum");
+  const char *path = StringValueCStr (pathv);
+  if (!path)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "path", "checksum");
+
+  char *r;
+
+  r = guestfs_checksum (g, csumtype, path);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  VALUE rv = rb_str_new2 (r);
+  free (r);
+  return rv;
+}
+
 /* Initialize the module. */
 void Init__guestfs ()
 {
@@ -2248,4 +2275,6 @@ void Init__guestfs ()
         ruby_guestfs_upload, 2);
   rb_define_method (c_guestfs, "download",
         ruby_guestfs_download, 2);
+  rb_define_method (c_guestfs, "checksum",
+        ruby_guestfs_checksum, 2);
 }

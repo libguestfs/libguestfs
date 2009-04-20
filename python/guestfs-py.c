@@ -2536,6 +2536,32 @@ py_guestfs_download (PyObject *self, PyObject *args)
   return py_r;
 }
 
+static PyObject *
+py_guestfs_checksum (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  char *r;
+  const char *csumtype;
+  const char *path;
+
+  if (!PyArg_ParseTuple (args, (char *) "Oss:guestfs_checksum",
+                         &py_g, &csumtype, &path))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_checksum (g, csumtype, path);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyString_FromString (r);
+  free (r);
+  return py_r;
+}
+
 static PyMethodDef methods[] = {
   { (char *) "create", py_guestfs_create, METH_VARARGS, NULL },
   { (char *) "close", py_guestfs_close, METH_VARARGS, NULL },
@@ -2625,6 +2651,7 @@ static PyMethodDef methods[] = {
   { (char *) "blockdev_rereadpt", py_guestfs_blockdev_rereadpt, METH_VARARGS, NULL },
   { (char *) "upload", py_guestfs_upload, METH_VARARGS, NULL },
   { (char *) "download", py_guestfs_download, METH_VARARGS, NULL },
+  { (char *) "checksum", py_guestfs_checksum, METH_VARARGS, NULL },
   { NULL, NULL, 0, NULL }
 };
 

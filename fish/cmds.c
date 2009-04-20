@@ -57,6 +57,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "blockdev-setro", "set block device to read-only");
   printf ("%-20s %s\n", "blockdev-setrw", "set block device to read-write");
   printf ("%-20s %s\n", "cat", "list the contents of a file");
+  printf ("%-20s %s\n", "checksum", "compute MD5, SHAx or CRC checksum of file");
   printf ("%-20s %s\n", "chmod", "change file mode");
   printf ("%-20s %s\n", "chown", "change file owner and group");
   printf ("%-20s %s\n", "command", "run a command from the guest filesystem");
@@ -367,6 +368,9 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "download") == 0)
     pod2text ("download - download a file to the local machine", " download <remotefilename> <filename>\n\nDownload file C<remotefilename> and save it as C<filename>\non the local machine.\n\nC<filename> can also be a named pipe.\n\nSee also C<upload>, C<cat>.");
+  else
+  if (strcasecmp (cmd, "checksum") == 0)
+    pod2text ("checksum - compute MD5, SHAx or CRC checksum of file", " checksum <csumtype> <path>\n\nThis call computes the MD5, SHAx or CRC checksum of the\nfile named C<path>.\n\nThe type of checksum to compute is given by the C<csumtype>\nparameter which must have one of the following values:\n\n=over 4\n\n=item C<crc>\n\nCompute the cyclic redundancy check (CRC) specified by POSIX\nfor the C<cksum> command.\n\n=item C<md5>\n\nCompute the MD5 hash (using the C<md5sum> program).\n\n=item C<sha1>\n\nCompute the SHA1 hash (using the C<sha1sum> program).\n\n=item C<sha224>\n\nCompute the SHA224 hash (using the C<sha224sum> program).\n\n=item C<sha256>\n\nCompute the SHA256 hash (using the C<sha256sum> program).\n\n=item C<sha384>\n\nCompute the SHA384 hash (using the C<sha384sum> program).\n\n=item C<sha512>\n\nCompute the SHA512 hash (using the C<sha512sum> program).\n\n=back\n\nThe checksum is returned as a printable string.");
   else
     display_builtin_command (cmd);
 }
@@ -1778,6 +1782,25 @@ static int run_download (const char *cmd, int argc, char *argv[])
   return r;
 }
 
+static int run_checksum (const char *cmd, int argc, char *argv[])
+{
+  char *r;
+  const char *csumtype;
+  const char *path;
+  if (argc != 2) {
+    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  csumtype = argv[0];
+  path = argv[1];
+  r = guestfs_checksum (g, csumtype, path);
+  if (r == NULL) return -1;
+  printf ("%s\n", r);
+  free (r);
+  return 0;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -2028,6 +2051,9 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "download") == 0)
     return run_download (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "checksum") == 0)
+    return run_checksum (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

@@ -1341,3 +1341,19 @@ PREINIT:
       if (r == -1)
         croak ("download: %s", guestfs_last_error (g));
 
+SV *
+checksum (g, csumtype, path)
+      guestfs_h *g;
+      char *csumtype;
+      char *path;
+PREINIT:
+      char *checksum;
+   CODE:
+      checksum = guestfs_checksum (g, csumtype, path);
+      if (checksum == NULL)
+        croak ("checksum: %s", guestfs_last_error (g));
+      RETVAL = newSVpv (checksum, 0);
+      free (checksum);
+ OUTPUT:
+      RETVAL
+

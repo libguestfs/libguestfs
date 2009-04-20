@@ -337,6 +337,49 @@ Because of the message protocol, there is a transfer limit
 of somewhere between 2MB and 4MB.  To transfer large files you should use
 FTP.
 
+=item $checksum = $h->checksum ($csumtype, $path);
+
+This call computes the MD5, SHAx or CRC checksum of the
+file named C<path>.
+
+The type of checksum to compute is given by the C<csumtype>
+parameter which must have one of the following values:
+
+=over 4
+
+=item C<crc>
+
+Compute the cyclic redundancy check (CRC) specified by POSIX
+for the C<cksum> command.
+
+=item C<md5>
+
+Compute the MD5 hash (using the C<md5sum> program).
+
+=item C<sha1>
+
+Compute the SHA1 hash (using the C<sha1sum> program).
+
+=item C<sha224>
+
+Compute the SHA224 hash (using the C<sha224sum> program).
+
+=item C<sha256>
+
+Compute the SHA256 hash (using the C<sha256sum> program).
+
+=item C<sha384>
+
+Compute the SHA384 hash (using the C<sha384sum> program).
+
+=item C<sha512>
+
+Compute the SHA512 hash (using the C<sha512sum> program).
+
+=back
+
+The checksum is returned as a printable string.
+
 =item $h->chmod ($mode, $path);
 
 Change the mode (permissions) of C<path> to C<mode>.  Only

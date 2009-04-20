@@ -2367,3 +2367,28 @@ ocaml_guestfs_download (value gv, value remotefilenamev, value filenamev)
   CAMLreturn (rv);
 }
 
+CAMLprim value
+ocaml_guestfs_checksum (value gv, value csumtypev, value pathv)
+{
+  CAMLparam3 (gv, csumtypev, pathv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("checksum: used handle after closing it");
+
+  const char *csumtype = String_val (csumtypev);
+  const char *path = String_val (pathv);
+  char *r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_checksum (g, csumtype, path);
+  caml_leave_blocking_section ();
+  if (r == NULL)
+    ocaml_guestfs_raise_error (g, "checksum");
+
+  rv = caml_copy_string (r);
+  free (r);
+  CAMLreturn (rv);
+}
+

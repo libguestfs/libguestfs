@@ -626,6 +626,17 @@ struct guestfs_download_args {
 };
 typedef struct guestfs_download_args guestfs_download_args;
 
+struct guestfs_checksum_args {
+	char *csumtype;
+	char *path;
+};
+typedef struct guestfs_checksum_args guestfs_checksum_args;
+
+struct guestfs_checksum_ret {
+	char *checksum;
+};
+typedef struct guestfs_checksum_ret guestfs_checksum_ret;
+
 enum guestfs_procedure {
 	GUESTFS_PROC_MOUNT = 1,
 	GUESTFS_PROC_SYNC = 2,
@@ -694,7 +705,8 @@ enum guestfs_procedure {
 	GUESTFS_PROC_BLOCKDEV_REREADPT = 65,
 	GUESTFS_PROC_UPLOAD = 66,
 	GUESTFS_PROC_DOWNLOAD = 67,
-	GUESTFS_PROC_NR_PROCS = 67 + 1,
+	GUESTFS_PROC_CHECKSUM = 68,
+	GUESTFS_PROC_NR_PROCS = 68 + 1,
 };
 typedef enum guestfs_procedure guestfs_procedure;
 #define GUESTFS_MESSAGE_MAX 4194304
@@ -839,6 +851,8 @@ extern  bool_t xdr_guestfs_blockdev_flushbufs_args (XDR *, guestfs_blockdev_flus
 extern  bool_t xdr_guestfs_blockdev_rereadpt_args (XDR *, guestfs_blockdev_rereadpt_args*);
 extern  bool_t xdr_guestfs_upload_args (XDR *, guestfs_upload_args*);
 extern  bool_t xdr_guestfs_download_args (XDR *, guestfs_download_args*);
+extern  bool_t xdr_guestfs_checksum_args (XDR *, guestfs_checksum_args*);
+extern  bool_t xdr_guestfs_checksum_ret (XDR *, guestfs_checksum_ret*);
 extern  bool_t xdr_guestfs_procedure (XDR *, guestfs_procedure*);
 extern  bool_t xdr_guestfs_message_direction (XDR *, guestfs_message_direction*);
 extern  bool_t xdr_guestfs_message_status (XDR *, guestfs_message_status*);
@@ -942,6 +956,8 @@ extern bool_t xdr_guestfs_blockdev_flushbufs_args ();
 extern bool_t xdr_guestfs_blockdev_rereadpt_args ();
 extern bool_t xdr_guestfs_upload_args ();
 extern bool_t xdr_guestfs_download_args ();
+extern bool_t xdr_guestfs_checksum_args ();
+extern bool_t xdr_guestfs_checksum_ret ();
 extern bool_t xdr_guestfs_procedure ();
 extern bool_t xdr_guestfs_message_direction ();
 extern bool_t xdr_guestfs_message_status ();

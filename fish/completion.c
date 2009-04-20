@@ -63,6 +63,7 @@ static const char *commands[] = {
   "blockdev-setrw",
   "cat",
   "cdrom",
+  "checksum",
   "chmod",
   "chown",
   "command",
