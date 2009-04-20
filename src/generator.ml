@@ -2334,6 +2334,7 @@ check_state (guestfs_h *g, const char *caller)
       pr "\n";
 
       (* Send any additional files (FileIn) requested. *)
+      let need_read_reply_label = ref false in
       List.iter (
 	function
 	| FileIn n ->
@@ -2347,13 +2348,14 @@ check_state (guestfs_h *g, const char *caller)
 	    pr "    }\n";
 	    pr "    if (r == -2) /* daemon cancelled */\n";
 	    pr "      goto read_reply;\n";
+	    need_read_reply_label := true;
 	    pr "  }\n";
 	    pr "\n";
 	| _ -> ()
       ) (snd style);
 
       (* Wait for the reply from the remote end. *)
-      pr " read_reply:\n";
+      if !need_read_reply_label then pr " read_reply:\n";
       pr "  guestfs__switch_to_receiving (g);\n";
       pr "  ctx.cb_sequence = 0;\n";
       pr "  guestfs_set_reply_callback (g, %s_reply_cb, &ctx);\n" shortname;

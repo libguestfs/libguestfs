@@ -139,7 +139,6 @@ int guestfs_mount (guestfs_h *g,
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, mount_reply_cb, &ctx);
@@ -216,7 +215,6 @@ int guestfs_sync (guestfs_h *g)
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, sync_reply_cb, &ctx);
@@ -297,7 +295,6 @@ int guestfs_touch (guestfs_h *g,
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, touch_reply_cb, &ctx);
@@ -383,7 +380,6 @@ char *guestfs_cat (guestfs_h *g,
     return NULL;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, cat_reply_cb, &ctx);
@@ -469,7 +465,6 @@ char *guestfs_ll (guestfs_h *g,
     return NULL;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, ll_reply_cb, &ctx);
@@ -555,7 +550,6 @@ char **guestfs_ls (guestfs_h *g,
     return NULL;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, ls_reply_cb, &ctx);
@@ -642,7 +636,6 @@ char **guestfs_list_devices (guestfs_h *g)
     return NULL;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, list_devices_reply_cb, &ctx);
@@ -729,7 +722,6 @@ char **guestfs_list_partitions (guestfs_h *g)
     return NULL;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, list_partitions_reply_cb, &ctx);
@@ -816,7 +808,6 @@ char **guestfs_pvs (guestfs_h *g)
     return NULL;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, pvs_reply_cb, &ctx);
@@ -903,7 +894,6 @@ char **guestfs_vgs (guestfs_h *g)
     return NULL;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, vgs_reply_cb, &ctx);
@@ -990,7 +980,6 @@ char **guestfs_lvs (guestfs_h *g)
     return NULL;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, lvs_reply_cb, &ctx);
@@ -1077,7 +1066,6 @@ struct guestfs_lvm_pv_list *guestfs_pvs_full (guestfs_h *g)
     return NULL;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, pvs_full_reply_cb, &ctx);
@@ -1160,7 +1148,6 @@ struct guestfs_lvm_vg_list *guestfs_vgs_full (guestfs_h *g)
     return NULL;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, vgs_full_reply_cb, &ctx);
@@ -1243,7 +1230,6 @@ struct guestfs_lvm_lv_list *guestfs_lvs_full (guestfs_h *g)
     return NULL;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, lvs_full_reply_cb, &ctx);
@@ -1330,7 +1316,6 @@ char **guestfs_read_lines (guestfs_h *g,
     return NULL;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, read_lines_reply_cb, &ctx);
@@ -1418,7 +1403,6 @@ int guestfs_aug_init (guestfs_h *g,
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_init_reply_cb, &ctx);
@@ -1495,7 +1479,6 @@ int guestfs_aug_close (guestfs_h *g)
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_close_reply_cb, &ctx);
@@ -1583,7 +1566,6 @@ int guestfs_aug_defvar (guestfs_h *g,
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_defvar_reply_cb, &ctx);
@@ -1673,7 +1655,6 @@ struct guestfs_int_bool *guestfs_aug_defnode (guestfs_h *g,
     return NULL;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_defnode_reply_cb, &ctx);
@@ -1760,7 +1741,6 @@ char *guestfs_aug_get (guestfs_h *g,
     return NULL;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_get_reply_cb, &ctx);
@@ -1843,7 +1823,6 @@ int guestfs_aug_set (guestfs_h *g,
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_set_reply_cb, &ctx);
@@ -1928,7 +1907,6 @@ int guestfs_aug_insert (guestfs_h *g,
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_insert_reply_cb, &ctx);
@@ -2014,7 +1992,6 @@ int guestfs_aug_rm (guestfs_h *g,
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_rm_reply_cb, &ctx);
@@ -2097,7 +2074,6 @@ int guestfs_aug_mv (guestfs_h *g,
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_mv_reply_cb, &ctx);
@@ -2183,7 +2159,6 @@ char **guestfs_aug_match (guestfs_h *g,
     return NULL;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_match_reply_cb, &ctx);
@@ -2265,7 +2240,6 @@ int guestfs_aug_save (guestfs_h *g)
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_save_reply_cb, &ctx);
@@ -2342,7 +2316,6 @@ int guestfs_aug_load (guestfs_h *g)
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_load_reply_cb, &ctx);
@@ -2428,7 +2401,6 @@ char **guestfs_aug_ls (guestfs_h *g,
     return NULL;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, aug_ls_reply_cb, &ctx);
@@ -2514,7 +2486,6 @@ int guestfs_rm (guestfs_h *g,
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, rm_reply_cb, &ctx);
@@ -2595,7 +2566,6 @@ int guestfs_rmdir (guestfs_h *g,
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, rmdir_reply_cb, &ctx);
@@ -2676,7 +2646,6 @@ int guestfs_rm_rf (guestfs_h *g,
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, rm_rf_reply_cb, &ctx);
@@ -2757,7 +2726,6 @@ int guestfs_mkdir (guestfs_h *g,
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, mkdir_reply_cb, &ctx);
@@ -2838,7 +2806,6 @@ int guestfs_mkdir_p (guestfs_h *g,
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, mkdir_p_reply_cb, &ctx);
@@ -2921,7 +2888,6 @@ int guestfs_chmod (guestfs_h *g,
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, chmod_reply_cb, &ctx);
@@ -3006,7 +2972,6 @@ int guestfs_chown (guestfs_h *g,
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, chown_reply_cb, &ctx);
@@ -3092,7 +3057,6 @@ int guestfs_exists (guestfs_h *g,
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, exists_reply_cb, &ctx);
@@ -3178,7 +3142,6 @@ int guestfs_is_file (guestfs_h *g,
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, is_file_reply_cb, &ctx);
@@ -3264,7 +3227,6 @@ int guestfs_is_dir (guestfs_h *g,
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, is_dir_reply_cb, &ctx);
@@ -3345,7 +3307,6 @@ int guestfs_pvcreate (guestfs_h *g,
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, pvcreate_reply_cb, &ctx);
@@ -3429,7 +3390,6 @@ int guestfs_vgcreate (guestfs_h *g,
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, vgcreate_reply_cb, &ctx);
@@ -3514,7 +3474,6 @@ int guestfs_lvcreate (guestfs_h *g,
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, lvcreate_reply_cb, &ctx);
@@ -3597,7 +3556,6 @@ int guestfs_mkfs (guestfs_h *g,
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, mkfs_reply_cb, &ctx);
@@ -3687,7 +3645,6 @@ int guestfs_sfdisk (guestfs_h *g,
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, sfdisk_reply_cb, &ctx);
@@ -3772,7 +3729,6 @@ int guestfs_write_file (guestfs_h *g,
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, write_file_reply_cb, &ctx);
@@ -3853,7 +3809,6 @@ int guestfs_umount (guestfs_h *g,
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, umount_reply_cb, &ctx);
@@ -3935,7 +3890,6 @@ char **guestfs_mounts (guestfs_h *g)
     return NULL;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, mounts_reply_cb, &ctx);
@@ -4017,7 +3971,6 @@ int guestfs_umount_all (guestfs_h *g)
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, umount_all_reply_cb, &ctx);
@@ -4094,7 +4047,6 @@ int guestfs_lvm_remove_all (guestfs_h *g)
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, lvm_remove_all_reply_cb, &ctx);
@@ -4180,7 +4132,6 @@ char *guestfs_file (guestfs_h *g,
     return NULL;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, file_reply_cb, &ctx);
@@ -4267,7 +4218,6 @@ char *guestfs_command (guestfs_h *g,
     return NULL;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, command_reply_cb, &ctx);
@@ -4354,7 +4304,6 @@ char **guestfs_command_lines (guestfs_h *g,
     return NULL;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, command_lines_reply_cb, &ctx);
@@ -4445,7 +4394,6 @@ struct guestfs_stat *guestfs_stat (guestfs_h *g,
     return NULL;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, stat_reply_cb, &ctx);
@@ -4532,7 +4480,6 @@ struct guestfs_stat *guestfs_lstat (guestfs_h *g,
     return NULL;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, lstat_reply_cb, &ctx);
@@ -4619,7 +4566,6 @@ struct guestfs_statvfs *guestfs_statvfs (guestfs_h *g,
     return NULL;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, statvfs_reply_cb, &ctx);
@@ -4706,7 +4652,6 @@ char **guestfs_tune2fs_l (guestfs_h *g,
     return NULL;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, tune2fs_l_reply_cb, &ctx);
@@ -4792,7 +4737,6 @@ int guestfs_blockdev_setro (guestfs_h *g,
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, blockdev_setro_reply_cb, &ctx);
@@ -4873,7 +4817,6 @@ int guestfs_blockdev_setrw (guestfs_h *g,
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, blockdev_setrw_reply_cb, &ctx);
@@ -4959,7 +4902,6 @@ int guestfs_blockdev_getro (guestfs_h *g,
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, blockdev_getro_reply_cb, &ctx);
@@ -5045,7 +4987,6 @@ int guestfs_blockdev_getss (guestfs_h *g,
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, blockdev_getss_reply_cb, &ctx);
@@ -5131,7 +5072,6 @@ int guestfs_blockdev_getbsz (guestfs_h *g,
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, blockdev_getbsz_reply_cb, &ctx);
@@ -5214,7 +5154,6 @@ int guestfs_blockdev_setbsz (guestfs_h *g,
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, blockdev_setbsz_reply_cb, &ctx);
@@ -5300,7 +5239,6 @@ int64_t guestfs_blockdev_getsz (guestfs_h *g,
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, blockdev_getsz_reply_cb, &ctx);
@@ -5386,7 +5324,6 @@ int64_t guestfs_blockdev_getsize64 (guestfs_h *g,
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, blockdev_getsize64_reply_cb, &ctx);
@@ -5467,7 +5404,6 @@ int guestfs_blockdev_flushbufs (guestfs_h *g,
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, blockdev_flushbufs_reply_cb, &ctx);
@@ -5548,7 +5484,6 @@ int guestfs_blockdev_rereadpt (guestfs_h *g,
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, blockdev_rereadpt_reply_cb, &ctx);
@@ -5724,7 +5659,6 @@ int guestfs_download (guestfs_h *g,
     return -1;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, download_reply_cb, &ctx);
@@ -5817,7 +5751,6 @@ char *guestfs_checksum (guestfs_h *g,
     return NULL;
   }
 
- read_reply:
   guestfs__switch_to_receiving (g);
   ctx.cb_sequence = 0;
   guestfs_set_reply_callback (g, checksum_reply_cb, &ctx);
