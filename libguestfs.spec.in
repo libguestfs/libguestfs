@@ -286,6 +286,10 @@ mkdir -p $RPM_BUILD_ROOT%{ruby_sitearch}
 install -p -m0644 ruby/lib/guestfs.rb $RPM_BUILD_ROOT%{ruby_sitelib}
 install -p -m0755 ruby/ext/guestfs/_guestfs.so $RPM_BUILD_ROOT%{ruby_sitearch}
 
+# Remove static-linked Java bindings.
+rm $RPM_BUILD_ROOT%{_libdir}/libguestfs_jni.a
+rm $RPM_BUILD_ROOT%{_libdir}/libguestfs_jni.la
+
 # Generator shouldn't be executable when we distribute it.
 chmod -x src/generator.ml
 
@@ -377,14 +381,14 @@ rm -rf $RPM_BUILD_ROOT
 
 %files java-devel
 %defattr(-,root,root,-)
-%doc java/
+%doc README
 %{_libdir}/libguestfs_jni*.so
 
 
-%files java
+%files javadoc
 %defattr(-,root,root,-)
 %doc README
-/usr/share/javadoc/%{name}-java-%{version}
+%{_datadir}/javadoc/%{name}-java-%{version}
 
 
 %changelog

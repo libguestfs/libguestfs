@@ -80,6 +80,10 @@ doc-stamp: $(java_sources)
 	  com.redhat.et.libguestfs
 	touch $@
 
+install-data-hook:
+	mkdir -p $(DESTDIR)$(datadir)/javadoc/$(PACKAGE_NAME)-java-$(PACKAGE_VERSION)
+	cp -a api/* $(DESTDIR)$(datadir)/javadoc/$(PACKAGE_NAME)-java-$(PACKAGE_VERSION)
+
 # Tests (not comprehensive).
 
 TESTS = $(java_tests:.java=.class)
