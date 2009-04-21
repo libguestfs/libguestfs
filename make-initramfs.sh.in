@@ -74,6 +74,8 @@ find initramfs/lib/modules/*/kernel \
   -a ! -name '8139cp.ko' \
   -a ! -name 'ext2.ko' \
   -a ! -name 'ext4.ko' \
+  -a ! -name 'crc16.ko' \
+  -a ! -name 'jbd2.ko' \
   -a -delete
 
 # Pull the kernel out into the current directory.  We don't want it in
