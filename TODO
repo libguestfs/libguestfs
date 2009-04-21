@@ -5,3 +5,12 @@ https://www.redhat.com/archives/fedora-virt/2009-April/msg00114.html
 
 We badly need to actually implement the FTP server mentioned in the
 documentation.
+
+----------------------------------------------------------------------
+
+Needs pkgconfig file.
+
+----------------------------------------------------------------------
+
+Detect and enable -kvm and -no-kqemu flags.
+Also allow the qemu binary to be configured.
