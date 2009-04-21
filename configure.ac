@@ -197,7 +197,113 @@ LIBS="$old_libs"
 AC_CHECK_PROG([RAKE],[rake],[rake],[no])
 
 AM_CONDITIONAL([HAVE_RUBY],
-    [test "x$RAKE" != "xno" -a -n "x$HAVE_LIBRUBY"])
+    [test "x$RAKE" != "xno" -a -n "$HAVE_LIBRUBY"])
+
+dnl Check for Java.
+AC_ARG_WITH(java_home,
+    [AS_HELP_STRING([--with-java-home],
+        [specify path to JDK directory @<:@default=check@:>@])],
+    [],
+    [with_java_home=check])
+
+if test "x$with_java_home" != "xno"; then
+    if test "x$with_java_home" != "xyes" -a "x$with_java_home" != "xcheck"
+    then
+        if test -d "$with_java_home"; then
+	    JAVA_HOME="$with_java_home"
+	else
+            AC_MSG_FAILURE([$with_java_home is not a directory])
+	fi
+    fi
+    if test "x$JAVA_HOME" = "x"; then
+        JAVA_HOME=/usr/lib/jvm/java
+    fi
+    AC_MSG_CHECKING(for JDK in $JAVA_HOME)
+    if test ! -x "$JAVA_HOME/bin/java"; then
+        AC_MSG_ERROR([missing $JAVA_HOME/bin/java binary])
+    else
+        JAVA="$JAVA_HOME/bin/java"
+    fi
+    if test ! -x "$JAVA_HOME/bin/javac"; then
+        AC_MSG_ERROR([missing $JAVA_HOME/bin/javac binary])
+    else
+        JAVAC="$JAVA_HOME/bin/javac"
+    fi
+    if test ! -x "$JAVA_HOME/bin/javah"; then
+        AC_MSG_ERROR([missing $JAVA_HOME/bin/javah binary])
+    else
+        JAVAH="$JAVA_HOME/bin/javah"
+    fi
+    if test ! -x "$JAVA_HOME/bin/javadoc"; then
+        AC_MSG_ERROR([missing $JAVA_HOME/bin/javadoc binary])
+    else
+        JAVADOC="$JAVA_HOME/bin/javadoc"
+    fi
+    if test ! -x "$JAVA_HOME/bin/jar"; then
+        AC_MSG_ERROR([missing $JAVA_HOME/bin/jar binary])
+    else
+        JAR="$JAVA_HOME/bin/jar"
+    fi
+    java_version=`$JAVA -version 2>&1 | grep "java version"`
+    AC_MSG_RESULT(found $java_version in $JAVA_HOME)
+
+    dnl Find jni.h.
+    AC_MSG_CHECKING([for jni.h])
+    if test -f "$JAVA_HOME/include/jni.h"; then
+        JNI_CFLAGS="-I$JAVA_HOME/include"
+    else
+    if test "`find $JAVA_HOME -name jni.h`" != ""; then
+        head=`find $JAVA_HOME -name jni.h | tail -1`
+	dir=`dirname $head`
+	JNI_CFLAGS="-I$dir"
+    else
+	AC_MSG_FAILURE([missing jni.h header file])
+    fi
+    fi
+    AC_MSG_RESULT([$JNI_CFLAGS])
+
+    dnl Find jni_md.h.
+    AC_MSG_CHECKING([for jni_md.h])
+    case "$build_os" in
+    *linux*) system="linux" ;;
+    *SunOS*) system="solaris" ;;
+    *cygwin*) system="win32" ;;
+    *) system="$build_os" ;;
+    esac
+    if test -f "$JAVA_HOME/include/$system/jni_md.h"; then
+        JNI_CFLAGS="$JNI_CFLAGS -I$JAVA_HOME/include/$system"
+    else
+    if test "`find $JAVA_HOME -name jni_md.h`" != ""; then
+        head=`find $JAVA_HOME -name jni_md.h | tail -1`
+	dir=`dirname $head`
+	JNI_CFLAGS="$JNI_CFLAGS -I$dir"
+    else
+	AC_MSG_FAILURE([missing jni_md.h header file])
+    fi
+    fi
+    AC_MSG_RESULT([$JNI_CFLAGS])
+
+    dnl Need extra version flag?
+    AC_MSG_CHECKING([extra javac flags])
+    JAVAC_FLAGS=
+    javac_version=`$JAVAC -version 2>&1`
+    case "$javac_version" in
+    *Eclipse*)
+	JAVAC_FLAGS="-source 1.5" ;;
+    esac
+    AC_MSG_RESULT([$JAVAC_FLAGS])
+fi
+
+AC_SUBST(JAVA_HOME)
+AC_SUBST(JAVA)
+AC_SUBST(JAVAC)
+AC_SUBST(JAVAH)
+AC_SUBST(JAVADOC)
+AC_SUBST(JAR)
+AC_SUBST(JNI_CFLAGS)
+AC_SUBST(JAVAC_FLAGS)
+
+AM_CONDITIONAL([HAVE_JAVA],[test -n "$JAVAC"])
 
 dnl Run in subdirs.
 AC_CONFIG_SUBDIRS([daemon])
@@ -210,6 +316,7 @@ AC_CONFIG_FILES([Makefile src/Makefile fish/Makefile examples/Makefile
 		 perl/Makefile
 		 python/Makefile
 		 ruby/Makefile ruby/Rakefile
+		 java/Makefile
 	         make-initramfs.sh update-initramfs.sh
 		 libguestfs.spec
 		 ocaml/META perl/Makefile.PL])

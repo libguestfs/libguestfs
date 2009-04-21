@@ -44,6 +44,9 @@ BuildRequires: perl-ExtUtils-MakeMaker
 BuildRequires: python-devel
 BuildRequires: ruby-devel
 BuildRequires: rubygem-rake
+BuildRequires: java >= 1.5.0
+BuildRequires: jpackage-utils
+BuildRequires: java-devel
 
 # Runtime requires:
 Requires:    qemu >= 0.10-7
@@ -80,6 +83,8 @@ For OCaml bindings, see 'ocaml-libguestfs-devel'.
 For Python bindings, see 'python-libguestfs'.
 
 For Ruby bindings, see 'ruby-libguestfs'.
+
+For Java bindings, see 'libguestfs-java-devel'.
 
 
 %package devel
@@ -168,6 +173,44 @@ Provides:    ruby(guestfs) = %{version}
 ruby-%{name} contains Ruby bindings for %{name}.
 
 
+%package java
+Summary:     Java bindings for %{name}
+Group:       Development/Libraries
+Requires:    %{name} = %{version}-%{release}
+Requires:    java >= 1.5.0
+Requires:    jpackage-utils
+
+%description java
+%{name}-java contains Java bindings for %{name}.
+
+If you want to develop software in Java which uses %{name}, then
+you will also need %{name}-java-devel.
+
+
+%package java-devel
+Summary:     Java development package for %{name}
+Group:       Development/Libraries
+Requires:    %{name} = %{version}-%{release}
+Requires:    %{name}-java = %{version}-%{release}
+
+%description java-devel
+%{name}-java-devel contains the tools for developing Java software
+using %{name}.
+
+See also %{name}-javadoc.
+
+
+%package javadoc
+Summary:     Java documentation for %{name}
+Group:       Development/Libraries
+Requires:    %{name} = %{version}-%{release}
+Requires:    %{name}-java = %{version}-%{release}
+Requires:    jpackage-utils
+
+%description javadoc
+%{name}-javadoc contains the Java documentation for %{name}.
+
+
 %prep
 %setup -q
 
@@ -184,10 +227,14 @@ popd
 %define extra %nil
 %endif
 
-./configure --prefix=%{_prefix} --libdir=%{_libdir} %{extra}
+./configure \
+  --prefix=%{_prefix} --libdir=%{_libdir} \
+  --with-java-home=%{java_home} \
+  %{extra}
 
 # 'INSTALLDIRS' ensures that perl libs are installed in the vendor dir
 # not the site dir.
+# Uses javac which is incompatible with parallel make.
 make INSTALLDIRS=vendor
 
 
@@ -319,6 +366,25 @@ rm -rf $RPM_BUILD_ROOT
 %doc README
 %{ruby_sitelib}/guestfs.rb
 %{ruby_sitearch}/_guestfs.so
+
+
+%files java
+%defattr(-,root,root,-)
+%doc README
+%{_libdir}/libguestfs_jni*.so.*
+%{_datadir}/java/*.jar
+
+
+%files java-devel
+%defattr(-,root,root,-)
+%doc java/
+%{_libdir}/libguestfs_jni*.so
+
+
+%files java
+%defattr(-,root,root,-)
+%doc README
+/usr/share/javadoc/%{name}-java-%{version}
 
 
 %changelog

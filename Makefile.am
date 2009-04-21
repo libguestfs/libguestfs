@@ -31,6 +31,9 @@ endif
 if HAVE_RUBY
 SUBDIRS += ruby
 endif
+if HAVE_JAVA
+SUBDIRS += java
+endif
 
 EXTRA_DIST = \
 	make-initramfs.sh update-initramfs.sh \

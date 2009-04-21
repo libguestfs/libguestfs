@@ -52,6 +52,9 @@ also to build the OCaml bindings
 
 - (Optional) Ruby, rake if you want to build the ruby bindings
 
+- (Optional) Java, JNI, jpackage-utils if you want to build the java
+bindings
+
 Running ./configure will check you have all the requirements installed
 on your machine.
 
