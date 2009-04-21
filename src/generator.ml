@@ -5738,7 +5738,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
 	   pr "jobjectArray ";
       );
       pr "JNICALL\n";
-      pr "Java_com_redhat_et_libguestfs_";
+      pr "Java_com_redhat_et_libguestfs_GuestFS_";
       pr "%s" (replace_str ("_" ^ name) "_" "_1");
       pr "\n";
       pr "  (JNIEnv *env, jobject obj, jlong jg";

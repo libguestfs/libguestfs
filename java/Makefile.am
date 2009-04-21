@@ -27,7 +27,14 @@ java_sources = \
   $(CPTH)/StatVFS.java \
   $(CPTH)/GuestFS.java
 
-EXTRA_DIST = $(java_sources)
+java_tests = \
+  t/GuestFS005Load.java \
+  t/GuestFS010Launch.java
+
+EXTRA_DIST = \
+	$(java_sources) \
+	$(java_tests) \
+	run-java-test
 
 CLEANFILES = *~ doc-stamp
 
@@ -39,7 +46,7 @@ libguestfs_jardir = $(JAR_INSTALL_DIR)
 libguestfs_jar_DATA = libguestfs-${VERSION}.jar
 libguestfs_jar_class_files = $(java_sources:.java=.class)
 $(libguestfs_jar_class_files): %.class: %.java
-	$(JAVAC) $(JAVAC_FLAGS) -classpath "$(CPTH)" $(java_sources)
+	$(JAVAC) $(JAVAC_FLAGS) -classpath $(CPTH) $(java_sources)
 
 libguestfs-${VERSION}.jar: $(libguestfs_jar_class_files)
 	$(JAR) cf $@ $^
@@ -58,7 +65,7 @@ libguestfs_jni_la_CFLAGS = -Wall -I$(top_builddir)/src $(JNI_CFLAGS)
 BUILT_SOURCES = com_redhat_et_libguestfs_GuestFS.h
 
 com_redhat_et_libguestfs_GuestFS.h: $(CPTH)/GuestFS.class
-	$(JAVAH) -classpath ".:$(CPTH)" com.redhat.et.libguestfs.GuestFS
+	$(JAVAH) -classpath .:$(CPTH) com.redhat.et.libguestfs.GuestFS
 
 # Documentation.
 
@@ -71,5 +78,17 @@ doc-stamp: $(java_sources)
 	  -doctitle "libguestfs java $(VERSION) API reference" \
 	  com.redhat.et.libguestfs
 	touch $@
+
+# Tests (not comprehensive).
+
+TESTS = $(java_tests:.java=.class)
+TESTS_ENVIRONMENT = \
+	JAVA=$(JAVA) \
+	CLASSPATH=t:libguestfs-$(VERSION).jar \
+	LIBGUESTFS_PATH=$(abs_top_builddir) \
+	./run-java-test
+
+t/%.class: t/%.java
+	$(JAVAC) $(JAVAC_FLAGS) -classpath libguestfs-$(VERSION).jar $<
 
 endif
