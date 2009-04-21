@@ -290,6 +290,17 @@ if test "x$with_java_home" != "xno"; then
 	JAVAC_FLAGS="-source 1.5" ;;
     esac
     AC_MSG_RESULT([$JAVAC_FLAGS])
+
+    dnl Where to install jarfiles.
+    dnl XXX How to make it configurable?
+    JAR_INSTALL_DIR=\${prefix}/share/java
+    JNI_INSTALL_DIR=\${libdir}
+
+    dnl JNI version.
+    jni_major_version=`echo $VERSION | awk -F. '{print $1}'`
+    jni_minor_version=`echo $VERSION | awk -F. '{print $2}'`
+    jni_micro_version=`echo $VERSION | awk -F. '{print $3}'`
+    JNI_VERSION_INFO=`expr $jni_major_version + $jni_minor_version`:$jni_micro_version:$jni_minor_version
 fi
 
 AC_SUBST(JAVA_HOME)
@@ -300,6 +311,9 @@ AC_SUBST(JAVADOC)
 AC_SUBST(JAR)
 AC_SUBST(JNI_CFLAGS)
 AC_SUBST(JAVAC_FLAGS)
+AC_SUBST(JAR_INSTALL_DIR)
+AC_SUBST(JNI_INSTALL_DIR)
+AC_SUBST(JNI_VERSION_INFO)
 
 AM_CONDITIONAL([HAVE_JAVA],[test -n "$JAVAC"])
 

@@ -5218,6 +5218,8 @@ class GuestFS:
 
 (* Useful if you need the longdesc POD text as plain text.  Returns a
  * list of lines.
+ *
+ * This is the slowest thing about autogeneration.
  *)
 and pod2text ~width name longdesc =
   let filename, chan = Filename.open_temp_file "gen" ".tmp" in
@@ -5480,6 +5482,514 @@ and generate_ruby_lvm_code typ cols =
   pr "  guestfs_free_lvm_%s_list (r);\n" typ;
   pr "  return rv;\n"
 
+(* Generate Java bindings GuestFS.java file. *)
+and generate_java_java () =
+  generate_header CStyle LGPLv2;
+
+  pr "\
+package com.redhat.et.libguestfs;
+
+import java.util.HashMap;
+import com.redhat.et.libguestfs.LibGuestFSException;
+import com.redhat.et.libguestfs.PV;
+import com.redhat.et.libguestfs.VG;
+import com.redhat.et.libguestfs.LV;
+import com.redhat.et.libguestfs.Stat;
+import com.redhat.et.libguestfs.StatVFS;
+import com.redhat.et.libguestfs.IntBool;
+
+/**
+ * The GuestFS object is a libguestfs handle.
+ *
+ * @author rjones
+ */
+public class GuestFS {
+  // Load the native code.
+  static {
+    System.loadLibrary (\"guestfs_jni\");
+  }
+
+  /**
+   * The native guestfs_h pointer.
+   */
+  long g;
+
+  /**
+   * Create a libguestfs handle.
+   *
+   * @throws LibGuestFSException
+   */
+  public GuestFS () throws LibGuestFSException
+  {
+    g = _create ();
+  }
+  private native long _create () throws LibGuestFSException;
+
+  /**
+   * Close a libguestfs handle.
+   *
+   * You can also leave handles to be collected by the garbage
+   * collector, but this method ensures that the resources used
+   * by the handle are freed up immediately.  If you call any
+   * other methods after closing the handle, you will get an
+   * exception.
+   *
+   * @throws LibGuestFSException
+   */
+  public void close () throws LibGuestFSException
+  {
+    if (g != 0)
+      _close (g);
+    g = 0;
+  }
+  private native void _close (long g) throws LibGuestFSException;
+
+  public void finalize () throws LibGuestFSException
+  {
+    close ();
+  }
+
+";
+
+  List.iter (
+    fun (name, style, _, flags, _, shortdesc, longdesc) ->
+      let doc = replace_str longdesc "C<guestfs_" "C<g." in
+      let doc =
+	if List.mem ProtocolLimitWarning flags then
+	  doc ^ "\n\n" ^ protocol_limit_warning
+	else doc in
+      let doc =
+	if List.mem DangerWillRobinson flags then
+	  doc ^ "\n\n" ^ danger_will_robinson
+	else doc in
+      let doc = pod2text ~width:60 name doc in
+      let doc = String.concat "\n   * " doc in
+
+      pr "  /**\n";
+      pr "   * %s\n" shortdesc;
+      pr "   *\n";
+      pr "   * %s\n" doc;
+      pr "   * @throws LibGuestFSException\n";
+      pr "   */\n";
+      pr "  ";
+      generate_java_prototype ~public:true ~semicolon:false name style;
+      pr "\n";
+      pr "  {\n";
+      pr "    if (g == 0)\n";
+      pr "      throw new LibGuestFSException (\"%s: handle is closed\");\n"
+	name;
+      pr "    ";
+      if fst style <> RErr then pr "return ";
+      pr "_%s " name;
+      generate_call_args ~handle:"g" (snd style);
+      pr ";\n";
+      pr "  }\n";
+      pr "  ";
+      generate_java_prototype ~privat:true ~native:true name style;
+      pr "\n";
+      pr "\n";
+  ) all_functions;
+
+  pr "}\n"
+
+and generate_java_prototype ?(public=false) ?(privat=false) ?(native=false)
+    ?(semicolon=true) name style =
+  if privat then pr "private ";
+  if public then pr "public ";
+  if native then pr "native ";
+
+  (* return type *)
+  (match fst style with
+   | RErr -> pr "void ";
+   | RInt _ -> pr "int ";
+   | RInt64 _ -> pr "long ";
+   | RBool _ -> pr "boolean ";
+   | RConstString _ | RString _ -> pr "String ";
+   | RStringList _ -> pr "String[] ";
+   | RIntBool _ -> pr "IntBool ";
+   | RPVList _ -> pr "PV[] ";
+   | RVGList _ -> pr "VG[] ";
+   | RLVList _ -> pr "LV[] ";
+   | RStat _ -> pr "Stat ";
+   | RStatVFS _ -> pr "StatVFS ";
+   | RHashtable _ -> pr "HashMap<String,String> ";
+  );
+
+  if native then pr "_%s " name else pr "%s " name;
+  pr "(";
+  let needs_comma = ref false in
+  if native then (
+    pr "long g";
+    needs_comma := true
+  );
+
+  (* args *)
+  List.iter (
+    fun arg ->
+      if !needs_comma then pr ", ";
+      needs_comma := true;
+
+      match arg with
+      | String n
+      | OptString n
+      | FileIn n
+      | FileOut n ->
+	  pr "String %s" n
+      | StringList n ->
+	  pr "String[] %s" n
+      | Bool n ->
+	  pr "boolean %s" n
+      | Int n ->
+	  pr "int %s" n
+  ) (snd style);
+
+  pr ")\n";
+  pr "    throws LibGuestFSException";
+  if semicolon then pr ";"
+
+and generate_java_struct typ cols =
+  generate_header CStyle LGPLv2;
+
+  pr "\
+package com.redhat.et.libguestfs;
+
+/**
+ * Libguestfs %s structure.
+ *
+ * @author rjones
+ * @see GuestFS
+ */
+public class %s {
+" typ typ;
+
+  List.iter (
+    function
+    | name, `String
+    | name, `UUID -> pr "  public String %s;\n" name
+    | name, `Bytes
+    | name, `Int -> pr "  public long %s;\n" name
+    | name, `OptPercent ->
+	pr "  /* The next field is [0..100] or -1 meaning 'not present': */\n";
+	pr "  public float %s;\n" name
+  ) cols;
+
+  pr "}\n"
+
+and generate_java_c () =
+  generate_header CStyle LGPLv2;
+
+  pr "\
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include \"com_redhat_et_libguestfs_GuestFS.h\"
+#include \"guestfs.h\"
+
+/* Note that this function returns.  The exception is not thrown
+ * until after the wrapper function returns.
+ */
+static void
+throw_exception (JNIEnv *env, const char *msg)
+{
+  jclass cl;
+  cl = (*env)->FindClass (env,
+                          \"com/redhat/et/libguestfs/LibGuestFSException\");
+  (*env)->ThrowNew (env, cl, msg);
+}
+
+JNIEXPORT jlong JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1create
+  (JNIEnv *env, jobject obj)
+{
+  guestfs_h *g;
+
+  g = guestfs_create ();
+  if (g == NULL) {
+    throw_exception (env, \"GuestFS.create: failed to allocate handle\");
+    return 0;
+  }
+  guestfs_set_error_handler (g, NULL, NULL);
+  return (jlong) g;
+}
+
+JNIEXPORT void JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1close
+  (JNIEnv *env, jobject obj, jlong jg)
+{
+  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_close (g);
+}
+
+";
+
+  List.iter (
+    fun (name, style, _, _, _, _, _) ->
+      pr "JNIEXPORT ";
+      (match fst style with
+       | RErr -> pr "void ";
+       | RInt _ -> pr "jint ";
+       | RInt64 _ -> pr "jlong ";
+       | RBool _ -> pr "jboolean ";
+       | RConstString _ | RString _ -> pr "jstring ";
+       | RIntBool _ | RStat _ | RStatVFS _ | RHashtable _ ->
+	   pr "jobject ";
+       | RStringList _ | RPVList _ | RVGList _ | RLVList _ ->
+	   pr "jobjectArray ";
+      );
+      pr "JNICALL\n";
+      pr "Java_com_redhat_et_libguestfs_";
+      pr "%s" (replace_str ("_" ^ name) "_" "_1");
+      pr "\n";
+      pr "  (JNIEnv *env, jobject obj, jlong jg";
+      List.iter (
+	function
+	| String n
+	| OptString n
+	| FileIn n
+	| FileOut n ->
+	    pr ", jstring j%s" n
+	| StringList n ->
+	    pr ", jobjectArray j%s" n
+	| Bool n ->
+	    pr ", jboolean j%s" n
+	| Int n ->
+	    pr ", jint j%s" n
+      ) (snd style);
+      pr ")\n";
+      pr "{\n";
+      pr "  guestfs_h *g = (guestfs_h *) jg;\n";
+      let error_code, no_ret =
+	match fst style with
+	| RErr -> pr "  int r;\n"; "-1", ""
+	| RBool _
+	| RInt _ -> pr "  int r;\n"; "-1", "0"
+	| RInt64 _ -> pr "  int64_t r;\n"; "-1", "0"
+	| RConstString _ -> pr "  const char *r;\n"; "NULL", "NULL"
+	| RString _ ->
+	    pr "  jstring jr;\n";
+	    pr "  char *r;\n"; "NULL", "NULL"
+	| RStringList _ ->
+	    pr "  jobjectArray jr;\n";
+	    pr "  int r_len;\n";
+	    pr "  jclass cl;\n";
+	    pr "  jstring jstr;\n";
+	    pr "  char **r;\n"; "NULL", "NULL"
+	| RIntBool _ ->
+	    pr "  jobject jr;\n";
+	    pr "  jclass cl;\n";
+	    pr "  jfieldID fl;\n";
+	    pr "  struct guestfs_int_bool *r;\n"; "NULL", "NULL"
+	| RStat _ ->
+	    pr "  jobject jr;\n";
+	    pr "  jclass cl;\n";
+	    pr "  jfieldID fl;\n";
+	    pr "  struct guestfs_stat *r;\n"; "NULL", "NULL"
+	| RStatVFS _ ->
+	    pr "  jobject jr;\n";
+	    pr "  jclass cl;\n";
+	    pr "  jfieldID fl;\n";
+	    pr "  struct guestfs_statvfs *r;\n"; "NULL", "NULL"
+	| RPVList _ ->
+	    pr "  jobjectArray jr;\n";
+	    pr "  jclass cl;\n";
+	    pr "  jfieldID fl;\n";
+	    pr "  jobject jfl;\n";
+	    pr "  struct guestfs_lvm_pv_list *r;\n"; "NULL", "NULL"
+	| RVGList _ ->
+	    pr "  jobjectArray jr;\n";
+	    pr "  jclass cl;\n";
+	    pr "  jfieldID fl;\n";
+	    pr "  jobject jfl;\n";
+	    pr "  struct guestfs_lvm_vg_list *r;\n"; "NULL", "NULL"
+	| RLVList _ ->
+	    pr "  jobjectArray jr;\n";
+	    pr "  jclass cl;\n";
+	    pr "  jfieldID fl;\n";
+	    pr "  jobject jfl;\n";
+	    pr "  struct guestfs_lvm_lv_list *r;\n"; "NULL", "NULL"
+	| RHashtable _ -> pr "  char **r;\n"; "NULL", "NULL" in
+      List.iter (
+	function
+	| String n
+	| OptString n
+	| FileIn n
+	| FileOut n ->
+	    pr "  const char *%s;\n" n
+	| StringList n ->
+	    pr "  int %s_len;\n" n;
+	    pr "  const char **%s;\n" n
+	| Bool n
+	| Int n ->
+	    pr "  int %s;\n" n
+      ) (snd style);
+
+      let needs_i =
+	(match fst style with
+	 | RStringList _ | RPVList _ | RVGList _ | RLVList _ -> true
+	 | RErr _ | RBool _ | RInt _ | RInt64 _ | RConstString _
+	 | RString _ | RIntBool _ | RStat _ | RStatVFS _
+	 | RHashtable _ -> false) ||
+	List.exists (function StringList _ -> true | _ -> false) (snd style) in
+      if needs_i then
+	pr "  int i;\n";
+
+      pr "\n";
+
+      (* Get the parameters. *)
+      List.iter (
+	function
+	| String n
+	| OptString n
+	| FileIn n
+	| FileOut n ->
+	    pr "  %s = (*env)->GetStringUTFChars (env, j%s, NULL);\n" n n
+	| StringList n ->
+	    pr "  %s_len = (*env)->GetArrayLength (env, j%s);\n" n n;
+	    pr "  %s = malloc (sizeof (char *) * (%s_len+1));\n" n n;
+	    pr "  for (i = 0; i < %s_len; ++i) {\n" n;
+	    pr "    jobject o = (*env)->GetObjectArrayElement (env, j%s, i);\n"
+	      n;
+	    pr "    %s[i] = (*env)->GetStringUTFChars (env, o, NULL);\n" n;
+	    pr "  }\n";
+	    pr "  %s[%s_len] = NULL;\n" n n;
+	| Bool n
+	| Int n ->
+	    pr "  %s = j%s;\n" n n
+      ) (snd style);
+
+      (* Make the call. *)
+      pr "  r = guestfs_%s " name;
+      generate_call_args ~handle:"g" (snd style);
+      pr ";\n";
+
+      (* Release the parameters. *)
+      List.iter (
+	function
+	| String n
+	| OptString n
+	| FileIn n
+	| FileOut n ->
+	    pr "  (*env)->ReleaseStringUTFChars (env, j%s, %s);\n" n n
+	| StringList n ->
+	    pr "  for (i = 0; i < %s_len; ++i) {\n" n;
+	    pr "    jobject o = (*env)->GetObjectArrayElement (env, j%s, i);\n"
+	      n;
+	    pr "    (*env)->ReleaseStringUTFChars (env, o, %s[i]);\n" n;
+	    pr "  }\n";
+	    pr "  free (%s);\n" n
+	| Bool n
+	| Int n -> ()
+      ) (snd style);
+
+      (* Check for errors. *)
+      pr "  if (r == %s) {\n" error_code;
+      pr "    throw_exception (env, guestfs_last_error (g));\n";
+      pr "    return %s;\n" no_ret;
+      pr "  }\n";
+
+      (* Return value. *)
+      (match fst style with
+       | RErr -> ()
+       | RInt _ -> pr "  return (jint) r;\n"
+       | RBool _ -> pr "  return (jboolean) r;\n"
+       | RInt64 _ -> pr "  return (jlong) r;\n"
+       | RConstString _ -> pr "  return (*env)->NewStringUTF (env, r);\n"
+       | RString _ ->
+	   pr "  jr = (*env)->NewStringUTF (env, r);\n";
+	   pr "  free (r);\n";
+	   pr "  return jr;\n"
+       | RStringList _ ->
+	   pr "  for (r_len = 0; r[r_len] != NULL; ++r_len) ;\n";
+	   pr "  cl = (*env)->FindClass (env, \"java/lang/String\");\n";
+	   pr "  jstr = (*env)->NewStringUTF (env, \"\");\n";
+	   pr "  jr = (*env)->NewObjectArray (env, r_len, cl, jstr);\n";
+	   pr "  for (i = 0; i < r_len; ++i) {\n";
+	   pr "    jstr = (*env)->NewStringUTF (env, r[i]);\n";
+	   pr "    (*env)->SetObjectArrayElement (env, jr, i, jstr);\n";
+	   pr "    free (r[i]);\n";
+	   pr "  }\n";
+	   pr "  free (r);\n";
+	   pr "  return jr;\n"
+       | RIntBool _ ->
+	   pr "  cl = (*env)->FindClass (env, \"com/redhat/et/libguestfs/IntBool\");\n";
+	   pr "  jr = (*env)->AllocObject (env, cl);\n";
+	   pr "  fl = (*env)->GetFieldID (env, cl, \"i\", \"I\");\n";
+	   pr "  (*env)->SetIntField (env, jr, fl, r->i);\n";
+	   pr "  fl = (*env)->GetFieldID (env, cl, \"i\", \"Z\");\n";
+	   pr "  (*env)->SetBooleanField (env, jr, fl, r->b);\n";
+	   pr "  guestfs_free_int_bool (r);\n";
+	   pr "  return jr;\n"
+       | RStat _ ->
+	   pr "  cl = (*env)->FindClass (env, \"com/redhat/et/libguestfs/Stat\");\n";
+	   pr "  jr = (*env)->AllocObject (env, cl);\n";
+	   List.iter (
+	     function
+	     | name, `Int ->
+		 pr "  fl = (*env)->GetFieldID (env, cl, \"%s\", \"J\");\n"
+		   name;
+		 pr "  (*env)->SetLongField (env, jr, fl, r->%s);\n" name;
+	   ) stat_cols;
+	   pr "  free (r);\n";
+	   pr "  return jr;\n"
+       | RStatVFS _ ->
+	   pr "  cl = (*env)->FindClass (env, \"com/redhat/et/libguestfs/StatVFS\");\n";
+	   pr "  jr = (*env)->AllocObject (env, cl);\n";
+	   List.iter (
+	     function
+	     | name, `Int ->
+		 pr "  fl = (*env)->GetFieldID (env, cl, \"%s\", \"J\");\n"
+		   name;
+		 pr "  (*env)->SetLongField (env, jr, fl, r->%s);\n" name;
+	   ) statvfs_cols;
+	   pr "  free (r);\n";
+	   pr "  return jr;\n"
+       | RPVList _ ->
+	   generate_java_lvm_return "pv" "PV" pv_cols
+       | RVGList _ ->
+	   generate_java_lvm_return "vg" "VG" vg_cols
+       | RLVList _ ->
+	   generate_java_lvm_return "lv" "LV" lv_cols
+       | RHashtable _ ->
+	   (* XXX *)
+	   pr "  throw_exception (env, \"%s: internal error: please let us know how to make a Java HashMap from JNI bindings!\");\n" name;
+	   pr "  return NULL;\n"
+      );
+
+      pr "}\n";
+      pr "\n"
+  ) all_functions
+
+and generate_java_lvm_return typ jtyp cols =
+  pr "  cl = (*env)->FindClass (env, \"com/redhat/et/libguestfs/%s\");\n" jtyp;
+  pr "  jr = (*env)->NewObjectArray (env, r->len, cl, NULL);\n";
+  pr "  for (i = 0; i < r->len; ++i) {\n";
+  pr "    jfl = (*env)->AllocObject (env, cl);\n";
+  List.iter (
+    function
+    | name, `String ->
+	pr "    fl = (*env)->GetFieldID (env, cl, \"%s\", \"Ljava/lang/String;\");\n" name;
+	pr "    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].%s));\n" name;
+    | name, `UUID ->
+	pr "    {\n";
+	pr "      char s[33];\n";
+	pr "      memcpy (s, r->val[i].%s, 32);\n" name;
+	pr "      s[32] = 0;\n";
+	pr "      fl = (*env)->GetFieldID (env, cl, \"%s\", \"Ljava/lang/String;\");\n" name;
+	pr "      (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, s));\n";
+	pr "    }\n";
+    | name, (`Bytes|`Int) ->
+	pr "    fl = (*env)->GetFieldID (env, cl, \"%s\", \"J\");\n" name;
+	pr "    (*env)->SetLongField (env, jfl, fl, r->val[i].%s);\n" name;
+    | name, `OptPercent ->
+	pr "    fl = (*env)->GetFieldID (env, cl, \"%s\", \"F\");\n" name;
+	pr "    (*env)->SetFloatField (env, jfl, fl, r->val[i].%s);\n" name;
+  ) cols;
+  pr "    (*env)->SetObjectArrayElement (env, jfl, i, jfl);\n";
+  pr "  }\n";
+  pr "  guestfs_free_lvm_%s_list (r);\n" typ;
+  pr "  return jr;\n"
+
 let output_to filename =
   let filename_new = filename ^ ".new" in
   chan := open_out filename_new;
@@ -5582,4 +6092,32 @@ Run it from the top source directory using the command
 
   let close = output_to "ruby/ext/guestfs/_guestfs.c" in
   generate_ruby_c ();
+  close ();
+
+  let close = output_to "java/com/redhat/et/libguestfs/GuestFS.java" in
+  generate_java_java ();
+  close ();
+
+  let close = output_to "java/com/redhat/et/libguestfs/PV.java" in
+  generate_java_struct "PV" pv_cols;
+  close ();
+
+  let close = output_to "java/com/redhat/et/libguestfs/VG.java" in
+  generate_java_struct "VG" vg_cols;
+  close ();
+
+  let close = output_to "java/com/redhat/et/libguestfs/LV.java" in
+  generate_java_struct "LV" lv_cols;
+  close ();
+
+  let close = output_to "java/com/redhat/et/libguestfs/Stat.java" in
+  generate_java_struct "Stat" stat_cols;
+  close ();
+
+  let close = output_to "java/com/redhat/et/libguestfs/StatVFS.java" in
+  generate_java_struct "StatVFS" statvfs_cols;
+  close ();
+
+  let close = output_to "java/com_redhat_et_libguestfs_GuestFS.c" in
+  generate_java_c ();
   close ();

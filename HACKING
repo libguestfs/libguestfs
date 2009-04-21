@@ -46,6 +46,9 @@ images/
 
 	Also contains some files used by the test suite.
 
+java/
+	Java bindings.
+
 m4/
 	M4 macros used by autoconf.
 

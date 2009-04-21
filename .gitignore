@@ -12,6 +12,8 @@
 *.cmxa
 *.a
 *.so
+*.class
+*.jar
 Makefile.in
 Makefile
 aclocal.m4
@@ -40,6 +42,9 @@ initramfs
 initramfs.timestamp
 initramfs.*.img
 install-sh
+java/api
+java/com_redhat_et_libguestfs_GuestFS.h
+java/doc-stamp
 missing
 libguestfs.spec
 libguestfs-*.tar.gz
