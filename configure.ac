@@ -191,9 +191,7 @@ AM_CONDITIONAL([HAVE_PYTHON],
     [test "x$PYTHON_INCLUDEDIR" != "x" -a "x$PYTHON_SITE_PACKAGES" != "x"])
 
 dnl Check for Ruby and rake (optional, for Ruby bindings).
-old_libs="$LIBS"
-AC_CHECK_LIB([ruby],[ruby_init])
-LIBS="$old_libs"
+AC_CHECK_LIB([ruby],[ruby_init],[HAVE_LIBRUBY=1],[HAVE_LIBRUBY=0])
 AC_CHECK_PROG([RAKE],[rake],[rake],[no])
 
 AM_CONDITIONAL([HAVE_RUBY],
@@ -324,3 +322,32 @@ AC_OUTPUT
 
 dnl WTF?
 chmod +x make-initramfs.sh update-initramfs.sh
+
+dnl Produce summary.
+echo
+echo
+echo "------------------------------------------------------------"
+echo "Thank you for downloading $PACKAGE_STRING"
+echo
+echo "This is how we have configured the optional components for you today:"
+echo
+echo -n "OCaml bindings ...................... "
+if test "x$HAVE_OCAML_TRUE" = "x"; then echo "yes"; else echo "no"; fi
+echo -n "Perl bindings ....................... "
+if test "x$HAVE_PERL_TRUE" = "x"; then echo "yes"; else echo "no"; fi
+echo -n "Python bindings ..................... "
+if test "x$HAVE_PYTHON_TRUE" = "x"; then echo "yes"; else echo "no"; fi
+echo -n "Ruby bindings ....................... "
+if test "x$HAVE_RUBY_TRUE" = "x"; then echo "yes"; else echo "no"; fi
+echo -n "Java bindings ....................... "
+if test "x$HAVE_JAVA_TRUE" = "x"; then echo "yes"; else echo "no"; fi
+echo
+echo "If any optional component is configured 'no' when you expected 'yes'"
+echo "then you should check the preceeding messages."
+echo
+echo "Please report bugs back to the fedora-virt mailing list:"
+echo "http://www.redhat.com/mailman/listinfo/fedora-virt"
+echo
+echo "Next you should type 'make' to build the package,"
+echo "then 'make check' to run the tests."
+echo "------------------------------------------------------------"
