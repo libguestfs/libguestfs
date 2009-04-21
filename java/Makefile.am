@@ -18,18 +18,19 @@
 CPTH = com/redhat/et/libguestfs
 
 java_sources = \
-  $(CPTH)/LibGuestFSException.java \
-  $(CPTH)/IntBool.java \
-  $(CPTH)/PV.java \
-  $(CPTH)/VG.java \
-  $(CPTH)/LV.java \
-  $(CPTH)/Stat.java \
-  $(CPTH)/StatVFS.java \
-  $(CPTH)/GuestFS.java
+	$(CPTH)/LibGuestFSException.java \
+	$(CPTH)/IntBool.java \
+	$(CPTH)/PV.java \
+	$(CPTH)/VG.java \
+	$(CPTH)/LV.java \
+	$(CPTH)/Stat.java \
+	$(CPTH)/StatVFS.java \
+	$(CPTH)/GuestFS.java
 
 java_tests = \
-  t/GuestFS005Load.java \
-  t/GuestFS010Launch.java
+	t/GuestFS005Load.java \
+	t/GuestFS010Launch.java \
+	t/GuestFS050LVCreate.java
 
 EXTRA_DIST = \
 	$(java_sources) \
