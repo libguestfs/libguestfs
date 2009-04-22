@@ -360,7 +360,7 @@ yourself (Augeas support makes this relatively easy).
 
 =head2 command
 
- command arguments,...
+ command 'arguments ...'
 
 This call runs a command from the guest filesystem.  The
 filesystem must be mounted, and must contain a compatible
@@ -385,7 +385,7 @@ locations.
 
 =head2 command-lines
 
- command-lines arguments,...
+ command-lines 'arguments ...'
 
 This is the same as C<command>, but splits the
 result into a list of lines.
@@ -798,7 +798,7 @@ C<LIBGUESTFS_DEBUG> is defined and set to C<1>.
 
 =head2 sfdisk
 
- sfdisk device cyls heads sectors lines,...
+ sfdisk device cyls heads sectors 'lines ...'
 
 This is a direct interface to the L<sfdisk(8)> program for creating
 partitions on block devices.
@@ -946,7 +946,7 @@ Use C<-> instead of a filename to read/write from stdin/stdout.
 
 =head2 vgcreate
 
- vgcreate volgroup physvols,...
+ vgcreate volgroup 'physvols ...'
 
 This creates an LVM volume group called C<volgroup>
 from the non-empty list of physical volumes C<physvols>.

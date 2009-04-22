@@ -3796,7 +3796,7 @@ and generate_fish_actions_pod () =
 	function
 	| String n -> pr " %s" n
 	| OptString n -> pr " %s" n
-	| StringList n -> pr " %s,..." n
+	| StringList n -> pr " '%s ...'" n
 	| Bool _ -> pr " true|false"
 	| Int n -> pr " %s" n
 	| FileIn n | FileOut n -> pr " (%s|-)" n
