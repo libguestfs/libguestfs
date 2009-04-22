@@ -2130,4 +2130,60 @@ public class GuestFS {
   private native void _tgz_out (long g, String directory, String tarball)
     throws LibGuestFSException;
 
+  /**
+   * mount a guest disk, read-only
+   *
+   * This is the same as the "g.mount" command, but it mounts
+   * the filesystem with the read-only (*-o ro*) flag.
+   * 
+   * @throws LibGuestFSException
+   */
+  public void mount_ro (String device, String mountpoint)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("mount_ro: handle is closed");
+    _mount_ro (g, device, mountpoint);
+  }
+  private native void _mount_ro (long g, String device, String mountpoint)
+    throws LibGuestFSException;
+
+  /**
+   * mount a guest disk with mount options
+   *
+   * This is the same as the "g.mount" command, but it allows
+   * you to set the mount options as for the mount(8) *-o*
+   * flag.
+   * 
+   * @throws LibGuestFSException
+   */
+  public void mount_options (String options, String device, String mountpoint)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("mount_options: handle is closed");
+    _mount_options (g, options, device, mountpoint);
+  }
+  private native void _mount_options (long g, String options, String device, String mountpoint)
+    throws LibGuestFSException;
+
+  /**
+   * mount a guest disk with mount options and vfstype
+   *
+   * This is the same as the "g.mount" command, but it allows
+   * you to set both the mount options and the vfstype as for
+   * the mount(8) *-o* and *-t* flags.
+   * 
+   * @throws LibGuestFSException
+   */
+  public void mount_vfs (String options, String vfstype, String device, String mountpoint)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("mount_vfs: handle is closed");
+    _mount_vfs (g, options, vfstype, device, mountpoint);
+  }
+  private native void _mount_vfs (long g, String options, String vfstype, String device, String mountpoint)
+    throws LibGuestFSException;
+
 }

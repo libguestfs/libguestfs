@@ -1429,3 +1429,42 @@ PREINIT:
       if (r == -1)
         croak ("tgz_out: %s", guestfs_last_error (g));
 
+void
+mount_ro (g, device, mountpoint)
+      guestfs_h *g;
+      char *device;
+      char *mountpoint;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_mount_ro (g, device, mountpoint);
+      if (r == -1)
+        croak ("mount_ro: %s", guestfs_last_error (g));
+
+void
+mount_options (g, options, device, mountpoint)
+      guestfs_h *g;
+      char *options;
+      char *device;
+      char *mountpoint;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_mount_options (g, options, device, mountpoint);
+      if (r == -1)
+        croak ("mount_options: %s", guestfs_last_error (g));
+
+void
+mount_vfs (g, options, vfstype, device, mountpoint)
+      guestfs_h *g;
+      char *options;
+      char *vfstype;
+      char *device;
+      char *mountpoint;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_mount_vfs (g, options, vfstype, device, mountpoint);
+      if (r == -1)
+        croak ("mount_vfs: %s", guestfs_last_error (g));
+

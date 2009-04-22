@@ -889,6 +889,44 @@ call, in order to improve reliability.
 
 This function returns 0 on success or -1 on error.
 
+=head2 guestfs_mount_options
+
+ int guestfs_mount_options (guestfs_h *handle,
+		const char *options,
+		const char *device,
+		const char *mountpoint);
+
+This is the same as the C<guestfs_mount> command, but it
+allows you to set the mount options as for the
+L<mount(8)> I<-o> flag.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_mount_ro
+
+ int guestfs_mount_ro (guestfs_h *handle,
+		const char *device,
+		const char *mountpoint);
+
+This is the same as the C<guestfs_mount> command, but it
+mounts the filesystem with the read-only (I<-o ro>) flag.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_mount_vfs
+
+ int guestfs_mount_vfs (guestfs_h *handle,
+		const char *options,
+		const char *vfstype,
+		const char *device,
+		const char *mountpoint);
+
+This is the same as the C<guestfs_mount> command, but it
+allows you to set both the mount options and the vfstype
+as for the L<mount(8)> I<-o> and I<-t> flags.
+
+This function returns 0 on success or -1 on error.
+
 =head2 guestfs_mounts
 
  char **guestfs_mounts (guestfs_h *handle);

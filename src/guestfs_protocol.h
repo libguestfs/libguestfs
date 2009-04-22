@@ -657,6 +657,27 @@ struct guestfs_tgz_out_args {
 };
 typedef struct guestfs_tgz_out_args guestfs_tgz_out_args;
 
+struct guestfs_mount_ro_args {
+	char *device;
+	char *mountpoint;
+};
+typedef struct guestfs_mount_ro_args guestfs_mount_ro_args;
+
+struct guestfs_mount_options_args {
+	char *options;
+	char *device;
+	char *mountpoint;
+};
+typedef struct guestfs_mount_options_args guestfs_mount_options_args;
+
+struct guestfs_mount_vfs_args {
+	char *options;
+	char *vfstype;
+	char *device;
+	char *mountpoint;
+};
+typedef struct guestfs_mount_vfs_args guestfs_mount_vfs_args;
+
 enum guestfs_procedure {
 	GUESTFS_PROC_MOUNT = 1,
 	GUESTFS_PROC_SYNC = 2,
@@ -730,7 +751,10 @@ enum guestfs_procedure {
 	GUESTFS_PROC_TAR_OUT = 70,
 	GUESTFS_PROC_TGZ_IN = 71,
 	GUESTFS_PROC_TGZ_OUT = 72,
-	GUESTFS_PROC_NR_PROCS = 72 + 1,
+	GUESTFS_PROC_MOUNT_RO = 73,
+	GUESTFS_PROC_MOUNT_OPTIONS = 74,
+	GUESTFS_PROC_MOUNT_VFS = 75,
+	GUESTFS_PROC_NR_PROCS = 75 + 1,
 };
 typedef enum guestfs_procedure guestfs_procedure;
 #define GUESTFS_MESSAGE_MAX 4194304
@@ -881,6 +905,9 @@ extern  bool_t xdr_guestfs_tar_in_args (XDR *, guestfs_tar_in_args*);
 extern  bool_t xdr_guestfs_tar_out_args (XDR *, guestfs_tar_out_args*);
 extern  bool_t xdr_guestfs_tgz_in_args (XDR *, guestfs_tgz_in_args*);
 extern  bool_t xdr_guestfs_tgz_out_args (XDR *, guestfs_tgz_out_args*);
+extern  bool_t xdr_guestfs_mount_ro_args (XDR *, guestfs_mount_ro_args*);
+extern  bool_t xdr_guestfs_mount_options_args (XDR *, guestfs_mount_options_args*);
+extern  bool_t xdr_guestfs_mount_vfs_args (XDR *, guestfs_mount_vfs_args*);
 extern  bool_t xdr_guestfs_procedure (XDR *, guestfs_procedure*);
 extern  bool_t xdr_guestfs_message_direction (XDR *, guestfs_message_direction*);
 extern  bool_t xdr_guestfs_message_status (XDR *, guestfs_message_status*);
@@ -990,6 +1017,9 @@ extern bool_t xdr_guestfs_tar_in_args ();
 extern bool_t xdr_guestfs_tar_out_args ();
 extern bool_t xdr_guestfs_tgz_in_args ();
 extern bool_t xdr_guestfs_tgz_out_args ();
+extern bool_t xdr_guestfs_mount_ro_args ();
+extern bool_t xdr_guestfs_mount_options_args ();
+extern bool_t xdr_guestfs_mount_vfs_args ();
 extern bool_t xdr_guestfs_procedure ();
 extern bool_t xdr_guestfs_message_direction ();
 extern bool_t xdr_guestfs_message_status ();

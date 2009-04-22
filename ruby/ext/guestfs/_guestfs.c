@@ -2231,6 +2231,93 @@ static VALUE ruby_guestfs_tgz_out (VALUE gv, VALUE directoryv, VALUE tarballv)
   return Qnil;
 }
 
+static VALUE ruby_guestfs_mount_ro (VALUE gv, VALUE devicev, VALUE mountpointv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "mount_ro");
+
+  const char *device = StringValueCStr (devicev);
+  if (!device)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "device", "mount_ro");
+  const char *mountpoint = StringValueCStr (mountpointv);
+  if (!mountpoint)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "mountpoint", "mount_ro");
+
+  int r;
+
+  r = guestfs_mount_ro (g, device, mountpoint);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
+static VALUE ruby_guestfs_mount_options (VALUE gv, VALUE optionsv, VALUE devicev, VALUE mountpointv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "mount_options");
+
+  const char *options = StringValueCStr (optionsv);
+  if (!options)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "options", "mount_options");
+  const char *device = StringValueCStr (devicev);
+  if (!device)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "device", "mount_options");
+  const char *mountpoint = StringValueCStr (mountpointv);
+  if (!mountpoint)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "mountpoint", "mount_options");
+
+  int r;
+
+  r = guestfs_mount_options (g, options, device, mountpoint);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
+static VALUE ruby_guestfs_mount_vfs (VALUE gv, VALUE optionsv, VALUE vfstypev, VALUE devicev, VALUE mountpointv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "mount_vfs");
+
+  const char *options = StringValueCStr (optionsv);
+  if (!options)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "options", "mount_vfs");
+  const char *vfstype = StringValueCStr (vfstypev);
+  if (!vfstype)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "vfstype", "mount_vfs");
+  const char *device = StringValueCStr (devicev);
+  if (!device)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "device", "mount_vfs");
+  const char *mountpoint = StringValueCStr (mountpointv);
+  if (!mountpoint)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "mountpoint", "mount_vfs");
+
+  int r;
+
+  r = guestfs_mount_vfs (g, options, vfstype, device, mountpoint);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
 /* Initialize the module. */
 void Init__guestfs ()
 {
@@ -2427,4 +2514,10 @@ void Init__guestfs ()
         ruby_guestfs_tgz_in, 2);
   rb_define_method (c_guestfs, "tgz_out",
         ruby_guestfs_tgz_out, 2);
+  rb_define_method (c_guestfs, "mount_ro",
+        ruby_guestfs_mount_ro, 2);
+  rb_define_method (c_guestfs, "mount_options",
+        ruby_guestfs_mount_options, 3);
+  rb_define_method (c_guestfs, "mount_vfs",
+        ruby_guestfs_mount_vfs, 4);
 }

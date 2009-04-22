@@ -105,6 +105,154 @@ static void no_test_warnings (void)
   fprintf (stderr, "warning: \"guestfs_blockdev_setbsz\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_tar_out\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_tgz_out\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_mount_options\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_mount_vfs\" has no tests\n");
+}
+
+static int test_mount_ro_0 (void)
+{
+  /* InitBasicFS for mount_ro (0): create ext2 on /dev/sda1 */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *lines[] = {
+      ",",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  /* TestLastFail for mount_ro (0) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount (g, "/");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount_ro (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 1;
+    r = guestfs_touch (g, "/new");
+    if (r != -1)
+      return -1;
+  }
+  return 0;
+}
+
+static int test_mount_ro_1 (void)
+{
+  /* InitBasicFS for mount_ro (1): create ext2 on /dev/sda1 */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *lines[] = {
+      ",",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for mount_ro (1) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_write_file (g, "/new", "data", 0);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount (g, "/");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount_ro (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *r;
+    suppress_error = 0;
+    r = guestfs_cat (g, "/new");
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, "data") != 0) {
+      fprintf (stderr, "test_mount_ro_1: expected \"data\" but got \"%s\"\n", r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
 }
 
 static int test_tgz_in_0 (void)
@@ -5294,8 +5442,20 @@ int main (int argc, char *argv[])
     exit (1);
   }
 
-  nr_tests = 75;
+  nr_tests = 77;
 
+  test_num++;
+  printf ("%3d/%3d test_mount_ro_0\n", test_num, nr_tests);
+  if (test_mount_ro_0 () == -1) {
+    printf ("test_mount_ro_0 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_mount_ro_1\n", test_num, nr_tests);
+  if (test_mount_ro_1 () == -1) {
+    printf ("test_mount_ro_1 FAILED\n");
+    failed++;
+  }
   test_num++;
   printf ("%3d/%3d test_tgz_in_0\n", test_num, nr_tests);
   if (test_tgz_in_0 () == -1) {

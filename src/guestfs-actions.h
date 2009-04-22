@@ -112,3 +112,6 @@ extern int guestfs_tar_in (guestfs_h *handle, const char *tarfile, const char *d
 extern int guestfs_tar_out (guestfs_h *handle, const char *directory, const char *tarfile);
 extern int guestfs_tgz_in (guestfs_h *handle, const char *tarball, const char *directory);
 extern int guestfs_tgz_out (guestfs_h *handle, const char *directory, const char *tarball);
+extern int guestfs_mount_ro (guestfs_h *handle, const char *device, const char *mountpoint);
+extern int guestfs_mount_options (guestfs_h *handle, const char *options, const char *device, const char *mountpoint);
+extern int guestfs_mount_vfs (guestfs_h *handle, const char *options, const char *vfstype, const char *device, const char *mountpoint);

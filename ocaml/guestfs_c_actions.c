@@ -2533,3 +2533,78 @@ ocaml_guestfs_tgz_out (value gv, value directoryv, value tarballv)
   CAMLreturn (rv);
 }
 
+CAMLprim value
+ocaml_guestfs_mount_ro (value gv, value devicev, value mountpointv)
+{
+  CAMLparam3 (gv, devicev, mountpointv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("mount_ro: used handle after closing it");
+
+  const char *device = String_val (devicev);
+  const char *mountpoint = String_val (mountpointv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_mount_ro (g, device, mountpoint);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "mount_ro");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_mount_options (value gv, value optionsv, value devicev, value mountpointv)
+{
+  CAMLparam4 (gv, optionsv, devicev, mountpointv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("mount_options: used handle after closing it");
+
+  const char *options = String_val (optionsv);
+  const char *device = String_val (devicev);
+  const char *mountpoint = String_val (mountpointv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_mount_options (g, options, device, mountpoint);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "mount_options");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_mount_vfs (value gv, value optionsv, value vfstypev, value devicev, value mountpointv)
+{
+  CAMLparam5 (gv, optionsv, vfstypev, devicev, mountpointv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("mount_vfs: used handle after closing it");
+
+  const char *options = String_val (optionsv);
+  const char *vfstype = String_val (vfstypev);
+  const char *device = String_val (devicev);
+  const char *mountpoint = String_val (mountpointv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_mount_vfs (g, options, vfstype, device, mountpoint);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "mount_vfs");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+

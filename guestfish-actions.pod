@@ -678,6 +678,29 @@ on the underlying device.
 The filesystem options C<sync> and C<noatime> are set with this
 call, in order to improve reliability.
 
+=head2 mount-options
+
+ mount-options options device mountpoint
+
+This is the same as the C<mount> command, but it
+allows you to set the mount options as for the
+L<mount(8)> I<-o> flag.
+
+=head2 mount-ro
+
+ mount-ro device mountpoint
+
+This is the same as the C<mount> command, but it
+mounts the filesystem with the read-only (I<-o ro>) flag.
+
+=head2 mount-vfs
+
+ mount-vfs options vfstype device mountpoint
+
+This is the same as the C<mount> command, but it
+allows you to set both the mount options and the vfstype
+as for the L<mount(8)> I<-o> and I<-t> flags.
+
 =head2 mounts
 
  mounts

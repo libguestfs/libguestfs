@@ -647,6 +647,23 @@ on the underlying device.
 The filesystem options C<sync> and C<noatime> are set with this
 call, in order to improve reliability.
 
+=item $h->mount_options ($options, $device, $mountpoint);
+
+This is the same as the C<$h-E<gt>mount> command, but it
+allows you to set the mount options as for the
+L<mount(8)> I<-o> flag.
+
+=item $h->mount_ro ($device, $mountpoint);
+
+This is the same as the C<$h-E<gt>mount> command, but it
+mounts the filesystem with the read-only (I<-o ro>) flag.
+
+=item $h->mount_vfs ($options, $vfstype, $device, $mountpoint);
+
+This is the same as the C<$h-E<gt>mount> command, but it
+allows you to set both the mount options and the vfstype
+as for the L<mount(8)> I<-o> and I<-t> flags.
+
 =item @devices = $h->mounts ();
 
 This returns the list of currently mounted filesystems.  It returns

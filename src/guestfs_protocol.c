@@ -1269,6 +1269,48 @@ xdr_guestfs_tgz_out_args (XDR *xdrs, guestfs_tgz_out_args *objp)
 }
 
 bool_t
+xdr_guestfs_mount_ro_args (XDR *xdrs, guestfs_mount_ro_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->device, ~0))
+		 return FALSE;
+	 if (!xdr_string (xdrs, &objp->mountpoint, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_mount_options_args (XDR *xdrs, guestfs_mount_options_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->options, ~0))
+		 return FALSE;
+	 if (!xdr_string (xdrs, &objp->device, ~0))
+		 return FALSE;
+	 if (!xdr_string (xdrs, &objp->mountpoint, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_mount_vfs_args (XDR *xdrs, guestfs_mount_vfs_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->options, ~0))
+		 return FALSE;
+	 if (!xdr_string (xdrs, &objp->vfstype, ~0))
+		 return FALSE;
+	 if (!xdr_string (xdrs, &objp->device, ~0))
+		 return FALSE;
+	 if (!xdr_string (xdrs, &objp->mountpoint, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
 xdr_guestfs_procedure (XDR *xdrs, guestfs_procedure *objp)
 {
 	register int32_t *buf;

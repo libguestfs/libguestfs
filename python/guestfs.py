@@ -1055,3 +1055,23 @@ class GuestFS:
         """
         return libguestfsmod.tgz_out (self._o, directory, tarball)
 
+    def mount_ro (self, device, mountpoint):
+        u"""This is the same as the "g.mount" command, but it mounts
+        the filesystem with the read-only (*-o ro*) flag.
+        """
+        return libguestfsmod.mount_ro (self._o, device, mountpoint)
+
+    def mount_options (self, options, device, mountpoint):
+        u"""This is the same as the "g.mount" command, but it allows
+        you to set the mount options as for the mount(8) *-o*
+        flag.
+        """
+        return libguestfsmod.mount_options (self._o, options, device, mountpoint)
+
+    def mount_vfs (self, options, vfstype, device, mountpoint):
+        u"""This is the same as the "g.mount" command, but it allows
+        you to set both the mount options and the vfstype as for
+        the mount(8) *-o* and *-t* flags.
+        """
+        return libguestfsmod.mount_vfs (self._o, options, vfstype, device, mountpoint)
+

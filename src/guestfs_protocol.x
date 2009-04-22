@@ -508,6 +508,24 @@ struct guestfs_tgz_out_args {
   string directory<>;
 };
 
+struct guestfs_mount_ro_args {
+  string device<>;
+  string mountpoint<>;
+};
+
+struct guestfs_mount_options_args {
+  string options<>;
+  string device<>;
+  string mountpoint<>;
+};
+
+struct guestfs_mount_vfs_args {
+  string options<>;
+  string vfstype<>;
+  string device<>;
+  string mountpoint<>;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -581,6 +599,9 @@ enum guestfs_procedure {
   GUESTFS_PROC_TAR_OUT = 70,
   GUESTFS_PROC_TGZ_IN = 71,
   GUESTFS_PROC_TGZ_OUT = 72,
+  GUESTFS_PROC_MOUNT_RO = 73,
+  GUESTFS_PROC_MOUNT_OPTIONS = 74,
+  GUESTFS_PROC_MOUNT_VFS = 75,
   GUESTFS_PROC_NR_PROCS
 };
 

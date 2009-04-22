@@ -2714,6 +2714,87 @@ py_guestfs_tgz_out (PyObject *self, PyObject *args)
   return py_r;
 }
 
+static PyObject *
+py_guestfs_mount_ro (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *device;
+  const char *mountpoint;
+
+  if (!PyArg_ParseTuple (args, (char *) "Oss:guestfs_mount_ro",
+                         &py_g, &device, &mountpoint))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_mount_ro (g, device, mountpoint);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_mount_options (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *options;
+  const char *device;
+  const char *mountpoint;
+
+  if (!PyArg_ParseTuple (args, (char *) "Osss:guestfs_mount_options",
+                         &py_g, &options, &device, &mountpoint))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_mount_options (g, options, device, mountpoint);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_mount_vfs (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *options;
+  const char *vfstype;
+  const char *device;
+  const char *mountpoint;
+
+  if (!PyArg_ParseTuple (args, (char *) "Ossss:guestfs_mount_vfs",
+                         &py_g, &options, &vfstype, &device, &mountpoint))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_mount_vfs (g, options, vfstype, device, mountpoint);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
 static PyMethodDef methods[] = {
   { (char *) "create", py_guestfs_create, METH_VARARGS, NULL },
   { (char *) "close", py_guestfs_close, METH_VARARGS, NULL },
@@ -2810,6 +2891,9 @@ static PyMethodDef methods[] = {
   { (char *) "tar_out", py_guestfs_tar_out, METH_VARARGS, NULL },
   { (char *) "tgz_in", py_guestfs_tgz_in, METH_VARARGS, NULL },
   { (char *) "tgz_out", py_guestfs_tgz_out, METH_VARARGS, NULL },
+  { (char *) "mount_ro", py_guestfs_mount_ro, METH_VARARGS, NULL },
+  { (char *) "mount_options", py_guestfs_mount_options, METH_VARARGS, NULL },
+  { (char *) "mount_vfs", py_guestfs_mount_vfs, METH_VARARGS, NULL },
   { NULL, NULL, 0, NULL }
 };
 

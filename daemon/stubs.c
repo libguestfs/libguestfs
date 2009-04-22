@@ -1757,6 +1757,90 @@ done:
   xdr_free ((xdrproc_t) xdr_guestfs_tgz_out_args, (char *) &args);
 }
 
+static void mount_ro_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_mount_ro_args args;
+  const char *device;
+  const char *mountpoint;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_mount_ro_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "mount_ro");
+    return;
+  }
+  device = args.device;
+  mountpoint = args.mountpoint;
+
+  r = do_mount_ro (device, mountpoint);
+  if (r == -1)
+    /* do_mount_ro has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_mount_ro_args, (char *) &args);
+}
+
+static void mount_options_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_mount_options_args args;
+  const char *options;
+  const char *device;
+  const char *mountpoint;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_mount_options_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "mount_options");
+    return;
+  }
+  options = args.options;
+  device = args.device;
+  mountpoint = args.mountpoint;
+
+  r = do_mount_options (options, device, mountpoint);
+  if (r == -1)
+    /* do_mount_options has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_mount_options_args, (char *) &args);
+}
+
+static void mount_vfs_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_mount_vfs_args args;
+  const char *options;
+  const char *vfstype;
+  const char *device;
+  const char *mountpoint;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_mount_vfs_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "mount_vfs");
+    return;
+  }
+  options = args.options;
+  vfstype = args.vfstype;
+  device = args.device;
+  mountpoint = args.mountpoint;
+
+  r = do_mount_vfs (options, vfstype, device, mountpoint);
+  if (r == -1)
+    /* do_mount_vfs has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_mount_vfs_args, (char *) &args);
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -1975,6 +2059,15 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_TGZ_OUT:
       tgz_out_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_MOUNT_RO:
+      mount_ro_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_MOUNT_OPTIONS:
+      mount_options_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_MOUNT_VFS:
+      mount_vfs_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d", proc_nr);

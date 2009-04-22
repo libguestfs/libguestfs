@@ -92,6 +92,9 @@ void list_commands (void)
   printf ("%-20s %s\n", "mkdir-p", "create a directory and parents");
   printf ("%-20s %s\n", "mkfs", "make a filesystem");
   printf ("%-20s %s\n", "mount", "mount a guest disk at a position in the filesystem");
+  printf ("%-20s %s\n", "mount-options", "mount a guest disk with mount options");
+  printf ("%-20s %s\n", "mount-ro", "mount a guest disk, read-only");
+  printf ("%-20s %s\n", "mount-vfs", "mount a guest disk with mount options and vfstype");
   printf ("%-20s %s\n", "mounts", "show mounted filesystems");
   printf ("%-20s %s\n", "pvcreate", "create an LVM physical volume");
   printf ("%-20s %s\n", "pvs", "list the LVM physical volumes (PVs)");
@@ -395,6 +398,15 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "tgz_out") == 0 || strcasecmp (cmd, "tgz-out") == 0)
     pod2text ("tgz-out - pack directory into compressed tarball", " tgz-out <directory> <tarball>\n\nThis command packs the contents of C<directory> and downloads\nit to local file C<tarball>.\n\nTo download an uncompressed tarball, use C<tar_out>.");
+  else
+  if (strcasecmp (cmd, "mount_ro") == 0 || strcasecmp (cmd, "mount-ro") == 0)
+    pod2text ("mount-ro - mount a guest disk, read-only", " mount-ro <device> <mountpoint>\n\nThis is the same as the C<mount> command, but it\nmounts the filesystem with the read-only (I<-o ro>) flag.");
+  else
+  if (strcasecmp (cmd, "mount_options") == 0 || strcasecmp (cmd, "mount-options") == 0)
+    pod2text ("mount-options - mount a guest disk with mount options", " mount-options <options> <device> <mountpoint>\n\nThis is the same as the C<mount> command, but it\nallows you to set the mount options as for the\nL<mount(8)> I<-o> flag.");
+  else
+  if (strcasecmp (cmd, "mount_vfs") == 0 || strcasecmp (cmd, "mount-vfs") == 0)
+    pod2text ("mount-vfs - mount a guest disk with mount options and vfstype", " mount-vfs <options> <vfstype> <device> <mountpoint>\n\nThis is the same as the C<mount> command, but it\nallows you to set both the mount options and the vfstype\nas for the L<mount(8)> I<-o> and I<-t> flags.");
   else
     display_builtin_command (cmd);
 }
@@ -1917,6 +1929,60 @@ static int run_tgz_out (const char *cmd, int argc, char *argv[])
   return r;
 }
 
+static int run_mount_ro (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *device;
+  const char *mountpoint;
+  if (argc != 2) {
+    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  device = argv[0];
+  mountpoint = argv[1];
+  r = guestfs_mount_ro (g, device, mountpoint);
+  return r;
+}
+
+static int run_mount_options (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *options;
+  const char *device;
+  const char *mountpoint;
+  if (argc != 3) {
+    fprintf (stderr, "%s should have 3 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  options = argv[0];
+  device = argv[1];
+  mountpoint = argv[2];
+  r = guestfs_mount_options (g, options, device, mountpoint);
+  return r;
+}
+
+static int run_mount_vfs (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *options;
+  const char *vfstype;
+  const char *device;
+  const char *mountpoint;
+  if (argc != 4) {
+    fprintf (stderr, "%s should have 4 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  options = argv[0];
+  vfstype = argv[1];
+  device = argv[2];
+  mountpoint = argv[3];
+  r = guestfs_mount_vfs (g, options, vfstype, device, mountpoint);
+  return r;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -2188,6 +2254,15 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "tgz_out") == 0 || strcasecmp (cmd, "tgz-out") == 0)
     return run_tgz_out (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "mount_ro") == 0 || strcasecmp (cmd, "mount-ro") == 0)
+    return run_mount_ro (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "mount_options") == 0 || strcasecmp (cmd, "mount-options") == 0)
+    return run_mount_options (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "mount_vfs") == 0 || strcasecmp (cmd, "mount-vfs") == 0)
+    return run_mount_vfs (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

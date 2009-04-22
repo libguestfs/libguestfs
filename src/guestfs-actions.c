@@ -6137,3 +6137,255 @@ int guestfs_tgz_out (guestfs_h *g,
   return 0;
 }
 
+struct mount_ro_ctx {
+  /* This flag is set by the callbacks, so we know we've done
+   * the callbacks as expected, and in the right sequence.
+   * 0 = not called, 1 = send called,
+   * 1001 = reply called.
+   */
+  int cb_sequence;
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+};
+
+static void mount_ro_reply_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  struct mount_ro_ctx *ctx = (struct mount_ro_ctx *) data;
+
+  ml->main_loop_quit (ml, g);
+
+  if (!xdr_guestfs_message_header (xdr, &ctx->hdr)) {
+    error (g, "%s: failed to parse reply header", "guestfs_mount_ro");
+    return;
+  }
+  if (ctx->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &ctx->err)) {
+      error (g, "%s: failed to parse reply error", "guestfs_mount_ro");
+      return;
+    }
+    goto done;
+  }
+ done:
+  ctx->cb_sequence = 1001;
+}
+
+int guestfs_mount_ro (guestfs_h *g,
+		const char *device,
+		const char *mountpoint)
+{
+  struct guestfs_mount_ro_args args;
+  struct mount_ro_ctx ctx;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  int serial;
+
+  if (check_state (g, "guestfs_mount_ro") == -1) return -1;
+  guestfs_set_busy (g);
+
+  memset (&ctx, 0, sizeof ctx);
+
+  args.device = (char *) device;
+  args.mountpoint = (char *) mountpoint;
+  serial = guestfs__send_sync (g, GUESTFS_PROC_MOUNT_RO,
+        (xdrproc_t) xdr_guestfs_mount_ro_args, (char *) &args);
+  if (serial == -1) {
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  guestfs__switch_to_receiving (g);
+  ctx.cb_sequence = 0;
+  guestfs_set_reply_callback (g, mount_ro_reply_cb, &ctx);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (ctx.cb_sequence != 1001) {
+    error (g, "%s reply failed, see earlier error messages", "guestfs_mount_ro");
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_MOUNT_RO, serial) == -1) {
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  guestfs_set_ready (g);
+  return 0;
+}
+
+struct mount_options_ctx {
+  /* This flag is set by the callbacks, so we know we've done
+   * the callbacks as expected, and in the right sequence.
+   * 0 = not called, 1 = send called,
+   * 1001 = reply called.
+   */
+  int cb_sequence;
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+};
+
+static void mount_options_reply_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  struct mount_options_ctx *ctx = (struct mount_options_ctx *) data;
+
+  ml->main_loop_quit (ml, g);
+
+  if (!xdr_guestfs_message_header (xdr, &ctx->hdr)) {
+    error (g, "%s: failed to parse reply header", "guestfs_mount_options");
+    return;
+  }
+  if (ctx->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &ctx->err)) {
+      error (g, "%s: failed to parse reply error", "guestfs_mount_options");
+      return;
+    }
+    goto done;
+  }
+ done:
+  ctx->cb_sequence = 1001;
+}
+
+int guestfs_mount_options (guestfs_h *g,
+		const char *options,
+		const char *device,
+		const char *mountpoint)
+{
+  struct guestfs_mount_options_args args;
+  struct mount_options_ctx ctx;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  int serial;
+
+  if (check_state (g, "guestfs_mount_options") == -1) return -1;
+  guestfs_set_busy (g);
+
+  memset (&ctx, 0, sizeof ctx);
+
+  args.options = (char *) options;
+  args.device = (char *) device;
+  args.mountpoint = (char *) mountpoint;
+  serial = guestfs__send_sync (g, GUESTFS_PROC_MOUNT_OPTIONS,
+        (xdrproc_t) xdr_guestfs_mount_options_args, (char *) &args);
+  if (serial == -1) {
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  guestfs__switch_to_receiving (g);
+  ctx.cb_sequence = 0;
+  guestfs_set_reply_callback (g, mount_options_reply_cb, &ctx);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (ctx.cb_sequence != 1001) {
+    error (g, "%s reply failed, see earlier error messages", "guestfs_mount_options");
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_MOUNT_OPTIONS, serial) == -1) {
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  guestfs_set_ready (g);
+  return 0;
+}
+
+struct mount_vfs_ctx {
+  /* This flag is set by the callbacks, so we know we've done
+   * the callbacks as expected, and in the right sequence.
+   * 0 = not called, 1 = send called,
+   * 1001 = reply called.
+   */
+  int cb_sequence;
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+};
+
+static void mount_vfs_reply_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  struct mount_vfs_ctx *ctx = (struct mount_vfs_ctx *) data;
+
+  ml->main_loop_quit (ml, g);
+
+  if (!xdr_guestfs_message_header (xdr, &ctx->hdr)) {
+    error (g, "%s: failed to parse reply header", "guestfs_mount_vfs");
+    return;
+  }
+  if (ctx->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &ctx->err)) {
+      error (g, "%s: failed to parse reply error", "guestfs_mount_vfs");
+      return;
+    }
+    goto done;
+  }
+ done:
+  ctx->cb_sequence = 1001;
+}
+
+int guestfs_mount_vfs (guestfs_h *g,
+		const char *options,
+		const char *vfstype,
+		const char *device,
+		const char *mountpoint)
+{
+  struct guestfs_mount_vfs_args args;
+  struct mount_vfs_ctx ctx;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  int serial;
+
+  if (check_state (g, "guestfs_mount_vfs") == -1) return -1;
+  guestfs_set_busy (g);
+
+  memset (&ctx, 0, sizeof ctx);
+
+  args.options = (char *) options;
+  args.vfstype = (char *) vfstype;
+  args.device = (char *) device;
+  args.mountpoint = (char *) mountpoint;
+  serial = guestfs__send_sync (g, GUESTFS_PROC_MOUNT_VFS,
+        (xdrproc_t) xdr_guestfs_mount_vfs_args, (char *) &args);
+  if (serial == -1) {
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  guestfs__switch_to_receiving (g);
+  ctx.cb_sequence = 0;
+  guestfs_set_reply_callback (g, mount_vfs_reply_cb, &ctx);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (ctx.cb_sequence != 1001) {
+    error (g, "%s reply failed, see earlier error messages", "guestfs_mount_vfs");
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_MOUNT_VFS, serial) == -1) {
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  guestfs_set_ready (g);
+  return 0;
+}
+

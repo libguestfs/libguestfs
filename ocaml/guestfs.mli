@@ -403,3 +403,12 @@ val tgz_in : t -> string -> string -> unit
 val tgz_out : t -> string -> string -> unit
 (** pack directory into compressed tarball *)
 
+val mount_ro : t -> string -> string -> unit
+(** mount a guest disk, read-only *)
+
+val mount_options : t -> string -> string -> string -> unit
+(** mount a guest disk with mount options *)
+
+val mount_vfs : t -> string -> string -> string -> string -> unit
+(** mount a guest disk with mount options and vfstype *)
+

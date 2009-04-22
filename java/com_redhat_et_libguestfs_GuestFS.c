@@ -2161,3 +2161,72 @@ Java_com_redhat_et_libguestfs_GuestFS__1tgz_1out
   }
 }
 
+JNIEXPORT void JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1mount_1ro
+  (JNIEnv *env, jobject obj, jlong jg, jstring jdevice, jstring jmountpoint)
+{
+  guestfs_h *g = (guestfs_h *) jg;
+  int r;
+  const char *device;
+  const char *mountpoint;
+
+  device = (*env)->GetStringUTFChars (env, jdevice, NULL);
+  mountpoint = (*env)->GetStringUTFChars (env, jmountpoint, NULL);
+  r = guestfs_mount_ro (g, device, mountpoint);
+  (*env)->ReleaseStringUTFChars (env, jdevice, device);
+  (*env)->ReleaseStringUTFChars (env, jmountpoint, mountpoint);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return ;
+  }
+}
+
+JNIEXPORT void JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1mount_1options
+  (JNIEnv *env, jobject obj, jlong jg, jstring joptions, jstring jdevice, jstring jmountpoint)
+{
+  guestfs_h *g = (guestfs_h *) jg;
+  int r;
+  const char *options;
+  const char *device;
+  const char *mountpoint;
+
+  options = (*env)->GetStringUTFChars (env, joptions, NULL);
+  device = (*env)->GetStringUTFChars (env, jdevice, NULL);
+  mountpoint = (*env)->GetStringUTFChars (env, jmountpoint, NULL);
+  r = guestfs_mount_options (g, options, device, mountpoint);
+  (*env)->ReleaseStringUTFChars (env, joptions, options);
+  (*env)->ReleaseStringUTFChars (env, jdevice, device);
+  (*env)->ReleaseStringUTFChars (env, jmountpoint, mountpoint);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return ;
+  }
+}
+
+JNIEXPORT void JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1mount_1vfs
+  (JNIEnv *env, jobject obj, jlong jg, jstring joptions, jstring jvfstype, jstring jdevice, jstring jmountpoint)
+{
+  guestfs_h *g = (guestfs_h *) jg;
+  int r;
+  const char *options;
+  const char *vfstype;
+  const char *device;
+  const char *mountpoint;
+
+  options = (*env)->GetStringUTFChars (env, joptions, NULL);
+  vfstype = (*env)->GetStringUTFChars (env, jvfstype, NULL);
+  device = (*env)->GetStringUTFChars (env, jdevice, NULL);
+  mountpoint = (*env)->GetStringUTFChars (env, jmountpoint, NULL);
+  r = guestfs_mount_vfs (g, options, vfstype, device, mountpoint);
+  (*env)->ReleaseStringUTFChars (env, joptions, options);
+  (*env)->ReleaseStringUTFChars (env, jvfstype, vfstype);
+  (*env)->ReleaseStringUTFChars (env, jdevice, device);
+  (*env)->ReleaseStringUTFChars (env, jmountpoint, mountpoint);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return ;
+  }
+}
+

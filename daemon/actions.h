@@ -93,3 +93,6 @@ extern int do_tar_in (const char *directory);
 extern int do_tar_out (const char *directory);
 extern int do_tgz_in (const char *directory);
 extern int do_tgz_out (const char *directory);
+extern int do_mount_ro (const char *device, const char *mountpoint);
+extern int do_mount_options (const char *options, const char *device, const char *mountpoint);
+extern int do_mount_vfs (const char *options, const char *vfstype, const char *device, const char *mountpoint);
