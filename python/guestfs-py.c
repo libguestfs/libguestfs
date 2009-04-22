@@ -537,6 +537,54 @@ py_guestfs_config (PyObject *self, PyObject *args)
 }
 
 static PyObject *
+py_guestfs_set_qemu (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *qemu;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_set_qemu",
+                         &py_g, &qemu))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_set_qemu (g, qemu);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_get_qemu (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  const char *r;
+
+  if (!PyArg_ParseTuple (args, (char *) "O:guestfs_get_qemu",
+                         &py_g))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_get_qemu (g);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyString_FromString (r);
+  return py_r;
+}
+
+static PyObject *
 py_guestfs_set_path (PyObject *self, PyObject *args)
 {
   PyObject *py_g;
@@ -2675,6 +2723,8 @@ static PyMethodDef methods[] = {
   { (char *) "add_drive", py_guestfs_add_drive, METH_VARARGS, NULL },
   { (char *) "add_cdrom", py_guestfs_add_cdrom, METH_VARARGS, NULL },
   { (char *) "config", py_guestfs_config, METH_VARARGS, NULL },
+  { (char *) "set_qemu", py_guestfs_set_qemu, METH_VARARGS, NULL },
+  { (char *) "get_qemu", py_guestfs_get_qemu, METH_VARARGS, NULL },
   { (char *) "set_path", py_guestfs_set_path, METH_VARARGS, NULL },
   { (char *) "get_path", py_guestfs_get_path, METH_VARARGS, NULL },
   { (char *) "set_autosync", py_guestfs_set_autosync, METH_VARARGS, NULL },

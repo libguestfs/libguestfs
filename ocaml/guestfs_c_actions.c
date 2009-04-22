@@ -466,6 +466,51 @@ ocaml_guestfs_config (value gv, value qemuparamv, value qemuvaluev)
 }
 
 CAMLprim value
+ocaml_guestfs_set_qemu (value gv, value qemuv)
+{
+  CAMLparam2 (gv, qemuv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("set_qemu: used handle after closing it");
+
+  const char *qemu = String_val (qemuv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_set_qemu (g, qemu);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "set_qemu");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_get_qemu (value gv)
+{
+  CAMLparam1 (gv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("get_qemu: used handle after closing it");
+
+  const char *r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_get_qemu (g);
+  caml_leave_blocking_section ();
+  if (r == NULL)
+    ocaml_guestfs_raise_error (g, "get_qemu");
+
+  rv = caml_copy_string (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
 ocaml_guestfs_set_path (value gv, value pathv)
 {
   CAMLparam2 (gv, pathv);

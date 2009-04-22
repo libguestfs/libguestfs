@@ -25,6 +25,8 @@ extern int guestfs_kill_subprocess (guestfs_h *handle);
 extern int guestfs_add_drive (guestfs_h *handle, const char *filename);
 extern int guestfs_add_cdrom (guestfs_h *handle, const char *filename);
 extern int guestfs_config (guestfs_h *handle, const char *qemuparam, const char *qemuvalue);
+extern int guestfs_set_qemu (guestfs_h *handle, const char *qemu);
+extern const char *guestfs_get_qemu (guestfs_h *handle);
 extern int guestfs_set_path (guestfs_h *handle, const char *path);
 extern const char *guestfs_get_path (guestfs_h *handle);
 extern int guestfs_set_autosync (guestfs_h *handle, int autosync);

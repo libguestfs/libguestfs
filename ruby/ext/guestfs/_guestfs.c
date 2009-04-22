@@ -181,6 +181,44 @@ static VALUE ruby_guestfs_config (VALUE gv, VALUE qemuparamv, VALUE qemuvaluev)
   return Qnil;
 }
 
+static VALUE ruby_guestfs_set_qemu (VALUE gv, VALUE qemuv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "set_qemu");
+
+  const char *qemu = StringValueCStr (qemuv);
+  if (!qemu)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "qemu", "set_qemu");
+
+  int r;
+
+  r = guestfs_set_qemu (g, qemu);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
+static VALUE ruby_guestfs_get_qemu (VALUE gv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "get_qemu");
+
+
+  const char *r;
+
+  r = guestfs_get_qemu (g);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return rb_str_new2 (r);
+}
+
 static VALUE ruby_guestfs_set_path (VALUE gv, VALUE pathv)
 {
   guestfs_h *g;
@@ -2215,6 +2253,10 @@ void Init__guestfs ()
         ruby_guestfs_add_cdrom, 1);
   rb_define_method (c_guestfs, "config",
         ruby_guestfs_config, 2);
+  rb_define_method (c_guestfs, "set_qemu",
+        ruby_guestfs_set_qemu, 1);
+  rb_define_method (c_guestfs, "get_qemu",
+        ruby_guestfs_get_qemu, 0);
   rb_define_method (c_guestfs, "set_path",
         ruby_guestfs_set_path, 1);
   rb_define_method (c_guestfs, "get_path",

@@ -156,6 +156,7 @@ struct guestfs_h
   int autosync;
 
   const char *path;
+  const char *qemu;
 
   char *last_error;
 
@@ -217,7 +218,9 @@ guestfs_create (void)
 
   str = getenv ("LIBGUESTFS_PATH");
   g->path = str != NULL ? str : GUESTFS_DEFAULT_PATH;
-  /* XXX We should probably make QEMU configurable as well. */
+
+  str = getenv ("LIBGUESTFS_QEMU");
+  g->qemu = str != NULL ? str : QEMU;
 
   g->main_loop = guestfs_get_default_main_loop ();
 
@@ -511,6 +514,22 @@ guestfs_get_path (guestfs_h *g)
   return g->path;
 }
 
+int
+guestfs_set_qemu (guestfs_h *g, const char *qemu)
+{
+  if (qemu == NULL)
+    g->qemu = QEMU;
+  else
+    g->qemu = qemu;
+  return 0;
+}
+
+const char *
+guestfs_get_qemu (guestfs_h *g)
+{
+  return g->qemu;
+}
+
 /* Add a string to the current command line. */
 static void
 incr_cmdline_size (guestfs_h *g)
@@ -715,7 +734,7 @@ guestfs_launch (guestfs_h *g)
     /* Set up the full command line.  Do this in the subprocess so we
      * don't need to worry about cleaning up.
      */
-    g->cmdline[0] = (char *) QEMU;
+    g->cmdline[0] = (char *) g->qemu;
 
     /* Construct the -net channel parameter for qemu. */
     snprintf (vmchannel, sizeof vmchannel,
@@ -752,7 +771,7 @@ guestfs_launch (guestfs_h *g)
     g->cmdline[g->cmdline_size-1] = NULL;
 
     if (g->verbose) {
-      fprintf (stderr, "%s", QEMU);
+      fprintf (stderr, "%s", g->qemu);
       for (i = 0; g->cmdline[i]; ++i)
 	fprintf (stderr, " %s", g->cmdline[i]);
       fprintf (stderr, "\n");
@@ -775,8 +794,8 @@ guestfs_launch (guestfs_h *g)
     setpgid (0, 0);
 #endif
 
-    execv (QEMU, g->cmdline);	/* Run qemu. */
-    perror (QEMU);
+    execv (g->qemu, g->cmdline); /* Run qemu. */
+    perror (g->qemu);
     _exit (1);
   }
 

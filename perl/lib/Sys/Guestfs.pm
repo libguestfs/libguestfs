@@ -469,6 +469,13 @@ Return the current search path.
 This is always non-NULL.  If it wasn't set already, then this will
 return the default path.
 
+=item $qemu = $h->get_qemu ();
+
+Return the current qemu binary.
+
+This is always non-NULL.  If it wasn't set already, then this will
+return the default qemu binary name.
+
 =item $state = $h->get_state ();
 
 This returns the current state as an opaque integer.  This is
@@ -718,6 +725,21 @@ The string C<path> is stashed in the libguestfs handle, so the caller
 must make sure it remains valid for the lifetime of the handle.
 
 Setting C<path> to C<NULL> restores the default path.
+
+=item $h->set_qemu ($qemu);
+
+Set the qemu binary that we will use.
+
+The default is chosen when the library was compiled by the
+configure script.
+
+You can also override this by setting the C<LIBGUESTFS_QEMU>
+environment variable.
+
+The string C<qemu> is stashed in the libguestfs handle, so the caller
+must make sure it remains valid for the lifetime of the handle.
+
+Setting C<qemu> to C<NULL> restores the default qemu binary.
 
 =item $h->set_ready ();
 

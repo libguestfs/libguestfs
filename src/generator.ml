@@ -284,6 +284,32 @@ The first character of C<param> string must be a C<-> (dash).
 
 C<value> can be NULL.");
 
+  ("set_qemu", (RErr, [String "qemu"]), -1, [FishAlias "qemu"],
+   [],
+   "set the qemu binary",
+   "\
+Set the qemu binary that we will use.
+
+The default is chosen when the library was compiled by the
+configure script.
+
+You can also override this by setting the C<LIBGUESTFS_QEMU>
+environment variable.
+
+The string C<qemu> is stashed in the libguestfs handle, so the caller
+must make sure it remains valid for the lifetime of the handle.
+
+Setting C<qemu> to C<NULL> restores the default qemu binary.");
+
+  ("get_qemu", (RConstString "qemu", []), -1, [],
+   [],
+   "get the qemu binary",
+   "\
+Return the current qemu binary.
+
+This is always non-NULL.  If it wasn't set already, then this will
+return the default qemu binary name.");
+
   ("set_path", (RErr, [String "path"]), -1, [FishAlias "path"],
    [],
    "set the search path",

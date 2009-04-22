@@ -142,6 +142,12 @@ val add_cdrom : t -> string -> unit
 val config : t -> string -> string option -> unit
 (** add qemu parameters *)
 
+val set_qemu : t -> string -> unit
+(** set the qemu binary *)
+
+val get_qemu : t -> string
+(** get the qemu binary *)
+
 val set_path : t -> string -> unit
 (** set the search path *)
 

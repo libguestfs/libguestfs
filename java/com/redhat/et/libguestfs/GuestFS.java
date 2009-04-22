@@ -219,6 +219,56 @@ public class GuestFS {
     throws LibGuestFSException;
 
   /**
+   * set the qemu binary
+   *
+   * Set the qemu binary that we will use.
+   * 
+   * The default is chosen when the library was compiled by
+   * the configure script.
+   * 
+   * You can also override this by setting the
+   * "LIBGUESTFS_QEMU" environment variable.
+   * 
+   * The string "qemu" is stashed in the libguestfs handle,
+   * so the caller must make sure it remains valid for the
+   * lifetime of the handle.
+   * 
+   * Setting "qemu" to "NULL" restores the default qemu
+   * binary.
+   * 
+   * @throws LibGuestFSException
+   */
+  public void set_qemu (String qemu)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("set_qemu: handle is closed");
+    _set_qemu (g, qemu);
+  }
+  private native void _set_qemu (long g, String qemu)
+    throws LibGuestFSException;
+
+  /**
+   * get the qemu binary
+   *
+   * Return the current qemu binary.
+   * 
+   * This is always non-NULL. If it wasn't set already, then
+   * this will return the default qemu binary name.
+   * 
+   * @throws LibGuestFSException
+   */
+  public String get_qemu ()
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("get_qemu: handle is closed");
+    return _get_qemu (g);
+  }
+  private native String _get_qemu (long g)
+    throws LibGuestFSException;
+
+  /**
    * set the search path
    *
    * Set the path that libguestfs searches for kernel and

@@ -168,6 +168,30 @@ PREINIT:
         croak ("config: %s", guestfs_last_error (g));
 
 void
+set_qemu (g, qemu)
+      guestfs_h *g;
+      char *qemu;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_set_qemu (g, qemu);
+      if (r == -1)
+        croak ("set_qemu: %s", guestfs_last_error (g));
+
+SV *
+get_qemu (g)
+      guestfs_h *g;
+PREINIT:
+      const char *qemu;
+   CODE:
+      qemu = guestfs_get_qemu (g);
+      if (qemu == NULL)
+        croak ("get_qemu: %s", guestfs_last_error (g));
+      RETVAL = newSVpv (qemu, 0);
+ OUTPUT:
+      RETVAL
+
+void
 set_path (g, path)
       guestfs_h *g;
       char *path;

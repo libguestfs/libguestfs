@@ -143,6 +143,32 @@ class GuestFS:
         """
         return libguestfsmod.config (self._o, qemuparam, qemuvalue)
 
+    def set_qemu (self, qemu):
+        u"""Set the qemu binary that we will use.
+        
+        The default is chosen when the library was compiled by
+        the configure script.
+        
+        You can also override this by setting the
+        "LIBGUESTFS_QEMU" environment variable.
+        
+        The string "qemu" is stashed in the libguestfs handle,
+        so the caller must make sure it remains valid for the
+        lifetime of the handle.
+        
+        Setting "qemu" to "NULL" restores the default qemu
+        binary.
+        """
+        return libguestfsmod.set_qemu (self._o, qemu)
+
+    def get_qemu (self):
+        u"""Return the current qemu binary.
+        
+        This is always non-NULL. If it wasn't set already, then
+        this will return the default qemu binary name.
+        """
+        return libguestfsmod.get_qemu (self._o)
+
     def set_path (self, path):
         u"""Set the path that libguestfs searches for kernel and
         initrd.img.

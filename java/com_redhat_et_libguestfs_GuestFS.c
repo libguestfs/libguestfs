@@ -158,6 +158,38 @@ Java_com_redhat_et_libguestfs_GuestFS__1config
 }
 
 JNIEXPORT void JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1set_1qemu
+  (JNIEnv *env, jobject obj, jlong jg, jstring jqemu)
+{
+  guestfs_h *g = (guestfs_h *) jg;
+  int r;
+  const char *qemu;
+
+  qemu = (*env)->GetStringUTFChars (env, jqemu, NULL);
+  r = guestfs_set_qemu (g, qemu);
+  (*env)->ReleaseStringUTFChars (env, jqemu, qemu);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return ;
+  }
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1get_1qemu
+  (JNIEnv *env, jobject obj, jlong jg)
+{
+  guestfs_h *g = (guestfs_h *) jg;
+  const char *r;
+
+  r = guestfs_get_qemu (g);
+  if (r == NULL) {
+    throw_exception (env, guestfs_last_error (g));
+    return NULL;
+  }
+  return (*env)->NewStringUTF (env, r);
+}
+
+JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1set_1path
   (JNIEnv *env, jobject obj, jlong jg, jstring jpath)
 {

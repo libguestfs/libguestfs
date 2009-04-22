@@ -68,6 +68,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "file", "determine file type");
   printf ("%-20s %s\n", "get-autosync", "get autosync mode");
   printf ("%-20s %s\n", "get-path", "get the search path");
+  printf ("%-20s %s\n", "get-qemu", "get the qemu binary");
   printf ("%-20s %s\n", "get-state", "get the current state");
   printf ("%-20s %s\n", "get-verbose", "get verbose mode");
   printf ("%-20s %s\n", "is-busy", "is busy processing a command");
@@ -101,6 +102,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "rmdir", "remove a directory");
   printf ("%-20s %s\n", "set-autosync", "set autosync mode");
   printf ("%-20s %s\n", "set-path", "set the search path");
+  printf ("%-20s %s\n", "set-qemu", "set the qemu binary");
   printf ("%-20s %s\n", "set-verbose", "set verbose mode");
   printf ("%-20s %s\n", "sfdisk", "create partitions on a block device");
   printf ("%-20s %s\n", "stat", "get file information");
@@ -138,6 +140,12 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "config") == 0)
     pod2text ("config - add qemu parameters", " config <qemuparam> <qemuvalue>\n\nThis can be used to add arbitrary qemu command line parameters\nof the form C<-param value>.  Actually it's not quite arbitrary - we\nprevent you from setting some parameters which would interfere with\nparameters that we use.\n\nThe first character of C<param> string must be a C<-> (dash).\n\nC<value> can be NULL.");
+  else
+  if (strcasecmp (cmd, "set_qemu") == 0 || strcasecmp (cmd, "set-qemu") == 0 || strcasecmp (cmd, "qemu") == 0)
+    pod2text ("set-qemu - set the qemu binary", " set-qemu <qemu>\n\nSet the qemu binary that we will use.\n\nThe default is chosen when the library was compiled by the\nconfigure script.\n\nYou can also override this by setting the C<LIBGUESTFS_QEMU>\nenvironment variable.\n\nThe string C<qemu> is stashed in the libguestfs handle, so the caller\nmust make sure it remains valid for the lifetime of the handle.\n\nSetting C<qemu> to C<NULL> restores the default qemu binary.\n\nYou can use 'qemu' as an alias for this command.");
+  else
+  if (strcasecmp (cmd, "get_qemu") == 0 || strcasecmp (cmd, "get-qemu") == 0)
+    pod2text ("get-qemu - get the qemu binary", " get-qemu\n\nReturn the current qemu binary.\n\nThis is always non-NULL.  If it wasn't set already, then this will\nreturn the default qemu binary name.");
   else
   if (strcasecmp (cmd, "set_path") == 0 || strcasecmp (cmd, "set-path") == 0 || strcasecmp (cmd, "path") == 0)
     pod2text ("set-path - set the search path", " set-path <path>\n\nSet the path that libguestfs searches for kernel and initrd.img.\n\nThe default is C<$libdir/guestfs> unless overridden by setting\nC<LIBGUESTFS_PATH> environment variable.\n\nThe string C<path> is stashed in the libguestfs handle, so the caller\nmust make sure it remains valid for the lifetime of the handle.\n\nSetting C<path> to C<NULL> restores the default path.\n\nYou can use 'path' as an alias for this command.");
@@ -591,6 +599,34 @@ static int run_config (const char *cmd, int argc, char *argv[])
   qemuvalue = strcmp (argv[1], "") != 0 ? argv[1] : NULL;
   r = guestfs_config (g, qemuparam, qemuvalue);
   return r;
+}
+
+static int run_set_qemu (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *qemu;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  qemu = argv[0];
+  r = guestfs_set_qemu (g, qemu);
+  return r;
+}
+
+static int run_get_qemu (const char *cmd, int argc, char *argv[])
+{
+  const char *r;
+  if (argc != 0) {
+    fprintf (stderr, "%s should have 0 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  r = guestfs_get_qemu (g);
+  if (r == NULL) return -1;
+  printf ("%s\n", r);
+  return 0;
 }
 
 static int run_set_path (const char *cmd, int argc, char *argv[])
@@ -1897,6 +1933,12 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "config") == 0)
     return run_config (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "set_qemu") == 0 || strcasecmp (cmd, "set-qemu") == 0 || strcasecmp (cmd, "qemu") == 0)
+    return run_set_qemu (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "get_qemu") == 0 || strcasecmp (cmd, "get-qemu") == 0)
+    return run_get_qemu (cmd, argc, argv);
   else
   if (strcasecmp (cmd, "set_path") == 0 || strcasecmp (cmd, "set-path") == 0 || strcasecmp (cmd, "path") == 0)
     return run_set_path (cmd, argc, argv);

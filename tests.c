@@ -63,6 +63,8 @@ static void no_test_warnings (void)
   fprintf (stderr, "warning: \"guestfs_add_drive\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_add_cdrom\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_config\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_set_qemu\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_get_qemu\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_set_path\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_get_path\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_set_autosync\" has no tests\n");

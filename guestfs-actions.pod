@@ -585,6 +585,18 @@ return the default path.
 This function returns a string, or NULL on error.
 The string is owned by the guest handle and must I<not> be freed.
 
+=head2 guestfs_get_qemu
+
+ const char *guestfs_get_qemu (guestfs_h *handle);
+
+Return the current qemu binary.
+
+This is always non-NULL.  If it wasn't set already, then this will
+return the default qemu binary name.
+
+This function returns a string, or NULL on error.
+The string is owned by the guest handle and must I<not> be freed.
+
 =head2 guestfs_get_state
 
  int guestfs_get_state (guestfs_h *handle);
@@ -1013,6 +1025,26 @@ The string C<path> is stashed in the libguestfs handle, so the caller
 must make sure it remains valid for the lifetime of the handle.
 
 Setting C<path> to C<NULL> restores the default path.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_set_qemu
+
+ int guestfs_set_qemu (guestfs_h *handle,
+		const char *qemu);
+
+Set the qemu binary that we will use.
+
+The default is chosen when the library was compiled by the
+configure script.
+
+You can also override this by setting the C<LIBGUESTFS_QEMU>
+environment variable.
+
+The string C<qemu> is stashed in the libguestfs handle, so the caller
+must make sure it remains valid for the lifetime of the handle.
+
+Setting C<qemu> to C<NULL> restores the default qemu binary.
 
 This function returns 0 on success or -1 on error.
 

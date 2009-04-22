@@ -233,6 +233,12 @@ same effect as using the B<-v> option.
 Set the path that guestfish uses to search for kernel and initrd.img.
 See the discussion of paths in L<guestfs(3)>.
 
+=item LIBGUESTFS_QEMU
+
+Set the default qemu binary that libguestfs uses.  If not set, then
+the qemu which was found at compile time by the configure script is
+used.
+
 =item HOME
 
 If compiled with GNU readline support, then the command history

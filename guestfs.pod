@@ -646,6 +646,12 @@ has the same effect as calling C<guestfs_set_verbose (handle, 1)>.
 Set the path that libguestfs uses to search for kernel and initrd.img.
 See the discussion of paths in section PATH above.
 
+=item LIBGUESTFS_QEMU
+
+Set the default qemu binary that libguestfs uses.  If not set, then
+the qemu which was found at compile time by the configure script is
+used.
+
 =back
 
 =head1 SEE ALSO
