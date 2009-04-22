@@ -46,6 +46,7 @@ java/api
 java/com_redhat_et_libguestfs_GuestFS.h
 java/doc-stamp
 missing
+libguestfs.pc
 libguestfs.spec
 libguestfs-*.tar.gz
 libtool

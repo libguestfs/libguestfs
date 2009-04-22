@@ -91,6 +91,7 @@ For Java bindings, see 'libguestfs-java-devel'.
 Summary:     Development tools and libraries for %{name}
 Group:       Development/Libraries
 Requires:    %{name} = %{version}-%{release}
+Requires:    pkgconfig
 
 
 %description devel
@@ -320,6 +321,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/guestfs.h
 %{_includedir}/guestfs-actions.h
 %{_includedir}/guestfs-structs.h
+%{_libdir}/pkgconfig/libguestfs.pc
 
 
 %files -n guestfish

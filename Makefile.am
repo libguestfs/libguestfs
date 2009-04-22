@@ -42,7 +42,8 @@ EXTRA_DIST = \
 	libguestfs.spec \
 	html/pod.css \
 	HACKING TODO \
-	tests.c
+	tests.c \
+	libguestfs.pc libguestfs.pc.in
 
 # Build the root filesystem.
 # Currently this is arch-dependent, so it seems like putting it in
@@ -135,6 +136,11 @@ html/guestfish.1.html: guestfish.pod guestfish-actions.pod
 
 website: html/guestfs.3.html html/guestfish.1.html
 	cp $^ html/pod.css $(HOME)/d/redhat/et-website/libguestfs/
+
+# Pkgconfig.
+
+pkgconfigdir = $(libdir)/pkgconfig
+pkgconfig_DATA = libguestfs.pc
 
 # Test-boot the image.
 
