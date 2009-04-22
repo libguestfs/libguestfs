@@ -13,6 +13,7 @@
 #include <stdint.h>
 #include <inttypes.h>
 #include <unistd.h>
+#include <ctype.h>
 
 #include <guestfs.h>
 
@@ -61,7 +62,7 @@ main (int argc, char *argv[])
     int64_t size;
     CALL (size = guestfs_blockdev_getsize64 (g, devices[i]), -1);
     printf ("<device dev=\"%s\" size=\"%" PRIi64 "\">\n", devices[i], size);
-    display_partition (g, devices[i]);
+    display_partitions (g, devices[i]);
     free (devices[i]);
     printf ("</device>\n");
   }
@@ -117,7 +118,10 @@ display_partition (guestfs_h *g, const char *dev)
 
   CALL (what = guestfs_file (g, dev), NULL);
 
-  if (strstr (what, "boot sector") != NULL)
+  if (strcmp (what, "x86 boot sector") == 0)
+    /* This is what 'file' program shows for Windows/NTFS partitions. */
+    printf ("<windows/>\n");
+  else if (strstr (what, "boot sector") != NULL)
     display_partitions (g, dev);
   else if (strncmp (what, "LVM2", 4) == 0)
     printf ("<physvol/>\n");
@@ -137,11 +141,11 @@ display_partition (guestfs_h *g, const char *dev)
 static void
 display_partitions (guestfs_h *g, const char *dev)
 {
-  /* We can't look into a boot sector which is an LV.  That's
-   * a limitation of sorts of the Linux kernel.  (Actually, we
-   * could do this if we add the kpartx program to libguestfs).
+  /* We can't look into a boot sector which is an LV or partition.
+   * That's a limitation of sorts of the Linux kernel.  (Actually,
+   * we could do this if we add the kpartx program to libguestfs).
    */
-  if (strncmp (dev, "/dev/sd", 7) != 0) {
+  if (strncmp (dev, "/dev/sd", 7) != 0 || isdigit (dev[strlen(dev)-1])) {
     printf ("<vm-image dev=\"%s\"/>\n", dev);
     return;
   }
@@ -156,7 +160,7 @@ display_partitions (guestfs_h *g, const char *dev)
     /* Only display partition if it's in the device. */
     if (strncmp (parts[i], dev, len) == 0) {
       int64_t size;
-      CALL (size = guestfs_blockdev_getsize64 (g, dev), -1);
+      CALL (size = guestfs_blockdev_getsize64 (g, parts[i]), -1);
       printf ("<partition dev=\"%s\" size=\"%" PRIi64 "\">\n", parts[i], size);
       display_partition (g, parts[i]);
       printf ("</partition>\n");
