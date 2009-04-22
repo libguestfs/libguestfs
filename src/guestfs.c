@@ -766,7 +766,7 @@ guestfs_launch (guestfs_h *g)
     add_cmdline (g, "-net");
     add_cmdline (g, "user,vlan=0");
     add_cmdline (g, "-net");
-    add_cmdline (g, "nic,vlan=0");
+    add_cmdline (g, "nic,model=rtl8139,vlan=0");
     incr_cmdline_size (g);
     g->cmdline[g->cmdline_size-1] = NULL;
 
