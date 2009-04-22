@@ -9,8 +9,3 @@ documentation.
 ----------------------------------------------------------------------
 
 Needs pkgconfig file.
-
-----------------------------------------------------------------------
-
-Detect and enable -kvm and -no-kqemu flags.
-Also allow the qemu binary to be configured.
