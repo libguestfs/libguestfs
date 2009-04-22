@@ -30,7 +30,8 @@
 int root_mounted = 0;
 
 /* The "simple mount" call offers no complex options, you can just
- * mount a device on a mountpoint.
+ * mount a device on a mountpoint.  The variations like mount_ro,
+ * mount_options and mount_vfs let you set progressively more things.
  *
  * It's tempting to try a direct mount(2) syscall, but that doesn't
  * do any autodetection, so we are better off calling out to
@@ -38,7 +39,8 @@ int root_mounted = 0;
  */
 
 int
-do_mount (const char *device, const char *mountpoint)
+do_mount_vfs (const char *options, const char *vfstype,
+	      const char *device, const char *mountpoint)
 {
   int len, r, is_root;
   char *mp;
@@ -61,8 +63,12 @@ do_mount (const char *device, const char *mountpoint)
 
   snprintf (mp, len, "/sysroot%s", mountpoint);
 
-  r = command (NULL, &error,
-	       "mount", "-o", "sync,noatime", device, mp, NULL);
+  if (vfstype)
+    r = command (NULL, &error,
+		 "mount", "-o", options, "-t", vfstype, device, mp, NULL);
+  else
+    r = command (NULL, &error,
+		 "mount", "-o", options, device, mp, NULL);
   if (r == -1) {
     reply_with_error ("mount: %s on %s: %s", device, mountpoint, error);
     free (error);
@@ -73,6 +79,25 @@ do_mount (const char *device, const char *mountpoint)
     root_mounted = 1;
 
   return 0;
+}
+
+int
+do_mount (const char *device, const char *mountpoint)
+{
+  return do_mount_vfs ("sync,noatime", NULL, device, mountpoint);
+}
+
+int
+do_mount_ro (const char *device, const char *mountpoint)
+{
+  return do_mount_vfs ("ro", NULL, device, mountpoint);
+}
+
+int
+do_mount_options (const char *options, const char *device,
+		  const char *mountpoint)
+{
+  return do_mount_vfs (options, NULL, device, mountpoint);
 }
 
 /* Again, use the external /bin/umount program, so that /etc/mtab

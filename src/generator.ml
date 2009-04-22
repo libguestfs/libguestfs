@@ -1435,6 +1435,37 @@ it to local file C<tarball>.
 
 To download an uncompressed tarball, use C<guestfs_tar_out>.");
 
+  ("mount_ro", (RErr, [String "device"; String "mountpoint"]), 73, [],
+   [InitBasicFS, TestLastFail (
+      [["umount"; "/"];
+       ["mount_ro"; "/dev/sda1"; "/"];
+       ["touch"; "/new"]]);
+    InitBasicFS, TestOutput (
+      [["write_file"; "/new"; "data"; "0"];
+       ["umount"; "/"];
+       ["mount_ro"; "/dev/sda1"; "/"];
+       ["cat"; "/new"]], "data")],
+   "mount a guest disk, read-only",
+   "\
+This is the same as the C<guestfs_mount> command, but it
+mounts the filesystem with the read-only (I<-o ro>) flag.");
+
+  ("mount_options", (RErr, [String "options"; String "device"; String "mountpoint"]), 74, [],
+   [],
+   "mount a guest disk with mount options",
+   "\
+This is the same as the C<guestfs_mount> command, but it
+allows you to set the mount options as for the
+L<mount(8)> I<-o> flag.");
+
+  ("mount_vfs", (RErr, [String "options"; String "vfstype"; String "device"; String "mountpoint"]), 75, [],
+   [],
+   "mount a guest disk with mount options and vfstype",
+   "\
+This is the same as the C<guestfs_mount> command, but it
+allows you to set both the mount options and the vfstype
+as for the L<mount(8)> I<-o> and I<-t> flags.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
@@ -4106,6 +4137,8 @@ copy_table (char * const * argv)
       pr "{\n";
 
       (match params with
+       | [p1; p2; p3; p4; p5] ->
+	   pr "  CAMLparam5 (%s);\n" (String.concat ", " params)
        | p1 :: p2 :: p3 :: p4 :: p5 :: rest ->
 	   pr "  CAMLparam5 (%s);\n" (String.concat ", " [p1; p2; p3; p4; p5]);
 	   pr "  CAMLxparam%d (%s);\n"
