@@ -210,7 +210,7 @@ if test "x$with_java_home" != "xno"; then
         if test -d "$with_java_home"; then
 	    JAVA_HOME="$with_java_home"
 	else
-            AC_MSG_FAILURE([$with_java_home is not a directory])
+            AC_MSG_FAILURE([$with_java_home is not a directory (use --with-java-home=no to disable Java support)])
 	fi
     fi
     if test "x$JAVA_HOME" = "x"; then
@@ -218,7 +218,7 @@ if test "x$with_java_home" != "xno"; then
     fi
     AC_MSG_CHECKING(for JDK in $JAVA_HOME)
     if test ! -x "$JAVA_HOME/bin/java"; then
-        AC_MSG_ERROR([missing $JAVA_HOME/bin/java binary])
+        AC_MSG_ERROR([missing $JAVA_HOME/bin/java binary (use --with-java-home=no to disable Java support)])
     else
         JAVA="$JAVA_HOME/bin/java"
     fi
