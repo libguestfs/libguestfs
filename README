@@ -81,6 +81,18 @@ these commands as root:
   make install
 
 
+Note on using KVM
+----------------------------------------------------------------------
+
+If you are using x86-64, then by default the configure script will
+look for qemu-kvm (KVM support).  You will need a reasonably recent
+processor for this to work.  KVM is much faster than using plain QEMU.
+
+You may also need to enable KVM support for non-root users, by doing:
+
+  chmod o+rw /dev/kvm
+
+
 Notes on cross-architecture support
 ----------------------------------------------------------------------
 

@@ -54,8 +54,18 @@ test "x$POD2TEXT" = "xno" &&
      AC_MSG_ERROR([pod2text must be installed])
 
 dnl Check for QEMU for running binaries on this $host_cpu, fall
-dnl back to basic 'qemu'.
-AC_PATH_PROGS([QEMU],[qemu-system-$host_cpu qemu],[no],
+dnl back to basic 'qemu'.  Allow the user to override it.
+default_qemu="qemu-system-$host_cpu qemu"
+# On x86-64, try using KVM first.
+if test "x$host_cpu" = "xx86_64"; then
+    default_qemu="qemu-kvm $default_qemu"
+fi
+AC_ARG_WITH([qemu],
+	[AS_HELP_STRING([--with-qemu],
+	  [set default QEMU binary @<:@default=[qemu-kvm] qemu-system-<host> qemu@:>@])],
+	[],
+	[with_qemu="$default_qemu"])
+AC_PATH_PROGS([QEMU],[$with_qemu],[no],
 	[$PATH$PATH_SEPARATOR/usr/sbin$PATH_SEPARATOR/sbin])
 test "x$QEMU" = "xno" && AC_MSG_ERROR([qemu must be installed])
 AC_DEFINE_UNQUOTED([QEMU],["$QEMU"],[Location of qemu binary.])
@@ -345,6 +355,7 @@ echo "Thank you for downloading $PACKAGE_STRING"
 echo
 echo "This is how we have configured the optional components for you today:"
 echo
+echo    "QEMU ................................ $QEMU"
 echo -n "OCaml bindings ...................... "
 if test "x$HAVE_OCAML_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo -n "Perl bindings ....................... "

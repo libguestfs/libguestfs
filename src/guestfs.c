@@ -730,7 +730,7 @@ guestfs_launch (guestfs_h *g)
 
     add_cmdline (g, "-m");
     add_cmdline (g, "384");	  /* XXX Choose best size. */
-#if defined(__i386__) || defined(__x86_64)
+#if 0
     add_cmdline (g, "-no-kqemu"); /* Avoids a warning. */
 #endif
     add_cmdline (g, "-kernel");
