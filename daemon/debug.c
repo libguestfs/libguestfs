@@ -114,15 +114,24 @@ static char *
 debug_fds (const char *subcmd, int argc, char *const *const argv)
 {
   int r;
-  char *out = NULL;
+  char *out;
+  size_t size;
+  FILE *fp;
   DIR *dir;
   struct dirent *d;
   char fname[256], link[256];
   struct stat statbuf;
 
+  fp = open_memstream (&out, &size);
+  if (!fp) {
+    reply_with_perror ("open_memstream");
+    return NULL;
+  }
+
   dir = opendir ("/proc/self/fd");
   if (!dir) {
     reply_with_perror ("opendir: /proc/self/fd");
+    fclose (fp);
     return NULL;
   }
 
@@ -135,6 +144,7 @@ debug_fds (const char *subcmd, int argc, char *const *const argv)
     r = lstat (fname, &statbuf);
     if (r == -1) {
       reply_with_perror ("stat: %s", fname);
+      fclose (fp);
       free (out);
       closedir (dir);
       return NULL;
@@ -144,23 +154,19 @@ debug_fds (const char *subcmd, int argc, char *const *const argv)
       r = readlink (fname, link, sizeof link - 1);
       if (r == -1) {
 	reply_with_perror ("readline: %s", fname);
+	fclose (fp);
 	free (out);
 	closedir (dir);
 	return NULL;
       }
       link[r] = '\0';
 
-      r = catprintf (&out, "%2s %s\n", d->d_name, link);
+      fprintf (fp, "%2s %s\n", d->d_name, link);
     } else
-      r = catprintf (&out, "%2s 0%o\n", d->d_name, statbuf.st_mode);
-
-    if (r == -1) {
-      reply_with_perror ("catprintf");
-      free (out);
-      closedir (dir);
-      return NULL;
-    }
+      fprintf (fp, "%2s 0%o\n", d->d_name, statbuf.st_mode);
   }
+
+  fclose (fp);
 
   if (closedir (dir) == -1) {
     reply_with_perror ("closedir");
