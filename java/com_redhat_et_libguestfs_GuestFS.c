@@ -50,14 +50,14 @@ Java_com_redhat_et_libguestfs_GuestFS__1create
     return 0;
   }
   guestfs_set_error_handler (g, NULL, NULL);
-  return (jlong) g;
+  return (jlong) (long) g;
 }
 
 JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1close
   (JNIEnv *env, jobject obj, jlong jg)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   guestfs_close (g);
 }
 
@@ -65,7 +65,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1launch
   (JNIEnv *env, jobject obj, jlong jg)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
 
   r = guestfs_launch (g);
@@ -79,7 +79,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1wait_1ready
   (JNIEnv *env, jobject obj, jlong jg)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
 
   r = guestfs_wait_ready (g);
@@ -93,7 +93,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1kill_1subprocess
   (JNIEnv *env, jobject obj, jlong jg)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
 
   r = guestfs_kill_subprocess (g);
@@ -107,7 +107,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1add_1drive
   (JNIEnv *env, jobject obj, jlong jg, jstring jfilename)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *filename;
 
@@ -124,7 +124,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1add_1cdrom
   (JNIEnv *env, jobject obj, jlong jg, jstring jfilename)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *filename;
 
@@ -141,7 +141,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1config
   (JNIEnv *env, jobject obj, jlong jg, jstring jqemuparam, jstring jqemuvalue)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *qemuparam;
   const char *qemuvalue;
@@ -161,7 +161,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1set_1qemu
   (JNIEnv *env, jobject obj, jlong jg, jstring jqemu)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *qemu;
 
@@ -178,7 +178,7 @@ JNIEXPORT jstring JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1get_1qemu
   (JNIEnv *env, jobject obj, jlong jg)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   const char *r;
 
   r = guestfs_get_qemu (g);
@@ -193,7 +193,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1set_1path
   (JNIEnv *env, jobject obj, jlong jg, jstring jpath)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *path;
 
@@ -210,7 +210,7 @@ JNIEXPORT jstring JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1get_1path
   (JNIEnv *env, jobject obj, jlong jg)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   const char *r;
 
   r = guestfs_get_path (g);
@@ -225,7 +225,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1set_1autosync
   (JNIEnv *env, jobject obj, jlong jg, jboolean jautosync)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   int autosync;
 
@@ -241,7 +241,7 @@ JNIEXPORT jboolean JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1get_1autosync
   (JNIEnv *env, jobject obj, jlong jg)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
 
   r = guestfs_get_autosync (g);
@@ -256,7 +256,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1set_1verbose
   (JNIEnv *env, jobject obj, jlong jg, jboolean jverbose)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   int verbose;
 
@@ -272,7 +272,7 @@ JNIEXPORT jboolean JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1get_1verbose
   (JNIEnv *env, jobject obj, jlong jg)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
 
   r = guestfs_get_verbose (g);
@@ -287,7 +287,7 @@ JNIEXPORT jboolean JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1is_1ready
   (JNIEnv *env, jobject obj, jlong jg)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
 
   r = guestfs_is_ready (g);
@@ -302,7 +302,7 @@ JNIEXPORT jboolean JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1is_1config
   (JNIEnv *env, jobject obj, jlong jg)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
 
   r = guestfs_is_config (g);
@@ -317,7 +317,7 @@ JNIEXPORT jboolean JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1is_1launching
   (JNIEnv *env, jobject obj, jlong jg)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
 
   r = guestfs_is_launching (g);
@@ -332,7 +332,7 @@ JNIEXPORT jboolean JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1is_1busy
   (JNIEnv *env, jobject obj, jlong jg)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
 
   r = guestfs_is_busy (g);
@@ -347,7 +347,7 @@ JNIEXPORT jint JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1get_1state
   (JNIEnv *env, jobject obj, jlong jg)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
 
   r = guestfs_get_state (g);
@@ -362,7 +362,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1set_1busy
   (JNIEnv *env, jobject obj, jlong jg)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
 
   r = guestfs_set_busy (g);
@@ -376,7 +376,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1set_1ready
   (JNIEnv *env, jobject obj, jlong jg)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
 
   r = guestfs_set_ready (g);
@@ -390,7 +390,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1mount
   (JNIEnv *env, jobject obj, jlong jg, jstring jdevice, jstring jmountpoint)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *device;
   const char *mountpoint;
@@ -410,7 +410,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1sync
   (JNIEnv *env, jobject obj, jlong jg)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
 
   r = guestfs_sync (g);
@@ -424,7 +424,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1touch
   (JNIEnv *env, jobject obj, jlong jg, jstring jpath)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *path;
 
@@ -441,7 +441,7 @@ JNIEXPORT jstring JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1cat
   (JNIEnv *env, jobject obj, jlong jg, jstring jpath)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   jstring jr;
   char *r;
   const char *path;
@@ -462,7 +462,7 @@ JNIEXPORT jstring JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1ll
   (JNIEnv *env, jobject obj, jlong jg, jstring jdirectory)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   jstring jr;
   char *r;
   const char *directory;
@@ -483,7 +483,7 @@ JNIEXPORT jobjectArray JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1ls
   (JNIEnv *env, jobject obj, jlong jg, jstring jdirectory)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   jobjectArray jr;
   int r_len;
   jclass cl;
@@ -516,7 +516,7 @@ JNIEXPORT jobjectArray JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1list_1devices
   (JNIEnv *env, jobject obj, jlong jg)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   jobjectArray jr;
   int r_len;
   jclass cl;
@@ -546,7 +546,7 @@ JNIEXPORT jobjectArray JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1list_1partitions
   (JNIEnv *env, jobject obj, jlong jg)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   jobjectArray jr;
   int r_len;
   jclass cl;
@@ -576,7 +576,7 @@ JNIEXPORT jobjectArray JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1pvs
   (JNIEnv *env, jobject obj, jlong jg)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   jobjectArray jr;
   int r_len;
   jclass cl;
@@ -606,7 +606,7 @@ JNIEXPORT jobjectArray JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1vgs
   (JNIEnv *env, jobject obj, jlong jg)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   jobjectArray jr;
   int r_len;
   jclass cl;
@@ -636,7 +636,7 @@ JNIEXPORT jobjectArray JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1lvs
   (JNIEnv *env, jobject obj, jlong jg)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   jobjectArray jr;
   int r_len;
   jclass cl;
@@ -666,7 +666,7 @@ JNIEXPORT jobjectArray JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1pvs_1full
   (JNIEnv *env, jobject obj, jlong jg)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   jobjectArray jr;
   jclass cl;
   jfieldID fl;
@@ -726,7 +726,7 @@ JNIEXPORT jobjectArray JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1vgs_1full
   (JNIEnv *env, jobject obj, jlong jg)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   jobjectArray jr;
   jclass cl;
   jfieldID fl;
@@ -796,7 +796,7 @@ JNIEXPORT jobjectArray JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1lvs_1full
   (JNIEnv *env, jobject obj, jlong jg)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   jobjectArray jr;
   jclass cl;
   jfieldID fl;
@@ -860,7 +860,7 @@ JNIEXPORT jobjectArray JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1read_1lines
   (JNIEnv *env, jobject obj, jlong jg, jstring jpath)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   jobjectArray jr;
   int r_len;
   jclass cl;
@@ -893,7 +893,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1aug_1init
   (JNIEnv *env, jobject obj, jlong jg, jstring jroot, jint jflags)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *root;
   int flags;
@@ -912,7 +912,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1aug_1close
   (JNIEnv *env, jobject obj, jlong jg)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
 
   r = guestfs_aug_close (g);
@@ -926,7 +926,7 @@ JNIEXPORT jint JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1aug_1defvar
   (JNIEnv *env, jobject obj, jlong jg, jstring jname, jstring jexpr)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *name;
   const char *expr;
@@ -947,7 +947,7 @@ JNIEXPORT jobject JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1aug_1defnode
   (JNIEnv *env, jobject obj, jlong jg, jstring jname, jstring jexpr, jstring jval)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   jobject jr;
   jclass cl;
   jfieldID fl;
@@ -981,7 +981,7 @@ JNIEXPORT jstring JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1aug_1get
   (JNIEnv *env, jobject obj, jlong jg, jstring jpath)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   jstring jr;
   char *r;
   const char *path;
@@ -1002,7 +1002,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1aug_1set
   (JNIEnv *env, jobject obj, jlong jg, jstring jpath, jstring jval)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *path;
   const char *val;
@@ -1022,7 +1022,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1aug_1insert
   (JNIEnv *env, jobject obj, jlong jg, jstring jpath, jstring jlabel, jboolean jbefore)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *path;
   const char *label;
@@ -1044,7 +1044,7 @@ JNIEXPORT jint JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1aug_1rm
   (JNIEnv *env, jobject obj, jlong jg, jstring jpath)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *path;
 
@@ -1062,7 +1062,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1aug_1mv
   (JNIEnv *env, jobject obj, jlong jg, jstring jsrc, jstring jdest)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *src;
   const char *dest;
@@ -1082,7 +1082,7 @@ JNIEXPORT jobjectArray JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1aug_1match
   (JNIEnv *env, jobject obj, jlong jg, jstring jpath)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   jobjectArray jr;
   int r_len;
   jclass cl;
@@ -1115,7 +1115,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1aug_1save
   (JNIEnv *env, jobject obj, jlong jg)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
 
   r = guestfs_aug_save (g);
@@ -1129,7 +1129,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1aug_1load
   (JNIEnv *env, jobject obj, jlong jg)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
 
   r = guestfs_aug_load (g);
@@ -1143,7 +1143,7 @@ JNIEXPORT jobjectArray JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1aug_1ls
   (JNIEnv *env, jobject obj, jlong jg, jstring jpath)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   jobjectArray jr;
   int r_len;
   jclass cl;
@@ -1176,7 +1176,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1rm
   (JNIEnv *env, jobject obj, jlong jg, jstring jpath)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *path;
 
@@ -1193,7 +1193,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1rmdir
   (JNIEnv *env, jobject obj, jlong jg, jstring jpath)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *path;
 
@@ -1210,7 +1210,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1rm_1rf
   (JNIEnv *env, jobject obj, jlong jg, jstring jpath)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *path;
 
@@ -1227,7 +1227,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1mkdir
   (JNIEnv *env, jobject obj, jlong jg, jstring jpath)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *path;
 
@@ -1244,7 +1244,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1mkdir_1p
   (JNIEnv *env, jobject obj, jlong jg, jstring jpath)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *path;
 
@@ -1261,7 +1261,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1chmod
   (JNIEnv *env, jobject obj, jlong jg, jint jmode, jstring jpath)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   int mode;
   const char *path;
@@ -1280,7 +1280,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1chown
   (JNIEnv *env, jobject obj, jlong jg, jint jowner, jint jgroup, jstring jpath)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   int owner;
   int group;
@@ -1301,7 +1301,7 @@ JNIEXPORT jboolean JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1exists
   (JNIEnv *env, jobject obj, jlong jg, jstring jpath)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *path;
 
@@ -1319,7 +1319,7 @@ JNIEXPORT jboolean JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1is_1file
   (JNIEnv *env, jobject obj, jlong jg, jstring jpath)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *path;
 
@@ -1337,7 +1337,7 @@ JNIEXPORT jboolean JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1is_1dir
   (JNIEnv *env, jobject obj, jlong jg, jstring jpath)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *path;
 
@@ -1355,7 +1355,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1pvcreate
   (JNIEnv *env, jobject obj, jlong jg, jstring jdevice)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *device;
 
@@ -1372,7 +1372,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1vgcreate
   (JNIEnv *env, jobject obj, jlong jg, jstring jvolgroup, jobjectArray jphysvols)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *volgroup;
   int physvols_len;
@@ -1404,7 +1404,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1lvcreate
   (JNIEnv *env, jobject obj, jlong jg, jstring jlogvol, jstring jvolgroup, jint jmbytes)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *logvol;
   const char *volgroup;
@@ -1426,7 +1426,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1mkfs
   (JNIEnv *env, jobject obj, jlong jg, jstring jfstype, jstring jdevice)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *fstype;
   const char *device;
@@ -1446,7 +1446,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1sfdisk
   (JNIEnv *env, jobject obj, jlong jg, jstring jdevice, jint jcyls, jint jheads, jint jsectors, jobjectArray jlines)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *device;
   int cyls;
@@ -1484,7 +1484,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1write_1file
   (JNIEnv *env, jobject obj, jlong jg, jstring jpath, jstring jcontent, jint jsize)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *path;
   const char *content;
@@ -1506,7 +1506,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1umount
   (JNIEnv *env, jobject obj, jlong jg, jstring jpathordevice)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *pathordevice;
 
@@ -1523,7 +1523,7 @@ JNIEXPORT jobjectArray JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1mounts
   (JNIEnv *env, jobject obj, jlong jg)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   jobjectArray jr;
   int r_len;
   jclass cl;
@@ -1553,7 +1553,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1umount_1all
   (JNIEnv *env, jobject obj, jlong jg)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
 
   r = guestfs_umount_all (g);
@@ -1567,7 +1567,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1lvm_1remove_1all
   (JNIEnv *env, jobject obj, jlong jg)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
 
   r = guestfs_lvm_remove_all (g);
@@ -1581,7 +1581,7 @@ JNIEXPORT jstring JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1file
   (JNIEnv *env, jobject obj, jlong jg, jstring jpath)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   jstring jr;
   char *r;
   const char *path;
@@ -1602,7 +1602,7 @@ JNIEXPORT jstring JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1command
   (JNIEnv *env, jobject obj, jlong jg, jobjectArray jarguments)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   jstring jr;
   char *r;
   int arguments_len;
@@ -1635,7 +1635,7 @@ JNIEXPORT jobjectArray JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1command_1lines
   (JNIEnv *env, jobject obj, jlong jg, jobjectArray jarguments)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   jobjectArray jr;
   int r_len;
   jclass cl;
@@ -1679,7 +1679,7 @@ JNIEXPORT jobject JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1stat
   (JNIEnv *env, jobject obj, jlong jg, jstring jpath)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   jobject jr;
   jclass cl;
   jfieldID fl;
@@ -1729,7 +1729,7 @@ JNIEXPORT jobject JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1lstat
   (JNIEnv *env, jobject obj, jlong jg, jstring jpath)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   jobject jr;
   jclass cl;
   jfieldID fl;
@@ -1779,7 +1779,7 @@ JNIEXPORT jobject JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1statvfs
   (JNIEnv *env, jobject obj, jlong jg, jstring jpath)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   jobject jr;
   jclass cl;
   jfieldID fl;
@@ -1825,7 +1825,7 @@ JNIEXPORT jobject JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1tune2fs_1l
   (JNIEnv *env, jobject obj, jlong jg, jstring jdevice)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   char **r;
   const char *device;
 
@@ -1844,7 +1844,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1blockdev_1setro
   (JNIEnv *env, jobject obj, jlong jg, jstring jdevice)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *device;
 
@@ -1861,7 +1861,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1blockdev_1setrw
   (JNIEnv *env, jobject obj, jlong jg, jstring jdevice)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *device;
 
@@ -1878,7 +1878,7 @@ JNIEXPORT jboolean JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1blockdev_1getro
   (JNIEnv *env, jobject obj, jlong jg, jstring jdevice)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *device;
 
@@ -1896,7 +1896,7 @@ JNIEXPORT jint JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1blockdev_1getss
   (JNIEnv *env, jobject obj, jlong jg, jstring jdevice)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *device;
 
@@ -1914,7 +1914,7 @@ JNIEXPORT jint JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1blockdev_1getbsz
   (JNIEnv *env, jobject obj, jlong jg, jstring jdevice)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *device;
 
@@ -1932,7 +1932,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1blockdev_1setbsz
   (JNIEnv *env, jobject obj, jlong jg, jstring jdevice, jint jblocksize)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *device;
   int blocksize;
@@ -1951,7 +1951,7 @@ JNIEXPORT jlong JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1blockdev_1getsz
   (JNIEnv *env, jobject obj, jlong jg, jstring jdevice)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int64_t r;
   const char *device;
 
@@ -1969,7 +1969,7 @@ JNIEXPORT jlong JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1blockdev_1getsize64
   (JNIEnv *env, jobject obj, jlong jg, jstring jdevice)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int64_t r;
   const char *device;
 
@@ -1987,7 +1987,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1blockdev_1flushbufs
   (JNIEnv *env, jobject obj, jlong jg, jstring jdevice)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *device;
 
@@ -2004,7 +2004,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1blockdev_1rereadpt
   (JNIEnv *env, jobject obj, jlong jg, jstring jdevice)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *device;
 
@@ -2021,7 +2021,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1upload
   (JNIEnv *env, jobject obj, jlong jg, jstring jfilename, jstring jremotefilename)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *filename;
   const char *remotefilename;
@@ -2041,7 +2041,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1download
   (JNIEnv *env, jobject obj, jlong jg, jstring jremotefilename, jstring jfilename)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *remotefilename;
   const char *filename;
@@ -2061,7 +2061,7 @@ JNIEXPORT jstring JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1checksum
   (JNIEnv *env, jobject obj, jlong jg, jstring jcsumtype, jstring jpath)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   jstring jr;
   char *r;
   const char *csumtype;
@@ -2085,7 +2085,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1tar_1in
   (JNIEnv *env, jobject obj, jlong jg, jstring jtarfile, jstring jdirectory)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *tarfile;
   const char *directory;
@@ -2105,7 +2105,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1tar_1out
   (JNIEnv *env, jobject obj, jlong jg, jstring jdirectory, jstring jtarfile)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *directory;
   const char *tarfile;
@@ -2125,7 +2125,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1tgz_1in
   (JNIEnv *env, jobject obj, jlong jg, jstring jtarball, jstring jdirectory)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *tarball;
   const char *directory;
@@ -2145,7 +2145,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1tgz_1out
   (JNIEnv *env, jobject obj, jlong jg, jstring jdirectory, jstring jtarball)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *directory;
   const char *tarball;
@@ -2165,7 +2165,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1mount_1ro
   (JNIEnv *env, jobject obj, jlong jg, jstring jdevice, jstring jmountpoint)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *device;
   const char *mountpoint;
@@ -2185,7 +2185,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1mount_1options
   (JNIEnv *env, jobject obj, jlong jg, jstring joptions, jstring jdevice, jstring jmountpoint)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *options;
   const char *device;
@@ -2208,7 +2208,7 @@ JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1mount_1vfs
   (JNIEnv *env, jobject obj, jlong jg, jstring joptions, jstring jvfstype, jstring jdevice, jstring jmountpoint)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   int r;
   const char *options;
   const char *vfstype;

@@ -5769,14 +5769,14 @@ Java_com_redhat_et_libguestfs_GuestFS__1create
     return 0;
   }
   guestfs_set_error_handler (g, NULL, NULL);
-  return (jlong) g;
+  return (jlong) (long) g;
 }
 
 JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1close
   (JNIEnv *env, jobject obj, jlong jg)
 {
-  guestfs_h *g = (guestfs_h *) jg;
+  guestfs_h *g = (guestfs_h *) (long) jg;
   guestfs_close (g);
 }
 
@@ -5817,7 +5817,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
       ) (snd style);
       pr ")\n";
       pr "{\n";
-      pr "  guestfs_h *g = (guestfs_h *) jg;\n";
+      pr "  guestfs_h *g = (guestfs_h *) (long) jg;\n";
       let error_code, no_ret =
 	match fst style with
 	| RErr -> pr "  int r;\n"; "-1", ""
