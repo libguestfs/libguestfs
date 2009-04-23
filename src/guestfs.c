@@ -729,9 +729,9 @@ guestfs_launch (guestfs_h *g)
     /* Want to give userspace some room, so: */
     memsize += 128;
 
-#if AC_SIZEOF_LONG == 8
+#if SIZEOF_LONG == 8
     /* On 64 bit, assume some overhead. */
-    memsize += 32;
+    memsize += 64;
 #endif
   } else
     memsize = 512;
