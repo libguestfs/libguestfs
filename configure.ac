@@ -35,6 +35,9 @@ AM_PROG_CC_C_O
 dnl Check support for 64 bit file offsets.
 AC_SYS_LARGEFILE
 
+dnl Check sizeof long.
+AC_CHECK_SIZEOF([long])
+
 dnl Headers.
 AC_CHECK_HEADERS([errno.h sys/types.h sys/un.h sys/wait.h sys/socket.h])
 

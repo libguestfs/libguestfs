@@ -29,7 +29,9 @@
 #include <string.h>
 #include <fcntl.h>
 #include <time.h>
+#include <sys/stat.h>
 #include <sys/select.h>
+
 #include <rpc/types.h>
 #include <rpc/xdr.h>
 
@@ -632,7 +634,7 @@ int
 guestfs_launch (guestfs_h *g)
 {
   static const char *dir_template = "/tmp/libguestfsXXXXXX";
-  int r, i, len, pmore;
+  int r, i, len, pmore, memsize;
   int wfd[2], rfd[2];
   int tries;
   const char *kernel_name = "vmlinuz." REPO "." host_cpu;
@@ -641,6 +643,7 @@ guestfs_launch (guestfs_h *g)
   char *kernel = NULL, *initrd = NULL;
   char unixsock[256];
   struct sockaddr_un addr;
+  struct stat statbuf;
 
   /* Configured? */
   if (!g->cmdline) {
@@ -700,6 +703,40 @@ guestfs_launch (guestfs_h *g)
     goto cleanup0;
   }
 
+  /* Choose a suitable memory size (in MB).  This is more art
+   * than science, but you can help by doing
+   *   ./configure --enable-debug-command
+   * and then running:
+   *   debug sh free
+   *   debug mem ''
+   * and seeing how much free memory is left for particular
+   * configurations.
+   *
+   * It's also helpful to report both the compressed and uncompressed
+   * size of the initramfs (ls -lh initramfs*.img; du -sh initramfs).
+   *
+   * XXX KVM virtio balloon driver?
+   */
+  if (stat (initrd, &statbuf) != -1) {
+    /* Approximate size of the initramfs after it is decompressed
+     * in kernel memory.  The compression factor is ~2.5-3.
+     */
+    memsize = 3 * statbuf.st_size / 1024 / 1024;
+
+    /* Approximate size used by the kernel. */
+    memsize += 10;
+
+    /* Want to give userspace some room, so: */
+    memsize += 128;
+
+#if AC_SIZEOF_LONG == 8
+    /* On 64 bit, assume some overhead. */
+    memsize += 32;
+#endif
+  } else
+    memsize = 512;
+  
+
   /* Make the temporary directory containing the socket. */
   if (!g->tmpdir) {
     g->tmpdir = safe_strdup (g, dir_template);
@@ -730,6 +767,7 @@ guestfs_launch (guestfs_h *g)
   if (r == 0) {			/* Child (qemu). */
     char vmchannel[256];
     char append[256];
+    char memsize_str[256];
 
     /* Set up the full command line.  Do this in the subprocess so we
      * don't need to worry about cleaning up.
@@ -747,8 +785,10 @@ guestfs_launch (guestfs_h *g)
 	      VMCHANNEL_ADDR, VMCHANNEL_PORT,
 	      g->verbose ? " guestfs_verbose=1" : "");
 
+    snprintf (memsize_str, sizeof memsize_str, "%d", memsize);
+
     add_cmdline (g, "-m");
-    add_cmdline (g, "384");	  /* XXX Choose best size. */
+    add_cmdline (g, memsize_str);
 #if 0
     add_cmdline (g, "-no-kqemu"); /* Avoids a warning. */
 #endif
