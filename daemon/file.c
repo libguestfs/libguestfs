@@ -18,8 +18,6 @@
 
 #include <config.h>
 
-#define _GNU_SOURCE		/* for futimens(2) and getline(3) */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

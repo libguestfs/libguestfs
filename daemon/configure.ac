@@ -33,6 +33,9 @@ AC_ARG_ENABLE([debug-command],
   [AC_DEFINE_UNQUOTED([ENABLE_DEBUG_COMMAND],[1],[Enable the 'debug' command])],
   [])
 
+dnl For strchrnul(3), asprintf(3), futimens(2) and getline(3).
+AC_GNU_SOURCE
+
 dnl Check for basic C environment.
 AC_PROG_CC
 AC_PROG_INSTALL

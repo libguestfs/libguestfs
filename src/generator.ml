@@ -2560,7 +2560,7 @@ and generate_daemon_actions_h () =
 and generate_daemon_actions () =
   generate_header CStyle GPLv2;
 
-  pr "#define _GNU_SOURCE // for strchrnul\n";
+  pr "#include <config.h>\n";
   pr "\n";
   pr "#include <stdio.h>\n";
   pr "#include <stdlib.h>\n";
