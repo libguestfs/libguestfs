@@ -366,7 +366,7 @@ script (int prompt)
 	  goto next_command;
 	}
 	p[len] = '\0';
-	pend = &p[len+2];
+	pend = p[len+1] ? &p[len+2] : &p[len+1];
       } else if (*p == '\'') {
 	p++;
 	len = strcspn (p, "'");
@@ -381,7 +381,7 @@ script (int prompt)
 	  goto next_command;
 	}
 	p[len] = '\0';
-	pend = &p[len+2];
+	pend = p[len+1] ? &p[len+2] : &p[len+1];
 	/*
       } else if (*p == '[') {
 	int c = 1;
