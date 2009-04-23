@@ -21,7 +21,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <unistd.h>
+#include <dirent.h>
 
 #include "../src/guestfs_protocol.h"
 #include "daemon.h"
@@ -42,21 +45,15 @@ struct cmd {
 };
 
 static char *debug_help (const char *subcmd, int argc, char *const *const argv);
-#if 0
 static char *debug_fds (const char *subcmd, int argc, char *const *const argv);
-static char *debug_free (const char *subcmd, int argc, char *const *const argv);
 static char *debug_mem (const char *subcmd, int argc, char *const *const argv);
-static char *debug_ps (const char *subcmd, int argc, char *const *const argv);
-#endif
+static char *debug_sh (const char *subcmd, int argc, char *const *const argv);
 
 static struct cmd cmds[] = {
   { "help", debug_help },
-#if 0
   { "fds", debug_fds },
-  { "free", debug_free },
   { "mem", debug_mem },
-  { "ps", debug_free },
-#endif
+  { "sh", debug_sh },
   { NULL, NULL }
 };
 #endif
@@ -114,25 +111,114 @@ debug_help (const char *subcmd, int argc, char *const *const argv)
   return r;
 }
 
-#if 0
+/* Show open FDs. */
 static char *
 debug_fds (const char *subcmd, int argc, char *const *const argv)
 {
+  int r;
+  char *out = NULL;
+  DIR *dir;
+  struct dirent *d;
+  char fname[256], link[256];
+  struct stat statbuf;
+
+  dir = opendir ("/proc/self/fd");
+  if (!dir) {
+    reply_with_perror ("opendir: /proc/self/fd");
+    return NULL;
+  }
+
+  while ((d = readdir (dir)) != NULL) {
+    if (strcmp (d->d_name, ".") == 0 || strcmp (d->d_name, "..") == 0)
+      continue;
+
+    snprintf (fname, sizeof fname, "/proc/self/fd/%s", d->d_name);
+
+    r = lstat (fname, &statbuf);
+    if (r == -1) {
+      reply_with_perror ("stat: %s", fname);
+      free (out);
+      closedir (dir);
+      return NULL;
+    }
+
+    if (S_ISLNK (statbuf.st_mode)) {
+      r = readlink (fname, link, sizeof link - 1);
+      if (r == -1) {
+	reply_with_perror ("readline: %s", fname);
+	free (out);
+	closedir (dir);
+	return NULL;
+      }
+      link[r] = '\0';
+
+      r = catprintf (&out, "%2s %s\n", d->d_name, link);
+    } else
+      r = catprintf (&out, "%2s 0%o\n", d->d_name, statbuf.st_mode);
+
+    if (r == -1) {
+      reply_with_perror ("catprintf");
+      free (out);
+      closedir (dir);
+      return NULL;
+    }
+  }
+
+  if (closedir (dir) == -1) {
+    reply_with_perror ("closedir");
+    free (out);
+    return NULL;
+  }
+
+  return out;
 }
 
-static char *
-debug_free (const char *subcmd, int argc, char *const *const argv)
-{
-}
-
+/* Report how much memory we can blindly allocate before
+ * we get an error.
+ */
 static char *
 debug_mem (const char *subcmd, int argc, char *const *const argv)
 {
+  char *mem = NULL, *p;
+  int size = 0;
+  char *buf;
+
+  for (;;) {
+    size += 128 * 1024;
+    p = realloc (mem, size);
+    if (p == NULL) {
+      free (mem);
+      break;
+    }
+    mem = p;
+  }
+
+  if (asprintf (&buf, "%.1f MBytes", size / 1024.0 / 1024.0) == -1) {
+    reply_with_perror ("asprintf");
+    return NULL;
+  }
+
+  return buf;			/* caller frees */
 }
 
+/* Run an arbitrary shell command. */
 static char *
-debug_ps (const char *subcmd, int argc, char *const *const argv)
+debug_sh (const char *subcmd, int argc, char *const *const argv)
 {
+  int r;
+  char *out, *err;
+
+  r = commandv (&out, &err, argv);
+  if (r == -1) {
+    reply_with_error ("ps: %s", err);
+    free (out);
+    free (err);
+    return NULL;
+  }
+
+  free (err);
+
+  return out;
 }
-#endif
+
 #endif /* ENABLE_DEBUG_COMMAND */
