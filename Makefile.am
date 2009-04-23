@@ -43,7 +43,8 @@ EXTRA_DIST = \
 	html/pod.css \
 	HACKING TODO \
 	tests.c \
-	libguestfs.pc libguestfs.pc.in
+	libguestfs.pc libguestfs.pc.in \
+	gitlog-to-changelog
 
 # Build the root filesystem.
 # Currently this is arch-dependent, so it seems like putting it in
@@ -136,6 +137,12 @@ html/guestfish.1.html: guestfish.pod guestfish-actions.pod
 
 website: html/guestfs.3.html html/guestfish.1.html
 	cp $^ html/pod.css $(HOME)/d/redhat/et-website/libguestfs/
+
+# Generate the ChangeLog automatically from the gitlog.
+
+dist-hook:
+	./gitlog-to-changelog > ChangeLog
+	cp ChangeLog $(distdir)/ChangeLog
 
 # Pkgconfig.
 
