@@ -92,6 +92,14 @@ extern void send_file_end (int cancel);
 /* only call this if there is a FileOut parameter */
 extern void reply (xdrproc_t xdrp, char *ret);
 
+/* Append to existing string.  If existing string is NULL then
+ * this creates a new string.  This uses an "interesting" variation
+ * of asprintf.
+ */
+
+#define catprintf(strp,fs,...) \
+  asprintf ((strp), "%s" fs, *(strp) ? *(strp) : "", __VA_ARGS__)
+
 /* Helper for functions that need a root filesystem mounted.
  * NB. Cannot be used for FileIn functions.
  */
