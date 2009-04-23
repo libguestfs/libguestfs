@@ -25,6 +25,7 @@ guestfsd_SOURCES = \
 	checksum.c \
 	command.c \
 	daemon.h \
+	debug.c \
 	devsparts.c \
 	dir.c \
 	file.c \

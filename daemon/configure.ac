@@ -27,6 +27,12 @@ AC_ARG_ENABLE([32bit],
   [export CC="gcc -m32"],
   [enable_32bit=no])
 
+dnl Enable 'debug' command.
+AC_ARG_ENABLE([debug-command],
+  [AS_HELP_STRING([--enable-debug-command], [enable the 'debug' command])],
+  [AC_DEFINE_UNQUOTED([ENABLE_DEBUG_COMMAND],[1],[Enable the 'debug' command])],
+  [])
+
 dnl Check for basic C environment.
 AC_PROG_CC
 AC_PROG_INSTALL

@@ -1467,6 +1467,18 @@ This is the same as the C<guestfs_mount> command, but it
 allows you to set both the mount options and the vfstype
 as for the L<mount(8)> I<-o> and I<-t> flags.");
 
+  ("debug", (RString "result", [String "subcmd"; StringList "extraargs"]), 76, [],
+   [],
+   "debugging and internals",
+   "\
+The C<guestfs_debug> command exposes some internals of
+C<guestfsd> (the guestfs daemon) that runs inside the
+qemu subprocess.
+
+There is no comprehensive help for this command.  You have
+to look at the file C<daemon/debug.c> in the libguestfs source
+to find out what you can do.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

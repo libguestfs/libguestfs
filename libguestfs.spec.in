@@ -232,6 +232,7 @@ popd
   --prefix=%{_prefix} --libdir=%{_libdir} \
   --with-java-home=%{java_home} \
   --with-qemu="qemu-kvm qemu-system-%{_build_arch} qemu" \
+  --enable-debug-command \
   %{extra}
 
 # 'INSTALLDIRS' ensures that perl libs are installed in the vendor dir
