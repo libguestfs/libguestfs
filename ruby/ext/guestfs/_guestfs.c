@@ -2318,6 +2318,39 @@ static VALUE ruby_guestfs_mount_vfs (VALUE gv, VALUE optionsv, VALUE vfstypev, V
   return Qnil;
 }
 
+static VALUE ruby_guestfs_debug (VALUE gv, VALUE subcmdv, VALUE extraargsv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "debug");
+
+  const char *subcmd = StringValueCStr (subcmdv);
+  if (!subcmd)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "subcmd", "debug");
+  char **extraargs;  {
+    int i, len;
+    len = RARRAY_LEN (extraargsv);
+    extraargs = malloc (sizeof (char *) * (len+1));
+    for (i = 0; i < len; ++i) {
+      VALUE v = rb_ary_entry (extraargsv, i);
+      extraargs[i] = StringValueCStr (v);
+    }
+  }
+
+  char *r;
+
+  r = guestfs_debug (g, subcmd, extraargs);
+  free (extraargs);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  VALUE rv = rb_str_new2 (r);
+  free (r);
+  return rv;
+}
+
 /* Initialize the module. */
 void Init__guestfs ()
 {
@@ -2520,4 +2553,6 @@ void Init__guestfs ()
         ruby_guestfs_mount_options, 3);
   rb_define_method (c_guestfs, "mount_vfs",
         ruby_guestfs_mount_vfs, 4);
+  rb_define_method (c_guestfs, "debug",
+        ruby_guestfs_debug, 2);
 }

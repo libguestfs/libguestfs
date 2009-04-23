@@ -2186,4 +2186,27 @@ public class GuestFS {
   private native void _mount_vfs (long g, String options, String vfstype, String device, String mountpoint)
     throws LibGuestFSException;
 
+  /**
+   * debugging and internals
+   *
+   * The "g.debug" command exposes some internals of
+   * "guestfsd" (the guestfs daemon) that runs inside the
+   * qemu subprocess.
+   * 
+   * There is no comprehensive help for this command. You
+   * have to look at the file "daemon/debug.c" in the
+   * libguestfs source to find out what you can do.
+   * 
+   * @throws LibGuestFSException
+   */
+  public String debug (String subcmd, String[] extraargs)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("debug: handle is closed");
+    return _debug (g, subcmd, extraargs);
+  }
+  private native String _debug (long g, String subcmd, String[] extraargs)
+    throws LibGuestFSException;
+
 }

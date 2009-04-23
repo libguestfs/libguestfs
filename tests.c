@@ -107,6 +107,7 @@ static void no_test_warnings (void)
   fprintf (stderr, "warning: \"guestfs_tgz_out\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_mount_options\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_mount_vfs\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_debug\" has no tests\n");
 }
 
 static int test_mount_ro_0 (void)

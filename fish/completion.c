@@ -69,6 +69,7 @@ static const char *commands[] = {
   "command",
   "command-lines",
   "config",
+  "debug",
   "download",
   "exists",
   "file",

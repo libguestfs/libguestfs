@@ -63,6 +63,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "command", "run a command from the guest filesystem");
   printf ("%-20s %s\n", "command-lines", "run a command, returning lines");
   printf ("%-20s %s\n", "config", "add qemu parameters");
+  printf ("%-20s %s\n", "debug", "debugging and internals");
   printf ("%-20s %s\n", "download", "download a file to the local machine");
   printf ("%-20s %s\n", "exists", "test if file or directory exists");
   printf ("%-20s %s\n", "file", "determine file type");
@@ -407,6 +408,9 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "mount_vfs") == 0 || strcasecmp (cmd, "mount-vfs") == 0)
     pod2text ("mount-vfs - mount a guest disk with mount options and vfstype", " mount-vfs <options> <vfstype> <device> <mountpoint>\n\nThis is the same as the C<mount> command, but it\nallows you to set both the mount options and the vfstype\nas for the L<mount(8)> I<-o> and I<-t> flags.");
+  else
+  if (strcasecmp (cmd, "debug") == 0)
+    pod2text ("debug - debugging and internals", " debug <subcmd> <extraargs>\n\nThe C<debug> command exposes some internals of\nC<guestfsd> (the guestfs daemon) that runs inside the\nqemu subprocess.\n\nThere is no comprehensive help for this command.  You have\nto look at the file C<daemon/debug.c> in the libguestfs source\nto find out what you can do.");
   else
     display_builtin_command (cmd);
 }
@@ -1983,6 +1987,25 @@ static int run_mount_vfs (const char *cmd, int argc, char *argv[])
   return r;
 }
 
+static int run_debug (const char *cmd, int argc, char *argv[])
+{
+  char *r;
+  const char *subcmd;
+  char **extraargs;
+  if (argc != 2) {
+    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  subcmd = argv[0];
+  extraargs = parse_string_list (argv[1]);
+  r = guestfs_debug (g, subcmd, extraargs);
+  if (r == NULL) return -1;
+  printf ("%s\n", r);
+  free (r);
+  return 0;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -2263,6 +2286,9 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "mount_vfs") == 0 || strcasecmp (cmd, "mount-vfs") == 0)
     return run_mount_vfs (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "debug") == 0)
+    return run_debug (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

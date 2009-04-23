@@ -115,3 +115,4 @@ extern int guestfs_tgz_out (guestfs_h *handle, const char *directory, const char
 extern int guestfs_mount_ro (guestfs_h *handle, const char *device, const char *mountpoint);
 extern int guestfs_mount_options (guestfs_h *handle, const char *options, const char *device, const char *mountpoint);
 extern int guestfs_mount_vfs (guestfs_h *handle, const char *options, const char *vfstype, const char *device, const char *mountpoint);
+extern char *guestfs_debug (guestfs_h *handle, const char *subcmd, char * const* const extraargs);

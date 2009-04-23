@@ -2795,6 +2795,36 @@ py_guestfs_mount_vfs (PyObject *self, PyObject *args)
   return py_r;
 }
 
+static PyObject *
+py_guestfs_debug (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  char *r;
+  const char *subcmd;
+  PyObject *py_extraargs;
+  const char **extraargs;
+
+  if (!PyArg_ParseTuple (args, (char *) "OsO:guestfs_debug",
+                         &py_g, &subcmd, &py_extraargs))
+    return NULL;
+  g = get_handle (py_g);
+  extraargs = get_string_list (py_extraargs);
+  if (!extraargs) return NULL;
+
+  r = guestfs_debug (g, subcmd, extraargs);
+  free (extraargs);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyString_FromString (r);
+  free (r);
+  return py_r;
+}
+
 static PyMethodDef methods[] = {
   { (char *) "create", py_guestfs_create, METH_VARARGS, NULL },
   { (char *) "close", py_guestfs_close, METH_VARARGS, NULL },
@@ -2894,6 +2924,7 @@ static PyMethodDef methods[] = {
   { (char *) "mount_ro", py_guestfs_mount_ro, METH_VARARGS, NULL },
   { (char *) "mount_options", py_guestfs_mount_options, METH_VARARGS, NULL },
   { (char *) "mount_vfs", py_guestfs_mount_vfs, METH_VARARGS, NULL },
+  { (char *) "debug", py_guestfs_debug, METH_VARARGS, NULL },
   { NULL, NULL, 0, NULL }
 };
 

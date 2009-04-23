@@ -403,6 +403,18 @@ The first character of C<param> string must be a C<-> (dash).
 
 C<value> can be NULL.
 
+=head2 debug
+
+ debug subcmd 'extraargs ...'
+
+The C<debug> command exposes some internals of
+C<guestfsd> (the guestfs daemon) that runs inside the
+qemu subprocess.
+
+There is no comprehensive help for this command.  You have
+to look at the file C<daemon/debug.c> in the libguestfs source
+to find out what you can do.
+
 =head2 download
 
  download remotefilename (filename|-)

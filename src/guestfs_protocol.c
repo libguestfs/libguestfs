@@ -1311,6 +1311,29 @@ xdr_guestfs_mount_vfs_args (XDR *xdrs, guestfs_mount_vfs_args *objp)
 }
 
 bool_t
+xdr_guestfs_debug_args (XDR *xdrs, guestfs_debug_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->subcmd, ~0))
+		 return FALSE;
+	 if (!xdr_array (xdrs, (char **)&objp->extraargs.extraargs_val, (u_int *) &objp->extraargs.extraargs_len, ~0,
+		sizeof (str), (xdrproc_t) xdr_str))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_debug_ret (XDR *xdrs, guestfs_debug_ret *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->result, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
 xdr_guestfs_procedure (XDR *xdrs, guestfs_procedure *objp)
 {
 	register int32_t *buf;

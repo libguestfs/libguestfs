@@ -1075,3 +1075,14 @@ class GuestFS:
         """
         return libguestfsmod.mount_vfs (self._o, options, vfstype, device, mountpoint)
 
+    def debug (self, subcmd, extraargs):
+        u"""The "g.debug" command exposes some internals of
+        "guestfsd" (the guestfs daemon) that runs inside the
+        qemu subprocess.
+        
+        There is no comprehensive help for this command. You
+        have to look at the file "daemon/debug.c" in the
+        libguestfs source to find out what you can do.
+        """
+        return libguestfsmod.debug (self._o, subcmd, extraargs)
+

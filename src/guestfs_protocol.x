@@ -526,6 +526,15 @@ struct guestfs_mount_vfs_args {
   string mountpoint<>;
 };
 
+struct guestfs_debug_args {
+  string subcmd<>;
+  str extraargs<>;
+};
+
+struct guestfs_debug_ret {
+  string result<>;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -602,6 +611,7 @@ enum guestfs_procedure {
   GUESTFS_PROC_MOUNT_RO = 73,
   GUESTFS_PROC_MOUNT_OPTIONS = 74,
   GUESTFS_PROC_MOUNT_VFS = 75,
+  GUESTFS_PROC_DEBUG = 76,
   GUESTFS_PROC_NR_PROCS
 };
 

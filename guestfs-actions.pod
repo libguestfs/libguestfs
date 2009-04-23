@@ -522,6 +522,23 @@ C<value> can be NULL.
 
 This function returns 0 on success or -1 on error.
 
+=head2 guestfs_debug
+
+ char *guestfs_debug (guestfs_h *handle,
+		const char *subcmd,
+		char * const* const extraargs);
+
+The C<guestfs_debug> command exposes some internals of
+C<guestfsd> (the guestfs daemon) that runs inside the
+qemu subprocess.
+
+There is no comprehensive help for this command.  You have
+to look at the file C<daemon/debug.c> in the libguestfs source
+to find out what you can do.
+
+This function returns a string, or NULL on error.
+I<The caller must free the returned string after use>.
+
 =head2 guestfs_download
 
  int guestfs_download (guestfs_h *handle,

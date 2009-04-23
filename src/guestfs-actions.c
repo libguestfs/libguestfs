@@ -6389,3 +6389,91 @@ int guestfs_mount_vfs (guestfs_h *g,
   return 0;
 }
 
+struct debug_ctx {
+  /* This flag is set by the callbacks, so we know we've done
+   * the callbacks as expected, and in the right sequence.
+   * 0 = not called, 1 = send called,
+   * 1001 = reply called.
+   */
+  int cb_sequence;
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+  struct guestfs_debug_ret ret;
+};
+
+static void debug_reply_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  struct debug_ctx *ctx = (struct debug_ctx *) data;
+
+  ml->main_loop_quit (ml, g);
+
+  if (!xdr_guestfs_message_header (xdr, &ctx->hdr)) {
+    error (g, "%s: failed to parse reply header", "guestfs_debug");
+    return;
+  }
+  if (ctx->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &ctx->err)) {
+      error (g, "%s: failed to parse reply error", "guestfs_debug");
+      return;
+    }
+    goto done;
+  }
+  if (!xdr_guestfs_debug_ret (xdr, &ctx->ret)) {
+    error (g, "%s: failed to parse reply", "guestfs_debug");
+    return;
+  }
+ done:
+  ctx->cb_sequence = 1001;
+}
+
+char *guestfs_debug (guestfs_h *g,
+		const char *subcmd,
+		char * const* const extraargs)
+{
+  struct guestfs_debug_args args;
+  struct debug_ctx ctx;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  int serial;
+
+  if (check_state (g, "guestfs_debug") == -1) return NULL;
+  guestfs_set_busy (g);
+
+  memset (&ctx, 0, sizeof ctx);
+
+  args.subcmd = (char *) subcmd;
+  args.extraargs.extraargs_val = (char **) extraargs;
+  for (args.extraargs.extraargs_len = 0; extraargs[args.extraargs.extraargs_len]; args.extraargs.extraargs_len++) ;
+  serial = guestfs__send_sync (g, GUESTFS_PROC_DEBUG,
+        (xdrproc_t) xdr_guestfs_debug_args, (char *) &args);
+  if (serial == -1) {
+    guestfs_set_ready (g);
+    return NULL;
+  }
+
+  guestfs__switch_to_receiving (g);
+  ctx.cb_sequence = 0;
+  guestfs_set_reply_callback (g, debug_reply_cb, &ctx);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (ctx.cb_sequence != 1001) {
+    error (g, "%s reply failed, see earlier error messages", "guestfs_debug");
+    guestfs_set_ready (g);
+    return NULL;
+  }
+
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_DEBUG, serial) == -1) {
+    guestfs_set_ready (g);
+    return NULL;
+  }
+
+  if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
+    return NULL;
+  }
+
+  guestfs_set_ready (g);
+  return ctx.ret.result; /* caller will free */
+}
+

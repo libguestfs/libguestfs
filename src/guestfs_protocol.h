@@ -678,6 +678,20 @@ struct guestfs_mount_vfs_args {
 };
 typedef struct guestfs_mount_vfs_args guestfs_mount_vfs_args;
 
+struct guestfs_debug_args {
+	char *subcmd;
+	struct {
+		u_int extraargs_len;
+		str *extraargs_val;
+	} extraargs;
+};
+typedef struct guestfs_debug_args guestfs_debug_args;
+
+struct guestfs_debug_ret {
+	char *result;
+};
+typedef struct guestfs_debug_ret guestfs_debug_ret;
+
 enum guestfs_procedure {
 	GUESTFS_PROC_MOUNT = 1,
 	GUESTFS_PROC_SYNC = 2,
@@ -754,7 +768,8 @@ enum guestfs_procedure {
 	GUESTFS_PROC_MOUNT_RO = 73,
 	GUESTFS_PROC_MOUNT_OPTIONS = 74,
 	GUESTFS_PROC_MOUNT_VFS = 75,
-	GUESTFS_PROC_NR_PROCS = 75 + 1,
+	GUESTFS_PROC_DEBUG = 76,
+	GUESTFS_PROC_NR_PROCS = 76 + 1,
 };
 typedef enum guestfs_procedure guestfs_procedure;
 #define GUESTFS_MESSAGE_MAX 4194304
@@ -908,6 +923,8 @@ extern  bool_t xdr_guestfs_tgz_out_args (XDR *, guestfs_tgz_out_args*);
 extern  bool_t xdr_guestfs_mount_ro_args (XDR *, guestfs_mount_ro_args*);
 extern  bool_t xdr_guestfs_mount_options_args (XDR *, guestfs_mount_options_args*);
 extern  bool_t xdr_guestfs_mount_vfs_args (XDR *, guestfs_mount_vfs_args*);
+extern  bool_t xdr_guestfs_debug_args (XDR *, guestfs_debug_args*);
+extern  bool_t xdr_guestfs_debug_ret (XDR *, guestfs_debug_ret*);
 extern  bool_t xdr_guestfs_procedure (XDR *, guestfs_procedure*);
 extern  bool_t xdr_guestfs_message_direction (XDR *, guestfs_message_direction*);
 extern  bool_t xdr_guestfs_message_status (XDR *, guestfs_message_status*);
@@ -1020,6 +1037,8 @@ extern bool_t xdr_guestfs_tgz_out_args ();
 extern bool_t xdr_guestfs_mount_ro_args ();
 extern bool_t xdr_guestfs_mount_options_args ();
 extern bool_t xdr_guestfs_mount_vfs_args ();
+extern bool_t xdr_guestfs_debug_args ();
+extern bool_t xdr_guestfs_debug_ret ();
 extern bool_t xdr_guestfs_procedure ();
 extern bool_t xdr_guestfs_message_direction ();
 extern bool_t xdr_guestfs_message_status ();

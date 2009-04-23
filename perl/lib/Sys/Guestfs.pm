@@ -432,6 +432,16 @@ The first character of C<param> string must be a C<-> (dash).
 
 C<value> can be NULL.
 
+=item $result = $h->debug ($subcmd, \@extraargs);
+
+The C<$h-E<gt>debug> command exposes some internals of
+C<guestfsd> (the guestfs daemon) that runs inside the
+qemu subprocess.
+
+There is no comprehensive help for this command.  You have
+to look at the file C<daemon/debug.c> in the libguestfs source
+to find out what you can do.
+
 =item $h->download ($remotefilename, $filename);
 
 Download file C<remotefilename> and save it as C<filename>

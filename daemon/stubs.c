@@ -1841,6 +1841,37 @@ done:
   xdr_free ((xdrproc_t) xdr_guestfs_mount_vfs_args, (char *) &args);
 }
 
+static void debug_stub (XDR *xdr_in)
+{
+  char *r;
+  struct guestfs_debug_args args;
+  const char *subcmd;
+  char **extraargs;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_debug_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "debug");
+    return;
+  }
+  subcmd = args.subcmd;
+  args.extraargs.extraargs_val = realloc (args.extraargs.extraargs_val, sizeof (char *) * (args.extraargs.extraargs_len+1));
+  args.extraargs.extraargs_val[args.extraargs.extraargs_len] = NULL;
+  extraargs = args.extraargs.extraargs_val;
+
+  r = do_debug (subcmd, extraargs);
+  if (r == NULL)
+    /* do_debug has already called reply_with_error */
+    goto done;
+
+  struct guestfs_debug_ret ret;
+  ret.result = r;
+  reply ((xdrproc_t) &xdr_guestfs_debug_ret, (char *) &ret);
+  free (r);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_debug_args, (char *) &args);
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -2068,6 +2099,9 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_MOUNT_VFS:
       mount_vfs_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_DEBUG:
+      debug_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d", proc_nr);

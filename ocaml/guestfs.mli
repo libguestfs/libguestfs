@@ -412,3 +412,6 @@ val mount_options : t -> string -> string -> string -> unit
 val mount_vfs : t -> string -> string -> string -> string -> unit
 (** mount a guest disk with mount options and vfstype *)
 
+val debug : t -> string -> string array -> string
+(** debugging and internals *)
+

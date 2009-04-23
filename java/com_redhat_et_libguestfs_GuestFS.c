@@ -2230,3 +2230,39 @@ Java_com_redhat_et_libguestfs_GuestFS__1mount_1vfs
   }
 }
 
+JNIEXPORT jstring JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1debug
+  (JNIEnv *env, jobject obj, jlong jg, jstring jsubcmd, jobjectArray jextraargs)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  jstring jr;
+  char *r;
+  const char *subcmd;
+  int extraargs_len;
+  const char **extraargs;
+  int i;
+
+  subcmd = (*env)->GetStringUTFChars (env, jsubcmd, NULL);
+  extraargs_len = (*env)->GetArrayLength (env, jextraargs);
+  extraargs = malloc (sizeof (char *) * (extraargs_len+1));
+  for (i = 0; i < extraargs_len; ++i) {
+    jobject o = (*env)->GetObjectArrayElement (env, jextraargs, i);
+    extraargs[i] = (*env)->GetStringUTFChars (env, o, NULL);
+  }
+  extraargs[extraargs_len] = NULL;
+  r = guestfs_debug (g, subcmd, extraargs);
+  (*env)->ReleaseStringUTFChars (env, jsubcmd, subcmd);
+  for (i = 0; i < extraargs_len; ++i) {
+    jobject o = (*env)->GetObjectArrayElement (env, jextraargs, i);
+    (*env)->ReleaseStringUTFChars (env, o, extraargs[i]);
+  }
+  free (extraargs);
+  if (r == NULL) {
+    throw_exception (env, guestfs_last_error (g));
+    return NULL;
+  }
+  jr = (*env)->NewStringUTF (env, r);
+  free (r);
+  return jr;
+}
+

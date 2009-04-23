@@ -1468,3 +1468,20 @@ PREINIT:
       if (r == -1)
         croak ("mount_vfs: %s", guestfs_last_error (g));
 
+SV *
+debug (g, subcmd, extraargs)
+      guestfs_h *g;
+      char *subcmd;
+      char **extraargs;
+PREINIT:
+      char *result;
+   CODE:
+      result = guestfs_debug (g, subcmd, extraargs);
+      free (extraargs);
+      if (result == NULL)
+        croak ("debug: %s", guestfs_last_error (g));
+      RETVAL = newSVpv (result, 0);
+      free (result);
+ OUTPUT:
+      RETVAL
+

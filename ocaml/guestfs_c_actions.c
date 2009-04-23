@@ -2608,3 +2608,29 @@ ocaml_guestfs_mount_vfs (value gv, value optionsv, value vfstypev, value devicev
   CAMLreturn (rv);
 }
 
+CAMLprim value
+ocaml_guestfs_debug (value gv, value subcmdv, value extraargsv)
+{
+  CAMLparam3 (gv, subcmdv, extraargsv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("debug: used handle after closing it");
+
+  const char *subcmd = String_val (subcmdv);
+  char **extraargs = ocaml_guestfs_strings_val (extraargsv);
+  char *r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_debug (g, subcmd, extraargs);
+  caml_leave_blocking_section ();
+  ocaml_guestfs_free_strings (extraargs);
+  if (r == NULL)
+    ocaml_guestfs_raise_error (g, "debug");
+
+  rv = caml_copy_string (r);
+  free (r);
+  CAMLreturn (rv);
+}
+
