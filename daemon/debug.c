@@ -46,13 +46,11 @@ struct cmd {
 
 static char *debug_help (const char *subcmd, int argc, char *const *const argv);
 static char *debug_fds (const char *subcmd, int argc, char *const *const argv);
-static char *debug_mem (const char *subcmd, int argc, char *const *const argv);
 static char *debug_sh (const char *subcmd, int argc, char *const *const argv);
 
 static struct cmd cmds[] = {
   { "help", debug_help },
   { "fds", debug_fds },
-  { "mem", debug_mem },
   { "sh", debug_sh },
   { NULL, NULL }
 };
@@ -171,34 +169,6 @@ debug_fds (const char *subcmd, int argc, char *const *const argv)
   }
 
   return out;
-}
-
-/* Report how much memory we can blindly allocate before
- * we get an error.
- */
-static char *
-debug_mem (const char *subcmd, int argc, char *const *const argv)
-{
-  char *mem = NULL, *p;
-  int size = 0;
-  char *buf;
-
-  for (;;) {
-    size += 128 * 1024;
-    p = realloc (mem, size);
-    if (p == NULL) {
-      free (mem);
-      break;
-    }
-    mem = p;
-  }
-
-  if (asprintf (&buf, "%.1f MBytes", size / 1024.0 / 1024.0) == -1) {
-    reply_with_perror ("asprintf");
-    return NULL;
-  }
-
-  return buf;			/* caller frees */
 }
 
 /* Run an arbitrary shell command. */
