@@ -88,9 +88,17 @@ If you are using x86-64, then by default the configure script will
 look for qemu-kvm (KVM support).  You will need a reasonably recent
 processor for this to work.  KVM is much faster than using plain QEMU.
 
-You may also need to enable KVM support for non-root users, by doing:
+You may also need to enable KVM support for non-root users, by following
+these instructions:
+
+  http://www.linux-kvm.org/page/FAQ#How_can_I_use_kvm_with_a_non-privileged_user.3F
+
+On some systems, this will work too:
 
   chmod o+rw /dev/kvm
+
+On some systems, the chmod will not survive a reboot, and you will
+need to make edits to the udev configuration.
 
 
 Notes on cross-architecture support
