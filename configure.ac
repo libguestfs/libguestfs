@@ -147,9 +147,27 @@ AC_PROG_FINDLIB
 AM_CONDITIONAL([HAVE_OCAML],[test "x$OCAMLC" != "xno" -a "x$OCAMLFIND" != "xno"])
 
 dnl Check for Perl (optional, for Perl bindings).
-dnl XXX This isn't quite right, we should check for devel libraries.
+dnl XXX This isn't quite right, we should check for Perl devel library.
 AC_CHECK_PROG([PERL],[perl],[perl],[no])
-AM_CONDITIONAL([HAVE_PERL],[test "x$PERL" != "xno"])
+
+dnl Check for Perl modules that must be present to compile and
+dnl test the Perl bindings.
+missing_perl_modules=no
+for pm in Test::More Test::Pod Test::Pod::Coverage ExtUtils::MakeMaker; do
+    AC_MSG_CHECKING([for $pm])
+    if ! perl -M$pm >/dev/null 2>&1; then
+        AC_MSG_RESULT([no])
+        missing_perl_modules=yes
+    else
+        AC_MSG_RESULT([yes])
+    fi
+done
+if test "x$missing_perl_modules" = "xyes"; then
+    AC_MSG_WARN([some Perl modules required to compile or test the Perl bindings are missing])
+fi
+
+AM_CONDITIONAL([HAVE_PERL],
+    [test "x$PERL" != "xno" -a "x$missing_perl_modules" != "xyes"])
 
 dnl Check for Python (optional, for Python bindings).
 AC_CHECK_PROG([PYTHON],[python],[python],[no])
