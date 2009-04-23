@@ -29,7 +29,7 @@ This is equivalent to the qemu parameter C<-drive file=filename>.
 
 Close the current Augeas handle and free up any resources
 used by it.  After calling this, you have to call
-C<aug_init> again before you can use any other
+C<aug-init> again before you can use any other
 Augeas functions.
 
 =head2 aug-defnode
@@ -40,7 +40,7 @@ Defines a variable C<name> whose value is the result of
 evaluating C<expr>.
 
 If C<expr> evaluates to an empty nodeset, a node is created,
-equivalent to calling C<aug_set> C<expr>, C<value>.
+equivalent to calling C<aug-set> C<expr>, C<value>.
 C<name> will be the nodeset containing that single node.
 
 On success this returns a pair containing the
@@ -73,7 +73,7 @@ Create a new Augeas handle for editing configuration files.
 If there was any previous Augeas handle associated with this
 guestfs session, then it is closed.
 
-You must call this before using any other C<aug_*>
+You must call this before using any other C<aug-*>
 commands.
 
 C<root> is the filesystem root.  C<root> must not be NULL,
@@ -108,11 +108,11 @@ Make save a no-op, just record what would have been changed.
 
 =item C<AUG_NO_LOAD> = 32
 
-Do not load the tree in C<aug_init>.
+Do not load the tree in C<aug-init>.
 
 =back
 
-To close the handle, you can call C<aug_close>.
+To close the handle, you can call C<aug-close>.
 
 To find out more about Augeas, see L<http://augeas.net/>.
 
@@ -141,7 +141,7 @@ details.
 
  aug-ls path
 
-This is just a shortcut for listing C<aug_match>
+This is just a shortcut for listing C<aug-match>
 C<path/*> and sorting the resulting nodes into alphabetical order.
 
 =head2 aug-match
@@ -173,7 +173,7 @@ On success this returns the number of entries which were removed.
 
 This writes all pending changes to disk.
 
-The flags which were passed to C<aug_init> affect exactly
+The flags which were passed to C<aug-init> affect exactly
 how files are saved.
 
 =head2 aug-set
@@ -217,7 +217,7 @@ This uses the L<blockdev(8)> command.
 
 This returns the size of the device in bytes.
 
-See also C<blockdev_getsz>.
+See also C<blockdev-getsz>.
 
 This uses the L<blockdev(8)> command.
 
@@ -228,7 +228,7 @@ This uses the L<blockdev(8)> command.
 This returns the size of sectors on a block device.
 Usually 512, but can be larger for modern devices.
 
-(Note, this is not the size in sectors, use C<blockdev_getsz>
+(Note, this is not the size in sectors, use C<blockdev-getsz>
 for that).
 
 This uses the L<blockdev(8)> command.
@@ -240,8 +240,8 @@ This uses the L<blockdev(8)> command.
 This returns the size of the device in units of 512-byte sectors
 (even if the sectorsize isn't 512 bytes ... weird).
 
-See also C<blockdev_getss> for the real sector size of
-the device, and C<blockdev_getsize64> for the more
+See also C<blockdev-getss> for the real sector size of
+the device, and C<blockdev-getsize64> for the more
 useful I<size in bytes>.
 
 This uses the L<blockdev(8)> command.
@@ -423,7 +423,7 @@ Use C<-> instead of a filename to read/write from stdin/stdout.
 This returns C<true> if and only if there is a file, directory
 (or anything) with the given C<path> name.
 
-See also C<is_file>, C<is_dir>, C<stat>.
+See also C<is-file>, C<is-dir>, C<stat>.
 
 =head2 file
 
@@ -627,7 +627,7 @@ of the L<lvs(8)> command.
 This returns a list of the logical volume device names
 (eg. C</dev/VolGroup00/LogVol00>).
 
-See also C<lvs_full>.
+See also C<lvs-full>.
 
 =head2 lvs-full
 
@@ -728,7 +728,7 @@ of the L<pvs(8)> command.
 This returns a list of just the device names that contain
 PVs (eg. C</dev/sda2>).
 
-See also C<pvs_full>.
+See also C<pvs-full>.
 
 =head2 pvs-full
 
@@ -748,7 +748,7 @@ C<LF> and C<CRLF> character sequences are I<not> returned.
 
 Note that this function cannot correctly handle binary files
 (specifically, files containing C<\0> character which is treated
-as end of line).  For those you need to use the C<read_file>
+as end of line).  For those you need to use the C<read-file>
 function which has a more complex interface.
 
 =head2 rm
@@ -881,7 +881,7 @@ closing the handle.
 This command uploads and unpacks local file C<tarfile> (an
 I<uncompressed> tar file) into C<directory>.
 
-To upload a compressed tarball, use C<tgz_in>.
+To upload a compressed tarball, use C<tgz-in>.
 
 Use C<-> instead of a filename to read/write from stdin/stdout.
 
@@ -892,7 +892,7 @@ Use C<-> instead of a filename to read/write from stdin/stdout.
 This command packs the contents of C<directory> and downloads
 it to local file C<tarfile>.
 
-To download a compressed tarball, use C<tgz_out>.
+To download a compressed tarball, use C<tgz-out>.
 
 Use C<-> instead of a filename to read/write from stdin/stdout.
 
@@ -903,7 +903,7 @@ Use C<-> instead of a filename to read/write from stdin/stdout.
 This command uploads and unpacks local file C<tarball> (a
 I<gzip compressed> tar file) into C<directory>.
 
-To upload an uncompressed tarball, use C<tar_in>.
+To upload an uncompressed tarball, use C<tar-in>.
 
 Use C<-> instead of a filename to read/write from stdin/stdout.
 
@@ -914,7 +914,7 @@ Use C<-> instead of a filename to read/write from stdin/stdout.
 This command packs the contents of C<directory> and downloads
 it to local file C<tarball>.
 
-To download an uncompressed tarball, use C<tar_out>.
+To download an uncompressed tarball, use C<tar-out>.
 
 Use C<-> instead of a filename to read/write from stdin/stdout.
 
@@ -984,7 +984,7 @@ of the L<vgs(8)> command.
 This returns a list of just the volume group names that were
 detected (eg. C<VolGroup00>).
 
-See also C<vgs_full>.
+See also C<vgs-full>.
 
 =head2 vgs-full
 

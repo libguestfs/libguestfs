@@ -33,6 +33,7 @@
  *)
 
 #load "unix.cma";;
+#load "str.cma";;
 
 open Printf
 
@@ -3809,9 +3810,19 @@ and generate_fish_actions_pod () =
       fun (_, _, _, flags, _, _, _) -> not (List.mem NotInFish flags)
     ) all_functions_sorted in
 
+  let rex = Str.regexp "C<guestfs_\\([^>]+\\)>" in
+
   List.iter (
     fun (name, style, _, flags, _, _, longdesc) ->
-      let longdesc = replace_str longdesc "C<guestfs_" "C<" in
+      let longdesc =
+	Str.global_substitute rex (
+	  fun s ->
+	    let sub =
+	      try Str.matched_group 1 s
+	      with Not_found ->
+		failwithf "error substituting C<guestfs_...> in longdesc of function %s" name in
+	    "C<" ^ replace_char sub '_' '-' ^ ">"
+	) longdesc in
       let name = replace_char name '_' '-' in
       let alias =
 	try find_map (function FishAlias n -> Some n | _ -> None) flags
