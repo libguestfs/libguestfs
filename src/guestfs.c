@@ -1667,10 +1667,9 @@ send_file_complete_sync (guestfs_h *g)
 static int check_for_daemon_cancellation (guestfs_h *g);
 
 static int
-send_file_chunk_sync (guestfs_h *g, int cancel, const char *buf, size_t len)
+send_file_chunk_sync (guestfs_h *g, int cancel, const char *buf, size_t buflen)
 {
-  char data[GUESTFS_MAX_CHUNK_SIZE + 48];
-  unsigned datalen;
+  unsigned len;
   int sent;
   guestfs_chunk chunk;
   XDR xdr;
@@ -1681,6 +1680,14 @@ send_file_chunk_sync (guestfs_h *g, int cancel, const char *buf, size_t len)
     return -1;
   }
 
+  /* This is probably an internal error.  Or perhaps we should just
+   * free the buffer anyway?
+   */
+  if (g->msg_out != NULL) {
+    error (g, "guestfs__send_sync: msg_out should be NULL");
+    return -1;
+  }
+
   /* Did the daemon send a cancellation message? */
   if (check_for_daemon_cancellation (g)) {
     if (g->verbose)
@@ -1688,35 +1695,34 @@ send_file_chunk_sync (guestfs_h *g, int cancel, const char *buf, size_t len)
     return -2;
   }
 
+  /* Allocate the chunk buffer.  Don't use the stack to avoid
+   * excessive stack usage and unnecessary copies.
+   */
+  g->msg_out = safe_malloc (g, GUESTFS_MAX_CHUNK_SIZE + 4 + 48);
+  xdrmem_create (&xdr, g->msg_out + 4, GUESTFS_MAX_CHUNK_SIZE + 48, XDR_ENCODE);
+
   /* Serialize the chunk. */
   chunk.cancel = cancel;
-  chunk.data.data_len = len;
+  chunk.data.data_len = buflen;
   chunk.data.data_val = (char *) buf;
 
-  if (g->verbose)
-    fprintf (stderr,
-	     "library sending chunk cancel = %d, len = %zu, buf = %p\n",
-	     cancel, len, buf);
-
-  xdrmem_create (&xdr, data, sizeof data, XDR_ENCODE);
   if (!xdr_guestfs_chunk (&xdr, &chunk)) {
-    error (g, "xdr_guestfs_chunk failed (buf = %p, len = %zu)", buf, len);
+    error (g, "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)",
+	   buf, buflen);
     xdr_destroy (&xdr);
-    return -1;
+    goto cleanup1;
   }
 
-  datalen = xdr_getpos (&xdr);
+  len = xdr_getpos (&xdr);
   xdr_destroy (&xdr);
 
-  /* Allocate outgoing message buffer. */
-  g->msg_out = safe_malloc (g, datalen + 4);
-  g->msg_out_size = datalen + 4;
+  /* Reduce the size of the outgoing message buffer to the real length. */
+  g->msg_out = safe_realloc (g, g->msg_out, len + 4);
+  g->msg_out_size = len + 4;
   g->msg_out_pos = 0;
 
   xdrmem_create (&xdr, g->msg_out, 4, XDR_ENCODE);
-  xdr_uint32_t (&xdr, &datalen);
-
-  memcpy (g->msg_out + 4, data, datalen);
+  xdr_uint32_t (&xdr, &len);
 
   if (guestfs__switch_to_sending (g) == -1)
     goto cleanup1;
