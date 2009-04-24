@@ -22,16 +22,22 @@ set -e
 
 unset CDPATH
 
-# If you want to do some extra debugging and diagnosis of the
-# initramfs image, then uncomment this line.  This makes the image
-# larger.
-debug=yes
-
-modules="-i kernel -i bash -i coreutils -i lvm2 -i ntfs-3g -i util-linux-ng -i MAKEDEV -i net-tools -i augeas-libs -i file"
-
-if [ "x$debug" = "xyes" ]; then
-    modules="$modules -i module-init-tools -i procps -i strace -i iputils"
-fi
+modules="
+-i augeas-libs
+-i bash
+-i coreutils
+-i file
+-i iputils
+-i kernel
+-i lvm2
+-i MAKEDEV
+-i module-init-tools
+-i net-tools
+-i ntfs-3g
+-i procps
+-i strace
+-i util-linux-ng
+"
 
 # Decide on names for the final output.  These have to match Makefile.am.
 output=initramfs.@REPO@.@host_cpu@.img
@@ -125,14 +131,8 @@ modprobe 8139cp
 /sbin/route add default gw 10.0.2.2
 lvm vgscan --ignorelockingfailure
 lvm vgchange -ay --ignorelockingfailure
+exec guestfsd -f
 __EOF__
-
-if [ "x$debug" != "xyes" ]; then
-    echo exec guestfsd -f >> init.new
-else
-    echo guestfsd >> init.new
-    echo exec bash -i >> init.new
-fi
 
 install_file init.new /init 0755 root.root
 rm init.new
