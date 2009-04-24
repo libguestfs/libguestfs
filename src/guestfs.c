@@ -1492,7 +1492,6 @@ int
 guestfs__send_sync (guestfs_h *g, int proc_nr,
 		    xdrproc_t xdrp, char *args)
 {
-  char buffer[GUESTFS_MESSAGE_MAX];
   struct guestfs_message_header hdr;
   XDR xdr;
   unsigned len;
@@ -1505,6 +1504,23 @@ guestfs__send_sync (guestfs_h *g, int proc_nr,
     return -1;
   }
 
+  /* This is probably an internal error.  Or perhaps we should just
+   * free the buffer anyway?
+   */
+  if (g->msg_out != NULL) {
+    error (g, "guestfs__send_sync: msg_out should be NULL");
+    return -1;
+  }
+
+  /* We have to allocate this message buffer on the heap because
+   * it is quite large (although will be mostly unused).  We
+   * can't allocate it on the stack because in some environments
+   * we have quite limited stack space available, notably when
+   * running in the JVM.
+   */
+  g->msg_out = safe_malloc (g, GUESTFS_MESSAGE_MAX + 4);
+  xdrmem_create (&xdr, g->msg_out + 4, GUESTFS_MESSAGE_MAX, XDR_ENCODE);
+
   /* Serialize the header. */
   hdr.prog = GUESTFS_PROGRAM;
   hdr.vers = GUESTFS_PROTOCOL_VERSION;
@@ -1513,10 +1529,9 @@ guestfs__send_sync (guestfs_h *g, int proc_nr,
   hdr.serial = serial;
   hdr.status = GUESTFS_STATUS_OK;
 
-  xdrmem_create (&xdr, buffer, sizeof buffer, XDR_ENCODE);
   if (!xdr_guestfs_message_header (&xdr, &hdr)) {
     error (g, "xdr_guestfs_message_header failed");
-    return -1;
+    goto cleanup1;
   }
 
   /* Serialize the args.  If any, because some message types
@@ -1525,23 +1540,22 @@ guestfs__send_sync (guestfs_h *g, int proc_nr,
   if (xdrp) {
     if (!(*xdrp) (&xdr, args)) {
       error (g, "dispatch failed to marshal args");
-      return -1;
+      goto cleanup1;
     }
   }
 
+  /* Get the actual length of the message, resize the buffer to match
+   * the actual length, and write the length word at the beginning.
+   */
   len = xdr_getpos (&xdr);
   xdr_destroy (&xdr);
 
-  /* Allocate the outgoing message buffer. */
-  g->msg_out = safe_malloc (g, len + 4);
-
+  g->msg_out = safe_realloc (g, g->msg_out, len + 4);
   g->msg_out_size = len + 4;
   g->msg_out_pos = 0;
 
   xdrmem_create (&xdr, g->msg_out, 4, XDR_ENCODE);
   xdr_uint32_t (&xdr, &len);
-
-  memcpy (g->msg_out + 4, buffer, len);
 
   if (guestfs__switch_to_sending (g) == -1)
     goto cleanup1;
