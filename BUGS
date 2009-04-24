@@ -9,6 +9,7 @@ to happen only if the main program or library segfaults, in which case
 the atexit handler which would normally perform cleanup is not run.
 sometimes.  This appears to happen (only?) if the main program
 segfaults.
+[testing a hacky fix to this]
 
 [kernel?] Kernel boot times are significantly slower for Fedora 11/12
 than for Fedora 10, like 2-3 times slower.  This greatly affects the

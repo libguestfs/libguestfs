@@ -143,7 +143,8 @@ struct guestfs_h
 
   int fd[2];			/* Stdin/stdout of qemu. */
   int sock;			/* Daemon communications socket. */
-  int pid;			/* Qemu PID. */
+  pid_t pid;			/* Qemu PID. */
+  pid_t recoverypid;		/* Recovery process PID. */
   time_t start_t;		/* The time when we started qemu. */
 
   int stdout_watch;		/* Watches qemu stdout for log messages. */
@@ -842,6 +843,40 @@ guestfs_launch (guestfs_h *g)
   /* Parent (library). */
   g->pid = r;
 
+  /* Fork the recovery process off which will kill qemu if the parent
+   * process fails to do so (eg. if the parent segfaults).
+   */
+  r = fork ();
+  if (r == 0) {
+    pid_t qemu_pid = g->pid;
+    pid_t parent_pid = getppid ();
+
+    /* Writing to argv is hideously complicated and error prone.  See:
+     * http://anoncvs.postgresql.org/cvsweb.cgi/pgsql/src/backend/utils/misc/ps_status.c?rev=1.33.2.1;content-type=text%2Fplain
+     */
+
+    /* Loop around waiting for one or both of the other processes to
+     * disappear.  It's fair to say this is very hairy.  The PIDs that
+     * we are looking at might be reused by another process.  We are
+     * effectively polling.  Is the cure worse than the disease?
+     */
+    for (;;) {
+      if (kill (qemu_pid, 0) == -1) /* qemu's gone away, we aren't needed */
+	_exit (0);
+      if (kill (parent_pid, 0) == -1) {
+	/* Parent's gone away, qemu still around, so kill qemu. */
+	kill (qemu_pid, 9);
+	_exit (0);
+      }
+      sleep (2);
+    }
+  }
+
+  /* Don't worry, if the fork failed, this will be -1.  The recovery
+   * process isn't essential.
+   */
+  g->recoverypid = r;
+
   /* Start the clock ... */
   time (&g->start_t);
 
@@ -938,11 +973,14 @@ guestfs_launch (guestfs_h *g)
   close (wfd[1]);
   close (rfd[0]);
   kill (g->pid, 9);
+  if (g->recoverypid > 0) kill (g->recoverypid, 9);
   waitpid (g->pid, NULL, 0);
+  if (g->recoverypid > 0) waitpid (g->recoverypid, NULL, 0);
   g->fd[0] = -1;
   g->fd[1] = -1;
   g->sock = -1;
   g->pid = 0;
+  g->recoverypid = 0;
   g->start_t = 0;
   g->stdout_watch = -1;
   g->sock_watch = -1;
@@ -1018,6 +1056,7 @@ guestfs_kill_subprocess (guestfs_h *g)
     fprintf (stderr, "sending SIGTERM to process %d\n", g->pid);
 
   kill (g->pid, SIGTERM);
+  if (g->recoverypid > 0) kill (g->recoverypid, 9);
 
   return 0;
 }
@@ -1135,7 +1174,9 @@ stdout_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
     if (g->verbose)
       fprintf (stderr, "stdout_event: %p: child process died\n", g);
     /*kill (g->pid, SIGTERM);*/
+    if (g->recoverypid > 0) kill (g->recoverypid, 9);
     waitpid (g->pid, NULL, 0);
+    if (g->recoverypid > 0) waitpid (g->recoverypid, NULL, 0);
     if (g->stdout_watch >= 0)
       g->main_loop->remove_handle (g->main_loop, g, g->stdout_watch);
     if (g->sock_watch >= 0)
@@ -1147,6 +1188,7 @@ stdout_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
     g->fd[1] = -1;
     g->sock = -1;
     g->pid = 0;
+    g->recoverypid = 0;
     g->start_t = 0;
     g->stdout_watch = -1;
     g->sock_watch = -1;
