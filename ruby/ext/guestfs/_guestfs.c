@@ -1418,6 +1418,7 @@ static VALUE ruby_guestfs_vgcreate (VALUE gv, VALUE volgroupv, VALUE physvolsv)
       VALUE v = rb_ary_entry (physvolsv, i);
       physvols[i] = StringValueCStr (v);
     }
+    physvols[len] = NULL;
   }
 
   int r;
@@ -1503,6 +1504,7 @@ static VALUE ruby_guestfs_sfdisk (VALUE gv, VALUE devicev, VALUE cylsv, VALUE he
       VALUE v = rb_ary_entry (linesv, i);
       lines[i] = StringValueCStr (v);
     }
+    lines[len] = NULL;
   }
 
   int r;
@@ -1659,6 +1661,7 @@ static VALUE ruby_guestfs_command (VALUE gv, VALUE argumentsv)
       VALUE v = rb_ary_entry (argumentsv, i);
       arguments[i] = StringValueCStr (v);
     }
+    arguments[len] = NULL;
   }
 
   char *r;
@@ -1688,6 +1691,7 @@ static VALUE ruby_guestfs_command_lines (VALUE gv, VALUE argumentsv)
       VALUE v = rb_ary_entry (argumentsv, i);
       arguments[i] = StringValueCStr (v);
     }
+    arguments[len] = NULL;
   }
 
   char **r;
@@ -2337,6 +2341,7 @@ static VALUE ruby_guestfs_debug (VALUE gv, VALUE subcmdv, VALUE extraargsv)
       VALUE v = rb_ary_entry (extraargsv, i);
       extraargs[i] = StringValueCStr (v);
     }
+    extraargs[len] = NULL;
   }
 
   char *r;

@@ -5414,6 +5414,7 @@ static VALUE ruby_guestfs_close (VALUE gv)
 	    pr "      VALUE v = rb_ary_entry (%sv, i);\n" n;
 	    pr "      %s[i] = StringValueCStr (v);\n" n;
 	    pr "    }\n";
+	    pr "    %s[len] = NULL;\n" n;
 	    pr "  }\n";
 	| Bool n
 	| Int n ->
