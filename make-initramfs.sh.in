@@ -44,6 +44,7 @@ rm -f $koutput
 
 # /sysroot is where the guest root filesystem will be mounted.
 mkdir initramfs/sysroot
+@FEBOOTSTRAP_RUN@ initramfs -- chmod 0777 /sysroot
 
 # Create /tmp if it is missing.
 mkdir -p initramfs/tmp
