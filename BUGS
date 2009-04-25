@@ -18,3 +18,10 @@ time it takes to launch the subprocess (although it does still work).
 
 [java] Java bindings documentation messed up.  See:
 http://java.sun.com/j2se/javadoc/writingdoccomments/
+
+[libguestfs] If qemu process is a shell script, then it is not cleaned
+up correctly, even on "good" exit.  This is because we need to set up
+a new process group (see commented code for doing setpgid).
+
+[libguestfs] Some occasional data corruption, certainly on tgz-out.
+Try using tgz-out on a very large directory.
