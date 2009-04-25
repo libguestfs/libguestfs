@@ -37,6 +37,8 @@ modules="
 -i procps
 -i strace
 -i util-linux-ng
+-i dosfstools
+-i ntfsprogs
 "
 
 # Decide on names for the final output.  These have to match Makefile.am.
@@ -88,6 +90,8 @@ find initramfs/lib/modules/*/kernel \
   -a ! -name 'crc16.ko' \
   -a ! -name 'jbd2.ko' \
   -a ! -name 'fuse.ko' \
+  -a ! -name 'vfat.ko' \
+  -a ! -name 'fat.ko' \
   -a -delete
 
 # Pull the kernel out into the current directory.  We don't want it in
