@@ -1178,10 +1178,10 @@ This is the same as the C<statvfs(2)> system call.");
 
   ("tune2fs_l", (RHashtable "superblock", [String "device"]), 55, [],
    [], (* XXX test *)
-   "get ext2/ext3 superblock details",
+   "get ext2/ext3/ext4 superblock details",
    "\
-This returns the contents of the ext2 or ext3 filesystem superblock
-on C<device>.
+This returns the contents of the ext2, ext3 or ext4 filesystem
+superblock on C<device>.
 
 It is the same as running C<tune2fs -l device>.  See L<tune2fs(8)>
 manpage for more details.  The list of fields returned isn't
@@ -1478,6 +1478,92 @@ qemu subprocess.
 There is no comprehensive help for this command.  You have
 to look at the file C<daemon/debug.c> in the libguestfs source
 to find out what you can do.");
+
+  ("lvremove", (RErr, [String "device"]), 77, [],
+   [InitEmpty, TestOutputList (
+      [["pvcreate"; "/dev/sda"];
+       ["vgcreate"; "VG"; "/dev/sda"];
+       ["lvcreate"; "LV1"; "VG"; "50"];
+       ["lvcreate"; "LV2"; "VG"; "50"];
+       ["lvremove"; "/dev/VG/LV1"];
+       ["lvs"]], ["/dev/VG/LV2"]);
+    InitEmpty, TestOutputList (
+      [["pvcreate"; "/dev/sda"];
+       ["vgcreate"; "VG"; "/dev/sda"];
+       ["lvcreate"; "LV1"; "VG"; "50"];
+       ["lvcreate"; "LV2"; "VG"; "50"];
+       ["lvremove"; "/dev/VG"];
+       ["lvs"]], []);
+    InitEmpty, TestOutputList (
+      [["pvcreate"; "/dev/sda"];
+       ["vgcreate"; "VG"; "/dev/sda"];
+       ["lvcreate"; "LV1"; "VG"; "50"];
+       ["lvcreate"; "LV2"; "VG"; "50"];
+       ["lvremove"; "/dev/VG"];
+       ["vgs"]], ["VG"])],
+   "remove an LVM logical volume",
+   "\
+Remove an LVM logical volume C<device>, where C<device> is
+the path to the LV, such as C</dev/VG/LV>.
+
+You can also remove all LVs in a volume group by specifying
+the VG name, C</dev/VG>.");
+
+  ("vgremove", (RErr, [String "vgname"]), 78, [],
+   [InitEmpty, TestOutputList (
+      [["pvcreate"; "/dev/sda"];
+       ["vgcreate"; "VG"; "/dev/sda"];
+       ["lvcreate"; "LV1"; "VG"; "50"];
+       ["lvcreate"; "LV2"; "VG"; "50"];
+       ["vgremove"; "VG"];
+       ["lvs"]], []);
+    InitEmpty, TestOutputList (
+      [["pvcreate"; "/dev/sda"];
+       ["vgcreate"; "VG"; "/dev/sda"];
+       ["lvcreate"; "LV1"; "VG"; "50"];
+       ["lvcreate"; "LV2"; "VG"; "50"];
+       ["vgremove"; "VG"];
+       ["vgs"]], [])],
+   "remove an LVM volume group",
+   "\
+Remove an LVM volume group C<vgname>, (for example C<VG>).
+
+This also forcibly removes all logical volumes in the volume
+group (if any).");
+
+  ("pvremove", (RErr, [String "device"]), 79, [],
+   [InitEmpty, TestOutputList (
+      [["pvcreate"; "/dev/sda"];
+       ["vgcreate"; "VG"; "/dev/sda"];
+       ["lvcreate"; "LV1"; "VG"; "50"];
+       ["lvcreate"; "LV2"; "VG"; "50"];
+       ["vgremove"; "VG"];
+       ["pvremove"; "/dev/sda"];
+       ["lvs"]], []);
+    InitEmpty, TestOutputList (
+      [["pvcreate"; "/dev/sda"];
+       ["vgcreate"; "VG"; "/dev/sda"];
+       ["lvcreate"; "LV1"; "VG"; "50"];
+       ["lvcreate"; "LV2"; "VG"; "50"];
+       ["vgremove"; "VG"];
+       ["pvremove"; "/dev/sda"];
+       ["vgs"]], []);
+    InitEmpty, TestOutputList (
+      [["pvcreate"; "/dev/sda"];
+       ["vgcreate"; "VG"; "/dev/sda"];
+       ["lvcreate"; "LV1"; "VG"; "50"];
+       ["lvcreate"; "LV2"; "VG"; "50"];
+       ["vgremove"; "VG"];
+       ["pvremove"; "/dev/sda"];
+       ["pvs"]], [])],
+   "remove an LVM physical volume",
+   "\
+This wipes a physical volume C<device> so that LVM will no longer
+recognise it.
+
+The implementation uses the C<pvremove> command which refuses to
+wipe physical volumes that contain any volume groups, so you have
+to remove those first.");
 
 ]
 

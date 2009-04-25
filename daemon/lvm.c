@@ -300,3 +300,57 @@ do_lvm_remove_all (void)
   /* There, that was easy, sorry about your data. */
   return 0;
 }
+
+int
+do_lvremove (const char *device)
+{
+  char *err;
+  int r;
+
+  r = command (NULL, &err,
+	       "/sbin/lvm", "lvremove", "-f", device, NULL);
+  if (r == -1) {
+    reply_with_error ("%s", err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+  return 0;
+}
+
+int
+do_vgremove (const char *device)
+{
+  char *err;
+  int r;
+
+  r = command (NULL, &err,
+	       "/sbin/lvm", "vgremove", "-f", device, NULL);
+  if (r == -1) {
+    reply_with_error ("%s", err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+  return 0;
+}
+
+int
+do_pvremove (const char *device)
+{
+  char *err;
+  int r;
+
+  r = command (NULL, &err,
+	       "/sbin/lvm", "pvremove", "-ff", device, NULL);
+  if (r == -1) {
+    reply_with_error ("%s", err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+  return 0;
+}
