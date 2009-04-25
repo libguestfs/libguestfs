@@ -73,6 +73,34 @@ AC_PATH_PROGS([QEMU],[$with_qemu],[no],
 test "x$QEMU" = "xno" && AC_MSG_ERROR([qemu must be installed])
 AC_DEFINE_UNQUOTED([QEMU],["$QEMU"],[Location of qemu binary.])
 
+dnl Check that the chosen qemu has vmchannel support.
+dnl http://lists.gnu.org/archive/html/qemu-devel/2009-02/msg01042.html
+if test "x$vmchannel_test" != "xno"; then
+    AC_MSG_CHECKING([for vmchannel support in $QEMU])
+    vmchannelout=`$QEMU -net channel /dev/zero 2>&1 ||:`
+    echo "vmchannel test command output: $vmchannelout" >&AS_MESSAGE_LOG_FD
+    if ! echo $vmchannelout | grep -sq "vmchannel wrong port number" ; then
+        AC_MSG_RESULT([no])
+	AC_MSG_FAILURE(
+[I did not find vmchannel support in $QEMU.
+
+vmchannel support is vital for libguestfs to operate.  You need a version
+of qemu >= 0.10, or the following patch backported to earlier versions:
+
+http://lists.gnu.org/archive/html/qemu-devel/2009-02/msg01042.html
+
+You can override this test by setting the environment variable
+vmchannel_test=no  However if you don't have vmchannel support
+in your qemu, then this just delays the pain.
+
+If I am using the wrong qemu or you want to compile qemu from source
+and install it in another location, then you should configure with
+the --with-qemu option.
+])
+    fi
+    AC_MSG_RESULT([yes])
+fi
+
 dnl Check for febootstrap etc.
 AC_CHECK_PROG([FEBOOTSTRAP],
 	[febootstrap],[febootstrap],[no])
