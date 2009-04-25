@@ -136,8 +136,12 @@ main (int argc, char *argv[])
   /* If developing, add . to the path.  Note that libtools interferes
    * with this because uninstalled guestfish is a shell script that runs
    * the real program with an absolute path.  Detect that too.
+   *
+   * BUT if LIBGUESTFS_PATH environment variable is already set by
+   * the user, then don't override it.
    */
-  if (argv[0] &&
+  if (getenv ("LIBGUESTFS_PATH") == NULL &&
+      argv[0] &&
       (argv[0][0] != '/' || strstr (argv[0], "/.libs/lt-") != NULL))
     guestfs_set_path (g, ".:" GUESTFS_DEFAULT_PATH);
 
