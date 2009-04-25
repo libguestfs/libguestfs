@@ -1,0 +1,19 @@
+<h2>Clone and edit a virtual machine</h2>
+
+<p>
+This script shows how you might have a library of premade
+virtual machines ready for cloning, but as a final step you
+use libguestfs or guestfish to customize some configuration
+files inside the VM before it's ready to go.
+</p>
+
+<p>
+In this simple recipe, we overwrite the <code>/etc/resolv.conf</code> file
+with a new nameserver entry, and change <code>/etc/HOSTNAME</code>.
+</p>
+
+<p>
+There are lots of possible improvements to this script, such as
+using qcow snapshots so that cloned VMs share storage with their
+"parent" preimages.
+</p>

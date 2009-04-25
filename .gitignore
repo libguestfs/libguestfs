@@ -39,6 +39,7 @@ guestfish.1
 guestfs.3
 html/guestfish.1.html
 html/guestfs.3.html
+html/recipes.html
 initramfs
 initramfs.timestamp
 initramfs.*.img

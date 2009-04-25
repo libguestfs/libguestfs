@@ -1,0 +1,17 @@
+<h2>Fix an unbootable VM by editing /boot/grub/grub.conf</h2>
+
+<p>
+If you messed up your VM and made it unbootable, it's
+often useful to be able to go in and edit <code>/boot/grub/grub.conf</code>.
+This guestfish script shows how to do that.
+</p>
+
+<p>
+Usage assumes that the VM has a separate <code>/boot</code>
+partition containing grub, which is usually the case.  So
+for example:
+</p>
+
+<pre>
+editgrub.sh broken-guest.img /dev/sda1
+</pre>

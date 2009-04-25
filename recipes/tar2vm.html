@@ -1,0 +1,23 @@
+<h2>Make a virtual machine out of a tarball</h2>
+
+<p>
+This script shows how you might generate a whole virtual
+machine, or a disk image for a virtual machine, starting
+with a tarball that contains the content for the machine.
+</p>
+
+<p>
+The usage is:
+</p>
+
+<pre>
+tar2vm.sh input.tar.gz output.img 100M
+</pre>
+
+<p>
+where (for example) <code>100M</code> is the size of the output
+disk image.  You have to specify a size that is large enough to contain all
+the contents of the tarball, but not too large that there is too much
+wasted space (unless you want to give the VM extra working space of
+course).
+</p>

@@ -327,7 +327,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n guestfish
 %defattr(-,root,root,-)
-%doc html/guestfish.1.html html/pod.css
+%doc html/guestfish.1.html html/pod.css recipes/
 %{_bindir}/guestfish
 %{_mandir}/man1/guestfish.1*
 
