@@ -1,0 +1,16 @@
+<h2>Export the /home directory from a virtual machine into a tarball</h2>
+
+<p>
+This script lets you export any directory you like from a virtual
+machine as a tarball.  For example, to export <code>/home</code>
+from a standard Fedora or RHEL virtual machine you would do:
+</p>
+
+<pre>
+export2tar guest.img /dev/VolGroup00/LogVol00 /home home.tar.gz
+</pre>
+
+<p>
+<code>/dev/VolGroup00/LogVol00</code> is the partition or LV <i>inside</i>
+the VM which contains the directory you want.
+</p>
