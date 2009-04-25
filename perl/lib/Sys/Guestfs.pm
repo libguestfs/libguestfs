@@ -608,6 +608,14 @@ and physical volumes.
 B<This command is dangerous.  Without careful use you
 can easily destroy all your data>.
 
+=item $h->lvremove ($device);
+
+Remove an LVM logical volume C<device>, where C<device> is
+the path to the LV, such as C</dev/VG/LV>.
+
+You can also remove all LVs in a volume group by specifying
+the VG name, C</dev/VG>.
+
 =item @logvols = $h->lvs ();
 
 List all the logical volumes detected.  This is the equivalent
@@ -686,6 +694,15 @@ Some internal mounts are not shown.
 This creates an LVM physical volume on the named C<device>,
 where C<device> should usually be a partition name such
 as C</dev/sda1>.
+
+=item $h->pvremove ($device);
+
+This wipes a physical volume C<device> so that LVM will no longer
+recognise it.
+
+The implementation uses the C<pvremove> command which refuses to
+wipe physical volumes that contain any volume groups, so you have
+to remove those first.
 
 =item @physvols = $h->pvs ();
 
@@ -865,8 +882,8 @@ to create a new zero-length file.
 
 =item %superblock = $h->tune2fs_l ($device);
 
-This returns the contents of the ext2 or ext3 filesystem superblock
-on C<device>.
+This returns the contents of the ext2, ext3 or ext4 filesystem
+superblock on C<device>.
 
 It is the same as running C<tune2fs -l device>.  See L<tune2fs(8)>
 manpage for more details.  The list of fields returned isn't
@@ -898,6 +915,13 @@ See also C<$h-E<gt>download>.
 
 This creates an LVM volume group called C<volgroup>
 from the non-empty list of physical volumes C<physvols>.
+
+=item $h->vgremove ($vgname);
+
+Remove an LVM volume group C<vgname>, (for example C<VG>).
+
+This also forcibly removes all logical volumes in the volume
+group (if any).
 
 =item @volgroups = $h->vgs ();
 

@@ -6477,3 +6477,243 @@ char *guestfs_debug (guestfs_h *g,
   return ctx.ret.result; /* caller will free */
 }
 
+struct lvremove_ctx {
+  /* This flag is set by the callbacks, so we know we've done
+   * the callbacks as expected, and in the right sequence.
+   * 0 = not called, 1 = send called,
+   * 1001 = reply called.
+   */
+  int cb_sequence;
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+};
+
+static void lvremove_reply_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  struct lvremove_ctx *ctx = (struct lvremove_ctx *) data;
+
+  ml->main_loop_quit (ml, g);
+
+  if (!xdr_guestfs_message_header (xdr, &ctx->hdr)) {
+    error (g, "%s: failed to parse reply header", "guestfs_lvremove");
+    return;
+  }
+  if (ctx->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &ctx->err)) {
+      error (g, "%s: failed to parse reply error", "guestfs_lvremove");
+      return;
+    }
+    goto done;
+  }
+ done:
+  ctx->cb_sequence = 1001;
+}
+
+int guestfs_lvremove (guestfs_h *g,
+		const char *device)
+{
+  struct guestfs_lvremove_args args;
+  struct lvremove_ctx ctx;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  int serial;
+
+  if (check_state (g, "guestfs_lvremove") == -1) return -1;
+  guestfs_set_busy (g);
+
+  memset (&ctx, 0, sizeof ctx);
+
+  args.device = (char *) device;
+  serial = guestfs__send_sync (g, GUESTFS_PROC_LVREMOVE,
+        (xdrproc_t) xdr_guestfs_lvremove_args, (char *) &args);
+  if (serial == -1) {
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  guestfs__switch_to_receiving (g);
+  ctx.cb_sequence = 0;
+  guestfs_set_reply_callback (g, lvremove_reply_cb, &ctx);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (ctx.cb_sequence != 1001) {
+    error (g, "%s reply failed, see earlier error messages", "guestfs_lvremove");
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_LVREMOVE, serial) == -1) {
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  guestfs_set_ready (g);
+  return 0;
+}
+
+struct vgremove_ctx {
+  /* This flag is set by the callbacks, so we know we've done
+   * the callbacks as expected, and in the right sequence.
+   * 0 = not called, 1 = send called,
+   * 1001 = reply called.
+   */
+  int cb_sequence;
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+};
+
+static void vgremove_reply_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  struct vgremove_ctx *ctx = (struct vgremove_ctx *) data;
+
+  ml->main_loop_quit (ml, g);
+
+  if (!xdr_guestfs_message_header (xdr, &ctx->hdr)) {
+    error (g, "%s: failed to parse reply header", "guestfs_vgremove");
+    return;
+  }
+  if (ctx->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &ctx->err)) {
+      error (g, "%s: failed to parse reply error", "guestfs_vgremove");
+      return;
+    }
+    goto done;
+  }
+ done:
+  ctx->cb_sequence = 1001;
+}
+
+int guestfs_vgremove (guestfs_h *g,
+		const char *vgname)
+{
+  struct guestfs_vgremove_args args;
+  struct vgremove_ctx ctx;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  int serial;
+
+  if (check_state (g, "guestfs_vgremove") == -1) return -1;
+  guestfs_set_busy (g);
+
+  memset (&ctx, 0, sizeof ctx);
+
+  args.vgname = (char *) vgname;
+  serial = guestfs__send_sync (g, GUESTFS_PROC_VGREMOVE,
+        (xdrproc_t) xdr_guestfs_vgremove_args, (char *) &args);
+  if (serial == -1) {
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  guestfs__switch_to_receiving (g);
+  ctx.cb_sequence = 0;
+  guestfs_set_reply_callback (g, vgremove_reply_cb, &ctx);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (ctx.cb_sequence != 1001) {
+    error (g, "%s reply failed, see earlier error messages", "guestfs_vgremove");
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_VGREMOVE, serial) == -1) {
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  guestfs_set_ready (g);
+  return 0;
+}
+
+struct pvremove_ctx {
+  /* This flag is set by the callbacks, so we know we've done
+   * the callbacks as expected, and in the right sequence.
+   * 0 = not called, 1 = send called,
+   * 1001 = reply called.
+   */
+  int cb_sequence;
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+};
+
+static void pvremove_reply_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  struct pvremove_ctx *ctx = (struct pvremove_ctx *) data;
+
+  ml->main_loop_quit (ml, g);
+
+  if (!xdr_guestfs_message_header (xdr, &ctx->hdr)) {
+    error (g, "%s: failed to parse reply header", "guestfs_pvremove");
+    return;
+  }
+  if (ctx->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &ctx->err)) {
+      error (g, "%s: failed to parse reply error", "guestfs_pvremove");
+      return;
+    }
+    goto done;
+  }
+ done:
+  ctx->cb_sequence = 1001;
+}
+
+int guestfs_pvremove (guestfs_h *g,
+		const char *device)
+{
+  struct guestfs_pvremove_args args;
+  struct pvremove_ctx ctx;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  int serial;
+
+  if (check_state (g, "guestfs_pvremove") == -1) return -1;
+  guestfs_set_busy (g);
+
+  memset (&ctx, 0, sizeof ctx);
+
+  args.device = (char *) device;
+  serial = guestfs__send_sync (g, GUESTFS_PROC_PVREMOVE,
+        (xdrproc_t) xdr_guestfs_pvremove_args, (char *) &args);
+  if (serial == -1) {
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  guestfs__switch_to_receiving (g);
+  ctx.cb_sequence = 0;
+  guestfs_set_reply_callback (g, pvremove_reply_cb, &ctx);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (ctx.cb_sequence != 1001) {
+    error (g, "%s reply failed, see earlier error messages", "guestfs_pvremove");
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_PVREMOVE, serial) == -1) {
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
+    return -1;
+  }
+
+  guestfs_set_ready (g);
+  return 0;
+}
+

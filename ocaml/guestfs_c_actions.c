@@ -2634,3 +2634,72 @@ ocaml_guestfs_debug (value gv, value subcmdv, value extraargsv)
   CAMLreturn (rv);
 }
 
+CAMLprim value
+ocaml_guestfs_lvremove (value gv, value devicev)
+{
+  CAMLparam2 (gv, devicev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("lvremove: used handle after closing it");
+
+  const char *device = String_val (devicev);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_lvremove (g, device);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "lvremove");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_vgremove (value gv, value vgnamev)
+{
+  CAMLparam2 (gv, vgnamev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("vgremove: used handle after closing it");
+
+  const char *vgname = String_val (vgnamev);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_vgremove (g, vgname);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "vgremove");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_pvremove (value gv, value devicev)
+{
+  CAMLparam2 (gv, devicev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("pvremove: used handle after closing it");
+
+  const char *device = String_val (devicev);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_pvremove (g, device);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "pvremove");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+

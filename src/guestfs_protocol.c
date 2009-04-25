@@ -1334,6 +1334,36 @@ xdr_guestfs_debug_ret (XDR *xdrs, guestfs_debug_ret *objp)
 }
 
 bool_t
+xdr_guestfs_lvremove_args (XDR *xdrs, guestfs_lvremove_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->device, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_vgremove_args (XDR *xdrs, guestfs_vgremove_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->vgname, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_pvremove_args (XDR *xdrs, guestfs_pvremove_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->device, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
 xdr_guestfs_procedure (XDR *xdrs, guestfs_procedure *objp)
 {
 	register int32_t *buf;

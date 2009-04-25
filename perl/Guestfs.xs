@@ -1485,3 +1485,36 @@ PREINIT:
  OUTPUT:
       RETVAL
 
+void
+lvremove (g, device)
+      guestfs_h *g;
+      char *device;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_lvremove (g, device);
+      if (r == -1)
+        croak ("lvremove: %s", guestfs_last_error (g));
+
+void
+vgremove (g, vgname)
+      guestfs_h *g;
+      char *vgname;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_vgremove (g, vgname);
+      if (r == -1)
+        croak ("vgremove: %s", guestfs_last_error (g));
+
+void
+pvremove (g, device)
+      guestfs_h *g;
+      char *device;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_pvremove (g, device);
+      if (r == -1)
+        croak ("pvremove: %s", guestfs_last_error (g));
+

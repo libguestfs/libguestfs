@@ -535,6 +535,18 @@ struct guestfs_debug_ret {
   string result<>;
 };
 
+struct guestfs_lvremove_args {
+  string device<>;
+};
+
+struct guestfs_vgremove_args {
+  string vgname<>;
+};
+
+struct guestfs_pvremove_args {
+  string device<>;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -612,6 +624,9 @@ enum guestfs_procedure {
   GUESTFS_PROC_MOUNT_OPTIONS = 74,
   GUESTFS_PROC_MOUNT_VFS = 75,
   GUESTFS_PROC_DEBUG = 76,
+  GUESTFS_PROC_LVREMOVE = 77,
+  GUESTFS_PROC_VGREMOVE = 78,
+  GUESTFS_PROC_PVREMOVE = 79,
   GUESTFS_PROC_NR_PROCS
 };
 

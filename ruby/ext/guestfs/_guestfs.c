@@ -2356,6 +2356,69 @@ static VALUE ruby_guestfs_debug (VALUE gv, VALUE subcmdv, VALUE extraargsv)
   return rv;
 }
 
+static VALUE ruby_guestfs_lvremove (VALUE gv, VALUE devicev)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "lvremove");
+
+  const char *device = StringValueCStr (devicev);
+  if (!device)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "device", "lvremove");
+
+  int r;
+
+  r = guestfs_lvremove (g, device);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
+static VALUE ruby_guestfs_vgremove (VALUE gv, VALUE vgnamev)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "vgremove");
+
+  const char *vgname = StringValueCStr (vgnamev);
+  if (!vgname)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "vgname", "vgremove");
+
+  int r;
+
+  r = guestfs_vgremove (g, vgname);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
+static VALUE ruby_guestfs_pvremove (VALUE gv, VALUE devicev)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "pvremove");
+
+  const char *device = StringValueCStr (devicev);
+  if (!device)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "device", "pvremove");
+
+  int r;
+
+  r = guestfs_pvremove (g, device);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
 /* Initialize the module. */
 void Init__guestfs ()
 {
@@ -2560,4 +2623,10 @@ void Init__guestfs ()
         ruby_guestfs_mount_vfs, 4);
   rb_define_method (c_guestfs, "debug",
         ruby_guestfs_debug, 2);
+  rb_define_method (c_guestfs, "lvremove",
+        ruby_guestfs_lvremove, 1);
+  rb_define_method (c_guestfs, "vgremove",
+        ruby_guestfs_vgremove, 1);
+  rb_define_method (c_guestfs, "pvremove",
+        ruby_guestfs_pvremove, 1);
 }

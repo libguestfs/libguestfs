@@ -862,8 +862,8 @@ class GuestFS:
         return libguestfsmod.statvfs (self._o, path)
 
     def tune2fs_l (self, device):
-        u"""This returns the contents of the ext2 or ext3 filesystem
-        superblock on "device".
+        u"""This returns the contents of the ext2, ext3 or ext4
+        filesystem superblock on "device".
         
         It is the same as running "tune2fs -l device". See
         tune2fs(8) manpage for more details. The list of fields
@@ -1085,4 +1085,31 @@ class GuestFS:
         libguestfs source to find out what you can do.
         """
         return libguestfsmod.debug (self._o, subcmd, extraargs)
+
+    def lvremove (self, device):
+        u"""Remove an LVM logical volume "device", where "device" is
+        the path to the LV, such as "/dev/VG/LV".
+        
+        You can also remove all LVs in a volume group by
+        specifying the VG name, "/dev/VG".
+        """
+        return libguestfsmod.lvremove (self._o, device)
+
+    def vgremove (self, vgname):
+        u"""Remove an LVM volume group "vgname", (for example "VG").
+        
+        This also forcibly removes all logical volumes in the
+        volume group (if any).
+        """
+        return libguestfsmod.vgremove (self._o, vgname)
+
+    def pvremove (self, device):
+        u"""This wipes a physical volume "device" so that LVM will
+        no longer recognise it.
+        
+        The implementation uses the "pvremove" command which
+        refuses to wipe physical volumes that contain any volume
+        groups, so you have to remove those first.
+        """
+        return libguestfsmod.pvremove (self._o, device)
 

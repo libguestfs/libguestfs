@@ -822,6 +822,19 @@ This function returns 0 on success or -1 on error.
 B<This command is dangerous.  Without careful use you
 can easily destroy all your data>.
 
+=head2 guestfs_lvremove
+
+ int guestfs_lvremove (guestfs_h *handle,
+		const char *device);
+
+Remove an LVM logical volume C<device>, where C<device> is
+the path to the LV, such as C</dev/VG/LV>.
+
+You can also remove all LVs in a volume group by specifying
+the VG name, C</dev/VG>.
+
+This function returns 0 on success or -1 on error.
+
 =head2 guestfs_lvs
 
  char **guestfs_lvs (guestfs_h *handle);
@@ -965,6 +978,20 @@ I<The caller must free the strings and the array after use>.
 This creates an LVM physical volume on the named C<device>,
 where C<device> should usually be a partition name such
 as C</dev/sda1>.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_pvremove
+
+ int guestfs_pvremove (guestfs_h *handle,
+		const char *device);
+
+This wipes a physical volume C<device> so that LVM will no longer
+recognise it.
+
+The implementation uses the C<pvremove> command which refuses to
+wipe physical volumes that contain any volume groups, so you have
+to remove those first.
 
 This function returns 0 on success or -1 on error.
 
@@ -1270,8 +1297,8 @@ This function returns 0 on success or -1 on error.
  char **guestfs_tune2fs_l (guestfs_h *handle,
 		const char *device);
 
-This returns the contents of the ext2 or ext3 filesystem superblock
-on C<device>.
+This returns the contents of the ext2, ext3 or ext4 filesystem
+superblock on C<device>.
 
 It is the same as running C<tune2fs -l device>.  See L<tune2fs(8)>
 manpage for more details.  The list of fields returned isn't
@@ -1328,6 +1355,18 @@ This function returns 0 on success or -1 on error.
 
 This creates an LVM volume group called C<volgroup>
 from the non-empty list of physical volumes C<physvols>.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_vgremove
+
+ int guestfs_vgremove (guestfs_h *handle,
+		const char *vgname);
+
+Remove an LVM volume group C<vgname>, (for example C<VG>).
+
+This also forcibly removes all logical volumes in the volume
+group (if any).
 
 This function returns 0 on success or -1 on error.
 

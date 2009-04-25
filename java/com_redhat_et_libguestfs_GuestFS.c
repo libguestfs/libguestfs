@@ -2266,3 +2266,54 @@ Java_com_redhat_et_libguestfs_GuestFS__1debug
   return jr;
 }
 
+JNIEXPORT void JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1lvremove
+  (JNIEnv *env, jobject obj, jlong jg, jstring jdevice)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+  const char *device;
+
+  device = (*env)->GetStringUTFChars (env, jdevice, NULL);
+  r = guestfs_lvremove (g, device);
+  (*env)->ReleaseStringUTFChars (env, jdevice, device);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return ;
+  }
+}
+
+JNIEXPORT void JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1vgremove
+  (JNIEnv *env, jobject obj, jlong jg, jstring jvgname)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+  const char *vgname;
+
+  vgname = (*env)->GetStringUTFChars (env, jvgname, NULL);
+  r = guestfs_vgremove (g, vgname);
+  (*env)->ReleaseStringUTFChars (env, jvgname, vgname);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return ;
+  }
+}
+
+JNIEXPORT void JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1pvremove
+  (JNIEnv *env, jobject obj, jlong jg, jstring jdevice)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+  const char *device;
+
+  device = (*env)->GetStringUTFChars (env, jdevice, NULL);
+  r = guestfs_pvremove (g, device);
+  (*env)->ReleaseStringUTFChars (env, jdevice, device);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return ;
+  }
+}
+

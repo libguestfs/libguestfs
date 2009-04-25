@@ -110,6 +110,653 @@ static void no_test_warnings (void)
   fprintf (stderr, "warning: \"guestfs_debug\" has no tests\n");
 }
 
+static int test_pvremove_0 (void)
+{
+  /* InitEmpty for pvremove (0) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputList for pvremove (0) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_pvcreate (g, "/dev/sda");
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *physvols[] = {
+      "/dev/sda",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_vgcreate (g, "VG", physvols);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvcreate (g, "LV1", "VG", 50);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvcreate (g, "LV2", "VG", 50);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_vgremove (g, "VG");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_pvremove (g, "/dev/sda");
+    if (r == -1)
+      return -1;
+  }
+  {
+    char **r;
+    int i;
+    suppress_error = 0;
+    r = guestfs_lvs (g);
+    if (r == NULL)
+      return -1;
+    if (r[0] != NULL) {
+      fprintf (stderr, "test_pvremove_0: extra elements returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    for (i = 0; r[i] != NULL; ++i)
+      free (r[i]);
+    free (r);
+  }
+  return 0;
+}
+
+static int test_pvremove_1 (void)
+{
+  /* InitEmpty for pvremove (1) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputList for pvremove (1) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_pvcreate (g, "/dev/sda");
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *physvols[] = {
+      "/dev/sda",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_vgcreate (g, "VG", physvols);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvcreate (g, "LV1", "VG", 50);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvcreate (g, "LV2", "VG", 50);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_vgremove (g, "VG");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_pvremove (g, "/dev/sda");
+    if (r == -1)
+      return -1;
+  }
+  {
+    char **r;
+    int i;
+    suppress_error = 0;
+    r = guestfs_vgs (g);
+    if (r == NULL)
+      return -1;
+    if (r[0] != NULL) {
+      fprintf (stderr, "test_pvremove_1: extra elements returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    for (i = 0; r[i] != NULL; ++i)
+      free (r[i]);
+    free (r);
+  }
+  return 0;
+}
+
+static int test_pvremove_2 (void)
+{
+  /* InitEmpty for pvremove (2) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputList for pvremove (2) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_pvcreate (g, "/dev/sda");
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *physvols[] = {
+      "/dev/sda",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_vgcreate (g, "VG", physvols);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvcreate (g, "LV1", "VG", 50);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvcreate (g, "LV2", "VG", 50);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_vgremove (g, "VG");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_pvremove (g, "/dev/sda");
+    if (r == -1)
+      return -1;
+  }
+  {
+    char **r;
+    int i;
+    suppress_error = 0;
+    r = guestfs_pvs (g);
+    if (r == NULL)
+      return -1;
+    if (r[0] != NULL) {
+      fprintf (stderr, "test_pvremove_2: extra elements returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    for (i = 0; r[i] != NULL; ++i)
+      free (r[i]);
+    free (r);
+  }
+  return 0;
+}
+
+static int test_vgremove_0 (void)
+{
+  /* InitEmpty for vgremove (0) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputList for vgremove (0) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_pvcreate (g, "/dev/sda");
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *physvols[] = {
+      "/dev/sda",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_vgcreate (g, "VG", physvols);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvcreate (g, "LV1", "VG", 50);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvcreate (g, "LV2", "VG", 50);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_vgremove (g, "VG");
+    if (r == -1)
+      return -1;
+  }
+  {
+    char **r;
+    int i;
+    suppress_error = 0;
+    r = guestfs_lvs (g);
+    if (r == NULL)
+      return -1;
+    if (r[0] != NULL) {
+      fprintf (stderr, "test_vgremove_0: extra elements returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    for (i = 0; r[i] != NULL; ++i)
+      free (r[i]);
+    free (r);
+  }
+  return 0;
+}
+
+static int test_vgremove_1 (void)
+{
+  /* InitEmpty for vgremove (1) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputList for vgremove (1) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_pvcreate (g, "/dev/sda");
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *physvols[] = {
+      "/dev/sda",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_vgcreate (g, "VG", physvols);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvcreate (g, "LV1", "VG", 50);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvcreate (g, "LV2", "VG", 50);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_vgremove (g, "VG");
+    if (r == -1)
+      return -1;
+  }
+  {
+    char **r;
+    int i;
+    suppress_error = 0;
+    r = guestfs_vgs (g);
+    if (r == NULL)
+      return -1;
+    if (r[0] != NULL) {
+      fprintf (stderr, "test_vgremove_1: extra elements returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    for (i = 0; r[i] != NULL; ++i)
+      free (r[i]);
+    free (r);
+  }
+  return 0;
+}
+
+static int test_lvremove_0 (void)
+{
+  /* InitEmpty for lvremove (0) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputList for lvremove (0) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_pvcreate (g, "/dev/sda");
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *physvols[] = {
+      "/dev/sda",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_vgcreate (g, "VG", physvols);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvcreate (g, "LV1", "VG", 50);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvcreate (g, "LV2", "VG", 50);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvremove (g, "/dev/VG/LV1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    char **r;
+    int i;
+    suppress_error = 0;
+    r = guestfs_lvs (g);
+    if (r == NULL)
+      return -1;
+    if (!r[0]) {
+      fprintf (stderr, "test_lvremove_0: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    if (strcmp (r[0], "/dev/VG/LV2") != 0) {
+      fprintf (stderr, "test_lvremove_0: expected \"/dev/VG/LV2\" but got \"%s\"\n", r[0]);
+      return -1;
+    }
+    if (r[1] != NULL) {
+      fprintf (stderr, "test_lvremove_0: extra elements returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    for (i = 0; r[i] != NULL; ++i)
+      free (r[i]);
+    free (r);
+  }
+  return 0;
+}
+
+static int test_lvremove_1 (void)
+{
+  /* InitEmpty for lvremove (1) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputList for lvremove (1) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_pvcreate (g, "/dev/sda");
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *physvols[] = {
+      "/dev/sda",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_vgcreate (g, "VG", physvols);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvcreate (g, "LV1", "VG", 50);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvcreate (g, "LV2", "VG", 50);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvremove (g, "/dev/VG");
+    if (r == -1)
+      return -1;
+  }
+  {
+    char **r;
+    int i;
+    suppress_error = 0;
+    r = guestfs_lvs (g);
+    if (r == NULL)
+      return -1;
+    if (r[0] != NULL) {
+      fprintf (stderr, "test_lvremove_1: extra elements returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    for (i = 0; r[i] != NULL; ++i)
+      free (r[i]);
+    free (r);
+  }
+  return 0;
+}
+
+static int test_lvremove_2 (void)
+{
+  /* InitEmpty for lvremove (2) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputList for lvremove (2) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_pvcreate (g, "/dev/sda");
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *physvols[] = {
+      "/dev/sda",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_vgcreate (g, "VG", physvols);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvcreate (g, "LV1", "VG", 50);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvcreate (g, "LV2", "VG", 50);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvremove (g, "/dev/VG");
+    if (r == -1)
+      return -1;
+  }
+  {
+    char **r;
+    int i;
+    suppress_error = 0;
+    r = guestfs_vgs (g);
+    if (r == NULL)
+      return -1;
+    if (!r[0]) {
+      fprintf (stderr, "test_lvremove_2: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    if (strcmp (r[0], "VG") != 0) {
+      fprintf (stderr, "test_lvremove_2: expected \"VG\" but got \"%s\"\n", r[0]);
+      return -1;
+    }
+    if (r[1] != NULL) {
+      fprintf (stderr, "test_lvremove_2: extra elements returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    for (i = 0; r[i] != NULL; ++i)
+      free (r[i]);
+    free (r);
+  }
+  return 0;
+}
+
 static int test_mount_ro_0 (void)
 {
   /* InitBasicFS for mount_ro (0): create ext2 on /dev/sda1 */
@@ -5443,8 +6090,56 @@ int main (int argc, char *argv[])
     exit (1);
   }
 
-  nr_tests = 77;
+  nr_tests = 85;
 
+  test_num++;
+  printf ("%3d/%3d test_pvremove_0\n", test_num, nr_tests);
+  if (test_pvremove_0 () == -1) {
+    printf ("test_pvremove_0 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_pvremove_1\n", test_num, nr_tests);
+  if (test_pvremove_1 () == -1) {
+    printf ("test_pvremove_1 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_pvremove_2\n", test_num, nr_tests);
+  if (test_pvremove_2 () == -1) {
+    printf ("test_pvremove_2 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_vgremove_0\n", test_num, nr_tests);
+  if (test_vgremove_0 () == -1) {
+    printf ("test_vgremove_0 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_vgremove_1\n", test_num, nr_tests);
+  if (test_vgremove_1 () == -1) {
+    printf ("test_vgremove_1 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_lvremove_0\n", test_num, nr_tests);
+  if (test_lvremove_0 () == -1) {
+    printf ("test_lvremove_0 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_lvremove_1\n", test_num, nr_tests);
+  if (test_lvremove_1 () == -1) {
+    printf ("test_lvremove_1 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_lvremove_2\n", test_num, nr_tests);
+  if (test_lvremove_2 () == -1) {
+    printf ("test_lvremove_2 FAILED\n");
+    failed++;
+  }
   test_num++;
   printf ("%3d/%3d test_mount_ro_0\n", test_num, nr_tests);
   if (test_mount_ro_0 () == -1) {

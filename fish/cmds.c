@@ -87,6 +87,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "lstat", "get file information for a symbolic link");
   printf ("%-20s %s\n", "lvcreate", "create an LVM volume group");
   printf ("%-20s %s\n", "lvm-remove-all", "remove all LVM LVs, VGs and PVs");
+  printf ("%-20s %s\n", "lvremove", "remove an LVM logical volume");
   printf ("%-20s %s\n", "lvs", "list the LVM logical volumes (LVs)");
   printf ("%-20s %s\n", "lvs-full", "list the LVM logical volumes (LVs)");
   printf ("%-20s %s\n", "mkdir", "create a directory");
@@ -98,6 +99,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "mount-vfs", "mount a guest disk with mount options and vfstype");
   printf ("%-20s %s\n", "mounts", "show mounted filesystems");
   printf ("%-20s %s\n", "pvcreate", "create an LVM physical volume");
+  printf ("%-20s %s\n", "pvremove", "remove an LVM physical volume");
   printf ("%-20s %s\n", "pvs", "list the LVM physical volumes (PVs)");
   printf ("%-20s %s\n", "pvs-full", "list the LVM physical volumes (PVs)");
   printf ("%-20s %s\n", "read-lines", "read file as lines");
@@ -117,11 +119,12 @@ void list_commands (void)
   printf ("%-20s %s\n", "tgz-in", "unpack compressed tarball to directory");
   printf ("%-20s %s\n", "tgz-out", "pack directory into compressed tarball");
   printf ("%-20s %s\n", "touch", "update file timestamps or create a new file");
-  printf ("%-20s %s\n", "tune2fs-l", "get ext2/ext3 superblock details");
+  printf ("%-20s %s\n", "tune2fs-l", "get ext2/ext3/ext4 superblock details");
   printf ("%-20s %s\n", "umount", "unmount a filesystem");
   printf ("%-20s %s\n", "umount-all", "unmount all filesystems");
   printf ("%-20s %s\n", "upload", "upload a file from the local machine");
   printf ("%-20s %s\n", "vgcreate", "create an LVM volume group");
+  printf ("%-20s %s\n", "vgremove", "remove an LVM volume group");
   printf ("%-20s %s\n", "vgs", "list the LVM volume groups (VGs)");
   printf ("%-20s %s\n", "vgs-full", "list the LVM volume groups (VGs)");
   printf ("%-20s %s\n", "write-file", "create a file");
@@ -347,7 +350,7 @@ void display_command (const char *cmd)
     pod2text ("statvfs - get file system statistics", " statvfs <path>\n\nReturns file system statistics for any mounted file system.\nC<path> should be a file or directory in the mounted file system\n(typically it is the mount point itself, but it doesn't need to be).\n\nThis is the same as the C<statvfs(2)> system call.");
   else
   if (strcasecmp (cmd, "tune2fs_l") == 0 || strcasecmp (cmd, "tune2fs-l") == 0)
-    pod2text ("tune2fs-l - get ext2/ext3 superblock details", " tune2fs-l <device>\n\nThis returns the contents of the ext2 or ext3 filesystem superblock\non C<device>.\n\nIt is the same as running C<tune2fs -l device>.  See L<tune2fs(8)>\nmanpage for more details.  The list of fields returned isn't\nclearly defined, and depends on both the version of C<tune2fs>\nthat libguestfs was built against, and the filesystem itself.");
+    pod2text ("tune2fs-l - get ext2/ext3/ext4 superblock details", " tune2fs-l <device>\n\nThis returns the contents of the ext2, ext3 or ext4 filesystem\nsuperblock on C<device>.\n\nIt is the same as running C<tune2fs -l device>.  See L<tune2fs(8)>\nmanpage for more details.  The list of fields returned isn't\nclearly defined, and depends on both the version of C<tune2fs>\nthat libguestfs was built against, and the filesystem itself.");
   else
   if (strcasecmp (cmd, "blockdev_setro") == 0 || strcasecmp (cmd, "blockdev-setro") == 0)
     pod2text ("blockdev-setro - set block device to read-only", " blockdev-setro <device>\n\nSets the block device named C<device> to read-only.\n\nThis uses the L<blockdev(8)> command.");
@@ -411,6 +414,15 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "debug") == 0)
     pod2text ("debug - debugging and internals", " debug <subcmd> <extraargs>\n\nThe C<debug> command exposes some internals of\nC<guestfsd> (the guestfs daemon) that runs inside the\nqemu subprocess.\n\nThere is no comprehensive help for this command.  You have\nto look at the file C<daemon/debug.c> in the libguestfs source\nto find out what you can do.");
+  else
+  if (strcasecmp (cmd, "lvremove") == 0)
+    pod2text ("lvremove - remove an LVM logical volume", " lvremove <device>\n\nRemove an LVM logical volume C<device>, where C<device> is\nthe path to the LV, such as C</dev/VG/LV>.\n\nYou can also remove all LVs in a volume group by specifying\nthe VG name, C</dev/VG>.");
+  else
+  if (strcasecmp (cmd, "vgremove") == 0)
+    pod2text ("vgremove - remove an LVM volume group", " vgremove <vgname>\n\nRemove an LVM volume group C<vgname>, (for example C<VG>).\n\nThis also forcibly removes all logical volumes in the volume\ngroup (if any).");
+  else
+  if (strcasecmp (cmd, "pvremove") == 0)
+    pod2text ("pvremove - remove an LVM physical volume", " pvremove <device>\n\nThis wipes a physical volume C<device> so that LVM will no longer\nrecognise it.\n\nThe implementation uses the C<pvremove> command which refuses to\nwipe physical volumes that contain any volume groups, so you have\nto remove those first.");
   else
     display_builtin_command (cmd);
 }
@@ -2006,6 +2018,48 @@ static int run_debug (const char *cmd, int argc, char *argv[])
   return 0;
 }
 
+static int run_lvremove (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *device;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  device = argv[0];
+  r = guestfs_lvremove (g, device);
+  return r;
+}
+
+static int run_vgremove (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *vgname;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  vgname = argv[0];
+  r = guestfs_vgremove (g, vgname);
+  return r;
+}
+
+static int run_pvremove (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *device;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  device = argv[0];
+  r = guestfs_pvremove (g, device);
+  return r;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -2289,6 +2343,15 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "debug") == 0)
     return run_debug (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "lvremove") == 0)
+    return run_lvremove (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "vgremove") == 0)
+    return run_vgremove (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "pvremove") == 0)
+    return run_pvremove (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

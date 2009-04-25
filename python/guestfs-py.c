@@ -2825,6 +2825,81 @@ py_guestfs_debug (PyObject *self, PyObject *args)
   return py_r;
 }
 
+static PyObject *
+py_guestfs_lvremove (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *device;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_lvremove",
+                         &py_g, &device))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_lvremove (g, device);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_vgremove (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *vgname;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_vgremove",
+                         &py_g, &vgname))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_vgremove (g, vgname);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_pvremove (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *device;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_pvremove",
+                         &py_g, &device))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_pvremove (g, device);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
 static PyMethodDef methods[] = {
   { (char *) "create", py_guestfs_create, METH_VARARGS, NULL },
   { (char *) "close", py_guestfs_close, METH_VARARGS, NULL },
@@ -2925,6 +3000,9 @@ static PyMethodDef methods[] = {
   { (char *) "mount_options", py_guestfs_mount_options, METH_VARARGS, NULL },
   { (char *) "mount_vfs", py_guestfs_mount_vfs, METH_VARARGS, NULL },
   { (char *) "debug", py_guestfs_debug, METH_VARARGS, NULL },
+  { (char *) "lvremove", py_guestfs_lvremove, METH_VARARGS, NULL },
+  { (char *) "vgremove", py_guestfs_vgremove, METH_VARARGS, NULL },
+  { (char *) "pvremove", py_guestfs_pvremove, METH_VARARGS, NULL },
   { NULL, NULL, 0, NULL }
 };
 

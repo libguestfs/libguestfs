@@ -350,7 +350,7 @@ val statvfs : t -> string -> statvfs
 (** get file system statistics *)
 
 val tune2fs_l : t -> string -> (string * string) list
-(** get ext2/ext3 superblock details *)
+(** get ext2/ext3/ext4 superblock details *)
 
 val blockdev_setro : t -> string -> unit
 (** set block device to read-only *)
@@ -414,4 +414,13 @@ val mount_vfs : t -> string -> string -> string -> string -> unit
 
 val debug : t -> string -> string array -> string
 (** debugging and internals *)
+
+val lvremove : t -> string -> unit
+(** remove an LVM logical volume *)
+
+val vgremove : t -> string -> unit
+(** remove an LVM volume group *)
+
+val pvremove : t -> string -> unit
+(** remove an LVM physical volume *)
 

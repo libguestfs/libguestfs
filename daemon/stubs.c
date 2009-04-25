@@ -1872,6 +1872,78 @@ done:
   xdr_free ((xdrproc_t) xdr_guestfs_debug_args, (char *) &args);
 }
 
+static void lvremove_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_lvremove_args args;
+  const char *device;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_lvremove_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "lvremove");
+    return;
+  }
+  device = args.device;
+
+  r = do_lvremove (device);
+  if (r == -1)
+    /* do_lvremove has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_lvremove_args, (char *) &args);
+}
+
+static void vgremove_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_vgremove_args args;
+  const char *vgname;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_vgremove_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "vgremove");
+    return;
+  }
+  vgname = args.vgname;
+
+  r = do_vgremove (vgname);
+  if (r == -1)
+    /* do_vgremove has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_vgremove_args, (char *) &args);
+}
+
+static void pvremove_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_pvremove_args args;
+  const char *device;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_pvremove_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "pvremove");
+    return;
+  }
+  device = args.device;
+
+  r = do_pvremove (device);
+  if (r == -1)
+    /* do_pvremove has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_pvremove_args, (char *) &args);
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -2102,6 +2174,15 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_DEBUG:
       debug_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_LVREMOVE:
+      lvremove_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_VGREMOVE:
+      vgremove_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_PVREMOVE:
+      pvremove_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d", proc_nr);

@@ -1723,10 +1723,10 @@ public class GuestFS {
     throws LibGuestFSException;
 
   /**
-   * get ext2/ext3 superblock details
+   * get ext2/ext3/ext4 superblock details
    *
-   * This returns the contents of the ext2 or ext3 filesystem
-   * superblock on "device".
+   * This returns the contents of the ext2, ext3 or ext4
+   * filesystem superblock on "device".
    * 
    * It is the same as running "tune2fs -l device". See
    * tune2fs(8) manpage for more details. The list of fields
@@ -2207,6 +2207,69 @@ public class GuestFS {
     return _debug (g, subcmd, extraargs);
   }
   private native String _debug (long g, String subcmd, String[] extraargs)
+    throws LibGuestFSException;
+
+  /**
+   * remove an LVM logical volume
+   *
+   * Remove an LVM logical volume "device", where "device" is
+   * the path to the LV, such as "/dev/VG/LV".
+   * 
+   * You can also remove all LVs in a volume group by
+   * specifying the VG name, "/dev/VG".
+   * 
+   * @throws LibGuestFSException
+   */
+  public void lvremove (String device)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("lvremove: handle is closed");
+    _lvremove (g, device);
+  }
+  private native void _lvremove (long g, String device)
+    throws LibGuestFSException;
+
+  /**
+   * remove an LVM volume group
+   *
+   * Remove an LVM volume group "vgname", (for example "VG").
+   * 
+   * This also forcibly removes all logical volumes in the
+   * volume group (if any).
+   * 
+   * @throws LibGuestFSException
+   */
+  public void vgremove (String vgname)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("vgremove: handle is closed");
+    _vgremove (g, vgname);
+  }
+  private native void _vgremove (long g, String vgname)
+    throws LibGuestFSException;
+
+  /**
+   * remove an LVM physical volume
+   *
+   * This wipes a physical volume "device" so that LVM will
+   * no longer recognise it.
+   * 
+   * The implementation uses the "pvremove" command which
+   * refuses to wipe physical volumes that contain any volume
+   * groups, so you have to remove those first.
+   * 
+   * @throws LibGuestFSException
+   */
+  public void pvremove (String device)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("pvremove: handle is closed");
+    _pvremove (g, device);
+  }
+  private native void _pvremove (long g, String device)
     throws LibGuestFSException;
 
 }

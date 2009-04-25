@@ -97,3 +97,6 @@ extern int do_mount_ro (const char *device, const char *mountpoint);
 extern int do_mount_options (const char *options, const char *device, const char *mountpoint);
 extern int do_mount_vfs (const char *options, const char *vfstype, const char *device, const char *mountpoint);
 extern char *do_debug (const char *subcmd, char * const* const extraargs);
+extern int do_lvremove (const char *device);
+extern int do_vgremove (const char *vgname);
+extern int do_pvremove (const char *device);
