@@ -49,7 +49,8 @@ EXTRA_DIST = \
 	recipes/README \
 	recipes/*.html \
 	recipes/*.sh \
-	recipes/*.example
+	recipes/*.example \
+	html/recipes.css
 
 # Build the root filesystem.
 # Currently this is arch-dependent, so it seems like putting it in
@@ -144,9 +145,7 @@ html/guestfish.1.html: guestfish.pod guestfish-actions.pod
 html/recipes.html: $(wildcard recipes/*.sh) $(wildcard recipes/*.html) $(wildcard recipes/*.example) Makefile
 	rm -f $@ $@-t
 	echo '<html><head><title>guestfish recipes</title>' >> $@-t; \
-	echo '<link rel="stylesheet" href="http://et.redhat.com/~rjones/css/standard.css" type="text/css" title="Standard"/>' >> $@-t; \
-	echo '<link rel="stylesheet" href="http://et.redhat.com/~rjones/css/numbering.css" type="text/css" title="Standard"/>' >> $@-t; \
-	echo '<link rel="alternate stylesheet" href="http://et.redhat.com/~rjones/css/easytoread.css" type="text/css" title="High contrast, big fonts"/>' >> $@-t; \
+	echo '<link rel="stylesheet" href="recipes.css" type="text/css" title="Standard"/>' >> $@-t; \
 	echo '</head><body>' >> $@-t; \
 	echo '<h1>guestfish recipes</h1>' >> $@-t; \
 	echo '<p>You can also find these in the <code>recipes/</code> subdirectory of the source.</p>' >> $@-t; \
@@ -158,7 +157,7 @@ html/recipes.html: $(wildcard recipes/*.sh) $(wildcard recipes/*.html) $(wildcar
 	  else \
 	    echo '<h2>$$b</h2>' >> $@-t; \
 	  fi; \
-	  echo '<pre>' >> $@-t; \
+	  echo '<pre class="example">' >> $@-t; \
 	  sed -e 's,&,\&amp;,g' -e 's,<,\&lt;,g' -e 's,>,\&gt;,g' < $$f >> $@-t; \
 	  echo '</pre>' >> $@-t; \
 	  if [ -r recipes/$$b.example ]; then \
@@ -172,7 +171,8 @@ html/recipes.html: $(wildcard recipes/*.sh) $(wildcard recipes/*.html) $(wildcar
 	mv $@-t $@
 
 website: html/guestfs.3.html html/guestfish.1.html html/recipes.html
-	cp $^ html/pod.css $(HOME)/d/redhat/et-website/libguestfs/
+	cp $^ html/pod.css html/recipes.css \
+	  $(HOME)/d/redhat/et-website/libguestfs/
 
 # Generate the ChangeLog automatically from the gitlog.
 
