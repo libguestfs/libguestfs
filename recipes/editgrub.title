@@ -1,0 +1,1 @@
+Fix an unbootable VM by editing /boot/grub/grub.conf

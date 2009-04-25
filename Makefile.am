@@ -50,7 +50,8 @@ EXTRA_DIST = \
 	recipes/*.html \
 	recipes/*.sh \
 	recipes/*.example \
-	html/recipes.css
+	html/recipes.css \
+	make-recipes.sh
 
 # Build the root filesystem.
 # Currently this is arch-dependent, so it seems like putting it in
@@ -142,32 +143,9 @@ html/guestfish.1.html: guestfish.pod guestfish-actions.pod
 	  --outfile $@
 
 # Recipes web page.
-html/recipes.html: $(wildcard recipes/*.sh) $(wildcard recipes/*.html) $(wildcard recipes/*.example) Makefile
+html/recipes.html: $(wildcard recipes/*.sh) $(wildcard recipes/*.html) $(wildcard recipes/*.example) Makefile make-recipes.sh
 	rm -f $@ $@-t
-	echo '<html><head><title>guestfish recipes</title>' >> $@-t; \
-	echo '<link rel="stylesheet" href="recipes.css" type="text/css" title="Standard"/>' >> $@-t; \
-	echo '</head><body>' >> $@-t; \
-	echo '<h1>guestfish recipes</h1>' >> $@-t; \
-	echo '<p>You can also find these in the <code>recipes/</code> subdirectory of the source.</p>' >> $@-t; \
-	for f in recipes/*.sh; do \
-	  b=`basename $$f .sh`; \
-	  echo -n '<a name="'$$b'"></a>' >> $@-t; \
-	  if [ -r recipes/$$b.html ]; then \
-	    cat recipes/$$b.html >> $@-t; \
-	  else \
-	    echo '<h2>$$b</h2>' >> $@-t; \
-	  fi; \
-	  echo '<pre class="example">' >> $@-t; \
-	  sed -e 's,&,\&amp;,g' -e 's,<,\&lt;,g' -e 's,>,\&gt;,g' < $$f >> $@-t; \
-	  echo '</pre>' >> $@-t; \
-	  if [ -r recipes/$$b.example ]; then \
-	    echo '<h3>Example output</h3>' >> $@-t; \
-	    echo '<pre>' >> $@-t; \
-	    sed -e 's,&,\&amp;,g' -e 's,<,\&lt;,g' -e 's,>,\&gt;,g' < recipes/$$b.example >> $@-t; \
-	    echo '</pre>' >> $@-t; \
-	  fi; \
-	done; \
-	echo '</body></html>' >> $@-t; \
+	sh make-recipes.sh recipes/*.sh > $@-t
 	mv $@-t $@
 
 website: html/guestfs.3.html html/guestfish.1.html html/recipes.html
