@@ -97,6 +97,11 @@ automatically launched.
 Disable autosync.  This is enabled by default.  See the discussion
 of autosync in the L<guestfs(3)> manpage.
 
+=item B<-r> | B<--ro>
+
+This changes the C<-m> option so that mounts are done read-only
+(see C<guestfs_mount_ro> in the L<guestfs(3)> manpage).
+
 =item B<-v> | B<--verbose>
 
 Enable very verbose messages.  This is particularly useful if you find

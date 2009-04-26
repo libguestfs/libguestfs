@@ -1,8 +1,3 @@
 #!/bin/sh -
 
-guestfish <<EOF
-add "$1"
-run
-mount-ro "$2" /
-command "rpm -qa"
-EOF
+guestfish -a "$1" --ro -m "$2" command "rpm -qa"

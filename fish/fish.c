@@ -57,6 +57,7 @@ static void add_history_line (const char *);
 guestfs_h *g;
 int g_launched = 0;
 
+int read_only = 0;
 int quit = 0;
 int verbose = 0;
 
@@ -97,7 +98,7 @@ usage (void)
 	   "  -a|--add image       Add image\n"
 	   "  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
 	   "  -n|--no-sync         Don't autosync\n"
-	 /*"  --ro|-r              All mounts are read-only\n"*/
+	   "  -r|--ro              Mount read-only\n"
 	   "  -v|--verbose         Verbose messages\n"
 	   "For more information,  see the manpage guestfish(1).\n");
 }
@@ -105,13 +106,14 @@ usage (void)
 int
 main (int argc, char *argv[])
 {
-  static const char *options = "a:h::m:v?";
+  static const char *options = "a:h::m:nrv?";
   static struct option long_options[] = {
     { "add", 1, 0, 'a' },
     { "cmd-help", 2, 0, 'h' },
     { "help", 0, 0, '?' },
     { "mount", 1, 0, 'm' },
     { "no-sync", 0, 0, 'n' },
+    { "ro", 0, 0, 'r' },
     { "verbose", 0, 0, 'v' },
     { 0, 0, 0, 0 }
   };
@@ -189,6 +191,10 @@ main (int argc, char *argv[])
       guestfs_set_autosync (g, 0);
       break;
 
+    case 'r':
+      read_only = 1;
+      break;
+
     case 'v':
       verbose++;
       guestfs_set_verbose (g, verbose);
@@ -249,9 +255,15 @@ pod2text (const char *heading, const char *str)
 static void
 mount_mps (struct mp *mp)
 {
+  int r;
+
   if (mp) {
     mount_mps (mp->next);
-    if (guestfs_mount (g, mp->device, mp->mountpoint) == -1)
+    if (!read_only)
+      r = guestfs_mount (g, mp->device, mp->mountpoint);
+    else
+      r = guestfs_mount_ro (g, mp->device, mp->mountpoint);
+    if (r == -1)
       exit (1);
   }
 }
