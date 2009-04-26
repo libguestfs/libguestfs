@@ -79,6 +79,7 @@ main_loop (int _sock)
 
     xread (sock, buf, len);
 
+#if 0
     if (verbose) {
       int i, j;
 
@@ -99,6 +100,7 @@ main_loop (int _sock)
 	printf ("|\n");
       }
     }
+#endif
 
     /* Decode the message header. */
     xdrmem_create (&xdr, buf, len, XDR_DECODE);
@@ -209,8 +211,14 @@ send_error (const char *msg)
   xdr_uint32_t (&xdr, &len);
   xdr_destroy (&xdr);
 
-  (void) xwrite (sock, lenbuf, 4);
-  (void) xwrite (sock, buf, len);
+  if (xwrite (sock, lenbuf, 4) == -1) {
+    fprintf (stderr, "xwrite failed\n");
+    exit (1);
+  }
+  if (xwrite (sock, buf, len) == -1) {
+    fprintf (stderr, "xwrite failed\n");
+    exit (1);
+  }
 }
 
 void
@@ -250,8 +258,14 @@ reply (xdrproc_t xdrp, char *ret)
   xdr_uint32_t (&xdr, &len);
   xdr_destroy (&xdr);
 
-  (void) xwrite (sock, lenbuf, 4);
-  (void) xwrite (sock, buf, len);
+  if (xwrite (sock, lenbuf, 4) == -1) {
+    fprintf (stderr, "xwrite failed\n");
+    exit (1);
+  }
+  if (xwrite (sock, buf, len) == len) {
+    fprintf (stderr, "xwrite failed\n");
+    exit (1);
+  }
 }
 
 /* Receive file chunks, repeatedly calling 'cb'. */
