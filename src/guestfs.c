@@ -1840,13 +1840,14 @@ check_for_daemon_cancellation (guestfs_h *g)
 
 /* Synchronously receive a file. */
 
-static int receive_file_data_sync (guestfs_h *g, void **buf);
+/* Returns -1 = error, 0 = EOF, 1 = more data */
+static int receive_file_data_sync (guestfs_h *g, void **buf, int *len);
 
 int
 guestfs__receive_file_sync (guestfs_h *g, const char *filename)
 {
   void *buf;
-  int fd, r;
+  int fd, r, len;
 
   fd = open (filename, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY, 0666);
   if (fd == -1) {
@@ -1855,13 +1856,14 @@ guestfs__receive_file_sync (guestfs_h *g, const char *filename)
   }
 
   /* Receive the file in chunked encoding. */
-  while ((r = receive_file_data_sync (g, &buf)) > 0) {
-    if (xwrite (fd, buf, r) == -1) {
+  while ((r = receive_file_data_sync (g, &buf, &len)) >= 0) {
+    if (xwrite (fd, buf, len) == -1) {
       perrorf (g, "%s: write", filename);
       free (buf);
       goto cancel;
     }
     free (buf);
+    if (r == 0) break; /* End of file. */
   }
 
   if (r == -1) {
@@ -1893,16 +1895,33 @@ guestfs__receive_file_sync (guestfs_h *g, const char *filename)
     return -1;
   }
 
-  while ((r = receive_file_data_sync (g, &buf)) > 0)
-    free (buf);			/* just discard it */
+  while ((r = receive_file_data_sync (g, NULL, NULL)) > 0)
+    ;				/* just discard it */
 
   return -1;
 }
 
+/* Note that the reply callback can be called multiple times before
+ * the main loop quits and we get back to the synchronous code.  So
+ * we have to be prepared to save multiple chunks on a list here.
+ */
 struct receive_file_ctx {
-  int code;
-  void **buf;
+  int count;			/* 0 if receive_file_cb not called, or
+				 * else count number of chunks.
+				 */
+  guestfs_chunk *chunks;	/* Array of chunks. */
 };
+
+static void
+free_chunks (struct receive_file_ctx *ctx)
+{
+  int i;
+
+  for (i = 0; i < ctx->count; ++i)
+    free (ctx->chunks[i].data.data_val);
+
+  free (ctx->chunks);
+}
 
 static void
 receive_file_cb (guestfs_h *g, void *data, XDR *xdr)
@@ -1911,57 +1930,88 @@ receive_file_cb (guestfs_h *g, void *data, XDR *xdr)
   struct receive_file_ctx *ctx = (struct receive_file_ctx *) data;
   guestfs_chunk chunk;
 
+  if (ctx->count == -1)		/* Parse error occurred previously. */
+    return;
+
   ml->main_loop_quit (ml, g);
 
   memset (&chunk, 0, sizeof chunk);
 
   if (!xdr_guestfs_chunk (xdr, &chunk)) {
     error (g, "failed to parse file chunk");
-    ctx->code = -1;
-    return;
-  }
-  if (chunk.cancel) {
-    error (g, "file receive cancelled by daemon");
-    ctx->code = -2;
-    return;
-  }
-  if (chunk.data.data_len == 0) { /* end of transfer */
-    ctx->code = 0;
+    free_chunks (ctx);
+    ctx->chunks = NULL;
+    ctx->count = -1;
     return;
   }
 
-  ctx->code = chunk.data.data_len;
-  *ctx->buf = chunk.data.data_val; /* caller frees */
+  /* Copy the chunk to the list. */
+  ctx->chunks = safe_realloc (g, ctx->chunks,
+			      sizeof (guestfs_chunk) * (ctx->count+1));
+  ctx->chunks[ctx->count] = chunk;
+  ctx->count++;
 }
 
 /* Receive a chunk of file data. */
+/* Returns -1 = error, 0 = EOF, 1 = more data */
 static int
-receive_file_data_sync (guestfs_h *g, void **buf)
+receive_file_data_sync (guestfs_h *g, void **buf, int *len_r)
 {
   struct receive_file_ctx ctx;
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  int i, len;
 
-  ctx.code = -3;
-  ctx.buf = buf;
+  ctx.count = 0;
+  ctx.chunks = NULL;
 
   guestfs_set_reply_callback (g, receive_file_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
 
-  if (g->verbose)
-    fprintf (stderr, "receive_file_data_sync: code %d\n", ctx.code);
-
-  switch (ctx.code) {
-  case 0:			/* end of file */
-    return 0;
-  case -1: case -2:
+  if (ctx.count == 0) {
+    error (g, "receive_file_data_sync: reply callback not called\n");
     return -1;
-  case -3:
-    error (g, "failed to call receive_file_cb");
-    return -1;
-  default:			/* received n bytes of data */
-    return ctx.code;
   }
+
+  if (ctx.count == -1) {
+    error (g, "receive_file_data_sync: parse error in reply callback\n");
+    /* callback already freed the chunks */
+    return -1;
+  }
+
+  if (g->verbose)
+    fprintf (stderr, "receive_file_data_sync: got %d chunks\n", ctx.count);
+
+  /* Process each chunk in the list. */
+  if (buf) *buf = NULL;		/* Accumulate data in this buffer. */
+  len = 0;
+
+  for (i = 0; i < ctx.count; ++i) {
+    if (ctx.chunks[i].cancel) {
+      error (g, "file receive cancelled by daemon");
+      free_chunks (&ctx);
+      if (buf) free (*buf);
+      if (len_r) *len_r = 0;
+      return -1;
+    }
+
+    if (ctx.chunks[i].data.data_len == 0) { /* end of transfer */
+      free_chunks (&ctx);
+      if (len_r) *len_r = len;
+      return 0;
+    }
+
+    if (buf) {
+      *buf = safe_realloc (g, *buf, len + ctx.chunks[i].data.data_len);
+      memcpy (*buf+len, ctx.chunks[i].data.data_val,
+	      ctx.chunks[i].data.data_len);
+    }
+    len += ctx.chunks[i].data.data_len;
+  }
+
+  if (len_r) *len_r = len;
+  free_chunks (&ctx);
+  return 1;
 }
 
 /* This is the default main loop implementation, using select(2). */
