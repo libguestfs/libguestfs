@@ -632,6 +632,30 @@ sort of connection control, when the daemon launches it sends an
 initial word (C<GUESTFS_LAUNCH_FLAG>) which indicates that the guest
 and daemon is alive.  This is what C<guestfs_wait_ready> waits for.
 
+=head1 QEMU WRAPPERS
+
+If you want to compile your own qemu, run qemu from a non-standard
+location, or pass extra arguments to qemu, then you can write a
+shell-script wrapper around qemu.
+
+There is one important rule to remember: you I<must C<exec qemu>> as
+the last command in the shell script (so that qemu replaces the shell
+and becomes the direct child of the libguestfs-using program).  If you
+don't do this, then the qemu process won't be cleaned up correctly.
+
+Here is an example of a wrapper, where I have built my own copy of
+qemu from source:
+
+ #!/bin/sh -
+ qemudir=/home/rjones/d/qemu
+ exec $qemudir/x86_64-softmmu/qemu-system-x86_64 -L $qemudir/pc-bios "$@"
+
+Save this script as C</tmp/qemu.wrapper> (or wherever), C<chmod +x>,
+and then use it by setting the LIBGUESTFS_QEMU environment variable.
+For example:
+
+ LIBGUESTFS_QEMU=/tmp/qemu.wrapper guestfish
+
 =head1 ENVIRONMENT VARIABLES
 
 =over 4
@@ -651,6 +675,8 @@ See the discussion of paths in section PATH above.
 Set the default qemu binary that libguestfs uses.  If not set, then
 the qemu which was found at compile time by the configure script is
 used.
+
+See also L<QEMU WRAPPERS> above.
 
 =back
 
