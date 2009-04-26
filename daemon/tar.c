@@ -139,7 +139,7 @@ do_tar_out (const char *dir)
     }
   }
 
-  if (r == -1) {
+  if (ferror (fp)) {
     perror (dir);
     send_file_end (1);		/* Cancel. */
     pclose (fp);
@@ -261,7 +261,7 @@ do_tgz_out (const char *dir)
     }
   }
 
-  if (r == -1) {
+  if (ferror (fp)) {
     perror (dir);
     send_file_end (1);		/* Cancel. */
     pclose (fp);
