@@ -1306,6 +1306,7 @@ sock_read_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
   if (g->msg_in_size-4 < len) return; /* Need more of this message. */
 
   /* Got the full message, begin processing it. */
+#if 0
   if (g->verbose) {
     int i, j;
 
@@ -1326,6 +1327,7 @@ sock_read_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
       printf ("|\n");
     }
   }
+#endif
 
   /* Not in the expected state. */
   if (g->state != BUSY)
@@ -1334,6 +1336,9 @@ sock_read_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
   /* Push the message up to the higher layer. */
   if (g->reply_cb)
     g->reply_cb (g, g->reply_cb_data, &xdr);
+  else
+    /* This message (probably) should never be printed. */
+    fprintf (stderr, "libguesfs: sock_read_event: !!! dropped message !!!\n");
 
   g->msg_in_size -= len + 4;
   memmove (g->msg_in, g->msg_in+len+4, g->msg_in_size);
