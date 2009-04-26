@@ -100,13 +100,14 @@ usage (void)
 	   "  -n|--no-sync         Don't autosync\n"
 	   "  -r|--ro              Mount read-only\n"
 	   "  -v|--verbose         Verbose messages\n"
+	   "  -V|--version         Display version and exit\n"
 	   "For more information,  see the manpage guestfish(1).\n");
 }
 
 int
 main (int argc, char *argv[])
 {
-  static const char *options = "a:h::m:nrv?";
+  static const char *options = "a:h::m:nrv?V";
   static struct option long_options[] = {
     { "add", 1, 0, 'a' },
     { "cmd-help", 2, 0, 'h' },
@@ -115,6 +116,7 @@ main (int argc, char *argv[])
     { "no-sync", 0, 0, 'n' },
     { "ro", 0, 0, 'r' },
     { "verbose", 0, 0, 'v' },
+    { "version", 0, 0, 'V' },
     { 0, 0, 0, 0 }
   };
   struct mp *mps = NULL;
@@ -199,6 +201,10 @@ main (int argc, char *argv[])
       verbose++;
       guestfs_set_verbose (g, verbose);
       break;
+
+    case 'V':
+      printf ("guestfish %s\n", PACKAGE_VERSION);
+      exit (0);
 
     case '?':
       usage ();
