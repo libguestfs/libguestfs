@@ -1,0 +1,14 @@
+$ ./rpmqa.sh RHEL53PV32.img /dev/VolGroup00/LogVol00 > /tmp/rpms
+$ ls -l /tmp/rpms
+-rw-rw-r--. 1 rjones rjones 17324 2009-04-26 06:47 /tmp/rpms
+$ head /tmp/rpms
+add "RHEL53PV32.img"
+run
+mount-ro "/dev/VolGroup00/LogVol00" /
+command "rpm -qa"
+tzdata-2008i-1.el5
+nash-5.1.19.6-44
+gnome-mime-data-2.4.2-3.1
+dump-0.4b41-2.fc6
+emacs-leim-21.4-20.el5
+rootfiles-8.1-1.1.1
