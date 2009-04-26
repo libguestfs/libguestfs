@@ -94,6 +94,7 @@ find initramfs/lib/modules/*/kernel \
   -a ! -name 'fat.ko' \
   -a ! -name 'udf.ko' \
   -a ! -name 'crc_itu_t.ko' \
+  -a ! -name 'nls_utf8.ko' \
   -a -delete
 
 # Pull the kernel out into the current directory.  We don't want it in
