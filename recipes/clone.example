@@ -2,9 +2,6 @@ $ clone.sh /tmp/test.img /tmp/new.img /dev/sda1 192.168.1.1 newmachine
 204800+0 records in
 204800+0 records out
 104857600 bytes (105 MB) copied, 2.02821 s, 51.7 MB/s
-write-file /etc/resolv.conf "nameserver 192.168.1.1" 0
-write-file /etc/HOSTNAME "newmachine" 0
-sync
 
 $ guestfish -a /tmp/new.img -m /dev/sda1
 

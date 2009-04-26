@@ -277,17 +277,21 @@ rl_gets (int prompt)
 {
 #ifdef HAVE_LIBREADLINE
 
-  if (line_read) {
-    free (line_read);
-    line_read = NULL;
+  if (prompt) {
+    if (line_read) {
+      free (line_read);
+      line_read = NULL;
+    }
+
+    line_read = readline (prompt ? FISH : "");
+
+    if (line_read && *line_read)
+      add_history_line (line_read);
+
+    return line_read;
   }
 
-  line_read = readline (prompt ? FISH : "");
-
-  if (prompt && line_read && *line_read)
-    add_history_line (line_read);
-
-#else /* !HAVE_LIBREADLINE */
+#endif /* HAVE_LIBREADLINE */
 
   static char buf[8192];
   int len;
@@ -299,8 +303,6 @@ rl_gets (int prompt)
     len = strlen (line_read);
     if (len > 0 && buf[len-1] == '\n') buf[len-1] = '\0';
   }
-
-#endif /* !HAVE_LIBREADLINE */
 
   return line_read;
 }

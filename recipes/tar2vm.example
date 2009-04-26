@@ -1,8 +1,1 @@
-tar2vm.sh ../libguestfs-1.0.10.tar.gz /tmp/test.img 10M
-alloc /tmp/test.img 10M
-run
-sfdisk /dev/sda 0 0 0 ,
-mkfs ext3 /dev/sda1
-mount /dev/sda1 /
-tgz-in ../libguestfs-1.0.10.tar.gz /
-umount-all
+$ ./tar2vm.sh ../libguestfs-1.0.10.tar.gz /tmp/test.img 10M
