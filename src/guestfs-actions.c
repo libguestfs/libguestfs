@@ -86,8 +86,7 @@ check_state (guestfs_h *g, const char *caller)
 struct mount_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -98,6 +97,13 @@ static void mount_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct mount_ctx *ctx = (struct mount_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_mount");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -113,7 +119,7 @@ static void mount_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_mount (guestfs_h *g,
@@ -144,7 +150,7 @@ int guestfs_mount (guestfs_h *g,
   guestfs_set_reply_callback (g, mount_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_mount");
     guestfs_set_ready (g);
     return -1;
@@ -168,8 +174,7 @@ int guestfs_mount (guestfs_h *g,
 struct sync_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -180,6 +185,13 @@ static void sync_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct sync_ctx *ctx = (struct sync_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_sync");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -195,7 +207,7 @@ static void sync_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_sync (guestfs_h *g)
@@ -220,7 +232,7 @@ int guestfs_sync (guestfs_h *g)
   guestfs_set_reply_callback (g, sync_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_sync");
     guestfs_set_ready (g);
     return -1;
@@ -244,8 +256,7 @@ int guestfs_sync (guestfs_h *g)
 struct touch_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -256,6 +267,13 @@ static void touch_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct touch_ctx *ctx = (struct touch_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_touch");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -271,7 +289,7 @@ static void touch_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_touch (guestfs_h *g,
@@ -300,7 +318,7 @@ int guestfs_touch (guestfs_h *g,
   guestfs_set_reply_callback (g, touch_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_touch");
     guestfs_set_ready (g);
     return -1;
@@ -324,8 +342,7 @@ int guestfs_touch (guestfs_h *g,
 struct cat_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -337,6 +354,13 @@ static void cat_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct cat_ctx *ctx = (struct cat_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_cat");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -356,7 +380,7 @@ static void cat_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 char *guestfs_cat (guestfs_h *g,
@@ -385,7 +409,7 @@ char *guestfs_cat (guestfs_h *g,
   guestfs_set_reply_callback (g, cat_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_cat");
     guestfs_set_ready (g);
     return NULL;
@@ -409,8 +433,7 @@ char *guestfs_cat (guestfs_h *g,
 struct ll_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -422,6 +445,13 @@ static void ll_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct ll_ctx *ctx = (struct ll_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_ll");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -441,7 +471,7 @@ static void ll_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 char *guestfs_ll (guestfs_h *g,
@@ -470,7 +500,7 @@ char *guestfs_ll (guestfs_h *g,
   guestfs_set_reply_callback (g, ll_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_ll");
     guestfs_set_ready (g);
     return NULL;
@@ -494,8 +524,7 @@ char *guestfs_ll (guestfs_h *g,
 struct ls_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -507,6 +536,13 @@ static void ls_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct ls_ctx *ctx = (struct ls_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_ls");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -526,7 +562,7 @@ static void ls_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 char **guestfs_ls (guestfs_h *g,
@@ -555,7 +591,7 @@ char **guestfs_ls (guestfs_h *g,
   guestfs_set_reply_callback (g, ls_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_ls");
     guestfs_set_ready (g);
     return NULL;
@@ -584,8 +620,7 @@ char **guestfs_ls (guestfs_h *g,
 struct list_devices_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -597,6 +632,13 @@ static void list_devices_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct list_devices_ctx *ctx = (struct list_devices_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_list_devices");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -616,7 +658,7 @@ static void list_devices_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 char **guestfs_list_devices (guestfs_h *g)
@@ -641,7 +683,7 @@ char **guestfs_list_devices (guestfs_h *g)
   guestfs_set_reply_callback (g, list_devices_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_list_devices");
     guestfs_set_ready (g);
     return NULL;
@@ -670,8 +712,7 @@ char **guestfs_list_devices (guestfs_h *g)
 struct list_partitions_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -683,6 +724,13 @@ static void list_partitions_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct list_partitions_ctx *ctx = (struct list_partitions_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_list_partitions");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -702,7 +750,7 @@ static void list_partitions_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 char **guestfs_list_partitions (guestfs_h *g)
@@ -727,7 +775,7 @@ char **guestfs_list_partitions (guestfs_h *g)
   guestfs_set_reply_callback (g, list_partitions_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_list_partitions");
     guestfs_set_ready (g);
     return NULL;
@@ -756,8 +804,7 @@ char **guestfs_list_partitions (guestfs_h *g)
 struct pvs_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -769,6 +816,13 @@ static void pvs_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct pvs_ctx *ctx = (struct pvs_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_pvs");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -788,7 +842,7 @@ static void pvs_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 char **guestfs_pvs (guestfs_h *g)
@@ -813,7 +867,7 @@ char **guestfs_pvs (guestfs_h *g)
   guestfs_set_reply_callback (g, pvs_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_pvs");
     guestfs_set_ready (g);
     return NULL;
@@ -842,8 +896,7 @@ char **guestfs_pvs (guestfs_h *g)
 struct vgs_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -855,6 +908,13 @@ static void vgs_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct vgs_ctx *ctx = (struct vgs_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_vgs");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -874,7 +934,7 @@ static void vgs_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 char **guestfs_vgs (guestfs_h *g)
@@ -899,7 +959,7 @@ char **guestfs_vgs (guestfs_h *g)
   guestfs_set_reply_callback (g, vgs_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_vgs");
     guestfs_set_ready (g);
     return NULL;
@@ -928,8 +988,7 @@ char **guestfs_vgs (guestfs_h *g)
 struct lvs_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -941,6 +1000,13 @@ static void lvs_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct lvs_ctx *ctx = (struct lvs_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_lvs");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -960,7 +1026,7 @@ static void lvs_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 char **guestfs_lvs (guestfs_h *g)
@@ -985,7 +1051,7 @@ char **guestfs_lvs (guestfs_h *g)
   guestfs_set_reply_callback (g, lvs_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_lvs");
     guestfs_set_ready (g);
     return NULL;
@@ -1014,8 +1080,7 @@ char **guestfs_lvs (guestfs_h *g)
 struct pvs_full_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -1027,6 +1092,13 @@ static void pvs_full_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct pvs_full_ctx *ctx = (struct pvs_full_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_pvs_full");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -1046,7 +1118,7 @@ static void pvs_full_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 struct guestfs_lvm_pv_list *guestfs_pvs_full (guestfs_h *g)
@@ -1071,7 +1143,7 @@ struct guestfs_lvm_pv_list *guestfs_pvs_full (guestfs_h *g)
   guestfs_set_reply_callback (g, pvs_full_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_pvs_full");
     guestfs_set_ready (g);
     return NULL;
@@ -1096,8 +1168,7 @@ struct guestfs_lvm_pv_list *guestfs_pvs_full (guestfs_h *g)
 struct vgs_full_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -1109,6 +1180,13 @@ static void vgs_full_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct vgs_full_ctx *ctx = (struct vgs_full_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_vgs_full");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -1128,7 +1206,7 @@ static void vgs_full_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 struct guestfs_lvm_vg_list *guestfs_vgs_full (guestfs_h *g)
@@ -1153,7 +1231,7 @@ struct guestfs_lvm_vg_list *guestfs_vgs_full (guestfs_h *g)
   guestfs_set_reply_callback (g, vgs_full_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_vgs_full");
     guestfs_set_ready (g);
     return NULL;
@@ -1178,8 +1256,7 @@ struct guestfs_lvm_vg_list *guestfs_vgs_full (guestfs_h *g)
 struct lvs_full_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -1191,6 +1268,13 @@ static void lvs_full_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct lvs_full_ctx *ctx = (struct lvs_full_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_lvs_full");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -1210,7 +1294,7 @@ static void lvs_full_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 struct guestfs_lvm_lv_list *guestfs_lvs_full (guestfs_h *g)
@@ -1235,7 +1319,7 @@ struct guestfs_lvm_lv_list *guestfs_lvs_full (guestfs_h *g)
   guestfs_set_reply_callback (g, lvs_full_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_lvs_full");
     guestfs_set_ready (g);
     return NULL;
@@ -1260,8 +1344,7 @@ struct guestfs_lvm_lv_list *guestfs_lvs_full (guestfs_h *g)
 struct read_lines_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -1273,6 +1356,13 @@ static void read_lines_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct read_lines_ctx *ctx = (struct read_lines_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_read_lines");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -1292,7 +1382,7 @@ static void read_lines_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 char **guestfs_read_lines (guestfs_h *g,
@@ -1321,7 +1411,7 @@ char **guestfs_read_lines (guestfs_h *g,
   guestfs_set_reply_callback (g, read_lines_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_read_lines");
     guestfs_set_ready (g);
     return NULL;
@@ -1350,8 +1440,7 @@ char **guestfs_read_lines (guestfs_h *g,
 struct aug_init_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -1362,6 +1451,13 @@ static void aug_init_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_init_ctx *ctx = (struct aug_init_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_aug_init");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -1377,7 +1473,7 @@ static void aug_init_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_aug_init (guestfs_h *g,
@@ -1408,7 +1504,7 @@ int guestfs_aug_init (guestfs_h *g,
   guestfs_set_reply_callback (g, aug_init_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_init");
     guestfs_set_ready (g);
     return -1;
@@ -1432,8 +1528,7 @@ int guestfs_aug_init (guestfs_h *g,
 struct aug_close_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -1444,6 +1539,13 @@ static void aug_close_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_close_ctx *ctx = (struct aug_close_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_aug_close");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -1459,7 +1561,7 @@ static void aug_close_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_aug_close (guestfs_h *g)
@@ -1484,7 +1586,7 @@ int guestfs_aug_close (guestfs_h *g)
   guestfs_set_reply_callback (g, aug_close_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_close");
     guestfs_set_ready (g);
     return -1;
@@ -1508,8 +1610,7 @@ int guestfs_aug_close (guestfs_h *g)
 struct aug_defvar_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -1521,6 +1622,13 @@ static void aug_defvar_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_defvar_ctx *ctx = (struct aug_defvar_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_aug_defvar");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -1540,7 +1648,7 @@ static void aug_defvar_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_aug_defvar (guestfs_h *g,
@@ -1571,7 +1679,7 @@ int guestfs_aug_defvar (guestfs_h *g,
   guestfs_set_reply_callback (g, aug_defvar_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_defvar");
     guestfs_set_ready (g);
     return -1;
@@ -1595,8 +1703,7 @@ int guestfs_aug_defvar (guestfs_h *g,
 struct aug_defnode_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -1608,6 +1715,13 @@ static void aug_defnode_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_defnode_ctx *ctx = (struct aug_defnode_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_aug_defnode");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -1627,7 +1741,7 @@ static void aug_defnode_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 struct guestfs_int_bool *guestfs_aug_defnode (guestfs_h *g,
@@ -1660,7 +1774,7 @@ struct guestfs_int_bool *guestfs_aug_defnode (guestfs_h *g,
   guestfs_set_reply_callback (g, aug_defnode_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_defnode");
     guestfs_set_ready (g);
     return NULL;
@@ -1685,8 +1799,7 @@ struct guestfs_int_bool *guestfs_aug_defnode (guestfs_h *g,
 struct aug_get_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -1698,6 +1811,13 @@ static void aug_get_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_get_ctx *ctx = (struct aug_get_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_aug_get");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -1717,7 +1837,7 @@ static void aug_get_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 char *guestfs_aug_get (guestfs_h *g,
@@ -1746,7 +1866,7 @@ char *guestfs_aug_get (guestfs_h *g,
   guestfs_set_reply_callback (g, aug_get_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_get");
     guestfs_set_ready (g);
     return NULL;
@@ -1770,8 +1890,7 @@ char *guestfs_aug_get (guestfs_h *g,
 struct aug_set_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -1782,6 +1901,13 @@ static void aug_set_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_set_ctx *ctx = (struct aug_set_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_aug_set");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -1797,7 +1923,7 @@ static void aug_set_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_aug_set (guestfs_h *g,
@@ -1828,7 +1954,7 @@ int guestfs_aug_set (guestfs_h *g,
   guestfs_set_reply_callback (g, aug_set_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_set");
     guestfs_set_ready (g);
     return -1;
@@ -1852,8 +1978,7 @@ int guestfs_aug_set (guestfs_h *g,
 struct aug_insert_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -1864,6 +1989,13 @@ static void aug_insert_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_insert_ctx *ctx = (struct aug_insert_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_aug_insert");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -1879,7 +2011,7 @@ static void aug_insert_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_aug_insert (guestfs_h *g,
@@ -1912,7 +2044,7 @@ int guestfs_aug_insert (guestfs_h *g,
   guestfs_set_reply_callback (g, aug_insert_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_insert");
     guestfs_set_ready (g);
     return -1;
@@ -1936,8 +2068,7 @@ int guestfs_aug_insert (guestfs_h *g,
 struct aug_rm_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -1949,6 +2080,13 @@ static void aug_rm_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_rm_ctx *ctx = (struct aug_rm_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_aug_rm");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -1968,7 +2106,7 @@ static void aug_rm_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_aug_rm (guestfs_h *g,
@@ -1997,7 +2135,7 @@ int guestfs_aug_rm (guestfs_h *g,
   guestfs_set_reply_callback (g, aug_rm_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_rm");
     guestfs_set_ready (g);
     return -1;
@@ -2021,8 +2159,7 @@ int guestfs_aug_rm (guestfs_h *g,
 struct aug_mv_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -2033,6 +2170,13 @@ static void aug_mv_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_mv_ctx *ctx = (struct aug_mv_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_aug_mv");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -2048,7 +2192,7 @@ static void aug_mv_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_aug_mv (guestfs_h *g,
@@ -2079,7 +2223,7 @@ int guestfs_aug_mv (guestfs_h *g,
   guestfs_set_reply_callback (g, aug_mv_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_mv");
     guestfs_set_ready (g);
     return -1;
@@ -2103,8 +2247,7 @@ int guestfs_aug_mv (guestfs_h *g,
 struct aug_match_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -2116,6 +2259,13 @@ static void aug_match_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_match_ctx *ctx = (struct aug_match_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_aug_match");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -2135,7 +2285,7 @@ static void aug_match_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 char **guestfs_aug_match (guestfs_h *g,
@@ -2164,7 +2314,7 @@ char **guestfs_aug_match (guestfs_h *g,
   guestfs_set_reply_callback (g, aug_match_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_match");
     guestfs_set_ready (g);
     return NULL;
@@ -2193,8 +2343,7 @@ char **guestfs_aug_match (guestfs_h *g,
 struct aug_save_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -2205,6 +2354,13 @@ static void aug_save_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_save_ctx *ctx = (struct aug_save_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_aug_save");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -2220,7 +2376,7 @@ static void aug_save_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_aug_save (guestfs_h *g)
@@ -2245,7 +2401,7 @@ int guestfs_aug_save (guestfs_h *g)
   guestfs_set_reply_callback (g, aug_save_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_save");
     guestfs_set_ready (g);
     return -1;
@@ -2269,8 +2425,7 @@ int guestfs_aug_save (guestfs_h *g)
 struct aug_load_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -2281,6 +2436,13 @@ static void aug_load_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_load_ctx *ctx = (struct aug_load_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_aug_load");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -2296,7 +2458,7 @@ static void aug_load_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_aug_load (guestfs_h *g)
@@ -2321,7 +2483,7 @@ int guestfs_aug_load (guestfs_h *g)
   guestfs_set_reply_callback (g, aug_load_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_load");
     guestfs_set_ready (g);
     return -1;
@@ -2345,8 +2507,7 @@ int guestfs_aug_load (guestfs_h *g)
 struct aug_ls_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -2358,6 +2519,13 @@ static void aug_ls_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct aug_ls_ctx *ctx = (struct aug_ls_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_aug_ls");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -2377,7 +2545,7 @@ static void aug_ls_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 char **guestfs_aug_ls (guestfs_h *g,
@@ -2406,7 +2574,7 @@ char **guestfs_aug_ls (guestfs_h *g,
   guestfs_set_reply_callback (g, aug_ls_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_aug_ls");
     guestfs_set_ready (g);
     return NULL;
@@ -2435,8 +2603,7 @@ char **guestfs_aug_ls (guestfs_h *g,
 struct rm_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -2447,6 +2614,13 @@ static void rm_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct rm_ctx *ctx = (struct rm_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_rm");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -2462,7 +2636,7 @@ static void rm_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_rm (guestfs_h *g,
@@ -2491,7 +2665,7 @@ int guestfs_rm (guestfs_h *g,
   guestfs_set_reply_callback (g, rm_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_rm");
     guestfs_set_ready (g);
     return -1;
@@ -2515,8 +2689,7 @@ int guestfs_rm (guestfs_h *g,
 struct rmdir_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -2527,6 +2700,13 @@ static void rmdir_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct rmdir_ctx *ctx = (struct rmdir_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_rmdir");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -2542,7 +2722,7 @@ static void rmdir_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_rmdir (guestfs_h *g,
@@ -2571,7 +2751,7 @@ int guestfs_rmdir (guestfs_h *g,
   guestfs_set_reply_callback (g, rmdir_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_rmdir");
     guestfs_set_ready (g);
     return -1;
@@ -2595,8 +2775,7 @@ int guestfs_rmdir (guestfs_h *g,
 struct rm_rf_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -2607,6 +2786,13 @@ static void rm_rf_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct rm_rf_ctx *ctx = (struct rm_rf_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_rm_rf");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -2622,7 +2808,7 @@ static void rm_rf_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_rm_rf (guestfs_h *g,
@@ -2651,7 +2837,7 @@ int guestfs_rm_rf (guestfs_h *g,
   guestfs_set_reply_callback (g, rm_rf_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_rm_rf");
     guestfs_set_ready (g);
     return -1;
@@ -2675,8 +2861,7 @@ int guestfs_rm_rf (guestfs_h *g,
 struct mkdir_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -2687,6 +2872,13 @@ static void mkdir_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct mkdir_ctx *ctx = (struct mkdir_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_mkdir");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -2702,7 +2894,7 @@ static void mkdir_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_mkdir (guestfs_h *g,
@@ -2731,7 +2923,7 @@ int guestfs_mkdir (guestfs_h *g,
   guestfs_set_reply_callback (g, mkdir_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_mkdir");
     guestfs_set_ready (g);
     return -1;
@@ -2755,8 +2947,7 @@ int guestfs_mkdir (guestfs_h *g,
 struct mkdir_p_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -2767,6 +2958,13 @@ static void mkdir_p_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct mkdir_p_ctx *ctx = (struct mkdir_p_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_mkdir_p");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -2782,7 +2980,7 @@ static void mkdir_p_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_mkdir_p (guestfs_h *g,
@@ -2811,7 +3009,7 @@ int guestfs_mkdir_p (guestfs_h *g,
   guestfs_set_reply_callback (g, mkdir_p_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_mkdir_p");
     guestfs_set_ready (g);
     return -1;
@@ -2835,8 +3033,7 @@ int guestfs_mkdir_p (guestfs_h *g,
 struct chmod_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -2847,6 +3044,13 @@ static void chmod_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct chmod_ctx *ctx = (struct chmod_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_chmod");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -2862,7 +3066,7 @@ static void chmod_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_chmod (guestfs_h *g,
@@ -2893,7 +3097,7 @@ int guestfs_chmod (guestfs_h *g,
   guestfs_set_reply_callback (g, chmod_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_chmod");
     guestfs_set_ready (g);
     return -1;
@@ -2917,8 +3121,7 @@ int guestfs_chmod (guestfs_h *g,
 struct chown_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -2929,6 +3132,13 @@ static void chown_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct chown_ctx *ctx = (struct chown_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_chown");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -2944,7 +3154,7 @@ static void chown_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_chown (guestfs_h *g,
@@ -2977,7 +3187,7 @@ int guestfs_chown (guestfs_h *g,
   guestfs_set_reply_callback (g, chown_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_chown");
     guestfs_set_ready (g);
     return -1;
@@ -3001,8 +3211,7 @@ int guestfs_chown (guestfs_h *g,
 struct exists_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -3014,6 +3223,13 @@ static void exists_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct exists_ctx *ctx = (struct exists_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_exists");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -3033,7 +3249,7 @@ static void exists_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_exists (guestfs_h *g,
@@ -3062,7 +3278,7 @@ int guestfs_exists (guestfs_h *g,
   guestfs_set_reply_callback (g, exists_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_exists");
     guestfs_set_ready (g);
     return -1;
@@ -3086,8 +3302,7 @@ int guestfs_exists (guestfs_h *g,
 struct is_file_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -3099,6 +3314,13 @@ static void is_file_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct is_file_ctx *ctx = (struct is_file_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_is_file");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -3118,7 +3340,7 @@ static void is_file_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_is_file (guestfs_h *g,
@@ -3147,7 +3369,7 @@ int guestfs_is_file (guestfs_h *g,
   guestfs_set_reply_callback (g, is_file_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_is_file");
     guestfs_set_ready (g);
     return -1;
@@ -3171,8 +3393,7 @@ int guestfs_is_file (guestfs_h *g,
 struct is_dir_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -3184,6 +3405,13 @@ static void is_dir_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct is_dir_ctx *ctx = (struct is_dir_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_is_dir");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -3203,7 +3431,7 @@ static void is_dir_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_is_dir (guestfs_h *g,
@@ -3232,7 +3460,7 @@ int guestfs_is_dir (guestfs_h *g,
   guestfs_set_reply_callback (g, is_dir_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_is_dir");
     guestfs_set_ready (g);
     return -1;
@@ -3256,8 +3484,7 @@ int guestfs_is_dir (guestfs_h *g,
 struct pvcreate_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -3268,6 +3495,13 @@ static void pvcreate_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct pvcreate_ctx *ctx = (struct pvcreate_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_pvcreate");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -3283,7 +3517,7 @@ static void pvcreate_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_pvcreate (guestfs_h *g,
@@ -3312,7 +3546,7 @@ int guestfs_pvcreate (guestfs_h *g,
   guestfs_set_reply_callback (g, pvcreate_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_pvcreate");
     guestfs_set_ready (g);
     return -1;
@@ -3336,8 +3570,7 @@ int guestfs_pvcreate (guestfs_h *g,
 struct vgcreate_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -3348,6 +3581,13 @@ static void vgcreate_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct vgcreate_ctx *ctx = (struct vgcreate_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_vgcreate");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -3363,7 +3603,7 @@ static void vgcreate_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_vgcreate (guestfs_h *g,
@@ -3395,7 +3635,7 @@ int guestfs_vgcreate (guestfs_h *g,
   guestfs_set_reply_callback (g, vgcreate_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_vgcreate");
     guestfs_set_ready (g);
     return -1;
@@ -3419,8 +3659,7 @@ int guestfs_vgcreate (guestfs_h *g,
 struct lvcreate_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -3431,6 +3670,13 @@ static void lvcreate_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct lvcreate_ctx *ctx = (struct lvcreate_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_lvcreate");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -3446,7 +3692,7 @@ static void lvcreate_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_lvcreate (guestfs_h *g,
@@ -3479,7 +3725,7 @@ int guestfs_lvcreate (guestfs_h *g,
   guestfs_set_reply_callback (g, lvcreate_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_lvcreate");
     guestfs_set_ready (g);
     return -1;
@@ -3503,8 +3749,7 @@ int guestfs_lvcreate (guestfs_h *g,
 struct mkfs_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -3515,6 +3760,13 @@ static void mkfs_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct mkfs_ctx *ctx = (struct mkfs_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_mkfs");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -3530,7 +3782,7 @@ static void mkfs_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_mkfs (guestfs_h *g,
@@ -3561,7 +3813,7 @@ int guestfs_mkfs (guestfs_h *g,
   guestfs_set_reply_callback (g, mkfs_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_mkfs");
     guestfs_set_ready (g);
     return -1;
@@ -3585,8 +3837,7 @@ int guestfs_mkfs (guestfs_h *g,
 struct sfdisk_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -3597,6 +3848,13 @@ static void sfdisk_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct sfdisk_ctx *ctx = (struct sfdisk_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_sfdisk");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -3612,7 +3870,7 @@ static void sfdisk_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_sfdisk (guestfs_h *g,
@@ -3650,7 +3908,7 @@ int guestfs_sfdisk (guestfs_h *g,
   guestfs_set_reply_callback (g, sfdisk_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_sfdisk");
     guestfs_set_ready (g);
     return -1;
@@ -3674,8 +3932,7 @@ int guestfs_sfdisk (guestfs_h *g,
 struct write_file_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -3686,6 +3943,13 @@ static void write_file_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct write_file_ctx *ctx = (struct write_file_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_write_file");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -3701,7 +3965,7 @@ static void write_file_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_write_file (guestfs_h *g,
@@ -3734,7 +3998,7 @@ int guestfs_write_file (guestfs_h *g,
   guestfs_set_reply_callback (g, write_file_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_write_file");
     guestfs_set_ready (g);
     return -1;
@@ -3758,8 +4022,7 @@ int guestfs_write_file (guestfs_h *g,
 struct umount_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -3770,6 +4033,13 @@ static void umount_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct umount_ctx *ctx = (struct umount_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_umount");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -3785,7 +4055,7 @@ static void umount_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_umount (guestfs_h *g,
@@ -3814,7 +4084,7 @@ int guestfs_umount (guestfs_h *g,
   guestfs_set_reply_callback (g, umount_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_umount");
     guestfs_set_ready (g);
     return -1;
@@ -3838,8 +4108,7 @@ int guestfs_umount (guestfs_h *g,
 struct mounts_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -3851,6 +4120,13 @@ static void mounts_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct mounts_ctx *ctx = (struct mounts_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_mounts");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -3870,7 +4146,7 @@ static void mounts_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 char **guestfs_mounts (guestfs_h *g)
@@ -3895,7 +4171,7 @@ char **guestfs_mounts (guestfs_h *g)
   guestfs_set_reply_callback (g, mounts_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_mounts");
     guestfs_set_ready (g);
     return NULL;
@@ -3924,8 +4200,7 @@ char **guestfs_mounts (guestfs_h *g)
 struct umount_all_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -3936,6 +4211,13 @@ static void umount_all_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct umount_all_ctx *ctx = (struct umount_all_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_umount_all");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -3951,7 +4233,7 @@ static void umount_all_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_umount_all (guestfs_h *g)
@@ -3976,7 +4258,7 @@ int guestfs_umount_all (guestfs_h *g)
   guestfs_set_reply_callback (g, umount_all_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_umount_all");
     guestfs_set_ready (g);
     return -1;
@@ -4000,8 +4282,7 @@ int guestfs_umount_all (guestfs_h *g)
 struct lvm_remove_all_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -4012,6 +4293,13 @@ static void lvm_remove_all_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct lvm_remove_all_ctx *ctx = (struct lvm_remove_all_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_lvm_remove_all");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -4027,7 +4315,7 @@ static void lvm_remove_all_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_lvm_remove_all (guestfs_h *g)
@@ -4052,7 +4340,7 @@ int guestfs_lvm_remove_all (guestfs_h *g)
   guestfs_set_reply_callback (g, lvm_remove_all_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_lvm_remove_all");
     guestfs_set_ready (g);
     return -1;
@@ -4076,8 +4364,7 @@ int guestfs_lvm_remove_all (guestfs_h *g)
 struct file_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -4089,6 +4376,13 @@ static void file_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct file_ctx *ctx = (struct file_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_file");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -4108,7 +4402,7 @@ static void file_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 char *guestfs_file (guestfs_h *g,
@@ -4137,7 +4431,7 @@ char *guestfs_file (guestfs_h *g,
   guestfs_set_reply_callback (g, file_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_file");
     guestfs_set_ready (g);
     return NULL;
@@ -4161,8 +4455,7 @@ char *guestfs_file (guestfs_h *g,
 struct command_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -4174,6 +4467,13 @@ static void command_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct command_ctx *ctx = (struct command_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_command");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -4193,7 +4493,7 @@ static void command_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 char *guestfs_command (guestfs_h *g,
@@ -4223,7 +4523,7 @@ char *guestfs_command (guestfs_h *g,
   guestfs_set_reply_callback (g, command_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_command");
     guestfs_set_ready (g);
     return NULL;
@@ -4247,8 +4547,7 @@ char *guestfs_command (guestfs_h *g,
 struct command_lines_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -4260,6 +4559,13 @@ static void command_lines_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct command_lines_ctx *ctx = (struct command_lines_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_command_lines");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -4279,7 +4585,7 @@ static void command_lines_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 char **guestfs_command_lines (guestfs_h *g,
@@ -4309,7 +4615,7 @@ char **guestfs_command_lines (guestfs_h *g,
   guestfs_set_reply_callback (g, command_lines_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_command_lines");
     guestfs_set_ready (g);
     return NULL;
@@ -4338,8 +4644,7 @@ char **guestfs_command_lines (guestfs_h *g,
 struct stat_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -4351,6 +4656,13 @@ static void stat_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct stat_ctx *ctx = (struct stat_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_stat");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -4370,7 +4682,7 @@ static void stat_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 struct guestfs_stat *guestfs_stat (guestfs_h *g,
@@ -4399,7 +4711,7 @@ struct guestfs_stat *guestfs_stat (guestfs_h *g,
   guestfs_set_reply_callback (g, stat_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_stat");
     guestfs_set_ready (g);
     return NULL;
@@ -4424,8 +4736,7 @@ struct guestfs_stat *guestfs_stat (guestfs_h *g,
 struct lstat_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -4437,6 +4748,13 @@ static void lstat_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct lstat_ctx *ctx = (struct lstat_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_lstat");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -4456,7 +4774,7 @@ static void lstat_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 struct guestfs_stat *guestfs_lstat (guestfs_h *g,
@@ -4485,7 +4803,7 @@ struct guestfs_stat *guestfs_lstat (guestfs_h *g,
   guestfs_set_reply_callback (g, lstat_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_lstat");
     guestfs_set_ready (g);
     return NULL;
@@ -4510,8 +4828,7 @@ struct guestfs_stat *guestfs_lstat (guestfs_h *g,
 struct statvfs_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -4523,6 +4840,13 @@ static void statvfs_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct statvfs_ctx *ctx = (struct statvfs_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_statvfs");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -4542,7 +4866,7 @@ static void statvfs_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 struct guestfs_statvfs *guestfs_statvfs (guestfs_h *g,
@@ -4571,7 +4895,7 @@ struct guestfs_statvfs *guestfs_statvfs (guestfs_h *g,
   guestfs_set_reply_callback (g, statvfs_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_statvfs");
     guestfs_set_ready (g);
     return NULL;
@@ -4596,8 +4920,7 @@ struct guestfs_statvfs *guestfs_statvfs (guestfs_h *g,
 struct tune2fs_l_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -4609,6 +4932,13 @@ static void tune2fs_l_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct tune2fs_l_ctx *ctx = (struct tune2fs_l_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_tune2fs_l");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -4628,7 +4958,7 @@ static void tune2fs_l_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 char **guestfs_tune2fs_l (guestfs_h *g,
@@ -4657,7 +4987,7 @@ char **guestfs_tune2fs_l (guestfs_h *g,
   guestfs_set_reply_callback (g, tune2fs_l_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_tune2fs_l");
     guestfs_set_ready (g);
     return NULL;
@@ -4686,8 +5016,7 @@ char **guestfs_tune2fs_l (guestfs_h *g,
 struct blockdev_setro_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -4698,6 +5027,13 @@ static void blockdev_setro_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct blockdev_setro_ctx *ctx = (struct blockdev_setro_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_blockdev_setro");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -4713,7 +5049,7 @@ static void blockdev_setro_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_blockdev_setro (guestfs_h *g,
@@ -4742,7 +5078,7 @@ int guestfs_blockdev_setro (guestfs_h *g,
   guestfs_set_reply_callback (g, blockdev_setro_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_blockdev_setro");
     guestfs_set_ready (g);
     return -1;
@@ -4766,8 +5102,7 @@ int guestfs_blockdev_setro (guestfs_h *g,
 struct blockdev_setrw_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -4778,6 +5113,13 @@ static void blockdev_setrw_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct blockdev_setrw_ctx *ctx = (struct blockdev_setrw_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_blockdev_setrw");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -4793,7 +5135,7 @@ static void blockdev_setrw_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_blockdev_setrw (guestfs_h *g,
@@ -4822,7 +5164,7 @@ int guestfs_blockdev_setrw (guestfs_h *g,
   guestfs_set_reply_callback (g, blockdev_setrw_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_blockdev_setrw");
     guestfs_set_ready (g);
     return -1;
@@ -4846,8 +5188,7 @@ int guestfs_blockdev_setrw (guestfs_h *g,
 struct blockdev_getro_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -4859,6 +5200,13 @@ static void blockdev_getro_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct blockdev_getro_ctx *ctx = (struct blockdev_getro_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_blockdev_getro");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -4878,7 +5226,7 @@ static void blockdev_getro_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_blockdev_getro (guestfs_h *g,
@@ -4907,7 +5255,7 @@ int guestfs_blockdev_getro (guestfs_h *g,
   guestfs_set_reply_callback (g, blockdev_getro_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_blockdev_getro");
     guestfs_set_ready (g);
     return -1;
@@ -4931,8 +5279,7 @@ int guestfs_blockdev_getro (guestfs_h *g,
 struct blockdev_getss_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -4944,6 +5291,13 @@ static void blockdev_getss_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct blockdev_getss_ctx *ctx = (struct blockdev_getss_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_blockdev_getss");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -4963,7 +5317,7 @@ static void blockdev_getss_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_blockdev_getss (guestfs_h *g,
@@ -4992,7 +5346,7 @@ int guestfs_blockdev_getss (guestfs_h *g,
   guestfs_set_reply_callback (g, blockdev_getss_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_blockdev_getss");
     guestfs_set_ready (g);
     return -1;
@@ -5016,8 +5370,7 @@ int guestfs_blockdev_getss (guestfs_h *g,
 struct blockdev_getbsz_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -5029,6 +5382,13 @@ static void blockdev_getbsz_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct blockdev_getbsz_ctx *ctx = (struct blockdev_getbsz_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_blockdev_getbsz");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -5048,7 +5408,7 @@ static void blockdev_getbsz_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_blockdev_getbsz (guestfs_h *g,
@@ -5077,7 +5437,7 @@ int guestfs_blockdev_getbsz (guestfs_h *g,
   guestfs_set_reply_callback (g, blockdev_getbsz_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_blockdev_getbsz");
     guestfs_set_ready (g);
     return -1;
@@ -5101,8 +5461,7 @@ int guestfs_blockdev_getbsz (guestfs_h *g,
 struct blockdev_setbsz_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -5113,6 +5472,13 @@ static void blockdev_setbsz_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct blockdev_setbsz_ctx *ctx = (struct blockdev_setbsz_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_blockdev_setbsz");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -5128,7 +5494,7 @@ static void blockdev_setbsz_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_blockdev_setbsz (guestfs_h *g,
@@ -5159,7 +5525,7 @@ int guestfs_blockdev_setbsz (guestfs_h *g,
   guestfs_set_reply_callback (g, blockdev_setbsz_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_blockdev_setbsz");
     guestfs_set_ready (g);
     return -1;
@@ -5183,8 +5549,7 @@ int guestfs_blockdev_setbsz (guestfs_h *g,
 struct blockdev_getsz_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -5196,6 +5561,13 @@ static void blockdev_getsz_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct blockdev_getsz_ctx *ctx = (struct blockdev_getsz_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_blockdev_getsz");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -5215,7 +5587,7 @@ static void blockdev_getsz_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int64_t guestfs_blockdev_getsz (guestfs_h *g,
@@ -5244,7 +5616,7 @@ int64_t guestfs_blockdev_getsz (guestfs_h *g,
   guestfs_set_reply_callback (g, blockdev_getsz_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_blockdev_getsz");
     guestfs_set_ready (g);
     return -1;
@@ -5268,8 +5640,7 @@ int64_t guestfs_blockdev_getsz (guestfs_h *g,
 struct blockdev_getsize64_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -5281,6 +5652,13 @@ static void blockdev_getsize64_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct blockdev_getsize64_ctx *ctx = (struct blockdev_getsize64_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_blockdev_getsize64");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -5300,7 +5678,7 @@ static void blockdev_getsize64_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int64_t guestfs_blockdev_getsize64 (guestfs_h *g,
@@ -5329,7 +5707,7 @@ int64_t guestfs_blockdev_getsize64 (guestfs_h *g,
   guestfs_set_reply_callback (g, blockdev_getsize64_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_blockdev_getsize64");
     guestfs_set_ready (g);
     return -1;
@@ -5353,8 +5731,7 @@ int64_t guestfs_blockdev_getsize64 (guestfs_h *g,
 struct blockdev_flushbufs_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -5365,6 +5742,13 @@ static void blockdev_flushbufs_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct blockdev_flushbufs_ctx *ctx = (struct blockdev_flushbufs_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_blockdev_flushbufs");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -5380,7 +5764,7 @@ static void blockdev_flushbufs_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_blockdev_flushbufs (guestfs_h *g,
@@ -5409,7 +5793,7 @@ int guestfs_blockdev_flushbufs (guestfs_h *g,
   guestfs_set_reply_callback (g, blockdev_flushbufs_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_blockdev_flushbufs");
     guestfs_set_ready (g);
     return -1;
@@ -5433,8 +5817,7 @@ int guestfs_blockdev_flushbufs (guestfs_h *g,
 struct blockdev_rereadpt_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -5445,6 +5828,13 @@ static void blockdev_rereadpt_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct blockdev_rereadpt_ctx *ctx = (struct blockdev_rereadpt_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_blockdev_rereadpt");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -5460,7 +5850,7 @@ static void blockdev_rereadpt_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_blockdev_rereadpt (guestfs_h *g,
@@ -5489,7 +5879,7 @@ int guestfs_blockdev_rereadpt (guestfs_h *g,
   guestfs_set_reply_callback (g, blockdev_rereadpt_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_blockdev_rereadpt");
     guestfs_set_ready (g);
     return -1;
@@ -5513,8 +5903,7 @@ int guestfs_blockdev_rereadpt (guestfs_h *g,
 struct upload_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -5525,6 +5914,13 @@ static void upload_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct upload_ctx *ctx = (struct upload_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_upload");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -5540,7 +5936,7 @@ static void upload_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_upload (guestfs_h *g,
@@ -5583,7 +5979,7 @@ int guestfs_upload (guestfs_h *g,
   guestfs_set_reply_callback (g, upload_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_upload");
     guestfs_set_ready (g);
     return -1;
@@ -5607,8 +6003,7 @@ int guestfs_upload (guestfs_h *g,
 struct download_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -5619,6 +6014,13 @@ static void download_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct download_ctx *ctx = (struct download_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_download");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -5634,7 +6036,7 @@ static void download_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_download (guestfs_h *g,
@@ -5664,7 +6066,7 @@ int guestfs_download (guestfs_h *g,
   guestfs_set_reply_callback (g, download_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_download");
     guestfs_set_ready (g);
     return -1;
@@ -5693,8 +6095,7 @@ int guestfs_download (guestfs_h *g,
 struct checksum_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -5706,6 +6107,13 @@ static void checksum_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct checksum_ctx *ctx = (struct checksum_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_checksum");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -5725,7 +6133,7 @@ static void checksum_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 char *guestfs_checksum (guestfs_h *g,
@@ -5756,7 +6164,7 @@ char *guestfs_checksum (guestfs_h *g,
   guestfs_set_reply_callback (g, checksum_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_checksum");
     guestfs_set_ready (g);
     return NULL;
@@ -5780,8 +6188,7 @@ char *guestfs_checksum (guestfs_h *g,
 struct tar_in_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -5792,6 +6199,13 @@ static void tar_in_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct tar_in_ctx *ctx = (struct tar_in_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_tar_in");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -5807,7 +6221,7 @@ static void tar_in_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_tar_in (guestfs_h *g,
@@ -5850,7 +6264,7 @@ int guestfs_tar_in (guestfs_h *g,
   guestfs_set_reply_callback (g, tar_in_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_tar_in");
     guestfs_set_ready (g);
     return -1;
@@ -5874,8 +6288,7 @@ int guestfs_tar_in (guestfs_h *g,
 struct tar_out_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -5886,6 +6299,13 @@ static void tar_out_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct tar_out_ctx *ctx = (struct tar_out_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_tar_out");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -5901,7 +6321,7 @@ static void tar_out_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_tar_out (guestfs_h *g,
@@ -5931,7 +6351,7 @@ int guestfs_tar_out (guestfs_h *g,
   guestfs_set_reply_callback (g, tar_out_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_tar_out");
     guestfs_set_ready (g);
     return -1;
@@ -5960,8 +6380,7 @@ int guestfs_tar_out (guestfs_h *g,
 struct tgz_in_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -5972,6 +6391,13 @@ static void tgz_in_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct tgz_in_ctx *ctx = (struct tgz_in_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_tgz_in");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -5987,7 +6413,7 @@ static void tgz_in_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_tgz_in (guestfs_h *g,
@@ -6030,7 +6456,7 @@ int guestfs_tgz_in (guestfs_h *g,
   guestfs_set_reply_callback (g, tgz_in_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_tgz_in");
     guestfs_set_ready (g);
     return -1;
@@ -6054,8 +6480,7 @@ int guestfs_tgz_in (guestfs_h *g,
 struct tgz_out_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -6066,6 +6491,13 @@ static void tgz_out_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct tgz_out_ctx *ctx = (struct tgz_out_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_tgz_out");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -6081,7 +6513,7 @@ static void tgz_out_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_tgz_out (guestfs_h *g,
@@ -6111,7 +6543,7 @@ int guestfs_tgz_out (guestfs_h *g,
   guestfs_set_reply_callback (g, tgz_out_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_tgz_out");
     guestfs_set_ready (g);
     return -1;
@@ -6140,8 +6572,7 @@ int guestfs_tgz_out (guestfs_h *g,
 struct mount_ro_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -6152,6 +6583,13 @@ static void mount_ro_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct mount_ro_ctx *ctx = (struct mount_ro_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_mount_ro");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -6167,7 +6605,7 @@ static void mount_ro_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_mount_ro (guestfs_h *g,
@@ -6198,7 +6636,7 @@ int guestfs_mount_ro (guestfs_h *g,
   guestfs_set_reply_callback (g, mount_ro_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_mount_ro");
     guestfs_set_ready (g);
     return -1;
@@ -6222,8 +6660,7 @@ int guestfs_mount_ro (guestfs_h *g,
 struct mount_options_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -6234,6 +6671,13 @@ static void mount_options_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct mount_options_ctx *ctx = (struct mount_options_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_mount_options");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -6249,7 +6693,7 @@ static void mount_options_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_mount_options (guestfs_h *g,
@@ -6282,7 +6726,7 @@ int guestfs_mount_options (guestfs_h *g,
   guestfs_set_reply_callback (g, mount_options_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_mount_options");
     guestfs_set_ready (g);
     return -1;
@@ -6306,8 +6750,7 @@ int guestfs_mount_options (guestfs_h *g,
 struct mount_vfs_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -6318,6 +6761,13 @@ static void mount_vfs_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct mount_vfs_ctx *ctx = (struct mount_vfs_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_mount_vfs");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -6333,7 +6783,7 @@ static void mount_vfs_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_mount_vfs (guestfs_h *g,
@@ -6368,7 +6818,7 @@ int guestfs_mount_vfs (guestfs_h *g,
   guestfs_set_reply_callback (g, mount_vfs_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_mount_vfs");
     guestfs_set_ready (g);
     return -1;
@@ -6392,8 +6842,7 @@ int guestfs_mount_vfs (guestfs_h *g,
 struct debug_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -6405,6 +6854,13 @@ static void debug_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct debug_ctx *ctx = (struct debug_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_debug");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -6424,7 +6880,7 @@ static void debug_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     return;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 char *guestfs_debug (guestfs_h *g,
@@ -6456,7 +6912,7 @@ char *guestfs_debug (guestfs_h *g,
   guestfs_set_reply_callback (g, debug_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_debug");
     guestfs_set_ready (g);
     return NULL;
@@ -6480,8 +6936,7 @@ char *guestfs_debug (guestfs_h *g,
 struct lvremove_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -6492,6 +6947,13 @@ static void lvremove_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct lvremove_ctx *ctx = (struct lvremove_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_lvremove");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -6507,7 +6969,7 @@ static void lvremove_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_lvremove (guestfs_h *g,
@@ -6536,7 +6998,7 @@ int guestfs_lvremove (guestfs_h *g,
   guestfs_set_reply_callback (g, lvremove_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_lvremove");
     guestfs_set_ready (g);
     return -1;
@@ -6560,8 +7022,7 @@ int guestfs_lvremove (guestfs_h *g,
 struct vgremove_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -6572,6 +7033,13 @@ static void vgremove_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct vgremove_ctx *ctx = (struct vgremove_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_vgremove");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -6587,7 +7055,7 @@ static void vgremove_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_vgremove (guestfs_h *g,
@@ -6616,7 +7084,7 @@ int guestfs_vgremove (guestfs_h *g,
   guestfs_set_reply_callback (g, vgremove_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_vgremove");
     guestfs_set_ready (g);
     return -1;
@@ -6640,8 +7108,7 @@ int guestfs_vgremove (guestfs_h *g,
 struct pvremove_ctx {
   /* This flag is set by the callbacks, so we know we've done
    * the callbacks as expected, and in the right sequence.
-   * 0 = not called, 1 = send called,
-   * 1001 = reply called.
+   * 0 = not called, 1 = reply_cb called.
    */
   int cb_sequence;
   struct guestfs_message_header hdr;
@@ -6652,6 +7119,13 @@ static void pvremove_reply_cb (guestfs_h *g, void *data, XDR *xdr)
 {
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
   struct pvremove_ctx *ctx = (struct pvremove_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_pvremove");
+    return;
+  }
 
   ml->main_loop_quit (ml, g);
 
@@ -6667,7 +7141,7 @@ static void pvremove_reply_cb (guestfs_h *g, void *data, XDR *xdr)
     goto done;
   }
  done:
-  ctx->cb_sequence = 1001;
+  ctx->cb_sequence = 1;
 }
 
 int guestfs_pvremove (guestfs_h *g,
@@ -6696,7 +7170,7 @@ int guestfs_pvremove (guestfs_h *g,
   guestfs_set_reply_callback (g, pvremove_reply_cb, &ctx);
   (void) ml->main_loop_run (ml, g);
   guestfs_set_reply_callback (g, NULL, NULL);
-  if (ctx.cb_sequence != 1001) {
+  if (ctx.cb_sequence != 1) {
     error (g, "%s reply failed, see earlier error messages", "guestfs_pvremove");
     guestfs_set_ready (g);
     return -1;

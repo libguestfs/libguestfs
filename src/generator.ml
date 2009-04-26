@@ -2411,8 +2411,7 @@ check_state (guestfs_h *g, const char *caller)
       pr "struct %s_ctx {\n" shortname;
       pr "  /* This flag is set by the callbacks, so we know we've done\n";
       pr "   * the callbacks as expected, and in the right sequence.\n";
-      pr "   * 0 = not called, 1 = send called,\n";
-      pr "   * 1001 = reply called.\n";
+      pr "   * 0 = not called, 1 = reply_cb called.\n";
       pr "   */\n";
       pr "  int cb_sequence;\n";
       pr "  struct guestfs_message_header hdr;\n";
@@ -2437,6 +2436,13 @@ check_state (guestfs_h *g, const char *caller)
       pr "{\n";
       pr "  guestfs_main_loop *ml = guestfs_get_main_loop (g);\n";
       pr "  struct %s_ctx *ctx = (struct %s_ctx *) data;\n" shortname shortname;
+      pr "\n";
+      pr "  /* This should definitely not happen. */\n";
+      pr "  if (ctx->cb_sequence != 0) {\n";
+      pr "    ctx->cb_sequence = 9999;\n";
+      pr "    error (g, \"%%s: internal error: reply callback called twice\", \"%s\");\n" name;
+      pr "    return;\n";
+      pr "  }\n";
       pr "\n";
       pr "  ml->main_loop_quit (ml, g);\n";
       pr "\n";
@@ -2470,7 +2476,7 @@ check_state (guestfs_h *g, const char *caller)
       );
 
       pr " done:\n";
-      pr "  ctx->cb_sequence = 1001;\n";
+      pr "  ctx->cb_sequence = 1;\n";
       pr "}\n\n";
 
       (* Generate the action stub. *)
@@ -2565,7 +2571,7 @@ check_state (guestfs_h *g, const char *caller)
       pr "  guestfs_set_reply_callback (g, %s_reply_cb, &ctx);\n" shortname;
       pr "  (void) ml->main_loop_run (ml, g);\n";
       pr "  guestfs_set_reply_callback (g, NULL, NULL);\n";
-      pr "  if (ctx.cb_sequence != 1001) {\n";
+      pr "  if (ctx.cb_sequence != 1) {\n";
       pr "    error (g, \"%%s reply failed, see earlier error messages\", \"%s\");\n" name;
       pr "    guestfs_set_ready (g);\n";
       pr "    return %s;\n" error_code;
