@@ -22,6 +22,11 @@ http://java.sun.com/j2se/javadoc/writingdoccomments/
 [libguestfs] If qemu process is a shell script, then it is not cleaned
 up correctly, even on "good" exit.  This is because we need to set up
 a new process group (see commented code for doing setpgid).
+[fixed? - added documentation in the manual page that you have to
+do 'exec qemu' in the wrapper.  However I still notice that the
+recovery process kills qemu, instead of it being killed by the
+parent process, or at least that's what I think is happening]
 
 [libguestfs] Some occasional data corruption, certainly on tgz-out.
 Try using tgz-out on a very large directory.
+[we think this is fixed by 64a6a828bd318622420cf3018899392fd80c14e7]
