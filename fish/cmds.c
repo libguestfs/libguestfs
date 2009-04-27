@@ -68,6 +68,8 @@ void list_commands (void)
   printf ("%-20s %s\n", "exists", "test if file or directory exists");
   printf ("%-20s %s\n", "file", "determine file type");
   printf ("%-20s %s\n", "get-autosync", "get autosync mode");
+  printf ("%-20s %s\n", "get-e2label", "get the ext2/3/4 filesystem label");
+  printf ("%-20s %s\n", "get-e2uuid", "get the ext2/3/4 filesystem UUID");
   printf ("%-20s %s\n", "get-path", "get the search path");
   printf ("%-20s %s\n", "get-qemu", "get the qemu binary");
   printf ("%-20s %s\n", "get-state", "get the current state");
@@ -107,6 +109,8 @@ void list_commands (void)
   printf ("%-20s %s\n", "rm-rf", "remove a file or directory recursively");
   printf ("%-20s %s\n", "rmdir", "remove a directory");
   printf ("%-20s %s\n", "set-autosync", "set autosync mode");
+  printf ("%-20s %s\n", "set-e2label", "set the ext2/3/4 filesystem label");
+  printf ("%-20s %s\n", "set-e2uuid", "set the ext2/3/4 filesystem UUID");
   printf ("%-20s %s\n", "set-path", "set the search path");
   printf ("%-20s %s\n", "set-qemu", "set the qemu binary");
   printf ("%-20s %s\n", "set-verbose", "set verbose mode");
@@ -423,6 +427,18 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "pvremove") == 0)
     pod2text ("pvremove - remove an LVM physical volume", " pvremove <device>\n\nThis wipes a physical volume C<device> so that LVM will no longer\nrecognise it.\n\nThe implementation uses the C<pvremove> command which refuses to\nwipe physical volumes that contain any volume groups, so you have\nto remove those first.");
+  else
+  if (strcasecmp (cmd, "set_e2label") == 0 || strcasecmp (cmd, "set-e2label") == 0)
+    pod2text ("set-e2label - set the ext2/3/4 filesystem label", " set-e2label <device> <label>\n\nThis sets the ext2/3/4 filesystem label of the filesystem on\nC<device> to C<label>.  Filesystem labels are limited to\n16 characters.\n\nYou can use either C<tune2fs_l> or C<get_e2label>\nto return the existing label on a filesystem.");
+  else
+  if (strcasecmp (cmd, "get_e2label") == 0 || strcasecmp (cmd, "get-e2label") == 0)
+    pod2text ("get-e2label - get the ext2/3/4 filesystem label", " get-e2label <device>\n\nThis returns the ext2/3/4 filesystem label of the filesystem on\nC<device>.");
+  else
+  if (strcasecmp (cmd, "set_e2uuid") == 0 || strcasecmp (cmd, "set-e2uuid") == 0)
+    pod2text ("set-e2uuid - set the ext2/3/4 filesystem UUID", " set-e2uuid <device> <uuid>\n\nThis sets the ext2/3/4 filesystem UUID of the filesystem on\nC<device> to C<uuid>.  The format of the UUID and alternatives\nsuch as C<clear>, C<random> and C<time> are described in the\nL<tune2fs(8)> manpage.\n\nYou can use either C<tune2fs_l> or C<get_e2uuid>\nto return the existing UUID of a filesystem.");
+  else
+  if (strcasecmp (cmd, "get_e2uuid") == 0 || strcasecmp (cmd, "get-e2uuid") == 0)
+    pod2text ("get-e2uuid - get the ext2/3/4 filesystem UUID", " get-e2uuid <device>\n\nThis returns the ext2/3/4 filesystem UUID of the filesystem on\nC<device>.");
   else
     display_builtin_command (cmd);
 }
@@ -2060,6 +2076,72 @@ static int run_pvremove (const char *cmd, int argc, char *argv[])
   return r;
 }
 
+static int run_set_e2label (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *device;
+  const char *label;
+  if (argc != 2) {
+    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  device = argv[0];
+  label = argv[1];
+  r = guestfs_set_e2label (g, device, label);
+  return r;
+}
+
+static int run_get_e2label (const char *cmd, int argc, char *argv[])
+{
+  char *r;
+  const char *device;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  device = argv[0];
+  r = guestfs_get_e2label (g, device);
+  if (r == NULL) return -1;
+  printf ("%s\n", r);
+  free (r);
+  return 0;
+}
+
+static int run_set_e2uuid (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *device;
+  const char *uuid;
+  if (argc != 2) {
+    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  device = argv[0];
+  uuid = argv[1];
+  r = guestfs_set_e2uuid (g, device, uuid);
+  return r;
+}
+
+static int run_get_e2uuid (const char *cmd, int argc, char *argv[])
+{
+  char *r;
+  const char *device;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  device = argv[0];
+  r = guestfs_get_e2uuid (g, device);
+  if (r == NULL) return -1;
+  printf ("%s\n", r);
+  free (r);
+  return 0;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -2352,6 +2434,18 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "pvremove") == 0)
     return run_pvremove (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "set_e2label") == 0 || strcasecmp (cmd, "set-e2label") == 0)
+    return run_set_e2label (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "get_e2label") == 0 || strcasecmp (cmd, "get-e2label") == 0)
+    return run_get_e2label (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "set_e2uuid") == 0 || strcasecmp (cmd, "set-e2uuid") == 0)
+    return run_set_e2uuid (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "get_e2uuid") == 0 || strcasecmp (cmd, "get-e2uuid") == 0)
+    return run_get_e2uuid (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

@@ -2419,6 +2419,102 @@ static VALUE ruby_guestfs_pvremove (VALUE gv, VALUE devicev)
   return Qnil;
 }
 
+static VALUE ruby_guestfs_set_e2label (VALUE gv, VALUE devicev, VALUE labelv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "set_e2label");
+
+  const char *device = StringValueCStr (devicev);
+  if (!device)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "device", "set_e2label");
+  const char *label = StringValueCStr (labelv);
+  if (!label)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "label", "set_e2label");
+
+  int r;
+
+  r = guestfs_set_e2label (g, device, label);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
+static VALUE ruby_guestfs_get_e2label (VALUE gv, VALUE devicev)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "get_e2label");
+
+  const char *device = StringValueCStr (devicev);
+  if (!device)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "device", "get_e2label");
+
+  char *r;
+
+  r = guestfs_get_e2label (g, device);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  VALUE rv = rb_str_new2 (r);
+  free (r);
+  return rv;
+}
+
+static VALUE ruby_guestfs_set_e2uuid (VALUE gv, VALUE devicev, VALUE uuidv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "set_e2uuid");
+
+  const char *device = StringValueCStr (devicev);
+  if (!device)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "device", "set_e2uuid");
+  const char *uuid = StringValueCStr (uuidv);
+  if (!uuid)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "uuid", "set_e2uuid");
+
+  int r;
+
+  r = guestfs_set_e2uuid (g, device, uuid);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
+static VALUE ruby_guestfs_get_e2uuid (VALUE gv, VALUE devicev)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "get_e2uuid");
+
+  const char *device = StringValueCStr (devicev);
+  if (!device)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "device", "get_e2uuid");
+
+  char *r;
+
+  r = guestfs_get_e2uuid (g, device);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  VALUE rv = rb_str_new2 (r);
+  free (r);
+  return rv;
+}
+
 /* Initialize the module. */
 void Init__guestfs ()
 {
@@ -2629,4 +2725,12 @@ void Init__guestfs ()
         ruby_guestfs_vgremove, 1);
   rb_define_method (c_guestfs, "pvremove",
         ruby_guestfs_pvremove, 1);
+  rb_define_method (c_guestfs, "set_e2label",
+        ruby_guestfs_set_e2label, 2);
+  rb_define_method (c_guestfs, "get_e2label",
+        ruby_guestfs_get_e2label, 1);
+  rb_define_method (c_guestfs, "set_e2uuid",
+        ruby_guestfs_set_e2uuid, 2);
+  rb_define_method (c_guestfs, "get_e2uuid",
+        ruby_guestfs_get_e2uuid, 1);
 }

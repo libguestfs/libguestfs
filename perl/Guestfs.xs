@@ -1518,3 +1518,57 @@ PREINIT:
       if (r == -1)
         croak ("pvremove: %s", guestfs_last_error (g));
 
+void
+set_e2label (g, device, label)
+      guestfs_h *g;
+      char *device;
+      char *label;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_set_e2label (g, device, label);
+      if (r == -1)
+        croak ("set_e2label: %s", guestfs_last_error (g));
+
+SV *
+get_e2label (g, device)
+      guestfs_h *g;
+      char *device;
+PREINIT:
+      char *label;
+   CODE:
+      label = guestfs_get_e2label (g, device);
+      if (label == NULL)
+        croak ("get_e2label: %s", guestfs_last_error (g));
+      RETVAL = newSVpv (label, 0);
+      free (label);
+ OUTPUT:
+      RETVAL
+
+void
+set_e2uuid (g, device, uuid)
+      guestfs_h *g;
+      char *device;
+      char *uuid;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_set_e2uuid (g, device, uuid);
+      if (r == -1)
+        croak ("set_e2uuid: %s", guestfs_last_error (g));
+
+SV *
+get_e2uuid (g, device)
+      guestfs_h *g;
+      char *device;
+PREINIT:
+      char *uuid;
+   CODE:
+      uuid = guestfs_get_e2uuid (g, device);
+      if (uuid == NULL)
+        croak ("get_e2uuid: %s", guestfs_last_error (g));
+      RETVAL = newSVpv (uuid, 0);
+      free (uuid);
+ OUTPUT:
+      RETVAL
+

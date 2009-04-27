@@ -1113,3 +1113,36 @@ class GuestFS:
         """
         return libguestfsmod.pvremove (self._o, device)
 
+    def set_e2label (self, device, label):
+        u"""This sets the ext2/3/4 filesystem label of the
+        filesystem on "device" to "label". Filesystem labels are
+        limited to 16 characters.
+        
+        You can use either "g.tune2fs_l" or "g.get_e2label" to
+        return the existing label on a filesystem.
+        """
+        return libguestfsmod.set_e2label (self._o, device, label)
+
+    def get_e2label (self, device):
+        u"""This returns the ext2/3/4 filesystem label of the
+        filesystem on "device".
+        """
+        return libguestfsmod.get_e2label (self._o, device)
+
+    def set_e2uuid (self, device, uuid):
+        u"""This sets the ext2/3/4 filesystem UUID of the filesystem
+        on "device" to "uuid". The format of the UUID and
+        alternatives such as "clear", "random" and "time" are
+        described in the tune2fs(8) manpage.
+        
+        You can use either "g.tune2fs_l" or "g.get_e2uuid" to
+        return the existing UUID of a filesystem.
+        """
+        return libguestfsmod.set_e2uuid (self._o, device, uuid)
+
+    def get_e2uuid (self, device):
+        u"""This returns the ext2/3/4 filesystem UUID of the
+        filesystem on "device".
+        """
+        return libguestfsmod.get_e2uuid (self._o, device)
+

@@ -119,3 +119,7 @@ extern char *guestfs_debug (guestfs_h *handle, const char *subcmd, char * const*
 extern int guestfs_lvremove (guestfs_h *handle, const char *device);
 extern int guestfs_vgremove (guestfs_h *handle, const char *vgname);
 extern int guestfs_pvremove (guestfs_h *handle, const char *device);
+extern int guestfs_set_e2label (guestfs_h *handle, const char *device, const char *label);
+extern char *guestfs_get_e2label (guestfs_h *handle, const char *device);
+extern int guestfs_set_e2uuid (guestfs_h *handle, const char *device, const char *uuid);
+extern char *guestfs_get_e2uuid (guestfs_h *handle, const char *device);

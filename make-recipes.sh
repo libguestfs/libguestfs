@@ -26,7 +26,14 @@ cat <<EOF
     <h1>guestfish recipes</h1>
     <p>You can also find these in the
     <a href="http://git.et.redhat.com/?p=libguestfs.git;a=tree;f=recipes;hb=HEAD"><code>recipes/</code>
-    subdirectory</a> of the source.
+    subdirectory</a> of the source.</p>
+
+    <p>
+    <a href="http://et.redhat.com/~rjones/libguestfs/files/">Download
+    libguestfs and guestfish here</a> or
+    <a href="http://et.redhat.com/~rjones/libguestfs/">go to the
+    libguestfs home page</a>.
+    </p>
 
     <h2>Table of recipes</h2>
     <ul>

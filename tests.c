@@ -108,6 +108,309 @@ static void no_test_warnings (void)
   fprintf (stderr, "warning: \"guestfs_mount_options\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_mount_vfs\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_debug\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_get_e2label\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_get_e2uuid\" has no tests\n");
+}
+
+static int test_set_e2uuid_0 (void)
+{
+  /* InitBasicFS for set_e2uuid (0): create ext2 on /dev/sda1 */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *lines[] = {
+      ",",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for set_e2uuid (0) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_set_e2uuid (g, "/dev/sda1", "a3a61220-882b-4f61-89f4-cf24dcc7297d");
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *r;
+    suppress_error = 0;
+    r = guestfs_get_e2uuid (g, "/dev/sda1");
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, "a3a61220-882b-4f61-89f4-cf24dcc7297d") != 0) {
+      fprintf (stderr, "test_set_e2uuid_0: expected \"a3a61220-882b-4f61-89f4-cf24dcc7297d\" but got \"%s\"\n", r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
+static int test_set_e2uuid_1 (void)
+{
+  /* InitBasicFS for set_e2uuid (1): create ext2 on /dev/sda1 */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *lines[] = {
+      ",",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for set_e2uuid (1) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_set_e2uuid (g, "/dev/sda1", "clear");
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *r;
+    suppress_error = 0;
+    r = guestfs_get_e2uuid (g, "/dev/sda1");
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, "") != 0) {
+      fprintf (stderr, "test_set_e2uuid_1: expected \"\" but got \"%s\"\n", r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
+static int test_set_e2uuid_2 (void)
+{
+  /* InitBasicFS for set_e2uuid (2): create ext2 on /dev/sda1 */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *lines[] = {
+      ",",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  /* TestRun for set_e2uuid (2) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_set_e2uuid (g, "/dev/sda1", "random");
+    if (r == -1)
+      return -1;
+  }
+  return 0;
+}
+
+static int test_set_e2uuid_3 (void)
+{
+  /* InitBasicFS for set_e2uuid (3): create ext2 on /dev/sda1 */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *lines[] = {
+      ",",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  /* TestRun for set_e2uuid (3) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_set_e2uuid (g, "/dev/sda1", "time");
+    if (r == -1)
+      return -1;
+  }
+  return 0;
+}
+
+static int test_set_e2label_0 (void)
+{
+  /* InitBasicFS for set_e2label (0): create ext2 on /dev/sda1 */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *lines[] = {
+      ",",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for set_e2label (0) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_set_e2label (g, "/dev/sda1", "testlabel");
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *r;
+    suppress_error = 0;
+    r = guestfs_get_e2label (g, "/dev/sda1");
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, "testlabel") != 0) {
+      fprintf (stderr, "test_set_e2label_0: expected \"testlabel\" but got \"%s\"\n", r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
 }
 
 static int test_pvremove_0 (void)
@@ -6090,8 +6393,38 @@ int main (int argc, char *argv[])
     exit (1);
   }
 
-  nr_tests = 85;
+  nr_tests = 90;
 
+  test_num++;
+  printf ("%3d/%3d test_set_e2uuid_0\n", test_num, nr_tests);
+  if (test_set_e2uuid_0 () == -1) {
+    printf ("test_set_e2uuid_0 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_set_e2uuid_1\n", test_num, nr_tests);
+  if (test_set_e2uuid_1 () == -1) {
+    printf ("test_set_e2uuid_1 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_set_e2uuid_2\n", test_num, nr_tests);
+  if (test_set_e2uuid_2 () == -1) {
+    printf ("test_set_e2uuid_2 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_set_e2uuid_3\n", test_num, nr_tests);
+  if (test_set_e2uuid_3 () == -1) {
+    printf ("test_set_e2uuid_3 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_set_e2label_0\n", test_num, nr_tests);
+  if (test_set_e2label_0 () == -1) {
+    printf ("test_set_e2label_0 FAILED\n");
+    failed++;
+  }
   test_num++;
   printf ("%3d/%3d test_pvremove_0\n", test_num, nr_tests);
   if (test_pvremove_0 () == -1) {

@@ -424,3 +424,15 @@ val vgremove : t -> string -> unit
 val pvremove : t -> string -> unit
 (** remove an LVM physical volume *)
 
+val set_e2label : t -> string -> string -> unit
+(** set the ext2/3/4 filesystem label *)
+
+val get_e2label : t -> string -> string
+(** get the ext2/3/4 filesystem label *)
+
+val set_e2uuid : t -> string -> string -> unit
+(** set the ext2/3/4 filesystem UUID *)
+
+val get_e2uuid : t -> string -> string
+(** get the ext2/3/4 filesystem UUID *)
+

@@ -547,6 +547,32 @@ struct guestfs_pvremove_args {
   string device<>;
 };
 
+struct guestfs_set_e2label_args {
+  string device<>;
+  string label<>;
+};
+
+struct guestfs_get_e2label_args {
+  string device<>;
+};
+
+struct guestfs_get_e2label_ret {
+  string label<>;
+};
+
+struct guestfs_set_e2uuid_args {
+  string device<>;
+  string uuid<>;
+};
+
+struct guestfs_get_e2uuid_args {
+  string device<>;
+};
+
+struct guestfs_get_e2uuid_ret {
+  string uuid<>;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -627,6 +653,10 @@ enum guestfs_procedure {
   GUESTFS_PROC_LVREMOVE = 77,
   GUESTFS_PROC_VGREMOVE = 78,
   GUESTFS_PROC_PVREMOVE = 79,
+  GUESTFS_PROC_SET_E2LABEL = 80,
+  GUESTFS_PROC_GET_E2LABEL = 81,
+  GUESTFS_PROC_SET_E2UUID = 82,
+  GUESTFS_PROC_GET_E2UUID = 83,
   GUESTFS_PROC_NR_PROCS
 };
 

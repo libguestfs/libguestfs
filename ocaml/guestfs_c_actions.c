@@ -2703,3 +2703,99 @@ ocaml_guestfs_pvremove (value gv, value devicev)
   CAMLreturn (rv);
 }
 
+CAMLprim value
+ocaml_guestfs_set_e2label (value gv, value devicev, value labelv)
+{
+  CAMLparam3 (gv, devicev, labelv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("set_e2label: used handle after closing it");
+
+  const char *device = String_val (devicev);
+  const char *label = String_val (labelv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_set_e2label (g, device, label);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "set_e2label");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_get_e2label (value gv, value devicev)
+{
+  CAMLparam2 (gv, devicev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("get_e2label: used handle after closing it");
+
+  const char *device = String_val (devicev);
+  char *r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_get_e2label (g, device);
+  caml_leave_blocking_section ();
+  if (r == NULL)
+    ocaml_guestfs_raise_error (g, "get_e2label");
+
+  rv = caml_copy_string (r);
+  free (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_set_e2uuid (value gv, value devicev, value uuidv)
+{
+  CAMLparam3 (gv, devicev, uuidv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("set_e2uuid: used handle after closing it");
+
+  const char *device = String_val (devicev);
+  const char *uuid = String_val (uuidv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_set_e2uuid (g, device, uuid);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "set_e2uuid");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_get_e2uuid (value gv, value devicev)
+{
+  CAMLparam2 (gv, devicev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("get_e2uuid: used handle after closing it");
+
+  const char *device = String_val (devicev);
+  char *r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_get_e2uuid (g, device);
+  caml_leave_blocking_section ();
+  if (r == NULL)
+    ocaml_guestfs_raise_error (g, "get_e2uuid");
+
+  rv = caml_copy_string (r);
+  free (r);
+  CAMLreturn (rv);
+}
+

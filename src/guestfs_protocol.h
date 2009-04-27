@@ -707,6 +707,38 @@ struct guestfs_pvremove_args {
 };
 typedef struct guestfs_pvremove_args guestfs_pvremove_args;
 
+struct guestfs_set_e2label_args {
+	char *device;
+	char *label;
+};
+typedef struct guestfs_set_e2label_args guestfs_set_e2label_args;
+
+struct guestfs_get_e2label_args {
+	char *device;
+};
+typedef struct guestfs_get_e2label_args guestfs_get_e2label_args;
+
+struct guestfs_get_e2label_ret {
+	char *label;
+};
+typedef struct guestfs_get_e2label_ret guestfs_get_e2label_ret;
+
+struct guestfs_set_e2uuid_args {
+	char *device;
+	char *uuid;
+};
+typedef struct guestfs_set_e2uuid_args guestfs_set_e2uuid_args;
+
+struct guestfs_get_e2uuid_args {
+	char *device;
+};
+typedef struct guestfs_get_e2uuid_args guestfs_get_e2uuid_args;
+
+struct guestfs_get_e2uuid_ret {
+	char *uuid;
+};
+typedef struct guestfs_get_e2uuid_ret guestfs_get_e2uuid_ret;
+
 enum guestfs_procedure {
 	GUESTFS_PROC_MOUNT = 1,
 	GUESTFS_PROC_SYNC = 2,
@@ -787,7 +819,11 @@ enum guestfs_procedure {
 	GUESTFS_PROC_LVREMOVE = 77,
 	GUESTFS_PROC_VGREMOVE = 78,
 	GUESTFS_PROC_PVREMOVE = 79,
-	GUESTFS_PROC_NR_PROCS = 79 + 1,
+	GUESTFS_PROC_SET_E2LABEL = 80,
+	GUESTFS_PROC_GET_E2LABEL = 81,
+	GUESTFS_PROC_SET_E2UUID = 82,
+	GUESTFS_PROC_GET_E2UUID = 83,
+	GUESTFS_PROC_NR_PROCS = 83 + 1,
 };
 typedef enum guestfs_procedure guestfs_procedure;
 #define GUESTFS_MESSAGE_MAX 4194304
@@ -946,6 +982,12 @@ extern  bool_t xdr_guestfs_debug_ret (XDR *, guestfs_debug_ret*);
 extern  bool_t xdr_guestfs_lvremove_args (XDR *, guestfs_lvremove_args*);
 extern  bool_t xdr_guestfs_vgremove_args (XDR *, guestfs_vgremove_args*);
 extern  bool_t xdr_guestfs_pvremove_args (XDR *, guestfs_pvremove_args*);
+extern  bool_t xdr_guestfs_set_e2label_args (XDR *, guestfs_set_e2label_args*);
+extern  bool_t xdr_guestfs_get_e2label_args (XDR *, guestfs_get_e2label_args*);
+extern  bool_t xdr_guestfs_get_e2label_ret (XDR *, guestfs_get_e2label_ret*);
+extern  bool_t xdr_guestfs_set_e2uuid_args (XDR *, guestfs_set_e2uuid_args*);
+extern  bool_t xdr_guestfs_get_e2uuid_args (XDR *, guestfs_get_e2uuid_args*);
+extern  bool_t xdr_guestfs_get_e2uuid_ret (XDR *, guestfs_get_e2uuid_ret*);
 extern  bool_t xdr_guestfs_procedure (XDR *, guestfs_procedure*);
 extern  bool_t xdr_guestfs_message_direction (XDR *, guestfs_message_direction*);
 extern  bool_t xdr_guestfs_message_status (XDR *, guestfs_message_status*);
@@ -1063,6 +1105,12 @@ extern bool_t xdr_guestfs_debug_ret ();
 extern bool_t xdr_guestfs_lvremove_args ();
 extern bool_t xdr_guestfs_vgremove_args ();
 extern bool_t xdr_guestfs_pvremove_args ();
+extern bool_t xdr_guestfs_set_e2label_args ();
+extern bool_t xdr_guestfs_get_e2label_args ();
+extern bool_t xdr_guestfs_get_e2label_ret ();
+extern bool_t xdr_guestfs_set_e2uuid_args ();
+extern bool_t xdr_guestfs_get_e2uuid_args ();
+extern bool_t xdr_guestfs_get_e2uuid_ret ();
 extern bool_t xdr_guestfs_procedure ();
 extern bool_t xdr_guestfs_message_direction ();
 extern bool_t xdr_guestfs_message_status ();

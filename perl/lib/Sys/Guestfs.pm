@@ -472,6 +472,16 @@ particular that the filename is not prepended to the output
 
 Get the autosync flag.
 
+=item $label = $h->get_e2label ($device);
+
+This returns the ext2/3/4 filesystem label of the filesystem on
+C<device>.
+
+=item $uuid = $h->get_e2uuid ($device);
+
+This returns the ext2/3/4 filesystem UUID of the filesystem on
+C<device>.
+
 =item $path = $h->get_path ();
 
 Return the current search path.
@@ -757,6 +767,25 @@ This sets the state to C<BUSY>.  This is only used when implementing
 actions using the low-level API.
 
 For more information on states, see L<guestfs(3)>.
+
+=item $h->set_e2label ($device, $label);
+
+This sets the ext2/3/4 filesystem label of the filesystem on
+C<device> to C<label>.  Filesystem labels are limited to
+16 characters.
+
+You can use either C<$h-E<gt>tune2fs_l> or C<$h-E<gt>get_e2label>
+to return the existing label on a filesystem.
+
+=item $h->set_e2uuid ($device, $uuid);
+
+This sets the ext2/3/4 filesystem UUID of the filesystem on
+C<device> to C<uuid>.  The format of the UUID and alternatives
+such as C<clear>, C<random> and C<time> are described in the
+L<tune2fs(8)> manpage.
+
+You can use either C<$h-E<gt>tune2fs_l> or C<$h-E<gt>get_e2uuid>
+to return the existing UUID of a filesystem.
 
 =item $h->set_path ($path);
 

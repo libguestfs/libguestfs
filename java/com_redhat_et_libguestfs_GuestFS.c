@@ -2317,3 +2317,85 @@ Java_com_redhat_et_libguestfs_GuestFS__1pvremove
   }
 }
 
+JNIEXPORT void JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1set_1e2label
+  (JNIEnv *env, jobject obj, jlong jg, jstring jdevice, jstring jlabel)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+  const char *device;
+  const char *label;
+
+  device = (*env)->GetStringUTFChars (env, jdevice, NULL);
+  label = (*env)->GetStringUTFChars (env, jlabel, NULL);
+  r = guestfs_set_e2label (g, device, label);
+  (*env)->ReleaseStringUTFChars (env, jdevice, device);
+  (*env)->ReleaseStringUTFChars (env, jlabel, label);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return ;
+  }
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1get_1e2label
+  (JNIEnv *env, jobject obj, jlong jg, jstring jdevice)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  jstring jr;
+  char *r;
+  const char *device;
+
+  device = (*env)->GetStringUTFChars (env, jdevice, NULL);
+  r = guestfs_get_e2label (g, device);
+  (*env)->ReleaseStringUTFChars (env, jdevice, device);
+  if (r == NULL) {
+    throw_exception (env, guestfs_last_error (g));
+    return NULL;
+  }
+  jr = (*env)->NewStringUTF (env, r);
+  free (r);
+  return jr;
+}
+
+JNIEXPORT void JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1set_1e2uuid
+  (JNIEnv *env, jobject obj, jlong jg, jstring jdevice, jstring juuid)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+  const char *device;
+  const char *uuid;
+
+  device = (*env)->GetStringUTFChars (env, jdevice, NULL);
+  uuid = (*env)->GetStringUTFChars (env, juuid, NULL);
+  r = guestfs_set_e2uuid (g, device, uuid);
+  (*env)->ReleaseStringUTFChars (env, jdevice, device);
+  (*env)->ReleaseStringUTFChars (env, juuid, uuid);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return ;
+  }
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1get_1e2uuid
+  (JNIEnv *env, jobject obj, jlong jg, jstring jdevice)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  jstring jr;
+  char *r;
+  const char *device;
+
+  device = (*env)->GetStringUTFChars (env, jdevice, NULL);
+  r = guestfs_get_e2uuid (g, device);
+  (*env)->ReleaseStringUTFChars (env, jdevice, device);
+  if (r == NULL) {
+    throw_exception (env, guestfs_last_error (g));
+    return NULL;
+  }
+  jr = (*env)->NewStringUTF (env, r);
+  free (r);
+  return jr;
+}
+

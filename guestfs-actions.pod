@@ -590,6 +590,28 @@ Get the autosync flag.
 
 This function returns a C truth value on success or -1 on error.
 
+=head2 guestfs_get_e2label
+
+ char *guestfs_get_e2label (guestfs_h *handle,
+		const char *device);
+
+This returns the ext2/3/4 filesystem label of the filesystem on
+C<device>.
+
+This function returns a string, or NULL on error.
+I<The caller must free the returned string after use>.
+
+=head2 guestfs_get_e2uuid
+
+ char *guestfs_get_e2uuid (guestfs_h *handle,
+		const char *device);
+
+This returns the ext2/3/4 filesystem UUID of the filesystem on
+C<device>.
+
+This function returns a string, or NULL on error.
+I<The caller must free the returned string after use>.
+
 =head2 guestfs_get_path
 
  const char *guestfs_get_path (guestfs_h *handle);
@@ -1090,6 +1112,37 @@ This sets the state to C<BUSY>.  This is only used when implementing
 actions using the low-level API.
 
 For more information on states, see L<guestfs(3)>.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_set_e2label
+
+ int guestfs_set_e2label (guestfs_h *handle,
+		const char *device,
+		const char *label);
+
+This sets the ext2/3/4 filesystem label of the filesystem on
+C<device> to C<label>.  Filesystem labels are limited to
+16 characters.
+
+You can use either C<guestfs_tune2fs_l> or C<guestfs_get_e2label>
+to return the existing label on a filesystem.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_set_e2uuid
+
+ int guestfs_set_e2uuid (guestfs_h *handle,
+		const char *device,
+		const char *uuid);
+
+This sets the ext2/3/4 filesystem UUID of the filesystem on
+C<device> to C<uuid>.  The format of the UUID and alternatives
+such as C<clear>, C<random> and C<time> are described in the
+L<tune2fs(8)> manpage.
+
+You can use either C<guestfs_tune2fs_l> or C<guestfs_get_e2uuid>
+to return the existing UUID of a filesystem.
 
 This function returns 0 on success or -1 on error.
 

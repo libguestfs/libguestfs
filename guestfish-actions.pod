@@ -455,6 +455,20 @@ particular that the filename is not prepended to the output
 
 Get the autosync flag.
 
+=head2 get-e2label
+
+ get-e2label device
+
+This returns the ext2/3/4 filesystem label of the filesystem on
+C<device>.
+
+=head2 get-e2uuid
+
+ get-e2uuid device
+
+This returns the ext2/3/4 filesystem UUID of the filesystem on
+C<device>.
+
 =head2 get-path
 
  get-path
@@ -811,6 +825,29 @@ Remove the single directory C<path>.
 If C<autosync> is true, this enables autosync.  Libguestfs will make a
 best effort attempt to run C<sync> when the handle is closed
 (also if the program exits without closing handles).
+
+=head2 set-e2label
+
+ set-e2label device label
+
+This sets the ext2/3/4 filesystem label of the filesystem on
+C<device> to C<label>.  Filesystem labels are limited to
+16 characters.
+
+You can use either C<tune2fs-l> or C<get-e2label>
+to return the existing label on a filesystem.
+
+=head2 set-e2uuid
+
+ set-e2uuid device uuid
+
+This sets the ext2/3/4 filesystem UUID of the filesystem on
+C<device> to C<uuid>.  The format of the UUID and alternatives
+such as C<clear>, C<random> and C<time> are described in the
+L<tune2fs(8)> manpage.
+
+You can use either C<tune2fs-l> or C<get-e2uuid>
+to return the existing UUID of a filesystem.
 
 =head2 set-path | path
 

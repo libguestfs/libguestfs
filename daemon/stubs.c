@@ -1944,6 +1944,112 @@ done:
   xdr_free ((xdrproc_t) xdr_guestfs_pvremove_args, (char *) &args);
 }
 
+static void set_e2label_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_set_e2label_args args;
+  const char *device;
+  const char *label;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_set_e2label_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "set_e2label");
+    return;
+  }
+  device = args.device;
+  label = args.label;
+
+  r = do_set_e2label (device, label);
+  if (r == -1)
+    /* do_set_e2label has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_set_e2label_args, (char *) &args);
+}
+
+static void get_e2label_stub (XDR *xdr_in)
+{
+  char *r;
+  struct guestfs_get_e2label_args args;
+  const char *device;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_get_e2label_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "get_e2label");
+    return;
+  }
+  device = args.device;
+
+  r = do_get_e2label (device);
+  if (r == NULL)
+    /* do_get_e2label has already called reply_with_error */
+    goto done;
+
+  struct guestfs_get_e2label_ret ret;
+  ret.label = r;
+  reply ((xdrproc_t) &xdr_guestfs_get_e2label_ret, (char *) &ret);
+  free (r);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_get_e2label_args, (char *) &args);
+}
+
+static void set_e2uuid_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_set_e2uuid_args args;
+  const char *device;
+  const char *uuid;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_set_e2uuid_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "set_e2uuid");
+    return;
+  }
+  device = args.device;
+  uuid = args.uuid;
+
+  r = do_set_e2uuid (device, uuid);
+  if (r == -1)
+    /* do_set_e2uuid has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_set_e2uuid_args, (char *) &args);
+}
+
+static void get_e2uuid_stub (XDR *xdr_in)
+{
+  char *r;
+  struct guestfs_get_e2uuid_args args;
+  const char *device;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_get_e2uuid_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "get_e2uuid");
+    return;
+  }
+  device = args.device;
+
+  r = do_get_e2uuid (device);
+  if (r == NULL)
+    /* do_get_e2uuid has already called reply_with_error */
+    goto done;
+
+  struct guestfs_get_e2uuid_ret ret;
+  ret.uuid = r;
+  reply ((xdrproc_t) &xdr_guestfs_get_e2uuid_ret, (char *) &ret);
+  free (r);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_get_e2uuid_args, (char *) &args);
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -2183,6 +2289,18 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_PVREMOVE:
       pvremove_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_SET_E2LABEL:
+      set_e2label_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_GET_E2LABEL:
+      get_e2label_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_SET_E2UUID:
+      set_e2uuid_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_GET_E2UUID:
+      get_e2uuid_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d", proc_nr);

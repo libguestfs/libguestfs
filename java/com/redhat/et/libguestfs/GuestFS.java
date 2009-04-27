@@ -2272,4 +2272,85 @@ public class GuestFS {
   private native void _pvremove (long g, String device)
     throws LibGuestFSException;
 
+  /**
+   * set the ext2/3/4 filesystem label
+   *
+   * This sets the ext2/3/4 filesystem label of the
+   * filesystem on "device" to "label". Filesystem labels are
+   * limited to 16 characters.
+   * 
+   * You can use either "g.tune2fs_l" or "g.get_e2label" to
+   * return the existing label on a filesystem.
+   * 
+   * @throws LibGuestFSException
+   */
+  public void set_e2label (String device, String label)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("set_e2label: handle is closed");
+    _set_e2label (g, device, label);
+  }
+  private native void _set_e2label (long g, String device, String label)
+    throws LibGuestFSException;
+
+  /**
+   * get the ext2/3/4 filesystem label
+   *
+   * This returns the ext2/3/4 filesystem label of the
+   * filesystem on "device".
+   * 
+   * @throws LibGuestFSException
+   */
+  public String get_e2label (String device)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("get_e2label: handle is closed");
+    return _get_e2label (g, device);
+  }
+  private native String _get_e2label (long g, String device)
+    throws LibGuestFSException;
+
+  /**
+   * set the ext2/3/4 filesystem UUID
+   *
+   * This sets the ext2/3/4 filesystem UUID of the filesystem
+   * on "device" to "uuid". The format of the UUID and
+   * alternatives such as "clear", "random" and "time" are
+   * described in the tune2fs(8) manpage.
+   * 
+   * You can use either "g.tune2fs_l" or "g.get_e2uuid" to
+   * return the existing UUID of a filesystem.
+   * 
+   * @throws LibGuestFSException
+   */
+  public void set_e2uuid (String device, String uuid)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("set_e2uuid: handle is closed");
+    _set_e2uuid (g, device, uuid);
+  }
+  private native void _set_e2uuid (long g, String device, String uuid)
+    throws LibGuestFSException;
+
+  /**
+   * get the ext2/3/4 filesystem UUID
+   *
+   * This returns the ext2/3/4 filesystem UUID of the
+   * filesystem on "device".
+   * 
+   * @throws LibGuestFSException
+   */
+  public String get_e2uuid (String device)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("get_e2uuid: handle is closed");
+    return _get_e2uuid (g, device);
+  }
+  private native String _get_e2uuid (long g, String device)
+    throws LibGuestFSException;
+
 }

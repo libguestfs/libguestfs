@@ -2900,6 +2900,108 @@ py_guestfs_pvremove (PyObject *self, PyObject *args)
   return py_r;
 }
 
+static PyObject *
+py_guestfs_set_e2label (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *device;
+  const char *label;
+
+  if (!PyArg_ParseTuple (args, (char *) "Oss:guestfs_set_e2label",
+                         &py_g, &device, &label))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_set_e2label (g, device, label);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_get_e2label (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  char *r;
+  const char *device;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_get_e2label",
+                         &py_g, &device))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_get_e2label (g, device);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyString_FromString (r);
+  free (r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_set_e2uuid (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *device;
+  const char *uuid;
+
+  if (!PyArg_ParseTuple (args, (char *) "Oss:guestfs_set_e2uuid",
+                         &py_g, &device, &uuid))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_set_e2uuid (g, device, uuid);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_get_e2uuid (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  char *r;
+  const char *device;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_get_e2uuid",
+                         &py_g, &device))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_get_e2uuid (g, device);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyString_FromString (r);
+  free (r);
+  return py_r;
+}
+
 static PyMethodDef methods[] = {
   { (char *) "create", py_guestfs_create, METH_VARARGS, NULL },
   { (char *) "close", py_guestfs_close, METH_VARARGS, NULL },
@@ -3003,6 +3105,10 @@ static PyMethodDef methods[] = {
   { (char *) "lvremove", py_guestfs_lvremove, METH_VARARGS, NULL },
   { (char *) "vgremove", py_guestfs_vgremove, METH_VARARGS, NULL },
   { (char *) "pvremove", py_guestfs_pvremove, METH_VARARGS, NULL },
+  { (char *) "set_e2label", py_guestfs_set_e2label, METH_VARARGS, NULL },
+  { (char *) "get_e2label", py_guestfs_get_e2label, METH_VARARGS, NULL },
+  { (char *) "set_e2uuid", py_guestfs_set_e2uuid, METH_VARARGS, NULL },
+  { (char *) "get_e2uuid", py_guestfs_get_e2uuid, METH_VARARGS, NULL },
   { NULL, NULL, 0, NULL }
 };
 
