@@ -115,3 +115,122 @@ do_tune2fs_l (const char *device)
 
   return ret;
 }
+
+int
+do_set_e2label (const char *device, const char *label)
+{
+  int r;
+  char *err;
+
+  r = command (NULL, &err, "/sbin/e2label", device, label, NULL);
+  if (r == -1) {
+    reply_with_error ("e2label: %s", err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+  return 0;
+}
+
+char *
+do_get_e2label (const char *device)
+{
+  int r, len;
+  char *out, *err;
+
+  r = command (&out, &err, "/sbin/e2label", device, NULL);
+  if (r == -1) {
+    reply_with_error ("e2label: %s", err);
+    free (out);
+    free (err);
+    return NULL;
+  }
+
+  free (err);
+
+  /* Remove any trailing \n from the label. */
+  len = strlen (out);
+  if (len > 0 && out[len-1] == '\n')
+    out[len-1] = '\0';
+
+  return out;			/* caller frees */
+}
+
+int
+do_set_e2uuid (const char *device, const char *uuid)
+{
+  int r;
+  char *err;
+
+  r = command (NULL, &err, "/sbin/tune2fs", "-U", uuid, device, NULL);
+  if (r == -1) {
+    reply_with_error ("tune2fs -U: %s", err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+  return 0;
+}
+
+char *
+do_get_e2uuid (const char *device)
+{
+  int r;
+  char *out, *err, *p, *q;
+
+  /* It's not so straightforward to get the volume UUID.  We have
+   * to use tune2fs -l and then look for a particular string in
+   * the output.
+   */
+
+  r = command (&out, &err, "/sbin/tune2fs", "-l", device, NULL);
+  if (r == -1) {
+    reply_with_error ("tune2fs -l: %s", err);
+    free (out);
+    free (err);
+    return NULL;
+  }
+
+  free (err);
+
+  /* Look for /\nFilesystem UUID:\s+/ in the output. */
+  p = strstr (out, "\nFilesystem UUID:");
+  if (p == NULL) {
+    reply_with_error ("no Filesystem UUID in the output of tune2fs -l");
+    free (out);
+    return NULL;
+  }
+
+  p += 17;
+  while (*p && isspace (*p))
+    p++;
+  if (!*p) {
+    reply_with_error ("malformed Filesystem UUID in the output of tune2fs -l");
+    free (out);
+    return NULL;
+  }
+
+  /* Now 'p' hopefully points to the start of the UUID. */
+  q = p;
+  while (*q && (isxdigit (*q) || *q == '-'))
+    q++;
+  if (!*q) {
+    reply_with_error ("malformed Filesystem UUID in the output of tune2fs -l");
+    free (out);
+    return NULL;
+  }
+
+  *q = '\0';
+
+  p = strdup (p);
+  if (!p) {
+    reply_with_perror ("strdup");
+    free (out);
+    return NULL;
+  }
+
+  free (out);
+  return p;			/* caller frees */
+}

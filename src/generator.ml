@@ -1565,6 +1565,55 @@ The implementation uses the C<pvremove> command which refuses to
 wipe physical volumes that contain any volume groups, so you have
 to remove those first.");
 
+  ("set_e2label", (RErr, [String "device"; String "label"]), 80, [],
+   [InitBasicFS, TestOutput (
+      [["set_e2label"; "/dev/sda1"; "testlabel"];
+       ["get_e2label"; "/dev/sda1"]], "testlabel")],
+   "set the ext2/3/4 filesystem label",
+   "\
+This sets the ext2/3/4 filesystem label of the filesystem on
+C<device> to C<label>.  Filesystem labels are limited to
+16 characters.
+
+You can use either C<guestfs_tune2fs_l> or C<guestfs_get_e2label>
+to return the existing label on a filesystem.");
+
+  ("get_e2label", (RString "label", [String "device"]), 81, [],
+   [],
+   "get the ext2/3/4 filesystem label",
+   "\
+This returns the ext2/3/4 filesystem label of the filesystem on
+C<device>.");
+
+  ("set_e2uuid", (RErr, [String "device"; String "uuid"]), 82, [],
+   [InitBasicFS, TestOutput (
+      [["set_e2uuid"; "/dev/sda1"; "a3a61220-882b-4f61-89f4-cf24dcc7297d"];
+       ["get_e2uuid"; "/dev/sda1"]], "a3a61220-882b-4f61-89f4-cf24dcc7297d");
+    InitBasicFS, TestOutput (
+      [["set_e2uuid"; "/dev/sda1"; "clear"];
+       ["get_e2uuid"; "/dev/sda1"]], "");
+    (* We can't predict what UUIDs will be, so just check the commands run. *)
+    InitBasicFS, TestRun (
+      [["set_e2uuid"; "/dev/sda1"; "random"]]);
+    InitBasicFS, TestRun (
+      [["set_e2uuid"; "/dev/sda1"; "time"]])],
+   "set the ext2/3/4 filesystem UUID",
+   "\
+This sets the ext2/3/4 filesystem UUID of the filesystem on
+C<device> to C<uuid>.  The format of the UUID and alternatives
+such as C<clear>, C<random> and C<time> are described in the
+L<tune2fs(8)> manpage.
+
+You can use either C<guestfs_tune2fs_l> or C<guestfs_get_e2uuid>
+to return the existing UUID of a filesystem.");
+
+  ("get_e2uuid", (RString "uuid", [String "device"]), 83, [],
+   [],
+   "get the ext2/3/4 filesystem UUID",
+   "\
+This returns the ext2/3/4 filesystem UUID of the filesystem on
+C<device>.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
