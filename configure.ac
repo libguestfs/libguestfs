@@ -376,6 +376,24 @@ AC_SUBST(JNI_VERSION_INFO)
 
 AM_CONDITIONAL([HAVE_JAVA],[test -n "$JAVAC"])
 
+dnl Check for Perl modules needed by the inspector.
+missing_perl_modules=no
+for pm in Pod::Usage Getopt::Long Sys::Virt Data::Dumper; do
+    AC_MSG_CHECKING([for $pm])
+    if ! perl -M$pm -e1 >/dev/null 2>&1; then
+        AC_MSG_RESULT([no])
+        missing_perl_modules=yes
+    else
+        AC_MSG_RESULT([yes])
+    fi
+done
+if test "x$missing_perl_modules" = "xyes"; then
+    AC_MSG_WARN([some Perl modules required to compile virt-inspector are missing])
+fi
+
+AM_CONDITIONAL([HAVE_INSPECTOR],
+    [test "x$PERL" != "xno" -a "x$missing_perl_modules" != "xyes"])
+
 dnl Run in subdirs.
 AC_CONFIG_SUBDIRS([daemon])
 
@@ -388,6 +406,7 @@ AC_CONFIG_FILES([Makefile src/Makefile fish/Makefile examples/Makefile
 		 python/Makefile
 		 ruby/Makefile ruby/Rakefile
 		 java/Makefile
+		 inspector/Makefile
 	         make-initramfs.sh update-initramfs.sh
 		 libguestfs.spec libguestfs.pc
 		 ocaml/META perl/Makefile.PL])
@@ -415,6 +434,8 @@ echo -n "Ruby bindings ....................... "
 if test "x$HAVE_RUBY_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo -n "Java bindings ....................... "
 if test "x$HAVE_JAVA_TRUE" = "x"; then echo "yes"; else echo "no"; fi
+echo -n "virt-inspector ...................... "
+if test "x$HAVE_INSPECTOR" = "x"; then echo "yes"; else echo "no"; fi
 echo
 echo "If any optional component is configured 'no' when you expected 'yes'"
 echo "then you should check the preceeding messages."

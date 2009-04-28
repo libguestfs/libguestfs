@@ -43,6 +43,7 @@ html/recipes.html
 initramfs
 initramfs.timestamp
 initramfs.*.img
+inspector/virt-inspector.1
 install-sh
 java/api
 java/com_redhat_et_libguestfs_GuestFS.h

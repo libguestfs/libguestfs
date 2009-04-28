@@ -48,6 +48,9 @@ BuildRequires: java >= 1.5.0
 BuildRequires: jpackage-utils
 BuildRequires: java-devel
 
+# For virt-inspector:
+BuildRequires: perl-Sys-Virt
+
 # Runtime requires:
 Requires:    qemu >= 0.10-7
 
@@ -111,6 +114,22 @@ Requires:    /usr/bin/pod2text
 Guestfish is the Filesystem Interactive SHell, for accessing and
 modifying virtual machine disk images from the command line and shell
 scripts.
+
+
+%package -n virt-inspector
+Summary:     Display OS version, kernel, drivers, etc in a virtual machine
+Group:       Development/Tools
+License:     GPLv2+
+Requires:    %{name} = %{version}-%{release}
+Requires:    guestfish
+Requires:    perl-Sys-Virt
+
+
+%description -n virt-inspector
+Virt-inspector examines a virtual machine and tries to determine the
+version of the OS, the kernel version, what drivers are installed,
+whether the virtual machine is fully virtualized (FV) or
+para-virtualized (PV), what applications are installed and more.
 
 
 %package -n ocaml-%{name}
@@ -330,6 +349,12 @@ rm -rf $RPM_BUILD_ROOT
 %doc html/guestfish.1.html html/pod.css recipes/
 %{_bindir}/guestfish
 %{_mandir}/man1/guestfish.1*
+
+
+%files -n virt-inspector
+%defattr(-,root,root,-)
+%{_bindir}/virt-inspector
+%{_mandir}/man1/virt-inspector.1*
 
 
 %files -n ocaml-%{name}

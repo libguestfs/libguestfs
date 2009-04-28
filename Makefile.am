@@ -34,6 +34,9 @@ endif
 if HAVE_JAVA
 SUBDIRS += java
 endif
+if HAVE_INSPECTOR
+SUBDIRS += inspector
+endif
 
 EXTRA_DIST = \
 	make-initramfs.sh update-initramfs.sh \

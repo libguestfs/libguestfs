@@ -46,6 +46,9 @@ images/
 
 	Also contains some files used by the test suite.
 
+inspector/
+	Virtual machine image inspector (virt-inspector).
+
 java/
 	Java bindings.
 
