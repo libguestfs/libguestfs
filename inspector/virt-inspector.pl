@@ -442,6 +442,7 @@ sub check_grub
 
 #print Dumper (\%fses);
 
+#----------------------------------------------------------------------
 # Now find out how many operating systems we've got.  Usually just one.
 
 my %oses = ();
@@ -523,16 +524,87 @@ sub find_filesystem
 	return ();
     } else {
 	return ($_, $fses{$_}) if exists $fses{$_};
+
+	if (m{^/dev/hd(.*)} && exists $fses{"/dev/sd$1"}) {
+	    return ("/dev/sd$1", $fses{"/dev/sd$1"});
+	}
+	if (m{^/dev/xvd(.*)} && exists $fses{"/dev/sd$1"}) {
+	    return ("/dev/sd$1", $fses{"/dev/sd$1"});
+	}
+
+	return () if m{/dev/cdrom};
+
 	warn "unknown filesystem $_\n";
 	return ();
     }
 }
 
-print Dumper (\%oses);
+#print Dumper(\%oses);
 
+#----------------------------------------------------------------------
+# Mount up the disks so we can check for applications
+# and kernels.  Skip this if the output is "*fish" because
+# we don't need to know.
 
+if ($output !~ /.*fish$/) {
+    my $root_dev;
+    foreach $root_dev (sort keys %oses) {
+	my $mounts = $oses{$root_dev}->{mounts};
+	# Have to mount / first.  Luckily '/' is early in the ASCII
+	# character set, so this should be OK.
+	foreach (sort keys %$mounts) {
+	    $g->mount_ro ($mounts->{$_}, $_)
+		if $_ ne "swap" && ($_ eq '/' || $g->is_dir ($_));
+	}
 
+	check_for_applications ($root_dev);
+	check_for_kernels ($root_dev);
 
+	umount_all ();
+    }
+}
+
+sub check_for_applications
+{
+    local $_;
+    my $root_dev = shift;
+
+    # XXX rpm -qa, look in Program Files, or whatever
+}
+
+sub check_for_kernels
+{
+    local $_;
+    my $root_dev = shift;
+
+    # XXX
+}
+
+#----------------------------------------------------------------------
+# Output.
+
+if ($output eq "fish" || $output eq "ro-fish") {
+    my @osdevs = keys %oses;
+    # This only works if there is a single OS.
+    die "--fish output is only possible with a single OS\n" if @osdevs != 1;
+
+    my $root_dev = $osdevs[0];
+
+    print "guestfish";
+    if ($output eq "ro-fish") {
+	print " --ro";
+    }
+
+    print " -a $_" foreach @images;
+
+    my $mounts = $oses{$root_dev}->{mounts};
+    # Have to mount / first.  Luckily '/' is early in the ASCII
+    # character set, so this should be OK.
+    foreach (sort keys %$mounts) {
+	print " -m $mounts->{$_}:$_" if $_ ne "swap";
+    }
+    print "\n"
+}
 
 
 
