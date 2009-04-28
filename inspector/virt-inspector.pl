@@ -113,6 +113,8 @@ my $output = "text";
 
 =item B<--xml>
 
+=item B<--perl>
+
 =item B<--fish>
 
 =item B<--ro-fish>
@@ -121,6 +123,9 @@ Select the output format.  The default is a readable text report.
 
 If you select I<--xml> then you get XML output which can be fed
 to other programs.
+
+If you select I<--perl> then you get Perl structures output which
+can be used directly in another Perl program.
 
 If you select I<--fish> then we print a L<guestfish(1)> command
 line which will automatically mount up the filesystems on the
@@ -139,6 +144,7 @@ GetOptions ("help|?" => \$help,
 	    "connect|c=s" => \$uri,
 	    "force" => \$force,
 	    "xml" => sub { $output = "xml" },
+	    "perl" => sub { $output = "perl" },
 	    "fish" => sub { $output = "fish" },
 	    "guestfish" => sub { $output = "fish" },
 	    "ro-fish" => sub { $output = "ro-fish" },
@@ -560,7 +566,13 @@ if ($output !~ /.*fish$/) {
 	check_for_applications ($root_dev);
 	check_for_kernels ($root_dev);
 
-	umount_all ();
+	# umount_all in libguestfs is buggy - it doesn't unmount
+	# filesystems in the correct order.  So let's unmount them
+	# in reverse first before calling umount_all as a last resort.
+	foreach (sort { $b cmp $a } keys %$mounts) {
+	    eval "\$g->umount ('$_')";
+	}
+	$g->umount_all ();
     }
 }
 
@@ -606,7 +618,32 @@ if ($output eq "fish" || $output eq "ro-fish") {
     print "\n"
 }
 
+# Perl output.
+elsif ($output eq "perl") {
+    print Dumper(\%oses);
+}
 
+# Plain text output (the default).
+elsif ($output eq "text") {
+    # XXX text output.
+
+
+
+
+
+}
+
+# XML output.
+elsif ($output eq "xml") {
+    # XXX XML output.
+
+
+
+
+
+
+
+}
 
 =head1 SEE ALSO
 
