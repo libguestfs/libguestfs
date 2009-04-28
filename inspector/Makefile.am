@@ -16,6 +16,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 EXTRA_DIST = \
+	run-inspector-locally \
 	virt-inspector.pl
 
 CLEANFILES = *~
