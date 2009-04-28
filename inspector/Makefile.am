@@ -25,12 +25,22 @@ if HAVE_INSPECTOR
 
 man_MANS = virt-inspector.1
 
+noinst_DATA = ../html/virt-inspector.1.html
+
 virt-inspector.1: virt-inspector.pl
 	$(POD2MAN) \
 	  --section 1 \
 	  -c "Virtualization Support" \
 	  --release "$(PACKAGE_NAME)-$(PACKAGE_VERSION)" \
 	  $< > $@
+
+../html/virt-inspector.1.html: virt-inspector.pl
+	cd .. && pod2html \
+	  --css 'pod.css' \
+	  --title 'virt-inspector, display OS version, kernel, drivers, mount points, applications, etc. in a virtual machine' \
+	  --htmldir html \
+	  --outfile html/virt-inspector.1.html \
+	  inspector/$<
 
 install-data-hook:
 	mkdir -p $(DESTDIR)$(bindir)

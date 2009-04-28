@@ -151,7 +151,9 @@ html/recipes.html: $(wildcard recipes/*.sh) $(wildcard recipes/*.html) $(wildcar
 	sh make-recipes.sh recipes/*.sh > $@-t
 	mv $@-t $@
 
-website: html/guestfs.3.html html/guestfish.1.html html/recipes.html
+website: html/guestfs.3.html html/guestfish.1.html \
+	html/virt-inspector.1.html \
+	html/recipes.html
 	cp $^ html/pod.css html/recipes.css \
 	  $(HOME)/d/redhat/et-website/libguestfs/
 
