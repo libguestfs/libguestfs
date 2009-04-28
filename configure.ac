@@ -186,7 +186,7 @@ dnl test the Perl bindings.
 missing_perl_modules=no
 for pm in Test::More Test::Pod Test::Pod::Coverage ExtUtils::MakeMaker; do
     AC_MSG_CHECKING([for $pm])
-    if ! perl -M$pm >/dev/null 2>&1; then
+    if ! perl -M$pm -e1 >/dev/null 2>&1; then
         AC_MSG_RESULT([no])
         missing_perl_modules=yes
     else
