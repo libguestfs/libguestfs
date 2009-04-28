@@ -80,6 +80,9 @@ $(INITRAMFSIMG): initramfs/fakeroot.log daemon/guestfsd
 	bash $(top_builddir)/update-initramfs.sh
 	touch $@
 
+make-initramfs.sh: make-initramfs.sh.in
+	./config.status $@
+
 # Tests.  These are auto-generated from the test descriptions.
 
 check_PROGRAMS = tests
