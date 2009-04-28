@@ -625,24 +625,97 @@ elsif ($output eq "perl") {
 
 # Plain text output (the default).
 elsif ($output eq "text") {
-    # XXX text output.
-
-
-
-
-
+    output_text ();
 }
 
 # XML output.
 elsif ($output eq "xml") {
-    # XXX XML output.
+    output_xml ();
+}
 
+sub output_text
+{
+    output_text_os ($oses{$_}) foreach sort keys %oses;
+}
 
+sub output_text_os
+{
+    my $os = shift;
 
+    print $os->{os}, " " if exists $os->{os};
+    print $os->{distro}, " " if exists $os->{distro};
+    print $os->{version}, " " if exists $os->{version};
+    print "on ", $os->{root_device}, ":\n";
 
+    print "  Mountpoints:\n";
+    my $mounts = $os->{mounts};
+    foreach (sort keys %$mounts) {
+	printf "    %-30s %s\n", $mounts->{$_}, $_
+    }
 
+    print "  Filesystems:\n";
+    my $filesystems = $os->{filesystems};
+    foreach (sort keys %$filesystems) {
+	print "    $_:\n";
+	print "      label: $filesystems->{$_}{label}\n"
+	    if exists $filesystems->{$_}{label};
+	print "      UUID: $filesystems->{$_}{uuid}\n"
+	    if exists $filesystems->{$_}{uuid};
+	print "      type: $filesystems->{$_}{fstype}\n"
+	    if exists $filesystems->{$_}{fstype};
+	print "      content: $filesystems->{$_}{content}\n"
+	    if exists $filesystems->{$_}{content};
+    }
 
+    # XXX Applications.
+    # XXX Kernel.
+}
 
+sub output_xml
+{
+    print "<operatingsystems>\n";
+    output_xml_os ($oses{$_}) foreach sort keys %oses;
+    print "</operatingsystems>\n";
+}
+
+sub output_xml_os
+{
+    my $os = shift;
+
+    print "<operatingsystem>\n";
+
+    print "<os>", $os->{os}, "</os>\n" if exists $os->{os};
+    print "<distro>", $os->{distro}, "</distro>\n" if exists $os->{distro};
+    print "<version>", $os->{version}, "</version>\n" if exists $os->{version};
+    print "<root>", $os->{root_device}, "</root>\n";
+
+    print "<mountpoints>\n";
+    my $mounts = $os->{mounts};
+    foreach (sort keys %$mounts) {
+	printf "<mountpoint dev='%s'>%s</mountpoint>\n",
+	  $mounts->{$_}, $_
+    }
+    print "</mountpoints>\n";
+
+    print "<filesystems>\n";
+    my $filesystems = $os->{filesystems};
+    foreach (sort keys %$filesystems) {
+	print "<filesystem dev='$_'>\n";
+	print "<label>$filesystems->{$_}{label}</label>\n"
+	    if exists $filesystems->{$_}{label};
+	print "<uuid>$filesystems->{$_}{uuid}</uuid>\n"
+	    if exists $filesystems->{$_}{uuid};
+	print "<type>$filesystems->{$_}{fstype}</type>\n"
+	    if exists $filesystems->{$_}{fstype};
+	print "<content>$filesystems->{$_}{content}</content>\n"
+	    if exists $filesystems->{$_}{content};
+	print "</filesystem>\n";
+    }
+    print "</filesystems>\n";
+
+    # XXX Applications.
+    # XXX Kernel.
+    print "</operatingsystem>\n";
 }
 
 =head1 SEE ALSO
