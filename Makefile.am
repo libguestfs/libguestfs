@@ -70,11 +70,11 @@ $(INITRAMFSIMG) $(VMLINUZ): initramfs/fakeroot.log
 initramfs/fakeroot.log: make-initramfs.sh.in
 	-mv $(INITRAMFSIMG) $(INITRAMFSIMG).bak
 	-mv $(VMLINUZ) $(VMLINUZ).bak
-	if ! bash $(builddir)/make-initramfs.sh; then rm -f $@; exit 1; fi
+	if ! bash $(top_builddir)/make-initramfs.sh; then rm -f $@; exit 1; fi
 
 $(INITRAMFSIMG): initramfs/fakeroot.log daemon/guestfsd
 	rm -f $@
-	bash $(builddir)/update-initramfs.sh
+	bash $(top_builddir)/update-initramfs.sh
 	touch $@
 
 # Tests.  These are auto-generated from the test descriptions.
