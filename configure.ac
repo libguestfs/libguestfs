@@ -23,7 +23,7 @@ AC_CONFIG_MACRO_DIR([m4])
 AC_PROG_LIBTOOL
 
 dnl Check for basic C environment.
-AC_PROG_CC
+AC_PROG_CC_STDC
 AC_PROG_INSTALL
 AC_PROG_CPP
 
