@@ -197,7 +197,7 @@ test-boot-realistic: emptydisk
 	  -serial stdio \
 	  -net channel,6666:unix:/tmp/sock,server,nowait \
 	  -net user,vlan=0 \
-	  -net nic,vlan=0
+	  -net nic,model=virtio,vlan=0
 
 # Make clean.
 

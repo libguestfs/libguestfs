@@ -83,8 +83,10 @@ find initramfs -name '*python*' -print0 | xargs -0 rm -rf
 # we don't need many drivers (which take up most of the space).
 find initramfs/lib/modules/*/kernel \
   -name '*.ko' \
-  -a ! -name 'mii.ko' \
-  -a ! -name '8139cp.ko' \
+  -a ! -name 'virtio.ko' \
+  -a ! -name 'virtio_net.ko' \
+  -a ! -name 'virtio_pci.ko' \
+  -a ! -name 'virtio_ring.ko' \
   -a ! -name 'ext2.ko' \
   -a ! -name 'ext4.ko' \
   -a ! -name 'crc16.ko' \
@@ -132,7 +134,8 @@ MAKEDEV mem null port zero core full ram tty console fd \
 mount -t proc /proc /proc
 mount -t sysfs /sys /sys
 mount -t devpts -o gid=5,mode=620 /dev/pts /dev/pts
-modprobe 8139cp
+modprobe virtio_pci
+modprobe virtio_net
 /sbin/ifconfig lo 127.0.0.1
 /sbin/ifconfig eth0 10.0.2.10
 /sbin/route add default gw 10.0.2.2
