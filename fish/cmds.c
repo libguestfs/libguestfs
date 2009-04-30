@@ -75,6 +75,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "get-qemu", "get the qemu binary");
   printf ("%-20s %s\n", "get-state", "get the current state");
   printf ("%-20s %s\n", "get-verbose", "get verbose mode");
+  printf ("%-20s %s\n", "grub-install", "install GRUB");
   printf ("%-20s %s\n", "is-busy", "is busy processing a command");
   printf ("%-20s %s\n", "is-config", "is in configuration state");
   printf ("%-20s %s\n", "is-dir", "test if file exists");
@@ -447,6 +448,9 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "zero") == 0)
     pod2text ("zero - write zeroes to the device", " zero <device>\n\nThis command writes zeroes over the first few blocks of C<device>.\n\nHow many blocks are zeroed isn't specified (but it's I<not> enough\nto securely wipe the device).  It should be sufficient to remove\nany partition tables, filesystem superblocks and so on.");
+  else
+  if (strcasecmp (cmd, "grub_install") == 0 || strcasecmp (cmd, "grub-install") == 0)
+    pod2text ("grub-install - install GRUB", " grub-install <root> <device>\n\nThis command installs GRUB (the Grand Unified Bootloader) on\nC<device>, with the root directory being C<root>.");
   else
     display_builtin_command (cmd);
 }
@@ -2182,6 +2186,22 @@ static int run_zero (const char *cmd, int argc, char *argv[])
   return r;
 }
 
+static int run_grub_install (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *root;
+  const char *device;
+  if (argc != 2) {
+    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  root = argv[0];
+  device = argv[1];
+  r = guestfs_grub_install (g, root, device);
+  return r;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -2492,6 +2512,9 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "zero") == 0)
     return run_zero (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "grub_install") == 0 || strcasecmp (cmd, "grub-install") == 0)
+    return run_grub_install (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

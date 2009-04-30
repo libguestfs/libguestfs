@@ -2437,3 +2437,23 @@ Java_com_redhat_et_libguestfs_GuestFS__1zero
   }
 }
 
+JNIEXPORT void JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1grub_1install
+  (JNIEnv *env, jobject obj, jlong jg, jstring jroot, jstring jdevice)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+  const char *root;
+  const char *device;
+
+  root = (*env)->GetStringUTFChars (env, jroot, NULL);
+  device = (*env)->GetStringUTFChars (env, jdevice, NULL);
+  r = guestfs_grub_install (g, root, device);
+  (*env)->ReleaseStringUTFChars (env, jroot, root);
+  (*env)->ReleaseStringUTFChars (env, jdevice, device);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return ;
+  }
+}
+

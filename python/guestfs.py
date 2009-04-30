@@ -1183,3 +1183,10 @@ class GuestFS:
         """
         return libguestfsmod.zero (self._o, device)
 
+    def grub_install (self, root, device):
+        u"""This command installs GRUB (the Grand Unified
+        Bootloader) on "device", with the root directory being
+        "root".
+        """
+        return libguestfsmod.grub_install (self._o, root, device)
+

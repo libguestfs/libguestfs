@@ -755,6 +755,12 @@ struct guestfs_zero_args {
 };
 typedef struct guestfs_zero_args guestfs_zero_args;
 
+struct guestfs_grub_install_args {
+	char *root;
+	char *device;
+};
+typedef struct guestfs_grub_install_args guestfs_grub_install_args;
+
 enum guestfs_procedure {
 	GUESTFS_PROC_MOUNT = 1,
 	GUESTFS_PROC_SYNC = 2,
@@ -841,7 +847,8 @@ enum guestfs_procedure {
 	GUESTFS_PROC_GET_E2UUID = 83,
 	GUESTFS_PROC_FSCK = 84,
 	GUESTFS_PROC_ZERO = 85,
-	GUESTFS_PROC_NR_PROCS = 85 + 1,
+	GUESTFS_PROC_GRUB_INSTALL = 86,
+	GUESTFS_PROC_NR_PROCS = 86 + 1,
 };
 typedef enum guestfs_procedure guestfs_procedure;
 #define GUESTFS_MESSAGE_MAX 4194304
@@ -1009,6 +1016,7 @@ extern  bool_t xdr_guestfs_get_e2uuid_ret (XDR *, guestfs_get_e2uuid_ret*);
 extern  bool_t xdr_guestfs_fsck_args (XDR *, guestfs_fsck_args*);
 extern  bool_t xdr_guestfs_fsck_ret (XDR *, guestfs_fsck_ret*);
 extern  bool_t xdr_guestfs_zero_args (XDR *, guestfs_zero_args*);
+extern  bool_t xdr_guestfs_grub_install_args (XDR *, guestfs_grub_install_args*);
 extern  bool_t xdr_guestfs_procedure (XDR *, guestfs_procedure*);
 extern  bool_t xdr_guestfs_message_direction (XDR *, guestfs_message_direction*);
 extern  bool_t xdr_guestfs_message_status (XDR *, guestfs_message_status*);
@@ -1135,6 +1143,7 @@ extern bool_t xdr_guestfs_get_e2uuid_ret ();
 extern bool_t xdr_guestfs_fsck_args ();
 extern bool_t xdr_guestfs_fsck_ret ();
 extern bool_t xdr_guestfs_zero_args ();
+extern bool_t xdr_guestfs_grub_install_args ();
 extern bool_t xdr_guestfs_procedure ();
 extern bool_t xdr_guestfs_message_direction ();
 extern bool_t xdr_guestfs_message_status ();

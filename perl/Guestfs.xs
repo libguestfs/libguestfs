@@ -1599,3 +1599,15 @@ PREINIT:
       if (r == -1)
         croak ("zero: %s", guestfs_last_error (g));
 
+void
+grub_install (g, root, device)
+      guestfs_h *g;
+      char *root;
+      char *device;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_grub_install (g, root, device);
+      if (r == -1)
+        croak ("grub_install: %s", guestfs_last_error (g));
+

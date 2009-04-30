@@ -3052,6 +3052,32 @@ py_guestfs_zero (PyObject *self, PyObject *args)
   return py_r;
 }
 
+static PyObject *
+py_guestfs_grub_install (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *root;
+  const char *device;
+
+  if (!PyArg_ParseTuple (args, (char *) "Oss:guestfs_grub_install",
+                         &py_g, &root, &device))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_grub_install (g, root, device);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
 static PyMethodDef methods[] = {
   { (char *) "create", py_guestfs_create, METH_VARARGS, NULL },
   { (char *) "close", py_guestfs_close, METH_VARARGS, NULL },
@@ -3161,6 +3187,7 @@ static PyMethodDef methods[] = {
   { (char *) "get_e2uuid", py_guestfs_get_e2uuid, METH_VARARGS, NULL },
   { (char *) "fsck", py_guestfs_fsck, METH_VARARGS, NULL },
   { (char *) "zero", py_guestfs_zero, METH_VARARGS, NULL },
+  { (char *) "grub_install", py_guestfs_grub_install, METH_VARARGS, NULL },
   { NULL, NULL, 0, NULL }
 };
 

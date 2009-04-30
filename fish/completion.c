@@ -81,6 +81,7 @@ static const char *const commands[] = {
   "get-qemu",
   "get-state",
   "get-verbose",
+  "grub-install",
   "is-busy",
   "is-config",
   "is-dir",

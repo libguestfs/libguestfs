@@ -2127,6 +2127,32 @@ done:
   xdr_free ((xdrproc_t) xdr_guestfs_zero_args, (char *) &args);
 }
 
+static void grub_install_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_grub_install_args args;
+  const char *root;
+  const char *device;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_grub_install_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "grub_install");
+    return;
+  }
+  root = args.root;
+  device = args.device;
+
+  r = do_grub_install (root, device);
+  if (r == -1)
+    /* do_grub_install has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_grub_install_args, (char *) &args);
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -2384,6 +2410,9 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_ZERO:
       zero_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_GRUB_INSTALL:
+      grub_install_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d", proc_nr);

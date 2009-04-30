@@ -112,6 +112,70 @@ static void no_test_warnings (void)
   fprintf (stderr, "warning: \"guestfs_get_e2uuid\" has no tests\n");
 }
 
+static int test_grub_install_0 (void)
+{
+  /* InitBasicFS for grub_install (0): create ext2 on /dev/sda1 */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *lines[] = {
+      ",",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputTrue for grub_install (0) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_grub_install (g, "/", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_is_dir (g, "/boot");
+    if (r == -1)
+      return -1;
+    if (!r) {
+      fprintf (stderr, "test_grub_install_0: expected true, got false\n");
+      return -1;
+    }
+  }
+  return 0;
+}
+
 static int test_zero_0 (void)
 {
   /* InitBasicFS for zero (0): create ext2 on /dev/sda1 */
@@ -6720,8 +6784,14 @@ int main (int argc, char *argv[])
     exit (1);
   }
 
-  nr_tests = 94;
+  nr_tests = 95;
 
+  test_num++;
+  printf ("%3d/%3d test_grub_install_0\n", test_num, nr_tests);
+  if (test_grub_install_0 () == -1) {
+    printf ("test_grub_install_0 FAILED\n");
+    failed++;
+  }
   test_num++;
   printf ("%3d/%3d test_zero_0\n", test_num, nr_tests);
   if (test_zero_0 () == -1) {

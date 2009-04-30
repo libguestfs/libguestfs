@@ -691,6 +691,17 @@ This returns the verbose messages flag.
 
 This function returns a C truth value on success or -1 on error.
 
+=head2 guestfs_grub_install
+
+ int guestfs_grub_install (guestfs_h *handle,
+		const char *root,
+		const char *device);
+
+This command installs GRUB (the Grand Unified Bootloader) on
+C<device>, with the root directory being C<root>.
+
+This function returns 0 on success or -1 on error.
+
 =head2 guestfs_is_busy
 
  int guestfs_is_busy (guestfs_h *handle);

@@ -537,6 +537,11 @@ For more information on states, see L<guestfs(3)>.
 
 This returns the verbose messages flag.
 
+=item $h->grub_install ($root, $device);
+
+This command installs GRUB (the Grand Unified Bootloader) on
+C<device>, with the root directory being C<root>.
+
 =item $busy = $h->is_busy ();
 
 This returns true iff this handle is busy processing a command

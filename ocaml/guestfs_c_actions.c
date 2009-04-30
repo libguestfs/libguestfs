@@ -2846,3 +2846,27 @@ ocaml_guestfs_zero (value gv, value devicev)
   CAMLreturn (rv);
 }
 
+CAMLprim value
+ocaml_guestfs_grub_install (value gv, value rootv, value devicev)
+{
+  CAMLparam3 (gv, rootv, devicev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("grub_install: used handle after closing it");
+
+  const char *root = String_val (rootv);
+  const char *device = String_val (devicev);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_grub_install (g, root, device);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "grub_install");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+

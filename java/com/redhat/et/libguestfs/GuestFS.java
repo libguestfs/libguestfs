@@ -2414,4 +2414,23 @@ public class GuestFS {
   private native void _zero (long g, String device)
     throws LibGuestFSException;
 
+  /**
+   * install GRUB
+   *
+   * This command installs GRUB (the Grand Unified
+   * Bootloader) on "device", with the root directory being
+   * "root".
+   * 
+   * @throws LibGuestFSException
+   */
+  public void grub_install (String root, String device)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("grub_install: handle is closed");
+    _grub_install (g, root, device);
+  }
+  private native void _grub_install (long g, String root, String device)
+    throws LibGuestFSException;
+
 }

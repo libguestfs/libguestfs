@@ -442,3 +442,6 @@ val fsck : t -> string -> string -> int
 val zero : t -> string -> unit
 (** write zeroes to the device *)
 
+val grub_install : t -> string -> string -> unit
+(** install GRUB *)
+

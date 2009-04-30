@@ -534,6 +534,13 @@ For more information on states, see L<guestfs(3)>.
 
 This returns the verbose messages flag.
 
+=head2 grub-install
+
+ grub-install root device
+
+This command installs GRUB (the Grand Unified Bootloader) on
+C<device>, with the root directory being C<root>.
+
 =head2 is-busy
 
  is-busy
