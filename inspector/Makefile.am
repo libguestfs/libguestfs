@@ -19,8 +19,6 @@ EXTRA_DIST = \
 	run-inspector-locally \
 	virt-inspector.pl
 
-CLEANFILES = *~
-
 if HAVE_INSPECTOR
 
 man_MANS = virt-inspector.1

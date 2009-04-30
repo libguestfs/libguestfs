@@ -28,5 +28,3 @@ guestfish_CFLAGS = \
 	-I$(top_builddir)/src -Wall \
 	-DGUESTFS_DEFAULT_PATH='"$(libdir)/guestfs"'
 guestfish_LDADD = $(top_builddir)/src/libguestfs.la $(LIBREADLINE)
-
-CLEANFILES = *~

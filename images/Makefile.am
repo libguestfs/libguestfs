@@ -19,5 +19,3 @@ EXTRA_DIST	= \
 	helloworld.tar \
 	helloworld.tar.gz \
 	mbr-ext2-empty.img.gz
-
-CLEANFILES = *~

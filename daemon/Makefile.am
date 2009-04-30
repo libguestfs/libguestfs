@@ -44,5 +44,3 @@ guestfsd_SOURCES = \
 	../src/guestfs_protocol.c
 
 guestfsd_CFLAGS = -Wall
-
-CLEANFILES = *~

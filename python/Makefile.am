@@ -20,8 +20,6 @@ EXTRA_DIST = \
 	guestfs-py.c \
 	t/*.py
 
-CLEANFILES = *~ t/*~
-
 if HAVE_PYTHON
 
 pythondir = $(PYTHON_SITE_PACKAGES)

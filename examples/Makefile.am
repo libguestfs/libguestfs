@@ -10,4 +10,4 @@ to_xml_SOURCES = to-xml.c
 to_xml_CFLAGS = -I$(top_builddir)/src -Wall
 to_xml_LDADD = $(top_builddir)/src/libguestfs.la
 
-CLEANFILES = *~ $(noinst_PROGRAMS)
+CLEANFILES = $(noinst_PROGRAMS)

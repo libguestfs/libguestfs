@@ -37,7 +37,7 @@ EXTRA_DIST = \
 	$(java_tests) \
 	run-java-test
 
-CLEANFILES = *~ doc-stamp
+CLEANFILES = doc-stamp
 
 if HAVE_JAVA
 

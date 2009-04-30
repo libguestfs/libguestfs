@@ -23,7 +23,7 @@ EXTRA_DIST = \
 	run-ruby-tests \
 	tests/tc_*.rb
 
-CLEANFILES = *~ \
+CLEANFILES = \
 	lib/*~ \
 	tests/*~ \
 	ext/guestfs/*~ \
