@@ -2515,6 +2515,31 @@ static VALUE ruby_guestfs_get_e2uuid (VALUE gv, VALUE devicev)
   return rv;
 }
 
+static VALUE ruby_guestfs_fsck (VALUE gv, VALUE fstypev, VALUE devicev)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "fsck");
+
+  const char *fstype = StringValueCStr (fstypev);
+  if (!fstype)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "fstype", "fsck");
+  const char *device = StringValueCStr (devicev);
+  if (!device)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "device", "fsck");
+
+  int r;
+
+  r = guestfs_fsck (g, fstype, device);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return INT2NUM (r);
+}
+
 /* Initialize the module. */
 void Init__guestfs ()
 {
@@ -2733,4 +2758,6 @@ void Init__guestfs ()
         ruby_guestfs_set_e2uuid, 2);
   rb_define_method (c_guestfs, "get_e2uuid",
         ruby_guestfs_get_e2uuid, 1);
+  rb_define_method (c_guestfs, "fsck",
+        ruby_guestfs_fsck, 2);
 }

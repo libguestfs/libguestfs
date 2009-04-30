@@ -73,6 +73,7 @@ static const char *const commands[] = {
   "download",
   "exists",
   "file",
+  "fsck",
   "get-autosync",
   "get-e2label",
   "get-e2uuid",

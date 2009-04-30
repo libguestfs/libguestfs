@@ -67,6 +67,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "download", "download a file to the local machine");
   printf ("%-20s %s\n", "exists", "test if file or directory exists");
   printf ("%-20s %s\n", "file", "determine file type");
+  printf ("%-20s %s\n", "fsck", "run the filesystem checker");
   printf ("%-20s %s\n", "get-autosync", "get autosync mode");
   printf ("%-20s %s\n", "get-e2label", "get the ext2/3/4 filesystem label");
   printf ("%-20s %s\n", "get-e2uuid", "get the ext2/3/4 filesystem UUID");
@@ -439,6 +440,9 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "get_e2uuid") == 0 || strcasecmp (cmd, "get-e2uuid") == 0)
     pod2text ("get-e2uuid - get the ext2/3/4 filesystem UUID", " get-e2uuid <device>\n\nThis returns the ext2/3/4 filesystem UUID of the filesystem on\nC<device>.");
+  else
+  if (strcasecmp (cmd, "fsck") == 0)
+    pod2text ("fsck - run the filesystem checker", " fsck <fstype> <device>\n\nThis runs the filesystem checker (fsck) on C<device> which\nshould have filesystem type C<fstype>.\n\nThe returned integer is the status.  See L<fsck(8)> for the\nlist of status codes from C<fsck>, and note that multiple\nstatus codes can be summed together.\n\nIt is entirely equivalent to running C<fsck -a -t fstype device>.\nNote that checking or repairing NTFS volumes is not supported\n(by linux-ntfs).");
   else
     display_builtin_command (cmd);
 }
@@ -2142,6 +2146,24 @@ static int run_get_e2uuid (const char *cmd, int argc, char *argv[])
   return 0;
 }
 
+static int run_fsck (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *fstype;
+  const char *device;
+  if (argc != 2) {
+    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  fstype = argv[0];
+  device = argv[1];
+  r = guestfs_fsck (g, fstype, device);
+  if (r == -1) return -1;
+  printf ("%d\n", r);
+  return 0;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -2446,6 +2468,9 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "get_e2uuid") == 0 || strcasecmp (cmd, "get-e2uuid") == 0)
     return run_get_e2uuid (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "fsck") == 0)
+    return run_fsck (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

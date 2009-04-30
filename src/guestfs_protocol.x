@@ -573,6 +573,15 @@ struct guestfs_get_e2uuid_ret {
   string uuid<>;
 };
 
+struct guestfs_fsck_args {
+  string fstype<>;
+  string device<>;
+};
+
+struct guestfs_fsck_ret {
+  int status;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -657,6 +666,7 @@ enum guestfs_procedure {
   GUESTFS_PROC_GET_E2LABEL = 81,
   GUESTFS_PROC_SET_E2UUID = 82,
   GUESTFS_PROC_GET_E2UUID = 83,
+  GUESTFS_PROC_FSCK = 84,
   GUESTFS_PROC_NR_PROCS
 };
 

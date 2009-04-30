@@ -739,6 +739,17 @@ struct guestfs_get_e2uuid_ret {
 };
 typedef struct guestfs_get_e2uuid_ret guestfs_get_e2uuid_ret;
 
+struct guestfs_fsck_args {
+	char *fstype;
+	char *device;
+};
+typedef struct guestfs_fsck_args guestfs_fsck_args;
+
+struct guestfs_fsck_ret {
+	int status;
+};
+typedef struct guestfs_fsck_ret guestfs_fsck_ret;
+
 enum guestfs_procedure {
 	GUESTFS_PROC_MOUNT = 1,
 	GUESTFS_PROC_SYNC = 2,
@@ -823,7 +834,8 @@ enum guestfs_procedure {
 	GUESTFS_PROC_GET_E2LABEL = 81,
 	GUESTFS_PROC_SET_E2UUID = 82,
 	GUESTFS_PROC_GET_E2UUID = 83,
-	GUESTFS_PROC_NR_PROCS = 83 + 1,
+	GUESTFS_PROC_FSCK = 84,
+	GUESTFS_PROC_NR_PROCS = 84 + 1,
 };
 typedef enum guestfs_procedure guestfs_procedure;
 #define GUESTFS_MESSAGE_MAX 4194304
@@ -988,6 +1000,8 @@ extern  bool_t xdr_guestfs_get_e2label_ret (XDR *, guestfs_get_e2label_ret*);
 extern  bool_t xdr_guestfs_set_e2uuid_args (XDR *, guestfs_set_e2uuid_args*);
 extern  bool_t xdr_guestfs_get_e2uuid_args (XDR *, guestfs_get_e2uuid_args*);
 extern  bool_t xdr_guestfs_get_e2uuid_ret (XDR *, guestfs_get_e2uuid_ret*);
+extern  bool_t xdr_guestfs_fsck_args (XDR *, guestfs_fsck_args*);
+extern  bool_t xdr_guestfs_fsck_ret (XDR *, guestfs_fsck_ret*);
 extern  bool_t xdr_guestfs_procedure (XDR *, guestfs_procedure*);
 extern  bool_t xdr_guestfs_message_direction (XDR *, guestfs_message_direction*);
 extern  bool_t xdr_guestfs_message_status (XDR *, guestfs_message_status*);
@@ -1111,6 +1125,8 @@ extern bool_t xdr_guestfs_get_e2label_ret ();
 extern bool_t xdr_guestfs_set_e2uuid_args ();
 extern bool_t xdr_guestfs_get_e2uuid_args ();
 extern bool_t xdr_guestfs_get_e2uuid_ret ();
+extern bool_t xdr_guestfs_fsck_args ();
+extern bool_t xdr_guestfs_fsck_ret ();
 extern bool_t xdr_guestfs_procedure ();
 extern bool_t xdr_guestfs_message_direction ();
 extern bool_t xdr_guestfs_message_status ();

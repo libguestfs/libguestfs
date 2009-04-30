@@ -2399,3 +2399,24 @@ Java_com_redhat_et_libguestfs_GuestFS__1get_1e2uuid
   return jr;
 }
 
+JNIEXPORT jint JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1fsck
+  (JNIEnv *env, jobject obj, jlong jg, jstring jfstype, jstring jdevice)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+  const char *fstype;
+  const char *device;
+
+  fstype = (*env)->GetStringUTFChars (env, jfstype, NULL);
+  device = (*env)->GetStringUTFChars (env, jdevice, NULL);
+  r = guestfs_fsck (g, fstype, device);
+  (*env)->ReleaseStringUTFChars (env, jfstype, fstype);
+  (*env)->ReleaseStringUTFChars (env, jdevice, device);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return 0;
+  }
+  return (jint) r;
+}
+

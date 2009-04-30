@@ -582,6 +582,25 @@ particular that the filename is not prepended to the output
 This function returns a string, or NULL on error.
 I<The caller must free the returned string after use>.
 
+=head2 guestfs_fsck
+
+ int guestfs_fsck (guestfs_h *handle,
+		const char *fstype,
+		const char *device);
+
+This runs the filesystem checker (fsck) on C<device> which
+should have filesystem type C<fstype>.
+
+The returned integer is the status.  See L<fsck(8)> for the
+list of status codes from C<fsck>, and note that multiple
+status codes can be summed together.
+
+It is entirely equivalent to running C<fsck -a -t fstype device>.
+Note that checking or repairing NTFS volumes is not supported
+(by linux-ntfs).
+
+On error this function returns -1.
+
 =head2 guestfs_get_autosync
 
  int guestfs_get_autosync (guestfs_h *handle);

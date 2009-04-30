@@ -449,6 +449,21 @@ The exact command which runs is C<file -bsL path>.  Note in
 particular that the filename is not prepended to the output
 (the C<-b> option).
 
+=head2 fsck
+
+ fsck fstype device
+
+This runs the filesystem checker (fsck) on C<device> which
+should have filesystem type C<fstype>.
+
+The returned integer is the status.  See L<fsck(8)> for the
+list of status codes from C<fsck>, and note that multiple
+status codes can be summed together.
+
+It is entirely equivalent to running C<fsck -a -t fstype device>.
+Note that checking or repairing NTFS volumes is not supported
+(by linux-ntfs).
+
 =head2 get-autosync
 
  get-autosync

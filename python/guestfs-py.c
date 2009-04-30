@@ -3002,6 +3002,31 @@ py_guestfs_get_e2uuid (PyObject *self, PyObject *args)
   return py_r;
 }
 
+static PyObject *
+py_guestfs_fsck (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *fstype;
+  const char *device;
+
+  if (!PyArg_ParseTuple (args, (char *) "Oss:guestfs_fsck",
+                         &py_g, &fstype, &device))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_fsck (g, fstype, device);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyInt_FromLong ((long) r);
+  return py_r;
+}
+
 static PyMethodDef methods[] = {
   { (char *) "create", py_guestfs_create, METH_VARARGS, NULL },
   { (char *) "close", py_guestfs_close, METH_VARARGS, NULL },
@@ -3109,6 +3134,7 @@ static PyMethodDef methods[] = {
   { (char *) "get_e2label", py_guestfs_get_e2label, METH_VARARGS, NULL },
   { (char *) "set_e2uuid", py_guestfs_set_e2uuid, METH_VARARGS, NULL },
   { (char *) "get_e2uuid", py_guestfs_get_e2uuid, METH_VARARGS, NULL },
+  { (char *) "fsck", py_guestfs_fsck, METH_VARARGS, NULL },
   { NULL, NULL, 0, NULL }
 };
 

@@ -104,3 +104,4 @@ extern int do_set_e2label (const char *device, const char *label);
 extern char *do_get_e2label (const char *device);
 extern int do_set_e2uuid (const char *device, const char *uuid);
 extern char *do_get_e2uuid (const char *device);
+extern int do_fsck (const char *fstype, const char *device);

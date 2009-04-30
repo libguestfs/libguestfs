@@ -2356,4 +2356,30 @@ public class GuestFS {
   private native String _get_e2uuid (long g, String device)
     throws LibGuestFSException;
 
+  /**
+   * run the filesystem checker
+   *
+   * This runs the filesystem checker (fsck) on "device"
+   * which should have filesystem type "fstype".
+   * 
+   * The returned integer is the status. See fsck(8) for the
+   * list of status codes from "fsck", and note that multiple
+   * status codes can be summed together.
+   * 
+   * It is entirely equivalent to running "fsck -a -t fstype
+   * device". Note that checking or repairing NTFS volumes is
+   * not supported (by linux-ntfs).
+   * 
+   * @throws LibGuestFSException
+   */
+  public int fsck (String fstype, String device)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("fsck: handle is closed");
+    return _fsck (g, fstype, device);
+  }
+  private native int _fsck (long g, String fstype, String device)
+    throws LibGuestFSException;
+
 }

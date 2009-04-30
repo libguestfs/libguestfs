@@ -2799,3 +2799,27 @@ ocaml_guestfs_get_e2uuid (value gv, value devicev)
   CAMLreturn (rv);
 }
 
+CAMLprim value
+ocaml_guestfs_fsck (value gv, value fstypev, value devicev)
+{
+  CAMLparam3 (gv, fstypev, devicev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("fsck: used handle after closing it");
+
+  const char *fstype = String_val (fstypev);
+  const char *device = String_val (devicev);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_fsck (g, fstype, device);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "fsck");
+
+  rv = Val_int (r);
+  CAMLreturn (rv);
+}
+

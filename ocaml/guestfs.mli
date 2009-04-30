@@ -436,3 +436,6 @@ val set_e2uuid : t -> string -> string -> unit
 val get_e2uuid : t -> string -> string
 (** get the ext2/3/4 filesystem UUID *)
 
+val fsck : t -> string -> string -> int
+(** run the filesystem checker *)
+

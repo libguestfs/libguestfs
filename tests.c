@@ -112,6 +112,59 @@ static void no_test_warnings (void)
   fprintf (stderr, "warning: \"guestfs_get_e2uuid\" has no tests\n");
 }
 
+static int test_fsck_0 (void)
+{
+  /* InitBasicFS for fsck (0): create ext2 on /dev/sda1 */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *lines[] = {
+      ",",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  /* TestRun for fsck (0) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_fsck (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  return 0;
+}
+
 static int test_set_e2uuid_0 (void)
 {
   /* InitBasicFS for set_e2uuid (0): create ext2 on /dev/sda1 */
@@ -6513,8 +6566,14 @@ int main (int argc, char *argv[])
     exit (1);
   }
 
-  nr_tests = 91;
+  nr_tests = 92;
 
+  test_num++;
+  printf ("%3d/%3d test_fsck_0\n", test_num, nr_tests);
+  if (test_fsck_0 () == -1) {
+    printf ("test_fsck_0 FAILED\n");
+    failed++;
+  }
   test_num++;
   printf ("%3d/%3d test_set_e2uuid_0\n", test_num, nr_tests);
   if (test_set_e2uuid_0 () == -1) {

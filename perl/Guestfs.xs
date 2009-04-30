@@ -1573,3 +1573,18 @@ PREINIT:
  OUTPUT:
       RETVAL
 
+SV *
+fsck (g, fstype, device)
+      guestfs_h *g;
+      char *fstype;
+      char *device;
+PREINIT:
+      int status;
+   CODE:
+      status = guestfs_fsck (g, fstype, device);
+      if (status == -1)
+        croak ("fsck: %s", guestfs_last_error (g));
+      RETVAL = newSViv (status);
+ OUTPUT:
+      RETVAL
+

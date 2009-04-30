@@ -1428,6 +1428,28 @@ xdr_guestfs_get_e2uuid_ret (XDR *xdrs, guestfs_get_e2uuid_ret *objp)
 }
 
 bool_t
+xdr_guestfs_fsck_args (XDR *xdrs, guestfs_fsck_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->fstype, ~0))
+		 return FALSE;
+	 if (!xdr_string (xdrs, &objp->device, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_fsck_ret (XDR *xdrs, guestfs_fsck_ret *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_int (xdrs, &objp->status))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
 xdr_guestfs_procedure (XDR *xdrs, guestfs_procedure *objp)
 {
 	register int32_t *buf;

@@ -219,3 +219,4 @@ external set_e2label : t -> string -> string -> unit = "ocaml_guestfs_set_e2labe
 external get_e2label : t -> string -> string = "ocaml_guestfs_get_e2label"
 external set_e2uuid : t -> string -> string -> unit = "ocaml_guestfs_set_e2uuid"
 external get_e2uuid : t -> string -> string = "ocaml_guestfs_get_e2uuid"
+external fsck : t -> string -> string -> int = "ocaml_guestfs_fsck"

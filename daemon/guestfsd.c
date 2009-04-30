@@ -378,8 +378,68 @@ command (char **stdoutput, char **stderror, const char *name, ...)
   return r;
 }
 
+/* Same as 'command', but we allow the status code from the
+ * subcommand to be non-zero, and return that status code.
+ * We still return -1 if there was some other error.
+ */
+int
+commandr (char **stdoutput, char **stderror, const char *name, ...)
+{
+  va_list args;
+  char **argv, **p;
+  char *s;
+  int i, r;
+
+  /* Collect the command line arguments into an array. */
+  i = 2;
+  argv = malloc (sizeof (char *) * i);
+  if (argv == NULL) {
+    perror ("malloc");
+    return -1;
+  }
+  argv[0] = (char *) name;
+  argv[1] = NULL;
+
+  va_start (args, name);
+
+  while ((s = va_arg (args, char *)) != NULL) {
+    p = realloc (argv, sizeof (char *) * (++i));
+    if (p == NULL) {
+      perror ("realloc");
+      free (argv);
+      va_end (args);
+      return -1;
+    }
+    argv = p;
+    argv[i-2] = s;
+    argv[i-1] = NULL;
+  }
+
+  va_end (args);
+
+  r = commandrv (stdoutput, stderror, argv);
+
+  /* NB: Mustn't free the strings which are on the stack. */
+  free (argv);
+
+  return r;
+}
+
+/* Same as 'command', but passing an argv. */
 int
 commandv (char **stdoutput, char **stderror, char * const* const argv)
+{
+  int r;
+
+  r = commandrv (stdoutput, stderror, argv);
+  if (r == 0)
+    return 0;
+  else
+    return -1;
+}
+
+int
+commandrv (char **stdoutput, char **stderror, char * const* const argv)
 {
   int so_size = 0, se_size = 0;
   int so_fd[2], se_fd[2];
@@ -524,10 +584,7 @@ commandv (char **stdoutput, char **stderror, char * const* const argv)
   waitpid (pid, &r, 0);
 
   if (WIFEXITED (r)) {
-    if (WEXITSTATUS (r) == 0)
-      return 0;
-    else
-      return -1;
+    return WEXITSTATUS (r);
   } else
     return -1;
 }

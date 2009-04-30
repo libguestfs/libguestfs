@@ -1149,3 +1149,17 @@ class GuestFS:
         """
         return libguestfsmod.get_e2uuid (self._o, device)
 
+    def fsck (self, fstype, device):
+        u"""This runs the filesystem checker (fsck) on "device"
+        which should have filesystem type "fstype".
+        
+        The returned integer is the status. See fsck(8) for the
+        list of status codes from "fsck", and note that multiple
+        status codes can be summed together.
+        
+        It is entirely equivalent to running "fsck -a -t fstype
+        device". Note that checking or repairing NTFS volumes is
+        not supported (by linux-ntfs).
+        """
+        return libguestfsmod.fsck (self._o, fstype, device)
+
