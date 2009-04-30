@@ -28,6 +28,7 @@ guestfsd_SOURCES = \
 	debug.c \
 	devsparts.c \
 	dir.c \
+	ext2.c \
 	file.c \
 	guestfsd.c \
 	ls.c \
@@ -38,7 +39,6 @@ guestfsd_SOURCES = \
 	stubs.c \
 	sync.c \
 	tar.c \
-	tune2fs.c \
 	upload.c \
 	../src/guestfs_protocol.h \
 	../src/guestfs_protocol.c
