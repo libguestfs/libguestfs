@@ -1744,7 +1744,7 @@ ocaml_guestfs_vgcreate (value gv, value volgroupv, value physvolsv)
     caml_failwith ("vgcreate: used handle after closing it");
 
   const char *volgroup = String_val (volgroupv);
-  char **physvols = ocaml_guestfs_strings_val (physvolsv);
+  char **physvols = ocaml_guestfs_strings_val (g, physvolsv);
   int r;
 
   caml_enter_blocking_section ();
@@ -1822,7 +1822,7 @@ ocaml_guestfs_sfdisk (value gv, value devicev, value cylsv, value headsv, value 
   int cyls = Int_val (cylsv);
   int heads = Int_val (headsv);
   int sectors = Int_val (sectorsv);
-  char **lines = ocaml_guestfs_strings_val (linesv);
+  char **lines = ocaml_guestfs_strings_val (g, linesv);
   int r;
 
   caml_enter_blocking_section ();
@@ -1993,7 +1993,7 @@ ocaml_guestfs_command (value gv, value argumentsv)
   if (g == NULL)
     caml_failwith ("command: used handle after closing it");
 
-  char **arguments = ocaml_guestfs_strings_val (argumentsv);
+  char **arguments = ocaml_guestfs_strings_val (g, argumentsv);
   char *r;
 
   caml_enter_blocking_section ();
@@ -2018,7 +2018,7 @@ ocaml_guestfs_command_lines (value gv, value argumentsv)
   if (g == NULL)
     caml_failwith ("command_lines: used handle after closing it");
 
-  char **arguments = ocaml_guestfs_strings_val (argumentsv);
+  char **arguments = ocaml_guestfs_strings_val (g, argumentsv);
   int i;
   char **r;
 
@@ -2619,7 +2619,7 @@ ocaml_guestfs_debug (value gv, value subcmdv, value extraargsv)
     caml_failwith ("debug: used handle after closing it");
 
   const char *subcmd = String_val (subcmdv);
-  char **extraargs = ocaml_guestfs_strings_val (extraargsv);
+  char **extraargs = ocaml_guestfs_strings_val (g, extraargsv);
   char *r;
 
   caml_enter_blocking_section ();

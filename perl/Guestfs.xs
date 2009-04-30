@@ -64,12 +64,13 @@ XS_unpack_charPtrPtr (SV *arg) {
   AV *av;
   I32 i;
 
-  if (!arg || !SvOK (arg) || !SvROK (arg) || SvTYPE (SvRV (arg)) != SVt_PVAV) {
+  if (!arg || !SvOK (arg) || !SvROK (arg) || SvTYPE (SvRV (arg)) != SVt_PVAV)
     croak ("array reference expected");
-  }
 
   av = (AV *)SvRV (arg);
-  ret = (char **)malloc (av_len (av) + 1 + 1);
+  ret = malloc (av_len (av) + 1 + 1);
+  if (!ret)
+    croak ("malloc failed");
 
   for (i = 0; i <= av_len (av); i++) {
     SV **elem = av_fetch (av, i, 0);

@@ -1381,7 +1381,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1vgcreate
 
   volgroup = (*env)->GetStringUTFChars (env, jvolgroup, NULL);
   physvols_len = (*env)->GetArrayLength (env, jphysvols);
-  physvols = malloc (sizeof (char *) * (physvols_len+1));
+  physvols = guestfs_safe_malloc (g, sizeof (char *) * (physvols_len+1));
   for (i = 0; i < physvols_len; ++i) {
     jobject o = (*env)->GetObjectArrayElement (env, jphysvols, i);
     physvols[i] = (*env)->GetStringUTFChars (env, o, NULL);
@@ -1461,7 +1461,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1sfdisk
   heads = jheads;
   sectors = jsectors;
   lines_len = (*env)->GetArrayLength (env, jlines);
-  lines = malloc (sizeof (char *) * (lines_len+1));
+  lines = guestfs_safe_malloc (g, sizeof (char *) * (lines_len+1));
   for (i = 0; i < lines_len; ++i) {
     jobject o = (*env)->GetObjectArrayElement (env, jlines, i);
     lines[i] = (*env)->GetStringUTFChars (env, o, NULL);
@@ -1610,7 +1610,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1command
   int i;
 
   arguments_len = (*env)->GetArrayLength (env, jarguments);
-  arguments = malloc (sizeof (char *) * (arguments_len+1));
+  arguments = guestfs_safe_malloc (g, sizeof (char *) * (arguments_len+1));
   for (i = 0; i < arguments_len; ++i) {
     jobject o = (*env)->GetObjectArrayElement (env, jarguments, i);
     arguments[i] = (*env)->GetStringUTFChars (env, o, NULL);
@@ -1646,7 +1646,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1command_1lines
   int i;
 
   arguments_len = (*env)->GetArrayLength (env, jarguments);
-  arguments = malloc (sizeof (char *) * (arguments_len+1));
+  arguments = guestfs_safe_malloc (g, sizeof (char *) * (arguments_len+1));
   for (i = 0; i < arguments_len; ++i) {
     jobject o = (*env)->GetObjectArrayElement (env, jarguments, i);
     arguments[i] = (*env)->GetStringUTFChars (env, o, NULL);
@@ -2244,7 +2244,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1debug
 
   subcmd = (*env)->GetStringUTFChars (env, jsubcmd, NULL);
   extraargs_len = (*env)->GetArrayLength (env, jextraargs);
-  extraargs = malloc (sizeof (char *) * (extraargs_len+1));
+  extraargs = guestfs_safe_malloc (g, sizeof (char *) * (extraargs_len+1));
   for (i = 0; i < extraargs_len; ++i) {
     jobject o = (*env)->GetObjectArrayElement (env, jextraargs, i);
     extraargs[i] = (*env)->GetStringUTFChars (env, o, NULL);

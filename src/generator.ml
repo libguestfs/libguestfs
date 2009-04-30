@@ -4334,7 +4334,7 @@ copy_table (char * const * argv)
 	    pr "    %sv != Val_int (0) ? String_val (Field (%sv, 0)) : NULL;\n"
 	      n n
 	| StringList n ->
-	    pr "  char **%s = ocaml_guestfs_strings_val (%sv);\n" n n
+	    pr "  char **%s = ocaml_guestfs_strings_val (g, %sv);\n" n n
 	| Bool n ->
 	    pr "  int %s = Bool_val (%sv);\n" n n
 	| Int n ->
@@ -4556,12 +4556,13 @@ XS_unpack_charPtrPtr (SV *arg) {
   AV *av;
   I32 i;
 
-  if (!arg || !SvOK (arg) || !SvROK (arg) || SvTYPE (SvRV (arg)) != SVt_PVAV) {
+  if (!arg || !SvOK (arg) || !SvROK (arg) || SvTYPE (SvRV (arg)) != SVt_PVAV)
     croak (\"array reference expected\");
-  }
 
   av = (AV *)SvRV (arg);
-  ret = (char **)malloc (av_len (av) + 1 + 1);
+  ret = malloc (av_len (av) + 1 + 1);
+  if (!ret)
+    croak (\"malloc failed\");
 
   for (i = 0; i <= av_len (av); i++) {
     SV **elem = av_fetch (av, i, 0);
@@ -5555,7 +5556,8 @@ static VALUE ruby_guestfs_close (VALUE gv)
 	    pr "  {\n";
 	    pr "    int i, len;\n";
 	    pr "    len = RARRAY_LEN (%sv);\n" n;
-	    pr "    %s = malloc (sizeof (char *) * (len+1));\n" n;
+	    pr "    %s = guestfs_safe_malloc (g, sizeof (char *) * (len+1));\n"
+	      n;
 	    pr "    for (i = 0; i < len; ++i) {\n";
 	    pr "      VALUE v = rb_ary_entry (%sv, i);\n" n;
 	    pr "      %s[i] = StringValueCStr (v);\n" n;
@@ -6075,7 +6077,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
 	    pr "  %s = (*env)->GetStringUTFChars (env, j%s, NULL);\n" n n
 	| StringList n ->
 	    pr "  %s_len = (*env)->GetArrayLength (env, j%s);\n" n n;
-	    pr "  %s = malloc (sizeof (char *) * (%s_len+1));\n" n n;
+	    pr "  %s = guestfs_safe_malloc (g, sizeof (char *) * (%s_len+1));\n" n n;
 	    pr "  for (i = 0; i < %s_len; ++i) {\n" n;
 	    pr "    jobject o = (*env)->GetObjectArrayElement (env, j%s, i);\n"
 	      n;

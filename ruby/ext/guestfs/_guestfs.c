@@ -1413,7 +1413,7 @@ static VALUE ruby_guestfs_vgcreate (VALUE gv, VALUE volgroupv, VALUE physvolsv)
   char **physvols;  {
     int i, len;
     len = RARRAY_LEN (physvolsv);
-    physvols = malloc (sizeof (char *) * (len+1));
+    physvols = guestfs_safe_malloc (g, sizeof (char *) * (len+1));
     for (i = 0; i < len; ++i) {
       VALUE v = rb_ary_entry (physvolsv, i);
       physvols[i] = StringValueCStr (v);
@@ -1499,7 +1499,7 @@ static VALUE ruby_guestfs_sfdisk (VALUE gv, VALUE devicev, VALUE cylsv, VALUE he
   char **lines;  {
     int i, len;
     len = RARRAY_LEN (linesv);
-    lines = malloc (sizeof (char *) * (len+1));
+    lines = guestfs_safe_malloc (g, sizeof (char *) * (len+1));
     for (i = 0; i < len; ++i) {
       VALUE v = rb_ary_entry (linesv, i);
       lines[i] = StringValueCStr (v);
@@ -1656,7 +1656,7 @@ static VALUE ruby_guestfs_command (VALUE gv, VALUE argumentsv)
   char **arguments;  {
     int i, len;
     len = RARRAY_LEN (argumentsv);
-    arguments = malloc (sizeof (char *) * (len+1));
+    arguments = guestfs_safe_malloc (g, sizeof (char *) * (len+1));
     for (i = 0; i < len; ++i) {
       VALUE v = rb_ary_entry (argumentsv, i);
       arguments[i] = StringValueCStr (v);
@@ -1686,7 +1686,7 @@ static VALUE ruby_guestfs_command_lines (VALUE gv, VALUE argumentsv)
   char **arguments;  {
     int i, len;
     len = RARRAY_LEN (argumentsv);
-    arguments = malloc (sizeof (char *) * (len+1));
+    arguments = guestfs_safe_malloc (g, sizeof (char *) * (len+1));
     for (i = 0; i < len; ++i) {
       VALUE v = rb_ary_entry (argumentsv, i);
       arguments[i] = StringValueCStr (v);
@@ -2336,7 +2336,7 @@ static VALUE ruby_guestfs_debug (VALUE gv, VALUE subcmdv, VALUE extraargsv)
   char **extraargs;  {
     int i, len;
     len = RARRAY_LEN (extraargsv);
-    extraargs = malloc (sizeof (char *) * (len+1));
+    extraargs = guestfs_safe_malloc (g, sizeof (char *) * (len+1));
     for (i = 0; i < len; ++i) {
       VALUE v = rb_ary_entry (extraargsv, i);
       extraargs[i] = StringValueCStr (v);
