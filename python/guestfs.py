@@ -1163,3 +1163,14 @@ class GuestFS:
         """
         return libguestfsmod.fsck (self._o, fstype, device)
 
+    def zero (self, device):
+        u"""This command writes zeroes over the first few blocks of
+        "device".
+        
+        How many blocks are zeroed isn't specified (but it's
+        *not* enough to securely wipe the device). It should be
+        sufficient to remove any partition tables, filesystem
+        superblocks and so on.
+        """
+        return libguestfsmod.zero (self._o, device)
+

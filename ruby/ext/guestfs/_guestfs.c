@@ -2540,6 +2540,27 @@ static VALUE ruby_guestfs_fsck (VALUE gv, VALUE fstypev, VALUE devicev)
   return INT2NUM (r);
 }
 
+static VALUE ruby_guestfs_zero (VALUE gv, VALUE devicev)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "zero");
+
+  const char *device = StringValueCStr (devicev);
+  if (!device)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "device", "zero");
+
+  int r;
+
+  r = guestfs_zero (g, device);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
 /* Initialize the module. */
 void Init__guestfs ()
 {
@@ -2760,4 +2781,6 @@ void Init__guestfs ()
         ruby_guestfs_get_e2uuid, 1);
   rb_define_method (c_guestfs, "fsck",
         ruby_guestfs_fsck, 2);
+  rb_define_method (c_guestfs, "zero",
+        ruby_guestfs_zero, 1);
 }

@@ -439,3 +439,6 @@ val get_e2uuid : t -> string -> string
 val fsck : t -> string -> string -> int
 (** run the filesystem checker *)
 
+val zero : t -> string -> unit
+(** write zeroes to the device *)
+

@@ -112,6 +112,78 @@ static void no_test_warnings (void)
   fprintf (stderr, "warning: \"guestfs_get_e2uuid\" has no tests\n");
 }
 
+static int test_zero_0 (void)
+{
+  /* InitBasicFS for zero (0): create ext2 on /dev/sda1 */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *lines[] = {
+      ",",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for zero (0) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount (g, "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_zero (g, "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *r;
+    suppress_error = 0;
+    r = guestfs_file (g, "/dev/sda1");
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, "data") != 0) {
+      fprintf (stderr, "test_zero_0: expected \"data\" but got \"%s\"\n", r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
 static int test_fsck_0 (void)
 {
   /* InitBasicFS for fsck (0): create ext2 on /dev/sda1 */
@@ -154,13 +226,95 @@ static int test_fsck_0 (void)
     if (r == -1)
       return -1;
   }
-  /* TestRun for fsck (0) */
+  /* TestOutputInt for fsck (0) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount (g, "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
   {
     int r;
     suppress_error = 0;
     r = guestfs_fsck (g, "ext2", "/dev/sda1");
     if (r == -1)
       return -1;
+    if (r != 0) {
+      fprintf (stderr, "test_fsck_0: expected 0 but got %d\n",               (int) r);
+      return -1;
+    }
+  }
+  return 0;
+}
+
+static int test_fsck_1 (void)
+{
+  /* InitBasicFS for fsck (1): create ext2 on /dev/sda1 */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *lines[] = {
+      ",",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputInt for fsck (1) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount (g, "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_zero (g, "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_fsck (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+    if (r != 8) {
+      fprintf (stderr, "test_fsck_1: expected 8 but got %d\n",               (int) r);
+      return -1;
+    }
   }
   return 0;
 }
@@ -6566,12 +6720,24 @@ int main (int argc, char *argv[])
     exit (1);
   }
 
-  nr_tests = 92;
+  nr_tests = 94;
 
+  test_num++;
+  printf ("%3d/%3d test_zero_0\n", test_num, nr_tests);
+  if (test_zero_0 () == -1) {
+    printf ("test_zero_0 FAILED\n");
+    failed++;
+  }
   test_num++;
   printf ("%3d/%3d test_fsck_0\n", test_num, nr_tests);
   if (test_fsck_0 () == -1) {
     printf ("test_fsck_0 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_fsck_1\n", test_num, nr_tests);
+  if (test_fsck_1 () == -1) {
+    printf ("test_fsck_1 FAILED\n");
     failed++;
   }
   test_num++;

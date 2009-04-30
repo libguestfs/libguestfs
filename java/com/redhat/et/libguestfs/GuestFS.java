@@ -2382,4 +2382,27 @@ public class GuestFS {
   private native int _fsck (long g, String fstype, String device)
     throws LibGuestFSException;
 
+  /**
+   * write zeroes to the device
+   *
+   * This command writes zeroes over the first few blocks of
+   * "device".
+   * 
+   * How many blocks are zeroed isn't specified (but it's
+   * *not* enough to securely wipe the device). It should be
+   * sufficient to remove any partition tables, filesystem
+   * superblocks and so on.
+   * 
+   * @throws LibGuestFSException
+   */
+  public void zero (String device)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("zero: handle is closed");
+    _zero (g, device);
+  }
+  private native void _zero (long g, String device)
+    throws LibGuestFSException;
+
 }

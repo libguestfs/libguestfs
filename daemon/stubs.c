@@ -2103,6 +2103,30 @@ done:
   xdr_free ((xdrproc_t) xdr_guestfs_fsck_args, (char *) &args);
 }
 
+static void zero_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_zero_args args;
+  const char *device;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_zero_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "zero");
+    return;
+  }
+  device = args.device;
+
+  r = do_zero (device);
+  if (r == -1)
+    /* do_zero has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_zero_args, (char *) &args);
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -2357,6 +2381,9 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_FSCK:
       fsck_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_ZERO:
+      zero_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d", proc_nr);

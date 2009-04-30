@@ -41,6 +41,7 @@ guestfsd_SOURCES = \
 	sync.c \
 	tar.c \
 	upload.c \
+	zero.c \
 	../src/guestfs_protocol.h \
 	../src/guestfs_protocol.c
 

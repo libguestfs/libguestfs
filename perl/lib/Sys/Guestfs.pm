@@ -1006,6 +1006,14 @@ Because of the message protocol, there is a transfer limit
 of somewhere between 2MB and 4MB.  To transfer large files you should use
 FTP.
 
+=item $h->zero ($device);
+
+This command writes zeroes over the first few blocks of C<device>.
+
+How many blocks are zeroed isn't specified (but it's I<not> enough
+to securely wipe the device).  It should be sufficient to remove
+any partition tables, filesystem superblocks and so on.
+
 =cut
 
 1;

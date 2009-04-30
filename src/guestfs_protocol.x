@@ -582,6 +582,10 @@ struct guestfs_fsck_ret {
   int status;
 };
 
+struct guestfs_zero_args {
+  string device<>;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -667,6 +671,7 @@ enum guestfs_procedure {
   GUESTFS_PROC_SET_E2UUID = 82,
   GUESTFS_PROC_GET_E2UUID = 83,
   GUESTFS_PROC_FSCK = 84,
+  GUESTFS_PROC_ZERO = 85,
   GUESTFS_PROC_NR_PROCS
 };
 

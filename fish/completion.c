@@ -145,6 +145,7 @@ static const char *const commands[] = {
   "vgs",
   "vgs-full",
   "write-file",
+  "zero",
   NULL
 };
 

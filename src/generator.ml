@@ -1633,8 +1633,13 @@ This returns the ext2/3/4 filesystem UUID of the filesystem on
 C<device>.");
 
   ("fsck", (RInt "status", [String "fstype"; String "device"]), 84, [],
-   [InitBasicFS, TestRun (
-      [["fsck"; "ext2"; "/dev/sda1"]])],
+   [InitBasicFS, TestOutputInt (
+      [["umount"; "/dev/sda1"];
+       ["fsck"; "ext2"; "/dev/sda1"]], 0);
+    InitBasicFS, TestOutputInt (
+      [["umount"; "/dev/sda1"];
+       ["zero"; "/dev/sda1"];
+       ["fsck"; "ext2"; "/dev/sda1"]], 8)],
    "run the filesystem checker",
    "\
 This runs the filesystem checker (fsck) on C<device> which
@@ -1647,6 +1652,21 @@ status codes can be summed together.
 It is entirely equivalent to running C<fsck -a -t fstype device>.
 Note that checking or repairing NTFS volumes is not supported
 (by linux-ntfs).");
+
+  ("zero", (RErr, [String "device"]), 85, [],
+   [InitBasicFS, TestOutput (
+      [["umount"; "/dev/sda1"];
+       ["zero"; "/dev/sda1"];
+       ["file"; "/dev/sda1"]], "data")],
+   "write zeroes to the device",
+   "\
+This command writes zeroes over the first few blocks of C<device>.
+
+How many blocks are zeroed isn't specified (but it's I<not> enough
+to securely wipe the device).  It should be sufficient to remove
+any partition tables, filesystem superblocks and so on.");
+
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

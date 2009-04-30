@@ -133,6 +133,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "vgs", "list the LVM volume groups (VGs)");
   printf ("%-20s %s\n", "vgs-full", "list the LVM volume groups (VGs)");
   printf ("%-20s %s\n", "write-file", "create a file");
+  printf ("%-20s %s\n", "zero", "write zeroes to the device");
   printf ("    Use -h <cmd> / help <cmd> to show detailed help for a command.\n");
 }
 
@@ -443,6 +444,9 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "fsck") == 0)
     pod2text ("fsck - run the filesystem checker", " fsck <fstype> <device>\n\nThis runs the filesystem checker (fsck) on C<device> which\nshould have filesystem type C<fstype>.\n\nThe returned integer is the status.  See L<fsck(8)> for the\nlist of status codes from C<fsck>, and note that multiple\nstatus codes can be summed together.\n\nIt is entirely equivalent to running C<fsck -a -t fstype device>.\nNote that checking or repairing NTFS volumes is not supported\n(by linux-ntfs).");
+  else
+  if (strcasecmp (cmd, "zero") == 0)
+    pod2text ("zero - write zeroes to the device", " zero <device>\n\nThis command writes zeroes over the first few blocks of C<device>.\n\nHow many blocks are zeroed isn't specified (but it's I<not> enough\nto securely wipe the device).  It should be sufficient to remove\nany partition tables, filesystem superblocks and so on.");
   else
     display_builtin_command (cmd);
 }
@@ -2164,6 +2168,20 @@ static int run_fsck (const char *cmd, int argc, char *argv[])
   return 0;
 }
 
+static int run_zero (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *device;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  device = argv[0];
+  r = guestfs_zero (g, device);
+  return r;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -2471,6 +2489,9 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "fsck") == 0)
     return run_fsck (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "zero") == 0)
+    return run_zero (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);
