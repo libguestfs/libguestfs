@@ -1632,6 +1632,21 @@ to return the existing UUID of a filesystem.");
 This returns the ext2/3/4 filesystem UUID of the filesystem on
 C<device>.");
 
+  ("fsck", (RInt "status", [String "fstype"; String "device"]), 84, [],
+   [InitBasicFS, TestRun (
+      [["fsck"; "ext2"; "/dev/sda1"]])],
+   "run the filesystem checker",
+   "\
+This runs the filesystem checker (fsck) on C<device> which
+should have filesystem type C<fstype>.
+
+The returned integer is the status.  See L<fsck(8)> for the
+list of status codes from C<fsck>, and note that multiple
+status codes can be summed together.
+
+It is entirely equivalent to running C<fsck -a -t fstype device>.
+Note that checking or repairing NTFS volumes is not supported
+(by linux-ntfs).");
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

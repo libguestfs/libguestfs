@@ -30,6 +30,7 @@ guestfsd_SOURCES = \
 	dir.c \
 	ext2.c \
 	file.c \
+	fsck.c \
 	guestfsd.c \
 	ls.c \
 	lvm.c \
