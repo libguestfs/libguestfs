@@ -197,6 +197,10 @@ do_vgcreate (const char *volgroup, char * const* const physvols)
 
   argc = count_strings (physvols) + 3;
   argv = malloc (sizeof (char *) * (argc + 1));
+  if (argv == NULL) {
+    reply_with_perror ("malloc");
+    return -1;
+  }
   argv[0] = "/sbin/lvm";
   argv[1] = "vgcreate";
   argv[2] = volgroup;
