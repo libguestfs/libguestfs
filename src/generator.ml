@@ -1804,6 +1804,13 @@ let rec string_split sep str =
     s' :: string_split sep s''
   )
 
+let files_equal n1 n2 =
+  let cmd = sprintf "cmp -s %s %s" (Filename.quote n1) (Filename.quote n2) in
+  match Sys.command cmd with
+  | 0 -> true
+  | 1 -> false
+  | i -> failwithf "%s: failed with error code %d" cmd i
+
 let rec find_map f = function
   | [] -> raise Not_found
   | x :: xs ->
@@ -6227,8 +6234,17 @@ let output_to filename =
   let close () =
     close_out !chan;
     chan := stdout;
-    Unix.rename filename_new filename;
-    printf "written %s\n%!" filename;
+
+    (* Is the new file different from the current file? *)
+    if Sys.file_exists filename && files_equal filename filename_new then
+      Unix.unlink filename_new		(* same, so skip it *)
+    else (
+      (* different, overwrite old one *)
+      (try Unix.chmod filename 0o644 with Unix.Unix_error _ -> ());
+      Unix.rename filename_new filename;
+      Unix.chmod filename 0o444;
+      printf "written %s\n%!" filename;
+    )
   in
   close
 
