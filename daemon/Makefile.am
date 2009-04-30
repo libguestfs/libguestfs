@@ -31,6 +31,7 @@ guestfsd_SOURCES = \
 	ext2.c \
 	file.c \
 	fsck.c \
+	grub.c \
 	guestfsd.c \
 	ls.c \
 	lvm.c \

@@ -26,7 +26,9 @@ modules="
 -i augeas-libs
 -i bash
 -i coreutils
+-i dosfstools
 -i file
+-i grub
 -i iputils
 -i kernel
 -i lvm2
@@ -34,11 +36,10 @@ modules="
 -i module-init-tools
 -i net-tools
 -i ntfs-3g
+-i ntfsprogs
 -i procps
 -i strace
 -i util-linux-ng
--i dosfstools
--i ntfsprogs
 "
 
 # Decide on names for the final output.  These have to match Makefile.am.

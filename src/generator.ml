@@ -1683,6 +1683,15 @@ How many blocks are zeroed isn't specified (but it's I<not> enough
 to securely wipe the device).  It should be sufficient to remove
 any partition tables, filesystem superblocks and so on.");
 
+  ("grub_install", (RErr, [String "root"; String "device"]), 86, [],
+   [InitBasicFS, TestOutputTrue (
+      [["grub_install"; "/"; "/dev/sda1"];
+       ["is_dir"; "/boot"]])],
+   "install GRUB",
+   "\
+This command installs GRUB (the Grand Unified Bootloader) on
+C<device>, with the root directory being C<root>.");
+
 
 ]
 
