@@ -33,7 +33,7 @@
 
 #ifdef HAVE_LIBREADLINE
 
-static const char *commands[] = {
+static const char *const commands[] = {
   "add",
   "add-cdrom",
   "add-drive",
