@@ -254,8 +254,7 @@ createrepo repo
 
 # 'INSTALLDIRS' ensures that perl libs are installed in the vendor dir
 # not the site dir.
-# Uses javac which is incompatible with parallel make.
-make INSTALLDIRS=vendor
+make INSTALLDIRS=vendor %{?_smp_mflags}
 
 
 %check
