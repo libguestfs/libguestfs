@@ -47,6 +47,9 @@ extern char **do_completion (const char *text, int start, int end);
 /* in alloc.c */
 extern int do_alloc (const char *cmd, int argc, char *argv[]);
 
+/* in echo.c */
+extern int do_echo (const char *cmd, int argc, char *argv[]);
+
 /* in edit.c */
 extern int do_edit (const char *cmd, int argc, char *argv[]);
 

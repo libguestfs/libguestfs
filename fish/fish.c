@@ -523,6 +523,8 @@ issue_command (const char *cmd, char *argv[])
   else if (strcasecmp (cmd, "alloc") == 0 ||
 	   strcasecmp (cmd, "allocate") == 0)
     return do_alloc (cmd, argc, argv);
+  else if (strcasecmp (cmd, "echo") == 0)
+    return do_echo (cmd, argc, argv);
   else if (strcasecmp (cmd, "edit") == 0 ||
 	   strcasecmp (cmd, "vi") == 0 ||
 	   strcasecmp (cmd, "emacs") == 0)
@@ -542,6 +544,8 @@ list_builtin_commands (void)
 
   printf ("%-20s %s\n",
 	  "alloc", "allocate an image");
+  printf ("%-20s %s\n",
+	  "echo", "display a line of text");
   printf ("%-20s %s\n",
 	  "edit", "edit a file in the image");
 
@@ -570,6 +574,11 @@ display_builtin_command (const char *cmd)
 	    "    <nn>M or <nn>MB  number of megabytes\n"
 	    "    <nn>G or <nn>GB  number of gigabytes\n"
 	    "    <nn>sects        number of 512 byte sectors\n");
+  else if (strcasecmp (cmd, "echo") == 0)
+    printf ("echo - display a line of text\n"
+	    "     echo [<params> ...]\n"
+	    "\n"
+	    "    This echos the parameters to the terminal.\n");
   else if (strcasecmp (cmd, "edit") == 0 ||
 	   strcasecmp (cmd, "vi") == 0 ||
 	   strcasecmp (cmd, "emacs") == 0)
