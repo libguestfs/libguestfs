@@ -339,8 +339,12 @@ return the default path.");
    "set autosync mode",
    "\
 If C<autosync> is true, this enables autosync.  Libguestfs will make a
-best effort attempt to run C<guestfs_sync> when the handle is closed
-(also if the program exits without closing handles).");
+best effort attempt to run C<guestfs_umount_all> followed by
+C<guestfs_sync> when the handle is closed
+(also if the program exits without closing handles).
+
+This is disabled by default (except in guestfish where it is
+enabled by default).");
 
   ("get_autosync", (RBool "autosync", []), -1, [],
    [],

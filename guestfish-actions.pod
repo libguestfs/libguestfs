@@ -823,8 +823,12 @@ Remove the single directory C<path>.
  set-autosync true|false
 
 If C<autosync> is true, this enables autosync.  Libguestfs will make a
-best effort attempt to run C<sync> when the handle is closed
+best effort attempt to run C<umount-all> followed by
+C<sync> when the handle is closed
 (also if the program exits without closing handles).
+
+This is disabled by default (except in guestfish where it is
+enabled by default).
 
 =head2 set-e2label
 

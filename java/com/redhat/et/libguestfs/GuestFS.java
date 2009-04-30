@@ -319,9 +319,12 @@ public class GuestFS {
    * set autosync mode
    *
    * If "autosync" is true, this enables autosync. Libguestfs
-   * will make a best effort attempt to run "g.sync" when the
-   * handle is closed (also if the program exits without
-   * closing handles).
+   * will make a best effort attempt to run "g.umount_all"
+   * followed by "g.sync" when the handle is closed (also if
+   * the program exits without closing handles).
+   * 
+   * This is disabled by default (except in guestfish where
+   * it is enabled by default).
    * 
    * @throws LibGuestFSException
    */

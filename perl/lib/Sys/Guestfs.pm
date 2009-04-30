@@ -758,8 +758,12 @@ Remove the single directory C<path>.
 =item $h->set_autosync ($autosync);
 
 If C<autosync> is true, this enables autosync.  Libguestfs will make a
-best effort attempt to run C<$h-E<gt>sync> when the handle is closed
+best effort attempt to run C<$h-E<gt>umount_all> followed by
+C<$h-E<gt>sync> when the handle is closed
 (also if the program exits without closing handles).
+
+This is disabled by default (except in guestfish where it is
+enabled by default).
 
 =item $h->set_busy ();
 

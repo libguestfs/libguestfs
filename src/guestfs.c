@@ -267,8 +267,10 @@ guestfs_close (guestfs_h *g)
     fprintf (stderr, "closing guestfs handle %p (state %d)\n", g, g->state);
 
   /* Try to sync if autosync flag is set. */
-  if (g->autosync && g->state == READY)
+  if (g->autosync && g->state == READY) {
+    guestfs_umount_all (g);
     guestfs_sync (g);
+  }
 
   /* Remove any handlers that might be called back before we kill the
    * subprocess.

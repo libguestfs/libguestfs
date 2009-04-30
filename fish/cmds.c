@@ -165,7 +165,7 @@ void display_command (const char *cmd)
     pod2text ("get-path - get the search path", " get-path\n\nReturn the current search path.\n\nThis is always non-NULL.  If it wasn't set already, then this will\nreturn the default path.");
   else
   if (strcasecmp (cmd, "set_autosync") == 0 || strcasecmp (cmd, "set-autosync") == 0 || strcasecmp (cmd, "autosync") == 0)
-    pod2text ("set-autosync - set autosync mode", " set-autosync <autosync>\n\nIf C<autosync> is true, this enables autosync.  Libguestfs will make a\nbest effort attempt to run C<sync> when the handle is closed\n(also if the program exits without closing handles).\n\nYou can use 'autosync' as an alias for this command.");
+    pod2text ("set-autosync - set autosync mode", " set-autosync <autosync>\n\nIf C<autosync> is true, this enables autosync.  Libguestfs will make a\nbest effort attempt to run C<umount_all> followed by\nC<sync> when the handle is closed\n(also if the program exits without closing handles).\n\nThis is disabled by default (except in guestfish where it is\nenabled by default).\n\nYou can use 'autosync' as an alias for this command.");
   else
   if (strcasecmp (cmd, "get_autosync") == 0 || strcasecmp (cmd, "get-autosync") == 0)
     pod2text ("get-autosync - get autosync mode", " get-autosync\n\nGet the autosync flag.");

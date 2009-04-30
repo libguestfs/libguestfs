@@ -1099,8 +1099,12 @@ This function returns 0 on success or -1 on error.
 		int autosync);
 
 If C<autosync> is true, this enables autosync.  Libguestfs will make a
-best effort attempt to run C<guestfs_sync> when the handle is closed
+best effort attempt to run C<guestfs_umount_all> followed by
+C<guestfs_sync> when the handle is closed
 (also if the program exits without closing handles).
+
+This is disabled by default (except in guestfish where it is
+enabled by default).
 
 This function returns 0 on success or -1 on error.
 
