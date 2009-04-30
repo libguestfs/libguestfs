@@ -339,20 +339,31 @@ int
 command (char **stdoutput, char **stderror, const char *name, ...)
 {
   va_list args;
-  char **argv;
+  char **argv, **p;
   char *s;
   int i, r;
 
   /* Collect the command line arguments into an array. */
-  va_start (args, name);
-
   i = 2;
   argv = malloc (sizeof (char *) * i);
+  if (argv == NULL) {
+    perror ("malloc");
+    return -1;
+  }
   argv[0] = (char *) name;
   argv[1] = NULL;
 
+  va_start (args, name);
+
   while ((s = va_arg (args, char *)) != NULL) {
-    argv = realloc (argv, sizeof (char *) * (++i));
+    p = realloc (argv, sizeof (char *) * (++i));
+    if (p == NULL) {
+      perror ("realloc");
+      free (argv);
+      va_end (args);
+      return -1;
+    }
+    argv = p;
     argv[i-2] = s;
     argv[i-1] = NULL;
   }
