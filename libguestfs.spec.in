@@ -238,10 +238,8 @@ Requires:    jpackage-utils
 %build
 %if %{buildnonet}
 mkdir repo
-pushd repo
-cp $(find /var/cache/yum/build -name '*.rpm') .
-createrepo .
-popd
+find /var/cache/yum/build -type f -name '*.rpm' -print0 | xargs -0 cp -t repo
+createrepo repo
 %define extra --with-mirror=file://$(pwd)/repo --with-repo=fedora-12
 %else
 %define extra %nil
