@@ -354,6 +354,11 @@ script (int prompt)
     while (*buf && isspace (*buf))
       buf++;
 
+    if (!*buf) continue;
+
+    /* If the next character is '#' then this is a comment. */
+    if (*buf == '#') continue;
+
     /* Get the command (cannot be quoted). */
     len = strcspn (buf, " \t");
 

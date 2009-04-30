@@ -177,6 +177,18 @@ a space-separated list, enclosed in quotes.  For example:
 
  vgcreate VG "/dev/sda1 /dev/sdb1"
 
+=head1 COMMENTS
+
+Any line which starts with a I<#> character is treated as a comment
+and ignored.  The I<#> can optionally be preceeded by whitespace,
+but B<not> by a command.  For example:
+
+ # this is a comment
+         # this is a comment
+ foo # NOT a comment
+
+Blank lines are also ignored.
+
 =head1 COMMANDS
 
 =head2 help
