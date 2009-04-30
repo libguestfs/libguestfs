@@ -234,6 +234,26 @@ number of 512 byte sectors
 
 =back
 
+=head2 echo
+
+ echo [params ...]
+
+This echos the parameters to the terminal.
+
+=head2 edit | vi | emacs
+
+ edit filename
+
+This is used to edit a file.  It downloads the file, edits it
+locally using your editor, then uploads the result.
+
+The editor is C<$EDITOR>.  However if you use the alternate
+commands C<vi> or C<emacs> you will get those corresponding
+editors.
+
+NOTE: This will not work reliably for large files
+(> 2 MB) or binary files containing \0 bytes.
+
 @ACTIONS@
 
 =head1 ENVIRONMENT VARIABLES
@@ -260,6 +280,11 @@ used.
 
 If compiled with GNU readline support, then the command history
 is saved in C<$HOME/.guestfish>
+
+=item EDITOR
+
+The C<edit> command uses C<$EDITOR> as the editor.  If not
+set, it uses C<vi>.
 
 =back
 
