@@ -940,9 +940,14 @@ static void vgcreate_stub (XDR *xdr_in)
     return;
   }
   volgroup = args.volgroup;
-  args.physvols.physvols_val = realloc (args.physvols.physvols_val, sizeof (char *) * (args.physvols.physvols_len+1));
-  args.physvols.physvols_val[args.physvols.physvols_len] = NULL;
-  physvols = args.physvols.physvols_val;
+  physvols = realloc (args.physvols.physvols_val,
+                sizeof (char *) * (args.physvols.physvols_len+1));
+  if (physvols == NULL) {
+    reply_with_perror ("realloc");
+    goto done;
+  }
+  physvols[args.physvols.physvols_len] = NULL;
+  args.physvols.physvols_val = physvols;
 
   r = do_vgcreate (volgroup, physvols);
   if (r == -1)
@@ -1028,9 +1033,14 @@ static void sfdisk_stub (XDR *xdr_in)
   cyls = args.cyls;
   heads = args.heads;
   sectors = args.sectors;
-  args.lines.lines_val = realloc (args.lines.lines_val, sizeof (char *) * (args.lines.lines_len+1));
-  args.lines.lines_val[args.lines.lines_len] = NULL;
-  lines = args.lines.lines_val;
+  lines = realloc (args.lines.lines_val,
+                sizeof (char *) * (args.lines.lines_len+1));
+  if (lines == NULL) {
+    reply_with_perror ("realloc");
+    goto done;
+  }
+  lines[args.lines.lines_len] = NULL;
+  args.lines.lines_val = lines;
 
   r = do_sfdisk (device, cyls, heads, sectors, lines);
   if (r == -1)
@@ -1176,9 +1186,14 @@ static void command_stub (XDR *xdr_in)
     reply_with_error ("%s: daemon failed to decode procedure arguments", "command");
     return;
   }
-  args.arguments.arguments_val = realloc (args.arguments.arguments_val, sizeof (char *) * (args.arguments.arguments_len+1));
-  args.arguments.arguments_val[args.arguments.arguments_len] = NULL;
-  arguments = args.arguments.arguments_val;
+  arguments = realloc (args.arguments.arguments_val,
+                sizeof (char *) * (args.arguments.arguments_len+1));
+  if (arguments == NULL) {
+    reply_with_perror ("realloc");
+    goto done;
+  }
+  arguments[args.arguments.arguments_len] = NULL;
+  args.arguments.arguments_val = arguments;
 
   r = do_command (arguments);
   if (r == NULL)
@@ -1205,9 +1220,14 @@ static void command_lines_stub (XDR *xdr_in)
     reply_with_error ("%s: daemon failed to decode procedure arguments", "command_lines");
     return;
   }
-  args.arguments.arguments_val = realloc (args.arguments.arguments_val, sizeof (char *) * (args.arguments.arguments_len+1));
-  args.arguments.arguments_val[args.arguments.arguments_len] = NULL;
-  arguments = args.arguments.arguments_val;
+  arguments = realloc (args.arguments.arguments_val,
+                sizeof (char *) * (args.arguments.arguments_len+1));
+  if (arguments == NULL) {
+    reply_with_perror ("realloc");
+    goto done;
+  }
+  arguments[args.arguments.arguments_len] = NULL;
+  args.arguments.arguments_val = arguments;
 
   r = do_command_lines (arguments);
   if (r == NULL)
@@ -1855,9 +1875,14 @@ static void debug_stub (XDR *xdr_in)
     return;
   }
   subcmd = args.subcmd;
-  args.extraargs.extraargs_val = realloc (args.extraargs.extraargs_val, sizeof (char *) * (args.extraargs.extraargs_len+1));
-  args.extraargs.extraargs_val[args.extraargs.extraargs_len] = NULL;
-  extraargs = args.extraargs.extraargs_val;
+  extraargs = realloc (args.extraargs.extraargs_val,
+                sizeof (char *) * (args.extraargs.extraargs_len+1));
+  if (extraargs == NULL) {
+    reply_with_perror ("realloc");
+    goto done;
+  }
+  extraargs[args.extraargs.extraargs_len] = NULL;
+  args.extraargs.extraargs_val = extraargs;
 
   r = do_debug (subcmd, extraargs);
   if (r == NULL)

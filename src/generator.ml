@@ -2767,9 +2767,14 @@ and generate_daemon_actions () =
 	     | String n -> pr "  %s = args.%s;\n" n n
 	     | OptString n -> pr "  %s = args.%s ? *args.%s : NULL;\n" n n n
 	     | StringList n ->
-		 pr "  args.%s.%s_val = realloc (args.%s.%s_val, sizeof (char *) * (args.%s.%s_len+1));\n" n n n n n n;
-		 pr "  args.%s.%s_val[args.%s.%s_len] = NULL;\n" n n n n;
-		 pr "  %s = args.%s.%s_val;\n" n n n
+		 pr "  %s = realloc (args.%s.%s_val,\n" n n n;
+		 pr "                sizeof (char *) * (args.%s.%s_len+1));\n" n n;
+		 pr "  if (%s == NULL) {\n" n;
+		 pr "    reply_with_perror (\"realloc\");\n";
+		 pr "    goto done;\n";
+		 pr "  }\n";
+		 pr "  %s[args.%s.%s_len] = NULL;\n" n n n;
+		 pr "  args.%s.%s_val = %s;\n" n n n;
 	     | Bool n -> pr "  %s = args.%s;\n" n n
 	     | Int n -> pr "  %s = args.%s;\n" n n
 	     | FileIn _ | FileOut _ -> ()
