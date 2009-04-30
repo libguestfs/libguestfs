@@ -2744,6 +2744,126 @@ static int test_umount_all_0 (void)
   return 0;
 }
 
+static int test_umount_all_1 (void)
+{
+  /* InitEmpty for umount_all (1) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputList for umount_all (1) */
+  {
+    char *lines[] = {
+      ",10",
+      ",20",
+      ",",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda2");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda3");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkdir (g, "/mp1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda2", "/mp1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkdir (g, "/mp1/mp2");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda3", "/mp1/mp2");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkdir (g, "/mp1/mp2/mp3");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char **r;
+    int i;
+    suppress_error = 0;
+    r = guestfs_mounts (g);
+    if (r == NULL)
+      return -1;
+    if (r[0] != NULL) {
+      fprintf (stderr, "test_umount_all_1: extra elements returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    for (i = 0; r[i] != NULL; ++i)
+      free (r[i]);
+    free (r);
+  }
+  return 0;
+}
+
 static int test_mounts_0 (void)
 {
   /* InitBasicFS for mounts (0): create ext2 on /dev/sda1 */
@@ -6393,7 +6513,7 @@ int main (int argc, char *argv[])
     exit (1);
   }
 
-  nr_tests = 90;
+  nr_tests = 91;
 
   test_num++;
   printf ("%3d/%3d test_set_e2uuid_0\n", test_num, nr_tests);
@@ -6651,6 +6771,12 @@ int main (int argc, char *argv[])
   printf ("%3d/%3d test_umount_all_0\n", test_num, nr_tests);
   if (test_umount_all_0 () == -1) {
     printf ("test_umount_all_0 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_umount_all_1\n", test_num, nr_tests);
+  if (test_umount_all_1 () == -1) {
+    printf ("test_umount_all_1 FAILED\n");
     failed++;
   }
   test_num++;

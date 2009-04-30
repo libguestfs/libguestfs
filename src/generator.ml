@@ -1074,6 +1074,20 @@ Some internal mounts are not shown.");
   ("umount_all", (RErr, []), 47, [FishAlias "unmount-all"],
    [InitBasicFS, TestOutputList (
       [["umount_all"];
+       ["mounts"]], []);
+    (* check that umount_all can unmount nested mounts correctly: *)
+    InitEmpty, TestOutputList (
+      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
+       ["mkfs"; "ext2"; "/dev/sda1"];
+       ["mkfs"; "ext2"; "/dev/sda2"];
+       ["mkfs"; "ext2"; "/dev/sda3"];
+       ["mount"; "/dev/sda1"; "/"];
+       ["mkdir"; "/mp1"];
+       ["mount"; "/dev/sda2"; "/mp1"];
+       ["mkdir"; "/mp1/mp2"];
+       ["mount"; "/dev/sda3"; "/mp1/mp2"];
+       ["mkdir"; "/mp1/mp2/mp3"];
+       ["umount_all"];
        ["mounts"]], [])],
    "unmount all filesystems",
    "\

@@ -188,29 +188,89 @@ do_mounts (void)
   return ret;
 }
 
-/* Only unmount stuff under /sysroot */
+/* Unmount everything mounted under /sysroot.
+ *
+ * We have to unmount in the correct order, so we sort the paths by
+ * longest first to ensure that child paths are unmounted by parent
+ * paths.
+ *
+ * This call is more important than it appears at first, because it
+ * is widely used by both test and production code in order to
+ * get back to a known state (nothing mounted, everything synchronized).
+ */
+static int
+compare_longest_first (const void *vp1, const void *vp2)
+{
+  char * const *p1 = (char * const *) vp1;
+  char * const *p2 = (char * const *) vp2;
+  int n1 = strlen (*p1);
+  int n2 = strlen (*p2);
+  return n2 - n1;
+}
+
 int
 do_umount_all (void)
 {
-  char **mounts;
+  char *out, *err;
   int i, r;
-  char *err;
+  char **mounts = NULL;
+  int size = 0, alloc = 0;
+  char *p, *p2, *p3, *pend;
 
-  mounts = do_mounts ();
-  if (mounts == NULL)		/* do_mounts has already replied */
+  r = command (&out, &err, "mount", NULL);
+  if (r == -1) {
+    reply_with_error ("mount: %s", err);
+    free (out);
+    free (err);
     return -1;
+  }
 
-  for (i = 0; mounts[i] != NULL; ++i) {
+  free (err);
+
+  p = out;
+  while (p) {
+    pend = strchr (p, '\n');
+    if (pend) {
+      *pend = '\0';
+      pend++;
+    }
+
+    /* Lines have the format:
+     *   /dev/foo on /mountpoint type ...
+     */
+    p2 = strstr (p, " on /sysroot");
+    if (p2 != NULL) {
+      p2 += 4;
+      p3 = p2 + strcspn (p2, " ");
+      *p3 = '\0';
+      if (add_string (&mounts, &size, &alloc, p2) == -1) {
+	free (out);
+	return -1;
+      }
+    }
+
+    p = pend;
+  }
+  free (out);
+
+  qsort (mounts, size, sizeof (char *), compare_longest_first);
+
+  /* Unmount them. */
+  for (i = 0; i < size; ++i) {
     r = command (NULL, &err, "umount", mounts[i], NULL);
     if (r == -1) {
       reply_with_error ("umount: %s: %s", mounts[i], err);
       free (err);
-      free_strings (mounts);
+      free_stringslen (mounts, size);
       return -1;
     }
     free (err);
   }
 
-  free_strings (mounts);
+  free_stringslen (mounts, size);
+
+  /* We've unmounted root now, so ... */
+  root_mounted = 0;
+
   return 0;
 }

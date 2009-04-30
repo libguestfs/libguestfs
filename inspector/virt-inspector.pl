@@ -566,12 +566,6 @@ if ($output !~ /.*fish$/) {
 	check_for_applications ($root_dev);
 	check_for_kernels ($root_dev);
 
-	# umount_all in libguestfs is buggy - it doesn't unmount
-	# filesystems in the correct order.  So let's unmount them
-	# in reverse first before calling umount_all as a last resort.
-	foreach (sort { $b cmp $a } keys %$mounts) {
-	    eval "\$g->umount ('$_')";
-	}
 	$g->umount_all ();
     }
 }
