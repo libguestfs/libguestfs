@@ -3904,7 +3904,7 @@ and generate_fish_completion () =
 
 #ifdef HAVE_LIBREADLINE
 
-static const char *commands[] = {
+static const char *const commands[] = {
 ";
 
   (* Get the commands and sort them, including the aliases. *)
