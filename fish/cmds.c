@@ -443,7 +443,7 @@ void display_command (const char *cmd)
     pod2text ("get-e2uuid - get the ext2/3/4 filesystem UUID", " get-e2uuid <device>\n\nThis returns the ext2/3/4 filesystem UUID of the filesystem on\nC<device>.");
   else
   if (strcasecmp (cmd, "fsck") == 0)
-    pod2text ("fsck - run the filesystem checker", " fsck <fstype> <device>\n\nThis runs the filesystem checker (fsck) on C<device> which\nshould have filesystem type C<fstype>.\n\nThe returned integer is the status.  See L<fsck(8)> for the\nlist of status codes from C<fsck>, and note that multiple\nstatus codes can be summed together.\n\nIt is entirely equivalent to running C<fsck -a -t fstype device>.\nNote that checking or repairing NTFS volumes is not supported\n(by linux-ntfs).");
+    pod2text ("fsck - run the filesystem checker", " fsck <fstype> <device>\n\nThis runs the filesystem checker (fsck) on C<device> which\nshould have filesystem type C<fstype>.\n\nThe returned integer is the status.  See L<fsck(8)> for the\nlist of status codes from C<fsck>.\n\nNotes:\n\n=over 4\n\n=item *\n\nMultiple status codes can be summed together.\n\n=item *\n\nA non-zero return code can mean \"success\", for example if\nerrors have been corrected on the filesystem.\n\n=item *\n\nChecking or repairing NTFS volumes is not supported\n(by linux-ntfs).\n\n=back\n\nThis command is entirely equivalent to running C<fsck -a -t fstype device>.");
   else
   if (strcasecmp (cmd, "zero") == 0)
     pod2text ("zero - write zeroes to the device", " zero <device>\n\nThis command writes zeroes over the first few blocks of C<device>.\n\nHow many blocks are zeroed isn't specified (but it's I<not> enough\nto securely wipe the device).  It should be sufficient to remove\nany partition tables, filesystem superblocks and so on.");

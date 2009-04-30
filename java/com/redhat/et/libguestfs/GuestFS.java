@@ -2363,12 +2363,21 @@ public class GuestFS {
    * which should have filesystem type "fstype".
    * 
    * The returned integer is the status. See fsck(8) for the
-   * list of status codes from "fsck", and note that multiple
-   * status codes can be summed together.
+   * list of status codes from "fsck".
    * 
-   * It is entirely equivalent to running "fsck -a -t fstype
-   * device". Note that checking or repairing NTFS volumes is
-   * not supported (by linux-ntfs).
+   * Notes:
+   * 
+   * *   Multiple status codes can be summed together.
+   * 
+   * *   A non-zero return code can mean "success", for
+   * example if errors have been corrected on the
+   * filesystem.
+   * 
+   * *   Checking or repairing NTFS volumes is not supported
+   * (by linux-ntfs).
+   * 
+   * This command is entirely equivalent to running "fsck -a
+   * -t fstype device".
    * 
    * @throws LibGuestFSException
    */
