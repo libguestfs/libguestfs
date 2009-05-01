@@ -591,6 +591,21 @@ struct guestfs_grub_install_args {
   string device<>;
 };
 
+struct guestfs_cp_args {
+  string src<>;
+  string dest<>;
+};
+
+struct guestfs_cp_a_args {
+  string src<>;
+  string dest<>;
+};
+
+struct guestfs_mv_args {
+  string src<>;
+  string dest<>;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -678,6 +693,9 @@ enum guestfs_procedure {
   GUESTFS_PROC_FSCK = 84,
   GUESTFS_PROC_ZERO = 85,
   GUESTFS_PROC_GRUB_INSTALL = 86,
+  GUESTFS_PROC_CP = 87,
+  GUESTFS_PROC_CP_A = 88,
+  GUESTFS_PROC_MV = 89,
   GUESTFS_PROC_NR_PROCS
 };
 

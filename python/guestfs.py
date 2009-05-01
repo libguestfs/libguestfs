@@ -1190,3 +1190,21 @@ class GuestFS:
         """
         return libguestfsmod.grub_install (self._o, root, device)
 
+    def cp (self, src, dest):
+        u"""This copies a file from "src" to "dest" where "dest" is
+        either a destination filename or destination directory.
+        """
+        return libguestfsmod.cp (self._o, src, dest)
+
+    def cp_a (self, src, dest):
+        u"""This copies a file or directory from "src" to "dest"
+        recursively using the "cp -a" command.
+        """
+        return libguestfsmod.cp_a (self._o, src, dest)
+
+    def mv (self, src, dest):
+        u"""This moves a file from "src" to "dest" where "dest" is
+        either a destination filename or destination directory.
+        """
+        return libguestfsmod.mv (self._o, src, dest)
+

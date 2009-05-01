@@ -1611,3 +1611,39 @@ PREINIT:
       if (r == -1)
         croak ("grub_install: %s", guestfs_last_error (g));
 
+void
+cp (g, src, dest)
+      guestfs_h *g;
+      char *src;
+      char *dest;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_cp (g, src, dest);
+      if (r == -1)
+        croak ("cp: %s", guestfs_last_error (g));
+
+void
+cp_a (g, src, dest)
+      guestfs_h *g;
+      char *src;
+      char *dest;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_cp_a (g, src, dest);
+      if (r == -1)
+        croak ("cp_a: %s", guestfs_last_error (g));
+
+void
+mv (g, src, dest)
+      guestfs_h *g;
+      char *src;
+      char *dest;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_mv (g, src, dest);
+      if (r == -1)
+        croak ("mv: %s", guestfs_last_error (g));
+

@@ -63,6 +63,8 @@ void list_commands (void)
   printf ("%-20s %s\n", "command", "run a command from the guest filesystem");
   printf ("%-20s %s\n", "command-lines", "run a command, returning lines");
   printf ("%-20s %s\n", "config", "add qemu parameters");
+  printf ("%-20s %s\n", "cp", "copy a file");
+  printf ("%-20s %s\n", "cp-a", "copy a file or directory recursively");
   printf ("%-20s %s\n", "debug", "debugging and internals");
   printf ("%-20s %s\n", "download", "download a file to the local machine");
   printf ("%-20s %s\n", "exists", "test if file or directory exists");
@@ -102,6 +104,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "mount-ro", "mount a guest disk, read-only");
   printf ("%-20s %s\n", "mount-vfs", "mount a guest disk with mount options and vfstype");
   printf ("%-20s %s\n", "mounts", "show mounted filesystems");
+  printf ("%-20s %s\n", "mv", "move a file");
   printf ("%-20s %s\n", "pvcreate", "create an LVM physical volume");
   printf ("%-20s %s\n", "pvremove", "remove an LVM physical volume");
   printf ("%-20s %s\n", "pvs", "list the LVM physical volumes (PVs)");
@@ -451,6 +454,15 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "grub_install") == 0 || strcasecmp (cmd, "grub-install") == 0)
     pod2text ("grub-install - install GRUB", " grub-install <root> <device>\n\nThis command installs GRUB (the Grand Unified Bootloader) on\nC<device>, with the root directory being C<root>.");
+  else
+  if (strcasecmp (cmd, "cp") == 0)
+    pod2text ("cp - copy a file", " cp <src> <dest>\n\nThis copies a file from C<src> to C<dest> where C<dest> is\neither a destination filename or destination directory.");
+  else
+  if (strcasecmp (cmd, "cp_a") == 0 || strcasecmp (cmd, "cp-a") == 0)
+    pod2text ("cp-a - copy a file or directory recursively", " cp-a <src> <dest>\n\nThis copies a file or directory from C<src> to C<dest>\nrecursively using the C<cp -a> command.");
+  else
+  if (strcasecmp (cmd, "mv") == 0)
+    pod2text ("mv - move a file", " mv <src> <dest>\n\nThis moves a file from C<src> to C<dest> where C<dest> is\neither a destination filename or destination directory.");
   else
     display_builtin_command (cmd);
 }
@@ -2202,6 +2214,54 @@ static int run_grub_install (const char *cmd, int argc, char *argv[])
   return r;
 }
 
+static int run_cp (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *src;
+  const char *dest;
+  if (argc != 2) {
+    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  src = argv[0];
+  dest = argv[1];
+  r = guestfs_cp (g, src, dest);
+  return r;
+}
+
+static int run_cp_a (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *src;
+  const char *dest;
+  if (argc != 2) {
+    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  src = argv[0];
+  dest = argv[1];
+  r = guestfs_cp_a (g, src, dest);
+  return r;
+}
+
+static int run_mv (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *src;
+  const char *dest;
+  if (argc != 2) {
+    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  src = argv[0];
+  dest = argv[1];
+  r = guestfs_mv (g, src, dest);
+  return r;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -2515,6 +2575,15 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "grub_install") == 0 || strcasecmp (cmd, "grub-install") == 0)
     return run_grub_install (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "cp") == 0)
+    return run_cp (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "cp_a") == 0 || strcasecmp (cmd, "cp-a") == 0)
+    return run_cp_a (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "mv") == 0)
+    return run_mv (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

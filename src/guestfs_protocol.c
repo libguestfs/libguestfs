@@ -1472,6 +1472,42 @@ xdr_guestfs_grub_install_args (XDR *xdrs, guestfs_grub_install_args *objp)
 }
 
 bool_t
+xdr_guestfs_cp_args (XDR *xdrs, guestfs_cp_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->src, ~0))
+		 return FALSE;
+	 if (!xdr_string (xdrs, &objp->dest, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_cp_a_args (XDR *xdrs, guestfs_cp_a_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->src, ~0))
+		 return FALSE;
+	 if (!xdr_string (xdrs, &objp->dest, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_mv_args (XDR *xdrs, guestfs_mv_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->src, ~0))
+		 return FALSE;
+	 if (!xdr_string (xdrs, &objp->dest, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
 xdr_guestfs_procedure (XDR *xdrs, guestfs_procedure *objp)
 {
 	register int32_t *buf;

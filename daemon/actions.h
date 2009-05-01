@@ -107,3 +107,6 @@ extern char *do_get_e2uuid (const char *device);
 extern int do_fsck (const char *fstype, const char *device);
 extern int do_zero (const char *device);
 extern int do_grub_install (const char *root, const char *device);
+extern int do_cp (const char *src, const char *dest);
+extern int do_cp_a (const char *src, const char *dest);
+extern int do_mv (const char *src, const char *dest);

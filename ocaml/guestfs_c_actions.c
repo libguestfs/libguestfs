@@ -2870,3 +2870,75 @@ ocaml_guestfs_grub_install (value gv, value rootv, value devicev)
   CAMLreturn (rv);
 }
 
+CAMLprim value
+ocaml_guestfs_cp (value gv, value srcv, value destv)
+{
+  CAMLparam3 (gv, srcv, destv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("cp: used handle after closing it");
+
+  const char *src = String_val (srcv);
+  const char *dest = String_val (destv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_cp (g, src, dest);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "cp");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_cp_a (value gv, value srcv, value destv)
+{
+  CAMLparam3 (gv, srcv, destv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("cp_a: used handle after closing it");
+
+  const char *src = String_val (srcv);
+  const char *dest = String_val (destv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_cp_a (g, src, dest);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "cp_a");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_mv (value gv, value srcv, value destv)
+{
+  CAMLparam3 (gv, srcv, destv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("mv: used handle after closing it");
+
+  const char *src = String_val (srcv);
+  const char *dest = String_val (destv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_mv (g, src, dest);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "mv");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+

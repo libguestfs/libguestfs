@@ -2457,3 +2457,63 @@ Java_com_redhat_et_libguestfs_GuestFS__1grub_1install
   }
 }
 
+JNIEXPORT void JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1cp
+  (JNIEnv *env, jobject obj, jlong jg, jstring jsrc, jstring jdest)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+  const char *src;
+  const char *dest;
+
+  src = (*env)->GetStringUTFChars (env, jsrc, NULL);
+  dest = (*env)->GetStringUTFChars (env, jdest, NULL);
+  r = guestfs_cp (g, src, dest);
+  (*env)->ReleaseStringUTFChars (env, jsrc, src);
+  (*env)->ReleaseStringUTFChars (env, jdest, dest);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return ;
+  }
+}
+
+JNIEXPORT void JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1cp_1a
+  (JNIEnv *env, jobject obj, jlong jg, jstring jsrc, jstring jdest)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+  const char *src;
+  const char *dest;
+
+  src = (*env)->GetStringUTFChars (env, jsrc, NULL);
+  dest = (*env)->GetStringUTFChars (env, jdest, NULL);
+  r = guestfs_cp_a (g, src, dest);
+  (*env)->ReleaseStringUTFChars (env, jsrc, src);
+  (*env)->ReleaseStringUTFChars (env, jdest, dest);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return ;
+  }
+}
+
+JNIEXPORT void JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1mv
+  (JNIEnv *env, jobject obj, jlong jg, jstring jsrc, jstring jdest)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+  const char *src;
+  const char *dest;
+
+  src = (*env)->GetStringUTFChars (env, jsrc, NULL);
+  dest = (*env)->GetStringUTFChars (env, jdest, NULL);
+  r = guestfs_mv (g, src, dest);
+  (*env)->ReleaseStringUTFChars (env, jsrc, src);
+  (*env)->ReleaseStringUTFChars (env, jdest, dest);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return ;
+  }
+}
+

@@ -432,6 +432,16 @@ The first character of C<param> string must be a C<-> (dash).
 
 C<value> can be NULL.
 
+=item $h->cp ($src, $dest);
+
+This copies a file from C<src> to C<dest> where C<dest> is
+either a destination filename or destination directory.
+
+=item $h->cp_a ($src, $dest);
+
+This copies a file or directory from C<src> to C<dest>
+recursively using the C<cp -a> command.
+
 =item $result = $h->debug ($subcmd, \@extraargs);
 
 The C<$h-E<gt>debug> command exposes some internals of
@@ -733,6 +743,11 @@ This returns the list of currently mounted filesystems.  It returns
 the list of devices (eg. C</dev/sda1>, C</dev/VG/LV>).
 
 Some internal mounts are not shown.
+
+=item $h->mv ($src, $dest);
+
+This moves a file from C<src> to C<dest> where C<dest> is
+either a destination filename or destination directory.
 
 =item $h->pvcreate ($device);
 

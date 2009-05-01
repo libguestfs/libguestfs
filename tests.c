@@ -112,6 +112,457 @@ static void no_test_warnings (void)
   fprintf (stderr, "warning: \"guestfs_get_e2uuid\" has no tests\n");
 }
 
+static int test_mv_0 (void)
+{
+  /* InitBasicFS for mv (0): create ext2 on /dev/sda1 */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *lines[] = {
+      ",",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for mv (0) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_write_file (g, "/old", "file content", 0);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mv (g, "/old", "/new");
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *r;
+    suppress_error = 0;
+    r = guestfs_cat (g, "/new");
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, "file content") != 0) {
+      fprintf (stderr, "test_mv_0: expected \"file content\" but got \"%s\"\n", r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
+static int test_mv_1 (void)
+{
+  /* InitBasicFS for mv (1): create ext2 on /dev/sda1 */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *lines[] = {
+      ",",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputFalse for mv (1) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_write_file (g, "/old", "file content", 0);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mv (g, "/old", "/new");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_is_file (g, "/old");
+    if (r == -1)
+      return -1;
+    if (r) {
+      fprintf (stderr, "test_mv_1: expected false, got true\n");
+      return -1;
+    }
+  }
+  return 0;
+}
+
+static int test_cp_a_0 (void)
+{
+  /* InitBasicFS for cp_a (0): create ext2 on /dev/sda1 */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *lines[] = {
+      ",",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for cp_a (0) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkdir (g, "/olddir");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkdir (g, "/newdir");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_write_file (g, "/olddir/file", "file content", 0);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_cp_a (g, "/olddir", "/newdir");
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *r;
+    suppress_error = 0;
+    r = guestfs_cat (g, "/newdir/olddir/file");
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, "file content") != 0) {
+      fprintf (stderr, "test_cp_a_0: expected \"file content\" but got \"%s\"\n", r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
+static int test_cp_0 (void)
+{
+  /* InitBasicFS for cp (0): create ext2 on /dev/sda1 */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *lines[] = {
+      ",",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for cp (0) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_write_file (g, "/old", "file content", 0);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_cp (g, "/old", "/new");
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *r;
+    suppress_error = 0;
+    r = guestfs_cat (g, "/new");
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, "file content") != 0) {
+      fprintf (stderr, "test_cp_0: expected \"file content\" but got \"%s\"\n", r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
+static int test_cp_1 (void)
+{
+  /* InitBasicFS for cp (1): create ext2 on /dev/sda1 */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *lines[] = {
+      ",",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputTrue for cp (1) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_write_file (g, "/old", "file content", 0);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_cp (g, "/old", "/new");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_is_file (g, "/old");
+    if (r == -1)
+      return -1;
+    if (!r) {
+      fprintf (stderr, "test_cp_1: expected true, got false\n");
+      return -1;
+    }
+  }
+  return 0;
+}
+
+static int test_cp_2 (void)
+{
+  /* InitBasicFS for cp (2): create ext2 on /dev/sda1 */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *lines[] = {
+      ",",
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, "/dev/sda1", "/");
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for cp (2) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_write_file (g, "/old", "file content", 0);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkdir (g, "/dir");
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_cp (g, "/old", "/dir/new");
+    if (r == -1)
+      return -1;
+  }
+  {
+    char *r;
+    suppress_error = 0;
+    r = guestfs_cat (g, "/dir/new");
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, "file content") != 0) {
+      fprintf (stderr, "test_cp_2: expected \"file content\" but got \"%s\"\n", r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
 static int test_grub_install_0 (void)
 {
   /* InitBasicFS for grub_install (0): create ext2 on /dev/sda1 */
@@ -6784,8 +7235,44 @@ int main (int argc, char *argv[])
     exit (1);
   }
 
-  nr_tests = 95;
+  nr_tests = 101;
 
+  test_num++;
+  printf ("%3d/%3d test_mv_0\n", test_num, nr_tests);
+  if (test_mv_0 () == -1) {
+    printf ("test_mv_0 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_mv_1\n", test_num, nr_tests);
+  if (test_mv_1 () == -1) {
+    printf ("test_mv_1 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_cp_a_0\n", test_num, nr_tests);
+  if (test_cp_a_0 () == -1) {
+    printf ("test_cp_a_0 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_cp_0\n", test_num, nr_tests);
+  if (test_cp_0 () == -1) {
+    printf ("test_cp_0 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_cp_1\n", test_num, nr_tests);
+  if (test_cp_1 () == -1) {
+    printf ("test_cp_1 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_cp_2\n", test_num, nr_tests);
+  if (test_cp_2 () == -1) {
+    printf ("test_cp_2 FAILED\n");
+    failed++;
+  }
   test_num++;
   printf ("%3d/%3d test_grub_install_0\n", test_num, nr_tests);
   if (test_grub_install_0 () == -1) {

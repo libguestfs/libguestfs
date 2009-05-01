@@ -522,6 +522,28 @@ C<value> can be NULL.
 
 This function returns 0 on success or -1 on error.
 
+=head2 guestfs_cp
+
+ int guestfs_cp (guestfs_h *handle,
+		const char *src,
+		const char *dest);
+
+This copies a file from C<src> to C<dest> where C<dest> is
+either a destination filename or destination directory.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_cp_a
+
+ int guestfs_cp_a (guestfs_h *handle,
+		const char *src,
+		const char *dest);
+
+This copies a file or directory from C<src> to C<dest>
+recursively using the C<cp -a> command.
+
+This function returns 0 on success or -1 on error.
+
 =head2 guestfs_debug
 
  char *guestfs_debug (guestfs_h *handle,
@@ -1038,6 +1060,17 @@ Some internal mounts are not shown.
 This function returns a NULL-terminated array of strings
 (like L<environ(3)>), or NULL if there was an error.
 I<The caller must free the strings and the array after use>.
+
+=head2 guestfs_mv
+
+ int guestfs_mv (guestfs_h *handle,
+		const char *src,
+		const char *dest);
+
+This moves a file from C<src> to C<dest> where C<dest> is
+either a destination filename or destination directory.
+
+This function returns 0 on success or -1 on error.
 
 =head2 guestfs_pvcreate
 

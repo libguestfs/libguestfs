@@ -2153,6 +2153,84 @@ done:
   xdr_free ((xdrproc_t) xdr_guestfs_grub_install_args, (char *) &args);
 }
 
+static void cp_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_cp_args args;
+  const char *src;
+  const char *dest;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_cp_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "cp");
+    return;
+  }
+  src = args.src;
+  dest = args.dest;
+
+  r = do_cp (src, dest);
+  if (r == -1)
+    /* do_cp has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_cp_args, (char *) &args);
+}
+
+static void cp_a_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_cp_a_args args;
+  const char *src;
+  const char *dest;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_cp_a_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "cp_a");
+    return;
+  }
+  src = args.src;
+  dest = args.dest;
+
+  r = do_cp_a (src, dest);
+  if (r == -1)
+    /* do_cp_a has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_cp_a_args, (char *) &args);
+}
+
+static void mv_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_mv_args args;
+  const char *src;
+  const char *dest;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_mv_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "mv");
+    return;
+  }
+  src = args.src;
+  dest = args.dest;
+
+  r = do_mv (src, dest);
+  if (r == -1)
+    /* do_mv has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_mv_args, (char *) &args);
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -2413,6 +2491,15 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_GRUB_INSTALL:
       grub_install_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_CP:
+      cp_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_CP_A:
+      cp_a_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_MV:
+      mv_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d", proc_nr);

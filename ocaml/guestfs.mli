@@ -445,3 +445,12 @@ val zero : t -> string -> unit
 val grub_install : t -> string -> string -> unit
 (** install GRUB *)
 
+val cp : t -> string -> string -> unit
+(** copy a file *)
+
+val cp_a : t -> string -> string -> unit
+(** copy a file or directory recursively *)
+
+val mv : t -> string -> string -> unit
+(** move a file *)
+

@@ -2433,4 +2433,58 @@ public class GuestFS {
   private native void _grub_install (long g, String root, String device)
     throws LibGuestFSException;
 
+  /**
+   * copy a file
+   *
+   * This copies a file from "src" to "dest" where "dest" is
+   * either a destination filename or destination directory.
+   * 
+   * @throws LibGuestFSException
+   */
+  public void cp (String src, String dest)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("cp: handle is closed");
+    _cp (g, src, dest);
+  }
+  private native void _cp (long g, String src, String dest)
+    throws LibGuestFSException;
+
+  /**
+   * copy a file or directory recursively
+   *
+   * This copies a file or directory from "src" to "dest"
+   * recursively using the "cp -a" command.
+   * 
+   * @throws LibGuestFSException
+   */
+  public void cp_a (String src, String dest)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("cp_a: handle is closed");
+    _cp_a (g, src, dest);
+  }
+  private native void _cp_a (long g, String src, String dest)
+    throws LibGuestFSException;
+
+  /**
+   * move a file
+   *
+   * This moves a file from "src" to "dest" where "dest" is
+   * either a destination filename or destination directory.
+   * 
+   * @throws LibGuestFSException
+   */
+  public void mv (String src, String dest)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("mv: handle is closed");
+    _mv (g, src, dest);
+  }
+  private native void _mv (long g, String src, String dest)
+    throws LibGuestFSException;
+
 }

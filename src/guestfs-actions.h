@@ -126,3 +126,6 @@ extern char *guestfs_get_e2uuid (guestfs_h *handle, const char *device);
 extern int guestfs_fsck (guestfs_h *handle, const char *fstype, const char *device);
 extern int guestfs_zero (guestfs_h *handle, const char *device);
 extern int guestfs_grub_install (guestfs_h *handle, const char *root, const char *device);
+extern int guestfs_cp (guestfs_h *handle, const char *src, const char *dest);
+extern int guestfs_cp_a (guestfs_h *handle, const char *src, const char *dest);
+extern int guestfs_mv (guestfs_h *handle, const char *src, const char *dest);

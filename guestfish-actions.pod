@@ -403,6 +403,20 @@ The first character of C<param> string must be a C<-> (dash).
 
 C<value> can be NULL.
 
+=head2 cp
+
+ cp src dest
+
+This copies a file from C<src> to C<dest> where C<dest> is
+either a destination filename or destination directory.
+
+=head2 cp-a
+
+ cp-a src dest
+
+This copies a file or directory from C<src> to C<dest>
+recursively using the C<cp -a> command.
+
 =head2 debug
 
  debug subcmd 'extraargs ...'
@@ -784,6 +798,13 @@ This returns the list of currently mounted filesystems.  It returns
 the list of devices (eg. C</dev/sda1>, C</dev/VG/LV>).
 
 Some internal mounts are not shown.
+
+=head2 mv
+
+ mv src dest
+
+This moves a file from C<src> to C<dest> where C<dest> is
+either a destination filename or destination directory.
 
 =head2 pvcreate
 

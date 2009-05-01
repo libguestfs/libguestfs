@@ -761,6 +761,24 @@ struct guestfs_grub_install_args {
 };
 typedef struct guestfs_grub_install_args guestfs_grub_install_args;
 
+struct guestfs_cp_args {
+	char *src;
+	char *dest;
+};
+typedef struct guestfs_cp_args guestfs_cp_args;
+
+struct guestfs_cp_a_args {
+	char *src;
+	char *dest;
+};
+typedef struct guestfs_cp_a_args guestfs_cp_a_args;
+
+struct guestfs_mv_args {
+	char *src;
+	char *dest;
+};
+typedef struct guestfs_mv_args guestfs_mv_args;
+
 enum guestfs_procedure {
 	GUESTFS_PROC_MOUNT = 1,
 	GUESTFS_PROC_SYNC = 2,
@@ -848,7 +866,10 @@ enum guestfs_procedure {
 	GUESTFS_PROC_FSCK = 84,
 	GUESTFS_PROC_ZERO = 85,
 	GUESTFS_PROC_GRUB_INSTALL = 86,
-	GUESTFS_PROC_NR_PROCS = 86 + 1,
+	GUESTFS_PROC_CP = 87,
+	GUESTFS_PROC_CP_A = 88,
+	GUESTFS_PROC_MV = 89,
+	GUESTFS_PROC_NR_PROCS = 89 + 1,
 };
 typedef enum guestfs_procedure guestfs_procedure;
 #define GUESTFS_MESSAGE_MAX 4194304
@@ -1017,6 +1038,9 @@ extern  bool_t xdr_guestfs_fsck_args (XDR *, guestfs_fsck_args*);
 extern  bool_t xdr_guestfs_fsck_ret (XDR *, guestfs_fsck_ret*);
 extern  bool_t xdr_guestfs_zero_args (XDR *, guestfs_zero_args*);
 extern  bool_t xdr_guestfs_grub_install_args (XDR *, guestfs_grub_install_args*);
+extern  bool_t xdr_guestfs_cp_args (XDR *, guestfs_cp_args*);
+extern  bool_t xdr_guestfs_cp_a_args (XDR *, guestfs_cp_a_args*);
+extern  bool_t xdr_guestfs_mv_args (XDR *, guestfs_mv_args*);
 extern  bool_t xdr_guestfs_procedure (XDR *, guestfs_procedure*);
 extern  bool_t xdr_guestfs_message_direction (XDR *, guestfs_message_direction*);
 extern  bool_t xdr_guestfs_message_status (XDR *, guestfs_message_status*);
@@ -1144,6 +1168,9 @@ extern bool_t xdr_guestfs_fsck_args ();
 extern bool_t xdr_guestfs_fsck_ret ();
 extern bool_t xdr_guestfs_zero_args ();
 extern bool_t xdr_guestfs_grub_install_args ();
+extern bool_t xdr_guestfs_cp_args ();
+extern bool_t xdr_guestfs_cp_a_args ();
+extern bool_t xdr_guestfs_mv_args ();
 extern bool_t xdr_guestfs_procedure ();
 extern bool_t xdr_guestfs_message_direction ();
 extern bool_t xdr_guestfs_message_status ();

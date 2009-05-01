@@ -2586,6 +2586,81 @@ static VALUE ruby_guestfs_grub_install (VALUE gv, VALUE rootv, VALUE devicev)
   return Qnil;
 }
 
+static VALUE ruby_guestfs_cp (VALUE gv, VALUE srcv, VALUE destv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "cp");
+
+  const char *src = StringValueCStr (srcv);
+  if (!src)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "src", "cp");
+  const char *dest = StringValueCStr (destv);
+  if (!dest)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "dest", "cp");
+
+  int r;
+
+  r = guestfs_cp (g, src, dest);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
+static VALUE ruby_guestfs_cp_a (VALUE gv, VALUE srcv, VALUE destv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "cp_a");
+
+  const char *src = StringValueCStr (srcv);
+  if (!src)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "src", "cp_a");
+  const char *dest = StringValueCStr (destv);
+  if (!dest)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "dest", "cp_a");
+
+  int r;
+
+  r = guestfs_cp_a (g, src, dest);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
+static VALUE ruby_guestfs_mv (VALUE gv, VALUE srcv, VALUE destv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "mv");
+
+  const char *src = StringValueCStr (srcv);
+  if (!src)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "src", "mv");
+  const char *dest = StringValueCStr (destv);
+  if (!dest)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "dest", "mv");
+
+  int r;
+
+  r = guestfs_mv (g, src, dest);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
 /* Initialize the module. */
 void Init__guestfs ()
 {
@@ -2810,4 +2885,10 @@ void Init__guestfs ()
         ruby_guestfs_zero, 1);
   rb_define_method (c_guestfs, "grub_install",
         ruby_guestfs_grub_install, 2);
+  rb_define_method (c_guestfs, "cp",
+        ruby_guestfs_cp, 2);
+  rb_define_method (c_guestfs, "cp_a",
+        ruby_guestfs_cp_a, 2);
+  rb_define_method (c_guestfs, "mv",
+        ruby_guestfs_mv, 2);
 }
