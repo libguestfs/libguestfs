@@ -1737,6 +1737,20 @@ recursively using the C<cp -a> command.");
 This moves a file from C<src> to C<dest> where C<dest> is
 either a destination filename or destination directory.");
 
+  ("drop_caches", (RErr, [Int "whattodrop"]), 90, [],
+   [InitEmpty, TestRun (
+      [["drop_caches"; "3"]])],
+   "drop kernel page cache, dentries and inodes",
+   "\
+This instructs the guest kernel to drop its page cache,
+and/or dentries and inode caches.  The parameter C<whattodrop>
+tells the kernel what precisely to drop, see
+L<http://linux-mm.org/Drop_Caches>
+
+Setting C<whattodrop> to 3 should drop everything.
+
+This automatically calls L<sync(2)> before the operation,
+so that the maximum guest memory is freed.");
 
 ]
 

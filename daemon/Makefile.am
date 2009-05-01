@@ -29,6 +29,7 @@ guestfsd_SOURCES = \
 	debug.c \
 	devsparts.c \
 	dir.c \
+	dropcaches.c \
 	ext2.c \
 	file.c \
 	fsck.c \
