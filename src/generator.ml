@@ -1752,6 +1752,20 @@ Setting C<whattodrop> to 3 should drop everything.
 This automatically calls L<sync(2)> before the operation,
 so that the maximum guest memory is freed.");
 
+  ("dmesg", (RString "kmsgs", []), 91, [],
+   [InitEmpty, TestRun (
+      [["dmesg"]])],
+   "return kernel messages",
+   "\
+This returns the kernel messages (C<dmesg> output) from
+the guest kernel.  This is sometimes useful for extended
+debugging of problems.
+
+Another way to get the same information is to enable
+verbose messages with C<guestfs_set_verbose> or by setting
+the environment variable C<LIBGUESTFS_DEBUG=1> before
+running the program.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
