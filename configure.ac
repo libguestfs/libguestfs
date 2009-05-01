@@ -58,11 +58,7 @@ test "x$POD2TEXT" = "xno" &&
 
 dnl Check for QEMU for running binaries on this $host_cpu, fall
 dnl back to basic 'qemu'.  Allow the user to override it.
-default_qemu="qemu-system-$host_cpu qemu"
-# On x86-64, try using KVM first.
-if test "x$host_cpu" = "xx86_64"; then
-    default_qemu="qemu-kvm $default_qemu"
-fi
+default_qemu="qemu-kvm qemu-system-$host_cpu qemu"
 AC_ARG_WITH([qemu],
 	[AS_HELP_STRING([--with-qemu],
 	  [set default QEMU binary @<:@default=[qemu-kvm] qemu-system-<host> qemu@:>@])],
