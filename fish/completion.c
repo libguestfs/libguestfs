@@ -114,6 +114,7 @@ static const char *const commands[] = {
   "mounts",
   "mv",
   "path",
+  "ping-daemon",
   "pvcreate",
   "pvremove",
   "pvs",

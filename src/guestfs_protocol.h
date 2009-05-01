@@ -881,7 +881,8 @@ enum guestfs_procedure {
 	GUESTFS_PROC_MV = 89,
 	GUESTFS_PROC_DROP_CACHES = 90,
 	GUESTFS_PROC_DMESG = 91,
-	GUESTFS_PROC_NR_PROCS = 91 + 1,
+	GUESTFS_PROC_PING_DAEMON = 92,
+	GUESTFS_PROC_NR_PROCS = 92 + 1,
 };
 typedef enum guestfs_procedure guestfs_procedure;
 #define GUESTFS_MESSAGE_MAX 4194304

@@ -131,3 +131,4 @@ extern int guestfs_cp_a (guestfs_h *handle, const char *src, const char *dest);
 extern int guestfs_mv (guestfs_h *handle, const char *src, const char *dest);
 extern int guestfs_drop_caches (guestfs_h *handle, int whattodrop);
 extern char *guestfs_dmesg (guestfs_h *handle);
+extern int guestfs_ping_daemon (guestfs_h *handle);

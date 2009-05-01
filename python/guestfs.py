@@ -1233,3 +1233,12 @@ class GuestFS:
         """
         return libguestfsmod.dmesg (self._o)
 
+    def ping_daemon (self):
+        u"""This is a test probe into the guestfs daemon running
+        inside the qemu subprocess. Calling this function checks
+        that the daemon responds to the ping message, without
+        affecting the daemon or attached block device(s) in any
+        other way.
+        """
+        return libguestfsmod.ping_daemon (self._o)
+

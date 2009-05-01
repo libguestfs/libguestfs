@@ -112,6 +112,34 @@ static void no_test_warnings (void)
   fprintf (stderr, "warning: \"guestfs_get_e2uuid\" has no tests\n");
 }
 
+static int test_ping_daemon_0 (void)
+{
+  /* InitEmpty for ping_daemon (0) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  /* TestRun for ping_daemon (0) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_ping_daemon (g);
+    if (r == -1)
+      return -1;
+  }
+  return 0;
+}
+
 static int test_dmesg_0 (void)
 {
   /* InitEmpty for dmesg (0) */
@@ -7292,8 +7320,14 @@ int main (int argc, char *argv[])
     exit (1);
   }
 
-  nr_tests = 103;
+  nr_tests = 104;
 
+  test_num++;
+  printf ("%3d/%3d test_ping_daemon_0\n", test_num, nr_tests);
+  if (test_ping_daemon_0 () == -1) {
+    printf ("test_ping_daemon_0 FAILED\n");
+    failed++;
+  }
   test_num++;
   printf ("%3d/%3d test_dmesg_0\n", test_num, nr_tests);
   if (test_dmesg_0 () == -1) {

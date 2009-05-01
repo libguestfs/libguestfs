@@ -460,3 +460,6 @@ val drop_caches : t -> int -> unit
 val dmesg : t -> string
 (** return kernel messages *)
 
+val ping_daemon : t -> unit
+(** ping the guest daemon *)
+

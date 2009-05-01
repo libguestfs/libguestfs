@@ -3205,6 +3205,30 @@ py_guestfs_dmesg (PyObject *self, PyObject *args)
   return py_r;
 }
 
+static PyObject *
+py_guestfs_ping_daemon (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+
+  if (!PyArg_ParseTuple (args, (char *) "O:guestfs_ping_daemon",
+                         &py_g))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_ping_daemon (g);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
 static PyMethodDef methods[] = {
   { (char *) "create", py_guestfs_create, METH_VARARGS, NULL },
   { (char *) "close", py_guestfs_close, METH_VARARGS, NULL },
@@ -3320,6 +3344,7 @@ static PyMethodDef methods[] = {
   { (char *) "mv", py_guestfs_mv, METH_VARARGS, NULL },
   { (char *) "drop_caches", py_guestfs_drop_caches, METH_VARARGS, NULL },
   { (char *) "dmesg", py_guestfs_dmesg, METH_VARARGS, NULL },
+  { (char *) "ping_daemon", py_guestfs_ping_daemon, METH_VARARGS, NULL },
   { NULL, NULL, 0, NULL }
 };
 

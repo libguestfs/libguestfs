@@ -2551,3 +2551,17 @@ Java_com_redhat_et_libguestfs_GuestFS__1dmesg
   return jr;
 }
 
+JNIEXPORT void JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1ping_1daemon
+  (JNIEnv *env, jobject obj, jlong jg)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+
+  r = guestfs_ping_daemon (g);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return ;
+  }
+}
+

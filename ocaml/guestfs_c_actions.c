@@ -2988,3 +2988,25 @@ ocaml_guestfs_dmesg (value gv)
   CAMLreturn (rv);
 }
 
+CAMLprim value
+ocaml_guestfs_ping_daemon (value gv)
+{
+  CAMLparam1 (gv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("ping_daemon: used handle after closing it");
+
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_ping_daemon (g);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "ping_daemon");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+

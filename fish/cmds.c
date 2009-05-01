@@ -107,6 +107,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "mount-vfs", "mount a guest disk with mount options and vfstype");
   printf ("%-20s %s\n", "mounts", "show mounted filesystems");
   printf ("%-20s %s\n", "mv", "move a file");
+  printf ("%-20s %s\n", "ping-daemon", "ping the guest daemon");
   printf ("%-20s %s\n", "pvcreate", "create an LVM physical volume");
   printf ("%-20s %s\n", "pvremove", "remove an LVM physical volume");
   printf ("%-20s %s\n", "pvs", "list the LVM physical volumes (PVs)");
@@ -471,6 +472,9 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "dmesg") == 0)
     pod2text ("dmesg - return kernel messages", " dmesg\n\nThis returns the kernel messages (C<dmesg> output) from\nthe guest kernel.  This is sometimes useful for extended\ndebugging of problems.\n\nAnother way to get the same information is to enable\nverbose messages with C<set_verbose> or by setting\nthe environment variable C<LIBGUESTFS_DEBUG=1> before\nrunning the program.");
+  else
+  if (strcasecmp (cmd, "ping_daemon") == 0 || strcasecmp (cmd, "ping-daemon") == 0)
+    pod2text ("ping-daemon - ping the guest daemon", " ping-daemon\n\nThis is a test probe into the guestfs daemon running inside\nthe qemu subprocess.  Calling this function checks that the\ndaemon responds to the ping message, without affecting the daemon\nor attached block device(s) in any other way.");
   else
     display_builtin_command (cmd);
 }
@@ -2299,6 +2303,18 @@ static int run_dmesg (const char *cmd, int argc, char *argv[])
   return 0;
 }
 
+static int run_ping_daemon (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  if (argc != 0) {
+    fprintf (stderr, "%s should have 0 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  r = guestfs_ping_daemon (g);
+  return r;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -2627,6 +2643,9 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "dmesg") == 0)
     return run_dmesg (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "ping_daemon") == 0 || strcasecmp (cmd, "ping-daemon") == 0)
+    return run_ping_daemon (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

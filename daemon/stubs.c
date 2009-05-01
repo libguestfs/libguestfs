@@ -2271,6 +2271,19 @@ static void dmesg_stub (XDR *xdr_in)
 done: ;
 }
 
+static void ping_daemon_stub (XDR *xdr_in)
+{
+  int r;
+
+  r = do_ping_daemon ();
+  if (r == -1)
+    /* do_ping_daemon has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done: ;
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -2546,6 +2559,9 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_DMESG:
       dmesg_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_PING_DAEMON:
+      ping_daemon_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d", proc_nr);

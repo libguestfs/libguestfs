@@ -2536,4 +2536,25 @@ public class GuestFS {
   private native String _dmesg (long g)
     throws LibGuestFSException;
 
+  /**
+   * ping the guest daemon
+   *
+   * This is a test probe into the guestfs daemon running
+   * inside the qemu subprocess. Calling this function checks
+   * that the daemon responds to the ping message, without
+   * affecting the daemon or attached block device(s) in any
+   * other way.
+   * 
+   * @throws LibGuestFSException
+   */
+  public void ping_daemon ()
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("ping_daemon: handle is closed");
+    _ping_daemon (g);
+  }
+  private native void _ping_daemon (long g)
+    throws LibGuestFSException;
+
 }

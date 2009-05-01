@@ -1672,3 +1672,13 @@ PREINIT:
  OUTPUT:
       RETVAL
 
+void
+ping_daemon (g)
+      guestfs_h *g;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_ping_daemon (g);
+      if (r == -1)
+        croak ("ping_daemon: %s", guestfs_last_error (g));
+

@@ -2698,6 +2698,23 @@ static VALUE ruby_guestfs_dmesg (VALUE gv)
   return rv;
 }
 
+static VALUE ruby_guestfs_ping_daemon (VALUE gv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "ping_daemon");
+
+
+  int r;
+
+  r = guestfs_ping_daemon (g);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
 /* Initialize the module. */
 void Init__guestfs ()
 {
@@ -2932,4 +2949,6 @@ void Init__guestfs ()
         ruby_guestfs_drop_caches, 1);
   rb_define_method (c_guestfs, "dmesg",
         ruby_guestfs_dmesg, 0);
+  rb_define_method (c_guestfs, "ping_daemon",
+        ruby_guestfs_ping_daemon, 0);
 }

@@ -1105,6 +1105,17 @@ either a destination filename or destination directory.
 
 This function returns 0 on success or -1 on error.
 
+=head2 guestfs_ping_daemon
+
+ int guestfs_ping_daemon (guestfs_h *handle);
+
+This is a test probe into the guestfs daemon running inside
+the qemu subprocess.  Calling this function checks that the
+daemon responds to the ping message, without affecting the daemon
+or attached block device(s) in any other way.
+
+This function returns 0 on success or -1 on error.
+
 =head2 guestfs_pvcreate
 
  int guestfs_pvcreate (guestfs_h *handle,

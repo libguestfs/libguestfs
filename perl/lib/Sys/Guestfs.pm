@@ -772,6 +772,13 @@ Some internal mounts are not shown.
 This moves a file from C<src> to C<dest> where C<dest> is
 either a destination filename or destination directory.
 
+=item $h->ping_daemon ();
+
+This is a test probe into the guestfs daemon running inside
+the qemu subprocess.  Calling this function checks that the
+daemon responds to the ping message, without affecting the daemon
+or attached block device(s) in any other way.
+
 =item $h->pvcreate ($device);
 
 This creates an LVM physical volume on the named C<device>,
