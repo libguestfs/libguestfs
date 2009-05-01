@@ -119,6 +119,28 @@ AC_CHECK_PROG([FEBOOTSTRAP_TO_INITRAMFS],
 test "x$FEBOOTSTRAP_TO_INITRAMFS" = "xno" && \
      AC_MSG_ERROR([febootstrap-to-initramfs must be installed])
 
+dnl Check we have fakechroot >= 2.9 (it's an indirect requirement
+dnl of febootstrap, but old versions will fail with yum).
+AC_CHECK_PROG([FAKECHROOT],
+	[fakechroot],[fakechroot],[no])
+test "x$FAKECHROOT" = "xno" && \
+    AC_MSG_ERROR([fakechroot must be installed])
+
+AC_MSG_CHECKING([fakechroot version])
+fakechroot_version=`$FAKECHROOT --version | awk '{print $3}'`
+if test -z "$fakechroot_version"; then
+    AC_MSG_RESULT([failed])
+    AC_MSG_WARN([fakechroot --version command failed, proceeding anyway])
+else
+    AC_MSG_RESULT([$fakechroot_version])
+    fakechroot_major=`echo $fakechroot_version | awk -F. '{print $1}'`
+    fakechroot_minor=`echo $fakechroot_version | awk -F. '{print $2}'`
+    if test "$fakechroot_major" -lt 2 -o \
+            \( "$fakechroot_major" -eq 2 -a "$fakechroot_minor" -lt 9 \); then
+        AC_MSG_ERROR([fakechroot version must be >= 2.9])
+    fi
+fi
+
 dnl --with-repo to specify a Fedora repository.
 AC_ARG_WITH([repo],
 	[AS_HELP_STRING([--with-repo],
