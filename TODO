@@ -5,3 +5,11 @@ https://www.redhat.com/archives/fedora-virt/2009-April/msg00114.html
 
 We badly need to actually implement the FTP server mentioned in the
 documentation.
+
+----------------------------------------------------------------------
+
+BufferIn and BufferOut should turn into <char *, int> and simple
+strings in other languages that can handle 8 bit clean strings.
+Limit on transfers would still be 2MB for these types.
+ - then implement write-file properly
+ - and implement read-file
