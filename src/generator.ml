@@ -1766,6 +1766,16 @@ verbose messages with C<guestfs_set_verbose> or by setting
 the environment variable C<LIBGUESTFS_DEBUG=1> before
 running the program.");
 
+  ("ping_daemon", (RErr, []), 92, [],
+   [InitEmpty, TestRun (
+      [["ping_daemon"]])],
+   "ping the guest daemon",
+   "\
+This is a test probe into the guestfs daemon running inside
+the qemu subprocess.  Calling this function checks that the
+daemon responds to the ping message, without affecting the daemon
+or attached block device(s) in any other way.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

@@ -39,6 +39,7 @@ guestfsd_SOURCES = \
 	ls.c \
 	lvm.c \
 	mount.c \
+	pingdaemon.c \
 	proto.c \
 	stat.c \
 	stubs.c \
