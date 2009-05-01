@@ -189,6 +189,19 @@ but B<not> by a command.  For example:
 
 Blank lines are also ignored.
 
+=head1 RUNNING COMMANDS LOCALLY
+
+Any line which starts with a I<!> character is treated as a command
+sent to the local shell (C</bin/sh> or whatever L<system(3)> uses).
+For example:
+
+ !mkdir local
+ tgz-out /remote local/remote-data.tar.gz
+
+will create a directory C<local> on the host, and then export
+the contents of C</remote> on the mounted filesystem to
+C<local/remote-data.tar.gz>.  (See C<tgz-out>).
+
 =head1 COMMANDS
 
 =head2 help

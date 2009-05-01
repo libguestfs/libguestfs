@@ -26,6 +26,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <getopt.h>
+#include <signal.h>
 #include <assert.h>
 
 #ifdef HAVE_LIBREADLINE
@@ -358,6 +359,21 @@ script (int prompt)
 
     /* If the next character is '#' then this is a comment. */
     if (*buf == '#') continue;
+
+    /* If the next character is '!' then pass the whole lot to system(3). */
+    if (*buf == '!') {
+      int r;
+
+      r = system (buf+1);
+      if (!prompt) {
+	if (r == -1 ||
+	    (WIFSIGNALED (r) &&
+	     (WTERMSIG (r) == SIGINT || WTERMSIG (r) == SIGQUIT)) ||
+	    WEXITSTATUS (r) != 0)
+	  exit (1);
+      }
+      continue;
+    }
 
     /* Get the command (cannot be quoted). */
     len = strcspn (buf, " \t");
