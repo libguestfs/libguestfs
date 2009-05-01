@@ -1776,6 +1776,24 @@ the qemu subprocess.  Calling this function checks that the
 daemon responds to the ping message, without affecting the daemon
 or attached block device(s) in any other way.");
 
+  ("equal", (RBool "equality", [String "file1"; String "file2"]), 93, [],
+   [InitBasicFS, TestOutputTrue (
+      [["write_file"; "/file1"; "contents of a file"; "0"];
+       ["cp"; "/file1"; "/file2"];
+       ["equal"; "/file1"; "/file2"]]);
+    InitBasicFS, TestOutputFalse (
+      [["write_file"; "/file1"; "contents of a file"; "0"];
+       ["write_file"; "/file2"; "contents of another file"; "0"];
+       ["equal"; "/file1"; "/file2"]]);
+    InitBasicFS, TestLastFail (
+      [["equal"; "/file1"; "/file2"]])],
+   "test if two files have equal contents",
+   "\
+This compares the two files C<file1> and C<file2> and returns
+true if their content is exactly equal, or false otherwise.
+
+The external L<cmp(1)> program is used for the comparison.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
