@@ -67,6 +67,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "cp-a", "copy a file or directory recursively");
   printf ("%-20s %s\n", "debug", "debugging and internals");
   printf ("%-20s %s\n", "download", "download a file to the local machine");
+  printf ("%-20s %s\n", "drop-caches", "drop kernel page cache, dentries and inodes");
   printf ("%-20s %s\n", "exists", "test if file or directory exists");
   printf ("%-20s %s\n", "file", "determine file type");
   printf ("%-20s %s\n", "fsck", "run the filesystem checker");
@@ -463,6 +464,9 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "mv") == 0)
     pod2text ("mv - move a file", " mv <src> <dest>\n\nThis moves a file from C<src> to C<dest> where C<dest> is\neither a destination filename or destination directory.");
+  else
+  if (strcasecmp (cmd, "drop_caches") == 0 || strcasecmp (cmd, "drop-caches") == 0)
+    pod2text ("drop-caches - drop kernel page cache, dentries and inodes", " drop-caches <whattodrop>\n\nThis instructs the guest kernel to drop its page cache,\nand/or dentries and inode caches.  The parameter C<whattodrop>\ntells the kernel what precisely to drop, see\nL<http://linux-mm.org/Drop_Caches>\n\nSetting C<whattodrop> to 3 should drop everything.\n\nThis automatically calls L<sync(2)> before the operation,\nso that the maximum guest memory is freed.");
   else
     display_builtin_command (cmd);
 }
@@ -2262,6 +2266,20 @@ static int run_mv (const char *cmd, int argc, char *argv[])
   return r;
 }
 
+static int run_drop_caches (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  int whattodrop;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  whattodrop = atoi (argv[0]);
+  r = guestfs_drop_caches (g, whattodrop);
+  return r;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -2584,6 +2602,9 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "mv") == 0)
     return run_mv (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "drop_caches") == 0 || strcasecmp (cmd, "drop-caches") == 0)
+    return run_drop_caches (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

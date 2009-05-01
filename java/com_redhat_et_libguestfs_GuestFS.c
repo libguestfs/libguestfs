@@ -2517,3 +2517,19 @@ Java_com_redhat_et_libguestfs_GuestFS__1mv
   }
 }
 
+JNIEXPORT void JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1drop_1caches
+  (JNIEnv *env, jobject obj, jlong jg, jint jwhattodrop)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+  int whattodrop;
+
+  whattodrop = jwhattodrop;
+  r = guestfs_drop_caches (g, whattodrop);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return ;
+  }
+}
+

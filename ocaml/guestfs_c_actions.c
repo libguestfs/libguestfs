@@ -2942,3 +2942,26 @@ ocaml_guestfs_mv (value gv, value srcv, value destv)
   CAMLreturn (rv);
 }
 
+CAMLprim value
+ocaml_guestfs_drop_caches (value gv, value whattodropv)
+{
+  CAMLparam2 (gv, whattodropv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("drop_caches: used handle after closing it");
+
+  int whattodrop = Int_val (whattodropv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_drop_caches (g, whattodrop);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "drop_caches");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+

@@ -779,6 +779,11 @@ struct guestfs_mv_args {
 };
 typedef struct guestfs_mv_args guestfs_mv_args;
 
+struct guestfs_drop_caches_args {
+	int whattodrop;
+};
+typedef struct guestfs_drop_caches_args guestfs_drop_caches_args;
+
 enum guestfs_procedure {
 	GUESTFS_PROC_MOUNT = 1,
 	GUESTFS_PROC_SYNC = 2,
@@ -869,7 +874,8 @@ enum guestfs_procedure {
 	GUESTFS_PROC_CP = 87,
 	GUESTFS_PROC_CP_A = 88,
 	GUESTFS_PROC_MV = 89,
-	GUESTFS_PROC_NR_PROCS = 89 + 1,
+	GUESTFS_PROC_DROP_CACHES = 90,
+	GUESTFS_PROC_NR_PROCS = 90 + 1,
 };
 typedef enum guestfs_procedure guestfs_procedure;
 #define GUESTFS_MESSAGE_MAX 4194304
@@ -1041,6 +1047,7 @@ extern  bool_t xdr_guestfs_grub_install_args (XDR *, guestfs_grub_install_args*)
 extern  bool_t xdr_guestfs_cp_args (XDR *, guestfs_cp_args*);
 extern  bool_t xdr_guestfs_cp_a_args (XDR *, guestfs_cp_a_args*);
 extern  bool_t xdr_guestfs_mv_args (XDR *, guestfs_mv_args*);
+extern  bool_t xdr_guestfs_drop_caches_args (XDR *, guestfs_drop_caches_args*);
 extern  bool_t xdr_guestfs_procedure (XDR *, guestfs_procedure*);
 extern  bool_t xdr_guestfs_message_direction (XDR *, guestfs_message_direction*);
 extern  bool_t xdr_guestfs_message_status (XDR *, guestfs_message_status*);
@@ -1171,6 +1178,7 @@ extern bool_t xdr_guestfs_grub_install_args ();
 extern bool_t xdr_guestfs_cp_args ();
 extern bool_t xdr_guestfs_cp_a_args ();
 extern bool_t xdr_guestfs_mv_args ();
+extern bool_t xdr_guestfs_drop_caches_args ();
 extern bool_t xdr_guestfs_procedure ();
 extern bool_t xdr_guestfs_message_direction ();
 extern bool_t xdr_guestfs_message_status ();

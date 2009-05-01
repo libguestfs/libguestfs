@@ -576,6 +576,23 @@ See also C<guestfs_upload>, C<guestfs_cat>.
 
 This function returns 0 on success or -1 on error.
 
+=head2 guestfs_drop_caches
+
+ int guestfs_drop_caches (guestfs_h *handle,
+		int whattodrop);
+
+This instructs the guest kernel to drop its page cache,
+and/or dentries and inode caches.  The parameter C<whattodrop>
+tells the kernel what precisely to drop, see
+L<http://linux-mm.org/Drop_Caches>
+
+Setting C<whattodrop> to 3 should drop everything.
+
+This automatically calls L<sync(2)> before the operation,
+so that the maximum guest memory is freed.
+
+This function returns 0 on success or -1 on error.
+
 =head2 guestfs_exists
 
  int guestfs_exists (guestfs_h *handle,

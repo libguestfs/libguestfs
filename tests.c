@@ -112,6 +112,34 @@ static void no_test_warnings (void)
   fprintf (stderr, "warning: \"guestfs_get_e2uuid\" has no tests\n");
 }
 
+static int test_drop_caches_0 (void)
+{
+  /* InitEmpty for drop_caches (0) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  /* TestRun for drop_caches (0) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_drop_caches (g, 3);
+    if (r == -1)
+      return -1;
+  }
+  return 0;
+}
+
 static int test_mv_0 (void)
 {
   /* InitBasicFS for mv (0): create ext2 on /dev/sda1 */
@@ -7235,8 +7263,14 @@ int main (int argc, char *argv[])
     exit (1);
   }
 
-  nr_tests = 101;
+  nr_tests = 102;
 
+  test_num++;
+  printf ("%3d/%3d test_drop_caches_0\n", test_num, nr_tests);
+  if (test_drop_caches_0 () == -1) {
+    printf ("test_drop_caches_0 FAILED\n");
+    failed++;
+  }
   test_num++;
   printf ("%3d/%3d test_mv_0\n", test_num, nr_tests);
   if (test_mv_0 () == -1) {

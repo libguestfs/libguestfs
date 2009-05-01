@@ -225,3 +225,4 @@ external grub_install : t -> string -> string -> unit = "ocaml_guestfs_grub_inst
 external cp : t -> string -> string -> unit = "ocaml_guestfs_cp"
 external cp_a : t -> string -> string -> unit = "ocaml_guestfs_cp_a"
 external mv : t -> string -> string -> unit = "ocaml_guestfs_mv"
+external drop_caches : t -> int -> unit = "ocaml_guestfs_drop_caches"

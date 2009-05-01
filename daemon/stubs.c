@@ -2231,6 +2231,30 @@ done:
   xdr_free ((xdrproc_t) xdr_guestfs_mv_args, (char *) &args);
 }
 
+static void drop_caches_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_drop_caches_args args;
+  int whattodrop;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_drop_caches_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "drop_caches");
+    return;
+  }
+  whattodrop = args.whattodrop;
+
+  r = do_drop_caches (whattodrop);
+  if (r == -1)
+    /* do_drop_caches has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_drop_caches_args, (char *) &args);
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -2500,6 +2524,9 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_MV:
       mv_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_DROP_CACHES:
+      drop_caches_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d", proc_nr);

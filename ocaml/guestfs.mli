@@ -454,3 +454,6 @@ val cp_a : t -> string -> string -> unit
 val mv : t -> string -> string -> unit
 (** move a file *)
 
+val drop_caches : t -> int -> unit
+(** drop kernel page cache, dentries and inodes *)
+

@@ -1647,3 +1647,14 @@ PREINIT:
       if (r == -1)
         croak ("mv: %s", guestfs_last_error (g));
 
+void
+drop_caches (g, whattodrop)
+      guestfs_h *g;
+      int whattodrop;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_drop_caches (g, whattodrop);
+      if (r == -1)
+        croak ("drop_caches: %s", guestfs_last_error (g));
+

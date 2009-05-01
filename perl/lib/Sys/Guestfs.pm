@@ -461,6 +461,18 @@ C<filename> can also be a named pipe.
 
 See also C<$h-E<gt>upload>, C<$h-E<gt>cat>.
 
+=item $h->drop_caches ($whattodrop);
+
+This instructs the guest kernel to drop its page cache,
+and/or dentries and inode caches.  The parameter C<whattodrop>
+tells the kernel what precisely to drop, see
+L<http://linux-mm.org/Drop_Caches>
+
+Setting C<whattodrop> to 3 should drop everything.
+
+This automatically calls L<sync(2)> before the operation,
+so that the maximum guest memory is freed.
+
 =item $existsflag = $h->exists ($path);
 
 This returns C<true> if and only if there is a file, directory

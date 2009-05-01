@@ -2661,6 +2661,24 @@ static VALUE ruby_guestfs_mv (VALUE gv, VALUE srcv, VALUE destv)
   return Qnil;
 }
 
+static VALUE ruby_guestfs_drop_caches (VALUE gv, VALUE whattodropv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "drop_caches");
+
+  int whattodrop = NUM2INT (whattodropv);
+
+  int r;
+
+  r = guestfs_drop_caches (g, whattodrop);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
 /* Initialize the module. */
 void Init__guestfs ()
 {
@@ -2891,4 +2909,6 @@ void Init__guestfs ()
         ruby_guestfs_cp_a, 2);
   rb_define_method (c_guestfs, "mv",
         ruby_guestfs_mv, 2);
+  rb_define_method (c_guestfs, "drop_caches",
+        ruby_guestfs_drop_caches, 1);
 }

@@ -606,6 +606,10 @@ struct guestfs_mv_args {
   string dest<>;
 };
 
+struct guestfs_drop_caches_args {
+  int whattodrop;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -696,6 +700,7 @@ enum guestfs_procedure {
   GUESTFS_PROC_CP = 87,
   GUESTFS_PROC_CP_A = 88,
   GUESTFS_PROC_MV = 89,
+  GUESTFS_PROC_DROP_CACHES = 90,
   GUESTFS_PROC_NR_PROCS
 };
 

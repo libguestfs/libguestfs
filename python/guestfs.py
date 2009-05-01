@@ -1208,3 +1208,16 @@ class GuestFS:
         """
         return libguestfsmod.mv (self._o, src, dest)
 
+    def drop_caches (self, whattodrop):
+        u"""This instructs the guest kernel to drop its page cache,
+        and/or dentries and inode caches. The parameter
+        "whattodrop" tells the kernel what precisely to drop,
+        see <http://linux-mm.org/Drop_Caches>
+        
+        Setting "whattodrop" to 3 should drop everything.
+        
+        This automatically calls sync(2) before the operation,
+        so that the maximum guest memory is freed.
+        """
+        return libguestfsmod.drop_caches (self._o, whattodrop)
+

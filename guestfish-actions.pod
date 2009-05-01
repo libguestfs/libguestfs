@@ -442,6 +442,20 @@ See also C<upload>, C<cat>.
 
 Use C<-> instead of a filename to read/write from stdin/stdout.
 
+=head2 drop-caches
+
+ drop-caches whattodrop
+
+This instructs the guest kernel to drop its page cache,
+and/or dentries and inode caches.  The parameter C<whattodrop>
+tells the kernel what precisely to drop, see
+L<http://linux-mm.org/Drop_Caches>
+
+Setting C<whattodrop> to 3 should drop everything.
+
+This automatically calls L<sync(2)> before the operation,
+so that the maximum guest memory is freed.
+
 =head2 exists
 
  exists path

@@ -2487,4 +2487,29 @@ public class GuestFS {
   private native void _mv (long g, String src, String dest)
     throws LibGuestFSException;
 
+  /**
+   * drop kernel page cache, dentries and inodes
+   *
+   * This instructs the guest kernel to drop its page cache,
+   * and/or dentries and inode caches. The parameter
+   * "whattodrop" tells the kernel what precisely to drop,
+   * see <http://linux-mm.org/Drop_Caches>
+   * 
+   * Setting "whattodrop" to 3 should drop everything.
+   * 
+   * This automatically calls sync(2) before the operation,
+   * so that the maximum guest memory is freed.
+   * 
+   * @throws LibGuestFSException
+   */
+  public void drop_caches (int whattodrop)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("drop_caches: handle is closed");
+    _drop_caches (g, whattodrop);
+  }
+  private native void _drop_caches (long g, int whattodrop)
+    throws LibGuestFSException;
+
 }
