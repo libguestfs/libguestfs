@@ -24,6 +24,7 @@ guestfsd_SOURCES = \
 	blockdev.c \
 	checksum.c \
 	command.c \
+	cpmv.c \
 	daemon.h \
 	debug.c \
 	devsparts.c \

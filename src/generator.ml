@@ -1692,6 +1692,51 @@ any partition tables, filesystem superblocks and so on.");
 This command installs GRUB (the Grand Unified Bootloader) on
 C<device>, with the root directory being C<root>.");
 
+  ("cp", (RErr, [String "src"; String "dest"]), 87, [],
+   [InitBasicFS, TestOutput (
+      [["write_file"; "/old"; "file content"; "0"];
+       ["cp"; "/old"; "/new"];
+       ["cat"; "/new"]], "file content");
+    InitBasicFS, TestOutputTrue (
+      [["write_file"; "/old"; "file content"; "0"];
+       ["cp"; "/old"; "/new"];
+       ["is_file"; "/old"]]);
+    InitBasicFS, TestOutput (
+      [["write_file"; "/old"; "file content"; "0"];
+       ["mkdir"; "/dir"];
+       ["cp"; "/old"; "/dir/new"];
+       ["cat"; "/dir/new"]], "file content")],
+   "copy a file",
+   "\
+This copies a file from C<src> to C<dest> where C<dest> is
+either a destination filename or destination directory.");
+
+  ("cp_a", (RErr, [String "src"; String "dest"]), 88, [],
+   [InitBasicFS, TestOutput (
+      [["mkdir"; "/olddir"];
+       ["mkdir"; "/newdir"];
+       ["write_file"; "/olddir/file"; "file content"; "0"];
+       ["cp_a"; "/olddir"; "/newdir"];
+       ["cat"; "/newdir/olddir/file"]], "file content")],
+   "copy a file or directory recursively",
+   "\
+This copies a file or directory from C<src> to C<dest>
+recursively using the C<cp -a> command.");
+
+  ("mv", (RErr, [String "src"; String "dest"]), 89, [],
+   [InitBasicFS, TestOutput (
+      [["write_file"; "/old"; "file content"; "0"];
+       ["mv"; "/old"; "/new"];
+       ["cat"; "/new"]], "file content");
+    InitBasicFS, TestOutputFalse (
+      [["write_file"; "/old"; "file content"; "0"];
+       ["mv"; "/old"; "/new"];
+       ["is_file"; "/old"]])],
+   "move a file",
+   "\
+This moves a file from C<src> to C<dest> where C<dest> is
+either a destination filename or destination directory.");
+
 
 ]
 
