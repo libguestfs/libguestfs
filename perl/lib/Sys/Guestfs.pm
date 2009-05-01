@@ -484,6 +484,13 @@ Setting C<whattodrop> to 3 should drop everything.
 This automatically calls L<sync(2)> before the operation,
 so that the maximum guest memory is freed.
 
+=item $equality = $h->equal ($file1, $file2);
+
+This compares the two files C<file1> and C<file2> and returns
+true if their content is exactly equal, or false otherwise.
+
+The external L<cmp(1)> program is used for the comparison.
+
 =item $existsflag = $h->exists ($path);
 
 This returns C<true> if and only if there is a file, directory

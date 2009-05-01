@@ -609,6 +609,19 @@ so that the maximum guest memory is freed.
 
 This function returns 0 on success or -1 on error.
 
+=head2 guestfs_equal
+
+ int guestfs_equal (guestfs_h *handle,
+		const char *file1,
+		const char *file2);
+
+This compares the two files C<file1> and C<file2> and returns
+true if their content is exactly equal, or false otherwise.
+
+The external L<cmp(1)> program is used for the comparison.
+
+This function returns a C truth value on success or -1 on error.
+
 =head2 guestfs_exists
 
  int guestfs_exists (guestfs_h *handle,

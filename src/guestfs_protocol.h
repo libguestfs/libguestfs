@@ -789,6 +789,17 @@ struct guestfs_dmesg_ret {
 };
 typedef struct guestfs_dmesg_ret guestfs_dmesg_ret;
 
+struct guestfs_equal_args {
+	char *file1;
+	char *file2;
+};
+typedef struct guestfs_equal_args guestfs_equal_args;
+
+struct guestfs_equal_ret {
+	bool_t equality;
+};
+typedef struct guestfs_equal_ret guestfs_equal_ret;
+
 enum guestfs_procedure {
 	GUESTFS_PROC_MOUNT = 1,
 	GUESTFS_PROC_SYNC = 2,
@@ -882,7 +893,8 @@ enum guestfs_procedure {
 	GUESTFS_PROC_DROP_CACHES = 90,
 	GUESTFS_PROC_DMESG = 91,
 	GUESTFS_PROC_PING_DAEMON = 92,
-	GUESTFS_PROC_NR_PROCS = 92 + 1,
+	GUESTFS_PROC_EQUAL = 93,
+	GUESTFS_PROC_NR_PROCS = 93 + 1,
 };
 typedef enum guestfs_procedure guestfs_procedure;
 #define GUESTFS_MESSAGE_MAX 4194304
@@ -1056,6 +1068,8 @@ extern  bool_t xdr_guestfs_cp_a_args (XDR *, guestfs_cp_a_args*);
 extern  bool_t xdr_guestfs_mv_args (XDR *, guestfs_mv_args*);
 extern  bool_t xdr_guestfs_drop_caches_args (XDR *, guestfs_drop_caches_args*);
 extern  bool_t xdr_guestfs_dmesg_ret (XDR *, guestfs_dmesg_ret*);
+extern  bool_t xdr_guestfs_equal_args (XDR *, guestfs_equal_args*);
+extern  bool_t xdr_guestfs_equal_ret (XDR *, guestfs_equal_ret*);
 extern  bool_t xdr_guestfs_procedure (XDR *, guestfs_procedure*);
 extern  bool_t xdr_guestfs_message_direction (XDR *, guestfs_message_direction*);
 extern  bool_t xdr_guestfs_message_status (XDR *, guestfs_message_status*);
@@ -1188,6 +1202,8 @@ extern bool_t xdr_guestfs_cp_a_args ();
 extern bool_t xdr_guestfs_mv_args ();
 extern bool_t xdr_guestfs_drop_caches_args ();
 extern bool_t xdr_guestfs_dmesg_ret ();
+extern bool_t xdr_guestfs_equal_args ();
+extern bool_t xdr_guestfs_equal_ret ();
 extern bool_t xdr_guestfs_procedure ();
 extern bool_t xdr_guestfs_message_direction ();
 extern bool_t xdr_guestfs_message_status ();

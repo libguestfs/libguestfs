@@ -2565,3 +2565,24 @@ Java_com_redhat_et_libguestfs_GuestFS__1ping_1daemon
   }
 }
 
+JNIEXPORT jboolean JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1equal
+  (JNIEnv *env, jobject obj, jlong jg, jstring jfile1, jstring jfile2)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+  const char *file1;
+  const char *file2;
+
+  file1 = (*env)->GetStringUTFChars (env, jfile1, NULL);
+  file2 = (*env)->GetStringUTFChars (env, jfile2, NULL);
+  r = guestfs_equal (g, file1, file2);
+  (*env)->ReleaseStringUTFChars (env, jfile1, file1);
+  (*env)->ReleaseStringUTFChars (env, jfile2, file2);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return 0;
+  }
+  return (jboolean) r;
+}
+

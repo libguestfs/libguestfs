@@ -3010,3 +3010,27 @@ ocaml_guestfs_ping_daemon (value gv)
   CAMLreturn (rv);
 }
 
+CAMLprim value
+ocaml_guestfs_equal (value gv, value file1v, value file2v)
+{
+  CAMLparam3 (gv, file1v, file2v);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("equal: used handle after closing it");
+
+  const char *file1 = String_val (file1v);
+  const char *file2 = String_val (file2v);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_equal (g, file1, file2);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "equal");
+
+  rv = Val_bool (r);
+  CAMLreturn (rv);
+}
+

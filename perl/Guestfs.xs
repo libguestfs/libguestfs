@@ -1682,3 +1682,18 @@ PREINIT:
       if (r == -1)
         croak ("ping_daemon: %s", guestfs_last_error (g));
 
+SV *
+equal (g, file1, file2)
+      guestfs_h *g;
+      char *file1;
+      char *file2;
+PREINIT:
+      int equality;
+   CODE:
+      equality = guestfs_equal (g, file1, file2);
+      if (equality == -1)
+        croak ("equal: %s", guestfs_last_error (g));
+      RETVAL = newSViv (equality);
+ OUTPUT:
+      RETVAL
+

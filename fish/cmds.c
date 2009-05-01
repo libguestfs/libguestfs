@@ -69,6 +69,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "dmesg", "return kernel messages");
   printf ("%-20s %s\n", "download", "download a file to the local machine");
   printf ("%-20s %s\n", "drop-caches", "drop kernel page cache, dentries and inodes");
+  printf ("%-20s %s\n", "equal", "test if two files have equal contents");
   printf ("%-20s %s\n", "exists", "test if file or directory exists");
   printf ("%-20s %s\n", "file", "determine file type");
   printf ("%-20s %s\n", "fsck", "run the filesystem checker");
@@ -475,6 +476,9 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "ping_daemon") == 0 || strcasecmp (cmd, "ping-daemon") == 0)
     pod2text ("ping-daemon - ping the guest daemon", " ping-daemon\n\nThis is a test probe into the guestfs daemon running inside\nthe qemu subprocess.  Calling this function checks that the\ndaemon responds to the ping message, without affecting the daemon\nor attached block device(s) in any other way.");
+  else
+  if (strcasecmp (cmd, "equal") == 0)
+    pod2text ("equal - test if two files have equal contents", " equal <file1> <file2>\n\nThis compares the two files C<file1> and C<file2> and returns\ntrue if their content is exactly equal, or false otherwise.\n\nThe external L<cmp(1)> program is used for the comparison.");
   else
     display_builtin_command (cmd);
 }
@@ -2315,6 +2319,24 @@ static int run_ping_daemon (const char *cmd, int argc, char *argv[])
   return r;
 }
 
+static int run_equal (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *file1;
+  const char *file2;
+  if (argc != 2) {
+    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  file1 = argv[0];
+  file2 = argv[1];
+  r = guestfs_equal (g, file1, file2);
+  if (r == -1) return -1;
+  if (r) printf ("true\n"); else printf ("false\n");
+  return 0;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -2646,6 +2668,9 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "ping_daemon") == 0 || strcasecmp (cmd, "ping-daemon") == 0)
     return run_ping_daemon (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "equal") == 0)
+    return run_equal (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

@@ -2715,6 +2715,31 @@ static VALUE ruby_guestfs_ping_daemon (VALUE gv)
   return Qnil;
 }
 
+static VALUE ruby_guestfs_equal (VALUE gv, VALUE file1v, VALUE file2v)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "equal");
+
+  const char *file1 = StringValueCStr (file1v);
+  if (!file1)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "file1", "equal");
+  const char *file2 = StringValueCStr (file2v);
+  if (!file2)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "file2", "equal");
+
+  int r;
+
+  r = guestfs_equal (g, file1, file2);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return INT2NUM (r);
+}
+
 /* Initialize the module. */
 void Init__guestfs ()
 {
@@ -2951,4 +2976,6 @@ void Init__guestfs ()
         ruby_guestfs_dmesg, 0);
   rb_define_method (c_guestfs, "ping_daemon",
         ruby_guestfs_ping_daemon, 0);
+  rb_define_method (c_guestfs, "equal",
+        ruby_guestfs_equal, 2);
 }

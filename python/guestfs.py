@@ -1242,3 +1242,12 @@ class GuestFS:
         """
         return libguestfsmod.ping_daemon (self._o)
 
+    def equal (self, file1, file2):
+        u"""This compares the two files "file1" and "file2" and
+        returns true if their content is exactly equal, or false
+        otherwise.
+        
+        The external cmp(1) program is used for the comparison.
+        """
+        return libguestfsmod.equal (self._o, file1, file2)
+

@@ -1528,6 +1528,28 @@ xdr_guestfs_dmesg_ret (XDR *xdrs, guestfs_dmesg_ret *objp)
 }
 
 bool_t
+xdr_guestfs_equal_args (XDR *xdrs, guestfs_equal_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->file1, ~0))
+		 return FALSE;
+	 if (!xdr_string (xdrs, &objp->file2, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_equal_ret (XDR *xdrs, guestfs_equal_ret *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_bool (xdrs, &objp->equality))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
 xdr_guestfs_procedure (XDR *xdrs, guestfs_procedure *objp)
 {
 	register int32_t *buf;

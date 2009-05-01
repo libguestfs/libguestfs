@@ -614,6 +614,15 @@ struct guestfs_dmesg_ret {
   string kmsgs<>;
 };
 
+struct guestfs_equal_args {
+  string file1<>;
+  string file2<>;
+};
+
+struct guestfs_equal_ret {
+  bool equality;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -707,6 +716,7 @@ enum guestfs_procedure {
   GUESTFS_PROC_DROP_CACHES = 90,
   GUESTFS_PROC_DMESG = 91,
   GUESTFS_PROC_PING_DAEMON = 92,
+  GUESTFS_PROC_EQUAL = 93,
   GUESTFS_PROC_NR_PROCS
 };
 

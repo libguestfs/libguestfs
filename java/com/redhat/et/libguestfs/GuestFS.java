@@ -2557,4 +2557,25 @@ public class GuestFS {
   private native void _ping_daemon (long g)
     throws LibGuestFSException;
 
+  /**
+   * test if two files have equal contents
+   *
+   * This compares the two files "file1" and "file2" and
+   * returns true if their content is exactly equal, or false
+   * otherwise.
+   * 
+   * The external cmp(1) program is used for the comparison.
+   * 
+   * @throws LibGuestFSException
+   */
+  public boolean equal (String file1, String file2)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("equal: handle is closed");
+    return _equal (g, file1, file2);
+  }
+  private native boolean _equal (long g, String file1, String file2)
+    throws LibGuestFSException;
+
 }

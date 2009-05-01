@@ -2284,6 +2284,34 @@ static void ping_daemon_stub (XDR *xdr_in)
 done: ;
 }
 
+static void equal_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_equal_args args;
+  const char *file1;
+  const char *file2;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_equal_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "equal");
+    return;
+  }
+  file1 = args.file1;
+  file2 = args.file2;
+
+  r = do_equal (file1, file2);
+  if (r == -1)
+    /* do_equal has already called reply_with_error */
+    goto done;
+
+  struct guestfs_equal_ret ret;
+  ret.equality = r;
+  reply ((xdrproc_t) &xdr_guestfs_equal_ret, (char *) &ret);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_equal_args, (char *) &args);
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -2562,6 +2590,9 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_PING_DAEMON:
       ping_daemon_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_EQUAL:
+      equal_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d", proc_nr);

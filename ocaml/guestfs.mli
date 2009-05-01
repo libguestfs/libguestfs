@@ -463,3 +463,6 @@ val dmesg : t -> string
 val ping_daemon : t -> unit
 (** ping the guest daemon *)
 
+val equal : t -> string -> string -> bool
+(** test if two files have equal contents *)
+
