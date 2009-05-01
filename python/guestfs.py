@@ -1221,3 +1221,15 @@ class GuestFS:
         """
         return libguestfsmod.drop_caches (self._o, whattodrop)
 
+    def dmesg (self):
+        u"""This returns the kernel messages ("dmesg" output) from
+        the guest kernel. This is sometimes useful for extended
+        debugging of problems.
+        
+        Another way to get the same information is to enable
+        verbose messages with "g.set_verbose" or by setting the
+        environment variable "LIBGUESTFS_DEBUG=1" before running
+        the program.
+        """
+        return libguestfsmod.dmesg (self._o)
+

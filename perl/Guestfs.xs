@@ -1658,3 +1658,17 @@ PREINIT:
       if (r == -1)
         croak ("drop_caches: %s", guestfs_last_error (g));
 
+SV *
+dmesg (g)
+      guestfs_h *g;
+PREINIT:
+      char *kmsgs;
+   CODE:
+      kmsgs = guestfs_dmesg (g);
+      if (kmsgs == NULL)
+        croak ("dmesg: %s", guestfs_last_error (g));
+      RETVAL = newSVpv (kmsgs, 0);
+      free (kmsgs);
+ OUTPUT:
+      RETVAL
+

@@ -2512,4 +2512,28 @@ public class GuestFS {
   private native void _drop_caches (long g, int whattodrop)
     throws LibGuestFSException;
 
+  /**
+   * return kernel messages
+   *
+   * This returns the kernel messages ("dmesg" output) from
+   * the guest kernel. This is sometimes useful for extended
+   * debugging of problems.
+   * 
+   * Another way to get the same information is to enable
+   * verbose messages with "g.set_verbose" or by setting the
+   * environment variable "LIBGUESTFS_DEBUG=1" before running
+   * the program.
+   * 
+   * @throws LibGuestFSException
+   */
+  public String dmesg ()
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("dmesg: handle is closed");
+    return _dmesg (g);
+  }
+  private native String _dmesg (long g)
+    throws LibGuestFSException;
+
 }

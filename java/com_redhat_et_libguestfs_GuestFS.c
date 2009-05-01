@@ -2533,3 +2533,21 @@ Java_com_redhat_et_libguestfs_GuestFS__1drop_1caches
   }
 }
 
+JNIEXPORT jstring JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1dmesg
+  (JNIEnv *env, jobject obj, jlong jg)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  jstring jr;
+  char *r;
+
+  r = guestfs_dmesg (g);
+  if (r == NULL) {
+    throw_exception (env, guestfs_last_error (g));
+    return NULL;
+  }
+  jr = (*env)->NewStringUTF (env, r);
+  free (r);
+  return jr;
+}
+

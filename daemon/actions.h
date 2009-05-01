@@ -111,3 +111,4 @@ extern int do_cp (const char *src, const char *dest);
 extern int do_cp_a (const char *src, const char *dest);
 extern int do_mv (const char *src, const char *dest);
 extern int do_drop_caches (int whattodrop);
+extern char *do_dmesg (void);

@@ -1518,6 +1518,16 @@ xdr_guestfs_drop_caches_args (XDR *xdrs, guestfs_drop_caches_args *objp)
 }
 
 bool_t
+xdr_guestfs_dmesg_ret (XDR *xdrs, guestfs_dmesg_ret *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->kmsgs, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
 xdr_guestfs_procedure (XDR *xdrs, guestfs_procedure *objp)
 {
 	register int32_t *buf;

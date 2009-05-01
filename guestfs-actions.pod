@@ -561,6 +561,22 @@ to find out what you can do.
 This function returns a string, or NULL on error.
 I<The caller must free the returned string after use>.
 
+=head2 guestfs_dmesg
+
+ char *guestfs_dmesg (guestfs_h *handle);
+
+This returns the kernel messages (C<dmesg> output) from
+the guest kernel.  This is sometimes useful for extended
+debugging of problems.
+
+Another way to get the same information is to enable
+verbose messages with C<guestfs_set_verbose> or by setting
+the environment variable C<LIBGUESTFS_DEBUG=1> before
+running the program.
+
+This function returns a string, or NULL on error.
+I<The caller must free the returned string after use>.
+
 =head2 guestfs_download
 
  int guestfs_download (guestfs_h *handle,

@@ -66,6 +66,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "cp", "copy a file");
   printf ("%-20s %s\n", "cp-a", "copy a file or directory recursively");
   printf ("%-20s %s\n", "debug", "debugging and internals");
+  printf ("%-20s %s\n", "dmesg", "return kernel messages");
   printf ("%-20s %s\n", "download", "download a file to the local machine");
   printf ("%-20s %s\n", "drop-caches", "drop kernel page cache, dentries and inodes");
   printf ("%-20s %s\n", "exists", "test if file or directory exists");
@@ -467,6 +468,9 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "drop_caches") == 0 || strcasecmp (cmd, "drop-caches") == 0)
     pod2text ("drop-caches - drop kernel page cache, dentries and inodes", " drop-caches <whattodrop>\n\nThis instructs the guest kernel to drop its page cache,\nand/or dentries and inode caches.  The parameter C<whattodrop>\ntells the kernel what precisely to drop, see\nL<http://linux-mm.org/Drop_Caches>\n\nSetting C<whattodrop> to 3 should drop everything.\n\nThis automatically calls L<sync(2)> before the operation,\nso that the maximum guest memory is freed.");
+  else
+  if (strcasecmp (cmd, "dmesg") == 0)
+    pod2text ("dmesg - return kernel messages", " dmesg\n\nThis returns the kernel messages (C<dmesg> output) from\nthe guest kernel.  This is sometimes useful for extended\ndebugging of problems.\n\nAnother way to get the same information is to enable\nverbose messages with C<set_verbose> or by setting\nthe environment variable C<LIBGUESTFS_DEBUG=1> before\nrunning the program.");
   else
     display_builtin_command (cmd);
 }
@@ -2280,6 +2284,21 @@ static int run_drop_caches (const char *cmd, int argc, char *argv[])
   return r;
 }
 
+static int run_dmesg (const char *cmd, int argc, char *argv[])
+{
+  char *r;
+  if (argc != 0) {
+    fprintf (stderr, "%s should have 0 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  r = guestfs_dmesg (g);
+  if (r == NULL) return -1;
+  printf ("%s\n", r);
+  free (r);
+  return 0;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -2605,6 +2624,9 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "drop_caches") == 0 || strcasecmp (cmd, "drop-caches") == 0)
     return run_drop_caches (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "dmesg") == 0)
+    return run_dmesg (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

@@ -72,6 +72,7 @@ static const char *const commands[] = {
   "cp",
   "cp-a",
   "debug",
+  "dmesg",
   "download",
   "drop-caches",
   "exists",

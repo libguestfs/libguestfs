@@ -2679,6 +2679,25 @@ static VALUE ruby_guestfs_drop_caches (VALUE gv, VALUE whattodropv)
   return Qnil;
 }
 
+static VALUE ruby_guestfs_dmesg (VALUE gv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "dmesg");
+
+
+  char *r;
+
+  r = guestfs_dmesg (g);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  VALUE rv = rb_str_new2 (r);
+  free (r);
+  return rv;
+}
+
 /* Initialize the module. */
 void Init__guestfs ()
 {
@@ -2911,4 +2930,6 @@ void Init__guestfs ()
         ruby_guestfs_mv, 2);
   rb_define_method (c_guestfs, "drop_caches",
         ruby_guestfs_drop_caches, 1);
+  rb_define_method (c_guestfs, "dmesg",
+        ruby_guestfs_dmesg, 0);
 }

@@ -2965,3 +2965,26 @@ ocaml_guestfs_drop_caches (value gv, value whattodropv)
   CAMLreturn (rv);
 }
 
+CAMLprim value
+ocaml_guestfs_dmesg (value gv)
+{
+  CAMLparam1 (gv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("dmesg: used handle after closing it");
+
+  char *r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_dmesg (g);
+  caml_leave_blocking_section ();
+  if (r == NULL)
+    ocaml_guestfs_raise_error (g, "dmesg");
+
+  rv = caml_copy_string (r);
+  free (r);
+  CAMLreturn (rv);
+}
+

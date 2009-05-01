@@ -452,6 +452,17 @@ There is no comprehensive help for this command.  You have
 to look at the file C<daemon/debug.c> in the libguestfs source
 to find out what you can do.
 
+=item $kmsgs = $h->dmesg ();
+
+This returns the kernel messages (C<dmesg> output) from
+the guest kernel.  This is sometimes useful for extended
+debugging of problems.
+
+Another way to get the same information is to enable
+verbose messages with C<$h-E<gt>set_verbose> or by setting
+the environment variable C<LIBGUESTFS_DEBUG=1> before
+running the program.
+
 =item $h->download ($remotefilename, $filename);
 
 Download file C<remotefilename> and save it as C<filename>

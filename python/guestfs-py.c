@@ -3181,6 +3181,30 @@ py_guestfs_drop_caches (PyObject *self, PyObject *args)
   return py_r;
 }
 
+static PyObject *
+py_guestfs_dmesg (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  char *r;
+
+  if (!PyArg_ParseTuple (args, (char *) "O:guestfs_dmesg",
+                         &py_g))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_dmesg (g);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyString_FromString (r);
+  free (r);
+  return py_r;
+}
+
 static PyMethodDef methods[] = {
   { (char *) "create", py_guestfs_create, METH_VARARGS, NULL },
   { (char *) "close", py_guestfs_close, METH_VARARGS, NULL },
@@ -3295,6 +3319,7 @@ static PyMethodDef methods[] = {
   { (char *) "cp_a", py_guestfs_cp_a, METH_VARARGS, NULL },
   { (char *) "mv", py_guestfs_mv, METH_VARARGS, NULL },
   { (char *) "drop_caches", py_guestfs_drop_caches, METH_VARARGS, NULL },
+  { (char *) "dmesg", py_guestfs_dmesg, METH_VARARGS, NULL },
   { NULL, NULL, 0, NULL }
 };
 

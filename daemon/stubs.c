@@ -2255,6 +2255,22 @@ done:
   xdr_free ((xdrproc_t) xdr_guestfs_drop_caches_args, (char *) &args);
 }
 
+static void dmesg_stub (XDR *xdr_in)
+{
+  char *r;
+
+  r = do_dmesg ();
+  if (r == NULL)
+    /* do_dmesg has already called reply_with_error */
+    goto done;
+
+  struct guestfs_dmesg_ret ret;
+  ret.kmsgs = r;
+  reply ((xdrproc_t) &xdr_guestfs_dmesg_ret, (char *) &ret);
+  free (r);
+done: ;
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -2527,6 +2543,9 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_DROP_CACHES:
       drop_caches_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_DMESG:
+      dmesg_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d", proc_nr);

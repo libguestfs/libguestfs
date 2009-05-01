@@ -457,3 +457,6 @@ val mv : t -> string -> string -> unit
 val drop_caches : t -> int -> unit
 (** drop kernel page cache, dentries and inodes *)
 
+val dmesg : t -> string
+(** return kernel messages *)
+
