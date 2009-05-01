@@ -1026,7 +1026,7 @@ This function returns 0 on success or -1 on error.
 		const char *device);
 
 This creates a filesystem on C<device> (usually a partition
-of LVM logical volume).  The filesystem type is C<fstype>, for
+or LVM logical volume).  The filesystem type is C<fstype>, for
 example C<ext3>.
 
 This function returns 0 on success or -1 on error.

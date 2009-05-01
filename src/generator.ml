@@ -989,7 +989,7 @@ on the volume group C<volgroup>, with C<size> megabytes.");
    "make a filesystem",
    "\
 This creates a filesystem on C<device> (usually a partition
-of LVM logical volume).  The filesystem type is C<fstype>, for
+or LVM logical volume).  The filesystem type is C<fstype>, for
 example C<ext3>.");
 
   ("sfdisk", (RErr, [String "device";

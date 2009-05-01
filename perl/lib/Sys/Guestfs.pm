@@ -728,7 +728,7 @@ as necessary.  This is like the C<mkdir -p> shell command.
 =item $h->mkfs ($fstype, $device);
 
 This creates a filesystem on C<device> (usually a partition
-of LVM logical volume).  The filesystem type is C<fstype>, for
+or LVM logical volume).  The filesystem type is C<fstype>, for
 example C<ext3>.
 
 =item $h->mount ($device, $mountpoint);

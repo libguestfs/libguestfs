@@ -700,7 +700,7 @@ class GuestFS:
 
     def mkfs (self, fstype, device):
         u"""This creates a filesystem on "device" (usually a
-        partition of LVM logical volume). The filesystem type is
+        partition or LVM logical volume). The filesystem type is
         "fstype", for example "ext3".
         """
         return libguestfsmod.mkfs (self._o, fstype, device)

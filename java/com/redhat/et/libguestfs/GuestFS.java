@@ -1420,7 +1420,7 @@ public class GuestFS {
    * make a filesystem
    *
    * This creates a filesystem on "device" (usually a
-   * partition of LVM logical volume). The filesystem type is
+   * partition or LVM logical volume). The filesystem type is
    * "fstype", for example "ext3".
    * 
    * @throws LibGuestFSException
