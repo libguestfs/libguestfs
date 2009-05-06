@@ -28,6 +28,11 @@
 
 #include "extconf.h"
 
+/* For Ruby < 1.9 */
+#ifndef RARRAY_LEN
+#define RARRAY_LEN(r) (RARRAY((r))->len)
+#endif
+
 static VALUE m_guestfs;			/* guestfs module */
 static VALUE c_guestfs;			/* guestfs_h handle */
 static VALUE e_Error;			/* used for all errors */

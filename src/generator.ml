@@ -5676,6 +5676,11 @@ and generate_ruby_c () =
 
 #include \"extconf.h\"
 
+/* For Ruby < 1.9 */
+#ifndef RARRAY_LEN
+#define RARRAY_LEN(r) (RARRAY((r))->len)
+#endif
+
 static VALUE m_guestfs;			/* guestfs module */
 static VALUE c_guestfs;			/* guestfs_h handle */
 static VALUE e_Error;			/* used for all errors */
@@ -6245,7 +6250,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
       let needs_i =
 	(match fst style with
 	 | RStringList _ | RPVList _ | RVGList _ | RLVList _ -> true
-	 | RErr _ | RBool _ | RInt _ | RInt64 _ | RConstString _
+	 | RErr | RBool _ | RInt _ | RInt64 _ | RConstString _
 	 | RString _ | RIntBool _ | RStat _ | RStatVFS _
 	 | RHashtable _ -> false) ||
 	List.exists (function StringList _ -> true | _ -> false) (snd style) in
