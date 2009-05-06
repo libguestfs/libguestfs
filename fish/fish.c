@@ -28,6 +28,7 @@
 #include <getopt.h>
 #include <signal.h>
 #include <assert.h>
+#include <ctype.h>
 
 #ifdef HAVE_LIBREADLINE
 #include <readline/readline.h>
