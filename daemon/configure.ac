@@ -59,6 +59,9 @@ AC_CHECK_LIB([portablexdr],[xdrmem_create],[],[
 	AC_SEARCH_LIBS([xdrmem_create],[rpc xdr nsl])
 	])
 
+dnl Functions which may not be available in older distributions.
+AC_CHECK_FUNCS([futimens])
+
 dnl Produce output files.
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile])

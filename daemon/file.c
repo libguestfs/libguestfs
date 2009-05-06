@@ -33,6 +33,7 @@ int
 do_touch (const char *path)
 {
   int fd;
+  int r;
 
   NEED_ROOT (-1);
   ABS_PATH (path, -1);
@@ -46,7 +47,12 @@ do_touch (const char *path)
     return -1;
   }
 
-  if (futimens (fd, NULL) == -1) {
+#ifdef HAVE_FUTIMENS
+  r = futimens (fd, NULL);
+#else
+  r = futimes (fd, NULL);
+#endif
+  if (r == -1) {
     reply_with_perror ("futimens: %s", path);
     close (fd);
     return -1;

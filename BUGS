@@ -33,9 +33,11 @@ Try using tgz-out on a very large directory.
 
 [libguestfs] futimens (do_touch) not available in glibc 2.5
 (reported by Charles Duffy)
+[fixed]
 
 [ocaml] Does not compile with OCaml 3.09.3 from RHEL 5
 (reported by Charles Duffy)
+[fixed]
 
 [inspector] If there are missing Perl module deps, it still
 configures the inspector.  (eg. if perl-Sys-Virt is missing).
