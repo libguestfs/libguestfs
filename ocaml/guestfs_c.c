@@ -32,6 +32,15 @@
 
 #include "guestfs_c.h"
 
+/* This macro was added in OCaml 3.10.  Backport for earlier versions. */
+#ifndef CAMLreturnT
+#define CAMLreturnT(type, result) do{ \
+  type caml__temp_result = (result); \
+  caml_local_roots = caml__frame; \
+  return (caml__temp_result); \
+}while(0)
+#endif
+
 /* Allocate handles and deal with finalization. */
 static void
 guestfs_finalize (value gv)
