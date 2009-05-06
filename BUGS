@@ -41,3 +41,6 @@ Try using tgz-out on a very large directory.
 
 [inspector] If there are missing Perl module deps, it still
 configures the inspector.  (eg. if perl-Sys-Virt is missing).
+
+[build] "exec: chroot not found"
+Setting PATH to include /usr/sbin solves this temporarily.
