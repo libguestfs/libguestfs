@@ -18,3 +18,7 @@ Limit on transfers would still be 2MB for these types.
 
 Augeas support should be completely optional.  Major platforms lack
 it, such as RHEL 5.
+
+----------------------------------------------------------------------
+
+Implement febootstrap command.
