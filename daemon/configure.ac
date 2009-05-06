@@ -52,7 +52,7 @@ AC_CHECK_LIB([augeas],[aug_match],,[
 	])
 
 dnl Check for functions not available in earlier versions of Augeas.
-AC_CHECK_FUNC([aug_load aug_defvar aug_defnode])
+AC_CHECK_FUNCS([aug_load aug_defvar aug_defnode])
 
 dnl Check for XDR library.
 AC_CHECK_LIB([portablexdr],[xdrmem_create],[],[
