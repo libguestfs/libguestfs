@@ -30,3 +30,9 @@ parent process, or at least that's what I think is happening]
 [libguestfs] Some occasional data corruption, certainly on tgz-out.
 Try using tgz-out on a very large directory.
 [we think this is fixed by 64a6a828bd318622420cf3018899392fd80c14e7]
+
+[libguestfs] futimens (do_touch) not available in glibc 2.5
+(reported by Charles Duffy)
+
+[ocaml] Does not compile with OCaml 3.09.3 from RHEL 5
+(reported by Charles Duffy)
