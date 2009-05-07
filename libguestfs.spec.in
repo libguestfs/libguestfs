@@ -251,6 +251,7 @@ createrepo repo
 
 ./configure \
   --prefix=%{_prefix} --libdir=%{_libdir} \
+  --mandir=%{_mandir} \
   --with-java-home=%{java_home} \
   --with-qemu="qemu-kvm qemu-system-%{_build_arch} qemu" \
   --enable-debug-command \
