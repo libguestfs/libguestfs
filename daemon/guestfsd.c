@@ -446,6 +446,7 @@ commandrv (char **stdoutput, char **stderror, char * const* const argv)
   int pid, r, quit, i;
   fd_set rset, rset2;
   char buf[256];
+  char *p;
 
   if (stdoutput) *stdoutput = NULL;
   if (stderror) *stderror = NULL;
@@ -500,6 +501,9 @@ commandrv (char **stdoutput, char **stderror, char * const* const argv)
     r = select (MAX (so_fd[0], se_fd[0]) + 1, &rset2, NULL, NULL, NULL);
     if (r == -1) {
       perror ("select");
+    quit:
+      if (stdoutput) free (*stdoutput);
+      if (stderror) free (*stderror);
       close (so_fd[0]);
       close (se_fd[0]);
       waitpid (pid, NULL, 0);
@@ -510,21 +514,18 @@ commandrv (char **stdoutput, char **stderror, char * const* const argv)
       r = read (so_fd[0], buf, sizeof buf);
       if (r == -1) {
 	perror ("read");
-	close (so_fd[0]);
-	close (se_fd[0]);
-	waitpid (pid, NULL, 0);
-	return -1;
+	goto quit;
       }
       if (r == 0) { FD_CLR (so_fd[0], &rset); quit++; }
 
       if (r > 0 && stdoutput) {
 	so_size += r;
-	*stdoutput = realloc (*stdoutput, so_size);
-	if (*stdoutput == NULL) {
+	p = realloc (*stdoutput, so_size);
+	if (p == NULL) {
 	  perror ("realloc");
-	  *stdoutput = NULL;
-	  continue;
+	  goto quit;
 	}
+	*stdoutput = p;
 	memcpy (*stdoutput + so_size - r, buf, r);
       }
     }
@@ -533,21 +534,18 @@ commandrv (char **stdoutput, char **stderror, char * const* const argv)
       r = read (se_fd[0], buf, sizeof buf);
       if (r == -1) {
 	perror ("read");
-	close (so_fd[0]);
-	close (se_fd[0]);
-	waitpid (pid, NULL, 0);
-	return -1;
+	goto quit;
       }
       if (r == 0) { FD_CLR (se_fd[0], &rset); quit++; }
 
       if (r > 0 && stderror) {
 	se_size += r;
-	*stderror = realloc (*stderror, se_size);
-	if (*stderror == NULL) {
+	p = realloc (*stderror, se_size);
+	if (p == NULL) {
 	  perror ("realloc");
-	  *stderror = NULL;
-	  continue;
+	  goto quit;
 	}
+	*stderror = p;
 	memcpy (*stderror + se_size - r, buf, r);
       }
     }
