@@ -136,7 +136,15 @@ can easily destroy all your data>."
  * the virtual machine and block devices are reused between tests.
  * So don't try testing kill_subprocess :-x
  *
- * Between each test we umount-all and lvm-remove-all (except InitNone).
+ * Between each test we blockdev-setrw, umount-all, lvm-remove-all
+ * (except InitNone).
+ *
+ * If the appliance is running an older Linux kernel (eg. RHEL 5) then
+ * devices are named /dev/hda etc.  To cope with this, the test suite
+ * adds some hairly logic to detect this case, and then automagically
+ * replaces all strings which match "/dev/sd.*" with "/dev/hd.*".
+ * When writing test cases you shouldn't have to worry about this
+ * difference.
  *
  * Don't assume anything about the previous contents of the block
  * devices.  Use 'Init*' to create some initial scenarios.
@@ -3242,6 +3250,11 @@ and generate_tests () =
 static guestfs_h *g;
 static int suppress_error = 0;
 
+/* This will be 's' or 'h' depending on whether the guest kernel
+ * names IDE devices /dev/sd* or /dev/hd*.
+ */
+static char devchar = 's';
+
 static void print_error (guestfs_h *g, void *data, const char *msg)
 {
   if (!suppress_error)
@@ -3300,8 +3313,9 @@ int main (int argc, char *argv[])
   int failed = 0;
   const char *srcdir;
   const char *filename;
-  int fd;
+  int fd, i;
   int nr_tests, test_num = 0;
+  char **devs;
 
   no_test_warnings ();
 
@@ -3411,6 +3425,28 @@ int main (int argc, char *argv[])
     exit (1);
   }
 
+  /* Detect if the appliance uses /dev/sd* or /dev/hd* in device
+   * names.  This changed between RHEL 5 and RHEL 6 so we have to
+   * support both.
+   */
+  devs = guestfs_list_devices (g);
+  if (devs == NULL || devs[0] == NULL) {
+    printf (\"guestfs_list_devices FAILED\\n\");
+    exit (1);
+  }
+  if (strncmp (devs[0], \"/dev/sd\", 7) == 0)
+    devchar = 's';
+  else if (strncmp (devs[0], \"/dev/hd\", 7) == 0)
+    devchar = 'h';
+  else {
+    printf (\"guestfs_list_devices returned unexpected string '%%s'\\n\",
+            devs[0]);
+    exit (1);
+  }
+  for (i = 0; devs[i] != NULL; ++i)
+    free (devs[i]);
+  free (devs);
+
   nr_tests = %d;
 
 " (500 * 1024 * 1024) (50 * 1024 * 1024) (10 * 1024 * 1024) nr_tests;
@@ -3452,12 +3488,14 @@ and generate_one_test name i (init, test) =
    | InitEmpty ->
        pr "  /* InitEmpty for %s (%d) */\n" name i;
        List.iter (generate_test_command_call test_name)
-	 [["umount_all"];
+	 [["blockdev_setrw"; "/dev/sda"];
+	  ["umount_all"];
 	  ["lvm_remove_all"]]
    | InitBasicFS ->
        pr "  /* InitBasicFS for %s (%d): create ext2 on /dev/sda1 */\n" name i;
        List.iter (generate_test_command_call test_name)
-	 [["umount_all"];
+	 [["blockdev_setrw"; "/dev/sda"];
+	  ["umount_all"];
 	  ["lvm_remove_all"];
 	  ["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
 	  ["mkfs"; "ext2"; "/dev/sda1"];
@@ -3466,7 +3504,8 @@ and generate_one_test name i (init, test) =
        pr "  /* InitBasicFSonLVM for %s (%d): create ext2 on /dev/VG/LV */\n"
 	 name i;
        List.iter (generate_test_command_call test_name)
-	 [["umount_all"];
+	 [["blockdev_setrw"; "/dev/sda"];
+	  ["umount_all"];
 	  ["lvm_remove_all"];
 	  ["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
 	  ["pvcreate"; "/dev/sda1"];
@@ -3491,10 +3530,14 @@ and generate_one_test name i (init, test) =
        List.iter (generate_test_command_call test_name) seq
    | TestOutput (seq, expected) ->
        pr "  /* TestOutput for %s (%d) */\n" name i;
+       pr "  char expected[] = \"%s\";\n" (c_quote expected);
+       if String.length expected > 7 &&
+          String.sub expected 0 7 = "/dev/sd" then
+	 pr "  expected[5] = devchar;\n";
        let seq, last = get_seq_last seq in
        let test () =
-	 pr "    if (strcmp (r, \"%s\") != 0) {\n" (c_quote expected);
-	 pr "      fprintf (stderr, \"%s: expected \\\"%s\\\" but got \\\"%%s\\\"\\n\", r);\n" test_name (c_quote expected);
+	 pr "    if (strcmp (r, expected) != 0) {\n";
+	 pr "      fprintf (stderr, \"%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", expected, r);\n" test_name;
 	 pr "      return -1;\n";
 	 pr "    }\n"
        in
@@ -3511,9 +3554,14 @@ and generate_one_test name i (init, test) =
 	     pr "      print_strings (r);\n";
 	     pr "      return -1;\n";
 	     pr "    }\n";
-	     pr "    if (strcmp (r[%d], \"%s\") != 0) {\n" i (c_quote str);
-	     pr "      fprintf (stderr, \"%s: expected \\\"%s\\\" but got \\\"%%s\\\"\\n\", r[%d]);\n" test_name (c_quote str) i;
-	     pr "      return -1;\n";
+             pr "    {\n";
+             pr "      char expected[] = \"%s\";\n" (c_quote str);
+             if String.length str > 7 && String.sub str 0 7 = "/dev/sd" then
+	       pr "      expected[5] = devchar;\n";
+	     pr "      if (strcmp (r[%d], expected) != 0) {\n" i;
+	     pr "        fprintf (stderr, \"%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", expected, r[%d]);\n" test_name i;
+	     pr "        return -1;\n";
+	     pr "      }\n";
 	     pr "    }\n"
 	 ) expected;
 	 pr "    if (r[%d] != NULL) {\n" (List.length expected);
@@ -3657,16 +3705,26 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
 
       List.iter (
 	function
-	| String _, _
-	| OptString _, _
+	| OptString n, "NULL" -> ()
+	| String n, arg
+	| OptString n, arg ->
+	    pr "    char %s[] = \"%s\";\n" n (c_quote arg);
+	    if String.length arg > 7 && String.sub arg 0 7 = "/dev/sd" then
+	      pr "    %s[5] = devchar;\n" n
 	| Int _, _
-	| Bool _, _ -> ()
+	| Bool _, _
 	| FileIn _, _ | FileOut _, _ -> ()
 	| StringList n, arg ->
-	    pr "    char *%s[] = {\n" n;
 	    let strs = string_split " " arg in
-	    List.iter (
-	      fun str -> pr "      \"%s\",\n" (c_quote str)
+	    iteri (
+	      fun i str ->
+                pr "    char %s_%d[] = \"%s\";\n" n i (c_quote str);
+	        if String.length str > 7 && String.sub str 0 7 = "/dev/sd" then
+	          pr "    %s_%d[5] = devchar;\n" n i
+	    ) strs;
+	    pr "    char *%s[] = {\n" n;
+	    iteri (
+	      fun i _ -> pr "      %s_%d,\n" n i
 	    ) strs;
 	    pr "      NULL\n";
 	    pr "    };\n";
@@ -3701,11 +3759,12 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
       (* Generate the parameters. *)
       List.iter (
 	function
-	| String _, arg
+	| OptString _, "NULL" -> pr ", NULL"
+	| String n, _
+	| OptString n, _ ->
+            pr ", %s" n
 	| FileIn _, arg | FileOut _, arg ->
 	    pr ", \"%s\"" (c_quote arg)
-	| OptString _, arg ->
-	    if arg = "NULL" then pr ", NULL" else pr ", \"%s\"" (c_quote arg)
 	| StringList n, _ ->
 	    pr ", %s" n
 	| Int _, arg ->

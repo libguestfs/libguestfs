@@ -31,6 +31,11 @@
 static guestfs_h *g;
 static int suppress_error = 0;
 
+/* This will be 's' or 'h' depending on whether the guest kernel
+ * names IDE devices /dev/sd* or /dev/hd*.
+ */
+static char devchar = 's';
+
 static void print_error (guestfs_h *g, void *data, const char *msg)
 {
   if (!suppress_error)
@@ -116,6 +121,15 @@ static int test_equal_0 (void)
 {
   /* InitBasicFS for equal (0): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -130,49 +144,64 @@ static int test_equal_0 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutputTrue for equal (0) */
   {
+    char path[] = "/file1";
+    char content[] = "contents of a file";
     int r;
     suppress_error = 0;
-    r = guestfs_write_file (g, "/file1", "contents of a file", 0);
+    r = guestfs_write_file (g, path, content, 0);
     if (r == -1)
       return -1;
   }
   {
+    char src[] = "/file1";
+    char dest[] = "/file2";
     int r;
     suppress_error = 0;
-    r = guestfs_cp (g, "/file1", "/file2");
+    r = guestfs_cp (g, src, dest);
     if (r == -1)
       return -1;
   }
   {
+    char file1[] = "/file1";
+    char file2[] = "/file2";
     int r;
     suppress_error = 0;
-    r = guestfs_equal (g, "/file1", "/file2");
+    r = guestfs_equal (g, file1, file2);
     if (r == -1)
       return -1;
     if (!r) {
@@ -187,6 +216,15 @@ static int test_equal_1 (void)
 {
   /* InitBasicFS for equal (1): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -201,49 +239,64 @@ static int test_equal_1 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutputFalse for equal (1) */
   {
+    char path[] = "/file1";
+    char content[] = "contents of a file";
     int r;
     suppress_error = 0;
-    r = guestfs_write_file (g, "/file1", "contents of a file", 0);
+    r = guestfs_write_file (g, path, content, 0);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/file2";
+    char content[] = "contents of another file";
     int r;
     suppress_error = 0;
-    r = guestfs_write_file (g, "/file2", "contents of another file", 0);
+    r = guestfs_write_file (g, path, content, 0);
     if (r == -1)
       return -1;
   }
   {
+    char file1[] = "/file1";
+    char file2[] = "/file2";
     int r;
     suppress_error = 0;
-    r = guestfs_equal (g, "/file1", "/file2");
+    r = guestfs_equal (g, file1, file2);
     if (r == -1)
       return -1;
     if (r) {
@@ -258,6 +311,15 @@ static int test_equal_2 (void)
 {
   /* InitBasicFS for equal (2): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -272,35 +334,46 @@ static int test_equal_2 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestLastFail for equal (2) */
   {
+    char file1[] = "/file1";
+    char file2[] = "/file2";
     int r;
     suppress_error = 1;
-    r = guestfs_equal (g, "/file1", "/file2");
+    r = guestfs_equal (g, file1, file2);
     if (r != -1)
       return -1;
   }
@@ -310,6 +383,15 @@ static int test_equal_2 (void)
 static int test_ping_daemon_0 (void)
 {
   /* InitEmpty for ping_daemon (0) */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
   {
     int r;
     suppress_error = 0;
@@ -338,6 +420,15 @@ static int test_ping_daemon_0 (void)
 static int test_dmesg_0 (void)
 {
   /* InitEmpty for dmesg (0) */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
   {
     int r;
     suppress_error = 0;
@@ -368,6 +459,15 @@ static int test_drop_caches_0 (void)
 {
   /* InitEmpty for drop_caches (0) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -396,6 +496,15 @@ static int test_mv_0 (void)
 {
   /* InitBasicFS for mv (0): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -410,53 +519,68 @@ static int test_mv_0 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutput for mv (0) */
+  char expected[] = "file content";
   {
+    char path[] = "/old";
+    char content[] = "file content";
     int r;
     suppress_error = 0;
-    r = guestfs_write_file (g, "/old", "file content", 0);
+    r = guestfs_write_file (g, path, content, 0);
     if (r == -1)
       return -1;
   }
   {
+    char src[] = "/old";
+    char dest[] = "/new";
     int r;
     suppress_error = 0;
-    r = guestfs_mv (g, "/old", "/new");
+    r = guestfs_mv (g, src, dest);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new";
     char *r;
     suppress_error = 0;
-    r = guestfs_cat (g, "/new");
+    r = guestfs_cat (g, path);
     if (r == NULL)
       return -1;
-    if (strcmp (r, "file content") != 0) {
-      fprintf (stderr, "test_mv_0: expected \"file content\" but got \"%s\"\n", r);
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_mv_0: expected \"%s\" but got \"%s\"\n", expected, r);
       return -1;
     }
     free (r);
@@ -468,6 +592,15 @@ static int test_mv_1 (void)
 {
   /* InitBasicFS for mv (1): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -482,49 +615,63 @@ static int test_mv_1 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutputFalse for mv (1) */
   {
+    char path[] = "/old";
+    char content[] = "file content";
     int r;
     suppress_error = 0;
-    r = guestfs_write_file (g, "/old", "file content", 0);
+    r = guestfs_write_file (g, path, content, 0);
     if (r == -1)
       return -1;
   }
   {
+    char src[] = "/old";
+    char dest[] = "/new";
     int r;
     suppress_error = 0;
-    r = guestfs_mv (g, "/old", "/new");
+    r = guestfs_mv (g, src, dest);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/old";
     int r;
     suppress_error = 0;
-    r = guestfs_is_file (g, "/old");
+    r = guestfs_is_file (g, path);
     if (r == -1)
       return -1;
     if (r) {
@@ -539,6 +686,15 @@ static int test_cp_a_0 (void)
 {
   /* InitBasicFS for cp_a (0): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -553,67 +709,84 @@ static int test_cp_a_0 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutput for cp_a (0) */
+  char expected[] = "file content";
   {
+    char path[] = "/olddir";
     int r;
     suppress_error = 0;
-    r = guestfs_mkdir (g, "/olddir");
+    r = guestfs_mkdir (g, path);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/newdir";
     int r;
     suppress_error = 0;
-    r = guestfs_mkdir (g, "/newdir");
+    r = guestfs_mkdir (g, path);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/olddir/file";
+    char content[] = "file content";
     int r;
     suppress_error = 0;
-    r = guestfs_write_file (g, "/olddir/file", "file content", 0);
+    r = guestfs_write_file (g, path, content, 0);
     if (r == -1)
       return -1;
   }
   {
+    char src[] = "/olddir";
+    char dest[] = "/newdir";
     int r;
     suppress_error = 0;
-    r = guestfs_cp_a (g, "/olddir", "/newdir");
+    r = guestfs_cp_a (g, src, dest);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/newdir/olddir/file";
     char *r;
     suppress_error = 0;
-    r = guestfs_cat (g, "/newdir/olddir/file");
+    r = guestfs_cat (g, path);
     if (r == NULL)
       return -1;
-    if (strcmp (r, "file content") != 0) {
-      fprintf (stderr, "test_cp_a_0: expected \"file content\" but got \"%s\"\n", r);
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_cp_a_0: expected \"%s\" but got \"%s\"\n", expected, r);
       return -1;
     }
     free (r);
@@ -625,6 +798,15 @@ static int test_cp_0 (void)
 {
   /* InitBasicFS for cp (0): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -639,53 +821,68 @@ static int test_cp_0 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutput for cp (0) */
+  char expected[] = "file content";
   {
+    char path[] = "/old";
+    char content[] = "file content";
     int r;
     suppress_error = 0;
-    r = guestfs_write_file (g, "/old", "file content", 0);
+    r = guestfs_write_file (g, path, content, 0);
     if (r == -1)
       return -1;
   }
   {
+    char src[] = "/old";
+    char dest[] = "/new";
     int r;
     suppress_error = 0;
-    r = guestfs_cp (g, "/old", "/new");
+    r = guestfs_cp (g, src, dest);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new";
     char *r;
     suppress_error = 0;
-    r = guestfs_cat (g, "/new");
+    r = guestfs_cat (g, path);
     if (r == NULL)
       return -1;
-    if (strcmp (r, "file content") != 0) {
-      fprintf (stderr, "test_cp_0: expected \"file content\" but got \"%s\"\n", r);
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_cp_0: expected \"%s\" but got \"%s\"\n", expected, r);
       return -1;
     }
     free (r);
@@ -697,6 +894,15 @@ static int test_cp_1 (void)
 {
   /* InitBasicFS for cp (1): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -711,49 +917,63 @@ static int test_cp_1 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutputTrue for cp (1) */
   {
+    char path[] = "/old";
+    char content[] = "file content";
     int r;
     suppress_error = 0;
-    r = guestfs_write_file (g, "/old", "file content", 0);
+    r = guestfs_write_file (g, path, content, 0);
     if (r == -1)
       return -1;
   }
   {
+    char src[] = "/old";
+    char dest[] = "/new";
     int r;
     suppress_error = 0;
-    r = guestfs_cp (g, "/old", "/new");
+    r = guestfs_cp (g, src, dest);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/old";
     int r;
     suppress_error = 0;
-    r = guestfs_is_file (g, "/old");
+    r = guestfs_is_file (g, path);
     if (r == -1)
       return -1;
     if (!r) {
@@ -768,6 +988,15 @@ static int test_cp_2 (void)
 {
   /* InitBasicFS for cp (2): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -782,60 +1011,76 @@ static int test_cp_2 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutput for cp (2) */
+  char expected[] = "file content";
   {
+    char path[] = "/old";
+    char content[] = "file content";
     int r;
     suppress_error = 0;
-    r = guestfs_write_file (g, "/old", "file content", 0);
+    r = guestfs_write_file (g, path, content, 0);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/dir";
     int r;
     suppress_error = 0;
-    r = guestfs_mkdir (g, "/dir");
+    r = guestfs_mkdir (g, path);
     if (r == -1)
       return -1;
   }
   {
+    char src[] = "/old";
+    char dest[] = "/dir/new";
     int r;
     suppress_error = 0;
-    r = guestfs_cp (g, "/old", "/dir/new");
+    r = guestfs_cp (g, src, dest);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/dir/new";
     char *r;
     suppress_error = 0;
-    r = guestfs_cat (g, "/dir/new");
+    r = guestfs_cat (g, path);
     if (r == NULL)
       return -1;
-    if (strcmp (r, "file content") != 0) {
-      fprintf (stderr, "test_cp_2: expected \"file content\" but got \"%s\"\n", r);
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_cp_2: expected \"%s\" but got \"%s\"\n", expected, r);
       return -1;
     }
     free (r);
@@ -847,6 +1092,15 @@ static int test_grub_install_0 (void)
 {
   /* InitBasicFS for grub_install (0): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -861,42 +1115,55 @@ static int test_grub_install_0 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutputTrue for grub_install (0) */
   {
+    char root[] = "/";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_grub_install (g, "/", "/dev/sda1");
+    r = guestfs_grub_install (g, root, device);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/boot";
     int r;
     suppress_error = 0;
-    r = guestfs_is_dir (g, "/boot");
+    r = guestfs_is_dir (g, path);
     if (r == -1)
       return -1;
     if (!r) {
@@ -911,6 +1178,15 @@ static int test_zero_0 (void)
 {
   /* InitBasicFS for zero (0): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -925,53 +1201,69 @@ static int test_zero_0 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutput for zero (0) */
+  char expected[] = "data";
   {
+    char pathordevice[] = "/dev/sda1";
+    pathordevice[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_umount (g, "/dev/sda1");
+    r = guestfs_umount (g, pathordevice);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_zero (g, "/dev/sda1");
+    r = guestfs_zero (g, device);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/dev/sda1";
+    path[5] = devchar;
     char *r;
     suppress_error = 0;
-    r = guestfs_file (g, "/dev/sda1");
+    r = guestfs_file (g, path);
     if (r == NULL)
       return -1;
-    if (strcmp (r, "data") != 0) {
-      fprintf (stderr, "test_zero_0: expected \"data\" but got \"%s\"\n", r);
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_zero_0: expected \"%s\" but got \"%s\"\n", expected, r);
       return -1;
     }
     free (r);
@@ -983,6 +1275,15 @@ static int test_fsck_0 (void)
 {
   /* InitBasicFS for fsck (0): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -997,42 +1298,56 @@ static int test_fsck_0 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutputInt for fsck (0) */
   {
+    char pathordevice[] = "/dev/sda1";
+    pathordevice[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_umount (g, "/dev/sda1");
+    r = guestfs_umount (g, pathordevice);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_fsck (g, "ext2", "/dev/sda1");
+    r = guestfs_fsck (g, fstype, device);
     if (r == -1)
       return -1;
     if (r != 0) {
@@ -1047,6 +1362,15 @@ static int test_fsck_1 (void)
 {
   /* InitBasicFS for fsck (1): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -1061,49 +1385,65 @@ static int test_fsck_1 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutputInt for fsck (1) */
   {
+    char pathordevice[] = "/dev/sda1";
+    pathordevice[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_umount (g, "/dev/sda1");
+    r = guestfs_umount (g, pathordevice);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_zero (g, "/dev/sda1");
+    r = guestfs_zero (g, device);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_fsck (g, "ext2", "/dev/sda1");
+    r = guestfs_fsck (g, fstype, device);
     if (r == -1)
       return -1;
     if (r != 8) {
@@ -1118,6 +1458,15 @@ static int test_set_e2uuid_0 (void)
 {
   /* InitBasicFS for set_e2uuid (0): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -1132,46 +1481,61 @@ static int test_set_e2uuid_0 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutput for set_e2uuid (0) */
+  char expected[] = "a3a61220-882b-4f61-89f4-cf24dcc7297d";
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char uuid[] = "a3a61220-882b-4f61-89f4-cf24dcc7297d";
     int r;
     suppress_error = 0;
-    r = guestfs_set_e2uuid (g, "/dev/sda1", "a3a61220-882b-4f61-89f4-cf24dcc7297d");
+    r = guestfs_set_e2uuid (g, device, uuid);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     char *r;
     suppress_error = 0;
-    r = guestfs_get_e2uuid (g, "/dev/sda1");
+    r = guestfs_get_e2uuid (g, device);
     if (r == NULL)
       return -1;
-    if (strcmp (r, "a3a61220-882b-4f61-89f4-cf24dcc7297d") != 0) {
-      fprintf (stderr, "test_set_e2uuid_0: expected \"a3a61220-882b-4f61-89f4-cf24dcc7297d\" but got \"%s\"\n", r);
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_set_e2uuid_0: expected \"%s\" but got \"%s\"\n", expected, r);
       return -1;
     }
     free (r);
@@ -1183,6 +1547,15 @@ static int test_set_e2uuid_1 (void)
 {
   /* InitBasicFS for set_e2uuid (1): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -1197,46 +1570,61 @@ static int test_set_e2uuid_1 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutput for set_e2uuid (1) */
+  char expected[] = "";
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char uuid[] = "clear";
     int r;
     suppress_error = 0;
-    r = guestfs_set_e2uuid (g, "/dev/sda1", "clear");
+    r = guestfs_set_e2uuid (g, device, uuid);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     char *r;
     suppress_error = 0;
-    r = guestfs_get_e2uuid (g, "/dev/sda1");
+    r = guestfs_get_e2uuid (g, device);
     if (r == NULL)
       return -1;
-    if (strcmp (r, "") != 0) {
-      fprintf (stderr, "test_set_e2uuid_1: expected \"\" but got \"%s\"\n", r);
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_set_e2uuid_1: expected \"%s\" but got \"%s\"\n", expected, r);
       return -1;
     }
     free (r);
@@ -1248,6 +1636,15 @@ static int test_set_e2uuid_2 (void)
 {
   /* InitBasicFS for set_e2uuid (2): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -1262,35 +1659,47 @@ static int test_set_e2uuid_2 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestRun for set_e2uuid (2) */
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char uuid[] = "random";
     int r;
     suppress_error = 0;
-    r = guestfs_set_e2uuid (g, "/dev/sda1", "random");
+    r = guestfs_set_e2uuid (g, device, uuid);
     if (r == -1)
       return -1;
   }
@@ -1301,6 +1710,15 @@ static int test_set_e2uuid_3 (void)
 {
   /* InitBasicFS for set_e2uuid (3): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -1315,35 +1733,47 @@ static int test_set_e2uuid_3 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestRun for set_e2uuid (3) */
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char uuid[] = "time";
     int r;
     suppress_error = 0;
-    r = guestfs_set_e2uuid (g, "/dev/sda1", "time");
+    r = guestfs_set_e2uuid (g, device, uuid);
     if (r == -1)
       return -1;
   }
@@ -1354,6 +1784,15 @@ static int test_set_e2label_0 (void)
 {
   /* InitBasicFS for set_e2label (0): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -1368,46 +1807,61 @@ static int test_set_e2label_0 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutput for set_e2label (0) */
+  char expected[] = "testlabel";
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char label[] = "testlabel";
     int r;
     suppress_error = 0;
-    r = guestfs_set_e2label (g, "/dev/sda1", "testlabel");
+    r = guestfs_set_e2label (g, device, label);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     char *r;
     suppress_error = 0;
-    r = guestfs_get_e2label (g, "/dev/sda1");
+    r = guestfs_get_e2label (g, device);
     if (r == NULL)
       return -1;
-    if (strcmp (r, "testlabel") != 0) {
-      fprintf (stderr, "test_set_e2label_0: expected \"testlabel\" but got \"%s\"\n", r);
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_set_e2label_0: expected \"%s\" but got \"%s\"\n", expected, r);
       return -1;
     }
     free (r);
@@ -1418,6 +1872,15 @@ static int test_set_e2label_0 (void)
 static int test_pvremove_0 (void)
 {
   /* InitEmpty for pvremove (0) */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
   {
     int r;
     suppress_error = 0;
@@ -1434,48 +1897,60 @@ static int test_pvremove_0 (void)
   }
   /* TestOutputList for pvremove (0) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_pvcreate (g, "/dev/sda");
+    r = guestfs_pvcreate (g, device);
     if (r == -1)
       return -1;
   }
   {
+    char volgroup[] = "VG";
+    char physvols_0[] = "/dev/sda";
+    physvols_0[5] = devchar;
     char *physvols[] = {
-      "/dev/sda",
+      physvols_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_vgcreate (g, "VG", physvols);
+    r = guestfs_vgcreate (g, volgroup, physvols);
     if (r == -1)
       return -1;
   }
   {
+    char logvol[] = "LV1";
+    char volgroup[] = "VG";
     int r;
     suppress_error = 0;
-    r = guestfs_lvcreate (g, "LV1", "VG", 50);
+    r = guestfs_lvcreate (g, logvol, volgroup, 50);
     if (r == -1)
       return -1;
   }
   {
+    char logvol[] = "LV2";
+    char volgroup[] = "VG";
     int r;
     suppress_error = 0;
-    r = guestfs_lvcreate (g, "LV2", "VG", 50);
+    r = guestfs_lvcreate (g, logvol, volgroup, 50);
     if (r == -1)
       return -1;
   }
   {
+    char vgname[] = "VG";
     int r;
     suppress_error = 0;
-    r = guestfs_vgremove (g, "VG");
+    r = guestfs_vgremove (g, vgname);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_pvremove (g, "/dev/sda");
+    r = guestfs_pvremove (g, device);
     if (r == -1)
       return -1;
   }
@@ -1502,6 +1977,15 @@ static int test_pvremove_1 (void)
 {
   /* InitEmpty for pvremove (1) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -1517,48 +2001,60 @@ static int test_pvremove_1 (void)
   }
   /* TestOutputList for pvremove (1) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_pvcreate (g, "/dev/sda");
+    r = guestfs_pvcreate (g, device);
     if (r == -1)
       return -1;
   }
   {
+    char volgroup[] = "VG";
+    char physvols_0[] = "/dev/sda";
+    physvols_0[5] = devchar;
     char *physvols[] = {
-      "/dev/sda",
+      physvols_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_vgcreate (g, "VG", physvols);
+    r = guestfs_vgcreate (g, volgroup, physvols);
     if (r == -1)
       return -1;
   }
   {
+    char logvol[] = "LV1";
+    char volgroup[] = "VG";
     int r;
     suppress_error = 0;
-    r = guestfs_lvcreate (g, "LV1", "VG", 50);
+    r = guestfs_lvcreate (g, logvol, volgroup, 50);
     if (r == -1)
       return -1;
   }
   {
+    char logvol[] = "LV2";
+    char volgroup[] = "VG";
     int r;
     suppress_error = 0;
-    r = guestfs_lvcreate (g, "LV2", "VG", 50);
+    r = guestfs_lvcreate (g, logvol, volgroup, 50);
     if (r == -1)
       return -1;
   }
   {
+    char vgname[] = "VG";
     int r;
     suppress_error = 0;
-    r = guestfs_vgremove (g, "VG");
+    r = guestfs_vgremove (g, vgname);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_pvremove (g, "/dev/sda");
+    r = guestfs_pvremove (g, device);
     if (r == -1)
       return -1;
   }
@@ -1585,6 +2081,15 @@ static int test_pvremove_2 (void)
 {
   /* InitEmpty for pvremove (2) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -1600,48 +2105,60 @@ static int test_pvremove_2 (void)
   }
   /* TestOutputList for pvremove (2) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_pvcreate (g, "/dev/sda");
+    r = guestfs_pvcreate (g, device);
     if (r == -1)
       return -1;
   }
   {
+    char volgroup[] = "VG";
+    char physvols_0[] = "/dev/sda";
+    physvols_0[5] = devchar;
     char *physvols[] = {
-      "/dev/sda",
+      physvols_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_vgcreate (g, "VG", physvols);
+    r = guestfs_vgcreate (g, volgroup, physvols);
     if (r == -1)
       return -1;
   }
   {
+    char logvol[] = "LV1";
+    char volgroup[] = "VG";
     int r;
     suppress_error = 0;
-    r = guestfs_lvcreate (g, "LV1", "VG", 50);
+    r = guestfs_lvcreate (g, logvol, volgroup, 50);
     if (r == -1)
       return -1;
   }
   {
+    char logvol[] = "LV2";
+    char volgroup[] = "VG";
     int r;
     suppress_error = 0;
-    r = guestfs_lvcreate (g, "LV2", "VG", 50);
+    r = guestfs_lvcreate (g, logvol, volgroup, 50);
     if (r == -1)
       return -1;
   }
   {
+    char vgname[] = "VG";
     int r;
     suppress_error = 0;
-    r = guestfs_vgremove (g, "VG");
+    r = guestfs_vgremove (g, vgname);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_pvremove (g, "/dev/sda");
+    r = guestfs_pvremove (g, device);
     if (r == -1)
       return -1;
   }
@@ -1668,6 +2185,15 @@ static int test_vgremove_0 (void)
 {
   /* InitEmpty for vgremove (0) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -1683,41 +2209,51 @@ static int test_vgremove_0 (void)
   }
   /* TestOutputList for vgremove (0) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_pvcreate (g, "/dev/sda");
+    r = guestfs_pvcreate (g, device);
     if (r == -1)
       return -1;
   }
   {
+    char volgroup[] = "VG";
+    char physvols_0[] = "/dev/sda";
+    physvols_0[5] = devchar;
     char *physvols[] = {
-      "/dev/sda",
+      physvols_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_vgcreate (g, "VG", physvols);
+    r = guestfs_vgcreate (g, volgroup, physvols);
     if (r == -1)
       return -1;
   }
   {
+    char logvol[] = "LV1";
+    char volgroup[] = "VG";
     int r;
     suppress_error = 0;
-    r = guestfs_lvcreate (g, "LV1", "VG", 50);
+    r = guestfs_lvcreate (g, logvol, volgroup, 50);
     if (r == -1)
       return -1;
   }
   {
+    char logvol[] = "LV2";
+    char volgroup[] = "VG";
     int r;
     suppress_error = 0;
-    r = guestfs_lvcreate (g, "LV2", "VG", 50);
+    r = guestfs_lvcreate (g, logvol, volgroup, 50);
     if (r == -1)
       return -1;
   }
   {
+    char vgname[] = "VG";
     int r;
     suppress_error = 0;
-    r = guestfs_vgremove (g, "VG");
+    r = guestfs_vgremove (g, vgname);
     if (r == -1)
       return -1;
   }
@@ -1744,6 +2280,15 @@ static int test_vgremove_1 (void)
 {
   /* InitEmpty for vgremove (1) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -1759,41 +2304,51 @@ static int test_vgremove_1 (void)
   }
   /* TestOutputList for vgremove (1) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_pvcreate (g, "/dev/sda");
+    r = guestfs_pvcreate (g, device);
     if (r == -1)
       return -1;
   }
   {
+    char volgroup[] = "VG";
+    char physvols_0[] = "/dev/sda";
+    physvols_0[5] = devchar;
     char *physvols[] = {
-      "/dev/sda",
+      physvols_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_vgcreate (g, "VG", physvols);
+    r = guestfs_vgcreate (g, volgroup, physvols);
     if (r == -1)
       return -1;
   }
   {
+    char logvol[] = "LV1";
+    char volgroup[] = "VG";
     int r;
     suppress_error = 0;
-    r = guestfs_lvcreate (g, "LV1", "VG", 50);
+    r = guestfs_lvcreate (g, logvol, volgroup, 50);
     if (r == -1)
       return -1;
   }
   {
+    char logvol[] = "LV2";
+    char volgroup[] = "VG";
     int r;
     suppress_error = 0;
-    r = guestfs_lvcreate (g, "LV2", "VG", 50);
+    r = guestfs_lvcreate (g, logvol, volgroup, 50);
     if (r == -1)
       return -1;
   }
   {
+    char vgname[] = "VG";
     int r;
     suppress_error = 0;
-    r = guestfs_vgremove (g, "VG");
+    r = guestfs_vgremove (g, vgname);
     if (r == -1)
       return -1;
   }
@@ -1820,6 +2375,15 @@ static int test_lvremove_0 (void)
 {
   /* InitEmpty for lvremove (0) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -1835,41 +2399,51 @@ static int test_lvremove_0 (void)
   }
   /* TestOutputList for lvremove (0) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_pvcreate (g, "/dev/sda");
+    r = guestfs_pvcreate (g, device);
     if (r == -1)
       return -1;
   }
   {
+    char volgroup[] = "VG";
+    char physvols_0[] = "/dev/sda";
+    physvols_0[5] = devchar;
     char *physvols[] = {
-      "/dev/sda",
+      physvols_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_vgcreate (g, "VG", physvols);
+    r = guestfs_vgcreate (g, volgroup, physvols);
     if (r == -1)
       return -1;
   }
   {
+    char logvol[] = "LV1";
+    char volgroup[] = "VG";
     int r;
     suppress_error = 0;
-    r = guestfs_lvcreate (g, "LV1", "VG", 50);
+    r = guestfs_lvcreate (g, logvol, volgroup, 50);
     if (r == -1)
       return -1;
   }
   {
+    char logvol[] = "LV2";
+    char volgroup[] = "VG";
     int r;
     suppress_error = 0;
-    r = guestfs_lvcreate (g, "LV2", "VG", 50);
+    r = guestfs_lvcreate (g, logvol, volgroup, 50);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/VG/LV1";
     int r;
     suppress_error = 0;
-    r = guestfs_lvremove (g, "/dev/VG/LV1");
+    r = guestfs_lvremove (g, device);
     if (r == -1)
       return -1;
   }
@@ -1885,9 +2459,12 @@ static int test_lvremove_0 (void)
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[0], "/dev/VG/LV2") != 0) {
-      fprintf (stderr, "test_lvremove_0: expected \"/dev/VG/LV2\" but got \"%s\"\n", r[0]);
-      return -1;
+    {
+      char expected[] = "/dev/VG/LV2";
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_lvremove_0: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
     }
     if (r[1] != NULL) {
       fprintf (stderr, "test_lvremove_0: extra elements returned from command\n");
@@ -1905,6 +2482,15 @@ static int test_lvremove_1 (void)
 {
   /* InitEmpty for lvremove (1) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -1920,41 +2506,51 @@ static int test_lvremove_1 (void)
   }
   /* TestOutputList for lvremove (1) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_pvcreate (g, "/dev/sda");
+    r = guestfs_pvcreate (g, device);
     if (r == -1)
       return -1;
   }
   {
+    char volgroup[] = "VG";
+    char physvols_0[] = "/dev/sda";
+    physvols_0[5] = devchar;
     char *physvols[] = {
-      "/dev/sda",
+      physvols_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_vgcreate (g, "VG", physvols);
+    r = guestfs_vgcreate (g, volgroup, physvols);
     if (r == -1)
       return -1;
   }
   {
+    char logvol[] = "LV1";
+    char volgroup[] = "VG";
     int r;
     suppress_error = 0;
-    r = guestfs_lvcreate (g, "LV1", "VG", 50);
+    r = guestfs_lvcreate (g, logvol, volgroup, 50);
     if (r == -1)
       return -1;
   }
   {
+    char logvol[] = "LV2";
+    char volgroup[] = "VG";
     int r;
     suppress_error = 0;
-    r = guestfs_lvcreate (g, "LV2", "VG", 50);
+    r = guestfs_lvcreate (g, logvol, volgroup, 50);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/VG";
     int r;
     suppress_error = 0;
-    r = guestfs_lvremove (g, "/dev/VG");
+    r = guestfs_lvremove (g, device);
     if (r == -1)
       return -1;
   }
@@ -1981,6 +2577,15 @@ static int test_lvremove_2 (void)
 {
   /* InitEmpty for lvremove (2) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -1996,41 +2601,51 @@ static int test_lvremove_2 (void)
   }
   /* TestOutputList for lvremove (2) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_pvcreate (g, "/dev/sda");
+    r = guestfs_pvcreate (g, device);
     if (r == -1)
       return -1;
   }
   {
+    char volgroup[] = "VG";
+    char physvols_0[] = "/dev/sda";
+    physvols_0[5] = devchar;
     char *physvols[] = {
-      "/dev/sda",
+      physvols_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_vgcreate (g, "VG", physvols);
+    r = guestfs_vgcreate (g, volgroup, physvols);
     if (r == -1)
       return -1;
   }
   {
+    char logvol[] = "LV1";
+    char volgroup[] = "VG";
     int r;
     suppress_error = 0;
-    r = guestfs_lvcreate (g, "LV1", "VG", 50);
+    r = guestfs_lvcreate (g, logvol, volgroup, 50);
     if (r == -1)
       return -1;
   }
   {
+    char logvol[] = "LV2";
+    char volgroup[] = "VG";
     int r;
     suppress_error = 0;
-    r = guestfs_lvcreate (g, "LV2", "VG", 50);
+    r = guestfs_lvcreate (g, logvol, volgroup, 50);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/VG";
     int r;
     suppress_error = 0;
-    r = guestfs_lvremove (g, "/dev/VG");
+    r = guestfs_lvremove (g, device);
     if (r == -1)
       return -1;
   }
@@ -2046,9 +2661,12 @@ static int test_lvremove_2 (void)
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[0], "VG") != 0) {
-      fprintf (stderr, "test_lvremove_2: expected \"VG\" but got \"%s\"\n", r[0]);
-      return -1;
+    {
+      char expected[] = "VG";
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_lvremove_2: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
     }
     if (r[1] != NULL) {
       fprintf (stderr, "test_lvremove_2: extra elements returned from command\n");
@@ -2066,6 +2684,15 @@ static int test_mount_ro_0 (void)
 {
   /* InitBasicFS for mount_ro (0): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -2080,49 +2707,63 @@ static int test_mount_ro_0 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestLastFail for mount_ro (0) */
   {
+    char pathordevice[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_umount (g, "/");
+    r = guestfs_umount (g, pathordevice);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount_ro (g, "/dev/sda1", "/");
+    r = guestfs_mount_ro (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new";
     int r;
     suppress_error = 1;
-    r = guestfs_touch (g, "/new");
+    r = guestfs_touch (g, path);
     if (r != -1)
       return -1;
   }
@@ -2133,6 +2774,15 @@ static int test_mount_ro_1 (void)
 {
   /* InitBasicFS for mount_ro (1): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -2147,60 +2797,77 @@ static int test_mount_ro_1 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutput for mount_ro (1) */
+  char expected[] = "data";
   {
+    char path[] = "/new";
+    char content[] = "data";
     int r;
     suppress_error = 0;
-    r = guestfs_write_file (g, "/new", "data", 0);
+    r = guestfs_write_file (g, path, content, 0);
     if (r == -1)
       return -1;
   }
   {
+    char pathordevice[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_umount (g, "/");
+    r = guestfs_umount (g, pathordevice);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount_ro (g, "/dev/sda1", "/");
+    r = guestfs_mount_ro (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new";
     char *r;
     suppress_error = 0;
-    r = guestfs_cat (g, "/new");
+    r = guestfs_cat (g, path);
     if (r == NULL)
       return -1;
-    if (strcmp (r, "data") != 0) {
-      fprintf (stderr, "test_mount_ro_1: expected \"data\" but got \"%s\"\n", r);
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_mount_ro_1: expected \"%s\" but got \"%s\"\n", expected, r);
       return -1;
     }
     free (r);
@@ -2212,6 +2879,15 @@ static int test_tgz_in_0 (void)
 {
   /* InitBasicFS for tgz_in (0): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -2226,46 +2902,58 @@ static int test_tgz_in_0 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutput for tgz_in (0) */
+  char expected[] = "hello\n";
   {
+    char directory[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_tgz_in (g, "images/helloworld.tar.gz", "/");
+    r = guestfs_tgz_in (g, "images/helloworld.tar.gz", directory);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/hello";
     char *r;
     suppress_error = 0;
-    r = guestfs_cat (g, "/hello");
+    r = guestfs_cat (g, path);
     if (r == NULL)
       return -1;
-    if (strcmp (r, "hello\n") != 0) {
-      fprintf (stderr, "test_tgz_in_0: expected \"hello\n\" but got \"%s\"\n", r);
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_tgz_in_0: expected \"%s\" but got \"%s\"\n", expected, r);
       return -1;
     }
     free (r);
@@ -2277,6 +2965,15 @@ static int test_tar_in_0 (void)
 {
   /* InitBasicFS for tar_in (0): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -2291,46 +2988,58 @@ static int test_tar_in_0 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutput for tar_in (0) */
+  char expected[] = "hello\n";
   {
+    char directory[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_tar_in (g, "images/helloworld.tar", "/");
+    r = guestfs_tar_in (g, "images/helloworld.tar", directory);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/hello";
     char *r;
     suppress_error = 0;
-    r = guestfs_cat (g, "/hello");
+    r = guestfs_cat (g, path);
     if (r == NULL)
       return -1;
-    if (strcmp (r, "hello\n") != 0) {
-      fprintf (stderr, "test_tar_in_0: expected \"hello\n\" but got \"%s\"\n", r);
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_tar_in_0: expected \"%s\" but got \"%s\"\n", expected, r);
       return -1;
     }
     free (r);
@@ -2342,6 +3051,15 @@ static int test_checksum_0 (void)
 {
   /* InitBasicFS for checksum (0): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -2356,46 +3074,60 @@ static int test_checksum_0 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutput for checksum (0) */
+  char expected[] = "935282863";
   {
+    char path[] = "/new";
+    char content[] = "test\n";
     int r;
     suppress_error = 0;
-    r = guestfs_write_file (g, "/new", "test\n", 0);
+    r = guestfs_write_file (g, path, content, 0);
     if (r == -1)
       return -1;
   }
   {
+    char csumtype[] = "crc";
+    char path[] = "/new";
     char *r;
     suppress_error = 0;
-    r = guestfs_checksum (g, "crc", "/new");
+    r = guestfs_checksum (g, csumtype, path);
     if (r == NULL)
       return -1;
-    if (strcmp (r, "935282863") != 0) {
-      fprintf (stderr, "test_checksum_0: expected \"935282863\" but got \"%s\"\n", r);
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_checksum_0: expected \"%s\" but got \"%s\"\n", expected, r);
       return -1;
     }
     free (r);
@@ -2407,6 +3139,15 @@ static int test_checksum_1 (void)
 {
   /* InitBasicFS for checksum (1): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -2421,35 +3162,46 @@ static int test_checksum_1 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestLastFail for checksum (1) */
   {
+    char csumtype[] = "crc";
+    char path[] = "/new";
     char *r;
     suppress_error = 1;
-    r = guestfs_checksum (g, "crc", "/new");
+    r = guestfs_checksum (g, csumtype, path);
     if (r != NULL)
       return -1;
     free (r);
@@ -2461,6 +3213,15 @@ static int test_checksum_2 (void)
 {
   /* InitBasicFS for checksum (2): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -2475,46 +3236,60 @@ static int test_checksum_2 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutput for checksum (2) */
+  char expected[] = "d8e8fca2dc0f896fd7cb4cb0031ba249";
   {
+    char path[] = "/new";
+    char content[] = "test\n";
     int r;
     suppress_error = 0;
-    r = guestfs_write_file (g, "/new", "test\n", 0);
+    r = guestfs_write_file (g, path, content, 0);
     if (r == -1)
       return -1;
   }
   {
+    char csumtype[] = "md5";
+    char path[] = "/new";
     char *r;
     suppress_error = 0;
-    r = guestfs_checksum (g, "md5", "/new");
+    r = guestfs_checksum (g, csumtype, path);
     if (r == NULL)
       return -1;
-    if (strcmp (r, "d8e8fca2dc0f896fd7cb4cb0031ba249") != 0) {
-      fprintf (stderr, "test_checksum_2: expected \"d8e8fca2dc0f896fd7cb4cb0031ba249\" but got \"%s\"\n", r);
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_checksum_2: expected \"%s\" but got \"%s\"\n", expected, r);
       return -1;
     }
     free (r);
@@ -2526,6 +3301,15 @@ static int test_checksum_3 (void)
 {
   /* InitBasicFS for checksum (3): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -2540,46 +3324,60 @@ static int test_checksum_3 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutput for checksum (3) */
+  char expected[] = "4e1243bd22c66e76c2ba9eddc1f91394e57f9f83";
   {
+    char path[] = "/new";
+    char content[] = "test\n";
     int r;
     suppress_error = 0;
-    r = guestfs_write_file (g, "/new", "test\n", 0);
+    r = guestfs_write_file (g, path, content, 0);
     if (r == -1)
       return -1;
   }
   {
+    char csumtype[] = "sha1";
+    char path[] = "/new";
     char *r;
     suppress_error = 0;
-    r = guestfs_checksum (g, "sha1", "/new");
+    r = guestfs_checksum (g, csumtype, path);
     if (r == NULL)
       return -1;
-    if (strcmp (r, "4e1243bd22c66e76c2ba9eddc1f91394e57f9f83") != 0) {
-      fprintf (stderr, "test_checksum_3: expected \"4e1243bd22c66e76c2ba9eddc1f91394e57f9f83\" but got \"%s\"\n", r);
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_checksum_3: expected \"%s\" but got \"%s\"\n", expected, r);
       return -1;
     }
     free (r);
@@ -2591,6 +3389,15 @@ static int test_checksum_4 (void)
 {
   /* InitBasicFS for checksum (4): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -2605,46 +3412,60 @@ static int test_checksum_4 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutput for checksum (4) */
+  char expected[] = "52f1bf093f4b7588726035c176c0cdb4376cfea53819f1395ac9e6ec";
   {
+    char path[] = "/new";
+    char content[] = "test\n";
     int r;
     suppress_error = 0;
-    r = guestfs_write_file (g, "/new", "test\n", 0);
+    r = guestfs_write_file (g, path, content, 0);
     if (r == -1)
       return -1;
   }
   {
+    char csumtype[] = "sha224";
+    char path[] = "/new";
     char *r;
     suppress_error = 0;
-    r = guestfs_checksum (g, "sha224", "/new");
+    r = guestfs_checksum (g, csumtype, path);
     if (r == NULL)
       return -1;
-    if (strcmp (r, "52f1bf093f4b7588726035c176c0cdb4376cfea53819f1395ac9e6ec") != 0) {
-      fprintf (stderr, "test_checksum_4: expected \"52f1bf093f4b7588726035c176c0cdb4376cfea53819f1395ac9e6ec\" but got \"%s\"\n", r);
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_checksum_4: expected \"%s\" but got \"%s\"\n", expected, r);
       return -1;
     }
     free (r);
@@ -2656,6 +3477,15 @@ static int test_checksum_5 (void)
 {
   /* InitBasicFS for checksum (5): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -2670,46 +3500,60 @@ static int test_checksum_5 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutput for checksum (5) */
+  char expected[] = "f2ca1bb6c7e907d06dafe4687e579fce76b37e4e93b7605022da52e6ccc26fd2";
   {
+    char path[] = "/new";
+    char content[] = "test\n";
     int r;
     suppress_error = 0;
-    r = guestfs_write_file (g, "/new", "test\n", 0);
+    r = guestfs_write_file (g, path, content, 0);
     if (r == -1)
       return -1;
   }
   {
+    char csumtype[] = "sha256";
+    char path[] = "/new";
     char *r;
     suppress_error = 0;
-    r = guestfs_checksum (g, "sha256", "/new");
+    r = guestfs_checksum (g, csumtype, path);
     if (r == NULL)
       return -1;
-    if (strcmp (r, "f2ca1bb6c7e907d06dafe4687e579fce76b37e4e93b7605022da52e6ccc26fd2") != 0) {
-      fprintf (stderr, "test_checksum_5: expected \"f2ca1bb6c7e907d06dafe4687e579fce76b37e4e93b7605022da52e6ccc26fd2\" but got \"%s\"\n", r);
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_checksum_5: expected \"%s\" but got \"%s\"\n", expected, r);
       return -1;
     }
     free (r);
@@ -2721,6 +3565,15 @@ static int test_checksum_6 (void)
 {
   /* InitBasicFS for checksum (6): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -2735,46 +3588,60 @@ static int test_checksum_6 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutput for checksum (6) */
+  char expected[] = "109bb6b5b6d5547c1ce03c7a8bd7d8f80c1cb0957f50c4f7fda04692079917e4f9cad52b878f3d8234e1a170b154b72d";
   {
+    char path[] = "/new";
+    char content[] = "test\n";
     int r;
     suppress_error = 0;
-    r = guestfs_write_file (g, "/new", "test\n", 0);
+    r = guestfs_write_file (g, path, content, 0);
     if (r == -1)
       return -1;
   }
   {
+    char csumtype[] = "sha384";
+    char path[] = "/new";
     char *r;
     suppress_error = 0;
-    r = guestfs_checksum (g, "sha384", "/new");
+    r = guestfs_checksum (g, csumtype, path);
     if (r == NULL)
       return -1;
-    if (strcmp (r, "109bb6b5b6d5547c1ce03c7a8bd7d8f80c1cb0957f50c4f7fda04692079917e4f9cad52b878f3d8234e1a170b154b72d") != 0) {
-      fprintf (stderr, "test_checksum_6: expected \"109bb6b5b6d5547c1ce03c7a8bd7d8f80c1cb0957f50c4f7fda04692079917e4f9cad52b878f3d8234e1a170b154b72d\" but got \"%s\"\n", r);
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_checksum_6: expected \"%s\" but got \"%s\"\n", expected, r);
       return -1;
     }
     free (r);
@@ -2786,6 +3653,15 @@ static int test_checksum_7 (void)
 {
   /* InitBasicFS for checksum (7): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -2800,46 +3676,60 @@ static int test_checksum_7 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutput for checksum (7) */
+  char expected[] = "0e3e75234abc68f4378a86b3f4b32a198ba301845b0cd6e50106e874345700cc6663a86c1ea125dc5e92be17c98f9a0f85ca9d5f595db2012f7cc3571945c123";
   {
+    char path[] = "/new";
+    char content[] = "test\n";
     int r;
     suppress_error = 0;
-    r = guestfs_write_file (g, "/new", "test\n", 0);
+    r = guestfs_write_file (g, path, content, 0);
     if (r == -1)
       return -1;
   }
   {
+    char csumtype[] = "sha512";
+    char path[] = "/new";
     char *r;
     suppress_error = 0;
-    r = guestfs_checksum (g, "sha512", "/new");
+    r = guestfs_checksum (g, csumtype, path);
     if (r == NULL)
       return -1;
-    if (strcmp (r, "0e3e75234abc68f4378a86b3f4b32a198ba301845b0cd6e50106e874345700cc6663a86c1ea125dc5e92be17c98f9a0f85ca9d5f595db2012f7cc3571945c123") != 0) {
-      fprintf (stderr, "test_checksum_7: expected \"0e3e75234abc68f4378a86b3f4b32a198ba301845b0cd6e50106e874345700cc6663a86c1ea125dc5e92be17c98f9a0f85ca9d5f595db2012f7cc3571945c123\" but got \"%s\"\n", r);
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_checksum_7: expected \"%s\" but got \"%s\"\n", expected, r);
       return -1;
     }
     free (r);
@@ -2851,6 +3741,15 @@ static int test_download_0 (void)
 {
   /* InitBasicFS for download (0): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -2865,60 +3764,75 @@ static int test_download_0 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutput for download (0) */
+  char expected[] = "e3eda01d9815f8d24aae2dbd89b68b06";
   {
+    char remotefilename[] = "/COPYING.LIB";
     int r;
     suppress_error = 0;
-    r = guestfs_upload (g, "COPYING.LIB", "/COPYING.LIB");
+    r = guestfs_upload (g, "COPYING.LIB", remotefilename);
     if (r == -1)
       return -1;
   }
   {
+    char remotefilename[] = "/COPYING.LIB";
     int r;
     suppress_error = 0;
-    r = guestfs_download (g, "/COPYING.LIB", "testdownload.tmp");
+    r = guestfs_download (g, remotefilename, "testdownload.tmp");
     if (r == -1)
       return -1;
   }
   {
+    char remotefilename[] = "/upload";
     int r;
     suppress_error = 0;
-    r = guestfs_upload (g, "testdownload.tmp", "/upload");
+    r = guestfs_upload (g, "testdownload.tmp", remotefilename);
     if (r == -1)
       return -1;
   }
   {
+    char csumtype[] = "md5";
+    char path[] = "/upload";
     char *r;
     suppress_error = 0;
-    r = guestfs_checksum (g, "md5", "/upload");
+    r = guestfs_checksum (g, csumtype, path);
     if (r == NULL)
       return -1;
-    if (strcmp (r, "e3eda01d9815f8d24aae2dbd89b68b06") != 0) {
-      fprintf (stderr, "test_download_0: expected \"e3eda01d9815f8d24aae2dbd89b68b06\" but got \"%s\"\n", r);
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_download_0: expected \"%s\" but got \"%s\"\n", expected, r);
       return -1;
     }
     free (r);
@@ -2930,6 +3844,15 @@ static int test_upload_0 (void)
 {
   /* InitBasicFS for upload (0): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -2944,46 +3867,59 @@ static int test_upload_0 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutput for upload (0) */
+  char expected[] = "e3eda01d9815f8d24aae2dbd89b68b06";
   {
+    char remotefilename[] = "/COPYING.LIB";
     int r;
     suppress_error = 0;
-    r = guestfs_upload (g, "COPYING.LIB", "/COPYING.LIB");
+    r = guestfs_upload (g, "COPYING.LIB", remotefilename);
     if (r == -1)
       return -1;
   }
   {
+    char csumtype[] = "md5";
+    char path[] = "/COPYING.LIB";
     char *r;
     suppress_error = 0;
-    r = guestfs_checksum (g, "md5", "/COPYING.LIB");
+    r = guestfs_checksum (g, csumtype, path);
     if (r == NULL)
       return -1;
-    if (strcmp (r, "e3eda01d9815f8d24aae2dbd89b68b06") != 0) {
-      fprintf (stderr, "test_upload_0: expected \"e3eda01d9815f8d24aae2dbd89b68b06\" but got \"%s\"\n", r);
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_upload_0: expected \"%s\" but got \"%s\"\n", expected, r);
       return -1;
     }
     free (r);
@@ -2994,6 +3930,15 @@ static int test_upload_0 (void)
 static int test_blockdev_rereadpt_0 (void)
 {
   /* InitEmpty for blockdev_rereadpt (0) */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
   {
     int r;
     suppress_error = 0;
@@ -3010,9 +3955,11 @@ static int test_blockdev_rereadpt_0 (void)
   }
   /* TestRun for blockdev_rereadpt (0) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_blockdev_rereadpt (g, "/dev/sda");
+    r = guestfs_blockdev_rereadpt (g, device);
     if (r == -1)
       return -1;
   }
@@ -3022,6 +3969,15 @@ static int test_blockdev_rereadpt_0 (void)
 static int test_blockdev_flushbufs_0 (void)
 {
   /* InitEmpty for blockdev_flushbufs (0) */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
   {
     int r;
     suppress_error = 0;
@@ -3038,9 +3994,11 @@ static int test_blockdev_flushbufs_0 (void)
   }
   /* TestRun for blockdev_flushbufs (0) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_blockdev_flushbufs (g, "/dev/sda");
+    r = guestfs_blockdev_flushbufs (g, device);
     if (r == -1)
       return -1;
   }
@@ -3050,6 +4008,15 @@ static int test_blockdev_flushbufs_0 (void)
 static int test_blockdev_getsize64_0 (void)
 {
   /* InitEmpty for blockdev_getsize64 (0) */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
   {
     int r;
     suppress_error = 0;
@@ -3066,9 +4033,11 @@ static int test_blockdev_getsize64_0 (void)
   }
   /* TestOutputInt for blockdev_getsize64 (0) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
     int64_t r;
     suppress_error = 0;
-    r = guestfs_blockdev_getsize64 (g, "/dev/sda");
+    r = guestfs_blockdev_getsize64 (g, device);
     if (r == -1)
       return -1;
     if (r != 524288000) {
@@ -3082,6 +4051,15 @@ static int test_blockdev_getsize64_0 (void)
 static int test_blockdev_getsz_0 (void)
 {
   /* InitEmpty for blockdev_getsz (0) */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
   {
     int r;
     suppress_error = 0;
@@ -3098,9 +4076,11 @@ static int test_blockdev_getsz_0 (void)
   }
   /* TestOutputInt for blockdev_getsz (0) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
     int64_t r;
     suppress_error = 0;
-    r = guestfs_blockdev_getsz (g, "/dev/sda");
+    r = guestfs_blockdev_getsz (g, device);
     if (r == -1)
       return -1;
     if (r != 1024000) {
@@ -3114,6 +4094,15 @@ static int test_blockdev_getsz_0 (void)
 static int test_blockdev_getbsz_0 (void)
 {
   /* InitEmpty for blockdev_getbsz (0) */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
   {
     int r;
     suppress_error = 0;
@@ -3130,9 +4119,11 @@ static int test_blockdev_getbsz_0 (void)
   }
   /* TestOutputInt for blockdev_getbsz (0) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_blockdev_getbsz (g, "/dev/sda");
+    r = guestfs_blockdev_getbsz (g, device);
     if (r == -1)
       return -1;
     if (r != 4096) {
@@ -3146,6 +4137,15 @@ static int test_blockdev_getbsz_0 (void)
 static int test_blockdev_getss_0 (void)
 {
   /* InitEmpty for blockdev_getss (0) */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
   {
     int r;
     suppress_error = 0;
@@ -3162,9 +4162,11 @@ static int test_blockdev_getss_0 (void)
   }
   /* TestOutputInt for blockdev_getss (0) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_blockdev_getss (g, "/dev/sda");
+    r = guestfs_blockdev_getss (g, device);
     if (r == -1)
       return -1;
     if (r != 512) {
@@ -3178,6 +4180,15 @@ static int test_blockdev_getss_0 (void)
 static int test_blockdev_getro_0 (void)
 {
   /* InitEmpty for blockdev_getro (0) */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
   {
     int r;
     suppress_error = 0;
@@ -3194,16 +4205,20 @@ static int test_blockdev_getro_0 (void)
   }
   /* TestOutputTrue for blockdev_getro (0) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_blockdev_setro (g, "/dev/sda");
+    r = guestfs_blockdev_setro (g, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_blockdev_getro (g, "/dev/sda");
+    r = guestfs_blockdev_getro (g, device);
     if (r == -1)
       return -1;
     if (!r) {
@@ -3217,6 +4232,15 @@ static int test_blockdev_getro_0 (void)
 static int test_blockdev_setrw_0 (void)
 {
   /* InitEmpty for blockdev_setrw (0) */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
   {
     int r;
     suppress_error = 0;
@@ -3233,16 +4257,20 @@ static int test_blockdev_setrw_0 (void)
   }
   /* TestOutputFalse for blockdev_setrw (0) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_blockdev_setrw (g, "/dev/sda");
+    r = guestfs_blockdev_setrw (g, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_blockdev_getro (g, "/dev/sda");
+    r = guestfs_blockdev_getro (g, device);
     if (r == -1)
       return -1;
     if (r) {
@@ -3256,6 +4284,15 @@ static int test_blockdev_setrw_0 (void)
 static int test_blockdev_setro_0 (void)
 {
   /* InitEmpty for blockdev_setro (0) */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
   {
     int r;
     suppress_error = 0;
@@ -3272,16 +4309,20 @@ static int test_blockdev_setro_0 (void)
   }
   /* TestOutputTrue for blockdev_setro (0) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_blockdev_setro (g, "/dev/sda");
+    r = guestfs_blockdev_setro (g, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_blockdev_getro (g, "/dev/sda");
+    r = guestfs_blockdev_getro (g, device);
     if (r == -1)
       return -1;
     if (!r) {
@@ -3295,6 +4336,15 @@ static int test_blockdev_setro_0 (void)
 static int test_statvfs_0 (void)
 {
   /* InitBasicFS for statvfs (0): create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
   {
     int r;
     suppress_error = 0;
@@ -3310,35 +4360,45 @@ static int test_statvfs_0 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutputStruct for statvfs (0) */
   {
+    char path[] = "/";
     struct guestfs_statvfs *r;
     suppress_error = 0;
-    r = guestfs_statvfs (g, "/");
+    r = guestfs_statvfs (g, path);
     if (r == NULL)
       return -1;
     if (r->bfree != 487702) {
@@ -3365,6 +4425,15 @@ static int test_lstat_0 (void)
 {
   /* InitBasicFS for lstat (0): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -3379,42 +4448,53 @@ static int test_lstat_0 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutputStruct for lstat (0) */
   {
+    char path[] = "/new";
     int r;
     suppress_error = 0;
-    r = guestfs_touch (g, "/new");
+    r = guestfs_touch (g, path);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new";
     struct guestfs_stat *r;
     suppress_error = 0;
-    r = guestfs_lstat (g, "/new");
+    r = guestfs_lstat (g, path);
     if (r == NULL)
       return -1;
     if (r->size != 0) {
@@ -3431,6 +4511,15 @@ static int test_stat_0 (void)
 {
   /* InitBasicFS for stat (0): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -3445,42 +4534,53 @@ static int test_stat_0 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutputStruct for stat (0) */
   {
+    char path[] = "/new";
     int r;
     suppress_error = 0;
-    r = guestfs_touch (g, "/new");
+    r = guestfs_touch (g, path);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new";
     struct guestfs_stat *r;
     suppress_error = 0;
-    r = guestfs_stat (g, "/new");
+    r = guestfs_stat (g, path);
     if (r == NULL)
       return -1;
     if (r->size != 0) {
@@ -3497,6 +4597,15 @@ static int test_file_0 (void)
 {
   /* InitBasicFS for file (0): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -3511,46 +4620,58 @@ static int test_file_0 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutput for file (0) */
+  char expected[] = "empty";
   {
+    char path[] = "/new";
     int r;
     suppress_error = 0;
-    r = guestfs_touch (g, "/new");
+    r = guestfs_touch (g, path);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new";
     char *r;
     suppress_error = 0;
-    r = guestfs_file (g, "/new");
+    r = guestfs_file (g, path);
     if (r == NULL)
       return -1;
-    if (strcmp (r, "empty") != 0) {
-      fprintf (stderr, "test_file_0: expected \"empty\" but got \"%s\"\n", r);
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_file_0: expected \"%s\" but got \"%s\"\n", expected, r);
       return -1;
     }
     free (r);
@@ -3562,6 +4683,15 @@ static int test_file_1 (void)
 {
   /* InitBasicFS for file (1): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -3576,46 +4706,59 @@ static int test_file_1 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutput for file (1) */
+  char expected[] = "ASCII text";
   {
+    char path[] = "/new";
+    char content[] = "some content\n";
     int r;
     suppress_error = 0;
-    r = guestfs_write_file (g, "/new", "some content\n", 0);
+    r = guestfs_write_file (g, path, content, 0);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new";
     char *r;
     suppress_error = 0;
-    r = guestfs_file (g, "/new");
+    r = guestfs_file (g, path);
     if (r == NULL)
       return -1;
-    if (strcmp (r, "ASCII text") != 0) {
-      fprintf (stderr, "test_file_1: expected \"ASCII text\" but got \"%s\"\n", r);
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_file_1: expected \"%s\" but got \"%s\"\n", expected, r);
       return -1;
     }
     free (r);
@@ -3627,6 +4770,15 @@ static int test_file_2 (void)
 {
   /* InitBasicFS for file (2): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -3641,35 +4793,45 @@ static int test_file_2 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestLastFail for file (2) */
   {
+    char path[] = "/nofile";
     char *r;
     suppress_error = 1;
-    r = guestfs_file (g, "/nofile");
+    r = guestfs_file (g, path);
     if (r != NULL)
       return -1;
     free (r);
@@ -3681,6 +4843,15 @@ static int test_umount_all_0 (void)
 {
   /* InitBasicFS for umount_all (0): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -3695,27 +4866,36 @@ static int test_umount_all_0 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
@@ -3750,6 +4930,15 @@ static int test_umount_all_1 (void)
 {
   /* InitEmpty for umount_all (1) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -3765,78 +4954,104 @@ static int test_umount_all_1 (void)
   }
   /* TestOutputList for umount_all (1) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",10";
+    char lines_1[] = ",20";
+    char lines_2[] = ",";
     char *lines[] = {
-      ",10",
-      ",20",
-      ",",
+      lines_0,
+      lines_1,
+      lines_2,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda2";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda2");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda3";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda3");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/mp1";
     int r;
     suppress_error = 0;
-    r = guestfs_mkdir (g, "/mp1");
+    r = guestfs_mkdir (g, path);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda2";
+    device[5] = devchar;
+    char mountpoint[] = "/mp1";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda2", "/mp1");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/mp1/mp2";
     int r;
     suppress_error = 0;
-    r = guestfs_mkdir (g, "/mp1/mp2");
+    r = guestfs_mkdir (g, path);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda3";
+    device[5] = devchar;
+    char mountpoint[] = "/mp1/mp2";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda3", "/mp1/mp2");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/mp1/mp2/mp3";
     int r;
     suppress_error = 0;
-    r = guestfs_mkdir (g, "/mp1/mp2/mp3");
+    r = guestfs_mkdir (g, path);
     if (r == -1)
       return -1;
   }
@@ -3870,6 +5085,15 @@ static int test_mounts_0 (void)
 {
   /* InitBasicFS for mounts (0): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -3884,27 +5108,36 @@ static int test_mounts_0 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
@@ -3921,9 +5154,13 @@ static int test_mounts_0 (void)
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[0], "/dev/sda1") != 0) {
-      fprintf (stderr, "test_mounts_0: expected \"/dev/sda1\" but got \"%s\"\n", r[0]);
-      return -1;
+    {
+      char expected[] = "/dev/sda1";
+      expected[5] = devchar;
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_mounts_0: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
     }
     if (r[1] != NULL) {
       fprintf (stderr, "test_mounts_0: extra elements returned from command\n");
@@ -3941,6 +5178,15 @@ static int test_umount_0 (void)
 {
   /* InitEmpty for umount (0) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -3956,27 +5202,36 @@ static int test_umount_0 (void)
   }
   /* TestOutputList for umount (0) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
@@ -3992,9 +5247,13 @@ static int test_umount_0 (void)
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[0], "/dev/sda1") != 0) {
-      fprintf (stderr, "test_umount_0: expected \"/dev/sda1\" but got \"%s\"\n", r[0]);
-      return -1;
+    {
+      char expected[] = "/dev/sda1";
+      expected[5] = devchar;
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_umount_0: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
     }
     if (r[1] != NULL) {
       fprintf (stderr, "test_umount_0: extra elements returned from command\n");
@@ -4012,6 +5271,15 @@ static int test_umount_1 (void)
 {
   /* InitEmpty for umount (1) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -4027,34 +5295,44 @@ static int test_umount_1 (void)
   }
   /* TestOutputList for umount (1) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   {
+    char pathordevice[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_umount (g, "/");
+    r = guestfs_umount (g, pathordevice);
     if (r == -1)
       return -1;
   }
@@ -4081,6 +5359,15 @@ static int test_write_file_0 (void)
 {
   /* InitBasicFS for write_file (0): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -4095,46 +5382,59 @@ static int test_write_file_0 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutput for write_file (0) */
+  char expected[] = "new file contents";
   {
+    char path[] = "/new";
+    char content[] = "new file contents";
     int r;
     suppress_error = 0;
-    r = guestfs_write_file (g, "/new", "new file contents", 0);
+    r = guestfs_write_file (g, path, content, 0);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new";
     char *r;
     suppress_error = 0;
-    r = guestfs_cat (g, "/new");
+    r = guestfs_cat (g, path);
     if (r == NULL)
       return -1;
-    if (strcmp (r, "new file contents") != 0) {
-      fprintf (stderr, "test_write_file_0: expected \"new file contents\" but got \"%s\"\n", r);
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_write_file_0: expected \"%s\" but got \"%s\"\n", expected, r);
       return -1;
     }
     free (r);
@@ -4146,6 +5446,15 @@ static int test_write_file_1 (void)
 {
   /* InitBasicFS for write_file (1): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -4160,46 +5469,59 @@ static int test_write_file_1 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutput for write_file (1) */
+  char expected[] = "\nnew file contents\n";
   {
+    char path[] = "/new";
+    char content[] = "\nnew file contents\n";
     int r;
     suppress_error = 0;
-    r = guestfs_write_file (g, "/new", "\nnew file contents\n", 0);
+    r = guestfs_write_file (g, path, content, 0);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new";
     char *r;
     suppress_error = 0;
-    r = guestfs_cat (g, "/new");
+    r = guestfs_cat (g, path);
     if (r == NULL)
       return -1;
-    if (strcmp (r, "\nnew file contents\n") != 0) {
-      fprintf (stderr, "test_write_file_1: expected \"\nnew file contents\n\" but got \"%s\"\n", r);
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_write_file_1: expected \"%s\" but got \"%s\"\n", expected, r);
       return -1;
     }
     free (r);
@@ -4211,6 +5533,15 @@ static int test_write_file_2 (void)
 {
   /* InitBasicFS for write_file (2): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -4225,46 +5556,59 @@ static int test_write_file_2 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutput for write_file (2) */
+  char expected[] = "\n\n";
   {
+    char path[] = "/new";
+    char content[] = "\n\n";
     int r;
     suppress_error = 0;
-    r = guestfs_write_file (g, "/new", "\n\n", 0);
+    r = guestfs_write_file (g, path, content, 0);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new";
     char *r;
     suppress_error = 0;
-    r = guestfs_cat (g, "/new");
+    r = guestfs_cat (g, path);
     if (r == NULL)
       return -1;
-    if (strcmp (r, "\n\n") != 0) {
-      fprintf (stderr, "test_write_file_2: expected \"\n\n\" but got \"%s\"\n", r);
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_write_file_2: expected \"%s\" but got \"%s\"\n", expected, r);
       return -1;
     }
     free (r);
@@ -4276,6 +5620,15 @@ static int test_write_file_3 (void)
 {
   /* InitBasicFS for write_file (3): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -4290,46 +5643,59 @@ static int test_write_file_3 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutput for write_file (3) */
+  char expected[] = "";
   {
+    char path[] = "/new";
+    char content[] = "";
     int r;
     suppress_error = 0;
-    r = guestfs_write_file (g, "/new", "", 0);
+    r = guestfs_write_file (g, path, content, 0);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new";
     char *r;
     suppress_error = 0;
-    r = guestfs_cat (g, "/new");
+    r = guestfs_cat (g, path);
     if (r == NULL)
       return -1;
-    if (strcmp (r, "") != 0) {
-      fprintf (stderr, "test_write_file_3: expected \"\" but got \"%s\"\n", r);
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_write_file_3: expected \"%s\" but got \"%s\"\n", expected, r);
       return -1;
     }
     free (r);
@@ -4341,6 +5707,15 @@ static int test_write_file_4 (void)
 {
   /* InitBasicFS for write_file (4): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -4355,46 +5730,59 @@ static int test_write_file_4 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutput for write_file (4) */
+  char expected[] = "\n\n\n";
   {
+    char path[] = "/new";
+    char content[] = "\n\n\n";
     int r;
     suppress_error = 0;
-    r = guestfs_write_file (g, "/new", "\n\n\n", 0);
+    r = guestfs_write_file (g, path, content, 0);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new";
     char *r;
     suppress_error = 0;
-    r = guestfs_cat (g, "/new");
+    r = guestfs_cat (g, path);
     if (r == NULL)
       return -1;
-    if (strcmp (r, "\n\n\n") != 0) {
-      fprintf (stderr, "test_write_file_4: expected \"\n\n\n\" but got \"%s\"\n", r);
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_write_file_4: expected \"%s\" but got \"%s\"\n", expected, r);
       return -1;
     }
     free (r);
@@ -4406,6 +5794,15 @@ static int test_write_file_5 (void)
 {
   /* InitBasicFS for write_file (5): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -4420,46 +5817,59 @@ static int test_write_file_5 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutput for write_file (5) */
+  char expected[] = "\n";
   {
+    char path[] = "/new";
+    char content[] = "\n";
     int r;
     suppress_error = 0;
-    r = guestfs_write_file (g, "/new", "\n", 0);
+    r = guestfs_write_file (g, path, content, 0);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new";
     char *r;
     suppress_error = 0;
-    r = guestfs_cat (g, "/new");
+    r = guestfs_cat (g, path);
     if (r == NULL)
       return -1;
-    if (strcmp (r, "\n") != 0) {
-      fprintf (stderr, "test_write_file_5: expected \"\n\" but got \"%s\"\n", r);
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_write_file_5: expected \"%s\" but got \"%s\"\n", expected, r);
       return -1;
     }
     free (r);
@@ -4470,6 +5880,15 @@ static int test_write_file_5 (void)
 static int test_mkfs_0 (void)
 {
   /* InitEmpty for mkfs (0) */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
   {
     int r;
     suppress_error = 0;
@@ -4485,46 +5904,59 @@ static int test_mkfs_0 (void)
       return -1;
   }
   /* TestOutput for mkfs (0) */
+  char expected[] = "new file contents";
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new";
+    char content[] = "new file contents";
     int r;
     suppress_error = 0;
-    r = guestfs_write_file (g, "/new", "new file contents", 0);
+    r = guestfs_write_file (g, path, content, 0);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new";
     char *r;
     suppress_error = 0;
-    r = guestfs_cat (g, "/new");
+    r = guestfs_cat (g, path);
     if (r == NULL)
       return -1;
-    if (strcmp (r, "new file contents") != 0) {
-      fprintf (stderr, "test_mkfs_0: expected \"new file contents\" but got \"%s\"\n", r);
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_mkfs_0: expected \"%s\" but got \"%s\"\n", expected, r);
       return -1;
     }
     free (r);
@@ -4535,6 +5967,15 @@ static int test_mkfs_0 (void)
 static int test_lvcreate_0 (void)
 {
   /* InitEmpty for lvcreate (0) */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
   {
     int r;
     suppress_error = 0;
@@ -4551,94 +5992,123 @@ static int test_lvcreate_0 (void)
   }
   /* TestOutputList for lvcreate (0) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",10";
+    char lines_1[] = ",20";
+    char lines_2[] = ",";
     char *lines[] = {
-      ",10",
-      ",20",
-      ",",
+      lines_0,
+      lines_1,
+      lines_2,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_pvcreate (g, "/dev/sda1");
+    r = guestfs_pvcreate (g, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda2";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_pvcreate (g, "/dev/sda2");
+    r = guestfs_pvcreate (g, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda3";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_pvcreate (g, "/dev/sda3");
+    r = guestfs_pvcreate (g, device);
     if (r == -1)
       return -1;
   }
   {
+    char volgroup[] = "VG1";
+    char physvols_0[] = "/dev/sda1";
+    physvols_0[5] = devchar;
+    char physvols_1[] = "/dev/sda2";
+    physvols_1[5] = devchar;
     char *physvols[] = {
-      "/dev/sda1",
-      "/dev/sda2",
+      physvols_0,
+      physvols_1,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_vgcreate (g, "VG1", physvols);
+    r = guestfs_vgcreate (g, volgroup, physvols);
     if (r == -1)
       return -1;
   }
   {
+    char volgroup[] = "VG2";
+    char physvols_0[] = "/dev/sda3";
+    physvols_0[5] = devchar;
     char *physvols[] = {
-      "/dev/sda3",
+      physvols_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_vgcreate (g, "VG2", physvols);
+    r = guestfs_vgcreate (g, volgroup, physvols);
     if (r == -1)
       return -1;
   }
   {
+    char logvol[] = "LV1";
+    char volgroup[] = "VG1";
     int r;
     suppress_error = 0;
-    r = guestfs_lvcreate (g, "LV1", "VG1", 50);
+    r = guestfs_lvcreate (g, logvol, volgroup, 50);
     if (r == -1)
       return -1;
   }
   {
+    char logvol[] = "LV2";
+    char volgroup[] = "VG1";
     int r;
     suppress_error = 0;
-    r = guestfs_lvcreate (g, "LV2", "VG1", 50);
+    r = guestfs_lvcreate (g, logvol, volgroup, 50);
     if (r == -1)
       return -1;
   }
   {
+    char logvol[] = "LV3";
+    char volgroup[] = "VG2";
     int r;
     suppress_error = 0;
-    r = guestfs_lvcreate (g, "LV3", "VG2", 50);
+    r = guestfs_lvcreate (g, logvol, volgroup, 50);
     if (r == -1)
       return -1;
   }
   {
+    char logvol[] = "LV4";
+    char volgroup[] = "VG2";
     int r;
     suppress_error = 0;
-    r = guestfs_lvcreate (g, "LV4", "VG2", 50);
+    r = guestfs_lvcreate (g, logvol, volgroup, 50);
     if (r == -1)
       return -1;
   }
   {
+    char logvol[] = "LV5";
+    char volgroup[] = "VG2";
     int r;
     suppress_error = 0;
-    r = guestfs_lvcreate (g, "LV5", "VG2", 50);
+    r = guestfs_lvcreate (g, logvol, volgroup, 50);
     if (r == -1)
       return -1;
   }
@@ -4654,45 +6124,60 @@ static int test_lvcreate_0 (void)
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[0], "/dev/VG1/LV1") != 0) {
-      fprintf (stderr, "test_lvcreate_0: expected \"/dev/VG1/LV1\" but got \"%s\"\n", r[0]);
-      return -1;
+    {
+      char expected[] = "/dev/VG1/LV1";
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_lvcreate_0: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
     }
     if (!r[1]) {
       fprintf (stderr, "test_lvcreate_0: short list returned from command\n");
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[1], "/dev/VG1/LV2") != 0) {
-      fprintf (stderr, "test_lvcreate_0: expected \"/dev/VG1/LV2\" but got \"%s\"\n", r[1]);
-      return -1;
+    {
+      char expected[] = "/dev/VG1/LV2";
+      if (strcmp (r[1], expected) != 0) {
+        fprintf (stderr, "test_lvcreate_0: expected \"%s\" but got \"%s\"\n", expected, r[1]);
+        return -1;
+      }
     }
     if (!r[2]) {
       fprintf (stderr, "test_lvcreate_0: short list returned from command\n");
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[2], "/dev/VG2/LV3") != 0) {
-      fprintf (stderr, "test_lvcreate_0: expected \"/dev/VG2/LV3\" but got \"%s\"\n", r[2]);
-      return -1;
+    {
+      char expected[] = "/dev/VG2/LV3";
+      if (strcmp (r[2], expected) != 0) {
+        fprintf (stderr, "test_lvcreate_0: expected \"%s\" but got \"%s\"\n", expected, r[2]);
+        return -1;
+      }
     }
     if (!r[3]) {
       fprintf (stderr, "test_lvcreate_0: short list returned from command\n");
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[3], "/dev/VG2/LV4") != 0) {
-      fprintf (stderr, "test_lvcreate_0: expected \"/dev/VG2/LV4\" but got \"%s\"\n", r[3]);
-      return -1;
+    {
+      char expected[] = "/dev/VG2/LV4";
+      if (strcmp (r[3], expected) != 0) {
+        fprintf (stderr, "test_lvcreate_0: expected \"%s\" but got \"%s\"\n", expected, r[3]);
+        return -1;
+      }
     }
     if (!r[4]) {
       fprintf (stderr, "test_lvcreate_0: short list returned from command\n");
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[4], "/dev/VG2/LV5") != 0) {
-      fprintf (stderr, "test_lvcreate_0: expected \"/dev/VG2/LV5\" but got \"%s\"\n", r[4]);
-      return -1;
+    {
+      char expected[] = "/dev/VG2/LV5";
+      if (strcmp (r[4], expected) != 0) {
+        fprintf (stderr, "test_lvcreate_0: expected \"%s\" but got \"%s\"\n", expected, r[4]);
+        return -1;
+      }
     }
     if (r[5] != NULL) {
       fprintf (stderr, "test_lvcreate_0: extra elements returned from command\n");
@@ -4710,6 +6195,15 @@ static int test_vgcreate_0 (void)
 {
   /* InitEmpty for vgcreate (0) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -4725,59 +6219,78 @@ static int test_vgcreate_0 (void)
   }
   /* TestOutputList for vgcreate (0) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",10";
+    char lines_1[] = ",20";
+    char lines_2[] = ",";
     char *lines[] = {
-      ",10",
-      ",20",
-      ",",
+      lines_0,
+      lines_1,
+      lines_2,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_pvcreate (g, "/dev/sda1");
+    r = guestfs_pvcreate (g, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda2";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_pvcreate (g, "/dev/sda2");
+    r = guestfs_pvcreate (g, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda3";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_pvcreate (g, "/dev/sda3");
+    r = guestfs_pvcreate (g, device);
     if (r == -1)
       return -1;
   }
   {
+    char volgroup[] = "VG1";
+    char physvols_0[] = "/dev/sda1";
+    physvols_0[5] = devchar;
+    char physvols_1[] = "/dev/sda2";
+    physvols_1[5] = devchar;
     char *physvols[] = {
-      "/dev/sda1",
-      "/dev/sda2",
+      physvols_0,
+      physvols_1,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_vgcreate (g, "VG1", physvols);
+    r = guestfs_vgcreate (g, volgroup, physvols);
     if (r == -1)
       return -1;
   }
   {
+    char volgroup[] = "VG2";
+    char physvols_0[] = "/dev/sda3";
+    physvols_0[5] = devchar;
     char *physvols[] = {
-      "/dev/sda3",
+      physvols_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_vgcreate (g, "VG2", physvols);
+    r = guestfs_vgcreate (g, volgroup, physvols);
     if (r == -1)
       return -1;
   }
@@ -4793,18 +6306,24 @@ static int test_vgcreate_0 (void)
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[0], "VG1") != 0) {
-      fprintf (stderr, "test_vgcreate_0: expected \"VG1\" but got \"%s\"\n", r[0]);
-      return -1;
+    {
+      char expected[] = "VG1";
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_vgcreate_0: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
     }
     if (!r[1]) {
       fprintf (stderr, "test_vgcreate_0: short list returned from command\n");
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[1], "VG2") != 0) {
-      fprintf (stderr, "test_vgcreate_0: expected \"VG2\" but got \"%s\"\n", r[1]);
-      return -1;
+    {
+      char expected[] = "VG2";
+      if (strcmp (r[1], expected) != 0) {
+        fprintf (stderr, "test_vgcreate_0: expected \"%s\" but got \"%s\"\n", expected, r[1]);
+        return -1;
+      }
     }
     if (r[2] != NULL) {
       fprintf (stderr, "test_vgcreate_0: extra elements returned from command\n");
@@ -4822,6 +6341,15 @@ static int test_pvcreate_0 (void)
 {
   /* InitEmpty for pvcreate (0) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -4837,36 +6365,47 @@ static int test_pvcreate_0 (void)
   }
   /* TestOutputList for pvcreate (0) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",10";
+    char lines_1[] = ",20";
+    char lines_2[] = ",";
     char *lines[] = {
-      ",10",
-      ",20",
-      ",",
+      lines_0,
+      lines_1,
+      lines_2,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_pvcreate (g, "/dev/sda1");
+    r = guestfs_pvcreate (g, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda2";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_pvcreate (g, "/dev/sda2");
+    r = guestfs_pvcreate (g, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda3";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_pvcreate (g, "/dev/sda3");
+    r = guestfs_pvcreate (g, device);
     if (r == -1)
       return -1;
   }
@@ -4882,27 +6421,39 @@ static int test_pvcreate_0 (void)
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[0], "/dev/sda1") != 0) {
-      fprintf (stderr, "test_pvcreate_0: expected \"/dev/sda1\" but got \"%s\"\n", r[0]);
-      return -1;
+    {
+      char expected[] = "/dev/sda1";
+      expected[5] = devchar;
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_pvcreate_0: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
     }
     if (!r[1]) {
       fprintf (stderr, "test_pvcreate_0: short list returned from command\n");
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[1], "/dev/sda2") != 0) {
-      fprintf (stderr, "test_pvcreate_0: expected \"/dev/sda2\" but got \"%s\"\n", r[1]);
-      return -1;
+    {
+      char expected[] = "/dev/sda2";
+      expected[5] = devchar;
+      if (strcmp (r[1], expected) != 0) {
+        fprintf (stderr, "test_pvcreate_0: expected \"%s\" but got \"%s\"\n", expected, r[1]);
+        return -1;
+      }
     }
     if (!r[2]) {
       fprintf (stderr, "test_pvcreate_0: short list returned from command\n");
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[2], "/dev/sda3") != 0) {
-      fprintf (stderr, "test_pvcreate_0: expected \"/dev/sda3\" but got \"%s\"\n", r[2]);
-      return -1;
+    {
+      char expected[] = "/dev/sda3";
+      expected[5] = devchar;
+      if (strcmp (r[2], expected) != 0) {
+        fprintf (stderr, "test_pvcreate_0: expected \"%s\" but got \"%s\"\n", expected, r[2]);
+        return -1;
+      }
     }
     if (r[3] != NULL) {
       fprintf (stderr, "test_pvcreate_0: extra elements returned from command\n");
@@ -4920,6 +6471,15 @@ static int test_is_dir_0 (void)
 {
   /* InitBasicFS for is_dir (0): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -4934,42 +6494,53 @@ static int test_is_dir_0 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutputFalse for is_dir (0) */
   {
+    char path[] = "/new";
     int r;
     suppress_error = 0;
-    r = guestfs_touch (g, "/new");
+    r = guestfs_touch (g, path);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new";
     int r;
     suppress_error = 0;
-    r = guestfs_is_dir (g, "/new");
+    r = guestfs_is_dir (g, path);
     if (r == -1)
       return -1;
     if (r) {
@@ -4984,6 +6555,15 @@ static int test_is_dir_1 (void)
 {
   /* InitBasicFS for is_dir (1): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -4998,42 +6578,53 @@ static int test_is_dir_1 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutputTrue for is_dir (1) */
   {
+    char path[] = "/new";
     int r;
     suppress_error = 0;
-    r = guestfs_mkdir (g, "/new");
+    r = guestfs_mkdir (g, path);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new";
     int r;
     suppress_error = 0;
-    r = guestfs_is_dir (g, "/new");
+    r = guestfs_is_dir (g, path);
     if (r == -1)
       return -1;
     if (!r) {
@@ -5048,6 +6639,15 @@ static int test_is_file_0 (void)
 {
   /* InitBasicFS for is_file (0): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -5062,42 +6662,53 @@ static int test_is_file_0 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutputTrue for is_file (0) */
   {
+    char path[] = "/new";
     int r;
     suppress_error = 0;
-    r = guestfs_touch (g, "/new");
+    r = guestfs_touch (g, path);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new";
     int r;
     suppress_error = 0;
-    r = guestfs_is_file (g, "/new");
+    r = guestfs_is_file (g, path);
     if (r == -1)
       return -1;
     if (!r) {
@@ -5112,6 +6723,15 @@ static int test_is_file_1 (void)
 {
   /* InitBasicFS for is_file (1): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -5126,42 +6746,53 @@ static int test_is_file_1 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutputFalse for is_file (1) */
   {
+    char path[] = "/new";
     int r;
     suppress_error = 0;
-    r = guestfs_mkdir (g, "/new");
+    r = guestfs_mkdir (g, path);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new";
     int r;
     suppress_error = 0;
-    r = guestfs_is_file (g, "/new");
+    r = guestfs_is_file (g, path);
     if (r == -1)
       return -1;
     if (r) {
@@ -5176,6 +6807,15 @@ static int test_exists_0 (void)
 {
   /* InitBasicFS for exists (0): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -5190,42 +6830,53 @@ static int test_exists_0 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutputTrue for exists (0) */
   {
+    char path[] = "/new";
     int r;
     suppress_error = 0;
-    r = guestfs_touch (g, "/new");
+    r = guestfs_touch (g, path);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new";
     int r;
     suppress_error = 0;
-    r = guestfs_exists (g, "/new");
+    r = guestfs_exists (g, path);
     if (r == -1)
       return -1;
     if (!r) {
@@ -5240,6 +6891,15 @@ static int test_exists_1 (void)
 {
   /* InitBasicFS for exists (1): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -5254,42 +6914,53 @@ static int test_exists_1 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutputTrue for exists (1) */
   {
+    char path[] = "/new";
     int r;
     suppress_error = 0;
-    r = guestfs_mkdir (g, "/new");
+    r = guestfs_mkdir (g, path);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new";
     int r;
     suppress_error = 0;
-    r = guestfs_exists (g, "/new");
+    r = guestfs_exists (g, path);
     if (r == -1)
       return -1;
     if (!r) {
@@ -5304,6 +6975,15 @@ static int test_mkdir_p_0 (void)
 {
   /* InitBasicFS for mkdir_p (0): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -5318,42 +6998,53 @@ static int test_mkdir_p_0 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutputTrue for mkdir_p (0) */
   {
+    char path[] = "/new/foo/bar";
     int r;
     suppress_error = 0;
-    r = guestfs_mkdir_p (g, "/new/foo/bar");
+    r = guestfs_mkdir_p (g, path);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new/foo/bar";
     int r;
     suppress_error = 0;
-    r = guestfs_is_dir (g, "/new/foo/bar");
+    r = guestfs_is_dir (g, path);
     if (r == -1)
       return -1;
     if (!r) {
@@ -5368,6 +7059,15 @@ static int test_mkdir_p_1 (void)
 {
   /* InitBasicFS for mkdir_p (1): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -5382,42 +7082,53 @@ static int test_mkdir_p_1 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutputTrue for mkdir_p (1) */
   {
+    char path[] = "/new/foo/bar";
     int r;
     suppress_error = 0;
-    r = guestfs_mkdir_p (g, "/new/foo/bar");
+    r = guestfs_mkdir_p (g, path);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new/foo";
     int r;
     suppress_error = 0;
-    r = guestfs_is_dir (g, "/new/foo");
+    r = guestfs_is_dir (g, path);
     if (r == -1)
       return -1;
     if (!r) {
@@ -5432,6 +7143,15 @@ static int test_mkdir_p_2 (void)
 {
   /* InitBasicFS for mkdir_p (2): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -5446,42 +7166,53 @@ static int test_mkdir_p_2 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutputTrue for mkdir_p (2) */
   {
+    char path[] = "/new/foo/bar";
     int r;
     suppress_error = 0;
-    r = guestfs_mkdir_p (g, "/new/foo/bar");
+    r = guestfs_mkdir_p (g, path);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new";
     int r;
     suppress_error = 0;
-    r = guestfs_is_dir (g, "/new");
+    r = guestfs_is_dir (g, path);
     if (r == -1)
       return -1;
     if (!r) {
@@ -5496,6 +7227,15 @@ static int test_mkdir_0 (void)
 {
   /* InitBasicFS for mkdir (0): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -5510,42 +7250,53 @@ static int test_mkdir_0 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutputTrue for mkdir (0) */
   {
+    char path[] = "/new";
     int r;
     suppress_error = 0;
-    r = guestfs_mkdir (g, "/new");
+    r = guestfs_mkdir (g, path);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new";
     int r;
     suppress_error = 0;
-    r = guestfs_is_dir (g, "/new");
+    r = guestfs_is_dir (g, path);
     if (r == -1)
       return -1;
     if (!r) {
@@ -5560,6 +7311,15 @@ static int test_mkdir_1 (void)
 {
   /* InitBasicFS for mkdir (1): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -5574,35 +7334,45 @@ static int test_mkdir_1 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestLastFail for mkdir (1) */
   {
+    char path[] = "/new/foo/bar";
     int r;
     suppress_error = 1;
-    r = guestfs_mkdir (g, "/new/foo/bar");
+    r = guestfs_mkdir (g, path);
     if (r != -1)
       return -1;
   }
@@ -5613,6 +7383,15 @@ static int test_rm_rf_0 (void)
 {
   /* InitBasicFS for rm_rf (0): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -5627,63 +7406,77 @@ static int test_rm_rf_0 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutputFalse for rm_rf (0) */
   {
+    char path[] = "/new";
     int r;
     suppress_error = 0;
-    r = guestfs_mkdir (g, "/new");
+    r = guestfs_mkdir (g, path);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new/foo";
     int r;
     suppress_error = 0;
-    r = guestfs_mkdir (g, "/new/foo");
+    r = guestfs_mkdir (g, path);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new/foo/bar";
     int r;
     suppress_error = 0;
-    r = guestfs_touch (g, "/new/foo/bar");
+    r = guestfs_touch (g, path);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new";
     int r;
     suppress_error = 0;
-    r = guestfs_rm_rf (g, "/new");
+    r = guestfs_rm_rf (g, path);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new";
     int r;
     suppress_error = 0;
-    r = guestfs_exists (g, "/new");
+    r = guestfs_exists (g, path);
     if (r == -1)
       return -1;
     if (r) {
@@ -5698,6 +7491,15 @@ static int test_rmdir_0 (void)
 {
   /* InitBasicFS for rmdir (0): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -5712,42 +7514,53 @@ static int test_rmdir_0 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestRun for rmdir (0) */
   {
+    char path[] = "/new";
     int r;
     suppress_error = 0;
-    r = guestfs_mkdir (g, "/new");
+    r = guestfs_mkdir (g, path);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new";
     int r;
     suppress_error = 0;
-    r = guestfs_rmdir (g, "/new");
+    r = guestfs_rmdir (g, path);
     if (r == -1)
       return -1;
   }
@@ -5758,6 +7571,15 @@ static int test_rmdir_1 (void)
 {
   /* InitBasicFS for rmdir (1): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -5772,35 +7594,45 @@ static int test_rmdir_1 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestLastFail for rmdir (1) */
   {
+    char path[] = "/new";
     int r;
     suppress_error = 1;
-    r = guestfs_rmdir (g, "/new");
+    r = guestfs_rmdir (g, path);
     if (r != -1)
       return -1;
   }
@@ -5811,6 +7643,15 @@ static int test_rmdir_2 (void)
 {
   /* InitBasicFS for rmdir (2): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -5825,42 +7666,53 @@ static int test_rmdir_2 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestLastFail for rmdir (2) */
   {
+    char path[] = "/new";
     int r;
     suppress_error = 0;
-    r = guestfs_touch (g, "/new");
+    r = guestfs_touch (g, path);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new";
     int r;
     suppress_error = 1;
-    r = guestfs_rmdir (g, "/new");
+    r = guestfs_rmdir (g, path);
     if (r != -1)
       return -1;
   }
@@ -5871,6 +7723,15 @@ static int test_rm_0 (void)
 {
   /* InitBasicFS for rm (0): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -5885,42 +7746,53 @@ static int test_rm_0 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestRun for rm (0) */
   {
+    char path[] = "/new";
     int r;
     suppress_error = 0;
-    r = guestfs_touch (g, "/new");
+    r = guestfs_touch (g, path);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new";
     int r;
     suppress_error = 0;
-    r = guestfs_rm (g, "/new");
+    r = guestfs_rm (g, path);
     if (r == -1)
       return -1;
   }
@@ -5931,6 +7803,15 @@ static int test_rm_1 (void)
 {
   /* InitBasicFS for rm (1): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -5945,35 +7826,45 @@ static int test_rm_1 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestLastFail for rm (1) */
   {
+    char path[] = "/new";
     int r;
     suppress_error = 1;
-    r = guestfs_rm (g, "/new");
+    r = guestfs_rm (g, path);
     if (r != -1)
       return -1;
   }
@@ -5984,6 +7875,15 @@ static int test_rm_2 (void)
 {
   /* InitBasicFS for rm (2): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -5998,42 +7898,53 @@ static int test_rm_2 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestLastFail for rm (2) */
   {
+    char path[] = "/new";
     int r;
     suppress_error = 0;
-    r = guestfs_mkdir (g, "/new");
+    r = guestfs_mkdir (g, path);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new";
     int r;
     suppress_error = 1;
-    r = guestfs_rm (g, "/new");
+    r = guestfs_rm (g, path);
     if (r != -1)
       return -1;
   }
@@ -6044,6 +7955,15 @@ static int test_read_lines_0 (void)
 {
   /* InitBasicFS for read_lines (0): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -6058,43 +7978,55 @@ static int test_read_lines_0 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutputList for read_lines (0) */
   {
+    char path[] = "/new";
+    char content[] = "line1\r\nline2\nline3";
     int r;
     suppress_error = 0;
-    r = guestfs_write_file (g, "/new", "line1\r\nline2\nline3", 0);
+    r = guestfs_write_file (g, path, content, 0);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new";
     char **r;
     int i;
     suppress_error = 0;
-    r = guestfs_read_lines (g, "/new");
+    r = guestfs_read_lines (g, path);
     if (r == NULL)
       return -1;
     if (!r[0]) {
@@ -6102,27 +8034,36 @@ static int test_read_lines_0 (void)
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[0], "line1") != 0) {
-      fprintf (stderr, "test_read_lines_0: expected \"line1\" but got \"%s\"\n", r[0]);
-      return -1;
+    {
+      char expected[] = "line1";
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_read_lines_0: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
     }
     if (!r[1]) {
       fprintf (stderr, "test_read_lines_0: short list returned from command\n");
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[1], "line2") != 0) {
-      fprintf (stderr, "test_read_lines_0: expected \"line2\" but got \"%s\"\n", r[1]);
-      return -1;
+    {
+      char expected[] = "line2";
+      if (strcmp (r[1], expected) != 0) {
+        fprintf (stderr, "test_read_lines_0: expected \"%s\" but got \"%s\"\n", expected, r[1]);
+        return -1;
+      }
     }
     if (!r[2]) {
       fprintf (stderr, "test_read_lines_0: short list returned from command\n");
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[2], "line3") != 0) {
-      fprintf (stderr, "test_read_lines_0: expected \"line3\" but got \"%s\"\n", r[2]);
-      return -1;
+    {
+      char expected[] = "line3";
+      if (strcmp (r[2], expected) != 0) {
+        fprintf (stderr, "test_read_lines_0: expected \"%s\" but got \"%s\"\n", expected, r[2]);
+        return -1;
+      }
     }
     if (r[3] != NULL) {
       fprintf (stderr, "test_read_lines_0: extra elements returned from command\n");
@@ -6140,6 +8081,15 @@ static int test_read_lines_1 (void)
 {
   /* InitBasicFS for read_lines (1): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -6154,43 +8104,55 @@ static int test_read_lines_1 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutputList for read_lines (1) */
   {
+    char path[] = "/new";
+    char content[] = "";
     int r;
     suppress_error = 0;
-    r = guestfs_write_file (g, "/new", "", 0);
+    r = guestfs_write_file (g, path, content, 0);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new";
     char **r;
     int i;
     suppress_error = 0;
-    r = guestfs_read_lines (g, "/new");
+    r = guestfs_read_lines (g, path);
     if (r == NULL)
       return -1;
     if (r[0] != NULL) {
@@ -6209,6 +8171,15 @@ static int test_lvs_0 (void)
 {
   /* InitBasicFSonLVM for lvs (0): create ext2 on /dev/VG/LV */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -6223,52 +8194,66 @@ static int test_lvs_0 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_pvcreate (g, "/dev/sda1");
+    r = guestfs_pvcreate (g, device);
     if (r == -1)
       return -1;
   }
   {
+    char volgroup[] = "VG";
+    char physvols_0[] = "/dev/sda1";
+    physvols_0[5] = devchar;
     char *physvols[] = {
-      "/dev/sda1",
+      physvols_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_vgcreate (g, "VG", physvols);
+    r = guestfs_vgcreate (g, volgroup, physvols);
     if (r == -1)
       return -1;
   }
   {
+    char logvol[] = "LV";
+    char volgroup[] = "VG";
     int r;
     suppress_error = 0;
-    r = guestfs_lvcreate (g, "LV", "VG", 8);
+    r = guestfs_lvcreate (g, logvol, volgroup, 8);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/VG/LV";
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/VG/LV");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/VG/LV";
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/VG/LV", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
@@ -6285,9 +8270,12 @@ static int test_lvs_0 (void)
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[0], "/dev/VG/LV") != 0) {
-      fprintf (stderr, "test_lvs_0: expected \"/dev/VG/LV\" but got \"%s\"\n", r[0]);
-      return -1;
+    {
+      char expected[] = "/dev/VG/LV";
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_lvs_0: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
     }
     if (r[1] != NULL) {
       fprintf (stderr, "test_lvs_0: extra elements returned from command\n");
@@ -6305,6 +8293,15 @@ static int test_lvs_1 (void)
 {
   /* InitEmpty for lvs (1) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -6320,80 +8317,105 @@ static int test_lvs_1 (void)
   }
   /* TestOutputList for lvs (1) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",10";
+    char lines_1[] = ",20";
+    char lines_2[] = ",";
     char *lines[] = {
-      ",10",
-      ",20",
-      ",",
+      lines_0,
+      lines_1,
+      lines_2,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_pvcreate (g, "/dev/sda1");
+    r = guestfs_pvcreate (g, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda2";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_pvcreate (g, "/dev/sda2");
+    r = guestfs_pvcreate (g, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda3";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_pvcreate (g, "/dev/sda3");
+    r = guestfs_pvcreate (g, device);
     if (r == -1)
       return -1;
   }
   {
+    char volgroup[] = "VG1";
+    char physvols_0[] = "/dev/sda1";
+    physvols_0[5] = devchar;
+    char physvols_1[] = "/dev/sda2";
+    physvols_1[5] = devchar;
     char *physvols[] = {
-      "/dev/sda1",
-      "/dev/sda2",
+      physvols_0,
+      physvols_1,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_vgcreate (g, "VG1", physvols);
+    r = guestfs_vgcreate (g, volgroup, physvols);
     if (r == -1)
       return -1;
   }
   {
+    char volgroup[] = "VG2";
+    char physvols_0[] = "/dev/sda3";
+    physvols_0[5] = devchar;
     char *physvols[] = {
-      "/dev/sda3",
+      physvols_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_vgcreate (g, "VG2", physvols);
+    r = guestfs_vgcreate (g, volgroup, physvols);
     if (r == -1)
       return -1;
   }
   {
+    char logvol[] = "LV1";
+    char volgroup[] = "VG1";
     int r;
     suppress_error = 0;
-    r = guestfs_lvcreate (g, "LV1", "VG1", 50);
+    r = guestfs_lvcreate (g, logvol, volgroup, 50);
     if (r == -1)
       return -1;
   }
   {
+    char logvol[] = "LV2";
+    char volgroup[] = "VG1";
     int r;
     suppress_error = 0;
-    r = guestfs_lvcreate (g, "LV2", "VG1", 50);
+    r = guestfs_lvcreate (g, logvol, volgroup, 50);
     if (r == -1)
       return -1;
   }
   {
+    char logvol[] = "LV3";
+    char volgroup[] = "VG2";
     int r;
     suppress_error = 0;
-    r = guestfs_lvcreate (g, "LV3", "VG2", 50);
+    r = guestfs_lvcreate (g, logvol, volgroup, 50);
     if (r == -1)
       return -1;
   }
@@ -6409,27 +8431,36 @@ static int test_lvs_1 (void)
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[0], "/dev/VG1/LV1") != 0) {
-      fprintf (stderr, "test_lvs_1: expected \"/dev/VG1/LV1\" but got \"%s\"\n", r[0]);
-      return -1;
+    {
+      char expected[] = "/dev/VG1/LV1";
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_lvs_1: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
     }
     if (!r[1]) {
       fprintf (stderr, "test_lvs_1: short list returned from command\n");
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[1], "/dev/VG1/LV2") != 0) {
-      fprintf (stderr, "test_lvs_1: expected \"/dev/VG1/LV2\" but got \"%s\"\n", r[1]);
-      return -1;
+    {
+      char expected[] = "/dev/VG1/LV2";
+      if (strcmp (r[1], expected) != 0) {
+        fprintf (stderr, "test_lvs_1: expected \"%s\" but got \"%s\"\n", expected, r[1]);
+        return -1;
+      }
     }
     if (!r[2]) {
       fprintf (stderr, "test_lvs_1: short list returned from command\n");
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[2], "/dev/VG2/LV3") != 0) {
-      fprintf (stderr, "test_lvs_1: expected \"/dev/VG2/LV3\" but got \"%s\"\n", r[2]);
-      return -1;
+    {
+      char expected[] = "/dev/VG2/LV3";
+      if (strcmp (r[2], expected) != 0) {
+        fprintf (stderr, "test_lvs_1: expected \"%s\" but got \"%s\"\n", expected, r[2]);
+        return -1;
+      }
     }
     if (r[3] != NULL) {
       fprintf (stderr, "test_lvs_1: extra elements returned from command\n");
@@ -6447,6 +8478,15 @@ static int test_vgs_0 (void)
 {
   /* InitBasicFSonLVM for vgs (0): create ext2 on /dev/VG/LV */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -6461,52 +8501,66 @@ static int test_vgs_0 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_pvcreate (g, "/dev/sda1");
+    r = guestfs_pvcreate (g, device);
     if (r == -1)
       return -1;
   }
   {
+    char volgroup[] = "VG";
+    char physvols_0[] = "/dev/sda1";
+    physvols_0[5] = devchar;
     char *physvols[] = {
-      "/dev/sda1",
+      physvols_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_vgcreate (g, "VG", physvols);
+    r = guestfs_vgcreate (g, volgroup, physvols);
     if (r == -1)
       return -1;
   }
   {
+    char logvol[] = "LV";
+    char volgroup[] = "VG";
     int r;
     suppress_error = 0;
-    r = guestfs_lvcreate (g, "LV", "VG", 8);
+    r = guestfs_lvcreate (g, logvol, volgroup, 8);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/VG/LV";
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/VG/LV");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/VG/LV";
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/VG/LV", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
@@ -6523,9 +8577,12 @@ static int test_vgs_0 (void)
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[0], "VG") != 0) {
-      fprintf (stderr, "test_vgs_0: expected \"VG\" but got \"%s\"\n", r[0]);
-      return -1;
+    {
+      char expected[] = "VG";
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_vgs_0: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
     }
     if (r[1] != NULL) {
       fprintf (stderr, "test_vgs_0: extra elements returned from command\n");
@@ -6543,6 +8600,15 @@ static int test_vgs_1 (void)
 {
   /* InitEmpty for vgs (1) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -6558,59 +8624,78 @@ static int test_vgs_1 (void)
   }
   /* TestOutputList for vgs (1) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",10";
+    char lines_1[] = ",20";
+    char lines_2[] = ",";
     char *lines[] = {
-      ",10",
-      ",20",
-      ",",
+      lines_0,
+      lines_1,
+      lines_2,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_pvcreate (g, "/dev/sda1");
+    r = guestfs_pvcreate (g, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda2";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_pvcreate (g, "/dev/sda2");
+    r = guestfs_pvcreate (g, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda3";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_pvcreate (g, "/dev/sda3");
+    r = guestfs_pvcreate (g, device);
     if (r == -1)
       return -1;
   }
   {
+    char volgroup[] = "VG1";
+    char physvols_0[] = "/dev/sda1";
+    physvols_0[5] = devchar;
+    char physvols_1[] = "/dev/sda2";
+    physvols_1[5] = devchar;
     char *physvols[] = {
-      "/dev/sda1",
-      "/dev/sda2",
+      physvols_0,
+      physvols_1,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_vgcreate (g, "VG1", physvols);
+    r = guestfs_vgcreate (g, volgroup, physvols);
     if (r == -1)
       return -1;
   }
   {
+    char volgroup[] = "VG2";
+    char physvols_0[] = "/dev/sda3";
+    physvols_0[5] = devchar;
     char *physvols[] = {
-      "/dev/sda3",
+      physvols_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_vgcreate (g, "VG2", physvols);
+    r = guestfs_vgcreate (g, volgroup, physvols);
     if (r == -1)
       return -1;
   }
@@ -6626,18 +8711,24 @@ static int test_vgs_1 (void)
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[0], "VG1") != 0) {
-      fprintf (stderr, "test_vgs_1: expected \"VG1\" but got \"%s\"\n", r[0]);
-      return -1;
+    {
+      char expected[] = "VG1";
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_vgs_1: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
     }
     if (!r[1]) {
       fprintf (stderr, "test_vgs_1: short list returned from command\n");
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[1], "VG2") != 0) {
-      fprintf (stderr, "test_vgs_1: expected \"VG2\" but got \"%s\"\n", r[1]);
-      return -1;
+    {
+      char expected[] = "VG2";
+      if (strcmp (r[1], expected) != 0) {
+        fprintf (stderr, "test_vgs_1: expected \"%s\" but got \"%s\"\n", expected, r[1]);
+        return -1;
+      }
     }
     if (r[2] != NULL) {
       fprintf (stderr, "test_vgs_1: extra elements returned from command\n");
@@ -6655,6 +8746,15 @@ static int test_pvs_0 (void)
 {
   /* InitBasicFSonLVM for pvs (0): create ext2 on /dev/VG/LV */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -6669,52 +8769,66 @@ static int test_pvs_0 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_pvcreate (g, "/dev/sda1");
+    r = guestfs_pvcreate (g, device);
     if (r == -1)
       return -1;
   }
   {
+    char volgroup[] = "VG";
+    char physvols_0[] = "/dev/sda1";
+    physvols_0[5] = devchar;
     char *physvols[] = {
-      "/dev/sda1",
+      physvols_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_vgcreate (g, "VG", physvols);
+    r = guestfs_vgcreate (g, volgroup, physvols);
     if (r == -1)
       return -1;
   }
   {
+    char logvol[] = "LV";
+    char volgroup[] = "VG";
     int r;
     suppress_error = 0;
-    r = guestfs_lvcreate (g, "LV", "VG", 8);
+    r = guestfs_lvcreate (g, logvol, volgroup, 8);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/VG/LV";
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/VG/LV");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/VG/LV";
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/VG/LV", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
@@ -6731,9 +8845,13 @@ static int test_pvs_0 (void)
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[0], "/dev/sda1") != 0) {
-      fprintf (stderr, "test_pvs_0: expected \"/dev/sda1\" but got \"%s\"\n", r[0]);
-      return -1;
+    {
+      char expected[] = "/dev/sda1";
+      expected[5] = devchar;
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_pvs_0: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
     }
     if (r[1] != NULL) {
       fprintf (stderr, "test_pvs_0: extra elements returned from command\n");
@@ -6751,6 +8869,15 @@ static int test_pvs_1 (void)
 {
   /* InitEmpty for pvs (1) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -6766,36 +8893,47 @@ static int test_pvs_1 (void)
   }
   /* TestOutputList for pvs (1) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",10";
+    char lines_1[] = ",20";
+    char lines_2[] = ",";
     char *lines[] = {
-      ",10",
-      ",20",
-      ",",
+      lines_0,
+      lines_1,
+      lines_2,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_pvcreate (g, "/dev/sda1");
+    r = guestfs_pvcreate (g, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda2";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_pvcreate (g, "/dev/sda2");
+    r = guestfs_pvcreate (g, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda3";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_pvcreate (g, "/dev/sda3");
+    r = guestfs_pvcreate (g, device);
     if (r == -1)
       return -1;
   }
@@ -6811,27 +8949,39 @@ static int test_pvs_1 (void)
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[0], "/dev/sda1") != 0) {
-      fprintf (stderr, "test_pvs_1: expected \"/dev/sda1\" but got \"%s\"\n", r[0]);
-      return -1;
+    {
+      char expected[] = "/dev/sda1";
+      expected[5] = devchar;
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_pvs_1: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
     }
     if (!r[1]) {
       fprintf (stderr, "test_pvs_1: short list returned from command\n");
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[1], "/dev/sda2") != 0) {
-      fprintf (stderr, "test_pvs_1: expected \"/dev/sda2\" but got \"%s\"\n", r[1]);
-      return -1;
+    {
+      char expected[] = "/dev/sda2";
+      expected[5] = devchar;
+      if (strcmp (r[1], expected) != 0) {
+        fprintf (stderr, "test_pvs_1: expected \"%s\" but got \"%s\"\n", expected, r[1]);
+        return -1;
+      }
     }
     if (!r[2]) {
       fprintf (stderr, "test_pvs_1: short list returned from command\n");
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[2], "/dev/sda3") != 0) {
-      fprintf (stderr, "test_pvs_1: expected \"/dev/sda3\" but got \"%s\"\n", r[2]);
-      return -1;
+    {
+      char expected[] = "/dev/sda3";
+      expected[5] = devchar;
+      if (strcmp (r[2], expected) != 0) {
+        fprintf (stderr, "test_pvs_1: expected \"%s\" but got \"%s\"\n", expected, r[2]);
+        return -1;
+      }
     }
     if (r[3] != NULL) {
       fprintf (stderr, "test_pvs_1: extra elements returned from command\n");
@@ -6849,6 +8999,15 @@ static int test_list_partitions_0 (void)
 {
   /* InitBasicFS for list_partitions (0): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -6863,27 +9022,36 @@ static int test_list_partitions_0 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
@@ -6900,9 +9068,13 @@ static int test_list_partitions_0 (void)
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[0], "/dev/sda1") != 0) {
-      fprintf (stderr, "test_list_partitions_0: expected \"/dev/sda1\" but got \"%s\"\n", r[0]);
-      return -1;
+    {
+      char expected[] = "/dev/sda1";
+      expected[5] = devchar;
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_list_partitions_0: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
     }
     if (r[1] != NULL) {
       fprintf (stderr, "test_list_partitions_0: extra elements returned from command\n");
@@ -6920,6 +9092,15 @@ static int test_list_partitions_1 (void)
 {
   /* InitEmpty for list_partitions (1) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -6935,15 +9116,20 @@ static int test_list_partitions_1 (void)
   }
   /* TestOutputList for list_partitions (1) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",10";
+    char lines_1[] = ",20";
+    char lines_2[] = ",";
     char *lines[] = {
-      ",10",
-      ",20",
-      ",",
+      lines_0,
+      lines_1,
+      lines_2,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
@@ -6959,27 +9145,39 @@ static int test_list_partitions_1 (void)
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[0], "/dev/sda1") != 0) {
-      fprintf (stderr, "test_list_partitions_1: expected \"/dev/sda1\" but got \"%s\"\n", r[0]);
-      return -1;
+    {
+      char expected[] = "/dev/sda1";
+      expected[5] = devchar;
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_list_partitions_1: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
     }
     if (!r[1]) {
       fprintf (stderr, "test_list_partitions_1: short list returned from command\n");
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[1], "/dev/sda2") != 0) {
-      fprintf (stderr, "test_list_partitions_1: expected \"/dev/sda2\" but got \"%s\"\n", r[1]);
-      return -1;
+    {
+      char expected[] = "/dev/sda2";
+      expected[5] = devchar;
+      if (strcmp (r[1], expected) != 0) {
+        fprintf (stderr, "test_list_partitions_1: expected \"%s\" but got \"%s\"\n", expected, r[1]);
+        return -1;
+      }
     }
     if (!r[2]) {
       fprintf (stderr, "test_list_partitions_1: short list returned from command\n");
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[2], "/dev/sda3") != 0) {
-      fprintf (stderr, "test_list_partitions_1: expected \"/dev/sda3\" but got \"%s\"\n", r[2]);
-      return -1;
+    {
+      char expected[] = "/dev/sda3";
+      expected[5] = devchar;
+      if (strcmp (r[2], expected) != 0) {
+        fprintf (stderr, "test_list_partitions_1: expected \"%s\" but got \"%s\"\n", expected, r[2]);
+        return -1;
+      }
     }
     if (r[3] != NULL) {
       fprintf (stderr, "test_list_partitions_1: extra elements returned from command\n");
@@ -6996,6 +9194,15 @@ static int test_list_partitions_1 (void)
 static int test_list_devices_0 (void)
 {
   /* InitEmpty for list_devices (0) */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
   {
     int r;
     suppress_error = 0;
@@ -7023,27 +9230,39 @@ static int test_list_devices_0 (void)
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[0], "/dev/sda") != 0) {
-      fprintf (stderr, "test_list_devices_0: expected \"/dev/sda\" but got \"%s\"\n", r[0]);
-      return -1;
+    {
+      char expected[] = "/dev/sda";
+      expected[5] = devchar;
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_list_devices_0: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
     }
     if (!r[1]) {
       fprintf (stderr, "test_list_devices_0: short list returned from command\n");
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[1], "/dev/sdb") != 0) {
-      fprintf (stderr, "test_list_devices_0: expected \"/dev/sdb\" but got \"%s\"\n", r[1]);
-      return -1;
+    {
+      char expected[] = "/dev/sdb";
+      expected[5] = devchar;
+      if (strcmp (r[1], expected) != 0) {
+        fprintf (stderr, "test_list_devices_0: expected \"%s\" but got \"%s\"\n", expected, r[1]);
+        return -1;
+      }
     }
     if (!r[2]) {
       fprintf (stderr, "test_list_devices_0: short list returned from command\n");
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[2], "/dev/sdc") != 0) {
-      fprintf (stderr, "test_list_devices_0: expected \"/dev/sdc\" but got \"%s\"\n", r[2]);
-      return -1;
+    {
+      char expected[] = "/dev/sdc";
+      expected[5] = devchar;
+      if (strcmp (r[2], expected) != 0) {
+        fprintf (stderr, "test_list_devices_0: expected \"%s\" but got \"%s\"\n", expected, r[2]);
+        return -1;
+      }
     }
     if (r[3] != NULL) {
       fprintf (stderr, "test_list_devices_0: extra elements returned from command\n");
@@ -7061,6 +9280,15 @@ static int test_ls_0 (void)
 {
   /* InitBasicFS for ls (0): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -7075,57 +9303,70 @@ static int test_ls_0 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutputList for ls (0) */
   {
+    char path[] = "/new";
     int r;
     suppress_error = 0;
-    r = guestfs_touch (g, "/new");
+    r = guestfs_touch (g, path);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/newer";
     int r;
     suppress_error = 0;
-    r = guestfs_touch (g, "/newer");
+    r = guestfs_touch (g, path);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/newest";
     int r;
     suppress_error = 0;
-    r = guestfs_touch (g, "/newest");
+    r = guestfs_touch (g, path);
     if (r == -1)
       return -1;
   }
   {
+    char directory[] = "/";
     char **r;
     int i;
     suppress_error = 0;
-    r = guestfs_ls (g, "/");
+    r = guestfs_ls (g, directory);
     if (r == NULL)
       return -1;
     if (!r[0]) {
@@ -7133,36 +9374,48 @@ static int test_ls_0 (void)
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[0], "lost+found") != 0) {
-      fprintf (stderr, "test_ls_0: expected \"lost+found\" but got \"%s\"\n", r[0]);
-      return -1;
+    {
+      char expected[] = "lost+found";
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_ls_0: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
     }
     if (!r[1]) {
       fprintf (stderr, "test_ls_0: short list returned from command\n");
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[1], "new") != 0) {
-      fprintf (stderr, "test_ls_0: expected \"new\" but got \"%s\"\n", r[1]);
-      return -1;
+    {
+      char expected[] = "new";
+      if (strcmp (r[1], expected) != 0) {
+        fprintf (stderr, "test_ls_0: expected \"%s\" but got \"%s\"\n", expected, r[1]);
+        return -1;
+      }
     }
     if (!r[2]) {
       fprintf (stderr, "test_ls_0: short list returned from command\n");
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[2], "newer") != 0) {
-      fprintf (stderr, "test_ls_0: expected \"newer\" but got \"%s\"\n", r[2]);
-      return -1;
+    {
+      char expected[] = "newer";
+      if (strcmp (r[2], expected) != 0) {
+        fprintf (stderr, "test_ls_0: expected \"%s\" but got \"%s\"\n", expected, r[2]);
+        return -1;
+      }
     }
     if (!r[3]) {
       fprintf (stderr, "test_ls_0: short list returned from command\n");
       print_strings (r);
       return -1;
     }
-    if (strcmp (r[3], "newest") != 0) {
-      fprintf (stderr, "test_ls_0: expected \"newest\" but got \"%s\"\n", r[3]);
-      return -1;
+    {
+      char expected[] = "newest";
+      if (strcmp (r[3], expected) != 0) {
+        fprintf (stderr, "test_ls_0: expected \"%s\" but got \"%s\"\n", expected, r[3]);
+        return -1;
+      }
     }
     if (r[4] != NULL) {
       fprintf (stderr, "test_ls_0: extra elements returned from command\n");
@@ -7180,6 +9433,15 @@ static int test_cat_0 (void)
 {
   /* InitBasicFS for cat (0): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -7194,46 +9456,59 @@ static int test_cat_0 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutput for cat (0) */
+  char expected[] = "new file contents";
   {
+    char path[] = "/new";
+    char content[] = "new file contents";
     int r;
     suppress_error = 0;
-    r = guestfs_write_file (g, "/new", "new file contents", 0);
+    r = guestfs_write_file (g, path, content, 0);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new";
     char *r;
     suppress_error = 0;
-    r = guestfs_cat (g, "/new");
+    r = guestfs_cat (g, path);
     if (r == NULL)
       return -1;
-    if (strcmp (r, "new file contents") != 0) {
-      fprintf (stderr, "test_cat_0: expected \"new file contents\" but got \"%s\"\n", r);
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_cat_0: expected \"%s\" but got \"%s\"\n", expected, r);
       return -1;
     }
     free (r);
@@ -7245,6 +9520,15 @@ static int test_touch_0 (void)
 {
   /* InitBasicFS for touch (0): create ext2 on /dev/sda1 */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -7259,42 +9543,53 @@ static int test_touch_0 (void)
       return -1;
   }
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   /* TestOutputTrue for touch (0) */
   {
+    char path[] = "/new";
     int r;
     suppress_error = 0;
-    r = guestfs_touch (g, "/new");
+    r = guestfs_touch (g, path);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new";
     int r;
     suppress_error = 0;
-    r = guestfs_exists (g, "/new");
+    r = guestfs_exists (g, path);
     if (r == -1)
       return -1;
     if (!r) {
@@ -7308,6 +9603,15 @@ static int test_touch_0 (void)
 static int test_sync_0 (void)
 {
   /* InitEmpty for sync (0) */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
   {
     int r;
     suppress_error = 0;
@@ -7337,6 +9641,15 @@ static int test_mount_0 (void)
 {
   /* InitEmpty for mount (0) */
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
     int r;
     suppress_error = 0;
     r = guestfs_umount_all (g);
@@ -7351,46 +9664,59 @@ static int test_mount_0 (void)
       return -1;
   }
   /* TestOutput for mount (0) */
+  char expected[] = "new file contents";
   {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
     char *lines[] = {
-      ",",
+      lines_0,
       NULL
     };
     int r;
     suppress_error = 0;
-    r = guestfs_sfdisk (g, "/dev/sda", 0, 0, 0, lines);
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
     if (r == -1)
       return -1;
   }
   {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
-    r = guestfs_mkfs (g, "ext2", "/dev/sda1");
+    r = guestfs_mkfs (g, fstype, device);
     if (r == -1)
       return -1;
   }
   {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, "/dev/sda1", "/");
+    r = guestfs_mount (g, device, mountpoint);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new";
+    char content[] = "new file contents";
     int r;
     suppress_error = 0;
-    r = guestfs_write_file (g, "/new", "new file contents", 0);
+    r = guestfs_write_file (g, path, content, 0);
     if (r == -1)
       return -1;
   }
   {
+    char path[] = "/new";
     char *r;
     suppress_error = 0;
-    r = guestfs_cat (g, "/new");
+    r = guestfs_cat (g, path);
     if (r == NULL)
       return -1;
-    if (strcmp (r, "new file contents") != 0) {
-      fprintf (stderr, "test_mount_0: expected \"new file contents\" but got \"%s\"\n", r);
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_mount_0: expected \"%s\" but got \"%s\"\n", expected, r);
       return -1;
     }
     free (r);
@@ -7404,8 +9730,9 @@ int main (int argc, char *argv[])
   int failed = 0;
   const char *srcdir;
   const char *filename;
-  int fd;
+  int fd, i;
   int nr_tests, test_num = 0;
+  char **devs;
 
   no_test_warnings ();
 
@@ -7514,6 +9841,28 @@ int main (int argc, char *argv[])
     printf ("guestfs_wait_ready FAILED\n");
     exit (1);
   }
+
+  /* Detect if the appliance uses /dev/sd* or /dev/hd* in device
+   * names.  This changed between RHEL 5 and RHEL 6 so we have to
+   * support both.
+   */
+  devs = guestfs_list_devices (g);
+  if (devs == NULL || devs[0] == NULL) {
+    printf ("guestfs_list_devices FAILED\n");
+    exit (1);
+  }
+  if (strncmp (devs[0], "/dev/sd", 7) == 0)
+    devchar = 's';
+  else if (strncmp (devs[0], "/dev/hd", 7) == 0)
+    devchar = 'h';
+  else {
+    printf ("guestfs_list_devices returned unexpected string '%s'\n",
+            devs[0]);
+    exit (1);
+  }
+  for (i = 0; devs[i] != NULL; ++i)
+    free (devs[i]);
+  free (devs);
 
   nr_tests = 107;
 
