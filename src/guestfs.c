@@ -602,7 +602,7 @@ guestfs_config (guestfs_h *g,
 int
 guestfs_add_drive (guestfs_h *g, const char *filename)
 {
-  int len = strlen (filename) + 64;
+  size_t len = strlen (filename) + 64;
   char buf[len];
 
   if (strchr (filename, ',') != NULL) {
@@ -640,7 +640,8 @@ int
 guestfs_launch (guestfs_h *g)
 {
   static const char *dir_template = "/tmp/libguestfsXXXXXX";
-  int r, i, len, pmore, memsize;
+  int r, i, pmore, memsize;
+  size_t len;
   int wfd[2], rfd[2];
   int tries;
   const char *kernel_name = "vmlinuz." REPO "." host_cpu;
@@ -1226,7 +1227,7 @@ sock_read_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
 		 int watch, int fd, int events)
 {
   XDR xdr;
-  unsigned len;
+  u_int32_t len;
   int n;
 
   if (g->verbose)
@@ -1546,7 +1547,7 @@ guestfs__send_sync (guestfs_h *g, int proc_nr,
 {
   struct guestfs_message_header hdr;
   XDR xdr;
-  unsigned len;
+  u_int32_t len;
   int serial = g->msg_next_serial++;
   int sent;
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
@@ -1725,7 +1726,7 @@ static int check_for_daemon_cancellation (guestfs_h *g);
 static int
 send_file_chunk_sync (guestfs_h *g, int cancel, const char *buf, size_t buflen)
 {
-  unsigned len;
+  u_int32_t len;
   int sent;
   guestfs_chunk chunk;
   XDR xdr;
@@ -1850,13 +1851,14 @@ check_for_daemon_cancellation (guestfs_h *g)
 /* Synchronously receive a file. */
 
 /* Returns -1 = error, 0 = EOF, 1 = more data */
-static int receive_file_data_sync (guestfs_h *g, void **buf, int *len);
+static int receive_file_data_sync (guestfs_h *g, void **buf, size_t *len);
 
 int
 guestfs__receive_file_sync (guestfs_h *g, const char *filename)
 {
   void *buf;
-  int fd, r, len;
+  int fd, r;
+  size_t len;
 
   fd = open (filename, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY, 0666);
   if (fd == -1) {
@@ -1964,11 +1966,12 @@ receive_file_cb (guestfs_h *g, void *data, XDR *xdr)
 /* Receive a chunk of file data. */
 /* Returns -1 = error, 0 = EOF, 1 = more data */
 static int
-receive_file_data_sync (guestfs_h *g, void **buf, int *len_r)
+receive_file_data_sync (guestfs_h *g, void **buf, size_t *len_r)
 {
   struct receive_file_ctx ctx;
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
-  int i, len;
+  int i;
+  size_t len;
 
   ctx.count = 0;
   ctx.chunks = NULL;
