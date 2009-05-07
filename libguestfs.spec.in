@@ -26,6 +26,10 @@ BuildRequires: readline-devel
 BuildRequires: qemu >= 0.10-7
 BuildRequires: createrepo
 
+# This is only needed for RHEL 5 because readline-devel doesn't
+# properly depend on it, but doesn't do any harm on other platforms:
+BuildRequires: ncurses-devel
+
 # Build requirements for the appliance:
 # (see 'make-initramfs.sh.in' in the source)
 BuildRequires: kernel, bash, coreutils, lvm2, ntfs-3g, util-linux-ng
