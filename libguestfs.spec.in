@@ -238,6 +238,8 @@ Requires:    jpackage-utils
 %prep
 %setup -q
 
+mkdir -p daemon/m4
+
 
 %build
 %if %{buildnonet}
