@@ -441,8 +441,11 @@ xread (int fd, void *buf, size_t len)
 
   while (len > 0) {
     r = read (fd, buf, len);
-    if (r == -1)
+    if (r == -1) {
+      if (errno == EINTR || errno == EAGAIN)
+	continue;
       return -1;
+    }
 
     buf += r;
     len -= r;
@@ -1201,7 +1204,7 @@ stdout_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
   }
 
   if (n == -1) {
-    if (errno != EAGAIN)
+    if (errno != EINTR && errno != EAGAIN)
       perrorf (g, "read");
     return;
   }
@@ -1249,7 +1252,7 @@ sock_read_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
     return;
 
   if (n == -1) {
-    if (errno != EAGAIN)
+    if (errno != EINTR && errno != EAGAIN)
       perrorf (g, "read");
     return;
   }
@@ -1656,7 +1659,11 @@ guestfs__send_file_sync (guestfs_h *g, const char *filename)
   }
 
   /* Send file in chunked encoding. */
-  while (!cancel && (r = read (fd, buf, sizeof buf)) > 0) {
+  while (!cancel) {
+    r = read (fd, buf, sizeof buf);
+    if (r == -1 && (errno == EINTR || errno == EAGAIN))
+      continue;
+    if (r <= 0) break;
     err = send_file_data_sync (g, buf, r);
     if (err < 0) {
       if (err == -2)		/* daemon sent cancellation */
