@@ -256,6 +256,10 @@ createrepo repo
   --enable-debug-command \
   %{extra}
 
+# This ensures that /usr/sbin/chroot is on the path.  Not needed
+# except for RHEL 5, it shouldn't do any harm on other platforms.
+export PATH=/usr/sbin:$PATH
+
 # 'INSTALLDIRS' ensures that perl libs are installed in the vendor dir
 # not the site dir.
 make INSTALLDIRS=vendor %{?_smp_mflags}
