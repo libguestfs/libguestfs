@@ -22,16 +22,21 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+
+#ifdef HAVE_AUGEAS
 #include <augeas.h>
+#endif
 
 #include "daemon.h"
 #include "actions.h"
 
+#ifdef HAVE_AUGEAS
 /* The Augeas handle.  We maintain a single handle per daemon, which
  * is all that is necessary and reduces the complexity of the API
  * considerably.
  */
 static augeas *aug = NULL;
+#endif
 
 #define NEED_AUG(errcode)						\
   do {									\
@@ -46,6 +51,7 @@ static augeas *aug = NULL;
 int
 do_aug_init (const char *root, int flags)
 {
+#ifdef HAVE_AUGEAS
   char *buf;
   int len;
 
@@ -74,17 +80,26 @@ do_aug_init (const char *root, int flags)
   }
 
   return 0;
+#else
+  reply_with_error ("%s is not available", __func__);
+  return -1;
+#endif
 }
 
 int
 do_aug_close (void)
 {
+#ifdef HAVE_AUGEAS
   NEED_AUG(-1);
 
   aug_close (aug);
   aug = NULL;
 
   return 0;
+#else
+  reply_with_error ("%s is not available", __func__);
+  return -1;
+#endif
 }
 
 int
@@ -102,7 +117,7 @@ do_aug_defvar (const char *name, const char *expr)
   }
   return r;
 #else
-  reply_with_error ("aug_defvar is not available");
+  reply_with_error ("%s is not available", __func__);
   return -1;
 #endif
 }
@@ -124,7 +139,7 @@ do_aug_defnode (const char *name, const char *expr, const char *val)
   r.created = created;
   return &r;
 #else
-  reply_with_error ("aug_defvar is not available");
+  reply_with_error ("%s is not available", __func__);
   return NULL;
 #endif
 }
@@ -132,6 +147,7 @@ do_aug_defnode (const char *name, const char *expr, const char *val)
 char *
 do_aug_get (const char *path)
 {
+#ifdef HAVE_AUGEAS
   const char *value = NULL;
   char *v;
   int r;
@@ -165,11 +181,16 @@ do_aug_get (const char *path)
   }
 
   return v;			/* Caller frees. */
+#else
+  reply_with_error ("%s is not available", __func__);
+  return NULL;
+#endif
 }
 
 int
 do_aug_set (const char *path, const char *val)
 {
+#ifdef HAVE_AUGEAS
   int r;
 
   NEED_AUG (-1);
@@ -181,11 +202,16 @@ do_aug_set (const char *path, const char *val)
   }
 
   return 0;
+#else
+  reply_with_error ("%s is not available", __func__);
+  return -1;
+#endif
 }
 
 int
 do_aug_insert (const char *path, const char *label, int before)
 {
+#ifdef HAVE_AUGEAS
   int r;
 
   NEED_AUG (-1);
@@ -197,11 +223,16 @@ do_aug_insert (const char *path, const char *label, int before)
   }
 
   return 0;
+#else
+  reply_with_error ("%s is not available", __func__);
+  return -1;
+#endif
 }
 
 int
 do_aug_rm (const char *path)
 {
+#ifdef HAVE_AUGEAS
   int r;
 
   NEED_AUG (-1);
@@ -213,11 +244,16 @@ do_aug_rm (const char *path)
   }
 
   return r;
+#else
+  reply_with_error ("%s is not available", __func__);
+  return -1;
+#endif
 }
 
 int
 do_aug_mv (const char *src, const char *dest)
 {
+#ifdef HAVE_AUGEAS
   int r;
 
   NEED_AUG (-1);
@@ -229,11 +265,16 @@ do_aug_mv (const char *src, const char *dest)
   }
 
   return 0;
+#else
+  reply_with_error ("%s is not available", __func__);
+  return -1;
+#endif
 }
 
 char **
 do_aug_match (const char *path)
 {
+#ifdef HAVE_AUGEAS
   char **matches = NULL;
   void *vp;
   int r;
@@ -259,11 +300,16 @@ do_aug_match (const char *path)
   matches[r] = NULL;
 
   return matches;		/* Caller frees. */
+#else
+  reply_with_error ("%s is not available", __func__);
+  return NULL;
+#endif
 }
 
 int
 do_aug_save (void)
 {
+#ifdef HAVE_AUGEAS
   NEED_AUG (-1);
 
   if (aug_save (aug) == -1) {
@@ -272,6 +318,10 @@ do_aug_save (void)
   }
 
   return 0;
+#else
+  reply_with_error ("%s is not available", __func__);
+  return -1;
+#endif
 }
 
 int
@@ -287,7 +337,7 @@ do_aug_load (void)
 
   return 0;
 #else
-  reply_with_error ("aug_load is not available");
+  reply_with_error ("%s is not available", __func__);
   return -1;
 #endif
 }
@@ -296,6 +346,7 @@ do_aug_load (void)
 char **
 do_aug_ls (const char *path)
 {
+#ifdef HAVE_AUGEAS
   char **matches;
   char *buf;
   int len;
@@ -333,4 +384,8 @@ do_aug_ls (const char *path)
 
   sort_strings (matches, count_strings (matches));
   return matches;		/* Caller frees. */
+#else
+  reply_with_error ("%s is not available", __func__);
+  return NULL;
+#endif
 }
