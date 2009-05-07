@@ -98,6 +98,7 @@ find initramfs/lib/modules/*/kernel \
   -a ! -name 'udf.ko' \
   -a ! -name 'crc_itu_t.ko' \
   -a ! -name 'nls_utf8.ko' \
+  -a ! -name 'dm-*.ko' \
   -a -delete
 
 # Pull the kernel out into the current directory.  We don't want it in
@@ -137,6 +138,7 @@ mount -t sysfs /sys /sys
 mount -t devpts -o gid=5,mode=620 /dev/pts /dev/pts
 modprobe virtio_pci
 modprobe virtio_net
+modprobe dm_mod ||:
 /sbin/ifconfig lo 127.0.0.1
 /sbin/ifconfig eth0 10.0.2.10
 /sbin/route add default gw 10.0.2.2
