@@ -429,7 +429,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Tue Apr 28 2009 Richard Jones <rjones@redhat.com> - @VERSION@-1
+* Thu May  7 2009 Richard Jones <rjones@redhat.com> - @VERSION@-1
 - New upstream version @VERSION@.
 
 * Thu May  7 2009 Richard Jones <rjones@redhat.com> - 1.0.20-1
