@@ -4826,6 +4826,8 @@ XS_unpack_charPtrPtr (SV *arg) {
 
 MODULE = Sys::Guestfs  PACKAGE = Sys::Guestfs
 
+PROTOTYPES: ENABLE
+
 guestfs_h *
 _create ()
    CODE:
