@@ -2312,6 +2312,91 @@ done:
   xdr_free ((xdrproc_t) xdr_guestfs_equal_args, (char *) &args);
 }
 
+static void strings_stub (XDR *xdr_in)
+{
+  char **r;
+  struct guestfs_strings_args args;
+  const char *path;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_strings_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "strings");
+    return;
+  }
+  path = args.path;
+
+  r = do_strings (path);
+  if (r == NULL)
+    /* do_strings has already called reply_with_error */
+    goto done;
+
+  struct guestfs_strings_ret ret;
+  ret.stringsout.stringsout_len = count_strings (r);
+  ret.stringsout.stringsout_val = r;
+  reply ((xdrproc_t) &xdr_guestfs_strings_ret, (char *) &ret);
+  free_strings (r);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_strings_args, (char *) &args);
+}
+
+static void strings_e_stub (XDR *xdr_in)
+{
+  char **r;
+  struct guestfs_strings_e_args args;
+  const char *encoding;
+  const char *path;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_strings_e_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "strings_e");
+    return;
+  }
+  encoding = args.encoding;
+  path = args.path;
+
+  r = do_strings_e (encoding, path);
+  if (r == NULL)
+    /* do_strings_e has already called reply_with_error */
+    goto done;
+
+  struct guestfs_strings_e_ret ret;
+  ret.stringsout.stringsout_len = count_strings (r);
+  ret.stringsout.stringsout_val = r;
+  reply ((xdrproc_t) &xdr_guestfs_strings_e_ret, (char *) &ret);
+  free_strings (r);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_strings_e_args, (char *) &args);
+}
+
+static void hexdump_stub (XDR *xdr_in)
+{
+  char *r;
+  struct guestfs_hexdump_args args;
+  const char *path;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_hexdump_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "hexdump");
+    return;
+  }
+  path = args.path;
+
+  r = do_hexdump (path);
+  if (r == NULL)
+    /* do_hexdump has already called reply_with_error */
+    goto done;
+
+  struct guestfs_hexdump_ret ret;
+  ret.dump = r;
+  reply ((xdrproc_t) &xdr_guestfs_hexdump_ret, (char *) &ret);
+  free (r);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_hexdump_args, (char *) &args);
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -2593,6 +2678,15 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_EQUAL:
       equal_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_STRINGS:
+      strings_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_STRINGS_E:
+      strings_e_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_HEXDUMP:
+      hexdump_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d", proc_nr);

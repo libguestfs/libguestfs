@@ -623,6 +623,31 @@ struct guestfs_equal_ret {
   bool equality;
 };
 
+struct guestfs_strings_args {
+  string path<>;
+};
+
+struct guestfs_strings_ret {
+  str stringsout<>;
+};
+
+struct guestfs_strings_e_args {
+  string encoding<>;
+  string path<>;
+};
+
+struct guestfs_strings_e_ret {
+  str stringsout<>;
+};
+
+struct guestfs_hexdump_args {
+  string path<>;
+};
+
+struct guestfs_hexdump_ret {
+  string dump<>;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -717,6 +742,9 @@ enum guestfs_procedure {
   GUESTFS_PROC_DMESG = 91,
   GUESTFS_PROC_PING_DAEMON = 92,
   GUESTFS_PROC_EQUAL = 93,
+  GUESTFS_PROC_STRINGS = 94,
+  GUESTFS_PROC_STRINGS_E = 95,
+  GUESTFS_PROC_HEXDUMP = 96,
   GUESTFS_PROC_NR_PROCS
 };
 

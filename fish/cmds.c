@@ -81,6 +81,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "get-state", "get the current state");
   printf ("%-20s %s\n", "get-verbose", "get verbose mode");
   printf ("%-20s %s\n", "grub-install", "install GRUB");
+  printf ("%-20s %s\n", "hexdump", "dump a file in hexadecimal");
   printf ("%-20s %s\n", "is-busy", "is busy processing a command");
   printf ("%-20s %s\n", "is-config", "is in configuration state");
   printf ("%-20s %s\n", "is-dir", "test if file exists");
@@ -126,6 +127,8 @@ void list_commands (void)
   printf ("%-20s %s\n", "sfdisk", "create partitions on a block device");
   printf ("%-20s %s\n", "stat", "get file information");
   printf ("%-20s %s\n", "statvfs", "get file system statistics");
+  printf ("%-20s %s\n", "strings", "print the printable strings in a file");
+  printf ("%-20s %s\n", "strings-e", "print the printable strings in a file");
   printf ("%-20s %s\n", "sync", "sync disks, writes are flushed through to the disk image");
   printf ("%-20s %s\n", "tar-in", "unpack tarfile to directory");
   printf ("%-20s %s\n", "tar-out", "pack directory into tarfile");
@@ -331,7 +334,7 @@ void display_command (const char *cmd)
     pod2text ("sfdisk - create partitions on a block device", " sfdisk <device> <cyls> <heads> <sectors> <lines>\n\nThis is a direct interface to the L<sfdisk(8)> program for creating\npartitions on block devices.\n\nC<device> should be a block device, for example C</dev/sda>.\n\nC<cyls>, C<heads> and C<sectors> are the number of cylinders, heads\nand sectors on the device, which are passed directly to sfdisk as\nthe I<-C>, I<-H> and I<-S> parameters.  If you pass C<0> for any\nof these, then the corresponding parameter is omitted.  Usually for\n'large' disks, you can just pass C<0> for these, but for small\n(floppy-sized) disks, sfdisk (or rather, the kernel) cannot work\nout the right geometry and you will need to tell it.\n\nC<lines> is a list of lines that we feed to C<sfdisk>.  For more\ninformation refer to the L<sfdisk(8)> manpage.\n\nTo create a single partition occupying the whole disk, you would\npass C<lines> as a single element list, when the single element being\nthe string C<,> (comma).\n\nB<This command is dangerous.  Without careful use you\ncan easily destroy all your data>.");
   else
   if (strcasecmp (cmd, "write_file") == 0 || strcasecmp (cmd, "write-file") == 0)
-    pod2text ("write-file - create a file", " write-file <path> <content> <size>\n\nThis call creates a file called C<path>.  The contents of the\nfile is the string C<content> (which can contain any 8 bit data),\nwith length C<size>.\n\nAs a special case, if C<size> is C<0>\nthen the length is calculated using C<strlen> (so in this case\nthe content cannot contain embedded ASCII NULs).\n\nBecause of the message protocol, there is a transfer limit \nof somewhere between 2MB and 4MB.  To transfer large files you should use\nFTP.");
+    pod2text ("write-file - create a file", " write-file <path> <content> <size>\n\nThis call creates a file called C<path>.  The contents of the\nfile is the string C<content> (which can contain any 8 bit data),\nwith length C<size>.\n\nAs a special case, if C<size> is C<0>\nthen the length is calculated using C<strlen> (so in this case\nthe content cannot contain embedded ASCII NULs).\n\nI<NB.> Owing to a bug, writing content containing ASCII NUL\ncharacters does I<not> work, even if the length is specified.\nWe hope to resolve this bug in a future version.  In the meantime\nuse C<upload>.\n\nBecause of the message protocol, there is a transfer limit \nof somewhere between 2MB and 4MB.  To transfer large files you should use\nFTP.");
   else
   if (strcasecmp (cmd, "umount") == 0 || strcasecmp (cmd, "unmount") == 0)
     pod2text ("umount - unmount a filesystem", " umount <pathordevice>\n\nThis unmounts the given filesystem.  The filesystem may be\nspecified either by its mountpoint (path) or the device which\ncontains the filesystem.\n\nYou can use 'unmount' as an alias for this command.");
@@ -479,6 +482,15 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "equal") == 0)
     pod2text ("equal - test if two files have equal contents", " equal <file1> <file2>\n\nThis compares the two files C<file1> and C<file2> and returns\ntrue if their content is exactly equal, or false otherwise.\n\nThe external L<cmp(1)> program is used for the comparison.");
+  else
+  if (strcasecmp (cmd, "strings") == 0)
+    pod2text ("strings - print the printable strings in a file", " strings <path>\n\nThis runs the L<strings(1)> command on a file and returns\nthe list of printable strings found.\n\nBecause of the message protocol, there is a transfer limit \nof somewhere between 2MB and 4MB.  To transfer large files you should use\nFTP.");
+  else
+  if (strcasecmp (cmd, "strings_e") == 0 || strcasecmp (cmd, "strings-e") == 0)
+    pod2text ("strings-e - print the printable strings in a file", " strings-e <encoding> <path>\n\nThis is like the C<strings> command, but allows you to\nspecify the encoding.\n\nSee the L<strings(1)> manpage for the full list of encodings.\n\nCommonly useful encodings are C<l> (lower case L) which will\nshow strings inside Windows/x86 files.\n\nThe returned strings are transcoded to UTF-8.\n\nBecause of the message protocol, there is a transfer limit \nof somewhere between 2MB and 4MB.  To transfer large files you should use\nFTP.");
+  else
+  if (strcasecmp (cmd, "hexdump") == 0)
+    pod2text ("hexdump - dump a file in hexadecimal", " hexdump <path>\n\nThis runs C<hexdump -C> on the given C<path>.  The result is\nthe human-readable, canonical hex dump of the file.\n\nBecause of the message protocol, there is a transfer limit \nof somewhere between 2MB and 4MB.  To transfer large files you should use\nFTP.");
   else
     display_builtin_command (cmd);
 }
@@ -2337,6 +2349,59 @@ static int run_equal (const char *cmd, int argc, char *argv[])
   return 0;
 }
 
+static int run_strings (const char *cmd, int argc, char *argv[])
+{
+  char **r;
+  const char *path;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  path = argv[0];
+  r = guestfs_strings (g, path);
+  if (r == NULL) return -1;
+  print_strings (r);
+  free_strings (r);
+  return 0;
+}
+
+static int run_strings_e (const char *cmd, int argc, char *argv[])
+{
+  char **r;
+  const char *encoding;
+  const char *path;
+  if (argc != 2) {
+    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  encoding = argv[0];
+  path = argv[1];
+  r = guestfs_strings_e (g, encoding, path);
+  if (r == NULL) return -1;
+  print_strings (r);
+  free_strings (r);
+  return 0;
+}
+
+static int run_hexdump (const char *cmd, int argc, char *argv[])
+{
+  char *r;
+  const char *path;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  path = argv[0];
+  r = guestfs_hexdump (g, path);
+  if (r == NULL) return -1;
+  printf ("%s\n", r);
+  free (r);
+  return 0;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -2671,6 +2736,15 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "equal") == 0)
     return run_equal (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "strings") == 0)
+    return run_strings (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "strings_e") == 0 || strcasecmp (cmd, "strings-e") == 0)
+    return run_strings_e (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "hexdump") == 0)
+    return run_hexdump (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

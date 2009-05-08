@@ -582,6 +582,15 @@ This returns the verbose messages flag.
 This command installs GRUB (the Grand Unified Bootloader) on
 C<device>, with the root directory being C<root>.
 
+=item $dump = $h->hexdump ($path);
+
+This runs C<hexdump -C> on the given C<path>.  The result is
+the human-readable, canonical hex dump of the file.
+
+Because of the message protocol, there is a transfer limit 
+of somewhere between 2MB and 4MB.  To transfer large files you should use
+FTP.
+
 =item $busy = $h->is_busy ();
 
 This returns true iff this handle is busy processing a command
@@ -958,6 +967,31 @@ C<path> should be a file or directory in the mounted file system
 
 This is the same as the C<statvfs(2)> system call.
 
+=item @stringsout = $h->strings ($path);
+
+This runs the L<strings(1)> command on a file and returns
+the list of printable strings found.
+
+Because of the message protocol, there is a transfer limit 
+of somewhere between 2MB and 4MB.  To transfer large files you should use
+FTP.
+
+=item @stringsout = $h->strings_e ($encoding, $path);
+
+This is like the C<$h-E<gt>strings> command, but allows you to
+specify the encoding.
+
+See the L<strings(1)> manpage for the full list of encodings.
+
+Commonly useful encodings are C<l> (lower case L) which will
+show strings inside Windows/x86 files.
+
+The returned strings are transcoded to UTF-8.
+
+Because of the message protocol, there is a transfer limit 
+of somewhere between 2MB and 4MB.  To transfer large files you should use
+FTP.
+
 =item $h->sync ();
 
 This syncs the disk, so that any writes are flushed through to the
@@ -1075,6 +1109,11 @@ with length C<size>.
 As a special case, if C<size> is C<0>
 then the length is calculated using C<strlen> (so in this case
 the content cannot contain embedded ASCII NULs).
+
+I<NB.> Owing to a bug, writing content containing ASCII NUL
+characters does I<not> work, even if the length is specified.
+We hope to resolve this bug in a future version.  In the meantime
+use C<$h-E<gt>upload>.
 
 Because of the message protocol, there is a transfer limit 
 of somewhere between 2MB and 4MB.  To transfer large files you should use

@@ -133,3 +133,6 @@ extern int guestfs_drop_caches (guestfs_h *handle, int whattodrop);
 extern char *guestfs_dmesg (guestfs_h *handle);
 extern int guestfs_ping_daemon (guestfs_h *handle);
 extern int guestfs_equal (guestfs_h *handle, const char *file1, const char *file2);
+extern char **guestfs_strings (guestfs_h *handle, const char *path);
+extern char **guestfs_strings_e (guestfs_h *handle, const char *encoding, const char *path);
+extern char *guestfs_hexdump (guestfs_h *handle, const char *path);

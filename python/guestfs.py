@@ -743,6 +743,11 @@ class GuestFS:
         calculated using "strlen" (so in this case the content
         cannot contain embedded ASCII NULs).
         
+        *NB.* Owing to a bug, writing content containing ASCII
+        NUL characters does *not* work, even if the length is
+        specified. We hope to resolve this bug in a future
+        version. In the meantime use "g.upload".
+        
         Because of the message protocol, there is a transfer
         limit of somewhere between 2MB and 4MB. To transfer
         large files you should use FTP.
@@ -1250,4 +1255,46 @@ class GuestFS:
         The external cmp(1) program is used for the comparison.
         """
         return libguestfsmod.equal (self._o, file1, file2)
+
+    def strings (self, path):
+        u"""This runs the strings(1) command on a file and returns
+        the list of printable strings found.
+        
+        This function returns a list of strings.
+        
+        Because of the message protocol, there is a transfer
+        limit of somewhere between 2MB and 4MB. To transfer
+        large files you should use FTP.
+        """
+        return libguestfsmod.strings (self._o, path)
+
+    def strings_e (self, encoding, path):
+        u"""This is like the "g.strings" command, but allows you to
+        specify the encoding.
+        
+        See the strings(1) manpage for the full list of
+        encodings.
+        
+        Commonly useful encodings are "l" (lower case L) which
+        will show strings inside Windows/x86 files.
+        
+        The returned strings are transcoded to UTF-8.
+        
+        This function returns a list of strings.
+        
+        Because of the message protocol, there is a transfer
+        limit of somewhere between 2MB and 4MB. To transfer
+        large files you should use FTP.
+        """
+        return libguestfsmod.strings_e (self._o, encoding, path)
+
+    def hexdump (self, path):
+        u"""This runs "hexdump -C" on the given "path". The result
+        is the human-readable, canonical hex dump of the file.
+        
+        Because of the message protocol, there is a transfer
+        limit of somewhere between 2MB and 4MB. To transfer
+        large files you should use FTP.
+        """
+        return libguestfsmod.hexdump (self._o, path)
 

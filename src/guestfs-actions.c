@@ -8428,3 +8428,288 @@ int guestfs_equal (guestfs_h *g,
   return ctx.ret.equality;
 }
 
+struct strings_ctx {
+  /* This flag is set by the callbacks, so we know we've done
+   * the callbacks as expected, and in the right sequence.
+   * 0 = not called, 1 = reply_cb called.
+   */
+  int cb_sequence;
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+  struct guestfs_strings_ret ret;
+};
+
+static void strings_reply_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  struct strings_ctx *ctx = (struct strings_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_strings");
+    return;
+  }
+
+  ml->main_loop_quit (ml, g);
+
+  if (!xdr_guestfs_message_header (xdr, &ctx->hdr)) {
+    error (g, "%s: failed to parse reply header", "guestfs_strings");
+    return;
+  }
+  if (ctx->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &ctx->err)) {
+      error (g, "%s: failed to parse reply error", "guestfs_strings");
+      return;
+    }
+    goto done;
+  }
+  if (!xdr_guestfs_strings_ret (xdr, &ctx->ret)) {
+    error (g, "%s: failed to parse reply", "guestfs_strings");
+    return;
+  }
+ done:
+  ctx->cb_sequence = 1;
+}
+
+char **guestfs_strings (guestfs_h *g,
+		const char *path)
+{
+  struct guestfs_strings_args args;
+  struct strings_ctx ctx;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  int serial;
+
+  if (check_state (g, "guestfs_strings") == -1) return NULL;
+  guestfs_set_busy (g);
+
+  memset (&ctx, 0, sizeof ctx);
+
+  args.path = (char *) path;
+  serial = guestfs__send_sync (g, GUESTFS_PROC_STRINGS,
+        (xdrproc_t) xdr_guestfs_strings_args, (char *) &args);
+  if (serial == -1) {
+    guestfs_set_ready (g);
+    return NULL;
+  }
+
+  guestfs__switch_to_receiving (g);
+  ctx.cb_sequence = 0;
+  guestfs_set_reply_callback (g, strings_reply_cb, &ctx);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (ctx.cb_sequence != 1) {
+    error (g, "%s reply failed, see earlier error messages", "guestfs_strings");
+    guestfs_set_ready (g);
+    return NULL;
+  }
+
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_STRINGS, serial) == -1) {
+    guestfs_set_ready (g);
+    return NULL;
+  }
+
+  if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
+    return NULL;
+  }
+
+  guestfs_set_ready (g);
+  /* caller will free this, but we need to add a NULL entry */
+  ctx.ret.stringsout.stringsout_val =
+    safe_realloc (g, ctx.ret.stringsout.stringsout_val,
+                  sizeof (char *) * (ctx.ret.stringsout.stringsout_len + 1));
+  ctx.ret.stringsout.stringsout_val[ctx.ret.stringsout.stringsout_len] = NULL;
+  return ctx.ret.stringsout.stringsout_val;
+}
+
+struct strings_e_ctx {
+  /* This flag is set by the callbacks, so we know we've done
+   * the callbacks as expected, and in the right sequence.
+   * 0 = not called, 1 = reply_cb called.
+   */
+  int cb_sequence;
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+  struct guestfs_strings_e_ret ret;
+};
+
+static void strings_e_reply_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  struct strings_e_ctx *ctx = (struct strings_e_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_strings_e");
+    return;
+  }
+
+  ml->main_loop_quit (ml, g);
+
+  if (!xdr_guestfs_message_header (xdr, &ctx->hdr)) {
+    error (g, "%s: failed to parse reply header", "guestfs_strings_e");
+    return;
+  }
+  if (ctx->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &ctx->err)) {
+      error (g, "%s: failed to parse reply error", "guestfs_strings_e");
+      return;
+    }
+    goto done;
+  }
+  if (!xdr_guestfs_strings_e_ret (xdr, &ctx->ret)) {
+    error (g, "%s: failed to parse reply", "guestfs_strings_e");
+    return;
+  }
+ done:
+  ctx->cb_sequence = 1;
+}
+
+char **guestfs_strings_e (guestfs_h *g,
+		const char *encoding,
+		const char *path)
+{
+  struct guestfs_strings_e_args args;
+  struct strings_e_ctx ctx;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  int serial;
+
+  if (check_state (g, "guestfs_strings_e") == -1) return NULL;
+  guestfs_set_busy (g);
+
+  memset (&ctx, 0, sizeof ctx);
+
+  args.encoding = (char *) encoding;
+  args.path = (char *) path;
+  serial = guestfs__send_sync (g, GUESTFS_PROC_STRINGS_E,
+        (xdrproc_t) xdr_guestfs_strings_e_args, (char *) &args);
+  if (serial == -1) {
+    guestfs_set_ready (g);
+    return NULL;
+  }
+
+  guestfs__switch_to_receiving (g);
+  ctx.cb_sequence = 0;
+  guestfs_set_reply_callback (g, strings_e_reply_cb, &ctx);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (ctx.cb_sequence != 1) {
+    error (g, "%s reply failed, see earlier error messages", "guestfs_strings_e");
+    guestfs_set_ready (g);
+    return NULL;
+  }
+
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_STRINGS_E, serial) == -1) {
+    guestfs_set_ready (g);
+    return NULL;
+  }
+
+  if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
+    return NULL;
+  }
+
+  guestfs_set_ready (g);
+  /* caller will free this, but we need to add a NULL entry */
+  ctx.ret.stringsout.stringsout_val =
+    safe_realloc (g, ctx.ret.stringsout.stringsout_val,
+                  sizeof (char *) * (ctx.ret.stringsout.stringsout_len + 1));
+  ctx.ret.stringsout.stringsout_val[ctx.ret.stringsout.stringsout_len] = NULL;
+  return ctx.ret.stringsout.stringsout_val;
+}
+
+struct hexdump_ctx {
+  /* This flag is set by the callbacks, so we know we've done
+   * the callbacks as expected, and in the right sequence.
+   * 0 = not called, 1 = reply_cb called.
+   */
+  int cb_sequence;
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+  struct guestfs_hexdump_ret ret;
+};
+
+static void hexdump_reply_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  struct hexdump_ctx *ctx = (struct hexdump_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_hexdump");
+    return;
+  }
+
+  ml->main_loop_quit (ml, g);
+
+  if (!xdr_guestfs_message_header (xdr, &ctx->hdr)) {
+    error (g, "%s: failed to parse reply header", "guestfs_hexdump");
+    return;
+  }
+  if (ctx->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &ctx->err)) {
+      error (g, "%s: failed to parse reply error", "guestfs_hexdump");
+      return;
+    }
+    goto done;
+  }
+  if (!xdr_guestfs_hexdump_ret (xdr, &ctx->ret)) {
+    error (g, "%s: failed to parse reply", "guestfs_hexdump");
+    return;
+  }
+ done:
+  ctx->cb_sequence = 1;
+}
+
+char *guestfs_hexdump (guestfs_h *g,
+		const char *path)
+{
+  struct guestfs_hexdump_args args;
+  struct hexdump_ctx ctx;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  int serial;
+
+  if (check_state (g, "guestfs_hexdump") == -1) return NULL;
+  guestfs_set_busy (g);
+
+  memset (&ctx, 0, sizeof ctx);
+
+  args.path = (char *) path;
+  serial = guestfs__send_sync (g, GUESTFS_PROC_HEXDUMP,
+        (xdrproc_t) xdr_guestfs_hexdump_args, (char *) &args);
+  if (serial == -1) {
+    guestfs_set_ready (g);
+    return NULL;
+  }
+
+  guestfs__switch_to_receiving (g);
+  ctx.cb_sequence = 0;
+  guestfs_set_reply_callback (g, hexdump_reply_cb, &ctx);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (ctx.cb_sequence != 1) {
+    error (g, "%s reply failed, see earlier error messages", "guestfs_hexdump");
+    guestfs_set_ready (g);
+    return NULL;
+  }
+
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_HEXDUMP, serial) == -1) {
+    guestfs_set_ready (g);
+    return NULL;
+  }
+
+  if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", ctx.err.error_message);
+    guestfs_set_ready (g);
+    return NULL;
+  }
+
+  guestfs_set_ready (g);
+  return ctx.ret.dump; /* caller will free */
+}
+

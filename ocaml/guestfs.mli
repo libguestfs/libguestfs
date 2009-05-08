@@ -466,3 +466,12 @@ val ping_daemon : t -> unit
 val equal : t -> string -> string -> bool
 (** test if two files have equal contents *)
 
+val strings : t -> string -> string array
+(** print the printable strings in a file *)
+
+val strings_e : t -> string -> string -> string array
+(** print the printable strings in a file *)
+
+val hexdump : t -> string -> string
+(** dump a file in hexadecimal *)
+

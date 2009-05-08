@@ -114,3 +114,6 @@ extern int do_drop_caches (int whattodrop);
 extern char *do_dmesg (void);
 extern int do_ping_daemon (void);
 extern int do_equal (const char *file1, const char *file2);
+extern char **do_strings (const char *path);
+extern char **do_strings_e (const char *encoding, const char *path);
+extern char *do_hexdump (const char *path);

@@ -3034,3 +3034,80 @@ ocaml_guestfs_equal (value gv, value file1v, value file2v)
   CAMLreturn (rv);
 }
 
+CAMLprim value
+ocaml_guestfs_strings (value gv, value pathv)
+{
+  CAMLparam2 (gv, pathv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("strings: used handle after closing it");
+
+  const char *path = String_val (pathv);
+  int i;
+  char **r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_strings (g, path);
+  caml_leave_blocking_section ();
+  if (r == NULL)
+    ocaml_guestfs_raise_error (g, "strings");
+
+  rv = caml_copy_string_array ((const char **) r);
+  for (i = 0; r[i] != NULL; ++i) free (r[i]);
+  free (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_strings_e (value gv, value encodingv, value pathv)
+{
+  CAMLparam3 (gv, encodingv, pathv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("strings_e: used handle after closing it");
+
+  const char *encoding = String_val (encodingv);
+  const char *path = String_val (pathv);
+  int i;
+  char **r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_strings_e (g, encoding, path);
+  caml_leave_blocking_section ();
+  if (r == NULL)
+    ocaml_guestfs_raise_error (g, "strings_e");
+
+  rv = caml_copy_string_array ((const char **) r);
+  for (i = 0; r[i] != NULL; ++i) free (r[i]);
+  free (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_hexdump (value gv, value pathv)
+{
+  CAMLparam2 (gv, pathv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("hexdump: used handle after closing it");
+
+  const char *path = String_val (pathv);
+  char *r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_hexdump (g, path);
+  caml_leave_blocking_section ();
+  if (r == NULL)
+    ocaml_guestfs_raise_error (g, "hexdump");
+
+  rv = caml_copy_string (r);
+  free (r);
+  CAMLreturn (rv);
+}
+

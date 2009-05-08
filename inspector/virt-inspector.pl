@@ -575,7 +575,34 @@ sub check_for_applications
     local $_;
     my $root_dev = shift;
 
-    # XXX rpm -qa, look in Program Files, or whatever
+    my @apps;
+
+    my $os = $oses{$root_dev}->{os};
+    if ($os eq "linux") {
+	my $distro = $oses{$root_dev}->{distro};
+	if ($distro eq "redhat") {
+	    my @lines = $g->command_lines
+		(["rpm", "-q", "-a", "--qf",
+		  "%{name} %{epoch} %{version} %{release} %{arch}\n"]);
+	    foreach (@lines) {
+		if (m/^(.*) (.*) (.*) (.*) (.*)$/) {
+		    $epoch = $2;
+		    $epoch = "" if $epoch eq "(none)";
+		    my $app = {
+			name => $1,
+			epoch => $epoch,
+			version => $3,
+			release => $4,
+			arch => $5
+		    };
+		    push @apps, $app
+		}
+	    }
+	}
+    } elsif ($os eq "windows") {
+	# This sucks ... XXX
+	XXX
+    }
 }
 
 sub check_for_kernels

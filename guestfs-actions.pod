@@ -770,6 +770,21 @@ C<device>, with the root directory being C<root>.
 
 This function returns 0 on success or -1 on error.
 
+=head2 guestfs_hexdump
+
+ char *guestfs_hexdump (guestfs_h *handle,
+		const char *path);
+
+This runs C<hexdump -C> on the given C<path>.  The result is
+the human-readable, canonical hex dump of the file.
+
+This function returns a string, or NULL on error.
+I<The caller must free the returned string after use>.
+
+Because of the message protocol, there is a transfer limit 
+of somewhere between 2MB and 4MB.  To transfer large files you should use
+FTP.
+
 =head2 guestfs_is_busy
 
  int guestfs_is_busy (guestfs_h *handle);
@@ -1411,6 +1426,46 @@ This function returns a C<struct guestfs_statvfs *>
 or NULL if there was an error.
 I<The caller must call C<free> after use>.
 
+=head2 guestfs_strings
+
+ char **guestfs_strings (guestfs_h *handle,
+		const char *path);
+
+This runs the L<strings(1)> command on a file and returns
+the list of printable strings found.
+
+This function returns a NULL-terminated array of strings
+(like L<environ(3)>), or NULL if there was an error.
+I<The caller must free the strings and the array after use>.
+
+Because of the message protocol, there is a transfer limit 
+of somewhere between 2MB and 4MB.  To transfer large files you should use
+FTP.
+
+=head2 guestfs_strings_e
+
+ char **guestfs_strings_e (guestfs_h *handle,
+		const char *encoding,
+		const char *path);
+
+This is like the C<guestfs_strings> command, but allows you to
+specify the encoding.
+
+See the L<strings(1)> manpage for the full list of encodings.
+
+Commonly useful encodings are C<l> (lower case L) which will
+show strings inside Windows/x86 files.
+
+The returned strings are transcoded to UTF-8.
+
+This function returns a NULL-terminated array of strings
+(like L<environ(3)>), or NULL if there was an error.
+I<The caller must free the strings and the array after use>.
+
+Because of the message protocol, there is a transfer limit 
+of somewhere between 2MB and 4MB.  To transfer large files you should use
+FTP.
+
 =head2 guestfs_sync
 
  int guestfs_sync (guestfs_h *handle);
@@ -1618,6 +1673,11 @@ with length C<size>.
 As a special case, if C<size> is C<0>
 then the length is calculated using C<strlen> (so in this case
 the content cannot contain embedded ASCII NULs).
+
+I<NB.> Owing to a bug, writing content containing ASCII NUL
+characters does I<not> work, even if the length is specified.
+We hope to resolve this bug in a future version.  In the meantime
+use C<guestfs_upload>.
 
 This function returns 0 on success or -1 on error.
 

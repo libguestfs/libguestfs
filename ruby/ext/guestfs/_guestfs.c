@@ -2745,6 +2745,91 @@ static VALUE ruby_guestfs_equal (VALUE gv, VALUE file1v, VALUE file2v)
   return INT2NUM (r);
 }
 
+static VALUE ruby_guestfs_strings (VALUE gv, VALUE pathv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "strings");
+
+  const char *path = StringValueCStr (pathv);
+  if (!path)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "path", "strings");
+
+  char **r;
+
+  r = guestfs_strings (g, path);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  int i, len = 0;
+  for (i = 0; r[i] != NULL; ++i) len++;
+  VALUE rv = rb_ary_new2 (len);
+  for (i = 0; r[i] != NULL; ++i) {
+    rb_ary_push (rv, rb_str_new2 (r[i]));
+    free (r[i]);
+  }
+  free (r);
+  return rv;
+}
+
+static VALUE ruby_guestfs_strings_e (VALUE gv, VALUE encodingv, VALUE pathv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "strings_e");
+
+  const char *encoding = StringValueCStr (encodingv);
+  if (!encoding)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "encoding", "strings_e");
+  const char *path = StringValueCStr (pathv);
+  if (!path)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "path", "strings_e");
+
+  char **r;
+
+  r = guestfs_strings_e (g, encoding, path);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  int i, len = 0;
+  for (i = 0; r[i] != NULL; ++i) len++;
+  VALUE rv = rb_ary_new2 (len);
+  for (i = 0; r[i] != NULL; ++i) {
+    rb_ary_push (rv, rb_str_new2 (r[i]));
+    free (r[i]);
+  }
+  free (r);
+  return rv;
+}
+
+static VALUE ruby_guestfs_hexdump (VALUE gv, VALUE pathv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "hexdump");
+
+  const char *path = StringValueCStr (pathv);
+  if (!path)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "path", "hexdump");
+
+  char *r;
+
+  r = guestfs_hexdump (g, path);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  VALUE rv = rb_str_new2 (r);
+  free (r);
+  return rv;
+}
+
 /* Initialize the module. */
 void Init__guestfs ()
 {
@@ -2983,4 +3068,10 @@ void Init__guestfs ()
         ruby_guestfs_ping_daemon, 0);
   rb_define_method (c_guestfs, "equal",
         ruby_guestfs_equal, 2);
+  rb_define_method (c_guestfs, "strings",
+        ruby_guestfs_strings, 1);
+  rb_define_method (c_guestfs, "strings_e",
+        ruby_guestfs_strings_e, 2);
+  rb_define_method (c_guestfs, "hexdump",
+        ruby_guestfs_hexdump, 1);
 }

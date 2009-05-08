@@ -25,6 +25,7 @@ unset CDPATH
 modules="
 -i augeas-libs
 -i bash
+-i binutils
 -i coreutils
 -i dosfstools
 -i file

@@ -1699,3 +1699,57 @@ PREINIT:
  OUTPUT:
       RETVAL
 
+void
+strings (g, path)
+      guestfs_h *g;
+      char *path;
+PREINIT:
+      char **stringsout;
+      int i, n;
+ PPCODE:
+      stringsout = guestfs_strings (g, path);
+      if (stringsout == NULL)
+        croak ("strings: %s", guestfs_last_error (g));
+      for (n = 0; stringsout[n] != NULL; ++n) /**/;
+      EXTEND (SP, n);
+      for (i = 0; i < n; ++i) {
+        PUSHs (sv_2mortal (newSVpv (stringsout[i], 0)));
+        free (stringsout[i]);
+      }
+      free (stringsout);
+
+void
+strings_e (g, encoding, path)
+      guestfs_h *g;
+      char *encoding;
+      char *path;
+PREINIT:
+      char **stringsout;
+      int i, n;
+ PPCODE:
+      stringsout = guestfs_strings_e (g, encoding, path);
+      if (stringsout == NULL)
+        croak ("strings_e: %s", guestfs_last_error (g));
+      for (n = 0; stringsout[n] != NULL; ++n) /**/;
+      EXTEND (SP, n);
+      for (i = 0; i < n; ++i) {
+        PUSHs (sv_2mortal (newSVpv (stringsout[i], 0)));
+        free (stringsout[i]);
+      }
+      free (stringsout);
+
+SV *
+hexdump (g, path)
+      guestfs_h *g;
+      char *path;
+PREINIT:
+      char *dump;
+   CODE:
+      dump = guestfs_hexdump (g, path);
+      if (dump == NULL)
+        croak ("hexdump: %s", guestfs_last_error (g));
+      RETVAL = newSVpv (dump, 0);
+      free (dump);
+ OUTPUT:
+      RETVAL
+
