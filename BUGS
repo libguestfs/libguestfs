@@ -44,3 +44,8 @@ configures the inspector.  (eg. if perl-Sys-Virt is missing).
 
 [build] "exec: chroot not found"
 Setting PATH to include /usr/sbin solves this temporarily.
+
+[libguestfs] FileOut parameters can cause
+"internal error: reply callback called twice"
+This bug is rare but well-understood.  Unfortunately it's also
+quite hard to fix cleanly.
