@@ -51,3 +51,6 @@ This bug is rare but well-understood.  Unfortunately it's also
 quite hard to fix cleanly.
 
 [libguestfs] write-file does not support strings containing ASCII NUL.
+
+[perl] Perl bindings cause a segfault when you call any command which
+takes a StringList (eg. $g->command).
