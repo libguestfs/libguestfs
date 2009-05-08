@@ -31,6 +31,9 @@ Please test any changes.
 Directories
 ----------------------------------------------------------------------
 
+contrib/
+	Outside contributions, experimental parts.
+
 daemon/
 	The daemon that runs inside the guest and carries out actions.
 

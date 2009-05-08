@@ -1,0 +1,6 @@
+centos5.3-libguestfs.spec
+	CentOS 5.3 specfile.
+
+febootstrap/
+	An experimental, non-working attempt to use febootstrap
+	to install operating systems.
