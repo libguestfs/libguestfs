@@ -1807,6 +1807,43 @@ true if their content is exactly equal, or false otherwise.
 
 The external L<cmp(1)> program is used for the comparison.");
 
+  ("strings", (RStringList "stringsout", [String "path"]), 94, [ProtocolLimitWarning],
+   [InitBasicFS, TestOutputList (
+      [["write_file"; "/new"; "hello\nworld\n"; "0"];
+       ["strings"; "/new"]], ["hello"; "world"])],
+   "print the printable strings in a file",
+   "\
+This runs the L<strings(1)> command on a file and returns
+the list of printable strings found.");
+
+  ("strings_e", (RStringList "stringsout", [String "encoding"; String "path"]), 95, [ProtocolLimitWarning],
+   [InitBasicFS, TestOutputList (
+      [["write_file"; "/new"; "hello\nworld\n"; "0"];
+       ["strings_e"; "b"; "/new"]], []);
+    (*InitBasicFS, TestOutputList (
+      [["write_file"; "/new"; "\000h\000e\000l\000l\000o\000\n\000w\000o\000r\000l\000d\000\n"; "24"];
+       ["strings_e"; "b"; "/new"]], ["hello"; "world"])*)],
+   "print the printable strings in a file",
+   "\
+This is like the C<guestfs_strings> command, but allows you to
+specify the encoding.
+
+See the L<strings(1)> manpage for the full list of encodings.
+
+Commonly useful encodings are C<l> (lower case L) which will
+show strings inside Windows/x86 files.
+
+The returned strings are transcoded to UTF-8.");
+
+  ("hexdump", (RString "dump", [String "path"]), 96, [ProtocolLimitWarning],
+   [InitBasicFS, TestOutput (
+      [["write_file"; "/new"; "hello\nworld\n"; "12"];
+       ["hexdump"; "/new"]], "00000000  68 65 6c 6c 6f 0a 77 6f  72 6c 64 0a              |hello.world.|\n0000000c\n")],
+   "dump a file in hexadecimal",
+   "\
+This runs C<hexdump -C> on the given C<path>.  The result is
+the human-readable, canonical hex dump of the file.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

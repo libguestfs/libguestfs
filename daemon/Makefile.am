@@ -37,12 +37,14 @@ guestfsd_SOURCES = \
 	fsck.c \
 	grub.c \
 	guestfsd.c \
+	hexdump.c \
 	ls.c \
 	lvm.c \
 	mount.c \
 	pingdaemon.c \
 	proto.c \
 	stat.c \
+	strings.c \
 	stubs.c \
 	sync.c \
 	tar.c \
