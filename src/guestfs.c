@@ -1095,6 +1095,25 @@ guestfs_set_busy (guestfs_h *g)
   return 0;
 }
 
+int
+guestfs_end_busy (guestfs_h *g)
+{
+  switch (g->state)
+    {
+    case BUSY:
+      g->state = READY;
+      break;
+    case CONFIG:
+    case READY:
+      break;
+    case LAUNCHING:
+    case NO_HANDLE:
+      error (g, "guestfs_end_busy: called when in state %d", g->state);
+      return -1;
+    }
+  return 0;
+}
+
 /* Structure-freeing functions.  These rely on the fact that the
  * structure format is identical to the XDR format.  See note in
  * generator.ml.
@@ -1126,6 +1145,39 @@ guestfs_free_lvm_lv_list (struct guestfs_lvm_lv_list *x)
   free (x);
 }
 
+/* We don't know if stdout_event or sock_read_event will be the
+ * first to receive EOF if the qemu process dies.  This function
+ * has the common cleanup code for both.
+ */
+static void
+child_cleanup (guestfs_h *g)
+{
+  if (g->verbose)
+    fprintf (stderr, "stdout_event: %p: child process died\n", g);
+  /*kill (g->pid, SIGTERM);*/
+  if (g->recoverypid > 0) kill (g->recoverypid, 9);
+  waitpid (g->pid, NULL, 0);
+  if (g->recoverypid > 0) waitpid (g->recoverypid, NULL, 0);
+  if (g->stdout_watch >= 0)
+    g->main_loop->remove_handle (g->main_loop, g, g->stdout_watch);
+  if (g->sock_watch >= 0)
+    g->main_loop->remove_handle (g->main_loop, g, g->sock_watch);
+  close (g->fd[0]);
+  close (g->fd[1]);
+  close (g->sock);
+  g->fd[0] = -1;
+  g->fd[1] = -1;
+  g->sock = -1;
+  g->pid = 0;
+  g->recoverypid = 0;
+  g->start_t = 0;
+  g->stdout_watch = -1;
+  g->sock_watch = -1;
+  g->state = CONFIG;
+  if (g->subprocess_quit_cb)
+    g->subprocess_quit_cb (g, g->subprocess_quit_cb_data);
+}
+
 /* This function is called whenever qemu prints something on stdout.
  * Qemu's stdout is also connected to the guest's serial console, so
  * we see kernel messages here too.
@@ -1152,30 +1204,7 @@ stdout_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
   n = read (fd, buf, sizeof buf);
   if (n == 0) {
     /* Hopefully this indicates the qemu child process has died. */
-    if (g->verbose)
-      fprintf (stderr, "stdout_event: %p: child process died\n", g);
-    /*kill (g->pid, SIGTERM);*/
-    if (g->recoverypid > 0) kill (g->recoverypid, 9);
-    waitpid (g->pid, NULL, 0);
-    if (g->recoverypid > 0) waitpid (g->recoverypid, NULL, 0);
-    if (g->stdout_watch >= 0)
-      g->main_loop->remove_handle (g->main_loop, g, g->stdout_watch);
-    if (g->sock_watch >= 0)
-      g->main_loop->remove_handle (g->main_loop, g, g->sock_watch);
-    close (g->fd[0]);
-    close (g->fd[1]);
-    close (g->sock);
-    g->fd[0] = -1;
-    g->fd[1] = -1;
-    g->sock = -1;
-    g->pid = 0;
-    g->recoverypid = 0;
-    g->start_t = 0;
-    g->stdout_watch = -1;
-    g->sock_watch = -1;
-    g->state = CONFIG;
-    if (g->subprocess_quit_cb)
-      g->subprocess_quit_cb (g, g->subprocess_quit_cb_data);
+    child_cleanup (g);
     return;
   }
 
@@ -1221,11 +1250,11 @@ sock_read_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
   }
   n = read (g->sock, g->msg_in + g->msg_in_size,
 	    g->msg_in_allocated - g->msg_in_size);
-  if (n == 0)
-    /* Disconnected?  Ignore it because stdout_watch will get called
-     * and will do the cleanup.
-     */
+  if (n == 0) {
+    /* Disconnected. */
+    child_cleanup (g);
     return;
+  }
 
   if (n == -1) {
     if (errno != EINTR && errno != EAGAIN)

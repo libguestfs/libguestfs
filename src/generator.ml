@@ -438,6 +438,16 @@ actions using the low-level API.
 
 For more information on states, see L<guestfs(3)>.");
 
+  ("end_busy", (RErr, []), -1, [NotInFish],
+   [],
+   "leave the busy state",
+   "\
+This sets the state to C<READY>, or if in C<CONFIG> then it leaves the
+state as is.  This is only used when implementing
+actions using the low-level API.
+
+For more information on states, see L<guestfs(3)>.");
+
 ]
 
 let daemon_functions = [
@@ -2824,7 +2834,7 @@ check_state (guestfs_h *g, const char *caller)
 	     name;
       );
       pr "  if (serial == -1) {\n";
-      pr "    guestfs_set_ready (g);\n";
+      pr "    guestfs_end_busy (g);\n";
       pr "    return %s;\n" error_code;
       pr "  }\n";
       pr "\n";
@@ -2839,7 +2849,7 @@ check_state (guestfs_h *g, const char *caller)
 	    pr "\n";
 	    pr "    r = guestfs__send_file_sync (g, %s);\n" n;
 	    pr "    if (r == -1) {\n";
-	    pr "      guestfs_set_ready (g);\n";
+	    pr "      guestfs_end_busy (g);\n";
 	    pr "      return %s;\n" error_code;
 	    pr "    }\n";
 	    pr "    if (r == -2) /* daemon cancelled */\n";
@@ -2859,21 +2869,21 @@ check_state (guestfs_h *g, const char *caller)
       pr "  guestfs_set_reply_callback (g, NULL, NULL);\n";
       pr "  if (ctx.cb_sequence != 1) {\n";
       pr "    error (g, \"%%s reply failed, see earlier error messages\", \"%s\");\n" name;
-      pr "    guestfs_set_ready (g);\n";
+      pr "    guestfs_end_busy (g);\n";
       pr "    return %s;\n" error_code;
       pr "  }\n";
       pr "\n";
 
       pr "  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_%s, serial) == -1) {\n"
 	(String.uppercase shortname);
-      pr "    guestfs_set_ready (g);\n";
+      pr "    guestfs_end_busy (g);\n";
       pr "    return %s;\n" error_code;
       pr "  }\n";
       pr "\n";
 
       pr "  if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {\n";
       pr "    error (g, \"%%s\", ctx.err.error_message);\n";
-      pr "    guestfs_set_ready (g);\n";
+      pr "    guestfs_end_busy (g);\n";
       pr "    return %s;\n" error_code;
       pr "  }\n";
       pr "\n";
@@ -2883,14 +2893,14 @@ check_state (guestfs_h *g, const char *caller)
 	function
 	| FileOut n ->
 	    pr "  if (guestfs__receive_file_sync (g, %s) == -1) {\n" n;
-	    pr "    guestfs_set_ready (g);\n";
+	    pr "    guestfs_end_busy (g);\n";
 	    pr "    return %s;\n" error_code;
 	    pr "  }\n";
 	    pr "\n";
 	| _ -> ()
       ) (snd style);
 
-      pr "  guestfs_set_ready (g);\n";
+      pr "  guestfs_end_busy (g);\n";
 
       (match fst style with
        | RErr -> pr "  return 0;\n"
