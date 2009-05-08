@@ -23,7 +23,6 @@
 
 /* in fish.c */
 extern guestfs_h *g;
-extern int g_launched;
 extern int quit;
 extern int verbose;
 extern void pod2text (const char *heading, const char *body);

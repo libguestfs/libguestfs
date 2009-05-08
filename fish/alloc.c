@@ -43,7 +43,7 @@ do_alloc (const char *cmd, int argc, char *argv[])
   if (parse_size (argv[1], &size) == -1)
     return -1;
 
-  if (g_launched) {
+  if (!guestfs_is_config (g)) {
     fprintf (stderr, "can't allocate or add disks after launching\n");
     return -1;
   }

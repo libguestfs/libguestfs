@@ -202,6 +202,17 @@ will create a directory C<local> on the host, and then export
 the contents of C</remote> on the mounted filesystem to
 C<local/remote-data.tar.gz>.  (See C<tgz-out>).
 
+=head1 EXIT ON ERROR BEHAVIOUR
+
+By default, guestfish will ignore any errors when in interactive mode
+(ie. taking commands from a human over a tty), and will exit on the
+first error in non-interactive mode (scripts, commands given on the
+command line).
+
+If you prefix a command with a I<-> character, then that command will
+not cause guestfish to exit, even if that (one) command returns an
+error.
+
 =head1 COMMANDS
 
 =head2 help
@@ -300,6 +311,11 @@ The C<edit> command uses C<$EDITOR> as the editor.  If not
 set, it uses C<vi>.
 
 =back
+
+=head1 EXIT CODE
+
+guestfish returns I<0> if the commands completed without error, or
+I<1> if there was an error.
 
 =head1 SEE ALSO
 

@@ -57,7 +57,6 @@ static void add_history_line (const char *);
 
 /* Currently open libguestfs handle. */
 guestfs_h *g;
-int g_launched = 0;
 
 int read_only = 0;
 int quit = 0;
@@ -68,12 +67,11 @@ launch (guestfs_h *_g)
 {
   assert (_g == g);
 
-  if (!g_launched) {
+  if (guestfs_is_config (g)) {
     if (guestfs_launch (g) == -1)
       return -1;
     if (guestfs_wait_ready (g) == -1)
       return -1;
-    g_launched = 1;
   }
   return 0;
 }
@@ -335,6 +333,8 @@ script (int prompt)
   char *p, *pend;
   char *argv[64];
   int i, len;
+  int global_exit_on_error = !prompt;
+  int exit_on_error;
 
   if (prompt)
     printf ("\n"
@@ -346,6 +346,8 @@ script (int prompt)
 	    "\n");
 
   while (!quit) {
+    exit_on_error = global_exit_on_error;
+
     buf = rl_gets (prompt);
     if (!buf) {
       quit = 1;
@@ -353,6 +355,7 @@ script (int prompt)
     }
 
     /* Skip any initial whitespace before the command. */
+  again:
     while (*buf && isspace (*buf))
       buf++;
 
@@ -366,7 +369,7 @@ script (int prompt)
       int r;
 
       r = system (buf+1);
-      if (!prompt) {
+      if (exit_on_error) {
 	if (r == -1 ||
 	    (WIFSIGNALED (r) &&
 	     (WTERMSIG (r) == SIGINT || WTERMSIG (r) == SIGQUIT)) ||
@@ -374,6 +377,15 @@ script (int prompt)
 	  exit (1);
       }
       continue;
+    }
+
+    /* If the next character is '-' allow the command to fail without
+     * exiting on error (just for this one command though).
+     */
+    if (*buf == '-') {
+      exit_on_error = 0;
+      buf++;
+      goto again;
     }
 
     /* Get the command (cannot be quoted). */
@@ -403,12 +415,12 @@ script (int prompt)
 	len = strcspn (p, "\"");
 	if (p[len] == '\0') {
 	  fprintf (stderr, "guestfish: unterminated double quote\n");
-	  if (!prompt) exit (1);
+	  if (exit_on_error) exit (1);
 	  goto next_command;
 	}
 	if (p[len+1] && (p[len+1] != ' ' && p[len+1] != '\t')) {
 	  fprintf (stderr, "guestfish: command arguments not separated by whitespace\n");
-	  if (!prompt) exit (1);
+	  if (exit_on_error) exit (1);
 	  goto next_command;
 	}
 	p[len] = '\0';
@@ -418,12 +430,12 @@ script (int prompt)
 	len = strcspn (p, "'");
 	if (p[len] == '\0') {
 	  fprintf (stderr, "guestfish: unterminated single quote\n");
-	  if (!prompt) exit (1);
+	  if (exit_on_error) exit (1);
 	  goto next_command;
 	}
 	if (p[len+1] && (p[len+1] != ' ' && p[len+1] != '\t')) {
 	  fprintf (stderr, "guestfish: command arguments not separated by whitespace\n");
-	  if (!prompt) exit (1);
+	  if (exit_on_error) exit (1);
 	  goto next_command;
 	}
 	p[len] = '\0';
@@ -440,12 +452,12 @@ script (int prompt)
 	}
 	if (c != 0) {
 	  fprintf (stderr, "guestfish: unterminated \"[...]\" sequence\n");
-	  if (!prompt) exit (1);
+	  if (exit_on_error) exit (1);
 	  goto next_command;
 	}
 	if (*pend && (*pend != ' ' && *pend != '\t')) {
 	  fprintf (stderr, "guestfish: command arguments not separated by whitespace\n");
-	  if (!prompt) exit (1);
+	  if (exit_on_error) exit (1);
 	  goto next_command;
 	}
 	*(pend-1) = '\0';
@@ -472,7 +484,7 @@ script (int prompt)
 
     if (i == sizeof argv / sizeof argv[0]) {
       fprintf (stderr, "guestfish: too many arguments\n");
-      if (!prompt) exit (1);
+      if (exit_on_error) exit (1);
       goto next_command;
     }
 
@@ -480,7 +492,7 @@ script (int prompt)
 
   got_command:
     if (issue_command (cmd, argv) == -1) {
-      if (!prompt) exit (1);
+      if (exit_on_error) exit (1);
     }
 
   next_command:;
