@@ -586,7 +586,7 @@ sub check_for_applications
 		  "%{name} %{epoch} %{version} %{release} %{arch}\n"]);
 	    foreach (@lines) {
 		if (m/^(.*) (.*) (.*) (.*) (.*)$/) {
-		    $epoch = $2;
+		    my $epoch = $2;
 		    $epoch = "" if $epoch eq "(none)";
 		    my $app = {
 			name => $1,
@@ -600,9 +600,15 @@ sub check_for_applications
 	    }
 	}
     } elsif ($os eq "windows") {
-	# This sucks ... XXX
-	XXX
+	# XXX
+	# I worked out a general plan for this, but haven't
+	# implemented it yet.  We can iterate over /Program Files
+	# looking for *.EXE files, which we download, then use
+	# i686-pc-mingw32-windres on, to find the VERSIONINFO
+	# section, which has a lot of useful information.
     }
+
+    $oses{$root_dev}->{apps} = \@apps;
 }
 
 sub check_for_kernels
@@ -688,7 +694,12 @@ sub output_text_os
 	    if exists $filesystems->{$_}{content};
     }
 
-    # XXX Applications.
+    print "  Applications:\n";
+    my @apps =  @{$os->{apps}};
+    foreach (@apps) {
+	print "    $_->{name} $_->{version}\n"
+    }
+
     # XXX Kernel.
 }
 
@@ -734,8 +745,17 @@ sub output_xml_os
     }
     print "</filesystems>\n";
 
-    # XXX Applications.
+    print "<applications>\n";
+    my @apps =  @{$os->{apps}};
+    foreach (@apps) {
+	print "<application>\n";
+	print "<name>$_->{name}</name><version>$_->{version}</version>\n";
+	print "</application>\n";
+    }
+    print "</applications>\n";
+
     # XXX Kernel.
+
     print "</operatingsystem>\n";
 }
 
