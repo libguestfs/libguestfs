@@ -49,3 +49,5 @@ Setting PATH to include /usr/sbin solves this temporarily.
 "internal error: reply callback called twice"
 This bug is rare but well-understood.  Unfortunately it's also
 quite hard to fix cleanly.
+
+[libguestfs] write-file does not support strings containing ASCII NUL.

@@ -1053,7 +1053,12 @@ with length C<size>.
 
 As a special case, if C<size> is C<0>
 then the length is calculated using C<strlen> (so in this case
-the content cannot contain embedded ASCII NULs).");
+the content cannot contain embedded ASCII NULs).
+
+I<NB.> Owing to a bug, writing content containing ASCII NUL
+characters does I<not> work, even if the length is specified.
+We hope to resolve this bug in a future version.  In the meantime
+use C<guestfs_upload>.");
 
   ("umount", (RErr, [String "pathordevice"]), 45, [FishAlias "unmount"],
    [InitEmpty, TestOutputList (
@@ -3815,6 +3820,7 @@ and c_quote str =
   let str = replace_str str "\r" "\\r" in
   let str = replace_str str "\n" "\\n" in
   let str = replace_str str "\t" "\\t" in
+  let str = replace_str str "\000" "\\0" in
   str
 
 (* Generate a lot of different functions for guestfish. *)
