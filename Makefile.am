@@ -54,7 +54,8 @@ EXTRA_DIST = \
 	recipes/*.sh \
 	recipes/*.example \
 	html/recipes.css \
-	make-recipes.sh
+	make-recipes.sh \
+	test-cleanup.sh
 
 # Build the root filesystem.
 # Currently this is arch-dependent, so it seems like putting it in
