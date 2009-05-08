@@ -788,7 +788,7 @@ guestfs_launch (guestfs_h *g)
 
     /* Linux kernel command line. */
     snprintf (append, sizeof append,
-	      "console=ttyS0 guestfs=%s:%d%s",
+	      "panic=1 console=ttyS0 guestfs=%s:%d%s",
 	      VMCHANNEL_ADDR, VMCHANNEL_PORT,
 	      g->verbose ? " guestfs_verbose=1" : "");
 
@@ -799,6 +799,7 @@ guestfs_launch (guestfs_h *g)
 #if 0
     add_cmdline (g, "-no-kqemu"); /* Avoids a warning. */
 #endif
+    add_cmdline (g, "-no-reboot"); /* Force exit instead of reboot on panic */
     add_cmdline (g, "-kernel");
     add_cmdline (g, (char *) kernel);
     add_cmdline (g, "-initrd");
