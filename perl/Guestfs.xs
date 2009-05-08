@@ -352,6 +352,16 @@ PREINIT:
         croak ("set_ready: %s", guestfs_last_error (g));
 
 void
+end_busy (g)
+      guestfs_h *g;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_end_busy (g);
+      if (r == -1)
+        croak ("end_busy: %s", guestfs_last_error (g));
+
+void
 mount (g, device, mountpoint)
       guestfs_h *g;
       char *device;

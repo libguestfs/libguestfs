@@ -484,6 +484,14 @@ Setting C<whattodrop> to 3 should drop everything.
 This automatically calls L<sync(2)> before the operation,
 so that the maximum guest memory is freed.
 
+=item $h->end_busy ();
+
+This sets the state to C<READY>, or if in C<CONFIG> then it leaves the
+state as is.  This is only used when implementing
+actions using the low-level API.
+
+For more information on states, see L<guestfs(3)>.
+
 =item $equality = $h->equal ($file1, $file2);
 
 This compares the two files C<file1> and C<file2> and returns

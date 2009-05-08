@@ -187,6 +187,9 @@ val set_busy : t -> unit
 val set_ready : t -> unit
 (** set state to ready *)
 
+val end_busy : t -> unit
+(** leave the busy state *)
+
 val mount : t -> string -> string -> unit
 (** mount a guest disk at a position in the filesystem *)
 

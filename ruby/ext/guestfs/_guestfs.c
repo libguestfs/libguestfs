@@ -451,6 +451,23 @@ static VALUE ruby_guestfs_set_ready (VALUE gv)
   return Qnil;
 }
 
+static VALUE ruby_guestfs_end_busy (VALUE gv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "end_busy");
+
+
+  int r;
+
+  r = guestfs_end_busy (g);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
 static VALUE ruby_guestfs_mount (VALUE gv, VALUE devicev, VALUE mountpointv)
 {
   guestfs_h *g;
@@ -2882,6 +2899,8 @@ void Init__guestfs ()
         ruby_guestfs_set_busy, 0);
   rb_define_method (c_guestfs, "set_ready",
         ruby_guestfs_set_ready, 0);
+  rb_define_method (c_guestfs, "end_busy",
+        ruby_guestfs_end_busy, 0);
   rb_define_method (c_guestfs, "mount",
         ruby_guestfs_mount, 2);
   rb_define_method (c_guestfs, "sync",

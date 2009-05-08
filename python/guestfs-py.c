@@ -892,6 +892,30 @@ py_guestfs_set_ready (PyObject *self, PyObject *args)
 }
 
 static PyObject *
+py_guestfs_end_busy (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+
+  if (!PyArg_ParseTuple (args, (char *) "O:guestfs_end_busy",
+                         &py_g))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_end_busy (g);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
+static PyObject *
 py_guestfs_mount (PyObject *self, PyObject *args)
 {
   PyObject *py_g;
@@ -3354,6 +3378,7 @@ static PyMethodDef methods[] = {
   { (char *) "get_state", py_guestfs_get_state, METH_VARARGS, NULL },
   { (char *) "set_busy", py_guestfs_set_busy, METH_VARARGS, NULL },
   { (char *) "set_ready", py_guestfs_set_ready, METH_VARARGS, NULL },
+  { (char *) "end_busy", py_guestfs_end_busy, METH_VARARGS, NULL },
   { (char *) "mount", py_guestfs_mount, METH_VARARGS, NULL },
   { (char *) "sync", py_guestfs_sync, METH_VARARGS, NULL },
   { (char *) "touch", py_guestfs_touch, METH_VARARGS, NULL },

@@ -535,6 +535,27 @@ public class GuestFS {
     throws LibGuestFSException;
 
   /**
+   * leave the busy state
+   *
+   * This sets the state to "READY", or if in "CONFIG" then
+   * it leaves the state as is. This is only used when
+   * implementing actions using the low-level API.
+   * 
+   * For more information on states, see guestfs(3).
+   * 
+   * @throws LibGuestFSException
+   */
+  public void end_busy ()
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("end_busy: handle is closed");
+    _end_busy (g);
+  }
+  private native void _end_busy (long g)
+    throws LibGuestFSException;
+
+  /**
    * mount a guest disk at a position in the filesystem
    *
    * Mount a guest disk at a position in the filesystem.

@@ -46,11 +46,13 @@ struct cmd {
 
 static char *debug_help (const char *subcmd, int argc, char *const *const argv);
 static char *debug_fds (const char *subcmd, int argc, char *const *const argv);
+static char *debug_segv (const char *subcmd, int argc, char *const *const argv);
 static char *debug_sh (const char *subcmd, int argc, char *const *const argv);
 
 static struct cmd cmds[] = {
   { "help", debug_help },
   { "fds", debug_fds },
+  { "segv", debug_segv },
   { "sh", debug_sh },
   { NULL, NULL }
 };
@@ -175,6 +177,14 @@ debug_fds (const char *subcmd, int argc, char *const *const argv)
   }
 
   return out;
+}
+
+/* Force a segfault in the daemon. */
+static char *
+debug_segv (const char *subcmd, int argc, char *const *const argv)
+{
+  *(int*)0 = 0;
+  return NULL;
 }
 
 /* Run an arbitrary shell command. */

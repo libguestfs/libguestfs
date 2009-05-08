@@ -279,6 +279,15 @@ class GuestFS:
         """
         return libguestfsmod.set_ready (self._o)
 
+    def end_busy (self):
+        u"""This sets the state to "READY", or if in "CONFIG" then
+        it leaves the state as is. This is only used when
+        implementing actions using the low-level API.
+        
+        For more information on states, see guestfs(3).
+        """
+        return libguestfsmod.end_busy (self._o)
+
     def mount (self, device, mountpoint):
         u"""Mount a guest disk at a position in the filesystem.
         Block devices are named "/dev/sda", "/dev/sdb" and so

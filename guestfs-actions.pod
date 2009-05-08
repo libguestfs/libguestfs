@@ -609,6 +609,18 @@ so that the maximum guest memory is freed.
 
 This function returns 0 on success or -1 on error.
 
+=head2 guestfs_end_busy
+
+ int guestfs_end_busy (guestfs_h *handle);
+
+This sets the state to C<READY>, or if in C<CONFIG> then it leaves the
+state as is.  This is only used when implementing
+actions using the low-level API.
+
+For more information on states, see L<guestfs(3)>.
+
+This function returns 0 on success or -1 on error.
+
 =head2 guestfs_equal
 
  int guestfs_equal (guestfs_h *handle,
