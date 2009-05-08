@@ -35,6 +35,7 @@ BuildRequires: ncurses-devel
 BuildRequires: kernel, bash, coreutils, lvm2, ntfs-3g, util-linux-ng
 BuildRequires: MAKEDEV, net-tools, augeas-libs, file
 BuildRequires: module-init-tools, procps, strace, iputils
+BuildRequires: grub, dosfstools, ntfsprogs
 
 # These are only required if you want to build the bindings for
 # different languages:
@@ -429,10 +430,13 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Thu May  7 2009 Richard Jones <rjones@redhat.com> - @VERSION@-1
+* Fri May  8 2009 Richard Jones <rjones@redhat.com> - @VERSION@-1
 - New upstream version @VERSION@.
 
-* Thu May  7 2009 Richard Jones <rjones@redhat.com> - 1.0.20-1
+* Fri May  8 2009 Richard Jones <rjones@redhat.com> - 1.0.21-2
+- New upstream version 1.0.21.
+
+* Thu May  7 2009 Richard Jones <rjones@redhat.com> - 1.0.20-2
 - New upstream version 1.0.20.
 
 * Thu May  7 2009 Richard Jones <rjones@redhat.com> - 1.0.19-1
