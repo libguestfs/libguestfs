@@ -17,7 +17,3 @@ Limit on transfers would still be 2MB for these types.
 ----------------------------------------------------------------------
 
 Implement febootstrap command.
-
-----------------------------------------------------------------------
-
-Test for memory errors with valgrind.
