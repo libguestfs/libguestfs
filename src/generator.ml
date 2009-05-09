@@ -2883,6 +2883,7 @@ check_state (guestfs_h *g, const char *caller)
 
       pr "  if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {\n";
       pr "    error (g, \"%%s\", ctx.err.error_message);\n";
+      pr "    free (ctx.err.error_message);\n";
       pr "    guestfs_end_busy (g);\n";
       pr "    return %s;\n" error_code;
       pr "  }\n";
