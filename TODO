@@ -6,6 +6,12 @@ https://www.redhat.com/archives/fedora-virt/2009-April/msg00114.html
 We badly need to actually implement the FTP server mentioned in the
 documentation.
 
+Or: Implement a FUSE-based filesystem.  See the FUSE mountlo
+project which does something similar, albeit only to single
+filesystems:
+
+http://sourceforge.net/project/showfiles.php?group_id=121684&package_id=150116
+
 ----------------------------------------------------------------------
 
 BufferIn and BufferOut should turn into <char *, int> and simple
