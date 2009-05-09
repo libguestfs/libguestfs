@@ -43,6 +43,9 @@ examples/
 fish/
 	Guestfish (the command-line program / shell)
 
+haskell/
+	Haskell bindings.
+
 images/
 	Some guest images to test against.  These are gzipped to save
 	space.  You have to unzip them before use.

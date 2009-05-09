@@ -394,6 +394,12 @@ AC_SUBST(JNI_VERSION_INFO)
 
 AM_CONDITIONAL([HAVE_JAVA],[test -n "$JAVAC"])
 
+dnl Check for Haskell (GHC).
+AC_CHECK_PROG([GHC],[ghc],[ghc],[no])
+
+AM_CONDITIONAL([HAVE_HASKELL],
+    [test "x$GHC" != "xno"])
+
 dnl Check for Perl modules needed by the inspector.
 missing_perl_modules=no
 for pm in Pod::Usage Getopt::Long Sys::Virt Data::Dumper; do
@@ -424,6 +430,7 @@ AC_CONFIG_FILES([Makefile src/Makefile fish/Makefile examples/Makefile
 		 python/Makefile
 		 ruby/Makefile ruby/Rakefile
 		 java/Makefile
+		 haskell/Makefile
 		 inspector/Makefile
 	         make-initramfs.sh update-initramfs.sh
 		 libguestfs.spec libguestfs.pc
@@ -452,6 +459,8 @@ echo -n "Ruby bindings ....................... "
 if test "x$HAVE_RUBY_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo -n "Java bindings ....................... "
 if test "x$HAVE_JAVA_TRUE" = "x"; then echo "yes"; else echo "no"; fi
+echo -n "Haskell bindings .................... "
+if test "x$HAVE_HASKELL" = "x"; then echo "yes"; else echo "no"; fi
 echo -n "virt-inspector ...................... "
 if test "x$HAVE_INSPECTOR" = "x"; then echo "yes"; else echo "no"; fi
 echo

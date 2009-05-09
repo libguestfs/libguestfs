@@ -34,6 +34,9 @@ endif
 if HAVE_JAVA
 SUBDIRS += java
 endif
+if HAVE_HASKELL
+SUBDIRS += haskell
+endif
 if HAVE_INSPECTOR
 SUBDIRS += inspector
 endif

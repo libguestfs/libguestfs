@@ -37,8 +37,8 @@ LVs, what filesystem is in each LV, etc.).  It can also run commands
 in the context of the guest.  Also you can access filesystems over FTP.
 
 Libguestfs is a library that can be linked with C and C++ management
-programs (or management programs written in OCaml, Perl, Python, Ruby or Java).
-You can also use it from shell scripts or the command line.
+programs (or management programs written in OCaml, Perl, Python, Ruby, Java
+or Haskell).  You can also use it from shell scripts or the command line.
 
 You don't need to be root to use libguestfs, although obviously you do
 need enough permissions to access the disk images.

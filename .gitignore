@@ -14,6 +14,7 @@
 *.so
 *.class
 *.jar
+*.hi
 ChangeLog
 Makefile.in
 Makefile
@@ -37,6 +38,9 @@ examples/to-xml
 fish/guestfish
 guestfish.1
 guestfs.3
+haskell/Guestfs005Load
+haskell/Guestfs010Launch
+haskell/Guestfs050LVCreate
 html/guestfish.1.html
 html/guestfs.3.html
 html/recipes.html
