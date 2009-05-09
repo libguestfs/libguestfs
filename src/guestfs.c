@@ -308,6 +308,8 @@ guestfs_close (guestfs_h *g)
   }
   /* release mutex (XXX) */
 
+  free (g->msg_in);
+  free (g->msg_out);
   free (g->last_error);
   free (g);
 }
@@ -823,6 +825,11 @@ guestfs_launch (guestfs_h *g)
 
   /* Parent (library). */
   g->pid = r;
+
+  free (kernel);
+  kernel = NULL;
+  free (initrd);
+  initrd = NULL;
 
   /* Fork the recovery process off which will kill qemu if the parent
    * process fails to do so (eg. if the parent segfaults).
