@@ -2175,6 +2175,8 @@ select_main_loop_run (guestfs_main_loop *mlv, guestfs_h *g)
     xset2 = ml->xset;
     r = select (ml->max_fd+1, &rset2, &wset2, &xset2, NULL);
     if (r == -1) {
+      if (errno == EINTR || errno == EAGAIN)
+	continue;
       perrorf (g, "select");
       ml->is_running = 0;
       return -1;
