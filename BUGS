@@ -54,3 +54,4 @@ quite hard to fix cleanly.
 
 [perl] Perl bindings cause a segfault when you call any command which
 takes a StringList (eg. $g->command).
+[should be fixed now]

@@ -68,7 +68,7 @@ XS_unpack_charPtrPtr (SV *arg) {
     croak ("array reference expected");
 
   av = (AV *)SvRV (arg);
-  ret = malloc (av_len (av) + 1 + 1);
+  ret = malloc ((av_len (av) + 1 + 1) * sizeof (char *));
   if (!ret)
     croak ("malloc failed");
 
