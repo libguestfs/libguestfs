@@ -31,7 +31,7 @@ Requirements
 - recent QEMU >= 0.10 with vmchannel support
   http://lists.gnu.org/archive/html/qemu-devel/2009-02/msg01042.html
 
-- febootstrap >= 1.5
+- febootstrap >= 2.0
 
 - XDR, rpcgen
 

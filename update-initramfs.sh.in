@@ -19,28 +19,14 @@
 # Update the daemon inside an existing initramfs.  Avoids the
 # timeconsuming rebuild.
 
+unset CDPATH
+
 set -e
 
 output=initramfs.@REPO@.@host_cpu@.img
 
-# Make a safe 'install_file' function to install files into the
-# filesystem.  XXX We need a 'febootstrap-install' utility.
-# Usage: install_file <local-file> <target-pathname> mode owner[.group]
-install_file ()
-{
-    cp "$1" initramfs/"$2"
-    # Get the inode of the new file and remove it from fakeroot.log.
-    ino=$(ls -i initramfs/"$2" | awk '{print $1}')
-    cp initramfs/fakeroot.log fakeroot.log.old
-    grep -v "ino=$ino," fakeroot.log.old > initramfs/fakeroot.log
-    rm fakeroot.log.old
-    # Set mode, owner and group as desired.
-    @FEBOOTSTRAP_RUN@ initramfs -- chmod "$3" "$2"
-    @FEBOOTSTRAP_RUN@ initramfs -- chown "$4" "$2"
-}
-
 # Copy the daemon into the filesystem.
-install_file @abs_builddir@/daemon/guestfsd /sbin/guestfsd 0755 root.root
+@FEBOOTSTRAP_INSTALL@ initramfs @abs_builddir@/daemon/guestfsd /sbin/guestfsd 0755 root.root
 
 # Generate final image.
 @FEBOOTSTRAP_TO_INITRAMFS@ initramfs > $output-t

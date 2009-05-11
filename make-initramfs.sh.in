@@ -53,37 +53,21 @@ rm -f $koutput
 @FEBOOTSTRAP@ $modules -u @UPDATES@ @REPO@ initramfs @MIRROR@
 
 # /sysroot is where the guest root filesystem will be mounted.
-mkdir initramfs/sysroot
-@FEBOOTSTRAP_RUN@ initramfs -- chmod 0777 /sysroot
+@FEBOOTSTRAP_RUN@ initramfs -- mkdir -p --mode=0777 /sysroot
 
 # Create /tmp if it is missing.
-mkdir -p initramfs/tmp
-@FEBOOTSTRAP_RUN@ initramfs -- chmod 0777 /tmp
-
-# Make a safe 'install_file' function to install files into the
-# filesystem.  XXX We need a 'febootstrap-install' utility.
-# Usage: install_file <local-file> <target-pathname> mode owner[.group]
-install_file ()
-{
-    cp "$1" initramfs/"$2"
-    # Get the inode of the new file and remove it from fakeroot.log.
-    ino=$(ls -i initramfs/"$2" | awk '{print $1}')
-    cp initramfs/fakeroot.log fakeroot.log.old
-    grep -v "ino=$ino," fakeroot.log.old > initramfs/fakeroot.log
-    rm fakeroot.log.old
-    # Set mode, owner and group as desired.
-    @FEBOOTSTRAP_RUN@ initramfs -- chmod "$3" "$2"
-    @FEBOOTSTRAP_RUN@ initramfs -- chown "$4" "$2"
-}
+@FEBOOTSTRAP_RUN@ initramfs -- mkdir -p --mode=0777 /tmp
 
 # Nuke some stuff.  The kernel pulls mkinitrd and plymouth which pulls in
 # all of Python.  Sheez.
-find initramfs -name '*plymouth*' -print0 | xargs -0 rm -rf
-find initramfs -name '*python*' -print0 | xargs -0 rm -rf
+(cd initramfs && find -name '*plymouth*' -print0) |
+  xargs -0 @FEBOOTSTRAP_RUN@ initramfs -- rm -rf
+(cd initramfs && find -name '*python*' -print0) |
+  xargs -0 @FEBOOTSTRAP_RUN@ initramfs -- rm -rf
 
 # Modules take up nearly half of the image.  It's a rough guess that
 # we don't need many drivers (which take up most of the space).
-find initramfs/lib/modules/*/kernel \
+(cd initramfs && find lib/modules/*/kernel \
   -name '*.ko' \
   -a ! -name 'virtio.ko' \
   -a ! -name 'virtio_net.ko' \
@@ -100,12 +84,13 @@ find initramfs/lib/modules/*/kernel \
   -a ! -name 'crc_itu_t.ko' \
   -a ! -name 'nls_utf8.ko' \
   -a ! -name 'dm-*.ko' \
-  -a -delete
+  -a -print0 ) |
+  xargs -0 @FEBOOTSTRAP_RUN@ initramfs -- rm
 
 # Pull the kernel out into the current directory.  We don't want it in
 # the initramfs image.
-mv initramfs/boot/vmlinuz* $koutput
-rm -rf initramfs/boot
+cp initramfs/boot/vmlinuz* $koutput
+@FEBOOTSTRAP_RUN@ initramfs -- rm -rf boot
 
 # Minimize the image.
 @FEBOOTSTRAP_MINIMIZE@ initramfs
@@ -116,7 +101,7 @@ if [ ! -f initramfs/etc/hosts ]; then
 127.0.0.1 guestfs localhost.localdomain localhost
 ::1       localhost6.localdomain6 localhost6
 __EOF__
-    install_file hosts.new /etc/hosts 0644 root.root
+    @FEBOOTSTRAP_INSTALL@ initramfs hosts.new /etc/hosts 0644 root.root
     rm hosts.new
 fi
 
@@ -125,7 +110,7 @@ if [ ! -f initramfs/etc/fstab ]; then
 fi
 
 echo nameserver 10.0.2.3 > resolv.conf.new
-install_file resolv.conf.new /etc/resolv.conf 0644 root.root
+@FEBOOTSTRAP_INSTALL@ initramfs resolv.conf.new /etc/resolv.conf 0644 root.root
 rm resolv.conf.new
 
 # Create the init script.
@@ -148,11 +133,11 @@ lvm vgchange -ay --ignorelockingfailure
 exec guestfsd -f
 __EOF__
 
-install_file init.new /init 0755 root.root
+@FEBOOTSTRAP_INSTALL@ initramfs init.new /init 0755 root.root
 rm init.new
 
 # Copy the daemon into the filesystem.
-install_file @abs_builddir@/daemon/guestfsd /sbin/guestfsd 0755 root.root
+@FEBOOTSTRAP_INSTALL@ initramfs @abs_builddir@/daemon/guestfsd /sbin/guestfsd 0755 root.root
 
 # Generate final image.
 @FEBOOTSTRAP_TO_INITRAMFS@ initramfs > $output-t
