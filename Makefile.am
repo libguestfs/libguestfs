@@ -102,7 +102,7 @@ tests_CFLAGS = \
 	-I$(top_builddir)/src -Wall
 tests_LDADD = $(top_builddir)/src/libguestfs.la
 
-TESTS = $(check_PROGRAMS)
+TESTS = tests
 TESTS_ENVIRONMENT = $(VG)
 
 $(TESTS): $(INITRAMFS) $(VMLINUZ)
