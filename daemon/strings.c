@@ -32,9 +32,7 @@ do_strings_e (const char *encoding, const char *path)
   char *buf;
   int r;
   char *out, *err;
-  char **lines = NULL;
-  int size = 0, alloc = 0;
-  char *p, *pend;
+  char **lines;
 
   NEED_ROOT (NULL);
   ABS_PATH (path, NULL);
@@ -60,25 +58,10 @@ do_strings_e (const char *encoding, const char *path)
   free (err);
 
   /* Now convert the output to a list of lines. */
-  p = out;
-  while (p && *p) {
-    pend = strchr (p, '\n');
-    if (pend) {
-      *pend = '\0';
-      pend++;
-    }
-
-    if (add_string (&lines, &size, &alloc, p) == -1) {
-      free (out);
-      return NULL;
-    }
-
-    p = pend;
-  }
-
+  lines = split_lines (out);
   free (out);
 
-  if (add_string (&lines, &size, &alloc, NULL) == -1)
+  if (lines == NULL)
     return NULL;
 
   return lines;			/* Caller frees. */

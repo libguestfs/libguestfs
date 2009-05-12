@@ -47,6 +47,8 @@ extern int commandv (char **stdoutput, char **stderror,
 extern int commandrv (char **stdoutput, char **stderror,
 		      char * const* const argv);
 
+extern char **split_lines (char *str);
+
 extern int shell_quote (char *out, int len, const char *in);
 
 extern int verbose;

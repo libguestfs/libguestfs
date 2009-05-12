@@ -587,6 +587,60 @@ commandrv (char **stdoutput, char **stderror, char * const* const argv)
     return -1;
 }
 
+/* Split an output string into a NULL-terminated list of lines.
+ * Typically this is used where we have run an external command
+ * which has printed out a list of things, and we want to return
+ * an actual list.
+ *
+ * The corner cases here are quite tricky.  Note in particular:
+ *
+ *   "" -> []
+ *   "\n" -> [""]
+ *   "a\nb" -> ["a"; "b"]
+ *   "a\nb\n" -> ["a"; "b"]
+ *   "a\nb\n\n" -> ["a"; "b"; ""]
+ *
+ * The original string is written over and destroyed by this
+ * function (which is usually OK because it's the 'out' string
+ * from command()).  You can free the original string, because
+ * add_string() strdups the strings.
+ */
+char **
+split_lines (char *str)
+{
+  char **lines = NULL;
+  int size = 0, alloc = 0;
+  char *p, *pend;
+
+  if (strcmp (str, "") == 0)
+    goto empty_list;
+
+  p = str;
+  while (p) {
+    /* Empty last line? */
+    if (p[0] == '\0')
+      break;
+
+    pend = strchr (p, '\n');
+    if (pend) {
+      *pend = '\0';
+      pend++;
+    }
+
+    if (add_string (&lines, &size, &alloc, p) == -1) {
+      return NULL;
+    }
+
+    p = pend;
+  }
+
+ empty_list:
+  if (add_string (&lines, &size, &alloc, NULL) == -1)
+    return NULL;
+
+  return lines;
+}
+
 /* Quote 'in' for the shell, and write max len-1 bytes to out.  The
  * result will be NUL-terminated, even if it is truncated.
  *

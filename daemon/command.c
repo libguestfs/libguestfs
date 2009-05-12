@@ -84,37 +84,16 @@ char **
 do_command_lines (char * const * const argv)
 {
   char *out;
-  char **lines = NULL;
-  int size = 0, alloc = 0;
-  char *p, *pend;
+  char **lines;
 
   out = do_command (argv);
   if (out == NULL)
     return NULL;
 
-  /* Now convert the output to a list of lines. */
-  p = out;
-  while (p) {
-    pend = strchr (p, '\n');
-    if (pend) {
-      *pend = '\0';
-      pend++;
-
-      /* Final \n?  Don't return an empty final element. */
-      if (*pend == '\0') break;
-    }
-
-    if (add_string (&lines, &size, &alloc, p) == -1) {
-      free (out);
-      return NULL;
-    }
-
-    p = pend;
-  }
-
+  lines = split_lines (out);
   free (out);
 
-  if (add_string (&lines, &size, &alloc, NULL) == -1)
+  if (lines == NULL)
     return NULL;
 
   return lines;			/* Caller frees. */
