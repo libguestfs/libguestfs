@@ -45,7 +45,6 @@ EXTRA_DIST = \
 	make-initramfs.sh update-initramfs.sh \
 	guestfs.pod guestfs-actions.pod guestfs-structs.pod \
 	guestfish.pod guestfish-actions.pod \
-	libguestfs.spec \
 	html/pod.css \
 	HACKING TODO \
 	tests.c \
@@ -58,7 +57,13 @@ EXTRA_DIST = \
 	recipes/*.example \
 	html/recipes.css \
 	make-recipes.sh \
-	test-cleanup.sh
+	test-cleanup.sh \
+	contrib/README \
+	contrib/centos5.3-libguestfs.spec \
+	contrib/fedora-libguestfs.spec \
+	contrib/febootstrap/install.title \
+	contrib/febootstrap/install.html \
+	contrib/febootstrap/install.sh
 
 # Build the root filesystem.
 # Currently this is arch-dependent, so it seems like putting it in
@@ -87,7 +92,8 @@ $(INITRAMFSIMG): initramfs/fakeroot.log daemon/guestfsd
 make-initramfs.sh: make-initramfs.sh.in
 	./config.status $@
 
-# Tests.  These are auto-generated from the test descriptions.
+# Tests.  These are auto-generated from the test descriptions
+# in the generator.
 
 check_PROGRAMS = tests
 

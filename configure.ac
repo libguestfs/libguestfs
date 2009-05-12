@@ -437,7 +437,7 @@ AC_CONFIG_FILES([Makefile src/Makefile fish/Makefile examples/Makefile
 		 haskell/Makefile
 		 inspector/Makefile
 	         make-initramfs.sh update-initramfs.sh
-		 libguestfs.spec libguestfs.pc
+		 libguestfs.pc
 		 ocaml/META perl/Makefile.PL])
 AC_OUTPUT
 

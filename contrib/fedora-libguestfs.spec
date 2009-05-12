@@ -1,11 +1,11 @@
-# @configure_input@
+# libguestfs.spec.  Generated from libguestfs.spec.in by configure.
 
 # Enable to build w/o network.
 %global buildnonet 0
 
 Summary:     Access and modify virtual machine disk images
 Name:        libguestfs
-Version:     @VERSION@
+Version:     1.0.23
 Release:     1%{?dist}
 License:     LGPLv2+
 Group:       Development/Libraries
@@ -430,8 +430,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Fri May  8 2009 Richard Jones <rjones@redhat.com> - @VERSION@-1
-- New upstream version @VERSION@.
+* Fri May  8 2009 Richard Jones <rjones@redhat.com> - 1.0.23-1
+- New upstream version 1.0.23.
 
 * Fri May  8 2009 Richard Jones <rjones@redhat.com> - 1.0.21-2
 - New upstream version 1.0.21.
