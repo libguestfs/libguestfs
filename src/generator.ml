@@ -1148,8 +1148,55 @@ The exact command which runs is C<file -bsL path>.  Note in
 particular that the filename is not prepended to the output
 (the C<-b> option).");
 
-  ("command", (RString "output", [StringList "arguments"]), 50, [],
-   [], (* XXX how to test? *)
+  ("command", (RString "output", [StringList "arguments"]), 50, [ProtocolLimitWarning],
+   [InitBasicFS, TestOutput (
+      [["upload"; "test-command"; "/test-command"];
+       ["chmod"; "493"; "/test-command"];
+       ["command"; "/test-command 1"]], "Result1");
+    InitBasicFS, TestOutput (
+      [["upload"; "test-command"; "/test-command"];
+       ["chmod"; "493"; "/test-command"];
+       ["command"; "/test-command 2"]], "Result2\n");
+    InitBasicFS, TestOutput (
+      [["upload"; "test-command"; "/test-command"];
+       ["chmod"; "493"; "/test-command"];
+       ["command"; "/test-command 3"]], "\nResult3");
+    InitBasicFS, TestOutput (
+      [["upload"; "test-command"; "/test-command"];
+       ["chmod"; "493"; "/test-command"];
+       ["command"; "/test-command 4"]], "\nResult4\n");
+    InitBasicFS, TestOutput (
+      [["upload"; "test-command"; "/test-command"];
+       ["chmod"; "493"; "/test-command"];
+       ["command"; "/test-command 5"]], "\nResult5\n\n");
+    InitBasicFS, TestOutput (
+      [["upload"; "test-command"; "/test-command"];
+       ["chmod"; "493"; "/test-command"];
+       ["command"; "/test-command 6"]], "\n\nResult6\n\n");
+    InitBasicFS, TestOutput (
+      [["upload"; "test-command"; "/test-command"];
+       ["chmod"; "493"; "/test-command"];
+       ["command"; "/test-command 7"]], "");
+    InitBasicFS, TestOutput (
+      [["upload"; "test-command"; "/test-command"];
+       ["chmod"; "493"; "/test-command"];
+       ["command"; "/test-command 8"]], "\n");
+    InitBasicFS, TestOutput (
+      [["upload"; "test-command"; "/test-command"];
+       ["chmod"; "493"; "/test-command"];
+       ["command"; "/test-command 9"]], "\n\n");
+    InitBasicFS, TestOutput (
+      [["upload"; "test-command"; "/test-command"];
+       ["chmod"; "493"; "/test-command"];
+       ["command"; "/test-command 10"]], "Result10-1\nResult10-2\n");
+    InitBasicFS, TestOutput (
+      [["upload"; "test-command"; "/test-command"];
+       ["chmod"; "493"; "/test-command"];
+       ["command"; "/test-command 11"]], "Result11-1\nResult11-2");
+    InitBasicFS, TestLastFail (
+      [["upload"; "test-command"; "/test-command"];
+       ["chmod"; "493"; "/test-command"];
+       ["command"; "/test-command"]])],
    "run a command from the guest filesystem",
    "\
 This call runs a command from the guest filesystem.  The
@@ -1162,6 +1209,13 @@ The first element is the name of the program to run.
 Subsequent elements are parameters.  The list must be
 non-empty (ie. must contain a program name).
 
+The return value is anything printed to I<stdout> by
+the command.
+
+If the command returns a non-zero exit status, then
+this function returns an error message.  The error message
+string is the content of I<stderr> from the command.
+
 The C<$PATH> environment variable will contain at least
 C</usr/bin> and C</bin>.  If you require a program from
 another location, you should provide the full path in the
@@ -1173,8 +1227,51 @@ correct places.  It is the caller's responsibility to ensure
 all filesystems that are needed are mounted at the right
 locations.");
 
-  ("command_lines", (RStringList "lines", [StringList "arguments"]), 51, [],
-   [], (* XXX how to test? *)
+  ("command_lines", (RStringList "lines", [StringList "arguments"]), 51, [ProtocolLimitWarning],
+   [InitBasicFS, TestOutputList (
+      [["upload"; "test-command"; "/test-command"];
+       ["chmod"; "493"; "/test-command"];
+       ["command_lines"; "/test-command 1"]], ["Result1"]);
+    InitBasicFS, TestOutputList (
+      [["upload"; "test-command"; "/test-command"];
+       ["chmod"; "493"; "/test-command"];
+       ["command_lines"; "/test-command 2"]], ["Result2"]);
+    InitBasicFS, TestOutputList (
+      [["upload"; "test-command"; "/test-command"];
+       ["chmod"; "493"; "/test-command"];
+       ["command_lines"; "/test-command 3"]], ["";"Result3"]);
+    InitBasicFS, TestOutputList (
+      [["upload"; "test-command"; "/test-command"];
+       ["chmod"; "493"; "/test-command"];
+       ["command_lines"; "/test-command 4"]], ["";"Result4"]);
+    InitBasicFS, TestOutputList (
+      [["upload"; "test-command"; "/test-command"];
+       ["chmod"; "493"; "/test-command"];
+       ["command_lines"; "/test-command 5"]], ["";"Result5";""]);
+    InitBasicFS, TestOutputList (
+      [["upload"; "test-command"; "/test-command"];
+       ["chmod"; "493"; "/test-command"];
+       ["command_lines"; "/test-command 6"]], ["";"";"Result6";""]);
+    InitBasicFS, TestOutputList (
+      [["upload"; "test-command"; "/test-command"];
+       ["chmod"; "493"; "/test-command"];
+       ["command_lines"; "/test-command 7"]], []);
+    InitBasicFS, TestOutputList (
+      [["upload"; "test-command"; "/test-command"];
+       ["chmod"; "493"; "/test-command"];
+       ["command_lines"; "/test-command 8"]], [""]);
+    InitBasicFS, TestOutputList (
+      [["upload"; "test-command"; "/test-command"];
+       ["chmod"; "493"; "/test-command"];
+       ["command_lines"; "/test-command 9"]], ["";""]);
+    InitBasicFS, TestOutputList (
+      [["upload"; "test-command"; "/test-command"];
+       ["chmod"; "493"; "/test-command"];
+       ["command_lines"; "/test-command 10"]], ["Result10-1";"Result10-2"]);
+    InitBasicFS, TestOutputList (
+      [["upload"; "test-command"; "/test-command"];
+       ["chmod"; "493"; "/test-command"];
+       ["command_lines"; "/test-command 11"]], ["Result11-1";"Result11-2"])],
    "run a command, returning lines",
    "\
 This is the same as C<guestfs_command>, but splits the
@@ -1820,7 +1917,10 @@ The external L<cmp(1)> program is used for the comparison.");
   ("strings", (RStringList "stringsout", [String "path"]), 94, [ProtocolLimitWarning],
    [InitBasicFS, TestOutputList (
       [["write_file"; "/new"; "hello\nworld\n"; "0"];
-       ["strings"; "/new"]], ["hello"; "world"])],
+       ["strings"; "/new"]], ["hello"; "world"]);
+    InitBasicFS, TestOutputList (
+      [["touch"; "/new"];
+       ["strings"; "/new"]], [])],
    "print the printable strings in a file",
    "\
 This runs the L<strings(1)> command on a file and returns

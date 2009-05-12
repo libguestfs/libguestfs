@@ -372,6 +372,13 @@ The first element is the name of the program to run.
 Subsequent elements are parameters.  The list must be
 non-empty (ie. must contain a program name).
 
+The return value is anything printed to I<stdout> by
+the command.
+
+If the command returns a non-zero exit status, then
+this function returns an error message.  The error message
+string is the content of I<stderr> from the command.
+
 The C<$PATH> environment variable will contain at least
 C</usr/bin> and C</bin>.  If you require a program from
 another location, you should provide the full path in the
@@ -383,12 +390,20 @@ correct places.  It is the caller's responsibility to ensure
 all filesystems that are needed are mounted at the right
 locations.
 
+Because of the message protocol, there is a transfer limit 
+of somewhere between 2MB and 4MB.  To transfer large files you should use
+FTP.
+
 =head2 command-lines
 
  command-lines 'arguments ...'
 
 This is the same as C<command>, but splits the
 result into a list of lines.
+
+Because of the message protocol, there is a transfer limit 
+of somewhere between 2MB and 4MB.  To transfer large files you should use
+FTP.
 
 =head2 config
 

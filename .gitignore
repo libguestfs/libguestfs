@@ -82,6 +82,7 @@ ruby/ext/guestfs/extconf.h
 ruby/ext/guestfs/mkmf.log
 pod2htm?.tmp
 stamp-h1
+test-command
 test*.img
 test*.tmp
 tests

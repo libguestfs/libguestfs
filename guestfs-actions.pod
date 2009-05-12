@@ -479,6 +479,13 @@ The first element is the name of the program to run.
 Subsequent elements are parameters.  The list must be
 non-empty (ie. must contain a program name).
 
+The return value is anything printed to I<stdout> by
+the command.
+
+If the command returns a non-zero exit status, then
+this function returns an error message.  The error message
+string is the content of I<stderr> from the command.
+
 The C<$PATH> environment variable will contain at least
 C</usr/bin> and C</bin>.  If you require a program from
 another location, you should provide the full path in the
@@ -493,6 +500,10 @@ locations.
 This function returns a string, or NULL on error.
 I<The caller must free the returned string after use>.
 
+Because of the message protocol, there is a transfer limit 
+of somewhere between 2MB and 4MB.  To transfer large files you should use
+FTP.
+
 =head2 guestfs_command_lines
 
  char **guestfs_command_lines (guestfs_h *handle,
@@ -504,6 +515,10 @@ result into a list of lines.
 This function returns a NULL-terminated array of strings
 (like L<environ(3)>), or NULL if there was an error.
 I<The caller must free the strings and the array after use>.
+
+Because of the message protocol, there is a transfer limit 
+of somewhere between 2MB and 4MB.  To transfer large files you should use
+FTP.
 
 =head2 guestfs_config
 

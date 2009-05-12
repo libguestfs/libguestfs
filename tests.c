@@ -105,8 +105,6 @@ static void no_test_warnings (void)
   fprintf (stderr, "warning: \"guestfs_chown\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_sfdisk\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_lvm_remove_all\" has no tests\n");
-  fprintf (stderr, "warning: \"guestfs_command\" has no tests\n");
-  fprintf (stderr, "warning: \"guestfs_command_lines\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_tune2fs_l\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_blockdev_setbsz\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_tar_out\" has no tests\n");
@@ -400,6 +398,95 @@ static int test_strings_0 (void)
     }
     if (r[2] != NULL) {
       fprintf (stderr, "test_strings_0: extra elements returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    for (i = 0; r[i] != NULL; ++i)
+      free (r[i]);
+    free (r);
+  }
+  return 0;
+}
+
+static int test_strings_1 (void)
+{
+  /* InitBasicFS for strings (1): create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputList for strings (1) */
+  {
+    char path[] = "/new";
+    int r;
+    suppress_error = 0;
+    r = guestfs_touch (g, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/new";
+    char **r;
+    int i;
+    suppress_error = 0;
+    r = guestfs_strings (g, path);
+    if (r == NULL)
+      return -1;
+    if (r[0] != NULL) {
+      fprintf (stderr, "test_strings_1: extra elements returned from command\n");
       print_strings (r);
       return -1;
     }
@@ -4881,6 +4968,2572 @@ static int test_stat_0 (void)
                (int) r->size);
       return -1;
     }
+    free (r);
+  }
+  return 0;
+}
+
+static int test_command_lines_0 (void)
+{
+  /* InitBasicFS for command_lines (0): create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputList for command_lines (0) */
+  {
+    char remotefilename[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_upload (g, "test-command", remotefilename);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_chmod (g, 493, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char arguments_0[] = "/test-command";
+    char arguments_1[] = "1";
+    char *arguments[] = {
+      arguments_0,
+      arguments_1,
+      NULL
+    };
+    char **r;
+    int i;
+    suppress_error = 0;
+    r = guestfs_command_lines (g, arguments);
+    if (r == NULL)
+      return -1;
+    if (!r[0]) {
+      fprintf (stderr, "test_command_lines_0: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "Result1";
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_command_lines_0: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
+    }
+    if (r[1] != NULL) {
+      fprintf (stderr, "test_command_lines_0: extra elements returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    for (i = 0; r[i] != NULL; ++i)
+      free (r[i]);
+    free (r);
+  }
+  return 0;
+}
+
+static int test_command_lines_1 (void)
+{
+  /* InitBasicFS for command_lines (1): create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputList for command_lines (1) */
+  {
+    char remotefilename[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_upload (g, "test-command", remotefilename);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_chmod (g, 493, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char arguments_0[] = "/test-command";
+    char arguments_1[] = "2";
+    char *arguments[] = {
+      arguments_0,
+      arguments_1,
+      NULL
+    };
+    char **r;
+    int i;
+    suppress_error = 0;
+    r = guestfs_command_lines (g, arguments);
+    if (r == NULL)
+      return -1;
+    if (!r[0]) {
+      fprintf (stderr, "test_command_lines_1: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "Result2";
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_command_lines_1: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
+    }
+    if (r[1] != NULL) {
+      fprintf (stderr, "test_command_lines_1: extra elements returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    for (i = 0; r[i] != NULL; ++i)
+      free (r[i]);
+    free (r);
+  }
+  return 0;
+}
+
+static int test_command_lines_2 (void)
+{
+  /* InitBasicFS for command_lines (2): create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputList for command_lines (2) */
+  {
+    char remotefilename[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_upload (g, "test-command", remotefilename);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_chmod (g, 493, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char arguments_0[] = "/test-command";
+    char arguments_1[] = "3";
+    char *arguments[] = {
+      arguments_0,
+      arguments_1,
+      NULL
+    };
+    char **r;
+    int i;
+    suppress_error = 0;
+    r = guestfs_command_lines (g, arguments);
+    if (r == NULL)
+      return -1;
+    if (!r[0]) {
+      fprintf (stderr, "test_command_lines_2: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "";
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_command_lines_2: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
+    }
+    if (!r[1]) {
+      fprintf (stderr, "test_command_lines_2: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "Result3";
+      if (strcmp (r[1], expected) != 0) {
+        fprintf (stderr, "test_command_lines_2: expected \"%s\" but got \"%s\"\n", expected, r[1]);
+        return -1;
+      }
+    }
+    if (r[2] != NULL) {
+      fprintf (stderr, "test_command_lines_2: extra elements returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    for (i = 0; r[i] != NULL; ++i)
+      free (r[i]);
+    free (r);
+  }
+  return 0;
+}
+
+static int test_command_lines_3 (void)
+{
+  /* InitBasicFS for command_lines (3): create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputList for command_lines (3) */
+  {
+    char remotefilename[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_upload (g, "test-command", remotefilename);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_chmod (g, 493, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char arguments_0[] = "/test-command";
+    char arguments_1[] = "4";
+    char *arguments[] = {
+      arguments_0,
+      arguments_1,
+      NULL
+    };
+    char **r;
+    int i;
+    suppress_error = 0;
+    r = guestfs_command_lines (g, arguments);
+    if (r == NULL)
+      return -1;
+    if (!r[0]) {
+      fprintf (stderr, "test_command_lines_3: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "";
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_command_lines_3: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
+    }
+    if (!r[1]) {
+      fprintf (stderr, "test_command_lines_3: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "Result4";
+      if (strcmp (r[1], expected) != 0) {
+        fprintf (stderr, "test_command_lines_3: expected \"%s\" but got \"%s\"\n", expected, r[1]);
+        return -1;
+      }
+    }
+    if (r[2] != NULL) {
+      fprintf (stderr, "test_command_lines_3: extra elements returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    for (i = 0; r[i] != NULL; ++i)
+      free (r[i]);
+    free (r);
+  }
+  return 0;
+}
+
+static int test_command_lines_4 (void)
+{
+  /* InitBasicFS for command_lines (4): create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputList for command_lines (4) */
+  {
+    char remotefilename[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_upload (g, "test-command", remotefilename);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_chmod (g, 493, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char arguments_0[] = "/test-command";
+    char arguments_1[] = "5";
+    char *arguments[] = {
+      arguments_0,
+      arguments_1,
+      NULL
+    };
+    char **r;
+    int i;
+    suppress_error = 0;
+    r = guestfs_command_lines (g, arguments);
+    if (r == NULL)
+      return -1;
+    if (!r[0]) {
+      fprintf (stderr, "test_command_lines_4: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "";
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_command_lines_4: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
+    }
+    if (!r[1]) {
+      fprintf (stderr, "test_command_lines_4: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "Result5";
+      if (strcmp (r[1], expected) != 0) {
+        fprintf (stderr, "test_command_lines_4: expected \"%s\" but got \"%s\"\n", expected, r[1]);
+        return -1;
+      }
+    }
+    if (!r[2]) {
+      fprintf (stderr, "test_command_lines_4: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "";
+      if (strcmp (r[2], expected) != 0) {
+        fprintf (stderr, "test_command_lines_4: expected \"%s\" but got \"%s\"\n", expected, r[2]);
+        return -1;
+      }
+    }
+    if (r[3] != NULL) {
+      fprintf (stderr, "test_command_lines_4: extra elements returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    for (i = 0; r[i] != NULL; ++i)
+      free (r[i]);
+    free (r);
+  }
+  return 0;
+}
+
+static int test_command_lines_5 (void)
+{
+  /* InitBasicFS for command_lines (5): create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputList for command_lines (5) */
+  {
+    char remotefilename[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_upload (g, "test-command", remotefilename);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_chmod (g, 493, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char arguments_0[] = "/test-command";
+    char arguments_1[] = "6";
+    char *arguments[] = {
+      arguments_0,
+      arguments_1,
+      NULL
+    };
+    char **r;
+    int i;
+    suppress_error = 0;
+    r = guestfs_command_lines (g, arguments);
+    if (r == NULL)
+      return -1;
+    if (!r[0]) {
+      fprintf (stderr, "test_command_lines_5: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "";
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_command_lines_5: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
+    }
+    if (!r[1]) {
+      fprintf (stderr, "test_command_lines_5: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "";
+      if (strcmp (r[1], expected) != 0) {
+        fprintf (stderr, "test_command_lines_5: expected \"%s\" but got \"%s\"\n", expected, r[1]);
+        return -1;
+      }
+    }
+    if (!r[2]) {
+      fprintf (stderr, "test_command_lines_5: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "Result6";
+      if (strcmp (r[2], expected) != 0) {
+        fprintf (stderr, "test_command_lines_5: expected \"%s\" but got \"%s\"\n", expected, r[2]);
+        return -1;
+      }
+    }
+    if (!r[3]) {
+      fprintf (stderr, "test_command_lines_5: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "";
+      if (strcmp (r[3], expected) != 0) {
+        fprintf (stderr, "test_command_lines_5: expected \"%s\" but got \"%s\"\n", expected, r[3]);
+        return -1;
+      }
+    }
+    if (r[4] != NULL) {
+      fprintf (stderr, "test_command_lines_5: extra elements returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    for (i = 0; r[i] != NULL; ++i)
+      free (r[i]);
+    free (r);
+  }
+  return 0;
+}
+
+static int test_command_lines_6 (void)
+{
+  /* InitBasicFS for command_lines (6): create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputList for command_lines (6) */
+  {
+    char remotefilename[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_upload (g, "test-command", remotefilename);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_chmod (g, 493, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char arguments_0[] = "/test-command";
+    char arguments_1[] = "7";
+    char *arguments[] = {
+      arguments_0,
+      arguments_1,
+      NULL
+    };
+    char **r;
+    int i;
+    suppress_error = 0;
+    r = guestfs_command_lines (g, arguments);
+    if (r == NULL)
+      return -1;
+    if (r[0] != NULL) {
+      fprintf (stderr, "test_command_lines_6: extra elements returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    for (i = 0; r[i] != NULL; ++i)
+      free (r[i]);
+    free (r);
+  }
+  return 0;
+}
+
+static int test_command_lines_7 (void)
+{
+  /* InitBasicFS for command_lines (7): create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputList for command_lines (7) */
+  {
+    char remotefilename[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_upload (g, "test-command", remotefilename);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_chmod (g, 493, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char arguments_0[] = "/test-command";
+    char arguments_1[] = "8";
+    char *arguments[] = {
+      arguments_0,
+      arguments_1,
+      NULL
+    };
+    char **r;
+    int i;
+    suppress_error = 0;
+    r = guestfs_command_lines (g, arguments);
+    if (r == NULL)
+      return -1;
+    if (!r[0]) {
+      fprintf (stderr, "test_command_lines_7: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "";
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_command_lines_7: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
+    }
+    if (r[1] != NULL) {
+      fprintf (stderr, "test_command_lines_7: extra elements returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    for (i = 0; r[i] != NULL; ++i)
+      free (r[i]);
+    free (r);
+  }
+  return 0;
+}
+
+static int test_command_lines_8 (void)
+{
+  /* InitBasicFS for command_lines (8): create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputList for command_lines (8) */
+  {
+    char remotefilename[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_upload (g, "test-command", remotefilename);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_chmod (g, 493, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char arguments_0[] = "/test-command";
+    char arguments_1[] = "9";
+    char *arguments[] = {
+      arguments_0,
+      arguments_1,
+      NULL
+    };
+    char **r;
+    int i;
+    suppress_error = 0;
+    r = guestfs_command_lines (g, arguments);
+    if (r == NULL)
+      return -1;
+    if (!r[0]) {
+      fprintf (stderr, "test_command_lines_8: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "";
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_command_lines_8: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
+    }
+    if (!r[1]) {
+      fprintf (stderr, "test_command_lines_8: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "";
+      if (strcmp (r[1], expected) != 0) {
+        fprintf (stderr, "test_command_lines_8: expected \"%s\" but got \"%s\"\n", expected, r[1]);
+        return -1;
+      }
+    }
+    if (r[2] != NULL) {
+      fprintf (stderr, "test_command_lines_8: extra elements returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    for (i = 0; r[i] != NULL; ++i)
+      free (r[i]);
+    free (r);
+  }
+  return 0;
+}
+
+static int test_command_lines_9 (void)
+{
+  /* InitBasicFS for command_lines (9): create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputList for command_lines (9) */
+  {
+    char remotefilename[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_upload (g, "test-command", remotefilename);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_chmod (g, 493, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char arguments_0[] = "/test-command";
+    char arguments_1[] = "10";
+    char *arguments[] = {
+      arguments_0,
+      arguments_1,
+      NULL
+    };
+    char **r;
+    int i;
+    suppress_error = 0;
+    r = guestfs_command_lines (g, arguments);
+    if (r == NULL)
+      return -1;
+    if (!r[0]) {
+      fprintf (stderr, "test_command_lines_9: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "Result10-1";
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_command_lines_9: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
+    }
+    if (!r[1]) {
+      fprintf (stderr, "test_command_lines_9: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "Result10-2";
+      if (strcmp (r[1], expected) != 0) {
+        fprintf (stderr, "test_command_lines_9: expected \"%s\" but got \"%s\"\n", expected, r[1]);
+        return -1;
+      }
+    }
+    if (r[2] != NULL) {
+      fprintf (stderr, "test_command_lines_9: extra elements returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    for (i = 0; r[i] != NULL; ++i)
+      free (r[i]);
+    free (r);
+  }
+  return 0;
+}
+
+static int test_command_lines_10 (void)
+{
+  /* InitBasicFS for command_lines (10): create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputList for command_lines (10) */
+  {
+    char remotefilename[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_upload (g, "test-command", remotefilename);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_chmod (g, 493, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char arguments_0[] = "/test-command";
+    char arguments_1[] = "11";
+    char *arguments[] = {
+      arguments_0,
+      arguments_1,
+      NULL
+    };
+    char **r;
+    int i;
+    suppress_error = 0;
+    r = guestfs_command_lines (g, arguments);
+    if (r == NULL)
+      return -1;
+    if (!r[0]) {
+      fprintf (stderr, "test_command_lines_10: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "Result11-1";
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_command_lines_10: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
+    }
+    if (!r[1]) {
+      fprintf (stderr, "test_command_lines_10: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "Result11-2";
+      if (strcmp (r[1], expected) != 0) {
+        fprintf (stderr, "test_command_lines_10: expected \"%s\" but got \"%s\"\n", expected, r[1]);
+        return -1;
+      }
+    }
+    if (r[2] != NULL) {
+      fprintf (stderr, "test_command_lines_10: extra elements returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    for (i = 0; r[i] != NULL; ++i)
+      free (r[i]);
+    free (r);
+  }
+  return 0;
+}
+
+static int test_command_0 (void)
+{
+  /* InitBasicFS for command (0): create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for command (0) */
+  char expected[] = "Result1";
+  {
+    char remotefilename[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_upload (g, "test-command", remotefilename);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_chmod (g, 493, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char arguments_0[] = "/test-command";
+    char arguments_1[] = "1";
+    char *arguments[] = {
+      arguments_0,
+      arguments_1,
+      NULL
+    };
+    char *r;
+    suppress_error = 0;
+    r = guestfs_command (g, arguments);
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_command_0: expected \"%s\" but got \"%s\"\n", expected, r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
+static int test_command_1 (void)
+{
+  /* InitBasicFS for command (1): create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for command (1) */
+  char expected[] = "Result2\n";
+  {
+    char remotefilename[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_upload (g, "test-command", remotefilename);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_chmod (g, 493, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char arguments_0[] = "/test-command";
+    char arguments_1[] = "2";
+    char *arguments[] = {
+      arguments_0,
+      arguments_1,
+      NULL
+    };
+    char *r;
+    suppress_error = 0;
+    r = guestfs_command (g, arguments);
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_command_1: expected \"%s\" but got \"%s\"\n", expected, r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
+static int test_command_2 (void)
+{
+  /* InitBasicFS for command (2): create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for command (2) */
+  char expected[] = "\nResult3";
+  {
+    char remotefilename[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_upload (g, "test-command", remotefilename);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_chmod (g, 493, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char arguments_0[] = "/test-command";
+    char arguments_1[] = "3";
+    char *arguments[] = {
+      arguments_0,
+      arguments_1,
+      NULL
+    };
+    char *r;
+    suppress_error = 0;
+    r = guestfs_command (g, arguments);
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_command_2: expected \"%s\" but got \"%s\"\n", expected, r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
+static int test_command_3 (void)
+{
+  /* InitBasicFS for command (3): create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for command (3) */
+  char expected[] = "\nResult4\n";
+  {
+    char remotefilename[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_upload (g, "test-command", remotefilename);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_chmod (g, 493, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char arguments_0[] = "/test-command";
+    char arguments_1[] = "4";
+    char *arguments[] = {
+      arguments_0,
+      arguments_1,
+      NULL
+    };
+    char *r;
+    suppress_error = 0;
+    r = guestfs_command (g, arguments);
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_command_3: expected \"%s\" but got \"%s\"\n", expected, r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
+static int test_command_4 (void)
+{
+  /* InitBasicFS for command (4): create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for command (4) */
+  char expected[] = "\nResult5\n\n";
+  {
+    char remotefilename[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_upload (g, "test-command", remotefilename);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_chmod (g, 493, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char arguments_0[] = "/test-command";
+    char arguments_1[] = "5";
+    char *arguments[] = {
+      arguments_0,
+      arguments_1,
+      NULL
+    };
+    char *r;
+    suppress_error = 0;
+    r = guestfs_command (g, arguments);
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_command_4: expected \"%s\" but got \"%s\"\n", expected, r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
+static int test_command_5 (void)
+{
+  /* InitBasicFS for command (5): create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for command (5) */
+  char expected[] = "\n\nResult6\n\n";
+  {
+    char remotefilename[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_upload (g, "test-command", remotefilename);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_chmod (g, 493, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char arguments_0[] = "/test-command";
+    char arguments_1[] = "6";
+    char *arguments[] = {
+      arguments_0,
+      arguments_1,
+      NULL
+    };
+    char *r;
+    suppress_error = 0;
+    r = guestfs_command (g, arguments);
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_command_5: expected \"%s\" but got \"%s\"\n", expected, r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
+static int test_command_6 (void)
+{
+  /* InitBasicFS for command (6): create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for command (6) */
+  char expected[] = "";
+  {
+    char remotefilename[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_upload (g, "test-command", remotefilename);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_chmod (g, 493, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char arguments_0[] = "/test-command";
+    char arguments_1[] = "7";
+    char *arguments[] = {
+      arguments_0,
+      arguments_1,
+      NULL
+    };
+    char *r;
+    suppress_error = 0;
+    r = guestfs_command (g, arguments);
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_command_6: expected \"%s\" but got \"%s\"\n", expected, r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
+static int test_command_7 (void)
+{
+  /* InitBasicFS for command (7): create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for command (7) */
+  char expected[] = "\n";
+  {
+    char remotefilename[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_upload (g, "test-command", remotefilename);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_chmod (g, 493, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char arguments_0[] = "/test-command";
+    char arguments_1[] = "8";
+    char *arguments[] = {
+      arguments_0,
+      arguments_1,
+      NULL
+    };
+    char *r;
+    suppress_error = 0;
+    r = guestfs_command (g, arguments);
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_command_7: expected \"%s\" but got \"%s\"\n", expected, r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
+static int test_command_8 (void)
+{
+  /* InitBasicFS for command (8): create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for command (8) */
+  char expected[] = "\n\n";
+  {
+    char remotefilename[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_upload (g, "test-command", remotefilename);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_chmod (g, 493, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char arguments_0[] = "/test-command";
+    char arguments_1[] = "9";
+    char *arguments[] = {
+      arguments_0,
+      arguments_1,
+      NULL
+    };
+    char *r;
+    suppress_error = 0;
+    r = guestfs_command (g, arguments);
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_command_8: expected \"%s\" but got \"%s\"\n", expected, r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
+static int test_command_9 (void)
+{
+  /* InitBasicFS for command (9): create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for command (9) */
+  char expected[] = "Result10-1\nResult10-2\n";
+  {
+    char remotefilename[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_upload (g, "test-command", remotefilename);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_chmod (g, 493, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char arguments_0[] = "/test-command";
+    char arguments_1[] = "10";
+    char *arguments[] = {
+      arguments_0,
+      arguments_1,
+      NULL
+    };
+    char *r;
+    suppress_error = 0;
+    r = guestfs_command (g, arguments);
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_command_9: expected \"%s\" but got \"%s\"\n", expected, r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
+static int test_command_10 (void)
+{
+  /* InitBasicFS for command (10): create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for command (10) */
+  char expected[] = "Result11-1\nResult11-2";
+  {
+    char remotefilename[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_upload (g, "test-command", remotefilename);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_chmod (g, 493, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char arguments_0[] = "/test-command";
+    char arguments_1[] = "11";
+    char *arguments[] = {
+      arguments_0,
+      arguments_1,
+      NULL
+    };
+    char *r;
+    suppress_error = 0;
+    r = guestfs_command (g, arguments);
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_command_10: expected \"%s\" but got \"%s\"\n", expected, r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
+static int test_command_11 (void)
+{
+  /* InitBasicFS for command (11): create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestLastFail for command (11) */
+  {
+    char remotefilename[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_upload (g, "test-command", remotefilename);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/test-command";
+    int r;
+    suppress_error = 0;
+    r = guestfs_chmod (g, 493, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char arguments_0[] = "/test-command";
+    char *arguments[] = {
+      arguments_0,
+      NULL
+    };
+    char *r;
+    suppress_error = 1;
+    r = guestfs_command (g, arguments);
+    if (r != NULL)
+      return -1;
     free (r);
   }
   return 0;
@@ -10157,7 +12810,7 @@ int main (int argc, char *argv[])
     free (devs[i]);
   free (devs);
 
-  nr_tests = 110;
+  nr_tests = 134;
 
   test_num++;
   printf ("%3d/%3d test_hexdump_0\n", test_num, nr_tests);
@@ -10175,6 +12828,12 @@ int main (int argc, char *argv[])
   printf ("%3d/%3d test_strings_0\n", test_num, nr_tests);
   if (test_strings_0 () == -1) {
     printf ("test_strings_0 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_strings_1\n", test_num, nr_tests);
+  if (test_strings_1 () == -1) {
+    printf ("test_strings_1 FAILED\n");
     failed++;
   }
   test_num++;
@@ -10505,6 +13164,144 @@ int main (int argc, char *argv[])
   printf ("%3d/%3d test_stat_0\n", test_num, nr_tests);
   if (test_stat_0 () == -1) {
     printf ("test_stat_0 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_command_lines_0\n", test_num, nr_tests);
+  if (test_command_lines_0 () == -1) {
+    printf ("test_command_lines_0 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_command_lines_1\n", test_num, nr_tests);
+  if (test_command_lines_1 () == -1) {
+    printf ("test_command_lines_1 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_command_lines_2\n", test_num, nr_tests);
+  if (test_command_lines_2 () == -1) {
+    printf ("test_command_lines_2 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_command_lines_3\n", test_num, nr_tests);
+  if (test_command_lines_3 () == -1) {
+    printf ("test_command_lines_3 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_command_lines_4\n", test_num, nr_tests);
+  if (test_command_lines_4 () == -1) {
+    printf ("test_command_lines_4 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_command_lines_5\n", test_num, nr_tests);
+  if (test_command_lines_5 () == -1) {
+    printf ("test_command_lines_5 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_command_lines_6\n", test_num, nr_tests);
+  if (test_command_lines_6 () == -1) {
+    printf ("test_command_lines_6 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_command_lines_7\n", test_num, nr_tests);
+  if (test_command_lines_7 () == -1) {
+    printf ("test_command_lines_7 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_command_lines_8\n", test_num, nr_tests);
+  if (test_command_lines_8 () == -1) {
+    printf ("test_command_lines_8 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_command_lines_9\n", test_num, nr_tests);
+  if (test_command_lines_9 () == -1) {
+    printf ("test_command_lines_9 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_command_lines_10\n", test_num, nr_tests);
+  if (test_command_lines_10 () == -1) {
+    printf ("test_command_lines_10 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_command_0\n", test_num, nr_tests);
+  if (test_command_0 () == -1) {
+    printf ("test_command_0 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_command_1\n", test_num, nr_tests);
+  if (test_command_1 () == -1) {
+    printf ("test_command_1 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_command_2\n", test_num, nr_tests);
+  if (test_command_2 () == -1) {
+    printf ("test_command_2 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_command_3\n", test_num, nr_tests);
+  if (test_command_3 () == -1) {
+    printf ("test_command_3 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_command_4\n", test_num, nr_tests);
+  if (test_command_4 () == -1) {
+    printf ("test_command_4 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_command_5\n", test_num, nr_tests);
+  if (test_command_5 () == -1) {
+    printf ("test_command_5 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_command_6\n", test_num, nr_tests);
+  if (test_command_6 () == -1) {
+    printf ("test_command_6 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_command_7\n", test_num, nr_tests);
+  if (test_command_7 () == -1) {
+    printf ("test_command_7 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_command_8\n", test_num, nr_tests);
+  if (test_command_8 () == -1) {
+    printf ("test_command_8 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_command_9\n", test_num, nr_tests);
+  if (test_command_9 () == -1) {
+    printf ("test_command_9 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_command_10\n", test_num, nr_tests);
+  if (test_command_10 () == -1) {
+    printf ("test_command_10 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_command_11\n", test_num, nr_tests);
+  if (test_command_11 () == -1) {
+    printf ("test_command_11 FAILED\n");
     failed++;
   }
   test_num++;

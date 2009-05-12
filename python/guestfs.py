@@ -820,6 +820,13 @@ class GuestFS:
         Subsequent elements are parameters. The list must be
         non-empty (ie. must contain a program name).
         
+        The return value is anything printed to *stdout* by the
+        command.
+        
+        If the command returns a non-zero exit status, then this
+        function returns an error message. The error message
+        string is the content of *stderr* from the command.
+        
         The $PATH environment variable will contain at least
         "/usr/bin" and "/bin". If you require a program from
         another location, you should provide the full path in
@@ -830,6 +837,10 @@ class GuestFS:
         the correct places. It is the caller's responsibility to
         ensure all filesystems that are needed are mounted at
         the right locations.
+        
+        Because of the message protocol, there is a transfer
+        limit of somewhere between 2MB and 4MB. To transfer
+        large files you should use FTP.
         """
         return libguestfsmod.command (self._o, arguments)
 
@@ -838,6 +849,10 @@ class GuestFS:
         into a list of lines.
         
         This function returns a list of strings.
+        
+        Because of the message protocol, there is a transfer
+        limit of somewhere between 2MB and 4MB. To transfer
+        large files you should use FTP.
         """
         return libguestfsmod.command_lines (self._o, arguments)
 
