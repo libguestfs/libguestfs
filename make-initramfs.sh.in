@@ -65,6 +65,12 @@ rm -f $koutput
 (cd initramfs && find -name '*python*' -print0) |
   xargs -0 @FEBOOTSTRAP_RUN@ initramfs -- rm -rf
 
+# In Fedora >= 11, it pulls in all of Perl from somewhere.  Nuke from orbit.
+@FEBOOTSTRAP_RUN@ initramfs -- rm -rf /usr/lib/perl5 /usr/lib64/perl5
+
+# Anaconda?  JPEG images?
+@FEBOOTSTRAP_RUN@ initramfs -- rm -rf /usr/lib/anaconda-runtime
+
 # Modules take up nearly half of the image.  It's a rough guess that
 # we don't need many drivers (which take up most of the space).
 (cd initramfs && find lib/modules/*/kernel \
