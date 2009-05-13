@@ -23,7 +23,8 @@
 
 set -e
 
-dd if=/dev/zero of=test1.img bs=1024k count=500
+rm -f test1.img
+dd if=/dev/zero of=test1.img bs=1024k count=1024
 
 n=20
 
@@ -35,3 +36,5 @@ for i in $(seq 1 $n); do
 done
 
 rm test1.img
+
+echo Test boot completed after $n iterations.
