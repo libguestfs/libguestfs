@@ -906,10 +906,9 @@ guestfs_launch (guestfs_h *g)
   addr.sun_path[UNIX_PATH_MAX-1] = '\0';
 
   tries = 100;
+  /* Always sleep at least once to give qemu a small chance to start up. */
+  usleep (10000);
   while (tries > 0) {
-    /* Always sleep at least once to give qemu a small chance to start up. */
-    usleep (10000);
-
     r = connect (g->sock, (struct sockaddr *) &addr, sizeof addr);
     if ((r == -1 && errno == EINPROGRESS) || r == 0)
       goto connected;
@@ -917,6 +916,7 @@ guestfs_launch (guestfs_h *g)
     if (errno != ENOENT)
       perrorf (g, "connect");
     tries--;
+    usleep (100000);
   }
 
   error (g, "failed to connect to vmchannel socket");
