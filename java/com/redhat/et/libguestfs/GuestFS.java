@@ -229,10 +229,6 @@ public class GuestFS {
    * You can also override this by setting the
    * "LIBGUESTFS_QEMU" environment variable.
    * 
-   * The string "qemu" is stashed in the libguestfs handle,
-   * so the caller must make sure it remains valid for the
-   * lifetime of the handle.
-   * 
    * Setting "qemu" to "NULL" restores the default qemu
    * binary.
    * 
@@ -277,10 +273,6 @@ public class GuestFS {
    * The default is "$libdir/guestfs" unless overridden by
    * setting "LIBGUESTFS_PATH" environment variable.
    * 
-   * The string "path" is stashed in the libguestfs handle,
-   * so the caller must make sure it remains valid for the
-   * lifetime of the handle.
-   * 
    * Setting "path" to "NULL" restores the default path.
    * 
    * @throws LibGuestFSException
@@ -323,10 +315,6 @@ public class GuestFS {
    * 
    * The default is "NULL" unless overridden by setting
    * "LIBGUESTFS_APPEND" environment variable.
-   * 
-   * The string "append" is stashed in the libguestfs handle,
-   * so the caller must make sure it remains valid for the
-   * lifetime of the handle.
    * 
    * Setting "append" to "NULL" means *no* additional options
    * are passed (libguestfs always adds a few of its own).

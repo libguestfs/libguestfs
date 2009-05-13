@@ -168,19 +168,19 @@ void display_command (const char *cmd)
     pod2text ("config - add qemu parameters", " config <qemuparam> <qemuvalue>\n\nThis can be used to add arbitrary qemu command line parameters\nof the form C<-param value>.  Actually it's not quite arbitrary - we\nprevent you from setting some parameters which would interfere with\nparameters that we use.\n\nThe first character of C<param> string must be a C<-> (dash).\n\nC<value> can be NULL.");
   else
   if (strcasecmp (cmd, "set_qemu") == 0 || strcasecmp (cmd, "set-qemu") == 0 || strcasecmp (cmd, "qemu") == 0)
-    pod2text ("set-qemu - set the qemu binary", " set-qemu <qemu>\n\nSet the qemu binary that we will use.\n\nThe default is chosen when the library was compiled by the\nconfigure script.\n\nYou can also override this by setting the C<LIBGUESTFS_QEMU>\nenvironment variable.\n\nThe string C<qemu> is stashed in the libguestfs handle, so the caller\nmust make sure it remains valid for the lifetime of the handle.\n\nSetting C<qemu> to C<NULL> restores the default qemu binary.\n\nYou can use 'qemu' as an alias for this command.");
+    pod2text ("set-qemu - set the qemu binary", " set-qemu <qemu>\n\nSet the qemu binary that we will use.\n\nThe default is chosen when the library was compiled by the\nconfigure script.\n\nYou can also override this by setting the C<LIBGUESTFS_QEMU>\nenvironment variable.\n\nSetting C<qemu> to C<NULL> restores the default qemu binary.\n\nYou can use 'qemu' as an alias for this command.");
   else
   if (strcasecmp (cmd, "get_qemu") == 0 || strcasecmp (cmd, "get-qemu") == 0)
     pod2text ("get-qemu - get the qemu binary", " get-qemu\n\nReturn the current qemu binary.\n\nThis is always non-NULL.  If it wasn't set already, then this will\nreturn the default qemu binary name.");
   else
   if (strcasecmp (cmd, "set_path") == 0 || strcasecmp (cmd, "set-path") == 0 || strcasecmp (cmd, "path") == 0)
-    pod2text ("set-path - set the search path", " set-path <path>\n\nSet the path that libguestfs searches for kernel and initrd.img.\n\nThe default is C<$libdir/guestfs> unless overridden by setting\nC<LIBGUESTFS_PATH> environment variable.\n\nThe string C<path> is stashed in the libguestfs handle, so the caller\nmust make sure it remains valid for the lifetime of the handle.\n\nSetting C<path> to C<NULL> restores the default path.\n\nYou can use 'path' as an alias for this command.");
+    pod2text ("set-path - set the search path", " set-path <path>\n\nSet the path that libguestfs searches for kernel and initrd.img.\n\nThe default is C<$libdir/guestfs> unless overridden by setting\nC<LIBGUESTFS_PATH> environment variable.\n\nSetting C<path> to C<NULL> restores the default path.\n\nYou can use 'path' as an alias for this command.");
   else
   if (strcasecmp (cmd, "get_path") == 0 || strcasecmp (cmd, "get-path") == 0)
     pod2text ("get-path - get the search path", " get-path\n\nReturn the current search path.\n\nThis is always non-NULL.  If it wasn't set already, then this will\nreturn the default path.");
   else
   if (strcasecmp (cmd, "set_append") == 0 || strcasecmp (cmd, "set-append") == 0 || strcasecmp (cmd, "append") == 0)
-    pod2text ("set-append - add options to kernel command line", " set-append <append>\n\nThis function is used to add additional options to the\nguest kernel command line.\n\nThe default is C<NULL> unless overridden by setting\nC<LIBGUESTFS_APPEND> environment variable.\n\nThe string C<append> is stashed in the libguestfs handle, so the caller\nmust make sure it remains valid for the lifetime of the handle.\n\nSetting C<append> to C<NULL> means I<no> additional options\nare passed (libguestfs always adds a few of its own).\n\nYou can use 'append' as an alias for this command.");
+    pod2text ("set-append - add options to kernel command line", " set-append <append>\n\nThis function is used to add additional options to the\nguest kernel command line.\n\nThe default is C<NULL> unless overridden by setting\nC<LIBGUESTFS_APPEND> environment variable.\n\nSetting C<append> to C<NULL> means I<no> additional options\nare passed (libguestfs always adds a few of its own).\n\nYou can use 'append' as an alias for this command.");
   else
   if (strcasecmp (cmd, "get_append") == 0 || strcasecmp (cmd, "get-append") == 0)
     pod2text ("get-append - get the additional kernel options", " get-append\n\nReturn the additional kernel options which are added to the\nguest kernel command line.\n\nIf C<NULL> then no options are added.");

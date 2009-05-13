@@ -158,10 +158,9 @@ struct guestfs_h
   int verbose;
   int autosync;
 
-  const char *path;
-  const char *qemu;
-
-  const char *append;		/* Append to kernel command line. */
+  char *path;			/* Path to kernel, initrd. */
+  char *qemu;			/* Qemu binary. */
+  char *append;			/* Append to kernel command line. */
 
   char *last_error;
 
@@ -222,13 +221,18 @@ guestfs_create (void)
   g->verbose = str != NULL && strcmp (str, "1") == 0;
 
   str = getenv ("LIBGUESTFS_PATH");
-  g->path = str != NULL ? str : GUESTFS_DEFAULT_PATH;
+  g->path = str != NULL ? strdup (str) : strdup (GUESTFS_DEFAULT_PATH);
+  if (!g->path) goto error;
 
   str = getenv ("LIBGUESTFS_QEMU");
-  g->qemu = str != NULL ? str : QEMU;
+  g->qemu = str != NULL ? strdup (str) : strdup (QEMU);
+  if (!g->qemu) goto error;
 
   str = getenv ("LIBGUESTFS_APPEND");
-  g->append = str;
+  if (str) {
+    g->append = strdup (str);
+    if (!g->append) goto error;
+  }
 
   g->main_loop = guestfs_get_default_main_loop ();
 
@@ -253,6 +257,13 @@ guestfs_create (void)
     fprintf (stderr, "new guestfs handle %p\n", g);
 
   return g;
+
+ error:
+  free (g->path);
+  free (g->qemu);
+  free (g->append);
+  free (g);
+  return NULL;
 }
 
 void
@@ -316,6 +327,9 @@ guestfs_close (guestfs_h *g)
   free (g->msg_in);
   free (g->msg_out);
   free (g->last_error);
+  free (g->path);
+  free (g->qemu);
+  free (g->append);
   free (g);
 }
 
@@ -516,10 +530,12 @@ guestfs_get_autosync (guestfs_h *g)
 int
 guestfs_set_path (guestfs_h *g, const char *path)
 {
-  if (path == NULL)
-    g->path = GUESTFS_DEFAULT_PATH;
-  else
-    g->path = path;
+  free (g->path);
+  g->path = NULL;
+
+  g->path =
+    path == NULL ?
+    safe_strdup (g, GUESTFS_DEFAULT_PATH) : safe_strdup (g, path);
   return 0;
 }
 
@@ -532,10 +548,10 @@ guestfs_get_path (guestfs_h *g)
 int
 guestfs_set_qemu (guestfs_h *g, const char *qemu)
 {
-  if (qemu == NULL)
-    g->qemu = QEMU;
-  else
-    g->qemu = qemu;
+  free (g->qemu);
+  g->qemu = NULL;
+
+  g->qemu = qemu == NULL ? safe_strdup (g, QEMU) : safe_strdup (g, qemu);
   return 0;
 }
 
@@ -548,7 +564,10 @@ guestfs_get_qemu (guestfs_h *g)
 int
 guestfs_set_append (guestfs_h *g, const char *append)
 {
-  g->append = append;
+  free (g->append);
+  g->append = NULL;
+
+  g->append = append ? safe_strdup (g, append) : NULL;
   return 0;
 }
 
@@ -773,7 +792,7 @@ guestfs_launch (guestfs_h *g)
     /* Set up the full command line.  Do this in the subprocess so we
      * don't need to worry about cleaning up.
      */
-    g->cmdline[0] = (char *) g->qemu;
+    g->cmdline[0] = g->qemu;
 
     /* Construct the -net channel parameter for qemu. */
     snprintf (vmchannel, sizeof vmchannel,

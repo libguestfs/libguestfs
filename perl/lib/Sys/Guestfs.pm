@@ -889,9 +889,6 @@ guest kernel command line.
 The default is C<NULL> unless overridden by setting
 C<LIBGUESTFS_APPEND> environment variable.
 
-The string C<append> is stashed in the libguestfs handle, so the caller
-must make sure it remains valid for the lifetime of the handle.
-
 Setting C<append> to C<NULL> means I<no> additional options
 are passed (libguestfs always adds a few of its own).
 
@@ -938,9 +935,6 @@ Set the path that libguestfs searches for kernel and initrd.img.
 The default is C<$libdir/guestfs> unless overridden by setting
 C<LIBGUESTFS_PATH> environment variable.
 
-The string C<path> is stashed in the libguestfs handle, so the caller
-must make sure it remains valid for the lifetime of the handle.
-
 Setting C<path> to C<NULL> restores the default path.
 
 =item $h->set_qemu ($qemu);
@@ -952,9 +946,6 @@ configure script.
 
 You can also override this by setting the C<LIBGUESTFS_QEMU>
 environment variable.
-
-The string C<qemu> is stashed in the libguestfs handle, so the caller
-must make sure it remains valid for the lifetime of the handle.
 
 Setting C<qemu> to C<NULL> restores the default qemu binary.
 
