@@ -192,6 +192,30 @@ class GuestFS:
         """
         return libguestfsmod.get_path (self._o)
 
+    def set_append (self, append):
+        u"""This function is used to add additional options to the
+        guest kernel command line.
+        
+        The default is "NULL" unless overridden by setting
+        "LIBGUESTFS_APPEND" environment variable.
+        
+        The string "append" is stashed in the libguestfs handle,
+        so the caller must make sure it remains valid for the
+        lifetime of the handle.
+        
+        Setting "append" to "NULL" means *no* additional options
+        are passed (libguestfs always adds a few of its own).
+        """
+        return libguestfsmod.set_append (self._o, append)
+
+    def get_append (self):
+        u"""Return the additional kernel options which are added to
+        the guest kernel command line.
+        
+        If "NULL" then no options are added.
+        """
+        return libguestfsmod.get_append (self._o)
+
     def set_autosync (self, autosync):
         u"""If "autosync" is true, this enables autosync. Libguestfs
         will make a best effort attempt to run "g.umount_all"

@@ -262,6 +262,44 @@ static VALUE ruby_guestfs_get_path (VALUE gv)
   return rb_str_new2 (r);
 }
 
+static VALUE ruby_guestfs_set_append (VALUE gv, VALUE appendv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "set_append");
+
+  const char *append = StringValueCStr (appendv);
+  if (!append)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "append", "set_append");
+
+  int r;
+
+  r = guestfs_set_append (g, append);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
+static VALUE ruby_guestfs_get_append (VALUE gv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "get_append");
+
+
+  const char *r;
+
+  r = guestfs_get_append (g);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return rb_str_new2 (r);
+}
+
 static VALUE ruby_guestfs_set_autosync (VALUE gv, VALUE autosyncv)
 {
   guestfs_h *g;
@@ -2877,6 +2915,10 @@ void Init__guestfs ()
         ruby_guestfs_set_path, 1);
   rb_define_method (c_guestfs, "get_path",
         ruby_guestfs_get_path, 0);
+  rb_define_method (c_guestfs, "set_append",
+        ruby_guestfs_set_append, 1);
+  rb_define_method (c_guestfs, "get_append",
+        ruby_guestfs_get_append, 0);
   rb_define_method (c_guestfs, "set_autosync",
         ruby_guestfs_set_autosync, 1);
   rb_define_method (c_guestfs, "get_autosync",

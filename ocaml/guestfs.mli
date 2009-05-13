@@ -154,6 +154,12 @@ val set_path : t -> string -> unit
 val get_path : t -> string
 (** get the search path *)
 
+val set_append : t -> string -> unit
+(** add options to kernel command line *)
+
+val get_append : t -> string
+(** get the additional kernel options *)
+
 val set_autosync : t -> bool -> unit
 (** set autosync mode *)
 

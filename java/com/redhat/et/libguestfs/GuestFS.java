@@ -316,6 +316,54 @@ public class GuestFS {
     throws LibGuestFSException;
 
   /**
+   * add options to kernel command line
+   *
+   * This function is used to add additional options to the
+   * guest kernel command line.
+   * 
+   * The default is "NULL" unless overridden by setting
+   * "LIBGUESTFS_APPEND" environment variable.
+   * 
+   * The string "append" is stashed in the libguestfs handle,
+   * so the caller must make sure it remains valid for the
+   * lifetime of the handle.
+   * 
+   * Setting "append" to "NULL" means *no* additional options
+   * are passed (libguestfs always adds a few of its own).
+   * 
+   * @throws LibGuestFSException
+   */
+  public void set_append (String append)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("set_append: handle is closed");
+    _set_append (g, append);
+  }
+  private native void _set_append (long g, String append)
+    throws LibGuestFSException;
+
+  /**
+   * get the additional kernel options
+   *
+   * Return the additional kernel options which are added to
+   * the guest kernel command line.
+   * 
+   * If "NULL" then no options are added.
+   * 
+   * @throws LibGuestFSException
+   */
+  public String get_append ()
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("get_append: handle is closed");
+    return _get_append (g);
+  }
+  private native String _get_append (long g)
+    throws LibGuestFSException;
+
+  /**
    * set autosync mode
    *
    * If "autosync" is true, this enables autosync. Libguestfs

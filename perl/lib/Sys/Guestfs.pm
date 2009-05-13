@@ -561,6 +561,13 @@ Checking or repairing NTFS volumes is not supported
 
 This command is entirely equivalent to running C<fsck -a -t fstype device>.
 
+=item $append = $h->get_append ();
+
+Return the additional kernel options which are added to the
+guest kernel command line.
+
+If C<NULL> then no options are added.
+
 =item $autosync = $h->get_autosync ();
 
 Get the autosync flag.
@@ -873,6 +880,20 @@ command.
 =item $h->rmdir ($path);
 
 Remove the single directory C<path>.
+
+=item $h->set_append ($append);
+
+This function is used to add additional options to the
+guest kernel command line.
+
+The default is C<NULL> unless overridden by setting
+C<LIBGUESTFS_APPEND> environment variable.
+
+The string C<append> is stashed in the libguestfs handle, so the caller
+must make sure it remains valid for the lifetime of the handle.
+
+Setting C<append> to C<NULL> means I<no> additional options
+are passed (libguestfs always adds a few of its own).
 
 =item $h->set_autosync ($autosync);
 

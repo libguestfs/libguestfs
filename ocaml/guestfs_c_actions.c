@@ -556,6 +556,51 @@ ocaml_guestfs_get_path (value gv)
 }
 
 CAMLprim value
+ocaml_guestfs_set_append (value gv, value appendv)
+{
+  CAMLparam2 (gv, appendv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("set_append: used handle after closing it");
+
+  const char *append = String_val (appendv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_set_append (g, append);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "set_append");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_get_append (value gv)
+{
+  CAMLparam1 (gv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("get_append: used handle after closing it");
+
+  const char *r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_get_append (g);
+  caml_leave_blocking_section ();
+  if (r == NULL)
+    ocaml_guestfs_raise_error (g, "get_append");
+
+  rv = caml_copy_string (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
 ocaml_guestfs_set_autosync (value gv, value autosyncv)
 {
   CAMLparam2 (gv, autosyncv);

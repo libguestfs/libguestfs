@@ -32,6 +32,7 @@ module Guestfs (
   config,
   set_qemu,
   set_path,
+  set_append,
   set_busy,
   set_ready,
   end_busy,
@@ -217,6 +218,18 @@ foreign import ccall unsafe "guestfs_set_path" c_set_path
 set_path :: GuestfsH -> String -> IO ()
 set_path h path = do
   r <- withCString path $ \path -> withForeignPtr h (\p -> c_set_path p path)
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return ()
+
+foreign import ccall unsafe "guestfs_set_append" c_set_append
+  :: GuestfsP -> CString -> IO (CInt)
+
+set_append :: GuestfsH -> String -> IO ()
+set_append h append = do
+  r <- withCString append $ \append -> withForeignPtr h (\p -> c_set_append p append)
   if (r == -1)
     then do
       err <- last_error h

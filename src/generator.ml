@@ -342,6 +342,31 @@ Return the current search path.
 This is always non-NULL.  If it wasn't set already, then this will
 return the default path.");
 
+  ("set_append", (RErr, [String "append"]), -1, [FishAlias "append"],
+   [],
+   "add options to kernel command line",
+   "\
+This function is used to add additional options to the
+guest kernel command line.
+
+The default is C<NULL> unless overridden by setting
+C<LIBGUESTFS_APPEND> environment variable.
+
+The string C<append> is stashed in the libguestfs handle, so the caller
+must make sure it remains valid for the lifetime of the handle.
+
+Setting C<append> to C<NULL> means I<no> additional options
+are passed (libguestfs always adds a few of its own).");
+
+  ("get_append", (RConstString "append", []), -1, [],
+   [],
+   "get the additional kernel options",
+   "\
+Return the additional kernel options which are added to the
+guest kernel command line.
+
+If C<NULL> then no options are added.");
+
   ("set_autosync", (RErr, [Bool "autosync"]), -1, [FishAlias "autosync"],
    [],
    "set autosync mode",

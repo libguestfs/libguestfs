@@ -73,6 +73,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "exists", "test if file or directory exists");
   printf ("%-20s %s\n", "file", "determine file type");
   printf ("%-20s %s\n", "fsck", "run the filesystem checker");
+  printf ("%-20s %s\n", "get-append", "get the additional kernel options");
   printf ("%-20s %s\n", "get-autosync", "get autosync mode");
   printf ("%-20s %s\n", "get-e2label", "get the ext2/3/4 filesystem label");
   printf ("%-20s %s\n", "get-e2uuid", "get the ext2/3/4 filesystem UUID");
@@ -118,6 +119,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "rm", "remove a file");
   printf ("%-20s %s\n", "rm-rf", "remove a file or directory recursively");
   printf ("%-20s %s\n", "rmdir", "remove a directory");
+  printf ("%-20s %s\n", "set-append", "add options to kernel command line");
   printf ("%-20s %s\n", "set-autosync", "set autosync mode");
   printf ("%-20s %s\n", "set-e2label", "set the ext2/3/4 filesystem label");
   printf ("%-20s %s\n", "set-e2uuid", "set the ext2/3/4 filesystem UUID");
@@ -176,6 +178,12 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "get_path") == 0 || strcasecmp (cmd, "get-path") == 0)
     pod2text ("get-path - get the search path", " get-path\n\nReturn the current search path.\n\nThis is always non-NULL.  If it wasn't set already, then this will\nreturn the default path.");
+  else
+  if (strcasecmp (cmd, "set_append") == 0 || strcasecmp (cmd, "set-append") == 0 || strcasecmp (cmd, "append") == 0)
+    pod2text ("set-append - add options to kernel command line", " set-append <append>\n\nThis function is used to add additional options to the\nguest kernel command line.\n\nThe default is C<NULL> unless overridden by setting\nC<LIBGUESTFS_APPEND> environment variable.\n\nThe string C<append> is stashed in the libguestfs handle, so the caller\nmust make sure it remains valid for the lifetime of the handle.\n\nSetting C<append> to C<NULL> means I<no> additional options\nare passed (libguestfs always adds a few of its own).\n\nYou can use 'append' as an alias for this command.");
+  else
+  if (strcasecmp (cmd, "get_append") == 0 || strcasecmp (cmd, "get-append") == 0)
+    pod2text ("get-append - get the additional kernel options", " get-append\n\nReturn the additional kernel options which are added to the\nguest kernel command line.\n\nIf C<NULL> then no options are added.");
   else
   if (strcasecmp (cmd, "set_autosync") == 0 || strcasecmp (cmd, "set-autosync") == 0 || strcasecmp (cmd, "autosync") == 0)
     pod2text ("set-autosync - set autosync mode", " set-autosync <autosync>\n\nIf C<autosync> is true, this enables autosync.  Libguestfs will make a\nbest effort attempt to run C<umount_all> followed by\nC<sync> when the handle is closed\n(also if the program exits without closing handles).\n\nThis is disabled by default (except in guestfish where it is\nenabled by default).\n\nYou can use 'autosync' as an alias for this command.");
@@ -748,6 +756,34 @@ static int run_get_path (const char *cmd, int argc, char *argv[])
     return -1;
   }
   r = guestfs_get_path (g);
+  if (r == NULL) return -1;
+  printf ("%s\n", r);
+  return 0;
+}
+
+static int run_set_append (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *append;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  append = argv[0];
+  r = guestfs_set_append (g, append);
+  return r;
+}
+
+static int run_get_append (const char *cmd, int argc, char *argv[])
+{
+  const char *r;
+  if (argc != 0) {
+    fprintf (stderr, "%s should have 0 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  r = guestfs_get_append (g);
   if (r == NULL) return -1;
   printf ("%s\n", r);
   return 0;
@@ -2430,6 +2466,12 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "get_path") == 0 || strcasecmp (cmd, "get-path") == 0)
     return run_get_path (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "set_append") == 0 || strcasecmp (cmd, "set-append") == 0 || strcasecmp (cmd, "append") == 0)
+    return run_set_append (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "get_append") == 0 || strcasecmp (cmd, "get-append") == 0)
+    return run_get_append (cmd, argc, argv);
   else
   if (strcasecmp (cmd, "set_autosync") == 0 || strcasecmp (cmd, "set-autosync") == 0 || strcasecmp (cmd, "autosync") == 0)
     return run_set_autosync (cmd, argc, argv);

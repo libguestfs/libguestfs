@@ -678,6 +678,10 @@ used.
 
 See also L<QEMU WRAPPERS> above.
 
+=item LIBGUESTFS_APPEND
+
+Pass additional options to the guest kernel.
+
 =back
 
 =head1 SEE ALSO

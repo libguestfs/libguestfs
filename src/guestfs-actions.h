@@ -29,6 +29,8 @@ extern int guestfs_set_qemu (guestfs_h *handle, const char *qemu);
 extern const char *guestfs_get_qemu (guestfs_h *handle);
 extern int guestfs_set_path (guestfs_h *handle, const char *path);
 extern const char *guestfs_get_path (guestfs_h *handle);
+extern int guestfs_set_append (guestfs_h *handle, const char *append);
+extern const char *guestfs_get_append (guestfs_h *handle);
 extern int guestfs_set_autosync (guestfs_h *handle, int autosync);
 extern int guestfs_get_autosync (guestfs_h *handle);
 extern int guestfs_set_verbose (guestfs_h *handle, int verbose);

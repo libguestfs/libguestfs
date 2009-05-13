@@ -222,6 +222,38 @@ Java_com_redhat_et_libguestfs_GuestFS__1get_1path
 }
 
 JNIEXPORT void JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1set_1append
+  (JNIEnv *env, jobject obj, jlong jg, jstring jappend)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+  const char *append;
+
+  append = (*env)->GetStringUTFChars (env, jappend, NULL);
+  r = guestfs_set_append (g, append);
+  (*env)->ReleaseStringUTFChars (env, jappend, append);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return ;
+  }
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1get_1append
+  (JNIEnv *env, jobject obj, jlong jg)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  const char *r;
+
+  r = guestfs_get_append (g);
+  if (r == NULL) {
+    throw_exception (env, guestfs_last_error (g));
+    return NULL;
+  }
+  return (*env)->NewStringUTF (env, r);
+}
+
+JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1set_1autosync
   (JNIEnv *env, jobject obj, jlong jg, jboolean jautosync)
 {

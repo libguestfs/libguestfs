@@ -72,6 +72,8 @@ static void no_test_warnings (void)
   fprintf (stderr, "warning: \"guestfs_get_qemu\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_set_path\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_get_path\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_set_append\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_get_append\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_set_autosync\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_get_autosync\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_set_verbose\" has no tests\n");

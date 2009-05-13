@@ -219,6 +219,30 @@ PREINIT:
       RETVAL
 
 void
+set_append (g, append)
+      guestfs_h *g;
+      char *append;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_set_append (g, append);
+      if (r == -1)
+        croak ("set_append: %s", guestfs_last_error (g));
+
+SV *
+get_append (g)
+      guestfs_h *g;
+PREINIT:
+      const char *append;
+   CODE:
+      append = guestfs_get_append (g);
+      if (append == NULL)
+        croak ("get_append: %s", guestfs_last_error (g));
+      RETVAL = newSVpv (append, 0);
+ OUTPUT:
+      RETVAL
+
+void
 set_autosync (g, autosync)
       guestfs_h *g;
       int autosync;

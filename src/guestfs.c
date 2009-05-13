@@ -161,6 +161,8 @@ struct guestfs_h
   const char *path;
   const char *qemu;
 
+  const char *append;		/* Append to kernel command line. */
+
   char *last_error;
 
   /* Callbacks. */
@@ -224,6 +226,9 @@ guestfs_create (void)
 
   str = getenv ("LIBGUESTFS_QEMU");
   g->qemu = str != NULL ? str : QEMU;
+
+  str = getenv ("LIBGUESTFS_APPEND");
+  g->append = str;
 
   g->main_loop = guestfs_get_default_main_loop ();
 
@@ -540,6 +545,19 @@ guestfs_get_qemu (guestfs_h *g)
   return g->qemu;
 }
 
+int
+guestfs_set_append (guestfs_h *g, const char *append)
+{
+  g->append = append;
+  return 0;
+}
+
+const char *
+guestfs_get_append (guestfs_h *g)
+{
+  return g->append;
+}
+
 /* Add a string to the current command line. */
 static void
 incr_cmdline_size (guestfs_h *g)
@@ -764,9 +782,10 @@ guestfs_launch (guestfs_h *g)
 
     /* Linux kernel command line. */
     snprintf (append, sizeof append,
-	      "panic=1 console=ttyS0 guestfs=%s:%d%s",
+	      "panic=1 console=ttyS0 guestfs=%s:%d%s%s%s",
 	      VMCHANNEL_ADDR, VMCHANNEL_PORT,
-	      g->verbose ? " guestfs_verbose=1" : "");
+	      g->verbose ? " guestfs_verbose=1" : "",
+	      g->append ? " " : "", g->append ? g->append : "");
 
     snprintf (memsize_str, sizeof memsize_str, "%d", memsize);
 
