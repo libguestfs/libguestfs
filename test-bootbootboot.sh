@@ -21,6 +21,8 @@
 # which doesn't have the required KVM patches).  Test repeatedly
 # booting.
 
+set -e
+
 dd if=/dev/zero of=test1.img bs=1024k count=500
 
 n=20
