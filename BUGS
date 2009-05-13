@@ -55,3 +55,10 @@ quite hard to fix cleanly.
 [perl] Perl bindings cause a segfault when you call any command which
 takes a StringList (eg. $g->command).
 [should be fixed now]
+
+[libguestfs] OptString parameters in the bindings are often not
+handled correctly.  For example in OCaml (but this is NOT exclusive
+to OCaml), OptString should become 'string option'.
+
+[libguestfs] Certain functions such as 'set-path' can take NULL
+parameters, but the parameters are not OptString.
