@@ -97,7 +97,7 @@ make-initramfs.sh: make-initramfs.sh.in
 
 check_PROGRAMS = tests test-command
 
-tests_SOURCES = tests.c
+tests_SOURCES = tests.c test-bootbootboot.sh
 tests_CFLAGS = \
 	-I$(top_builddir)/src -Wall
 tests_LDADD = $(top_builddir)/src/libguestfs.la
