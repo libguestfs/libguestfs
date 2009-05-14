@@ -62,3 +62,9 @@ to OCaml), OptString should become 'string option'.
 
 [libguestfs] Certain functions such as 'set-path' can take NULL
 parameters, but the parameters are not OptString.
+
+[tests] command and command-lines tests fail if test-command binary
+cannot be statically linked by libtool.
+
+[tests] Should be possible to conditionally skip tests based on a
+runtime check.
