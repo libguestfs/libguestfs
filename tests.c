@@ -296,6 +296,12 @@ static int test_strings_e_0 (void)
   return 0;
 }
 
+static int test_strings_e_1 (void)
+{
+  printf ("%s skipped (test disabled in generator)\n", "test_strings_e_1");
+  return 0;
+}
+
 static int test_strings_0 (void)
 {
   /* InitBasicFS for strings (0): create ext2 on /dev/sda1 */
@@ -12812,7 +12818,7 @@ int main (int argc, char *argv[])
     free (devs[i]);
   free (devs);
 
-  nr_tests = 134;
+  nr_tests = 135;
 
   test_num++;
   printf ("%3d/%3d test_hexdump_0\n", test_num, nr_tests);
@@ -12824,6 +12830,12 @@ int main (int argc, char *argv[])
   printf ("%3d/%3d test_strings_e_0\n", test_num, nr_tests);
   if (test_strings_e_0 () == -1) {
     printf ("test_strings_e_0 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_strings_e_1\n", test_num, nr_tests);
+  if (test_strings_e_1 () == -1) {
+    printf ("test_strings_e_1 FAILED\n");
     failed++;
   }
   test_num++;

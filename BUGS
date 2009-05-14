@@ -64,7 +64,8 @@ to OCaml), OptString should become 'string option'.
 parameters, but the parameters are not OptString.
 
 [tests] command and command-lines tests fail if test-command binary
-cannot be statically linked by libtool.
+cannot be statically linked by libtool.  The workaround is to install
+glibc-static.
 
 [tests] Should be possible to conditionally skip tests based on a
 runtime check.

@@ -148,8 +148,14 @@ can easily destroy all your data>."
  *
  * Don't assume anything about the previous contents of the block
  * devices.  Use 'Init*' to create some initial scenarios.
+ *
+ * You can add a prerequisite clause to any individual test.  This
+ * is a run-time check, which, if it fails, causes the test to be
+ * skipped.  Useful if testing a command which might not work on
+ * all variations of libguestfs builds.  A test that has prerequisite
+ * of 'Always' is run unconditionally.
  *)
-type tests = (test_init * test) list
+type tests = (test_init * test_prereq * test) list
 and test =
     (* Run the command sequence and just expect nothing to fail. *)
   | TestRun of seq
@@ -192,6 +198,15 @@ and test_field_compare =
   | CompareWithString of string * string
   | CompareFieldsIntEq of string * string
   | CompareFieldsStrEq of string * string
+
+(* Test prerequisites. *)
+and test_prereq =
+    (* Test always runs. *)
+  | Always
+    (* Test is currently disabled - eg. it fails, or it tests some
+     * unimplemented feature.
+     *)
+  | Disabled
 
 (* Some initial scenarios for testing. *)
 and test_init =
@@ -468,7 +483,7 @@ For more information on states, see L<guestfs(3)>.");
 
 let daemon_functions = [
   ("mount", (RErr, [String "device"; String "mountpoint"]), 1, [],
-   [InitEmpty, TestOutput (
+   [InitEmpty, Always, TestOutput (
       [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
        ["mkfs"; "ext2"; "/dev/sda1"];
        ["mount"; "/dev/sda1"; "/"];
@@ -494,7 +509,7 @@ The filesystem options C<sync> and C<noatime> are set with this
 call, in order to improve reliability.");
 
   ("sync", (RErr, []), 2, [],
-   [ InitEmpty, TestRun [["sync"]]],
+   [ InitEmpty, Always, TestRun [["sync"]]],
    "sync disks, writes are flushed through to the disk image",
    "\
 This syncs the disk, so that any writes are flushed through to the
@@ -504,7 +519,7 @@ You should always call this if you have modified a disk image, before
 closing the handle.");
 
   ("touch", (RErr, [String "path"]), 3, [],
-   [InitBasicFS, TestOutputTrue (
+   [InitBasicFS, Always, TestOutputTrue (
       [["touch"; "/new"];
        ["exists"; "/new"]])],
    "update file timestamps or create a new file",
@@ -514,7 +529,7 @@ update the timestamps on a file, or, if the file does not exist,
 to create a new zero-length file.");
 
   ("cat", (RString "content", [String "path"]), 4, [ProtocolLimitWarning],
-   [InitBasicFS, TestOutput (
+   [InitBasicFS, Always, TestOutput (
       [["write_file"; "/new"; "new file contents"; "0"];
        ["cat"; "/new"]], "new file contents")],
    "list the contents of a file",
@@ -539,7 +554,7 @@ This command is mostly useful for interactive sessions.  It
 is I<not> intended that you try to parse the output string.");
 
   ("ls", (RStringList "listing", [String "directory"]), 6, [],
-   [InitBasicFS, TestOutputList (
+   [InitBasicFS, Always, TestOutputList (
       [["touch"; "/new"];
        ["touch"; "/newer"];
        ["touch"; "/newest"];
@@ -554,7 +569,7 @@ This command is mostly useful for interactive sessions.  Programs
 should probably use C<guestfs_readdir> instead.");
 
   ("list_devices", (RStringList "devices", []), 7, [],
-   [InitEmpty, TestOutputList (
+   [InitEmpty, Always, TestOutputList (
       [["list_devices"]], ["/dev/sda"; "/dev/sdb"; "/dev/sdc"])],
    "list the block devices",
    "\
@@ -563,9 +578,9 @@ List all the block devices.
 The full block device names are returned, eg. C</dev/sda>");
 
   ("list_partitions", (RStringList "partitions", []), 8, [],
-   [InitBasicFS, TestOutputList (
+   [InitBasicFS, Always, TestOutputList (
       [["list_partitions"]], ["/dev/sda1"]);
-    InitEmpty, TestOutputList (
+    InitEmpty, Always, TestOutputList (
       [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
        ["list_partitions"]], ["/dev/sda1"; "/dev/sda2"; "/dev/sda3"])],
    "list the partitions",
@@ -578,9 +593,9 @@ This does not return logical volumes.  For that you will need to
 call C<guestfs_lvs>.");
 
   ("pvs", (RStringList "physvols", []), 9, [],
-   [InitBasicFSonLVM, TestOutputList (
+   [InitBasicFSonLVM, Always, TestOutputList (
       [["pvs"]], ["/dev/sda1"]);
-    InitEmpty, TestOutputList (
+    InitEmpty, Always, TestOutputList (
       [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
@@ -597,9 +612,9 @@ PVs (eg. C</dev/sda2>).
 See also C<guestfs_pvs_full>.");
 
   ("vgs", (RStringList "volgroups", []), 10, [],
-   [InitBasicFSonLVM, TestOutputList (
+   [InitBasicFSonLVM, Always, TestOutputList (
       [["vgs"]], ["VG"]);
-    InitEmpty, TestOutputList (
+    InitEmpty, Always, TestOutputList (
       [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
@@ -618,9 +633,9 @@ detected (eg. C<VolGroup00>).
 See also C<guestfs_vgs_full>.");
 
   ("lvs", (RStringList "logvols", []), 11, [],
-   [InitBasicFSonLVM, TestOutputList (
+   [InitBasicFSonLVM, Always, TestOutputList (
       [["lvs"]], ["/dev/VG/LV"]);
-    InitEmpty, TestOutputList (
+    InitEmpty, Always, TestOutputList (
       [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
@@ -663,10 +678,10 @@ List all the logical volumes detected.  This is the equivalent
 of the L<lvs(8)> command.  The \"full\" version includes all fields.");
 
   ("read_lines", (RStringList "lines", [String "path"]), 15, [],
-   [InitBasicFS, TestOutputList (
+   [InitBasicFS, Always, TestOutputList (
       [["write_file"; "/new"; "line1\r\nline2\nline3"; "0"];
        ["read_lines"; "/new"]], ["line1"; "line2"; "line3"]);
-    InitBasicFS, TestOutputList (
+    InitBasicFS, Always, TestOutputList (
       [["write_file"; "/new"; ""; "0"];
        ["read_lines"; "/new"]], [])],
    "read file as lines",
@@ -841,12 +856,12 @@ This is just a shortcut for listing C<guestfs_aug_match>
 C<path/*> and sorting the resulting nodes into alphabetical order.");
 
   ("rm", (RErr, [String "path"]), 29, [],
-   [InitBasicFS, TestRun
+   [InitBasicFS, Always, TestRun
       [["touch"; "/new"];
        ["rm"; "/new"]];
-    InitBasicFS, TestLastFail
+    InitBasicFS, Always, TestLastFail
       [["rm"; "/new"]];
-    InitBasicFS, TestLastFail
+    InitBasicFS, Always, TestLastFail
       [["mkdir"; "/new"];
        ["rm"; "/new"]]],
    "remove a file",
@@ -854,12 +869,12 @@ C<path/*> and sorting the resulting nodes into alphabetical order.");
 Remove the single file C<path>.");
 
   ("rmdir", (RErr, [String "path"]), 30, [],
-   [InitBasicFS, TestRun
+   [InitBasicFS, Always, TestRun
       [["mkdir"; "/new"];
        ["rmdir"; "/new"]];
-    InitBasicFS, TestLastFail
+    InitBasicFS, Always, TestLastFail
       [["rmdir"; "/new"]];
-    InitBasicFS, TestLastFail
+    InitBasicFS, Always, TestLastFail
       [["touch"; "/new"];
        ["rmdir"; "/new"]]],
    "remove a directory",
@@ -867,7 +882,7 @@ Remove the single file C<path>.");
 Remove the single directory C<path>.");
 
   ("rm_rf", (RErr, [String "path"]), 31, [],
-   [InitBasicFS, TestOutputFalse
+   [InitBasicFS, Always, TestOutputFalse
       [["mkdir"; "/new"];
        ["mkdir"; "/new/foo"];
        ["touch"; "/new/foo/bar"];
@@ -880,23 +895,23 @@ contents if its a directory.  This is like the C<rm -rf> shell
 command.");
 
   ("mkdir", (RErr, [String "path"]), 32, [],
-   [InitBasicFS, TestOutputTrue
+   [InitBasicFS, Always, TestOutputTrue
       [["mkdir"; "/new"];
        ["is_dir"; "/new"]];
-    InitBasicFS, TestLastFail
+    InitBasicFS, Always, TestLastFail
       [["mkdir"; "/new/foo/bar"]]],
    "create a directory",
    "\
 Create a directory named C<path>.");
 
   ("mkdir_p", (RErr, [String "path"]), 33, [],
-   [InitBasicFS, TestOutputTrue
+   [InitBasicFS, Always, TestOutputTrue
       [["mkdir_p"; "/new/foo/bar"];
        ["is_dir"; "/new/foo/bar"]];
-    InitBasicFS, TestOutputTrue
+    InitBasicFS, Always, TestOutputTrue
       [["mkdir_p"; "/new/foo/bar"];
        ["is_dir"; "/new/foo"]];
-    InitBasicFS, TestOutputTrue
+    InitBasicFS, Always, TestOutputTrue
       [["mkdir_p"; "/new/foo/bar"];
        ["is_dir"; "/new"]]],
    "create a directory and parents",
@@ -922,10 +937,10 @@ names, you will need to locate and parse the password file
 yourself (Augeas support makes this relatively easy).");
 
   ("exists", (RBool "existsflag", [String "path"]), 36, [],
-   [InitBasicFS, TestOutputTrue (
+   [InitBasicFS, Always, TestOutputTrue (
       [["touch"; "/new"];
        ["exists"; "/new"]]);
-    InitBasicFS, TestOutputTrue (
+    InitBasicFS, Always, TestOutputTrue (
       [["mkdir"; "/new"];
        ["exists"; "/new"]])],
    "test if file or directory exists",
@@ -936,10 +951,10 @@ This returns C<true> if and only if there is a file, directory
 See also C<guestfs_is_file>, C<guestfs_is_dir>, C<guestfs_stat>.");
 
   ("is_file", (RBool "fileflag", [String "path"]), 37, [],
-   [InitBasicFS, TestOutputTrue (
+   [InitBasicFS, Always, TestOutputTrue (
       [["touch"; "/new"];
        ["is_file"; "/new"]]);
-    InitBasicFS, TestOutputFalse (
+    InitBasicFS, Always, TestOutputFalse (
       [["mkdir"; "/new"];
        ["is_file"; "/new"]])],
    "test if file exists",
@@ -951,10 +966,10 @@ other objects like directories.
 See also C<guestfs_stat>.");
 
   ("is_dir", (RBool "dirflag", [String "path"]), 38, [],
-   [InitBasicFS, TestOutputFalse (
+   [InitBasicFS, Always, TestOutputFalse (
       [["touch"; "/new"];
        ["is_dir"; "/new"]]);
-    InitBasicFS, TestOutputTrue (
+    InitBasicFS, Always, TestOutputTrue (
       [["mkdir"; "/new"];
        ["is_dir"; "/new"]])],
    "test if file exists",
@@ -966,7 +981,7 @@ other objects like files.
 See also C<guestfs_stat>.");
 
   ("pvcreate", (RErr, [String "device"]), 39, [],
-   [InitEmpty, TestOutputList (
+   [InitEmpty, Always, TestOutputList (
       [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
@@ -979,7 +994,7 @@ where C<device> should usually be a partition name such
 as C</dev/sda1>.");
 
   ("vgcreate", (RErr, [String "volgroup"; StringList "physvols"]), 40, [],
-   [InitEmpty, TestOutputList (
+   [InitEmpty, Always, TestOutputList (
       [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
@@ -993,7 +1008,7 @@ This creates an LVM volume group called C<volgroup>
 from the non-empty list of physical volumes C<physvols>.");
 
   ("lvcreate", (RErr, [String "logvol"; String "volgroup"; Int "mbytes"]), 41, [],
-   [InitEmpty, TestOutputList (
+   [InitEmpty, Always, TestOutputList (
       [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
@@ -1014,7 +1029,7 @@ This creates an LVM volume group called C<logvol>
 on the volume group C<volgroup>, with C<size> megabytes.");
 
   ("mkfs", (RErr, [String "fstype"; String "device"]), 42, [],
-   [InitEmpty, TestOutput (
+   [InitEmpty, Always, TestOutput (
       [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
        ["mkfs"; "ext2"; "/dev/sda1"];
        ["mount"; "/dev/sda1"; "/"];
@@ -1053,22 +1068,22 @@ pass C<lines> as a single element list, when the single element being
 the string C<,> (comma).");
 
   ("write_file", (RErr, [String "path"; String "content"; Int "size"]), 44, [ProtocolLimitWarning],
-   [InitBasicFS, TestOutput (
+   [InitBasicFS, Always, TestOutput (
       [["write_file"; "/new"; "new file contents"; "0"];
        ["cat"; "/new"]], "new file contents");
-    InitBasicFS, TestOutput (
+    InitBasicFS, Always, TestOutput (
       [["write_file"; "/new"; "\nnew file contents\n"; "0"];
        ["cat"; "/new"]], "\nnew file contents\n");
-    InitBasicFS, TestOutput (
+    InitBasicFS, Always, TestOutput (
       [["write_file"; "/new"; "\n\n"; "0"];
        ["cat"; "/new"]], "\n\n");
-    InitBasicFS, TestOutput (
+    InitBasicFS, Always, TestOutput (
       [["write_file"; "/new"; ""; "0"];
        ["cat"; "/new"]], "");
-    InitBasicFS, TestOutput (
+    InitBasicFS, Always, TestOutput (
       [["write_file"; "/new"; "\n\n\n"; "0"];
        ["cat"; "/new"]], "\n\n\n");
-    InitBasicFS, TestOutput (
+    InitBasicFS, Always, TestOutput (
       [["write_file"; "/new"; "\n"; "0"];
        ["cat"; "/new"]], "\n")],
    "create a file",
@@ -1087,12 +1102,12 @@ We hope to resolve this bug in a future version.  In the meantime
 use C<guestfs_upload>.");
 
   ("umount", (RErr, [String "pathordevice"]), 45, [FishAlias "unmount"],
-   [InitEmpty, TestOutputList (
+   [InitEmpty, Always, TestOutputList (
       [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
        ["mkfs"; "ext2"; "/dev/sda1"];
        ["mount"; "/dev/sda1"; "/"];
        ["mounts"]], ["/dev/sda1"]);
-    InitEmpty, TestOutputList (
+    InitEmpty, Always, TestOutputList (
       [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
        ["mkfs"; "ext2"; "/dev/sda1"];
        ["mount"; "/dev/sda1"; "/"];
@@ -1105,7 +1120,7 @@ specified either by its mountpoint (path) or the device which
 contains the filesystem.");
 
   ("mounts", (RStringList "devices", []), 46, [],
-   [InitBasicFS, TestOutputList (
+   [InitBasicFS, Always, TestOutputList (
       [["mounts"]], ["/dev/sda1"])],
    "show mounted filesystems",
    "\
@@ -1115,11 +1130,11 @@ the list of devices (eg. C</dev/sda1>, C</dev/VG/LV>).
 Some internal mounts are not shown.");
 
   ("umount_all", (RErr, []), 47, [FishAlias "unmount-all"],
-   [InitBasicFS, TestOutputList (
+   [InitBasicFS, Always, TestOutputList (
       [["umount_all"];
        ["mounts"]], []);
     (* check that umount_all can unmount nested mounts correctly: *)
-    InitEmpty, TestOutputList (
+    InitEmpty, Always, TestOutputList (
       [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
        ["mkfs"; "ext2"; "/dev/sda1"];
        ["mkfs"; "ext2"; "/dev/sda2"];
@@ -1146,13 +1161,13 @@ This command removes all LVM logical volumes, volume groups
 and physical volumes.");
 
   ("file", (RString "description", [String "path"]), 49, [],
-   [InitBasicFS, TestOutput (
+   [InitBasicFS, Always, TestOutput (
       [["touch"; "/new"];
        ["file"; "/new"]], "empty");
-    InitBasicFS, TestOutput (
+    InitBasicFS, Always, TestOutput (
       [["write_file"; "/new"; "some content\n"; "0"];
        ["file"; "/new"]], "ASCII text");
-    InitBasicFS, TestLastFail (
+    InitBasicFS, Always, TestLastFail (
       [["file"; "/nofile"]])],
    "determine file type",
    "\
@@ -1165,51 +1180,51 @@ particular that the filename is not prepended to the output
 (the C<-b> option).");
 
   ("command", (RString "output", [StringList "arguments"]), 50, [ProtocolLimitWarning],
-   [InitBasicFS, TestOutput (
+   [InitBasicFS, Always, TestOutput (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command"; "/test-command 1"]], "Result1");
-    InitBasicFS, TestOutput (
+    InitBasicFS, Always, TestOutput (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command"; "/test-command 2"]], "Result2\n");
-    InitBasicFS, TestOutput (
+    InitBasicFS, Always, TestOutput (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command"; "/test-command 3"]], "\nResult3");
-    InitBasicFS, TestOutput (
+    InitBasicFS, Always, TestOutput (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command"; "/test-command 4"]], "\nResult4\n");
-    InitBasicFS, TestOutput (
+    InitBasicFS, Always, TestOutput (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command"; "/test-command 5"]], "\nResult5\n\n");
-    InitBasicFS, TestOutput (
+    InitBasicFS, Always, TestOutput (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command"; "/test-command 6"]], "\n\nResult6\n\n");
-    InitBasicFS, TestOutput (
+    InitBasicFS, Always, TestOutput (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command"; "/test-command 7"]], "");
-    InitBasicFS, TestOutput (
+    InitBasicFS, Always, TestOutput (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command"; "/test-command 8"]], "\n");
-    InitBasicFS, TestOutput (
+    InitBasicFS, Always, TestOutput (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command"; "/test-command 9"]], "\n\n");
-    InitBasicFS, TestOutput (
+    InitBasicFS, Always, TestOutput (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command"; "/test-command 10"]], "Result10-1\nResult10-2\n");
-    InitBasicFS, TestOutput (
+    InitBasicFS, Always, TestOutput (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command"; "/test-command 11"]], "Result11-1\nResult11-2");
-    InitBasicFS, TestLastFail (
+    InitBasicFS, Always, TestLastFail (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command"; "/test-command"]])],
@@ -1244,47 +1259,47 @@ all filesystems that are needed are mounted at the right
 locations.");
 
   ("command_lines", (RStringList "lines", [StringList "arguments"]), 51, [ProtocolLimitWarning],
-   [InitBasicFS, TestOutputList (
+   [InitBasicFS, Always, TestOutputList (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command_lines"; "/test-command 1"]], ["Result1"]);
-    InitBasicFS, TestOutputList (
+    InitBasicFS, Always, TestOutputList (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command_lines"; "/test-command 2"]], ["Result2"]);
-    InitBasicFS, TestOutputList (
+    InitBasicFS, Always, TestOutputList (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command_lines"; "/test-command 3"]], ["";"Result3"]);
-    InitBasicFS, TestOutputList (
+    InitBasicFS, Always, TestOutputList (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command_lines"; "/test-command 4"]], ["";"Result4"]);
-    InitBasicFS, TestOutputList (
+    InitBasicFS, Always, TestOutputList (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command_lines"; "/test-command 5"]], ["";"Result5";""]);
-    InitBasicFS, TestOutputList (
+    InitBasicFS, Always, TestOutputList (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command_lines"; "/test-command 6"]], ["";"";"Result6";""]);
-    InitBasicFS, TestOutputList (
+    InitBasicFS, Always, TestOutputList (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command_lines"; "/test-command 7"]], []);
-    InitBasicFS, TestOutputList (
+    InitBasicFS, Always, TestOutputList (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command_lines"; "/test-command 8"]], [""]);
-    InitBasicFS, TestOutputList (
+    InitBasicFS, Always, TestOutputList (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command_lines"; "/test-command 9"]], ["";""]);
-    InitBasicFS, TestOutputList (
+    InitBasicFS, Always, TestOutputList (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command_lines"; "/test-command 10"]], ["Result10-1";"Result10-2"]);
-    InitBasicFS, TestOutputList (
+    InitBasicFS, Always, TestOutputList (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command_lines"; "/test-command 11"]], ["Result11-1";"Result11-2"])],
@@ -1294,7 +1309,7 @@ This is the same as C<guestfs_command>, but splits the
 result into a list of lines.");
 
   ("stat", (RStat "statbuf", [String "path"]), 52, [],
-   [InitBasicFS, TestOutputStruct (
+   [InitBasicFS, Always, TestOutputStruct (
       [["touch"; "/new"];
        ["stat"; "/new"]], [CompareWithInt ("size", 0)])],
    "get file information",
@@ -1304,7 +1319,7 @@ Returns file information for the given C<path>.
 This is the same as the C<stat(2)> system call.");
 
   ("lstat", (RStat "statbuf", [String "path"]), 53, [],
-   [InitBasicFS, TestOutputStruct (
+   [InitBasicFS, Always, TestOutputStruct (
       [["touch"; "/new"];
        ["lstat"; "/new"]], [CompareWithInt ("size", 0)])],
    "get file information for a symbolic link",
@@ -1318,7 +1333,7 @@ refers to.
 This is the same as the C<lstat(2)> system call.");
 
   ("statvfs", (RStatVFS "statbuf", [String "path"]), 54, [],
-   [InitBasicFS, TestOutputStruct (
+   [InitBasicFS, Always, TestOutputStruct (
       [["statvfs"; "/"]], [CompareWithInt ("bfree", 487702);
 			   CompareWithInt ("blocks", 490020);
 			   CompareWithInt ("bsize", 1024)])],
@@ -1343,7 +1358,7 @@ clearly defined, and depends on both the version of C<tune2fs>
 that libguestfs was built against, and the filesystem itself.");
 
   ("blockdev_setro", (RErr, [String "device"]), 56, [],
-   [InitEmpty, TestOutputTrue (
+   [InitEmpty, Always, TestOutputTrue (
       [["blockdev_setro"; "/dev/sda"];
        ["blockdev_getro"; "/dev/sda"]])],
    "set block device to read-only",
@@ -1353,7 +1368,7 @@ Sets the block device named C<device> to read-only.
 This uses the L<blockdev(8)> command.");
 
   ("blockdev_setrw", (RErr, [String "device"]), 57, [],
-   [InitEmpty, TestOutputFalse (
+   [InitEmpty, Always, TestOutputFalse (
       [["blockdev_setrw"; "/dev/sda"];
        ["blockdev_getro"; "/dev/sda"]])],
    "set block device to read-write",
@@ -1363,7 +1378,7 @@ Sets the block device named C<device> to read-write.
 This uses the L<blockdev(8)> command.");
 
   ("blockdev_getro", (RBool "ro", [String "device"]), 58, [],
-   [InitEmpty, TestOutputTrue (
+   [InitEmpty, Always, TestOutputTrue (
       [["blockdev_setro"; "/dev/sda"];
        ["blockdev_getro"; "/dev/sda"]])],
    "is block device set to read-only",
@@ -1374,7 +1389,7 @@ Returns a boolean indicating if the block device is read-only
 This uses the L<blockdev(8)> command.");
 
   ("blockdev_getss", (RInt "sectorsize", [String "device"]), 59, [],
-   [InitEmpty, TestOutputInt (
+   [InitEmpty, Always, TestOutputInt (
       [["blockdev_getss"; "/dev/sda"]], 512)],
    "get sectorsize of block device",
    "\
@@ -1387,7 +1402,7 @@ for that).
 This uses the L<blockdev(8)> command.");
 
   ("blockdev_getbsz", (RInt "blocksize", [String "device"]), 60, [],
-   [InitEmpty, TestOutputInt (
+   [InitEmpty, Always, TestOutputInt (
       [["blockdev_getbsz"; "/dev/sda"]], 4096)],
    "get blocksize of block device",
    "\
@@ -1410,7 +1425,7 @@ I<filesystem block size>).
 This uses the L<blockdev(8)> command.");
 
   ("blockdev_getsz", (RInt64 "sizeinsectors", [String "device"]), 62, [],
-   [InitEmpty, TestOutputInt (
+   [InitEmpty, Always, TestOutputInt (
       [["blockdev_getsz"; "/dev/sda"]], 1024000)],
    "get total size of device in 512-byte sectors",
    "\
@@ -1424,7 +1439,7 @@ useful I<size in bytes>.
 This uses the L<blockdev(8)> command.");
 
   ("blockdev_getsize64", (RInt64 "sizeinbytes", [String "device"]), 63, [],
-   [InitEmpty, TestOutputInt (
+   [InitEmpty, Always, TestOutputInt (
       [["blockdev_getsize64"; "/dev/sda"]], 524288000)],
    "get total size of device in bytes",
    "\
@@ -1435,7 +1450,7 @@ See also C<guestfs_blockdev_getsz>.
 This uses the L<blockdev(8)> command.");
 
   ("blockdev_flushbufs", (RErr, [String "device"]), 64, [],
-   [InitEmpty, TestRun
+   [InitEmpty, Always, TestRun
       [["blockdev_flushbufs"; "/dev/sda"]]],
    "flush device buffers",
    "\
@@ -1445,7 +1460,7 @@ with C<device>.
 This uses the L<blockdev(8)> command.");
 
   ("blockdev_rereadpt", (RErr, [String "device"]), 65, [],
-   [InitEmpty, TestRun
+   [InitEmpty, Always, TestRun
       [["blockdev_rereadpt"; "/dev/sda"]]],
    "reread partition table",
    "\
@@ -1454,7 +1469,7 @@ Reread the partition table on C<device>.
 This uses the L<blockdev(8)> command.");
 
   ("upload", (RErr, [FileIn "filename"; String "remotefilename"]), 66, [],
-   [InitBasicFS, TestOutput (
+   [InitBasicFS, Always, TestOutput (
       (* Pick a file from cwd which isn't likely to change. *)
     [["upload"; "COPYING.LIB"; "/COPYING.LIB"];
      ["checksum"; "md5"; "/COPYING.LIB"]], "e3eda01d9815f8d24aae2dbd89b68b06")],
@@ -1468,7 +1483,7 @@ C<filename> can also be a named pipe.
 See also C<guestfs_download>.");
 
   ("download", (RErr, [String "remotefilename"; FileOut "filename"]), 67, [],
-   [InitBasicFS, TestOutput (
+   [InitBasicFS, Always, TestOutput (
       (* Pick a file from cwd which isn't likely to change. *)
     [["upload"; "COPYING.LIB"; "/COPYING.LIB"];
      ["download"; "/COPYING.LIB"; "testdownload.tmp"];
@@ -1484,27 +1499,27 @@ C<filename> can also be a named pipe.
 See also C<guestfs_upload>, C<guestfs_cat>.");
 
   ("checksum", (RString "checksum", [String "csumtype"; String "path"]), 68, [],
-   [InitBasicFS, TestOutput (
+   [InitBasicFS, Always, TestOutput (
       [["write_file"; "/new"; "test\n"; "0"];
        ["checksum"; "crc"; "/new"]], "935282863");
-    InitBasicFS, TestLastFail (
+    InitBasicFS, Always, TestLastFail (
       [["checksum"; "crc"; "/new"]]);
-    InitBasicFS, TestOutput (
+    InitBasicFS, Always, TestOutput (
       [["write_file"; "/new"; "test\n"; "0"];
        ["checksum"; "md5"; "/new"]], "d8e8fca2dc0f896fd7cb4cb0031ba249");
-    InitBasicFS, TestOutput (
+    InitBasicFS, Always, TestOutput (
       [["write_file"; "/new"; "test\n"; "0"];
        ["checksum"; "sha1"; "/new"]], "4e1243bd22c66e76c2ba9eddc1f91394e57f9f83");
-    InitBasicFS, TestOutput (
+    InitBasicFS, Always, TestOutput (
       [["write_file"; "/new"; "test\n"; "0"];
        ["checksum"; "sha224"; "/new"]], "52f1bf093f4b7588726035c176c0cdb4376cfea53819f1395ac9e6ec");
-    InitBasicFS, TestOutput (
+    InitBasicFS, Always, TestOutput (
       [["write_file"; "/new"; "test\n"; "0"];
        ["checksum"; "sha256"; "/new"]], "f2ca1bb6c7e907d06dafe4687e579fce76b37e4e93b7605022da52e6ccc26fd2");
-    InitBasicFS, TestOutput (
+    InitBasicFS, Always, TestOutput (
       [["write_file"; "/new"; "test\n"; "0"];
        ["checksum"; "sha384"; "/new"]], "109bb6b5b6d5547c1ce03c7a8bd7d8f80c1cb0957f50c4f7fda04692079917e4f9cad52b878f3d8234e1a170b154b72d");
-    InitBasicFS, TestOutput (
+    InitBasicFS, Always, TestOutput (
       [["write_file"; "/new"; "test\n"; "0"];
        ["checksum"; "sha512"; "/new"]], "0e3e75234abc68f4378a86b3f4b32a198ba301845b0cd6e50106e874345700cc6663a86c1ea125dc5e92be17c98f9a0f85ca9d5f595db2012f7cc3571945c123")],
    "compute MD5, SHAx or CRC checksum of file",
@@ -1551,7 +1566,7 @@ Compute the SHA512 hash (using the C<sha512sum> program).
 The checksum is returned as a printable string.");
 
   ("tar_in", (RErr, [FileIn "tarfile"; String "directory"]), 69, [],
-   [InitBasicFS, TestOutput (
+   [InitBasicFS, Always, TestOutput (
       [["tar_in"; "images/helloworld.tar"; "/"];
        ["cat"; "/hello"]], "hello\n")],
    "unpack tarfile to directory",
@@ -1571,7 +1586,7 @@ it to local file C<tarfile>.
 To download a compressed tarball, use C<guestfs_tgz_out>.");
 
   ("tgz_in", (RErr, [FileIn "tarball"; String "directory"]), 71, [],
-   [InitBasicFS, TestOutput (
+   [InitBasicFS, Always, TestOutput (
       [["tgz_in"; "images/helloworld.tar.gz"; "/"];
        ["cat"; "/hello"]], "hello\n")],
    "unpack compressed tarball to directory",
@@ -1591,11 +1606,11 @@ it to local file C<tarball>.
 To download an uncompressed tarball, use C<guestfs_tar_out>.");
 
   ("mount_ro", (RErr, [String "device"; String "mountpoint"]), 73, [],
-   [InitBasicFS, TestLastFail (
+   [InitBasicFS, Always, TestLastFail (
       [["umount"; "/"];
        ["mount_ro"; "/dev/sda1"; "/"];
        ["touch"; "/new"]]);
-    InitBasicFS, TestOutput (
+    InitBasicFS, Always, TestOutput (
       [["write_file"; "/new"; "data"; "0"];
        ["umount"; "/"];
        ["mount_ro"; "/dev/sda1"; "/"];
@@ -1634,21 +1649,21 @@ to look at the file C<daemon/debug.c> in the libguestfs source
 to find out what you can do.");
 
   ("lvremove", (RErr, [String "device"]), 77, [],
-   [InitEmpty, TestOutputList (
+   [InitEmpty, Always, TestOutputList (
       [["pvcreate"; "/dev/sda"];
        ["vgcreate"; "VG"; "/dev/sda"];
        ["lvcreate"; "LV1"; "VG"; "50"];
        ["lvcreate"; "LV2"; "VG"; "50"];
        ["lvremove"; "/dev/VG/LV1"];
        ["lvs"]], ["/dev/VG/LV2"]);
-    InitEmpty, TestOutputList (
+    InitEmpty, Always, TestOutputList (
       [["pvcreate"; "/dev/sda"];
        ["vgcreate"; "VG"; "/dev/sda"];
        ["lvcreate"; "LV1"; "VG"; "50"];
        ["lvcreate"; "LV2"; "VG"; "50"];
        ["lvremove"; "/dev/VG"];
        ["lvs"]], []);
-    InitEmpty, TestOutputList (
+    InitEmpty, Always, TestOutputList (
       [["pvcreate"; "/dev/sda"];
        ["vgcreate"; "VG"; "/dev/sda"];
        ["lvcreate"; "LV1"; "VG"; "50"];
@@ -1664,14 +1679,14 @@ You can also remove all LVs in a volume group by specifying
 the VG name, C</dev/VG>.");
 
   ("vgremove", (RErr, [String "vgname"]), 78, [],
-   [InitEmpty, TestOutputList (
+   [InitEmpty, Always, TestOutputList (
       [["pvcreate"; "/dev/sda"];
        ["vgcreate"; "VG"; "/dev/sda"];
        ["lvcreate"; "LV1"; "VG"; "50"];
        ["lvcreate"; "LV2"; "VG"; "50"];
        ["vgremove"; "VG"];
        ["lvs"]], []);
-    InitEmpty, TestOutputList (
+    InitEmpty, Always, TestOutputList (
       [["pvcreate"; "/dev/sda"];
        ["vgcreate"; "VG"; "/dev/sda"];
        ["lvcreate"; "LV1"; "VG"; "50"];
@@ -1686,7 +1701,7 @@ This also forcibly removes all logical volumes in the volume
 group (if any).");
 
   ("pvremove", (RErr, [String "device"]), 79, [],
-   [InitEmpty, TestOutputList (
+   [InitEmpty, Always, TestOutputList (
       [["pvcreate"; "/dev/sda"];
        ["vgcreate"; "VG"; "/dev/sda"];
        ["lvcreate"; "LV1"; "VG"; "50"];
@@ -1694,7 +1709,7 @@ group (if any).");
        ["vgremove"; "VG"];
        ["pvremove"; "/dev/sda"];
        ["lvs"]], []);
-    InitEmpty, TestOutputList (
+    InitEmpty, Always, TestOutputList (
       [["pvcreate"; "/dev/sda"];
        ["vgcreate"; "VG"; "/dev/sda"];
        ["lvcreate"; "LV1"; "VG"; "50"];
@@ -1702,7 +1717,7 @@ group (if any).");
        ["vgremove"; "VG"];
        ["pvremove"; "/dev/sda"];
        ["vgs"]], []);
-    InitEmpty, TestOutputList (
+    InitEmpty, Always, TestOutputList (
       [["pvcreate"; "/dev/sda"];
        ["vgcreate"; "VG"; "/dev/sda"];
        ["lvcreate"; "LV1"; "VG"; "50"];
@@ -1720,7 +1735,7 @@ wipe physical volumes that contain any volume groups, so you have
 to remove those first.");
 
   ("set_e2label", (RErr, [String "device"; String "label"]), 80, [],
-   [InitBasicFS, TestOutput (
+   [InitBasicFS, Always, TestOutput (
       [["set_e2label"; "/dev/sda1"; "testlabel"];
        ["get_e2label"; "/dev/sda1"]], "testlabel")],
    "set the ext2/3/4 filesystem label",
@@ -1740,16 +1755,16 @@ This returns the ext2/3/4 filesystem label of the filesystem on
 C<device>.");
 
   ("set_e2uuid", (RErr, [String "device"; String "uuid"]), 82, [],
-   [InitBasicFS, TestOutput (
+   [InitBasicFS, Always, TestOutput (
       [["set_e2uuid"; "/dev/sda1"; "a3a61220-882b-4f61-89f4-cf24dcc7297d"];
        ["get_e2uuid"; "/dev/sda1"]], "a3a61220-882b-4f61-89f4-cf24dcc7297d");
-    InitBasicFS, TestOutput (
+    InitBasicFS, Always, TestOutput (
       [["set_e2uuid"; "/dev/sda1"; "clear"];
        ["get_e2uuid"; "/dev/sda1"]], "");
     (* We can't predict what UUIDs will be, so just check the commands run. *)
-    InitBasicFS, TestRun (
+    InitBasicFS, Always, TestRun (
       [["set_e2uuid"; "/dev/sda1"; "random"]]);
-    InitBasicFS, TestRun (
+    InitBasicFS, Always, TestRun (
       [["set_e2uuid"; "/dev/sda1"; "time"]])],
    "set the ext2/3/4 filesystem UUID",
    "\
@@ -1769,10 +1784,10 @@ This returns the ext2/3/4 filesystem UUID of the filesystem on
 C<device>.");
 
   ("fsck", (RInt "status", [String "fstype"; String "device"]), 84, [],
-   [InitBasicFS, TestOutputInt (
+   [InitBasicFS, Always, TestOutputInt (
       [["umount"; "/dev/sda1"];
        ["fsck"; "ext2"; "/dev/sda1"]], 0);
-    InitBasicFS, TestOutputInt (
+    InitBasicFS, Always, TestOutputInt (
       [["umount"; "/dev/sda1"];
        ["zero"; "/dev/sda1"];
        ["fsck"; "ext2"; "/dev/sda1"]], 8)],
@@ -1807,7 +1822,7 @@ Checking or repairing NTFS volumes is not supported
 This command is entirely equivalent to running C<fsck -a -t fstype device>.");
 
   ("zero", (RErr, [String "device"]), 85, [],
-   [InitBasicFS, TestOutput (
+   [InitBasicFS, Always, TestOutput (
       [["umount"; "/dev/sda1"];
        ["zero"; "/dev/sda1"];
        ["file"; "/dev/sda1"]], "data")],
@@ -1820,7 +1835,7 @@ to securely wipe the device).  It should be sufficient to remove
 any partition tables, filesystem superblocks and so on.");
 
   ("grub_install", (RErr, [String "root"; String "device"]), 86, [],
-   [InitBasicFS, TestOutputTrue (
+   [InitBasicFS, Always, TestOutputTrue (
       [["grub_install"; "/"; "/dev/sda1"];
        ["is_dir"; "/boot"]])],
    "install GRUB",
@@ -1829,15 +1844,15 @@ This command installs GRUB (the Grand Unified Bootloader) on
 C<device>, with the root directory being C<root>.");
 
   ("cp", (RErr, [String "src"; String "dest"]), 87, [],
-   [InitBasicFS, TestOutput (
+   [InitBasicFS, Always, TestOutput (
       [["write_file"; "/old"; "file content"; "0"];
        ["cp"; "/old"; "/new"];
        ["cat"; "/new"]], "file content");
-    InitBasicFS, TestOutputTrue (
+    InitBasicFS, Always, TestOutputTrue (
       [["write_file"; "/old"; "file content"; "0"];
        ["cp"; "/old"; "/new"];
        ["is_file"; "/old"]]);
-    InitBasicFS, TestOutput (
+    InitBasicFS, Always, TestOutput (
       [["write_file"; "/old"; "file content"; "0"];
        ["mkdir"; "/dir"];
        ["cp"; "/old"; "/dir/new"];
@@ -1848,7 +1863,7 @@ This copies a file from C<src> to C<dest> where C<dest> is
 either a destination filename or destination directory.");
 
   ("cp_a", (RErr, [String "src"; String "dest"]), 88, [],
-   [InitBasicFS, TestOutput (
+   [InitBasicFS, Always, TestOutput (
       [["mkdir"; "/olddir"];
        ["mkdir"; "/newdir"];
        ["write_file"; "/olddir/file"; "file content"; "0"];
@@ -1860,11 +1875,11 @@ This copies a file or directory from C<src> to C<dest>
 recursively using the C<cp -a> command.");
 
   ("mv", (RErr, [String "src"; String "dest"]), 89, [],
-   [InitBasicFS, TestOutput (
+   [InitBasicFS, Always, TestOutput (
       [["write_file"; "/old"; "file content"; "0"];
        ["mv"; "/old"; "/new"];
        ["cat"; "/new"]], "file content");
-    InitBasicFS, TestOutputFalse (
+    InitBasicFS, Always, TestOutputFalse (
       [["write_file"; "/old"; "file content"; "0"];
        ["mv"; "/old"; "/new"];
        ["is_file"; "/old"]])],
@@ -1874,7 +1889,7 @@ This moves a file from C<src> to C<dest> where C<dest> is
 either a destination filename or destination directory.");
 
   ("drop_caches", (RErr, [Int "whattodrop"]), 90, [],
-   [InitEmpty, TestRun (
+   [InitEmpty, Always, TestRun (
       [["drop_caches"; "3"]])],
    "drop kernel page cache, dentries and inodes",
    "\
@@ -1889,7 +1904,7 @@ This automatically calls L<sync(2)> before the operation,
 so that the maximum guest memory is freed.");
 
   ("dmesg", (RString "kmsgs", []), 91, [],
-   [InitEmpty, TestRun (
+   [InitEmpty, Always, TestRun (
       [["dmesg"]])],
    "return kernel messages",
    "\
@@ -1903,7 +1918,7 @@ the environment variable C<LIBGUESTFS_DEBUG=1> before
 running the program.");
 
   ("ping_daemon", (RErr, []), 92, [],
-   [InitEmpty, TestRun (
+   [InitEmpty, Always, TestRun (
       [["ping_daemon"]])],
    "ping the guest daemon",
    "\
@@ -1913,15 +1928,15 @@ daemon responds to the ping message, without affecting the daemon
 or attached block device(s) in any other way.");
 
   ("equal", (RBool "equality", [String "file1"; String "file2"]), 93, [],
-   [InitBasicFS, TestOutputTrue (
+   [InitBasicFS, Always, TestOutputTrue (
       [["write_file"; "/file1"; "contents of a file"; "0"];
        ["cp"; "/file1"; "/file2"];
        ["equal"; "/file1"; "/file2"]]);
-    InitBasicFS, TestOutputFalse (
+    InitBasicFS, Always, TestOutputFalse (
       [["write_file"; "/file1"; "contents of a file"; "0"];
        ["write_file"; "/file2"; "contents of another file"; "0"];
        ["equal"; "/file1"; "/file2"]]);
-    InitBasicFS, TestLastFail (
+    InitBasicFS, Always, TestLastFail (
       [["equal"; "/file1"; "/file2"]])],
    "test if two files have equal contents",
    "\
@@ -1931,10 +1946,10 @@ true if their content is exactly equal, or false otherwise.
 The external L<cmp(1)> program is used for the comparison.");
 
   ("strings", (RStringList "stringsout", [String "path"]), 94, [ProtocolLimitWarning],
-   [InitBasicFS, TestOutputList (
+   [InitBasicFS, Always, TestOutputList (
       [["write_file"; "/new"; "hello\nworld\n"; "0"];
        ["strings"; "/new"]], ["hello"; "world"]);
-    InitBasicFS, TestOutputList (
+    InitBasicFS, Always, TestOutputList (
       [["touch"; "/new"];
        ["strings"; "/new"]], [])],
    "print the printable strings in a file",
@@ -1943,12 +1958,12 @@ This runs the L<strings(1)> command on a file and returns
 the list of printable strings found.");
 
   ("strings_e", (RStringList "stringsout", [String "encoding"; String "path"]), 95, [ProtocolLimitWarning],
-   [InitBasicFS, TestOutputList (
+   [InitBasicFS, Always, TestOutputList (
       [["write_file"; "/new"; "hello\nworld\n"; "0"];
        ["strings_e"; "b"; "/new"]], []);
-    (*InitBasicFS, TestOutputList (
+    InitBasicFS, Disabled, TestOutputList (
       [["write_file"; "/new"; "\000h\000e\000l\000l\000o\000\n\000w\000o\000r\000l\000d\000\n"; "24"];
-       ["strings_e"; "b"; "/new"]], ["hello"; "world"])*)],
+       ["strings_e"; "b"; "/new"]], ["hello"; "world"])],
    "print the printable strings in a file",
    "\
 This is like the C<guestfs_strings> command, but allows you to
@@ -1962,7 +1977,7 @@ show strings inside Windows/x86 files.
 The returned strings are transcoded to UTF-8.");
 
   ("hexdump", (RString "dump", [String "path"]), 96, [ProtocolLimitWarning],
-   [InitBasicFS, TestOutput (
+   [InitBasicFS, Always, TestOutput (
       [["write_file"; "/new"; "hello\nworld\n"; "12"];
        ["hexdump"; "/new"]], "00000000  68 65 6c 6c 6f 0a 77 6f  72 6c 64 0a              |hello.world.|\n0000000c\n")],
    "dump a file in hexadecimal",
@@ -2311,7 +2326,7 @@ let check_functions () =
     | name, _, _, _, tests, _, _ ->
 	let funcs =
 	  List.map (
-	    fun (_, test) ->
+	    fun (_, _, test) ->
 	      match seq_of_test test with
 	      | [] ->
 		  failwithf "%s has a test containing an empty sequence" name
@@ -3648,12 +3663,25 @@ int main (int argc, char *argv[])
   pr "  exit (0);\n";
   pr "}\n"
 
-and generate_one_test name i (init, test) =
+and generate_one_test name i (init, prereq, test) =
   let test_name = sprintf "test_%s_%d" name i in
 
   pr "static int %s (void)\n" test_name;
   pr "{\n";
 
+  (match prereq with
+   | Disabled ->
+       pr "  printf (\"%%s skipped (test disabled in generator)\\n\", \"%s\");\n" test_name
+   | Always ->
+       generate_one_test_body name i test_name init test
+  );
+
+  pr "  return 0;\n";
+  pr "}\n";
+  pr "\n";
+  test_name
+
+and generate_one_test_body name i test_name init test =
   (match init with
    | InitNone -> ()
    | InitEmpty ->
@@ -3695,162 +3723,156 @@ and generate_one_test name i (init, test) =
 	List.rev (List.tl seq), List.hd seq
   in
 
-  (match test with
-   | TestRun seq ->
-       pr "  /* TestRun for %s (%d) */\n" name i;
-       List.iter (generate_test_command_call test_name) seq
-   | TestOutput (seq, expected) ->
-       pr "  /* TestOutput for %s (%d) */\n" name i;
-       pr "  char expected[] = \"%s\";\n" (c_quote expected);
-       if String.length expected > 7 &&
-          String.sub expected 0 7 = "/dev/sd" then
-	 pr "  expected[5] = devchar;\n";
-       let seq, last = get_seq_last seq in
-       let test () =
-	 pr "    if (strcmp (r, expected) != 0) {\n";
-	 pr "      fprintf (stderr, \"%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", expected, r);\n" test_name;
-	 pr "      return -1;\n";
-	 pr "    }\n"
-       in
-       List.iter (generate_test_command_call test_name) seq;
-       generate_test_command_call ~test test_name last
-   | TestOutputList (seq, expected) ->
-       pr "  /* TestOutputList for %s (%d) */\n" name i;
-       let seq, last = get_seq_last seq in
-       let test () =
-	 iteri (
-	   fun i str ->
-	     pr "    if (!r[%d]) {\n" i;
-	     pr "      fprintf (stderr, \"%s: short list returned from command\\n\");\n" test_name;
-	     pr "      print_strings (r);\n";
-	     pr "      return -1;\n";
-	     pr "    }\n";
-             pr "    {\n";
-             pr "      char expected[] = \"%s\";\n" (c_quote str);
-             if String.length str > 7 && String.sub str 0 7 = "/dev/sd" then
-	       pr "      expected[5] = devchar;\n";
-	     pr "      if (strcmp (r[%d], expected) != 0) {\n" i;
-	     pr "        fprintf (stderr, \"%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", expected, r[%d]);\n" test_name i;
-	     pr "        return -1;\n";
-	     pr "      }\n";
-	     pr "    }\n"
-	 ) expected;
-	 pr "    if (r[%d] != NULL) {\n" (List.length expected);
-	 pr "      fprintf (stderr, \"%s: extra elements returned from command\\n\");\n"
-	   test_name;
-	 pr "      print_strings (r);\n";
-	 pr "      return -1;\n";
-	 pr "    }\n"
-       in
-       List.iter (generate_test_command_call test_name) seq;
-       generate_test_command_call ~test test_name last
-   | TestOutputInt (seq, expected) ->
-       pr "  /* TestOutputInt for %s (%d) */\n" name i;
-       let seq, last = get_seq_last seq in
-       let test () =
-	 pr "    if (r != %d) {\n" expected;
-	 pr "      fprintf (stderr, \"%s: expected %d but got %%d\\n\","
-	   test_name expected;
-	 pr "               (int) r);\n";
-	 pr "      return -1;\n";
-	 pr "    }\n"
-       in
-       List.iter (generate_test_command_call test_name) seq;
-       generate_test_command_call ~test test_name last
-   | TestOutputTrue seq ->
-       pr "  /* TestOutputTrue for %s (%d) */\n" name i;
-       let seq, last = get_seq_last seq in
-       let test () =
-	 pr "    if (!r) {\n";
-	 pr "      fprintf (stderr, \"%s: expected true, got false\\n\");\n"
-	   test_name;
-	 pr "      return -1;\n";
-	 pr "    }\n"
-       in
-       List.iter (generate_test_command_call test_name) seq;
-       generate_test_command_call ~test test_name last
-   | TestOutputFalse seq ->
-       pr "  /* TestOutputFalse for %s (%d) */\n" name i;
-       let seq, last = get_seq_last seq in
-       let test () =
-	 pr "    if (r) {\n";
-	 pr "      fprintf (stderr, \"%s: expected false, got true\\n\");\n"
-	   test_name;
-	 pr "      return -1;\n";
-	 pr "    }\n"
-       in
-       List.iter (generate_test_command_call test_name) seq;
-       generate_test_command_call ~test test_name last
-   | TestOutputLength (seq, expected) ->
-       pr "  /* TestOutputLength for %s (%d) */\n" name i;
-       let seq, last = get_seq_last seq in
-       let test () =
-	 pr "    int j;\n";
-	 pr "    for (j = 0; j < %d; ++j)\n" expected;
-	 pr "      if (r[j] == NULL) {\n";
-	 pr "        fprintf (stderr, \"%s: short list returned\\n\");\n"
-	   test_name;
-	 pr "        print_strings (r);\n";
-	 pr "        return -1;\n";
-	 pr "      }\n";
-	 pr "    if (r[j] != NULL) {\n";
-	 pr "      fprintf (stderr, \"%s: long list returned\\n\");\n"
-	   test_name;
-	 pr "      print_strings (r);\n";
-	 pr "      return -1;\n";
-	 pr "    }\n"
-       in
-       List.iter (generate_test_command_call test_name) seq;
-       generate_test_command_call ~test test_name last
-   | TestOutputStruct (seq, checks) ->
-       pr "  /* TestOutputStruct for %s (%d) */\n" name i;
-       let seq, last = get_seq_last seq in
-       let test () =
-	 List.iter (
-	   function
-	   | CompareWithInt (field, expected) ->
-	       pr "    if (r->%s != %d) {\n" field expected;
-	       pr "      fprintf (stderr, \"%s: %s was %%d, expected %d\\n\",\n"
-		 test_name field expected;
-	       pr "               (int) r->%s);\n" field;
-	       pr "      return -1;\n";
-	       pr "    }\n"
-	   | CompareWithString (field, expected) ->
-	       pr "    if (strcmp (r->%s, \"%s\") != 0) {\n" field expected;
-	       pr "      fprintf (stderr, \"%s: %s was \"%%s\", expected \"%s\"\\n\",\n"
-		 test_name field expected;
-	       pr "               r->%s);\n" field;
-	       pr "      return -1;\n";
-	       pr "    }\n"
-	   | CompareFieldsIntEq (field1, field2) ->
-	       pr "    if (r->%s != r->%s) {\n" field1 field2;
-	       pr "      fprintf (stderr, \"%s: %s (%%d) <> %s (%%d)\\n\",\n"
-		 test_name field1 field2;
-	       pr "               (int) r->%s, (int) r->%s);\n" field1 field2;
-	       pr "      return -1;\n";
-	       pr "    }\n"
-	   | CompareFieldsStrEq (field1, field2) ->
-	       pr "    if (strcmp (r->%s, r->%s) != 0) {\n" field1 field2;
-	       pr "      fprintf (stderr, \"%s: %s (\"%%s\") <> %s (\"%%s\")\\n\",\n"
-		 test_name field1 field2;
-	       pr "               r->%s, r->%s);\n" field1 field2;
-	       pr "      return -1;\n";
-	       pr "    }\n"
-	 ) checks
-       in
-       List.iter (generate_test_command_call test_name) seq;
-       generate_test_command_call ~test test_name last
-   | TestLastFail seq ->
-       pr "  /* TestLastFail for %s (%d) */\n" name i;
-       let seq, last = get_seq_last seq in
-       List.iter (generate_test_command_call test_name) seq;
-       generate_test_command_call test_name ~expect_error:true last
-  );
-
-  pr "  return 0;\n";
-  pr "}\n";
-  pr "\n";
-  test_name
+  match test with
+  | TestRun seq ->
+      pr "  /* TestRun for %s (%d) */\n" name i;
+      List.iter (generate_test_command_call test_name) seq
+  | TestOutput (seq, expected) ->
+      pr "  /* TestOutput for %s (%d) */\n" name i;
+      pr "  char expected[] = \"%s\";\n" (c_quote expected);
+      if String.length expected > 7 &&
+        String.sub expected 0 7 = "/dev/sd" then
+	  pr "  expected[5] = devchar;\n";
+      let seq, last = get_seq_last seq in
+      let test () =
+	pr "    if (strcmp (r, expected) != 0) {\n";
+	pr "      fprintf (stderr, \"%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", expected, r);\n" test_name;
+	pr "      return -1;\n";
+	pr "    }\n"
+      in
+      List.iter (generate_test_command_call test_name) seq;
+      generate_test_command_call ~test test_name last
+  | TestOutputList (seq, expected) ->
+      pr "  /* TestOutputList for %s (%d) */\n" name i;
+      let seq, last = get_seq_last seq in
+      let test () =
+	iteri (
+	  fun i str ->
+	    pr "    if (!r[%d]) {\n" i;
+	    pr "      fprintf (stderr, \"%s: short list returned from command\\n\");\n" test_name;
+	    pr "      print_strings (r);\n";
+	    pr "      return -1;\n";
+	    pr "    }\n";
+            pr "    {\n";
+            pr "      char expected[] = \"%s\";\n" (c_quote str);
+            if String.length str > 7 && String.sub str 0 7 = "/dev/sd" then
+	      pr "      expected[5] = devchar;\n";
+	    pr "      if (strcmp (r[%d], expected) != 0) {\n" i;
+	    pr "        fprintf (stderr, \"%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", expected, r[%d]);\n" test_name i;
+	    pr "        return -1;\n";
+	    pr "      }\n";
+	    pr "    }\n"
+	) expected;
+	pr "    if (r[%d] != NULL) {\n" (List.length expected);
+	pr "      fprintf (stderr, \"%s: extra elements returned from command\\n\");\n"
+	  test_name;
+	pr "      print_strings (r);\n";
+	pr "      return -1;\n";
+	pr "    }\n"
+      in
+      List.iter (generate_test_command_call test_name) seq;
+      generate_test_command_call ~test test_name last
+  | TestOutputInt (seq, expected) ->
+      pr "  /* TestOutputInt for %s (%d) */\n" name i;
+      let seq, last = get_seq_last seq in
+      let test () =
+	pr "    if (r != %d) {\n" expected;
+	pr "      fprintf (stderr, \"%s: expected %d but got %%d\\n\","
+	  test_name expected;
+	pr "               (int) r);\n";
+	pr "      return -1;\n";
+	pr "    }\n"
+      in
+      List.iter (generate_test_command_call test_name) seq;
+      generate_test_command_call ~test test_name last
+  | TestOutputTrue seq ->
+      pr "  /* TestOutputTrue for %s (%d) */\n" name i;
+      let seq, last = get_seq_last seq in
+      let test () =
+	pr "    if (!r) {\n";
+	pr "      fprintf (stderr, \"%s: expected true, got false\\n\");\n"
+	  test_name;
+	pr "      return -1;\n";
+	pr "    }\n"
+      in
+      List.iter (generate_test_command_call test_name) seq;
+      generate_test_command_call ~test test_name last
+  | TestOutputFalse seq ->
+      pr "  /* TestOutputFalse for %s (%d) */\n" name i;
+      let seq, last = get_seq_last seq in
+      let test () =
+	pr "    if (r) {\n";
+	pr "      fprintf (stderr, \"%s: expected false, got true\\n\");\n"
+	  test_name;
+	pr "      return -1;\n";
+	pr "    }\n"
+      in
+      List.iter (generate_test_command_call test_name) seq;
+      generate_test_command_call ~test test_name last
+  | TestOutputLength (seq, expected) ->
+      pr "  /* TestOutputLength for %s (%d) */\n" name i;
+      let seq, last = get_seq_last seq in
+      let test () =
+	pr "    int j;\n";
+	pr "    for (j = 0; j < %d; ++j)\n" expected;
+	pr "      if (r[j] == NULL) {\n";
+	pr "        fprintf (stderr, \"%s: short list returned\\n\");\n"
+	  test_name;
+	pr "        print_strings (r);\n";
+	pr "        return -1;\n";
+	pr "      }\n";
+	pr "    if (r[j] != NULL) {\n";
+	pr "      fprintf (stderr, \"%s: long list returned\\n\");\n"
+	  test_name;
+	pr "      print_strings (r);\n";
+	pr "      return -1;\n";
+	pr "    }\n"
+      in
+      List.iter (generate_test_command_call test_name) seq;
+      generate_test_command_call ~test test_name last
+  | TestOutputStruct (seq, checks) ->
+      pr "  /* TestOutputStruct for %s (%d) */\n" name i;
+      let seq, last = get_seq_last seq in
+      let test () =
+	List.iter (
+	  function
+	  | CompareWithInt (field, expected) ->
+	      pr "    if (r->%s != %d) {\n" field expected;
+	      pr "      fprintf (stderr, \"%s: %s was %%d, expected %d\\n\",\n"
+		test_name field expected;
+	      pr "               (int) r->%s);\n" field;
+	      pr "      return -1;\n";
+	      pr "    }\n"
+	  | CompareWithString (field, expected) ->
+	      pr "    if (strcmp (r->%s, \"%s\") != 0) {\n" field expected;
+	      pr "      fprintf (stderr, \"%s: %s was \"%%s\", expected \"%s\"\\n\",\n"
+		test_name field expected;
+	      pr "               r->%s);\n" field;
+	      pr "      return -1;\n";
+	      pr "    }\n"
+	  | CompareFieldsIntEq (field1, field2) ->
+	      pr "    if (r->%s != r->%s) {\n" field1 field2;
+	      pr "      fprintf (stderr, \"%s: %s (%%d) <> %s (%%d)\\n\",\n"
+		test_name field1 field2;
+	      pr "               (int) r->%s, (int) r->%s);\n" field1 field2;
+	      pr "      return -1;\n";
+	      pr "    }\n"
+	  | CompareFieldsStrEq (field1, field2) ->
+	      pr "    if (strcmp (r->%s, r->%s) != 0) {\n" field1 field2;
+	      pr "      fprintf (stderr, \"%s: %s (\"%%s\") <> %s (\"%%s\")\\n\",\n"
+		test_name field1 field2;
+	      pr "               r->%s, r->%s);\n" field1 field2;
+	      pr "      return -1;\n";
+	      pr "    }\n"
+	) checks
+      in
+      List.iter (generate_test_command_call test_name) seq;
+      generate_test_command_call ~test test_name last
+  | TestLastFail seq ->
+      pr "  /* TestLastFail for %s (%d) */\n" name i;
+      let seq, last = get_seq_last seq in
+      List.iter (generate_test_command_call test_name) seq;
+      generate_test_command_call test_name ~expect_error:true last
 
 (* Generate the code to run a command, leaving the result in 'r'.
  * If you expect to get an error then you should set expect_error:true.
