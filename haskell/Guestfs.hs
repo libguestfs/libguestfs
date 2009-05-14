@@ -78,7 +78,8 @@ module Guestfs (
   cp,
   cp_a,
   mv,
-  ping_daemon
+  ping_daemon,
+  zerofree
   ) where
 import Foreign
 import Foreign.C
@@ -782,6 +783,18 @@ foreign import ccall unsafe "guestfs_ping_daemon" c_ping_daemon
 ping_daemon :: GuestfsH -> IO ()
 ping_daemon h = do
   r <- withForeignPtr h (\p -> c_ping_daemon p)
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return ()
+
+foreign import ccall unsafe "guestfs_zerofree" c_zerofree
+  :: GuestfsP -> CString -> IO (CInt)
+
+zerofree :: GuestfsH -> String -> IO ()
+zerofree h device = do
+  r <- withCString device $ \device -> withForeignPtr h (\p -> c_zerofree p device)
   if (r == -1)
     then do
       err <- last_error h

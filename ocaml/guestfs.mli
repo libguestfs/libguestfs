@@ -484,3 +484,6 @@ val strings_e : t -> string -> string -> string array
 val hexdump : t -> string -> string
 (** dump a file in hexadecimal *)
 
+val zerofree : t -> string -> unit
+(** zero unused inodes and disk blocks on ext2/3 filesystem *)
+

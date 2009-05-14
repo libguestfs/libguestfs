@@ -1334,3 +1334,17 @@ class GuestFS:
         """
         return libguestfsmod.hexdump (self._o, path)
 
+    def zerofree (self, device):
+        u"""This runs the *zerofree* program on "device". This
+        program claims to zero unused inodes and disk blocks on
+        an ext2/3 filesystem, thus making it possible to
+        compress the filesystem more effectively.
+        
+        You should not run this program if the filesystem is
+        mounted.
+        
+        It is possible that using this program can damage the
+        filesystem or data on the filesystem.
+        """
+        return libguestfsmod.zerofree (self._o, device)
+

@@ -3402,6 +3402,31 @@ py_guestfs_hexdump (PyObject *self, PyObject *args)
   return py_r;
 }
 
+static PyObject *
+py_guestfs_zerofree (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *device;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_zerofree",
+                         &py_g, &device))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_zerofree (g, device);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
 static PyMethodDef methods[] = {
   { (char *) "create", py_guestfs_create, METH_VARARGS, NULL },
   { (char *) "close", py_guestfs_close, METH_VARARGS, NULL },
@@ -3525,6 +3550,7 @@ static PyMethodDef methods[] = {
   { (char *) "strings", py_guestfs_strings, METH_VARARGS, NULL },
   { (char *) "strings_e", py_guestfs_strings_e, METH_VARARGS, NULL },
   { (char *) "hexdump", py_guestfs_hexdump, METH_VARARGS, NULL },
+  { (char *) "zerofree", py_guestfs_zerofree, METH_VARARGS, NULL },
   { NULL, NULL, 0, NULL }
 };
 

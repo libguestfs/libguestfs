@@ -837,6 +837,11 @@ struct guestfs_hexdump_ret {
 };
 typedef struct guestfs_hexdump_ret guestfs_hexdump_ret;
 
+struct guestfs_zerofree_args {
+	char *device;
+};
+typedef struct guestfs_zerofree_args guestfs_zerofree_args;
+
 enum guestfs_procedure {
 	GUESTFS_PROC_MOUNT = 1,
 	GUESTFS_PROC_SYNC = 2,
@@ -934,7 +939,8 @@ enum guestfs_procedure {
 	GUESTFS_PROC_STRINGS = 94,
 	GUESTFS_PROC_STRINGS_E = 95,
 	GUESTFS_PROC_HEXDUMP = 96,
-	GUESTFS_PROC_NR_PROCS = 96 + 1,
+	GUESTFS_PROC_ZEROFREE = 97,
+	GUESTFS_PROC_NR_PROCS = 97 + 1,
 };
 typedef enum guestfs_procedure guestfs_procedure;
 #define GUESTFS_MESSAGE_MAX 4194304
@@ -1116,6 +1122,7 @@ extern  bool_t xdr_guestfs_strings_e_args (XDR *, guestfs_strings_e_args*);
 extern  bool_t xdr_guestfs_strings_e_ret (XDR *, guestfs_strings_e_ret*);
 extern  bool_t xdr_guestfs_hexdump_args (XDR *, guestfs_hexdump_args*);
 extern  bool_t xdr_guestfs_hexdump_ret (XDR *, guestfs_hexdump_ret*);
+extern  bool_t xdr_guestfs_zerofree_args (XDR *, guestfs_zerofree_args*);
 extern  bool_t xdr_guestfs_procedure (XDR *, guestfs_procedure*);
 extern  bool_t xdr_guestfs_message_direction (XDR *, guestfs_message_direction*);
 extern  bool_t xdr_guestfs_message_status (XDR *, guestfs_message_status*);
@@ -1256,6 +1263,7 @@ extern bool_t xdr_guestfs_strings_e_args ();
 extern bool_t xdr_guestfs_strings_e_ret ();
 extern bool_t xdr_guestfs_hexdump_args ();
 extern bool_t xdr_guestfs_hexdump_ret ();
+extern bool_t xdr_guestfs_zerofree_args ();
 extern bool_t xdr_guestfs_procedure ();
 extern bool_t xdr_guestfs_message_direction ();
 extern bool_t xdr_guestfs_message_status ();

@@ -41,6 +41,7 @@ modules="
 -i procps
 -i strace
 -i util-linux-ng
+-i zerofree
 "
 
 # Decide on names for the final output.  These have to match Makefile.am.

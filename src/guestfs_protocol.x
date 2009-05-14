@@ -648,6 +648,10 @@ struct guestfs_hexdump_ret {
   string dump<>;
 };
 
+struct guestfs_zerofree_args {
+  string device<>;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -745,6 +749,7 @@ enum guestfs_procedure {
   GUESTFS_PROC_STRINGS = 94,
   GUESTFS_PROC_STRINGS_E = 95,
   GUESTFS_PROC_HEXDUMP = 96,
+  GUESTFS_PROC_ZEROFREE = 97,
   GUESTFS_PROC_NR_PROCS
 };
 

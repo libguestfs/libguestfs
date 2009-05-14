@@ -118,6 +118,97 @@ static void no_test_warnings (void)
   fprintf (stderr, "warning: \"guestfs_get_e2uuid\" has no tests\n");
 }
 
+static int test_zerofree_0 (void)
+{
+  /* TestOutput for zerofree (0) */
+  char expected[] = "test file";
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext3";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/new";
+    char content[] = "test file";
+    int r;
+    suppress_error = 0;
+    r = guestfs_write_file (g, path, content, 0);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char pathordevice[] = "/dev/sda1";
+    pathordevice[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount (g, pathordevice);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_zerofree (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/new";
+    char *r;
+    suppress_error = 0;
+    r = guestfs_cat (g, path);
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_zerofree_0: expected \"%s\" but got \"%s\"\n", expected, r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
 static int test_hexdump_0 (void)
 {
   /* InitBasicFS for hexdump (0): create ext2 on /dev/sda1 */
@@ -5101,7 +5192,7 @@ static int test_command_lines_0 (void)
     free (r);
   }
   } else
-    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_lines_0");
+    printf ("%s skipped (reason: test prerequisite)\n", "test_command_lines_0");
   return 0;
 }
 
@@ -5225,7 +5316,7 @@ static int test_command_lines_1 (void)
     free (r);
   }
   } else
-    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_lines_1");
+    printf ("%s skipped (reason: test prerequisite)\n", "test_command_lines_1");
   return 0;
 }
 
@@ -5361,7 +5452,7 @@ static int test_command_lines_2 (void)
     free (r);
   }
   } else
-    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_lines_2");
+    printf ("%s skipped (reason: test prerequisite)\n", "test_command_lines_2");
   return 0;
 }
 
@@ -5497,7 +5588,7 @@ static int test_command_lines_3 (void)
     free (r);
   }
   } else
-    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_lines_3");
+    printf ("%s skipped (reason: test prerequisite)\n", "test_command_lines_3");
   return 0;
 }
 
@@ -5645,7 +5736,7 @@ static int test_command_lines_4 (void)
     free (r);
   }
   } else
-    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_lines_4");
+    printf ("%s skipped (reason: test prerequisite)\n", "test_command_lines_4");
   return 0;
 }
 
@@ -5805,7 +5896,7 @@ static int test_command_lines_5 (void)
     free (r);
   }
   } else
-    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_lines_5");
+    printf ("%s skipped (reason: test prerequisite)\n", "test_command_lines_5");
   return 0;
 }
 
@@ -5917,7 +6008,7 @@ static int test_command_lines_6 (void)
     free (r);
   }
   } else
-    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_lines_6");
+    printf ("%s skipped (reason: test prerequisite)\n", "test_command_lines_6");
   return 0;
 }
 
@@ -6041,7 +6132,7 @@ static int test_command_lines_7 (void)
     free (r);
   }
   } else
-    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_lines_7");
+    printf ("%s skipped (reason: test prerequisite)\n", "test_command_lines_7");
   return 0;
 }
 
@@ -6177,7 +6268,7 @@ static int test_command_lines_8 (void)
     free (r);
   }
   } else
-    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_lines_8");
+    printf ("%s skipped (reason: test prerequisite)\n", "test_command_lines_8");
   return 0;
 }
 
@@ -6313,7 +6404,7 @@ static int test_command_lines_9 (void)
     free (r);
   }
   } else
-    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_lines_9");
+    printf ("%s skipped (reason: test prerequisite)\n", "test_command_lines_9");
   return 0;
 }
 
@@ -6449,7 +6540,7 @@ static int test_command_lines_10 (void)
     free (r);
   }
   } else
-    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_lines_10");
+    printf ("%s skipped (reason: test prerequisite)\n", "test_command_lines_10");
   return 0;
 }
 
@@ -6558,7 +6649,7 @@ static int test_command_0 (void)
     free (r);
   }
   } else
-    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_0");
+    printf ("%s skipped (reason: test prerequisite)\n", "test_command_0");
   return 0;
 }
 
@@ -6667,7 +6758,7 @@ static int test_command_1 (void)
     free (r);
   }
   } else
-    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_1");
+    printf ("%s skipped (reason: test prerequisite)\n", "test_command_1");
   return 0;
 }
 
@@ -6776,7 +6867,7 @@ static int test_command_2 (void)
     free (r);
   }
   } else
-    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_2");
+    printf ("%s skipped (reason: test prerequisite)\n", "test_command_2");
   return 0;
 }
 
@@ -6885,7 +6976,7 @@ static int test_command_3 (void)
     free (r);
   }
   } else
-    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_3");
+    printf ("%s skipped (reason: test prerequisite)\n", "test_command_3");
   return 0;
 }
 
@@ -6994,7 +7085,7 @@ static int test_command_4 (void)
     free (r);
   }
   } else
-    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_4");
+    printf ("%s skipped (reason: test prerequisite)\n", "test_command_4");
   return 0;
 }
 
@@ -7103,7 +7194,7 @@ static int test_command_5 (void)
     free (r);
   }
   } else
-    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_5");
+    printf ("%s skipped (reason: test prerequisite)\n", "test_command_5");
   return 0;
 }
 
@@ -7212,7 +7303,7 @@ static int test_command_6 (void)
     free (r);
   }
   } else
-    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_6");
+    printf ("%s skipped (reason: test prerequisite)\n", "test_command_6");
   return 0;
 }
 
@@ -7321,7 +7412,7 @@ static int test_command_7 (void)
     free (r);
   }
   } else
-    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_7");
+    printf ("%s skipped (reason: test prerequisite)\n", "test_command_7");
   return 0;
 }
 
@@ -7430,7 +7521,7 @@ static int test_command_8 (void)
     free (r);
   }
   } else
-    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_8");
+    printf ("%s skipped (reason: test prerequisite)\n", "test_command_8");
   return 0;
 }
 
@@ -7539,7 +7630,7 @@ static int test_command_9 (void)
     free (r);
   }
   } else
-    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_9");
+    printf ("%s skipped (reason: test prerequisite)\n", "test_command_9");
   return 0;
 }
 
@@ -7648,7 +7739,7 @@ static int test_command_10 (void)
     free (r);
   }
   } else
-    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_10");
+    printf ("%s skipped (reason: test prerequisite)\n", "test_command_10");
   return 0;
 }
 
@@ -7750,7 +7841,7 @@ static int test_command_11 (void)
     free (r);
   }
   } else
-    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_11");
+    printf ("%s skipped (reason: test prerequisite)\n", "test_command_11");
   return 0;
 }
 
@@ -13025,8 +13116,14 @@ int main (int argc, char *argv[])
     free (devs[i]);
   free (devs);
 
-  nr_tests = 135;
+  nr_tests = 136;
 
+  test_num++;
+  printf ("%3d/%3d test_zerofree_0\n", test_num, nr_tests);
+  if (test_zerofree_0 () == -1) {
+    printf ("test_zerofree_0 FAILED\n");
+    failed++;
+  }
   test_num++;
   printf ("%3d/%3d test_hexdump_0\n", test_num, nr_tests);
   if (test_hexdump_0 () == -1) {

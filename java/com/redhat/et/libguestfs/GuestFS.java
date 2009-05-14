@@ -2729,4 +2729,30 @@ public class GuestFS {
   private native String _hexdump (long g, String path)
     throws LibGuestFSException;
 
+  /**
+   * zero unused inodes and disk blocks on ext2/3 filesystem
+   *
+   * This runs the *zerofree* program on "device". This
+   * program claims to zero unused inodes and disk blocks on
+   * an ext2/3 filesystem, thus making it possible to
+   * compress the filesystem more effectively.
+   * 
+   * You should not run this program if the filesystem is
+   * mounted.
+   * 
+   * It is possible that using this program can damage the
+   * filesystem or data on the filesystem.
+   * 
+   * @throws LibGuestFSException
+   */
+  public void zerofree (String device)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("zerofree: handle is closed");
+    _zerofree (g, device);
+  }
+  private native void _zerofree (long g, String device)
+    throws LibGuestFSException;
+
 }

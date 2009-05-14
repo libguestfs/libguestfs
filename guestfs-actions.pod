@@ -1747,3 +1747,21 @@ any partition tables, filesystem superblocks and so on.
 
 This function returns 0 on success or -1 on error.
 
+=head2 guestfs_zerofree
+
+ int guestfs_zerofree (guestfs_h *handle,
+		const char *device);
+
+This runs the I<zerofree> program on C<device>.  This program
+claims to zero unused inodes and disk blocks on an ext2/3
+filesystem, thus making it possible to compress the filesystem
+more effectively.
+
+You should B<not> run this program if the filesystem is
+mounted.
+
+It is possible that using this program can damage the filesystem
+or data on the filesystem.
+
+This function returns 0 on success or -1 on error.
+

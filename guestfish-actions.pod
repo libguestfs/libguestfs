@@ -1283,3 +1283,18 @@ How many blocks are zeroed isn't specified (but it's I<not> enough
 to securely wipe the device).  It should be sufficient to remove
 any partition tables, filesystem superblocks and so on.
 
+=head2 zerofree
+
+ zerofree device
+
+This runs the I<zerofree> program on C<device>.  This program
+claims to zero unused inodes and disk blocks on an ext2/3
+filesystem, thus making it possible to compress the filesystem
+more effectively.
+
+You should B<not> run this program if the filesystem is
+mounted.
+
+It is possible that using this program can damage the filesystem
+or data on the filesystem.
+

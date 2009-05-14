@@ -160,6 +160,7 @@ static const char *const commands[] = {
   "vgs-full",
   "write-file",
   "zero",
+  "zerofree",
   NULL
 };
 

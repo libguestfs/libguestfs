@@ -1996,6 +1996,29 @@ The returned strings are transcoded to UTF-8.");
 This runs C<hexdump -C> on the given C<path>.  The result is
 the human-readable, canonical hex dump of the file.");
 
+  ("zerofree", (RErr, [String "device"]), 97, [],
+   [InitNone, Always, TestOutput (
+      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+       ["mkfs"; "ext3"; "/dev/sda1"];
+       ["mount"; "/dev/sda1"; "/"];
+       ["write_file"; "/new"; "test file"; "0"];
+       ["umount"; "/dev/sda1"];
+       ["zerofree"; "/dev/sda1"];
+       ["mount"; "/dev/sda1"; "/"];
+       ["cat"; "/new"]], "test file")],
+   "zero unused inodes and disk blocks on ext2/3 filesystem",
+   "\
+This runs the I<zerofree> program on C<device>.  This program
+claims to zero unused inodes and disk blocks on an ext2/3
+filesystem, thus making it possible to compress the filesystem
+more effectively.
+
+You should B<not> run this program if the filesystem is
+mounted.
+
+It is possible that using this program can damage the filesystem
+or data on the filesystem.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

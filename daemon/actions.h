@@ -117,3 +117,4 @@ extern int do_equal (const char *file1, const char *file2);
 extern char **do_strings (const char *path);
 extern char **do_strings_e (const char *encoding, const char *path);
 extern char *do_hexdump (const char *path);
+extern int do_zerofree (const char *device);

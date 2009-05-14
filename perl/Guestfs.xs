@@ -1787,3 +1787,14 @@ PREINIT:
  OUTPUT:
       RETVAL
 
+void
+zerofree (g, device)
+      guestfs_h *g;
+      char *device;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_zerofree (g, device);
+      if (r == -1)
+        croak ("zerofree: %s", guestfs_last_error (g));
+

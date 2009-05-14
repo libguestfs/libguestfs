@@ -36,6 +36,7 @@ BuildRequires: kernel, bash, coreutils, lvm2, ntfs-3g, util-linux-ng
 BuildRequires: MAKEDEV, net-tools, augeas-libs, file
 BuildRequires: module-init-tools, procps, strace, iputils
 BuildRequires: grub, dosfstools, ntfsprogs
+BuildRequires: zerofree
 
 # These are only required if you want to build the bindings for
 # different languages:

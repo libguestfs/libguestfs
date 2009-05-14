@@ -50,6 +50,7 @@ guestfsd_SOURCES = \
 	tar.c \
 	upload.c \
 	zero.c \
+	zerofree.c \
 	../src/guestfs_protocol.h \
 	../src/guestfs_protocol.c
 

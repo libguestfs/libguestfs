@@ -139,3 +139,4 @@ extern int guestfs_equal (guestfs_h *handle, const char *file1, const char *file
 extern char **guestfs_strings (guestfs_h *handle, const char *path);
 extern char **guestfs_strings_e (guestfs_h *handle, const char *encoding, const char *path);
 extern char *guestfs_hexdump (guestfs_h *handle, const char *path);
+extern int guestfs_zerofree (guestfs_h *handle, const char *device);

@@ -2885,6 +2885,27 @@ static VALUE ruby_guestfs_hexdump (VALUE gv, VALUE pathv)
   return rv;
 }
 
+static VALUE ruby_guestfs_zerofree (VALUE gv, VALUE devicev)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "zerofree");
+
+  const char *device = StringValueCStr (devicev);
+  if (!device)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "device", "zerofree");
+
+  int r;
+
+  r = guestfs_zerofree (g, device);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
 /* Initialize the module. */
 void Init__guestfs ()
 {
@@ -3135,4 +3156,6 @@ void Init__guestfs ()
         ruby_guestfs_strings_e, 2);
   rb_define_method (c_guestfs, "hexdump",
         ruby_guestfs_hexdump, 1);
+  rb_define_method (c_guestfs, "zerofree",
+        ruby_guestfs_zerofree, 1);
 }

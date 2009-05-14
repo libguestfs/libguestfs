@@ -147,6 +147,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "vgs-full", "list the LVM volume groups (VGs)");
   printf ("%-20s %s\n", "write-file", "create a file");
   printf ("%-20s %s\n", "zero", "write zeroes to the device");
+  printf ("%-20s %s\n", "zerofree", "zero unused inodes and disk blocks on ext2/3 filesystem");
   printf ("    Use -h <cmd> / help <cmd> to show detailed help for a command.\n");
 }
 
@@ -499,6 +500,9 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "hexdump") == 0)
     pod2text ("hexdump - dump a file in hexadecimal", " hexdump <path>\n\nThis runs C<hexdump -C> on the given C<path>.  The result is\nthe human-readable, canonical hex dump of the file.\n\nBecause of the message protocol, there is a transfer limit \nof somewhere between 2MB and 4MB.  To transfer large files you should use\nFTP.");
+  else
+  if (strcasecmp (cmd, "zerofree") == 0)
+    pod2text ("zerofree - zero unused inodes and disk blocks on ext2/3 filesystem", " zerofree <device>\n\nThis runs the I<zerofree> program on C<device>.  This program\nclaims to zero unused inodes and disk blocks on an ext2/3\nfilesystem, thus making it possible to compress the filesystem\nmore effectively.\n\nYou should B<not> run this program if the filesystem is\nmounted.\n\nIt is possible that using this program can damage the filesystem\nor data on the filesystem.");
   else
     display_builtin_command (cmd);
 }
@@ -2438,6 +2442,20 @@ static int run_hexdump (const char *cmd, int argc, char *argv[])
   return 0;
 }
 
+static int run_zerofree (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *device;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  device = argv[0];
+  r = guestfs_zerofree (g, device);
+  return r;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -2787,6 +2805,9 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "hexdump") == 0)
     return run_hexdump (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "zerofree") == 0)
+    return run_zerofree (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);
