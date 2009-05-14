@@ -23,3 +23,6 @@ Limit on transfers would still be 2MB for these types.
 ----------------------------------------------------------------------
 
 Implement febootstrap command.
+
+zerofree:
+ftp://ftp.owlriver.com/pub/mirror/ORC/zerofree/
