@@ -207,6 +207,12 @@ and test_prereq =
      * unimplemented feature.
      *)
   | Disabled
+    (* 'string' is some C code (a function body) that should return
+     * true or false.  The test will run if the code returns true.
+     *)
+  | If of string
+    (* As for 'If' but the test runs _unless_ the code returns true. *)
+  | Unless of string
 
 (* Some initial scenarios for testing. *)
 and test_init =
@@ -234,6 +240,11 @@ and test_init =
 (* Sequence of commands for testing. *)
 and seq = cmd list
 and cmd = string list
+
+(* Canned test prerequisites. *)
+let env_is_true env =
+  sprintf "const char *str = getenv (\"%s\");
+  return str && strcmp (str, \"1\") == 0;" env
 
 (* Note about long descriptions: When referring to another
  * action, use the format C<guestfs_other> (ie. the full name of
@@ -1180,51 +1191,51 @@ particular that the filename is not prepended to the output
 (the C<-b> option).");
 
   ("command", (RString "output", [StringList "arguments"]), 50, [ProtocolLimitWarning],
-   [InitBasicFS, Always, TestOutput (
+   [InitBasicFS, Unless (env_is_true "SKIP_TEST_COMMAND"), TestOutput (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command"; "/test-command 1"]], "Result1");
-    InitBasicFS, Always, TestOutput (
+    InitBasicFS, Unless (env_is_true "SKIP_TEST_COMMAND"), TestOutput (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command"; "/test-command 2"]], "Result2\n");
-    InitBasicFS, Always, TestOutput (
+    InitBasicFS, Unless (env_is_true "SKIP_TEST_COMMAND"), TestOutput (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command"; "/test-command 3"]], "\nResult3");
-    InitBasicFS, Always, TestOutput (
+    InitBasicFS, Unless (env_is_true "SKIP_TEST_COMMAND"), TestOutput (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command"; "/test-command 4"]], "\nResult4\n");
-    InitBasicFS, Always, TestOutput (
+    InitBasicFS, Unless (env_is_true "SKIP_TEST_COMMAND"), TestOutput (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command"; "/test-command 5"]], "\nResult5\n\n");
-    InitBasicFS, Always, TestOutput (
+    InitBasicFS, Unless (env_is_true "SKIP_TEST_COMMAND"), TestOutput (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command"; "/test-command 6"]], "\n\nResult6\n\n");
-    InitBasicFS, Always, TestOutput (
+    InitBasicFS, Unless (env_is_true "SKIP_TEST_COMMAND"), TestOutput (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command"; "/test-command 7"]], "");
-    InitBasicFS, Always, TestOutput (
+    InitBasicFS, Unless (env_is_true "SKIP_TEST_COMMAND"), TestOutput (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command"; "/test-command 8"]], "\n");
-    InitBasicFS, Always, TestOutput (
+    InitBasicFS, Unless (env_is_true "SKIP_TEST_COMMAND"), TestOutput (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command"; "/test-command 9"]], "\n\n");
-    InitBasicFS, Always, TestOutput (
+    InitBasicFS, Unless (env_is_true "SKIP_TEST_COMMAND"), TestOutput (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command"; "/test-command 10"]], "Result10-1\nResult10-2\n");
-    InitBasicFS, Always, TestOutput (
+    InitBasicFS, Unless (env_is_true "SKIP_TEST_COMMAND"), TestOutput (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command"; "/test-command 11"]], "Result11-1\nResult11-2");
-    InitBasicFS, Always, TestLastFail (
+    InitBasicFS, Unless (env_is_true "SKIP_TEST_COMMAND"), TestLastFail (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command"; "/test-command"]])],
@@ -1259,47 +1270,47 @@ all filesystems that are needed are mounted at the right
 locations.");
 
   ("command_lines", (RStringList "lines", [StringList "arguments"]), 51, [ProtocolLimitWarning],
-   [InitBasicFS, Always, TestOutputList (
+   [InitBasicFS, Unless (env_is_true "SKIP_TEST_COMMAND"), TestOutputList (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command_lines"; "/test-command 1"]], ["Result1"]);
-    InitBasicFS, Always, TestOutputList (
+    InitBasicFS, Unless (env_is_true "SKIP_TEST_COMMAND"), TestOutputList (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command_lines"; "/test-command 2"]], ["Result2"]);
-    InitBasicFS, Always, TestOutputList (
+    InitBasicFS, Unless (env_is_true "SKIP_TEST_COMMAND"), TestOutputList (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command_lines"; "/test-command 3"]], ["";"Result3"]);
-    InitBasicFS, Always, TestOutputList (
+    InitBasicFS, Unless (env_is_true "SKIP_TEST_COMMAND"), TestOutputList (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command_lines"; "/test-command 4"]], ["";"Result4"]);
-    InitBasicFS, Always, TestOutputList (
+    InitBasicFS, Unless (env_is_true "SKIP_TEST_COMMAND"), TestOutputList (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command_lines"; "/test-command 5"]], ["";"Result5";""]);
-    InitBasicFS, Always, TestOutputList (
+    InitBasicFS, Unless (env_is_true "SKIP_TEST_COMMAND"), TestOutputList (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command_lines"; "/test-command 6"]], ["";"";"Result6";""]);
-    InitBasicFS, Always, TestOutputList (
+    InitBasicFS, Unless (env_is_true "SKIP_TEST_COMMAND"), TestOutputList (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command_lines"; "/test-command 7"]], []);
-    InitBasicFS, Always, TestOutputList (
+    InitBasicFS, Unless (env_is_true "SKIP_TEST_COMMAND"), TestOutputList (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command_lines"; "/test-command 8"]], [""]);
-    InitBasicFS, Always, TestOutputList (
+    InitBasicFS, Unless (env_is_true "SKIP_TEST_COMMAND"), TestOutputList (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command_lines"; "/test-command 9"]], ["";""]);
-    InitBasicFS, Always, TestOutputList (
+    InitBasicFS, Unless (env_is_true "SKIP_TEST_COMMAND"), TestOutputList (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command_lines"; "/test-command 10"]], ["Result10-1";"Result10-2"]);
-    InitBasicFS, Always, TestOutputList (
+    InitBasicFS, Unless (env_is_true "SKIP_TEST_COMMAND"), TestOutputList (
       [["upload"; "test-command"; "/test-command"];
        ["chmod"; "493"; "/test-command"];
        ["command_lines"; "/test-command 11"]], ["Result11-1";"Result11-2"])],
@@ -3666,12 +3677,32 @@ int main (int argc, char *argv[])
 and generate_one_test name i (init, prereq, test) =
   let test_name = sprintf "test_%s_%d" name i in
 
+  (match prereq with
+   | Disabled | Always -> ()
+   | If code | Unless code ->
+       pr "static int %s_prereq (void)\n" test_name;
+       pr "{\n";
+       pr "  %s\n" code;
+       pr "}\n";
+       pr "\n";
+  );
+
   pr "static int %s (void)\n" test_name;
   pr "{\n";
 
   (match prereq with
    | Disabled ->
-       pr "  printf (\"%%s skipped (test disabled in generator)\\n\", \"%s\");\n" test_name
+       pr "  printf (\"%%s skipped (reason: test disabled in generator)\\n\", \"%s\");\n" test_name
+   | If _ ->
+       pr "  if (%s_prereq ()) {\n" test_name;
+       generate_one_test_body name i test_name init test;
+       pr "  } else\n";
+       pr "    printf (\"%%s skipped (reason: test prerequisite)\\n\", \"%s\");\n" test_name
+   | Unless _ ->
+       pr "  if (! %s_prereq ()) {\n" test_name;
+       generate_one_test_body name i test_name init test;
+       pr "  } else\n";
+       pr "    printf (\"%%s skipped (reason: test prerequisite)\\n\", \"%s\");\n" test_name
    | Always ->
        generate_one_test_body name i test_name init test
   );

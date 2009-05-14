@@ -298,7 +298,7 @@ static int test_strings_e_0 (void)
 
 static int test_strings_e_1 (void)
 {
-  printf ("%s skipped (test disabled in generator)\n", "test_strings_e_1");
+  printf ("%s skipped (reason: test disabled in generator)\n", "test_strings_e_1");
   return 0;
 }
 
@@ -4981,8 +4981,15 @@ static int test_stat_0 (void)
   return 0;
 }
 
+static int test_command_lines_0_prereq (void)
+{
+  const char *str = getenv ("SKIP_TEST_COMMAND");
+  return str && strcmp (str, "1") == 0;
+}
+
 static int test_command_lines_0 (void)
 {
+  if (! test_command_lines_0_prereq ()) {
   /* InitBasicFS for command_lines (0): create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -5093,11 +5100,20 @@ static int test_command_lines_0 (void)
       free (r[i]);
     free (r);
   }
+  } else
+    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_lines_0");
   return 0;
+}
+
+static int test_command_lines_1_prereq (void)
+{
+  const char *str = getenv ("SKIP_TEST_COMMAND");
+  return str && strcmp (str, "1") == 0;
 }
 
 static int test_command_lines_1 (void)
 {
+  if (! test_command_lines_1_prereq ()) {
   /* InitBasicFS for command_lines (1): create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -5208,11 +5224,20 @@ static int test_command_lines_1 (void)
       free (r[i]);
     free (r);
   }
+  } else
+    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_lines_1");
   return 0;
+}
+
+static int test_command_lines_2_prereq (void)
+{
+  const char *str = getenv ("SKIP_TEST_COMMAND");
+  return str && strcmp (str, "1") == 0;
 }
 
 static int test_command_lines_2 (void)
 {
+  if (! test_command_lines_2_prereq ()) {
   /* InitBasicFS for command_lines (2): create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -5335,11 +5360,20 @@ static int test_command_lines_2 (void)
       free (r[i]);
     free (r);
   }
+  } else
+    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_lines_2");
   return 0;
+}
+
+static int test_command_lines_3_prereq (void)
+{
+  const char *str = getenv ("SKIP_TEST_COMMAND");
+  return str && strcmp (str, "1") == 0;
 }
 
 static int test_command_lines_3 (void)
 {
+  if (! test_command_lines_3_prereq ()) {
   /* InitBasicFS for command_lines (3): create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -5462,11 +5496,20 @@ static int test_command_lines_3 (void)
       free (r[i]);
     free (r);
   }
+  } else
+    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_lines_3");
   return 0;
+}
+
+static int test_command_lines_4_prereq (void)
+{
+  const char *str = getenv ("SKIP_TEST_COMMAND");
+  return str && strcmp (str, "1") == 0;
 }
 
 static int test_command_lines_4 (void)
 {
+  if (! test_command_lines_4_prereq ()) {
   /* InitBasicFS for command_lines (4): create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -5601,11 +5644,20 @@ static int test_command_lines_4 (void)
       free (r[i]);
     free (r);
   }
+  } else
+    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_lines_4");
   return 0;
+}
+
+static int test_command_lines_5_prereq (void)
+{
+  const char *str = getenv ("SKIP_TEST_COMMAND");
+  return str && strcmp (str, "1") == 0;
 }
 
 static int test_command_lines_5 (void)
 {
+  if (! test_command_lines_5_prereq ()) {
   /* InitBasicFS for command_lines (5): create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -5752,11 +5804,20 @@ static int test_command_lines_5 (void)
       free (r[i]);
     free (r);
   }
+  } else
+    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_lines_5");
   return 0;
+}
+
+static int test_command_lines_6_prereq (void)
+{
+  const char *str = getenv ("SKIP_TEST_COMMAND");
+  return str && strcmp (str, "1") == 0;
 }
 
 static int test_command_lines_6 (void)
 {
+  if (! test_command_lines_6_prereq ()) {
   /* InitBasicFS for command_lines (6): create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -5855,11 +5916,20 @@ static int test_command_lines_6 (void)
       free (r[i]);
     free (r);
   }
+  } else
+    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_lines_6");
   return 0;
+}
+
+static int test_command_lines_7_prereq (void)
+{
+  const char *str = getenv ("SKIP_TEST_COMMAND");
+  return str && strcmp (str, "1") == 0;
 }
 
 static int test_command_lines_7 (void)
 {
+  if (! test_command_lines_7_prereq ()) {
   /* InitBasicFS for command_lines (7): create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -5970,11 +6040,20 @@ static int test_command_lines_7 (void)
       free (r[i]);
     free (r);
   }
+  } else
+    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_lines_7");
   return 0;
+}
+
+static int test_command_lines_8_prereq (void)
+{
+  const char *str = getenv ("SKIP_TEST_COMMAND");
+  return str && strcmp (str, "1") == 0;
 }
 
 static int test_command_lines_8 (void)
 {
+  if (! test_command_lines_8_prereq ()) {
   /* InitBasicFS for command_lines (8): create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -6097,11 +6176,20 @@ static int test_command_lines_8 (void)
       free (r[i]);
     free (r);
   }
+  } else
+    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_lines_8");
   return 0;
+}
+
+static int test_command_lines_9_prereq (void)
+{
+  const char *str = getenv ("SKIP_TEST_COMMAND");
+  return str && strcmp (str, "1") == 0;
 }
 
 static int test_command_lines_9 (void)
 {
+  if (! test_command_lines_9_prereq ()) {
   /* InitBasicFS for command_lines (9): create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -6224,11 +6312,20 @@ static int test_command_lines_9 (void)
       free (r[i]);
     free (r);
   }
+  } else
+    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_lines_9");
   return 0;
+}
+
+static int test_command_lines_10_prereq (void)
+{
+  const char *str = getenv ("SKIP_TEST_COMMAND");
+  return str && strcmp (str, "1") == 0;
 }
 
 static int test_command_lines_10 (void)
 {
+  if (! test_command_lines_10_prereq ()) {
   /* InitBasicFS for command_lines (10): create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -6351,11 +6448,20 @@ static int test_command_lines_10 (void)
       free (r[i]);
     free (r);
   }
+  } else
+    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_lines_10");
   return 0;
+}
+
+static int test_command_0_prereq (void)
+{
+  const char *str = getenv ("SKIP_TEST_COMMAND");
+  return str && strcmp (str, "1") == 0;
 }
 
 static int test_command_0 (void)
 {
+  if (! test_command_0_prereq ()) {
   /* InitBasicFS for command (0): create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -6451,11 +6557,20 @@ static int test_command_0 (void)
     }
     free (r);
   }
+  } else
+    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_0");
   return 0;
+}
+
+static int test_command_1_prereq (void)
+{
+  const char *str = getenv ("SKIP_TEST_COMMAND");
+  return str && strcmp (str, "1") == 0;
 }
 
 static int test_command_1 (void)
 {
+  if (! test_command_1_prereq ()) {
   /* InitBasicFS for command (1): create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -6551,11 +6666,20 @@ static int test_command_1 (void)
     }
     free (r);
   }
+  } else
+    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_1");
   return 0;
+}
+
+static int test_command_2_prereq (void)
+{
+  const char *str = getenv ("SKIP_TEST_COMMAND");
+  return str && strcmp (str, "1") == 0;
 }
 
 static int test_command_2 (void)
 {
+  if (! test_command_2_prereq ()) {
   /* InitBasicFS for command (2): create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -6651,11 +6775,20 @@ static int test_command_2 (void)
     }
     free (r);
   }
+  } else
+    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_2");
   return 0;
+}
+
+static int test_command_3_prereq (void)
+{
+  const char *str = getenv ("SKIP_TEST_COMMAND");
+  return str && strcmp (str, "1") == 0;
 }
 
 static int test_command_3 (void)
 {
+  if (! test_command_3_prereq ()) {
   /* InitBasicFS for command (3): create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -6751,11 +6884,20 @@ static int test_command_3 (void)
     }
     free (r);
   }
+  } else
+    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_3");
   return 0;
+}
+
+static int test_command_4_prereq (void)
+{
+  const char *str = getenv ("SKIP_TEST_COMMAND");
+  return str && strcmp (str, "1") == 0;
 }
 
 static int test_command_4 (void)
 {
+  if (! test_command_4_prereq ()) {
   /* InitBasicFS for command (4): create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -6851,11 +6993,20 @@ static int test_command_4 (void)
     }
     free (r);
   }
+  } else
+    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_4");
   return 0;
+}
+
+static int test_command_5_prereq (void)
+{
+  const char *str = getenv ("SKIP_TEST_COMMAND");
+  return str && strcmp (str, "1") == 0;
 }
 
 static int test_command_5 (void)
 {
+  if (! test_command_5_prereq ()) {
   /* InitBasicFS for command (5): create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -6951,11 +7102,20 @@ static int test_command_5 (void)
     }
     free (r);
   }
+  } else
+    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_5");
   return 0;
+}
+
+static int test_command_6_prereq (void)
+{
+  const char *str = getenv ("SKIP_TEST_COMMAND");
+  return str && strcmp (str, "1") == 0;
 }
 
 static int test_command_6 (void)
 {
+  if (! test_command_6_prereq ()) {
   /* InitBasicFS for command (6): create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -7051,11 +7211,20 @@ static int test_command_6 (void)
     }
     free (r);
   }
+  } else
+    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_6");
   return 0;
+}
+
+static int test_command_7_prereq (void)
+{
+  const char *str = getenv ("SKIP_TEST_COMMAND");
+  return str && strcmp (str, "1") == 0;
 }
 
 static int test_command_7 (void)
 {
+  if (! test_command_7_prereq ()) {
   /* InitBasicFS for command (7): create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -7151,11 +7320,20 @@ static int test_command_7 (void)
     }
     free (r);
   }
+  } else
+    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_7");
   return 0;
+}
+
+static int test_command_8_prereq (void)
+{
+  const char *str = getenv ("SKIP_TEST_COMMAND");
+  return str && strcmp (str, "1") == 0;
 }
 
 static int test_command_8 (void)
 {
+  if (! test_command_8_prereq ()) {
   /* InitBasicFS for command (8): create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -7251,11 +7429,20 @@ static int test_command_8 (void)
     }
     free (r);
   }
+  } else
+    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_8");
   return 0;
+}
+
+static int test_command_9_prereq (void)
+{
+  const char *str = getenv ("SKIP_TEST_COMMAND");
+  return str && strcmp (str, "1") == 0;
 }
 
 static int test_command_9 (void)
 {
+  if (! test_command_9_prereq ()) {
   /* InitBasicFS for command (9): create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -7351,11 +7538,20 @@ static int test_command_9 (void)
     }
     free (r);
   }
+  } else
+    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_9");
   return 0;
+}
+
+static int test_command_10_prereq (void)
+{
+  const char *str = getenv ("SKIP_TEST_COMMAND");
+  return str && strcmp (str, "1") == 0;
 }
 
 static int test_command_10 (void)
 {
+  if (! test_command_10_prereq ()) {
   /* InitBasicFS for command (10): create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -7451,11 +7647,20 @@ static int test_command_10 (void)
     }
     free (r);
   }
+  } else
+    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_10");
   return 0;
+}
+
+static int test_command_11_prereq (void)
+{
+  const char *str = getenv ("SKIP_TEST_COMMAND");
+  return str && strcmp (str, "1") == 0;
 }
 
 static int test_command_11 (void)
 {
+  if (! test_command_11_prereq ()) {
   /* InitBasicFS for command (11): create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -7544,6 +7749,8 @@ static int test_command_11 (void)
       return -1;
     free (r);
   }
+  } else
+    printf ("%s skippedd (reason: test prerequisite)\n", "test_command_11");
   return 0;
 }
 

@@ -103,7 +103,9 @@ tests_CFLAGS = \
 tests_LDADD = $(top_builddir)/src/libguestfs.la
 
 TESTS = tests
-TESTS_ENVIRONMENT = $(VG)
+TESTS_ENVIRONMENT = \
+	SKIP_TEST_COMMAND=$(shell ldd test-command | grep -sq 'not a dynamic executable' || echo 1) \
+	$(VG)
 
 $(TESTS): $(INITRAMFS) $(VMLINUZ)
 
