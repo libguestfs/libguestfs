@@ -118,3 +118,8 @@ extern char **do_strings (const char *path);
 extern char **do_strings_e (const char *encoding, const char *path);
 extern char *do_hexdump (const char *path);
 extern int do_zerofree (const char *device);
+extern int do_pvresize (const char *device);
+extern int do_sfdisk_N (const char *device, int n, int cyls, int heads, int sectors, const char *line);
+extern char *do_sfdisk_l (const char *device);
+extern char *do_sfdisk_kernel_geometry (const char *device);
+extern char *do_sfdisk_disk_geometry (const char *device);

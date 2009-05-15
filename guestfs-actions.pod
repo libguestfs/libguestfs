@@ -1208,6 +1208,16 @@ to remove those first.
 
 This function returns 0 on success or -1 on error.
 
+=head2 guestfs_pvresize
+
+ int guestfs_pvresize (guestfs_h *handle,
+		const char *device);
+
+This resizes (expands or shrinks) an existing LVM physical
+volume to match the new size of the underlying device.
+
+This function returns 0 on success or -1 on error.
+
 =head2 guestfs_pvs
 
  char **guestfs_pvs (guestfs_h *handle);
@@ -1440,10 +1450,74 @@ To create a single partition occupying the whole disk, you would
 pass C<lines> as a single element list, when the single element being
 the string C<,> (comma).
 
+See also: C<guestfs_sfdisk_l>, C<guestfs_sfdisk_N>
+
 This function returns 0 on success or -1 on error.
 
 B<This command is dangerous.  Without careful use you
 can easily destroy all your data>.
+
+=head2 guestfs_sfdisk_N
+
+ int guestfs_sfdisk_N (guestfs_h *handle,
+		const char *device,
+		int n,
+		int cyls,
+		int heads,
+		int sectors,
+		const char *line);
+
+This runs L<sfdisk(8)> option to modify just the single
+partition C<n> (note: C<n> counts from 1).
+
+For other parameters, see C<guestfs_sfdisk>.  You should usually
+pass C<0> for the cyls/heads/sectors parameters.
+
+This function returns 0 on success or -1 on error.
+
+B<This command is dangerous.  Without careful use you
+can easily destroy all your data>.
+
+=head2 guestfs_sfdisk_disk_geometry
+
+ char *guestfs_sfdisk_disk_geometry (guestfs_h *handle,
+		const char *device);
+
+This displays the disk geometry of C<device> read from the
+partition table.  Especially in the case where the underlying
+block device has been resized, this can be different from the
+kernel's idea of the geometry (see C<guestfs_sfdisk_kernel_geometry>).
+
+The result is in human-readable format, and not designed to
+be parsed.
+
+This function returns a string, or NULL on error.
+I<The caller must free the returned string after use>.
+
+=head2 guestfs_sfdisk_kernel_geometry
+
+ char *guestfs_sfdisk_kernel_geometry (guestfs_h *handle,
+		const char *device);
+
+This displays the kernel's idea of the geometry of C<device>.
+
+The result is in human-readable format, and not designed to
+be parsed.
+
+This function returns a string, or NULL on error.
+I<The caller must free the returned string after use>.
+
+=head2 guestfs_sfdisk_l
+
+ char *guestfs_sfdisk_l (guestfs_h *handle,
+		const char *device);
+
+This displays the partition table on C<device>, in the
+human-readable output of the L<sfdisk(8)> command.  It is
+not intended to be parsed.
+
+This function returns a string, or NULL on error.
+I<The caller must free the returned string after use>.
 
 =head2 guestfs_stat
 

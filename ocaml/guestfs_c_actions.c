@@ -3201,3 +3201,133 @@ ocaml_guestfs_zerofree (value gv, value devicev)
   CAMLreturn (rv);
 }
 
+CAMLprim value
+ocaml_guestfs_pvresize (value gv, value devicev)
+{
+  CAMLparam2 (gv, devicev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("pvresize: used handle after closing it");
+
+  const char *device = String_val (devicev);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_pvresize (g, device);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "pvresize");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_sfdisk_N (value gv, value devicev, value nv, value cylsv, value headsv, value sectorsv, value linev)
+{
+  CAMLparam5 (gv, devicev, nv, cylsv, headsv);
+  CAMLxparam2 (sectorsv, linev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("sfdisk_N: used handle after closing it");
+
+  const char *device = String_val (devicev);
+  int n = Int_val (nv);
+  int cyls = Int_val (cylsv);
+  int heads = Int_val (headsv);
+  int sectors = Int_val (sectorsv);
+  const char *line = String_val (linev);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_sfdisk_N (g, device, n, cyls, heads, sectors, line);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "sfdisk_N");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_sfdisk_N_byte (value *argv, int argn)
+{
+  return ocaml_guestfs_sfdisk_N (argv[0], argv[0], argv[1], argv[2], argv[3], argv[4], argv[5]);
+}
+
+CAMLprim value
+ocaml_guestfs_sfdisk_l (value gv, value devicev)
+{
+  CAMLparam2 (gv, devicev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("sfdisk_l: used handle after closing it");
+
+  const char *device = String_val (devicev);
+  char *r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_sfdisk_l (g, device);
+  caml_leave_blocking_section ();
+  if (r == NULL)
+    ocaml_guestfs_raise_error (g, "sfdisk_l");
+
+  rv = caml_copy_string (r);
+  free (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_sfdisk_kernel_geometry (value gv, value devicev)
+{
+  CAMLparam2 (gv, devicev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("sfdisk_kernel_geometry: used handle after closing it");
+
+  const char *device = String_val (devicev);
+  char *r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_sfdisk_kernel_geometry (g, device);
+  caml_leave_blocking_section ();
+  if (r == NULL)
+    ocaml_guestfs_raise_error (g, "sfdisk_kernel_geometry");
+
+  rv = caml_copy_string (r);
+  free (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_sfdisk_disk_geometry (value gv, value devicev)
+{
+  CAMLparam2 (gv, devicev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("sfdisk_disk_geometry: used handle after closing it");
+
+  const char *device = String_val (devicev);
+  char *r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_sfdisk_disk_geometry (g, device);
+  caml_leave_blocking_section ();
+  if (r == NULL)
+    ocaml_guestfs_raise_error (g, "sfdisk_disk_geometry");
+
+  rv = caml_copy_string (r);
+  free (r);
+  CAMLreturn (rv);
+}
+

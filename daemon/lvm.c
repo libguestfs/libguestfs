@@ -358,3 +358,21 @@ do_pvremove (const char *device)
   free (err);
   return 0;
 }
+
+int
+do_pvresize (const char *device)
+{
+  char *err;
+  int r;
+
+  r = command (NULL, &err,
+	       "/sbin/lvm", "pvresize", device, NULL);
+  if (r == -1) {
+    reply_with_error ("pvresize: %s: %s", device, err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+  return 0;
+}

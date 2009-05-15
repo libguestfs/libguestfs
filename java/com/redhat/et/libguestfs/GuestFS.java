@@ -1518,6 +1518,8 @@ public class GuestFS {
    * you would pass "lines" as a single element list, when
    * the single element being the string "," (comma).
    * 
+   * See also: "g.sfdisk_l", "g.sfdisk_N"
+   * 
    * This command is dangerous. Without careful use you can
    * easily destroy all your data.
    * 
@@ -2753,6 +2755,113 @@ public class GuestFS {
     _zerofree (g, device);
   }
   private native void _zerofree (long g, String device)
+    throws LibGuestFSException;
+
+  /**
+   * resize an LVM physical volume
+   *
+   * This resizes (expands or shrinks) an existing LVM
+   * physical volume to match the new size of the underlying
+   * device.
+   * 
+   * @throws LibGuestFSException
+   */
+  public void pvresize (String device)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("pvresize: handle is closed");
+    _pvresize (g, device);
+  }
+  private native void _pvresize (long g, String device)
+    throws LibGuestFSException;
+
+  /**
+   * modify a single partition on a block device
+   *
+   * This runs sfdisk(8) option to modify just the single
+   * partition "n" (note: "n" counts from 1).
+   * 
+   * For other parameters, see "g.sfdisk". You should usually
+   * pass 0 for the cyls/heads/sectors parameters.
+   * 
+   * This command is dangerous. Without careful use you can
+   * easily destroy all your data.
+   * 
+   * @throws LibGuestFSException
+   */
+  public void sfdisk_N (String device, int n, int cyls, int heads, int sectors, String line)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("sfdisk_N: handle is closed");
+    _sfdisk_N (g, device, n, cyls, heads, sectors, line);
+  }
+  private native void _sfdisk_N (long g, String device, int n, int cyls, int heads, int sectors, String line)
+    throws LibGuestFSException;
+
+  /**
+   * display the partition table
+   *
+   * This displays the partition table on "device", in the
+   * human-readable output of the sfdisk(8) command. It is
+   * not intended to be parsed.
+   * 
+   * @throws LibGuestFSException
+   */
+  public String sfdisk_l (String device)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("sfdisk_l: handle is closed");
+    return _sfdisk_l (g, device);
+  }
+  private native String _sfdisk_l (long g, String device)
+    throws LibGuestFSException;
+
+  /**
+   * display the kernel geometry
+   *
+   * This displays the kernel's idea of the geometry of
+   * "device".
+   * 
+   * The result is in human-readable format, and not designed
+   * to be parsed.
+   * 
+   * @throws LibGuestFSException
+   */
+  public String sfdisk_kernel_geometry (String device)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("sfdisk_kernel_geometry: handle is closed");
+    return _sfdisk_kernel_geometry (g, device);
+  }
+  private native String _sfdisk_kernel_geometry (long g, String device)
+    throws LibGuestFSException;
+
+  /**
+   * display the disk geometry from the partition table
+   *
+   * This displays the disk geometry of "device" read from
+   * the partition table. Especially in the case where the
+   * underlying block device has been resized, this can be
+   * different from the kernel's idea of the geometry (see
+   * "g.sfdisk_kernel_geometry").
+   * 
+   * The result is in human-readable format, and not designed
+   * to be parsed.
+   * 
+   * @throws LibGuestFSException
+   */
+  public String sfdisk_disk_geometry (String device)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("sfdisk_disk_geometry: handle is closed");
+    return _sfdisk_disk_geometry (g, device);
+  }
+  private native String _sfdisk_disk_geometry (long g, String device)
     throws LibGuestFSException;
 
 }

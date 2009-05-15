@@ -2421,6 +2421,145 @@ done:
   xdr_free ((xdrproc_t) xdr_guestfs_zerofree_args, (char *) &args);
 }
 
+static void pvresize_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_pvresize_args args;
+  const char *device;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_pvresize_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "pvresize");
+    return;
+  }
+  device = args.device;
+
+  r = do_pvresize (device);
+  if (r == -1)
+    /* do_pvresize has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_pvresize_args, (char *) &args);
+}
+
+static void sfdisk_N_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_sfdisk_N_args args;
+  const char *device;
+  int n;
+  int cyls;
+  int heads;
+  int sectors;
+  const char *line;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_sfdisk_N_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "sfdisk_N");
+    return;
+  }
+  device = args.device;
+  n = args.n;
+  cyls = args.cyls;
+  heads = args.heads;
+  sectors = args.sectors;
+  line = args.line;
+
+  r = do_sfdisk_N (device, n, cyls, heads, sectors, line);
+  if (r == -1)
+    /* do_sfdisk_N has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_sfdisk_N_args, (char *) &args);
+}
+
+static void sfdisk_l_stub (XDR *xdr_in)
+{
+  char *r;
+  struct guestfs_sfdisk_l_args args;
+  const char *device;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_sfdisk_l_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "sfdisk_l");
+    return;
+  }
+  device = args.device;
+
+  r = do_sfdisk_l (device);
+  if (r == NULL)
+    /* do_sfdisk_l has already called reply_with_error */
+    goto done;
+
+  struct guestfs_sfdisk_l_ret ret;
+  ret.partitions = r;
+  reply ((xdrproc_t) &xdr_guestfs_sfdisk_l_ret, (char *) &ret);
+  free (r);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_sfdisk_l_args, (char *) &args);
+}
+
+static void sfdisk_kernel_geometry_stub (XDR *xdr_in)
+{
+  char *r;
+  struct guestfs_sfdisk_kernel_geometry_args args;
+  const char *device;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_sfdisk_kernel_geometry_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "sfdisk_kernel_geometry");
+    return;
+  }
+  device = args.device;
+
+  r = do_sfdisk_kernel_geometry (device);
+  if (r == NULL)
+    /* do_sfdisk_kernel_geometry has already called reply_with_error */
+    goto done;
+
+  struct guestfs_sfdisk_kernel_geometry_ret ret;
+  ret.partitions = r;
+  reply ((xdrproc_t) &xdr_guestfs_sfdisk_kernel_geometry_ret, (char *) &ret);
+  free (r);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_sfdisk_kernel_geometry_args, (char *) &args);
+}
+
+static void sfdisk_disk_geometry_stub (XDR *xdr_in)
+{
+  char *r;
+  struct guestfs_sfdisk_disk_geometry_args args;
+  const char *device;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_sfdisk_disk_geometry_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "sfdisk_disk_geometry");
+    return;
+  }
+  device = args.device;
+
+  r = do_sfdisk_disk_geometry (device);
+  if (r == NULL)
+    /* do_sfdisk_disk_geometry has already called reply_with_error */
+    goto done;
+
+  struct guestfs_sfdisk_disk_geometry_ret ret;
+  ret.partitions = r;
+  reply ((xdrproc_t) &xdr_guestfs_sfdisk_disk_geometry_ret, (char *) &ret);
+  free (r);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_sfdisk_disk_geometry_args, (char *) &args);
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -2714,6 +2853,21 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_ZEROFREE:
       zerofree_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_PVRESIZE:
+      pvresize_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_SFDISK_N:
+      sfdisk_N_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_SFDISK_L:
+      sfdisk_l_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_SFDISK_KERNEL_GEOMETRY:
+      sfdisk_kernel_geometry_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_SFDISK_DISK_GEOMETRY:
+      sfdisk_disk_geometry_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d", proc_nr);

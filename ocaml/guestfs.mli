@@ -487,3 +487,18 @@ val hexdump : t -> string -> string
 val zerofree : t -> string -> unit
 (** zero unused inodes and disk blocks on ext2/3 filesystem *)
 
+val pvresize : t -> string -> unit
+(** resize an LVM physical volume *)
+
+val sfdisk_N : t -> string -> int -> int -> int -> int -> string -> unit
+(** modify a single partition on a block device *)
+
+val sfdisk_l : t -> string -> string
+(** display the partition table *)
+
+val sfdisk_kernel_geometry : t -> string -> string
+(** display the kernel geometry *)
+
+val sfdisk_disk_geometry : t -> string -> string
+(** display the disk geometry from the partition table *)
+

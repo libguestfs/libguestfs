@@ -652,6 +652,43 @@ struct guestfs_zerofree_args {
   string device<>;
 };
 
+struct guestfs_pvresize_args {
+  string device<>;
+};
+
+struct guestfs_sfdisk_N_args {
+  string device<>;
+  int n;
+  int cyls;
+  int heads;
+  int sectors;
+  string line<>;
+};
+
+struct guestfs_sfdisk_l_args {
+  string device<>;
+};
+
+struct guestfs_sfdisk_l_ret {
+  string partitions<>;
+};
+
+struct guestfs_sfdisk_kernel_geometry_args {
+  string device<>;
+};
+
+struct guestfs_sfdisk_kernel_geometry_ret {
+  string partitions<>;
+};
+
+struct guestfs_sfdisk_disk_geometry_args {
+  string device<>;
+};
+
+struct guestfs_sfdisk_disk_geometry_ret {
+  string partitions<>;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -750,6 +787,11 @@ enum guestfs_procedure {
   GUESTFS_PROC_STRINGS_E = 95,
   GUESTFS_PROC_HEXDUMP = 96,
   GUESTFS_PROC_ZEROFREE = 97,
+  GUESTFS_PROC_PVRESIZE = 98,
+  GUESTFS_PROC_SFDISK_N = 99,
+  GUESTFS_PROC_SFDISK_L = 100,
+  GUESTFS_PROC_SFDISK_KERNEL_GEOMETRY = 101,
+  GUESTFS_PROC_SFDISK_DISK_GEOMETRY = 102,
   GUESTFS_PROC_NR_PROCS
 };
 

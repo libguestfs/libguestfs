@@ -116,6 +116,11 @@ static void no_test_warnings (void)
   fprintf (stderr, "warning: \"guestfs_debug\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_get_e2label\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_get_e2uuid\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_pvresize\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_sfdisk_N\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_sfdisk_l\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_sfdisk_kernel_geometry\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_sfdisk_disk_geometry\" has no tests\n");
 }
 
 static int test_zerofree_0 (void)

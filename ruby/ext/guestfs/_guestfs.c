@@ -2906,6 +2906,125 @@ static VALUE ruby_guestfs_zerofree (VALUE gv, VALUE devicev)
   return Qnil;
 }
 
+static VALUE ruby_guestfs_pvresize (VALUE gv, VALUE devicev)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "pvresize");
+
+  const char *device = StringValueCStr (devicev);
+  if (!device)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "device", "pvresize");
+
+  int r;
+
+  r = guestfs_pvresize (g, device);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
+static VALUE ruby_guestfs_sfdisk_N (VALUE gv, VALUE devicev, VALUE nv, VALUE cylsv, VALUE headsv, VALUE sectorsv, VALUE linev)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "sfdisk_N");
+
+  const char *device = StringValueCStr (devicev);
+  if (!device)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "device", "sfdisk_N");
+  int n = NUM2INT (nv);
+  int cyls = NUM2INT (cylsv);
+  int heads = NUM2INT (headsv);
+  int sectors = NUM2INT (sectorsv);
+  const char *line = StringValueCStr (linev);
+  if (!line)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "line", "sfdisk_N");
+
+  int r;
+
+  r = guestfs_sfdisk_N (g, device, n, cyls, heads, sectors, line);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
+static VALUE ruby_guestfs_sfdisk_l (VALUE gv, VALUE devicev)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "sfdisk_l");
+
+  const char *device = StringValueCStr (devicev);
+  if (!device)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "device", "sfdisk_l");
+
+  char *r;
+
+  r = guestfs_sfdisk_l (g, device);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  VALUE rv = rb_str_new2 (r);
+  free (r);
+  return rv;
+}
+
+static VALUE ruby_guestfs_sfdisk_kernel_geometry (VALUE gv, VALUE devicev)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "sfdisk_kernel_geometry");
+
+  const char *device = StringValueCStr (devicev);
+  if (!device)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "device", "sfdisk_kernel_geometry");
+
+  char *r;
+
+  r = guestfs_sfdisk_kernel_geometry (g, device);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  VALUE rv = rb_str_new2 (r);
+  free (r);
+  return rv;
+}
+
+static VALUE ruby_guestfs_sfdisk_disk_geometry (VALUE gv, VALUE devicev)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "sfdisk_disk_geometry");
+
+  const char *device = StringValueCStr (devicev);
+  if (!device)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "device", "sfdisk_disk_geometry");
+
+  char *r;
+
+  r = guestfs_sfdisk_disk_geometry (g, device);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  VALUE rv = rb_str_new2 (r);
+  free (r);
+  return rv;
+}
+
 /* Initialize the module. */
 void Init__guestfs ()
 {
@@ -3158,4 +3277,14 @@ void Init__guestfs ()
         ruby_guestfs_hexdump, 1);
   rb_define_method (c_guestfs, "zerofree",
         ruby_guestfs_zerofree, 1);
+  rb_define_method (c_guestfs, "pvresize",
+        ruby_guestfs_pvresize, 1);
+  rb_define_method (c_guestfs, "sfdisk_N",
+        ruby_guestfs_sfdisk_N, 6);
+  rb_define_method (c_guestfs, "sfdisk_l",
+        ruby_guestfs_sfdisk_l, 1);
+  rb_define_method (c_guestfs, "sfdisk_kernel_geometry",
+        ruby_guestfs_sfdisk_kernel_geometry, 1);
+  rb_define_method (c_guestfs, "sfdisk_disk_geometry",
+        ruby_guestfs_sfdisk_disk_geometry, 1);
 }

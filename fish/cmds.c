@@ -113,6 +113,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "ping-daemon", "ping the guest daemon");
   printf ("%-20s %s\n", "pvcreate", "create an LVM physical volume");
   printf ("%-20s %s\n", "pvremove", "remove an LVM physical volume");
+  printf ("%-20s %s\n", "pvresize", "resize an LVM physical volume");
   printf ("%-20s %s\n", "pvs", "list the LVM physical volumes (PVs)");
   printf ("%-20s %s\n", "pvs-full", "list the LVM physical volumes (PVs)");
   printf ("%-20s %s\n", "read-lines", "read file as lines");
@@ -127,6 +128,10 @@ void list_commands (void)
   printf ("%-20s %s\n", "set-qemu", "set the qemu binary");
   printf ("%-20s %s\n", "set-verbose", "set verbose mode");
   printf ("%-20s %s\n", "sfdisk", "create partitions on a block device");
+  printf ("%-20s %s\n", "sfdisk-N", "modify a single partition on a block device");
+  printf ("%-20s %s\n", "sfdisk-disk-geometry", "display the disk geometry from the partition table");
+  printf ("%-20s %s\n", "sfdisk-kernel-geometry", "display the kernel geometry");
+  printf ("%-20s %s\n", "sfdisk-l", "display the partition table");
   printf ("%-20s %s\n", "stat", "get file information");
   printf ("%-20s %s\n", "statvfs", "get file system statistics");
   printf ("%-20s %s\n", "strings", "print the printable strings in a file");
@@ -340,7 +345,7 @@ void display_command (const char *cmd)
     pod2text ("mkfs - make a filesystem", " mkfs <fstype> <device>\n\nThis creates a filesystem on C<device> (usually a partition\nor LVM logical volume).  The filesystem type is C<fstype>, for\nexample C<ext3>.");
   else
   if (strcasecmp (cmd, "sfdisk") == 0)
-    pod2text ("sfdisk - create partitions on a block device", " sfdisk <device> <cyls> <heads> <sectors> <lines>\n\nThis is a direct interface to the L<sfdisk(8)> program for creating\npartitions on block devices.\n\nC<device> should be a block device, for example C</dev/sda>.\n\nC<cyls>, C<heads> and C<sectors> are the number of cylinders, heads\nand sectors on the device, which are passed directly to sfdisk as\nthe I<-C>, I<-H> and I<-S> parameters.  If you pass C<0> for any\nof these, then the corresponding parameter is omitted.  Usually for\n'large' disks, you can just pass C<0> for these, but for small\n(floppy-sized) disks, sfdisk (or rather, the kernel) cannot work\nout the right geometry and you will need to tell it.\n\nC<lines> is a list of lines that we feed to C<sfdisk>.  For more\ninformation refer to the L<sfdisk(8)> manpage.\n\nTo create a single partition occupying the whole disk, you would\npass C<lines> as a single element list, when the single element being\nthe string C<,> (comma).\n\nB<This command is dangerous.  Without careful use you\ncan easily destroy all your data>.");
+    pod2text ("sfdisk - create partitions on a block device", " sfdisk <device> <cyls> <heads> <sectors> <lines>\n\nThis is a direct interface to the L<sfdisk(8)> program for creating\npartitions on block devices.\n\nC<device> should be a block device, for example C</dev/sda>.\n\nC<cyls>, C<heads> and C<sectors> are the number of cylinders, heads\nand sectors on the device, which are passed directly to sfdisk as\nthe I<-C>, I<-H> and I<-S> parameters.  If you pass C<0> for any\nof these, then the corresponding parameter is omitted.  Usually for\n'large' disks, you can just pass C<0> for these, but for small\n(floppy-sized) disks, sfdisk (or rather, the kernel) cannot work\nout the right geometry and you will need to tell it.\n\nC<lines> is a list of lines that we feed to C<sfdisk>.  For more\ninformation refer to the L<sfdisk(8)> manpage.\n\nTo create a single partition occupying the whole disk, you would\npass C<lines> as a single element list, when the single element being\nthe string C<,> (comma).\n\nSee also: C<sfdisk_l>, C<sfdisk_N>\n\nB<This command is dangerous.  Without careful use you\ncan easily destroy all your data>.");
   else
   if (strcasecmp (cmd, "write_file") == 0 || strcasecmp (cmd, "write-file") == 0)
     pod2text ("write-file - create a file", " write-file <path> <content> <size>\n\nThis call creates a file called C<path>.  The contents of the\nfile is the string C<content> (which can contain any 8 bit data),\nwith length C<size>.\n\nAs a special case, if C<size> is C<0>\nthen the length is calculated using C<strlen> (so in this case\nthe content cannot contain embedded ASCII NULs).\n\nI<NB.> Owing to a bug, writing content containing ASCII NUL\ncharacters does I<not> work, even if the length is specified.\nWe hope to resolve this bug in a future version.  In the meantime\nuse C<upload>.\n\nBecause of the message protocol, there is a transfer limit \nof somewhere between 2MB and 4MB.  To transfer large files you should use\nFTP.");
@@ -503,6 +508,21 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "zerofree") == 0)
     pod2text ("zerofree - zero unused inodes and disk blocks on ext2/3 filesystem", " zerofree <device>\n\nThis runs the I<zerofree> program on C<device>.  This program\nclaims to zero unused inodes and disk blocks on an ext2/3\nfilesystem, thus making it possible to compress the filesystem\nmore effectively.\n\nYou should B<not> run this program if the filesystem is\nmounted.\n\nIt is possible that using this program can damage the filesystem\nor data on the filesystem.");
+  else
+  if (strcasecmp (cmd, "pvresize") == 0)
+    pod2text ("pvresize - resize an LVM physical volume", " pvresize <device>\n\nThis resizes (expands or shrinks) an existing LVM physical\nvolume to match the new size of the underlying device.");
+  else
+  if (strcasecmp (cmd, "sfdisk_N") == 0 || strcasecmp (cmd, "sfdisk-N") == 0)
+    pod2text ("sfdisk-N - modify a single partition on a block device", " sfdisk-N <device> <n> <cyls> <heads> <sectors> <line>\n\nThis runs L<sfdisk(8)> option to modify just the single\npartition C<n> (note: C<n> counts from 1).\n\nFor other parameters, see C<sfdisk>.  You should usually\npass C<0> for the cyls/heads/sectors parameters.\n\nB<This command is dangerous.  Without careful use you\ncan easily destroy all your data>.");
+  else
+  if (strcasecmp (cmd, "sfdisk_l") == 0 || strcasecmp (cmd, "sfdisk-l") == 0)
+    pod2text ("sfdisk-l - display the partition table", " sfdisk-l <device>\n\nThis displays the partition table on C<device>, in the\nhuman-readable output of the L<sfdisk(8)> command.  It is\nnot intended to be parsed.");
+  else
+  if (strcasecmp (cmd, "sfdisk_kernel_geometry") == 0 || strcasecmp (cmd, "sfdisk-kernel-geometry") == 0)
+    pod2text ("sfdisk-kernel-geometry - display the kernel geometry", " sfdisk-kernel-geometry <device>\n\nThis displays the kernel's idea of the geometry of C<device>.\n\nThe result is in human-readable format, and not designed to\nbe parsed.");
+  else
+  if (strcasecmp (cmd, "sfdisk_disk_geometry") == 0 || strcasecmp (cmd, "sfdisk-disk-geometry") == 0)
+    pod2text ("sfdisk-disk-geometry - display the disk geometry from the partition table", " sfdisk-disk-geometry <device>\n\nThis displays the disk geometry of C<device> read from the\npartition table.  Especially in the case where the underlying\nblock device has been resized, this can be different from the\nkernel's idea of the geometry (see C<sfdisk_kernel_geometry>).\n\nThe result is in human-readable format, and not designed to\nbe parsed.");
   else
     display_builtin_command (cmd);
 }
@@ -2456,6 +2476,95 @@ static int run_zerofree (const char *cmd, int argc, char *argv[])
   return r;
 }
 
+static int run_pvresize (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *device;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  device = argv[0];
+  r = guestfs_pvresize (g, device);
+  return r;
+}
+
+static int run_sfdisk_N (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *device;
+  int n;
+  int cyls;
+  int heads;
+  int sectors;
+  const char *line;
+  if (argc != 6) {
+    fprintf (stderr, "%s should have 6 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  device = argv[0];
+  n = atoi (argv[1]);
+  cyls = atoi (argv[2]);
+  heads = atoi (argv[3]);
+  sectors = atoi (argv[4]);
+  line = argv[5];
+  r = guestfs_sfdisk_N (g, device, n, cyls, heads, sectors, line);
+  return r;
+}
+
+static int run_sfdisk_l (const char *cmd, int argc, char *argv[])
+{
+  char *r;
+  const char *device;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  device = argv[0];
+  r = guestfs_sfdisk_l (g, device);
+  if (r == NULL) return -1;
+  printf ("%s\n", r);
+  free (r);
+  return 0;
+}
+
+static int run_sfdisk_kernel_geometry (const char *cmd, int argc, char *argv[])
+{
+  char *r;
+  const char *device;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  device = argv[0];
+  r = guestfs_sfdisk_kernel_geometry (g, device);
+  if (r == NULL) return -1;
+  printf ("%s\n", r);
+  free (r);
+  return 0;
+}
+
+static int run_sfdisk_disk_geometry (const char *cmd, int argc, char *argv[])
+{
+  char *r;
+  const char *device;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  device = argv[0];
+  r = guestfs_sfdisk_disk_geometry (g, device);
+  if (r == NULL) return -1;
+  printf ("%s\n", r);
+  free (r);
+  return 0;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -2808,6 +2917,21 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "zerofree") == 0)
     return run_zerofree (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "pvresize") == 0)
+    return run_pvresize (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "sfdisk_N") == 0 || strcasecmp (cmd, "sfdisk-N") == 0)
+    return run_sfdisk_N (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "sfdisk_l") == 0 || strcasecmp (cmd, "sfdisk-l") == 0)
+    return run_sfdisk_l (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "sfdisk_kernel_geometry") == 0 || strcasecmp (cmd, "sfdisk-kernel-geometry") == 0)
+    return run_sfdisk_kernel_geometry (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "sfdisk_disk_geometry") == 0 || strcasecmp (cmd, "sfdisk-disk-geometry") == 0)
+    return run_sfdisk_disk_geometry (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

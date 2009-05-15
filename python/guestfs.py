@@ -750,6 +750,8 @@ class GuestFS:
         you would pass "lines" as a single element list, when
         the single element being the string "," (comma).
         
+        See also: "g.sfdisk_l", "g.sfdisk_N"
+        
         This command is dangerous. Without careful use you can
         easily destroy all your data.
         """
@@ -1347,4 +1349,51 @@ class GuestFS:
         filesystem or data on the filesystem.
         """
         return libguestfsmod.zerofree (self._o, device)
+
+    def pvresize (self, device):
+        u"""This resizes (expands or shrinks) an existing LVM
+        physical volume to match the new size of the underlying
+        device.
+        """
+        return libguestfsmod.pvresize (self._o, device)
+
+    def sfdisk_N (self, device, n, cyls, heads, sectors, line):
+        u"""This runs sfdisk(8) option to modify just the single
+        partition "n" (note: "n" counts from 1).
+        
+        For other parameters, see "g.sfdisk". You should usually
+        pass 0 for the cyls/heads/sectors parameters.
+        
+        This command is dangerous. Without careful use you can
+        easily destroy all your data.
+        """
+        return libguestfsmod.sfdisk_N (self._o, device, n, cyls, heads, sectors, line)
+
+    def sfdisk_l (self, device):
+        u"""This displays the partition table on "device", in the
+        human-readable output of the sfdisk(8) command. It is
+        not intended to be parsed.
+        """
+        return libguestfsmod.sfdisk_l (self._o, device)
+
+    def sfdisk_kernel_geometry (self, device):
+        u"""This displays the kernel's idea of the geometry of
+        "device".
+        
+        The result is in human-readable format, and not designed
+        to be parsed.
+        """
+        return libguestfsmod.sfdisk_kernel_geometry (self._o, device)
+
+    def sfdisk_disk_geometry (self, device):
+        u"""This displays the disk geometry of "device" read from
+        the partition table. Especially in the case where the
+        underlying block device has been resized, this can be
+        different from the kernel's idea of the geometry (see
+        "g.sfdisk_kernel_geometry").
+        
+        The result is in human-readable format, and not designed
+        to be parsed.
+        """
+        return libguestfsmod.sfdisk_disk_geometry (self._o, device)
 

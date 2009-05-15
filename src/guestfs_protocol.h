@@ -842,6 +842,51 @@ struct guestfs_zerofree_args {
 };
 typedef struct guestfs_zerofree_args guestfs_zerofree_args;
 
+struct guestfs_pvresize_args {
+	char *device;
+};
+typedef struct guestfs_pvresize_args guestfs_pvresize_args;
+
+struct guestfs_sfdisk_N_args {
+	char *device;
+	int n;
+	int cyls;
+	int heads;
+	int sectors;
+	char *line;
+};
+typedef struct guestfs_sfdisk_N_args guestfs_sfdisk_N_args;
+
+struct guestfs_sfdisk_l_args {
+	char *device;
+};
+typedef struct guestfs_sfdisk_l_args guestfs_sfdisk_l_args;
+
+struct guestfs_sfdisk_l_ret {
+	char *partitions;
+};
+typedef struct guestfs_sfdisk_l_ret guestfs_sfdisk_l_ret;
+
+struct guestfs_sfdisk_kernel_geometry_args {
+	char *device;
+};
+typedef struct guestfs_sfdisk_kernel_geometry_args guestfs_sfdisk_kernel_geometry_args;
+
+struct guestfs_sfdisk_kernel_geometry_ret {
+	char *partitions;
+};
+typedef struct guestfs_sfdisk_kernel_geometry_ret guestfs_sfdisk_kernel_geometry_ret;
+
+struct guestfs_sfdisk_disk_geometry_args {
+	char *device;
+};
+typedef struct guestfs_sfdisk_disk_geometry_args guestfs_sfdisk_disk_geometry_args;
+
+struct guestfs_sfdisk_disk_geometry_ret {
+	char *partitions;
+};
+typedef struct guestfs_sfdisk_disk_geometry_ret guestfs_sfdisk_disk_geometry_ret;
+
 enum guestfs_procedure {
 	GUESTFS_PROC_MOUNT = 1,
 	GUESTFS_PROC_SYNC = 2,
@@ -940,7 +985,12 @@ enum guestfs_procedure {
 	GUESTFS_PROC_STRINGS_E = 95,
 	GUESTFS_PROC_HEXDUMP = 96,
 	GUESTFS_PROC_ZEROFREE = 97,
-	GUESTFS_PROC_NR_PROCS = 97 + 1,
+	GUESTFS_PROC_PVRESIZE = 98,
+	GUESTFS_PROC_SFDISK_N = 99,
+	GUESTFS_PROC_SFDISK_L = 100,
+	GUESTFS_PROC_SFDISK_KERNEL_GEOMETRY = 101,
+	GUESTFS_PROC_SFDISK_DISK_GEOMETRY = 102,
+	GUESTFS_PROC_NR_PROCS = 102 + 1,
 };
 typedef enum guestfs_procedure guestfs_procedure;
 #define GUESTFS_MESSAGE_MAX 4194304
@@ -1123,6 +1173,14 @@ extern  bool_t xdr_guestfs_strings_e_ret (XDR *, guestfs_strings_e_ret*);
 extern  bool_t xdr_guestfs_hexdump_args (XDR *, guestfs_hexdump_args*);
 extern  bool_t xdr_guestfs_hexdump_ret (XDR *, guestfs_hexdump_ret*);
 extern  bool_t xdr_guestfs_zerofree_args (XDR *, guestfs_zerofree_args*);
+extern  bool_t xdr_guestfs_pvresize_args (XDR *, guestfs_pvresize_args*);
+extern  bool_t xdr_guestfs_sfdisk_N_args (XDR *, guestfs_sfdisk_N_args*);
+extern  bool_t xdr_guestfs_sfdisk_l_args (XDR *, guestfs_sfdisk_l_args*);
+extern  bool_t xdr_guestfs_sfdisk_l_ret (XDR *, guestfs_sfdisk_l_ret*);
+extern  bool_t xdr_guestfs_sfdisk_kernel_geometry_args (XDR *, guestfs_sfdisk_kernel_geometry_args*);
+extern  bool_t xdr_guestfs_sfdisk_kernel_geometry_ret (XDR *, guestfs_sfdisk_kernel_geometry_ret*);
+extern  bool_t xdr_guestfs_sfdisk_disk_geometry_args (XDR *, guestfs_sfdisk_disk_geometry_args*);
+extern  bool_t xdr_guestfs_sfdisk_disk_geometry_ret (XDR *, guestfs_sfdisk_disk_geometry_ret*);
 extern  bool_t xdr_guestfs_procedure (XDR *, guestfs_procedure*);
 extern  bool_t xdr_guestfs_message_direction (XDR *, guestfs_message_direction*);
 extern  bool_t xdr_guestfs_message_status (XDR *, guestfs_message_status*);
@@ -1264,6 +1322,14 @@ extern bool_t xdr_guestfs_strings_e_ret ();
 extern bool_t xdr_guestfs_hexdump_args ();
 extern bool_t xdr_guestfs_hexdump_ret ();
 extern bool_t xdr_guestfs_zerofree_args ();
+extern bool_t xdr_guestfs_pvresize_args ();
+extern bool_t xdr_guestfs_sfdisk_N_args ();
+extern bool_t xdr_guestfs_sfdisk_l_args ();
+extern bool_t xdr_guestfs_sfdisk_l_ret ();
+extern bool_t xdr_guestfs_sfdisk_kernel_geometry_args ();
+extern bool_t xdr_guestfs_sfdisk_kernel_geometry_ret ();
+extern bool_t xdr_guestfs_sfdisk_disk_geometry_args ();
+extern bool_t xdr_guestfs_sfdisk_disk_geometry_ret ();
 extern bool_t xdr_guestfs_procedure ();
 extern bool_t xdr_guestfs_message_direction ();
 extern bool_t xdr_guestfs_message_status ();

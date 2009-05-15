@@ -3427,6 +3427,136 @@ py_guestfs_zerofree (PyObject *self, PyObject *args)
   return py_r;
 }
 
+static PyObject *
+py_guestfs_pvresize (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *device;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_pvresize",
+                         &py_g, &device))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_pvresize (g, device);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_sfdisk_N (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *device;
+  int n;
+  int cyls;
+  int heads;
+  int sectors;
+  const char *line;
+
+  if (!PyArg_ParseTuple (args, (char *) "Osiiiis:guestfs_sfdisk_N",
+                         &py_g, &device, &n, &cyls, &heads, &sectors, &line))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_sfdisk_N (g, device, n, cyls, heads, sectors, line);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_sfdisk_l (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  char *r;
+  const char *device;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_sfdisk_l",
+                         &py_g, &device))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_sfdisk_l (g, device);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyString_FromString (r);
+  free (r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_sfdisk_kernel_geometry (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  char *r;
+  const char *device;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_sfdisk_kernel_geometry",
+                         &py_g, &device))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_sfdisk_kernel_geometry (g, device);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyString_FromString (r);
+  free (r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_sfdisk_disk_geometry (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  char *r;
+  const char *device;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_sfdisk_disk_geometry",
+                         &py_g, &device))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_sfdisk_disk_geometry (g, device);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyString_FromString (r);
+  free (r);
+  return py_r;
+}
+
 static PyMethodDef methods[] = {
   { (char *) "create", py_guestfs_create, METH_VARARGS, NULL },
   { (char *) "close", py_guestfs_close, METH_VARARGS, NULL },
@@ -3551,6 +3681,11 @@ static PyMethodDef methods[] = {
   { (char *) "strings_e", py_guestfs_strings_e, METH_VARARGS, NULL },
   { (char *) "hexdump", py_guestfs_hexdump, METH_VARARGS, NULL },
   { (char *) "zerofree", py_guestfs_zerofree, METH_VARARGS, NULL },
+  { (char *) "pvresize", py_guestfs_pvresize, METH_VARARGS, NULL },
+  { (char *) "sfdisk_N", py_guestfs_sfdisk_N, METH_VARARGS, NULL },
+  { (char *) "sfdisk_l", py_guestfs_sfdisk_l, METH_VARARGS, NULL },
+  { (char *) "sfdisk_kernel_geometry", py_guestfs_sfdisk_kernel_geometry, METH_VARARGS, NULL },
+  { (char *) "sfdisk_disk_geometry", py_guestfs_sfdisk_disk_geometry, METH_VARARGS, NULL },
   { NULL, NULL, 0, NULL }
 };
 

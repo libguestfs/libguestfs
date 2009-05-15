@@ -1076,7 +1076,9 @@ information refer to the L<sfdisk(8)> manpage.
 
 To create a single partition occupying the whole disk, you would
 pass C<lines> as a single element list, when the single element being
-the string C<,> (comma).");
+the string C<,> (comma).
+
+See also: C<guestfs_sfdisk_l>, C<guestfs_sfdisk_N>");
 
   ("write_file", (RErr, [String "path"; String "content"; Int "size"]), 44, [ProtocolLimitWarning],
    [InitBasicFS, Always, TestOutput (
@@ -2019,6 +2021,54 @@ mounted.
 It is possible that using this program can damage the filesystem
 or data on the filesystem.");
 
+  ("pvresize", (RErr, [String "device"]), 98, [],
+   [],
+   "resize an LVM physical volume",
+   "\
+This resizes (expands or shrinks) an existing LVM physical
+volume to match the new size of the underlying device.");
+
+  ("sfdisk_N", (RErr, [String "device"; Int "n";
+		       Int "cyls"; Int "heads"; Int "sectors";
+		       String "line"]), 99, [DangerWillRobinson],
+   [],
+   "modify a single partition on a block device",
+   "\
+This runs L<sfdisk(8)> option to modify just the single
+partition C<n> (note: C<n> counts from 1).
+
+For other parameters, see C<guestfs_sfdisk>.  You should usually
+pass C<0> for the cyls/heads/sectors parameters.");
+
+  ("sfdisk_l", (RString "partitions", [String "device"]), 100, [],
+   [],
+   "display the partition table",
+   "\
+This displays the partition table on C<device>, in the
+human-readable output of the L<sfdisk(8)> command.  It is
+not intended to be parsed.");
+
+  ("sfdisk_kernel_geometry", (RString "partitions", [String "device"]), 101, [],
+   [],
+   "display the kernel geometry",
+   "\
+This displays the kernel's idea of the geometry of C<device>.
+
+The result is in human-readable format, and not designed to
+be parsed.");
+
+  ("sfdisk_disk_geometry", (RString "partitions", [String "device"]), 102, [],
+   [],
+   "display the disk geometry from the partition table",
+   "\
+This displays the disk geometry of C<device> read from the
+partition table.  Especially in the case where the underlying
+block device has been resized, this can be different from the
+kernel's idea of the geometry (see C<guestfs_sfdisk_kernel_geometry>).
+
+The result is in human-readable format, and not designed to
+be parsed.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
@@ -2267,8 +2317,10 @@ let check_functions () =
     fun (name, _, _, _, _, _, _) ->
       if String.length name >= 7 && String.sub name 0 7 = "guestfs" then
 	failwithf "function name %s does not need 'guestfs' prefix" name;
-      if contains_uppercase name then
-	failwithf "function name %s should not contain uppercase chars" name;
+      if name = "" then
+	failwithf "function name is empty";
+      if name.[0] < 'a' || name.[0] > 'z' then
+	failwithf "function name %s must start with lowercase a-z" name;
       if String.contains name '-' then
 	failwithf "function name %s should not contain '-', use '_' instead."
 	  name

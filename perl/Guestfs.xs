@@ -1798,3 +1798,75 @@ PREINIT:
       if (r == -1)
         croak ("zerofree: %s", guestfs_last_error (g));
 
+void
+pvresize (g, device)
+      guestfs_h *g;
+      char *device;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_pvresize (g, device);
+      if (r == -1)
+        croak ("pvresize: %s", guestfs_last_error (g));
+
+void
+sfdisk_N (g, device, n, cyls, heads, sectors, line)
+      guestfs_h *g;
+      char *device;
+      int n;
+      int cyls;
+      int heads;
+      int sectors;
+      char *line;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_sfdisk_N (g, device, n, cyls, heads, sectors, line);
+      if (r == -1)
+        croak ("sfdisk_N: %s", guestfs_last_error (g));
+
+SV *
+sfdisk_l (g, device)
+      guestfs_h *g;
+      char *device;
+PREINIT:
+      char *partitions;
+   CODE:
+      partitions = guestfs_sfdisk_l (g, device);
+      if (partitions == NULL)
+        croak ("sfdisk_l: %s", guestfs_last_error (g));
+      RETVAL = newSVpv (partitions, 0);
+      free (partitions);
+ OUTPUT:
+      RETVAL
+
+SV *
+sfdisk_kernel_geometry (g, device)
+      guestfs_h *g;
+      char *device;
+PREINIT:
+      char *partitions;
+   CODE:
+      partitions = guestfs_sfdisk_kernel_geometry (g, device);
+      if (partitions == NULL)
+        croak ("sfdisk_kernel_geometry: %s", guestfs_last_error (g));
+      RETVAL = newSVpv (partitions, 0);
+      free (partitions);
+ OUTPUT:
+      RETVAL
+
+SV *
+sfdisk_disk_geometry (g, device)
+      guestfs_h *g;
+      char *device;
+PREINIT:
+      char *partitions;
+   CODE:
+      partitions = guestfs_sfdisk_disk_geometry (g, device);
+      if (partitions == NULL)
+        croak ("sfdisk_disk_geometry: %s", guestfs_last_error (g));
+      RETVAL = newSVpv (partitions, 0);
+      free (partitions);
+ OUTPUT:
+      RETVAL
+

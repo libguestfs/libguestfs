@@ -840,6 +840,11 @@ The implementation uses the C<pvremove> command which refuses to
 wipe physical volumes that contain any volume groups, so you have
 to remove those first.
 
+=item $h->pvresize ($device);
+
+This resizes (expands or shrinks) an existing LVM physical
+volume to match the new size of the underlying device.
+
 =item @physvols = $h->pvs ();
 
 List all the physical volumes detected.  This is the equivalent
@@ -985,8 +990,44 @@ To create a single partition occupying the whole disk, you would
 pass C<lines> as a single element list, when the single element being
 the string C<,> (comma).
 
+See also: C<$h-E<gt>sfdisk_l>, C<$h-E<gt>sfdisk_N>
+
 B<This command is dangerous.  Without careful use you
 can easily destroy all your data>.
+
+=item $h->sfdisk_N ($device, $n, $cyls, $heads, $sectors, $line);
+
+This runs L<sfdisk(8)> option to modify just the single
+partition C<n> (note: C<n> counts from 1).
+
+For other parameters, see C<$h-E<gt>sfdisk>.  You should usually
+pass C<0> for the cyls/heads/sectors parameters.
+
+B<This command is dangerous.  Without careful use you
+can easily destroy all your data>.
+
+=item $partitions = $h->sfdisk_disk_geometry ($device);
+
+This displays the disk geometry of C<device> read from the
+partition table.  Especially in the case where the underlying
+block device has been resized, this can be different from the
+kernel's idea of the geometry (see C<$h-E<gt>sfdisk_kernel_geometry>).
+
+The result is in human-readable format, and not designed to
+be parsed.
+
+=item $partitions = $h->sfdisk_kernel_geometry ($device);
+
+This displays the kernel's idea of the geometry of C<device>.
+
+The result is in human-readable format, and not designed to
+be parsed.
+
+=item $partitions = $h->sfdisk_l ($device);
+
+This displays the partition table on C<device>, in the
+human-readable output of the L<sfdisk(8)> command.  It is
+not intended to be parsed.
 
 =item %statbuf = $h->stat ($path);
 
