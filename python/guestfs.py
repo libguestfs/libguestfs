@@ -1423,3 +1423,16 @@ class GuestFS:
         """
         return libguestfsmod.vg_activate (self._o, activate, volgroups)
 
+    def lvresize (self, device, mbytes):
+        u"""This resizes (expands or shrinks) an existing LVM
+        logical volume to "mbytes". When reducing, data in the
+        reduced part is lost.
+        """
+        return libguestfsmod.lvresize (self._o, device, mbytes)
+
+    def resize2fs (self, device):
+        u"""This resizes an ext2 or ext3 filesystem to match the
+        size of the underlying device.
+        """
+        return libguestfsmod.resize2fs (self._o, device)
+

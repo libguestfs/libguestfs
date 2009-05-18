@@ -2914,4 +2914,41 @@ public class GuestFS {
   private native void _vg_activate (long g, boolean activate, String[] volgroups)
     throws LibGuestFSException;
 
+  /**
+   * resize an LVM logical volume
+   *
+   * This resizes (expands or shrinks) an existing LVM
+   * logical volume to "mbytes". When reducing, data in the
+   * reduced part is lost.
+   * 
+   * @throws LibGuestFSException
+   */
+  public void lvresize (String device, int mbytes)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("lvresize: handle is closed");
+    _lvresize (g, device, mbytes);
+  }
+  private native void _lvresize (long g, String device, int mbytes)
+    throws LibGuestFSException;
+
+  /**
+   * resize an ext2/ext3 filesystem
+   *
+   * This resizes an ext2 or ext3 filesystem to match the
+   * size of the underlying device.
+   * 
+   * @throws LibGuestFSException
+   */
+  public void resize2fs (String device)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("resize2fs: handle is closed");
+    _resize2fs (g, device);
+  }
+  private native void _resize2fs (long g, String device)
+    throws LibGuestFSException;
+
 }

@@ -80,7 +80,8 @@ module Guestfs (
   mv,
   ping_daemon,
   zerofree,
-  pvresize
+  pvresize,
+  resize2fs
   ) where
 import Foreign
 import Foreign.C
@@ -808,6 +809,18 @@ foreign import ccall unsafe "guestfs_pvresize" c_pvresize
 pvresize :: GuestfsH -> String -> IO ()
 pvresize h device = do
   r <- withCString device $ \device -> withForeignPtr h (\p -> c_pvresize p device)
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return ()
+
+foreign import ccall unsafe "guestfs_resize2fs" c_resize2fs
+  :: GuestfsP -> CString -> IO (CInt)
+
+resize2fs :: GuestfsH -> String -> IO ()
+resize2fs h device = do
+  r <- withCString device $ \device -> withForeignPtr h (\p -> c_resize2fs p device)
   if (r == -1)
     then do
       err <- last_error h

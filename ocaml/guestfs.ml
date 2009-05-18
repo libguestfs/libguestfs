@@ -243,3 +243,5 @@ external sfdisk_kernel_geometry : t -> string -> string = "ocaml_guestfs_sfdisk_
 external sfdisk_disk_geometry : t -> string -> string = "ocaml_guestfs_sfdisk_disk_geometry"
 external vg_activate_all : t -> bool -> unit = "ocaml_guestfs_vg_activate_all"
 external vg_activate : t -> bool -> string array -> unit = "ocaml_guestfs_vg_activate"
+external lvresize : t -> string -> int -> unit = "ocaml_guestfs_lvresize"
+external resize2fs : t -> string -> unit = "ocaml_guestfs_resize2fs"

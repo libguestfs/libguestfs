@@ -740,6 +740,12 @@ the path to the LV, such as C</dev/VG/LV>.
 You can also remove all LVs in a volume group by specifying
 the VG name, C</dev/VG>.
 
+=item $h->lvresize ($device, $mbytes);
+
+This resizes (expands or shrinks) an existing LVM logical
+volume to C<mbytes>.  When reducing, data in the reduced part
+is lost.
+
 =item @logvols = $h->lvs ();
 
 List all the logical volumes detected.  This is the equivalent
@@ -871,6 +877,11 @@ Note that this function cannot correctly handle binary files
 (specifically, files containing C<\0> character which is treated
 as end of line).  For those you need to use the C<$h-E<gt>read_file>
 function which has a more complex interface.
+
+=item $h->resize2fs ($device);
+
+This resizes an ext2 or ext3 filesystem to match the size of
+the underlying device.
 
 =item $h->rm ($path);
 

@@ -508,3 +508,9 @@ val vg_activate_all : t -> bool -> unit
 val vg_activate : t -> bool -> string array -> unit
 (** activate or deactivate some volume groups *)
 
+val lvresize : t -> string -> int -> unit
+(** resize an LVM logical volume *)
+
+val resize2fs : t -> string -> unit
+(** resize an ext2/ext3 filesystem *)
+

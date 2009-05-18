@@ -901,6 +901,17 @@ struct guestfs_vg_activate_args {
 };
 typedef struct guestfs_vg_activate_args guestfs_vg_activate_args;
 
+struct guestfs_lvresize_args {
+	char *device;
+	int mbytes;
+};
+typedef struct guestfs_lvresize_args guestfs_lvresize_args;
+
+struct guestfs_resize2fs_args {
+	char *device;
+};
+typedef struct guestfs_resize2fs_args guestfs_resize2fs_args;
+
 enum guestfs_procedure {
 	GUESTFS_PROC_MOUNT = 1,
 	GUESTFS_PROC_SYNC = 2,
@@ -1006,7 +1017,9 @@ enum guestfs_procedure {
 	GUESTFS_PROC_SFDISK_DISK_GEOMETRY = 102,
 	GUESTFS_PROC_VG_ACTIVATE_ALL = 103,
 	GUESTFS_PROC_VG_ACTIVATE = 104,
-	GUESTFS_PROC_NR_PROCS = 104 + 1,
+	GUESTFS_PROC_LVRESIZE = 105,
+	GUESTFS_PROC_RESIZE2FS = 106,
+	GUESTFS_PROC_NR_PROCS = 106 + 1,
 };
 typedef enum guestfs_procedure guestfs_procedure;
 #define GUESTFS_MESSAGE_MAX 4194304
@@ -1199,6 +1212,8 @@ extern  bool_t xdr_guestfs_sfdisk_disk_geometry_args (XDR *, guestfs_sfdisk_disk
 extern  bool_t xdr_guestfs_sfdisk_disk_geometry_ret (XDR *, guestfs_sfdisk_disk_geometry_ret*);
 extern  bool_t xdr_guestfs_vg_activate_all_args (XDR *, guestfs_vg_activate_all_args*);
 extern  bool_t xdr_guestfs_vg_activate_args (XDR *, guestfs_vg_activate_args*);
+extern  bool_t xdr_guestfs_lvresize_args (XDR *, guestfs_lvresize_args*);
+extern  bool_t xdr_guestfs_resize2fs_args (XDR *, guestfs_resize2fs_args*);
 extern  bool_t xdr_guestfs_procedure (XDR *, guestfs_procedure*);
 extern  bool_t xdr_guestfs_message_direction (XDR *, guestfs_message_direction*);
 extern  bool_t xdr_guestfs_message_status (XDR *, guestfs_message_status*);
@@ -1350,6 +1365,8 @@ extern bool_t xdr_guestfs_sfdisk_disk_geometry_args ();
 extern bool_t xdr_guestfs_sfdisk_disk_geometry_ret ();
 extern bool_t xdr_guestfs_vg_activate_all_args ();
 extern bool_t xdr_guestfs_vg_activate_args ();
+extern bool_t xdr_guestfs_lvresize_args ();
+extern bool_t xdr_guestfs_resize2fs_args ();
 extern bool_t xdr_guestfs_procedure ();
 extern bool_t xdr_guestfs_message_direction ();
 extern bool_t xdr_guestfs_message_status ();

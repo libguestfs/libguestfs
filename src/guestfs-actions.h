@@ -147,3 +147,5 @@ extern char *guestfs_sfdisk_kernel_geometry (guestfs_h *handle, const char *devi
 extern char *guestfs_sfdisk_disk_geometry (guestfs_h *handle, const char *device);
 extern int guestfs_vg_activate_all (guestfs_h *handle, int activate);
 extern int guestfs_vg_activate (guestfs_h *handle, int activate, char * const* const volgroups);
+extern int guestfs_lvresize (guestfs_h *handle, const char *device, int mbytes);
+extern int guestfs_resize2fs (guestfs_h *handle, const char *device);

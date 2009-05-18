@@ -123,10 +123,185 @@ static void no_test_warnings (void)
   fprintf (stderr, "warning: \"guestfs_sfdisk_disk_geometry\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_vg_activate_all\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_vg_activate\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_resize2fs\" has no tests\n");
+}
+
+static int test_lvresize_0 (void)
+{
+  /* InitNone|InitEmpty for test_lvresize_0 */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for lvresize (0) */
+  char expected[] = "test content";
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_pvcreate (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char volgroup[] = "VG";
+    char physvols_0[] = "/dev/sda1";
+    physvols_0[5] = devchar;
+    char *physvols[] = {
+      physvols_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_vgcreate (g, volgroup, physvols);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char logvol[] = "LV";
+    char volgroup[] = "VG";
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvcreate (g, logvol, volgroup, 10);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/VG/LV";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/VG/LV";
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/new";
+    char content[] = "test content";
+    int r;
+    suppress_error = 0;
+    r = guestfs_write_file (g, path, content, 0);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char pathordevice[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount (g, pathordevice);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/VG/LV";
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvresize (g, device, 20);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/VG/LV";
+    int r;
+    suppress_error = 0;
+    r = guestfs_resize2fs (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/VG/LV";
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/new";
+    char *r;
+    suppress_error = 0;
+    r = guestfs_cat (g, path);
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_lvresize_0: expected \"%s\" but got \"%s\"\n", expected, r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
 }
 
 static int test_zerofree_0 (void)
 {
+  /* InitNone|InitEmpty for test_zerofree_0 */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
   /* TestOutput for zerofree (0) */
   char expected[] = "test file";
   {
@@ -218,7 +393,7 @@ static int test_zerofree_0 (void)
 
 static int test_hexdump_0 (void)
 {
-  /* InitBasicFS for hexdump (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_hexdump_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -305,7 +480,7 @@ static int test_hexdump_0 (void)
 
 static int test_strings_e_0 (void)
 {
-  /* InitBasicFS for strings_e (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_strings_e_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -402,7 +577,7 @@ static int test_strings_e_1 (void)
 
 static int test_strings_0 (void)
 {
-  /* InitBasicFS for strings (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_strings_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -516,7 +691,7 @@ static int test_strings_0 (void)
 
 static int test_strings_1 (void)
 {
-  /* InitBasicFS for strings (1): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_strings_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -605,7 +780,7 @@ static int test_strings_1 (void)
 
 static int test_equal_0 (void)
 {
-  /* InitBasicFS for equal (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_equal_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -700,7 +875,7 @@ static int test_equal_0 (void)
 
 static int test_equal_1 (void)
 {
-  /* InitBasicFS for equal (1): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_equal_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -795,7 +970,7 @@ static int test_equal_1 (void)
 
 static int test_equal_2 (void)
 {
-  /* InitBasicFS for equal (2): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_equal_2: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -868,7 +1043,7 @@ static int test_equal_2 (void)
 
 static int test_ping_daemon_0 (void)
 {
-  /* InitEmpty for ping_daemon (0) */
+  /* InitNone|InitEmpty for test_ping_daemon_0 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -905,7 +1080,7 @@ static int test_ping_daemon_0 (void)
 
 static int test_dmesg_0 (void)
 {
-  /* InitEmpty for dmesg (0) */
+  /* InitNone|InitEmpty for test_dmesg_0 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -943,7 +1118,7 @@ static int test_dmesg_0 (void)
 
 static int test_drop_caches_0 (void)
 {
-  /* InitEmpty for drop_caches (0) */
+  /* InitNone|InitEmpty for test_drop_caches_0 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -980,7 +1155,7 @@ static int test_drop_caches_0 (void)
 
 static int test_mv_0 (void)
 {
-  /* InitBasicFS for mv (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_mv_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -1076,7 +1251,7 @@ static int test_mv_0 (void)
 
 static int test_mv_1 (void)
 {
-  /* InitBasicFS for mv (1): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_mv_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -1170,7 +1345,7 @@ static int test_mv_1 (void)
 
 static int test_cp_a_0 (void)
 {
-  /* InitBasicFS for cp_a (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_cp_a_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -1282,7 +1457,7 @@ static int test_cp_a_0 (void)
 
 static int test_cp_0 (void)
 {
-  /* InitBasicFS for cp (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_cp_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -1378,7 +1553,7 @@ static int test_cp_0 (void)
 
 static int test_cp_1 (void)
 {
-  /* InitBasicFS for cp (1): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_cp_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -1472,7 +1647,7 @@ static int test_cp_1 (void)
 
 static int test_cp_2 (void)
 {
-  /* InitBasicFS for cp (2): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_cp_2: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -1576,7 +1751,7 @@ static int test_cp_2 (void)
 
 static int test_grub_install_0 (void)
 {
-  /* InitBasicFS for grub_install (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_grub_install_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -1662,7 +1837,7 @@ static int test_grub_install_0 (void)
 
 static int test_zero_0 (void)
 {
-  /* InitBasicFS for zero (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_zero_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -1759,7 +1934,7 @@ static int test_zero_0 (void)
 
 static int test_fsck_0 (void)
 {
-  /* InitBasicFS for fsck (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_fsck_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -1846,7 +2021,7 @@ static int test_fsck_0 (void)
 
 static int test_fsck_1 (void)
 {
-  /* InitBasicFS for fsck (1): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_fsck_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -1942,7 +2117,7 @@ static int test_fsck_1 (void)
 
 static int test_set_e2uuid_0 (void)
 {
-  /* InitBasicFS for set_e2uuid (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_set_e2uuid_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -2031,7 +2206,7 @@ static int test_set_e2uuid_0 (void)
 
 static int test_set_e2uuid_1 (void)
 {
-  /* InitBasicFS for set_e2uuid (1): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_set_e2uuid_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -2120,7 +2295,7 @@ static int test_set_e2uuid_1 (void)
 
 static int test_set_e2uuid_2 (void)
 {
-  /* InitBasicFS for set_e2uuid (2): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_set_e2uuid_2: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -2194,7 +2369,7 @@ static int test_set_e2uuid_2 (void)
 
 static int test_set_e2uuid_3 (void)
 {
-  /* InitBasicFS for set_e2uuid (3): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_set_e2uuid_3: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -2268,7 +2443,7 @@ static int test_set_e2uuid_3 (void)
 
 static int test_set_e2label_0 (void)
 {
-  /* InitBasicFS for set_e2label (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_set_e2label_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -2357,7 +2532,7 @@ static int test_set_e2label_0 (void)
 
 static int test_pvremove_0 (void)
 {
-  /* InitEmpty for pvremove (0) */
+  /* InitNone|InitEmpty for test_pvremove_0 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -2461,7 +2636,7 @@ static int test_pvremove_0 (void)
 
 static int test_pvremove_1 (void)
 {
-  /* InitEmpty for pvremove (1) */
+  /* InitNone|InitEmpty for test_pvremove_1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -2565,7 +2740,7 @@ static int test_pvremove_1 (void)
 
 static int test_pvremove_2 (void)
 {
-  /* InitEmpty for pvremove (2) */
+  /* InitNone|InitEmpty for test_pvremove_2 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -2669,7 +2844,7 @@ static int test_pvremove_2 (void)
 
 static int test_vgremove_0 (void)
 {
-  /* InitEmpty for vgremove (0) */
+  /* InitNone|InitEmpty for test_vgremove_0 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -2764,7 +2939,7 @@ static int test_vgremove_0 (void)
 
 static int test_vgremove_1 (void)
 {
-  /* InitEmpty for vgremove (1) */
+  /* InitNone|InitEmpty for test_vgremove_1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -2859,7 +3034,7 @@ static int test_vgremove_1 (void)
 
 static int test_lvremove_0 (void)
 {
-  /* InitEmpty for lvremove (0) */
+  /* InitNone|InitEmpty for test_lvremove_0 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -2966,7 +3141,7 @@ static int test_lvremove_0 (void)
 
 static int test_lvremove_1 (void)
 {
-  /* InitEmpty for lvremove (1) */
+  /* InitNone|InitEmpty for test_lvremove_1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -3061,7 +3236,7 @@ static int test_lvremove_1 (void)
 
 static int test_lvremove_2 (void)
 {
-  /* InitEmpty for lvremove (2) */
+  /* InitNone|InitEmpty for test_lvremove_2 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -3168,7 +3343,7 @@ static int test_lvremove_2 (void)
 
 static int test_mount_ro_0 (void)
 {
-  /* InitBasicFS for mount_ro (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_mount_ro_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -3258,7 +3433,7 @@ static int test_mount_ro_0 (void)
 
 static int test_mount_ro_1 (void)
 {
-  /* InitBasicFS for mount_ro (1): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_mount_ro_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -3363,7 +3538,7 @@ static int test_mount_ro_1 (void)
 
 static int test_tgz_in_0 (void)
 {
-  /* InitBasicFS for tgz_in (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_tgz_in_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -3449,7 +3624,7 @@ static int test_tgz_in_0 (void)
 
 static int test_tar_in_0 (void)
 {
-  /* InitBasicFS for tar_in (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_tar_in_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -3535,7 +3710,7 @@ static int test_tar_in_0 (void)
 
 static int test_checksum_0 (void)
 {
-  /* InitBasicFS for checksum (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_checksum_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -3623,7 +3798,7 @@ static int test_checksum_0 (void)
 
 static int test_checksum_1 (void)
 {
-  /* InitBasicFS for checksum (1): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_checksum_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -3697,7 +3872,7 @@ static int test_checksum_1 (void)
 
 static int test_checksum_2 (void)
 {
-  /* InitBasicFS for checksum (2): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_checksum_2: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -3785,7 +3960,7 @@ static int test_checksum_2 (void)
 
 static int test_checksum_3 (void)
 {
-  /* InitBasicFS for checksum (3): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_checksum_3: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -3873,7 +4048,7 @@ static int test_checksum_3 (void)
 
 static int test_checksum_4 (void)
 {
-  /* InitBasicFS for checksum (4): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_checksum_4: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -3961,7 +4136,7 @@ static int test_checksum_4 (void)
 
 static int test_checksum_5 (void)
 {
-  /* InitBasicFS for checksum (5): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_checksum_5: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -4049,7 +4224,7 @@ static int test_checksum_5 (void)
 
 static int test_checksum_6 (void)
 {
-  /* InitBasicFS for checksum (6): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_checksum_6: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -4137,7 +4312,7 @@ static int test_checksum_6 (void)
 
 static int test_checksum_7 (void)
 {
-  /* InitBasicFS for checksum (7): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_checksum_7: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -4225,7 +4400,7 @@ static int test_checksum_7 (void)
 
 static int test_download_0 (void)
 {
-  /* InitBasicFS for download (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_download_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -4328,7 +4503,7 @@ static int test_download_0 (void)
 
 static int test_upload_0 (void)
 {
-  /* InitBasicFS for upload (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_upload_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -4415,7 +4590,7 @@ static int test_upload_0 (void)
 
 static int test_blockdev_rereadpt_0 (void)
 {
-  /* InitEmpty for blockdev_rereadpt (0) */
+  /* InitNone|InitEmpty for test_blockdev_rereadpt_0 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -4454,7 +4629,7 @@ static int test_blockdev_rereadpt_0 (void)
 
 static int test_blockdev_flushbufs_0 (void)
 {
-  /* InitEmpty for blockdev_flushbufs (0) */
+  /* InitNone|InitEmpty for test_blockdev_flushbufs_0 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -4493,7 +4668,7 @@ static int test_blockdev_flushbufs_0 (void)
 
 static int test_blockdev_getsize64_0 (void)
 {
-  /* InitEmpty for blockdev_getsize64 (0) */
+  /* InitNone|InitEmpty for test_blockdev_getsize64_0 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -4536,7 +4711,7 @@ static int test_blockdev_getsize64_0 (void)
 
 static int test_blockdev_getsz_0 (void)
 {
-  /* InitEmpty for blockdev_getsz (0) */
+  /* InitNone|InitEmpty for test_blockdev_getsz_0 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -4579,7 +4754,7 @@ static int test_blockdev_getsz_0 (void)
 
 static int test_blockdev_getbsz_0 (void)
 {
-  /* InitEmpty for blockdev_getbsz (0) */
+  /* InitNone|InitEmpty for test_blockdev_getbsz_0 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -4622,7 +4797,7 @@ static int test_blockdev_getbsz_0 (void)
 
 static int test_blockdev_getss_0 (void)
 {
-  /* InitEmpty for blockdev_getss (0) */
+  /* InitNone|InitEmpty for test_blockdev_getss_0 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -4665,7 +4840,7 @@ static int test_blockdev_getss_0 (void)
 
 static int test_blockdev_getro_0 (void)
 {
-  /* InitEmpty for blockdev_getro (0) */
+  /* InitNone|InitEmpty for test_blockdev_getro_0 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -4717,7 +4892,7 @@ static int test_blockdev_getro_0 (void)
 
 static int test_blockdev_setrw_0 (void)
 {
-  /* InitEmpty for blockdev_setrw (0) */
+  /* InitNone|InitEmpty for test_blockdev_setrw_0 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -4769,7 +4944,7 @@ static int test_blockdev_setrw_0 (void)
 
 static int test_blockdev_setro_0 (void)
 {
-  /* InitEmpty for blockdev_setro (0) */
+  /* InitNone|InitEmpty for test_blockdev_setro_0 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -4821,7 +4996,7 @@ static int test_blockdev_setro_0 (void)
 
 static int test_statvfs_0 (void)
 {
-  /* InitBasicFS for statvfs (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_statvfs_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -4909,7 +5084,7 @@ static int test_statvfs_0 (void)
 
 static int test_lstat_0 (void)
 {
-  /* InitBasicFS for lstat (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_lstat_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -4995,7 +5170,7 @@ static int test_lstat_0 (void)
 
 static int test_stat_0 (void)
 {
-  /* InitBasicFS for stat (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_stat_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -5088,7 +5263,7 @@ static int test_command_lines_0_prereq (void)
 static int test_command_lines_0 (void)
 {
   if (! test_command_lines_0_prereq ()) {
-  /* InitBasicFS for command_lines (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_command_lines_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -5212,7 +5387,7 @@ static int test_command_lines_1_prereq (void)
 static int test_command_lines_1 (void)
 {
   if (! test_command_lines_1_prereq ()) {
-  /* InitBasicFS for command_lines (1): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_command_lines_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -5336,7 +5511,7 @@ static int test_command_lines_2_prereq (void)
 static int test_command_lines_2 (void)
 {
   if (! test_command_lines_2_prereq ()) {
-  /* InitBasicFS for command_lines (2): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_command_lines_2: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -5472,7 +5647,7 @@ static int test_command_lines_3_prereq (void)
 static int test_command_lines_3 (void)
 {
   if (! test_command_lines_3_prereq ()) {
-  /* InitBasicFS for command_lines (3): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_command_lines_3: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -5608,7 +5783,7 @@ static int test_command_lines_4_prereq (void)
 static int test_command_lines_4 (void)
 {
   if (! test_command_lines_4_prereq ()) {
-  /* InitBasicFS for command_lines (4): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_command_lines_4: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -5756,7 +5931,7 @@ static int test_command_lines_5_prereq (void)
 static int test_command_lines_5 (void)
 {
   if (! test_command_lines_5_prereq ()) {
-  /* InitBasicFS for command_lines (5): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_command_lines_5: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -5916,7 +6091,7 @@ static int test_command_lines_6_prereq (void)
 static int test_command_lines_6 (void)
 {
   if (! test_command_lines_6_prereq ()) {
-  /* InitBasicFS for command_lines (6): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_command_lines_6: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -6028,7 +6203,7 @@ static int test_command_lines_7_prereq (void)
 static int test_command_lines_7 (void)
 {
   if (! test_command_lines_7_prereq ()) {
-  /* InitBasicFS for command_lines (7): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_command_lines_7: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -6152,7 +6327,7 @@ static int test_command_lines_8_prereq (void)
 static int test_command_lines_8 (void)
 {
   if (! test_command_lines_8_prereq ()) {
-  /* InitBasicFS for command_lines (8): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_command_lines_8: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -6288,7 +6463,7 @@ static int test_command_lines_9_prereq (void)
 static int test_command_lines_9 (void)
 {
   if (! test_command_lines_9_prereq ()) {
-  /* InitBasicFS for command_lines (9): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_command_lines_9: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -6424,7 +6599,7 @@ static int test_command_lines_10_prereq (void)
 static int test_command_lines_10 (void)
 {
   if (! test_command_lines_10_prereq ()) {
-  /* InitBasicFS for command_lines (10): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_command_lines_10: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -6560,7 +6735,7 @@ static int test_command_0_prereq (void)
 static int test_command_0 (void)
 {
   if (! test_command_0_prereq ()) {
-  /* InitBasicFS for command (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_command_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -6669,7 +6844,7 @@ static int test_command_1_prereq (void)
 static int test_command_1 (void)
 {
   if (! test_command_1_prereq ()) {
-  /* InitBasicFS for command (1): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_command_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -6778,7 +6953,7 @@ static int test_command_2_prereq (void)
 static int test_command_2 (void)
 {
   if (! test_command_2_prereq ()) {
-  /* InitBasicFS for command (2): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_command_2: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -6887,7 +7062,7 @@ static int test_command_3_prereq (void)
 static int test_command_3 (void)
 {
   if (! test_command_3_prereq ()) {
-  /* InitBasicFS for command (3): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_command_3: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -6996,7 +7171,7 @@ static int test_command_4_prereq (void)
 static int test_command_4 (void)
 {
   if (! test_command_4_prereq ()) {
-  /* InitBasicFS for command (4): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_command_4: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -7105,7 +7280,7 @@ static int test_command_5_prereq (void)
 static int test_command_5 (void)
 {
   if (! test_command_5_prereq ()) {
-  /* InitBasicFS for command (5): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_command_5: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -7214,7 +7389,7 @@ static int test_command_6_prereq (void)
 static int test_command_6 (void)
 {
   if (! test_command_6_prereq ()) {
-  /* InitBasicFS for command (6): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_command_6: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -7323,7 +7498,7 @@ static int test_command_7_prereq (void)
 static int test_command_7 (void)
 {
   if (! test_command_7_prereq ()) {
-  /* InitBasicFS for command (7): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_command_7: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -7432,7 +7607,7 @@ static int test_command_8_prereq (void)
 static int test_command_8 (void)
 {
   if (! test_command_8_prereq ()) {
-  /* InitBasicFS for command (8): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_command_8: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -7541,7 +7716,7 @@ static int test_command_9_prereq (void)
 static int test_command_9 (void)
 {
   if (! test_command_9_prereq ()) {
-  /* InitBasicFS for command (9): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_command_9: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -7650,7 +7825,7 @@ static int test_command_10_prereq (void)
 static int test_command_10 (void)
 {
   if (! test_command_10_prereq ()) {
-  /* InitBasicFS for command (10): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_command_10: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -7759,7 +7934,7 @@ static int test_command_11_prereq (void)
 static int test_command_11 (void)
 {
   if (! test_command_11_prereq ()) {
-  /* InitBasicFS for command (11): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_command_11: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -7854,7 +8029,7 @@ static int test_command_11 (void)
 
 static int test_file_0 (void)
 {
-  /* InitBasicFS for file (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_file_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -7940,7 +8115,7 @@ static int test_file_0 (void)
 
 static int test_file_1 (void)
 {
-  /* InitBasicFS for file (1): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_file_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -8027,7 +8202,7 @@ static int test_file_1 (void)
 
 static int test_file_2 (void)
 {
-  /* InitBasicFS for file (2): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_file_2: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -8100,7 +8275,7 @@ static int test_file_2 (void)
 
 static int test_umount_all_0 (void)
 {
-  /* InitBasicFS for umount_all (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_umount_all_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -8187,7 +8362,7 @@ static int test_umount_all_0 (void)
 
 static int test_umount_all_1 (void)
 {
-  /* InitEmpty for umount_all (1) */
+  /* InitNone|InitEmpty for test_umount_all_1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -8342,7 +8517,7 @@ static int test_umount_all_1 (void)
 
 static int test_mounts_0 (void)
 {
-  /* InitBasicFS for mounts (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_mounts_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -8435,7 +8610,7 @@ static int test_mounts_0 (void)
 
 static int test_umount_0 (void)
 {
-  /* InitEmpty for umount (0) */
+  /* InitNone|InitEmpty for test_umount_0 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -8528,7 +8703,7 @@ static int test_umount_0 (void)
 
 static int test_umount_1 (void)
 {
-  /* InitEmpty for umount (1) */
+  /* InitNone|InitEmpty for test_umount_1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -8616,7 +8791,7 @@ static int test_umount_1 (void)
 
 static int test_write_file_0 (void)
 {
-  /* InitBasicFS for write_file (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_write_file_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -8703,7 +8878,7 @@ static int test_write_file_0 (void)
 
 static int test_write_file_1 (void)
 {
-  /* InitBasicFS for write_file (1): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_write_file_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -8790,7 +8965,7 @@ static int test_write_file_1 (void)
 
 static int test_write_file_2 (void)
 {
-  /* InitBasicFS for write_file (2): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_write_file_2: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -8877,7 +9052,7 @@ static int test_write_file_2 (void)
 
 static int test_write_file_3 (void)
 {
-  /* InitBasicFS for write_file (3): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_write_file_3: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -8964,7 +9139,7 @@ static int test_write_file_3 (void)
 
 static int test_write_file_4 (void)
 {
-  /* InitBasicFS for write_file (4): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_write_file_4: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -9051,7 +9226,7 @@ static int test_write_file_4 (void)
 
 static int test_write_file_5 (void)
 {
-  /* InitBasicFS for write_file (5): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_write_file_5: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -9138,7 +9313,7 @@ static int test_write_file_5 (void)
 
 static int test_mkfs_0 (void)
 {
-  /* InitEmpty for mkfs (0) */
+  /* InitNone|InitEmpty for test_mkfs_0 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -9225,7 +9400,7 @@ static int test_mkfs_0 (void)
 
 static int test_lvcreate_0 (void)
 {
-  /* InitEmpty for lvcreate (0) */
+  /* InitNone|InitEmpty for test_lvcreate_0 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -9452,7 +9627,7 @@ static int test_lvcreate_0 (void)
 
 static int test_vgcreate_0 (void)
 {
-  /* InitEmpty for vgcreate (0) */
+  /* InitNone|InitEmpty for test_vgcreate_0 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -9598,7 +9773,7 @@ static int test_vgcreate_0 (void)
 
 static int test_pvcreate_0 (void)
 {
-  /* InitEmpty for pvcreate (0) */
+  /* InitNone|InitEmpty for test_pvcreate_0 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -9728,7 +9903,7 @@ static int test_pvcreate_0 (void)
 
 static int test_is_dir_0 (void)
 {
-  /* InitBasicFS for is_dir (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_is_dir_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -9812,7 +9987,7 @@ static int test_is_dir_0 (void)
 
 static int test_is_dir_1 (void)
 {
-  /* InitBasicFS for is_dir (1): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_is_dir_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -9896,7 +10071,7 @@ static int test_is_dir_1 (void)
 
 static int test_is_file_0 (void)
 {
-  /* InitBasicFS for is_file (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_is_file_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -9980,7 +10155,7 @@ static int test_is_file_0 (void)
 
 static int test_is_file_1 (void)
 {
-  /* InitBasicFS for is_file (1): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_is_file_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -10064,7 +10239,7 @@ static int test_is_file_1 (void)
 
 static int test_exists_0 (void)
 {
-  /* InitBasicFS for exists (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_exists_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -10148,7 +10323,7 @@ static int test_exists_0 (void)
 
 static int test_exists_1 (void)
 {
-  /* InitBasicFS for exists (1): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_exists_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -10232,7 +10407,7 @@ static int test_exists_1 (void)
 
 static int test_mkdir_p_0 (void)
 {
-  /* InitBasicFS for mkdir_p (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_mkdir_p_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -10316,7 +10491,7 @@ static int test_mkdir_p_0 (void)
 
 static int test_mkdir_p_1 (void)
 {
-  /* InitBasicFS for mkdir_p (1): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_mkdir_p_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -10400,7 +10575,7 @@ static int test_mkdir_p_1 (void)
 
 static int test_mkdir_p_2 (void)
 {
-  /* InitBasicFS for mkdir_p (2): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_mkdir_p_2: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -10484,7 +10659,7 @@ static int test_mkdir_p_2 (void)
 
 static int test_mkdir_0 (void)
 {
-  /* InitBasicFS for mkdir (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_mkdir_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -10568,7 +10743,7 @@ static int test_mkdir_0 (void)
 
 static int test_mkdir_1 (void)
 {
-  /* InitBasicFS for mkdir (1): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_mkdir_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -10640,7 +10815,7 @@ static int test_mkdir_1 (void)
 
 static int test_rm_rf_0 (void)
 {
-  /* InitBasicFS for rm_rf (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_rm_rf_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -10748,7 +10923,7 @@ static int test_rm_rf_0 (void)
 
 static int test_rmdir_0 (void)
 {
-  /* InitBasicFS for rmdir (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_rmdir_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -10828,7 +11003,7 @@ static int test_rmdir_0 (void)
 
 static int test_rmdir_1 (void)
 {
-  /* InitBasicFS for rmdir (1): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_rmdir_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -10900,7 +11075,7 @@ static int test_rmdir_1 (void)
 
 static int test_rmdir_2 (void)
 {
-  /* InitBasicFS for rmdir (2): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_rmdir_2: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -10980,7 +11155,7 @@ static int test_rmdir_2 (void)
 
 static int test_rm_0 (void)
 {
-  /* InitBasicFS for rm (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_rm_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -11060,7 +11235,7 @@ static int test_rm_0 (void)
 
 static int test_rm_1 (void)
 {
-  /* InitBasicFS for rm (1): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_rm_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -11132,7 +11307,7 @@ static int test_rm_1 (void)
 
 static int test_rm_2 (void)
 {
-  /* InitBasicFS for rm (2): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_rm_2: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -11212,7 +11387,7 @@ static int test_rm_2 (void)
 
 static int test_read_lines_0 (void)
 {
-  /* InitBasicFS for read_lines (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_read_lines_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -11338,7 +11513,7 @@ static int test_read_lines_0 (void)
 
 static int test_read_lines_1 (void)
 {
-  /* InitBasicFS for read_lines (1): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_read_lines_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -11428,7 +11603,7 @@ static int test_read_lines_1 (void)
 
 static int test_lvs_0 (void)
 {
-  /* InitBasicFSonLVM for lvs (0): create ext2 on /dev/VG/LV */
+  /* InitBasicFSonLVM for test_lvs_0: create ext2 on /dev/VG/LV */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -11550,7 +11725,7 @@ static int test_lvs_0 (void)
 
 static int test_lvs_1 (void)
 {
-  /* InitEmpty for lvs (1) */
+  /* InitNone|InitEmpty for test_lvs_1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -11735,7 +11910,7 @@ static int test_lvs_1 (void)
 
 static int test_vgs_0 (void)
 {
-  /* InitBasicFSonLVM for vgs (0): create ext2 on /dev/VG/LV */
+  /* InitBasicFSonLVM for test_vgs_0: create ext2 on /dev/VG/LV */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -11857,7 +12032,7 @@ static int test_vgs_0 (void)
 
 static int test_vgs_1 (void)
 {
-  /* InitEmpty for vgs (1) */
+  /* InitNone|InitEmpty for test_vgs_1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -12003,7 +12178,7 @@ static int test_vgs_1 (void)
 
 static int test_pvs_0 (void)
 {
-  /* InitBasicFSonLVM for pvs (0): create ext2 on /dev/VG/LV */
+  /* InitBasicFSonLVM for test_pvs_0: create ext2 on /dev/VG/LV */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -12126,7 +12301,7 @@ static int test_pvs_0 (void)
 
 static int test_pvs_1 (void)
 {
-  /* InitEmpty for pvs (1) */
+  /* InitNone|InitEmpty for test_pvs_1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -12256,7 +12431,7 @@ static int test_pvs_1 (void)
 
 static int test_list_partitions_0 (void)
 {
-  /* InitBasicFS for list_partitions (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_list_partitions_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -12349,7 +12524,7 @@ static int test_list_partitions_0 (void)
 
 static int test_list_partitions_1 (void)
 {
-  /* InitEmpty for list_partitions (1) */
+  /* InitNone|InitEmpty for test_list_partitions_1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -12452,7 +12627,7 @@ static int test_list_partitions_1 (void)
 
 static int test_list_devices_0 (void)
 {
-  /* InitEmpty for list_devices (0) */
+  /* InitNone|InitEmpty for test_list_devices_0 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -12537,7 +12712,7 @@ static int test_list_devices_0 (void)
 
 static int test_ls_0 (void)
 {
-  /* InitBasicFS for ls (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_ls_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -12690,7 +12865,7 @@ static int test_ls_0 (void)
 
 static int test_cat_0 (void)
 {
-  /* InitBasicFS for cat (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_cat_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -12777,7 +12952,7 @@ static int test_cat_0 (void)
 
 static int test_touch_0 (void)
 {
-  /* InitBasicFS for touch (0): create ext2 on /dev/sda1 */
+  /* InitBasicFS for test_touch_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -12861,7 +13036,7 @@ static int test_touch_0 (void)
 
 static int test_sync_0 (void)
 {
-  /* InitEmpty for sync (0) */
+  /* InitNone|InitEmpty for test_sync_0 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -12898,7 +13073,7 @@ static int test_sync_0 (void)
 
 static int test_mount_0 (void)
 {
-  /* InitEmpty for mount (0) */
+  /* InitNone|InitEmpty for test_mount_0 */
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
@@ -13123,8 +13298,14 @@ int main (int argc, char *argv[])
     free (devs[i]);
   free (devs);
 
-  nr_tests = 136;
+  nr_tests = 137;
 
+  test_num++;
+  printf ("%3d/%3d test_lvresize_0\n", test_num, nr_tests);
+  if (test_lvresize_0 () == -1) {
+    printf ("test_lvresize_0 FAILED\n");
+    failed++;
+  }
   test_num++;
   printf ("%3d/%3d test_zerofree_0\n", test_num, nr_tests);
   if (test_zerofree_0 () == -1) {

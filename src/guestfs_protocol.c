@@ -1786,6 +1786,28 @@ xdr_guestfs_vg_activate_args (XDR *xdrs, guestfs_vg_activate_args *objp)
 }
 
 bool_t
+xdr_guestfs_lvresize_args (XDR *xdrs, guestfs_lvresize_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->device, ~0))
+		 return FALSE;
+	 if (!xdr_int (xdrs, &objp->mbytes))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_resize2fs_args (XDR *xdrs, guestfs_resize2fs_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->device, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
 xdr_guestfs_procedure (XDR *xdrs, guestfs_procedure *objp)
 {
 	register int32_t *buf;

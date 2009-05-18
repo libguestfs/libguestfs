@@ -2617,6 +2617,56 @@ done:
   xdr_free ((xdrproc_t) xdr_guestfs_vg_activate_args, (char *) &args);
 }
 
+static void lvresize_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_lvresize_args args;
+  const char *device;
+  int mbytes;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_lvresize_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "lvresize");
+    return;
+  }
+  device = args.device;
+  mbytes = args.mbytes;
+
+  r = do_lvresize (device, mbytes);
+  if (r == -1)
+    /* do_lvresize has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_lvresize_args, (char *) &args);
+}
+
+static void resize2fs_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_resize2fs_args args;
+  const char *device;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_resize2fs_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "resize2fs");
+    return;
+  }
+  device = args.device;
+
+  r = do_resize2fs (device);
+  if (r == -1)
+    /* do_resize2fs has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_resize2fs_args, (char *) &args);
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -2931,6 +2981,12 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_VG_ACTIVATE:
       vg_activate_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_LVRESIZE:
+      lvresize_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_RESIZE2FS:
+      resize2fs_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d", proc_nr);

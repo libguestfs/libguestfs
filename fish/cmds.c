@@ -99,6 +99,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "lvcreate", "create an LVM volume group");
   printf ("%-20s %s\n", "lvm-remove-all", "remove all LVM LVs, VGs and PVs");
   printf ("%-20s %s\n", "lvremove", "remove an LVM logical volume");
+  printf ("%-20s %s\n", "lvresize", "resize an LVM logical volume");
   printf ("%-20s %s\n", "lvs", "list the LVM logical volumes (LVs)");
   printf ("%-20s %s\n", "lvs-full", "list the LVM logical volumes (LVs)");
   printf ("%-20s %s\n", "mkdir", "create a directory");
@@ -117,6 +118,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "pvs", "list the LVM physical volumes (PVs)");
   printf ("%-20s %s\n", "pvs-full", "list the LVM physical volumes (PVs)");
   printf ("%-20s %s\n", "read-lines", "read file as lines");
+  printf ("%-20s %s\n", "resize2fs", "resize an ext2/ext3 filesystem");
   printf ("%-20s %s\n", "rm", "remove a file");
   printf ("%-20s %s\n", "rm-rf", "remove a file or directory recursively");
   printf ("%-20s %s\n", "rmdir", "remove a directory");
@@ -531,6 +533,12 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "vg_activate") == 0 || strcasecmp (cmd, "vg-activate") == 0)
     pod2text ("vg-activate - activate or deactivate some volume groups", " vg-activate <activate> <volgroups>\n\nThis command activates or (if C<activate> is false) deactivates\nall logical volumes in the listed volume groups C<volgroups>.\nIf activated, then they are made known to the\nkernel, ie. they appear as C</dev/mapper> devices.  If deactivated,\nthen those devices disappear.\n\nThis command is the same as running C<vgchange -a y|n volgroups...>\n\nNote that if C<volgroups> is an empty list then B<all> volume groups\nare activated or deactivated.");
+  else
+  if (strcasecmp (cmd, "lvresize") == 0)
+    pod2text ("lvresize - resize an LVM logical volume", " lvresize <device> <mbytes>\n\nThis resizes (expands or shrinks) an existing LVM logical\nvolume to C<mbytes>.  When reducing, data in the reduced part\nis lost.");
+  else
+  if (strcasecmp (cmd, "resize2fs") == 0)
+    pod2text ("resize2fs - resize an ext2/ext3 filesystem", " resize2fs <device>\n\nThis resizes an ext2 or ext3 filesystem to match the size of\nthe underlying device.");
   else
     display_builtin_command (cmd);
 }
@@ -2603,6 +2611,36 @@ static int run_vg_activate (const char *cmd, int argc, char *argv[])
   return r;
 }
 
+static int run_lvresize (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *device;
+  int mbytes;
+  if (argc != 2) {
+    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  device = argv[0];
+  mbytes = atoi (argv[1]);
+  r = guestfs_lvresize (g, device, mbytes);
+  return r;
+}
+
+static int run_resize2fs (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *device;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  device = argv[0];
+  r = guestfs_resize2fs (g, device);
+  return r;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -2976,6 +3014,12 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "vg_activate") == 0 || strcasecmp (cmd, "vg-activate") == 0)
     return run_vg_activate (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "lvresize") == 0)
+    return run_lvresize (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "resize2fs") == 0)
+    return run_resize2fs (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

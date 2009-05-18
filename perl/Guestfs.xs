@@ -1894,3 +1894,26 @@ PREINIT:
       if (r == -1)
         croak ("vg_activate: %s", guestfs_last_error (g));
 
+void
+lvresize (g, device, mbytes)
+      guestfs_h *g;
+      char *device;
+      int mbytes;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_lvresize (g, device, mbytes);
+      if (r == -1)
+        croak ("lvresize: %s", guestfs_last_error (g));
+
+void
+resize2fs (g, device)
+      guestfs_h *g;
+      char *device;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_resize2fs (g, device);
+      if (r == -1)
+        croak ("resize2fs: %s", guestfs_last_error (g));
+

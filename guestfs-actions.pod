@@ -1026,6 +1026,18 @@ the VG name, C</dev/VG>.
 
 This function returns 0 on success or -1 on error.
 
+=head2 guestfs_lvresize
+
+ int guestfs_lvresize (guestfs_h *handle,
+		const char *device,
+		int mbytes);
+
+This resizes (expands or shrinks) an existing LVM logical
+volume to C<mbytes>.  When reducing, data in the reduced part
+is lost.
+
+This function returns 0 on success or -1 on error.
+
 =head2 guestfs_lvs
 
  char **guestfs_lvs (guestfs_h *handle);
@@ -1264,6 +1276,16 @@ function which has a more complex interface.
 This function returns a NULL-terminated array of strings
 (like L<environ(3)>), or NULL if there was an error.
 I<The caller must free the strings and the array after use>.
+
+=head2 guestfs_resize2fs
+
+ int guestfs_resize2fs (guestfs_h *handle,
+		const char *device);
+
+This resizes an ext2 or ext3 filesystem to match the size of
+the underlying device.
+
+This function returns 0 on success or -1 on error.
 
 =head2 guestfs_rm
 

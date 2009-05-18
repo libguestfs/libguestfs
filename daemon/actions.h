@@ -125,3 +125,5 @@ extern char *do_sfdisk_kernel_geometry (const char *device);
 extern char *do_sfdisk_disk_geometry (const char *device);
 extern int do_vg_activate_all (int activate);
 extern int do_vg_activate (int activate, char * const* const volgroups);
+extern int do_lvresize (const char *device, int mbytes);
+extern int do_resize2fs (const char *device);

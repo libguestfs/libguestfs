@@ -3072,6 +3072,49 @@ static VALUE ruby_guestfs_vg_activate (VALUE gv, VALUE activatev, VALUE volgroup
   return Qnil;
 }
 
+static VALUE ruby_guestfs_lvresize (VALUE gv, VALUE devicev, VALUE mbytesv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "lvresize");
+
+  const char *device = StringValueCStr (devicev);
+  if (!device)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "device", "lvresize");
+  int mbytes = NUM2INT (mbytesv);
+
+  int r;
+
+  r = guestfs_lvresize (g, device, mbytes);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
+static VALUE ruby_guestfs_resize2fs (VALUE gv, VALUE devicev)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "resize2fs");
+
+  const char *device = StringValueCStr (devicev);
+  if (!device)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "device", "resize2fs");
+
+  int r;
+
+  r = guestfs_resize2fs (g, device);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
 /* Initialize the module. */
 void Init__guestfs ()
 {
@@ -3338,4 +3381,8 @@ void Init__guestfs ()
         ruby_guestfs_vg_activate_all, 1);
   rb_define_method (c_guestfs, "vg_activate",
         ruby_guestfs_vg_activate, 2);
+  rb_define_method (c_guestfs, "lvresize",
+        ruby_guestfs_lvresize, 2);
+  rb_define_method (c_guestfs, "resize2fs",
+        ruby_guestfs_resize2fs, 1);
 }

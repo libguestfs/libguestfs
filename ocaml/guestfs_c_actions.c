@@ -3379,3 +3379,50 @@ ocaml_guestfs_vg_activate (value gv, value activatev, value volgroupsv)
   CAMLreturn (rv);
 }
 
+CAMLprim value
+ocaml_guestfs_lvresize (value gv, value devicev, value mbytesv)
+{
+  CAMLparam3 (gv, devicev, mbytesv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("lvresize: used handle after closing it");
+
+  const char *device = String_val (devicev);
+  int mbytes = Int_val (mbytesv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_lvresize (g, device, mbytes);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "lvresize");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_resize2fs (value gv, value devicev)
+{
+  CAMLparam2 (gv, devicev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("resize2fs: used handle after closing it");
+
+  const char *device = String_val (devicev);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_resize2fs (g, device);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "resize2fs");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+

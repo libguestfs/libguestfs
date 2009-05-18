@@ -777,6 +777,14 @@ the path to the LV, such as C</dev/VG/LV>.
 You can also remove all LVs in a volume group by specifying
 the VG name, C</dev/VG>.
 
+=head2 lvresize
+
+ lvresize device mbytes
+
+This resizes (expands or shrinks) an existing LVM logical
+volume to C<mbytes>.  When reducing, data in the reduced part
+is lost.
+
 =head2 lvs
 
  lvs
@@ -944,6 +952,13 @@ Note that this function cannot correctly handle binary files
 (specifically, files containing C<\0> character which is treated
 as end of line).  For those you need to use the C<read-file>
 function which has a more complex interface.
+
+=head2 resize2fs
+
+ resize2fs device
+
+This resizes an ext2 or ext3 filesystem to match the size of
+the underlying device.
 
 =head2 rm
 

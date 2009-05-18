@@ -698,6 +698,15 @@ struct guestfs_vg_activate_args {
   str volgroups<>;
 };
 
+struct guestfs_lvresize_args {
+  string device<>;
+  int mbytes;
+};
+
+struct guestfs_resize2fs_args {
+  string device<>;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -803,6 +812,8 @@ enum guestfs_procedure {
   GUESTFS_PROC_SFDISK_DISK_GEOMETRY = 102,
   GUESTFS_PROC_VG_ACTIVATE_ALL = 103,
   GUESTFS_PROC_VG_ACTIVATE = 104,
+  GUESTFS_PROC_LVRESIZE = 105,
+  GUESTFS_PROC_RESIZE2FS = 106,
   GUESTFS_PROC_NR_PROCS
 };
 
