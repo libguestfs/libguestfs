@@ -159,6 +159,8 @@ static const char *const commands[] = {
   "unmount-all",
   "upload",
   "verbose",
+  "vg-activate",
+  "vg-activate-all",
   "vgcreate",
   "vgremove",
   "vgs",

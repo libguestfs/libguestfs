@@ -3025,6 +3025,53 @@ static VALUE ruby_guestfs_sfdisk_disk_geometry (VALUE gv, VALUE devicev)
   return rv;
 }
 
+static VALUE ruby_guestfs_vg_activate_all (VALUE gv, VALUE activatev)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "vg_activate_all");
+
+  int activate = NUM2INT (activatev);
+
+  int r;
+
+  r = guestfs_vg_activate_all (g, activate);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
+static VALUE ruby_guestfs_vg_activate (VALUE gv, VALUE activatev, VALUE volgroupsv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "vg_activate");
+
+  int activate = NUM2INT (activatev);
+  char **volgroups;  {
+    int i, len;
+    len = RARRAY_LEN (volgroupsv);
+    volgroups = guestfs_safe_malloc (g, sizeof (char *) * (len+1));
+    for (i = 0; i < len; ++i) {
+      VALUE v = rb_ary_entry (volgroupsv, i);
+      volgroups[i] = StringValueCStr (v);
+    }
+    volgroups[len] = NULL;
+  }
+
+  int r;
+
+  r = guestfs_vg_activate (g, activate, volgroups);
+  free (volgroups);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
 /* Initialize the module. */
 void Init__guestfs ()
 {
@@ -3287,4 +3334,8 @@ void Init__guestfs ()
         ruby_guestfs_sfdisk_kernel_geometry, 1);
   rb_define_method (c_guestfs, "sfdisk_disk_geometry",
         ruby_guestfs_sfdisk_disk_geometry, 1);
+  rb_define_method (c_guestfs, "vg_activate_all",
+        ruby_guestfs_vg_activate_all, 1);
+  rb_define_method (c_guestfs, "vg_activate",
+        ruby_guestfs_vg_activate, 2);
 }

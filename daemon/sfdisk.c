@@ -39,7 +39,7 @@ sfdisk (const char *device, int n, int cyls, int heads, int sectors,
 
   IS_DEVICE (device, -1);
 
-  strcpy (buf, "/sbin/sfdisk --no-reread");
+  strcpy (buf, "/sbin/sfdisk");
   if (n > 0)
     sprintf (buf + strlen (buf), " -N %d", n);
   if (cyls)
@@ -50,6 +50,9 @@ sfdisk (const char *device, int n, int cyls, int heads, int sectors,
     sprintf (buf + strlen (buf), " -S %d", sectors);
   /* Safe because of IS_DEVICE above: */
   sprintf (buf + strlen (buf), " %s", device);
+
+  if (verbose)
+    printf ("%s\n", buf);
 
   fp = popen (buf, "w");
   if (fp == NULL) {

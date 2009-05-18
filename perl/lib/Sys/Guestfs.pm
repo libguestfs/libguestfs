@@ -1141,6 +1141,29 @@ C<filename> can also be a named pipe.
 
 See also C<$h-E<gt>download>.
 
+=item $h->vg_activate ($activate, \@volgroups);
+
+This command activates or (if C<activate> is false) deactivates
+all logical volumes in the listed volume groups C<volgroups>.
+If activated, then they are made known to the
+kernel, ie. they appear as C</dev/mapper> devices.  If deactivated,
+then those devices disappear.
+
+This command is the same as running C<vgchange -a y|n volgroups...>
+
+Note that if C<volgroups> is an empty list then B<all> volume groups
+are activated or deactivated.
+
+=item $h->vg_activate_all ($activate);
+
+This command activates or (if C<activate> is false) deactivates
+all logical volumes in all volume groups.
+If activated, then they are made known to the
+kernel, ie. they appear as C</dev/mapper> devices.  If deactivated,
+then those devices disappear.
+
+This command is the same as running C<vgchange -a y|n>
+
 =item $h->vgcreate ($volgroup, \@physvols);
 
 This creates an LVM volume group called C<volgroup>

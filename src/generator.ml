@@ -2069,6 +2069,33 @@ kernel's idea of the geometry (see C<guestfs_sfdisk_kernel_geometry>).
 The result is in human-readable format, and not designed to
 be parsed.");
 
+  ("vg_activate_all", (RErr, [Bool "activate"]), 103, [],
+   [],
+   "activate or deactivate all volume groups",
+   "\
+This command activates or (if C<activate> is false) deactivates
+all logical volumes in all volume groups.
+If activated, then they are made known to the
+kernel, ie. they appear as C</dev/mapper> devices.  If deactivated,
+then those devices disappear.
+
+This command is the same as running C<vgchange -a y|n>");
+
+  ("vg_activate", (RErr, [Bool "activate"; StringList "volgroups"]), 104, [],
+   [],
+   "activate or deactivate some volume groups",
+   "\
+This command activates or (if C<activate> is false) deactivates
+all logical volumes in the listed volume groups C<volgroups>.
+If activated, then they are made known to the
+kernel, ie. they appear as C</dev/mapper> devices.  If deactivated,
+then those devices disappear.
+
+This command is the same as running C<vgchange -a y|n volgroups...>
+
+Note that if C<volgroups> is an empty list then B<all> volume groups
+are activated or deactivated.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

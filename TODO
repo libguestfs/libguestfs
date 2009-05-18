@@ -27,25 +27,3 @@ Implement febootstrap command.
 ----------------------------------------------------------------------
 
 Complete the Haskell bindings (see discussion on haskell-cafe).
-
-----------------------------------------------------------------------
-
-Practically, resizing the partitions when a block device is resized
-isn't possible.  So for example it's not possible to resize a Fedora
-block device.  If you try to use sfdisk-N to change the boundaries of
-the existing partition to fill up the new space, you get an error that
-the partition is in use.
-
-The reason, I now think, is because LVM is using the partition as a
-PV, and this locks it as far as the kernel is concerned.
-
-Removing the PV [which is what we do in the test suite] isn't
-desirable if the PV contains data you care about.  Rebooting the qemu
-subprocess after the partition table change works, but isn't very
-cool.  I believe what we need to do is to temporarily reconfigure LVM
-(using /etc/lvm/lvm.conf) to ignore the PV, vgscan (which will then
-ignore the PV), make the changes to the partition table, then set the
-LVM configuration back and do a final vgscan.
-
-Need to test the above, and find a nice way to present it through
-the API.

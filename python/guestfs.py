@@ -1397,3 +1397,29 @@ class GuestFS:
         """
         return libguestfsmod.sfdisk_disk_geometry (self._o, device)
 
+    def vg_activate_all (self, activate):
+        u"""This command activates or (if "activate" is false)
+        deactivates all logical volumes in all volume groups. If
+        activated, then they are made known to the kernel, ie.
+        they appear as "/dev/mapper" devices. If deactivated,
+        then those devices disappear.
+        
+        This command is the same as running "vgchange -a y|n"
+        """
+        return libguestfsmod.vg_activate_all (self._o, activate)
+
+    def vg_activate (self, activate, volgroups):
+        u"""This command activates or (if "activate" is false)
+        deactivates all logical volumes in the listed volume
+        groups "volgroups". If activated, then they are made
+        known to the kernel, ie. they appear as "/dev/mapper"
+        devices. If deactivated, then those devices disappear.
+        
+        This command is the same as running "vgchange -a y|n
+        volgroups..."
+        
+        Note that if "volgroups" is an empty list then all
+        volume groups are activated or deactivated.
+        """
+        return libguestfsmod.vg_activate (self._o, activate, volgroups)
+

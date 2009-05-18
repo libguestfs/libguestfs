@@ -3557,6 +3557,61 @@ py_guestfs_sfdisk_disk_geometry (PyObject *self, PyObject *args)
   return py_r;
 }
 
+static PyObject *
+py_guestfs_vg_activate_all (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  int activate;
+
+  if (!PyArg_ParseTuple (args, (char *) "Oi:guestfs_vg_activate_all",
+                         &py_g, &activate))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_vg_activate_all (g, activate);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_vg_activate (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  int activate;
+  PyObject *py_volgroups;
+  const char **volgroups;
+
+  if (!PyArg_ParseTuple (args, (char *) "OiO:guestfs_vg_activate",
+                         &py_g, &activate, &py_volgroups))
+    return NULL;
+  g = get_handle (py_g);
+  volgroups = get_string_list (py_volgroups);
+  if (!volgroups) return NULL;
+
+  r = guestfs_vg_activate (g, activate, volgroups);
+  free (volgroups);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
 static PyMethodDef methods[] = {
   { (char *) "create", py_guestfs_create, METH_VARARGS, NULL },
   { (char *) "close", py_guestfs_close, METH_VARARGS, NULL },
@@ -3686,6 +3741,8 @@ static PyMethodDef methods[] = {
   { (char *) "sfdisk_l", py_guestfs_sfdisk_l, METH_VARARGS, NULL },
   { (char *) "sfdisk_kernel_geometry", py_guestfs_sfdisk_kernel_geometry, METH_VARARGS, NULL },
   { (char *) "sfdisk_disk_geometry", py_guestfs_sfdisk_disk_geometry, METH_VARARGS, NULL },
+  { (char *) "vg_activate_all", py_guestfs_vg_activate_all, METH_VARARGS, NULL },
+  { (char *) "vg_activate", py_guestfs_vg_activate, METH_VARARGS, NULL },
   { NULL, NULL, 0, NULL }
 };
 

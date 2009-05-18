@@ -689,6 +689,15 @@ struct guestfs_sfdisk_disk_geometry_ret {
   string partitions<>;
 };
 
+struct guestfs_vg_activate_all_args {
+  bool activate;
+};
+
+struct guestfs_vg_activate_args {
+  bool activate;
+  str volgroups<>;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -792,6 +801,8 @@ enum guestfs_procedure {
   GUESTFS_PROC_SFDISK_L = 100,
   GUESTFS_PROC_SFDISK_KERNEL_GEOMETRY = 101,
   GUESTFS_PROC_SFDISK_DISK_GEOMETRY = 102,
+  GUESTFS_PROC_VG_ACTIVATE_ALL = 103,
+  GUESTFS_PROC_VG_ACTIVATE = 104,
   GUESTFS_PROC_NR_PROCS
 };
 

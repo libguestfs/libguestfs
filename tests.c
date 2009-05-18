@@ -121,6 +121,8 @@ static void no_test_warnings (void)
   fprintf (stderr, "warning: \"guestfs_sfdisk_l\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_sfdisk_kernel_geometry\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_sfdisk_disk_geometry\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_vg_activate_all\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_vg_activate\" has no tests\n");
 }
 
 static int test_zerofree_0 (void)

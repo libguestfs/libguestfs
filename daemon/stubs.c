@@ -2560,6 +2560,63 @@ done:
   xdr_free ((xdrproc_t) xdr_guestfs_sfdisk_disk_geometry_args, (char *) &args);
 }
 
+static void vg_activate_all_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_vg_activate_all_args args;
+  int activate;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_vg_activate_all_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "vg_activate_all");
+    return;
+  }
+  activate = args.activate;
+
+  r = do_vg_activate_all (activate);
+  if (r == -1)
+    /* do_vg_activate_all has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_vg_activate_all_args, (char *) &args);
+}
+
+static void vg_activate_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_vg_activate_args args;
+  int activate;
+  char **volgroups;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_vg_activate_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "vg_activate");
+    return;
+  }
+  activate = args.activate;
+  volgroups = realloc (args.volgroups.volgroups_val,
+                sizeof (char *) * (args.volgroups.volgroups_len+1));
+  if (volgroups == NULL) {
+    reply_with_perror ("realloc");
+    goto done;
+  }
+  volgroups[args.volgroups.volgroups_len] = NULL;
+  args.volgroups.volgroups_val = volgroups;
+
+  r = do_vg_activate (activate, volgroups);
+  if (r == -1)
+    /* do_vg_activate has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_vg_activate_args, (char *) &args);
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -2868,6 +2925,12 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_SFDISK_DISK_GEOMETRY:
       sfdisk_disk_geometry_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_VG_ACTIVATE_ALL:
+      vg_activate_all_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_VG_ACTIVATE:
+      vg_activate_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d", proc_nr);

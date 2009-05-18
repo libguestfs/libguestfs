@@ -1763,6 +1763,29 @@ xdr_guestfs_sfdisk_disk_geometry_ret (XDR *xdrs, guestfs_sfdisk_disk_geometry_re
 }
 
 bool_t
+xdr_guestfs_vg_activate_all_args (XDR *xdrs, guestfs_vg_activate_all_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_bool (xdrs, &objp->activate))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_vg_activate_args (XDR *xdrs, guestfs_vg_activate_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_bool (xdrs, &objp->activate))
+		 return FALSE;
+	 if (!xdr_array (xdrs, (char **)&objp->volgroups.volgroups_val, (u_int *) &objp->volgroups.volgroups_len, ~0,
+		sizeof (str), (xdrproc_t) xdr_str))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
 xdr_guestfs_procedure (XDR *xdrs, guestfs_procedure *objp)
 {
 	register int32_t *buf;

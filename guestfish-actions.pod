@@ -1268,6 +1268,33 @@ See also C<download>.
 
 Use C<-> instead of a filename to read/write from stdin/stdout.
 
+=head2 vg-activate
+
+ vg-activate true|false 'volgroups ...'
+
+This command activates or (if C<activate> is false) deactivates
+all logical volumes in the listed volume groups C<volgroups>.
+If activated, then they are made known to the
+kernel, ie. they appear as C</dev/mapper> devices.  If deactivated,
+then those devices disappear.
+
+This command is the same as running C<vgchange -a y|n volgroups...>
+
+Note that if C<volgroups> is an empty list then B<all> volume groups
+are activated or deactivated.
+
+=head2 vg-activate-all
+
+ vg-activate-all true|false
+
+This command activates or (if C<activate> is false) deactivates
+all logical volumes in all volume groups.
+If activated, then they are made known to the
+kernel, ie. they appear as C</dev/mapper> devices.  If deactivated,
+then those devices disappear.
+
+This command is the same as running C<vgchange -a y|n>
+
 =head2 vgcreate
 
  vgcreate volgroup 'physvols ...'

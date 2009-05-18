@@ -3331,3 +3331,51 @@ ocaml_guestfs_sfdisk_disk_geometry (value gv, value devicev)
   CAMLreturn (rv);
 }
 
+CAMLprim value
+ocaml_guestfs_vg_activate_all (value gv, value activatev)
+{
+  CAMLparam2 (gv, activatev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("vg_activate_all: used handle after closing it");
+
+  int activate = Bool_val (activatev);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_vg_activate_all (g, activate);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "vg_activate_all");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_vg_activate (value gv, value activatev, value volgroupsv)
+{
+  CAMLparam3 (gv, activatev, volgroupsv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("vg_activate: used handle after closing it");
+
+  int activate = Bool_val (activatev);
+  char **volgroups = ocaml_guestfs_strings_val (g, volgroupsv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_vg_activate (g, activate, volgroups);
+  caml_leave_blocking_section ();
+  ocaml_guestfs_free_strings (volgroups);
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "vg_activate");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+

@@ -1719,6 +1719,40 @@ See also C<guestfs_download>.
 
 This function returns 0 on success or -1 on error.
 
+=head2 guestfs_vg_activate
+
+ int guestfs_vg_activate (guestfs_h *handle,
+		int activate,
+		char * const* const volgroups);
+
+This command activates or (if C<activate> is false) deactivates
+all logical volumes in the listed volume groups C<volgroups>.
+If activated, then they are made known to the
+kernel, ie. they appear as C</dev/mapper> devices.  If deactivated,
+then those devices disappear.
+
+This command is the same as running C<vgchange -a y|n volgroups...>
+
+Note that if C<volgroups> is an empty list then B<all> volume groups
+are activated or deactivated.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_vg_activate_all
+
+ int guestfs_vg_activate_all (guestfs_h *handle,
+		int activate);
+
+This command activates or (if C<activate> is false) deactivates
+all logical volumes in all volume groups.
+If activated, then they are made known to the
+kernel, ie. they appear as C</dev/mapper> devices.  If deactivated,
+then those devices disappear.
+
+This command is the same as running C<vgchange -a y|n>
+
+This function returns 0 on success or -1 on error.
+
 =head2 guestfs_vgcreate
 
  int guestfs_vgcreate (guestfs_h *handle,

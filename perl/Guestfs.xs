@@ -1870,3 +1870,27 @@ PREINIT:
  OUTPUT:
       RETVAL
 
+void
+vg_activate_all (g, activate)
+      guestfs_h *g;
+      int activate;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_vg_activate_all (g, activate);
+      if (r == -1)
+        croak ("vg_activate_all: %s", guestfs_last_error (g));
+
+void
+vg_activate (g, activate, volgroups)
+      guestfs_h *g;
+      int activate;
+      char **volgroups;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_vg_activate (g, activate, volgroups);
+      free (volgroups);
+      if (r == -1)
+        croak ("vg_activate: %s", guestfs_last_error (g));
+

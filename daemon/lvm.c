@@ -376,3 +376,42 @@ do_pvresize (const char *device)
   free (err);
   return 0;
 }
+
+int
+do_vg_activate (int activate, char * const* const volgroups)
+{
+  char *err;
+  int r, i, argc;
+  const char **argv;
+
+  argc = count_strings (volgroups) + 4;
+  argv = malloc (sizeof (char *) * (argc+1));
+  if (argv == NULL) {
+    reply_with_perror ("malloc");
+    return -1;
+  }
+
+  argv[0] = "/sbin/lvm";
+  argv[1] = "vgchange";
+  argv[2] = "-a";
+  argv[3] = activate ? "y" : "n";
+  for (i = 4; i <= argc; ++i)
+    argv[i] = volgroups[i-4];
+
+  r = commandv (NULL, &err, argv);
+  if (r == -1) {
+    reply_with_error ("vgchange: %s", err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+  return 0;
+}
+
+int
+do_vg_activate_all (int activate)
+{
+  char *empty[] = { NULL };
+  return do_vg_activate (activate, empty);
+}

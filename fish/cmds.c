@@ -146,6 +146,8 @@ void list_commands (void)
   printf ("%-20s %s\n", "umount", "unmount a filesystem");
   printf ("%-20s %s\n", "umount-all", "unmount all filesystems");
   printf ("%-20s %s\n", "upload", "upload a file from the local machine");
+  printf ("%-20s %s\n", "vg-activate", "activate or deactivate some volume groups");
+  printf ("%-20s %s\n", "vg-activate-all", "activate or deactivate all volume groups");
   printf ("%-20s %s\n", "vgcreate", "create an LVM volume group");
   printf ("%-20s %s\n", "vgremove", "remove an LVM volume group");
   printf ("%-20s %s\n", "vgs", "list the LVM volume groups (VGs)");
@@ -523,6 +525,12 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "sfdisk_disk_geometry") == 0 || strcasecmp (cmd, "sfdisk-disk-geometry") == 0)
     pod2text ("sfdisk-disk-geometry - display the disk geometry from the partition table", " sfdisk-disk-geometry <device>\n\nThis displays the disk geometry of C<device> read from the\npartition table.  Especially in the case where the underlying\nblock device has been resized, this can be different from the\nkernel's idea of the geometry (see C<sfdisk_kernel_geometry>).\n\nThe result is in human-readable format, and not designed to\nbe parsed.");
+  else
+  if (strcasecmp (cmd, "vg_activate_all") == 0 || strcasecmp (cmd, "vg-activate-all") == 0)
+    pod2text ("vg-activate-all - activate or deactivate all volume groups", " vg-activate-all <activate>\n\nThis command activates or (if C<activate> is false) deactivates\nall logical volumes in all volume groups.\nIf activated, then they are made known to the\nkernel, ie. they appear as C</dev/mapper> devices.  If deactivated,\nthen those devices disappear.\n\nThis command is the same as running C<vgchange -a y|n>");
+  else
+  if (strcasecmp (cmd, "vg_activate") == 0 || strcasecmp (cmd, "vg-activate") == 0)
+    pod2text ("vg-activate - activate or deactivate some volume groups", " vg-activate <activate> <volgroups>\n\nThis command activates or (if C<activate> is false) deactivates\nall logical volumes in the listed volume groups C<volgroups>.\nIf activated, then they are made known to the\nkernel, ie. they appear as C</dev/mapper> devices.  If deactivated,\nthen those devices disappear.\n\nThis command is the same as running C<vgchange -a y|n volgroups...>\n\nNote that if C<volgroups> is an empty list then B<all> volume groups\nare activated or deactivated.");
   else
     display_builtin_command (cmd);
 }
@@ -2565,6 +2573,36 @@ static int run_sfdisk_disk_geometry (const char *cmd, int argc, char *argv[])
   return 0;
 }
 
+static int run_vg_activate_all (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  int activate;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  activate = is_true (argv[0]) ? 1 : 0;
+  r = guestfs_vg_activate_all (g, activate);
+  return r;
+}
+
+static int run_vg_activate (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  int activate;
+  char **volgroups;
+  if (argc != 2) {
+    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  activate = is_true (argv[0]) ? 1 : 0;
+  volgroups = parse_string_list (argv[1]);
+  r = guestfs_vg_activate (g, activate, volgroups);
+  return r;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -2932,6 +2970,12 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "sfdisk_disk_geometry") == 0 || strcasecmp (cmd, "sfdisk-disk-geometry") == 0)
     return run_sfdisk_disk_geometry (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "vg_activate_all") == 0 || strcasecmp (cmd, "vg-activate-all") == 0)
+    return run_vg_activate_all (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "vg_activate") == 0 || strcasecmp (cmd, "vg-activate") == 0)
+    return run_vg_activate (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

@@ -502,3 +502,9 @@ val sfdisk_kernel_geometry : t -> string -> string
 val sfdisk_disk_geometry : t -> string -> string
 (** display the disk geometry from the partition table *)
 
+val vg_activate_all : t -> bool -> unit
+(** activate or deactivate all volume groups *)
+
+val vg_activate : t -> bool -> string array -> unit
+(** activate or deactivate some volume groups *)
+

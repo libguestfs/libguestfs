@@ -2847,3 +2847,50 @@ Java_com_redhat_et_libguestfs_GuestFS__1sfdisk_1disk_1geometry
   return jr;
 }
 
+JNIEXPORT void JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1vg_1activate_1all
+  (JNIEnv *env, jobject obj, jlong jg, jboolean jactivate)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+  int activate;
+
+  activate = jactivate;
+  r = guestfs_vg_activate_all (g, activate);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return ;
+  }
+}
+
+JNIEXPORT void JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1vg_1activate
+  (JNIEnv *env, jobject obj, jlong jg, jboolean jactivate, jobjectArray jvolgroups)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+  int activate;
+  int volgroups_len;
+  const char **volgroups;
+  int i;
+
+  activate = jactivate;
+  volgroups_len = (*env)->GetArrayLength (env, jvolgroups);
+  volgroups = guestfs_safe_malloc (g, sizeof (char *) * (volgroups_len+1));
+  for (i = 0; i < volgroups_len; ++i) {
+    jobject o = (*env)->GetObjectArrayElement (env, jvolgroups, i);
+    volgroups[i] = (*env)->GetStringUTFChars (env, o, NULL);
+  }
+  volgroups[volgroups_len] = NULL;
+  r = guestfs_vg_activate (g, activate, volgroups);
+  for (i = 0; i < volgroups_len; ++i) {
+    jobject o = (*env)->GetObjectArrayElement (env, jvolgroups, i);
+    (*env)->ReleaseStringUTFChars (env, o, volgroups[i]);
+  }
+  free (volgroups);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return ;
+  }
+}
+

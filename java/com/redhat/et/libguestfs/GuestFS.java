@@ -2864,4 +2864,54 @@ public class GuestFS {
   private native String _sfdisk_disk_geometry (long g, String device)
     throws LibGuestFSException;
 
+  /**
+   * activate or deactivate all volume groups
+   *
+   * This command activates or (if "activate" is false)
+   * deactivates all logical volumes in all volume groups. If
+   * activated, then they are made known to the kernel, ie.
+   * they appear as "/dev/mapper" devices. If deactivated,
+   * then those devices disappear.
+   * 
+   * This command is the same as running "vgchange -a y|n"
+   * 
+   * @throws LibGuestFSException
+   */
+  public void vg_activate_all (boolean activate)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("vg_activate_all: handle is closed");
+    _vg_activate_all (g, activate);
+  }
+  private native void _vg_activate_all (long g, boolean activate)
+    throws LibGuestFSException;
+
+  /**
+   * activate or deactivate some volume groups
+   *
+   * This command activates or (if "activate" is false)
+   * deactivates all logical volumes in the listed volume
+   * groups "volgroups". If activated, then they are made
+   * known to the kernel, ie. they appear as "/dev/mapper"
+   * devices. If deactivated, then those devices disappear.
+   * 
+   * This command is the same as running "vgchange -a y|n
+   * volgroups..."
+   * 
+   * Note that if "volgroups" is an empty list then all
+   * volume groups are activated or deactivated.
+   * 
+   * @throws LibGuestFSException
+   */
+  public void vg_activate (boolean activate, String[] volgroups)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("vg_activate: handle is closed");
+    _vg_activate (g, activate, volgroups);
+  }
+  private native void _vg_activate (long g, boolean activate, String[] volgroups)
+    throws LibGuestFSException;
+
 }

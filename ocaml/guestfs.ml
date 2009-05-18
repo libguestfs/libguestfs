@@ -241,3 +241,5 @@ external sfdisk_N : t -> string -> int -> int -> int -> int -> string -> unit = 
 external sfdisk_l : t -> string -> string = "ocaml_guestfs_sfdisk_l"
 external sfdisk_kernel_geometry : t -> string -> string = "ocaml_guestfs_sfdisk_kernel_geometry"
 external sfdisk_disk_geometry : t -> string -> string = "ocaml_guestfs_sfdisk_disk_geometry"
+external vg_activate_all : t -> bool -> unit = "ocaml_guestfs_vg_activate_all"
+external vg_activate : t -> bool -> string array -> unit = "ocaml_guestfs_vg_activate"
