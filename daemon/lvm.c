@@ -240,6 +240,30 @@ do_lvcreate (const char *logvol, const char *volgroup, int mbytes)
   return 0;
 }
 
+int
+do_lvresize (const char *logvol, int mbytes)
+{
+  char *err;
+  int r;
+  char size[64];
+
+  IS_DEVICE (logvol, -1);
+
+  snprintf (size, sizeof size, "%d", mbytes);
+
+  r = command (NULL, &err,
+	       "/sbin/lvm", "lvresize",
+	       "-L", size, logvol, NULL);
+  if (r == -1) {
+    reply_with_error ("lvresize: %s", err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+  return 0;
+}
+
 /* Super-dangerous command used for testing.  It removes all
  * LVs, VGs and PVs permanently.
  */

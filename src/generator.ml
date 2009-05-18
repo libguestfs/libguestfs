@@ -136,8 +136,7 @@ can easily destroy all your data>."
  * the virtual machine and block devices are reused between tests.
  * So don't try testing kill_subprocess :-x
  *
- * Between each test we blockdev-setrw, umount-all, lvm-remove-all
- * (except InitNone).
+ * Between each test we blockdev-setrw, umount-all, lvm-remove-all.
  *
  * If the appliance is running an older Linux kernel (eg. RHEL 5) then
  * devices are named /dev/hda etc.  To cope with this, the test suite
@@ -2096,6 +2095,33 @@ This command is the same as running C<vgchange -a y|n volgroups...>
 Note that if C<volgroups> is an empty list then B<all> volume groups
 are activated or deactivated.");
 
+  ("lvresize", (RErr, [String "device"; Int "mbytes"]), 105, [],
+   [InitNone, Always, TestOutput (
+    [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+     ["pvcreate"; "/dev/sda1"];
+     ["vgcreate"; "VG"; "/dev/sda1"];
+     ["lvcreate"; "LV"; "VG"; "10"];
+     ["mkfs"; "ext2"; "/dev/VG/LV"];
+     ["mount"; "/dev/VG/LV"; "/"];
+     ["write_file"; "/new"; "test content"; "0"];
+     ["umount"; "/"];
+     ["lvresize"; "/dev/VG/LV"; "20"];
+     ["resize2fs"; "/dev/VG/LV"];
+     ["mount"; "/dev/VG/LV"; "/"];
+     ["cat"; "/new"]], "test content")],
+   "resize an LVM logical volume",
+   "\
+This resizes (expands or shrinks) an existing LVM logical
+volume to C<mbytes>.  When reducing, data in the reduced part
+is lost.");
+
+  ("resize2fs", (RErr, [String "device"]), 106, [],
+   [], (* lvresize tests this *)
+   "resize an ext2/ext3 filesystem",
+   "\
+This resizes an ext2 or ext3 filesystem to match the size of
+the underlying device.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
@@ -3816,15 +3842,15 @@ and generate_one_test name i (init, prereq, test) =
 
 and generate_one_test_body name i test_name init test =
   (match init with
-   | InitNone -> ()
+   | InitNone
    | InitEmpty ->
-       pr "  /* InitEmpty for %s (%d) */\n" name i;
+       pr "  /* InitNone|InitEmpty for %s */\n" test_name;
        List.iter (generate_test_command_call test_name)
 	 [["blockdev_setrw"; "/dev/sda"];
 	  ["umount_all"];
 	  ["lvm_remove_all"]]
    | InitBasicFS ->
-       pr "  /* InitBasicFS for %s (%d): create ext2 on /dev/sda1 */\n" name i;
+       pr "  /* InitBasicFS for %s: create ext2 on /dev/sda1 */\n" test_name;
        List.iter (generate_test_command_call test_name)
 	 [["blockdev_setrw"; "/dev/sda"];
 	  ["umount_all"];
@@ -3833,8 +3859,8 @@ and generate_one_test_body name i test_name init test =
 	  ["mkfs"; "ext2"; "/dev/sda1"];
 	  ["mount"; "/dev/sda1"; "/"]]
    | InitBasicFSonLVM ->
-       pr "  /* InitBasicFSonLVM for %s (%d): create ext2 on /dev/VG/LV */\n"
-	 name i;
+       pr "  /* InitBasicFSonLVM for %s: create ext2 on /dev/VG/LV */\n"
+	 test_name;
        List.iter (generate_test_command_call test_name)
 	 [["blockdev_setrw"; "/dev/sda"];
 	  ["umount_all"];

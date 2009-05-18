@@ -234,3 +234,22 @@ do_get_e2uuid (const char *device)
   free (out);
   return p;			/* caller frees */
 }
+
+int
+do_resize2fs (const char *device)
+{
+  char *err;
+  int r;
+
+  IS_DEVICE (device, -1);
+
+  r = command (NULL, &err, "/sbin/resize2fs", device, NULL);
+  if (r == -1) {
+    reply_with_error ("resize2fs: %s", err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+  return 0;
+}
