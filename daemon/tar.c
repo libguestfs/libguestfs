@@ -68,8 +68,10 @@ do_tar_in (const char *dir)
     cancel_receive ();
     errno = err;
     reply_with_perror ("%s", cmd);
+    free (cmd);
     return -1;
   }
+  free (cmd);
 
   r = receive_file (fwrite_cb, &fp);
   if (r == -1) {		/* write error */
@@ -123,8 +125,10 @@ do_tar_out (const char *dir)
   fp = popen (cmd, "r");
   if (fp == NULL) {
     reply_with_perror ("%s", cmd);
+    free (cmd);
     return -1;
   }
+  free (cmd);
 
   /* Now we must send the reply message, before the file contents.  After
    * this there is no opportunity in the protocol to send any error
@@ -190,8 +194,10 @@ do_tgz_in (const char *dir)
     cancel_receive ();
     errno = err;
     reply_with_perror ("%s", cmd);
+    free (cmd);
     return -1;
   }
+  free (cmd);
 
   r = receive_file (fwrite_cb, &fp);
   if (r == -1) {		/* write error */
@@ -245,8 +251,10 @@ do_tgz_out (const char *dir)
   fp = popen (cmd, "r");
   if (fp == NULL) {
     reply_with_perror ("%s", cmd);
+    free (cmd);
     return -1;
   }
+  free (cmd);
 
   /* Now we must send the reply message, before the file contents.  After
    * this there is no opportunity in the protocol to send any error
