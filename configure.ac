@@ -144,9 +144,9 @@ fi
 dnl --with-repo to specify a Fedora repository.
 AC_ARG_WITH([repo],
 	[AS_HELP_STRING([--with-repo],
-	  [set name of Fedora repository @<:@default=fedora-10@:>@])],
+	  [set name of Fedora repository @<:@default=fedora-11@:>@])],
 	[],
-	[with_repo=fedora-10])
+	[with_repo=fedora-11])
 REPO="$with_repo"
 AC_SUBST(REPO)
 AC_DEFINE_UNQUOTED([REPO],["$REPO"],[Name of Fedora repository.])
@@ -158,7 +158,7 @@ AC_ARG_WITH([updates],
 	[AS_HELP_STRING([--with-updates],
 	  [set name of Fedora updates repository @<:@default=updates-released-f10@:>@])],
 	[],
-	[with_updates=updates-released-f10])
+	[with_updates=updates-released-f11])
 UPDATES="$with_updates"
 AC_SUBST(UPDATES)
 AC_DEFINE_UNQUOTED([UPDATES],["$UPDATES"],[Name of Fedora updates repository.])
