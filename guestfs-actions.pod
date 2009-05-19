@@ -677,6 +677,40 @@ particular that the filename is not prepended to the output
 This function returns a string, or NULL on error.
 I<The caller must free the returned string after use>.
 
+=head2 guestfs_find
+
+ char **guestfs_find (guestfs_h *handle,
+		const char *directory);
+
+This command lists out all files and directories, recursively,
+starting at C<directory>.  It is essentially equivalent to
+running the shell command C<find directory -print> but some
+post-processing happens on the output, described below.
+
+This returns a list of strings I<without any prefix>.  Thus
+if the directory structure was:
+
+ /tmp/a
+ /tmp/b
+ /tmp/c/d
+
+then the returned list from C<guestfs_find> C</tmp> would be
+4 elements:
+
+ a
+ b
+ c
+ c/d
+
+If C<directory> is not a directory, then this command returns
+an error.
+
+The returned list is sorted.
+
+This function returns a NULL-terminated array of strings
+(like L<environ(3)>), or NULL if there was an error.
+I<The caller must free the strings and the array after use>.
+
 =head2 guestfs_fsck
 
  int guestfs_fsck (guestfs_h *handle,

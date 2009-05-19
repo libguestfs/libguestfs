@@ -79,6 +79,7 @@ static const char *const commands[] = {
   "equal",
   "exists",
   "file",
+  "find",
   "fsck",
   "get-append",
   "get-autosync",

@@ -1436,3 +1436,34 @@ class GuestFS:
         """
         return libguestfsmod.resize2fs (self._o, device)
 
+    def find (self, directory):
+        u"""This command lists out all files and directories,
+        recursively, starting at "directory". It is essentially
+        equivalent to running the shell command "find directory
+        -print" but some post-processing happens on the output,
+        described below.
+        
+        This returns a list of strings *without any prefix*.
+        Thus if the directory structure was:
+        
+        /tmp/a
+        /tmp/b
+        /tmp/c/d
+        
+        then the returned list from "g.find" "/tmp" would be 4
+        elements:
+        
+        a
+        b
+        c
+        c/d
+        
+        If "directory" is not a directory, then this command
+        returns an error.
+        
+        The returned list is sorted.
+        
+        This function returns a list of strings.
+        """
+        return libguestfsmod.find (self._o, directory)
+

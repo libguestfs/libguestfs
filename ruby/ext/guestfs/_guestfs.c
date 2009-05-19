@@ -3115,6 +3115,35 @@ static VALUE ruby_guestfs_resize2fs (VALUE gv, VALUE devicev)
   return Qnil;
 }
 
+static VALUE ruby_guestfs_find (VALUE gv, VALUE directoryv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "find");
+
+  const char *directory = StringValueCStr (directoryv);
+  if (!directory)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "directory", "find");
+
+  char **r;
+
+  r = guestfs_find (g, directory);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  int i, len = 0;
+  for (i = 0; r[i] != NULL; ++i) len++;
+  VALUE rv = rb_ary_new2 (len);
+  for (i = 0; r[i] != NULL; ++i) {
+    rb_ary_push (rv, rb_str_new2 (r[i]));
+    free (r[i]);
+  }
+  free (r);
+  return rv;
+}
+
 /* Initialize the module. */
 void Init__guestfs ()
 {
@@ -3385,4 +3414,6 @@ void Init__guestfs ()
         ruby_guestfs_lvresize, 2);
   rb_define_method (c_guestfs, "resize2fs",
         ruby_guestfs_resize2fs, 1);
+  rb_define_method (c_guestfs, "find",
+        ruby_guestfs_find, 1);
 }

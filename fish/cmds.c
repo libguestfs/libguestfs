@@ -72,6 +72,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "equal", "test if two files have equal contents");
   printf ("%-20s %s\n", "exists", "test if file or directory exists");
   printf ("%-20s %s\n", "file", "determine file type");
+  printf ("%-20s %s\n", "find", "find all files and directories");
   printf ("%-20s %s\n", "fsck", "run the filesystem checker");
   printf ("%-20s %s\n", "get-append", "get the additional kernel options");
   printf ("%-20s %s\n", "get-autosync", "get autosync mode");
@@ -539,6 +540,9 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "resize2fs") == 0)
     pod2text ("resize2fs - resize an ext2/ext3 filesystem", " resize2fs <device>\n\nThis resizes an ext2 or ext3 filesystem to match the size of\nthe underlying device.");
+  else
+  if (strcasecmp (cmd, "find") == 0)
+    pod2text ("find - find all files and directories", " find <directory>\n\nThis command lists out all files and directories, recursively,\nstarting at C<directory>.  It is essentially equivalent to\nrunning the shell command C<find directory -print> but some\npost-processing happens on the output, described below.\n\nThis returns a list of strings I<without any prefix>.  Thus\nif the directory structure was:\n\n /tmp/a\n /tmp/b\n /tmp/c/d\n\nthen the returned list from C<find> C</tmp> would be\n4 elements:\n\n a\n b\n c\n c/d\n\nIf C<directory> is not a directory, then this command returns\nan error.\n\nThe returned list is sorted.");
   else
     display_builtin_command (cmd);
 }
@@ -2641,6 +2645,23 @@ static int run_resize2fs (const char *cmd, int argc, char *argv[])
   return r;
 }
 
+static int run_find (const char *cmd, int argc, char *argv[])
+{
+  char **r;
+  const char *directory;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  directory = argv[0];
+  r = guestfs_find (g, directory);
+  if (r == NULL) return -1;
+  print_strings (r);
+  free_strings (r);
+  return 0;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -3020,6 +3041,9 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "resize2fs") == 0)
     return run_resize2fs (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "find") == 0)
+    return run_find (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

@@ -514,3 +514,6 @@ val lvresize : t -> string -> int -> unit
 val resize2fs : t -> string -> unit
 (** resize an ext2/ext3 filesystem *)
 
+val find : t -> string -> string array
+(** find all files and directories *)
+

@@ -912,6 +912,19 @@ struct guestfs_resize2fs_args {
 };
 typedef struct guestfs_resize2fs_args guestfs_resize2fs_args;
 
+struct guestfs_find_args {
+	char *directory;
+};
+typedef struct guestfs_find_args guestfs_find_args;
+
+struct guestfs_find_ret {
+	struct {
+		u_int names_len;
+		str *names_val;
+	} names;
+};
+typedef struct guestfs_find_ret guestfs_find_ret;
+
 enum guestfs_procedure {
 	GUESTFS_PROC_MOUNT = 1,
 	GUESTFS_PROC_SYNC = 2,
@@ -1019,7 +1032,8 @@ enum guestfs_procedure {
 	GUESTFS_PROC_VG_ACTIVATE = 104,
 	GUESTFS_PROC_LVRESIZE = 105,
 	GUESTFS_PROC_RESIZE2FS = 106,
-	GUESTFS_PROC_NR_PROCS = 106 + 1,
+	GUESTFS_PROC_FIND = 107,
+	GUESTFS_PROC_NR_PROCS = 107 + 1,
 };
 typedef enum guestfs_procedure guestfs_procedure;
 #define GUESTFS_MESSAGE_MAX 4194304
@@ -1214,6 +1228,8 @@ extern  bool_t xdr_guestfs_vg_activate_all_args (XDR *, guestfs_vg_activate_all_
 extern  bool_t xdr_guestfs_vg_activate_args (XDR *, guestfs_vg_activate_args*);
 extern  bool_t xdr_guestfs_lvresize_args (XDR *, guestfs_lvresize_args*);
 extern  bool_t xdr_guestfs_resize2fs_args (XDR *, guestfs_resize2fs_args*);
+extern  bool_t xdr_guestfs_find_args (XDR *, guestfs_find_args*);
+extern  bool_t xdr_guestfs_find_ret (XDR *, guestfs_find_ret*);
 extern  bool_t xdr_guestfs_procedure (XDR *, guestfs_procedure*);
 extern  bool_t xdr_guestfs_message_direction (XDR *, guestfs_message_direction*);
 extern  bool_t xdr_guestfs_message_status (XDR *, guestfs_message_status*);
@@ -1367,6 +1383,8 @@ extern bool_t xdr_guestfs_vg_activate_all_args ();
 extern bool_t xdr_guestfs_vg_activate_args ();
 extern bool_t xdr_guestfs_lvresize_args ();
 extern bool_t xdr_guestfs_resize2fs_args ();
+extern bool_t xdr_guestfs_find_args ();
+extern bool_t xdr_guestfs_find_ret ();
 extern bool_t xdr_guestfs_procedure ();
 extern bool_t xdr_guestfs_message_direction ();
 extern bool_t xdr_guestfs_message_status ();

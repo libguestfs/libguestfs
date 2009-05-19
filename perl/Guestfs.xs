@@ -1917,3 +1917,22 @@ PREINIT:
       if (r == -1)
         croak ("resize2fs: %s", guestfs_last_error (g));
 
+void
+find (g, directory)
+      guestfs_h *g;
+      char *directory;
+PREINIT:
+      char **names;
+      int i, n;
+ PPCODE:
+      names = guestfs_find (g, directory);
+      if (names == NULL)
+        croak ("find: %s", guestfs_last_error (g));
+      for (n = 0; names[n] != NULL; ++n) /**/;
+      EXTEND (SP, n);
+      for (i = 0; i < n; ++i) {
+        PUSHs (sv_2mortal (newSVpv (names[i], 0)));
+        free (names[i]);
+      }
+      free (names);
+

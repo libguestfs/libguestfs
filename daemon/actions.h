@@ -127,3 +127,4 @@ extern int do_vg_activate_all (int activate);
 extern int do_vg_activate (int activate, char * const* const volgroups);
 extern int do_lvresize (const char *device, int mbytes);
 extern int do_resize2fs (const char *device);
+extern char **do_find (const char *directory);

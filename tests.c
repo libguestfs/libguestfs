@@ -126,6 +126,373 @@ static void no_test_warnings (void)
   fprintf (stderr, "warning: \"guestfs_resize2fs\" has no tests\n");
 }
 
+static int test_find_0 (void)
+{
+  /* InitBasicFS for test_find_0: create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputList for find (0) */
+  {
+    char directory[] = "/";
+    char **r;
+    int i;
+    suppress_error = 0;
+    r = guestfs_find (g, directory);
+    if (r == NULL)
+      return -1;
+    if (!r[0]) {
+      fprintf (stderr, "test_find_0: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "lost+found";
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_find_0: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
+    }
+    if (r[1] != NULL) {
+      fprintf (stderr, "test_find_0: extra elements returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    for (i = 0; r[i] != NULL; ++i)
+      free (r[i]);
+    free (r);
+  }
+  return 0;
+}
+
+static int test_find_1 (void)
+{
+  /* InitBasicFS for test_find_1: create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputList for find (1) */
+  {
+    char path[] = "/a";
+    int r;
+    suppress_error = 0;
+    r = guestfs_touch (g, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/b";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkdir (g, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/b/c";
+    int r;
+    suppress_error = 0;
+    r = guestfs_touch (g, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char directory[] = "/";
+    char **r;
+    int i;
+    suppress_error = 0;
+    r = guestfs_find (g, directory);
+    if (r == NULL)
+      return -1;
+    if (!r[0]) {
+      fprintf (stderr, "test_find_1: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "a";
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_find_1: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
+    }
+    if (!r[1]) {
+      fprintf (stderr, "test_find_1: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "b";
+      if (strcmp (r[1], expected) != 0) {
+        fprintf (stderr, "test_find_1: expected \"%s\" but got \"%s\"\n", expected, r[1]);
+        return -1;
+      }
+    }
+    if (!r[2]) {
+      fprintf (stderr, "test_find_1: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "b/c";
+      if (strcmp (r[2], expected) != 0) {
+        fprintf (stderr, "test_find_1: expected \"%s\" but got \"%s\"\n", expected, r[2]);
+        return -1;
+      }
+    }
+    if (!r[3]) {
+      fprintf (stderr, "test_find_1: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "lost+found";
+      if (strcmp (r[3], expected) != 0) {
+        fprintf (stderr, "test_find_1: expected \"%s\" but got \"%s\"\n", expected, r[3]);
+        return -1;
+      }
+    }
+    if (r[4] != NULL) {
+      fprintf (stderr, "test_find_1: extra elements returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    for (i = 0; r[i] != NULL; ++i)
+      free (r[i]);
+    free (r);
+  }
+  return 0;
+}
+
+static int test_find_2 (void)
+{
+  /* InitBasicFS for test_find_2: create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputList for find (2) */
+  {
+    char path[] = "/a/b/c";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkdir_p (g, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/a/b/c/d";
+    int r;
+    suppress_error = 0;
+    r = guestfs_touch (g, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char directory[] = "/a/b/";
+    char **r;
+    int i;
+    suppress_error = 0;
+    r = guestfs_find (g, directory);
+    if (r == NULL)
+      return -1;
+    if (!r[0]) {
+      fprintf (stderr, "test_find_2: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "c";
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_find_2: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
+    }
+    if (!r[1]) {
+      fprintf (stderr, "test_find_2: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "c/d";
+      if (strcmp (r[1], expected) != 0) {
+        fprintf (stderr, "test_find_2: expected \"%s\" but got \"%s\"\n", expected, r[1]);
+        return -1;
+      }
+    }
+    if (r[2] != NULL) {
+      fprintf (stderr, "test_find_2: extra elements returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    for (i = 0; r[i] != NULL; ++i)
+      free (r[i]);
+    free (r);
+  }
+  return 0;
+}
+
 static int test_lvresize_0 (void)
 {
   /* InitNone|InitEmpty for test_lvresize_0 */
@@ -13298,8 +13665,26 @@ int main (int argc, char *argv[])
     free (devs[i]);
   free (devs);
 
-  nr_tests = 137;
+  nr_tests = 140;
 
+  test_num++;
+  printf ("%3d/%3d test_find_0\n", test_num, nr_tests);
+  if (test_find_0 () == -1) {
+    printf ("test_find_0 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_find_1\n", test_num, nr_tests);
+  if (test_find_1 () == -1) {
+    printf ("test_find_1 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_find_2\n", test_num, nr_tests);
+  if (test_find_2 () == -1) {
+    printf ("test_find_2 FAILED\n");
+    failed++;
+  }
   test_num++;
   printf ("%3d/%3d test_lvresize_0\n", test_num, nr_tests);
   if (test_lvresize_0 () == -1) {

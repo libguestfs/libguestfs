@@ -1808,6 +1808,27 @@ xdr_guestfs_resize2fs_args (XDR *xdrs, guestfs_resize2fs_args *objp)
 }
 
 bool_t
+xdr_guestfs_find_args (XDR *xdrs, guestfs_find_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->directory, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_find_ret (XDR *xdrs, guestfs_find_ret *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_array (xdrs, (char **)&objp->names.names_val, (u_int *) &objp->names.names_len, ~0,
+		sizeof (str), (xdrproc_t) xdr_str))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
 xdr_guestfs_procedure (XDR *xdrs, guestfs_procedure *objp)
 {
 	register int32_t *buf;

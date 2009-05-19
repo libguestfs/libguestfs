@@ -2951,4 +2951,45 @@ public class GuestFS {
   private native void _resize2fs (long g, String device)
     throws LibGuestFSException;
 
+  /**
+   * find all files and directories
+   *
+   * This command lists out all files and directories,
+   * recursively, starting at "directory". It is essentially
+   * equivalent to running the shell command "find directory
+   * -print" but some post-processing happens on the output,
+   * described below.
+   * 
+   * This returns a list of strings *without any prefix*.
+   * Thus if the directory structure was:
+   * 
+   * /tmp/a
+   * /tmp/b
+   * /tmp/c/d
+   * 
+   * then the returned list from "g.find" "/tmp" would be 4
+   * elements:
+   * 
+   * a
+   * b
+   * c
+   * c/d
+   * 
+   * If "directory" is not a directory, then this command
+   * returns an error.
+   * 
+   * The returned list is sorted.
+   * 
+   * @throws LibGuestFSException
+   */
+  public String[] find (String directory)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("find: handle is closed");
+    return _find (g, directory);
+  }
+  private native String[] _find (long g, String directory)
+    throws LibGuestFSException;
+
 }

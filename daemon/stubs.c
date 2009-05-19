@@ -2667,6 +2667,34 @@ done:
   xdr_free ((xdrproc_t) xdr_guestfs_resize2fs_args, (char *) &args);
 }
 
+static void find_stub (XDR *xdr_in)
+{
+  char **r;
+  struct guestfs_find_args args;
+  const char *directory;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_find_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "find");
+    return;
+  }
+  directory = args.directory;
+
+  r = do_find (directory);
+  if (r == NULL)
+    /* do_find has already called reply_with_error */
+    goto done;
+
+  struct guestfs_find_ret ret;
+  ret.names.names_len = count_strings (r);
+  ret.names.names_val = r;
+  reply ((xdrproc_t) &xdr_guestfs_find_ret, (char *) &ret);
+  free_strings (r);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_find_args, (char *) &args);
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -2987,6 +3015,9 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_RESIZE2FS:
       resize2fs_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_FIND:
+      find_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d", proc_nr);

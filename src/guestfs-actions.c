@@ -9709,3 +9709,100 @@ int guestfs_resize2fs (guestfs_h *g,
   return 0;
 }
 
+struct find_ctx {
+  /* This flag is set by the callbacks, so we know we've done
+   * the callbacks as expected, and in the right sequence.
+   * 0 = not called, 1 = reply_cb called.
+   */
+  int cb_sequence;
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+  struct guestfs_find_ret ret;
+};
+
+static void find_reply_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  struct find_ctx *ctx = (struct find_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_find");
+    return;
+  }
+
+  ml->main_loop_quit (ml, g);
+
+  if (!xdr_guestfs_message_header (xdr, &ctx->hdr)) {
+    error (g, "%s: failed to parse reply header", "guestfs_find");
+    return;
+  }
+  if (ctx->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &ctx->err)) {
+      error (g, "%s: failed to parse reply error", "guestfs_find");
+      return;
+    }
+    goto done;
+  }
+  if (!xdr_guestfs_find_ret (xdr, &ctx->ret)) {
+    error (g, "%s: failed to parse reply", "guestfs_find");
+    return;
+  }
+ done:
+  ctx->cb_sequence = 1;
+}
+
+char **guestfs_find (guestfs_h *g,
+		const char *directory)
+{
+  struct guestfs_find_args args;
+  struct find_ctx ctx;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  int serial;
+
+  if (check_state (g, "guestfs_find") == -1) return NULL;
+  guestfs_set_busy (g);
+
+  memset (&ctx, 0, sizeof ctx);
+
+  args.directory = (char *) directory;
+  serial = guestfs__send_sync (g, GUESTFS_PROC_FIND,
+        (xdrproc_t) xdr_guestfs_find_args, (char *) &args);
+  if (serial == -1) {
+    guestfs_end_busy (g);
+    return NULL;
+  }
+
+  guestfs__switch_to_receiving (g);
+  ctx.cb_sequence = 0;
+  guestfs_set_reply_callback (g, find_reply_cb, &ctx);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (ctx.cb_sequence != 1) {
+    error (g, "%s reply failed, see earlier error messages", "guestfs_find");
+    guestfs_end_busy (g);
+    return NULL;
+  }
+
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_FIND, serial) == -1) {
+    guestfs_end_busy (g);
+    return NULL;
+  }
+
+  if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", ctx.err.error_message);
+    free (ctx.err.error_message);
+    guestfs_end_busy (g);
+    return NULL;
+  }
+
+  guestfs_end_busy (g);
+  /* caller will free this, but we need to add a NULL entry */
+  ctx.ret.names.names_val =
+    safe_realloc (g, ctx.ret.names.names_val,
+                  sizeof (char *) * (ctx.ret.names.names_len + 1));
+  ctx.ret.names.names_val[ctx.ret.names.names_len] = NULL;
+  return ctx.ret.names.names_val;
+}
+

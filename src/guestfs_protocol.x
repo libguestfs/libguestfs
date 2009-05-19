@@ -707,6 +707,14 @@ struct guestfs_resize2fs_args {
   string device<>;
 };
 
+struct guestfs_find_args {
+  string directory<>;
+};
+
+struct guestfs_find_ret {
+  str names<>;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -814,6 +822,7 @@ enum guestfs_procedure {
   GUESTFS_PROC_VG_ACTIVATE = 104,
   GUESTFS_PROC_LVRESIZE = 105,
   GUESTFS_PROC_RESIZE2FS = 106,
+  GUESTFS_PROC_FIND = 107,
   GUESTFS_PROC_NR_PROCS
 };
 

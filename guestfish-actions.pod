@@ -514,6 +514,35 @@ The exact command which runs is C<file -bsL path>.  Note in
 particular that the filename is not prepended to the output
 (the C<-b> option).
 
+=head2 find
+
+ find directory
+
+This command lists out all files and directories, recursively,
+starting at C<directory>.  It is essentially equivalent to
+running the shell command C<find directory -print> but some
+post-processing happens on the output, described below.
+
+This returns a list of strings I<without any prefix>.  Thus
+if the directory structure was:
+
+ /tmp/a
+ /tmp/b
+ /tmp/c/d
+
+then the returned list from C<find> C</tmp> would be
+4 elements:
+
+ a
+ b
+ c
+ c/d
+
+If C<directory> is not a directory, then this command returns
+an error.
+
+The returned list is sorted.
+
 =head2 fsck
 
  fsck fstype device
