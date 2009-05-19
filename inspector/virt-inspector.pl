@@ -434,8 +434,7 @@ sub check_windows_root
     local $_;
     my $r = shift;
 
-    # XXX Windows version.
-    # List of applications.
+    # Windows version?
 }
 
 sub check_grub
@@ -443,7 +442,7 @@ sub check_grub
     local $_;
     my $r = shift;
 
-    # XXX Kernel versions, grub version.
+    # Grub version, if we care.
 }
 
 #print Dumper (\%fses);
@@ -616,7 +615,35 @@ sub check_for_kernels
     local $_;
     my $root_dev = shift;
 
-    # XXX
+    my @kernels;
+
+    my $os = $oses{$root_dev}->{os};
+    if ($os eq "linux") {
+	# Installed kernels will have a corresponding /lib/modules/<version>
+	# directory, which is the easiest way to find out what kernels
+	# are installed, and what modules are available.
+	foreach ($g->ls ("/lib/modules")) {
+	    if ($g->is_dir ("/lib/modules/$_")) {
+		my %kernel;
+		$kernel{version} = $_;
+
+
+		# XXX List modules.
+
+
+
+
+
+
+		push @kernels, \%kernel;
+	    }
+	}
+
+    } elsif ($os eq "windows") {
+	# XXX
+    }
+
+    $oses{$root_dev}->{kernels} = \@kernels;
 }
 
 #----------------------------------------------------------------------
@@ -700,7 +727,14 @@ sub output_text_os
 	print "    $_->{name} $_->{version}\n"
     }
 
-    # XXX Kernel.
+    print "  Kernels:\n";
+    my @kernels = @{$os->{kernels}};
+    foreach (@kernels) {
+	print "    $_->{version}\n"
+
+
+
+    }
 }
 
 sub output_xml
@@ -754,7 +788,20 @@ sub output_xml_os
     }
     print "</applications>\n";
 
-    # XXX Kernel.
+    print "<kernels>\n";
+    my @kernels = @{$os->{kernels}};
+    foreach (@kernels) {
+	print "<kernel>\n";
+	print "<version>$_->{version}</version>\n";
+
+
+
+
+
+
+	print "</kernel>\n";
+    }
+    print "</kernels>\n";
 
     print "</operatingsystem>\n";
 }
