@@ -627,13 +627,15 @@ sub check_for_kernels
 		my %kernel;
 		$kernel{version} = $_;
 
+		# List modules.
+		my @modules;
+		foreach ($g->find ("/lib/modules/$_")) {
+		    if (m,/([^/]+)\.ko,) {
+			push @modules, $1;
+		    }
+		}
 
-		# XXX List modules.
-
-
-
-
-
+		$kernel{modules} = \@modules;
 
 		push @kernels, \%kernel;
 	    }
@@ -730,10 +732,11 @@ sub output_text_os
     print "  Kernels:\n";
     my @kernels = @{$os->{kernels}};
     foreach (@kernels) {
-	print "    $_->{version}\n"
-
-
-
+	print "    $_->{version}\n";
+	my @modules = @{$_->{modules}};
+	foreach (@modules) {
+	    print "      $_\n";
+	}
     }
 }
 
@@ -793,12 +796,12 @@ sub output_xml_os
     foreach (@kernels) {
 	print "<kernel>\n";
 	print "<version>$_->{version}</version>\n";
-
-
-
-
-
-
+	print "<modules>\n";
+	my @modules = @{$_->{modules}};
+	foreach (@modules) {
+	    print "<module>$_</module>\n";
+	}
+	print "</modules>\n";
 	print "</kernel>\n";
     }
     print "</kernels>\n";
