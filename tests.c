@@ -643,8 +643,15 @@ static int test_lvresize_0 (void)
   return 0;
 }
 
+static int test_zerofree_0_prereq (void)
+{
+  const char *str = getenv ("SKIP_ZEROFREE");
+  return str && strcmp (str, "1") == 0;
+}
+
 static int test_zerofree_0 (void)
 {
+  if (! test_zerofree_0_prereq ()) {
   /* InitNone|InitEmpty for test_zerofree_0 */
   {
     char device[] = "/dev/sda";
@@ -755,6 +762,8 @@ static int test_zerofree_0 (void)
     }
     free (r);
   }
+  } else
+    printf ("%s skipped (reason: test prerequisite)\n", "test_zerofree_0");
   return 0;
 }
 

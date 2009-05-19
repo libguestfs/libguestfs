@@ -1998,7 +1998,7 @@ This runs C<hexdump -C> on the given C<path>.  The result is
 the human-readable, canonical hex dump of the file.");
 
   ("zerofree", (RErr, [String "device"]), 97, [],
-   [InitNone, Always, TestOutput (
+   [InitNone, Unless (env_is_true "SKIP_ZEROFREE"), TestOutput (
       [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
        ["mkfs"; "ext3"; "/dev/sda1"];
        ["mount"; "/dev/sda1"; "/"];
