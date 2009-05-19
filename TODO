@@ -27,3 +27,16 @@ Implement febootstrap command.
 ----------------------------------------------------------------------
 
 Complete the Haskell bindings (see discussion on haskell-cafe).
+
+----------------------------------------------------------------------
+
+For virt-inspector:
+
+ - Needs a "query mode", like "are (Xen|KVM) PV drivers installed?"
+   "does this guest need a Xen hypervisor?"
+
+ - Are PV network drivers enabled (see /etc/modprobe.conf)
+
+ - Make a libvirt XML config
+
+ - Test over available OSes
