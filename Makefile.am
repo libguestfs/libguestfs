@@ -97,12 +97,12 @@ make-initramfs.sh: make-initramfs.sh.in
 
 check_PROGRAMS = tests test-command
 
-tests_SOURCES = tests.c test-bootbootboot.sh
+tests_SOURCES = tests.c
 tests_CFLAGS = \
 	-I$(top_builddir)/src -Wall
 tests_LDADD = $(top_builddir)/src/libguestfs.la
 
-TESTS = tests
+TESTS = tests test-bootbootboot.sh
 TESTS_ENVIRONMENT = \
 	SKIP_TEST_COMMAND=$(shell ldd test-command | grep -sq 'not a dynamic executable' || echo 1) \
 	SKIP_ZEROFREE=$(shell test -x initramfs/usr/sbin/zerofree || echo 1) \
