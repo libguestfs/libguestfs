@@ -2122,6 +2122,45 @@ is lost.");
 This resizes an ext2 or ext3 filesystem to match the size of
 the underlying device.");
 
+  ("find", (RStringList "names", [String "directory"]), 107, [],
+   [InitBasicFS, Always, TestOutputList (
+      [["find"; "/"]], ["lost+found"]);
+    InitBasicFS, Always, TestOutputList (
+      [["touch"; "/a"];
+       ["mkdir"; "/b"];
+       ["touch"; "/b/c"];
+       ["find"; "/"]], ["a"; "b"; "b/c"; "lost+found"]);
+    InitBasicFS, Always, TestOutputList (
+      [["mkdir_p"; "/a/b/c"];
+       ["touch"; "/a/b/c/d"];
+       ["find"; "/a/b/"]], ["c"; "c/d"])],
+   "find all files and directories",
+   "\
+This command lists out all files and directories, recursively,
+starting at C<directory>.  It is essentially equivalent to
+running the shell command C<find directory -print> but some
+post-processing happens on the output, described below.
+
+This returns a list of strings I<without any prefix>.  Thus
+if the directory structure was:
+
+ /tmp/a
+ /tmp/b
+ /tmp/c/d
+
+then the returned list from C<guestfs_find> C</tmp> would be
+4 elements:
+
+ a
+ b
+ c
+ c/d
+
+If C<directory> is not a directory, then this command returns
+an error.
+
+The returned list is sorted.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

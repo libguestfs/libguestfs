@@ -34,6 +34,7 @@ guestfsd_SOURCES = \
 	dropcaches.c \
 	ext2.c \
 	file.c \
+	find.c \
 	fsck.c \
 	grub.c \
 	guestfsd.c \
