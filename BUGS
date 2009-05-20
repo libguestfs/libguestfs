@@ -69,3 +69,6 @@ glibc-static.
 
 [tests] Should be possible to conditionally skip tests based on a
 runtime check.
+
+[fedora] Depends on 'qemu' but should depend on the real subpackage,
+eg. qemu-kvm or qemu-system-x86_64 or whatever.  [reported by markmc]
