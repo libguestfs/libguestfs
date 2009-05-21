@@ -2114,6 +2114,7 @@ are activated or deactivated.");
      ["write_file"; "/new"; "test content"; "0"];
      ["umount"; "/"];
      ["lvresize"; "/dev/VG/LV"; "20"];
+     ["e2fsck_f"; "/dev/VG/LV"];
      ["resize2fs"; "/dev/VG/LV"];
      ["mount"; "/dev/VG/LV"; "/"];
      ["cat"; "/new"]], "test content")],
@@ -2128,7 +2129,13 @@ is lost.");
    "resize an ext2/ext3 filesystem",
    "\
 This resizes an ext2 or ext3 filesystem to match the size of
-the underlying device.");
+the underlying device.
+
+I<Note:> It is sometimes required that you run C<guestfs_e2fsck_f>
+on the C<device> before calling this command.  For unknown reasons
+C<resize2fs> sometimes gives an error about this and sometimes not.
+In any case, it is always safe to call C<guestfs_e2fsck_f> before
+calling this function.");
 
   ("find", (RStringList "names", [String "directory"]), 107, [],
    [InitBasicFS, Always, TestOutputList (
@@ -2168,6 +2175,17 @@ If C<directory> is not a directory, then this command returns
 an error.
 
 The returned list is sorted.");
+
+  ("e2fsck_f", (RErr, [String "device"]), 108, [],
+   [], (* lvresize tests this *)
+   "check an ext2/ext3 filesystem",
+   "\
+This runs C<e2fsck -p -f device>, ie. runs the ext2/ext3
+filesystem checker on C<device>, noninteractively (C<-p>),
+even if the filesystem appears to be clean (C<-f>).
+
+This command is only needed because of C<guestfs_resize2fs>
+(q.v.).  Normally you should use C<guestfs_fsck>.");
 
 ]
 

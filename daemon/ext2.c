@@ -253,3 +253,22 @@ do_resize2fs (const char *device)
   free (err);
   return 0;
 }
+
+int
+do_e2fsck_f (const char *device)
+{
+  char *err;
+  int r;
+
+  IS_DEVICE (device, -1);
+
+  r = command (NULL, &err, "/sbin/e2fsck", "-p", "-f", device, NULL);
+  if (r == -1) {
+    reply_with_error ("e2fsck: %s", err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+  return 0;
+}
