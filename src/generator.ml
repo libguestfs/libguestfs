@@ -1662,22 +1662,25 @@ to find out what you can do.");
 
   ("lvremove", (RErr, [String "device"]), 77, [],
    [InitEmpty, Always, TestOutputList (
-      [["pvcreate"; "/dev/sda"];
-       ["vgcreate"; "VG"; "/dev/sda"];
+      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+       ["pvcreate"; "/dev/sda1"];
+       ["vgcreate"; "VG"; "/dev/sda1"];
        ["lvcreate"; "LV1"; "VG"; "50"];
        ["lvcreate"; "LV2"; "VG"; "50"];
        ["lvremove"; "/dev/VG/LV1"];
        ["lvs"]], ["/dev/VG/LV2"]);
     InitEmpty, Always, TestOutputList (
-      [["pvcreate"; "/dev/sda"];
-       ["vgcreate"; "VG"; "/dev/sda"];
+      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+       ["pvcreate"; "/dev/sda1"];
+       ["vgcreate"; "VG"; "/dev/sda1"];
        ["lvcreate"; "LV1"; "VG"; "50"];
        ["lvcreate"; "LV2"; "VG"; "50"];
        ["lvremove"; "/dev/VG"];
        ["lvs"]], []);
     InitEmpty, Always, TestOutputList (
-      [["pvcreate"; "/dev/sda"];
-       ["vgcreate"; "VG"; "/dev/sda"];
+      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+       ["pvcreate"; "/dev/sda1"];
+       ["vgcreate"; "VG"; "/dev/sda1"];
        ["lvcreate"; "LV1"; "VG"; "50"];
        ["lvcreate"; "LV2"; "VG"; "50"];
        ["lvremove"; "/dev/VG"];
@@ -1692,15 +1695,17 @@ the VG name, C</dev/VG>.");
 
   ("vgremove", (RErr, [String "vgname"]), 78, [],
    [InitEmpty, Always, TestOutputList (
-      [["pvcreate"; "/dev/sda"];
-       ["vgcreate"; "VG"; "/dev/sda"];
+      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+       ["pvcreate"; "/dev/sda1"];
+       ["vgcreate"; "VG"; "/dev/sda1"];
        ["lvcreate"; "LV1"; "VG"; "50"];
        ["lvcreate"; "LV2"; "VG"; "50"];
        ["vgremove"; "VG"];
        ["lvs"]], []);
     InitEmpty, Always, TestOutputList (
-      [["pvcreate"; "/dev/sda"];
-       ["vgcreate"; "VG"; "/dev/sda"];
+      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+       ["pvcreate"; "/dev/sda1"];
+       ["vgcreate"; "VG"; "/dev/sda1"];
        ["lvcreate"; "LV1"; "VG"; "50"];
        ["lvcreate"; "LV2"; "VG"; "50"];
        ["vgremove"; "VG"];
@@ -1714,28 +1719,31 @@ group (if any).");
 
   ("pvremove", (RErr, [String "device"]), 79, [],
    [InitEmpty, Always, TestOutputList (
-      [["pvcreate"; "/dev/sda"];
-       ["vgcreate"; "VG"; "/dev/sda"];
+      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+       ["pvcreate"; "/dev/sda1"];
+       ["vgcreate"; "VG"; "/dev/sda1"];
        ["lvcreate"; "LV1"; "VG"; "50"];
        ["lvcreate"; "LV2"; "VG"; "50"];
        ["vgremove"; "VG"];
-       ["pvremove"; "/dev/sda"];
+       ["pvremove"; "/dev/sda1"];
        ["lvs"]], []);
     InitEmpty, Always, TestOutputList (
-      [["pvcreate"; "/dev/sda"];
-       ["vgcreate"; "VG"; "/dev/sda"];
+      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+       ["pvcreate"; "/dev/sda1"];
+       ["vgcreate"; "VG"; "/dev/sda1"];
        ["lvcreate"; "LV1"; "VG"; "50"];
        ["lvcreate"; "LV2"; "VG"; "50"];
        ["vgremove"; "VG"];
-       ["pvremove"; "/dev/sda"];
+       ["pvremove"; "/dev/sda1"];
        ["vgs"]], []);
     InitEmpty, Always, TestOutputList (
-      [["pvcreate"; "/dev/sda"];
-       ["vgcreate"; "VG"; "/dev/sda"];
+      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+       ["pvcreate"; "/dev/sda1"];
+       ["vgcreate"; "VG"; "/dev/sda1"];
        ["lvcreate"; "LV1"; "VG"; "50"];
        ["lvcreate"; "LV2"; "VG"; "50"];
        ["vgremove"; "VG"];
-       ["pvremove"; "/dev/sda"];
+       ["pvremove"; "/dev/sda1"];
        ["pvs"]], [])],
    "remove an LVM physical volume",
    "\

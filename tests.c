@@ -2936,6 +2936,20 @@ static int test_pvremove_0 (void)
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
     r = guestfs_pvcreate (g, device);
@@ -2944,7 +2958,7 @@ static int test_pvremove_0 (void)
   }
   {
     char volgroup[] = "VG";
-    char physvols_0[] = "/dev/sda";
+    char physvols_0[] = "/dev/sda1";
     physvols_0[5] = devchar;
     char *physvols[] = {
       physvols_0,
@@ -2983,7 +2997,7 @@ static int test_pvremove_0 (void)
       return -1;
   }
   {
-    char device[] = "/dev/sda";
+    char device[] = "/dev/sda1";
     device[5] = devchar;
     int r;
     suppress_error = 0;
@@ -3040,6 +3054,20 @@ static int test_pvremove_1 (void)
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
     r = guestfs_pvcreate (g, device);
@@ -3048,7 +3076,7 @@ static int test_pvremove_1 (void)
   }
   {
     char volgroup[] = "VG";
-    char physvols_0[] = "/dev/sda";
+    char physvols_0[] = "/dev/sda1";
     physvols_0[5] = devchar;
     char *physvols[] = {
       physvols_0,
@@ -3087,7 +3115,7 @@ static int test_pvremove_1 (void)
       return -1;
   }
   {
-    char device[] = "/dev/sda";
+    char device[] = "/dev/sda1";
     device[5] = devchar;
     int r;
     suppress_error = 0;
@@ -3144,6 +3172,20 @@ static int test_pvremove_2 (void)
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
     r = guestfs_pvcreate (g, device);
@@ -3152,7 +3194,7 @@ static int test_pvremove_2 (void)
   }
   {
     char volgroup[] = "VG";
-    char physvols_0[] = "/dev/sda";
+    char physvols_0[] = "/dev/sda1";
     physvols_0[5] = devchar;
     char *physvols[] = {
       physvols_0,
@@ -3191,7 +3233,7 @@ static int test_pvremove_2 (void)
       return -1;
   }
   {
-    char device[] = "/dev/sda";
+    char device[] = "/dev/sda1";
     device[5] = devchar;
     int r;
     suppress_error = 0;
@@ -3248,6 +3290,20 @@ static int test_vgremove_0 (void)
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
     r = guestfs_pvcreate (g, device);
@@ -3256,7 +3312,7 @@ static int test_vgremove_0 (void)
   }
   {
     char volgroup[] = "VG";
-    char physvols_0[] = "/dev/sda";
+    char physvols_0[] = "/dev/sda1";
     physvols_0[5] = devchar;
     char *physvols[] = {
       physvols_0,
@@ -3343,6 +3399,20 @@ static int test_vgremove_1 (void)
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
     r = guestfs_pvcreate (g, device);
@@ -3351,7 +3421,7 @@ static int test_vgremove_1 (void)
   }
   {
     char volgroup[] = "VG";
-    char physvols_0[] = "/dev/sda";
+    char physvols_0[] = "/dev/sda1";
     physvols_0[5] = devchar;
     char *physvols[] = {
       physvols_0,
@@ -3438,6 +3508,20 @@ static int test_lvremove_0 (void)
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
     r = guestfs_pvcreate (g, device);
@@ -3446,7 +3530,7 @@ static int test_lvremove_0 (void)
   }
   {
     char volgroup[] = "VG";
-    char physvols_0[] = "/dev/sda";
+    char physvols_0[] = "/dev/sda1";
     physvols_0[5] = devchar;
     char *physvols[] = {
       physvols_0,
@@ -3545,6 +3629,20 @@ static int test_lvremove_1 (void)
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
     r = guestfs_pvcreate (g, device);
@@ -3553,7 +3651,7 @@ static int test_lvremove_1 (void)
   }
   {
     char volgroup[] = "VG";
-    char physvols_0[] = "/dev/sda";
+    char physvols_0[] = "/dev/sda1";
     physvols_0[5] = devchar;
     char *physvols[] = {
       physvols_0,
@@ -3640,6 +3738,20 @@ static int test_lvremove_2 (void)
   {
     char device[] = "/dev/sda";
     device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
     int r;
     suppress_error = 0;
     r = guestfs_pvcreate (g, device);
@@ -3648,7 +3760,7 @@ static int test_lvremove_2 (void)
   }
   {
     char volgroup[] = "VG";
-    char physvols_0[] = "/dev/sda";
+    char physvols_0[] = "/dev/sda1";
     physvols_0[5] = devchar;
     char *physvols[] = {
       physvols_0,
