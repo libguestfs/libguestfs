@@ -1936,3 +1936,14 @@ PREINIT:
       }
       free (names);
 
+void
+e2fsck_f (g, device)
+      guestfs_h *g;
+      char *device;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_e2fsck_f (g, device);
+      if (r == -1)
+        croak ("e2fsck_f: %s", guestfs_last_error (g));
+

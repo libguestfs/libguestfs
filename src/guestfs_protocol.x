@@ -715,6 +715,10 @@ struct guestfs_find_ret {
   str names<>;
 };
 
+struct guestfs_e2fsck_f_args {
+  string device<>;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -823,6 +827,7 @@ enum guestfs_procedure {
   GUESTFS_PROC_LVRESIZE = 105,
   GUESTFS_PROC_RESIZE2FS = 106,
   GUESTFS_PROC_FIND = 107,
+  GUESTFS_PROC_E2FSCK_F = 108,
   GUESTFS_PROC_NR_PROCS
 };
 

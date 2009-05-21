@@ -3688,6 +3688,31 @@ py_guestfs_find (PyObject *self, PyObject *args)
   return py_r;
 }
 
+static PyObject *
+py_guestfs_e2fsck_f (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *device;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_e2fsck_f",
+                         &py_g, &device))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_e2fsck_f (g, device);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
 static PyMethodDef methods[] = {
   { (char *) "create", py_guestfs_create, METH_VARARGS, NULL },
   { (char *) "close", py_guestfs_close, METH_VARARGS, NULL },
@@ -3822,6 +3847,7 @@ static PyMethodDef methods[] = {
   { (char *) "lvresize", py_guestfs_lvresize, METH_VARARGS, NULL },
   { (char *) "resize2fs", py_guestfs_resize2fs, METH_VARARGS, NULL },
   { (char *) "find", py_guestfs_find, METH_VARARGS, NULL },
+  { (char *) "e2fsck_f", py_guestfs_e2fsck_f, METH_VARARGS, NULL },
   { NULL, NULL, 0, NULL }
 };
 

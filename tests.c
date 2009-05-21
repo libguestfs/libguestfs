@@ -124,6 +124,7 @@ static void no_test_warnings (void)
   fprintf (stderr, "warning: \"guestfs_vg_activate_all\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_vg_activate\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_resize2fs\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_e2fsck_f\" has no tests\n");
 }
 
 static int test_find_0 (void)
@@ -607,6 +608,14 @@ static int test_lvresize_0 (void)
     int r;
     suppress_error = 0;
     r = guestfs_lvresize (g, device, 20);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/VG/LV";
+    int r;
+    suppress_error = 0;
+    r = guestfs_e2fsck_f (g, device);
     if (r == -1)
       return -1;
   }

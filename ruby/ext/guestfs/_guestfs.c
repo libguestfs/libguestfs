@@ -3144,6 +3144,27 @@ static VALUE ruby_guestfs_find (VALUE gv, VALUE directoryv)
   return rv;
 }
 
+static VALUE ruby_guestfs_e2fsck_f (VALUE gv, VALUE devicev)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "e2fsck_f");
+
+  const char *device = StringValueCStr (devicev);
+  if (!device)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "device", "e2fsck_f");
+
+  int r;
+
+  r = guestfs_e2fsck_f (g, device);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
 /* Initialize the module. */
 void Init__guestfs ()
 {
@@ -3416,4 +3437,6 @@ void Init__guestfs ()
         ruby_guestfs_resize2fs, 1);
   rb_define_method (c_guestfs, "find",
         ruby_guestfs_find, 1);
+  rb_define_method (c_guestfs, "e2fsck_f",
+        ruby_guestfs_e2fsck_f, 1);
 }

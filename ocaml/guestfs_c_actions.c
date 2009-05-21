@@ -3452,3 +3452,26 @@ ocaml_guestfs_find (value gv, value directoryv)
   CAMLreturn (rv);
 }
 
+CAMLprim value
+ocaml_guestfs_e2fsck_f (value gv, value devicev)
+{
+  CAMLparam2 (gv, devicev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("e2fsck_f: used handle after closing it");
+
+  const char *device = String_val (devicev);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_e2fsck_f (g, device);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "e2fsck_f");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+

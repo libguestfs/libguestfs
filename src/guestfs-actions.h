@@ -150,3 +150,4 @@ extern int guestfs_vg_activate (guestfs_h *handle, int activate, char * const* c
 extern int guestfs_lvresize (guestfs_h *handle, const char *device, int mbytes);
 extern int guestfs_resize2fs (guestfs_h *handle, const char *device);
 extern char **guestfs_find (guestfs_h *handle, const char *directory);
+extern int guestfs_e2fsck_f (guestfs_h *handle, const char *device);

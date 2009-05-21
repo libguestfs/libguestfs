@@ -499,6 +499,15 @@ Setting C<whattodrop> to 3 should drop everything.
 This automatically calls L<sync(2)> before the operation,
 so that the maximum guest memory is freed.
 
+=item $h->e2fsck_f ($device);
+
+This runs C<e2fsck -p -f device>, ie. runs the ext2/ext3
+filesystem checker on C<device>, noninteractively (C<-p>),
+even if the filesystem appears to be clean (C<-f>).
+
+This command is only needed because of C<$h-E<gt>resize2fs>
+(q.v.).  Normally you should use C<$h-E<gt>fsck>.
+
 =item $h->end_busy ();
 
 This sets the state to C<READY>, or if in C<CONFIG> then it leaves the
@@ -909,6 +918,12 @@ function which has a more complex interface.
 
 This resizes an ext2 or ext3 filesystem to match the size of
 the underlying device.
+
+I<Note:> It is sometimes required that you run C<$h-E<gt>e2fsck_f>
+on the C<device> before calling this command.  For unknown reasons
+C<resize2fs> sometimes gives an error about this and sometimes not.
+In any case, it is always safe to call C<$h-E<gt>e2fsck_f> before
+calling this function.
 
 =item $h->rm ($path);
 

@@ -76,6 +76,7 @@ static const char *const commands[] = {
   "dmesg",
   "download",
   "drop-caches",
+  "e2fsck-f",
   "equal",
   "exists",
   "file",

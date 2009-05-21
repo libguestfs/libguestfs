@@ -69,6 +69,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "dmesg", "return kernel messages");
   printf ("%-20s %s\n", "download", "download a file to the local machine");
   printf ("%-20s %s\n", "drop-caches", "drop kernel page cache, dentries and inodes");
+  printf ("%-20s %s\n", "e2fsck-f", "check an ext2/ext3 filesystem");
   printf ("%-20s %s\n", "equal", "test if two files have equal contents");
   printf ("%-20s %s\n", "exists", "test if file or directory exists");
   printf ("%-20s %s\n", "file", "determine file type");
@@ -539,10 +540,13 @@ void display_command (const char *cmd)
     pod2text ("lvresize - resize an LVM logical volume", " lvresize <device> <mbytes>\n\nThis resizes (expands or shrinks) an existing LVM logical\nvolume to C<mbytes>.  When reducing, data in the reduced part\nis lost.");
   else
   if (strcasecmp (cmd, "resize2fs") == 0)
-    pod2text ("resize2fs - resize an ext2/ext3 filesystem", " resize2fs <device>\n\nThis resizes an ext2 or ext3 filesystem to match the size of\nthe underlying device.");
+    pod2text ("resize2fs - resize an ext2/ext3 filesystem", " resize2fs <device>\n\nThis resizes an ext2 or ext3 filesystem to match the size of\nthe underlying device.\n\nI<Note:> It is sometimes required that you run C<e2fsck_f>\non the C<device> before calling this command.  For unknown reasons\nC<resize2fs> sometimes gives an error about this and sometimes not.\nIn any case, it is always safe to call C<e2fsck_f> before\ncalling this function.");
   else
   if (strcasecmp (cmd, "find") == 0)
     pod2text ("find - find all files and directories", " find <directory>\n\nThis command lists out all files and directories, recursively,\nstarting at C<directory>.  It is essentially equivalent to\nrunning the shell command C<find directory -print> but some\npost-processing happens on the output, described below.\n\nThis returns a list of strings I<without any prefix>.  Thus\nif the directory structure was:\n\n /tmp/a\n /tmp/b\n /tmp/c/d\n\nthen the returned list from C<find> C</tmp> would be\n4 elements:\n\n a\n b\n c\n c/d\n\nIf C<directory> is not a directory, then this command returns\nan error.\n\nThe returned list is sorted.");
+  else
+  if (strcasecmp (cmd, "e2fsck_f") == 0 || strcasecmp (cmd, "e2fsck-f") == 0)
+    pod2text ("e2fsck-f - check an ext2/ext3 filesystem", " e2fsck-f <device>\n\nThis runs C<e2fsck -p -f device>, ie. runs the ext2/ext3\nfilesystem checker on C<device>, noninteractively (C<-p>),\neven if the filesystem appears to be clean (C<-f>).\n\nThis command is only needed because of C<resize2fs>\n(q.v.).  Normally you should use C<fsck>.");
   else
     display_builtin_command (cmd);
 }
@@ -2662,6 +2666,20 @@ static int run_find (const char *cmd, int argc, char *argv[])
   return 0;
 }
 
+static int run_e2fsck_f (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *device;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  device = argv[0];
+  r = guestfs_e2fsck_f (g, device);
+  return r;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -3044,6 +3062,9 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "find") == 0)
     return run_find (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "e2fsck_f") == 0 || strcasecmp (cmd, "e2fsck-f") == 0)
+    return run_e2fsck_f (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

@@ -246,3 +246,4 @@ external vg_activate : t -> bool -> string array -> unit = "ocaml_guestfs_vg_act
 external lvresize : t -> string -> int -> unit = "ocaml_guestfs_lvresize"
 external resize2fs : t -> string -> unit = "ocaml_guestfs_resize2fs"
 external find : t -> string -> string array = "ocaml_guestfs_find"
+external e2fsck_f : t -> string -> unit = "ocaml_guestfs_e2fsck_f"

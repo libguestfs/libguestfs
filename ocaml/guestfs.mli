@@ -517,3 +517,6 @@ val resize2fs : t -> string -> unit
 val find : t -> string -> string array
 (** find all files and directories *)
 
+val e2fsck_f : t -> string -> unit
+(** check an ext2/ext3 filesystem *)
+

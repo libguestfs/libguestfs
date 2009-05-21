@@ -2939,6 +2939,13 @@ public class GuestFS {
    * This resizes an ext2 or ext3 filesystem to match the
    * size of the underlying device.
    * 
+   * *Note:* It is sometimes required that you run
+   * "g.e2fsck_f" on the "device" before calling this
+   * command. For unknown reasons "resize2fs" sometimes gives
+   * an error about this and sometimes not. In any case, it
+   * is always safe to call "g.e2fsck_f" before calling this
+   * function.
+   * 
    * @throws LibGuestFSException
    */
   public void resize2fs (String device)
@@ -2990,6 +2997,28 @@ public class GuestFS {
     return _find (g, directory);
   }
   private native String[] _find (long g, String directory)
+    throws LibGuestFSException;
+
+  /**
+   * check an ext2/ext3 filesystem
+   *
+   * This runs "e2fsck -p -f device", ie. runs the ext2/ext3
+   * filesystem checker on "device", noninteractively ("-p"),
+   * even if the filesystem appears to be clean ("-f").
+   * 
+   * This command is only needed because of "g.resize2fs"
+   * (q.v.). Normally you should use "g.fsck".
+   * 
+   * @throws LibGuestFSException
+   */
+  public void e2fsck_f (String device)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("e2fsck_f: handle is closed");
+    _e2fsck_f (g, device);
+  }
+  private native void _e2fsck_f (long g, String device)
     throws LibGuestFSException;
 
 }

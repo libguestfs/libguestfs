@@ -2695,6 +2695,30 @@ done:
   xdr_free ((xdrproc_t) xdr_guestfs_find_args, (char *) &args);
 }
 
+static void e2fsck_f_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_e2fsck_f_args args;
+  const char *device;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_e2fsck_f_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "e2fsck_f");
+    return;
+  }
+  device = args.device;
+
+  r = do_e2fsck_f (device);
+  if (r == -1)
+    /* do_e2fsck_f has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_e2fsck_f_args, (char *) &args);
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -3018,6 +3042,9 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_FIND:
       find_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_E2FSCK_F:
+      e2fsck_f_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d", proc_nr);
