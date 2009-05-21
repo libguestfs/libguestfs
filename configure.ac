@@ -195,7 +195,8 @@ AS_IF([test "x$with_readline" != xno],
         ], -lncurses)])
 
 dnl For i18n.
-IT_PROG_INTLTOOL
+AM_GNU_GETTEXT([external])
+AM_GNU_GETTEXT_VERSION([0.17])
 
 dnl Check for OCaml (optional, for OCaml bindings).
 AC_PROG_OCAML

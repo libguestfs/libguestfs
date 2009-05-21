@@ -101,7 +101,7 @@ do_edit (const char *cmd, int argc, char *argv[])
   int r, fd, size;
 
   if (argc != 1) {
-    fprintf (stderr, "use '%s filename' to edit a file\n", cmd);
+    fprintf (stderr, _("use '%s filename' to edit a file\n"), cmd);
     return -1;
   }
 

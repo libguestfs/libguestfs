@@ -58,6 +58,15 @@
 #include "guestfs.h"
 #include "guestfs_protocol.h"
 
+#ifdef HAVE_GETTEXT
+#include "gettext.h"
+#define _(str) dgettext(PACKAGE, (str))
+#define N_(str) dgettext(PACKAGE, (str))
+#else
+#define _(str) str
+#define N_(str) str
+#endif
+
 #define error guestfs_error
 #define perrorf guestfs_perrorf
 #define safe_malloc guestfs_safe_malloc
@@ -275,7 +284,7 @@ guestfs_close (guestfs_h *g)
 
   if (g->state == NO_HANDLE) {
     /* Not safe to call 'error' here, so ... */
-    fprintf (stderr, "guestfs_close: called twice on the same handle\n");
+    fprintf (stderr, _("guestfs_close: called twice on the same handle\n"));
     return;
   }
 
@@ -356,7 +365,7 @@ set_last_error (guestfs_h *g, const char *msg)
 static void
 default_error_cb (guestfs_h *g, void *data, const char *msg)
 {
-  fprintf (stderr, "libguestfs: error: %s\n", msg);
+  fprintf (stderr, _("libguestfs: error: %s\n"), msg);
 }
 
 void
@@ -596,7 +605,8 @@ static int
 add_cmdline (guestfs_h *g, const char *str)
 {
   if (g->state != CONFIG) {
-    error (g, "command line cannot be altered after qemu subprocess launched");
+    error (g,
+        _("command line cannot be altered after qemu subprocess launched"));
     return -1;
   }
 
@@ -610,7 +620,7 @@ guestfs_config (guestfs_h *g,
 		const char *qemu_param, const char *qemu_value)
 {
   if (qemu_param[0] != '-') {
-    error (g, "guestfs_config: parameter must begin with '-' character");
+    error (g, _("guestfs_config: parameter must begin with '-' character"));
     return -1;
   }
 
@@ -625,7 +635,7 @@ guestfs_config (guestfs_h *g,
       strcmp (qemu_param, "-full-screen") == 0 ||
       strcmp (qemu_param, "-std-vga") == 0 ||
       strcmp (qemu_param, "-vnc") == 0) {
-    error (g, "guestfs_config: parameter '%s' isn't allowed", qemu_param);
+    error (g, _("guestfs_config: parameter '%s' isn't allowed"), qemu_param);
     return -1;
   }
 
@@ -645,7 +655,7 @@ guestfs_add_drive (guestfs_h *g, const char *filename)
   char buf[len];
 
   if (strchr (filename, ',') != NULL) {
-    error (g, "filename cannot contain ',' (comma) character");
+    error (g, _("filename cannot contain ',' (comma) character"));
     return -1;
   }
 
@@ -663,7 +673,7 @@ int
 guestfs_add_cdrom (guestfs_h *g, const char *filename)
 {
   if (strchr (filename, ',') != NULL) {
-    error (g, "filename cannot contain ',' (comma) character");
+    error (g, _("filename cannot contain ',' (comma) character"));
     return -1;
   }
 
@@ -692,12 +702,12 @@ guestfs_launch (guestfs_h *g)
 
   /* Configured? */
   if (!g->cmdline) {
-    error (g, "you must call guestfs_add_drive before guestfs_launch");
+    error (g, _("you must call guestfs_add_drive before guestfs_launch"));
     return -1;
   }
 
   if (g->state != CONFIG) {
-    error (g, "qemu has already been launched");
+    error (g, _("qemu has already been launched"));
     return -1;
   }
 
@@ -743,7 +753,7 @@ guestfs_launch (guestfs_h *g)
   free (path);
 
   if (kernel == NULL || initrd == NULL) {
-    error (g, "cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)",
+    error (g, _("cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)"),
 	   kernel_name, initrd_name, g->path);
     goto cleanup0;
   }
@@ -761,7 +771,7 @@ guestfs_launch (guestfs_h *g)
   if (!g->tmpdir) {
     g->tmpdir = safe_strdup (g, dir_template);
     if (mkdtemp (g->tmpdir) == NULL) {
-      perrorf (g, "%s: cannot create temporary directory", dir_template);
+      perrorf (g, _("%s: cannot create temporary directory"), dir_template);
       goto cleanup0;
     }
   }
@@ -957,7 +967,7 @@ guestfs_launch (guestfs_h *g)
     usleep (100000);
   }
 
-  error (g, "failed to connect to vmchannel socket");
+  error (g, _("failed to connect to vmchannel socket"));
   goto cleanup2;
 
  connected:
@@ -976,7 +986,7 @@ guestfs_launch (guestfs_h *g)
 			      GUESTFS_HANDLE_READABLE,
 			      stdout_event, NULL);
   if (g->stdout_watch == -1) {
-    error (g, "could not watch qemu stdout");
+    error (g, _("could not watch qemu stdout"));
     goto cleanup3;
   }
 
@@ -1035,12 +1045,12 @@ guestfs_wait_ready (guestfs_h *g)
   if (g->state == READY) return 0;
 
   if (g->state == BUSY) {
-    error (g, "qemu has finished launching already");
+    error (g, _("qemu has finished launching already"));
     return -1;
   }
 
   if (g->state != LAUNCHING) {
-    error (g, "qemu has not been launched yet");
+    error (g, _("qemu has not been launched yet"));
     return -1;
   }
 
@@ -1053,7 +1063,7 @@ guestfs_wait_ready (guestfs_h *g)
   if (r == -1) return -1;
 
   if (finished != 1) {
-    error (g, "guestfs_wait_ready failed, see earlier error messages");
+    error (g, _("guestfs_wait_ready failed, see earlier error messages"));
     return -1;
   }
 
@@ -1063,7 +1073,7 @@ guestfs_wait_ready (guestfs_h *g)
    * commands after this function returns.
    */
   if (g->state != READY) {
-    error (g, "qemu launched and contacted daemon, but state != READY");
+    error (g, _("qemu launched and contacted daemon, but state != READY"));
     return -1;
   }
 
@@ -1074,7 +1084,7 @@ int
 guestfs_kill_subprocess (guestfs_h *g)
 {
   if (g->state == CONFIG) {
-    error (g, "no subprocess to kill");
+    error (g, _("no subprocess to kill"));
     return -1;
   }
 
@@ -1122,7 +1132,8 @@ int
 guestfs_set_ready (guestfs_h *g)
 {
   if (g->state != BUSY) {
-    error (g, "guestfs_set_ready: called when in state %d != BUSY", g->state);
+    error (g, _("guestfs_set_ready: called when in state %d != BUSY"),
+	   g->state);
     return -1;
   }
   g->state = READY;
@@ -1133,7 +1144,8 @@ int
 guestfs_set_busy (guestfs_h *g)
 {
   if (g->state != READY) {
-    error (g, "guestfs_set_busy: called when in state %d != READY", g->state);
+    error (g, _("guestfs_set_busy: called when in state %d != READY"),
+	   g->state);
     return -1;
   }
   g->state = BUSY;
@@ -1153,7 +1165,7 @@ guestfs_end_busy (guestfs_h *g)
       break;
     case LAUNCHING:
     case NO_HANDLE:
-      error (g, "guestfs_end_busy: called when in state %d", g->state);
+      error (g, _("guestfs_end_busy: called when in state %d"), g->state);
       return -1;
     }
   return 0;
@@ -1242,7 +1254,7 @@ stdout_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
 #endif
 
   if (g->fd[1] != fd) {
-    error (g, "stdout_event: internal error: %d != %d", g->fd[1], fd);
+    error (g, _("stdout_event: internal error: %d != %d"), g->fd[1], fd);
     return;
   }
 
@@ -1285,7 +1297,7 @@ sock_read_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
 	     g, g->state, fd, events);
 
   if (g->sock != fd) {
-    error (g, "sock_read_event: internal error: %d != %d", g->sock, fd);
+    error (g, _("sock_read_event: internal error: %d != %d"), g->sock, fd);
     return;
   }
 
@@ -1315,7 +1327,7 @@ sock_read_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
 
   xdrmem_create (&xdr, g->msg_in, g->msg_in_size, XDR_DECODE);
   if (!xdr_uint32_t (&xdr, &len)) {
-    error (g, "can't decode length word");
+    error (g, _("can't decode length word"));
     goto cleanup;
   }
 
@@ -1325,10 +1337,10 @@ sock_read_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
    */
   if (len == GUESTFS_LAUNCH_FLAG) {
     if (g->state != LAUNCHING)
-      error (g, "received magic signature from guestfsd, but in state %d",
+      error (g, _("received magic signature from guestfsd, but in state %d"),
 	     g->state);
     else if (g->msg_in_size != 4)
-      error (g, "received magic signature from guestfsd, but msg size is %d",
+      error (g, _("received magic signature from guestfsd, but msg size is %d"),
 	     g->msg_in_size);
     else {
       g->state = READY;
@@ -1353,7 +1365,7 @@ sock_read_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
    * synchronization.
    */
   if (len > GUESTFS_MESSAGE_MAX) {
-    error (g, "message length (%u) > maximum possible size (%d)",
+    error (g, _("message length (%u) > maximum possible size (%d)"),
 	   len, GUESTFS_MESSAGE_MAX);
     goto cleanup;
   }
@@ -1386,7 +1398,7 @@ sock_read_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
 
   /* Not in the expected state. */
   if (g->state != BUSY)
-    error (g, "state %d != BUSY", g->state);
+    error (g, _("state %d != BUSY"), g->state);
 
   /* Push the message up to the higher layer. */
   if (g->reply_cb)
@@ -1426,12 +1438,12 @@ sock_write_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
 	     g, g->state, fd, events);
 
   if (g->sock != fd) {
-    error (g, "sock_write_event: internal error: %d != %d", g->sock, fd);
+    error (g, _("sock_write_event: internal error: %d != %d"), g->sock, fd);
     return;
   }
 
   if (g->state != BUSY) {
-    error (g, "sock_write_event: state %d != BUSY", g->state);
+    error (g, _("sock_write_event: state %d != BUSY"), g->state);
     return;
   }
 
@@ -1535,7 +1547,7 @@ guestfs__switch_to_sending (guestfs_h *g)
 {
   if (g->sock_watch >= 0) {
     if (g->main_loop->remove_handle (g->main_loop, g, g->sock_watch) == -1) {
-      error (g, "remove_handle failed");
+      error (g, _("remove_handle failed"));
       g->sock_watch = -1;
       return -1;
     }
@@ -1546,7 +1558,7 @@ guestfs__switch_to_sending (guestfs_h *g)
 			      GUESTFS_HANDLE_WRITABLE,
 			      sock_write_event, NULL);
   if (g->sock_watch == -1) {
-    error (g, "add_handle failed");
+    error (g, _("add_handle failed"));
     return -1;
   }
 
@@ -1558,7 +1570,7 @@ guestfs__switch_to_receiving (guestfs_h *g)
 {
   if (g->sock_watch >= 0) {
     if (g->main_loop->remove_handle (g->main_loop, g, g->sock_watch) == -1) {
-      error (g, "remove_handle failed");
+      error (g, _("remove_handle failed"));
       g->sock_watch = -1;
       return -1;
     }
@@ -1569,7 +1581,7 @@ guestfs__switch_to_receiving (guestfs_h *g)
 			      GUESTFS_HANDLE_READABLE,
 			      sock_read_event, NULL);
   if (g->sock_watch == -1) {
-    error (g, "add_handle failed");
+    error (g, _("add_handle failed"));
     return -1;
   }
 
@@ -1602,7 +1614,7 @@ guestfs__send_sync (guestfs_h *g, int proc_nr,
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
 
   if (g->state != BUSY) {
-    error (g, "guestfs__send_sync: state %d != BUSY", g->state);
+    error (g, _("guestfs__send_sync: state %d != BUSY"), g->state);
     return -1;
   }
 
@@ -1610,7 +1622,7 @@ guestfs__send_sync (guestfs_h *g, int proc_nr,
    * free the buffer anyway?
    */
   if (g->msg_out != NULL) {
-    error (g, "guestfs__send_sync: msg_out should be NULL");
+    error (g, _("guestfs__send_sync: msg_out should be NULL"));
     return -1;
   }
 
@@ -1632,7 +1644,7 @@ guestfs__send_sync (guestfs_h *g, int proc_nr,
   hdr.status = GUESTFS_STATUS_OK;
 
   if (!xdr_guestfs_message_header (&xdr, &hdr)) {
-    error (g, "xdr_guestfs_message_header failed");
+    error (g, _("xdr_guestfs_message_header failed"));
     goto cleanup1;
   }
 
@@ -1641,7 +1653,7 @@ guestfs__send_sync (guestfs_h *g, int proc_nr,
    */
   if (xdrp) {
     if (!(*xdrp) (&xdr, args)) {
-      error (g, "dispatch failed to marshal args");
+      error (g, _("dispatch failed to marshal args"));
       goto cleanup1;
     }
   }
@@ -1667,7 +1679,7 @@ guestfs__send_sync (guestfs_h *g, int proc_nr,
   if (ml->main_loop_run (ml, g) == -1)
     goto cleanup1;
   if (sent != 1) {
-    error (g, "send failed, see earlier error messages");
+    error (g, _("send failed, see earlier error messages"));
     goto cleanup1;
   }
 
@@ -1782,7 +1794,7 @@ send_file_chunk_sync (guestfs_h *g, int cancel, const char *buf, size_t buflen)
   guestfs_main_loop *ml = guestfs_get_main_loop (g);
 
   if (g->state != BUSY) {
-    error (g, "send_file_chunk_sync: state %d != READY", g->state);
+    error (g, _("send_file_chunk_sync: state %d != READY"), g->state);
     return -1;
   }
 
@@ -1790,7 +1802,7 @@ send_file_chunk_sync (guestfs_h *g, int cancel, const char *buf, size_t buflen)
    * free the buffer anyway?
    */
   if (g->msg_out != NULL) {
-    error (g, "guestfs__send_sync: msg_out should be NULL");
+    error (g, _("guestfs__send_sync: msg_out should be NULL"));
     return -1;
   }
 
@@ -1813,7 +1825,7 @@ send_file_chunk_sync (guestfs_h *g, int cancel, const char *buf, size_t buflen)
   chunk.data.data_val = (char *) buf;
 
   if (!xdr_guestfs_chunk (&xdr, &chunk)) {
-    error (g, "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)",
+    error (g, _("xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"),
 	   buf, buflen);
     xdr_destroy (&xdr);
     goto cleanup1;
@@ -1838,7 +1850,7 @@ send_file_chunk_sync (guestfs_h *g, int cancel, const char *buf, size_t buflen)
   if (ml->main_loop_run (ml, g) == -1)
     goto cleanup1;
   if (sent != 1) {
-    error (g, "send file chunk failed, see earlier error messages");
+    error (g, _("send file chunk failed, see earlier error messages"));
     goto cleanup1;
   }
 
@@ -1889,7 +1901,7 @@ check_for_daemon_cancellation (guestfs_h *g)
   xdr_destroy (&xdr);
 
   if (flag != GUESTFS_CANCEL_FLAG) {
-    error (g, "check_for_daemon_cancellation: read 0x%x from daemon, expected 0x%x\n",
+    error (g, _("check_for_daemon_cancellation: read 0x%x from daemon, expected 0x%x\n"),
 	   flag, GUESTFS_CANCEL_FLAG);
     return 0;
   }
@@ -1927,7 +1939,7 @@ guestfs__receive_file_sync (guestfs_h *g, const char *filename)
   }
 
   if (r == -1) {
-    error (g, "%s: error in chunked encoding", filename);
+    error (g, _("%s: error in chunked encoding"), filename);
     return -1;
   }
 
@@ -1951,7 +1963,7 @@ guestfs__receive_file_sync (guestfs_h *g, const char *filename)
   xdr_destroy (&xdr);
 
   if (xwrite (g->sock, fbuf, sizeof fbuf) == -1) {
-    perrorf (g, "write to daemon socket");
+    perrorf (g, _("write to daemon socket"));
     return -1;
   }
 
@@ -1998,7 +2010,7 @@ receive_file_cb (guestfs_h *g, void *data, XDR *xdr)
   memset (&chunk, 0, sizeof chunk);
 
   if (!xdr_guestfs_chunk (xdr, &chunk)) {
-    error (g, "failed to parse file chunk");
+    error (g, _("failed to parse file chunk"));
     free_chunks (ctx);
     ctx->chunks = NULL;
     ctx->count = -1;
@@ -2030,12 +2042,12 @@ receive_file_data_sync (guestfs_h *g, void **buf, size_t *len_r)
   guestfs_set_reply_callback (g, NULL, NULL);
 
   if (ctx.count == 0) {
-    error (g, "receive_file_data_sync: reply callback not called\n");
+    error (g, _("receive_file_data_sync: reply callback not called\n"));
     return -1;
   }
 
   if (ctx.count == -1) {
-    error (g, "receive_file_data_sync: parse error in reply callback\n");
+    error (g, _("receive_file_data_sync: parse error in reply callback\n"));
     /* callback already freed the chunks */
     return -1;
   }
@@ -2049,7 +2061,7 @@ receive_file_data_sync (guestfs_h *g, void **buf, size_t *len_r)
 
   for (i = 0; i < ctx.count; ++i) {
     if (ctx.chunks[i].cancel) {
-      error (g, "file receive cancelled by daemon");
+      error (g, _("file receive cancelled by daemon"));
       free_chunks (&ctx);
       if (buf) free (*buf);
       if (len_r) *len_r = 0;
@@ -2084,7 +2096,7 @@ select_add_handle (guestfs_main_loop *mlv, guestfs_h *g, int fd, int events,
   struct select_main_loop *ml = (struct select_main_loop *) mlv;
 
   if (fd < 0 || fd >= FD_SETSIZE) {
-    error (g, "fd %d is out of range", fd);
+    error (g, _("fd %d is out of range"), fd);
     return -1;
   }
 
@@ -2092,24 +2104,24 @@ select_add_handle (guestfs_main_loop *mlv, guestfs_h *g, int fd, int events,
 		  GUESTFS_HANDLE_WRITABLE |
 		  GUESTFS_HANDLE_HANGUP |
 		  GUESTFS_HANDLE_ERROR)) != 0) {
-    error (g, "set of events (0x%x) contains unknown events", events);
+    error (g, _("set of events (0x%x) contains unknown events"), events);
     return -1;
   }
 
   if (events == 0) {
-    error (g, "set of events is empty");
+    error (g, _("set of events is empty"));
     return -1;
   }
 
   if (FD_ISSET (fd, &ml->rset) ||
       FD_ISSET (fd, &ml->wset) ||
       FD_ISSET (fd, &ml->xset)) {
-    error (g, "fd %d is already registered", fd);
+    error (g, _("fd %d is already registered"), fd);
     return -1;
   }
 
   if (cb == NULL) {
-    error (g, "callback is NULL");
+    error (g, _("callback is NULL"));
     return -1;
   }
 
@@ -2142,14 +2154,14 @@ select_remove_handle (guestfs_main_loop *mlv, guestfs_h *g, int fd)
   struct select_main_loop *ml = (struct select_main_loop *) mlv;
 
   if (fd < 0 || fd >= FD_SETSIZE) {
-    error (g, "fd %d is out of range", fd);
+    error (g, _("fd %d is out of range"), fd);
     return -1;
   }
 
   if (!FD_ISSET (fd, &ml->rset) &&
       !FD_ISSET (fd, &ml->wset) &&
       !FD_ISSET (fd, &ml->xset)) {
-    error (g, "fd %d was not registered", fd);
+    error (g, _("fd %d was not registered"), fd);
     return -1;
   }
 
@@ -2198,7 +2210,7 @@ select_main_loop_run (guestfs_main_loop *mlv, guestfs_h *g)
   fd_set rset2, wset2, xset2;
 
   if (ml->is_running) {
-    error (g, "select_main_loop_run: this cannot be called recursively");
+    error (g, _("select_main_loop_run: this cannot be called recursively"));
     return -1;
   }
 

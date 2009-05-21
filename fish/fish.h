@@ -21,6 +21,15 @@
 
 #include <guestfs.h>
 
+#ifdef HAVE_GETTEXT
+#include "gettext.h"
+#define _(str) dgettext(PACKAGE, (str))
+#define N_(str) dgettext(PACKAGE, (str))
+#else
+#define _(str) str
+#define N_(str) str
+#endif
+
 /* in fish.c */
 extern guestfs_h *g;
 extern int quit;

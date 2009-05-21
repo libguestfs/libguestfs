@@ -42,6 +42,7 @@ SUBDIRS += inspector
 endif
 
 EXTRA_DIST = \
+	config.rpath \
 	make-initramfs.sh update-initramfs.sh \
 	guestfs.pod guestfs-actions.pod guestfs-structs.pod \
 	guestfish.pod guestfish-actions.pod \

@@ -80,28 +80,28 @@ static void
 usage (void)
 {
   fprintf (stderr,
-	   "guestfish: guest filesystem shell\n"
-	   "guestfish lets you edit virtual machine filesystems\n"
-	   "Copyright (C) 2009 Red Hat Inc.\n"
-	   "Usage:\n"
-	   "  guestfish [--options] cmd [: cmd : cmd ...]\n"
-	   "or for interactive use:\n"
-	   "  guestfish\n"
-	   "or from a shell script:\n"
-	   "  guestfish <<EOF\n"
-	   "  cmd\n"
-	   "  ...\n"
-	   "  EOF\n"
-	   "Options:\n"
-	   "  -h|--cmd-help        List available commands\n"
-	   "  -h|--cmd-help cmd    Display detailed help on 'cmd'\n"
-	   "  -a|--add image       Add image\n"
-	   "  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
-	   "  -n|--no-sync         Don't autosync\n"
-	   "  -r|--ro              Mount read-only\n"
-	   "  -v|--verbose         Verbose messages\n"
-	   "  -V|--version         Display version and exit\n"
-	   "For more information,  see the manpage guestfish(1).\n");
+	   _("guestfish: guest filesystem shell\n"
+	     "guestfish lets you edit virtual machine filesystems\n"
+	     "Copyright (C) 2009 Red Hat Inc.\n"
+	     "Usage:\n"
+	     "  guestfish [--options] cmd [: cmd : cmd ...]\n"
+	     "or for interactive use:\n"
+	     "  guestfish\n"
+	     "or from a shell script:\n"
+	     "  guestfish <<EOF\n"
+	     "  cmd\n"
+	     "  ...\n"
+	     "  EOF\n"
+	     "Options:\n"
+	     "  -h|--cmd-help        List available commands\n"
+	     "  -h|--cmd-help cmd    Display detailed help on 'cmd'\n"
+	     "  -a|--add image       Add image\n"
+	     "  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
+	     "  -n|--no-sync         Don't autosync\n"
+	     "  -r|--ro              Mount read-only\n"
+	     "  -v|--verbose         Verbose messages\n"
+	     "  -V|--version         Display version and exit\n"
+	     "For more information,  see the manpage guestfish(1).\n"));
 }
 
 int
@@ -131,7 +131,7 @@ main (int argc, char *argv[])
    */
   g = guestfs_create ();
   if (g == NULL) {
-    fprintf (stderr, "guestfs_create: failed to create handle\n");
+    fprintf (stderr, _("guestfs_create: failed to create handle\n"));
     exit (1);
   }
 
@@ -211,7 +211,8 @@ main (int argc, char *argv[])
       exit (0);
 
     default:
-      fprintf (stderr, "guestfish: unexpected command line option 0x%x\n", c);
+      fprintf (stderr, _("guestfish: unexpected command line option 0x%x\n"),
+	       c);
       exit (1);
     }
   }
@@ -337,13 +338,13 @@ script (int prompt)
   int exit_on_error;
 
   if (prompt)
-    printf ("\n"
-	    "Welcome to guestfish, the libguestfs filesystem interactive shell for\n"
-	    "editing virtual machine filesystems.\n"
-	    "\n"
-	    "Type: 'help' for help with commands\n"
-	    "      'quit' to quit the shell\n"
-	    "\n");
+    printf (_("\n"
+	      "Welcome to guestfish, the libguestfs filesystem interactive shell for\n"
+	      "editing virtual machine filesystems.\n"
+	      "\n"
+	      "Type: 'help' for help with commands\n"
+	      "      'quit' to quit the shell\n"
+	      "\n"));
 
   while (!quit) {
     exit_on_error = global_exit_on_error;
@@ -414,12 +415,12 @@ script (int prompt)
 	p++;
 	len = strcspn (p, "\"");
 	if (p[len] == '\0') {
-	  fprintf (stderr, "guestfish: unterminated double quote\n");
+	  fprintf (stderr, _("guestfish: unterminated double quote\n"));
 	  if (exit_on_error) exit (1);
 	  goto next_command;
 	}
 	if (p[len+1] && (p[len+1] != ' ' && p[len+1] != '\t')) {
-	  fprintf (stderr, "guestfish: command arguments not separated by whitespace\n");
+	  fprintf (stderr, _("guestfish: command arguments not separated by whitespace\n"));
 	  if (exit_on_error) exit (1);
 	  goto next_command;
 	}
@@ -429,12 +430,12 @@ script (int prompt)
 	p++;
 	len = strcspn (p, "'");
 	if (p[len] == '\0') {
-	  fprintf (stderr, "guestfish: unterminated single quote\n");
+	  fprintf (stderr, _("guestfish: unterminated single quote\n"));
 	  if (exit_on_error) exit (1);
 	  goto next_command;
 	}
 	if (p[len+1] && (p[len+1] != ' ' && p[len+1] != '\t')) {
-	  fprintf (stderr, "guestfish: command arguments not separated by whitespace\n");
+	  fprintf (stderr, _("guestfish: command arguments not separated by whitespace\n"));
 	  if (exit_on_error) exit (1);
 	  goto next_command;
 	}
@@ -451,12 +452,12 @@ script (int prompt)
 	  pend++;
 	}
 	if (c != 0) {
-	  fprintf (stderr, "guestfish: unterminated \"[...]\" sequence\n");
+	  fprintf (stderr, _("guestfish: unterminated \"[...]\" sequence\n"));
 	  if (exit_on_error) exit (1);
 	  goto next_command;
 	}
 	if (*pend && (*pend != ' ' && *pend != '\t')) {
-	  fprintf (stderr, "guestfish: command arguments not separated by whitespace\n");
+	  fprintf (stderr, _("guestfish: command arguments not separated by whitespace\n"));
 	  if (exit_on_error) exit (1);
 	  goto next_command;
 	}
@@ -470,7 +471,7 @@ script (int prompt)
 	} else
 	  pend = &p[len];
       } else {
-	fprintf (stderr, "guestfish: internal error parsing string at '%s'\n",
+	fprintf (stderr, _("guestfish: internal error parsing string at '%s'\n"),
 		 p);
 	abort ();
       }
@@ -483,7 +484,7 @@ script (int prompt)
     }
 
     if (i == sizeof argv / sizeof argv[0]) {
-      fprintf (stderr, "guestfish: too many arguments\n");
+      fprintf (stderr, _("guestfish: too many arguments\n"));
       if (exit_on_error) exit (1);
       goto next_command;
     }
@@ -510,7 +511,7 @@ cmdline (char *argv[], int optind, int argc)
 
   cmd = argv[optind++];
   if (strcmp (cmd, ":") == 0) {
-    fprintf (stderr, "guestfish: empty command on command line\n");
+    fprintf (stderr, _("guestfish: empty command on command line\n"));
     exit (1);
   }
   params = &argv[optind];
@@ -567,16 +568,16 @@ list_builtin_commands (void)
 {
   /* help and quit should appear at the top */
   printf ("%-20s %s\n",
-	  "help", "display a list of commands or help on a command");
+	  "help", _("display a list of commands or help on a command"));
   printf ("%-20s %s\n",
-	  "quit", "quit guestfish");
+	  "quit", _("quit guestfish"));
 
   printf ("%-20s %s\n",
-	  "alloc", "allocate an image");
+	  "alloc", _("allocate an image"));
   printf ("%-20s %s\n",
-	  "echo", "display a line of text");
+	  "echo", _("display a line of text"));
   printf ("%-20s %s\n",
-	  "edit", "edit a file in the image");
+	  "edit", _("edit a file in the image"));
 
   /* actions are printed after this (see list_commands) */
 }
@@ -588,53 +589,53 @@ display_builtin_command (const char *cmd)
 
   if (strcasecmp (cmd, "alloc") == 0 ||
       strcasecmp (cmd, "allocate") == 0)
-    printf ("alloc - allocate an image\n"
-	    "     alloc <filename> <size>\n"
-	    "\n"
-	    "    This creates an empty (zeroed) file of the given size,\n"
-	    "    and then adds so it can be further examined.\n"
-	    "\n"
-	    "    For more advanced image creation, see qemu-img utility.\n"
-	    "\n"
-	    "    Size can be specified (where <nn> means a number):\n"
-	    "    <nn>             number of kilobytes\n"
-	    "      eg: 1440       standard 3.5\" floppy\n"
-	    "    <nn>K or <nn>KB  number of kilobytes\n"
-	    "    <nn>M or <nn>MB  number of megabytes\n"
-	    "    <nn>G or <nn>GB  number of gigabytes\n"
-	    "    <nn>sects        number of 512 byte sectors\n");
+    printf (_("alloc - allocate an image\n"
+	      "     alloc <filename> <size>\n"
+	      "\n"
+	      "    This creates an empty (zeroed) file of the given size,\n"
+	      "    and then adds so it can be further examined.\n"
+	      "\n"
+	      "    For more advanced image creation, see qemu-img utility.\n"
+	      "\n"
+	      "    Size can be specified (where <nn> means a number):\n"
+	      "    <nn>             number of kilobytes\n"
+	      "      eg: 1440       standard 3.5\" floppy\n"
+	      "    <nn>K or <nn>KB  number of kilobytes\n"
+	      "    <nn>M or <nn>MB  number of megabytes\n"
+	      "    <nn>G or <nn>GB  number of gigabytes\n"
+	      "    <nn>sects        number of 512 byte sectors\n"));
   else if (strcasecmp (cmd, "echo") == 0)
-    printf ("echo - display a line of text\n"
-	    "     echo [<params> ...]\n"
-	    "\n"
-	    "    This echos the parameters to the terminal.\n");
+    printf (_("echo - display a line of text\n"
+	      "     echo [<params> ...]\n"
+	      "\n"
+	      "    This echos the parameters to the terminal.\n"));
   else if (strcasecmp (cmd, "edit") == 0 ||
 	   strcasecmp (cmd, "vi") == 0 ||
 	   strcasecmp (cmd, "emacs") == 0)
-    printf ("edit - edit a file in the image\n"
-	    "     edit <filename>\n"
-	    "\n"
-	    "    This is used to edit a file.\n"
-	    "\n"
-	    "    It is the equivalent of (and is implemented by)\n"
-	    "    running \"cat\", editing locally, and then \"write-file\".\n"
-	    "\n"
-	    "    Normally it uses $EDITOR, but if you use the aliases\n"
-	    "    \"vi\" or \"emacs\" you will get those editors.\n"
-	    "\n"
-	    "    NOTE: This will not work reliably for large files\n"
-	    "    (> 2 MB) or binary files containing \\0 bytes.\n");
+    printf (_("edit - edit a file in the image\n"
+	      "     edit <filename>\n"
+	      "\n"
+	      "    This is used to edit a file.\n"
+	      "\n"
+	      "    It is the equivalent of (and is implemented by)\n"
+	      "    running \"cat\", editing locally, and then \"write-file\".\n"
+	      "\n"
+	      "    Normally it uses $EDITOR, but if you use the aliases\n"
+	      "    \"vi\" or \"emacs\" you will get those editors.\n"
+	      "\n"
+	      "    NOTE: This will not work reliably for large files\n"
+	      "    (> 2 MB) or binary files containing \\0 bytes.\n"));
   else if (strcasecmp (cmd, "help") == 0)
-    printf ("help - display a list of commands or help on a command\n"
-	    "     help cmd\n"
-	    "     help\n");
+    printf (_("help - display a list of commands or help on a command\n"
+	      "     help cmd\n"
+	      "     help\n"));
   else if (strcasecmp (cmd, "quit") == 0 ||
 	   strcasecmp (cmd, "exit") == 0 ||
 	   strcasecmp (cmd, "q") == 0)
-    printf ("quit - quit guestfish\n"
-	    "     quit\n");
+    printf (_("quit - quit guestfish\n"
+	      "     quit\n"));
   else
-    fprintf (stderr, "%s: command not known, use -h to list all commands\n",
+    fprintf (stderr, _("%s: command not known, use -h to list all commands\n"),
 	     cmd);
 }
 

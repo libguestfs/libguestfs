@@ -36,7 +36,7 @@ do_alloc (const char *cmd, int argc, char *argv[])
   int fd;
 
   if (argc != 2) {
-    fprintf (stderr, "use 'alloc file size' to create an image\n");
+    fprintf (stderr, _("use 'alloc file size' to create an image\n"));
     return -1;
   }
 
@@ -44,7 +44,7 @@ do_alloc (const char *cmd, int argc, char *argv[])
     return -1;
 
   if (!guestfs_is_config (g)) {
-    fprintf (stderr, "can't allocate or add disks after launching\n");
+    fprintf (stderr, _("can't allocate or add disks after launching\n"));
     return -1;
   }
 
@@ -91,14 +91,14 @@ parse_size (const char *str, off_t *size_rtn)
     case 'g': case 'G': size *= 1024 * 1024 * 1024; break;
     case 's': size *= 512; break;
     default:
-      fprintf (stderr, "could not parse size specification '%s'\n", str);
+      fprintf (stderr, _("could not parse size specification '%s'\n"), str);
       return -1;
     }
   }
   else if (sscanf (str, "%"SCNu64, &size) == 1)
     size *= 1024;
   else {
-    fprintf (stderr, "could not parse size specification '%s'\n", str);
+    fprintf (stderr, _("could not parse size specification '%s'\n"), str);
     return -1;
   }
 

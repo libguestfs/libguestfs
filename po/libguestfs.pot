@@ -1,0 +1,441 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Red Hat Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: libguestfs 1.0.27\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
+"component=libguestfs&product=Fedora\n"
+"POT-Creation-Date: 2009-05-21 11:39+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: fish/alloc.c:39
+#, c-format
+msgid "use 'alloc file size' to create an image\n"
+msgstr ""
+
+#: fish/alloc.c:47
+#, c-format
+msgid "can't allocate or add disks after launching\n"
+msgstr ""
+
+#: fish/alloc.c:94 fish/alloc.c:101
+#, c-format
+msgid "could not parse size specification '%s'\n"
+msgstr ""
+
+#: fish/edit.c:104
+#, c-format
+msgid "use '%s filename' to edit a file\n"
+msgstr ""
+
+#: fish/fish.c:83
+#, c-format
+msgid ""
+"guestfish: guest filesystem shell\n"
+"guestfish lets you edit virtual machine filesystems\n"
+"Copyright (C) 2009 Red Hat Inc.\n"
+"Usage:\n"
+"  guestfish [--options] cmd [: cmd : cmd ...]\n"
+"or for interactive use:\n"
+"  guestfish\n"
+"or from a shell script:\n"
+"  guestfish <<EOF\n"
+"  cmd\n"
+"  ...\n"
+"  EOF\n"
+"Options:\n"
+"  -h|--cmd-help        List available commands\n"
+"  -h|--cmd-help cmd    Display detailed help on 'cmd'\n"
+"  -a|--add image       Add image\n"
+"  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
+"  -n|--no-sync         Don't autosync\n"
+"  -r|--ro              Mount read-only\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+"For more information,  see the manpage guestfish(1).\n"
+msgstr ""
+
+#: fish/fish.c:134
+#, c-format
+msgid "guestfs_create: failed to create handle\n"
+msgstr ""
+
+#: fish/fish.c:214
+#, c-format
+msgid "guestfish: unexpected command line option 0x%x\n"
+msgstr ""
+
+#: fish/fish.c:341
+#, c-format
+msgid ""
+"\n"
+"Welcome to guestfish, the libguestfs filesystem interactive shell for\n"
+"editing virtual machine filesystems.\n"
+"\n"
+"Type: 'help' for help with commands\n"
+"      'quit' to quit the shell\n"
+"\n"
+msgstr ""
+
+#: fish/fish.c:418
+#, c-format
+msgid "guestfish: unterminated double quote\n"
+msgstr ""
+
+#: fish/fish.c:423 fish/fish.c:438
+#, c-format
+msgid "guestfish: command arguments not separated by whitespace\n"
+msgstr ""
+
+#: fish/fish.c:433
+#, c-format
+msgid "guestfish: unterminated single quote\n"
+msgstr ""
+
+#: fish/fish.c:474
+#, c-format
+msgid "guestfish: internal error parsing string at '%s'\n"
+msgstr ""
+
+#: fish/fish.c:487
+#, c-format
+msgid "guestfish: too many arguments\n"
+msgstr ""
+
+#: fish/fish.c:514
+#, c-format
+msgid "guestfish: empty command on command line\n"
+msgstr ""
+
+#: fish/fish.c:571
+msgid "display a list of commands or help on a command"
+msgstr ""
+
+#: fish/fish.c:573
+msgid "quit guestfish"
+msgstr ""
+
+#: fish/fish.c:576
+msgid "allocate an image"
+msgstr ""
+
+#: fish/fish.c:578
+msgid "display a line of text"
+msgstr ""
+
+#: fish/fish.c:580
+msgid "edit a file in the image"
+msgstr ""
+
+#: fish/fish.c:592
+#, c-format
+msgid ""
+"alloc - allocate an image\n"
+"     alloc <filename> <size>\n"
+"\n"
+"    This creates an empty (zeroed) file of the given size,\n"
+"    and then adds so it can be further examined.\n"
+"\n"
+"    For more advanced image creation, see qemu-img utility.\n"
+"\n"
+"    Size can be specified (where <nn> means a number):\n"
+"    <nn>             number of kilobytes\n"
+"      eg: 1440       standard 3.5\" floppy\n"
+"    <nn>K or <nn>KB  number of kilobytes\n"
+"    <nn>M or <nn>MB  number of megabytes\n"
+"    <nn>G or <nn>GB  number of gigabytes\n"
+"    <nn>sects        number of 512 byte sectors\n"
+msgstr ""
+
+#: fish/fish.c:608
+#, c-format
+msgid ""
+"echo - display a line of text\n"
+"     echo [<params> ...]\n"
+"\n"
+"    This echos the parameters to the terminal.\n"
+msgstr ""
+
+#: fish/fish.c:615
+#, c-format
+msgid ""
+"edit - edit a file in the image\n"
+"     edit <filename>\n"
+"\n"
+"    This is used to edit a file.\n"
+"\n"
+"    It is the equivalent of (and is implemented by)\n"
+"    running \"cat\", editing locally, and then \"write-file\".\n"
+"\n"
+"    Normally it uses $EDITOR, but if you use the aliases\n"
+"    \"vi\" or \"emacs\" you will get those editors.\n"
+"\n"
+"    NOTE: This will not work reliably for large files\n"
+"    (> 2 MB) or binary files containing \\0 bytes.\n"
+msgstr ""
+
+#: fish/fish.c:629
+#, c-format
+msgid ""
+"help - display a list of commands or help on a command\n"
+"     help cmd\n"
+"     help\n"
+msgstr ""
+
+#: fish/fish.c:635
+#, c-format
+msgid ""
+"quit - quit guestfish\n"
+"     quit\n"
+msgstr ""
+
+#: fish/fish.c:638
+#, c-format
+msgid "%s: command not known, use -h to list all commands\n"
+msgstr ""
+
+#: src/guestfs.c:287
+#, c-format
+msgid "guestfs_close: called twice on the same handle\n"
+msgstr ""
+
+#: src/guestfs.c:368
+#, c-format
+msgid "libguestfs: error: %s\n"
+msgstr ""
+
+#: src/guestfs.c:609
+msgid "command line cannot be altered after qemu subprocess launched"
+msgstr ""
+
+#: src/guestfs.c:623
+msgid "guestfs_config: parameter must begin with '-' character"
+msgstr ""
+
+#: src/guestfs.c:638
+#, c-format
+msgid "guestfs_config: parameter '%s' isn't allowed"
+msgstr ""
+
+#: src/guestfs.c:658 src/guestfs.c:676
+msgid "filename cannot contain ',' (comma) character"
+msgstr ""
+
+#: src/guestfs.c:705
+msgid "you must call guestfs_add_drive before guestfs_launch"
+msgstr ""
+
+#: src/guestfs.c:710
+msgid "qemu has already been launched"
+msgstr ""
+
+#: src/guestfs.c:756
+#, c-format
+msgid "cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)"
+msgstr ""
+
+#: src/guestfs.c:774
+#, c-format
+msgid "%s: cannot create temporary directory"
+msgstr ""
+
+#: src/guestfs.c:970
+msgid "failed to connect to vmchannel socket"
+msgstr ""
+
+#: src/guestfs.c:989
+msgid "could not watch qemu stdout"
+msgstr ""
+
+#: src/guestfs.c:1048
+msgid "qemu has finished launching already"
+msgstr ""
+
+#: src/guestfs.c:1053
+msgid "qemu has not been launched yet"
+msgstr ""
+
+#: src/guestfs.c:1066
+msgid "guestfs_wait_ready failed, see earlier error messages"
+msgstr ""
+
+#: src/guestfs.c:1076
+msgid "qemu launched and contacted daemon, but state != READY"
+msgstr ""
+
+#: src/guestfs.c:1087
+msgid "no subprocess to kill"
+msgstr ""
+
+#: src/guestfs.c:1135
+#, c-format
+msgid "guestfs_set_ready: called when in state %d != BUSY"
+msgstr ""
+
+#: src/guestfs.c:1147
+#, c-format
+msgid "guestfs_set_busy: called when in state %d != READY"
+msgstr ""
+
+#: src/guestfs.c:1168
+#, c-format
+msgid "guestfs_end_busy: called when in state %d"
+msgstr ""
+
+#: src/guestfs.c:1257
+#, c-format
+msgid "stdout_event: internal error: %d != %d"
+msgstr ""
+
+#: src/guestfs.c:1300
+#, c-format
+msgid "sock_read_event: internal error: %d != %d"
+msgstr ""
+
+#: src/guestfs.c:1330
+msgid "can't decode length word"
+msgstr ""
+
+#: src/guestfs.c:1340
+#, c-format
+msgid "received magic signature from guestfsd, but in state %d"
+msgstr ""
+
+#: src/guestfs.c:1343
+#, c-format
+msgid "received magic signature from guestfsd, but msg size is %d"
+msgstr ""
+
+#: src/guestfs.c:1368
+#, c-format
+msgid "message length (%u) > maximum possible size (%d)"
+msgstr ""
+
+#: src/guestfs.c:1401
+#, c-format
+msgid "state %d != BUSY"
+msgstr ""
+
+#: src/guestfs.c:1441
+#, c-format
+msgid "sock_write_event: internal error: %d != %d"
+msgstr ""
+
+#: src/guestfs.c:1446
+#, c-format
+msgid "sock_write_event: state %d != BUSY"
+msgstr ""
+
+#: src/guestfs.c:1550 src/guestfs.c:1573
+msgid "remove_handle failed"
+msgstr ""
+
+#: src/guestfs.c:1561 src/guestfs.c:1584
+msgid "add_handle failed"
+msgstr ""
+
+#: src/guestfs.c:1617
+#, c-format
+msgid "guestfs__send_sync: state %d != BUSY"
+msgstr ""
+
+#: src/guestfs.c:1625 src/guestfs.c:1805
+msgid "guestfs__send_sync: msg_out should be NULL"
+msgstr ""
+
+#: src/guestfs.c:1647
+msgid "xdr_guestfs_message_header failed"
+msgstr ""
+
+#: src/guestfs.c:1656
+msgid "dispatch failed to marshal args"
+msgstr ""
+
+#: src/guestfs.c:1682
+msgid "send failed, see earlier error messages"
+msgstr ""
+
+#: src/guestfs.c:1797
+#, c-format
+msgid "send_file_chunk_sync: state %d != READY"
+msgstr ""
+
+#: src/guestfs.c:1828
+#, c-format
+msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
+msgstr ""
+
+#: src/guestfs.c:1853
+msgid "send file chunk failed, see earlier error messages"
+msgstr ""
+
+#: src/guestfs.c:1904
+#, c-format
+msgid "check_for_daemon_cancellation: read 0x%x from daemon, expected 0x%x\n"
+msgstr ""
+
+#: src/guestfs.c:1942
+#, c-format
+msgid "%s: error in chunked encoding"
+msgstr ""
+
+#: src/guestfs.c:1966
+msgid "write to daemon socket"
+msgstr ""
+
+#: src/guestfs.c:2013
+msgid "failed to parse file chunk"
+msgstr ""
+
+#: src/guestfs.c:2045
+msgid "receive_file_data_sync: reply callback not called\n"
+msgstr ""
+
+#: src/guestfs.c:2050
+msgid "receive_file_data_sync: parse error in reply callback\n"
+msgstr ""
+
+#: src/guestfs.c:2064
+msgid "file receive cancelled by daemon"
+msgstr ""
+
+#: src/guestfs.c:2099 src/guestfs.c:2157
+#, c-format
+msgid "fd %d is out of range"
+msgstr ""
+
+#: src/guestfs.c:2107
+#, c-format
+msgid "set of events (0x%x) contains unknown events"
+msgstr ""
+
+#: src/guestfs.c:2112
+msgid "set of events is empty"
+msgstr ""
+
+#: src/guestfs.c:2119
+#, c-format
+msgid "fd %d is already registered"
+msgstr ""
+
+#: src/guestfs.c:2124
+msgid "callback is NULL"
+msgstr ""
+
+#: src/guestfs.c:2164
+#, c-format
+msgid "fd %d was not registered"
+msgstr ""
+
+#: src/guestfs.c:2213
+msgid "select_main_loop_run: this cannot be called recursively"
+msgstr ""
