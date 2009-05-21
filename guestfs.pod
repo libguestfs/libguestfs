@@ -691,6 +691,34 @@ L<qemu(1)>,
 L<febootstrap(1)>,
 L<http://et.redhat.com/~rjones/libguestfs>.
 
+=head1 BUGS
+
+To get a list of bugs against libguestfs use this link:
+
+L<https://bugzilla.redhat.com/buglist.cgi?component=libguestfs&product=Fedora>
+
+To report a new bug against libguestfs use this link:
+
+L<https://bugzilla.redhat.com/enter_bug.cgi?component=libguestfs&product=Fedora>
+
+When reporting a bug, please check:
+
+=over 4
+
+=item *
+
+That the bug hasn't been reported already.
+
+=item *
+
+That you are testing a recent version.
+
+=item *
+
+Describe the bug accurately, and give a way to reproduce it.
+
+=back
+
 =head1 AUTHORS
 
 Richard W.M. Jones (C<rjones at redhat dot com>)
