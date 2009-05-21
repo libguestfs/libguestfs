@@ -64,7 +64,8 @@ EXTRA_DIST = \
 	contrib/fedora-libguestfs.spec \
 	contrib/febootstrap/install.title \
 	contrib/febootstrap/install.html \
-	contrib/febootstrap/install.sh
+	contrib/febootstrap/install.sh \
+	test-bootbootboot.sh
 
 # Build the root filesystem.
 # Currently this is arch-dependent, so it seems like putting it in
