@@ -194,6 +194,9 @@ AS_IF([test "x$with_readline" != xno],
          fi
         ], -lncurses)])
 
+dnl For i18n.
+IT_PROG_INTLTOOL
+
 dnl Check for OCaml (optional, for OCaml bindings).
 AC_PROG_OCAML
 AC_PROG_FINDLIB
@@ -427,7 +430,8 @@ AC_CONFIG_SUBDIRS([daemon])
 
 dnl Produce output files.
 AC_CONFIG_HEADERS([config.h])
-AC_CONFIG_FILES([Makefile src/Makefile fish/Makefile examples/Makefile
+AC_CONFIG_FILES([Makefile
+		 src/Makefile fish/Makefile po/Makefile.in examples/Makefile
 		 images/Makefile
 		 ocaml/Makefile ocaml/examples/Makefile
 		 perl/Makefile

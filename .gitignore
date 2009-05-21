@@ -77,6 +77,8 @@ perl/Makefile-pl
 perl/Makefile.PL
 perl/blib
 perl/pm_to_blib
+po/POTFILES
+po/stamp-it
 python/guestfs.pyc
 ruby/Rakefile
 ruby/ext/guestfs/extconf.h
