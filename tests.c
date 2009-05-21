@@ -127,8 +127,24 @@ static void no_test_warnings (void)
   fprintf (stderr, "warning: \"guestfs_e2fsck_f\" has no tests\n");
 }
 
+static int test_find_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_FIND_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_FIND");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_find_0 (void)
 {
+  if (test_find_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_find_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_find_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -220,8 +236,24 @@ static int test_find_0 (void)
   return 0;
 }
 
+static int test_find_1_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_FIND_1");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_FIND");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_find_1 (void)
 {
+  if (test_find_1_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_find_1");
+    return 0;
+  }
+
   /* InitBasicFS for test_find_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -373,8 +405,24 @@ static int test_find_1 (void)
   return 0;
 }
 
+static int test_find_2_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_FIND_2");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_FIND");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_find_2 (void)
 {
+  if (test_find_2_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_find_2");
+    return 0;
+  }
+
   /* InitBasicFS for test_find_2: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -494,8 +542,24 @@ static int test_find_2 (void)
   return 0;
 }
 
+static int test_lvresize_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_LVRESIZE_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_LVRESIZE");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_lvresize_0 (void)
 {
+  if (test_lvresize_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_lvresize_0");
+    return 0;
+  }
+
   /* InitNone|InitEmpty for test_lvresize_0 */
   {
     char device[] = "/dev/sda";
@@ -652,15 +716,24 @@ static int test_lvresize_0 (void)
   return 0;
 }
 
-static int test_zerofree_0_prereq (void)
+static int test_zerofree_0_skip (void)
 {
-  const char *str = getenv ("SKIP_ZEROFREE");
-  return str && strcmp (str, "1") == 0;
+  const char *str;
+
+  str = getenv ("SKIP_TEST_ZEROFREE_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_ZEROFREE");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
 }
 
 static int test_zerofree_0 (void)
 {
-  if (! test_zerofree_0_prereq ()) {
+  if (test_zerofree_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_zerofree_0");
+    return 0;
+  }
+
   /* InitNone|InitEmpty for test_zerofree_0 */
   {
     char device[] = "/dev/sda";
@@ -771,13 +844,27 @@ static int test_zerofree_0 (void)
     }
     free (r);
   }
-  } else
-    printf ("%s skipped (reason: test prerequisite)\n", "test_zerofree_0");
+  return 0;
+}
+
+static int test_hexdump_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_HEXDUMP_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_HEXDUMP");
+  if (str && strcmp (str, "1") == 0) return 1;
   return 0;
 }
 
 static int test_hexdump_0 (void)
 {
+  if (test_hexdump_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_hexdump_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_hexdump_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -863,8 +950,24 @@ static int test_hexdump_0 (void)
   return 0;
 }
 
+static int test_strings_e_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_STRINGS_E_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_STRINGS_E");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_strings_e_0 (void)
 {
+  if (test_strings_e_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_strings_e_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_strings_e_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -954,14 +1057,46 @@ static int test_strings_e_0 (void)
   return 0;
 }
 
+static int test_strings_e_1_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_STRINGS_E_1");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_STRINGS_E");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_strings_e_1 (void)
 {
+  if (test_strings_e_1_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_strings_e_1");
+    return 0;
+  }
+
   printf ("%s skipped (reason: test disabled in generator)\n", "test_strings_e_1");
+  return 0;
+}
+
+static int test_strings_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_STRINGS_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_STRINGS");
+  if (str && strcmp (str, "1") == 0) return 1;
   return 0;
 }
 
 static int test_strings_0 (void)
 {
+  if (test_strings_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_strings_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_strings_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -1074,8 +1209,24 @@ static int test_strings_0 (void)
   return 0;
 }
 
+static int test_strings_1_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_STRINGS_1");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_STRINGS");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_strings_1 (void)
 {
+  if (test_strings_1_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_strings_1");
+    return 0;
+  }
+
   /* InitBasicFS for test_strings_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -1163,8 +1314,24 @@ static int test_strings_1 (void)
   return 0;
 }
 
+static int test_equal_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_EQUAL_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_EQUAL");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_equal_0 (void)
 {
+  if (test_equal_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_equal_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_equal_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -1258,8 +1425,24 @@ static int test_equal_0 (void)
   return 0;
 }
 
+static int test_equal_1_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_EQUAL_1");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_EQUAL");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_equal_1 (void)
 {
+  if (test_equal_1_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_equal_1");
+    return 0;
+  }
+
   /* InitBasicFS for test_equal_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -1353,8 +1536,24 @@ static int test_equal_1 (void)
   return 0;
 }
 
+static int test_equal_2_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_EQUAL_2");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_EQUAL");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_equal_2 (void)
 {
+  if (test_equal_2_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_equal_2");
+    return 0;
+  }
+
   /* InitBasicFS for test_equal_2: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -1426,8 +1625,24 @@ static int test_equal_2 (void)
   return 0;
 }
 
+static int test_ping_daemon_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_PING_DAEMON_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_PING_DAEMON");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_ping_daemon_0 (void)
 {
+  if (test_ping_daemon_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_ping_daemon_0");
+    return 0;
+  }
+
   /* InitNone|InitEmpty for test_ping_daemon_0 */
   {
     char device[] = "/dev/sda";
@@ -1463,8 +1678,24 @@ static int test_ping_daemon_0 (void)
   return 0;
 }
 
+static int test_dmesg_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_DMESG_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_DMESG");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_dmesg_0 (void)
 {
+  if (test_dmesg_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_dmesg_0");
+    return 0;
+  }
+
   /* InitNone|InitEmpty for test_dmesg_0 */
   {
     char device[] = "/dev/sda";
@@ -1501,8 +1732,24 @@ static int test_dmesg_0 (void)
   return 0;
 }
 
+static int test_drop_caches_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_DROP_CACHES_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_DROP_CACHES");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_drop_caches_0 (void)
 {
+  if (test_drop_caches_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_drop_caches_0");
+    return 0;
+  }
+
   /* InitNone|InitEmpty for test_drop_caches_0 */
   {
     char device[] = "/dev/sda";
@@ -1538,8 +1785,24 @@ static int test_drop_caches_0 (void)
   return 0;
 }
 
+static int test_mv_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_MV_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_MV");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_mv_0 (void)
 {
+  if (test_mv_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_mv_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_mv_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -1634,8 +1897,24 @@ static int test_mv_0 (void)
   return 0;
 }
 
+static int test_mv_1_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_MV_1");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_MV");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_mv_1 (void)
 {
+  if (test_mv_1_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_mv_1");
+    return 0;
+  }
+
   /* InitBasicFS for test_mv_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -1728,8 +2007,24 @@ static int test_mv_1 (void)
   return 0;
 }
 
+static int test_cp_a_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_CP_A_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_CP_A");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_cp_a_0 (void)
 {
+  if (test_cp_a_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_cp_a_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_cp_a_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -1840,8 +2135,24 @@ static int test_cp_a_0 (void)
   return 0;
 }
 
+static int test_cp_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_CP_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_CP");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_cp_0 (void)
 {
+  if (test_cp_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_cp_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_cp_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -1936,8 +2247,24 @@ static int test_cp_0 (void)
   return 0;
 }
 
+static int test_cp_1_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_CP_1");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_CP");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_cp_1 (void)
 {
+  if (test_cp_1_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_cp_1");
+    return 0;
+  }
+
   /* InitBasicFS for test_cp_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -2030,8 +2357,24 @@ static int test_cp_1 (void)
   return 0;
 }
 
+static int test_cp_2_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_CP_2");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_CP");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_cp_2 (void)
 {
+  if (test_cp_2_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_cp_2");
+    return 0;
+  }
+
   /* InitBasicFS for test_cp_2: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -2134,8 +2477,24 @@ static int test_cp_2 (void)
   return 0;
 }
 
+static int test_grub_install_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_GRUB_INSTALL_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_GRUB_INSTALL");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_grub_install_0 (void)
 {
+  if (test_grub_install_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_grub_install_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_grub_install_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -2220,8 +2579,24 @@ static int test_grub_install_0 (void)
   return 0;
 }
 
+static int test_zero_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_ZERO_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_ZERO");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_zero_0 (void)
 {
+  if (test_zero_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_zero_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_zero_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -2317,8 +2692,24 @@ static int test_zero_0 (void)
   return 0;
 }
 
+static int test_fsck_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_FSCK_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_FSCK");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_fsck_0 (void)
 {
+  if (test_fsck_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_fsck_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_fsck_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -2404,8 +2795,24 @@ static int test_fsck_0 (void)
   return 0;
 }
 
+static int test_fsck_1_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_FSCK_1");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_FSCK");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_fsck_1 (void)
 {
+  if (test_fsck_1_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_fsck_1");
+    return 0;
+  }
+
   /* InitBasicFS for test_fsck_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -2500,8 +2907,24 @@ static int test_fsck_1 (void)
   return 0;
 }
 
+static int test_set_e2uuid_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_SET_E2UUID_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_SET_E2UUID");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_set_e2uuid_0 (void)
 {
+  if (test_set_e2uuid_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_set_e2uuid_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_set_e2uuid_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -2589,8 +3012,24 @@ static int test_set_e2uuid_0 (void)
   return 0;
 }
 
+static int test_set_e2uuid_1_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_SET_E2UUID_1");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_SET_E2UUID");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_set_e2uuid_1 (void)
 {
+  if (test_set_e2uuid_1_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_set_e2uuid_1");
+    return 0;
+  }
+
   /* InitBasicFS for test_set_e2uuid_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -2678,8 +3117,24 @@ static int test_set_e2uuid_1 (void)
   return 0;
 }
 
+static int test_set_e2uuid_2_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_SET_E2UUID_2");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_SET_E2UUID");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_set_e2uuid_2 (void)
 {
+  if (test_set_e2uuid_2_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_set_e2uuid_2");
+    return 0;
+  }
+
   /* InitBasicFS for test_set_e2uuid_2: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -2752,8 +3207,24 @@ static int test_set_e2uuid_2 (void)
   return 0;
 }
 
+static int test_set_e2uuid_3_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_SET_E2UUID_3");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_SET_E2UUID");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_set_e2uuid_3 (void)
 {
+  if (test_set_e2uuid_3_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_set_e2uuid_3");
+    return 0;
+  }
+
   /* InitBasicFS for test_set_e2uuid_3: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -2826,8 +3297,24 @@ static int test_set_e2uuid_3 (void)
   return 0;
 }
 
+static int test_set_e2label_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_SET_E2LABEL_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_SET_E2LABEL");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_set_e2label_0 (void)
 {
+  if (test_set_e2label_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_set_e2label_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_set_e2label_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -2915,8 +3402,24 @@ static int test_set_e2label_0 (void)
   return 0;
 }
 
+static int test_pvremove_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_PVREMOVE_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_PVREMOVE");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_pvremove_0 (void)
 {
+  if (test_pvremove_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_pvremove_0");
+    return 0;
+  }
+
   /* InitNone|InitEmpty for test_pvremove_0 */
   {
     char device[] = "/dev/sda";
@@ -3033,8 +3536,24 @@ static int test_pvremove_0 (void)
   return 0;
 }
 
+static int test_pvremove_1_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_PVREMOVE_1");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_PVREMOVE");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_pvremove_1 (void)
 {
+  if (test_pvremove_1_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_pvremove_1");
+    return 0;
+  }
+
   /* InitNone|InitEmpty for test_pvremove_1 */
   {
     char device[] = "/dev/sda";
@@ -3151,8 +3670,24 @@ static int test_pvremove_1 (void)
   return 0;
 }
 
+static int test_pvremove_2_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_PVREMOVE_2");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_PVREMOVE");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_pvremove_2 (void)
 {
+  if (test_pvremove_2_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_pvremove_2");
+    return 0;
+  }
+
   /* InitNone|InitEmpty for test_pvremove_2 */
   {
     char device[] = "/dev/sda";
@@ -3269,8 +3804,24 @@ static int test_pvremove_2 (void)
   return 0;
 }
 
+static int test_vgremove_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_VGREMOVE_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_VGREMOVE");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_vgremove_0 (void)
 {
+  if (test_vgremove_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_vgremove_0");
+    return 0;
+  }
+
   /* InitNone|InitEmpty for test_vgremove_0 */
   {
     char device[] = "/dev/sda";
@@ -3378,8 +3929,24 @@ static int test_vgremove_0 (void)
   return 0;
 }
 
+static int test_vgremove_1_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_VGREMOVE_1");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_VGREMOVE");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_vgremove_1 (void)
 {
+  if (test_vgremove_1_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_vgremove_1");
+    return 0;
+  }
+
   /* InitNone|InitEmpty for test_vgremove_1 */
   {
     char device[] = "/dev/sda";
@@ -3487,8 +4054,24 @@ static int test_vgremove_1 (void)
   return 0;
 }
 
+static int test_lvremove_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_LVREMOVE_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_LVREMOVE");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_lvremove_0 (void)
 {
+  if (test_lvremove_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_lvremove_0");
+    return 0;
+  }
+
   /* InitNone|InitEmpty for test_lvremove_0 */
   {
     char device[] = "/dev/sda";
@@ -3608,8 +4191,24 @@ static int test_lvremove_0 (void)
   return 0;
 }
 
+static int test_lvremove_1_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_LVREMOVE_1");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_LVREMOVE");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_lvremove_1 (void)
 {
+  if (test_lvremove_1_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_lvremove_1");
+    return 0;
+  }
+
   /* InitNone|InitEmpty for test_lvremove_1 */
   {
     char device[] = "/dev/sda";
@@ -3717,8 +4316,24 @@ static int test_lvremove_1 (void)
   return 0;
 }
 
+static int test_lvremove_2_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_LVREMOVE_2");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_LVREMOVE");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_lvremove_2 (void)
 {
+  if (test_lvremove_2_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_lvremove_2");
+    return 0;
+  }
+
   /* InitNone|InitEmpty for test_lvremove_2 */
   {
     char device[] = "/dev/sda";
@@ -3838,8 +4453,24 @@ static int test_lvremove_2 (void)
   return 0;
 }
 
+static int test_mount_ro_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_MOUNT_RO_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_MOUNT_RO");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_mount_ro_0 (void)
 {
+  if (test_mount_ro_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_mount_ro_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_mount_ro_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -3928,8 +4559,24 @@ static int test_mount_ro_0 (void)
   return 0;
 }
 
+static int test_mount_ro_1_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_MOUNT_RO_1");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_MOUNT_RO");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_mount_ro_1 (void)
 {
+  if (test_mount_ro_1_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_mount_ro_1");
+    return 0;
+  }
+
   /* InitBasicFS for test_mount_ro_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -4033,8 +4680,24 @@ static int test_mount_ro_1 (void)
   return 0;
 }
 
+static int test_tgz_in_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_TGZ_IN_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_TGZ_IN");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_tgz_in_0 (void)
 {
+  if (test_tgz_in_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_tgz_in_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_tgz_in_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -4119,8 +4782,24 @@ static int test_tgz_in_0 (void)
   return 0;
 }
 
+static int test_tar_in_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_TAR_IN_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_TAR_IN");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_tar_in_0 (void)
 {
+  if (test_tar_in_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_tar_in_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_tar_in_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -4205,8 +4884,24 @@ static int test_tar_in_0 (void)
   return 0;
 }
 
+static int test_checksum_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_CHECKSUM_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_CHECKSUM");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_checksum_0 (void)
 {
+  if (test_checksum_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_checksum_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_checksum_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -4293,8 +4988,24 @@ static int test_checksum_0 (void)
   return 0;
 }
 
+static int test_checksum_1_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_CHECKSUM_1");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_CHECKSUM");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_checksum_1 (void)
 {
+  if (test_checksum_1_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_checksum_1");
+    return 0;
+  }
+
   /* InitBasicFS for test_checksum_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -4367,8 +5078,24 @@ static int test_checksum_1 (void)
   return 0;
 }
 
+static int test_checksum_2_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_CHECKSUM_2");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_CHECKSUM");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_checksum_2 (void)
 {
+  if (test_checksum_2_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_checksum_2");
+    return 0;
+  }
+
   /* InitBasicFS for test_checksum_2: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -4455,8 +5182,24 @@ static int test_checksum_2 (void)
   return 0;
 }
 
+static int test_checksum_3_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_CHECKSUM_3");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_CHECKSUM");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_checksum_3 (void)
 {
+  if (test_checksum_3_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_checksum_3");
+    return 0;
+  }
+
   /* InitBasicFS for test_checksum_3: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -4543,8 +5286,24 @@ static int test_checksum_3 (void)
   return 0;
 }
 
+static int test_checksum_4_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_CHECKSUM_4");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_CHECKSUM");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_checksum_4 (void)
 {
+  if (test_checksum_4_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_checksum_4");
+    return 0;
+  }
+
   /* InitBasicFS for test_checksum_4: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -4631,8 +5390,24 @@ static int test_checksum_4 (void)
   return 0;
 }
 
+static int test_checksum_5_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_CHECKSUM_5");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_CHECKSUM");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_checksum_5 (void)
 {
+  if (test_checksum_5_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_checksum_5");
+    return 0;
+  }
+
   /* InitBasicFS for test_checksum_5: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -4719,8 +5494,24 @@ static int test_checksum_5 (void)
   return 0;
 }
 
+static int test_checksum_6_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_CHECKSUM_6");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_CHECKSUM");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_checksum_6 (void)
 {
+  if (test_checksum_6_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_checksum_6");
+    return 0;
+  }
+
   /* InitBasicFS for test_checksum_6: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -4807,8 +5598,24 @@ static int test_checksum_6 (void)
   return 0;
 }
 
+static int test_checksum_7_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_CHECKSUM_7");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_CHECKSUM");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_checksum_7 (void)
 {
+  if (test_checksum_7_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_checksum_7");
+    return 0;
+  }
+
   /* InitBasicFS for test_checksum_7: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -4895,8 +5702,24 @@ static int test_checksum_7 (void)
   return 0;
 }
 
+static int test_download_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_DOWNLOAD_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_DOWNLOAD");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_download_0 (void)
 {
+  if (test_download_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_download_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_download_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -4998,8 +5821,24 @@ static int test_download_0 (void)
   return 0;
 }
 
+static int test_upload_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_UPLOAD_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_UPLOAD");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_upload_0 (void)
 {
+  if (test_upload_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_upload_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_upload_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -5085,8 +5924,24 @@ static int test_upload_0 (void)
   return 0;
 }
 
+static int test_blockdev_rereadpt_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_BLOCKDEV_REREADPT_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_BLOCKDEV_REREADPT");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_blockdev_rereadpt_0 (void)
 {
+  if (test_blockdev_rereadpt_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_blockdev_rereadpt_0");
+    return 0;
+  }
+
   /* InitNone|InitEmpty for test_blockdev_rereadpt_0 */
   {
     char device[] = "/dev/sda";
@@ -5124,8 +5979,24 @@ static int test_blockdev_rereadpt_0 (void)
   return 0;
 }
 
+static int test_blockdev_flushbufs_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_BLOCKDEV_FLUSHBUFS_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_BLOCKDEV_FLUSHBUFS");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_blockdev_flushbufs_0 (void)
 {
+  if (test_blockdev_flushbufs_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_blockdev_flushbufs_0");
+    return 0;
+  }
+
   /* InitNone|InitEmpty for test_blockdev_flushbufs_0 */
   {
     char device[] = "/dev/sda";
@@ -5163,8 +6034,24 @@ static int test_blockdev_flushbufs_0 (void)
   return 0;
 }
 
+static int test_blockdev_getsize64_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_BLOCKDEV_GETSIZE64_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_BLOCKDEV_GETSIZE64");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_blockdev_getsize64_0 (void)
 {
+  if (test_blockdev_getsize64_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_blockdev_getsize64_0");
+    return 0;
+  }
+
   /* InitNone|InitEmpty for test_blockdev_getsize64_0 */
   {
     char device[] = "/dev/sda";
@@ -5206,8 +6093,24 @@ static int test_blockdev_getsize64_0 (void)
   return 0;
 }
 
+static int test_blockdev_getsz_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_BLOCKDEV_GETSZ_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_BLOCKDEV_GETSZ");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_blockdev_getsz_0 (void)
 {
+  if (test_blockdev_getsz_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_blockdev_getsz_0");
+    return 0;
+  }
+
   /* InitNone|InitEmpty for test_blockdev_getsz_0 */
   {
     char device[] = "/dev/sda";
@@ -5249,8 +6152,24 @@ static int test_blockdev_getsz_0 (void)
   return 0;
 }
 
+static int test_blockdev_getbsz_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_BLOCKDEV_GETBSZ_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_BLOCKDEV_GETBSZ");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_blockdev_getbsz_0 (void)
 {
+  if (test_blockdev_getbsz_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_blockdev_getbsz_0");
+    return 0;
+  }
+
   /* InitNone|InitEmpty for test_blockdev_getbsz_0 */
   {
     char device[] = "/dev/sda";
@@ -5292,8 +6211,24 @@ static int test_blockdev_getbsz_0 (void)
   return 0;
 }
 
+static int test_blockdev_getss_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_BLOCKDEV_GETSS_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_BLOCKDEV_GETSS");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_blockdev_getss_0 (void)
 {
+  if (test_blockdev_getss_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_blockdev_getss_0");
+    return 0;
+  }
+
   /* InitNone|InitEmpty for test_blockdev_getss_0 */
   {
     char device[] = "/dev/sda";
@@ -5335,8 +6270,24 @@ static int test_blockdev_getss_0 (void)
   return 0;
 }
 
+static int test_blockdev_getro_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_BLOCKDEV_GETRO_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_BLOCKDEV_GETRO");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_blockdev_getro_0 (void)
 {
+  if (test_blockdev_getro_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_blockdev_getro_0");
+    return 0;
+  }
+
   /* InitNone|InitEmpty for test_blockdev_getro_0 */
   {
     char device[] = "/dev/sda";
@@ -5387,8 +6338,24 @@ static int test_blockdev_getro_0 (void)
   return 0;
 }
 
+static int test_blockdev_setrw_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_BLOCKDEV_SETRW_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_BLOCKDEV_SETRW");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_blockdev_setrw_0 (void)
 {
+  if (test_blockdev_setrw_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_blockdev_setrw_0");
+    return 0;
+  }
+
   /* InitNone|InitEmpty for test_blockdev_setrw_0 */
   {
     char device[] = "/dev/sda";
@@ -5439,8 +6406,24 @@ static int test_blockdev_setrw_0 (void)
   return 0;
 }
 
+static int test_blockdev_setro_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_BLOCKDEV_SETRO_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_BLOCKDEV_SETRO");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_blockdev_setro_0 (void)
 {
+  if (test_blockdev_setro_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_blockdev_setro_0");
+    return 0;
+  }
+
   /* InitNone|InitEmpty for test_blockdev_setro_0 */
   {
     char device[] = "/dev/sda";
@@ -5491,8 +6474,24 @@ static int test_blockdev_setro_0 (void)
   return 0;
 }
 
+static int test_statvfs_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_STATVFS_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_STATVFS");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_statvfs_0 (void)
 {
+  if (test_statvfs_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_statvfs_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_statvfs_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -5579,8 +6578,24 @@ static int test_statvfs_0 (void)
   return 0;
 }
 
+static int test_lstat_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_LSTAT_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_LSTAT");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_lstat_0 (void)
 {
+  if (test_lstat_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_lstat_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_lstat_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -5665,8 +6680,24 @@ static int test_lstat_0 (void)
   return 0;
 }
 
+static int test_stat_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_STAT_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_STAT");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_stat_0 (void)
 {
+  if (test_stat_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_stat_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_stat_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -5751,15 +6782,24 @@ static int test_stat_0 (void)
   return 0;
 }
 
-static int test_command_lines_0_prereq (void)
+static int test_command_lines_0_skip (void)
 {
-  const char *str = getenv ("SKIP_TEST_COMMAND");
-  return str && strcmp (str, "1") == 0;
+  const char *str;
+
+  str = getenv ("SKIP_TEST_COMMAND_LINES_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_COMMAND_LINES");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
 }
 
 static int test_command_lines_0 (void)
 {
-  if (! test_command_lines_0_prereq ()) {
+  if (test_command_lines_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_command_lines_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_command_lines_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -5870,20 +6910,27 @@ static int test_command_lines_0 (void)
       free (r[i]);
     free (r);
   }
-  } else
-    printf ("%s skipped (reason: test prerequisite)\n", "test_command_lines_0");
   return 0;
 }
 
-static int test_command_lines_1_prereq (void)
+static int test_command_lines_1_skip (void)
 {
-  const char *str = getenv ("SKIP_TEST_COMMAND");
-  return str && strcmp (str, "1") == 0;
+  const char *str;
+
+  str = getenv ("SKIP_TEST_COMMAND_LINES_1");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_COMMAND_LINES");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
 }
 
 static int test_command_lines_1 (void)
 {
-  if (! test_command_lines_1_prereq ()) {
+  if (test_command_lines_1_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_command_lines_1");
+    return 0;
+  }
+
   /* InitBasicFS for test_command_lines_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -5994,20 +7041,27 @@ static int test_command_lines_1 (void)
       free (r[i]);
     free (r);
   }
-  } else
-    printf ("%s skipped (reason: test prerequisite)\n", "test_command_lines_1");
   return 0;
 }
 
-static int test_command_lines_2_prereq (void)
+static int test_command_lines_2_skip (void)
 {
-  const char *str = getenv ("SKIP_TEST_COMMAND");
-  return str && strcmp (str, "1") == 0;
+  const char *str;
+
+  str = getenv ("SKIP_TEST_COMMAND_LINES_2");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_COMMAND_LINES");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
 }
 
 static int test_command_lines_2 (void)
 {
-  if (! test_command_lines_2_prereq ()) {
+  if (test_command_lines_2_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_command_lines_2");
+    return 0;
+  }
+
   /* InitBasicFS for test_command_lines_2: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -6130,20 +7184,27 @@ static int test_command_lines_2 (void)
       free (r[i]);
     free (r);
   }
-  } else
-    printf ("%s skipped (reason: test prerequisite)\n", "test_command_lines_2");
   return 0;
 }
 
-static int test_command_lines_3_prereq (void)
+static int test_command_lines_3_skip (void)
 {
-  const char *str = getenv ("SKIP_TEST_COMMAND");
-  return str && strcmp (str, "1") == 0;
+  const char *str;
+
+  str = getenv ("SKIP_TEST_COMMAND_LINES_3");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_COMMAND_LINES");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
 }
 
 static int test_command_lines_3 (void)
 {
-  if (! test_command_lines_3_prereq ()) {
+  if (test_command_lines_3_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_command_lines_3");
+    return 0;
+  }
+
   /* InitBasicFS for test_command_lines_3: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -6266,20 +7327,27 @@ static int test_command_lines_3 (void)
       free (r[i]);
     free (r);
   }
-  } else
-    printf ("%s skipped (reason: test prerequisite)\n", "test_command_lines_3");
   return 0;
 }
 
-static int test_command_lines_4_prereq (void)
+static int test_command_lines_4_skip (void)
 {
-  const char *str = getenv ("SKIP_TEST_COMMAND");
-  return str && strcmp (str, "1") == 0;
+  const char *str;
+
+  str = getenv ("SKIP_TEST_COMMAND_LINES_4");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_COMMAND_LINES");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
 }
 
 static int test_command_lines_4 (void)
 {
-  if (! test_command_lines_4_prereq ()) {
+  if (test_command_lines_4_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_command_lines_4");
+    return 0;
+  }
+
   /* InitBasicFS for test_command_lines_4: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -6414,20 +7482,27 @@ static int test_command_lines_4 (void)
       free (r[i]);
     free (r);
   }
-  } else
-    printf ("%s skipped (reason: test prerequisite)\n", "test_command_lines_4");
   return 0;
 }
 
-static int test_command_lines_5_prereq (void)
+static int test_command_lines_5_skip (void)
 {
-  const char *str = getenv ("SKIP_TEST_COMMAND");
-  return str && strcmp (str, "1") == 0;
+  const char *str;
+
+  str = getenv ("SKIP_TEST_COMMAND_LINES_5");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_COMMAND_LINES");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
 }
 
 static int test_command_lines_5 (void)
 {
-  if (! test_command_lines_5_prereq ()) {
+  if (test_command_lines_5_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_command_lines_5");
+    return 0;
+  }
+
   /* InitBasicFS for test_command_lines_5: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -6574,20 +7649,27 @@ static int test_command_lines_5 (void)
       free (r[i]);
     free (r);
   }
-  } else
-    printf ("%s skipped (reason: test prerequisite)\n", "test_command_lines_5");
   return 0;
 }
 
-static int test_command_lines_6_prereq (void)
+static int test_command_lines_6_skip (void)
 {
-  const char *str = getenv ("SKIP_TEST_COMMAND");
-  return str && strcmp (str, "1") == 0;
+  const char *str;
+
+  str = getenv ("SKIP_TEST_COMMAND_LINES_6");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_COMMAND_LINES");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
 }
 
 static int test_command_lines_6 (void)
 {
-  if (! test_command_lines_6_prereq ()) {
+  if (test_command_lines_6_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_command_lines_6");
+    return 0;
+  }
+
   /* InitBasicFS for test_command_lines_6: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -6686,20 +7768,27 @@ static int test_command_lines_6 (void)
       free (r[i]);
     free (r);
   }
-  } else
-    printf ("%s skipped (reason: test prerequisite)\n", "test_command_lines_6");
   return 0;
 }
 
-static int test_command_lines_7_prereq (void)
+static int test_command_lines_7_skip (void)
 {
-  const char *str = getenv ("SKIP_TEST_COMMAND");
-  return str && strcmp (str, "1") == 0;
+  const char *str;
+
+  str = getenv ("SKIP_TEST_COMMAND_LINES_7");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_COMMAND_LINES");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
 }
 
 static int test_command_lines_7 (void)
 {
-  if (! test_command_lines_7_prereq ()) {
+  if (test_command_lines_7_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_command_lines_7");
+    return 0;
+  }
+
   /* InitBasicFS for test_command_lines_7: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -6810,20 +7899,27 @@ static int test_command_lines_7 (void)
       free (r[i]);
     free (r);
   }
-  } else
-    printf ("%s skipped (reason: test prerequisite)\n", "test_command_lines_7");
   return 0;
 }
 
-static int test_command_lines_8_prereq (void)
+static int test_command_lines_8_skip (void)
 {
-  const char *str = getenv ("SKIP_TEST_COMMAND");
-  return str && strcmp (str, "1") == 0;
+  const char *str;
+
+  str = getenv ("SKIP_TEST_COMMAND_LINES_8");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_COMMAND_LINES");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
 }
 
 static int test_command_lines_8 (void)
 {
-  if (! test_command_lines_8_prereq ()) {
+  if (test_command_lines_8_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_command_lines_8");
+    return 0;
+  }
+
   /* InitBasicFS for test_command_lines_8: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -6946,20 +8042,27 @@ static int test_command_lines_8 (void)
       free (r[i]);
     free (r);
   }
-  } else
-    printf ("%s skipped (reason: test prerequisite)\n", "test_command_lines_8");
   return 0;
 }
 
-static int test_command_lines_9_prereq (void)
+static int test_command_lines_9_skip (void)
 {
-  const char *str = getenv ("SKIP_TEST_COMMAND");
-  return str && strcmp (str, "1") == 0;
+  const char *str;
+
+  str = getenv ("SKIP_TEST_COMMAND_LINES_9");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_COMMAND_LINES");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
 }
 
 static int test_command_lines_9 (void)
 {
-  if (! test_command_lines_9_prereq ()) {
+  if (test_command_lines_9_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_command_lines_9");
+    return 0;
+  }
+
   /* InitBasicFS for test_command_lines_9: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -7082,20 +8185,27 @@ static int test_command_lines_9 (void)
       free (r[i]);
     free (r);
   }
-  } else
-    printf ("%s skipped (reason: test prerequisite)\n", "test_command_lines_9");
   return 0;
 }
 
-static int test_command_lines_10_prereq (void)
+static int test_command_lines_10_skip (void)
 {
-  const char *str = getenv ("SKIP_TEST_COMMAND");
-  return str && strcmp (str, "1") == 0;
+  const char *str;
+
+  str = getenv ("SKIP_TEST_COMMAND_LINES_10");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_COMMAND_LINES");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
 }
 
 static int test_command_lines_10 (void)
 {
-  if (! test_command_lines_10_prereq ()) {
+  if (test_command_lines_10_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_command_lines_10");
+    return 0;
+  }
+
   /* InitBasicFS for test_command_lines_10: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -7218,20 +8328,27 @@ static int test_command_lines_10 (void)
       free (r[i]);
     free (r);
   }
-  } else
-    printf ("%s skipped (reason: test prerequisite)\n", "test_command_lines_10");
   return 0;
 }
 
-static int test_command_0_prereq (void)
+static int test_command_0_skip (void)
 {
-  const char *str = getenv ("SKIP_TEST_COMMAND");
-  return str && strcmp (str, "1") == 0;
+  const char *str;
+
+  str = getenv ("SKIP_TEST_COMMAND_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_COMMAND");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
 }
 
 static int test_command_0 (void)
 {
-  if (! test_command_0_prereq ()) {
+  if (test_command_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_command_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_command_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -7327,20 +8444,27 @@ static int test_command_0 (void)
     }
     free (r);
   }
-  } else
-    printf ("%s skipped (reason: test prerequisite)\n", "test_command_0");
   return 0;
 }
 
-static int test_command_1_prereq (void)
+static int test_command_1_skip (void)
 {
-  const char *str = getenv ("SKIP_TEST_COMMAND");
-  return str && strcmp (str, "1") == 0;
+  const char *str;
+
+  str = getenv ("SKIP_TEST_COMMAND_1");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_COMMAND");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
 }
 
 static int test_command_1 (void)
 {
-  if (! test_command_1_prereq ()) {
+  if (test_command_1_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_command_1");
+    return 0;
+  }
+
   /* InitBasicFS for test_command_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -7436,20 +8560,27 @@ static int test_command_1 (void)
     }
     free (r);
   }
-  } else
-    printf ("%s skipped (reason: test prerequisite)\n", "test_command_1");
   return 0;
 }
 
-static int test_command_2_prereq (void)
+static int test_command_2_skip (void)
 {
-  const char *str = getenv ("SKIP_TEST_COMMAND");
-  return str && strcmp (str, "1") == 0;
+  const char *str;
+
+  str = getenv ("SKIP_TEST_COMMAND_2");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_COMMAND");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
 }
 
 static int test_command_2 (void)
 {
-  if (! test_command_2_prereq ()) {
+  if (test_command_2_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_command_2");
+    return 0;
+  }
+
   /* InitBasicFS for test_command_2: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -7545,20 +8676,27 @@ static int test_command_2 (void)
     }
     free (r);
   }
-  } else
-    printf ("%s skipped (reason: test prerequisite)\n", "test_command_2");
   return 0;
 }
 
-static int test_command_3_prereq (void)
+static int test_command_3_skip (void)
 {
-  const char *str = getenv ("SKIP_TEST_COMMAND");
-  return str && strcmp (str, "1") == 0;
+  const char *str;
+
+  str = getenv ("SKIP_TEST_COMMAND_3");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_COMMAND");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
 }
 
 static int test_command_3 (void)
 {
-  if (! test_command_3_prereq ()) {
+  if (test_command_3_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_command_3");
+    return 0;
+  }
+
   /* InitBasicFS for test_command_3: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -7654,20 +8792,27 @@ static int test_command_3 (void)
     }
     free (r);
   }
-  } else
-    printf ("%s skipped (reason: test prerequisite)\n", "test_command_3");
   return 0;
 }
 
-static int test_command_4_prereq (void)
+static int test_command_4_skip (void)
 {
-  const char *str = getenv ("SKIP_TEST_COMMAND");
-  return str && strcmp (str, "1") == 0;
+  const char *str;
+
+  str = getenv ("SKIP_TEST_COMMAND_4");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_COMMAND");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
 }
 
 static int test_command_4 (void)
 {
-  if (! test_command_4_prereq ()) {
+  if (test_command_4_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_command_4");
+    return 0;
+  }
+
   /* InitBasicFS for test_command_4: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -7763,20 +8908,27 @@ static int test_command_4 (void)
     }
     free (r);
   }
-  } else
-    printf ("%s skipped (reason: test prerequisite)\n", "test_command_4");
   return 0;
 }
 
-static int test_command_5_prereq (void)
+static int test_command_5_skip (void)
 {
-  const char *str = getenv ("SKIP_TEST_COMMAND");
-  return str && strcmp (str, "1") == 0;
+  const char *str;
+
+  str = getenv ("SKIP_TEST_COMMAND_5");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_COMMAND");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
 }
 
 static int test_command_5 (void)
 {
-  if (! test_command_5_prereq ()) {
+  if (test_command_5_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_command_5");
+    return 0;
+  }
+
   /* InitBasicFS for test_command_5: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -7872,20 +9024,27 @@ static int test_command_5 (void)
     }
     free (r);
   }
-  } else
-    printf ("%s skipped (reason: test prerequisite)\n", "test_command_5");
   return 0;
 }
 
-static int test_command_6_prereq (void)
+static int test_command_6_skip (void)
 {
-  const char *str = getenv ("SKIP_TEST_COMMAND");
-  return str && strcmp (str, "1") == 0;
+  const char *str;
+
+  str = getenv ("SKIP_TEST_COMMAND_6");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_COMMAND");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
 }
 
 static int test_command_6 (void)
 {
-  if (! test_command_6_prereq ()) {
+  if (test_command_6_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_command_6");
+    return 0;
+  }
+
   /* InitBasicFS for test_command_6: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -7981,20 +9140,27 @@ static int test_command_6 (void)
     }
     free (r);
   }
-  } else
-    printf ("%s skipped (reason: test prerequisite)\n", "test_command_6");
   return 0;
 }
 
-static int test_command_7_prereq (void)
+static int test_command_7_skip (void)
 {
-  const char *str = getenv ("SKIP_TEST_COMMAND");
-  return str && strcmp (str, "1") == 0;
+  const char *str;
+
+  str = getenv ("SKIP_TEST_COMMAND_7");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_COMMAND");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
 }
 
 static int test_command_7 (void)
 {
-  if (! test_command_7_prereq ()) {
+  if (test_command_7_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_command_7");
+    return 0;
+  }
+
   /* InitBasicFS for test_command_7: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -8090,20 +9256,27 @@ static int test_command_7 (void)
     }
     free (r);
   }
-  } else
-    printf ("%s skipped (reason: test prerequisite)\n", "test_command_7");
   return 0;
 }
 
-static int test_command_8_prereq (void)
+static int test_command_8_skip (void)
 {
-  const char *str = getenv ("SKIP_TEST_COMMAND");
-  return str && strcmp (str, "1") == 0;
+  const char *str;
+
+  str = getenv ("SKIP_TEST_COMMAND_8");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_COMMAND");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
 }
 
 static int test_command_8 (void)
 {
-  if (! test_command_8_prereq ()) {
+  if (test_command_8_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_command_8");
+    return 0;
+  }
+
   /* InitBasicFS for test_command_8: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -8199,20 +9372,27 @@ static int test_command_8 (void)
     }
     free (r);
   }
-  } else
-    printf ("%s skipped (reason: test prerequisite)\n", "test_command_8");
   return 0;
 }
 
-static int test_command_9_prereq (void)
+static int test_command_9_skip (void)
 {
-  const char *str = getenv ("SKIP_TEST_COMMAND");
-  return str && strcmp (str, "1") == 0;
+  const char *str;
+
+  str = getenv ("SKIP_TEST_COMMAND_9");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_COMMAND");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
 }
 
 static int test_command_9 (void)
 {
-  if (! test_command_9_prereq ()) {
+  if (test_command_9_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_command_9");
+    return 0;
+  }
+
   /* InitBasicFS for test_command_9: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -8308,20 +9488,27 @@ static int test_command_9 (void)
     }
     free (r);
   }
-  } else
-    printf ("%s skipped (reason: test prerequisite)\n", "test_command_9");
   return 0;
 }
 
-static int test_command_10_prereq (void)
+static int test_command_10_skip (void)
 {
-  const char *str = getenv ("SKIP_TEST_COMMAND");
-  return str && strcmp (str, "1") == 0;
+  const char *str;
+
+  str = getenv ("SKIP_TEST_COMMAND_10");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_COMMAND");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
 }
 
 static int test_command_10 (void)
 {
-  if (! test_command_10_prereq ()) {
+  if (test_command_10_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_command_10");
+    return 0;
+  }
+
   /* InitBasicFS for test_command_10: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -8417,20 +9604,27 @@ static int test_command_10 (void)
     }
     free (r);
   }
-  } else
-    printf ("%s skipped (reason: test prerequisite)\n", "test_command_10");
   return 0;
 }
 
-static int test_command_11_prereq (void)
+static int test_command_11_skip (void)
 {
-  const char *str = getenv ("SKIP_TEST_COMMAND");
-  return str && strcmp (str, "1") == 0;
+  const char *str;
+
+  str = getenv ("SKIP_TEST_COMMAND_11");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_COMMAND");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
 }
 
 static int test_command_11 (void)
 {
-  if (! test_command_11_prereq ()) {
+  if (test_command_11_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_command_11");
+    return 0;
+  }
+
   /* InitBasicFS for test_command_11: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -8519,13 +9713,27 @@ static int test_command_11 (void)
       return -1;
     free (r);
   }
-  } else
-    printf ("%s skipped (reason: test prerequisite)\n", "test_command_11");
+  return 0;
+}
+
+static int test_file_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_FILE_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_FILE");
+  if (str && strcmp (str, "1") == 0) return 1;
   return 0;
 }
 
 static int test_file_0 (void)
 {
+  if (test_file_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_file_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_file_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -8610,8 +9818,24 @@ static int test_file_0 (void)
   return 0;
 }
 
+static int test_file_1_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_FILE_1");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_FILE");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_file_1 (void)
 {
+  if (test_file_1_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_file_1");
+    return 0;
+  }
+
   /* InitBasicFS for test_file_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -8697,8 +9921,24 @@ static int test_file_1 (void)
   return 0;
 }
 
+static int test_file_2_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_FILE_2");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_FILE");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_file_2 (void)
 {
+  if (test_file_2_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_file_2");
+    return 0;
+  }
+
   /* InitBasicFS for test_file_2: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -8770,8 +10010,24 @@ static int test_file_2 (void)
   return 0;
 }
 
+static int test_umount_all_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_UMOUNT_ALL_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_UMOUNT_ALL");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_umount_all_0 (void)
 {
+  if (test_umount_all_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_umount_all_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_umount_all_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -8857,8 +10113,24 @@ static int test_umount_all_0 (void)
   return 0;
 }
 
+static int test_umount_all_1_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_UMOUNT_ALL_1");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_UMOUNT_ALL");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_umount_all_1 (void)
 {
+  if (test_umount_all_1_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_umount_all_1");
+    return 0;
+  }
+
   /* InitNone|InitEmpty for test_umount_all_1 */
   {
     char device[] = "/dev/sda";
@@ -9012,8 +10284,24 @@ static int test_umount_all_1 (void)
   return 0;
 }
 
+static int test_mounts_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_MOUNTS_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_MOUNTS");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_mounts_0 (void)
 {
+  if (test_mounts_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_mounts_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_mounts_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -9105,8 +10393,24 @@ static int test_mounts_0 (void)
   return 0;
 }
 
+static int test_umount_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_UMOUNT_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_UMOUNT");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_umount_0 (void)
 {
+  if (test_umount_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_umount_0");
+    return 0;
+  }
+
   /* InitNone|InitEmpty for test_umount_0 */
   {
     char device[] = "/dev/sda";
@@ -9198,8 +10502,24 @@ static int test_umount_0 (void)
   return 0;
 }
 
+static int test_umount_1_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_UMOUNT_1");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_UMOUNT");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_umount_1 (void)
 {
+  if (test_umount_1_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_umount_1");
+    return 0;
+  }
+
   /* InitNone|InitEmpty for test_umount_1 */
   {
     char device[] = "/dev/sda";
@@ -9286,8 +10606,24 @@ static int test_umount_1 (void)
   return 0;
 }
 
+static int test_write_file_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_WRITE_FILE_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_WRITE_FILE");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_write_file_0 (void)
 {
+  if (test_write_file_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_write_file_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_write_file_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -9373,8 +10709,24 @@ static int test_write_file_0 (void)
   return 0;
 }
 
+static int test_write_file_1_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_WRITE_FILE_1");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_WRITE_FILE");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_write_file_1 (void)
 {
+  if (test_write_file_1_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_write_file_1");
+    return 0;
+  }
+
   /* InitBasicFS for test_write_file_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -9460,8 +10812,24 @@ static int test_write_file_1 (void)
   return 0;
 }
 
+static int test_write_file_2_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_WRITE_FILE_2");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_WRITE_FILE");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_write_file_2 (void)
 {
+  if (test_write_file_2_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_write_file_2");
+    return 0;
+  }
+
   /* InitBasicFS for test_write_file_2: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -9547,8 +10915,24 @@ static int test_write_file_2 (void)
   return 0;
 }
 
+static int test_write_file_3_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_WRITE_FILE_3");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_WRITE_FILE");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_write_file_3 (void)
 {
+  if (test_write_file_3_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_write_file_3");
+    return 0;
+  }
+
   /* InitBasicFS for test_write_file_3: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -9634,8 +11018,24 @@ static int test_write_file_3 (void)
   return 0;
 }
 
+static int test_write_file_4_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_WRITE_FILE_4");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_WRITE_FILE");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_write_file_4 (void)
 {
+  if (test_write_file_4_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_write_file_4");
+    return 0;
+  }
+
   /* InitBasicFS for test_write_file_4: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -9721,8 +11121,24 @@ static int test_write_file_4 (void)
   return 0;
 }
 
+static int test_write_file_5_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_WRITE_FILE_5");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_WRITE_FILE");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_write_file_5 (void)
 {
+  if (test_write_file_5_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_write_file_5");
+    return 0;
+  }
+
   /* InitBasicFS for test_write_file_5: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -9808,8 +11224,24 @@ static int test_write_file_5 (void)
   return 0;
 }
 
+static int test_mkfs_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_MKFS_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_MKFS");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_mkfs_0 (void)
 {
+  if (test_mkfs_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_mkfs_0");
+    return 0;
+  }
+
   /* InitNone|InitEmpty for test_mkfs_0 */
   {
     char device[] = "/dev/sda";
@@ -9895,8 +11327,24 @@ static int test_mkfs_0 (void)
   return 0;
 }
 
+static int test_lvcreate_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_LVCREATE_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_LVCREATE");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_lvcreate_0 (void)
 {
+  if (test_lvcreate_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_lvcreate_0");
+    return 0;
+  }
+
   /* InitNone|InitEmpty for test_lvcreate_0 */
   {
     char device[] = "/dev/sda";
@@ -10122,8 +11570,24 @@ static int test_lvcreate_0 (void)
   return 0;
 }
 
+static int test_vgcreate_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_VGCREATE_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_VGCREATE");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_vgcreate_0 (void)
 {
+  if (test_vgcreate_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_vgcreate_0");
+    return 0;
+  }
+
   /* InitNone|InitEmpty for test_vgcreate_0 */
   {
     char device[] = "/dev/sda";
@@ -10268,8 +11732,24 @@ static int test_vgcreate_0 (void)
   return 0;
 }
 
+static int test_pvcreate_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_PVCREATE_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_PVCREATE");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_pvcreate_0 (void)
 {
+  if (test_pvcreate_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_pvcreate_0");
+    return 0;
+  }
+
   /* InitNone|InitEmpty for test_pvcreate_0 */
   {
     char device[] = "/dev/sda";
@@ -10398,8 +11878,24 @@ static int test_pvcreate_0 (void)
   return 0;
 }
 
+static int test_is_dir_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_IS_DIR_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_IS_DIR");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_is_dir_0 (void)
 {
+  if (test_is_dir_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_is_dir_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_is_dir_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -10482,8 +11978,24 @@ static int test_is_dir_0 (void)
   return 0;
 }
 
+static int test_is_dir_1_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_IS_DIR_1");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_IS_DIR");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_is_dir_1 (void)
 {
+  if (test_is_dir_1_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_is_dir_1");
+    return 0;
+  }
+
   /* InitBasicFS for test_is_dir_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -10566,8 +12078,24 @@ static int test_is_dir_1 (void)
   return 0;
 }
 
+static int test_is_file_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_IS_FILE_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_IS_FILE");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_is_file_0 (void)
 {
+  if (test_is_file_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_is_file_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_is_file_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -10650,8 +12178,24 @@ static int test_is_file_0 (void)
   return 0;
 }
 
+static int test_is_file_1_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_IS_FILE_1");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_IS_FILE");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_is_file_1 (void)
 {
+  if (test_is_file_1_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_is_file_1");
+    return 0;
+  }
+
   /* InitBasicFS for test_is_file_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -10734,8 +12278,24 @@ static int test_is_file_1 (void)
   return 0;
 }
 
+static int test_exists_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_EXISTS_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_EXISTS");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_exists_0 (void)
 {
+  if (test_exists_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_exists_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_exists_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -10818,8 +12378,24 @@ static int test_exists_0 (void)
   return 0;
 }
 
+static int test_exists_1_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_EXISTS_1");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_EXISTS");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_exists_1 (void)
 {
+  if (test_exists_1_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_exists_1");
+    return 0;
+  }
+
   /* InitBasicFS for test_exists_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -10902,8 +12478,24 @@ static int test_exists_1 (void)
   return 0;
 }
 
+static int test_mkdir_p_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_MKDIR_P_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_MKDIR_P");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_mkdir_p_0 (void)
 {
+  if (test_mkdir_p_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_mkdir_p_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_mkdir_p_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -10986,8 +12578,24 @@ static int test_mkdir_p_0 (void)
   return 0;
 }
 
+static int test_mkdir_p_1_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_MKDIR_P_1");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_MKDIR_P");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_mkdir_p_1 (void)
 {
+  if (test_mkdir_p_1_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_mkdir_p_1");
+    return 0;
+  }
+
   /* InitBasicFS for test_mkdir_p_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -11070,8 +12678,24 @@ static int test_mkdir_p_1 (void)
   return 0;
 }
 
+static int test_mkdir_p_2_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_MKDIR_P_2");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_MKDIR_P");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_mkdir_p_2 (void)
 {
+  if (test_mkdir_p_2_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_mkdir_p_2");
+    return 0;
+  }
+
   /* InitBasicFS for test_mkdir_p_2: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -11154,8 +12778,24 @@ static int test_mkdir_p_2 (void)
   return 0;
 }
 
+static int test_mkdir_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_MKDIR_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_MKDIR");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_mkdir_0 (void)
 {
+  if (test_mkdir_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_mkdir_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_mkdir_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -11238,8 +12878,24 @@ static int test_mkdir_0 (void)
   return 0;
 }
 
+static int test_mkdir_1_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_MKDIR_1");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_MKDIR");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_mkdir_1 (void)
 {
+  if (test_mkdir_1_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_mkdir_1");
+    return 0;
+  }
+
   /* InitBasicFS for test_mkdir_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -11310,8 +12966,24 @@ static int test_mkdir_1 (void)
   return 0;
 }
 
+static int test_rm_rf_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_RM_RF_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_RM_RF");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_rm_rf_0 (void)
 {
+  if (test_rm_rf_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_rm_rf_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_rm_rf_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -11418,8 +13090,24 @@ static int test_rm_rf_0 (void)
   return 0;
 }
 
+static int test_rmdir_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_RMDIR_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_RMDIR");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_rmdir_0 (void)
 {
+  if (test_rmdir_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_rmdir_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_rmdir_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -11498,8 +13186,24 @@ static int test_rmdir_0 (void)
   return 0;
 }
 
+static int test_rmdir_1_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_RMDIR_1");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_RMDIR");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_rmdir_1 (void)
 {
+  if (test_rmdir_1_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_rmdir_1");
+    return 0;
+  }
+
   /* InitBasicFS for test_rmdir_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -11570,8 +13274,24 @@ static int test_rmdir_1 (void)
   return 0;
 }
 
+static int test_rmdir_2_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_RMDIR_2");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_RMDIR");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_rmdir_2 (void)
 {
+  if (test_rmdir_2_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_rmdir_2");
+    return 0;
+  }
+
   /* InitBasicFS for test_rmdir_2: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -11650,8 +13370,24 @@ static int test_rmdir_2 (void)
   return 0;
 }
 
+static int test_rm_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_RM_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_RM");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_rm_0 (void)
 {
+  if (test_rm_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_rm_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_rm_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -11730,8 +13466,24 @@ static int test_rm_0 (void)
   return 0;
 }
 
+static int test_rm_1_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_RM_1");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_RM");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_rm_1 (void)
 {
+  if (test_rm_1_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_rm_1");
+    return 0;
+  }
+
   /* InitBasicFS for test_rm_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -11802,8 +13554,24 @@ static int test_rm_1 (void)
   return 0;
 }
 
+static int test_rm_2_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_RM_2");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_RM");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_rm_2 (void)
 {
+  if (test_rm_2_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_rm_2");
+    return 0;
+  }
+
   /* InitBasicFS for test_rm_2: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -11882,8 +13650,24 @@ static int test_rm_2 (void)
   return 0;
 }
 
+static int test_read_lines_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_READ_LINES_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_READ_LINES");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_read_lines_0 (void)
 {
+  if (test_read_lines_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_read_lines_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_read_lines_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -12008,8 +13792,24 @@ static int test_read_lines_0 (void)
   return 0;
 }
 
+static int test_read_lines_1_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_READ_LINES_1");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_READ_LINES");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_read_lines_1 (void)
 {
+  if (test_read_lines_1_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_read_lines_1");
+    return 0;
+  }
+
   /* InitBasicFS for test_read_lines_1: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -12098,8 +13898,24 @@ static int test_read_lines_1 (void)
   return 0;
 }
 
+static int test_lvs_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_LVS_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_LVS");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_lvs_0 (void)
 {
+  if (test_lvs_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_lvs_0");
+    return 0;
+  }
+
   /* InitBasicFSonLVM for test_lvs_0: create ext2 on /dev/VG/LV */
   {
     char device[] = "/dev/sda";
@@ -12220,8 +14036,24 @@ static int test_lvs_0 (void)
   return 0;
 }
 
+static int test_lvs_1_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_LVS_1");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_LVS");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_lvs_1 (void)
 {
+  if (test_lvs_1_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_lvs_1");
+    return 0;
+  }
+
   /* InitNone|InitEmpty for test_lvs_1 */
   {
     char device[] = "/dev/sda";
@@ -12405,8 +14237,24 @@ static int test_lvs_1 (void)
   return 0;
 }
 
+static int test_vgs_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_VGS_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_VGS");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_vgs_0 (void)
 {
+  if (test_vgs_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_vgs_0");
+    return 0;
+  }
+
   /* InitBasicFSonLVM for test_vgs_0: create ext2 on /dev/VG/LV */
   {
     char device[] = "/dev/sda";
@@ -12527,8 +14375,24 @@ static int test_vgs_0 (void)
   return 0;
 }
 
+static int test_vgs_1_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_VGS_1");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_VGS");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_vgs_1 (void)
 {
+  if (test_vgs_1_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_vgs_1");
+    return 0;
+  }
+
   /* InitNone|InitEmpty for test_vgs_1 */
   {
     char device[] = "/dev/sda";
@@ -12673,8 +14537,24 @@ static int test_vgs_1 (void)
   return 0;
 }
 
+static int test_pvs_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_PVS_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_PVS");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_pvs_0 (void)
 {
+  if (test_pvs_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_pvs_0");
+    return 0;
+  }
+
   /* InitBasicFSonLVM for test_pvs_0: create ext2 on /dev/VG/LV */
   {
     char device[] = "/dev/sda";
@@ -12796,8 +14676,24 @@ static int test_pvs_0 (void)
   return 0;
 }
 
+static int test_pvs_1_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_PVS_1");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_PVS");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_pvs_1 (void)
 {
+  if (test_pvs_1_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_pvs_1");
+    return 0;
+  }
+
   /* InitNone|InitEmpty for test_pvs_1 */
   {
     char device[] = "/dev/sda";
@@ -12926,8 +14822,24 @@ static int test_pvs_1 (void)
   return 0;
 }
 
+static int test_list_partitions_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_LIST_PARTITIONS_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_LIST_PARTITIONS");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_list_partitions_0 (void)
 {
+  if (test_list_partitions_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_list_partitions_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_list_partitions_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -13019,8 +14931,24 @@ static int test_list_partitions_0 (void)
   return 0;
 }
 
+static int test_list_partitions_1_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_LIST_PARTITIONS_1");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_LIST_PARTITIONS");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_list_partitions_1 (void)
 {
+  if (test_list_partitions_1_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_list_partitions_1");
+    return 0;
+  }
+
   /* InitNone|InitEmpty for test_list_partitions_1 */
   {
     char device[] = "/dev/sda";
@@ -13122,8 +15050,24 @@ static int test_list_partitions_1 (void)
   return 0;
 }
 
+static int test_list_devices_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_LIST_DEVICES_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_LIST_DEVICES");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_list_devices_0 (void)
 {
+  if (test_list_devices_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_list_devices_0");
+    return 0;
+  }
+
   /* InitNone|InitEmpty for test_list_devices_0 */
   {
     char device[] = "/dev/sda";
@@ -13207,8 +15151,24 @@ static int test_list_devices_0 (void)
   return 0;
 }
 
+static int test_ls_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_LS_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_LS");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_ls_0 (void)
 {
+  if (test_ls_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_ls_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_ls_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -13360,8 +15320,24 @@ static int test_ls_0 (void)
   return 0;
 }
 
+static int test_cat_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_CAT_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_CAT");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_cat_0 (void)
 {
+  if (test_cat_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_cat_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_cat_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -13447,8 +15423,24 @@ static int test_cat_0 (void)
   return 0;
 }
 
+static int test_touch_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_TOUCH_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_TOUCH");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_touch_0 (void)
 {
+  if (test_touch_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_touch_0");
+    return 0;
+  }
+
   /* InitBasicFS for test_touch_0: create ext2 on /dev/sda1 */
   {
     char device[] = "/dev/sda";
@@ -13531,8 +15523,24 @@ static int test_touch_0 (void)
   return 0;
 }
 
+static int test_sync_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_SYNC_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_SYNC");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_sync_0 (void)
 {
+  if (test_sync_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_sync_0");
+    return 0;
+  }
+
   /* InitNone|InitEmpty for test_sync_0 */
   {
     char device[] = "/dev/sda";
@@ -13568,8 +15576,24 @@ static int test_sync_0 (void)
   return 0;
 }
 
+static int test_mount_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_MOUNT_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_MOUNT");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
 static int test_mount_0 (void)
 {
+  if (test_mount_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_mount_0");
+    return 0;
+  }
+
   /* InitNone|InitEmpty for test_mount_0 */
   {
     char device[] = "/dev/sda";
