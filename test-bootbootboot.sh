@@ -26,7 +26,7 @@ set -e
 rm -f test1.img
 dd if=/dev/zero of=test1.img bs=1024k count=500
 
-n=20
+n=10
 if [ -n "$1" ]; then n=$1; fi
 
 export LIBGUESTFS_DEBUG=1
