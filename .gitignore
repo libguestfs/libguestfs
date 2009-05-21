@@ -79,6 +79,7 @@ perl/blib
 perl/pm_to_blib
 po/Makevars.template
 po/POTFILES
+po/remove-potcdate.sed
 po/stamp-it
 po/stamp-po
 python/guestfs.pyc
