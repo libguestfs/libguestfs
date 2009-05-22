@@ -45,12 +45,14 @@ struct cmd {
 };
 
 static char *debug_help (const char *subcmd, int argc, char *const *const argv);
+static char *debug_env (const char *subcmd, int argc, char *const *const argv);
 static char *debug_fds (const char *subcmd, int argc, char *const *const argv);
 static char *debug_segv (const char *subcmd, int argc, char *const *const argv);
 static char *debug_sh (const char *subcmd, int argc, char *const *const argv);
 
 static struct cmd cmds[] = {
   { "help", debug_help },
+  { "env", debug_env },
   { "fds", debug_fds },
   { "segv", debug_segv },
   { "sh", debug_sh },
@@ -196,7 +198,27 @@ debug_sh (const char *subcmd, int argc, char *const *const argv)
 
   r = commandv (&out, &err, argv);
   if (r == -1) {
-    reply_with_error ("ps: %s", err);
+    reply_with_error ("sh: %s", err);
+    free (out);
+    free (err);
+    return NULL;
+  }
+
+  free (err);
+
+  return out;
+}
+
+/* Print the environment that commands get (by running external printenv). */
+static char *
+debug_env (const char *subcmd, int argc, char *const *const argv)
+{
+  int r;
+  char *out, *err;
+
+  r = command (&out, &err, "printenv", NULL);
+  if (r == -1) {
+    reply_with_error ("printenv: %s", err);
     free (out);
     free (err);
     return NULL;
