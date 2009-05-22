@@ -150,6 +150,14 @@ main (int argc, char *argv[])
   if (sigaction (SIGPIPE, &sa, NULL) == -1)
     perror ("sigaction SIGPIPE"); /* but try to continue anyway ... */
 
+  /* Set up a basic environment.  After we are called by /init the
+   * environment is essentially empty.
+   * https://bugzilla.redhat.com/show_bug.cgi?id=502074#c5
+   */
+  setenv ("PATH", "/usr/bin:/bin", 1);
+  setenv ("SHELL", "/bin/sh", 1);
+  setenv ("LANG", "C", 1);
+
   /* Resolve the hostname. */
   memset (&hints, 0, sizeof hints);
   hints.ai_socktype = SOCK_STREAM;
