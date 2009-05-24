@@ -144,6 +144,10 @@ __EOF__
 @FEBOOTSTRAP_INSTALL@ initramfs init.new /init 0755 root.root
 rm init.new
 
+# Just in case the kernel isn't looking for /init, make /sbin/init
+# be our script, not the real init.
+#@FEBOOTSTRAP_RUN@ initramfs -- ln -f /init /sbin/init
+
 # Copy the daemon into the filesystem.
 @FEBOOTSTRAP_INSTALL@ initramfs @abs_builddir@/daemon/guestfsd /sbin/guestfsd 0755 root.root
 
