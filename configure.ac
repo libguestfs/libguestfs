@@ -156,7 +156,7 @@ AC_DEFINE_UNQUOTED([host_cpu],["$host_cpu"],[Host architecture.])
 dnl --with-updates to specify a Fedora updates repository.
 AC_ARG_WITH([updates],
 	[AS_HELP_STRING([--with-updates],
-	  [set name of Fedora updates repository @<:@default=updates-released-f10@:>@])],
+	  [set name of Fedora updates repository @<:@default=updates-released-f11@:>@])],
 	[],
 	[with_updates=updates-released-f11])
 UPDATES="$with_updates"
