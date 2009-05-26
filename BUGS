@@ -3,11 +3,11 @@ libguestfs are now tracked in Red Hat's Bugzilla.
 
 To get a list of bugs against libguestfs use this link:
 
-https://bugzilla.redhat.com/buglist.cgi?component=libguestfs&product=Fedora
+https://bugzilla.redhat.com/buglist.cgi?component=libguestfs&product=Virtualization+Tools
 
 To report a new bug against libguestfs use this link:
 
-https://bugzilla.redhat.com/enter_bug.cgi?component=libguestfs&product=Fedora
+https://bugzilla.redhat.com/enter_bug.cgi?component=libguestfs&product=Virtualization+Tools
 
 When reporting a bug, please check:
 

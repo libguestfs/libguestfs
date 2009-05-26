@@ -695,11 +695,11 @@ L<http://et.redhat.com/~rjones/libguestfs>.
 
 To get a list of bugs against libguestfs use this link:
 
-L<https://bugzilla.redhat.com/buglist.cgi?component=libguestfs&product=Fedora>
+L<https://bugzilla.redhat.com/buglist.cgi?component=libguestfs&product=Virtualization+Tools>
 
 To report a new bug against libguestfs use this link:
 
-L<https://bugzilla.redhat.com/enter_bug.cgi?component=libguestfs&product=Fedora>
+L<https://bugzilla.redhat.com/enter_bug.cgi?component=libguestfs&product=Virtualization+Tools>
 
 When reporting a bug, please check:
 
