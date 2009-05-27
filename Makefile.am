@@ -60,8 +60,6 @@ EXTRA_DIST = \
 	make-recipes.sh \
 	test-cleanup.sh \
 	contrib/README \
-	contrib/centos5.3-libguestfs.spec \
-	contrib/fedora-libguestfs.spec \
 	contrib/febootstrap/install.title \
 	contrib/febootstrap/install.html \
 	contrib/febootstrap/install.sh \
