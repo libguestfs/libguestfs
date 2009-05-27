@@ -6492,11 +6492,16 @@ public class GuestFS {
 	  doc ^ "\n\n" ^ danger_will_robinson
 	else doc in
       let doc = pod2text ~width:60 name doc in
+      let doc = List.map (		(* RHBZ#501883 *)
+	function
+	| "" -> "<p>"
+	| nonempty -> nonempty
+      ) doc in
       let doc = String.concat "\n   * " doc in
 
       pr "  /**\n";
       pr "   * %s\n" shortdesc;
-      pr "   *\n";
+      pr "   * <p>\n";
       pr "   * %s\n" doc;
       pr "   * @throws LibGuestFSException\n";
       pr "   */\n";

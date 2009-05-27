@@ -83,13 +83,13 @@ public class GuestFS {
 
   /**
    * launch the qemu subprocess
-   *
+   * <p>
    * Internally libguestfs is implemented by running a
    * virtual machine using qemu(1).
-   * 
+   * <p>
    * You should call this after configuring the handle (eg.
    * adding drives) but before performing any actions.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void launch ()
@@ -104,13 +104,13 @@ public class GuestFS {
 
   /**
    * wait until the qemu subprocess launches
-   *
+   * <p>
    * Internally libguestfs is implemented by running a
    * virtual machine using qemu(1).
-   * 
+   * <p>
    * You should call this after "g.launch" to wait for the
    * launch to complete.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void wait_ready ()
@@ -125,10 +125,10 @@ public class GuestFS {
 
   /**
    * kill the qemu subprocess
-   *
+   * <p>
    * This kills the qemu subprocess. You should never need to
    * call this.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void kill_subprocess ()
@@ -143,22 +143,22 @@ public class GuestFS {
 
   /**
    * add an image to examine or modify
-   *
+   * <p>
    * This function adds a virtual machine disk image
    * "filename" to the guest. The first time you call this
    * function, the disk appears as IDE disk 0 ("/dev/sda") in
    * the guest, the second time as "/dev/sdb", and so on.
-   * 
+   * <p>
    * You don't necessarily need to be root when using
    * libguestfs. However you obviously do need sufficient
    * permissions to access the filename for whatever
    * operations you want to perform (ie. read access if you
    * just want to read the image or write access if you want
    * to modify the image).
-   * 
+   * <p>
    * This is equivalent to the qemu parameter "-drive
    * file=filename".
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void add_drive (String filename)
@@ -173,13 +173,13 @@ public class GuestFS {
 
   /**
    * add a CD-ROM disk image to examine
-   *
+   * <p>
    * This function adds a virtual CD-ROM disk image to the
    * guest.
-   * 
+   * <p>
    * This is equivalent to the qemu parameter "-cdrom
    * filename".
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void add_cdrom (String filename)
@@ -194,18 +194,18 @@ public class GuestFS {
 
   /**
    * add qemu parameters
-   *
+   * <p>
    * This can be used to add arbitrary qemu command line
    * parameters of the form "-param value". Actually it's not
    * quite arbitrary - we prevent you from setting some
    * parameters which would interfere with parameters that we
    * use.
-   * 
+   * <p>
    * The first character of "param" string must be a "-"
    * (dash).
-   * 
+   * <p>
    * "value" can be NULL.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void config (String qemuparam, String qemuvalue)
@@ -220,18 +220,18 @@ public class GuestFS {
 
   /**
    * set the qemu binary
-   *
+   * <p>
    * Set the qemu binary that we will use.
-   * 
+   * <p>
    * The default is chosen when the library was compiled by
    * the configure script.
-   * 
+   * <p>
    * You can also override this by setting the
    * "LIBGUESTFS_QEMU" environment variable.
-   * 
+   * <p>
    * Setting "qemu" to "NULL" restores the default qemu
    * binary.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void set_qemu (String qemu)
@@ -246,12 +246,12 @@ public class GuestFS {
 
   /**
    * get the qemu binary
-   *
+   * <p>
    * Return the current qemu binary.
-   * 
+   * <p>
    * This is always non-NULL. If it wasn't set already, then
    * this will return the default qemu binary name.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public String get_qemu ()
@@ -266,15 +266,15 @@ public class GuestFS {
 
   /**
    * set the search path
-   *
+   * <p>
    * Set the path that libguestfs searches for kernel and
    * initrd.img.
-   * 
+   * <p>
    * The default is "$libdir/guestfs" unless overridden by
    * setting "LIBGUESTFS_PATH" environment variable.
-   * 
+   * <p>
    * Setting "path" to "NULL" restores the default path.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void set_path (String path)
@@ -289,12 +289,12 @@ public class GuestFS {
 
   /**
    * get the search path
-   *
+   * <p>
    * Return the current search path.
-   * 
+   * <p>
    * This is always non-NULL. If it wasn't set already, then
    * this will return the default path.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public String get_path ()
@@ -309,16 +309,16 @@ public class GuestFS {
 
   /**
    * add options to kernel command line
-   *
+   * <p>
    * This function is used to add additional options to the
    * guest kernel command line.
-   * 
+   * <p>
    * The default is "NULL" unless overridden by setting
    * "LIBGUESTFS_APPEND" environment variable.
-   * 
+   * <p>
    * Setting "append" to "NULL" means *no* additional options
    * are passed (libguestfs always adds a few of its own).
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void set_append (String append)
@@ -333,12 +333,12 @@ public class GuestFS {
 
   /**
    * get the additional kernel options
-   *
+   * <p>
    * Return the additional kernel options which are added to
    * the guest kernel command line.
-   * 
+   * <p>
    * If "NULL" then no options are added.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public String get_append ()
@@ -353,15 +353,15 @@ public class GuestFS {
 
   /**
    * set autosync mode
-   *
+   * <p>
    * If "autosync" is true, this enables autosync. Libguestfs
    * will make a best effort attempt to run "g.umount_all"
    * followed by "g.sync" when the handle is closed (also if
    * the program exits without closing handles).
-   * 
+   * <p>
    * This is disabled by default (except in guestfish where
    * it is enabled by default).
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void set_autosync (boolean autosync)
@@ -376,9 +376,9 @@ public class GuestFS {
 
   /**
    * get autosync mode
-   *
+   * <p>
    * Get the autosync flag.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public boolean get_autosync ()
@@ -393,13 +393,13 @@ public class GuestFS {
 
   /**
    * set verbose mode
-   *
+   * <p>
    * If "verbose" is true, this turns on verbose messages (to
    * "stderr").
-   * 
+   * <p>
    * Verbose messages are disabled unless the environment
    * variable "LIBGUESTFS_DEBUG" is defined and set to 1.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void set_verbose (boolean verbose)
@@ -414,9 +414,9 @@ public class GuestFS {
 
   /**
    * get verbose mode
-   *
+   * <p>
    * This returns the verbose messages flag.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public boolean get_verbose ()
@@ -431,12 +431,12 @@ public class GuestFS {
 
   /**
    * is ready to accept commands
-   *
+   * <p>
    * This returns true iff this handle is ready to accept
    * commands (in the "READY" state).
-   * 
+   * <p>
    * For more information on states, see guestfs(3).
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public boolean is_ready ()
@@ -451,12 +451,12 @@ public class GuestFS {
 
   /**
    * is in configuration state
-   *
+   * <p>
    * This returns true iff this handle is being configured
    * (in the "CONFIG" state).
-   * 
+   * <p>
    * For more information on states, see guestfs(3).
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public boolean is_config ()
@@ -471,12 +471,12 @@ public class GuestFS {
 
   /**
    * is launching subprocess
-   *
+   * <p>
    * This returns true iff this handle is launching the
    * subprocess (in the "LAUNCHING" state).
-   * 
+   * <p>
    * For more information on states, see guestfs(3).
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public boolean is_launching ()
@@ -491,12 +491,12 @@ public class GuestFS {
 
   /**
    * is busy processing a command
-   *
+   * <p>
    * This returns true iff this handle is busy processing a
    * command (in the "BUSY" state).
-   * 
+   * <p>
    * For more information on states, see guestfs(3).
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public boolean is_busy ()
@@ -511,13 +511,13 @@ public class GuestFS {
 
   /**
    * get the current state
-   *
+   * <p>
    * This returns the current state as an opaque integer.
    * This is only useful for printing debug and internal
    * error messages.
-   * 
+   * <p>
    * For more information on states, see guestfs(3).
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public int get_state ()
@@ -532,12 +532,12 @@ public class GuestFS {
 
   /**
    * set state to busy
-   *
+   * <p>
    * This sets the state to "BUSY". This is only used when
    * implementing actions using the low-level API.
-   * 
+   * <p>
    * For more information on states, see guestfs(3).
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void set_busy ()
@@ -552,12 +552,12 @@ public class GuestFS {
 
   /**
    * set state to ready
-   *
+   * <p>
    * This sets the state to "READY". This is only used when
    * implementing actions using the low-level API.
-   * 
+   * <p>
    * For more information on states, see guestfs(3).
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void set_ready ()
@@ -572,13 +572,13 @@ public class GuestFS {
 
   /**
    * leave the busy state
-   *
+   * <p>
    * This sets the state to "READY", or if in "CONFIG" then
    * it leaves the state as is. This is only used when
    * implementing actions using the low-level API.
-   * 
+   * <p>
    * For more information on states, see guestfs(3).
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void end_busy ()
@@ -593,25 +593,25 @@ public class GuestFS {
 
   /**
    * mount a guest disk at a position in the filesystem
-   *
+   * <p>
    * Mount a guest disk at a position in the filesystem.
    * Block devices are named "/dev/sda", "/dev/sdb" and so
    * on, as they were added to the guest. If those block
    * devices contain partitions, they will have the usual
    * names (eg. "/dev/sda1"). Also LVM "/dev/VG/LV"-style
    * names can be used.
-   * 
+   * <p>
    * The rules are the same as for mount(2): A filesystem
    * must first be mounted on "/" before others can be
    * mounted. Other filesystems can only be mounted on
    * directories which already exist.
-   * 
+   * <p>
    * The mounted filesystem is writable, if we have
    * sufficient permissions on the underlying device.
-   * 
+   * <p>
    * The filesystem options "sync" and "noatime" are set with
    * this call, in order to improve reliability.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void mount (String device, String mountpoint)
@@ -626,13 +626,13 @@ public class GuestFS {
 
   /**
    * sync disks, writes are flushed through to the disk image
-   *
+   * <p>
    * This syncs the disk, so that any writes are flushed
    * through to the underlying disk image.
-   * 
+   * <p>
    * You should always call this if you have modified a disk
    * image, before closing the handle.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void sync ()
@@ -647,11 +647,11 @@ public class GuestFS {
 
   /**
    * update file timestamps or create a new file
-   *
+   * <p>
    * Touch acts like the touch(1) command. It can be used to
    * update the timestamps on a file, or, if the file does
    * not exist, to create a new zero-length file.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void touch (String path)
@@ -666,19 +666,19 @@ public class GuestFS {
 
   /**
    * list the contents of a file
-   *
+   * <p>
    * Return the contents of the file named "path".
-   * 
+   * <p>
    * Note that this function cannot correctly handle binary
    * files (specifically, files containing "\0" character
    * which is treated as end of string). For those you need
    * to use the "g.download" function which has a more
    * complex interface.
-   * 
+   * <p>
    * Because of the message protocol, there is a transfer
    * limit of somewhere between 2MB and 4MB. To transfer
    * large files you should use FTP.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public String cat (String path)
@@ -693,14 +693,14 @@ public class GuestFS {
 
   /**
    * list the files in a directory (long format)
-   *
+   * <p>
    * List the files in "directory" (relative to the root
    * directory, there is no cwd) in the format of 'ls -la'.
-   * 
+   * <p>
    * This command is mostly useful for interactive sessions.
    * It is *not* intended that you try to parse the output
    * string.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public String ll (String directory)
@@ -715,14 +715,14 @@ public class GuestFS {
 
   /**
    * list the files in a directory
-   *
+   * <p>
    * List the files in "directory" (relative to the root
    * directory, there is no cwd). The '.' and '..' entries
    * are not returned, but hidden files are shown.
-   * 
+   * <p>
    * This command is mostly useful for interactive sessions.
    * Programs should probably use "g.readdir" instead.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public String[] ls (String directory)
@@ -737,11 +737,11 @@ public class GuestFS {
 
   /**
    * list the block devices
-   *
+   * <p>
    * List all the block devices.
-   * 
+   * <p>
    * The full block device names are returned, eg. "/dev/sda"
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public String[] list_devices ()
@@ -756,15 +756,15 @@ public class GuestFS {
 
   /**
    * list the partitions
-   *
+   * <p>
    * List all the partitions detected on all block devices.
-   * 
+   * <p>
    * The full partition device names are returned, eg.
    * "/dev/sda1"
-   * 
+   * <p>
    * This does not return logical volumes. For that you will
    * need to call "g.lvs".
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public String[] list_partitions ()
@@ -779,15 +779,15 @@ public class GuestFS {
 
   /**
    * list the LVM physical volumes (PVs)
-   *
+   * <p>
    * List all the physical volumes detected. This is the
    * equivalent of the pvs(8) command.
-   * 
+   * <p>
    * This returns a list of just the device names that
    * contain PVs (eg. "/dev/sda2").
-   * 
+   * <p>
    * See also "g.pvs_full".
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public String[] pvs ()
@@ -802,15 +802,15 @@ public class GuestFS {
 
   /**
    * list the LVM volume groups (VGs)
-   *
+   * <p>
    * List all the volumes groups detected. This is the
    * equivalent of the vgs(8) command.
-   * 
+   * <p>
    * This returns a list of just the volume group names that
    * were detected (eg. "VolGroup00").
-   * 
+   * <p>
    * See also "g.vgs_full".
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public String[] vgs ()
@@ -825,15 +825,15 @@ public class GuestFS {
 
   /**
    * list the LVM logical volumes (LVs)
-   *
+   * <p>
    * List all the logical volumes detected. This is the
    * equivalent of the lvs(8) command.
-   * 
+   * <p>
    * This returns a list of the logical volume device names
    * (eg. "/dev/VolGroup00/LogVol00").
-   * 
+   * <p>
    * See also "g.lvs_full".
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public String[] lvs ()
@@ -848,11 +848,11 @@ public class GuestFS {
 
   /**
    * list the LVM physical volumes (PVs)
-   *
+   * <p>
    * List all the physical volumes detected. This is the
    * equivalent of the pvs(8) command. The "full" version
    * includes all fields.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public PV[] pvs_full ()
@@ -867,11 +867,11 @@ public class GuestFS {
 
   /**
    * list the LVM volume groups (VGs)
-   *
+   * <p>
    * List all the volumes groups detected. This is the
    * equivalent of the vgs(8) command. The "full" version
    * includes all fields.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public VG[] vgs_full ()
@@ -886,11 +886,11 @@ public class GuestFS {
 
   /**
    * list the LVM logical volumes (LVs)
-   *
+   * <p>
    * List all the logical volumes detected. This is the
    * equivalent of the lvs(8) command. The "full" version
    * includes all fields.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public LV[] lvs_full ()
@@ -905,19 +905,19 @@ public class GuestFS {
 
   /**
    * read file as lines
-   *
+   * <p>
    * Return the contents of the file named "path".
-   * 
+   * <p>
    * The file contents are returned as a list of lines.
    * Trailing "LF" and "CRLF" character sequences are *not*
    * returned.
-   * 
+   * <p>
    * Note that this function cannot correctly handle binary
    * files (specifically, files containing "\0" character
    * which is treated as end of line). For those you need to
    * use the "g.read_file" function which has a more complex
    * interface.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public String[] read_lines (String path)
@@ -932,45 +932,45 @@ public class GuestFS {
 
   /**
    * create a new Augeas handle
-   *
+   * <p>
    * Create a new Augeas handle for editing configuration
    * files. If there was any previous Augeas handle
    * associated with this guestfs session, then it is closed.
-   * 
+   * <p>
    * You must call this before using any other "g.aug_*"
    * commands.
-   * 
+   * <p>
    * "root" is the filesystem root. "root" must not be NULL,
    * use "/" instead.
-   * 
+   * <p>
    * The flags are the same as the flags defined in
    * <augeas.h>, the logical *or* of the following integers:
-   * 
+   * <p>
    * "AUG_SAVE_BACKUP" = 1
    * Keep the original file with a ".augsave" extension.
-   * 
+   * <p>
    * "AUG_SAVE_NEWFILE" = 2
    * Save changes into a file with extension ".augnew",
    * and do not overwrite original. Overrides
    * "AUG_SAVE_BACKUP".
-   * 
+   * <p>
    * "AUG_TYPE_CHECK" = 4
    * Typecheck lenses (can be expensive).
-   * 
+   * <p>
    * "AUG_NO_STDINC" = 8
    * Do not use standard load path for modules.
-   * 
+   * <p>
    * "AUG_SAVE_NOOP" = 16
    * Make save a no-op, just record what would have been
    * changed.
-   * 
+   * <p>
    * "AUG_NO_LOAD" = 32
    * Do not load the tree in "g.aug_init".
-   * 
+   * <p>
    * To close the handle, you can call "g.aug_close".
-   * 
+   * <p>
    * To find out more about Augeas, see <http://augeas.net/>.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void aug_init (String root, int flags)
@@ -985,12 +985,12 @@ public class GuestFS {
 
   /**
    * close the current Augeas handle
-   *
+   * <p>
    * Close the current Augeas handle and free up any
    * resources used by it. After calling this, you have to
    * call "g.aug_init" again before you can use any other
    * Augeas functions.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void aug_close ()
@@ -1005,15 +1005,15 @@ public class GuestFS {
 
   /**
    * define an Augeas variable
-   *
+   * <p>
    * Defines an Augeas variable "name" whose value is the
    * result of evaluating "expr". If "expr" is NULL, then
    * "name" is undefined.
-   * 
+   * <p>
    * On success this returns the number of nodes in "expr",
    * or 0 if "expr" evaluates to something which is not a
    * nodeset.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public int aug_defvar (String name, String expr)
@@ -1028,19 +1028,19 @@ public class GuestFS {
 
   /**
    * define an Augeas node
-   *
+   * <p>
    * Defines a variable "name" whose value is the result of
    * evaluating "expr".
-   * 
+   * <p>
    * If "expr" evaluates to an empty nodeset, a node is
    * created, equivalent to calling "g.aug_set" "expr",
    * "value". "name" will be the nodeset containing that
    * single node.
-   * 
+   * <p>
    * On success this returns a pair containing the number of
    * nodes in the nodeset, and a boolean flag if a node was
    * created.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public IntBool aug_defnode (String name, String expr, String val)
@@ -1055,10 +1055,10 @@ public class GuestFS {
 
   /**
    * look up the value of an Augeas path
-   *
+   * <p>
    * Look up the value associated with "path". If "path"
    * matches exactly one node, the "value" is returned.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public String aug_get (String path)
@@ -1073,9 +1073,9 @@ public class GuestFS {
 
   /**
    * set Augeas path to value
-   *
+   * <p>
    * Set the value associated with "path" to "value".
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void aug_set (String path, String val)
@@ -1090,15 +1090,15 @@ public class GuestFS {
 
   /**
    * insert a sibling Augeas node
-   *
+   * <p>
    * Create a new sibling "label" for "path", inserting it
    * into the tree before or after "path" (depending on the
    * boolean flag "before").
-   * 
+   * <p>
    * "path" must match exactly one existing node in the tree,
    * and "label" must be a label, ie. not contain "/", "*" or
    * end with a bracketed index "[N]".
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void aug_insert (String path, String label, boolean before)
@@ -1113,12 +1113,12 @@ public class GuestFS {
 
   /**
    * remove an Augeas path
-   *
+   * <p>
    * Remove "path" and all of its children.
-   * 
+   * <p>
    * On success this returns the number of entries which were
    * removed.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public int aug_rm (String path)
@@ -1133,10 +1133,10 @@ public class GuestFS {
 
   /**
    * move Augeas node
-   *
+   * <p>
    * Move the node "src" to "dest". "src" must match exactly
    * one node. "dest" is overwritten if it exists.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void aug_mv (String src, String dest)
@@ -1151,11 +1151,11 @@ public class GuestFS {
 
   /**
    * return Augeas nodes which match path
-   *
+   * <p>
    * Returns a list of paths which match the path expression
    * "path". The returned paths are sufficiently qualified so
    * that they match exactly one node in the current tree.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public String[] aug_match (String path)
@@ -1170,12 +1170,12 @@ public class GuestFS {
 
   /**
    * write all pending Augeas changes to disk
-   *
+   * <p>
    * This writes all pending changes to disk.
-   * 
+   * <p>
    * The flags which were passed to "g.aug_init" affect
    * exactly how files are saved.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void aug_save ()
@@ -1190,12 +1190,12 @@ public class GuestFS {
 
   /**
    * load files into the tree
-   *
+   * <p>
    * Load files into the tree.
-   * 
+   * <p>
    * See "aug_load" in the Augeas documentation for the full
    * gory details.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void aug_load ()
@@ -1210,11 +1210,11 @@ public class GuestFS {
 
   /**
    * list Augeas nodes under a path
-   *
+   * <p>
    * This is just a shortcut for listing "g.aug_match"
    * "path/*" and sorting the resulting nodes into
    * alphabetical order.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public String[] aug_ls (String path)
@@ -1229,9 +1229,9 @@ public class GuestFS {
 
   /**
    * remove a file
-   *
+   * <p>
    * Remove the single file "path".
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void rm (String path)
@@ -1246,9 +1246,9 @@ public class GuestFS {
 
   /**
    * remove a directory
-   *
+   * <p>
    * Remove the single directory "path".
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void rmdir (String path)
@@ -1263,11 +1263,11 @@ public class GuestFS {
 
   /**
    * remove a file or directory recursively
-   *
+   * <p>
    * Remove the file or directory "path", recursively
    * removing the contents if its a directory. This is like
    * the "rm -rf" shell command.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void rm_rf (String path)
@@ -1282,9 +1282,9 @@ public class GuestFS {
 
   /**
    * create a directory
-   *
+   * <p>
    * Create a directory named "path".
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void mkdir (String path)
@@ -1299,11 +1299,11 @@ public class GuestFS {
 
   /**
    * create a directory and parents
-   *
+   * <p>
    * Create a directory named "path", creating any parent
    * directories as necessary. This is like the "mkdir -p"
    * shell command.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void mkdir_p (String path)
@@ -1318,10 +1318,10 @@ public class GuestFS {
 
   /**
    * change file mode
-   *
+   * <p>
    * Change the mode (permissions) of "path" to "mode". Only
    * numeric modes are supported.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void chmod (int mode, String path)
@@ -1336,14 +1336,14 @@ public class GuestFS {
 
   /**
    * change file owner and group
-   *
+   * <p>
    * Change the file owner to "owner" and group to "group".
-   * 
+   * <p>
    * Only numeric uid and gid are supported. If you want to
    * use names, you will need to locate and parse the
    * password file yourself (Augeas support makes this
    * relatively easy).
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void chown (int owner, int group, String path)
@@ -1358,12 +1358,12 @@ public class GuestFS {
 
   /**
    * test if file or directory exists
-   *
+   * <p>
    * This returns "true" if and only if there is a file,
    * directory (or anything) with the given "path" name.
-   * 
+   * <p>
    * See also "g.is_file", "g.is_dir", "g.stat".
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public boolean exists (String path)
@@ -1378,13 +1378,13 @@ public class GuestFS {
 
   /**
    * test if file exists
-   *
+   * <p>
    * This returns "true" if and only if there is a file with
    * the given "path" name. Note that it returns false for
    * other objects like directories.
-   * 
+   * <p>
    * See also "g.stat".
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public boolean is_file (String path)
@@ -1399,13 +1399,13 @@ public class GuestFS {
 
   /**
    * test if file exists
-   *
+   * <p>
    * This returns "true" if and only if there is a directory
    * with the given "path" name. Note that it returns false
    * for other objects like files.
-   * 
+   * <p>
    * See also "g.stat".
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public boolean is_dir (String path)
@@ -1420,11 +1420,11 @@ public class GuestFS {
 
   /**
    * create an LVM physical volume
-   *
+   * <p>
    * This creates an LVM physical volume on the named
    * "device", where "device" should usually be a partition
    * name such as "/dev/sda1".
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void pvcreate (String device)
@@ -1439,10 +1439,10 @@ public class GuestFS {
 
   /**
    * create an LVM volume group
-   *
+   * <p>
    * This creates an LVM volume group called "volgroup" from
    * the non-empty list of physical volumes "physvols".
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void vgcreate (String volgroup, String[] physvols)
@@ -1457,10 +1457,10 @@ public class GuestFS {
 
   /**
    * create an LVM volume group
-   *
+   * <p>
    * This creates an LVM volume group called "logvol" on the
    * volume group "volgroup", with "size" megabytes.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void lvcreate (String logvol, String volgroup, int mbytes)
@@ -1475,11 +1475,11 @@ public class GuestFS {
 
   /**
    * make a filesystem
-   *
+   * <p>
    * This creates a filesystem on "device" (usually a
    * partition or LVM logical volume). The filesystem type is
    * "fstype", for example "ext3".
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void mkfs (String fstype, String device)
@@ -1494,13 +1494,13 @@ public class GuestFS {
 
   /**
    * create partitions on a block device
-   *
+   * <p>
    * This is a direct interface to the sfdisk(8) program for
    * creating partitions on block devices.
-   * 
+   * <p>
    * "device" should be a block device, for example
    * "/dev/sda".
-   * 
+   * <p>
    * "cyls", "heads" and "sectors" are the number of
    * cylinders, heads and sectors on the device, which are
    * passed directly to sfdisk as the *-C*, *-H* and *-S*
@@ -1510,19 +1510,19 @@ public class GuestFS {
    * (floppy-sized) disks, sfdisk (or rather, the kernel)
    * cannot work out the right geometry and you will need to
    * tell it.
-   * 
+   * <p>
    * "lines" is a list of lines that we feed to "sfdisk". For
    * more information refer to the sfdisk(8) manpage.
-   * 
+   * <p>
    * To create a single partition occupying the whole disk,
    * you would pass "lines" as a single element list, when
    * the single element being the string "," (comma).
-   * 
+   * <p>
    * See also: "g.sfdisk_l", "g.sfdisk_N"
-   * 
+   * <p>
    * This command is dangerous. Without careful use you can
    * easily destroy all your data.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void sfdisk (String device, int cyls, int heads, int sectors, String[] lines)
@@ -1537,24 +1537,24 @@ public class GuestFS {
 
   /**
    * create a file
-   *
+   * <p>
    * This call creates a file called "path". The contents of
    * the file is the string "content" (which can contain any
    * 8 bit data), with length "size".
-   * 
+   * <p>
    * As a special case, if "size" is 0 then the length is
    * calculated using "strlen" (so in this case the content
    * cannot contain embedded ASCII NULs).
-   * 
+   * <p>
    * *NB.* Owing to a bug, writing content containing ASCII
    * NUL characters does *not* work, even if the length is
    * specified. We hope to resolve this bug in a future
    * version. In the meantime use "g.upload".
-   * 
+   * <p>
    * Because of the message protocol, there is a transfer
    * limit of somewhere between 2MB and 4MB. To transfer
    * large files you should use FTP.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void write_file (String path, String content, int size)
@@ -1569,11 +1569,11 @@ public class GuestFS {
 
   /**
    * unmount a filesystem
-   *
+   * <p>
    * This unmounts the given filesystem. The filesystem may
    * be specified either by its mountpoint (path) or the
    * device which contains the filesystem.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void umount (String pathordevice)
@@ -1588,13 +1588,13 @@ public class GuestFS {
 
   /**
    * show mounted filesystems
-   *
+   * <p>
    * This returns the list of currently mounted filesystems.
    * It returns the list of devices (eg. "/dev/sda1",
    * "/dev/VG/LV").
-   * 
+   * <p>
    * Some internal mounts are not shown.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public String[] mounts ()
@@ -1609,11 +1609,11 @@ public class GuestFS {
 
   /**
    * unmount all filesystems
-   *
+   * <p>
    * This unmounts all mounted filesystems.
-   * 
+   * <p>
    * Some internal mounts are not unmounted by this call.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void umount_all ()
@@ -1628,13 +1628,13 @@ public class GuestFS {
 
   /**
    * remove all LVM LVs, VGs and PVs
-   *
+   * <p>
    * This command removes all LVM logical volumes, volume
    * groups and physical volumes.
-   * 
+   * <p>
    * This command is dangerous. Without careful use you can
    * easily destroy all your data.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void lvm_remove_all ()
@@ -1649,16 +1649,16 @@ public class GuestFS {
 
   /**
    * determine file type
-   *
+   * <p>
    * This call uses the standard file(1) command to determine
    * the type or contents of the file. This also works on
    * devices, for example to find out whether a partition
    * contains a filesystem.
-   * 
+   * <p>
    * The exact command which runs is "file -bsL path". Note
    * in particular that the filename is not prepended to the
    * output (the "-b" option).
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public String file (String path)
@@ -1673,39 +1673,39 @@ public class GuestFS {
 
   /**
    * run a command from the guest filesystem
-   *
+   * <p>
    * This call runs a command from the guest filesystem. The
    * filesystem must be mounted, and must contain a
    * compatible operating system (ie. something Linux, with
    * the same or compatible processor architecture).
-   * 
+   * <p>
    * The single parameter is an argv-style list of arguments.
    * The first element is the name of the program to run.
    * Subsequent elements are parameters. The list must be
    * non-empty (ie. must contain a program name).
-   * 
+   * <p>
    * The return value is anything printed to *stdout* by the
    * command.
-   * 
+   * <p>
    * If the command returns a non-zero exit status, then this
    * function returns an error message. The error message
    * string is the content of *stderr* from the command.
-   * 
+   * <p>
    * The $PATH environment variable will contain at least
    * "/usr/bin" and "/bin". If you require a program from
    * another location, you should provide the full path in
    * the first parameter.
-   * 
+   * <p>
    * Shared libraries and data files required by the program
    * must be available on filesystems which are mounted in
    * the correct places. It is the caller's responsibility to
    * ensure all filesystems that are needed are mounted at
    * the right locations.
-   * 
+   * <p>
    * Because of the message protocol, there is a transfer
    * limit of somewhere between 2MB and 4MB. To transfer
    * large files you should use FTP.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public String command (String[] arguments)
@@ -1720,14 +1720,14 @@ public class GuestFS {
 
   /**
    * run a command, returning lines
-   *
+   * <p>
    * This is the same as "g.command", but splits the result
    * into a list of lines.
-   * 
+   * <p>
    * Because of the message protocol, there is a transfer
    * limit of somewhere between 2MB and 4MB. To transfer
    * large files you should use FTP.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public String[] command_lines (String[] arguments)
@@ -1742,11 +1742,11 @@ public class GuestFS {
 
   /**
    * get file information
-   *
+   * <p>
    * Returns file information for the given "path".
-   * 
+   * <p>
    * This is the same as the stat(2) system call.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public Stat stat (String path)
@@ -1761,15 +1761,15 @@ public class GuestFS {
 
   /**
    * get file information for a symbolic link
-   *
+   * <p>
    * Returns file information for the given "path".
-   * 
+   * <p>
    * This is the same as "g.stat" except that if "path" is a
    * symbolic link, then the link is stat-ed, not the file it
    * refers to.
-   * 
+   * <p>
    * This is the same as the lstat(2) system call.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public Stat lstat (String path)
@@ -1784,14 +1784,14 @@ public class GuestFS {
 
   /**
    * get file system statistics
-   *
+   * <p>
    * Returns file system statistics for any mounted file
    * system. "path" should be a file or directory in the
    * mounted file system (typically it is the mount point
    * itself, but it doesn't need to be).
-   * 
+   * <p>
    * This is the same as the statvfs(2) system call.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public StatVFS statvfs (String path)
@@ -1806,16 +1806,16 @@ public class GuestFS {
 
   /**
    * get ext2/ext3/ext4 superblock details
-   *
+   * <p>
    * This returns the contents of the ext2, ext3 or ext4
    * filesystem superblock on "device".
-   * 
+   * <p>
    * It is the same as running "tune2fs -l device". See
    * tune2fs(8) manpage for more details. The list of fields
    * returned isn't clearly defined, and depends on both the
    * version of "tune2fs" that libguestfs was built against,
    * and the filesystem itself.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public HashMap<String,String> tune2fs_l (String device)
@@ -1830,11 +1830,11 @@ public class GuestFS {
 
   /**
    * set block device to read-only
-   *
+   * <p>
    * Sets the block device named "device" to read-only.
-   * 
+   * <p>
    * This uses the blockdev(8) command.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void blockdev_setro (String device)
@@ -1849,11 +1849,11 @@ public class GuestFS {
 
   /**
    * set block device to read-write
-   *
+   * <p>
    * Sets the block device named "device" to read-write.
-   * 
+   * <p>
    * This uses the blockdev(8) command.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void blockdev_setrw (String device)
@@ -1868,12 +1868,12 @@ public class GuestFS {
 
   /**
    * is block device set to read-only
-   *
+   * <p>
    * Returns a boolean indicating if the block device is
    * read-only (true if read-only, false if not).
-   * 
+   * <p>
    * This uses the blockdev(8) command.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public boolean blockdev_getro (String device)
@@ -1888,15 +1888,15 @@ public class GuestFS {
 
   /**
    * get sectorsize of block device
-   *
+   * <p>
    * This returns the size of sectors on a block device.
    * Usually 512, but can be larger for modern devices.
-   * 
+   * <p>
    * (Note, this is not the size in sectors, use
    * "g.blockdev_getsz" for that).
-   * 
+   * <p>
    * This uses the blockdev(8) command.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public int blockdev_getss (String device)
@@ -1911,14 +1911,14 @@ public class GuestFS {
 
   /**
    * get blocksize of block device
-   *
+   * <p>
    * This returns the block size of a device.
-   * 
+   * <p>
    * (Note this is different from both *size in blocks* and
    * *filesystem block size*).
-   * 
+   * <p>
    * This uses the blockdev(8) command.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public int blockdev_getbsz (String device)
@@ -1933,14 +1933,14 @@ public class GuestFS {
 
   /**
    * set blocksize of block device
-   *
+   * <p>
    * This sets the block size of a device.
-   * 
+   * <p>
    * (Note this is different from both *size in blocks* and
    * *filesystem block size*).
-   * 
+   * <p>
    * This uses the blockdev(8) command.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void blockdev_setbsz (String device, int blocksize)
@@ -1955,17 +1955,17 @@ public class GuestFS {
 
   /**
    * get total size of device in 512-byte sectors
-   *
+   * <p>
    * This returns the size of the device in units of 512-byte
    * sectors (even if the sectorsize isn't 512 bytes ...
    * weird).
-   * 
+   * <p>
    * See also "g.blockdev_getss" for the real sector size of
    * the device, and "g.blockdev_getsize64" for the more
    * useful *size in bytes*.
-   * 
+   * <p>
    * This uses the blockdev(8) command.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public long blockdev_getsz (String device)
@@ -1980,13 +1980,13 @@ public class GuestFS {
 
   /**
    * get total size of device in bytes
-   *
+   * <p>
    * This returns the size of the device in bytes.
-   * 
+   * <p>
    * See also "g.blockdev_getsz".
-   * 
+   * <p>
    * This uses the blockdev(8) command.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public long blockdev_getsize64 (String device)
@@ -2001,12 +2001,12 @@ public class GuestFS {
 
   /**
    * flush device buffers
-   *
+   * <p>
    * This tells the kernel to flush internal buffers
    * associated with "device".
-   * 
+   * <p>
    * This uses the blockdev(8) command.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void blockdev_flushbufs (String device)
@@ -2021,11 +2021,11 @@ public class GuestFS {
 
   /**
    * reread partition table
-   *
+   * <p>
    * Reread the partition table on "device".
-   * 
+   * <p>
    * This uses the blockdev(8) command.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void blockdev_rereadpt (String device)
@@ -2040,14 +2040,14 @@ public class GuestFS {
 
   /**
    * upload a file from the local machine
-   *
+   * <p>
    * Upload local file "filename" to "remotefilename" on the
    * filesystem.
-   * 
+   * <p>
    * "filename" can also be a named pipe.
-   * 
+   * <p>
    * See also "g.download".
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void upload (String filename, String remotefilename)
@@ -2062,14 +2062,14 @@ public class GuestFS {
 
   /**
    * download a file to the local machine
-   *
+   * <p>
    * Download file "remotefilename" and save it as "filename"
    * on the local machine.
-   * 
+   * <p>
    * "filename" can also be a named pipe.
-   * 
+   * <p>
    * See also "g.upload", "g.cat".
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void download (String remotefilename, String filename)
@@ -2084,42 +2084,42 @@ public class GuestFS {
 
   /**
    * compute MD5, SHAx or CRC checksum of file
-   *
+   * <p>
    * This call computes the MD5, SHAx or CRC checksum of the
    * file named "path".
-   * 
+   * <p>
    * The type of checksum to compute is given by the
    * "csumtype" parameter which must have one of the
    * following values:
-   * 
+   * <p>
    * "crc"
    * Compute the cyclic redundancy check (CRC) specified
    * by POSIX for the "cksum" command.
-   * 
+   * <p>
    * "md5"
    * Compute the MD5 hash (using the "md5sum" program).
-   * 
+   * <p>
    * "sha1"
    * Compute the SHA1 hash (using the "sha1sum" program).
-   * 
+   * <p>
    * "sha224"
    * Compute the SHA224 hash (using the "sha224sum"
    * program).
-   * 
+   * <p>
    * "sha256"
    * Compute the SHA256 hash (using the "sha256sum"
    * program).
-   * 
+   * <p>
    * "sha384"
    * Compute the SHA384 hash (using the "sha384sum"
    * program).
-   * 
+   * <p>
    * "sha512"
    * Compute the SHA512 hash (using the "sha512sum"
    * program).
-   * 
+   * <p>
    * The checksum is returned as a printable string.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public String checksum (String csumtype, String path)
@@ -2134,12 +2134,12 @@ public class GuestFS {
 
   /**
    * unpack tarfile to directory
-   *
+   * <p>
    * This command uploads and unpacks local file "tarfile"
    * (an *uncompressed* tar file) into "directory".
-   * 
+   * <p>
    * To upload a compressed tarball, use "g.tgz_in".
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void tar_in (String tarfile, String directory)
@@ -2154,12 +2154,12 @@ public class GuestFS {
 
   /**
    * pack directory into tarfile
-   *
+   * <p>
    * This command packs the contents of "directory" and
    * downloads it to local file "tarfile".
-   * 
+   * <p>
    * To download a compressed tarball, use "g.tgz_out".
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void tar_out (String directory, String tarfile)
@@ -2174,12 +2174,12 @@ public class GuestFS {
 
   /**
    * unpack compressed tarball to directory
-   *
+   * <p>
    * This command uploads and unpacks local file "tarball" (a
    * *gzip compressed* tar file) into "directory".
-   * 
+   * <p>
    * To upload an uncompressed tarball, use "g.tar_in".
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void tgz_in (String tarball, String directory)
@@ -2194,12 +2194,12 @@ public class GuestFS {
 
   /**
    * pack directory into compressed tarball
-   *
+   * <p>
    * This command packs the contents of "directory" and
    * downloads it to local file "tarball".
-   * 
+   * <p>
    * To download an uncompressed tarball, use "g.tar_out".
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void tgz_out (String directory, String tarball)
@@ -2214,10 +2214,10 @@ public class GuestFS {
 
   /**
    * mount a guest disk, read-only
-   *
+   * <p>
    * This is the same as the "g.mount" command, but it mounts
    * the filesystem with the read-only (*-o ro*) flag.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void mount_ro (String device, String mountpoint)
@@ -2232,11 +2232,11 @@ public class GuestFS {
 
   /**
    * mount a guest disk with mount options
-   *
+   * <p>
    * This is the same as the "g.mount" command, but it allows
    * you to set the mount options as for the mount(8) *-o*
    * flag.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void mount_options (String options, String device, String mountpoint)
@@ -2251,11 +2251,11 @@ public class GuestFS {
 
   /**
    * mount a guest disk with mount options and vfstype
-   *
+   * <p>
    * This is the same as the "g.mount" command, but it allows
    * you to set both the mount options and the vfstype as for
    * the mount(8) *-o* and *-t* flags.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void mount_vfs (String options, String vfstype, String device, String mountpoint)
@@ -2270,15 +2270,15 @@ public class GuestFS {
 
   /**
    * debugging and internals
-   *
+   * <p>
    * The "g.debug" command exposes some internals of
    * "guestfsd" (the guestfs daemon) that runs inside the
    * qemu subprocess.
-   * 
+   * <p>
    * There is no comprehensive help for this command. You
    * have to look at the file "daemon/debug.c" in the
    * libguestfs source to find out what you can do.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public String debug (String subcmd, String[] extraargs)
@@ -2293,13 +2293,13 @@ public class GuestFS {
 
   /**
    * remove an LVM logical volume
-   *
+   * <p>
    * Remove an LVM logical volume "device", where "device" is
    * the path to the LV, such as "/dev/VG/LV".
-   * 
+   * <p>
    * You can also remove all LVs in a volume group by
    * specifying the VG name, "/dev/VG".
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void lvremove (String device)
@@ -2314,12 +2314,12 @@ public class GuestFS {
 
   /**
    * remove an LVM volume group
-   *
+   * <p>
    * Remove an LVM volume group "vgname", (for example "VG").
-   * 
+   * <p>
    * This also forcibly removes all logical volumes in the
    * volume group (if any).
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void vgremove (String vgname)
@@ -2334,14 +2334,14 @@ public class GuestFS {
 
   /**
    * remove an LVM physical volume
-   *
+   * <p>
    * This wipes a physical volume "device" so that LVM will
    * no longer recognise it.
-   * 
+   * <p>
    * The implementation uses the "pvremove" command which
    * refuses to wipe physical volumes that contain any volume
    * groups, so you have to remove those first.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void pvremove (String device)
@@ -2356,14 +2356,14 @@ public class GuestFS {
 
   /**
    * set the ext2/3/4 filesystem label
-   *
+   * <p>
    * This sets the ext2/3/4 filesystem label of the
    * filesystem on "device" to "label". Filesystem labels are
    * limited to 16 characters.
-   * 
+   * <p>
    * You can use either "g.tune2fs_l" or "g.get_e2label" to
    * return the existing label on a filesystem.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void set_e2label (String device, String label)
@@ -2378,10 +2378,10 @@ public class GuestFS {
 
   /**
    * get the ext2/3/4 filesystem label
-   *
+   * <p>
    * This returns the ext2/3/4 filesystem label of the
    * filesystem on "device".
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public String get_e2label (String device)
@@ -2396,15 +2396,15 @@ public class GuestFS {
 
   /**
    * set the ext2/3/4 filesystem UUID
-   *
+   * <p>
    * This sets the ext2/3/4 filesystem UUID of the filesystem
    * on "device" to "uuid". The format of the UUID and
    * alternatives such as "clear", "random" and "time" are
    * described in the tune2fs(8) manpage.
-   * 
+   * <p>
    * You can use either "g.tune2fs_l" or "g.get_e2uuid" to
    * return the existing UUID of a filesystem.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void set_e2uuid (String device, String uuid)
@@ -2419,10 +2419,10 @@ public class GuestFS {
 
   /**
    * get the ext2/3/4 filesystem UUID
-   *
+   * <p>
    * This returns the ext2/3/4 filesystem UUID of the
    * filesystem on "device".
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public String get_e2uuid (String device)
@@ -2437,27 +2437,27 @@ public class GuestFS {
 
   /**
    * run the filesystem checker
-   *
+   * <p>
    * This runs the filesystem checker (fsck) on "device"
    * which should have filesystem type "fstype".
-   * 
+   * <p>
    * The returned integer is the status. See fsck(8) for the
    * list of status codes from "fsck".
-   * 
+   * <p>
    * Notes:
-   * 
+   * <p>
    * *   Multiple status codes can be summed together.
-   * 
+   * <p>
    * *   A non-zero return code can mean "success", for
    * example if errors have been corrected on the
    * filesystem.
-   * 
+   * <p>
    * *   Checking or repairing NTFS volumes is not supported
    * (by linux-ntfs).
-   * 
+   * <p>
    * This command is entirely equivalent to running "fsck -a
    * -t fstype device".
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public int fsck (String fstype, String device)
@@ -2472,15 +2472,15 @@ public class GuestFS {
 
   /**
    * write zeroes to the device
-   *
+   * <p>
    * This command writes zeroes over the first few blocks of
    * "device".
-   * 
+   * <p>
    * How many blocks are zeroed isn't specified (but it's
    * *not* enough to securely wipe the device). It should be
    * sufficient to remove any partition tables, filesystem
    * superblocks and so on.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void zero (String device)
@@ -2495,11 +2495,11 @@ public class GuestFS {
 
   /**
    * install GRUB
-   *
+   * <p>
    * This command installs GRUB (the Grand Unified
    * Bootloader) on "device", with the root directory being
    * "root".
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void grub_install (String root, String device)
@@ -2514,10 +2514,10 @@ public class GuestFS {
 
   /**
    * copy a file
-   *
+   * <p>
    * This copies a file from "src" to "dest" where "dest" is
    * either a destination filename or destination directory.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void cp (String src, String dest)
@@ -2532,10 +2532,10 @@ public class GuestFS {
 
   /**
    * copy a file or directory recursively
-   *
+   * <p>
    * This copies a file or directory from "src" to "dest"
    * recursively using the "cp -a" command.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void cp_a (String src, String dest)
@@ -2550,10 +2550,10 @@ public class GuestFS {
 
   /**
    * move a file
-   *
+   * <p>
    * This moves a file from "src" to "dest" where "dest" is
    * either a destination filename or destination directory.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void mv (String src, String dest)
@@ -2568,17 +2568,17 @@ public class GuestFS {
 
   /**
    * drop kernel page cache, dentries and inodes
-   *
+   * <p>
    * This instructs the guest kernel to drop its page cache,
    * and/or dentries and inode caches. The parameter
    * "whattodrop" tells the kernel what precisely to drop,
    * see <http://linux-mm.org/Drop_Caches>
-   * 
+   * <p>
    * Setting "whattodrop" to 3 should drop everything.
-   * 
+   * <p>
    * This automatically calls sync(2) before the operation,
    * so that the maximum guest memory is freed.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void drop_caches (int whattodrop)
@@ -2593,16 +2593,16 @@ public class GuestFS {
 
   /**
    * return kernel messages
-   *
+   * <p>
    * This returns the kernel messages ("dmesg" output) from
    * the guest kernel. This is sometimes useful for extended
    * debugging of problems.
-   * 
+   * <p>
    * Another way to get the same information is to enable
    * verbose messages with "g.set_verbose" or by setting the
    * environment variable "LIBGUESTFS_DEBUG=1" before running
    * the program.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public String dmesg ()
@@ -2617,13 +2617,13 @@ public class GuestFS {
 
   /**
    * ping the guest daemon
-   *
+   * <p>
    * This is a test probe into the guestfs daemon running
    * inside the qemu subprocess. Calling this function checks
    * that the daemon responds to the ping message, without
    * affecting the daemon or attached block device(s) in any
    * other way.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void ping_daemon ()
@@ -2638,13 +2638,13 @@ public class GuestFS {
 
   /**
    * test if two files have equal contents
-   *
+   * <p>
    * This compares the two files "file1" and "file2" and
    * returns true if their content is exactly equal, or false
    * otherwise.
-   * 
+   * <p>
    * The external cmp(1) program is used for the comparison.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public boolean equal (String file1, String file2)
@@ -2659,14 +2659,14 @@ public class GuestFS {
 
   /**
    * print the printable strings in a file
-   *
+   * <p>
    * This runs the strings(1) command on a file and returns
    * the list of printable strings found.
-   * 
+   * <p>
    * Because of the message protocol, there is a transfer
    * limit of somewhere between 2MB and 4MB. To transfer
    * large files you should use FTP.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public String[] strings (String path)
@@ -2681,22 +2681,22 @@ public class GuestFS {
 
   /**
    * print the printable strings in a file
-   *
+   * <p>
    * This is like the "g.strings" command, but allows you to
    * specify the encoding.
-   * 
+   * <p>
    * See the strings(1) manpage for the full list of
    * encodings.
-   * 
+   * <p>
    * Commonly useful encodings are "l" (lower case L) which
    * will show strings inside Windows/x86 files.
-   * 
+   * <p>
    * The returned strings are transcoded to UTF-8.
-   * 
+   * <p>
    * Because of the message protocol, there is a transfer
    * limit of somewhere between 2MB and 4MB. To transfer
    * large files you should use FTP.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public String[] strings_e (String encoding, String path)
@@ -2711,14 +2711,14 @@ public class GuestFS {
 
   /**
    * dump a file in hexadecimal
-   *
+   * <p>
    * This runs "hexdump -C" on the given "path". The result
    * is the human-readable, canonical hex dump of the file.
-   * 
+   * <p>
    * Because of the message protocol, there is a transfer
    * limit of somewhere between 2MB and 4MB. To transfer
    * large files you should use FTP.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public String hexdump (String path)
@@ -2733,18 +2733,18 @@ public class GuestFS {
 
   /**
    * zero unused inodes and disk blocks on ext2/3 filesystem
-   *
+   * <p>
    * This runs the *zerofree* program on "device". This
    * program claims to zero unused inodes and disk blocks on
    * an ext2/3 filesystem, thus making it possible to
    * compress the filesystem more effectively.
-   * 
+   * <p>
    * You should not run this program if the filesystem is
    * mounted.
-   * 
+   * <p>
    * It is possible that using this program can damage the
    * filesystem or data on the filesystem.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void zerofree (String device)
@@ -2759,11 +2759,11 @@ public class GuestFS {
 
   /**
    * resize an LVM physical volume
-   *
+   * <p>
    * This resizes (expands or shrinks) an existing LVM
    * physical volume to match the new size of the underlying
    * device.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void pvresize (String device)
@@ -2778,16 +2778,16 @@ public class GuestFS {
 
   /**
    * modify a single partition on a block device
-   *
+   * <p>
    * This runs sfdisk(8) option to modify just the single
    * partition "n" (note: "n" counts from 1).
-   * 
+   * <p>
    * For other parameters, see "g.sfdisk". You should usually
    * pass 0 for the cyls/heads/sectors parameters.
-   * 
+   * <p>
    * This command is dangerous. Without careful use you can
    * easily destroy all your data.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void sfdisk_N (String device, int n, int cyls, int heads, int sectors, String line)
@@ -2802,11 +2802,11 @@ public class GuestFS {
 
   /**
    * display the partition table
-   *
+   * <p>
    * This displays the partition table on "device", in the
    * human-readable output of the sfdisk(8) command. It is
    * not intended to be parsed.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public String sfdisk_l (String device)
@@ -2821,13 +2821,13 @@ public class GuestFS {
 
   /**
    * display the kernel geometry
-   *
+   * <p>
    * This displays the kernel's idea of the geometry of
    * "device".
-   * 
+   * <p>
    * The result is in human-readable format, and not designed
    * to be parsed.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public String sfdisk_kernel_geometry (String device)
@@ -2842,16 +2842,16 @@ public class GuestFS {
 
   /**
    * display the disk geometry from the partition table
-   *
+   * <p>
    * This displays the disk geometry of "device" read from
    * the partition table. Especially in the case where the
    * underlying block device has been resized, this can be
    * different from the kernel's idea of the geometry (see
    * "g.sfdisk_kernel_geometry").
-   * 
+   * <p>
    * The result is in human-readable format, and not designed
    * to be parsed.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public String sfdisk_disk_geometry (String device)
@@ -2866,15 +2866,15 @@ public class GuestFS {
 
   /**
    * activate or deactivate all volume groups
-   *
+   * <p>
    * This command activates or (if "activate" is false)
    * deactivates all logical volumes in all volume groups. If
    * activated, then they are made known to the kernel, ie.
    * they appear as "/dev/mapper" devices. If deactivated,
    * then those devices disappear.
-   * 
+   * <p>
    * This command is the same as running "vgchange -a y|n"
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void vg_activate_all (boolean activate)
@@ -2889,19 +2889,19 @@ public class GuestFS {
 
   /**
    * activate or deactivate some volume groups
-   *
+   * <p>
    * This command activates or (if "activate" is false)
    * deactivates all logical volumes in the listed volume
    * groups "volgroups". If activated, then they are made
    * known to the kernel, ie. they appear as "/dev/mapper"
    * devices. If deactivated, then those devices disappear.
-   * 
+   * <p>
    * This command is the same as running "vgchange -a y|n
    * volgroups..."
-   * 
+   * <p>
    * Note that if "volgroups" is an empty list then all
    * volume groups are activated or deactivated.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void vg_activate (boolean activate, String[] volgroups)
@@ -2916,11 +2916,11 @@ public class GuestFS {
 
   /**
    * resize an LVM logical volume
-   *
+   * <p>
    * This resizes (expands or shrinks) an existing LVM
    * logical volume to "mbytes". When reducing, data in the
    * reduced part is lost.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void lvresize (String device, int mbytes)
@@ -2935,17 +2935,17 @@ public class GuestFS {
 
   /**
    * resize an ext2/ext3 filesystem
-   *
+   * <p>
    * This resizes an ext2 or ext3 filesystem to match the
    * size of the underlying device.
-   * 
+   * <p>
    * *Note:* It is sometimes required that you run
    * "g.e2fsck_f" on the "device" before calling this
    * command. For unknown reasons "resize2fs" sometimes gives
    * an error about this and sometimes not. In any case, it
    * is always safe to call "g.e2fsck_f" before calling this
    * function.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void resize2fs (String device)
@@ -2960,33 +2960,33 @@ public class GuestFS {
 
   /**
    * find all files and directories
-   *
+   * <p>
    * This command lists out all files and directories,
    * recursively, starting at "directory". It is essentially
    * equivalent to running the shell command "find directory
    * -print" but some post-processing happens on the output,
    * described below.
-   * 
+   * <p>
    * This returns a list of strings *without any prefix*.
    * Thus if the directory structure was:
-   * 
+   * <p>
    * /tmp/a
    * /tmp/b
    * /tmp/c/d
-   * 
+   * <p>
    * then the returned list from "g.find" "/tmp" would be 4
    * elements:
-   * 
+   * <p>
    * a
    * b
    * c
    * c/d
-   * 
+   * <p>
    * If "directory" is not a directory, then this command
    * returns an error.
-   * 
+   * <p>
    * The returned list is sorted.
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public String[] find (String directory)
@@ -3001,14 +3001,14 @@ public class GuestFS {
 
   /**
    * check an ext2/ext3 filesystem
-   *
+   * <p>
    * This runs "e2fsck -p -f device", ie. runs the ext2/ext3
    * filesystem checker on "device", noninteractively ("-p"),
    * even if the filesystem appears to be clean ("-f").
-   * 
+   * <p>
    * This command is only needed because of "g.resize2fs"
    * (q.v.). Normally you should use "g.fsck".
-   * 
+   * <p>
    * @throws LibGuestFSException
    */
   public void e2fsck_f (String device)
