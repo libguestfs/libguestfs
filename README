@@ -33,7 +33,11 @@ Requirements
 
 - febootstrap >= 2.0
 
-- XDR, rpcgen
+- fakeroot
+
+- fakechroot >= 2.9
+
+- XDR, rpcgen (on Linux these are provided by glibc)
 
 - (Optional) Augeas (http://augeas.net/)
 
@@ -79,17 +83,66 @@ Finally run the tests:
   make check
 
 If everything works, you can install the library and tools by running
-these commands as root:
+this command as root:
 
   make install
+
+
+Fedora
+----------------------------------------------------------------------
+
+We provide packages for Fedora >= 11 in Fedora.  Use those, or build
+from our source RPMs - it's far simpler that way.
+
+You can compile libguestfs on Fedora 10 but you cannot use it with the
+version of qemu in Fedora 10.  You need to compile your own qemu, see
+section 'qemu' below.
+
+
+RHEL / EPEL / CentOS etc
+----------------------------------------------------------------------
+
+We provide packages in EPEL which cover RHEL/CentOS >= 5.  Use those
+or build from our source RPMs.
+
+
+Debian
+----------------------------------------------------------------------
+
+libguestfs should build and run on Debian.  At the moment we don't
+provide Debian packages, and because of the appliance it's rather
+complicated to provide a package which could be accepted into the
+Debian repositories.  Want to help?  Please contact us.
+
+
+qemu
+----------------------------------------------------------------------
+
+By far the most common problem is with broken or incompatible
+qemu releases.
+
+First of all, you need qemu >= 0.10.4, which contains a vmchannel
+implementation.  There are several, conflicting, incompatible things
+called 'vmchannel' which at one time or another have been added or
+proposed for qemu/KVM.  The _only_ one we support is this one:
+
+  http://lists.gnu.org/archive/html/qemu-devel/2009-02/msg01042.html
+
+Secondly, different versions of qemu have problems booting the
+appliance for different reasons.  This varies between versions of
+qemu, and Linux distributions which add their own patches.
+
+If you find a problem, you could try using your own qemu built from
+source (qemu is very easy to build from source), with a 'qemu
+wrapper'.  Qemu wrappers are described in the guestfs(3) manpage.
 
 
 Note on using KVM
 ----------------------------------------------------------------------
 
-If you are using x86-64, then by default the configure script will
-look for qemu-kvm (KVM support).  You will need a reasonably recent
-processor for this to work.  KVM is much faster than using plain QEMU.
+By default the configure script will look for qemu-kvm (KVM support).
+You will need a reasonably recent processor for this to work.  KVM is
+much faster than using plain Qemu.
 
 You may also need to enable KVM support for non-root users, by following
 these instructions:
@@ -122,10 +175,11 @@ that in future we will be able to cross-compile the daemon.
 Mirroring tip
 ----------------------------------------------------------------------
 
-Having a local Fedora mirror makes a massive difference to the time it
-takes to build and rebuild initramfs images.
+On my machines I can usually rebuild the appliance in around 3
+minutes.  If it takes much longer for you, use a local Fedora mirror
+or squid.
 
-Failing that, use squid to cache yum downloads, but read this first:
+To use squid to cache yum downloads, read this first:
 https://lists.dulug.duke.edu/pipermail/yum/2006-August/009041.html
 (In brief, because yum chooses random mirrors each time, squid doesn't
 work very well with default yum configuration.  To get around this,
@@ -137,8 +191,24 @@ You will also need to substantially increase the squid configuration
 limits:
 http://fedoraproject.org/wiki/Using_Mock_to_test_package_builds#Using_Squid_to_Speed_Up_Mock_package_downloads
 
-IntelligentMirror is another possibility, although I couldn't get it
-to work for me.
+
+Porting to other Linux distros / non-Linux
+----------------------------------------------------------------------
+
+libguestfs itself should be fairly portable to other Linux
+distributions.  Non-Linux ports are trickier, but we will accept
+patches if they aren't too invasive.
+
+The main porting issues are with the dependencies needed to build the
+appliance.  You will need to find or port the following packages
+first:
+
+ - fakeroot
+ - fakechroot
+ - python
+ - rpm-python    http://www.rpm.org/
+ - yum           http://yum.baseurl.org/
+ - febootstrap   http://et.redhat.com/~rjones/febootstrap/
 
 
 Copyright and license information
