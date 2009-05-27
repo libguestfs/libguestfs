@@ -182,11 +182,18 @@ html/recipes.html: $(wildcard recipes/*.sh) $(wildcard recipes/*.html) $(wildcar
 	sh make-recipes.sh recipes/*.sh > $@-t
 	mv $@-t $@
 
-website: html/guestfs.3.html html/guestfish.1.html \
+HTMLFILES = html/guestfs.3.html html/guestfish.1.html \
 	html/virt-inspector.1.html \
-	html/recipes.html
-	cp $^ html/pod.css html/recipes.css \
-	  $(HOME)/d/redhat/et-website/libguestfs/
+	html/recipes.html \
+	html/pod.css html/recipes.css
+
+TEXTFILES = README TODO HACKING
+
+WEBSITEDIR = $(HOME)/d/redhat/et-website/libguestfs
+
+website: $(HTMLFILES) $(TEXTFILES)
+	cp $(HTMLFILES) $(WEBSITEDIR)
+	for f in $(TEXTFILES); do cp $$f $(WEBSITEDIR)/$$f.txt; done
 
 # Generate the ChangeLog automatically from the gitlog.
 
