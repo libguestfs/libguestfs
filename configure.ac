@@ -298,94 +298,107 @@ if test "x$with_java_home" != "xno"; then
             AC_MSG_FAILURE([$with_java_home is not a directory (use --with-java-home=no to disable Java support)])
 	fi
     fi
+
     if test "x$JAVA_HOME" = "x"; then
-        JAVA_HOME=/usr/lib/jvm/java
+        # Look for Java in some likely locations.
+	for d in \
+	    /usr/lib/jvm/java \
+	    /usr/lib/jvm/java-6-openjdk
+	do
+	    if test -d $d -a -f $d/bin/java; then
+                JAVA_HOME=$d
+		break
+	    fi
+	done
     fi
-    AC_MSG_CHECKING(for JDK in $JAVA_HOME)
-    if test ! -x "$JAVA_HOME/bin/java"; then
-        AC_MSG_ERROR([missing $JAVA_HOME/bin/java binary (use --with-java-home=no to disable Java support)])
-    else
-        JAVA="$JAVA_HOME/bin/java"
-    fi
-    if test ! -x "$JAVA_HOME/bin/javac"; then
-        AC_MSG_ERROR([missing $JAVA_HOME/bin/javac binary])
-    else
-        JAVAC="$JAVA_HOME/bin/javac"
-    fi
-    if test ! -x "$JAVA_HOME/bin/javah"; then
-        AC_MSG_ERROR([missing $JAVA_HOME/bin/javah binary])
-    else
-        JAVAH="$JAVA_HOME/bin/javah"
-    fi
-    if test ! -x "$JAVA_HOME/bin/javadoc"; then
-        AC_MSG_ERROR([missing $JAVA_HOME/bin/javadoc binary])
-    else
-        JAVADOC="$JAVA_HOME/bin/javadoc"
-    fi
-    if test ! -x "$JAVA_HOME/bin/jar"; then
-        AC_MSG_ERROR([missing $JAVA_HOME/bin/jar binary])
-    else
-        JAR="$JAVA_HOME/bin/jar"
-    fi
-    java_version=`$JAVA -version 2>&1 | grep "java version"`
-    AC_MSG_RESULT(found $java_version in $JAVA_HOME)
 
-    dnl Find jni.h.
-    AC_MSG_CHECKING([for jni.h])
-    if test -f "$JAVA_HOME/include/jni.h"; then
-        JNI_CFLAGS="-I$JAVA_HOME/include"
-    else
-    if test "`find $JAVA_HOME -name jni.h`" != ""; then
-        head=`find $JAVA_HOME -name jni.h | tail -1`
-	dir=`dirname $head`
-	JNI_CFLAGS="-I$dir"
-    else
-	AC_MSG_FAILURE([missing jni.h header file])
-    fi
-    fi
-    AC_MSG_RESULT([$JNI_CFLAGS])
+    if test "x$JAVA_HOME" != "x"; then
+        AC_MSG_CHECKING(for JDK in $JAVA_HOME)
+	if test ! -x "$JAVA_HOME/bin/java"; then
+            AC_MSG_ERROR([missing $JAVA_HOME/bin/java binary (use --with-java-home=no to disable Java support)])
+    	else
+	    JAVA="$JAVA_HOME/bin/java"
+	fi
+	if test ! -x "$JAVA_HOME/bin/javac"; then
+            AC_MSG_ERROR([missing $JAVA_HOME/bin/javac binary])
+	else
+	    JAVAC="$JAVA_HOME/bin/javac"
+        fi
+	if test ! -x "$JAVA_HOME/bin/javah"; then
+            AC_MSG_ERROR([missing $JAVA_HOME/bin/javah binary])
+        else
+            JAVAH="$JAVA_HOME/bin/javah"
+        fi
+        if test ! -x "$JAVA_HOME/bin/javadoc"; then
+            AC_MSG_ERROR([missing $JAVA_HOME/bin/javadoc binary])
+        else
+            JAVADOC="$JAVA_HOME/bin/javadoc"
+        fi
+        if test ! -x "$JAVA_HOME/bin/jar"; then
+            AC_MSG_ERROR([missing $JAVA_HOME/bin/jar binary])
+        else
+            JAR="$JAVA_HOME/bin/jar"
+        fi
+        java_version=`$JAVA -version 2>&1 | grep "java version"`
+        AC_MSG_RESULT(found $java_version in $JAVA_HOME)
 
-    dnl Find jni_md.h.
-    AC_MSG_CHECKING([for jni_md.h])
-    case "$build_os" in
-    *linux*) system="linux" ;;
-    *SunOS*) system="solaris" ;;
-    *cygwin*) system="win32" ;;
-    *) system="$build_os" ;;
-    esac
-    if test -f "$JAVA_HOME/include/$system/jni_md.h"; then
-        JNI_CFLAGS="$JNI_CFLAGS -I$JAVA_HOME/include/$system"
-    else
-    if test "`find $JAVA_HOME -name jni_md.h`" != ""; then
-        head=`find $JAVA_HOME -name jni_md.h | tail -1`
-	dir=`dirname $head`
-	JNI_CFLAGS="$JNI_CFLAGS -I$dir"
-    else
-	AC_MSG_FAILURE([missing jni_md.h header file])
+        dnl Find jni.h.
+        AC_MSG_CHECKING([for jni.h])
+        if test -f "$JAVA_HOME/include/jni.h"; then
+            JNI_CFLAGS="-I$JAVA_HOME/include"
+        else
+            if test "`find $JAVA_HOME -name jni.h`" != ""; then
+                head=`find $JAVA_HOME -name jni.h | tail -1`
+	        dir=`dirname $head`
+	        JNI_CFLAGS="-I$dir"
+            else
+	        AC_MSG_FAILURE([missing jni.h header file])
+            fi
+        fi
+        AC_MSG_RESULT([$JNI_CFLAGS])
+
+        dnl Find jni_md.h.
+        AC_MSG_CHECKING([for jni_md.h])
+        case "$build_os" in
+        *linux*) system="linux" ;;
+        *SunOS*) system="solaris" ;;
+        *cygwin*) system="win32" ;;
+        *) system="$build_os" ;;
+        esac
+        if test -f "$JAVA_HOME/include/$system/jni_md.h"; then
+            JNI_CFLAGS="$JNI_CFLAGS -I$JAVA_HOME/include/$system"
+        else
+            if test "`find $JAVA_HOME -name jni_md.h`" != ""; then
+                head=`find $JAVA_HOME -name jni_md.h | tail -1`
+        	dir=`dirname $head`
+                JNI_CFLAGS="$JNI_CFLAGS -I$dir"
+            else
+                AC_MSG_FAILURE([missing jni_md.h header file])
+            fi
+        fi
+        AC_MSG_RESULT([$JNI_CFLAGS])
+
+        dnl Need extra version flag?
+        AC_MSG_CHECKING([extra javac flags])
+        JAVAC_FLAGS=
+        javac_version=`$JAVAC -version 2>&1`
+        case "$javac_version" in
+        *Eclipse*)
+            JAVAC_FLAGS="-source 1.5" ;;
+        esac
+        AC_MSG_RESULT([$JAVAC_FLAGS])
+
+        dnl Where to install jarfiles.
+        dnl XXX How to make it configurable?
+        JAR_INSTALL_DIR=\${prefix}/share/java
+        JNI_INSTALL_DIR=\${libdir}
+
+        dnl JNI version.
+        jni_major_version=`echo $VERSION | awk -F. '{print $1}'`
+        jni_minor_version=`echo $VERSION | awk -F. '{print $2}'`
+        jni_micro_version=`echo $VERSION | awk -F. '{print $3}'`
+        JNI_VERSION_INFO=`expr $jni_major_version + $jni_minor_version`:$jni_micro_version:$jni_minor_version
     fi
-    fi
-    AC_MSG_RESULT([$JNI_CFLAGS])
-
-    dnl Need extra version flag?
-    AC_MSG_CHECKING([extra javac flags])
-    JAVAC_FLAGS=
-    javac_version=`$JAVAC -version 2>&1`
-    case "$javac_version" in
-    *Eclipse*)
-	JAVAC_FLAGS="-source 1.5" ;;
-    esac
-    AC_MSG_RESULT([$JAVAC_FLAGS])
-
-    dnl Where to install jarfiles.
-    dnl XXX How to make it configurable?
-    JAR_INSTALL_DIR=\${prefix}/share/java
-    JNI_INSTALL_DIR=\${libdir}
-
-    dnl JNI version.
-    jni_major_version=`echo $VERSION | awk -F. '{print $1}'`
-    jni_minor_version=`echo $VERSION | awk -F. '{print $2}'`
-    jni_micro_version=`echo $VERSION | awk -F. '{print $3}'`
-    JNI_VERSION_INFO=`expr $jni_major_version + $jni_minor_version`:$jni_micro_version:$jni_minor_version
 fi
 
 AC_SUBST(JAVA_HOME)
