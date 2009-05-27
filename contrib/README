@@ -1,6 +1,15 @@
 centos5.3-libguestfs.spec
-	CentOS 5.3 specfile.
+	[REMOVED]
+	This used to be a centos5.3 specfile.  Please use the specfile
+	from EL-5 here:
+	http://cvs.fedoraproject.org/viewvc/rpms/libguestfs/EL-5/
 
 febootstrap/
 	An experimental, non-working attempt to use febootstrap
 	to install operating systems.
+
+fedora-libguestfs.spec
+	[REMOVED]
+	This used to be a Fedora 10+ specfile.  Please use the specfile
+	from Fedora instead:
+	http://cvs.fedoraproject.org/viewvc/rpms/libguestfs/devel/
