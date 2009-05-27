@@ -4594,9 +4594,12 @@ and generate_fish_completion () =
 #ifdef HAVE_LIBREADLINE
 
 static const char *const commands[] = {
+  BUILTIN_COMMANDS_FOR_COMPLETION,
 ";
 
-  (* Get the commands and sort them, including the aliases. *)
+  (* Get the commands, including the aliases.  They don't need to be
+   * sorted - the generator() function just does a dumb linear search.
+   *)
   let commands =
     List.map (
       fun (name, _, _, flags, _, _, _) ->
@@ -4608,7 +4611,6 @@ static const char *const commands[] = {
 	if name <> alias then [name2; alias] else [name2]
     ) all_functions in
   let commands = List.flatten commands in
-  let commands = List.sort compare commands in
 
   List.iter (pr "  \"%s\",\n") commands;
 

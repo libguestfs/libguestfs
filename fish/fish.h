@@ -61,4 +61,14 @@ extern int do_echo (const char *cmd, int argc, char *argv[]);
 /* in edit.c */
 extern int do_edit (const char *cmd, int argc, char *argv[]);
 
+/* This should just list all the built-in commands so they can
+ * be added to the generated auto-completion code.
+ */
+#define BUILTIN_COMMANDS_FOR_COMPLETION \
+  "help", \
+  "quit", "exit", "q", \
+  "alloc", "allocate", \
+  "echo", \
+  "edit", "vi", "emacs"
+
 #endif /* FISH_H */
