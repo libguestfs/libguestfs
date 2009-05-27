@@ -81,8 +81,10 @@ rm -f $koutput
   -a ! -name 'virtio_pci.ko' \
   -a ! -name 'virtio_ring.ko' \
   -a ! -name 'ext2.ko' \
-  -a ! -name 'ext4.ko' \
+  -a ! -name 'ext3.ko' \
+  -a ! -name 'ext4*.ko' \
   -a ! -name 'crc16.ko' \
+  -a ! -name 'jbd.ko' \
   -a ! -name 'jbd2.ko' \
   -a ! -name 'fuse.ko' \
   -a ! -name 'vfat.ko' \
