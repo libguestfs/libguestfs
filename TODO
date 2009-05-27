@@ -37,6 +37,8 @@ For virt-inspector:
 
  - Are PV network drivers enabled (see /etc/modprobe.conf)
 
+ - ... and can it boot from a PV driver (have to look inside the initrd)
+
  - Make a libvirt XML config
 
  - Test over available OSes
