@@ -30,6 +30,11 @@ Complete the Haskell bindings (see discussion on haskell-cafe).
 
 ----------------------------------------------------------------------
 
+Complete the bindings tests - must test the return values and
+error cases.
+
+----------------------------------------------------------------------
+
 For virt-inspector:
 
  - Needs a "query mode", like "are (Xen|KVM) PV drivers installed?"

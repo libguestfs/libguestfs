@@ -7629,6 +7629,8 @@ and generate_lang_bindtests call =
 		CallStringList ["1"]; CallBool false;
 		CallInt 0; CallString ""; CallString ""]
 
+  (* XXX Add here tests of the return and error functions. *)
+
 let output_to filename =
   let filename_new = filename ^ ".new" in
   chan := open_out filename_new;
