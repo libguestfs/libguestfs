@@ -24,6 +24,7 @@ EXTRA_DIST = \
 	lib/Sys/Guestfs.pm \
 	run-bindtests \
 	run-perl-tests \
+	bindtests.pl \
 	t/*.t \
 	typemap
 
