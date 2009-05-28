@@ -116,6 +116,7 @@ type flags =
   | FishAlias of string	  (* provide an alias for this cmd in guestfish *)
   | FishAction of string  (* call this function in guestfish *)
   | NotInFish		  (* do not export via guestfish *)
+  | NotInDocs		  (* do not add this function to documentation *)
 
 let protocol_limit_warning =
   "Because of the message protocol, there is a transfer limit 
@@ -253,7 +254,81 @@ and cmd = string list
  * Apart from that, long descriptions are just perldoc paragraphs.
  *)
 
-let non_daemon_functions = [
+(* These test functions are used in the language binding tests. *)
+
+let test_all_args = [
+  String "str";
+  OptString "optstr";
+  StringList "strlist";
+  Bool "b";
+  Int "integer";
+  FileIn "filein";
+  FileOut "fileout";
+]
+
+let test_all_rets = [
+  (* except for RErr, which is tested thoroughly elsewhere *)
+  "test0rint",         RInt "valout";
+  "test0rint64",       RInt64 "valout";
+  "test0rbool",        RBool "valout";
+  "test0rconststring", RConstString "valout";
+  "test0rstring",      RString "valout";
+  "test0rstringlist",  RStringList "valout";
+  "test0rintbool",     RIntBool ("valout", "valout");
+  "test0rpvlist",      RPVList "valout";
+  "test0rvglist",      RVGList "valout";
+  "test0rlvlist",      RLVList "valout";
+  "test0rstat",        RStat "valout";
+  "test0rstatvfs",     RStatVFS "valout";
+  "test0rhashtable",   RHashtable "valout";
+]
+
+let test_functions = [
+  ("test0", (RErr, test_all_args), -1, [NotInFish; NotInDocs],
+   [],
+   "internal test function - do not use",
+   "\
+This is an internal test function which is used to test whether
+the automatically generated bindings can handle every possible
+parameter type correctly.
+
+It echos the contents of each parameter to stdout.
+
+You probably don't want to call this function.");
+] @ List.flatten (
+  List.map (
+    fun (name, ret) ->
+      [(name, (ret, [String "val"]), -1, [NotInFish; NotInDocs],
+	[],
+	"internal test function - do not use",
+	"\
+This is an internal test function which is used to test whether
+the automatically generated bindings can handle every possible
+return type correctly.
+
+It converts string C<val> to the return type.
+
+You probably don't want to call this function.");
+       (name ^ "err", (ret, []), -1, [NotInFish; NotInDocs],
+	[],
+	"internal test function - do not use",
+	"\
+This is an internal test function which is used to test whether
+the automatically generated bindings can handle every possible
+return type correctly.
+
+This function always returns an error.
+
+You probably don't want to call this function.")]
+  ) test_all_rets
+)
+
+(* non_daemon_functions are any functions which don't get processed
+ * in the daemon, eg. functions for setting and getting local
+ * configuration values.
+ *)
+
+let non_daemon_functions = test_functions @ [
   ("launch", (RErr, []), -1, [FishAlias "run"; FishAction "launch"],
    [],
    "launch the qemu subprocess",
@@ -490,6 +565,10 @@ actions using the low-level API.
 For more information on states, see L<guestfs(3)>.");
 
 ]
+
+(* daemon_functions are any functions which cause some action
+ * to take place in the daemon.
+ *)
 
 let daemon_functions = [
   ("mount", (RErr, [String "device"; String "mountpoint"]), 1, [],
@@ -1579,7 +1658,7 @@ The checksum is returned as a printable string.");
 
   ("tar_in", (RErr, [FileIn "tarfile"; String "directory"]), 69, [],
    [InitBasicFS, Always, TestOutput (
-      [["tar_in"; "images/helloworld.tar"; "/"];
+      [["tar_in"; "../images/helloworld.tar"; "/"];
        ["cat"; "/hello"]], "hello\n")],
    "unpack tarfile to directory",
    "\
@@ -1599,7 +1678,7 @@ To download a compressed tarball, use C<guestfs_tgz_out>.");
 
   ("tgz_in", (RErr, [FileIn "tarball"; String "directory"]), 71, [],
    [InitBasicFS, Always, TestOutput (
-      [["tgz_in"; "images/helloworld.tar.gz"; "/"];
+      [["tgz_in"; "../images/helloworld.tar.gz"; "/"];
        ["cat"; "/hello"]], "hello\n")],
    "unpack compressed tarball to directory",
    "\
@@ -2455,9 +2534,13 @@ let check_functions () =
 	  failwithf "%s param/ret %s should not contain '-' or '_'"
 	    name n;
 	if n = "value" then
-	  failwithf "%s has a param/ret called 'value', which causes conflicts in the OCaml bindings, use something like 'val' or a more descriptive name" n;
+	  failwithf "%s has a param/ret called 'value', which causes conflicts in the OCaml bindings, use something like 'val' or a more descriptive name" name;
+	if n = "int" || n = "char" || n = "short" || n = "long" then
+	  failwithf "%s has a param/ret which conflicts with a C type (eg. 'int', 'char' etc.)" name;
+	if n = "i" then
+	  failwithf "%s has a param/ret called 'i', which will cause some conflicts in the generated code" name;
 	if n = "argv" || n = "args" then
-	  failwithf "%s has a param/ret called 'argv' or 'args', which will cause some conflicts in the generated code" n
+	  failwithf "%s has a param/ret called 'argv' or 'args', which will cause some conflicts in the generated code" name
       in
 
       (match fst style with
@@ -2609,71 +2692,73 @@ let generate_header comment license =
 let rec generate_actions_pod () =
   List.iter (
     fun (shortname, style, _, flags, _, _, longdesc) ->
-      let name = "guestfs_" ^ shortname in
-      pr "=head2 %s\n\n" name;
-      pr " ";
-      generate_prototype ~extern:false ~handle:"handle" name style;
-      pr "\n\n";
-      pr "%s\n\n" longdesc;
-      (match fst style with
-       | RErr ->
-	   pr "This function returns 0 on success or -1 on error.\n\n"
-       | RInt _ ->
-	   pr "On error this function returns -1.\n\n"
-       | RInt64 _ ->
-	   pr "On error this function returns -1.\n\n"
-       | RBool _ ->
-	   pr "This function returns a C truth value on success or -1 on error.\n\n"
-       | RConstString _ ->
-	   pr "This function returns a string, or NULL on error.
+      if not (List.mem NotInDocs flags) then (
+	let name = "guestfs_" ^ shortname in
+	pr "=head2 %s\n\n" name;
+	pr " ";
+	generate_prototype ~extern:false ~handle:"handle" name style;
+	pr "\n\n";
+	pr "%s\n\n" longdesc;
+	(match fst style with
+	 | RErr ->
+	     pr "This function returns 0 on success or -1 on error.\n\n"
+	 | RInt _ ->
+	     pr "On error this function returns -1.\n\n"
+	 | RInt64 _ ->
+	     pr "On error this function returns -1.\n\n"
+	 | RBool _ ->
+	     pr "This function returns a C truth value on success or -1 on error.\n\n"
+	 | RConstString _ ->
+	     pr "This function returns a string, or NULL on error.
 The string is owned by the guest handle and must I<not> be freed.\n\n"
-       | RString _ ->
-	   pr "This function returns a string, or NULL on error.
+	 | RString _ ->
+	     pr "This function returns a string, or NULL on error.
 I<The caller must free the returned string after use>.\n\n"
-       | RStringList _ ->
-	   pr "This function returns a NULL-terminated array of strings
+	 | RStringList _ ->
+	     pr "This function returns a NULL-terminated array of strings
 (like L<environ(3)>), or NULL if there was an error.
 I<The caller must free the strings and the array after use>.\n\n"
-       | RIntBool _ ->
-	   pr "This function returns a C<struct guestfs_int_bool *>,
+	 | RIntBool _ ->
+	     pr "This function returns a C<struct guestfs_int_bool *>,
 or NULL if there was an error.
 I<The caller must call C<guestfs_free_int_bool> after use>.\n\n"
-       | RPVList _ ->
-	   pr "This function returns a C<struct guestfs_lvm_pv_list *>
+	 | RPVList _ ->
+	     pr "This function returns a C<struct guestfs_lvm_pv_list *>
 (see E<lt>guestfs-structs.hE<gt>),
 or NULL if there was an error.
 I<The caller must call C<guestfs_free_lvm_pv_list> after use>.\n\n"
-       | RVGList _ ->
-	   pr "This function returns a C<struct guestfs_lvm_vg_list *>
+	 | RVGList _ ->
+	     pr "This function returns a C<struct guestfs_lvm_vg_list *>
 (see E<lt>guestfs-structs.hE<gt>),
 or NULL if there was an error.
 I<The caller must call C<guestfs_free_lvm_vg_list> after use>.\n\n"
-       | RLVList _ ->
-	   pr "This function returns a C<struct guestfs_lvm_lv_list *>
+	 | RLVList _ ->
+	     pr "This function returns a C<struct guestfs_lvm_lv_list *>
 (see E<lt>guestfs-structs.hE<gt>),
 or NULL if there was an error.
 I<The caller must call C<guestfs_free_lvm_lv_list> after use>.\n\n"
-       | RStat _ ->
-	   pr "This function returns a C<struct guestfs_stat *>
+	 | RStat _ ->
+	     pr "This function returns a C<struct guestfs_stat *>
 (see L<stat(2)> and E<lt>guestfs-structs.hE<gt>),
 or NULL if there was an error.
 I<The caller must call C<free> after use>.\n\n"
-       | RStatVFS _ ->
-	   pr "This function returns a C<struct guestfs_statvfs *>
+	 | RStatVFS _ ->
+	     pr "This function returns a C<struct guestfs_statvfs *>
 (see L<statvfs(2)> and E<lt>guestfs-structs.hE<gt>),
 or NULL if there was an error.
 I<The caller must call C<free> after use>.\n\n"
-       | RHashtable _ ->
-	   pr "This function returns a NULL-terminated array of
+	 | RHashtable _ ->
+	     pr "This function returns a NULL-terminated array of
 strings, or NULL if there was an error.
 The array of strings will always have length C<2n+1>, where
 C<n> keys and values alternate, followed by the trailing NULL entry.
 I<The caller must free the strings and the array after use>.\n\n"
-      );
-      if List.mem ProtocolLimitWarning flags then
-	pr "%s\n\n" protocol_limit_warning;
-      if List.mem DangerWillRobinson flags then
-	pr "%s\n\n" danger_will_robinson;
+	);
+	if List.mem ProtocolLimitWarning flags then
+	  pr "%s\n\n" protocol_limit_warning;
+	if List.mem DangerWillRobinson flags then
+	  pr "%s\n\n" danger_will_robinson
+      )
   ) all_functions_sorted
 
 and generate_structs_pod () =
@@ -4653,7 +4738,8 @@ char **do_completion (const char *text, int start, int end)
 and generate_fish_actions_pod () =
   let all_functions_sorted =
     List.filter (
-      fun (_, _, _, flags, _, _, _) -> not (List.mem NotInFish flags)
+      fun (_, _, _, flags, _, _, _) ->
+	not (List.mem NotInFish flags || List.mem NotInDocs flags)
     ) all_functions_sorted in
 
   let rex = Str.regexp "C<guestfs_\\([^>]+\\)>" in
@@ -5581,15 +5667,17 @@ sub new {
    *)
   List.iter (
     fun (name, style, _, flags, _, _, longdesc) ->
-      let longdesc = replace_str longdesc "C<guestfs_" "C<$h-E<gt>" in
-      pr "=item ";
-      generate_perl_prototype name style;
-      pr "\n\n";
-      pr "%s\n\n" longdesc;
-      if List.mem ProtocolLimitWarning flags then
-	pr "%s\n\n" protocol_limit_warning;
-      if List.mem DangerWillRobinson flags then
-	pr "%s\n\n" danger_will_robinson
+      if not (List.mem NotInDocs flags) then (
+	let longdesc = replace_str longdesc "C<guestfs_" "C<$h-E<gt>" in
+	pr "=item ";
+	generate_perl_prototype name style;
+	pr "\n\n";
+	pr "%s\n\n" longdesc;
+	if List.mem ProtocolLimitWarning flags then
+	  pr "%s\n\n" protocol_limit_warning;
+	if List.mem DangerWillRobinson flags then
+	  pr "%s\n\n" danger_will_robinson
+      )
   ) all_functions_sorted;
 
   (* End of file. *)
@@ -6092,43 +6180,45 @@ class GuestFS:
 
   List.iter (
     fun (name, style, _, flags, _, _, longdesc) ->
-      let doc = replace_str longdesc "C<guestfs_" "C<g." in
-      let doc =
-        match fst style with
-	| RErr | RInt _ | RInt64 _ | RBool _ | RConstString _
-	| RString _ -> doc
-	| RStringList _ ->
-	    doc ^ "\n\nThis function returns a list of strings."
-	| RIntBool _ ->
-	    doc ^ "\n\nThis function returns a tuple (int, bool).\n"
-	| RPVList _ ->
-	    doc ^ "\n\nThis function returns a list of PVs.  Each PV is represented as a dictionary."
-	| RVGList _ ->
-	    doc ^ "\n\nThis function returns a list of VGs.  Each VG is represented as a dictionary."
-	| RLVList _ ->
-	    doc ^ "\n\nThis function returns a list of LVs.  Each LV is represented as a dictionary."
-	| RStat _ ->
-	    doc ^ "\n\nThis function returns a dictionary, with keys matching the various fields in the stat structure."
-       | RStatVFS _ ->
-	    doc ^ "\n\nThis function returns a dictionary, with keys matching the various fields in the statvfs structure."
-       | RHashtable _ ->
-	    doc ^ "\n\nThis function returns a dictionary." in
-      let doc =
-	if List.mem ProtocolLimitWarning flags then
-	  doc ^ "\n\n" ^ protocol_limit_warning
-	else doc in
-      let doc =
-	if List.mem DangerWillRobinson flags then
-	  doc ^ "\n\n" ^ danger_will_robinson
-	else doc in
-      let doc = pod2text ~width:60 name doc in
-      let doc = List.map (fun line -> replace_str line "\\" "\\\\") doc in
-      let doc = String.concat "\n        " doc in
-
       pr "    def %s " name;
       generate_call_args ~handle:"self" (snd style);
       pr ":\n";
-      pr "        u\"\"\"%s\"\"\"\n" doc;
+
+      if not (List.mem NotInDocs flags) then (
+	let doc = replace_str longdesc "C<guestfs_" "C<g." in
+	let doc =
+          match fst style with
+	  | RErr | RInt _ | RInt64 _ | RBool _ | RConstString _
+	  | RString _ -> doc
+	  | RStringList _ ->
+	      doc ^ "\n\nThis function returns a list of strings."
+	  | RIntBool _ ->
+	      doc ^ "\n\nThis function returns a tuple (int, bool).\n"
+	  | RPVList _ ->
+	      doc ^ "\n\nThis function returns a list of PVs.  Each PV is represented as a dictionary."
+	  | RVGList _ ->
+	      doc ^ "\n\nThis function returns a list of VGs.  Each VG is represented as a dictionary."
+	  | RLVList _ ->
+	      doc ^ "\n\nThis function returns a list of LVs.  Each LV is represented as a dictionary."
+	  | RStat _ ->
+	      doc ^ "\n\nThis function returns a dictionary, with keys matching the various fields in the stat structure."
+	  | RStatVFS _ ->
+	      doc ^ "\n\nThis function returns a dictionary, with keys matching the various fields in the statvfs structure."
+	  | RHashtable _ ->
+	      doc ^ "\n\nThis function returns a dictionary." in
+	let doc =
+	  if List.mem ProtocolLimitWarning flags then
+	    doc ^ "\n\n" ^ protocol_limit_warning
+	  else doc in
+	let doc =
+	  if List.mem DangerWillRobinson flags then
+	    doc ^ "\n\n" ^ danger_will_robinson
+	  else doc in
+	let doc = pod2text ~width:60 name doc in
+	let doc = List.map (fun line -> replace_str line "\\" "\\\\") doc in
+	let doc = String.concat "\n        " doc in
+	pr "        u\"\"\"%s\"\"\"\n" doc;
+      );
       pr "        return libguestfsmod.%s " name;
       generate_call_args ~handle:"self._o" (snd style);
       pr "\n";
@@ -6479,30 +6569,32 @@ public class GuestFS {
 
   List.iter (
     fun (name, style, _, flags, _, shortdesc, longdesc) ->
-      let doc = replace_str longdesc "C<guestfs_" "C<g." in
-      let doc =
-	if List.mem ProtocolLimitWarning flags then
-	  doc ^ "\n\n" ^ protocol_limit_warning
-	else doc in
-      let doc =
-	if List.mem DangerWillRobinson flags then
-	  doc ^ "\n\n" ^ danger_will_robinson
-	else doc in
-      let doc = pod2text ~width:60 name doc in
-      let doc = List.map (		(* RHBZ#501883 *)
-	function
-	| "" -> "<p>"
-	| nonempty -> nonempty
-      ) doc in
-      let doc = String.concat "\n   * " doc in
+      if not (List.mem NotInDocs flags); then (
+	let doc = replace_str longdesc "C<guestfs_" "C<g." in
+	let doc =
+	  if List.mem ProtocolLimitWarning flags then
+	    doc ^ "\n\n" ^ protocol_limit_warning
+	  else doc in
+	let doc =
+	  if List.mem DangerWillRobinson flags then
+	    doc ^ "\n\n" ^ danger_will_robinson
+	  else doc in
+	let doc = pod2text ~width:60 name doc in
+	let doc = List.map (		(* RHBZ#501883 *)
+	  function
+	  | "" -> "<p>"
+	  | nonempty -> nonempty
+	) doc in
+	let doc = String.concat "\n   * " doc in
 
-      pr "  /**\n";
-      pr "   * %s\n" shortdesc;
-      pr "   * <p>\n";
-      pr "   * %s\n" doc;
-      pr "   * @throws LibGuestFSException\n";
-      pr "   */\n";
-      pr "  ";
+	pr "  /**\n";
+	pr "   * %s\n" shortdesc;
+	pr "   * <p>\n";
+	pr "   * %s\n" doc;
+	pr "   * @throws LibGuestFSException\n";
+	pr "   */\n";
+	pr "  ";
+      );
       generate_java_prototype ~public:true ~semicolon:false name style;
       pr "\n";
       pr "  {\n";
@@ -7122,6 +7214,184 @@ and generate_haskell_prototype ~handle ?(hs = false) style =
   );
   pr ")"
 
+and generate_bindtests () =
+  generate_header CStyle LGPLv2;
+
+  pr "\
+#include <stdio.h>
+#include <stdlib.h>
+#include <inttypes.h>
+#include <string.h>
+
+#include \"guestfs.h\"
+#include \"guestfs_protocol.h\"
+
+#define error guestfs_error
+
+static void
+print_strings (char * const* const argv)
+{
+  int argc;
+
+  printf (\"[\");
+  for (argc = 0; argv[argc] != NULL; ++argc) {
+    if (argc > 0) printf (\", \");
+    printf (\"\\\"%%s\\\"\", argv[argc]);
+  }
+  printf (\"]\\n\");
+}
+
+/* The test0 function prints its parameters to stdout. */
+";
+
+  let test0, tests =
+    match test_functions with
+    | [] -> assert false
+    | test0 :: tests -> test0, tests in
+
+  let () =
+    let (name, style, _, _, _, _, _) = test0 in
+    generate_prototype ~extern:false ~semicolon:false ~newline:true
+      ~handle:"g" ~prefix:"guestfs_" name style;
+    pr "{\n";
+    List.iter (
+      function
+      | String n
+      | FileIn n
+      | FileOut n -> pr "  printf (\"%%s\\n\", %s);\n" n
+      | OptString n -> pr "  printf (\"%%s\\n\", %s ? %s : \"null\");\n" n n
+      | StringList n -> pr "  print_strings (%s);\n" n
+      | Bool n -> pr "  printf (\"%%s\\n\", %s ? \"true\" : \"false\");\n" n
+      | Int n -> pr "  printf (\"%%d\\n\", %s);\n" n
+    ) (snd style);
+    pr "  return 0;\n";
+    pr "}\n";
+    pr "\n" in
+
+  List.iter (
+    fun (name, style, _, _, _, _, _) ->
+      if String.sub name (String.length name - 3) 3 <> "err" then (
+	pr "/* Test normal return. */\n";
+	generate_prototype ~extern:false ~semicolon:false ~newline:true
+	  ~handle:"g" ~prefix:"guestfs_" name style;
+	pr "{\n";
+	(match fst style with
+	 | RErr ->
+	     pr "  return 0;\n"
+	 | RInt _ ->
+	     pr "  int r;\n";
+	     pr "  sscanf (val, \"%%d\", &r);\n";
+	     pr "  return r;\n"
+	 | RInt64 _ ->
+	     pr "  int64_t r;\n";
+	     pr "  sscanf (val, \"%%\" SCNi64, &r);\n";
+	     pr "  return r;\n"
+	 | RBool _ ->
+	     pr "  return strcmp (val, \"true\") == 0;\n"
+	 | RConstString _ ->
+	     (* Can't return the input string here.  Return a static
+	      * string so we ensure we get a segfault if the caller
+	      * tries to free it.
+	      *)
+	     pr "  return \"static string\";\n"
+	 | RString _ ->
+	     pr "  return strdup (val);\n"
+	 | RStringList _ ->
+	     pr "  char **strs;\n";
+	     pr "  int n, i;\n";
+	     pr "  sscanf (val, \"%%d\", &n);\n";
+	     pr "  strs = malloc ((n+1) * sizeof (char *));\n";
+	     pr "  for (i = 0; i < n; ++i) {\n";
+	     pr "    strs[i] = malloc (16);\n";
+	     pr "    snprintf (strs[i], 16, \"%%d\", i);\n";
+	     pr "  }\n";
+	     pr "  strs[n] = NULL;\n";
+	     pr "  return strs;\n"
+	 | RIntBool _ ->
+	     pr "  struct guestfs_int_bool *r;\n";
+	     pr "  r = malloc (sizeof (struct guestfs_int_bool));\n";
+	     pr "  sscanf (val, \"%%\" SCNi32, &r->i);\n";
+	     pr "  r->b = 0;\n";
+	     pr "  return r;\n"
+	 | RPVList _ ->
+	     pr "  struct guestfs_lvm_pv_list *r;\n";
+	     pr "  int i;\n";
+	     pr "  r = malloc (sizeof (struct guestfs_lvm_pv_list));\n";
+	     pr "  sscanf (val, \"%%d\", &r->len);\n";
+	     pr "  r->val = calloc (r->len, sizeof (struct guestfs_lvm_pv));\n";
+	     pr "  for (i = 0; i < r->len; ++i) {\n";
+	     pr "    r->val[i].pv_name = malloc (16);\n";
+	     pr "    snprintf (r->val[i].pv_name, 16, \"%%d\", i);\n";
+	     pr "  }\n";
+	     pr "  return r;\n"
+	 | RVGList _ ->
+	     pr "  struct guestfs_lvm_vg_list *r;\n";
+	     pr "  int i;\n";
+	     pr "  r = malloc (sizeof (struct guestfs_lvm_vg_list));\n";
+	     pr "  sscanf (val, \"%%d\", &r->len);\n";
+	     pr "  r->val = calloc (r->len, sizeof (struct guestfs_lvm_vg));\n";
+	     pr "  for (i = 0; i < r->len; ++i) {\n";
+	     pr "    r->val[i].vg_name = malloc (16);\n";
+	     pr "    snprintf (r->val[i].vg_name, 16, \"%%d\", i);\n";
+	     pr "  }\n";
+	     pr "  return r;\n"
+	 | RLVList _ ->
+	     pr "  struct guestfs_lvm_lv_list *r;\n";
+	     pr "  int i;\n";
+	     pr "  r = malloc (sizeof (struct guestfs_lvm_lv_list));\n";
+	     pr "  sscanf (val, \"%%d\", &r->len);\n";
+	     pr "  r->val = calloc (r->len, sizeof (struct guestfs_lvm_lv));\n";
+	     pr "  for (i = 0; i < r->len; ++i) {\n";
+	     pr "    r->val[i].lv_name = malloc (16);\n";
+	     pr "    snprintf (r->val[i].lv_name, 16, \"%%d\", i);\n";
+	     pr "  }\n";
+	     pr "  return r;\n"
+	 | RStat _ ->
+	     pr "  struct guestfs_stat *r;\n";
+	     pr "  r = calloc (1, sizeof (*r));\n";
+	     pr "  sscanf (val, \"%%\" SCNi64, &r->dev);\n";
+	     pr "  return r;\n"
+	 | RStatVFS _ ->
+	     pr "  struct guestfs_statvfs *r;\n";
+	     pr "  r = calloc (1, sizeof (*r));\n";
+	     pr "  sscanf (val, \"%%\" SCNi64, &r->bsize);\n";
+	     pr "  return r;\n"
+	 | RHashtable _ ->
+	     pr "  char **strs;\n";
+	     pr "  int n, i;\n";
+	     pr "  sscanf (val, \"%%d\", &n);\n";
+	     pr "  strs = malloc ((n*2+1) * sizeof (char *));\n";
+	     pr "  for (i = 0; i < n; ++i) {\n";
+	     pr "    strs[i*2] = malloc (16);\n";
+	     pr "    strs[i*2+1] = malloc (16);\n";
+	     pr "    snprintf (strs[i*2], 16, \"%%d\", i);\n";
+	     pr "    snprintf (strs[i*2+1], 16, \"%%d\", i);\n";
+	     pr "  }\n";
+	     pr "  strs[n*2] = NULL;\n";
+	     pr "  return strs;\n"
+	);
+	pr "}\n";
+	pr "\n"
+      ) else (
+	pr "/* Test error return. */\n";
+	generate_prototype ~extern:false ~semicolon:false ~newline:true
+	  ~handle:"g" ~prefix:"guestfs_" name style;
+	pr "{\n";
+	pr "  error (g, \"error\");\n";
+	(match fst style with
+	 | RErr | RInt _ | RInt64 _ | RBool _ ->
+	     pr "  return -1;\n"
+	 | RConstString _
+	 | RString _ | RStringList _ | RIntBool _
+	 | RPVList _ | RVGList _ | RLVList _ | RStat _ | RStatVFS _
+	 | RHashtable _ ->
+	     pr "  return NULL;\n"
+	);
+	pr "}\n";
+	pr "\n"
+      )
+  ) tests
+
 let output_to filename =
   let filename_new = filename ^ ".new" in
   chan := open_out filename_new;
@@ -7181,6 +7451,10 @@ Run it from the top source directory using the command
 
   let close = output_to "capitests/tests.c" in
   generate_tests ();
+  close ();
+
+  let close = output_to "src/guestfs-bindtests.c" in
+  generate_bindtests ();
   close ();
 
   let close = output_to "fish/cmds.c" in

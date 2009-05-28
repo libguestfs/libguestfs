@@ -124,6 +124,87 @@ type statvfs = {
   namemax : int64;
 }
 
+val test0 : t -> string -> string option -> string array -> bool -> int -> string -> string -> unit
+(** internal test function - do not use *)
+
+val test0rint : t -> string -> int
+(** internal test function - do not use *)
+
+val test0rinterr : t -> int
+(** internal test function - do not use *)
+
+val test0rint64 : t -> string -> int64
+(** internal test function - do not use *)
+
+val test0rint64err : t -> int64
+(** internal test function - do not use *)
+
+val test0rbool : t -> string -> bool
+(** internal test function - do not use *)
+
+val test0rboolerr : t -> bool
+(** internal test function - do not use *)
+
+val test0rconststring : t -> string -> string
+(** internal test function - do not use *)
+
+val test0rconststringerr : t -> string
+(** internal test function - do not use *)
+
+val test0rstring : t -> string -> string
+(** internal test function - do not use *)
+
+val test0rstringerr : t -> string
+(** internal test function - do not use *)
+
+val test0rstringlist : t -> string -> string array
+(** internal test function - do not use *)
+
+val test0rstringlisterr : t -> string array
+(** internal test function - do not use *)
+
+val test0rintbool : t -> string -> int * bool
+(** internal test function - do not use *)
+
+val test0rintboolerr : t -> int * bool
+(** internal test function - do not use *)
+
+val test0rpvlist : t -> string -> lvm_pv array
+(** internal test function - do not use *)
+
+val test0rpvlisterr : t -> lvm_pv array
+(** internal test function - do not use *)
+
+val test0rvglist : t -> string -> lvm_vg array
+(** internal test function - do not use *)
+
+val test0rvglisterr : t -> lvm_vg array
+(** internal test function - do not use *)
+
+val test0rlvlist : t -> string -> lvm_lv array
+(** internal test function - do not use *)
+
+val test0rlvlisterr : t -> lvm_lv array
+(** internal test function - do not use *)
+
+val test0rstat : t -> string -> stat
+(** internal test function - do not use *)
+
+val test0rstaterr : t -> stat
+(** internal test function - do not use *)
+
+val test0rstatvfs : t -> string -> statvfs
+(** internal test function - do not use *)
+
+val test0rstatvfserr : t -> statvfs
+(** internal test function - do not use *)
+
+val test0rhashtable : t -> string -> (string * string) list
+(** internal test function - do not use *)
+
+val test0rhashtableerr : t -> (string * string) list
+(** internal test function - do not use *)
+
 val launch : t -> unit
 (** launch the qemu subprocess *)
 

@@ -33,6 +33,7 @@ libguestfs_la_SOURCES = \
 	guestfs_protocol.h \
 	guestfs-actions.h \
 	guestfs-actions.c \
+	guestfs-bindtests.c \
 	gettext.h
 
 libguestfs_la_CFLAGS = -Wall -DGUESTFS_DEFAULT_PATH='"$(libdir)/guestfs"'

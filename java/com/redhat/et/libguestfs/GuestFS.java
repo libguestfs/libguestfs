@@ -81,6 +81,276 @@ public class GuestFS {
     close ();
   }
 
+public void test0 (String str, String optstr, String[] strlist, boolean b, int integer, String filein, String fileout)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("test0: handle is closed");
+    _test0 (g, str, optstr, strlist, b, integer, filein, fileout);
+  }
+  private native void _test0 (long g, String str, String optstr, String[] strlist, boolean b, int integer, String filein, String fileout)
+    throws LibGuestFSException;
+
+public int test0rint (String val)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("test0rint: handle is closed");
+    return _test0rint (g, val);
+  }
+  private native int _test0rint (long g, String val)
+    throws LibGuestFSException;
+
+public int test0rinterr ()
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("test0rinterr: handle is closed");
+    return _test0rinterr (g);
+  }
+  private native int _test0rinterr (long g)
+    throws LibGuestFSException;
+
+public long test0rint64 (String val)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("test0rint64: handle is closed");
+    return _test0rint64 (g, val);
+  }
+  private native long _test0rint64 (long g, String val)
+    throws LibGuestFSException;
+
+public long test0rint64err ()
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("test0rint64err: handle is closed");
+    return _test0rint64err (g);
+  }
+  private native long _test0rint64err (long g)
+    throws LibGuestFSException;
+
+public boolean test0rbool (String val)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("test0rbool: handle is closed");
+    return _test0rbool (g, val);
+  }
+  private native boolean _test0rbool (long g, String val)
+    throws LibGuestFSException;
+
+public boolean test0rboolerr ()
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("test0rboolerr: handle is closed");
+    return _test0rboolerr (g);
+  }
+  private native boolean _test0rboolerr (long g)
+    throws LibGuestFSException;
+
+public String test0rconststring (String val)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("test0rconststring: handle is closed");
+    return _test0rconststring (g, val);
+  }
+  private native String _test0rconststring (long g, String val)
+    throws LibGuestFSException;
+
+public String test0rconststringerr ()
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("test0rconststringerr: handle is closed");
+    return _test0rconststringerr (g);
+  }
+  private native String _test0rconststringerr (long g)
+    throws LibGuestFSException;
+
+public String test0rstring (String val)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("test0rstring: handle is closed");
+    return _test0rstring (g, val);
+  }
+  private native String _test0rstring (long g, String val)
+    throws LibGuestFSException;
+
+public String test0rstringerr ()
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("test0rstringerr: handle is closed");
+    return _test0rstringerr (g);
+  }
+  private native String _test0rstringerr (long g)
+    throws LibGuestFSException;
+
+public String[] test0rstringlist (String val)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("test0rstringlist: handle is closed");
+    return _test0rstringlist (g, val);
+  }
+  private native String[] _test0rstringlist (long g, String val)
+    throws LibGuestFSException;
+
+public String[] test0rstringlisterr ()
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("test0rstringlisterr: handle is closed");
+    return _test0rstringlisterr (g);
+  }
+  private native String[] _test0rstringlisterr (long g)
+    throws LibGuestFSException;
+
+public IntBool test0rintbool (String val)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("test0rintbool: handle is closed");
+    return _test0rintbool (g, val);
+  }
+  private native IntBool _test0rintbool (long g, String val)
+    throws LibGuestFSException;
+
+public IntBool test0rintboolerr ()
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("test0rintboolerr: handle is closed");
+    return _test0rintboolerr (g);
+  }
+  private native IntBool _test0rintboolerr (long g)
+    throws LibGuestFSException;
+
+public PV[] test0rpvlist (String val)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("test0rpvlist: handle is closed");
+    return _test0rpvlist (g, val);
+  }
+  private native PV[] _test0rpvlist (long g, String val)
+    throws LibGuestFSException;
+
+public PV[] test0rpvlisterr ()
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("test0rpvlisterr: handle is closed");
+    return _test0rpvlisterr (g);
+  }
+  private native PV[] _test0rpvlisterr (long g)
+    throws LibGuestFSException;
+
+public VG[] test0rvglist (String val)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("test0rvglist: handle is closed");
+    return _test0rvglist (g, val);
+  }
+  private native VG[] _test0rvglist (long g, String val)
+    throws LibGuestFSException;
+
+public VG[] test0rvglisterr ()
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("test0rvglisterr: handle is closed");
+    return _test0rvglisterr (g);
+  }
+  private native VG[] _test0rvglisterr (long g)
+    throws LibGuestFSException;
+
+public LV[] test0rlvlist (String val)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("test0rlvlist: handle is closed");
+    return _test0rlvlist (g, val);
+  }
+  private native LV[] _test0rlvlist (long g, String val)
+    throws LibGuestFSException;
+
+public LV[] test0rlvlisterr ()
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("test0rlvlisterr: handle is closed");
+    return _test0rlvlisterr (g);
+  }
+  private native LV[] _test0rlvlisterr (long g)
+    throws LibGuestFSException;
+
+public Stat test0rstat (String val)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("test0rstat: handle is closed");
+    return _test0rstat (g, val);
+  }
+  private native Stat _test0rstat (long g, String val)
+    throws LibGuestFSException;
+
+public Stat test0rstaterr ()
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("test0rstaterr: handle is closed");
+    return _test0rstaterr (g);
+  }
+  private native Stat _test0rstaterr (long g)
+    throws LibGuestFSException;
+
+public StatVFS test0rstatvfs (String val)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("test0rstatvfs: handle is closed");
+    return _test0rstatvfs (g, val);
+  }
+  private native StatVFS _test0rstatvfs (long g, String val)
+    throws LibGuestFSException;
+
+public StatVFS test0rstatvfserr ()
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("test0rstatvfserr: handle is closed");
+    return _test0rstatvfserr (g);
+  }
+  private native StatVFS _test0rstatvfserr (long g)
+    throws LibGuestFSException;
+
+public HashMap<String,String> test0rhashtable (String val)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("test0rhashtable: handle is closed");
+    return _test0rhashtable (g, val);
+  }
+  private native HashMap<String,String> _test0rhashtable (long g, String val)
+    throws LibGuestFSException;
+
+public HashMap<String,String> test0rhashtableerr ()
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("test0rhashtableerr: handle is closed");
+    return _test0rhashtableerr (g);
+  }
+  private native HashMap<String,String> _test0rhashtableerr (long g)
+    throws LibGuestFSException;
+
   /**
    * launch the qemu subprocess
    * <p>

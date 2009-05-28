@@ -62,6 +62,33 @@ static void print_table (char * const * const argv)
 
 static void no_test_warnings (void)
 {
+  fprintf (stderr, "warning: \"guestfs_test0\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_test0rint\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_test0rinterr\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_test0rint64\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_test0rint64err\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_test0rbool\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_test0rboolerr\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_test0rconststring\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_test0rconststringerr\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_test0rstring\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_test0rstringerr\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_test0rstringlist\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_test0rstringlisterr\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_test0rintbool\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_test0rintboolerr\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_test0rpvlist\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_test0rpvlisterr\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_test0rvglist\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_test0rvglisterr\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_test0rlvlist\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_test0rlvlisterr\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_test0rstat\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_test0rstaterr\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_test0rstatvfs\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_test0rstatvfserr\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_test0rhashtable\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_test0rhashtableerr\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_launch\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_wait_ready\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_kill_subprocess\" has no tests\n");
@@ -4762,7 +4789,7 @@ static int test_tgz_in_0 (void)
     char directory[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_tgz_in (g, "images/helloworld.tar.gz", directory);
+    r = guestfs_tgz_in (g, "../images/helloworld.tar.gz", directory);
     if (r == -1)
       return -1;
   }
@@ -4864,7 +4891,7 @@ static int test_tar_in_0 (void)
     char directory[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_tar_in (g, "images/helloworld.tar", directory);
+    r = guestfs_tar_in (g, "../images/helloworld.tar", directory);
     if (r == -1)
       return -1;
   }

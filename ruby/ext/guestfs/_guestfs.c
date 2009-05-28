@@ -71,6 +71,783 @@ static VALUE ruby_guestfs_close (VALUE gv)
   return Qnil;
 }
 
+static VALUE ruby_guestfs_test0 (VALUE gv, VALUE strv, VALUE optstrv, VALUE strlistv, VALUE bv, VALUE integerv, VALUE fileinv, VALUE fileoutv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "test0");
+
+  const char *str = StringValueCStr (strv);
+  if (!str)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "str", "test0");
+  const char *optstr = StringValueCStr (optstrv);
+  char **strlist;  {
+    int i, len;
+    len = RARRAY_LEN (strlistv);
+    strlist = guestfs_safe_malloc (g, sizeof (char *) * (len+1));
+    for (i = 0; i < len; ++i) {
+      VALUE v = rb_ary_entry (strlistv, i);
+      strlist[i] = StringValueCStr (v);
+    }
+    strlist[len] = NULL;
+  }
+  int b = NUM2INT (bv);
+  int integer = NUM2INT (integerv);
+  const char *filein = StringValueCStr (fileinv);
+  if (!filein)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "filein", "test0");
+  const char *fileout = StringValueCStr (fileoutv);
+  if (!fileout)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "fileout", "test0");
+
+  int r;
+
+  r = guestfs_test0 (g, str, optstr, strlist, b, integer, filein, fileout);
+  free (strlist);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
+static VALUE ruby_guestfs_test0rint (VALUE gv, VALUE valv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rint");
+
+  const char *val = StringValueCStr (valv);
+  if (!val)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "val", "test0rint");
+
+  int r;
+
+  r = guestfs_test0rint (g, val);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return INT2NUM (r);
+}
+
+static VALUE ruby_guestfs_test0rinterr (VALUE gv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rinterr");
+
+
+  int r;
+
+  r = guestfs_test0rinterr (g);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return INT2NUM (r);
+}
+
+static VALUE ruby_guestfs_test0rint64 (VALUE gv, VALUE valv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rint64");
+
+  const char *val = StringValueCStr (valv);
+  if (!val)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "val", "test0rint64");
+
+  int64_t r;
+
+  r = guestfs_test0rint64 (g, val);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return ULL2NUM (r);
+}
+
+static VALUE ruby_guestfs_test0rint64err (VALUE gv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rint64err");
+
+
+  int64_t r;
+
+  r = guestfs_test0rint64err (g);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return ULL2NUM (r);
+}
+
+static VALUE ruby_guestfs_test0rbool (VALUE gv, VALUE valv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rbool");
+
+  const char *val = StringValueCStr (valv);
+  if (!val)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "val", "test0rbool");
+
+  int r;
+
+  r = guestfs_test0rbool (g, val);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return INT2NUM (r);
+}
+
+static VALUE ruby_guestfs_test0rboolerr (VALUE gv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rboolerr");
+
+
+  int r;
+
+  r = guestfs_test0rboolerr (g);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return INT2NUM (r);
+}
+
+static VALUE ruby_guestfs_test0rconststring (VALUE gv, VALUE valv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rconststring");
+
+  const char *val = StringValueCStr (valv);
+  if (!val)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "val", "test0rconststring");
+
+  const char *r;
+
+  r = guestfs_test0rconststring (g, val);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return rb_str_new2 (r);
+}
+
+static VALUE ruby_guestfs_test0rconststringerr (VALUE gv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rconststringerr");
+
+
+  const char *r;
+
+  r = guestfs_test0rconststringerr (g);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return rb_str_new2 (r);
+}
+
+static VALUE ruby_guestfs_test0rstring (VALUE gv, VALUE valv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rstring");
+
+  const char *val = StringValueCStr (valv);
+  if (!val)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "val", "test0rstring");
+
+  char *r;
+
+  r = guestfs_test0rstring (g, val);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  VALUE rv = rb_str_new2 (r);
+  free (r);
+  return rv;
+}
+
+static VALUE ruby_guestfs_test0rstringerr (VALUE gv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rstringerr");
+
+
+  char *r;
+
+  r = guestfs_test0rstringerr (g);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  VALUE rv = rb_str_new2 (r);
+  free (r);
+  return rv;
+}
+
+static VALUE ruby_guestfs_test0rstringlist (VALUE gv, VALUE valv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rstringlist");
+
+  const char *val = StringValueCStr (valv);
+  if (!val)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "val", "test0rstringlist");
+
+  char **r;
+
+  r = guestfs_test0rstringlist (g, val);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  int i, len = 0;
+  for (i = 0; r[i] != NULL; ++i) len++;
+  VALUE rv = rb_ary_new2 (len);
+  for (i = 0; r[i] != NULL; ++i) {
+    rb_ary_push (rv, rb_str_new2 (r[i]));
+    free (r[i]);
+  }
+  free (r);
+  return rv;
+}
+
+static VALUE ruby_guestfs_test0rstringlisterr (VALUE gv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rstringlisterr");
+
+
+  char **r;
+
+  r = guestfs_test0rstringlisterr (g);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  int i, len = 0;
+  for (i = 0; r[i] != NULL; ++i) len++;
+  VALUE rv = rb_ary_new2 (len);
+  for (i = 0; r[i] != NULL; ++i) {
+    rb_ary_push (rv, rb_str_new2 (r[i]));
+    free (r[i]);
+  }
+  free (r);
+  return rv;
+}
+
+static VALUE ruby_guestfs_test0rintbool (VALUE gv, VALUE valv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rintbool");
+
+  const char *val = StringValueCStr (valv);
+  if (!val)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "val", "test0rintbool");
+
+  struct guestfs_int_bool *r;
+
+  r = guestfs_test0rintbool (g, val);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  VALUE rv = rb_ary_new2 (2);
+  rb_ary_push (rv, INT2NUM (r->i));
+  rb_ary_push (rv, INT2NUM (r->b));
+  guestfs_free_int_bool (r);
+  return rv;
+}
+
+static VALUE ruby_guestfs_test0rintboolerr (VALUE gv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rintboolerr");
+
+
+  struct guestfs_int_bool *r;
+
+  r = guestfs_test0rintboolerr (g);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  VALUE rv = rb_ary_new2 (2);
+  rb_ary_push (rv, INT2NUM (r->i));
+  rb_ary_push (rv, INT2NUM (r->b));
+  guestfs_free_int_bool (r);
+  return rv;
+}
+
+static VALUE ruby_guestfs_test0rpvlist (VALUE gv, VALUE valv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rpvlist");
+
+  const char *val = StringValueCStr (valv);
+  if (!val)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "val", "test0rpvlist");
+
+  struct guestfs_lvm_pv_list *r;
+
+  r = guestfs_test0rpvlist (g, val);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  VALUE rv = rb_ary_new2 (r->len);
+  int i;
+  for (i = 0; i < r->len; ++i) {
+    VALUE hv = rb_hash_new ();
+    rb_hash_aset (rv, rb_str_new2 ("pv_name"), rb_str_new2 (r->val[i].pv_name));
+    rb_hash_aset (rv, rb_str_new2 ("pv_uuid"), rb_str_new (r->val[i].pv_uuid, 32));
+    rb_hash_aset (rv, rb_str_new2 ("pv_fmt"), rb_str_new2 (r->val[i].pv_fmt));
+    rb_hash_aset (rv, rb_str_new2 ("pv_size"), ULL2NUM (r->val[i].pv_size));
+    rb_hash_aset (rv, rb_str_new2 ("dev_size"), ULL2NUM (r->val[i].dev_size));
+    rb_hash_aset (rv, rb_str_new2 ("pv_free"), ULL2NUM (r->val[i].pv_free));
+    rb_hash_aset (rv, rb_str_new2 ("pv_used"), ULL2NUM (r->val[i].pv_used));
+    rb_hash_aset (rv, rb_str_new2 ("pv_attr"), rb_str_new2 (r->val[i].pv_attr));
+    rb_hash_aset (rv, rb_str_new2 ("pv_pe_count"), ULL2NUM (r->val[i].pv_pe_count));
+    rb_hash_aset (rv, rb_str_new2 ("pv_pe_alloc_count"), ULL2NUM (r->val[i].pv_pe_alloc_count));
+    rb_hash_aset (rv, rb_str_new2 ("pv_tags"), rb_str_new2 (r->val[i].pv_tags));
+    rb_hash_aset (rv, rb_str_new2 ("pe_start"), ULL2NUM (r->val[i].pe_start));
+    rb_hash_aset (rv, rb_str_new2 ("pv_mda_count"), ULL2NUM (r->val[i].pv_mda_count));
+    rb_hash_aset (rv, rb_str_new2 ("pv_mda_free"), ULL2NUM (r->val[i].pv_mda_free));
+    rb_ary_push (rv, hv);
+  }
+  guestfs_free_lvm_pv_list (r);
+  return rv;
+}
+
+static VALUE ruby_guestfs_test0rpvlisterr (VALUE gv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rpvlisterr");
+
+
+  struct guestfs_lvm_pv_list *r;
+
+  r = guestfs_test0rpvlisterr (g);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  VALUE rv = rb_ary_new2 (r->len);
+  int i;
+  for (i = 0; i < r->len; ++i) {
+    VALUE hv = rb_hash_new ();
+    rb_hash_aset (rv, rb_str_new2 ("pv_name"), rb_str_new2 (r->val[i].pv_name));
+    rb_hash_aset (rv, rb_str_new2 ("pv_uuid"), rb_str_new (r->val[i].pv_uuid, 32));
+    rb_hash_aset (rv, rb_str_new2 ("pv_fmt"), rb_str_new2 (r->val[i].pv_fmt));
+    rb_hash_aset (rv, rb_str_new2 ("pv_size"), ULL2NUM (r->val[i].pv_size));
+    rb_hash_aset (rv, rb_str_new2 ("dev_size"), ULL2NUM (r->val[i].dev_size));
+    rb_hash_aset (rv, rb_str_new2 ("pv_free"), ULL2NUM (r->val[i].pv_free));
+    rb_hash_aset (rv, rb_str_new2 ("pv_used"), ULL2NUM (r->val[i].pv_used));
+    rb_hash_aset (rv, rb_str_new2 ("pv_attr"), rb_str_new2 (r->val[i].pv_attr));
+    rb_hash_aset (rv, rb_str_new2 ("pv_pe_count"), ULL2NUM (r->val[i].pv_pe_count));
+    rb_hash_aset (rv, rb_str_new2 ("pv_pe_alloc_count"), ULL2NUM (r->val[i].pv_pe_alloc_count));
+    rb_hash_aset (rv, rb_str_new2 ("pv_tags"), rb_str_new2 (r->val[i].pv_tags));
+    rb_hash_aset (rv, rb_str_new2 ("pe_start"), ULL2NUM (r->val[i].pe_start));
+    rb_hash_aset (rv, rb_str_new2 ("pv_mda_count"), ULL2NUM (r->val[i].pv_mda_count));
+    rb_hash_aset (rv, rb_str_new2 ("pv_mda_free"), ULL2NUM (r->val[i].pv_mda_free));
+    rb_ary_push (rv, hv);
+  }
+  guestfs_free_lvm_pv_list (r);
+  return rv;
+}
+
+static VALUE ruby_guestfs_test0rvglist (VALUE gv, VALUE valv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rvglist");
+
+  const char *val = StringValueCStr (valv);
+  if (!val)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "val", "test0rvglist");
+
+  struct guestfs_lvm_vg_list *r;
+
+  r = guestfs_test0rvglist (g, val);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  VALUE rv = rb_ary_new2 (r->len);
+  int i;
+  for (i = 0; i < r->len; ++i) {
+    VALUE hv = rb_hash_new ();
+    rb_hash_aset (rv, rb_str_new2 ("vg_name"), rb_str_new2 (r->val[i].vg_name));
+    rb_hash_aset (rv, rb_str_new2 ("vg_uuid"), rb_str_new (r->val[i].vg_uuid, 32));
+    rb_hash_aset (rv, rb_str_new2 ("vg_fmt"), rb_str_new2 (r->val[i].vg_fmt));
+    rb_hash_aset (rv, rb_str_new2 ("vg_attr"), rb_str_new2 (r->val[i].vg_attr));
+    rb_hash_aset (rv, rb_str_new2 ("vg_size"), ULL2NUM (r->val[i].vg_size));
+    rb_hash_aset (rv, rb_str_new2 ("vg_free"), ULL2NUM (r->val[i].vg_free));
+    rb_hash_aset (rv, rb_str_new2 ("vg_sysid"), rb_str_new2 (r->val[i].vg_sysid));
+    rb_hash_aset (rv, rb_str_new2 ("vg_extent_size"), ULL2NUM (r->val[i].vg_extent_size));
+    rb_hash_aset (rv, rb_str_new2 ("vg_extent_count"), ULL2NUM (r->val[i].vg_extent_count));
+    rb_hash_aset (rv, rb_str_new2 ("vg_free_count"), ULL2NUM (r->val[i].vg_free_count));
+    rb_hash_aset (rv, rb_str_new2 ("max_lv"), ULL2NUM (r->val[i].max_lv));
+    rb_hash_aset (rv, rb_str_new2 ("max_pv"), ULL2NUM (r->val[i].max_pv));
+    rb_hash_aset (rv, rb_str_new2 ("pv_count"), ULL2NUM (r->val[i].pv_count));
+    rb_hash_aset (rv, rb_str_new2 ("lv_count"), ULL2NUM (r->val[i].lv_count));
+    rb_hash_aset (rv, rb_str_new2 ("snap_count"), ULL2NUM (r->val[i].snap_count));
+    rb_hash_aset (rv, rb_str_new2 ("vg_seqno"), ULL2NUM (r->val[i].vg_seqno));
+    rb_hash_aset (rv, rb_str_new2 ("vg_tags"), rb_str_new2 (r->val[i].vg_tags));
+    rb_hash_aset (rv, rb_str_new2 ("vg_mda_count"), ULL2NUM (r->val[i].vg_mda_count));
+    rb_hash_aset (rv, rb_str_new2 ("vg_mda_free"), ULL2NUM (r->val[i].vg_mda_free));
+    rb_ary_push (rv, hv);
+  }
+  guestfs_free_lvm_vg_list (r);
+  return rv;
+}
+
+static VALUE ruby_guestfs_test0rvglisterr (VALUE gv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rvglisterr");
+
+
+  struct guestfs_lvm_vg_list *r;
+
+  r = guestfs_test0rvglisterr (g);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  VALUE rv = rb_ary_new2 (r->len);
+  int i;
+  for (i = 0; i < r->len; ++i) {
+    VALUE hv = rb_hash_new ();
+    rb_hash_aset (rv, rb_str_new2 ("vg_name"), rb_str_new2 (r->val[i].vg_name));
+    rb_hash_aset (rv, rb_str_new2 ("vg_uuid"), rb_str_new (r->val[i].vg_uuid, 32));
+    rb_hash_aset (rv, rb_str_new2 ("vg_fmt"), rb_str_new2 (r->val[i].vg_fmt));
+    rb_hash_aset (rv, rb_str_new2 ("vg_attr"), rb_str_new2 (r->val[i].vg_attr));
+    rb_hash_aset (rv, rb_str_new2 ("vg_size"), ULL2NUM (r->val[i].vg_size));
+    rb_hash_aset (rv, rb_str_new2 ("vg_free"), ULL2NUM (r->val[i].vg_free));
+    rb_hash_aset (rv, rb_str_new2 ("vg_sysid"), rb_str_new2 (r->val[i].vg_sysid));
+    rb_hash_aset (rv, rb_str_new2 ("vg_extent_size"), ULL2NUM (r->val[i].vg_extent_size));
+    rb_hash_aset (rv, rb_str_new2 ("vg_extent_count"), ULL2NUM (r->val[i].vg_extent_count));
+    rb_hash_aset (rv, rb_str_new2 ("vg_free_count"), ULL2NUM (r->val[i].vg_free_count));
+    rb_hash_aset (rv, rb_str_new2 ("max_lv"), ULL2NUM (r->val[i].max_lv));
+    rb_hash_aset (rv, rb_str_new2 ("max_pv"), ULL2NUM (r->val[i].max_pv));
+    rb_hash_aset (rv, rb_str_new2 ("pv_count"), ULL2NUM (r->val[i].pv_count));
+    rb_hash_aset (rv, rb_str_new2 ("lv_count"), ULL2NUM (r->val[i].lv_count));
+    rb_hash_aset (rv, rb_str_new2 ("snap_count"), ULL2NUM (r->val[i].snap_count));
+    rb_hash_aset (rv, rb_str_new2 ("vg_seqno"), ULL2NUM (r->val[i].vg_seqno));
+    rb_hash_aset (rv, rb_str_new2 ("vg_tags"), rb_str_new2 (r->val[i].vg_tags));
+    rb_hash_aset (rv, rb_str_new2 ("vg_mda_count"), ULL2NUM (r->val[i].vg_mda_count));
+    rb_hash_aset (rv, rb_str_new2 ("vg_mda_free"), ULL2NUM (r->val[i].vg_mda_free));
+    rb_ary_push (rv, hv);
+  }
+  guestfs_free_lvm_vg_list (r);
+  return rv;
+}
+
+static VALUE ruby_guestfs_test0rlvlist (VALUE gv, VALUE valv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rlvlist");
+
+  const char *val = StringValueCStr (valv);
+  if (!val)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "val", "test0rlvlist");
+
+  struct guestfs_lvm_lv_list *r;
+
+  r = guestfs_test0rlvlist (g, val);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  VALUE rv = rb_ary_new2 (r->len);
+  int i;
+  for (i = 0; i < r->len; ++i) {
+    VALUE hv = rb_hash_new ();
+    rb_hash_aset (rv, rb_str_new2 ("lv_name"), rb_str_new2 (r->val[i].lv_name));
+    rb_hash_aset (rv, rb_str_new2 ("lv_uuid"), rb_str_new (r->val[i].lv_uuid, 32));
+    rb_hash_aset (rv, rb_str_new2 ("lv_attr"), rb_str_new2 (r->val[i].lv_attr));
+    rb_hash_aset (rv, rb_str_new2 ("lv_major"), ULL2NUM (r->val[i].lv_major));
+    rb_hash_aset (rv, rb_str_new2 ("lv_minor"), ULL2NUM (r->val[i].lv_minor));
+    rb_hash_aset (rv, rb_str_new2 ("lv_kernel_major"), ULL2NUM (r->val[i].lv_kernel_major));
+    rb_hash_aset (rv, rb_str_new2 ("lv_kernel_minor"), ULL2NUM (r->val[i].lv_kernel_minor));
+    rb_hash_aset (rv, rb_str_new2 ("lv_size"), ULL2NUM (r->val[i].lv_size));
+    rb_hash_aset (rv, rb_str_new2 ("seg_count"), ULL2NUM (r->val[i].seg_count));
+    rb_hash_aset (rv, rb_str_new2 ("origin"), rb_str_new2 (r->val[i].origin));
+    rb_hash_aset (rv, rb_str_new2 ("snap_percent"), rb_dbl2big (r->val[i].snap_percent));
+    rb_hash_aset (rv, rb_str_new2 ("copy_percent"), rb_dbl2big (r->val[i].copy_percent));
+    rb_hash_aset (rv, rb_str_new2 ("move_pv"), rb_str_new2 (r->val[i].move_pv));
+    rb_hash_aset (rv, rb_str_new2 ("lv_tags"), rb_str_new2 (r->val[i].lv_tags));
+    rb_hash_aset (rv, rb_str_new2 ("mirror_log"), rb_str_new2 (r->val[i].mirror_log));
+    rb_hash_aset (rv, rb_str_new2 ("modules"), rb_str_new2 (r->val[i].modules));
+    rb_ary_push (rv, hv);
+  }
+  guestfs_free_lvm_lv_list (r);
+  return rv;
+}
+
+static VALUE ruby_guestfs_test0rlvlisterr (VALUE gv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rlvlisterr");
+
+
+  struct guestfs_lvm_lv_list *r;
+
+  r = guestfs_test0rlvlisterr (g);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  VALUE rv = rb_ary_new2 (r->len);
+  int i;
+  for (i = 0; i < r->len; ++i) {
+    VALUE hv = rb_hash_new ();
+    rb_hash_aset (rv, rb_str_new2 ("lv_name"), rb_str_new2 (r->val[i].lv_name));
+    rb_hash_aset (rv, rb_str_new2 ("lv_uuid"), rb_str_new (r->val[i].lv_uuid, 32));
+    rb_hash_aset (rv, rb_str_new2 ("lv_attr"), rb_str_new2 (r->val[i].lv_attr));
+    rb_hash_aset (rv, rb_str_new2 ("lv_major"), ULL2NUM (r->val[i].lv_major));
+    rb_hash_aset (rv, rb_str_new2 ("lv_minor"), ULL2NUM (r->val[i].lv_minor));
+    rb_hash_aset (rv, rb_str_new2 ("lv_kernel_major"), ULL2NUM (r->val[i].lv_kernel_major));
+    rb_hash_aset (rv, rb_str_new2 ("lv_kernel_minor"), ULL2NUM (r->val[i].lv_kernel_minor));
+    rb_hash_aset (rv, rb_str_new2 ("lv_size"), ULL2NUM (r->val[i].lv_size));
+    rb_hash_aset (rv, rb_str_new2 ("seg_count"), ULL2NUM (r->val[i].seg_count));
+    rb_hash_aset (rv, rb_str_new2 ("origin"), rb_str_new2 (r->val[i].origin));
+    rb_hash_aset (rv, rb_str_new2 ("snap_percent"), rb_dbl2big (r->val[i].snap_percent));
+    rb_hash_aset (rv, rb_str_new2 ("copy_percent"), rb_dbl2big (r->val[i].copy_percent));
+    rb_hash_aset (rv, rb_str_new2 ("move_pv"), rb_str_new2 (r->val[i].move_pv));
+    rb_hash_aset (rv, rb_str_new2 ("lv_tags"), rb_str_new2 (r->val[i].lv_tags));
+    rb_hash_aset (rv, rb_str_new2 ("mirror_log"), rb_str_new2 (r->val[i].mirror_log));
+    rb_hash_aset (rv, rb_str_new2 ("modules"), rb_str_new2 (r->val[i].modules));
+    rb_ary_push (rv, hv);
+  }
+  guestfs_free_lvm_lv_list (r);
+  return rv;
+}
+
+static VALUE ruby_guestfs_test0rstat (VALUE gv, VALUE valv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rstat");
+
+  const char *val = StringValueCStr (valv);
+  if (!val)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "val", "test0rstat");
+
+  struct guestfs_stat *r;
+
+  r = guestfs_test0rstat (g, val);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  VALUE rv = rb_hash_new ();
+  rb_hash_aset (rv, rb_str_new2 ("dev"), ULL2NUM (r->dev));
+  rb_hash_aset (rv, rb_str_new2 ("ino"), ULL2NUM (r->ino));
+  rb_hash_aset (rv, rb_str_new2 ("mode"), ULL2NUM (r->mode));
+  rb_hash_aset (rv, rb_str_new2 ("nlink"), ULL2NUM (r->nlink));
+  rb_hash_aset (rv, rb_str_new2 ("uid"), ULL2NUM (r->uid));
+  rb_hash_aset (rv, rb_str_new2 ("gid"), ULL2NUM (r->gid));
+  rb_hash_aset (rv, rb_str_new2 ("rdev"), ULL2NUM (r->rdev));
+  rb_hash_aset (rv, rb_str_new2 ("size"), ULL2NUM (r->size));
+  rb_hash_aset (rv, rb_str_new2 ("blksize"), ULL2NUM (r->blksize));
+  rb_hash_aset (rv, rb_str_new2 ("blocks"), ULL2NUM (r->blocks));
+  rb_hash_aset (rv, rb_str_new2 ("atime"), ULL2NUM (r->atime));
+  rb_hash_aset (rv, rb_str_new2 ("mtime"), ULL2NUM (r->mtime));
+  rb_hash_aset (rv, rb_str_new2 ("ctime"), ULL2NUM (r->ctime));
+  free (r);
+  return rv;
+}
+
+static VALUE ruby_guestfs_test0rstaterr (VALUE gv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rstaterr");
+
+
+  struct guestfs_stat *r;
+
+  r = guestfs_test0rstaterr (g);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  VALUE rv = rb_hash_new ();
+  rb_hash_aset (rv, rb_str_new2 ("dev"), ULL2NUM (r->dev));
+  rb_hash_aset (rv, rb_str_new2 ("ino"), ULL2NUM (r->ino));
+  rb_hash_aset (rv, rb_str_new2 ("mode"), ULL2NUM (r->mode));
+  rb_hash_aset (rv, rb_str_new2 ("nlink"), ULL2NUM (r->nlink));
+  rb_hash_aset (rv, rb_str_new2 ("uid"), ULL2NUM (r->uid));
+  rb_hash_aset (rv, rb_str_new2 ("gid"), ULL2NUM (r->gid));
+  rb_hash_aset (rv, rb_str_new2 ("rdev"), ULL2NUM (r->rdev));
+  rb_hash_aset (rv, rb_str_new2 ("size"), ULL2NUM (r->size));
+  rb_hash_aset (rv, rb_str_new2 ("blksize"), ULL2NUM (r->blksize));
+  rb_hash_aset (rv, rb_str_new2 ("blocks"), ULL2NUM (r->blocks));
+  rb_hash_aset (rv, rb_str_new2 ("atime"), ULL2NUM (r->atime));
+  rb_hash_aset (rv, rb_str_new2 ("mtime"), ULL2NUM (r->mtime));
+  rb_hash_aset (rv, rb_str_new2 ("ctime"), ULL2NUM (r->ctime));
+  free (r);
+  return rv;
+}
+
+static VALUE ruby_guestfs_test0rstatvfs (VALUE gv, VALUE valv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rstatvfs");
+
+  const char *val = StringValueCStr (valv);
+  if (!val)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "val", "test0rstatvfs");
+
+  struct guestfs_statvfs *r;
+
+  r = guestfs_test0rstatvfs (g, val);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  VALUE rv = rb_hash_new ();
+  rb_hash_aset (rv, rb_str_new2 ("bsize"), ULL2NUM (r->bsize));
+  rb_hash_aset (rv, rb_str_new2 ("frsize"), ULL2NUM (r->frsize));
+  rb_hash_aset (rv, rb_str_new2 ("blocks"), ULL2NUM (r->blocks));
+  rb_hash_aset (rv, rb_str_new2 ("bfree"), ULL2NUM (r->bfree));
+  rb_hash_aset (rv, rb_str_new2 ("bavail"), ULL2NUM (r->bavail));
+  rb_hash_aset (rv, rb_str_new2 ("files"), ULL2NUM (r->files));
+  rb_hash_aset (rv, rb_str_new2 ("ffree"), ULL2NUM (r->ffree));
+  rb_hash_aset (rv, rb_str_new2 ("favail"), ULL2NUM (r->favail));
+  rb_hash_aset (rv, rb_str_new2 ("fsid"), ULL2NUM (r->fsid));
+  rb_hash_aset (rv, rb_str_new2 ("flag"), ULL2NUM (r->flag));
+  rb_hash_aset (rv, rb_str_new2 ("namemax"), ULL2NUM (r->namemax));
+  free (r);
+  return rv;
+}
+
+static VALUE ruby_guestfs_test0rstatvfserr (VALUE gv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rstatvfserr");
+
+
+  struct guestfs_statvfs *r;
+
+  r = guestfs_test0rstatvfserr (g);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  VALUE rv = rb_hash_new ();
+  rb_hash_aset (rv, rb_str_new2 ("bsize"), ULL2NUM (r->bsize));
+  rb_hash_aset (rv, rb_str_new2 ("frsize"), ULL2NUM (r->frsize));
+  rb_hash_aset (rv, rb_str_new2 ("blocks"), ULL2NUM (r->blocks));
+  rb_hash_aset (rv, rb_str_new2 ("bfree"), ULL2NUM (r->bfree));
+  rb_hash_aset (rv, rb_str_new2 ("bavail"), ULL2NUM (r->bavail));
+  rb_hash_aset (rv, rb_str_new2 ("files"), ULL2NUM (r->files));
+  rb_hash_aset (rv, rb_str_new2 ("ffree"), ULL2NUM (r->ffree));
+  rb_hash_aset (rv, rb_str_new2 ("favail"), ULL2NUM (r->favail));
+  rb_hash_aset (rv, rb_str_new2 ("fsid"), ULL2NUM (r->fsid));
+  rb_hash_aset (rv, rb_str_new2 ("flag"), ULL2NUM (r->flag));
+  rb_hash_aset (rv, rb_str_new2 ("namemax"), ULL2NUM (r->namemax));
+  free (r);
+  return rv;
+}
+
+static VALUE ruby_guestfs_test0rhashtable (VALUE gv, VALUE valv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rhashtable");
+
+  const char *val = StringValueCStr (valv);
+  if (!val)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "val", "test0rhashtable");
+
+  char **r;
+
+  r = guestfs_test0rhashtable (g, val);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  VALUE rv = rb_hash_new ();
+  int i;
+  for (i = 0; r[i] != NULL; i+=2) {
+    rb_hash_aset (rv, rb_str_new2 (r[i]), rb_str_new2 (r[i+1]));
+    free (r[i]);
+    free (r[i+1]);
+  }
+  free (r);
+  return rv;
+}
+
+static VALUE ruby_guestfs_test0rhashtableerr (VALUE gv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rhashtableerr");
+
+
+  char **r;
+
+  r = guestfs_test0rhashtableerr (g);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  VALUE rv = rb_hash_new ();
+  int i;
+  for (i = 0; r[i] != NULL; i+=2) {
+    rb_hash_aset (rv, rb_str_new2 (r[i]), rb_str_new2 (r[i+1]));
+    free (r[i]);
+    free (r[i+1]);
+  }
+  free (r);
+  return rv;
+}
+
 static VALUE ruby_guestfs_launch (VALUE gv)
 {
   guestfs_h *g;
@@ -3175,6 +3952,60 @@ void Init__guestfs ()
   rb_define_module_function (m_guestfs, "create", ruby_guestfs_create, 0);
   rb_define_method (c_guestfs, "close", ruby_guestfs_close, 0);
 
+  rb_define_method (c_guestfs, "test0",
+        ruby_guestfs_test0, 7);
+  rb_define_method (c_guestfs, "test0rint",
+        ruby_guestfs_test0rint, 1);
+  rb_define_method (c_guestfs, "test0rinterr",
+        ruby_guestfs_test0rinterr, 0);
+  rb_define_method (c_guestfs, "test0rint64",
+        ruby_guestfs_test0rint64, 1);
+  rb_define_method (c_guestfs, "test0rint64err",
+        ruby_guestfs_test0rint64err, 0);
+  rb_define_method (c_guestfs, "test0rbool",
+        ruby_guestfs_test0rbool, 1);
+  rb_define_method (c_guestfs, "test0rboolerr",
+        ruby_guestfs_test0rboolerr, 0);
+  rb_define_method (c_guestfs, "test0rconststring",
+        ruby_guestfs_test0rconststring, 1);
+  rb_define_method (c_guestfs, "test0rconststringerr",
+        ruby_guestfs_test0rconststringerr, 0);
+  rb_define_method (c_guestfs, "test0rstring",
+        ruby_guestfs_test0rstring, 1);
+  rb_define_method (c_guestfs, "test0rstringerr",
+        ruby_guestfs_test0rstringerr, 0);
+  rb_define_method (c_guestfs, "test0rstringlist",
+        ruby_guestfs_test0rstringlist, 1);
+  rb_define_method (c_guestfs, "test0rstringlisterr",
+        ruby_guestfs_test0rstringlisterr, 0);
+  rb_define_method (c_guestfs, "test0rintbool",
+        ruby_guestfs_test0rintbool, 1);
+  rb_define_method (c_guestfs, "test0rintboolerr",
+        ruby_guestfs_test0rintboolerr, 0);
+  rb_define_method (c_guestfs, "test0rpvlist",
+        ruby_guestfs_test0rpvlist, 1);
+  rb_define_method (c_guestfs, "test0rpvlisterr",
+        ruby_guestfs_test0rpvlisterr, 0);
+  rb_define_method (c_guestfs, "test0rvglist",
+        ruby_guestfs_test0rvglist, 1);
+  rb_define_method (c_guestfs, "test0rvglisterr",
+        ruby_guestfs_test0rvglisterr, 0);
+  rb_define_method (c_guestfs, "test0rlvlist",
+        ruby_guestfs_test0rlvlist, 1);
+  rb_define_method (c_guestfs, "test0rlvlisterr",
+        ruby_guestfs_test0rlvlisterr, 0);
+  rb_define_method (c_guestfs, "test0rstat",
+        ruby_guestfs_test0rstat, 1);
+  rb_define_method (c_guestfs, "test0rstaterr",
+        ruby_guestfs_test0rstaterr, 0);
+  rb_define_method (c_guestfs, "test0rstatvfs",
+        ruby_guestfs_test0rstatvfs, 1);
+  rb_define_method (c_guestfs, "test0rstatvfserr",
+        ruby_guestfs_test0rstatvfserr, 0);
+  rb_define_method (c_guestfs, "test0rhashtable",
+        ruby_guestfs_test0rhashtable, 1);
+  rb_define_method (c_guestfs, "test0rhashtableerr",
+        ruby_guestfs_test0rhashtableerr, 0);
   rb_define_method (c_guestfs, "launch",
         ruby_guestfs_launch, 0);
   rb_define_method (c_guestfs, "wait_ready",

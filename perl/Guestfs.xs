@@ -107,6 +107,571 @@ DESTROY (g)
       guestfs_close (g);
 
 void
+test0 (g, str, optstr, strlist, b, integer, filein, fileout)
+      guestfs_h *g;
+      char *str;
+      char *optstr;
+      char **strlist;
+      int b;
+      int integer;
+      char *filein;
+      char *fileout;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_test0 (g, str, optstr, strlist, b, integer, filein, fileout);
+      free (strlist);
+      if (r == -1)
+        croak ("test0: %s", guestfs_last_error (g));
+
+SV *
+test0rint (g, val)
+      guestfs_h *g;
+      char *val;
+PREINIT:
+      int valout;
+   CODE:
+      valout = guestfs_test0rint (g, val);
+      if (valout == -1)
+        croak ("test0rint: %s", guestfs_last_error (g));
+      RETVAL = newSViv (valout);
+ OUTPUT:
+      RETVAL
+
+SV *
+test0rinterr (g)
+      guestfs_h *g;
+PREINIT:
+      int valout;
+   CODE:
+      valout = guestfs_test0rinterr (g);
+      if (valout == -1)
+        croak ("test0rinterr: %s", guestfs_last_error (g));
+      RETVAL = newSViv (valout);
+ OUTPUT:
+      RETVAL
+
+SV *
+test0rint64 (g, val)
+      guestfs_h *g;
+      char *val;
+PREINIT:
+      int64_t valout;
+   CODE:
+      valout = guestfs_test0rint64 (g, val);
+      if (valout == -1)
+        croak ("test0rint64: %s", guestfs_last_error (g));
+      RETVAL = my_newSVll (valout);
+ OUTPUT:
+      RETVAL
+
+SV *
+test0rint64err (g)
+      guestfs_h *g;
+PREINIT:
+      int64_t valout;
+   CODE:
+      valout = guestfs_test0rint64err (g);
+      if (valout == -1)
+        croak ("test0rint64err: %s", guestfs_last_error (g));
+      RETVAL = my_newSVll (valout);
+ OUTPUT:
+      RETVAL
+
+SV *
+test0rbool (g, val)
+      guestfs_h *g;
+      char *val;
+PREINIT:
+      int valout;
+   CODE:
+      valout = guestfs_test0rbool (g, val);
+      if (valout == -1)
+        croak ("test0rbool: %s", guestfs_last_error (g));
+      RETVAL = newSViv (valout);
+ OUTPUT:
+      RETVAL
+
+SV *
+test0rboolerr (g)
+      guestfs_h *g;
+PREINIT:
+      int valout;
+   CODE:
+      valout = guestfs_test0rboolerr (g);
+      if (valout == -1)
+        croak ("test0rboolerr: %s", guestfs_last_error (g));
+      RETVAL = newSViv (valout);
+ OUTPUT:
+      RETVAL
+
+SV *
+test0rconststring (g, val)
+      guestfs_h *g;
+      char *val;
+PREINIT:
+      const char *valout;
+   CODE:
+      valout = guestfs_test0rconststring (g, val);
+      if (valout == NULL)
+        croak ("test0rconststring: %s", guestfs_last_error (g));
+      RETVAL = newSVpv (valout, 0);
+ OUTPUT:
+      RETVAL
+
+SV *
+test0rconststringerr (g)
+      guestfs_h *g;
+PREINIT:
+      const char *valout;
+   CODE:
+      valout = guestfs_test0rconststringerr (g);
+      if (valout == NULL)
+        croak ("test0rconststringerr: %s", guestfs_last_error (g));
+      RETVAL = newSVpv (valout, 0);
+ OUTPUT:
+      RETVAL
+
+SV *
+test0rstring (g, val)
+      guestfs_h *g;
+      char *val;
+PREINIT:
+      char *valout;
+   CODE:
+      valout = guestfs_test0rstring (g, val);
+      if (valout == NULL)
+        croak ("test0rstring: %s", guestfs_last_error (g));
+      RETVAL = newSVpv (valout, 0);
+      free (valout);
+ OUTPUT:
+      RETVAL
+
+SV *
+test0rstringerr (g)
+      guestfs_h *g;
+PREINIT:
+      char *valout;
+   CODE:
+      valout = guestfs_test0rstringerr (g);
+      if (valout == NULL)
+        croak ("test0rstringerr: %s", guestfs_last_error (g));
+      RETVAL = newSVpv (valout, 0);
+      free (valout);
+ OUTPUT:
+      RETVAL
+
+void
+test0rstringlist (g, val)
+      guestfs_h *g;
+      char *val;
+PREINIT:
+      char **valout;
+      int i, n;
+ PPCODE:
+      valout = guestfs_test0rstringlist (g, val);
+      if (valout == NULL)
+        croak ("test0rstringlist: %s", guestfs_last_error (g));
+      for (n = 0; valout[n] != NULL; ++n) /**/;
+      EXTEND (SP, n);
+      for (i = 0; i < n; ++i) {
+        PUSHs (sv_2mortal (newSVpv (valout[i], 0)));
+        free (valout[i]);
+      }
+      free (valout);
+
+void
+test0rstringlisterr (g)
+      guestfs_h *g;
+PREINIT:
+      char **valout;
+      int i, n;
+ PPCODE:
+      valout = guestfs_test0rstringlisterr (g);
+      if (valout == NULL)
+        croak ("test0rstringlisterr: %s", guestfs_last_error (g));
+      for (n = 0; valout[n] != NULL; ++n) /**/;
+      EXTEND (SP, n);
+      for (i = 0; i < n; ++i) {
+        PUSHs (sv_2mortal (newSVpv (valout[i], 0)));
+        free (valout[i]);
+      }
+      free (valout);
+
+void
+test0rintbool (g, val)
+      guestfs_h *g;
+      char *val;
+PREINIT:
+      struct guestfs_int_bool *r;
+ PPCODE:
+      r = guestfs_test0rintbool (g, val);
+      if (r == NULL)
+        croak ("test0rintbool: %s", guestfs_last_error (g));
+      EXTEND (SP, 2);
+      PUSHs (sv_2mortal (newSViv (r->i)));
+      PUSHs (sv_2mortal (newSViv (r->b)));
+      guestfs_free_int_bool (r);
+
+void
+test0rintboolerr (g)
+      guestfs_h *g;
+PREINIT:
+      struct guestfs_int_bool *r;
+ PPCODE:
+      r = guestfs_test0rintboolerr (g);
+      if (r == NULL)
+        croak ("test0rintboolerr: %s", guestfs_last_error (g));
+      EXTEND (SP, 2);
+      PUSHs (sv_2mortal (newSViv (r->i)));
+      PUSHs (sv_2mortal (newSViv (r->b)));
+      guestfs_free_int_bool (r);
+
+void
+test0rpvlist (g, val)
+      guestfs_h *g;
+      char *val;
+PREINIT:
+      struct guestfs_lvm_pv_list *valout;
+      int i;
+      HV *hv;
+ PPCODE:
+      valout = guestfs_test0rpvlist (g, val);
+      if (valout == NULL)
+        croak ("test0rpvlist: %s", guestfs_last_error (g));
+      EXTEND (SP, valout->len);
+      for (i = 0; i < valout->len; ++i) {
+        hv = newHV ();
+        (void) hv_store (hv, "pv_name", 7, newSVpv (valout->val[i].pv_name, 0), 0);
+        (void) hv_store (hv, "pv_uuid", 7, newSVpv (valout->val[i].pv_uuid, 32), 0);
+        (void) hv_store (hv, "pv_fmt", 6, newSVpv (valout->val[i].pv_fmt, 0), 0);
+        (void) hv_store (hv, "pv_size", 7, my_newSVull (valout->val[i].pv_size), 0);
+        (void) hv_store (hv, "dev_size", 8, my_newSVull (valout->val[i].dev_size), 0);
+        (void) hv_store (hv, "pv_free", 7, my_newSVull (valout->val[i].pv_free), 0);
+        (void) hv_store (hv, "pv_used", 7, my_newSVull (valout->val[i].pv_used), 0);
+        (void) hv_store (hv, "pv_attr", 7, newSVpv (valout->val[i].pv_attr, 0), 0);
+        (void) hv_store (hv, "pv_pe_count", 11, my_newSVll (valout->val[i].pv_pe_count), 0);
+        (void) hv_store (hv, "pv_pe_alloc_count", 17, my_newSVll (valout->val[i].pv_pe_alloc_count), 0);
+        (void) hv_store (hv, "pv_tags", 7, newSVpv (valout->val[i].pv_tags, 0), 0);
+        (void) hv_store (hv, "pe_start", 8, my_newSVull (valout->val[i].pe_start), 0);
+        (void) hv_store (hv, "pv_mda_count", 12, my_newSVll (valout->val[i].pv_mda_count), 0);
+        (void) hv_store (hv, "pv_mda_free", 11, my_newSVull (valout->val[i].pv_mda_free), 0);
+        PUSHs (sv_2mortal ((SV *) hv));
+      }
+      guestfs_free_lvm_pv_list (valout);
+
+void
+test0rpvlisterr (g)
+      guestfs_h *g;
+PREINIT:
+      struct guestfs_lvm_pv_list *valout;
+      int i;
+      HV *hv;
+ PPCODE:
+      valout = guestfs_test0rpvlisterr (g);
+      if (valout == NULL)
+        croak ("test0rpvlisterr: %s", guestfs_last_error (g));
+      EXTEND (SP, valout->len);
+      for (i = 0; i < valout->len; ++i) {
+        hv = newHV ();
+        (void) hv_store (hv, "pv_name", 7, newSVpv (valout->val[i].pv_name, 0), 0);
+        (void) hv_store (hv, "pv_uuid", 7, newSVpv (valout->val[i].pv_uuid, 32), 0);
+        (void) hv_store (hv, "pv_fmt", 6, newSVpv (valout->val[i].pv_fmt, 0), 0);
+        (void) hv_store (hv, "pv_size", 7, my_newSVull (valout->val[i].pv_size), 0);
+        (void) hv_store (hv, "dev_size", 8, my_newSVull (valout->val[i].dev_size), 0);
+        (void) hv_store (hv, "pv_free", 7, my_newSVull (valout->val[i].pv_free), 0);
+        (void) hv_store (hv, "pv_used", 7, my_newSVull (valout->val[i].pv_used), 0);
+        (void) hv_store (hv, "pv_attr", 7, newSVpv (valout->val[i].pv_attr, 0), 0);
+        (void) hv_store (hv, "pv_pe_count", 11, my_newSVll (valout->val[i].pv_pe_count), 0);
+        (void) hv_store (hv, "pv_pe_alloc_count", 17, my_newSVll (valout->val[i].pv_pe_alloc_count), 0);
+        (void) hv_store (hv, "pv_tags", 7, newSVpv (valout->val[i].pv_tags, 0), 0);
+        (void) hv_store (hv, "pe_start", 8, my_newSVull (valout->val[i].pe_start), 0);
+        (void) hv_store (hv, "pv_mda_count", 12, my_newSVll (valout->val[i].pv_mda_count), 0);
+        (void) hv_store (hv, "pv_mda_free", 11, my_newSVull (valout->val[i].pv_mda_free), 0);
+        PUSHs (sv_2mortal ((SV *) hv));
+      }
+      guestfs_free_lvm_pv_list (valout);
+
+void
+test0rvglist (g, val)
+      guestfs_h *g;
+      char *val;
+PREINIT:
+      struct guestfs_lvm_vg_list *valout;
+      int i;
+      HV *hv;
+ PPCODE:
+      valout = guestfs_test0rvglist (g, val);
+      if (valout == NULL)
+        croak ("test0rvglist: %s", guestfs_last_error (g));
+      EXTEND (SP, valout->len);
+      for (i = 0; i < valout->len; ++i) {
+        hv = newHV ();
+        (void) hv_store (hv, "vg_name", 7, newSVpv (valout->val[i].vg_name, 0), 0);
+        (void) hv_store (hv, "vg_uuid", 7, newSVpv (valout->val[i].vg_uuid, 32), 0);
+        (void) hv_store (hv, "vg_fmt", 6, newSVpv (valout->val[i].vg_fmt, 0), 0);
+        (void) hv_store (hv, "vg_attr", 7, newSVpv (valout->val[i].vg_attr, 0), 0);
+        (void) hv_store (hv, "vg_size", 7, my_newSVull (valout->val[i].vg_size), 0);
+        (void) hv_store (hv, "vg_free", 7, my_newSVull (valout->val[i].vg_free), 0);
+        (void) hv_store (hv, "vg_sysid", 8, newSVpv (valout->val[i].vg_sysid, 0), 0);
+        (void) hv_store (hv, "vg_extent_size", 14, my_newSVull (valout->val[i].vg_extent_size), 0);
+        (void) hv_store (hv, "vg_extent_count", 15, my_newSVll (valout->val[i].vg_extent_count), 0);
+        (void) hv_store (hv, "vg_free_count", 13, my_newSVll (valout->val[i].vg_free_count), 0);
+        (void) hv_store (hv, "max_lv", 6, my_newSVll (valout->val[i].max_lv), 0);
+        (void) hv_store (hv, "max_pv", 6, my_newSVll (valout->val[i].max_pv), 0);
+        (void) hv_store (hv, "pv_count", 8, my_newSVll (valout->val[i].pv_count), 0);
+        (void) hv_store (hv, "lv_count", 8, my_newSVll (valout->val[i].lv_count), 0);
+        (void) hv_store (hv, "snap_count", 10, my_newSVll (valout->val[i].snap_count), 0);
+        (void) hv_store (hv, "vg_seqno", 8, my_newSVll (valout->val[i].vg_seqno), 0);
+        (void) hv_store (hv, "vg_tags", 7, newSVpv (valout->val[i].vg_tags, 0), 0);
+        (void) hv_store (hv, "vg_mda_count", 12, my_newSVll (valout->val[i].vg_mda_count), 0);
+        (void) hv_store (hv, "vg_mda_free", 11, my_newSVull (valout->val[i].vg_mda_free), 0);
+        PUSHs (sv_2mortal ((SV *) hv));
+      }
+      guestfs_free_lvm_vg_list (valout);
+
+void
+test0rvglisterr (g)
+      guestfs_h *g;
+PREINIT:
+      struct guestfs_lvm_vg_list *valout;
+      int i;
+      HV *hv;
+ PPCODE:
+      valout = guestfs_test0rvglisterr (g);
+      if (valout == NULL)
+        croak ("test0rvglisterr: %s", guestfs_last_error (g));
+      EXTEND (SP, valout->len);
+      for (i = 0; i < valout->len; ++i) {
+        hv = newHV ();
+        (void) hv_store (hv, "vg_name", 7, newSVpv (valout->val[i].vg_name, 0), 0);
+        (void) hv_store (hv, "vg_uuid", 7, newSVpv (valout->val[i].vg_uuid, 32), 0);
+        (void) hv_store (hv, "vg_fmt", 6, newSVpv (valout->val[i].vg_fmt, 0), 0);
+        (void) hv_store (hv, "vg_attr", 7, newSVpv (valout->val[i].vg_attr, 0), 0);
+        (void) hv_store (hv, "vg_size", 7, my_newSVull (valout->val[i].vg_size), 0);
+        (void) hv_store (hv, "vg_free", 7, my_newSVull (valout->val[i].vg_free), 0);
+        (void) hv_store (hv, "vg_sysid", 8, newSVpv (valout->val[i].vg_sysid, 0), 0);
+        (void) hv_store (hv, "vg_extent_size", 14, my_newSVull (valout->val[i].vg_extent_size), 0);
+        (void) hv_store (hv, "vg_extent_count", 15, my_newSVll (valout->val[i].vg_extent_count), 0);
+        (void) hv_store (hv, "vg_free_count", 13, my_newSVll (valout->val[i].vg_free_count), 0);
+        (void) hv_store (hv, "max_lv", 6, my_newSVll (valout->val[i].max_lv), 0);
+        (void) hv_store (hv, "max_pv", 6, my_newSVll (valout->val[i].max_pv), 0);
+        (void) hv_store (hv, "pv_count", 8, my_newSVll (valout->val[i].pv_count), 0);
+        (void) hv_store (hv, "lv_count", 8, my_newSVll (valout->val[i].lv_count), 0);
+        (void) hv_store (hv, "snap_count", 10, my_newSVll (valout->val[i].snap_count), 0);
+        (void) hv_store (hv, "vg_seqno", 8, my_newSVll (valout->val[i].vg_seqno), 0);
+        (void) hv_store (hv, "vg_tags", 7, newSVpv (valout->val[i].vg_tags, 0), 0);
+        (void) hv_store (hv, "vg_mda_count", 12, my_newSVll (valout->val[i].vg_mda_count), 0);
+        (void) hv_store (hv, "vg_mda_free", 11, my_newSVull (valout->val[i].vg_mda_free), 0);
+        PUSHs (sv_2mortal ((SV *) hv));
+      }
+      guestfs_free_lvm_vg_list (valout);
+
+void
+test0rlvlist (g, val)
+      guestfs_h *g;
+      char *val;
+PREINIT:
+      struct guestfs_lvm_lv_list *valout;
+      int i;
+      HV *hv;
+ PPCODE:
+      valout = guestfs_test0rlvlist (g, val);
+      if (valout == NULL)
+        croak ("test0rlvlist: %s", guestfs_last_error (g));
+      EXTEND (SP, valout->len);
+      for (i = 0; i < valout->len; ++i) {
+        hv = newHV ();
+        (void) hv_store (hv, "lv_name", 7, newSVpv (valout->val[i].lv_name, 0), 0);
+        (void) hv_store (hv, "lv_uuid", 7, newSVpv (valout->val[i].lv_uuid, 32), 0);
+        (void) hv_store (hv, "lv_attr", 7, newSVpv (valout->val[i].lv_attr, 0), 0);
+        (void) hv_store (hv, "lv_major", 8, my_newSVll (valout->val[i].lv_major), 0);
+        (void) hv_store (hv, "lv_minor", 8, my_newSVll (valout->val[i].lv_minor), 0);
+        (void) hv_store (hv, "lv_kernel_major", 15, my_newSVll (valout->val[i].lv_kernel_major), 0);
+        (void) hv_store (hv, "lv_kernel_minor", 15, my_newSVll (valout->val[i].lv_kernel_minor), 0);
+        (void) hv_store (hv, "lv_size", 7, my_newSVull (valout->val[i].lv_size), 0);
+        (void) hv_store (hv, "seg_count", 9, my_newSVll (valout->val[i].seg_count), 0);
+        (void) hv_store (hv, "origin", 6, newSVpv (valout->val[i].origin, 0), 0);
+        (void) hv_store (hv, "snap_percent", 12, newSVnv (valout->val[i].snap_percent), 0);
+        (void) hv_store (hv, "copy_percent", 12, newSVnv (valout->val[i].copy_percent), 0);
+        (void) hv_store (hv, "move_pv", 7, newSVpv (valout->val[i].move_pv, 0), 0);
+        (void) hv_store (hv, "lv_tags", 7, newSVpv (valout->val[i].lv_tags, 0), 0);
+        (void) hv_store (hv, "mirror_log", 10, newSVpv (valout->val[i].mirror_log, 0), 0);
+        (void) hv_store (hv, "modules", 7, newSVpv (valout->val[i].modules, 0), 0);
+        PUSHs (sv_2mortal ((SV *) hv));
+      }
+      guestfs_free_lvm_lv_list (valout);
+
+void
+test0rlvlisterr (g)
+      guestfs_h *g;
+PREINIT:
+      struct guestfs_lvm_lv_list *valout;
+      int i;
+      HV *hv;
+ PPCODE:
+      valout = guestfs_test0rlvlisterr (g);
+      if (valout == NULL)
+        croak ("test0rlvlisterr: %s", guestfs_last_error (g));
+      EXTEND (SP, valout->len);
+      for (i = 0; i < valout->len; ++i) {
+        hv = newHV ();
+        (void) hv_store (hv, "lv_name", 7, newSVpv (valout->val[i].lv_name, 0), 0);
+        (void) hv_store (hv, "lv_uuid", 7, newSVpv (valout->val[i].lv_uuid, 32), 0);
+        (void) hv_store (hv, "lv_attr", 7, newSVpv (valout->val[i].lv_attr, 0), 0);
+        (void) hv_store (hv, "lv_major", 8, my_newSVll (valout->val[i].lv_major), 0);
+        (void) hv_store (hv, "lv_minor", 8, my_newSVll (valout->val[i].lv_minor), 0);
+        (void) hv_store (hv, "lv_kernel_major", 15, my_newSVll (valout->val[i].lv_kernel_major), 0);
+        (void) hv_store (hv, "lv_kernel_minor", 15, my_newSVll (valout->val[i].lv_kernel_minor), 0);
+        (void) hv_store (hv, "lv_size", 7, my_newSVull (valout->val[i].lv_size), 0);
+        (void) hv_store (hv, "seg_count", 9, my_newSVll (valout->val[i].seg_count), 0);
+        (void) hv_store (hv, "origin", 6, newSVpv (valout->val[i].origin, 0), 0);
+        (void) hv_store (hv, "snap_percent", 12, newSVnv (valout->val[i].snap_percent), 0);
+        (void) hv_store (hv, "copy_percent", 12, newSVnv (valout->val[i].copy_percent), 0);
+        (void) hv_store (hv, "move_pv", 7, newSVpv (valout->val[i].move_pv, 0), 0);
+        (void) hv_store (hv, "lv_tags", 7, newSVpv (valout->val[i].lv_tags, 0), 0);
+        (void) hv_store (hv, "mirror_log", 10, newSVpv (valout->val[i].mirror_log, 0), 0);
+        (void) hv_store (hv, "modules", 7, newSVpv (valout->val[i].modules, 0), 0);
+        PUSHs (sv_2mortal ((SV *) hv));
+      }
+      guestfs_free_lvm_lv_list (valout);
+
+void
+test0rstat (g, val)
+      guestfs_h *g;
+      char *val;
+PREINIT:
+      struct guestfs_stat *valout;
+ PPCODE:
+      valout = guestfs_test0rstat (g, val);
+      if (valout == NULL)
+        croak ("test0rstat: %s", guestfs_last_error (g));
+      EXTEND (SP, 13);
+      PUSHs (sv_2mortal (my_newSVll (valout->dev)));
+      PUSHs (sv_2mortal (my_newSVll (valout->ino)));
+      PUSHs (sv_2mortal (my_newSVll (valout->mode)));
+      PUSHs (sv_2mortal (my_newSVll (valout->nlink)));
+      PUSHs (sv_2mortal (my_newSVll (valout->uid)));
+      PUSHs (sv_2mortal (my_newSVll (valout->gid)));
+      PUSHs (sv_2mortal (my_newSVll (valout->rdev)));
+      PUSHs (sv_2mortal (my_newSVll (valout->size)));
+      PUSHs (sv_2mortal (my_newSVll (valout->blksize)));
+      PUSHs (sv_2mortal (my_newSVll (valout->blocks)));
+      PUSHs (sv_2mortal (my_newSVll (valout->atime)));
+      PUSHs (sv_2mortal (my_newSVll (valout->mtime)));
+      PUSHs (sv_2mortal (my_newSVll (valout->ctime)));
+      free (valout);
+
+void
+test0rstaterr (g)
+      guestfs_h *g;
+PREINIT:
+      struct guestfs_stat *valout;
+ PPCODE:
+      valout = guestfs_test0rstaterr (g);
+      if (valout == NULL)
+        croak ("test0rstaterr: %s", guestfs_last_error (g));
+      EXTEND (SP, 13);
+      PUSHs (sv_2mortal (my_newSVll (valout->dev)));
+      PUSHs (sv_2mortal (my_newSVll (valout->ino)));
+      PUSHs (sv_2mortal (my_newSVll (valout->mode)));
+      PUSHs (sv_2mortal (my_newSVll (valout->nlink)));
+      PUSHs (sv_2mortal (my_newSVll (valout->uid)));
+      PUSHs (sv_2mortal (my_newSVll (valout->gid)));
+      PUSHs (sv_2mortal (my_newSVll (valout->rdev)));
+      PUSHs (sv_2mortal (my_newSVll (valout->size)));
+      PUSHs (sv_2mortal (my_newSVll (valout->blksize)));
+      PUSHs (sv_2mortal (my_newSVll (valout->blocks)));
+      PUSHs (sv_2mortal (my_newSVll (valout->atime)));
+      PUSHs (sv_2mortal (my_newSVll (valout->mtime)));
+      PUSHs (sv_2mortal (my_newSVll (valout->ctime)));
+      free (valout);
+
+void
+test0rstatvfs (g, val)
+      guestfs_h *g;
+      char *val;
+PREINIT:
+      struct guestfs_statvfs *valout;
+ PPCODE:
+      valout = guestfs_test0rstatvfs (g, val);
+      if (valout == NULL)
+        croak ("test0rstatvfs: %s", guestfs_last_error (g));
+      EXTEND (SP, 11);
+      PUSHs (sv_2mortal (my_newSVll (valout->bsize)));
+      PUSHs (sv_2mortal (my_newSVll (valout->frsize)));
+      PUSHs (sv_2mortal (my_newSVll (valout->blocks)));
+      PUSHs (sv_2mortal (my_newSVll (valout->bfree)));
+      PUSHs (sv_2mortal (my_newSVll (valout->bavail)));
+      PUSHs (sv_2mortal (my_newSVll (valout->files)));
+      PUSHs (sv_2mortal (my_newSVll (valout->ffree)));
+      PUSHs (sv_2mortal (my_newSVll (valout->favail)));
+      PUSHs (sv_2mortal (my_newSVll (valout->fsid)));
+      PUSHs (sv_2mortal (my_newSVll (valout->flag)));
+      PUSHs (sv_2mortal (my_newSVll (valout->namemax)));
+      free (valout);
+
+void
+test0rstatvfserr (g)
+      guestfs_h *g;
+PREINIT:
+      struct guestfs_statvfs *valout;
+ PPCODE:
+      valout = guestfs_test0rstatvfserr (g);
+      if (valout == NULL)
+        croak ("test0rstatvfserr: %s", guestfs_last_error (g));
+      EXTEND (SP, 11);
+      PUSHs (sv_2mortal (my_newSVll (valout->bsize)));
+      PUSHs (sv_2mortal (my_newSVll (valout->frsize)));
+      PUSHs (sv_2mortal (my_newSVll (valout->blocks)));
+      PUSHs (sv_2mortal (my_newSVll (valout->bfree)));
+      PUSHs (sv_2mortal (my_newSVll (valout->bavail)));
+      PUSHs (sv_2mortal (my_newSVll (valout->files)));
+      PUSHs (sv_2mortal (my_newSVll (valout->ffree)));
+      PUSHs (sv_2mortal (my_newSVll (valout->favail)));
+      PUSHs (sv_2mortal (my_newSVll (valout->fsid)));
+      PUSHs (sv_2mortal (my_newSVll (valout->flag)));
+      PUSHs (sv_2mortal (my_newSVll (valout->namemax)));
+      free (valout);
+
+void
+test0rhashtable (g, val)
+      guestfs_h *g;
+      char *val;
+PREINIT:
+      char **valout;
+      int i, n;
+ PPCODE:
+      valout = guestfs_test0rhashtable (g, val);
+      if (valout == NULL)
+        croak ("test0rhashtable: %s", guestfs_last_error (g));
+      for (n = 0; valout[n] != NULL; ++n) /**/;
+      EXTEND (SP, n);
+      for (i = 0; i < n; ++i) {
+        PUSHs (sv_2mortal (newSVpv (valout[i], 0)));
+        free (valout[i]);
+      }
+      free (valout);
+
+void
+test0rhashtableerr (g)
+      guestfs_h *g;
+PREINIT:
+      char **valout;
+      int i, n;
+ PPCODE:
+      valout = guestfs_test0rhashtableerr (g);
+      if (valout == NULL)
+        croak ("test0rhashtableerr: %s", guestfs_last_error (g));
+      for (n = 0; valout[n] != NULL; ++n) /**/;
+      EXTEND (SP, n);
+      for (i = 0; i < n; ++i) {
+        PUSHs (sv_2mortal (newSVpv (valout[i], 0)));
+        free (valout[i]);
+      }
+      free (valout);
+
+void
 launch (g)
       guestfs_h *g;
 PREINIT:

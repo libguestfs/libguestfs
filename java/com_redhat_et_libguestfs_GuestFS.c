@@ -62,6 +62,956 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
 }
 
 JNIEXPORT void JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1test0
+  (JNIEnv *env, jobject obj, jlong jg, jstring jstr, jstring joptstr, jobjectArray jstrlist, jboolean jb, jint jinteger, jstring jfilein, jstring jfileout)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+  const char *str;
+  const char *optstr;
+  int strlist_len;
+  const char **strlist;
+  int b;
+  int integer;
+  const char *filein;
+  const char *fileout;
+  int i;
+
+  str = (*env)->GetStringUTFChars (env, jstr, NULL);
+  optstr = (*env)->GetStringUTFChars (env, joptstr, NULL);
+  strlist_len = (*env)->GetArrayLength (env, jstrlist);
+  strlist = guestfs_safe_malloc (g, sizeof (char *) * (strlist_len+1));
+  for (i = 0; i < strlist_len; ++i) {
+    jobject o = (*env)->GetObjectArrayElement (env, jstrlist, i);
+    strlist[i] = (*env)->GetStringUTFChars (env, o, NULL);
+  }
+  strlist[strlist_len] = NULL;
+  b = jb;
+  integer = jinteger;
+  filein = (*env)->GetStringUTFChars (env, jfilein, NULL);
+  fileout = (*env)->GetStringUTFChars (env, jfileout, NULL);
+  r = guestfs_test0 (g, str, optstr, strlist, b, integer, filein, fileout);
+  (*env)->ReleaseStringUTFChars (env, jstr, str);
+  (*env)->ReleaseStringUTFChars (env, joptstr, optstr);
+  for (i = 0; i < strlist_len; ++i) {
+    jobject o = (*env)->GetObjectArrayElement (env, jstrlist, i);
+    (*env)->ReleaseStringUTFChars (env, o, strlist[i]);
+  }
+  free (strlist);
+  (*env)->ReleaseStringUTFChars (env, jfilein, filein);
+  (*env)->ReleaseStringUTFChars (env, jfileout, fileout);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return ;
+  }
+}
+
+JNIEXPORT jint JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1test0rint
+  (JNIEnv *env, jobject obj, jlong jg, jstring jval)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+  const char *val;
+
+  val = (*env)->GetStringUTFChars (env, jval, NULL);
+  r = guestfs_test0rint (g, val);
+  (*env)->ReleaseStringUTFChars (env, jval, val);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return 0;
+  }
+  return (jint) r;
+}
+
+JNIEXPORT jint JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1test0rinterr
+  (JNIEnv *env, jobject obj, jlong jg)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+
+  r = guestfs_test0rinterr (g);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return 0;
+  }
+  return (jint) r;
+}
+
+JNIEXPORT jlong JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1test0rint64
+  (JNIEnv *env, jobject obj, jlong jg, jstring jval)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int64_t r;
+  const char *val;
+
+  val = (*env)->GetStringUTFChars (env, jval, NULL);
+  r = guestfs_test0rint64 (g, val);
+  (*env)->ReleaseStringUTFChars (env, jval, val);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return 0;
+  }
+  return (jlong) r;
+}
+
+JNIEXPORT jlong JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1test0rint64err
+  (JNIEnv *env, jobject obj, jlong jg)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int64_t r;
+
+  r = guestfs_test0rint64err (g);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return 0;
+  }
+  return (jlong) r;
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1test0rbool
+  (JNIEnv *env, jobject obj, jlong jg, jstring jval)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+  const char *val;
+
+  val = (*env)->GetStringUTFChars (env, jval, NULL);
+  r = guestfs_test0rbool (g, val);
+  (*env)->ReleaseStringUTFChars (env, jval, val);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return 0;
+  }
+  return (jboolean) r;
+}
+
+JNIEXPORT jboolean JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1test0rboolerr
+  (JNIEnv *env, jobject obj, jlong jg)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+
+  r = guestfs_test0rboolerr (g);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return 0;
+  }
+  return (jboolean) r;
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1test0rconststring
+  (JNIEnv *env, jobject obj, jlong jg, jstring jval)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  const char *r;
+  const char *val;
+
+  val = (*env)->GetStringUTFChars (env, jval, NULL);
+  r = guestfs_test0rconststring (g, val);
+  (*env)->ReleaseStringUTFChars (env, jval, val);
+  if (r == NULL) {
+    throw_exception (env, guestfs_last_error (g));
+    return NULL;
+  }
+  return (*env)->NewStringUTF (env, r);
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1test0rconststringerr
+  (JNIEnv *env, jobject obj, jlong jg)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  const char *r;
+
+  r = guestfs_test0rconststringerr (g);
+  if (r == NULL) {
+    throw_exception (env, guestfs_last_error (g));
+    return NULL;
+  }
+  return (*env)->NewStringUTF (env, r);
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1test0rstring
+  (JNIEnv *env, jobject obj, jlong jg, jstring jval)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  jstring jr;
+  char *r;
+  const char *val;
+
+  val = (*env)->GetStringUTFChars (env, jval, NULL);
+  r = guestfs_test0rstring (g, val);
+  (*env)->ReleaseStringUTFChars (env, jval, val);
+  if (r == NULL) {
+    throw_exception (env, guestfs_last_error (g));
+    return NULL;
+  }
+  jr = (*env)->NewStringUTF (env, r);
+  free (r);
+  return jr;
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1test0rstringerr
+  (JNIEnv *env, jobject obj, jlong jg)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  jstring jr;
+  char *r;
+
+  r = guestfs_test0rstringerr (g);
+  if (r == NULL) {
+    throw_exception (env, guestfs_last_error (g));
+    return NULL;
+  }
+  jr = (*env)->NewStringUTF (env, r);
+  free (r);
+  return jr;
+}
+
+JNIEXPORT jobjectArray JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1test0rstringlist
+  (JNIEnv *env, jobject obj, jlong jg, jstring jval)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  jobjectArray jr;
+  int r_len;
+  jclass cl;
+  jstring jstr;
+  char **r;
+  const char *val;
+  int i;
+
+  val = (*env)->GetStringUTFChars (env, jval, NULL);
+  r = guestfs_test0rstringlist (g, val);
+  (*env)->ReleaseStringUTFChars (env, jval, val);
+  if (r == NULL) {
+    throw_exception (env, guestfs_last_error (g));
+    return NULL;
+  }
+  for (r_len = 0; r[r_len] != NULL; ++r_len) ;
+  cl = (*env)->FindClass (env, "java/lang/String");
+  jstr = (*env)->NewStringUTF (env, "");
+  jr = (*env)->NewObjectArray (env, r_len, cl, jstr);
+  for (i = 0; i < r_len; ++i) {
+    jstr = (*env)->NewStringUTF (env, r[i]);
+    (*env)->SetObjectArrayElement (env, jr, i, jstr);
+    free (r[i]);
+  }
+  free (r);
+  return jr;
+}
+
+JNIEXPORT jobjectArray JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1test0rstringlisterr
+  (JNIEnv *env, jobject obj, jlong jg)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  jobjectArray jr;
+  int r_len;
+  jclass cl;
+  jstring jstr;
+  char **r;
+  int i;
+
+  r = guestfs_test0rstringlisterr (g);
+  if (r == NULL) {
+    throw_exception (env, guestfs_last_error (g));
+    return NULL;
+  }
+  for (r_len = 0; r[r_len] != NULL; ++r_len) ;
+  cl = (*env)->FindClass (env, "java/lang/String");
+  jstr = (*env)->NewStringUTF (env, "");
+  jr = (*env)->NewObjectArray (env, r_len, cl, jstr);
+  for (i = 0; i < r_len; ++i) {
+    jstr = (*env)->NewStringUTF (env, r[i]);
+    (*env)->SetObjectArrayElement (env, jr, i, jstr);
+    free (r[i]);
+  }
+  free (r);
+  return jr;
+}
+
+JNIEXPORT jobject JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1test0rintbool
+  (JNIEnv *env, jobject obj, jlong jg, jstring jval)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  jobject jr;
+  jclass cl;
+  jfieldID fl;
+  struct guestfs_int_bool *r;
+  const char *val;
+
+  val = (*env)->GetStringUTFChars (env, jval, NULL);
+  r = guestfs_test0rintbool (g, val);
+  (*env)->ReleaseStringUTFChars (env, jval, val);
+  if (r == NULL) {
+    throw_exception (env, guestfs_last_error (g));
+    return NULL;
+  }
+  cl = (*env)->FindClass (env, "com/redhat/et/libguestfs/IntBool");
+  jr = (*env)->AllocObject (env, cl);
+  fl = (*env)->GetFieldID (env, cl, "i", "I");
+  (*env)->SetIntField (env, jr, fl, r->i);
+  fl = (*env)->GetFieldID (env, cl, "i", "Z");
+  (*env)->SetBooleanField (env, jr, fl, r->b);
+  guestfs_free_int_bool (r);
+  return jr;
+}
+
+JNIEXPORT jobject JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1test0rintboolerr
+  (JNIEnv *env, jobject obj, jlong jg)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  jobject jr;
+  jclass cl;
+  jfieldID fl;
+  struct guestfs_int_bool *r;
+
+  r = guestfs_test0rintboolerr (g);
+  if (r == NULL) {
+    throw_exception (env, guestfs_last_error (g));
+    return NULL;
+  }
+  cl = (*env)->FindClass (env, "com/redhat/et/libguestfs/IntBool");
+  jr = (*env)->AllocObject (env, cl);
+  fl = (*env)->GetFieldID (env, cl, "i", "I");
+  (*env)->SetIntField (env, jr, fl, r->i);
+  fl = (*env)->GetFieldID (env, cl, "i", "Z");
+  (*env)->SetBooleanField (env, jr, fl, r->b);
+  guestfs_free_int_bool (r);
+  return jr;
+}
+
+JNIEXPORT jobjectArray JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1test0rpvlist
+  (JNIEnv *env, jobject obj, jlong jg, jstring jval)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  jobjectArray jr;
+  jclass cl;
+  jfieldID fl;
+  jobject jfl;
+  struct guestfs_lvm_pv_list *r;
+  const char *val;
+  int i;
+
+  val = (*env)->GetStringUTFChars (env, jval, NULL);
+  r = guestfs_test0rpvlist (g, val);
+  (*env)->ReleaseStringUTFChars (env, jval, val);
+  if (r == NULL) {
+    throw_exception (env, guestfs_last_error (g));
+    return NULL;
+  }
+  cl = (*env)->FindClass (env, "com/redhat/et/libguestfs/PV");
+  jr = (*env)->NewObjectArray (env, r->len, cl, NULL);
+  for (i = 0; i < r->len; ++i) {
+    jfl = (*env)->AllocObject (env, cl);
+    fl = (*env)->GetFieldID (env, cl, "pv_name", "Ljava/lang/String;");
+    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].pv_name));
+    {
+      char s[33];
+      memcpy (s, r->val[i].pv_uuid, 32);
+      s[32] = 0;
+      fl = (*env)->GetFieldID (env, cl, "pv_uuid", "Ljava/lang/String;");
+      (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, s));
+    }
+    fl = (*env)->GetFieldID (env, cl, "pv_fmt", "Ljava/lang/String;");
+    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].pv_fmt));
+    fl = (*env)->GetFieldID (env, cl, "pv_size", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].pv_size);
+    fl = (*env)->GetFieldID (env, cl, "dev_size", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].dev_size);
+    fl = (*env)->GetFieldID (env, cl, "pv_free", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].pv_free);
+    fl = (*env)->GetFieldID (env, cl, "pv_used", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].pv_used);
+    fl = (*env)->GetFieldID (env, cl, "pv_attr", "Ljava/lang/String;");
+    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].pv_attr));
+    fl = (*env)->GetFieldID (env, cl, "pv_pe_count", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].pv_pe_count);
+    fl = (*env)->GetFieldID (env, cl, "pv_pe_alloc_count", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].pv_pe_alloc_count);
+    fl = (*env)->GetFieldID (env, cl, "pv_tags", "Ljava/lang/String;");
+    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].pv_tags));
+    fl = (*env)->GetFieldID (env, cl, "pe_start", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].pe_start);
+    fl = (*env)->GetFieldID (env, cl, "pv_mda_count", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].pv_mda_count);
+    fl = (*env)->GetFieldID (env, cl, "pv_mda_free", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].pv_mda_free);
+    (*env)->SetObjectArrayElement (env, jfl, i, jfl);
+  }
+  guestfs_free_lvm_pv_list (r);
+  return jr;
+}
+
+JNIEXPORT jobjectArray JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1test0rpvlisterr
+  (JNIEnv *env, jobject obj, jlong jg)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  jobjectArray jr;
+  jclass cl;
+  jfieldID fl;
+  jobject jfl;
+  struct guestfs_lvm_pv_list *r;
+  int i;
+
+  r = guestfs_test0rpvlisterr (g);
+  if (r == NULL) {
+    throw_exception (env, guestfs_last_error (g));
+    return NULL;
+  }
+  cl = (*env)->FindClass (env, "com/redhat/et/libguestfs/PV");
+  jr = (*env)->NewObjectArray (env, r->len, cl, NULL);
+  for (i = 0; i < r->len; ++i) {
+    jfl = (*env)->AllocObject (env, cl);
+    fl = (*env)->GetFieldID (env, cl, "pv_name", "Ljava/lang/String;");
+    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].pv_name));
+    {
+      char s[33];
+      memcpy (s, r->val[i].pv_uuid, 32);
+      s[32] = 0;
+      fl = (*env)->GetFieldID (env, cl, "pv_uuid", "Ljava/lang/String;");
+      (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, s));
+    }
+    fl = (*env)->GetFieldID (env, cl, "pv_fmt", "Ljava/lang/String;");
+    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].pv_fmt));
+    fl = (*env)->GetFieldID (env, cl, "pv_size", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].pv_size);
+    fl = (*env)->GetFieldID (env, cl, "dev_size", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].dev_size);
+    fl = (*env)->GetFieldID (env, cl, "pv_free", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].pv_free);
+    fl = (*env)->GetFieldID (env, cl, "pv_used", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].pv_used);
+    fl = (*env)->GetFieldID (env, cl, "pv_attr", "Ljava/lang/String;");
+    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].pv_attr));
+    fl = (*env)->GetFieldID (env, cl, "pv_pe_count", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].pv_pe_count);
+    fl = (*env)->GetFieldID (env, cl, "pv_pe_alloc_count", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].pv_pe_alloc_count);
+    fl = (*env)->GetFieldID (env, cl, "pv_tags", "Ljava/lang/String;");
+    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].pv_tags));
+    fl = (*env)->GetFieldID (env, cl, "pe_start", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].pe_start);
+    fl = (*env)->GetFieldID (env, cl, "pv_mda_count", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].pv_mda_count);
+    fl = (*env)->GetFieldID (env, cl, "pv_mda_free", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].pv_mda_free);
+    (*env)->SetObjectArrayElement (env, jfl, i, jfl);
+  }
+  guestfs_free_lvm_pv_list (r);
+  return jr;
+}
+
+JNIEXPORT jobjectArray JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1test0rvglist
+  (JNIEnv *env, jobject obj, jlong jg, jstring jval)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  jobjectArray jr;
+  jclass cl;
+  jfieldID fl;
+  jobject jfl;
+  struct guestfs_lvm_vg_list *r;
+  const char *val;
+  int i;
+
+  val = (*env)->GetStringUTFChars (env, jval, NULL);
+  r = guestfs_test0rvglist (g, val);
+  (*env)->ReleaseStringUTFChars (env, jval, val);
+  if (r == NULL) {
+    throw_exception (env, guestfs_last_error (g));
+    return NULL;
+  }
+  cl = (*env)->FindClass (env, "com/redhat/et/libguestfs/VG");
+  jr = (*env)->NewObjectArray (env, r->len, cl, NULL);
+  for (i = 0; i < r->len; ++i) {
+    jfl = (*env)->AllocObject (env, cl);
+    fl = (*env)->GetFieldID (env, cl, "vg_name", "Ljava/lang/String;");
+    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].vg_name));
+    {
+      char s[33];
+      memcpy (s, r->val[i].vg_uuid, 32);
+      s[32] = 0;
+      fl = (*env)->GetFieldID (env, cl, "vg_uuid", "Ljava/lang/String;");
+      (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, s));
+    }
+    fl = (*env)->GetFieldID (env, cl, "vg_fmt", "Ljava/lang/String;");
+    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].vg_fmt));
+    fl = (*env)->GetFieldID (env, cl, "vg_attr", "Ljava/lang/String;");
+    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].vg_attr));
+    fl = (*env)->GetFieldID (env, cl, "vg_size", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].vg_size);
+    fl = (*env)->GetFieldID (env, cl, "vg_free", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].vg_free);
+    fl = (*env)->GetFieldID (env, cl, "vg_sysid", "Ljava/lang/String;");
+    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].vg_sysid));
+    fl = (*env)->GetFieldID (env, cl, "vg_extent_size", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].vg_extent_size);
+    fl = (*env)->GetFieldID (env, cl, "vg_extent_count", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].vg_extent_count);
+    fl = (*env)->GetFieldID (env, cl, "vg_free_count", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].vg_free_count);
+    fl = (*env)->GetFieldID (env, cl, "max_lv", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].max_lv);
+    fl = (*env)->GetFieldID (env, cl, "max_pv", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].max_pv);
+    fl = (*env)->GetFieldID (env, cl, "pv_count", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].pv_count);
+    fl = (*env)->GetFieldID (env, cl, "lv_count", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].lv_count);
+    fl = (*env)->GetFieldID (env, cl, "snap_count", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].snap_count);
+    fl = (*env)->GetFieldID (env, cl, "vg_seqno", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].vg_seqno);
+    fl = (*env)->GetFieldID (env, cl, "vg_tags", "Ljava/lang/String;");
+    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].vg_tags));
+    fl = (*env)->GetFieldID (env, cl, "vg_mda_count", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].vg_mda_count);
+    fl = (*env)->GetFieldID (env, cl, "vg_mda_free", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].vg_mda_free);
+    (*env)->SetObjectArrayElement (env, jfl, i, jfl);
+  }
+  guestfs_free_lvm_vg_list (r);
+  return jr;
+}
+
+JNIEXPORT jobjectArray JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1test0rvglisterr
+  (JNIEnv *env, jobject obj, jlong jg)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  jobjectArray jr;
+  jclass cl;
+  jfieldID fl;
+  jobject jfl;
+  struct guestfs_lvm_vg_list *r;
+  int i;
+
+  r = guestfs_test0rvglisterr (g);
+  if (r == NULL) {
+    throw_exception (env, guestfs_last_error (g));
+    return NULL;
+  }
+  cl = (*env)->FindClass (env, "com/redhat/et/libguestfs/VG");
+  jr = (*env)->NewObjectArray (env, r->len, cl, NULL);
+  for (i = 0; i < r->len; ++i) {
+    jfl = (*env)->AllocObject (env, cl);
+    fl = (*env)->GetFieldID (env, cl, "vg_name", "Ljava/lang/String;");
+    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].vg_name));
+    {
+      char s[33];
+      memcpy (s, r->val[i].vg_uuid, 32);
+      s[32] = 0;
+      fl = (*env)->GetFieldID (env, cl, "vg_uuid", "Ljava/lang/String;");
+      (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, s));
+    }
+    fl = (*env)->GetFieldID (env, cl, "vg_fmt", "Ljava/lang/String;");
+    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].vg_fmt));
+    fl = (*env)->GetFieldID (env, cl, "vg_attr", "Ljava/lang/String;");
+    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].vg_attr));
+    fl = (*env)->GetFieldID (env, cl, "vg_size", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].vg_size);
+    fl = (*env)->GetFieldID (env, cl, "vg_free", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].vg_free);
+    fl = (*env)->GetFieldID (env, cl, "vg_sysid", "Ljava/lang/String;");
+    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].vg_sysid));
+    fl = (*env)->GetFieldID (env, cl, "vg_extent_size", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].vg_extent_size);
+    fl = (*env)->GetFieldID (env, cl, "vg_extent_count", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].vg_extent_count);
+    fl = (*env)->GetFieldID (env, cl, "vg_free_count", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].vg_free_count);
+    fl = (*env)->GetFieldID (env, cl, "max_lv", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].max_lv);
+    fl = (*env)->GetFieldID (env, cl, "max_pv", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].max_pv);
+    fl = (*env)->GetFieldID (env, cl, "pv_count", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].pv_count);
+    fl = (*env)->GetFieldID (env, cl, "lv_count", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].lv_count);
+    fl = (*env)->GetFieldID (env, cl, "snap_count", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].snap_count);
+    fl = (*env)->GetFieldID (env, cl, "vg_seqno", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].vg_seqno);
+    fl = (*env)->GetFieldID (env, cl, "vg_tags", "Ljava/lang/String;");
+    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].vg_tags));
+    fl = (*env)->GetFieldID (env, cl, "vg_mda_count", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].vg_mda_count);
+    fl = (*env)->GetFieldID (env, cl, "vg_mda_free", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].vg_mda_free);
+    (*env)->SetObjectArrayElement (env, jfl, i, jfl);
+  }
+  guestfs_free_lvm_vg_list (r);
+  return jr;
+}
+
+JNIEXPORT jobjectArray JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1test0rlvlist
+  (JNIEnv *env, jobject obj, jlong jg, jstring jval)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  jobjectArray jr;
+  jclass cl;
+  jfieldID fl;
+  jobject jfl;
+  struct guestfs_lvm_lv_list *r;
+  const char *val;
+  int i;
+
+  val = (*env)->GetStringUTFChars (env, jval, NULL);
+  r = guestfs_test0rlvlist (g, val);
+  (*env)->ReleaseStringUTFChars (env, jval, val);
+  if (r == NULL) {
+    throw_exception (env, guestfs_last_error (g));
+    return NULL;
+  }
+  cl = (*env)->FindClass (env, "com/redhat/et/libguestfs/LV");
+  jr = (*env)->NewObjectArray (env, r->len, cl, NULL);
+  for (i = 0; i < r->len; ++i) {
+    jfl = (*env)->AllocObject (env, cl);
+    fl = (*env)->GetFieldID (env, cl, "lv_name", "Ljava/lang/String;");
+    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].lv_name));
+    {
+      char s[33];
+      memcpy (s, r->val[i].lv_uuid, 32);
+      s[32] = 0;
+      fl = (*env)->GetFieldID (env, cl, "lv_uuid", "Ljava/lang/String;");
+      (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, s));
+    }
+    fl = (*env)->GetFieldID (env, cl, "lv_attr", "Ljava/lang/String;");
+    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].lv_attr));
+    fl = (*env)->GetFieldID (env, cl, "lv_major", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].lv_major);
+    fl = (*env)->GetFieldID (env, cl, "lv_minor", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].lv_minor);
+    fl = (*env)->GetFieldID (env, cl, "lv_kernel_major", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].lv_kernel_major);
+    fl = (*env)->GetFieldID (env, cl, "lv_kernel_minor", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].lv_kernel_minor);
+    fl = (*env)->GetFieldID (env, cl, "lv_size", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].lv_size);
+    fl = (*env)->GetFieldID (env, cl, "seg_count", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].seg_count);
+    fl = (*env)->GetFieldID (env, cl, "origin", "Ljava/lang/String;");
+    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].origin));
+    fl = (*env)->GetFieldID (env, cl, "snap_percent", "F");
+    (*env)->SetFloatField (env, jfl, fl, r->val[i].snap_percent);
+    fl = (*env)->GetFieldID (env, cl, "copy_percent", "F");
+    (*env)->SetFloatField (env, jfl, fl, r->val[i].copy_percent);
+    fl = (*env)->GetFieldID (env, cl, "move_pv", "Ljava/lang/String;");
+    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].move_pv));
+    fl = (*env)->GetFieldID (env, cl, "lv_tags", "Ljava/lang/String;");
+    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].lv_tags));
+    fl = (*env)->GetFieldID (env, cl, "mirror_log", "Ljava/lang/String;");
+    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].mirror_log));
+    fl = (*env)->GetFieldID (env, cl, "modules", "Ljava/lang/String;");
+    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].modules));
+    (*env)->SetObjectArrayElement (env, jfl, i, jfl);
+  }
+  guestfs_free_lvm_lv_list (r);
+  return jr;
+}
+
+JNIEXPORT jobjectArray JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1test0rlvlisterr
+  (JNIEnv *env, jobject obj, jlong jg)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  jobjectArray jr;
+  jclass cl;
+  jfieldID fl;
+  jobject jfl;
+  struct guestfs_lvm_lv_list *r;
+  int i;
+
+  r = guestfs_test0rlvlisterr (g);
+  if (r == NULL) {
+    throw_exception (env, guestfs_last_error (g));
+    return NULL;
+  }
+  cl = (*env)->FindClass (env, "com/redhat/et/libguestfs/LV");
+  jr = (*env)->NewObjectArray (env, r->len, cl, NULL);
+  for (i = 0; i < r->len; ++i) {
+    jfl = (*env)->AllocObject (env, cl);
+    fl = (*env)->GetFieldID (env, cl, "lv_name", "Ljava/lang/String;");
+    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].lv_name));
+    {
+      char s[33];
+      memcpy (s, r->val[i].lv_uuid, 32);
+      s[32] = 0;
+      fl = (*env)->GetFieldID (env, cl, "lv_uuid", "Ljava/lang/String;");
+      (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, s));
+    }
+    fl = (*env)->GetFieldID (env, cl, "lv_attr", "Ljava/lang/String;");
+    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].lv_attr));
+    fl = (*env)->GetFieldID (env, cl, "lv_major", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].lv_major);
+    fl = (*env)->GetFieldID (env, cl, "lv_minor", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].lv_minor);
+    fl = (*env)->GetFieldID (env, cl, "lv_kernel_major", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].lv_kernel_major);
+    fl = (*env)->GetFieldID (env, cl, "lv_kernel_minor", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].lv_kernel_minor);
+    fl = (*env)->GetFieldID (env, cl, "lv_size", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].lv_size);
+    fl = (*env)->GetFieldID (env, cl, "seg_count", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].seg_count);
+    fl = (*env)->GetFieldID (env, cl, "origin", "Ljava/lang/String;");
+    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].origin));
+    fl = (*env)->GetFieldID (env, cl, "snap_percent", "F");
+    (*env)->SetFloatField (env, jfl, fl, r->val[i].snap_percent);
+    fl = (*env)->GetFieldID (env, cl, "copy_percent", "F");
+    (*env)->SetFloatField (env, jfl, fl, r->val[i].copy_percent);
+    fl = (*env)->GetFieldID (env, cl, "move_pv", "Ljava/lang/String;");
+    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].move_pv));
+    fl = (*env)->GetFieldID (env, cl, "lv_tags", "Ljava/lang/String;");
+    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].lv_tags));
+    fl = (*env)->GetFieldID (env, cl, "mirror_log", "Ljava/lang/String;");
+    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].mirror_log));
+    fl = (*env)->GetFieldID (env, cl, "modules", "Ljava/lang/String;");
+    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].modules));
+    (*env)->SetObjectArrayElement (env, jfl, i, jfl);
+  }
+  guestfs_free_lvm_lv_list (r);
+  return jr;
+}
+
+JNIEXPORT jobject JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1test0rstat
+  (JNIEnv *env, jobject obj, jlong jg, jstring jval)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  jobject jr;
+  jclass cl;
+  jfieldID fl;
+  struct guestfs_stat *r;
+  const char *val;
+
+  val = (*env)->GetStringUTFChars (env, jval, NULL);
+  r = guestfs_test0rstat (g, val);
+  (*env)->ReleaseStringUTFChars (env, jval, val);
+  if (r == NULL) {
+    throw_exception (env, guestfs_last_error (g));
+    return NULL;
+  }
+  cl = (*env)->FindClass (env, "com/redhat/et/libguestfs/Stat");
+  jr = (*env)->AllocObject (env, cl);
+  fl = (*env)->GetFieldID (env, cl, "dev", "J");
+  (*env)->SetLongField (env, jr, fl, r->dev);
+  fl = (*env)->GetFieldID (env, cl, "ino", "J");
+  (*env)->SetLongField (env, jr, fl, r->ino);
+  fl = (*env)->GetFieldID (env, cl, "mode", "J");
+  (*env)->SetLongField (env, jr, fl, r->mode);
+  fl = (*env)->GetFieldID (env, cl, "nlink", "J");
+  (*env)->SetLongField (env, jr, fl, r->nlink);
+  fl = (*env)->GetFieldID (env, cl, "uid", "J");
+  (*env)->SetLongField (env, jr, fl, r->uid);
+  fl = (*env)->GetFieldID (env, cl, "gid", "J");
+  (*env)->SetLongField (env, jr, fl, r->gid);
+  fl = (*env)->GetFieldID (env, cl, "rdev", "J");
+  (*env)->SetLongField (env, jr, fl, r->rdev);
+  fl = (*env)->GetFieldID (env, cl, "size", "J");
+  (*env)->SetLongField (env, jr, fl, r->size);
+  fl = (*env)->GetFieldID (env, cl, "blksize", "J");
+  (*env)->SetLongField (env, jr, fl, r->blksize);
+  fl = (*env)->GetFieldID (env, cl, "blocks", "J");
+  (*env)->SetLongField (env, jr, fl, r->blocks);
+  fl = (*env)->GetFieldID (env, cl, "atime", "J");
+  (*env)->SetLongField (env, jr, fl, r->atime);
+  fl = (*env)->GetFieldID (env, cl, "mtime", "J");
+  (*env)->SetLongField (env, jr, fl, r->mtime);
+  fl = (*env)->GetFieldID (env, cl, "ctime", "J");
+  (*env)->SetLongField (env, jr, fl, r->ctime);
+  free (r);
+  return jr;
+}
+
+JNIEXPORT jobject JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1test0rstaterr
+  (JNIEnv *env, jobject obj, jlong jg)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  jobject jr;
+  jclass cl;
+  jfieldID fl;
+  struct guestfs_stat *r;
+
+  r = guestfs_test0rstaterr (g);
+  if (r == NULL) {
+    throw_exception (env, guestfs_last_error (g));
+    return NULL;
+  }
+  cl = (*env)->FindClass (env, "com/redhat/et/libguestfs/Stat");
+  jr = (*env)->AllocObject (env, cl);
+  fl = (*env)->GetFieldID (env, cl, "dev", "J");
+  (*env)->SetLongField (env, jr, fl, r->dev);
+  fl = (*env)->GetFieldID (env, cl, "ino", "J");
+  (*env)->SetLongField (env, jr, fl, r->ino);
+  fl = (*env)->GetFieldID (env, cl, "mode", "J");
+  (*env)->SetLongField (env, jr, fl, r->mode);
+  fl = (*env)->GetFieldID (env, cl, "nlink", "J");
+  (*env)->SetLongField (env, jr, fl, r->nlink);
+  fl = (*env)->GetFieldID (env, cl, "uid", "J");
+  (*env)->SetLongField (env, jr, fl, r->uid);
+  fl = (*env)->GetFieldID (env, cl, "gid", "J");
+  (*env)->SetLongField (env, jr, fl, r->gid);
+  fl = (*env)->GetFieldID (env, cl, "rdev", "J");
+  (*env)->SetLongField (env, jr, fl, r->rdev);
+  fl = (*env)->GetFieldID (env, cl, "size", "J");
+  (*env)->SetLongField (env, jr, fl, r->size);
+  fl = (*env)->GetFieldID (env, cl, "blksize", "J");
+  (*env)->SetLongField (env, jr, fl, r->blksize);
+  fl = (*env)->GetFieldID (env, cl, "blocks", "J");
+  (*env)->SetLongField (env, jr, fl, r->blocks);
+  fl = (*env)->GetFieldID (env, cl, "atime", "J");
+  (*env)->SetLongField (env, jr, fl, r->atime);
+  fl = (*env)->GetFieldID (env, cl, "mtime", "J");
+  (*env)->SetLongField (env, jr, fl, r->mtime);
+  fl = (*env)->GetFieldID (env, cl, "ctime", "J");
+  (*env)->SetLongField (env, jr, fl, r->ctime);
+  free (r);
+  return jr;
+}
+
+JNIEXPORT jobject JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1test0rstatvfs
+  (JNIEnv *env, jobject obj, jlong jg, jstring jval)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  jobject jr;
+  jclass cl;
+  jfieldID fl;
+  struct guestfs_statvfs *r;
+  const char *val;
+
+  val = (*env)->GetStringUTFChars (env, jval, NULL);
+  r = guestfs_test0rstatvfs (g, val);
+  (*env)->ReleaseStringUTFChars (env, jval, val);
+  if (r == NULL) {
+    throw_exception (env, guestfs_last_error (g));
+    return NULL;
+  }
+  cl = (*env)->FindClass (env, "com/redhat/et/libguestfs/StatVFS");
+  jr = (*env)->AllocObject (env, cl);
+  fl = (*env)->GetFieldID (env, cl, "bsize", "J");
+  (*env)->SetLongField (env, jr, fl, r->bsize);
+  fl = (*env)->GetFieldID (env, cl, "frsize", "J");
+  (*env)->SetLongField (env, jr, fl, r->frsize);
+  fl = (*env)->GetFieldID (env, cl, "blocks", "J");
+  (*env)->SetLongField (env, jr, fl, r->blocks);
+  fl = (*env)->GetFieldID (env, cl, "bfree", "J");
+  (*env)->SetLongField (env, jr, fl, r->bfree);
+  fl = (*env)->GetFieldID (env, cl, "bavail", "J");
+  (*env)->SetLongField (env, jr, fl, r->bavail);
+  fl = (*env)->GetFieldID (env, cl, "files", "J");
+  (*env)->SetLongField (env, jr, fl, r->files);
+  fl = (*env)->GetFieldID (env, cl, "ffree", "J");
+  (*env)->SetLongField (env, jr, fl, r->ffree);
+  fl = (*env)->GetFieldID (env, cl, "favail", "J");
+  (*env)->SetLongField (env, jr, fl, r->favail);
+  fl = (*env)->GetFieldID (env, cl, "fsid", "J");
+  (*env)->SetLongField (env, jr, fl, r->fsid);
+  fl = (*env)->GetFieldID (env, cl, "flag", "J");
+  (*env)->SetLongField (env, jr, fl, r->flag);
+  fl = (*env)->GetFieldID (env, cl, "namemax", "J");
+  (*env)->SetLongField (env, jr, fl, r->namemax);
+  free (r);
+  return jr;
+}
+
+JNIEXPORT jobject JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1test0rstatvfserr
+  (JNIEnv *env, jobject obj, jlong jg)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  jobject jr;
+  jclass cl;
+  jfieldID fl;
+  struct guestfs_statvfs *r;
+
+  r = guestfs_test0rstatvfserr (g);
+  if (r == NULL) {
+    throw_exception (env, guestfs_last_error (g));
+    return NULL;
+  }
+  cl = (*env)->FindClass (env, "com/redhat/et/libguestfs/StatVFS");
+  jr = (*env)->AllocObject (env, cl);
+  fl = (*env)->GetFieldID (env, cl, "bsize", "J");
+  (*env)->SetLongField (env, jr, fl, r->bsize);
+  fl = (*env)->GetFieldID (env, cl, "frsize", "J");
+  (*env)->SetLongField (env, jr, fl, r->frsize);
+  fl = (*env)->GetFieldID (env, cl, "blocks", "J");
+  (*env)->SetLongField (env, jr, fl, r->blocks);
+  fl = (*env)->GetFieldID (env, cl, "bfree", "J");
+  (*env)->SetLongField (env, jr, fl, r->bfree);
+  fl = (*env)->GetFieldID (env, cl, "bavail", "J");
+  (*env)->SetLongField (env, jr, fl, r->bavail);
+  fl = (*env)->GetFieldID (env, cl, "files", "J");
+  (*env)->SetLongField (env, jr, fl, r->files);
+  fl = (*env)->GetFieldID (env, cl, "ffree", "J");
+  (*env)->SetLongField (env, jr, fl, r->ffree);
+  fl = (*env)->GetFieldID (env, cl, "favail", "J");
+  (*env)->SetLongField (env, jr, fl, r->favail);
+  fl = (*env)->GetFieldID (env, cl, "fsid", "J");
+  (*env)->SetLongField (env, jr, fl, r->fsid);
+  fl = (*env)->GetFieldID (env, cl, "flag", "J");
+  (*env)->SetLongField (env, jr, fl, r->flag);
+  fl = (*env)->GetFieldID (env, cl, "namemax", "J");
+  (*env)->SetLongField (env, jr, fl, r->namemax);
+  free (r);
+  return jr;
+}
+
+JNIEXPORT jobject JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1test0rhashtable
+  (JNIEnv *env, jobject obj, jlong jg, jstring jval)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  char **r;
+  const char *val;
+
+  val = (*env)->GetStringUTFChars (env, jval, NULL);
+  r = guestfs_test0rhashtable (g, val);
+  (*env)->ReleaseStringUTFChars (env, jval, val);
+  if (r == NULL) {
+    throw_exception (env, guestfs_last_error (g));
+    return NULL;
+  }
+  throw_exception (env, "test0rhashtable: internal error: please let us know how to make a Java HashMap from JNI bindings!");
+  return NULL;
+}
+
+JNIEXPORT jobject JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1test0rhashtableerr
+  (JNIEnv *env, jobject obj, jlong jg)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  char **r;
+
+  r = guestfs_test0rhashtableerr (g);
+  if (r == NULL) {
+    throw_exception (env, guestfs_last_error (g));
+    return NULL;
+  }
+  throw_exception (env, "test0rhashtableerr: internal error: please let us know how to make a Java HashMap from JNI bindings!");
+  return NULL;
+}
+
+JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1launch
   (JNIEnv *env, jobject obj, jlong jg)
 {

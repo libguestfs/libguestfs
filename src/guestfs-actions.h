@@ -19,6 +19,33 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
+extern int guestfs_test0 (guestfs_h *handle, const char *str, const char *optstr, char * const* const strlist, int b, int integer, const char *filein, const char *fileout);
+extern int guestfs_test0rint (guestfs_h *handle, const char *val);
+extern int guestfs_test0rinterr (guestfs_h *handle);
+extern int64_t guestfs_test0rint64 (guestfs_h *handle, const char *val);
+extern int64_t guestfs_test0rint64err (guestfs_h *handle);
+extern int guestfs_test0rbool (guestfs_h *handle, const char *val);
+extern int guestfs_test0rboolerr (guestfs_h *handle);
+extern const char *guestfs_test0rconststring (guestfs_h *handle, const char *val);
+extern const char *guestfs_test0rconststringerr (guestfs_h *handle);
+extern char *guestfs_test0rstring (guestfs_h *handle, const char *val);
+extern char *guestfs_test0rstringerr (guestfs_h *handle);
+extern char **guestfs_test0rstringlist (guestfs_h *handle, const char *val);
+extern char **guestfs_test0rstringlisterr (guestfs_h *handle);
+extern struct guestfs_int_bool *guestfs_test0rintbool (guestfs_h *handle, const char *val);
+extern struct guestfs_int_bool *guestfs_test0rintboolerr (guestfs_h *handle);
+extern struct guestfs_lvm_pv_list *guestfs_test0rpvlist (guestfs_h *handle, const char *val);
+extern struct guestfs_lvm_pv_list *guestfs_test0rpvlisterr (guestfs_h *handle);
+extern struct guestfs_lvm_vg_list *guestfs_test0rvglist (guestfs_h *handle, const char *val);
+extern struct guestfs_lvm_vg_list *guestfs_test0rvglisterr (guestfs_h *handle);
+extern struct guestfs_lvm_lv_list *guestfs_test0rlvlist (guestfs_h *handle, const char *val);
+extern struct guestfs_lvm_lv_list *guestfs_test0rlvlisterr (guestfs_h *handle);
+extern struct guestfs_stat *guestfs_test0rstat (guestfs_h *handle, const char *val);
+extern struct guestfs_stat *guestfs_test0rstaterr (guestfs_h *handle);
+extern struct guestfs_statvfs *guestfs_test0rstatvfs (guestfs_h *handle, const char *val);
+extern struct guestfs_statvfs *guestfs_test0rstatvfserr (guestfs_h *handle);
+extern char **guestfs_test0rhashtable (guestfs_h *handle, const char *val);
+extern char **guestfs_test0rhashtableerr (guestfs_h *handle);
 extern int guestfs_launch (guestfs_h *handle);
 extern int guestfs_wait_ready (guestfs_h *handle);
 extern int guestfs_kill_subprocess (guestfs_h *handle);

@@ -389,6 +389,674 @@ put_statvfs (struct guestfs_statvfs *statvfs)
 };
 
 static PyObject *
+py_guestfs_test0 (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *str;
+  const char *optstr;
+  PyObject *py_strlist;
+  const char **strlist;
+  int b;
+  int integer;
+  const char *filein;
+  const char *fileout;
+
+  if (!PyArg_ParseTuple (args, (char *) "OszOiiss:guestfs_test0",
+                         &py_g, &str, &optstr, &py_strlist, &b, &integer, &filein, &fileout))
+    return NULL;
+  g = get_handle (py_g);
+  strlist = get_string_list (py_strlist);
+  if (!strlist) return NULL;
+
+  r = guestfs_test0 (g, str, optstr, strlist, b, integer, filein, fileout);
+  free (strlist);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_test0rint (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *val;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_test0rint",
+                         &py_g, &val))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_test0rint (g, val);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyInt_FromLong ((long) r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_test0rinterr (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+
+  if (!PyArg_ParseTuple (args, (char *) "O:guestfs_test0rinterr",
+                         &py_g))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_test0rinterr (g);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyInt_FromLong ((long) r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_test0rint64 (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int64_t r;
+  const char *val;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_test0rint64",
+                         &py_g, &val))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_test0rint64 (g, val);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyLong_FromLongLong (r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_test0rint64err (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int64_t r;
+
+  if (!PyArg_ParseTuple (args, (char *) "O:guestfs_test0rint64err",
+                         &py_g))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_test0rint64err (g);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyLong_FromLongLong (r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_test0rbool (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *val;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_test0rbool",
+                         &py_g, &val))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_test0rbool (g, val);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyInt_FromLong ((long) r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_test0rboolerr (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+
+  if (!PyArg_ParseTuple (args, (char *) "O:guestfs_test0rboolerr",
+                         &py_g))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_test0rboolerr (g);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyInt_FromLong ((long) r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_test0rconststring (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  const char *r;
+  const char *val;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_test0rconststring",
+                         &py_g, &val))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_test0rconststring (g, val);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyString_FromString (r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_test0rconststringerr (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  const char *r;
+
+  if (!PyArg_ParseTuple (args, (char *) "O:guestfs_test0rconststringerr",
+                         &py_g))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_test0rconststringerr (g);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyString_FromString (r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_test0rstring (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  char *r;
+  const char *val;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_test0rstring",
+                         &py_g, &val))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_test0rstring (g, val);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyString_FromString (r);
+  free (r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_test0rstringerr (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  char *r;
+
+  if (!PyArg_ParseTuple (args, (char *) "O:guestfs_test0rstringerr",
+                         &py_g))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_test0rstringerr (g);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyString_FromString (r);
+  free (r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_test0rstringlist (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  char **r;
+  const char *val;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_test0rstringlist",
+                         &py_g, &val))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_test0rstringlist (g, val);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = put_string_list (r);
+  free_strings (r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_test0rstringlisterr (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  char **r;
+
+  if (!PyArg_ParseTuple (args, (char *) "O:guestfs_test0rstringlisterr",
+                         &py_g))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_test0rstringlisterr (g);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = put_string_list (r);
+  free_strings (r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_test0rintbool (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  struct guestfs_int_bool *r;
+  const char *val;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_test0rintbool",
+                         &py_g, &val))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_test0rintbool (g, val);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyTuple_New (2);
+  PyTuple_SetItem (py_r, 0, PyInt_FromLong ((long) r->i));
+  PyTuple_SetItem (py_r, 1, PyInt_FromLong ((long) r->b));
+  guestfs_free_int_bool (r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_test0rintboolerr (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  struct guestfs_int_bool *r;
+
+  if (!PyArg_ParseTuple (args, (char *) "O:guestfs_test0rintboolerr",
+                         &py_g))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_test0rintboolerr (g);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyTuple_New (2);
+  PyTuple_SetItem (py_r, 0, PyInt_FromLong ((long) r->i));
+  PyTuple_SetItem (py_r, 1, PyInt_FromLong ((long) r->b));
+  guestfs_free_int_bool (r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_test0rpvlist (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  struct guestfs_lvm_pv_list *r;
+  const char *val;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_test0rpvlist",
+                         &py_g, &val))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_test0rpvlist (g, val);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = put_lvm_pv_list (r);
+  guestfs_free_lvm_pv_list (r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_test0rpvlisterr (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  struct guestfs_lvm_pv_list *r;
+
+  if (!PyArg_ParseTuple (args, (char *) "O:guestfs_test0rpvlisterr",
+                         &py_g))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_test0rpvlisterr (g);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = put_lvm_pv_list (r);
+  guestfs_free_lvm_pv_list (r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_test0rvglist (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  struct guestfs_lvm_vg_list *r;
+  const char *val;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_test0rvglist",
+                         &py_g, &val))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_test0rvglist (g, val);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = put_lvm_vg_list (r);
+  guestfs_free_lvm_vg_list (r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_test0rvglisterr (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  struct guestfs_lvm_vg_list *r;
+
+  if (!PyArg_ParseTuple (args, (char *) "O:guestfs_test0rvglisterr",
+                         &py_g))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_test0rvglisterr (g);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = put_lvm_vg_list (r);
+  guestfs_free_lvm_vg_list (r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_test0rlvlist (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  struct guestfs_lvm_lv_list *r;
+  const char *val;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_test0rlvlist",
+                         &py_g, &val))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_test0rlvlist (g, val);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = put_lvm_lv_list (r);
+  guestfs_free_lvm_lv_list (r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_test0rlvlisterr (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  struct guestfs_lvm_lv_list *r;
+
+  if (!PyArg_ParseTuple (args, (char *) "O:guestfs_test0rlvlisterr",
+                         &py_g))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_test0rlvlisterr (g);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = put_lvm_lv_list (r);
+  guestfs_free_lvm_lv_list (r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_test0rstat (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  struct guestfs_stat *r;
+  const char *val;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_test0rstat",
+                         &py_g, &val))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_test0rstat (g, val);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = put_stat (r);
+  free (r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_test0rstaterr (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  struct guestfs_stat *r;
+
+  if (!PyArg_ParseTuple (args, (char *) "O:guestfs_test0rstaterr",
+                         &py_g))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_test0rstaterr (g);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = put_stat (r);
+  free (r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_test0rstatvfs (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  struct guestfs_statvfs *r;
+  const char *val;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_test0rstatvfs",
+                         &py_g, &val))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_test0rstatvfs (g, val);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = put_statvfs (r);
+  free (r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_test0rstatvfserr (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  struct guestfs_statvfs *r;
+
+  if (!PyArg_ParseTuple (args, (char *) "O:guestfs_test0rstatvfserr",
+                         &py_g))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_test0rstatvfserr (g);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = put_statvfs (r);
+  free (r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_test0rhashtable (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  char **r;
+  const char *val;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_test0rhashtable",
+                         &py_g, &val))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_test0rhashtable (g, val);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = put_table (r);
+  free_strings (r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_test0rhashtableerr (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  char **r;
+
+  if (!PyArg_ParseTuple (args, (char *) "O:guestfs_test0rhashtableerr",
+                         &py_g))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_test0rhashtableerr (g);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = put_table (r);
+  free_strings (r);
+  return py_r;
+}
+
+static PyObject *
 py_guestfs_launch (PyObject *self, PyObject *args)
 {
   PyObject *py_g;
@@ -3716,6 +4384,33 @@ py_guestfs_e2fsck_f (PyObject *self, PyObject *args)
 static PyMethodDef methods[] = {
   { (char *) "create", py_guestfs_create, METH_VARARGS, NULL },
   { (char *) "close", py_guestfs_close, METH_VARARGS, NULL },
+  { (char *) "test0", py_guestfs_test0, METH_VARARGS, NULL },
+  { (char *) "test0rint", py_guestfs_test0rint, METH_VARARGS, NULL },
+  { (char *) "test0rinterr", py_guestfs_test0rinterr, METH_VARARGS, NULL },
+  { (char *) "test0rint64", py_guestfs_test0rint64, METH_VARARGS, NULL },
+  { (char *) "test0rint64err", py_guestfs_test0rint64err, METH_VARARGS, NULL },
+  { (char *) "test0rbool", py_guestfs_test0rbool, METH_VARARGS, NULL },
+  { (char *) "test0rboolerr", py_guestfs_test0rboolerr, METH_VARARGS, NULL },
+  { (char *) "test0rconststring", py_guestfs_test0rconststring, METH_VARARGS, NULL },
+  { (char *) "test0rconststringerr", py_guestfs_test0rconststringerr, METH_VARARGS, NULL },
+  { (char *) "test0rstring", py_guestfs_test0rstring, METH_VARARGS, NULL },
+  { (char *) "test0rstringerr", py_guestfs_test0rstringerr, METH_VARARGS, NULL },
+  { (char *) "test0rstringlist", py_guestfs_test0rstringlist, METH_VARARGS, NULL },
+  { (char *) "test0rstringlisterr", py_guestfs_test0rstringlisterr, METH_VARARGS, NULL },
+  { (char *) "test0rintbool", py_guestfs_test0rintbool, METH_VARARGS, NULL },
+  { (char *) "test0rintboolerr", py_guestfs_test0rintboolerr, METH_VARARGS, NULL },
+  { (char *) "test0rpvlist", py_guestfs_test0rpvlist, METH_VARARGS, NULL },
+  { (char *) "test0rpvlisterr", py_guestfs_test0rpvlisterr, METH_VARARGS, NULL },
+  { (char *) "test0rvglist", py_guestfs_test0rvglist, METH_VARARGS, NULL },
+  { (char *) "test0rvglisterr", py_guestfs_test0rvglisterr, METH_VARARGS, NULL },
+  { (char *) "test0rlvlist", py_guestfs_test0rlvlist, METH_VARARGS, NULL },
+  { (char *) "test0rlvlisterr", py_guestfs_test0rlvlisterr, METH_VARARGS, NULL },
+  { (char *) "test0rstat", py_guestfs_test0rstat, METH_VARARGS, NULL },
+  { (char *) "test0rstaterr", py_guestfs_test0rstaterr, METH_VARARGS, NULL },
+  { (char *) "test0rstatvfs", py_guestfs_test0rstatvfs, METH_VARARGS, NULL },
+  { (char *) "test0rstatvfserr", py_guestfs_test0rstatvfserr, METH_VARARGS, NULL },
+  { (char *) "test0rhashtable", py_guestfs_test0rhashtable, METH_VARARGS, NULL },
+  { (char *) "test0rhashtableerr", py_guestfs_test0rhashtableerr, METH_VARARGS, NULL },
   { (char *) "launch", py_guestfs_launch, METH_VARARGS, NULL },
   { (char *) "wait_ready", py_guestfs_wait_ready, METH_VARARGS, NULL },
   { (char *) "kill_subprocess", py_guestfs_kill_subprocess, METH_VARARGS, NULL },

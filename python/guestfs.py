@@ -78,6 +78,87 @@ class GuestFS:
     def __del__ (self):
         libguestfsmod.close (self._o)
 
+    def test0 (self, str, optstr, strlist, b, integer, filein, fileout):
+        return libguestfsmod.test0 (self._o, str, optstr, strlist, b, integer, filein, fileout)
+
+    def test0rint (self, val):
+        return libguestfsmod.test0rint (self._o, val)
+
+    def test0rinterr (self):
+        return libguestfsmod.test0rinterr (self._o)
+
+    def test0rint64 (self, val):
+        return libguestfsmod.test0rint64 (self._o, val)
+
+    def test0rint64err (self):
+        return libguestfsmod.test0rint64err (self._o)
+
+    def test0rbool (self, val):
+        return libguestfsmod.test0rbool (self._o, val)
+
+    def test0rboolerr (self):
+        return libguestfsmod.test0rboolerr (self._o)
+
+    def test0rconststring (self, val):
+        return libguestfsmod.test0rconststring (self._o, val)
+
+    def test0rconststringerr (self):
+        return libguestfsmod.test0rconststringerr (self._o)
+
+    def test0rstring (self, val):
+        return libguestfsmod.test0rstring (self._o, val)
+
+    def test0rstringerr (self):
+        return libguestfsmod.test0rstringerr (self._o)
+
+    def test0rstringlist (self, val):
+        return libguestfsmod.test0rstringlist (self._o, val)
+
+    def test0rstringlisterr (self):
+        return libguestfsmod.test0rstringlisterr (self._o)
+
+    def test0rintbool (self, val):
+        return libguestfsmod.test0rintbool (self._o, val)
+
+    def test0rintboolerr (self):
+        return libguestfsmod.test0rintboolerr (self._o)
+
+    def test0rpvlist (self, val):
+        return libguestfsmod.test0rpvlist (self._o, val)
+
+    def test0rpvlisterr (self):
+        return libguestfsmod.test0rpvlisterr (self._o)
+
+    def test0rvglist (self, val):
+        return libguestfsmod.test0rvglist (self._o, val)
+
+    def test0rvglisterr (self):
+        return libguestfsmod.test0rvglisterr (self._o)
+
+    def test0rlvlist (self, val):
+        return libguestfsmod.test0rlvlist (self._o, val)
+
+    def test0rlvlisterr (self):
+        return libguestfsmod.test0rlvlisterr (self._o)
+
+    def test0rstat (self, val):
+        return libguestfsmod.test0rstat (self._o, val)
+
+    def test0rstaterr (self):
+        return libguestfsmod.test0rstaterr (self._o)
+
+    def test0rstatvfs (self, val):
+        return libguestfsmod.test0rstatvfs (self._o, val)
+
+    def test0rstatvfserr (self):
+        return libguestfsmod.test0rstatvfserr (self._o)
+
+    def test0rhashtable (self, val):
+        return libguestfsmod.test0rhashtable (self._o, val)
+
+    def test0rhashtableerr (self):
+        return libguestfsmod.test0rhashtableerr (self._o)
+
     def launch (self):
         u"""Internally libguestfs is implemented by running a
         virtual machine using qemu(1).
