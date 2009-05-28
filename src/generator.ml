@@ -1562,7 +1562,7 @@ This uses the L<blockdev(8)> command.");
   ("upload", (RErr, [FileIn "filename"; String "remotefilename"]), 66, [],
    [InitBasicFS, Always, TestOutput (
       (* Pick a file from cwd which isn't likely to change. *)
-    [["upload"; "COPYING.LIB"; "/COPYING.LIB"];
+    [["upload"; "../COPYING.LIB"; "/COPYING.LIB"];
      ["checksum"; "md5"; "/COPYING.LIB"]], "e3eda01d9815f8d24aae2dbd89b68b06")],
    "upload a file from the local machine",
    "\
@@ -1576,7 +1576,7 @@ See also C<guestfs_download>.");
   ("download", (RErr, [String "remotefilename"; FileOut "filename"]), 67, [],
    [InitBasicFS, Always, TestOutput (
       (* Pick a file from cwd which isn't likely to change. *)
-    [["upload"; "COPYING.LIB"; "/COPYING.LIB"];
+    [["upload"; "../COPYING.LIB"; "/COPYING.LIB"];
      ["download"; "/COPYING.LIB"; "testdownload.tmp"];
      ["upload"; "testdownload.tmp"; "/upload"];
      ["checksum"; "md5"; "/upload"]], "e3eda01d9815f8d24aae2dbd89b68b06")],
