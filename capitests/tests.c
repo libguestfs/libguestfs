@@ -5811,7 +5811,7 @@ static int test_download_0 (void)
     char remotefilename[] = "/COPYING.LIB";
     int r;
     suppress_error = 0;
-    r = guestfs_upload (g, "COPYING.LIB", remotefilename);
+    r = guestfs_upload (g, "../COPYING.LIB", remotefilename);
     if (r == -1)
       return -1;
   }
@@ -5930,7 +5930,7 @@ static int test_upload_0 (void)
     char remotefilename[] = "/COPYING.LIB";
     int r;
     suppress_error = 0;
-    r = guestfs_upload (g, "COPYING.LIB", remotefilename);
+    r = guestfs_upload (g, "../COPYING.LIB", remotefilename);
     if (r == -1)
       return -1;
   }
