@@ -449,6 +449,7 @@ AC_CONFIG_FILES([Makefile
 		 appliance/Makefile
 	         appliance/make-initramfs.sh appliance/update-initramfs.sh
 		 images/Makefile
+		 capitests/Makefile
 		 ocaml/Makefile ocaml/examples/Makefile
 		 perl/Makefile
 		 python/Makefile

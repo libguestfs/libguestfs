@@ -34,6 +34,9 @@ Directories
 appliance/
 	The qemu appliance, build scripts and so on.
 
+capitests/
+	Automated tests of the C API.
+
 contrib/
 	Outside contributions, experimental parts.
 

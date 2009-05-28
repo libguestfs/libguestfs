@@ -3717,10 +3717,7 @@ int main (int argc, char *argv[])
 
   guestfs_set_error_handler (g, print_error, NULL);
 
-  srcdir = getenv (\"srcdir\");
-  if (!srcdir) srcdir = \".\";
-  chdir (srcdir);
-  guestfs_set_path (g, \"appliance\");
+  guestfs_set_path (g, \"../appliance\");
 
   filename = \"test1.img\";
   fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_NONBLOCK|O_TRUNC, 0666);
@@ -7182,7 +7179,7 @@ Run it from the top source directory using the command
   generate_daemon_actions ();
   close ();
 
-  let close = output_to "tests.c" in
+  let close = output_to "capitests/tests.c" in
   generate_tests ();
   close ();
 

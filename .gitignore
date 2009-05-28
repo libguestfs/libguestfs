@@ -25,6 +25,10 @@ appliance/make-initramfs.sh.in.old
 appliance/update-initramfs.sh
 appliance/vmlinuz.*
 autom4te.cache
+capitests/test-command
+capitests/test*.img
+capitests/test*.tmp
+capitests/tests
 compile
 config.h
 config.h.in
@@ -91,7 +95,3 @@ ruby/Rakefile
 ruby/ext/guestfs/extconf.h
 ruby/ext/guestfs/mkmf.log
 stamp-h1
-test-command
-test*.img
-test*.tmp
-tests
