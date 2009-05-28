@@ -446,6 +446,8 @@ dnl Produce output files.
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile
 		 src/Makefile fish/Makefile po/Makefile.in examples/Makefile
+		 appliance/Makefile
+	         appliance/make-initramfs.sh appliance/update-initramfs.sh
 		 images/Makefile
 		 ocaml/Makefile ocaml/examples/Makefile
 		 perl/Makefile
@@ -454,13 +456,12 @@ AC_CONFIG_FILES([Makefile
 		 java/Makefile
 		 haskell/Makefile
 		 inspector/Makefile
-	         make-initramfs.sh update-initramfs.sh
 		 libguestfs.pc
 		 ocaml/META perl/Makefile.PL])
 AC_OUTPUT
 
 dnl WTF?
-chmod +x make-initramfs.sh update-initramfs.sh
+chmod +x appliance/make-initramfs.sh appliance/update-initramfs.sh
 
 dnl Produce summary.
 echo

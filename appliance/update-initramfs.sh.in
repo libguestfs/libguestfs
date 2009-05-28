@@ -23,10 +23,12 @@ unset CDPATH
 
 set -e
 
-output=initramfs.@REPO@.@host_cpu@.img
+cd @top_builddir@
+
+output=appliance/initramfs.@REPO@.@host_cpu@.img
 
 # Copy the daemon into the filesystem.
-@FEBOOTSTRAP_INSTALL@ initramfs @abs_builddir@/daemon/guestfsd /sbin/guestfsd 0755 root.root
+@FEBOOTSTRAP_INSTALL@ initramfs daemon/guestfsd /sbin/guestfsd 0755 root.root
 
 # Generate final image.
 @FEBOOTSTRAP_TO_INITRAMFS@ initramfs > $output-t

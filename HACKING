@@ -31,6 +31,9 @@ Please test any changes.
 Directories
 ----------------------------------------------------------------------
 
+appliance/
+	The qemu appliance, build scripts and so on.
+
 contrib/
 	Outside contributions, experimental parts.
 

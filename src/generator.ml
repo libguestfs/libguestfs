@@ -3720,7 +3720,7 @@ int main (int argc, char *argv[])
   srcdir = getenv (\"srcdir\");
   if (!srcdir) srcdir = \".\";
   chdir (srcdir);
-  guestfs_set_path (g, \".\");
+  guestfs_set_path (g, \"appliance\");
 
   filename = \"test1.img\";
   fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_NONBLOCK|O_TRUNC, 0666);

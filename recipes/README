@@ -17,7 +17,7 @@ without restrictions.
 To run a script before libguestfs has been installed, you can do
 something like this:
 
-  LIBGUESTFS_PATH=.. PATH=../fish:$PATH ./show-devices.sh disk.img
+  LIBGUESTFS_PATH=../appliance PATH=../fish:$PATH ./show-devices.sh disk.img
 
 You can apply these recipes in your own programs by translating the
 guestfish commands into API calls in the language of your choice.  The

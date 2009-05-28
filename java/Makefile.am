@@ -90,7 +90,7 @@ TESTS = $(java_tests:.java=.class)
 TESTS_ENVIRONMENT = \
 	JAVA=$(JAVA) \
 	CLASSPATH=t:libguestfs-$(VERSION).jar \
-	LIBGUESTFS_PATH=$(abs_top_builddir) \
+	LIBGUESTFS_PATH=$(top_builddir)/appliance \
 	./run-java-test
 
 t/%.class: t/%.java

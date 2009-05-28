@@ -19,6 +19,11 @@ ChangeLog
 Makefile.in
 Makefile
 aclocal.m4
+appliance/initramfs.*.img
+appliance/make-initramfs.sh
+appliance/make-initramfs.sh.in.old
+appliance/update-initramfs.sh
+appliance/vmlinuz.*
 autom4te.cache
 compile
 config.h
@@ -47,7 +52,6 @@ html/recipes.html
 html/virt-inspector.1.html
 initramfs
 initramfs.timestamp
-initramfs.*.img
 inspector/virt-inspector.1
 install-sh
 java/api
@@ -59,8 +63,6 @@ libguestfs.spec
 libguestfs-*.tar.gz
 libtool
 ltmain.sh
-make-initramfs.sh
-make-initramfs.sh.in.old
 m4/libtool.m4
 m4/ltoptions.m4
 m4/ltsugar.m4
@@ -93,5 +95,3 @@ test-command
 test*.img
 test*.tmp
 tests
-update-initramfs.sh
-vmlinuz.*

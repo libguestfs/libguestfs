@@ -24,6 +24,6 @@
 #   ./inspector/run-inspector-locally [usual virt-inspector args ...]
 
 export LD_LIBRARY_PATH=$(pwd)/src/.libs
-export LIBGUESTFS_PATH=$(pwd)
+export LIBGUESTFS_PATH=$(pwd)/appliance
 export PERL5LIB=$(pwd)/perl/blib/lib:$(pwd)/perl/blib/arch
 perl ./inspector/virt-inspector.pl "$@"

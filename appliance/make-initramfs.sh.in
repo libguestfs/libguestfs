@@ -18,9 +18,11 @@
 
 # This is called from the Makefile to build the initramfs.
 
+unset CDPATH
+
 set -e
 
-unset CDPATH
+cd @top_builddir@
 
 modules="
 -i augeas-libs
@@ -45,8 +47,8 @@ modules="
 "
 
 # Decide on names for the final output.  These have to match Makefile.am.
-output=initramfs.@REPO@.@host_cpu@.img
-koutput=vmlinuz.@REPO@.@host_cpu@
+output=appliance/initramfs.@REPO@.@host_cpu@.img
+koutput=appliance/vmlinuz.@REPO@.@host_cpu@
 rm -f $output
 rm -f $koutput
 
@@ -151,7 +153,7 @@ rm init.new
 #@FEBOOTSTRAP_RUN@ initramfs -- ln -f /init /sbin/init
 
 # Copy the daemon into the filesystem.
-@FEBOOTSTRAP_INSTALL@ initramfs @abs_builddir@/daemon/guestfsd /sbin/guestfsd 0755 root.root
+@FEBOOTSTRAP_INSTALL@ initramfs daemon/guestfsd /sbin/guestfsd 0755 root.root
 
 # Generate final image.
 @FEBOOTSTRAP_TO_INITRAMFS@ initramfs > $output-t

@@ -12,6 +12,6 @@ Tips:
 LIBGUESTFS_PATH as in this example (if run from the root directory of
 the source distribution):
 
-  LIBGUESTFS_PATH=$(pwd) \
+  LIBGUESTFS_PATH=$(pwd)/appliance \
   PERL5LIB=$(pwd)/perl/blib/lib:$(pwd)/perl/blib/arch/auto/Sys/Guestfs \
   perl/examples/foo

@@ -22,8 +22,8 @@ CLEANFILES = *~
 if HAVE_HASKELL
 
 TESTS_ENVIRONMENT = \
-	LD_LIBRARY_PATH=$(abs_top_builddir)/src/.libs \
-	LIBGUESTFS_PATH=$(abs_top_builddir) \
+	LD_LIBRARY_PATH=$(top_builddir)/src/.libs \
+	LIBGUESTFS_PATH=$(top_builddir)/appliance \
 	$(VG)
 
 TESTS = Guestfs005Load Guestfs010Launch Guestfs050LVCreate

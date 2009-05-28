@@ -137,9 +137,10 @@ main (int argc, char *argv[])
 
   guestfs_set_autosync (g, 1);
 
-  /* If developing, add . to the path.  Note that libtools interferes
-   * with this because uninstalled guestfish is a shell script that runs
-   * the real program with an absolute path.  Detect that too.
+  /* If developing, add ./appliance to the path.  Note that libtools
+   * interferes with this because uninstalled guestfish is a shell
+   * script that runs the real program with an absolute path.  Detect
+   * that too.
    *
    * BUT if LIBGUESTFS_PATH environment variable is already set by
    * the user, then don't override it.
@@ -147,7 +148,7 @@ main (int argc, char *argv[])
   if (getenv ("LIBGUESTFS_PATH") == NULL &&
       argv[0] &&
       (argv[0][0] != '/' || strstr (argv[0], "/.libs/lt-") != NULL))
-    guestfs_set_path (g, ".:" GUESTFS_DEFAULT_PATH);
+    guestfs_set_path (g, "appliance:" GUESTFS_DEFAULT_PATH);
 
   for (;;) {
     c = getopt_long (argc, argv, options, long_options, NULL);

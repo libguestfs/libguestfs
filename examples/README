@@ -10,6 +10,6 @@ Tips:
 LIBGUESTFS_DEBUG=1
 
 (2) If you haven't installed libguestfs, run the examples like this:
-LIBGUESTFS_PATH=. examples/to-xml
+LIBGUESTFS_PATH=appliance examples/to-xml
 (the path should point to the directory containing vmlinuz.* and
 initramfs.* files).

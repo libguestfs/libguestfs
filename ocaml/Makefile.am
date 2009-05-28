@@ -44,7 +44,7 @@ guestfs_c_actions.o: guestfs_c_actions.c
 
 TESTS_ENVIRONMENT = \
 	LD_LIBRARY_PATH=$(top_builddir)/src/.libs \
-	LIBGUESTFS_PATH=$(top_builddir) \
+	LIBGUESTFS_PATH=$(top_builddir)/appliance \
 	$(VG)
 
 TESTS = t/guestfs_005_load t/guestfs_010_launch t/guestfs_050_lvcreate

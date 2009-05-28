@@ -33,8 +33,8 @@ libguestfsmod_la_CFLAGS = -Wall -I$(PYTHON_INCLUDEDIR) -I$(top_builddir)/src
 libguestfsmod_la_LIBADD = $(top_builddir)/src/libguestfs.la
 
 TESTS_ENVIRONMENT = \
-	LIBGUESTFS_PATH=$(abs_top_builddir) \
-	PYTHONPATH=$(abs_top_builddir)/python:$(abs_top_builddir)/python/.libs \
+	LIBGUESTFS_PATH=$(top_builddir)/appliance \
+	PYTHONPATH=$(top_builddir)/python:$(top_builddir)/python/.libs \
 	$(PYTHON)
 TESTS = t/005-import.py t/010-launch.py t/050-lvcreate.py
 

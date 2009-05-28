@@ -17,5 +17,5 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 export LD_LIBRARY_PATH=../src/.libs
-export LIBGUESTFS_PATH=$(cd .. > /dev/null && pwd)
+export LIBGUESTFS_PATH=../appliance
 make -f Makefile-pl test "$@"

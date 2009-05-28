@@ -17,7 +17,7 @@
 
 ACLOCAL_AMFLAGS = -I m4
 
-SUBDIRS = src daemon fish po examples images
+SUBDIRS = src daemon appliance fish po examples images
 
 if HAVE_OCAML
 SUBDIRS += ocaml
@@ -43,7 +43,6 @@ endif
 
 EXTRA_DIST = \
 	config.rpath \
-	make-initramfs.sh update-initramfs.sh \
 	guestfs.pod guestfs-actions.pod guestfs-structs.pod \
 	guestfish.pod guestfish-actions.pod \
 	html/pod.css \
@@ -65,33 +64,6 @@ EXTRA_DIST = \
 	contrib/febootstrap/install.sh \
 	test-bootbootboot.sh
 
-# Build the root filesystem.
-# Currently this is arch-dependent, so it seems like putting it in
-# $(libdir) is best.  When we build cross-architecture filesystems we
-# should probably move them to $(datadir).
-
-fsdir = $(libdir)/guestfs
-
-INITRAMFSIMG = initramfs.$(REPO).$(host_cpu).img
-VMLINUZ = vmlinuz.$(REPO).$(host_cpu)
-
-fs_DATA =  $(INITRAMFSIMG) $(VMLINUZ)
-
-$(INITRAMFSIMG) $(VMLINUZ): initramfs/fakeroot.log
-
-initramfs/fakeroot.log: make-initramfs.sh.in
-	-mv $(INITRAMFSIMG) $(INITRAMFSIMG).bak
-	-mv $(VMLINUZ) $(VMLINUZ).bak
-	if ! bash $(top_builddir)/make-initramfs.sh; then rm -f $@; exit 1; fi
-
-$(INITRAMFSIMG): initramfs/fakeroot.log daemon/guestfsd
-	rm -f $@
-	bash $(top_builddir)/update-initramfs.sh
-	touch $@
-
-make-initramfs.sh: make-initramfs.sh.in
-	./config.status $@
-
 # Tests.  These are auto-generated from the test descriptions
 # in the generator.
 
@@ -108,8 +80,6 @@ TESTS_ENVIRONMENT = \
 	SKIP_TEST_COMMAND_LINES=$(shell ldd test-command | grep -sq 'not a dynamic executable' || echo 1) \
 	SKIP_TEST_ZEROFREE=$(shell test -x initramfs/usr/sbin/zerofree || echo 1) \
 	$(VG)
-
-$(TESTS): $(INITRAMFS) $(VMLINUZ)
 
 # Run the tests under valgrind.
 
@@ -203,34 +173,6 @@ dist-hook:
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libguestfs.pc
-
-# Test-boot the image.
-
-test-boot: emptydisk
-	qemu-system-$(host_cpu) \
-	  -m 384 \
-	  -kernel $(VMLINUZ) -initrd $(INITRAMFSIMG) \
-	  -hda emptydisk
-
-emptydisk:
-	rm -f emptydisk
-	dd if=/dev/zero of=emptydisk bs=1024 count=1440
-	echo 0, | sfdisk -q -C 80 -H 2 -S 18 emptydisk > /dev/null
-
-# This is a more realistic test boot command line which better
-# reflects what the library does.
-
-test-boot-realistic: emptydisk
-	qemu-system-$(host_cpu) \
-	  -m 384 \
-	  -kernel $(VMLINUZ) -initrd $(INITRAMFSIMG) \
-	  -hda emptydisk \
-	  -append "console=ttyS0 guestfs=10.0.2.4:6666" \
-	  -nographic \
-	  -serial stdio \
-	  -net channel,6666:unix:/tmp/sock,server,nowait \
-	  -net user,vlan=0 \
-	  -net nic,model=virtio,vlan=0
 
 # Make clean.
 
