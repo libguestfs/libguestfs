@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2009-05-27 17:12+0100\n"
+"POT-Creation-Date: 2009-05-28 20:04+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -69,12 +69,12 @@ msgstr ""
 msgid "guestfs_create: failed to create handle\n"
 msgstr ""
 
-#: fish/fish.c:214
+#: fish/fish.c:215
 #, c-format
 msgid "guestfish: unexpected command line option 0x%x\n"
 msgstr ""
 
-#: fish/fish.c:341
+#: fish/fish.c:342
 #, c-format
 msgid ""
 "\n"
@@ -86,57 +86,57 @@ msgid ""
 "\n"
 msgstr ""
 
-#: fish/fish.c:418
+#: fish/fish.c:419
 #, c-format
 msgid "guestfish: unterminated double quote\n"
 msgstr ""
 
-#: fish/fish.c:423 fish/fish.c:438
+#: fish/fish.c:424 fish/fish.c:439
 #, c-format
 msgid "guestfish: command arguments not separated by whitespace\n"
 msgstr ""
 
-#: fish/fish.c:433
+#: fish/fish.c:434
 #, c-format
 msgid "guestfish: unterminated single quote\n"
 msgstr ""
 
-#: fish/fish.c:474
+#: fish/fish.c:475
 #, c-format
 msgid "guestfish: internal error parsing string at '%s'\n"
 msgstr ""
 
-#: fish/fish.c:487
+#: fish/fish.c:488
 #, c-format
 msgid "guestfish: too many arguments\n"
 msgstr ""
 
-#: fish/fish.c:514
+#: fish/fish.c:515
 #, c-format
 msgid "guestfish: empty command on command line\n"
 msgstr ""
 
-#: fish/fish.c:571
+#: fish/fish.c:572
 msgid "display a list of commands or help on a command"
 msgstr ""
 
-#: fish/fish.c:573
+#: fish/fish.c:574
 msgid "quit guestfish"
 msgstr ""
 
-#: fish/fish.c:576
+#: fish/fish.c:577
 msgid "allocate an image"
 msgstr ""
 
-#: fish/fish.c:578
+#: fish/fish.c:579
 msgid "display a line of text"
 msgstr ""
 
-#: fish/fish.c:580
+#: fish/fish.c:581
 msgid "edit a file in the image"
 msgstr ""
 
-#: fish/fish.c:592
+#: fish/fish.c:593
 #, c-format
 msgid ""
 "alloc - allocate an image\n"
@@ -156,7 +156,7 @@ msgid ""
 "    <nn>sects        number of 512 byte sectors\n"
 msgstr ""
 
-#: fish/fish.c:608
+#: fish/fish.c:609
 #, c-format
 msgid ""
 "echo - display a line of text\n"
@@ -165,7 +165,7 @@ msgid ""
 "    This echos the parameters to the terminal.\n"
 msgstr ""
 
-#: fish/fish.c:615
+#: fish/fish.c:616
 #, c-format
 msgid ""
 "edit - edit a file in the image\n"
@@ -183,7 +183,7 @@ msgid ""
 "    (> 2 MB) or binary files containing \\0 bytes.\n"
 msgstr ""
 
-#: fish/fish.c:629
+#: fish/fish.c:630
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -191,14 +191,14 @@ msgid ""
 "     help\n"
 msgstr ""
 
-#: fish/fish.c:635
+#: fish/fish.c:636
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
 "     quit\n"
 msgstr ""
 
-#: fish/fish.c:638
+#: fish/fish.c:639
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""

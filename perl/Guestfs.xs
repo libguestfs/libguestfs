@@ -110,7 +110,7 @@ void
 test0 (g, str, optstr, strlist, b, integer, filein, fileout)
       guestfs_h *g;
       char *str;
-      char *optstr;
+      char *optstr = SvOK(ST(2)) ? SvPV_nolen(ST(2)) : NULL;
       char **strlist;
       int b;
       int integer;
@@ -727,7 +727,7 @@ void
 config (g, qemuparam, qemuvalue)
       guestfs_h *g;
       char *qemuparam;
-      char *qemuvalue;
+      char *qemuvalue = SvOK(ST(2)) ? SvPV_nolen(ST(2)) : NULL;
 PREINIT:
       int r;
  PPCODE:
@@ -1270,7 +1270,7 @@ SV *
 aug_defvar (g, name, expr)
       guestfs_h *g;
       char *name;
-      char *expr;
+      char *expr = SvOK(ST(2)) ? SvPV_nolen(ST(2)) : NULL;
 PREINIT:
       int nrnodes;
    CODE:

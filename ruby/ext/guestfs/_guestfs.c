@@ -82,7 +82,7 @@ static VALUE ruby_guestfs_test0 (VALUE gv, VALUE strv, VALUE optstrv, VALUE strl
   if (!str)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "str", "test0");
-  const char *optstr = StringValueCStr (optstrv);
+  const char *optstr = !NIL_P (optstrv) ? StringValueCStr (optstrv) : NULL;
   char **strlist;  {
     int i, len;
     len = RARRAY_LEN (strlistv);
@@ -93,7 +93,7 @@ static VALUE ruby_guestfs_test0 (VALUE gv, VALUE strv, VALUE optstrv, VALUE strl
     }
     strlist[len] = NULL;
   }
-  int b = NUM2INT (bv);
+  int b = RTEST (bv);
   int integer = NUM2INT (integerv);
   const char *filein = StringValueCStr (fileinv);
   if (!filein)
@@ -952,7 +952,7 @@ static VALUE ruby_guestfs_config (VALUE gv, VALUE qemuparamv, VALUE qemuvaluev)
   if (!qemuparam)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "qemuparam", "config");
-  const char *qemuvalue = StringValueCStr (qemuvaluev);
+  const char *qemuvalue = !NIL_P (qemuvaluev) ? StringValueCStr (qemuvaluev) : NULL;
 
   int r;
 
@@ -1084,7 +1084,7 @@ static VALUE ruby_guestfs_set_autosync (VALUE gv, VALUE autosyncv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "set_autosync");
 
-  int autosync = NUM2INT (autosyncv);
+  int autosync = RTEST (autosyncv);
 
   int r;
 
@@ -1119,7 +1119,7 @@ static VALUE ruby_guestfs_set_verbose (VALUE gv, VALUE verbosev)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "set_verbose");
 
-  int verbose = NUM2INT (verbosev);
+  int verbose = RTEST (verbosev);
 
   int r;
 
@@ -1746,7 +1746,7 @@ static VALUE ruby_guestfs_aug_defvar (VALUE gv, VALUE namev, VALUE exprv)
   if (!name)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "name", "aug_defvar");
-  const char *expr = StringValueCStr (exprv);
+  const char *expr = !NIL_P (exprv) ? StringValueCStr (exprv) : NULL;
 
   int r;
 
@@ -1853,7 +1853,7 @@ static VALUE ruby_guestfs_aug_insert (VALUE gv, VALUE pathv, VALUE labelv, VALUE
   if (!label)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "label", "aug_insert");
-  int before = NUM2INT (beforev);
+  int before = RTEST (beforev);
 
   int r;
 
@@ -3809,7 +3809,7 @@ static VALUE ruby_guestfs_vg_activate_all (VALUE gv, VALUE activatev)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "vg_activate_all");
 
-  int activate = NUM2INT (activatev);
+  int activate = RTEST (activatev);
 
   int r;
 
@@ -3827,7 +3827,7 @@ static VALUE ruby_guestfs_vg_activate (VALUE gv, VALUE activatev, VALUE volgroup
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "vg_activate");
 
-  int activate = NUM2INT (activatev);
+  int activate = RTEST (activatev);
   char **volgroups;  {
     int i, len;
     len = RARRAY_LEN (volgroupsv);

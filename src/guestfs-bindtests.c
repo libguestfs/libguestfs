@@ -59,6 +59,8 @@ int guestfs_test0 (guestfs_h *g,
   printf ("%d\n", integer);
   printf ("%s\n", filein);
   printf ("%s\n", fileout);
+  /* Java changes stdout line buffering so we need this: */
+  fflush (stdout);
   return 0;
 }
 

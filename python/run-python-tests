@@ -1,3 +1,4 @@
+#!/bin/sh -
 # libguestfs Perl bindings
 # Copyright (C) 2009 Red Hat Inc.
 #
@@ -15,36 +16,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-EXTRA_DIST = \
-	Makefile.PL.in \
-	Guestfs.xs \
-	examples/README \
-	examples/LICENSE \
-	examples/*.pl \
-	lib/Sys/Guestfs.pm \
-	run-bindtests \
-	run-perl-tests \
-	t/*.t \
-	typemap
+set -e
 
-if HAVE_PERL
+for f in t/*.py; do
+  python $f
+done
 
-# Interfacing automake and ExtUtils::MakeMaker known to be
-# a nightmare, news at 11.
-
-TESTS = run-bindtests run-perl-tests
-
-TESTS_ENVIRONMENT = \
-	LD_LIBRARY_PATH=../src/.libs \
-	LIBGUESTFS_PATH=../appliance
-
-INSTALLDIRS = site
-
-all:
-	perl Makefile.PL INSTALLDIRS=$(INSTALLDIRS) PREFIX=$(prefix)
-	$(MAKE) -f Makefile-pl
-
-install-data-hook:
-	$(MAKE) -f Makefile-pl DESTDIR=$(DESTDIR) install
-
-endif

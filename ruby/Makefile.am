@@ -20,6 +20,7 @@ EXTRA_DIST = \
 	ext/guestfs/_guestfs.c \
 	ext/guestfs/extconf.rb \
 	lib/guestfs.rb \
+	run-bindtests \
 	run-ruby-tests \
 	tests/tc_*.rb
 
@@ -35,7 +36,11 @@ CLEANFILES = \
 
 if HAVE_RUBY
 
-TESTS = run-ruby-tests
+TESTS = run-bindtests run-ruby-tests
+
+TESTS_ENVIRONMENT = \
+	LD_LIBRARY_PATH=../src/.libs \
+	LIBGUESTFS_PATH=../appliance
 
 all:
 	rake build

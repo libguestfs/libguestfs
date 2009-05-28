@@ -2373,6 +2373,14 @@ let statvfs_cols = [
   "namemax", `Int;
 ]
 
+(* Used for testing language bindings. *)
+type callt =
+  | CallString of string
+  | CallOptString of string option
+  | CallStringList of string list
+  | CallInt of int
+  | CallBool of bool
+
 (* Useful functions.
  * Note we don't want to use any external OCaml libraries which
  * makes this a bit harder than it should be.
@@ -5395,13 +5403,19 @@ DESTROY (g)
       generate_call_args ~handle:"g" (snd style);
       pr "\n";
       pr "      guestfs_h *g;\n";
-      List.iter (
-	function
-	| String n | FileIn n | FileOut n -> pr "      char *%s;\n" n
-	| OptString n -> pr "      char *%s;\n" n
-	| StringList n -> pr "      char **%s;\n" n
-	| Bool n -> pr "      int %s;\n" n
-	| Int n -> pr "      int %s;\n" n
+      iteri (
+	fun i ->
+	  function
+	  | String n | FileIn n | FileOut n -> pr "      char *%s;\n" n
+	  | OptString n ->
+	      (* http://www.perlmonks.org/?node_id=554277
+	       * Note that the implicit handle argument means we have
+	       * to add 1 to the ST(x) operator.
+	       *)
+	      pr "      char *%s = SvOK(ST(%d)) ? SvPV_nolen(ST(%d)) : NULL;\n" n (i+1) (i+1)
+	  | StringList n -> pr "      char **%s;\n" n
+	  | Bool n -> pr "      int %s;\n" n
+	  | Int n -> pr "      int %s;\n" n
       ) (snd style);
 
       let do_cleanups () =
@@ -6335,7 +6349,7 @@ static VALUE ruby_guestfs_close (VALUE gv)
 	    pr "    rb_raise (rb_eTypeError, \"expected string for parameter %%s of %%s\",\n";
 	    pr "              \"%s\", \"%s\");\n" n name
 	| OptString n ->
-	    pr "  const char *%s = StringValueCStr (%sv);\n" n n
+	    pr "  const char *%s = !NIL_P (%sv) ? StringValueCStr (%sv) : NULL;\n" n n n
 	| StringList n ->
 	    pr "  char **%s;" n;
 	    pr "  {\n";
@@ -6349,7 +6363,8 @@ static VALUE ruby_guestfs_close (VALUE gv)
 	    pr "    }\n";
 	    pr "    %s[len] = NULL;\n" n;
 	    pr "  }\n";
-	| Bool n
+	| Bool n ->
+	    pr "  int %s = RTEST (%sv);\n" n n
 	| Int n ->
 	    pr "  int %s = NUM2INT (%sv);\n" n n
       ) (snd style);
@@ -6863,10 +6878,14 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
       List.iter (
 	function
 	| String n
-	| OptString n
 	| FileIn n
 	| FileOut n ->
 	    pr "  %s = (*env)->GetStringUTFChars (env, j%s, NULL);\n" n n
+	| OptString n ->
+	    (* This is completely undocumented, but Java null becomes
+	     * a NULL parameter.
+	     *)
+	    pr "  %s = j%s ? (*env)->GetStringUTFChars (env, j%s, NULL) : NULL;\n" n n n
 	| StringList n ->
 	    pr "  %s_len = (*env)->GetArrayLength (env, j%s);\n" n n;
 	    pr "  %s = guestfs_safe_malloc (g, sizeof (char *) * (%s_len+1));\n" n n;
@@ -6890,10 +6909,12 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
       List.iter (
 	function
 	| String n
-	| OptString n
 	| FileIn n
 	| FileOut n ->
 	    pr "  (*env)->ReleaseStringUTFChars (env, j%s, %s);\n" n n
+	| OptString n ->
+	    pr "  if (j%s)\n" n;
+	    pr "    (*env)->ReleaseStringUTFChars (env, j%s, %s);\n" n n
 	| StringList n ->
 	    pr "  for (i = 0; i < %s_len; ++i) {\n" n;
 	    pr "    jobject o = (*env)->GetObjectArrayElement (env, j%s, i);\n"
@@ -7264,6 +7285,8 @@ print_strings (char * const* const argv)
       | Bool n -> pr "  printf (\"%%s\\n\", %s ? \"true\" : \"false\");\n" n
       | Int n -> pr "  printf (\"%%d\\n\", %s);\n" n
     ) (snd style);
+    pr "  /* Java changes stdout line buffering so we need this: */\n";
+    pr "  fflush (stdout);\n";
     pr "  return 0;\n";
     pr "}\n";
     pr "\n" in
@@ -7392,6 +7415,220 @@ print_strings (char * const* const argv)
       )
   ) tests
 
+and generate_ocaml_bindtests () =
+  generate_header OCamlStyle GPLv2;
+
+  pr "\
+let () =
+  let g = Guestfs.create () in
+";
+
+  let mkargs args =
+    String.concat " " (
+      List.map (
+	function
+	| CallString s -> "\"" ^ s ^ "\""
+	| CallOptString None -> "None"
+	| CallOptString (Some s) -> sprintf "(Some \"%s\")" s
+	| CallStringList xs ->
+	    "[|" ^ String.concat ";" (List.map (sprintf "\"%s\"") xs) ^ "|]"
+	| CallInt i when i >= 0 -> string_of_int i
+	| CallInt i (* when i < 0 *) -> "(" ^ string_of_int i ^ ")"
+	| CallBool b -> string_of_bool b
+      ) args
+    )
+  in
+
+  generate_lang_bindtests (
+    fun f args -> pr "  Guestfs.%s g %s;\n" f (mkargs args)
+  );
+
+  pr "print_endline \"EOF\"\n"
+
+and generate_perl_bindtests () =
+  pr "#!/usr/bin/perl -w\n";
+  generate_header HashStyle GPLv2;
+
+  pr "\
+use strict;
+
+use Sys::Guestfs;
+
+my $g = Sys::Guestfs->new ();
+";
+
+  let mkargs args =
+    String.concat ", " (
+      List.map (
+	function
+	| CallString s -> "\"" ^ s ^ "\""
+	| CallOptString None -> "undef"
+	| CallOptString (Some s) -> sprintf "\"%s\"" s
+	| CallStringList xs ->
+	    "[" ^ String.concat "," (List.map (sprintf "\"%s\"") xs) ^ "]"
+	| CallInt i -> string_of_int i
+	| CallBool b -> if b then "1" else "0"
+      ) args
+    )
+  in
+
+  generate_lang_bindtests (
+    fun f args -> pr "$g->%s (%s);\n" f (mkargs args)
+  );
+
+  pr "print \"EOF\\n\"\n"
+
+and generate_python_bindtests () =
+  generate_header HashStyle GPLv2;
+
+  pr "\
+import guestfs
+
+g = guestfs.GuestFS ()
+";
+
+  let mkargs args =
+    String.concat ", " (
+      List.map (
+	function
+	| CallString s -> "\"" ^ s ^ "\""
+	| CallOptString None -> "None"
+	| CallOptString (Some s) -> sprintf "\"%s\"" s
+	| CallStringList xs ->
+	    "[" ^ String.concat "," (List.map (sprintf "\"%s\"") xs) ^ "]"
+	| CallInt i -> string_of_int i
+	| CallBool b -> if b then "1" else "0"
+      ) args
+    )
+  in
+
+  generate_lang_bindtests (
+    fun f args -> pr "g.%s (%s)\n" f (mkargs args)
+  );
+
+  pr "print \"EOF\"\n"
+
+and generate_ruby_bindtests () =
+  generate_header HashStyle GPLv2;
+
+  pr "\
+require 'guestfs'
+
+g = Guestfs::create()
+";
+
+  let mkargs args =
+    String.concat ", " (
+      List.map (
+	function
+	| CallString s -> "\"" ^ s ^ "\""
+	| CallOptString None -> "nil"
+	| CallOptString (Some s) -> sprintf "\"%s\"" s
+	| CallStringList xs ->
+	    "[" ^ String.concat "," (List.map (sprintf "\"%s\"") xs) ^ "]"
+	| CallInt i -> string_of_int i
+	| CallBool b -> string_of_bool b
+      ) args
+    )
+  in
+
+  generate_lang_bindtests (
+    fun f args -> pr "g.%s(%s)\n" f (mkargs args)
+  );
+
+  pr "print \"EOF\\n\"\n"
+
+and generate_java_bindtests () =
+  generate_header CStyle GPLv2;
+
+  pr "\
+import com.redhat.et.libguestfs.*;
+
+public class Bindtests {
+    public static void main (String[] argv)
+    {
+        try {
+            GuestFS g = new GuestFS ();
+";
+
+  let mkargs args =
+    String.concat ", " (
+      List.map (
+	function
+	| CallString s -> "\"" ^ s ^ "\""
+	| CallOptString None -> "null"
+	| CallOptString (Some s) -> sprintf "\"%s\"" s
+	| CallStringList xs ->
+	    "new String[]{" ^
+	      String.concat "," (List.map (sprintf "\"%s\"") xs) ^ "}"
+	| CallInt i -> string_of_int i
+	| CallBool b -> string_of_bool b
+      ) args
+    )
+  in
+
+  generate_lang_bindtests (
+    fun f args -> pr "            g.%s (%s);\n" f (mkargs args)
+  );
+
+  pr "
+            System.out.println (\"EOF\");
+        }
+        catch (Exception exn) {
+            System.err.println (exn);
+            System.exit (1);
+        }
+    }
+}
+"
+
+and generate_haskell_bindtests () =
+  () (* XXX Haskell bindings need to be fleshed out. *)
+
+(* Language-independent bindings tests - we do it this way to
+ * ensure there is parity in testing bindings across all languages.
+ *)
+and generate_lang_bindtests call =
+  call "test0" [CallString "abc"; CallOptString (Some "def");
+		CallStringList []; CallBool false;
+		CallInt 0; CallString "123"; CallString "456"];
+  call "test0" [CallString "abc"; CallOptString None;
+		CallStringList []; CallBool false;
+		CallInt 0; CallString "123"; CallString "456"];
+  call "test0" [CallString ""; CallOptString (Some "def");
+		CallStringList []; CallBool false;
+		CallInt 0; CallString "123"; CallString "456"];
+  call "test0" [CallString ""; CallOptString (Some "");
+		CallStringList []; CallBool false;
+		CallInt 0; CallString "123"; CallString "456"];
+  call "test0" [CallString "abc"; CallOptString (Some "def");
+		CallStringList ["1"]; CallBool false;
+		CallInt 0; CallString "123"; CallString "456"];
+  call "test0" [CallString "abc"; CallOptString (Some "def");
+		CallStringList ["1"; "2"]; CallBool false;
+		CallInt 0; CallString "123"; CallString "456"];
+  call "test0" [CallString "abc"; CallOptString (Some "def");
+		CallStringList ["1"]; CallBool true;
+		CallInt 0; CallString "123"; CallString "456"];
+  call "test0" [CallString "abc"; CallOptString (Some "def");
+		CallStringList ["1"]; CallBool false;
+		CallInt (-1); CallString "123"; CallString "456"];
+  call "test0" [CallString "abc"; CallOptString (Some "def");
+		CallStringList ["1"]; CallBool false;
+		CallInt (-2); CallString "123"; CallString "456"];
+  call "test0" [CallString "abc"; CallOptString (Some "def");
+		CallStringList ["1"]; CallBool false;
+		CallInt 1; CallString "123"; CallString "456"];
+  call "test0" [CallString "abc"; CallOptString (Some "def");
+		CallStringList ["1"]; CallBool false;
+		CallInt 2; CallString "123"; CallString "456"];
+  call "test0" [CallString "abc"; CallOptString (Some "def");
+		CallStringList ["1"]; CallBool false;
+		CallInt 4095; CallString "123"; CallString "456"];
+  call "test0" [CallString "abc"; CallOptString (Some "def");
+		CallStringList ["1"]; CallBool false;
+		CallInt 0; CallString ""; CallString ""]
+
 let output_to filename =
   let filename_new = filename ^ ".new" in
   chan := open_out filename_new;
@@ -7489,12 +7726,20 @@ Run it from the top source directory using the command
   generate_ocaml_c ();
   close ();
 
+  let close = output_to "ocaml/bindtests.ml" in
+  generate_ocaml_bindtests ();
+  close ();
+
   let close = output_to "perl/Guestfs.xs" in
   generate_perl_xs ();
   close ();
 
   let close = output_to "perl/lib/Sys/Guestfs.pm" in
   generate_perl_pm ();
+  close ();
+
+  let close = output_to "perl/bindtests.pl" in
+  generate_perl_bindtests ();
   close ();
 
   let close = output_to "python/guestfs-py.c" in
@@ -7505,8 +7750,16 @@ Run it from the top source directory using the command
   generate_python_py ();
   close ();
 
+  let close = output_to "python/bindtests.py" in
+  generate_python_bindtests ();
+  close ();
+
   let close = output_to "ruby/ext/guestfs/_guestfs.c" in
   generate_ruby_c ();
+  close ();
+
+  let close = output_to "ruby/bindtests.rb" in
+  generate_ruby_bindtests ();
   close ();
 
   let close = output_to "java/com/redhat/et/libguestfs/GuestFS.java" in
@@ -7537,6 +7790,14 @@ Run it from the top source directory using the command
   generate_java_c ();
   close ();
 
+  let close = output_to "java/Bindtests.java" in
+  generate_java_bindtests ();
+  close ();
+
   let close = output_to "haskell/Guestfs.hs" in
   generate_haskell_hs ();
+  close ();
+
+  let close = output_to "haskell/bindtests.hs" in
+  generate_haskell_bindtests ();
   close ();

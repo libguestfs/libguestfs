@@ -28,6 +28,7 @@ java_sources = \
 	$(CPTH)/GuestFS.java
 
 java_tests = \
+	Bindtests.java \
 	t/GuestFS005Load.java \
 	t/GuestFS010Launch.java \
 	t/GuestFS050LVCreate.java
@@ -35,7 +36,8 @@ java_tests = \
 EXTRA_DIST = \
 	$(java_sources) \
 	$(java_tests) \
-	run-java-test
+	run-bindtests \
+	run-java-tests
 
 CLEANFILES = doc-stamp
 
@@ -86,14 +88,18 @@ install-data-hook:
 
 # Tests (not comprehensive).
 
-TESTS = $(java_tests:.java=.class)
+TESTS = run-bindtests run-java-tests
 TESTS_ENVIRONMENT = \
 	JAVA=$(JAVA) \
-	CLASSPATH=t:libguestfs-$(VERSION).jar \
-	LIBGUESTFS_PATH=$(top_builddir)/appliance \
-	./run-java-test
+	CLASSPATH=.:t:libguestfs-$(VERSION).jar \
+	LIBGUESTFS_PATH=$(top_builddir)/appliance
+
+noinst_DATA = Bindtests.class $(java_tests:.java=.class)
 
 t/%.class: t/%.java
+	$(JAVAC) $(JAVAC_FLAGS) -classpath libguestfs-$(VERSION).jar $<
+
+Bindtests.class: Bindtests.java
 	$(JAVAC) $(JAVAC_FLAGS) -classpath libguestfs-$(VERSION).jar $<
 
 endif

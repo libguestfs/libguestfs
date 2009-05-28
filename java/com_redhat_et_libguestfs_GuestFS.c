@@ -78,7 +78,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1test0
   int i;
 
   str = (*env)->GetStringUTFChars (env, jstr, NULL);
-  optstr = (*env)->GetStringUTFChars (env, joptstr, NULL);
+  optstr = joptstr ? (*env)->GetStringUTFChars (env, joptstr, NULL) : NULL;
   strlist_len = (*env)->GetArrayLength (env, jstrlist);
   strlist = guestfs_safe_malloc (g, sizeof (char *) * (strlist_len+1));
   for (i = 0; i < strlist_len; ++i) {
@@ -92,7 +92,8 @@ Java_com_redhat_et_libguestfs_GuestFS__1test0
   fileout = (*env)->GetStringUTFChars (env, jfileout, NULL);
   r = guestfs_test0 (g, str, optstr, strlist, b, integer, filein, fileout);
   (*env)->ReleaseStringUTFChars (env, jstr, str);
-  (*env)->ReleaseStringUTFChars (env, joptstr, optstr);
+  if (joptstr)
+    (*env)->ReleaseStringUTFChars (env, joptstr, optstr);
   for (i = 0; i < strlist_len; ++i) {
     jobject o = (*env)->GetObjectArrayElement (env, jstrlist, i);
     (*env)->ReleaseStringUTFChars (env, o, strlist[i]);
@@ -1097,10 +1098,11 @@ Java_com_redhat_et_libguestfs_GuestFS__1config
   const char *qemuvalue;
 
   qemuparam = (*env)->GetStringUTFChars (env, jqemuparam, NULL);
-  qemuvalue = (*env)->GetStringUTFChars (env, jqemuvalue, NULL);
+  qemuvalue = jqemuvalue ? (*env)->GetStringUTFChars (env, jqemuvalue, NULL) : NULL;
   r = guestfs_config (g, qemuparam, qemuvalue);
   (*env)->ReleaseStringUTFChars (env, jqemuparam, qemuparam);
-  (*env)->ReleaseStringUTFChars (env, jqemuvalue, qemuvalue);
+  if (jqemuvalue)
+    (*env)->ReleaseStringUTFChars (env, jqemuvalue, qemuvalue);
   if (r == -1) {
     throw_exception (env, guestfs_last_error (g));
     return ;
@@ -1928,10 +1930,11 @@ Java_com_redhat_et_libguestfs_GuestFS__1aug_1defvar
   const char *expr;
 
   name = (*env)->GetStringUTFChars (env, jname, NULL);
-  expr = (*env)->GetStringUTFChars (env, jexpr, NULL);
+  expr = jexpr ? (*env)->GetStringUTFChars (env, jexpr, NULL) : NULL;
   r = guestfs_aug_defvar (g, name, expr);
   (*env)->ReleaseStringUTFChars (env, jname, name);
-  (*env)->ReleaseStringUTFChars (env, jexpr, expr);
+  if (jexpr)
+    (*env)->ReleaseStringUTFChars (env, jexpr, expr);
   if (r == -1) {
     throw_exception (env, guestfs_last_error (g));
     return 0;

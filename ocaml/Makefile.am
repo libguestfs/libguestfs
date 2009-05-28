@@ -19,6 +19,8 @@ EXTRA_DIST = \
 	guestfs.mli guestfs.ml \
 	guestfs_c.c guestfs_c.h guestfs_c_actions.c \
 	.depend META.in \
+	bindtests.ml \
+	run-bindtests \
 	t/*.ml
 
 SUBDIRS = examples
@@ -47,8 +49,13 @@ TESTS_ENVIRONMENT = \
 	LIBGUESTFS_PATH=$(top_builddir)/appliance \
 	$(VG)
 
-TESTS = t/guestfs_005_load t/guestfs_010_launch t/guestfs_050_lvcreate
-noinst_DATA += $(TESTS)
+TESTS = run-bindtests \
+	t/guestfs_005_load t/guestfs_010_launch t/guestfs_050_lvcreate
+noinst_DATA += bindtests \
+	t/guestfs_005_load t/guestfs_010_launch t/guestfs_050_lvcreate
+
+bindtests: bindtests.ml mlguestfs.cmxa
+	$(OCAMLFIND) ocamlopt -cclib -L$(top_builddir)/src/.libs -I . unix.cmxa mlguestfs.cmxa $< -o $@
 
 t/guestfs_005_load: t/guestfs_005_load.ml mlguestfs.cmxa
 	$(OCAMLFIND) ocamlopt -cclib -L$(top_builddir)/src/.libs -I . unix.cmxa mlguestfs.cmxa $< -o $@

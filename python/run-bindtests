@@ -1,5 +1,5 @@
 #!/bin/sh -
-# libguestfs Java bindings
+# libguestfs Perl bindings
 # Copyright (C) 2009 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -16,6 +16,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-cmd=$(echo $1 | sed -e 's,^./t/,,' -e 's,.class$,,')
+set -e
 
-$JAVA -Djava.library.path=.libs $cmd
+python bindtests.py > bindtests.tmp
+diff -u ../bindtests bindtests.tmp

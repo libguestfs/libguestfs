@@ -16,7 +16,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-export LD_LIBRARY_PATH=../src/.libs
-export LIBGUESTFS_PATH=../appliance
+set -e
+
 rake test "$@"
 

@@ -18,6 +18,9 @@
 EXTRA_DIST = \
 	guestfs.py \
 	guestfs-py.c \
+	bindtests.py \
+	run-bindtests \
+	run-python-tests \
 	t/*.py
 
 if HAVE_PYTHON
@@ -34,8 +37,8 @@ libguestfsmod_la_LIBADD = $(top_builddir)/src/libguestfs.la
 
 TESTS_ENVIRONMENT = \
 	LIBGUESTFS_PATH=$(top_builddir)/appliance \
-	PYTHONPATH=$(top_builddir)/python:$(top_builddir)/python/.libs \
-	$(PYTHON)
-TESTS = t/005-import.py t/010-launch.py t/050-lvcreate.py
+	PYTHONPATH=$(top_builddir)/python:$(top_builddir)/python/.libs
+
+TESTS = run-bindtests run-python-tests
 
 endif
