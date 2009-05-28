@@ -22,6 +22,7 @@ EXTRA_DIST = \
 	lib/guestfs.rb \
 	run-bindtests \
 	run-ruby-tests \
+	bindtests.rb \
 	tests/tc_*.rb
 
 CLEANFILES = \
