@@ -7,8 +7,8 @@ http://et.redhat.com/~rjones/libguestfs/recipes.html
 The format for each recipe is:
 
   foo.sh           Shell script, using guestfish.
-  foo.html         HTML snippet describing the recipe (should start
-                   with <h2>..</h2> giving the title of the recipe)
+  foo.title        The title of the recipe.
+  foo.html         HTML snippet describing the recipe.
   foo.example      Plain text snippet showing example output.
 
 Everything in the recipes/ directory may be used and distributed
