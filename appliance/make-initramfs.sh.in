@@ -95,6 +95,8 @@ rm -f $koutput
   -a ! -name 'crc_itu_t.ko' \
   -a ! -name 'nls_utf8.ko' \
   -a ! -name 'dm-*.ko' \
+  -a ! -name 'cramfs.ko' \
+  -a ! -name 'squashfs.ko' \
   -a -print0 ) |
   xargs -0 @FEBOOTSTRAP_RUN@ initramfs -- rm
 
