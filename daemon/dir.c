@@ -117,10 +117,21 @@ recursive_mkdir (const char *path)
   int loop = 0;
   int r;
   char *ppath, *p;
+  struct stat buf;
 
  again:
   r = mkdir (path, 0777);
   if (r == -1) {
+    if (errno == EEXIST) {	/* Something exists here, might not be a dir. */
+      r = lstat (path, &buf);
+      if (r == -1) return -1;
+      if (!S_ISDIR (buf.st_mode)) {
+	errno = ENOTDIR;
+	return -1;
+      }
+      return 0;			/* OK - directory exists here already. */
+    }
+
     if (!loop && errno == ENOENT) {
       loop = 1;			/* Stops it looping forever. */
 

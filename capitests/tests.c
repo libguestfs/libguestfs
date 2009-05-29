@@ -12805,6 +12805,198 @@ static int test_mkdir_p_2 (void)
   return 0;
 }
 
+static int test_mkdir_p_3_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_MKDIR_P_3");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_MKDIR_P");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
+static int test_mkdir_p_3 (void)
+{
+  if (test_mkdir_p_3_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_mkdir_p_3");
+    return 0;
+  }
+
+  /* InitBasicFS for test_mkdir_p_3: create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestRun for mkdir_p (3) */
+  {
+    char path[] = "/new";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkdir (g, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/new";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkdir_p (g, path);
+    if (r == -1)
+      return -1;
+  }
+  return 0;
+}
+
+static int test_mkdir_p_4_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_MKDIR_P_4");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_MKDIR_P");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
+static int test_mkdir_p_4 (void)
+{
+  if (test_mkdir_p_4_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_mkdir_p_4");
+    return 0;
+  }
+
+  /* InitBasicFS for test_mkdir_p_4: create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestLastFail for mkdir_p (4) */
+  {
+    char path[] = "/new";
+    int r;
+    suppress_error = 0;
+    r = guestfs_touch (g, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/new";
+    int r;
+    suppress_error = 1;
+    r = guestfs_mkdir_p (g, path);
+    if (r != -1)
+      return -1;
+  }
+  return 0;
+}
+
 static int test_mkdir_0_skip (void)
 {
   const char *str;
@@ -15843,7 +16035,7 @@ int main (int argc, char *argv[])
     free (devs[i]);
   free (devs);
 
-  nr_tests = 140;
+  nr_tests = 142;
 
   test_num++;
   printf ("%3d/%3d test_find_0\n", test_num, nr_tests);
@@ -16533,6 +16725,18 @@ int main (int argc, char *argv[])
   printf ("%3d/%3d test_mkdir_p_2\n", test_num, nr_tests);
   if (test_mkdir_p_2 () == -1) {
     printf ("test_mkdir_p_2 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_mkdir_p_3\n", test_num, nr_tests);
+  if (test_mkdir_p_3 () == -1) {
+    printf ("test_mkdir_p_3 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_mkdir_p_4\n", test_num, nr_tests);
+  if (test_mkdir_p_4 () == -1) {
+    printf ("test_mkdir_p_4 FAILED\n");
     failed++;
   }
   test_num++;

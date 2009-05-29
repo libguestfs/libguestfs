@@ -1002,7 +1002,14 @@ Create a directory named C<path>.");
        ["is_dir"; "/new/foo"]];
     InitBasicFS, Always, TestOutputTrue
       [["mkdir_p"; "/new/foo/bar"];
-       ["is_dir"; "/new"]]],
+       ["is_dir"; "/new"]];
+    (* Regression tests for RHBZ#503133: *)
+    InitBasicFS, Always, TestRun
+      [["mkdir"; "/new"];
+       ["mkdir_p"; "/new"]];
+    InitBasicFS, Always, TestLastFail
+      [["touch"; "/new"];
+       ["mkdir_p"; "/new"]]],
    "create a directory and parents",
    "\
 Create a directory named C<path>, creating any parent directories
