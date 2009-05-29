@@ -418,7 +418,7 @@ void *
 guestfs_safe_malloc (guestfs_h *g, size_t nbytes)
 {
   void *ptr = malloc (nbytes);
-  if (!ptr) g->abort_cb ();
+  if (nbytes > 0 && !ptr) g->abort_cb ();
   return ptr;
 }
 
@@ -426,7 +426,7 @@ void *
 guestfs_safe_realloc (guestfs_h *g, void *ptr, int nbytes)
 {
   void *p = realloc (ptr, nbytes);
-  if (!p) g->abort_cb ();
+  if (nbytes > 0 && !p) g->abort_cb ();
   return p;
 }
 
