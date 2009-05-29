@@ -43,7 +43,7 @@ $(INITRAMFSIMG): $(top_builddir)/initramfs/fakeroot.log $(top_builddir)/daemon/g
 	touch $@
 
 make-initramfs.sh: make-initramfs.sh.in
-	./config.status $@
+	cd .. && ./config.status appliance/$@
 
 # Test-boot the image.
 
