@@ -56,6 +56,11 @@ AC_CHECK_PROG([POD2TEXT],[pod2text],[pod2text],[no])
 test "x$POD2TEXT" = "xno" &&
      AC_MSG_ERROR([pod2text must be installed])
 
+dnl Check for mksquashfs.
+AC_PATH_PROGS([MKSQUASHFS],[mksquashfs],[no],
+	[$PATH$PATH_SEPARATOR/usr/sbin$PATH_SEPARATOR/sbin])
+test "x$MKSQUASHFS" = "xno" && AC_MSG_ERROR([mksquashfs must be installed])
+
 dnl Check for QEMU for running binaries on this $host_cpu, fall
 dnl back to basic 'qemu'.  Allow the user to override it.
 default_qemu="qemu-kvm qemu-system-$host_cpu qemu"

@@ -55,6 +55,7 @@ html/guestfish.1.html
 html/guestfs.3.html
 html/recipes.html
 html/virt-inspector.1.html
+images/test.sqsh
 initramfs
 initramfs.timestamp
 inspector/virt-inspector.1

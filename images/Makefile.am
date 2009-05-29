@@ -18,4 +18,15 @@
 EXTRA_DIST	= \
 	helloworld.tar \
 	helloworld.tar.gz \
-	mbr-ext2-empty.img.gz
+	mbr-ext2-empty.img.gz \
+	empty known-1 known-2 known-3
+
+noinst_DATA = test.sqsh
+
+CLEANFILES = test.sqsh
+
+squash_files = helloworld.tar helloworld.tar.gz empty known-1 known-2 known-3
+
+test.sqsh: $(squash_files)
+	rm -f $@
+	$(MKSQUASHFS) $(squash_files) $@

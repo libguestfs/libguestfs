@@ -5729,6 +5729,111 @@ static int test_checksum_7 (void)
   return 0;
 }
 
+static int test_checksum_8_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_CHECKSUM_8");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_CHECKSUM");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
+static int test_checksum_8 (void)
+{
+  if (test_checksum_8_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_checksum_8");
+    return 0;
+  }
+
+  /* InitBasicFS for test_checksum_8: create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    device[5] = devchar;
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutput for checksum (8) */
+  char expected[] = "46d6ca27ee07cdc6fa99c2e138cc522c";
+  {
+    char device[] = "/dev/sdd";
+    device[5] = devchar;
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char csumtype[] = "md5";
+    char path[] = "/known-3";
+    char *r;
+    suppress_error = 0;
+    r = guestfs_checksum (g, csumtype, path);
+    if (r == NULL)
+      return -1;
+    if (strcmp (r, expected) != 0) {
+      fprintf (stderr, "test_checksum_8: expected \"%s\" but got \"%s\"\n", expected, r);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
 static int test_download_0_skip (void)
 {
   const char *str;
@@ -15358,7 +15463,20 @@ static int test_list_devices_0 (void)
         return -1;
       }
     }
-    if (r[3] != NULL) {
+    if (!r[3]) {
+      fprintf (stderr, "test_list_devices_0: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "/dev/sdd";
+      expected[5] = devchar;
+      if (strcmp (r[3], expected) != 0) {
+        fprintf (stderr, "test_list_devices_0: expected \"%s\" but got \"%s\"\n", expected, r[3]);
+        return -1;
+      }
+    }
+    if (r[4] != NULL) {
       fprintf (stderr, "test_list_devices_0: extra elements returned from command\n");
       print_strings (r);
       return -1;
@@ -16004,6 +16122,11 @@ int main (int argc, char *argv[])
     exit (1);
   }
 
+  if (guestfs_add_drive (g, "../images/test.sqsh") == -1) {
+    printf ("guestfs_add_drive %s FAILED\n", filename);
+    exit (1);
+  }
+
   if (guestfs_launch (g) == -1) {
     printf ("guestfs_launch FAILED\n");
     exit (1);
@@ -16035,7 +16158,7 @@ int main (int argc, char *argv[])
     free (devs[i]);
   free (devs);
 
-  nr_tests = 142;
+  nr_tests = 143;
 
   test_num++;
   printf ("%3d/%3d test_find_0\n", test_num, nr_tests);
@@ -16341,6 +16464,12 @@ int main (int argc, char *argv[])
   printf ("%3d/%3d test_checksum_7\n", test_num, nr_tests);
   if (test_checksum_7 () == -1) {
     printf ("test_checksum_7 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_checksum_8\n", test_num, nr_tests);
+  if (test_checksum_8 () == -1) {
+    printf ("test_checksum_8 FAILED\n");
     failed++;
   }
   test_num++;

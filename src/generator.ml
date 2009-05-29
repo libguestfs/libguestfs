@@ -130,8 +130,12 @@ can easily destroy all your data>."
 (* You can supply zero or as many tests as you want per API call.
  *
  * Note that the test environment has 3 block devices, of size 500MB,
- * 50MB and 10MB (respectively /dev/sda, /dev/sdb, /dev/sdc).
+ * 50MB and 10MB (respectively /dev/sda, /dev/sdb, /dev/sdc), and
+ * a fourth squashfs block device with some known files on it (/dev/sdd).
+ *
  * Note for partitioning purposes, the 500MB device has 63 cylinders.
+ *
+ * The squashfs block device (/dev/sdd) comes from images/test.sqsh.
  *
  * To be able to run the tests in a reasonable amount of time,
  * the virtual machine and block devices are reused between tests.
@@ -659,7 +663,7 @@ should probably use C<guestfs_readdir> instead.");
 
   ("list_devices", (RStringList "devices", []), 7, [],
    [InitEmpty, Always, TestOutputList (
-      [["list_devices"]], ["/dev/sda"; "/dev/sdb"; "/dev/sdc"])],
+      [["list_devices"]], ["/dev/sda"; "/dev/sdb"; "/dev/sdc"; "/dev/sdd"])],
    "list the block devices",
    "\
 List all the block devices.
@@ -1619,7 +1623,10 @@ See also C<guestfs_upload>, C<guestfs_cat>.");
        ["checksum"; "sha384"; "/new"]], "109bb6b5b6d5547c1ce03c7a8bd7d8f80c1cb0957f50c4f7fda04692079917e4f9cad52b878f3d8234e1a170b154b72d");
     InitBasicFS, Always, TestOutput (
       [["write_file"; "/new"; "test\n"; "0"];
-       ["checksum"; "sha512"; "/new"]], "0e3e75234abc68f4378a86b3f4b32a198ba301845b0cd6e50106e874345700cc6663a86c1ea125dc5e92be17c98f9a0f85ca9d5f595db2012f7cc3571945c123")],
+       ["checksum"; "sha512"; "/new"]], "0e3e75234abc68f4378a86b3f4b32a198ba301845b0cd6e50106e874345700cc6663a86c1ea125dc5e92be17c98f9a0f85ca9d5f595db2012f7cc3571945c123");
+    InitBasicFS, Always, TestOutput (
+      [["mount"; "/dev/sdd"; "/"];
+       ["checksum"; "md5"; "/known-3"]], "46d6ca27ee07cdc6fa99c2e138cc522c")],
    "compute MD5, SHAx or CRC checksum of file",
    "\
 This call computes the MD5, SHAx or CRC checksum of the
@@ -3899,6 +3906,11 @@ int main (int argc, char *argv[])
     exit (1);
   }
   if (guestfs_add_drive (g, filename) == -1) {
+    printf (\"guestfs_add_drive %%s FAILED\\n\", filename);
+    exit (1);
+  }
+
+  if (guestfs_add_drive (g, \"../images/test.sqsh\") == -1) {
     printf (\"guestfs_add_drive %%s FAILED\\n\", filename);
     exit (1);
   }
