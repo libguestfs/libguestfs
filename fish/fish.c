@@ -45,6 +45,12 @@ struct mp {
   char *mountpoint;
 };
 
+struct drv {
+  struct drv *next;
+  char *filename;
+};
+
+static void add_drives (struct drv *drv);
 static void mount_mps (struct mp *mp);
 static void interactive (void);
 static void shell_script (void);
@@ -119,6 +125,8 @@ main (int argc, char *argv[])
     { "version", 0, 0, 'V' },
     { 0, 0, 0, 0 }
   };
+  struct drv *drvs = NULL;
+  struct drv *drv;
   struct mp *mps = NULL;
   struct mp *mp;
   char *p;
@@ -160,8 +168,14 @@ main (int argc, char *argv[])
 	perror (optarg);
 	exit (1);
       }
-      if (guestfs_add_drive (g, optarg) == -1)
-	exit (1);
+      drv = malloc (sizeof (struct drv));
+      if (!drv) {
+        perror ("malloc");
+        exit (1);
+      }
+      drv->filename = optarg;
+      drv->next = drvs;
+      drvs = drv;
       break;
 
     case 'h':
@@ -218,6 +232,9 @@ main (int argc, char *argv[])
     }
   }
 
+  /* If we've got drives to add, add them now. */
+  add_drives (drvs);
+
   /* If we've got mountpoints, we must launch the guest and mount them. */
   if (mps != NULL) {
     if (launch (g) == -1) exit (1);
@@ -271,6 +288,22 @@ mount_mps (struct mp *mp)
       r = guestfs_mount (g, mp->device, mp->mountpoint);
     else
       r = guestfs_mount_ro (g, mp->device, mp->mountpoint);
+    if (r == -1)
+      exit (1);
+  }
+}
+
+static void
+add_drives (struct drv *drv)
+{
+  int r;
+
+  if (drv) {
+    add_drives (drv->next);
+    if (!read_only)
+      r = guestfs_add_drive (g, drv->filename);
+    else
+      r = guestfs_add_drive_ro (g, drv->filename);
     if (r == -1)
       exit (1);
   }
