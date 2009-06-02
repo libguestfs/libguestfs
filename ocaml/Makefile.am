@@ -95,3 +95,7 @@ install-data-hook:
 CLEANFILES += $(noinst_DATA)
 
 endif
+
+# Tell version 3.79 and up of GNU make to not build goals in this
+# directory in parallel.  (Possible solution for RHBZ#502309).
+.NOTPARALLEL:
