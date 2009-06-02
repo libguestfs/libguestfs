@@ -374,7 +374,12 @@ for whatever operations you want to perform (ie. read access if you
 just want to read the image or write access if you want to modify the
 image).
 
-This is equivalent to the qemu parameter C<-drive file=filename>.");
+This is equivalent to the qemu parameter C<-drive file=filename>.
+
+Note that this call checks for the existence of C<filename>.  This
+stops you from specifying other types of drive which are supported
+by qemu such as C<nbd:> and C<http:> URLs.  To specify those, use
+the general C<guestfs_config> call instead.");
 
   ("add_cdrom", (RErr, [String "filename"]), -1, [FishAlias "cdrom"],
    [],
@@ -382,7 +387,33 @@ This is equivalent to the qemu parameter C<-drive file=filename>.");
    "\
 This function adds a virtual CD-ROM disk image to the guest.
 
-This is equivalent to the qemu parameter C<-cdrom filename>.");
+This is equivalent to the qemu parameter C<-cdrom filename>.
+
+Note that this call checks for the existence of C<filename>.  This
+stops you from specifying other types of drive which are supported
+by qemu such as C<nbd:> and C<http:> URLs.  To specify those, use
+the general C<guestfs_config> call instead.");
+
+  ("add_drive_ro", (RErr, [String "filename"]), -1, [FishAlias "add-ro"],
+   [],
+   "add a drive in snapshot mode (read-only)",
+   "\
+This adds a drive in snapshot mode, making it effectively
+read-only.
+
+Note that writes to the device are allowed, and will be seen for
+the duration of the guestfs handle, but they are written
+to a temporary file which is discarded as soon as the guestfs
+handle is closed.  We don't currently have any method to enable
+changes to be committed, although qemu can support this.
+
+This is equivalent to the qemu parameter
+C<-drive file=filename,snapshot=on>.
+
+Note that this call checks for the existence of C<filename>.  This
+stops you from specifying other types of drive which are supported
+by qemu such as C<nbd:> and C<http:> URLs.  To specify those, use
+the general C<guestfs_config> call instead.");
 
   ("config", (RErr, [String "qemuparam"; OptString "qemuvalue"]), -1, [],
    [],
@@ -3808,7 +3839,6 @@ int main (int argc, char *argv[])
 {
   char c = 0;
   int failed = 0;
-  const char *srcdir;
   const char *filename;
   int fd, i;
   int nr_tests, test_num = 0;
@@ -3910,8 +3940,8 @@ int main (int argc, char *argv[])
     exit (1);
   }
 
-  if (guestfs_add_drive (g, \"../images/test.sqsh\") == -1) {
-    printf (\"guestfs_add_drive %%s FAILED\\n\", filename);
+  if (guestfs_add_drive_ro (g, \"../images/test.sqsh\") == -1) {
+    printf (\"guestfs_add_drive_ro ../images/test.sqsh FAILED\\n\");
     exit (1);
   }
 

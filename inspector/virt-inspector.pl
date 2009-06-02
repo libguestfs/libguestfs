@@ -213,7 +213,7 @@ if (-e $ARGV[0]) {
 
 # We've now got the list of @images, so feed them to libguestfs.
 my $g = Sys::Guestfs->new ();
-$g->add_drive ($_) foreach @images;
+$g->add_drive_ro ($_) foreach @images;
 $g->launch ();
 $g->wait_ready ();
 
