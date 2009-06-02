@@ -7,6 +7,11 @@ This function adds a virtual CD-ROM disk image to the guest.
 
 This is equivalent to the qemu parameter C<-cdrom filename>.
 
+Note that this call checks for the existence of C<filename>.  This
+stops you from specifying other types of drive which are supported
+by qemu such as C<nbd:> and C<http:> URLs.  To specify those, use
+the general C<guestfs_config> call instead.
+
 This function returns 0 on success or -1 on error.
 
 =head2 guestfs_add_drive
@@ -26,6 +31,35 @@ just want to read the image or write access if you want to modify the
 image).
 
 This is equivalent to the qemu parameter C<-drive file=filename>.
+
+Note that this call checks for the existence of C<filename>.  This
+stops you from specifying other types of drive which are supported
+by qemu such as C<nbd:> and C<http:> URLs.  To specify those, use
+the general C<guestfs_config> call instead.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_add_drive_ro
+
+ int guestfs_add_drive_ro (guestfs_h *handle,
+		const char *filename);
+
+This adds a drive in snapshot mode, making it effectively
+read-only.
+
+Note that writes to the device are allowed, and will be seen for
+the duration of the guestfs handle, but they are written
+to a temporary file which is discarded as soon as the guestfs
+handle is closed.  We don't currently have any method to enable
+changes to be committed, although qemu can support this.
+
+This is equivalent to the qemu parameter
+C<-drive file=filename,snapshot=on>.
+
+Note that this call checks for the existence of C<filename>.  This
+stops you from specifying other types of drive which are supported
+by qemu such as C<nbd:> and C<http:> URLs.  To specify those, use
+the general C<guestfs_config> call instead.
 
 This function returns 0 on success or -1 on error.
 

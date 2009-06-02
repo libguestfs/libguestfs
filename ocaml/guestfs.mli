@@ -220,6 +220,9 @@ val add_drive : t -> string -> unit
 val add_cdrom : t -> string -> unit
 (** add a CD-ROM disk image to examine *)
 
+val add_drive_ro : t -> string -> unit
+(** add a drive in snapshot mode (read-only) *)
+
 val config : t -> string -> string option -> unit
 (** add qemu parameters *)
 

@@ -42,6 +42,8 @@ static const char *const commands[] = {
   "add",
   "add-cdrom",
   "cdrom",
+  "add-drive-ro",
+  "add-ro",
   "config",
   "set-qemu",
   "qemu",

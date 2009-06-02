@@ -33,6 +33,7 @@ void list_commands (void)
   list_builtin_commands ();
   printf ("%-20s %s\n", "add-cdrom", "add a CD-ROM disk image to examine");
   printf ("%-20s %s\n", "add-drive", "add an image to examine or modify");
+  printf ("%-20s %s\n", "add-drive-ro", "add a drive in snapshot mode (read-only)");
   printf ("%-20s %s\n", "aug-close", "close the current Augeas handle");
   printf ("%-20s %s\n", "aug-defnode", "define an Augeas node");
   printf ("%-20s %s\n", "aug-defvar", "define an Augeas variable");
@@ -171,10 +172,13 @@ void display_command (const char *cmd)
     pod2text ("kill-subprocess - kill the qemu subprocess", " kill-subprocess\n\nThis kills the qemu subprocess.  You should never need to call this.");
   else
   if (strcasecmp (cmd, "add_drive") == 0 || strcasecmp (cmd, "add-drive") == 0 || strcasecmp (cmd, "add") == 0)
-    pod2text ("add-drive - add an image to examine or modify", " add-drive <filename>\n\nThis function adds a virtual machine disk image C<filename> to the\nguest.  The first time you call this function, the disk appears as IDE\ndisk 0 (C</dev/sda>) in the guest, the second time as C</dev/sdb>, and\nso on.\n\nYou don't necessarily need to be root when using libguestfs.  However\nyou obviously do need sufficient permissions to access the filename\nfor whatever operations you want to perform (ie. read access if you\njust want to read the image or write access if you want to modify the\nimage).\n\nThis is equivalent to the qemu parameter C<-drive file=filename>.\n\nYou can use 'add' as an alias for this command.");
+    pod2text ("add-drive - add an image to examine or modify", " add-drive <filename>\n\nThis function adds a virtual machine disk image C<filename> to the\nguest.  The first time you call this function, the disk appears as IDE\ndisk 0 (C</dev/sda>) in the guest, the second time as C</dev/sdb>, and\nso on.\n\nYou don't necessarily need to be root when using libguestfs.  However\nyou obviously do need sufficient permissions to access the filename\nfor whatever operations you want to perform (ie. read access if you\njust want to read the image or write access if you want to modify the\nimage).\n\nThis is equivalent to the qemu parameter C<-drive file=filename>.\n\nNote that this call checks for the existence of C<filename>.  This\nstops you from specifying other types of drive which are supported\nby qemu such as C<nbd:> and C<http:> URLs.  To specify those, use\nthe general C<config> call instead.\n\nYou can use 'add' as an alias for this command.");
   else
   if (strcasecmp (cmd, "add_cdrom") == 0 || strcasecmp (cmd, "add-cdrom") == 0 || strcasecmp (cmd, "cdrom") == 0)
-    pod2text ("add-cdrom - add a CD-ROM disk image to examine", " add-cdrom <filename>\n\nThis function adds a virtual CD-ROM disk image to the guest.\n\nThis is equivalent to the qemu parameter C<-cdrom filename>.\n\nYou can use 'cdrom' as an alias for this command.");
+    pod2text ("add-cdrom - add a CD-ROM disk image to examine", " add-cdrom <filename>\n\nThis function adds a virtual CD-ROM disk image to the guest.\n\nThis is equivalent to the qemu parameter C<-cdrom filename>.\n\nNote that this call checks for the existence of C<filename>.  This\nstops you from specifying other types of drive which are supported\nby qemu such as C<nbd:> and C<http:> URLs.  To specify those, use\nthe general C<config> call instead.\n\nYou can use 'cdrom' as an alias for this command.");
+  else
+  if (strcasecmp (cmd, "add_drive_ro") == 0 || strcasecmp (cmd, "add-drive-ro") == 0 || strcasecmp (cmd, "add-ro") == 0)
+    pod2text ("add-drive-ro - add a drive in snapshot mode (read-only)", " add-drive-ro <filename>\n\nThis adds a drive in snapshot mode, making it effectively\nread-only.\n\nNote that writes to the device are allowed, and will be seen for\nthe duration of the guestfs handle, but they are written\nto a temporary file which is discarded as soon as the guestfs\nhandle is closed.  We don't currently have any method to enable\nchanges to be committed, although qemu can support this.\n\nThis is equivalent to the qemu parameter\nC<-drive file=filename,snapshot=on>.\n\nNote that this call checks for the existence of C<filename>.  This\nstops you from specifying other types of drive which are supported\nby qemu such as C<nbd:> and C<http:> URLs.  To specify those, use\nthe general C<config> call instead.\n\nYou can use 'add-ro' as an alias for this command.");
   else
   if (strcasecmp (cmd, "config") == 0)
     pod2text ("config - add qemu parameters", " config <qemuparam> <qemuvalue>\n\nThis can be used to add arbitrary qemu command line parameters\nof the form C<-param value>.  Actually it's not quite arbitrary - we\nprevent you from setting some parameters which would interfere with\nparameters that we use.\n\nThe first character of C<param> string must be a C<-> (dash).\n\nC<value> can be NULL.");
@@ -734,6 +738,20 @@ static int run_add_cdrom (const char *cmd, int argc, char *argv[])
   }
   filename = argv[0];
   r = guestfs_add_cdrom (g, filename);
+  return r;
+}
+
+static int run_add_drive_ro (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *filename;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  filename = argv[0];
+  r = guestfs_add_drive_ro (g, filename);
   return r;
 }
 
@@ -2693,6 +2711,9 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "add_cdrom") == 0 || strcasecmp (cmd, "add-cdrom") == 0 || strcasecmp (cmd, "cdrom") == 0)
     return run_add_cdrom (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "add_drive_ro") == 0 || strcasecmp (cmd, "add-drive-ro") == 0 || strcasecmp (cmd, "add-ro") == 0)
+    return run_add_drive_ro (cmd, argc, argv);
   else
   if (strcasecmp (cmd, "config") == 0)
     return run_config (cmd, argc, argv);

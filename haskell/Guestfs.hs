@@ -29,6 +29,7 @@ module Guestfs (
   kill_subprocess,
   add_drive,
   add_cdrom,
+  add_drive_ro,
   config,
   set_qemu,
   set_path,
@@ -186,6 +187,18 @@ foreign import ccall unsafe "guestfs_add_cdrom" c_add_cdrom
 add_cdrom :: GuestfsH -> String -> IO ()
 add_cdrom h filename = do
   r <- withCString filename $ \filename -> withForeignPtr h (\p -> c_add_cdrom p filename)
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return ()
+
+foreign import ccall unsafe "guestfs_add_drive_ro" c_add_drive_ro
+  :: GuestfsP -> CString -> IO (CInt)
+
+add_drive_ro :: GuestfsH -> String -> IO ()
+add_drive_ro h filename = do
+  r <- withCString filename $ \filename -> withForeignPtr h (\p -> c_add_drive_ro p filename)
   if (r == -1)
     then do
       err <- last_error h

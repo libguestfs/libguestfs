@@ -94,6 +94,7 @@ static void no_test_warnings (void)
   fprintf (stderr, "warning: \"guestfs_kill_subprocess\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_add_drive\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_add_cdrom\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_add_drive_ro\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_config\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_set_qemu\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_get_qemu\" has no tests\n");
@@ -16020,7 +16021,6 @@ int main (int argc, char *argv[])
 {
   char c = 0;
   int failed = 0;
-  const char *srcdir;
   const char *filename;
   int fd, i;
   int nr_tests, test_num = 0;
@@ -16122,8 +16122,8 @@ int main (int argc, char *argv[])
     exit (1);
   }
 
-  if (guestfs_add_drive (g, "../images/test.sqsh") == -1) {
-    printf ("guestfs_add_drive %s FAILED\n", filename);
+  if (guestfs_add_drive_ro (g, "../images/test.sqsh") == -1) {
+    printf ("guestfs_add_drive_ro ../images/test.sqsh FAILED\n");
     exit (1);
   }
 

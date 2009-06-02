@@ -429,6 +429,12 @@ public HashMap<String,String> test0rhashtableerr ()
    * This is equivalent to the qemu parameter "-drive
    * file=filename".
    * <p>
+   * Note that this call checks for the existence of
+   * "filename". This stops you from specifying other types
+   * of drive which are supported by qemu such as "nbd:" and
+   * "http:" URLs. To specify those, use the general
+   * "g.config" call instead.
+   * <p>
    * @throws LibGuestFSException
    */
   public void add_drive (String filename)
@@ -450,6 +456,12 @@ public HashMap<String,String> test0rhashtableerr ()
    * This is equivalent to the qemu parameter "-cdrom
    * filename".
    * <p>
+   * Note that this call checks for the existence of
+   * "filename". This stops you from specifying other types
+   * of drive which are supported by qemu such as "nbd:" and
+   * "http:" URLs. To specify those, use the general
+   * "g.config" call instead.
+   * <p>
    * @throws LibGuestFSException
    */
   public void add_cdrom (String filename)
@@ -460,6 +472,40 @@ public HashMap<String,String> test0rhashtableerr ()
     _add_cdrom (g, filename);
   }
   private native void _add_cdrom (long g, String filename)
+    throws LibGuestFSException;
+
+  /**
+   * add a drive in snapshot mode (read-only)
+   * <p>
+   * This adds a drive in snapshot mode, making it
+   * effectively read-only.
+   * <p>
+   * Note that writes to the device are allowed, and will be
+   * seen for the duration of the guestfs handle, but they
+   * are written to a temporary file which is discarded as
+   * soon as the guestfs handle is closed. We don't currently
+   * have any method to enable changes to be committed,
+   * although qemu can support this.
+   * <p>
+   * This is equivalent to the qemu parameter "-drive
+   * file=filename,snapshot=on".
+   * <p>
+   * Note that this call checks for the existence of
+   * "filename". This stops you from specifying other types
+   * of drive which are supported by qemu such as "nbd:" and
+   * "http:" URLs. To specify those, use the general
+   * "g.config" call instead.
+   * <p>
+   * @throws LibGuestFSException
+   */
+  public void add_drive_ro (String filename)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("add_drive_ro: handle is closed");
+    _add_drive_ro (g, filename);
+  }
+  private native void _add_drive_ro (long g, String filename)
     throws LibGuestFSException;
 
   /**

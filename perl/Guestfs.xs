@@ -724,6 +724,17 @@ PREINIT:
         croak ("add_cdrom: %s", guestfs_last_error (g));
 
 void
+add_drive_ro (g, filename)
+      guestfs_h *g;
+      char *filename;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_add_drive_ro (g, filename);
+      if (r == -1)
+        croak ("add_drive_ro: %s", guestfs_last_error (g));
+
+void
 config (g, qemuparam, qemuvalue)
       guestfs_h *g;
       char *qemuparam;

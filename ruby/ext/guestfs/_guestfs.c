@@ -941,6 +941,27 @@ static VALUE ruby_guestfs_add_cdrom (VALUE gv, VALUE filenamev)
   return Qnil;
 }
 
+static VALUE ruby_guestfs_add_drive_ro (VALUE gv, VALUE filenamev)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "add_drive_ro");
+
+  const char *filename = StringValueCStr (filenamev);
+  if (!filename)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "filename", "add_drive_ro");
+
+  int r;
+
+  r = guestfs_add_drive_ro (g, filename);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
 static VALUE ruby_guestfs_config (VALUE gv, VALUE qemuparamv, VALUE qemuvaluev)
 {
   guestfs_h *g;
@@ -4016,6 +4037,8 @@ void Init__guestfs ()
         ruby_guestfs_add_drive, 1);
   rb_define_method (c_guestfs, "add_cdrom",
         ruby_guestfs_add_cdrom, 1);
+  rb_define_method (c_guestfs, "add_drive_ro",
+        ruby_guestfs_add_drive_ro, 1);
   rb_define_method (c_guestfs, "config",
         ruby_guestfs_config, 2);
   rb_define_method (c_guestfs, "set_qemu",

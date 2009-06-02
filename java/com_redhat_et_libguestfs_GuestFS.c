@@ -1089,6 +1089,23 @@ Java_com_redhat_et_libguestfs_GuestFS__1add_1cdrom
 }
 
 JNIEXPORT void JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1add_1drive_1ro
+  (JNIEnv *env, jobject obj, jlong jg, jstring jfilename)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+  const char *filename;
+
+  filename = (*env)->GetStringUTFChars (env, jfilename, NULL);
+  r = guestfs_add_drive_ro (g, filename);
+  (*env)->ReleaseStringUTFChars (env, jfilename, filename);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return ;
+  }
+}
+
+JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1config
   (JNIEnv *env, jobject obj, jlong jg, jstring jqemuparam, jstring jqemuvalue)
 {

@@ -198,6 +198,12 @@ class GuestFS:
         
         This is equivalent to the qemu parameter "-drive
         file=filename".
+        
+        Note that this call checks for the existence of
+        "filename". This stops you from specifying other types
+        of drive which are supported by qemu such as "nbd:" and
+        "http:" URLs. To specify those, use the general
+        "g.config" call instead.
         """
         return libguestfsmod.add_drive (self._o, filename)
 
@@ -207,8 +213,36 @@ class GuestFS:
         
         This is equivalent to the qemu parameter "-cdrom
         filename".
+        
+        Note that this call checks for the existence of
+        "filename". This stops you from specifying other types
+        of drive which are supported by qemu such as "nbd:" and
+        "http:" URLs. To specify those, use the general
+        "g.config" call instead.
         """
         return libguestfsmod.add_cdrom (self._o, filename)
+
+    def add_drive_ro (self, filename):
+        u"""This adds a drive in snapshot mode, making it
+        effectively read-only.
+        
+        Note that writes to the device are allowed, and will be
+        seen for the duration of the guestfs handle, but they
+        are written to a temporary file which is discarded as
+        soon as the guestfs handle is closed. We don't currently
+        have any method to enable changes to be committed,
+        although qemu can support this.
+        
+        This is equivalent to the qemu parameter "-drive
+        file=filename,snapshot=on".
+        
+        Note that this call checks for the existence of
+        "filename". This stops you from specifying other types
+        of drive which are supported by qemu such as "nbd:" and
+        "http:" URLs. To specify those, use the general
+        "g.config" call instead.
+        """
+        return libguestfsmod.add_drive_ro (self._o, filename)
 
     def config (self, qemuparam, qemuvalue):
         u"""This can be used to add arbitrary qemu command line

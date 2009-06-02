@@ -1094,6 +1094,29 @@ ocaml_guestfs_add_cdrom (value gv, value filenamev)
 }
 
 CAMLprim value
+ocaml_guestfs_add_drive_ro (value gv, value filenamev)
+{
+  CAMLparam2 (gv, filenamev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("add_drive_ro: used handle after closing it");
+
+  const char *filename = String_val (filenamev);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_add_drive_ro (g, filename);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "add_drive_ro");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
 ocaml_guestfs_config (value gv, value qemuparamv, value qemuvaluev)
 {
   CAMLparam3 (gv, qemuparamv, qemuvaluev);
