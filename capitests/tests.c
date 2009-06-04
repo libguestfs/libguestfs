@@ -155,6 +155,59 @@ static void no_test_warnings (void)
   fprintf (stderr, "warning: \"guestfs_e2fsck_f\" has no tests\n");
 }
 
+static int test_sleep_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_SLEEP_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_SLEEP");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
+static int test_sleep_0 (void)
+{
+  if (test_sleep_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_sleep_0");
+    return 0;
+  }
+
+  /* InitNone|InitEmpty for test_sleep_0 */
+  {
+    char device[] = "/dev/sda";
+    device[5] = devchar;
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  /* TestRun for sleep (0) */
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_sleep (g, 1);
+    if (r == -1)
+      return -1;
+  }
+  return 0;
+}
+
 static int test_find_0_skip (void)
 {
   const char *str;
@@ -16158,8 +16211,14 @@ int main (int argc, char *argv[])
     free (devs[i]);
   free (devs);
 
-  nr_tests = 143;
+  nr_tests = 144;
 
+  test_num++;
+  printf ("%3d/%3d test_sleep_0\n", test_num, nr_tests);
+  if (test_sleep_0 () == -1) {
+    printf ("test_sleep_0 FAILED\n");
+    failed++;
+  }
   test_num++;
   printf ("%3d/%3d test_find_0\n", test_num, nr_tests);
   if (test_find_0 () == -1) {

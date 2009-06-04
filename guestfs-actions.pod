@@ -1629,6 +1629,15 @@ not intended to be parsed.
 This function returns a string, or NULL on error.
 I<The caller must free the returned string after use>.
 
+=head2 guestfs_sleep
+
+ int guestfs_sleep (guestfs_h *handle,
+		int secs);
+
+Sleep for C<secs> seconds.
+
+This function returns 0 on success or -1 on error.
+
 =head2 guestfs_stat
 
  struct guestfs_stat *guestfs_stat (guestfs_h *handle,

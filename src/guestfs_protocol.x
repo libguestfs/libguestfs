@@ -719,6 +719,10 @@ struct guestfs_e2fsck_f_args {
   string device<>;
 };
 
+struct guestfs_sleep_args {
+  int secs;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -828,6 +832,7 @@ enum guestfs_procedure {
   GUESTFS_PROC_RESIZE2FS = 106,
   GUESTFS_PROC_FIND = 107,
   GUESTFS_PROC_E2FSCK_F = 108,
+  GUESTFS_PROC_SLEEP = 109,
   GUESTFS_PROC_NR_PROCS
 };
 

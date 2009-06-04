@@ -1599,3 +1599,8 @@ class GuestFS:
         """
         return libguestfsmod.e2fsck_f (self._o, device)
 
+    def sleep (self, secs):
+        u"""Sleep for "secs" seconds.
+        """
+        return libguestfsmod.sleep (self._o, secs)
+

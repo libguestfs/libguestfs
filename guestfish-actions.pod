@@ -1210,6 +1210,12 @@ This displays the partition table on C<device>, in the
 human-readable output of the L<sfdisk(8)> command.  It is
 not intended to be parsed.
 
+=head2 sleep
+
+ sleep secs
+
+Sleep for C<secs> seconds.
+
 =head2 stat
 
  stat path

@@ -137,6 +137,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "sfdisk-disk-geometry", "display the disk geometry from the partition table");
   printf ("%-20s %s\n", "sfdisk-kernel-geometry", "display the kernel geometry");
   printf ("%-20s %s\n", "sfdisk-l", "display the partition table");
+  printf ("%-20s %s\n", "sleep", "sleep for some seconds");
   printf ("%-20s %s\n", "stat", "get file information");
   printf ("%-20s %s\n", "statvfs", "get file system statistics");
   printf ("%-20s %s\n", "strings", "print the printable strings in a file");
@@ -551,6 +552,9 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "e2fsck_f") == 0 || strcasecmp (cmd, "e2fsck-f") == 0)
     pod2text ("e2fsck-f - check an ext2/ext3 filesystem", " e2fsck-f <device>\n\nThis runs C<e2fsck -p -f device>, ie. runs the ext2/ext3\nfilesystem checker on C<device>, noninteractively (C<-p>),\neven if the filesystem appears to be clean (C<-f>).\n\nThis command is only needed because of C<resize2fs>\n(q.v.).  Normally you should use C<fsck>.");
+  else
+  if (strcasecmp (cmd, "sleep") == 0)
+    pod2text ("sleep - sleep for some seconds", " sleep <secs>\n\nSleep for C<secs> seconds.");
   else
     display_builtin_command (cmd);
 }
@@ -2698,6 +2702,20 @@ static int run_e2fsck_f (const char *cmd, int argc, char *argv[])
   return r;
 }
 
+static int run_sleep (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  int secs;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  secs = atoi (argv[0]);
+  r = guestfs_sleep (g, secs);
+  return r;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -3086,6 +3104,9 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "e2fsck_f") == 0 || strcasecmp (cmd, "e2fsck-f") == 0)
     return run_e2fsck_f (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "sleep") == 0)
+    return run_sleep (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

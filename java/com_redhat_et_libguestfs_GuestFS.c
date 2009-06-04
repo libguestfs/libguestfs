@@ -3950,3 +3950,19 @@ Java_com_redhat_et_libguestfs_GuestFS__1e2fsck_1f
   }
 }
 
+JNIEXPORT void JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1sleep
+  (JNIEnv *env, jobject obj, jlong jg, jint jsecs)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+  int secs;
+
+  secs = jsecs;
+  r = guestfs_sleep (g, secs);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return ;
+  }
+}
+

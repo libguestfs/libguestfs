@@ -3337,4 +3337,21 @@ public HashMap<String,String> test0rhashtableerr ()
   private native void _e2fsck_f (long g, String device)
     throws LibGuestFSException;
 
+  /**
+   * sleep for some seconds
+   * <p>
+   * Sleep for "secs" seconds.
+   * <p>
+   * @throws LibGuestFSException
+   */
+  public void sleep (int secs)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("sleep: handle is closed");
+    _sleep (g, secs);
+  }
+  private native void _sleep (long g, int secs)
+    throws LibGuestFSException;
+
 }

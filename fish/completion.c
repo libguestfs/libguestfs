@@ -175,6 +175,7 @@ static const char *const commands[] = {
   "resize2fs",
   "find",
   "e2fsck-f",
+  "sleep",
   NULL
 };
 

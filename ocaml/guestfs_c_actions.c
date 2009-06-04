@@ -4151,3 +4151,26 @@ ocaml_guestfs_e2fsck_f (value gv, value devicev)
   CAMLreturn (rv);
 }
 
+CAMLprim value
+ocaml_guestfs_sleep (value gv, value secsv)
+{
+  CAMLparam2 (gv, secsv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("sleep: used handle after closing it");
+
+  int secs = Int_val (secsv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_sleep (g, secs);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "sleep");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+

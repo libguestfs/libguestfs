@@ -604,3 +604,6 @@ val find : t -> string -> string array
 val e2fsck_f : t -> string -> unit
 (** check an ext2/ext3 filesystem *)
 
+val sleep : t -> int -> unit
+(** sleep for some seconds *)
+

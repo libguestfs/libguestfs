@@ -1111,6 +1111,10 @@ This displays the partition table on C<device>, in the
 human-readable output of the L<sfdisk(8)> command.  It is
 not intended to be parsed.
 
+=item $h->sleep ($secs);
+
+Sleep for C<secs> seconds.
+
 =item %statbuf = $h->stat ($path);
 
 Returns file information for the given C<path>.

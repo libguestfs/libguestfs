@@ -1839,6 +1839,16 @@ xdr_guestfs_e2fsck_f_args (XDR *xdrs, guestfs_e2fsck_f_args *objp)
 }
 
 bool_t
+xdr_guestfs_sleep_args (XDR *xdrs, guestfs_sleep_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_int (xdrs, &objp->secs))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
 xdr_guestfs_procedure (XDR *xdrs, guestfs_procedure *objp)
 {
 	register int32_t *buf;

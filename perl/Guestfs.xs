@@ -2523,3 +2523,14 @@ PREINIT:
       if (r == -1)
         croak ("e2fsck_f: %s", guestfs_last_error (g));
 
+void
+sleep (g, secs)
+      guestfs_h *g;
+      int secs;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_sleep (g, secs);
+      if (r == -1)
+        croak ("sleep: %s", guestfs_last_error (g));
+

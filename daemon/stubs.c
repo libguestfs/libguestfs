@@ -2719,6 +2719,30 @@ done:
   xdr_free ((xdrproc_t) xdr_guestfs_e2fsck_f_args, (char *) &args);
 }
 
+static void sleep_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_sleep_args args;
+  int secs;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_sleep_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "sleep");
+    return;
+  }
+  secs = args.secs;
+
+  r = do_sleep (secs);
+  if (r == -1)
+    /* do_sleep has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_sleep_args, (char *) &args);
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -3045,6 +3069,9 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_E2FSCK_F:
       e2fsck_f_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_SLEEP:
+      sleep_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d", proc_nr);

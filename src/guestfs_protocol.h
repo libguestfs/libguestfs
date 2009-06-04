@@ -930,6 +930,11 @@ struct guestfs_e2fsck_f_args {
 };
 typedef struct guestfs_e2fsck_f_args guestfs_e2fsck_f_args;
 
+struct guestfs_sleep_args {
+	int secs;
+};
+typedef struct guestfs_sleep_args guestfs_sleep_args;
+
 enum guestfs_procedure {
 	GUESTFS_PROC_MOUNT = 1,
 	GUESTFS_PROC_SYNC = 2,
@@ -1039,7 +1044,8 @@ enum guestfs_procedure {
 	GUESTFS_PROC_RESIZE2FS = 106,
 	GUESTFS_PROC_FIND = 107,
 	GUESTFS_PROC_E2FSCK_F = 108,
-	GUESTFS_PROC_NR_PROCS = 108 + 1,
+	GUESTFS_PROC_SLEEP = 109,
+	GUESTFS_PROC_NR_PROCS = 109 + 1,
 };
 typedef enum guestfs_procedure guestfs_procedure;
 #define GUESTFS_MESSAGE_MAX 4194304
@@ -1237,6 +1243,7 @@ extern  bool_t xdr_guestfs_resize2fs_args (XDR *, guestfs_resize2fs_args*);
 extern  bool_t xdr_guestfs_find_args (XDR *, guestfs_find_args*);
 extern  bool_t xdr_guestfs_find_ret (XDR *, guestfs_find_ret*);
 extern  bool_t xdr_guestfs_e2fsck_f_args (XDR *, guestfs_e2fsck_f_args*);
+extern  bool_t xdr_guestfs_sleep_args (XDR *, guestfs_sleep_args*);
 extern  bool_t xdr_guestfs_procedure (XDR *, guestfs_procedure*);
 extern  bool_t xdr_guestfs_message_direction (XDR *, guestfs_message_direction*);
 extern  bool_t xdr_guestfs_message_status (XDR *, guestfs_message_status*);
@@ -1393,6 +1400,7 @@ extern bool_t xdr_guestfs_resize2fs_args ();
 extern bool_t xdr_guestfs_find_args ();
 extern bool_t xdr_guestfs_find_ret ();
 extern bool_t xdr_guestfs_e2fsck_f_args ();
+extern bool_t xdr_guestfs_sleep_args ();
 extern bool_t xdr_guestfs_procedure ();
 extern bool_t xdr_guestfs_message_direction ();
 extern bool_t xdr_guestfs_message_status ();

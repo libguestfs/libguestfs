@@ -3963,6 +3963,24 @@ static VALUE ruby_guestfs_e2fsck_f (VALUE gv, VALUE devicev)
   return Qnil;
 }
 
+static VALUE ruby_guestfs_sleep (VALUE gv, VALUE secsv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "sleep");
+
+  int secs = NUM2INT (secsv);
+
+  int r;
+
+  r = guestfs_sleep (g, secs);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
 /* Initialize the module. */
 void Init__guestfs ()
 {
@@ -4293,4 +4311,6 @@ void Init__guestfs ()
         ruby_guestfs_find, 1);
   rb_define_method (c_guestfs, "e2fsck_f",
         ruby_guestfs_e2fsck_f, 1);
+  rb_define_method (c_guestfs, "sleep",
+        ruby_guestfs_sleep, 1);
 }
