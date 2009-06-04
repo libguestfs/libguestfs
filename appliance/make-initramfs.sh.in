@@ -131,6 +131,7 @@ cat > init.new <<'__EOF__'
 #!/bin/sh
 echo Starting /init script ...
 PATH=/sbin:/usr/sbin:$PATH
+mount -t tmpfs none /dev
 MAKEDEV mem null port zero core full ram tty console fd \
   hda hdb hdc hdd sda sdb sdc sdd loop sd
 mount -t proc /proc /proc
