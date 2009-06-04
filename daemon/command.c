@@ -31,7 +31,7 @@ do_command (char * const * const argv)
 {
   char *out, *err;
   int r;
-  int proc_ok, dev_ok, sys_ok;
+  int proc_ok, dev_ok, dev_pts_ok, sys_ok;
 
   /* We need a root filesystem mounted to do this. */
   NEED_ROOT (NULL);
@@ -53,11 +53,13 @@ do_command (char * const * const argv)
    * We deliberately allow these commands to fail silently, BUT
    * if a mount fails, don't unmount the corresponding mount.
    */
-  r = command (NULL, NULL, "mount", "--rbind", "/dev", "/sysroot/dev", NULL);
+  r = command (NULL, NULL, "mount", "--bind", "/dev", "/sysroot/dev", NULL);
   dev_ok = r != -1;
-  r = command (NULL, NULL, "mount", "--rbind", "/proc", "/sysroot/proc", NULL);
+  r = command (NULL, NULL, "mount", "--bind", "/dev/pts", "/sysroot/dev/pts", NULL);
+  dev_pts_ok = r != -1;
+  r = command (NULL, NULL, "mount", "--bind", "/proc", "/sysroot/proc", NULL);
   proc_ok = r != -1;
-  r = command (NULL, NULL, "mount", "--rbind", "/sys", "/sysroot/sys", NULL);
+  r = command (NULL, NULL, "mount", "--bind", "/sys", "/sysroot/sys", NULL);
   sys_ok = r != -1;
 
   CHROOT_IN;
@@ -66,6 +68,7 @@ do_command (char * const * const argv)
 
   if (sys_ok) command (NULL, NULL, "umount", "/sysroot/sys", NULL);
   if (proc_ok) command (NULL, NULL, "umount", "/sysroot/proc", NULL);
+  if (dev_pts_ok) command (NULL, NULL, "umount", "/sysroot/dev/pts", NULL);
   if (dev_ok) command (NULL, NULL, "umount", "/sysroot/dev", NULL);
 
   if (r == -1) {
