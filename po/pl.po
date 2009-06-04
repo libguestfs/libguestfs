@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.0.31\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2009-06-02 14:51+0100\n"
+"POT-Creation-Date: 2009-06-04 09:13+0100\n"
 "PO-Revision-Date: 2009-05-26 00:50+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -34,7 +34,7 @@ msgstr "nie można przeanalizować określenia rozmiaru \"%s\"\n"
 msgid "use '%s filename' to edit a file\n"
 msgstr "użyj \"%s nazwapliku\", aby zmodyfikować plik\n"
 
-#: fish/fish.c:83
+#: fish/fish.c:89
 #, c-format
 msgid ""
 "guestfish: guest filesystem shell\n"
@@ -83,17 +83,17 @@ msgstr ""
 "  -V|--version         Wyświetla wersję i kończy pracę\n"
 "Aby dowiedzieć się więcej, zobacz stronę podręcznika guestfish(1).\n"
 
-#: fish/fish.c:134
+#: fish/fish.c:142
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: utworzenie programu obsługi nie powiodło się\n"
 
-#: fish/fish.c:215
+#: fish/fish.c:229
 #, c-format
 msgid "guestfish: unexpected command line option 0x%x\n"
 msgstr "guestfish: nieoczekiwane polecenie wiersza poleceń 0x%x\n"
 
-#: fish/fish.c:342
+#: fish/fish.c:375
 #, c-format
 msgid ""
 "\n"
@@ -112,57 +112,57 @@ msgstr ""
 "      \"quit\", aby zakończyć powłokę\n"
 "\n"
 
-#: fish/fish.c:419
+#: fish/fish.c:452
 #, c-format
 msgid "guestfish: unterminated double quote\n"
 msgstr "guestfish: niezakończony podwójny cudzysłów\n"
 
-#: fish/fish.c:424 fish/fish.c:439
+#: fish/fish.c:457 fish/fish.c:472
 #, c-format
 msgid "guestfish: command arguments not separated by whitespace\n"
 msgstr "guestfish: parametry poleceń nie są oddzielone spacjami\n"
 
-#: fish/fish.c:434
+#: fish/fish.c:467
 #, c-format
 msgid "guestfish: unterminated single quote\n"
 msgstr "guestfish: niezakończony pojedynczy cudzysłów\n"
 
-#: fish/fish.c:475
+#: fish/fish.c:508
 #, c-format
 msgid "guestfish: internal error parsing string at '%s'\n"
 msgstr "guestfish: wewnętrzny błąd analizowania łańcucha \"%s\"\n"
 
-#: fish/fish.c:488
+#: fish/fish.c:521
 #, c-format
 msgid "guestfish: too many arguments\n"
 msgstr "guestfish: za dużo parametrów\n"
 
-#: fish/fish.c:515
+#: fish/fish.c:548
 #, c-format
 msgid "guestfish: empty command on command line\n"
 msgstr "guestfish: puste polecenie wiersza poleceń\n"
 
-#: fish/fish.c:572
+#: fish/fish.c:605
 msgid "display a list of commands or help on a command"
 msgstr "wyświetla listę poleceń lub pomoc polecenia"
 
-#: fish/fish.c:574
+#: fish/fish.c:607
 msgid "quit guestfish"
 msgstr "kończy pracę guestfish"
 
-#: fish/fish.c:577
+#: fish/fish.c:610
 msgid "allocate an image"
 msgstr "przydziela obraz"
 
-#: fish/fish.c:579
+#: fish/fish.c:612
 msgid "display a line of text"
 msgstr "wyświetla wiersz tekstu"
 
-#: fish/fish.c:581
+#: fish/fish.c:614
 msgid "edit a file in the image"
 msgstr "modyfikuje plik w obrazie"
 
-#: fish/fish.c:593
+#: fish/fish.c:626
 #, c-format
 msgid ""
 "alloc - allocate an image\n"
@@ -198,7 +198,7 @@ msgstr ""
 "    <nn>G lub <nn>GB  liczba gigabajtów\n"
 "    <nn>sektory       liczba 512 bajtowych sektorów\n"
 
-#: fish/fish.c:609
+#: fish/fish.c:642
 #, c-format
 msgid ""
 "echo - display a line of text\n"
@@ -211,7 +211,7 @@ msgstr ""
 "\n"
 "    Wyświetla ostatnie parametry w terminalu.\n"
 
-#: fish/fish.c:616
+#: fish/fish.c:649
 #, c-format
 msgid ""
 "edit - edit a file in the image\n"
@@ -243,7 +243,7 @@ msgstr ""
 "    UWAGA: nie będzie działało poprawnie dla dużych plików\n"
 "    (> 2 MB) lub plików binarnych zawierających \\0 bajtów.\n"
 
-#: fish/fish.c:630
+#: fish/fish.c:663
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -254,7 +254,7 @@ msgstr ""
 "     help polecenie\n"
 "     help\n"
 
-#: fish/fish.c:636
+#: fish/fish.c:669
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -263,7 +263,7 @@ msgstr ""
 "quit - kończy pracę guestfish\n"
 "     quit\n"
 
-#: fish/fish.c:639
+#: fish/fish.c:672
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""
