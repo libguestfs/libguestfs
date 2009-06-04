@@ -2311,6 +2311,13 @@ even if the filesystem appears to be clean (C<-f>).
 This command is only needed because of C<guestfs_resize2fs>
 (q.v.).  Normally you should use C<guestfs_fsck>.");
 
+  ("sleep", (RErr, [Int "secs"]), 109, [],
+   [InitNone, Always, TestRun (
+    [["sleep"; "1"]])],
+   "sleep for some seconds",
+   "\
+Sleep for C<secs> seconds.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
