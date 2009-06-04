@@ -53,11 +53,11 @@ do_command (char * const * const argv)
    * We deliberately allow these commands to fail silently, BUT
    * if a mount fails, don't unmount the corresponding mount.
    */
-  r = command (NULL, NULL, "mount", "--bind", "/dev", "/sysroot/dev", NULL);
+  r = command (NULL, NULL, "mount", "--rbind", "/dev", "/sysroot/dev", NULL);
   dev_ok = r != -1;
-  r = command (NULL, NULL, "mount", "--bind", "/proc", "/sysroot/proc", NULL);
+  r = command (NULL, NULL, "mount", "--rbind", "/proc", "/sysroot/proc", NULL);
   proc_ok = r != -1;
-  r = command (NULL, NULL, "mount", "--bind", "/sys", "/sysroot/sys", NULL);
+  r = command (NULL, NULL, "mount", "--rbind", "/sys", "/sysroot/sys", NULL);
   sys_ok = r != -1;
 
   CHROOT_IN;
