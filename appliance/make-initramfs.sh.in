@@ -132,11 +132,18 @@ cat > init.new <<'__EOF__'
 echo Starting /init script ...
 PATH=/sbin:/usr/sbin:$PATH
 mount -t tmpfs none /dev
+mkdir /dev/pts /dev/shm /dev/mapper
 MAKEDEV mem null port zero core full ram tty console fd \
   hda hdb hdc hdd sda sdb sdc sdd loop sd
+mknod /dev/ptmx c 5 2; chmod 0666 /dev/ptmx
+mknod /dev/random c 1 8;  chmod 0666 /dev/random
+mknod /dev/urandom c 1 9; chmod 0444 /dev/urandom
 mount -t proc /proc /proc
 mount -t sysfs /sys /sys
 mount -t devpts -o gid=5,mode=620 /dev/pts /dev/pts
+ln -sf /proc/self/fd/0 /dev/stdin
+ln -sf /proc/self/fd/1 /dev/stdout
+ln -sf /proc/self/fd/2 /dev/stderr
 modprobe virtio_pci
 modprobe virtio_net
 modprobe dm_mod ||:
