@@ -79,6 +79,9 @@ perl/
 python/
 	Python bindings.
 
+regressions/
+	Regression tests.
+
 ruby/
 	Ruby bindings.
 

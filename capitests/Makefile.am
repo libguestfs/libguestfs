@@ -16,9 +16,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 EXTRA_DIST = \
-	tests.c \
-	test-cleanup.sh \
-	test-bootbootboot.sh
+	tests.c
 
 # Tests.  These are auto-generated from the test descriptions
 # in the generator.
@@ -30,7 +28,7 @@ tests_CFLAGS = \
 	-I$(top_builddir)/src -Wall
 tests_LDADD = $(top_builddir)/src/libguestfs.la
 
-TESTS = tests test-bootbootboot.sh
+TESTS = tests
 TESTS_ENVIRONMENT = \
 	SKIP_TEST_COMMAND=$(shell ldd test-command | grep -sq 'not a dynamic executable' || echo 1) \
 	SKIP_TEST_COMMAND_LINES=$(shell ldd test-command | grep -sq 'not a dynamic executable' || echo 1) \
