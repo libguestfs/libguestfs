@@ -630,7 +630,7 @@ sub check_for_kernels
 		# List modules.
 		my @modules;
 		foreach ($g->find ("/lib/modules/$_")) {
-		    if (m,/([^/]+)\.ko,) {
+		    if (m,/([^/]+)\.ko$, || m,([^/]+)\.o$,) {
 			push @modules, $1;
 		    }
 		}
