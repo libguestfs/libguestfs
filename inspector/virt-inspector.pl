@@ -23,6 +23,7 @@ use Sys::Guestfs;
 use Pod::Usage;
 use Getopt::Long;
 use Data::Dumper;
+use File::Temp qw/tempdir/;
 
 # Optional:
 eval "use Sys::Virt;";
@@ -566,6 +567,9 @@ sub find_filesystem
 # we don't need to know.
 
 if ($output !~ /.*fish$/) {
+    # Temporary directory for use by check_for_initrd.
+    my $dir = tempdir (CLEANUP => 1);
+
     my $root_dev;
     foreach $root_dev (sort keys %oses) {
 	my $mounts = $oses{$root_dev}->{mounts};
@@ -578,6 +582,10 @@ if ($output !~ /.*fish$/) {
 
 	check_for_applications ($root_dev);
 	check_for_kernels ($root_dev);
+	if ($oses{$root_dev}->{os} eq "linux") {
+	    check_for_modprobe_aliases ($root_dev);
+	    check_for_initrd ($root_dev, $dir);
+	}
 
 	$g->umount_all ();
     }
@@ -593,10 +601,11 @@ sub check_for_applications
     my $os = $oses{$root_dev}->{os};
     if ($os eq "linux") {
 	my $distro = $oses{$root_dev}->{distro};
-	if ($distro eq "redhat") {
+	if (defined $distro && ($distro eq "redhat" || $distro eq "fedora")) {
 	    my @lines = $g->command_lines
-		(["rpm", "-q", "-a", "--qf",
-		  "%{name} %{epoch} %{version} %{release} %{arch}\n"]);
+		(["rpm",
+		  "-q", "-a",
+		  "--qf", "%{name} %{epoch} %{version} %{release} %{arch}\n"]);
 	    foreach (@lines) {
 		if (m/^(.*) (.*) (.*) (.*) (.*)$/) {
 		    my $epoch = $2;
@@ -660,6 +669,83 @@ sub check_for_kernels
     }
 
     $oses{$root_dev}->{kernels} = \@kernels;
+}
+
+# Check /etc/modprobe.conf to see if there are any specified
+# drivers associated with network (ethX) or hard drives.  Normally
+# one might find something like:
+#
+#  alias eth0 xennet
+#  alias scsi_hostadapter xenblk
+#
+# XXX This doesn't look beyond /etc/modprobe.conf, eg. in /etc/modprobe.d/
+
+sub check_for_modprobe_aliases
+{
+    local $_;
+    my $root_dev = shift;
+
+    my @lines;
+    eval { @lines = $g->read_lines ("/etc/modprobe.conf"); };
+    return if $@ || !@lines;
+
+    my %modprobe_aliases;
+
+    foreach (@lines) {
+	$modprobe_aliases{$1} = $2 if /^\s*alias\s+(\S+)\s+(\S+)/;
+    }
+
+    $oses{$root_dev}->{modprobe_aliases} = \%modprobe_aliases;
+}
+
+# Get a listing of device drivers in any initrd corresponding to a
+# kernel.  This is an indication of what can possibly be booted.
+
+sub check_for_initrd
+{
+    local $_;
+    my $root_dev = shift;
+    my $dir = shift;
+
+    my %initrd_modules;
+
+    foreach my $initrd ($g->ls ("/boot")) {
+	if ($initrd =~ m/^initrd-(.*)\.img$/ && $g->is_file ("/boot/$initrd")) {
+	    my $version = $1;
+	    my @modules = ();
+	    # We have to download these to a temporary file.
+	    $g->download ("/boot/$initrd", "$dir/initrd");
+
+	    my $cmd = "zcat $dir/initrd | file -";
+	    open P, "$cmd |" or die "$cmd: $!";
+	    my $lines;
+	    { local $/ = undef; $lines = <P>; }
+	    close P;
+	    if ($lines =~ /ext\d filesystem data/) {
+		# Before initramfs came along, these were compressed
+		# ext2 filesystems.  We could run another libguestfs
+		# instance to unpack these, but punt on them for now. (XXX)
+		warn "initrd image is unsupported ext2/3/4 filesystem\n";
+	    }
+	    elsif ($lines =~ /cpio/) {
+		my $cmd = "zcat $dir/initrd | cpio --quiet -it";
+		open P, "$cmd |" or die "$cmd: $!";
+		while (<P>) {
+		    push @modules, $1
+			if m,([^/]+)\.ko$, || m,([^/]+)\.o$,;
+		}
+		close P;
+		unlink "$dir/initrd";
+		$initrd_modules{$version} = \@modules;
+	    }
+	    else {
+		# What?
+		warn "unrecognized initrd image: $lines\n";
+	    }
+	}
+    }
+
+    $oses{$root_dev}->{initrd_modules} = \%initrd_modules;
 }
 
 #----------------------------------------------------------------------
@@ -742,6 +828,30 @@ sub output_text_os
 	    if exists $filesystems->{$_}{content};
     }
 
+    if (exists $os->{modprobe_aliases}) {
+	my %aliases = %{$os->{modprobe_aliases}};
+	my @keys = sort keys %aliases;
+	if (@keys) {
+	    print "  Modprobe aliases:\n";
+	    foreach (@keys) {
+		printf "    %-30s %s\n", $_, $aliases{$_}
+	    }
+	}
+    }
+
+    if (exists $os->{initrd_modules}) {
+	my %modvers = %{$os->{initrd_modules}};
+	my @keys = sort keys %modvers;
+	if (@keys) {
+	    print "  Initrd modules:\n";
+	    foreach (@keys) {
+		my @modules = @{$modvers{$_}};
+		print "    $_:\n";
+		print "      $_\n" foreach @modules;
+	    }
+	}
+    }
+
     print "  Applications:\n";
     my @apps =  @{$os->{apps}};
     foreach (@apps) {
@@ -800,6 +910,33 @@ sub output_xml_os
 	print "</filesystem>\n";
     }
     print "</filesystems>\n";
+
+    if (exists $os->{modprobe_aliases}) {
+	my %aliases = %{$os->{modprobe_aliases}};
+	my @keys = sort keys %aliases;
+	if (@keys) {
+	    print "<modprobealiases>\n";
+	    foreach (@keys) {
+		printf "<alias device=\"%s\">%s</alias>\n", $_, $aliases{$_}
+	    }
+	    print "</modprobealiases>\n";
+	}
+    }
+
+    if (exists $os->{initrd_modules}) {
+	my %modvers = %{$os->{initrd_modules}};
+	my @keys = sort keys %modvers;
+	if (@keys) {
+	    print "<initrds>\n";
+	    foreach (@keys) {
+		my @modules = @{$modvers{$_}};
+		print "<initrd version=\"$_\">\n";
+		print "<module>$_</module>\n" foreach @modules;
+		print "</initrd>\n";
+	    }
+	    print "</initrds>\n";
+	}
+    }
 
     print "<applications>\n";
     my @apps =  @{$os->{apps}};
