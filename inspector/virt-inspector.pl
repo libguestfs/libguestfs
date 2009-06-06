@@ -101,31 +101,44 @@ my $force;
 
 =item B<--force>
 
-Force reading a particular guest even if it appears to
-be active, or if the guest image is writable.  This is
-dangerous and can even corrupt the guest image.
+Force reading a particular guest even if it appears to be active.  In
+earlier versions of virt-inspector, this could be dangerous (for
+example, corrupting the guest's disk image).  However in more recent
+versions, it should not cause corruption, but might cause
+virt-inspector to crash or produce incorrect results.
 
 =cut
 
 my $output = "text";
 
+=back
+
+The following options select the output format.  Use only one of them.
+The default is a readable text report.
+
+=over 4
+
 =item B<--text> (default)
 
+Plain text report.
+
+=item B<--none>
+
+Produce no output at all.
+
 =item B<--xml>
-
-=item B<--perl>
-
-=item B<--fish>
-
-=item B<--ro-fish>
-
-Select the output format.  The default is a readable text report.
 
 If you select I<--xml> then you get XML output which can be fed
 to other programs.
 
+=item B<--perl>
+
 If you select I<--perl> then you get Perl structures output which
 can be used directly in another Perl program.
+
+=item B<--fish>
+
+=item B<--ro-fish>
 
 If you select I<--fish> then we print a L<guestfish(1)> command
 line which will automatically mount up the filesystems on the
@@ -136,6 +149,13 @@ correct mount points.  Try this for example:
 I<--ro-fish> is the same, but the I<--ro> option is passed to
 guestfish so that the filesystems are mounted read-only.
 
+=item B<--query>
+
+In "query mode" we answer common questions about the guest, such
+as whether it is fullvirt or needs a Xen hypervisor to run.
+
+See section I<QUERY MODE> below.
+
 =back
 
 =cut
@@ -143,13 +163,16 @@ guestfish so that the filesystems are mounted read-only.
 GetOptions ("help|?" => \$help,
 	    "connect|c=s" => \$uri,
 	    "force" => \$force,
+	    "text" => sub { $output = "text" },
+	    "none" => sub { $output = "none" },
 	    "xml" => sub { $output = "xml" },
 	    "perl" => sub { $output = "perl" },
 	    "fish" => sub { $output = "fish" },
 	    "guestfish" => sub { $output = "fish" },
 	    "ro-fish" => sub { $output = "ro-fish" },
-	    "ro-guestfish" => sub { $output = "ro-fish" })
-    or pod2usage (2);
+	    "ro-guestfish" => sub { $output = "ro-fish" },
+	    "query" => sub { $output = "query" },
+    ) or pod2usage (2);
 pod2usage (1) if $help;
 pod2usage ("$0: no image or VM names given") if @ARGV == 0;
 
@@ -159,19 +182,10 @@ my @images;
 if (-e $ARGV[0]) {
     @images = @ARGV;
 
-    # Until we get an 'add_drive_ro' call, we must check that qemu
-    # will only open this image in readonly mode.
-    # XXX Remove this hack at some point ...  or at least push it
-    # into libguestfs.
-
     foreach (@images) {
 	if (! -r $_) {
 	    die "guest image $_ does not exist or is not readable\n"
-	} elsif (-w $_ && !$force) {
-	    die ("guest image $_ is writable! REFUSING TO PROCEED.\n".
-		 "You can use --force to override this BUT that action\n".
-		 "MAY CORRUPT THE DISK IMAGE.\n");
-        }
+	}
     }
 } else {
     die "no libvirt support (install Sys::Virt)"
@@ -689,6 +703,11 @@ elsif ($output eq "xml") {
     output_xml ();
 }
 
+# Query mode.
+elsif ($output eq "query") {
+    output_query ();
+}
+
 sub output_text
 {
     output_text_os ($oses{$_}) foreach sort keys %oses;
@@ -808,6 +827,216 @@ sub output_xml_os
 
     print "</operatingsystem>\n";
 }
+
+=head1 QUERY MODE
+
+When you use C<virt-inspector --query>, the output is a series of
+lines of the form:
+
+ windows=no
+ linux=yes
+ fullvirt=yes
+ xen_pv_drivers=no
+
+(each answer is usually C<yes> or C<no>, or the line is completely
+missing if we could not determine the answer at all).
+
+If the guest is multiboot, you can get apparently conflicting answers
+(eg. C<windows=yes> and C<linux=yes>, or a guest which is both
+fullvirt and has a Xen PV kernel).  This is normal, and just means
+that the guest can do both things, although it might require operator
+intervention such as selecting a boot option when the guest is
+booting.
+
+This section describes the full range of answers possible.
+
+=over 4
+
+=cut
+
+sub output_query
+{
+    output_query_windows ();
+    output_query_linux ();
+    output_query_rhel ();
+    output_query_fedora ();
+    output_query_debian ();
+    output_query_fullvirt ();
+    output_query_xen_domU_kernel ();
+    output_query_xen_pv_drivers ();
+    output_query_virtio_drivers ();
+}
+
+=item windows=(yes|no)
+
+Answer C<yes> if Microsoft Windows is installed in the guest.
+
+=cut
+
+sub output_query_windows
+{
+    my $windows = "no";
+    foreach my $os (keys %oses) {
+	$windows="yes" if $oses{$os}->{os} eq "windows";
+    }
+    print "windows=$windows\n";
+}
+
+=item linux=(yes|no)
+
+Answer C<yes> if a Linux kernel is installed in the guest.
+
+=cut
+
+sub output_query_linux
+{
+    my $linux = "no";
+    foreach my $os (keys %oses) {
+	$linux="yes" if $oses{$os}->{os} eq "linux";
+    }
+    print "linux=$linux\n";
+}
+
+=item rhel=(yes|no)
+
+Answer C<yes> if the guest contains Red Hat Enterprise Linux.
+
+=cut
+
+sub output_query_rhel
+{
+    my $rhel = "no";
+    foreach my $os (keys %oses) {
+	$rhel="yes" if $oses{$os}->{os} eq "linux" && $oses{$os}->{distro} eq "redhat";
+    }
+    print "rhel=$rhel\n";
+}
+
+=item fedora=(yes|no)
+
+Answer C<yes> if the guest contains the Fedora Linux distribution.
+
+=cut
+
+sub output_query_fedora
+{
+    my $fedora = "no";
+    foreach my $os (keys %oses) {
+	$fedora="yes" if $oses{$os}->{os} eq "linux" && $oses{$os}->{distro} eq "fedora";
+    }
+    print "fedora=$fedora\n";
+}
+
+=item debian=(yes|no)
+
+Answer C<yes> if the guest contains the Debian Linux distribution.
+
+=cut
+
+sub output_query_debian
+{
+    my $debian = "no";
+    foreach my $os (keys %oses) {
+	$debian="yes" if $oses{$os}->{os} eq "linux" && $oses{$os}->{distro} eq "debian";
+    }
+    print "debian=$debian\n";
+}
+
+=item fullvirt=(yes|no)
+
+Answer C<yes> if there is at least one operating system kernel
+installed in the guest which runs fully virtualized.  Such a guest
+would require a hypervisor which supports full system virtualization.
+
+=cut
+
+sub output_query_fullvirt
+{
+    # The assumption is full-virt, unless all installed kernels
+    # are identified as paravirt.
+    # XXX Fails on Windows guests.
+    foreach my $os (keys %oses) {
+	foreach my $kernel (@{$oses{$os}->{kernels}}) {
+	    my $is_pv = $kernel->{version} =~ m/xen/;
+	    unless ($is_pv) {
+		print "fullvirt=yes\n";
+		return;
+	    }
+	}
+    }
+    print "fullvirt=no\n";
+}
+
+=item xen_domU_kernel=(yes|no)
+
+Answer C<yes> if there is at least one Linux kernel installed in
+the guest which is compiled as a Xen DomU (a Xen paravirtualized
+guest).
+
+=cut
+
+sub output_query_xen_domU_kernel
+{
+    foreach my $os (keys %oses) {
+	foreach my $kernel (@{$oses{$os}->{kernels}}) {
+	    my $is_xen = $kernel->{version} =~ m/xen/;
+	    if ($is_xen) {
+		print "xen_domU_kernel=yes\n";
+		return;
+	    }
+	}
+    }
+    print "xen_domU_kernel=no\n";
+}
+
+=item xen_pv_drivers=(yes|no)
+
+Answer C<yes> if the guest has Xen paravirtualized drivers installed
+(usually the kernel itself will be fully virtualized, but the PV
+drivers have been installed by the administrator for performance
+reasons).
+
+=cut
+
+sub output_query_xen_pv_drivers
+{
+    foreach my $os (keys %oses) {
+	foreach my $kernel (@{$oses{$os}->{kernels}}) {
+	    foreach my $module (@{$kernel->{modules}}) {
+		if ($module =~ m/xen-/) {
+		    print "xen_pv_drivers=yes\n";
+		    return;
+		}
+	    }
+	}
+    }
+    print "xen_pv_drivers=no\n";
+}
+
+=item virtio_drivers=(yes|no)
+
+Answer C<yes> if the guest has virtio paravirtualized drivers
+installed.  Virtio drivers are commonly used to improve the
+performance of KVM.
+
+=cut
+
+sub output_query_virtio_drivers
+{
+    foreach my $os (keys %oses) {
+	foreach my $kernel (@{$oses{$os}->{kernels}}) {
+	    foreach my $module (@{$kernel->{modules}}) {
+		if ($module =~ m/virtio_/) {
+		    print "virtio_drivers=yes\n";
+		    return;
+		}
+	    }
+	}
+    }
+    print "virtio_drivers=no\n";
+}
+
+=back
 
 =head1 SEE ALSO
 

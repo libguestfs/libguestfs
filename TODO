@@ -37,10 +37,10 @@ error cases.
 
 For virt-inspector:
 
- - Needs a "query mode", like "are (Xen|KVM) PV drivers installed?"
-   "does this guest need a Xen hypervisor?"
+ - Are PV network drivers enabled (see /etc/modprobe.conf):
 
- - Are PV network drivers enabled (see /etc/modprobe.conf)
+     alias eth0 xennet
+     alias scsi_hostadapter xenblk
 
  - ... and can it boot from a PV driver (have to look inside the initrd)
 
