@@ -15,7 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-AC_INIT([libguestfs],[1.0.41])
+AC_INIT([libguestfs],[1.0.42])
 AM_INIT_AUTOMAKE
 
 AC_CONFIG_MACRO_DIR([m4])
