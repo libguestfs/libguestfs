@@ -84,3 +84,18 @@ could be *removed* if we made this change.
 
 Open: Should the substitution be done in the library layer or in the
 daemon?
+
+----------------------------------------------------------------------
+
+Qemu options -- After discussion with the KVM developers, they have
+recommended some flags which will improve the safety and reliability
+of KVM.  Need to test that these also work under qemu (or at least, do
+no harm):
+
+-no-hpet      HPET support is broken and should be disabled.
+
+-rtc-td-hack  Keeps the rtc clock source track time correctly.
+
+-drive file=...,if=[ide|virtio],cache=off
+              cache=off is necessary to improve reliability in the
+	      event of a system crash when writing.
