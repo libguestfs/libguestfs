@@ -956,6 +956,22 @@ Some internal mounts are not shown.
 This moves a file from C<src> to C<dest> where C<dest> is
 either a destination filename or destination directory.
 
+=head2 ntfs-3g-probe
+
+ ntfs-3g-probe true|false device
+
+This command runs the L<ntfs-3g.probe(8)> command which probes
+an NTFS C<device> for mountability.  (Not all NTFS volumes can
+be mounted read-write, and some cannot be mounted at all).
+
+C<rw> is a boolean flag.  Set it to true if you want to test
+if the volume can be mounted read-write.  Set it to false if
+you want to test if the volume can be mounted read-only.
+
+The return value is an integer which C<0> if the operation
+would succeed, or some non-zero value documented in the
+L<ntfs-3g.probe(8)> manual page.
+
 =head2 ping-daemon
 
  ping-daemon

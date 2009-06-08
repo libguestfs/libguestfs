@@ -3981,6 +3981,28 @@ static VALUE ruby_guestfs_sleep (VALUE gv, VALUE secsv)
   return Qnil;
 }
 
+static VALUE ruby_guestfs_ntfs_3g_probe (VALUE gv, VALUE rwv, VALUE devicev)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "ntfs_3g_probe");
+
+  int rw = RTEST (rwv);
+  const char *device = StringValueCStr (devicev);
+  if (!device)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "device", "ntfs_3g_probe");
+
+  int r;
+
+  r = guestfs_ntfs_3g_probe (g, rw, device);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return INT2NUM (r);
+}
+
 /* Initialize the module. */
 void Init__guestfs ()
 {
@@ -4313,4 +4335,6 @@ void Init__guestfs ()
         ruby_guestfs_e2fsck_f, 1);
   rb_define_method (c_guestfs, "sleep",
         ruby_guestfs_sleep, 1);
+  rb_define_method (c_guestfs, "ntfs_3g_probe",
+        ruby_guestfs_ntfs_3g_probe, 2);
 }

@@ -9980,3 +9980,97 @@ int guestfs_sleep (guestfs_h *g,
   return 0;
 }
 
+struct ntfs_3g_probe_ctx {
+  /* This flag is set by the callbacks, so we know we've done
+   * the callbacks as expected, and in the right sequence.
+   * 0 = not called, 1 = reply_cb called.
+   */
+  int cb_sequence;
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+  struct guestfs_ntfs_3g_probe_ret ret;
+};
+
+static void ntfs_3g_probe_reply_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  struct ntfs_3g_probe_ctx *ctx = (struct ntfs_3g_probe_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_ntfs_3g_probe");
+    return;
+  }
+
+  ml->main_loop_quit (ml, g);
+
+  if (!xdr_guestfs_message_header (xdr, &ctx->hdr)) {
+    error (g, "%s: failed to parse reply header", "guestfs_ntfs_3g_probe");
+    return;
+  }
+  if (ctx->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &ctx->err)) {
+      error (g, "%s: failed to parse reply error", "guestfs_ntfs_3g_probe");
+      return;
+    }
+    goto done;
+  }
+  if (!xdr_guestfs_ntfs_3g_probe_ret (xdr, &ctx->ret)) {
+    error (g, "%s: failed to parse reply", "guestfs_ntfs_3g_probe");
+    return;
+  }
+ done:
+  ctx->cb_sequence = 1;
+}
+
+int guestfs_ntfs_3g_probe (guestfs_h *g,
+		int rw,
+		const char *device)
+{
+  struct guestfs_ntfs_3g_probe_args args;
+  struct ntfs_3g_probe_ctx ctx;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  int serial;
+
+  if (check_state (g, "guestfs_ntfs_3g_probe") == -1) return -1;
+  guestfs_set_busy (g);
+
+  memset (&ctx, 0, sizeof ctx);
+
+  args.rw = rw;
+  args.device = (char *) device;
+  serial = guestfs__send_sync (g, GUESTFS_PROC_NTFS_3G_PROBE,
+        (xdrproc_t) xdr_guestfs_ntfs_3g_probe_args, (char *) &args);
+  if (serial == -1) {
+    guestfs_end_busy (g);
+    return -1;
+  }
+
+  guestfs__switch_to_receiving (g);
+  ctx.cb_sequence = 0;
+  guestfs_set_reply_callback (g, ntfs_3g_probe_reply_cb, &ctx);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (ctx.cb_sequence != 1) {
+    error (g, "%s reply failed, see earlier error messages", "guestfs_ntfs_3g_probe");
+    guestfs_end_busy (g);
+    return -1;
+  }
+
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_NTFS_3G_PROBE, serial) == -1) {
+    guestfs_end_busy (g);
+    return -1;
+  }
+
+  if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", ctx.err.error_message);
+    free (ctx.err.error_message);
+    guestfs_end_busy (g);
+    return -1;
+  }
+
+  guestfs_end_busy (g);
+  return ctx.ret.status;
+}
+

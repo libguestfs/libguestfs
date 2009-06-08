@@ -114,6 +114,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "mount-vfs", "mount a guest disk with mount options and vfstype");
   printf ("%-20s %s\n", "mounts", "show mounted filesystems");
   printf ("%-20s %s\n", "mv", "move a file");
+  printf ("%-20s %s\n", "ntfs-3g-probe", "probe NTFS volume");
   printf ("%-20s %s\n", "ping-daemon", "ping the guest daemon");
   printf ("%-20s %s\n", "pvcreate", "create an LVM physical volume");
   printf ("%-20s %s\n", "pvremove", "remove an LVM physical volume");
@@ -555,6 +556,9 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "sleep") == 0)
     pod2text ("sleep - sleep for some seconds", " sleep <secs>\n\nSleep for C<secs> seconds.");
+  else
+  if (strcasecmp (cmd, "ntfs_3g_probe") == 0 || strcasecmp (cmd, "ntfs-3g-probe") == 0)
+    pod2text ("ntfs-3g-probe - probe NTFS volume", " ntfs-3g-probe <rw> <device>\n\nThis command runs the L<ntfs-3g.probe(8)> command which probes\nan NTFS C<device> for mountability.  (Not all NTFS volumes can\nbe mounted read-write, and some cannot be mounted at all).\n\nC<rw> is a boolean flag.  Set it to true if you want to test\nif the volume can be mounted read-write.  Set it to false if\nyou want to test if the volume can be mounted read-only.\n\nThe return value is an integer which C<0> if the operation\nwould succeed, or some non-zero value documented in the\nL<ntfs-3g.probe(8)> manual page.");
   else
     display_builtin_command (cmd);
 }
@@ -2716,6 +2720,24 @@ static int run_sleep (const char *cmd, int argc, char *argv[])
   return r;
 }
 
+static int run_ntfs_3g_probe (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  int rw;
+  const char *device;
+  if (argc != 2) {
+    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  rw = is_true (argv[0]) ? 1 : 0;
+  device = argv[1];
+  r = guestfs_ntfs_3g_probe (g, rw, device);
+  if (r == -1) return -1;
+  printf ("%d\n", r);
+  return 0;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -3107,6 +3129,9 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "sleep") == 0)
     return run_sleep (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "ntfs_3g_probe") == 0 || strcasecmp (cmd, "ntfs-3g-probe") == 0)
+    return run_ntfs_3g_probe (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

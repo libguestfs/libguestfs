@@ -3354,4 +3354,33 @@ public HashMap<String,String> test0rhashtableerr ()
   private native void _sleep (long g, int secs)
     throws LibGuestFSException;
 
+  /**
+   * probe NTFS volume
+   * <p>
+   * This command runs the ntfs-3g.probe(8) command which
+   * probes an NTFS "device" for mountability. (Not all NTFS
+   * volumes can be mounted read-write, and some cannot be
+   * mounted at all).
+   * <p>
+   * "rw" is a boolean flag. Set it to true if you want to
+   * test if the volume can be mounted read-write. Set it to
+   * false if you want to test if the volume can be mounted
+   * read-only.
+   * <p>
+   * The return value is an integer which 0 if the operation
+   * would succeed, or some non-zero value documented in the
+   * ntfs-3g.probe(8) manual page.
+   * <p>
+   * @throws LibGuestFSException
+   */
+  public int ntfs_3g_probe (boolean rw, String device)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("ntfs_3g_probe: handle is closed");
+    return _ntfs_3g_probe (g, rw, device);
+  }
+  private native int _ntfs_3g_probe (long g, boolean rw, String device)
+    throws LibGuestFSException;
+
 }

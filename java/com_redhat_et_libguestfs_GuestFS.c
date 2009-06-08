@@ -3966,3 +3966,23 @@ Java_com_redhat_et_libguestfs_GuestFS__1sleep
   }
 }
 
+JNIEXPORT jint JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1ntfs_13g_1probe
+  (JNIEnv *env, jobject obj, jlong jg, jboolean jrw, jstring jdevice)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+  int rw;
+  const char *device;
+
+  rw = jrw;
+  device = (*env)->GetStringUTFChars (env, jdevice, NULL);
+  r = guestfs_ntfs_3g_probe (g, rw, device);
+  (*env)->ReleaseStringUTFChars (env, jdevice, device);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return 0;
+  }
+  return (jint) r;
+}
+

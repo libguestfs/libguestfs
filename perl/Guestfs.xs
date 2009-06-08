@@ -2534,3 +2534,18 @@ PREINIT:
       if (r == -1)
         croak ("sleep: %s", guestfs_last_error (g));
 
+SV *
+ntfs_3g_probe (g, rw, device)
+      guestfs_h *g;
+      int rw;
+      char *device;
+PREINIT:
+      int status;
+   CODE:
+      status = guestfs_ntfs_3g_probe (g, rw, device);
+      if (status == -1)
+        croak ("ntfs_3g_probe: %s", guestfs_last_error (g));
+      RETVAL = newSViv (status);
+ OUTPUT:
+      RETVAL
+

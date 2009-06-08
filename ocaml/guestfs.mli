@@ -607,3 +607,6 @@ val e2fsck_f : t -> string -> unit
 val sleep : t -> int -> unit
 (** sleep for some seconds *)
 
+val ntfs_3g_probe : t -> bool -> string -> int
+(** probe NTFS volume *)
+

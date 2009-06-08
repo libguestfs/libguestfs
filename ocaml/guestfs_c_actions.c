@@ -4174,3 +4174,27 @@ ocaml_guestfs_sleep (value gv, value secsv)
   CAMLreturn (rv);
 }
 
+CAMLprim value
+ocaml_guestfs_ntfs_3g_probe (value gv, value rwv, value devicev)
+{
+  CAMLparam3 (gv, rwv, devicev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("ntfs_3g_probe: used handle after closing it");
+
+  int rw = Bool_val (rwv);
+  const char *device = String_val (devicev);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_ntfs_3g_probe (g, rw, device);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "ntfs_3g_probe");
+
+  rv = Val_int (r);
+  CAMLreturn (rv);
+}
+

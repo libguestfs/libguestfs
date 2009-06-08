@@ -1604,3 +1604,20 @@ class GuestFS:
         """
         return libguestfsmod.sleep (self._o, secs)
 
+    def ntfs_3g_probe (self, rw, device):
+        u"""This command runs the ntfs-3g.probe(8) command which
+        probes an NTFS "device" for mountability. (Not all NTFS
+        volumes can be mounted read-write, and some cannot be
+        mounted at all).
+        
+        "rw" is a boolean flag. Set it to true if you want to
+        test if the volume can be mounted read-write. Set it to
+        false if you want to test if the volume can be mounted
+        read-only.
+        
+        The return value is an integer which 0 if the operation
+        would succeed, or some non-zero value documented in the
+        ntfs-3g.probe(8) manual page.
+        """
+        return libguestfsmod.ntfs_3g_probe (self._o, rw, device)
+

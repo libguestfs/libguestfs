@@ -1849,6 +1849,28 @@ xdr_guestfs_sleep_args (XDR *xdrs, guestfs_sleep_args *objp)
 }
 
 bool_t
+xdr_guestfs_ntfs_3g_probe_args (XDR *xdrs, guestfs_ntfs_3g_probe_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_bool (xdrs, &objp->rw))
+		 return FALSE;
+	 if (!xdr_string (xdrs, &objp->device, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_ntfs_3g_probe_ret (XDR *xdrs, guestfs_ntfs_3g_probe_ret *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_int (xdrs, &objp->status))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
 xdr_guestfs_procedure (XDR *xdrs, guestfs_procedure *objp)
 {
 	register int32_t *buf;

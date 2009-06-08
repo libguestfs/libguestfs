@@ -723,6 +723,15 @@ struct guestfs_sleep_args {
   int secs;
 };
 
+struct guestfs_ntfs_3g_probe_args {
+  bool rw;
+  string device<>;
+};
+
+struct guestfs_ntfs_3g_probe_ret {
+  int status;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -833,6 +842,7 @@ enum guestfs_procedure {
   GUESTFS_PROC_FIND = 107,
   GUESTFS_PROC_E2FSCK_F = 108,
   GUESTFS_PROC_SLEEP = 109,
+  GUESTFS_PROC_NTFS_3G_PROBE = 110,
   GUESTFS_PROC_NR_PROCS
 };
 
