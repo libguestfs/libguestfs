@@ -2318,6 +2318,29 @@ This command is only needed because of C<guestfs_resize2fs>
    "\
 Sleep for C<secs> seconds.");
 
+  ("ntfs_3g_probe", (RInt "status", [Bool "rw"; String "device"]), 110, [],
+   [InitNone, Always, TestOutputInt (
+      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+       ["mkfs"; "ntfs"; "/dev/sda1"];
+       ["ntfs_3g_probe"; "true"; "/dev/sda1"]], 0);
+    InitNone, Always, TestOutputInt (
+      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+       ["mkfs"; "ext2"; "/dev/sda1"];
+       ["ntfs_3g_probe"; "true"; "/dev/sda1"]], 12)],
+   "probe NTFS volume",
+   "\
+This command runs the L<ntfs-3g.probe(8)> command which probes
+an NTFS C<device> for mountability.  (Not all NTFS volumes can
+be mounted read-write, and some cannot be mounted at all).
+
+C<rw> is a boolean flag.  Set it to true if you want to test
+if the volume can be mounted read-write.  Set it to false if
+you want to test if the volume can be mounted read-only.
+
+The return value is an integer which C<0> if the operation
+would succeed, or some non-zero value documented in the
+L<ntfs-3g.probe(8)> manual page.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
