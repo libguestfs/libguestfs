@@ -278,6 +278,15 @@ editors.
 NOTE: This will not work reliably for large files
 (> 2 MB) or binary files containing \0 bytes.
 
+=head2 lcd
+
+ lcd directory
+
+Change the local directory, ie. the current directory of guestfish
+itself.
+
+Note that C<!cd> won't do what you might expect.
+
 @ACTIONS@
 
 =head1 ENVIRONMENT VARIABLES
