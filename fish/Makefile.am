@@ -24,7 +24,9 @@ guestfish_SOURCES = \
 	echo.c \
 	edit.c \
 	fish.c \
-	fish.h
+	fish.h \
+	lcd.c
+
 guestfish_CFLAGS = \
 	-I$(top_builddir)/src -Wall \
 	-DGUESTFS_DEFAULT_PATH='"$(libdir)/guestfs"'

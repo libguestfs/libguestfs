@@ -593,6 +593,8 @@ issue_command (const char *cmd, char *argv[])
 	   strcasecmp (cmd, "vi") == 0 ||
 	   strcasecmp (cmd, "emacs") == 0)
     return do_edit (cmd, argc, argv);
+  else if (strcasecmp (cmd, "lcd") == 0)
+    return do_lcd (cmd, argc, argv);
   else
     return run_action (cmd, argc, argv);
 }
@@ -612,6 +614,8 @@ list_builtin_commands (void)
 	  "echo", _("display a line of text"));
   printf ("%-20s %s\n",
 	  "edit", _("edit a file in the image"));
+  printf ("%-20s %s\n",
+	  "lcd", _("local change directory"));
 
   /* actions are printed after this (see list_commands) */
 }
@@ -659,6 +663,13 @@ display_builtin_command (const char *cmd)
 	      "\n"
 	      "    NOTE: This will not work reliably for large files\n"
 	      "    (> 2 MB) or binary files containing \\0 bytes.\n"));
+  else if (strcasecmp (cmd, "lcd") == 0)
+    printf (_("lcd - local change directory\n"
+	      "    lcd <directory>\n"
+	      "\n"
+	      "    Change guestfish's current directory. This command is\n"
+	      "    useful if you want to download files to a particular\n"
+	      "    place.\n"));
   else if (strcasecmp (cmd, "help") == 0)
     printf (_("help - display a list of commands or help on a command\n"
 	      "     help cmd\n"
