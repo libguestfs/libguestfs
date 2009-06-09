@@ -49,6 +49,9 @@ Use virtio_blk by default.  It's faster and more natural.
 Unfortunately it seems like this will rename all devices - see next
 item.
 
+Note: virtio_blk *IS* supported by all our minimum platforms,
+ie. CentOS 5.3, Fedora 11, Debian.
+
 ----------------------------------------------------------------------
 
 "Device independent" naming for devices.
@@ -99,3 +102,44 @@ no harm):
 -drive file=...,if=[ide|virtio],cache=off
               cache=off is necessary to improve reliability in the
 	      event of a system crash when writing.
+
+----------------------------------------------------------------------
+
+"Standalone/local mode"
+
+Instead of running guestfsd (the daemon) inside qemu, there should be
+an option to just run guestfsd directly.
+
+The architecture in this mode would look like:
+
+     +------------------+
+     | main program     |
+     |------------------|
+     | libguestfs       |
+     +--------^---------+
+          |   | reply
+      cmd |   |
+     +----v-------------+
+     | guestfsd         |
+     +------------------+
+
+Notes:
+
+(1) This only makes sense if we are running as root.
+
+(2) There is no console / kernel messages in this configuration, but
+we might consider capturing stderr from the daemon.
+
+(3) guestfs_config and guestfs_add_drive become no-ops.
+
+Obviously in this configuration, commands are run directly on the
+local machine's disks.  You could just run the commands themselves
+directly, but libguestfs provides a convenient API and language
+bindings.  Also deals with tricky stuff like parsing the output of the
+LVM commands.  Also we get to leverage other code such as
+virt-inspector.
+
+This is mainly useful from live CDs, ie. virt-p2v.
+
+Should we bother having the daemon at all and just link the guestfsd
+code directly into libguestfs?
