@@ -689,7 +689,7 @@ Pass additional options to the guest kernel.
 L<guestfish(1)>,
 L<qemu(1)>,
 L<febootstrap(1)>,
-L<http://et.redhat.com/~rjones/libguestfs>.
+L<http://libguestfs.org/>.
 
 =head1 BUGS
 
@@ -726,7 +726,7 @@ Richard W.M. Jones (C<rjones at redhat dot com>)
 =head1 COPYRIGHT
 
 Copyright (C) 2009 Red Hat Inc.
-L<http://et.redhat.com/~rjones/libguestfs>
+L<http://libguestfs.org/>
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public

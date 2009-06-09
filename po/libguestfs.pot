@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2009-06-04 09:13+0100\n"
+"POT-Creation-Date: 2009-06-09 10:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -116,27 +116,31 @@ msgstr ""
 msgid "guestfish: empty command on command line\n"
 msgstr ""
 
-#: fish/fish.c:605
+#: fish/fish.c:607
 msgid "display a list of commands or help on a command"
 msgstr ""
 
-#: fish/fish.c:607
+#: fish/fish.c:609
 msgid "quit guestfish"
 msgstr ""
 
-#: fish/fish.c:610
+#: fish/fish.c:612
 msgid "allocate an image"
 msgstr ""
 
-#: fish/fish.c:612
+#: fish/fish.c:614
 msgid "display a line of text"
 msgstr ""
 
-#: fish/fish.c:614
+#: fish/fish.c:616
 msgid "edit a file in the image"
 msgstr ""
 
-#: fish/fish.c:626
+#: fish/fish.c:618
+msgid "local change directory"
+msgstr ""
+
+#: fish/fish.c:630
 #, c-format
 msgid ""
 "alloc - allocate an image\n"
@@ -156,7 +160,7 @@ msgid ""
 "    <nn>sects        number of 512 byte sectors\n"
 msgstr ""
 
-#: fish/fish.c:642
+#: fish/fish.c:646
 #, c-format
 msgid ""
 "echo - display a line of text\n"
@@ -165,7 +169,7 @@ msgid ""
 "    This echos the parameters to the terminal.\n"
 msgstr ""
 
-#: fish/fish.c:649
+#: fish/fish.c:653
 #, c-format
 msgid ""
 "edit - edit a file in the image\n"
@@ -183,7 +187,18 @@ msgid ""
 "    (> 2 MB) or binary files containing \\0 bytes.\n"
 msgstr ""
 
-#: fish/fish.c:663
+#: fish/fish.c:667
+#, c-format
+msgid ""
+"lcd - local change directory\n"
+"    lcd <directory>\n"
+"\n"
+"    Change guestfish's current directory. This command is\n"
+"    useful if you want to download files to a particular\n"
+"    place.\n"
+msgstr ""
+
+#: fish/fish.c:674
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -191,14 +206,14 @@ msgid ""
 "     help\n"
 msgstr ""
 
-#: fish/fish.c:669
+#: fish/fish.c:680
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
 "     quit\n"
 msgstr ""
 
-#: fish/fish.c:672
+#: fish/fish.c:683
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""

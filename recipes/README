@@ -2,7 +2,7 @@ This directory contains guestfish-based shell which give some useful
 recipes to follow.
 
 These also get copied to the website here:
-http://et.redhat.com/~rjones/libguestfs/recipes.html
+http://libguestfs.org/recipes.html
 
 The format for each recipe is:
 

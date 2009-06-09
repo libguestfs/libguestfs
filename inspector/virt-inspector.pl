@@ -1356,7 +1356,8 @@ sub output_query_virtio_drivers
 L<guestfs(3)>,
 L<guestfish(1)>,
 L<Sys::Guestfs(3)>,
-L<Sys::Virt(3)>.
+L<Sys::Virt(3)>,
+L<http://libguestfs.org/>.
 
 For Windows registry parsing we require the C<reged> program
 from L<http://home.eunet.no/~pnordahl/ntpasswd/>.

@@ -128,7 +128,7 @@ HTMLFILES = html/guestfs.3.html html/guestfish.1.html \
 
 TEXTFILES = README TODO HACKING
 
-WEBSITEDIR = $(HOME)/d/redhat/et-website/libguestfs
+WEBSITEDIR = $(HOME)/d/redhat/websites/libguestfs
 
 website: $(HTMLFILES) $(TEXTFILES)
 	cp $(HTMLFILES) $(WEBSITEDIR)

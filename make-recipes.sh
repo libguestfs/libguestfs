@@ -29,9 +29,9 @@ cat <<EOF
     subdirectory</a> of the source.</p>
 
     <p>
-    <a href="http://et.redhat.com/~rjones/libguestfs/files/">Download
+    <a href="http://libguestfs.org/download/">Download
     libguestfs and guestfish here</a> or
-    <a href="http://et.redhat.com/~rjones/libguestfs/">go to the
+    <a href="http://libguestfs.org/">go to the
     libguestfs home page</a>.
     </p>
 
