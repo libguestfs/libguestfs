@@ -157,6 +157,20 @@ as whether it is fullvirt or needs a Xen hypervisor to run.
 
 See section I<QUERY MODE> below.
 
+=cut
+
+my $windows_registry;
+
+=item B<--windows-registry>
+
+If this item is passed, I<and> the guest is Windows, I<and> the
+external program C<reged> is available (see SEE ALSO section), then we
+attempt to parse the Windows registry.  This allows much more
+information to be gathered for Windows guests.
+
+This is quite an expensive and slow operation, so we don't do it by
+default.
+
 =back
 
 =cut
@@ -173,6 +187,7 @@ GetOptions ("help|?" => \$help,
 	    "ro-fish" => sub { $output = "ro-fish" },
 	    "ro-guestfish" => sub { $output = "ro-fish" },
 	    "query" => sub { $output = "query" },
+	    "windows-registry" => \$windows_registry,
     ) or pod2usage (2);
 pod2usage (1) if $help;
 pod2usage ("$0: no image or VM names given") if @ARGV == 0;
@@ -376,6 +391,7 @@ sub check_fs {
 	    $g->is_file ("/autoexec.bat") ||
 	    $g->is_dir ("/Program Files") ||
 	    $g->is_dir ("/WINDOWS") ||
+	    $g->is_file ("/boot.ini") ||
 	    $g->is_file ("/ntldr")) {
 	    $r{fstype} = "ntfs"; # XXX this is a guess
 	    $r{fsos} = "windows";
@@ -444,12 +460,143 @@ sub check_linux_root
     }
 }
 
+# We only support NT.  The control file /boot.ini contains a list of
+# Windows installations and their %systemroot%s in a simple text
+# format.
+#
+# XXX We could parse this better.  This won't work if /boot.ini is on
+# a different drive from the %systemroot%, and in other unusual cases.
+
 sub check_windows_root
 {
     local $_;
     my $r = shift;
 
-    # Windows version?
+    my $boot_ini = resolve_windows_path ("/", "boot.ini");
+    $r->{boot_ini} = $boot_ini;
+
+    if (defined $r->{boot_ini}) {
+	$_ = $g->cat ($boot_ini);
+	my @lines = split /\n/;
+	my $section;
+	my $systemroot;
+	foreach (@lines) {
+	    if (m/\[.*\]/) {
+		$section = $1;
+	    } elsif (m/^default=.*?\\(\w+)$/i) {
+		$systemroot = $1;
+		last;
+	    } elsif (m/\\(\w+)=/) {
+		$systemroot = $1;
+		last;
+	    }
+	}
+
+	if (defined $systemroot) {
+	    $r->{systemroot} = resolve_windows_path ("/", $systemroot);
+	    if (defined $r->{systemroot} && $windows_registry) {
+		check_windows_registry ($r, $r->{systemroot});
+	    }
+	}
+    }
+}
+
+sub check_windows_registry
+{
+    local $_;
+    my $r = shift;
+    my $systemroot = shift;
+
+    # Download the system registry files.  Only download the
+    # interesting ones, and we don't bother with user profiles at all.
+    my $system32 = resolve_windows_path ($systemroot, "system32");
+    if (defined $system32) {
+	my $config = resolve_windows_path ($system32, "config");
+	if (defined $config) {
+	    my $software = resolve_windows_path ($config, "software");
+	    if (defined $software) {
+		load_windows_registry ($r, $software,
+				       "HKEY_LOCAL_MACHINE\\SOFTWARE");
+	    }
+	    my $system = resolve_windows_path ($config, "system");
+	    if (defined $system) {
+		load_windows_registry ($r, $system,
+				       "HKEY_LOCAL_MACHINE\\System");
+	    }
+	}
+    }
+}
+
+sub load_windows_registry
+{
+    local $_;
+    my $r = shift;
+    my $regfile = shift;
+    my $prefix = shift;
+
+    my $dir = tempdir (CLEANUP => 1);
+
+    $g->download ($regfile, "$dir/reg");
+
+    # 'reged' command is particularly noisy.  Redirect stdout and
+    # stderr to /dev/null temporarily.
+    open SAVEOUT, ">&STDOUT";
+    open SAVEERR, ">&STDERR";
+    open STDOUT, ">/dev/null";
+    open STDERR, ">/dev/null";
+
+    my @cmd = ("reged", "-x", "$dir/reg", "$prefix", "\\", "$dir/out");
+    my $res = system (@cmd);
+
+    close STDOUT;
+    close STDERR;
+    open STDOUT, ">&SAVEOUT";
+    open STDERR, ">&SAVEERR";
+    close SAVEOUT;
+    close SAVEERR;
+
+    unless ($res == 0) {
+	warn "reged command failed: $?";
+	return;
+    }
+
+    # Some versions of reged segfault on inputs.  If that happens we
+    # may get no / partial output file.  Anyway, if it exists, load
+    # it.
+    my $content;
+    unless (open F, "$dir/out") {
+	warn "no output from reged command: $!";
+	return;
+    }
+    { local $/ = undef; $content = <F>; }
+    close F;
+
+    my @registry = ();
+    @registry = @{$r->{registry}} if exists $r->{registry};
+    push @registry, $content;
+    $r->{registry} = \@registry;
+}
+
+# Because of case sensitivity, the actual path might have a different
+# name, and ntfs-3g is always case sensitive.  Find out what the real
+# path is.  Returns the correct full path, or undef.
+sub resolve_windows_path
+{
+    local $_;
+    my $parent = shift;		# Must exist, with correct case.
+    my $dir = shift;
+
+    foreach ($g->ls ($parent)) {
+	if (lc ($_) eq lc ($dir)) {
+	    if ($parent eq "/") {
+		return "/$_"
+	    } else {
+		return "$parent/$_"
+	    }
+	}
+    }
+
+    undef;
 }
 
 sub check_grub
@@ -867,6 +1014,14 @@ sub output_text_os
 	    print "      $_\n";
 	}
     }
+
+    if (exists $os->{root}->{registry}) {
+	print "  Windows Registry entries:\n";
+	# These are just lumps of text - dump them out.
+	foreach (@{$os->{root}->{registry}}) {
+	    print "$_\n";
+	}
+    }
 }
 
 sub output_xml
@@ -962,7 +1117,28 @@ sub output_xml_os
     }
     print "</kernels>\n";
 
+    if (exists $os->{root}->{registry}) {
+	print "<windowsregistryentries>\n";
+	# These are just lumps of text - dump them out.
+	foreach (@{$os->{root}->{registry}}) {
+	    print "<windowsregistryentry>\n";
+	    print escape_xml($_), "\n";
+	    print "</windowsregistryentry>\n";
+	}
+	print "</windowsregistryentries>\n";
+    }
+
     print "</operatingsystem>\n";
+}
+
+sub escape_xml
+{
+    local $_ = shift;
+
+    s/&/&amp;/g;
+    s/</&lt;/g;
+    s/>/&gt;/g;
+    return $_;
 }
 
 =head1 QUERY MODE
@@ -1180,7 +1356,10 @@ sub output_query_virtio_drivers
 L<guestfs(3)>,
 L<guestfish(1)>,
 L<Sys::Guestfs(3)>,
-L<Sys::Virt(3)>
+L<Sys::Virt(3)>.
+
+For Windows registry parsing we require the C<reged> program
+from L<http://home.eunet.no/~pnordahl/ntpasswd/>.
 
 =head1 AUTHOR
 
