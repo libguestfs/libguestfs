@@ -491,6 +491,109 @@ C<guestfs_create_main_loop>.
 This isn't documented.  Please see the libguestfs-select and
 libguestfs-glib implementations.
 
+=head1 BLOCK DEVICE NAMING
+
+In the kernel there is now quite a profusion of schemata for naming
+block devices (in this context, by I<block device> I mean a physical
+or virtual hard drive).  The original Linux IDE driver used names
+starting with C</dev/hd*>.  SCSI devices have historically used a
+different naming scheme, C</dev/sd*>.  When the Linux kernel I<libata>
+driver became a popular replacement for the old IDE driver
+(particularly for SATA devices) those devices also used the
+C</dev/sd*> scheme.  Additionally we now have virtual machines with
+paravirtualized drivers.  This has created several different naming
+systems, such as C</dev/vd*> for virtio disks and C</dev/xvd*> for Xen
+PV disks.
+
+As discussed above, libguestfs uses a qemu appliance running an
+embedded Linux kernel to access block devices.  We can run a variety
+of appliances based on a variety of Linux kernels.
+
+This causes a problem for libguestfs because many API calls use device
+or partition names.  Working scripts and the recipe (example) scripts
+that we make available over the internet could fail if the naming
+scheme changes.
+
+Therefore libguestfs defines C</dev/sd*> as the I<standard naming
+scheme>.  Internally C</dev/sd*> names are translated, if necessary,
+to other names as required.  For example, under RHEL 5 which uses the
+C</dev/hd*> scheme, any device parameter C</dev/sda2> is translated to
+C</dev/hda2> transparently.
+
+Note that this I<only> applies to parameters.  The
+C<guestfs_list_devices>, C<guestfs_list_partitions> and similar calls
+return the true names of the devices and partitions as known to the
+appliance.
+
+=head2 ALGORITHM FOR BLOCK DEVICE NAME TRANSLATION
+
+Usually this translation is transparent.  However in some (very rare)
+cases you may need to know the exact algorithm.  Such cases include
+where you use C<guestfs_config> to add a mixture of virtio and IDE
+devices to the qemu-based appliance, so have a mixture of C</dev/sd*>
+and C</dev/vd*> devices.
+
+The algorithm is applied only to I<parameters> which are known to be
+either device or partition names.  Return values from functions such
+as C<guestfs_list_devices> are never changed.
+
+=over 4
+
+=item *
+
+Is the string a parameter which is a device or partition name?
+
+=item *
+
+Does the string begin with C</dev/sd>?
+
+=item *
+
+Does the named device exist?  If so, we use that device.
+However if I<not> then we continue with this algorithm.
+
+=item *
+
+Replace initial C</dev/sd> string with C</dev/hd>.
+
+For example, change C</dev/sda2> to C</dev/hda2>.
+
+If that named device exists, use it.  If not, continue.
+
+=item *
+
+Replace initial C</dev/sd> string with C</dev/vd>.
+
+If that named device exists, use it.  If not, return an error.
+
+=back
+
+=head2 PORTABILITY CONCERNS
+
+Although the standard naming scheme and automatic translation is
+useful for simple programs and guestfish scripts, for larger programs
+it is best not to rely on this mechanism.
+
+Where possible for maximum future portability programs using
+libguestfs should use these future-proof techniques:
+
+=over 4
+
+=item *
+
+Use C<guestfs_list_devices> or C<guestfs_list_partitions> to list
+actual device names, and then use those names directly.
+
+Since those device names exist by definition, they will never be
+translated.
+
+=item *
+
+Use higher level ways to identify filesystems, such as LVM names,
+UUIDs and filesystem labels.
+
+=back
+
 =head1 INTERNALS
 
 =head2 COMMUNICATION PROTOCOL
