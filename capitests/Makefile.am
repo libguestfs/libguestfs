@@ -34,6 +34,7 @@ TESTS_ENVIRONMENT = \
 	SKIP_TEST_COMMAND_LINES=$(shell ldd test-command | grep -sq 'not a dynamic executable' || echo 1) \
 	SKIP_TEST_ZEROFREE=$(shell test -x ../initramfs/usr/sbin/zerofree || echo 1) \
 	SKIP_TEST_NTFS_3G_PROBE=$(shell test -x ../initramfs/bin/ntfs-3g.probe || echo 1) \
+	SKIP_TEST_CHECKSUM_8=$(shell if test `find ../initramfs -name squashfs.ko | wc -l` -eq 0; then echo 1; fi) \
 	$(VG)
 
 # Run the tests under valgrind.
