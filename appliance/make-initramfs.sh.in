@@ -97,6 +97,10 @@ rm -f $koutput
   -a ! -name 'dm-*.ko' \
   -a ! -name 'cramfs.ko' \
   -a ! -name 'squashfs.ko' \
+  -a ! -name 'hfsplus.ko' \
+  -a ! -name 'ufs.ko' \
+  -a ! -name 'exportfs.ko' \
+  -a ! -name 'xfs.ko' \
   -a -print0 ) |
   xargs -0 @FEBOOTSTRAP_RUN@ initramfs -- rm
 
