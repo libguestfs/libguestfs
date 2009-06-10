@@ -48,7 +48,7 @@ input_to_nul (FILE *fp, char *buf, int maxlen)
 }
 
 char **
-do_find (const char *dir)
+do_find (char *dir)
 {
   struct stat statbuf;
   int r, len, sysrootdirlen;

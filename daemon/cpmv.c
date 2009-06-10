@@ -28,19 +28,19 @@
 static int cpmv_cmd (const char *cmd, const char *flags, const char *src, const char *dest);
 
 int
-do_cp (const char *src, const char *dest)
+do_cp (char *src, char *dest)
 {
   return cpmv_cmd ("cp", NULL, src, dest);
 }
 
 int
-do_cp_a (const char *src, const char *dest)
+do_cp_a (char *src, char *dest)
 {
   return cpmv_cmd ("cp", "-a", src, dest);
 }
 
 int
-do_mv (const char *src, const char *dest)
+do_mv (char *src, char *dest)
 {
   return cpmv_cmd ("mv", NULL, src, dest);
 }

@@ -26,7 +26,7 @@
 #include "actions.h"
 
 char *
-do_hexdump (const char *path)
+do_hexdump (char *path)
 {
   int len;
   char *buf;

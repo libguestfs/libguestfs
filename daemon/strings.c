@@ -26,7 +26,7 @@
 #include "actions.h"
 
 char **
-do_strings_e (const char *encoding, const char *path)
+do_strings_e (char *encoding, char *path)
 {
   int len;
   char *buf;
@@ -68,7 +68,7 @@ do_strings_e (const char *encoding, const char *path)
 }
 
 char **
-do_strings (const char *path)
+do_strings (char *path)
 {
   return do_strings_e ("s", path);
 }

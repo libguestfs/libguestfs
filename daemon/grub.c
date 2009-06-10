@@ -26,7 +26,7 @@
 #include "actions.h"
 
 int
-do_grub_install (const char *root, const char *device)
+do_grub_install (char *root, char *device)
 {
   int r, len;
   char *err;

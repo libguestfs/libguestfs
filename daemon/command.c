@@ -27,7 +27,7 @@
 #include "actions.h"
 
 char *
-do_command (char * const * const argv)
+do_command (char **argv)
 {
   char *out, *err;
   int r;
@@ -84,7 +84,7 @@ do_command (char * const * const argv)
 }
 
 char **
-do_command_lines (char * const * const argv)
+do_command_lines (char **argv)
 {
   char *out;
   char **lines;

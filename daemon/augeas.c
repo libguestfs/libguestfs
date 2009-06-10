@@ -49,7 +49,7 @@ static augeas *aug = NULL;
 
 /* We need to rewrite the root path so it is based at /sysroot. */
 int
-do_aug_init (const char *root, int flags)
+do_aug_init (char *root, int flags)
 {
 #ifdef HAVE_AUGEAS
   char *buf;
@@ -103,7 +103,7 @@ do_aug_close (void)
 }
 
 int
-do_aug_defvar (const char *name, const char *expr)
+do_aug_defvar (char *name, char *expr)
 {
 #ifdef HAVE_AUG_DEFVAR
   int r;
@@ -123,7 +123,7 @@ do_aug_defvar (const char *name, const char *expr)
 }
 
 guestfs_aug_defnode_ret *
-do_aug_defnode (const char *name, const char *expr, const char *val)
+do_aug_defnode (char *name, char *expr, char *val)
 {
 #ifdef HAVE_AUG_DEFNODE
   static guestfs_aug_defnode_ret r;
@@ -145,7 +145,7 @@ do_aug_defnode (const char *name, const char *expr, const char *val)
 }
 
 char *
-do_aug_get (const char *path)
+do_aug_get (char *path)
 {
 #ifdef HAVE_AUGEAS
   const char *value = NULL;
@@ -188,7 +188,7 @@ do_aug_get (const char *path)
 }
 
 int
-do_aug_set (const char *path, const char *val)
+do_aug_set (char *path, char *val)
 {
 #ifdef HAVE_AUGEAS
   int r;
@@ -209,7 +209,7 @@ do_aug_set (const char *path, const char *val)
 }
 
 int
-do_aug_insert (const char *path, const char *label, int before)
+do_aug_insert (char *path, char *label, int before)
 {
 #ifdef HAVE_AUGEAS
   int r;
@@ -230,7 +230,7 @@ do_aug_insert (const char *path, const char *label, int before)
 }
 
 int
-do_aug_rm (const char *path)
+do_aug_rm (char *path)
 {
 #ifdef HAVE_AUGEAS
   int r;
@@ -251,7 +251,7 @@ do_aug_rm (const char *path)
 }
 
 int
-do_aug_mv (const char *src, const char *dest)
+do_aug_mv (char *src, char *dest)
 {
 #ifdef HAVE_AUGEAS
   int r;
@@ -272,7 +272,7 @@ do_aug_mv (const char *src, const char *dest)
 }
 
 char **
-do_aug_match (const char *path)
+do_aug_match (char *path)
 {
 #ifdef HAVE_AUGEAS
   char **matches = NULL;
@@ -344,7 +344,7 @@ do_aug_load (void)
 
 /* Simpler version of aug-match, which also sorts the output. */
 char **
-do_aug_ls (const char *path)
+do_aug_ls (char *path)
 {
 #ifdef HAVE_AUGEAS
   char **matches;
