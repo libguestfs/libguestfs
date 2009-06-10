@@ -143,13 +143,6 @@ can easily destroy all your data>."
  *
  * Between each test we blockdev-setrw, umount-all, lvm-remove-all.
  *
- * If the appliance is running an older Linux kernel (eg. RHEL 5) then
- * devices are named /dev/hda etc.  To cope with this, the test suite
- * adds some hairly logic to detect this case, and then automagically
- * replaces all strings which match "/dev/sd.*" with "/dev/hd.*".
- * When writing test cases you shouldn't have to worry about this
- * difference.
- *
  * Don't assume anything about the previous contents of the block
  * devices.  Use 'Init*' to create some initial scenarios.
  *
