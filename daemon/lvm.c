@@ -176,6 +176,8 @@ do_pvcreate (const char *device)
   char *err;
   int r;
 
+  IS_DEVICE (device, -1);
+
   r = command (NULL, &err,
 	       "/sbin/lvm", "pvcreate", device, NULL);
   if (r == -1) {
@@ -194,6 +196,8 @@ do_vgcreate (const char *volgroup, char * const* const physvols)
   char *err;
   int r, argc, i;
   const char **argv;
+
+  Xphysvols;
 
   argc = count_strings (physvols) + 3;
   argv = malloc (sizeof (char *) * (argc + 1));
@@ -335,6 +339,8 @@ do_lvremove (const char *device)
   char *err;
   int r;
 
+  IS_DEVICE (device, -1);
+
   r = command (NULL, &err,
 	       "/sbin/lvm", "lvremove", "-f", device, NULL);
   if (r == -1) {
@@ -352,6 +358,8 @@ do_vgremove (const char *device)
 {
   char *err;
   int r;
+
+  IS_DEVICE (device, -1);
 
   r = command (NULL, &err,
 	       "/sbin/lvm", "vgremove", "-f", device, NULL);
@@ -371,6 +379,8 @@ do_pvremove (const char *device)
   char *err;
   int r;
 
+  IS_DEVICE (device, -1);
+
   r = command (NULL, &err,
 	       "/sbin/lvm", "pvremove", "-ff", device, NULL);
   if (r == -1) {
@@ -388,6 +398,8 @@ do_pvresize (const char *device)
 {
   char *err;
   int r;
+
+  IS_DEVICE (device, -1);
 
   r = command (NULL, &err,
 	       "/sbin/lvm", "pvresize", device, NULL);

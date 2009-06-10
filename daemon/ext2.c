@@ -122,6 +122,8 @@ do_set_e2label (const char *device, const char *label)
   int r;
   char *err;
 
+  IS_DEVICE (device, -1);
+
   r = command (NULL, &err, "/sbin/e2label", device, label, NULL);
   if (r == -1) {
     reply_with_error ("e2label: %s", err);
@@ -138,6 +140,8 @@ do_get_e2label (const char *device)
 {
   int r, len;
   char *out, *err;
+
+  IS_DEVICE (device, NULL);
 
   r = command (&out, &err, "/sbin/e2label", device, NULL);
   if (r == -1) {
@@ -163,6 +167,8 @@ do_set_e2uuid (const char *device, const char *uuid)
   int r;
   char *err;
 
+  IS_DEVICE (device, -1);
+
   r = command (NULL, &err, "/sbin/tune2fs", "-U", uuid, device, NULL);
   if (r == -1) {
     reply_with_error ("tune2fs -U: %s", err);
@@ -179,6 +185,8 @@ do_get_e2uuid (const char *device)
 {
   int r;
   char *out, *err, *p, *q;
+
+  IS_DEVICE (device, NULL);
 
   /* It's not so straightforward to get the volume UUID.  We have
    * to use tune2fs -l and then look for a particular string in

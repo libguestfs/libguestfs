@@ -46,6 +46,8 @@ do_mount_vfs (const char *options, const char *vfstype,
   char *mp;
   char *error;
 
+  IS_DEVICE (device, -1);
+
   is_root = strcmp (mountpoint, "/") == 0;
 
   if (!root_mounted && !is_root) {
@@ -110,9 +112,10 @@ do_umount (const char *pathordevice)
   char *buf;
   char *err;
 
-  if (strncmp (pathordevice, "/dev/", 5) == 0)
-    buf = (char *) pathordevice;
-  else {
+  if (strncmp (pathordevice, "/dev/", 5) == 0) {
+    buf = pathordevice;
+    IS_DEVICE (buf, -1);
+  } else {
     len = strlen (pathordevice) + 9;
     freeit = 1;
     buf = malloc (len);
