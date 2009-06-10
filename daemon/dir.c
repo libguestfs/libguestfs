@@ -30,7 +30,7 @@
 #include "actions.h"
 
 int
-do_rmdir (const char *path)
+do_rmdir (char *path)
 {
   int r;
 
@@ -54,7 +54,7 @@ do_rmdir (const char *path)
  * do stupid stuff, who are we to try to stop them?
  */
 int
-do_rm_rf (const char *path)
+do_rm_rf (char *path)
 {
   int r, len;
   char *buf, *err;
@@ -92,7 +92,7 @@ do_rm_rf (const char *path)
 }
 
 int
-do_mkdir (const char *path)
+do_mkdir (char *path)
 {
   int r;
 
@@ -158,7 +158,7 @@ recursive_mkdir (const char *path)
 }
 
 int
-do_mkdir_p (const char *path)
+do_mkdir_p (char *path)
 {
   int r;
 
@@ -178,7 +178,7 @@ do_mkdir_p (const char *path)
 }
 
 int
-do_is_dir (const char *path)
+do_is_dir (char *path)
 {
   int r;
   struct stat buf;

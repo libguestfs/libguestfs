@@ -30,7 +30,7 @@
 #include "actions.h"
 
 static int
-sfdisk (const char *device, int n, int cyls, int heads, int sectors,
+sfdisk (char *device, int n, int cyls, int heads, int sectors,
 	char * const* const lines)
 {
   FILE *fp;
@@ -78,15 +78,15 @@ sfdisk (const char *device, int n, int cyls, int heads, int sectors,
 }
 
 int
-do_sfdisk (const char *device, int cyls, int heads, int sectors,
-	   char * const* const lines)
+do_sfdisk (char *device, int cyls, int heads, int sectors,
+	   char **lines)
 {
   return sfdisk (device, 0, cyls, heads, sectors, lines);
 }
 
 int
-do_sfdisk_N (const char *device, int n, int cyls, int heads, int sectors,
-	     const char *line)
+do_sfdisk_N (char *device, int n, int cyls, int heads, int sectors,
+	     char *line)
 {
   const char *lines[2] = { line, NULL };
 
@@ -94,7 +94,7 @@ do_sfdisk_N (const char *device, int n, int cyls, int heads, int sectors,
 }
 
 static char *
-sfdisk_flag (const char *device, const char *flag)
+sfdisk_flag (char *device, const char *flag)
 {
   char *out, *err;
   int r;
@@ -115,19 +115,19 @@ sfdisk_flag (const char *device, const char *flag)
 }
 
 char *
-do_sfdisk_l (const char *device)
+do_sfdisk_l (char *device)
 {
   return sfdisk_flag (device, "-l");
 }
 
 char *
-do_sfdisk_kernel_geometry (const char *device)
+do_sfdisk_kernel_geometry (char *device)
 {
   return sfdisk_flag (device, "-g");
 }
 
 char *
-do_sfdisk_disk_geometry (const char *device)
+do_sfdisk_disk_geometry (char *device)
 {
   return sfdisk_flag (device, "-G");
 }

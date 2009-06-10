@@ -37,8 +37,8 @@ static void mount_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_mount_args args;
-  const char *device;
-  const char *mountpoint;
+  char *device;
+  char *mountpoint;
 
   memset (&args, 0, sizeof args);
 
@@ -76,7 +76,7 @@ static void touch_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_touch_args args;
-  const char *path;
+  char *path;
 
   memset (&args, 0, sizeof args);
 
@@ -100,7 +100,7 @@ static void cat_stub (XDR *xdr_in)
 {
   char *r;
   struct guestfs_cat_args args;
-  const char *path;
+  char *path;
 
   memset (&args, 0, sizeof args);
 
@@ -127,7 +127,7 @@ static void ll_stub (XDR *xdr_in)
 {
   char *r;
   struct guestfs_ll_args args;
-  const char *directory;
+  char *directory;
 
   memset (&args, 0, sizeof args);
 
@@ -154,7 +154,7 @@ static void ls_stub (XDR *xdr_in)
 {
   char **r;
   struct guestfs_ls_args args;
-  const char *directory;
+  char *directory;
 
   memset (&args, 0, sizeof args);
 
@@ -315,7 +315,7 @@ static void read_lines_stub (XDR *xdr_in)
 {
   char **r;
   struct guestfs_read_lines_args args;
-  const char *path;
+  char *path;
 
   memset (&args, 0, sizeof args);
 
@@ -343,7 +343,7 @@ static void aug_init_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_aug_init_args args;
-  const char *root;
+  char *root;
   int flags;
 
   memset (&args, 0, sizeof args);
@@ -382,8 +382,8 @@ static void aug_defvar_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_aug_defvar_args args;
-  const char *name;
-  const char *expr;
+  char *name;
+  char *expr;
 
   memset (&args, 0, sizeof args);
 
@@ -410,9 +410,9 @@ static void aug_defnode_stub (XDR *xdr_in)
 {
   guestfs_aug_defnode_ret *r;
   struct guestfs_aug_defnode_args args;
-  const char *name;
-  const char *expr;
-  const char *val;
+  char *name;
+  char *expr;
+  char *val;
 
   memset (&args, 0, sizeof args);
 
@@ -439,7 +439,7 @@ static void aug_get_stub (XDR *xdr_in)
 {
   char *r;
   struct guestfs_aug_get_args args;
-  const char *path;
+  char *path;
 
   memset (&args, 0, sizeof args);
 
@@ -466,8 +466,8 @@ static void aug_set_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_aug_set_args args;
-  const char *path;
-  const char *val;
+  char *path;
+  char *val;
 
   memset (&args, 0, sizeof args);
 
@@ -492,8 +492,8 @@ static void aug_insert_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_aug_insert_args args;
-  const char *path;
-  const char *label;
+  char *path;
+  char *label;
   int before;
 
   memset (&args, 0, sizeof args);
@@ -520,7 +520,7 @@ static void aug_rm_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_aug_rm_args args;
-  const char *path;
+  char *path;
 
   memset (&args, 0, sizeof args);
 
@@ -546,8 +546,8 @@ static void aug_mv_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_aug_mv_args args;
-  const char *src;
-  const char *dest;
+  char *src;
+  char *dest;
 
   memset (&args, 0, sizeof args);
 
@@ -572,7 +572,7 @@ static void aug_match_stub (XDR *xdr_in)
 {
   char **r;
   struct guestfs_aug_match_args args;
-  const char *path;
+  char *path;
 
   memset (&args, 0, sizeof args);
 
@@ -626,7 +626,7 @@ static void aug_ls_stub (XDR *xdr_in)
 {
   char **r;
   struct guestfs_aug_ls_args args;
-  const char *path;
+  char *path;
 
   memset (&args, 0, sizeof args);
 
@@ -654,7 +654,7 @@ static void rm_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_rm_args args;
-  const char *path;
+  char *path;
 
   memset (&args, 0, sizeof args);
 
@@ -678,7 +678,7 @@ static void rmdir_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_rmdir_args args;
-  const char *path;
+  char *path;
 
   memset (&args, 0, sizeof args);
 
@@ -702,7 +702,7 @@ static void rm_rf_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_rm_rf_args args;
-  const char *path;
+  char *path;
 
   memset (&args, 0, sizeof args);
 
@@ -726,7 +726,7 @@ static void mkdir_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_mkdir_args args;
-  const char *path;
+  char *path;
 
   memset (&args, 0, sizeof args);
 
@@ -750,7 +750,7 @@ static void mkdir_p_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_mkdir_p_args args;
-  const char *path;
+  char *path;
 
   memset (&args, 0, sizeof args);
 
@@ -775,7 +775,7 @@ static void chmod_stub (XDR *xdr_in)
   int r;
   struct guestfs_chmod_args args;
   int mode;
-  const char *path;
+  char *path;
 
   memset (&args, 0, sizeof args);
 
@@ -802,7 +802,7 @@ static void chown_stub (XDR *xdr_in)
   struct guestfs_chown_args args;
   int owner;
   int group;
-  const char *path;
+  char *path;
 
   memset (&args, 0, sizeof args);
 
@@ -828,7 +828,7 @@ static void exists_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_exists_args args;
-  const char *path;
+  char *path;
 
   memset (&args, 0, sizeof args);
 
@@ -854,7 +854,7 @@ static void is_file_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_is_file_args args;
-  const char *path;
+  char *path;
 
   memset (&args, 0, sizeof args);
 
@@ -880,7 +880,7 @@ static void is_dir_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_is_dir_args args;
-  const char *path;
+  char *path;
 
   memset (&args, 0, sizeof args);
 
@@ -906,7 +906,7 @@ static void pvcreate_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_pvcreate_args args;
-  const char *device;
+  char *device;
 
   memset (&args, 0, sizeof args);
 
@@ -930,7 +930,7 @@ static void vgcreate_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_vgcreate_args args;
-  const char *volgroup;
+  char *volgroup;
   char **physvols;
 
   memset (&args, 0, sizeof args);
@@ -963,8 +963,8 @@ static void lvcreate_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_lvcreate_args args;
-  const char *logvol;
-  const char *volgroup;
+  char *logvol;
+  char *volgroup;
   int mbytes;
 
   memset (&args, 0, sizeof args);
@@ -991,8 +991,8 @@ static void mkfs_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_mkfs_args args;
-  const char *fstype;
-  const char *device;
+  char *fstype;
+  char *device;
 
   memset (&args, 0, sizeof args);
 
@@ -1017,7 +1017,7 @@ static void sfdisk_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_sfdisk_args args;
-  const char *device;
+  char *device;
   int cyls;
   int heads;
   int sectors;
@@ -1056,8 +1056,8 @@ static void write_file_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_write_file_args args;
-  const char *path;
-  const char *content;
+  char *path;
+  char *content;
   int size;
 
   memset (&args, 0, sizeof args);
@@ -1084,7 +1084,7 @@ static void umount_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_umount_args args;
-  const char *pathordevice;
+  char *pathordevice;
 
   memset (&args, 0, sizeof args);
 
@@ -1151,7 +1151,7 @@ static void file_stub (XDR *xdr_in)
 {
   char *r;
   struct guestfs_file_args args;
-  const char *path;
+  char *path;
 
   memset (&args, 0, sizeof args);
 
@@ -1247,7 +1247,7 @@ static void stat_stub (XDR *xdr_in)
 {
   guestfs_int_stat *r;
   struct guestfs_stat_args args;
-  const char *path;
+  char *path;
 
   memset (&args, 0, sizeof args);
 
@@ -1274,7 +1274,7 @@ static void lstat_stub (XDR *xdr_in)
 {
   guestfs_int_stat *r;
   struct guestfs_lstat_args args;
-  const char *path;
+  char *path;
 
   memset (&args, 0, sizeof args);
 
@@ -1301,7 +1301,7 @@ static void statvfs_stub (XDR *xdr_in)
 {
   guestfs_int_statvfs *r;
   struct guestfs_statvfs_args args;
-  const char *path;
+  char *path;
 
   memset (&args, 0, sizeof args);
 
@@ -1328,7 +1328,7 @@ static void tune2fs_l_stub (XDR *xdr_in)
 {
   char **r;
   struct guestfs_tune2fs_l_args args;
-  const char *device;
+  char *device;
 
   memset (&args, 0, sizeof args);
 
@@ -1356,7 +1356,7 @@ static void blockdev_setro_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_blockdev_setro_args args;
-  const char *device;
+  char *device;
 
   memset (&args, 0, sizeof args);
 
@@ -1380,7 +1380,7 @@ static void blockdev_setrw_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_blockdev_setrw_args args;
-  const char *device;
+  char *device;
 
   memset (&args, 0, sizeof args);
 
@@ -1404,7 +1404,7 @@ static void blockdev_getro_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_blockdev_getro_args args;
-  const char *device;
+  char *device;
 
   memset (&args, 0, sizeof args);
 
@@ -1430,7 +1430,7 @@ static void blockdev_getss_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_blockdev_getss_args args;
-  const char *device;
+  char *device;
 
   memset (&args, 0, sizeof args);
 
@@ -1456,7 +1456,7 @@ static void blockdev_getbsz_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_blockdev_getbsz_args args;
-  const char *device;
+  char *device;
 
   memset (&args, 0, sizeof args);
 
@@ -1482,7 +1482,7 @@ static void blockdev_setbsz_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_blockdev_setbsz_args args;
-  const char *device;
+  char *device;
   int blocksize;
 
   memset (&args, 0, sizeof args);
@@ -1508,7 +1508,7 @@ static void blockdev_getsz_stub (XDR *xdr_in)
 {
   int64_t r;
   struct guestfs_blockdev_getsz_args args;
-  const char *device;
+  char *device;
 
   memset (&args, 0, sizeof args);
 
@@ -1534,7 +1534,7 @@ static void blockdev_getsize64_stub (XDR *xdr_in)
 {
   int64_t r;
   struct guestfs_blockdev_getsize64_args args;
-  const char *device;
+  char *device;
 
   memset (&args, 0, sizeof args);
 
@@ -1560,7 +1560,7 @@ static void blockdev_flushbufs_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_blockdev_flushbufs_args args;
-  const char *device;
+  char *device;
 
   memset (&args, 0, sizeof args);
 
@@ -1584,7 +1584,7 @@ static void blockdev_rereadpt_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_blockdev_rereadpt_args args;
-  const char *device;
+  char *device;
 
   memset (&args, 0, sizeof args);
 
@@ -1608,7 +1608,7 @@ static void upload_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_upload_args args;
-  const char *remotefilename;
+  char *remotefilename;
 
   memset (&args, 0, sizeof args);
 
@@ -1632,7 +1632,7 @@ static void download_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_download_args args;
-  const char *remotefilename;
+  char *remotefilename;
 
   memset (&args, 0, sizeof args);
 
@@ -1656,8 +1656,8 @@ static void checksum_stub (XDR *xdr_in)
 {
   char *r;
   struct guestfs_checksum_args args;
-  const char *csumtype;
-  const char *path;
+  char *csumtype;
+  char *path;
 
   memset (&args, 0, sizeof args);
 
@@ -1685,7 +1685,7 @@ static void tar_in_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_tar_in_args args;
-  const char *directory;
+  char *directory;
 
   memset (&args, 0, sizeof args);
 
@@ -1709,7 +1709,7 @@ static void tar_out_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_tar_out_args args;
-  const char *directory;
+  char *directory;
 
   memset (&args, 0, sizeof args);
 
@@ -1733,7 +1733,7 @@ static void tgz_in_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_tgz_in_args args;
-  const char *directory;
+  char *directory;
 
   memset (&args, 0, sizeof args);
 
@@ -1757,7 +1757,7 @@ static void tgz_out_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_tgz_out_args args;
-  const char *directory;
+  char *directory;
 
   memset (&args, 0, sizeof args);
 
@@ -1781,8 +1781,8 @@ static void mount_ro_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_mount_ro_args args;
-  const char *device;
-  const char *mountpoint;
+  char *device;
+  char *mountpoint;
 
   memset (&args, 0, sizeof args);
 
@@ -1807,9 +1807,9 @@ static void mount_options_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_mount_options_args args;
-  const char *options;
-  const char *device;
-  const char *mountpoint;
+  char *options;
+  char *device;
+  char *mountpoint;
 
   memset (&args, 0, sizeof args);
 
@@ -1835,10 +1835,10 @@ static void mount_vfs_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_mount_vfs_args args;
-  const char *options;
-  const char *vfstype;
-  const char *device;
-  const char *mountpoint;
+  char *options;
+  char *vfstype;
+  char *device;
+  char *mountpoint;
 
   memset (&args, 0, sizeof args);
 
@@ -1865,7 +1865,7 @@ static void debug_stub (XDR *xdr_in)
 {
   char *r;
   struct guestfs_debug_args args;
-  const char *subcmd;
+  char *subcmd;
   char **extraargs;
 
   memset (&args, 0, sizeof args);
@@ -1901,7 +1901,7 @@ static void lvremove_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_lvremove_args args;
-  const char *device;
+  char *device;
 
   memset (&args, 0, sizeof args);
 
@@ -1925,7 +1925,7 @@ static void vgremove_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_vgremove_args args;
-  const char *vgname;
+  char *vgname;
 
   memset (&args, 0, sizeof args);
 
@@ -1949,7 +1949,7 @@ static void pvremove_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_pvremove_args args;
-  const char *device;
+  char *device;
 
   memset (&args, 0, sizeof args);
 
@@ -1973,8 +1973,8 @@ static void set_e2label_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_set_e2label_args args;
-  const char *device;
-  const char *label;
+  char *device;
+  char *label;
 
   memset (&args, 0, sizeof args);
 
@@ -1999,7 +1999,7 @@ static void get_e2label_stub (XDR *xdr_in)
 {
   char *r;
   struct guestfs_get_e2label_args args;
-  const char *device;
+  char *device;
 
   memset (&args, 0, sizeof args);
 
@@ -2026,8 +2026,8 @@ static void set_e2uuid_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_set_e2uuid_args args;
-  const char *device;
-  const char *uuid;
+  char *device;
+  char *uuid;
 
   memset (&args, 0, sizeof args);
 
@@ -2052,7 +2052,7 @@ static void get_e2uuid_stub (XDR *xdr_in)
 {
   char *r;
   struct guestfs_get_e2uuid_args args;
-  const char *device;
+  char *device;
 
   memset (&args, 0, sizeof args);
 
@@ -2079,8 +2079,8 @@ static void fsck_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_fsck_args args;
-  const char *fstype;
-  const char *device;
+  char *fstype;
+  char *device;
 
   memset (&args, 0, sizeof args);
 
@@ -2107,7 +2107,7 @@ static void zero_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_zero_args args;
-  const char *device;
+  char *device;
 
   memset (&args, 0, sizeof args);
 
@@ -2131,8 +2131,8 @@ static void grub_install_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_grub_install_args args;
-  const char *root;
-  const char *device;
+  char *root;
+  char *device;
 
   memset (&args, 0, sizeof args);
 
@@ -2157,8 +2157,8 @@ static void cp_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_cp_args args;
-  const char *src;
-  const char *dest;
+  char *src;
+  char *dest;
 
   memset (&args, 0, sizeof args);
 
@@ -2183,8 +2183,8 @@ static void cp_a_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_cp_a_args args;
-  const char *src;
-  const char *dest;
+  char *src;
+  char *dest;
 
   memset (&args, 0, sizeof args);
 
@@ -2209,8 +2209,8 @@ static void mv_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_mv_args args;
-  const char *src;
-  const char *dest;
+  char *src;
+  char *dest;
 
   memset (&args, 0, sizeof args);
 
@@ -2288,8 +2288,8 @@ static void equal_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_equal_args args;
-  const char *file1;
-  const char *file2;
+  char *file1;
+  char *file2;
 
   memset (&args, 0, sizeof args);
 
@@ -2316,7 +2316,7 @@ static void strings_stub (XDR *xdr_in)
 {
   char **r;
   struct guestfs_strings_args args;
-  const char *path;
+  char *path;
 
   memset (&args, 0, sizeof args);
 
@@ -2344,8 +2344,8 @@ static void strings_e_stub (XDR *xdr_in)
 {
   char **r;
   struct guestfs_strings_e_args args;
-  const char *encoding;
-  const char *path;
+  char *encoding;
+  char *path;
 
   memset (&args, 0, sizeof args);
 
@@ -2374,7 +2374,7 @@ static void hexdump_stub (XDR *xdr_in)
 {
   char *r;
   struct guestfs_hexdump_args args;
-  const char *path;
+  char *path;
 
   memset (&args, 0, sizeof args);
 
@@ -2401,7 +2401,7 @@ static void zerofree_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_zerofree_args args;
-  const char *device;
+  char *device;
 
   memset (&args, 0, sizeof args);
 
@@ -2425,7 +2425,7 @@ static void pvresize_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_pvresize_args args;
-  const char *device;
+  char *device;
 
   memset (&args, 0, sizeof args);
 
@@ -2449,12 +2449,12 @@ static void sfdisk_N_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_sfdisk_N_args args;
-  const char *device;
+  char *device;
   int n;
   int cyls;
   int heads;
   int sectors;
-  const char *line;
+  char *line;
 
   memset (&args, 0, sizeof args);
 
@@ -2483,7 +2483,7 @@ static void sfdisk_l_stub (XDR *xdr_in)
 {
   char *r;
   struct guestfs_sfdisk_l_args args;
-  const char *device;
+  char *device;
 
   memset (&args, 0, sizeof args);
 
@@ -2510,7 +2510,7 @@ static void sfdisk_kernel_geometry_stub (XDR *xdr_in)
 {
   char *r;
   struct guestfs_sfdisk_kernel_geometry_args args;
-  const char *device;
+  char *device;
 
   memset (&args, 0, sizeof args);
 
@@ -2537,7 +2537,7 @@ static void sfdisk_disk_geometry_stub (XDR *xdr_in)
 {
   char *r;
   struct guestfs_sfdisk_disk_geometry_args args;
-  const char *device;
+  char *device;
 
   memset (&args, 0, sizeof args);
 
@@ -2621,7 +2621,7 @@ static void lvresize_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_lvresize_args args;
-  const char *device;
+  char *device;
   int mbytes;
 
   memset (&args, 0, sizeof args);
@@ -2647,7 +2647,7 @@ static void resize2fs_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_resize2fs_args args;
-  const char *device;
+  char *device;
 
   memset (&args, 0, sizeof args);
 
@@ -2671,7 +2671,7 @@ static void find_stub (XDR *xdr_in)
 {
   char **r;
   struct guestfs_find_args args;
-  const char *directory;
+  char *directory;
 
   memset (&args, 0, sizeof args);
 
@@ -2699,7 +2699,7 @@ static void e2fsck_f_stub (XDR *xdr_in)
 {
   int r;
   struct guestfs_e2fsck_f_args args;
-  const char *device;
+  char *device;
 
   memset (&args, 0, sizeof args);
 
@@ -2748,7 +2748,7 @@ static void ntfs_3g_probe_stub (XDR *xdr_in)
   int r;
   struct guestfs_ntfs_3g_probe_args args;
   int rw;
-  const char *device;
+  char *device;
 
   memset (&args, 0, sizeof args);
 

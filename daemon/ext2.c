@@ -28,7 +28,7 @@
 #include "actions.h"
 
 char **
-do_tune2fs_l (const char *device)
+do_tune2fs_l (char *device)
 {
   int r;
   char *out, *err;
@@ -117,7 +117,7 @@ do_tune2fs_l (const char *device)
 }
 
 int
-do_set_e2label (const char *device, const char *label)
+do_set_e2label (char *device, char *label)
 {
   int r;
   char *err;
@@ -136,7 +136,7 @@ do_set_e2label (const char *device, const char *label)
 }
 
 char *
-do_get_e2label (const char *device)
+do_get_e2label (char *device)
 {
   int r, len;
   char *out, *err;
@@ -162,7 +162,7 @@ do_get_e2label (const char *device)
 }
 
 int
-do_set_e2uuid (const char *device, const char *uuid)
+do_set_e2uuid (char *device, char *uuid)
 {
   int r;
   char *err;
@@ -181,7 +181,7 @@ do_set_e2uuid (const char *device, const char *uuid)
 }
 
 char *
-do_get_e2uuid (const char *device)
+do_get_e2uuid (char *device)
 {
   int r;
   char *out, *err, *p, *q;
@@ -244,7 +244,7 @@ do_get_e2uuid (const char *device)
 }
 
 int
-do_resize2fs (const char *device)
+do_resize2fs (char *device)
 {
   char *err;
   int r;
@@ -263,7 +263,7 @@ do_resize2fs (const char *device)
 }
 
 int
-do_e2fsck_f (const char *device)
+do_e2fsck_f (char *device)
 {
   char *err;
   int r;

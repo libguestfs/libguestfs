@@ -31,7 +31,7 @@
 #include "actions.h"
 
 guestfs_int_stat *
-do_stat (const char *path)
+do_stat (char *path)
 {
   int r;
   guestfs_int_stat *ret;
@@ -73,7 +73,7 @@ do_stat (const char *path)
 }
 
 guestfs_int_stat *
-do_lstat (const char *path)
+do_lstat (char *path)
 {
   int r;
   guestfs_int_stat *ret;
@@ -115,7 +115,7 @@ do_lstat (const char *path)
 }
 
 guestfs_int_statvfs *
-do_statvfs (const char *path)
+do_statvfs (char *path)
 {
   int r;
   guestfs_int_statvfs *ret;

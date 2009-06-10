@@ -28,7 +28,7 @@
 #include "actions.h"
 
 char *
-do_checksum (const char *csumtype, const char *path)
+do_checksum (char *csumtype, char *path)
 {
   const char *program;
   char *buf;

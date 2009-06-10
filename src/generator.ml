@@ -3496,8 +3496,12 @@ and generate_daemon_actions () =
 	   pr "  struct guestfs_%s_args args;\n" name;
 	   List.iter (
 	     function
+	       (* Note we allow the string to be writable, in order to
+		* allow device name translation.  This is safe because
+		* we can modify the string (passed from RPC).
+		*)
 	     | String n
-	     | OptString n -> pr "  const char *%s;\n" n
+	     | OptString n -> pr "  char *%s;\n" n
 	     | StringList n -> pr "  char **%s;\n" n
 	     | Bool n -> pr "  int %s;\n" n
 	     | Int n -> pr "  int %s;\n" n
@@ -4929,8 +4933,14 @@ and generate_prototype ?(extern = true) ?(static = false) ?(semicolon = true)
     List.iter (
       function
       | String n
-      | OptString n -> next (); pr "const char *%s" n
-      | StringList n -> next (); pr "char * const* const %s" n
+      | OptString n ->
+	  next ();
+	  if not in_daemon then pr "const char *%s" n
+	  else pr "char *%s" n
+      | StringList n ->
+	  next ();
+	  if not in_daemon then pr "char * const* const %s" n
+	  else pr "char **%s" n
       | Bool n -> next (); pr "int %s" n
       | Int n -> next (); pr "int %s" n
       | FileIn n

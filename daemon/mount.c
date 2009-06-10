@@ -39,8 +39,8 @@ int root_mounted = 0;
  */
 
 int
-do_mount_vfs (const char *options, const char *vfstype,
-	      const char *device, const char *mountpoint)
+do_mount_vfs (char *options, char *vfstype,
+	      char *device, char *mountpoint)
 {
   int len, r, is_root;
   char *mp;
@@ -84,20 +84,20 @@ do_mount_vfs (const char *options, const char *vfstype,
 }
 
 int
-do_mount (const char *device, const char *mountpoint)
+do_mount (char *device, char *mountpoint)
 {
   return do_mount_vfs ("sync,noatime", NULL, device, mountpoint);
 }
 
 int
-do_mount_ro (const char *device, const char *mountpoint)
+do_mount_ro (char *device, char *mountpoint)
 {
   return do_mount_vfs ("ro", NULL, device, mountpoint);
 }
 
 int
-do_mount_options (const char *options, const char *device,
-		  const char *mountpoint)
+do_mount_options (char *options, char *device,
+		  char *mountpoint)
 {
   return do_mount_vfs (options, NULL, device, mountpoint);
 }
@@ -106,7 +106,7 @@ do_mount_options (const char *options, const char *device,
  * is kept updated.
  */
 int
-do_umount (const char *pathordevice)
+do_umount (char *pathordevice)
 {
   int len, freeit = 0, r;
   char *buf;

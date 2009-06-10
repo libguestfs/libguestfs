@@ -61,7 +61,7 @@ static struct cmd cmds[] = {
 #endif
 
 char *
-do_debug (const char *subcmd, char *const *const argv)
+do_debug (char *subcmd, char **argv)
 {
 #if ENABLE_DEBUG_COMMAND
   int argc, i;

@@ -30,7 +30,7 @@
 #include "actions.h"
 
 char **
-do_ls (const char *path)
+do_ls (char *path)
 {
   char **r = NULL;
   int size = 0, alloc = 0;
@@ -75,7 +75,7 @@ do_ls (const char *path)
 }
 
 char *
-do_ll (const char *path)
+do_ll (char *path)
 {
   int r, len;
   char *out, *err;
