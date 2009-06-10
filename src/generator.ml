@@ -1662,7 +1662,10 @@ See also C<guestfs_upload>, C<guestfs_cat>.");
       [["write_file"; "/new"; "test\n"; "0"];
        ["checksum"; "sha512"; "/new"]], "0e3e75234abc68f4378a86b3f4b32a198ba301845b0cd6e50106e874345700cc6663a86c1ea125dc5e92be17c98f9a0f85ca9d5f595db2012f7cc3571945c123");
     InitBasicFS, Always, TestOutput (
-      [["mount"; "/dev/sdd"; "/"];
+      (* RHEL 5 thinks this is an HFS+ filesystem unless we give
+       * the type explicitly.
+       *)
+      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
        ["checksum"; "md5"; "/known-3"]], "46d6ca27ee07cdc6fa99c2e138cc522c")],
    "compute MD5, SHAx or CRC checksum of file",
    "\
