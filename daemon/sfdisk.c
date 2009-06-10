@@ -30,7 +30,7 @@
 #include "actions.h"
 
 static int
-sfdisk (const char *device, int n, int cyls, int heads, int sectors,
+sfdisk (char *device, int n, int cyls, int heads, int sectors,
 	char * const* const lines)
 {
   FILE *fp;
@@ -94,7 +94,7 @@ do_sfdisk_N (char *device, int n, int cyls, int heads, int sectors,
 }
 
 static char *
-sfdisk_flag (const char *device, const char *flag)
+sfdisk_flag (char *device, const char *flag)
 {
   char *out, *err;
   int r;
