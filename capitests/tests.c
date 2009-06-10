@@ -5794,11 +5794,13 @@ static int test_checksum_8 (void)
   /* TestOutput for checksum (8) */
   char expected[] = "46d6ca27ee07cdc6fa99c2e138cc522c";
   {
+    char options[] = "ro";
+    char vfstype[] = "squashfs";
     char device[] = "/dev/sdd";
     char mountpoint[] = "/";
     int r;
     suppress_error = 0;
-    r = guestfs_mount (g, device, mountpoint);
+    r = guestfs_mount_vfs (g, options, vfstype, device, mountpoint);
     if (r == -1)
       return -1;
   }
