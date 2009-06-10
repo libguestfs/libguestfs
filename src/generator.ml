@@ -143,13 +143,6 @@ can easily destroy all your data>."
  *
  * Between each test we blockdev-setrw, umount-all, lvm-remove-all.
  *
- * If the appliance is running an older Linux kernel (eg. RHEL 5) then
- * devices are named /dev/hda etc.  To cope with this, the test suite
- * adds some hairly logic to detect this case, and then automagically
- * replaces all strings which match "/dev/sd.*" with "/dev/hd.*".
- * When writing test cases you shouldn't have to worry about this
- * difference.
- *
  * Don't assume anything about the previous contents of the block
  * devices.  Use 'Init*' to create some initial scenarios.
  *
@@ -1662,7 +1655,10 @@ See also C<guestfs_upload>, C<guestfs_cat>.");
       [["write_file"; "/new"; "test\n"; "0"];
        ["checksum"; "sha512"; "/new"]], "0e3e75234abc68f4378a86b3f4b32a198ba301845b0cd6e50106e874345700cc6663a86c1ea125dc5e92be17c98f9a0f85ca9d5f595db2012f7cc3571945c123");
     InitBasicFS, Always, TestOutput (
-      [["mount"; "/dev/sdd"; "/"];
+      (* RHEL 5 thinks this is an HFS+ filesystem unless we give
+       * the type explicitly.
+       *)
+      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
        ["checksum"; "md5"; "/known-3"]], "46d6ca27ee07cdc6fa99c2e138cc522c")],
    "compute MD5, SHAx or CRC checksum of file",
    "\
