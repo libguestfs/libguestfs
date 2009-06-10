@@ -54,42 +54,6 @@ ie. CentOS 5.3, Fedora 11, Debian.
 
 ----------------------------------------------------------------------
 
-"Device independent" naming for devices.
-
-With a Fedora-based appliance, using libata driver, devices have
-"SCSI" names like /dev/sda.
-
-With an EPEL-based appliance, using old ide driver, devices have names
-like /dev/hda.
-
-If we use virtio_blk, devices will have names like /dev/vda.
-
-What a mess.
-
-So the idea would be to add a device independent naming scheme, such
-as the one used by grub:
-
-  "(hdX)"   X = 0 means 'a', X = 1 means 'b' and so on.
-  "(hdX,Y)" Device X, partition Y (in grub, this counts from 0 which is
-            deeply confusing).
-
-There would have to be a very simple rule.  If guestfsd was expecting
-a /dev block device or partition name, then the alternate form can be
-used, and we would just look it up using the normal output of
-guestfs_list_devices.
-
-Maybe best is to use /dev/sda as the "standard" naming.  That
-shouldn't cause conflicts in the appliance because we tightly control
-what drivers are available.
-
-Note there's a lot of hackery that currently exists in tests.c which
-could be *removed* if we made this change.
-
-Open: Should the substitution be done in the library layer or in the
-daemon?
-
-----------------------------------------------------------------------
-
 Qemu options -- After discussion with the KVM developers, they have
 recommended some flags which will improve the safety and reliability
 of KVM.  Need to test that these also work under qemu (or at least, do
