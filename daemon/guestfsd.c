@@ -33,6 +33,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
+#include <fcntl.h>
 #include <ctype.h>
 #include <signal.h>
 
@@ -691,30 +692,45 @@ shell_quote (char *out, int len, const char *in)
  * use the IS_DEVICE macro.
  *
  * See guestfs(3) for the algorithm.
+ *
+ * We have to open the device and test for ENODEV, because
+ * the device nodes themselves will exist in the appliance.
  */
 int
 device_name_translation (char *device, const char *func)
 {
-  struct stat statbuf;
+  int fd;
 
-  if (stat (device, &statbuf) == -1) {
-    /* If the name begins with "/dev/sd" then try the alternatives. */
-    if (strncmp (device, "/dev/sd", 7) != 0)
-      goto error;
+  fd = open (device, O_RDONLY);
+  if (fd >= 0) {
+    close (fd);
+    return 0;
+  }
 
-    device[5] = 'h';		/* /dev/hd (old IDE driver) */
-    if (stat (device, &statbuf) == 0)
-      return 0;
-
-    device[5] = 'v';		/* /dev/vd (for virtio devices) */
-    if (stat (device, &statbuf) == 0)
-      return 0;
-
-    device[5] = 's';		/* Restore original device name. */
-
-   error:
+  if (errno != ENODEV) {
+  error:
     reply_with_perror ("%s: %s", func, device);
     return -1;
   }
-  return 0;
+
+  /* If the name begins with "/dev/sd" then try the alternatives. */
+  if (strncmp (device, "/dev/sd", 7) != 0)
+    goto error;
+
+  device[5] = 'h';		/* /dev/hd (old IDE driver) */
+  fd = open (device, O_RDONLY);
+  if (fd >= 0) {
+    close (fd);
+    return 0;
+  }
+
+  device[5] = 'v';		/* /dev/vd (for virtio devices) */
+  fd = open (device, O_RDONLY);
+  if (fd >= 0) {
+    close (fd);
+    return 0;
+  }
+
+  device[5] = 's';		/* Restore original device name. */
+  goto error;
 }
