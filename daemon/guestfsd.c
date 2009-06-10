@@ -32,6 +32,7 @@
 #include <sys/select.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
 #include <ctype.h>
 #include <signal.h>
 
@@ -684,4 +685,36 @@ shell_quote (char *out, int len, const char *in)
   out[j] = '\0';
 
   return outlen;
+}
+
+/* Perform device name translation.  Don't call this directly -
+ * use the IS_DEVICE macro.
+ *
+ * See guestfs(3) for the algorithm.
+ */
+int
+device_name_translation (char *device, const char *func)
+{
+  struct stat statbuf;
+
+  if (stat (device, &statbuf) == -1) {
+    /* If the name begins with "/dev/sd" then try the alternatives. */
+    if (strncmp (device, "/dev/sd", 7) != 0)
+      goto error;
+
+    device[5] = 'h';		/* /dev/hd (old IDE driver) */
+    if (stat (device, &statbuf) == 0)
+      return 0;
+
+    device[5] = 'v';		/* /dev/vd (for virtio devices) */
+    if (stat (device, &statbuf) == 0)
+      return 0;
+
+    device[5] = 's';		/* Restore original device name. */
+
+   error:
+    reply_with_perror ("%s: %s", func, device);
+    return -1;
+  }
+  return 0;
 }

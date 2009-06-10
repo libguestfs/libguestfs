@@ -22,8 +22,6 @@
 #include <stdarg.h>
 #include <errno.h>
 #include <unistd.h>
-#include <sys/types.h>
-#include <sys/stat.h>
 
 #include <rpc/types.h>
 #include <rpc/xdr.h>
@@ -50,6 +48,8 @@ extern int commandrv (char **stdoutput, char **stderror,
 extern char **split_lines (char *str);
 
 extern int shell_quote (char *out, int len, const char *in);
+
+extern int device_name_translation (char *device, const char *func);
 
 extern int verbose;
 
@@ -120,20 +120,21 @@ extern void reply (xdrproc_t xdrp, char *ret);
     }									\
   } while (0)
 
-/* Helper for functions that need an argument ("path") that is a device.
+/* All functions that need an argument that is a device or partition name
+ * must call this macro.  It checks that the device exists and does
+ * device name translation (described in the guestfs(3) manpage).
+ * Note that the "path" argument may be modified.
+ *
  * NB. Cannot be used for FileIn functions.
  */
 #define IS_DEVICE(path,errcode)						\
   do {									\
-    struct stat statbuf;						\
     if (strncmp ((path), "/dev/", 5) != 0) {				\
       reply_with_error ("%s: %s: expecting a device name", __func__, (path)); \
       return (errcode);							\
     }									\
-    if (stat ((path), &statbuf) == -1) {				\
-      reply_with_perror ("%s: %s", __func__, (path));			\
+    if (device_name_translation ((path), __func__) == -1)		\
       return (errcode);							\
-    }									\
   } while (0)
 
 /* Helper for functions which need either an absolute path in the

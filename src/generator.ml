@@ -177,6 +177,12 @@ and test =
      *)
   | TestOutputList of seq * string list
     (* Run the command sequence and expect the output of the final
+     * command to be the list of block devices (could be either
+     * "/dev/sd.." or "/dev/hd.." form - we don't check the 5th
+     * character of each string).
+     *)
+  | TestOutputListOfDevices of seq * string list
+    (* Run the command sequence and expect the output of the final
      * command to be the integer.
      *)
   | TestOutputInt of seq * int
@@ -693,7 +699,7 @@ This command is mostly useful for interactive sessions.  Programs
 should probably use C<guestfs_readdir> instead.");
 
   ("list_devices", (RStringList "devices", []), 7, [],
-   [InitEmpty, Always, TestOutputList (
+   [InitEmpty, Always, TestOutputListOfDevices (
       [["list_devices"]], ["/dev/sda"; "/dev/sdb"; "/dev/sdc"; "/dev/sdd"])],
    "list the block devices",
    "\
@@ -702,9 +708,9 @@ List all the block devices.
 The full block device names are returned, eg. C</dev/sda>");
 
   ("list_partitions", (RStringList "partitions", []), 8, [],
-   [InitBasicFS, Always, TestOutputList (
+   [InitBasicFS, Always, TestOutputListOfDevices (
       [["list_partitions"]], ["/dev/sda1"]);
-    InitEmpty, Always, TestOutputList (
+    InitEmpty, Always, TestOutputListOfDevices (
       [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
        ["list_partitions"]], ["/dev/sda1"; "/dev/sda2"; "/dev/sda3"])],
    "list the partitions",
@@ -717,9 +723,9 @@ This does not return logical volumes.  For that you will need to
 call C<guestfs_lvs>.");
 
   ("pvs", (RStringList "physvols", []), 9, [],
-   [InitBasicFSonLVM, Always, TestOutputList (
+   [InitBasicFSonLVM, Always, TestOutputListOfDevices (
       [["pvs"]], ["/dev/sda1"]);
-    InitEmpty, Always, TestOutputList (
+    InitEmpty, Always, TestOutputListOfDevices (
       [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
@@ -1112,7 +1118,7 @@ other objects like files.
 See also C<guestfs_stat>.");
 
   ("pvcreate", (RErr, [String "device"]), 39, [],
-   [InitEmpty, Always, TestOutputList (
+   [InitEmpty, Always, TestOutputListOfDevices (
       [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
@@ -1235,7 +1241,7 @@ We hope to resolve this bug in a future version.  In the meantime
 use C<guestfs_upload>.");
 
   ("umount", (RErr, [String "pathordevice"]), 45, [FishAlias "unmount"],
-   [InitEmpty, Always, TestOutputList (
+   [InitEmpty, Always, TestOutputListOfDevices (
       [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
        ["mkfs"; "ext2"; "/dev/sda1"];
        ["mount"; "/dev/sda1"; "/"];
@@ -1253,7 +1259,7 @@ specified either by its mountpoint (path) or the device which
 contains the filesystem.");
 
   ("mounts", (RStringList "devices", []), 46, [],
-   [InitBasicFS, Always, TestOutputList (
+   [InitBasicFS, Always, TestOutputListOfDevices (
       [["mounts"]], ["/dev/sda1"])],
    "show mounted filesystems",
    "\
@@ -1842,7 +1848,7 @@ This also forcibly removes all logical volumes in the volume
 group (if any).");
 
   ("pvremove", (RErr, [String "device"]), 79, [],
-   [InitEmpty, Always, TestOutputList (
+   [InitEmpty, Always, TestOutputListOfDevices (
       [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
        ["pvcreate"; "/dev/sda1"];
        ["vgcreate"; "VG"; "/dev/sda1"];
@@ -1851,7 +1857,7 @@ group (if any).");
        ["vgremove"; "VG"];
        ["pvremove"; "/dev/sda1"];
        ["lvs"]], []);
-    InitEmpty, Always, TestOutputList (
+    InitEmpty, Always, TestOutputListOfDevices (
       [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
        ["pvcreate"; "/dev/sda1"];
        ["vgcreate"; "VG"; "/dev/sda1"];
@@ -1860,7 +1866,7 @@ group (if any).");
        ["vgremove"; "VG"];
        ["pvremove"; "/dev/sda1"];
        ["vgs"]], []);
-    InitEmpty, Always, TestOutputList (
+    InitEmpty, Always, TestOutputListOfDevices (
       [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
        ["pvcreate"; "/dev/sda1"];
        ["vgcreate"; "VG"; "/dev/sda1"];
@@ -2573,6 +2579,7 @@ let name_of_argt = function
 
 let seq_of_test = function
   | TestRun s | TestOutput (s, _) | TestOutputList (s, _)
+  | TestOutputListOfDevices (s, _)
   | TestOutputInt (s, _) | TestOutputTrue s | TestOutputFalse s
   | TestOutputLength (s, _) | TestOutputStruct (s, _)
   | TestLastFail s -> s
@@ -3812,11 +3819,6 @@ and generate_tests () =
 static guestfs_h *g;
 static int suppress_error = 0;
 
-/* This will be 's' or 'h' depending on whether the guest kernel
- * names IDE devices /dev/sd* or /dev/hd*.
- */
-static char devchar = 's';
-
 static void print_error (guestfs_h *g, void *data, const char *msg)
 {
   if (!suppress_error)
@@ -3874,9 +3876,8 @@ int main (int argc, char *argv[])
   char c = 0;
   int failed = 0;
   const char *filename;
-  int fd, i;
+  int fd;
   int nr_tests, test_num = 0;
-  char **devs;
 
   no_test_warnings ();
 
@@ -3987,28 +3988,6 @@ int main (int argc, char *argv[])
     printf (\"guestfs_wait_ready FAILED\\n\");
     exit (1);
   }
-
-  /* Detect if the appliance uses /dev/sd* or /dev/hd* in device
-   * names.  This changed between RHEL 5 and RHEL 6 so we have to
-   * support both.
-   */
-  devs = guestfs_list_devices (g);
-  if (devs == NULL || devs[0] == NULL) {
-    printf (\"guestfs_list_devices FAILED\\n\");
-    exit (1);
-  }
-  if (strncmp (devs[0], \"/dev/sd\", 7) == 0)
-    devchar = 's';
-  else if (strncmp (devs[0], \"/dev/hd\", 7) == 0)
-    devchar = 'h';
-  else {
-    printf (\"guestfs_list_devices returned unexpected string '%%s'\\n\",
-            devs[0]);
-    exit (1);
-  }
-  for (i = 0; devs[i] != NULL; ++i)
-    free (devs[i]);
-  free (devs);
 
   nr_tests = %d;
 
@@ -4152,9 +4131,6 @@ and generate_one_test_body name i test_name init test =
   | TestOutput (seq, expected) ->
       pr "  /* TestOutput for %s (%d) */\n" name i;
       pr "  char expected[] = \"%s\";\n" (c_quote expected);
-      if String.length expected > 7 &&
-        String.sub expected 0 7 = "/dev/sd" then
-	  pr "  expected[5] = devchar;\n";
       let seq, last = get_seq_last seq in
       let test () =
 	pr "    if (strcmp (r, expected) != 0) {\n";
@@ -4177,8 +4153,35 @@ and generate_one_test_body name i test_name init test =
 	    pr "    }\n";
             pr "    {\n";
             pr "      char expected[] = \"%s\";\n" (c_quote str);
-            if String.length str > 7 && String.sub str 0 7 = "/dev/sd" then
-	      pr "      expected[5] = devchar;\n";
+	    pr "      if (strcmp (r[%d], expected) != 0) {\n" i;
+	    pr "        fprintf (stderr, \"%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", expected, r[%d]);\n" test_name i;
+	    pr "        return -1;\n";
+	    pr "      }\n";
+	    pr "    }\n"
+	) expected;
+	pr "    if (r[%d] != NULL) {\n" (List.length expected);
+	pr "      fprintf (stderr, \"%s: extra elements returned from command\\n\");\n"
+	  test_name;
+	pr "      print_strings (r);\n";
+	pr "      return -1;\n";
+	pr "    }\n"
+      in
+      List.iter (generate_test_command_call test_name) seq;
+      generate_test_command_call ~test test_name last
+  | TestOutputListOfDevices (seq, expected) ->
+      pr "  /* TestOutputListOfDevices for %s (%d) */\n" name i;
+      let seq, last = get_seq_last seq in
+      let test () =
+	iteri (
+	  fun i str ->
+	    pr "    if (!r[%d]) {\n" i;
+	    pr "      fprintf (stderr, \"%s: short list returned from command\\n\");\n" test_name;
+	    pr "      print_strings (r);\n";
+	    pr "      return -1;\n";
+	    pr "    }\n";
+            pr "    {\n";
+            pr "      char expected[] = \"%s\";\n" (c_quote str);
+	    pr "      r[%d][5] = 's';\n" i;
 	    pr "      if (strcmp (r[%d], expected) != 0) {\n" i;
 	    pr "        fprintf (stderr, \"%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", expected, r[%d]);\n" test_name i;
 	    pr "        return -1;\n";
@@ -4324,8 +4327,6 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
 	| String n, arg
 	| OptString n, arg ->
 	    pr "    char %s[] = \"%s\";\n" n (c_quote arg);
-	    if String.length arg > 7 && String.sub arg 0 7 = "/dev/sd" then
-	      pr "    %s[5] = devchar;\n" n
 	| Int _, _
 	| Bool _, _
 	| FileIn _, _ | FileOut _, _ -> ()
@@ -4334,8 +4335,6 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
 	    iteri (
 	      fun i str ->
                 pr "    char %s_%d[] = \"%s\";\n" n i (c_quote str);
-	        if String.length str > 7 && String.sub str 0 7 = "/dev/sd" then
-	          pr "    %s_%d[5] = devchar;\n" n i
 	    ) strs;
 	    pr "    char *%s[] = {\n" n;
 	    iteri (
