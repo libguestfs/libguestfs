@@ -693,7 +693,7 @@ shell_quote (char *out, int len, const char *in)
  *
  * See guestfs(3) for the algorithm.
  *
- * We have to open the device and test for ENODEV, because
+ * We have to open the device and test for ENXIO, because
  * the device nodes themselves will exist in the appliance.
  */
 int
@@ -707,7 +707,7 @@ device_name_translation (char *device, const char *func)
     return 0;
   }
 
-  if (errno != ENODEV) {
+  if (errno != ENXIO) {
   error:
     reply_with_perror ("%s: %s", func, device);
     return -1;
