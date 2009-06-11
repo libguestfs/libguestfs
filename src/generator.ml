@@ -3980,10 +3980,17 @@ int main (int argc, char *argv[])
     printf (\"guestfs_launch FAILED\\n\");
     exit (1);
   }
+
+  /* Set a timeout in case qemu hangs during launch (RHBZ#505329). */
+  alarm (600);
+
   if (guestfs_wait_ready (g) == -1) {
     printf (\"guestfs_wait_ready FAILED\\n\");
     exit (1);
   }
+
+  /* Cancel previous alarm. */
+  alarm (0);
 
   nr_tests = %d;
 
