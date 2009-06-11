@@ -107,3 +107,25 @@ This is mainly useful from live CDs, ie. virt-p2v.
 
 Should we bother having the daemon at all and just link the guestfsd
 code directly into libguestfs?
+
+----------------------------------------------------------------------
+
+guestfs rescue shell
+
+Have a kernel command line option to enable a rescue shell
+from guestfsd.
+
+----------------------------------------------------------------------
+
+PPC problems:
+
+  ppc (32 bit) works with qemu from git, however there is no serial console
+
+  ppc64 requires extra parameters:
+    -M mac99 -cpu ppc64
+  however it still fails:
+    invalid/unsupported opcode: 01 - 01 - 1a (06301e83) 00000000018c2738 1
+    invalid bits: 00400000 for opcode: 0b - 19 - 15 (2d746572) 0000000000009230
+
+  no serial console in ppc or ppc64 because no one can tell us what
+  console=ttyXX option to use
