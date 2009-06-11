@@ -110,13 +110,6 @@ code directly into libguestfs?
 
 ----------------------------------------------------------------------
 
-guestfs rescue shell
-
-Have a kernel command line option to enable a rescue shell
-from guestfsd.
-
-----------------------------------------------------------------------
-
 PPC problems:
 
   ppc (32 bit) works with qemu from git, however there is no serial console

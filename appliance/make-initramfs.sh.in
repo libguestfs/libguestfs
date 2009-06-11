@@ -156,6 +156,9 @@ modprobe dm_mod ||:
 /sbin/route add default gw 10.0.2.2
 lvm vgscan --ignorelockingfailure
 lvm vgchange -ay --ignorelockingfailure
+if grep -sq guestfs_rescue=1 /proc/cmdline; then
+  bash -i
+fi
 exec guestfsd -f
 __EOF__
 
