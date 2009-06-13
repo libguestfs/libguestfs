@@ -77,6 +77,9 @@ rm -f $koutput
 # Don't need any firmware.
 @FEBOOTSTRAP_RUN@ initramfs -- rm -rf /lib/firmware
 
+# Don't need any keyboard maps.
+@FEBOOTSTRAP_RUN@ initramfs -- rm -rf /lib/kbd
+
 # Modules take up nearly half of the image.  It's a rough guess that
 # we don't need many drivers (which take up most of the space).
 (cd initramfs && find lib/modules/*/kernel \
