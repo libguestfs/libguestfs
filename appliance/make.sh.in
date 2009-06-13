@@ -169,11 +169,8 @@ rm init.new
 # be our script, not the real init.
 #@FEBOOTSTRAP_RUN@ initramfs -- ln -f /init /sbin/init
 
-# Copy the daemon into the filesystem.
-@FEBOOTSTRAP_INSTALL@ initramfs daemon/guestfsd /sbin/guestfsd 0755 root.root
-
-# Generate final image.
-@FEBOOTSTRAP_TO_INITRAMFS@ initramfs > $output-t
-mv $output-t $output
-ls -lh $output
 ls -lh $koutput
+
+# Now directly run the update script to copy/update the daemon in the
+# initramfs.
+cd appliance && bash update.sh
