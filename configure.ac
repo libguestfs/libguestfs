@@ -179,6 +179,15 @@ AC_ARG_WITH([mirror],
 MIRROR="$with_mirror"
 AC_SUBST(MIRROR)
 
+dnl Build the supermin appliance?  Please see README file before
+dnl enabling this option.
+AC_ARG_ENABLE([supermin],
+	[AS_HELP_STRING([--enable-supermin],
+	  [enable supermin appliance (see README) @<:@default=no@:>@])],
+	[],
+	[enable_supermin=no])
+AM_CONDITIONAL([SUPERMIN],[test "x$enable_supermin" = "xyes"])
+
 dnl Readline.
 AC_ARG_WITH([readline],
     [AS_HELP_STRING([--with-readline],
@@ -493,6 +502,7 @@ echo -n "Haskell bindings .................... "
 if test "x$HAVE_HASKELL" = "x"; then echo "yes"; else echo "no"; fi
 echo -n "virt-inspector ...................... "
 if test "x$HAVE_INSPECTOR" = "x"; then echo "yes"; else echo "no"; fi
+echo "supermin appliance .................. $enable_supermin"
 echo
 echo "If any optional component is configured 'no' when you expected 'yes'"
 echo "then you should check the preceeding messages."
