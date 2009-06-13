@@ -21,9 +21,8 @@ Makefile.in
 Makefile
 aclocal.m4
 appliance/initramfs.*.img
-appliance/make-initramfs.sh
-appliance/make-initramfs.sh.in.old
-appliance/update-initramfs.sh
+appliance/make.sh
+appliance/update.sh
 appliance/vmlinuz.*
 autom4te.cache
 capitests/test-command

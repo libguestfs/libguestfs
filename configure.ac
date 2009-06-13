@@ -452,7 +452,7 @@ AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile
 		 src/Makefile fish/Makefile po/Makefile.in examples/Makefile
 		 appliance/Makefile
-	         appliance/make-initramfs.sh appliance/update-initramfs.sh
+	         appliance/make.sh appliance/update.sh
 		 images/Makefile
 		 capitests/Makefile
 		 regressions/Makefile
@@ -468,7 +468,7 @@ AC_CONFIG_FILES([Makefile
 AC_OUTPUT
 
 dnl WTF?
-chmod +x appliance/make-initramfs.sh appliance/update-initramfs.sh
+chmod +x appliance/make.sh appliance/update.sh
 
 dnl Produce summary.
 echo

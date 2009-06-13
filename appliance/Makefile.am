@@ -16,7 +16,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 EXTRA_DIST = \
-	make-initramfs.sh update-initramfs.sh
+	make.sh update.sh
 
 # Build the root filesystem (appliance).
 # Currently this is arch-dependent, so it seems like putting it in
@@ -32,17 +32,17 @@ fs_DATA =  $(INITRAMFSIMG) $(VMLINUZ)
 
 $(INITRAMFSIMG) $(VMLINUZ): $(top_builddir)/initramfs/fakeroot.log
 
-$(top_builddir)/initramfs/fakeroot.log: make-initramfs.sh.in
+$(top_builddir)/initramfs/fakeroot.log: make.sh
 	-mv $(INITRAMFSIMG) $(INITRAMFSIMG).bak
 	-mv $(VMLINUZ) $(VMLINUZ).bak
-	if ! bash make-initramfs.sh; then rm -f $@; exit 1; fi
+	if ! bash make.sh; then rm -f $@; exit 1; fi
 
 $(INITRAMFSIMG): $(top_builddir)/initramfs/fakeroot.log $(top_builddir)/daemon/guestfsd
 	rm -f $@
-	bash update-initramfs.sh
+	bash update.sh
 	touch $@
 
-make-initramfs.sh: make-initramfs.sh.in
+make.sh: make.sh.in
 	cd .. && ./config.status appliance/$@
 
 # Test-boot the image.
