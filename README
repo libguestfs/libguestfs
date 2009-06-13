@@ -120,10 +120,13 @@ or build from our source RPMs.
 Debian
 ----------------------------------------------------------------------
 
-libguestfs should build and run on Debian.  At the moment we don't
-provide Debian packages, and because of the appliance it's rather
-complicated to provide a package which could be accepted into the
-Debian repositories.  Want to help?  Please contact us.
+libguestfs should build and run on Debian.
+
+febootstrap, yum, rpm, fakeroot, fakechroot are all packaged in
+Debian.
+
+Please see the fedora-virt mailing list for the status of libguestfs
+in Debian.
 
 
 qemu
