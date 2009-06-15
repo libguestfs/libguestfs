@@ -80,35 +80,22 @@ rm -f $koutput
 # Don't need any keyboard maps.
 @FEBOOTSTRAP_RUN@ initramfs -- rm -rf /lib/kbd
 
-# Modules take up nearly half of the image.  It's a rough guess that
-# we don't need many drivers (which take up most of the space).
-(cd initramfs && find lib/modules/*/kernel \
-  -name '*.ko' \
-  -a ! -name 'virtio.ko' \
-  -a ! -name 'virtio_net.ko' \
-  -a ! -name 'virtio_pci.ko' \
-  -a ! -name 'virtio_ring.ko' \
-  -a ! -name 'ext2.ko' \
-  -a ! -name 'ext3.ko' \
-  -a ! -name 'ext4*.ko' \
-  -a ! -name 'crc16.ko' \
-  -a ! -name 'jbd.ko' \
-  -a ! -name 'jbd2.ko' \
-  -a ! -name 'fuse.ko' \
-  -a ! -name 'vfat.ko' \
-  -a ! -name 'fat.ko' \
-  -a ! -name 'udf.ko' \
-  -a ! -name 'crc_itu_t.ko' \
-  -a ! -name 'nls_utf8.ko' \
-  -a ! -name 'dm-*.ko' \
-  -a ! -name 'cramfs.ko' \
-  -a ! -name 'squashfs.ko' \
-  -a ! -name 'hfsplus.ko' \
-  -a ! -name 'ufs.ko' \
-  -a ! -name 'exportfs.ko' \
-  -a ! -name 'xfs.ko' \
-  -a -print0 ) |
-  xargs -0 @FEBOOTSTRAP_RUN@ initramfs -- rm
+# Kernel modules take up nearly half of the image.  Only include ones
+# which are on the whitelist.
+grep -v '^[[:space:]]*$' < appliance/kmod.whitelist |
+  grep -v '^#' > kmod.whitelist.tmp
+exec 5<kmod.whitelist.tmp
+whitelist=
+while read kmod 0<&5; do
+    whitelist="$whitelist -a -not -name $kmod"
+done
+exec 5<&-
+rm kmod.whitelist.tmp
+#echo whitelist=$whitelist
+
+(cd initramfs && \
+  find lib/modules/*/kernel -name '*.ko' $whitelist -a -print0 ) |
+  xargs -0 febootstrap-run initramfs -- rm
 
 # Pull the kernel out into the current directory.  We don't want it in
 # the initramfs image.

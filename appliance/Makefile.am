@@ -32,7 +32,7 @@ fs_DATA =  $(INITRAMFSIMG) $(VMLINUZ)
 
 $(INITRAMFSIMG) $(VMLINUZ): $(top_builddir)/initramfs/fakeroot.log
 
-$(top_builddir)/initramfs/fakeroot.log: make.sh
+$(top_builddir)/initramfs/fakeroot.log: make.sh kmod.whitelist
 	-mv $(INITRAMFSIMG) $(INITRAMFSIMG).bak
 	-mv $(VMLINUZ) $(VMLINUZ).bak
 	if ! bash make.sh; then rm -f $@; exit 1; fi
