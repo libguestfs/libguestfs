@@ -31,6 +31,7 @@
 #include <time.h>
 #include <sys/stat.h>
 #include <sys/select.h>
+#include <dirent.h>
 
 #include <rpc/types.h>
 #include <rpc/xdr.h>
@@ -307,6 +308,12 @@ guestfs_close (guestfs_h *g)
 
   if (g->tmpdir) {
     snprintf (filename, sizeof filename, "%s/sock", g->tmpdir);
+    unlink (filename);
+
+    snprintf (filename, sizeof filename, "%s/initrd", g->tmpdir);
+    unlink (filename);
+
+    snprintf (filename, sizeof filename, "%s/kernel", g->tmpdir);
     unlink (filename);
 
     rmdir (g->tmpdir);
@@ -706,6 +713,46 @@ guestfs_add_cdrom (guestfs_h *g, const char *filename)
   return guestfs_config (g, "-cdrom", filename);
 }
 
+/* Returns true iff file is contained in dir. */
+static int
+dir_contains_file (const char *dir, const char *file)
+{
+  int dirlen = strlen (dir);
+  int filelen = strlen (file);
+  int len = dirlen+filelen+2;
+  char path[len];
+
+  snprintf (path, len, "%s/%s", dir, file);
+  return access (path, F_OK) == 0;
+}
+
+/* Returns true iff every listed file is contained in 'dir'. */
+static int
+dir_contains_files (const char *dir, ...)
+{
+  va_list args;
+  const char *file;
+
+  va_start (args, dir);
+  while ((file = va_arg (args, const char *)) != NULL) {
+    if (!dir_contains_file (dir, file)) {
+      va_end (args);
+      return 0;
+    }
+  }
+  va_end (args);
+  return 1;
+}
+
+static int build_supermin_appliance (guestfs_h *g, const char *path, char **kernel, char **initrd);
+
+static const char *kernel_name = "vmlinuz." REPO "." host_cpu;
+static const char *initrd_name = "initramfs." REPO "." host_cpu ".img";
+static const char *supermin_name =
+  "initramfs." REPO "." host_cpu ".supermin.img";
+static const char *supermin_hostfiles_name =
+  "initramfs." REPO "." host_cpu ".supermin.hostfiles";
+
 int
 guestfs_launch (guestfs_h *g)
 {
@@ -714,8 +761,6 @@ guestfs_launch (guestfs_h *g)
   size_t len;
   int wfd[2], rfd[2];
   int tries;
-  const char *kernel_name = "vmlinuz." REPO "." host_cpu;
-  const char *initrd_name = "initramfs." REPO "." host_cpu ".img";
   char *path, *pelem, *pend;
   char *kernel = NULL, *initrd = NULL;
   char unixsock[256];
@@ -732,7 +777,20 @@ guestfs_launch (guestfs_h *g)
     return -1;
   }
 
-  /* Search g->path for the kernel and initrd. */
+  /* Make the temporary directory. */
+  if (!g->tmpdir) {
+    g->tmpdir = safe_strdup (g, dir_template);
+    if (mkdtemp (g->tmpdir) == NULL) {
+      perrorf (g, _("%s: cannot create temporary directory"), dir_template);
+      goto cleanup0;
+    }
+  }
+
+  /* First search g->path for the supermin appliance, and try to
+   * synthesize a kernel and initrd from that.  If it fails, we
+   * try the path search again looking for a backup ordinary
+   * appliance.
+   */
   pelem = path = safe_strdup (g, g->path);
   do {
     pend = strchrnul (pelem, ':');
@@ -740,38 +798,77 @@ guestfs_launch (guestfs_h *g)
     *pend = '\0';
     len = pend - pelem;
 
-    /* Empty element or "." means cwd. */
+    /* Empty element of "." means cwd. */
     if (len == 0 || (len == 1 && *pelem == '.')) {
       if (g->verbose)
 	fprintf (stderr,
-		 "looking for kernel and initrd in current directory\n");
-      if (access (kernel_name, F_OK) == 0 && access (initrd_name, F_OK) == 0) {
-	kernel = safe_strdup (g, kernel_name);
-	initrd = safe_strdup (g, initrd_name);
+		 "looking for supermin appliance in current directory\n");
+      if (dir_contains_files (".",
+			      supermin_name, supermin_hostfiles_name,
+			      "kmod.whitelist", NULL)) {
+	if (build_supermin_appliance (g, ".", &kernel, &initrd) == -1)
+	  return -1;
 	break;
       }
     }
-    /* Look at <path>/kernel etc. */
+    /* Look at <path>/supermin* etc. */
     else {
-      kernel = safe_malloc (g, len + strlen (kernel_name) + 2);
-      initrd = safe_malloc (g, len + strlen (initrd_name) + 2);
-      sprintf (kernel, "%s/%s", pelem, kernel_name);
-      sprintf (initrd, "%s/%s", pelem, initrd_name);
-
       if (g->verbose)
-	fprintf (stderr, "looking for %s and %s\n", kernel, initrd);
+	fprintf (stderr, "looking for supermin appliance in %s\n", pelem);
 
-      if (access (kernel, F_OK) == 0 && access (initrd, F_OK) == 0)
+      if (dir_contains_files (pelem,
+			      supermin_name, supermin_hostfiles_name,
+			      "kmod.whitelist", NULL)) {
+	if (build_supermin_appliance (g, pelem, &kernel, &initrd) == -1)
+	  return -1;
 	break;
-      free (kernel);
-      free (initrd);
-      kernel = initrd = NULL;
+      }
     }
 
     pelem = pend + 1;
   } while (pmore);
 
   free (path);
+
+  if (kernel == NULL || initrd == NULL) {
+    /* Search g->path for the kernel and initrd. */
+    pelem = path = safe_strdup (g, g->path);
+    do {
+      pend = strchrnul (pelem, ':');
+      pmore = *pend == ':';
+      *pend = '\0';
+      len = pend - pelem;
+
+      /* Empty element or "." means cwd. */
+      if (len == 0 || (len == 1 && *pelem == '.')) {
+	if (g->verbose)
+	  fprintf (stderr,
+		   "looking for appliance in current directory\n");
+	if (dir_contains_files (".", kernel_name, initrd_name, NULL)) {
+	  kernel = safe_strdup (g, kernel_name);
+	  initrd = safe_strdup (g, initrd_name);
+	  break;
+	}
+      }
+      /* Look at <path>/kernel etc. */
+      else {
+	if (g->verbose)
+	  fprintf (stderr, "looking for appliance in %s\n", pelem);
+
+	if (dir_contains_files (pelem, kernel_name, initrd_name, NULL)) {
+	  kernel = safe_malloc (g, len + strlen (kernel_name) + 2);
+	  initrd = safe_malloc (g, len + strlen (initrd_name) + 2);
+	  sprintf (kernel, "%s/%s", pelem, kernel_name);
+	  sprintf (initrd, "%s/%s", pelem, initrd_name);
+	  break;
+	}
+      }
+
+      pelem = pend + 1;
+    } while (pmore);
+
+    free (path);
+  }
 
   if (kernel == NULL || initrd == NULL) {
     error (g, _("cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)"),
@@ -788,15 +885,7 @@ guestfs_launch (guestfs_h *g)
    */
   memsize = 384;
 
-  /* Make the temporary directory containing the socket. */
-  if (!g->tmpdir) {
-    g->tmpdir = safe_strdup (g, dir_template);
-    if (mkdtemp (g->tmpdir) == NULL) {
-      perrorf (g, _("%s: cannot create temporary directory"), dir_template);
-      goto cleanup0;
-    }
-  }
-
+  /* Make the vmchannel socket. */
   snprintf (unixsock, sizeof unixsock, "%s/sock", g->tmpdir);
   unlink (unixsock);
 
@@ -1046,6 +1135,34 @@ guestfs_launch (guestfs_h *g)
   free (kernel);
   free (initrd);
   return -1;
+}
+
+/* This function does the hard work of building the supermin appliance
+ * on the fly.  'path' is the directory containing the control files.
+ * 'kernel' and 'initrd' are where we will return the names of the
+ * kernel and initrd (only initrd is built).  The work is done by
+ * an external script.  We just tell it where to put the result.
+ */
+static int
+build_supermin_appliance (guestfs_h *g, const char *path,
+			  char **kernel, char **initrd)
+{
+  char cmd[4096];
+  int r;
+
+  snprintf (cmd, sizeof cmd,
+	    "PATH='%s':$PATH "
+	    "guestfs-supermin-helper '%s' %s/kernel %s/initrd",
+	    path,
+	    path, g->tmpdir, g->tmpdir);
+
+  r = system (cmd);
+  if (r == -1 || WEXITSTATUS(r) != 0) {
+    error (g, _("external command failed: %s"), cmd);
+    return -1;
+  }
+
+  return 0;
 }
 
 static void

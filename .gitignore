@@ -20,8 +20,14 @@ ChangeLog
 Makefile.in
 Makefile
 aclocal.m4
+appliance/guestfs-supermin-helper
 appliance/initramfs.*.img
+appliance/initramfs.*.supermin.hostfiles
+appliance/kmod.whitelist
 appliance/make.sh
+appliance/supermin-make.sh
+appliance/supermin-split.sh
+appliance/supermin.incfiles
 appliance/update.sh
 appliance/vmlinuz.*
 autom4te.cache
