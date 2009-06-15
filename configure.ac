@@ -105,38 +105,37 @@ fi
 dnl Check for febootstrap etc.
 AC_CHECK_PROG([FEBOOTSTRAP],
 	[febootstrap],[febootstrap],[no])
-test "x$FEBOOTSTRAP" = "xno" && \
-     AC_MSG_ERROR([febootstrap must be installed])
-AC_CHECK_PROG([FEBOOTSTRAP_RUN],
+if test "x$FEBOOTSTRAP" != "xno"; then
+  AC_CHECK_PROG([FEBOOTSTRAP_RUN],
 	[febootstrap-run],[febootstrap-run],[no])
-test "x$FEBOOTSTRAP_RUN" = "xno" && \
+  test "x$FEBOOTSTRAP_RUN" = "xno" && \
      AC_MSG_ERROR([febootstrap-run must be installed])
-AC_CHECK_PROG([FEBOOTSTRAP_INSTALL],
+  AC_CHECK_PROG([FEBOOTSTRAP_INSTALL],
 	[febootstrap-install],[febootstrap-install],[no])
-test "x$FEBOOTSTRAP_INSTALL" = "xno" && \
+  test "x$FEBOOTSTRAP_INSTALL" = "xno" && \
      AC_MSG_ERROR([febootstrap-install must be installed])
-AC_CHECK_PROG([FEBOOTSTRAP_MINIMIZE],
+  AC_CHECK_PROG([FEBOOTSTRAP_MINIMIZE],
 	[febootstrap-minimize],[febootstrap-minimize],[no])
-test "x$FEBOOTSTRAP_MINIMIZE" = "xno" && \
+  test "x$FEBOOTSTRAP_MINIMIZE" = "xno" && \
      AC_MSG_ERROR([febootstrap-minimize must be installed])
-AC_CHECK_PROG([FEBOOTSTRAP_TO_INITRAMFS],
+  AC_CHECK_PROG([FEBOOTSTRAP_TO_INITRAMFS],
 	[febootstrap-to-initramfs],[febootstrap-to-initramfs],[no])
-test "x$FEBOOTSTRAP_TO_INITRAMFS" = "xno" && \
+  test "x$FEBOOTSTRAP_TO_INITRAMFS" = "xno" && \
      AC_MSG_ERROR([febootstrap-to-initramfs must be installed])
 
-dnl Check we have fakechroot >= 2.9 (it's an indirect requirement
-dnl of febootstrap, but old versions will fail with yum).
-AC_CHECK_PROG([FAKECHROOT],
+  dnl Check we have fakechroot >= 2.9 (it's an indirect requirement
+  dnl of febootstrap, but old versions will fail with yum).
+  AC_CHECK_PROG([FAKECHROOT],
 	[fakechroot],[fakechroot],[no])
-test "x$FAKECHROOT" = "xno" && \
+  test "x$FAKECHROOT" = "xno" && \
     AC_MSG_ERROR([fakechroot must be installed])
 
-AC_MSG_CHECKING([fakechroot version])
-fakechroot_version=`$FAKECHROOT --version | awk '{print $3}'`
-if test -z "$fakechroot_version"; then
+  AC_MSG_CHECKING([fakechroot version])
+  fakechroot_version=`$FAKECHROOT --version | awk '{print $3}'`
+  if test -z "$fakechroot_version"; then
     AC_MSG_RESULT([failed])
     AC_MSG_WARN([fakechroot --version command failed, proceeding anyway])
-else
+  else
     AC_MSG_RESULT([$fakechroot_version])
     fakechroot_major=`echo $fakechroot_version | awk -F. '{print $1}'`
     fakechroot_minor=`echo $fakechroot_version | awk -F. '{print $2}'`
@@ -144,7 +143,18 @@ else
             \( "$fakechroot_major" -eq 2 -a "$fakechroot_minor" -lt 9 \); then
         AC_MSG_ERROR([fakechroot version must be >= 2.9])
     fi
+  fi
+else
+  # check for debootstrap and debirf
+  AC_CHECK_PROG([DEBOOTSTRAP],
+	[debootstrap],[debootstrap],[no])
+  test "x$DEBOOTSTRAP" = "xno" && \
+	AC_MSG_ERROR([Either febootstrap or debootstrap must be installed])
+  AC_CHECK_PROG([DEBIRF],[debirf],[debirf],[no])
+  test "x$DEBIRF" = "xno" &&
+        AC_MSG_ERROR([debirf must be installed])
 fi
+
 
 dnl --with-repo to specify a Fedora repository.
 AC_ARG_WITH([repo],
