@@ -188,6 +188,24 @@ AC_ARG_ENABLE([supermin],
 	[enable_supermin=no])
 AM_CONDITIONAL([SUPERMIN],[test "x$enable_supermin" = "xyes"])
 
+if test "x$enable_supermin" = "xyes"; then
+    dnl Check febootstrap-to-initramfs accepts the --files option
+    dnl (febootstrap >= 2.2).
+    AC_MSG_CHECKING([for --files support in $FEBOOTSTRAP_TO_INITRAMFS])
+    out=`$FEBOOTSTRAP_TO_INITRAMFS 2>&1 ||:`
+    echo "febootstrap_to_initramfs test command output: $out" >&AS_MESSAGE_LOG_FD
+    if ! echo $out | grep -sq -- "--files" ; then
+        AC_MSG_RESULT([no])
+	AC_MSG_FAILURE(
+[febootstrap-to-initramfs does not support the --files option.
+
+To build the supermin appliance, you need to upgrade to the latest
+version of febootstrap.
+])
+    fi
+    AC_MSG_RESULT([yes])
+fi
+
 dnl Readline.
 AC_ARG_WITH([readline],
     [AS_HELP_STRING([--with-readline],
