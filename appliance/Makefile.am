@@ -16,7 +16,10 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 EXTRA_DIST = \
-	make.sh update.sh supermin-split.sh supermin-make.sh
+	make.sh update.sh supermin-split.sh supermin-make.sh \
+	guestfs-supermin-helper \
+	kmod.whitelist \
+	kmod.whitelist.in
 
 # Build the root filesystem (appliance).
 # Currently this is arch-dependent, so it seems like putting it in
