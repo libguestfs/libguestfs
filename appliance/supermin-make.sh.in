@@ -28,6 +28,9 @@ cd @top_builddir@
 output=appliance/initramfs.@REPO@.@host_cpu@.supermin.img
 
 # Generate final image.
-@FEBOOTSTRAP_TO_INITRAMFS@ --files=$(pwd)/appliance/supermin.incfiles initramfs > $output-t
+@FEBOOTSTRAP_TO_INITRAMFS@ \
+  --nocompress \
+  --files=$(pwd)/appliance/supermin.incfiles \
+  initramfs > $output-t
 mv $output-t $output
 ls -lh $output

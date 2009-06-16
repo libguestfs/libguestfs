@@ -204,6 +204,22 @@ version of febootstrap.
 ])
     fi
     AC_MSG_RESULT([yes])
+
+    dnl Check febootstrap-to-initramfs accepts the --nocompress option
+    dnl (febootstrap >= 2.3).
+    AC_MSG_CHECKING([for --nocompress support in $FEBOOTSTRAP_TO_INITRAMFS])
+    out=`$FEBOOTSTRAP_TO_INITRAMFS 2>&1 ||:`
+    echo "febootstrap_to_initramfs test command output: $out" >&AS_MESSAGE_LOG_FD
+    if ! echo $out | grep -sq -- "--nocompress" ; then
+        AC_MSG_RESULT([no])
+	AC_MSG_FAILURE(
+[febootstrap-to-initramfs does not support the --nocompress option.
+
+To build the supermin appliance, you need to upgrade to the latest
+version of febootstrap.
+])
+    fi
+    AC_MSG_RESULT([yes])
 fi
 
 dnl Readline.
