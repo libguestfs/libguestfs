@@ -64,11 +64,11 @@ cp "$sourcedir"/initramfs.@REPO@.@host_cpu@.supermin.img "$initrd"
 exec 5<"$sourcedir"/kmod.whitelist
 whitelist=
 while read kmod 0<&5; do
-    whitelist="$whitelist -a -not -name $kmod"
+    whitelist="$whitelist -o -name $kmod"
 done
 exec 5<&-
 
-find "$modpath" -not -name '*.ko' -o \( -name '*.ko' $whitelist \) -a -print0 |
+find "$modpath" \( -not -name '*.ko' $whitelist \) -a -print0 |
   cpio --quiet -o -0 -H newc >> "$initrd"
 
 # Host files (3).
