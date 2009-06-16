@@ -1,0 +1,3 @@
+#!/bin/sh
+
+rm -rf "$DEBIRF_ROOT"/var/lib/dpkg/info

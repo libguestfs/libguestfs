@@ -523,6 +523,7 @@ AC_CONFIG_FILES([appliance/libguestfs-supermin-helper],
 AC_CONFIG_FILES([Makefile
 		 src/Makefile fish/Makefile po/Makefile.in examples/Makefile
 		 appliance/Makefile
+		 appliance/debian/debirf.conf
 		 images/Makefile
 		 capitests/Makefile
 		 regressions/Makefile
