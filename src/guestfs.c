@@ -1148,17 +1148,26 @@ build_supermin_appliance (guestfs_h *g, const char *path,
 			  char **kernel, char **initrd)
 {
   char cmd[4096];
-  int r;
+  int r, len;
+
+  len = strlen (g->tmpdir);
+  *kernel = safe_malloc (g, len + 8);
+  snprintf (*kernel, len+8, "%s/kernel", g->tmpdir);
+  *initrd = safe_malloc (g, len + 8);
+  snprintf (*initrd, len+8, "%s/initrd", g->tmpdir);
 
   snprintf (cmd, sizeof cmd,
 	    "PATH='%s':$PATH "
-	    "guestfs-supermin-helper '%s' %s/kernel %s/initrd",
+	    "guestfs-supermin-helper '%s' %s %s",
 	    path,
-	    path, g->tmpdir, g->tmpdir);
+	    path, *kernel, *initrd);
 
   r = system (cmd);
   if (r == -1 || WEXITSTATUS(r) != 0) {
     error (g, _("external command failed: %s"), cmd);
+    free (*kernel);
+    free (*initrd);
+    *kernel = *initrd = NULL;
     return -1;
   }
 
