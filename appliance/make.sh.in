@@ -88,6 +88,26 @@ rm -f $koutput
 # Remove /var/lib/yum stuff.
 @FEBOOTSTRAP_RUN@ initramfs -- rm -rf /var/lib/yum
 
+# Remove some unreadable binaries which are incompatible with
+# the supermin appliance.  Since these binaries can't be read
+# from the host filesystem, they generate warnings like:
+#   cpio: ./usr/bin/chfn: Cannot open: Permission denied
+# These binaries are not needed for operation of the appliance.
+@FEBOOTSTRAP_RUN@ initramfs -- rm -f \
+  /usr/bin/chfn \
+  /usr/bin/chsh \
+  /usr/libexec/pt_chown \
+  /usr/sbin/groupdel \
+  /usr/sbin/groupadd \
+  /usr/sbin/useradd \
+  /usr/sbin/tzdata-update \
+  /usr/sbin/userdel \
+  /usr/sbin/usermod \
+  /usr/sbin/groupmod \
+  /usr/sbin/groupmems \
+  /sbin/unix_update \
+  $(cd initramfs && echo usr/sbin/glibc_post_upgrade.*)
+
 # Kernel modules take up nearly half of the image.  Only include ones
 # which are on the whitelist.
 exec 5<appliance/kmod.whitelist
