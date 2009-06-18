@@ -1158,7 +1158,7 @@ build_supermin_appliance (guestfs_h *g, const char *path,
 
   snprintf (cmd, sizeof cmd,
 	    "PATH='%s':$PATH "
-	    "guestfs-supermin-helper '%s' %s %s",
+	    "libguestfs-supermin-helper '%s' %s %s",
 	    path,
 	    path, *kernel, *initrd);
 

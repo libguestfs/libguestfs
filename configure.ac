@@ -497,7 +497,7 @@ AC_CONFIG_FILES([Makefile
 		 appliance/Makefile
 	         appliance/make.sh appliance/update.sh
 		 appliance/supermin-split.sh appliance/supermin-make.sh
-		 appliance/guestfs-supermin-helper
+		 appliance/libguestfs-supermin-helper
 		 images/Makefile
 		 capitests/Makefile
 		 regressions/Makefile
@@ -513,7 +513,7 @@ AC_CONFIG_FILES([Makefile
 AC_OUTPUT
 
 dnl WTF?
-chmod +x appliance/*.sh appliance/guestfs-supermin-helper
+chmod +x appliance/*.sh appliance/libguestfs-supermin-helper
 
 dnl Produce summary.
 echo

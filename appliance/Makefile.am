@@ -17,7 +17,7 @@
 
 EXTRA_DIST = \
 	make.sh update.sh supermin-split.sh supermin-make.sh \
-	guestfs-supermin-helper \
+	libguestfs-supermin-helper \
 	kmod.whitelist \
 	kmod.whitelist.in
 
@@ -38,7 +38,7 @@ fs_DATA = $(APPLIANCE_FILES)
 APPLIANCE_FILES = $(INITRAMFSIMG) $(VMLINUZ)
 if SUPERMIN
 APPLIANCE_FILES += $(SUPERMINIMG) $(SUPERMINFILES) kmod.whitelist
-bin_SCRIPTS = guestfs-supermin-helper
+bin_SCRIPTS = libguestfs-supermin-helper
 endif
 
 # Don't change these names - they must be the same as in '*.sh' scripts.
@@ -92,7 +92,7 @@ endif
 	cd .. && ./config.status appliance/$@
 	chmod +x $@
 
-guestfs-supermin-helper: guestfs-supermin-helper.in
+libguestfs-supermin-helper: libguestfs-supermin-helper.in
 	cd .. && ./config.status appliance/$@
 	chmod +x $@
 
