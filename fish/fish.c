@@ -102,6 +102,7 @@ usage (void)
 	     "  -h|--cmd-help        List available commands\n"
 	     "  -h|--cmd-help cmd    Display detailed help on 'cmd'\n"
 	     "  -a|--add image       Add image\n"
+	     "  -D|--no-dest-paths   Don't tab-complete paths from guest fs\n"
 	     "  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
 	     "  -n|--no-sync         Don't autosync\n"
 	     "  -r|--ro              Mount read-only\n"
@@ -119,6 +120,7 @@ main (int argc, char *argv[])
     { "cmd-help", 2, 0, 'h' },
     { "help", 0, 0, '?' },
     { "mount", 1, 0, 'm' },
+    { "no-dest-paths", 0, 0, 'D' },
     { "no-sync", 0, 0, 'n' },
     { "ro", 0, 0, 'r' },
     { "verbose", 0, 0, 'v' },
@@ -176,6 +178,10 @@ main (int argc, char *argv[])
       drv->filename = optarg;
       drv->next = drvs;
       drvs = drv;
+      break;
+
+    case 'D':
+      complete_dest_paths = 0;
       break;
 
     case 'h':
@@ -692,6 +698,16 @@ free_strings (char **argv)
   for (argc = 0; argv[argc] != NULL; ++argc)
     free (argv[argc]);
   free (argv);
+}
+
+int
+count_strings (char * const * const argv)
+{
+  int c;
+
+  for (c = 0; argv[c]; ++c)
+    ;
+  return c;
 }
 
 void

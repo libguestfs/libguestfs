@@ -107,6 +107,13 @@ This changes the C<-m> option so that mounts are done read-only
 Enable very verbose messages.  This is particularly useful if you find
 a bug.
 
+=item B<-D> | B<--no-dest-paths>
+
+Don't tab-complete paths on the guest filesystem.  It is useful to be
+able to hit the tab key to complete paths on the guest filesystem, but
+this causes extra "hidden" guestfs calls to be made, so this option is
+here to allow this feature to be disabled.
+
 =back
 
 =head1 COMMANDS ON COMMAND LINE

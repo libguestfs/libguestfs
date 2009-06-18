@@ -191,6 +191,8 @@ generator (const char *text, int state)
     len = strlen (text);
   }
 
+  rl_attempted_completion_over = 1;
+
   while ((name = commands[index]) != NULL) {
     index++;
     if (strncasecmp (name, text, len) == 0)
@@ -207,8 +209,12 @@ char **do_completion (const char *text, int start, int end)
   char **matches = NULL;
 
 #ifdef HAVE_LIBREADLINE
+  rl_completion_append_character = ' ';
+
   if (start == 0)
     matches = rl_completion_matches (text, generator);
+  else if (complete_dest_paths)
+    matches = rl_completion_matches (text, complete_dest_paths_generator);
 #endif
 
   return matches;

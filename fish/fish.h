@@ -38,6 +38,7 @@ extern void pod2text (const char *heading, const char *body);
 extern void list_builtin_commands (void);
 extern void display_builtin_command (const char *cmd);
 extern void free_strings (char **argv);
+extern int count_strings (char * const * const argv);
 extern void print_strings (char * const * const argv);
 extern void print_table (char * const * const argv);
 extern int launch (guestfs_h *);
@@ -51,6 +52,10 @@ extern int run_action (const char *cmd, int argc, char *argv[]);
 
 /* in completion.c (auto-generated) */
 extern char **do_completion (const char *text, int start, int end);
+
+/* in destpaths.c */
+extern int complete_dest_paths;
+extern char *complete_dest_paths_generator (const char *text, int state);
 
 /* in alloc.c */
 extern int do_alloc (const char *cmd, int argc, char *argv[]);
