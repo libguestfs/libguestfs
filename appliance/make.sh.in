@@ -133,39 +133,7 @@ echo nameserver 10.0.2.3 > resolv.conf.new
 rm resolv.conf.new
 
 # Create the init script.
-cat > init.new <<'__EOF__'
-#!/bin/sh
-echo Starting /init script ...
-PATH=/sbin:/usr/sbin:$PATH
-mount -t tmpfs none /dev
-mkdir /dev/pts /dev/shm /dev/mapper
-MAKEDEV mem null port zero core full ram tty console fd \
-  hda hdb hdc hdd sda sdb sdc sdd loop sd
-mknod /dev/ptmx c 5 2; chmod 0666 /dev/ptmx
-mknod /dev/random c 1 8;  chmod 0666 /dev/random
-mknod /dev/urandom c 1 9; chmod 0444 /dev/urandom
-mount -t proc /proc /proc
-mount -t sysfs /sys /sys
-mount -t devpts -o gid=5,mode=620 /dev/pts /dev/pts
-ln -sf /proc/self/fd/0 /dev/stdin
-ln -sf /proc/self/fd/1 /dev/stdout
-ln -sf /proc/self/fd/2 /dev/stderr
-modprobe virtio_pci
-modprobe virtio_net
-modprobe dm_mod ||:
-/sbin/ifconfig lo 127.0.0.1
-/sbin/ifconfig eth0 10.0.2.10
-/sbin/route add default gw 10.0.2.2
-lvm vgscan --ignorelockingfailure
-lvm vgchange -ay --ignorelockingfailure
-if grep -sq guestfs_rescue=1 /proc/cmdline; then
-  bash -i
-fi
-exec guestfsd -f
-__EOF__
-
-@FEBOOTSTRAP_INSTALL@ initramfs init.new /init 0755 root.root
-rm init.new
+@FEBOOTSTRAP_INSTALL@ initramfs appliance/init /init 0755 root.root
 
 # Just in case the kernel isn't looking for /init, make /sbin/init
 # be our script, not the real init.

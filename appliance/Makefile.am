@@ -20,7 +20,8 @@ EXTRA_DIST = \
 	libguestfs-supermin-helper \
 	kmod.whitelist \
 	kmod.whitelist.in \
-	packagelist.in
+	packagelist.in \
+	init
 
 # Build the root filesystem (appliance).
 # Currently this is arch-dependent, so it seems like putting it in
@@ -53,7 +54,7 @@ endif
 # This is for building the normal appliance:
 $(INITRAMFSIMG) $(VMLINUZ): $(top_builddir)/initramfs/fakeroot.log
 
-$(top_builddir)/initramfs/fakeroot.log: make.sh kmod.whitelist packagelist
+$(top_builddir)/initramfs/fakeroot.log: make.sh kmod.whitelist packagelist init
 	-mv $(INITRAMFSIMG) $(INITRAMFSIMG).bak
 	-mv $(VMLINUZ) $(VMLINUZ).bak
 	if ! bash make.sh; then rm -f $@; exit 1; fi
