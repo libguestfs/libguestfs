@@ -25,6 +25,7 @@ appliance/initramfs.*.supermin.hostfiles
 appliance/kmod.whitelist
 appliance/libguestfs-supermin-helper
 appliance/make.sh
+appliance/packagelist
 appliance/supermin-make.sh
 appliance/supermin-split.sh
 appliance/supermin.incfiles

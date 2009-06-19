@@ -24,28 +24,6 @@ set -e
 
 cd @top_builddir@
 
-modules="
--i augeas-libs
--i bash
--i binutils
--i coreutils
--i dosfstools
--i file
--i grub
--i iputils
--i kernel
--i lvm2
--i MAKEDEV
--i module-init-tools
--i net-tools
--i ntfs-3g
--i ntfsprogs
--i procps
--i strace
--i util-linux-ng
--i zerofree
-"
-
 # Decide on names for the final output.  These have to match Makefile.am.
 output=appliance/initramfs.@REPO@.@host_cpu@.img
 koutput=appliance/vmlinuz.@REPO@.@host_cpu@
@@ -53,7 +31,14 @@ rm -f $output
 rm -f $koutput
 
 # Create the basic initramfs.
-@FEBOOTSTRAP@ $modules -u @UPDATES@ @REPO@ initramfs @MIRROR@
+exec 5<appliance/packagelist
+packages=
+while read pkg 0<&5; do
+    packages="$packages -i $pkg"
+done
+exec 5<&-
+
+@FEBOOTSTRAP@ $packages -u @UPDATES@ @REPO@ initramfs @MIRROR@
 
 # /sysroot is where the guest root filesystem will be mounted.
 @FEBOOTSTRAP_RUN@ initramfs -- mkdir -p --mode=0777 /sysroot

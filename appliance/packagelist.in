@@ -1,0 +1,28 @@
+/* This is the list of distro packages which are
+ * installed on the appliance.
+ *
+ * This file is processed by cpp with one of the
+ * following symbols defined (depending on the distro):
+ *
+ *   REDHAT=1     For Fedora, RHEL, EPEL and workalikes.
+ */
+
+augeas-libs
+bash
+binutils
+coreutils
+dosfstools
+file
+grub
+iputils
+kernel
+lvm2
+MAKEDEV
+module-init-tools
+net-tools
+ntfs-3g
+ntfsprogs
+procps
+strace
+util-linux-ng
+zerofree

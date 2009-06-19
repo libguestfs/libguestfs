@@ -19,7 +19,8 @@ EXTRA_DIST = \
 	make.sh update.sh supermin-split.sh supermin-make.sh \
 	libguestfs-supermin-helper \
 	kmod.whitelist \
-	kmod.whitelist.in
+	kmod.whitelist.in \
+	packagelist.in
 
 # Build the root filesystem (appliance).
 # Currently this is arch-dependent, so it seems like putting it in
@@ -52,7 +53,7 @@ endif
 # This is for building the normal appliance:
 $(INITRAMFSIMG) $(VMLINUZ): $(top_builddir)/initramfs/fakeroot.log
 
-$(top_builddir)/initramfs/fakeroot.log: make.sh kmod.whitelist
+$(top_builddir)/initramfs/fakeroot.log: make.sh kmod.whitelist packagelist
 	-mv $(INITRAMFSIMG) $(INITRAMFSIMG).bak
 	-mv $(VMLINUZ) $(VMLINUZ).bak
 	if ! bash make.sh; then rm -f $@; exit 1; fi
@@ -64,6 +65,10 @@ $(INITRAMFSIMG): $(top_builddir)/initramfs/fakeroot.log $(top_builddir)/daemon/g
 
 kmod.whitelist: kmod.whitelist.in
 	grep -v '^[[:space:]]*$$' < $< | grep -v '^#' > $@
+
+packagelist: packagelist.in
+	cpp -undef -DREDHAT=1 < $< | \
+	grep -v '^[[:space:]]*$$' | grep -v '^#' > $@
 
 # This is for building the supermin appliance.  It has to be enabled
 # specifically with './configure --enable-supermin'.  You really need
