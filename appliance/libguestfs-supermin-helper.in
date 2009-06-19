@@ -29,11 +29,13 @@ sourcedir=$(cd "$1" > /dev/null; pwd)
 kernel="$2"
 initrd="$3"
 
-# Look for the kernel first.  This is very unsophisticated: We
-# just look for any kernel named vmlinuz-*.$host_cpu which has a
-# corresponding /lib/modules/*.$host_cpu directory.
+# Kernel:
+# Look for any kernel named vmlinuz-*.$host_cpu* which has
+# a corresponding /lib/modules/*.$host_cpu* directory.
+# However by sorting on reverse version (ls -vr) we ensure
+# we choose the newest kernels.
 
-for f in /boot/vmlinuz-*.@host_cpu@; do
+for f in $(ls -1vr /boot/vmlinuz-*.@host_cpu@* | grep -v xen); do
     b=$(basename "$f")
     b=$(echo "$b" | sed 's,vmlinuz-,,')
     modpath="/lib/modules/$b"
