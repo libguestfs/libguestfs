@@ -139,7 +139,13 @@ extern void reply (xdrproc_t xdrp, char *ret);
 
 /* Helper for functions which need either an absolute path in the
  * mounted filesystem, OR a /dev/ device which exists.
+ *
  * NB. Cannot be used for FileIn functions.
+ *
+ * NB #2: Functions which mix filenames and device paths should be
+ * avoided, and existing functions should be deprecated.  This is
+ * because we intend in future to make device parameters a distinct
+ * type from filenames.
  */
 #define NEED_ROOT_OR_IS_DEVICE(path,errcode) \
   do {									\
