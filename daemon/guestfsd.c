@@ -453,7 +453,8 @@ commandrv (char **stdoutput, char **stderror, char * const* const argv)
 {
   int so_size = 0, se_size = 0;
   int so_fd[2], se_fd[2];
-  int pid, r, quit, i;
+  pid_t pid;
+  int r, quit, i;
   fd_set rset, rset2;
   char buf[256];
   char *p;
@@ -589,7 +590,10 @@ commandrv (char **stdoutput, char **stderror, char * const* const argv)
   }
 
   /* Get the exit status of the command. */
-  waitpid (pid, &r, 0);
+  if (waitpid (pid, &r, 0) != pid) {
+    perror ("waitpid");
+    return -1;
+  }
 
   if (WIFEXITED (r)) {
     return WEXITSTATUS (r);
