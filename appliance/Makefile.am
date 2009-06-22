@@ -126,7 +126,7 @@ test-boot-realistic: emptydisk
 	  -m 384 \
 	  -kernel $(VMLINUZ) -initrd $(INITRAMFSIMG) \
 	  -hda emptydisk \
-	  -append "console=ttyS0 guestfs=10.0.2.4:6666" \
+	  -append "console=ttyS0 guestfs=10.0.2.4:6666 guestfs_rescue=1" \
 	  -nographic \
 	  -serial stdio \
 	  -net channel,6666:unix:/tmp/sock,server,nowait \
