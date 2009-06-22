@@ -83,7 +83,8 @@ static VALUE ruby_guestfs_test0 (VALUE gv, VALUE strv, VALUE optstrv, VALUE strl
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "str", "test0");
   const char *optstr = !NIL_P (optstrv) ? StringValueCStr (optstrv) : NULL;
-  char **strlist;  {
+  char **strlist;
+  {
     int i, len;
     len = RARRAY_LEN (strlistv);
     strlist = guestfs_safe_malloc (g, sizeof (char *) * (len+1));
@@ -2268,7 +2269,8 @@ static VALUE ruby_guestfs_vgcreate (VALUE gv, VALUE volgroupv, VALUE physvolsv)
   if (!volgroup)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "volgroup", "vgcreate");
-  char **physvols;  {
+  char **physvols;
+  {
     int i, len;
     len = RARRAY_LEN (physvolsv);
     physvols = guestfs_safe_malloc (g, sizeof (char *) * (len+1));
@@ -2354,7 +2356,8 @@ static VALUE ruby_guestfs_sfdisk (VALUE gv, VALUE devicev, VALUE cylsv, VALUE he
   int cyls = NUM2INT (cylsv);
   int heads = NUM2INT (headsv);
   int sectors = NUM2INT (sectorsv);
-  char **lines;  {
+  char **lines;
+  {
     int i, len;
     len = RARRAY_LEN (linesv);
     lines = guestfs_safe_malloc (g, sizeof (char *) * (len+1));
@@ -2511,7 +2514,8 @@ static VALUE ruby_guestfs_command (VALUE gv, VALUE argumentsv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "command");
 
-  char **arguments;  {
+  char **arguments;
+  {
     int i, len;
     len = RARRAY_LEN (argumentsv);
     arguments = guestfs_safe_malloc (g, sizeof (char *) * (len+1));
@@ -2541,7 +2545,8 @@ static VALUE ruby_guestfs_command_lines (VALUE gv, VALUE argumentsv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "command_lines");
 
-  char **arguments;  {
+  char **arguments;
+  {
     int i, len;
     len = RARRAY_LEN (argumentsv);
     arguments = guestfs_safe_malloc (g, sizeof (char *) * (len+1));
@@ -3191,7 +3196,8 @@ static VALUE ruby_guestfs_debug (VALUE gv, VALUE subcmdv, VALUE extraargsv)
   if (!subcmd)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "subcmd", "debug");
-  char **extraargs;  {
+  char **extraargs;
+  {
     int i, len;
     len = RARRAY_LEN (extraargsv);
     extraargs = guestfs_safe_malloc (g, sizeof (char *) * (len+1));
@@ -3849,7 +3855,8 @@ static VALUE ruby_guestfs_vg_activate (VALUE gv, VALUE activatev, VALUE volgroup
     rb_raise (rb_eArgError, "%s: used handle after closing it", "vg_activate");
 
   int activate = RTEST (activatev);
-  char **volgroups;  {
+  char **volgroups;
+  {
     int i, len;
     len = RARRAY_LEN (volgroupsv);
     volgroups = guestfs_safe_malloc (g, sizeof (char *) * (len+1));

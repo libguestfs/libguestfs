@@ -6507,7 +6507,7 @@ static VALUE ruby_guestfs_close (VALUE gv)
 	| OptString n ->
 	    pr "  const char *%s = !NIL_P (%sv) ? StringValueCStr (%sv) : NULL;\n" n n n
 	| StringList n ->
-	    pr "  char **%s;" n;
+	    pr "  char **%s;\n" n;
 	    pr "  {\n";
 	    pr "    int i, len;\n";
 	    pr "    len = RARRAY_LEN (%sv);\n" n;
