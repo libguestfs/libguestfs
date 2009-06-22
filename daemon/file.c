@@ -58,7 +58,11 @@ do_touch (char *path)
     return -1;
   }
 
-  close (fd);
+  if (close (fd) == -1) {
+    reply_with_perror ("close: %s", path);
+    return -1;
+  }
+
   return 0;
 }
 
