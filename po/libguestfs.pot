@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2009-06-19 19:37+0100\n"
+"POT-Creation-Date: 2009-06-22 10:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,7 +37,7 @@ msgstr ""
 msgid "use '%s filename' to edit a file\n"
 msgstr ""
 
-#: fish/fish.c:89
+#: fish/fish.c:88
 #, c-format
 msgid ""
 "guestfish: guest filesystem shell\n"
@@ -65,17 +65,17 @@ msgid ""
 "For more information,  see the manpage guestfish(1).\n"
 msgstr ""
 
-#: fish/fish.c:144
+#: fish/fish.c:143
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr ""
 
-#: fish/fish.c:235
+#: fish/fish.c:234
 #, c-format
 msgid "guestfish: unexpected command line option 0x%x\n"
 msgstr ""
 
-#: fish/fish.c:381
+#: fish/fish.c:380
 #, c-format
 msgid ""
 "\n"
@@ -87,61 +87,65 @@ msgid ""
 "\n"
 msgstr ""
 
-#: fish/fish.c:458
+#: fish/fish.c:457
 #, c-format
 msgid "guestfish: unterminated double quote\n"
 msgstr ""
 
-#: fish/fish.c:463 fish/fish.c:478
+#: fish/fish.c:462 fish/fish.c:477
 #, c-format
 msgid "guestfish: command arguments not separated by whitespace\n"
 msgstr ""
 
-#: fish/fish.c:473
+#: fish/fish.c:472
 #, c-format
 msgid "guestfish: unterminated single quote\n"
 msgstr ""
 
-#: fish/fish.c:514
+#: fish/fish.c:513
 #, c-format
 msgid "guestfish: internal error parsing string at '%s'\n"
 msgstr ""
 
-#: fish/fish.c:527
+#: fish/fish.c:526
 #, c-format
 msgid "guestfish: too many arguments\n"
 msgstr ""
 
-#: fish/fish.c:554
+#: fish/fish.c:553
 #, c-format
 msgid "guestfish: empty command on command line\n"
 msgstr ""
 
-#: fish/fish.c:613
+#: fish/fish.c:614
 msgid "display a list of commands or help on a command"
 msgstr ""
 
-#: fish/fish.c:615
+#: fish/fish.c:616
 msgid "quit guestfish"
 msgstr ""
 
-#: fish/fish.c:618
+#: fish/fish.c:619
 msgid "allocate an image"
 msgstr ""
 
-#: fish/fish.c:620
+#: fish/fish.c:621
 msgid "display a line of text"
 msgstr ""
 
-#: fish/fish.c:622
+#: fish/fish.c:623
 msgid "edit a file in the image"
 msgstr ""
 
-#: fish/fish.c:624
+#: fish/fish.c:625
 msgid "local change directory"
 msgstr ""
 
-#: fish/fish.c:636
+#: fish/fish.c:627
+msgid "expand wildcards in command"
+msgstr ""
+
+#: fish/fish.c:639
 #, c-format
 msgid ""
 "alloc - allocate an image\n"
@@ -161,7 +165,7 @@ msgid ""
 "    <nn>sects        number of 512 byte sectors\n"
 msgstr ""
 
-#: fish/fish.c:652
+#: fish/fish.c:655
 #, c-format
 msgid ""
 "echo - display a line of text\n"
@@ -170,7 +174,7 @@ msgid ""
 "    This echos the parameters to the terminal.\n"
 msgstr ""
 
-#: fish/fish.c:659
+#: fish/fish.c:662
 #, c-format
 msgid ""
 "edit - edit a file in the image\n"
@@ -188,7 +192,7 @@ msgid ""
 "    (> 2 MB) or binary files containing \\0 bytes.\n"
 msgstr ""
 
-#: fish/fish.c:673
+#: fish/fish.c:676
 #, c-format
 msgid ""
 "lcd - local change directory\n"
@@ -199,7 +203,18 @@ msgid ""
 "    place.\n"
 msgstr ""
 
-#: fish/fish.c:680
+#: fish/fish.c:683
+#, c-format
+msgid ""
+"glob - expand wildcards in command\n"
+"    glob <command> [<args> ...]\n"
+"\n"
+"    Glob runs <command> with wildcards expanded in any\n"
+"    command args.  Note that the command is run repeatedly\n"
+"    once for each expanded argument.\n"
+msgstr ""
+
+#: fish/fish.c:690
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -207,14 +222,14 @@ msgid ""
 "     help\n"
 msgstr ""
 
-#: fish/fish.c:686
+#: fish/fish.c:696
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
 "     quit\n"
 msgstr ""
 
-#: fish/fish.c:689
+#: fish/fish.c:699
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""
