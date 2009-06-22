@@ -78,12 +78,14 @@ static VALUE ruby_guestfs_test0 (VALUE gv, VALUE strv, VALUE optstrv, VALUE strl
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "test0");
 
+  Check_Type (strv, T_STRING);
   const char *str = StringValueCStr (strv);
   if (!str)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "str", "test0");
   const char *optstr = !NIL_P (optstrv) ? StringValueCStr (optstrv) : NULL;
   char **strlist;
+  Check_Type (strlistv, T_ARRAY);
   {
     int i, len;
     len = RARRAY_LEN (strlistv);
@@ -96,10 +98,12 @@ static VALUE ruby_guestfs_test0 (VALUE gv, VALUE strv, VALUE optstrv, VALUE strl
   }
   int b = RTEST (bv);
   int integer = NUM2INT (integerv);
+  Check_Type (fileinv, T_STRING);
   const char *filein = StringValueCStr (fileinv);
   if (!filein)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "filein", "test0");
+  Check_Type (fileoutv, T_STRING);
   const char *fileout = StringValueCStr (fileoutv);
   if (!fileout)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -122,6 +126,7 @@ static VALUE ruby_guestfs_test0rint (VALUE gv, VALUE valv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rint");
 
+  Check_Type (valv, T_STRING);
   const char *val = StringValueCStr (valv);
   if (!val)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -160,6 +165,7 @@ static VALUE ruby_guestfs_test0rint64 (VALUE gv, VALUE valv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rint64");
 
+  Check_Type (valv, T_STRING);
   const char *val = StringValueCStr (valv);
   if (!val)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -198,6 +204,7 @@ static VALUE ruby_guestfs_test0rbool (VALUE gv, VALUE valv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rbool");
 
+  Check_Type (valv, T_STRING);
   const char *val = StringValueCStr (valv);
   if (!val)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -236,6 +243,7 @@ static VALUE ruby_guestfs_test0rconststring (VALUE gv, VALUE valv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rconststring");
 
+  Check_Type (valv, T_STRING);
   const char *val = StringValueCStr (valv);
   if (!val)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -274,6 +282,7 @@ static VALUE ruby_guestfs_test0rstring (VALUE gv, VALUE valv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rstring");
 
+  Check_Type (valv, T_STRING);
   const char *val = StringValueCStr (valv);
   if (!val)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -316,6 +325,7 @@ static VALUE ruby_guestfs_test0rstringlist (VALUE gv, VALUE valv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rstringlist");
 
+  Check_Type (valv, T_STRING);
   const char *val = StringValueCStr (valv);
   if (!val)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -370,6 +380,7 @@ static VALUE ruby_guestfs_test0rintbool (VALUE gv, VALUE valv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rintbool");
 
+  Check_Type (valv, T_STRING);
   const char *val = StringValueCStr (valv);
   if (!val)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -416,6 +427,7 @@ static VALUE ruby_guestfs_test0rpvlist (VALUE gv, VALUE valv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rpvlist");
 
+  Check_Type (valv, T_STRING);
   const char *val = StringValueCStr (valv);
   if (!val)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -496,6 +508,7 @@ static VALUE ruby_guestfs_test0rvglist (VALUE gv, VALUE valv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rvglist");
 
+  Check_Type (valv, T_STRING);
   const char *val = StringValueCStr (valv);
   if (!val)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -586,6 +599,7 @@ static VALUE ruby_guestfs_test0rlvlist (VALUE gv, VALUE valv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rlvlist");
 
+  Check_Type (valv, T_STRING);
   const char *val = StringValueCStr (valv);
   if (!val)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -670,6 +684,7 @@ static VALUE ruby_guestfs_test0rstat (VALUE gv, VALUE valv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rstat");
 
+  Check_Type (valv, T_STRING);
   const char *val = StringValueCStr (valv);
   if (!val)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -738,6 +753,7 @@ static VALUE ruby_guestfs_test0rstatvfs (VALUE gv, VALUE valv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rstatvfs");
 
+  Check_Type (valv, T_STRING);
   const char *val = StringValueCStr (valv);
   if (!val)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -802,6 +818,7 @@ static VALUE ruby_guestfs_test0rhashtable (VALUE gv, VALUE valv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "test0rhashtable");
 
+  Check_Type (valv, T_STRING);
   const char *val = StringValueCStr (valv);
   if (!val)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -907,6 +924,7 @@ static VALUE ruby_guestfs_add_drive (VALUE gv, VALUE filenamev)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "add_drive");
 
+  Check_Type (filenamev, T_STRING);
   const char *filename = StringValueCStr (filenamev);
   if (!filename)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -928,6 +946,7 @@ static VALUE ruby_guestfs_add_cdrom (VALUE gv, VALUE filenamev)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "add_cdrom");
 
+  Check_Type (filenamev, T_STRING);
   const char *filename = StringValueCStr (filenamev);
   if (!filename)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -949,6 +968,7 @@ static VALUE ruby_guestfs_add_drive_ro (VALUE gv, VALUE filenamev)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "add_drive_ro");
 
+  Check_Type (filenamev, T_STRING);
   const char *filename = StringValueCStr (filenamev);
   if (!filename)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -970,6 +990,7 @@ static VALUE ruby_guestfs_config (VALUE gv, VALUE qemuparamv, VALUE qemuvaluev)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "config");
 
+  Check_Type (qemuparamv, T_STRING);
   const char *qemuparam = StringValueCStr (qemuparamv);
   if (!qemuparam)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -992,6 +1013,7 @@ static VALUE ruby_guestfs_set_qemu (VALUE gv, VALUE qemuv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "set_qemu");
 
+  Check_Type (qemuv, T_STRING);
   const char *qemu = StringValueCStr (qemuv);
   if (!qemu)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -1030,6 +1052,7 @@ static VALUE ruby_guestfs_set_path (VALUE gv, VALUE pathv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "set_path");
 
+  Check_Type (pathv, T_STRING);
   const char *path = StringValueCStr (pathv);
   if (!path)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -1068,6 +1091,7 @@ static VALUE ruby_guestfs_set_append (VALUE gv, VALUE appendv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "set_append");
 
+  Check_Type (appendv, T_STRING);
   const char *append = StringValueCStr (appendv);
   if (!append)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -1312,10 +1336,12 @@ static VALUE ruby_guestfs_mount (VALUE gv, VALUE devicev, VALUE mountpointv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "mount");
 
+  Check_Type (devicev, T_STRING);
   const char *device = StringValueCStr (devicev);
   if (!device)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "device", "mount");
+  Check_Type (mountpointv, T_STRING);
   const char *mountpoint = StringValueCStr (mountpointv);
   if (!mountpoint)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -1354,6 +1380,7 @@ static VALUE ruby_guestfs_touch (VALUE gv, VALUE pathv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "touch");
 
+  Check_Type (pathv, T_STRING);
   const char *path = StringValueCStr (pathv);
   if (!path)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -1375,6 +1402,7 @@ static VALUE ruby_guestfs_cat (VALUE gv, VALUE pathv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "cat");
 
+  Check_Type (pathv, T_STRING);
   const char *path = StringValueCStr (pathv);
   if (!path)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -1398,6 +1426,7 @@ static VALUE ruby_guestfs_ll (VALUE gv, VALUE directoryv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "ll");
 
+  Check_Type (directoryv, T_STRING);
   const char *directory = StringValueCStr (directoryv);
   if (!directory)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -1421,6 +1450,7 @@ static VALUE ruby_guestfs_ls (VALUE gv, VALUE directoryv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "ls");
 
+  Check_Type (directoryv, T_STRING);
   const char *directory = StringValueCStr (directoryv);
   if (!directory)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -1696,6 +1726,7 @@ static VALUE ruby_guestfs_read_lines (VALUE gv, VALUE pathv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "read_lines");
 
+  Check_Type (pathv, T_STRING);
   const char *path = StringValueCStr (pathv);
   if (!path)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -1725,6 +1756,7 @@ static VALUE ruby_guestfs_aug_init (VALUE gv, VALUE rootv, VALUE flagsv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "aug_init");
 
+  Check_Type (rootv, T_STRING);
   const char *root = StringValueCStr (rootv);
   if (!root)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -1764,6 +1796,7 @@ static VALUE ruby_guestfs_aug_defvar (VALUE gv, VALUE namev, VALUE exprv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "aug_defvar");
 
+  Check_Type (namev, T_STRING);
   const char *name = StringValueCStr (namev);
   if (!name)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -1786,14 +1819,17 @@ static VALUE ruby_guestfs_aug_defnode (VALUE gv, VALUE namev, VALUE exprv, VALUE
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "aug_defnode");
 
+  Check_Type (namev, T_STRING);
   const char *name = StringValueCStr (namev);
   if (!name)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "name", "aug_defnode");
+  Check_Type (exprv, T_STRING);
   const char *expr = StringValueCStr (exprv);
   if (!expr)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "expr", "aug_defnode");
+  Check_Type (valv, T_STRING);
   const char *val = StringValueCStr (valv);
   if (!val)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -1819,6 +1855,7 @@ static VALUE ruby_guestfs_aug_get (VALUE gv, VALUE pathv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "aug_get");
 
+  Check_Type (pathv, T_STRING);
   const char *path = StringValueCStr (pathv);
   if (!path)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -1842,10 +1879,12 @@ static VALUE ruby_guestfs_aug_set (VALUE gv, VALUE pathv, VALUE valv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "aug_set");
 
+  Check_Type (pathv, T_STRING);
   const char *path = StringValueCStr (pathv);
   if (!path)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "path", "aug_set");
+  Check_Type (valv, T_STRING);
   const char *val = StringValueCStr (valv);
   if (!val)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -1867,10 +1906,12 @@ static VALUE ruby_guestfs_aug_insert (VALUE gv, VALUE pathv, VALUE labelv, VALUE
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "aug_insert");
 
+  Check_Type (pathv, T_STRING);
   const char *path = StringValueCStr (pathv);
   if (!path)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "path", "aug_insert");
+  Check_Type (labelv, T_STRING);
   const char *label = StringValueCStr (labelv);
   if (!label)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -1893,6 +1934,7 @@ static VALUE ruby_guestfs_aug_rm (VALUE gv, VALUE pathv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "aug_rm");
 
+  Check_Type (pathv, T_STRING);
   const char *path = StringValueCStr (pathv);
   if (!path)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -1914,10 +1956,12 @@ static VALUE ruby_guestfs_aug_mv (VALUE gv, VALUE srcv, VALUE destv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "aug_mv");
 
+  Check_Type (srcv, T_STRING);
   const char *src = StringValueCStr (srcv);
   if (!src)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "src", "aug_mv");
+  Check_Type (destv, T_STRING);
   const char *dest = StringValueCStr (destv);
   if (!dest)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -1939,6 +1983,7 @@ static VALUE ruby_guestfs_aug_match (VALUE gv, VALUE pathv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "aug_match");
 
+  Check_Type (pathv, T_STRING);
   const char *path = StringValueCStr (pathv);
   if (!path)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -2002,6 +2047,7 @@ static VALUE ruby_guestfs_aug_ls (VALUE gv, VALUE pathv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "aug_ls");
 
+  Check_Type (pathv, T_STRING);
   const char *path = StringValueCStr (pathv);
   if (!path)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -2031,6 +2077,7 @@ static VALUE ruby_guestfs_rm (VALUE gv, VALUE pathv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "rm");
 
+  Check_Type (pathv, T_STRING);
   const char *path = StringValueCStr (pathv);
   if (!path)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -2052,6 +2099,7 @@ static VALUE ruby_guestfs_rmdir (VALUE gv, VALUE pathv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "rmdir");
 
+  Check_Type (pathv, T_STRING);
   const char *path = StringValueCStr (pathv);
   if (!path)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -2073,6 +2121,7 @@ static VALUE ruby_guestfs_rm_rf (VALUE gv, VALUE pathv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "rm_rf");
 
+  Check_Type (pathv, T_STRING);
   const char *path = StringValueCStr (pathv);
   if (!path)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -2094,6 +2143,7 @@ static VALUE ruby_guestfs_mkdir (VALUE gv, VALUE pathv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "mkdir");
 
+  Check_Type (pathv, T_STRING);
   const char *path = StringValueCStr (pathv);
   if (!path)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -2115,6 +2165,7 @@ static VALUE ruby_guestfs_mkdir_p (VALUE gv, VALUE pathv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "mkdir_p");
 
+  Check_Type (pathv, T_STRING);
   const char *path = StringValueCStr (pathv);
   if (!path)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -2137,6 +2188,7 @@ static VALUE ruby_guestfs_chmod (VALUE gv, VALUE modev, VALUE pathv)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "chmod");
 
   int mode = NUM2INT (modev);
+  Check_Type (pathv, T_STRING);
   const char *path = StringValueCStr (pathv);
   if (!path)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -2160,6 +2212,7 @@ static VALUE ruby_guestfs_chown (VALUE gv, VALUE ownerv, VALUE groupv, VALUE pat
 
   int owner = NUM2INT (ownerv);
   int group = NUM2INT (groupv);
+  Check_Type (pathv, T_STRING);
   const char *path = StringValueCStr (pathv);
   if (!path)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -2181,6 +2234,7 @@ static VALUE ruby_guestfs_exists (VALUE gv, VALUE pathv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "exists");
 
+  Check_Type (pathv, T_STRING);
   const char *path = StringValueCStr (pathv);
   if (!path)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -2202,6 +2256,7 @@ static VALUE ruby_guestfs_is_file (VALUE gv, VALUE pathv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "is_file");
 
+  Check_Type (pathv, T_STRING);
   const char *path = StringValueCStr (pathv);
   if (!path)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -2223,6 +2278,7 @@ static VALUE ruby_guestfs_is_dir (VALUE gv, VALUE pathv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "is_dir");
 
+  Check_Type (pathv, T_STRING);
   const char *path = StringValueCStr (pathv);
   if (!path)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -2244,6 +2300,7 @@ static VALUE ruby_guestfs_pvcreate (VALUE gv, VALUE devicev)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "pvcreate");
 
+  Check_Type (devicev, T_STRING);
   const char *device = StringValueCStr (devicev);
   if (!device)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -2265,11 +2322,13 @@ static VALUE ruby_guestfs_vgcreate (VALUE gv, VALUE volgroupv, VALUE physvolsv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "vgcreate");
 
+  Check_Type (volgroupv, T_STRING);
   const char *volgroup = StringValueCStr (volgroupv);
   if (!volgroup)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "volgroup", "vgcreate");
   char **physvols;
+  Check_Type (physvolsv, T_ARRAY);
   {
     int i, len;
     len = RARRAY_LEN (physvolsv);
@@ -2298,10 +2357,12 @@ static VALUE ruby_guestfs_lvcreate (VALUE gv, VALUE logvolv, VALUE volgroupv, VA
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "lvcreate");
 
+  Check_Type (logvolv, T_STRING);
   const char *logvol = StringValueCStr (logvolv);
   if (!logvol)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "logvol", "lvcreate");
+  Check_Type (volgroupv, T_STRING);
   const char *volgroup = StringValueCStr (volgroupv);
   if (!volgroup)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -2324,10 +2385,12 @@ static VALUE ruby_guestfs_mkfs (VALUE gv, VALUE fstypev, VALUE devicev)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "mkfs");
 
+  Check_Type (fstypev, T_STRING);
   const char *fstype = StringValueCStr (fstypev);
   if (!fstype)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "fstype", "mkfs");
+  Check_Type (devicev, T_STRING);
   const char *device = StringValueCStr (devicev);
   if (!device)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -2349,6 +2412,7 @@ static VALUE ruby_guestfs_sfdisk (VALUE gv, VALUE devicev, VALUE cylsv, VALUE he
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "sfdisk");
 
+  Check_Type (devicev, T_STRING);
   const char *device = StringValueCStr (devicev);
   if (!device)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -2357,6 +2421,7 @@ static VALUE ruby_guestfs_sfdisk (VALUE gv, VALUE devicev, VALUE cylsv, VALUE he
   int heads = NUM2INT (headsv);
   int sectors = NUM2INT (sectorsv);
   char **lines;
+  Check_Type (linesv, T_ARRAY);
   {
     int i, len;
     len = RARRAY_LEN (linesv);
@@ -2385,10 +2450,12 @@ static VALUE ruby_guestfs_write_file (VALUE gv, VALUE pathv, VALUE contentv, VAL
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "write_file");
 
+  Check_Type (pathv, T_STRING);
   const char *path = StringValueCStr (pathv);
   if (!path)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "path", "write_file");
+  Check_Type (contentv, T_STRING);
   const char *content = StringValueCStr (contentv);
   if (!content)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -2411,6 +2478,7 @@ static VALUE ruby_guestfs_umount (VALUE gv, VALUE pathordevicev)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "umount");
 
+  Check_Type (pathordevicev, T_STRING);
   const char *pathordevice = StringValueCStr (pathordevicev);
   if (!pathordevice)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -2491,6 +2559,7 @@ static VALUE ruby_guestfs_file (VALUE gv, VALUE pathv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "file");
 
+  Check_Type (pathv, T_STRING);
   const char *path = StringValueCStr (pathv);
   if (!path)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -2515,6 +2584,7 @@ static VALUE ruby_guestfs_command (VALUE gv, VALUE argumentsv)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "command");
 
   char **arguments;
+  Check_Type (argumentsv, T_ARRAY);
   {
     int i, len;
     len = RARRAY_LEN (argumentsv);
@@ -2546,6 +2616,7 @@ static VALUE ruby_guestfs_command_lines (VALUE gv, VALUE argumentsv)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "command_lines");
 
   char **arguments;
+  Check_Type (argumentsv, T_ARRAY);
   {
     int i, len;
     len = RARRAY_LEN (argumentsv);
@@ -2582,6 +2653,7 @@ static VALUE ruby_guestfs_stat (VALUE gv, VALUE pathv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "stat");
 
+  Check_Type (pathv, T_STRING);
   const char *path = StringValueCStr (pathv);
   if (!path)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -2618,6 +2690,7 @@ static VALUE ruby_guestfs_lstat (VALUE gv, VALUE pathv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "lstat");
 
+  Check_Type (pathv, T_STRING);
   const char *path = StringValueCStr (pathv);
   if (!path)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -2654,6 +2727,7 @@ static VALUE ruby_guestfs_statvfs (VALUE gv, VALUE pathv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "statvfs");
 
+  Check_Type (pathv, T_STRING);
   const char *path = StringValueCStr (pathv);
   if (!path)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -2688,6 +2762,7 @@ static VALUE ruby_guestfs_tune2fs_l (VALUE gv, VALUE devicev)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "tune2fs_l");
 
+  Check_Type (devicev, T_STRING);
   const char *device = StringValueCStr (devicev);
   if (!device)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -2717,6 +2792,7 @@ static VALUE ruby_guestfs_blockdev_setro (VALUE gv, VALUE devicev)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "blockdev_setro");
 
+  Check_Type (devicev, T_STRING);
   const char *device = StringValueCStr (devicev);
   if (!device)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -2738,6 +2814,7 @@ static VALUE ruby_guestfs_blockdev_setrw (VALUE gv, VALUE devicev)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "blockdev_setrw");
 
+  Check_Type (devicev, T_STRING);
   const char *device = StringValueCStr (devicev);
   if (!device)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -2759,6 +2836,7 @@ static VALUE ruby_guestfs_blockdev_getro (VALUE gv, VALUE devicev)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "blockdev_getro");
 
+  Check_Type (devicev, T_STRING);
   const char *device = StringValueCStr (devicev);
   if (!device)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -2780,6 +2858,7 @@ static VALUE ruby_guestfs_blockdev_getss (VALUE gv, VALUE devicev)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "blockdev_getss");
 
+  Check_Type (devicev, T_STRING);
   const char *device = StringValueCStr (devicev);
   if (!device)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -2801,6 +2880,7 @@ static VALUE ruby_guestfs_blockdev_getbsz (VALUE gv, VALUE devicev)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "blockdev_getbsz");
 
+  Check_Type (devicev, T_STRING);
   const char *device = StringValueCStr (devicev);
   if (!device)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -2822,6 +2902,7 @@ static VALUE ruby_guestfs_blockdev_setbsz (VALUE gv, VALUE devicev, VALUE blocks
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "blockdev_setbsz");
 
+  Check_Type (devicev, T_STRING);
   const char *device = StringValueCStr (devicev);
   if (!device)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -2844,6 +2925,7 @@ static VALUE ruby_guestfs_blockdev_getsz (VALUE gv, VALUE devicev)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "blockdev_getsz");
 
+  Check_Type (devicev, T_STRING);
   const char *device = StringValueCStr (devicev);
   if (!device)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -2865,6 +2947,7 @@ static VALUE ruby_guestfs_blockdev_getsize64 (VALUE gv, VALUE devicev)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "blockdev_getsize64");
 
+  Check_Type (devicev, T_STRING);
   const char *device = StringValueCStr (devicev);
   if (!device)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -2886,6 +2969,7 @@ static VALUE ruby_guestfs_blockdev_flushbufs (VALUE gv, VALUE devicev)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "blockdev_flushbufs");
 
+  Check_Type (devicev, T_STRING);
   const char *device = StringValueCStr (devicev);
   if (!device)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -2907,6 +2991,7 @@ static VALUE ruby_guestfs_blockdev_rereadpt (VALUE gv, VALUE devicev)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "blockdev_rereadpt");
 
+  Check_Type (devicev, T_STRING);
   const char *device = StringValueCStr (devicev);
   if (!device)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -2928,10 +3013,12 @@ static VALUE ruby_guestfs_upload (VALUE gv, VALUE filenamev, VALUE remotefilenam
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "upload");
 
+  Check_Type (filenamev, T_STRING);
   const char *filename = StringValueCStr (filenamev);
   if (!filename)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "filename", "upload");
+  Check_Type (remotefilenamev, T_STRING);
   const char *remotefilename = StringValueCStr (remotefilenamev);
   if (!remotefilename)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -2953,10 +3040,12 @@ static VALUE ruby_guestfs_download (VALUE gv, VALUE remotefilenamev, VALUE filen
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "download");
 
+  Check_Type (remotefilenamev, T_STRING);
   const char *remotefilename = StringValueCStr (remotefilenamev);
   if (!remotefilename)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "remotefilename", "download");
+  Check_Type (filenamev, T_STRING);
   const char *filename = StringValueCStr (filenamev);
   if (!filename)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -2978,10 +3067,12 @@ static VALUE ruby_guestfs_checksum (VALUE gv, VALUE csumtypev, VALUE pathv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "checksum");
 
+  Check_Type (csumtypev, T_STRING);
   const char *csumtype = StringValueCStr (csumtypev);
   if (!csumtype)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "csumtype", "checksum");
+  Check_Type (pathv, T_STRING);
   const char *path = StringValueCStr (pathv);
   if (!path)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -3005,10 +3096,12 @@ static VALUE ruby_guestfs_tar_in (VALUE gv, VALUE tarfilev, VALUE directoryv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "tar_in");
 
+  Check_Type (tarfilev, T_STRING);
   const char *tarfile = StringValueCStr (tarfilev);
   if (!tarfile)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "tarfile", "tar_in");
+  Check_Type (directoryv, T_STRING);
   const char *directory = StringValueCStr (directoryv);
   if (!directory)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -3030,10 +3123,12 @@ static VALUE ruby_guestfs_tar_out (VALUE gv, VALUE directoryv, VALUE tarfilev)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "tar_out");
 
+  Check_Type (directoryv, T_STRING);
   const char *directory = StringValueCStr (directoryv);
   if (!directory)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "directory", "tar_out");
+  Check_Type (tarfilev, T_STRING);
   const char *tarfile = StringValueCStr (tarfilev);
   if (!tarfile)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -3055,10 +3150,12 @@ static VALUE ruby_guestfs_tgz_in (VALUE gv, VALUE tarballv, VALUE directoryv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "tgz_in");
 
+  Check_Type (tarballv, T_STRING);
   const char *tarball = StringValueCStr (tarballv);
   if (!tarball)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "tarball", "tgz_in");
+  Check_Type (directoryv, T_STRING);
   const char *directory = StringValueCStr (directoryv);
   if (!directory)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -3080,10 +3177,12 @@ static VALUE ruby_guestfs_tgz_out (VALUE gv, VALUE directoryv, VALUE tarballv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "tgz_out");
 
+  Check_Type (directoryv, T_STRING);
   const char *directory = StringValueCStr (directoryv);
   if (!directory)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "directory", "tgz_out");
+  Check_Type (tarballv, T_STRING);
   const char *tarball = StringValueCStr (tarballv);
   if (!tarball)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -3105,10 +3204,12 @@ static VALUE ruby_guestfs_mount_ro (VALUE gv, VALUE devicev, VALUE mountpointv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "mount_ro");
 
+  Check_Type (devicev, T_STRING);
   const char *device = StringValueCStr (devicev);
   if (!device)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "device", "mount_ro");
+  Check_Type (mountpointv, T_STRING);
   const char *mountpoint = StringValueCStr (mountpointv);
   if (!mountpoint)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -3130,14 +3231,17 @@ static VALUE ruby_guestfs_mount_options (VALUE gv, VALUE optionsv, VALUE devicev
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "mount_options");
 
+  Check_Type (optionsv, T_STRING);
   const char *options = StringValueCStr (optionsv);
   if (!options)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "options", "mount_options");
+  Check_Type (devicev, T_STRING);
   const char *device = StringValueCStr (devicev);
   if (!device)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "device", "mount_options");
+  Check_Type (mountpointv, T_STRING);
   const char *mountpoint = StringValueCStr (mountpointv);
   if (!mountpoint)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -3159,18 +3263,22 @@ static VALUE ruby_guestfs_mount_vfs (VALUE gv, VALUE optionsv, VALUE vfstypev, V
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "mount_vfs");
 
+  Check_Type (optionsv, T_STRING);
   const char *options = StringValueCStr (optionsv);
   if (!options)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "options", "mount_vfs");
+  Check_Type (vfstypev, T_STRING);
   const char *vfstype = StringValueCStr (vfstypev);
   if (!vfstype)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "vfstype", "mount_vfs");
+  Check_Type (devicev, T_STRING);
   const char *device = StringValueCStr (devicev);
   if (!device)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "device", "mount_vfs");
+  Check_Type (mountpointv, T_STRING);
   const char *mountpoint = StringValueCStr (mountpointv);
   if (!mountpoint)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -3192,11 +3300,13 @@ static VALUE ruby_guestfs_debug (VALUE gv, VALUE subcmdv, VALUE extraargsv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "debug");
 
+  Check_Type (subcmdv, T_STRING);
   const char *subcmd = StringValueCStr (subcmdv);
   if (!subcmd)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "subcmd", "debug");
   char **extraargs;
+  Check_Type (extraargsv, T_ARRAY);
   {
     int i, len;
     len = RARRAY_LEN (extraargsv);
@@ -3227,6 +3337,7 @@ static VALUE ruby_guestfs_lvremove (VALUE gv, VALUE devicev)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "lvremove");
 
+  Check_Type (devicev, T_STRING);
   const char *device = StringValueCStr (devicev);
   if (!device)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -3248,6 +3359,7 @@ static VALUE ruby_guestfs_vgremove (VALUE gv, VALUE vgnamev)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "vgremove");
 
+  Check_Type (vgnamev, T_STRING);
   const char *vgname = StringValueCStr (vgnamev);
   if (!vgname)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -3269,6 +3381,7 @@ static VALUE ruby_guestfs_pvremove (VALUE gv, VALUE devicev)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "pvremove");
 
+  Check_Type (devicev, T_STRING);
   const char *device = StringValueCStr (devicev);
   if (!device)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -3290,10 +3403,12 @@ static VALUE ruby_guestfs_set_e2label (VALUE gv, VALUE devicev, VALUE labelv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "set_e2label");
 
+  Check_Type (devicev, T_STRING);
   const char *device = StringValueCStr (devicev);
   if (!device)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "device", "set_e2label");
+  Check_Type (labelv, T_STRING);
   const char *label = StringValueCStr (labelv);
   if (!label)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -3315,6 +3430,7 @@ static VALUE ruby_guestfs_get_e2label (VALUE gv, VALUE devicev)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "get_e2label");
 
+  Check_Type (devicev, T_STRING);
   const char *device = StringValueCStr (devicev);
   if (!device)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -3338,10 +3454,12 @@ static VALUE ruby_guestfs_set_e2uuid (VALUE gv, VALUE devicev, VALUE uuidv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "set_e2uuid");
 
+  Check_Type (devicev, T_STRING);
   const char *device = StringValueCStr (devicev);
   if (!device)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "device", "set_e2uuid");
+  Check_Type (uuidv, T_STRING);
   const char *uuid = StringValueCStr (uuidv);
   if (!uuid)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -3363,6 +3481,7 @@ static VALUE ruby_guestfs_get_e2uuid (VALUE gv, VALUE devicev)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "get_e2uuid");
 
+  Check_Type (devicev, T_STRING);
   const char *device = StringValueCStr (devicev);
   if (!device)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -3386,10 +3505,12 @@ static VALUE ruby_guestfs_fsck (VALUE gv, VALUE fstypev, VALUE devicev)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "fsck");
 
+  Check_Type (fstypev, T_STRING);
   const char *fstype = StringValueCStr (fstypev);
   if (!fstype)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "fstype", "fsck");
+  Check_Type (devicev, T_STRING);
   const char *device = StringValueCStr (devicev);
   if (!device)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -3411,6 +3532,7 @@ static VALUE ruby_guestfs_zero (VALUE gv, VALUE devicev)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "zero");
 
+  Check_Type (devicev, T_STRING);
   const char *device = StringValueCStr (devicev);
   if (!device)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -3432,10 +3554,12 @@ static VALUE ruby_guestfs_grub_install (VALUE gv, VALUE rootv, VALUE devicev)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "grub_install");
 
+  Check_Type (rootv, T_STRING);
   const char *root = StringValueCStr (rootv);
   if (!root)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "root", "grub_install");
+  Check_Type (devicev, T_STRING);
   const char *device = StringValueCStr (devicev);
   if (!device)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -3457,10 +3581,12 @@ static VALUE ruby_guestfs_cp (VALUE gv, VALUE srcv, VALUE destv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "cp");
 
+  Check_Type (srcv, T_STRING);
   const char *src = StringValueCStr (srcv);
   if (!src)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "src", "cp");
+  Check_Type (destv, T_STRING);
   const char *dest = StringValueCStr (destv);
   if (!dest)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -3482,10 +3608,12 @@ static VALUE ruby_guestfs_cp_a (VALUE gv, VALUE srcv, VALUE destv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "cp_a");
 
+  Check_Type (srcv, T_STRING);
   const char *src = StringValueCStr (srcv);
   if (!src)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "src", "cp_a");
+  Check_Type (destv, T_STRING);
   const char *dest = StringValueCStr (destv);
   if (!dest)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -3507,10 +3635,12 @@ static VALUE ruby_guestfs_mv (VALUE gv, VALUE srcv, VALUE destv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "mv");
 
+  Check_Type (srcv, T_STRING);
   const char *src = StringValueCStr (srcv);
   if (!src)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "src", "mv");
+  Check_Type (destv, T_STRING);
   const char *dest = StringValueCStr (destv);
   if (!dest)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -3586,10 +3716,12 @@ static VALUE ruby_guestfs_equal (VALUE gv, VALUE file1v, VALUE file2v)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "equal");
 
+  Check_Type (file1v, T_STRING);
   const char *file1 = StringValueCStr (file1v);
   if (!file1)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "file1", "equal");
+  Check_Type (file2v, T_STRING);
   const char *file2 = StringValueCStr (file2v);
   if (!file2)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -3611,6 +3743,7 @@ static VALUE ruby_guestfs_strings (VALUE gv, VALUE pathv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "strings");
 
+  Check_Type (pathv, T_STRING);
   const char *path = StringValueCStr (pathv);
   if (!path)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -3640,10 +3773,12 @@ static VALUE ruby_guestfs_strings_e (VALUE gv, VALUE encodingv, VALUE pathv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "strings_e");
 
+  Check_Type (encodingv, T_STRING);
   const char *encoding = StringValueCStr (encodingv);
   if (!encoding)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "encoding", "strings_e");
+  Check_Type (pathv, T_STRING);
   const char *path = StringValueCStr (pathv);
   if (!path)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -3673,6 +3808,7 @@ static VALUE ruby_guestfs_hexdump (VALUE gv, VALUE pathv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "hexdump");
 
+  Check_Type (pathv, T_STRING);
   const char *path = StringValueCStr (pathv);
   if (!path)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -3696,6 +3832,7 @@ static VALUE ruby_guestfs_zerofree (VALUE gv, VALUE devicev)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "zerofree");
 
+  Check_Type (devicev, T_STRING);
   const char *device = StringValueCStr (devicev);
   if (!device)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -3717,6 +3854,7 @@ static VALUE ruby_guestfs_pvresize (VALUE gv, VALUE devicev)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "pvresize");
 
+  Check_Type (devicev, T_STRING);
   const char *device = StringValueCStr (devicev);
   if (!device)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -3738,6 +3876,7 @@ static VALUE ruby_guestfs_sfdisk_N (VALUE gv, VALUE devicev, VALUE nv, VALUE cyl
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "sfdisk_N");
 
+  Check_Type (devicev, T_STRING);
   const char *device = StringValueCStr (devicev);
   if (!device)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -3746,6 +3885,7 @@ static VALUE ruby_guestfs_sfdisk_N (VALUE gv, VALUE devicev, VALUE nv, VALUE cyl
   int cyls = NUM2INT (cylsv);
   int heads = NUM2INT (headsv);
   int sectors = NUM2INT (sectorsv);
+  Check_Type (linev, T_STRING);
   const char *line = StringValueCStr (linev);
   if (!line)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -3767,6 +3907,7 @@ static VALUE ruby_guestfs_sfdisk_l (VALUE gv, VALUE devicev)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "sfdisk_l");
 
+  Check_Type (devicev, T_STRING);
   const char *device = StringValueCStr (devicev);
   if (!device)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -3790,6 +3931,7 @@ static VALUE ruby_guestfs_sfdisk_kernel_geometry (VALUE gv, VALUE devicev)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "sfdisk_kernel_geometry");
 
+  Check_Type (devicev, T_STRING);
   const char *device = StringValueCStr (devicev);
   if (!device)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -3813,6 +3955,7 @@ static VALUE ruby_guestfs_sfdisk_disk_geometry (VALUE gv, VALUE devicev)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "sfdisk_disk_geometry");
 
+  Check_Type (devicev, T_STRING);
   const char *device = StringValueCStr (devicev);
   if (!device)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -3856,6 +3999,7 @@ static VALUE ruby_guestfs_vg_activate (VALUE gv, VALUE activatev, VALUE volgroup
 
   int activate = RTEST (activatev);
   char **volgroups;
+  Check_Type (volgroupsv, T_ARRAY);
   {
     int i, len;
     len = RARRAY_LEN (volgroupsv);
@@ -3884,6 +4028,7 @@ static VALUE ruby_guestfs_lvresize (VALUE gv, VALUE devicev, VALUE mbytesv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "lvresize");
 
+  Check_Type (devicev, T_STRING);
   const char *device = StringValueCStr (devicev);
   if (!device)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -3906,6 +4051,7 @@ static VALUE ruby_guestfs_resize2fs (VALUE gv, VALUE devicev)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "resize2fs");
 
+  Check_Type (devicev, T_STRING);
   const char *device = StringValueCStr (devicev);
   if (!device)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -3927,6 +4073,7 @@ static VALUE ruby_guestfs_find (VALUE gv, VALUE directoryv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "find");
 
+  Check_Type (directoryv, T_STRING);
   const char *directory = StringValueCStr (directoryv);
   if (!directory)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -3956,6 +4103,7 @@ static VALUE ruby_guestfs_e2fsck_f (VALUE gv, VALUE devicev)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "e2fsck_f");
 
+  Check_Type (devicev, T_STRING);
   const char *device = StringValueCStr (devicev);
   if (!device)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -3996,6 +4144,7 @@ static VALUE ruby_guestfs_ntfs_3g_probe (VALUE gv, VALUE rwv, VALUE devicev)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "ntfs_3g_probe");
 
   int rw = RTEST (rwv);
+  Check_Type (devicev, T_STRING);
   const char *device = StringValueCStr (devicev);
   if (!device)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -4017,6 +4166,7 @@ static VALUE ruby_guestfs_sh (VALUE gv, VALUE commandv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "sh");
 
+  Check_Type (commandv, T_STRING);
   const char *command = StringValueCStr (commandv);
   if (!command)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -4040,6 +4190,7 @@ static VALUE ruby_guestfs_sh_lines (VALUE gv, VALUE commandv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "sh_lines");
 
+  Check_Type (commandv, T_STRING);
   const char *command = StringValueCStr (commandv);
   if (!command)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
@@ -4069,6 +4220,7 @@ static VALUE ruby_guestfs_glob_expand (VALUE gv, VALUE patternv)
   if (!g)
     rb_raise (rb_eArgError, "%s: used handle after closing it", "glob_expand");
 
+  Check_Type (patternv, T_STRING);
   const char *pattern = StringValueCStr (patternv);
   if (!pattern)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",

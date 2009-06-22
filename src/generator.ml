@@ -6500,6 +6500,7 @@ static VALUE ruby_guestfs_close (VALUE gv)
       List.iter (
 	function
 	| String n | FileIn n | FileOut n ->
+	    pr "  Check_Type (%sv, T_STRING);\n" n;
 	    pr "  const char *%s = StringValueCStr (%sv);\n" n n;
 	    pr "  if (!%s)\n" n;
 	    pr "    rb_raise (rb_eTypeError, \"expected string for parameter %%s of %%s\",\n";
@@ -6508,6 +6509,7 @@ static VALUE ruby_guestfs_close (VALUE gv)
 	    pr "  const char *%s = !NIL_P (%sv) ? StringValueCStr (%sv) : NULL;\n" n n n
 	| StringList n ->
 	    pr "  char **%s;\n" n;
+	    pr "  Check_Type (%sv, T_ARRAY);\n" n;
 	    pr "  {\n";
 	    pr "    int i, len;\n";
 	    pr "    len = RARRAY_LEN (%sv);\n" n;
