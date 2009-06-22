@@ -3,8 +3,12 @@ echo Starting /init script ...
 PATH=/sbin:/usr/sbin:$PATH
 mount -t tmpfs none /dev
 mkdir /dev/pts /dev/shm /dev/mapper
-MAKEDEV mem null port zero core full ram tty console fd \
-  hda hdb hdc hdd sda sdb sdc sdd loop sd
+# Must do each MAKEDEV individually, because if one device fails,
+# MAKEDEV will quit without creating the rest (RHBZ#507374).
+for dev in mem null port zero core full ram tty console fd \
+  hda hdb hdc hdd sda sdb sdc sdd loop sd; do
+  MAKEDEV $dev ||:
+done
 mknod /dev/ptmx c 5 2; chmod 0666 /dev/ptmx
 mknod /dev/random c 1 8;  chmod 0666 /dev/random
 mknod /dev/urandom c 1 9; chmod 0444 /dev/urandom
