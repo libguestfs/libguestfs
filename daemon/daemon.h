@@ -162,11 +162,22 @@ extern void reply (xdrproc_t xdrp, char *ret);
  * (2) You must not change directory!  cwd must always be "/", otherwise
  *     we can't escape our own chroot.
  * (3) All paths specified must be absolute.
- * (4) CHROOT_OUT does not affect errno.
+ * (4) Neither macro affects errno.
  */
-#define CHROOT_IN chroot ("/sysroot");
-#define CHROOT_OUT \
-  do { int old_errno = errno; chroot ("."); errno = old_errno; } while (0)
+#define CHROOT_IN				\
+  do {						\
+    int __old_errno = errno;			\
+    if (chroot ("/sysroot") == -1)		\
+      perror ("CHROOT_IN: sysroot");		\
+    errno = __old_errno;			\
+  } while (0)
+#define CHROOT_OUT				\
+  do {						\
+    int __old_errno = errno;			\
+    if (chroot (".") == -1)			\
+      perror ("CHROOT_OUT: .");			\
+    errno = __old_errno;			\
+  } while (0)
 
 /* Marks functions which are not implemented.
  * NB. Cannot be used for FileIn functions.
