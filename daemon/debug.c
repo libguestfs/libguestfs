@@ -189,23 +189,47 @@ debug_segv (const char *subcmd, int argc, char *const *const argv)
   return NULL;
 }
 
-/* Run an arbitrary shell command. */
+/* Run an arbitrary shell command using /bin/sh from the appliance.
+ *
+ * Note this is somewhat different from the ordinary guestfs_sh command
+ * because it's not using the guest shell, and is not chrooted.
+ *
+ * Also we ignore any errors and you can see the full output if you
+ * add 2>&1 to the end of the command string.
+ */
 static char *
 debug_sh (const char *subcmd, int argc, char *const *const argv)
 {
-  int r;
-  char *out, *err;
+  char *cmd;
+  int len, i, j;
+  char *out;
 
-  r = commandv (&out, &err, argv);
-  if (r == -1) {
-    reply_with_error ("sh: %s", err);
-    free (out);
-    free (err);
+  if (argc < 1) {
+    reply_with_error ("debug: sh: expecting a command to run");
     return NULL;
   }
 
-  free (err);
+  /* guestfish splits the parameter(s) into a list of strings,
+   * and we have to reassemble them here.  Not ideal. XXX
+   */
+  for (i = len = 0; i < argc; ++i)
+    len += strlen (argv[i]) + 1;
+  cmd = malloc (len);
+  if (!cmd) {
+    reply_with_perror ("malloc");
+    return NULL;
+  }
+  for (i = j = 0; i < argc; ++i) {
+    len = strlen (argv[i]);
+    memcpy (&cmd[j], argv[i], len);
+    j += len;
+    cmd[j] = ' ';
+    j++;
+  }
+  cmd[j-1] = '\0';
 
+  command (&out, NULL, "/bin/sh", "-c", cmd, NULL);
+  free (cmd);
   return out;
 }
 
