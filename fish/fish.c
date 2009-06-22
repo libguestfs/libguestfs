@@ -56,7 +56,6 @@ static void interactive (void);
 static void shell_script (void);
 static void script (int prompt);
 static void cmdline (char *argv[], int optind, int argc);
-static int issue_command (const char *cmd, char *argv[]);
 static void initialize_readline (void);
 static void cleanup_readline (void);
 static void add_history_line (const char *);
@@ -569,7 +568,7 @@ cmdline (char *argv[], int optind, int argc)
   }
 }
 
-static int
+int
 issue_command (const char *cmd, char *argv[])
 {
   int argc;
@@ -601,6 +600,8 @@ issue_command (const char *cmd, char *argv[])
     return do_edit (cmd, argc, argv);
   else if (strcasecmp (cmd, "lcd") == 0)
     return do_lcd (cmd, argc, argv);
+  else if (strcasecmp (cmd, "glob") == 0)
+    return do_glob (cmd, argc, argv);
   else
     return run_action (cmd, argc, argv);
 }
@@ -622,6 +623,8 @@ list_builtin_commands (void)
 	  "edit", _("edit a file in the image"));
   printf ("%-20s %s\n",
 	  "lcd", _("local change directory"));
+  printf ("%-20s %s\n",
+	  "glob", _("expand wildcards in command"));
 
   /* actions are printed after this (see list_commands) */
 }
@@ -676,6 +679,13 @@ display_builtin_command (const char *cmd)
 	      "    Change guestfish's current directory. This command is\n"
 	      "    useful if you want to download files to a particular\n"
 	      "    place.\n"));
+  else if (strcasecmp (cmd, "glob") == 0)
+    printf (_("glob - expand wildcards in command\n"
+	      "    glob <command> [<args> ...]\n"
+	      "\n"
+	      "    Glob runs <command> with wildcards expanded in any\n"
+	      "    command args.  Note that the command is run repeatedly\n"
+	      "    once for each expanded argument.\n"));
   else if (strcasecmp (cmd, "help") == 0)
     printf (_("help - display a list of commands or help on a command\n"
 	      "     help cmd\n"

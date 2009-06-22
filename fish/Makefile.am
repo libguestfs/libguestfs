@@ -26,6 +26,7 @@ guestfish_SOURCES = \
 	edit.c \
 	fish.c \
 	fish.h \
+	glob.c \
 	lcd.c
 
 guestfish_CFLAGS = \

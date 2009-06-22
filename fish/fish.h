@@ -34,6 +34,7 @@
 extern guestfs_h *g;
 extern int quit;
 extern int verbose;
+extern int issue_command (const char *cmd, char *argv[]);
 extern void pod2text (const char *heading, const char *body);
 extern void list_builtin_commands (void);
 extern void display_builtin_command (const char *cmd);
@@ -69,6 +70,9 @@ extern int do_edit (const char *cmd, int argc, char *argv[]);
 /* in lcd.c */
 extern int do_lcd (const char *cmd, int argc, char *argv[]);
 
+/* in glob.c */
+extern int do_glob (const char *cmd, int argc, char *argv[]);
+
 /* This should just list all the built-in commands so they can
  * be added to the generated auto-completion code.
  */
@@ -77,7 +81,8 @@ extern int do_lcd (const char *cmd, int argc, char *argv[]);
   "quit", "exit", "q", \
   "alloc", "allocate", \
   "echo", \
-  "edit", "vi", "emacs" \
-  "lcd"
+  "edit", "vi", "emacs", \
+  "lcd", \
+  "glob"
 
 #endif /* FISH_H */

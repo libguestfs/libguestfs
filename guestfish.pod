@@ -184,6 +184,33 @@ a space-separated list, enclosed in quotes.  For example:
 
  vgcreate VG "/dev/sda1 /dev/sdb1"
 
+=head1 WILDCARDS AND GLOBBING
+
+Neither guestfish nor the underlying guestfs API performs
+wildcard expansion (globbing) by default.  So for example the
+following will not do what you expect:
+
+ rm-rf /home/*
+
+Assuming you don't have a directory literally called C</home/*>
+then the above command will return an error.
+
+To perform wildcard expansion, use the C<glob> command.
+
+ glob rm-rf /home/*
+
+runs C<rm-rf> on each path that matches (ie. potentially running
+the command many times), equivalent to:
+
+ rm-rf /home/jim
+ rm-rf /home/joe
+ rm-rf /home/mary
+
+C<glob> only works on simple guest paths and not on device names.
+
+If you have several parameters, each containing a wildcard, then glob
+will perform a cartesian product.
+
 =head1 COMMENTS
 
 Any line which starts with a I<#> character is treated as a comment
@@ -293,6 +320,15 @@ Change the local directory, ie. the current directory of guestfish
 itself.
 
 Note that C<!cd> won't do what you might expect.
+
+=head2 glob
+
+ glob command args...
+
+Expand wildcards in any paths in the args list, and run C<command>
+repeatedly on each matching path.
+
+See section WILDCARDS AND GLOBBING.
 
 @ACTIONS@
 
