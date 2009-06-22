@@ -2373,6 +2373,34 @@ into a list of lines.
 
 See also: C<guestfs_command_lines>");
 
+  ("glob_expand", (RStringList "paths", [String "pattern"]), 113, [],
+   [InitBasicFS, Always, TestOutputList (
+      [["mkdir_p"; "/a/b/c"];
+       ["touch"; "/a/b/c/d"];
+       ["touch"; "/a/b/c/e"];
+       ["glob_expand"; "/a/b/c/*"]], ["/a/b/c/d"; "/a/b/c/e"]);
+    InitBasicFS, Always, TestOutputList (
+      [["mkdir_p"; "/a/b/c"];
+       ["touch"; "/a/b/c/d"];
+       ["touch"; "/a/b/c/e"];
+       ["glob_expand"; "/a/*/c/*"]], ["/a/b/c/d"; "/a/b/c/e"]);
+    InitBasicFS, Always, TestOutputList (
+      [["mkdir_p"; "/a/b/c"];
+       ["touch"; "/a/b/c/d"];
+       ["touch"; "/a/b/c/e"];
+       ["glob_expand"; "/a/*/x/*"]], [])],
+   "expand a wildcard path",
+   "\
+This command searches for all the pathnames matching
+C<pattern> according to the wildcard expansion rules
+used by the shell.
+
+If no paths match, then this returns an empty list
+(note: not an error).
+
+It is just a wrapper around the C L<glob(3)> function
+with flags C<GLOB_MARK|GLOB_BRACE>.
+See that manual page for more details.");
 
 ]
 

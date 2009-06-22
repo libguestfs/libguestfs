@@ -36,6 +36,7 @@ guestfsd_SOURCES = \
 	file.c \
 	find.c \
 	fsck.c \
+	glob.c \
 	grub.c \
 	guestfsd.c \
 	hexdump.c \
