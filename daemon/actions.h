@@ -133,3 +133,4 @@ extern int do_sleep (int secs);
 extern int do_ntfs_3g_probe (int rw, char *device);
 extern char *do_sh (char *command);
 extern char **do_sh_lines (char *command);
+extern char **do_glob_expand (char *pattern);

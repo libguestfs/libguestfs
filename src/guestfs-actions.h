@@ -183,3 +183,4 @@ extern int guestfs_sleep (guestfs_h *handle, int secs);
 extern int guestfs_ntfs_3g_probe (guestfs_h *handle, int rw, const char *device);
 extern char *guestfs_sh (guestfs_h *handle, const char *command);
 extern char **guestfs_sh_lines (guestfs_h *handle, const char *command);
+extern char **guestfs_glob_expand (guestfs_h *handle, const char *pattern);

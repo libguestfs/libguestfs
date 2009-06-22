@@ -616,3 +616,6 @@ val sh : t -> string -> string
 val sh_lines : t -> string -> string array
 (** run a command via the shell returning lines *)
 
+val glob_expand : t -> string -> string array
+(** expand a wildcard path *)
+

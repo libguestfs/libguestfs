@@ -676,6 +676,19 @@ For more information on states, see L<guestfs(3)>.
 
 This returns the verbose messages flag.
 
+=item @paths = $h->glob_expand ($pattern);
+
+This command searches for all the pathnames matching
+C<pattern> according to the wildcard expansion rules
+used by the shell.
+
+If no paths match, then this returns an empty list
+(note: not an error).
+
+It is just a wrapper around the C L<glob(3)> function
+with flags C<GLOB_MARK|GLOB_BRACE>.
+See that manual page for more details.
+
 =item $h->grub_install ($root, $device);
 
 This command installs GRUB (the Grand Unified Bootloader) on

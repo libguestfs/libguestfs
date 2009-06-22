@@ -1651,3 +1651,19 @@ class GuestFS:
         """
         return libguestfsmod.sh_lines (self._o, command)
 
+    def glob_expand (self, pattern):
+        u"""This command searches for all the pathnames matching
+        "pattern" according to the wildcard expansion rules used
+        by the shell.
+        
+        If no paths match, then this returns an empty list
+        (note: not an error).
+        
+        It is just a wrapper around the C glob(3) function with
+        flags "GLOB_MARK|GLOB_BRACE". See that manual page for
+        more details.
+        
+        This function returns a list of strings.
+        """
+        return libguestfsmod.glob_expand (self._o, pattern)
+

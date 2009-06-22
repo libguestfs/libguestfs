@@ -179,6 +179,7 @@ static const char *const commands[] = {
   "ntfs-3g-probe",
   "sh",
   "sh-lines",
+  "glob-expand",
   NULL
 };
 

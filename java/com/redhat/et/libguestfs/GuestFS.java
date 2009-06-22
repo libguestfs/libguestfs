@@ -3435,4 +3435,30 @@ public HashMap<String,String> test0rhashtableerr ()
   private native String[] _sh_lines (long g, String command)
     throws LibGuestFSException;
 
+  /**
+   * expand a wildcard path
+   * <p>
+   * This command searches for all the pathnames matching
+   * "pattern" according to the wildcard expansion rules used
+   * by the shell.
+   * <p>
+   * If no paths match, then this returns an empty list
+   * (note: not an error).
+   * <p>
+   * It is just a wrapper around the C glob(3) function with
+   * flags "GLOB_MARK|GLOB_BRACE". See that manual page for
+   * more details.
+   * <p>
+   * @throws LibGuestFSException
+   */
+  public String[] glob_expand (String pattern)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("glob_expand: handle is closed");
+    return _glob_expand (g, pattern);
+  }
+  private native String[] _glob_expand (long g, String pattern)
+    throws LibGuestFSException;
+
 }

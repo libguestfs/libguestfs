@@ -10263,3 +10263,100 @@ char **guestfs_sh_lines (guestfs_h *g,
   return ctx.ret.lines.lines_val;
 }
 
+struct glob_expand_ctx {
+  /* This flag is set by the callbacks, so we know we've done
+   * the callbacks as expected, and in the right sequence.
+   * 0 = not called, 1 = reply_cb called.
+   */
+  int cb_sequence;
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+  struct guestfs_glob_expand_ret ret;
+};
+
+static void glob_expand_reply_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  struct glob_expand_ctx *ctx = (struct glob_expand_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_glob_expand");
+    return;
+  }
+
+  ml->main_loop_quit (ml, g);
+
+  if (!xdr_guestfs_message_header (xdr, &ctx->hdr)) {
+    error (g, "%s: failed to parse reply header", "guestfs_glob_expand");
+    return;
+  }
+  if (ctx->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &ctx->err)) {
+      error (g, "%s: failed to parse reply error", "guestfs_glob_expand");
+      return;
+    }
+    goto done;
+  }
+  if (!xdr_guestfs_glob_expand_ret (xdr, &ctx->ret)) {
+    error (g, "%s: failed to parse reply", "guestfs_glob_expand");
+    return;
+  }
+ done:
+  ctx->cb_sequence = 1;
+}
+
+char **guestfs_glob_expand (guestfs_h *g,
+		const char *pattern)
+{
+  struct guestfs_glob_expand_args args;
+  struct glob_expand_ctx ctx;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  int serial;
+
+  if (check_state (g, "guestfs_glob_expand") == -1) return NULL;
+  guestfs_set_busy (g);
+
+  memset (&ctx, 0, sizeof ctx);
+
+  args.pattern = (char *) pattern;
+  serial = guestfs__send_sync (g, GUESTFS_PROC_GLOB_EXPAND,
+        (xdrproc_t) xdr_guestfs_glob_expand_args, (char *) &args);
+  if (serial == -1) {
+    guestfs_end_busy (g);
+    return NULL;
+  }
+
+  guestfs__switch_to_receiving (g);
+  ctx.cb_sequence = 0;
+  guestfs_set_reply_callback (g, glob_expand_reply_cb, &ctx);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (ctx.cb_sequence != 1) {
+    error (g, "%s reply failed, see earlier error messages", "guestfs_glob_expand");
+    guestfs_end_busy (g);
+    return NULL;
+  }
+
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_GLOB_EXPAND, serial) == -1) {
+    guestfs_end_busy (g);
+    return NULL;
+  }
+
+  if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", ctx.err.error_message);
+    free (ctx.err.error_message);
+    guestfs_end_busy (g);
+    return NULL;
+  }
+
+  guestfs_end_busy (g);
+  /* caller will free this, but we need to add a NULL entry */
+  ctx.ret.paths.paths_val =
+    safe_realloc (g, ctx.ret.paths.paths_val,
+                  sizeof (char *) * (ctx.ret.paths.paths_len + 1));
+  ctx.ret.paths.paths_val[ctx.ret.paths.paths_len] = NULL;
+  return ctx.ret.paths.paths_val;
+}
+

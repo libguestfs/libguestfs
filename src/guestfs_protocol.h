@@ -969,6 +969,19 @@ struct guestfs_sh_lines_ret {
 };
 typedef struct guestfs_sh_lines_ret guestfs_sh_lines_ret;
 
+struct guestfs_glob_expand_args {
+	char *pattern;
+};
+typedef struct guestfs_glob_expand_args guestfs_glob_expand_args;
+
+struct guestfs_glob_expand_ret {
+	struct {
+		u_int paths_len;
+		str *paths_val;
+	} paths;
+};
+typedef struct guestfs_glob_expand_ret guestfs_glob_expand_ret;
+
 enum guestfs_procedure {
 	GUESTFS_PROC_MOUNT = 1,
 	GUESTFS_PROC_SYNC = 2,
@@ -1082,7 +1095,8 @@ enum guestfs_procedure {
 	GUESTFS_PROC_NTFS_3G_PROBE = 110,
 	GUESTFS_PROC_SH = 111,
 	GUESTFS_PROC_SH_LINES = 112,
-	GUESTFS_PROC_NR_PROCS = 112 + 1,
+	GUESTFS_PROC_GLOB_EXPAND = 113,
+	GUESTFS_PROC_NR_PROCS = 113 + 1,
 };
 typedef enum guestfs_procedure guestfs_procedure;
 #define GUESTFS_MESSAGE_MAX 4194304
@@ -1287,6 +1301,8 @@ extern  bool_t xdr_guestfs_sh_args (XDR *, guestfs_sh_args*);
 extern  bool_t xdr_guestfs_sh_ret (XDR *, guestfs_sh_ret*);
 extern  bool_t xdr_guestfs_sh_lines_args (XDR *, guestfs_sh_lines_args*);
 extern  bool_t xdr_guestfs_sh_lines_ret (XDR *, guestfs_sh_lines_ret*);
+extern  bool_t xdr_guestfs_glob_expand_args (XDR *, guestfs_glob_expand_args*);
+extern  bool_t xdr_guestfs_glob_expand_ret (XDR *, guestfs_glob_expand_ret*);
 extern  bool_t xdr_guestfs_procedure (XDR *, guestfs_procedure*);
 extern  bool_t xdr_guestfs_message_direction (XDR *, guestfs_message_direction*);
 extern  bool_t xdr_guestfs_message_status (XDR *, guestfs_message_status*);
@@ -1450,6 +1466,8 @@ extern bool_t xdr_guestfs_sh_args ();
 extern bool_t xdr_guestfs_sh_ret ();
 extern bool_t xdr_guestfs_sh_lines_args ();
 extern bool_t xdr_guestfs_sh_lines_ret ();
+extern bool_t xdr_guestfs_glob_expand_args ();
+extern bool_t xdr_guestfs_glob_expand_ret ();
 extern bool_t xdr_guestfs_procedure ();
 extern bool_t xdr_guestfs_message_direction ();
 extern bool_t xdr_guestfs_message_status ();

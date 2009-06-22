@@ -4055,6 +4055,35 @@ static VALUE ruby_guestfs_sh_lines (VALUE gv, VALUE commandv)
   return rv;
 }
 
+static VALUE ruby_guestfs_glob_expand (VALUE gv, VALUE patternv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "glob_expand");
+
+  const char *pattern = StringValueCStr (patternv);
+  if (!pattern)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "pattern", "glob_expand");
+
+  char **r;
+
+  r = guestfs_glob_expand (g, pattern);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  int i, len = 0;
+  for (i = 0; r[i] != NULL; ++i) len++;
+  VALUE rv = rb_ary_new2 (len);
+  for (i = 0; r[i] != NULL; ++i) {
+    rb_ary_push (rv, rb_str_new2 (r[i]));
+    free (r[i]);
+  }
+  free (r);
+  return rv;
+}
+
 /* Initialize the module. */
 void Init__guestfs ()
 {
@@ -4393,4 +4422,6 @@ void Init__guestfs ()
         ruby_guestfs_sh, 1);
   rb_define_method (c_guestfs, "sh_lines",
         ruby_guestfs_sh_lines, 1);
+  rb_define_method (c_guestfs, "glob_expand",
+        ruby_guestfs_glob_expand, 1);
 }

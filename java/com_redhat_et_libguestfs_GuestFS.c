@@ -4040,3 +4040,36 @@ Java_com_redhat_et_libguestfs_GuestFS__1sh_1lines
   return jr;
 }
 
+JNIEXPORT jobjectArray JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1glob_1expand
+  (JNIEnv *env, jobject obj, jlong jg, jstring jpattern)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  jobjectArray jr;
+  int r_len;
+  jclass cl;
+  jstring jstr;
+  char **r;
+  const char *pattern;
+  int i;
+
+  pattern = (*env)->GetStringUTFChars (env, jpattern, NULL);
+  r = guestfs_glob_expand (g, pattern);
+  (*env)->ReleaseStringUTFChars (env, jpattern, pattern);
+  if (r == NULL) {
+    throw_exception (env, guestfs_last_error (g));
+    return NULL;
+  }
+  for (r_len = 0; r[r_len] != NULL; ++r_len) ;
+  cl = (*env)->FindClass (env, "java/lang/String");
+  jstr = (*env)->NewStringUTF (env, "");
+  jr = (*env)->NewObjectArray (env, r_len, cl, jstr);
+  for (i = 0; i < r_len; ++i) {
+    jstr = (*env)->NewStringUTF (env, r[i]);
+    (*env)->SetObjectArrayElement (env, jr, i, jstr);
+    free (r[i]);
+  }
+  free (r);
+  return jr;
+}
+

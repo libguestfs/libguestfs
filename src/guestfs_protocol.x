@@ -748,6 +748,14 @@ struct guestfs_sh_lines_ret {
   str lines<>;
 };
 
+struct guestfs_glob_expand_args {
+  string pattern<>;
+};
+
+struct guestfs_glob_expand_ret {
+  str paths<>;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -861,6 +869,7 @@ enum guestfs_procedure {
   GUESTFS_PROC_NTFS_3G_PROBE = 110,
   GUESTFS_PROC_SH = 111,
   GUESTFS_PROC_SH_LINES = 112,
+  GUESTFS_PROC_GLOB_EXPAND = 113,
   GUESTFS_PROC_NR_PROCS
 };
 

@@ -4506,6 +4506,31 @@ py_guestfs_sh_lines (PyObject *self, PyObject *args)
   return py_r;
 }
 
+static PyObject *
+py_guestfs_glob_expand (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  char **r;
+  const char *pattern;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_glob_expand",
+                         &py_g, &pattern))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_glob_expand (g, pattern);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = put_string_list (r);
+  free_strings (r);
+  return py_r;
+}
+
 static PyMethodDef methods[] = {
   { (char *) "create", py_guestfs_create, METH_VARARGS, NULL },
   { (char *) "close", py_guestfs_close, METH_VARARGS, NULL },
@@ -4673,6 +4698,7 @@ static PyMethodDef methods[] = {
   { (char *) "ntfs_3g_probe", py_guestfs_ntfs_3g_probe, METH_VARARGS, NULL },
   { (char *) "sh", py_guestfs_sh, METH_VARARGS, NULL },
   { (char *) "sh_lines", py_guestfs_sh_lines, METH_VARARGS, NULL },
+  { (char *) "glob_expand", py_guestfs_glob_expand, METH_VARARGS, NULL },
   { NULL, NULL, 0, NULL }
 };
 

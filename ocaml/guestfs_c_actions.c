@@ -4248,3 +4248,29 @@ ocaml_guestfs_sh_lines (value gv, value commandv)
   CAMLreturn (rv);
 }
 
+CAMLprim value
+ocaml_guestfs_glob_expand (value gv, value patternv)
+{
+  CAMLparam2 (gv, patternv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("glob_expand: used handle after closing it");
+
+  const char *pattern = String_val (patternv);
+  int i;
+  char **r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_glob_expand (g, pattern);
+  caml_leave_blocking_section ();
+  if (r == NULL)
+    ocaml_guestfs_raise_error (g, "glob_expand");
+
+  rv = caml_copy_string_array ((const char **) r);
+  for (i = 0; r[i] != NULL; ++i) free (r[i]);
+  free (r);
+  CAMLreturn (rv);
+}
+

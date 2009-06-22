@@ -2583,3 +2583,22 @@ PREINIT:
       }
       free (lines);
 
+void
+glob_expand (g, pattern)
+      guestfs_h *g;
+      char *pattern;
+PREINIT:
+      char **paths;
+      int i, n;
+ PPCODE:
+      paths = guestfs_glob_expand (g, pattern);
+      if (paths == NULL)
+        croak ("glob_expand: %s", guestfs_last_error (g));
+      for (n = 0; paths[n] != NULL; ++n) /**/;
+      EXTEND (SP, n);
+      for (i = 0; i < n; ++i) {
+        PUSHs (sv_2mortal (newSVpv (paths[i], 0)));
+        free (paths[i]);
+      }
+      free (paths);
+

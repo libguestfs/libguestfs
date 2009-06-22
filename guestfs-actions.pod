@@ -884,6 +884,26 @@ This returns the verbose messages flag.
 
 This function returns a C truth value on success or -1 on error.
 
+=head2 guestfs_glob_expand
+
+ char **guestfs_glob_expand (guestfs_h *handle,
+		const char *pattern);
+
+This command searches for all the pathnames matching
+C<pattern> according to the wildcard expansion rules
+used by the shell.
+
+If no paths match, then this returns an empty list
+(note: not an error).
+
+It is just a wrapper around the C L<glob(3)> function
+with flags C<GLOB_MARK|GLOB_BRACE>.
+See that manual page for more details.
+
+This function returns a NULL-terminated array of strings
+(like L<environ(3)>), or NULL if there was an error.
+I<The caller must free the strings and the array after use>.
+
 =head2 guestfs_grub_install
 
  int guestfs_grub_install (guestfs_h *handle,

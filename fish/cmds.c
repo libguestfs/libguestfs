@@ -84,6 +84,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "get-qemu", "get the qemu binary");
   printf ("%-20s %s\n", "get-state", "get the current state");
   printf ("%-20s %s\n", "get-verbose", "get verbose mode");
+  printf ("%-20s %s\n", "glob-expand", "expand a wildcard path");
   printf ("%-20s %s\n", "grub-install", "install GRUB");
   printf ("%-20s %s\n", "hexdump", "dump a file in hexadecimal");
   printf ("%-20s %s\n", "is-busy", "is busy processing a command");
@@ -567,6 +568,9 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "sh_lines") == 0 || strcasecmp (cmd, "sh-lines") == 0)
     pod2text ("sh-lines - run a command via the shell returning lines", " sh-lines <command>\n\nThis is the same as C<sh>, but splits the result\ninto a list of lines.\n\nSee also: C<command_lines>");
+  else
+  if (strcasecmp (cmd, "glob_expand") == 0 || strcasecmp (cmd, "glob-expand") == 0)
+    pod2text ("glob-expand - expand a wildcard path", " glob-expand <pattern>\n\nThis command searches for all the pathnames matching\nC<pattern> according to the wildcard expansion rules\nused by the shell.\n\nIf no paths match, then this returns an empty list\n(note: not an error).\n\nIt is just a wrapper around the C L<glob(3)> function\nwith flags C<GLOB_MARK|GLOB_BRACE>.\nSee that manual page for more details.");
   else
     display_builtin_command (cmd);
 }
@@ -2780,6 +2784,23 @@ static int run_sh_lines (const char *cmd, int argc, char *argv[])
   return 0;
 }
 
+static int run_glob_expand (const char *cmd, int argc, char *argv[])
+{
+  char **r;
+  const char *pattern;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  pattern = argv[0];
+  r = guestfs_glob_expand (g, pattern);
+  if (r == NULL) return -1;
+  print_strings (r);
+  free_strings (r);
+  return 0;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -3180,6 +3201,9 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "sh_lines") == 0 || strcasecmp (cmd, "sh-lines") == 0)
     return run_sh_lines (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "glob_expand") == 0 || strcasecmp (cmd, "glob-expand") == 0)
+    return run_glob_expand (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

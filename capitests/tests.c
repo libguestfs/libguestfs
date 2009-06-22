@@ -152,6 +152,405 @@ static void no_test_warnings (void)
   fprintf (stderr, "warning: \"guestfs_sh_lines\" has no tests\n");
 }
 
+static int test_glob_expand_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_GLOB_EXPAND_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_GLOB_EXPAND");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
+static int test_glob_expand_0 (void)
+{
+  if (test_glob_expand_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_glob_expand_0");
+    return 0;
+  }
+
+  /* InitBasicFS for test_glob_expand_0: create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputList for glob_expand (0) */
+  {
+    char path[] = "/a/b/c";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkdir_p (g, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/a/b/c/d";
+    int r;
+    suppress_error = 0;
+    r = guestfs_touch (g, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/a/b/c/e";
+    int r;
+    suppress_error = 0;
+    r = guestfs_touch (g, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char pattern[] = "/a/b/c/*";
+    char **r;
+    int i;
+    suppress_error = 0;
+    r = guestfs_glob_expand (g, pattern);
+    if (r == NULL)
+      return -1;
+    if (!r[0]) {
+      fprintf (stderr, "test_glob_expand_0: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "/a/b/c/d";
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_glob_expand_0: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
+    }
+    if (!r[1]) {
+      fprintf (stderr, "test_glob_expand_0: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "/a/b/c/e";
+      if (strcmp (r[1], expected) != 0) {
+        fprintf (stderr, "test_glob_expand_0: expected \"%s\" but got \"%s\"\n", expected, r[1]);
+        return -1;
+      }
+    }
+    if (r[2] != NULL) {
+      fprintf (stderr, "test_glob_expand_0: extra elements returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    for (i = 0; r[i] != NULL; ++i)
+      free (r[i]);
+    free (r);
+  }
+  return 0;
+}
+
+static int test_glob_expand_1_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_GLOB_EXPAND_1");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_GLOB_EXPAND");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
+static int test_glob_expand_1 (void)
+{
+  if (test_glob_expand_1_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_glob_expand_1");
+    return 0;
+  }
+
+  /* InitBasicFS for test_glob_expand_1: create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputList for glob_expand (1) */
+  {
+    char path[] = "/a/b/c";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkdir_p (g, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/a/b/c/d";
+    int r;
+    suppress_error = 0;
+    r = guestfs_touch (g, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/a/b/c/e";
+    int r;
+    suppress_error = 0;
+    r = guestfs_touch (g, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char pattern[] = "/a/*/c/*";
+    char **r;
+    int i;
+    suppress_error = 0;
+    r = guestfs_glob_expand (g, pattern);
+    if (r == NULL)
+      return -1;
+    if (!r[0]) {
+      fprintf (stderr, "test_glob_expand_1: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "/a/b/c/d";
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_glob_expand_1: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
+    }
+    if (!r[1]) {
+      fprintf (stderr, "test_glob_expand_1: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "/a/b/c/e";
+      if (strcmp (r[1], expected) != 0) {
+        fprintf (stderr, "test_glob_expand_1: expected \"%s\" but got \"%s\"\n", expected, r[1]);
+        return -1;
+      }
+    }
+    if (r[2] != NULL) {
+      fprintf (stderr, "test_glob_expand_1: extra elements returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    for (i = 0; r[i] != NULL; ++i)
+      free (r[i]);
+    free (r);
+  }
+  return 0;
+}
+
+static int test_glob_expand_2_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_GLOB_EXPAND_2");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_GLOB_EXPAND");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
+static int test_glob_expand_2 (void)
+{
+  if (test_glob_expand_2_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_glob_expand_2");
+    return 0;
+  }
+
+  /* InitBasicFS for test_glob_expand_2: create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputList for glob_expand (2) */
+  {
+    char path[] = "/a/b/c";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkdir_p (g, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/a/b/c/d";
+    int r;
+    suppress_error = 0;
+    r = guestfs_touch (g, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/a/b/c/e";
+    int r;
+    suppress_error = 0;
+    r = guestfs_touch (g, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char pattern[] = "/a/*/x/*";
+    char **r;
+    int i;
+    suppress_error = 0;
+    r = guestfs_glob_expand (g, pattern);
+    if (r == NULL)
+      return -1;
+    if (r[0] != NULL) {
+      fprintf (stderr, "test_glob_expand_2: extra elements returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    for (i = 0; r[i] != NULL; ++i)
+      free (r[i]);
+    free (r);
+  }
+  return 0;
+}
+
 static int test_ntfs_3g_probe_0_skip (void)
 {
   const char *str;
@@ -15767,8 +16166,26 @@ int main (int argc, char *argv[])
   /* Cancel previous alarm. */
   alarm (0);
 
-  nr_tests = 146;
+  nr_tests = 149;
 
+  test_num++;
+  printf ("%3d/%3d test_glob_expand_0\n", test_num, nr_tests);
+  if (test_glob_expand_0 () == -1) {
+    printf ("test_glob_expand_0 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_glob_expand_1\n", test_num, nr_tests);
+  if (test_glob_expand_1 () == -1) {
+    printf ("test_glob_expand_1 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_glob_expand_2\n", test_num, nr_tests);
+  if (test_glob_expand_2 () == -1) {
+    printf ("test_glob_expand_2 FAILED\n");
+    failed++;
+  }
   test_num++;
   printf ("%3d/%3d test_ntfs_3g_probe_0\n", test_num, nr_tests);
   if (test_ntfs_3g_probe_0 () == -1) {
