@@ -4003,6 +4003,58 @@ static VALUE ruby_guestfs_ntfs_3g_probe (VALUE gv, VALUE rwv, VALUE devicev)
   return INT2NUM (r);
 }
 
+static VALUE ruby_guestfs_sh (VALUE gv, VALUE commandv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "sh");
+
+  const char *command = StringValueCStr (commandv);
+  if (!command)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "command", "sh");
+
+  char *r;
+
+  r = guestfs_sh (g, command);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  VALUE rv = rb_str_new2 (r);
+  free (r);
+  return rv;
+}
+
+static VALUE ruby_guestfs_sh_lines (VALUE gv, VALUE commandv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "sh_lines");
+
+  const char *command = StringValueCStr (commandv);
+  if (!command)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "command", "sh_lines");
+
+  char **r;
+
+  r = guestfs_sh_lines (g, command);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  int i, len = 0;
+  for (i = 0; r[i] != NULL; ++i) len++;
+  VALUE rv = rb_ary_new2 (len);
+  for (i = 0; r[i] != NULL; ++i) {
+    rb_ary_push (rv, rb_str_new2 (r[i]));
+    free (r[i]);
+  }
+  free (r);
+  return rv;
+}
+
 /* Initialize the module. */
 void Init__guestfs ()
 {
@@ -4337,4 +4389,8 @@ void Init__guestfs ()
         ruby_guestfs_sleep, 1);
   rb_define_method (c_guestfs, "ntfs_3g_probe",
         ruby_guestfs_ntfs_3g_probe, 2);
+  rb_define_method (c_guestfs, "sh",
+        ruby_guestfs_sh, 1);
+  rb_define_method (c_guestfs, "sh_lines",
+        ruby_guestfs_sh_lines, 1);
 }

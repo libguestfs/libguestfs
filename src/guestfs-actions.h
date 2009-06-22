@@ -181,3 +181,5 @@ extern char **guestfs_find (guestfs_h *handle, const char *directory);
 extern int guestfs_e2fsck_f (guestfs_h *handle, const char *device);
 extern int guestfs_sleep (guestfs_h *handle, int secs);
 extern int guestfs_ntfs_3g_probe (guestfs_h *handle, int rw, const char *device);
+extern char *guestfs_sh (guestfs_h *handle, const char *command);
+extern char **guestfs_sh_lines (guestfs_h *handle, const char *command);

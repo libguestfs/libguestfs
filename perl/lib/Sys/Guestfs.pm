@@ -432,7 +432,9 @@ or compatible processor architecture).
 The single parameter is an argv-style list of arguments.
 The first element is the name of the program to run.
 Subsequent elements are parameters.  The list must be
-non-empty (ie. must contain a program name).
+non-empty (ie. must contain a program name).  Note that
+the command runs directly, and is I<not> invoked via
+the shell (see C<$h-E<gt>sh>).
 
 The return value is anything printed to I<stdout> by
 the command.
@@ -460,6 +462,8 @@ FTP.
 
 This is the same as C<$h-E<gt>command>, but splits the
 result into a list of lines.
+
+See also: C<$h-E<gt>sh_lines>
 
 Because of the message protocol, there is a transfer limit 
 of somewhere between 2MB and 4MB.  To transfer large files you should use
@@ -1124,6 +1128,28 @@ be parsed.
 This displays the partition table on C<device>, in the
 human-readable output of the L<sfdisk(8)> command.  It is
 not intended to be parsed.
+
+=item $output = $h->sh ($command);
+
+This call runs a command from the guest filesystem via the
+guest's C</bin/sh>.
+
+This is like C<$h-E<gt>command>, but passes the command to:
+
+ /bin/sh -c "command"
+
+Depending on the guest's shell, this usually results in
+wildcards being expanded, shell expressions being interpolated
+and so on.
+
+All the provisos about C<$h-E<gt>command> apply to this call.
+
+=item @lines = $h->sh_lines ($command);
+
+This is the same as C<$h-E<gt>sh>, but splits the result
+into a list of lines.
+
+See also: C<$h-E<gt>command_lines>
 
 =item $h->sleep ($secs);
 

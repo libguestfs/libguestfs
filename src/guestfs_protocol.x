@@ -732,6 +732,22 @@ struct guestfs_ntfs_3g_probe_ret {
   int status;
 };
 
+struct guestfs_sh_args {
+  string command<>;
+};
+
+struct guestfs_sh_ret {
+  string output<>;
+};
+
+struct guestfs_sh_lines_args {
+  string command<>;
+};
+
+struct guestfs_sh_lines_ret {
+  str lines<>;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -843,6 +859,8 @@ enum guestfs_procedure {
   GUESTFS_PROC_E2FSCK_F = 108,
   GUESTFS_PROC_SLEEP = 109,
   GUESTFS_PROC_NTFS_3G_PROBE = 110,
+  GUESTFS_PROC_SH = 111,
+  GUESTFS_PROC_SH_LINES = 112,
   GUESTFS_PROC_NR_PROCS
 };
 

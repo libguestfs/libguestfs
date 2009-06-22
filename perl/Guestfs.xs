@@ -2549,3 +2549,37 @@ PREINIT:
  OUTPUT:
       RETVAL
 
+SV *
+sh (g, command)
+      guestfs_h *g;
+      char *command;
+PREINIT:
+      char *output;
+   CODE:
+      output = guestfs_sh (g, command);
+      if (output == NULL)
+        croak ("sh: %s", guestfs_last_error (g));
+      RETVAL = newSVpv (output, 0);
+      free (output);
+ OUTPUT:
+      RETVAL
+
+void
+sh_lines (g, command)
+      guestfs_h *g;
+      char *command;
+PREINIT:
+      char **lines;
+      int i, n;
+ PPCODE:
+      lines = guestfs_sh_lines (g, command);
+      if (lines == NULL)
+        croak ("sh_lines: %s", guestfs_last_error (g));
+      for (n = 0; lines[n] != NULL; ++n) /**/;
+      EXTEND (SP, n);
+      for (i = 0; i < n; ++i) {
+        PUSHs (sv_2mortal (newSVpv (lines[i], 0)));
+        free (lines[i]);
+      }
+      free (lines);
+

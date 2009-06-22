@@ -2771,6 +2771,61 @@ done:
   xdr_free ((xdrproc_t) xdr_guestfs_ntfs_3g_probe_args, (char *) &args);
 }
 
+static void sh_stub (XDR *xdr_in)
+{
+  char *r;
+  struct guestfs_sh_args args;
+  char *command;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_sh_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "sh");
+    return;
+  }
+  command = args.command;
+
+  r = do_sh (command);
+  if (r == NULL)
+    /* do_sh has already called reply_with_error */
+    goto done;
+
+  struct guestfs_sh_ret ret;
+  ret.output = r;
+  reply ((xdrproc_t) &xdr_guestfs_sh_ret, (char *) &ret);
+  free (r);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_sh_args, (char *) &args);
+}
+
+static void sh_lines_stub (XDR *xdr_in)
+{
+  char **r;
+  struct guestfs_sh_lines_args args;
+  char *command;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_sh_lines_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "sh_lines");
+    return;
+  }
+  command = args.command;
+
+  r = do_sh_lines (command);
+  if (r == NULL)
+    /* do_sh_lines has already called reply_with_error */
+    goto done;
+
+  struct guestfs_sh_lines_ret ret;
+  ret.lines.lines_len = count_strings (r);
+  ret.lines.lines_val = r;
+  reply ((xdrproc_t) &xdr_guestfs_sh_lines_ret, (char *) &ret);
+  free_strings (r);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_sh_lines_args, (char *) &args);
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -3103,6 +3158,12 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_NTFS_3G_PROBE:
       ntfs_3g_probe_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_SH:
+      sh_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_SH_LINES:
+      sh_lines_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d", proc_nr);

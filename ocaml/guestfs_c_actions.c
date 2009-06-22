@@ -4198,3 +4198,53 @@ ocaml_guestfs_ntfs_3g_probe (value gv, value rwv, value devicev)
   CAMLreturn (rv);
 }
 
+CAMLprim value
+ocaml_guestfs_sh (value gv, value commandv)
+{
+  CAMLparam2 (gv, commandv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("sh: used handle after closing it");
+
+  const char *command = String_val (commandv);
+  char *r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_sh (g, command);
+  caml_leave_blocking_section ();
+  if (r == NULL)
+    ocaml_guestfs_raise_error (g, "sh");
+
+  rv = caml_copy_string (r);
+  free (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_sh_lines (value gv, value commandv)
+{
+  CAMLparam2 (gv, commandv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("sh_lines: used handle after closing it");
+
+  const char *command = String_val (commandv);
+  int i;
+  char **r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_sh_lines (g, command);
+  caml_leave_blocking_section ();
+  if (r == NULL)
+    ocaml_guestfs_raise_error (g, "sh_lines");
+
+  rv = caml_copy_string_array ((const char **) r);
+  for (i = 0; r[i] != NULL; ++i) free (r[i]);
+  free (r);
+  CAMLreturn (rv);
+}
+

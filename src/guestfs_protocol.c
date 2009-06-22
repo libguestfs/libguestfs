@@ -1871,6 +1871,47 @@ xdr_guestfs_ntfs_3g_probe_ret (XDR *xdrs, guestfs_ntfs_3g_probe_ret *objp)
 }
 
 bool_t
+xdr_guestfs_sh_args (XDR *xdrs, guestfs_sh_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->command, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_sh_ret (XDR *xdrs, guestfs_sh_ret *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->output, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_sh_lines_args (XDR *xdrs, guestfs_sh_lines_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->command, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_sh_lines_ret (XDR *xdrs, guestfs_sh_lines_ret *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_array (xdrs, (char **)&objp->lines.lines_val, (u_int *) &objp->lines.lines_len, ~0,
+		sizeof (str), (xdrproc_t) xdr_str))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
 xdr_guestfs_procedure (XDR *xdrs, guestfs_procedure *objp)
 {
 	register int32_t *buf;

@@ -610,3 +610,9 @@ val sleep : t -> int -> unit
 val ntfs_3g_probe : t -> bool -> string -> int
 (** probe NTFS volume *)
 
+val sh : t -> string -> string
+(** run a command via the shell *)
+
+val sh_lines : t -> string -> string array
+(** run a command via the shell returning lines *)
+

@@ -947,7 +947,9 @@ class GuestFS:
         The single parameter is an argv-style list of arguments.
         The first element is the name of the program to run.
         Subsequent elements are parameters. The list must be
-        non-empty (ie. must contain a program name).
+        non-empty (ie. must contain a program name). Note that
+        the command runs directly, and is *not* invoked via the
+        shell (see "g.sh").
         
         The return value is anything printed to *stdout* by the
         command.
@@ -976,6 +978,8 @@ class GuestFS:
     def command_lines (self, arguments):
         u"""This is the same as "g.command", but splits the result
         into a list of lines.
+        
+        See also: "g.sh_lines"
         
         This function returns a list of strings.
         
@@ -1620,4 +1624,30 @@ class GuestFS:
         ntfs-3g.probe(8) manual page.
         """
         return libguestfsmod.ntfs_3g_probe (self._o, rw, device)
+
+    def sh (self, command):
+        u"""This call runs a command from the guest filesystem via
+        the guest's "/bin/sh".
+        
+        This is like "g.command", but passes the command to:
+        
+        /bin/sh -c "command"
+        
+        Depending on the guest's shell, this usually results in
+        wildcards being expanded, shell expressions being
+        interpolated and so on.
+        
+        All the provisos about "g.command" apply to this call.
+        """
+        return libguestfsmod.sh (self._o, command)
+
+    def sh_lines (self, command):
+        u"""This is the same as "g.sh", but splits the result into a
+        list of lines.
+        
+        See also: "g.command_lines"
+        
+        This function returns a list of strings.
+        """
+        return libguestfsmod.sh_lines (self._o, command)
 

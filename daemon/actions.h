@@ -131,3 +131,5 @@ extern char **do_find (char *directory);
 extern int do_e2fsck_f (char *device);
 extern int do_sleep (int secs);
 extern int do_ntfs_3g_probe (int rw, char *device);
+extern char *do_sh (char *command);
+extern char **do_sh_lines (char *command);

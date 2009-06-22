@@ -148,6 +148,8 @@ static void no_test_warnings (void)
   fprintf (stderr, "warning: \"guestfs_vg_activate\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_resize2fs\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_e2fsck_f\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_sh\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_sh_lines\" has no tests\n");
 }
 
 static int test_ntfs_3g_probe_0_skip (void)

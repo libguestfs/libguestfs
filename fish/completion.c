@@ -177,6 +177,8 @@ static const char *const commands[] = {
   "e2fsck-f",
   "sleep",
   "ntfs-3g-probe",
+  "sh",
+  "sh-lines",
   NULL
 };
 

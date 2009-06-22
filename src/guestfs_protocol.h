@@ -946,6 +946,29 @@ struct guestfs_ntfs_3g_probe_ret {
 };
 typedef struct guestfs_ntfs_3g_probe_ret guestfs_ntfs_3g_probe_ret;
 
+struct guestfs_sh_args {
+	char *command;
+};
+typedef struct guestfs_sh_args guestfs_sh_args;
+
+struct guestfs_sh_ret {
+	char *output;
+};
+typedef struct guestfs_sh_ret guestfs_sh_ret;
+
+struct guestfs_sh_lines_args {
+	char *command;
+};
+typedef struct guestfs_sh_lines_args guestfs_sh_lines_args;
+
+struct guestfs_sh_lines_ret {
+	struct {
+		u_int lines_len;
+		str *lines_val;
+	} lines;
+};
+typedef struct guestfs_sh_lines_ret guestfs_sh_lines_ret;
+
 enum guestfs_procedure {
 	GUESTFS_PROC_MOUNT = 1,
 	GUESTFS_PROC_SYNC = 2,
@@ -1057,7 +1080,9 @@ enum guestfs_procedure {
 	GUESTFS_PROC_E2FSCK_F = 108,
 	GUESTFS_PROC_SLEEP = 109,
 	GUESTFS_PROC_NTFS_3G_PROBE = 110,
-	GUESTFS_PROC_NR_PROCS = 110 + 1,
+	GUESTFS_PROC_SH = 111,
+	GUESTFS_PROC_SH_LINES = 112,
+	GUESTFS_PROC_NR_PROCS = 112 + 1,
 };
 typedef enum guestfs_procedure guestfs_procedure;
 #define GUESTFS_MESSAGE_MAX 4194304
@@ -1258,6 +1283,10 @@ extern  bool_t xdr_guestfs_e2fsck_f_args (XDR *, guestfs_e2fsck_f_args*);
 extern  bool_t xdr_guestfs_sleep_args (XDR *, guestfs_sleep_args*);
 extern  bool_t xdr_guestfs_ntfs_3g_probe_args (XDR *, guestfs_ntfs_3g_probe_args*);
 extern  bool_t xdr_guestfs_ntfs_3g_probe_ret (XDR *, guestfs_ntfs_3g_probe_ret*);
+extern  bool_t xdr_guestfs_sh_args (XDR *, guestfs_sh_args*);
+extern  bool_t xdr_guestfs_sh_ret (XDR *, guestfs_sh_ret*);
+extern  bool_t xdr_guestfs_sh_lines_args (XDR *, guestfs_sh_lines_args*);
+extern  bool_t xdr_guestfs_sh_lines_ret (XDR *, guestfs_sh_lines_ret*);
 extern  bool_t xdr_guestfs_procedure (XDR *, guestfs_procedure*);
 extern  bool_t xdr_guestfs_message_direction (XDR *, guestfs_message_direction*);
 extern  bool_t xdr_guestfs_message_status (XDR *, guestfs_message_status*);
@@ -1417,6 +1446,10 @@ extern bool_t xdr_guestfs_e2fsck_f_args ();
 extern bool_t xdr_guestfs_sleep_args ();
 extern bool_t xdr_guestfs_ntfs_3g_probe_args ();
 extern bool_t xdr_guestfs_ntfs_3g_probe_ret ();
+extern bool_t xdr_guestfs_sh_args ();
+extern bool_t xdr_guestfs_sh_ret ();
+extern bool_t xdr_guestfs_sh_lines_args ();
+extern bool_t xdr_guestfs_sh_lines_ret ();
 extern bool_t xdr_guestfs_procedure ();
 extern bool_t xdr_guestfs_message_direction ();
 extern bool_t xdr_guestfs_message_status ();

@@ -1998,7 +1998,9 @@ public HashMap<String,String> test0rhashtableerr ()
    * The single parameter is an argv-style list of arguments.
    * The first element is the name of the program to run.
    * Subsequent elements are parameters. The list must be
-   * non-empty (ie. must contain a program name).
+   * non-empty (ie. must contain a program name). Note that
+   * the command runs directly, and is *not* invoked via the
+   * shell (see "g.sh").
    * <p>
    * The return value is anything printed to *stdout* by the
    * command.
@@ -2039,6 +2041,8 @@ public HashMap<String,String> test0rhashtableerr ()
    * <p>
    * This is the same as "g.command", but splits the result
    * into a list of lines.
+   * <p>
+   * See also: "g.sh_lines"
    * <p>
    * Because of the message protocol, there is a transfer
    * limit of somewhere between 2MB and 4MB. To transfer
@@ -3381,6 +3385,54 @@ public HashMap<String,String> test0rhashtableerr ()
     return _ntfs_3g_probe (g, rw, device);
   }
   private native int _ntfs_3g_probe (long g, boolean rw, String device)
+    throws LibGuestFSException;
+
+  /**
+   * run a command via the shell
+   * <p>
+   * This call runs a command from the guest filesystem via
+   * the guest's "/bin/sh".
+   * <p>
+   * This is like "g.command", but passes the command to:
+   * <p>
+   * /bin/sh -c "command"
+   * <p>
+   * Depending on the guest's shell, this usually results in
+   * wildcards being expanded, shell expressions being
+   * interpolated and so on.
+   * <p>
+   * All the provisos about "g.command" apply to this call.
+   * <p>
+   * @throws LibGuestFSException
+   */
+  public String sh (String command)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("sh: handle is closed");
+    return _sh (g, command);
+  }
+  private native String _sh (long g, String command)
+    throws LibGuestFSException;
+
+  /**
+   * run a command via the shell returning lines
+   * <p>
+   * This is the same as "g.sh", but splits the result into a
+   * list of lines.
+   * <p>
+   * See also: "g.command_lines"
+   * <p>
+   * @throws LibGuestFSException
+   */
+  public String[] sh_lines (String command)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("sh_lines: handle is closed");
+    return _sh_lines (g, command);
+  }
+  private native String[] _sh_lines (long g, String command)
     throws LibGuestFSException;
 
 }

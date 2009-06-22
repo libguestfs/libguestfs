@@ -3986,3 +3986,57 @@ Java_com_redhat_et_libguestfs_GuestFS__1ntfs_13g_1probe
   return (jint) r;
 }
 
+JNIEXPORT jstring JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1sh
+  (JNIEnv *env, jobject obj, jlong jg, jstring jcommand)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  jstring jr;
+  char *r;
+  const char *command;
+
+  command = (*env)->GetStringUTFChars (env, jcommand, NULL);
+  r = guestfs_sh (g, command);
+  (*env)->ReleaseStringUTFChars (env, jcommand, command);
+  if (r == NULL) {
+    throw_exception (env, guestfs_last_error (g));
+    return NULL;
+  }
+  jr = (*env)->NewStringUTF (env, r);
+  free (r);
+  return jr;
+}
+
+JNIEXPORT jobjectArray JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1sh_1lines
+  (JNIEnv *env, jobject obj, jlong jg, jstring jcommand)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  jobjectArray jr;
+  int r_len;
+  jclass cl;
+  jstring jstr;
+  char **r;
+  const char *command;
+  int i;
+
+  command = (*env)->GetStringUTFChars (env, jcommand, NULL);
+  r = guestfs_sh_lines (g, command);
+  (*env)->ReleaseStringUTFChars (env, jcommand, command);
+  if (r == NULL) {
+    throw_exception (env, guestfs_last_error (g));
+    return NULL;
+  }
+  for (r_len = 0; r[r_len] != NULL; ++r_len) ;
+  cl = (*env)->FindClass (env, "java/lang/String");
+  jstr = (*env)->NewStringUTF (env, "");
+  jr = (*env)->NewObjectArray (env, r_len, cl, jstr);
+  for (i = 0; i < r_len; ++i) {
+    jstr = (*env)->NewStringUTF (env, r[i]);
+    (*env)->SetObjectArrayElement (env, jr, i, jstr);
+    free (r[i]);
+  }
+  free (r);
+  return jr;
+}
+

@@ -138,6 +138,8 @@ void list_commands (void)
   printf ("%-20s %s\n", "sfdisk-disk-geometry", "display the disk geometry from the partition table");
   printf ("%-20s %s\n", "sfdisk-kernel-geometry", "display the kernel geometry");
   printf ("%-20s %s\n", "sfdisk-l", "display the partition table");
+  printf ("%-20s %s\n", "sh", "run a command via the shell");
+  printf ("%-20s %s\n", "sh-lines", "run a command via the shell returning lines");
   printf ("%-20s %s\n", "sleep", "sleep for some seconds");
   printf ("%-20s %s\n", "stat", "get file information");
   printf ("%-20s %s\n", "statvfs", "get file system statistics");
@@ -378,10 +380,10 @@ void display_command (const char *cmd)
     pod2text ("file - determine file type", " file <path>\n\nThis call uses the standard L<file(1)> command to determine\nthe type or contents of the file.  This also works on devices,\nfor example to find out whether a partition contains a filesystem.\n\nThe exact command which runs is C<file -bsL path>.  Note in\nparticular that the filename is not prepended to the output\n(the C<-b> option).");
   else
   if (strcasecmp (cmd, "command") == 0)
-    pod2text ("command - run a command from the guest filesystem", " command <arguments>\n\nThis call runs a command from the guest filesystem.  The\nfilesystem must be mounted, and must contain a compatible\noperating system (ie. something Linux, with the same\nor compatible processor architecture).\n\nThe single parameter is an argv-style list of arguments.\nThe first element is the name of the program to run.\nSubsequent elements are parameters.  The list must be\nnon-empty (ie. must contain a program name).\n\nThe return value is anything printed to I<stdout> by\nthe command.\n\nIf the command returns a non-zero exit status, then\nthis function returns an error message.  The error message\nstring is the content of I<stderr> from the command.\n\nThe C<$PATH> environment variable will contain at least\nC</usr/bin> and C</bin>.  If you require a program from\nanother location, you should provide the full path in the\nfirst parameter.\n\nShared libraries and data files required by the program\nmust be available on filesystems which are mounted in the\ncorrect places.  It is the caller's responsibility to ensure\nall filesystems that are needed are mounted at the right\nlocations.\n\nBecause of the message protocol, there is a transfer limit \nof somewhere between 2MB and 4MB.  To transfer large files you should use\nFTP.");
+    pod2text ("command - run a command from the guest filesystem", " command <arguments>\n\nThis call runs a command from the guest filesystem.  The\nfilesystem must be mounted, and must contain a compatible\noperating system (ie. something Linux, with the same\nor compatible processor architecture).\n\nThe single parameter is an argv-style list of arguments.\nThe first element is the name of the program to run.\nSubsequent elements are parameters.  The list must be\nnon-empty (ie. must contain a program name).  Note that\nthe command runs directly, and is I<not> invoked via\nthe shell (see C<sh>).\n\nThe return value is anything printed to I<stdout> by\nthe command.\n\nIf the command returns a non-zero exit status, then\nthis function returns an error message.  The error message\nstring is the content of I<stderr> from the command.\n\nThe C<$PATH> environment variable will contain at least\nC</usr/bin> and C</bin>.  If you require a program from\nanother location, you should provide the full path in the\nfirst parameter.\n\nShared libraries and data files required by the program\nmust be available on filesystems which are mounted in the\ncorrect places.  It is the caller's responsibility to ensure\nall filesystems that are needed are mounted at the right\nlocations.\n\nBecause of the message protocol, there is a transfer limit \nof somewhere between 2MB and 4MB.  To transfer large files you should use\nFTP.");
   else
   if (strcasecmp (cmd, "command_lines") == 0 || strcasecmp (cmd, "command-lines") == 0)
-    pod2text ("command-lines - run a command, returning lines", " command-lines <arguments>\n\nThis is the same as C<command>, but splits the\nresult into a list of lines.\n\nBecause of the message protocol, there is a transfer limit \nof somewhere between 2MB and 4MB.  To transfer large files you should use\nFTP.");
+    pod2text ("command-lines - run a command, returning lines", " command-lines <arguments>\n\nThis is the same as C<command>, but splits the\nresult into a list of lines.\n\nSee also: C<sh_lines>\n\nBecause of the message protocol, there is a transfer limit \nof somewhere between 2MB and 4MB.  To transfer large files you should use\nFTP.");
   else
   if (strcasecmp (cmd, "stat") == 0)
     pod2text ("stat - get file information", " stat <path>\n\nReturns file information for the given C<path>.\n\nThis is the same as the C<stat(2)> system call.");
@@ -559,6 +561,12 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "ntfs_3g_probe") == 0 || strcasecmp (cmd, "ntfs-3g-probe") == 0)
     pod2text ("ntfs-3g-probe - probe NTFS volume", " ntfs-3g-probe <rw> <device>\n\nThis command runs the L<ntfs-3g.probe(8)> command which probes\nan NTFS C<device> for mountability.  (Not all NTFS volumes can\nbe mounted read-write, and some cannot be mounted at all).\n\nC<rw> is a boolean flag.  Set it to true if you want to test\nif the volume can be mounted read-write.  Set it to false if\nyou want to test if the volume can be mounted read-only.\n\nThe return value is an integer which C<0> if the operation\nwould succeed, or some non-zero value documented in the\nL<ntfs-3g.probe(8)> manual page.");
+  else
+  if (strcasecmp (cmd, "sh") == 0)
+    pod2text ("sh - run a command via the shell", " sh <command>\n\nThis call runs a command from the guest filesystem via the\nguest's C</bin/sh>.\n\nThis is like C<command>, but passes the command to:\n\n /bin/sh -c \"command\"\n\nDepending on the guest's shell, this usually results in\nwildcards being expanded, shell expressions being interpolated\nand so on.\n\nAll the provisos about C<command> apply to this call.");
+  else
+  if (strcasecmp (cmd, "sh_lines") == 0 || strcasecmp (cmd, "sh-lines") == 0)
+    pod2text ("sh-lines - run a command via the shell returning lines", " sh-lines <command>\n\nThis is the same as C<sh>, but splits the result\ninto a list of lines.\n\nSee also: C<command_lines>");
   else
     display_builtin_command (cmd);
 }
@@ -2738,6 +2746,40 @@ static int run_ntfs_3g_probe (const char *cmd, int argc, char *argv[])
   return 0;
 }
 
+static int run_sh (const char *cmd, int argc, char *argv[])
+{
+  char *r;
+  const char *command;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  command = argv[0];
+  r = guestfs_sh (g, command);
+  if (r == NULL) return -1;
+  printf ("%s\n", r);
+  free (r);
+  return 0;
+}
+
+static int run_sh_lines (const char *cmd, int argc, char *argv[])
+{
+  char **r;
+  const char *command;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  command = argv[0];
+  r = guestfs_sh_lines (g, command);
+  if (r == NULL) return -1;
+  print_strings (r);
+  free_strings (r);
+  return 0;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -3132,6 +3174,12 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "ntfs_3g_probe") == 0 || strcasecmp (cmd, "ntfs-3g-probe") == 0)
     return run_ntfs_3g_probe (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "sh") == 0)
+    return run_sh (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "sh_lines") == 0 || strcasecmp (cmd, "sh-lines") == 0)
+    return run_sh_lines (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);
