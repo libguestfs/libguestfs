@@ -80,7 +80,7 @@ if SUPERMIN
 # First we need to decide which files go in and out of the supermin
 # appliance.  This decision is made by 'supermin-split.sh'.
 $(SUPERMINFILES): supermin.incfiles
-supermin.incfiles: $(top_builddir)/initramfs/fakeroot.log supermin-split.sh
+supermin.incfiles: $(top_builddir)/initramfs/fakeroot.log $(top_builddir)/daemon/guestfsd supermin-split.sh
 	rm -f supermin.incfiles $(SUPERMINFILES)
 	bash supermin-split.sh
 
