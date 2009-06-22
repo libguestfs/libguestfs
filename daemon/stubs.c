@@ -3197,7 +3197,7 @@ void dispatch_incoming_message (XDR *xdr_in)
       glob_expand_stub (xdr_in);
       break;
     default:
-      reply_with_error ("dispatch_incoming_message: unknown procedure number %d", proc_nr);
+      reply_with_error ("dispatch_incoming_message: unknown procedure number %d, set LIBGUESTFS_PATH to point to the matching libguestfs appliance directory", proc_nr);
   }
 }
 

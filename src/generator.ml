@@ -3686,7 +3686,7 @@ and generate_daemon_actions () =
   ) daemon_functions;
 
   pr "    default:\n";
-  pr "      reply_with_error (\"dispatch_incoming_message: unknown procedure number %%d\", proc_nr);\n";
+  pr "      reply_with_error (\"dispatch_incoming_message: unknown procedure number %%d, set LIBGUESTFS_PATH to point to the matching libguestfs appliance directory\", proc_nr);\n";
   pr "  }\n";
   pr "}\n";
   pr "\n";
