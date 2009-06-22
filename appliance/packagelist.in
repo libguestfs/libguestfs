@@ -16,6 +16,7 @@ file
 grub
 iputils
 kernel
+lsof
 lvm2
 MAKEDEV
 module-init-tools
