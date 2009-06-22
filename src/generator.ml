@@ -1370,7 +1370,9 @@ or compatible processor architecture).
 The single parameter is an argv-style list of arguments.
 The first element is the name of the program to run.
 Subsequent elements are parameters.  The list must be
-non-empty (ie. must contain a program name).
+non-empty (ie. must contain a program name).  Note that
+the command runs directly, and is I<not> invoked via
+the shell (see C<guestfs_sh>).
 
 The return value is anything printed to I<stdout> by
 the command.
@@ -1438,7 +1440,9 @@ locations.");
    "run a command, returning lines",
    "\
 This is the same as C<guestfs_command>, but splits the
-result into a list of lines.");
+result into a list of lines.
+
+See also: C<guestfs_sh_lines>");
 
   ("stat", (RStat "statbuf", [String "path"]), 52, [],
    [InitBasicFS, Always, TestOutputStruct (
@@ -2342,6 +2346,33 @@ you want to test if the volume can be mounted read-only.
 The return value is an integer which C<0> if the operation
 would succeed, or some non-zero value documented in the
 L<ntfs-3g.probe(8)> manual page.");
+
+  ("sh", (RString "output", [String "command"]), 111, [],
+   [], (* XXX needs tests *)
+   "run a command via the shell",
+   "\
+This call runs a command from the guest filesystem via the
+guest's C</bin/sh>.
+
+This is like C<guestfs_command>, but passes the command to:
+
+ /bin/sh -c \"command\"
+
+Depending on the guest's shell, this usually results in
+wildcards being expanded, shell expressions being interpolated
+and so on.
+
+All the provisos about C<guestfs_command> apply to this call.");
+
+  ("sh_lines", (RStringList "lines", [String "command"]), 112, [],
+   [], (* XXX needs tests *)
+   "run a command via the shell returning lines",
+   "\
+This is the same as C<guestfs_sh>, but splits the result
+into a list of lines.
+
+See also: C<guestfs_command_lines>");
+
 
 ]
 

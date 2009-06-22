@@ -101,3 +101,19 @@ do_command_lines (char **argv)
 
   return lines;			/* Caller frees. */
 }
+
+char *
+do_sh (char *command)
+{
+  char *argv[] = { "/bin/sh", "-c", command, NULL };
+
+  return do_command (argv);
+}
+
+char **
+do_sh_lines (char *command)
+{
+  char *argv[] = { "/bin/sh", "-c", command, NULL };
+
+  return do_command_lines (argv);
+}
