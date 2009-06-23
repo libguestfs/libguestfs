@@ -115,7 +115,7 @@ for whatever operations you want to perform (ie. read access if you
 just want to read the image or write access if you want to modify the
 image).
 
-This is equivalent to the qemu parameter C<-drive file=filename>.
+This is equivalent to the qemu parameter C<-drive file=filename,cache=off>.
 
 Note that this call checks for the existence of C<filename>.  This
 stops you from specifying other types of drive which are supported
@@ -999,6 +999,38 @@ command.
 
 Remove the single directory C<path>.
 
+=item $h->scrub_device ($device);
+
+This command writes patterns over C<device> to make data retrieval
+more difficult.
+
+It is an interface to the L<scrub(1)> program.  See that
+manual page for more details.
+
+B<This command is dangerous.  Without careful use you
+can easily destroy all your data>.
+
+=item $h->scrub_file ($file);
+
+This command writes patterns over a file to make data retrieval
+more difficult.
+
+The file is I<removed> after scrubbing.
+
+It is an interface to the L<scrub(1)> program.  See that
+manual page for more details.
+
+=item $h->scrub_freespace ($dir);
+
+This command creates the directory C<dir> and then fills it
+with files until the filesystem is full, and scrubs the files
+as for C<$h-E<gt>scrub_file>, and deletes them.
+The intention is to scrub any free space on the partition
+containing C<dir>.
+
+It is an interface to the L<scrub(1)> program.  See that
+manual page for more details.
+
 =item $h->set_append ($append);
 
 This function is used to add additional options to the
@@ -1364,6 +1396,8 @@ This command writes zeroes over the first few blocks of C<device>.
 How many blocks are zeroed isn't specified (but it's I<not> enough
 to securely wipe the device).  It should be sufficient to remove
 any partition tables, filesystem superblocks and so on.
+
+See also: C<$h-E<gt>scrub_device>.
 
 =item $h->zerofree ($device);
 

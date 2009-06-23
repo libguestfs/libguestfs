@@ -10360,3 +10360,264 @@ char **guestfs_glob_expand (guestfs_h *g,
   return ctx.ret.paths.paths_val;
 }
 
+struct scrub_device_ctx {
+  /* This flag is set by the callbacks, so we know we've done
+   * the callbacks as expected, and in the right sequence.
+   * 0 = not called, 1 = reply_cb called.
+   */
+  int cb_sequence;
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+};
+
+static void scrub_device_reply_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  struct scrub_device_ctx *ctx = (struct scrub_device_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_scrub_device");
+    return;
+  }
+
+  ml->main_loop_quit (ml, g);
+
+  if (!xdr_guestfs_message_header (xdr, &ctx->hdr)) {
+    error (g, "%s: failed to parse reply header", "guestfs_scrub_device");
+    return;
+  }
+  if (ctx->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &ctx->err)) {
+      error (g, "%s: failed to parse reply error", "guestfs_scrub_device");
+      return;
+    }
+    goto done;
+  }
+ done:
+  ctx->cb_sequence = 1;
+}
+
+int guestfs_scrub_device (guestfs_h *g,
+		const char *device)
+{
+  struct guestfs_scrub_device_args args;
+  struct scrub_device_ctx ctx;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  int serial;
+
+  if (check_state (g, "guestfs_scrub_device") == -1) return -1;
+  guestfs_set_busy (g);
+
+  memset (&ctx, 0, sizeof ctx);
+
+  args.device = (char *) device;
+  serial = guestfs__send_sync (g, GUESTFS_PROC_SCRUB_DEVICE,
+        (xdrproc_t) xdr_guestfs_scrub_device_args, (char *) &args);
+  if (serial == -1) {
+    guestfs_end_busy (g);
+    return -1;
+  }
+
+  guestfs__switch_to_receiving (g);
+  ctx.cb_sequence = 0;
+  guestfs_set_reply_callback (g, scrub_device_reply_cb, &ctx);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (ctx.cb_sequence != 1) {
+    error (g, "%s reply failed, see earlier error messages", "guestfs_scrub_device");
+    guestfs_end_busy (g);
+    return -1;
+  }
+
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_SCRUB_DEVICE, serial) == -1) {
+    guestfs_end_busy (g);
+    return -1;
+  }
+
+  if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", ctx.err.error_message);
+    free (ctx.err.error_message);
+    guestfs_end_busy (g);
+    return -1;
+  }
+
+  guestfs_end_busy (g);
+  return 0;
+}
+
+struct scrub_file_ctx {
+  /* This flag is set by the callbacks, so we know we've done
+   * the callbacks as expected, and in the right sequence.
+   * 0 = not called, 1 = reply_cb called.
+   */
+  int cb_sequence;
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+};
+
+static void scrub_file_reply_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  struct scrub_file_ctx *ctx = (struct scrub_file_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_scrub_file");
+    return;
+  }
+
+  ml->main_loop_quit (ml, g);
+
+  if (!xdr_guestfs_message_header (xdr, &ctx->hdr)) {
+    error (g, "%s: failed to parse reply header", "guestfs_scrub_file");
+    return;
+  }
+  if (ctx->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &ctx->err)) {
+      error (g, "%s: failed to parse reply error", "guestfs_scrub_file");
+      return;
+    }
+    goto done;
+  }
+ done:
+  ctx->cb_sequence = 1;
+}
+
+int guestfs_scrub_file (guestfs_h *g,
+		const char *file)
+{
+  struct guestfs_scrub_file_args args;
+  struct scrub_file_ctx ctx;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  int serial;
+
+  if (check_state (g, "guestfs_scrub_file") == -1) return -1;
+  guestfs_set_busy (g);
+
+  memset (&ctx, 0, sizeof ctx);
+
+  args.file = (char *) file;
+  serial = guestfs__send_sync (g, GUESTFS_PROC_SCRUB_FILE,
+        (xdrproc_t) xdr_guestfs_scrub_file_args, (char *) &args);
+  if (serial == -1) {
+    guestfs_end_busy (g);
+    return -1;
+  }
+
+  guestfs__switch_to_receiving (g);
+  ctx.cb_sequence = 0;
+  guestfs_set_reply_callback (g, scrub_file_reply_cb, &ctx);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (ctx.cb_sequence != 1) {
+    error (g, "%s reply failed, see earlier error messages", "guestfs_scrub_file");
+    guestfs_end_busy (g);
+    return -1;
+  }
+
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_SCRUB_FILE, serial) == -1) {
+    guestfs_end_busy (g);
+    return -1;
+  }
+
+  if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", ctx.err.error_message);
+    free (ctx.err.error_message);
+    guestfs_end_busy (g);
+    return -1;
+  }
+
+  guestfs_end_busy (g);
+  return 0;
+}
+
+struct scrub_freespace_ctx {
+  /* This flag is set by the callbacks, so we know we've done
+   * the callbacks as expected, and in the right sequence.
+   * 0 = not called, 1 = reply_cb called.
+   */
+  int cb_sequence;
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+};
+
+static void scrub_freespace_reply_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  struct scrub_freespace_ctx *ctx = (struct scrub_freespace_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_scrub_freespace");
+    return;
+  }
+
+  ml->main_loop_quit (ml, g);
+
+  if (!xdr_guestfs_message_header (xdr, &ctx->hdr)) {
+    error (g, "%s: failed to parse reply header", "guestfs_scrub_freespace");
+    return;
+  }
+  if (ctx->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &ctx->err)) {
+      error (g, "%s: failed to parse reply error", "guestfs_scrub_freespace");
+      return;
+    }
+    goto done;
+  }
+ done:
+  ctx->cb_sequence = 1;
+}
+
+int guestfs_scrub_freespace (guestfs_h *g,
+		const char *dir)
+{
+  struct guestfs_scrub_freespace_args args;
+  struct scrub_freespace_ctx ctx;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  int serial;
+
+  if (check_state (g, "guestfs_scrub_freespace") == -1) return -1;
+  guestfs_set_busy (g);
+
+  memset (&ctx, 0, sizeof ctx);
+
+  args.dir = (char *) dir;
+  serial = guestfs__send_sync (g, GUESTFS_PROC_SCRUB_FREESPACE,
+        (xdrproc_t) xdr_guestfs_scrub_freespace_args, (char *) &args);
+  if (serial == -1) {
+    guestfs_end_busy (g);
+    return -1;
+  }
+
+  guestfs__switch_to_receiving (g);
+  ctx.cb_sequence = 0;
+  guestfs_set_reply_callback (g, scrub_freespace_reply_cb, &ctx);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (ctx.cb_sequence != 1) {
+    error (g, "%s reply failed, see earlier error messages", "guestfs_scrub_freespace");
+    guestfs_end_busy (g);
+    return -1;
+  }
+
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_SCRUB_FREESPACE, serial) == -1) {
+    guestfs_end_busy (g);
+    return -1;
+  }
+
+  if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", ctx.err.error_message);
+    free (ctx.err.error_message);
+    guestfs_end_busy (g);
+    return -1;
+  }
+
+  guestfs_end_busy (g);
+  return 0;
+}
+

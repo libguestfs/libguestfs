@@ -4274,3 +4274,72 @@ ocaml_guestfs_glob_expand (value gv, value patternv)
   CAMLreturn (rv);
 }
 
+CAMLprim value
+ocaml_guestfs_scrub_device (value gv, value devicev)
+{
+  CAMLparam2 (gv, devicev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("scrub_device: used handle after closing it");
+
+  const char *device = String_val (devicev);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_scrub_device (g, device);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "scrub_device");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_scrub_file (value gv, value filev)
+{
+  CAMLparam2 (gv, filev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("scrub_file: used handle after closing it");
+
+  const char *file = String_val (filev);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_scrub_file (g, file);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "scrub_file");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_scrub_freespace (value gv, value dirv)
+{
+  CAMLparam2 (gv, dirv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("scrub_freespace: used handle after closing it");
+
+  const char *dir = String_val (dirv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_scrub_freespace (g, dir);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "scrub_freespace");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+

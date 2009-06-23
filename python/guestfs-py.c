@@ -4531,6 +4531,81 @@ py_guestfs_glob_expand (PyObject *self, PyObject *args)
   return py_r;
 }
 
+static PyObject *
+py_guestfs_scrub_device (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *device;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_scrub_device",
+                         &py_g, &device))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_scrub_device (g, device);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_scrub_file (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *file;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_scrub_file",
+                         &py_g, &file))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_scrub_file (g, file);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_scrub_freespace (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *dir;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_scrub_freespace",
+                         &py_g, &dir))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_scrub_freespace (g, dir);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
 static PyMethodDef methods[] = {
   { (char *) "create", py_guestfs_create, METH_VARARGS, NULL },
   { (char *) "close", py_guestfs_close, METH_VARARGS, NULL },
@@ -4699,6 +4774,9 @@ static PyMethodDef methods[] = {
   { (char *) "sh", py_guestfs_sh, METH_VARARGS, NULL },
   { (char *) "sh_lines", py_guestfs_sh_lines, METH_VARARGS, NULL },
   { (char *) "glob_expand", py_guestfs_glob_expand, METH_VARARGS, NULL },
+  { (char *) "scrub_device", py_guestfs_scrub_device, METH_VARARGS, NULL },
+  { (char *) "scrub_file", py_guestfs_scrub_file, METH_VARARGS, NULL },
+  { (char *) "scrub_freespace", py_guestfs_scrub_freespace, METH_VARARGS, NULL },
   { NULL, NULL, 0, NULL }
 };
 

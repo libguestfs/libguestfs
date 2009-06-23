@@ -184,3 +184,6 @@ extern int guestfs_ntfs_3g_probe (guestfs_h *handle, int rw, const char *device)
 extern char *guestfs_sh (guestfs_h *handle, const char *command);
 extern char **guestfs_sh_lines (guestfs_h *handle, const char *command);
 extern char **guestfs_glob_expand (guestfs_h *handle, const char *pattern);
+extern int guestfs_scrub_device (guestfs_h *handle, const char *device);
+extern int guestfs_scrub_file (guestfs_h *handle, const char *file);
+extern int guestfs_scrub_freespace (guestfs_h *handle, const char *dir);

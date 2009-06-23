@@ -4073,3 +4073,54 @@ Java_com_redhat_et_libguestfs_GuestFS__1glob_1expand
   return jr;
 }
 
+JNIEXPORT void JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1scrub_1device
+  (JNIEnv *env, jobject obj, jlong jg, jstring jdevice)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+  const char *device;
+
+  device = (*env)->GetStringUTFChars (env, jdevice, NULL);
+  r = guestfs_scrub_device (g, device);
+  (*env)->ReleaseStringUTFChars (env, jdevice, device);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return ;
+  }
+}
+
+JNIEXPORT void JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1scrub_1file
+  (JNIEnv *env, jobject obj, jlong jg, jstring jfile)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+  const char *file;
+
+  file = (*env)->GetStringUTFChars (env, jfile, NULL);
+  r = guestfs_scrub_file (g, file);
+  (*env)->ReleaseStringUTFChars (env, jfile, file);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return ;
+  }
+}
+
+JNIEXPORT void JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1scrub_1freespace
+  (JNIEnv *env, jobject obj, jlong jg, jstring jdir)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+  const char *dir;
+
+  dir = (*env)->GetStringUTFChars (env, jdir, NULL);
+  r = guestfs_scrub_freespace (g, dir);
+  (*env)->ReleaseStringUTFChars (env, jdir, dir);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return ;
+  }
+}
+

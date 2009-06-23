@@ -4243,6 +4243,72 @@ static VALUE ruby_guestfs_glob_expand (VALUE gv, VALUE patternv)
   return rv;
 }
 
+static VALUE ruby_guestfs_scrub_device (VALUE gv, VALUE devicev)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "scrub_device");
+
+  Check_Type (devicev, T_STRING);
+  const char *device = StringValueCStr (devicev);
+  if (!device)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "device", "scrub_device");
+
+  int r;
+
+  r = guestfs_scrub_device (g, device);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
+static VALUE ruby_guestfs_scrub_file (VALUE gv, VALUE filev)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "scrub_file");
+
+  Check_Type (filev, T_STRING);
+  const char *file = StringValueCStr (filev);
+  if (!file)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "file", "scrub_file");
+
+  int r;
+
+  r = guestfs_scrub_file (g, file);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
+static VALUE ruby_guestfs_scrub_freespace (VALUE gv, VALUE dirv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "scrub_freespace");
+
+  Check_Type (dirv, T_STRING);
+  const char *dir = StringValueCStr (dirv);
+  if (!dir)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "dir", "scrub_freespace");
+
+  int r;
+
+  r = guestfs_scrub_freespace (g, dir);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
 /* Initialize the module. */
 void Init__guestfs ()
 {
@@ -4583,4 +4649,10 @@ void Init__guestfs ()
         ruby_guestfs_sh_lines, 1);
   rb_define_method (c_guestfs, "glob_expand",
         ruby_guestfs_glob_expand, 1);
+  rb_define_method (c_guestfs, "scrub_device",
+        ruby_guestfs_scrub_device, 1);
+  rb_define_method (c_guestfs, "scrub_file",
+        ruby_guestfs_scrub_file, 1);
+  rb_define_method (c_guestfs, "scrub_freespace",
+        ruby_guestfs_scrub_freespace, 1);
 }

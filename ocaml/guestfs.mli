@@ -619,3 +619,12 @@ val sh_lines : t -> string -> string array
 val glob_expand : t -> string -> string array
 (** expand a wildcard path *)
 
+val scrub_device : t -> string -> unit
+(** scrub (securely wipe) a device *)
+
+val scrub_file : t -> string -> unit
+(** scrub (securely wipe) a file *)
+
+val scrub_freespace : t -> string -> unit
+(** scrub (securely wipe) free space *)
+

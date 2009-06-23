@@ -1933,6 +1933,36 @@ xdr_guestfs_glob_expand_ret (XDR *xdrs, guestfs_glob_expand_ret *objp)
 }
 
 bool_t
+xdr_guestfs_scrub_device_args (XDR *xdrs, guestfs_scrub_device_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->device, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_scrub_file_args (XDR *xdrs, guestfs_scrub_file_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->file, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_scrub_freespace_args (XDR *xdrs, guestfs_scrub_freespace_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->dir, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
 xdr_guestfs_procedure (XDR *xdrs, guestfs_procedure *objp)
 {
 	register int32_t *buf;

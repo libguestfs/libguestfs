@@ -180,6 +180,9 @@ static const char *const commands[] = {
   "sh",
   "sh-lines",
   "glob-expand",
+  "scrub-device",
+  "scrub-file",
+  "scrub-freespace",
   NULL
 };
 

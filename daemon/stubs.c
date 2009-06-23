@@ -2854,6 +2854,78 @@ done:
   xdr_free ((xdrproc_t) xdr_guestfs_glob_expand_args, (char *) &args);
 }
 
+static void scrub_device_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_scrub_device_args args;
+  char *device;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_scrub_device_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "scrub_device");
+    return;
+  }
+  device = args.device;
+
+  r = do_scrub_device (device);
+  if (r == -1)
+    /* do_scrub_device has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_scrub_device_args, (char *) &args);
+}
+
+static void scrub_file_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_scrub_file_args args;
+  char *file;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_scrub_file_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "scrub_file");
+    return;
+  }
+  file = args.file;
+
+  r = do_scrub_file (file);
+  if (r == -1)
+    /* do_scrub_file has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_scrub_file_args, (char *) &args);
+}
+
+static void scrub_freespace_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_scrub_freespace_args args;
+  char *dir;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_scrub_freespace_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "scrub_freespace");
+    return;
+  }
+  dir = args.dir;
+
+  r = do_scrub_freespace (dir);
+  if (r == -1)
+    /* do_scrub_freespace has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_scrub_freespace_args, (char *) &args);
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -3195,6 +3267,15 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_GLOB_EXPAND:
       glob_expand_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_SCRUB_DEVICE:
+      scrub_device_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_SCRUB_FILE:
+      scrub_file_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_SCRUB_FREESPACE:
+      scrub_freespace_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d, set LIBGUESTFS_PATH to point to the matching libguestfs appliance directory", proc_nr);

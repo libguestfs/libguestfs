@@ -280,3 +280,6 @@ external ntfs_3g_probe : t -> bool -> string -> int = "ocaml_guestfs_ntfs_3g_pro
 external sh : t -> string -> string = "ocaml_guestfs_sh"
 external sh_lines : t -> string -> string array = "ocaml_guestfs_sh_lines"
 external glob_expand : t -> string -> string array = "ocaml_guestfs_glob_expand"
+external scrub_device : t -> string -> unit = "ocaml_guestfs_scrub_device"
+external scrub_file : t -> string -> unit = "ocaml_guestfs_scrub_file"
+external scrub_freespace : t -> string -> unit = "ocaml_guestfs_scrub_freespace"

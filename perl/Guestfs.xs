@@ -2602,3 +2602,36 @@ PREINIT:
       }
       free (paths);
 
+void
+scrub_device (g, device)
+      guestfs_h *g;
+      char *device;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_scrub_device (g, device);
+      if (r == -1)
+        croak ("scrub_device: %s", guestfs_last_error (g));
+
+void
+scrub_file (g, file)
+      guestfs_h *g;
+      char *file;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_scrub_file (g, file);
+      if (r == -1)
+        croak ("scrub_file: %s", guestfs_last_error (g));
+
+void
+scrub_freespace (g, dir)
+      guestfs_h *g;
+      char *dir;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_scrub_freespace (g, dir);
+      if (r == -1)
+        croak ("scrub_freespace: %s", guestfs_last_error (g));
+

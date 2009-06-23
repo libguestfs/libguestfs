@@ -30,7 +30,7 @@ for whatever operations you want to perform (ie. read access if you
 just want to read the image or write access if you want to modify the
 image).
 
-This is equivalent to the qemu parameter C<-drive file=filename>.
+This is equivalent to the qemu parameter C<-drive file=filename,cache=off>.
 
 Note that this call checks for the existence of C<filename>.  This
 stops you from specifying other types of drive which are supported
@@ -1448,6 +1448,53 @@ Remove the single directory C<path>.
 
 This function returns 0 on success or -1 on error.
 
+=head2 guestfs_scrub_device
+
+ int guestfs_scrub_device (guestfs_h *handle,
+		const char *device);
+
+This command writes patterns over C<device> to make data retrieval
+more difficult.
+
+It is an interface to the L<scrub(1)> program.  See that
+manual page for more details.
+
+This function returns 0 on success or -1 on error.
+
+B<This command is dangerous.  Without careful use you
+can easily destroy all your data>.
+
+=head2 guestfs_scrub_file
+
+ int guestfs_scrub_file (guestfs_h *handle,
+		const char *file);
+
+This command writes patterns over a file to make data retrieval
+more difficult.
+
+The file is I<removed> after scrubbing.
+
+It is an interface to the L<scrub(1)> program.  See that
+manual page for more details.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_scrub_freespace
+
+ int guestfs_scrub_freespace (guestfs_h *handle,
+		const char *dir);
+
+This command creates the directory C<dir> and then fills it
+with files until the filesystem is full, and scrubs the files
+as for C<guestfs_scrub_file>, and deletes them.
+The intention is to scrub any free space on the partition
+containing C<dir>.
+
+It is an interface to the L<scrub(1)> program.  See that
+manual page for more details.
+
+This function returns 0 on success or -1 on error.
+
 =head2 guestfs_set_append
 
  int guestfs_set_append (guestfs_h *handle,
@@ -2050,6 +2097,8 @@ This command writes zeroes over the first few blocks of C<device>.
 How many blocks are zeroed isn't specified (but it's I<not> enough
 to securely wipe the device).  It should be sufficient to remove
 any partition tables, filesystem superblocks and so on.
+
+See also: C<guestfs_scrub_device>.
 
 This function returns 0 on success or -1 on error.
 

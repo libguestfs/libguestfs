@@ -83,7 +83,10 @@ module Guestfs (
   zerofree,
   pvresize,
   resize2fs,
-  e2fsck_f
+  e2fsck_f,
+  scrub_device,
+  scrub_file,
+  scrub_freespace
   ) where
 import Foreign
 import Foreign.C
@@ -847,6 +850,42 @@ foreign import ccall unsafe "guestfs_e2fsck_f" c_e2fsck_f
 e2fsck_f :: GuestfsH -> String -> IO ()
 e2fsck_f h device = do
   r <- withCString device $ \device -> withForeignPtr h (\p -> c_e2fsck_f p device)
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return ()
+
+foreign import ccall unsafe "guestfs_scrub_device" c_scrub_device
+  :: GuestfsP -> CString -> IO (CInt)
+
+scrub_device :: GuestfsH -> String -> IO ()
+scrub_device h device = do
+  r <- withCString device $ \device -> withForeignPtr h (\p -> c_scrub_device p device)
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return ()
+
+foreign import ccall unsafe "guestfs_scrub_file" c_scrub_file
+  :: GuestfsP -> CString -> IO (CInt)
+
+scrub_file :: GuestfsH -> String -> IO ()
+scrub_file h file = do
+  r <- withCString file $ \file -> withForeignPtr h (\p -> c_scrub_file p file)
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return ()
+
+foreign import ccall unsafe "guestfs_scrub_freespace" c_scrub_freespace
+  :: GuestfsP -> CString -> IO (CInt)
+
+scrub_freespace :: GuestfsH -> String -> IO ()
+scrub_freespace h dir = do
+  r <- withCString dir $ \dir -> withForeignPtr h (\p -> c_scrub_freespace p dir)
   if (r == -1)
     then do
       err <- last_error h

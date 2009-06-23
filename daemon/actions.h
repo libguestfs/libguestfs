@@ -134,3 +134,6 @@ extern int do_ntfs_3g_probe (int rw, char *device);
 extern char *do_sh (char *command);
 extern char **do_sh_lines (char *command);
 extern char **do_glob_expand (char *pattern);
+extern int do_scrub_device (char *device);
+extern int do_scrub_file (char *file);
+extern int do_scrub_freespace (char *dir);

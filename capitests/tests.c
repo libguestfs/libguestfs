@@ -150,6 +150,153 @@ static void no_test_warnings (void)
   fprintf (stderr, "warning: \"guestfs_e2fsck_f\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_sh\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_sh_lines\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_scrub_freespace\" has no tests\n");
+}
+
+static int test_scrub_file_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_SCRUB_FILE_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_SCRUB_FILE");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
+static int test_scrub_file_0 (void)
+{
+  if (test_scrub_file_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_scrub_file_0");
+    return 0;
+  }
+
+  /* InitBasicFS for test_scrub_file_0: create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestRun for scrub_file (0) */
+  {
+    char path[] = "/file";
+    char content[] = "content";
+    int r;
+    suppress_error = 0;
+    r = guestfs_write_file (g, path, content, 0);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char file[] = "/file";
+    int r;
+    suppress_error = 0;
+    r = guestfs_scrub_file (g, file);
+    if (r == -1)
+      return -1;
+  }
+  return 0;
+}
+
+static int test_scrub_device_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_SCRUB_DEVICE_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_SCRUB_DEVICE");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
+static int test_scrub_device_0 (void)
+{
+  if (test_scrub_device_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_scrub_device_0");
+    return 0;
+  }
+
+  /* InitNone|InitEmpty for test_scrub_device_0 */
+  {
+    char device[] = "/dev/sda";
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  /* TestRun for scrub_device (0) */
+  {
+    char device[] = "/dev/sdc";
+    int r;
+    suppress_error = 0;
+    r = guestfs_scrub_device (g, device);
+    if (r == -1)
+      return -1;
+  }
+  return 0;
 }
 
 static int test_glob_expand_0_skip (void)
@@ -16166,8 +16313,20 @@ int main (int argc, char *argv[])
   /* Cancel previous alarm. */
   alarm (0);
 
-  nr_tests = 149;
+  nr_tests = 151;
 
+  test_num++;
+  printf ("%3d/%3d test_scrub_file_0\n", test_num, nr_tests);
+  if (test_scrub_file_0 () == -1) {
+    printf ("test_scrub_file_0 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_scrub_device_0\n", test_num, nr_tests);
+  if (test_scrub_device_0 () == -1) {
+    printf ("test_scrub_device_0 FAILED\n");
+    failed++;
+  }
   test_num++;
   printf ("%3d/%3d test_glob_expand_0\n", test_num, nr_tests);
   if (test_glob_expand_0 () == -1) {

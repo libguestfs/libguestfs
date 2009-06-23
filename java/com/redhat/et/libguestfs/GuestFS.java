@@ -427,7 +427,7 @@ public HashMap<String,String> test0rhashtableerr ()
    * to modify the image).
    * <p>
    * This is equivalent to the qemu parameter "-drive
-   * file=filename".
+   * file=filename,cache=off".
    * <p>
    * Note that this call checks for the existence of
    * "filename". This stops you from specifying other types
@@ -2801,6 +2801,8 @@ public HashMap<String,String> test0rhashtableerr ()
    * sufficient to remove any partition tables, filesystem
    * superblocks and so on.
    * <p>
+   * See also: "g.scrub_device".
+   * <p>
    * @throws LibGuestFSException
    */
   public void zero (String device)
@@ -3459,6 +3461,77 @@ public HashMap<String,String> test0rhashtableerr ()
     return _glob_expand (g, pattern);
   }
   private native String[] _glob_expand (long g, String pattern)
+    throws LibGuestFSException;
+
+  /**
+   * scrub (securely wipe) a device
+   * <p>
+   * This command writes patterns over "device" to make data
+   * retrieval more difficult.
+   * <p>
+   * It is an interface to the scrub(1) program. See that
+   * manual page for more details.
+   * <p>
+   * This command is dangerous. Without careful use you can
+   * easily destroy all your data.
+   * <p>
+   * @throws LibGuestFSException
+   */
+  public void scrub_device (String device)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("scrub_device: handle is closed");
+    _scrub_device (g, device);
+  }
+  private native void _scrub_device (long g, String device)
+    throws LibGuestFSException;
+
+  /**
+   * scrub (securely wipe) a file
+   * <p>
+   * This command writes patterns over a file to make data
+   * retrieval more difficult.
+   * <p>
+   * The file is *removed* after scrubbing.
+   * <p>
+   * It is an interface to the scrub(1) program. See that
+   * manual page for more details.
+   * <p>
+   * @throws LibGuestFSException
+   */
+  public void scrub_file (String file)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("scrub_file: handle is closed");
+    _scrub_file (g, file);
+  }
+  private native void _scrub_file (long g, String file)
+    throws LibGuestFSException;
+
+  /**
+   * scrub (securely wipe) free space
+   * <p>
+   * This command creates the directory "dir" and then fills
+   * it with files until the filesystem is full, and scrubs
+   * the files as for "g.scrub_file", and deletes them. The
+   * intention is to scrub any free space on the partition
+   * containing "dir".
+   * <p>
+   * It is an interface to the scrub(1) program. See that
+   * manual page for more details.
+   * <p>
+   * @throws LibGuestFSException
+   */
+  public void scrub_freespace (String dir)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("scrub_freespace: handle is closed");
+    _scrub_freespace (g, dir);
+  }
+  private native void _scrub_freespace (long g, String dir)
     throws LibGuestFSException;
 
 }

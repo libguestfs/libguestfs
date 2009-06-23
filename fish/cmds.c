@@ -127,6 +127,9 @@ void list_commands (void)
   printf ("%-20s %s\n", "rm", "remove a file");
   printf ("%-20s %s\n", "rm-rf", "remove a file or directory recursively");
   printf ("%-20s %s\n", "rmdir", "remove a directory");
+  printf ("%-20s %s\n", "scrub-device", "scrub (securely wipe) a device");
+  printf ("%-20s %s\n", "scrub-file", "scrub (securely wipe) a file");
+  printf ("%-20s %s\n", "scrub-freespace", "scrub (securely wipe) free space");
   printf ("%-20s %s\n", "set-append", "add options to kernel command line");
   printf ("%-20s %s\n", "set-autosync", "set autosync mode");
   printf ("%-20s %s\n", "set-e2label", "set the ext2/3/4 filesystem label");
@@ -177,7 +180,7 @@ void display_command (const char *cmd)
     pod2text ("kill-subprocess - kill the qemu subprocess", " kill-subprocess\n\nThis kills the qemu subprocess.  You should never need to call this.");
   else
   if (strcasecmp (cmd, "add_drive") == 0 || strcasecmp (cmd, "add-drive") == 0 || strcasecmp (cmd, "add") == 0)
-    pod2text ("add-drive - add an image to examine or modify", " add-drive <filename>\n\nThis function adds a virtual machine disk image C<filename> to the\nguest.  The first time you call this function, the disk appears as IDE\ndisk 0 (C</dev/sda>) in the guest, the second time as C</dev/sdb>, and\nso on.\n\nYou don't necessarily need to be root when using libguestfs.  However\nyou obviously do need sufficient permissions to access the filename\nfor whatever operations you want to perform (ie. read access if you\njust want to read the image or write access if you want to modify the\nimage).\n\nThis is equivalent to the qemu parameter C<-drive file=filename>.\n\nNote that this call checks for the existence of C<filename>.  This\nstops you from specifying other types of drive which are supported\nby qemu such as C<nbd:> and C<http:> URLs.  To specify those, use\nthe general C<config> call instead.\n\nYou can use 'add' as an alias for this command.");
+    pod2text ("add-drive - add an image to examine or modify", " add-drive <filename>\n\nThis function adds a virtual machine disk image C<filename> to the\nguest.  The first time you call this function, the disk appears as IDE\ndisk 0 (C</dev/sda>) in the guest, the second time as C</dev/sdb>, and\nso on.\n\nYou don't necessarily need to be root when using libguestfs.  However\nyou obviously do need sufficient permissions to access the filename\nfor whatever operations you want to perform (ie. read access if you\njust want to read the image or write access if you want to modify the\nimage).\n\nThis is equivalent to the qemu parameter C<-drive file=filename,cache=off>.\n\nNote that this call checks for the existence of C<filename>.  This\nstops you from specifying other types of drive which are supported\nby qemu such as C<nbd:> and C<http:> URLs.  To specify those, use\nthe general C<config> call instead.\n\nYou can use 'add' as an alias for this command.");
   else
   if (strcasecmp (cmd, "add_cdrom") == 0 || strcasecmp (cmd, "add-cdrom") == 0 || strcasecmp (cmd, "cdrom") == 0)
     pod2text ("add-cdrom - add a CD-ROM disk image to examine", " add-cdrom <filename>\n\nThis function adds a virtual CD-ROM disk image to the guest.\n\nThis is equivalent to the qemu parameter C<-cdrom filename>.\n\nNote that this call checks for the existence of C<filename>.  This\nstops you from specifying other types of drive which are supported\nby qemu such as C<nbd:> and C<http:> URLs.  To specify those, use\nthe general C<config> call instead.\n\nYou can use 'cdrom' as an alias for this command.");
@@ -486,7 +489,7 @@ void display_command (const char *cmd)
     pod2text ("fsck - run the filesystem checker", " fsck <fstype> <device>\n\nThis runs the filesystem checker (fsck) on C<device> which\nshould have filesystem type C<fstype>.\n\nThe returned integer is the status.  See L<fsck(8)> for the\nlist of status codes from C<fsck>.\n\nNotes:\n\n=over 4\n\n=item *\n\nMultiple status codes can be summed together.\n\n=item *\n\nA non-zero return code can mean \"success\", for example if\nerrors have been corrected on the filesystem.\n\n=item *\n\nChecking or repairing NTFS volumes is not supported\n(by linux-ntfs).\n\n=back\n\nThis command is entirely equivalent to running C<fsck -a -t fstype device>.");
   else
   if (strcasecmp (cmd, "zero") == 0)
-    pod2text ("zero - write zeroes to the device", " zero <device>\n\nThis command writes zeroes over the first few blocks of C<device>.\n\nHow many blocks are zeroed isn't specified (but it's I<not> enough\nto securely wipe the device).  It should be sufficient to remove\nany partition tables, filesystem superblocks and so on.");
+    pod2text ("zero - write zeroes to the device", " zero <device>\n\nThis command writes zeroes over the first few blocks of C<device>.\n\nHow many blocks are zeroed isn't specified (but it's I<not> enough\nto securely wipe the device).  It should be sufficient to remove\nany partition tables, filesystem superblocks and so on.\n\nSee also: C<scrub_device>.");
   else
   if (strcasecmp (cmd, "grub_install") == 0 || strcasecmp (cmd, "grub-install") == 0)
     pod2text ("grub-install - install GRUB", " grub-install <root> <device>\n\nThis command installs GRUB (the Grand Unified Bootloader) on\nC<device>, with the root directory being C<root>.");
@@ -571,6 +574,15 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "glob_expand") == 0 || strcasecmp (cmd, "glob-expand") == 0)
     pod2text ("glob-expand - expand a wildcard path", " glob-expand <pattern>\n\nThis command searches for all the pathnames matching\nC<pattern> according to the wildcard expansion rules\nused by the shell.\n\nIf no paths match, then this returns an empty list\n(note: not an error).\n\nIt is just a wrapper around the C L<glob(3)> function\nwith flags C<GLOB_MARK|GLOB_BRACE>.\nSee that manual page for more details.");
+  else
+  if (strcasecmp (cmd, "scrub_device") == 0 || strcasecmp (cmd, "scrub-device") == 0)
+    pod2text ("scrub-device - scrub (securely wipe) a device", " scrub-device <device>\n\nThis command writes patterns over C<device> to make data retrieval\nmore difficult.\n\nIt is an interface to the L<scrub(1)> program.  See that\nmanual page for more details.\n\nB<This command is dangerous.  Without careful use you\ncan easily destroy all your data>.");
+  else
+  if (strcasecmp (cmd, "scrub_file") == 0 || strcasecmp (cmd, "scrub-file") == 0)
+    pod2text ("scrub-file - scrub (securely wipe) a file", " scrub-file <file>\n\nThis command writes patterns over a file to make data retrieval\nmore difficult.\n\nThe file is I<removed> after scrubbing.\n\nIt is an interface to the L<scrub(1)> program.  See that\nmanual page for more details.");
+  else
+  if (strcasecmp (cmd, "scrub_freespace") == 0 || strcasecmp (cmd, "scrub-freespace") == 0)
+    pod2text ("scrub-freespace - scrub (securely wipe) free space", " scrub-freespace <dir>\n\nThis command creates the directory C<dir> and then fills it\nwith files until the filesystem is full, and scrubs the files\nas for C<scrub_file>, and deletes them.\nThe intention is to scrub any free space on the partition\ncontaining C<dir>.\n\nIt is an interface to the L<scrub(1)> program.  See that\nmanual page for more details.");
   else
     display_builtin_command (cmd);
 }
@@ -2801,6 +2813,48 @@ static int run_glob_expand (const char *cmd, int argc, char *argv[])
   return 0;
 }
 
+static int run_scrub_device (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *device;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  device = argv[0];
+  r = guestfs_scrub_device (g, device);
+  return r;
+}
+
+static int run_scrub_file (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *file;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  file = argv[0];
+  r = guestfs_scrub_file (g, file);
+  return r;
+}
+
+static int run_scrub_freespace (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *dir;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  dir = argv[0];
+  r = guestfs_scrub_freespace (g, dir);
+  return r;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -3204,6 +3258,15 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "glob_expand") == 0 || strcasecmp (cmd, "glob-expand") == 0)
     return run_glob_expand (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "scrub_device") == 0 || strcasecmp (cmd, "scrub-device") == 0)
+    return run_scrub_device (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "scrub_file") == 0 || strcasecmp (cmd, "scrub-file") == 0)
+    return run_scrub_file (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "scrub_freespace") == 0 || strcasecmp (cmd, "scrub-freespace") == 0)
+    return run_scrub_freespace (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

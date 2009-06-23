@@ -197,7 +197,7 @@ class GuestFS:
         to modify the image).
         
         This is equivalent to the qemu parameter "-drive
-        file=filename".
+        file=filename,cache=off".
         
         Note that this call checks for the existence of
         "filename". This stops you from specifying other types
@@ -1342,6 +1342,8 @@ class GuestFS:
         *not* enough to securely wipe the device). It should be
         sufficient to remove any partition tables, filesystem
         superblocks and so on.
+        
+        See also: "g.scrub_device".
         """
         return libguestfsmod.zero (self._o, device)
 
@@ -1666,4 +1668,39 @@ class GuestFS:
         This function returns a list of strings.
         """
         return libguestfsmod.glob_expand (self._o, pattern)
+
+    def scrub_device (self, device):
+        u"""This command writes patterns over "device" to make data
+        retrieval more difficult.
+        
+        It is an interface to the scrub(1) program. See that
+        manual page for more details.
+        
+        This command is dangerous. Without careful use you can
+        easily destroy all your data.
+        """
+        return libguestfsmod.scrub_device (self._o, device)
+
+    def scrub_file (self, file):
+        u"""This command writes patterns over a file to make data
+        retrieval more difficult.
+        
+        The file is *removed* after scrubbing.
+        
+        It is an interface to the scrub(1) program. See that
+        manual page for more details.
+        """
+        return libguestfsmod.scrub_file (self._o, file)
+
+    def scrub_freespace (self, dir):
+        u"""This command creates the directory "dir" and then fills
+        it with files until the filesystem is full, and scrubs
+        the files as for "g.scrub_file", and deletes them. The
+        intention is to scrub any free space on the partition
+        containing "dir".
+        
+        It is an interface to the scrub(1) program. See that
+        manual page for more details.
+        """
+        return libguestfsmod.scrub_freespace (self._o, dir)
 
