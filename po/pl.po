@@ -3,11 +3,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.0.31\n"
+"Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2009-06-22 10:02+0100\n"
-"PO-Revision-Date: 2009-05-26 00:50+0200\n"
+"PO-Revision-Date: 2009-06-22 21:16+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,7 @@ msgid "use '%s filename' to edit a file\n"
 msgstr "użyj \"%s nazwapliku\", aby zmodyfikować plik\n"
 
 #: fish/fish.c:88
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "guestfish: guest filesystem shell\n"
 "guestfish lets you edit virtual machine filesystems\n"
@@ -75,8 +75,10 @@ msgstr ""
 "  EOF\n"
 "Opcje:\n"
 "  -h|--cmd-help        Wyświetla listę dostępnych poleceń\n"
-"  -h|--cmd-help polecenie  Wyświetla szczegółową pomoc o \"poleceniu\"\n"
+"  -h|--cmd-help polecenie Wyświetla szczegółową pomoc o \"poleceniu\"\n"
 "  -a|--add image       Dodaje obraz\n"
+"  -D|--no-dest-paths   Nie uzupełnia ścieżek z systemu plików gościa za\n"
+"                       pomocą Tab\n"
 "  -m|--mount dev[:mnt] Montuje dev w mnt (jeśli pominięto, w /)\n"
 "  -n|--no-sync         Nie synchronizuje automatycznie\n"
 "  -r|--ro              Montuje w trybie tylko do odczytu\n"
@@ -165,11 +167,11 @@ msgstr "modyfikuje plik w obrazie"
 
 #: fish/fish.c:625
 msgid "local change directory"
-msgstr ""
+msgstr "zmienia lokalny folder"
 
 #: fish/fish.c:627
 msgid "expand wildcards in command"
-msgstr ""
+msgstr "rozwija wieloznaczniki w poleceniach"
 
 #: fish/fish.c:639
 #, c-format
@@ -262,6 +264,12 @@ msgid ""
 "    useful if you want to download files to a particular\n"
 "    place.\n"
 msgstr ""
+"lcd - zmienia lokalny folder\n"
+"    lcd <folder>\n"
+"\n"
+"    Zmienia bieżący folder guestfish. Te polecenie jest\n"
+"    przydatne, jeśli chcesz pobrać pliki do konkretnego\n"
+"    miejsca.\n"
 
 #: fish/fish.c:683
 #, c-format
@@ -273,6 +281,13 @@ msgid ""
 "    command args.  Note that the command is run repeatedly\n"
 "    once for each expanded argument.\n"
 msgstr ""
+"glob - rozwija wieloznaczniki w poleceniach\n"
+"    glob <polecenie> [<parametry> ...]\n"
+"\n"
+"    Glob wykonuje <polecenie> z wieloznacznikami\n"
+"    rozwiniętymi we wszystkie parametry polecenia.\n"
+"    Zauważ, że polecenie jest wykonywane raz dla\n"
+"    każdego rozwiniętego parametru.\n"
 
 #: fish/fish.c:690
 #, c-format
@@ -357,7 +372,7 @@ msgstr "nie można obserwować standardowego wyjścia QEMU"
 #: src/guestfs.c:1167
 #, c-format
 msgid "external command failed: %s"
-msgstr ""
+msgstr "zewnętrzne polecenie nie powiodło się: %s"
 
 #: src/guestfs.c:1195
 msgid "qemu has finished launching already"
