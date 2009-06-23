@@ -24,6 +24,7 @@ net-tools
 ntfs-3g
 ntfsprogs
 procps
+scrub
 strace
 util-linux-ng
 zerofree

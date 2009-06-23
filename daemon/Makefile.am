@@ -46,6 +46,7 @@ guestfsd_SOURCES = \
 	ntfs.c \
 	pingdaemon.c \
 	proto.c \
+	scrub.c \
 	sfdisk.c \
 	sleep.c \
 	stat.c \

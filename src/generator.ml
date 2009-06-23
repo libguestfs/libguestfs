@@ -1982,7 +1982,9 @@ This command writes zeroes over the first few blocks of C<device>.
 
 How many blocks are zeroed isn't specified (but it's I<not> enough
 to securely wipe the device).  It should be sufficient to remove
-any partition tables, filesystem superblocks and so on.");
+any partition tables, filesystem superblocks and so on.
+
+See also: C<guestfs_scrub_device>.");
 
   ("grub_install", (RErr, [String "root"; String "device"]), 86, [],
    [InitBasicFS, Always, TestOutputTrue (
@@ -2401,6 +2403,44 @@ If no paths match, then this returns an empty list
 It is just a wrapper around the C L<glob(3)> function
 with flags C<GLOB_MARK|GLOB_BRACE>.
 See that manual page for more details.");
+
+  ("scrub_device", (RErr, [String "device"]), 114, [DangerWillRobinson],
+   [InitNone, Always, TestRun (	(* use /dev/sdc because it's smaller *)
+      [["scrub_device"; "/dev/sdc"]])],
+   "scrub (securely wipe) a device",
+   "\
+This command writes patterns over C<device> to make data retrieval
+more difficult.
+
+It is an interface to the L<scrub(1)> program.  See that
+manual page for more details.");
+
+  ("scrub_file", (RErr, [String "file"]), 115, [],
+   [InitBasicFS, Always, TestRun (
+      [["write_file"; "/file"; "content"; "0"];
+       ["scrub_file"; "/file"]])],
+   "scrub (securely wipe) a file",
+   "\
+This command writes patterns over a file to make data retrieval
+more difficult.
+
+The file is I<removed> after scrubbing.
+
+It is an interface to the L<scrub(1)> program.  See that
+manual page for more details.");
+
+  ("scrub_freespace", (RErr, [String "dir"]), 116, [],
+   [], (* XXX needs testing *)
+   "scrub (securely wipe) free space",
+   "\
+This command creates the directory C<dir> and then fills it
+with files until the filesystem is full, and scrubs the files
+as for C<guestfs_scrub_file>, and deletes them.
+The intention is to scrub any free space on the partition
+containing C<dir>.
+
+It is an interface to the L<scrub(1)> program.  See that
+manual page for more details.");
 
 ]
 
