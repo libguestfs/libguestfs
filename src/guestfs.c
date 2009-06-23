@@ -889,7 +889,7 @@ guestfs_launch (guestfs_h *g)
    * large, generous amount of memory, and it'll just get swapped
    * on smaller systems.
    */
-  memsize = 384;
+  memsize = 500;
 
   /* Get qemu help text and version. */
   if (test_qemu (g) == -1)
