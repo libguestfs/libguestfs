@@ -7829,6 +7829,19 @@ and generate_lang_bindtests call =
 
   (* XXX Add here tests of the return and error functions. *)
 
+(* This is used to generate the src/MAX_PROC_NR file which
+ * contains the maximum procedure number, a surrogate for the
+ * ABI version number.  See src/Makefile.am for the details.
+ *)
+and generate_max_proc_nr () =
+  let proc_nrs = List.map (
+    fun (_, _, proc_nr, _, _, _, _) -> proc_nr
+  ) daemon_functions in
+
+  let max_proc_nr = List.fold_left max 0 proc_nrs in
+
+  pr "%d\n" max_proc_nr
+
 let output_to filename =
   let filename_new = filename ^ ".new" in
   chan := open_out filename_new;
@@ -8000,4 +8013,8 @@ Run it from the top source directory using the command
 
   let close = output_to "haskell/bindtests.hs" in
   generate_haskell_bindtests ();
+  close ();
+
+  let close = output_to "src/MAX_PROC_NR" in
+  generate_max_proc_nr ();
   close ();

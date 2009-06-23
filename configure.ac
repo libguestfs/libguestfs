@@ -497,6 +497,10 @@ fi
 AM_CONDITIONAL([HAVE_INSPECTOR],
     [test "x$PERL" != "xno" -a "x$missing_perl_modules" != "xyes"])
 
+dnl Library versioning.
+MAX_PROC_NR=`cat $srcdir/src/MAX_PROC_NR`
+AC_SUBST(MAX_PROC_NR)
+
 dnl Run in subdirs.
 AC_CONFIG_SUBDIRS([daemon])
 

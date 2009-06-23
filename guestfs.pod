@@ -205,6 +205,14 @@ search the current directory and then C</usr/lib/guestfs>.
 
 =head1 HIGH-LEVEL API ACTIONS
 
+=head2 ABI GUARANTEE
+
+We guarantee the libguestfs ABI (binary interface), for public,
+high-level actions as outlined in this section.  Although we will
+deprecate some actions, for example if they get replaced by newer
+calls, we will keep the old actions forever.  This allows you the
+developer to program in confidence against libguestfs.
+
 @ACTIONS@
 
 =head1 STRUCTURES
