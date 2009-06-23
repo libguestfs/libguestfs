@@ -930,9 +930,6 @@ guestfs_launch (guestfs_h *g)
 
     add_cmdline (g, "-m");
     add_cmdline (g, memsize_str);
-#if 0
-    add_cmdline (g, "-no-kqemu"); /* Avoids a warning. */
-#endif
     add_cmdline (g, "-no-reboot"); /* Force exit instead of reboot on panic */
     add_cmdline (g, "-kernel");
     add_cmdline (g, (char *) kernel);
