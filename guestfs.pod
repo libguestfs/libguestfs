@@ -759,6 +759,9 @@ For example:
 
  LIBGUESTFS_QEMU=/tmp/qemu.wrapper guestfish
 
+Note that libguestfs also calls qemu with the -help and -version
+options in order to determine features.
+
 =head1 ENVIRONMENT VARIABLES
 
 =over 4

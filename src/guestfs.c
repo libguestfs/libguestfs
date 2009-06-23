@@ -162,6 +162,8 @@ struct guestfs_h
 
   char *tmpdir;			/* Temporary directory containing socket. */
 
+  char *qemu_help, *qemu_version; /* Output of qemu -help, qemu -version. */
+
   char **cmdline;		/* Qemu command line. */
   int cmdline_size;
 
@@ -346,6 +348,8 @@ guestfs_close (guestfs_h *g)
   free (g->path);
   free (g->qemu);
   free (g->append);
+  free (g->qemu_help);
+  free (g->qemu_version);
   free (g);
 }
 
@@ -638,7 +642,6 @@ guestfs_config (guestfs_h *g,
       strcmp (qemu_param, "-initrd") == 0 ||
       strcmp (qemu_param, "-nographic") == 0 ||
       strcmp (qemu_param, "-serial") == 0 ||
-      strcmp (qemu_param, "-vnc") == 0 ||
       strcmp (qemu_param, "-full-screen") == 0 ||
       strcmp (qemu_param, "-std-vga") == 0 ||
       strcmp (qemu_param, "-vnc") == 0) {
@@ -671,7 +674,8 @@ guestfs_add_drive (guestfs_h *g, const char *filename)
     return -1;
   }
 
-  snprintf (buf, len, "file=%s", filename);
+  /* cache=off improves reliability in the event of a host crash. */
+  snprintf (buf, len, "file=%s,cache=off", filename);
 
   return guestfs_config (g, "-drive", buf);
 }
@@ -745,6 +749,8 @@ dir_contains_files (const char *dir, ...)
 }
 
 static int build_supermin_appliance (guestfs_h *g, const char *path, char **kernel, char **initrd);
+static int test_qemu (guestfs_h *g);
+static int qemu_supports (guestfs_h *g, const char *option);
 
 static const char *kernel_name = "vmlinuz." REPO "." host_cpu;
 static const char *initrd_name = "initramfs." REPO "." host_cpu ".img";
@@ -879,11 +885,15 @@ guestfs_launch (guestfs_h *g)
   /* Choose a suitable memory size.  Previously we tried to choose
    * a minimal memory size, but this isn't really necessary since
    * recent QEMU and KVM don't do anything nasty like locking
-   * memory into core any more.  This we can safely choose a
+   * memory into core any more.  Thus we can safely choose a
    * large, generous amount of memory, and it'll just get swapped
    * on smaller systems.
    */
   memsize = 384;
+
+  /* Get qemu help text and version. */
+  if (test_qemu (g) == -1)
+    goto cleanup0;
 
   /* Make the vmchannel socket. */
   snprintf (unixsock, sizeof unixsock, "%s/sock", g->tmpdir);
@@ -946,6 +956,15 @@ guestfs_launch (guestfs_h *g)
     add_cmdline (g, "user,vlan=0");
     add_cmdline (g, "-net");
     add_cmdline (g, "nic,model=virtio,vlan=0");
+
+    /* These options recommended by KVM developers to improve reliability. */
+    if (qemu_supports (g, "-no-hpet"))
+      add_cmdline (g, "-no-hpet");
+
+    if (qemu_supports (g, "-rtc-td-hack"))
+      add_cmdline (g, "-rtc-td-hack");
+
+    /* Finish off the command line. */
     incr_cmdline_size (g);
     g->cmdline[g->cmdline_size-1] = NULL;
 
@@ -1169,6 +1188,90 @@ build_supermin_appliance (guestfs_h *g, const char *path,
   }
 
   return 0;
+}
+
+static int read_all (guestfs_h *g, FILE *fp, char **ret);
+
+/* Test qemu binary (or wrapper) runs, and do 'qemu -help' and
+ * 'qemu -version' so we know what options this qemu supports and
+ * the version.
+ */
+static int
+test_qemu (guestfs_h *g)
+{
+  char cmd[1024];
+  FILE *fp;
+
+  free (g->qemu_help);
+  free (g->qemu_version);
+  g->qemu_help = NULL;
+  g->qemu_version = NULL;
+
+  snprintf (cmd, sizeof cmd, "'%s' -help", g->qemu);
+
+  fp = popen (cmd, "r");
+  /* qemu -help should always work (qemu -version OTOH wasn't
+   * supported by qemu 0.9).  If this command doesn't work then it
+   * probably indicates that the qemu binary is missing.
+   */
+  if (!fp) {
+    /* XXX This error is never printed, even if the qemu binary
+     * doesn't exist.  Why?
+     */
+  error:
+    perrorf (g, _("%s: command failed: If qemu is located on a non-standard path, try setting the LIBGUESTFS_QEMU environment variable."), cmd);
+    return -1;
+  }
+
+  if (read_all (g, fp, &g->qemu_help) == -1)
+    goto error;
+
+  if (pclose (fp) == -1)
+    goto error;
+
+  snprintf (cmd, sizeof cmd, "'%s' -version 2>/dev/null", g->qemu);
+
+  fp = popen (cmd, "r");
+  if (fp) {
+    /* Intentionally ignore errors. */
+    read_all (g, fp, &g->qemu_version);
+    pclose (fp);
+  }
+
+  return 0;
+}
+
+static int
+read_all (guestfs_h *g, FILE *fp, char **ret)
+{
+  int r, n = 0;
+  char *p;
+
+ again:
+  if (feof (fp)) {
+    *ret = safe_realloc (g, *ret, n + 1);
+    (*ret)[n] = '\0';
+    return n;
+  }
+
+  *ret = safe_realloc (g, *ret, n + BUFSIZ);
+  p = &(*ret)[n];
+  r = fread (p, 1, BUFSIZ, fp);
+  if (ferror (fp)) {
+    perrorf (g, "read");
+    return -1;
+  }
+  n += r;
+  goto again;
+}
+
+/* Test if option is supported by qemu command line (just by grepping
+ * the help text).
+ */
+static int
+qemu_supports (guestfs_h *g, const char *option)
+{
+  return g->qemu_help && strstr (g->qemu_help, option) != NULL;
 }
 
 static void
