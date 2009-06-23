@@ -30,12 +30,12 @@ kernel="$2"
 initrd="$3"
 
 # Kernel:
-# Look for any kernel named vmlinuz-*.$host_cpu* which has
-# a corresponding /lib/modules/*.$host_cpu* directory.
-# However by sorting on reverse version (ls -vr) we ensure
-# we choose the newest kernels.
+# Look for the most recent kernel named vmlinuz-*.<arch>* which has a
+# corresponding directory in /lib/modules/. If the architecture is x86, look
+# for any x86 kernel.
 
-for f in $(ls -1vr /boot/vmlinuz-*.@host_cpu@* | grep -v xen); do
+arch=$(echo "@host_cpu@" | sed 's/^i.86$/i?86/')
+for f in $(ls -1vr /boot/vmlinuz-*.$arch* 2>/dev/null | grep -v xen); do
     b=$(basename "$f")
     b=$(echo "$b" | sed 's,vmlinuz-,,')
     modpath="/lib/modules/$b"
