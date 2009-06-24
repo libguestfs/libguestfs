@@ -92,16 +92,6 @@ $(SUPERMINIMG): supermin.incfiles supermin-make.sh
 
 endif
 
-# This should rebuild the scripts if the input files change, although
-# it doesn't always seem to work.
-%.sh: %.sh.in
-	cd .. && ./config.status appliance/$@
-	chmod +x $@
-
-libguestfs-supermin-helper: libguestfs-supermin-helper.in
-	cd .. && ./config.status appliance/$@
-	chmod +x $@
-
 #----------------------------------------------------------------------
 # Extra rules for testing the appliance.
 

@@ -506,12 +506,20 @@ AC_CONFIG_SUBDIRS([daemon])
 
 dnl Produce output files.
 AC_CONFIG_HEADERS([config.h])
+dnl http://www.mail-archive.com/automake@gnu.org/msg10204.html
+AC_CONFIG_FILES([appliance/make.sh],
+		[chmod +x appliance/make.sh])
+AC_CONFIG_FILES([appliance/update.sh],
+		[chmod +x appliance/update.sh])
+AC_CONFIG_FILES([appliance/supermin-split.sh],
+		[chmod +x appliance/supermin-split.sh])
+AC_CONFIG_FILES([appliance/supermin-make.sh],
+		[chmod +x appliance/supermin-make.sh])
+AC_CONFIG_FILES([appliance/libguestfs-supermin-helper],
+		[chmod +x appliance/libguestfs-supermin-helper])
 AC_CONFIG_FILES([Makefile
 		 src/Makefile fish/Makefile po/Makefile.in examples/Makefile
 		 appliance/Makefile
-	         appliance/make.sh appliance/update.sh
-		 appliance/supermin-split.sh appliance/supermin-make.sh
-		 appliance/libguestfs-supermin-helper
 		 images/Makefile
 		 capitests/Makefile
 		 regressions/Makefile
@@ -525,9 +533,6 @@ AC_CONFIG_FILES([Makefile
 		 libguestfs.pc
 		 ocaml/META perl/Makefile.PL])
 AC_OUTPUT
-
-dnl WTF?
-chmod +x appliance/*.sh appliance/libguestfs-supermin-helper
 
 dnl Produce summary.
 echo
