@@ -24,5 +24,6 @@ WriteMakefile (
     VERSION => '@PACKAGE_VERSION@',
 
     LIBS => '-L@abs_top_builddir@/src/.libs -lguestfs',
-    INC => '-Wall @CFLAGS@ -I@abs_top_builddir@/src',
+    INC => '-I@abs_top_builddir@/src',
+    CCFLAGS => '@CFLAGS@',
     );
