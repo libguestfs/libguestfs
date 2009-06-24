@@ -41,9 +41,11 @@ TESTS_ENVIRONMENT = \
 
 INSTALLDIRS = site
 
-all:
-	perl Makefile.PL INSTALLDIRS=$(INSTALLDIRS) PREFIX=$(prefix)
+all: Makefile-pl
 	$(MAKE) -f Makefile-pl
+
+Makefile-pl: Makefile.PL
+	perl Makefile.PL INSTALLDIRS=$(INSTALLDIRS) PREFIX=$(prefix)
 
 install-data-hook:
 	$(MAKE) -f Makefile-pl DESTDIR=$(DESTDIR) install
