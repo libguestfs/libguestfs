@@ -40,8 +40,7 @@ Remove C</boot/grub/menu.lst> (in reality not such a great idea):
  guestfish --add disk.img \
    --mount /dev/VolGroup00/LogVol00 \
    --mount /dev/sda1:/boot \
-   rm /boot/grub/menu.lst : \
-   sync : exit
+   rm /boot/grub/menu.lst
 
 =head2 As an interactive shell
 
@@ -54,6 +53,14 @@ Remove C</boot/grub/menu.lst> (in reality not such a great idea):
        'quit' to quit the shell
  
  ><fs> help
+
+=head2 As a script interpreter
+
+ #!/usr/bin/guestfish -f
+ alloc /tmp/output.img 10M
+ run
+ sfdisk /dev/sda 0 0 0 ,
+ mkfs ext2 /dev/sda1
 
 =head1 DESCRIPTION
 
@@ -80,6 +87,13 @@ Displays detailed help on a single command C<cmd>.
 =item B<-a image> | B<--add image>
 
 Add a block device or virtual machine image to the shell.
+
+=item B<-f file> | B<--file file>
+
+Read commands from C<file>.  To write pure guestfish
+scripts, use:
+
+ #!/usr/bin/guestfish -f
 
 =item B<-m dev[:mountpoint]> | B<--mount dev[:mountpoint]>
 

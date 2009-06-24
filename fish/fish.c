@@ -102,6 +102,7 @@ usage (void)
 	     "  -h|--cmd-help cmd    Display detailed help on 'cmd'\n"
 	     "  -a|--add image       Add image\n"
 	     "  -D|--no-dest-paths   Don't tab-complete paths from guest fs\n"
+	     "  -f|--file file       Read commands from file\n"
 	     "  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
 	     "  -n|--no-sync         Don't autosync\n"
 	     "  -r|--ro              Mount read-only\n"
@@ -113,10 +114,11 @@ usage (void)
 int
 main (int argc, char *argv[])
 {
-  static const char *options = "a:h::m:nrv?V";
+  static const char *options = "a:f:h::m:nrv?V";
   static struct option long_options[] = {
     { "add", 1, 0, 'a' },
     { "cmd-help", 2, 0, 'h' },
+    { "file", 1, 0, 'f' },
     { "help", 0, 0, '?' },
     { "mount", 1, 0, 'm' },
     { "no-dest-paths", 0, 0, 'D' },
@@ -130,7 +132,7 @@ main (int argc, char *argv[])
   struct drv *drv;
   struct mp *mps = NULL;
   struct mp *mp;
-  char *p;
+  char *p, *file = NULL;
   int c;
 
   initialize_readline ();
@@ -181,6 +183,14 @@ main (int argc, char *argv[])
 
     case 'D':
       complete_dest_paths = 0;
+      break;
+
+    case 'f':
+      if (file) {
+	fprintf (stderr, _("guestfish: only one -f parameter can be given\n"));
+	exit (1);
+      }
+      file = optarg;
       break;
 
     case 'h':
@@ -244,6 +254,15 @@ main (int argc, char *argv[])
   if (mps != NULL) {
     if (launch (g) == -1) exit (1);
     mount_mps (mps);
+  }
+
+  /* -f (file) parameter? */
+  if (file) {
+    close (0);
+    if (open (file, O_RDONLY) == -1) {
+      perror (file);
+      exit (1);
+    }
   }
 
   /* Interactive, shell script, or command(s) on the command line? */
