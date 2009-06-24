@@ -276,8 +276,9 @@ main (int argc, char *argv[])
 	fprintf (stderr, _("guestfish: virt-inspector command too long for fixed-size buffer\n"));
 	exit (1);
       }
-      strcat (cmd, " ");
+      strcat (cmd, " '");
       strcat (cmd, argv[optind]);
+      strcat (cmd, "'");
       optind++;
     }
 
