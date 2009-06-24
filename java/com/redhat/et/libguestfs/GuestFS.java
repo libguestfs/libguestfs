@@ -3539,14 +3539,18 @@ public HashMap<String,String> test0rhashtableerr ()
    * <p>
    * This command creates a temporary directory. The
    * "template" parameter should be a full pathname for the
-   * temporary directory with the six characters being
-   * "XXXXXX".
+   * temporary directory name with the final six characters
+   * being "XXXXXX".
    * <p>
-   * For example: "/tmp/tmpXXXXXX" or "/Temp/tmpXXXXXX", the
-   * second one being suitable for Windows.
+   * For example: "/tmp/myprogXXXXXX" or
+   * "/Temp/myprogXXXXXX", the second one being suitable for
+   * Windows filesystems.
    * <p>
    * The name of the temporary directory that was created is
    * returned.
+   * <p>
+   * The temporary directory is created with mode 0700 and is
+   * owned by root.
    * <p>
    * The caller is responsible for deleting the temporary
    * directory and its contents after use.

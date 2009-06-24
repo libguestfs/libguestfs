@@ -586,7 +586,7 @@ void display_command (const char *cmd)
     pod2text ("scrub-freespace - scrub (securely wipe) free space", " scrub-freespace <dir>\n\nThis command creates the directory C<dir> and then fills it\nwith files until the filesystem is full, and scrubs the files\nas for C<scrub_file>, and deletes them.\nThe intention is to scrub any free space on the partition\ncontaining C<dir>.\n\nIt is an interface to the L<scrub(1)> program.  See that\nmanual page for more details.");
   else
   if (strcasecmp (cmd, "mkdtemp") == 0)
-    pod2text ("mkdtemp - create a temporary directory", " mkdtemp <template>\n\nThis command creates a temporary directory.  The\nC<template> parameter should be a full pathname for the\ntemporary directory with the six characters being\n\"XXXXXX\".\n\nFor example: \"/tmp/tmpXXXXXX\" or \"/Temp/tmpXXXXXX\",\nthe second one being suitable for Windows.\n\nThe name of the temporary directory that was created\nis returned.\n\nThe caller is responsible for deleting the temporary\ndirectory and its contents after use.\n\nSee also: L<mkdtemp(3)>");
+    pod2text ("mkdtemp - create a temporary directory", " mkdtemp <template>\n\nThis command creates a temporary directory.  The\nC<template> parameter should be a full pathname for the\ntemporary directory name with the final six characters being\n\"XXXXXX\".\n\nFor example: \"/tmp/myprogXXXXXX\" or \"/Temp/myprogXXXXXX\",\nthe second one being suitable for Windows filesystems.\n\nThe name of the temporary directory that was created\nis returned.\n\nThe temporary directory is created with mode 0700\nand is owned by root.\n\nThe caller is responsible for deleting the temporary\ndirectory and its contents after use.\n\nSee also: L<mkdtemp(3)>");
   else
     display_builtin_command (cmd);
 }
