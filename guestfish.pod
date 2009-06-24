@@ -156,6 +156,10 @@ able to hit the tab key to complete paths on the guest filesystem, but
 this causes extra "hidden" guestfs calls to be made, so this option is
 here to allow this feature to be disabled.
 
+=item B<-V> | B<--version>
+
+Display the guestfish / libguestfs version number and exit.
+
 =back
 
 =head1 COMMANDS ON COMMAND LINE
