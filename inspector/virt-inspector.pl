@@ -206,8 +206,10 @@ if (-e $ARGV[0]) {
 	}
     }
 } else {
-    die "no libvirt support (install Sys::Virt)"
-	unless exists $INC{"Sys/Virt.pm"};
+    die "virt-inspector: no libvirt support (install Sys::Virt, XML::XPath and XML::XPath::XMLParser)\n"
+	unless exists $INC{"Sys/Virt.pm"} &&
+	exists $INC{"XML/XPath.pm"} &&
+	exists $INC{"XML/XPath/XMLParser.pm"};
 
     pod2usage ("$0: too many domains listed on command line") if @ARGV > 1;
 
