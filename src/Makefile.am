@@ -17,7 +17,8 @@
 
 EXTRA_DIST = guestfs_protocol.x \
 	guestfs_protocol.c \
-	guestfs_protocol.h
+	guestfs_protocol.h \
+	MAX_PROC_NR
 
 EXTRA_DIST += generator.ml
 
