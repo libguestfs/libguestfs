@@ -183,6 +183,7 @@ static const char *const commands[] = {
   "scrub-device",
   "scrub-file",
   "scrub-freespace",
+  "mkdtemp",
   NULL
 };
 

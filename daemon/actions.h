@@ -137,3 +137,4 @@ extern char **do_glob_expand (char *pattern);
 extern int do_scrub_device (char *device);
 extern int do_scrub_file (char *file);
 extern int do_scrub_freespace (char *dir);
+extern char *do_mkdtemp (char *template);

@@ -4343,3 +4343,27 @@ ocaml_guestfs_scrub_freespace (value gv, value dirv)
   CAMLreturn (rv);
 }
 
+CAMLprim value
+ocaml_guestfs_mkdtemp (value gv, value templatev)
+{
+  CAMLparam2 (gv, templatev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("mkdtemp: used handle after closing it");
+
+  const char *template = String_val (templatev);
+  char *r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_mkdtemp (g, template);
+  caml_leave_blocking_section ();
+  if (r == NULL)
+    ocaml_guestfs_raise_error (g, "mkdtemp");
+
+  rv = caml_copy_string (r);
+  free (r);
+  CAMLreturn (rv);
+}
+

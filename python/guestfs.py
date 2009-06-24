@@ -1704,3 +1704,22 @@ class GuestFS:
         """
         return libguestfsmod.scrub_freespace (self._o, dir)
 
+    def mkdtemp (self, template):
+        u"""This command creates a temporary directory. The
+        "template" parameter should be a full pathname for the
+        temporary directory with the six characters being
+        "XXXXXX".
+        
+        For example: "/tmp/tmpXXXXXX" or "/Temp/tmpXXXXXX", the
+        second one being suitable for Windows.
+        
+        The name of the temporary directory that was created is
+        returned.
+        
+        The caller is responsible for deleting the temporary
+        directory and its contents after use.
+        
+        See also: mkdtemp(3)
+        """
+        return libguestfsmod.mkdtemp (self._o, template)
+

@@ -153,6 +153,99 @@ static void no_test_warnings (void)
   fprintf (stderr, "warning: \"guestfs_scrub_freespace\" has no tests\n");
 }
 
+static int test_mkdtemp_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_MKDTEMP_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_MKDTEMP");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
+static int test_mkdtemp_0 (void)
+{
+  if (test_mkdtemp_0_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_mkdtemp_0");
+    return 0;
+  }
+
+  /* InitBasicFS for test_mkdtemp_0: create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestRun for mkdtemp (0) */
+  {
+    char path[] = "/tmp";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkdir (g, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char template[] = "/tmp/tmpXXXXXX";
+    char *r;
+    suppress_error = 0;
+    r = guestfs_mkdtemp (g, template);
+    if (r == NULL)
+      return -1;
+    free (r);
+  }
+  return 0;
+}
+
 static int test_scrub_file_0_skip (void)
 {
   const char *str;
@@ -16313,8 +16406,14 @@ int main (int argc, char *argv[])
   /* Cancel previous alarm. */
   alarm (0);
 
-  nr_tests = 151;
+  nr_tests = 152;
 
+  test_num++;
+  printf ("%3d/%3d test_mkdtemp_0\n", test_num, nr_tests);
+  if (test_mkdtemp_0 () == -1) {
+    printf ("test_mkdtemp_0 FAILED\n");
+    failed++;
+  }
   test_num++;
   printf ("%3d/%3d test_scrub_file_0\n", test_num, nr_tests);
   if (test_scrub_file_0 () == -1) {

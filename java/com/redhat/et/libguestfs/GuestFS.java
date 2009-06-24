@@ -3534,4 +3534,35 @@ public HashMap<String,String> test0rhashtableerr ()
   private native void _scrub_freespace (long g, String dir)
     throws LibGuestFSException;
 
+  /**
+   * create a temporary directory
+   * <p>
+   * This command creates a temporary directory. The
+   * "template" parameter should be a full pathname for the
+   * temporary directory with the six characters being
+   * "XXXXXX".
+   * <p>
+   * For example: "/tmp/tmpXXXXXX" or "/Temp/tmpXXXXXX", the
+   * second one being suitable for Windows.
+   * <p>
+   * The name of the temporary directory that was created is
+   * returned.
+   * <p>
+   * The caller is responsible for deleting the temporary
+   * directory and its contents after use.
+   * <p>
+   * See also: mkdtemp(3)
+   * <p>
+   * @throws LibGuestFSException
+   */
+  public String mkdtemp (String template)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("mkdtemp: handle is closed");
+    return _mkdtemp (g, template);
+  }
+  private native String _mkdtemp (long g, String template)
+    throws LibGuestFSException;
+
 }

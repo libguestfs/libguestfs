@@ -628,3 +628,6 @@ val scrub_file : t -> string -> unit
 val scrub_freespace : t -> string -> unit
 (** scrub (securely wipe) free space *)
 
+val mkdtemp : t -> string -> string
+(** create a temporary directory *)
+

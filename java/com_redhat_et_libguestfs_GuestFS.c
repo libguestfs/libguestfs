@@ -4124,3 +4124,24 @@ Java_com_redhat_et_libguestfs_GuestFS__1scrub_1freespace
   }
 }
 
+JNIEXPORT jstring JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1mkdtemp
+  (JNIEnv *env, jobject obj, jlong jg, jstring jtemplate)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  jstring jr;
+  char *r;
+  const char *template;
+
+  template = (*env)->GetStringUTFChars (env, jtemplate, NULL);
+  r = guestfs_mkdtemp (g, template);
+  (*env)->ReleaseStringUTFChars (env, jtemplate, template);
+  if (r == NULL) {
+    throw_exception (env, guestfs_last_error (g));
+    return NULL;
+  }
+  jr = (*env)->NewStringUTF (env, r);
+  free (r);
+  return jr;
+}
+

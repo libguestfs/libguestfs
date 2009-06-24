@@ -4309,6 +4309,30 @@ static VALUE ruby_guestfs_scrub_freespace (VALUE gv, VALUE dirv)
   return Qnil;
 }
 
+static VALUE ruby_guestfs_mkdtemp (VALUE gv, VALUE templatev)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "mkdtemp");
+
+  Check_Type (templatev, T_STRING);
+  const char *template = StringValueCStr (templatev);
+  if (!template)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "template", "mkdtemp");
+
+  char *r;
+
+  r = guestfs_mkdtemp (g, template);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  VALUE rv = rb_str_new2 (r);
+  free (r);
+  return rv;
+}
+
 /* Initialize the module. */
 void Init__guestfs ()
 {
@@ -4655,4 +4679,6 @@ void Init__guestfs ()
         ruby_guestfs_scrub_file, 1);
   rb_define_method (c_guestfs, "scrub_freespace",
         ruby_guestfs_scrub_freespace, 1);
+  rb_define_method (c_guestfs, "mkdtemp",
+        ruby_guestfs_mkdtemp, 1);
 }

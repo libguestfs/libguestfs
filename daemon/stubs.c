@@ -2926,6 +2926,33 @@ done:
   xdr_free ((xdrproc_t) xdr_guestfs_scrub_freespace_args, (char *) &args);
 }
 
+static void mkdtemp_stub (XDR *xdr_in)
+{
+  char *r;
+  struct guestfs_mkdtemp_args args;
+  char *template;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_mkdtemp_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "mkdtemp");
+    return;
+  }
+  template = args.template;
+
+  r = do_mkdtemp (template);
+  if (r == NULL)
+    /* do_mkdtemp has already called reply_with_error */
+    goto done;
+
+  struct guestfs_mkdtemp_ret ret;
+  ret.dir = r;
+  reply ((xdrproc_t) &xdr_guestfs_mkdtemp_ret, (char *) &ret);
+  free (r);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_mkdtemp_args, (char *) &args);
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -3276,6 +3303,9 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_SCRUB_FREESPACE:
       scrub_freespace_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_MKDTEMP:
+      mkdtemp_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d, set LIBGUESTFS_PATH to point to the matching libguestfs appliance directory", proc_nr);

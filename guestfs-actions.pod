@@ -1191,6 +1191,30 @@ as necessary.  This is like the C<mkdir -p> shell command.
 
 This function returns 0 on success or -1 on error.
 
+=head2 guestfs_mkdtemp
+
+ char *guestfs_mkdtemp (guestfs_h *handle,
+		const char *template);
+
+This command creates a temporary directory.  The
+C<template> parameter should be a full pathname for the
+temporary directory with the six characters being
+"XXXXXX".
+
+For example: "/tmp/tmpXXXXXX" or "/Temp/tmpXXXXXX",
+the second one being suitable for Windows.
+
+The name of the temporary directory that was created
+is returned.
+
+The caller is responsible for deleting the temporary
+directory and its contents after use.
+
+See also: L<mkdtemp(3)>
+
+This function returns a string, or NULL on error.
+I<The caller must free the returned string after use>.
+
 =head2 guestfs_mkfs
 
  int guestfs_mkfs (guestfs_h *handle,

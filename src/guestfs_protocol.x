@@ -768,6 +768,14 @@ struct guestfs_scrub_freespace_args {
   string dir<>;
 };
 
+struct guestfs_mkdtemp_args {
+  string template<>;
+};
+
+struct guestfs_mkdtemp_ret {
+  string dir<>;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -885,6 +893,7 @@ enum guestfs_procedure {
   GUESTFS_PROC_SCRUB_DEVICE = 114,
   GUESTFS_PROC_SCRUB_FILE = 115,
   GUESTFS_PROC_SCRUB_FREESPACE = 116,
+  GUESTFS_PROC_MKDTEMP = 117,
   GUESTFS_PROC_NR_PROCS
 };
 

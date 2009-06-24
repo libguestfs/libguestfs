@@ -852,6 +852,24 @@ Create a directory named C<path>.
 Create a directory named C<path>, creating any parent directories
 as necessary.  This is like the C<mkdir -p> shell command.
 
+=item $dir = $h->mkdtemp ($template);
+
+This command creates a temporary directory.  The
+C<template> parameter should be a full pathname for the
+temporary directory with the six characters being
+"XXXXXX".
+
+For example: "/tmp/tmpXXXXXX" or "/Temp/tmpXXXXXX",
+the second one being suitable for Windows.
+
+The name of the temporary directory that was created
+is returned.
+
+The caller is responsible for deleting the temporary
+directory and its contents after use.
+
+See also: L<mkdtemp(3)>
+
 =item $h->mkfs ($fstype, $device);
 
 This creates a filesystem on C<device> (usually a partition

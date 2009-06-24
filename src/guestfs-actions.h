@@ -187,3 +187,4 @@ extern char **guestfs_glob_expand (guestfs_h *handle, const char *pattern);
 extern int guestfs_scrub_device (guestfs_h *handle, const char *device);
 extern int guestfs_scrub_file (guestfs_h *handle, const char *file);
 extern int guestfs_scrub_freespace (guestfs_h *handle, const char *dir);
+extern char *guestfs_mkdtemp (guestfs_h *handle, const char *template);

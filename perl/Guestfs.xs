@@ -2635,3 +2635,18 @@ PREINIT:
       if (r == -1)
         croak ("scrub_freespace: %s", guestfs_last_error (g));
 
+SV *
+mkdtemp (g, template)
+      guestfs_h *g;
+      char *template;
+PREINIT:
+      char *dir;
+   CODE:
+      dir = guestfs_mkdtemp (g, template);
+      if (dir == NULL)
+        croak ("mkdtemp: %s", guestfs_last_error (g));
+      RETVAL = newSVpv (dir, 0);
+      free (dir);
+ OUTPUT:
+      RETVAL
+

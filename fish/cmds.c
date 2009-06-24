@@ -108,6 +108,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "lvs-full", "list the LVM logical volumes (LVs)");
   printf ("%-20s %s\n", "mkdir", "create a directory");
   printf ("%-20s %s\n", "mkdir-p", "create a directory and parents");
+  printf ("%-20s %s\n", "mkdtemp", "create a temporary directory");
   printf ("%-20s %s\n", "mkfs", "make a filesystem");
   printf ("%-20s %s\n", "mount", "mount a guest disk at a position in the filesystem");
   printf ("%-20s %s\n", "mount-options", "mount a guest disk with mount options");
@@ -583,6 +584,9 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "scrub_freespace") == 0 || strcasecmp (cmd, "scrub-freespace") == 0)
     pod2text ("scrub-freespace - scrub (securely wipe) free space", " scrub-freespace <dir>\n\nThis command creates the directory C<dir> and then fills it\nwith files until the filesystem is full, and scrubs the files\nas for C<scrub_file>, and deletes them.\nThe intention is to scrub any free space on the partition\ncontaining C<dir>.\n\nIt is an interface to the L<scrub(1)> program.  See that\nmanual page for more details.");
+  else
+  if (strcasecmp (cmd, "mkdtemp") == 0)
+    pod2text ("mkdtemp - create a temporary directory", " mkdtemp <template>\n\nThis command creates a temporary directory.  The\nC<template> parameter should be a full pathname for the\ntemporary directory with the six characters being\n\"XXXXXX\".\n\nFor example: \"/tmp/tmpXXXXXX\" or \"/Temp/tmpXXXXXX\",\nthe second one being suitable for Windows.\n\nThe name of the temporary directory that was created\nis returned.\n\nThe caller is responsible for deleting the temporary\ndirectory and its contents after use.\n\nSee also: L<mkdtemp(3)>");
   else
     display_builtin_command (cmd);
 }
@@ -2855,6 +2859,23 @@ static int run_scrub_freespace (const char *cmd, int argc, char *argv[])
   return r;
 }
 
+static int run_mkdtemp (const char *cmd, int argc, char *argv[])
+{
+  char *r;
+  const char *template;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  template = argv[0];
+  r = guestfs_mkdtemp (g, template);
+  if (r == NULL) return -1;
+  printf ("%s\n", r);
+  free (r);
+  return 0;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -3267,6 +3288,9 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "scrub_freespace") == 0 || strcasecmp (cmd, "scrub-freespace") == 0)
     return run_scrub_freespace (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "mkdtemp") == 0)
+    return run_mkdtemp (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

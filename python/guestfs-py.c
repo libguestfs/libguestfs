@@ -4606,6 +4606,31 @@ py_guestfs_scrub_freespace (PyObject *self, PyObject *args)
   return py_r;
 }
 
+static PyObject *
+py_guestfs_mkdtemp (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  char *r;
+  const char *template;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_mkdtemp",
+                         &py_g, &template))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_mkdtemp (g, template);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyString_FromString (r);
+  free (r);
+  return py_r;
+}
+
 static PyMethodDef methods[] = {
   { (char *) "create", py_guestfs_create, METH_VARARGS, NULL },
   { (char *) "close", py_guestfs_close, METH_VARARGS, NULL },
@@ -4777,6 +4802,7 @@ static PyMethodDef methods[] = {
   { (char *) "scrub_device", py_guestfs_scrub_device, METH_VARARGS, NULL },
   { (char *) "scrub_file", py_guestfs_scrub_file, METH_VARARGS, NULL },
   { (char *) "scrub_freespace", py_guestfs_scrub_freespace, METH_VARARGS, NULL },
+  { (char *) "mkdtemp", py_guestfs_mkdtemp, METH_VARARGS, NULL },
   { NULL, NULL, 0, NULL }
 };
 
