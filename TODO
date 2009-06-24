@@ -111,3 +111,57 @@ PPC problems:
 ----------------------------------------------------------------------
 
 Supermin appliance should be moved into febootstrap.
+
+----------------------------------------------------------------------
+
+Extra commands / functionality:
+
+  General glibc / core programs:
+    chgrp
+    head, tail
+    grep (do it locally using pipe?)
+    dd (?)
+    du
+    ln / ln -s
+    mknod
+    readlink
+    utime / utimes / futimes / futimens / l..
+    mkfifo
+    more mk*temp calls
+    readdir / readdir-and-stat
+    some sort of alloc/fallocate/posix_fallocate call to create empty space
+    realpath
+    trunc[ate??]
+
+  ext2 properties:
+    chattr
+    lsattr
+    badblocks
+    blkid
+    debugfs
+    dumpe2fs
+    e2image
+    e2undo
+    filefrag
+    findfs
+    logsave
+    mklost+found
+
+  SELinux:
+    chcat
+    restorecon
+    ch???
+
+  Oddball:
+    pivot_root
+    fts(3) / ftw(3)
+
+  guestfish only:
+    more/less (like cat, but pipes it through $PAGER)
+    cmd | pipe
+    cat file | pipe-cmd should have a generic form? like
+      'file | less' or 'file | sort'?
+
+----------------------------------------------------------------------
+
+Allow swap space from the guest to be used.  Is it a good idea?
