@@ -222,6 +222,13 @@ if (-e $ARGV[0]) {
     die "cannot connect to libvirt $uri\n" unless $vmm;
 
     my @doms = $vmm->list_defined_domains ();
+    my $isitinactive = "an inactive libvirt domain";
+    if ($output ne "fish") {
+	# In the special case where we want read-only access to
+	# a domain, allow the user to specify an active domain too.
+	push @doms, $vmm->list_domains ();
+	$isitinactive = "a libvirt domain";
+    }
     my $dom;
     foreach (@doms) {
 	if ($_->get_name () eq $ARGV[0]) {
@@ -229,8 +236,7 @@ if (-e $ARGV[0]) {
 	    last;
 	}
     }
-    die "$ARGV[0] is not the name of an inactive libvirt domain\n"
-	unless $dom;
+    die "$ARGV[0] is not the name of $isitinactive\n" unless $dom;
 
     # Get the names of the image(s).
     my $xml = $dom->get_xml_description ();
