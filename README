@@ -73,6 +73,9 @@ bindings
 
 - (Optional) GHC if you want to build the Haskell bindings
 
+- (Optional) Perl XML::XPath, Sys::Virt modules (for libvirt support
+in virt-inspector).
+
 Running ./configure will check you have all the requirements installed
 on your machine.
 

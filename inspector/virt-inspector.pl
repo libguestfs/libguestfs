@@ -27,6 +27,8 @@ use File::Temp qw/tempdir/;
 
 # Optional:
 eval "use Sys::Virt;";
+eval "use XML::XPath;";
+eval "use XML::XPath::XMLParser;";
 
 =encoding utf8
 
@@ -231,14 +233,9 @@ if (-e $ARGV[0]) {
     # Get the names of the image(s).
     my $xml = $dom->get_xml_description ();
 
-    my $p = new XML::XPath::XMLParser (xml => $xml);
-    my $disks = $p->find ("//devices/disk");
-    print "disks:\n";
-    foreach ($disks->get_nodelist) {
-	print XML::XPath::XMLParser::as_string($_);
-    }
-
-    die "XXX"
+    my $p = XML::XPath->new (xml => $xml);
+    my @disks = $p->findnodes ('//devices/disk/source/@dev');
+    @images = map { $_->getData } @disks;
 }
 
 # We've now got the list of @images, so feed them to libguestfs.
