@@ -8,6 +8,10 @@ guestfish - the libguestfs filesystem interactive shell
 
  guestfish [--options] [commands]
 
+ guestfish -i libvirt-domain
+
+ guestfish -i disk-image(s)
+
 =head1 EXAMPLES
 
 =head2 From shell scripts
@@ -94,6 +98,30 @@ Read commands from C<file>.  To write pure guestfish
 scripts, use:
 
  #!/usr/bin/guestfish -f
+
+=item B<-i> | B<--inspector>
+
+Run virt-inspector on the named libvirt domain or list of disk
+images.  If virt-inspector is available and if it can identify
+the domain or disk images, then partitions will be mounted
+correctly at start-up.
+
+Typical usage is either:
+
+ guestfish -i myguest
+
+(for an inactive libvirt domain called I<myguest>), or:
+
+ guestfish --ro -i myguest
+
+(for active domains, readonly), or specify the block device directly:
+
+ guestfish -i /dev/Guests/MyGuest
+
+You cannot use I<-a> or I<-m> in conjunction with this option, and
+options other than I<--ro> might not behave correctly.
+
+See also: L<virt-inspector(1)>.
 
 =item B<-m dev[:mountpoint]> | B<--mount dev[:mountpoint]>
 

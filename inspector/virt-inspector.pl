@@ -145,7 +145,7 @@ If you select I<--fish> then we print a L<guestfish(1)> command
 line which will automatically mount up the filesystems on the
 correct mount points.  Try this for example:
 
- eval `virt-inspector --fish guest.img`
+ guestfish $(virt-inspector --fish guest.img)
 
 I<--ro-fish> is the same, but the I<--ro> option is passed to
 guestfish so that the filesystems are mounted read-only.
@@ -299,7 +299,7 @@ L<guestfish(1)> command line parameters, so that you can go in
 afterwards and inspect the guest with everything mounted in the
 right place.  For example:
 
- eval `virt-inspector --ro-fish guest.img`
+ guestfish $(virt-inspector --ro-fish guest.img)
  ==> guestfish --ro -a guest.img -m /dev/VG/LV:/ -m /dev/sda1:/boot
 
 =cut
@@ -905,18 +905,17 @@ if ($output eq "fish" || $output eq "ro-fish") {
 
     my $root_dev = $osdevs[0];
 
-    print "guestfish";
     if ($output eq "ro-fish") {
-	print " --ro";
+	print "--ro ";
     }
 
-    print " -a $_" foreach @images;
+    print "-a $_ " foreach @images;
 
     my $mounts = $oses{$root_dev}->{mounts};
     # Have to mount / first.  Luckily '/' is early in the ASCII
     # character set, so this should be OK.
     foreach (sort keys %$mounts) {
-	print " -m $mounts->{$_}:$_" if $_ ne "swap";
+	print "-m $mounts->{$_}:$_ " if $_ ne "swap";
     }
     print "\n"
 }

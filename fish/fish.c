@@ -90,6 +90,8 @@ usage (void)
 	     "Copyright (C) 2009 Red Hat Inc.\n"
 	     "Usage:\n"
 	     "  guestfish [--options] cmd [: cmd : cmd ...]\n"
+	     "  guestfish -i libvirt-domain\n"
+	     "  guestfish -i disk-image(s)\n"
 	     "or for interactive use:\n"
 	     "  guestfish\n"
 	     "or from a shell script:\n"
@@ -103,6 +105,7 @@ usage (void)
 	     "  -a|--add image       Add image\n"
 	     "  -D|--no-dest-paths   Don't tab-complete paths from guest fs\n"
 	     "  -f|--file file       Read commands from file\n"
+	     "  -i|--inspector       Run virt-inspector to get disk mountpoints\n"
 	     "  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
 	     "  -n|--no-sync         Don't autosync\n"
 	     "  -r|--ro              Mount read-only\n"
@@ -114,12 +117,13 @@ usage (void)
 int
 main (int argc, char *argv[])
 {
-  static const char *options = "a:f:h::m:nrv?V";
+  static const char *options = "a:f:h::im:nrv?V";
   static struct option long_options[] = {
     { "add", 1, 0, 'a' },
     { "cmd-help", 2, 0, 'h' },
     { "file", 1, 0, 'f' },
     { "help", 0, 0, '?' },
+    { "inspector", 0, 0, 'i' },
     { "mount", 1, 0, 'm' },
     { "no-dest-paths", 0, 0, 'D' },
     { "no-sync", 0, 0, 'n' },
@@ -133,7 +137,7 @@ main (int argc, char *argv[])
   struct mp *mps = NULL;
   struct mp *mp;
   char *p, *file = NULL;
-  int c;
+  int c, inspector = 0;
 
   initialize_readline ();
 
@@ -202,6 +206,10 @@ main (int argc, char *argv[])
 	list_commands ();
       exit (0);
 
+    case 'i':
+      inspector = 1;
+      break;
+
     case 'm':
       mp = malloc (sizeof (struct mp));
       if (!mp) {
@@ -245,6 +253,54 @@ main (int argc, char *argv[])
 	       c);
       exit (1);
     }
+  }
+
+  /* Inspector mode invalidates most of the other arguments. */
+  if (inspector) {
+    char cmd[1024];
+    int r;
+
+    if (drvs || mps) {
+      fprintf (stderr, _("guestfish: cannot use -i option with -a or -m\n"));
+      exit (1);
+    }
+    if (optind >= argc) {
+      fprintf (stderr, _("guestfish -i requires a libvirt domain or path(s) to disk image(s)\n"));
+      exit (1);
+    }
+
+    strcpy (cmd, "a=`virt-inspector");
+    while (optind < argc) {
+      if (strlen (cmd) + strlen (argv[optind]) + strlen (argv[0]) + 60
+	  >= sizeof cmd) {
+	fprintf (stderr, _("guestfish: virt-inspector command too long for fixed-size buffer\n"));
+	exit (1);
+      }
+      strcat (cmd, " ");
+      strcat (cmd, argv[optind]);
+      optind++;
+    }
+
+    if (read_only)
+      strcat (cmd, " --ro-fish");
+    else
+      strcat (cmd, " --fish");
+
+    sprintf (&cmd[strlen(cmd)], "` && %s $a", argv[0]);
+
+    if (guestfs_get_verbose (g))
+      strcat (cmd, " -v");
+    if (!guestfs_get_autosync (g))
+      strcat (cmd, " -n");
+
+    /*printf ("%s\n", cmd);*/
+
+    r = system (cmd);
+    if (r == -1) {
+      perror ("system");
+      exit (1);
+    }
+    exit (WEXITSTATUS (r));
   }
 
   /* If we've got drives to add, add them now. */

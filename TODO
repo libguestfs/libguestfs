@@ -111,7 +111,3 @@ PPC problems:
 ----------------------------------------------------------------------
 
 Supermin appliance should be moved into febootstrap.
-
-----------------------------------------------------------------------
-
-guestfish -i (runs inspector)
