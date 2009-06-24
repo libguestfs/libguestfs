@@ -148,7 +148,7 @@ glob_issue (char *cmd, int argc,
   printf ("\n");
 
   if (issue_command (argv[0], &argv[1]) == -1)
-    r = -1;			/* ... but don't exit */
+    *r = -1;			/* ... but don't exit */
 
   for (i = argc-1; i >= 1; --i) {
     posn[i]++;
