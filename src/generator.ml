@@ -2442,6 +2442,28 @@ containing C<dir>.
 It is an interface to the L<scrub(1)> program.  See that
 manual page for more details.");
 
+  ("mkdtemp", (RString "dir", [String "template"]), 117, [],
+   [InitBasicFS, Always, TestRun (
+      [["mkdir"; "/tmp"];
+       ["mkdtemp"; "/tmp/tmpXXXXXX"]])],
+   "create a temporary directory",
+   "\
+This command creates a temporary directory.  The
+C<template> parameter should be a full pathname for the
+temporary directory with the six characters being
+\"XXXXXX\".
+
+For example: \"/tmp/tmpXXXXXX\" or \"/Temp/tmpXXXXXX\",
+the second one being suitable for Windows.
+
+The name of the temporary directory that was created
+is returned.
+
+The caller is responsible for deleting the temporary
+directory and its contents after use.
+
+See also: L<mkdtemp(3)>");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
