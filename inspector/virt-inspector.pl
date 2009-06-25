@@ -844,14 +844,47 @@ sub check_for_modprobe_aliases
     local $_;
     my $root_dev = shift;
 
-    my @lines;
-    eval { @lines = $g->read_lines ("/etc/modprobe.conf"); };
-    return if $@ || !@lines;
+    # Initialise augeas
+    my $success = 0;
+    $success = $g->aug_init("/", 16);
+
+    # Register /etc/modules.conf and /etc/conf.modules to the Modprobe lens
+    my @results;
+    @results = $g->aug_match("/augeas/load/Modprobe/incl");
+
+    # Calculate the next index of /augeas/load/Modprobe/incl
+    my $i = 1;
+    foreach ( @results ) {
+        next unless m{/augeas/load/Modprobe/incl\[(\d*)]};
+        $i = $1 + 1 if ($1 == $i);
+    }
+
+    $success = $g->aug_set("/augeas/load/Modprobe/incl[$i]",
+                           "/etc/modules.conf");
+    $i++;
+    $success = $g->aug_set("/augeas/load/Modprobe/incl[$i]",
+                                  "/etc/conf.modules");
+
+    # Make augeas reload
+    $success = $g->aug_load();
 
     my %modprobe_aliases;
 
-    foreach (@lines) {
-	$modprobe_aliases{$1} = $2 if /^\s*alias\s+(\S+)\s+(\S+)/;
+    for my $pattern qw(/files/etc/conf.modules/alias
+                       /files/etc/modules.conf/alias
+                       /files/etc/modprobe.conf/alias
+                       /files/etc/modprobe.d/*/alias) {
+        @results = $g->aug_match($pattern);
+
+        for my $path ( @results ) {
+            my $alias;
+            $alias = $g->aug_get($path);
+
+            my $modulename;
+            $modulename = $g->aug_get($path.'/modulename');
+
+            $modprobe_aliases{$alias} = $modulename;
+        }
     }
 
     $oses{$root_dev}->{modprobe_aliases} = \%modprobe_aliases;
