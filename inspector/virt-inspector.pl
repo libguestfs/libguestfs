@@ -29,6 +29,7 @@ use File::Temp qw/tempdir/;
 eval "use Sys::Virt;";
 eval "use XML::XPath;";
 eval "use XML::XPath::XMLParser;";
+eval "use YAML::Any;";
 
 =encoding utf8
 
@@ -134,6 +135,11 @@ Produce no output at all.
 If you select I<--xml> then you get XML output which can be fed
 to other programs.
 
+=item B<--yaml>
+
+If you select I<--yaml> then you get YAML output which can be fed
+to other programs.
+
 =item B<--perl>
 
 If you select I<--perl> then you get Perl structures output which
@@ -183,6 +189,7 @@ GetOptions ("help|?" => \$help,
 	    "text" => sub { $output = "text" },
 	    "none" => sub { $output = "none" },
 	    "xml" => sub { $output = "xml" },
+	    "yaml" => sub { $output = "yaml" },
 	    "perl" => sub { $output = "perl" },
 	    "fish" => sub { $output = "fish" },
 	    "guestfish" => sub { $output = "fish" },
@@ -928,6 +935,14 @@ if ($output eq "fish" || $output eq "ro-fish") {
 # Perl output.
 elsif ($output eq "perl") {
     print Dumper(\%oses);
+}
+
+# YAML output
+elsif ($output eq "yaml") {
+    die "virt-inspector: no YAML support\n"
+	unless exists $INC{"YAML/Any.pm"};
+    
+    print Dump(\%oses);
 }
 
 # Plain text output (the default).
