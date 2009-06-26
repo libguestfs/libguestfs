@@ -24,6 +24,7 @@ use Pod::Usage;
 use Getopt::Long;
 use Data::Dumper;
 use File::Temp qw/tempdir/;
+use XML::Writer;
 
 # Optional:
 eval "use Sys::Virt;";
@@ -1078,55 +1079,61 @@ sub output_text_os
 
 sub output_xml
 {
-    print "<operatingsystems>\n";
-    output_xml_os ($oses{$_}) foreach sort keys %oses;
-    print "</operatingsystems>\n";
+    my $xml = new XML::Writer(DATA_MODE => 1, DATA_INDENT => 2);
+
+    $xml->startTag("operatingsystems");
+    output_xml_os ($oses{$_}, $xml) foreach sort keys %oses;
+    $xml->endTag("operatingsystems");
+
+    $xml->end();
 }
 
 sub output_xml_os
 {
-    my $os = shift;
+    my ($os, $xml) = @_;
 
-    print "<operatingsystem>\n";
+    $xml->startTag("operatingsystem");
 
-    print "<os>", $os->{os}, "</os>\n" if exists $os->{os};
-    print "<distro>", $os->{distro}, "</distro>\n" if exists $os->{distro};
-    print "<version>", $os->{version}, "</version>\n" if exists $os->{version};
-    print "<root>", $os->{root_device}, "</root>\n";
+    foreach ( [ "name" => "os" ],
+              [ "distro" => "distro" ],
+              [ "version" => "version" ],
+              [ "root" => "root_device" ] ) {
+        $xml->dataElement($_->[0], $os->{$_->[1]}) if exists $os->{$_->[1]};
+    }
 
-    print "<mountpoints>\n";
+    $xml->startTag("mountpoints");
     my $mounts = $os->{mounts};
     foreach (sort keys %$mounts) {
-	printf "<mountpoint dev='%s'>%s</mountpoint>\n",
-	  $mounts->{$_}, $_
+        $xml->dataElement("mountpoint", $_, "dev" => $mounts->{$_});
     }
-    print "</mountpoints>\n";
+    $xml->endTag("mountpoints");
 
-    print "<filesystems>\n";
+    $xml->startTag("filesystems");
     my $filesystems = $os->{filesystems};
     foreach (sort keys %$filesystems) {
-	print "<filesystem dev='$_'>\n";
-	print "<label>$filesystems->{$_}{label}</label>\n"
-	    if exists $filesystems->{$_}{label};
-	print "<uuid>$filesystems->{$_}{uuid}</uuid>\n"
-	    if exists $filesystems->{$_}{uuid};
-	print "<type>$filesystems->{$_}{fstype}</type>\n"
-	    if exists $filesystems->{$_}{fstype};
-	print "<content>$filesystems->{$_}{content}</content>\n"
-	    if exists $filesystems->{$_}{content};
-	print "</filesystem>\n";
+        $xml->startTag("filesystem", "dev" => $_);
+
+        foreach my $field ( [ "label" => "label" ],
+                            [ "uuid" => "uuid" ],
+                            [ "type" => "fstype" ],
+                            [ "content" => "content" ] ) {
+            $xml->dataElement($field->[0], $filesystems->{$_}{$field->[1]})
+                if exists $filesystems->{$_}{$field->[1]};
+        }
+
+        $xml->endTag("filesystem");
     }
-    print "</filesystems>\n";
+    $xml->endTag("filesystems");
 
     if (exists $os->{modprobe_aliases}) {
 	my %aliases = %{$os->{modprobe_aliases}};
 	my @keys = sort keys %aliases;
 	if (@keys) {
-	    print "<modprobealiases>\n";
+            $xml->startTag("modprobealiases");
 	    foreach (@keys) {
-		printf "<alias device=\"%s\">%s</alias>\n", $_, $aliases{$_}
+                $xml->dataElement("alias", $aliases{$_}, "device" => $_);
 	    }
-	    print "</modprobealiases>\n";
+            $xml->endTag("modprobealiases");
 	}
     }
 
@@ -1134,63 +1141,51 @@ sub output_xml_os
 	my %modvers = %{$os->{initrd_modules}};
 	my @keys = sort keys %modvers;
 	if (@keys) {
-	    print "<initrds>\n";
+            $xml->startTag("initrds");
 	    foreach (@keys) {
 		my @modules = @{$modvers{$_}};
-		print "<initrd version=\"$_\">\n";
-		print "<module>$_</module>\n" foreach @modules;
-		print "</initrd>\n";
+                $xml->startTag("initrd", "version" => $_);
+                $xml->dataElement("module", $_) foreach @modules;
+                $xml->endTag("initrd");
 	    }
-	    print "</initrds>\n";
+            $xml->endTag("initrds");
 	}
     }
 
-    print "<applications>\n";
+    $xml->startTag("applications");
     my @apps =  @{$os->{apps}};
     foreach (@apps) {
-	print "<application>\n";
-	print "<name>$_->{name}</name><version>$_->{version}</version>\n";
-	print "</application>\n";
+        $xml->startTag("application");
+        $xml->dataElement("name", $_->{name});
+        $xml->dataElement("version", $_->{version});
+        $xml->endTag("application");
     }
-    print "</applications>\n";
+    $xml->endTag("applications");
 
-    print "<kernels>\n";
+    $xml->startTag("kernels");
     my @kernels = @{$os->{kernels}};
     foreach (@kernels) {
-	print "<kernel>\n";
-	print "<version>$_->{version}</version>\n";
-	print "<modules>\n";
+        $xml->startTag("kernel", "version" => $_->{version});
+        $xml->startTag("modules");
 	my @modules = @{$_->{modules}};
 	foreach (@modules) {
-	    print "<module>$_</module>\n";
+            $xml->dataElement("module", $_);
 	}
-	print "</modules>\n";
-	print "</kernel>\n";
+        $xml->endTag("modules");
+        $xml->endTag("kernel");
     }
-    print "</kernels>\n";
+    $xml->endTag("kernels");
 
     if (exists $os->{root}->{registry}) {
-	print "<windowsregistryentries>\n";
+        $xml->startTag("windowsregistryentries");
 	# These are just lumps of text - dump them out.
 	foreach (@{$os->{root}->{registry}}) {
-	    print "<windowsregistryentry>\n";
-	    print escape_xml($_), "\n";
-	    print "</windowsregistryentry>\n";
+            $xml->dataElement("windowsregistryentry", $_);
 	}
-	print "</windowsregistryentries>\n";
+        $xml->endTag("windowsregistryentries");
     }
 
-    print "</operatingsystem>\n";
-}
-
-sub escape_xml
-{
-    local $_ = shift;
-
-    s/&/&amp;/g;
-    s/</&lt;/g;
-    s/>/&gt;/g;
-    return $_;
+    $xml->endTag("operatingsystem");
 }
 
 =head1 QUERY MODE
