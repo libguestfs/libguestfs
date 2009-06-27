@@ -282,6 +282,32 @@ will create a directory C<local> on the host, and then export
 the contents of C</remote> on the mounted filesystem to
 C<local/remote-data.tar.gz>.  (See C<tgz-out>).
 
+=head1 PIPES
+
+Use C<command E<lt>spaceE<gt> | command> to pipe the output of the
+first command (a guestfish command) to the second command (any host
+command).  For example:
+
+ cat /etc/passwd | awk -F: '$3 == 0 { print }'
+
+(where C<cat> is the guestfish cat command, but C<awk> is the host awk
+program).  The above command would list all accounts in the guest
+filesystem which have UID 0, ie. root accounts including backdoors.
+Other examples:
+
+ hexdump /bin/ls | head
+ list-devices | tail -1
+
+The space before the pipe symbol is required, any space after the pipe
+symbol is optional.  Everything after the pipe symbol is just passed
+straight to the host shell, so it can contain redirections, globs and
+anything else that makes sense on the host side.
+
+To use a literal argument which begins with a pipe symbol, you have
+to quote it, eg:
+
+ echo "|"
+
 =head1 EXIT ON ERROR BEHAVIOUR
 
 By default, guestfish will ignore any errors when in interactive mode

@@ -29,6 +29,8 @@
 #include <signal.h>
 #include <assert.h>
 #include <ctype.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 #ifdef HAVE_LIBREADLINE
 #include <readline/readline.h>
@@ -138,8 +140,14 @@ main (int argc, char *argv[])
   struct mp *mp;
   char *p, *file = NULL;
   int c, inspector = 0;
+  struct sigaction sa;
 
   initialize_readline ();
+
+  memset (&sa, 0, sizeof sa);
+  sa.sa_handler = SIG_IGN;
+  sa.sa_flags = SA_RESTART;
+  sigaction (SIGPIPE, &sa, NULL);
 
   /* guestfs_create is meant to be a lightweight operation, so
    * it's OK to do it early here.
@@ -462,6 +470,8 @@ script (int prompt)
 	      "\n"));
 
   while (!quit) {
+    char *pipe = NULL;
+
     exit_on_error = global_exit_on_error;
 
     buf = rl_gets (prompt);
@@ -522,9 +532,8 @@ script (int prompt)
 
     /* Get the parameters. */
     while (*p && i < sizeof argv / sizeof argv[0]) {
-      /* Parameters which start with quotes or square brackets
-       * are treated specially.  Bare parameters are delimited
-       * by whitespace.
+      /* Parameters which start with quotes or pipes are treated
+       * specially.  Bare parameters are delimited by whitespace.
        */
       if (*p == '"') {
 	p++;
@@ -556,6 +565,10 @@ script (int prompt)
 	}
 	p[len] = '\0';
 	pend = p[len+1] ? &p[len+2] : &p[len+1];
+      } else if (*p == '|') {
+	*p = '\0';
+	pipe = p+1;
+	continue;
 	/*
       } else if (*p == '[') {
 	int c = 1;
@@ -607,7 +620,7 @@ script (int prompt)
     argv[i] = NULL;
 
   got_command:
-    if (issue_command (cmd, argv) == -1) {
+    if (issue_command (cmd, argv, pipe) == -1) {
       if (exit_on_error) exit (1);
     }
 
@@ -636,18 +649,51 @@ cmdline (char *argv[], int optind, int argc)
     optind++;
 
   if (optind == argc) {
-    if (issue_command (cmd, params) == -1) exit (1);
+    if (issue_command (cmd, params, NULL) == -1) exit (1);
   } else {
     argv[optind] = NULL;
-    if (issue_command (cmd, params) == -1) exit (1);
+    if (issue_command (cmd, params, NULL) == -1) exit (1);
     cmdline (argv, optind+1, argc);
   }
 }
 
 int
-issue_command (const char *cmd, char *argv[])
+issue_command (const char *cmd, char *argv[], const char *pipecmd)
 {
   int argc;
+  int stdout_saved_fd = -1;
+  int pid = 0;
+  int r;
+
+  /* For | ... commands.  Annoyingly we can't use popen(3) here. */
+  if (pipecmd) {
+    int fd[2];
+
+    fflush (stdout);
+    pipe (fd);
+    pid = fork ();
+    if (pid == -1) {
+      perror ("fork");
+      return -1;
+    }
+
+    if (pid == 0) {		/* Child process. */
+      close (fd[1]);
+      dup2 (fd[0], 0);
+
+      r = system (pipecmd);
+      if (r == -1) {
+	perror (pipecmd);
+	_exit (1);
+      }
+      _exit (WEXITSTATUS (r));
+    }
+
+    stdout_saved_fd = dup (1);
+    close (fd[0]);
+    dup2 (fd[1], 1);
+    close (fd[1]);
+  }
 
   for (argc = 0; argv[argc] != NULL; ++argc)
     ;
@@ -657,29 +703,39 @@ issue_command (const char *cmd, char *argv[])
       list_commands ();
     else
       display_command (argv[0]);
-    return 0;
+    r = 0;
   }
   else if (strcasecmp (cmd, "quit") == 0 ||
 	   strcasecmp (cmd, "exit") == 0 ||
 	   strcasecmp (cmd, "q") == 0) {
     quit = 1;
-    return 0;
+    r = 0;
   }
   else if (strcasecmp (cmd, "alloc") == 0 ||
 	   strcasecmp (cmd, "allocate") == 0)
-    return do_alloc (cmd, argc, argv);
+    r = do_alloc (cmd, argc, argv);
   else if (strcasecmp (cmd, "echo") == 0)
-    return do_echo (cmd, argc, argv);
+    r = do_echo (cmd, argc, argv);
   else if (strcasecmp (cmd, "edit") == 0 ||
 	   strcasecmp (cmd, "vi") == 0 ||
 	   strcasecmp (cmd, "emacs") == 0)
-    return do_edit (cmd, argc, argv);
+    r = do_edit (cmd, argc, argv);
   else if (strcasecmp (cmd, "lcd") == 0)
-    return do_lcd (cmd, argc, argv);
+    r = do_lcd (cmd, argc, argv);
   else if (strcasecmp (cmd, "glob") == 0)
-    return do_glob (cmd, argc, argv);
+    r = do_glob (cmd, argc, argv);
   else
-    return run_action (cmd, argc, argv);
+    r = run_action (cmd, argc, argv);
+
+  if (pipecmd) {
+    fflush (stdout);
+    close (1);
+    dup2 (stdout_saved_fd, 1);
+    close (stdout_saved_fd);
+    waitpid (pid, NULL, 0);
+  }
+
+  return r;
 }
 
 void
