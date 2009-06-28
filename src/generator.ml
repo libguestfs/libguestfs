@@ -7806,7 +7806,38 @@ public class Bindtests {
 "
 
 and generate_haskell_bindtests () =
-  () (* XXX Haskell bindings need to be fleshed out. *)
+  generate_header HaskellStyle GPLv2;
+
+  pr "\
+module Bindtests where
+import qualified Guestfs
+
+main = do
+  g <- Guestfs.create
+";
+
+  let mkargs args =
+    String.concat " " (
+      List.map (
+	function
+	| CallString s -> "\"" ^ s ^ "\""
+	| CallOptString None -> "Nothing"
+	| CallOptString (Some s) -> sprintf "(Just \"%s\")" s
+	| CallStringList xs ->
+	    "[" ^ String.concat "," (List.map (sprintf "\"%s\"") xs) ^ "]"
+	| CallInt i when i < 0 -> "(" ^ string_of_int i ^ ")"
+	| CallInt i -> string_of_int i
+	| CallBool true -> "True"
+	| CallBool false -> "False"
+      ) args
+    )
+  in
+
+  generate_lang_bindtests (
+    fun f args -> pr "  Guestfs.%s g %s\n" f (mkargs args)
+  );
+
+  pr "  putStrLn \"EOF\"\n"
 
 (* Language-independent bindings tests - we do it this way to
  * ensure there is parity in testing bindings across all languages.
@@ -8036,7 +8067,7 @@ Run it from the top source directory using the command
   generate_haskell_hs ();
   close ();
 
-  let close = output_to "haskell/bindtests.hs" in
+  let close = output_to "haskell/Bindtests.hs" in
   generate_haskell_bindtests ();
   close ();
 

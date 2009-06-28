@@ -15,7 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-EXTRA_DIST = *.hs
+EXTRA_DIST = *.hs run-bindtests
 
 CLEANFILES = *~
 
@@ -26,9 +26,14 @@ TESTS_ENVIRONMENT = \
 	LIBGUESTFS_PATH=$(top_builddir)/appliance \
 	$(VG)
 
-TESTS = Guestfs005Load Guestfs010Launch Guestfs050LVCreate
+TESTS = run-bindtests Guestfs005Load Guestfs010Launch Guestfs050LVCreate
+
+check_DATA = Bindtests
 
 GHCFLAGS = -I$(abs_top_builddir)/src -L$(abs_top_builddir)/src/.libs
+
+Bindtests: Bindtests.hs Guestfs.hs
+	$(GHC)  $(GHCFLAGS) -main-is $(shell basename $@) --make -o $@ $< -lguestfs
 
 Guestfs005Load: Guestfs005Load.hs Guestfs.hs
 	$(GHC)  $(GHCFLAGS) -main-is $(shell basename $@) --make -o $@ $< -lguestfs

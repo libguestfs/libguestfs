@@ -54,6 +54,7 @@ examples/to-xml
 fish/guestfish
 guestfish.1
 guestfs.3
+haskell/Bindtests
 haskell/Guestfs005Load
 haskell/Guestfs010Launch
 haskell/Guestfs050LVCreate
