@@ -7265,10 +7265,10 @@ and generate_haskell_hs () =
    *)
   let can_generate style =
     match style with
-    | RErr, _ -> true
-    | RBool _, _
+    | RErr, _
     | RInt _, _
-    | RInt64 _, _
+    | RInt64 _, _ -> true
+    | RBool _, _
     | RConstString _, _
     | RString _, _
     | RStringList _, _
