@@ -7265,7 +7265,7 @@ and generate_haskell_hs () =
    *)
   let can_generate style =
     let check_no_bad_args =
-      List.for_all (function Bool _ | Int _ -> false | _ -> true)
+      List.for_all (function Bool _ -> false | _ -> true)
     in
     match style with
     | RErr, args -> check_no_bad_args args
@@ -7300,6 +7300,7 @@ module Guestfs (
   ) where
 import Foreign
 import Foreign.C
+import Foreign.C.Types
 import IO
 import Control.Exception
 import Data.Typeable
@@ -7363,6 +7364,7 @@ last_error h = do
 	pr "%s %s = do\n" name
 	  (String.concat " " ("h" :: List.map name_of_argt (snd style)));
 	pr "  r <- ";
+	(* Convert pointer arguments using with* functions. *)
 	List.iter (
 	  function
 	  | FileIn n
@@ -7370,17 +7372,18 @@ last_error h = do
 	  | String n -> pr "withCString %s $ \\%s -> " n n
 	  | OptString n -> pr "maybeWith withCString %s $ \\%s -> " n n
 	  | StringList n -> pr "withMany withCString %s $ \\%s -> withArray0 nullPtr %s $ \\%s -> " n n n n
-	  | Bool n ->
-	      (* XXX this doesn't work *)
-	      pr "      let\n";
-	      pr "        %s = case %s of\n" n n;
-	      pr "          False -> 0\n";
-	      pr "          True -> 1\n";
-	      pr "      in fromIntegral %s $ \\%s ->\n" n n
-	  | Int n -> pr "fromIntegral %s $ \\%s -> " n n
+	  | Bool _ | Int _ -> ()
 	) (snd style);
+	(* Convert integer arguments. *)
+	let args =
+	  List.map (
+	    function
+	    | Bool n -> sprintf "(fromIntegral %s)" n
+	    | Int n -> sprintf "(fromIntegral %s)" n
+	    | FileIn n | FileOut n | String n | OptString n | StringList n -> n
+	  ) (snd style) in
 	pr "withForeignPtr h (\\p -> c_%s %s)\n" name
-	  (String.concat " " ("p" :: List.map name_of_argt (snd style)));
+	  (String.concat " " ("p" :: args));
 	(match fst style with
 	 | RErr | RInt _ | RInt64 _ | RBool _ ->
 	     pr "  if (r == -1)\n";

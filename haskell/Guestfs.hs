@@ -40,6 +40,7 @@ module Guestfs (
   mount,
   sync,
   touch,
+  aug_init,
   aug_close,
   aug_set,
   aug_mv,
@@ -50,14 +51,20 @@ module Guestfs (
   rm_rf,
   mkdir,
   mkdir_p,
+  chmod,
+  chown,
   pvcreate,
   vgcreate,
+  lvcreate,
   mkfs,
+  sfdisk,
+  write_file,
   umount,
   umount_all,
   lvm_remove_all,
   blockdev_setro,
   blockdev_setrw,
+  blockdev_setbsz,
   blockdev_flushbufs,
   blockdev_rereadpt,
   upload,
@@ -79,17 +86,22 @@ module Guestfs (
   cp,
   cp_a,
   mv,
+  drop_caches,
   ping_daemon,
   zerofree,
   pvresize,
+  sfdisk_N,
+  lvresize,
   resize2fs,
   e2fsck_f,
+  sleep,
   scrub_device,
   scrub_file,
   scrub_freespace
   ) where
 import Foreign
 import Foreign.C
+import Foreign.C.Types
 import IO
 import Control.Exception
 import Data.Typeable
@@ -328,6 +340,18 @@ touch h path = do
       fail err
     else return ()
 
+foreign import ccall unsafe "guestfs_aug_init" c_aug_init
+  :: GuestfsP -> CString -> CInt -> IO (CInt)
+
+aug_init :: GuestfsH -> String -> Int -> IO ()
+aug_init h root flags = do
+  r <- withCString root $ \root -> withForeignPtr h (\p -> c_aug_init p root (fromIntegral flags))
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return ()
+
 foreign import ccall unsafe "guestfs_aug_close" c_aug_close
   :: GuestfsP -> IO (CInt)
 
@@ -448,6 +472,30 @@ mkdir_p h path = do
       fail err
     else return ()
 
+foreign import ccall unsafe "guestfs_chmod" c_chmod
+  :: GuestfsP -> CInt -> CString -> IO (CInt)
+
+chmod :: GuestfsH -> Int -> String -> IO ()
+chmod h mode path = do
+  r <- withCString path $ \path -> withForeignPtr h (\p -> c_chmod p (fromIntegral mode) path)
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return ()
+
+foreign import ccall unsafe "guestfs_chown" c_chown
+  :: GuestfsP -> CInt -> CInt -> CString -> IO (CInt)
+
+chown :: GuestfsH -> Int -> Int -> String -> IO ()
+chown h owner group path = do
+  r <- withCString path $ \path -> withForeignPtr h (\p -> c_chown p (fromIntegral owner) (fromIntegral group) path)
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return ()
+
 foreign import ccall unsafe "guestfs_pvcreate" c_pvcreate
   :: GuestfsP -> CString -> IO (CInt)
 
@@ -472,12 +520,48 @@ vgcreate h volgroup physvols = do
       fail err
     else return ()
 
+foreign import ccall unsafe "guestfs_lvcreate" c_lvcreate
+  :: GuestfsP -> CString -> CString -> CInt -> IO (CInt)
+
+lvcreate :: GuestfsH -> String -> String -> Int -> IO ()
+lvcreate h logvol volgroup mbytes = do
+  r <- withCString logvol $ \logvol -> withCString volgroup $ \volgroup -> withForeignPtr h (\p -> c_lvcreate p logvol volgroup (fromIntegral mbytes))
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return ()
+
 foreign import ccall unsafe "guestfs_mkfs" c_mkfs
   :: GuestfsP -> CString -> CString -> IO (CInt)
 
 mkfs :: GuestfsH -> String -> String -> IO ()
 mkfs h fstype device = do
   r <- withCString fstype $ \fstype -> withCString device $ \device -> withForeignPtr h (\p -> c_mkfs p fstype device)
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return ()
+
+foreign import ccall unsafe "guestfs_sfdisk" c_sfdisk
+  :: GuestfsP -> CString -> CInt -> CInt -> CInt -> Ptr CString -> IO (CInt)
+
+sfdisk :: GuestfsH -> String -> Int -> Int -> Int -> [String] -> IO ()
+sfdisk h device cyls heads sectors lines = do
+  r <- withCString device $ \device -> withMany withCString lines $ \lines -> withArray0 nullPtr lines $ \lines -> withForeignPtr h (\p -> c_sfdisk p device (fromIntegral cyls) (fromIntegral heads) (fromIntegral sectors) lines)
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return ()
+
+foreign import ccall unsafe "guestfs_write_file" c_write_file
+  :: GuestfsP -> CString -> CString -> CInt -> IO (CInt)
+
+write_file :: GuestfsH -> String -> String -> Int -> IO ()
+write_file h path content size = do
+  r <- withCString path $ \path -> withCString content $ \content -> withForeignPtr h (\p -> c_write_file p path content (fromIntegral size))
   if (r == -1)
     then do
       err <- last_error h
@@ -538,6 +622,18 @@ foreign import ccall unsafe "guestfs_blockdev_setrw" c_blockdev_setrw
 blockdev_setrw :: GuestfsH -> String -> IO ()
 blockdev_setrw h device = do
   r <- withCString device $ \device -> withForeignPtr h (\p -> c_blockdev_setrw p device)
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return ()
+
+foreign import ccall unsafe "guestfs_blockdev_setbsz" c_blockdev_setbsz
+  :: GuestfsP -> CString -> CInt -> IO (CInt)
+
+blockdev_setbsz :: GuestfsH -> String -> Int -> IO ()
+blockdev_setbsz h device blocksize = do
+  r <- withCString device $ \device -> withForeignPtr h (\p -> c_blockdev_setbsz p device (fromIntegral blocksize))
   if (r == -1)
     then do
       err <- last_error h
@@ -796,6 +892,18 @@ mv h src dest = do
       fail err
     else return ()
 
+foreign import ccall unsafe "guestfs_drop_caches" c_drop_caches
+  :: GuestfsP -> CInt -> IO (CInt)
+
+drop_caches :: GuestfsH -> Int -> IO ()
+drop_caches h whattodrop = do
+  r <- withForeignPtr h (\p -> c_drop_caches p (fromIntegral whattodrop))
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return ()
+
 foreign import ccall unsafe "guestfs_ping_daemon" c_ping_daemon
   :: GuestfsP -> IO (CInt)
 
@@ -832,6 +940,30 @@ pvresize h device = do
       fail err
     else return ()
 
+foreign import ccall unsafe "guestfs_sfdisk_N" c_sfdisk_N
+  :: GuestfsP -> CString -> CInt -> CInt -> CInt -> CInt -> CString -> IO (CInt)
+
+sfdisk_N :: GuestfsH -> String -> Int -> Int -> Int -> Int -> String -> IO ()
+sfdisk_N h device n cyls heads sectors line = do
+  r <- withCString device $ \device -> withCString line $ \line -> withForeignPtr h (\p -> c_sfdisk_N p device (fromIntegral n) (fromIntegral cyls) (fromIntegral heads) (fromIntegral sectors) line)
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return ()
+
+foreign import ccall unsafe "guestfs_lvresize" c_lvresize
+  :: GuestfsP -> CString -> CInt -> IO (CInt)
+
+lvresize :: GuestfsH -> String -> Int -> IO ()
+lvresize h device mbytes = do
+  r <- withCString device $ \device -> withForeignPtr h (\p -> c_lvresize p device (fromIntegral mbytes))
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return ()
+
 foreign import ccall unsafe "guestfs_resize2fs" c_resize2fs
   :: GuestfsP -> CString -> IO (CInt)
 
@@ -850,6 +982,18 @@ foreign import ccall unsafe "guestfs_e2fsck_f" c_e2fsck_f
 e2fsck_f :: GuestfsH -> String -> IO ()
 e2fsck_f h device = do
   r <- withCString device $ \device -> withForeignPtr h (\p -> c_e2fsck_f p device)
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return ()
+
+foreign import ccall unsafe "guestfs_sleep" c_sleep
+  :: GuestfsP -> CInt -> IO (CInt)
+
+sleep :: GuestfsH -> Int -> IO ()
+sleep h secs = do
+  r <- withForeignPtr h (\p -> c_sleep p (fromIntegral secs))
   if (r == -1)
     then do
       err <- last_error h
