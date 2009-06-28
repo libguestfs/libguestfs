@@ -24,6 +24,7 @@
 
 module Guestfs (
   create,
+  test0,
   launch,
   wait_ready,
   kill_subprocess,
@@ -34,6 +35,8 @@ module Guestfs (
   set_qemu,
   set_path,
   set_append,
+  set_autosync,
+  set_verbose,
   set_busy,
   set_ready,
   end_busy,
@@ -43,6 +46,7 @@ module Guestfs (
   aug_init,
   aug_close,
   aug_set,
+  aug_insert,
   aug_mv,
   aug_save,
   aug_load,
@@ -91,6 +95,8 @@ module Guestfs (
   zerofree,
   pvresize,
   sfdisk_N,
+  vg_activate_all,
+  vg_activate,
   lvresize,
   resize2fs,
   e2fsck_f,
@@ -147,6 +153,18 @@ last_error h = do
   if (str == nullPtr)
     then return "no error"
     else peekCString str
+
+foreign import ccall unsafe "guestfs_test0" c_test0
+  :: GuestfsP -> CString -> CString -> Ptr CString -> CInt -> CInt -> CString -> CString -> IO (CInt)
+
+test0 :: GuestfsH -> String -> Maybe String -> [String] -> Bool -> Int -> String -> String -> IO ()
+test0 h str optstr strlist b integer filein fileout = do
+  r <- withCString str $ \str -> maybeWith withCString optstr $ \optstr -> withMany withCString strlist $ \strlist -> withArray0 nullPtr strlist $ \strlist -> withCString filein $ \filein -> withCString fileout $ \fileout -> withForeignPtr h (\p -> c_test0 p str optstr strlist (fromBool b) (fromIntegral integer) filein fileout)
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return ()
 
 foreign import ccall unsafe "guestfs_launch" c_launch
   :: GuestfsP -> IO (CInt)
@@ -268,6 +286,30 @@ set_append h append = do
       fail err
     else return ()
 
+foreign import ccall unsafe "guestfs_set_autosync" c_set_autosync
+  :: GuestfsP -> CInt -> IO (CInt)
+
+set_autosync :: GuestfsH -> Bool -> IO ()
+set_autosync h autosync = do
+  r <- withForeignPtr h (\p -> c_set_autosync p (fromBool autosync))
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return ()
+
+foreign import ccall unsafe "guestfs_set_verbose" c_set_verbose
+  :: GuestfsP -> CInt -> IO (CInt)
+
+set_verbose :: GuestfsH -> Bool -> IO ()
+set_verbose h verbose = do
+  r <- withForeignPtr h (\p -> c_set_verbose p (fromBool verbose))
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return ()
+
 foreign import ccall unsafe "guestfs_set_busy" c_set_busy
   :: GuestfsP -> IO (CInt)
 
@@ -370,6 +412,18 @@ foreign import ccall unsafe "guestfs_aug_set" c_aug_set
 aug_set :: GuestfsH -> String -> String -> IO ()
 aug_set h path val = do
   r <- withCString path $ \path -> withCString val $ \val -> withForeignPtr h (\p -> c_aug_set p path val)
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return ()
+
+foreign import ccall unsafe "guestfs_aug_insert" c_aug_insert
+  :: GuestfsP -> CString -> CString -> CInt -> IO (CInt)
+
+aug_insert :: GuestfsH -> String -> String -> Bool -> IO ()
+aug_insert h path label before = do
+  r <- withCString path $ \path -> withCString label $ \label -> withForeignPtr h (\p -> c_aug_insert p path label (fromBool before))
   if (r == -1)
     then do
       err <- last_error h
@@ -946,6 +1000,30 @@ foreign import ccall unsafe "guestfs_sfdisk_N" c_sfdisk_N
 sfdisk_N :: GuestfsH -> String -> Int -> Int -> Int -> Int -> String -> IO ()
 sfdisk_N h device n cyls heads sectors line = do
   r <- withCString device $ \device -> withCString line $ \line -> withForeignPtr h (\p -> c_sfdisk_N p device (fromIntegral n) (fromIntegral cyls) (fromIntegral heads) (fromIntegral sectors) line)
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return ()
+
+foreign import ccall unsafe "guestfs_vg_activate_all" c_vg_activate_all
+  :: GuestfsP -> CInt -> IO (CInt)
+
+vg_activate_all :: GuestfsH -> Bool -> IO ()
+vg_activate_all h activate = do
+  r <- withForeignPtr h (\p -> c_vg_activate_all p (fromBool activate))
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return ()
+
+foreign import ccall unsafe "guestfs_vg_activate" c_vg_activate
+  :: GuestfsP -> CInt -> Ptr CString -> IO (CInt)
+
+vg_activate :: GuestfsH -> Bool -> [String] -> IO ()
+vg_activate h activate volgroups = do
+  r <- withMany withCString volgroups $ \volgroups -> withArray0 nullPtr volgroups $ \volgroups -> withForeignPtr h (\p -> c_vg_activate p (fromBool activate) volgroups)
   if (r == -1)
     then do
       err <- last_error h

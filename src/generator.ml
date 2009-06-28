@@ -7264,11 +7264,8 @@ and generate_haskell_hs () =
    * at the moment.  Please help out!
    *)
   let can_generate style =
-    let check_no_bad_args =
-      List.for_all (function Bool _ -> false | _ -> true)
-    in
     match style with
-    | RErr, args -> check_no_bad_args args
+    | RErr, _ -> true
     | RBool _, _
     | RInt _, _
     | RInt64 _, _
@@ -7378,7 +7375,7 @@ last_error h = do
 	let args =
 	  List.map (
 	    function
-	    | Bool n -> sprintf "(fromIntegral %s)" n
+	    | Bool n -> sprintf "(fromBool %s)" n
 	    | Int n -> sprintf "(fromIntegral %s)" n
 	    | FileIn n | FileOut n | String n | OptString n | StringList n -> n
 	  ) (snd style) in
