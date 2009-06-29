@@ -2450,7 +2450,7 @@ static void sfdisk_N_stub (XDR *xdr_in)
   int r;
   struct guestfs_sfdisk_N_args args;
   char *device;
-  int n;
+  int partnum;
   int cyls;
   int heads;
   int sectors;
@@ -2463,13 +2463,13 @@ static void sfdisk_N_stub (XDR *xdr_in)
     return;
   }
   device = args.device;
-  n = args.n;
+  partnum = args.partnum;
   cyls = args.cyls;
   heads = args.heads;
   sectors = args.sectors;
   line = args.line;
 
-  r = do_sfdisk_N (device, n, cyls, heads, sectors, line);
+  r = do_sfdisk_N (device, partnum, cyls, heads, sectors, line);
   if (r == -1)
     /* do_sfdisk_N has already called reply_with_error */
     goto done;
@@ -3031,6 +3031,122 @@ done:
   xdr_free ((xdrproc_t) xdr_guestfs_wc_c_args, (char *) &args);
 }
 
+static void head_stub (XDR *xdr_in)
+{
+  char **r;
+  struct guestfs_head_args args;
+  char *path;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_head_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "head");
+    return;
+  }
+  path = args.path;
+
+  r = do_head (path);
+  if (r == NULL)
+    /* do_head has already called reply_with_error */
+    goto done;
+
+  struct guestfs_head_ret ret;
+  ret.lines.lines_len = count_strings (r);
+  ret.lines.lines_val = r;
+  reply ((xdrproc_t) &xdr_guestfs_head_ret, (char *) &ret);
+  free_strings (r);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_head_args, (char *) &args);
+}
+
+static void head_n_stub (XDR *xdr_in)
+{
+  char **r;
+  struct guestfs_head_n_args args;
+  int nrlines;
+  char *path;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_head_n_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "head_n");
+    return;
+  }
+  nrlines = args.nrlines;
+  path = args.path;
+
+  r = do_head_n (nrlines, path);
+  if (r == NULL)
+    /* do_head_n has already called reply_with_error */
+    goto done;
+
+  struct guestfs_head_n_ret ret;
+  ret.lines.lines_len = count_strings (r);
+  ret.lines.lines_val = r;
+  reply ((xdrproc_t) &xdr_guestfs_head_n_ret, (char *) &ret);
+  free_strings (r);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_head_n_args, (char *) &args);
+}
+
+static void tail_stub (XDR *xdr_in)
+{
+  char **r;
+  struct guestfs_tail_args args;
+  char *path;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_tail_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "tail");
+    return;
+  }
+  path = args.path;
+
+  r = do_tail (path);
+  if (r == NULL)
+    /* do_tail has already called reply_with_error */
+    goto done;
+
+  struct guestfs_tail_ret ret;
+  ret.lines.lines_len = count_strings (r);
+  ret.lines.lines_val = r;
+  reply ((xdrproc_t) &xdr_guestfs_tail_ret, (char *) &ret);
+  free_strings (r);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_tail_args, (char *) &args);
+}
+
+static void tail_n_stub (XDR *xdr_in)
+{
+  char **r;
+  struct guestfs_tail_n_args args;
+  int nrlines;
+  char *path;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_tail_n_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "tail_n");
+    return;
+  }
+  nrlines = args.nrlines;
+  path = args.path;
+
+  r = do_tail_n (nrlines, path);
+  if (r == NULL)
+    /* do_tail_n has already called reply_with_error */
+    goto done;
+
+  struct guestfs_tail_n_ret ret;
+  ret.lines.lines_len = count_strings (r);
+  ret.lines.lines_val = r;
+  reply ((xdrproc_t) &xdr_guestfs_tail_n_ret, (char *) &ret);
+  free_strings (r);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_tail_n_args, (char *) &args);
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -3393,6 +3509,18 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_WC_C:
       wc_c_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_HEAD:
+      head_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_HEAD_N:
+      head_n_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_TAIL:
+      tail_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_TAIL_N:
+      tail_n_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d, set LIBGUESTFS_PATH to point to the matching libguestfs appliance directory", proc_nr);

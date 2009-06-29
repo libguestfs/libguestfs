@@ -4153,18 +4153,18 @@ py_guestfs_sfdisk_N (PyObject *self, PyObject *args)
   PyObject *py_r;
   int r;
   const char *device;
-  int n;
+  int partnum;
   int cyls;
   int heads;
   int sectors;
   const char *line;
 
   if (!PyArg_ParseTuple (args, (char *) "Osiiiis:guestfs_sfdisk_N",
-                         &py_g, &device, &n, &cyls, &heads, &sectors, &line))
+                         &py_g, &device, &partnum, &cyls, &heads, &sectors, &line))
     return NULL;
   g = get_handle (py_g);
 
-  r = guestfs_sfdisk_N (g, device, n, cyls, heads, sectors, line);
+  r = guestfs_sfdisk_N (g, device, partnum, cyls, heads, sectors, line);
   if (r == -1) {
     PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
     return NULL;
@@ -4703,6 +4703,108 @@ py_guestfs_wc_c (PyObject *self, PyObject *args)
   return py_r;
 }
 
+static PyObject *
+py_guestfs_head (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  char **r;
+  const char *path;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_head",
+                         &py_g, &path))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_head (g, path);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = put_string_list (r);
+  free_strings (r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_head_n (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  char **r;
+  int nrlines;
+  const char *path;
+
+  if (!PyArg_ParseTuple (args, (char *) "Ois:guestfs_head_n",
+                         &py_g, &nrlines, &path))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_head_n (g, nrlines, path);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = put_string_list (r);
+  free_strings (r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_tail (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  char **r;
+  const char *path;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_tail",
+                         &py_g, &path))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_tail (g, path);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = put_string_list (r);
+  free_strings (r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_tail_n (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  char **r;
+  int nrlines;
+  const char *path;
+
+  if (!PyArg_ParseTuple (args, (char *) "Ois:guestfs_tail_n",
+                         &py_g, &nrlines, &path))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_tail_n (g, nrlines, path);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = put_string_list (r);
+  free_strings (r);
+  return py_r;
+}
+
 static PyMethodDef methods[] = {
   { (char *) "create", py_guestfs_create, METH_VARARGS, NULL },
   { (char *) "close", py_guestfs_close, METH_VARARGS, NULL },
@@ -4878,6 +4980,10 @@ static PyMethodDef methods[] = {
   { (char *) "wc_l", py_guestfs_wc_l, METH_VARARGS, NULL },
   { (char *) "wc_w", py_guestfs_wc_w, METH_VARARGS, NULL },
   { (char *) "wc_c", py_guestfs_wc_c, METH_VARARGS, NULL },
+  { (char *) "head", py_guestfs_head, METH_VARARGS, NULL },
+  { (char *) "head_n", py_guestfs_head_n, METH_VARARGS, NULL },
+  { (char *) "tail", py_guestfs_tail, METH_VARARGS, NULL },
+  { (char *) "tail_n", py_guestfs_tail_n, METH_VARARGS, NULL },
   { NULL, NULL, 0, NULL }
 };
 

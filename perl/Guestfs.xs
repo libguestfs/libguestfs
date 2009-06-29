@@ -2386,10 +2386,10 @@ PREINIT:
         croak ("pvresize: %s", guestfs_last_error (g));
 
 void
-sfdisk_N (g, device, n, cyls, heads, sectors, line)
+sfdisk_N (g, device, partnum, cyls, heads, sectors, line)
       guestfs_h *g;
       char *device;
-      int n;
+      int partnum;
       int cyls;
       int heads;
       int sectors;
@@ -2397,7 +2397,7 @@ sfdisk_N (g, device, n, cyls, heads, sectors, line)
 PREINIT:
       int r;
  PPCODE:
-      r = guestfs_sfdisk_N (g, device, n, cyls, heads, sectors, line);
+      r = guestfs_sfdisk_N (g, device, partnum, cyls, heads, sectors, line);
       if (r == -1)
         croak ("sfdisk_N: %s", guestfs_last_error (g));
 
@@ -2691,4 +2691,82 @@ PREINIT:
       RETVAL = newSViv (chars);
  OUTPUT:
       RETVAL
+
+void
+head (g, path)
+      guestfs_h *g;
+      char *path;
+PREINIT:
+      char **lines;
+      int i, n;
+ PPCODE:
+      lines = guestfs_head (g, path);
+      if (lines == NULL)
+        croak ("head: %s", guestfs_last_error (g));
+      for (n = 0; lines[n] != NULL; ++n) /**/;
+      EXTEND (SP, n);
+      for (i = 0; i < n; ++i) {
+        PUSHs (sv_2mortal (newSVpv (lines[i], 0)));
+        free (lines[i]);
+      }
+      free (lines);
+
+void
+head_n (g, nrlines, path)
+      guestfs_h *g;
+      int nrlines;
+      char *path;
+PREINIT:
+      char **lines;
+      int i, n;
+ PPCODE:
+      lines = guestfs_head_n (g, nrlines, path);
+      if (lines == NULL)
+        croak ("head_n: %s", guestfs_last_error (g));
+      for (n = 0; lines[n] != NULL; ++n) /**/;
+      EXTEND (SP, n);
+      for (i = 0; i < n; ++i) {
+        PUSHs (sv_2mortal (newSVpv (lines[i], 0)));
+        free (lines[i]);
+      }
+      free (lines);
+
+void
+tail (g, path)
+      guestfs_h *g;
+      char *path;
+PREINIT:
+      char **lines;
+      int i, n;
+ PPCODE:
+      lines = guestfs_tail (g, path);
+      if (lines == NULL)
+        croak ("tail: %s", guestfs_last_error (g));
+      for (n = 0; lines[n] != NULL; ++n) /**/;
+      EXTEND (SP, n);
+      for (i = 0; i < n; ++i) {
+        PUSHs (sv_2mortal (newSVpv (lines[i], 0)));
+        free (lines[i]);
+      }
+      free (lines);
+
+void
+tail_n (g, nrlines, path)
+      guestfs_h *g;
+      int nrlines;
+      char *path;
+PREINIT:
+      char **lines;
+      int i, n;
+ PPCODE:
+      lines = guestfs_tail_n (g, nrlines, path);
+      if (lines == NULL)
+        croak ("tail_n: %s", guestfs_last_error (g));
+      for (n = 0; lines[n] != NULL; ++n) /**/;
+      EXTEND (SP, n);
+      for (i = 0; i < n; ++i) {
+        PUSHs (sv_2mortal (newSVpv (lines[i], 0)));
+        free (lines[i]);
+      }
+      free (lines);
 

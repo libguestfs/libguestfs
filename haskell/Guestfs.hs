@@ -1158,8 +1158,8 @@ foreign import ccall unsafe "guestfs_sfdisk_N" c_sfdisk_N
   :: GuestfsP -> CString -> CInt -> CInt -> CInt -> CInt -> CString -> IO (CInt)
 
 sfdisk_N :: GuestfsH -> String -> Int -> Int -> Int -> Int -> String -> IO ()
-sfdisk_N h device n cyls heads sectors line = do
-  r <- withCString device $ \device -> withCString line $ \line -> withForeignPtr h (\p -> c_sfdisk_N p device (fromIntegral n) (fromIntegral cyls) (fromIntegral heads) (fromIntegral sectors) line)
+sfdisk_N h device partnum cyls heads sectors line = do
+  r <- withCString device $ \device -> withCString line $ \line -> withForeignPtr h (\p -> c_sfdisk_N p device (fromIntegral partnum) (fromIntegral cyls) (fromIntegral heads) (fromIntegral sectors) line)
   if (r == -1)
     then do
       err <- last_error h

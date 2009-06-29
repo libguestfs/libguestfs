@@ -915,6 +915,44 @@ C<device>, with the root directory being C<root>.
 
 This function returns 0 on success or -1 on error.
 
+=head2 guestfs_head
+
+ char **guestfs_head (guestfs_h *handle,
+		const char *path);
+
+This command returns up to the first 10 lines of a file as
+a list of strings.
+
+This function returns a NULL-terminated array of strings
+(like L<environ(3)>), or NULL if there was an error.
+I<The caller must free the strings and the array after use>.
+
+Because of the message protocol, there is a transfer limit 
+of somewhere between 2MB and 4MB.  To transfer large files you should use
+FTP.
+
+=head2 guestfs_head_n
+
+ char **guestfs_head_n (guestfs_h *handle,
+		int nrlines,
+		const char *path);
+
+If the parameter C<nrlines> is a positive number, this returns the first
+C<nrlines> lines of the file C<path>.
+
+If the parameter C<nrlines> is a negative number, this returns lines
+from the file C<path>, excluding the last C<nrlines> lines.
+
+If the parameter C<nrlines> is zero, this returns an empty list.
+
+This function returns a NULL-terminated array of strings
+(like L<environ(3)>), or NULL if there was an error.
+I<The caller must free the strings and the array after use>.
+
+Because of the message protocol, there is a transfer limit 
+of somewhere between 2MB and 4MB.  To transfer large files you should use
+FTP.
+
 =head2 guestfs_hexdump
 
  char *guestfs_hexdump (guestfs_h *handle,
@@ -1689,7 +1727,7 @@ can easily destroy all your data>.
 
  int guestfs_sfdisk_N (guestfs_h *handle,
 		const char *device,
-		int n,
+		int partnum,
 		int cyls,
 		int heads,
 		int sectors,
@@ -1872,6 +1910,44 @@ You should always call this if you have modified a disk image, before
 closing the handle.
 
 This function returns 0 on success or -1 on error.
+
+=head2 guestfs_tail
+
+ char **guestfs_tail (guestfs_h *handle,
+		const char *path);
+
+This command returns up to the last 10 lines of a file as
+a list of strings.
+
+This function returns a NULL-terminated array of strings
+(like L<environ(3)>), or NULL if there was an error.
+I<The caller must free the strings and the array after use>.
+
+Because of the message protocol, there is a transfer limit 
+of somewhere between 2MB and 4MB.  To transfer large files you should use
+FTP.
+
+=head2 guestfs_tail_n
+
+ char **guestfs_tail_n (guestfs_h *handle,
+		int nrlines,
+		const char *path);
+
+If the parameter C<nrlines> is a positive number, this returns the last
+C<nrlines> lines of the file C<path>.
+
+If the parameter C<nrlines> is a negative number, this returns lines
+from the file C<path>, starting with the C<-nrlines>th line.
+
+If the parameter C<nrlines> is zero, this returns an empty list.
+
+This function returns a NULL-terminated array of strings
+(like L<environ(3)>), or NULL if there was an error.
+I<The caller must free the strings and the array after use>.
+
+Because of the message protocol, there is a transfer limit 
+of somewhere between 2MB and 4MB.  To transfer large files you should use
+FTP.
 
 =head2 guestfs_tar_in
 

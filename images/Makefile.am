@@ -56,7 +56,7 @@ test.sqsh: $(squash_files)
 	rm -f $@ $@-t
 	i=0; \
 	while [ $$i -lt 10000 ]; do \
-	  echo "abcdefghijklmnopqrstuvwxyz"; \
+	  echo "$${i}abcdefghijklmnopqrstuvwxyz"; \
 	  i=$$(($$i+1)); \
 	done > $@-t
 	mv $@-t $@

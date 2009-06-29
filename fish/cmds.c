@@ -86,6 +86,8 @@ void list_commands (void)
   printf ("%-20s %s\n", "get-verbose", "get verbose mode");
   printf ("%-20s %s\n", "glob-expand", "expand a wildcard path");
   printf ("%-20s %s\n", "grub-install", "install GRUB");
+  printf ("%-20s %s\n", "head", "return first 10 lines of a file");
+  printf ("%-20s %s\n", "head-n", "return first N lines of a file");
   printf ("%-20s %s\n", "hexdump", "dump a file in hexadecimal");
   printf ("%-20s %s\n", "is-busy", "is busy processing a command");
   printf ("%-20s %s\n", "is-config", "is in configuration state");
@@ -151,6 +153,8 @@ void list_commands (void)
   printf ("%-20s %s\n", "strings", "print the printable strings in a file");
   printf ("%-20s %s\n", "strings-e", "print the printable strings in a file");
   printf ("%-20s %s\n", "sync", "sync disks, writes are flushed through to the disk image");
+  printf ("%-20s %s\n", "tail", "return last 10 lines of a file");
+  printf ("%-20s %s\n", "tail-n", "return last N lines of a file");
   printf ("%-20s %s\n", "tar-in", "unpack tarfile to directory");
   printf ("%-20s %s\n", "tar-out", "pack directory into tarfile");
   printf ("%-20s %s\n", "tgz-in", "unpack compressed tarball to directory");
@@ -535,7 +539,7 @@ void display_command (const char *cmd)
     pod2text ("pvresize - resize an LVM physical volume", " pvresize <device>\n\nThis resizes (expands or shrinks) an existing LVM physical\nvolume to match the new size of the underlying device.");
   else
   if (strcasecmp (cmd, "sfdisk_N") == 0 || strcasecmp (cmd, "sfdisk-N") == 0)
-    pod2text ("sfdisk-N - modify a single partition on a block device", " sfdisk-N <device> <n> <cyls> <heads> <sectors> <line>\n\nThis runs L<sfdisk(8)> option to modify just the single\npartition C<n> (note: C<n> counts from 1).\n\nFor other parameters, see C<sfdisk>.  You should usually\npass C<0> for the cyls/heads/sectors parameters.\n\nB<This command is dangerous.  Without careful use you\ncan easily destroy all your data>.");
+    pod2text ("sfdisk-N - modify a single partition on a block device", " sfdisk-N <device> <partnum> <cyls> <heads> <sectors> <line>\n\nThis runs L<sfdisk(8)> option to modify just the single\npartition C<n> (note: C<n> counts from 1).\n\nFor other parameters, see C<sfdisk>.  You should usually\npass C<0> for the cyls/heads/sectors parameters.\n\nB<This command is dangerous.  Without careful use you\ncan easily destroy all your data>.");
   else
   if (strcasecmp (cmd, "sfdisk_l") == 0 || strcasecmp (cmd, "sfdisk-l") == 0)
     pod2text ("sfdisk-l - display the partition table", " sfdisk-l <device>\n\nThis displays the partition table on C<device>, in the\nhuman-readable output of the L<sfdisk(8)> command.  It is\nnot intended to be parsed.");
@@ -599,6 +603,18 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "wc_c") == 0 || strcasecmp (cmd, "wc-c") == 0)
     pod2text ("wc-c - count characters in a file", " wc-c <path>\n\nThis command counts the characters in a file, using the\nC<wc -c> external command.");
+  else
+  if (strcasecmp (cmd, "head") == 0)
+    pod2text ("head - return first 10 lines of a file", " head <path>\n\nThis command returns up to the first 10 lines of a file as\na list of strings.\n\nBecause of the message protocol, there is a transfer limit \nof somewhere between 2MB and 4MB.  To transfer large files you should use\nFTP.");
+  else
+  if (strcasecmp (cmd, "head_n") == 0 || strcasecmp (cmd, "head-n") == 0)
+    pod2text ("head-n - return first N lines of a file", " head-n <nrlines> <path>\n\nIf the parameter C<nrlines> is a positive number, this returns the first\nC<nrlines> lines of the file C<path>.\n\nIf the parameter C<nrlines> is a negative number, this returns lines\nfrom the file C<path>, excluding the last C<nrlines> lines.\n\nIf the parameter C<nrlines> is zero, this returns an empty list.\n\nBecause of the message protocol, there is a transfer limit \nof somewhere between 2MB and 4MB.  To transfer large files you should use\nFTP.");
+  else
+  if (strcasecmp (cmd, "tail") == 0)
+    pod2text ("tail - return last 10 lines of a file", " tail <path>\n\nThis command returns up to the last 10 lines of a file as\na list of strings.\n\nBecause of the message protocol, there is a transfer limit \nof somewhere between 2MB and 4MB.  To transfer large files you should use\nFTP.");
+  else
+  if (strcasecmp (cmd, "tail_n") == 0 || strcasecmp (cmd, "tail-n") == 0)
+    pod2text ("tail-n - return last N lines of a file", " tail-n <nrlines> <path>\n\nIf the parameter C<nrlines> is a positive number, this returns the last\nC<nrlines> lines of the file C<path>.\n\nIf the parameter C<nrlines> is a negative number, this returns lines\nfrom the file C<path>, starting with the C<-nrlines>th line.\n\nIf the parameter C<nrlines> is zero, this returns an empty list.\n\nBecause of the message protocol, there is a transfer limit \nof somewhere between 2MB and 4MB.  To transfer large files you should use\nFTP.");
   else
     display_builtin_command (cmd);
 }
@@ -2584,7 +2600,7 @@ static int run_sfdisk_N (const char *cmd, int argc, char *argv[])
 {
   int r;
   const char *device;
-  int n;
+  int partnum;
   int cyls;
   int heads;
   int sectors;
@@ -2595,12 +2611,12 @@ static int run_sfdisk_N (const char *cmd, int argc, char *argv[])
     return -1;
   }
   device = argv[0];
-  n = atoi (argv[1]);
+  partnum = atoi (argv[1]);
   cyls = atoi (argv[2]);
   heads = atoi (argv[3]);
   sectors = atoi (argv[4]);
   line = argv[5];
-  r = guestfs_sfdisk_N (g, device, n, cyls, heads, sectors, line);
+  r = guestfs_sfdisk_N (g, device, partnum, cyls, heads, sectors, line);
   return r;
 }
 
@@ -2933,6 +2949,78 @@ static int run_wc_c (const char *cmd, int argc, char *argv[])
   r = guestfs_wc_c (g, path);
   if (r == -1) return -1;
   printf ("%d\n", r);
+  return 0;
+}
+
+static int run_head (const char *cmd, int argc, char *argv[])
+{
+  char **r;
+  const char *path;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  path = argv[0];
+  r = guestfs_head (g, path);
+  if (r == NULL) return -1;
+  print_strings (r);
+  free_strings (r);
+  return 0;
+}
+
+static int run_head_n (const char *cmd, int argc, char *argv[])
+{
+  char **r;
+  int nrlines;
+  const char *path;
+  if (argc != 2) {
+    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  nrlines = atoi (argv[0]);
+  path = argv[1];
+  r = guestfs_head_n (g, nrlines, path);
+  if (r == NULL) return -1;
+  print_strings (r);
+  free_strings (r);
+  return 0;
+}
+
+static int run_tail (const char *cmd, int argc, char *argv[])
+{
+  char **r;
+  const char *path;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  path = argv[0];
+  r = guestfs_tail (g, path);
+  if (r == NULL) return -1;
+  print_strings (r);
+  free_strings (r);
+  return 0;
+}
+
+static int run_tail_n (const char *cmd, int argc, char *argv[])
+{
+  char **r;
+  int nrlines;
+  const char *path;
+  if (argc != 2) {
+    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  nrlines = atoi (argv[0]);
+  path = argv[1];
+  r = guestfs_tail_n (g, nrlines, path);
+  if (r == NULL) return -1;
+  print_strings (r);
+  free_strings (r);
   return 0;
 }
 
@@ -3360,6 +3448,18 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "wc_c") == 0 || strcasecmp (cmd, "wc-c") == 0)
     return run_wc_c (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "head") == 0)
+    return run_head (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "head_n") == 0 || strcasecmp (cmd, "head-n") == 0)
+    return run_head_n (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "tail") == 0)
+    return run_tail (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "tail_n") == 0 || strcasecmp (cmd, "tail-n") == 0)
+    return run_tail_n (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

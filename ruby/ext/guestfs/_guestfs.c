@@ -3869,7 +3869,7 @@ static VALUE ruby_guestfs_pvresize (VALUE gv, VALUE devicev)
   return Qnil;
 }
 
-static VALUE ruby_guestfs_sfdisk_N (VALUE gv, VALUE devicev, VALUE nv, VALUE cylsv, VALUE headsv, VALUE sectorsv, VALUE linev)
+static VALUE ruby_guestfs_sfdisk_N (VALUE gv, VALUE devicev, VALUE partnumv, VALUE cylsv, VALUE headsv, VALUE sectorsv, VALUE linev)
 {
   guestfs_h *g;
   Data_Get_Struct (gv, guestfs_h, g);
@@ -3881,7 +3881,7 @@ static VALUE ruby_guestfs_sfdisk_N (VALUE gv, VALUE devicev, VALUE nv, VALUE cyl
   if (!device)
     rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
               "device", "sfdisk_N");
-  int n = NUM2INT (nv);
+  int partnum = NUM2INT (partnumv);
   int cyls = NUM2INT (cylsv);
   int heads = NUM2INT (headsv);
   int sectors = NUM2INT (sectorsv);
@@ -3893,7 +3893,7 @@ static VALUE ruby_guestfs_sfdisk_N (VALUE gv, VALUE devicev, VALUE nv, VALUE cyl
 
   int r;
 
-  r = guestfs_sfdisk_N (g, device, n, cyls, heads, sectors, line);
+  r = guestfs_sfdisk_N (g, device, partnum, cyls, heads, sectors, line);
   if (r == -1)
     rb_raise (e_Error, "%s", guestfs_last_error (g));
 
@@ -4399,6 +4399,128 @@ static VALUE ruby_guestfs_wc_c (VALUE gv, VALUE pathv)
   return INT2NUM (r);
 }
 
+static VALUE ruby_guestfs_head (VALUE gv, VALUE pathv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "head");
+
+  Check_Type (pathv, T_STRING);
+  const char *path = StringValueCStr (pathv);
+  if (!path)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "path", "head");
+
+  char **r;
+
+  r = guestfs_head (g, path);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  int i, len = 0;
+  for (i = 0; r[i] != NULL; ++i) len++;
+  VALUE rv = rb_ary_new2 (len);
+  for (i = 0; r[i] != NULL; ++i) {
+    rb_ary_push (rv, rb_str_new2 (r[i]));
+    free (r[i]);
+  }
+  free (r);
+  return rv;
+}
+
+static VALUE ruby_guestfs_head_n (VALUE gv, VALUE nrlinesv, VALUE pathv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "head_n");
+
+  int nrlines = NUM2INT (nrlinesv);
+  Check_Type (pathv, T_STRING);
+  const char *path = StringValueCStr (pathv);
+  if (!path)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "path", "head_n");
+
+  char **r;
+
+  r = guestfs_head_n (g, nrlines, path);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  int i, len = 0;
+  for (i = 0; r[i] != NULL; ++i) len++;
+  VALUE rv = rb_ary_new2 (len);
+  for (i = 0; r[i] != NULL; ++i) {
+    rb_ary_push (rv, rb_str_new2 (r[i]));
+    free (r[i]);
+  }
+  free (r);
+  return rv;
+}
+
+static VALUE ruby_guestfs_tail (VALUE gv, VALUE pathv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "tail");
+
+  Check_Type (pathv, T_STRING);
+  const char *path = StringValueCStr (pathv);
+  if (!path)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "path", "tail");
+
+  char **r;
+
+  r = guestfs_tail (g, path);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  int i, len = 0;
+  for (i = 0; r[i] != NULL; ++i) len++;
+  VALUE rv = rb_ary_new2 (len);
+  for (i = 0; r[i] != NULL; ++i) {
+    rb_ary_push (rv, rb_str_new2 (r[i]));
+    free (r[i]);
+  }
+  free (r);
+  return rv;
+}
+
+static VALUE ruby_guestfs_tail_n (VALUE gv, VALUE nrlinesv, VALUE pathv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "tail_n");
+
+  int nrlines = NUM2INT (nrlinesv);
+  Check_Type (pathv, T_STRING);
+  const char *path = StringValueCStr (pathv);
+  if (!path)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "path", "tail_n");
+
+  char **r;
+
+  r = guestfs_tail_n (g, nrlines, path);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  int i, len = 0;
+  for (i = 0; r[i] != NULL; ++i) len++;
+  VALUE rv = rb_ary_new2 (len);
+  for (i = 0; r[i] != NULL; ++i) {
+    rb_ary_push (rv, rb_str_new2 (r[i]));
+    free (r[i]);
+  }
+  free (r);
+  return rv;
+}
+
 /* Initialize the module. */
 void Init__guestfs ()
 {
@@ -4753,4 +4875,12 @@ void Init__guestfs ()
         ruby_guestfs_wc_w, 1);
   rb_define_method (c_guestfs, "wc_c",
         ruby_guestfs_wc_c, 1);
+  rb_define_method (c_guestfs, "head",
+        ruby_guestfs_head, 1);
+  rb_define_method (c_guestfs, "head_n",
+        ruby_guestfs_head_n, 2);
+  rb_define_method (c_guestfs, "tail",
+        ruby_guestfs_tail, 1);
+  rb_define_method (c_guestfs, "tail_n",
+        ruby_guestfs_tail_n, 2);
 }

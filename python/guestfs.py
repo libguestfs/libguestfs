@@ -1478,7 +1478,7 @@ class GuestFS:
         """
         return libguestfsmod.pvresize (self._o, device)
 
-    def sfdisk_N (self, device, n, cyls, heads, sectors, line):
+    def sfdisk_N (self, device, partnum, cyls, heads, sectors, line):
         u"""This runs sfdisk(8) option to modify just the single
         partition "n" (note: "n" counts from 1).
         
@@ -1488,7 +1488,7 @@ class GuestFS:
         This command is dangerous. Without careful use you can
         easily destroy all your data.
         """
-        return libguestfsmod.sfdisk_N (self._o, device, n, cyls, heads, sectors, line)
+        return libguestfsmod.sfdisk_N (self._o, device, partnum, cyls, heads, sectors, line)
 
     def sfdisk_l (self, device):
         u"""This displays the partition table on "device", in the
@@ -1744,4 +1744,66 @@ class GuestFS:
         "wc -c" external command.
         """
         return libguestfsmod.wc_c (self._o, path)
+
+    def head (self, path):
+        u"""This command returns up to the first 10 lines of a file
+        as a list of strings.
+        
+        This function returns a list of strings.
+        
+        Because of the message protocol, there is a transfer
+        limit of somewhere between 2MB and 4MB. To transfer
+        large files you should use FTP.
+        """
+        return libguestfsmod.head (self._o, path)
+
+    def head_n (self, nrlines, path):
+        u"""If the parameter "nrlines" is a positive number, this
+        returns the first "nrlines" lines of the file "path".
+        
+        If the parameter "nrlines" is a negative number, this
+        returns lines from the file "path", excluding the last
+        "nrlines" lines.
+        
+        If the parameter "nrlines" is zero, this returns an
+        empty list.
+        
+        This function returns a list of strings.
+        
+        Because of the message protocol, there is a transfer
+        limit of somewhere between 2MB and 4MB. To transfer
+        large files you should use FTP.
+        """
+        return libguestfsmod.head_n (self._o, nrlines, path)
+
+    def tail (self, path):
+        u"""This command returns up to the last 10 lines of a file
+        as a list of strings.
+        
+        This function returns a list of strings.
+        
+        Because of the message protocol, there is a transfer
+        limit of somewhere between 2MB and 4MB. To transfer
+        large files you should use FTP.
+        """
+        return libguestfsmod.tail (self._o, path)
+
+    def tail_n (self, nrlines, path):
+        u"""If the parameter "nrlines" is a positive number, this
+        returns the last "nrlines" lines of the file "path".
+        
+        If the parameter "nrlines" is a negative number, this
+        returns lines from the file "path", starting with the
+        "-nrlines"th line.
+        
+        If the parameter "nrlines" is zero, this returns an
+        empty list.
+        
+        This function returns a list of strings.
+        
+        Because of the message protocol, there is a transfer
+        limit of somewhere between 2MB and 4MB. To transfer
+        large files you should use FTP.
+        """
+        return libguestfsmod.tail_n (self._o, nrlines, path)
 

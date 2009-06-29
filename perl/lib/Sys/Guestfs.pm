@@ -694,6 +694,29 @@ See that manual page for more details.
 This command installs GRUB (the Grand Unified Bootloader) on
 C<device>, with the root directory being C<root>.
 
+=item @lines = $h->head ($path);
+
+This command returns up to the first 10 lines of a file as
+a list of strings.
+
+Because of the message protocol, there is a transfer limit 
+of somewhere between 2MB and 4MB.  To transfer large files you should use
+FTP.
+
+=item @lines = $h->head_n ($nrlines, $path);
+
+If the parameter C<nrlines> is a positive number, this returns the first
+C<nrlines> lines of the file C<path>.
+
+If the parameter C<nrlines> is a negative number, this returns lines
+from the file C<path>, excluding the last C<nrlines> lines.
+
+If the parameter C<nrlines> is zero, this returns an empty list.
+
+Because of the message protocol, there is a transfer limit 
+of somewhere between 2MB and 4MB.  To transfer large files you should use
+FTP.
+
 =item $dump = $h->hexdump ($path);
 
 This runs C<hexdump -C> on the given C<path>.  The result is
@@ -1161,7 +1184,7 @@ See also: C<$h-E<gt>sfdisk_l>, C<$h-E<gt>sfdisk_N>
 B<This command is dangerous.  Without careful use you
 can easily destroy all your data>.
 
-=item $h->sfdisk_N ($device, $n, $cyls, $heads, $sectors, $line);
+=item $h->sfdisk_N ($device, $partnum, $cyls, $heads, $sectors, $line);
 
 This runs L<sfdisk(8)> option to modify just the single
 partition C<n> (note: C<n> counts from 1).
@@ -1267,6 +1290,29 @@ underlying disk image.
 
 You should always call this if you have modified a disk image, before
 closing the handle.
+
+=item @lines = $h->tail ($path);
+
+This command returns up to the last 10 lines of a file as
+a list of strings.
+
+Because of the message protocol, there is a transfer limit 
+of somewhere between 2MB and 4MB.  To transfer large files you should use
+FTP.
+
+=item @lines = $h->tail_n ($nrlines, $path);
+
+If the parameter C<nrlines> is a positive number, this returns the last
+C<nrlines> lines of the file C<path>.
+
+If the parameter C<nrlines> is a negative number, this returns lines
+from the file C<path>, starting with the C<-nrlines>th line.
+
+If the parameter C<nrlines> is zero, this returns an empty list.
+
+Because of the message protocol, there is a transfer limit 
+of somewhere between 2MB and 4MB.  To transfer large files you should use
+FTP.
 
 =item $h->tar_in ($tarfile, $directory);
 

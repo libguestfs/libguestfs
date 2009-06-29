@@ -3901,9 +3901,9 @@ ocaml_guestfs_pvresize (value gv, value devicev)
 }
 
 CAMLprim value
-ocaml_guestfs_sfdisk_N (value gv, value devicev, value nv, value cylsv, value headsv, value sectorsv, value linev)
+ocaml_guestfs_sfdisk_N (value gv, value devicev, value partnumv, value cylsv, value headsv, value sectorsv, value linev)
 {
-  CAMLparam5 (gv, devicev, nv, cylsv, headsv);
+  CAMLparam5 (gv, devicev, partnumv, cylsv, headsv);
   CAMLxparam2 (sectorsv, linev);
   CAMLlocal1 (rv);
 
@@ -3912,7 +3912,7 @@ ocaml_guestfs_sfdisk_N (value gv, value devicev, value nv, value cylsv, value he
     caml_failwith ("sfdisk_N: used handle after closing it");
 
   const char *device = String_val (devicev);
-  int n = Int_val (nv);
+  int partnum = Int_val (partnumv);
   int cyls = Int_val (cylsv);
   int heads = Int_val (headsv);
   int sectors = Int_val (sectorsv);
@@ -3920,7 +3920,7 @@ ocaml_guestfs_sfdisk_N (value gv, value devicev, value nv, value cylsv, value he
   int r;
 
   caml_enter_blocking_section ();
-  r = guestfs_sfdisk_N (g, device, n, cyls, heads, sectors, line);
+  r = guestfs_sfdisk_N (g, device, partnum, cyls, heads, sectors, line);
   caml_leave_blocking_section ();
   if (r == -1)
     ocaml_guestfs_raise_error (g, "sfdisk_N");
@@ -4433,6 +4433,112 @@ ocaml_guestfs_wc_c (value gv, value pathv)
     ocaml_guestfs_raise_error (g, "wc_c");
 
   rv = Val_int (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_head (value gv, value pathv)
+{
+  CAMLparam2 (gv, pathv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("head: used handle after closing it");
+
+  const char *path = String_val (pathv);
+  int i;
+  char **r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_head (g, path);
+  caml_leave_blocking_section ();
+  if (r == NULL)
+    ocaml_guestfs_raise_error (g, "head");
+
+  rv = caml_copy_string_array ((const char **) r);
+  for (i = 0; r[i] != NULL; ++i) free (r[i]);
+  free (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_head_n (value gv, value nrlinesv, value pathv)
+{
+  CAMLparam3 (gv, nrlinesv, pathv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("head_n: used handle after closing it");
+
+  int nrlines = Int_val (nrlinesv);
+  const char *path = String_val (pathv);
+  int i;
+  char **r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_head_n (g, nrlines, path);
+  caml_leave_blocking_section ();
+  if (r == NULL)
+    ocaml_guestfs_raise_error (g, "head_n");
+
+  rv = caml_copy_string_array ((const char **) r);
+  for (i = 0; r[i] != NULL; ++i) free (r[i]);
+  free (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_tail (value gv, value pathv)
+{
+  CAMLparam2 (gv, pathv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("tail: used handle after closing it");
+
+  const char *path = String_val (pathv);
+  int i;
+  char **r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_tail (g, path);
+  caml_leave_blocking_section ();
+  if (r == NULL)
+    ocaml_guestfs_raise_error (g, "tail");
+
+  rv = caml_copy_string_array ((const char **) r);
+  for (i = 0; r[i] != NULL; ++i) free (r[i]);
+  free (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_tail_n (value gv, value nrlinesv, value pathv)
+{
+  CAMLparam3 (gv, nrlinesv, pathv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("tail_n: used handle after closing it");
+
+  int nrlines = Int_val (nrlinesv);
+  const char *path = String_val (pathv);
+  int i;
+  char **r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_tail_n (g, nrlines, path);
+  caml_leave_blocking_section ();
+  if (r == NULL)
+    ocaml_guestfs_raise_error (g, "tail_n");
+
+  rv = caml_copy_string_array ((const char **) r);
+  for (i = 0; r[i] != NULL; ++i) free (r[i]);
+  free (r);
   CAMLreturn (rv);
 }
 

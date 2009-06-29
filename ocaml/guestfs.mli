@@ -640,3 +640,15 @@ val wc_w : t -> string -> int
 val wc_c : t -> string -> int
 (** count characters in a file *)
 
+val head : t -> string -> string array
+(** return first 10 lines of a file *)
+
+val head_n : t -> int -> string -> string array
+(** return first N lines of a file *)
+
+val tail : t -> string -> string array
+(** return last 10 lines of a file *)
+
+val tail_n : t -> int -> string -> string array
+(** return last N lines of a file *)
+

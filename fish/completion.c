@@ -187,6 +187,10 @@ static const char *const commands[] = {
   "wc-l",
   "wc-w",
   "wc-c",
+  "head",
+  "head-n",
+  "tail",
+  "tail-n",
   NULL
 };
 

@@ -153,6 +153,1246 @@ static void no_test_warnings (void)
   fprintf (stderr, "warning: \"guestfs_scrub_freespace\" has no tests\n");
 }
 
+static int test_tail_n_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "tail_n") == NULL;
+  str = getenv ("SKIP_TEST_TAIL_N_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_TAIL_N");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
+static int test_tail_n_0 (void)
+{
+  if (test_tail_n_0_skip ()) {
+    printf ("%s skipped (reason: environment variable set)\n", "test_tail_n_0");
+    return 0;
+  }
+
+  /* InitBasicFS for test_tail_n_0: create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputList for tail_n (0) */
+  {
+    char options[] = "ro";
+    char vfstype[] = "squashfs";
+    char device[] = "/dev/sdd";
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount_vfs (g, options, vfstype, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/10klines";
+    char **r;
+    int i;
+    suppress_error = 0;
+    r = guestfs_tail_n (g, 3, path);
+    if (r == NULL)
+      return -1;
+    if (!r[0]) {
+      fprintf (stderr, "test_tail_n_0: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "9997abcdefghijklmnopqrstuvwxyz";
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_tail_n_0: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
+    }
+    if (!r[1]) {
+      fprintf (stderr, "test_tail_n_0: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "9998abcdefghijklmnopqrstuvwxyz";
+      if (strcmp (r[1], expected) != 0) {
+        fprintf (stderr, "test_tail_n_0: expected \"%s\" but got \"%s\"\n", expected, r[1]);
+        return -1;
+      }
+    }
+    if (!r[2]) {
+      fprintf (stderr, "test_tail_n_0: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "9999abcdefghijklmnopqrstuvwxyz";
+      if (strcmp (r[2], expected) != 0) {
+        fprintf (stderr, "test_tail_n_0: expected \"%s\" but got \"%s\"\n", expected, r[2]);
+        return -1;
+      }
+    }
+    if (r[3] != NULL) {
+      fprintf (stderr, "test_tail_n_0: extra elements returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    for (i = 0; r[i] != NULL; ++i)
+      free (r[i]);
+    free (r);
+  }
+  return 0;
+}
+
+static int test_tail_n_1_skip (void)
+{
+  const char *str;
+
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "tail_n") == NULL;
+  str = getenv ("SKIP_TEST_TAIL_N_1");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_TAIL_N");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
+static int test_tail_n_1 (void)
+{
+  if (test_tail_n_1_skip ()) {
+    printf ("%s skipped (reason: environment variable set)\n", "test_tail_n_1");
+    return 0;
+  }
+
+  /* InitBasicFS for test_tail_n_1: create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputList for tail_n (1) */
+  {
+    char options[] = "ro";
+    char vfstype[] = "squashfs";
+    char device[] = "/dev/sdd";
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount_vfs (g, options, vfstype, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/10klines";
+    char **r;
+    int i;
+    suppress_error = 0;
+    r = guestfs_tail_n (g, -9998, path);
+    if (r == NULL)
+      return -1;
+    if (!r[0]) {
+      fprintf (stderr, "test_tail_n_1: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "9997abcdefghijklmnopqrstuvwxyz";
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_tail_n_1: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
+    }
+    if (!r[1]) {
+      fprintf (stderr, "test_tail_n_1: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "9998abcdefghijklmnopqrstuvwxyz";
+      if (strcmp (r[1], expected) != 0) {
+        fprintf (stderr, "test_tail_n_1: expected \"%s\" but got \"%s\"\n", expected, r[1]);
+        return -1;
+      }
+    }
+    if (!r[2]) {
+      fprintf (stderr, "test_tail_n_1: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "9999abcdefghijklmnopqrstuvwxyz";
+      if (strcmp (r[2], expected) != 0) {
+        fprintf (stderr, "test_tail_n_1: expected \"%s\" but got \"%s\"\n", expected, r[2]);
+        return -1;
+      }
+    }
+    if (r[3] != NULL) {
+      fprintf (stderr, "test_tail_n_1: extra elements returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    for (i = 0; r[i] != NULL; ++i)
+      free (r[i]);
+    free (r);
+  }
+  return 0;
+}
+
+static int test_tail_n_2_skip (void)
+{
+  const char *str;
+
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "tail_n") == NULL;
+  str = getenv ("SKIP_TEST_TAIL_N_2");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_TAIL_N");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
+static int test_tail_n_2 (void)
+{
+  if (test_tail_n_2_skip ()) {
+    printf ("%s skipped (reason: environment variable set)\n", "test_tail_n_2");
+    return 0;
+  }
+
+  /* InitBasicFS for test_tail_n_2: create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputList for tail_n (2) */
+  {
+    char options[] = "ro";
+    char vfstype[] = "squashfs";
+    char device[] = "/dev/sdd";
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount_vfs (g, options, vfstype, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/10klines";
+    char **r;
+    int i;
+    suppress_error = 0;
+    r = guestfs_tail_n (g, 0, path);
+    if (r == NULL)
+      return -1;
+    if (r[0] != NULL) {
+      fprintf (stderr, "test_tail_n_2: extra elements returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    for (i = 0; r[i] != NULL; ++i)
+      free (r[i]);
+    free (r);
+  }
+  return 0;
+}
+
+static int test_tail_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "tail") == NULL;
+  str = getenv ("SKIP_TEST_TAIL_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_TAIL");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
+static int test_tail_0 (void)
+{
+  if (test_tail_0_skip ()) {
+    printf ("%s skipped (reason: environment variable set)\n", "test_tail_0");
+    return 0;
+  }
+
+  /* InitBasicFS for test_tail_0: create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputList for tail (0) */
+  {
+    char options[] = "ro";
+    char vfstype[] = "squashfs";
+    char device[] = "/dev/sdd";
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount_vfs (g, options, vfstype, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/10klines";
+    char **r;
+    int i;
+    suppress_error = 0;
+    r = guestfs_tail (g, path);
+    if (r == NULL)
+      return -1;
+    if (!r[0]) {
+      fprintf (stderr, "test_tail_0: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "9990abcdefghijklmnopqrstuvwxyz";
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_tail_0: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
+    }
+    if (!r[1]) {
+      fprintf (stderr, "test_tail_0: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "9991abcdefghijklmnopqrstuvwxyz";
+      if (strcmp (r[1], expected) != 0) {
+        fprintf (stderr, "test_tail_0: expected \"%s\" but got \"%s\"\n", expected, r[1]);
+        return -1;
+      }
+    }
+    if (!r[2]) {
+      fprintf (stderr, "test_tail_0: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "9992abcdefghijklmnopqrstuvwxyz";
+      if (strcmp (r[2], expected) != 0) {
+        fprintf (stderr, "test_tail_0: expected \"%s\" but got \"%s\"\n", expected, r[2]);
+        return -1;
+      }
+    }
+    if (!r[3]) {
+      fprintf (stderr, "test_tail_0: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "9993abcdefghijklmnopqrstuvwxyz";
+      if (strcmp (r[3], expected) != 0) {
+        fprintf (stderr, "test_tail_0: expected \"%s\" but got \"%s\"\n", expected, r[3]);
+        return -1;
+      }
+    }
+    if (!r[4]) {
+      fprintf (stderr, "test_tail_0: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "9994abcdefghijklmnopqrstuvwxyz";
+      if (strcmp (r[4], expected) != 0) {
+        fprintf (stderr, "test_tail_0: expected \"%s\" but got \"%s\"\n", expected, r[4]);
+        return -1;
+      }
+    }
+    if (!r[5]) {
+      fprintf (stderr, "test_tail_0: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "9995abcdefghijklmnopqrstuvwxyz";
+      if (strcmp (r[5], expected) != 0) {
+        fprintf (stderr, "test_tail_0: expected \"%s\" but got \"%s\"\n", expected, r[5]);
+        return -1;
+      }
+    }
+    if (!r[6]) {
+      fprintf (stderr, "test_tail_0: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "9996abcdefghijklmnopqrstuvwxyz";
+      if (strcmp (r[6], expected) != 0) {
+        fprintf (stderr, "test_tail_0: expected \"%s\" but got \"%s\"\n", expected, r[6]);
+        return -1;
+      }
+    }
+    if (!r[7]) {
+      fprintf (stderr, "test_tail_0: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "9997abcdefghijklmnopqrstuvwxyz";
+      if (strcmp (r[7], expected) != 0) {
+        fprintf (stderr, "test_tail_0: expected \"%s\" but got \"%s\"\n", expected, r[7]);
+        return -1;
+      }
+    }
+    if (!r[8]) {
+      fprintf (stderr, "test_tail_0: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "9998abcdefghijklmnopqrstuvwxyz";
+      if (strcmp (r[8], expected) != 0) {
+        fprintf (stderr, "test_tail_0: expected \"%s\" but got \"%s\"\n", expected, r[8]);
+        return -1;
+      }
+    }
+    if (!r[9]) {
+      fprintf (stderr, "test_tail_0: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "9999abcdefghijklmnopqrstuvwxyz";
+      if (strcmp (r[9], expected) != 0) {
+        fprintf (stderr, "test_tail_0: expected \"%s\" but got \"%s\"\n", expected, r[9]);
+        return -1;
+      }
+    }
+    if (r[10] != NULL) {
+      fprintf (stderr, "test_tail_0: extra elements returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    for (i = 0; r[i] != NULL; ++i)
+      free (r[i]);
+    free (r);
+  }
+  return 0;
+}
+
+static int test_head_n_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "head_n") == NULL;
+  str = getenv ("SKIP_TEST_HEAD_N_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_HEAD_N");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
+static int test_head_n_0 (void)
+{
+  if (test_head_n_0_skip ()) {
+    printf ("%s skipped (reason: environment variable set)\n", "test_head_n_0");
+    return 0;
+  }
+
+  /* InitBasicFS for test_head_n_0: create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputList for head_n (0) */
+  {
+    char options[] = "ro";
+    char vfstype[] = "squashfs";
+    char device[] = "/dev/sdd";
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount_vfs (g, options, vfstype, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/10klines";
+    char **r;
+    int i;
+    suppress_error = 0;
+    r = guestfs_head_n (g, 3, path);
+    if (r == NULL)
+      return -1;
+    if (!r[0]) {
+      fprintf (stderr, "test_head_n_0: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "0abcdefghijklmnopqrstuvwxyz";
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_head_n_0: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
+    }
+    if (!r[1]) {
+      fprintf (stderr, "test_head_n_0: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "1abcdefghijklmnopqrstuvwxyz";
+      if (strcmp (r[1], expected) != 0) {
+        fprintf (stderr, "test_head_n_0: expected \"%s\" but got \"%s\"\n", expected, r[1]);
+        return -1;
+      }
+    }
+    if (!r[2]) {
+      fprintf (stderr, "test_head_n_0: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "2abcdefghijklmnopqrstuvwxyz";
+      if (strcmp (r[2], expected) != 0) {
+        fprintf (stderr, "test_head_n_0: expected \"%s\" but got \"%s\"\n", expected, r[2]);
+        return -1;
+      }
+    }
+    if (r[3] != NULL) {
+      fprintf (stderr, "test_head_n_0: extra elements returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    for (i = 0; r[i] != NULL; ++i)
+      free (r[i]);
+    free (r);
+  }
+  return 0;
+}
+
+static int test_head_n_1_skip (void)
+{
+  const char *str;
+
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "head_n") == NULL;
+  str = getenv ("SKIP_TEST_HEAD_N_1");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_HEAD_N");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
+static int test_head_n_1 (void)
+{
+  if (test_head_n_1_skip ()) {
+    printf ("%s skipped (reason: environment variable set)\n", "test_head_n_1");
+    return 0;
+  }
+
+  /* InitBasicFS for test_head_n_1: create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputList for head_n (1) */
+  {
+    char options[] = "ro";
+    char vfstype[] = "squashfs";
+    char device[] = "/dev/sdd";
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount_vfs (g, options, vfstype, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/10klines";
+    char **r;
+    int i;
+    suppress_error = 0;
+    r = guestfs_head_n (g, -9997, path);
+    if (r == NULL)
+      return -1;
+    if (!r[0]) {
+      fprintf (stderr, "test_head_n_1: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "0abcdefghijklmnopqrstuvwxyz";
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_head_n_1: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
+    }
+    if (!r[1]) {
+      fprintf (stderr, "test_head_n_1: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "1abcdefghijklmnopqrstuvwxyz";
+      if (strcmp (r[1], expected) != 0) {
+        fprintf (stderr, "test_head_n_1: expected \"%s\" but got \"%s\"\n", expected, r[1]);
+        return -1;
+      }
+    }
+    if (!r[2]) {
+      fprintf (stderr, "test_head_n_1: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "2abcdefghijklmnopqrstuvwxyz";
+      if (strcmp (r[2], expected) != 0) {
+        fprintf (stderr, "test_head_n_1: expected \"%s\" but got \"%s\"\n", expected, r[2]);
+        return -1;
+      }
+    }
+    if (r[3] != NULL) {
+      fprintf (stderr, "test_head_n_1: extra elements returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    for (i = 0; r[i] != NULL; ++i)
+      free (r[i]);
+    free (r);
+  }
+  return 0;
+}
+
+static int test_head_n_2_skip (void)
+{
+  const char *str;
+
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "head_n") == NULL;
+  str = getenv ("SKIP_TEST_HEAD_N_2");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_HEAD_N");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
+static int test_head_n_2 (void)
+{
+  if (test_head_n_2_skip ()) {
+    printf ("%s skipped (reason: environment variable set)\n", "test_head_n_2");
+    return 0;
+  }
+
+  /* InitBasicFS for test_head_n_2: create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputList for head_n (2) */
+  {
+    char options[] = "ro";
+    char vfstype[] = "squashfs";
+    char device[] = "/dev/sdd";
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount_vfs (g, options, vfstype, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/10klines";
+    char **r;
+    int i;
+    suppress_error = 0;
+    r = guestfs_head_n (g, 0, path);
+    if (r == NULL)
+      return -1;
+    if (r[0] != NULL) {
+      fprintf (stderr, "test_head_n_2: extra elements returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    for (i = 0; r[i] != NULL; ++i)
+      free (r[i]);
+    free (r);
+  }
+  return 0;
+}
+
+static int test_head_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "head") == NULL;
+  str = getenv ("SKIP_TEST_HEAD_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_HEAD");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
+static int test_head_0 (void)
+{
+  if (test_head_0_skip ()) {
+    printf ("%s skipped (reason: environment variable set)\n", "test_head_0");
+    return 0;
+  }
+
+  /* InitBasicFS for test_head_0: create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputList for head (0) */
+  {
+    char options[] = "ro";
+    char vfstype[] = "squashfs";
+    char device[] = "/dev/sdd";
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount_vfs (g, options, vfstype, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/10klines";
+    char **r;
+    int i;
+    suppress_error = 0;
+    r = guestfs_head (g, path);
+    if (r == NULL)
+      return -1;
+    if (!r[0]) {
+      fprintf (stderr, "test_head_0: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "0abcdefghijklmnopqrstuvwxyz";
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_head_0: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
+    }
+    if (!r[1]) {
+      fprintf (stderr, "test_head_0: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "1abcdefghijklmnopqrstuvwxyz";
+      if (strcmp (r[1], expected) != 0) {
+        fprintf (stderr, "test_head_0: expected \"%s\" but got \"%s\"\n", expected, r[1]);
+        return -1;
+      }
+    }
+    if (!r[2]) {
+      fprintf (stderr, "test_head_0: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "2abcdefghijklmnopqrstuvwxyz";
+      if (strcmp (r[2], expected) != 0) {
+        fprintf (stderr, "test_head_0: expected \"%s\" but got \"%s\"\n", expected, r[2]);
+        return -1;
+      }
+    }
+    if (!r[3]) {
+      fprintf (stderr, "test_head_0: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "3abcdefghijklmnopqrstuvwxyz";
+      if (strcmp (r[3], expected) != 0) {
+        fprintf (stderr, "test_head_0: expected \"%s\" but got \"%s\"\n", expected, r[3]);
+        return -1;
+      }
+    }
+    if (!r[4]) {
+      fprintf (stderr, "test_head_0: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "4abcdefghijklmnopqrstuvwxyz";
+      if (strcmp (r[4], expected) != 0) {
+        fprintf (stderr, "test_head_0: expected \"%s\" but got \"%s\"\n", expected, r[4]);
+        return -1;
+      }
+    }
+    if (!r[5]) {
+      fprintf (stderr, "test_head_0: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "5abcdefghijklmnopqrstuvwxyz";
+      if (strcmp (r[5], expected) != 0) {
+        fprintf (stderr, "test_head_0: expected \"%s\" but got \"%s\"\n", expected, r[5]);
+        return -1;
+      }
+    }
+    if (!r[6]) {
+      fprintf (stderr, "test_head_0: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "6abcdefghijklmnopqrstuvwxyz";
+      if (strcmp (r[6], expected) != 0) {
+        fprintf (stderr, "test_head_0: expected \"%s\" but got \"%s\"\n", expected, r[6]);
+        return -1;
+      }
+    }
+    if (!r[7]) {
+      fprintf (stderr, "test_head_0: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "7abcdefghijklmnopqrstuvwxyz";
+      if (strcmp (r[7], expected) != 0) {
+        fprintf (stderr, "test_head_0: expected \"%s\" but got \"%s\"\n", expected, r[7]);
+        return -1;
+      }
+    }
+    if (!r[8]) {
+      fprintf (stderr, "test_head_0: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "8abcdefghijklmnopqrstuvwxyz";
+      if (strcmp (r[8], expected) != 0) {
+        fprintf (stderr, "test_head_0: expected \"%s\" but got \"%s\"\n", expected, r[8]);
+        return -1;
+      }
+    }
+    if (!r[9]) {
+      fprintf (stderr, "test_head_0: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "9abcdefghijklmnopqrstuvwxyz";
+      if (strcmp (r[9], expected) != 0) {
+        fprintf (stderr, "test_head_0: expected \"%s\" but got \"%s\"\n", expected, r[9]);
+        return -1;
+      }
+    }
+    if (r[10] != NULL) {
+      fprintf (stderr, "test_head_0: extra elements returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    for (i = 0; r[i] != NULL; ++i)
+      free (r[i]);
+    free (r);
+  }
+  return 0;
+}
+
 static int test_wc_c_0_skip (void)
 {
   const char *str;
@@ -17267,8 +18507,56 @@ int main (int argc, char *argv[])
   /* Cancel previous alarm. */
   alarm (0);
 
-  nr_tests = 156;
+  nr_tests = 164;
 
+  test_num++;
+  printf ("%3d/%3d test_tail_n_0\n", test_num, nr_tests);
+  if (test_tail_n_0 () == -1) {
+    printf ("test_tail_n_0 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_tail_n_1\n", test_num, nr_tests);
+  if (test_tail_n_1 () == -1) {
+    printf ("test_tail_n_1 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_tail_n_2\n", test_num, nr_tests);
+  if (test_tail_n_2 () == -1) {
+    printf ("test_tail_n_2 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_tail_0\n", test_num, nr_tests);
+  if (test_tail_0 () == -1) {
+    printf ("test_tail_0 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_head_n_0\n", test_num, nr_tests);
+  if (test_head_n_0 () == -1) {
+    printf ("test_head_n_0 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_head_n_1\n", test_num, nr_tests);
+  if (test_head_n_1 () == -1) {
+    printf ("test_head_n_1 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_head_n_2\n", test_num, nr_tests);
+  if (test_head_n_2 () == -1) {
+    printf ("test_head_n_2 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_head_0\n", test_num, nr_tests);
+  if (test_head_0 () == -1) {
+    printf ("test_head_0 FAILED\n");
+    failed++;
+  }
   test_num++;
   printf ("%3d/%3d test_wc_c_0\n", test_num, nr_tests);
   if (test_wc_c_0 () == -1) {

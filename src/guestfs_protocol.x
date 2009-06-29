@@ -658,7 +658,7 @@ struct guestfs_pvresize_args {
 
 struct guestfs_sfdisk_N_args {
   string device<>;
-  int n;
+  int partnum;
   int cyls;
   int heads;
   int sectors;
@@ -800,6 +800,40 @@ struct guestfs_wc_c_ret {
   int chars;
 };
 
+struct guestfs_head_args {
+  string path<>;
+};
+
+struct guestfs_head_ret {
+  str lines<>;
+};
+
+struct guestfs_head_n_args {
+  int nrlines;
+  string path<>;
+};
+
+struct guestfs_head_n_ret {
+  str lines<>;
+};
+
+struct guestfs_tail_args {
+  string path<>;
+};
+
+struct guestfs_tail_ret {
+  str lines<>;
+};
+
+struct guestfs_tail_n_args {
+  int nrlines;
+  string path<>;
+};
+
+struct guestfs_tail_n_ret {
+  str lines<>;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -921,6 +955,10 @@ enum guestfs_procedure {
   GUESTFS_PROC_WC_L = 118,
   GUESTFS_PROC_WC_W = 119,
   GUESTFS_PROC_WC_C = 120,
+  GUESTFS_PROC_HEAD = 121,
+  GUESTFS_PROC_HEAD_N = 122,
+  GUESTFS_PROC_TAIL = 123,
+  GUESTFS_PROC_TAIL_N = 124,
   GUESTFS_PROC_NR_PROCS
 };
 

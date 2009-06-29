@@ -169,7 +169,7 @@ extern char **guestfs_strings_e (guestfs_h *handle, const char *encoding, const 
 extern char *guestfs_hexdump (guestfs_h *handle, const char *path);
 extern int guestfs_zerofree (guestfs_h *handle, const char *device);
 extern int guestfs_pvresize (guestfs_h *handle, const char *device);
-extern int guestfs_sfdisk_N (guestfs_h *handle, const char *device, int n, int cyls, int heads, int sectors, const char *line);
+extern int guestfs_sfdisk_N (guestfs_h *handle, const char *device, int partnum, int cyls, int heads, int sectors, const char *line);
 extern char *guestfs_sfdisk_l (guestfs_h *handle, const char *device);
 extern char *guestfs_sfdisk_kernel_geometry (guestfs_h *handle, const char *device);
 extern char *guestfs_sfdisk_disk_geometry (guestfs_h *handle, const char *device);
@@ -191,3 +191,7 @@ extern char *guestfs_mkdtemp (guestfs_h *handle, const char *template);
 extern int guestfs_wc_l (guestfs_h *handle, const char *path);
 extern int guestfs_wc_w (guestfs_h *handle, const char *path);
 extern int guestfs_wc_c (guestfs_h *handle, const char *path);
+extern char **guestfs_head (guestfs_h *handle, const char *path);
+extern char **guestfs_head_n (guestfs_h *handle, int nrlines, const char *path);
+extern char **guestfs_tail (guestfs_h *handle, const char *path);
+extern char **guestfs_tail_n (guestfs_h *handle, int nrlines, const char *path);

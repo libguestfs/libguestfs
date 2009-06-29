@@ -3112,14 +3112,14 @@ public HashMap<String,String> test0rhashtableerr ()
    * <p>
    * @throws LibGuestFSException
    */
-  public void sfdisk_N (String device, int n, int cyls, int heads, int sectors, String line)
+  public void sfdisk_N (String device, int partnum, int cyls, int heads, int sectors, String line)
     throws LibGuestFSException
   {
     if (g == 0)
       throw new LibGuestFSException ("sfdisk_N: handle is closed");
-    _sfdisk_N (g, device, n, cyls, heads, sectors, line);
+    _sfdisk_N (g, device, partnum, cyls, heads, sectors, line);
   }
-  private native void _sfdisk_N (long g, String device, int n, int cyls, int heads, int sectors, String line)
+  private native void _sfdisk_N (long g, String device, int partnum, int cyls, int heads, int sectors, String line)
     throws LibGuestFSException;
 
   /**
@@ -3621,6 +3621,108 @@ public HashMap<String,String> test0rhashtableerr ()
     return _wc_c (g, path);
   }
   private native int _wc_c (long g, String path)
+    throws LibGuestFSException;
+
+  /**
+   * return first 10 lines of a file
+   * <p>
+   * This command returns up to the first 10 lines of a file
+   * as a list of strings.
+   * <p>
+   * Because of the message protocol, there is a transfer
+   * limit of somewhere between 2MB and 4MB. To transfer
+   * large files you should use FTP.
+   * <p>
+   * @throws LibGuestFSException
+   */
+  public String[] head (String path)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("head: handle is closed");
+    return _head (g, path);
+  }
+  private native String[] _head (long g, String path)
+    throws LibGuestFSException;
+
+  /**
+   * return first N lines of a file
+   * <p>
+   * If the parameter "nrlines" is a positive number, this
+   * returns the first "nrlines" lines of the file "path".
+   * <p>
+   * If the parameter "nrlines" is a negative number, this
+   * returns lines from the file "path", excluding the last
+   * "nrlines" lines.
+   * <p>
+   * If the parameter "nrlines" is zero, this returns an
+   * empty list.
+   * <p>
+   * Because of the message protocol, there is a transfer
+   * limit of somewhere between 2MB and 4MB. To transfer
+   * large files you should use FTP.
+   * <p>
+   * @throws LibGuestFSException
+   */
+  public String[] head_n (int nrlines, String path)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("head_n: handle is closed");
+    return _head_n (g, nrlines, path);
+  }
+  private native String[] _head_n (long g, int nrlines, String path)
+    throws LibGuestFSException;
+
+  /**
+   * return last 10 lines of a file
+   * <p>
+   * This command returns up to the last 10 lines of a file
+   * as a list of strings.
+   * <p>
+   * Because of the message protocol, there is a transfer
+   * limit of somewhere between 2MB and 4MB. To transfer
+   * large files you should use FTP.
+   * <p>
+   * @throws LibGuestFSException
+   */
+  public String[] tail (String path)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("tail: handle is closed");
+    return _tail (g, path);
+  }
+  private native String[] _tail (long g, String path)
+    throws LibGuestFSException;
+
+  /**
+   * return last N lines of a file
+   * <p>
+   * If the parameter "nrlines" is a positive number, this
+   * returns the last "nrlines" lines of the file "path".
+   * <p>
+   * If the parameter "nrlines" is a negative number, this
+   * returns lines from the file "path", starting with the
+   * "-nrlines"th line.
+   * <p>
+   * If the parameter "nrlines" is zero, this returns an
+   * empty list.
+   * <p>
+   * Because of the message protocol, there is a transfer
+   * limit of somewhere between 2MB and 4MB. To transfer
+   * large files you should use FTP.
+   * <p>
+   * @throws LibGuestFSException
+   */
+  public String[] tail_n (int nrlines, String path)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("tail_n: handle is closed");
+    return _tail_n (g, nrlines, path);
+  }
+  private native String[] _tail_n (long g, int nrlines, String path)
     throws LibGuestFSException;
 
 }
