@@ -2770,3 +2770,31 @@ PREINIT:
       }
       free (lines);
 
+SV *
+df (g)
+      guestfs_h *g;
+PREINIT:
+      char *output;
+   CODE:
+      output = guestfs_df (g);
+      if (output == NULL)
+        croak ("df: %s", guestfs_last_error (g));
+      RETVAL = newSVpv (output, 0);
+      free (output);
+ OUTPUT:
+      RETVAL
+
+SV *
+df_h (g)
+      guestfs_h *g;
+PREINIT:
+      char *output;
+   CODE:
+      output = guestfs_df_h (g);
+      if (output == NULL)
+        croak ("df_h: %s", guestfs_last_error (g));
+      RETVAL = newSVpv (output, 0);
+      free (output);
+ OUTPUT:
+      RETVAL
+

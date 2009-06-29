@@ -191,6 +191,8 @@ static const char *const commands[] = {
   "head-n",
   "tail",
   "tail-n",
+  "df",
+  "df-h",
   NULL
 };
 

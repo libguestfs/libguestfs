@@ -3725,4 +3725,48 @@ public HashMap<String,String> test0rhashtableerr ()
   private native String[] _tail_n (long g, int nrlines, String path)
     throws LibGuestFSException;
 
+  /**
+   * report file system disk space usage
+   * <p>
+   * This command runs the "df" command to report disk space
+   * used.
+   * <p>
+   * This command is mostly useful for interactive sessions.
+   * It is *not* intended that you try to parse the output
+   * string. Use "statvfs" from programs.
+   * <p>
+   * @throws LibGuestFSException
+   */
+  public String df ()
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("df: handle is closed");
+    return _df (g);
+  }
+  private native String _df (long g)
+    throws LibGuestFSException;
+
+  /**
+   * report file system disk space usage (human readable)
+   * <p>
+   * This command runs the "df -h" command to report disk
+   * space used in human-readable format.
+   * <p>
+   * This command is mostly useful for interactive sessions.
+   * It is *not* intended that you try to parse the output
+   * string. Use "statvfs" from programs.
+   * <p>
+   * @throws LibGuestFSException
+   */
+  public String df_h ()
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("df_h: handle is closed");
+    return _df_h (g);
+  }
+  private native String _df_h (long g)
+    throws LibGuestFSException;
+
 }

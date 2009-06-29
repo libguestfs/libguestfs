@@ -834,6 +834,14 @@ struct guestfs_tail_n_ret {
   str lines<>;
 };
 
+struct guestfs_df_ret {
+  string output<>;
+};
+
+struct guestfs_df_h_ret {
+  string output<>;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -959,6 +967,8 @@ enum guestfs_procedure {
   GUESTFS_PROC_HEAD_N = 122,
   GUESTFS_PROC_TAIL = 123,
   GUESTFS_PROC_TAIL_N = 124,
+  GUESTFS_PROC_DF = 125,
+  GUESTFS_PROC_DF_H = 126,
   GUESTFS_PROC_NR_PROCS
 };
 

@@ -4542,3 +4542,49 @@ ocaml_guestfs_tail_n (value gv, value nrlinesv, value pathv)
   CAMLreturn (rv);
 }
 
+CAMLprim value
+ocaml_guestfs_df (value gv)
+{
+  CAMLparam1 (gv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("df: used handle after closing it");
+
+  char *r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_df (g);
+  caml_leave_blocking_section ();
+  if (r == NULL)
+    ocaml_guestfs_raise_error (g, "df");
+
+  rv = caml_copy_string (r);
+  free (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_df_h (value gv)
+{
+  CAMLparam1 (gv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("df_h: used handle after closing it");
+
+  char *r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_df_h (g);
+  caml_leave_blocking_section ();
+  if (r == NULL)
+    ocaml_guestfs_raise_error (g, "df_h");
+
+  rv = caml_copy_string (r);
+  free (r);
+  CAMLreturn (rv);
+}
+

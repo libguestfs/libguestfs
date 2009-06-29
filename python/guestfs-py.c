@@ -4805,6 +4805,54 @@ py_guestfs_tail_n (PyObject *self, PyObject *args)
   return py_r;
 }
 
+static PyObject *
+py_guestfs_df (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  char *r;
+
+  if (!PyArg_ParseTuple (args, (char *) "O:guestfs_df",
+                         &py_g))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_df (g);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyString_FromString (r);
+  free (r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_df_h (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  char *r;
+
+  if (!PyArg_ParseTuple (args, (char *) "O:guestfs_df_h",
+                         &py_g))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_df_h (g);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyString_FromString (r);
+  free (r);
+  return py_r;
+}
+
 static PyMethodDef methods[] = {
   { (char *) "create", py_guestfs_create, METH_VARARGS, NULL },
   { (char *) "close", py_guestfs_close, METH_VARARGS, NULL },
@@ -4984,6 +5032,8 @@ static PyMethodDef methods[] = {
   { (char *) "head_n", py_guestfs_head_n, METH_VARARGS, NULL },
   { (char *) "tail", py_guestfs_tail, METH_VARARGS, NULL },
   { (char *) "tail_n", py_guestfs_tail_n, METH_VARARGS, NULL },
+  { (char *) "df", py_guestfs_df, METH_VARARGS, NULL },
+  { (char *) "df_h", py_guestfs_df_h, METH_VARARGS, NULL },
   { NULL, NULL, 0, NULL }
 };
 

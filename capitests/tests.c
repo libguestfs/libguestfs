@@ -151,6 +151,8 @@ static void no_test_warnings (void)
   fprintf (stderr, "warning: \"guestfs_sh\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_sh_lines\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_scrub_freespace\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_df\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_df_h\" has no tests\n");
 }
 
 static int test_tail_n_0_skip (void)

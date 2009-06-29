@@ -500,6 +500,23 @@ There is no comprehensive help for this command.  You have
 to look at the file C<daemon/debug.c> in the libguestfs source
 to find out what you can do.
 
+=item $output = $h->df ();
+
+This command runs the C<df> command to report disk space used.
+
+This command is mostly useful for interactive sessions.  It
+is I<not> intended that you try to parse the output string.
+Use C<statvfs> from programs.
+
+=item $output = $h->df_h ();
+
+This command runs the C<df -h> command to report disk space used
+in human-readable format.
+
+This command is mostly useful for interactive sessions.  It
+is I<not> intended that you try to parse the output string.
+Use C<statvfs> from programs.
+
 =item $kmsgs = $h->dmesg ();
 
 This returns the kernel messages (C<dmesg> output) from

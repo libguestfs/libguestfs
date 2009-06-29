@@ -1807,3 +1807,23 @@ class GuestFS:
         """
         return libguestfsmod.tail_n (self._o, nrlines, path)
 
+    def df (self):
+        u"""This command runs the "df" command to report disk space
+        used.
+        
+        This command is mostly useful for interactive sessions.
+        It is *not* intended that you try to parse the output
+        string. Use "statvfs" from programs.
+        """
+        return libguestfsmod.df (self._o)
+
+    def df_h (self):
+        u"""This command runs the "df -h" command to report disk
+        space used in human-readable format.
+        
+        This command is mostly useful for interactive sessions.
+        It is *not* intended that you try to parse the output
+        string. Use "statvfs" from programs.
+        """
+        return libguestfsmod.df_h (self._o)
+

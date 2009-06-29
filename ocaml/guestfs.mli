@@ -652,3 +652,9 @@ val tail : t -> string -> string array
 val tail_n : t -> int -> string -> string array
 (** return last N lines of a file *)
 
+val df : t -> string
+(** report file system disk space usage *)
+
+val df_h : t -> string
+(** report file system disk space usage (human readable) *)
+

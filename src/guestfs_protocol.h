@@ -1091,6 +1091,16 @@ struct guestfs_tail_n_ret {
 };
 typedef struct guestfs_tail_n_ret guestfs_tail_n_ret;
 
+struct guestfs_df_ret {
+	char *output;
+};
+typedef struct guestfs_df_ret guestfs_df_ret;
+
+struct guestfs_df_h_ret {
+	char *output;
+};
+typedef struct guestfs_df_h_ret guestfs_df_h_ret;
+
 enum guestfs_procedure {
 	GUESTFS_PROC_MOUNT = 1,
 	GUESTFS_PROC_SYNC = 2,
@@ -1216,7 +1226,9 @@ enum guestfs_procedure {
 	GUESTFS_PROC_HEAD_N = 122,
 	GUESTFS_PROC_TAIL = 123,
 	GUESTFS_PROC_TAIL_N = 124,
-	GUESTFS_PROC_NR_PROCS = 124 + 1,
+	GUESTFS_PROC_DF = 125,
+	GUESTFS_PROC_DF_H = 126,
+	GUESTFS_PROC_NR_PROCS = 126 + 1,
 };
 typedef enum guestfs_procedure guestfs_procedure;
 #define GUESTFS_MESSAGE_MAX 4194304
@@ -1442,6 +1454,8 @@ extern  bool_t xdr_guestfs_tail_args (XDR *, guestfs_tail_args*);
 extern  bool_t xdr_guestfs_tail_ret (XDR *, guestfs_tail_ret*);
 extern  bool_t xdr_guestfs_tail_n_args (XDR *, guestfs_tail_n_args*);
 extern  bool_t xdr_guestfs_tail_n_ret (XDR *, guestfs_tail_n_ret*);
+extern  bool_t xdr_guestfs_df_ret (XDR *, guestfs_df_ret*);
+extern  bool_t xdr_guestfs_df_h_ret (XDR *, guestfs_df_h_ret*);
 extern  bool_t xdr_guestfs_procedure (XDR *, guestfs_procedure*);
 extern  bool_t xdr_guestfs_message_direction (XDR *, guestfs_message_direction*);
 extern  bool_t xdr_guestfs_message_status (XDR *, guestfs_message_status*);
@@ -1626,6 +1640,8 @@ extern bool_t xdr_guestfs_tail_args ();
 extern bool_t xdr_guestfs_tail_ret ();
 extern bool_t xdr_guestfs_tail_n_args ();
 extern bool_t xdr_guestfs_tail_n_ret ();
+extern bool_t xdr_guestfs_df_ret ();
+extern bool_t xdr_guestfs_df_h_ret ();
 extern bool_t xdr_guestfs_procedure ();
 extern bool_t xdr_guestfs_message_direction ();
 extern bool_t xdr_guestfs_message_status ();

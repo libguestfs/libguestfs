@@ -145,3 +145,5 @@ extern char **do_head (char *path);
 extern char **do_head_n (int nrlines, char *path);
 extern char **do_tail (char *path);
 extern char **do_tail_n (int nrlines, char *path);
+extern char *do_df (void);
+extern char *do_df_h (void);

@@ -3147,6 +3147,38 @@ done:
   xdr_free ((xdrproc_t) xdr_guestfs_tail_n_args, (char *) &args);
 }
 
+static void df_stub (XDR *xdr_in)
+{
+  char *r;
+
+  r = do_df ();
+  if (r == NULL)
+    /* do_df has already called reply_with_error */
+    goto done;
+
+  struct guestfs_df_ret ret;
+  ret.output = r;
+  reply ((xdrproc_t) &xdr_guestfs_df_ret, (char *) &ret);
+  free (r);
+done: ;
+}
+
+static void df_h_stub (XDR *xdr_in)
+{
+  char *r;
+
+  r = do_df_h ();
+  if (r == NULL)
+    /* do_df_h has already called reply_with_error */
+    goto done;
+
+  struct guestfs_df_h_ret ret;
+  ret.output = r;
+  reply ((xdrproc_t) &xdr_guestfs_df_h_ret, (char *) &ret);
+  free (r);
+done: ;
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -3521,6 +3553,12 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_TAIL_N:
       tail_n_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_DF:
+      df_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_DF_H:
+      df_h_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d, set LIBGUESTFS_PATH to point to the matching libguestfs appliance directory", proc_nr);

@@ -67,6 +67,8 @@ void list_commands (void)
   printf ("%-20s %s\n", "cp", "copy a file");
   printf ("%-20s %s\n", "cp-a", "copy a file or directory recursively");
   printf ("%-20s %s\n", "debug", "debugging and internals");
+  printf ("%-20s %s\n", "df", "report file system disk space usage");
+  printf ("%-20s %s\n", "df-h", "report file system disk space usage (human readable)");
   printf ("%-20s %s\n", "dmesg", "return kernel messages");
   printf ("%-20s %s\n", "download", "download a file to the local machine");
   printf ("%-20s %s\n", "drop-caches", "drop kernel page cache, dentries and inodes");
@@ -615,6 +617,12 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "tail_n") == 0 || strcasecmp (cmd, "tail-n") == 0)
     pod2text ("tail-n - return last N lines of a file", " tail-n <nrlines> <path>\n\nIf the parameter C<nrlines> is a positive number, this returns the last\nC<nrlines> lines of the file C<path>.\n\nIf the parameter C<nrlines> is a negative number, this returns lines\nfrom the file C<path>, starting with the C<-nrlines>th line.\n\nIf the parameter C<nrlines> is zero, this returns an empty list.\n\nBecause of the message protocol, there is a transfer limit \nof somewhere between 2MB and 4MB.  To transfer large files you should use\nFTP.");
+  else
+  if (strcasecmp (cmd, "df") == 0)
+    pod2text ("df - report file system disk space usage", " df\n\nThis command runs the C<df> command to report disk space used.\n\nThis command is mostly useful for interactive sessions.  It\nis I<not> intended that you try to parse the output string.\nUse C<statvfs> from programs.");
+  else
+  if (strcasecmp (cmd, "df_h") == 0 || strcasecmp (cmd, "df-h") == 0)
+    pod2text ("df-h - report file system disk space usage (human readable)", " df-h\n\nThis command runs the C<df -h> command to report disk space used\nin human-readable format.\n\nThis command is mostly useful for interactive sessions.  It\nis I<not> intended that you try to parse the output string.\nUse C<statvfs> from programs.");
   else
     display_builtin_command (cmd);
 }
@@ -3024,6 +3032,36 @@ static int run_tail_n (const char *cmd, int argc, char *argv[])
   return 0;
 }
 
+static int run_df (const char *cmd, int argc, char *argv[])
+{
+  char *r;
+  if (argc != 0) {
+    fprintf (stderr, "%s should have 0 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  r = guestfs_df (g);
+  if (r == NULL) return -1;
+  printf ("%s\n", r);
+  free (r);
+  return 0;
+}
+
+static int run_df_h (const char *cmd, int argc, char *argv[])
+{
+  char *r;
+  if (argc != 0) {
+    fprintf (stderr, "%s should have 0 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  r = guestfs_df_h (g);
+  if (r == NULL) return -1;
+  printf ("%s\n", r);
+  free (r);
+  return 0;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -3460,6 +3498,12 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "tail_n") == 0 || strcasecmp (cmd, "tail-n") == 0)
     return run_tail_n (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "df") == 0)
+    return run_df (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "df_h") == 0 || strcasecmp (cmd, "df-h") == 0)
+    return run_df_h (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

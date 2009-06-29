@@ -4521,6 +4521,44 @@ static VALUE ruby_guestfs_tail_n (VALUE gv, VALUE nrlinesv, VALUE pathv)
   return rv;
 }
 
+static VALUE ruby_guestfs_df (VALUE gv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "df");
+
+
+  char *r;
+
+  r = guestfs_df (g);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  VALUE rv = rb_str_new2 (r);
+  free (r);
+  return rv;
+}
+
+static VALUE ruby_guestfs_df_h (VALUE gv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "df_h");
+
+
+  char *r;
+
+  r = guestfs_df_h (g);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  VALUE rv = rb_str_new2 (r);
+  free (r);
+  return rv;
+}
+
 /* Initialize the module. */
 void Init__guestfs ()
 {
@@ -4883,4 +4921,8 @@ void Init__guestfs ()
         ruby_guestfs_tail, 1);
   rb_define_method (c_guestfs, "tail_n",
         ruby_guestfs_tail_n, 2);
+  rb_define_method (c_guestfs, "df",
+        ruby_guestfs_df, 0);
+  rb_define_method (c_guestfs, "df_h",
+        ruby_guestfs_df_h, 0);
 }

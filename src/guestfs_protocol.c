@@ -2131,6 +2131,26 @@ xdr_guestfs_tail_n_ret (XDR *xdrs, guestfs_tail_n_ret *objp)
 }
 
 bool_t
+xdr_guestfs_df_ret (XDR *xdrs, guestfs_df_ret *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->output, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_df_h_ret (XDR *xdrs, guestfs_df_h_ret *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->output, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
 xdr_guestfs_procedure (XDR *xdrs, guestfs_procedure *objp)
 {
 	register int32_t *buf;
