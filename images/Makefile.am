@@ -15,7 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-EXTRA_DIST	= \
+EXTRA_DIST = \
 	helloworld.tar \
 	helloworld.tar.gz \
 	mbr-ext2-empty.img.gz \
@@ -23,7 +23,10 @@ EXTRA_DIST	= \
 
 noinst_DATA = test.sqsh
 
-CLEANFILES = test.sqsh
+CLEANFILES = \
+	test.sqsh \
+	100kallzeroes 100kallnewlines 100kallspaces 100krandom 10klines \
+	initrd
 
 squash_files = helloworld.tar helloworld.tar.gz empty known-1 known-2 known-3 \
 	100kallzeroes 100kallnewlines 100kallspaces 100krandom 10klines \
