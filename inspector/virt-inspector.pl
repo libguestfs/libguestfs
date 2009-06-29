@@ -672,6 +672,7 @@ sub assign_mount_points
 		} else {
 		    $fs->{used} = 1
 	        }
+                $fs->{spec} = $spec;
 	    }
 	}
     }
@@ -884,13 +885,22 @@ sub check_for_modprobe_aliases
         @results = $g->aug_match($pattern);
 
         for my $path ( @results ) {
+            $path =~ m{^/files(.*)/alias(?:\[\d*\])?$}
+                or die("$path doesn't match augeas pattern");
+            my $file = $1;
+
             my $alias;
             $alias = $g->aug_get($path);
 
             my $modulename;
             $modulename = $g->aug_get($path.'/modulename');
 
-            $modprobe_aliases{$alias} = $modulename;
+            my %aliasinfo;
+            $aliasinfo{modulename} = $modulename;
+            $aliasinfo{augeas} = $path;
+            $aliasinfo{file} = $file;
+
+            $modprobe_aliases{$alias} = \%aliasinfo;
         }
     }
 
@@ -1040,7 +1050,7 @@ sub output_text_os
 	if (@keys) {
 	    print "  Modprobe aliases:\n";
 	    foreach (@keys) {
-		printf "    %-30s %s\n", $_, $aliases{$_}
+		printf "    %-30s %s\n", $_, $aliases{$_}->{modulename}
 	    }
 	}
     }
@@ -1122,7 +1132,8 @@ sub output_xml_os
         foreach my $field ( [ "label" => "label" ],
                             [ "uuid" => "uuid" ],
                             [ "type" => "fstype" ],
-                            [ "content" => "content" ] ) {
+                            [ "content" => "content" ],
+                            [ "spec" => "spec" ] ) {
             $xml->dataElement($field->[0], $filesystems->{$_}{$field->[1]})
                 if exists $filesystems->{$_}{$field->[1]};
         }
@@ -1137,7 +1148,15 @@ sub output_xml_os
 	if (@keys) {
             $xml->startTag("modprobealiases");
 	    foreach (@keys) {
-                $xml->dataElement("alias", $aliases{$_}, "device" => $_);
+                $xml->startTag("alias", "device" => $_);
+
+                foreach my $field ( [ "modulename" => "modulename" ],
+                                    [ "augeas" => "augeas" ],
+                                    [ "file" => "file" ] ) {
+                    $xml->dataElement($field->[0], $aliases{$_}->{$field->[1]});
+                }
+
+                $xml->endTag("alias");
 	    }
             $xml->endTag("modprobealiases");
 	}
