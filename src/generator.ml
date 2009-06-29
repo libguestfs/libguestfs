@@ -2583,6 +2583,22 @@ This command is mostly useful for interactive sessions.  It
 is I<not> intended that you try to parse the output string.
 Use C<statvfs> from programs.");
 
+  ("du", (RInt64 "sizekb", [String "path"]), 127, [],
+   [InitBasicFS, Always, TestOutputInt (
+      [["mkdir"; "/p"];
+       ["du"; "/p"]], 1 (* ie. 1 block, so depends on ext3 blocksize *))],
+   "estimate file space usage",
+   "\
+This command runs the C<du -s> command to estimate file space
+usage for C<path>.
+
+C<path> can be a file or a directory.  If C<path> is a directory
+then the estimate includes the contents of the directory and all
+subdirectories (recursively).
+
+The result is the estimated size in I<kilobytes>
+(ie. units of 1024 bytes).");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

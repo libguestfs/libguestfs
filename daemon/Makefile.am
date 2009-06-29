@@ -33,6 +33,7 @@ guestfsd_SOURCES = \
 	dir.c \
 	dmesg.c \
 	dropcaches.c \
+	du.c \
 	ext2.c \
 	file.c \
 	find.c \

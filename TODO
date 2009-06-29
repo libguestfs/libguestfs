@@ -120,7 +120,6 @@ Extra commands / functionality:
     chgrp
     grep (do it locally using pipe?)
     dd (?)
-    du
     ln / ln -s
     mknod
     readlink
