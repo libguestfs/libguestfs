@@ -11835,3 +11835,268 @@ int guestfs_mount_loop (guestfs_h *g,
   return 0;
 }
 
+struct mkswap_ctx {
+  /* This flag is set by the callbacks, so we know we've done
+   * the callbacks as expected, and in the right sequence.
+   * 0 = not called, 1 = reply_cb called.
+   */
+  int cb_sequence;
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+};
+
+static void mkswap_reply_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  struct mkswap_ctx *ctx = (struct mkswap_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_mkswap");
+    return;
+  }
+
+  ml->main_loop_quit (ml, g);
+
+  if (!xdr_guestfs_message_header (xdr, &ctx->hdr)) {
+    error (g, "%s: failed to parse reply header", "guestfs_mkswap");
+    return;
+  }
+  if (ctx->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &ctx->err)) {
+      error (g, "%s: failed to parse reply error", "guestfs_mkswap");
+      return;
+    }
+    goto done;
+  }
+ done:
+  ctx->cb_sequence = 1;
+}
+
+int guestfs_mkswap (guestfs_h *g,
+		const char *device)
+{
+  struct guestfs_mkswap_args args;
+  struct mkswap_ctx ctx;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  int serial;
+
+  if (check_state (g, "guestfs_mkswap") == -1) return -1;
+  guestfs_set_busy (g);
+
+  memset (&ctx, 0, sizeof ctx);
+
+  args.device = (char *) device;
+  serial = guestfs__send_sync (g, GUESTFS_PROC_MKSWAP,
+        (xdrproc_t) xdr_guestfs_mkswap_args, (char *) &args);
+  if (serial == -1) {
+    guestfs_end_busy (g);
+    return -1;
+  }
+
+  guestfs__switch_to_receiving (g);
+  ctx.cb_sequence = 0;
+  guestfs_set_reply_callback (g, mkswap_reply_cb, &ctx);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (ctx.cb_sequence != 1) {
+    error (g, "%s reply failed, see earlier error messages", "guestfs_mkswap");
+    guestfs_end_busy (g);
+    return -1;
+  }
+
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_MKSWAP, serial) == -1) {
+    guestfs_end_busy (g);
+    return -1;
+  }
+
+  if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", ctx.err.error_message);
+    free (ctx.err.error_message);
+    guestfs_end_busy (g);
+    return -1;
+  }
+
+  guestfs_end_busy (g);
+  return 0;
+}
+
+struct mkswap_L_ctx {
+  /* This flag is set by the callbacks, so we know we've done
+   * the callbacks as expected, and in the right sequence.
+   * 0 = not called, 1 = reply_cb called.
+   */
+  int cb_sequence;
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+};
+
+static void mkswap_L_reply_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  struct mkswap_L_ctx *ctx = (struct mkswap_L_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_mkswap_L");
+    return;
+  }
+
+  ml->main_loop_quit (ml, g);
+
+  if (!xdr_guestfs_message_header (xdr, &ctx->hdr)) {
+    error (g, "%s: failed to parse reply header", "guestfs_mkswap_L");
+    return;
+  }
+  if (ctx->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &ctx->err)) {
+      error (g, "%s: failed to parse reply error", "guestfs_mkswap_L");
+      return;
+    }
+    goto done;
+  }
+ done:
+  ctx->cb_sequence = 1;
+}
+
+int guestfs_mkswap_L (guestfs_h *g,
+		const char *label,
+		const char *device)
+{
+  struct guestfs_mkswap_L_args args;
+  struct mkswap_L_ctx ctx;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  int serial;
+
+  if (check_state (g, "guestfs_mkswap_L") == -1) return -1;
+  guestfs_set_busy (g);
+
+  memset (&ctx, 0, sizeof ctx);
+
+  args.label = (char *) label;
+  args.device = (char *) device;
+  serial = guestfs__send_sync (g, GUESTFS_PROC_MKSWAP_L,
+        (xdrproc_t) xdr_guestfs_mkswap_L_args, (char *) &args);
+  if (serial == -1) {
+    guestfs_end_busy (g);
+    return -1;
+  }
+
+  guestfs__switch_to_receiving (g);
+  ctx.cb_sequence = 0;
+  guestfs_set_reply_callback (g, mkswap_L_reply_cb, &ctx);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (ctx.cb_sequence != 1) {
+    error (g, "%s reply failed, see earlier error messages", "guestfs_mkswap_L");
+    guestfs_end_busy (g);
+    return -1;
+  }
+
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_MKSWAP_L, serial) == -1) {
+    guestfs_end_busy (g);
+    return -1;
+  }
+
+  if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", ctx.err.error_message);
+    free (ctx.err.error_message);
+    guestfs_end_busy (g);
+    return -1;
+  }
+
+  guestfs_end_busy (g);
+  return 0;
+}
+
+struct mkswap_U_ctx {
+  /* This flag is set by the callbacks, so we know we've done
+   * the callbacks as expected, and in the right sequence.
+   * 0 = not called, 1 = reply_cb called.
+   */
+  int cb_sequence;
+  struct guestfs_message_header hdr;
+  struct guestfs_message_error err;
+};
+
+static void mkswap_U_reply_cb (guestfs_h *g, void *data, XDR *xdr)
+{
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  struct mkswap_U_ctx *ctx = (struct mkswap_U_ctx *) data;
+
+  /* This should definitely not happen. */
+  if (ctx->cb_sequence != 0) {
+    ctx->cb_sequence = 9999;
+    error (g, "%s: internal error: reply callback called twice", "guestfs_mkswap_U");
+    return;
+  }
+
+  ml->main_loop_quit (ml, g);
+
+  if (!xdr_guestfs_message_header (xdr, &ctx->hdr)) {
+    error (g, "%s: failed to parse reply header", "guestfs_mkswap_U");
+    return;
+  }
+  if (ctx->hdr.status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (xdr, &ctx->err)) {
+      error (g, "%s: failed to parse reply error", "guestfs_mkswap_U");
+      return;
+    }
+    goto done;
+  }
+ done:
+  ctx->cb_sequence = 1;
+}
+
+int guestfs_mkswap_U (guestfs_h *g,
+		const char *uuid,
+		const char *device)
+{
+  struct guestfs_mkswap_U_args args;
+  struct mkswap_U_ctx ctx;
+  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  int serial;
+
+  if (check_state (g, "guestfs_mkswap_U") == -1) return -1;
+  guestfs_set_busy (g);
+
+  memset (&ctx, 0, sizeof ctx);
+
+  args.uuid = (char *) uuid;
+  args.device = (char *) device;
+  serial = guestfs__send_sync (g, GUESTFS_PROC_MKSWAP_U,
+        (xdrproc_t) xdr_guestfs_mkswap_U_args, (char *) &args);
+  if (serial == -1) {
+    guestfs_end_busy (g);
+    return -1;
+  }
+
+  guestfs__switch_to_receiving (g);
+  ctx.cb_sequence = 0;
+  guestfs_set_reply_callback (g, mkswap_U_reply_cb, &ctx);
+  (void) ml->main_loop_run (ml, g);
+  guestfs_set_reply_callback (g, NULL, NULL);
+  if (ctx.cb_sequence != 1) {
+    error (g, "%s reply failed, see earlier error messages", "guestfs_mkswap_U");
+    guestfs_end_busy (g);
+    return -1;
+  }
+
+  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_MKSWAP_U, serial) == -1) {
+    guestfs_end_busy (g);
+    return -1;
+  }
+
+  if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {
+    error (g, "%s", ctx.err.error_message);
+    free (ctx.err.error_message);
+    guestfs_end_busy (g);
+    return -1;
+  }
+
+  guestfs_end_busy (g);
+  return 0;
+}
+

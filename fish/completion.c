@@ -196,6 +196,9 @@ static const char *const commands[] = {
   "du",
   "initrd-list",
   "mount-loop",
+  "mkswap",
+  "mkswap-L",
+  "mkswap-U",
   NULL
 };
 

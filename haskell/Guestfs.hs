@@ -121,7 +121,10 @@ module Guestfs (
   wc_w,
   wc_c,
   du,
-  mount_loop
+  mount_loop,
+  mkswap,
+  mkswap_L,
+  mkswap_U
   ) where
 import Foreign
 import Foreign.C
@@ -1342,6 +1345,42 @@ foreign import ccall unsafe "guestfs_mount_loop" c_mount_loop
 mount_loop :: GuestfsH -> String -> String -> IO ()
 mount_loop h file mountpoint = do
   r <- withCString file $ \file -> withCString mountpoint $ \mountpoint -> withForeignPtr h (\p -> c_mount_loop p file mountpoint)
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return ()
+
+foreign import ccall unsafe "guestfs_mkswap" c_mkswap
+  :: GuestfsP -> CString -> IO (CInt)
+
+mkswap :: GuestfsH -> String -> IO ()
+mkswap h device = do
+  r <- withCString device $ \device -> withForeignPtr h (\p -> c_mkswap p device)
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return ()
+
+foreign import ccall unsafe "guestfs_mkswap_L" c_mkswap_L
+  :: GuestfsP -> CString -> CString -> IO (CInt)
+
+mkswap_L :: GuestfsH -> String -> String -> IO ()
+mkswap_L h label device = do
+  r <- withCString label $ \label -> withCString device $ \device -> withForeignPtr h (\p -> c_mkswap_L p label device)
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return ()
+
+foreign import ccall unsafe "guestfs_mkswap_U" c_mkswap_U
+  :: GuestfsP -> CString -> CString -> IO (CInt)
+
+mkswap_U :: GuestfsH -> String -> String -> IO ()
+mkswap_U h uuid device = do
+  r <- withCString uuid $ \uuid -> withCString device $ \device -> withForeignPtr h (\p -> c_mkswap_U p uuid device)
   if (r == -1)
     then do
       err <- last_error h

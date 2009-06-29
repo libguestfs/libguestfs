@@ -1863,3 +1863,18 @@ class GuestFS:
         """
         return libguestfsmod.mount_loop (self._o, file, mountpoint)
 
+    def mkswap (self, device):
+        u"""Create a swap partition on "device".
+        """
+        return libguestfsmod.mkswap (self._o, device)
+
+    def mkswap_L (self, label, device):
+        u"""Create a swap partition on "device" with label "label".
+        """
+        return libguestfsmod.mkswap_L (self._o, label, device)
+
+    def mkswap_U (self, uuid, device):
+        u"""Create a swap partition on "device" with UUID "uuid".
+        """
+        return libguestfsmod.mkswap_U (self._o, uuid, device)
+

@@ -150,3 +150,6 @@ extern char *do_df_h (void);
 extern int64_t do_du (char *path);
 extern char **do_initrd_list (char *path);
 extern int do_mount_loop (char *file, char *mountpoint);
+extern int do_mkswap (char *device);
+extern int do_mkswap_L (char *label, char *device);
+extern int do_mkswap_U (char *uuid, char *device);

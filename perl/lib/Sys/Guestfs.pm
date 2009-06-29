@@ -943,6 +943,18 @@ This creates a filesystem on C<device> (usually a partition
 or LVM logical volume).  The filesystem type is C<fstype>, for
 example C<ext3>.
 
+=item $h->mkswap ($device);
+
+Create a swap partition on C<device>.
+
+=item $h->mkswap_L ($label, $device);
+
+Create a swap partition on C<device> with label C<label>.
+
+=item $h->mkswap_U ($uuid, $device);
+
+Create a swap partition on C<device> with UUID C<uuid>.
+
 =item $h->mount ($device, $mountpoint);
 
 Mount a guest disk at a position in the filesystem.  Block devices

@@ -4661,3 +4661,74 @@ ocaml_guestfs_mount_loop (value gv, value filev, value mountpointv)
   CAMLreturn (rv);
 }
 
+CAMLprim value
+ocaml_guestfs_mkswap (value gv, value devicev)
+{
+  CAMLparam2 (gv, devicev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("mkswap: used handle after closing it");
+
+  const char *device = String_val (devicev);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_mkswap (g, device);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "mkswap");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_mkswap_L (value gv, value labelv, value devicev)
+{
+  CAMLparam3 (gv, labelv, devicev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("mkswap_L: used handle after closing it");
+
+  const char *label = String_val (labelv);
+  const char *device = String_val (devicev);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_mkswap_L (g, label, device);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "mkswap_L");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_mkswap_U (value gv, value uuidv, value devicev)
+{
+  CAMLparam3 (gv, uuidv, devicev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("mkswap_U: used handle after closing it");
+
+  const char *uuid = String_val (uuidv);
+  const char *device = String_val (devicev);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_mkswap_U (g, uuid, device);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "mkswap_U");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+

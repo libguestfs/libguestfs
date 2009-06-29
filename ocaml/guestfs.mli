@@ -667,3 +667,12 @@ val initrd_list : t -> string -> string array
 val mount_loop : t -> string -> string -> unit
 (** mount a file using the loop device *)
 
+val mkswap : t -> string -> unit
+(** create a swap partition *)
+
+val mkswap_L : t -> string -> string -> unit
+(** create a swap partition with a label *)
+
+val mkswap_U : t -> string -> string -> unit
+(** create a swap partition with an explicit UUID *)
+

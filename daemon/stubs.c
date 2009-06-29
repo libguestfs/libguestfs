@@ -3259,6 +3259,82 @@ done:
   xdr_free ((xdrproc_t) xdr_guestfs_mount_loop_args, (char *) &args);
 }
 
+static void mkswap_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_mkswap_args args;
+  char *device;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_mkswap_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "mkswap");
+    return;
+  }
+  device = args.device;
+
+  r = do_mkswap (device);
+  if (r == -1)
+    /* do_mkswap has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_mkswap_args, (char *) &args);
+}
+
+static void mkswap_L_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_mkswap_L_args args;
+  char *label;
+  char *device;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_mkswap_L_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "mkswap_L");
+    return;
+  }
+  label = args.label;
+  device = args.device;
+
+  r = do_mkswap_L (label, device);
+  if (r == -1)
+    /* do_mkswap_L has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_mkswap_L_args, (char *) &args);
+}
+
+static void mkswap_U_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_mkswap_U_args args;
+  char *uuid;
+  char *device;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_mkswap_U_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "mkswap_U");
+    return;
+  }
+  uuid = args.uuid;
+  device = args.device;
+
+  r = do_mkswap_U (uuid, device);
+  if (r == -1)
+    /* do_mkswap_U has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_mkswap_U_args, (char *) &args);
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -3648,6 +3724,15 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_MOUNT_LOOP:
       mount_loop_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_MKSWAP:
+      mkswap_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_MKSWAP_L:
+      mkswap_L_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_MKSWAP_U:
+      mkswap_U_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d, set LIBGUESTFS_PATH to point to the matching libguestfs appliance directory", proc_nr);

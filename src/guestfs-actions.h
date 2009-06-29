@@ -200,3 +200,6 @@ extern char *guestfs_df_h (guestfs_h *handle);
 extern int64_t guestfs_du (guestfs_h *handle, const char *path);
 extern char **guestfs_initrd_list (guestfs_h *handle, const char *path);
 extern int guestfs_mount_loop (guestfs_h *handle, const char *file, const char *mountpoint);
+extern int guestfs_mkswap (guestfs_h *handle, const char *device);
+extern int guestfs_mkswap_L (guestfs_h *handle, const char *label, const char *device);
+extern int guestfs_mkswap_U (guestfs_h *handle, const char *uuid, const char *device);

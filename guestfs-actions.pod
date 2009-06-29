@@ -1331,6 +1331,35 @@ example C<ext3>.
 
 This function returns 0 on success or -1 on error.
 
+=head2 guestfs_mkswap
+
+ int guestfs_mkswap (guestfs_h *handle,
+		const char *device);
+
+Create a swap partition on C<device>.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_mkswap_L
+
+ int guestfs_mkswap_L (guestfs_h *handle,
+		const char *label,
+		const char *device);
+
+Create a swap partition on C<device> with label C<label>.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_mkswap_U
+
+ int guestfs_mkswap_U (guestfs_h *handle,
+		const char *uuid,
+		const char *device);
+
+Create a swap partition on C<device> with UUID C<uuid>.
+
+This function returns 0 on success or -1 on error.
+
 =head2 guestfs_mount
 
  int guestfs_mount (guestfs_h *handle,

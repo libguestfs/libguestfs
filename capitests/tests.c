@@ -156,6 +156,215 @@ static void no_test_warnings (void)
   fprintf (stderr, "warning: \"guestfs_mount_loop\" has no tests\n");
 }
 
+static int test_mkswap_U_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "mkswap_U") == NULL;
+  str = getenv ("SKIP_TEST_MKSWAP_U_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_MKSWAP_U");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
+static int test_mkswap_U_0 (void)
+{
+  if (test_mkswap_U_0_skip ()) {
+    printf ("%s skipped (reason: environment variable set)\n", "test_mkswap_U_0");
+    return 0;
+  }
+
+  /* InitNone|InitEmpty for test_mkswap_U_0 */
+  {
+    char device[] = "/dev/sda";
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  /* TestRun for mkswap_U (0) */
+  {
+    char device[] = "/dev/sda";
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char uuid[] = "a3a61220-882b-4f61-89f4-cf24dcc7297d";
+    char device[] = "/dev/sda1";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkswap_U (g, uuid, device);
+    if (r == -1)
+      return -1;
+  }
+  return 0;
+}
+
+static int test_mkswap_L_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "mkswap_L") == NULL;
+  str = getenv ("SKIP_TEST_MKSWAP_L_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_MKSWAP_L");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
+static int test_mkswap_L_0 (void)
+{
+  if (test_mkswap_L_0_skip ()) {
+    printf ("%s skipped (reason: environment variable set)\n", "test_mkswap_L_0");
+    return 0;
+  }
+
+  /* InitNone|InitEmpty for test_mkswap_L_0 */
+  {
+    char device[] = "/dev/sda";
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  /* TestRun for mkswap_L (0) */
+  {
+    char device[] = "/dev/sda";
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char label[] = "hello";
+    char device[] = "/dev/sda1";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkswap_L (g, label, device);
+    if (r == -1)
+      return -1;
+  }
+  return 0;
+}
+
+static int test_mkswap_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "mkswap") == NULL;
+  str = getenv ("SKIP_TEST_MKSWAP_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_MKSWAP");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
+static int test_mkswap_0 (void)
+{
+  if (test_mkswap_0_skip ()) {
+    printf ("%s skipped (reason: environment variable set)\n", "test_mkswap_0");
+    return 0;
+  }
+
+  /* InitNone|InitEmpty for test_mkswap_0 */
+  {
+    char device[] = "/dev/sda";
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  /* TestRun for mkswap (0) */
+  {
+    char device[] = "/dev/sda";
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkswap (g, device);
+    if (r == -1)
+      return -1;
+  }
+  return 0;
+}
+
 static int test_initrd_list_0_skip (void)
 {
   const char *str;
@@ -18764,8 +18973,26 @@ int main (int argc, char *argv[])
   /* Cancel previous alarm. */
   alarm (0);
 
-  nr_tests = 166;
+  nr_tests = 169;
 
+  test_num++;
+  printf ("%3d/%3d test_mkswap_U_0\n", test_num, nr_tests);
+  if (test_mkswap_U_0 () == -1) {
+    printf ("test_mkswap_U_0 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_mkswap_L_0\n", test_num, nr_tests);
+  if (test_mkswap_L_0 () == -1) {
+    printf ("test_mkswap_L_0 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_mkswap_0\n", test_num, nr_tests);
+  if (test_mkswap_0 () == -1) {
+    printf ("test_mkswap_0 FAILED\n");
+    failed++;
+  }
   test_num++;
   printf ("%3d/%3d test_initrd_list_0\n", test_num, nr_tests);
   if (test_initrd_list_0 () == -1) {

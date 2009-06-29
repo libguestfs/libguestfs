@@ -4638,6 +4638,82 @@ static VALUE ruby_guestfs_mount_loop (VALUE gv, VALUE filev, VALUE mountpointv)
   return Qnil;
 }
 
+static VALUE ruby_guestfs_mkswap (VALUE gv, VALUE devicev)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "mkswap");
+
+  Check_Type (devicev, T_STRING);
+  const char *device = StringValueCStr (devicev);
+  if (!device)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "device", "mkswap");
+
+  int r;
+
+  r = guestfs_mkswap (g, device);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
+static VALUE ruby_guestfs_mkswap_L (VALUE gv, VALUE labelv, VALUE devicev)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "mkswap_L");
+
+  Check_Type (labelv, T_STRING);
+  const char *label = StringValueCStr (labelv);
+  if (!label)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "label", "mkswap_L");
+  Check_Type (devicev, T_STRING);
+  const char *device = StringValueCStr (devicev);
+  if (!device)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "device", "mkswap_L");
+
+  int r;
+
+  r = guestfs_mkswap_L (g, label, device);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
+static VALUE ruby_guestfs_mkswap_U (VALUE gv, VALUE uuidv, VALUE devicev)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "mkswap_U");
+
+  Check_Type (uuidv, T_STRING);
+  const char *uuid = StringValueCStr (uuidv);
+  if (!uuid)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "uuid", "mkswap_U");
+  Check_Type (devicev, T_STRING);
+  const char *device = StringValueCStr (devicev);
+  if (!device)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "device", "mkswap_U");
+
+  int r;
+
+  r = guestfs_mkswap_U (g, uuid, device);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
 /* Initialize the module. */
 void Init__guestfs ()
 {
@@ -5010,4 +5086,10 @@ void Init__guestfs ()
         ruby_guestfs_initrd_list, 1);
   rb_define_method (c_guestfs, "mount_loop",
         ruby_guestfs_mount_loop, 2);
+  rb_define_method (c_guestfs, "mkswap",
+        ruby_guestfs_mkswap, 1);
+  rb_define_method (c_guestfs, "mkswap_L",
+        ruby_guestfs_mkswap_L, 2);
+  rb_define_method (c_guestfs, "mkswap_U",
+        ruby_guestfs_mkswap_U, 2);
 }

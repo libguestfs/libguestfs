@@ -116,6 +116,9 @@ void list_commands (void)
   printf ("%-20s %s\n", "mkdir-p", "create a directory and parents");
   printf ("%-20s %s\n", "mkdtemp", "create a temporary directory");
   printf ("%-20s %s\n", "mkfs", "make a filesystem");
+  printf ("%-20s %s\n", "mkswap", "create a swap partition");
+  printf ("%-20s %s\n", "mkswap-L", "create a swap partition with a label");
+  printf ("%-20s %s\n", "mkswap-U", "create a swap partition with an explicit UUID");
   printf ("%-20s %s\n", "mount", "mount a guest disk at a position in the filesystem");
   printf ("%-20s %s\n", "mount-loop", "mount a file using the loop device");
   printf ("%-20s %s\n", "mount-options", "mount a guest disk with mount options");
@@ -635,6 +638,15 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "mount_loop") == 0 || strcasecmp (cmd, "mount-loop") == 0)
     pod2text ("mount-loop - mount a file using the loop device", " mount-loop <file> <mountpoint>\n\nThis command lets you mount C<file> (a filesystem image\nin a file) on a mount point.  It is entirely equivalent to\nthe command C<mount -o loop file mountpoint>.");
+  else
+  if (strcasecmp (cmd, "mkswap") == 0)
+    pod2text ("mkswap - create a swap partition", " mkswap <device>\n\nCreate a swap partition on C<device>.");
+  else
+  if (strcasecmp (cmd, "mkswap_L") == 0 || strcasecmp (cmd, "mkswap-L") == 0)
+    pod2text ("mkswap-L - create a swap partition with a label", " mkswap-L <label> <device>\n\nCreate a swap partition on C<device> with label C<label>.");
+  else
+  if (strcasecmp (cmd, "mkswap_U") == 0 || strcasecmp (cmd, "mkswap-U") == 0)
+    pod2text ("mkswap-U - create a swap partition with an explicit UUID", " mkswap-U <uuid> <device>\n\nCreate a swap partition on C<device> with UUID C<uuid>.");
   else
     display_builtin_command (cmd);
 }
@@ -3123,6 +3135,52 @@ static int run_mount_loop (const char *cmd, int argc, char *argv[])
   return r;
 }
 
+static int run_mkswap (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *device;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  device = argv[0];
+  r = guestfs_mkswap (g, device);
+  return r;
+}
+
+static int run_mkswap_L (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *label;
+  const char *device;
+  if (argc != 2) {
+    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  label = argv[0];
+  device = argv[1];
+  r = guestfs_mkswap_L (g, label, device);
+  return r;
+}
+
+static int run_mkswap_U (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *uuid;
+  const char *device;
+  if (argc != 2) {
+    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  uuid = argv[0];
+  device = argv[1];
+  r = guestfs_mkswap_U (g, uuid, device);
+  return r;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -3574,6 +3632,15 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "mount_loop") == 0 || strcasecmp (cmd, "mount-loop") == 0)
     return run_mount_loop (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "mkswap") == 0)
+    return run_mkswap (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "mkswap_L") == 0 || strcasecmp (cmd, "mkswap-L") == 0)
+    return run_mkswap_L (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "mkswap_U") == 0 || strcasecmp (cmd, "mkswap-U") == 0)
+    return run_mkswap_U (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

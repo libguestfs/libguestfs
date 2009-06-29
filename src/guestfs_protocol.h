@@ -1130,6 +1130,23 @@ struct guestfs_mount_loop_args {
 };
 typedef struct guestfs_mount_loop_args guestfs_mount_loop_args;
 
+struct guestfs_mkswap_args {
+	char *device;
+};
+typedef struct guestfs_mkswap_args guestfs_mkswap_args;
+
+struct guestfs_mkswap_L_args {
+	char *label;
+	char *device;
+};
+typedef struct guestfs_mkswap_L_args guestfs_mkswap_L_args;
+
+struct guestfs_mkswap_U_args {
+	char *uuid;
+	char *device;
+};
+typedef struct guestfs_mkswap_U_args guestfs_mkswap_U_args;
+
 enum guestfs_procedure {
 	GUESTFS_PROC_MOUNT = 1,
 	GUESTFS_PROC_SYNC = 2,
@@ -1260,7 +1277,10 @@ enum guestfs_procedure {
 	GUESTFS_PROC_DU = 127,
 	GUESTFS_PROC_INITRD_LIST = 128,
 	GUESTFS_PROC_MOUNT_LOOP = 129,
-	GUESTFS_PROC_NR_PROCS = 129 + 1,
+	GUESTFS_PROC_MKSWAP = 130,
+	GUESTFS_PROC_MKSWAP_L = 131,
+	GUESTFS_PROC_MKSWAP_U = 132,
+	GUESTFS_PROC_NR_PROCS = 132 + 1,
 };
 typedef enum guestfs_procedure guestfs_procedure;
 #define GUESTFS_MESSAGE_MAX 4194304
@@ -1493,6 +1513,9 @@ extern  bool_t xdr_guestfs_du_ret (XDR *, guestfs_du_ret*);
 extern  bool_t xdr_guestfs_initrd_list_args (XDR *, guestfs_initrd_list_args*);
 extern  bool_t xdr_guestfs_initrd_list_ret (XDR *, guestfs_initrd_list_ret*);
 extern  bool_t xdr_guestfs_mount_loop_args (XDR *, guestfs_mount_loop_args*);
+extern  bool_t xdr_guestfs_mkswap_args (XDR *, guestfs_mkswap_args*);
+extern  bool_t xdr_guestfs_mkswap_L_args (XDR *, guestfs_mkswap_L_args*);
+extern  bool_t xdr_guestfs_mkswap_U_args (XDR *, guestfs_mkswap_U_args*);
 extern  bool_t xdr_guestfs_procedure (XDR *, guestfs_procedure*);
 extern  bool_t xdr_guestfs_message_direction (XDR *, guestfs_message_direction*);
 extern  bool_t xdr_guestfs_message_status (XDR *, guestfs_message_status*);
@@ -1684,6 +1707,9 @@ extern bool_t xdr_guestfs_du_ret ();
 extern bool_t xdr_guestfs_initrd_list_args ();
 extern bool_t xdr_guestfs_initrd_list_ret ();
 extern bool_t xdr_guestfs_mount_loop_args ();
+extern bool_t xdr_guestfs_mkswap_args ();
+extern bool_t xdr_guestfs_mkswap_L_args ();
+extern bool_t xdr_guestfs_mkswap_U_args ();
 extern bool_t xdr_guestfs_procedure ();
 extern bool_t xdr_guestfs_message_direction ();
 extern bool_t xdr_guestfs_message_status ();

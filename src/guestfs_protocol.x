@@ -863,6 +863,20 @@ struct guestfs_mount_loop_args {
   string mountpoint<>;
 };
 
+struct guestfs_mkswap_args {
+  string device<>;
+};
+
+struct guestfs_mkswap_L_args {
+  string label<>;
+  string device<>;
+};
+
+struct guestfs_mkswap_U_args {
+  string uuid<>;
+  string device<>;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -993,6 +1007,9 @@ enum guestfs_procedure {
   GUESTFS_PROC_DU = 127,
   GUESTFS_PROC_INITRD_LIST = 128,
   GUESTFS_PROC_MOUNT_LOOP = 129,
+  GUESTFS_PROC_MKSWAP = 130,
+  GUESTFS_PROC_MKSWAP_L = 131,
+  GUESTFS_PROC_MKSWAP_U = 132,
   GUESTFS_PROC_NR_PROCS
 };
 

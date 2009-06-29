@@ -4928,6 +4928,83 @@ py_guestfs_mount_loop (PyObject *self, PyObject *args)
   return py_r;
 }
 
+static PyObject *
+py_guestfs_mkswap (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *device;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_mkswap",
+                         &py_g, &device))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_mkswap (g, device);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_mkswap_L (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *label;
+  const char *device;
+
+  if (!PyArg_ParseTuple (args, (char *) "Oss:guestfs_mkswap_L",
+                         &py_g, &label, &device))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_mkswap_L (g, label, device);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_mkswap_U (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *uuid;
+  const char *device;
+
+  if (!PyArg_ParseTuple (args, (char *) "Oss:guestfs_mkswap_U",
+                         &py_g, &uuid, &device))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_mkswap_U (g, uuid, device);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
 static PyMethodDef methods[] = {
   { (char *) "create", py_guestfs_create, METH_VARARGS, NULL },
   { (char *) "close", py_guestfs_close, METH_VARARGS, NULL },
@@ -5112,6 +5189,9 @@ static PyMethodDef methods[] = {
   { (char *) "du", py_guestfs_du, METH_VARARGS, NULL },
   { (char *) "initrd_list", py_guestfs_initrd_list, METH_VARARGS, NULL },
   { (char *) "mount_loop", py_guestfs_mount_loop, METH_VARARGS, NULL },
+  { (char *) "mkswap", py_guestfs_mkswap, METH_VARARGS, NULL },
+  { (char *) "mkswap_L", py_guestfs_mkswap_L, METH_VARARGS, NULL },
+  { (char *) "mkswap_U", py_guestfs_mkswap_U, METH_VARARGS, NULL },
   { NULL, NULL, 0, NULL }
 };
 

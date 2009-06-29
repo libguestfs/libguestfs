@@ -2843,3 +2843,38 @@ PREINIT:
       if (r == -1)
         croak ("mount_loop: %s", guestfs_last_error (g));
 
+void
+mkswap (g, device)
+      guestfs_h *g;
+      char *device;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_mkswap (g, device);
+      if (r == -1)
+        croak ("mkswap: %s", guestfs_last_error (g));
+
+void
+mkswap_L (g, label, device)
+      guestfs_h *g;
+      char *label;
+      char *device;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_mkswap_L (g, label, device);
+      if (r == -1)
+        croak ("mkswap_L: %s", guestfs_last_error (g));
+
+void
+mkswap_U (g, uuid, device)
+      guestfs_h *g;
+      char *uuid;
+      char *device;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_mkswap_U (g, uuid, device);
+      if (r == -1)
+        croak ("mkswap_U: %s", guestfs_last_error (g));
+

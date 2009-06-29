@@ -4442,3 +4442,60 @@ Java_com_redhat_et_libguestfs_GuestFS__1mount_1loop
   }
 }
 
+JNIEXPORT void JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1mkswap
+  (JNIEnv *env, jobject obj, jlong jg, jstring jdevice)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+  const char *device;
+
+  device = (*env)->GetStringUTFChars (env, jdevice, NULL);
+  r = guestfs_mkswap (g, device);
+  (*env)->ReleaseStringUTFChars (env, jdevice, device);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return ;
+  }
+}
+
+JNIEXPORT void JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1mkswap_1L
+  (JNIEnv *env, jobject obj, jlong jg, jstring jlabel, jstring jdevice)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+  const char *label;
+  const char *device;
+
+  label = (*env)->GetStringUTFChars (env, jlabel, NULL);
+  device = (*env)->GetStringUTFChars (env, jdevice, NULL);
+  r = guestfs_mkswap_L (g, label, device);
+  (*env)->ReleaseStringUTFChars (env, jlabel, label);
+  (*env)->ReleaseStringUTFChars (env, jdevice, device);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return ;
+  }
+}
+
+JNIEXPORT void JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1mkswap_1U
+  (JNIEnv *env, jobject obj, jlong jg, jstring juuid, jstring jdevice)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+  const char *uuid;
+  const char *device;
+
+  uuid = (*env)->GetStringUTFChars (env, juuid, NULL);
+  device = (*env)->GetStringUTFChars (env, jdevice, NULL);
+  r = guestfs_mkswap_U (g, uuid, device);
+  (*env)->ReleaseStringUTFChars (env, juuid, uuid);
+  (*env)->ReleaseStringUTFChars (env, jdevice, device);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return ;
+  }
+}
+

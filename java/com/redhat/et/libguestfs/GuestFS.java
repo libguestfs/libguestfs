@@ -3839,4 +3839,55 @@ public HashMap<String,String> test0rhashtableerr ()
   private native void _mount_loop (long g, String file, String mountpoint)
     throws LibGuestFSException;
 
+  /**
+   * create a swap partition
+   * <p>
+   * Create a swap partition on "device".
+   * <p>
+   * @throws LibGuestFSException
+   */
+  public void mkswap (String device)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("mkswap: handle is closed");
+    _mkswap (g, device);
+  }
+  private native void _mkswap (long g, String device)
+    throws LibGuestFSException;
+
+  /**
+   * create a swap partition with a label
+   * <p>
+   * Create a swap partition on "device" with label "label".
+   * <p>
+   * @throws LibGuestFSException
+   */
+  public void mkswap_L (String label, String device)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("mkswap_L: handle is closed");
+    _mkswap_L (g, label, device);
+  }
+  private native void _mkswap_L (long g, String label, String device)
+    throws LibGuestFSException;
+
+  /**
+   * create a swap partition with an explicit UUID
+   * <p>
+   * Create a swap partition on "device" with UUID "uuid".
+   * <p>
+   * @throws LibGuestFSException
+   */
+  public void mkswap_U (String uuid, String device)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("mkswap_U: handle is closed");
+    _mkswap_U (g, uuid, device);
+  }
+  private native void _mkswap_U (long g, String uuid, String device)
+    throws LibGuestFSException;
+
 }
