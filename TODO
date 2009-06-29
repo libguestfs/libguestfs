@@ -155,10 +155,6 @@ Extra commands / functionality:
     pivot_root
     fts(3) / ftw(3)
 
-  guestfish only:
-    cat file | pipe-cmd should have a generic form? like
-      'file | less' or 'file | sort'?
-
 ----------------------------------------------------------------------
 
 Allow swap space from the guest to be used.  Is it a good idea?
