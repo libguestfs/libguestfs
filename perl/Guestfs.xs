@@ -2812,3 +2812,22 @@ PREINIT:
  OUTPUT:
       RETVAL
 
+void
+initrd_list (g, path)
+      guestfs_h *g;
+      char *path;
+PREINIT:
+      char **filenames;
+      int i, n;
+ PPCODE:
+      filenames = guestfs_initrd_list (g, path);
+      if (filenames == NULL)
+        croak ("initrd_list: %s", guestfs_last_error (g));
+      for (n = 0; filenames[n] != NULL; ++n) /**/;
+      EXTEND (SP, n);
+      for (i = 0; i < n; ++i) {
+        PUSHs (sv_2mortal (newSVpv (filenames[i], 0)));
+        free (filenames[i]);
+      }
+      free (filenames);
+

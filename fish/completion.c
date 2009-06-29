@@ -194,6 +194,7 @@ static const char *const commands[] = {
   "df",
   "df-h",
   "du",
+  "initrd-list",
   NULL
 };
 

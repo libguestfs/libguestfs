@@ -1840,3 +1840,19 @@ class GuestFS:
         """
         return libguestfsmod.du (self._o, path)
 
+    def initrd_list (self, path):
+        u"""This command lists out files contained in an initrd.
+        
+        The files are listed without any initial "/" character.
+        The files are listed in the order they appear (not
+        necessarily alphabetical). Directory names are listed as
+        separate items.
+        
+        Old Linux kernels (2.4 and earlier) used a compressed
+        ext2 filesystem as initrd. We *only* support the newer
+        initramfs format (compressed cpio files).
+        
+        This function returns a list of strings.
+        """
+        return libguestfsmod.initrd_list (self._o, path)
+

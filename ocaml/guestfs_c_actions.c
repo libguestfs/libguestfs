@@ -4611,3 +4611,29 @@ ocaml_guestfs_du (value gv, value pathv)
   CAMLreturn (rv);
 }
 
+CAMLprim value
+ocaml_guestfs_initrd_list (value gv, value pathv)
+{
+  CAMLparam2 (gv, pathv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("initrd_list: used handle after closing it");
+
+  const char *path = String_val (pathv);
+  int i;
+  char **r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_initrd_list (g, path);
+  caml_leave_blocking_section ();
+  if (r == NULL)
+    ocaml_guestfs_raise_error (g, "initrd_list");
+
+  rv = caml_copy_string_array ((const char **) r);
+  for (i = 0; r[i] != NULL; ++i) free (r[i]);
+  free (r);
+  CAMLreturn (rv);
+}
+

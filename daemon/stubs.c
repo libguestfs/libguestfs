@@ -3205,6 +3205,34 @@ done:
   xdr_free ((xdrproc_t) xdr_guestfs_du_args, (char *) &args);
 }
 
+static void initrd_list_stub (XDR *xdr_in)
+{
+  char **r;
+  struct guestfs_initrd_list_args args;
+  char *path;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_initrd_list_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "initrd_list");
+    return;
+  }
+  path = args.path;
+
+  r = do_initrd_list (path);
+  if (r == NULL)
+    /* do_initrd_list has already called reply_with_error */
+    goto done;
+
+  struct guestfs_initrd_list_ret ret;
+  ret.filenames.filenames_len = count_strings (r);
+  ret.filenames.filenames_val = r;
+  reply ((xdrproc_t) &xdr_guestfs_initrd_list_ret, (char *) &ret);
+  free_strings (r);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_initrd_list_args, (char *) &args);
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -3588,6 +3616,9 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_DU:
       du_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_INITRD_LIST:
+      initrd_list_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d, set LIBGUESTFS_PATH to point to the matching libguestfs appliance directory", proc_nr);

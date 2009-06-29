@@ -755,6 +755,18 @@ Because of the message protocol, there is a transfer limit
 of somewhere between 2MB and 4MB.  To transfer large files you should use
 FTP.
 
+=item @filenames = $h->initrd_list ($path);
+
+This command lists out files contained in an initrd.
+
+The files are listed without any initial C</> character.  The
+files are listed in the order they appear (not necessarily
+alphabetical).  Directory names are listed as separate items.
+
+Old Linux kernels (2.4 and earlier) used a compressed ext2
+filesystem as initrd.  We I<only> support the newer initramfs
+format (compressed cpio files).
+
 =item $busy = $h->is_busy ();
 
 This returns true iff this handle is busy processing a command
