@@ -402,6 +402,20 @@ repeatedly on each matching path.
 
 See section WILDCARDS AND GLOBBING.
 
+=head2 more | less
+
+ more filename
+
+ less filename
+
+This is used to view a file.
+
+The default viewer is C<$PAGER>.  However if you use the alternate
+command C<less> you will get the C<less> command specifically.
+
+NOTE: This will not work reliably for large files
+(> 2 MB) or binary files containing \0 bytes.
+
 @ACTIONS@
 
 =head1 ENVIRONMENT VARIABLES
