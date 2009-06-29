@@ -2798,3 +2798,17 @@ PREINIT:
  OUTPUT:
       RETVAL
 
+SV *
+du (g, path)
+      guestfs_h *g;
+      char *path;
+PREINIT:
+      int64_t sizekb;
+   CODE:
+      sizekb = guestfs_du (g, path);
+      if (sizekb == -1)
+        croak ("du: %s", guestfs_last_error (g));
+      RETVAL = my_newSVll (sizekb);
+ OUTPUT:
+      RETVAL
+

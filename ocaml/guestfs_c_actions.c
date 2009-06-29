@@ -4588,3 +4588,26 @@ ocaml_guestfs_df_h (value gv)
   CAMLreturn (rv);
 }
 
+CAMLprim value
+ocaml_guestfs_du (value gv, value pathv)
+{
+  CAMLparam2 (gv, pathv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("du: used handle after closing it");
+
+  const char *path = String_val (pathv);
+  int64_t r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_du (g, path);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "du");
+
+  rv = caml_copy_int64 (r);
+  CAMLreturn (rv);
+}
+

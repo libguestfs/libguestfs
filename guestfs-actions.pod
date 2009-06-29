@@ -689,6 +689,23 @@ so that the maximum guest memory is freed.
 
 This function returns 0 on success or -1 on error.
 
+=head2 guestfs_du
+
+ int64_t guestfs_du (guestfs_h *handle,
+		const char *path);
+
+This command runs the C<du -s> command to estimate file space
+usage for C<path>.
+
+C<path> can be a file or a directory.  If C<path> is a directory
+then the estimate includes the contents of the directory and all
+subdirectories (recursively).
+
+The result is the estimated size in I<kilobytes>
+(ie. units of 1024 bytes).
+
+On error this function returns -1.
+
 =head2 guestfs_e2fsck_f
 
  int guestfs_e2fsck_f (guestfs_h *handle,

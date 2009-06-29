@@ -197,3 +197,4 @@ extern char **guestfs_tail (guestfs_h *handle, const char *path);
 extern char **guestfs_tail_n (guestfs_h *handle, int nrlines, const char *path);
 extern char *guestfs_df (guestfs_h *handle);
 extern char *guestfs_df_h (guestfs_h *handle);
+extern int64_t guestfs_du (guestfs_h *handle, const char *path);

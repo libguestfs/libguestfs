@@ -658,3 +658,6 @@ val df : t -> string
 val df_h : t -> string
 (** report file system disk space usage (human readable) *)
 
+val du : t -> string -> int64
+(** estimate file space usage *)
+

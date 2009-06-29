@@ -842,6 +842,14 @@ struct guestfs_df_h_ret {
   string output<>;
 };
 
+struct guestfs_du_args {
+  string path<>;
+};
+
+struct guestfs_du_ret {
+  hyper sizekb;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -969,6 +977,7 @@ enum guestfs_procedure {
   GUESTFS_PROC_TAIL_N = 124,
   GUESTFS_PROC_DF = 125,
   GUESTFS_PROC_DF_H = 126,
+  GUESTFS_PROC_DU = 127,
   GUESTFS_PROC_NR_PROCS
 };
 

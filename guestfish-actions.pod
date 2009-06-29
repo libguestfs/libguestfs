@@ -540,6 +540,20 @@ Setting C<whattodrop> to 3 should drop everything.
 This automatically calls L<sync(2)> before the operation,
 so that the maximum guest memory is freed.
 
+=head2 du
+
+ du path
+
+This command runs the C<du -s> command to estimate file space
+usage for C<path>.
+
+C<path> can be a file or a directory.  If C<path> is a directory
+then the estimate includes the contents of the directory and all
+subdirectories (recursively).
+
+The result is the estimated size in I<kilobytes>
+(ie. units of 1024 bytes).
+
 =head2 e2fsck-f
 
  e2fsck-f device

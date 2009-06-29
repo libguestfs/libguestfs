@@ -4371,3 +4371,21 @@ Java_com_redhat_et_libguestfs_GuestFS__1df_1h
   return jr;
 }
 
+JNIEXPORT jlong JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1du
+  (JNIEnv *env, jobject obj, jlong jg, jstring jpath)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int64_t r;
+  const char *path;
+
+  path = (*env)->GetStringUTFChars (env, jpath, NULL);
+  r = guestfs_du (g, path);
+  (*env)->ReleaseStringUTFChars (env, jpath, path);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return 0;
+  }
+  return (jlong) r;
+}
+

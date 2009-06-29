@@ -1827,3 +1827,16 @@ class GuestFS:
         """
         return libguestfsmod.df_h (self._o)
 
+    def du (self, path):
+        u"""This command runs the "du -s" command to estimate file
+        space usage for "path".
+        
+        "path" can be a file or a directory. If "path" is a
+        directory then the estimate includes the contents of the
+        directory and all subdirectories (recursively).
+        
+        The result is the estimated size in *kilobytes* (ie.
+        units of 1024 bytes).
+        """
+        return libguestfsmod.du (self._o, path)
+

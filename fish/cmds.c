@@ -72,6 +72,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "dmesg", "return kernel messages");
   printf ("%-20s %s\n", "download", "download a file to the local machine");
   printf ("%-20s %s\n", "drop-caches", "drop kernel page cache, dentries and inodes");
+  printf ("%-20s %s\n", "du", "estimate file space usage");
   printf ("%-20s %s\n", "e2fsck-f", "check an ext2/ext3 filesystem");
   printf ("%-20s %s\n", "equal", "test if two files have equal contents");
   printf ("%-20s %s\n", "exists", "test if file or directory exists");
@@ -623,6 +624,9 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "df_h") == 0 || strcasecmp (cmd, "df-h") == 0)
     pod2text ("df-h - report file system disk space usage (human readable)", " df-h\n\nThis command runs the C<df -h> command to report disk space used\nin human-readable format.\n\nThis command is mostly useful for interactive sessions.  It\nis I<not> intended that you try to parse the output string.\nUse C<statvfs> from programs.");
+  else
+  if (strcasecmp (cmd, "du") == 0)
+    pod2text ("du - estimate file space usage", " du <path>\n\nThis command runs the C<du -s> command to estimate file space\nusage for C<path>.\n\nC<path> can be a file or a directory.  If C<path> is a directory\nthen the estimate includes the contents of the directory and all\nsubdirectories (recursively).\n\nThe result is the estimated size in I<kilobytes>\n(ie. units of 1024 bytes).");
   else
     display_builtin_command (cmd);
 }
@@ -3062,6 +3066,22 @@ static int run_df_h (const char *cmd, int argc, char *argv[])
   return 0;
 }
 
+static int run_du (const char *cmd, int argc, char *argv[])
+{
+  int64_t r;
+  const char *path;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  path = argv[0];
+  r = guestfs_du (g, path);
+  if (r == -1) return -1;
+  printf ("%" PRIi64 "\n", r);
+  return 0;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -3504,6 +3524,9 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "df_h") == 0 || strcasecmp (cmd, "df-h") == 0)
     return run_df_h (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "du") == 0)
+    return run_du (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

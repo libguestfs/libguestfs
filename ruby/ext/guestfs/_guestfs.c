@@ -4559,6 +4559,28 @@ static VALUE ruby_guestfs_df_h (VALUE gv)
   return rv;
 }
 
+static VALUE ruby_guestfs_du (VALUE gv, VALUE pathv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "du");
+
+  Check_Type (pathv, T_STRING);
+  const char *path = StringValueCStr (pathv);
+  if (!path)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "path", "du");
+
+  int64_t r;
+
+  r = guestfs_du (g, path);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return ULL2NUM (r);
+}
+
 /* Initialize the module. */
 void Init__guestfs ()
 {
@@ -4925,4 +4947,6 @@ void Init__guestfs ()
         ruby_guestfs_df, 0);
   rb_define_method (c_guestfs, "df_h",
         ruby_guestfs_df_h, 0);
+  rb_define_method (c_guestfs, "du",
+        ruby_guestfs_du, 1);
 }

@@ -147,3 +147,4 @@ extern char **do_tail (char *path);
 extern char **do_tail_n (int nrlines, char *path);
 extern char *do_df (void);
 extern char *do_df_h (void);
+extern int64_t do_du (char *path);

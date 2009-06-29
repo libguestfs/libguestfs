@@ -3179,6 +3179,32 @@ static void df_h_stub (XDR *xdr_in)
 done: ;
 }
 
+static void du_stub (XDR *xdr_in)
+{
+  int64_t r;
+  struct guestfs_du_args args;
+  char *path;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_du_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "du");
+    return;
+  }
+  path = args.path;
+
+  r = do_du (path);
+  if (r == -1)
+    /* do_du has already called reply_with_error */
+    goto done;
+
+  struct guestfs_du_ret ret;
+  ret.sizekb = r;
+  reply ((xdrproc_t) &xdr_guestfs_du_ret, (char *) &ret);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_du_args, (char *) &args);
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -3559,6 +3585,9 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_DF_H:
       df_h_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_DU:
+      du_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d, set LIBGUESTFS_PATH to point to the matching libguestfs appliance directory", proc_nr);

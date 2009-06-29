@@ -119,7 +119,8 @@ module Guestfs (
   scrub_freespace,
   wc_l,
   wc_w,
-  wc_c
+  wc_c,
+  du
   ) where
 import Foreign
 import Foreign.C
@@ -1316,6 +1317,18 @@ foreign import ccall unsafe "guestfs_wc_c" c_wc_c
 wc_c :: GuestfsH -> String -> IO (Int)
 wc_c h path = do
   r <- withCString path $ \path -> withForeignPtr h (\p -> c_wc_c p path)
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return (fromIntegral r)
+
+foreign import ccall unsafe "guestfs_du" c_du
+  :: GuestfsP -> CString -> IO (Int64)
+
+du :: GuestfsH -> String -> IO (Integer)
+du h path = do
+  r <- withCString path $ \path -> withForeignPtr h (\p -> c_du p path)
   if (r == -1)
     then do
       err <- last_error h

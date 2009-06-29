@@ -549,6 +549,18 @@ Setting C<whattodrop> to 3 should drop everything.
 This automatically calls L<sync(2)> before the operation,
 so that the maximum guest memory is freed.
 
+=item $sizekb = $h->du ($path);
+
+This command runs the C<du -s> command to estimate file space
+usage for C<path>.
+
+C<path> can be a file or a directory.  If C<path> is a directory
+then the estimate includes the contents of the directory and all
+subdirectories (recursively).
+
+The result is the estimated size in I<kilobytes>
+(ie. units of 1024 bytes).
+
 =item $h->e2fsck_f ($device);
 
 This runs C<e2fsck -p -f device>, ie. runs the ext2/ext3

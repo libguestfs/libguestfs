@@ -3769,4 +3769,29 @@ public HashMap<String,String> test0rhashtableerr ()
   private native String _df_h (long g)
     throws LibGuestFSException;
 
+  /**
+   * estimate file space usage
+   * <p>
+   * This command runs the "du -s" command to estimate file
+   * space usage for "path".
+   * <p>
+   * "path" can be a file or a directory. If "path" is a
+   * directory then the estimate includes the contents of the
+   * directory and all subdirectories (recursively).
+   * <p>
+   * The result is the estimated size in *kilobytes* (ie.
+   * units of 1024 bytes).
+   * <p>
+   * @throws LibGuestFSException
+   */
+  public long du (String path)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("du: handle is closed");
+    return _du (g, path);
+  }
+  private native long _du (long g, String path)
+    throws LibGuestFSException;
+
 }
