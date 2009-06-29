@@ -2473,6 +2473,33 @@ directory and its contents after use.
 
 See also: L<mkdtemp(3)>");
 
+  ("wc_l", (RInt "lines", [String "path"]), 118, [],
+   [InitBasicFS, Always, TestOutputInt (
+      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
+       ["wc_l"; "/10klines"]], 10000)],
+   "count lines in a file",
+   "\
+This command counts the lines in a file, using the
+C<wc -l> external command.");
+
+  ("wc_w", (RInt "words", [String "path"]), 119, [],
+   [InitBasicFS, Always, TestOutputInt (
+      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
+       ["wc_w"; "/10klines"]], 10000)],
+   "count words in a file",
+   "\
+This command counts the words in a file, using the
+C<wc -w> external command.");
+
+  ("wc_c", (RInt "chars", [String "path"]), 120, [],
+   [InitBasicFS, Always, TestOutputInt (
+      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
+       ["wc_c"; "/100kallspaces"]], 102400)],
+   "count characters in a file",
+   "\
+This command counts the characters in a file, using the
+C<wc -c> external command.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

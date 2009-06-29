@@ -55,6 +55,7 @@ guestfsd_SOURCES = \
 	sync.c \
 	tar.c \
 	upload.c \
+	wc.c \
 	zero.c \
 	zerofree.c \
 	../src/guestfs_protocol.h \
