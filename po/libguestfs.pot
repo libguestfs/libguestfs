@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2009-06-24 12:47+0100\n"
+"POT-Creation-Date: 2009-06-29 16:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,12 +32,12 @@ msgstr ""
 msgid "could not parse size specification '%s'\n"
 msgstr ""
 
-#: fish/edit.c:104
+#: fish/edit.c:86
 #, c-format
 msgid "use '%s filename' to edit a file\n"
 msgstr ""
 
-#: fish/fish.c:88
+#: fish/fish.c:90
 #, c-format
 msgid ""
 "guestfish: guest filesystem shell\n"
@@ -69,37 +69,37 @@ msgid ""
 "For more information,  see the manpage guestfish(1).\n"
 msgstr ""
 
-#: fish/fish.c:149
+#: fish/fish.c:157
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr ""
 
-#: fish/fish.c:194
+#: fish/fish.c:202
 #, c-format
 msgid "guestfish: only one -f parameter can be given\n"
 msgstr ""
 
-#: fish/fish.c:252
+#: fish/fish.c:260
 #, c-format
 msgid "guestfish: unexpected command line option 0x%x\n"
 msgstr ""
 
-#: fish/fish.c:264
+#: fish/fish.c:272
 #, c-format
 msgid "guestfish: cannot use -i option with -a or -m\n"
 msgstr ""
 
-#: fish/fish.c:268
+#: fish/fish.c:276
 #, c-format
 msgid "guestfish -i requires a libvirt domain or path(s) to disk image(s)\n"
 msgstr ""
 
-#: fish/fish.c:276
+#: fish/fish.c:284
 #, c-format
 msgid "guestfish: virt-inspector command too long for fixed-size buffer\n"
 msgstr ""
 
-#: fish/fish.c:456
+#: fish/fish.c:464
 #, c-format
 msgid ""
 "\n"
@@ -111,65 +111,65 @@ msgid ""
 "\n"
 msgstr ""
 
-#: fish/fish.c:533
+#: fish/fish.c:542
 #, c-format
 msgid "guestfish: unterminated double quote\n"
 msgstr ""
 
-#: fish/fish.c:538 fish/fish.c:553
+#: fish/fish.c:547 fish/fish.c:562
 #, c-format
 msgid "guestfish: command arguments not separated by whitespace\n"
 msgstr ""
 
-#: fish/fish.c:548
+#: fish/fish.c:557
 #, c-format
 msgid "guestfish: unterminated single quote\n"
 msgstr ""
 
-#: fish/fish.c:589
+#: fish/fish.c:602
 #, c-format
 msgid "guestfish: internal error parsing string at '%s'\n"
 msgstr ""
 
-#: fish/fish.c:602
+#: fish/fish.c:615
 #, c-format
 msgid "guestfish: too many arguments\n"
 msgstr ""
 
-#: fish/fish.c:629
+#: fish/fish.c:642
 #, c-format
 msgid "guestfish: empty command on command line\n"
 msgstr ""
 
-#: fish/fish.c:690
+#: fish/fish.c:749
 msgid "display a list of commands or help on a command"
 msgstr ""
 
-#: fish/fish.c:692
+#: fish/fish.c:751
 msgid "quit guestfish"
 msgstr ""
 
-#: fish/fish.c:695
+#: fish/fish.c:754
 msgid "allocate an image"
 msgstr ""
 
-#: fish/fish.c:697
+#: fish/fish.c:756
 msgid "display a line of text"
 msgstr ""
 
-#: fish/fish.c:699
+#: fish/fish.c:758
 msgid "edit a file in the image"
 msgstr ""
 
-#: fish/fish.c:701
+#: fish/fish.c:760
 msgid "local change directory"
 msgstr ""
 
-#: fish/fish.c:703
+#: fish/fish.c:762
 msgid "expand wildcards in command"
 msgstr ""
 
-#: fish/fish.c:715
+#: fish/fish.c:774
 #, c-format
 msgid ""
 "alloc - allocate an image\n"
@@ -189,7 +189,7 @@ msgid ""
 "    <nn>sects        number of 512 byte sectors\n"
 msgstr ""
 
-#: fish/fish.c:731
+#: fish/fish.c:790
 #, c-format
 msgid ""
 "echo - display a line of text\n"
@@ -198,7 +198,7 @@ msgid ""
 "    This echos the parameters to the terminal.\n"
 msgstr ""
 
-#: fish/fish.c:738
+#: fish/fish.c:797
 #, c-format
 msgid ""
 "edit - edit a file in the image\n"
@@ -216,7 +216,7 @@ msgid ""
 "    (> 2 MB) or binary files containing \\0 bytes.\n"
 msgstr ""
 
-#: fish/fish.c:752
+#: fish/fish.c:811
 #, c-format
 msgid ""
 "lcd - local change directory\n"
@@ -227,7 +227,7 @@ msgid ""
 "    place.\n"
 msgstr ""
 
-#: fish/fish.c:759
+#: fish/fish.c:818
 #, c-format
 msgid ""
 "glob - expand wildcards in command\n"
@@ -238,7 +238,25 @@ msgid ""
 "    once for each expanded argument.\n"
 msgstr ""
 
-#: fish/fish.c:766
+#: fish/fish.c:826
+#, c-format
+msgid ""
+"more - view a file in the pager\n"
+"     more <filename>\n"
+"\n"
+"    This is used to view a file in the pager.\n"
+"\n"
+"    It is the equivalent of (and is implemented by)\n"
+"    running \"cat\" and using the pager.\n"
+"\n"
+"    Normally it uses $PAGER, but if you use the alias\n"
+"    \"less\" then it always uses \"less\".\n"
+"\n"
+"    NOTE: This will not work reliably for large files\n"
+"    (> 2 MB) or binary files containing \\0 bytes.\n"
+msgstr ""
+
+#: fish/fish.c:840
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -246,14 +264,14 @@ msgid ""
 "     help\n"
 msgstr ""
 
-#: fish/fish.c:772
+#: fish/fish.c:846
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
 "     quit\n"
 msgstr ""
 
-#: fish/fish.c:775
+#: fish/fish.c:849
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""
@@ -402,107 +420,107 @@ msgstr ""
 msgid "sock_write_event: state %d != BUSY"
 msgstr ""
 
-#: src/guestfs.c:1797 src/guestfs.c:1820
+#: src/guestfs.c:1800 src/guestfs.c:1823
 msgid "remove_handle failed"
 msgstr ""
 
-#: src/guestfs.c:1808 src/guestfs.c:1831
+#: src/guestfs.c:1811 src/guestfs.c:1834
 msgid "add_handle failed"
 msgstr ""
 
-#: src/guestfs.c:1864
+#: src/guestfs.c:1867
 #, c-format
 msgid "guestfs__send_sync: state %d != BUSY"
 msgstr ""
 
-#: src/guestfs.c:1872 src/guestfs.c:2052
+#: src/guestfs.c:1875 src/guestfs.c:2055
 msgid "guestfs__send_sync: msg_out should be NULL"
 msgstr ""
 
-#: src/guestfs.c:1894
+#: src/guestfs.c:1897
 msgid "xdr_guestfs_message_header failed"
 msgstr ""
 
-#: src/guestfs.c:1903
+#: src/guestfs.c:1906
 msgid "dispatch failed to marshal args"
 msgstr ""
 
-#: src/guestfs.c:1929
+#: src/guestfs.c:1932
 msgid "send failed, see earlier error messages"
 msgstr ""
 
-#: src/guestfs.c:2044
+#: src/guestfs.c:2047
 #, c-format
 msgid "send_file_chunk_sync: state %d != READY"
 msgstr ""
 
-#: src/guestfs.c:2075
+#: src/guestfs.c:2078
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr ""
 
-#: src/guestfs.c:2100
+#: src/guestfs.c:2103
 msgid "send file chunk failed, see earlier error messages"
 msgstr ""
 
-#: src/guestfs.c:2151
+#: src/guestfs.c:2154
 #, c-format
 msgid "check_for_daemon_cancellation: read 0x%x from daemon, expected 0x%x\n"
 msgstr ""
 
-#: src/guestfs.c:2189
+#: src/guestfs.c:2192
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr ""
 
-#: src/guestfs.c:2213
+#: src/guestfs.c:2216
 msgid "write to daemon socket"
 msgstr ""
 
-#: src/guestfs.c:2260
+#: src/guestfs.c:2263
 msgid "failed to parse file chunk"
 msgstr ""
 
-#: src/guestfs.c:2292
+#: src/guestfs.c:2295
 msgid "receive_file_data_sync: reply callback not called\n"
 msgstr ""
 
-#: src/guestfs.c:2297
+#: src/guestfs.c:2300
 msgid "receive_file_data_sync: parse error in reply callback\n"
 msgstr ""
 
-#: src/guestfs.c:2311
+#: src/guestfs.c:2314
 msgid "file receive cancelled by daemon"
 msgstr ""
 
-#: src/guestfs.c:2346 src/guestfs.c:2404
+#: src/guestfs.c:2349 src/guestfs.c:2407
 #, c-format
 msgid "fd %d is out of range"
 msgstr ""
 
-#: src/guestfs.c:2354
+#: src/guestfs.c:2357
 #, c-format
 msgid "set of events (0x%x) contains unknown events"
 msgstr ""
 
-#: src/guestfs.c:2359
+#: src/guestfs.c:2362
 msgid "set of events is empty"
 msgstr ""
 
-#: src/guestfs.c:2366
+#: src/guestfs.c:2369
 #, c-format
 msgid "fd %d is already registered"
 msgstr ""
 
-#: src/guestfs.c:2371
+#: src/guestfs.c:2374
 msgid "callback is NULL"
 msgstr ""
 
-#: src/guestfs.c:2411
+#: src/guestfs.c:2414
 #, c-format
 msgid "fd %d was not registered"
 msgstr ""
 
-#: src/guestfs.c:2460
+#: src/guestfs.c:2463
 msgid "select_main_loop_run: this cannot be called recursively"
 msgstr ""

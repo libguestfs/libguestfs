@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2009-06-24 12:47+0100\n"
+"POT-Creation-Date: 2009-06-29 16:58+0100\n"
 "PO-Revision-Date: 2009-06-22 21:16+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -29,12 +29,12 @@ msgstr "nie przydzielać lub dodawaj dyski po uruchomieniu\n"
 msgid "could not parse size specification '%s'\n"
 msgstr "nie można przeanalizować określenia rozmiaru \"%s\"\n"
 
-#: fish/edit.c:104
+#: fish/edit.c:86
 #, c-format
 msgid "use '%s filename' to edit a file\n"
 msgstr "użyj \"%s nazwapliku\", aby zmodyfikować plik\n"
 
-#: fish/fish.c:88
+#: fish/fish.c:90
 #, fuzzy, c-format
 msgid ""
 "guestfish: guest filesystem shell\n"
@@ -90,37 +90,37 @@ msgstr ""
 "  -V|--version         Wyświetla wersję i kończy pracę\n"
 "Aby dowiedzieć się więcej, zobacz stronę podręcznika guestfish(1).\n"
 
-#: fish/fish.c:149
+#: fish/fish.c:157
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: utworzenie programu obsługi nie powiodło się\n"
 
-#: fish/fish.c:194
+#: fish/fish.c:202
 #, c-format
 msgid "guestfish: only one -f parameter can be given\n"
 msgstr ""
 
-#: fish/fish.c:252
+#: fish/fish.c:260
 #, c-format
 msgid "guestfish: unexpected command line option 0x%x\n"
 msgstr "guestfish: nieoczekiwane polecenie wiersza poleceń 0x%x\n"
 
-#: fish/fish.c:264
+#: fish/fish.c:272
 #, c-format
 msgid "guestfish: cannot use -i option with -a or -m\n"
 msgstr ""
 
-#: fish/fish.c:268
+#: fish/fish.c:276
 #, c-format
 msgid "guestfish -i requires a libvirt domain or path(s) to disk image(s)\n"
 msgstr ""
 
-#: fish/fish.c:276
+#: fish/fish.c:284
 #, c-format
 msgid "guestfish: virt-inspector command too long for fixed-size buffer\n"
 msgstr ""
 
-#: fish/fish.c:456
+#: fish/fish.c:464
 #, c-format
 msgid ""
 "\n"
@@ -139,65 +139,65 @@ msgstr ""
 "      \"quit\", aby zakończyć powłokę\n"
 "\n"
 
-#: fish/fish.c:533
+#: fish/fish.c:542
 #, c-format
 msgid "guestfish: unterminated double quote\n"
 msgstr "guestfish: niezakończony podwójny cudzysłów\n"
 
-#: fish/fish.c:538 fish/fish.c:553
+#: fish/fish.c:547 fish/fish.c:562
 #, c-format
 msgid "guestfish: command arguments not separated by whitespace\n"
 msgstr "guestfish: parametry poleceń nie są oddzielone spacjami\n"
 
-#: fish/fish.c:548
+#: fish/fish.c:557
 #, c-format
 msgid "guestfish: unterminated single quote\n"
 msgstr "guestfish: niezakończony pojedynczy cudzysłów\n"
 
-#: fish/fish.c:589
+#: fish/fish.c:602
 #, c-format
 msgid "guestfish: internal error parsing string at '%s'\n"
 msgstr "guestfish: wewnętrzny błąd analizowania łańcucha \"%s\"\n"
 
-#: fish/fish.c:602
+#: fish/fish.c:615
 #, c-format
 msgid "guestfish: too many arguments\n"
 msgstr "guestfish: za dużo parametrów\n"
 
-#: fish/fish.c:629
+#: fish/fish.c:642
 #, c-format
 msgid "guestfish: empty command on command line\n"
 msgstr "guestfish: puste polecenie wiersza poleceń\n"
 
-#: fish/fish.c:690
+#: fish/fish.c:749
 msgid "display a list of commands or help on a command"
 msgstr "wyświetla listę poleceń lub pomoc polecenia"
 
-#: fish/fish.c:692
+#: fish/fish.c:751
 msgid "quit guestfish"
 msgstr "kończy pracę guestfish"
 
-#: fish/fish.c:695
+#: fish/fish.c:754
 msgid "allocate an image"
 msgstr "przydziela obraz"
 
-#: fish/fish.c:697
+#: fish/fish.c:756
 msgid "display a line of text"
 msgstr "wyświetla wiersz tekstu"
 
-#: fish/fish.c:699
+#: fish/fish.c:758
 msgid "edit a file in the image"
 msgstr "modyfikuje plik w obrazie"
 
-#: fish/fish.c:701
+#: fish/fish.c:760
 msgid "local change directory"
 msgstr "zmienia lokalny folder"
 
-#: fish/fish.c:703
+#: fish/fish.c:762
 msgid "expand wildcards in command"
 msgstr "rozwija wieloznaczniki w poleceniach"
 
-#: fish/fish.c:715
+#: fish/fish.c:774
 #, c-format
 msgid ""
 "alloc - allocate an image\n"
@@ -233,7 +233,7 @@ msgstr ""
 "    <nn>G lub <nn>GB  liczba gigabajtów\n"
 "    <nn>sektory       liczba 512 bajtowych sektorów\n"
 
-#: fish/fish.c:731
+#: fish/fish.c:790
 #, c-format
 msgid ""
 "echo - display a line of text\n"
@@ -246,7 +246,7 @@ msgstr ""
 "\n"
 "    Wyświetla ostatnie parametry w terminalu.\n"
 
-#: fish/fish.c:738
+#: fish/fish.c:797
 #, c-format
 msgid ""
 "edit - edit a file in the image\n"
@@ -278,7 +278,7 @@ msgstr ""
 "    UWAGA: nie będzie działało poprawnie dla dużych plików\n"
 "    (> 2 MB) lub plików binarnych zawierających \\0 bajtów.\n"
 
-#: fish/fish.c:752
+#: fish/fish.c:811
 #, c-format
 msgid ""
 "lcd - local change directory\n"
@@ -295,7 +295,7 @@ msgstr ""
 "    przydatne, jeśli chcesz pobrać pliki do konkretnego\n"
 "    miejsca.\n"
 
-#: fish/fish.c:759
+#: fish/fish.c:818
 #, c-format
 msgid ""
 "glob - expand wildcards in command\n"
@@ -313,7 +313,39 @@ msgstr ""
 "    Zauważ, że polecenie jest wykonywane raz dla\n"
 "    każdego rozwiniętego parametru.\n"
 
-#: fish/fish.c:766
+#: fish/fish.c:826
+#, fuzzy, c-format
+msgid ""
+"more - view a file in the pager\n"
+"     more <filename>\n"
+"\n"
+"    This is used to view a file in the pager.\n"
+"\n"
+"    It is the equivalent of (and is implemented by)\n"
+"    running \"cat\" and using the pager.\n"
+"\n"
+"    Normally it uses $PAGER, but if you use the alias\n"
+"    \"less\" then it always uses \"less\".\n"
+"\n"
+"    NOTE: This will not work reliably for large files\n"
+"    (> 2 MB) or binary files containing \\0 bytes.\n"
+msgstr ""
+"edit - modyfikuje plik w obrazie\n"
+"     edit <nazwapliku>\n"
+"\n"
+"    Jest używane do modyfikowania pliku.\n"
+"\n"
+"    Jest odpowiednikiem (i jest implementowane przez)\n"
+"    wykonania polecenia \"cat\", zmodyfikowania lokalnie, a\n"
+"    następnie wykonania polecenia \"write-file\".\n"
+"\n"
+"    Normalnie używa zmiennej $EDITOR, ale jeśli zostanie użyty\n"
+"    alias \"vi\" lub \"emacs\", uzyskane zostaną te edytory.\n"
+"\n"
+"    UWAGA: nie będzie działało poprawnie dla dużych plików\n"
+"    (> 2 MB) lub plików binarnych zawierających \\0 bajtów.\n"
+
+#: fish/fish.c:840
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -324,7 +356,7 @@ msgstr ""
 "     help polecenie\n"
 "     help\n"
 
-#: fish/fish.c:772
+#: fish/fish.c:846
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -333,7 +365,7 @@ msgstr ""
 "quit - kończy pracę guestfish\n"
 "     quit\n"
 
-#: fish/fish.c:775
+#: fish/fish.c:849
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""
@@ -486,111 +518,111 @@ msgstr "sock_write_event: wewnętrzny błąd: %d != %d"
 msgid "sock_write_event: state %d != BUSY"
 msgstr "sock_write_event: stan %d != ZAJĘTY"
 
-#: src/guestfs.c:1797 src/guestfs.c:1820
+#: src/guestfs.c:1800 src/guestfs.c:1823
 msgid "remove_handle failed"
 msgstr "remove_handle nie powiodło się"
 
-#: src/guestfs.c:1808 src/guestfs.c:1831
+#: src/guestfs.c:1811 src/guestfs.c:1834
 msgid "add_handle failed"
 msgstr "add_handle nie powiodło się"
 
-#: src/guestfs.c:1864
+#: src/guestfs.c:1867
 #, c-format
 msgid "guestfs__send_sync: state %d != BUSY"
 msgstr "guestfs__send_sync: stan %d != ZAJĘTY"
 
-#: src/guestfs.c:1872 src/guestfs.c:2052
+#: src/guestfs.c:1875 src/guestfs.c:2055
 msgid "guestfs__send_sync: msg_out should be NULL"
 msgstr "guestfs__send_sync: msg_out powinno być PUSTE"
 
-#: src/guestfs.c:1894
+#: src/guestfs.c:1897
 msgid "xdr_guestfs_message_header failed"
 msgstr "xdr_guestfs_message_header nie powiodło się"
 
-#: src/guestfs.c:1903
+#: src/guestfs.c:1906
 msgid "dispatch failed to marshal args"
 msgstr "rozdzielenie parametrów marszałka nie powiodło się"
 
-#: src/guestfs.c:1929
+#: src/guestfs.c:1932
 msgid "send failed, see earlier error messages"
 msgstr "wysłanie nie powiodło się, zobacz wcześniejsze komunikaty błędów"
 
-#: src/guestfs.c:2044
+#: src/guestfs.c:2047
 #, c-format
 msgid "send_file_chunk_sync: state %d != READY"
 msgstr "send_file_chunk_sync: stan %d != GOTOWY"
 
-#: src/guestfs.c:2075
+#: src/guestfs.c:2078
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk nie powiodło się (bufor = %p, długość bufora = %zu)"
 
-#: src/guestfs.c:2100
+#: src/guestfs.c:2103
 msgid "send file chunk failed, see earlier error messages"
 msgstr ""
 "wysłanie fragmentu pliku nie powiodło się, zobacz wcześniejsze komunikaty "
 "błędów"
 
-#: src/guestfs.c:2151
+#: src/guestfs.c:2154
 #, c-format
 msgid "check_for_daemon_cancellation: read 0x%x from daemon, expected 0x%x\n"
 msgstr ""
 "check_for_daemon_cancellation: odczytano 0x%x z demona, oczekiwano 0x%x\n"
 
-#: src/guestfs.c:2189
+#: src/guestfs.c:2192
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: błąd w kodowaniu fragmentu"
 
-#: src/guestfs.c:2213
+#: src/guestfs.c:2216
 msgid "write to daemon socket"
 msgstr "zapisz do gniazda demona"
 
-#: src/guestfs.c:2260
+#: src/guestfs.c:2263
 msgid "failed to parse file chunk"
 msgstr "przeanalizowanie fragmentu pliku nie powiodło się"
 
-#: src/guestfs.c:2292
+#: src/guestfs.c:2295
 msgid "receive_file_data_sync: reply callback not called\n"
 msgstr "receive_file_data_sync: nie wywołano odpowiedzi wywołania zwrotnego\n"
 
-#: src/guestfs.c:2297
+#: src/guestfs.c:2300
 msgid "receive_file_data_sync: parse error in reply callback\n"
 msgstr ""
 "receive_file_data_sync: błąd analizy w odpowiedzi wywołania zwrotnego\n"
 
-#: src/guestfs.c:2311
+#: src/guestfs.c:2314
 msgid "file receive cancelled by daemon"
 msgstr "otrzymanie pliku zostało anulowane przez demona"
 
-#: src/guestfs.c:2346 src/guestfs.c:2404
+#: src/guestfs.c:2349 src/guestfs.c:2407
 #, c-format
 msgid "fd %d is out of range"
 msgstr "fd %d jest spoza zakresu"
 
-#: src/guestfs.c:2354
+#: src/guestfs.c:2357
 #, c-format
 msgid "set of events (0x%x) contains unknown events"
 msgstr "zestaw zdarzeń (0x%x) zawiera nieznane zdarzenia"
 
-#: src/guestfs.c:2359
+#: src/guestfs.c:2362
 msgid "set of events is empty"
 msgstr "zestaw zdarzeń jest pusty"
 
-#: src/guestfs.c:2366
+#: src/guestfs.c:2369
 #, c-format
 msgid "fd %d is already registered"
 msgstr "fd %d jest już zarejestrowane"
 
-#: src/guestfs.c:2371
+#: src/guestfs.c:2374
 msgid "callback is NULL"
 msgstr "wywołanie zwrotne jest PUSTE"
 
-#: src/guestfs.c:2411
+#: src/guestfs.c:2414
 #, c-format
 msgid "fd %d was not registered"
 msgstr "fd %d nie zostało zarejestrowane"
 
-#: src/guestfs.c:2460
+#: src/guestfs.c:2463
 msgid "select_main_loop_run: this cannot be called recursively"
 msgstr "select_main_loop_run: nie może zostać wywołane rekursywnie"
