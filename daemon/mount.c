@@ -71,6 +71,7 @@ do_mount_vfs (char *options, char *vfstype,
   else
     r = command (NULL, &error,
 		 "mount", "-o", options, device, mp, NULL);
+  free (mp);
   if (r == -1) {
     reply_with_error ("mount: %s on %s: %s", device, mountpoint, error);
     free (error);
