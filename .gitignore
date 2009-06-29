@@ -62,6 +62,11 @@ html/guestfish.1.html
 html/guestfs.3.html
 html/recipes.html
 html/virt-inspector.1.html
+images/100kallzeroes
+images/100kallnewlines
+images/100kallspaces
+images/100krandom
+images/10klines
 images/test.sqsh
 initramfs
 initramfs.timestamp

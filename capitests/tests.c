@@ -1797,6 +1797,102 @@ static int test_hexdump_0 (void)
   return 0;
 }
 
+static int test_hexdump_1_skip (void)
+{
+  const char *str;
+
+  str = getenv ("SKIP_TEST_HEXDUMP_1");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_HEXDUMP");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
+static int test_hexdump_1 (void)
+{
+  if (test_hexdump_1_skip ()) {
+    printf ("%s skipped (reason: SKIP_TEST_* variable set)\n", "test_hexdump_1");
+    return 0;
+  }
+
+  /* InitBasicFS for test_hexdump_1: create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestRun for hexdump (1) */
+  {
+    char options[] = "ro";
+    char vfstype[] = "squashfs";
+    char device[] = "/dev/sdd";
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount_vfs (g, options, vfstype, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/100krandom";
+    char *r;
+    suppress_error = 0;
+    r = guestfs_hexdump (g, path);
+    if (r == NULL)
+      return -1;
+    free (r);
+  }
+  return 0;
+}
+
 static int test_strings_e_0_skip (void)
 {
   const char *str;
@@ -16406,7 +16502,7 @@ int main (int argc, char *argv[])
   /* Cancel previous alarm. */
   alarm (0);
 
-  nr_tests = 152;
+  nr_tests = 153;
 
   test_num++;
   printf ("%3d/%3d test_mkdtemp_0\n", test_num, nr_tests);
@@ -16496,6 +16592,12 @@ int main (int argc, char *argv[])
   printf ("%3d/%3d test_hexdump_0\n", test_num, nr_tests);
   if (test_hexdump_0 () == -1) {
     printf ("test_hexdump_0 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_hexdump_1\n", test_num, nr_tests);
+  if (test_hexdump_1 () == -1) {
+    printf ("test_hexdump_1 FAILED\n");
     failed++;
   }
   test_num++;

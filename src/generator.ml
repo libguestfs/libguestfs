@@ -2131,7 +2131,13 @@ The returned strings are transcoded to UTF-8.");
   ("hexdump", (RString "dump", [String "path"]), 96, [ProtocolLimitWarning],
    [InitBasicFS, Always, TestOutput (
       [["write_file"; "/new"; "hello\nworld\n"; "12"];
-       ["hexdump"; "/new"]], "00000000  68 65 6c 6c 6f 0a 77 6f  72 6c 64 0a              |hello.world.|\n0000000c\n")],
+       ["hexdump"; "/new"]], "00000000  68 65 6c 6c 6f 0a 77 6f  72 6c 64 0a              |hello.world.|\n0000000c\n");
+    (* Test for RHBZ#501888c2 regression which caused large hexdump
+     * commands to segfault.
+     *)
+    InitBasicFS, Always, TestRun (
+      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
+       ["hexdump"; "/100krandom"]])],
    "dump a file in hexadecimal",
    "\
 This runs C<hexdump -C> on the given C<path>.  The result is
