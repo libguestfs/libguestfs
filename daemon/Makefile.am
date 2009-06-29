@@ -56,6 +56,7 @@ guestfsd_SOURCES = \
 	stat.c \
 	strings.c \
 	stubs.c \
+	swap.c \
 	sync.c \
 	tar.c \
 	upload.c \

@@ -2623,6 +2623,30 @@ This command lets you mount C<file> (a filesystem image
 in a file) on a mount point.  It is entirely equivalent to
 the command C<mount -o loop file mountpoint>.");
 
+  ("mkswap", (RErr, [String "device"]), 130, [],
+   [InitEmpty, Always, TestRun (
+      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+       ["mkswap"; "/dev/sda1"]])],
+   "create a swap partition",
+   "\
+Create a swap partition on C<device>.");
+
+  ("mkswap_L", (RErr, [String "label"; String "device"]), 131, [],
+   [InitEmpty, Always, TestRun (
+      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+       ["mkswap_L"; "hello"; "/dev/sda1"]])],
+   "create a swap partition with a label",
+   "\
+Create a swap partition on C<device> with label C<label>.");
+
+  ("mkswap_U", (RErr, [String "uuid"; String "device"]), 132, [],
+   [InitEmpty, Always, TestRun (
+      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+       ["mkswap_U"; "a3a61220-882b-4f61-89f4-cf24dcc7297d"; "/dev/sda1"]])],
+   "create a swap partition with an explicit UUID",
+   "\
+Create a swap partition on C<device> with UUID C<uuid>.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
