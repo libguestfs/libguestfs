@@ -15,11 +15,13 @@
   MAKEDEV
   ntfsprogs
   scrub
+  udev
   util-linux-ng
 #elif DEBIAN == 1
   bsdmainutils
   iproute
   libaugeas0
+  udev
   util-linux
 #endif
 
