@@ -117,7 +117,6 @@ Supermin appliance should be moved into febootstrap.
 Extra commands / functionality:
 
   General glibc / core programs:
-    head, tail
     chgrp
     grep (do it locally using pipe?)
     dd (?)

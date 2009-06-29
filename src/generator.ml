@@ -2500,6 +2500,64 @@ C<wc -w> external command.");
 This command counts the characters in a file, using the
 C<wc -c> external command.");
 
+  ("head", (RStringList "lines", [String "path"]), 121, [ProtocolLimitWarning],
+   [InitBasicFS, Always, TestOutputList (
+      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
+       ["head"; "/10klines"]], ["0abcdefghijklmnopqrstuvwxyz";"1abcdefghijklmnopqrstuvwxyz";"2abcdefghijklmnopqrstuvwxyz";"3abcdefghijklmnopqrstuvwxyz";"4abcdefghijklmnopqrstuvwxyz";"5abcdefghijklmnopqrstuvwxyz";"6abcdefghijklmnopqrstuvwxyz";"7abcdefghijklmnopqrstuvwxyz";"8abcdefghijklmnopqrstuvwxyz";"9abcdefghijklmnopqrstuvwxyz"])],
+   "return first 10 lines of a file",
+   "\
+This command returns up to the first 10 lines of a file as
+a list of strings.");
+
+  ("head_n", (RStringList "lines", [Int "nrlines"; String "path"]), 122, [ProtocolLimitWarning],
+   [InitBasicFS, Always, TestOutputList (
+      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
+       ["head_n"; "3"; "/10klines"]], ["0abcdefghijklmnopqrstuvwxyz";"1abcdefghijklmnopqrstuvwxyz";"2abcdefghijklmnopqrstuvwxyz"]);
+    InitBasicFS, Always, TestOutputList (
+      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
+       ["head_n"; "-9997"; "/10klines"]], ["0abcdefghijklmnopqrstuvwxyz";"1abcdefghijklmnopqrstuvwxyz";"2abcdefghijklmnopqrstuvwxyz"]);
+    InitBasicFS, Always, TestOutputList (
+      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
+       ["head_n"; "0"; "/10klines"]], [])],
+   "return first N lines of a file",
+   "\
+If the parameter C<nrlines> is a positive number, this returns the first
+C<nrlines> lines of the file C<path>.
+
+If the parameter C<nrlines> is a negative number, this returns lines
+from the file C<path>, excluding the last C<nrlines> lines.
+
+If the parameter C<nrlines> is zero, this returns an empty list.");
+
+  ("tail", (RStringList "lines", [String "path"]), 123, [ProtocolLimitWarning],
+   [InitBasicFS, Always, TestOutputList (
+      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
+       ["tail"; "/10klines"]], ["9990abcdefghijklmnopqrstuvwxyz";"9991abcdefghijklmnopqrstuvwxyz";"9992abcdefghijklmnopqrstuvwxyz";"9993abcdefghijklmnopqrstuvwxyz";"9994abcdefghijklmnopqrstuvwxyz";"9995abcdefghijklmnopqrstuvwxyz";"9996abcdefghijklmnopqrstuvwxyz";"9997abcdefghijklmnopqrstuvwxyz";"9998abcdefghijklmnopqrstuvwxyz";"9999abcdefghijklmnopqrstuvwxyz"])],
+   "return last 10 lines of a file",
+   "\
+This command returns up to the last 10 lines of a file as
+a list of strings.");
+
+  ("tail_n", (RStringList "lines", [Int "nrlines"; String "path"]), 124, [ProtocolLimitWarning],
+   [InitBasicFS, Always, TestOutputList (
+      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
+       ["tail_n"; "3"; "/10klines"]], ["9997abcdefghijklmnopqrstuvwxyz";"9998abcdefghijklmnopqrstuvwxyz";"9999abcdefghijklmnopqrstuvwxyz"]);
+    InitBasicFS, Always, TestOutputList (
+      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
+       ["tail_n"; "-9998"; "/10klines"]], ["9997abcdefghijklmnopqrstuvwxyz";"9998abcdefghijklmnopqrstuvwxyz";"9999abcdefghijklmnopqrstuvwxyz"]);
+    InitBasicFS, Always, TestOutputList (
+      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
+       ["tail_n"; "0"; "/10klines"]], [])],
+   "return last N lines of a file",
+   "\
+If the parameter C<nrlines> is a positive number, this returns the last
+C<nrlines> lines of the file C<path>.
+
+If the parameter C<nrlines> is a negative number, this returns lines
+from the file C<path>, starting with the C<-nrlines>th line.
+
+If the parameter C<nrlines> is zero, this returns an empty list.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

@@ -39,6 +39,7 @@ guestfsd_SOURCES = \
 	glob.c \
 	grub.c \
 	guestfsd.c \
+	headtail.c \
 	hexdump.c \
 	ls.c \
 	lvm.c \
