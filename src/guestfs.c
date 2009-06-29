@@ -1677,7 +1677,7 @@ static void
 sock_write_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
 		  int watch, int fd, int events)
 {
-  int n;
+  int n, err;
 
   if (g->verbose)
     fprintf (stderr,
@@ -1701,8 +1701,11 @@ sock_write_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
   n = write (g->sock, g->msg_out + g->msg_out_pos,
 	     g->msg_out_size - g->msg_out_pos);
   if (n == -1) {
-    if (errno != EAGAIN)
+    err = errno;
+    if (err != EAGAIN)
       perrorf (g, "write");
+    if (err == EPIPE)	/* Disconnected from guest (RHBZ#508713). */
+      child_cleanup (g);
     return;
   }
 
