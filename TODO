@@ -161,6 +161,7 @@ Allow swap space from the guest to be used.  Is it a good idea?
 ----------------------------------------------------------------------
 
 Allow memsize to be configured (ie. guestfs_set_memsize etc)
+Also have an environment variable (LIBGUESTFS_MEMSIZE).
 
 ----------------------------------------------------------------------
 
