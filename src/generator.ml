@@ -2615,6 +2615,14 @@ Old Linux kernels (2.4 and earlier) used a compressed ext2
 filesystem as initrd.  We I<only> support the newer initramfs
 format (compressed cpio files).");
 
+  ("mount_loop", (RErr, [String "file"; String "mountpoint"]), 129, [],
+   [],
+   "mount a file using the loop device",
+   "\
+This command lets you mount C<file> (a filesystem image
+in a file) on a mount point.  It is entirely equivalent to
+the command C<mount -o loop file mountpoint>.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

@@ -278,3 +278,47 @@ do_umount_all (void)
 
   return 0;
 }
+
+/* Mount using the loopback device.  You can't use the generic
+ * do_mount call for this because the first parameter isn't a
+ * device.
+ */
+int
+do_mount_loop (char *file, char *mountpoint)
+{
+  int len, r;
+  char *buf, *mp;
+  char *error;
+
+  NEED_ROOT (-1);
+  ABS_PATH (file, -1);
+
+  /* We have to prefix /sysroot on both the filename and the mountpoint. */
+  len = strlen (mountpoint) + 9;
+  mp = malloc (len);
+  if (!mp) {
+    reply_with_perror ("malloc");
+    return -1;
+  }
+  snprintf (mp, len, "/sysroot%s", mountpoint);
+
+  len = strlen (file) + 9;
+  buf = malloc (len);
+  if (!file) {
+    reply_with_perror ("malloc");
+    free (mp);
+    return -1;
+  }
+  snprintf (buf, len, "/sysroot%s", file);
+
+  r = command (NULL, &error, "mount", "-o", "loop", buf, mp, NULL);
+  free (mp);
+  free (buf);
+  if (r == -1) {
+    reply_with_error ("mount: %s on %s: %s", file, mountpoint, error);
+    free (error);
+    return -1;
+  }
+
+  return 0;
+}
