@@ -26,7 +26,8 @@ noinst_DATA = test.sqsh
 CLEANFILES = test.sqsh
 
 squash_files = helloworld.tar helloworld.tar.gz empty known-1 known-2 known-3 \
-	100kallzeroes 100kallnewlines 100kallspaces 100krandom 10klines
+	100kallzeroes 100kallnewlines 100kallspaces 100krandom 10klines \
+	initrd
 
 test.sqsh: $(squash_files)
 	rm -f $@
@@ -59,4 +60,9 @@ test.sqsh: $(squash_files)
 	  echo "$${i}abcdefghijklmnopqrstuvwxyz"; \
 	  i=$$(($$i+1)); \
 	done > $@-t
+	mv $@-t $@
+
+initrd: empty known-1 known-2 known-3
+	rm -f $@ $@-t
+	for f in $^; do echo $$f; done | cpio -o -H newc | gzip --best > $@-t
 	mv $@-t $@

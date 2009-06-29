@@ -727,9 +727,6 @@ sub find_filesystem
 # we don't need to know.
 
 if ($output !~ /.*fish$/) {
-    # Temporary directory for use by check_for_initrd.
-    my $dir = tempdir (CLEANUP => 1);
-
     my $root_dev;
     foreach $root_dev (sort keys %oses) {
 	my $mounts = $oses{$root_dev}->{mounts};
@@ -744,7 +741,7 @@ if ($output !~ /.*fish$/) {
 	check_for_kernels ($root_dev);
 	if ($oses{$root_dev}->{os} eq "linux") {
 	    check_for_modprobe_aliases ($root_dev);
-	    check_for_initrd ($root_dev, $dir);
+	    check_for_initrd ($root_dev);
 	}
 
 	$g->umount_all ();
@@ -898,42 +895,22 @@ sub check_for_initrd
 {
     local $_;
     my $root_dev = shift;
-    my $dir = shift;
 
     my %initrd_modules;
 
     foreach my $initrd ($g->ls ("/boot")) {
 	if ($initrd =~ m/^initrd-(.*)\.img$/ && $g->is_file ("/boot/$initrd")) {
 	    my $version = $1;
-	    my @modules = ();
-	    # We have to download these to a temporary file.
-	    $g->download ("/boot/$initrd", "$dir/initrd");
+	    my @modules;
 
-	    my $cmd = "zcat $dir/initrd | file -";
-	    open P, "$cmd |" or die "$cmd: $!";
-	    my $lines;
-	    { local $/ = undef; $lines = <P>; }
-	    close P;
-	    if ($lines =~ /ext\d filesystem data/) {
-		# Before initramfs came along, these were compressed
-		# ext2 filesystems.  We could run another libguestfs
-		# instance to unpack these, but punt on them for now. (XXX)
-		warn "initrd image is unsupported ext2/3/4 filesystem\n";
-	    }
-	    elsif ($lines =~ /cpio/) {
-		my $cmd = "zcat $dir/initrd | cpio --quiet -it";
-		open P, "$cmd |" or die "$cmd: $!";
-		while (<P>) {
-		    push @modules, $1
-			if m,([^/]+)\.ko$, || m,([^/]+)\.o$,;
-		}
-		close P;
-		unlink "$dir/initrd";
-		$initrd_modules{$version} = \@modules;
-	    }
-	    else {
-		# What?
-		warn "unrecognized initrd image: $lines\n";
+	    eval {
+		@modules = $g->initrd_list ("/boot/$initrd");
+	    };
+	    unless ($@) {
+		@modules = grep { m,([^/]+)\.ko$, || m,([^/]+)\.o$, } @modules;
+		$initrd_modules{$version} = \@modules
+	    } else {
+		warn "/boot/$initrd: could not read initrd format"
 	    }
 	}
     }

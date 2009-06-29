@@ -43,6 +43,7 @@ guestfsd_SOURCES = \
 	guestfsd.c \
 	headtail.c \
 	hexdump.c \
+	initrd.c \
 	ls.c \
 	lvm.c \
 	mount.c \
