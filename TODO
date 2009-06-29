@@ -156,7 +156,6 @@ Extra commands / functionality:
     fts(3) / ftw(3)
 
   guestfish only:
-    more/less (like cat, but pipes it through $PAGER)
     cat file | pipe-cmd should have a generic form? like
       'file | less' or 'file | sort'?
 

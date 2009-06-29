@@ -45,6 +45,7 @@ extern void print_table (char * const * const argv);
 extern int launch (guestfs_h *);
 extern int is_true (const char *str);
 extern char **parse_string_list (const char *str);
+extern int xwrite (int fd, const void *buf, size_t len);
 
 /* in cmds.c (auto-generated) */
 extern void list_commands (void);
@@ -73,6 +74,9 @@ extern int do_lcd (const char *cmd, int argc, char *argv[]);
 /* in glob.c */
 extern int do_glob (const char *cmd, int argc, char *argv[]);
 
+/* in more.c */
+extern int do_more (const char *cmd, int argc, char *argv[]);
+
 /* This should just list all the built-in commands so they can
  * be added to the generated auto-completion code.
  */
@@ -83,6 +87,7 @@ extern int do_glob (const char *cmd, int argc, char *argv[]);
   "echo", \
   "edit", "vi", "emacs", \
   "lcd", \
-  "glob"
+  "glob", \
+  "more", "less"
 
 #endif /* FISH_H */

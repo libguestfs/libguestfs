@@ -724,6 +724,9 @@ issue_command (const char *cmd, char *argv[], const char *pipecmd)
     r = do_lcd (cmd, argc, argv);
   else if (strcasecmp (cmd, "glob") == 0)
     r = do_glob (cmd, argc, argv);
+  else if (strcasecmp (cmd, "more") == 0 ||
+	   strcasecmp (cmd, "less") == 0)
+    r = do_more (cmd, argc, argv);
   else
     r = run_action (cmd, argc, argv);
 
@@ -818,6 +821,21 @@ display_builtin_command (const char *cmd)
 	      "    Glob runs <command> with wildcards expanded in any\n"
 	      "    command args.  Note that the command is run repeatedly\n"
 	      "    once for each expanded argument.\n"));
+  else if (strcasecmp (cmd, "more") == 0 ||
+	   strcasecmp (cmd, "less") == 0)
+    printf (_("more - view a file in the pager\n"
+	      "     more <filename>\n"
+	      "\n"
+	      "    This is used to view a file in the pager.\n"
+	      "\n"
+	      "    It is the equivalent of (and is implemented by)\n"
+	      "    running \"cat\" and using the pager.\n"
+	      "\n"
+	      "    Normally it uses $PAGER, but if you use the alias\n"
+	      "    \"less\" then it always uses \"less\".\n"
+	      "\n"
+	      "    NOTE: This will not work reliably for large files\n"
+	      "    (> 2 MB) or binary files containing \\0 bytes.\n"));
   else if (strcasecmp (cmd, "help") == 0)
     printf (_("help - display a list of commands or help on a command\n"
 	      "     help cmd\n"
@@ -958,4 +976,22 @@ add_history_line (const char *line)
   add_history (line);
   nr_history_lines++;
 #endif
+}
+
+int
+xwrite (int fd, const void *buf, size_t len)
+{
+  int r;
+
+  while (len > 0) {
+    r = write (fd, buf, len);
+    if (r == -1) {
+      perror ("write");
+      return -1;
+    }
+    buf += r;
+    len -= r;
+  }
+
+  return 0;
 }

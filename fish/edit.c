@@ -29,24 +29,6 @@
 
 /* guestfish edit command, suggested by Ján Ondrej, implemented by RWMJ */
 
-static int
-xwrite (int fd, const void *buf, size_t len)
-{
-  int r;
-
-  while (len > 0) {
-    r = write (fd, buf, len);
-    if (r == -1) {
-      perror ("write");
-      return -1;
-    }
-    buf += r;
-    len -= r;
-  }
-
-  return 0;
-}
-
 static char *
 load_file (const char *filename, int *len_r)
 {
