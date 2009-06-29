@@ -157,6 +157,9 @@ static int test_mkdtemp_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "mkdtemp") == NULL;
   str = getenv ("SKIP_TEST_MKDTEMP_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_MKDTEMP");
@@ -250,6 +253,9 @@ static int test_scrub_file_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "scrub_file") == NULL;
   str = getenv ("SKIP_TEST_SCRUB_FILE_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_SCRUB_FILE");
@@ -343,6 +349,9 @@ static int test_scrub_device_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "scrub_device") == NULL;
   str = getenv ("SKIP_TEST_SCRUB_DEVICE_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_SCRUB_DEVICE");
@@ -396,6 +405,9 @@ static int test_glob_expand_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "glob_expand") == NULL;
   str = getenv ("SKIP_TEST_GLOB_EXPAND_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_GLOB_EXPAND");
@@ -537,6 +549,9 @@ static int test_glob_expand_1_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "glob_expand") == NULL;
   str = getenv ("SKIP_TEST_GLOB_EXPAND_1");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_GLOB_EXPAND");
@@ -678,6 +693,9 @@ static int test_glob_expand_2_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "glob_expand") == NULL;
   str = getenv ("SKIP_TEST_GLOB_EXPAND_2");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_GLOB_EXPAND");
@@ -795,6 +813,9 @@ static int test_ntfs_3g_probe_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "ntfs_3g_probe") == NULL;
   str = getenv ("SKIP_TEST_NTFS_3G_PROBE_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_NTFS_3G_PROBE");
@@ -874,6 +895,9 @@ static int test_ntfs_3g_probe_1_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "ntfs_3g_probe") == NULL;
   str = getenv ("SKIP_TEST_NTFS_3G_PROBE_1");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_NTFS_3G_PROBE");
@@ -953,6 +977,9 @@ static int test_sleep_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "sleep") == NULL;
   str = getenv ("SKIP_TEST_SLEEP_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_SLEEP");
@@ -1005,6 +1032,9 @@ static int test_find_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "find") == NULL;
   str = getenv ("SKIP_TEST_FIND_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_FIND");
@@ -1110,6 +1140,9 @@ static int test_find_1_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "find") == NULL;
   str = getenv ("SKIP_TEST_FIND_1");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_FIND");
@@ -1275,6 +1308,9 @@ static int test_find_2_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "find") == NULL;
   str = getenv ("SKIP_TEST_FIND_2");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_FIND");
@@ -1408,6 +1444,9 @@ static int test_lvresize_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "lvresize") == NULL;
   str = getenv ("SKIP_TEST_LVRESIZE_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_LVRESIZE");
@@ -1578,6 +1617,9 @@ static int test_zerofree_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "zerofree") == NULL;
   str = getenv ("SKIP_TEST_ZEROFREE_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_ZEROFREE");
@@ -1702,6 +1744,9 @@ static int test_hexdump_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "hexdump") == NULL;
   str = getenv ("SKIP_TEST_HEXDUMP_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_HEXDUMP");
@@ -1801,6 +1846,9 @@ static int test_hexdump_1_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "hexdump") == NULL;
   str = getenv ("SKIP_TEST_HEXDUMP_1");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_HEXDUMP");
@@ -1897,6 +1945,9 @@ static int test_strings_e_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "strings_e") == NULL;
   str = getenv ("SKIP_TEST_STRINGS_E_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_STRINGS_E");
@@ -2000,6 +2051,9 @@ static int test_strings_e_1_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "strings_e") == NULL;
   str = getenv ("SKIP_TEST_STRINGS_E_1");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_STRINGS_E");
@@ -2022,6 +2076,9 @@ static int test_strings_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "strings") == NULL;
   str = getenv ("SKIP_TEST_STRINGS_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_STRINGS");
@@ -2148,6 +2205,9 @@ static int test_strings_1_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "strings") == NULL;
   str = getenv ("SKIP_TEST_STRINGS_1");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_STRINGS");
@@ -2249,6 +2309,9 @@ static int test_equal_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "equal") == NULL;
   str = getenv ("SKIP_TEST_EQUAL_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_EQUAL");
@@ -2356,6 +2419,9 @@ static int test_equal_1_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "equal") == NULL;
   str = getenv ("SKIP_TEST_EQUAL_1");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_EQUAL");
@@ -2463,6 +2529,9 @@ static int test_equal_2_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "equal") == NULL;
   str = getenv ("SKIP_TEST_EQUAL_2");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_EQUAL");
@@ -2548,6 +2617,9 @@ static int test_ping_daemon_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "ping_daemon") == NULL;
   str = getenv ("SKIP_TEST_PING_DAEMON_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_PING_DAEMON");
@@ -2600,6 +2672,9 @@ static int test_dmesg_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "dmesg") == NULL;
   str = getenv ("SKIP_TEST_DMESG_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_DMESG");
@@ -2653,6 +2728,9 @@ static int test_drop_caches_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "drop_caches") == NULL;
   str = getenv ("SKIP_TEST_DROP_CACHES_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_DROP_CACHES");
@@ -2705,6 +2783,9 @@ static int test_mv_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "mv") == NULL;
   str = getenv ("SKIP_TEST_MV_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_MV");
@@ -2813,6 +2894,9 @@ static int test_mv_1_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "mv") == NULL;
   str = getenv ("SKIP_TEST_MV_1");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_MV");
@@ -2919,6 +3003,9 @@ static int test_cp_a_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "cp_a") == NULL;
   str = getenv ("SKIP_TEST_CP_A_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_CP_A");
@@ -3043,6 +3130,9 @@ static int test_cp_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "cp") == NULL;
   str = getenv ("SKIP_TEST_CP_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_CP");
@@ -3151,6 +3241,9 @@ static int test_cp_1_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "cp") == NULL;
   str = getenv ("SKIP_TEST_CP_1");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_CP");
@@ -3257,6 +3350,9 @@ static int test_cp_2_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "cp") == NULL;
   str = getenv ("SKIP_TEST_CP_2");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_CP");
@@ -3373,6 +3469,9 @@ static int test_grub_install_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "grub_install") == NULL;
   str = getenv ("SKIP_TEST_GRUB_INSTALL_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_GRUB_INSTALL");
@@ -3470,6 +3569,9 @@ static int test_zero_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "zero") == NULL;
   str = getenv ("SKIP_TEST_ZERO_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_ZERO");
@@ -3576,6 +3678,9 @@ static int test_fsck_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "fsck") == NULL;
   str = getenv ("SKIP_TEST_FSCK_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_FSCK");
@@ -3673,6 +3778,9 @@ static int test_fsck_1_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "fsck") == NULL;
   str = getenv ("SKIP_TEST_FSCK_1");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_FSCK");
@@ -3778,6 +3886,9 @@ static int test_set_e2uuid_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "set_e2uuid") == NULL;
   str = getenv ("SKIP_TEST_SET_E2UUID_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_SET_E2UUID");
@@ -3877,6 +3988,9 @@ static int test_set_e2uuid_1_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "set_e2uuid") == NULL;
   str = getenv ("SKIP_TEST_SET_E2UUID_1");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_SET_E2UUID");
@@ -3976,6 +4090,9 @@ static int test_set_e2uuid_2_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "set_e2uuid") == NULL;
   str = getenv ("SKIP_TEST_SET_E2UUID_2");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_SET_E2UUID");
@@ -4061,6 +4178,9 @@ static int test_set_e2uuid_3_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "set_e2uuid") == NULL;
   str = getenv ("SKIP_TEST_SET_E2UUID_3");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_SET_E2UUID");
@@ -4146,6 +4266,9 @@ static int test_set_e2label_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "set_e2label") == NULL;
   str = getenv ("SKIP_TEST_SET_E2LABEL_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_SET_E2LABEL");
@@ -4245,6 +4368,9 @@ static int test_pvremove_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "pvremove") == NULL;
   str = getenv ("SKIP_TEST_PVREMOVE_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_PVREMOVE");
@@ -4374,6 +4500,9 @@ static int test_pvremove_1_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "pvremove") == NULL;
   str = getenv ("SKIP_TEST_PVREMOVE_1");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_PVREMOVE");
@@ -4503,6 +4632,9 @@ static int test_pvremove_2_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "pvremove") == NULL;
   str = getenv ("SKIP_TEST_PVREMOVE_2");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_PVREMOVE");
@@ -4632,6 +4764,9 @@ static int test_vgremove_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "vgremove") == NULL;
   str = getenv ("SKIP_TEST_VGREMOVE_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_VGREMOVE");
@@ -4753,6 +4888,9 @@ static int test_vgremove_1_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "vgremove") == NULL;
   str = getenv ("SKIP_TEST_VGREMOVE_1");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_VGREMOVE");
@@ -4874,6 +5012,9 @@ static int test_lvremove_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "lvremove") == NULL;
   str = getenv ("SKIP_TEST_LVREMOVE_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_LVREMOVE");
@@ -5007,6 +5148,9 @@ static int test_lvremove_1_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "lvremove") == NULL;
   str = getenv ("SKIP_TEST_LVREMOVE_1");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_LVREMOVE");
@@ -5128,6 +5272,9 @@ static int test_lvremove_2_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "lvremove") == NULL;
   str = getenv ("SKIP_TEST_LVREMOVE_2");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_LVREMOVE");
@@ -5261,6 +5408,9 @@ static int test_mount_ro_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "mount_ro") == NULL;
   str = getenv ("SKIP_TEST_MOUNT_RO_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_MOUNT_RO");
@@ -5362,6 +5512,9 @@ static int test_mount_ro_1_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "mount_ro") == NULL;
   str = getenv ("SKIP_TEST_MOUNT_RO_1");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_MOUNT_RO");
@@ -5478,6 +5631,9 @@ static int test_tgz_in_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "tgz_in") == NULL;
   str = getenv ("SKIP_TEST_TGZ_IN_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_TGZ_IN");
@@ -5576,6 +5732,9 @@ static int test_tar_in_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "tar_in") == NULL;
   str = getenv ("SKIP_TEST_TAR_IN_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_TAR_IN");
@@ -5674,6 +5833,9 @@ static int test_checksum_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "checksum") == NULL;
   str = getenv ("SKIP_TEST_CHECKSUM_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_CHECKSUM");
@@ -5774,6 +5936,9 @@ static int test_checksum_1_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "checksum") == NULL;
   str = getenv ("SKIP_TEST_CHECKSUM_1");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_CHECKSUM");
@@ -5860,6 +6025,9 @@ static int test_checksum_2_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "checksum") == NULL;
   str = getenv ("SKIP_TEST_CHECKSUM_2");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_CHECKSUM");
@@ -5960,6 +6128,9 @@ static int test_checksum_3_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "checksum") == NULL;
   str = getenv ("SKIP_TEST_CHECKSUM_3");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_CHECKSUM");
@@ -6060,6 +6231,9 @@ static int test_checksum_4_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "checksum") == NULL;
   str = getenv ("SKIP_TEST_CHECKSUM_4");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_CHECKSUM");
@@ -6160,6 +6334,9 @@ static int test_checksum_5_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "checksum") == NULL;
   str = getenv ("SKIP_TEST_CHECKSUM_5");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_CHECKSUM");
@@ -6260,6 +6437,9 @@ static int test_checksum_6_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "checksum") == NULL;
   str = getenv ("SKIP_TEST_CHECKSUM_6");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_CHECKSUM");
@@ -6360,6 +6540,9 @@ static int test_checksum_7_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "checksum") == NULL;
   str = getenv ("SKIP_TEST_CHECKSUM_7");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_CHECKSUM");
@@ -6460,6 +6643,9 @@ static int test_checksum_8_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "checksum") == NULL;
   str = getenv ("SKIP_TEST_CHECKSUM_8");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_CHECKSUM");
@@ -6562,6 +6748,9 @@ static int test_download_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "download") == NULL;
   str = getenv ("SKIP_TEST_DOWNLOAD_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_DOWNLOAD");
@@ -6677,6 +6866,9 @@ static int test_upload_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "upload") == NULL;
   str = getenv ("SKIP_TEST_UPLOAD_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_UPLOAD");
@@ -6776,6 +6968,9 @@ static int test_blockdev_rereadpt_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "blockdev_rereadpt") == NULL;
   str = getenv ("SKIP_TEST_BLOCKDEV_REREADPT_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_BLOCKDEV_REREADPT");
@@ -6829,6 +7024,9 @@ static int test_blockdev_flushbufs_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "blockdev_flushbufs") == NULL;
   str = getenv ("SKIP_TEST_BLOCKDEV_FLUSHBUFS_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_BLOCKDEV_FLUSHBUFS");
@@ -6882,6 +7080,9 @@ static int test_blockdev_getsize64_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "blockdev_getsize64") == NULL;
   str = getenv ("SKIP_TEST_BLOCKDEV_GETSIZE64_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_BLOCKDEV_GETSIZE64");
@@ -6939,6 +7140,9 @@ static int test_blockdev_getsz_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "blockdev_getsz") == NULL;
   str = getenv ("SKIP_TEST_BLOCKDEV_GETSZ_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_BLOCKDEV_GETSZ");
@@ -6996,6 +7200,9 @@ static int test_blockdev_getbsz_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "blockdev_getbsz") == NULL;
   str = getenv ("SKIP_TEST_BLOCKDEV_GETBSZ_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_BLOCKDEV_GETBSZ");
@@ -7053,6 +7260,9 @@ static int test_blockdev_getss_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "blockdev_getss") == NULL;
   str = getenv ("SKIP_TEST_BLOCKDEV_GETSS_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_BLOCKDEV_GETSS");
@@ -7110,6 +7320,9 @@ static int test_blockdev_getro_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "blockdev_getro") == NULL;
   str = getenv ("SKIP_TEST_BLOCKDEV_GETRO_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_BLOCKDEV_GETRO");
@@ -7175,6 +7388,9 @@ static int test_blockdev_setrw_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "blockdev_setrw") == NULL;
   str = getenv ("SKIP_TEST_BLOCKDEV_SETRW_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_BLOCKDEV_SETRW");
@@ -7240,6 +7456,9 @@ static int test_blockdev_setro_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "blockdev_setro") == NULL;
   str = getenv ("SKIP_TEST_BLOCKDEV_SETRO_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_BLOCKDEV_SETRO");
@@ -7305,6 +7524,9 @@ static int test_statvfs_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "statvfs") == NULL;
   str = getenv ("SKIP_TEST_STATVFS_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_STATVFS");
@@ -7405,6 +7627,9 @@ static int test_lstat_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "lstat") == NULL;
   str = getenv ("SKIP_TEST_LSTAT_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_LSTAT");
@@ -7503,6 +7728,9 @@ static int test_stat_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "stat") == NULL;
   str = getenv ("SKIP_TEST_STAT_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_STAT");
@@ -7601,6 +7829,9 @@ static int test_command_lines_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "command_lines") == NULL;
   str = getenv ("SKIP_TEST_COMMAND_LINES_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_COMMAND_LINES");
@@ -7728,6 +7959,9 @@ static int test_command_lines_1_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "command_lines") == NULL;
   str = getenv ("SKIP_TEST_COMMAND_LINES_1");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_COMMAND_LINES");
@@ -7855,6 +8089,9 @@ static int test_command_lines_2_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "command_lines") == NULL;
   str = getenv ("SKIP_TEST_COMMAND_LINES_2");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_COMMAND_LINES");
@@ -7994,6 +8231,9 @@ static int test_command_lines_3_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "command_lines") == NULL;
   str = getenv ("SKIP_TEST_COMMAND_LINES_3");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_COMMAND_LINES");
@@ -8133,6 +8373,9 @@ static int test_command_lines_4_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "command_lines") == NULL;
   str = getenv ("SKIP_TEST_COMMAND_LINES_4");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_COMMAND_LINES");
@@ -8284,6 +8527,9 @@ static int test_command_lines_5_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "command_lines") == NULL;
   str = getenv ("SKIP_TEST_COMMAND_LINES_5");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_COMMAND_LINES");
@@ -8447,6 +8693,9 @@ static int test_command_lines_6_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "command_lines") == NULL;
   str = getenv ("SKIP_TEST_COMMAND_LINES_6");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_COMMAND_LINES");
@@ -8562,6 +8811,9 @@ static int test_command_lines_7_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "command_lines") == NULL;
   str = getenv ("SKIP_TEST_COMMAND_LINES_7");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_COMMAND_LINES");
@@ -8689,6 +8941,9 @@ static int test_command_lines_8_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "command_lines") == NULL;
   str = getenv ("SKIP_TEST_COMMAND_LINES_8");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_COMMAND_LINES");
@@ -8828,6 +9083,9 @@ static int test_command_lines_9_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "command_lines") == NULL;
   str = getenv ("SKIP_TEST_COMMAND_LINES_9");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_COMMAND_LINES");
@@ -8967,6 +9225,9 @@ static int test_command_lines_10_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "command_lines") == NULL;
   str = getenv ("SKIP_TEST_COMMAND_LINES_10");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_COMMAND_LINES");
@@ -9106,6 +9367,9 @@ static int test_command_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "command") == NULL;
   str = getenv ("SKIP_TEST_COMMAND_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_COMMAND");
@@ -9218,6 +9482,9 @@ static int test_command_1_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "command") == NULL;
   str = getenv ("SKIP_TEST_COMMAND_1");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_COMMAND");
@@ -9330,6 +9597,9 @@ static int test_command_2_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "command") == NULL;
   str = getenv ("SKIP_TEST_COMMAND_2");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_COMMAND");
@@ -9442,6 +9712,9 @@ static int test_command_3_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "command") == NULL;
   str = getenv ("SKIP_TEST_COMMAND_3");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_COMMAND");
@@ -9554,6 +9827,9 @@ static int test_command_4_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "command") == NULL;
   str = getenv ("SKIP_TEST_COMMAND_4");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_COMMAND");
@@ -9666,6 +9942,9 @@ static int test_command_5_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "command") == NULL;
   str = getenv ("SKIP_TEST_COMMAND_5");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_COMMAND");
@@ -9778,6 +10057,9 @@ static int test_command_6_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "command") == NULL;
   str = getenv ("SKIP_TEST_COMMAND_6");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_COMMAND");
@@ -9890,6 +10172,9 @@ static int test_command_7_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "command") == NULL;
   str = getenv ("SKIP_TEST_COMMAND_7");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_COMMAND");
@@ -10002,6 +10287,9 @@ static int test_command_8_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "command") == NULL;
   str = getenv ("SKIP_TEST_COMMAND_8");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_COMMAND");
@@ -10114,6 +10402,9 @@ static int test_command_9_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "command") == NULL;
   str = getenv ("SKIP_TEST_COMMAND_9");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_COMMAND");
@@ -10226,6 +10517,9 @@ static int test_command_10_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "command") == NULL;
   str = getenv ("SKIP_TEST_COMMAND_10");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_COMMAND");
@@ -10338,6 +10632,9 @@ static int test_command_11_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "command") == NULL;
   str = getenv ("SKIP_TEST_COMMAND_11");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_COMMAND");
@@ -10443,6 +10740,9 @@ static int test_file_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "file") == NULL;
   str = getenv ("SKIP_TEST_FILE_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_FILE");
@@ -10541,6 +10841,9 @@ static int test_file_1_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "file") == NULL;
   str = getenv ("SKIP_TEST_FILE_1");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_FILE");
@@ -10640,6 +10943,9 @@ static int test_file_2_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "file") == NULL;
   str = getenv ("SKIP_TEST_FILE_2");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_FILE");
@@ -10725,6 +11031,9 @@ static int test_umount_all_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "umount_all") == NULL;
   str = getenv ("SKIP_TEST_UMOUNT_ALL_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_UMOUNT_ALL");
@@ -10824,6 +11133,9 @@ static int test_umount_all_1_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "umount_all") == NULL;
   str = getenv ("SKIP_TEST_UMOUNT_ALL_1");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_UMOUNT_ALL");
@@ -10987,6 +11299,9 @@ static int test_mounts_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "mounts") == NULL;
   str = getenv ("SKIP_TEST_MOUNTS_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_MOUNTS");
@@ -11092,6 +11407,9 @@ static int test_umount_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "umount") == NULL;
   str = getenv ("SKIP_TEST_UMOUNT_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_UMOUNT");
@@ -11197,6 +11515,9 @@ static int test_umount_1_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "umount") == NULL;
   str = getenv ("SKIP_TEST_UMOUNT_1");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_UMOUNT");
@@ -11297,6 +11618,9 @@ static int test_write_file_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "write_file") == NULL;
   str = getenv ("SKIP_TEST_WRITE_FILE_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_WRITE_FILE");
@@ -11396,6 +11720,9 @@ static int test_write_file_1_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "write_file") == NULL;
   str = getenv ("SKIP_TEST_WRITE_FILE_1");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_WRITE_FILE");
@@ -11495,6 +11822,9 @@ static int test_write_file_2_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "write_file") == NULL;
   str = getenv ("SKIP_TEST_WRITE_FILE_2");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_WRITE_FILE");
@@ -11594,6 +11924,9 @@ static int test_write_file_3_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "write_file") == NULL;
   str = getenv ("SKIP_TEST_WRITE_FILE_3");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_WRITE_FILE");
@@ -11693,6 +12026,9 @@ static int test_write_file_4_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "write_file") == NULL;
   str = getenv ("SKIP_TEST_WRITE_FILE_4");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_WRITE_FILE");
@@ -11792,6 +12128,9 @@ static int test_write_file_5_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "write_file") == NULL;
   str = getenv ("SKIP_TEST_WRITE_FILE_5");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_WRITE_FILE");
@@ -11891,6 +12230,9 @@ static int test_mkfs_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "mkfs") == NULL;
   str = getenv ("SKIP_TEST_MKFS_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_MKFS");
@@ -11990,6 +12332,9 @@ static int test_lvcreate_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "lvcreate") == NULL;
   str = getenv ("SKIP_TEST_LVCREATE_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_LVCREATE");
@@ -12225,6 +12570,9 @@ static int test_vgcreate_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "vgcreate") == NULL;
   str = getenv ("SKIP_TEST_VGCREATE_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_VGCREATE");
@@ -12379,6 +12727,9 @@ static int test_pvcreate_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "pvcreate") == NULL;
   str = getenv ("SKIP_TEST_PVCREATE_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_PVCREATE");
@@ -12520,6 +12871,9 @@ static int test_is_dir_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "is_dir") == NULL;
   str = getenv ("SKIP_TEST_IS_DIR_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_IS_DIR");
@@ -12616,6 +12970,9 @@ static int test_is_dir_1_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "is_dir") == NULL;
   str = getenv ("SKIP_TEST_IS_DIR_1");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_IS_DIR");
@@ -12712,6 +13069,9 @@ static int test_is_file_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "is_file") == NULL;
   str = getenv ("SKIP_TEST_IS_FILE_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_IS_FILE");
@@ -12808,6 +13168,9 @@ static int test_is_file_1_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "is_file") == NULL;
   str = getenv ("SKIP_TEST_IS_FILE_1");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_IS_FILE");
@@ -12904,6 +13267,9 @@ static int test_exists_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "exists") == NULL;
   str = getenv ("SKIP_TEST_EXISTS_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_EXISTS");
@@ -13000,6 +13366,9 @@ static int test_exists_1_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "exists") == NULL;
   str = getenv ("SKIP_TEST_EXISTS_1");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_EXISTS");
@@ -13096,6 +13465,9 @@ static int test_mkdir_p_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "mkdir_p") == NULL;
   str = getenv ("SKIP_TEST_MKDIR_P_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_MKDIR_P");
@@ -13192,6 +13564,9 @@ static int test_mkdir_p_1_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "mkdir_p") == NULL;
   str = getenv ("SKIP_TEST_MKDIR_P_1");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_MKDIR_P");
@@ -13288,6 +13663,9 @@ static int test_mkdir_p_2_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "mkdir_p") == NULL;
   str = getenv ("SKIP_TEST_MKDIR_P_2");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_MKDIR_P");
@@ -13384,6 +13762,9 @@ static int test_mkdir_p_3_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "mkdir_p") == NULL;
   str = getenv ("SKIP_TEST_MKDIR_P_3");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_MKDIR_P");
@@ -13476,6 +13857,9 @@ static int test_mkdir_p_4_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "mkdir_p") == NULL;
   str = getenv ("SKIP_TEST_MKDIR_P_4");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_MKDIR_P");
@@ -13568,6 +13952,9 @@ static int test_mkdir_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "mkdir") == NULL;
   str = getenv ("SKIP_TEST_MKDIR_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_MKDIR");
@@ -13664,6 +14051,9 @@ static int test_mkdir_1_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "mkdir") == NULL;
   str = getenv ("SKIP_TEST_MKDIR_1");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_MKDIR");
@@ -13748,6 +14138,9 @@ static int test_rm_rf_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "rm_rf") == NULL;
   str = getenv ("SKIP_TEST_RM_RF_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_RM_RF");
@@ -13868,6 +14261,9 @@ static int test_rmdir_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "rmdir") == NULL;
   str = getenv ("SKIP_TEST_RMDIR_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_RMDIR");
@@ -13960,6 +14356,9 @@ static int test_rmdir_1_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "rmdir") == NULL;
   str = getenv ("SKIP_TEST_RMDIR_1");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_RMDIR");
@@ -14044,6 +14443,9 @@ static int test_rmdir_2_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "rmdir") == NULL;
   str = getenv ("SKIP_TEST_RMDIR_2");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_RMDIR");
@@ -14136,6 +14538,9 @@ static int test_rm_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "rm") == NULL;
   str = getenv ("SKIP_TEST_RM_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_RM");
@@ -14228,6 +14633,9 @@ static int test_rm_1_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "rm") == NULL;
   str = getenv ("SKIP_TEST_RM_1");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_RM");
@@ -14312,6 +14720,9 @@ static int test_rm_2_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "rm") == NULL;
   str = getenv ("SKIP_TEST_RM_2");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_RM");
@@ -14404,6 +14815,9 @@ static int test_read_lines_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "read_lines") == NULL;
   str = getenv ("SKIP_TEST_READ_LINES_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_READ_LINES");
@@ -14542,6 +14956,9 @@ static int test_read_lines_1_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "read_lines") == NULL;
   str = getenv ("SKIP_TEST_READ_LINES_1");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_READ_LINES");
@@ -14644,6 +15061,9 @@ static int test_lvs_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "lvs") == NULL;
   str = getenv ("SKIP_TEST_LVS_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_LVS");
@@ -14778,6 +15198,9 @@ static int test_lvs_1_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "lvs") == NULL;
   str = getenv ("SKIP_TEST_LVS_1");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_LVS");
@@ -14971,6 +15394,9 @@ static int test_vgs_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "vgs") == NULL;
   str = getenv ("SKIP_TEST_VGS_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_VGS");
@@ -15105,6 +15531,9 @@ static int test_vgs_1_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "vgs") == NULL;
   str = getenv ("SKIP_TEST_VGS_1");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_VGS");
@@ -15259,6 +15688,9 @@ static int test_pvs_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "pvs") == NULL;
   str = getenv ("SKIP_TEST_PVS_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_PVS");
@@ -15394,6 +15826,9 @@ static int test_pvs_1_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "pvs") == NULL;
   str = getenv ("SKIP_TEST_PVS_1");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_PVS");
@@ -15535,6 +15970,9 @@ static int test_list_partitions_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "list_partitions") == NULL;
   str = getenv ("SKIP_TEST_LIST_PARTITIONS_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_LIST_PARTITIONS");
@@ -15640,6 +16078,9 @@ static int test_list_partitions_1_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "list_partitions") == NULL;
   str = getenv ("SKIP_TEST_LIST_PARTITIONS_1");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_LIST_PARTITIONS");
@@ -15757,6 +16198,9 @@ static int test_list_devices_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "list_devices") == NULL;
   str = getenv ("SKIP_TEST_LIST_DEVICES_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_LIST_DEVICES");
@@ -15870,6 +16314,9 @@ static int test_ls_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "ls") == NULL;
   str = getenv ("SKIP_TEST_LS_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_LS");
@@ -16035,6 +16482,9 @@ static int test_cat_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "cat") == NULL;
   str = getenv ("SKIP_TEST_CAT_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_CAT");
@@ -16134,6 +16584,9 @@ static int test_touch_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "touch") == NULL;
   str = getenv ("SKIP_TEST_TOUCH_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_TOUCH");
@@ -16230,6 +16683,9 @@ static int test_sync_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "sync") == NULL;
   str = getenv ("SKIP_TEST_SYNC_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_SYNC");
@@ -16282,6 +16738,9 @@ static int test_mount_0_skip (void)
 {
   const char *str;
 
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "mount") == NULL;
   str = getenv ("SKIP_TEST_MOUNT_0");
   if (str && strcmp (str, "1") == 0) return 1;
   str = getenv ("SKIP_TEST_MOUNT");

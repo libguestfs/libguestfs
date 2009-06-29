@@ -4160,6 +4160,9 @@ static int %s_skip (void)
 {
   const char *str;
 
+  str = getenv (\"TEST_ONLY\");
+  if (str)
+    return strstr (str, \"%s\") == NULL;
   str = getenv (\"SKIP_%s\");
   if (str && strcmp (str, \"1\") == 0) return 1;
   str = getenv (\"SKIP_TEST_%s\");
@@ -4167,7 +4170,7 @@ static int %s_skip (void)
   return 0;
 }
 
-" test_name (String.uppercase test_name) (String.uppercase name);
+" test_name name (String.uppercase test_name) (String.uppercase name);
 
   (match prereq with
    | Disabled | Always -> ()
@@ -4183,7 +4186,7 @@ static int %s_skip (void)
 static int %s (void)
 {
   if (%s_skip ()) {
-    printf (\"%%s skipped (reason: SKIP_TEST_* variable set)\\n\", \"%s\");
+    printf (\"%%s skipped (reason: environment variable set)\\n\", \"%s\");
     return 0;
   }
 

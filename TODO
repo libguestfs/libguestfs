@@ -166,7 +166,3 @@ Extra commands / functionality:
 ----------------------------------------------------------------------
 
 Allow swap space from the guest to be used.  Is it a good idea?
-
-----------------------------------------------------------------------
-
-In capitests, RUN_ONLY_FOR="testname testname"
