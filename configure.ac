@@ -481,7 +481,7 @@ AM_CONDITIONAL([HAVE_HASKELL],
 
 dnl Check for Perl modules needed by the inspector.
 missing_perl_modules=no
-for pm in Pod::Usage Getopt::Long Sys::Virt Data::Dumper; do
+for pm in Pod::Usage Getopt::Long Sys::Virt Data::Dumper XML::Writer; do
     AC_MSG_CHECKING([for $pm])
     if ! perl -M$pm -e1 >/dev/null 2>&1; then
         AC_MSG_RESULT([no])
