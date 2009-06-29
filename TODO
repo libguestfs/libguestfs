@@ -164,6 +164,15 @@ Need a way to query a binary or library file for its architecture.
 Using objdump or readelf?
 What about non-ELF files (eg. Windows, BSD).
 
+To do this properly requires some serious logic, eg. to cover Linux
+and Windows we'd need objdump and i686-pc-mingw32-objdump, and more to
+cover a.out, COFF and 64 bit Windows.  Therefore this cannot be done
+inside the daemon, and should be done by a separate, external program
+similar to virt-inspector.
+
+Probably we should go all the way and have virt-inspector able to
+determine kernel and userspace architectures of guests.
+
 ----------------------------------------------------------------------
 
 Other initrd-* commands, such as:
