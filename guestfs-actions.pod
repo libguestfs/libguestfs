@@ -1356,6 +1356,18 @@ call, in order to improve reliability.
 
 This function returns 0 on success or -1 on error.
 
+=head2 guestfs_mount_loop
+
+ int guestfs_mount_loop (guestfs_h *handle,
+		const char *file,
+		const char *mountpoint);
+
+This command lets you mount C<file> (a filesystem image
+in a file) on a mount point.  It is entirely equivalent to
+the command C<mount -o loop file mountpoint>.
+
+This function returns 0 on success or -1 on error.
+
 =head2 guestfs_mount_options
 
  int guestfs_mount_options (guestfs_h *handle,

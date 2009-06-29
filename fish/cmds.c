@@ -117,6 +117,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "mkdtemp", "create a temporary directory");
   printf ("%-20s %s\n", "mkfs", "make a filesystem");
   printf ("%-20s %s\n", "mount", "mount a guest disk at a position in the filesystem");
+  printf ("%-20s %s\n", "mount-loop", "mount a file using the loop device");
   printf ("%-20s %s\n", "mount-options", "mount a guest disk with mount options");
   printf ("%-20s %s\n", "mount-ro", "mount a guest disk, read-only");
   printf ("%-20s %s\n", "mount-vfs", "mount a guest disk with mount options and vfstype");
@@ -631,6 +632,9 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "initrd_list") == 0 || strcasecmp (cmd, "initrd-list") == 0)
     pod2text ("initrd-list - list files in an initrd", " initrd-list <path>\n\nThis command lists out files contained in an initrd.\n\nThe files are listed without any initial C</> character.  The\nfiles are listed in the order they appear (not necessarily\nalphabetical).  Directory names are listed as separate items.\n\nOld Linux kernels (2.4 and earlier) used a compressed ext2\nfilesystem as initrd.  We I<only> support the newer initramfs\nformat (compressed cpio files).");
+  else
+  if (strcasecmp (cmd, "mount_loop") == 0 || strcasecmp (cmd, "mount-loop") == 0)
+    pod2text ("mount-loop - mount a file using the loop device", " mount-loop <file> <mountpoint>\n\nThis command lets you mount C<file> (a filesystem image\nin a file) on a mount point.  It is entirely equivalent to\nthe command C<mount -o loop file mountpoint>.");
   else
     display_builtin_command (cmd);
 }
@@ -3103,6 +3107,22 @@ static int run_initrd_list (const char *cmd, int argc, char *argv[])
   return 0;
 }
 
+static int run_mount_loop (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *file;
+  const char *mountpoint;
+  if (argc != 2) {
+    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  file = argv[0];
+  mountpoint = argv[1];
+  r = guestfs_mount_loop (g, file, mountpoint);
+  return r;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -3551,6 +3571,9 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "initrd_list") == 0 || strcasecmp (cmd, "initrd-list") == 0)
     return run_initrd_list (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "mount_loop") == 0 || strcasecmp (cmd, "mount-loop") == 0)
+    return run_mount_loop (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

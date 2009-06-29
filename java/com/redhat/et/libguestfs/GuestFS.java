@@ -3820,4 +3820,23 @@ public HashMap<String,String> test0rhashtableerr ()
   private native String[] _initrd_list (long g, String path)
     throws LibGuestFSException;
 
+  /**
+   * mount a file using the loop device
+   * <p>
+   * This command lets you mount "file" (a filesystem image
+   * in a file) on a mount point. It is entirely equivalent
+   * to the command "mount -o loop file mountpoint".
+   * <p>
+   * @throws LibGuestFSException
+   */
+  public void mount_loop (String file, String mountpoint)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("mount_loop: handle is closed");
+    _mount_loop (g, file, mountpoint);
+  }
+  private native void _mount_loop (long g, String file, String mountpoint)
+    throws LibGuestFSException;
+
 }

@@ -149,3 +149,4 @@ extern char *do_df (void);
 extern char *do_df_h (void);
 extern int64_t do_du (char *path);
 extern char **do_initrd_list (char *path);
+extern int do_mount_loop (char *file, char *mountpoint);

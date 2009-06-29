@@ -962,6 +962,12 @@ on the underlying device.
 The filesystem options C<sync> and C<noatime> are set with this
 call, in order to improve reliability.
 
+=item $h->mount_loop ($file, $mountpoint);
+
+This command lets you mount C<file> (a filesystem image
+in a file) on a mount point.  It is entirely equivalent to
+the command C<mount -o loop file mountpoint>.
+
 =item $h->mount_options ($options, $device, $mountpoint);
 
 This is the same as the C<$h-E<gt>mount> command, but it

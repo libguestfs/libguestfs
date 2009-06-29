@@ -4611,6 +4611,33 @@ static VALUE ruby_guestfs_initrd_list (VALUE gv, VALUE pathv)
   return rv;
 }
 
+static VALUE ruby_guestfs_mount_loop (VALUE gv, VALUE filev, VALUE mountpointv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "mount_loop");
+
+  Check_Type (filev, T_STRING);
+  const char *file = StringValueCStr (filev);
+  if (!file)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "file", "mount_loop");
+  Check_Type (mountpointv, T_STRING);
+  const char *mountpoint = StringValueCStr (mountpointv);
+  if (!mountpoint)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "mountpoint", "mount_loop");
+
+  int r;
+
+  r = guestfs_mount_loop (g, file, mountpoint);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
 /* Initialize the module. */
 void Init__guestfs ()
 {
@@ -4981,4 +5008,6 @@ void Init__guestfs ()
         ruby_guestfs_du, 1);
   rb_define_method (c_guestfs, "initrd_list",
         ruby_guestfs_initrd_list, 1);
+  rb_define_method (c_guestfs, "mount_loop",
+        ruby_guestfs_mount_loop, 2);
 }

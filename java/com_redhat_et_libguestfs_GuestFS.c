@@ -4422,3 +4422,23 @@ Java_com_redhat_et_libguestfs_GuestFS__1initrd_1list
   return jr;
 }
 
+JNIEXPORT void JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1mount_1loop
+  (JNIEnv *env, jobject obj, jlong jg, jstring jfile, jstring jmountpoint)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+  const char *file;
+  const char *mountpoint;
+
+  file = (*env)->GetStringUTFChars (env, jfile, NULL);
+  mountpoint = (*env)->GetStringUTFChars (env, jmountpoint, NULL);
+  r = guestfs_mount_loop (g, file, mountpoint);
+  (*env)->ReleaseStringUTFChars (env, jfile, file);
+  (*env)->ReleaseStringUTFChars (env, jmountpoint, mountpoint);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return ;
+  }
+}
+

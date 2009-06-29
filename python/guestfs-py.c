@@ -4902,6 +4902,32 @@ py_guestfs_initrd_list (PyObject *self, PyObject *args)
   return py_r;
 }
 
+static PyObject *
+py_guestfs_mount_loop (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *file;
+  const char *mountpoint;
+
+  if (!PyArg_ParseTuple (args, (char *) "Oss:guestfs_mount_loop",
+                         &py_g, &file, &mountpoint))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_mount_loop (g, file, mountpoint);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
 static PyMethodDef methods[] = {
   { (char *) "create", py_guestfs_create, METH_VARARGS, NULL },
   { (char *) "close", py_guestfs_close, METH_VARARGS, NULL },
@@ -5085,6 +5111,7 @@ static PyMethodDef methods[] = {
   { (char *) "df_h", py_guestfs_df_h, METH_VARARGS, NULL },
   { (char *) "du", py_guestfs_du, METH_VARARGS, NULL },
   { (char *) "initrd_list", py_guestfs_initrd_list, METH_VARARGS, NULL },
+  { (char *) "mount_loop", py_guestfs_mount_loop, METH_VARARGS, NULL },
   { NULL, NULL, 0, NULL }
 };
 

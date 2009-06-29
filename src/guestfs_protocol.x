@@ -858,6 +858,11 @@ struct guestfs_initrd_list_ret {
   str filenames<>;
 };
 
+struct guestfs_mount_loop_args {
+  string file<>;
+  string mountpoint<>;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -987,6 +992,7 @@ enum guestfs_procedure {
   GUESTFS_PROC_DF_H = 126,
   GUESTFS_PROC_DU = 127,
   GUESTFS_PROC_INITRD_LIST = 128,
+  GUESTFS_PROC_MOUNT_LOOP = 129,
   GUESTFS_PROC_NR_PROCS
 };
 

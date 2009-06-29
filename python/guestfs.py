@@ -1856,3 +1856,10 @@ class GuestFS:
         """
         return libguestfsmod.initrd_list (self._o, path)
 
+    def mount_loop (self, file, mountpoint):
+        u"""This command lets you mount "file" (a filesystem image
+        in a file) on a mount point. It is entirely equivalent
+        to the command "mount -o loop file mountpoint".
+        """
+        return libguestfsmod.mount_loop (self._o, file, mountpoint)
+

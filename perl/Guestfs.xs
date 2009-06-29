@@ -2831,3 +2831,15 @@ PREINIT:
       }
       free (filenames);
 
+void
+mount_loop (g, file, mountpoint)
+      guestfs_h *g;
+      char *file;
+      char *mountpoint;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_mount_loop (g, file, mountpoint);
+      if (r == -1)
+        croak ("mount_loop: %s", guestfs_last_error (g));
+

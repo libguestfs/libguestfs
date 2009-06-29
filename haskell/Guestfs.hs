@@ -120,7 +120,8 @@ module Guestfs (
   wc_l,
   wc_w,
   wc_c,
-  du
+  du,
+  mount_loop
   ) where
 import Foreign
 import Foreign.C
@@ -1334,4 +1335,16 @@ du h path = do
       err <- last_error h
       fail err
     else return (fromIntegral r)
+
+foreign import ccall unsafe "guestfs_mount_loop" c_mount_loop
+  :: GuestfsP -> CString -> CString -> IO (CInt)
+
+mount_loop :: GuestfsH -> String -> String -> IO ()
+mount_loop h file mountpoint = do
+  r <- withCString file $ \file -> withCString mountpoint $ \mountpoint -> withForeignPtr h (\p -> c_mount_loop p file mountpoint)
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return ()
 

@@ -195,6 +195,7 @@ static const char *const commands[] = {
   "df-h",
   "du",
   "initrd-list",
+  "mount-loop",
   NULL
 };
 

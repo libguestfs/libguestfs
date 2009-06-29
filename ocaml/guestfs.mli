@@ -664,3 +664,6 @@ val du : t -> string -> int64
 val initrd_list : t -> string -> string array
 (** list files in an initrd *)
 
+val mount_loop : t -> string -> string -> unit
+(** mount a file using the loop device *)
+

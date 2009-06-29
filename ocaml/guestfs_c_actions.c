@@ -4637,3 +4637,27 @@ ocaml_guestfs_initrd_list (value gv, value pathv)
   CAMLreturn (rv);
 }
 
+CAMLprim value
+ocaml_guestfs_mount_loop (value gv, value filev, value mountpointv)
+{
+  CAMLparam3 (gv, filev, mountpointv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("mount_loop: used handle after closing it");
+
+  const char *file = String_val (filev);
+  const char *mountpoint = String_val (mountpointv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_mount_loop (g, file, mountpoint);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "mount_loop");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
