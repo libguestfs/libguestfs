@@ -184,6 +184,9 @@ static const char *const commands[] = {
   "scrub-file",
   "scrub-freespace",
   "mkdtemp",
+  "wc-l",
+  "wc-w",
+  "wc-c",
   NULL
 };
 

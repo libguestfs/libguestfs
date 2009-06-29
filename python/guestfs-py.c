@@ -4631,6 +4631,78 @@ py_guestfs_mkdtemp (PyObject *self, PyObject *args)
   return py_r;
 }
 
+static PyObject *
+py_guestfs_wc_l (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *path;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_wc_l",
+                         &py_g, &path))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_wc_l (g, path);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyInt_FromLong ((long) r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_wc_w (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *path;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_wc_w",
+                         &py_g, &path))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_wc_w (g, path);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyInt_FromLong ((long) r);
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_wc_c (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  const char *path;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_wc_c",
+                         &py_g, &path))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_wc_c (g, path);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyInt_FromLong ((long) r);
+  return py_r;
+}
+
 static PyMethodDef methods[] = {
   { (char *) "create", py_guestfs_create, METH_VARARGS, NULL },
   { (char *) "close", py_guestfs_close, METH_VARARGS, NULL },
@@ -4803,6 +4875,9 @@ static PyMethodDef methods[] = {
   { (char *) "scrub_file", py_guestfs_scrub_file, METH_VARARGS, NULL },
   { (char *) "scrub_freespace", py_guestfs_scrub_freespace, METH_VARARGS, NULL },
   { (char *) "mkdtemp", py_guestfs_mkdtemp, METH_VARARGS, NULL },
+  { (char *) "wc_l", py_guestfs_wc_l, METH_VARARGS, NULL },
+  { (char *) "wc_w", py_guestfs_wc_w, METH_VARARGS, NULL },
+  { (char *) "wc_c", py_guestfs_wc_c, METH_VARARGS, NULL },
   { NULL, NULL, 0, NULL }
 };
 

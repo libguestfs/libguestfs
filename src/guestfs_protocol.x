@@ -776,6 +776,30 @@ struct guestfs_mkdtemp_ret {
   string dir<>;
 };
 
+struct guestfs_wc_l_args {
+  string path<>;
+};
+
+struct guestfs_wc_l_ret {
+  int lines;
+};
+
+struct guestfs_wc_w_args {
+  string path<>;
+};
+
+struct guestfs_wc_w_ret {
+  int words;
+};
+
+struct guestfs_wc_c_args {
+  string path<>;
+};
+
+struct guestfs_wc_c_ret {
+  int chars;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -894,6 +918,9 @@ enum guestfs_procedure {
   GUESTFS_PROC_SCRUB_FILE = 115,
   GUESTFS_PROC_SCRUB_FREESPACE = 116,
   GUESTFS_PROC_MKDTEMP = 117,
+  GUESTFS_PROC_WC_L = 118,
+  GUESTFS_PROC_WC_W = 119,
+  GUESTFS_PROC_WC_C = 120,
   GUESTFS_PROC_NR_PROCS
 };
 

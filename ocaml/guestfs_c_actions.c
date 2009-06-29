@@ -4367,3 +4367,72 @@ ocaml_guestfs_mkdtemp (value gv, value templatev)
   CAMLreturn (rv);
 }
 
+CAMLprim value
+ocaml_guestfs_wc_l (value gv, value pathv)
+{
+  CAMLparam2 (gv, pathv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("wc_l: used handle after closing it");
+
+  const char *path = String_val (pathv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_wc_l (g, path);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "wc_l");
+
+  rv = Val_int (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_wc_w (value gv, value pathv)
+{
+  CAMLparam2 (gv, pathv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("wc_w: used handle after closing it");
+
+  const char *path = String_val (pathv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_wc_w (g, path);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "wc_w");
+
+  rv = Val_int (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_wc_c (value gv, value pathv)
+{
+  CAMLparam2 (gv, pathv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("wc_c: used handle after closing it");
+
+  const char *path = String_val (pathv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_wc_c (g, path);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "wc_c");
+
+  rv = Val_int (r);
+  CAMLreturn (rv);
+}
+

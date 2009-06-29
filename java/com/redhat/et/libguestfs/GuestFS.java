@@ -3569,4 +3569,58 @@ public HashMap<String,String> test0rhashtableerr ()
   private native String _mkdtemp (long g, String template)
     throws LibGuestFSException;
 
+  /**
+   * count lines in a file
+   * <p>
+   * This command counts the lines in a file, using the "wc
+   * -l" external command.
+   * <p>
+   * @throws LibGuestFSException
+   */
+  public int wc_l (String path)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("wc_l: handle is closed");
+    return _wc_l (g, path);
+  }
+  private native int _wc_l (long g, String path)
+    throws LibGuestFSException;
+
+  /**
+   * count words in a file
+   * <p>
+   * This command counts the words in a file, using the "wc
+   * -w" external command.
+   * <p>
+   * @throws LibGuestFSException
+   */
+  public int wc_w (String path)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("wc_w: handle is closed");
+    return _wc_w (g, path);
+  }
+  private native int _wc_w (long g, String path)
+    throws LibGuestFSException;
+
+  /**
+   * count characters in a file
+   * <p>
+   * This command counts the characters in a file, using the
+   * "wc -c" external command.
+   * <p>
+   * @throws LibGuestFSException
+   */
+  public int wc_c (String path)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("wc_c: handle is closed");
+    return _wc_c (g, path);
+  }
+  private native int _wc_c (long g, String path)
+    throws LibGuestFSException;
+
 }

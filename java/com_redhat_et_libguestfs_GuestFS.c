@@ -4145,3 +4145,57 @@ Java_com_redhat_et_libguestfs_GuestFS__1mkdtemp
   return jr;
 }
 
+JNIEXPORT jint JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1wc_1l
+  (JNIEnv *env, jobject obj, jlong jg, jstring jpath)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+  const char *path;
+
+  path = (*env)->GetStringUTFChars (env, jpath, NULL);
+  r = guestfs_wc_l (g, path);
+  (*env)->ReleaseStringUTFChars (env, jpath, path);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return 0;
+  }
+  return (jint) r;
+}
+
+JNIEXPORT jint JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1wc_1w
+  (JNIEnv *env, jobject obj, jlong jg, jstring jpath)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+  const char *path;
+
+  path = (*env)->GetStringUTFChars (env, jpath, NULL);
+  r = guestfs_wc_w (g, path);
+  (*env)->ReleaseStringUTFChars (env, jpath, path);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return 0;
+  }
+  return (jint) r;
+}
+
+JNIEXPORT jint JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1wc_1c
+  (JNIEnv *env, jobject obj, jlong jg, jstring jpath)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+  const char *path;
+
+  path = (*env)->GetStringUTFChars (env, jpath, NULL);
+  r = guestfs_wc_c (g, path);
+  (*env)->ReleaseStringUTFChars (env, jpath, path);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return 0;
+  }
+  return (jint) r;
+}
+

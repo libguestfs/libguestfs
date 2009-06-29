@@ -4333,6 +4333,72 @@ static VALUE ruby_guestfs_mkdtemp (VALUE gv, VALUE templatev)
   return rv;
 }
 
+static VALUE ruby_guestfs_wc_l (VALUE gv, VALUE pathv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "wc_l");
+
+  Check_Type (pathv, T_STRING);
+  const char *path = StringValueCStr (pathv);
+  if (!path)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "path", "wc_l");
+
+  int r;
+
+  r = guestfs_wc_l (g, path);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return INT2NUM (r);
+}
+
+static VALUE ruby_guestfs_wc_w (VALUE gv, VALUE pathv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "wc_w");
+
+  Check_Type (pathv, T_STRING);
+  const char *path = StringValueCStr (pathv);
+  if (!path)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "path", "wc_w");
+
+  int r;
+
+  r = guestfs_wc_w (g, path);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return INT2NUM (r);
+}
+
+static VALUE ruby_guestfs_wc_c (VALUE gv, VALUE pathv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "wc_c");
+
+  Check_Type (pathv, T_STRING);
+  const char *path = StringValueCStr (pathv);
+  if (!path)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "path", "wc_c");
+
+  int r;
+
+  r = guestfs_wc_c (g, path);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return INT2NUM (r);
+}
+
 /* Initialize the module. */
 void Init__guestfs ()
 {
@@ -4681,4 +4747,10 @@ void Init__guestfs ()
         ruby_guestfs_scrub_freespace, 1);
   rb_define_method (c_guestfs, "mkdtemp",
         ruby_guestfs_mkdtemp, 1);
+  rb_define_method (c_guestfs, "wc_l",
+        ruby_guestfs_wc_l, 1);
+  rb_define_method (c_guestfs, "wc_w",
+        ruby_guestfs_wc_w, 1);
+  rb_define_method (c_guestfs, "wc_c",
+        ruby_guestfs_wc_c, 1);
 }

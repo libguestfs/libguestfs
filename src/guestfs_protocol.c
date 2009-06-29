@@ -1983,6 +1983,66 @@ xdr_guestfs_mkdtemp_ret (XDR *xdrs, guestfs_mkdtemp_ret *objp)
 }
 
 bool_t
+xdr_guestfs_wc_l_args (XDR *xdrs, guestfs_wc_l_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->path, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_wc_l_ret (XDR *xdrs, guestfs_wc_l_ret *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_int (xdrs, &objp->lines))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_wc_w_args (XDR *xdrs, guestfs_wc_w_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->path, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_wc_w_ret (XDR *xdrs, guestfs_wc_w_ret *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_int (xdrs, &objp->words))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_wc_c_args (XDR *xdrs, guestfs_wc_c_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->path, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_wc_c_ret (XDR *xdrs, guestfs_wc_c_ret *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_int (xdrs, &objp->chars))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
 xdr_guestfs_procedure (XDR *xdrs, guestfs_procedure *objp)
 {
 	register int32_t *buf;

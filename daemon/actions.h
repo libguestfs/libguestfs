@@ -138,3 +138,6 @@ extern int do_scrub_device (char *device);
 extern int do_scrub_file (char *file);
 extern int do_scrub_freespace (char *dir);
 extern char *do_mkdtemp (char *template);
+extern int do_wc_l (char *path);
+extern int do_wc_w (char *path);
+extern int do_wc_c (char *path);

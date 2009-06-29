@@ -188,3 +188,6 @@ extern int guestfs_scrub_device (guestfs_h *handle, const char *device);
 extern int guestfs_scrub_file (guestfs_h *handle, const char *file);
 extern int guestfs_scrub_freespace (guestfs_h *handle, const char *dir);
 extern char *guestfs_mkdtemp (guestfs_h *handle, const char *template);
+extern int guestfs_wc_l (guestfs_h *handle, const char *path);
+extern int guestfs_wc_w (guestfs_h *handle, const char *path);
+extern int guestfs_wc_c (guestfs_h *handle, const char *path);

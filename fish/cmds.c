@@ -166,6 +166,9 @@ void list_commands (void)
   printf ("%-20s %s\n", "vgremove", "remove an LVM volume group");
   printf ("%-20s %s\n", "vgs", "list the LVM volume groups (VGs)");
   printf ("%-20s %s\n", "vgs-full", "list the LVM volume groups (VGs)");
+  printf ("%-20s %s\n", "wc-c", "count characters in a file");
+  printf ("%-20s %s\n", "wc-l", "count lines in a file");
+  printf ("%-20s %s\n", "wc-w", "count words in a file");
   printf ("%-20s %s\n", "write-file", "create a file");
   printf ("%-20s %s\n", "zero", "write zeroes to the device");
   printf ("%-20s %s\n", "zerofree", "zero unused inodes and disk blocks on ext2/3 filesystem");
@@ -587,6 +590,15 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "mkdtemp") == 0)
     pod2text ("mkdtemp - create a temporary directory", " mkdtemp <template>\n\nThis command creates a temporary directory.  The\nC<template> parameter should be a full pathname for the\ntemporary directory name with the final six characters being\n\"XXXXXX\".\n\nFor example: \"/tmp/myprogXXXXXX\" or \"/Temp/myprogXXXXXX\",\nthe second one being suitable for Windows filesystems.\n\nThe name of the temporary directory that was created\nis returned.\n\nThe temporary directory is created with mode 0700\nand is owned by root.\n\nThe caller is responsible for deleting the temporary\ndirectory and its contents after use.\n\nSee also: L<mkdtemp(3)>");
+  else
+  if (strcasecmp (cmd, "wc_l") == 0 || strcasecmp (cmd, "wc-l") == 0)
+    pod2text ("wc-l - count lines in a file", " wc-l <path>\n\nThis command counts the lines in a file, using the\nC<wc -l> external command.");
+  else
+  if (strcasecmp (cmd, "wc_w") == 0 || strcasecmp (cmd, "wc-w") == 0)
+    pod2text ("wc-w - count words in a file", " wc-w <path>\n\nThis command counts the words in a file, using the\nC<wc -w> external command.");
+  else
+  if (strcasecmp (cmd, "wc_c") == 0 || strcasecmp (cmd, "wc-c") == 0)
+    pod2text ("wc-c - count characters in a file", " wc-c <path>\n\nThis command counts the characters in a file, using the\nC<wc -c> external command.");
   else
     display_builtin_command (cmd);
 }
@@ -2876,6 +2888,54 @@ static int run_mkdtemp (const char *cmd, int argc, char *argv[])
   return 0;
 }
 
+static int run_wc_l (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *path;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  path = argv[0];
+  r = guestfs_wc_l (g, path);
+  if (r == -1) return -1;
+  printf ("%d\n", r);
+  return 0;
+}
+
+static int run_wc_w (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *path;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  path = argv[0];
+  r = guestfs_wc_w (g, path);
+  if (r == -1) return -1;
+  printf ("%d\n", r);
+  return 0;
+}
+
+static int run_wc_c (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  const char *path;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  path = argv[0];
+  r = guestfs_wc_c (g, path);
+  if (r == -1) return -1;
+  printf ("%d\n", r);
+  return 0;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -3291,6 +3351,15 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "mkdtemp") == 0)
     return run_mkdtemp (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "wc_l") == 0 || strcasecmp (cmd, "wc-l") == 0)
+    return run_wc_l (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "wc_w") == 0 || strcasecmp (cmd, "wc-w") == 0)
+    return run_wc_w (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "wc_c") == 0 || strcasecmp (cmd, "wc-c") == 0)
+    return run_wc_c (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

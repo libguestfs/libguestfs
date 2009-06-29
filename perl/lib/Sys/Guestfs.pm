@@ -1391,6 +1391,21 @@ using L<qemu(1)>.
 You should call this after C<$h-E<gt>launch> to wait for the launch
 to complete.
 
+=item $chars = $h->wc_c ($path);
+
+This command counts the characters in a file, using the
+C<wc -c> external command.
+
+=item $lines = $h->wc_l ($path);
+
+This command counts the lines in a file, using the
+C<wc -l> external command.
+
+=item $words = $h->wc_w ($path);
+
+This command counts the words in a file, using the
+C<wc -w> external command.
+
 =item $h->write_file ($path, $content, $size);
 
 This call creates a file called C<path>.  The contents of the

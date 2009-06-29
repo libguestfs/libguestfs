@@ -1007,6 +1007,36 @@ struct guestfs_mkdtemp_ret {
 };
 typedef struct guestfs_mkdtemp_ret guestfs_mkdtemp_ret;
 
+struct guestfs_wc_l_args {
+	char *path;
+};
+typedef struct guestfs_wc_l_args guestfs_wc_l_args;
+
+struct guestfs_wc_l_ret {
+	int lines;
+};
+typedef struct guestfs_wc_l_ret guestfs_wc_l_ret;
+
+struct guestfs_wc_w_args {
+	char *path;
+};
+typedef struct guestfs_wc_w_args guestfs_wc_w_args;
+
+struct guestfs_wc_w_ret {
+	int words;
+};
+typedef struct guestfs_wc_w_ret guestfs_wc_w_ret;
+
+struct guestfs_wc_c_args {
+	char *path;
+};
+typedef struct guestfs_wc_c_args guestfs_wc_c_args;
+
+struct guestfs_wc_c_ret {
+	int chars;
+};
+typedef struct guestfs_wc_c_ret guestfs_wc_c_ret;
+
 enum guestfs_procedure {
 	GUESTFS_PROC_MOUNT = 1,
 	GUESTFS_PROC_SYNC = 2,
@@ -1125,7 +1155,10 @@ enum guestfs_procedure {
 	GUESTFS_PROC_SCRUB_FILE = 115,
 	GUESTFS_PROC_SCRUB_FREESPACE = 116,
 	GUESTFS_PROC_MKDTEMP = 117,
-	GUESTFS_PROC_NR_PROCS = 117 + 1,
+	GUESTFS_PROC_WC_L = 118,
+	GUESTFS_PROC_WC_W = 119,
+	GUESTFS_PROC_WC_C = 120,
+	GUESTFS_PROC_NR_PROCS = 120 + 1,
 };
 typedef enum guestfs_procedure guestfs_procedure;
 #define GUESTFS_MESSAGE_MAX 4194304
@@ -1337,6 +1370,12 @@ extern  bool_t xdr_guestfs_scrub_file_args (XDR *, guestfs_scrub_file_args*);
 extern  bool_t xdr_guestfs_scrub_freespace_args (XDR *, guestfs_scrub_freespace_args*);
 extern  bool_t xdr_guestfs_mkdtemp_args (XDR *, guestfs_mkdtemp_args*);
 extern  bool_t xdr_guestfs_mkdtemp_ret (XDR *, guestfs_mkdtemp_ret*);
+extern  bool_t xdr_guestfs_wc_l_args (XDR *, guestfs_wc_l_args*);
+extern  bool_t xdr_guestfs_wc_l_ret (XDR *, guestfs_wc_l_ret*);
+extern  bool_t xdr_guestfs_wc_w_args (XDR *, guestfs_wc_w_args*);
+extern  bool_t xdr_guestfs_wc_w_ret (XDR *, guestfs_wc_w_ret*);
+extern  bool_t xdr_guestfs_wc_c_args (XDR *, guestfs_wc_c_args*);
+extern  bool_t xdr_guestfs_wc_c_ret (XDR *, guestfs_wc_c_ret*);
 extern  bool_t xdr_guestfs_procedure (XDR *, guestfs_procedure*);
 extern  bool_t xdr_guestfs_message_direction (XDR *, guestfs_message_direction*);
 extern  bool_t xdr_guestfs_message_status (XDR *, guestfs_message_status*);
@@ -1507,6 +1546,12 @@ extern bool_t xdr_guestfs_scrub_file_args ();
 extern bool_t xdr_guestfs_scrub_freespace_args ();
 extern bool_t xdr_guestfs_mkdtemp_args ();
 extern bool_t xdr_guestfs_mkdtemp_ret ();
+extern bool_t xdr_guestfs_wc_l_args ();
+extern bool_t xdr_guestfs_wc_l_ret ();
+extern bool_t xdr_guestfs_wc_w_args ();
+extern bool_t xdr_guestfs_wc_w_ret ();
+extern bool_t xdr_guestfs_wc_c_args ();
+extern bool_t xdr_guestfs_wc_c_ret ();
 extern bool_t xdr_guestfs_procedure ();
 extern bool_t xdr_guestfs_message_direction ();
 extern bool_t xdr_guestfs_message_status ();

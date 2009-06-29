@@ -1727,3 +1727,21 @@ class GuestFS:
         """
         return libguestfsmod.mkdtemp (self._o, template)
 
+    def wc_l (self, path):
+        u"""This command counts the lines in a file, using the "wc
+        -l" external command.
+        """
+        return libguestfsmod.wc_l (self._o, path)
+
+    def wc_w (self, path):
+        u"""This command counts the words in a file, using the "wc
+        -w" external command.
+        """
+        return libguestfsmod.wc_w (self._o, path)
+
+    def wc_c (self, path):
+        u"""This command counts the characters in a file, using the
+        "wc -c" external command.
+        """
+        return libguestfsmod.wc_c (self._o, path)
+

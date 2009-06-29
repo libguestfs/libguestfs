@@ -631,3 +631,12 @@ val scrub_freespace : t -> string -> unit
 val mkdtemp : t -> string -> string
 (** create a temporary directory *)
 
+val wc_l : t -> string -> int
+(** count lines in a file *)
+
+val wc_w : t -> string -> int
+(** count words in a file *)
+
+val wc_c : t -> string -> int
+(** count characters in a file *)
+

@@ -2953,6 +2953,84 @@ done:
   xdr_free ((xdrproc_t) xdr_guestfs_mkdtemp_args, (char *) &args);
 }
 
+static void wc_l_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_wc_l_args args;
+  char *path;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_wc_l_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "wc_l");
+    return;
+  }
+  path = args.path;
+
+  r = do_wc_l (path);
+  if (r == -1)
+    /* do_wc_l has already called reply_with_error */
+    goto done;
+
+  struct guestfs_wc_l_ret ret;
+  ret.lines = r;
+  reply ((xdrproc_t) &xdr_guestfs_wc_l_ret, (char *) &ret);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_wc_l_args, (char *) &args);
+}
+
+static void wc_w_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_wc_w_args args;
+  char *path;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_wc_w_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "wc_w");
+    return;
+  }
+  path = args.path;
+
+  r = do_wc_w (path);
+  if (r == -1)
+    /* do_wc_w has already called reply_with_error */
+    goto done;
+
+  struct guestfs_wc_w_ret ret;
+  ret.words = r;
+  reply ((xdrproc_t) &xdr_guestfs_wc_w_ret, (char *) &ret);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_wc_w_args, (char *) &args);
+}
+
+static void wc_c_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_wc_c_args args;
+  char *path;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_wc_c_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "wc_c");
+    return;
+  }
+  path = args.path;
+
+  r = do_wc_c (path);
+  if (r == -1)
+    /* do_wc_c has already called reply_with_error */
+    goto done;
+
+  struct guestfs_wc_c_ret ret;
+  ret.chars = r;
+  reply ((xdrproc_t) &xdr_guestfs_wc_c_ret, (char *) &ret);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_wc_c_args, (char *) &args);
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -3306,6 +3384,15 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_MKDTEMP:
       mkdtemp_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_WC_L:
+      wc_l_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_WC_W:
+      wc_w_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_WC_C:
+      wc_c_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d, set LIBGUESTFS_PATH to point to the matching libguestfs appliance directory", proc_nr);

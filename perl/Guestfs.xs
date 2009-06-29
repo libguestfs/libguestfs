@@ -2650,3 +2650,45 @@ PREINIT:
  OUTPUT:
       RETVAL
 
+SV *
+wc_l (g, path)
+      guestfs_h *g;
+      char *path;
+PREINIT:
+      int lines;
+   CODE:
+      lines = guestfs_wc_l (g, path);
+      if (lines == -1)
+        croak ("wc_l: %s", guestfs_last_error (g));
+      RETVAL = newSViv (lines);
+ OUTPUT:
+      RETVAL
+
+SV *
+wc_w (g, path)
+      guestfs_h *g;
+      char *path;
+PREINIT:
+      int words;
+   CODE:
+      words = guestfs_wc_w (g, path);
+      if (words == -1)
+        croak ("wc_w: %s", guestfs_last_error (g));
+      RETVAL = newSViv (words);
+ OUTPUT:
+      RETVAL
+
+SV *
+wc_c (g, path)
+      guestfs_h *g;
+      char *path;
+PREINIT:
+      int chars;
+   CODE:
+      chars = guestfs_wc_c (g, path);
+      if (chars == -1)
+        croak ("wc_c: %s", guestfs_last_error (g));
+      RETVAL = newSViv (chars);
+ OUTPUT:
+      RETVAL
+

@@ -2088,6 +2088,36 @@ to complete.
 
 This function returns 0 on success or -1 on error.
 
+=head2 guestfs_wc_c
+
+ int guestfs_wc_c (guestfs_h *handle,
+		const char *path);
+
+This command counts the characters in a file, using the
+C<wc -c> external command.
+
+On error this function returns -1.
+
+=head2 guestfs_wc_l
+
+ int guestfs_wc_l (guestfs_h *handle,
+		const char *path);
+
+This command counts the lines in a file, using the
+C<wc -l> external command.
+
+On error this function returns -1.
+
+=head2 guestfs_wc_w
+
+ int guestfs_wc_w (guestfs_h *handle,
+		const char *path);
+
+This command counts the words in a file, using the
+C<wc -w> external command.
+
+On error this function returns -1.
+
 =head2 guestfs_write_file
 
  int guestfs_write_file (guestfs_h *handle,

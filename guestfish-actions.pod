@@ -1550,6 +1550,27 @@ See also C<vgs-full>.
 List all the volumes groups detected.  This is the equivalent
 of the L<vgs(8)> command.  The "full" version includes all fields.
 
+=head2 wc-c
+
+ wc-c path
+
+This command counts the characters in a file, using the
+C<wc -c> external command.
+
+=head2 wc-l
+
+ wc-l path
+
+This command counts the lines in a file, using the
+C<wc -l> external command.
+
+=head2 wc-w
+
+ wc-w path
+
+This command counts the words in a file, using the
+C<wc -w> external command.
+
 =head2 write-file
 
  write-file path content size

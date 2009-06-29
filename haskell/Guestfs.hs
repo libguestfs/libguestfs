@@ -116,7 +116,10 @@ module Guestfs (
   ntfs_3g_probe,
   scrub_device,
   scrub_file,
-  scrub_freespace
+  scrub_freespace,
+  wc_l,
+  wc_w,
+  wc_c
   ) where
 import Foreign
 import Foreign.C
@@ -1282,4 +1285,40 @@ scrub_freespace h dir = do
       err <- last_error h
       fail err
     else return ()
+
+foreign import ccall unsafe "guestfs_wc_l" c_wc_l
+  :: GuestfsP -> CString -> IO (CInt)
+
+wc_l :: GuestfsH -> String -> IO (Int)
+wc_l h path = do
+  r <- withCString path $ \path -> withForeignPtr h (\p -> c_wc_l p path)
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return (fromIntegral r)
+
+foreign import ccall unsafe "guestfs_wc_w" c_wc_w
+  :: GuestfsP -> CString -> IO (CInt)
+
+wc_w :: GuestfsH -> String -> IO (Int)
+wc_w h path = do
+  r <- withCString path $ \path -> withForeignPtr h (\p -> c_wc_w p path)
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return (fromIntegral r)
+
+foreign import ccall unsafe "guestfs_wc_c" c_wc_c
+  :: GuestfsP -> CString -> IO (CInt)
+
+wc_c :: GuestfsH -> String -> IO (Int)
+wc_c h path = do
+  r <- withCString path $ \path -> withForeignPtr h (\p -> c_wc_c p path)
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return (fromIntegral r)
 
