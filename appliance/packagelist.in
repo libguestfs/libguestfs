@@ -5,26 +5,36 @@
  * following symbols defined (depending on the distro):
  *
  *   REDHAT=1     For Fedora, RHEL, EPEL and workalikes.
+ *   DEBIAN=1     For Debian based distros.
  */
 
-augeas-libs
+#if REDHAT == 1
+  augeas-libs
+  iputils
+  kernel
+  MAKEDEV
+  ntfsprogs
+  scrub
+  util-linux-ng
+#elif DEBIAN == 1
+  bsdmainutils
+  iproute
+  libaugeas0
+  util-linux
+#endif
+
 bash
 binutils
 coreutils
 dosfstools
 file
 grub
-iputils
-kernel
 lsof
 lvm2
-MAKEDEV
 module-init-tools
 net-tools
 ntfs-3g
-ntfsprogs
 procps
-scrub
 strace
-util-linux-ng
 zerofree
+

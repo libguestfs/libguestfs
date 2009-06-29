@@ -144,6 +144,7 @@ if test "x$FEBOOTSTRAP" != "xno"; then
         AC_MSG_ERROR([fakechroot version must be >= 2.9])
     fi
   fi
+  DIST="REDHAT"
 else
   # check for debootstrap and debirf
   AC_CHECK_PROG([DEBOOTSTRAP],
@@ -153,7 +154,9 @@ else
   AC_CHECK_PROG([DEBIRF],[debirf],[debirf],[no])
   test "x$DEBIRF" = "xno" &&
         AC_MSG_ERROR([debirf must be installed])
+  DIST="DEBIAN"
 fi
+AC_SUBST(DIST)
 
 
 dnl --with-repo to specify a Fedora repository.

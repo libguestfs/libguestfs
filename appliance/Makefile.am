@@ -68,7 +68,7 @@ kmod.whitelist: kmod.whitelist.in
 	grep -v '^[[:space:]]*$$' < $< | grep -v '^#' > $@
 
 packagelist: packagelist.in
-	cpp -undef -DREDHAT=1 < $< | \
+	cpp -undef -D$(DIST)=1 < $< | \
 	grep -v '^[[:space:]]*$$' | grep -v '^#' > $@
 
 # This is for building the supermin appliance.  It has to be enabled
