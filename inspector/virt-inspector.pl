@@ -705,6 +705,12 @@ sub find_filesystem
     } else {
 	return ($_, $fses{$_}) if exists $fses{$_};
 
+        # The following is to handle the case where an fstab entry specifies a
+        # specific device rather than its label or uuid, and the libguestfs
+        # appliance has named the device differently due to the use of a
+        # different driver.
+        # This will work as long as the underlying drivers recognise devices in
+        # the same order.
 	if (m{^/dev/hd(.*)} && exists $fses{"/dev/sd$1"}) {
 	    return ("/dev/sd$1", $fses{"/dev/sd$1"});
 	}
