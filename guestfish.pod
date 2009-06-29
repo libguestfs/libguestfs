@@ -319,19 +319,10 @@ If you prefix a command with a I<-> character, then that command will
 not cause guestfish to exit, even if that (one) command returns an
 error.
 
-=head1 COMMANDS
+=head1 GUESTFISH COMMANDS
 
-=head2 help
-
- help
- help cmd
-
-Without any parameter, this lists all commands.  With a C<cmd>
-parameter, this displays detailed help for a command.
-
-=head2 quit | exit
-
-This exits guestfish.  You can also use C<^D> key.
+The commands in this section are guestfish convenience commands, in
+other words, they are not part of the L<guestfs(3)> API.
 
 =head2 alloc | allocate
 
@@ -384,15 +375,6 @@ editors.
 NOTE: This will not work reliably for large files
 (> 2 MB) or binary files containing \0 bytes.
 
-=head2 lcd
-
- lcd directory
-
-Change the local directory, ie. the current directory of guestfish
-itself.
-
-Note that C<!cd> won't do what you might expect.
-
 =head2 glob
 
  glob command args...
@@ -401,6 +383,23 @@ Expand wildcards in any paths in the args list, and run C<command>
 repeatedly on each matching path.
 
 See section WILDCARDS AND GLOBBING.
+
+=head2 help
+
+ help
+ help cmd
+
+Without any parameter, this lists all commands.  With a C<cmd>
+parameter, this displays detailed help for a command.
+
+=head2 lcd
+
+ lcd directory
+
+Change the local directory, ie. the current directory of guestfish
+itself.
+
+Note that C<!cd> won't do what you might expect.
 
 =head2 more | less
 
@@ -415,6 +414,12 @@ command C<less> you will get the C<less> command specifically.
 
 NOTE: This will not work reliably for large files
 (> 2 MB) or binary files containing \0 bytes.
+
+=head2 quit | exit
+
+This exits guestfish.  You can also use C<^D> key.
+
+=head1 COMMANDS
 
 @ACTIONS@
 
