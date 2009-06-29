@@ -2171,6 +2171,39 @@ xdr_guestfs_du_ret (XDR *xdrs, guestfs_du_ret *objp)
 }
 
 bool_t
+xdr_guestfs_initrd_list_args (XDR *xdrs, guestfs_initrd_list_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->path, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_initrd_list_ret (XDR *xdrs, guestfs_initrd_list_ret *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_array (xdrs, (char **)&objp->filenames.filenames_val, (u_int *) &objp->filenames.filenames_len, ~0,
+		sizeof (str), (xdrproc_t) xdr_str))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_mount_loop_args (XDR *xdrs, guestfs_mount_loop_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->file, ~0))
+		 return FALSE;
+	 if (!xdr_string (xdrs, &objp->mountpoint, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
 xdr_guestfs_procedure (XDR *xdrs, guestfs_procedure *objp)
 {
 	register int32_t *buf;

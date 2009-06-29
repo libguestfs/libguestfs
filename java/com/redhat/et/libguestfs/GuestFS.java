@@ -3794,4 +3794,49 @@ public HashMap<String,String> test0rhashtableerr ()
   private native long _du (long g, String path)
     throws LibGuestFSException;
 
+  /**
+   * list files in an initrd
+   * <p>
+   * This command lists out files contained in an initrd.
+   * <p>
+   * The files are listed without any initial "/" character.
+   * The files are listed in the order they appear (not
+   * necessarily alphabetical). Directory names are listed as
+   * separate items.
+   * <p>
+   * Old Linux kernels (2.4 and earlier) used a compressed
+   * ext2 filesystem as initrd. We *only* support the newer
+   * initramfs format (compressed cpio files).
+   * <p>
+   * @throws LibGuestFSException
+   */
+  public String[] initrd_list (String path)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("initrd_list: handle is closed");
+    return _initrd_list (g, path);
+  }
+  private native String[] _initrd_list (long g, String path)
+    throws LibGuestFSException;
+
+  /**
+   * mount a file using the loop device
+   * <p>
+   * This command lets you mount "file" (a filesystem image
+   * in a file) on a mount point. It is entirely equivalent
+   * to the command "mount -o loop file mountpoint".
+   * <p>
+   * @throws LibGuestFSException
+   */
+  public void mount_loop (String file, String mountpoint)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("mount_loop: handle is closed");
+    _mount_loop (g, file, mountpoint);
+  }
+  private native void _mount_loop (long g, String file, String mountpoint)
+    throws LibGuestFSException;
+
 }

@@ -661,3 +661,9 @@ val df_h : t -> string
 val du : t -> string -> int64
 (** estimate file space usage *)
 
+val initrd_list : t -> string -> string array
+(** list files in an initrd *)
+
+val mount_loop : t -> string -> string -> unit
+(** mount a file using the loop device *)
+

@@ -157,3 +157,16 @@ Extra commands / functionality:
 ----------------------------------------------------------------------
 
 Allow swap space from the guest to be used.  Is it a good idea?
+
+----------------------------------------------------------------------
+
+Need a way to query a binary or library file for its architecture.
+Using objdump or readelf?
+What about non-ELF files (eg. Windows, BSD).
+
+----------------------------------------------------------------------
+
+Other initrd-* commands, such as:
+
+initrd-extract
+initrd-replace

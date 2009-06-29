@@ -153,6 +153,162 @@ static void no_test_warnings (void)
   fprintf (stderr, "warning: \"guestfs_scrub_freespace\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_df\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_df_h\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_mount_loop\" has no tests\n");
+}
+
+static int test_initrd_list_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "initrd_list") == NULL;
+  str = getenv ("SKIP_TEST_INITRD_LIST_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_INITRD_LIST");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
+static int test_initrd_list_0 (void)
+{
+  if (test_initrd_list_0_skip ()) {
+    printf ("%s skipped (reason: environment variable set)\n", "test_initrd_list_0");
+    return 0;
+  }
+
+  /* InitBasicFS for test_initrd_list_0: create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputList for initrd_list (0) */
+  {
+    char options[] = "ro";
+    char vfstype[] = "squashfs";
+    char device[] = "/dev/sdd";
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount_vfs (g, options, vfstype, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/initrd";
+    char **r;
+    int i;
+    suppress_error = 0;
+    r = guestfs_initrd_list (g, path);
+    if (r == NULL)
+      return -1;
+    if (!r[0]) {
+      fprintf (stderr, "test_initrd_list_0: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "empty";
+      if (strcmp (r[0], expected) != 0) {
+        fprintf (stderr, "test_initrd_list_0: expected \"%s\" but got \"%s\"\n", expected, r[0]);
+        return -1;
+      }
+    }
+    if (!r[1]) {
+      fprintf (stderr, "test_initrd_list_0: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "known-1";
+      if (strcmp (r[1], expected) != 0) {
+        fprintf (stderr, "test_initrd_list_0: expected \"%s\" but got \"%s\"\n", expected, r[1]);
+        return -1;
+      }
+    }
+    if (!r[2]) {
+      fprintf (stderr, "test_initrd_list_0: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "known-2";
+      if (strcmp (r[2], expected) != 0) {
+        fprintf (stderr, "test_initrd_list_0: expected \"%s\" but got \"%s\"\n", expected, r[2]);
+        return -1;
+      }
+    }
+    if (!r[3]) {
+      fprintf (stderr, "test_initrd_list_0: short list returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    {
+      char expected[] = "known-3";
+      if (strcmp (r[3], expected) != 0) {
+        fprintf (stderr, "test_initrd_list_0: expected \"%s\" but got \"%s\"\n", expected, r[3]);
+        return -1;
+      }
+    }
+    if (r[4] != NULL) {
+      fprintf (stderr, "test_initrd_list_0: extra elements returned from command\n");
+      print_strings (r);
+      return -1;
+    }
+    for (i = 0; r[i] != NULL; ++i)
+      free (r[i]);
+    free (r);
+  }
+  return 0;
 }
 
 static int test_du_0_skip (void)
@@ -18608,8 +18764,14 @@ int main (int argc, char *argv[])
   /* Cancel previous alarm. */
   alarm (0);
 
-  nr_tests = 165;
+  nr_tests = 166;
 
+  test_num++;
+  printf ("%3d/%3d test_initrd_list_0\n", test_num, nr_tests);
+  if (test_initrd_list_0 () == -1) {
+    printf ("test_initrd_list_0 FAILED\n");
+    failed++;
+  }
   test_num++;
   printf ("%3d/%3d test_du_0\n", test_num, nr_tests);
   if (test_du_0 () == -1) {

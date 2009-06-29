@@ -1111,6 +1111,25 @@ struct guestfs_du_ret {
 };
 typedef struct guestfs_du_ret guestfs_du_ret;
 
+struct guestfs_initrd_list_args {
+	char *path;
+};
+typedef struct guestfs_initrd_list_args guestfs_initrd_list_args;
+
+struct guestfs_initrd_list_ret {
+	struct {
+		u_int filenames_len;
+		str *filenames_val;
+	} filenames;
+};
+typedef struct guestfs_initrd_list_ret guestfs_initrd_list_ret;
+
+struct guestfs_mount_loop_args {
+	char *file;
+	char *mountpoint;
+};
+typedef struct guestfs_mount_loop_args guestfs_mount_loop_args;
+
 enum guestfs_procedure {
 	GUESTFS_PROC_MOUNT = 1,
 	GUESTFS_PROC_SYNC = 2,
@@ -1239,7 +1258,9 @@ enum guestfs_procedure {
 	GUESTFS_PROC_DF = 125,
 	GUESTFS_PROC_DF_H = 126,
 	GUESTFS_PROC_DU = 127,
-	GUESTFS_PROC_NR_PROCS = 127 + 1,
+	GUESTFS_PROC_INITRD_LIST = 128,
+	GUESTFS_PROC_MOUNT_LOOP = 129,
+	GUESTFS_PROC_NR_PROCS = 129 + 1,
 };
 typedef enum guestfs_procedure guestfs_procedure;
 #define GUESTFS_MESSAGE_MAX 4194304
@@ -1469,6 +1490,9 @@ extern  bool_t xdr_guestfs_df_ret (XDR *, guestfs_df_ret*);
 extern  bool_t xdr_guestfs_df_h_ret (XDR *, guestfs_df_h_ret*);
 extern  bool_t xdr_guestfs_du_args (XDR *, guestfs_du_args*);
 extern  bool_t xdr_guestfs_du_ret (XDR *, guestfs_du_ret*);
+extern  bool_t xdr_guestfs_initrd_list_args (XDR *, guestfs_initrd_list_args*);
+extern  bool_t xdr_guestfs_initrd_list_ret (XDR *, guestfs_initrd_list_ret*);
+extern  bool_t xdr_guestfs_mount_loop_args (XDR *, guestfs_mount_loop_args*);
 extern  bool_t xdr_guestfs_procedure (XDR *, guestfs_procedure*);
 extern  bool_t xdr_guestfs_message_direction (XDR *, guestfs_message_direction*);
 extern  bool_t xdr_guestfs_message_status (XDR *, guestfs_message_status*);
@@ -1657,6 +1681,9 @@ extern bool_t xdr_guestfs_df_ret ();
 extern bool_t xdr_guestfs_df_h_ret ();
 extern bool_t xdr_guestfs_du_args ();
 extern bool_t xdr_guestfs_du_ret ();
+extern bool_t xdr_guestfs_initrd_list_args ();
+extern bool_t xdr_guestfs_initrd_list_ret ();
+extern bool_t xdr_guestfs_mount_loop_args ();
 extern bool_t xdr_guestfs_procedure ();
 extern bool_t xdr_guestfs_message_direction ();
 extern bool_t xdr_guestfs_message_status ();

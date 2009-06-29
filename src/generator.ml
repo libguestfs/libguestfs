@@ -2599,6 +2599,30 @@ subdirectories (recursively).
 The result is the estimated size in I<kilobytes>
 (ie. units of 1024 bytes).");
 
+  ("initrd_list", (RStringList "filenames", [String "path"]), 128, [],
+   [InitBasicFS, Always, TestOutputList (
+      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
+       ["initrd_list"; "/initrd"]], ["empty";"known-1";"known-2";"known-3"])],
+   "list files in an initrd",
+   "\
+This command lists out files contained in an initrd.
+
+The files are listed without any initial C</> character.  The
+files are listed in the order they appear (not necessarily
+alphabetical).  Directory names are listed as separate items.
+
+Old Linux kernels (2.4 and earlier) used a compressed ext2
+filesystem as initrd.  We I<only> support the newer initramfs
+format (compressed cpio files).");
+
+  ("mount_loop", (RErr, [String "file"; String "mountpoint"]), 129, [],
+   [],
+   "mount a file using the loop device",
+   "\
+This command lets you mount C<file> (a filesystem image
+in a file) on a mount point.  It is entirely equivalent to
+the command C<mount -o loop file mountpoint>.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

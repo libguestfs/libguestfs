@@ -4389,3 +4389,56 @@ Java_com_redhat_et_libguestfs_GuestFS__1du
   return (jlong) r;
 }
 
+JNIEXPORT jobjectArray JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1initrd_1list
+  (JNIEnv *env, jobject obj, jlong jg, jstring jpath)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  jobjectArray jr;
+  int r_len;
+  jclass cl;
+  jstring jstr;
+  char **r;
+  const char *path;
+  int i;
+
+  path = (*env)->GetStringUTFChars (env, jpath, NULL);
+  r = guestfs_initrd_list (g, path);
+  (*env)->ReleaseStringUTFChars (env, jpath, path);
+  if (r == NULL) {
+    throw_exception (env, guestfs_last_error (g));
+    return NULL;
+  }
+  for (r_len = 0; r[r_len] != NULL; ++r_len) ;
+  cl = (*env)->FindClass (env, "java/lang/String");
+  jstr = (*env)->NewStringUTF (env, "");
+  jr = (*env)->NewObjectArray (env, r_len, cl, jstr);
+  for (i = 0; i < r_len; ++i) {
+    jstr = (*env)->NewStringUTF (env, r[i]);
+    (*env)->SetObjectArrayElement (env, jr, i, jstr);
+    free (r[i]);
+  }
+  free (r);
+  return jr;
+}
+
+JNIEXPORT void JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1mount_1loop
+  (JNIEnv *env, jobject obj, jlong jg, jstring jfile, jstring jmountpoint)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+  const char *file;
+  const char *mountpoint;
+
+  file = (*env)->GetStringUTFChars (env, jfile, NULL);
+  mountpoint = (*env)->GetStringUTFChars (env, jmountpoint, NULL);
+  r = guestfs_mount_loop (g, file, mountpoint);
+  (*env)->ReleaseStringUTFChars (env, jfile, file);
+  (*env)->ReleaseStringUTFChars (env, jmountpoint, mountpoint);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return ;
+  }
+}
+
