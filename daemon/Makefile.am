@@ -29,6 +29,7 @@ guestfsd_SOURCES = \
 	daemon.h \
 	debug.c \
 	devsparts.c \
+	df.c \
 	dir.c \
 	dmesg.c \
 	dropcaches.c \

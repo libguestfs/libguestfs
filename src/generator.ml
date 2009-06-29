@@ -2558,6 +2558,31 @@ from the file C<path>, starting with the C<-nrlines>th line.
 
 If the parameter C<nrlines> is zero, this returns an empty list.");
 
+  ("df", (RString "output", []), 125, [],
+   [], (* XXX Tricky to test because it depends on the exact format
+	* of the 'df' command and other imponderables.
+	*)
+   "report file system disk space usage",
+   "\
+This command runs the C<df> command to report disk space used.
+
+This command is mostly useful for interactive sessions.  It
+is I<not> intended that you try to parse the output string.
+Use C<statvfs> from programs.");
+
+  ("df_h", (RString "output", []), 126, [],
+   [], (* XXX Tricky to test because it depends on the exact format
+	* of the 'df' command and other imponderables.
+	*)
+   "report file system disk space usage (human readable)",
+   "\
+This command runs the C<df -h> command to report disk space used
+in human-readable format.
+
+This command is mostly useful for interactive sessions.  It
+is I<not> intended that you try to parse the output string.
+Use C<statvfs> from programs.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
