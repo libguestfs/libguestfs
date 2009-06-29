@@ -2173,7 +2173,7 @@ or data on the filesystem.");
 This resizes (expands or shrinks) an existing LVM physical
 volume to match the new size of the underlying device.");
 
-  ("sfdisk_N", (RErr, [String "device"; Int "n";
+  ("sfdisk_N", (RErr, [String "device"; Int "partnum";
 		       Int "cyls"; Int "heads"; Int "sectors";
 		       String "line"]), 99, [DangerWillRobinson],
    [],
@@ -2780,8 +2780,8 @@ let check_functions () =
 	  failwithf "%s has a param/ret called 'value', which causes conflicts in the OCaml bindings, use something like 'val' or a more descriptive name" name;
 	if n = "int" || n = "char" || n = "short" || n = "long" then
 	  failwithf "%s has a param/ret which conflicts with a C type (eg. 'int', 'char' etc.)" name;
-	if n = "i" then
-	  failwithf "%s has a param/ret called 'i', which will cause some conflicts in the generated code" name;
+	if n = "i" || n = "n" then
+	  failwithf "%s has a param/ret called 'i' or 'n', which will cause some conflicts in the generated code" name;
 	if n = "argv" || n = "args" then
 	  failwithf "%s has a param/ret called 'argv' or 'args', which will cause some conflicts in the generated code" name
       in
