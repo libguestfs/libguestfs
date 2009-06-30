@@ -174,6 +174,8 @@ struct guestfs_h
   char *qemu;			/* Qemu binary. */
   char *append;			/* Append to kernel command line. */
 
+  int memsize;			/* Size of RAM (megabytes). */
+
   char *last_error;
 
   /* Callbacks. */
@@ -245,6 +247,22 @@ guestfs_create (void)
     g->append = strdup (str);
     if (!g->append) goto error;
   }
+
+  /* Choose a suitable memory size.  Previously we tried to choose
+   * a minimal memory size, but this isn't really necessary since
+   * recent QEMU and KVM don't do anything nasty like locking
+   * memory into core any more.  Thus we can safely choose a
+   * large, generous amount of memory, and it'll just get swapped
+   * on smaller systems.
+   */
+  str = getenv ("LIBGUESTFS_MEMSIZE");
+  if (str) {
+    if (sscanf (str, "%d", &g->memsize) != 1 || g->memsize <= 256) {
+      fprintf (stderr, "libguestfs: non-numeric or too small value for LIBGUESTFS_MEMSIZE\n");
+      goto error;
+    }
+  } else
+    g->memsize = 500;
 
   g->main_loop = guestfs_get_default_main_loop ();
 
@@ -597,6 +615,19 @@ guestfs_get_append (guestfs_h *g)
   return g->append;
 }
 
+int
+guestfs_set_memsize (guestfs_h *g, int memsize)
+{
+  g->memsize = memsize;
+  return 0;
+}
+
+int
+guestfs_get_memsize (guestfs_h *g)
+{
+  return g->memsize;
+}
+
 /* Add a string to the current command line. */
 static void
 incr_cmdline_size (guestfs_h *g)
@@ -763,7 +794,7 @@ int
 guestfs_launch (guestfs_h *g)
 {
   static const char *dir_template = "/tmp/libguestfsXXXXXX";
-  int r, i, pmore, memsize;
+  int r, i, pmore;
   size_t len;
   int wfd[2], rfd[2];
   int tries;
@@ -882,15 +913,6 @@ guestfs_launch (guestfs_h *g)
     goto cleanup0;
   }
 
-  /* Choose a suitable memory size.  Previously we tried to choose
-   * a minimal memory size, but this isn't really necessary since
-   * recent QEMU and KVM don't do anything nasty like locking
-   * memory into core any more.  Thus we can safely choose a
-   * large, generous amount of memory, and it'll just get swapped
-   * on smaller systems.
-   */
-  memsize = 500;
-
   /* Get qemu help text and version. */
   if (test_qemu (g) == -1)
     goto cleanup0;
@@ -936,7 +958,7 @@ guestfs_launch (guestfs_h *g)
 	      g->verbose ? " guestfs_verbose=1" : "",
 	      g->append ? " " : "", g->append ? g->append : "");
 
-    snprintf (memsize_str, sizeof memsize_str, "%d", memsize);
+    snprintf (memsize_str, sizeof memsize_str, "%d", g->memsize);
 
     add_cmdline (g, "-m");
     add_cmdline (g, memsize_str);

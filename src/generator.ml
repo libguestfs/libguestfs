@@ -598,6 +598,35 @@ actions using the low-level API.
 
 For more information on states, see L<guestfs(3)>.");
 
+  ("set_memsize", (RErr, [Int "memsize"]), -1, [FishAlias "memsize"],
+   [],
+   "set memory allocated to the qemu subprocess",
+   "\
+This sets the memory size in megabytes allocated to the
+qemu subprocess.  This only has any effect if called before
+C<guestfs_launch>.
+
+You can also change this by setting the environment
+variable C<LIBGUESTFS_MEMSIZE> before the handle is
+created.
+
+For more information on the architecture of libguestfs,
+see L<guestfs(3)>.");
+
+  ("get_memsize", (RInt "memsize", []), -1, [],
+   [],
+   "get memory allocated to the qemu subprocess",
+   "\
+This gets the memory size in megabytes allocated to the
+qemu subprocess.
+
+If C<guestfs_set_memsize> was not called
+on this handle, and if C<LIBGUESTFS_MEMSIZE> was not set,
+then this returns the compiled-in default value for memsize.
+
+For more information on the architecture of libguestfs,
+see L<guestfs(3)>.");
+
 ]
 
 (* daemon_functions are any functions which cause some action
