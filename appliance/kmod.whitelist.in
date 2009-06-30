@@ -5,10 +5,19 @@
 
 # Wildcards are permitted.
 
-virtio.ko
-virtio_net.ko
-virtio_pci.ko
-virtio_ring.ko
+virtio*.ko
+
+# drivers for QEMUs IDE/SCSI device emulation
+cdrom.ko
+i2c-piix4.ko
+i2c-core.ko
+ide-*.ko
+libata.ko
+piix.ko
+scsi_transport_spi.ko
+scsi_mod.ko
+sd_mod.ko
+sym53c8xx.ko
 
 ext2.ko
 ext3.ko
