@@ -26,6 +26,7 @@ ext4*.ko
 crc16.ko
 jbd.ko
 jbd2.ko
+mbcache.ko
 
 fuse.ko
 
