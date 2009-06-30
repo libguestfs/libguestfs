@@ -176,7 +176,7 @@ static int test_mknod_c_0_skip (void)
 static int test_mknod_c_0 (void)
 {
   if (test_mknod_c_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_mknod_c_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_mknod_c_0");
     return 0;
   }
 
@@ -277,7 +277,7 @@ static int test_mknod_b_0_skip (void)
 static int test_mknod_b_0 (void)
 {
   if (test_mknod_b_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_mknod_b_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_mknod_b_0");
     return 0;
   }
 
@@ -378,7 +378,7 @@ static int test_mkfifo_0_skip (void)
 static int test_mkfifo_0 (void)
 {
   if (test_mkfifo_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_mkfifo_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_mkfifo_0");
     return 0;
   }
 
@@ -479,7 +479,7 @@ static int test_mknod_0_skip (void)
 static int test_mknod_0 (void)
 {
   if (test_mknod_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_mknod_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_mknod_0");
     return 0;
   }
 
@@ -580,7 +580,7 @@ static int test_mknod_1_skip (void)
 static int test_mknod_1 (void)
 {
   if (test_mknod_1_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_mknod_1");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_mknod_1");
     return 0;
   }
 
@@ -681,7 +681,7 @@ static int test_mkswap_U_0_skip (void)
 static int test_mkswap_U_0 (void)
 {
   if (test_mkswap_U_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_mkswap_U_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_mkswap_U_0");
     return 0;
   }
 
@@ -751,7 +751,7 @@ static int test_mkswap_L_0_skip (void)
 static int test_mkswap_L_0 (void)
 {
   if (test_mkswap_L_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_mkswap_L_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_mkswap_L_0");
     return 0;
   }
 
@@ -821,7 +821,7 @@ static int test_mkswap_0_skip (void)
 static int test_mkswap_0 (void)
 {
   if (test_mkswap_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_mkswap_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_mkswap_0");
     return 0;
   }
 
@@ -890,7 +890,7 @@ static int test_initrd_list_0_skip (void)
 static int test_initrd_list_0 (void)
 {
   if (test_initrd_list_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_initrd_list_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_initrd_list_0");
     return 0;
   }
 
@@ -1045,7 +1045,7 @@ static int test_du_0_skip (void)
 static int test_du_0 (void)
 {
   if (test_du_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_du_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_du_0");
     return 0;
   }
 
@@ -1144,7 +1144,7 @@ static int test_tail_n_0_skip (void)
 static int test_tail_n_0 (void)
 {
   if (test_tail_n_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_tail_n_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_tail_n_0");
     return 0;
   }
 
@@ -1287,7 +1287,7 @@ static int test_tail_n_1_skip (void)
 static int test_tail_n_1 (void)
 {
   if (test_tail_n_1_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_tail_n_1");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_tail_n_1");
     return 0;
   }
 
@@ -1430,7 +1430,7 @@ static int test_tail_n_2_skip (void)
 static int test_tail_n_2 (void)
 {
   if (test_tail_n_2_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_tail_n_2");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_tail_n_2");
     return 0;
   }
 
@@ -1537,7 +1537,7 @@ static int test_tail_0_skip (void)
 static int test_tail_0 (void)
 {
   if (test_tail_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_tail_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_tail_0");
     return 0;
   }
 
@@ -1764,7 +1764,7 @@ static int test_head_n_0_skip (void)
 static int test_head_n_0 (void)
 {
   if (test_head_n_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_head_n_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_head_n_0");
     return 0;
   }
 
@@ -1907,7 +1907,7 @@ static int test_head_n_1_skip (void)
 static int test_head_n_1 (void)
 {
   if (test_head_n_1_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_head_n_1");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_head_n_1");
     return 0;
   }
 
@@ -2050,7 +2050,7 @@ static int test_head_n_2_skip (void)
 static int test_head_n_2 (void)
 {
   if (test_head_n_2_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_head_n_2");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_head_n_2");
     return 0;
   }
 
@@ -2157,7 +2157,7 @@ static int test_head_0_skip (void)
 static int test_head_0 (void)
 {
   if (test_head_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_head_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_head_0");
     return 0;
   }
 
@@ -2384,7 +2384,7 @@ static int test_wc_c_0_skip (void)
 static int test_wc_c_0 (void)
 {
   if (test_wc_c_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_wc_c_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_wc_c_0");
     return 0;
   }
 
@@ -2486,7 +2486,7 @@ static int test_wc_w_0_skip (void)
 static int test_wc_w_0 (void)
 {
   if (test_wc_w_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_wc_w_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_wc_w_0");
     return 0;
   }
 
@@ -2588,7 +2588,7 @@ static int test_wc_l_0_skip (void)
 static int test_wc_l_0 (void)
 {
   if (test_wc_l_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_wc_l_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_wc_l_0");
     return 0;
   }
 
@@ -2690,7 +2690,7 @@ static int test_mkdtemp_0_skip (void)
 static int test_mkdtemp_0 (void)
 {
   if (test_mkdtemp_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_mkdtemp_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_mkdtemp_0");
     return 0;
   }
 
@@ -2786,7 +2786,7 @@ static int test_scrub_file_0_skip (void)
 static int test_scrub_file_0 (void)
 {
   if (test_scrub_file_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_scrub_file_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_scrub_file_0");
     return 0;
   }
 
@@ -2882,7 +2882,7 @@ static int test_scrub_device_0_skip (void)
 static int test_scrub_device_0 (void)
 {
   if (test_scrub_device_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_scrub_device_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_scrub_device_0");
     return 0;
   }
 
@@ -2938,7 +2938,7 @@ static int test_glob_expand_0_skip (void)
 static int test_glob_expand_0 (void)
 {
   if (test_glob_expand_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_glob_expand_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_glob_expand_0");
     return 0;
   }
 
@@ -3082,7 +3082,7 @@ static int test_glob_expand_1_skip (void)
 static int test_glob_expand_1 (void)
 {
   if (test_glob_expand_1_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_glob_expand_1");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_glob_expand_1");
     return 0;
   }
 
@@ -3226,7 +3226,7 @@ static int test_glob_expand_2_skip (void)
 static int test_glob_expand_2 (void)
 {
   if (test_glob_expand_2_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_glob_expand_2");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_glob_expand_2");
     return 0;
   }
 
@@ -3346,7 +3346,7 @@ static int test_ntfs_3g_probe_0_skip (void)
 static int test_ntfs_3g_probe_0 (void)
 {
   if (test_ntfs_3g_probe_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_ntfs_3g_probe_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_ntfs_3g_probe_0");
     return 0;
   }
 
@@ -3428,7 +3428,7 @@ static int test_ntfs_3g_probe_1_skip (void)
 static int test_ntfs_3g_probe_1 (void)
 {
   if (test_ntfs_3g_probe_1_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_ntfs_3g_probe_1");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_ntfs_3g_probe_1");
     return 0;
   }
 
@@ -3510,7 +3510,7 @@ static int test_sleep_0_skip (void)
 static int test_sleep_0 (void)
 {
   if (test_sleep_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_sleep_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_sleep_0");
     return 0;
   }
 
@@ -3565,7 +3565,7 @@ static int test_find_0_skip (void)
 static int test_find_0 (void)
 {
   if (test_find_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_find_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_find_0");
     return 0;
   }
 
@@ -3673,7 +3673,7 @@ static int test_find_1_skip (void)
 static int test_find_1 (void)
 {
   if (test_find_1_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_find_1");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_find_1");
     return 0;
   }
 
@@ -3841,7 +3841,7 @@ static int test_find_2_skip (void)
 static int test_find_2 (void)
 {
   if (test_find_2_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_find_2");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_find_2");
     return 0;
   }
 
@@ -3977,7 +3977,7 @@ static int test_lvresize_0_skip (void)
 static int test_lvresize_0 (void)
 {
   if (test_lvresize_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_lvresize_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_lvresize_0");
     return 0;
   }
 
@@ -4150,7 +4150,7 @@ static int test_zerofree_0_skip (void)
 static int test_zerofree_0 (void)
 {
   if (test_zerofree_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_zerofree_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_zerofree_0");
     return 0;
   }
 
@@ -4277,7 +4277,7 @@ static int test_hexdump_0_skip (void)
 static int test_hexdump_0 (void)
 {
   if (test_hexdump_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_hexdump_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_hexdump_0");
     return 0;
   }
 
@@ -4379,7 +4379,7 @@ static int test_hexdump_1_skip (void)
 static int test_hexdump_1 (void)
 {
   if (test_hexdump_1_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_hexdump_1");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_hexdump_1");
     return 0;
   }
 
@@ -4478,7 +4478,7 @@ static int test_strings_e_0_skip (void)
 static int test_strings_e_0 (void)
 {
   if (test_strings_e_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_strings_e_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_strings_e_0");
     return 0;
   }
 
@@ -4584,11 +4584,11 @@ static int test_strings_e_1_skip (void)
 static int test_strings_e_1 (void)
 {
   if (test_strings_e_1_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_strings_e_1");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_strings_e_1");
     return 0;
   }
 
-  printf ("%s skipped (reason: test disabled in generator)\n", "test_strings_e_1");
+  printf ("        %s skipped (reason: test disabled in generator)\n", "test_strings_e_1");
   return 0;
 }
 
@@ -4609,7 +4609,7 @@ static int test_strings_0_skip (void)
 static int test_strings_0 (void)
 {
   if (test_strings_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_strings_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_strings_0");
     return 0;
   }
 
@@ -4738,7 +4738,7 @@ static int test_strings_1_skip (void)
 static int test_strings_1 (void)
 {
   if (test_strings_1_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_strings_1");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_strings_1");
     return 0;
   }
 
@@ -4842,7 +4842,7 @@ static int test_equal_0_skip (void)
 static int test_equal_0 (void)
 {
   if (test_equal_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_equal_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_equal_0");
     return 0;
   }
 
@@ -4952,7 +4952,7 @@ static int test_equal_1_skip (void)
 static int test_equal_1 (void)
 {
   if (test_equal_1_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_equal_1");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_equal_1");
     return 0;
   }
 
@@ -5062,7 +5062,7 @@ static int test_equal_2_skip (void)
 static int test_equal_2 (void)
 {
   if (test_equal_2_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_equal_2");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_equal_2");
     return 0;
   }
 
@@ -5150,7 +5150,7 @@ static int test_ping_daemon_0_skip (void)
 static int test_ping_daemon_0 (void)
 {
   if (test_ping_daemon_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_ping_daemon_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_ping_daemon_0");
     return 0;
   }
 
@@ -5205,7 +5205,7 @@ static int test_dmesg_0_skip (void)
 static int test_dmesg_0 (void)
 {
   if (test_dmesg_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_dmesg_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_dmesg_0");
     return 0;
   }
 
@@ -5261,7 +5261,7 @@ static int test_drop_caches_0_skip (void)
 static int test_drop_caches_0 (void)
 {
   if (test_drop_caches_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_drop_caches_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_drop_caches_0");
     return 0;
   }
 
@@ -5316,7 +5316,7 @@ static int test_mv_0_skip (void)
 static int test_mv_0 (void)
 {
   if (test_mv_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_mv_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_mv_0");
     return 0;
   }
 
@@ -5427,7 +5427,7 @@ static int test_mv_1_skip (void)
 static int test_mv_1 (void)
 {
   if (test_mv_1_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_mv_1");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_mv_1");
     return 0;
   }
 
@@ -5536,7 +5536,7 @@ static int test_cp_a_0_skip (void)
 static int test_cp_a_0 (void)
 {
   if (test_cp_a_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_cp_a_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_cp_a_0");
     return 0;
   }
 
@@ -5663,7 +5663,7 @@ static int test_cp_0_skip (void)
 static int test_cp_0 (void)
 {
   if (test_cp_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_cp_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_cp_0");
     return 0;
   }
 
@@ -5774,7 +5774,7 @@ static int test_cp_1_skip (void)
 static int test_cp_1 (void)
 {
   if (test_cp_1_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_cp_1");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_cp_1");
     return 0;
   }
 
@@ -5883,7 +5883,7 @@ static int test_cp_2_skip (void)
 static int test_cp_2 (void)
 {
   if (test_cp_2_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_cp_2");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_cp_2");
     return 0;
   }
 
@@ -6002,86 +6002,11 @@ static int test_grub_install_0_skip (void)
 static int test_grub_install_0 (void)
 {
   if (test_grub_install_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_grub_install_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_grub_install_0");
     return 0;
   }
 
-  /* InitBasicFS for test_grub_install_0: create ext2 on /dev/sda1 */
-  {
-    char device[] = "/dev/sda";
-    int r;
-    suppress_error = 0;
-    r = guestfs_blockdev_setrw (g, device);
-    if (r == -1)
-      return -1;
-  }
-  {
-    int r;
-    suppress_error = 0;
-    r = guestfs_umount_all (g);
-    if (r == -1)
-      return -1;
-  }
-  {
-    int r;
-    suppress_error = 0;
-    r = guestfs_lvm_remove_all (g);
-    if (r == -1)
-      return -1;
-  }
-  {
-    char device[] = "/dev/sda";
-    char lines_0[] = ",";
-    char *lines[] = {
-      lines_0,
-      NULL
-    };
-    int r;
-    suppress_error = 0;
-    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
-    if (r == -1)
-      return -1;
-  }
-  {
-    char fstype[] = "ext2";
-    char device[] = "/dev/sda1";
-    int r;
-    suppress_error = 0;
-    r = guestfs_mkfs (g, fstype, device);
-    if (r == -1)
-      return -1;
-  }
-  {
-    char device[] = "/dev/sda1";
-    char mountpoint[] = "/";
-    int r;
-    suppress_error = 0;
-    r = guestfs_mount (g, device, mountpoint);
-    if (r == -1)
-      return -1;
-  }
-  /* TestOutputTrue for grub_install (0) */
-  {
-    char root[] = "/";
-    char device[] = "/dev/sda1";
-    int r;
-    suppress_error = 0;
-    r = guestfs_grub_install (g, root, device);
-    if (r == -1)
-      return -1;
-  }
-  {
-    char path[] = "/boot";
-    int r;
-    suppress_error = 0;
-    r = guestfs_is_dir (g, path);
-    if (r == -1)
-      return -1;
-    if (!r) {
-      fprintf (stderr, "test_grub_install_0: expected true, got false\n");
-      return -1;
-    }
-  }
+  printf ("        %s skipped (reason: test disabled in generator)\n", "test_grub_install_0");
   return 0;
 }
 
@@ -6102,7 +6027,7 @@ static int test_zero_0_skip (void)
 static int test_zero_0 (void)
 {
   if (test_zero_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_zero_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_zero_0");
     return 0;
   }
 
@@ -6211,7 +6136,7 @@ static int test_fsck_0_skip (void)
 static int test_fsck_0 (void)
 {
   if (test_fsck_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_fsck_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_fsck_0");
     return 0;
   }
 
@@ -6311,7 +6236,7 @@ static int test_fsck_1_skip (void)
 static int test_fsck_1 (void)
 {
   if (test_fsck_1_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_fsck_1");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_fsck_1");
     return 0;
   }
 
@@ -6419,7 +6344,7 @@ static int test_set_e2uuid_0_skip (void)
 static int test_set_e2uuid_0 (void)
 {
   if (test_set_e2uuid_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_set_e2uuid_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_set_e2uuid_0");
     return 0;
   }
 
@@ -6521,7 +6446,7 @@ static int test_set_e2uuid_1_skip (void)
 static int test_set_e2uuid_1 (void)
 {
   if (test_set_e2uuid_1_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_set_e2uuid_1");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_set_e2uuid_1");
     return 0;
   }
 
@@ -6623,7 +6548,7 @@ static int test_set_e2uuid_2_skip (void)
 static int test_set_e2uuid_2 (void)
 {
   if (test_set_e2uuid_2_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_set_e2uuid_2");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_set_e2uuid_2");
     return 0;
   }
 
@@ -6711,7 +6636,7 @@ static int test_set_e2uuid_3_skip (void)
 static int test_set_e2uuid_3 (void)
 {
   if (test_set_e2uuid_3_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_set_e2uuid_3");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_set_e2uuid_3");
     return 0;
   }
 
@@ -6799,7 +6724,7 @@ static int test_set_e2label_0_skip (void)
 static int test_set_e2label_0 (void)
 {
   if (test_set_e2label_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_set_e2label_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_set_e2label_0");
     return 0;
   }
 
@@ -6901,7 +6826,7 @@ static int test_pvremove_0_skip (void)
 static int test_pvremove_0 (void)
 {
   if (test_pvremove_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_pvremove_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_pvremove_0");
     return 0;
   }
 
@@ -7033,7 +6958,7 @@ static int test_pvremove_1_skip (void)
 static int test_pvremove_1 (void)
 {
   if (test_pvremove_1_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_pvremove_1");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_pvremove_1");
     return 0;
   }
 
@@ -7165,7 +7090,7 @@ static int test_pvremove_2_skip (void)
 static int test_pvremove_2 (void)
 {
   if (test_pvremove_2_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_pvremove_2");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_pvremove_2");
     return 0;
   }
 
@@ -7297,7 +7222,7 @@ static int test_vgremove_0_skip (void)
 static int test_vgremove_0 (void)
 {
   if (test_vgremove_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_vgremove_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_vgremove_0");
     return 0;
   }
 
@@ -7421,7 +7346,7 @@ static int test_vgremove_1_skip (void)
 static int test_vgremove_1 (void)
 {
   if (test_vgremove_1_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_vgremove_1");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_vgremove_1");
     return 0;
   }
 
@@ -7545,7 +7470,7 @@ static int test_lvremove_0_skip (void)
 static int test_lvremove_0 (void)
 {
   if (test_lvremove_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_lvremove_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_lvremove_0");
     return 0;
   }
 
@@ -7681,7 +7606,7 @@ static int test_lvremove_1_skip (void)
 static int test_lvremove_1 (void)
 {
   if (test_lvremove_1_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_lvremove_1");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_lvremove_1");
     return 0;
   }
 
@@ -7805,7 +7730,7 @@ static int test_lvremove_2_skip (void)
 static int test_lvremove_2 (void)
 {
   if (test_lvremove_2_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_lvremove_2");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_lvremove_2");
     return 0;
   }
 
@@ -7941,7 +7866,7 @@ static int test_mount_ro_0_skip (void)
 static int test_mount_ro_0 (void)
 {
   if (test_mount_ro_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_mount_ro_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_mount_ro_0");
     return 0;
   }
 
@@ -8045,7 +7970,7 @@ static int test_mount_ro_1_skip (void)
 static int test_mount_ro_1 (void)
 {
   if (test_mount_ro_1_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_mount_ro_1");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_mount_ro_1");
     return 0;
   }
 
@@ -8164,7 +8089,7 @@ static int test_tgz_in_0_skip (void)
 static int test_tgz_in_0 (void)
 {
   if (test_tgz_in_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_tgz_in_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_tgz_in_0");
     return 0;
   }
 
@@ -8265,7 +8190,7 @@ static int test_tar_in_0_skip (void)
 static int test_tar_in_0 (void)
 {
   if (test_tar_in_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_tar_in_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_tar_in_0");
     return 0;
   }
 
@@ -8366,7 +8291,7 @@ static int test_checksum_0_skip (void)
 static int test_checksum_0 (void)
 {
   if (test_checksum_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_checksum_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_checksum_0");
     return 0;
   }
 
@@ -8469,7 +8394,7 @@ static int test_checksum_1_skip (void)
 static int test_checksum_1 (void)
 {
   if (test_checksum_1_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_checksum_1");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_checksum_1");
     return 0;
   }
 
@@ -8558,7 +8483,7 @@ static int test_checksum_2_skip (void)
 static int test_checksum_2 (void)
 {
   if (test_checksum_2_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_checksum_2");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_checksum_2");
     return 0;
   }
 
@@ -8661,7 +8586,7 @@ static int test_checksum_3_skip (void)
 static int test_checksum_3 (void)
 {
   if (test_checksum_3_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_checksum_3");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_checksum_3");
     return 0;
   }
 
@@ -8764,7 +8689,7 @@ static int test_checksum_4_skip (void)
 static int test_checksum_4 (void)
 {
   if (test_checksum_4_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_checksum_4");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_checksum_4");
     return 0;
   }
 
@@ -8867,7 +8792,7 @@ static int test_checksum_5_skip (void)
 static int test_checksum_5 (void)
 {
   if (test_checksum_5_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_checksum_5");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_checksum_5");
     return 0;
   }
 
@@ -8970,7 +8895,7 @@ static int test_checksum_6_skip (void)
 static int test_checksum_6 (void)
 {
   if (test_checksum_6_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_checksum_6");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_checksum_6");
     return 0;
   }
 
@@ -9073,7 +8998,7 @@ static int test_checksum_7_skip (void)
 static int test_checksum_7 (void)
 {
   if (test_checksum_7_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_checksum_7");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_checksum_7");
     return 0;
   }
 
@@ -9176,7 +9101,7 @@ static int test_checksum_8_skip (void)
 static int test_checksum_8 (void)
 {
   if (test_checksum_8_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_checksum_8");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_checksum_8");
     return 0;
   }
 
@@ -9281,7 +9206,7 @@ static int test_download_0_skip (void)
 static int test_download_0 (void)
 {
   if (test_download_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_download_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_download_0");
     return 0;
   }
 
@@ -9399,7 +9324,7 @@ static int test_upload_0_skip (void)
 static int test_upload_0 (void)
 {
   if (test_upload_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_upload_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_upload_0");
     return 0;
   }
 
@@ -9501,7 +9426,7 @@ static int test_blockdev_rereadpt_0_skip (void)
 static int test_blockdev_rereadpt_0 (void)
 {
   if (test_blockdev_rereadpt_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_blockdev_rereadpt_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_blockdev_rereadpt_0");
     return 0;
   }
 
@@ -9557,7 +9482,7 @@ static int test_blockdev_flushbufs_0_skip (void)
 static int test_blockdev_flushbufs_0 (void)
 {
   if (test_blockdev_flushbufs_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_blockdev_flushbufs_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_blockdev_flushbufs_0");
     return 0;
   }
 
@@ -9613,7 +9538,7 @@ static int test_blockdev_getsize64_0_skip (void)
 static int test_blockdev_getsize64_0 (void)
 {
   if (test_blockdev_getsize64_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_blockdev_getsize64_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_blockdev_getsize64_0");
     return 0;
   }
 
@@ -9673,7 +9598,7 @@ static int test_blockdev_getsz_0_skip (void)
 static int test_blockdev_getsz_0 (void)
 {
   if (test_blockdev_getsz_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_blockdev_getsz_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_blockdev_getsz_0");
     return 0;
   }
 
@@ -9733,7 +9658,7 @@ static int test_blockdev_getbsz_0_skip (void)
 static int test_blockdev_getbsz_0 (void)
 {
   if (test_blockdev_getbsz_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_blockdev_getbsz_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_blockdev_getbsz_0");
     return 0;
   }
 
@@ -9793,7 +9718,7 @@ static int test_blockdev_getss_0_skip (void)
 static int test_blockdev_getss_0 (void)
 {
   if (test_blockdev_getss_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_blockdev_getss_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_blockdev_getss_0");
     return 0;
   }
 
@@ -9853,7 +9778,7 @@ static int test_blockdev_getro_0_skip (void)
 static int test_blockdev_getro_0 (void)
 {
   if (test_blockdev_getro_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_blockdev_getro_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_blockdev_getro_0");
     return 0;
   }
 
@@ -9921,7 +9846,7 @@ static int test_blockdev_setrw_0_skip (void)
 static int test_blockdev_setrw_0 (void)
 {
   if (test_blockdev_setrw_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_blockdev_setrw_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_blockdev_setrw_0");
     return 0;
   }
 
@@ -9989,7 +9914,7 @@ static int test_blockdev_setro_0_skip (void)
 static int test_blockdev_setro_0 (void)
 {
   if (test_blockdev_setro_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_blockdev_setro_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_blockdev_setro_0");
     return 0;
   }
 
@@ -10057,7 +9982,7 @@ static int test_statvfs_0_skip (void)
 static int test_statvfs_0 (void)
 {
   if (test_statvfs_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_statvfs_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_statvfs_0");
     return 0;
   }
 
@@ -10123,14 +10048,9 @@ static int test_statvfs_0 (void)
     r = guestfs_statvfs (g, path);
     if (r == NULL)
       return -1;
-    if (r->bfree != 487702) {
-      fprintf (stderr, "test_statvfs_0: bfree was %d, expected 487702\n",
-               (int) r->bfree);
-      return -1;
-    }
-    if (r->blocks != 490020) {
-      fprintf (stderr, "test_statvfs_0: blocks was %d, expected 490020\n",
-               (int) r->blocks);
+    if (r->namemax != 255) {
+      fprintf (stderr, "test_statvfs_0: namemax was %d, expected 255\n",
+               (int) r->namemax);
       return -1;
     }
     if (r->bsize != 1024) {
@@ -10160,7 +10080,7 @@ static int test_lstat_0_skip (void)
 static int test_lstat_0 (void)
 {
   if (test_lstat_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_lstat_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_lstat_0");
     return 0;
   }
 
@@ -10261,7 +10181,7 @@ static int test_stat_0_skip (void)
 static int test_stat_0 (void)
 {
   if (test_stat_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_stat_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_stat_0");
     return 0;
   }
 
@@ -10362,7 +10282,7 @@ static int test_command_lines_0_skip (void)
 static int test_command_lines_0 (void)
 {
   if (test_command_lines_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_command_lines_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_command_lines_0");
     return 0;
   }
 
@@ -10492,7 +10412,7 @@ static int test_command_lines_1_skip (void)
 static int test_command_lines_1 (void)
 {
   if (test_command_lines_1_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_command_lines_1");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_command_lines_1");
     return 0;
   }
 
@@ -10622,7 +10542,7 @@ static int test_command_lines_2_skip (void)
 static int test_command_lines_2 (void)
 {
   if (test_command_lines_2_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_command_lines_2");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_command_lines_2");
     return 0;
   }
 
@@ -10764,7 +10684,7 @@ static int test_command_lines_3_skip (void)
 static int test_command_lines_3 (void)
 {
   if (test_command_lines_3_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_command_lines_3");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_command_lines_3");
     return 0;
   }
 
@@ -10906,7 +10826,7 @@ static int test_command_lines_4_skip (void)
 static int test_command_lines_4 (void)
 {
   if (test_command_lines_4_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_command_lines_4");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_command_lines_4");
     return 0;
   }
 
@@ -11060,7 +10980,7 @@ static int test_command_lines_5_skip (void)
 static int test_command_lines_5 (void)
 {
   if (test_command_lines_5_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_command_lines_5");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_command_lines_5");
     return 0;
   }
 
@@ -11226,7 +11146,7 @@ static int test_command_lines_6_skip (void)
 static int test_command_lines_6 (void)
 {
   if (test_command_lines_6_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_command_lines_6");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_command_lines_6");
     return 0;
   }
 
@@ -11344,7 +11264,7 @@ static int test_command_lines_7_skip (void)
 static int test_command_lines_7 (void)
 {
   if (test_command_lines_7_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_command_lines_7");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_command_lines_7");
     return 0;
   }
 
@@ -11474,7 +11394,7 @@ static int test_command_lines_8_skip (void)
 static int test_command_lines_8 (void)
 {
   if (test_command_lines_8_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_command_lines_8");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_command_lines_8");
     return 0;
   }
 
@@ -11616,7 +11536,7 @@ static int test_command_lines_9_skip (void)
 static int test_command_lines_9 (void)
 {
   if (test_command_lines_9_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_command_lines_9");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_command_lines_9");
     return 0;
   }
 
@@ -11758,7 +11678,7 @@ static int test_command_lines_10_skip (void)
 static int test_command_lines_10 (void)
 {
   if (test_command_lines_10_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_command_lines_10");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_command_lines_10");
     return 0;
   }
 
@@ -11900,7 +11820,7 @@ static int test_command_0_skip (void)
 static int test_command_0 (void)
 {
   if (test_command_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_command_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_command_0");
     return 0;
   }
 
@@ -12015,7 +11935,7 @@ static int test_command_1_skip (void)
 static int test_command_1 (void)
 {
   if (test_command_1_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_command_1");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_command_1");
     return 0;
   }
 
@@ -12130,7 +12050,7 @@ static int test_command_2_skip (void)
 static int test_command_2 (void)
 {
   if (test_command_2_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_command_2");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_command_2");
     return 0;
   }
 
@@ -12245,7 +12165,7 @@ static int test_command_3_skip (void)
 static int test_command_3 (void)
 {
   if (test_command_3_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_command_3");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_command_3");
     return 0;
   }
 
@@ -12360,7 +12280,7 @@ static int test_command_4_skip (void)
 static int test_command_4 (void)
 {
   if (test_command_4_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_command_4");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_command_4");
     return 0;
   }
 
@@ -12475,7 +12395,7 @@ static int test_command_5_skip (void)
 static int test_command_5 (void)
 {
   if (test_command_5_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_command_5");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_command_5");
     return 0;
   }
 
@@ -12590,7 +12510,7 @@ static int test_command_6_skip (void)
 static int test_command_6 (void)
 {
   if (test_command_6_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_command_6");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_command_6");
     return 0;
   }
 
@@ -12705,7 +12625,7 @@ static int test_command_7_skip (void)
 static int test_command_7 (void)
 {
   if (test_command_7_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_command_7");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_command_7");
     return 0;
   }
 
@@ -12820,7 +12740,7 @@ static int test_command_8_skip (void)
 static int test_command_8 (void)
 {
   if (test_command_8_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_command_8");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_command_8");
     return 0;
   }
 
@@ -12935,7 +12855,7 @@ static int test_command_9_skip (void)
 static int test_command_9 (void)
 {
   if (test_command_9_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_command_9");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_command_9");
     return 0;
   }
 
@@ -13050,7 +12970,7 @@ static int test_command_10_skip (void)
 static int test_command_10 (void)
 {
   if (test_command_10_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_command_10");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_command_10");
     return 0;
   }
 
@@ -13165,7 +13085,7 @@ static int test_command_11_skip (void)
 static int test_command_11 (void)
 {
   if (test_command_11_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_command_11");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_command_11");
     return 0;
   }
 
@@ -13273,7 +13193,7 @@ static int test_file_0_skip (void)
 static int test_file_0 (void)
 {
   if (test_file_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_file_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_file_0");
     return 0;
   }
 
@@ -13374,7 +13294,7 @@ static int test_file_1_skip (void)
 static int test_file_1 (void)
 {
   if (test_file_1_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_file_1");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_file_1");
     return 0;
   }
 
@@ -13476,7 +13396,7 @@ static int test_file_2_skip (void)
 static int test_file_2 (void)
 {
   if (test_file_2_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_file_2");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_file_2");
     return 0;
   }
 
@@ -13564,7 +13484,7 @@ static int test_umount_all_0_skip (void)
 static int test_umount_all_0 (void)
 {
   if (test_umount_all_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_umount_all_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_umount_all_0");
     return 0;
   }
 
@@ -13666,7 +13586,7 @@ static int test_umount_all_1_skip (void)
 static int test_umount_all_1 (void)
 {
   if (test_umount_all_1_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_umount_all_1");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_umount_all_1");
     return 0;
   }
 
@@ -13696,8 +13616,8 @@ static int test_umount_all_1 (void)
   /* TestOutputList for umount_all (1) */
   {
     char device[] = "/dev/sda";
-    char lines_0[] = ",10";
-    char lines_1[] = ",20";
+    char lines_0[] = ",200";
+    char lines_1[] = ",400";
     char lines_2[] = ",";
     char *lines[] = {
       lines_0,
@@ -13832,7 +13752,7 @@ static int test_mounts_0_skip (void)
 static int test_mounts_0 (void)
 {
   if (test_mounts_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_mounts_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_mounts_0");
     return 0;
   }
 
@@ -13940,7 +13860,7 @@ static int test_umount_0_skip (void)
 static int test_umount_0 (void)
 {
   if (test_umount_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_umount_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_umount_0");
     return 0;
   }
 
@@ -14048,7 +13968,7 @@ static int test_umount_1_skip (void)
 static int test_umount_1 (void)
 {
   if (test_umount_1_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_umount_1");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_umount_1");
     return 0;
   }
 
@@ -14151,7 +14071,7 @@ static int test_write_file_0_skip (void)
 static int test_write_file_0 (void)
 {
   if (test_write_file_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_write_file_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_write_file_0");
     return 0;
   }
 
@@ -14253,7 +14173,7 @@ static int test_write_file_1_skip (void)
 static int test_write_file_1 (void)
 {
   if (test_write_file_1_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_write_file_1");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_write_file_1");
     return 0;
   }
 
@@ -14355,7 +14275,7 @@ static int test_write_file_2_skip (void)
 static int test_write_file_2 (void)
 {
   if (test_write_file_2_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_write_file_2");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_write_file_2");
     return 0;
   }
 
@@ -14457,7 +14377,7 @@ static int test_write_file_3_skip (void)
 static int test_write_file_3 (void)
 {
   if (test_write_file_3_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_write_file_3");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_write_file_3");
     return 0;
   }
 
@@ -14559,7 +14479,7 @@ static int test_write_file_4_skip (void)
 static int test_write_file_4 (void)
 {
   if (test_write_file_4_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_write_file_4");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_write_file_4");
     return 0;
   }
 
@@ -14661,7 +14581,7 @@ static int test_write_file_5_skip (void)
 static int test_write_file_5 (void)
 {
   if (test_write_file_5_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_write_file_5");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_write_file_5");
     return 0;
   }
 
@@ -14763,7 +14683,7 @@ static int test_mkfs_0_skip (void)
 static int test_mkfs_0 (void)
 {
   if (test_mkfs_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_mkfs_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_mkfs_0");
     return 0;
   }
 
@@ -14865,7 +14785,7 @@ static int test_lvcreate_0_skip (void)
 static int test_lvcreate_0 (void)
 {
   if (test_lvcreate_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_lvcreate_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_lvcreate_0");
     return 0;
   }
 
@@ -14895,8 +14815,8 @@ static int test_lvcreate_0 (void)
   /* TestOutputList for lvcreate (0) */
   {
     char device[] = "/dev/sda";
-    char lines_0[] = ",10";
-    char lines_1[] = ",20";
+    char lines_0[] = ",200";
+    char lines_1[] = ",400";
     char lines_2[] = ",";
     char *lines[] = {
       lines_0,
@@ -15103,7 +15023,7 @@ static int test_vgcreate_0_skip (void)
 static int test_vgcreate_0 (void)
 {
   if (test_vgcreate_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_vgcreate_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_vgcreate_0");
     return 0;
   }
 
@@ -15133,8 +15053,8 @@ static int test_vgcreate_0 (void)
   /* TestOutputList for vgcreate (0) */
   {
     char device[] = "/dev/sda";
-    char lines_0[] = ",10";
-    char lines_1[] = ",20";
+    char lines_0[] = ",200";
+    char lines_1[] = ",400";
     char lines_2[] = ",";
     char *lines[] = {
       lines_0,
@@ -15260,7 +15180,7 @@ static int test_pvcreate_0_skip (void)
 static int test_pvcreate_0 (void)
 {
   if (test_pvcreate_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_pvcreate_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_pvcreate_0");
     return 0;
   }
 
@@ -15290,8 +15210,8 @@ static int test_pvcreate_0 (void)
   /* TestOutputListOfDevices for pvcreate (0) */
   {
     char device[] = "/dev/sda";
-    char lines_0[] = ",10";
-    char lines_1[] = ",20";
+    char lines_0[] = ",200";
+    char lines_1[] = ",400";
     char lines_2[] = ",";
     char *lines[] = {
       lines_0,
@@ -15404,7 +15324,7 @@ static int test_is_dir_0_skip (void)
 static int test_is_dir_0 (void)
 {
   if (test_is_dir_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_is_dir_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_is_dir_0");
     return 0;
   }
 
@@ -15503,7 +15423,7 @@ static int test_is_dir_1_skip (void)
 static int test_is_dir_1 (void)
 {
   if (test_is_dir_1_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_is_dir_1");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_is_dir_1");
     return 0;
   }
 
@@ -15602,7 +15522,7 @@ static int test_is_file_0_skip (void)
 static int test_is_file_0 (void)
 {
   if (test_is_file_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_is_file_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_is_file_0");
     return 0;
   }
 
@@ -15701,7 +15621,7 @@ static int test_is_file_1_skip (void)
 static int test_is_file_1 (void)
 {
   if (test_is_file_1_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_is_file_1");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_is_file_1");
     return 0;
   }
 
@@ -15800,7 +15720,7 @@ static int test_exists_0_skip (void)
 static int test_exists_0 (void)
 {
   if (test_exists_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_exists_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_exists_0");
     return 0;
   }
 
@@ -15899,7 +15819,7 @@ static int test_exists_1_skip (void)
 static int test_exists_1 (void)
 {
   if (test_exists_1_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_exists_1");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_exists_1");
     return 0;
   }
 
@@ -15998,7 +15918,7 @@ static int test_mkdir_p_0_skip (void)
 static int test_mkdir_p_0 (void)
 {
   if (test_mkdir_p_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_mkdir_p_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_mkdir_p_0");
     return 0;
   }
 
@@ -16097,7 +16017,7 @@ static int test_mkdir_p_1_skip (void)
 static int test_mkdir_p_1 (void)
 {
   if (test_mkdir_p_1_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_mkdir_p_1");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_mkdir_p_1");
     return 0;
   }
 
@@ -16196,7 +16116,7 @@ static int test_mkdir_p_2_skip (void)
 static int test_mkdir_p_2 (void)
 {
   if (test_mkdir_p_2_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_mkdir_p_2");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_mkdir_p_2");
     return 0;
   }
 
@@ -16295,7 +16215,7 @@ static int test_mkdir_p_3_skip (void)
 static int test_mkdir_p_3 (void)
 {
   if (test_mkdir_p_3_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_mkdir_p_3");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_mkdir_p_3");
     return 0;
   }
 
@@ -16390,7 +16310,7 @@ static int test_mkdir_p_4_skip (void)
 static int test_mkdir_p_4 (void)
 {
   if (test_mkdir_p_4_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_mkdir_p_4");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_mkdir_p_4");
     return 0;
   }
 
@@ -16485,7 +16405,7 @@ static int test_mkdir_0_skip (void)
 static int test_mkdir_0 (void)
 {
   if (test_mkdir_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_mkdir_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_mkdir_0");
     return 0;
   }
 
@@ -16584,7 +16504,7 @@ static int test_mkdir_1_skip (void)
 static int test_mkdir_1 (void)
 {
   if (test_mkdir_1_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_mkdir_1");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_mkdir_1");
     return 0;
   }
 
@@ -16671,7 +16591,7 @@ static int test_rm_rf_0_skip (void)
 static int test_rm_rf_0 (void)
 {
   if (test_rm_rf_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_rm_rf_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_rm_rf_0");
     return 0;
   }
 
@@ -16794,7 +16714,7 @@ static int test_rmdir_0_skip (void)
 static int test_rmdir_0 (void)
 {
   if (test_rmdir_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_rmdir_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_rmdir_0");
     return 0;
   }
 
@@ -16889,7 +16809,7 @@ static int test_rmdir_1_skip (void)
 static int test_rmdir_1 (void)
 {
   if (test_rmdir_1_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_rmdir_1");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_rmdir_1");
     return 0;
   }
 
@@ -16976,7 +16896,7 @@ static int test_rmdir_2_skip (void)
 static int test_rmdir_2 (void)
 {
   if (test_rmdir_2_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_rmdir_2");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_rmdir_2");
     return 0;
   }
 
@@ -17071,7 +16991,7 @@ static int test_rm_0_skip (void)
 static int test_rm_0 (void)
 {
   if (test_rm_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_rm_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_rm_0");
     return 0;
   }
 
@@ -17166,7 +17086,7 @@ static int test_rm_1_skip (void)
 static int test_rm_1 (void)
 {
   if (test_rm_1_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_rm_1");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_rm_1");
     return 0;
   }
 
@@ -17253,7 +17173,7 @@ static int test_rm_2_skip (void)
 static int test_rm_2 (void)
 {
   if (test_rm_2_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_rm_2");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_rm_2");
     return 0;
   }
 
@@ -17348,7 +17268,7 @@ static int test_read_lines_0_skip (void)
 static int test_read_lines_0 (void)
 {
   if (test_read_lines_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_read_lines_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_read_lines_0");
     return 0;
   }
 
@@ -17489,7 +17409,7 @@ static int test_read_lines_1_skip (void)
 static int test_read_lines_1 (void)
 {
   if (test_read_lines_1_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_read_lines_1");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_read_lines_1");
     return 0;
   }
 
@@ -17594,7 +17514,7 @@ static int test_lvs_0_skip (void)
 static int test_lvs_0 (void)
 {
   if (test_lvs_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_lvs_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_lvs_0");
     return 0;
   }
 
@@ -17731,7 +17651,7 @@ static int test_lvs_1_skip (void)
 static int test_lvs_1 (void)
 {
   if (test_lvs_1_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_lvs_1");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_lvs_1");
     return 0;
   }
 
@@ -17761,8 +17681,8 @@ static int test_lvs_1 (void)
   /* TestOutputList for lvs (1) */
   {
     char device[] = "/dev/sda";
-    char lines_0[] = ",10";
-    char lines_1[] = ",20";
+    char lines_0[] = ",200";
+    char lines_1[] = ",400";
     char lines_2[] = ",";
     char *lines[] = {
       lines_0,
@@ -17927,7 +17847,7 @@ static int test_vgs_0_skip (void)
 static int test_vgs_0 (void)
 {
   if (test_vgs_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_vgs_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_vgs_0");
     return 0;
   }
 
@@ -18064,7 +17984,7 @@ static int test_vgs_1_skip (void)
 static int test_vgs_1 (void)
 {
   if (test_vgs_1_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_vgs_1");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_vgs_1");
     return 0;
   }
 
@@ -18094,8 +18014,8 @@ static int test_vgs_1 (void)
   /* TestOutputList for vgs (1) */
   {
     char device[] = "/dev/sda";
-    char lines_0[] = ",10";
-    char lines_1[] = ",20";
+    char lines_0[] = ",200";
+    char lines_1[] = ",400";
     char lines_2[] = ",";
     char *lines[] = {
       lines_0,
@@ -18221,7 +18141,7 @@ static int test_pvs_0_skip (void)
 static int test_pvs_0 (void)
 {
   if (test_pvs_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_pvs_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_pvs_0");
     return 0;
   }
 
@@ -18359,7 +18279,7 @@ static int test_pvs_1_skip (void)
 static int test_pvs_1 (void)
 {
   if (test_pvs_1_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_pvs_1");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_pvs_1");
     return 0;
   }
 
@@ -18389,8 +18309,8 @@ static int test_pvs_1 (void)
   /* TestOutputListOfDevices for pvs (1) */
   {
     char device[] = "/dev/sda";
-    char lines_0[] = ",10";
-    char lines_1[] = ",20";
+    char lines_0[] = ",200";
+    char lines_1[] = ",400";
     char lines_2[] = ",";
     char *lines[] = {
       lines_0,
@@ -18503,7 +18423,7 @@ static int test_list_partitions_0_skip (void)
 static int test_list_partitions_0 (void)
 {
   if (test_list_partitions_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_list_partitions_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_list_partitions_0");
     return 0;
   }
 
@@ -18611,7 +18531,7 @@ static int test_list_partitions_1_skip (void)
 static int test_list_partitions_1 (void)
 {
   if (test_list_partitions_1_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_list_partitions_1");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_list_partitions_1");
     return 0;
   }
 
@@ -18641,8 +18561,8 @@ static int test_list_partitions_1 (void)
   /* TestOutputListOfDevices for list_partitions (1) */
   {
     char device[] = "/dev/sda";
-    char lines_0[] = ",10";
-    char lines_1[] = ",20";
+    char lines_0[] = ",200";
+    char lines_1[] = ",400";
     char lines_2[] = ",";
     char *lines[] = {
       lines_0,
@@ -18731,7 +18651,7 @@ static int test_list_devices_0_skip (void)
 static int test_list_devices_0 (void)
 {
   if (test_list_devices_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_list_devices_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_list_devices_0");
     return 0;
   }
 
@@ -18847,7 +18767,7 @@ static int test_ls_0_skip (void)
 static int test_ls_0 (void)
 {
   if (test_ls_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_ls_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_ls_0");
     return 0;
   }
 
@@ -19015,7 +18935,7 @@ static int test_cat_0_skip (void)
 static int test_cat_0 (void)
 {
   if (test_cat_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_cat_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_cat_0");
     return 0;
   }
 
@@ -19117,7 +19037,7 @@ static int test_touch_0_skip (void)
 static int test_touch_0 (void)
 {
   if (test_touch_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_touch_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_touch_0");
     return 0;
   }
 
@@ -19216,7 +19136,7 @@ static int test_sync_0_skip (void)
 static int test_sync_0 (void)
 {
   if (test_sync_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_sync_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_sync_0");
     return 0;
   }
 
@@ -19271,7 +19191,7 @@ static int test_mount_0_skip (void)
 static int test_mount_0 (void)
 {
   if (test_mount_0_skip ()) {
-    printf ("%s skipped (reason: environment variable set)\n", "test_mount_0");
+    printf ("        %s skipped (reason: environment variable set)\n", "test_mount_0");
     return 0;
   }
 
@@ -19363,6 +19283,8 @@ int main (int argc, char *argv[])
   const char *filename;
   int fd;
   int nr_tests, test_num = 0;
+
+  setbuf (stdout, NULL);
 
   no_test_warnings ();
 

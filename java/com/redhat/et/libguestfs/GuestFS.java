@@ -427,7 +427,7 @@ public HashMap<String,String> test0rhashtableerr ()
    * to modify the image).
    * <p>
    * This is equivalent to the qemu parameter "-drive
-   * file=filename,cache=off".
+   * file=filename,cache=off,if=virtio".
    * <p>
    * Note that this call checks for the existence of
    * "filename". This stops you from specifying other types
@@ -488,7 +488,7 @@ public HashMap<String,String> test0rhashtableerr ()
    * although qemu can support this.
    * <p>
    * This is equivalent to the qemu parameter "-drive
-   * file=filename,snapshot=on".
+   * file=filename,snapshot=on,if=virtio".
    * <p>
    * Note that this call checks for the existence of
    * "filename". This stops you from specifying other types
@@ -4033,6 +4033,10 @@ public HashMap<String,String> test0rhashtableerr ()
    * files with permissions like "-rw-r--r--" or
    * "-rwxr-xr-x", and 002 which creates new files with
    * permissions like "-rw-rw-r--" or "-rwxrwxr-x".
+   * <p>
+   * The default umask is 022. This is important because it
+   * means that directories and device nodes will be created
+   * with 0644 or 0755 mode even if you specify 0777.
    * <p>
    * See also umask(2), "g.mknod", "g.mkdir".
    * <p>

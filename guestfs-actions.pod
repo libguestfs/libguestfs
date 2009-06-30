@@ -30,7 +30,8 @@ for whatever operations you want to perform (ie. read access if you
 just want to read the image or write access if you want to modify the
 image).
 
-This is equivalent to the qemu parameter C<-drive file=filename,cache=off>.
+This is equivalent to the qemu parameter
+C<-drive file=filename,cache=off,if=virtio>.
 
 Note that this call checks for the existence of C<filename>.  This
 stops you from specifying other types of drive which are supported
@@ -54,7 +55,7 @@ handle is closed.  We don't currently have any method to enable
 changes to be committed, although qemu can support this.
 
 This is equivalent to the qemu parameter
-C<-drive file=filename,snapshot=on>.
+C<-drive file=filename,snapshot=on,if=virtio>.
 
 Note that this call checks for the existence of C<filename>.  This
 stops you from specifying other types of drive which are supported
@@ -2239,6 +2240,10 @@ Typical umask values would be C<022> which creates new files
 with permissions like "-rw-r--r--" or "-rwxr-xr-x", and
 C<002> which creates new files with permissions like
 "-rw-rw-r--" or "-rwxrwxr-x".
+
+The default umask is C<022>.  This is important because it
+means that directories and device nodes will be created with
+C<0644> or C<0755> mode even if you specify C<0777>.
 
 See also L<umask(2)>, C<guestfs_mknod>, C<guestfs_mkdir>.
 
