@@ -23,14 +23,24 @@ unset CDPATH
 
 set -e
 
-cd @top_builddir@
+if [ "@DIST@" = "REDHAT" ]; then
+  cd @top_builddir@
+  output=appliance/initramfs.@REPO@.@host_cpu@.img
 
-output=appliance/initramfs.@REPO@.@host_cpu@.img
+  # Copy the daemon into the filesystem.
+  @FEBOOTSTRAP_INSTALL@ initramfs daemon/guestfsd /sbin/guestfsd 0755 root.root
 
-# Copy the daemon into the filesystem.
-@FEBOOTSTRAP_INSTALL@ initramfs daemon/guestfsd /sbin/guestfsd 0755 root.root
+  # Generate final image.
+  @FEBOOTSTRAP_TO_INITRAMFS@ initramfs > $output-t
+  mv $output-t $output
+  ls -lh $output
+elif [ "@DIST@" = "DEBIAN" ]; then
+  cd @top_builddir@/appliance
 
-# Generate final image.
-@FEBOOTSTRAP_TO_INITRAMFS@ initramfs > $output-t
-mv $output-t $output
-ls -lh $output
+  output=initramfs.@REPO@.@host_cpu@.img
+  vmlinuz=vmlinuz.@REPO@.@host_cpu@
+
+  ln -sf debian/debirf-libguestfs_@REPO@*.cgz $output
+  ln -sf debian/vmlinuz-* $vmlinuz
+fi
+

@@ -22,125 +22,131 @@ unset CDPATH
 
 set -e
 
-cd @top_builddir@
+if [ "@DIST@" = "REDHAT" ]; then
+  cd @top_builddir@
+  # Decide on names for the final output.  These have to match Makefile.am.
+  output=appliance/initramfs.@REPO@.@host_cpu@.img
+  koutput=appliance/vmlinuz.@REPO@.@host_cpu@
+  rm -f $output
+  rm -f $koutput
 
-# Decide on names for the final output.  These have to match Makefile.am.
-output=appliance/initramfs.@REPO@.@host_cpu@.img
-koutput=appliance/vmlinuz.@REPO@.@host_cpu@
-rm -f $output
-rm -f $koutput
+  # Create the basic initramfs.
+  exec 5<appliance/packagelist
+  packages=
+  while read pkg 0<&5; do
+      packages="$packages -i $pkg"
+  done
+  exec 5<&-
 
-# Create the basic initramfs.
-exec 5<appliance/packagelist
-packages=
-while read pkg 0<&5; do
-    packages="$packages -i $pkg"
-done
-exec 5<&-
+  @FEBOOTSTRAP@ $packages -u @UPDATES@ @REPO@ initramfs @MIRROR@
 
-@FEBOOTSTRAP@ $packages -u @UPDATES@ @REPO@ initramfs @MIRROR@
+  # /sysroot is where the guest root filesystem will be mounted.
+  @FEBOOTSTRAP_RUN@ initramfs -- mkdir -p --mode=0777 /sysroot
 
-# /sysroot is where the guest root filesystem will be mounted.
-@FEBOOTSTRAP_RUN@ initramfs -- mkdir -p --mode=0777 /sysroot
+  # Create /tmp if it is missing.
+  @FEBOOTSTRAP_RUN@ initramfs -- mkdir -p --mode=0777 /tmp
 
-# Create /tmp if it is missing.
-@FEBOOTSTRAP_RUN@ initramfs -- mkdir -p --mode=0777 /tmp
+  # Nuke some stuff.  The kernel pulls mkinitrd and plymouth which pulls in
+  # all of Python.  Sheez.
+  (cd initramfs && find -name '*plymouth*' -print0) |
+    xargs -0 @FEBOOTSTRAP_RUN@ initramfs -- rm -rf
+  (cd initramfs && find -name '*python*' -print0) |
+    xargs -0 @FEBOOTSTRAP_RUN@ initramfs -- rm -rf
 
-# Nuke some stuff.  The kernel pulls mkinitrd and plymouth which pulls in
-# all of Python.  Sheez.
-(cd initramfs && find -name '*plymouth*' -print0) |
-  xargs -0 @FEBOOTSTRAP_RUN@ initramfs -- rm -rf
-(cd initramfs && find -name '*python*' -print0) |
-  xargs -0 @FEBOOTSTRAP_RUN@ initramfs -- rm -rf
+  # In Fedora >= 11, it pulls in all of Perl from somewhere.  Nuke from orbit.
+  @FEBOOTSTRAP_RUN@ initramfs -- rm -rf /usr/lib/perl5 /usr/lib64/perl5
 
-# In Fedora >= 11, it pulls in all of Perl from somewhere.  Nuke from orbit.
-@FEBOOTSTRAP_RUN@ initramfs -- rm -rf /usr/lib/perl5 /usr/lib64/perl5
+  # Anaconda?  JPEG images?
+  @FEBOOTSTRAP_RUN@ initramfs -- rm -rf /usr/lib/anaconda-runtime
 
-# Anaconda?  JPEG images?
-@FEBOOTSTRAP_RUN@ initramfs -- rm -rf /usr/lib/anaconda-runtime
+  # Don't need any firmware.
+  @FEBOOTSTRAP_RUN@ initramfs -- rm -rf /lib/firmware
 
-# Don't need any firmware.
-@FEBOOTSTRAP_RUN@ initramfs -- rm -rf /lib/firmware
+  # Don't need any keyboard maps.
+  @FEBOOTSTRAP_RUN@ initramfs -- rm -rf /lib/kbd
 
-# Don't need any keyboard maps.
-@FEBOOTSTRAP_RUN@ initramfs -- rm -rf /lib/kbd
+  # Remove anything in home directory.  Because this is potentially
+  # liable to monstrous fuck-ups, we don't put a slash before 'home'.
+  (cd initramfs && echo home/*) |
+    xargs @FEBOOTSTRAP_RUN@ initramfs -- rm -rf
 
-# Remove anything in home directory.  Because this is potentially
-# liable to monstrous fuck-ups, we don't put a slash before 'home'.
-(cd initramfs && echo home/*) |
-  xargs @FEBOOTSTRAP_RUN@ initramfs -- rm -rf
+  # Remove /var/lib/yum stuff.
+  @FEBOOTSTRAP_RUN@ initramfs -- rm -rf /var/lib/yum
 
-# Remove /var/lib/yum stuff.
-@FEBOOTSTRAP_RUN@ initramfs -- rm -rf /var/lib/yum
+  # Remove some unreadable binaries which are incompatible with
+  # the supermin appliance.  Since these binaries can't be read
+  # from the host filesystem, they generate warnings like:
+  #   cpio: ./usr/bin/chfn: Cannot open: Permission denied
+  # These binaries are not needed for operation of the appliance.
+  @FEBOOTSTRAP_RUN@ initramfs -- rm -f \
+    /usr/bin/chfn \
+    /usr/bin/chsh \
+    /usr/libexec/pt_chown \
+    /usr/sbin/groupdel \
+    /usr/sbin/groupadd \
+    /usr/sbin/useradd \
+    /usr/sbin/tzdata-update \
+    /usr/sbin/userdel \
+    /usr/sbin/usermod \
+    /usr/sbin/groupmod \
+    /usr/sbin/groupmems \
+    /sbin/unix_update \
+    $(cd initramfs && echo usr/sbin/glibc_post_upgrade.*)
 
-# Remove some unreadable binaries which are incompatible with
-# the supermin appliance.  Since these binaries can't be read
-# from the host filesystem, they generate warnings like:
-#   cpio: ./usr/bin/chfn: Cannot open: Permission denied
-# These binaries are not needed for operation of the appliance.
-@FEBOOTSTRAP_RUN@ initramfs -- rm -f \
-  /usr/bin/chfn \
-  /usr/bin/chsh \
-  /usr/libexec/pt_chown \
-  /usr/sbin/groupdel \
-  /usr/sbin/groupadd \
-  /usr/sbin/useradd \
-  /usr/sbin/tzdata-update \
-  /usr/sbin/userdel \
-  /usr/sbin/usermod \
-  /usr/sbin/groupmod \
-  /usr/sbin/groupmems \
-  /sbin/unix_update \
-  $(cd initramfs && echo usr/sbin/glibc_post_upgrade.*)
+  # Kernel modules take up nearly half of the image.  Only include ones
+  # which are on the whitelist.
+  exec 5<appliance/kmod.whitelist
+  whitelist=
+  while read kmod 0<&5; do
+      whitelist="$whitelist -a -not -name $kmod"
+  done
+  exec 5<&-
 
-# Kernel modules take up nearly half of the image.  Only include ones
-# which are on the whitelist.
-exec 5<appliance/kmod.whitelist
-whitelist=
-while read kmod 0<&5; do
-    whitelist="$whitelist -a -not -name $kmod"
-done
-exec 5<&-
+  (cd initramfs && \
+    find lib/modules/*/kernel -name '*.ko' $whitelist -a -print0 ) |
+    xargs -0 febootstrap-run initramfs -- rm
 
-(cd initramfs && \
-  find lib/modules/*/kernel -name '*.ko' $whitelist -a -print0 ) |
-  xargs -0 febootstrap-run initramfs -- rm
+  # Pull the kernel out into the current directory.  We don't want it in
+  # the initramfs image.
+  cp initramfs/boot/vmlinuz* $koutput
+  @FEBOOTSTRAP_RUN@ initramfs -- rm -rf boot
 
-# Pull the kernel out into the current directory.  We don't want it in
-# the initramfs image.
-cp initramfs/boot/vmlinuz* $koutput
-@FEBOOTSTRAP_RUN@ initramfs -- rm -rf boot
+  # Minimize the image.
+  @FEBOOTSTRAP_MINIMIZE@ initramfs
 
-# Minimize the image.
-@FEBOOTSTRAP_MINIMIZE@ initramfs
-
-# Add some missing configuration files.
-if [ ! -f initramfs/etc/hosts ]; then
-    cat > hosts.new <<'__EOF__'
-127.0.0.1 guestfs localhost.localdomain localhost
-::1       localhost6.localdomain6 localhost6
+  # Add some missing configuration files.
+  if [ ! -f initramfs/etc/hosts ]; then
+      cat > hosts.new <<'__EOF__'
+  127.0.0.1 guestfs localhost.localdomain localhost
+  ::1       localhost6.localdomain6 localhost6
 __EOF__
-    @FEBOOTSTRAP_INSTALL@ initramfs hosts.new /etc/hosts 0644 root.root
-    rm hosts.new
+      @FEBOOTSTRAP_INSTALL@ initramfs hosts.new /etc/hosts 0644 root.root
+      rm hosts.new
+  fi
+
+  if [ ! -f initramfs/etc/fstab ]; then
+      @FEBOOTSTRAP_RUN@ initramfs -- touch /etc/fstab
+  fi
+
+  echo nameserver 10.0.2.3 > resolv.conf.new
+  @FEBOOTSTRAP_INSTALL@ initramfs resolv.conf.new /etc/resolv.conf 0644 root.root
+  rm resolv.conf.new
+
+  # Create the init script.
+  @FEBOOTSTRAP_INSTALL@ initramfs appliance/init /init 0755 root.root
+
+  # Just in case the kernel isn't looking for /init, make /sbin/init
+  # be our script, not the real init.
+  #@FEBOOTSTRAP_RUN@ initramfs -- ln -f /init /sbin/init
+
+  ls -lh $koutput
+
+  # Now directly run the update script to copy/update the daemon in the
+  # initramfs.
+  cd appliance && bash update.sh
+
+elif [ "@DIST@" = "DEBIAN" ]; then
+  cd @top_builddir@/appliance
+  debirf make -n debian
 fi
 
-if [ ! -f initramfs/etc/fstab ]; then
-    @FEBOOTSTRAP_RUN@ initramfs -- touch /etc/fstab
-fi
-
-echo nameserver 10.0.2.3 > resolv.conf.new
-@FEBOOTSTRAP_INSTALL@ initramfs resolv.conf.new /etc/resolv.conf 0644 root.root
-rm resolv.conf.new
-
-# Create the init script.
-@FEBOOTSTRAP_INSTALL@ initramfs appliance/init /init 0755 root.root
-
-# Just in case the kernel isn't looking for /init, make /sbin/init
-# be our script, not the real init.
-#@FEBOOTSTRAP_RUN@ initramfs -- ln -f /init /sbin/init
-
-ls -lh $koutput
-
-# Now directly run the update script to copy/update the daemon in the
-# initramfs.
-cd appliance && bash update.sh
