@@ -1343,51 +1343,51 @@ particular that the filename is not prepended to the output
   ("command", (RString "output", [StringList "arguments"]), 50, [ProtocolLimitWarning],
    [InitBasicFS, Always, TestOutput (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command"; "/test-command 1"]], "Result1");
     InitBasicFS, Always, TestOutput (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command"; "/test-command 2"]], "Result2\n");
     InitBasicFS, Always, TestOutput (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command"; "/test-command 3"]], "\nResult3");
     InitBasicFS, Always, TestOutput (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command"; "/test-command 4"]], "\nResult4\n");
     InitBasicFS, Always, TestOutput (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command"; "/test-command 5"]], "\nResult5\n\n");
     InitBasicFS, Always, TestOutput (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command"; "/test-command 6"]], "\n\nResult6\n\n");
     InitBasicFS, Always, TestOutput (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command"; "/test-command 7"]], "");
     InitBasicFS, Always, TestOutput (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command"; "/test-command 8"]], "\n");
     InitBasicFS, Always, TestOutput (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command"; "/test-command 9"]], "\n\n");
     InitBasicFS, Always, TestOutput (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command"; "/test-command 10"]], "Result10-1\nResult10-2\n");
     InitBasicFS, Always, TestOutput (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command"; "/test-command 11"]], "Result11-1\nResult11-2");
     InitBasicFS, Always, TestLastFail (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command"; "/test-command"]])],
    "run a command from the guest filesystem",
    "\
@@ -1424,47 +1424,47 @@ locations.");
   ("command_lines", (RStringList "lines", [StringList "arguments"]), 51, [ProtocolLimitWarning],
    [InitBasicFS, Always, TestOutputList (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command_lines"; "/test-command 1"]], ["Result1"]);
     InitBasicFS, Always, TestOutputList (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command_lines"; "/test-command 2"]], ["Result2"]);
     InitBasicFS, Always, TestOutputList (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command_lines"; "/test-command 3"]], ["";"Result3"]);
     InitBasicFS, Always, TestOutputList (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command_lines"; "/test-command 4"]], ["";"Result4"]);
     InitBasicFS, Always, TestOutputList (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command_lines"; "/test-command 5"]], ["";"Result5";""]);
     InitBasicFS, Always, TestOutputList (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command_lines"; "/test-command 6"]], ["";"";"Result6";""]);
     InitBasicFS, Always, TestOutputList (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command_lines"; "/test-command 7"]], []);
     InitBasicFS, Always, TestOutputList (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command_lines"; "/test-command 8"]], [""]);
     InitBasicFS, Always, TestOutputList (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command_lines"; "/test-command 9"]], ["";""]);
     InitBasicFS, Always, TestOutputList (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command_lines"; "/test-command 10"]], ["Result10-1";"Result10-2"]);
     InitBasicFS, Always, TestOutputList (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command_lines"; "/test-command 11"]], ["Result11-1";"Result11-2"])],
    "run a command, returning lines",
    "\
