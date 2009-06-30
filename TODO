@@ -128,6 +128,8 @@ Extra commands / functionality:
     some sort of alloc/fallocate/posix_fallocate call to create empty space
     realpath
     trunc[ate??]
+    getfattr (also useful because gives us access to NTFS datastreams)
+    setfattr
 
   ext2 properties:
     chattr
