@@ -877,6 +877,40 @@ struct guestfs_mkswap_U_args {
   string device<>;
 };
 
+struct guestfs_mknod_args {
+  int mode;
+  int devmajor;
+  int devminor;
+  string path<>;
+};
+
+struct guestfs_mkfifo_args {
+  int mode;
+  string path<>;
+};
+
+struct guestfs_mknod_b_args {
+  int mode;
+  int devmajor;
+  int devminor;
+  string path<>;
+};
+
+struct guestfs_mknod_c_args {
+  int mode;
+  int devmajor;
+  int devminor;
+  string path<>;
+};
+
+struct guestfs_umask_args {
+  int mask;
+};
+
+struct guestfs_umask_ret {
+  int oldmask;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -1010,6 +1044,11 @@ enum guestfs_procedure {
   GUESTFS_PROC_MKSWAP = 130,
   GUESTFS_PROC_MKSWAP_L = 131,
   GUESTFS_PROC_MKSWAP_U = 132,
+  GUESTFS_PROC_MKNOD = 133,
+  GUESTFS_PROC_MKFIFO = 134,
+  GUESTFS_PROC_MKNOD_B = 135,
+  GUESTFS_PROC_MKNOD_C = 136,
+  GUESTFS_PROC_UMASK = 137,
   GUESTFS_PROC_NR_PROCS
 };
 

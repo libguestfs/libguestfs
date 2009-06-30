@@ -1335,6 +1335,18 @@ See also: L<mkdtemp(3)>
 This function returns a string, or NULL on error.
 I<The caller must free the returned string after use>.
 
+=head2 guestfs_mkfifo
+
+ int guestfs_mkfifo (guestfs_h *handle,
+		int mode,
+		const char *path);
+
+This call creates a FIFO (named pipe) called C<path> with
+mode C<mode>.  It is just a convenient wrapper around
+C<guestfs_mknod>.
+
+This function returns 0 on success or -1 on error.
+
 =head2 guestfs_mkfs
 
  int guestfs_mkfs (guestfs_h *handle,
@@ -1344,6 +1356,52 @@ I<The caller must free the returned string after use>.
 This creates a filesystem on C<device> (usually a partition
 or LVM logical volume).  The filesystem type is C<fstype>, for
 example C<ext3>.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_mknod
+
+ int guestfs_mknod (guestfs_h *handle,
+		int mode,
+		int devmajor,
+		int devminor,
+		const char *path);
+
+This call creates block or character special devices, or
+named pipes (FIFOs).
+
+The C<mode> parameter should be the mode, using the standard
+constants.  C<devmajor> and C<devminor> are the
+device major and minor numbers, only used when creating block
+and character special devices.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_mknod_b
+
+ int guestfs_mknod_b (guestfs_h *handle,
+		int mode,
+		int devmajor,
+		int devminor,
+		const char *path);
+
+This call creates a block device node called C<path> with
+mode C<mode> and device major/minor C<devmajor> and C<devminor>.
+It is just a convenient wrapper around C<guestfs_mknod>.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_mknod_c
+
+ int guestfs_mknod_c (guestfs_h *handle,
+		int mode,
+		int devmajor,
+		int devminor,
+		const char *path);
+
+This call creates a char device node called C<path> with
+mode C<mode> and device major/minor C<devmajor> and C<devminor>.
+It is just a convenient wrapper around C<guestfs_mknod>.
 
 This function returns 0 on success or -1 on error.
 
@@ -2168,6 +2226,25 @@ strings, or NULL if there was an error.
 The array of strings will always have length C<2n+1>, where
 C<n> keys and values alternate, followed by the trailing NULL entry.
 I<The caller must free the strings and the array after use>.
+
+=head2 guestfs_umask
+
+ int guestfs_umask (guestfs_h *handle,
+		int mask);
+
+This function sets the mask used for creating new files and
+device nodes to C<mask & 0777>.
+
+Typical umask values would be C<022> which creates new files
+with permissions like "-rw-r--r--" or "-rwxr-xr-x", and
+C<002> which creates new files with permissions like
+"-rw-rw-r--" or "-rwxrwxr-x".
+
+See also L<umask(2)>, C<guestfs_mknod>, C<guestfs_mkdir>.
+
+This call returns the previous umask.
+
+On error this function returns -1.
 
 =head2 guestfs_umount
 

@@ -682,3 +682,18 @@ val mkswap_L : t -> string -> string -> unit
 val mkswap_U : t -> string -> string -> unit
 (** create a swap partition with an explicit UUID *)
 
+val mknod : t -> int -> int -> int -> string -> unit
+(** make block, character or FIFO devices *)
+
+val mkfifo : t -> int -> string -> unit
+(** make FIFO (named pipe) *)
+
+val mknod_b : t -> int -> int -> int -> string -> unit
+(** make block device node *)
+
+val mknod_c : t -> int -> int -> int -> string -> unit
+(** make char device node *)
+
+val umask : t -> int -> int
+(** set file mode creation mask (umask) *)
+

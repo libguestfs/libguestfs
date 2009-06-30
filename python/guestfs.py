@@ -1905,3 +1905,52 @@ class GuestFS:
         """
         return libguestfsmod.mkswap_U (self._o, uuid, device)
 
+    def mknod (self, mode, devmajor, devminor, path):
+        u"""This call creates block or character special devices, or
+        named pipes (FIFOs).
+        
+        The "mode" parameter should be the mode, using the
+        standard constants. "devmajor" and "devminor" are the
+        device major and minor numbers, only used when creating
+        block and character special devices.
+        """
+        return libguestfsmod.mknod (self._o, mode, devmajor, devminor, path)
+
+    def mkfifo (self, mode, path):
+        u"""This call creates a FIFO (named pipe) called "path" with
+        mode "mode". It is just a convenient wrapper around
+        "g.mknod".
+        """
+        return libguestfsmod.mkfifo (self._o, mode, path)
+
+    def mknod_b (self, mode, devmajor, devminor, path):
+        u"""This call creates a block device node called "path" with
+        mode "mode" and device major/minor "devmajor" and
+        "devminor". It is just a convenient wrapper around
+        "g.mknod".
+        """
+        return libguestfsmod.mknod_b (self._o, mode, devmajor, devminor, path)
+
+    def mknod_c (self, mode, devmajor, devminor, path):
+        u"""This call creates a char device node called "path" with
+        mode "mode" and device major/minor "devmajor" and
+        "devminor". It is just a convenient wrapper around
+        "g.mknod".
+        """
+        return libguestfsmod.mknod_c (self._o, mode, devmajor, devminor, path)
+
+    def umask (self, mask):
+        u"""This function sets the mask used for creating new files
+        and device nodes to "mask & 0777".
+        
+        Typical umask values would be 022 which creates new
+        files with permissions like "-rw-r--r--" or
+        "-rwxr-xr-x", and 002 which creates new files with
+        permissions like "-rw-rw-r--" or "-rwxrwxr-x".
+        
+        See also umask(2), "g.mknod", "g.mkdir".
+        
+        This call returns the previous umask.
+        """
+        return libguestfsmod.umask (self._o, mask)
+

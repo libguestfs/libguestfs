@@ -2902,3 +2902,71 @@ PREINIT:
       if (r == -1)
         croak ("mkswap_U: %s", guestfs_last_error (g));
 
+void
+mknod (g, mode, devmajor, devminor, path)
+      guestfs_h *g;
+      int mode;
+      int devmajor;
+      int devminor;
+      char *path;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_mknod (g, mode, devmajor, devminor, path);
+      if (r == -1)
+        croak ("mknod: %s", guestfs_last_error (g));
+
+void
+mkfifo (g, mode, path)
+      guestfs_h *g;
+      int mode;
+      char *path;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_mkfifo (g, mode, path);
+      if (r == -1)
+        croak ("mkfifo: %s", guestfs_last_error (g));
+
+void
+mknod_b (g, mode, devmajor, devminor, path)
+      guestfs_h *g;
+      int mode;
+      int devmajor;
+      int devminor;
+      char *path;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_mknod_b (g, mode, devmajor, devminor, path);
+      if (r == -1)
+        croak ("mknod_b: %s", guestfs_last_error (g));
+
+void
+mknod_c (g, mode, devmajor, devminor, path)
+      guestfs_h *g;
+      int mode;
+      int devmajor;
+      int devminor;
+      char *path;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_mknod_c (g, mode, devmajor, devminor, path);
+      if (r == -1)
+        croak ("mknod_c: %s", guestfs_last_error (g));
+
+SV *
+umask (g, mask)
+      guestfs_h *g;
+      int mask;
+PREINIT:
+      int oldmask;
+   CODE:
+      oldmask = guestfs_umask (g, mask);
+      if (oldmask == -1)
+        croak ("umask: %s", guestfs_last_error (g));
+      RETVAL = newSViv (oldmask);
+ OUTPUT:
+      RETVAL
+

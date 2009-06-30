@@ -5053,6 +5053,140 @@ py_guestfs_mkswap_U (PyObject *self, PyObject *args)
   return py_r;
 }
 
+static PyObject *
+py_guestfs_mknod (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  int mode;
+  int devmajor;
+  int devminor;
+  const char *path;
+
+  if (!PyArg_ParseTuple (args, (char *) "Oiiis:guestfs_mknod",
+                         &py_g, &mode, &devmajor, &devminor, &path))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_mknod (g, mode, devmajor, devminor, path);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_mkfifo (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  int mode;
+  const char *path;
+
+  if (!PyArg_ParseTuple (args, (char *) "Ois:guestfs_mkfifo",
+                         &py_g, &mode, &path))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_mkfifo (g, mode, path);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_mknod_b (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  int mode;
+  int devmajor;
+  int devminor;
+  const char *path;
+
+  if (!PyArg_ParseTuple (args, (char *) "Oiiis:guestfs_mknod_b",
+                         &py_g, &mode, &devmajor, &devminor, &path))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_mknod_b (g, mode, devmajor, devminor, path);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_mknod_c (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  int mode;
+  int devmajor;
+  int devminor;
+  const char *path;
+
+  if (!PyArg_ParseTuple (args, (char *) "Oiiis:guestfs_mknod_c",
+                         &py_g, &mode, &devmajor, &devminor, &path))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_mknod_c (g, mode, devmajor, devminor, path);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  Py_INCREF (Py_None);
+  py_r = Py_None;
+  return py_r;
+}
+
+static PyObject *
+py_guestfs_umask (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  int r;
+  int mask;
+
+  if (!PyArg_ParseTuple (args, (char *) "Oi:guestfs_umask",
+                         &py_g, &mask))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_umask (g, mask);
+  if (r == -1) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = PyInt_FromLong ((long) r);
+  return py_r;
+}
+
 static PyMethodDef methods[] = {
   { (char *) "create", py_guestfs_create, METH_VARARGS, NULL },
   { (char *) "close", py_guestfs_close, METH_VARARGS, NULL },
@@ -5242,6 +5376,11 @@ static PyMethodDef methods[] = {
   { (char *) "mkswap", py_guestfs_mkswap, METH_VARARGS, NULL },
   { (char *) "mkswap_L", py_guestfs_mkswap_L, METH_VARARGS, NULL },
   { (char *) "mkswap_U", py_guestfs_mkswap_U, METH_VARARGS, NULL },
+  { (char *) "mknod", py_guestfs_mknod, METH_VARARGS, NULL },
+  { (char *) "mkfifo", py_guestfs_mkfifo, METH_VARARGS, NULL },
+  { (char *) "mknod_b", py_guestfs_mknod_b, METH_VARARGS, NULL },
+  { (char *) "mknod_c", py_guestfs_mknod_c, METH_VARARGS, NULL },
+  { (char *) "umask", py_guestfs_umask, METH_VARARGS, NULL },
   { NULL, NULL, 0, NULL }
 };
 

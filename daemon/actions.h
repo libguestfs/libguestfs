@@ -153,3 +153,8 @@ extern int do_mount_loop (char *file, char *mountpoint);
 extern int do_mkswap (char *device);
 extern int do_mkswap_L (char *label, char *device);
 extern int do_mkswap_U (char *uuid, char *device);
+extern int do_mknod (int mode, int devmajor, int devminor, char *path);
+extern int do_mkfifo (int mode, char *path);
+extern int do_mknod_b (int mode, int devmajor, int devminor, char *path);
+extern int do_mknod_c (int mode, int devmajor, int devminor, char *path);
+extern int do_umask (int mask);

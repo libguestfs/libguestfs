@@ -126,7 +126,12 @@ module Guestfs (
   mount_loop,
   mkswap,
   mkswap_L,
-  mkswap_U
+  mkswap_U,
+  mknod,
+  mkfifo,
+  mknod_b,
+  mknod_c,
+  umask
   ) where
 import Foreign
 import Foreign.C
@@ -1412,4 +1417,64 @@ mkswap_U h uuid device = do
       err <- last_error h
       fail err
     else return ()
+
+foreign import ccall unsafe "guestfs_mknod" c_mknod
+  :: GuestfsP -> CInt -> CInt -> CInt -> CString -> IO (CInt)
+
+mknod :: GuestfsH -> Int -> Int -> Int -> String -> IO ()
+mknod h mode devmajor devminor path = do
+  r <- withCString path $ \path -> withForeignPtr h (\p -> c_mknod p (fromIntegral mode) (fromIntegral devmajor) (fromIntegral devminor) path)
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return ()
+
+foreign import ccall unsafe "guestfs_mkfifo" c_mkfifo
+  :: GuestfsP -> CInt -> CString -> IO (CInt)
+
+mkfifo :: GuestfsH -> Int -> String -> IO ()
+mkfifo h mode path = do
+  r <- withCString path $ \path -> withForeignPtr h (\p -> c_mkfifo p (fromIntegral mode) path)
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return ()
+
+foreign import ccall unsafe "guestfs_mknod_b" c_mknod_b
+  :: GuestfsP -> CInt -> CInt -> CInt -> CString -> IO (CInt)
+
+mknod_b :: GuestfsH -> Int -> Int -> Int -> String -> IO ()
+mknod_b h mode devmajor devminor path = do
+  r <- withCString path $ \path -> withForeignPtr h (\p -> c_mknod_b p (fromIntegral mode) (fromIntegral devmajor) (fromIntegral devminor) path)
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return ()
+
+foreign import ccall unsafe "guestfs_mknod_c" c_mknod_c
+  :: GuestfsP -> CInt -> CInt -> CInt -> CString -> IO (CInt)
+
+mknod_c :: GuestfsH -> Int -> Int -> Int -> String -> IO ()
+mknod_c h mode devmajor devminor path = do
+  r <- withCString path $ \path -> withForeignPtr h (\p -> c_mknod_c p (fromIntegral mode) (fromIntegral devmajor) (fromIntegral devminor) path)
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return ()
+
+foreign import ccall unsafe "guestfs_umask" c_umask
+  :: GuestfsP -> CInt -> IO (CInt)
+
+umask :: GuestfsH -> Int -> IO (Int)
+umask h mask = do
+  r <- withForeignPtr h (\p -> c_umask p (fromIntegral mask))
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return (fromIntegral r)
 

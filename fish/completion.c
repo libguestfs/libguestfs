@@ -202,6 +202,11 @@ static const char *const commands[] = {
   "mkswap",
   "mkswap-L",
   "mkswap-U",
+  "mknod",
+  "mkfifo",
+  "mknod-b",
+  "mknod-c",
+  "umask",
   NULL
 };
 

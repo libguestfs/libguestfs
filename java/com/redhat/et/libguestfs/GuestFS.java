@@ -3941,4 +3941,113 @@ public HashMap<String,String> test0rhashtableerr ()
   private native void _mkswap_U (long g, String uuid, String device)
     throws LibGuestFSException;
 
+  /**
+   * make block, character or FIFO devices
+   * <p>
+   * This call creates block or character special devices, or
+   * named pipes (FIFOs).
+   * <p>
+   * The "mode" parameter should be the mode, using the
+   * standard constants. "devmajor" and "devminor" are the
+   * device major and minor numbers, only used when creating
+   * block and character special devices.
+   * <p>
+   * @throws LibGuestFSException
+   */
+  public void mknod (int mode, int devmajor, int devminor, String path)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("mknod: handle is closed");
+    _mknod (g, mode, devmajor, devminor, path);
+  }
+  private native void _mknod (long g, int mode, int devmajor, int devminor, String path)
+    throws LibGuestFSException;
+
+  /**
+   * make FIFO (named pipe)
+   * <p>
+   * This call creates a FIFO (named pipe) called "path" with
+   * mode "mode". It is just a convenient wrapper around
+   * "g.mknod".
+   * <p>
+   * @throws LibGuestFSException
+   */
+  public void mkfifo (int mode, String path)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("mkfifo: handle is closed");
+    _mkfifo (g, mode, path);
+  }
+  private native void _mkfifo (long g, int mode, String path)
+    throws LibGuestFSException;
+
+  /**
+   * make block device node
+   * <p>
+   * This call creates a block device node called "path" with
+   * mode "mode" and device major/minor "devmajor" and
+   * "devminor". It is just a convenient wrapper around
+   * "g.mknod".
+   * <p>
+   * @throws LibGuestFSException
+   */
+  public void mknod_b (int mode, int devmajor, int devminor, String path)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("mknod_b: handle is closed");
+    _mknod_b (g, mode, devmajor, devminor, path);
+  }
+  private native void _mknod_b (long g, int mode, int devmajor, int devminor, String path)
+    throws LibGuestFSException;
+
+  /**
+   * make char device node
+   * <p>
+   * This call creates a char device node called "path" with
+   * mode "mode" and device major/minor "devmajor" and
+   * "devminor". It is just a convenient wrapper around
+   * "g.mknod".
+   * <p>
+   * @throws LibGuestFSException
+   */
+  public void mknod_c (int mode, int devmajor, int devminor, String path)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("mknod_c: handle is closed");
+    _mknod_c (g, mode, devmajor, devminor, path);
+  }
+  private native void _mknod_c (long g, int mode, int devmajor, int devminor, String path)
+    throws LibGuestFSException;
+
+  /**
+   * set file mode creation mask (umask)
+   * <p>
+   * This function sets the mask used for creating new files
+   * and device nodes to "mask & 0777".
+   * <p>
+   * Typical umask values would be 022 which creates new
+   * files with permissions like "-rw-r--r--" or
+   * "-rwxr-xr-x", and 002 which creates new files with
+   * permissions like "-rw-rw-r--" or "-rwxrwxr-x".
+   * <p>
+   * See also umask(2), "g.mknod", "g.mkdir".
+   * <p>
+   * This call returns the previous umask.
+   * <p>
+   * @throws LibGuestFSException
+   */
+  public int umask (int mask)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("umask: handle is closed");
+    return _umask (g, mask);
+  }
+  private native int _umask (long g, int mask)
+    throws LibGuestFSException;
+
 }

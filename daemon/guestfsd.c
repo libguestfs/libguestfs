@@ -160,6 +160,9 @@ main (int argc, char *argv[])
   setenv ("SHELL", "/bin/sh", 1);
   setenv ("LANG", "C", 1);
 
+  /* We document that umask defaults to 022 (it should be this anyway). */
+  umask (022);
+
   /* Resolve the hostname. */
   memset (&hints, 0, sizeof hints);
   hints.ai_socktype = SOCK_STREAM;

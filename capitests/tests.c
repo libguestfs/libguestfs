@@ -156,6 +156,512 @@ static void no_test_warnings (void)
   fprintf (stderr, "warning: \"guestfs_df\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_df_h\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_mount_loop\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_umask\" has no tests\n");
+}
+
+static int test_mknod_c_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "mknod_c") == NULL;
+  str = getenv ("SKIP_TEST_MKNOD_C_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_MKNOD_C");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
+static int test_mknod_c_0 (void)
+{
+  if (test_mknod_c_0_skip ()) {
+    printf ("%s skipped (reason: environment variable set)\n", "test_mknod_c_0");
+    return 0;
+  }
+
+  /* InitBasicFS for test_mknod_c_0: create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputStruct for mknod_c (0) */
+  {
+    char path[] = "/node";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mknod_c (g, 511, 99, 66, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/node";
+    struct guestfs_stat *r;
+    suppress_error = 0;
+    r = guestfs_stat (g, path);
+    if (r == NULL)
+      return -1;
+    if (r->mode != 8685) {
+      fprintf (stderr, "test_mknod_c_0: mode was %d, expected 8685\n",
+               (int) r->mode);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
+static int test_mknod_b_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "mknod_b") == NULL;
+  str = getenv ("SKIP_TEST_MKNOD_B_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_MKNOD_B");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
+static int test_mknod_b_0 (void)
+{
+  if (test_mknod_b_0_skip ()) {
+    printf ("%s skipped (reason: environment variable set)\n", "test_mknod_b_0");
+    return 0;
+  }
+
+  /* InitBasicFS for test_mknod_b_0: create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputStruct for mknod_b (0) */
+  {
+    char path[] = "/node";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mknod_b (g, 511, 99, 66, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/node";
+    struct guestfs_stat *r;
+    suppress_error = 0;
+    r = guestfs_stat (g, path);
+    if (r == NULL)
+      return -1;
+    if (r->mode != 25069) {
+      fprintf (stderr, "test_mknod_b_0: mode was %d, expected 25069\n",
+               (int) r->mode);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
+static int test_mkfifo_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "mkfifo") == NULL;
+  str = getenv ("SKIP_TEST_MKFIFO_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_MKFIFO");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
+static int test_mkfifo_0 (void)
+{
+  if (test_mkfifo_0_skip ()) {
+    printf ("%s skipped (reason: environment variable set)\n", "test_mkfifo_0");
+    return 0;
+  }
+
+  /* InitBasicFS for test_mkfifo_0: create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputStruct for mkfifo (0) */
+  {
+    char path[] = "/node";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfifo (g, 511, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/node";
+    struct guestfs_stat *r;
+    suppress_error = 0;
+    r = guestfs_stat (g, path);
+    if (r == NULL)
+      return -1;
+    if (r->mode != 4589) {
+      fprintf (stderr, "test_mkfifo_0: mode was %d, expected 4589\n",
+               (int) r->mode);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
+static int test_mknod_0_skip (void)
+{
+  const char *str;
+
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "mknod") == NULL;
+  str = getenv ("SKIP_TEST_MKNOD_0");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_MKNOD");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
+static int test_mknod_0 (void)
+{
+  if (test_mknod_0_skip ()) {
+    printf ("%s skipped (reason: environment variable set)\n", "test_mknod_0");
+    return 0;
+  }
+
+  /* InitBasicFS for test_mknod_0: create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputStruct for mknod (0) */
+  {
+    char path[] = "/node";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mknod (g, 4607, 0, 0, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/node";
+    struct guestfs_stat *r;
+    suppress_error = 0;
+    r = guestfs_stat (g, path);
+    if (r == NULL)
+      return -1;
+    if (r->mode != 4589) {
+      fprintf (stderr, "test_mknod_0: mode was %d, expected 4589\n",
+               (int) r->mode);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
+}
+
+static int test_mknod_1_skip (void)
+{
+  const char *str;
+
+  str = getenv ("TEST_ONLY");
+  if (str)
+    return strstr (str, "mknod") == NULL;
+  str = getenv ("SKIP_TEST_MKNOD_1");
+  if (str && strcmp (str, "1") == 0) return 1;
+  str = getenv ("SKIP_TEST_MKNOD");
+  if (str && strcmp (str, "1") == 0) return 1;
+  return 0;
+}
+
+static int test_mknod_1 (void)
+{
+  if (test_mknod_1_skip ()) {
+    printf ("%s skipped (reason: environment variable set)\n", "test_mknod_1");
+    return 0;
+  }
+
+  /* InitBasicFS for test_mknod_1: create ext2 on /dev/sda1 */
+  {
+    char device[] = "/dev/sda";
+    int r;
+    suppress_error = 0;
+    r = guestfs_blockdev_setrw (g, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_umount_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    int r;
+    suppress_error = 0;
+    r = guestfs_lvm_remove_all (g);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda";
+    char lines_0[] = ",";
+    char *lines[] = {
+      lines_0,
+      NULL
+    };
+    int r;
+    suppress_error = 0;
+    r = guestfs_sfdisk (g, device, 0, 0, 0, lines);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char fstype[] = "ext2";
+    char device[] = "/dev/sda1";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mkfs (g, fstype, device);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char device[] = "/dev/sda1";
+    char mountpoint[] = "/";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mount (g, device, mountpoint);
+    if (r == -1)
+      return -1;
+  }
+  /* TestOutputStruct for mknod (1) */
+  {
+    char path[] = "/node";
+    int r;
+    suppress_error = 0;
+    r = guestfs_mknod (g, 25087, 66, 99, path);
+    if (r == -1)
+      return -1;
+  }
+  {
+    char path[] = "/node";
+    struct guestfs_stat *r;
+    suppress_error = 0;
+    r = guestfs_stat (g, path);
+    if (r == NULL)
+      return -1;
+    if (r->mode != 25069) {
+      fprintf (stderr, "test_mknod_1: mode was %d, expected 25069\n",
+               (int) r->mode);
+      return -1;
+    }
+    free (r);
+  }
+  return 0;
 }
 
 static int test_mkswap_U_0_skip (void)
@@ -18975,8 +19481,38 @@ int main (int argc, char *argv[])
   /* Cancel previous alarm. */
   alarm (0);
 
-  nr_tests = 169;
+  nr_tests = 174;
 
+  test_num++;
+  printf ("%3d/%3d test_mknod_c_0\n", test_num, nr_tests);
+  if (test_mknod_c_0 () == -1) {
+    printf ("test_mknod_c_0 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_mknod_b_0\n", test_num, nr_tests);
+  if (test_mknod_b_0 () == -1) {
+    printf ("test_mknod_b_0 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_mkfifo_0\n", test_num, nr_tests);
+  if (test_mkfifo_0 () == -1) {
+    printf ("test_mkfifo_0 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_mknod_0\n", test_num, nr_tests);
+  if (test_mknod_0 () == -1) {
+    printf ("test_mknod_0 FAILED\n");
+    failed++;
+  }
+  test_num++;
+  printf ("%3d/%3d test_mknod_1\n", test_num, nr_tests);
+  if (test_mknod_1 () == -1) {
+    printf ("test_mknod_1 FAILED\n");
+    failed++;
+  }
   test_num++;
   printf ("%3d/%3d test_mkswap_U_0\n", test_num, nr_tests);
   if (test_mkswap_U_0 () == -1) {

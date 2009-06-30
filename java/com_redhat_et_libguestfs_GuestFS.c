@@ -4530,3 +4530,108 @@ Java_com_redhat_et_libguestfs_GuestFS__1mkswap_1U
   }
 }
 
+JNIEXPORT void JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1mknod
+  (JNIEnv *env, jobject obj, jlong jg, jint jmode, jint jdevmajor, jint jdevminor, jstring jpath)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+  int mode;
+  int devmajor;
+  int devminor;
+  const char *path;
+
+  mode = jmode;
+  devmajor = jdevmajor;
+  devminor = jdevminor;
+  path = (*env)->GetStringUTFChars (env, jpath, NULL);
+  r = guestfs_mknod (g, mode, devmajor, devminor, path);
+  (*env)->ReleaseStringUTFChars (env, jpath, path);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return ;
+  }
+}
+
+JNIEXPORT void JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1mkfifo
+  (JNIEnv *env, jobject obj, jlong jg, jint jmode, jstring jpath)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+  int mode;
+  const char *path;
+
+  mode = jmode;
+  path = (*env)->GetStringUTFChars (env, jpath, NULL);
+  r = guestfs_mkfifo (g, mode, path);
+  (*env)->ReleaseStringUTFChars (env, jpath, path);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return ;
+  }
+}
+
+JNIEXPORT void JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1mknod_1b
+  (JNIEnv *env, jobject obj, jlong jg, jint jmode, jint jdevmajor, jint jdevminor, jstring jpath)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+  int mode;
+  int devmajor;
+  int devminor;
+  const char *path;
+
+  mode = jmode;
+  devmajor = jdevmajor;
+  devminor = jdevminor;
+  path = (*env)->GetStringUTFChars (env, jpath, NULL);
+  r = guestfs_mknod_b (g, mode, devmajor, devminor, path);
+  (*env)->ReleaseStringUTFChars (env, jpath, path);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return ;
+  }
+}
+
+JNIEXPORT void JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1mknod_1c
+  (JNIEnv *env, jobject obj, jlong jg, jint jmode, jint jdevmajor, jint jdevminor, jstring jpath)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+  int mode;
+  int devmajor;
+  int devminor;
+  const char *path;
+
+  mode = jmode;
+  devmajor = jdevmajor;
+  devminor = jdevminor;
+  path = (*env)->GetStringUTFChars (env, jpath, NULL);
+  r = guestfs_mknod_c (g, mode, devmajor, devminor, path);
+  (*env)->ReleaseStringUTFChars (env, jpath, path);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return ;
+  }
+}
+
+JNIEXPORT jint JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1umask
+  (JNIEnv *env, jobject obj, jlong jg, jint jmask)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+  int mask;
+
+  mask = jmask;
+  r = guestfs_umask (g, mask);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return 0;
+  }
+  return (jint) r;
+}
+

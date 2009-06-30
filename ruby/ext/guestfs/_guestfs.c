@@ -4749,6 +4749,122 @@ static VALUE ruby_guestfs_mkswap_U (VALUE gv, VALUE uuidv, VALUE devicev)
   return Qnil;
 }
 
+static VALUE ruby_guestfs_mknod (VALUE gv, VALUE modev, VALUE devmajorv, VALUE devminorv, VALUE pathv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "mknod");
+
+  int mode = NUM2INT (modev);
+  int devmajor = NUM2INT (devmajorv);
+  int devminor = NUM2INT (devminorv);
+  Check_Type (pathv, T_STRING);
+  const char *path = StringValueCStr (pathv);
+  if (!path)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "path", "mknod");
+
+  int r;
+
+  r = guestfs_mknod (g, mode, devmajor, devminor, path);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
+static VALUE ruby_guestfs_mkfifo (VALUE gv, VALUE modev, VALUE pathv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "mkfifo");
+
+  int mode = NUM2INT (modev);
+  Check_Type (pathv, T_STRING);
+  const char *path = StringValueCStr (pathv);
+  if (!path)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "path", "mkfifo");
+
+  int r;
+
+  r = guestfs_mkfifo (g, mode, path);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
+static VALUE ruby_guestfs_mknod_b (VALUE gv, VALUE modev, VALUE devmajorv, VALUE devminorv, VALUE pathv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "mknod_b");
+
+  int mode = NUM2INT (modev);
+  int devmajor = NUM2INT (devmajorv);
+  int devminor = NUM2INT (devminorv);
+  Check_Type (pathv, T_STRING);
+  const char *path = StringValueCStr (pathv);
+  if (!path)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "path", "mknod_b");
+
+  int r;
+
+  r = guestfs_mknod_b (g, mode, devmajor, devminor, path);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
+static VALUE ruby_guestfs_mknod_c (VALUE gv, VALUE modev, VALUE devmajorv, VALUE devminorv, VALUE pathv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "mknod_c");
+
+  int mode = NUM2INT (modev);
+  int devmajor = NUM2INT (devmajorv);
+  int devminor = NUM2INT (devminorv);
+  Check_Type (pathv, T_STRING);
+  const char *path = StringValueCStr (pathv);
+  if (!path)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "path", "mknod_c");
+
+  int r;
+
+  r = guestfs_mknod_c (g, mode, devmajor, devminor, path);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
+static VALUE ruby_guestfs_umask (VALUE gv, VALUE maskv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "umask");
+
+  int mask = NUM2INT (maskv);
+
+  int r;
+
+  r = guestfs_umask (g, mask);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return INT2NUM (r);
+}
+
 /* Initialize the module. */
 void Init__guestfs ()
 {
@@ -5131,4 +5247,14 @@ void Init__guestfs ()
         ruby_guestfs_mkswap_L, 2);
   rb_define_method (c_guestfs, "mkswap_U",
         ruby_guestfs_mkswap_U, 2);
+  rb_define_method (c_guestfs, "mknod",
+        ruby_guestfs_mknod, 4);
+  rb_define_method (c_guestfs, "mkfifo",
+        ruby_guestfs_mkfifo, 2);
+  rb_define_method (c_guestfs, "mknod_b",
+        ruby_guestfs_mknod_b, 4);
+  rb_define_method (c_guestfs, "mknod_c",
+        ruby_guestfs_mknod_c, 4);
+  rb_define_method (c_guestfs, "umask",
+        ruby_guestfs_umask, 1);
 }

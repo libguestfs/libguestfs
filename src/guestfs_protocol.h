@@ -1147,6 +1147,46 @@ struct guestfs_mkswap_U_args {
 };
 typedef struct guestfs_mkswap_U_args guestfs_mkswap_U_args;
 
+struct guestfs_mknod_args {
+	int mode;
+	int devmajor;
+	int devminor;
+	char *path;
+};
+typedef struct guestfs_mknod_args guestfs_mknod_args;
+
+struct guestfs_mkfifo_args {
+	int mode;
+	char *path;
+};
+typedef struct guestfs_mkfifo_args guestfs_mkfifo_args;
+
+struct guestfs_mknod_b_args {
+	int mode;
+	int devmajor;
+	int devminor;
+	char *path;
+};
+typedef struct guestfs_mknod_b_args guestfs_mknod_b_args;
+
+struct guestfs_mknod_c_args {
+	int mode;
+	int devmajor;
+	int devminor;
+	char *path;
+};
+typedef struct guestfs_mknod_c_args guestfs_mknod_c_args;
+
+struct guestfs_umask_args {
+	int mask;
+};
+typedef struct guestfs_umask_args guestfs_umask_args;
+
+struct guestfs_umask_ret {
+	int oldmask;
+};
+typedef struct guestfs_umask_ret guestfs_umask_ret;
+
 enum guestfs_procedure {
 	GUESTFS_PROC_MOUNT = 1,
 	GUESTFS_PROC_SYNC = 2,
@@ -1280,7 +1320,12 @@ enum guestfs_procedure {
 	GUESTFS_PROC_MKSWAP = 130,
 	GUESTFS_PROC_MKSWAP_L = 131,
 	GUESTFS_PROC_MKSWAP_U = 132,
-	GUESTFS_PROC_NR_PROCS = 132 + 1,
+	GUESTFS_PROC_MKNOD = 133,
+	GUESTFS_PROC_MKFIFO = 134,
+	GUESTFS_PROC_MKNOD_B = 135,
+	GUESTFS_PROC_MKNOD_C = 136,
+	GUESTFS_PROC_UMASK = 137,
+	GUESTFS_PROC_NR_PROCS = 137 + 1,
 };
 typedef enum guestfs_procedure guestfs_procedure;
 #define GUESTFS_MESSAGE_MAX 4194304
@@ -1516,6 +1561,12 @@ extern  bool_t xdr_guestfs_mount_loop_args (XDR *, guestfs_mount_loop_args*);
 extern  bool_t xdr_guestfs_mkswap_args (XDR *, guestfs_mkswap_args*);
 extern  bool_t xdr_guestfs_mkswap_L_args (XDR *, guestfs_mkswap_L_args*);
 extern  bool_t xdr_guestfs_mkswap_U_args (XDR *, guestfs_mkswap_U_args*);
+extern  bool_t xdr_guestfs_mknod_args (XDR *, guestfs_mknod_args*);
+extern  bool_t xdr_guestfs_mkfifo_args (XDR *, guestfs_mkfifo_args*);
+extern  bool_t xdr_guestfs_mknod_b_args (XDR *, guestfs_mknod_b_args*);
+extern  bool_t xdr_guestfs_mknod_c_args (XDR *, guestfs_mknod_c_args*);
+extern  bool_t xdr_guestfs_umask_args (XDR *, guestfs_umask_args*);
+extern  bool_t xdr_guestfs_umask_ret (XDR *, guestfs_umask_ret*);
 extern  bool_t xdr_guestfs_procedure (XDR *, guestfs_procedure*);
 extern  bool_t xdr_guestfs_message_direction (XDR *, guestfs_message_direction*);
 extern  bool_t xdr_guestfs_message_status (XDR *, guestfs_message_status*);
@@ -1710,6 +1761,12 @@ extern bool_t xdr_guestfs_mount_loop_args ();
 extern bool_t xdr_guestfs_mkswap_args ();
 extern bool_t xdr_guestfs_mkswap_L_args ();
 extern bool_t xdr_guestfs_mkswap_U_args ();
+extern bool_t xdr_guestfs_mknod_args ();
+extern bool_t xdr_guestfs_mkfifo_args ();
+extern bool_t xdr_guestfs_mknod_b_args ();
+extern bool_t xdr_guestfs_mknod_c_args ();
+extern bool_t xdr_guestfs_umask_args ();
+extern bool_t xdr_guestfs_umask_ret ();
 extern bool_t xdr_guestfs_procedure ();
 extern bool_t xdr_guestfs_message_direction ();
 extern bool_t xdr_guestfs_message_status ();

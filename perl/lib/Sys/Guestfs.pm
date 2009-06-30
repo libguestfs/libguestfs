@@ -949,11 +949,39 @@ directory and its contents after use.
 
 See also: L<mkdtemp(3)>
 
+=item $h->mkfifo ($mode, $path);
+
+This call creates a FIFO (named pipe) called C<path> with
+mode C<mode>.  It is just a convenient wrapper around
+C<$h-E<gt>mknod>.
+
 =item $h->mkfs ($fstype, $device);
 
 This creates a filesystem on C<device> (usually a partition
 or LVM logical volume).  The filesystem type is C<fstype>, for
 example C<ext3>.
+
+=item $h->mknod ($mode, $devmajor, $devminor, $path);
+
+This call creates block or character special devices, or
+named pipes (FIFOs).
+
+The C<mode> parameter should be the mode, using the standard
+constants.  C<devmajor> and C<devminor> are the
+device major and minor numbers, only used when creating block
+and character special devices.
+
+=item $h->mknod_b ($mode, $devmajor, $devminor, $path);
+
+This call creates a block device node called C<path> with
+mode C<mode> and device major/minor C<devmajor> and C<devminor>.
+It is just a convenient wrapper around C<$h-E<gt>mknod>.
+
+=item $h->mknod_c ($mode, $devmajor, $devminor, $path);
+
+This call creates a char device node called C<path> with
+mode C<mode> and device major/minor C<devmajor> and C<devminor>.
+It is just a convenient wrapper around C<$h-E<gt>mknod>.
 
 =item $h->mkswap ($device);
 
@@ -1441,6 +1469,20 @@ It is the same as running C<tune2fs -l device>.  See L<tune2fs(8)>
 manpage for more details.  The list of fields returned isn't
 clearly defined, and depends on both the version of C<tune2fs>
 that libguestfs was built against, and the filesystem itself.
+
+=item $oldmask = $h->umask ($mask);
+
+This function sets the mask used for creating new files and
+device nodes to C<mask & 0777>.
+
+Typical umask values would be C<022> which creates new files
+with permissions like "-rw-r--r--" or "-rwxr-xr-x", and
+C<002> which creates new files with permissions like
+"-rw-rw-r--" or "-rwxrwxr-x".
+
+See also L<umask(2)>, C<$h-E<gt>mknod>, C<$h-E<gt>mkdir>.
+
+This call returns the previous umask.
 
 =item $h->umount ($pathordevice);
 

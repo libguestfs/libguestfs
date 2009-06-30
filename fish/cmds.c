@@ -116,7 +116,11 @@ void list_commands (void)
   printf ("%-20s %s\n", "mkdir", "create a directory");
   printf ("%-20s %s\n", "mkdir-p", "create a directory and parents");
   printf ("%-20s %s\n", "mkdtemp", "create a temporary directory");
+  printf ("%-20s %s\n", "mkfifo", "make FIFO (named pipe)");
   printf ("%-20s %s\n", "mkfs", "make a filesystem");
+  printf ("%-20s %s\n", "mknod", "make block, character or FIFO devices");
+  printf ("%-20s %s\n", "mknod-b", "make block device node");
+  printf ("%-20s %s\n", "mknod-c", "make char device node");
   printf ("%-20s %s\n", "mkswap", "create a swap partition");
   printf ("%-20s %s\n", "mkswap-L", "create a swap partition with a label");
   printf ("%-20s %s\n", "mkswap-U", "create a swap partition with an explicit UUID");
@@ -171,6 +175,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "tgz-out", "pack directory into compressed tarball");
   printf ("%-20s %s\n", "touch", "update file timestamps or create a new file");
   printf ("%-20s %s\n", "tune2fs-l", "get ext2/ext3/ext4 superblock details");
+  printf ("%-20s %s\n", "umask", "set file mode creation mask (umask)");
   printf ("%-20s %s\n", "umount", "unmount a filesystem");
   printf ("%-20s %s\n", "umount-all", "unmount all filesystems");
   printf ("%-20s %s\n", "upload", "upload a file from the local machine");
@@ -655,6 +660,21 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "mkswap_U") == 0 || strcasecmp (cmd, "mkswap-U") == 0)
     pod2text ("mkswap-U - create a swap partition with an explicit UUID", " mkswap-U <uuid> <device>\n\nCreate a swap partition on C<device> with UUID C<uuid>.");
+  else
+  if (strcasecmp (cmd, "mknod") == 0)
+    pod2text ("mknod - make block, character or FIFO devices", " mknod <mode> <devmajor> <devminor> <path>\n\nThis call creates block or character special devices, or\nnamed pipes (FIFOs).\n\nThe C<mode> parameter should be the mode, using the standard\nconstants.  C<devmajor> and C<devminor> are the\ndevice major and minor numbers, only used when creating block\nand character special devices.");
+  else
+  if (strcasecmp (cmd, "mkfifo") == 0)
+    pod2text ("mkfifo - make FIFO (named pipe)", " mkfifo <mode> <path>\n\nThis call creates a FIFO (named pipe) called C<path> with\nmode C<mode>.  It is just a convenient wrapper around\nC<mknod>.");
+  else
+  if (strcasecmp (cmd, "mknod_b") == 0 || strcasecmp (cmd, "mknod-b") == 0)
+    pod2text ("mknod-b - make block device node", " mknod-b <mode> <devmajor> <devminor> <path>\n\nThis call creates a block device node called C<path> with\nmode C<mode> and device major/minor C<devmajor> and C<devminor>.\nIt is just a convenient wrapper around C<mknod>.");
+  else
+  if (strcasecmp (cmd, "mknod_c") == 0 || strcasecmp (cmd, "mknod-c") == 0)
+    pod2text ("mknod-c - make char device node", " mknod-c <mode> <devmajor> <devminor> <path>\n\nThis call creates a char device node called C<path> with\nmode C<mode> and device major/minor C<devmajor> and C<devminor>.\nIt is just a convenient wrapper around C<mknod>.");
+  else
+  if (strcasecmp (cmd, "umask") == 0)
+    pod2text ("umask - set file mode creation mask (umask)", " umask <mask>\n\nThis function sets the mask used for creating new files and\ndevice nodes to C<mask & 0777>.\n\nTypical umask values would be C<022> which creates new files\nwith permissions like \"-rw-r--r--\" or \"-rwxr-xr-x\", and\nC<002> which creates new files with permissions like\n\"-rw-rw-r--\" or \"-rwxrwxr-x\".\n\nSee also L<umask(2)>, C<mknod>, C<mkdir>.\n\nThis call returns the previous umask.");
   else
     display_builtin_command (cmd);
 }
@@ -3217,6 +3237,98 @@ static int run_mkswap_U (const char *cmd, int argc, char *argv[])
   return r;
 }
 
+static int run_mknod (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  int mode;
+  int devmajor;
+  int devminor;
+  const char *path;
+  if (argc != 4) {
+    fprintf (stderr, "%s should have 4 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  mode = atoi (argv[0]);
+  devmajor = atoi (argv[1]);
+  devminor = atoi (argv[2]);
+  path = argv[3];
+  r = guestfs_mknod (g, mode, devmajor, devminor, path);
+  return r;
+}
+
+static int run_mkfifo (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  int mode;
+  const char *path;
+  if (argc != 2) {
+    fprintf (stderr, "%s should have 2 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  mode = atoi (argv[0]);
+  path = argv[1];
+  r = guestfs_mkfifo (g, mode, path);
+  return r;
+}
+
+static int run_mknod_b (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  int mode;
+  int devmajor;
+  int devminor;
+  const char *path;
+  if (argc != 4) {
+    fprintf (stderr, "%s should have 4 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  mode = atoi (argv[0]);
+  devmajor = atoi (argv[1]);
+  devminor = atoi (argv[2]);
+  path = argv[3];
+  r = guestfs_mknod_b (g, mode, devmajor, devminor, path);
+  return r;
+}
+
+static int run_mknod_c (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  int mode;
+  int devmajor;
+  int devminor;
+  const char *path;
+  if (argc != 4) {
+    fprintf (stderr, "%s should have 4 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  mode = atoi (argv[0]);
+  devmajor = atoi (argv[1]);
+  devminor = atoi (argv[2]);
+  path = argv[3];
+  r = guestfs_mknod_c (g, mode, devmajor, devminor, path);
+  return r;
+}
+
+static int run_umask (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  int mask;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  mask = atoi (argv[0]);
+  r = guestfs_umask (g, mask);
+  if (r == -1) return -1;
+  printf ("%d\n", r);
+  return 0;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -3683,6 +3795,21 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "mkswap_U") == 0 || strcasecmp (cmd, "mkswap-U") == 0)
     return run_mkswap_U (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "mknod") == 0)
+    return run_mknod (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "mkfifo") == 0)
+    return run_mkfifo (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "mknod_b") == 0 || strcasecmp (cmd, "mknod-b") == 0)
+    return run_mknod_b (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "mknod_c") == 0 || strcasecmp (cmd, "mknod-c") == 0)
+    return run_mknod_c (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "umask") == 0)
+    return run_umask (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

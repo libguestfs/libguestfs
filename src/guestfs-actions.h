@@ -205,3 +205,8 @@ extern int guestfs_mount_loop (guestfs_h *handle, const char *file, const char *
 extern int guestfs_mkswap (guestfs_h *handle, const char *device);
 extern int guestfs_mkswap_L (guestfs_h *handle, const char *label, const char *device);
 extern int guestfs_mkswap_U (guestfs_h *handle, const char *uuid, const char *device);
+extern int guestfs_mknod (guestfs_h *handle, int mode, int devmajor, int devminor, const char *path);
+extern int guestfs_mkfifo (guestfs_h *handle, int mode, const char *path);
+extern int guestfs_mknod_b (guestfs_h *handle, int mode, int devmajor, int devminor, const char *path);
+extern int guestfs_mknod_c (guestfs_h *handle, int mode, int devmajor, int devminor, const char *path);
+extern int guestfs_umask (guestfs_h *handle, int mask);

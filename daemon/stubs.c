@@ -3335,6 +3335,148 @@ done:
   xdr_free ((xdrproc_t) xdr_guestfs_mkswap_U_args, (char *) &args);
 }
 
+static void mknod_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_mknod_args args;
+  int mode;
+  int devmajor;
+  int devminor;
+  char *path;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_mknod_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "mknod");
+    return;
+  }
+  mode = args.mode;
+  devmajor = args.devmajor;
+  devminor = args.devminor;
+  path = args.path;
+
+  r = do_mknod (mode, devmajor, devminor, path);
+  if (r == -1)
+    /* do_mknod has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_mknod_args, (char *) &args);
+}
+
+static void mkfifo_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_mkfifo_args args;
+  int mode;
+  char *path;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_mkfifo_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "mkfifo");
+    return;
+  }
+  mode = args.mode;
+  path = args.path;
+
+  r = do_mkfifo (mode, path);
+  if (r == -1)
+    /* do_mkfifo has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_mkfifo_args, (char *) &args);
+}
+
+static void mknod_b_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_mknod_b_args args;
+  int mode;
+  int devmajor;
+  int devminor;
+  char *path;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_mknod_b_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "mknod_b");
+    return;
+  }
+  mode = args.mode;
+  devmajor = args.devmajor;
+  devminor = args.devminor;
+  path = args.path;
+
+  r = do_mknod_b (mode, devmajor, devminor, path);
+  if (r == -1)
+    /* do_mknod_b has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_mknod_b_args, (char *) &args);
+}
+
+static void mknod_c_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_mknod_c_args args;
+  int mode;
+  int devmajor;
+  int devminor;
+  char *path;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_mknod_c_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "mknod_c");
+    return;
+  }
+  mode = args.mode;
+  devmajor = args.devmajor;
+  devminor = args.devminor;
+  path = args.path;
+
+  r = do_mknod_c (mode, devmajor, devminor, path);
+  if (r == -1)
+    /* do_mknod_c has already called reply_with_error */
+    goto done;
+
+  reply (NULL, NULL);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_mknod_c_args, (char *) &args);
+}
+
+static void umask_stub (XDR *xdr_in)
+{
+  int r;
+  struct guestfs_umask_args args;
+  int mask;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_umask_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "umask");
+    return;
+  }
+  mask = args.mask;
+
+  r = do_umask (mask);
+  if (r == -1)
+    /* do_umask has already called reply_with_error */
+    goto done;
+
+  struct guestfs_umask_ret ret;
+  ret.oldmask = r;
+  reply ((xdrproc_t) &xdr_guestfs_umask_ret, (char *) &ret);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_umask_args, (char *) &args);
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -3733,6 +3875,21 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_MKSWAP_U:
       mkswap_U_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_MKNOD:
+      mknod_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_MKFIFO:
+      mkfifo_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_MKNOD_B:
+      mknod_b_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_MKNOD_C:
+      mknod_c_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_UMASK:
+      umask_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d, set LIBGUESTFS_PATH to point to the matching libguestfs appliance directory", proc_nr);

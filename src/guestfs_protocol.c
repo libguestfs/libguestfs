@@ -2238,6 +2238,203 @@ xdr_guestfs_mkswap_U_args (XDR *xdrs, guestfs_mkswap_U_args *objp)
 }
 
 bool_t
+xdr_guestfs_mknod_args (XDR *xdrs, guestfs_mknod_args *objp)
+{
+	register int32_t *buf;
+
+
+	if (xdrs->x_op == XDR_ENCODE) {
+		buf = XDR_INLINE (xdrs, 3 * BYTES_PER_XDR_UNIT);
+		if (buf == NULL) {
+			 if (!xdr_int (xdrs, &objp->mode))
+				 return FALSE;
+			 if (!xdr_int (xdrs, &objp->devmajor))
+				 return FALSE;
+			 if (!xdr_int (xdrs, &objp->devminor))
+				 return FALSE;
+
+		} else {
+		IXDR_PUT_LONG(buf, objp->mode);
+		IXDR_PUT_LONG(buf, objp->devmajor);
+		IXDR_PUT_LONG(buf, objp->devminor);
+		}
+		 if (!xdr_string (xdrs, &objp->path, ~0))
+			 return FALSE;
+		return TRUE;
+	} else if (xdrs->x_op == XDR_DECODE) {
+		buf = XDR_INLINE (xdrs, 3 * BYTES_PER_XDR_UNIT);
+		if (buf == NULL) {
+			 if (!xdr_int (xdrs, &objp->mode))
+				 return FALSE;
+			 if (!xdr_int (xdrs, &objp->devmajor))
+				 return FALSE;
+			 if (!xdr_int (xdrs, &objp->devminor))
+				 return FALSE;
+
+		} else {
+		objp->mode = IXDR_GET_LONG(buf);
+		objp->devmajor = IXDR_GET_LONG(buf);
+		objp->devminor = IXDR_GET_LONG(buf);
+		}
+		 if (!xdr_string (xdrs, &objp->path, ~0))
+			 return FALSE;
+	 return TRUE;
+	}
+
+	 if (!xdr_int (xdrs, &objp->mode))
+		 return FALSE;
+	 if (!xdr_int (xdrs, &objp->devmajor))
+		 return FALSE;
+	 if (!xdr_int (xdrs, &objp->devminor))
+		 return FALSE;
+	 if (!xdr_string (xdrs, &objp->path, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_mkfifo_args (XDR *xdrs, guestfs_mkfifo_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_int (xdrs, &objp->mode))
+		 return FALSE;
+	 if (!xdr_string (xdrs, &objp->path, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_mknod_b_args (XDR *xdrs, guestfs_mknod_b_args *objp)
+{
+	register int32_t *buf;
+
+
+	if (xdrs->x_op == XDR_ENCODE) {
+		buf = XDR_INLINE (xdrs, 3 * BYTES_PER_XDR_UNIT);
+		if (buf == NULL) {
+			 if (!xdr_int (xdrs, &objp->mode))
+				 return FALSE;
+			 if (!xdr_int (xdrs, &objp->devmajor))
+				 return FALSE;
+			 if (!xdr_int (xdrs, &objp->devminor))
+				 return FALSE;
+
+		} else {
+		IXDR_PUT_LONG(buf, objp->mode);
+		IXDR_PUT_LONG(buf, objp->devmajor);
+		IXDR_PUT_LONG(buf, objp->devminor);
+		}
+		 if (!xdr_string (xdrs, &objp->path, ~0))
+			 return FALSE;
+		return TRUE;
+	} else if (xdrs->x_op == XDR_DECODE) {
+		buf = XDR_INLINE (xdrs, 3 * BYTES_PER_XDR_UNIT);
+		if (buf == NULL) {
+			 if (!xdr_int (xdrs, &objp->mode))
+				 return FALSE;
+			 if (!xdr_int (xdrs, &objp->devmajor))
+				 return FALSE;
+			 if (!xdr_int (xdrs, &objp->devminor))
+				 return FALSE;
+
+		} else {
+		objp->mode = IXDR_GET_LONG(buf);
+		objp->devmajor = IXDR_GET_LONG(buf);
+		objp->devminor = IXDR_GET_LONG(buf);
+		}
+		 if (!xdr_string (xdrs, &objp->path, ~0))
+			 return FALSE;
+	 return TRUE;
+	}
+
+	 if (!xdr_int (xdrs, &objp->mode))
+		 return FALSE;
+	 if (!xdr_int (xdrs, &objp->devmajor))
+		 return FALSE;
+	 if (!xdr_int (xdrs, &objp->devminor))
+		 return FALSE;
+	 if (!xdr_string (xdrs, &objp->path, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_mknod_c_args (XDR *xdrs, guestfs_mknod_c_args *objp)
+{
+	register int32_t *buf;
+
+
+	if (xdrs->x_op == XDR_ENCODE) {
+		buf = XDR_INLINE (xdrs, 3 * BYTES_PER_XDR_UNIT);
+		if (buf == NULL) {
+			 if (!xdr_int (xdrs, &objp->mode))
+				 return FALSE;
+			 if (!xdr_int (xdrs, &objp->devmajor))
+				 return FALSE;
+			 if (!xdr_int (xdrs, &objp->devminor))
+				 return FALSE;
+
+		} else {
+		IXDR_PUT_LONG(buf, objp->mode);
+		IXDR_PUT_LONG(buf, objp->devmajor);
+		IXDR_PUT_LONG(buf, objp->devminor);
+		}
+		 if (!xdr_string (xdrs, &objp->path, ~0))
+			 return FALSE;
+		return TRUE;
+	} else if (xdrs->x_op == XDR_DECODE) {
+		buf = XDR_INLINE (xdrs, 3 * BYTES_PER_XDR_UNIT);
+		if (buf == NULL) {
+			 if (!xdr_int (xdrs, &objp->mode))
+				 return FALSE;
+			 if (!xdr_int (xdrs, &objp->devmajor))
+				 return FALSE;
+			 if (!xdr_int (xdrs, &objp->devminor))
+				 return FALSE;
+
+		} else {
+		objp->mode = IXDR_GET_LONG(buf);
+		objp->devmajor = IXDR_GET_LONG(buf);
+		objp->devminor = IXDR_GET_LONG(buf);
+		}
+		 if (!xdr_string (xdrs, &objp->path, ~0))
+			 return FALSE;
+	 return TRUE;
+	}
+
+	 if (!xdr_int (xdrs, &objp->mode))
+		 return FALSE;
+	 if (!xdr_int (xdrs, &objp->devmajor))
+		 return FALSE;
+	 if (!xdr_int (xdrs, &objp->devminor))
+		 return FALSE;
+	 if (!xdr_string (xdrs, &objp->path, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_umask_args (XDR *xdrs, guestfs_umask_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_int (xdrs, &objp->mask))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_umask_ret (XDR *xdrs, guestfs_umask_ret *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_int (xdrs, &objp->oldmask))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
 xdr_guestfs_procedure (XDR *xdrs, guestfs_procedure *objp)
 {
 	register int32_t *buf;

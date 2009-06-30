@@ -4777,3 +4777,128 @@ ocaml_guestfs_mkswap_U (value gv, value uuidv, value devicev)
   CAMLreturn (rv);
 }
 
+CAMLprim value
+ocaml_guestfs_mknod (value gv, value modev, value devmajorv, value devminorv, value pathv)
+{
+  CAMLparam5 (gv, modev, devmajorv, devminorv, pathv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("mknod: used handle after closing it");
+
+  int mode = Int_val (modev);
+  int devmajor = Int_val (devmajorv);
+  int devminor = Int_val (devminorv);
+  const char *path = String_val (pathv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_mknod (g, mode, devmajor, devminor, path);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "mknod");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_mkfifo (value gv, value modev, value pathv)
+{
+  CAMLparam3 (gv, modev, pathv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("mkfifo: used handle after closing it");
+
+  int mode = Int_val (modev);
+  const char *path = String_val (pathv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_mkfifo (g, mode, path);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "mkfifo");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_mknod_b (value gv, value modev, value devmajorv, value devminorv, value pathv)
+{
+  CAMLparam5 (gv, modev, devmajorv, devminorv, pathv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("mknod_b: used handle after closing it");
+
+  int mode = Int_val (modev);
+  int devmajor = Int_val (devmajorv);
+  int devminor = Int_val (devminorv);
+  const char *path = String_val (pathv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_mknod_b (g, mode, devmajor, devminor, path);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "mknod_b");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_mknod_c (value gv, value modev, value devmajorv, value devminorv, value pathv)
+{
+  CAMLparam5 (gv, modev, devmajorv, devminorv, pathv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("mknod_c: used handle after closing it");
+
+  int mode = Int_val (modev);
+  int devmajor = Int_val (devmajorv);
+  int devminor = Int_val (devminorv);
+  const char *path = String_val (pathv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_mknod_c (g, mode, devmajor, devminor, path);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "mknod_c");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_umask (value gv, value maskv)
+{
+  CAMLparam2 (gv, maskv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("umask: used handle after closing it");
+
+  int mask = Int_val (maskv);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_umask (g, mask);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "umask");
+
+  rv = Val_int (r);
+  CAMLreturn (rv);
+}
+
