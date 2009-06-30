@@ -1329,6 +1329,41 @@ static VALUE ruby_guestfs_end_busy (VALUE gv)
   return Qnil;
 }
 
+static VALUE ruby_guestfs_set_memsize (VALUE gv, VALUE memsizev)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "set_memsize");
+
+  int memsize = NUM2INT (memsizev);
+
+  int r;
+
+  r = guestfs_set_memsize (g, memsize);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return Qnil;
+}
+
+static VALUE ruby_guestfs_get_memsize (VALUE gv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "get_memsize");
+
+
+  int r;
+
+  r = guestfs_get_memsize (g);
+  if (r == -1)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  return INT2NUM (r);
+}
+
 static VALUE ruby_guestfs_mount (VALUE gv, VALUE devicev, VALUE mountpointv)
 {
   guestfs_h *g;
@@ -4828,6 +4863,10 @@ void Init__guestfs ()
         ruby_guestfs_set_ready, 0);
   rb_define_method (c_guestfs, "end_busy",
         ruby_guestfs_end_busy, 0);
+  rb_define_method (c_guestfs, "set_memsize",
+        ruby_guestfs_set_memsize, 1);
+  rb_define_method (c_guestfs, "get_memsize",
+        ruby_guestfs_get_memsize, 0);
   rb_define_method (c_guestfs, "mount",
         ruby_guestfs_mount, 2);
   rb_define_method (c_guestfs, "sync",

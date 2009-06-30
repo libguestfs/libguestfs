@@ -1402,6 +1402,37 @@ Java_com_redhat_et_libguestfs_GuestFS__1end_1busy
 }
 
 JNIEXPORT void JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1set_1memsize
+  (JNIEnv *env, jobject obj, jlong jg, jint jmemsize)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+  int memsize;
+
+  memsize = jmemsize;
+  r = guestfs_set_memsize (g, memsize);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return ;
+  }
+}
+
+JNIEXPORT jint JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1get_1memsize
+  (JNIEnv *env, jobject obj, jlong jg)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  int r;
+
+  r = guestfs_get_memsize (g);
+  if (r == -1) {
+    throw_exception (env, guestfs_last_error (g));
+    return 0;
+  }
+  return (jint) r;
+}
+
+JNIEXPORT void JNICALL
 Java_com_redhat_et_libguestfs_GuestFS__1mount
   (JNIEnv *env, jobject obj, jlong jg, jstring jdevice, jstring jmountpoint)
 {

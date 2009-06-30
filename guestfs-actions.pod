@@ -885,6 +885,22 @@ C<device>.
 This function returns a string, or NULL on error.
 I<The caller must free the returned string after use>.
 
+=head2 guestfs_get_memsize
+
+ int guestfs_get_memsize (guestfs_h *handle);
+
+This gets the memory size in megabytes allocated to the
+qemu subprocess.
+
+If C<guestfs_set_memsize> was not called
+on this handle, and if C<LIBGUESTFS_MEMSIZE> was not set,
+then this returns the compiled-in default value for memsize.
+
+For more information on the architecture of libguestfs,
+see L<guestfs(3)>.
+
+On error this function returns -1.
+
 =head2 guestfs_get_path
 
  const char *guestfs_get_path (guestfs_h *handle);
@@ -1734,6 +1750,24 @@ L<tune2fs(8)> manpage.
 
 You can use either C<guestfs_tune2fs_l> or C<guestfs_get_e2uuid>
 to return the existing UUID of a filesystem.
+
+This function returns 0 on success or -1 on error.
+
+=head2 guestfs_set_memsize
+
+ int guestfs_set_memsize (guestfs_h *handle,
+		int memsize);
+
+This sets the memory size in megabytes allocated to the
+qemu subprocess.  This only has any effect if called before
+C<guestfs_launch>.
+
+You can also change this by setting the environment
+variable C<LIBGUESTFS_MEMSIZE> before the handle is
+created.
+
+For more information on the architecture of libguestfs,
+see L<guestfs(3)>.
 
 This function returns 0 on success or -1 on error.
 

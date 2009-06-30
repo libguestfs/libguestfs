@@ -83,6 +83,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "get-autosync", "get autosync mode");
   printf ("%-20s %s\n", "get-e2label", "get the ext2/3/4 filesystem label");
   printf ("%-20s %s\n", "get-e2uuid", "get the ext2/3/4 filesystem UUID");
+  printf ("%-20s %s\n", "get-memsize", "get memory allocated to the qemu subprocess");
   printf ("%-20s %s\n", "get-path", "get the search path");
   printf ("%-20s %s\n", "get-qemu", "get the qemu binary");
   printf ("%-20s %s\n", "get-state", "get the current state");
@@ -145,6 +146,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "set-autosync", "set autosync mode");
   printf ("%-20s %s\n", "set-e2label", "set the ext2/3/4 filesystem label");
   printf ("%-20s %s\n", "set-e2uuid", "set the ext2/3/4 filesystem UUID");
+  printf ("%-20s %s\n", "set-memsize", "set memory allocated to the qemu subprocess");
   printf ("%-20s %s\n", "set-path", "set the search path");
   printf ("%-20s %s\n", "set-qemu", "set the qemu binary");
   printf ("%-20s %s\n", "set-verbose", "set verbose mode");
@@ -251,6 +253,12 @@ void display_command (const char *cmd)
   else
   if (strcasecmp (cmd, "get_state") == 0 || strcasecmp (cmd, "get-state") == 0)
     pod2text ("get-state - get the current state", " get-state\n\nThis returns the current state as an opaque integer.  This is\nonly useful for printing debug and internal error messages.\n\nFor more information on states, see L<guestfs(3)>.");
+  else
+  if (strcasecmp (cmd, "set_memsize") == 0 || strcasecmp (cmd, "set-memsize") == 0 || strcasecmp (cmd, "memsize") == 0)
+    pod2text ("set-memsize - set memory allocated to the qemu subprocess", " set-memsize <memsize>\n\nThis sets the memory size in megabytes allocated to the\nqemu subprocess.  This only has any effect if called before\nC<launch>.\n\nYou can also change this by setting the environment\nvariable C<LIBGUESTFS_MEMSIZE> before the handle is\ncreated.\n\nFor more information on the architecture of libguestfs,\nsee L<guestfs(3)>.\n\nYou can use 'memsize' as an alias for this command.");
+  else
+  if (strcasecmp (cmd, "get_memsize") == 0 || strcasecmp (cmd, "get-memsize") == 0)
+    pod2text ("get-memsize - get memory allocated to the qemu subprocess", " get-memsize\n\nThis gets the memory size in megabytes allocated to the\nqemu subprocess.\n\nIf C<set_memsize> was not called\non this handle, and if C<LIBGUESTFS_MEMSIZE> was not set,\nthen this returns the compiled-in default value for memsize.\n\nFor more information on the architecture of libguestfs,\nsee L<guestfs(3)>.");
   else
   if (strcasecmp (cmd, "mount") == 0)
     pod2text ("mount - mount a guest disk at a position in the filesystem", " mount <device> <mountpoint>\n\nMount a guest disk at a position in the filesystem.  Block devices\nare named C</dev/sda>, C</dev/sdb> and so on, as they were added to\nthe guest.  If those block devices contain partitions, they will have\nthe usual names (eg. C</dev/sda1>).  Also LVM C</dev/VG/LV>-style\nnames can be used.\n\nThe rules are the same as for L<mount(2)>:  A filesystem must\nfirst be mounted on C</> before others can be mounted.  Other\nfilesystems can only be mounted on directories which already\nexist.\n\nThe mounted filesystem is writable, if we have sufficient permissions\non the underlying device.\n\nThe filesystem options C<sync> and C<noatime> are set with this\ncall, in order to improve reliability.");
@@ -1072,6 +1080,34 @@ static int run_get_state (const char *cmd, int argc, char *argv[])
     return -1;
   }
   r = guestfs_get_state (g);
+  if (r == -1) return -1;
+  printf ("%d\n", r);
+  return 0;
+}
+
+static int run_set_memsize (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  int memsize;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  memsize = atoi (argv[0]);
+  r = guestfs_set_memsize (g, memsize);
+  return r;
+}
+
+static int run_get_memsize (const char *cmd, int argc, char *argv[])
+{
+  int r;
+  if (argc != 0) {
+    fprintf (stderr, "%s should have 0 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  r = guestfs_get_memsize (g);
   if (r == -1) return -1;
   printf ("%d\n", r);
   return 0;
@@ -3245,6 +3281,12 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "get_state") == 0 || strcasecmp (cmd, "get-state") == 0)
     return run_get_state (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "set_memsize") == 0 || strcasecmp (cmd, "set-memsize") == 0 || strcasecmp (cmd, "memsize") == 0)
+    return run_set_memsize (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "get_memsize") == 0 || strcasecmp (cmd, "get-memsize") == 0)
+    return run_get_memsize (cmd, argc, argv);
   else
   if (strcasecmp (cmd, "mount") == 0)
     return run_mount (cmd, argc, argv);

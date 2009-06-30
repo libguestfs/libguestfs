@@ -415,6 +415,33 @@ class GuestFS:
         """
         return libguestfsmod.end_busy (self._o)
 
+    def set_memsize (self, memsize):
+        u"""This sets the memory size in megabytes allocated to the
+        qemu subprocess. This only has any effect if called
+        before "g.launch".
+        
+        You can also change this by setting the environment
+        variable "LIBGUESTFS_MEMSIZE" before the handle is
+        created.
+        
+        For more information on the architecture of libguestfs,
+        see guestfs(3).
+        """
+        return libguestfsmod.set_memsize (self._o, memsize)
+
+    def get_memsize (self):
+        u"""This gets the memory size in megabytes allocated to the
+        qemu subprocess.
+        
+        If "g.set_memsize" was not called on this handle, and if
+        "LIBGUESTFS_MEMSIZE" was not set, then this returns the
+        compiled-in default value for memsize.
+        
+        For more information on the architecture of libguestfs,
+        see guestfs(3).
+        """
+        return libguestfsmod.get_memsize (self._o)
+
     def mount (self, device, mountpoint):
         u"""Mount a guest disk at a position in the filesystem.
         Block devices are named "/dev/sda", "/dev/sdb" and so

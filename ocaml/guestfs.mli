@@ -280,6 +280,12 @@ val set_ready : t -> unit
 val end_busy : t -> unit
 (** leave the busy state *)
 
+val set_memsize : t -> int -> unit
+(** set memory allocated to the qemu subprocess *)
+
+val get_memsize : t -> int
+(** get memory allocated to the qemu subprocess *)
+
 val mount : t -> string -> string -> unit
 (** mount a guest disk at a position in the filesystem *)
 

@@ -962,6 +962,30 @@ PREINIT:
         croak ("end_busy: %s", guestfs_last_error (g));
 
 void
+set_memsize (g, memsize)
+      guestfs_h *g;
+      int memsize;
+PREINIT:
+      int r;
+ PPCODE:
+      r = guestfs_set_memsize (g, memsize);
+      if (r == -1)
+        croak ("set_memsize: %s", guestfs_last_error (g));
+
+SV *
+get_memsize (g)
+      guestfs_h *g;
+PREINIT:
+      int memsize;
+   CODE:
+      memsize = guestfs_get_memsize (g);
+      if (memsize == -1)
+        croak ("get_memsize: %s", guestfs_last_error (g));
+      RETVAL = newSViv (memsize);
+ OUTPUT:
+      RETVAL
+
+void
 mount (g, device, mountpoint)
       guestfs_h *g;
       char *device;

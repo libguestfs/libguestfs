@@ -45,6 +45,8 @@ module Guestfs (
   set_busy,
   set_ready,
   end_busy,
+  set_memsize,
+  get_memsize,
   mount,
   sync,
   touch,
@@ -426,6 +428,30 @@ end_busy h = do
       err <- last_error h
       fail err
     else return ()
+
+foreign import ccall unsafe "guestfs_set_memsize" c_set_memsize
+  :: GuestfsP -> CInt -> IO (CInt)
+
+set_memsize :: GuestfsH -> Int -> IO ()
+set_memsize h memsize = do
+  r <- withForeignPtr h (\p -> c_set_memsize p (fromIntegral memsize))
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return ()
+
+foreign import ccall unsafe "guestfs_get_memsize" c_get_memsize
+  :: GuestfsP -> IO (CInt)
+
+get_memsize :: GuestfsH -> IO (Int)
+get_memsize h = do
+  r <- withForeignPtr h (\p -> c_get_memsize p)
+  if (r == -1)
+    then do
+      err <- last_error h
+      fail err
+    else return (fromIntegral r)
 
 foreign import ccall unsafe "guestfs_mount" c_mount
   :: GuestfsP -> CString -> CString -> IO (CInt)

@@ -680,6 +680,18 @@ C<device>.
 This returns the ext2/3/4 filesystem UUID of the filesystem on
 C<device>.
 
+=item $memsize = $h->get_memsize ();
+
+This gets the memory size in megabytes allocated to the
+qemu subprocess.
+
+If C<$h-E<gt>set_memsize> was not called
+on this handle, and if C<LIBGUESTFS_MEMSIZE> was not set,
+then this returns the compiled-in default value for memsize.
+
+For more information on the architecture of libguestfs,
+see L<guestfs(3)>.
+
 =item $path = $h->get_path ();
 
 Return the current search path.
@@ -1180,6 +1192,19 @@ L<tune2fs(8)> manpage.
 
 You can use either C<$h-E<gt>tune2fs_l> or C<$h-E<gt>get_e2uuid>
 to return the existing UUID of a filesystem.
+
+=item $h->set_memsize ($memsize);
+
+This sets the memory size in megabytes allocated to the
+qemu subprocess.  This only has any effect if called before
+C<$h-E<gt>launch>.
+
+You can also change this by setting the environment
+variable C<LIBGUESTFS_MEMSIZE> before the handle is
+created.
+
+For more information on the architecture of libguestfs,
+see L<guestfs(3)>.
 
 =item $h->set_path ($path);
 

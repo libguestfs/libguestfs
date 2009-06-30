@@ -908,6 +908,57 @@ public HashMap<String,String> test0rhashtableerr ()
     throws LibGuestFSException;
 
   /**
+   * set memory allocated to the qemu subprocess
+   * <p>
+   * This sets the memory size in megabytes allocated to the
+   * qemu subprocess. This only has any effect if called
+   * before "g.launch".
+   * <p>
+   * You can also change this by setting the environment
+   * variable "LIBGUESTFS_MEMSIZE" before the handle is
+   * created.
+   * <p>
+   * For more information on the architecture of libguestfs,
+   * see guestfs(3).
+   * <p>
+   * @throws LibGuestFSException
+   */
+  public void set_memsize (int memsize)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("set_memsize: handle is closed");
+    _set_memsize (g, memsize);
+  }
+  private native void _set_memsize (long g, int memsize)
+    throws LibGuestFSException;
+
+  /**
+   * get memory allocated to the qemu subprocess
+   * <p>
+   * This gets the memory size in megabytes allocated to the
+   * qemu subprocess.
+   * <p>
+   * If "g.set_memsize" was not called on this handle, and if
+   * "LIBGUESTFS_MEMSIZE" was not set, then this returns the
+   * compiled-in default value for memsize.
+   * <p>
+   * For more information on the architecture of libguestfs,
+   * see guestfs(3).
+   * <p>
+   * @throws LibGuestFSException
+   */
+  public int get_memsize ()
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("get_memsize: handle is closed");
+    return _get_memsize (g);
+  }
+  private native int _get_memsize (long g)
+    throws LibGuestFSException;
+
+  /**
    * mount a guest disk at a position in the filesystem
    * <p>
    * Mount a guest disk at a position in the filesystem.

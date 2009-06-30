@@ -1543,6 +1543,51 @@ ocaml_guestfs_end_busy (value gv)
 }
 
 CAMLprim value
+ocaml_guestfs_set_memsize (value gv, value memsizev)
+{
+  CAMLparam2 (gv, memsizev);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("set_memsize: used handle after closing it");
+
+  int memsize = Int_val (memsizev);
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_set_memsize (g, memsize);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "set_memsize");
+
+  rv = Val_unit;
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_get_memsize (value gv)
+{
+  CAMLparam1 (gv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("get_memsize: used handle after closing it");
+
+  int r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_get_memsize (g);
+  caml_leave_blocking_section ();
+  if (r == -1)
+    ocaml_guestfs_raise_error (g, "get_memsize");
+
+  rv = Val_int (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
 ocaml_guestfs_mount (value gv, value devicev, value mountpointv)
 {
   CAMLparam3 (gv, devicev, mountpointv);
