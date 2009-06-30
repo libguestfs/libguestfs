@@ -4278,6 +4278,8 @@ int main (int argc, char *argv[])
   int fd;
   int nr_tests, test_num = 0;
 
+  setbuf (stdout, NULL);
+
   no_test_warnings ();
 
   g = guestfs_create ();
@@ -4459,7 +4461,7 @@ static int %s_skip (void)
 static int %s (void)
 {
   if (%s_skip ()) {
-    printf (\"%%s skipped (reason: environment variable set)\\n\", \"%s\");
+    printf (\"        %%s skipped (reason: environment variable set)\\n\", \"%s\");
     return 0;
   }
 
@@ -4467,17 +4469,17 @@ static int %s (void)
 
   (match prereq with
    | Disabled ->
-       pr "  printf (\"%%s skipped (reason: test disabled in generator)\\n\", \"%s\");\n" test_name
+       pr "  printf (\"        %%s skipped (reason: test disabled in generator)\\n\", \"%s\");\n" test_name
    | If _ ->
        pr "  if (! %s_prereq ()) {\n" test_name;
-       pr "    printf (\"%%s skipped (reason: test prerequisite)\\n\", \"%s\");\n" test_name;
+       pr "    printf (\"        %%s skipped (reason: test prerequisite)\\n\", \"%s\");\n" test_name;
        pr "    return 0;\n";
        pr "  }\n";
        pr "\n";
        generate_one_test_body name i test_name init test;
    | Unless _ ->
        pr "  if (%s_prereq ()) {\n" test_name;
-       pr "    printf (\"%%s skipped (reason: test prerequisite)\\n\", \"%s\");\n" test_name;
+       pr "    printf (\"        %%s skipped (reason: test prerequisite)\\n\", \"%s\");\n" test_name;
        pr "    return 0;\n";
        pr "  }\n";
        pr "\n";
