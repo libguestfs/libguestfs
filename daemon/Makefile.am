@@ -46,6 +46,7 @@ guestfsd_SOURCES = \
 	initrd.c \
 	ls.c \
 	lvm.c \
+	mknod.c \
 	mount.c \
 	ntfs.c \
 	pingdaemon.c \
@@ -59,6 +60,7 @@ guestfsd_SOURCES = \
 	swap.c \
 	sync.c \
 	tar.c \
+	umask.c \
 	upload.c \
 	wc.c \
 	zero.c \

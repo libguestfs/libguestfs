@@ -2676,6 +2676,76 @@ Create a swap partition on C<device> with label C<label>.");
    "\
 Create a swap partition on C<device> with UUID C<uuid>.");
 
+  ("mknod", (RErr, [Int "mode"; Int "devmajor"; Int "devminor"; String "path"]), 133, [],
+   [InitBasicFS, Always, TestOutputStruct (
+      [["mknod"; "0o10777"; "0"; "0"; "/node"];
+       (* NB: default umask 022 means 0777 -> 0755 in these tests *)
+       ["stat"; "/node"]], [CompareWithInt ("mode", 0o10755)]);
+    InitBasicFS, Always, TestOutputStruct (
+      [["mknod"; "0o60777"; "66"; "99"; "/node"];
+       ["stat"; "/node"]], [CompareWithInt ("mode", 0o60755)])],
+   "make block, character or FIFO devices",
+   "\
+This call creates block or character special devices, or
+named pipes (FIFOs).
+
+The C<mode> parameter should be the mode, using the standard
+constants.  C<devmajor> and C<devminor> are the
+device major and minor numbers, only used when creating block
+and character special devices.");
+
+  ("mkfifo", (RErr, [Int "mode"; String "path"]), 134, [],
+   [InitBasicFS, Always, TestOutputStruct (
+      [["mkfifo"; "0o777"; "/node"];
+       ["stat"; "/node"]], [CompareWithInt ("mode", 0o10755)])],
+   "make FIFO (named pipe)",
+   "\
+This call creates a FIFO (named pipe) called C<path> with
+mode C<mode>.  It is just a convenient wrapper around
+C<guestfs_mknod>.");
+
+  ("mknod_b", (RErr, [Int "mode"; Int "devmajor"; Int "devminor"; String "path"]), 135, [],
+   [InitBasicFS, Always, TestOutputStruct (
+      [["mknod_b"; "0o777"; "99"; "66"; "/node"];
+       ["stat"; "/node"]], [CompareWithInt ("mode", 0o60755)])],
+   "make block device node",
+   "\
+This call creates a block device node called C<path> with
+mode C<mode> and device major/minor C<devmajor> and C<devminor>.
+It is just a convenient wrapper around C<guestfs_mknod>.");
+
+  ("mknod_c", (RErr, [Int "mode"; Int "devmajor"; Int "devminor"; String "path"]), 136, [],
+   [InitBasicFS, Always, TestOutputStruct (
+      [["mknod_c"; "0o777"; "99"; "66"; "/node"];
+       ["stat"; "/node"]], [CompareWithInt ("mode", 0o20755)])],
+   "make char device node",
+   "\
+This call creates a char device node called C<path> with
+mode C<mode> and device major/minor C<devmajor> and C<devminor>.
+It is just a convenient wrapper around C<guestfs_mknod>.");
+
+  ("umask", (RInt "oldmask", [Int "mask"]), 137, [],
+   [], (* XXX umask is one of those stateful things that we should
+	* reset between each test.
+	*)
+   "set file mode creation mask (umask)",
+   "\
+This function sets the mask used for creating new files and
+device nodes to C<mask & 0777>.
+
+Typical umask values would be C<022> which creates new files
+with permissions like \"-rw-r--r--\" or \"-rwxr-xr-x\", and
+C<002> which creates new files with permissions like
+\"-rw-rw-r--\" or \"-rwxrwxr-x\".
+
+The default umask is C<022>.  This is important because it
+means that directories and device nodes will be created with
+C<0644> or C<0755> mode even if you specify C<0777>.
+
+See also L<umask(2)>, C<guestfs_mknod>, C<guestfs_mkdir>.
+
+This call returns the previous umask.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
