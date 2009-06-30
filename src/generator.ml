@@ -1499,8 +1499,7 @@ This is the same as the C<lstat(2)> system call.");
 
   ("statvfs", (RStatVFS "statbuf", [String "path"]), 54, [],
    [InitBasicFS, Always, TestOutputStruct (
-      [["statvfs"; "/"]], [CompareWithInt ("bfree", 487702);
-			   CompareWithInt ("blocks", 490020);
+      [["statvfs"; "/"]], [CompareWithInt ("namemax", 255);
 			   CompareWithInt ("bsize", 1024)])],
    "get file system statistics",
    "\
