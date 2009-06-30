@@ -133,7 +133,9 @@ can easily destroy all your data>."
  * 50MB and 10MB (respectively /dev/sda, /dev/sdb, /dev/sdc), and
  * a fourth squashfs block device with some known files on it (/dev/sdd).
  *
- * Note for partitioning purposes, the 500MB device has 63 cylinders.
+ * Note for partitioning purposes, the 500MB device has 1015 cylinders.
+ * Number of cylinders was 63 for IDE emulated disks with precisely
+ * the same size.  How exactly this is calculated is a mystery.
  *
  * The squashfs block device (/dev/sdd) comes from images/test.sqsh.
  *
@@ -373,7 +375,8 @@ for whatever operations you want to perform (ie. read access if you
 just want to read the image or write access if you want to modify the
 image).
 
-This is equivalent to the qemu parameter C<-drive file=filename,cache=off>.
+This is equivalent to the qemu parameter
+C<-drive file=filename,cache=off,if=virtio>.
 
 Note that this call checks for the existence of C<filename>.  This
 stops you from specifying other types of drive which are supported
@@ -407,7 +410,7 @@ handle is closed.  We don't currently have any method to enable
 changes to be committed, although qemu can support this.
 
 This is equivalent to the qemu parameter
-C<-drive file=filename,snapshot=on>.
+C<-drive file=filename,snapshot=on,if=virtio>.
 
 Note that this call checks for the existence of C<filename>.  This
 stops you from specifying other types of drive which are supported
@@ -733,7 +736,7 @@ The full block device names are returned, eg. C</dev/sda>");
    [InitBasicFS, Always, TestOutputListOfDevices (
       [["list_partitions"]], ["/dev/sda1"]);
     InitEmpty, Always, TestOutputListOfDevices (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
+      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",200 ,400 ,"];
        ["list_partitions"]], ["/dev/sda1"; "/dev/sda2"; "/dev/sda3"])],
    "list the partitions",
    "\
@@ -748,7 +751,7 @@ call C<guestfs_lvs>.");
    [InitBasicFSonLVM, Always, TestOutputListOfDevices (
       [["pvs"]], ["/dev/sda1"]);
     InitEmpty, Always, TestOutputListOfDevices (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
+      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",200 ,400 ,"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
        ["pvcreate"; "/dev/sda3"];
@@ -767,7 +770,7 @@ See also C<guestfs_pvs_full>.");
    [InitBasicFSonLVM, Always, TestOutputList (
       [["vgs"]], ["VG"]);
     InitEmpty, Always, TestOutputList (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
+      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",200 ,400 ,"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
        ["pvcreate"; "/dev/sda3"];
@@ -788,7 +791,7 @@ See also C<guestfs_vgs_full>.");
    [InitBasicFSonLVM, Always, TestOutputList (
       [["lvs"]], ["/dev/VG/LV"]);
     InitEmpty, Always, TestOutputList (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
+      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",200 ,400 ,"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
        ["pvcreate"; "/dev/sda3"];
@@ -1141,7 +1144,7 @@ See also C<guestfs_stat>.");
 
   ("pvcreate", (RErr, [String "device"]), 39, [],
    [InitEmpty, Always, TestOutputListOfDevices (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
+      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",200 ,400 ,"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
        ["pvcreate"; "/dev/sda3"];
@@ -1154,7 +1157,7 @@ as C</dev/sda1>.");
 
   ("vgcreate", (RErr, [String "volgroup"; StringList "physvols"]), 40, [],
    [InitEmpty, Always, TestOutputList (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
+      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",200 ,400 ,"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
        ["pvcreate"; "/dev/sda3"];
@@ -1168,7 +1171,7 @@ from the non-empty list of physical volumes C<physvols>.");
 
   ("lvcreate", (RErr, [String "logvol"; String "volgroup"; Int "mbytes"]), 41, [],
    [InitEmpty, Always, TestOutputList (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
+      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",200 ,400 ,"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
        ["pvcreate"; "/dev/sda3"];
@@ -1296,7 +1299,7 @@ Some internal mounts are not shown.");
        ["mounts"]], []);
     (* check that umount_all can unmount nested mounts correctly: *)
     InitEmpty, Always, TestOutputList (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
+      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",200 ,400 ,"];
        ["mkfs"; "ext2"; "/dev/sda1"];
        ["mkfs"; "ext2"; "/dev/sda2"];
        ["mkfs"; "ext2"; "/dev/sda3"];
@@ -2015,7 +2018,10 @@ any partition tables, filesystem superblocks and so on.
 See also: C<guestfs_scrub_device>.");
 
   ("grub_install", (RErr, [String "root"; String "device"]), 86, [],
-   [InitBasicFS, Always, TestOutputTrue (
+   (* Test disabled because grub-install incompatible with virtio-blk driver.
+    * See also: https://bugzilla.redhat.com/show_bug.cgi?id=479760
+    *)
+   [InitBasicFS, Disabled, TestOutputTrue (
       [["grub_install"; "/"; "/dev/sda1"];
        ["is_dir"; "/boot"]])],
    "install GRUB",

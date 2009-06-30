@@ -714,7 +714,7 @@ device_name_translation (char *device, const char *func)
     return 0;
   }
 
-  if (errno != ENXIO) {
+  if (errno != ENXIO && errno != ENOENT) {
   error:
     reply_with_perror ("%s: %s", func, device);
     return -1;

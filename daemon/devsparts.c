@@ -46,7 +46,8 @@ do_list_devices (void)
 
   while ((d = readdir (dir)) != NULL) {
     if (strncmp (d->d_name, "sd", 2) == 0 ||
-	strncmp (d->d_name, "hd", 2) == 0) {
+	strncmp (d->d_name, "hd", 2) == 0 ||
+	strncmp (d->d_name, "vd", 2) == 0) {
       snprintf (buf, sizeof buf, "/dev/%s", d->d_name);
       if (add_string (&r, &size, &alloc, buf) == -1) {
 	closedir (dir);
@@ -87,7 +88,8 @@ do_list_partitions (void)
 
   while ((d = readdir (dir)) != NULL) {
     if (strncmp (d->d_name, "sd", 2) == 0 ||
-	strncmp (d->d_name, "hd", 2) == 0) {
+	strncmp (d->d_name, "hd", 2) == 0 ||
+	strncmp (d->d_name, "vd", 2) == 0) {
       strncpy (devname, d->d_name, sizeof devname);
       devname[sizeof devname - 1] = '\0';
 

@@ -708,7 +708,7 @@ guestfs_add_drive (guestfs_h *g, const char *filename)
   }
 
   /* cache=off improves reliability in the event of a host crash. */
-  snprintf (buf, len, "file=%s,cache=off", filename);
+  snprintf (buf, len, "file=%s,cache=off,if=virtio", filename);
 
   return guestfs_config (g, "-drive", buf);
 }
@@ -729,7 +729,7 @@ guestfs_add_drive_ro (guestfs_h *g, const char *filename)
     return -1;
   }
 
-  snprintf (buf, len, "file=%s,snapshot=on", filename);
+  snprintf (buf, len, "file=%s,snapshot=on,if=virtio", filename);
 
   return guestfs_config (g, "-drive", buf);
 }
