@@ -774,10 +774,21 @@ options in order to determine features.
 
 =over 4
 
+=item LIBGUESTFS_APPEND
+
+Pass additional options to the guest kernel.
+
 =item LIBGUESTFS_DEBUG
 
 Set C<LIBGUESTFS_DEBUG=1> to enable verbose messages.  This
 has the same effect as calling C<guestfs_set_verbose (handle, 1)>.
+
+=item LIBGUESTFS_MEMSIZE
+
+Set the memory allocated to the qemu process, in megabytes.  For
+example:
+
+ LIBGUESTFS_MEMSIZE=700
 
 =item LIBGUESTFS_PATH
 
@@ -791,17 +802,6 @@ the qemu which was found at compile time by the configure script is
 used.
 
 See also L<QEMU WRAPPERS> above.
-
-=item LIBGUESTFS_APPEND
-
-Pass additional options to the guest kernel.
-
-=item LIBGUESTFS_MEMSIZE
-
-Set the memory allocated to the qemu process, in megabytes.  For
-example:
-
- LIBGUESTFS_MEMSIZE=700
 
 =back
 
