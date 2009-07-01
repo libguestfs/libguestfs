@@ -404,8 +404,10 @@ guestfs_error (guestfs_h *g, const char *fs, ...)
   char *msg;
 
   va_start (args, fs);
-  vasprintf (&msg, fs, args);
+  int err = vasprintf (&msg, fs, args);
   va_end (args);
+
+  if (err < 0) return;
 
   if (g->error_cb) g->error_cb (g, g->error_cb_data, msg);
   set_last_error (g, msg);
