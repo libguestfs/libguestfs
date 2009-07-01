@@ -741,3 +741,16 @@ device_name_translation (char *device, const char *func)
   device[5] = 's';		/* Restore original device name. */
   goto error;
 }
+
+/* LVM and other commands aren't synchronous, especially when udev is
+ * involved.  eg. You can create or remove some device, but the /dev
+ * device node won't appear until some time later.  This means that
+ * you get an error if you run one command followed by another.
+ * Use 'udevadm settle' after certain commands, but don't be too
+ * fussed if it fails.
+ */
+void
+udev_settle (void)
+{
+  command (NULL, NULL, "/sbin/udevadm", "settle", NULL);
+}

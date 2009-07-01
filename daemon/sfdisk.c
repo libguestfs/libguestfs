@@ -73,6 +73,8 @@ sfdisk (char *device, int n, int cyls, int heads, int sectors,
     return -1;
   }
 
+  udev_settle ();
+
   return 0;
 }
 
@@ -109,6 +111,8 @@ sfdisk_flag (char *device, const char *flag)
   }
 
   free (err);
+
+  udev_settle ();
 
   return out;			/* caller frees */
 }

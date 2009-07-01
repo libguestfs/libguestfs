@@ -51,6 +51,8 @@ extern int shell_quote (char *out, int len, const char *in);
 
 extern int device_name_translation (char *device, const char *func);
 
+extern void udev_settle (void);
+
 extern int verbose;
 
 /*-- in proto.c --*/
