@@ -63,14 +63,13 @@ sfdisk (char *device, int n, int cyls, int heads, int sectors,
   for (i = 0; lines[i] != NULL; ++i) {
     if (fprintf (fp, "%s\n", lines[i]) < 0) {
       reply_with_perror (buf);
-      fclose (fp);
+      pclose (fp);
       return -1;
     }
   }
 
-  if (fclose (fp) == EOF) {
-    reply_with_perror (buf);
-    fclose (fp);
+  if (pclose (fp) != 0) {
+    reply_with_error ("%s: external command failed", buf);
     return -1;
   }
 
