@@ -3477,6 +3477,33 @@ done:
   xdr_free ((xdrproc_t) xdr_guestfs_umask_args, (char *) &args);
 }
 
+static void readdir_stub (XDR *xdr_in)
+{
+  guestfs_int_dirent_list *r;
+  struct guestfs_readdir_args args;
+  char *dir;
+
+  memset (&args, 0, sizeof args);
+
+  if (!xdr_guestfs_readdir_args (xdr_in, &args)) {
+    reply_with_error ("%s: daemon failed to decode procedure arguments", "readdir");
+    return;
+  }
+  dir = args.dir;
+
+  r = do_readdir (dir);
+  if (r == NULL)
+    /* do_readdir has already called reply_with_error */
+    goto done;
+
+  struct guestfs_readdir_ret ret;
+  ret.entries = *r;
+  reply ((xdrproc_t) xdr_guestfs_readdir_ret, (char *) &ret);
+  xdr_free ((xdrproc_t) xdr_guestfs_readdir_ret, (char *) &ret);
+done:
+  xdr_free ((xdrproc_t) xdr_guestfs_readdir_args, (char *) &args);
+}
+
 void dispatch_incoming_message (XDR *xdr_in)
 {
   switch (proc_nr) {
@@ -3890,6 +3917,9 @@ void dispatch_incoming_message (XDR *xdr_in)
       break;
     case GUESTFS_PROC_UMASK:
       umask_stub (xdr_in);
+      break;
+    case GUESTFS_PROC_READDIR:
+      readdir_stub (xdr_in);
       break;
     default:
       reply_with_error ("dispatch_incoming_message: unknown procedure number %d, set LIBGUESTFS_PATH to point to the matching libguestfs appliance directory", proc_nr);

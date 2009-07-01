@@ -328,6 +328,41 @@ copy_statvfs (const struct guestfs_statvfs *statvfs)
   CAMLreturn (rv);
 }
 
+static CAMLprim value
+copy_dirent (const struct guestfs_dirent *dirent)
+{
+  CAMLparam0 ();
+  CAMLlocal2 (rv, v);
+
+  rv = caml_alloc (3, 0);
+  v = caml_copy_int64 (dirent->ino);
+  Store_field (rv, 0, v);
+  v = Val_int (dirent->ftyp);
+  Store_field (rv, 1, v);
+  v = caml_copy_string (dirent->name);
+  Store_field (rv, 2, v);
+  CAMLreturn (rv);
+}
+
+static CAMLprim value
+copy_dirent_list (const struct guestfs_dirent_list *dirents)
+{
+  CAMLparam0 ();
+  CAMLlocal2 (rv, v);
+  int i;
+
+  if (dirents->len == 0)
+    CAMLreturn (Atom (0));
+  else {
+    rv = caml_alloc (dirents->len, 0);
+    for (i = 0; i < dirents->len; ++i) {
+      v = copy_dirent (&dirents->val[i]);
+      caml_modify (&Field (rv, i), v);
+    }
+    CAMLreturn (rv);
+  }
+}
+
 CAMLprim value
 ocaml_guestfs_test0 (value gv, value strv, value optstrv, value strlistv, value bv, value integerv, value fileinv, value fileoutv)
 {
@@ -4899,6 +4934,30 @@ ocaml_guestfs_umask (value gv, value maskv)
     ocaml_guestfs_raise_error (g, "umask");
 
   rv = Val_int (r);
+  CAMLreturn (rv);
+}
+
+CAMLprim value
+ocaml_guestfs_readdir (value gv, value dirv)
+{
+  CAMLparam2 (gv, dirv);
+  CAMLlocal1 (rv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  if (g == NULL)
+    caml_failwith ("readdir: used handle after closing it");
+
+  const char *dir = String_val (dirv);
+  struct guestfs_dirent_list *r;
+
+  caml_enter_blocking_section ();
+  r = guestfs_readdir (g, dir);
+  caml_leave_blocking_section ();
+  if (r == NULL)
+    ocaml_guestfs_raise_error (g, "readdir");
+
+  rv = copy_dirent_list (r);
+  guestfs_free_dirent_list (r);
   CAMLreturn (rv);
 }
 

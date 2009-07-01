@@ -238,6 +238,31 @@ xdr_guestfs_int_statvfs (XDR *xdrs, guestfs_int_statvfs *objp)
 }
 
 bool_t
+xdr_guestfs_int_dirent (XDR *xdrs, guestfs_int_dirent *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_quad_t (xdrs, &objp->ino))
+		 return FALSE;
+	 if (!xdr_char (xdrs, &objp->ftyp))
+		 return FALSE;
+	 if (!xdr_string (xdrs, &objp->name, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_int_dirent_list (XDR *xdrs, guestfs_int_dirent_list *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_array (xdrs, (char **)&objp->guestfs_int_dirent_list_val, (u_int *) &objp->guestfs_int_dirent_list_len, ~0,
+		sizeof (guestfs_int_dirent), (xdrproc_t) xdr_guestfs_int_dirent))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
 xdr_guestfs_mount_args (XDR *xdrs, guestfs_mount_args *objp)
 {
 	register int32_t *buf;
@@ -2430,6 +2455,26 @@ xdr_guestfs_umask_ret (XDR *xdrs, guestfs_umask_ret *objp)
 	register int32_t *buf;
 
 	 if (!xdr_int (xdrs, &objp->oldmask))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_readdir_args (XDR *xdrs, guestfs_readdir_args *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_string (xdrs, &objp->dir, ~0))
+		 return FALSE;
+	return TRUE;
+}
+
+bool_t
+xdr_guestfs_readdir_ret (XDR *xdrs, guestfs_readdir_ret *objp)
+{
+	register int32_t *buf;
+
+	 if (!xdr_guestfs_int_dirent_list (xdrs, &objp->entries))
 		 return FALSE;
 	return TRUE;
 }

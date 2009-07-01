@@ -25,6 +25,7 @@ java_sources = \
 	$(CPTH)/LV.java \
 	$(CPTH)/Stat.java \
 	$(CPTH)/StatVFS.java \
+	$(CPTH)/Dirent.java \
 	$(CPTH)/GuestFS.java
 
 java_tests = \

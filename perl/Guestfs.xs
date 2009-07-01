@@ -356,7 +356,7 @@ PREINIT:
         (void) hv_store (hv, "pe_start", 8, my_newSVull (valout->val[i].pe_start), 0);
         (void) hv_store (hv, "pv_mda_count", 12, my_newSVll (valout->val[i].pv_mda_count), 0);
         (void) hv_store (hv, "pv_mda_free", 11, my_newSVull (valout->val[i].pv_mda_free), 0);
-        PUSHs (sv_2mortal ((SV *) hv));
+        PUSHs (sv_2mortal (newRV ((SV *) hv)));
       }
       guestfs_free_lvm_pv_list (valout);
 
@@ -388,7 +388,7 @@ PREINIT:
         (void) hv_store (hv, "pe_start", 8, my_newSVull (valout->val[i].pe_start), 0);
         (void) hv_store (hv, "pv_mda_count", 12, my_newSVll (valout->val[i].pv_mda_count), 0);
         (void) hv_store (hv, "pv_mda_free", 11, my_newSVull (valout->val[i].pv_mda_free), 0);
-        PUSHs (sv_2mortal ((SV *) hv));
+        PUSHs (sv_2mortal (newRV ((SV *) hv)));
       }
       guestfs_free_lvm_pv_list (valout);
 
@@ -426,7 +426,7 @@ PREINIT:
         (void) hv_store (hv, "vg_tags", 7, newSVpv (valout->val[i].vg_tags, 0), 0);
         (void) hv_store (hv, "vg_mda_count", 12, my_newSVll (valout->val[i].vg_mda_count), 0);
         (void) hv_store (hv, "vg_mda_free", 11, my_newSVull (valout->val[i].vg_mda_free), 0);
-        PUSHs (sv_2mortal ((SV *) hv));
+        PUSHs (sv_2mortal (newRV ((SV *) hv)));
       }
       guestfs_free_lvm_vg_list (valout);
 
@@ -463,7 +463,7 @@ PREINIT:
         (void) hv_store (hv, "vg_tags", 7, newSVpv (valout->val[i].vg_tags, 0), 0);
         (void) hv_store (hv, "vg_mda_count", 12, my_newSVll (valout->val[i].vg_mda_count), 0);
         (void) hv_store (hv, "vg_mda_free", 11, my_newSVull (valout->val[i].vg_mda_free), 0);
-        PUSHs (sv_2mortal ((SV *) hv));
+        PUSHs (sv_2mortal (newRV ((SV *) hv)));
       }
       guestfs_free_lvm_vg_list (valout);
 
@@ -498,7 +498,7 @@ PREINIT:
         (void) hv_store (hv, "lv_tags", 7, newSVpv (valout->val[i].lv_tags, 0), 0);
         (void) hv_store (hv, "mirror_log", 10, newSVpv (valout->val[i].mirror_log, 0), 0);
         (void) hv_store (hv, "modules", 7, newSVpv (valout->val[i].modules, 0), 0);
-        PUSHs (sv_2mortal ((SV *) hv));
+        PUSHs (sv_2mortal (newRV ((SV *) hv)));
       }
       guestfs_free_lvm_lv_list (valout);
 
@@ -532,7 +532,7 @@ PREINIT:
         (void) hv_store (hv, "lv_tags", 7, newSVpv (valout->val[i].lv_tags, 0), 0);
         (void) hv_store (hv, "mirror_log", 10, newSVpv (valout->val[i].mirror_log, 0), 0);
         (void) hv_store (hv, "modules", 7, newSVpv (valout->val[i].modules, 0), 0);
-        PUSHs (sv_2mortal ((SV *) hv));
+        PUSHs (sv_2mortal (newRV ((SV *) hv)));
       }
       guestfs_free_lvm_lv_list (valout);
 
@@ -1185,7 +1185,7 @@ PREINIT:
         (void) hv_store (hv, "pe_start", 8, my_newSVull (physvols->val[i].pe_start), 0);
         (void) hv_store (hv, "pv_mda_count", 12, my_newSVll (physvols->val[i].pv_mda_count), 0);
         (void) hv_store (hv, "pv_mda_free", 11, my_newSVull (physvols->val[i].pv_mda_free), 0);
-        PUSHs (sv_2mortal ((SV *) hv));
+        PUSHs (sv_2mortal (newRV ((SV *) hv)));
       }
       guestfs_free_lvm_pv_list (physvols);
 
@@ -1222,7 +1222,7 @@ PREINIT:
         (void) hv_store (hv, "vg_tags", 7, newSVpv (volgroups->val[i].vg_tags, 0), 0);
         (void) hv_store (hv, "vg_mda_count", 12, my_newSVll (volgroups->val[i].vg_mda_count), 0);
         (void) hv_store (hv, "vg_mda_free", 11, my_newSVull (volgroups->val[i].vg_mda_free), 0);
-        PUSHs (sv_2mortal ((SV *) hv));
+        PUSHs (sv_2mortal (newRV ((SV *) hv)));
       }
       guestfs_free_lvm_vg_list (volgroups);
 
@@ -1256,7 +1256,7 @@ PREINIT:
         (void) hv_store (hv, "lv_tags", 7, newSVpv (logvols->val[i].lv_tags, 0), 0);
         (void) hv_store (hv, "mirror_log", 10, newSVpv (logvols->val[i].mirror_log, 0), 0);
         (void) hv_store (hv, "modules", 7, newSVpv (logvols->val[i].modules, 0), 0);
-        PUSHs (sv_2mortal ((SV *) hv));
+        PUSHs (sv_2mortal (newRV ((SV *) hv)));
       }
       guestfs_free_lvm_lv_list (logvols);
 
@@ -2969,4 +2969,26 @@ PREINIT:
       RETVAL = newSViv (oldmask);
  OUTPUT:
       RETVAL
+
+void
+readdir (g, dir)
+      guestfs_h *g;
+      char *dir;
+PREINIT:
+      struct guestfs_dirent_list *entries;
+      int i;
+      HV *hv;
+ PPCODE:
+      entries = guestfs_readdir (g, dir);
+      if (entries == NULL)
+        croak ("readdir: %s", guestfs_last_error (g));
+      EXTEND (SP, entries->len);
+      for (i = 0; i < entries->len; ++i) {
+        hv = newHV ();
+        (void) hv_store (hv, "ino", 3, my_newSVull (entries->val[i].ino), 0);
+        (void) hv_store (hv, "ftyp", 4, newSVpv (&entries->val[i].ftyp, 1), 0);
+        (void) hv_store (hv, "name", 4, newSVpv (entries->val[i].name, 0), 0);
+        PUSHs (newRV (sv_2mortal ((SV *) hv)));
+      }
+      guestfs_free_dirent_list (entries);
 

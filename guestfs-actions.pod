@@ -1647,6 +1647,26 @@ This function returns a NULL-terminated array of strings
 (like L<environ(3)>), or NULL if there was an error.
 I<The caller must free the strings and the array after use>.
 
+=head2 guestfs_readdir
+
+ struct guestfs_dirent_list *guestfs_readdir (guestfs_h *handle,
+		const char *dir);
+
+This returns the list of directory entries in directory C<dir>.
+
+All entries in the directory are returned, including C<.> and
+C<..>.  The entries are I<not> sorted, but returned in the same
+order as the underlying filesystem.
+
+This function is primarily intended for use by programs.  To
+get a simple list of names, use C<guestfs_ls>.  To get a printable
+directory for human consumption, use C<guestfs_ll>.
+
+This function returns a C<struct guestfs_dirent_list *>
+(see E<lt>guestfs-structs.hE<gt>),
+or NULL if there was an error.
+I<The caller must call C<guestfs_free_dirent_list> after use>.
+
 =head2 guestfs_resize2fs
 
  int guestfs_resize2fs (guestfs_h *handle,

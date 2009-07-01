@@ -4865,6 +4865,38 @@ static VALUE ruby_guestfs_umask (VALUE gv, VALUE maskv)
   return INT2NUM (r);
 }
 
+static VALUE ruby_guestfs_readdir (VALUE gv, VALUE dirv)
+{
+  guestfs_h *g;
+  Data_Get_Struct (gv, guestfs_h, g);
+  if (!g)
+    rb_raise (rb_eArgError, "%s: used handle after closing it", "readdir");
+
+  Check_Type (dirv, T_STRING);
+  const char *dir = StringValueCStr (dirv);
+  if (!dir)
+    rb_raise (rb_eTypeError, "expected string for parameter %s of %s",
+              "dir", "readdir");
+
+  struct guestfs_dirent_list *r;
+
+  r = guestfs_readdir (g, dir);
+  if (r == NULL)
+    rb_raise (e_Error, "%s", guestfs_last_error (g));
+
+  VALUE rv = rb_ary_new2 (r->len);
+  int i;
+  for (i = 0; i < r->len; ++i) {
+    VALUE hv = rb_hash_new ();
+    rb_hash_aset (rv, rb_str_new2 ("ino"), ULL2NUM (r->val[i].ino));
+    rb_hash_aset (rv, rb_str_new2 ("ftyp"), ULL2NUM (r->val[i].ftyp));
+    rb_hash_aset (rv, rb_str_new2 ("name"), rb_str_new2 (r->val[i].name));
+    rb_ary_push (rv, hv);
+  }
+  guestfs_free_dirent_list (r);
+  return rv;
+}
+
 /* Initialize the module. */
 void Init__guestfs ()
 {
@@ -5257,4 +5289,6 @@ void Init__guestfs ()
         ruby_guestfs_mknod_c, 4);
   rb_define_method (c_guestfs, "umask",
         ruby_guestfs_umask, 1);
+  rb_define_method (c_guestfs, "readdir",
+        ruby_guestfs_readdir, 1);
 }

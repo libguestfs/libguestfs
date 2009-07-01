@@ -127,3 +127,14 @@ struct guestfs_statvfs {
   int64_t namemax;
 };
 
+struct guestfs_dirent {
+  int64_t ino;
+  char ftyp;
+  char *name;
+};
+
+struct guestfs_dirent_list {
+  uint32_t len;
+  struct guestfs_dirent *val;
+};
+

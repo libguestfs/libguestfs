@@ -124,6 +124,12 @@ type statvfs = {
   namemax : int64;
 }
 
+type dirent = {
+  ino : int64;
+  ftyp : char;
+  name : string;
+}
+
 val test0 : t -> string -> string option -> string array -> bool -> int -> string -> string -> unit
 (** internal test function - do not use *)
 
@@ -696,4 +702,7 @@ val mknod_c : t -> int -> int -> int -> string -> unit
 
 val umask : t -> int -> int
 (** set file mode creation mask (umask) *)
+
+val readdir : t -> string -> dirent array
+(** read directories entries *)
 

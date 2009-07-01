@@ -50,9 +50,11 @@ TESTS_ENVIRONMENT = \
 	$(VG)
 
 TESTS = run-bindtests \
-	t/guestfs_005_load t/guestfs_010_launch t/guestfs_050_lvcreate
+	t/guestfs_005_load t/guestfs_010_launch t/guestfs_050_lvcreate \
+	t/guestfs_060_readdir
 noinst_DATA += bindtests \
-	t/guestfs_005_load t/guestfs_010_launch t/guestfs_050_lvcreate
+	t/guestfs_005_load t/guestfs_010_launch t/guestfs_050_lvcreate \
+	t/guestfs_060_readdir
 
 bindtests: bindtests.ml mlguestfs.cmxa
 	$(OCAMLFIND) ocamlopt -cclib -L$(top_builddir)/src/.libs -I . unix.cmxa mlguestfs.cmxa $< -o $@
@@ -64,6 +66,9 @@ t/guestfs_010_launch: t/guestfs_010_launch.ml mlguestfs.cmxa
 	$(OCAMLFIND) ocamlopt -cclib -L$(top_builddir)/src/.libs -I . unix.cmxa mlguestfs.cmxa $< -o $@
 
 t/guestfs_050_lvcreate: t/guestfs_050_lvcreate.ml mlguestfs.cmxa
+	$(OCAMLFIND) ocamlopt -cclib -L$(top_builddir)/src/.libs -I . unix.cmxa mlguestfs.cmxa $< -o $@
+
+t/guestfs_060_readdir: t/guestfs_060_readdir.ml mlguestfs.cmxa
 	$(OCAMLFIND) ocamlopt -cclib -L$(top_builddir)/src/.libs -I . unix.cmxa mlguestfs.cmxa $< -o $@
 
 .mli.cmi:

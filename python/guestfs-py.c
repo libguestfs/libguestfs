@@ -389,6 +389,33 @@ put_statvfs (struct guestfs_statvfs *statvfs)
 };
 
 static PyObject *
+put_dirent (struct guestfs_dirent *dirent)
+{
+  PyObject *dict;
+
+  dict = PyDict_New ();
+  PyDict_SetItemString (dict, "ino",
+                        PyLong_FromLongLong (dirent->ino));
+  PyDict_SetItemString (dict, "ftyp",
+                        PyString_FromStringAndSize (&dirent->ftyp, 1));
+  PyDict_SetItemString (dict, "name",
+                        PyString_FromString (dirent->name));
+  return dict;
+};
+
+static PyObject *
+put_dirent_list (struct guestfs_dirent_list *dirents)
+{
+  PyObject *list;
+  int i;
+
+  list = PyList_New (dirents->len);
+  for (i = 0; i < dirents->len; ++i)
+    PyList_SetItem (list, i, put_dirent (&dirents->val[i]));
+  return list;
+};
+
+static PyObject *
 py_guestfs_test0 (PyObject *self, PyObject *args)
 {
   PyObject *py_g;
@@ -5187,6 +5214,31 @@ py_guestfs_umask (PyObject *self, PyObject *args)
   return py_r;
 }
 
+static PyObject *
+py_guestfs_readdir (PyObject *self, PyObject *args)
+{
+  PyObject *py_g;
+  guestfs_h *g;
+  PyObject *py_r;
+  struct guestfs_dirent_list *r;
+  const char *dir;
+
+  if (!PyArg_ParseTuple (args, (char *) "Os:guestfs_readdir",
+                         &py_g, &dir))
+    return NULL;
+  g = get_handle (py_g);
+
+  r = guestfs_readdir (g, dir);
+  if (r == NULL) {
+    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));
+    return NULL;
+  }
+
+  py_r = put_dirent_list (r);
+  guestfs_free_dirent_list (r);
+  return py_r;
+}
+
 static PyMethodDef methods[] = {
   { (char *) "create", py_guestfs_create, METH_VARARGS, NULL },
   { (char *) "close", py_guestfs_close, METH_VARARGS, NULL },
@@ -5381,6 +5433,7 @@ static PyMethodDef methods[] = {
   { (char *) "mknod_b", py_guestfs_mknod_b, METH_VARARGS, NULL },
   { (char *) "mknod_c", py_guestfs_mknod_c, METH_VARARGS, NULL },
   { (char *) "umask", py_guestfs_umask, METH_VARARGS, NULL },
+  { (char *) "readdir", py_guestfs_readdir, METH_VARARGS, NULL },
   { NULL, NULL, 0, NULL }
 };
 

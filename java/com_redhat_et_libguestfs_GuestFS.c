@@ -4635,3 +4635,39 @@ Java_com_redhat_et_libguestfs_GuestFS__1umask
   return (jint) r;
 }
 
+JNIEXPORT jobjectArray JNICALL
+Java_com_redhat_et_libguestfs_GuestFS__1readdir
+  (JNIEnv *env, jobject obj, jlong jg, jstring jdir)
+{
+  guestfs_h *g = (guestfs_h *) (long) jg;
+  jobjectArray jr;
+  jclass cl;
+  jfieldID fl;
+  jobject jfl;
+  struct guestfs_dirent_list *r;
+  const char *dir;
+  int i;
+
+  dir = (*env)->GetStringUTFChars (env, jdir, NULL);
+  r = guestfs_readdir (g, dir);
+  (*env)->ReleaseStringUTFChars (env, jdir, dir);
+  if (r == NULL) {
+    throw_exception (env, guestfs_last_error (g));
+    return NULL;
+  }
+  cl = (*env)->FindClass (env, "com/redhat/et/libguestfs/Dirent");
+  jr = (*env)->NewObjectArray (env, r->len, cl, NULL);
+  for (i = 0; i < r->len; ++i) {
+    jfl = (*env)->AllocObject (env, cl);
+    fl = (*env)->GetFieldID (env, cl, "ino", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].ino);
+    fl = (*env)->GetFieldID (env, cl, "ftyp", "J");
+    (*env)->SetLongField (env, jfl, fl, r->val[i].ftyp);
+    fl = (*env)->GetFieldID (env, cl, "name", "Ljava/lang/String;");
+    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].name));
+    (*env)->SetObjectArrayElement (env, jfl, i, jfl);
+  }
+  guestfs_free_dirent_list (r);
+  return jr;
+}
+

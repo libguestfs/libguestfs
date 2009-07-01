@@ -210,3 +210,4 @@ extern int guestfs_mkfifo (guestfs_h *handle, int mode, const char *path);
 extern int guestfs_mknod_b (guestfs_h *handle, int mode, int devmajor, int devminor, const char *path);
 extern int guestfs_mknod_c (guestfs_h *handle, int mode, int devmajor, int devminor, const char *path);
 extern int guestfs_umask (guestfs_h *handle, int mask);
+extern struct guestfs_dirent_list *guestfs_readdir (guestfs_h *handle, const char *dir);

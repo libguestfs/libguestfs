@@ -1235,6 +1235,20 @@ Note that this function cannot correctly handle binary files
 as end of line).  For those you need to use the C<read-file>
 function which has a more complex interface.
 
+=head2 readdir
+
+ readdir dir
+
+This returns the list of directory entries in directory C<dir>.
+
+All entries in the directory are returned, including C<.> and
+C<..>.  The entries are I<not> sorted, but returned in the same
+order as the underlying filesystem.
+
+This function is primarily intended for use by programs.  To
+get a simple list of names, use C<ls>.  To get a printable
+directory for human consumption, use C<ll>.
+
 =head2 resize2fs
 
  resize2fs device

@@ -115,6 +115,12 @@ type statvfs = {
   namemax : int64;
 }
 
+type dirent = {
+  ino : int64;
+  ftyp : char;
+  name : string;
+}
+
 external test0 : t -> string -> string option -> string array -> bool -> int -> string -> string -> unit = "ocaml_guestfs_test0_byte" "ocaml_guestfs_test0"
 external test0rint : t -> string -> int = "ocaml_guestfs_test0rint"
 external test0rinterr : t -> int = "ocaml_guestfs_test0rinterr"
@@ -306,3 +312,4 @@ external mkfifo : t -> int -> string -> unit = "ocaml_guestfs_mkfifo"
 external mknod_b : t -> int -> int -> int -> string -> unit = "ocaml_guestfs_mknod_b"
 external mknod_c : t -> int -> int -> int -> string -> unit = "ocaml_guestfs_mknod_c"
 external umask : t -> int -> int = "ocaml_guestfs_umask"
+external readdir : t -> string -> dirent array = "ocaml_guestfs_readdir"

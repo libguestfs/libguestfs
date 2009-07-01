@@ -157,6 +157,7 @@ static void no_test_warnings (void)
   fprintf (stderr, "warning: \"guestfs_df_h\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_mount_loop\" has no tests\n");
   fprintf (stderr, "warning: \"guestfs_umask\" has no tests\n");
+  fprintf (stderr, "warning: \"guestfs_readdir\" has no tests\n");
 }
 
 static int test_mknod_c_0_skip (void)

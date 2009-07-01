@@ -207,6 +207,7 @@ static const char *const commands[] = {
   "mknod-b",
   "mknod-c",
   "umask",
+  "readdir",
   NULL
 };
 

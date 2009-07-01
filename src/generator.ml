@@ -83,6 +83,8 @@ and ret =
      * inefficient.  Keys should be unique.  NULLs are not permitted.
      *)
   | RHashtable of string
+    (* List of directory entries (the result of readdir(3)). *)
+  | RDirentList of string
 
 and args = argt list	(* Function parameters, guestfs handle is implicit. *)
 
@@ -2751,6 +2753,20 @@ See also L<umask(2)>, C<guestfs_mknod>, C<guestfs_mkdir>.
 
 This call returns the previous umask.");
 
+  ("readdir", (RDirentList "entries", [String "dir"]), 138, [],
+   [],
+   "read directories entries",
+   "\
+This returns the list of directory entries in directory C<dir>.
+
+All entries in the directory are returned, including C<.> and
+C<..>.  The entries are I<not> sorted, but returned in the same
+order as the underlying filesystem.
+
+This function is primarily intended for use by programs.  To
+get a simple list of names, use C<guestfs_ls>.  To get a printable
+directory for human consumption, use C<guestfs_ll>.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
@@ -2856,6 +2872,13 @@ let statvfs_cols = [
   "fsid", `Int;
   "flag", `Int;
   "namemax", `Int;
+]
+
+(* Column names in dirent structure. *)
+let dirent_cols = [
+  "ino", `Int;
+  "ftyp", `Char; (* 'b' 'c' 'd' 'f' (FIFO) 'l' 'r' (regular file) 's' 'u' '?' *)
+  "name", `String;
 ]
 
 (* Used for testing language bindings. *)
@@ -3042,7 +3065,8 @@ let check_functions () =
        | RInt n | RInt64 n | RBool n | RConstString n | RString n
        | RStringList n | RPVList n | RVGList n | RLVList n
        | RStat n | RStatVFS n
-       | RHashtable n ->
+       | RHashtable n
+       | RDirentList n ->
 	   check_arg_ret_name n
        | RIntBool (n,m) ->
 	   check_arg_ret_name n;
@@ -3247,6 +3271,11 @@ strings, or NULL if there was an error.
 The array of strings will always have length C<2n+1>, where
 C<n> keys and values alternate, followed by the trailing NULL entry.
 I<The caller must free the strings and the array after use>.\n\n"
+	 | RDirentList _ ->
+	     pr "This function returns a C<struct guestfs_dirent_list *>
+(see E<lt>guestfs-structs.hE<gt>),
+or NULL if there was an error.
+I<The caller must call C<guestfs_free_dirent_list> after use>.\n\n"
 	);
 	if List.mem ProtocolLimitWarning flags then
 	  pr "%s\n\n" protocol_limit_warning;
@@ -3283,7 +3312,41 @@ and generate_structs_pod () =
       pr " void guestfs_free_lvm_%s_list (struct guestfs_free_lvm_%s_list *);\n"
 	typ typ;
       pr "\n"
-  ) ["pv", pv_cols; "vg", vg_cols; "lv", lv_cols]
+  ) ["pv", pv_cols; "vg", vg_cols; "lv", lv_cols];
+
+  (* Stat *)
+  List.iter (
+    fun (typ, cols) ->
+      pr "=head2 guestfs_%s\n" typ;
+      pr "\n";
+      pr " struct guestfs_%s {\n" typ;
+      List.iter (
+	function
+	| name, `Int -> pr "   int64_t %s;\n" name
+      ) cols;
+      pr " };\n";
+      pr "\n";
+  ) [ "stat", stat_cols; "statvfs", statvfs_cols ];
+
+  (* DirentList *)
+  pr "=head2 guestfs_dirent\n";
+  pr "\n";
+  pr " struct guestfs_dirent {\n";
+  List.iter (
+    function
+    | name, `String -> pr "   char *%s;\n" name
+    | name, `Int -> pr "   int64_t %s;\n" name
+    | name, `Char -> pr "   char %s;\n" name
+  ) dirent_cols;
+  pr " };\n";
+  pr "\n";
+  pr " struct guestfs_dirent_list {\n";
+  pr "   uint32_t len; /* Number of elements in list. */\n";
+  pr "   struct guestfs_dirent *val; /* Elements. */\n";
+  pr " };\n";
+  pr " \n";
+  pr " void guestfs_free_dirent_list (struct guestfs_free_dirent_list *);\n";
+  pr "\n"
 
 (* Generate the protocol (XDR) file, 'guestfs_protocol.x' and
  * indirectly 'guestfs_protocol.h' and 'guestfs_protocol.c'.
@@ -3329,6 +3392,18 @@ and generate_xdr () =
 	pr "};\n";
 	pr "\n";
   ) ["stat", stat_cols; "statvfs", statvfs_cols];
+
+  (* Dirent structures. *)
+  pr "struct guestfs_int_dirent {\n";
+  List.iter (function
+	     | name, `Int -> pr "  hyper %s;\n" name
+	     | name, `Char -> pr "  char %s;\n" name
+	     | name, `String -> pr "  string %s<>;\n" name
+	    ) dirent_cols;
+  pr "};\n";
+  pr "\n";
+  pr "typedef struct guestfs_int_dirent guestfs_int_dirent_list<>;\n";
+  pr "\n";
 
   List.iter (
     fun (shortname, style, _, _, _, _, _) ->
@@ -3401,6 +3476,10 @@ and generate_xdr () =
        | RHashtable n ->
 	   pr "struct %s_ret {\n" name;
 	   pr "  str %s<>;\n" n;
+	   pr "};\n\n"
+       | RDirentList n ->
+	   pr "struct %s_ret {\n" name;
+	   pr "  guestfs_int_dirent_list %s;\n" n;
 	   pr "};\n\n"
       );
   ) daemon_functions;
@@ -3529,7 +3608,23 @@ and generate_structs_h () =
 	) cols;
 	pr "};\n";
 	pr "\n"
-  ) ["stat", stat_cols; "statvfs", statvfs_cols]
+  ) ["stat", stat_cols; "statvfs", statvfs_cols];
+
+  (* Dirent structures. *)
+  pr "struct guestfs_dirent {\n";
+  List.iter (
+    function
+    | name, `Int -> pr "  int64_t %s;\n" name
+    | name, `Char -> pr "  char %s;\n" name
+    | name, `String -> pr "  char *%s;\n" name
+  ) dirent_cols;
+  pr "};\n";
+  pr "\n";
+  pr "struct guestfs_dirent_list {\n";
+  pr "  uint32_t len;\n";
+  pr "  struct guestfs_dirent *val;\n";
+  pr "};\n";
+  pr "\n"
 
 (* Generate the guestfs-actions.h file. *)
 and generate_actions_h () =
@@ -3637,7 +3732,8 @@ check_state (guestfs_h *g, const char *caller)
        | RIntBool _
        | RPVList _ | RVGList _ | RLVList _
        | RStat _ | RStatVFS _
-       | RHashtable _ ->
+       | RHashtable _
+       | RDirentList _ ->
 	   pr "  struct %s_ret ret;\n" name
       );
       pr "};\n";
@@ -3680,7 +3776,8 @@ check_state (guestfs_h *g, const char *caller)
        | RIntBool _
        | RPVList _ | RVGList _ | RLVList _
        | RStat _ | RStatVFS _
-       | RHashtable _ ->
+       | RHashtable _
+       | RDirentList _ ->
 	    pr "  if (!xdr_%s_ret (xdr, &ctx->ret)) {\n" name;
 	    pr "    error (g, \"%%s: failed to parse reply\", \"%s\");\n" name;
 	    pr "    return;\n";
@@ -3703,7 +3800,8 @@ check_state (guestfs_h *g, const char *caller)
 	| RString _ | RStringList _ | RIntBool _
 	| RPVList _ | RVGList _ | RLVList _
 	| RStat _ | RStatVFS _
-	| RHashtable _ ->
+	| RHashtable _
+	| RDirentList _ ->
 	    "NULL" in
 
       pr "{\n";
@@ -3839,7 +3937,8 @@ check_state (guestfs_h *g, const char *caller)
 	   pr "  /* caller with free this */\n";
 	   pr "  return safe_memdup (g, &ctx.ret, sizeof (ctx.ret));\n"
        | RPVList n | RVGList n | RLVList n
-       | RStat n | RStatVFS n ->
+       | RStat n | RStatVFS n
+       | RDirentList n ->
 	   pr "  /* caller will free this */\n";
 	   pr "  return safe_memdup (g, &ctx.ret.%s, sizeof (ctx.ret.%s));\n" n n
       );
@@ -3899,7 +3998,8 @@ and generate_daemon_actions () =
 	| RVGList _ -> pr "  guestfs_lvm_int_vg_list *r;\n"; "NULL"
 	| RLVList _ -> pr "  guestfs_lvm_int_lv_list *r;\n"; "NULL"
 	| RStat _ -> pr "  guestfs_int_stat *r;\n"; "NULL"
-	| RStatVFS _ -> pr "  guestfs_int_statvfs *r;\n"; "NULL" in
+	| RStatVFS _ -> pr "  guestfs_int_statvfs *r;\n"; "NULL"
+	| RDirentList _ -> pr "  guestfs_int_dirent_list *r;\n"; "NULL" in
 
       (match snd style with
        | [] -> ()
@@ -4000,7 +4100,8 @@ and generate_daemon_actions () =
 	      name;
 	    pr "  xdr_free ((xdrproc_t) xdr_guestfs_%s_ret, (char *) r);\n" name
 	| RPVList n | RVGList n | RLVList n
-	| RStat n | RStatVFS n ->
+	| RStat n | RStatVFS n
+	| RDirentList n ->
 	    pr "  struct guestfs_%s_ret ret;\n" name;
 	    pr "  ret.%s = *r;\n" n;
 	    pr "  reply ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n"
@@ -4781,7 +4882,9 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
 	| RStat _ ->
 	    pr "    struct guestfs_stat *r;\n"; "NULL"
 	| RStatVFS _ ->
-	    pr "    struct guestfs_statvfs *r;\n"; "NULL" in
+	    pr "    struct guestfs_statvfs *r;\n"; "NULL"
+	| RDirentList _ ->
+	    pr "    struct guestfs_dirent_list *r;\n"; "NULL" in
 
       pr "    suppress_error = %d;\n" (if expect_error then 1 else 0);
       pr "    r = guestfs_%s (g" name;
@@ -4837,6 +4940,8 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
 	   pr "    guestfs_free_lvm_lv_list (r);\n"
        | RStat _ | RStatVFS _ ->
 	   pr "    free (r);\n"
+       | RDirentList _ ->
+	   pr "    guestfs_free_dirent_list (r);\n"
       );
 
       pr "  }\n"
@@ -4992,6 +5097,29 @@ and generate_fish_cmds () =
 	pr "\n";
   ) ["stat", stat_cols; "statvfs", statvfs_cols];
 
+  (* print_dirent_list function *)
+  pr "static void print_dirent (struct guestfs_dirent *dirent)\n";
+  pr "{\n";
+  List.iter (
+    function
+    | name, `String ->
+	pr "  printf (\"%s: %%s\\n\", dirent->%s);\n" name name
+    | name, `Int ->
+	pr "  printf (\"%s: %%\" PRIi64 \"\\n\", dirent->%s);\n" name name
+    | name, `Char ->
+	pr "  printf (\"%s: %%c\\n\", dirent->%s);\n" name name
+  ) dirent_cols;
+  pr "}\n";
+  pr "\n";
+  pr "static void print_dirent_list (struct guestfs_dirent_list *dirents)\n";
+  pr "{\n";
+  pr "  int i;\n";
+  pr "\n";
+  pr "  for (i = 0; i < dirents->len; ++i)\n";
+  pr "    print_dirent (&dirents->val[i]);\n";
+  pr "}\n";
+  pr "\n";
+
   (* run_<action> actions *)
   List.iter (
     fun (name, style, _, flags, _, _, _) ->
@@ -5011,6 +5139,7 @@ and generate_fish_cmds () =
        | RLVList _ -> pr "  struct guestfs_lvm_lv_list *r;\n"
        | RStat _ -> pr "  struct guestfs_stat *r;\n"
        | RStatVFS _ -> pr "  struct guestfs_statvfs *r;\n"
+       | RDirentList _ -> pr "  struct guestfs_dirent_list *r;\n"
       );
       List.iter (
 	function
@@ -5124,6 +5253,11 @@ and generate_fish_cmds () =
 	   pr "  if (r == NULL) return -1;\n";
 	   pr "  print_table (r);\n";
 	   pr "  free_strings (r);\n";
+	   pr "  return 0;\n"
+       | RDirentList _ ->
+	   pr "  if (r == NULL) return -1;\n";
+	   pr "  print_dirent_list (r);\n";
+	   pr "  guestfs_free_dirent_list (r);\n";
 	   pr "  return 0;\n"
       );
       pr "}\n";
@@ -5335,6 +5469,9 @@ and generate_prototype ?(extern = true) ?(static = false) ?(semicolon = true)
    | RStatVFS _ ->
        if not in_daemon then pr "struct guestfs_statvfs *"
        else pr "guestfs_int_statvfs *"
+   | RDirentList _ ->
+       if not in_daemon then pr "struct guestfs_dirent_list *"
+       else pr "guestfs_int_dirent_list *"
   );
   pr "%s%s (" prefix name;
   if handle = None && List.length (snd style) = 0 then
@@ -5416,6 +5553,8 @@ val close : t -> unit
 
   generate_ocaml_stat_structure_decls ();
 
+  generate_ocaml_dirent_structure_decls ();
+
   (* The actions. *)
   List.iter (
     fun (name, style, _, _, _, shortdesc, _) ->
@@ -5442,6 +5581,8 @@ let () =
   generate_ocaml_lvm_structure_decls ();
 
   generate_ocaml_stat_structure_decls ();
+
+  generate_ocaml_dirent_structure_decls ();
 
   (* The actions. *)
   List.iter (
@@ -5585,6 +5726,50 @@ copy_table (char * const * argv)
       pr "\n";
   ) ["stat", stat_cols; "statvfs", statvfs_cols];
 
+  (* Dirent copy functions. *)
+  pr "static CAMLprim value\n";
+  pr "copy_dirent (const struct guestfs_dirent *dirent)\n";
+  pr "{\n";
+  pr "  CAMLparam0 ();\n";
+  pr "  CAMLlocal2 (rv, v);\n";
+  pr "\n";
+  pr "  rv = caml_alloc (%d, 0);\n" (List.length dirent_cols);
+  iteri (
+    fun i col ->
+      (match col with
+       | name, `String ->
+	   pr "  v = caml_copy_string (dirent->%s);\n" name
+       | name, `Int ->
+	   pr "  v = caml_copy_int64 (dirent->%s);\n" name
+       | name, `Char ->
+	   pr "  v = Val_int (dirent->%s);\n" name
+      );
+      pr "  Store_field (rv, %d, v);\n" i
+  ) dirent_cols;
+  pr "  CAMLreturn (rv);\n";
+  pr "}\n";
+  pr "\n";
+
+  pr "static CAMLprim value\n";
+  pr "copy_dirent_list (const struct guestfs_dirent_list *dirents)\n";
+  pr "{\n";
+  pr "  CAMLparam0 ();\n";
+  pr "  CAMLlocal2 (rv, v);\n";
+  pr "  int i;\n";
+  pr "\n";
+  pr "  if (dirents->len == 0)\n";
+  pr "    CAMLreturn (Atom (0));\n";
+  pr "  else {\n";
+  pr "    rv = caml_alloc (dirents->len, 0);\n";
+  pr "    for (i = 0; i < dirents->len; ++i) {\n";
+  pr "      v = copy_dirent (&dirents->val[i]);\n";
+  pr "      caml_modify (&Field (rv, i), v);\n";
+  pr "    }\n";
+  pr "    CAMLreturn (rv);\n";
+  pr "  }\n";
+  pr "}\n";
+  pr "\n";
+
   (* The wrappers. *)
   List.iter (
     fun (name, style, _, _, _, _, _) ->
@@ -5659,7 +5844,9 @@ copy_table (char * const * argv)
 	| RHashtable _ ->
 	    pr "  int i;\n";
 	    pr "  char **r;\n";
-	    "NULL" in
+	    "NULL"
+	| RDirentList _ ->
+	    pr "  struct guestfs_dirent_list *r;\n"; "NULL" in
       pr "\n";
 
       pr "  caml_enter_blocking_section ();\n";
@@ -5717,6 +5904,9 @@ copy_table (char * const * argv)
 	   pr "  rv = copy_table (r);\n";
 	   pr "  for (i = 0; r[i] != NULL; ++i) free (r[i]);\n";
 	   pr "  free (r);\n";
+       | RDirentList _ ->
+	   pr "  rv = copy_dirent_list (r);\n";
+	   pr "  guestfs_free_dirent_list (r);\n";
       );
 
       pr "  CAMLreturn (rv);\n";
@@ -5763,6 +5953,17 @@ and generate_ocaml_stat_structure_decls () =
       pr "\n"
   ) ["stat", stat_cols; "statvfs", statvfs_cols]
 
+and generate_ocaml_dirent_structure_decls () =
+  pr "type dirent = {\n";
+  List.iter (
+    function
+    | name, `Int -> pr "  %s : int64;\n" name
+    | name, `Char -> pr "  %s : char;\n" name
+    | name, `String -> pr "  %s : string;\n" name
+  ) dirent_cols;
+  pr "}\n";
+  pr "\n"
+
 and generate_ocaml_prototype ?(is_external = false) name style =
   if is_external then pr "external " else pr "val ";
   pr "%s : t -> " name;
@@ -5789,6 +5990,7 @@ and generate_ocaml_prototype ?(is_external = false) name style =
    | RStat _ -> pr "stat"
    | RStatVFS _ -> pr "statvfs"
    | RHashtable _ -> pr "(string * string) list"
+   | RDirentList _ -> pr "dirent array"
   );
   if is_external then (
     pr " = ";
@@ -5905,7 +6107,8 @@ DESTROY (g)
        | RIntBool _
        | RPVList _ | RVGList _ | RLVList _
        | RStat _ | RStatVFS _
-       | RHashtable _ ->
+       | RHashtable _
+       | RDirentList _ ->
 	   pr "void\n" (* all lists returned implictly on the stack *)
       );
       (* Call and arguments. *)
@@ -6046,6 +6249,9 @@ DESTROY (g)
        | RStatVFS n ->
 	   generate_perl_stat_code
 	     "statvfs" statvfs_cols name style n do_cleanups
+       | RDirentList n ->
+	   generate_perl_dirent_code
+	     "dirent" dirent_cols name style n do_cleanups
       );
 
       pr "\n"
@@ -6084,7 +6290,7 @@ and generate_perl_lvm_code typ cols name style n do_cleanups =
 	pr "        (void) hv_store (hv, \"%s\", %d, newSVnv (%s->val[i].%s), 0);\n"
 	  name (String.length name) n name
   ) cols;
-  pr "        PUSHs (sv_2mortal ((SV *) hv));\n";
+  pr "        PUSHs (sv_2mortal (newRV ((SV *) hv)));\n";
   pr "      }\n";
   pr "      guestfs_free_lvm_%s_list (%s);\n" typ n
 
@@ -6105,6 +6311,37 @@ and generate_perl_stat_code typ cols name style n do_cleanups =
 	pr "      PUSHs (sv_2mortal (my_newSVll (%s->%s)));\n" n name
   ) cols;
   pr "      free (%s);\n" n
+
+and generate_perl_dirent_code typ cols name style n do_cleanups =
+  pr "PREINIT:\n";
+  pr "      struct guestfs_%s_list *%s;\n" typ n;
+  pr "      int i;\n";
+  pr "      HV *hv;\n";
+  pr " PPCODE:\n";
+  pr "      %s = guestfs_%s " n name;
+  generate_call_args ~handle:"g" (snd style);
+  pr ";\n";
+  do_cleanups ();
+  pr "      if (%s == NULL)\n" n;
+  pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
+  pr "      EXTEND (SP, %s->len);\n" n;
+  pr "      for (i = 0; i < %s->len; ++i) {\n" n;
+  pr "        hv = newHV ();\n";
+  List.iter (
+    function
+    | name, `String ->
+	pr "        (void) hv_store (hv, \"%s\", %d, newSVpv (%s->val[i].%s, 0), 0);\n"
+	  name (String.length name) n name
+    | name, `Int ->
+	pr "        (void) hv_store (hv, \"%s\", %d, my_newSVull (%s->val[i].%s), 0);\n"
+	  name (String.length name) n name
+    | name, `Char ->
+	pr "        (void) hv_store (hv, \"%s\", %d, newSVpv (&%s->val[i].%s, 1), 0);\n"
+	  name (String.length name) n name
+  ) cols;
+  pr "        PUSHs (newRV (sv_2mortal ((SV *) hv)));\n";
+  pr "      }\n";
+  pr "      guestfs_free_%s_list (%s);\n" typ n
 
 (* Generate Sys/Guestfs.pm. *)
 and generate_perl_pm () =
@@ -6239,7 +6476,8 @@ and generate_perl_prototype name style =
    | RStringList n
    | RPVList n
    | RVGList n
-   | RLVList n -> pr "@%s = " n
+   | RLVList n
+   | RDirentList n -> pr "@%s = " n
    | RStat n
    | RStatVFS n
    | RHashtable n -> pr "%%%s = " n
@@ -6475,6 +6713,42 @@ py_guestfs_close (PyObject *self, PyObject *args)
       pr "\n";
   ) ["stat", stat_cols; "statvfs", statvfs_cols];
 
+  (* Dirent structures, turned into Python dictionaries. *)
+  pr "static PyObject *\n";
+  pr "put_dirent (struct guestfs_dirent *dirent)\n";
+  pr "{\n";
+  pr "  PyObject *dict;\n";
+  pr "\n";
+  pr "  dict = PyDict_New ();\n";
+  List.iter (
+    function
+    | name, `Int ->
+	pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
+	pr "                        PyLong_FromLongLong (dirent->%s));\n" name
+    | name, `Char ->
+	pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
+	pr "                        PyString_FromStringAndSize (&dirent->%s, 1));\n" name
+    | name, `String ->
+	pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
+	pr "                        PyString_FromString (dirent->%s));\n" name
+  ) dirent_cols;
+  pr "  return dict;\n";
+  pr "};\n";
+  pr "\n";
+
+  pr "static PyObject *\n";
+  pr "put_dirent_list (struct guestfs_dirent_list *dirents)\n";
+  pr "{\n";
+  pr "  PyObject *list;\n";
+  pr "  int i;\n";
+  pr "\n";
+  pr "  list = PyList_New (dirents->len);\n";
+  pr "  for (i = 0; i < dirents->len; ++i)\n";
+  pr "    PyList_SetItem (list, i, put_dirent (&dirents->val[i]));\n";
+  pr "  return list;\n";
+  pr "};\n";
+  pr "\n";
+
   (* Python wrapper functions. *)
   List.iter (
     fun (name, style, _, _, _, _, _) ->
@@ -6498,7 +6772,8 @@ py_guestfs_close (PyObject *self, PyObject *args)
 	| RVGList n -> pr "  struct guestfs_lvm_vg_list *r;\n"; "NULL"
 	| RLVList n -> pr "  struct guestfs_lvm_lv_list *r;\n"; "NULL"
 	| RStat n -> pr "  struct guestfs_stat *r;\n"; "NULL"
-	| RStatVFS n -> pr "  struct guestfs_statvfs *r;\n"; "NULL" in
+	| RStatVFS n -> pr "  struct guestfs_statvfs *r;\n"; "NULL"
+	| RDirentList n -> pr "  struct guestfs_dirent_list *r;\n"; "NULL" in
 
       List.iter (
 	function
@@ -6602,6 +6877,9 @@ py_guestfs_close (PyObject *self, PyObject *args)
        | RHashtable n ->
 	   pr "  py_r = put_table (r);\n";
 	   pr "  free_strings (r);\n"
+       | RDirentList n ->
+	   pr "  py_r = put_dirent_list (r);\n";
+	   pr "  guestfs_free_dirent_list (r);\n"
       );
 
       pr "  return py_r;\n";
@@ -6729,7 +7007,9 @@ class GuestFS:
 	  | RStatVFS _ ->
 	      doc ^ "\n\nThis function returns a dictionary, with keys matching the various fields in the statvfs structure."
 	  | RHashtable _ ->
-	      doc ^ "\n\nThis function returns a dictionary." in
+	      doc ^ "\n\nThis function returns a dictionary."
+	  | RDirentList _ ->
+	      doc ^ "\n\nThis function returns a list of directory entries.  Each directory entry is represented as a dictionary." in
 	let doc =
 	  if List.mem ProtocolLimitWarning flags then
 	    doc ^ "\n\n" ^ protocol_limit_warning
@@ -6894,7 +7174,8 @@ static VALUE ruby_guestfs_close (VALUE gv)
 	| RVGList n -> pr "  struct guestfs_lvm_vg_list *r;\n"; "NULL"
 	| RLVList n -> pr "  struct guestfs_lvm_lv_list *r;\n"; "NULL"
 	| RStat n -> pr "  struct guestfs_stat *r;\n"; "NULL"
-	| RStatVFS n -> pr "  struct guestfs_statvfs *r;\n"; "NULL" in
+	| RStatVFS n -> pr "  struct guestfs_statvfs *r;\n"; "NULL"
+	| RDirentList n -> pr "  struct guestfs_dirent_list *r;\n"; "NULL" in
       pr "\n";
 
       pr "  r = guestfs_%s " name;
@@ -6975,6 +7256,8 @@ static VALUE ruby_guestfs_close (VALUE gv)
 	   pr "  }\n";
 	   pr "  free (r);\n";
 	   pr "  return rv;\n"
+       | RDirentList n ->
+	   generate_ruby_dirent_code "dirent" dirent_cols
       );
 
       pr "}\n";
@@ -7025,6 +7308,24 @@ and generate_ruby_lvm_code typ cols =
   pr "  guestfs_free_lvm_%s_list (r);\n" typ;
   pr "  return rv;\n"
 
+(* Ruby code to return a dirent struct list. *)
+and generate_ruby_dirent_code typ cols =
+  pr "  VALUE rv = rb_ary_new2 (r->len);\n";
+  pr "  int i;\n";
+  pr "  for (i = 0; i < r->len; ++i) {\n";
+  pr "    VALUE hv = rb_hash_new ();\n";
+  List.iter (
+    function
+    | name, `String ->
+	pr "    rb_hash_aset (rv, rb_str_new2 (\"%s\"), rb_str_new2 (r->val[i].%s));\n" name name
+    | name, (`Char|`Int) ->
+	pr "    rb_hash_aset (rv, rb_str_new2 (\"%s\"), ULL2NUM (r->val[i].%s));\n" name name
+  ) cols;
+  pr "    rb_ary_push (rv, hv);\n";
+  pr "  }\n";
+  pr "  guestfs_free_%s_list (r);\n" typ;
+  pr "  return rv;\n"
+
 (* Generate Java bindings GuestFS.java file. *)
 and generate_java_java () =
   generate_header CStyle LGPLv2;
@@ -7040,6 +7341,7 @@ import com.redhat.et.libguestfs.LV;
 import com.redhat.et.libguestfs.Stat;
 import com.redhat.et.libguestfs.StatVFS;
 import com.redhat.et.libguestfs.IntBool;
+import com.redhat.et.libguestfs.Dirent;
 
 /**
  * The GuestFS object is a libguestfs handle.
@@ -7163,6 +7465,7 @@ and generate_java_prototype ?(public=false) ?(privat=false) ?(native=false)
    | RStat _ -> pr "Stat ";
    | RStatVFS _ -> pr "StatVFS ";
    | RHashtable _ -> pr "HashMap<String,String> ";
+   | RDirentList _ -> pr "Dirent[] ";
   );
 
   if native then pr "_%s " name else pr "%s " name;
@@ -7218,6 +7521,7 @@ public class %s {
     | name, `UUID -> pr "  public String %s;\n" name
     | name, `Bytes
     | name, `Int -> pr "  public long %s;\n" name
+    | name, `Char -> pr "  public char %s;\n" name
     | name, `OptPercent ->
 	pr "  /* The next field is [0..100] or -1 meaning 'not present': */\n";
 	pr "  public float %s;\n" name
@@ -7284,7 +7588,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
        | RConstString _ | RString _ -> pr "jstring ";
        | RIntBool _ | RStat _ | RStatVFS _ | RHashtable _ ->
 	   pr "jobject ";
-       | RStringList _ | RPVList _ | RVGList _ | RLVList _ ->
+       | RStringList _ | RPVList _ | RVGList _ | RLVList _ | RDirentList _ ->
 	   pr "jobjectArray ";
       );
       pr "JNICALL\n";
@@ -7358,7 +7662,13 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
 	    pr "  jfieldID fl;\n";
 	    pr "  jobject jfl;\n";
 	    pr "  struct guestfs_lvm_lv_list *r;\n"; "NULL", "NULL"
-	| RHashtable _ -> pr "  char **r;\n"; "NULL", "NULL" in
+	| RHashtable _ -> pr "  char **r;\n"; "NULL", "NULL"
+	| RDirentList _ ->
+	    pr "  jobjectArray jr;\n";
+	    pr "  jclass cl;\n";
+	    pr "  jfieldID fl;\n";
+	    pr "  jobject jfl;\n";
+	    pr "  struct guestfs_dirent_list *r;\n"; "NULL", "NULL" in
       List.iter (
 	function
 	| String n
@@ -7376,7 +7686,8 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
 
       let needs_i =
 	(match fst style with
-	 | RStringList _ | RPVList _ | RVGList _ | RLVList _ -> true
+	 | RStringList _ | RPVList _ | RVGList _ | RLVList _
+	 | RDirentList _ -> true
 	 | RErr | RBool _ | RInt _ | RInt64 _ | RConstString _
 	 | RString _ | RIntBool _ | RStat _ | RStatVFS _
 	 | RHashtable _ -> false) ||
@@ -7510,6 +7821,8 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
 	   (* XXX *)
 	   pr "  throw_exception (env, \"%s: internal error: please let us know how to make a Java HashMap from JNI bindings!\");\n" name;
 	   pr "  return NULL;\n"
+       | RDirentList _ ->
+	   generate_java_dirent_return "dirent" "Dirent" dirent_cols
       );
 
       pr "}\n";
@@ -7546,6 +7859,25 @@ and generate_java_lvm_return typ jtyp cols =
   pr "  guestfs_free_lvm_%s_list (r);\n" typ;
   pr "  return jr;\n"
 
+and generate_java_dirent_return typ jtyp cols =
+  pr "  cl = (*env)->FindClass (env, \"com/redhat/et/libguestfs/%s\");\n" jtyp;
+  pr "  jr = (*env)->NewObjectArray (env, r->len, cl, NULL);\n";
+  pr "  for (i = 0; i < r->len; ++i) {\n";
+  pr "    jfl = (*env)->AllocObject (env, cl);\n";
+  List.iter (
+    function
+    | name, `String ->
+	pr "    fl = (*env)->GetFieldID (env, cl, \"%s\", \"Ljava/lang/String;\");\n" name;
+	pr "    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].%s));\n" name;
+    | name, (`Char|`Int) ->
+	pr "    fl = (*env)->GetFieldID (env, cl, \"%s\", \"J\");\n" name;
+	pr "    (*env)->SetLongField (env, jfl, fl, r->val[i].%s);\n" name;
+  ) cols;
+  pr "    (*env)->SetObjectArrayElement (env, jfl, i, jfl);\n";
+  pr "  }\n";
+  pr "  guestfs_free_%s_list (r);\n" typ;
+  pr "  return jr;\n"
+
 and generate_haskell_hs () =
   generate_header HaskellStyle LGPLv2;
 
@@ -7567,7 +7899,8 @@ and generate_haskell_hs () =
     | RLVList _, _
     | RStat _, _
     | RStatVFS _, _
-    | RHashtable _, _ -> false in
+    | RHashtable _, _
+    | RDirentList _, _ -> false in
 
   pr "\
 {-# INCLUDE <guestfs.h> #-}
@@ -7678,7 +8011,7 @@ last_error h = do
 	     pr "      fail err\n";
 	 | RConstString _ | RString _ | RStringList _ | RIntBool _
 	 | RPVList _ | RVGList _ | RLVList _ | RStat _ | RStatVFS _
-	 | RHashtable _ ->
+	 | RHashtable _ | RDirentList _ ->
 	     pr "  if (r == nullPtr)\n";
 	     pr "    then do\n";
 	     pr "      err <- last_error h\n";
@@ -7702,7 +8035,8 @@ last_error h = do
 	 | RLVList _
 	 | RStat _
 	 | RStatVFS _
-	 | RHashtable _ ->
+	 | RHashtable _
+	 | RDirentList _ ->
 	     pr "    else return ()\n" (* XXXXXXXXXXXXXXXXXXXX *)
 	);
 	pr "\n";
@@ -7744,6 +8078,7 @@ and generate_haskell_prototype ~handle ?(hs = false) style =
    | RStat _ -> pr "Stat"
    | RStatVFS _ -> pr "StatVFS"
    | RHashtable _ -> pr "Hashtable"
+   | RDirentList _ -> pr "[Dirent]"
   );
   pr ")"
 
@@ -7904,6 +8239,15 @@ print_strings (char * const* const argv)
 	     pr "  }\n";
 	     pr "  strs[n*2] = NULL;\n";
 	     pr "  return strs;\n"
+	 | RDirentList _ ->
+	     pr "  struct guestfs_dirent_list *r;\n";
+	     pr "  int i;\n";
+	     pr "  r = malloc (sizeof (struct guestfs_dirent_list));\n";
+	     pr "  sscanf (val, \"%%d\", &r->len);\n";
+	     pr "  r->val = calloc (r->len, sizeof (struct guestfs_dirent));\n";
+	     pr "  for (i = 0; i < r->len; ++i)\n";
+	     pr "    r->val[i].ino = i;\n";
+	     pr "  return r;\n"
 	);
 	pr "}\n";
 	pr "\n"
@@ -7919,7 +8263,8 @@ print_strings (char * const* const argv)
 	 | RConstString _
 	 | RString _ | RStringList _ | RIntBool _
 	 | RPVList _ | RVGList _ | RLVList _ | RStat _ | RStatVFS _
-	 | RHashtable _ ->
+	 | RHashtable _
+	 | RDirentList _ ->
 	     pr "  return NULL;\n"
 	);
 	pr "}\n";
@@ -8342,6 +8687,10 @@ Run it from the top source directory using the command
 
   let close = output_to "java/com/redhat/et/libguestfs/StatVFS.java" in
   generate_java_struct "StatVFS" statvfs_cols;
+  close ();
+
+  let close = output_to "java/com/redhat/et/libguestfs/Dirent.java" in
+  generate_java_struct "Dirent" dirent_cols;
   close ();
 
   let close = output_to "java/com_redhat_et_libguestfs_GuestFS.c" in

@@ -139,6 +139,7 @@ void list_commands (void)
   printf ("%-20s %s\n", "pvs", "list the LVM physical volumes (PVs)");
   printf ("%-20s %s\n", "pvs-full", "list the LVM physical volumes (PVs)");
   printf ("%-20s %s\n", "read-lines", "read file as lines");
+  printf ("%-20s %s\n", "readdir", "read directories entries");
   printf ("%-20s %s\n", "resize2fs", "resize an ext2/ext3 filesystem");
   printf ("%-20s %s\n", "rm", "remove a file");
   printf ("%-20s %s\n", "rm-rf", "remove a file or directory recursively");
@@ -676,6 +677,9 @@ void display_command (const char *cmd)
   if (strcasecmp (cmd, "umask") == 0)
     pod2text ("umask - set file mode creation mask (umask)", " umask <mask>\n\nThis function sets the mask used for creating new files and\ndevice nodes to C<mask & 0777>.\n\nTypical umask values would be C<022> which creates new files\nwith permissions like \"-rw-r--r--\" or \"-rwxr-xr-x\", and\nC<002> which creates new files with permissions like\n\"-rw-rw-r--\" or \"-rwxrwxr-x\".\n\nThe default umask is C<022>.  This is important because it\nmeans that directories and device nodes will be created with\nC<0644> or C<0755> mode even if you specify C<0777>.\n\nSee also L<umask(2)>, C<mknod>, C<mkdir>.\n\nThis call returns the previous umask.");
   else
+  if (strcasecmp (cmd, "readdir") == 0)
+    pod2text ("readdir - read directories entries", " readdir <dir>\n\nThis returns the list of directory entries in directory C<dir>.\n\nAll entries in the directory are returned, including C<.> and\nC<..>.  The entries are I<not> sorted, but returned in the same\norder as the underlying filesystem.\n\nThis function is primarily intended for use by programs.  To\nget a simple list of names, use C<ls>.  To get a printable\ndirectory for human consumption, use C<ll>.");
+  else
     display_builtin_command (cmd);
 }
 
@@ -811,6 +815,21 @@ static void print_statvfs (struct guestfs_statvfs *statvfs)
   printf ("fsid: %" PRIi64 "\n", statvfs->fsid);
   printf ("flag: %" PRIi64 "\n", statvfs->flag);
   printf ("namemax: %" PRIi64 "\n", statvfs->namemax);
+}
+
+static void print_dirent (struct guestfs_dirent *dirent)
+{
+  printf ("ino: %" PRIi64 "\n", dirent->ino);
+  printf ("ftyp: %c\n", dirent->ftyp);
+  printf ("name: %s\n", dirent->name);
+}
+
+static void print_dirent_list (struct guestfs_dirent_list *dirents)
+{
+  int i;
+
+  for (i = 0; i < dirents->len; ++i)
+    print_dirent (&dirents->val[i]);
 }
 
 static int run_launch (const char *cmd, int argc, char *argv[])
@@ -3329,6 +3348,23 @@ static int run_umask (const char *cmd, int argc, char *argv[])
   return 0;
 }
 
+static int run_readdir (const char *cmd, int argc, char *argv[])
+{
+  struct guestfs_dirent_list *r;
+  const char *dir;
+  if (argc != 1) {
+    fprintf (stderr, "%s should have 1 parameter(s)\n", cmd);
+    fprintf (stderr, "type 'help %s' for help on %s\n", cmd, cmd);
+    return -1;
+  }
+  dir = argv[0];
+  r = guestfs_readdir (g, dir);
+  if (r == NULL) return -1;
+  print_dirent_list (r);
+  guestfs_free_dirent_list (r);
+  return 0;
+}
+
 int run_action (const char *cmd, int argc, char *argv[])
 {
   if (strcasecmp (cmd, "launch") == 0 || strcasecmp (cmd, "run") == 0)
@@ -3810,6 +3846,9 @@ int run_action (const char *cmd, int argc, char *argv[])
   else
   if (strcasecmp (cmd, "umask") == 0)
     return run_umask (cmd, argc, argv);
+  else
+  if (strcasecmp (cmd, "readdir") == 0)
+    return run_readdir (cmd, argc, argv);
   else
     {
       fprintf (stderr, "%s: unknown command\n", cmd);

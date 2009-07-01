@@ -1473,6 +1473,13 @@ guestfs_free_lvm_lv_list (struct guestfs_lvm_lv_list *x)
   free (x);
 }
 
+void
+guestfs_free_dirent_list (struct guestfs_dirent_list *x)
+{
+  xdr_free ((xdrproc_t) xdr_guestfs_int_dirent_list, (char *) x);
+  free (x);
+}
+
 /* We don't know if stdout_event or sock_read_event will be the
  * first to receive EOF if the qemu process dies.  This function
  * has the common cleanup code for both.

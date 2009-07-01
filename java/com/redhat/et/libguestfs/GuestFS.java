@@ -29,6 +29,7 @@ import com.redhat.et.libguestfs.LV;
 import com.redhat.et.libguestfs.Stat;
 import com.redhat.et.libguestfs.StatVFS;
 import com.redhat.et.libguestfs.IntBool;
+import com.redhat.et.libguestfs.Dirent;
 
 /**
  * The GuestFS object is a libguestfs handle.
@@ -4052,6 +4053,32 @@ public HashMap<String,String> test0rhashtableerr ()
     return _umask (g, mask);
   }
   private native int _umask (long g, int mask)
+    throws LibGuestFSException;
+
+  /**
+   * read directories entries
+   * <p>
+   * This returns the list of directory entries in directory
+   * "dir".
+   * <p>
+   * All entries in the directory are returned, including "."
+   * and "..". The entries are *not* sorted, but returned in
+   * the same order as the underlying filesystem.
+   * <p>
+   * This function is primarily intended for use by programs.
+   * To get a simple list of names, use "g.ls". To get a
+   * printable directory for human consumption, use "g.ll".
+   * <p>
+   * @throws LibGuestFSException
+   */
+  public Dirent[] readdir (String dir)
+    throws LibGuestFSException
+  {
+    if (g == 0)
+      throw new LibGuestFSException ("readdir: handle is closed");
+    return _readdir (g, dir);
+  }
+  private native Dirent[] _readdir (long g, String dir)
     throws LibGuestFSException;
 
 }

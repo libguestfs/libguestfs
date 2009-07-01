@@ -115,6 +115,14 @@ struct guestfs_int_statvfs {
   hyper namemax;
 };
 
+struct guestfs_int_dirent {
+  hyper ino;
+  char ftyp;
+  string name<>;
+};
+
+typedef struct guestfs_int_dirent guestfs_int_dirent_list<>;
+
 struct guestfs_mount_args {
   string device<>;
   string mountpoint<>;
@@ -911,6 +919,14 @@ struct guestfs_umask_ret {
   int oldmask;
 };
 
+struct guestfs_readdir_args {
+  string dir<>;
+};
+
+struct guestfs_readdir_ret {
+  guestfs_int_dirent_list entries;
+};
+
 enum guestfs_procedure {
   GUESTFS_PROC_MOUNT = 1,
   GUESTFS_PROC_SYNC = 2,
@@ -1049,6 +1065,7 @@ enum guestfs_procedure {
   GUESTFS_PROC_MKNOD_B = 135,
   GUESTFS_PROC_MKNOD_C = 136,
   GUESTFS_PROC_UMASK = 137,
+  GUESTFS_PROC_READDIR = 138,
   GUESTFS_PROC_NR_PROCS
 };
 

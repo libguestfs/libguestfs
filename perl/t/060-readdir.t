@@ -1,4 +1,4 @@
-# libguestfs-daemon
+# libguestfs Perl bindings -*- perl -*-
 # Copyright (C) 2009 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -15,58 +15,49 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-ACLOCAL_AMFLAGS = -I m4
+use strict;
+use warnings;
+use Test::More tests => 13;
 
-noinst_PROGRAMS = guestfsd
-guestfsd_SOURCES = \
-	actions.h \
-	augeas.c \
-	blockdev.c \
-	checksum.c \
-	cmp.c \
-	command.c \
-	cpmv.c \
-	daemon.h \
-	debug.c \
-	devsparts.c \
-	df.c \
-	dir.c \
-	dmesg.c \
-	dropcaches.c \
-	du.c \
-	ext2.c \
-	file.c \
-	find.c \
-	fsck.c \
-	glob.c \
-	grub.c \
-	guestfsd.c \
-	headtail.c \
-	hexdump.c \
-	initrd.c \
-	ls.c \
-	lvm.c \
-	mknod.c \
-	mount.c \
-	ntfs.c \
-	pingdaemon.c \
-	proto.c \
-	readdir.c \
-	scrub.c \
-	sfdisk.c \
-	sleep.c \
-	stat.c \
-	strings.c \
-	stubs.c \
-	swap.c \
-	sync.c \
-	tar.c \
-	umask.c \
-	upload.c \
-	wc.c \
-	zero.c \
-	zerofree.c \
-	../src/guestfs_protocol.h \
-	../src/guestfs_protocol.c
+use Sys::Guestfs;
 
-guestfsd_CFLAGS = -Wall
+my $h = Sys::Guestfs->new ();
+ok ($h);
+open FILE, ">test.img";
+truncate FILE, 10*1024*1024;
+close FILE;
+ok (1);
+
+$h->add_drive ("test.img");
+ok (1);
+
+$h->launch ();
+ok (1);
+$h->wait_ready ();
+ok (1);
+
+$h->sfdisk ("/dev/sda", 0, 0, 0, [","]);
+ok (1);
+$h->mkfs ("ext2", "/dev/sda1");
+ok (1);
+$h->mount ("/dev/sda1", "/");
+ok (1);
+$h->mkdir ("/p");
+ok (1);
+$h->touch ("/q");
+ok (1);
+
+my @dirs = $h->readdir ("/");
+@dirs = sort { $a->{name} cmp $b->{name} } @dirs;
+foreach (@dirs) {
+  print "$_->{name} $_->{ino} $_->{ftyp}\n";
+}
+ok (1);
+
+$h->sync ();
+ok (1);
+
+undef $h;
+ok (1);
+
+unlink ("test.img");

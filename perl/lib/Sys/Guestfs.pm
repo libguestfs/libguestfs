@@ -1118,6 +1118,18 @@ Note that this function cannot correctly handle binary files
 as end of line).  For those you need to use the C<$h-E<gt>read_file>
 function which has a more complex interface.
 
+=item @entries = $h->readdir ($dir);
+
+This returns the list of directory entries in directory C<dir>.
+
+All entries in the directory are returned, including C<.> and
+C<..>.  The entries are I<not> sorted, but returned in the same
+order as the underlying filesystem.
+
+This function is primarily intended for use by programs.  To
+get a simple list of names, use C<$h-E<gt>ls>.  To get a printable
+directory for human consumption, use C<$h-E<gt>ll>.
+
 =item $h->resize2fs ($device);
 
 This resizes an ext2 or ext3 filesystem to match the size of

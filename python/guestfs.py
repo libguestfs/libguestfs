@@ -1958,3 +1958,20 @@ class GuestFS:
         """
         return libguestfsmod.umask (self._o, mask)
 
+    def readdir (self, dir):
+        u"""This returns the list of directory entries in directory
+        "dir".
+        
+        All entries in the directory are returned, including "."
+        and "..". The entries are *not* sorted, but returned in
+        the same order as the underlying filesystem.
+        
+        This function is primarily intended for use by programs.
+        To get a simple list of names, use "g.ls". To get a
+        printable directory for human consumption, use "g.ll".
+        
+        This function returns a list of directory entries. Each
+        directory entry is represented as a dictionary.
+        """
+        return libguestfsmod.readdir (self._o, dir)
+

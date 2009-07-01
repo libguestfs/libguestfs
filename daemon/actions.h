@@ -158,3 +158,4 @@ extern int do_mkfifo (int mode, char *path);
 extern int do_mknod_b (int mode, int devmajor, int devminor, char *path);
 extern int do_mknod_c (int mode, int devmajor, int devminor, char *path);
 extern int do_umask (int mask);
+extern guestfs_int_dirent_list *do_readdir (char *dir);
