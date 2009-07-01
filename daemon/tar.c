@@ -88,7 +88,7 @@ do_tar_in (char *dir)
     return -1;
   }
 
-  if (pclose (fp) == -1) {
+  if (pclose (fp) != 0) {
     err = errno;
     cancel_receive ();
     errno = err;
@@ -150,7 +150,7 @@ do_tar_out (char *dir)
     return -1;
   }
 
-  if (pclose (fp) == -1) {
+  if (pclose (fp) != 0) {
     perror (dir);
     send_file_end (1);		/* Cancel. */
     return -1;
@@ -214,7 +214,7 @@ do_tgz_in (char *dir)
     return -1;
   }
 
-  if (pclose (fp) == -1) {
+  if (pclose (fp) != 0) {
     err = errno;
     cancel_receive ();
     errno = err;
@@ -276,7 +276,7 @@ do_tgz_out (char *dir)
     return -1;
   }
 
-  if (pclose (fp) == -1) {
+  if (pclose (fp) != 0) {
     perror (dir);
     send_file_end (1);		/* Cancel. */
     return -1;

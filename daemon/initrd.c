@@ -78,7 +78,7 @@ do_initrd_list (char *path)
     return NULL;
   }
 
-  if (pclose (fp) == -1) {
+  if (pclose (fp) != 0) {
     reply_with_perror ("pclose");
     free_strings (filenames);
     return NULL;

@@ -113,7 +113,7 @@ do_find (char *dir)
       return NULL;
     }
   }
-  if (pclose (fp) == -1) {
+  if (pclose (fp) != 0) {
     reply_with_perror ("pclose: find");
     free_stringslen (res, size);
     return NULL;
