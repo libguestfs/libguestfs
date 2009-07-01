@@ -796,6 +796,13 @@ See also L<QEMU WRAPPERS> above.
 
 Pass additional options to the guest kernel.
 
+=item LIBGUESTFS_MEMSIZE
+
+Set the memory allocated to the qemu process, in megabytes.  For
+example:
+
+ LIBGUESTFS_MEMSIZE=700
+
 =back
 
 =head1 SEE ALSO

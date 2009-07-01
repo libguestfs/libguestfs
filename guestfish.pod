@@ -447,6 +447,13 @@ used.
 
 Pass additional options to the guest kernel.
 
+=item LIBGUESTFS_MEMSIZE
+
+Set the memory allocated to the qemu process, in megabytes.  For
+example:
+
+ LIBGUESTFS_MEMSIZE=700
+
 =item HOME
 
 If compiled with GNU readline support, then the command history
