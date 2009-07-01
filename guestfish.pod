@@ -464,6 +464,11 @@ is saved in C<$HOME/.guestfish>
 The C<edit> command uses C<$EDITOR> as the editor.  If not
 set, it uses C<vi>.
 
+=item PAGER
+
+The C<more> command uses C<$PAGER> as the pager.  If not
+set, it uses C<more>.
+
 =back
 
 =head1 EXIT CODE
