@@ -2889,6 +2889,17 @@ type callt =
   | CallInt of int
   | CallBool of bool
 
+(* Used to memoize the result of pod2text. *)
+let pod2text_memo_filename = "src/.pod2text.data"
+let pod2text_memo : ((int * string * string), string list) Hashtbl.t =
+  try
+    let chan = open_in pod2text_memo_filename in
+    let v = input_value chan in
+    close_in chan;
+    v
+  with
+    _ -> Hashtbl.create 13
+
 (* Useful functions.
  * Note we don't want to use any external OCaml libraries which
  * makes this a bit harder than it should be.
@@ -7032,32 +7043,42 @@ class GuestFS:
 (* Useful if you need the longdesc POD text as plain text.  Returns a
  * list of lines.
  *
- * This is the slowest thing about autogeneration.
+ * Because this is very slow (the slowest part of autogeneration),
+ * we memoize the results.
  *)
 and pod2text ~width name longdesc =
-  let filename, chan = Filename.open_temp_file "gen" ".tmp" in
-  fprintf chan "=head1 %s\n\n%s\n" name longdesc;
-  close_out chan;
-  let cmd = sprintf "pod2text -w %d %s" width (Filename.quote filename) in
-  let chan = Unix.open_process_in cmd in
-  let lines = ref [] in
-  let rec loop i =
-    let line = input_line chan in
-    if i = 1 then		(* discard the first line of output *)
-      loop (i+1)
-    else (
-      let line = triml line in
-      lines := line :: !lines;
-      loop (i+1)
-    ) in
-  let lines = try loop 1 with End_of_file -> List.rev !lines in
-  Unix.unlink filename;
-  match Unix.close_process_in chan with
-  | Unix.WEXITED 0 -> lines
-  | Unix.WEXITED i ->
-      failwithf "pod2text: process exited with non-zero status (%d)" i
-  | Unix.WSIGNALED i | Unix.WSTOPPED i ->
-      failwithf "pod2text: process signalled or stopped by signal %d" i
+  let key = width, name, longdesc in
+  try Hashtbl.find pod2text_memo key
+  with Not_found ->
+    let filename, chan = Filename.open_temp_file "gen" ".tmp" in
+    fprintf chan "=head1 %s\n\n%s\n" name longdesc;
+    close_out chan;
+    let cmd = sprintf "pod2text -w %d %s" width (Filename.quote filename) in
+    let chan = Unix.open_process_in cmd in
+    let lines = ref [] in
+    let rec loop i =
+      let line = input_line chan in
+      if i = 1 then		(* discard the first line of output *)
+	loop (i+1)
+      else (
+	let line = triml line in
+	lines := line :: !lines;
+	loop (i+1)
+      ) in
+    let lines = try loop 1 with End_of_file -> List.rev !lines in
+    Unix.unlink filename;
+    (match Unix.close_process_in chan with
+     | Unix.WEXITED 0 -> ()
+     | Unix.WEXITED i ->
+	 failwithf "pod2text: process exited with non-zero status (%d)" i
+     | Unix.WSIGNALED i | Unix.WSTOPPED i ->
+	 failwithf "pod2text: process signalled or stopped by signal %d" i
+    );
+    Hashtbl.add pod2text_memo key lines;
+    let chan = open_out pod2text_memo_filename in
+    output_value chan pod2text_memo;
+    close_out chan;
+    lines
 
 (* Generate ruby bindings. *)
 and generate_ruby_c () =
