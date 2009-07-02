@@ -148,6 +148,8 @@ src/.pod2text.data
 src/guestfs-actions.c
 src/guestfs-actions.h
 src/guestfs-bindtests.c
+src/guestfs_protocol.c
+src/guestfs_protocol.h
 src/guestfs_protocol.x
 src/guestfs-structs.h
 src/stamp-generator
