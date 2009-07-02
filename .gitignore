@@ -20,6 +20,7 @@ ChangeLog
 Makefile.in
 Makefile
 aclocal.m4
+appliance/debian/debirf.conf
 appliance/initramfs.*.img
 appliance/initramfs.*.supermin.hostfiles
 appliance/kmod.whitelist
