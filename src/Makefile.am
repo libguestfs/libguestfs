@@ -15,12 +15,25 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-EXTRA_DIST = guestfs_protocol.x \
+EXTRA_DIST = \
+	guestfs_protocol.x \
 	guestfs_protocol.c \
 	guestfs_protocol.h \
-	MAX_PROC_NR
+	MAX_PROC_NR \
+	stamp-generator \
+	generator.ml
 
-EXTRA_DIST += generator.ml
+# Rerun the generator if it has changed.
+# Git removes empty directories, so in cases where the
+# generator is creating the sole file in a directory, we
+# have to create the directory first.
+noinst_DATA = stamp-generator
+
+stamp-generator: generator.ml
+	mkdir -p $(top_srcdir)/perl/lib/Sys
+	cd .. && ocaml -warn-error A $(srcdir)/src/$<
+
+guestfs_protocol.x: stamp-generator
 
 include_HEADERS = guestfs.h guestfs-actions.h guestfs-structs.h
 

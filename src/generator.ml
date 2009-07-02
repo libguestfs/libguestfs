@@ -8712,3 +8712,10 @@ Run it from the top source directory using the command
   let close = output_to "src/MAX_PROC_NR" in
   generate_max_proc_nr ();
   close ();
+
+  (* Always generate this file last, and unconditionally.  It's used
+   * by the Makefile to know when we must re-run the generator.
+   *)
+  let chan = open_out "src/stamp-generator" in
+  fprintf chan "1\n";
+  close_out chan

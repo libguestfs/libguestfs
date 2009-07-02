@@ -111,4 +111,5 @@ python/guestfs.pyc
 ruby/Rakefile
 ruby/ext/guestfs/extconf.h
 ruby/ext/guestfs/mkmf.log
+src/stamp-generator
 stamp-h1
