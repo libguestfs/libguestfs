@@ -143,7 +143,6 @@ ruby/ext/guestfs/_guestfs.c
 ruby/ext/guestfs/extconf.h
 ruby/ext/guestfs/mkmf.log
 src/.pod2text.data
-src/MAX_PROC_NR
 src/guestfs-actions.c
 src/guestfs-actions.h
 src/guestfs-bindtests.c
