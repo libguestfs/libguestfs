@@ -31,9 +31,9 @@ else
 
   modprobe virtio_pci
   modprobe virtio_net
-  modprobe dm_mod ||:
 fi
 
+modprobe dm_mod ||:
 mount
 ls -l /dev
 
