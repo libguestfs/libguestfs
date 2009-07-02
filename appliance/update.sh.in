@@ -16,8 +16,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-# Update the daemon inside an existing initramfs.  Avoids the
-# timeconsuming rebuild.
+# Update the init script or daemon inside an existing initramfs.
+# Avoids the timeconsuming rebuild.
 
 unset CDPATH
 
@@ -26,6 +26,9 @@ set -e
 if [ "@DIST@" = "REDHAT" ]; then
   cd @top_builddir@
   output=appliance/initramfs.@REPO@.@host_cpu@.img
+
+  # Create the init script.
+  @FEBOOTSTRAP_INSTALL@ initramfs appliance/init /init 0755 root.root
 
   # Copy the daemon into the filesystem.
   @FEBOOTSTRAP_INSTALL@ initramfs daemon/guestfsd /sbin/guestfsd 0755 root.root

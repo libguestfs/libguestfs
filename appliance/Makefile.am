@@ -54,12 +54,12 @@ endif
 # This is for building the normal appliance:
 $(INITRAMFSIMG) $(VMLINUZ): $(top_builddir)/initramfs/fakeroot.log
 
-$(top_builddir)/initramfs/fakeroot.log: make.sh kmod.whitelist packagelist init
+$(top_builddir)/initramfs/fakeroot.log: make.sh kmod.whitelist packagelist
 	-mv $(INITRAMFSIMG) $(INITRAMFSIMG).bak
 	-mv $(VMLINUZ) $(VMLINUZ).bak
 	if ! bash make.sh; then rm -f $@; exit 1; fi
 
-$(INITRAMFSIMG): $(top_builddir)/initramfs/fakeroot.log $(top_builddir)/daemon/guestfsd update.sh
+$(INITRAMFSIMG): $(top_builddir)/initramfs/fakeroot.log $(top_builddir)/daemon/guestfsd init update.sh
 	rm -f $@
 	bash update.sh
 	touch $@

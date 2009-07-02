@@ -132,13 +132,6 @@ __EOF__
   @FEBOOTSTRAP_INSTALL@ initramfs resolv.conf.new /etc/resolv.conf 0644 root.root
   rm resolv.conf.new
 
-  # Create the init script.
-  @FEBOOTSTRAP_INSTALL@ initramfs appliance/init /init 0755 root.root
-
-  # Just in case the kernel isn't looking for /init, make /sbin/init
-  # be our script, not the real init.
-  #@FEBOOTSTRAP_RUN@ initramfs -- ln -f /init /sbin/init
-
   ls -lh $koutput
 
   # Now directly run the update script to copy/update the daemon in the
