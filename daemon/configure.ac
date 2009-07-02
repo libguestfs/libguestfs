@@ -44,7 +44,7 @@ AC_PROG_CPP
 AC_C_PROTOTYPES
 test "x$U" != "x" && AC_MSG_ERROR([Compiler not ANSI compliant])
 
-AC_PROG_CC_C_O
+AM_PROG_CC_C_O
 
 dnl Check for Augeas (now optional).
 AC_CHECK_LIB([augeas],[aug_match],[
