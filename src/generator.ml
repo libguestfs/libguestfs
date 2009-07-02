@@ -378,7 +378,7 @@ just want to read the image or write access if you want to modify the
 image).
 
 This is equivalent to the qemu parameter
-C<-drive file=filename,cache=off,if=virtio>.
+C<-drive file=filename,cache=off,if=...>.
 
 Note that this call checks for the existence of C<filename>.  This
 stops you from specifying other types of drive which are supported
@@ -412,7 +412,7 @@ handle is closed.  We don't currently have any method to enable
 changes to be committed, although qemu can support this.
 
 This is equivalent to the qemu parameter
-C<-drive file=filename,snapshot=on,if=virtio>.
+C<-drive file=filename,snapshot=on,if=...>.
 
 Note that this call checks for the existence of C<filename>.  This
 stops you from specifying other types of drive which are supported
