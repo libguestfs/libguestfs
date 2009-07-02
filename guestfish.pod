@@ -419,6 +419,13 @@ NOTE: This will not work reliably for large files
 
 This exits guestfish.  You can also use C<^D> key.
 
+=head2 time
+
+ time command args...
+
+Run the command as usual, but print the elapsed time afterwards.  This
+can be useful for benchmarking operations.
+
 =head1 COMMANDS
 
 @ACTIONS@

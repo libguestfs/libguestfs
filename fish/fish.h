@@ -77,17 +77,21 @@ extern int do_glob (const char *cmd, int argc, char *argv[]);
 /* in more.c */
 extern int do_more (const char *cmd, int argc, char *argv[]);
 
+/* in time.c */
+extern int do_time (const char *cmd, int argc, char *argv[]);
+
 /* This should just list all the built-in commands so they can
  * be added to the generated auto-completion code.
  */
 #define BUILTIN_COMMANDS_FOR_COMPLETION \
-  "help", \
-  "quit", "exit", "q", \
-  "alloc", "allocate", \
-  "echo", \
-  "edit", "vi", "emacs", \
-  "lcd", \
-  "glob", \
-  "more", "less"
+  "help",				\
+  "quit", "exit", "q",		        \
+  "alloc", "allocate",		        \
+  "echo",				\
+  "edit", "vi", "emacs",		\
+  "lcd",				\
+  "glob",				\
+  "more", "less",			\
+  "time"
 
 #endif /* FISH_H */

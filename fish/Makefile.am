@@ -28,7 +28,8 @@ guestfish_SOURCES = \
 	fish.h \
 	glob.c \
 	lcd.c \
-	more.c
+	more.c \
+	time.c
 
 guestfish_CFLAGS = \
 	-I$(top_builddir)/src -Wall \

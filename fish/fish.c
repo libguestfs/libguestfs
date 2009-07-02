@@ -727,6 +727,8 @@ issue_command (const char *cmd, char *argv[], const char *pipecmd)
   else if (strcasecmp (cmd, "more") == 0 ||
 	   strcasecmp (cmd, "less") == 0)
     r = do_more (cmd, argc, argv);
+  else if (strcasecmp (cmd, "time") == 0)
+    r = do_time (cmd, argc, argv);
   else
     r = run_action (cmd, argc, argv);
 
@@ -760,6 +762,8 @@ list_builtin_commands (void)
 	  "lcd", _("local change directory"));
   printf ("%-20s %s\n",
 	  "glob", _("expand wildcards in command"));
+  printf ("%-20s %s\n",
+	  "time", _("measure time taken to run command"));
 
   /* actions are printed after this (see list_commands) */
 }
@@ -845,6 +849,12 @@ display_builtin_command (const char *cmd)
 	   strcasecmp (cmd, "q") == 0)
     printf (_("quit - quit guestfish\n"
 	      "     quit\n"));
+  else if (strcasecmp (cmd, "time") == 0)
+    printf (_("time - measure time taken to run command\n"
+	      "    time <command> [<args> ...]\n"
+	      "\n"
+	      "    This runs <command> as usual, and prints the elapsed\n"
+	      "    time afterwards.\n"));
   else
     fprintf (stderr, _("%s: command not known, use -h to list all commands\n"),
 	     cmd);
