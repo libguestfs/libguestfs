@@ -1,5 +1,5 @@
 /* libguestfs
- * Copyright (C) 2009 Red Hat Inc. 
+ * Copyright (C) 2009 Red Hat Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -77,6 +77,7 @@ extern void guestfs_error (guestfs_h *g, const char *fs, ...)
 extern void guestfs_perrorf (guestfs_h *g, const char *fs, ...)
   __attribute__((format (printf,2,3)));
 extern void *guestfs_safe_malloc (guestfs_h *g, size_t nbytes);
+extern void *guestfs_safe_calloc (guestfs_h *g, size_t n, size_t s);
 extern void *guestfs_safe_realloc (guestfs_h *g, void *ptr, int nbytes);
 extern char *guestfs_safe_strdup (guestfs_h *g, const char *str);
 extern void *guestfs_safe_memdup (guestfs_h *g, void *ptr, size_t size);

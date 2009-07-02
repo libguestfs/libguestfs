@@ -121,7 +121,7 @@ type flags =
   | NotInDocs		  (* do not add this function to documentation *)
 
 let protocol_limit_warning =
-  "Because of the message protocol, there is a transfer limit 
+  "Because of the message protocol, there is a transfer limit
 of somewhere between 2MB and 4MB.  To transfer large files you should use
 FTP."
 
@@ -6396,7 +6396,7 @@ Sys::Guestfs - Perl bindings for libguestfs
 =head1 SYNOPSIS
 
  use Sys::Guestfs;
- 
+
  my $h = Sys::Guestfs->new ();
  $h->add_drive ('guest.img');
  $h->launch ();
@@ -8144,6 +8144,8 @@ and generate_bindtests () =
 #include \"guestfs_protocol.h\"
 
 #define error guestfs_error
+#define safe_calloc guestfs_safe_calloc
+#define safe_malloc guestfs_safe_malloc
 
 static void
 print_strings (char * const* const argv)
@@ -8219,70 +8221,70 @@ print_strings (char * const* const argv)
 	     pr "  char **strs;\n";
 	     pr "  int n, i;\n";
 	     pr "  sscanf (val, \"%%d\", &n);\n";
-	     pr "  strs = malloc ((n+1) * sizeof (char *));\n";
+	     pr "  strs = safe_malloc (g, (n+1) * sizeof (char *));\n";
 	     pr "  for (i = 0; i < n; ++i) {\n";
-	     pr "    strs[i] = malloc (16);\n";
+	     pr "    strs[i] = safe_malloc (g, 16);\n";
 	     pr "    snprintf (strs[i], 16, \"%%d\", i);\n";
 	     pr "  }\n";
 	     pr "  strs[n] = NULL;\n";
 	     pr "  return strs;\n"
 	 | RIntBool _ ->
 	     pr "  struct guestfs_int_bool *r;\n";
-	     pr "  r = malloc (sizeof *r);\n";
+	     pr "  r = safe_malloc (g, sizeof *r);\n";
 	     pr "  sscanf (val, \"%%\" SCNi32, &r->i);\n";
 	     pr "  r->b = 0;\n";
 	     pr "  return r;\n"
 	 | RPVList _ ->
 	     pr "  struct guestfs_lvm_pv_list *r;\n";
 	     pr "  int i;\n";
-	     pr "  r = malloc (sizeof *r);\n";
+	     pr "  r = safe_malloc (g, sizeof *r);\n";
 	     pr "  sscanf (val, \"%%d\", &r->len);\n";
-	     pr "  r->val = calloc (r->len, sizeof *r->val);\n";
+	     pr "  r->val = safe_calloc (g, r->len, sizeof *r->val);\n";
 	     pr "  for (i = 0; i < r->len; ++i) {\n";
-	     pr "    r->val[i].pv_name = malloc (16);\n";
+	     pr "    r->val[i].pv_name = safe_malloc (g, 16);\n";
 	     pr "    snprintf (r->val[i].pv_name, 16, \"%%d\", i);\n";
 	     pr "  }\n";
 	     pr "  return r;\n"
 	 | RVGList _ ->
 	     pr "  struct guestfs_lvm_vg_list *r;\n";
 	     pr "  int i;\n";
-	     pr "  r = malloc (sizeof *r);\n";
+	     pr "  r = safe_malloc (g, sizeof *r);\n";
 	     pr "  sscanf (val, \"%%d\", &r->len);\n";
-	     pr "  r->val = calloc (r->len, sizeof *r->val);\n";
+	     pr "  r->val = safe_calloc (g, r->len, sizeof *r->val);\n";
 	     pr "  for (i = 0; i < r->len; ++i) {\n";
-	     pr "    r->val[i].vg_name = malloc (16);\n";
+	     pr "    r->val[i].vg_name = safe_malloc (g, 16);\n";
 	     pr "    snprintf (r->val[i].vg_name, 16, \"%%d\", i);\n";
 	     pr "  }\n";
 	     pr "  return r;\n"
 	 | RLVList _ ->
 	     pr "  struct guestfs_lvm_lv_list *r;\n";
 	     pr "  int i;\n";
-	     pr "  r = malloc (sizeof *r);\n";
+	     pr "  r = safe_malloc (g, sizeof *r);\n";
 	     pr "  sscanf (val, \"%%d\", &r->len);\n";
-	     pr "  r->val = calloc (r->len, sizeof *r->val);\n";
+	     pr "  r->val = safe_calloc (g, r->len, sizeof *r->val);\n";
 	     pr "  for (i = 0; i < r->len; ++i) {\n";
-	     pr "    r->val[i].lv_name = malloc (16);\n";
+	     pr "    r->val[i].lv_name = safe_malloc (g, 16);\n";
 	     pr "    snprintf (r->val[i].lv_name, 16, \"%%d\", i);\n";
 	     pr "  }\n";
 	     pr "  return r;\n"
 	 | RStat _ ->
 	     pr "  struct guestfs_stat *r;\n";
-	     pr "  r = calloc (1, sizeof (*r));\n";
+	     pr "  r = safe_calloc (g, 1, sizeof (*r));\n";
 	     pr "  sscanf (val, \"%%\" SCNi64, &r->dev);\n";
 	     pr "  return r;\n"
 	 | RStatVFS _ ->
 	     pr "  struct guestfs_statvfs *r;\n";
-	     pr "  r = calloc (1, sizeof (*r));\n";
+	     pr "  r = safe_calloc (g, 1, sizeof (*r));\n";
 	     pr "  sscanf (val, \"%%\" SCNi64, &r->bsize);\n";
 	     pr "  return r;\n"
 	 | RHashtable _ ->
 	     pr "  char **strs;\n";
 	     pr "  int n, i;\n";
 	     pr "  sscanf (val, \"%%d\", &n);\n";
-	     pr "  strs = malloc ((n*2+1) * sizeof (*strs));\n";
+	     pr "  strs = safe_malloc (g, (n*2+1) * sizeof (*strs));\n";
 	     pr "  for (i = 0; i < n; ++i) {\n";
-	     pr "    strs[i*2] = malloc (16);\n";
-	     pr "    strs[i*2+1] = malloc (16);\n";
+	     pr "    strs[i*2] = safe_malloc (g, 16);\n";
+	     pr "    strs[i*2+1] = safe_malloc (g, 16);\n";
 	     pr "    snprintf (strs[i*2], 16, \"%%d\", i);\n";
 	     pr "    snprintf (strs[i*2+1], 16, \"%%d\", i);\n";
 	     pr "  }\n";
@@ -8291,9 +8293,9 @@ print_strings (char * const* const argv)
 	 | RDirentList _ ->
 	     pr "  struct guestfs_dirent_list *r;\n";
 	     pr "  int i;\n";
-	     pr "  r = malloc (sizeof *r);\n";
+	     pr "  r = safe_malloc (g, sizeof *r);\n";
 	     pr "  sscanf (val, \"%%d\", &r->len);\n";
-	     pr "  r->val = calloc (r->len, sizeof *r->val);\n";
+	     pr "  r->val = safe_calloc (g, r->len, sizeof *r->val);\n";
 	     pr "  for (i = 0; i < r->len; ++i)\n";
 	     pr "    r->val[i].ino = i;\n";
 	     pr "  return r;\n"
