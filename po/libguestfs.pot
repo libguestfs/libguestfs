@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2009-07-02 12:02+0100\n"
+"POT-Creation-Date: 2009-07-02 18:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -141,35 +141,39 @@ msgstr ""
 msgid "guestfish: empty command on command line\n"
 msgstr ""
 
-#: fish/fish.c:749
+#: fish/fish.c:751
 msgid "display a list of commands or help on a command"
 msgstr ""
 
-#: fish/fish.c:751
+#: fish/fish.c:753
 msgid "quit guestfish"
 msgstr ""
 
-#: fish/fish.c:754
+#: fish/fish.c:756
 msgid "allocate an image"
 msgstr ""
 
-#: fish/fish.c:756
+#: fish/fish.c:758
 msgid "display a line of text"
 msgstr ""
 
-#: fish/fish.c:758
+#: fish/fish.c:760
 msgid "edit a file in the image"
 msgstr ""
 
-#: fish/fish.c:760
+#: fish/fish.c:762
 msgid "local change directory"
 msgstr ""
 
-#: fish/fish.c:762
+#: fish/fish.c:764
 msgid "expand wildcards in command"
 msgstr ""
 
-#: fish/fish.c:774
+#: fish/fish.c:766
+msgid "measure time taken to run command"
+msgstr ""
+
+#: fish/fish.c:778
 #, c-format
 msgid ""
 "alloc - allocate an image\n"
@@ -189,7 +193,7 @@ msgid ""
 "    <nn>sects        number of 512 byte sectors\n"
 msgstr ""
 
-#: fish/fish.c:790
+#: fish/fish.c:794
 #, c-format
 msgid ""
 "echo - display a line of text\n"
@@ -198,7 +202,7 @@ msgid ""
 "    This echos the parameters to the terminal.\n"
 msgstr ""
 
-#: fish/fish.c:797
+#: fish/fish.c:801
 #, c-format
 msgid ""
 "edit - edit a file in the image\n"
@@ -216,7 +220,7 @@ msgid ""
 "    (> 2 MB) or binary files containing \\0 bytes.\n"
 msgstr ""
 
-#: fish/fish.c:811
+#: fish/fish.c:815
 #, c-format
 msgid ""
 "lcd - local change directory\n"
@@ -227,7 +231,7 @@ msgid ""
 "    place.\n"
 msgstr ""
 
-#: fish/fish.c:818
+#: fish/fish.c:822
 #, c-format
 msgid ""
 "glob - expand wildcards in command\n"
@@ -238,7 +242,7 @@ msgid ""
 "    once for each expanded argument.\n"
 msgstr ""
 
-#: fish/fish.c:826
+#: fish/fish.c:830
 #, c-format
 msgid ""
 "more - view a file in the pager\n"
@@ -256,7 +260,7 @@ msgid ""
 "    (> 2 MB) or binary files containing \\0 bytes.\n"
 msgstr ""
 
-#: fish/fish.c:840
+#: fish/fish.c:844
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -264,14 +268,24 @@ msgid ""
 "     help\n"
 msgstr ""
 
-#: fish/fish.c:846
+#: fish/fish.c:850
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
 "     quit\n"
 msgstr ""
 
-#: fish/fish.c:849
+#: fish/fish.c:853
+#, c-format
+msgid ""
+"time - measure time taken to run command\n"
+"    time <command> [<args> ...]\n"
+"\n"
+"    This runs <command> as usual, and prints the elapsed\n"
+"    time afterwards.\n"
+msgstr ""
+
+#: fish/fish.c:859
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""
