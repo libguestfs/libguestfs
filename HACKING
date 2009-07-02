@@ -14,10 +14,6 @@ etc. to the big list called 'functions' at the top of this file.
 'do_action' function.  Take a look at one of the numerous examples
 there.
 
-You will need to run src/generator.ml (from the top directory) which
-regenerates all the auto-generated files, and then continue with the
-ordinary build process.
-
 Formatting
 ----------------------------------------------------------------------
 

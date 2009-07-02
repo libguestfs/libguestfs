@@ -1,0 +1,33 @@
+#!/bin/bash -e
+# install guestfsd specific stuff
+
+# Kernel modules take up nearly half of the image.  Only include ones
+# which are on the whitelist.
+exec 5<../appliance/kmod.whitelist
+whitelist=
+while read kmod 0<&5; do
+    whitelist="$whitelist -a -not -name $kmod"
+done
+exec 5<&-
+
+echo "Module whitelist: $whitelist"
+find $DEBIRF_ROOT/lib/modules/*/kernel -name '*.ko' $whitelist -a -exec rm '{}' \;
+
+# install additional packages:
+PKGLIST=$(< packagelist)
+echo "Will add $PKGLIST"
+debirf_exec aptitude -R -y install $PKGLIST
+debirf_exec aptitude -y remove vim-tiny dhcp3-client iptables
+
+debirf_exec mkdir -p --mode=0777 /sysroot
+
+# cleanup some other heavy lifters:
+rm -rf "$DEBIRF_ROOT"/usr/share/doc/
+rm -rf "$DEBIRF_ROOT"/usr/share/zoneinfo/
+rm -rf "$DEBIRF_ROOT"/usr/share/man/
+
+# Install the actual appliance:
+echo $PWD
+install -o root -g root -m 0755 ../daemon/guestfsd "$DEBIRF_ROOT"/sbin/guestfsd
+install -o root -g root -m 0755 init "$DEBIRF_ROOT"/sbin/init
+

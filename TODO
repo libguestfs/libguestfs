@@ -54,21 +54,6 @@ ie. CentOS 5.3, Fedora 11, Debian.
 
 ----------------------------------------------------------------------
 
-Qemu options -- After discussion with the KVM developers, they have
-recommended some flags which will improve the safety and reliability
-of KVM.  Need to test that these also work under qemu (or at least, do
-no harm):
-
--no-hpet      HPET support is broken and should be disabled.
-
--rtc-td-hack  Keeps the rtc clock source track time correctly.
-
--drive file=...,if=[ide|virtio],cache=off
-              cache=off is necessary to improve reliability in the
-	      event of a system crash when writing.
-
-----------------------------------------------------------------------
-
 "Standalone/local mode"
 
 Instead of running guestfsd (the daemon) inside qemu, there should be
@@ -107,3 +92,90 @@ This is mainly useful from live CDs, ie. virt-p2v.
 
 Should we bother having the daemon at all and just link the guestfsd
 code directly into libguestfs?
+
+----------------------------------------------------------------------
+
+PPC problems:
+
+  ppc (32 bit) works with qemu from git, however there is no serial console
+
+  ppc64 requires extra parameters:
+    -M mac99 -cpu ppc64
+  however it still fails:
+    invalid/unsupported opcode: 01 - 01 - 1a (06301e83) 00000000018c2738 1
+    invalid bits: 00400000 for opcode: 0b - 19 - 15 (2d746572) 0000000000009230
+
+  no serial console in ppc or ppc64 because no one can tell us what
+  console=ttyXX option to use
+
+----------------------------------------------------------------------
+
+Supermin appliance should be moved into febootstrap.
+
+----------------------------------------------------------------------
+
+Extra commands / functionality:
+
+  General glibc / core programs:
+    chgrp
+    grep (do it locally using pipe?)
+    dd (?)
+    ln / ln -s
+    readlink
+    utime / utimes / futimes / futimens / l..
+    more mk*temp calls
+    readdir / readdir-and-stat
+    some sort of alloc/fallocate/posix_fallocate call to create empty space
+    realpath
+    trunc[ate??]
+    getfattr (also useful because gives us access to NTFS datastreams)
+    setfattr
+
+  ext2 properties:
+    chattr
+    lsattr
+    badblocks
+    blkid
+    debugfs
+    dumpe2fs
+    e2image
+    e2undo
+    filefrag
+    findfs
+    logsave
+    mklost+found
+
+  SELinux:
+    chcat
+    restorecon
+    ch???
+
+  Oddball:
+    pivot_root
+    fts(3) / ftw(3)
+
+----------------------------------------------------------------------
+
+Allow swap space from the guest to be used.  Is it a good idea?
+
+----------------------------------------------------------------------
+
+Need a way to query a binary or library file for its architecture.
+Using objdump or readelf?
+What about non-ELF files (eg. Windows, BSD).
+
+To do this properly requires some serious logic, eg. to cover Linux
+and Windows we'd need objdump and i686-pc-mingw32-objdump, and more to
+cover a.out, COFF and 64 bit Windows.  Therefore this cannot be done
+inside the daemon, and should be done by a separate, external program
+similar to virt-inspector.
+
+Probably we should go all the way and have virt-inspector able to
+determine kernel and userspace architectures of guests.
+
+----------------------------------------------------------------------
+
+Other initrd-* commands, such as:
+
+initrd-extract
+initrd-replace

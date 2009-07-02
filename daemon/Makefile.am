@@ -29,30 +29,42 @@ guestfsd_SOURCES = \
 	daemon.h \
 	debug.c \
 	devsparts.c \
+	df.c \
 	dir.c \
 	dmesg.c \
 	dropcaches.c \
+	du.c \
 	ext2.c \
 	file.c \
 	find.c \
 	fsck.c \
+	glob.c \
 	grub.c \
 	guestfsd.c \
+	headtail.c \
 	hexdump.c \
+	initrd.c \
 	ls.c \
 	lvm.c \
+	mknod.c \
 	mount.c \
+	names.c \
 	ntfs.c \
 	pingdaemon.c \
 	proto.c \
+	readdir.c \
+	scrub.c \
 	sfdisk.c \
 	sleep.c \
 	stat.c \
 	strings.c \
 	stubs.c \
+	swap.c \
 	sync.c \
 	tar.c \
+	umask.c \
 	upload.c \
+	wc.c \
 	zero.c \
 	zerofree.c \
 	../src/guestfs_protocol.h \

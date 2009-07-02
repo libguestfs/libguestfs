@@ -51,7 +51,12 @@ extern int shell_quote (char *out, int len, const char *in);
 
 extern int device_name_translation (char *device, const char *func);
 
+extern void udev_settle (void);
+
 extern int verbose;
+
+/*-- in names.c (auto-generated) --*/
+extern const char *function_names[];
 
 /*-- in proto.c --*/
 extern int proc_nr;
@@ -139,7 +144,13 @@ extern void reply (xdrproc_t xdrp, char *ret);
 
 /* Helper for functions which need either an absolute path in the
  * mounted filesystem, OR a /dev/ device which exists.
+ *
  * NB. Cannot be used for FileIn functions.
+ *
+ * NB #2: Functions which mix filenames and device paths should be
+ * avoided, and existing functions should be deprecated.  This is
+ * because we intend in future to make device parameters a distinct
+ * type from filenames.
  */
 #define NEED_ROOT_OR_IS_DEVICE(path,errcode) \
   do {									\
@@ -156,11 +167,22 @@ extern void reply (xdrproc_t xdrp, char *ret);
  * (2) You must not change directory!  cwd must always be "/", otherwise
  *     we can't escape our own chroot.
  * (3) All paths specified must be absolute.
- * (4) CHROOT_OUT does not affect errno.
+ * (4) Neither macro affects errno.
  */
-#define CHROOT_IN chroot ("/sysroot");
-#define CHROOT_OUT \
-  do { int old_errno = errno; chroot ("."); errno = old_errno; } while (0)
+#define CHROOT_IN				\
+  do {						\
+    int __old_errno = errno;			\
+    if (chroot ("/sysroot") == -1)		\
+      perror ("CHROOT_IN: sysroot");		\
+    errno = __old_errno;			\
+  } while (0)
+#define CHROOT_OUT				\
+  do {						\
+    int __old_errno = errno;			\
+    if (chroot (".") == -1)			\
+      perror ("CHROOT_OUT: .");			\
+    errno = __old_errno;			\
+  } while (0)
 
 /* Marks functions which are not implemented.
  * NB. Cannot be used for FileIn functions.

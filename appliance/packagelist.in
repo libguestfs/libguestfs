@@ -1,0 +1,42 @@
+/* This is the list of distro packages which are
+ * installed on the appliance.
+ *
+ * This file is processed by cpp with one of the
+ * following symbols defined (depending on the distro):
+ *
+ *   REDHAT=1     For Fedora, RHEL, EPEL and workalikes.
+ *   DEBIAN=1     For Debian based distros.
+ */
+
+#if REDHAT == 1
+  augeas-libs
+  iputils
+  kernel
+  MAKEDEV
+  ntfsprogs
+  scrub
+  udev
+  util-linux-ng
+#elif DEBIAN == 1
+  bsdmainutils
+  iproute
+  libaugeas0
+  udev
+  util-linux
+#endif
+
+bash
+binutils
+coreutils
+dosfstools
+file
+grub
+lsof
+lvm2
+module-init-tools
+net-tools
+ntfs-3g
+procps
+strace
+zerofree
+

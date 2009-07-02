@@ -15,7 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-AC_INIT([libguestfs],[1.0.43])
+AC_INIT([libguestfs],[1.0.55])
 AM_INIT_AUTOMAKE
 
 AC_CONFIG_MACRO_DIR([m4])
@@ -102,41 +102,52 @@ the --with-qemu option.
     AC_MSG_RESULT([yes])
 fi
 
+dnl Set drive interface used by the guestfs_add_drive{,_ro} calls
+dnl ('-drive ...,if=...' option to qemu).
+dnl
+dnl NB. We will change the default in future to virtio, but at the
+dnl moment this causes a performance problem, RHBZ#509383.
+AC_ARG_WITH([drive-if],
+	[AS_HELP_STRING([--with-drive-if],
+	  [set default driver (ide|scsi|virtio) @<:@default=ide@:>@])],
+	[],
+	[with_drive_if=ide])
+AC_DEFINE_UNQUOTED([DRIVE_IF],["$with_drive_if"],[Default drive interface.])
+
 dnl Check for febootstrap etc.
 AC_CHECK_PROG([FEBOOTSTRAP],
 	[febootstrap],[febootstrap],[no])
-test "x$FEBOOTSTRAP" = "xno" && \
-     AC_MSG_ERROR([febootstrap must be installed])
-AC_CHECK_PROG([FEBOOTSTRAP_RUN],
+if test "x$FEBOOTSTRAP" != "xno"; then
+  AC_CHECK_PROG([FEBOOTSTRAP_RUN],
 	[febootstrap-run],[febootstrap-run],[no])
-test "x$FEBOOTSTRAP_RUN" = "xno" && \
+  test "x$FEBOOTSTRAP_RUN" = "xno" && \
      AC_MSG_ERROR([febootstrap-run must be installed])
-AC_CHECK_PROG([FEBOOTSTRAP_INSTALL],
+  AC_CHECK_PROG([FEBOOTSTRAP_INSTALL],
 	[febootstrap-install],[febootstrap-install],[no])
-test "x$FEBOOTSTRAP_INSTALL" = "xno" && \
+  test "x$FEBOOTSTRAP_INSTALL" = "xno" && \
      AC_MSG_ERROR([febootstrap-install must be installed])
-AC_CHECK_PROG([FEBOOTSTRAP_MINIMIZE],
+  AC_CHECK_PROG([FEBOOTSTRAP_MINIMIZE],
 	[febootstrap-minimize],[febootstrap-minimize],[no])
-test "x$FEBOOTSTRAP_MINIMIZE" = "xno" && \
+  test "x$FEBOOTSTRAP_MINIMIZE" = "xno" && \
      AC_MSG_ERROR([febootstrap-minimize must be installed])
-AC_CHECK_PROG([FEBOOTSTRAP_TO_INITRAMFS],
+  AC_CHECK_PROG([FEBOOTSTRAP_TO_INITRAMFS],
 	[febootstrap-to-initramfs],[febootstrap-to-initramfs],[no])
-test "x$FEBOOTSTRAP_TO_INITRAMFS" = "xno" && \
+  test "x$FEBOOTSTRAP_TO_INITRAMFS" = "xno" && \
      AC_MSG_ERROR([febootstrap-to-initramfs must be installed])
 
-dnl Check we have fakechroot >= 2.9 (it's an indirect requirement
-dnl of febootstrap, but old versions will fail with yum).
-AC_CHECK_PROG([FAKECHROOT],
+  dnl Check we have fakechroot >= 2.9 (it's an indirect requirement
+  dnl of febootstrap, but old versions will fail with yum).
+  AC_CHECK_PROG([FAKECHROOT],
 	[fakechroot],[fakechroot],[no])
-test "x$FAKECHROOT" = "xno" && \
+  test "x$FAKECHROOT" = "xno" && \
     AC_MSG_ERROR([fakechroot must be installed])
 
-AC_MSG_CHECKING([fakechroot version])
-fakechroot_version=`$FAKECHROOT --version | awk '{print $3}'`
-if test -z "$fakechroot_version"; then
+  AC_MSG_CHECKING([fakechroot version])
+  fakechroot_version=`$FAKECHROOT --version | awk '{print $3}'`
+  if test -z "$fakechroot_version"; then
     AC_MSG_RESULT([failed])
     AC_MSG_WARN([fakechroot --version command failed, proceeding anyway])
-else
+  else
     AC_MSG_RESULT([$fakechroot_version])
     fakechroot_major=`echo $fakechroot_version | awk -F. '{print $1}'`
     fakechroot_minor=`echo $fakechroot_version | awk -F. '{print $2}'`
@@ -144,7 +155,21 @@ else
             \( "$fakechroot_major" -eq 2 -a "$fakechroot_minor" -lt 9 \); then
         AC_MSG_ERROR([fakechroot version must be >= 2.9])
     fi
+  fi
+  DIST="REDHAT"
+else
+  # check for debootstrap and debirf
+  AC_CHECK_PROG([DEBOOTSTRAP],
+	[debootstrap],[debootstrap],[no])
+  test "x$DEBOOTSTRAP" = "xno" && \
+	AC_MSG_ERROR([Either febootstrap or debootstrap must be installed])
+  AC_CHECK_PROG([DEBIRF],[debirf],[debirf],[no])
+  test "x$DEBIRF" = "xno" &&
+        AC_MSG_ERROR([debirf must be installed])
+  DIST="DEBIAN"
 fi
+AC_SUBST(DIST)
+
 
 dnl --with-repo to specify a Fedora repository.
 AC_ARG_WITH([repo],
@@ -178,6 +203,49 @@ AC_ARG_WITH([mirror],
 	[with_mirror=])
 MIRROR="$with_mirror"
 AC_SUBST(MIRROR)
+
+dnl Build the supermin appliance?  Please see README file before
+dnl enabling this option.
+AC_ARG_ENABLE([supermin],
+	[AS_HELP_STRING([--enable-supermin],
+	  [enable supermin appliance (see README) @<:@default=no@:>@])],
+	[],
+	[enable_supermin=no])
+AM_CONDITIONAL([SUPERMIN],[test "x$enable_supermin" = "xyes"])
+
+if test "x$enable_supermin" = "xyes"; then
+    dnl Check febootstrap-to-initramfs accepts the --files option
+    dnl (febootstrap >= 2.2).
+    AC_MSG_CHECKING([for --files support in $FEBOOTSTRAP_TO_INITRAMFS])
+    out=`$FEBOOTSTRAP_TO_INITRAMFS 2>&1 ||:`
+    echo "febootstrap_to_initramfs test command output: $out" >&AS_MESSAGE_LOG_FD
+    if ! echo $out | grep -sq -- "--files" ; then
+        AC_MSG_RESULT([no])
+	AC_MSG_FAILURE(
+[febootstrap-to-initramfs does not support the --files option.
+
+To build the supermin appliance, you need to upgrade to the latest
+version of febootstrap.
+])
+    fi
+    AC_MSG_RESULT([yes])
+
+    dnl Check febootstrap-to-initramfs accepts the --nocompress option
+    dnl (febootstrap >= 2.3).
+    AC_MSG_CHECKING([for --nocompress support in $FEBOOTSTRAP_TO_INITRAMFS])
+    out=`$FEBOOTSTRAP_TO_INITRAMFS 2>&1 ||:`
+    echo "febootstrap_to_initramfs test command output: $out" >&AS_MESSAGE_LOG_FD
+    if ! echo $out | grep -sq -- "--nocompress" ; then
+        AC_MSG_RESULT([no])
+	AC_MSG_FAILURE(
+[febootstrap-to-initramfs does not support the --nocompress option.
+
+To build the supermin appliance, you need to upgrade to the latest
+version of febootstrap.
+])
+    fi
+    AC_MSG_RESULT([yes])
+fi
 
 dnl Readline.
 AC_ARG_WITH([readline],
@@ -428,7 +496,7 @@ AM_CONDITIONAL([HAVE_HASKELL],
 
 dnl Check for Perl modules needed by the inspector.
 missing_perl_modules=no
-for pm in Pod::Usage Getopt::Long Sys::Virt Data::Dumper; do
+for pm in Pod::Usage Getopt::Long Sys::Virt Data::Dumper XML::Writer; do
     AC_MSG_CHECKING([for $pm])
     if ! perl -M$pm -e1 >/dev/null 2>&1; then
         AC_MSG_RESULT([no])
@@ -444,15 +512,30 @@ fi
 AM_CONDITIONAL([HAVE_INSPECTOR],
     [test "x$PERL" != "xno" -a "x$missing_perl_modules" != "xyes"])
 
+dnl Library versioning.
+MAX_PROC_NR=`cat $srcdir/src/MAX_PROC_NR`
+AC_SUBST(MAX_PROC_NR)
+
 dnl Run in subdirs.
 AC_CONFIG_SUBDIRS([daemon])
 
 dnl Produce output files.
 AC_CONFIG_HEADERS([config.h])
+dnl http://www.mail-archive.com/automake@gnu.org/msg10204.html
+AC_CONFIG_FILES([appliance/make.sh],
+		[chmod +x appliance/make.sh])
+AC_CONFIG_FILES([appliance/update.sh],
+		[chmod +x appliance/update.sh])
+AC_CONFIG_FILES([appliance/supermin-split.sh],
+		[chmod +x appliance/supermin-split.sh])
+AC_CONFIG_FILES([appliance/supermin-make.sh],
+		[chmod +x appliance/supermin-make.sh])
+AC_CONFIG_FILES([appliance/libguestfs-supermin-helper],
+		[chmod +x appliance/libguestfs-supermin-helper])
 AC_CONFIG_FILES([Makefile
 		 src/Makefile fish/Makefile po/Makefile.in examples/Makefile
 		 appliance/Makefile
-	         appliance/make-initramfs.sh appliance/update-initramfs.sh
+		 appliance/debian/debirf.conf
 		 images/Makefile
 		 capitests/Makefile
 		 regressions/Makefile
@@ -466,9 +549,6 @@ AC_CONFIG_FILES([Makefile
 		 libguestfs.pc
 		 ocaml/META perl/Makefile.PL])
 AC_OUTPUT
-
-dnl WTF?
-chmod +x appliance/make-initramfs.sh appliance/update-initramfs.sh
 
 dnl Produce summary.
 echo
@@ -493,6 +573,7 @@ echo -n "Haskell bindings .................... "
 if test "x$HAVE_HASKELL" = "x"; then echo "yes"; else echo "no"; fi
 echo -n "virt-inspector ...................... "
 if test "x$HAVE_INSPECTOR" = "x"; then echo "yes"; else echo "no"; fi
+echo "supermin appliance .................. $enable_supermin"
 echo
 echo "If any optional component is configured 'no' when you expected 'yes'"
 echo "then you should check the preceeding messages."

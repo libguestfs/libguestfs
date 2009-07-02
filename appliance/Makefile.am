@@ -16,36 +16,86 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 EXTRA_DIST = \
-	make-initramfs.sh update-initramfs.sh
+	make.sh update.sh supermin-split.sh supermin-make.sh \
+	libguestfs-supermin-helper \
+	kmod.whitelist \
+	kmod.whitelist.in \
+	packagelist.in \
+	init
 
 # Build the root filesystem (appliance).
 # Currently this is arch-dependent, so it seems like putting it in
 # $(libdir) is best.  When we build cross-architecture filesystems we
 # should probably move them to $(datadir).
-
 fsdir = $(libdir)/guestfs
+fs_DATA = $(APPLIANCE_FILES)
 
+# These are the resulting output files from the whole process:
+#   VMLINUZ        kernel for the full appliance
+#   INITRAMFSIMG   initramfs (ie. root fs) for the full appliance
+# For details of the supermin appliance, read the README file:
+#   SUPERMINIMG    initramfs (ie. partial root fs) for the supermin appliance
+#   SUPERMINFILES  list of missing files (the ones we will pull out of the
+#                    host filesystem at runtime) in the supermin appliance
+APPLIANCE_FILES = $(INITRAMFSIMG) $(VMLINUZ)
+if SUPERMIN
+APPLIANCE_FILES += $(SUPERMINIMG) $(SUPERMINFILES) kmod.whitelist
+bin_SCRIPTS = libguestfs-supermin-helper
+endif
+
+# Don't change these names - they must be the same as in '*.sh' scripts.
 INITRAMFSIMG = initramfs.$(REPO).$(host_cpu).img
 VMLINUZ = vmlinuz.$(REPO).$(host_cpu)
+if SUPERMIN
+SUPERMINIMG = initramfs.$(REPO).$(host_cpu).supermin.img
+SUPERMINFILES = initramfs.$(REPO).$(host_cpu).supermin.hostfiles
+endif
 
-fs_DATA =  $(INITRAMFSIMG) $(VMLINUZ)
-
+# This is for building the normal appliance:
 $(INITRAMFSIMG) $(VMLINUZ): $(top_builddir)/initramfs/fakeroot.log
 
-$(top_builddir)/initramfs/fakeroot.log: make-initramfs.sh.in
+$(top_builddir)/initramfs/fakeroot.log: make.sh kmod.whitelist packagelist
 	-mv $(INITRAMFSIMG) $(INITRAMFSIMG).bak
 	-mv $(VMLINUZ) $(VMLINUZ).bak
-	if ! bash make-initramfs.sh; then rm -f $@; exit 1; fi
+	if ! bash make.sh; then rm -f $@; exit 1; fi
 
-$(INITRAMFSIMG): $(top_builddir)/initramfs/fakeroot.log $(top_builddir)/daemon/guestfsd
+$(INITRAMFSIMG): $(top_builddir)/initramfs/fakeroot.log $(top_builddir)/daemon/guestfsd init update.sh
 	rm -f $@
-	bash update-initramfs.sh
+	bash update.sh
 	touch $@
 
-make-initramfs.sh: make-initramfs.sh.in
-	cd .. && ./config.status appliance/$@
+kmod.whitelist: kmod.whitelist.in
+	grep -v '^[[:space:]]*$$' < $< | grep -v '^#' > $@
 
-# Test-boot the image.
+packagelist: packagelist.in
+	cpp -undef -D$(DIST)=1 < $< | \
+	grep -v '^[[:space:]]*$$' | grep -v '^#' > $@
+
+# This is for building the supermin appliance.  It has to be enabled
+# specifically with './configure --enable-supermin'.  You really need
+# to read the README file.
+
+if SUPERMIN
+
+# First we need to decide which files go in and out of the supermin
+# appliance.  This decision is made by 'supermin-split.sh'.
+$(SUPERMINFILES): supermin.incfiles
+supermin.incfiles: $(top_builddir)/initramfs/fakeroot.log $(top_builddir)/daemon/guestfsd supermin-split.sh
+	rm -f supermin.incfiles $(SUPERMINFILES)
+	bash supermin-split.sh
+
+# Second we need to create a supermin appliance with just the included
+# files (leaving out the host files, which we'll add back at runtime).
+$(SUPERMINIMG): supermin.incfiles supermin-make.sh
+	rm -f $@
+	bash supermin-make.sh
+
+endif
+
+#----------------------------------------------------------------------
+# Extra rules for testing the appliance.
+
+# Test-boot the appliance.
 
 test-boot: emptydisk
 	qemu-system-$(host_cpu) \
@@ -66,7 +116,7 @@ test-boot-realistic: emptydisk
 	  -m 384 \
 	  -kernel $(VMLINUZ) -initrd $(INITRAMFSIMG) \
 	  -hda emptydisk \
-	  -append "console=ttyS0 guestfs=10.0.2.4:6666" \
+	  -append "console=ttyS0 guestfs=10.0.2.4:6666 guestfs_rescue=1" \
 	  -nographic \
 	  -serial stdio \
 	  -net channel,6666:unix:/tmp/sock,server,nowait \
@@ -75,7 +125,7 @@ test-boot-realistic: emptydisk
 
 # Make clean.
 
-CLEANFILES = $(fs_DATA)
+CLEANFILES = $(APPLIANCE_FILES)
 
 clean-local:
 	rm -rf $(top_builddir)/initramfs

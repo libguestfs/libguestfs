@@ -1,0 +1,82 @@
+#!/bin/bash -
+# @configure_input@
+# Copyright (C) 2009 Red Hat Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+# Helper script which constructs the supermin appliance at runtime.
+
+unset CDPATH
+
+set -e
+
+# Source directory containing the supermin input files.
+sourcedir=$(cd "$1" > /dev/null; pwd)
+
+# Output files.
+kernel="$2"
+initrd="$3"
+
+# Kernel:
+# Look for the most recent kernel named vmlinuz-*.<arch>* which has a
+# corresponding directory in /lib/modules/. If the architecture is x86, look
+# for any x86 kernel.
+
+arch=$(echo "@host_cpu@" | sed 's/^i.86$/i?86/')
+for f in $(ls -1vr /boot/vmlinuz-*.$arch* 2>/dev/null | grep -v xen); do
+    b=$(basename "$f")
+    b=$(echo "$b" | sed 's,vmlinuz-,,')
+    modpath="/lib/modules/$b"
+    if [ -d "$modpath" ]; then
+	ln -sf "$f" "$kernel"
+	break
+    fi
+    modpath=
+done
+
+if [ -z "$modpath" ]; then
+    echo "$0: failed to find a suitable kernel" >&2
+    exit 1
+fi
+
+# The initrd consists of these components:
+# (1) The base skeleton appliance that we constructed at build time.
+#     name = initramfs.@REPO@.@host_cpu@.supermin.img
+#     format = compressed cpio
+# (2) The modules from modpath which are on the module whitelist.
+#     format = plain cpio
+# (3) The host files which match wildcards in *.supermin.hostfiles.
+#     format = plain cpio
+
+cp "$sourcedir"/initramfs.@REPO@.@host_cpu@.supermin.img "$initrd"
+
+# Kernel modules (2).
+exec 5<"$sourcedir"/kmod.whitelist
+whitelist=
+while read kmod 0<&5; do
+    whitelist="$whitelist -o -name $kmod"
+done
+exec 5<&-
+
+find "$modpath" \( -not -name '*.ko' $whitelist \) -a -print0 |
+  cpio --quiet -o -0 -H newc >> "$initrd"
+
+# Host files (3).
+
+(cd / && \
+  ls -1df $(
+      cat "$sourcedir"/initramfs.@REPO@.@host_cpu@.supermin.hostfiles
+    ) 2>/dev/null |
+  cpio --quiet -o -H newc ) >> "$initrd"

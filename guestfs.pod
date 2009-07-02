@@ -205,6 +205,14 @@ search the current directory and then C</usr/lib/guestfs>.
 
 =head1 HIGH-LEVEL API ACTIONS
 
+=head2 ABI GUARANTEE
+
+We guarantee the libguestfs ABI (binary interface), for public,
+high-level actions as outlined in this section.  Although we will
+deprecate some actions, for example if they get replaced by newer
+calls, we will keep the old actions forever.  This allows you the
+developer to program in confidence against libguestfs.
+
 @ACTIONS@
 
 =head1 STRUCTURES
@@ -759,14 +767,28 @@ For example:
 
  LIBGUESTFS_QEMU=/tmp/qemu.wrapper guestfish
 
+Note that libguestfs also calls qemu with the -help and -version
+options in order to determine features.
+
 =head1 ENVIRONMENT VARIABLES
 
 =over 4
+
+=item LIBGUESTFS_APPEND
+
+Pass additional options to the guest kernel.
 
 =item LIBGUESTFS_DEBUG
 
 Set C<LIBGUESTFS_DEBUG=1> to enable verbose messages.  This
 has the same effect as calling C<guestfs_set_verbose (handle, 1)>.
+
+=item LIBGUESTFS_MEMSIZE
+
+Set the memory allocated to the qemu process, in megabytes.  For
+example:
+
+ LIBGUESTFS_MEMSIZE=700
 
 =item LIBGUESTFS_PATH
 
@@ -780,10 +802,6 @@ the qemu which was found at compile time by the configure script is
 used.
 
 See also L<QEMU WRAPPERS> above.
-
-=item LIBGUESTFS_APPEND
-
-Pass additional options to the guest kernel.
 
 =back
 

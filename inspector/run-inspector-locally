@@ -1,4 +1,4 @@
-#!/bin/sh -
+#!/usr/bin/perl
 # libguestfs inspector
 # Copyright (C) 2009 Red Hat Inc.
 #
@@ -16,14 +16,37 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-# This script sets up the environment so you can run
-# virt-inspector from the top-level source directory
-# without needing to do 'make install' first.
+# This script sets up the environment so you can run virt-inspector in place
+# without needing to do 'make install' first. You can also run virt-inspector
+# by creating a symlink to this script and putting it in your path.
 #
 # Use it like this:
-#   ./inspector/run-inspector-locally [usual virt-inspector args ...]
+#   ./run-inspector-locally [usual virt-inspector args ...]
 
-export LD_LIBRARY_PATH=$(pwd)/src/.libs
-export LIBGUESTFS_PATH=$(pwd)/appliance
-export PERL5LIB=$(pwd)/perl/blib/lib:$(pwd)/perl/blib/arch
-perl ./inspector/virt-inspector.pl "$@"
+use strict;
+use warnings;
+
+use File::Basename qw(dirname);
+use File::Spec;
+use Cwd qw(abs_path);
+
+my $path = $0;
+
+# Follow symlinks until we get to the real file
+while(-l $path) {
+    my $link = readlink($path);
+    if(File::Spec->file_name_is_absolute($link)) {
+        $path = $link;
+    } else {
+        $path = File::Spec->catfile(dirname($path), $link);
+    }
+}
+
+# Get the absolute path of the parent directory
+$path = abs_path(dirname($path).'/..');
+
+$ENV{LD_LIBRARY_PATH} = $path.'/src/.libs';
+$ENV{LIBGUESTFS_PATH} = $path.'/appliance';
+$ENV{PERL5LIB}        = $path.'/perl/blib/lib:'.$path.'/perl/blib/arch';
+
+exec('perl', $path.'/inspector/virt-inspector.pl', @ARGV);

@@ -1,0 +1,68 @@
+#!/bin/bash -e
+
+# debirf module: install-kernel
+# install a kernel package, indicated by the expected environment
+# variables:
+#  DEBIRF_PATH
+#  DEBIRF_ROOT
+#  DEBIRF_KERNEL_PACKAGE
+#
+# *** REQUIRED MODULE ***
+# WARNING: this module is necessary for proper functioning of debirf.
+#
+# The debirf scripts were written by
+# Jameson Rollins <jrollins@fifthhorseman.net>
+# and
+# Daniel Kahn Gillmor <dkg-debian.org@fifthhorseman.net>.
+#
+# They are Copyright 2007, and are all released under the GPL,
+# version 3 or later.
+
+# clear out old modules if they exist, to avoid confusion
+rm -rf "$DEBIRF_ROOT/lib/modules"
+
+# download/copy in kernel package
+if [ -z "$DEBIRF_KERNEL_PACKAGE" ] ; then
+    # determine kernel to install. assume arch of build host.
+
+    # determine kernel arch.  need everything after the kernel version
+    # and debian version
+    if [ -z "$DEBIRF_KERNEL_ARCH" ]; then
+	KARCH=$(uname -r | cut -d- -f3-)
+    else
+	KARCH="$DEBIRF_KERNEL_ARCH"
+    fi
+
+    # determine the full kernel version from the dependency of the
+    # generic 2.6-ARCH package in the debirf root (since it may be
+    # different than what is installed on the build host)
+    KNAME=$(debirf_exec apt-cache show linux-image-2.6-"$KARCH" | grep '^Depends: ' | sed 's/^Depends: //')
+
+    # download only the desired kernel package directly into the apt
+    # cache for dpkg extraction
+    debirf_exec sh -c "cd /var/cache/apt/archives/ && aptitude download \"$KNAME\""
+else
+    # install kernel deb if given at command line
+    debirf_exec sh -c "cd /var/cache/apt/archives/ && aptitude download \"$DEBIRF_KERNEL_PACKAGE\""
+fi
+
+KPKG=$(basename "$DEBIRF_ROOT"/var/cache/apt/archives/linux-image-2.6.*)
+
+echo "extracting kernel package $KPKG..."
+debirf_exec dpkg --extract /var/cache/apt/archives/"$KPKG" /
+
+# install the module init tools, since they are needed for depmod
+debirf_exec apt-get --assume-yes install module-init-tools
+
+# depmod to create module list
+KVERS=$(ls -1 -t "$DEBIRF_ROOT/lib/modules" | head -n1)
+echo "generating modules.dep..."
+debirf_exec depmod -a "$KVERS"
+
+# extract kernel and debian stock initrd from the build root:
+mv "$DEBIRF_ROOT"/boot/vmlinu* "$DEBIRF_BUILDD"
+
+# remove kernel symlinks
+if [ -L "$DEBIRF_ROOT"/vmlinuz ] ; then
+    rm "$DEBIRF_BUILDD"/vmlinuz
+fi

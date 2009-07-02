@@ -24,9 +24,13 @@ use Pod::Usage;
 use Getopt::Long;
 use Data::Dumper;
 use File::Temp qw/tempdir/;
+use XML::Writer;
 
 # Optional:
 eval "use Sys::Virt;";
+eval "use XML::XPath;";
+eval "use XML::XPath::XMLParser;";
+eval "use YAML::Any;";
 
 =encoding utf8
 
@@ -132,6 +136,11 @@ Produce no output at all.
 If you select I<--xml> then you get XML output which can be fed
 to other programs.
 
+=item B<--yaml>
+
+If you select I<--yaml> then you get YAML output which can be fed
+to other programs.
+
 =item B<--perl>
 
 If you select I<--perl> then you get Perl structures output which
@@ -145,7 +154,7 @@ If you select I<--fish> then we print a L<guestfish(1)> command
 line which will automatically mount up the filesystems on the
 correct mount points.  Try this for example:
 
- eval `virt-inspector --fish guest.img`
+ guestfish $(virt-inspector --fish guest.img)
 
 I<--ro-fish> is the same, but the I<--ro> option is passed to
 guestfish so that the filesystems are mounted read-only.
@@ -181,6 +190,7 @@ GetOptions ("help|?" => \$help,
 	    "text" => sub { $output = "text" },
 	    "none" => sub { $output = "none" },
 	    "xml" => sub { $output = "xml" },
+	    "yaml" => sub { $output = "yaml" },
 	    "perl" => sub { $output = "perl" },
 	    "fish" => sub { $output = "fish" },
 	    "guestfish" => sub { $output = "fish" },
@@ -204,8 +214,10 @@ if (-e $ARGV[0]) {
 	}
     }
 } else {
-    die "no libvirt support (install Sys::Virt)"
-	unless exists $INC{"Sys/Virt.pm"};
+    die "virt-inspector: no libvirt support (install Sys::Virt, XML::XPath and XML::XPath::XMLParser)\n"
+	unless exists $INC{"Sys/Virt.pm"} &&
+	exists $INC{"XML/XPath.pm"} &&
+	exists $INC{"XML/XPath/XMLParser.pm"};
 
     pod2usage ("$0: too many domains listed on command line") if @ARGV > 1;
 
@@ -218,6 +230,13 @@ if (-e $ARGV[0]) {
     die "cannot connect to libvirt $uri\n" unless $vmm;
 
     my @doms = $vmm->list_defined_domains ();
+    my $isitinactive = "an inactive libvirt domain";
+    if ($output ne "fish") {
+	# In the special case where we want read-only access to
+	# a domain, allow the user to specify an active domain too.
+	push @doms, $vmm->list_domains ();
+	$isitinactive = "a libvirt domain";
+    }
     my $dom;
     foreach (@doms) {
 	if ($_->get_name () eq $ARGV[0]) {
@@ -225,20 +244,14 @@ if (-e $ARGV[0]) {
 	    last;
 	}
     }
-    die "$ARGV[0] is not the name of an inactive libvirt domain\n"
-	unless $dom;
+    die "$ARGV[0] is not the name of $isitinactive\n" unless $dom;
 
     # Get the names of the image(s).
     my $xml = $dom->get_xml_description ();
 
-    my $p = new XML::XPath::XMLParser (xml => $xml);
-    my $disks = $p->find ("//devices/disk");
-    print "disks:\n";
-    foreach ($disks->get_nodelist) {
-	print XML::XPath::XMLParser::as_string($_);
-    }
-
-    die "XXX"
+    my $p = XML::XPath->new (xml => $xml);
+    my @disks = $p->findnodes ('//devices/disk/source/@dev');
+    @images = map { $_->getData } @disks;
 }
 
 # We've now got the list of @images, so feed them to libguestfs.
@@ -299,7 +312,7 @@ L<guestfish(1)> command line parameters, so that you can go in
 afterwards and inspect the guest with everything mounted in the
 right place.  For example:
 
- eval `virt-inspector --ro-fish guest.img`
+ guestfish $(virt-inspector --ro-fish guest.img)
  ==> guestfish --ro -a guest.img -m /dev/VG/LV:/ -m /dev/sda1:/boot
 
 =cut
@@ -659,6 +672,7 @@ sub assign_mount_points
 		} else {
 		    $fs->{used} = 1
 	        }
+                $fs->{spec} = $spec;
 	    }
 	}
     }
@@ -692,6 +706,12 @@ sub find_filesystem
     } else {
 	return ($_, $fses{$_}) if exists $fses{$_};
 
+        # The following is to handle the case where an fstab entry specifies a
+        # specific device rather than its label or uuid, and the libguestfs
+        # appliance has named the device differently due to the use of a
+        # different driver.
+        # This will work as long as the underlying drivers recognise devices in
+        # the same order.
 	if (m{^/dev/hd(.*)} && exists $fses{"/dev/sd$1"}) {
 	    return ("/dev/sd$1", $fses{"/dev/sd$1"});
 	}
@@ -714,9 +734,6 @@ sub find_filesystem
 # we don't need to know.
 
 if ($output !~ /.*fish$/) {
-    # Temporary directory for use by check_for_initrd.
-    my $dir = tempdir (CLEANUP => 1);
-
     my $root_dev;
     foreach $root_dev (sort keys %oses) {
 	my $mounts = $oses{$root_dev}->{mounts};
@@ -731,7 +748,7 @@ if ($output !~ /.*fish$/) {
 	check_for_kernels ($root_dev);
 	if ($oses{$root_dev}->{os} eq "linux") {
 	    check_for_modprobe_aliases ($root_dev);
-	    check_for_initrd ($root_dev, $dir);
+	    check_for_initrd ($root_dev);
 	}
 
 	$g->umount_all ();
@@ -832,14 +849,56 @@ sub check_for_modprobe_aliases
     local $_;
     my $root_dev = shift;
 
-    my @lines;
-    eval { @lines = $g->read_lines ("/etc/modprobe.conf"); };
-    return if $@ || !@lines;
+    # Initialise augeas
+    my $success = 0;
+    $success = $g->aug_init("/", 16);
+
+    # Register /etc/modules.conf and /etc/conf.modules to the Modprobe lens
+    my @results;
+    @results = $g->aug_match("/augeas/load/Modprobe/incl");
+
+    # Calculate the next index of /augeas/load/Modprobe/incl
+    my $i = 1;
+    foreach ( @results ) {
+        next unless m{/augeas/load/Modprobe/incl\[(\d*)]};
+        $i = $1 + 1 if ($1 == $i);
+    }
+
+    $success = $g->aug_set("/augeas/load/Modprobe/incl[$i]",
+                           "/etc/modules.conf");
+    $i++;
+    $success = $g->aug_set("/augeas/load/Modprobe/incl[$i]",
+                                  "/etc/conf.modules");
+
+    # Make augeas reload
+    $success = $g->aug_load();
 
     my %modprobe_aliases;
 
-    foreach (@lines) {
-	$modprobe_aliases{$1} = $2 if /^\s*alias\s+(\S+)\s+(\S+)/;
+    for my $pattern qw(/files/etc/conf.modules/alias
+                       /files/etc/modules.conf/alias
+                       /files/etc/modprobe.conf/alias
+                       /files/etc/modprobe.d/*/alias) {
+        @results = $g->aug_match($pattern);
+
+        for my $path ( @results ) {
+            $path =~ m{^/files(.*)/alias(?:\[\d*\])?$}
+                or die("$path doesn't match augeas pattern");
+            my $file = $1;
+
+            my $alias;
+            $alias = $g->aug_get($path);
+
+            my $modulename;
+            $modulename = $g->aug_get($path.'/modulename');
+
+            my %aliasinfo;
+            $aliasinfo{modulename} = $modulename;
+            $aliasinfo{augeas} = $path;
+            $aliasinfo{file} = $file;
+
+            $modprobe_aliases{$alias} = \%aliasinfo;
+        }
     }
 
     $oses{$root_dev}->{modprobe_aliases} = \%modprobe_aliases;
@@ -852,42 +911,22 @@ sub check_for_initrd
 {
     local $_;
     my $root_dev = shift;
-    my $dir = shift;
 
     my %initrd_modules;
 
     foreach my $initrd ($g->ls ("/boot")) {
 	if ($initrd =~ m/^initrd-(.*)\.img$/ && $g->is_file ("/boot/$initrd")) {
 	    my $version = $1;
-	    my @modules = ();
-	    # We have to download these to a temporary file.
-	    $g->download ("/boot/$initrd", "$dir/initrd");
+	    my @modules;
 
-	    my $cmd = "zcat $dir/initrd | file -";
-	    open P, "$cmd |" or die "$cmd: $!";
-	    my $lines;
-	    { local $/ = undef; $lines = <P>; }
-	    close P;
-	    if ($lines =~ /ext\d filesystem data/) {
-		# Before initramfs came along, these were compressed
-		# ext2 filesystems.  We could run another libguestfs
-		# instance to unpack these, but punt on them for now. (XXX)
-		warn "initrd image is unsupported ext2/3/4 filesystem\n";
-	    }
-	    elsif ($lines =~ /cpio/) {
-		my $cmd = "zcat $dir/initrd | cpio --quiet -it";
-		open P, "$cmd |" or die "$cmd: $!";
-		while (<P>) {
-		    push @modules, $1
-			if m,([^/]+)\.ko$, || m,([^/]+)\.o$,;
-		}
-		close P;
-		unlink "$dir/initrd";
-		$initrd_modules{$version} = \@modules;
-	    }
-	    else {
-		# What?
-		warn "unrecognized initrd image: $lines\n";
+	    eval {
+		@modules = $g->initrd_list ("/boot/$initrd");
+	    };
+	    unless ($@) {
+		@modules = grep { m,([^/]+)\.ko$, || m,([^/]+)\.o$, } @modules;
+		$initrd_modules{$version} = \@modules
+	    } else {
+		warn "/boot/$initrd: could not read initrd format"
 	    }
 	}
     }
@@ -905,18 +944,17 @@ if ($output eq "fish" || $output eq "ro-fish") {
 
     my $root_dev = $osdevs[0];
 
-    print "guestfish";
     if ($output eq "ro-fish") {
-	print " --ro";
+	print "--ro ";
     }
 
-    print " -a $_" foreach @images;
+    print "-a $_ " foreach @images;
 
     my $mounts = $oses{$root_dev}->{mounts};
     # Have to mount / first.  Luckily '/' is early in the ASCII
     # character set, so this should be OK.
     foreach (sort keys %$mounts) {
-	print " -m $mounts->{$_}:$_" if $_ ne "swap";
+	print "-m $mounts->{$_}:$_ " if $_ ne "swap";
     }
     print "\n"
 }
@@ -924,6 +962,14 @@ if ($output eq "fish" || $output eq "ro-fish") {
 # Perl output.
 elsif ($output eq "perl") {
     print Dumper(\%oses);
+}
+
+# YAML output
+elsif ($output eq "yaml") {
+    die "virt-inspector: no YAML support\n"
+	unless exists $INC{"YAML/Any.pm"};
+    
+    print Dump(\%oses);
 }
 
 # Plain text output (the default).
@@ -981,7 +1027,7 @@ sub output_text_os
 	if (@keys) {
 	    print "  Modprobe aliases:\n";
 	    foreach (@keys) {
-		printf "    %-30s %s\n", $_, $aliases{$_}
+		printf "    %-30s %s\n", $_, $aliases{$_}->{modulename}
 	    }
 	}
     }
@@ -1026,55 +1072,70 @@ sub output_text_os
 
 sub output_xml
 {
-    print "<operatingsystems>\n";
-    output_xml_os ($oses{$_}) foreach sort keys %oses;
-    print "</operatingsystems>\n";
+    my $xml = new XML::Writer(DATA_MODE => 1, DATA_INDENT => 2);
+
+    $xml->startTag("operatingsystems");
+    output_xml_os ($oses{$_}, $xml) foreach sort keys %oses;
+    $xml->endTag("operatingsystems");
+
+    $xml->end();
 }
 
 sub output_xml_os
 {
-    my $os = shift;
+    my ($os, $xml) = @_;
 
-    print "<operatingsystem>\n";
+    $xml->startTag("operatingsystem");
 
-    print "<os>", $os->{os}, "</os>\n" if exists $os->{os};
-    print "<distro>", $os->{distro}, "</distro>\n" if exists $os->{distro};
-    print "<version>", $os->{version}, "</version>\n" if exists $os->{version};
-    print "<root>", $os->{root_device}, "</root>\n";
+    foreach ( [ "name" => "os" ],
+              [ "distro" => "distro" ],
+              [ "version" => "version" ],
+              [ "root" => "root_device" ] ) {
+        $xml->dataElement($_->[0], $os->{$_->[1]}) if exists $os->{$_->[1]};
+    }
 
-    print "<mountpoints>\n";
+    $xml->startTag("mountpoints");
     my $mounts = $os->{mounts};
     foreach (sort keys %$mounts) {
-	printf "<mountpoint dev='%s'>%s</mountpoint>\n",
-	  $mounts->{$_}, $_
+        $xml->dataElement("mountpoint", $_, "dev" => $mounts->{$_});
     }
-    print "</mountpoints>\n";
+    $xml->endTag("mountpoints");
 
-    print "<filesystems>\n";
+    $xml->startTag("filesystems");
     my $filesystems = $os->{filesystems};
     foreach (sort keys %$filesystems) {
-	print "<filesystem dev='$_'>\n";
-	print "<label>$filesystems->{$_}{label}</label>\n"
-	    if exists $filesystems->{$_}{label};
-	print "<uuid>$filesystems->{$_}{uuid}</uuid>\n"
-	    if exists $filesystems->{$_}{uuid};
-	print "<type>$filesystems->{$_}{fstype}</type>\n"
-	    if exists $filesystems->{$_}{fstype};
-	print "<content>$filesystems->{$_}{content}</content>\n"
-	    if exists $filesystems->{$_}{content};
-	print "</filesystem>\n";
+        $xml->startTag("filesystem", "dev" => $_);
+
+        foreach my $field ( [ "label" => "label" ],
+                            [ "uuid" => "uuid" ],
+                            [ "type" => "fstype" ],
+                            [ "content" => "content" ],
+                            [ "spec" => "spec" ] ) {
+            $xml->dataElement($field->[0], $filesystems->{$_}{$field->[1]})
+                if exists $filesystems->{$_}{$field->[1]};
+        }
+
+        $xml->endTag("filesystem");
     }
-    print "</filesystems>\n";
+    $xml->endTag("filesystems");
 
     if (exists $os->{modprobe_aliases}) {
 	my %aliases = %{$os->{modprobe_aliases}};
 	my @keys = sort keys %aliases;
 	if (@keys) {
-	    print "<modprobealiases>\n";
+            $xml->startTag("modprobealiases");
 	    foreach (@keys) {
-		printf "<alias device=\"%s\">%s</alias>\n", $_, $aliases{$_}
+                $xml->startTag("alias", "device" => $_);
+
+                foreach my $field ( [ "modulename" => "modulename" ],
+                                    [ "augeas" => "augeas" ],
+                                    [ "file" => "file" ] ) {
+                    $xml->dataElement($field->[0], $aliases{$_}->{$field->[1]});
+                }
+
+                $xml->endTag("alias");
 	    }
-	    print "</modprobealiases>\n";
+            $xml->endTag("modprobealiases");
 	}
     }
 
@@ -1082,63 +1143,51 @@ sub output_xml_os
 	my %modvers = %{$os->{initrd_modules}};
 	my @keys = sort keys %modvers;
 	if (@keys) {
-	    print "<initrds>\n";
+            $xml->startTag("initrds");
 	    foreach (@keys) {
 		my @modules = @{$modvers{$_}};
-		print "<initrd version=\"$_\">\n";
-		print "<module>$_</module>\n" foreach @modules;
-		print "</initrd>\n";
+                $xml->startTag("initrd", "version" => $_);
+                $xml->dataElement("module", $_) foreach @modules;
+                $xml->endTag("initrd");
 	    }
-	    print "</initrds>\n";
+            $xml->endTag("initrds");
 	}
     }
 
-    print "<applications>\n";
+    $xml->startTag("applications");
     my @apps =  @{$os->{apps}};
     foreach (@apps) {
-	print "<application>\n";
-	print "<name>$_->{name}</name><version>$_->{version}</version>\n";
-	print "</application>\n";
+        $xml->startTag("application");
+        $xml->dataElement("name", $_->{name});
+        $xml->dataElement("version", $_->{version});
+        $xml->endTag("application");
     }
-    print "</applications>\n";
+    $xml->endTag("applications");
 
-    print "<kernels>\n";
+    $xml->startTag("kernels");
     my @kernels = @{$os->{kernels}};
     foreach (@kernels) {
-	print "<kernel>\n";
-	print "<version>$_->{version}</version>\n";
-	print "<modules>\n";
+        $xml->startTag("kernel", "version" => $_->{version});
+        $xml->startTag("modules");
 	my @modules = @{$_->{modules}};
 	foreach (@modules) {
-	    print "<module>$_</module>\n";
+            $xml->dataElement("module", $_);
 	}
-	print "</modules>\n";
-	print "</kernel>\n";
+        $xml->endTag("modules");
+        $xml->endTag("kernel");
     }
-    print "</kernels>\n";
+    $xml->endTag("kernels");
 
     if (exists $os->{root}->{registry}) {
-	print "<windowsregistryentries>\n";
+        $xml->startTag("windowsregistryentries");
 	# These are just lumps of text - dump them out.
 	foreach (@{$os->{root}->{registry}}) {
-	    print "<windowsregistryentry>\n";
-	    print escape_xml($_), "\n";
-	    print "</windowsregistryentry>\n";
+            $xml->dataElement("windowsregistryentry", $_);
 	}
-	print "</windowsregistryentries>\n";
+        $xml->endTag("windowsregistryentries");
     }
 
-    print "</operatingsystem>\n";
-}
-
-sub escape_xml
-{
-    local $_ = shift;
-
-    s/&/&amp;/g;
-    s/</&lt;/g;
-    s/>/&gt;/g;
-    return $_;
+    $xml->endTag("operatingsystem");
 }
 
 =head1 QUERY MODE

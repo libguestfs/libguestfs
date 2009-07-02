@@ -201,3 +201,33 @@ do_is_dir (char *path)
 
   return S_ISDIR (buf.st_mode);
 }
+
+char *
+do_mkdtemp (char *template)
+{
+  char *r;
+
+  NEED_ROOT (NULL);
+  ABS_PATH (template, NULL);
+
+  CHROOT_IN;
+  r = mkdtemp (template);
+  CHROOT_OUT;
+
+  if (r == NULL) {
+    reply_with_perror ("mkdtemp: %s", template);
+    return NULL;
+  }
+
+  /* The caller will free template AND try to free the return value,
+   * so we must make a copy here.
+   */
+  if (r == template) {
+    r = strdup (template);
+    if (r == NULL) {
+      reply_with_perror ("strdup");
+      return NULL;
+    }
+  }
+  return r;
+}

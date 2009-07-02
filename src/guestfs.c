@@ -31,6 +31,7 @@
 #include <time.h>
 #include <sys/stat.h>
 #include <sys/select.h>
+#include <dirent.h>
 
 #include <rpc/types.h>
 #include <rpc/xdr.h>
@@ -161,6 +162,8 @@ struct guestfs_h
 
   char *tmpdir;			/* Temporary directory containing socket. */
 
+  char *qemu_help, *qemu_version; /* Output of qemu -help, qemu -version. */
+
   char **cmdline;		/* Qemu command line. */
   int cmdline_size;
 
@@ -170,6 +173,8 @@ struct guestfs_h
   char *path;			/* Path to kernel, initrd. */
   char *qemu;			/* Qemu binary. */
   char *append;			/* Append to kernel command line. */
+
+  int memsize;			/* Size of RAM (megabytes). */
 
   char *last_error;
 
@@ -243,6 +248,22 @@ guestfs_create (void)
     if (!g->append) goto error;
   }
 
+  /* Choose a suitable memory size.  Previously we tried to choose
+   * a minimal memory size, but this isn't really necessary since
+   * recent QEMU and KVM don't do anything nasty like locking
+   * memory into core any more.  Thus we can safely choose a
+   * large, generous amount of memory, and it'll just get swapped
+   * on smaller systems.
+   */
+  str = getenv ("LIBGUESTFS_MEMSIZE");
+  if (str) {
+    if (sscanf (str, "%d", &g->memsize) != 1 || g->memsize <= 256) {
+      fprintf (stderr, "libguestfs: non-numeric or too small value for LIBGUESTFS_MEMSIZE\n");
+      goto error;
+    }
+  } else
+    g->memsize = 500;
+
   g->main_loop = guestfs_get_default_main_loop ();
 
   /* Start with large serial numbers so they are easy to spot
@@ -309,6 +330,12 @@ guestfs_close (guestfs_h *g)
     snprintf (filename, sizeof filename, "%s/sock", g->tmpdir);
     unlink (filename);
 
+    snprintf (filename, sizeof filename, "%s/initrd", g->tmpdir);
+    unlink (filename);
+
+    snprintf (filename, sizeof filename, "%s/kernel", g->tmpdir);
+    unlink (filename);
+
     rmdir (g->tmpdir);
 
     free (g->tmpdir);
@@ -339,6 +366,8 @@ guestfs_close (guestfs_h *g)
   free (g->path);
   free (g->qemu);
   free (g->append);
+  free (g->qemu_help);
+  free (g->qemu_version);
   free (g);
 }
 
@@ -375,8 +404,10 @@ guestfs_error (guestfs_h *g, const char *fs, ...)
   char *msg;
 
   va_start (args, fs);
-  vasprintf (&msg, fs, args);
+  int err = vasprintf (&msg, fs, args);
   va_end (args);
+
+  if (err < 0) return;
 
   if (g->error_cb) g->error_cb (g, g->error_cb_data, msg);
   set_last_error (g, msg);
@@ -586,6 +617,19 @@ guestfs_get_append (guestfs_h *g)
   return g->append;
 }
 
+int
+guestfs_set_memsize (guestfs_h *g, int memsize)
+{
+  g->memsize = memsize;
+  return 0;
+}
+
+int
+guestfs_get_memsize (guestfs_h *g)
+{
+  return g->memsize;
+}
+
 /* Add a string to the current command line. */
 static void
 incr_cmdline_size (guestfs_h *g)
@@ -631,7 +675,6 @@ guestfs_config (guestfs_h *g,
       strcmp (qemu_param, "-initrd") == 0 ||
       strcmp (qemu_param, "-nographic") == 0 ||
       strcmp (qemu_param, "-serial") == 0 ||
-      strcmp (qemu_param, "-vnc") == 0 ||
       strcmp (qemu_param, "-full-screen") == 0 ||
       strcmp (qemu_param, "-std-vga") == 0 ||
       strcmp (qemu_param, "-vnc") == 0) {
@@ -664,7 +707,8 @@ guestfs_add_drive (guestfs_h *g, const char *filename)
     return -1;
   }
 
-  snprintf (buf, len, "file=%s", filename);
+  /* cache=off improves reliability in the event of a host crash. */
+  snprintf (buf, len, "file=%s,cache=off,if=%s", filename, DRIVE_IF);
 
   return guestfs_config (g, "-drive", buf);
 }
@@ -685,7 +729,7 @@ guestfs_add_drive_ro (guestfs_h *g, const char *filename)
     return -1;
   }
 
-  snprintf (buf, len, "file=%s,snapshot=on", filename);
+  snprintf (buf, len, "file=%s,snapshot=on,if=%s", filename, DRIVE_IF);
 
   return guestfs_config (g, "-drive", buf);
 }
@@ -706,16 +750,56 @@ guestfs_add_cdrom (guestfs_h *g, const char *filename)
   return guestfs_config (g, "-cdrom", filename);
 }
 
+/* Returns true iff file is contained in dir. */
+static int
+dir_contains_file (const char *dir, const char *file)
+{
+  int dirlen = strlen (dir);
+  int filelen = strlen (file);
+  int len = dirlen+filelen+2;
+  char path[len];
+
+  snprintf (path, len, "%s/%s", dir, file);
+  return access (path, F_OK) == 0;
+}
+
+/* Returns true iff every listed file is contained in 'dir'. */
+static int
+dir_contains_files (const char *dir, ...)
+{
+  va_list args;
+  const char *file;
+
+  va_start (args, dir);
+  while ((file = va_arg (args, const char *)) != NULL) {
+    if (!dir_contains_file (dir, file)) {
+      va_end (args);
+      return 0;
+    }
+  }
+  va_end (args);
+  return 1;
+}
+
+static int build_supermin_appliance (guestfs_h *g, const char *path, char **kernel, char **initrd);
+static int test_qemu (guestfs_h *g);
+static int qemu_supports (guestfs_h *g, const char *option);
+
+static const char *kernel_name = "vmlinuz." REPO "." host_cpu;
+static const char *initrd_name = "initramfs." REPO "." host_cpu ".img";
+static const char *supermin_name =
+  "initramfs." REPO "." host_cpu ".supermin.img";
+static const char *supermin_hostfiles_name =
+  "initramfs." REPO "." host_cpu ".supermin.hostfiles";
+
 int
 guestfs_launch (guestfs_h *g)
 {
   static const char *dir_template = "/tmp/libguestfsXXXXXX";
-  int r, i, pmore, memsize;
+  int r, i, pmore;
   size_t len;
   int wfd[2], rfd[2];
   int tries;
-  const char *kernel_name = "vmlinuz." REPO "." host_cpu;
-  const char *initrd_name = "initramfs." REPO "." host_cpu ".img";
   char *path, *pelem, *pend;
   char *kernel = NULL, *initrd = NULL;
   char unixsock[256];
@@ -732,63 +816,7 @@ guestfs_launch (guestfs_h *g)
     return -1;
   }
 
-  /* Search g->path for the kernel and initrd. */
-  pelem = path = safe_strdup (g, g->path);
-  do {
-    pend = strchrnul (pelem, ':');
-    pmore = *pend == ':';
-    *pend = '\0';
-    len = pend - pelem;
-
-    /* Empty element or "." means cwd. */
-    if (len == 0 || (len == 1 && *pelem == '.')) {
-      if (g->verbose)
-	fprintf (stderr,
-		 "looking for kernel and initrd in current directory\n");
-      if (access (kernel_name, F_OK) == 0 && access (initrd_name, F_OK) == 0) {
-	kernel = safe_strdup (g, kernel_name);
-	initrd = safe_strdup (g, initrd_name);
-	break;
-      }
-    }
-    /* Look at <path>/kernel etc. */
-    else {
-      kernel = safe_malloc (g, len + strlen (kernel_name) + 2);
-      initrd = safe_malloc (g, len + strlen (initrd_name) + 2);
-      sprintf (kernel, "%s/%s", pelem, kernel_name);
-      sprintf (initrd, "%s/%s", pelem, initrd_name);
-
-      if (g->verbose)
-	fprintf (stderr, "looking for %s and %s\n", kernel, initrd);
-
-      if (access (kernel, F_OK) == 0 && access (initrd, F_OK) == 0)
-	break;
-      free (kernel);
-      free (initrd);
-      kernel = initrd = NULL;
-    }
-
-    pelem = pend + 1;
-  } while (pmore);
-
-  free (path);
-
-  if (kernel == NULL || initrd == NULL) {
-    error (g, _("cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)"),
-	   kernel_name, initrd_name, g->path);
-    goto cleanup0;
-  }
-
-  /* Choose a suitable memory size.  Previously we tried to choose
-   * a minimal memory size, but this isn't really necessary since
-   * recent QEMU and KVM don't do anything nasty like locking
-   * memory into core any more.  This we can safely choose a
-   * large, generous amount of memory, and it'll just get swapped
-   * on smaller systems.
-   */
-  memsize = 384;
-
-  /* Make the temporary directory containing the socket. */
+  /* Make the temporary directory. */
   if (!g->tmpdir) {
     g->tmpdir = safe_strdup (g, dir_template);
     if (mkdtemp (g->tmpdir) == NULL) {
@@ -797,6 +825,101 @@ guestfs_launch (guestfs_h *g)
     }
   }
 
+  /* First search g->path for the supermin appliance, and try to
+   * synthesize a kernel and initrd from that.  If it fails, we
+   * try the path search again looking for a backup ordinary
+   * appliance.
+   */
+  pelem = path = safe_strdup (g, g->path);
+  do {
+    pend = strchrnul (pelem, ':');
+    pmore = *pend == ':';
+    *pend = '\0';
+    len = pend - pelem;
+
+    /* Empty element of "." means cwd. */
+    if (len == 0 || (len == 1 && *pelem == '.')) {
+      if (g->verbose)
+	fprintf (stderr,
+		 "looking for supermin appliance in current directory\n");
+      if (dir_contains_files (".",
+			      supermin_name, supermin_hostfiles_name,
+			      "kmod.whitelist", NULL)) {
+	if (build_supermin_appliance (g, ".", &kernel, &initrd) == -1)
+	  return -1;
+	break;
+      }
+    }
+    /* Look at <path>/supermin* etc. */
+    else {
+      if (g->verbose)
+	fprintf (stderr, "looking for supermin appliance in %s\n", pelem);
+
+      if (dir_contains_files (pelem,
+			      supermin_name, supermin_hostfiles_name,
+			      "kmod.whitelist", NULL)) {
+	if (build_supermin_appliance (g, pelem, &kernel, &initrd) == -1)
+	  return -1;
+	break;
+      }
+    }
+
+    pelem = pend + 1;
+  } while (pmore);
+
+  free (path);
+
+  if (kernel == NULL || initrd == NULL) {
+    /* Search g->path for the kernel and initrd. */
+    pelem = path = safe_strdup (g, g->path);
+    do {
+      pend = strchrnul (pelem, ':');
+      pmore = *pend == ':';
+      *pend = '\0';
+      len = pend - pelem;
+
+      /* Empty element or "." means cwd. */
+      if (len == 0 || (len == 1 && *pelem == '.')) {
+	if (g->verbose)
+	  fprintf (stderr,
+		   "looking for appliance in current directory\n");
+	if (dir_contains_files (".", kernel_name, initrd_name, NULL)) {
+	  kernel = safe_strdup (g, kernel_name);
+	  initrd = safe_strdup (g, initrd_name);
+	  break;
+	}
+      }
+      /* Look at <path>/kernel etc. */
+      else {
+	if (g->verbose)
+	  fprintf (stderr, "looking for appliance in %s\n", pelem);
+
+	if (dir_contains_files (pelem, kernel_name, initrd_name, NULL)) {
+	  kernel = safe_malloc (g, len + strlen (kernel_name) + 2);
+	  initrd = safe_malloc (g, len + strlen (initrd_name) + 2);
+	  sprintf (kernel, "%s/%s", pelem, kernel_name);
+	  sprintf (initrd, "%s/%s", pelem, initrd_name);
+	  break;
+	}
+      }
+
+      pelem = pend + 1;
+    } while (pmore);
+
+    free (path);
+  }
+
+  if (kernel == NULL || initrd == NULL) {
+    error (g, _("cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)"),
+	   kernel_name, initrd_name, g->path);
+    goto cleanup0;
+  }
+
+  /* Get qemu help text and version. */
+  if (test_qemu (g) == -1)
+    goto cleanup0;
+
+  /* Make the vmchannel socket. */
   snprintf (unixsock, sizeof unixsock, "%s/sock", g->tmpdir);
   unlink (unixsock);
 
@@ -837,13 +960,10 @@ guestfs_launch (guestfs_h *g)
 	      g->verbose ? " guestfs_verbose=1" : "",
 	      g->append ? " " : "", g->append ? g->append : "");
 
-    snprintf (memsize_str, sizeof memsize_str, "%d", memsize);
+    snprintf (memsize_str, sizeof memsize_str, "%d", g->memsize);
 
     add_cmdline (g, "-m");
     add_cmdline (g, memsize_str);
-#if 0
-    add_cmdline (g, "-no-kqemu"); /* Avoids a warning. */
-#endif
     add_cmdline (g, "-no-reboot"); /* Force exit instead of reboot on panic */
     add_cmdline (g, "-kernel");
     add_cmdline (g, (char *) kernel);
@@ -860,6 +980,15 @@ guestfs_launch (guestfs_h *g)
     add_cmdline (g, "user,vlan=0");
     add_cmdline (g, "-net");
     add_cmdline (g, "nic,model=virtio,vlan=0");
+
+    /* These options recommended by KVM developers to improve reliability. */
+    if (qemu_supports (g, "-no-hpet"))
+      add_cmdline (g, "-no-hpet");
+
+    if (qemu_supports (g, "-rtc-td-hack"))
+      add_cmdline (g, "-rtc-td-hack");
+
+    /* Finish off the command line. */
     incr_cmdline_size (g);
     g->cmdline[g->cmdline_size-1] = NULL;
 
@@ -1048,6 +1177,127 @@ guestfs_launch (guestfs_h *g)
   return -1;
 }
 
+/* This function does the hard work of building the supermin appliance
+ * on the fly.  'path' is the directory containing the control files.
+ * 'kernel' and 'initrd' are where we will return the names of the
+ * kernel and initrd (only initrd is built).  The work is done by
+ * an external script.  We just tell it where to put the result.
+ */
+static int
+build_supermin_appliance (guestfs_h *g, const char *path,
+			  char **kernel, char **initrd)
+{
+  char cmd[4096];
+  int r, len;
+
+  len = strlen (g->tmpdir);
+  *kernel = safe_malloc (g, len + 8);
+  snprintf (*kernel, len+8, "%s/kernel", g->tmpdir);
+  *initrd = safe_malloc (g, len + 8);
+  snprintf (*initrd, len+8, "%s/initrd", g->tmpdir);
+
+  snprintf (cmd, sizeof cmd,
+	    "PATH='%s':$PATH "
+	    "libguestfs-supermin-helper '%s' %s %s",
+	    path,
+	    path, *kernel, *initrd);
+
+  r = system (cmd);
+  if (r == -1 || WEXITSTATUS(r) != 0) {
+    error (g, _("external command failed: %s"), cmd);
+    free (*kernel);
+    free (*initrd);
+    *kernel = *initrd = NULL;
+    return -1;
+  }
+
+  return 0;
+}
+
+static int read_all (guestfs_h *g, FILE *fp, char **ret);
+
+/* Test qemu binary (or wrapper) runs, and do 'qemu -help' and
+ * 'qemu -version' so we know what options this qemu supports and
+ * the version.
+ */
+static int
+test_qemu (guestfs_h *g)
+{
+  char cmd[1024];
+  FILE *fp;
+
+  free (g->qemu_help);
+  free (g->qemu_version);
+  g->qemu_help = NULL;
+  g->qemu_version = NULL;
+
+  snprintf (cmd, sizeof cmd, "'%s' -help", g->qemu);
+
+  fp = popen (cmd, "r");
+  /* qemu -help should always work (qemu -version OTOH wasn't
+   * supported by qemu 0.9).  If this command doesn't work then it
+   * probably indicates that the qemu binary is missing.
+   */
+  if (!fp) {
+    /* XXX This error is never printed, even if the qemu binary
+     * doesn't exist.  Why?
+     */
+  error:
+    perrorf (g, _("%s: command failed: If qemu is located on a non-standard path, try setting the LIBGUESTFS_QEMU environment variable."), cmd);
+    return -1;
+  }
+
+  if (read_all (g, fp, &g->qemu_help) == -1)
+    goto error;
+
+  if (pclose (fp) == -1)
+    goto error;
+
+  snprintf (cmd, sizeof cmd, "'%s' -version 2>/dev/null", g->qemu);
+
+  fp = popen (cmd, "r");
+  if (fp) {
+    /* Intentionally ignore errors. */
+    read_all (g, fp, &g->qemu_version);
+    pclose (fp);
+  }
+
+  return 0;
+}
+
+static int
+read_all (guestfs_h *g, FILE *fp, char **ret)
+{
+  int r, n = 0;
+  char *p;
+
+ again:
+  if (feof (fp)) {
+    *ret = safe_realloc (g, *ret, n + 1);
+    (*ret)[n] = '\0';
+    return n;
+  }
+
+  *ret = safe_realloc (g, *ret, n + BUFSIZ);
+  p = &(*ret)[n];
+  r = fread (p, 1, BUFSIZ, fp);
+  if (ferror (fp)) {
+    perrorf (g, "read");
+    return -1;
+  }
+  n += r;
+  goto again;
+}
+
+/* Test if option is supported by qemu command line (just by grepping
+ * the help text).
+ */
+static int
+qemu_supports (guestfs_h *g, const char *option)
+{
+  return g->qemu_help && strstr (g->qemu_help, option) != NULL;
+}
+
 static void
 finish_wait_ready (guestfs_h *g, void *vp)
 {
@@ -1220,6 +1470,13 @@ void
 guestfs_free_lvm_lv_list (struct guestfs_lvm_lv_list *x)
 {
   xdr_free ((xdrproc_t) xdr_guestfs_lvm_int_lv_list, (char *) x);
+  free (x);
+}
+
+void
+guestfs_free_dirent_list (struct guestfs_dirent_list *x)
+{
+  xdr_free ((xdrproc_t) xdr_guestfs_int_dirent_list, (char *) x);
   free (x);
 }
 
@@ -1451,7 +1708,7 @@ static void
 sock_write_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
 		  int watch, int fd, int events)
 {
-  int n;
+  int n, err;
 
   if (g->verbose)
     fprintf (stderr,
@@ -1475,8 +1732,11 @@ sock_write_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
   n = write (g->sock, g->msg_out + g->msg_out_pos,
 	     g->msg_out_size - g->msg_out_pos);
   if (n == -1) {
-    if (errno != EAGAIN)
+    err = errno;
+    if (err != EAGAIN)
       perrorf (g, "write");
+    if (err == EPIPE)	/* Disconnected from guest (RHBZ#508713). */
+      child_cleanup (g);
     return;
   }
 

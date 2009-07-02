@@ -83,6 +83,8 @@ and ret =
      * inefficient.  Keys should be unique.  NULLs are not permitted.
      *)
   | RHashtable of string
+    (* List of directory entries (the result of readdir(3)). *)
+  | RDirentList of string
 
 and args = argt list	(* Function parameters, guestfs handle is implicit. *)
 
@@ -133,7 +135,9 @@ can easily destroy all your data>."
  * 50MB and 10MB (respectively /dev/sda, /dev/sdb, /dev/sdc), and
  * a fourth squashfs block device with some known files on it (/dev/sdd).
  *
- * Note for partitioning purposes, the 500MB device has 63 cylinders.
+ * Note for partitioning purposes, the 500MB device has 1015 cylinders.
+ * Number of cylinders was 63 for IDE emulated disks with precisely
+ * the same size.  How exactly this is calculated is a mystery.
  *
  * The squashfs block device (/dev/sdd) comes from images/test.sqsh.
  *
@@ -373,7 +377,8 @@ for whatever operations you want to perform (ie. read access if you
 just want to read the image or write access if you want to modify the
 image).
 
-This is equivalent to the qemu parameter C<-drive file=filename>.
+This is equivalent to the qemu parameter
+C<-drive file=filename,cache=off,if=...>.
 
 Note that this call checks for the existence of C<filename>.  This
 stops you from specifying other types of drive which are supported
@@ -407,7 +412,7 @@ handle is closed.  We don't currently have any method to enable
 changes to be committed, although qemu can support this.
 
 This is equivalent to the qemu parameter
-C<-drive file=filename,snapshot=on>.
+C<-drive file=filename,snapshot=on,if=...>.
 
 Note that this call checks for the existence of C<filename>.  This
 stops you from specifying other types of drive which are supported
@@ -598,6 +603,35 @@ actions using the low-level API.
 
 For more information on states, see L<guestfs(3)>.");
 
+  ("set_memsize", (RErr, [Int "memsize"]), -1, [FishAlias "memsize"],
+   [],
+   "set memory allocated to the qemu subprocess",
+   "\
+This sets the memory size in megabytes allocated to the
+qemu subprocess.  This only has any effect if called before
+C<guestfs_launch>.
+
+You can also change this by setting the environment
+variable C<LIBGUESTFS_MEMSIZE> before the handle is
+created.
+
+For more information on the architecture of libguestfs,
+see L<guestfs(3)>.");
+
+  ("get_memsize", (RInt "memsize", []), -1, [],
+   [],
+   "get memory allocated to the qemu subprocess",
+   "\
+This gets the memory size in megabytes allocated to the
+qemu subprocess.
+
+If C<guestfs_set_memsize> was not called
+on this handle, and if C<LIBGUESTFS_MEMSIZE> was not set,
+then this returns the compiled-in default value for memsize.
+
+For more information on the architecture of libguestfs,
+see L<guestfs(3)>.");
+
 ]
 
 (* daemon_functions are any functions which cause some action
@@ -607,7 +641,7 @@ For more information on states, see L<guestfs(3)>.");
 let daemon_functions = [
   ("mount", (RErr, [String "device"; String "mountpoint"]), 1, [],
    [InitEmpty, Always, TestOutput (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+      [["sfdiskM"; "/dev/sda"; ","];
        ["mkfs"; "ext2"; "/dev/sda1"];
        ["mount"; "/dev/sda1"; "/"];
        ["write_file"; "/new"; "new file contents"; "0"];
@@ -704,7 +738,7 @@ The full block device names are returned, eg. C</dev/sda>");
    [InitBasicFS, Always, TestOutputListOfDevices (
       [["list_partitions"]], ["/dev/sda1"]);
     InitEmpty, Always, TestOutputListOfDevices (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
+      [["sfdiskM"; "/dev/sda"; ",100 ,200 ,"];
        ["list_partitions"]], ["/dev/sda1"; "/dev/sda2"; "/dev/sda3"])],
    "list the partitions",
    "\
@@ -719,7 +753,7 @@ call C<guestfs_lvs>.");
    [InitBasicFSonLVM, Always, TestOutputListOfDevices (
       [["pvs"]], ["/dev/sda1"]);
     InitEmpty, Always, TestOutputListOfDevices (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
+      [["sfdiskM"; "/dev/sda"; ",100 ,200 ,"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
        ["pvcreate"; "/dev/sda3"];
@@ -738,7 +772,7 @@ See also C<guestfs_pvs_full>.");
    [InitBasicFSonLVM, Always, TestOutputList (
       [["vgs"]], ["VG"]);
     InitEmpty, Always, TestOutputList (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
+      [["sfdiskM"; "/dev/sda"; ",100 ,200 ,"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
        ["pvcreate"; "/dev/sda3"];
@@ -759,7 +793,7 @@ See also C<guestfs_vgs_full>.");
    [InitBasicFSonLVM, Always, TestOutputList (
       [["lvs"]], ["/dev/VG/LV"]);
     InitEmpty, Always, TestOutputList (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
+      [["sfdiskM"; "/dev/sda"; ",100 ,200 ,"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
        ["pvcreate"; "/dev/sda3"];
@@ -1112,7 +1146,7 @@ See also C<guestfs_stat>.");
 
   ("pvcreate", (RErr, [String "device"]), 39, [],
    [InitEmpty, Always, TestOutputListOfDevices (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
+      [["sfdiskM"; "/dev/sda"; ",100 ,200 ,"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
        ["pvcreate"; "/dev/sda3"];
@@ -1125,7 +1159,7 @@ as C</dev/sda1>.");
 
   ("vgcreate", (RErr, [String "volgroup"; StringList "physvols"]), 40, [],
    [InitEmpty, Always, TestOutputList (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
+      [["sfdiskM"; "/dev/sda"; ",100 ,200 ,"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
        ["pvcreate"; "/dev/sda3"];
@@ -1139,7 +1173,7 @@ from the non-empty list of physical volumes C<physvols>.");
 
   ("lvcreate", (RErr, [String "logvol"; String "volgroup"; Int "mbytes"]), 41, [],
    [InitEmpty, Always, TestOutputList (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
+      [["sfdiskM"; "/dev/sda"; ",100 ,200 ,"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
        ["pvcreate"; "/dev/sda3"];
@@ -1160,7 +1194,7 @@ on the volume group C<volgroup>, with C<size> megabytes.");
 
   ("mkfs", (RErr, [String "fstype"; String "device"]), 42, [],
    [InitEmpty, Always, TestOutput (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+      [["sfdiskM"; "/dev/sda"; ","];
        ["mkfs"; "ext2"; "/dev/sda1"];
        ["mount"; "/dev/sda1"; "/"];
        ["write_file"; "/new"; "new file contents"; "0"];
@@ -1235,12 +1269,12 @@ use C<guestfs_upload>.");
 
   ("umount", (RErr, [String "pathordevice"]), 45, [FishAlias "unmount"],
    [InitEmpty, Always, TestOutputListOfDevices (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+      [["sfdiskM"; "/dev/sda"; ","];
        ["mkfs"; "ext2"; "/dev/sda1"];
        ["mount"; "/dev/sda1"; "/"];
        ["mounts"]], ["/dev/sda1"]);
     InitEmpty, Always, TestOutputList (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+      [["sfdiskM"; "/dev/sda"; ","];
        ["mkfs"; "ext2"; "/dev/sda1"];
        ["mount"; "/dev/sda1"; "/"];
        ["umount"; "/"];
@@ -1267,7 +1301,7 @@ Some internal mounts are not shown.");
        ["mounts"]], []);
     (* check that umount_all can unmount nested mounts correctly: *)
     InitEmpty, Always, TestOutputList (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",10 ,20 ,"];
+      [["sfdiskM"; "/dev/sda"; ",100 ,200 ,"];
        ["mkfs"; "ext2"; "/dev/sda1"];
        ["mkfs"; "ext2"; "/dev/sda2"];
        ["mkfs"; "ext2"; "/dev/sda3"];
@@ -1314,51 +1348,51 @@ particular that the filename is not prepended to the output
   ("command", (RString "output", [StringList "arguments"]), 50, [ProtocolLimitWarning],
    [InitBasicFS, Always, TestOutput (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command"; "/test-command 1"]], "Result1");
     InitBasicFS, Always, TestOutput (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command"; "/test-command 2"]], "Result2\n");
     InitBasicFS, Always, TestOutput (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command"; "/test-command 3"]], "\nResult3");
     InitBasicFS, Always, TestOutput (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command"; "/test-command 4"]], "\nResult4\n");
     InitBasicFS, Always, TestOutput (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command"; "/test-command 5"]], "\nResult5\n\n");
     InitBasicFS, Always, TestOutput (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command"; "/test-command 6"]], "\n\nResult6\n\n");
     InitBasicFS, Always, TestOutput (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command"; "/test-command 7"]], "");
     InitBasicFS, Always, TestOutput (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command"; "/test-command 8"]], "\n");
     InitBasicFS, Always, TestOutput (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command"; "/test-command 9"]], "\n\n");
     InitBasicFS, Always, TestOutput (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command"; "/test-command 10"]], "Result10-1\nResult10-2\n");
     InitBasicFS, Always, TestOutput (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command"; "/test-command 11"]], "Result11-1\nResult11-2");
     InitBasicFS, Always, TestLastFail (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command"; "/test-command"]])],
    "run a command from the guest filesystem",
    "\
@@ -1370,7 +1404,9 @@ or compatible processor architecture).
 The single parameter is an argv-style list of arguments.
 The first element is the name of the program to run.
 Subsequent elements are parameters.  The list must be
-non-empty (ie. must contain a program name).
+non-empty (ie. must contain a program name).  Note that
+the command runs directly, and is I<not> invoked via
+the shell (see C<guestfs_sh>).
 
 The return value is anything printed to I<stdout> by
 the command.
@@ -1393,52 +1429,54 @@ locations.");
   ("command_lines", (RStringList "lines", [StringList "arguments"]), 51, [ProtocolLimitWarning],
    [InitBasicFS, Always, TestOutputList (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command_lines"; "/test-command 1"]], ["Result1"]);
     InitBasicFS, Always, TestOutputList (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command_lines"; "/test-command 2"]], ["Result2"]);
     InitBasicFS, Always, TestOutputList (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command_lines"; "/test-command 3"]], ["";"Result3"]);
     InitBasicFS, Always, TestOutputList (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command_lines"; "/test-command 4"]], ["";"Result4"]);
     InitBasicFS, Always, TestOutputList (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command_lines"; "/test-command 5"]], ["";"Result5";""]);
     InitBasicFS, Always, TestOutputList (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command_lines"; "/test-command 6"]], ["";"";"Result6";""]);
     InitBasicFS, Always, TestOutputList (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command_lines"; "/test-command 7"]], []);
     InitBasicFS, Always, TestOutputList (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command_lines"; "/test-command 8"]], [""]);
     InitBasicFS, Always, TestOutputList (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command_lines"; "/test-command 9"]], ["";""]);
     InitBasicFS, Always, TestOutputList (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command_lines"; "/test-command 10"]], ["Result10-1";"Result10-2"]);
     InitBasicFS, Always, TestOutputList (
       [["upload"; "test-command"; "/test-command"];
-       ["chmod"; "493"; "/test-command"];
+       ["chmod"; "0o755"; "/test-command"];
        ["command_lines"; "/test-command 11"]], ["Result11-1";"Result11-2"])],
    "run a command, returning lines",
    "\
 This is the same as C<guestfs_command>, but splits the
-result into a list of lines.");
+result into a list of lines.
+
+See also: C<guestfs_sh_lines>");
 
   ("stat", (RStat "statbuf", [String "path"]), 52, [],
    [InitBasicFS, Always, TestOutputStruct (
@@ -1466,8 +1504,7 @@ This is the same as the C<lstat(2)> system call.");
 
   ("statvfs", (RStatVFS "statbuf", [String "path"]), 54, [],
    [InitBasicFS, Always, TestOutputStruct (
-      [["statvfs"; "/"]], [CompareWithInt ("bfree", 487702);
-			   CompareWithInt ("blocks", 490020);
+      [["statvfs"; "/"]], [CompareWithInt ("namemax", 255);
 			   CompareWithInt ("bsize", 1024)])],
    "get file system statistics",
    "\
@@ -1788,7 +1825,7 @@ to find out what you can do.");
 
   ("lvremove", (RErr, [String "device"]), 77, [],
    [InitEmpty, Always, TestOutputList (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+      [["sfdiskM"; "/dev/sda"; ","];
        ["pvcreate"; "/dev/sda1"];
        ["vgcreate"; "VG"; "/dev/sda1"];
        ["lvcreate"; "LV1"; "VG"; "50"];
@@ -1796,7 +1833,7 @@ to find out what you can do.");
        ["lvremove"; "/dev/VG/LV1"];
        ["lvs"]], ["/dev/VG/LV2"]);
     InitEmpty, Always, TestOutputList (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+      [["sfdiskM"; "/dev/sda"; ","];
        ["pvcreate"; "/dev/sda1"];
        ["vgcreate"; "VG"; "/dev/sda1"];
        ["lvcreate"; "LV1"; "VG"; "50"];
@@ -1804,7 +1841,7 @@ to find out what you can do.");
        ["lvremove"; "/dev/VG"];
        ["lvs"]], []);
     InitEmpty, Always, TestOutputList (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+      [["sfdiskM"; "/dev/sda"; ","];
        ["pvcreate"; "/dev/sda1"];
        ["vgcreate"; "VG"; "/dev/sda1"];
        ["lvcreate"; "LV1"; "VG"; "50"];
@@ -1821,7 +1858,7 @@ the VG name, C</dev/VG>.");
 
   ("vgremove", (RErr, [String "vgname"]), 78, [],
    [InitEmpty, Always, TestOutputList (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+      [["sfdiskM"; "/dev/sda"; ","];
        ["pvcreate"; "/dev/sda1"];
        ["vgcreate"; "VG"; "/dev/sda1"];
        ["lvcreate"; "LV1"; "VG"; "50"];
@@ -1829,7 +1866,7 @@ the VG name, C</dev/VG>.");
        ["vgremove"; "VG"];
        ["lvs"]], []);
     InitEmpty, Always, TestOutputList (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+      [["sfdiskM"; "/dev/sda"; ","];
        ["pvcreate"; "/dev/sda1"];
        ["vgcreate"; "VG"; "/dev/sda1"];
        ["lvcreate"; "LV1"; "VG"; "50"];
@@ -1845,7 +1882,7 @@ group (if any).");
 
   ("pvremove", (RErr, [String "device"]), 79, [],
    [InitEmpty, Always, TestOutputListOfDevices (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+      [["sfdiskM"; "/dev/sda"; ","];
        ["pvcreate"; "/dev/sda1"];
        ["vgcreate"; "VG"; "/dev/sda1"];
        ["lvcreate"; "LV1"; "VG"; "50"];
@@ -1854,7 +1891,7 @@ group (if any).");
        ["pvremove"; "/dev/sda1"];
        ["lvs"]], []);
     InitEmpty, Always, TestOutputListOfDevices (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+      [["sfdiskM"; "/dev/sda"; ","];
        ["pvcreate"; "/dev/sda1"];
        ["vgcreate"; "VG"; "/dev/sda1"];
        ["lvcreate"; "LV1"; "VG"; "50"];
@@ -1863,7 +1900,7 @@ group (if any).");
        ["pvremove"; "/dev/sda1"];
        ["vgs"]], []);
     InitEmpty, Always, TestOutputListOfDevices (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+      [["sfdiskM"; "/dev/sda"; ","];
        ["pvcreate"; "/dev/sda1"];
        ["vgcreate"; "VG"; "/dev/sda1"];
        ["lvcreate"; "LV1"; "VG"; "50"];
@@ -1978,10 +2015,15 @@ This command writes zeroes over the first few blocks of C<device>.
 
 How many blocks are zeroed isn't specified (but it's I<not> enough
 to securely wipe the device).  It should be sufficient to remove
-any partition tables, filesystem superblocks and so on.");
+any partition tables, filesystem superblocks and so on.
+
+See also: C<guestfs_scrub_device>.");
 
   ("grub_install", (RErr, [String "root"; String "device"]), 86, [],
-   [InitBasicFS, Always, TestOutputTrue (
+   (* Test disabled because grub-install incompatible with virtio-blk driver.
+    * See also: https://bugzilla.redhat.com/show_bug.cgi?id=479760
+    *)
+   [InitBasicFS, Disabled, TestOutputTrue (
       [["grub_install"; "/"; "/dev/sda1"];
        ["is_dir"; "/boot"]])],
    "install GRUB",
@@ -2125,7 +2167,13 @@ The returned strings are transcoded to UTF-8.");
   ("hexdump", (RString "dump", [String "path"]), 96, [ProtocolLimitWarning],
    [InitBasicFS, Always, TestOutput (
       [["write_file"; "/new"; "hello\nworld\n"; "12"];
-       ["hexdump"; "/new"]], "00000000  68 65 6c 6c 6f 0a 77 6f  72 6c 64 0a              |hello.world.|\n0000000c\n")],
+       ["hexdump"; "/new"]], "00000000  68 65 6c 6c 6f 0a 77 6f  72 6c 64 0a              |hello.world.|\n0000000c\n");
+    (* Test for RHBZ#501888c2 regression which caused large hexdump
+     * commands to segfault.
+     *)
+    InitBasicFS, Always, TestRun (
+      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
+       ["hexdump"; "/100krandom"]])],
    "dump a file in hexadecimal",
    "\
 This runs C<hexdump -C> on the given C<path>.  The result is
@@ -2133,7 +2181,7 @@ the human-readable, canonical hex dump of the file.");
 
   ("zerofree", (RErr, [String "device"]), 97, [],
    [InitNone, Always, TestOutput (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+      [["sfdiskM"; "/dev/sda"; ","];
        ["mkfs"; "ext3"; "/dev/sda1"];
        ["mount"; "/dev/sda1"; "/"];
        ["write_file"; "/new"; "test file"; "0"];
@@ -2161,7 +2209,7 @@ or data on the filesystem.");
 This resizes (expands or shrinks) an existing LVM physical
 volume to match the new size of the underlying device.");
 
-  ("sfdisk_N", (RErr, [String "device"; Int "n";
+  ("sfdisk_N", (RErr, [String "device"; Int "partnum";
 		       Int "cyls"; Int "heads"; Int "sectors";
 		       String "line"]), 99, [DangerWillRobinson],
    [],
@@ -2231,7 +2279,7 @@ are activated or deactivated.");
 
   ("lvresize", (RErr, [String "device"; Int "mbytes"]), 105, [],
    [InitNone, Always, TestOutput (
-    [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+    [["sfdiskM"; "/dev/sda"; ","];
      ["pvcreate"; "/dev/sda1"];
      ["vgcreate"; "VG"; "/dev/sda1"];
      ["lvcreate"; "LV"; "VG"; "10"];
@@ -2322,11 +2370,11 @@ Sleep for C<secs> seconds.");
 
   ("ntfs_3g_probe", (RInt "status", [Bool "rw"; String "device"]), 110, [],
    [InitNone, Always, TestOutputInt (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+      [["sfdiskM"; "/dev/sda"; ","];
        ["mkfs"; "ntfs"; "/dev/sda1"];
        ["ntfs_3g_probe"; "true"; "/dev/sda1"]], 0);
     InitNone, Always, TestOutputInt (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+      [["sfdiskM"; "/dev/sda"; ","];
        ["mkfs"; "ext2"; "/dev/sda1"];
        ["ntfs_3g_probe"; "true"; "/dev/sda1"]], 12)],
    "probe NTFS volume",
@@ -2342,6 +2390,394 @@ you want to test if the volume can be mounted read-only.
 The return value is an integer which C<0> if the operation
 would succeed, or some non-zero value documented in the
 L<ntfs-3g.probe(8)> manual page.");
+
+  ("sh", (RString "output", [String "command"]), 111, [],
+   [], (* XXX needs tests *)
+   "run a command via the shell",
+   "\
+This call runs a command from the guest filesystem via the
+guest's C</bin/sh>.
+
+This is like C<guestfs_command>, but passes the command to:
+
+ /bin/sh -c \"command\"
+
+Depending on the guest's shell, this usually results in
+wildcards being expanded, shell expressions being interpolated
+and so on.
+
+All the provisos about C<guestfs_command> apply to this call.");
+
+  ("sh_lines", (RStringList "lines", [String "command"]), 112, [],
+   [], (* XXX needs tests *)
+   "run a command via the shell returning lines",
+   "\
+This is the same as C<guestfs_sh>, but splits the result
+into a list of lines.
+
+See also: C<guestfs_command_lines>");
+
+  ("glob_expand", (RStringList "paths", [String "pattern"]), 113, [],
+   [InitBasicFS, Always, TestOutputList (
+      [["mkdir_p"; "/a/b/c"];
+       ["touch"; "/a/b/c/d"];
+       ["touch"; "/a/b/c/e"];
+       ["glob_expand"; "/a/b/c/*"]], ["/a/b/c/d"; "/a/b/c/e"]);
+    InitBasicFS, Always, TestOutputList (
+      [["mkdir_p"; "/a/b/c"];
+       ["touch"; "/a/b/c/d"];
+       ["touch"; "/a/b/c/e"];
+       ["glob_expand"; "/a/*/c/*"]], ["/a/b/c/d"; "/a/b/c/e"]);
+    InitBasicFS, Always, TestOutputList (
+      [["mkdir_p"; "/a/b/c"];
+       ["touch"; "/a/b/c/d"];
+       ["touch"; "/a/b/c/e"];
+       ["glob_expand"; "/a/*/x/*"]], [])],
+   "expand a wildcard path",
+   "\
+This command searches for all the pathnames matching
+C<pattern> according to the wildcard expansion rules
+used by the shell.
+
+If no paths match, then this returns an empty list
+(note: not an error).
+
+It is just a wrapper around the C L<glob(3)> function
+with flags C<GLOB_MARK|GLOB_BRACE>.
+See that manual page for more details.");
+
+  ("scrub_device", (RErr, [String "device"]), 114, [DangerWillRobinson],
+   [InitNone, Always, TestRun (	(* use /dev/sdc because it's smaller *)
+      [["scrub_device"; "/dev/sdc"]])],
+   "scrub (securely wipe) a device",
+   "\
+This command writes patterns over C<device> to make data retrieval
+more difficult.
+
+It is an interface to the L<scrub(1)> program.  See that
+manual page for more details.");
+
+  ("scrub_file", (RErr, [String "file"]), 115, [],
+   [InitBasicFS, Always, TestRun (
+      [["write_file"; "/file"; "content"; "0"];
+       ["scrub_file"; "/file"]])],
+   "scrub (securely wipe) a file",
+   "\
+This command writes patterns over a file to make data retrieval
+more difficult.
+
+The file is I<removed> after scrubbing.
+
+It is an interface to the L<scrub(1)> program.  See that
+manual page for more details.");
+
+  ("scrub_freespace", (RErr, [String "dir"]), 116, [],
+   [], (* XXX needs testing *)
+   "scrub (securely wipe) free space",
+   "\
+This command creates the directory C<dir> and then fills it
+with files until the filesystem is full, and scrubs the files
+as for C<guestfs_scrub_file>, and deletes them.
+The intention is to scrub any free space on the partition
+containing C<dir>.
+
+It is an interface to the L<scrub(1)> program.  See that
+manual page for more details.");
+
+  ("mkdtemp", (RString "dir", [String "template"]), 117, [],
+   [InitBasicFS, Always, TestRun (
+      [["mkdir"; "/tmp"];
+       ["mkdtemp"; "/tmp/tmpXXXXXX"]])],
+   "create a temporary directory",
+   "\
+This command creates a temporary directory.  The
+C<template> parameter should be a full pathname for the
+temporary directory name with the final six characters being
+\"XXXXXX\".
+
+For example: \"/tmp/myprogXXXXXX\" or \"/Temp/myprogXXXXXX\",
+the second one being suitable for Windows filesystems.
+
+The name of the temporary directory that was created
+is returned.
+
+The temporary directory is created with mode 0700
+and is owned by root.
+
+The caller is responsible for deleting the temporary
+directory and its contents after use.
+
+See also: L<mkdtemp(3)>");
+
+  ("wc_l", (RInt "lines", [String "path"]), 118, [],
+   [InitBasicFS, Always, TestOutputInt (
+      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
+       ["wc_l"; "/10klines"]], 10000)],
+   "count lines in a file",
+   "\
+This command counts the lines in a file, using the
+C<wc -l> external command.");
+
+  ("wc_w", (RInt "words", [String "path"]), 119, [],
+   [InitBasicFS, Always, TestOutputInt (
+      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
+       ["wc_w"; "/10klines"]], 10000)],
+   "count words in a file",
+   "\
+This command counts the words in a file, using the
+C<wc -w> external command.");
+
+  ("wc_c", (RInt "chars", [String "path"]), 120, [],
+   [InitBasicFS, Always, TestOutputInt (
+      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
+       ["wc_c"; "/100kallspaces"]], 102400)],
+   "count characters in a file",
+   "\
+This command counts the characters in a file, using the
+C<wc -c> external command.");
+
+  ("head", (RStringList "lines", [String "path"]), 121, [ProtocolLimitWarning],
+   [InitBasicFS, Always, TestOutputList (
+      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
+       ["head"; "/10klines"]], ["0abcdefghijklmnopqrstuvwxyz";"1abcdefghijklmnopqrstuvwxyz";"2abcdefghijklmnopqrstuvwxyz";"3abcdefghijklmnopqrstuvwxyz";"4abcdefghijklmnopqrstuvwxyz";"5abcdefghijklmnopqrstuvwxyz";"6abcdefghijklmnopqrstuvwxyz";"7abcdefghijklmnopqrstuvwxyz";"8abcdefghijklmnopqrstuvwxyz";"9abcdefghijklmnopqrstuvwxyz"])],
+   "return first 10 lines of a file",
+   "\
+This command returns up to the first 10 lines of a file as
+a list of strings.");
+
+  ("head_n", (RStringList "lines", [Int "nrlines"; String "path"]), 122, [ProtocolLimitWarning],
+   [InitBasicFS, Always, TestOutputList (
+      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
+       ["head_n"; "3"; "/10klines"]], ["0abcdefghijklmnopqrstuvwxyz";"1abcdefghijklmnopqrstuvwxyz";"2abcdefghijklmnopqrstuvwxyz"]);
+    InitBasicFS, Always, TestOutputList (
+      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
+       ["head_n"; "-9997"; "/10klines"]], ["0abcdefghijklmnopqrstuvwxyz";"1abcdefghijklmnopqrstuvwxyz";"2abcdefghijklmnopqrstuvwxyz"]);
+    InitBasicFS, Always, TestOutputList (
+      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
+       ["head_n"; "0"; "/10klines"]], [])],
+   "return first N lines of a file",
+   "\
+If the parameter C<nrlines> is a positive number, this returns the first
+C<nrlines> lines of the file C<path>.
+
+If the parameter C<nrlines> is a negative number, this returns lines
+from the file C<path>, excluding the last C<nrlines> lines.
+
+If the parameter C<nrlines> is zero, this returns an empty list.");
+
+  ("tail", (RStringList "lines", [String "path"]), 123, [ProtocolLimitWarning],
+   [InitBasicFS, Always, TestOutputList (
+      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
+       ["tail"; "/10klines"]], ["9990abcdefghijklmnopqrstuvwxyz";"9991abcdefghijklmnopqrstuvwxyz";"9992abcdefghijklmnopqrstuvwxyz";"9993abcdefghijklmnopqrstuvwxyz";"9994abcdefghijklmnopqrstuvwxyz";"9995abcdefghijklmnopqrstuvwxyz";"9996abcdefghijklmnopqrstuvwxyz";"9997abcdefghijklmnopqrstuvwxyz";"9998abcdefghijklmnopqrstuvwxyz";"9999abcdefghijklmnopqrstuvwxyz"])],
+   "return last 10 lines of a file",
+   "\
+This command returns up to the last 10 lines of a file as
+a list of strings.");
+
+  ("tail_n", (RStringList "lines", [Int "nrlines"; String "path"]), 124, [ProtocolLimitWarning],
+   [InitBasicFS, Always, TestOutputList (
+      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
+       ["tail_n"; "3"; "/10klines"]], ["9997abcdefghijklmnopqrstuvwxyz";"9998abcdefghijklmnopqrstuvwxyz";"9999abcdefghijklmnopqrstuvwxyz"]);
+    InitBasicFS, Always, TestOutputList (
+      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
+       ["tail_n"; "-9998"; "/10klines"]], ["9997abcdefghijklmnopqrstuvwxyz";"9998abcdefghijklmnopqrstuvwxyz";"9999abcdefghijklmnopqrstuvwxyz"]);
+    InitBasicFS, Always, TestOutputList (
+      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
+       ["tail_n"; "0"; "/10klines"]], [])],
+   "return last N lines of a file",
+   "\
+If the parameter C<nrlines> is a positive number, this returns the last
+C<nrlines> lines of the file C<path>.
+
+If the parameter C<nrlines> is a negative number, this returns lines
+from the file C<path>, starting with the C<-nrlines>th line.
+
+If the parameter C<nrlines> is zero, this returns an empty list.");
+
+  ("df", (RString "output", []), 125, [],
+   [], (* XXX Tricky to test because it depends on the exact format
+	* of the 'df' command and other imponderables.
+	*)
+   "report file system disk space usage",
+   "\
+This command runs the C<df> command to report disk space used.
+
+This command is mostly useful for interactive sessions.  It
+is I<not> intended that you try to parse the output string.
+Use C<statvfs> from programs.");
+
+  ("df_h", (RString "output", []), 126, [],
+   [], (* XXX Tricky to test because it depends on the exact format
+	* of the 'df' command and other imponderables.
+	*)
+   "report file system disk space usage (human readable)",
+   "\
+This command runs the C<df -h> command to report disk space used
+in human-readable format.
+
+This command is mostly useful for interactive sessions.  It
+is I<not> intended that you try to parse the output string.
+Use C<statvfs> from programs.");
+
+  ("du", (RInt64 "sizekb", [String "path"]), 127, [],
+   [InitBasicFS, Always, TestOutputInt (
+      [["mkdir"; "/p"];
+       ["du"; "/p"]], 1 (* ie. 1 block, so depends on ext3 blocksize *))],
+   "estimate file space usage",
+   "\
+This command runs the C<du -s> command to estimate file space
+usage for C<path>.
+
+C<path> can be a file or a directory.  If C<path> is a directory
+then the estimate includes the contents of the directory and all
+subdirectories (recursively).
+
+The result is the estimated size in I<kilobytes>
+(ie. units of 1024 bytes).");
+
+  ("initrd_list", (RStringList "filenames", [String "path"]), 128, [],
+   [InitBasicFS, Always, TestOutputList (
+      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
+       ["initrd_list"; "/initrd"]], ["empty";"known-1";"known-2";"known-3"])],
+   "list files in an initrd",
+   "\
+This command lists out files contained in an initrd.
+
+The files are listed without any initial C</> character.  The
+files are listed in the order they appear (not necessarily
+alphabetical).  Directory names are listed as separate items.
+
+Old Linux kernels (2.4 and earlier) used a compressed ext2
+filesystem as initrd.  We I<only> support the newer initramfs
+format (compressed cpio files).");
+
+  ("mount_loop", (RErr, [String "file"; String "mountpoint"]), 129, [],
+   [],
+   "mount a file using the loop device",
+   "\
+This command lets you mount C<file> (a filesystem image
+in a file) on a mount point.  It is entirely equivalent to
+the command C<mount -o loop file mountpoint>.");
+
+  ("mkswap", (RErr, [String "device"]), 130, [],
+   [InitEmpty, Always, TestRun (
+      [["sfdiskM"; "/dev/sda"; ","];
+       ["mkswap"; "/dev/sda1"]])],
+   "create a swap partition",
+   "\
+Create a swap partition on C<device>.");
+
+  ("mkswap_L", (RErr, [String "label"; String "device"]), 131, [],
+   [InitEmpty, Always, TestRun (
+      [["sfdiskM"; "/dev/sda"; ","];
+       ["mkswap_L"; "hello"; "/dev/sda1"]])],
+   "create a swap partition with a label",
+   "\
+Create a swap partition on C<device> with label C<label>.");
+
+  ("mkswap_U", (RErr, [String "uuid"; String "device"]), 132, [],
+   [InitEmpty, Always, TestRun (
+      [["sfdiskM"; "/dev/sda"; ","];
+       ["mkswap_U"; "a3a61220-882b-4f61-89f4-cf24dcc7297d"; "/dev/sda1"]])],
+   "create a swap partition with an explicit UUID",
+   "\
+Create a swap partition on C<device> with UUID C<uuid>.");
+
+  ("mknod", (RErr, [Int "mode"; Int "devmajor"; Int "devminor"; String "path"]), 133, [],
+   [InitBasicFS, Always, TestOutputStruct (
+      [["mknod"; "0o10777"; "0"; "0"; "/node"];
+       (* NB: default umask 022 means 0777 -> 0755 in these tests *)
+       ["stat"; "/node"]], [CompareWithInt ("mode", 0o10755)]);
+    InitBasicFS, Always, TestOutputStruct (
+      [["mknod"; "0o60777"; "66"; "99"; "/node"];
+       ["stat"; "/node"]], [CompareWithInt ("mode", 0o60755)])],
+   "make block, character or FIFO devices",
+   "\
+This call creates block or character special devices, or
+named pipes (FIFOs).
+
+The C<mode> parameter should be the mode, using the standard
+constants.  C<devmajor> and C<devminor> are the
+device major and minor numbers, only used when creating block
+and character special devices.");
+
+  ("mkfifo", (RErr, [Int "mode"; String "path"]), 134, [],
+   [InitBasicFS, Always, TestOutputStruct (
+      [["mkfifo"; "0o777"; "/node"];
+       ["stat"; "/node"]], [CompareWithInt ("mode", 0o10755)])],
+   "make FIFO (named pipe)",
+   "\
+This call creates a FIFO (named pipe) called C<path> with
+mode C<mode>.  It is just a convenient wrapper around
+C<guestfs_mknod>.");
+
+  ("mknod_b", (RErr, [Int "mode"; Int "devmajor"; Int "devminor"; String "path"]), 135, [],
+   [InitBasicFS, Always, TestOutputStruct (
+      [["mknod_b"; "0o777"; "99"; "66"; "/node"];
+       ["stat"; "/node"]], [CompareWithInt ("mode", 0o60755)])],
+   "make block device node",
+   "\
+This call creates a block device node called C<path> with
+mode C<mode> and device major/minor C<devmajor> and C<devminor>.
+It is just a convenient wrapper around C<guestfs_mknod>.");
+
+  ("mknod_c", (RErr, [Int "mode"; Int "devmajor"; Int "devminor"; String "path"]), 136, [],
+   [InitBasicFS, Always, TestOutputStruct (
+      [["mknod_c"; "0o777"; "99"; "66"; "/node"];
+       ["stat"; "/node"]], [CompareWithInt ("mode", 0o20755)])],
+   "make char device node",
+   "\
+This call creates a char device node called C<path> with
+mode C<mode> and device major/minor C<devmajor> and C<devminor>.
+It is just a convenient wrapper around C<guestfs_mknod>.");
+
+  ("umask", (RInt "oldmask", [Int "mask"]), 137, [],
+   [], (* XXX umask is one of those stateful things that we should
+	* reset between each test.
+	*)
+   "set file mode creation mask (umask)",
+   "\
+This function sets the mask used for creating new files and
+device nodes to C<mask & 0777>.
+
+Typical umask values would be C<022> which creates new files
+with permissions like \"-rw-r--r--\" or \"-rwxr-xr-x\", and
+C<002> which creates new files with permissions like
+\"-rw-rw-r--\" or \"-rwxrwxr-x\".
+
+The default umask is C<022>.  This is important because it
+means that directories and device nodes will be created with
+C<0644> or C<0755> mode even if you specify C<0777>.
+
+See also L<umask(2)>, C<guestfs_mknod>, C<guestfs_mkdir>.
+
+This call returns the previous umask.");
+
+  ("readdir", (RDirentList "entries", [String "dir"]), 138, [],
+   [],
+   "read directories entries",
+   "\
+This returns the list of directory entries in directory C<dir>.
+
+All entries in the directory are returned, including C<.> and
+C<..>.  The entries are I<not> sorted, but returned in the same
+order as the underlying filesystem.
+
+This function is primarily intended for use by programs.  To
+get a simple list of names, use C<guestfs_ls>.  To get a printable
+directory for human consumption, use C<guestfs_ll>.");
+
+  ("sfdiskM", (RErr, [String "device"; StringList "lines"]), 139, [DangerWillRobinson],
+   [],
+   "create partitions on a block device",
+   "\
+This is a simplified interface to the C<guestfs_sfdisk>
+command, where partition sizes are specified in megabytes
+only (rounded to the nearest cylinder) and you don't need
+to specify the cyls, heads and sectors parameters which
+were rarely if ever used anyway.
+
+See also C<guestfs_sfdisk> and the L<sfdisk(8)> manpage.");
 
 ]
 
@@ -2450,6 +2886,13 @@ let statvfs_cols = [
   "namemax", `Int;
 ]
 
+(* Column names in dirent structure. *)
+let dirent_cols = [
+  "ino", `Int;
+  "ftyp", `Char; (* 'b' 'c' 'd' 'f' (FIFO) 'l' 'r' (regular file) 's' 'u' '?' *)
+  "name", `String;
+]
+
 (* Used for testing language bindings. *)
 type callt =
   | CallString of string
@@ -2457,6 +2900,17 @@ type callt =
   | CallStringList of string list
   | CallInt of int
   | CallBool of bool
+
+(* Used to memoize the result of pod2text. *)
+let pod2text_memo_filename = "src/.pod2text.data"
+let pod2text_memo : ((int * string * string), string list) Hashtbl.t =
+  try
+    let chan = open_in pod2text_memo_filename in
+    let v = input_value chan in
+    close_in chan;
+    v
+  with
+    _ -> Hashtbl.create 13
 
 (* Useful functions.
  * Note we don't want to use any external OCaml libraries which
@@ -2623,8 +3077,8 @@ let check_functions () =
 	  failwithf "%s has a param/ret called 'value', which causes conflicts in the OCaml bindings, use something like 'val' or a more descriptive name" name;
 	if n = "int" || n = "char" || n = "short" || n = "long" then
 	  failwithf "%s has a param/ret which conflicts with a C type (eg. 'int', 'char' etc.)" name;
-	if n = "i" then
-	  failwithf "%s has a param/ret called 'i', which will cause some conflicts in the generated code" name;
+	if n = "i" || n = "n" then
+	  failwithf "%s has a param/ret called 'i' or 'n', which will cause some conflicts in the generated code" name;
 	if n = "argv" || n = "args" then
 	  failwithf "%s has a param/ret called 'argv' or 'args', which will cause some conflicts in the generated code" name
       in
@@ -2634,7 +3088,8 @@ let check_functions () =
        | RInt n | RInt64 n | RBool n | RConstString n | RString n
        | RStringList n | RPVList n | RVGList n | RLVList n
        | RStat n | RStatVFS n
-       | RHashtable n ->
+       | RHashtable n
+       | RDirentList n ->
 	   check_arg_ret_name n
        | RIntBool (n,m) ->
 	   check_arg_ret_name n;
@@ -2839,6 +3294,11 @@ strings, or NULL if there was an error.
 The array of strings will always have length C<2n+1>, where
 C<n> keys and values alternate, followed by the trailing NULL entry.
 I<The caller must free the strings and the array after use>.\n\n"
+	 | RDirentList _ ->
+	     pr "This function returns a C<struct guestfs_dirent_list *>
+(see E<lt>guestfs-structs.hE<gt>),
+or NULL if there was an error.
+I<The caller must call C<guestfs_free_dirent_list> after use>.\n\n"
 	);
 	if List.mem ProtocolLimitWarning flags then
 	  pr "%s\n\n" protocol_limit_warning;
@@ -2875,7 +3335,41 @@ and generate_structs_pod () =
       pr " void guestfs_free_lvm_%s_list (struct guestfs_free_lvm_%s_list *);\n"
 	typ typ;
       pr "\n"
-  ) ["pv", pv_cols; "vg", vg_cols; "lv", lv_cols]
+  ) ["pv", pv_cols; "vg", vg_cols; "lv", lv_cols];
+
+  (* Stat *)
+  List.iter (
+    fun (typ, cols) ->
+      pr "=head2 guestfs_%s\n" typ;
+      pr "\n";
+      pr " struct guestfs_%s {\n" typ;
+      List.iter (
+	function
+	| name, `Int -> pr "   int64_t %s;\n" name
+      ) cols;
+      pr " };\n";
+      pr "\n";
+  ) [ "stat", stat_cols; "statvfs", statvfs_cols ];
+
+  (* DirentList *)
+  pr "=head2 guestfs_dirent\n";
+  pr "\n";
+  pr " struct guestfs_dirent {\n";
+  List.iter (
+    function
+    | name, `String -> pr "   char *%s;\n" name
+    | name, `Int -> pr "   int64_t %s;\n" name
+    | name, `Char -> pr "   char %s;\n" name
+  ) dirent_cols;
+  pr " };\n";
+  pr "\n";
+  pr " struct guestfs_dirent_list {\n";
+  pr "   uint32_t len; /* Number of elements in list. */\n";
+  pr "   struct guestfs_dirent *val; /* Elements. */\n";
+  pr " };\n";
+  pr " \n";
+  pr " void guestfs_free_dirent_list (struct guestfs_free_dirent_list *);\n";
+  pr "\n"
 
 (* Generate the protocol (XDR) file, 'guestfs_protocol.x' and
  * indirectly 'guestfs_protocol.h' and 'guestfs_protocol.c'.
@@ -2921,6 +3415,18 @@ and generate_xdr () =
 	pr "};\n";
 	pr "\n";
   ) ["stat", stat_cols; "statvfs", statvfs_cols];
+
+  (* Dirent structures. *)
+  pr "struct guestfs_int_dirent {\n";
+  List.iter (function
+	     | name, `Int -> pr "  hyper %s;\n" name
+	     | name, `Char -> pr "  char %s;\n" name
+	     | name, `String -> pr "  string %s<>;\n" name
+	    ) dirent_cols;
+  pr "};\n";
+  pr "\n";
+  pr "typedef struct guestfs_int_dirent guestfs_int_dirent_list<>;\n";
+  pr "\n";
 
   List.iter (
     fun (shortname, style, _, _, _, _, _) ->
@@ -2993,6 +3499,10 @@ and generate_xdr () =
        | RHashtable n ->
 	   pr "struct %s_ret {\n" name;
 	   pr "  str %s<>;\n" n;
+	   pr "};\n\n"
+       | RDirentList n ->
+	   pr "struct %s_ret {\n" name;
+	   pr "  guestfs_int_dirent_list %s;\n" n;
 	   pr "};\n\n"
       );
   ) daemon_functions;
@@ -3121,7 +3631,23 @@ and generate_structs_h () =
 	) cols;
 	pr "};\n";
 	pr "\n"
-  ) ["stat", stat_cols; "statvfs", statvfs_cols]
+  ) ["stat", stat_cols; "statvfs", statvfs_cols];
+
+  (* Dirent structures. *)
+  pr "struct guestfs_dirent {\n";
+  List.iter (
+    function
+    | name, `Int -> pr "  int64_t %s;\n" name
+    | name, `Char -> pr "  char %s;\n" name
+    | name, `String -> pr "  char *%s;\n" name
+  ) dirent_cols;
+  pr "};\n";
+  pr "\n";
+  pr "struct guestfs_dirent_list {\n";
+  pr "  uint32_t len;\n";
+  pr "  struct guestfs_dirent *val;\n";
+  pr "};\n";
+  pr "\n"
 
 (* Generate the guestfs-actions.h file. *)
 and generate_actions_h () =
@@ -3229,7 +3755,8 @@ check_state (guestfs_h *g, const char *caller)
        | RIntBool _
        | RPVList _ | RVGList _ | RLVList _
        | RStat _ | RStatVFS _
-       | RHashtable _ ->
+       | RHashtable _
+       | RDirentList _ ->
 	   pr "  struct %s_ret ret;\n" name
       );
       pr "};\n";
@@ -3272,7 +3799,8 @@ check_state (guestfs_h *g, const char *caller)
        | RIntBool _
        | RPVList _ | RVGList _ | RLVList _
        | RStat _ | RStatVFS _
-       | RHashtable _ ->
+       | RHashtable _
+       | RDirentList _ ->
 	    pr "  if (!xdr_%s_ret (xdr, &ctx->ret)) {\n" name;
 	    pr "    error (g, \"%%s: failed to parse reply\", \"%s\");\n" name;
 	    pr "    return;\n";
@@ -3295,7 +3823,8 @@ check_state (guestfs_h *g, const char *caller)
 	| RString _ | RStringList _ | RIntBool _
 	| RPVList _ | RVGList _ | RLVList _
 	| RStat _ | RStatVFS _
-	| RHashtable _ ->
+	| RHashtable _
+	| RDirentList _ ->
 	    "NULL" in
 
       pr "{\n";
@@ -3431,7 +3960,8 @@ check_state (guestfs_h *g, const char *caller)
 	   pr "  /* caller with free this */\n";
 	   pr "  return safe_memdup (g, &ctx.ret, sizeof (ctx.ret));\n"
        | RPVList n | RVGList n | RLVList n
-       | RStat n | RStatVFS n ->
+       | RStat n | RStatVFS n
+       | RDirentList n ->
 	   pr "  /* caller will free this */\n";
 	   pr "  return safe_memdup (g, &ctx.ret.%s, sizeof (ctx.ret.%s));\n" n n
       );
@@ -3491,7 +4021,8 @@ and generate_daemon_actions () =
 	| RVGList _ -> pr "  guestfs_lvm_int_vg_list *r;\n"; "NULL"
 	| RLVList _ -> pr "  guestfs_lvm_int_lv_list *r;\n"; "NULL"
 	| RStat _ -> pr "  guestfs_int_stat *r;\n"; "NULL"
-	| RStatVFS _ -> pr "  guestfs_int_statvfs *r;\n"; "NULL" in
+	| RStatVFS _ -> pr "  guestfs_int_statvfs *r;\n"; "NULL"
+	| RDirentList _ -> pr "  guestfs_int_dirent_list *r;\n"; "NULL" in
 
       (match snd style with
        | [] -> ()
@@ -3592,7 +4123,8 @@ and generate_daemon_actions () =
 	      name;
 	    pr "  xdr_free ((xdrproc_t) xdr_guestfs_%s_ret, (char *) r);\n" name
 	| RPVList n | RVGList n | RLVList n
-	| RStat n | RStatVFS n ->
+	| RStat n | RStatVFS n
+	| RDirentList n ->
 	    pr "  struct guestfs_%s_ret ret;\n" name;
 	    pr "  ret.%s = *r;\n" n;
 	    pr "  reply ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n"
@@ -3627,7 +4159,7 @@ and generate_daemon_actions () =
   ) daemon_functions;
 
   pr "    default:\n";
-  pr "      reply_with_error (\"dispatch_incoming_message: unknown procedure number %%d\", proc_nr);\n";
+  pr "      reply_with_error (\"dispatch_incoming_message: unknown procedure number %%d, set LIBGUESTFS_PATH to point to the matching libguestfs appliance directory\", proc_nr);\n";
   pr "  }\n";
   pr "}\n";
   pr "\n";
@@ -3798,6 +4330,22 @@ and generate_daemon_actions () =
 
   ) ["pv", pv_cols; "vg", vg_cols; "lv", lv_cols]
 
+(* Generate a list of function names, for debugging in the daemon.. *)
+and generate_daemon_names () =
+  generate_header CStyle GPLv2;
+
+  pr "#include <config.h>\n";
+  pr "\n";
+  pr "#include \"daemon.h\"\n";
+  pr "\n";
+
+  pr "/* This array is indexed by proc_nr.  See guestfs_protocol.x. */\n";
+  pr "const char *function_names[] = {\n";
+  List.iter (
+    fun (name, _, proc_nr, _, _, _, _) -> pr "  [%d] = \"%s\",\n" proc_nr name
+  ) daemon_functions;
+  pr "};\n";
+
 (* Generate the tests. *)
 and generate_tests () =
   generate_header CStyle GPLv2;
@@ -3874,6 +4422,8 @@ int main (int argc, char *argv[])
   const char *filename;
   int fd;
   int nr_tests, test_num = 0;
+
+  setbuf (stdout, NULL);
 
   no_test_warnings ();
 
@@ -3980,10 +4530,17 @@ int main (int argc, char *argv[])
     printf (\"guestfs_launch FAILED\\n\");
     exit (1);
   }
+
+  /* Set a timeout in case qemu hangs during launch (RHBZ#505329). */
+  alarm (600);
+
   if (guestfs_wait_ready (g) == -1) {
     printf (\"guestfs_wait_ready FAILED\\n\");
     exit (1);
   }
+
+  /* Cancel previous alarm. */
+  alarm (0);
 
   nr_tests = %d;
 
@@ -4023,6 +4580,9 @@ static int %s_skip (void)
 {
   const char *str;
 
+  str = getenv (\"TEST_ONLY\");
+  if (str)
+    return strstr (str, \"%s\") == NULL;
   str = getenv (\"SKIP_%s\");
   if (str && strcmp (str, \"1\") == 0) return 1;
   str = getenv (\"SKIP_TEST_%s\");
@@ -4030,7 +4590,7 @@ static int %s_skip (void)
   return 0;
 }
 
-" test_name (String.uppercase test_name) (String.uppercase name);
+" test_name name (String.uppercase test_name) (String.uppercase name);
 
   (match prereq with
    | Disabled | Always -> ()
@@ -4046,7 +4606,7 @@ static int %s_skip (void)
 static int %s (void)
 {
   if (%s_skip ()) {
-    printf (\"%%s skipped (reason: SKIP_TEST_* variable set)\\n\", \"%s\");
+    printf (\"        %%s skipped (reason: environment variable set)\\n\", \"%s\");
     return 0;
   }
 
@@ -4054,17 +4614,17 @@ static int %s (void)
 
   (match prereq with
    | Disabled ->
-       pr "  printf (\"%%s skipped (reason: test disabled in generator)\\n\", \"%s\");\n" test_name
+       pr "  printf (\"        %%s skipped (reason: test disabled in generator)\\n\", \"%s\");\n" test_name
    | If _ ->
        pr "  if (! %s_prereq ()) {\n" test_name;
-       pr "    printf (\"%%s skipped (reason: test prerequisite)\\n\", \"%s\");\n" test_name;
+       pr "    printf (\"        %%s skipped (reason: test prerequisite)\\n\", \"%s\");\n" test_name;
        pr "    return 0;\n";
        pr "  }\n";
        pr "\n";
        generate_one_test_body name i test_name init test;
    | Unless _ ->
        pr "  if (%s_prereq ()) {\n" test_name;
-       pr "    printf (\"%%s skipped (reason: test prerequisite)\\n\", \"%s\");\n" test_name;
+       pr "    printf (\"        %%s skipped (reason: test prerequisite)\\n\", \"%s\");\n" test_name;
        pr "    return 0;\n";
        pr "  }\n";
        pr "\n";
@@ -4093,7 +4653,7 @@ and generate_one_test_body name i test_name init test =
 	 [["blockdev_setrw"; "/dev/sda"];
 	  ["umount_all"];
 	  ["lvm_remove_all"];
-	  ["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+	  ["sfdiskM"; "/dev/sda"; ","];
 	  ["mkfs"; "ext2"; "/dev/sda1"];
 	  ["mount"; "/dev/sda1"; "/"]]
    | InitBasicFSonLVM ->
@@ -4103,7 +4663,7 @@ and generate_one_test_body name i test_name init test =
 	 [["blockdev_setrw"; "/dev/sda"];
 	  ["umount_all"];
 	  ["lvm_remove_all"];
-	  ["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+	  ["sfdiskM"; "/dev/sda"; ","];
 	  ["pvcreate"; "/dev/sda1"];
 	  ["vgcreate"; "VG"; "/dev/sda1"];
 	  ["lvcreate"; "LV"; "VG"; "8"];
@@ -4361,7 +4921,9 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
 	| RStat _ ->
 	    pr "    struct guestfs_stat *r;\n"; "NULL"
 	| RStatVFS _ ->
-	    pr "    struct guestfs_statvfs *r;\n"; "NULL" in
+	    pr "    struct guestfs_statvfs *r;\n"; "NULL"
+	| RDirentList _ ->
+	    pr "    struct guestfs_dirent_list *r;\n"; "NULL" in
 
       pr "    suppress_error = %d;\n" (if expect_error then 1 else 0);
       pr "    r = guestfs_%s (g" name;
@@ -4417,6 +4979,8 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
 	   pr "    guestfs_free_lvm_lv_list (r);\n"
        | RStat _ | RStatVFS _ ->
 	   pr "    free (r);\n"
+       | RDirentList _ ->
+	   pr "    guestfs_free_dirent_list (r);\n"
       );
 
       pr "  }\n"
@@ -4572,6 +5136,29 @@ and generate_fish_cmds () =
 	pr "\n";
   ) ["stat", stat_cols; "statvfs", statvfs_cols];
 
+  (* print_dirent_list function *)
+  pr "static void print_dirent (struct guestfs_dirent *dirent)\n";
+  pr "{\n";
+  List.iter (
+    function
+    | name, `String ->
+	pr "  printf (\"%s: %%s\\n\", dirent->%s);\n" name name
+    | name, `Int ->
+	pr "  printf (\"%s: %%\" PRIi64 \"\\n\", dirent->%s);\n" name name
+    | name, `Char ->
+	pr "  printf (\"%s: %%c\\n\", dirent->%s);\n" name name
+  ) dirent_cols;
+  pr "}\n";
+  pr "\n";
+  pr "static void print_dirent_list (struct guestfs_dirent_list *dirents)\n";
+  pr "{\n";
+  pr "  int i;\n";
+  pr "\n";
+  pr "  for (i = 0; i < dirents->len; ++i)\n";
+  pr "    print_dirent (&dirents->val[i]);\n";
+  pr "}\n";
+  pr "\n";
+
   (* run_<action> actions *)
   List.iter (
     fun (name, style, _, flags, _, _, _) ->
@@ -4591,6 +5178,7 @@ and generate_fish_cmds () =
        | RLVList _ -> pr "  struct guestfs_lvm_lv_list *r;\n"
        | RStat _ -> pr "  struct guestfs_stat *r;\n"
        | RStatVFS _ -> pr "  struct guestfs_statvfs *r;\n"
+       | RDirentList _ -> pr "  struct guestfs_dirent_list *r;\n"
       );
       List.iter (
 	function
@@ -4705,6 +5293,11 @@ and generate_fish_cmds () =
 	   pr "  print_table (r);\n";
 	   pr "  free_strings (r);\n";
 	   pr "  return 0;\n"
+       | RDirentList _ ->
+	   pr "  if (r == NULL) return -1;\n";
+	   pr "  print_dirent_list (r);\n";
+	   pr "  guestfs_free_dirent_list (r);\n";
+	   pr "  return 0;\n"
       );
       pr "}\n";
       pr "\n"
@@ -4796,6 +5389,8 @@ generator (const char *text, int state)
     len = strlen (text);
   }
 
+  rl_attempted_completion_over = 1;
+
   while ((name = commands[index]) != NULL) {
     index++;
     if (strncasecmp (name, text, len) == 0)
@@ -4812,8 +5407,12 @@ char **do_completion (const char *text, int start, int end)
   char **matches = NULL;
 
 #ifdef HAVE_LIBREADLINE
+  rl_completion_append_character = ' ';
+
   if (start == 0)
     matches = rl_completion_matches (text, generator);
+  else if (complete_dest_paths)
+    matches = rl_completion_matches (text, complete_dest_paths_generator);
 #endif
 
   return matches;
@@ -4909,6 +5508,9 @@ and generate_prototype ?(extern = true) ?(static = false) ?(semicolon = true)
    | RStatVFS _ ->
        if not in_daemon then pr "struct guestfs_statvfs *"
        else pr "guestfs_int_statvfs *"
+   | RDirentList _ ->
+       if not in_daemon then pr "struct guestfs_dirent_list *"
+       else pr "guestfs_int_dirent_list *"
   );
   pr "%s%s (" prefix name;
   if handle = None && List.length (snd style) = 0 then
@@ -4990,6 +5592,8 @@ val close : t -> unit
 
   generate_ocaml_stat_structure_decls ();
 
+  generate_ocaml_dirent_structure_decls ();
+
   (* The actions. *)
   List.iter (
     fun (name, style, _, _, _, shortdesc, _) ->
@@ -5016,6 +5620,8 @@ let () =
   generate_ocaml_lvm_structure_decls ();
 
   generate_ocaml_stat_structure_decls ();
+
+  generate_ocaml_dirent_structure_decls ();
 
   (* The actions. *)
   List.iter (
@@ -5159,6 +5765,50 @@ copy_table (char * const * argv)
       pr "\n";
   ) ["stat", stat_cols; "statvfs", statvfs_cols];
 
+  (* Dirent copy functions. *)
+  pr "static CAMLprim value\n";
+  pr "copy_dirent (const struct guestfs_dirent *dirent)\n";
+  pr "{\n";
+  pr "  CAMLparam0 ();\n";
+  pr "  CAMLlocal2 (rv, v);\n";
+  pr "\n";
+  pr "  rv = caml_alloc (%d, 0);\n" (List.length dirent_cols);
+  iteri (
+    fun i col ->
+      (match col with
+       | name, `String ->
+	   pr "  v = caml_copy_string (dirent->%s);\n" name
+       | name, `Int ->
+	   pr "  v = caml_copy_int64 (dirent->%s);\n" name
+       | name, `Char ->
+	   pr "  v = Val_int (dirent->%s);\n" name
+      );
+      pr "  Store_field (rv, %d, v);\n" i
+  ) dirent_cols;
+  pr "  CAMLreturn (rv);\n";
+  pr "}\n";
+  pr "\n";
+
+  pr "static CAMLprim value\n";
+  pr "copy_dirent_list (const struct guestfs_dirent_list *dirents)\n";
+  pr "{\n";
+  pr "  CAMLparam0 ();\n";
+  pr "  CAMLlocal2 (rv, v);\n";
+  pr "  int i;\n";
+  pr "\n";
+  pr "  if (dirents->len == 0)\n";
+  pr "    CAMLreturn (Atom (0));\n";
+  pr "  else {\n";
+  pr "    rv = caml_alloc (dirents->len, 0);\n";
+  pr "    for (i = 0; i < dirents->len; ++i) {\n";
+  pr "      v = copy_dirent (&dirents->val[i]);\n";
+  pr "      caml_modify (&Field (rv, i), v);\n";
+  pr "    }\n";
+  pr "    CAMLreturn (rv);\n";
+  pr "  }\n";
+  pr "}\n";
+  pr "\n";
+
   (* The wrappers. *)
   List.iter (
     fun (name, style, _, _, _, _, _) ->
@@ -5233,7 +5883,9 @@ copy_table (char * const * argv)
 	| RHashtable _ ->
 	    pr "  int i;\n";
 	    pr "  char **r;\n";
-	    "NULL" in
+	    "NULL"
+	| RDirentList _ ->
+	    pr "  struct guestfs_dirent_list *r;\n"; "NULL" in
       pr "\n";
 
       pr "  caml_enter_blocking_section ();\n";
@@ -5291,6 +5943,9 @@ copy_table (char * const * argv)
 	   pr "  rv = copy_table (r);\n";
 	   pr "  for (i = 0; r[i] != NULL; ++i) free (r[i]);\n";
 	   pr "  free (r);\n";
+       | RDirentList _ ->
+	   pr "  rv = copy_dirent_list (r);\n";
+	   pr "  guestfs_free_dirent_list (r);\n";
       );
 
       pr "  CAMLreturn (rv);\n";
@@ -5337,6 +5992,17 @@ and generate_ocaml_stat_structure_decls () =
       pr "\n"
   ) ["stat", stat_cols; "statvfs", statvfs_cols]
 
+and generate_ocaml_dirent_structure_decls () =
+  pr "type dirent = {\n";
+  List.iter (
+    function
+    | name, `Int -> pr "  %s : int64;\n" name
+    | name, `Char -> pr "  %s : char;\n" name
+    | name, `String -> pr "  %s : string;\n" name
+  ) dirent_cols;
+  pr "}\n";
+  pr "\n"
+
 and generate_ocaml_prototype ?(is_external = false) name style =
   if is_external then pr "external " else pr "val ";
   pr "%s : t -> " name;
@@ -5363,6 +6029,7 @@ and generate_ocaml_prototype ?(is_external = false) name style =
    | RStat _ -> pr "stat"
    | RStatVFS _ -> pr "statvfs"
    | RHashtable _ -> pr "(string * string) list"
+   | RDirentList _ -> pr "dirent array"
   );
   if is_external then (
     pr " = ";
@@ -5479,7 +6146,8 @@ DESTROY (g)
        | RIntBool _
        | RPVList _ | RVGList _ | RLVList _
        | RStat _ | RStatVFS _
-       | RHashtable _ ->
+       | RHashtable _
+       | RDirentList _ ->
 	   pr "void\n" (* all lists returned implictly on the stack *)
       );
       (* Call and arguments. *)
@@ -5620,6 +6288,9 @@ DESTROY (g)
        | RStatVFS n ->
 	   generate_perl_stat_code
 	     "statvfs" statvfs_cols name style n do_cleanups
+       | RDirentList n ->
+	   generate_perl_dirent_code
+	     "dirent" dirent_cols name style n do_cleanups
       );
 
       pr "\n"
@@ -5658,7 +6329,7 @@ and generate_perl_lvm_code typ cols name style n do_cleanups =
 	pr "        (void) hv_store (hv, \"%s\", %d, newSVnv (%s->val[i].%s), 0);\n"
 	  name (String.length name) n name
   ) cols;
-  pr "        PUSHs (sv_2mortal ((SV *) hv));\n";
+  pr "        PUSHs (sv_2mortal (newRV ((SV *) hv)));\n";
   pr "      }\n";
   pr "      guestfs_free_lvm_%s_list (%s);\n" typ n
 
@@ -5679,6 +6350,37 @@ and generate_perl_stat_code typ cols name style n do_cleanups =
 	pr "      PUSHs (sv_2mortal (my_newSVll (%s->%s)));\n" n name
   ) cols;
   pr "      free (%s);\n" n
+
+and generate_perl_dirent_code typ cols name style n do_cleanups =
+  pr "PREINIT:\n";
+  pr "      struct guestfs_%s_list *%s;\n" typ n;
+  pr "      int i;\n";
+  pr "      HV *hv;\n";
+  pr " PPCODE:\n";
+  pr "      %s = guestfs_%s " n name;
+  generate_call_args ~handle:"g" (snd style);
+  pr ";\n";
+  do_cleanups ();
+  pr "      if (%s == NULL)\n" n;
+  pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
+  pr "      EXTEND (SP, %s->len);\n" n;
+  pr "      for (i = 0; i < %s->len; ++i) {\n" n;
+  pr "        hv = newHV ();\n";
+  List.iter (
+    function
+    | name, `String ->
+	pr "        (void) hv_store (hv, \"%s\", %d, newSVpv (%s->val[i].%s, 0), 0);\n"
+	  name (String.length name) n name
+    | name, `Int ->
+	pr "        (void) hv_store (hv, \"%s\", %d, my_newSVull (%s->val[i].%s), 0);\n"
+	  name (String.length name) n name
+    | name, `Char ->
+	pr "        (void) hv_store (hv, \"%s\", %d, newSVpv (&%s->val[i].%s, 1), 0);\n"
+	  name (String.length name) n name
+  ) cols;
+  pr "        PUSHs (newRV (sv_2mortal ((SV *) hv)));\n";
+  pr "      }\n";
+  pr "      guestfs_free_%s_list (%s);\n" typ n
 
 (* Generate Sys/Guestfs.pm. *)
 and generate_perl_pm () =
@@ -5813,7 +6515,8 @@ and generate_perl_prototype name style =
    | RStringList n
    | RPVList n
    | RVGList n
-   | RLVList n -> pr "@%s = " n
+   | RLVList n
+   | RDirentList n -> pr "@%s = " n
    | RStat n
    | RStatVFS n
    | RHashtable n -> pr "%%%s = " n
@@ -6049,6 +6752,42 @@ py_guestfs_close (PyObject *self, PyObject *args)
       pr "\n";
   ) ["stat", stat_cols; "statvfs", statvfs_cols];
 
+  (* Dirent structures, turned into Python dictionaries. *)
+  pr "static PyObject *\n";
+  pr "put_dirent (struct guestfs_dirent *dirent)\n";
+  pr "{\n";
+  pr "  PyObject *dict;\n";
+  pr "\n";
+  pr "  dict = PyDict_New ();\n";
+  List.iter (
+    function
+    | name, `Int ->
+	pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
+	pr "                        PyLong_FromLongLong (dirent->%s));\n" name
+    | name, `Char ->
+	pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
+	pr "                        PyString_FromStringAndSize (&dirent->%s, 1));\n" name
+    | name, `String ->
+	pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
+	pr "                        PyString_FromString (dirent->%s));\n" name
+  ) dirent_cols;
+  pr "  return dict;\n";
+  pr "};\n";
+  pr "\n";
+
+  pr "static PyObject *\n";
+  pr "put_dirent_list (struct guestfs_dirent_list *dirents)\n";
+  pr "{\n";
+  pr "  PyObject *list;\n";
+  pr "  int i;\n";
+  pr "\n";
+  pr "  list = PyList_New (dirents->len);\n";
+  pr "  for (i = 0; i < dirents->len; ++i)\n";
+  pr "    PyList_SetItem (list, i, put_dirent (&dirents->val[i]));\n";
+  pr "  return list;\n";
+  pr "};\n";
+  pr "\n";
+
   (* Python wrapper functions. *)
   List.iter (
     fun (name, style, _, _, _, _, _) ->
@@ -6072,7 +6811,8 @@ py_guestfs_close (PyObject *self, PyObject *args)
 	| RVGList n -> pr "  struct guestfs_lvm_vg_list *r;\n"; "NULL"
 	| RLVList n -> pr "  struct guestfs_lvm_lv_list *r;\n"; "NULL"
 	| RStat n -> pr "  struct guestfs_stat *r;\n"; "NULL"
-	| RStatVFS n -> pr "  struct guestfs_statvfs *r;\n"; "NULL" in
+	| RStatVFS n -> pr "  struct guestfs_statvfs *r;\n"; "NULL"
+	| RDirentList n -> pr "  struct guestfs_dirent_list *r;\n"; "NULL" in
 
       List.iter (
 	function
@@ -6176,6 +6916,9 @@ py_guestfs_close (PyObject *self, PyObject *args)
        | RHashtable n ->
 	   pr "  py_r = put_table (r);\n";
 	   pr "  free_strings (r);\n"
+       | RDirentList n ->
+	   pr "  py_r = put_dirent_list (r);\n";
+	   pr "  guestfs_free_dirent_list (r);\n"
       );
 
       pr "  return py_r;\n";
@@ -6303,7 +7046,9 @@ class GuestFS:
 	  | RStatVFS _ ->
 	      doc ^ "\n\nThis function returns a dictionary, with keys matching the various fields in the statvfs structure."
 	  | RHashtable _ ->
-	      doc ^ "\n\nThis function returns a dictionary." in
+	      doc ^ "\n\nThis function returns a dictionary."
+	  | RDirentList _ ->
+	      doc ^ "\n\nThis function returns a list of directory entries.  Each directory entry is represented as a dictionary." in
 	let doc =
 	  if List.mem ProtocolLimitWarning flags then
 	    doc ^ "\n\n" ^ protocol_limit_warning
@@ -6326,32 +7071,42 @@ class GuestFS:
 (* Useful if you need the longdesc POD text as plain text.  Returns a
  * list of lines.
  *
- * This is the slowest thing about autogeneration.
+ * Because this is very slow (the slowest part of autogeneration),
+ * we memoize the results.
  *)
 and pod2text ~width name longdesc =
-  let filename, chan = Filename.open_temp_file "gen" ".tmp" in
-  fprintf chan "=head1 %s\n\n%s\n" name longdesc;
-  close_out chan;
-  let cmd = sprintf "pod2text -w %d %s" width (Filename.quote filename) in
-  let chan = Unix.open_process_in cmd in
-  let lines = ref [] in
-  let rec loop i =
-    let line = input_line chan in
-    if i = 1 then		(* discard the first line of output *)
-      loop (i+1)
-    else (
-      let line = triml line in
-      lines := line :: !lines;
-      loop (i+1)
-    ) in
-  let lines = try loop 1 with End_of_file -> List.rev !lines in
-  Unix.unlink filename;
-  match Unix.close_process_in chan with
-  | Unix.WEXITED 0 -> lines
-  | Unix.WEXITED i ->
-      failwithf "pod2text: process exited with non-zero status (%d)" i
-  | Unix.WSIGNALED i | Unix.WSTOPPED i ->
-      failwithf "pod2text: process signalled or stopped by signal %d" i
+  let key = width, name, longdesc in
+  try Hashtbl.find pod2text_memo key
+  with Not_found ->
+    let filename, chan = Filename.open_temp_file "gen" ".tmp" in
+    fprintf chan "=head1 %s\n\n%s\n" name longdesc;
+    close_out chan;
+    let cmd = sprintf "pod2text -w %d %s" width (Filename.quote filename) in
+    let chan = Unix.open_process_in cmd in
+    let lines = ref [] in
+    let rec loop i =
+      let line = input_line chan in
+      if i = 1 then		(* discard the first line of output *)
+	loop (i+1)
+      else (
+	let line = triml line in
+	lines := line :: !lines;
+	loop (i+1)
+      ) in
+    let lines = try loop 1 with End_of_file -> List.rev !lines in
+    Unix.unlink filename;
+    (match Unix.close_process_in chan with
+     | Unix.WEXITED 0 -> ()
+     | Unix.WEXITED i ->
+	 failwithf "pod2text: process exited with non-zero status (%d)" i
+     | Unix.WSIGNALED i | Unix.WSTOPPED i ->
+	 failwithf "pod2text: process signalled or stopped by signal %d" i
+    );
+    Hashtbl.add pod2text_memo key lines;
+    let chan = open_out pod2text_memo_filename in
+    output_value chan pod2text_memo;
+    close_out chan;
+    lines
 
 (* Generate ruby bindings. *)
 and generate_ruby_c () =
@@ -6428,6 +7183,7 @@ static VALUE ruby_guestfs_close (VALUE gv)
       List.iter (
 	function
 	| String n | FileIn n | FileOut n ->
+	    pr "  Check_Type (%sv, T_STRING);\n" n;
 	    pr "  const char *%s = StringValueCStr (%sv);\n" n n;
 	    pr "  if (!%s)\n" n;
 	    pr "    rb_raise (rb_eTypeError, \"expected string for parameter %%s of %%s\",\n";
@@ -6435,7 +7191,8 @@ static VALUE ruby_guestfs_close (VALUE gv)
 	| OptString n ->
 	    pr "  const char *%s = !NIL_P (%sv) ? StringValueCStr (%sv) : NULL;\n" n n n
 	| StringList n ->
-	    pr "  char **%s;" n;
+	    pr "  char **%s;\n" n;
+	    pr "  Check_Type (%sv, T_ARRAY);\n" n;
 	    pr "  {\n";
 	    pr "    int i, len;\n";
 	    pr "    len = RARRAY_LEN (%sv);\n" n;
@@ -6466,7 +7223,8 @@ static VALUE ruby_guestfs_close (VALUE gv)
 	| RVGList n -> pr "  struct guestfs_lvm_vg_list *r;\n"; "NULL"
 	| RLVList n -> pr "  struct guestfs_lvm_lv_list *r;\n"; "NULL"
 	| RStat n -> pr "  struct guestfs_stat *r;\n"; "NULL"
-	| RStatVFS n -> pr "  struct guestfs_statvfs *r;\n"; "NULL" in
+	| RStatVFS n -> pr "  struct guestfs_statvfs *r;\n"; "NULL"
+	| RDirentList n -> pr "  struct guestfs_dirent_list *r;\n"; "NULL" in
       pr "\n";
 
       pr "  r = guestfs_%s " name;
@@ -6547,6 +7305,8 @@ static VALUE ruby_guestfs_close (VALUE gv)
 	   pr "  }\n";
 	   pr "  free (r);\n";
 	   pr "  return rv;\n"
+       | RDirentList n ->
+	   generate_ruby_dirent_code "dirent" dirent_cols
       );
 
       pr "}\n";
@@ -6597,6 +7357,24 @@ and generate_ruby_lvm_code typ cols =
   pr "  guestfs_free_lvm_%s_list (r);\n" typ;
   pr "  return rv;\n"
 
+(* Ruby code to return a dirent struct list. *)
+and generate_ruby_dirent_code typ cols =
+  pr "  VALUE rv = rb_ary_new2 (r->len);\n";
+  pr "  int i;\n";
+  pr "  for (i = 0; i < r->len; ++i) {\n";
+  pr "    VALUE hv = rb_hash_new ();\n";
+  List.iter (
+    function
+    | name, `String ->
+	pr "    rb_hash_aset (rv, rb_str_new2 (\"%s\"), rb_str_new2 (r->val[i].%s));\n" name name
+    | name, (`Char|`Int) ->
+	pr "    rb_hash_aset (rv, rb_str_new2 (\"%s\"), ULL2NUM (r->val[i].%s));\n" name name
+  ) cols;
+  pr "    rb_ary_push (rv, hv);\n";
+  pr "  }\n";
+  pr "  guestfs_free_%s_list (r);\n" typ;
+  pr "  return rv;\n"
+
 (* Generate Java bindings GuestFS.java file. *)
 and generate_java_java () =
   generate_header CStyle LGPLv2;
@@ -6612,6 +7390,7 @@ import com.redhat.et.libguestfs.LV;
 import com.redhat.et.libguestfs.Stat;
 import com.redhat.et.libguestfs.StatVFS;
 import com.redhat.et.libguestfs.IntBool;
+import com.redhat.et.libguestfs.Dirent;
 
 /**
  * The GuestFS object is a libguestfs handle.
@@ -6735,6 +7514,7 @@ and generate_java_prototype ?(public=false) ?(privat=false) ?(native=false)
    | RStat _ -> pr "Stat ";
    | RStatVFS _ -> pr "StatVFS ";
    | RHashtable _ -> pr "HashMap<String,String> ";
+   | RDirentList _ -> pr "Dirent[] ";
   );
 
   if native then pr "_%s " name else pr "%s " name;
@@ -6790,6 +7570,7 @@ public class %s {
     | name, `UUID -> pr "  public String %s;\n" name
     | name, `Bytes
     | name, `Int -> pr "  public long %s;\n" name
+    | name, `Char -> pr "  public char %s;\n" name
     | name, `OptPercent ->
 	pr "  /* The next field is [0..100] or -1 meaning 'not present': */\n";
 	pr "  public float %s;\n" name
@@ -6856,7 +7637,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
        | RConstString _ | RString _ -> pr "jstring ";
        | RIntBool _ | RStat _ | RStatVFS _ | RHashtable _ ->
 	   pr "jobject ";
-       | RStringList _ | RPVList _ | RVGList _ | RLVList _ ->
+       | RStringList _ | RPVList _ | RVGList _ | RLVList _ | RDirentList _ ->
 	   pr "jobjectArray ";
       );
       pr "JNICALL\n";
@@ -6930,7 +7711,13 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
 	    pr "  jfieldID fl;\n";
 	    pr "  jobject jfl;\n";
 	    pr "  struct guestfs_lvm_lv_list *r;\n"; "NULL", "NULL"
-	| RHashtable _ -> pr "  char **r;\n"; "NULL", "NULL" in
+	| RHashtable _ -> pr "  char **r;\n"; "NULL", "NULL"
+	| RDirentList _ ->
+	    pr "  jobjectArray jr;\n";
+	    pr "  jclass cl;\n";
+	    pr "  jfieldID fl;\n";
+	    pr "  jobject jfl;\n";
+	    pr "  struct guestfs_dirent_list *r;\n"; "NULL", "NULL" in
       List.iter (
 	function
 	| String n
@@ -6948,7 +7735,8 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
 
       let needs_i =
 	(match fst style with
-	 | RStringList _ | RPVList _ | RVGList _ | RLVList _ -> true
+	 | RStringList _ | RPVList _ | RVGList _ | RLVList _
+	 | RDirentList _ -> true
 	 | RErr | RBool _ | RInt _ | RInt64 _ | RConstString _
 	 | RString _ | RIntBool _ | RStat _ | RStatVFS _
 	 | RHashtable _ -> false) ||
@@ -7082,6 +7870,8 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
 	   (* XXX *)
 	   pr "  throw_exception (env, \"%s: internal error: please let us know how to make a Java HashMap from JNI bindings!\");\n" name;
 	   pr "  return NULL;\n"
+       | RDirentList _ ->
+	   generate_java_dirent_return "dirent" "Dirent" dirent_cols
       );
 
       pr "}\n";
@@ -7118,6 +7908,25 @@ and generate_java_lvm_return typ jtyp cols =
   pr "  guestfs_free_lvm_%s_list (r);\n" typ;
   pr "  return jr;\n"
 
+and generate_java_dirent_return typ jtyp cols =
+  pr "  cl = (*env)->FindClass (env, \"com/redhat/et/libguestfs/%s\");\n" jtyp;
+  pr "  jr = (*env)->NewObjectArray (env, r->len, cl, NULL);\n";
+  pr "  for (i = 0; i < r->len; ++i) {\n";
+  pr "    jfl = (*env)->AllocObject (env, cl);\n";
+  List.iter (
+    function
+    | name, `String ->
+	pr "    fl = (*env)->GetFieldID (env, cl, \"%s\", \"Ljava/lang/String;\");\n" name;
+	pr "    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].%s));\n" name;
+    | name, (`Char|`Int) ->
+	pr "    fl = (*env)->GetFieldID (env, cl, \"%s\", \"J\");\n" name;
+	pr "    (*env)->SetLongField (env, jfl, fl, r->val[i].%s);\n" name;
+  ) cols;
+  pr "    (*env)->SetObjectArrayElement (env, jfl, i, jfl);\n";
+  pr "  }\n";
+  pr "  guestfs_free_%s_list (r);\n" typ;
+  pr "  return jr;\n"
+
 and generate_haskell_hs () =
   generate_header HaskellStyle LGPLv2;
 
@@ -7125,14 +7934,11 @@ and generate_haskell_hs () =
    * at the moment.  Please help out!
    *)
   let can_generate style =
-    let check_no_bad_args =
-      List.for_all (function Bool _ | Int _ -> false | _ -> true)
-    in
     match style with
-    | RErr, args -> check_no_bad_args args
-    | RBool _, _
+    | RErr, _
     | RInt _, _
-    | RInt64 _, _
+    | RInt64 _, _ -> true
+    | RBool _, _
     | RConstString _, _
     | RString _, _
     | RStringList _, _
@@ -7142,7 +7948,8 @@ and generate_haskell_hs () =
     | RLVList _, _
     | RStat _, _
     | RStatVFS _, _
-    | RHashtable _, _ -> false in
+    | RHashtable _, _
+    | RDirentList _, _ -> false in
 
   pr "\
 {-# INCLUDE <guestfs.h> #-}
@@ -7161,6 +7968,7 @@ module Guestfs (
   ) where
 import Foreign
 import Foreign.C
+import Foreign.C.Types
 import IO
 import Control.Exception
 import Data.Typeable
@@ -7224,6 +8032,7 @@ last_error h = do
 	pr "%s %s = do\n" name
 	  (String.concat " " ("h" :: List.map name_of_argt (snd style)));
 	pr "  r <- ";
+	(* Convert pointer arguments using with* functions. *)
 	List.iter (
 	  function
 	  | FileIn n
@@ -7231,17 +8040,18 @@ last_error h = do
 	  | String n -> pr "withCString %s $ \\%s -> " n n
 	  | OptString n -> pr "maybeWith withCString %s $ \\%s -> " n n
 	  | StringList n -> pr "withMany withCString %s $ \\%s -> withArray0 nullPtr %s $ \\%s -> " n n n n
-	  | Bool n ->
-	      (* XXX this doesn't work *)
-	      pr "      let\n";
-	      pr "        %s = case %s of\n" n n;
-	      pr "          False -> 0\n";
-	      pr "          True -> 1\n";
-	      pr "      in fromIntegral %s $ \\%s ->\n" n n
-	  | Int n -> pr "fromIntegral %s $ \\%s -> " n n
+	  | Bool _ | Int _ -> ()
 	) (snd style);
+	(* Convert integer arguments. *)
+	let args =
+	  List.map (
+	    function
+	    | Bool n -> sprintf "(fromBool %s)" n
+	    | Int n -> sprintf "(fromIntegral %s)" n
+	    | FileIn n | FileOut n | String n | OptString n | StringList n -> n
+	  ) (snd style) in
 	pr "withForeignPtr h (\\p -> c_%s %s)\n" name
-	  (String.concat " " ("p" :: List.map name_of_argt (snd style)));
+	  (String.concat " " ("p" :: args));
 	(match fst style with
 	 | RErr | RInt _ | RInt64 _ | RBool _ ->
 	     pr "  if (r == -1)\n";
@@ -7250,7 +8060,7 @@ last_error h = do
 	     pr "      fail err\n";
 	 | RConstString _ | RString _ | RStringList _ | RIntBool _
 	 | RPVList _ | RVGList _ | RLVList _ | RStat _ | RStatVFS _
-	 | RHashtable _ ->
+	 | RHashtable _ | RDirentList _ ->
 	     pr "  if (r == nullPtr)\n";
 	     pr "    then do\n";
 	     pr "      err <- last_error h\n";
@@ -7274,7 +8084,8 @@ last_error h = do
 	 | RLVList _
 	 | RStat _
 	 | RStatVFS _
-	 | RHashtable _ ->
+	 | RHashtable _
+	 | RDirentList _ ->
 	     pr "    else return ()\n" (* XXXXXXXXXXXXXXXXXXXX *)
 	);
 	pr "\n";
@@ -7316,6 +8127,7 @@ and generate_haskell_prototype ~handle ?(hs = false) style =
    | RStat _ -> pr "Stat"
    | RStatVFS _ -> pr "StatVFS"
    | RHashtable _ -> pr "Hashtable"
+   | RDirentList _ -> pr "[Dirent]"
   );
   pr ")"
 
@@ -7476,6 +8288,15 @@ print_strings (char * const* const argv)
 	     pr "  }\n";
 	     pr "  strs[n*2] = NULL;\n";
 	     pr "  return strs;\n"
+	 | RDirentList _ ->
+	     pr "  struct guestfs_dirent_list *r;\n";
+	     pr "  int i;\n";
+	     pr "  r = malloc (sizeof (struct guestfs_dirent_list));\n";
+	     pr "  sscanf (val, \"%%d\", &r->len);\n";
+	     pr "  r->val = calloc (r->len, sizeof (struct guestfs_dirent));\n";
+	     pr "  for (i = 0; i < r->len; ++i)\n";
+	     pr "    r->val[i].ino = i;\n";
+	     pr "  return r;\n"
 	);
 	pr "}\n";
 	pr "\n"
@@ -7491,7 +8312,8 @@ print_strings (char * const* const argv)
 	 | RConstString _
 	 | RString _ | RStringList _ | RIntBool _
 	 | RPVList _ | RVGList _ | RLVList _ | RStat _ | RStatVFS _
-	 | RHashtable _ ->
+	 | RHashtable _
+	 | RDirentList _ ->
 	     pr "  return NULL;\n"
 	);
 	pr "}\n";
@@ -7667,7 +8489,38 @@ public class Bindtests {
 "
 
 and generate_haskell_bindtests () =
-  () (* XXX Haskell bindings need to be fleshed out. *)
+  generate_header HaskellStyle GPLv2;
+
+  pr "\
+module Bindtests where
+import qualified Guestfs
+
+main = do
+  g <- Guestfs.create
+";
+
+  let mkargs args =
+    String.concat " " (
+      List.map (
+	function
+	| CallString s -> "\"" ^ s ^ "\""
+	| CallOptString None -> "Nothing"
+	| CallOptString (Some s) -> sprintf "(Just \"%s\")" s
+	| CallStringList xs ->
+	    "[" ^ String.concat "," (List.map (sprintf "\"%s\"") xs) ^ "]"
+	| CallInt i when i < 0 -> "(" ^ string_of_int i ^ ")"
+	| CallInt i -> string_of_int i
+	| CallBool true -> "True"
+	| CallBool false -> "False"
+      ) args
+    )
+  in
+
+  generate_lang_bindtests (
+    fun f args -> pr "  Guestfs.%s g %s\n" f (mkargs args)
+  );
+
+  pr "  putStrLn \"EOF\"\n"
 
 (* Language-independent bindings tests - we do it this way to
  * ensure there is parity in testing bindings across all languages.
@@ -7714,6 +8567,19 @@ and generate_lang_bindtests call =
 		CallInt 0; CallString ""; CallString ""]
 
   (* XXX Add here tests of the return and error functions. *)
+
+(* This is used to generate the src/MAX_PROC_NR file which
+ * contains the maximum procedure number, a surrogate for the
+ * ABI version number.  See src/Makefile.am for the details.
+ *)
+and generate_max_proc_nr () =
+  let proc_nrs = List.map (
+    fun (_, _, proc_nr, _, _, _, _) -> proc_nr
+  ) daemon_functions in
+
+  let max_proc_nr = List.fold_left max 0 proc_nrs in
+
+  pr "%d\n" max_proc_nr
 
 let output_to filename =
   let filename_new = filename ^ ".new" in
@@ -7770,6 +8636,10 @@ Run it from the top source directory using the command
 
   let close = output_to "daemon/stubs.c" in
   generate_daemon_actions ();
+  close ();
+
+  let close = output_to "daemon/names.c" in
+  generate_daemon_names ();
   close ();
 
   let close = output_to "capitests/tests.c" in
@@ -7872,6 +8742,10 @@ Run it from the top source directory using the command
   generate_java_struct "StatVFS" statvfs_cols;
   close ();
 
+  let close = output_to "java/com/redhat/et/libguestfs/Dirent.java" in
+  generate_java_struct "Dirent" dirent_cols;
+  close ();
+
   let close = output_to "java/com_redhat_et_libguestfs_GuestFS.c" in
   generate_java_c ();
   close ();
@@ -7884,6 +8758,17 @@ Run it from the top source directory using the command
   generate_haskell_hs ();
   close ();
 
-  let close = output_to "haskell/bindtests.hs" in
+  let close = output_to "haskell/Bindtests.hs" in
   generate_haskell_bindtests ();
   close ();
+
+  let close = output_to "src/MAX_PROC_NR" in
+  generate_max_proc_nr ();
+  close ();
+
+  (* Always generate this file last, and unconditionally.  It's used
+   * by the Makefile to know when we must re-run the generator.
+   *)
+  let chan = open_out "src/stamp-generator" in
+  fprintf chan "1\n";
+  close_out chan

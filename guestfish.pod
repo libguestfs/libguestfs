@@ -8,6 +8,10 @@ guestfish - the libguestfs filesystem interactive shell
 
  guestfish [--options] [commands]
 
+ guestfish -i libvirt-domain
+
+ guestfish -i disk-image(s)
+
 =head1 EXAMPLES
 
 =head2 From shell scripts
@@ -40,8 +44,7 @@ Remove C</boot/grub/menu.lst> (in reality not such a great idea):
  guestfish --add disk.img \
    --mount /dev/VolGroup00/LogVol00 \
    --mount /dev/sda1:/boot \
-   rm /boot/grub/menu.lst : \
-   sync : exit
+   rm /boot/grub/menu.lst
 
 =head2 As an interactive shell
 
@@ -54,6 +57,14 @@ Remove C</boot/grub/menu.lst> (in reality not such a great idea):
        'quit' to quit the shell
  
  ><fs> help
+
+=head2 As a script interpreter
+
+ #!/usr/bin/guestfish -f
+ alloc /tmp/output.img 10M
+ run
+ sfdisk /dev/sda 0 0 0 ,
+ mkfs ext2 /dev/sda1
 
 =head1 DESCRIPTION
 
@@ -81,6 +92,37 @@ Displays detailed help on a single command C<cmd>.
 
 Add a block device or virtual machine image to the shell.
 
+=item B<-f file> | B<--file file>
+
+Read commands from C<file>.  To write pure guestfish
+scripts, use:
+
+ #!/usr/bin/guestfish -f
+
+=item B<-i> | B<--inspector>
+
+Run virt-inspector on the named libvirt domain or list of disk
+images.  If virt-inspector is available and if it can identify
+the domain or disk images, then partitions will be mounted
+correctly at start-up.
+
+Typical usage is either:
+
+ guestfish -i myguest
+
+(for an inactive libvirt domain called I<myguest>), or:
+
+ guestfish --ro -i myguest
+
+(for active domains, readonly), or specify the block device directly:
+
+ guestfish -i /dev/Guests/MyGuest
+
+You cannot use I<-a> or I<-m> in conjunction with this option, and
+options other than I<--ro> might not behave correctly.
+
+See also: L<virt-inspector(1)>.
+
 =item B<-m dev[:mountpoint]> | B<--mount dev[:mountpoint]>
 
 Mount the named partition or logical volume on the given mountpoint.
@@ -106,6 +148,17 @@ This changes the C<-m> option so that mounts are done read-only
 
 Enable very verbose messages.  This is particularly useful if you find
 a bug.
+
+=item B<-D> | B<--no-dest-paths>
+
+Don't tab-complete paths on the guest filesystem.  It is useful to be
+able to hit the tab key to complete paths on the guest filesystem, but
+this causes extra "hidden" guestfs calls to be made, so this option is
+here to allow this feature to be disabled.
+
+=item B<-V> | B<--version>
+
+Display the guestfish / libguestfs version number and exit.
 
 =back
 
@@ -177,6 +230,33 @@ a space-separated list, enclosed in quotes.  For example:
 
  vgcreate VG "/dev/sda1 /dev/sdb1"
 
+=head1 WILDCARDS AND GLOBBING
+
+Neither guestfish nor the underlying guestfs API performs
+wildcard expansion (globbing) by default.  So for example the
+following will not do what you expect:
+
+ rm-rf /home/*
+
+Assuming you don't have a directory literally called C</home/*>
+then the above command will return an error.
+
+To perform wildcard expansion, use the C<glob> command.
+
+ glob rm-rf /home/*
+
+runs C<rm-rf> on each path that matches (ie. potentially running
+the command many times), equivalent to:
+
+ rm-rf /home/jim
+ rm-rf /home/joe
+ rm-rf /home/mary
+
+C<glob> only works on simple guest paths and not on device names.
+
+If you have several parameters, each containing a wildcard, then glob
+will perform a cartesian product.
+
 =head1 COMMENTS
 
 Any line which starts with a I<#> character is treated as a comment
@@ -202,6 +282,32 @@ will create a directory C<local> on the host, and then export
 the contents of C</remote> on the mounted filesystem to
 C<local/remote-data.tar.gz>.  (See C<tgz-out>).
 
+=head1 PIPES
+
+Use C<command E<lt>spaceE<gt> | command> to pipe the output of the
+first command (a guestfish command) to the second command (any host
+command).  For example:
+
+ cat /etc/passwd | awk -F: '$3 == 0 { print }'
+
+(where C<cat> is the guestfish cat command, but C<awk> is the host awk
+program).  The above command would list all accounts in the guest
+filesystem which have UID 0, ie. root accounts including backdoors.
+Other examples:
+
+ hexdump /bin/ls | head
+ list-devices | tail -1
+
+The space before the pipe symbol is required, any space after the pipe
+symbol is optional.  Everything after the pipe symbol is just passed
+straight to the host shell, so it can contain redirections, globs and
+anything else that makes sense on the host side.
+
+To use a literal argument which begins with a pipe symbol, you have
+to quote it, eg:
+
+ echo "|"
+
 =head1 EXIT ON ERROR BEHAVIOUR
 
 By default, guestfish will ignore any errors when in interactive mode
@@ -213,19 +319,10 @@ If you prefix a command with a I<-> character, then that command will
 not cause guestfish to exit, even if that (one) command returns an
 error.
 
-=head1 COMMANDS
+=head1 GUESTFISH COMMANDS
 
-=head2 help
-
- help
- help cmd
-
-Without any parameter, this lists all commands.  With a C<cmd>
-parameter, this displays detailed help for a command.
-
-=head2 quit | exit
-
-This exits guestfish.  You can also use C<^D> key.
+The commands in this section are guestfish convenience commands, in
+other words, they are not part of the L<guestfs(3)> API.
 
 =head2 alloc | allocate
 
@@ -278,6 +375,23 @@ editors.
 NOTE: This will not work reliably for large files
 (> 2 MB) or binary files containing \0 bytes.
 
+=head2 glob
+
+ glob command args...
+
+Expand wildcards in any paths in the args list, and run C<command>
+repeatedly on each matching path.
+
+See section WILDCARDS AND GLOBBING.
+
+=head2 help
+
+ help
+ help cmd
+
+Without any parameter, this lists all commands.  With a C<cmd>
+parameter, this displays detailed help for a command.
+
 =head2 lcd
 
  lcd directory
@@ -287,16 +401,64 @@ itself.
 
 Note that C<!cd> won't do what you might expect.
 
+=head2 more | less
+
+ more filename
+
+ less filename
+
+This is used to view a file.
+
+The default viewer is C<$PAGER>.  However if you use the alternate
+command C<less> you will get the C<less> command specifically.
+
+NOTE: This will not work reliably for large files
+(> 2 MB) or binary files containing \0 bytes.
+
+=head2 quit | exit
+
+This exits guestfish.  You can also use C<^D> key.
+
+=head2 time
+
+ time command args...
+
+Run the command as usual, but print the elapsed time afterwards.  This
+can be useful for benchmarking operations.
+
+=head1 COMMANDS
+
 @ACTIONS@
 
 =head1 ENVIRONMENT VARIABLES
 
 =over 4
 
+=item EDITOR
+
+The C<edit> command uses C<$EDITOR> as the editor.  If not
+set, it uses C<vi>.
+
+=item HOME
+
+If compiled with GNU readline support, then the command history
+is saved in C<$HOME/.guestfish>
+
+=item LIBGUESTFS_APPEND
+
+Pass additional options to the guest kernel.
+
 =item LIBGUESTFS_DEBUG
 
 Set C<LIBGUESTFS_DEBUG=1> to enable verbose messages.  This has the
 same effect as using the B<-v> option.
+
+=item LIBGUESTFS_MEMSIZE
+
+Set the memory allocated to the qemu process, in megabytes.  For
+example:
+
+ LIBGUESTFS_MEMSIZE=700
 
 =item LIBGUESTFS_PATH
 
@@ -309,19 +471,10 @@ Set the default qemu binary that libguestfs uses.  If not set, then
 the qemu which was found at compile time by the configure script is
 used.
 
-=item LIBGUESTFS_APPEND
+=item PAGER
 
-Pass additional options to the guest kernel.
-
-=item HOME
-
-If compiled with GNU readline support, then the command history
-is saved in C<$HOME/.guestfish>
-
-=item EDITOR
-
-The C<edit> command uses C<$EDITOR> as the editor.  If not
-set, it uses C<vi>.
+The C<more> command uses C<$PAGER> as the pager.  If not
+set, it uses C<more>.
 
 =back
 

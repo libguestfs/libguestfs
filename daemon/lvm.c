@@ -187,6 +187,9 @@ do_pvcreate (char *device)
   }
 
   free (err);
+
+  udev_settle ();
+
   return 0;
 }
 
@@ -221,6 +224,9 @@ do_vgcreate (char *volgroup, char **physvols)
   }
 
   free (err);
+
+  udev_settle ();
+
   return 0;
 }
 
@@ -243,6 +249,9 @@ do_lvcreate (char *logvol, char *volgroup, int mbytes)
   }
 
   free (err);
+
+  udev_settle ();
+
   return 0;
 }
 
@@ -331,6 +340,8 @@ do_lvm_remove_all (void)
   }
   free_strings (xs);
 
+  udev_settle ();
+
   /* There, that was easy, sorry about your data. */
   return 0;
 }
@@ -352,6 +363,9 @@ do_lvremove (char *device)
   }
 
   free (err);
+
+  udev_settle ();
+
   return 0;
 }
 
@@ -370,6 +384,9 @@ do_vgremove (char *device)
   }
 
   free (err);
+
+  udev_settle ();
+
   return 0;
 }
 
@@ -390,6 +407,9 @@ do_pvremove (char *device)
   }
 
   free (err);
+
+  udev_settle ();
+
   return 0;
 }
 
@@ -442,6 +462,9 @@ do_vg_activate (int activate, char **volgroups)
   }
 
   free (err);
+
+  udev_settle ();
+
   return 0;
 }
 

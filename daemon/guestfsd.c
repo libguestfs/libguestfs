@@ -160,6 +160,9 @@ main (int argc, char *argv[])
   setenv ("SHELL", "/bin/sh", 1);
   setenv ("LANG", "C", 1);
 
+  /* We document that umask defaults to 022 (it should be this anyway). */
+  umask (022);
+
   /* Resolve the hostname. */
   memset (&hints, 0, sizeof hints);
   hints.ai_socktype = SOCK_STREAM;
@@ -453,7 +456,8 @@ commandrv (char **stdoutput, char **stderror, char * const* const argv)
 {
   int so_size = 0, se_size = 0;
   int so_fd[2], se_fd[2];
-  int pid, r, quit, i;
+  pid_t pid;
+  int r, quit, i;
   fd_set rset, rset2;
   char buf[256];
   char *p;
@@ -589,7 +593,10 @@ commandrv (char **stdoutput, char **stderror, char * const* const argv)
   }
 
   /* Get the exit status of the command. */
-  waitpid (pid, &r, 0);
+  if (waitpid (pid, &r, 0) != pid) {
+    perror ("waitpid");
+    return -1;
+  }
 
   if (WIFEXITED (r)) {
     return WEXITSTATUS (r);
@@ -707,7 +714,7 @@ device_name_translation (char *device, const char *func)
     return 0;
   }
 
-  if (errno != ENXIO) {
+  if (errno != ENXIO && errno != ENOENT) {
   error:
     reply_with_perror ("%s: %s", func, device);
     return -1;
@@ -733,4 +740,17 @@ device_name_translation (char *device, const char *func)
 
   device[5] = 's';		/* Restore original device name. */
   goto error;
+}
+
+/* LVM and other commands aren't synchronous, especially when udev is
+ * involved.  eg. You can create or remove some device, but the /dev
+ * device node won't appear until some time later.  This means that
+ * you get an error if you run one command followed by another.
+ * Use 'udevadm settle' after certain commands, but don't be too
+ * fussed if it fails.
+ */
+void
+udev_settle (void)
+{
+  command (NULL, NULL, "/sbin/udevadm", "settle", NULL);
 }
