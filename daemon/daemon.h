@@ -55,6 +55,9 @@ extern void udev_settle (void);
 
 extern int verbose;
 
+/*-- in names.c (auto-generated) --*/
+extern const char *function_names[];
+
 /*-- in proto.c --*/
 extern int proc_nr;
 extern int serial;

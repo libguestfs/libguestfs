@@ -146,8 +146,10 @@ main_loop (int _sock)
       start_us = (int64_t) start_t.tv_sec * 1000000 + start_t.tv_usec;
       end_us = (int64_t) end_t.tv_sec * 1000000 + end_t.tv_usec;
       elapsed_us = end_us - start_us;
-      fprintf (stderr, "proc %d serial %d took %d.%02d seconds\n",
-	       proc_nr, serial,
+      fprintf (stderr, "proc %d (%s) took %d.%02d seconds\n",
+	       proc_nr,
+	       proc_nr >= 0 && proc_nr < GUESTFS_PROC_NR_PROCS
+	       ? function_names[proc_nr] : "UNKNOWN PROCEDURE",
 	       (int) (elapsed_us / 1000000),
 	       (int) ((elapsed_us / 10000) % 100));
     }

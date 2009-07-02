@@ -50,6 +50,7 @@ daemon/actions.h
 daemon/guestfsd
 daemon/install-sh
 daemon/missing
+daemon/names.c
 daemon/stubs.c
 depcomp
 emptydisk

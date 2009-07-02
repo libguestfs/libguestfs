@@ -4318,6 +4318,22 @@ and generate_daemon_actions () =
 
   ) ["pv", pv_cols; "vg", vg_cols; "lv", lv_cols]
 
+(* Generate a list of function names, for debugging in the daemon.. *)
+and generate_daemon_names () =
+  generate_header CStyle GPLv2;
+
+  pr "#include <config.h>\n";
+  pr "\n";
+  pr "#include \"daemon.h\"\n";
+  pr "\n";
+
+  pr "/* This array is indexed by proc_nr.  See guestfs_protocol.x. */\n";
+  pr "const char *function_names[] = {\n";
+  List.iter (
+    fun (name, _, proc_nr, _, _, _, _) -> pr "  [%d] = \"%s\",\n" proc_nr name
+  ) daemon_functions;
+  pr "};\n";
+
 (* Generate the tests. *)
 and generate_tests () =
   generate_header CStyle GPLv2;
@@ -8608,6 +8624,10 @@ Run it from the top source directory using the command
 
   let close = output_to "daemon/stubs.c" in
   generate_daemon_actions ();
+  close ();
+
+  let close = output_to "daemon/names.c" in
+  generate_daemon_names ();
   close ();
 
   let close = output_to "capitests/tests.c" in
