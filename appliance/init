@@ -44,6 +44,9 @@ ls -l /dev
 lvm vgscan --ignorelockingfailure
 lvm vgchange -ay --ignorelockingfailure
 
+# Improve virtio-blk performance (RHBZ#509383).
+for f in /sys/block/vd*/queue/rotational; do echo 1 > $f; done
+
 if grep -sq guestfs_rescue=1 /proc/cmdline; then
   bash -i
 fi
