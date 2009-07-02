@@ -141,5 +141,7 @@ __EOF__
 elif [ "@DIST@" = "DEBIAN" ]; then
   cd @top_builddir@/appliance
   debirf make -n debian
+  mkdir -p @top_builddir@/initramfs
+  touch @top_builddir@/initramfs/fakeroot.log
 fi
 
