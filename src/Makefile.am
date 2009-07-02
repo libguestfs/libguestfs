@@ -81,6 +81,15 @@ lib_LTLIBRARIES = libguestfs.la
 # Note that this scheme means the real library version will always be
 # 'libguestfs.so.0.$(MAX_PROC_NR).0'.
 
+BUILT_SOURCES = \
+  guestfs_protocol.x \
+  guestfs-structs.h \
+  guestfs-actions.h \
+  guestfs-actions.c \
+  guestfs-bindtests.c
+
+$(BUILT_SOURCES): stamp-generator
+
 libguestfs_la_LDFLAGS = -version-info $(MAX_PROC_NR):0:$(MAX_PROC_NR)
 libguestfs_la_SOURCES = \
 	guestfs.c \
