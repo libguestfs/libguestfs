@@ -8228,16 +8228,16 @@ print_strings (char * const* const argv)
 	     pr "  return strs;\n"
 	 | RIntBool _ ->
 	     pr "  struct guestfs_int_bool *r;\n";
-	     pr "  r = malloc (sizeof (struct guestfs_int_bool));\n";
+	     pr "  r = malloc (sizeof *r);\n";
 	     pr "  sscanf (val, \"%%\" SCNi32, &r->i);\n";
 	     pr "  r->b = 0;\n";
 	     pr "  return r;\n"
 	 | RPVList _ ->
 	     pr "  struct guestfs_lvm_pv_list *r;\n";
 	     pr "  int i;\n";
-	     pr "  r = malloc (sizeof (struct guestfs_lvm_pv_list));\n";
+	     pr "  r = malloc (sizeof *r);\n";
 	     pr "  sscanf (val, \"%%d\", &r->len);\n";
-	     pr "  r->val = calloc (r->len, sizeof (struct guestfs_lvm_pv));\n";
+	     pr "  r->val = calloc (r->len, sizeof *r->val);\n";
 	     pr "  for (i = 0; i < r->len; ++i) {\n";
 	     pr "    r->val[i].pv_name = malloc (16);\n";
 	     pr "    snprintf (r->val[i].pv_name, 16, \"%%d\", i);\n";
@@ -8246,9 +8246,9 @@ print_strings (char * const* const argv)
 	 | RVGList _ ->
 	     pr "  struct guestfs_lvm_vg_list *r;\n";
 	     pr "  int i;\n";
-	     pr "  r = malloc (sizeof (struct guestfs_lvm_vg_list));\n";
+	     pr "  r = malloc (sizeof *r);\n";
 	     pr "  sscanf (val, \"%%d\", &r->len);\n";
-	     pr "  r->val = calloc (r->len, sizeof (struct guestfs_lvm_vg));\n";
+	     pr "  r->val = calloc (r->len, sizeof *r->val);\n";
 	     pr "  for (i = 0; i < r->len; ++i) {\n";
 	     pr "    r->val[i].vg_name = malloc (16);\n";
 	     pr "    snprintf (r->val[i].vg_name, 16, \"%%d\", i);\n";
@@ -8257,9 +8257,9 @@ print_strings (char * const* const argv)
 	 | RLVList _ ->
 	     pr "  struct guestfs_lvm_lv_list *r;\n";
 	     pr "  int i;\n";
-	     pr "  r = malloc (sizeof (struct guestfs_lvm_lv_list));\n";
+	     pr "  r = malloc (sizeof *r);\n";
 	     pr "  sscanf (val, \"%%d\", &r->len);\n";
-	     pr "  r->val = calloc (r->len, sizeof (struct guestfs_lvm_lv));\n";
+	     pr "  r->val = calloc (r->len, sizeof *r->val);\n";
 	     pr "  for (i = 0; i < r->len; ++i) {\n";
 	     pr "    r->val[i].lv_name = malloc (16);\n";
 	     pr "    snprintf (r->val[i].lv_name, 16, \"%%d\", i);\n";
@@ -8279,7 +8279,7 @@ print_strings (char * const* const argv)
 	     pr "  char **strs;\n";
 	     pr "  int n, i;\n";
 	     pr "  sscanf (val, \"%%d\", &n);\n";
-	     pr "  strs = malloc ((n*2+1) * sizeof (char *));\n";
+	     pr "  strs = malloc ((n*2+1) * sizeof (*strs));\n";
 	     pr "  for (i = 0; i < n; ++i) {\n";
 	     pr "    strs[i*2] = malloc (16);\n";
 	     pr "    strs[i*2+1] = malloc (16);\n";
@@ -8291,9 +8291,9 @@ print_strings (char * const* const argv)
 	 | RDirentList _ ->
 	     pr "  struct guestfs_dirent_list *r;\n";
 	     pr "  int i;\n";
-	     pr "  r = malloc (sizeof (struct guestfs_dirent_list));\n";
+	     pr "  r = malloc (sizeof *r);\n";
 	     pr "  sscanf (val, \"%%d\", &r->len);\n";
-	     pr "  r->val = calloc (r->len, sizeof (struct guestfs_dirent));\n";
+	     pr "  r->val = calloc (r->len, sizeof *r->val);\n";
 	     pr "  for (i = 0; i < r->len; ++i)\n";
 	     pr "    r->val[i].ino = i;\n";
 	     pr "  return r;\n"
