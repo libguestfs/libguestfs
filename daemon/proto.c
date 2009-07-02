@@ -47,6 +47,8 @@ main_loop (int _sock)
   char lenbuf[4];
   unsigned len;
   struct guestfs_message_header hdr;
+  struct timeval start_t, end_t;
+  int64_t start_us, end_us, elapsed_us;
 
   sock = _sock;
 
@@ -102,6 +104,10 @@ main_loop (int _sock)
     }
 #endif
 
+    /* In verbose mode, display the time taken to run each command. */
+    if (verbose)
+      gettimeofday (&start_t, NULL);
+
     /* Decode the message header. */
     xdrmem_create (&xdr, buf, len, XDR_DECODE);
     if (!xdr_guestfs_message_header (&xdr, &hdr)) {
@@ -132,6 +138,19 @@ main_loop (int _sock)
     serial = hdr.serial;
     dispatch_incoming_message (&xdr);
     /* Note that dispatch_incoming_message will also send a reply. */
+
+    /* In verbose mode, display the time taken to run each command. */
+    if (verbose) {
+      gettimeofday (&end_t, NULL);
+
+      start_us = (int64_t) start_t.tv_sec * 1000000 + start_t.tv_usec;
+      end_us = (int64_t) end_t.tv_sec * 1000000 + end_t.tv_usec;
+      elapsed_us = end_us - start_us;
+      fprintf (stderr, "proc %d serial %d took %d.%02d seconds\n",
+	       proc_nr, serial,
+	       (int) (elapsed_us / 1000000),
+	       (int) ((elapsed_us / 10000) % 100));
+    }
 
   cont:
     xdr_destroy (&xdr);
