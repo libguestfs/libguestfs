@@ -31,6 +31,7 @@
 
 static int
 sfdisk (char *device, int n, int cyls, int heads, int sectors,
+	const char *extra_flag,
 	char * const* const lines)
 {
   FILE *fp;
@@ -40,6 +41,7 @@ sfdisk (char *device, int n, int cyls, int heads, int sectors,
   IS_DEVICE (device, -1);
 
   strcpy (buf, "/sbin/sfdisk");
+
   if (n > 0)
     sprintf (buf + strlen (buf), " -N %d", n);
   if (cyls)
@@ -48,6 +50,9 @@ sfdisk (char *device, int n, int cyls, int heads, int sectors,
     sprintf (buf + strlen (buf), " -H %d", heads);
   if (sectors)
     sprintf (buf + strlen (buf), " -S %d", sectors);
+  if (extra_flag)
+    sprintf (buf + strlen (buf), " %s", extra_flag);
+
   /* Safe because of IS_DEVICE above: */
   sprintf (buf + strlen (buf), " %s", device);
 
@@ -82,7 +87,7 @@ int
 do_sfdisk (char *device, int cyls, int heads, int sectors,
 	   char **lines)
 {
-  return sfdisk (device, 0, cyls, heads, sectors, lines);
+  return sfdisk (device, 0, cyls, heads, sectors, NULL, lines);
 }
 
 int
@@ -91,7 +96,13 @@ do_sfdisk_N (char *device, int n, int cyls, int heads, int sectors,
 {
   const char *lines[2] = { line, NULL };
 
-  return sfdisk (device, n, cyls, heads, sectors, lines);
+  return sfdisk (device, n, cyls, heads, sectors, NULL, lines);
+}
+
+int
+do_sfdiskM (char *device, char **lines)
+{
+  return sfdisk (device, 0, 0, 0, 0, "-uM", lines);
 }
 
 static char *

@@ -641,7 +641,7 @@ see L<guestfs(3)>.");
 let daemon_functions = [
   ("mount", (RErr, [String "device"; String "mountpoint"]), 1, [],
    [InitEmpty, Always, TestOutput (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+      [["sfdiskM"; "/dev/sda"; ","];
        ["mkfs"; "ext2"; "/dev/sda1"];
        ["mount"; "/dev/sda1"; "/"];
        ["write_file"; "/new"; "new file contents"; "0"];
@@ -738,7 +738,7 @@ The full block device names are returned, eg. C</dev/sda>");
    [InitBasicFS, Always, TestOutputListOfDevices (
       [["list_partitions"]], ["/dev/sda1"]);
     InitEmpty, Always, TestOutputListOfDevices (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",200 ,400 ,"];
+      [["sfdiskM"; "/dev/sda"; ",100 ,200 ,"];
        ["list_partitions"]], ["/dev/sda1"; "/dev/sda2"; "/dev/sda3"])],
    "list the partitions",
    "\
@@ -753,7 +753,7 @@ call C<guestfs_lvs>.");
    [InitBasicFSonLVM, Always, TestOutputListOfDevices (
       [["pvs"]], ["/dev/sda1"]);
     InitEmpty, Always, TestOutputListOfDevices (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",200 ,400 ,"];
+      [["sfdiskM"; "/dev/sda"; ",100 ,200 ,"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
        ["pvcreate"; "/dev/sda3"];
@@ -772,7 +772,7 @@ See also C<guestfs_pvs_full>.");
    [InitBasicFSonLVM, Always, TestOutputList (
       [["vgs"]], ["VG"]);
     InitEmpty, Always, TestOutputList (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",200 ,400 ,"];
+      [["sfdiskM"; "/dev/sda"; ",100 ,200 ,"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
        ["pvcreate"; "/dev/sda3"];
@@ -793,7 +793,7 @@ See also C<guestfs_vgs_full>.");
    [InitBasicFSonLVM, Always, TestOutputList (
       [["lvs"]], ["/dev/VG/LV"]);
     InitEmpty, Always, TestOutputList (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",200 ,400 ,"];
+      [["sfdiskM"; "/dev/sda"; ",100 ,200 ,"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
        ["pvcreate"; "/dev/sda3"];
@@ -1146,7 +1146,7 @@ See also C<guestfs_stat>.");
 
   ("pvcreate", (RErr, [String "device"]), 39, [],
    [InitEmpty, Always, TestOutputListOfDevices (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",200 ,400 ,"];
+      [["sfdiskM"; "/dev/sda"; ",100 ,200 ,"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
        ["pvcreate"; "/dev/sda3"];
@@ -1159,7 +1159,7 @@ as C</dev/sda1>.");
 
   ("vgcreate", (RErr, [String "volgroup"; StringList "physvols"]), 40, [],
    [InitEmpty, Always, TestOutputList (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",200 ,400 ,"];
+      [["sfdiskM"; "/dev/sda"; ",100 ,200 ,"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
        ["pvcreate"; "/dev/sda3"];
@@ -1173,7 +1173,7 @@ from the non-empty list of physical volumes C<physvols>.");
 
   ("lvcreate", (RErr, [String "logvol"; String "volgroup"; Int "mbytes"]), 41, [],
    [InitEmpty, Always, TestOutputList (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",200 ,400 ,"];
+      [["sfdiskM"; "/dev/sda"; ",100 ,200 ,"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
        ["pvcreate"; "/dev/sda3"];
@@ -1194,7 +1194,7 @@ on the volume group C<volgroup>, with C<size> megabytes.");
 
   ("mkfs", (RErr, [String "fstype"; String "device"]), 42, [],
    [InitEmpty, Always, TestOutput (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+      [["sfdiskM"; "/dev/sda"; ","];
        ["mkfs"; "ext2"; "/dev/sda1"];
        ["mount"; "/dev/sda1"; "/"];
        ["write_file"; "/new"; "new file contents"; "0"];
@@ -1269,12 +1269,12 @@ use C<guestfs_upload>.");
 
   ("umount", (RErr, [String "pathordevice"]), 45, [FishAlias "unmount"],
    [InitEmpty, Always, TestOutputListOfDevices (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+      [["sfdiskM"; "/dev/sda"; ","];
        ["mkfs"; "ext2"; "/dev/sda1"];
        ["mount"; "/dev/sda1"; "/"];
        ["mounts"]], ["/dev/sda1"]);
     InitEmpty, Always, TestOutputList (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+      [["sfdiskM"; "/dev/sda"; ","];
        ["mkfs"; "ext2"; "/dev/sda1"];
        ["mount"; "/dev/sda1"; "/"];
        ["umount"; "/"];
@@ -1301,7 +1301,7 @@ Some internal mounts are not shown.");
        ["mounts"]], []);
     (* check that umount_all can unmount nested mounts correctly: *)
     InitEmpty, Always, TestOutputList (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ",200 ,400 ,"];
+      [["sfdiskM"; "/dev/sda"; ",100 ,200 ,"];
        ["mkfs"; "ext2"; "/dev/sda1"];
        ["mkfs"; "ext2"; "/dev/sda2"];
        ["mkfs"; "ext2"; "/dev/sda3"];
@@ -1825,7 +1825,7 @@ to find out what you can do.");
 
   ("lvremove", (RErr, [String "device"]), 77, [],
    [InitEmpty, Always, TestOutputList (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+      [["sfdiskM"; "/dev/sda"; ","];
        ["pvcreate"; "/dev/sda1"];
        ["vgcreate"; "VG"; "/dev/sda1"];
        ["lvcreate"; "LV1"; "VG"; "50"];
@@ -1833,7 +1833,7 @@ to find out what you can do.");
        ["lvremove"; "/dev/VG/LV1"];
        ["lvs"]], ["/dev/VG/LV2"]);
     InitEmpty, Always, TestOutputList (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+      [["sfdiskM"; "/dev/sda"; ","];
        ["pvcreate"; "/dev/sda1"];
        ["vgcreate"; "VG"; "/dev/sda1"];
        ["lvcreate"; "LV1"; "VG"; "50"];
@@ -1841,7 +1841,7 @@ to find out what you can do.");
        ["lvremove"; "/dev/VG"];
        ["lvs"]], []);
     InitEmpty, Always, TestOutputList (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+      [["sfdiskM"; "/dev/sda"; ","];
        ["pvcreate"; "/dev/sda1"];
        ["vgcreate"; "VG"; "/dev/sda1"];
        ["lvcreate"; "LV1"; "VG"; "50"];
@@ -1858,7 +1858,7 @@ the VG name, C</dev/VG>.");
 
   ("vgremove", (RErr, [String "vgname"]), 78, [],
    [InitEmpty, Always, TestOutputList (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+      [["sfdiskM"; "/dev/sda"; ","];
        ["pvcreate"; "/dev/sda1"];
        ["vgcreate"; "VG"; "/dev/sda1"];
        ["lvcreate"; "LV1"; "VG"; "50"];
@@ -1866,7 +1866,7 @@ the VG name, C</dev/VG>.");
        ["vgremove"; "VG"];
        ["lvs"]], []);
     InitEmpty, Always, TestOutputList (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+      [["sfdiskM"; "/dev/sda"; ","];
        ["pvcreate"; "/dev/sda1"];
        ["vgcreate"; "VG"; "/dev/sda1"];
        ["lvcreate"; "LV1"; "VG"; "50"];
@@ -1882,7 +1882,7 @@ group (if any).");
 
   ("pvremove", (RErr, [String "device"]), 79, [],
    [InitEmpty, Always, TestOutputListOfDevices (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+      [["sfdiskM"; "/dev/sda"; ","];
        ["pvcreate"; "/dev/sda1"];
        ["vgcreate"; "VG"; "/dev/sda1"];
        ["lvcreate"; "LV1"; "VG"; "50"];
@@ -1891,7 +1891,7 @@ group (if any).");
        ["pvremove"; "/dev/sda1"];
        ["lvs"]], []);
     InitEmpty, Always, TestOutputListOfDevices (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+      [["sfdiskM"; "/dev/sda"; ","];
        ["pvcreate"; "/dev/sda1"];
        ["vgcreate"; "VG"; "/dev/sda1"];
        ["lvcreate"; "LV1"; "VG"; "50"];
@@ -1900,7 +1900,7 @@ group (if any).");
        ["pvremove"; "/dev/sda1"];
        ["vgs"]], []);
     InitEmpty, Always, TestOutputListOfDevices (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+      [["sfdiskM"; "/dev/sda"; ","];
        ["pvcreate"; "/dev/sda1"];
        ["vgcreate"; "VG"; "/dev/sda1"];
        ["lvcreate"; "LV1"; "VG"; "50"];
@@ -2181,7 +2181,7 @@ the human-readable, canonical hex dump of the file.");
 
   ("zerofree", (RErr, [String "device"]), 97, [],
    [InitNone, Always, TestOutput (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+      [["sfdiskM"; "/dev/sda"; ","];
        ["mkfs"; "ext3"; "/dev/sda1"];
        ["mount"; "/dev/sda1"; "/"];
        ["write_file"; "/new"; "test file"; "0"];
@@ -2279,7 +2279,7 @@ are activated or deactivated.");
 
   ("lvresize", (RErr, [String "device"; Int "mbytes"]), 105, [],
    [InitNone, Always, TestOutput (
-    [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+    [["sfdiskM"; "/dev/sda"; ","];
      ["pvcreate"; "/dev/sda1"];
      ["vgcreate"; "VG"; "/dev/sda1"];
      ["lvcreate"; "LV"; "VG"; "10"];
@@ -2370,11 +2370,11 @@ Sleep for C<secs> seconds.");
 
   ("ntfs_3g_probe", (RInt "status", [Bool "rw"; String "device"]), 110, [],
    [InitNone, Always, TestOutputInt (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+      [["sfdiskM"; "/dev/sda"; ","];
        ["mkfs"; "ntfs"; "/dev/sda1"];
        ["ntfs_3g_probe"; "true"; "/dev/sda1"]], 0);
     InitNone, Always, TestOutputInt (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+      [["sfdiskM"; "/dev/sda"; ","];
        ["mkfs"; "ext2"; "/dev/sda1"];
        ["ntfs_3g_probe"; "true"; "/dev/sda1"]], 12)],
    "probe NTFS volume",
@@ -2661,7 +2661,7 @@ the command C<mount -o loop file mountpoint>.");
 
   ("mkswap", (RErr, [String "device"]), 130, [],
    [InitEmpty, Always, TestRun (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+      [["sfdiskM"; "/dev/sda"; ","];
        ["mkswap"; "/dev/sda1"]])],
    "create a swap partition",
    "\
@@ -2669,7 +2669,7 @@ Create a swap partition on C<device>.");
 
   ("mkswap_L", (RErr, [String "label"; String "device"]), 131, [],
    [InitEmpty, Always, TestRun (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+      [["sfdiskM"; "/dev/sda"; ","];
        ["mkswap_L"; "hello"; "/dev/sda1"]])],
    "create a swap partition with a label",
    "\
@@ -2677,7 +2677,7 @@ Create a swap partition on C<device> with label C<label>.");
 
   ("mkswap_U", (RErr, [String "uuid"; String "device"]), 132, [],
    [InitEmpty, Always, TestRun (
-      [["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+      [["sfdiskM"; "/dev/sda"; ","];
        ["mkswap_U"; "a3a61220-882b-4f61-89f4-cf24dcc7297d"; "/dev/sda1"]])],
    "create a swap partition with an explicit UUID",
    "\
@@ -2766,6 +2766,18 @@ order as the underlying filesystem.
 This function is primarily intended for use by programs.  To
 get a simple list of names, use C<guestfs_ls>.  To get a printable
 directory for human consumption, use C<guestfs_ll>.");
+
+  ("sfdiskM", (RErr, [String "device"; StringList "lines"]), 139, [DangerWillRobinson],
+   [],
+   "create partitions on a block device",
+   "\
+This is a simplified interface to the C<guestfs_sfdisk>
+command, where partition sizes are specified in megabytes
+only (rounded to the nearest cylinder) and you don't need
+to specify the cyls, heads and sectors parameters which
+were rarely if ever used anyway.
+
+See also C<guestfs_sfdisk> and the L<sfdisk(8)> manpage.");
 
 ]
 
@@ -4641,7 +4653,7 @@ and generate_one_test_body name i test_name init test =
 	 [["blockdev_setrw"; "/dev/sda"];
 	  ["umount_all"];
 	  ["lvm_remove_all"];
-	  ["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+	  ["sfdiskM"; "/dev/sda"; ","];
 	  ["mkfs"; "ext2"; "/dev/sda1"];
 	  ["mount"; "/dev/sda1"; "/"]]
    | InitBasicFSonLVM ->
@@ -4651,7 +4663,7 @@ and generate_one_test_body name i test_name init test =
 	 [["blockdev_setrw"; "/dev/sda"];
 	  ["umount_all"];
 	  ["lvm_remove_all"];
-	  ["sfdisk"; "/dev/sda"; "0"; "0"; "0"; ","];
+	  ["sfdiskM"; "/dev/sda"; ","];
 	  ["pvcreate"; "/dev/sda1"];
 	  ["vgcreate"; "VG"; "/dev/sda1"];
 	  ["lvcreate"; "LV"; "VG"; "8"];
