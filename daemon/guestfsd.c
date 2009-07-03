@@ -572,19 +572,23 @@ commandrv (char **stdoutput, char **stderror, char * const* const argv)
    * trailing \n characters from the error buffer (not from stdout).
    */
   if (stdoutput) {
-    *stdoutput = realloc (*stdoutput, so_size+1);
-    if (*stdoutput == NULL) {
+    void *q = realloc (*stdoutput, so_size+1);
+    if (q == NULL) {
       perror ("realloc");
-      *stdoutput = NULL;
-    } else
+      free (*stdoutput);
+    }
+    *stdoutput = q;
+    if (*stdoutput)
       (*stdoutput)[so_size] = '\0';
   }
   if (stderror) {
-    *stderror = realloc (*stderror, se_size+1);
-    if (*stderror == NULL) {
+    void *q = realloc (*stderror, se_size+1);
+    if (q == NULL) {
       perror ("realloc");
-      *stderror = NULL;
-    } else {
+      free (*stderror);
+    }
+    *stderror = q;
+    if (*stderror) {
       (*stderror)[se_size] = '\0';
       se_size--;
       while (se_size >= 0 && (*stderror)[se_size] == '\n')
