@@ -105,6 +105,7 @@ debirf_symlinks = \
 noinst_DATA = $(debirf_symlinks:%=debian/modules/%)
 $(debirf_symlinks:%=debian/modules/%): stamp-debirf-modules
 stamp-debirf-modules:
+	mkdir -p debian/modules
 	for f in $(debirf_symlinks); do \
 	  ln -sf /usr/share/debirf/modules/$$f debian/modules/$$f; \
 	done

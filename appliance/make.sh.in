@@ -21,6 +21,7 @@
 unset CDPATH
 
 set -e
+set -x
 
 if [ "@DIST@" = "REDHAT" ]; then
   cd @top_builddir@
@@ -65,8 +66,8 @@ if [ "@DIST@" = "REDHAT" ]; then
   # Don't need any keyboard maps.
   @FEBOOTSTRAP_RUN@ initramfs -- rm -rf /lib/kbd
 
-  # Remove anything in home directory.  Because this is potentially
-  # liable to monstrous fuck-ups, we don't put a slash before 'home'.
+  # Remove anything in home directory.  Because of the potential for disaster
+  # we don't put a slash before 'home'.
   (cd initramfs && echo home/*) |
     xargs @FEBOOTSTRAP_RUN@ initramfs -- rm -rf
 

@@ -30,7 +30,7 @@ TESTS = run-bindtests Guestfs005Load Guestfs010Launch Guestfs050LVCreate
 
 check_DATA = Bindtests
 
-GHCFLAGS = -I$(abs_top_builddir)/src -L$(abs_top_builddir)/src/.libs
+GHCFLAGS = -I$(top_builddir)/src -L$(top_builddir)/src/.libs
 
 Bindtests: Bindtests.hs Guestfs.hs
 	$(GHC)  $(GHCFLAGS) -main-is $(shell basename $@) --make -o $@ $< -lguestfs

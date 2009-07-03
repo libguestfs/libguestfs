@@ -30,8 +30,10 @@ EXTRA_DIST = \
 noinst_DATA = stamp-generator
 
 stamp-generator: generator.ml
-	mkdir -p $(top_srcdir)/perl/lib/Sys
-	cd .. && ocaml -warn-error A $(srcdir)/src/$<
+	mkdir -p $(top_builddir)/perl/lib/Sys
+	mkdir -p $(top_builddir)/ruby/ext/guestfs
+	mkdir -p $(top_builddir)/java/com/redhat/et/libguestfs
+	cd $(top_builddir) && ocaml -warn-error A ./src/$<
 
 guestfs_protocol.x: stamp-generator
 
@@ -83,6 +85,8 @@ lib_LTLIBRARIES = libguestfs.la
 
 BUILT_SOURCES = \
   guestfs_protocol.x \
+  guestfs_protocol.c \
+  guestfs_protocol.h \
   guestfs-structs.h \
   guestfs-actions.h \
   guestfs-actions.c \

@@ -39,10 +39,10 @@ mlguestfs.cmxa: guestfs_c.o guestfs_c_actions.o guestfs.cmx
 	$(OCAMLMKLIB) -o mlguestfs $^ -L$(top_builddir)/src/.libs -lguestfs
 
 guestfs_c.o: guestfs_c.c
-	$(CC) $(CFLAGS) -I$(OCAMLLIB) -I$(top_builddir)/src -fPIC -Wall -c $<
+	$(CC) $(CFLAGS) -I$(OCAMLLIB) -I$(top_srcdir)/ocaml -I$(top_srcdir)/src -I$(top_builddir)/src -fPIC -Wall -c $<
 
 guestfs_c_actions.o: guestfs_c_actions.c
-	$(CC) $(CFLAGS) -I$(OCAMLLIB) -I$(top_builddir)/src -fPIC -Wall -c $<
+	$(CC) $(CFLAGS) -I$(OCAMLLIB) -I$(top_srcdir)/ocaml -I$(top_srcdir)/src -I$(top_builddir)/src -fPIC -Wall -c $<
 
 TESTS_ENVIRONMENT = \
 	LD_LIBRARY_PATH=$(top_builddir)/src/.libs \
@@ -60,15 +60,19 @@ bindtests: bindtests.ml mlguestfs.cmxa
 	$(OCAMLFIND) ocamlopt -cclib -L$(top_builddir)/src/.libs -I . unix.cmxa mlguestfs.cmxa $< -o $@
 
 t/guestfs_005_load: t/guestfs_005_load.ml mlguestfs.cmxa
+	mkdir -p t
 	$(OCAMLFIND) ocamlopt -cclib -L$(top_builddir)/src/.libs -I . unix.cmxa mlguestfs.cmxa $< -o $@
 
 t/guestfs_010_launch: t/guestfs_010_launch.ml mlguestfs.cmxa
+	mkdir -p t
 	$(OCAMLFIND) ocamlopt -cclib -L$(top_builddir)/src/.libs -I . unix.cmxa mlguestfs.cmxa $< -o $@
 
 t/guestfs_050_lvcreate: t/guestfs_050_lvcreate.ml mlguestfs.cmxa
+	mkdir -p t
 	$(OCAMLFIND) ocamlopt -cclib -L$(top_builddir)/src/.libs -I . unix.cmxa mlguestfs.cmxa $< -o $@
 
 t/guestfs_060_readdir: t/guestfs_060_readdir.ml mlguestfs.cmxa
+	mkdir -p t
 	$(OCAMLFIND) ocamlopt -cclib -L$(top_builddir)/src/.libs -I . unix.cmxa mlguestfs.cmxa $< -o $@
 
 .mli.cmi:

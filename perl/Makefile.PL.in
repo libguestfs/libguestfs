@@ -23,7 +23,8 @@ WriteMakefile (
     NAME => 'Sys::Guestfs',
     VERSION => '@PACKAGE_VERSION@',
 
-    LIBS => '-L@abs_top_builddir@/src/.libs -lguestfs',
-    INC => '-I@abs_top_builddir@/src',
+    LIBS => '-L@top_builddir@/src/.libs -lguestfs',
+    INC => '-I@top_builddir@/src -I@top_srcdir@/src',
+    TYPEMAPS => [ '@srcdir@/typemap' ],
     CCFLAGS => '@CFLAGS@',
     );

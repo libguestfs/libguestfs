@@ -28,9 +28,23 @@ CLEANFILES = \
 	100kallzeroes 100kallnewlines 100kallspaces 100krandom 10klines \
 	initrd
 
-squash_files = helloworld.tar helloworld.tar.gz empty known-1 known-2 known-3 \
-	100kallzeroes 100kallnewlines 100kallspaces 100krandom 10klines \
-	initrd
+squash_files_src = \
+    $(srcdir)/helloworld.tar \
+    $(srcdir)/helloworld.tar.gz \
+    $(srcdir)/empty \
+    $(srcdir)/known-1 \
+    $(srcdir)/known-2 \
+    $(srcdir)/known-3
+
+squash_files_build = \
+    $(builddir)/100kallzeroes \
+    $(builddir)/100kallnewlines \
+    $(builddir)/100kallspaces \
+    $(builddir)/100krandom \
+    $(builddir)/10klines \
+    $(builddir)/initrd
+
+squash_files = $(squash_files_src) $(squash_files_build)
 
 test.sqsh: $(squash_files)
 	rm -f $@
