@@ -98,11 +98,7 @@ endif
 
 # Extra symlinks needed by the Debian appliance.
 debirf_symlinks = \
-	a0_motd \
 	a0_prep-root \
-	network \
-	root-bashrc \
-	serial-terminal \
 	z0_remove-aptitude \
 	z0_remove-locales \
 	z1_clean-root
