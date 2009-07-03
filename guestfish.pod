@@ -49,13 +49,13 @@ Remove C</boot/grub/menu.lst> (in reality not such a great idea):
 =head2 As an interactive shell
 
  $ guestfish
- 
+
  Welcome to guestfish, the libguestfs filesystem interactive shell for
  editing virtual machine filesystems.
- 
+
  Type: 'help' for help with commands
        'quit' to quit the shell
- 
+
  ><fs> help
 
 =head2 As a script interpreter

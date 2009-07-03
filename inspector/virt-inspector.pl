@@ -968,7 +968,7 @@ elsif ($output eq "perl") {
 elsif ($output eq "yaml") {
     die "virt-inspector: no YAML support\n"
 	unless exists $INC{"YAML/Any.pm"};
-    
+
     print Dump(\%oses);
 }
 

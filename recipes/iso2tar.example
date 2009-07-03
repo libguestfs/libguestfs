@@ -1,4 +1,4 @@
-$ ll -h /tmp/Fedora-11-Beta-i386-netinst.iso 
+$ ll -h /tmp/Fedora-11-Beta-i386-netinst.iso
 -r--r--r--. 1 rjones rjones 168M 2009-04-25 22:38 /tmp/Fedora-11-Beta-i386-netinst.iso
 $ ./iso2tar.sh /tmp/Fedora-11-Beta-i386-netinst.iso /tmp/cd.tar.gz
 $ ls -lh /tmp/cd.tar.gz

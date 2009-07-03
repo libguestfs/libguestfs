@@ -30,4 +30,3 @@ run
 run
 ping-daemon
 EOF
-  

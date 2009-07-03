@@ -7,7 +7,7 @@ guestfs - Library for accessing and modifying virtual machine images
 =head1 SYNOPSIS
 
  #include <guestfs.h>
- 
+
  guestfs_h *handle = guestfs_create ();
  guestfs_add_drive (handle, "guest.img");
  guestfs_launch (handle);
@@ -49,28 +49,28 @@ If you are using the high-level API, then you should call the
 functions in the following order:
 
  guestfs_h *handle = guestfs_create ();
- 
+
  guestfs_add_drive (handle, "guest.img");
  /* call guestfs_add_drive additional times if the guest has
   * multiple disks
   */
- 
+
  guestfs_launch (handle);
  guestfs_wait_ready (handle);
 
  /* now you can examine what partitions, LVs etc are available
   * you have to mount / at least
-  */ 
+  */
  guestfs_mount (handle, "/dev/sda1", "/");
 
  /* now you can perform actions on the guest disk image */
  guestfs_touch (handle, "/hello");
- 
+
  /* you only need to call guestfs_sync if you have made
   * changes to the guest image
   */
  guestfs_sync (handle);
- 
+
  guestfs_close (handle);
 
 C<guestfs_wait_ready> and all of the actions including C<guestfs_sync>
@@ -168,7 +168,7 @@ If you set C<cb> to C<NULL> then I<no> handler is called.
 
 Returns the current error handler callback.
 
-=head2 guestfs_set_out_of_memory_handler 
+=head2 guestfs_set_out_of_memory_handler
 
  typedef void (*guestfs_abort_cb) (void);
  int guestfs_set_out_of_memory_handler (guestfs_h *handle,

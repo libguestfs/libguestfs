@@ -319,7 +319,7 @@ translation percentage of at least 50%.
                         +----------------------------------------------------+
                           af am ar az be bg bs ca cs da de el en en_GB eo es
                            4  0  0  1  9  4  1 40 41 60 78 17  1   5   13 68
-     
+
                           et eu fa fi fr ga gl he hr hu id is it ja ko lg
                         +-------------------------------------------------+
      a2ps               | []       [] []                      ()    ()    |
@@ -456,7 +456,7 @@ translation percentage of at least 50%.
                         +-------------------------------------------------+
                           et eu fa fi fr ga gl he hr hu id is it ja ko lg
                           22  2  1 26 106 28 24  8 10 41 33  1 26 33 12  0
-     
+
                           lt lv mk mn ms mt nb nl nn no nso pl pt pt_BR ro ru
                         +-----------------------------------------------------+
      a2ps               |             []       []    ()     ()     []   [] [] |
@@ -593,7 +593,7 @@ translation percentage of at least 50%.
                         +-----------------------------------------------------+
                           lt lv mk mn ms mt nb nl nn no nso pl pt pt_BR ro ru
                            1  2  0  3 12  0 10 69  6  7  1  40 26  36   76 63
-     
+
                           sk sl sr sv ta th tr uk ven vi wa xh zh_CN zh_TW zu
                         +-----------------------------------------------------+
      a2ps               |    []    []       [] []                             | 16
