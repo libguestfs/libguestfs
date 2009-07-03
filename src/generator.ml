@@ -4686,7 +4686,7 @@ and generate_one_test_body name i test_name init test =
       List.iter (generate_test_command_call test_name) seq
   | TestOutput (seq, expected) ->
       pr "  /* TestOutput for %s (%d) */\n" name i;
-      pr "  char expected[] = \"%s\";\n" (c_quote expected);
+      pr "  const char *expected = \"%s\";\n" (c_quote expected);
       let seq, last = get_seq_last seq in
       let test () =
 	pr "    if (strcmp (r, expected) != 0) {\n";
@@ -4708,7 +4708,7 @@ and generate_one_test_body name i test_name init test =
 	    pr "      return -1;\n";
 	    pr "    }\n";
             pr "    {\n";
-            pr "      char expected[] = \"%s\";\n" (c_quote str);
+            pr "      const char *expected = \"%s\";\n" (c_quote str);
 	    pr "      if (strcmp (r[%d], expected) != 0) {\n" i;
 	    pr "        fprintf (stderr, \"%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", expected, r[%d]);\n" test_name i;
 	    pr "        return -1;\n";
@@ -4736,7 +4736,7 @@ and generate_one_test_body name i test_name init test =
 	    pr "      return -1;\n";
 	    pr "    }\n";
             pr "    {\n";
-            pr "      char expected[] = \"%s\";\n" (c_quote str);
+            pr "      const char *expected = \"%s\";\n" (c_quote str);
 	    pr "      r[%d][5] = 's';\n" i;
 	    pr "      if (strcmp (r[%d], expected) != 0) {\n" i;
 	    pr "        fprintf (stderr, \"%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", expected, r[%d]);\n" test_name i;
@@ -4882,7 +4882,7 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
 	| OptString n, "NULL" -> ()
 	| String n, arg
 	| OptString n, arg ->
-	    pr "    char %s[] = \"%s\";\n" n (c_quote arg);
+	    pr "    const char *%s = \"%s\";\n" n (c_quote arg);
 	| Int _, _
 	| Bool _, _
 	| FileIn _, _ | FileOut _, _ -> ()
@@ -4890,9 +4890,9 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
 	    let strs = string_split " " arg in
 	    iteri (
 	      fun i str ->
-                pr "    char %s_%d[] = \"%s\";\n" n i (c_quote str);
+                pr "    const char *%s_%d = \"%s\";\n" n i (c_quote str);
 	    ) strs;
-	    pr "    char *%s[] = {\n" n;
+	    pr "    const char *%s[] = {\n" n;
 	    iteri (
 	      fun i _ -> pr "      %s_%d,\n" n i
 	    ) strs;
