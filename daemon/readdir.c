@@ -68,6 +68,8 @@ do_readdir (char *path)
     if (!p || !v.name) {
       reply_with_perror ("allocate");
       free (ret->guestfs_int_dirent_list_val);
+      free (p);
+      free (v.name);
       free (ret);
       closedir (dir);
       return NULL;
