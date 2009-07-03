@@ -167,6 +167,18 @@ else
   test "x$DEBIRF" = "xno" &&
         AC_MSG_ERROR([debirf must be installed])
   DIST="DEBIAN"
+  case $host_cpu in
+      *86)
+          DEBIAN_KERNEL_ARCH=486
+          ;;
+      x86_64)
+          DEBIAN_KERNEL_ARCH=amd64
+          ;;
+      *)
+         DEBIAN_KERNEL_ARCH=$host_cpu
+         ;;
+   esac
+   AC_SUBST(DEBIAN_KERNEL_ARCH)
 fi
 AC_SUBST(DIST)
 
