@@ -124,7 +124,6 @@ Extra commands / functionality:
     readlink
     utime / utimes / futimes / futimens / l..
     more mk*temp calls
-    readdir / readdir-and-stat
     some sort of alloc/fallocate/posix_fallocate call to create empty space
     realpath
     trunc[ate??]
