@@ -53,17 +53,23 @@
  * devices and LVM names.
  */
 
-int complete_dest_paths = 0; /* SEE NOTE */
+int complete_dest_paths = 1;
 
-/* NOTE: This is currently disabled by default (with no way to
- * enable it).  That's because it's not particularly natural.
- *
- * Also there is a quite serious performance problem.  When listing
- * even moderately long directories, this takes many seconds.  The
- * reason is because it calls guestfs_is_dir on each directory
- * entry, thus lots of round trips to the server.  We could have
- * a "readdir and stat each entry" call to ease this.
- */
+struct word {
+  char *name;
+  int is_dir;
+};
+
+static void
+free_words (struct word *words, int nr_words)
+{
+  size_t i;
+
+  /* NB. 'words' array is NOT NULL-terminated. */
+  for (i = 0; i < nr_words; ++i)
+    free (words[i].name);
+  free (words);
+}
 
 char *
 complete_dest_paths_generator (const char *text, int state)
@@ -71,9 +77,8 @@ complete_dest_paths_generator (const char *text, int state)
 #ifdef HAVE_LIBREADLINE
 
   static size_t len, index;
-  static char **words = NULL;
+  static struct word *words = NULL;
   static size_t nr_words = 0;
-  char *word;
   guestfs_error_handler_cb old_error_cb;
   void *old_error_cb_data;
 
@@ -94,13 +99,7 @@ complete_dest_paths_generator (const char *text, int state)
     len = strlen (text);
     index = 0;
 
-    if (words) {
-      size_t i;
-      /* NB. 'words' array is NOT NULL-terminated. */
-      for (i = 0; i < nr_words; ++i)
-	free (words[i]);
-      free (words);
-    }
+    if (words) free_words (words, nr_words);
 
     words = NULL;
     nr_words = 0;
@@ -111,17 +110,24 @@ complete_dest_paths_generator (const char *text, int state)
 #define APPEND_STRS_AND_FREE						\
   do {									\
     if (strs) {								\
+      size_t i;								\
       size_t n = count_strings (strs);					\
-      if ( ! xalloc_oversized (nr_words + n, sizeof (char *))) {	\
-	char *w = realloc (words, sizeof (char *) * (nr_words + n));	\
+									\
+      if ( ! xalloc_oversized (nr_words + n, sizeof (struct word))) {	\
+	struct word *w;							\
+	w = realloc (words, sizeof (struct word) * (nr_words + n));	\
+									\
 	if (w == NULL) {						\
-	  free (words);							\
+	  free_words (words, nr_words);					\
 	  words = NULL;							\
 	  nr_words = 0;							\
 	} else {							\
-	  size_t i;							\
-	  for (i = 0; i < n; ++i)					\
-	    words[nr_words++] = strs[i];				\
+	  words = w;							\
+	  for (i = 0; i < n; ++i) {					\
+	    words[nr_words].name = strs[i];				\
+	    words[nr_words].is_dir = 0;					\
+	    nr_words++;							\
+	  }								\
 	}								\
 	free (strs);							\
       }									\
@@ -146,30 +152,51 @@ complete_dest_paths_generator (const char *text, int state)
        * in that directory, otherwise list everything in /
        */
       char *p, *dir;
+      struct guestfs_dirent_list *dirents;
 
       p = strrchr (text, '/');
       dir = p && p > text ? strndup (text, p - text) : strdup ("/");
       if (dir) {
-	strs = guestfs_ls (g, dir);
+	dirents = guestfs_readdir (g, dir);
 
-	/* Prepend directory to names. */
-	if (strs) {
+	/* Prepend directory to names before adding them to the list
+	 * of words.
+	 */
+	if (dirents) {
 	  size_t i;
-	  for (i = 0; strs[i]; ++i) {
+
+	  for (i = 0; i < dirents->len; ++i) {
 	    int err;
-	    if (strcmp (dir, "/") == 0)
-	      err = asprintf (&p, "/%s", strs[i]);
-	    else
-	      err = asprintf (&p, "%s/%s", dir, strs[i]);
-	    if (0 <= err) {
-	      free (strs[i]);
-	      strs[i] = p;
+
+	    if (strcmp (dirents->val[i].name, ".") != 0 &&
+		strcmp (dirents->val[i].name, "..") != 0) {
+	      if (strcmp (dir, "/") == 0)
+		err = asprintf (&p, "/%s", dirents->val[i].name);
+	      else
+		err = asprintf (&p, "%s/%s", dir, dirents->val[i].name);
+	      if (err >= 0) {
+		if (!xalloc_oversized (nr_words+1, sizeof (struct word))) {
+		  struct word *w;
+
+		  w = realloc (words, sizeof (struct word) * (nr_words+1));
+		  if (w == NULL) {
+		    free_words (words, nr_words);
+		    words = NULL;
+		    nr_words = 0;
+		  }
+		  else {
+		    words = w;
+		    words[nr_words].name = p;
+		    words[nr_words].is_dir = dirents->val[i].ftyp == 'd';
+		    nr_words++;
+		  }
+		}
+	      }
 	    }
 	  }
-	}
 
-	free (dir);
-	APPEND_STRS_AND_FREE;
+	  guestfs_free_dirent_list (dirents);
+	}
       }
     }
 
@@ -185,18 +212,16 @@ complete_dest_paths_generator (const char *text, int state)
 
   /* Complete the string. */
   while (index < nr_words) {
-    word = words[index];
-    index++;
-    if (strncasecmp (word, text, len) == 0) {
-      /* Is it a directory? */
-      if (strncmp (word, "/dev/", 5) != 0) {
-	SAVE_ERROR_CB
-	if (guestfs_is_dir (g, word) > 0)
-	  rl_completion_append_character = '/';
-	RESTORE_ERROR_CB
-      }
+    struct word *word;
 
-      return strdup (word);
+    word = &words[index];
+    index++;
+
+    if (strncasecmp (word->name, text, len) == 0) {
+      if (word->is_dir)
+	rl_completion_append_character = '/';
+
+      return strdup (word->name);
     }
   }
 
