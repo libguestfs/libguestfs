@@ -112,6 +112,7 @@ stamp-debirf-modules:
 	for f in $(debirf_symlinks); do \
 	  ln -sf /usr/share/debirf/modules/$$f debian/modules/$$f; \
 	done
+	touch $@
 
 #----------------------------------------------------------------------
 # Extra rules for testing the appliance.
