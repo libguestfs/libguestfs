@@ -266,9 +266,14 @@ reply (xdrproc_t xdrp, char *ret)
   }
 
   if (xdrp) {
+    /* This can fail if the reply body is too large, for example
+     * if it exceeds the maximum message size.  In that case
+     * we want to return an error message instead. (RHBZ#509597).
+     */
     if (!(*xdrp) (&xdr, ret)) {
-      fprintf (stderr, "guestfsd: failed to encode reply body\n");
-      exit (1);
+      reply_with_perror ("guestfsd: failed to encode reply body\n");
+      xdr_destroy (&xdr);
+      return;
     }
   }
 
