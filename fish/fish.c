@@ -732,8 +732,12 @@ issue_command (const char *cmd, char *argv[], const char *pipecmd)
   else
     r = run_action (cmd, argc, argv);
 
+  /* Always flush stdout after every command, so that messages, results
+   * etc appear immediately.
+   */
+  fflush (stdout);
+
   if (pipecmd) {
-    fflush (stdout);
     close (1);
     dup2 (stdout_saved_fd, 1);
     close (stdout_saved_fd);
