@@ -1,3 +1,4 @@
+#!/bin/sh -
 # libguestfs
 # Copyright (C) 2009 Red Hat Inc.
 #
@@ -15,32 +16,25 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-# Regression tests and other important tests which are not
-# specific to the C API.  We can write these more easily in
-# higher level languages than C.
+# Test download where the library cancels.
 #
-# See also capitests/
+# 
 
-TESTS = \
-	rhbz503169c10.sh \
-	rhbz503169c13.sh \
-	test-cancellation-upload-daemoncancels.sh \
-	test-cancellation-download-librarycancels.sh \
-	test-qemudie-midcommand.sh \
-	test-qemudie-killsub.sh \
-	test-qemudie-synch.sh
+set -e
 
-SKIPPED_TESTS = \
-	test-bootbootboot.sh
+rm -f test.img
 
-FAILING_TESTS = \
-	test-qemudie-launchfail.sh
+../fish/guestfish <<'EOF'
+add ../images/test.sqsh
+run
 
-TESTS_ENVIRONMENT = \
-	LD_LIBRARY_PATH=$(top_builddir)/src/.libs \
-	LIBGUESTFS_PATH=$(top_builddir)/appliance
+mount /dev/sda /
 
-EXTRA_DIST = \
-	$(FAILING_TESTS) \
-	$(SKIPPED_TESTS) \
-	$(TESTS)
+# Download a file to /dev/full.
+echo "Expect: write: /dev/full: No space left on device"
+-download /100krandom /dev/full
+
+ping-daemon
+EOF
+
+rm -f test.img
