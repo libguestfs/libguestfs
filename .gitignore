@@ -15,6 +15,7 @@
 *.class
 *.jar
 *.hi
+ABOUT-NLS
 bindtests.tmp
 ChangeLog
 Makefile.in
@@ -104,6 +105,7 @@ libguestfs.spec
 libguestfs-*.tar.gz
 libtool
 ltmain.sh
+m4/intmax.m4
 m4/libtool.m4
 m4/ltoptions.m4
 m4/ltsugar.m4
