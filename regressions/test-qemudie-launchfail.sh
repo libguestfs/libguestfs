@@ -16,30 +16,22 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-# Regression test for:
-# https://bugzilla.redhat.com/show_bug.cgi?id=503169#c10
+# Test if we can handle qemu failure during launch.
 
 set -e
 
-rm -f test1.img
-dd if=/dev/zero of=test1.img bs=1024k count=10
+rm -f test.img
 
-../fish/guestfish -a test1.img <<EOF
-launch
-ll /../dev/console
-ll /../dev/full
-ll /../dev/mapper/
-ll /../dev/null
-ll /../dev/ptmx
-ll /../dev/pts/
-ll /../dev/random
-ll /../dev/shm/
-ll /../dev/stderr
-ll /../dev/stdin
-ll /../dev/stdout
-ll /../dev/tty
-ll /../dev/urandom
-ll /../dev/zero
+../fish/guestfish <<'EOF'
+alloc test.img 10M
+
+append "root=/dev/null"
+-run
+
+# We should now be able to rerun the subprocess.
+append ""
+run
+ping-daemon
 EOF
 
-rm test1.img
+rm -f test.img
