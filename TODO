@@ -178,3 +178,11 @@ Other initrd-* commands, such as:
 
 initrd-extract
 initrd-replace
+
+----------------------------------------------------------------------
+
+Control guestfish from a pipe.
+
+For shell scripts - they can start up a long-running guestfish process
+and intermittently send it commands.  Avoids the start-up overhead,
+but how do we reliably signal errors?
