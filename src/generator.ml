@@ -632,6 +632,15 @@ then this returns the compiled-in default value for memsize.
 For more information on the architecture of libguestfs,
 see L<guestfs(3)>.");
 
+  ("get_pid", (RInt "pid", []), -1, [FishAlias "pid"],
+   [],
+   "get PID of qemu subprocess",
+   "\
+Return the process ID of the qemu subprocess.  If there is no
+qemu subprocess, then this will return an error.
+
+This is an internal call used for debugging and testing.");
+
 ]
 
 (* daemon_functions are any functions which cause some action

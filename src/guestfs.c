@@ -667,6 +667,17 @@ guestfs_get_memsize (guestfs_h *g)
   return g->memsize;
 }
 
+int
+guestfs_get_pid (guestfs_h *g)
+{
+  if (g->pid > 0)
+    return g->pid;
+  else {
+    error (g, "get_pid: no qemu subprocess");
+    return -1;
+  }
+}
+
 /* Add a string to the current command line. */
 static void
 incr_cmdline_size (guestfs_h *g)
