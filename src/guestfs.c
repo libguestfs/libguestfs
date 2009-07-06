@@ -2287,6 +2287,10 @@ guestfs__receive_file_sync (guestfs_h *g, const char *filename)
   char fbuf[4];
   uint32_t flag = GUESTFS_CANCEL_FLAG;
 
+  if (g->verbose)
+    fprintf (stderr, "%s: waiting for daemon to acknowledge cancellation\n",
+	     __func__);
+
   xdrmem_create (&xdr, fbuf, sizeof fbuf, XDR_ENCODE);
   xdr_uint32_t (&xdr, &flag);
   xdr_destroy (&xdr);
