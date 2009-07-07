@@ -15,6 +15,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+# Old RHEL 5 autoconf doesn't have builddir.
+builddir ?= $(top_builddir)/java
+
 java_prefix = com/redhat/et/libguestfs
 
 java_sources = \
@@ -50,7 +53,7 @@ libguestfs_jardir = $(JAR_INSTALL_DIR)
 libguestfs_jar_DATA = libguestfs-${VERSION}.jar
 libguestfs_jar_class_files = $(java_sources:.java=.class)
 $(libguestfs_jar_class_files): %.class: %.java
-	$(JAVAC) $(JAVAC_FLAGS) -d @builddir@ -classpath @srcdir@:@builddir@ -sourcepath @srcdir@:@builddir@ $<
+	$(JAVAC) $(JAVAC_FLAGS) -d $(builddir) -classpath @srcdir@:$(builddir) -sourcepath @srcdir@:$(builddir) $<
 
 libguestfs-${VERSION}.jar: $(libguestfs_jar_class_files)
 	$(JAR) cf $@ $^
@@ -69,7 +72,7 @@ libguestfs_jni_la_CFLAGS = -Wall -I$(top_srcdir)/src -I$(top_builddir)/src $(JNI
 BUILT_SOURCES = com_redhat_et_libguestfs_GuestFS.h
 
 com_redhat_et_libguestfs_GuestFS.h: $(java_prefix)/GuestFS.class
-	$(JAVAH) -classpath @srcdir@:@builddir@ com.redhat.et.libguestfs.GuestFS
+	$(JAVAH) -classpath @srcdir@:$(builddir) com.redhat.et.libguestfs.GuestFS
 
 # Documentation.
 

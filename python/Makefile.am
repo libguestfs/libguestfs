@@ -15,6 +15,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+# Old RHEL 5 autoconf doesn't have builddir.
+builddir ?= $(top_builddir)/python
+
 EXTRA_DIST = \
 	guestfs.py \
 	guestfs-py.c \
