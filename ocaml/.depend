@@ -1,4 +1,3 @@
-guestfs.cmi: 
 bindtests.cmo: guestfs.cmi 
 bindtests.cmx: guestfs.cmx 
 guestfs.cmo: guestfs.cmi 
