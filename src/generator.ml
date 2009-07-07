@@ -5009,15 +5009,22 @@ and generate_fish_cmds () =
   (* print_* functions *)
   List.iter (
     fun (typ, cols) ->
+      let needs_i =
+        List.exists (function (_, FUUID) -> true | _ -> false) cols in
+
       pr "static void print_%s (struct guestfs_%s *%s)\n" typ typ typ;
       pr "{\n";
+      if needs_i then (
+        pr "  int i;\n";
+        pr "\n"
+      );
       List.iter (
 	function
 	| name, FString ->
 	    pr "  printf (\"%s: %%s\\n\", %s->%s);\n" name typ name
 	| name, FUUID ->
 	    pr "  printf (\"%s: \");\n" name;
-	    pr "  for (int i = 0; i < 32; ++i)\n";
+	    pr "  for (i = 0; i < 32; ++i)\n";
 	    pr "    printf (\"%%c\", %s->%s[i]);\n" typ name;
 	    pr "  printf (\"\\n\");\n"
 	| name, (FUInt64|FBytes) ->
