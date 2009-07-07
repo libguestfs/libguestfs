@@ -122,21 +122,21 @@ do_aug_defvar (char *name, char *expr)
 #endif
 }
 
-guestfs_aug_defnode_ret *
+guestfs_int_int_bool *
 do_aug_defnode (char *name, char *expr, char *val)
 {
 #ifdef HAVE_AUG_DEFNODE
-  static guestfs_aug_defnode_ret r;
+  static guestfs_int_int_bool r;
   int created;
 
   NEED_AUG (NULL);
 
-  r.nrnodes = aug_defnode (aug, name, expr, val, &created);
-  if (r.nrnodes == -1) {
+  r.i = aug_defnode (aug, name, expr, val, &created);
+  if (r.i == -1) {
     reply_with_error ("Augeas defnode failed");
     return NULL;
   }
-  r.created = created;
+  r.b = created;
   return &r;
 #else
   reply_with_error ("%s is not available", __func__);

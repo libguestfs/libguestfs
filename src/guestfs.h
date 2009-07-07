@@ -52,13 +52,6 @@ extern guestfs_abort_cb guestfs_get_out_of_memory_handler (guestfs_h *g);
 #include <guestfs-structs.h>
 #include <guestfs-actions.h>
 
-/* Free up return values. */
-extern void guestfs_free_int_bool (struct guestfs_int_bool *);
-extern void guestfs_free_lvm_pv_list (struct guestfs_lvm_pv_list *);
-extern void guestfs_free_lvm_vg_list (struct guestfs_lvm_vg_list *);
-extern void guestfs_free_lvm_lv_list (struct guestfs_lvm_lv_list *);
-extern void guestfs_free_dirent_list (struct guestfs_dirent_list *);
-
 /* Low-level event API. */
 typedef void (*guestfs_send_cb) (guestfs_h *g, void *data);
 typedef void (*guestfs_reply_cb) (guestfs_h *g, void *data, XDR *xdr);

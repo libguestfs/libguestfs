@@ -1490,44 +1490,6 @@ guestfs_end_busy (guestfs_h *g)
   return 0;
 }
 
-/* Structure-freeing functions.  These rely on the fact that the
- * structure format is identical to the XDR format.  See note in
- * generator.ml.
- */
-void
-guestfs_free_int_bool (struct guestfs_int_bool *x)
-{
-  free (x);
-}
-
-void
-guestfs_free_lvm_pv_list (struct guestfs_lvm_pv_list *x)
-{
-  xdr_free ((xdrproc_t) xdr_guestfs_lvm_int_pv_list, (char *) x);
-  free (x);
-}
-
-void
-guestfs_free_lvm_vg_list (struct guestfs_lvm_vg_list *x)
-{
-  xdr_free ((xdrproc_t) xdr_guestfs_lvm_int_vg_list, (char *) x);
-  free (x);
-}
-
-void
-guestfs_free_lvm_lv_list (struct guestfs_lvm_lv_list *x)
-{
-  xdr_free ((xdrproc_t) xdr_guestfs_lvm_int_lv_list, (char *) x);
-  free (x);
-}
-
-void
-guestfs_free_dirent_list (struct guestfs_dirent_list *x)
-{
-  xdr_free ((xdrproc_t) xdr_guestfs_int_dirent_list, (char *) x);
-  free (x);
-}
-
 /* We don't know if stdout_event or sock_read_event will be the
  * first to receive EOF if the qemu process dies.  This function
  * has the common cleanup code for both.

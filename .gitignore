@@ -86,6 +86,7 @@ java/com/redhat/et/libguestfs/Dirent.java
 java/com_redhat_et_libguestfs_GuestFS.c
 java/com_redhat_et_libguestfs_GuestFS.h
 java/com/redhat/et/libguestfs/GuestFS.java
+java/com/redhat/et/libguestfs/IntBool.java
 java/com/redhat/et/libguestfs/LV.java
 java/com/redhat/et/libguestfs/PV.java
 java/com/redhat/et/libguestfs/Stat.java
