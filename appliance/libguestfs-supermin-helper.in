@@ -33,9 +33,13 @@ initrd="$3"
 # Look for the most recent kernel named vmlinuz-*.<arch>* which has a
 # corresponding directory in /lib/modules/. If the architecture is x86, look
 # for any x86 kernel.
+#
+# RHEL 5 didn't append the arch to the kernel name, so look for kernels
+# without arch second.
 
 arch=$(echo "@host_cpu@" | sed 's/^i.86$/i?86/')
-for f in $(ls -1vr /boot/vmlinuz-*.$arch* 2>/dev/null | grep -v xen); do
+kernels=$(ls -1vr /boot/vmlinuz-*.$arch* 2>/dev/null | grep -v xen; ls -1vr /boot/vmlinuz-* 2>/dev/null | grep -v xen)
+for f in $kernels; do
     b=$(basename "$f")
     b=$(echo "$b" | sed 's,vmlinuz-,,')
     modpath="/lib/modules/$b"
