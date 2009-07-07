@@ -28,7 +28,7 @@ rm -f test.img
 add ../images/test.sqsh
 run
 
-mount /dev/sda /
+mount-vfs ro squashfs /dev/sda /
 
 # Download a file to /dev/full.
 echo "Expect: write: /dev/full: No space left on device"
