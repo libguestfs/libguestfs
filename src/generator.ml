@@ -8096,7 +8096,7 @@ let output_to filename =
 let () =
   check_functions ();
 
-  if not (Sys.file_exists "config.status") then (
+  if not (Sys.file_exists "HACKING") then (
     eprintf "\
 You are probably running this from the wrong directory.
 Run it from the top source directory using the command
