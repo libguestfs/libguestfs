@@ -1,3 +1,4 @@
+#!/bin/sh -
 # libguestfs
 # Copyright (C) 2009 Red Hat Inc.
 #
@@ -15,23 +16,27 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-bin_PROGRAMS = guestfish
+# Test if we can handle qemu death synchronously.
 
-guestfish_SOURCES = \
-	alloc.c \
-	cmds.c \
-	completion.c \
-	destpaths.c \
-	echo.c \
-	edit.c \
-	fish.c \
-	fish.h \
-	glob.c \
-	lcd.c \
-	more.c \
-	time.c
+set -e
 
-guestfish_CFLAGS = \
-	-I$(top_srcdir)/src -I$(top_builddir)/src -Wall \
-	-DGUESTFS_DEFAULT_PATH='"$(libdir)/guestfs"'
-guestfish_LDADD = $(top_builddir)/src/libguestfs.la $(LIBREADLINE)
+rm -f test.pid test.img
+
+../fish/guestfish <<'EOF'
+alloc test.img 10M
+run
+
+# Kill subprocess.
+pid | cat > test.pid
+! kill $(cat test.pid) ; sleep 2
+
+# XXX The following sleep should NOT be necessary.
+echo "Expect an error from the next command"
+-sleep 1
+
+# We should now be able to rerun the subprocess.
+run
+ping-daemon
+EOF
+
+rm -f test.pid test.img

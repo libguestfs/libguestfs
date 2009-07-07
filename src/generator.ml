@@ -66,15 +66,16 @@ and ret =
     (* "RString" and "RStringList" are caller-frees. *)
   | RString of string
   | RStringList of string
-    (* Some limited tuples are possible: *)
-  | RIntBool of string * string
-    (* LVM PVs, VGs and LVs. *)
-  | RPVList of string
-  | RVGList of string
-  | RLVList of string
-    (* Stat buffers. *)
-  | RStat of string
-  | RStatVFS of string
+    (* "RStruct" is a function which returns a single named structure
+     * or an error indication (in C, a struct, and in other languages
+     * with varying representations, but usually very efficient).  See
+     * after the function list below for the structures. 
+     *)
+  | RStruct of string * string		(* name of retval, name of struct *)
+    (* "RStructList" is a function which returns either a list/array
+     * of structures (could be zero-length), or an error indication.
+     *)
+  | RStructList of string * string	(* name of retval, name of struct *)
     (* Key-value pairs of untyped strings.  Turns into a hashtable or
      * dictionary in languages which support it.  DON'T use this as a
      * general "bucket" for results.  Prefer a stronger typed return
@@ -83,8 +84,6 @@ and ret =
      * inefficient.  Keys should be unique.  NULLs are not permitted.
      *)
   | RHashtable of string
-    (* List of directory entries (the result of readdir(3)). *)
-  | RDirentList of string
 
 and args = argt list	(* Function parameters, guestfs handle is implicit. *)
 
@@ -121,7 +120,7 @@ type flags =
   | NotInDocs		  (* do not add this function to documentation *)
 
 let protocol_limit_warning =
-  "Because of the message protocol, there is a transfer limit 
+  "Because of the message protocol, there is a transfer limit
 of somewhere between 2MB and 4MB.  To transfer large files you should use
 FTP."
 
@@ -281,12 +280,8 @@ let test_all_rets = [
   "test0rconststring", RConstString "valout";
   "test0rstring",      RString "valout";
   "test0rstringlist",  RStringList "valout";
-  "test0rintbool",     RIntBool ("valout", "valout");
-  "test0rpvlist",      RPVList "valout";
-  "test0rvglist",      RVGList "valout";
-  "test0rlvlist",      RLVList "valout";
-  "test0rstat",        RStat "valout";
-  "test0rstatvfs",     RStatVFS "valout";
+  "test0rstruct",      RStruct ("valout", "lvm_pv");
+  "test0rstructlist",  RStructList ("valout", "lvm_pv");
   "test0rhashtable",   RHashtable "valout";
 ]
 
@@ -632,6 +627,15 @@ then this returns the compiled-in default value for memsize.
 For more information on the architecture of libguestfs,
 see L<guestfs(3)>.");
 
+  ("get_pid", (RInt "pid", []), -1, [FishAlias "pid"],
+   [],
+   "get PID of qemu subprocess",
+   "\
+Return the process ID of the qemu subprocess.  If there is no
+qemu subprocess, then this will return an error.
+
+This is an internal call used for debugging and testing.");
+
 ]
 
 (* daemon_functions are any functions which cause some action
@@ -813,21 +817,21 @@ This returns a list of the logical volume device names
 
 See also C<guestfs_lvs_full>.");
 
-  ("pvs_full", (RPVList "physvols", []), 12, [],
+  ("pvs_full", (RStructList ("physvols", "lvm_pv"), []), 12, [],
    [], (* XXX how to test? *)
    "list the LVM physical volumes (PVs)",
    "\
 List all the physical volumes detected.  This is the equivalent
 of the L<pvs(8)> command.  The \"full\" version includes all fields.");
 
-  ("vgs_full", (RVGList "volgroups", []), 13, [],
+  ("vgs_full", (RStructList ("volgroups", "lvm_vg"), []), 13, [],
    [], (* XXX how to test? *)
    "list the LVM volume groups (VGs)",
    "\
 List all the volumes groups detected.  This is the equivalent
 of the L<vgs(8)> command.  The \"full\" version includes all fields.");
 
-  ("lvs_full", (RLVList "logvols", []), 14, [],
+  ("lvs_full", (RStructList ("logvols", "lvm_lv"), []), 14, [],
    [], (* XXX how to test? *)
    "list the LVM logical volumes (LVs)",
    "\
@@ -924,7 +928,7 @@ undefined.
 On success this returns the number of nodes in C<expr>, or
 C<0> if C<expr> evaluates to something which is not a nodeset.");
 
-  ("aug_defnode", (RIntBool ("nrnodes", "created"), [String "name"; String "expr"; String "val"]), 18, [],
+  ("aug_defnode", (RStruct ("nrnodescreated", "int_bool"), [String "name"; String "expr"; String "val"]), 18, [],
    [], (* XXX Augeas code needs tests. *)
    "define an Augeas node",
    "\
@@ -1478,7 +1482,7 @@ result into a list of lines.
 
 See also: C<guestfs_sh_lines>");
 
-  ("stat", (RStat "statbuf", [String "path"]), 52, [],
+  ("stat", (RStruct ("statbuf", "stat"), [String "path"]), 52, [],
    [InitBasicFS, Always, TestOutputStruct (
       [["touch"; "/new"];
        ["stat"; "/new"]], [CompareWithInt ("size", 0)])],
@@ -1488,7 +1492,7 @@ Returns file information for the given C<path>.
 
 This is the same as the C<stat(2)> system call.");
 
-  ("lstat", (RStat "statbuf", [String "path"]), 53, [],
+  ("lstat", (RStruct ("statbuf", "stat"), [String "path"]), 53, [],
    [InitBasicFS, Always, TestOutputStruct (
       [["touch"; "/new"];
        ["lstat"; "/new"]], [CompareWithInt ("size", 0)])],
@@ -1502,7 +1506,7 @@ refers to.
 
 This is the same as the C<lstat(2)> system call.");
 
-  ("statvfs", (RStatVFS "statbuf", [String "path"]), 54, [],
+  ("statvfs", (RStruct ("statbuf", "statvfs"), [String "path"]), 54, [],
    [InitBasicFS, Always, TestOutputStruct (
       [["statvfs"; "/"]], [CompareWithInt ("namemax", 255);
 			   CompareWithInt ("bsize", 1024)])],
@@ -2753,7 +2757,7 @@ See also L<umask(2)>, C<guestfs_mknod>, C<guestfs_mkdir>.
 
 This call returns the previous umask.");
 
-  ("readdir", (RDirentList "entries", [String "dir"]), 138, [],
+  ("readdir", (RStructList ("entries", "dirent"), [String "dir"]), 138, [],
    [],
    "read directories entries",
    "\
@@ -2790,107 +2794,153 @@ let all_functions_sorted =
   List.sort (fun (n1,_,_,_,_,_,_) (n2,_,_,_,_,_,_) ->
 	       compare n1 n2) all_functions
 
-(* Column names and types from LVM PVs/VGs/LVs. *)
-let pv_cols = [
-  "pv_name", `String;
-  "pv_uuid", `UUID;
-  "pv_fmt", `String;
-  "pv_size", `Bytes;
-  "dev_size", `Bytes;
-  "pv_free", `Bytes;
-  "pv_used", `Bytes;
-  "pv_attr", `String (* XXX *);
-  "pv_pe_count", `Int;
-  "pv_pe_alloc_count", `Int;
-  "pv_tags", `String;
-  "pe_start", `Bytes;
-  "pv_mda_count", `Int;
-  "pv_mda_free", `Bytes;
-(* Not in Fedora 10:
-  "pv_mda_size", `Bytes;
-*)
-]
-let vg_cols = [
-  "vg_name", `String;
-  "vg_uuid", `UUID;
-  "vg_fmt", `String;
-  "vg_attr", `String (* XXX *);
-  "vg_size", `Bytes;
-  "vg_free", `Bytes;
-  "vg_sysid", `String;
-  "vg_extent_size", `Bytes;
-  "vg_extent_count", `Int;
-  "vg_free_count", `Int;
-  "max_lv", `Int;
-  "max_pv", `Int;
-  "pv_count", `Int;
-  "lv_count", `Int;
-  "snap_count", `Int;
-  "vg_seqno", `Int;
-  "vg_tags", `String;
-  "vg_mda_count", `Int;
-  "vg_mda_free", `Bytes;
-(* Not in Fedora 10:
-  "vg_mda_size", `Bytes;
-*)
-]
-let lv_cols = [
-  "lv_name", `String;
-  "lv_uuid", `UUID;
-  "lv_attr", `String (* XXX *);
-  "lv_major", `Int;
-  "lv_minor", `Int;
-  "lv_kernel_major", `Int;
-  "lv_kernel_minor", `Int;
-  "lv_size", `Bytes;
-  "seg_count", `Int;
-  "origin", `String;
-  "snap_percent", `OptPercent;
-  "copy_percent", `OptPercent;
-  "move_pv", `String;
-  "lv_tags", `String;
-  "mirror_log", `String;
-  "modules", `String;
-]
+(* Field types for structures. *)
+type field =
+  | FChar			(* C 'char' (really, a 7 bit byte). *)
+  | FString			(* nul-terminated ASCII string. *)
+  | FUInt32
+  | FInt32
+  | FUInt64
+  | FInt64
+  | FBytes		        (* Any int measure that counts bytes. *)
+  | FUUID			(* 32 bytes long, NOT nul-terminated. *)
+  | FOptPercent			(* [0..100], or -1 meaning "not present". *)
 
-(* Column names and types from stat structures.
- * NB. Can't use things like 'st_atime' because glibc header files
- * define some of these as macros.  Ugh.
+(* Because we generate extra parsing code for LVM command line tools,
+ * we have to pull out the LVM columns separately here.
  *)
-let stat_cols = [
-  "dev", `Int;
-  "ino", `Int;
-  "mode", `Int;
-  "nlink", `Int;
-  "uid", `Int;
-  "gid", `Int;
-  "rdev", `Int;
-  "size", `Int;
-  "blksize", `Int;
-  "blocks", `Int;
-  "atime", `Int;
-  "mtime", `Int;
-  "ctime", `Int;
+let lvm_pv_cols = [
+  "pv_name", FString;
+  "pv_uuid", FUUID;
+  "pv_fmt", FString;
+  "pv_size", FBytes;
+  "dev_size", FBytes;
+  "pv_free", FBytes;
+  "pv_used", FBytes;
+  "pv_attr", FString (* XXX *);
+  "pv_pe_count", FInt64;
+  "pv_pe_alloc_count", FInt64;
+  "pv_tags", FString;
+  "pe_start", FBytes;
+  "pv_mda_count", FInt64;
+  "pv_mda_free", FBytes;
+  (* Not in Fedora 10:
+     "pv_mda_size", FBytes;
+  *)
 ]
-let statvfs_cols = [
-  "bsize", `Int;
-  "frsize", `Int;
-  "blocks", `Int;
-  "bfree", `Int;
-  "bavail", `Int;
-  "files", `Int;
-  "ffree", `Int;
-  "favail", `Int;
-  "fsid", `Int;
-  "flag", `Int;
-  "namemax", `Int;
+let lvm_vg_cols = [
+  "vg_name", FString;
+  "vg_uuid", FUUID;
+  "vg_fmt", FString;
+  "vg_attr", FString (* XXX *);
+  "vg_size", FBytes;
+  "vg_free", FBytes;
+  "vg_sysid", FString;
+  "vg_extent_size", FBytes;
+  "vg_extent_count", FInt64;
+  "vg_free_count", FInt64;
+  "max_lv", FInt64;
+  "max_pv", FInt64;
+  "pv_count", FInt64;
+  "lv_count", FInt64;
+  "snap_count", FInt64;
+  "vg_seqno", FInt64;
+  "vg_tags", FString;
+  "vg_mda_count", FInt64;
+  "vg_mda_free", FBytes;
+  (* Not in Fedora 10:
+     "vg_mda_size", FBytes;
+  *)
+]
+let lvm_lv_cols = [
+  "lv_name", FString;
+  "lv_uuid", FUUID;
+  "lv_attr", FString (* XXX *);
+  "lv_major", FInt64;
+  "lv_minor", FInt64;
+  "lv_kernel_major", FInt64;
+  "lv_kernel_minor", FInt64;
+  "lv_size", FBytes;
+  "seg_count", FInt64;
+  "origin", FString;
+  "snap_percent", FOptPercent;
+  "copy_percent", FOptPercent;
+  "move_pv", FString;
+  "lv_tags", FString;
+  "mirror_log", FString;
+  "modules", FString;
 ]
 
-(* Column names in dirent structure. *)
-let dirent_cols = [
-  "ino", `Int;
-  "ftyp", `Char; (* 'b' 'c' 'd' 'f' (FIFO) 'l' 'r' (regular file) 's' 'u' '?' *)
-  "name", `String;
+(* Names and fields in all structures (in RStruct and RStructList)
+ * that we support.
+ *)
+let structs = [
+  (* The old RIntBool return type, only ever used for aug_defnode.  Do
+   * not use this struct in any new code.
+   *)
+  "int_bool", [
+    "i", FInt32;		(* for historical compatibility *)
+    "b", FInt32;		(* for historical compatibility *)
+  ];
+
+  (* LVM PVs, VGs, LVs. *)
+  "lvm_pv", lvm_pv_cols;
+  "lvm_vg", lvm_vg_cols;
+  "lvm_lv", lvm_lv_cols;
+
+  (* Column names and types from stat structures.
+   * NB. Can't use things like 'st_atime' because glibc header files
+   * define some of these as macros.  Ugh.
+   *)
+  "stat", [
+    "dev", FInt64;
+    "ino", FInt64;
+    "mode", FInt64;
+    "nlink", FInt64;
+    "uid", FInt64;
+    "gid", FInt64;
+    "rdev", FInt64;
+    "size", FInt64;
+    "blksize", FInt64;
+    "blocks", FInt64;
+    "atime", FInt64;
+    "mtime", FInt64;
+    "ctime", FInt64;
+  ];
+  "statvfs", [
+    "bsize", FInt64;
+    "frsize", FInt64;
+    "blocks", FInt64;
+    "bfree", FInt64;
+    "bavail", FInt64;
+    "files", FInt64;
+    "ffree", FInt64;
+    "favail", FInt64;
+    "fsid", FInt64;
+    "flag", FInt64;
+    "namemax", FInt64;
+  ];
+
+  (* Column names in dirent structure. *)
+  "dirent", [
+    "ino", FInt64;
+    (* 'b' 'c' 'd' 'f' (FIFO) 'l' 'r' (regular file) 's' 'u' '?' *)
+    "ftyp", FChar;
+    "name", FString;
+  ];
+] (* end of structs *)
+
+(* Ugh, Java has to be different ..
+ * These names are also used by the Haskell bindings.
+ *)
+let java_structs = [
+  "int_bool", "IntBool";
+  "lvm_pv", "PV";
+  "lvm_vg", "VG";
+  "lvm_lv", "LV";
+  "stat", "Stat";
+  "statvfs", "StatVFS";
+  "dirent", "Dirent"
 ]
 
 (* Used for testing language bindings. *)
@@ -3027,6 +3077,17 @@ let name_of_argt = function
   | String n | OptString n | StringList n | Bool n | Int n
   | FileIn n | FileOut n -> n
 
+let java_name_of_struct typ =
+  try List.assoc typ java_structs
+  with Not_found ->
+    failwithf
+      "java_name_of_struct: no java_structs entry corresponding to %s" typ
+
+let cols_of_struct typ =
+  try List.assoc typ structs
+  with Not_found ->
+    failwithf "cols_of_struct: unknown struct %s" typ
+
 let seq_of_test = function
   | TestRun s | TestOutput (s, _) | TestOutputList (s, _)
   | TestOutputListOfDevices (s, _)
@@ -3086,14 +3147,9 @@ let check_functions () =
       (match fst style with
        | RErr -> ()
        | RInt n | RInt64 n | RBool n | RConstString n | RString n
-       | RStringList n | RPVList n | RVGList n | RLVList n
-       | RStat n | RStatVFS n
-       | RHashtable n
-       | RDirentList n ->
+       | RStringList n | RStruct (n, _) | RStructList (n, _)
+       | RHashtable n ->
 	   check_arg_ret_name n
-       | RIntBool (n,m) ->
-	   check_arg_ret_name n;
-	   check_arg_ret_name m
       );
       List.iter (fun arg -> check_arg_ret_name (name_of_argt arg)) (snd style)
   ) all_functions;
@@ -3259,46 +3315,21 @@ I<The caller must free the returned string after use>.\n\n"
 	     pr "This function returns a NULL-terminated array of strings
 (like L<environ(3)>), or NULL if there was an error.
 I<The caller must free the strings and the array after use>.\n\n"
-	 | RIntBool _ ->
-	     pr "This function returns a C<struct guestfs_int_bool *>,
+	 | RStruct (_, typ) ->
+	     pr "This function returns a C<struct guestfs_%s *>,
 or NULL if there was an error.
-I<The caller must call C<guestfs_free_int_bool> after use>.\n\n"
-	 | RPVList _ ->
-	     pr "This function returns a C<struct guestfs_lvm_pv_list *>
+I<The caller must call C<guestfs_free_%s> after use>.\n\n" typ typ
+	 | RStructList (_, typ) ->
+	     pr "This function returns a C<struct guestfs_%s_list *>
 (see E<lt>guestfs-structs.hE<gt>),
 or NULL if there was an error.
-I<The caller must call C<guestfs_free_lvm_pv_list> after use>.\n\n"
-	 | RVGList _ ->
-	     pr "This function returns a C<struct guestfs_lvm_vg_list *>
-(see E<lt>guestfs-structs.hE<gt>),
-or NULL if there was an error.
-I<The caller must call C<guestfs_free_lvm_vg_list> after use>.\n\n"
-	 | RLVList _ ->
-	     pr "This function returns a C<struct guestfs_lvm_lv_list *>
-(see E<lt>guestfs-structs.hE<gt>),
-or NULL if there was an error.
-I<The caller must call C<guestfs_free_lvm_lv_list> after use>.\n\n"
-	 | RStat _ ->
-	     pr "This function returns a C<struct guestfs_stat *>
-(see L<stat(2)> and E<lt>guestfs-structs.hE<gt>),
-or NULL if there was an error.
-I<The caller must call C<free> after use>.\n\n"
-	 | RStatVFS _ ->
-	     pr "This function returns a C<struct guestfs_statvfs *>
-(see L<statvfs(2)> and E<lt>guestfs-structs.hE<gt>),
-or NULL if there was an error.
-I<The caller must call C<free> after use>.\n\n"
+I<The caller must call C<guestfs_free_%s_list> after use>.\n\n" typ typ
 	 | RHashtable _ ->
 	     pr "This function returns a NULL-terminated array of
 strings, or NULL if there was an error.
 The array of strings will always have length C<2n+1>, where
 C<n> keys and values alternate, followed by the trailing NULL entry.
 I<The caller must free the strings and the array after use>.\n\n"
-	 | RDirentList _ ->
-	     pr "This function returns a C<struct guestfs_dirent_list *>
-(see E<lt>guestfs-structs.hE<gt>),
-or NULL if there was an error.
-I<The caller must call C<guestfs_free_dirent_list> after use>.\n\n"
 	);
 	if List.mem ProtocolLimitWarning flags then
 	  pr "%s\n\n" protocol_limit_warning;
@@ -3308,36 +3339,7 @@ I<The caller must call C<guestfs_free_dirent_list> after use>.\n\n"
   ) all_functions_sorted
 
 and generate_structs_pod () =
-  (* LVM structs documentation. *)
-  List.iter (
-    fun (typ, cols) ->
-      pr "=head2 guestfs_lvm_%s\n" typ;
-      pr "\n";
-      pr " struct guestfs_lvm_%s {\n" typ;
-      List.iter (
-	function
-	| name, `String -> pr "  char *%s;\n" name
-	| name, `UUID ->
-	    pr "  /* The next field is NOT nul-terminated, be careful when printing it: */\n";
-	    pr "  char %s[32];\n" name
-	| name, `Bytes -> pr "  uint64_t %s;\n" name
-	| name, `Int -> pr "  int64_t %s;\n" name
-	| name, `OptPercent ->
-	    pr "  /* The next field is [0..100] or -1 meaning 'not present': */\n";
-	    pr "  float %s;\n" name
-      ) cols;
-      pr " \n";
-      pr " struct guestfs_lvm_%s_list {\n" typ;
-      pr "   uint32_t len; /* Number of elements in list. */\n";
-      pr "   struct guestfs_lvm_%s *val; /* Elements. */\n" typ;
-      pr " };\n";
-      pr " \n";
-      pr " void guestfs_free_lvm_%s_list (struct guestfs_free_lvm_%s_list *);\n"
-	typ typ;
-      pr "\n"
-  ) ["pv", pv_cols; "vg", vg_cols; "lv", lv_cols];
-
-  (* Stat *)
+  (* Structs documentation. *)
   List.iter (
     fun (typ, cols) ->
       pr "=head2 guestfs_%s\n" typ;
@@ -3345,31 +3347,31 @@ and generate_structs_pod () =
       pr " struct guestfs_%s {\n" typ;
       List.iter (
 	function
-	| name, `Int -> pr "   int64_t %s;\n" name
+	| name, FChar -> pr "   char %s;\n" name
+	| name, FUInt32 -> pr "   uint32_t %s;\n" name
+	| name, FInt32 -> pr "   int32_t %s;\n" name
+	| name, (FUInt64|FBytes) -> pr "   uint64_t %s;\n" name
+	| name, FInt64 -> pr "   int64_t %s;\n" name
+	| name, FString -> pr "   char *%s;\n" name
+	| name, FUUID ->
+	    pr "   /* The next field is NOT nul-terminated, be careful when printing it: */\n";
+	    pr "   char %s[32];\n" name
+	| name, FOptPercent ->
+	    pr "   /* The next field is [0..100] or -1 meaning 'not present': */\n";
+	    pr "   float %s;\n" name
       ) cols;
       pr " };\n";
-      pr "\n";
-  ) [ "stat", stat_cols; "statvfs", statvfs_cols ];
-
-  (* DirentList *)
-  pr "=head2 guestfs_dirent\n";
-  pr "\n";
-  pr " struct guestfs_dirent {\n";
-  List.iter (
-    function
-    | name, `String -> pr "   char *%s;\n" name
-    | name, `Int -> pr "   int64_t %s;\n" name
-    | name, `Char -> pr "   char %s;\n" name
-  ) dirent_cols;
-  pr " };\n";
-  pr "\n";
-  pr " struct guestfs_dirent_list {\n";
-  pr "   uint32_t len; /* Number of elements in list. */\n";
-  pr "   struct guestfs_dirent *val; /* Elements. */\n";
-  pr " };\n";
-  pr " \n";
-  pr " void guestfs_free_dirent_list (struct guestfs_free_dirent_list *);\n";
-  pr "\n"
+      pr " \n";
+      pr " struct guestfs_%s_list {\n" typ;
+      pr "   uint32_t len; /* Number of elements in list. */\n";
+      pr "   struct guestfs_%s *val; /* Elements. */\n" typ;
+      pr " };\n";
+      pr " \n";
+      pr " void guestfs_free_%s (struct guestfs_free_%s *);\n" typ typ;
+      pr " void guestfs_free_%s_list (struct guestfs_free_%s_list *);\n"
+	typ typ;
+      pr "\n"
+  ) structs
 
 (* Generate the protocol (XDR) file, 'guestfs_protocol.x' and
  * indirectly 'guestfs_protocol.h' and 'guestfs_protocol.c'.
@@ -3386,47 +3388,24 @@ and generate_xdr () =
   pr "typedef string str<>;\n";
   pr "\n";
 
-  (* LVM internal structures. *)
-  List.iter (
-    function
-    | typ, cols ->
-	pr "struct guestfs_lvm_int_%s {\n" typ;
-	List.iter (function
-		   | name, `String -> pr "  string %s<>;\n" name
-		   | name, `UUID -> pr "  opaque %s[32];\n" name
-		   | name, `Bytes -> pr "  hyper %s;\n" name
-		   | name, `Int -> pr "  hyper %s;\n" name
-		   | name, `OptPercent -> pr "  float %s;\n" name
-		  ) cols;
-	pr "};\n";
-	pr "\n";
-	pr "typedef struct guestfs_lvm_int_%s guestfs_lvm_int_%s_list<>;\n" typ typ;
-	pr "\n";
-  ) ["pv", pv_cols; "vg", vg_cols; "lv", lv_cols];
-
-  (* Stat internal structures. *)
+  (* Internal structures. *)
   List.iter (
     function
     | typ, cols ->
 	pr "struct guestfs_int_%s {\n" typ;
 	List.iter (function
-		   | name, `Int -> pr "  hyper %s;\n" name
+		   | name, FChar -> pr "  char %s;\n" name
+		   | name, FString -> pr "  string %s<>;\n" name
+		   | name, FUUID -> pr "  opaque %s[32];\n" name
+		   | name, (FInt32|FUInt32) -> pr "  int %s;\n" name
+		   | name, (FInt64|FUInt64|FBytes) -> pr "  hyper %s;\n" name
+		   | name, FOptPercent -> pr "  float %s;\n" name
 		  ) cols;
 	pr "};\n";
 	pr "\n";
-  ) ["stat", stat_cols; "statvfs", statvfs_cols];
-
-  (* Dirent structures. *)
-  pr "struct guestfs_int_dirent {\n";
-  List.iter (function
-	     | name, `Int -> pr "  hyper %s;\n" name
-	     | name, `Char -> pr "  char %s;\n" name
-	     | name, `String -> pr "  string %s<>;\n" name
-	    ) dirent_cols;
-  pr "};\n";
-  pr "\n";
-  pr "typedef struct guestfs_int_dirent guestfs_int_dirent_list<>;\n";
-  pr "\n";
+	pr "typedef struct guestfs_int_%s guestfs_int_%s_list<>;\n" typ typ;
+	pr "\n";
+  ) structs;
 
   List.iter (
     fun (shortname, style, _, _, _, _, _) ->
@@ -3471,38 +3450,17 @@ and generate_xdr () =
 	   pr "struct %s_ret {\n" name;
 	   pr "  str %s<>;\n" n;
 	   pr "};\n\n"
-       | RIntBool (n,m) ->
+       | RStruct (n, typ) ->
 	   pr "struct %s_ret {\n" name;
-	   pr "  int %s;\n" n;
-	   pr "  bool %s;\n" m;
+	   pr "  guestfs_int_%s %s;\n" typ n;
 	   pr "};\n\n"
-       | RPVList n ->
+       | RStructList (n, typ) ->
 	   pr "struct %s_ret {\n" name;
-	   pr "  guestfs_lvm_int_pv_list %s;\n" n;
-	   pr "};\n\n"
-       | RVGList n ->
-	   pr "struct %s_ret {\n" name;
-	   pr "  guestfs_lvm_int_vg_list %s;\n" n;
-	   pr "};\n\n"
-       | RLVList n ->
-	   pr "struct %s_ret {\n" name;
-	   pr "  guestfs_lvm_int_lv_list %s;\n" n;
-	   pr "};\n\n"
-       | RStat n ->
-	   pr "struct %s_ret {\n" name;
-	   pr "  guestfs_int_stat %s;\n" n;
-	   pr "};\n\n"
-       | RStatVFS n ->
-	   pr "struct %s_ret {\n" name;
-	   pr "  guestfs_int_statvfs %s;\n" n;
+	   pr "  guestfs_int_%s_list %s;\n" typ n;
 	   pr "};\n\n"
        | RHashtable n ->
 	   pr "struct %s_ret {\n" name;
 	   pr "  str %s<>;\n" n;
-	   pr "};\n\n"
-       | RDirentList n ->
-	   pr "struct %s_ret {\n" name;
-	   pr "  guestfs_int_dirent_list %s;\n" n;
 	   pr "};\n\n"
       );
   ) daemon_functions;
@@ -3591,63 +3549,32 @@ and generate_structs_h () =
    * must be identical to what rpcgen / the RFC defines.
    *)
 
-  (* guestfs_int_bool structure. *)
-  pr "struct guestfs_int_bool {\n";
-  pr "  int32_t i;\n";
-  pr "  int32_t b;\n";
-  pr "};\n";
-  pr "\n";
-
-  (* LVM public structures. *)
+  (* Public structures. *)
   List.iter (
-    function
-    | typ, cols ->
-	pr "struct guestfs_lvm_%s {\n" typ;
-	List.iter (
-	  function
-	  | name, `String -> pr "  char *%s;\n" name
-	  | name, `UUID -> pr "  char %s[32]; /* this is NOT nul-terminated, be careful when printing */\n" name
-	  | name, `Bytes -> pr "  uint64_t %s;\n" name
-	  | name, `Int -> pr "  int64_t %s;\n" name
-	  | name, `OptPercent -> pr "  float %s; /* [0..100] or -1 */\n" name
-	) cols;
-	pr "};\n";
-	pr "\n";
-	pr "struct guestfs_lvm_%s_list {\n" typ;
-	pr "  uint32_t len;\n";
-	pr "  struct guestfs_lvm_%s *val;\n" typ;
-	pr "};\n";
-	pr "\n"
-  ) ["pv", pv_cols; "vg", vg_cols; "lv", lv_cols];
-
-  (* Stat structures. *)
-  List.iter (
-    function
-    | typ, cols ->
-	pr "struct guestfs_%s {\n" typ;
-	List.iter (
-	  function
-	  | name, `Int -> pr "  int64_t %s;\n" name
-	) cols;
-	pr "};\n";
-	pr "\n"
-  ) ["stat", stat_cols; "statvfs", statvfs_cols];
-
-  (* Dirent structures. *)
-  pr "struct guestfs_dirent {\n";
-  List.iter (
-    function
-    | name, `Int -> pr "  int64_t %s;\n" name
-    | name, `Char -> pr "  char %s;\n" name
-    | name, `String -> pr "  char *%s;\n" name
-  ) dirent_cols;
-  pr "};\n";
-  pr "\n";
-  pr "struct guestfs_dirent_list {\n";
-  pr "  uint32_t len;\n";
-  pr "  struct guestfs_dirent *val;\n";
-  pr "};\n";
-  pr "\n"
+    fun (typ, cols) ->
+      pr "struct guestfs_%s {\n" typ;
+      List.iter (
+	function
+	| name, FChar -> pr "  char %s;\n" name
+	| name, FString -> pr "  char *%s;\n" name
+	| name, FUUID -> pr "  char %s[32]; /* this is NOT nul-terminated, be careful when printing */\n" name
+	| name, FUInt32 -> pr "  uint32_t %s;\n" name
+	| name, FInt32 -> pr "  int32_t %s;\n" name
+	| name, (FUInt64|FBytes) -> pr "  uint64_t %s;\n" name
+	| name, FInt64 -> pr "  int64_t %s;\n" name
+	| name, FOptPercent -> pr "  float %s; /* [0..100] or -1 */\n" name
+      ) cols;
+      pr "};\n";
+      pr "\n";
+      pr "struct guestfs_%s_list {\n" typ;
+      pr "  uint32_t len;\n";
+      pr "  struct guestfs_%s *val;\n" typ;
+      pr "};\n";
+      pr "\n";
+      pr "extern void guestfs_free_%s (struct guestfs_%s *);\n" typ typ;
+      pr "extern void guestfs_free_%s_list (struct guestfs_%s_list *);\n" typ typ;
+      pr "\n"
+  ) structs
 
 (* Generate the guestfs-actions.h file. *)
 and generate_actions_h () =
@@ -3752,11 +3679,8 @@ check_state (guestfs_h *g, const char *caller)
 	   failwithf "RConstString cannot be returned from a daemon function"
        | RInt _ | RInt64 _
        | RBool _ | RString _ | RStringList _
-       | RIntBool _
-       | RPVList _ | RVGList _ | RLVList _
-       | RStat _ | RStatVFS _
-       | RHashtable _
-       | RDirentList _ ->
+       | RStruct _ | RStructList _
+       | RHashtable _ ->
 	   pr "  struct %s_ret ret;\n" name
       );
       pr "};\n";
@@ -3796,11 +3720,8 @@ check_state (guestfs_h *g, const char *caller)
 	   failwithf "RConstString cannot be returned from a daemon function"
        | RInt _ | RInt64 _
        | RBool _ | RString _ | RStringList _
-       | RIntBool _
-       | RPVList _ | RVGList _ | RLVList _
-       | RStat _ | RStatVFS _
-       | RHashtable _
-       | RDirentList _ ->
+       | RStruct _ | RStructList _
+       | RHashtable _ ->
 	    pr "  if (!xdr_%s_ret (xdr, &ctx->ret)) {\n" name;
 	    pr "    error (g, \"%%s: failed to parse reply\", \"%s\");\n" name;
 	    pr "    return;\n";
@@ -3820,11 +3741,9 @@ check_state (guestfs_h *g, const char *caller)
 	| RErr | RInt _ | RInt64 _ | RBool _ -> "-1"
 	| RConstString _ ->
 	    failwithf "RConstString cannot be returned from a daemon function"
-	| RString _ | RStringList _ | RIntBool _
-	| RPVList _ | RVGList _ | RLVList _
-	| RStat _ | RStatVFS _
-	| RHashtable _
-	| RDirentList _ ->
+	| RString _ | RStringList _
+	| RStruct _ | RStructList _
+	| RHashtable _ ->
 	    "NULL" in
 
       pr "{\n";
@@ -3956,18 +3875,43 @@ check_state (guestfs_h *g, const char *caller)
 	     n n;
 	   pr "  ctx.ret.%s.%s_val[ctx.ret.%s.%s_len] = NULL;\n" n n n n;
 	   pr "  return ctx.ret.%s.%s_val;\n" n n
-       | RIntBool _ ->
-	   pr "  /* caller with free this */\n";
-	   pr "  return safe_memdup (g, &ctx.ret, sizeof (ctx.ret));\n"
-       | RPVList n | RVGList n | RLVList n
-       | RStat n | RStatVFS n
-       | RDirentList n ->
+       | RStruct (n, _) ->
+	   pr "  /* caller will free this */\n";
+	   pr "  return safe_memdup (g, &ctx.ret.%s, sizeof (ctx.ret.%s));\n" n n
+       | RStructList (n, _) ->
 	   pr "  /* caller will free this */\n";
 	   pr "  return safe_memdup (g, &ctx.ret.%s, sizeof (ctx.ret.%s));\n" n n
       );
 
       pr "}\n\n"
-  ) daemon_functions
+  ) daemon_functions;
+
+  (* Functions to free structures. *)
+  pr "/* Structure-freeing functions.  These rely on the fact that the\n";
+  pr " * structure format is identical to the XDR format.  See note in\n";
+  pr " * generator.ml.\n";
+  pr " */\n";
+  pr "\n";
+
+  List.iter (
+    fun (typ, _) ->
+      pr "void\n";
+      pr "guestfs_free_%s (struct guestfs_%s *x)\n" typ typ;
+      pr "{\n";
+      pr "  xdr_free ((xdrproc_t) xdr_guestfs_int_%s, (char *) x);\n" typ;
+      pr "  free (x);\n";
+      pr "}\n";
+      pr "\n";
+
+      pr "void\n";
+      pr "guestfs_free_%s_list (struct guestfs_%s_list *x)\n" typ typ;
+      pr "{\n";
+      pr "  xdr_free ((xdrproc_t) xdr_guestfs_int_%s_list, (char *) x);\n" typ;
+      pr "  free (x);\n";
+      pr "}\n";
+      pr "\n";
+
+  ) structs;
 
 (* Generate daemon/actions.h. *)
 and generate_daemon_actions_h () =
@@ -4016,13 +3960,8 @@ and generate_daemon_actions () =
 	    failwithf "RConstString cannot be returned from a daemon function"
 	| RString _ -> pr "  char *r;\n"; "NULL"
 	| RStringList _ | RHashtable _ -> pr "  char **r;\n"; "NULL"
-	| RIntBool _ -> pr "  guestfs_%s_ret *r;\n" name; "NULL"
-	| RPVList _ -> pr "  guestfs_lvm_int_pv_list *r;\n"; "NULL"
-	| RVGList _ -> pr "  guestfs_lvm_int_vg_list *r;\n"; "NULL"
-	| RLVList _ -> pr "  guestfs_lvm_int_lv_list *r;\n"; "NULL"
-	| RStat _ -> pr "  guestfs_int_stat *r;\n"; "NULL"
-	| RStatVFS _ -> pr "  guestfs_int_statvfs *r;\n"; "NULL"
-	| RDirentList _ -> pr "  guestfs_int_dirent_list *r;\n"; "NULL" in
+	| RStruct (_, typ) -> pr "  guestfs_int_%s *r;\n" typ; "NULL"
+	| RStructList (_, typ) -> pr "  guestfs_int_%s_list *r;\n" typ; "NULL" in
 
       (match snd style with
        | [] -> ()
@@ -4118,13 +4057,14 @@ and generate_daemon_actions () =
 	    pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n"
 	      name;
 	    pr "  free_strings (r);\n"
-	| RIntBool _ ->
-	    pr "  reply ((xdrproc_t) xdr_guestfs_%s_ret, (char *) r);\n"
+	| RStruct (n, _) ->
+	    pr "  struct guestfs_%s_ret ret;\n" name;
+	    pr "  ret.%s = *r;\n" n;
+	    pr "  reply ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n"
 	      name;
-	    pr "  xdr_free ((xdrproc_t) xdr_guestfs_%s_ret, (char *) r);\n" name
-	| RPVList n | RVGList n | RLVList n
-	| RStat n | RStatVFS n
-	| RDirentList n ->
+	    pr "  xdr_free ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n"
+	      name
+	| RStructList (n, _) ->
 	    pr "  struct guestfs_%s_ret ret;\n" name;
 	    pr "  ret.%s = *r;\n" n;
 	    pr "  reply ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n"
@@ -4175,7 +4115,7 @@ and generate_daemon_actions () =
 	  typ (String.concat "," (List.map fst cols));
 	pr "\n";
 
-	pr "static int lvm_tokenize_%s (char *str, struct guestfs_lvm_int_%s *r)\n" typ typ;
+	pr "static int lvm_tokenize_%s (char *str, guestfs_int_lvm_%s *r)\n" typ typ;
 	pr "{\n";
 	pr "  char *tok, *p, *next;\n";
 	pr "  int i, j;\n";
@@ -4203,13 +4143,13 @@ and generate_daemon_actions () =
 	    pr "  if (*p) next = p+1; else next = NULL;\n";
 	    pr "  *p = '\\0';\n";
 	    (match coltype with
-	     | `String ->
+	     | FString ->
 		 pr "  r->%s = strdup (tok);\n" name;
 		 pr "  if (r->%s == NULL) {\n" name;
 		 pr "    perror (\"strdup\");\n";
 		 pr "    return -1;\n";
 		 pr "  }\n"
-	     | `UUID ->
+	     | FUUID ->
 		 pr "  for (i = j = 0; i < 32; ++j) {\n";
 		 pr "    if (tok[j] == '\\0') {\n";
 		 pr "      fprintf (stderr, \"%%s: failed to parse UUID from '%%s'\\n\", __func__, tok);\n";
@@ -4217,23 +4157,25 @@ and generate_daemon_actions () =
 		 pr "    } else if (tok[j] != '-')\n";
 		 pr "      r->%s[i++] = tok[j];\n" name;
 		 pr "  }\n";
-	     | `Bytes ->
+	     | FBytes ->
 		 pr "  if (sscanf (tok, \"%%\"SCNu64, &r->%s) != 1) {\n" name;
 		 pr "    fprintf (stderr, \"%%s: failed to parse size '%%s' from token %%s\\n\", __func__, tok, \"%s\");\n" name;
 		 pr "    return -1;\n";
 		 pr "  }\n";
-	     | `Int ->
+	     | FInt64 ->
 		 pr "  if (sscanf (tok, \"%%\"SCNi64, &r->%s) != 1) {\n" name;
 		 pr "    fprintf (stderr, \"%%s: failed to parse int '%%s' from token %%s\\n\", __func__, tok, \"%s\");\n" name;
 		 pr "    return -1;\n";
 		 pr "  }\n";
-	     | `OptPercent ->
+	     | FOptPercent ->
 		 pr "  if (tok[0] == '\\0')\n";
 		 pr "    r->%s = -1;\n" name;
 		 pr "  else if (sscanf (tok, \"%%f\", &r->%s) != 1) {\n" name;
 		 pr "    fprintf (stderr, \"%%s: failed to parse float '%%s' from token %%s\\n\", __func__, tok, \"%s\");\n" name;
 		 pr "    return -1;\n";
 		 pr "  }\n";
+	     | FInt32 | FUInt32 | FUInt64 | FChar ->
+		 assert false (* can never be an LVM column *)
 	    );
 	    pr "  tok = next;\n";
 	) cols;
@@ -4246,13 +4188,13 @@ and generate_daemon_actions () =
 	pr "}\n";
 	pr "\n";
 
-	pr "guestfs_lvm_int_%s_list *\n" typ;
+	pr "guestfs_int_lvm_%s_list *\n" typ;
 	pr "parse_command_line_%ss (void)\n" typ;
 	pr "{\n";
 	pr "  char *out, *err;\n";
 	pr "  char *p, *pend;\n";
 	pr "  int r, i;\n";
-	pr "  guestfs_lvm_int_%s_list *ret;\n" typ;
+	pr "  guestfs_int_lvm_%s_list *ret;\n" typ;
 	pr "  void *newp;\n";
 	pr "\n";
 	pr "  ret = malloc (sizeof *ret);\n";
@@ -4261,8 +4203,8 @@ and generate_daemon_actions () =
 	pr "    return NULL;\n";
 	pr "  }\n";
 	pr "\n";
-	pr "  ret->guestfs_lvm_int_%s_list_len = 0;\n" typ;
-	pr "  ret->guestfs_lvm_int_%s_list_val = NULL;\n" typ;
+	pr "  ret->guestfs_int_lvm_%s_list_len = 0;\n" typ;
+	pr "  ret->guestfs_int_lvm_%s_list_val = NULL;\n" typ;
 	pr "\n";
 	pr "  r = command (&out, &err,\n";
 	pr "	       \"/sbin/lvm\", \"%ss\",\n" typ;
@@ -4297,22 +4239,22 @@ and generate_daemon_actions () =
 	pr "    }\n";
 	pr "\n";
 	pr "    /* Allocate some space to store this next entry. */\n";
-	pr "    newp = realloc (ret->guestfs_lvm_int_%s_list_val,\n" typ;
-	pr "		    sizeof (guestfs_lvm_int_%s) * (i+1));\n" typ;
+	pr "    newp = realloc (ret->guestfs_int_lvm_%s_list_val,\n" typ;
+	pr "		    sizeof (guestfs_int_lvm_%s) * (i+1));\n" typ;
 	pr "    if (newp == NULL) {\n";
 	pr "      reply_with_perror (\"realloc\");\n";
-	pr "      free (ret->guestfs_lvm_int_%s_list_val);\n" typ;
+	pr "      free (ret->guestfs_int_lvm_%s_list_val);\n" typ;
 	pr "      free (ret);\n";
 	pr "      free (out);\n";
 	pr "      return NULL;\n";
 	pr "    }\n";
-	pr "    ret->guestfs_lvm_int_%s_list_val = newp;\n" typ;
+	pr "    ret->guestfs_int_lvm_%s_list_val = newp;\n" typ;
 	pr "\n";
 	pr "    /* Tokenize the next entry. */\n";
-	pr "    r = lvm_tokenize_%s (p, &ret->guestfs_lvm_int_%s_list_val[i]);\n" typ typ;
+	pr "    r = lvm_tokenize_%s (p, &ret->guestfs_int_lvm_%s_list_val[i]);\n" typ typ;
 	pr "    if (r == -1) {\n";
 	pr "      reply_with_error (\"failed to parse output of '%ss' command\");\n" typ;
-        pr "      free (ret->guestfs_lvm_int_%s_list_val);\n" typ;
+        pr "      free (ret->guestfs_int_lvm_%s_list_val);\n" typ;
         pr "      free (ret);\n";
 	pr "      free (out);\n";
 	pr "      return NULL;\n";
@@ -4322,13 +4264,13 @@ and generate_daemon_actions () =
 	pr "    p = pend;\n";
 	pr "  }\n";
 	pr "\n";
-	pr "  ret->guestfs_lvm_int_%s_list_len = i;\n" typ;
+	pr "  ret->guestfs_int_lvm_%s_list_len = i;\n" typ;
 	pr "\n";
 	pr "  free (out);\n";
 	pr "  return ret;\n";
 	pr "}\n"
 
-  ) ["pv", pv_cols; "vg", vg_cols; "lv", lv_cols]
+  ) ["pv", lvm_pv_cols; "vg", lvm_vg_cols; "lv", lvm_lv_cols]
 
 (* Generate a list of function names, for debugging in the daemon.. *)
 and generate_daemon_names () =
@@ -4686,7 +4628,7 @@ and generate_one_test_body name i test_name init test =
       List.iter (generate_test_command_call test_name) seq
   | TestOutput (seq, expected) ->
       pr "  /* TestOutput for %s (%d) */\n" name i;
-      pr "  char expected[] = \"%s\";\n" (c_quote expected);
+      pr "  const char *expected = \"%s\";\n" (c_quote expected);
       let seq, last = get_seq_last seq in
       let test () =
 	pr "    if (strcmp (r, expected) != 0) {\n";
@@ -4708,7 +4650,7 @@ and generate_one_test_body name i test_name init test =
 	    pr "      return -1;\n";
 	    pr "    }\n";
             pr "    {\n";
-            pr "      char expected[] = \"%s\";\n" (c_quote str);
+            pr "      const char *expected = \"%s\";\n" (c_quote str);
 	    pr "      if (strcmp (r[%d], expected) != 0) {\n" i;
 	    pr "        fprintf (stderr, \"%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", expected, r[%d]);\n" test_name i;
 	    pr "        return -1;\n";
@@ -4736,7 +4678,7 @@ and generate_one_test_body name i test_name init test =
 	    pr "      return -1;\n";
 	    pr "    }\n";
             pr "    {\n";
-            pr "      char expected[] = \"%s\";\n" (c_quote str);
+            pr "      const char *expected = \"%s\";\n" (c_quote str);
 	    pr "      r[%d][5] = 's';\n" i;
 	    pr "      if (strcmp (r[%d], expected) != 0) {\n" i;
 	    pr "        fprintf (stderr, \"%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", expected, r[%d]);\n" test_name i;
@@ -4882,7 +4824,7 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
 	| OptString n, "NULL" -> ()
 	| String n, arg
 	| OptString n, arg ->
-	    pr "    char %s[] = \"%s\";\n" n (c_quote arg);
+	    pr "    const char *%s = \"%s\";\n" n (c_quote arg);
 	| Int _, _
 	| Bool _, _
 	| FileIn _, _ | FileOut _, _ -> ()
@@ -4890,9 +4832,9 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
 	    let strs = string_split " " arg in
 	    iteri (
 	      fun i str ->
-                pr "    char %s_%d[] = \"%s\";\n" n i (c_quote str);
+                pr "    const char *%s_%d = \"%s\";\n" n i (c_quote str);
 	    ) strs;
-	    pr "    char *%s[] = {\n" n;
+	    pr "    const char *%s[] = {\n" n;
 	    iteri (
 	      fun i _ -> pr "      %s_%d,\n" n i
 	    ) strs;
@@ -4910,20 +4852,10 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
 	    pr "    char **r;\n";
 	    pr "    int i;\n";
 	    "NULL"
-	| RIntBool _ ->
-	    pr "    struct guestfs_int_bool *r;\n"; "NULL"
-	| RPVList _ ->
-	    pr "    struct guestfs_lvm_pv_list *r;\n"; "NULL"
-	| RVGList _ ->
-	    pr "    struct guestfs_lvm_vg_list *r;\n"; "NULL"
-	| RLVList _ ->
-	    pr "    struct guestfs_lvm_lv_list *r;\n"; "NULL"
-	| RStat _ ->
-	    pr "    struct guestfs_stat *r;\n"; "NULL"
-	| RStatVFS _ ->
-	    pr "    struct guestfs_statvfs *r;\n"; "NULL"
-	| RDirentList _ ->
-	    pr "    struct guestfs_dirent_list *r;\n"; "NULL" in
+	| RStruct (_, typ) ->
+	    pr "    struct guestfs_%s *r;\n" typ; "NULL"
+	| RStructList (_, typ) ->
+	    pr "    struct guestfs_%s_list *r;\n" typ; "NULL" in
 
       pr "    suppress_error = %d;\n" (if expect_error then 1 else 0);
       pr "    r = guestfs_%s (g" name;
@@ -4969,18 +4901,10 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
 	   pr "    for (i = 0; r[i] != NULL; ++i)\n";
 	   pr "      free (r[i]);\n";
 	   pr "    free (r);\n"
-       | RIntBool _ ->
-	   pr "    guestfs_free_int_bool (r);\n"
-       | RPVList _ ->
-	   pr "    guestfs_free_lvm_pv_list (r);\n"
-       | RVGList _ ->
-	   pr "    guestfs_free_lvm_vg_list (r);\n"
-       | RLVList _ ->
-	   pr "    guestfs_free_lvm_lv_list (r);\n"
-       | RStat _ | RStatVFS _ ->
-	   pr "    free (r);\n"
-       | RDirentList _ ->
-	   pr "    guestfs_free_dirent_list (r);\n"
+       | RStruct (_, typ) ->
+	   pr "    guestfs_free_%s (r);\n" typ
+       | RStructList (_, typ) ->
+	   pr "    guestfs_free_%s_list (r);\n" typ
       );
 
       pr "  }\n"
@@ -5082,82 +5006,47 @@ and generate_fish_cmds () =
   pr "}\n";
   pr "\n";
 
-  (* print_{pv,vg,lv}_list functions *)
+  (* print_* functions *)
   List.iter (
-    function
-    | typ, cols ->
-	pr "static void print_%s (struct guestfs_lvm_%s *%s)\n" typ typ typ;
-	pr "{\n";
-	pr "  int i;\n";
-	pr "\n";
-	List.iter (
-	  function
-	  | name, `String ->
-	      pr "  printf (\"%s: %%s\\n\", %s->%s);\n" name typ name
-	  | name, `UUID ->
-	      pr "  printf (\"%s: \");\n" name;
-	      pr "  for (i = 0; i < 32; ++i)\n";
-	      pr "    printf (\"%%c\", %s->%s[i]);\n" typ name;
-	      pr "  printf (\"\\n\");\n"
-	  | name, `Bytes ->
-	      pr "  printf (\"%s: %%\" PRIu64 \"\\n\", %s->%s);\n" name typ name
-	  | name, `Int ->
-	      pr "  printf (\"%s: %%\" PRIi64 \"\\n\", %s->%s);\n" name typ name
-	  | name, `OptPercent ->
-	      pr "  if (%s->%s >= 0) printf (\"%s: %%g %%%%\\n\", %s->%s);\n"
-		typ name name typ name;
-	      pr "  else printf (\"%s: \\n\");\n" name
-	) cols;
-	pr "}\n";
-	pr "\n";
-	pr "static void print_%s_list (struct guestfs_lvm_%s_list *%ss)\n"
-	  typ typ typ;
-	pr "{\n";
-	pr "  int i;\n";
-	pr "\n";
-	pr "  for (i = 0; i < %ss->len; ++i)\n" typ;
-	pr "    print_%s (&%ss->val[i]);\n" typ typ;
-	pr "}\n";
-	pr "\n";
-  ) ["pv", pv_cols; "vg", vg_cols; "lv", lv_cols];
-
-  (* print_{stat,statvfs} functions *)
-  List.iter (
-    function
-    | typ, cols ->
-	pr "static void print_%s (struct guestfs_%s *%s)\n" typ typ typ;
-	pr "{\n";
-	List.iter (
-	  function
-	  | name, `Int ->
-	      pr "  printf (\"%s: %%\" PRIi64 \"\\n\", %s->%s);\n" name typ name
-	) cols;
-	pr "}\n";
-	pr "\n";
-  ) ["stat", stat_cols; "statvfs", statvfs_cols];
-
-  (* print_dirent_list function *)
-  pr "static void print_dirent (struct guestfs_dirent *dirent)\n";
-  pr "{\n";
-  List.iter (
-    function
-    | name, `String ->
-	pr "  printf (\"%s: %%s\\n\", dirent->%s);\n" name name
-    | name, `Int ->
-	pr "  printf (\"%s: %%\" PRIi64 \"\\n\", dirent->%s);\n" name name
-    | name, `Char ->
-	pr "  printf (\"%s: %%c\\n\", dirent->%s);\n" name name
-  ) dirent_cols;
-  pr "}\n";
-  pr "\n";
-  pr "static void print_dirent_list (struct guestfs_dirent_list *dirents)\n";
-  pr "{\n";
-  pr "  int i;\n";
-  pr "\n";
-  pr "  for (i = 0; i < dirents->len; ++i)\n";
-  pr "    print_dirent (&dirents->val[i]);\n";
-  pr "}\n";
-  pr "\n";
+    fun (typ, cols) ->
+      pr "static void print_%s (struct guestfs_%s *%s)\n" typ typ typ;
+      pr "{\n";
+      List.iter (
+	function
+	| name, FString ->
+	    pr "  printf (\"%s: %%s\\n\", %s->%s);\n" name typ name
+	| name, FUUID ->
+	    pr "  printf (\"%s: \");\n" name;
+	    pr "  for (int i = 0; i < 32; ++i)\n";
+	    pr "    printf (\"%%c\", %s->%s[i]);\n" typ name;
+	    pr "  printf (\"\\n\");\n"
+	| name, (FUInt64|FBytes) ->
+	    pr "  printf (\"%s: %%\" PRIu64 \"\\n\", %s->%s);\n" name typ name
+	| name, FInt64 ->
+	    pr "  printf (\"%s: %%\" PRIi64 \"\\n\", %s->%s);\n" name typ name
+	| name, FUInt32 ->
+	    pr "  printf (\"%s: %%\" PRIu32 \"\\n\", %s->%s);\n" name typ name
+	| name, FInt32 ->
+	    pr "  printf (\"%s: %%\" PRIi32 \"\\n\", %s->%s);\n" name typ name
+	| name, FChar ->
+	    pr "  printf (\"%s: %%c\\n\", %s->%s);\n" name typ name
+	| name, FOptPercent ->
+	    pr "  if (%s->%s >= 0) printf (\"%s: %%g %%%%\\n\", %s->%s);\n"
+	      typ name name typ name;
+	    pr "  else printf (\"%s: \\n\");\n" name
+      ) cols;
+      pr "}\n";
+      pr "\n";
+      pr "static void print_%s_list (struct guestfs_%s_list *%ss)\n"
+	typ typ typ;
+      pr "{\n";
+      pr "  int i;\n";
+      pr "\n";
+      pr "  for (i = 0; i < %ss->len; ++i)\n" typ;
+      pr "    print_%s (&%ss->val[i]);\n" typ typ;
+      pr "}\n";
+      pr "\n";
+  ) structs;
 
   (* run_<action> actions *)
   List.iter (
@@ -5172,13 +5061,8 @@ and generate_fish_cmds () =
        | RConstString _ -> pr "  const char *r;\n"
        | RString _ -> pr "  char *r;\n"
        | RStringList _ | RHashtable _ -> pr "  char **r;\n"
-       | RIntBool _ -> pr "  struct guestfs_int_bool *r;\n"
-       | RPVList _ -> pr "  struct guestfs_lvm_pv_list *r;\n"
-       | RVGList _ -> pr "  struct guestfs_lvm_vg_list *r;\n"
-       | RLVList _ -> pr "  struct guestfs_lvm_lv_list *r;\n"
-       | RStat _ -> pr "  struct guestfs_stat *r;\n"
-       | RStatVFS _ -> pr "  struct guestfs_statvfs *r;\n"
-       | RDirentList _ -> pr "  struct guestfs_dirent_list *r;\n"
+       | RStruct (_, typ) -> pr "  struct guestfs_%s *r;\n" typ
+       | RStructList (_, typ) -> pr "  struct guestfs_%s_list *r;\n" typ
       );
       List.iter (
 	function
@@ -5257,46 +5141,20 @@ and generate_fish_cmds () =
 	   pr "  print_strings (r);\n";
 	   pr "  free_strings (r);\n";
 	   pr "  return 0;\n"
-       | RIntBool _ ->
+       | RStruct (_, typ) ->
 	   pr "  if (r == NULL) return -1;\n";
-	   pr "  printf (\"%%d, %%s\\n\", r->i,\n";
-	   pr "    r->b ? \"true\" : \"false\");\n";
-	   pr "  guestfs_free_int_bool (r);\n";
+	   pr "  print_%s (r);\n" typ;
+	   pr "  guestfs_free_%s (r);\n" typ;
 	   pr "  return 0;\n"
-       | RPVList _ ->
+       | RStructList (_, typ) ->
 	   pr "  if (r == NULL) return -1;\n";
-	   pr "  print_pv_list (r);\n";
-	   pr "  guestfs_free_lvm_pv_list (r);\n";
-	   pr "  return 0;\n"
-       | RVGList _ ->
-	   pr "  if (r == NULL) return -1;\n";
-	   pr "  print_vg_list (r);\n";
-	   pr "  guestfs_free_lvm_vg_list (r);\n";
-	   pr "  return 0;\n"
-       | RLVList _ ->
-	   pr "  if (r == NULL) return -1;\n";
-	   pr "  print_lv_list (r);\n";
-	   pr "  guestfs_free_lvm_lv_list (r);\n";
-	   pr "  return 0;\n"
-       | RStat _ ->
-	   pr "  if (r == NULL) return -1;\n";
-	   pr "  print_stat (r);\n";
-	   pr "  free (r);\n";
-	   pr "  return 0;\n"
-       | RStatVFS _ ->
-	   pr "  if (r == NULL) return -1;\n";
-	   pr "  print_statvfs (r);\n";
-	   pr "  free (r);\n";
+	   pr "  print_%s_list (r);\n" typ;
+	   pr "  guestfs_free_%s_list (r);\n" typ;
 	   pr "  return 0;\n"
        | RHashtable _ ->
 	   pr "  if (r == NULL) return -1;\n";
 	   pr "  print_table (r);\n";
 	   pr "  free_strings (r);\n";
-	   pr "  return 0;\n"
-       | RDirentList _ ->
-	   pr "  if (r == NULL) return -1;\n";
-	   pr "  print_dirent_list (r);\n";
-	   pr "  guestfs_free_dirent_list (r);\n";
 	   pr "  return 0;\n"
       );
       pr "}\n";
@@ -5490,27 +5348,12 @@ and generate_prototype ?(extern = true) ?(static = false) ?(semicolon = true)
    | RConstString _ -> pr "const char *"
    | RString _ -> pr "char *"
    | RStringList _ | RHashtable _ -> pr "char **"
-   | RIntBool _ ->
-       if not in_daemon then pr "struct guestfs_int_bool *"
-       else pr "guestfs_%s_ret *" name
-   | RPVList _ ->
-       if not in_daemon then pr "struct guestfs_lvm_pv_list *"
-       else pr "guestfs_lvm_int_pv_list *"
-   | RVGList _ ->
-       if not in_daemon then pr "struct guestfs_lvm_vg_list *"
-       else pr "guestfs_lvm_int_vg_list *"
-   | RLVList _ ->
-       if not in_daemon then pr "struct guestfs_lvm_lv_list *"
-       else pr "guestfs_lvm_int_lv_list *"
-   | RStat _ ->
-       if not in_daemon then pr "struct guestfs_stat *"
-       else pr "guestfs_int_stat *"
-   | RStatVFS _ ->
-       if not in_daemon then pr "struct guestfs_statvfs *"
-       else pr "guestfs_int_statvfs *"
-   | RDirentList _ ->
-       if not in_daemon then pr "struct guestfs_dirent_list *"
-       else pr "guestfs_int_dirent_list *"
+   | RStruct (_, typ) ->
+       if not in_daemon then pr "struct guestfs_%s *" typ
+       else pr "guestfs_int_%s *" typ
+   | RStructList (_, typ) ->
+       if not in_daemon then pr "struct guestfs_%s_list *" typ
+       else pr "guestfs_int_%s_list *" typ
   );
   pr "%s%s (" prefix name;
   if handle = None && List.length (snd style) = 0 then
@@ -5588,11 +5431,7 @@ val close : t -> unit
     provide predictable cleanup. *)
 
 ";
-  generate_ocaml_lvm_structure_decls ();
-
-  generate_ocaml_stat_structure_decls ();
-
-  generate_ocaml_dirent_structure_decls ();
+  generate_ocaml_structure_decls ();
 
   (* The actions. *)
   List.iter (
@@ -5617,11 +5456,7 @@ let () =
 
 ";
 
-  generate_ocaml_lvm_structure_decls ();
-
-  generate_ocaml_stat_structure_decls ();
-
-  generate_ocaml_dirent_structure_decls ();
+  generate_ocaml_structure_decls ();
 
   (* The actions. *)
   List.iter (
@@ -5679,14 +5514,14 @@ copy_table (char * const * argv)
 
 ";
 
-  (* LVM struct copy functions. *)
+  (* Struct copy functions. *)
   List.iter (
     fun (typ, cols) ->
       let has_optpercent_col =
-	List.exists (function (_, `OptPercent) -> true | _ -> false) cols in
+	List.exists (function (_, FOptPercent) -> true | _ -> false) cols in
 
       pr "static CAMLprim value\n";
-      pr "copy_lvm_%s (const struct guestfs_lvm_%s *%s)\n" typ typ typ;
+      pr "copy_%s (const struct guestfs_%s *%s)\n" typ typ typ;
       pr "{\n";
       pr "  CAMLparam0 ();\n";
       if has_optpercent_col then
@@ -5698,21 +5533,24 @@ copy_table (char * const * argv)
       iteri (
 	fun i col ->
 	  (match col with
-	   | name, `String ->
+	   | name, FString ->
 	       pr "  v = caml_copy_string (%s->%s);\n" typ name
-	   | name, `UUID ->
+	   | name, FUUID ->
 	       pr "  v = caml_alloc_string (32);\n";
 	       pr "  memcpy (String_val (v), %s->%s, 32);\n" typ name
-	   | name, `Bytes
-	   | name, `Int ->
+	   | name, (FBytes|FInt64|FUInt64) ->
 	       pr "  v = caml_copy_int64 (%s->%s);\n" typ name
-	   | name, `OptPercent ->
+	   | name, (FInt32|FUInt32) ->
+	       pr "  v = caml_copy_int32 (%s->%s);\n" typ name
+	   | name, FOptPercent ->
 	       pr "  if (%s->%s >= 0) { /* Some %s */\n" typ name name;
 	       pr "    v2 = caml_copy_double (%s->%s);\n" typ name;
 	       pr "    v = caml_alloc (1, 0);\n";
 	       pr "    Store_field (v, 0, v2);\n";
 	       pr "  } else /* None */\n";
 	       pr "    v = Val_int (0);\n";
+	   | name, FChar ->
+	       pr "  v = Val_int (%s->%s);\n" typ name
 	  );
 	  pr "  Store_field (rv, %d, v);\n" i
       ) cols;
@@ -5721,7 +5559,7 @@ copy_table (char * const * argv)
       pr "\n";
 
       pr "static CAMLprim value\n";
-      pr "copy_lvm_%s_list (const struct guestfs_lvm_%s_list *%ss)\n"
+      pr "copy_%s_list (const struct guestfs_%s_list *%ss)\n"
 	typ typ typ;
       pr "{\n";
       pr "  CAMLparam0 ();\n";
@@ -5733,81 +5571,14 @@ copy_table (char * const * argv)
       pr "  else {\n";
       pr "    rv = caml_alloc (%ss->len, 0);\n" typ;
       pr "    for (i = 0; i < %ss->len; ++i) {\n" typ;
-      pr "      v = copy_lvm_%s (&%ss->val[i]);\n" typ typ;
+      pr "      v = copy_%s (&%ss->val[i]);\n" typ typ;
       pr "      caml_modify (&Field (rv, i), v);\n";
       pr "    }\n";
       pr "    CAMLreturn (rv);\n";
       pr "  }\n";
       pr "}\n";
       pr "\n";
-  ) ["pv", pv_cols; "vg", vg_cols; "lv", lv_cols];
-
-  (* Stat copy functions. *)
-  List.iter (
-    fun (typ, cols) ->
-      pr "static CAMLprim value\n";
-      pr "copy_%s (const struct guestfs_%s *%s)\n" typ typ typ;
-      pr "{\n";
-      pr "  CAMLparam0 ();\n";
-      pr "  CAMLlocal2 (rv, v);\n";
-      pr "\n";
-      pr "  rv = caml_alloc (%d, 0);\n" (List.length cols);
-      iteri (
-	fun i col ->
-	  (match col with
-	   | name, `Int ->
-	       pr "  v = caml_copy_int64 (%s->%s);\n" typ name
-	  );
-	  pr "  Store_field (rv, %d, v);\n" i
-      ) cols;
-      pr "  CAMLreturn (rv);\n";
-      pr "}\n";
-      pr "\n";
-  ) ["stat", stat_cols; "statvfs", statvfs_cols];
-
-  (* Dirent copy functions. *)
-  pr "static CAMLprim value\n";
-  pr "copy_dirent (const struct guestfs_dirent *dirent)\n";
-  pr "{\n";
-  pr "  CAMLparam0 ();\n";
-  pr "  CAMLlocal2 (rv, v);\n";
-  pr "\n";
-  pr "  rv = caml_alloc (%d, 0);\n" (List.length dirent_cols);
-  iteri (
-    fun i col ->
-      (match col with
-       | name, `String ->
-	   pr "  v = caml_copy_string (dirent->%s);\n" name
-       | name, `Int ->
-	   pr "  v = caml_copy_int64 (dirent->%s);\n" name
-       | name, `Char ->
-	   pr "  v = Val_int (dirent->%s);\n" name
-      );
-      pr "  Store_field (rv, %d, v);\n" i
-  ) dirent_cols;
-  pr "  CAMLreturn (rv);\n";
-  pr "}\n";
-  pr "\n";
-
-  pr "static CAMLprim value\n";
-  pr "copy_dirent_list (const struct guestfs_dirent_list *dirents)\n";
-  pr "{\n";
-  pr "  CAMLparam0 ();\n";
-  pr "  CAMLlocal2 (rv, v);\n";
-  pr "  int i;\n";
-  pr "\n";
-  pr "  if (dirents->len == 0)\n";
-  pr "    CAMLreturn (Atom (0));\n";
-  pr "  else {\n";
-  pr "    rv = caml_alloc (dirents->len, 0);\n";
-  pr "    for (i = 0; i < dirents->len; ++i) {\n";
-  pr "      v = copy_dirent (&dirents->val[i]);\n";
-  pr "      caml_modify (&Field (rv, i), v);\n";
-  pr "    }\n";
-  pr "    CAMLreturn (rv);\n";
-  pr "  }\n";
-  pr "}\n";
-  pr "\n";
+  ) structs;
 
   (* The wrappers. *)
   List.iter (
@@ -5868,24 +5639,14 @@ copy_table (char * const * argv)
 	    pr "  int i;\n";
 	    pr "  char **r;\n";
 	    "NULL"
-	| RIntBool _ ->
-	    pr "  struct guestfs_int_bool *r;\n"; "NULL"
-	| RPVList _ ->
-	    pr "  struct guestfs_lvm_pv_list *r;\n"; "NULL"
-	| RVGList _ ->
-	    pr "  struct guestfs_lvm_vg_list *r;\n"; "NULL"
-	| RLVList _ ->
-	    pr "  struct guestfs_lvm_lv_list *r;\n"; "NULL"
-	| RStat _ ->
-	    pr "  struct guestfs_stat *r;\n"; "NULL"
-	| RStatVFS _ ->
-	    pr "  struct guestfs_statvfs *r;\n"; "NULL"
+	| RStruct (_, typ) ->
+	    pr "  struct guestfs_%s *r;\n" typ; "NULL"
+	| RStructList (_, typ) ->
+	    pr "  struct guestfs_%s_list *r;\n" typ; "NULL"
 	| RHashtable _ ->
 	    pr "  int i;\n";
 	    pr "  char **r;\n";
-	    "NULL"
-	| RDirentList _ ->
-	    pr "  struct guestfs_dirent_list *r;\n"; "NULL" in
+	    "NULL" in
       pr "\n";
 
       pr "  caml_enter_blocking_section ();\n";
@@ -5919,33 +5680,16 @@ copy_table (char * const * argv)
 	   pr "  rv = caml_copy_string_array ((const char **) r);\n";
 	   pr "  for (i = 0; r[i] != NULL; ++i) free (r[i]);\n";
 	   pr "  free (r);\n"
-       | RIntBool _ ->
-	   pr "  rv = caml_alloc (2, 0);\n";
-	   pr "  Store_field (rv, 0, Val_int (r->i));\n";
-	   pr "  Store_field (rv, 1, Val_bool (r->b));\n";
-	   pr "  guestfs_free_int_bool (r);\n";
-       | RPVList _ ->
-	   pr "  rv = copy_lvm_pv_list (r);\n";
-	   pr "  guestfs_free_lvm_pv_list (r);\n";
-       | RVGList _ ->
-	   pr "  rv = copy_lvm_vg_list (r);\n";
-	   pr "  guestfs_free_lvm_vg_list (r);\n";
-       | RLVList _ ->
-	   pr "  rv = copy_lvm_lv_list (r);\n";
-	   pr "  guestfs_free_lvm_lv_list (r);\n";
-       | RStat _ ->
-	   pr "  rv = copy_stat (r);\n";
-	   pr "  free (r);\n";
-       | RStatVFS _ ->
-	   pr "  rv = copy_statvfs (r);\n";
-	   pr "  free (r);\n";
+       | RStruct (_, typ) ->
+	   pr "  rv = copy_%s (r);\n" typ;
+	   pr "  guestfs_free_%s (r);\n" typ;
+       | RStructList (_, typ) ->
+	   pr "  rv = copy_%s_list (r);\n" typ;
+	   pr "  guestfs_free_%s_list (r);\n" typ;
        | RHashtable _ ->
 	   pr "  rv = copy_table (r);\n";
 	   pr "  for (i = 0; r[i] != NULL; ++i) free (r[i]);\n";
 	   pr "  free (r);\n";
-       | RDirentList _ ->
-	   pr "  rv = copy_dirent_list (r);\n";
-	   pr "  guestfs_free_dirent_list (r);\n";
       );
 
       pr "  CAMLreturn (rv);\n";
@@ -5964,44 +5708,22 @@ copy_table (char * const * argv)
       )
   ) all_functions
 
-and generate_ocaml_lvm_structure_decls () =
-  List.iter (
-    fun (typ, cols) ->
-      pr "type lvm_%s = {\n" typ;
-      List.iter (
-	function
-	| name, `String -> pr "  %s : string;\n" name
-	| name, `UUID -> pr "  %s : string;\n" name
-	| name, `Bytes -> pr "  %s : int64;\n" name
-	| name, `Int -> pr "  %s : int64;\n" name
-	| name, `OptPercent -> pr "  %s : float option;\n" name
-      ) cols;
-      pr "}\n";
-      pr "\n"
-  ) ["pv", pv_cols; "vg", vg_cols; "lv", lv_cols]
-
-and generate_ocaml_stat_structure_decls () =
+and generate_ocaml_structure_decls () =
   List.iter (
     fun (typ, cols) ->
       pr "type %s = {\n" typ;
       List.iter (
 	function
-	| name, `Int -> pr "  %s : int64;\n" name
+	| name, FString -> pr "  %s : string;\n" name
+	| name, FUUID -> pr "  %s : string;\n" name
+	| name, (FBytes|FInt64|FUInt64) -> pr "  %s : int64;\n" name
+	| name, (FInt32|FUInt32) -> pr "  %s : int32;\n" name
+	| name, FChar -> pr "  %s : char;\n" name
+	| name, FOptPercent -> pr "  %s : float option;\n" name
       ) cols;
       pr "}\n";
       pr "\n"
-  ) ["stat", stat_cols; "statvfs", statvfs_cols]
-
-and generate_ocaml_dirent_structure_decls () =
-  pr "type dirent = {\n";
-  List.iter (
-    function
-    | name, `Int -> pr "  %s : int64;\n" name
-    | name, `Char -> pr "  %s : char;\n" name
-    | name, `String -> pr "  %s : string;\n" name
-  ) dirent_cols;
-  pr "}\n";
-  pr "\n"
+  ) structs
 
 and generate_ocaml_prototype ?(is_external = false) name style =
   if is_external then pr "external " else pr "val ";
@@ -6022,14 +5744,9 @@ and generate_ocaml_prototype ?(is_external = false) name style =
    | RConstString _ -> pr "string"
    | RString _ -> pr "string"
    | RStringList _ -> pr "string array"
-   | RIntBool _ -> pr "int * bool"
-   | RPVList _ -> pr "lvm_pv array"
-   | RVGList _ -> pr "lvm_vg array"
-   | RLVList _ -> pr "lvm_lv array"
-   | RStat _ -> pr "stat"
-   | RStatVFS _ -> pr "statvfs"
+   | RStruct (_, typ) -> pr "%s" typ
+   | RStructList (_, typ) -> pr "%s array" typ
    | RHashtable _ -> pr "(string * string) list"
-   | RDirentList _ -> pr "dirent array"
   );
   if is_external then (
     pr " = ";
@@ -6143,11 +5860,8 @@ DESTROY (g)
        | RConstString _ -> pr "SV *\n"
        | RString _ -> pr "SV *\n"
        | RStringList _
-       | RIntBool _
-       | RPVList _ | RVGList _ | RLVList _
-       | RStat _ | RStatVFS _
-       | RHashtable _
-       | RDirentList _ ->
+       | RStruct _ | RStructList _
+       | RHashtable _ ->
 	   pr "void\n" (* all lists returned implictly on the stack *)
       );
       (* Call and arguments. *)
@@ -6263,95 +5977,18 @@ DESTROY (g)
 	   pr "        free (%s[i]);\n" n;
 	   pr "      }\n";
 	   pr "      free (%s);\n" n;
-       | RIntBool _ ->
-	   pr "PREINIT:\n";
-	   pr "      struct guestfs_int_bool *r;\n";
-	   pr " PPCODE:\n";
-	   pr "      r = guestfs_%s " name;
-	   generate_call_args ~handle:"g" (snd style);
-	   pr ";\n";
-	   do_cleanups ();
-	   pr "      if (r == NULL)\n";
-	   pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
-	   pr "      EXTEND (SP, 2);\n";
-	   pr "      PUSHs (sv_2mortal (newSViv (r->i)));\n";
-	   pr "      PUSHs (sv_2mortal (newSViv (r->b)));\n";
-	   pr "      guestfs_free_int_bool (r);\n";
-       | RPVList n ->
-	   generate_perl_lvm_code "pv" pv_cols name style n do_cleanups
-       | RVGList n ->
-	   generate_perl_lvm_code "vg" vg_cols name style n do_cleanups
-       | RLVList n ->
-	   generate_perl_lvm_code "lv" lv_cols name style n do_cleanups
-       | RStat n ->
-	   generate_perl_stat_code "stat" stat_cols name style n do_cleanups
-       | RStatVFS n ->
-	   generate_perl_stat_code
-	     "statvfs" statvfs_cols name style n do_cleanups
-       | RDirentList n ->
-	   generate_perl_dirent_code
-	     "dirent" dirent_cols name style n do_cleanups
+       | RStruct (n, typ) ->
+	   let cols = cols_of_struct typ in
+	   generate_perl_struct_code typ cols name style n do_cleanups
+       | RStructList (n, typ) ->
+	   let cols = cols_of_struct typ in
+	   generate_perl_struct_list_code typ cols name style n do_cleanups
       );
 
       pr "\n"
   ) all_functions
 
-and generate_perl_lvm_code typ cols name style n do_cleanups =
-  pr "PREINIT:\n";
-  pr "      struct guestfs_lvm_%s_list *%s;\n" typ n;
-  pr "      int i;\n";
-  pr "      HV *hv;\n";
-  pr " PPCODE:\n";
-  pr "      %s = guestfs_%s " n name;
-  generate_call_args ~handle:"g" (snd style);
-  pr ";\n";
-  do_cleanups ();
-  pr "      if (%s == NULL)\n" n;
-  pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
-  pr "      EXTEND (SP, %s->len);\n" n;
-  pr "      for (i = 0; i < %s->len; ++i) {\n" n;
-  pr "        hv = newHV ();\n";
-  List.iter (
-    function
-    | name, `String ->
-	pr "        (void) hv_store (hv, \"%s\", %d, newSVpv (%s->val[i].%s, 0), 0);\n"
-	  name (String.length name) n name
-    | name, `UUID ->
-	pr "        (void) hv_store (hv, \"%s\", %d, newSVpv (%s->val[i].%s, 32), 0);\n"
-	  name (String.length name) n name
-    | name, `Bytes ->
-	pr "        (void) hv_store (hv, \"%s\", %d, my_newSVull (%s->val[i].%s), 0);\n"
-	  name (String.length name) n name
-    | name, `Int ->
-	pr "        (void) hv_store (hv, \"%s\", %d, my_newSVll (%s->val[i].%s), 0);\n"
-	  name (String.length name) n name
-    | name, `OptPercent ->
-	pr "        (void) hv_store (hv, \"%s\", %d, newSVnv (%s->val[i].%s), 0);\n"
-	  name (String.length name) n name
-  ) cols;
-  pr "        PUSHs (sv_2mortal (newRV ((SV *) hv)));\n";
-  pr "      }\n";
-  pr "      guestfs_free_lvm_%s_list (%s);\n" typ n
-
-and generate_perl_stat_code typ cols name style n do_cleanups =
-  pr "PREINIT:\n";
-  pr "      struct guestfs_%s *%s;\n" typ n;
-  pr " PPCODE:\n";
-  pr "      %s = guestfs_%s " n name;
-  generate_call_args ~handle:"g" (snd style);
-  pr ";\n";
-  do_cleanups ();
-  pr "      if (%s == NULL)\n" n;
-  pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
-  pr "      EXTEND (SP, %d);\n" (List.length cols);
-  List.iter (
-    function
-    | name, `Int ->
-	pr "      PUSHs (sv_2mortal (my_newSVll (%s->%s)));\n" n name
-  ) cols;
-  pr "      free (%s);\n" n
-
-and generate_perl_dirent_code typ cols name style n do_cleanups =
+and generate_perl_struct_list_code typ cols name style n do_cleanups =
   pr "PREINIT:\n";
   pr "      struct guestfs_%s_list *%s;\n" typ n;
   pr "      int i;\n";
@@ -6368,19 +6005,68 @@ and generate_perl_dirent_code typ cols name style n do_cleanups =
   pr "        hv = newHV ();\n";
   List.iter (
     function
-    | name, `String ->
+    | name, FString ->
 	pr "        (void) hv_store (hv, \"%s\", %d, newSVpv (%s->val[i].%s, 0), 0);\n"
 	  name (String.length name) n name
-    | name, `Int ->
+    | name, FUUID ->
+	pr "        (void) hv_store (hv, \"%s\", %d, newSVpv (%s->val[i].%s, 32), 0);\n"
+	  name (String.length name) n name
+    | name, (FBytes|FUInt64) ->
 	pr "        (void) hv_store (hv, \"%s\", %d, my_newSVull (%s->val[i].%s), 0);\n"
 	  name (String.length name) n name
-    | name, `Char ->
+    | name, FInt64 ->
+	pr "        (void) hv_store (hv, \"%s\", %d, my_newSVll (%s->val[i].%s), 0);\n"
+	  name (String.length name) n name
+    | name, (FInt32|FUInt32) ->
+	pr "        (void) hv_store (hv, \"%s\", %d, newSVnv (%s->val[i].%s), 0);\n"
+	  name (String.length name) n name
+    | name, FChar ->
 	pr "        (void) hv_store (hv, \"%s\", %d, newSVpv (&%s->val[i].%s, 1), 0);\n"
 	  name (String.length name) n name
+    | name, FOptPercent ->
+	pr "        (void) hv_store (hv, \"%s\", %d, newSVnv (%s->val[i].%s), 0);\n"
+	  name (String.length name) n name
   ) cols;
-  pr "        PUSHs (newRV (sv_2mortal ((SV *) hv)));\n";
+  pr "        PUSHs (sv_2mortal (newRV ((SV *) hv)));\n";
   pr "      }\n";
   pr "      guestfs_free_%s_list (%s);\n" typ n
+
+and generate_perl_struct_code typ cols name style n do_cleanups =
+  pr "PREINIT:\n";
+  pr "      struct guestfs_%s *%s;\n" typ n;
+  pr " PPCODE:\n";
+  pr "      %s = guestfs_%s " n name;
+  generate_call_args ~handle:"g" (snd style);
+  pr ";\n";
+  do_cleanups ();
+  pr "      if (%s == NULL)\n" n;
+  pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
+  pr "      EXTEND (SP, %d);\n" (List.length cols);
+  List.iter (
+    function
+    | name, FString ->
+	pr "      PUSHs (sv_2mortal (newSVpv (%s->%s, 0)));\n"
+	  n name
+    | name, FUUID ->
+	pr "      PUSHs (sv_2mortal (newSVpv (%s->%s, 32)));\n"
+	  n name
+    | name, (FBytes|FUInt64) ->
+	pr "      PUSHs (sv_2mortal (my_newSVull (%s->%s)));\n"
+	  n name
+    | name, FInt64 ->
+	pr "      PUSHs (sv_2mortal (my_newSVll (%s->%s)));\n"
+	  n name
+    | name, (FInt32|FUInt32) ->
+	pr "      PUSHs (sv_2mortal (newSVnv (%s->%s)));\n"
+	  n name
+    | name, FChar ->
+	pr "      PUSHs (sv_2mortal (newSVpv (&%s->%s, 1)));\n"
+	  n name
+    | name, FOptPercent ->
+	pr "      PUSHs (sv_2mortal (newSVnv (%s->%s)));\n"
+	  n name
+  ) cols;
+  pr "      free (%s);\n" n
 
 (* Generate Sys/Guestfs.pm. *)
 and generate_perl_pm () =
@@ -6396,7 +6082,7 @@ Sys::Guestfs - Perl bindings for libguestfs
 =head1 SYNOPSIS
 
  use Sys::Guestfs;
- 
+
  my $h = Sys::Guestfs->new ();
  $h->add_drive ('guest.img');
  $h->launch ();
@@ -6511,15 +6197,10 @@ and generate_perl_prototype name style =
    | RInt64 n
    | RConstString n
    | RString n -> pr "$%s = " n
-   | RIntBool (n, m) -> pr "($%s, $%s) = " n m
-   | RStringList n
-   | RPVList n
-   | RVGList n
-   | RLVList n
-   | RDirentList n -> pr "@%s = " n
-   | RStat n
-   | RStatVFS n
+   | RStruct (n,_)
    | RHashtable n -> pr "%%%s = " n
+   | RStringList n
+   | RStructList (n,_) -> pr "@%s = " n
   );
   pr "$h->%s (" name;
   let comma = ref false in
@@ -6676,62 +6357,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
 
 ";
 
-  (* LVM structures, turned into Python dictionaries. *)
-  List.iter (
-    fun (typ, cols) ->
-      pr "static PyObject *\n";
-      pr "put_lvm_%s (struct guestfs_lvm_%s *%s)\n" typ typ typ;
-      pr "{\n";
-      pr "  PyObject *dict;\n";
-      pr "\n";
-      pr "  dict = PyDict_New ();\n";
-      List.iter (
-	function
-	| name, `String ->
-	    pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
-	    pr "                        PyString_FromString (%s->%s));\n"
-	      typ name
-	| name, `UUID ->
-	    pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
-	    pr "                        PyString_FromStringAndSize (%s->%s, 32));\n"
-	      typ name
-	| name, `Bytes ->
-	    pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
-	    pr "                        PyLong_FromUnsignedLongLong (%s->%s));\n"
-	      typ name
-	| name, `Int ->
-	    pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
-	    pr "                        PyLong_FromLongLong (%s->%s));\n"
-	      typ name
-	| name, `OptPercent ->
-	    pr "  if (%s->%s >= 0)\n" typ name;
-	    pr "    PyDict_SetItemString (dict, \"%s\",\n" name;
-	    pr "                          PyFloat_FromDouble ((double) %s->%s));\n"
-	      typ name;
-	    pr "  else {\n";
-	    pr "    Py_INCREF (Py_None);\n";
-	    pr "    PyDict_SetItemString (dict, \"%s\", Py_None);" name;
-	    pr "  }\n"
-      ) cols;
-      pr "  return dict;\n";
-      pr "};\n";
-      pr "\n";
-
-      pr "static PyObject *\n";
-      pr "put_lvm_%s_list (struct guestfs_lvm_%s_list *%ss)\n" typ typ typ;
-      pr "{\n";
-      pr "  PyObject *list;\n";
-      pr "  int i;\n";
-      pr "\n";
-      pr "  list = PyList_New (%ss->len);\n" typ;
-      pr "  for (i = 0; i < %ss->len; ++i)\n" typ;
-      pr "    PyList_SetItem (list, i, put_lvm_%s (&%ss->val[i]));\n" typ typ;
-      pr "  return list;\n";
-      pr "};\n";
-      pr "\n"
-  ) ["pv", pv_cols; "vg", vg_cols; "lv", lv_cols];
-
-  (* Stat structures, turned into Python dictionaries. *)
+  (* Structures, turned into Python dictionaries. *)
   List.iter (
     fun (typ, cols) ->
       pr "static PyObject *\n";
@@ -6742,51 +6368,60 @@ py_guestfs_close (PyObject *self, PyObject *args)
       pr "  dict = PyDict_New ();\n";
       List.iter (
 	function
-	| name, `Int ->
+	| name, FString ->
+	    pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
+	    pr "                        PyString_FromString (%s->%s));\n"
+	      typ name
+	| name, FUUID ->
+	    pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
+	    pr "                        PyString_FromStringAndSize (%s->%s, 32));\n"
+	      typ name
+	| name, (FBytes|FUInt64) ->
+	    pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
+	    pr "                        PyLong_FromUnsignedLongLong (%s->%s));\n"
+	      typ name
+	| name, FInt64 ->
 	    pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
 	    pr "                        PyLong_FromLongLong (%s->%s));\n"
 	      typ name
+	| name, FUInt32 ->
+	    pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
+	    pr "                        PyLong_FromUnsignedLong (%s->%s));\n"
+	      typ name
+	| name, FInt32 ->
+	    pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
+	    pr "                        PyLong_FromLong (%s->%s));\n"
+	      typ name
+	| name, FOptPercent ->
+	    pr "  if (%s->%s >= 0)\n" typ name;
+	    pr "    PyDict_SetItemString (dict, \"%s\",\n" name;
+	    pr "                          PyFloat_FromDouble ((double) %s->%s));\n"
+	      typ name;
+	    pr "  else {\n";
+	    pr "    Py_INCREF (Py_None);\n";
+	    pr "    PyDict_SetItemString (dict, \"%s\", Py_None);" name;
+	    pr "  }\n"
+	| name, FChar ->
+	    pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
+	    pr "                        PyString_FromStringAndSize (&dirent->%s, 1));\n" name
       ) cols;
       pr "  return dict;\n";
       pr "};\n";
       pr "\n";
-  ) ["stat", stat_cols; "statvfs", statvfs_cols];
 
-  (* Dirent structures, turned into Python dictionaries. *)
-  pr "static PyObject *\n";
-  pr "put_dirent (struct guestfs_dirent *dirent)\n";
-  pr "{\n";
-  pr "  PyObject *dict;\n";
-  pr "\n";
-  pr "  dict = PyDict_New ();\n";
-  List.iter (
-    function
-    | name, `Int ->
-	pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
-	pr "                        PyLong_FromLongLong (dirent->%s));\n" name
-    | name, `Char ->
-	pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
-	pr "                        PyString_FromStringAndSize (&dirent->%s, 1));\n" name
-    | name, `String ->
-	pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
-	pr "                        PyString_FromString (dirent->%s));\n" name
-  ) dirent_cols;
-  pr "  return dict;\n";
-  pr "};\n";
-  pr "\n";
-
-  pr "static PyObject *\n";
-  pr "put_dirent_list (struct guestfs_dirent_list *dirents)\n";
-  pr "{\n";
-  pr "  PyObject *list;\n";
-  pr "  int i;\n";
-  pr "\n";
-  pr "  list = PyList_New (dirents->len);\n";
-  pr "  for (i = 0; i < dirents->len; ++i)\n";
-  pr "    PyList_SetItem (list, i, put_dirent (&dirents->val[i]));\n";
-  pr "  return list;\n";
-  pr "};\n";
-  pr "\n";
+      pr "static PyObject *\n";
+      pr "put_%s_list (struct guestfs_%s_list *%ss)\n" typ typ typ;
+      pr "{\n";
+      pr "  PyObject *list;\n";
+      pr "  int i;\n";
+      pr "\n";
+      pr "  list = PyList_New (%ss->len);\n" typ;
+      pr "  for (i = 0; i < %ss->len; ++i)\n" typ;
+      pr "    PyList_SetItem (list, i, put_%s (&%ss->val[i]));\n" typ typ;
+      pr "  return list;\n";
+      pr "};\n";
+      pr "\n"
+  ) structs;
 
   (* Python wrapper functions. *)
   List.iter (
@@ -6806,13 +6441,9 @@ py_guestfs_close (PyObject *self, PyObject *args)
 	| RConstString _ -> pr "  const char *r;\n"; "NULL"
 	| RString _ -> pr "  char *r;\n"; "NULL"
 	| RStringList _ | RHashtable _ -> pr "  char **r;\n"; "NULL"
-	| RIntBool _ -> pr "  struct guestfs_int_bool *r;\n"; "NULL"
-	| RPVList n -> pr "  struct guestfs_lvm_pv_list *r;\n"; "NULL"
-	| RVGList n -> pr "  struct guestfs_lvm_vg_list *r;\n"; "NULL"
-	| RLVList n -> pr "  struct guestfs_lvm_lv_list *r;\n"; "NULL"
-	| RStat n -> pr "  struct guestfs_stat *r;\n"; "NULL"
-	| RStatVFS n -> pr "  struct guestfs_statvfs *r;\n"; "NULL"
-	| RDirentList n -> pr "  struct guestfs_dirent_list *r;\n"; "NULL" in
+	| RStruct (_, typ) -> pr "  struct guestfs_%s *r;\n" typ; "NULL"
+	| RStructList (_, typ) ->
+	    pr "  struct guestfs_%s_list *r;\n" typ; "NULL" in
 
       List.iter (
 	function
@@ -6893,32 +6524,15 @@ py_guestfs_close (PyObject *self, PyObject *args)
        | RStringList _ ->
 	   pr "  py_r = put_string_list (r);\n";
 	   pr "  free_strings (r);\n"
-       | RIntBool _ ->
-	   pr "  py_r = PyTuple_New (2);\n";
-	   pr "  PyTuple_SetItem (py_r, 0, PyInt_FromLong ((long) r->i));\n";
-	   pr "  PyTuple_SetItem (py_r, 1, PyInt_FromLong ((long) r->b));\n";
-	   pr "  guestfs_free_int_bool (r);\n"
-       | RPVList n ->
-	   pr "  py_r = put_lvm_pv_list (r);\n";
-	   pr "  guestfs_free_lvm_pv_list (r);\n"
-       | RVGList n ->
-	   pr "  py_r = put_lvm_vg_list (r);\n";
-	   pr "  guestfs_free_lvm_vg_list (r);\n"
-       | RLVList n ->
-	   pr "  py_r = put_lvm_lv_list (r);\n";
-	   pr "  guestfs_free_lvm_lv_list (r);\n"
-       | RStat n ->
-	   pr "  py_r = put_stat (r);\n";
-	   pr "  free (r);\n"
-       | RStatVFS n ->
-	   pr "  py_r = put_statvfs (r);\n";
-	   pr "  free (r);\n"
+       | RStruct (_, typ) ->
+	   pr "  py_r = put_%s (r);\n" typ;
+	   pr "  guestfs_free_%s (r);\n" typ
+       | RStructList (_, typ) ->
+	   pr "  py_r = put_%s_list (r);\n" typ;
+	   pr "  guestfs_free_%s_list (r);\n" typ
        | RHashtable n ->
 	   pr "  py_r = put_table (r);\n";
 	   pr "  free_strings (r);\n"
-       | RDirentList n ->
-	   pr "  py_r = put_dirent_list (r);\n";
-	   pr "  guestfs_free_dirent_list (r);\n"
       );
 
       pr "  return py_r;\n";
@@ -7033,22 +6647,12 @@ class GuestFS:
 	  | RString _ -> doc
 	  | RStringList _ ->
 	      doc ^ "\n\nThis function returns a list of strings."
-	  | RIntBool _ ->
-	      doc ^ "\n\nThis function returns a tuple (int, bool).\n"
-	  | RPVList _ ->
-	      doc ^ "\n\nThis function returns a list of PVs.  Each PV is represented as a dictionary."
-	  | RVGList _ ->
-	      doc ^ "\n\nThis function returns a list of VGs.  Each VG is represented as a dictionary."
-	  | RLVList _ ->
-	      doc ^ "\n\nThis function returns a list of LVs.  Each LV is represented as a dictionary."
-	  | RStat _ ->
-	      doc ^ "\n\nThis function returns a dictionary, with keys matching the various fields in the stat structure."
-	  | RStatVFS _ ->
-	      doc ^ "\n\nThis function returns a dictionary, with keys matching the various fields in the statvfs structure."
+	  | RStruct (_, typ) ->
+	      doc ^ sprintf "\n\nThis function returns a dictionary, with keys matching the various fields in the guestfs_%s structure." typ
+	  | RStructList (_, typ) ->
+	      doc ^ sprintf "\n\nThis function returns a list of %ss.  Each %s is represented as a dictionary." typ typ
 	  | RHashtable _ ->
-	      doc ^ "\n\nThis function returns a dictionary."
-	  | RDirentList _ ->
-	      doc ^ "\n\nThis function returns a list of directory entries.  Each directory entry is represented as a dictionary." in
+	      doc ^ "\n\nThis function returns a dictionary." in
 	let doc =
 	  if List.mem ProtocolLimitWarning flags then
 	    doc ^ "\n\n" ^ protocol_limit_warning
@@ -7218,13 +6822,9 @@ static VALUE ruby_guestfs_close (VALUE gv)
 	| RConstString _ -> pr "  const char *r;\n"; "NULL"
 	| RString _ -> pr "  char *r;\n"; "NULL"
 	| RStringList _ | RHashtable _ -> pr "  char **r;\n"; "NULL"
-	| RIntBool _ -> pr "  struct guestfs_int_bool *r;\n"; "NULL"
-	| RPVList n -> pr "  struct guestfs_lvm_pv_list *r;\n"; "NULL"
-	| RVGList n -> pr "  struct guestfs_lvm_vg_list *r;\n"; "NULL"
-	| RLVList n -> pr "  struct guestfs_lvm_lv_list *r;\n"; "NULL"
-	| RStat n -> pr "  struct guestfs_stat *r;\n"; "NULL"
-	| RStatVFS n -> pr "  struct guestfs_statvfs *r;\n"; "NULL"
-	| RDirentList n -> pr "  struct guestfs_dirent_list *r;\n"; "NULL" in
+	| RStruct (_, typ) -> pr "  struct guestfs_%s *r;\n" typ; "NULL"
+	| RStructList (_, typ) ->
+	    pr "  struct guestfs_%s_list *r;\n" typ; "NULL" in
       pr "\n";
 
       pr "  r = guestfs_%s " name;
@@ -7265,36 +6865,12 @@ static VALUE ruby_guestfs_close (VALUE gv)
 	   pr "  }\n";
 	   pr "  free (r);\n";
 	   pr "  return rv;\n"
-       | RIntBool _ ->
-	   pr "  VALUE rv = rb_ary_new2 (2);\n";
-	   pr "  rb_ary_push (rv, INT2NUM (r->i));\n";
-	   pr "  rb_ary_push (rv, INT2NUM (r->b));\n";
-	   pr "  guestfs_free_int_bool (r);\n";
-	   pr "  return rv;\n"
-       | RPVList n ->
-	   generate_ruby_lvm_code "pv" pv_cols
-       | RVGList n ->
-	   generate_ruby_lvm_code "vg" vg_cols
-       | RLVList n ->
-	   generate_ruby_lvm_code "lv" lv_cols
-       | RStat n ->
-	   pr "  VALUE rv = rb_hash_new ();\n";
-	   List.iter (
-	     function
-	     | name, `Int ->
-		 pr "  rb_hash_aset (rv, rb_str_new2 (\"%s\"), ULL2NUM (r->%s));\n" name name
-	   ) stat_cols;
-	   pr "  free (r);\n";
-	   pr "  return rv;\n"
-       | RStatVFS n ->
-	   pr "  VALUE rv = rb_hash_new ();\n";
-	   List.iter (
-	     function
-	     | name, `Int ->
-		 pr "  rb_hash_aset (rv, rb_str_new2 (\"%s\"), ULL2NUM (r->%s));\n" name name
-	   ) statvfs_cols;
-	   pr "  free (r);\n";
-	   pr "  return rv;\n"
+       | RStruct (_, typ) ->
+	   let cols = cols_of_struct typ in
+	   generate_ruby_struct_code typ cols
+       | RStructList (_, typ) ->
+	   let cols = cols_of_struct typ in
+	   generate_ruby_struct_list_code typ cols
        | RHashtable _ ->
 	   pr "  VALUE rv = rb_hash_new ();\n";
 	   pr "  int i;\n";
@@ -7305,8 +6881,6 @@ static VALUE ruby_guestfs_close (VALUE gv)
 	   pr "  }\n";
 	   pr "  free (r);\n";
 	   pr "  return rv;\n"
-       | RDirentList n ->
-	   generate_ruby_dirent_code "dirent" dirent_cols
       );
 
       pr "}\n";
@@ -7334,41 +6908,55 @@ void Init__guestfs ()
 
   pr "}\n"
 
-(* Ruby code to return an LVM struct list. *)
-and generate_ruby_lvm_code typ cols =
-  pr "  VALUE rv = rb_ary_new2 (r->len);\n";
-  pr "  int i;\n";
-  pr "  for (i = 0; i < r->len; ++i) {\n";
-  pr "    VALUE hv = rb_hash_new ();\n";
+(* Ruby code to return a struct. *)
+and generate_ruby_struct_code typ cols =
+  pr "  VALUE rv = rb_hash_new ();\n";
   List.iter (
     function
-    | name, `String ->
-	pr "    rb_hash_aset (rv, rb_str_new2 (\"%s\"), rb_str_new2 (r->val[i].%s));\n" name name
-    | name, `UUID ->
-	pr "    rb_hash_aset (rv, rb_str_new2 (\"%s\"), rb_str_new (r->val[i].%s, 32));\n" name name
-    | name, `Bytes
-    | name, `Int ->
-	pr "    rb_hash_aset (rv, rb_str_new2 (\"%s\"), ULL2NUM (r->val[i].%s));\n" name name
-    | name, `OptPercent ->
-	pr "    rb_hash_aset (rv, rb_str_new2 (\"%s\"), rb_dbl2big (r->val[i].%s));\n" name name
+    | name, FString ->
+	pr "  rb_hash_aset (rv, rb_str_new2 (\"%s\"), rb_str_new2 (r->%s));\n" name name
+    | name, FUUID ->
+	pr "  rb_hash_aset (rv, rb_str_new2 (\"%s\"), rb_str_new (r->%s, 32));\n" name name
+    | name, (FBytes|FUInt64) ->
+	pr "  rb_hash_aset (rv, rb_str_new2 (\"%s\"), ULL2NUM (r->%s));\n" name name
+    | name, FInt64 ->
+	pr "  rb_hash_aset (rv, rb_str_new2 (\"%s\"), LL2NUM (r->%s));\n" name name
+    | name, FUInt32 ->
+	pr "  rb_hash_aset (rv, rb_str_new2 (\"%s\"), UINT2NUM (r->%s));\n" name name
+    | name, FInt32 ->
+	pr "  rb_hash_aset (rv, rb_str_new2 (\"%s\"), INT2NUM (r->%s));\n" name name
+    | name, FOptPercent ->
+	pr "  rb_hash_aset (rv, rb_str_new2 (\"%s\"), rb_dbl2big (r->%s));\n" name name
+    | name, FChar -> (* XXX wrong? *)
+	pr "  rb_hash_aset (rv, rb_str_new2 (\"%s\"), ULL2NUM (r->%s));\n" name name
   ) cols;
-  pr "    rb_ary_push (rv, hv);\n";
-  pr "  }\n";
-  pr "  guestfs_free_lvm_%s_list (r);\n" typ;
+  pr "  guestfs_free_%s (r);\n" typ;
   pr "  return rv;\n"
 
-(* Ruby code to return a dirent struct list. *)
-and generate_ruby_dirent_code typ cols =
+(* Ruby code to return a struct list. *)
+and generate_ruby_struct_list_code typ cols =
   pr "  VALUE rv = rb_ary_new2 (r->len);\n";
   pr "  int i;\n";
   pr "  for (i = 0; i < r->len; ++i) {\n";
   pr "    VALUE hv = rb_hash_new ();\n";
   List.iter (
     function
-    | name, `String ->
-	pr "    rb_hash_aset (rv, rb_str_new2 (\"%s\"), rb_str_new2 (r->val[i].%s));\n" name name
-    | name, (`Char|`Int) ->
-	pr "    rb_hash_aset (rv, rb_str_new2 (\"%s\"), ULL2NUM (r->val[i].%s));\n" name name
+    | name, FString ->
+	pr "    rb_hash_aset (hv, rb_str_new2 (\"%s\"), rb_str_new2 (r->val[i].%s));\n" name name
+    | name, FUUID ->
+	pr "    rb_hash_aset (hv, rb_str_new2 (\"%s\"), rb_str_new (r->val[i].%s, 32));\n" name name
+    | name, (FBytes|FUInt64) ->
+	pr "    rb_hash_aset (hv, rb_str_new2 (\"%s\"), ULL2NUM (r->val[i].%s));\n" name name
+    | name, FInt64 ->
+	pr "    rb_hash_aset (hv, rb_str_new2 (\"%s\"), LL2NUM (r->val[i].%s));\n" name name
+    | name, FUInt32 ->
+	pr "    rb_hash_aset (hv, rb_str_new2 (\"%s\"), UINT2NUM (r->val[i].%s));\n" name name
+    | name, FInt32 ->
+	pr "    rb_hash_aset (hv, rb_str_new2 (\"%s\"), INT2NUM (r->val[i].%s));\n" name name
+    | name, FOptPercent ->
+	pr "    rb_hash_aset (hv, rb_str_new2 (\"%s\"), rb_dbl2big (r->val[i].%s));\n" name name
+    | name, FChar -> (* XXX wrong? *)
+	pr "    rb_hash_aset (hv, rb_str_new2 (\"%s\"), ULL2NUM (r->val[i].%s));\n" name name
   ) cols;
   pr "    rb_ary_push (rv, hv);\n";
   pr "  }\n";
@@ -7507,14 +7095,13 @@ and generate_java_prototype ?(public=false) ?(privat=false) ?(native=false)
    | RBool _ -> pr "boolean ";
    | RConstString _ | RString _ -> pr "String ";
    | RStringList _ -> pr "String[] ";
-   | RIntBool _ -> pr "IntBool ";
-   | RPVList _ -> pr "PV[] ";
-   | RVGList _ -> pr "VG[] ";
-   | RLVList _ -> pr "LV[] ";
-   | RStat _ -> pr "Stat ";
-   | RStatVFS _ -> pr "StatVFS ";
+   | RStruct (_, typ) ->
+       let name = java_name_of_struct typ in
+       pr "%s " name;
+   | RStructList (_, typ) ->
+       let name = java_name_of_struct typ in
+       pr "%s[] " name;
    | RHashtable _ -> pr "HashMap<String,String> ";
-   | RDirentList _ -> pr "Dirent[] ";
   );
 
   if native then pr "_%s " name else pr "%s " name;
@@ -7549,7 +7136,7 @@ and generate_java_prototype ?(public=false) ?(privat=false) ?(native=false)
   pr "    throws LibGuestFSException";
   if semicolon then pr ";"
 
-and generate_java_struct typ cols =
+and generate_java_struct jtyp cols =
   generate_header CStyle LGPLv2;
 
   pr "\
@@ -7562,16 +7149,16 @@ package com.redhat.et.libguestfs;
  * @see GuestFS
  */
 public class %s {
-" typ typ;
+" jtyp jtyp;
 
   List.iter (
     function
-    | name, `String
-    | name, `UUID -> pr "  public String %s;\n" name
-    | name, `Bytes
-    | name, `Int -> pr "  public long %s;\n" name
-    | name, `Char -> pr "  public char %s;\n" name
-    | name, `OptPercent ->
+    | name, FString
+    | name, FUUID -> pr "  public String %s;\n" name
+    | name, (FBytes|FUInt64|FInt64) -> pr "  public long %s;\n" name
+    | name, (FUInt32|FInt32) -> pr "  public int %s;\n" name
+    | name, FChar -> pr "  public char %s;\n" name
+    | name, FOptPercent ->
 	pr "  /* The next field is [0..100] or -1 meaning 'not present': */\n";
 	pr "  public float %s;\n" name
   ) cols;
@@ -7635,9 +7222,9 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
        | RInt64 _ -> pr "jlong ";
        | RBool _ -> pr "jboolean ";
        | RConstString _ | RString _ -> pr "jstring ";
-       | RIntBool _ | RStat _ | RStatVFS _ | RHashtable _ ->
+       | RStruct _ | RHashtable _ ->
 	   pr "jobject ";
-       | RStringList _ | RPVList _ | RVGList _ | RLVList _ | RDirentList _ ->
+       | RStringList _ | RStructList _ ->
 	   pr "jobjectArray ";
       );
       pr "JNICALL\n";
@@ -7678,46 +7265,18 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
 	    pr "  jclass cl;\n";
 	    pr "  jstring jstr;\n";
 	    pr "  char **r;\n"; "NULL", "NULL"
-	| RIntBool _ ->
+	| RStruct (_, typ) ->
 	    pr "  jobject jr;\n";
 	    pr "  jclass cl;\n";
 	    pr "  jfieldID fl;\n";
-	    pr "  struct guestfs_int_bool *r;\n"; "NULL", "NULL"
-	| RStat _ ->
-	    pr "  jobject jr;\n";
-	    pr "  jclass cl;\n";
-	    pr "  jfieldID fl;\n";
-	    pr "  struct guestfs_stat *r;\n"; "NULL", "NULL"
-	| RStatVFS _ ->
-	    pr "  jobject jr;\n";
-	    pr "  jclass cl;\n";
-	    pr "  jfieldID fl;\n";
-	    pr "  struct guestfs_statvfs *r;\n"; "NULL", "NULL"
-	| RPVList _ ->
+	    pr "  struct guestfs_%s *r;\n" typ; "NULL", "NULL"
+	| RStructList (_, typ) ->
 	    pr "  jobjectArray jr;\n";
 	    pr "  jclass cl;\n";
 	    pr "  jfieldID fl;\n";
 	    pr "  jobject jfl;\n";
-	    pr "  struct guestfs_lvm_pv_list *r;\n"; "NULL", "NULL"
-	| RVGList _ ->
-	    pr "  jobjectArray jr;\n";
-	    pr "  jclass cl;\n";
-	    pr "  jfieldID fl;\n";
-	    pr "  jobject jfl;\n";
-	    pr "  struct guestfs_lvm_vg_list *r;\n"; "NULL", "NULL"
-	| RLVList _ ->
-	    pr "  jobjectArray jr;\n";
-	    pr "  jclass cl;\n";
-	    pr "  jfieldID fl;\n";
-	    pr "  jobject jfl;\n";
-	    pr "  struct guestfs_lvm_lv_list *r;\n"; "NULL", "NULL"
-	| RHashtable _ -> pr "  char **r;\n"; "NULL", "NULL"
-	| RDirentList _ ->
-	    pr "  jobjectArray jr;\n";
-	    pr "  jclass cl;\n";
-	    pr "  jfieldID fl;\n";
-	    pr "  jobject jfl;\n";
-	    pr "  struct guestfs_dirent_list *r;\n"; "NULL", "NULL" in
+	    pr "  struct guestfs_%s_list *r;\n" typ; "NULL", "NULL"
+	| RHashtable _ -> pr "  char **r;\n"; "NULL", "NULL" in
       List.iter (
 	function
 	| String n
@@ -7735,11 +7294,9 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
 
       let needs_i =
 	(match fst style with
-	 | RStringList _ | RPVList _ | RVGList _ | RLVList _
-	 | RDirentList _ -> true
+	 | RStringList _ | RStructList _ -> true
 	 | RErr | RBool _ | RInt _ | RInt64 _ | RConstString _
-	 | RString _ | RIntBool _ | RStat _ | RStatVFS _
-	 | RHashtable _ -> false) ||
+	 | RString _ | RStruct _ | RHashtable _ -> false) ||
 	List.exists (function StringList _ -> true | _ -> false) (snd style) in
       if needs_i then
 	pr "  int i;\n";
@@ -7827,68 +7384,67 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
 	   pr "  }\n";
 	   pr "  free (r);\n";
 	   pr "  return jr;\n"
-       | RIntBool _ ->
-	   pr "  cl = (*env)->FindClass (env, \"com/redhat/et/libguestfs/IntBool\");\n";
-	   pr "  jr = (*env)->AllocObject (env, cl);\n";
-	   pr "  fl = (*env)->GetFieldID (env, cl, \"i\", \"I\");\n";
-	   pr "  (*env)->SetIntField (env, jr, fl, r->i);\n";
-	   pr "  fl = (*env)->GetFieldID (env, cl, \"i\", \"Z\");\n";
-	   pr "  (*env)->SetBooleanField (env, jr, fl, r->b);\n";
-	   pr "  guestfs_free_int_bool (r);\n";
-	   pr "  return jr;\n"
-       | RStat _ ->
-	   pr "  cl = (*env)->FindClass (env, \"com/redhat/et/libguestfs/Stat\");\n";
-	   pr "  jr = (*env)->AllocObject (env, cl);\n";
-	   List.iter (
-	     function
-	     | name, `Int ->
-		 pr "  fl = (*env)->GetFieldID (env, cl, \"%s\", \"J\");\n"
-		   name;
-		 pr "  (*env)->SetLongField (env, jr, fl, r->%s);\n" name;
-	   ) stat_cols;
-	   pr "  free (r);\n";
-	   pr "  return jr;\n"
-       | RStatVFS _ ->
-	   pr "  cl = (*env)->FindClass (env, \"com/redhat/et/libguestfs/StatVFS\");\n";
-	   pr "  jr = (*env)->AllocObject (env, cl);\n";
-	   List.iter (
-	     function
-	     | name, `Int ->
-		 pr "  fl = (*env)->GetFieldID (env, cl, \"%s\", \"J\");\n"
-		   name;
-		 pr "  (*env)->SetLongField (env, jr, fl, r->%s);\n" name;
-	   ) statvfs_cols;
-	   pr "  free (r);\n";
-	   pr "  return jr;\n"
-       | RPVList _ ->
-	   generate_java_lvm_return "pv" "PV" pv_cols
-       | RVGList _ ->
-	   generate_java_lvm_return "vg" "VG" vg_cols
-       | RLVList _ ->
-	   generate_java_lvm_return "lv" "LV" lv_cols
+       | RStruct (_, typ) ->
+	   let jtyp = java_name_of_struct typ in
+	   let cols = cols_of_struct typ in
+	   generate_java_struct_return typ jtyp cols
+       | RStructList (_, typ) ->
+	   let jtyp = java_name_of_struct typ in
+	   let cols = cols_of_struct typ in
+	   generate_java_struct_list_return typ jtyp cols
        | RHashtable _ ->
 	   (* XXX *)
 	   pr "  throw_exception (env, \"%s: internal error: please let us know how to make a Java HashMap from JNI bindings!\");\n" name;
 	   pr "  return NULL;\n"
-       | RDirentList _ ->
-	   generate_java_dirent_return "dirent" "Dirent" dirent_cols
       );
 
       pr "}\n";
       pr "\n"
   ) all_functions
 
-and generate_java_lvm_return typ jtyp cols =
+and generate_java_struct_return typ jtyp cols =
+  pr "  cl = (*env)->FindClass (env, \"com/redhat/et/libguestfs/%s\");\n" jtyp;
+  pr "  jr = (*env)->AllocObject (env, cl);\n";
+  List.iter (
+    function
+    | name, FString ->
+	pr "  fl = (*env)->GetFieldID (env, cl, \"%s\", \"Ljava/lang/String;\");\n" name;
+	pr "  (*env)->SetObjectField (env, jr, fl, (*env)->NewStringUTF (env, r->%s));\n" name;
+    | name, FUUID ->
+	pr "  {\n";
+	pr "    char s[33];\n";
+	pr "    memcpy (s, r->%s, 32);\n" name;
+	pr "    s[32] = 0;\n";
+	pr "    fl = (*env)->GetFieldID (env, cl, \"%s\", \"Ljava/lang/String;\");\n" name;
+	pr "    (*env)->SetObjectField (env, jr, fl, (*env)->NewStringUTF (env, s));\n";
+	pr "  }\n";
+    | name, (FBytes|FUInt64|FInt64) ->
+	pr "  fl = (*env)->GetFieldID (env, cl, \"%s\", \"J\");\n" name;
+	pr "  (*env)->SetLongField (env, jr, fl, r->%s);\n" name;
+    | name, (FUInt32|FInt32) ->
+	pr "  fl = (*env)->GetFieldID (env, cl, \"%s\", \"I\");\n" name;
+	pr "  (*env)->SetLongField (env, jr, fl, r->%s);\n" name;
+    | name, FOptPercent ->
+	pr "  fl = (*env)->GetFieldID (env, cl, \"%s\", \"F\");\n" name;
+	pr "  (*env)->SetFloatField (env, jr, fl, r->%s);\n" name;
+    | name, FChar ->
+	pr "  fl = (*env)->GetFieldID (env, cl, \"%s\", \"C\");\n" name;
+	pr "  (*env)->SetLongField (env, jr, fl, r->%s);\n" name;
+  ) cols;
+  pr "  free (r);\n";
+  pr "  return jr;\n"
+
+and generate_java_struct_list_return typ jtyp cols =
   pr "  cl = (*env)->FindClass (env, \"com/redhat/et/libguestfs/%s\");\n" jtyp;
   pr "  jr = (*env)->NewObjectArray (env, r->len, cl, NULL);\n";
   pr "  for (i = 0; i < r->len; ++i) {\n";
   pr "    jfl = (*env)->AllocObject (env, cl);\n";
   List.iter (
     function
-    | name, `String ->
+    | name, FString ->
 	pr "    fl = (*env)->GetFieldID (env, cl, \"%s\", \"Ljava/lang/String;\");\n" name;
 	pr "    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].%s));\n" name;
-    | name, `UUID ->
+    | name, FUUID ->
 	pr "    {\n";
 	pr "      char s[33];\n";
 	pr "      memcpy (s, r->val[i].%s, 32);\n" name;
@@ -7896,30 +7452,17 @@ and generate_java_lvm_return typ jtyp cols =
 	pr "      fl = (*env)->GetFieldID (env, cl, \"%s\", \"Ljava/lang/String;\");\n" name;
 	pr "      (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, s));\n";
 	pr "    }\n";
-    | name, (`Bytes|`Int) ->
+    | name, (FBytes|FUInt64|FInt64) ->
 	pr "    fl = (*env)->GetFieldID (env, cl, \"%s\", \"J\");\n" name;
 	pr "    (*env)->SetLongField (env, jfl, fl, r->val[i].%s);\n" name;
-    | name, `OptPercent ->
+    | name, (FUInt32|FInt32) ->
+	pr "    fl = (*env)->GetFieldID (env, cl, \"%s\", \"I\");\n" name;
+	pr "    (*env)->SetLongField (env, jfl, fl, r->val[i].%s);\n" name;
+    | name, FOptPercent ->
 	pr "    fl = (*env)->GetFieldID (env, cl, \"%s\", \"F\");\n" name;
 	pr "    (*env)->SetFloatField (env, jfl, fl, r->val[i].%s);\n" name;
-  ) cols;
-  pr "    (*env)->SetObjectArrayElement (env, jfl, i, jfl);\n";
-  pr "  }\n";
-  pr "  guestfs_free_lvm_%s_list (r);\n" typ;
-  pr "  return jr;\n"
-
-and generate_java_dirent_return typ jtyp cols =
-  pr "  cl = (*env)->FindClass (env, \"com/redhat/et/libguestfs/%s\");\n" jtyp;
-  pr "  jr = (*env)->NewObjectArray (env, r->len, cl, NULL);\n";
-  pr "  for (i = 0; i < r->len; ++i) {\n";
-  pr "    jfl = (*env)->AllocObject (env, cl);\n";
-  List.iter (
-    function
-    | name, `String ->
-	pr "    fl = (*env)->GetFieldID (env, cl, \"%s\", \"Ljava/lang/String;\");\n" name;
-	pr "    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].%s));\n" name;
-    | name, (`Char|`Int) ->
-	pr "    fl = (*env)->GetFieldID (env, cl, \"%s\", \"J\");\n" name;
+    | name, FChar ->
+	pr "    fl = (*env)->GetFieldID (env, cl, \"%s\", \"C\");\n" name;
 	pr "    (*env)->SetLongField (env, jfl, fl, r->val[i].%s);\n" name;
   ) cols;
   pr "    (*env)->SetObjectArrayElement (env, jfl, i, jfl);\n";
@@ -7942,14 +7485,9 @@ and generate_haskell_hs () =
     | RConstString _, _
     | RString _, _
     | RStringList _, _
-    | RIntBool _, _
-    | RPVList _, _
-    | RVGList _, _
-    | RLVList _, _
-    | RStat _, _
-    | RStatVFS _, _
-    | RHashtable _, _
-    | RDirentList _, _ -> false in
+    | RStruct _, _
+    | RStructList _, _
+    | RHashtable _, _ -> false in
 
   pr "\
 {-# INCLUDE <guestfs.h> #-}
@@ -8058,9 +7596,8 @@ last_error h = do
 	     pr "    then do\n";
 	     pr "      err <- last_error h\n";
 	     pr "      fail err\n";
-	 | RConstString _ | RString _ | RStringList _ | RIntBool _
-	 | RPVList _ | RVGList _ | RLVList _ | RStat _ | RStatVFS _
-	 | RHashtable _ | RDirentList _ ->
+	 | RConstString _ | RString _ | RStringList _ | RStruct _
+	 | RStructList _ | RHashtable _ ->
 	     pr "  if (r == nullPtr)\n";
 	     pr "    then do\n";
 	     pr "      err <- last_error h\n";
@@ -8078,14 +7615,9 @@ last_error h = do
 	 | RConstString _
 	 | RString _
 	 | RStringList _
-	 | RIntBool _
-	 | RPVList _
-	 | RVGList _
-	 | RLVList _
-	 | RStat _
-	 | RStatVFS _
-	 | RHashtable _
-	 | RDirentList _ ->
+	 | RStruct _
+	 | RStructList _
+	 | RHashtable _ ->
 	     pr "    else return ()\n" (* XXXXXXXXXXXXXXXXXXXX *)
 	);
 	pr "\n";
@@ -8120,14 +7652,13 @@ and generate_haskell_prototype ~handle ?(hs = false) style =
    | RConstString _ -> pr "%s" string
    | RString _ -> pr "%s" string
    | RStringList _ -> pr "[%s]" string
-   | RIntBool _ -> pr "IntBool"
-   | RPVList _ -> pr "[PV]"
-   | RVGList _ -> pr "[VG]"
-   | RLVList _ -> pr "[LV]"
-   | RStat _ -> pr "Stat"
-   | RStatVFS _ -> pr "StatVFS"
+   | RStruct (_, typ) ->
+       let name = java_name_of_struct typ in
+       pr "%s" name
+   | RStructList (_, typ) ->
+       let name = java_name_of_struct typ in
+       pr "[%s]" name
    | RHashtable _ -> pr "Hashtable"
-   | RDirentList _ -> pr "[Dirent]"
   );
   pr ")"
 
@@ -8144,6 +7675,8 @@ and generate_bindtests () =
 #include \"guestfs_protocol.h\"
 
 #define error guestfs_error
+#define safe_calloc guestfs_safe_calloc
+#define safe_malloc guestfs_safe_malloc
 
 static void
 print_strings (char * const* const argv)
@@ -8219,84 +7752,36 @@ print_strings (char * const* const argv)
 	     pr "  char **strs;\n";
 	     pr "  int n, i;\n";
 	     pr "  sscanf (val, \"%%d\", &n);\n";
-	     pr "  strs = malloc ((n+1) * sizeof (char *));\n";
+	     pr "  strs = safe_malloc (g, (n+1) * sizeof (char *));\n";
 	     pr "  for (i = 0; i < n; ++i) {\n";
-	     pr "    strs[i] = malloc (16);\n";
+	     pr "    strs[i] = safe_malloc (g, 16);\n";
 	     pr "    snprintf (strs[i], 16, \"%%d\", i);\n";
 	     pr "  }\n";
 	     pr "  strs[n] = NULL;\n";
 	     pr "  return strs;\n"
-	 | RIntBool _ ->
-	     pr "  struct guestfs_int_bool *r;\n";
-	     pr "  r = malloc (sizeof (struct guestfs_int_bool));\n";
-	     pr "  sscanf (val, \"%%\" SCNi32, &r->i);\n";
-	     pr "  r->b = 0;\n";
+	 | RStruct (_, typ) ->
+	     pr "  struct guestfs_%s *r;\n" typ;
+	     pr "  r = safe_calloc (g, sizeof *r, 1);\n";
 	     pr "  return r;\n"
-	 | RPVList _ ->
-	     pr "  struct guestfs_lvm_pv_list *r;\n";
-	     pr "  int i;\n";
-	     pr "  r = malloc (sizeof (struct guestfs_lvm_pv_list));\n";
+	 | RStructList (_, typ) ->
+	     pr "  struct guestfs_%s_list *r;\n" typ;
+	     pr "  r = safe_calloc (g, sizeof *r, 1);\n";
 	     pr "  sscanf (val, \"%%d\", &r->len);\n";
-	     pr "  r->val = calloc (r->len, sizeof (struct guestfs_lvm_pv));\n";
-	     pr "  for (i = 0; i < r->len; ++i) {\n";
-	     pr "    r->val[i].pv_name = malloc (16);\n";
-	     pr "    snprintf (r->val[i].pv_name, 16, \"%%d\", i);\n";
-	     pr "  }\n";
-	     pr "  return r;\n"
-	 | RVGList _ ->
-	     pr "  struct guestfs_lvm_vg_list *r;\n";
-	     pr "  int i;\n";
-	     pr "  r = malloc (sizeof (struct guestfs_lvm_vg_list));\n";
-	     pr "  sscanf (val, \"%%d\", &r->len);\n";
-	     pr "  r->val = calloc (r->len, sizeof (struct guestfs_lvm_vg));\n";
-	     pr "  for (i = 0; i < r->len; ++i) {\n";
-	     pr "    r->val[i].vg_name = malloc (16);\n";
-	     pr "    snprintf (r->val[i].vg_name, 16, \"%%d\", i);\n";
-	     pr "  }\n";
-	     pr "  return r;\n"
-	 | RLVList _ ->
-	     pr "  struct guestfs_lvm_lv_list *r;\n";
-	     pr "  int i;\n";
-	     pr "  r = malloc (sizeof (struct guestfs_lvm_lv_list));\n";
-	     pr "  sscanf (val, \"%%d\", &r->len);\n";
-	     pr "  r->val = calloc (r->len, sizeof (struct guestfs_lvm_lv));\n";
-	     pr "  for (i = 0; i < r->len; ++i) {\n";
-	     pr "    r->val[i].lv_name = malloc (16);\n";
-	     pr "    snprintf (r->val[i].lv_name, 16, \"%%d\", i);\n";
-	     pr "  }\n";
-	     pr "  return r;\n"
-	 | RStat _ ->
-	     pr "  struct guestfs_stat *r;\n";
-	     pr "  r = calloc (1, sizeof (*r));\n";
-	     pr "  sscanf (val, \"%%\" SCNi64, &r->dev);\n";
-	     pr "  return r;\n"
-	 | RStatVFS _ ->
-	     pr "  struct guestfs_statvfs *r;\n";
-	     pr "  r = calloc (1, sizeof (*r));\n";
-	     pr "  sscanf (val, \"%%\" SCNi64, &r->bsize);\n";
+	     pr "  r->val = safe_calloc (g, r->len, sizeof *r->val);\n";
 	     pr "  return r;\n"
 	 | RHashtable _ ->
 	     pr "  char **strs;\n";
 	     pr "  int n, i;\n";
 	     pr "  sscanf (val, \"%%d\", &n);\n";
-	     pr "  strs = malloc ((n*2+1) * sizeof (char *));\n";
+	     pr "  strs = safe_malloc (g, (n*2+1) * sizeof (*strs));\n";
 	     pr "  for (i = 0; i < n; ++i) {\n";
-	     pr "    strs[i*2] = malloc (16);\n";
-	     pr "    strs[i*2+1] = malloc (16);\n";
+	     pr "    strs[i*2] = safe_malloc (g, 16);\n";
+	     pr "    strs[i*2+1] = safe_malloc (g, 16);\n";
 	     pr "    snprintf (strs[i*2], 16, \"%%d\", i);\n";
 	     pr "    snprintf (strs[i*2+1], 16, \"%%d\", i);\n";
 	     pr "  }\n";
 	     pr "  strs[n*2] = NULL;\n";
 	     pr "  return strs;\n"
-	 | RDirentList _ ->
-	     pr "  struct guestfs_dirent_list *r;\n";
-	     pr "  int i;\n";
-	     pr "  r = malloc (sizeof (struct guestfs_dirent_list));\n";
-	     pr "  sscanf (val, \"%%d\", &r->len);\n";
-	     pr "  r->val = calloc (r->len, sizeof (struct guestfs_dirent));\n";
-	     pr "  for (i = 0; i < r->len; ++i)\n";
-	     pr "    r->val[i].ino = i;\n";
-	     pr "  return r;\n"
 	);
 	pr "}\n";
 	pr "\n"
@@ -8310,10 +7795,9 @@ print_strings (char * const* const argv)
 	 | RErr | RInt _ | RInt64 _ | RBool _ ->
 	     pr "  return -1;\n"
 	 | RConstString _
-	 | RString _ | RStringList _ | RIntBool _
-	 | RPVList _ | RVGList _ | RLVList _ | RStat _ | RStatVFS _
-	 | RHashtable _
-	 | RDirentList _ ->
+	 | RString _ | RStringList _ | RStruct _
+	 | RStructList _
+	 | RHashtable _ ->
 	     pr "  return NULL;\n"
 	);
 	pr "}\n";
@@ -8605,7 +8089,7 @@ let output_to filename =
 let () =
   check_functions ();
 
-  if not (Sys.file_exists "configure.ac") then (
+  if not (Sys.file_exists "config.status") then (
     eprintf "\
 You are probably running this from the wrong directory.
 Run it from the top source directory using the command
@@ -8722,29 +8206,14 @@ Run it from the top source directory using the command
   generate_java_java ();
   close ();
 
-  let close = output_to "java/com/redhat/et/libguestfs/PV.java" in
-  generate_java_struct "PV" pv_cols;
-  close ();
-
-  let close = output_to "java/com/redhat/et/libguestfs/VG.java" in
-  generate_java_struct "VG" vg_cols;
-  close ();
-
-  let close = output_to "java/com/redhat/et/libguestfs/LV.java" in
-  generate_java_struct "LV" lv_cols;
-  close ();
-
-  let close = output_to "java/com/redhat/et/libguestfs/Stat.java" in
-  generate_java_struct "Stat" stat_cols;
-  close ();
-
-  let close = output_to "java/com/redhat/et/libguestfs/StatVFS.java" in
-  generate_java_struct "StatVFS" statvfs_cols;
-  close ();
-
-  let close = output_to "java/com/redhat/et/libguestfs/Dirent.java" in
-  generate_java_struct "Dirent" dirent_cols;
-  close ();
+  List.iter (
+    fun (typ, jtyp) ->
+      let cols = cols_of_struct typ in
+      let filename = sprintf "java/com/redhat/et/libguestfs/%s.java" jtyp in
+      let close = output_to filename in
+      generate_java_struct jtyp cols;
+      close ();
+  ) java_structs;
 
   let close = output_to "java/com_redhat_et_libguestfs_GuestFS.c" in
   generate_java_c ();

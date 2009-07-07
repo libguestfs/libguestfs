@@ -28,7 +28,7 @@ if [ "@DIST@" = "REDHAT" ]; then
   output=appliance/initramfs.@REPO@.@host_cpu@.img
 
   # Create the init script.
-  @FEBOOTSTRAP_INSTALL@ initramfs appliance/init /init 0755 root.root
+  @FEBOOTSTRAP_INSTALL@ initramfs appliance/@top_srcdir@/appliance/init /init 0755 root.root
 
   # Copy the daemon into the filesystem.
   @FEBOOTSTRAP_INSTALL@ initramfs daemon/guestfsd /sbin/guestfsd 0755 root.root

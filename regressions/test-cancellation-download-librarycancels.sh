@@ -1,3 +1,4 @@
+#!/bin/sh -
 # libguestfs
 # Copyright (C) 2009 Red Hat Inc.
 #
@@ -15,23 +16,25 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-bin_PROGRAMS = guestfish
+# Test download where the library cancels.
+#
+# 
 
-guestfish_SOURCES = \
-	alloc.c \
-	cmds.c \
-	completion.c \
-	destpaths.c \
-	echo.c \
-	edit.c \
-	fish.c \
-	fish.h \
-	glob.c \
-	lcd.c \
-	more.c \
-	time.c
+set -e
 
-guestfish_CFLAGS = \
-	-I$(top_srcdir)/src -I$(top_builddir)/src -Wall \
-	-DGUESTFS_DEFAULT_PATH='"$(libdir)/guestfs"'
-guestfish_LDADD = $(top_builddir)/src/libguestfs.la $(LIBREADLINE)
+rm -f test.img
+
+../fish/guestfish <<'EOF'
+add ../images/test.sqsh
+run
+
+mount /dev/sda /
+
+# Download a file to /dev/full.
+echo "Expect: write: /dev/full: No space left on device"
+-download /100krandom /dev/full
+
+ping-daemon
+EOF
+
+rm -f test.img

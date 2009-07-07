@@ -11,7 +11,7 @@ editing virtual machine filesystems.
 Type: 'help' for help with commands
       'quit' to quit the shell
 
-><fs> cat /etc/resolv.conf 
+><fs> cat /etc/resolv.conf
 nameserver 192.168.1.1
 ><fs> cat /etc/HOSTNAME
 newmachine

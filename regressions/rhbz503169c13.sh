@@ -29,8 +29,6 @@ set -e
 rm -f test1.img
 dd if=/dev/zero of=test1.img bs=1024k count=10
 
-export LIBGUESTFS_PATH=../appliance
-
 ../fish/guestfish -a test1.img <<EOF
 run
 sfdisk /dev/sda 0 0 0 ,

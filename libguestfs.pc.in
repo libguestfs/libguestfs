@@ -7,5 +7,5 @@ Name: libguestfs
 Version: @VERSION@
 Description: libguestfs library for accessing and modifying VM images
 Requires:
-Cflags: 
+Cflags:
 Libs: -lguestfs @LIBS@

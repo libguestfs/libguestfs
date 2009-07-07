@@ -1,5 +1,5 @@
 /* libguestfs - the guestfsd daemon
- * Copyright (C) 2009 Red Hat Inc. 
+ * Copyright (C) 2009 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -68,6 +68,8 @@ do_readdir (char *path)
     if (!p || !v.name) {
       reply_with_perror ("allocate");
       free (ret->guestfs_int_dirent_list_val);
+      free (p);
+      free (v.name);
       free (ret);
       closedir (dir);
       return NULL;

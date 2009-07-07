@@ -1,3 +1,4 @@
+#!/bin/sh -
 # libguestfs
 # Copyright (C) 2009 Red Hat Inc.
 #
@@ -15,23 +16,28 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-bin_PROGRAMS = guestfish
+# Test upload where the daemon cancels.
+#
+# This is pretty easy - we just upload a too-large source file.
 
-guestfish_SOURCES = \
-	alloc.c \
-	cmds.c \
-	completion.c \
-	destpaths.c \
-	echo.c \
-	edit.c \
-	fish.c \
-	fish.h \
-	glob.c \
-	lcd.c \
-	more.c \
-	time.c
+set -e
 
-guestfish_CFLAGS = \
-	-I$(top_srcdir)/src -I$(top_builddir)/src -Wall \
-	-DGUESTFS_DEFAULT_PATH='"$(libdir)/guestfs"'
-guestfish_LDADD = $(top_builddir)/src/libguestfs.la $(LIBREADLINE)
+rm -f test.img
+
+../fish/guestfish <<'EOF'
+alloc test.img 10M
+run
+
+sfdiskM /dev/sda ,
+mkfs ext2 /dev/sda1
+mount /dev/sda1 /
+
+# Upload image, daemon should cancel because the image is too large
+# to upload into itself.
+echo "Expect: write: /test: No space left on device"
+-upload test.img /test
+
+ping-daemon
+EOF
+
+rm -f test.img

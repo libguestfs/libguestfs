@@ -24,26 +24,24 @@ require 'rake/gempackagetask'
 PKG_NAME='@PACKAGE_NAME@'
 PKG_VERSION='@PACKAGE_VERSION@'
 
-EXT_CONF='ext/guestfs/extconf.rb'
-MAKEFILE='ext/guestfs/Makefile'
-GUESTFS_MODULE='ext/guestfs/_guestfs.so'
-GUESTFS_SRC='ext/guestfs/_guestfs.c'
+EXT_CONF='@srcdir@/ext/guestfs/extconf.rb'
+MAKEFILE='@builddir@/ext/guestfs/Makefile'
+GUESTFS_MODULE='@builddir@/ext/guestfs/_guestfs.so'
+GUESTFS_SRC='@builddir@/ext/guestfs/_guestfs.c'
 
-CLEAN.include [ "ext/**/*.o", GUESTFS_MODULE,
-                "ext/**/depend" ]
+CLEAN.include [ "@builddir@/ext/**/*.o", GUESTFS_MODULE,
+                "@builddir@/ext/**/depend" ]
 
-CLOBBER.include [ "config.save", "ext/**/mkmf.log",
+CLOBBER.include [ "@builddir@/config.save", "@builddir@/ext/**/mkmf.log",
                   MAKEFILE ]
 
 # Build locally
 
 file MAKEFILE => EXT_CONF do |t|
-    Dir::chdir(File::dirname(EXT_CONF)) do
-         unless sh "ruby #{File::basename(EXT_CONF)} --with-_guestfs-include=../../../src --with-_guestfs-lib=../../../src/.libs"
-             $stderr.puts "Failed to run extconf"
-             break
-         end
-    end
+     unless sh "top_srcdir=$(pwd)/@top_srcdir@; top_builddir=$(pwd)/@top_builddir@; cd #{File::dirname(EXT_CONF)}; ruby #{File::basename(EXT_CONF)} --with-_guestfs-include=$top_srcdir/src --with-_guestfs-lib=$top_builddir/src/.libs"
+         $stderr.puts "Failed to run extconf"
+         break
+     end
 end
 file GUESTFS_MODULE => [ MAKEFILE, GUESTFS_SRC ] do |t|
     Dir::chdir(File::dirname(EXT_CONF)) do

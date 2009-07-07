@@ -24,8 +24,23 @@
 TESTS = \
 	rhbz503169c10.sh \
 	rhbz503169c13.sh \
+	test-cancellation-upload-daemoncancels.sh \
+	test-cancellation-download-librarycancels.sh \
+	test-qemudie-midcommand.sh \
+	test-qemudie-killsub.sh \
+	test-qemudie-synch.sh
+
+SKIPPED_TESTS = \
 	test-bootbootboot.sh
 
+FAILING_TESTS = \
+	test-qemudie-launchfail.sh
+
+TESTS_ENVIRONMENT = \
+	LD_LIBRARY_PATH=$(top_builddir)/src/.libs \
+	LIBGUESTFS_PATH=$(top_builddir)/appliance
+
 EXTRA_DIST = \
-	test-cleanup.sh \
+	$(FAILING_TESTS) \
+	$(SKIPPED_TESTS) \
 	$(TESTS)

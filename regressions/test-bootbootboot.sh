@@ -30,7 +30,6 @@ n=10
 if [ -n "$1" ]; then n=$1; fi
 
 export LIBGUESTFS_DEBUG=1
-export LIBGUESTFS_PATH=../appliance
 
 for i in $(seq 1 $n); do
   echo Test boot $i of $n ...

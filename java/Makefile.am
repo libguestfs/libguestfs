@@ -15,18 +15,18 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-CPTH = com/redhat/et/libguestfs
+java_prefix = com/redhat/et/libguestfs
 
 java_sources = \
-	$(CPTH)/LibGuestFSException.java \
-	$(CPTH)/IntBool.java \
-	$(CPTH)/PV.java \
-	$(CPTH)/VG.java \
-	$(CPTH)/LV.java \
-	$(CPTH)/Stat.java \
-	$(CPTH)/StatVFS.java \
-	$(CPTH)/Dirent.java \
-	$(CPTH)/GuestFS.java
+	$(java_prefix)/LibGuestFSException.java \
+	$(java_prefix)/IntBool.java \
+	$(java_prefix)/PV.java \
+	$(java_prefix)/VG.java \
+	$(java_prefix)/LV.java \
+	$(java_prefix)/Stat.java \
+	$(java_prefix)/StatVFS.java \
+	$(java_prefix)/Dirent.java \
+	$(java_prefix)/GuestFS.java
 
 java_tests = \
 	Bindtests.java \
@@ -50,7 +50,7 @@ libguestfs_jardir = $(JAR_INSTALL_DIR)
 libguestfs_jar_DATA = libguestfs-${VERSION}.jar
 libguestfs_jar_class_files = $(java_sources:.java=.class)
 $(libguestfs_jar_class_files): %.class: %.java
-	$(JAVAC) $(JAVAC_FLAGS) -classpath $(CPTH) $(java_sources)
+	$(JAVAC) $(JAVAC_FLAGS) -d @builddir@ -classpath @srcdir@:@builddir@ -sourcepath @srcdir@:@builddir@ $<
 
 libguestfs-${VERSION}.jar: $(libguestfs_jar_class_files)
 	$(JAR) cf $@ $^
@@ -64,12 +64,12 @@ libguestfs_jni_la_SOURCES = \
 
 libguestfs_jni_la_LIBADD = $(top_builddir)/src/libguestfs.la
 libguestfs_jni_la_LDFLAGS = -version-info $(JNI_VERSION_INFO)
-libguestfs_jni_la_CFLAGS = -Wall -I$(top_builddir)/src $(JNI_CFLAGS)
+libguestfs_jni_la_CFLAGS = -Wall -I$(top_srcdir)/src -I$(top_builddir)/src $(JNI_CFLAGS)
 
 BUILT_SOURCES = com_redhat_et_libguestfs_GuestFS.h
 
-com_redhat_et_libguestfs_GuestFS.h: $(CPTH)/GuestFS.class
-	$(JAVAH) -classpath .:$(CPTH) com.redhat.et.libguestfs.GuestFS
+com_redhat_et_libguestfs_GuestFS.h: $(java_prefix)/GuestFS.class
+	$(JAVAH) -classpath @srcdir@:@builddir@ com.redhat.et.libguestfs.GuestFS
 
 # Documentation.
 

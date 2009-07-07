@@ -16,18 +16,26 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-# XXX Unfortunately we can't enable this by default since it
-# requires './configure --enable-debug-command'
+# Test if we can handle qemu death in the middle of a command.
 
-./fish/guestfish <<EOF
-alloc /tmp/test.img 100M
+set -e
+
+rm -f test.pid test.img
+
+../fish/guestfish <<'EOF'
+alloc test.img 10M
 run
 
-# Force a segfault inside the daemon.
--debug segv ''
+# Kill the subprocess after a short wait.
+pid | cat > test.pid
+! sleep 2 ; kill $(cat test.pid) &
+
+echo "Expect: 'guestfs_sleep reply failed, see earlier error messages'"
+-sleep 1000
 
 # We should now be able to rerun the subprocess.
 run
 ping-daemon
 EOF
-  
+
+rm -f test.pid test.img

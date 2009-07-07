@@ -1,5 +1,5 @@
 /* libguestfs
- * Copyright (C) 2009 Red Hat Inc. 
+ * Copyright (C) 2009 Red Hat Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -24,6 +24,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
+#include <stddef.h>
 #include <unistd.h>
 #include <ctype.h>
 #include <string.h>
@@ -453,6 +454,42 @@ guestfs_safe_malloc (guestfs_h *g, size_t nbytes)
   return ptr;
 }
 
+/* Return 1 if an array of N objects, each of size S, cannot exist due
+   to size arithmetic overflow.  S must be positive and N must be
+   nonnegative.  This is a macro, not an inline function, so that it
+   works correctly even when SIZE_MAX < N.
+
+   By gnulib convention, SIZE_MAX represents overflow in size
+   calculations, so the conservative dividend to use here is
+   SIZE_MAX - 1, since SIZE_MAX might represent an overflowed value.
+   However, malloc (SIZE_MAX) fails on all known hosts where
+   sizeof (ptrdiff_t) <= sizeof (size_t), so do not bother to test for
+   exactly-SIZE_MAX allocations on such hosts; this avoids a test and
+   branch when S is known to be 1.  */
+# define xalloc_oversized(n, s) \
+    ((size_t) (sizeof (ptrdiff_t) <= sizeof (size_t) ? -1 : -2) / (s) < (n))
+
+/* Technically we should add an autoconf test for this, testing for the desired
+   functionality, like what's done in gnulib, but for now, this is fine.  */
+#define HAVE_GNU_CALLOC (__GLIBC__ >= 2)
+
+/* Allocate zeroed memory for N elements of S bytes, with error
+   checking.  S must be nonzero.  */
+void *
+guestfs_safe_calloc (guestfs_h *g, size_t n, size_t s)
+{
+  /* From gnulib's calloc function in xmalloc.c.  */
+  void *p;
+  /* Test for overflow, since some calloc implementations don't have
+     proper overflow checks.  But omit overflow and size-zero tests if
+     HAVE_GNU_CALLOC, since GNU calloc catches overflow and never
+     returns NULL if successful.  */
+  if ((! HAVE_GNU_CALLOC && xalloc_oversized (n, s))
+      || (! (p = calloc (n, s)) && (HAVE_GNU_CALLOC || n != 0)))
+    g->abort_cb ();
+  return p;
+}
+
 void *
 guestfs_safe_realloc (guestfs_h *g, void *ptr, int nbytes)
 {
@@ -628,6 +665,17 @@ int
 guestfs_get_memsize (guestfs_h *g)
 {
   return g->memsize;
+}
+
+int
+guestfs_get_pid (guestfs_h *g)
+{
+  if (g->pid > 0)
+    return g->pid;
+  else {
+    error (g, "get_pid: no qemu subprocess");
+    return -1;
+  }
 }
 
 /* Add a string to the current command line. */
@@ -1442,44 +1490,6 @@ guestfs_end_busy (guestfs_h *g)
   return 0;
 }
 
-/* Structure-freeing functions.  These rely on the fact that the
- * structure format is identical to the XDR format.  See note in
- * generator.ml.
- */
-void
-guestfs_free_int_bool (struct guestfs_int_bool *x)
-{
-  free (x);
-}
-
-void
-guestfs_free_lvm_pv_list (struct guestfs_lvm_pv_list *x)
-{
-  xdr_free ((xdrproc_t) xdr_guestfs_lvm_int_pv_list, (char *) x);
-  free (x);
-}
-
-void
-guestfs_free_lvm_vg_list (struct guestfs_lvm_vg_list *x)
-{
-  xdr_free ((xdrproc_t) xdr_guestfs_lvm_int_vg_list, (char *) x);
-  free (x);
-}
-
-void
-guestfs_free_lvm_lv_list (struct guestfs_lvm_lv_list *x)
-{
-  xdr_free ((xdrproc_t) xdr_guestfs_lvm_int_lv_list, (char *) x);
-  free (x);
-}
-
-void
-guestfs_free_dirent_list (struct guestfs_dirent_list *x)
-{
-  xdr_free ((xdrproc_t) xdr_guestfs_int_dirent_list, (char *) x);
-  free (x);
-}
-
 /* We don't know if stdout_event or sock_read_event will be the
  * first to receive EOF if the qemu process dies.  This function
  * has the common cleanup code for both.
@@ -2238,6 +2248,10 @@ guestfs__receive_file_sync (guestfs_h *g, const char *filename)
   XDR xdr;
   char fbuf[4];
   uint32_t flag = GUESTFS_CANCEL_FLAG;
+
+  if (g->verbose)
+    fprintf (stderr, "%s: waiting for daemon to acknowledge cancellation\n",
+	     __func__);
 
   xdrmem_create (&xdr, fbuf, sizeof fbuf, XDR_ENCODE);
   xdr_uint32_t (&xdr, &flag);

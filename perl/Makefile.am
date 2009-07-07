@@ -36,8 +36,8 @@ if HAVE_PERL
 TESTS = run-bindtests run-perl-tests
 
 TESTS_ENVIRONMENT = \
-	LD_LIBRARY_PATH=../src/.libs \
-	LIBGUESTFS_PATH=../appliance
+	LD_LIBRARY_PATH=$(top_builddir)/src/.libs \
+	LIBGUESTFS_PATH=$(top_builddir)/appliance
 
 INSTALLDIRS = site
 

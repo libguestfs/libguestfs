@@ -40,8 +40,8 @@ if HAVE_RUBY
 TESTS = run-bindtests run-ruby-tests
 
 TESTS_ENVIRONMENT = \
-	LD_LIBRARY_PATH=../src/.libs \
-	LIBGUESTFS_PATH=../appliance
+	LD_LIBRARY_PATH=$(top_builddir)/src/.libs \
+	LIBGUESTFS_PATH=$(top_builddir)/appliance
 
 all:
 	rake build

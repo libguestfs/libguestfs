@@ -20,12 +20,24 @@
 
 set -e
 set -v
-export AUTOMAKE='automake --foreign'
+
 mkdir -p daemon/m4
-aclocal
-libtoolize
 autoreconf -i
-pushd daemon
-autoreconf -i
-popd
-./configure "$@"
+
+CONFIGUREDIR=.
+
+# Run configure in BUILDDIR if it's set
+if [ ! -z "$BUILDDIR" ]; then
+    mkdir -p $BUILDDIR
+    cd $BUILDDIR
+
+    CONFIGUREDIR=..
+fi
+
+# If no arguments were specified and configure has run before, use the previous
+# arguments
+if [ $# == 0 -a -x ./config.status ]; then
+    ./config.status --recheck
+else
+    $CONFIGUREDIR/configure "$@"
+fi

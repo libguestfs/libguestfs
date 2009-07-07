@@ -1,5 +1,5 @@
 /* guestfish - the filesystem interactive shell
- * Copyright (C) 2009 Red Hat Inc. 
+ * Copyright (C) 2009 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -732,8 +732,12 @@ issue_command (const char *cmd, char *argv[], const char *pipecmd)
   else
     r = run_action (cmd, argc, argv);
 
+  /* Always flush stdout after every command, so that messages, results
+   * etc appear immediately.
+   */
+  fflush (stdout);
+
   if (pipecmd) {
-    fflush (stdout);
     close (1);
     dup2 (stdout_saved_fd, 1);
     close (stdout_saved_fd);

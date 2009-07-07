@@ -1,5 +1,5 @@
 /* libguestfs
- * Copyright (C) 2009 Red Hat Inc. 
+ * Copyright (C) 2009 Red Hat Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -52,13 +52,6 @@ extern guestfs_abort_cb guestfs_get_out_of_memory_handler (guestfs_h *g);
 #include <guestfs-structs.h>
 #include <guestfs-actions.h>
 
-/* Free up return values. */
-extern void guestfs_free_int_bool (struct guestfs_int_bool *);
-extern void guestfs_free_lvm_pv_list (struct guestfs_lvm_pv_list *);
-extern void guestfs_free_lvm_vg_list (struct guestfs_lvm_vg_list *);
-extern void guestfs_free_lvm_lv_list (struct guestfs_lvm_lv_list *);
-extern void guestfs_free_dirent_list (struct guestfs_dirent_list *);
-
 /* Low-level event API. */
 typedef void (*guestfs_send_cb) (guestfs_h *g, void *data);
 typedef void (*guestfs_reply_cb) (guestfs_h *g, void *data, XDR *xdr);
@@ -77,6 +70,7 @@ extern void guestfs_error (guestfs_h *g, const char *fs, ...)
 extern void guestfs_perrorf (guestfs_h *g, const char *fs, ...)
   __attribute__((format (printf,2,3)));
 extern void *guestfs_safe_malloc (guestfs_h *g, size_t nbytes);
+extern void *guestfs_safe_calloc (guestfs_h *g, size_t n, size_t s);
 extern void *guestfs_safe_realloc (guestfs_h *g, void *ptr, int nbytes);
 extern char *guestfs_safe_strdup (guestfs_h *g, const char *str);
 extern void *guestfs_safe_memdup (guestfs_h *g, void *ptr, size_t size);
