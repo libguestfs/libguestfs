@@ -97,8 +97,8 @@ they will show up if you use 'guestfish -v'.
 Patches
 ----------------------------------------------------------------------
 
-Submit patches to the fedora-virt mailing list:
-http://www.redhat.com/mailman/listinfo/fedora-virt
+Submit patches to the mailing list:
+http://www.redhat.com/mailman/listinfo/libguestfs
 and CC to rjones@redhat.com
 
 I18N

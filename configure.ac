@@ -590,8 +590,8 @@ echo
 echo "If any optional component is configured 'no' when you expected 'yes'"
 echo "then you should check the preceeding messages."
 echo
-echo "Please report bugs back to the fedora-virt mailing list:"
-echo "http://www.redhat.com/mailman/listinfo/fedora-virt"
+echo "Please report bugs back to the mailing list:"
+echo "http://www.redhat.com/mailman/listinfo/libguestfs"
 echo
 echo "Next you should type 'make' to build the package,"
 echo "then 'make check' to run the tests."
