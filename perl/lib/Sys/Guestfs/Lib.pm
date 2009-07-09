@@ -49,7 +49,7 @@ The basic libguestfs API is not covered by this manpage.  Please refer
 instead to L<Sys::Guestfs(3)> and L<guestfs(3)>.  The libvirt API is
 also not covered.  For that, see L<Sys::Virt(3)>.
 
-=head1 FUNCTIONS
+=head1 BASIC FUNCTIONS
 
 =cut
 
@@ -58,7 +58,9 @@ require Exporter;
 use vars qw(@EXPORT_OK @ISA);
 
 @ISA = qw(Exporter);
-@EXPORT_OK = qw(open_guest get_partitions resolve_windows_path);
+@EXPORT_OK = qw(open_guest get_partitions resolve_windows_path
+  inspect_all_partitions inspect_partition
+  inspect_operating_systems mount_operating_system inspect_in_detail);
 
 =head2 open_guest
 
@@ -274,6 +276,943 @@ sub resolve_windows_path
 
     return $path;
 }
+
+=head1 OPERATING SYSTEM INSPECTION FUNCTIONS
+
+The functions in this section can be used to inspect the operating
+system(s) available inside a virtual machine image.  For example, you
+can find out if the VM is Linux or Windows, how the partitions are
+meant to be mounted, and what applications are installed.
+
+If you just want a simple command-line interface to this
+functionality, use the L<virt-inspector(1)> tool.  The documentation
+below covers the case where you want to access this functionality from
+a Perl program.
+
+Once you have the list of partitions (from C<get_partitions>) there
+are several steps involved:
+
+=over 4
+
+=item 1.
+
+Look at each partition separately and find out what is on it.
+
+The information you get back includes whether the partition contains a
+filesystem or swapspace, what sort of filesystem (eg. ext3, ntfs), and
+a first pass guess at the content of the filesystem (eg. Linux boot,
+Windows root).
+
+The result of this step is a C<%fs> hash of information, one hash for
+each partition.
+
+See: C<inspect_partition>, C<inspect_all_partitions>
+
+=item 2.
+
+Work out the relationship between partitions.
+
+In this step we work out how partitions are related to each other.  In
+the case of a single-boot VM, we work out how the partitions are
+mounted in respect of each other (eg. C</dev/sda1> is mounted as
+C</boot>).  In the case of a multi-boot VM where there are several
+roots, we may identify several operating system roots, and mountpoints
+can even be shared.
+
+The result of this step is a single hash called C<%oses> which is
+described in more detail below, but at the top level looks like:
+
+ %oses = {
+   '/dev/VG/Root1' => \%os1,
+   '/dev/VG/Root2' => \%os2,
+ }
+ 
+ %os1 = {
+   os => 'linux',
+   mounts => {
+     '/' => '/dev/VG/Root1',
+     '/boot' => '/dev/sda1',
+   },
+   ...
+ }
+
+(example shows a multi-boot VM containing two root partitions).
+
+See: C<inspect_operating_systems>
+
+=item 3.
+
+Mount up the disks.
+
+Previous to this point we've essentially been looking at each
+partition in isolation.  Now we construct a true guest filesystem by
+mounting up all of the disks.  Only once everything is mounted up can
+we run commands in the OS context to do more detailed inspection.
+
+See: C<mount_operating_system>
+
+=item 4.
+
+Check for kernels and applications.
+
+This step now does more detailed inspection, where we can look for
+kernels, applications and more installed in the guest.
+
+The result of this is an enhanced C<%os> hash.
+
+See: C<inspect_in_detail>
+
+=item 5.
+
+Generate output.
+
+This library does not contain functions for generating output based on
+the analysis steps above.  Use a command line tool such as
+L<virt-inspector(1)> to get useful output.
+
+=back
+
+=head2 inspect_all_partitions
+
+ %fses = inspect_all_partitions ($g, \@partitions);
+
+ %fses = inspect_all_partitions ($g, \@partitions, use_windows_registry => 1);
+
+This calls C<inspect_partition> for each partition in the list
+C<@partitions>.
+
+The result is a hash which maps partition name to C<\%fs> hashref.
+
+The contents of the C<%fs> hash and the meaning of the
+C<use_windows_registry> flag are explained below.
+
+=cut
+
+sub inspect_all_partitions
+{
+    local $_;
+    my $g = shift;
+    my $parts = shift;
+    my @parts = @$parts;
+    return map { $_ => inspect_partition ($g, $_, @_) } @parts;
+}
+
+=head2 inspect_partition
+
+ \%fs = inspect_partition ($g, $partition);
+
+ \%fs = inspect_partition ($g, $partition, use_windows_registry => 1);
+
+This function inspects the device named C<$partition> in isolation and
+tries to determine what it is.  It returns information such as whether
+the partition is formatted, and with what, whether it is mountable,
+and what it appears to contain (eg. a Windows root, or a Linux /usr).
+
+If C<use_windows_registry> is set to 1, then we will try to download
+and parse the content of the Windows registry (for Windows root
+devices).  However since this is an expensive and error-prone
+operation, we don't do this by default.  It also requires the external
+program C<reged>, patched to remove numerous crashing bugs in the
+upstream version.
+
+The returned value is a hashref C<\%fs> which may contain the
+following top-level keys (any key can be missing):
+
+=over 4
+
+=item fstype
+
+Filesystem type, eg. "ext2" or "ntfs"
+
+=item fsos
+
+Apparent filesystem OS, eg. "linux" or "windows"
+
+=item is_swap
+
+If set, the partition is a swap partition.
+
+=item uuid
+
+Filesystem UUID.
+
+=item label
+
+Filesystem label.
+
+=item is_mountable
+
+If set, the partition could be mounted by libguestfs.
+
+=item content
+
+Filesystem content, if we could determine it.  One of: "linux-grub",
+"linux-root", "linux-usrlocal", "linux-usr", "windows-root".
+
+=item osdistro
+
+(For Linux root partitions only).
+Operating system distribution.  One of: "fedora", "redhat",
+"debian".
+
+=item osversion
+
+(For root partitions only).
+Operating system version.
+
+=item fstab
+
+(For Linux root partitions only).
+The contents of the C</etc/fstab> file.
+
+=item boot_ini
+
+(For Windows root partitions only).
+The contents of the C</boot.ini> (NTLDR) file.
+
+=item registry
+
+The value is an arrayref, which is a list of Windows registry
+file contents, in Windows C<.REG> format.
+
+=back
+
+=cut
+
+sub inspect_partition
+{
+    local $_;
+    my $g = shift;
+    my $dev = shift;		# LV or partition name.
+    my %params = @_;
+
+    my $use_windows_registry = $params{use_windows_registry};
+
+    my %r;			# Result hash.
+
+    # First try 'file(1)' on it.
+    my $file = $g->file ($dev);
+    if ($file =~ /ext2 filesystem data/) {
+	$r{fstype} = "ext2";
+	$r{fsos} = "linux";
+    } elsif ($file =~ /ext3 filesystem data/) {
+	$r{fstype} = "ext3";
+	$r{fsos} = "linux";
+    } elsif ($file =~ /ext4 filesystem data/) {
+	$r{fstype} = "ext4";
+	$r{fsos} = "linux";
+    } elsif ($file =~ m{Linux/i386 swap file}) {
+	$r{fstype} = "swap";
+	$r{fsos} = "linux";
+	$r{is_swap} = 1;
+    }
+
+    # If it's ext2/3/4, then we want the UUID and label.
+    if (exists $r{fstype} && $r{fstype} =~ /^ext/) {
+	$r{uuid} = $g->get_e2uuid ($dev);
+	$r{label} = $g->get_e2label ($dev);
+    }
+
+    # Try mounting it, fnarrr.
+    if (!$r{is_swap}) {
+	$r{is_mountable} = 1;
+	eval { $g->mount_ro ($dev, "/") };
+	if ($@) {
+	    # It's not mountable, probably empty or some format
+	    # we don't understand.
+	    $r{is_mountable} = 0;
+	    goto OUT;
+	}
+
+	# Grub /boot?
+	if ($g->is_file ("/grub/menu.lst") ||
+	    $g->is_file ("/grub/grub.conf")) {
+	    $r{content} = "linux-grub";
+	    check_grub ($g, \%r);
+	    goto OUT;
+	}
+
+	# Linux root?
+	if ($g->is_dir ("/etc") && $g->is_dir ("/bin") &&
+	    $g->is_file ("/etc/fstab")) {
+	    $r{content} = "linux-root";
+	    $r{is_root} = 1;
+	    check_linux_root ($g, \%r);
+	    goto OUT;
+	}
+
+	# Linux /usr/local.
+	if ($g->is_dir ("/etc") && $g->is_dir ("/bin") &&
+	    $g->is_dir ("/share") && !$g->exists ("/local") &&
+	    !$g->is_file ("/etc/fstab")) {
+	    $r{content} = "linux-usrlocal";
+	    goto OUT;
+	}
+
+	# Linux /usr.
+	if ($g->is_dir ("/etc") && $g->is_dir ("/bin") &&
+	    $g->is_dir ("/share") && $g->exists ("/local") &&
+	    !$g->is_file ("/etc/fstab")) {
+	    $r{content} = "linux-usr";
+	    goto OUT;
+	}
+
+	# Windows root?
+	if ($g->is_file ("/AUTOEXEC.BAT") ||
+	    $g->is_file ("/autoexec.bat") ||
+	    $g->is_dir ("/Program Files") ||
+	    $g->is_dir ("/WINDOWS") ||
+	    $g->is_file ("/boot.ini") ||
+	    $g->is_file ("/ntldr")) {
+	    $r{fstype} = "ntfs"; # XXX this is a guess
+	    $r{fsos} = "windows";
+	    $r{content} = "windows-root";
+	    $r{is_root} = 1;
+	    check_windows_root ($g, \%r, $use_windows_registry);
+	    goto OUT;
+	}
+    }
+
+  OUT:
+    $g->umount_all ();
+    return \%r;
+}
+
+sub check_linux_root
+{
+    local $_;
+    my $g = shift;
+    my $r = shift;
+
+    # Look into /etc to see if we recognise the operating system.
+    if ($g->is_file ("/etc/redhat-release")) {
+	$_ = $g->cat ("/etc/redhat-release");
+	if (/Fedora release (\d+\.\d+)/) {
+	    $r->{osdistro} = "fedora";
+	    $r->{osversion} = "$1"
+	} elsif (/(Red Hat Enterprise Linux|CentOS|Scientific Linux).*release (\d+).*Update (\d+)/) {
+	    $r->{osdistro} = "redhat";
+	    $r->{osversion} = "$2.$3";
+        } elsif (/(Red Hat Enterprise Linux|CentOS|Scientific Linux).*release (\d+(?:\.(\d+))?)/) {
+	    $r->{osdistro} = "redhat";
+	    $r->{osversion} = "$2";
+	} else {
+	    $r->{osdistro} = "redhat";
+	}
+    } elsif ($g->is_file ("/etc/debian_version")) {
+	$_ = $g->cat ("/etc/debian_version");
+	if (/(\d+\.\d+)/) {
+	    $r->{osdistro} = "debian";
+	    $r->{osversion} = "$1";
+	} else {
+	    $r->{osdistro} = "debian";
+	}
+    }
+
+    # Parse the contents of /etc/fstab.  This is pretty vital so
+    # we can determine where filesystems are supposed to be mounted.
+    eval "\$_ = \$g->cat ('/etc/fstab');";
+    if (!$@ && $_) {
+	my @lines = split /\n/;
+	my @fstab;
+	foreach (@lines) {
+	    my @fields = split /[ \t]+/;
+	    if (@fields >= 2) {
+		my $spec = $fields[0]; # first column (dev/label/uuid)
+		my $file = $fields[1]; # second column (mountpoint)
+		if ($spec =~ m{^/} ||
+		    $spec =~ m{^LABEL=} ||
+		    $spec =~ m{^UUID=} ||
+		    $file eq "swap") {
+		    push @fstab, [$spec, $file]
+		}
+	    }
+	}
+	$r->{fstab} = \@fstab if @fstab;
+    }
+}
+
+# We only support NT.  The control file /boot.ini contains a list of
+# Windows installations and their %systemroot%s in a simple text
+# format.
+#
+# XXX We could parse this better.  This won't work if /boot.ini is on
+# a different drive from the %systemroot%, and in other unusual cases.
+
+sub check_windows_root
+{
+    local $_;
+    my $g = shift;
+    my $r = shift;
+    my $use_windows_registry = shift;
+
+    my $boot_ini = resolve_windows_path ($g, "/boot.ini");
+    $r->{boot_ini} = $boot_ini;
+
+    if (defined $r->{boot_ini}) {
+	$_ = $g->cat ($boot_ini);
+	my @lines = split /\n/;
+	my $section;
+	my $systemroot;
+	foreach (@lines) {
+	    if (m/\[.*\]/) {
+		$section = $1;
+	    } elsif (m/^default=.*?\\(\w+)$/i) {
+		$systemroot = $1;
+		last;
+	    } elsif (m/\\(\w+)=/) {
+		$systemroot = $1;
+		last;
+	    }
+	}
+
+	if (defined $systemroot) {
+	    $r->{systemroot} = resolve_windows_path ($g, "/$systemroot");
+	    if (defined $r->{systemroot} && $use_windows_registry) {
+		check_windows_registry ($g, $r, $r->{systemroot});
+	    }
+	}
+    }
+}
+
+sub check_windows_registry
+{
+    local $_;
+    my $g = shift;
+    my $r = shift;
+    my $systemroot = shift;
+
+    # Download the system registry files.  Only download the
+    # interesting ones, and we don't bother with user profiles at all.
+
+    my $configdir = resolve_windows_path ($g, "$systemroot/system32/config");
+    if (defined $configdir) {
+	my $softwaredir = resolve_windows_path ($g, "$configdir/software");
+	if (defined $softwaredir) {
+	    load_windows_registry ($g, $r, $softwaredir,
+				   "HKEY_LOCAL_MACHINE\\SOFTWARE");
+	}
+	my $systemdir = resolve_windows_path ($g, "$configdir/system");
+	if (defined $systemdir) {
+	    load_windows_registry ($g, $r, $systemdir,
+				   "HKEY_LOCAL_MACHINE\\System");
+	}
+    }
+}
+
+sub load_windows_registry
+{
+    local $_;
+    my $g = shift;
+    my $r = shift;
+    my $regfile = shift;
+    my $prefix = shift;
+
+    my $dir = tempdir (CLEANUP => 1);
+
+    $g->download ($regfile, "$dir/reg");
+
+    # 'reged' command is particularly noisy.  Redirect stdout and
+    # stderr to /dev/null temporarily.
+    open SAVEOUT, ">&STDOUT";
+    open SAVEERR, ">&STDERR";
+    open STDOUT, ">/dev/null";
+    open STDERR, ">/dev/null";
+
+    my @cmd = ("reged", "-x", "$dir/reg", "$prefix", "\\", "$dir/out");
+    my $res = system (@cmd);
+
+    close STDOUT;
+    close STDERR;
+    open STDOUT, ">&SAVEOUT";
+    open STDERR, ">&SAVEERR";
+    close SAVEOUT;
+    close SAVEERR;
+
+    unless ($res == 0) {
+	warn "reged command failed: $?";
+	return;
+    }
+
+    # Some versions of reged segfault on inputs.  If that happens we
+    # may get no / partial output file.  Anyway, if it exists, load
+    # it.
+    my $content;
+    unless (open F, "$dir/out") {
+	warn "no output from reged command: $!";
+	return;
+    }
+    { local $/ = undef; $content = <F>; }
+    close F;
+
+    my @registry = ();
+    @registry = @{$r->{registry}} if exists $r->{registry};
+    push @registry, $content;
+    $r->{registry} = \@registry;
+}
+
+sub check_grub
+{
+    local $_;
+    my $g = shift;
+    my $r = shift;
+
+    # Grub version, if we care.
+}
+
+=head2 inspect_operating_systems
+
+ \%oses = inspect_operating_systems ($g, \%fses);
+
+This function works out how partitions are related to each other.  In
+the case of a single-boot VM, we work out how the partitions are
+mounted in respect of each other (eg. C</dev/sda1> is mounted as
+C</boot>).  In the case of a multi-boot VM where there are several
+roots, we may identify several operating system roots, and mountpoints
+can even be shared.
+
+This function returns a hashref C<\%oses> which at the top level looks
+like:
+
+ %oses = {
+   '/dev/VG/Root' => \%os,
+ }
+ 
+(There can be multiple roots for a multi-boot VM).
+
+The C<\%os> hash contains the following keys (any can be omitted):
+
+=over 4
+
+=item os
+
+Operating system type, eg. "linux", "windows".
+
+=item distro
+
+Operating system distribution, eg. "debian".
+
+=item version
+
+Operating system version, eg. "4.0".
+
+=item root
+
+The value is a reference to the root partition C<%fs> hash.
+
+=item root_device
+
+The value is the name of the root partition (as a string).
+
+=item mounts
+
+Mountpoints.
+The value is a hashref like this:
+
+ mounts => {
+   '/' => '/dev/VG/Root',
+   '/boot' => '/dev/sda1',
+ }
+
+=item filesystems
+
+Filesystems (including swap devices and unmounted partitions).
+The value is a hashref like this:
+
+ filesystems => {
+   '/dev/sda1' => \%fs,
+   '/dev/VG/Root' => \%fs,
+   '/dev/VG/Swap' => \%fs,
+ }
+
+=back
+
+=cut
+
+sub inspect_operating_systems
+{
+    local $_;
+    my $g = shift;
+    my $fses = shift;
+
+    my %oses = ();
+
+    foreach (sort keys %$fses) {
+	if ($fses->{$_}->{is_root}) {
+	    my %r = (
+		root => $fses->{$_},
+		root_device => $_
+		);
+	    get_os_version ($g, \%r);
+	    assign_mount_points ($g, $fses, \%r);
+	    $oses{$_} = \%r;
+	}
+    }
+
+    return \%oses;
+}
+
+sub get_os_version
+{
+    local $_;
+    my $g = shift;
+    my $r = shift;
+
+    $r->{os} = $r->{root}->{fsos} if exists $r->{root}->{fsos};
+    $r->{distro} = $r->{root}->{osdistro} if exists $r->{root}->{osdistro};
+    $r->{version} = $r->{root}->{osversion} if exists $r->{root}->{osversion};
+}
+
+sub assign_mount_points
+{
+    local $_;
+    my $g = shift;
+    my $fses = shift;
+    my $r = shift;
+
+    $r->{mounts} = { "/" => $r->{root_device} };
+    $r->{filesystems} = { $r->{root_device} => $r->{root} };
+
+    # Use /etc/fstab if we have it to mount the rest.
+    if (exists $r->{root}->{fstab}) {
+	my @fstab = @{$r->{root}->{fstab}};
+	foreach (@fstab) {
+	    my ($spec, $file) = @$_;
+
+	    my ($dev, $fs) = find_filesystem ($g, $fses, $spec);
+	    if ($dev) {
+		$r->{mounts}->{$file} = $dev;
+		$r->{filesystems}->{$dev} = $fs;
+		if (exists $fs->{used}) {
+		    $fs->{used}++
+		} else {
+		    $fs->{used} = 1
+	        }
+                $fs->{spec} = $spec;
+	    }
+	}
+    }
+}
+
+# Find filesystem by device name, LABEL=.. or UUID=..
+sub find_filesystem
+{
+    my $g = shift;
+    my $fses = shift;
+    local $_ = shift;
+
+    if (/^LABEL=(.*)/) {
+	my $label = $1;
+	foreach (sort keys %$fses) {
+	    if (exists $fses->{$_}->{label} &&
+		$fses->{$_}->{label} eq $label) {
+		return ($_, $fses->{$_});
+	    }
+	}
+	warn "unknown filesystem label $label\n";
+	return ();
+    } elsif (/^UUID=(.*)/) {
+	my $uuid = $1;
+	foreach (sort keys %$fses) {
+	    if (exists $fses->{$_}->{uuid} &&
+		$fses->{$_}->{uuid} eq $uuid) {
+		return ($_, $fses->{$_});
+	    }
+	}
+	warn "unknown filesystem UUID $uuid\n";
+	return ();
+    } else {
+	return ($_, $fses->{$_}) if exists $fses->{$_};
+
+        # The following is to handle the case where an fstab entry specifies a
+        # specific device rather than its label or uuid, and the libguestfs
+        # appliance has named the device differently due to the use of a
+        # different driver.
+        # This will work as long as the underlying drivers recognise devices in
+        # the same order.
+	if (m{^/dev/hd(.*)} && exists $fses->{"/dev/sd$1"}) {
+	    return ("/dev/sd$1", $fses->{"/dev/sd$1"});
+	}
+	if (m{^/dev/xvd(.*)} && exists $fses->{"/dev/sd$1"}) {
+	    return ("/dev/sd$1", $fses->{"/dev/sd$1"});
+	}
+	if (m{^/dev/mapper/(.*)-(.*)$} && exists $fses->{"/dev/$1/$2"}) {
+	    return ("/dev/$1/$2", $fses->{"/dev/$1/$2"});
+	}
+
+	return () if m{/dev/cdrom};
+
+	warn "unknown filesystem $_\n";
+	return ();
+    }
+}
+
+=head2 mount_operating_system
+
+ mount_operating_system ($g, \%os);
+
+This function mounts the operating system described in the
+C<%os> hash according to the C<mounts> table in that hash (see
+C<inspect_operating_systems>).
+
+The partitions are mounted read-only.
+
+To reverse the effect of this call, use the standard
+libguestfs API call C<$g-E<gt>umount_all ()>.
+
+=cut
+
+sub mount_operating_system
+{
+    local $_;
+    my $g = shift;
+    my $os = shift;
+
+    my $mounts = $os->{mounts};
+
+    # Have to mount / first.  Luckily '/' is early in the ASCII
+    # character set, so this should be OK.
+    foreach (sort keys %$mounts) {
+	$g->mount_ro ($mounts->{$_}, $_)
+	    if $_ ne "swap" && $_ ne "none" && ($_ eq '/' || $g->is_dir ($_));
+    }
+}
+
+=head2 inspect_in_detail
+
+ mount_operating_system ($g, \%os);
+ inspect_in_detail ($g, \%os);
+ $g->umount_all ();
+
+The C<inspect_in_detail> function inspects the mounted operating
+system for installed applications, installed kernels, kernel modules
+and more.
+
+It adds extra keys to the existing C<%os> hash reflecting what it
+finds.  These extra keys are:
+
+=over 4
+
+=item apps
+
+List of applications.
+
+=item kernels
+
+List of kernels.
+
+=item modprobe_aliases
+
+(For Linux VMs).
+The contents of the modprobe configuration.
+
+=item initrd_modules
+
+(For Linux VMs).
+The kernel modules installed in the initrd.  The value is
+a hashref of kernel version to list of modules.
+
+=back
+
+=cut
+
+sub inspect_in_detail
+{
+    local $_;
+    my $g = shift;
+    my $os = shift;
+
+    check_for_applications ($g, $os);
+    check_for_kernels ($g, $os);
+    if ($os->{os} eq "linux") {
+	check_for_modprobe_aliases ($g, $os);
+	check_for_initrd ($g, $os);
+    }
+}
+
+sub check_for_applications
+{
+    local $_;
+    my $g = shift;
+    my $os = shift;
+
+    my @apps;
+
+    my $osn = $os->{os};
+    if ($osn eq "linux") {
+	my $distro = $os->{distro};
+	if (defined $distro && ($distro eq "redhat" || $distro eq "fedora")) {
+	    my @lines = $g->command_lines
+		(["rpm",
+		  "-q", "-a",
+		  "--qf", "%{name} %{epoch} %{version} %{release} %{arch}\n"]);
+	    foreach (@lines) {
+		if (m/^(.*) (.*) (.*) (.*) (.*)$/) {
+		    my $epoch = $2;
+		    $epoch = "" if $epoch eq "(none)";
+		    my $app = {
+			name => $1,
+			epoch => $epoch,
+			version => $3,
+			release => $4,
+			arch => $5
+		    };
+		    push @apps, $app
+		}
+	    }
+	}
+    } elsif ($osn eq "windows") {
+	# XXX
+	# I worked out a general plan for this, but haven't
+	# implemented it yet.  We can iterate over /Program Files
+	# looking for *.EXE files, which we download, then use
+	# i686-pc-mingw32-windres on, to find the VERSIONINFO
+	# section, which has a lot of useful information.
+    }
+
+    $os->{apps} = \@apps;
+}
+
+sub check_for_kernels
+{
+    local $_;
+    my $g = shift;
+    my $os = shift;
+
+    my @kernels;
+
+    my $osn = $os->{os};
+    if ($osn eq "linux") {
+	# Installed kernels will have a corresponding /lib/modules/<version>
+	# directory, which is the easiest way to find out what kernels
+	# are installed, and what modules are available.
+	foreach ($g->ls ("/lib/modules")) {
+	    if ($g->is_dir ("/lib/modules/$_")) {
+		my %kernel;
+		$kernel{version} = $_;
+
+		# List modules.
+		my @modules;
+		foreach ($g->find ("/lib/modules/$_")) {
+		    if (m,/([^/]+)\.ko$, || m,([^/]+)\.o$,) {
+			push @modules, $1;
+		    }
+		}
+
+		$kernel{modules} = \@modules;
+
+		push @kernels, \%kernel;
+	    }
+	}
+
+    } elsif ($osn eq "windows") {
+	# XXX
+    }
+
+    $os->{kernels} = \@kernels;
+}
+
+# Check /etc/modprobe.conf to see if there are any specified
+# drivers associated with network (ethX) or hard drives.  Normally
+# one might find something like:
+#
+#  alias eth0 xennet
+#  alias scsi_hostadapter xenblk
+#
+# XXX This doesn't look beyond /etc/modprobe.conf, eg. in /etc/modprobe.d/
+
+sub check_for_modprobe_aliases
+{
+    local $_;
+    my $g = shift;
+    my $os = shift;
+
+    # Initialise augeas
+    my $success = 0;
+    $success = $g->aug_init("/", 16);
+
+    # Register /etc/modules.conf and /etc/conf.modules to the Modprobe lens
+    my @results;
+    @results = $g->aug_match("/augeas/load/Modprobe/incl");
+
+    # Calculate the next index of /augeas/load/Modprobe/incl
+    my $i = 1;
+    foreach ( @results ) {
+        next unless m{/augeas/load/Modprobe/incl\[(\d*)]};
+        $i = $1 + 1 if ($1 == $i);
+    }
+
+    $success = $g->aug_set("/augeas/load/Modprobe/incl[$i]",
+                           "/etc/modules.conf");
+    $i++;
+    $success = $g->aug_set("/augeas/load/Modprobe/incl[$i]",
+                                  "/etc/conf.modules");
+
+    # Make augeas reload
+    $success = $g->aug_load();
+
+    my %modprobe_aliases;
+
+    for my $pattern qw(/files/etc/conf.modules/alias
+                       /files/etc/modules.conf/alias
+                       /files/etc/modprobe.conf/alias
+                       /files/etc/modprobe.d/*/alias) {
+        @results = $g->aug_match($pattern);
+
+        for my $path ( @results ) {
+            $path =~ m{^/files(.*)/alias(?:\[\d*\])?$}
+                or die("$path doesn't match augeas pattern");
+            my $file = $1;
+
+            my $alias;
+            $alias = $g->aug_get($path);
+
+            my $modulename;
+            $modulename = $g->aug_get($path.'/modulename');
+
+            my %aliasinfo;
+            $aliasinfo{modulename} = $modulename;
+            $aliasinfo{augeas} = $path;
+            $aliasinfo{file} = $file;
+
+            $modprobe_aliases{$alias} = \%aliasinfo;
+        }
+    }
+
+    $os->{modprobe_aliases} = \%modprobe_aliases;
+}
+
+# Get a listing of device drivers in any initrd corresponding to a
+# kernel.  This is an indication of what can possibly be booted.
+
+sub check_for_initrd
+{
+    local $_;
+    my $g = shift;
+    my $os = shift;
+
+    my %initrd_modules;
+
+    foreach my $initrd ($g->ls ("/boot")) {
+	if ($initrd =~ m/^initrd-(.*)\.img$/ && $g->is_file ("/boot/$initrd")) {
+	    my $version = $1;
+	    my @modules;
+
+	    eval {
+		@modules = $g->initrd_list ("/boot/$initrd");
+	    };
+	    unless ($@) {
+		@modules = grep { m,([^/]+)\.ko$, || m,([^/]+)\.o$, } @modules;
+		$initrd_modules{$version} = \@modules
+	    } else {
+		warn "/boot/$initrd: could not read initrd format"
+	    }
+	}
+    }
+
+    $os->{initrd_modules} = \%initrd_modules;
+}
+
 
 1;
 
