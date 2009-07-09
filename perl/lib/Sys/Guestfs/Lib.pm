@@ -35,9 +35,13 @@ Sys::Guestfs::Lib - Useful functions for using libguestfs from Perl
 
 =head1 SYNOPSIS
 
- use Sys::Guestfs::Lib qw(#any symbols you want to use);
+ use Sys::Guestfs::Lib qw(open_guest inspect_all_partitions ...);
 
  $g = open_guest ($name);
+
+ %fses = inspect_all_partitions ($g, \@partitions);
+
+(and many more calls - see the rest of this manpage)
 
 =head1 DESCRIPTION
 
