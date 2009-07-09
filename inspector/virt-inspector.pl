@@ -102,18 +102,6 @@ then libvirt is not used at all.
 
 =cut
 
-my $force;
-
-=item B<--force>
-
-Force reading a particular guest even if it appears to be active.  In
-earlier versions of virt-inspector, this could be dangerous (for
-example, corrupting the guest's disk image).  However in more recent
-versions, it should not cause corruption, but might cause
-virt-inspector to crash or produce incorrect results.
-
-=cut
-
 my $output = "text";
 
 =back
@@ -186,7 +174,6 @@ default.
 
 GetOptions ("help|?" => \$help,
 	    "connect|c=s" => \$uri,
-	    "force" => \$force,
 	    "text" => sub { $output = "text" },
 	    "none" => sub { $output = "none" },
 	    "xml" => sub { $output = "xml" },
