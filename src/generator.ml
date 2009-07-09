@@ -3722,10 +3722,10 @@ check_state (guestfs_h *g, const char *caller)
        | RBool _ | RString _ | RStringList _
        | RStruct _ | RStructList _
        | RHashtable _ ->
-	    pr "  if (!xdr_%s_ret (xdr, &ctx->ret)) {\n" name;
-	    pr "    error (g, \"%%s: failed to parse reply\", \"%s\");\n" name;
-	    pr "    return;\n";
-	    pr "  }\n";
+	   pr "  if (!xdr_%s_ret (xdr, &ctx->ret)) {\n" name;
+	   pr "    error (g, \"%%s: failed to parse reply\", \"%s\");\n" name;
+	   pr "    return;\n";
+	   pr "  }\n";
       );
 
       pr " done:\n";
@@ -3922,9 +3922,9 @@ and generate_daemon_actions_h () =
 
   List.iter (
     fun (name, style, _, _, _, _, _) ->
-	generate_prototype
-	  ~single_line:true ~newline:true ~in_daemon:true ~prefix:"do_"
-	  name style;
+      generate_prototype
+	~single_line:true ~newline:true ~in_daemon:true ~prefix:"do_"
+	name style;
   ) daemon_functions
 
 (* Generate the server-side stubs. *)
@@ -4093,9 +4093,9 @@ and generate_daemon_actions () =
 
   List.iter (
     fun (name, style, _, _, _, _, _) ->
-	pr "    case GUESTFS_PROC_%s:\n" (String.uppercase name);
-	pr "      %s_stub (xdr_in);\n" name;
-	pr "      break;\n"
+      pr "    case GUESTFS_PROC_%s:\n" (String.uppercase name);
+      pr "      %s_stub (xdr_in);\n" name;
+      pr "      break;\n"
   ) daemon_functions;
 
   pr "    default:\n";
@@ -4121,8 +4121,8 @@ and generate_daemon_actions () =
 	pr "  int i, j;\n";
 	pr "\n";
 	(*
-	pr "  fprintf (stderr, \"%%s: <<%%s>>\\n\", __func__, str);\n";
-	pr "\n";
+	  pr "  fprintf (stderr, \"%%s: <<%%s>>\\n\", __func__, str);\n";
+	  pr "\n";
 	*)
 	pr "  if (!str) {\n";
 	pr "    fprintf (stderr, \"%%s: failed: passed a NULL string\\n\", __func__);\n";
@@ -7304,7 +7304,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
 	 | RStringList _ | RStructList _ -> true
 	 | RErr | RBool _ | RInt _ | RInt64 _ | RConstString _
 	 | RString _ | RStruct _ | RHashtable _ -> false) ||
-	List.exists (function StringList _ -> true | _ -> false) (snd style) in
+	  List.exists (function StringList _ -> true | _ -> false) (snd style) in
       if needs_i then
 	pr "  int i;\n";
 
@@ -8057,7 +8057,7 @@ and generate_lang_bindtests call =
 		CallStringList ["1"]; CallBool false;
 		CallInt 0; CallString ""; CallString ""]
 
-  (* XXX Add here tests of the return and error functions. *)
+(* XXX Add here tests of the return and error functions. *)
 
 (* This is used to generate the src/MAX_PROC_NR file which
  * contains the maximum procedure number, a surrogate for the
