@@ -20,7 +20,7 @@ use warnings;
 use strict;
 
 use Sys::Guestfs;
-use Sys::Guestfs::Lib qw(open_guest);
+use Sys::Guestfs::Lib qw(open_guest get_partitions);
 use Pod::Usage;
 use Getopt::Long;
 use Data::Dumper;
@@ -212,21 +212,6 @@ if ($uri) {
 $g->launch ();
 $g->wait_ready ();
 
-# We want to get the list of LVs and partitions (ie. anything that
-# could contain a filesystem).  Discard any partitions which are PVs.
-my @partitions = $g->list_partitions ();
-my @pvs = $g->pvs ();
-sub is_pv {
-    my $t = shift;
-    foreach (@pvs) {
-	return 1 if $_ eq $t;
-    }
-    0;
-}
-@partitions = grep { ! is_pv ($_) } @partitions;
-
-my @lvs = $g->lvs ();
-
 =head1 OUTPUT FORMAT
 
  Operating system(s)
@@ -270,7 +255,7 @@ right place.  For example:
 =cut
 
 # List of possible filesystems.
-my @devices = sort (@lvs, @partitions);
+my @devices = get_partitions ($g);
 
 # Now query each one to build up a picture of what's in it.
 my %fses = map { $_ => check_fs ($_) } @devices;

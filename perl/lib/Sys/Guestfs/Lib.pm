@@ -58,7 +58,7 @@ require Exporter;
 use vars qw(@EXPORT_OK @ISA);
 
 @ISA = qw(Exporter);
-@EXPORT_OK = qw(open_guest);
+@EXPORT_OK = qw(open_guest get_partitions);
 
 =head2 open_guest
 
@@ -180,6 +180,43 @@ sub open_guest
     }
 
     return wantarray ? ($g, $conn, $dom) : $g
+}
+
+=head2 get_partitions
+
+ @partitions = get_partitions ($g);
+
+This function takes an open libguestfs handle C<$g> and returns all
+partitions and logical volumes found on it.
+
+What is returned is everything that could contain a filesystem (or
+swap).  Physical volumes are excluded from the list, and so are any
+devices which are partitioned (eg. C</dev/sda> would not be returned
+if C</dev/sda1> exists).
+
+=cut
+
+sub get_partitions
+{
+    my $g = shift;
+
+    my @partitions = $g->list_partitions ();
+    my @pvs = $g->pvs ();
+    @partitions = grep { ! is_pv ($_, @pvs) } @partitions;
+
+    my @lvs = $g->lvs ();
+
+    return sort (@lvs, @partitions);
+}
+
+sub is_pv {
+    local $_;
+    my $t = shift;
+
+    foreach (@_) {
+	return 1 if $_ eq $t;
+    }
+    0;
 }
 
 1;
