@@ -20,7 +20,7 @@ use warnings;
 use strict;
 
 use Sys::Guestfs;
-use Sys::Guestfs::Lib qw(open_guest get_partitions);
+use Sys::Guestfs::Lib qw(open_guest get_partitions resolve_windows_path);
 use Pod::Usage;
 use Getopt::Long;
 use Data::Dumper;
@@ -422,7 +422,7 @@ sub check_windows_root
     local $_;
     my $r = shift;
 
-    my $boot_ini = resolve_windows_path ("/", "boot.ini");
+    my $boot_ini = resolve_windows_path ($g, "/boot.ini");
     $r->{boot_ini} = $boot_ini;
 
     if (defined $r->{boot_ini}) {
@@ -443,7 +443,7 @@ sub check_windows_root
 	}
 
 	if (defined $systemroot) {
-	    $r->{systemroot} = resolve_windows_path ("/", $systemroot);
+	    $r->{systemroot} = resolve_windows_path ($g, "/$systemroot");
 	    if (defined $r->{systemroot} && $windows_registry) {
 		check_windows_registry ($r, $r->{systemroot});
 	    }
@@ -459,20 +459,18 @@ sub check_windows_registry
 
     # Download the system registry files.  Only download the
     # interesting ones, and we don't bother with user profiles at all.
-    my $system32 = resolve_windows_path ($systemroot, "system32");
-    if (defined $system32) {
-	my $config = resolve_windows_path ($system32, "config");
-	if (defined $config) {
-	    my $software = resolve_windows_path ($config, "software");
-	    if (defined $software) {
-		load_windows_registry ($r, $software,
-				       "HKEY_LOCAL_MACHINE\\SOFTWARE");
-	    }
-	    my $system = resolve_windows_path ($config, "system");
-	    if (defined $system) {
-		load_windows_registry ($r, $system,
-				       "HKEY_LOCAL_MACHINE\\System");
-	    }
+
+    my $configdir = resolve_windows_path ($g, "$systemroot/system32/config");
+    if (defined $configdir) {
+	my $softwaredir = resolve_windows_path ($g, "$configdir/software");
+	if (defined $softwaredir) {
+	    load_windows_registry ($r, $softwaredir,
+				   "HKEY_LOCAL_MACHINE\\SOFTWARE");
+	}
+	my $systemdir = resolve_windows_path ($g, "$configdir/system");
+	if (defined $systemdir) {
+	    load_windows_registry ($r, $systemdir,
+				   "HKEY_LOCAL_MACHINE\\System");
 	}
     }
 }
@@ -525,28 +523,6 @@ sub load_windows_registry
     @registry = @{$r->{registry}} if exists $r->{registry};
     push @registry, $content;
     $r->{registry} = \@registry;
-}
-
-# Because of case sensitivity, the actual path might have a different
-# name, and ntfs-3g is always case sensitive.  Find out what the real
-# path is.  Returns the correct full path, or undef.
-sub resolve_windows_path
-{
-    local $_;
-    my $parent = shift;		# Must exist, with correct case.
-    my $dir = shift;
-
-    foreach ($g->ls ($parent)) {
-	if (lc ($_) eq lc ($dir)) {
-	    if ($parent eq "/") {
-		return "/$_"
-	    } else {
-		return "$parent/$_"
-	    }
-	}
-    }
-
-    undef;
 }
 
 sub check_grub

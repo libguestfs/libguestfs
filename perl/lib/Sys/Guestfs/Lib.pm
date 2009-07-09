@@ -58,7 +58,7 @@ require Exporter;
 use vars qw(@EXPORT_OK @ISA);
 
 @ISA = qw(Exporter);
-@EXPORT_OK = qw(open_guest get_partitions);
+@EXPORT_OK = qw(open_guest get_partitions resolve_windows_path);
 
 =head2 open_guest
 
@@ -217,6 +217,62 @@ sub is_pv {
 	return 1 if $_ eq $t;
     }
     0;
+}
+
+=head2 resolve_windows_path
+
+ $path = resolve_windows_path ($g, $path);
+
+ $path = resolve_windows_path ($g, "/windows/system");
+   ==> "/WINDOWS/System"
+       or undef if no path exists
+
+This function, which is specific to FAT/NTFS filesystems (ie.  Windows
+guests), lets you look up a case insensitive C<$path> in the
+filesystem and returns the true, case sensitive path as required by
+the underlying kernel or NTFS-3g driver.
+
+If C<$path> does not exist then this function returns C<undef>.
+
+The C<$path> parameter must begin with C</> character and be separated
+by C</> characters.  Do not use C<\>, drive names, etc.
+
+=cut
+
+sub resolve_windows_path
+{
+    local $_;
+    my $g = shift;
+    my $path = shift;
+
+    if (substr ($path, 0, 1) ne "/") {
+	warn "resolve_windows_path: path must start with a / character";
+	return undef;
+    }
+
+    my @elems = split (/\//, $path);
+    shift @elems;
+
+    # Start reconstructing the path at the top.
+    $path = "/";
+
+    foreach my $dir (@elems) {
+	my $found = 0;
+	foreach ($g->ls ($path)) {
+	    if (lc ($_) eq lc ($dir)) {
+		if ($path eq "/") {
+		    $path = "/$_";
+		    $found = 1;
+		} else {
+		    $path = "$path/$_";
+		    $found = 1;
+		}
+	    }
+	}
+	return undef unless $found;
+    }
+
+    return $path;
 }
 
 1;
