@@ -1,0 +1,20 @@
+Sys::Guestfs
+------------
+
+This directory contains the Perl bindings for the libguestfs API.
+
+The basic libguestfs bindings have the name 'Sys::Guestfs'.
+
+As with all other language bindings, these bindings are generated
+automatically.  See src/generator.ml.
+
+Sys::Guestfs::Lib
+-----------------
+
+Because we use Perl for writing lots of additional tools around
+libguestfs, the Perl bindings also contain an extra library of useful
+functions, called 'Sys::Guestfs::Lib'.  This extra library is entirely
+optional, and only enhances the usefulness of the ordinary libguestfs
+API.
+
+One of the features of this library is tighter libvirt integration.

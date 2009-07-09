@@ -20,6 +20,7 @@ use warnings;
 use strict;
 
 use Sys::Guestfs;
+use Sys::Guestfs::Lib qw(open_guest);
 use Pod::Usage;
 use Getopt::Long;
 use Data::Dumper;
@@ -27,9 +28,6 @@ use File::Temp qw/tempdir/;
 use XML::Writer;
 
 # Optional:
-eval "use Sys::Virt;";
-eval "use XML::XPath;";
-eval "use XML::XPath::XMLParser;";
 eval "use YAML::Any;";
 
 =encoding utf8
@@ -202,61 +200,15 @@ GetOptions ("help|?" => \$help,
 pod2usage (1) if $help;
 pod2usage ("$0: no image or VM names given") if @ARGV == 0;
 
-# Domain name or guest image(s)?
-
-my @images;
-if (-e $ARGV[0]) {
-    @images = @ARGV;
-
-    foreach (@images) {
-	if (! -r $_) {
-	    die "guest image $_ does not exist or is not readable\n"
-	}
-    }
+my $rw = 0;
+$rw = 1 if $output eq "fish";
+my $g;
+if ($uri) {
+    $g = open_guest (\@ARGV, rw => $rw, address => $uri);
 } else {
-    die "virt-inspector: no libvirt support (install Sys::Virt, XML::XPath and XML::XPath::XMLParser)\n"
-	unless exists $INC{"Sys/Virt.pm"} &&
-	exists $INC{"XML/XPath.pm"} &&
-	exists $INC{"XML/XPath/XMLParser.pm"};
-
-    pod2usage ("$0: too many domains listed on command line") if @ARGV > 1;
-
-    my $vmm;
-    if (defined $uri) {
-	$vmm = Sys::Virt->new (uri => $uri, readonly => 1);
-    } else {
-	$vmm = Sys::Virt->new (readonly => 1);
-    }
-    die "cannot connect to libvirt $uri\n" unless $vmm;
-
-    my @doms = $vmm->list_defined_domains ();
-    my $isitinactive = "an inactive libvirt domain";
-    if ($output ne "fish") {
-	# In the special case where we want read-only access to
-	# a domain, allow the user to specify an active domain too.
-	push @doms, $vmm->list_domains ();
-	$isitinactive = "a libvirt domain";
-    }
-    my $dom;
-    foreach (@doms) {
-	if ($_->get_name () eq $ARGV[0]) {
-	    $dom = $_;
-	    last;
-	}
-    }
-    die "$ARGV[0] is not the name of $isitinactive\n" unless $dom;
-
-    # Get the names of the image(s).
-    my $xml = $dom->get_xml_description ();
-
-    my $p = XML::XPath->new (xml => $xml);
-    my @disks = $p->findnodes ('//devices/disk/source/@dev');
-    @images = map { $_->getData } @disks;
+    $g = open_guest (\@ARGV, rw => $rw);
 }
 
-# We've now got the list of @images, so feed them to libguestfs.
-my $g = Sys::Guestfs->new ();
-$g->add_drive_ro ($_) foreach @images;
 $g->launch ();
 $g->wait_ready ();
 
@@ -948,7 +900,7 @@ if ($output eq "fish" || $output eq "ro-fish") {
 	print "--ro ";
     }
 
-    print "-a $_ " foreach @images;
+    print "-a $_ " foreach @ARGV;
 
     my $mounts = $oses{$root_dev}->{mounts};
     # Have to mount / first.  Luckily '/' is early in the ASCII
@@ -1405,6 +1357,7 @@ sub output_query_virtio_drivers
 L<guestfs(3)>,
 L<guestfish(1)>,
 L<Sys::Guestfs(3)>,
+L<Sys::Guestfs::Lib(3)>,
 L<Sys::Virt(3)>,
 L<http://libguestfs.org/>.
 

@@ -22,6 +22,7 @@ EXTRA_DIST = \
 	examples/LICENSE \
 	examples/*.pl \
 	lib/Sys/Guestfs.pm \
+	lib/Sys/Guestfs/Lib.pm \
 	run-bindtests \
 	run-perl-tests \
 	bindtests.pl \

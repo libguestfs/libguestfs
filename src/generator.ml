@@ -6120,6 +6120,10 @@ Libguestfs provides ways to enumerate guest storage (eg. partitions,
 LVs, what filesystem is in each LV, etc.).  It can also run commands
 in the context of the guest.  Also you can access filesystems over FTP.
 
+See also L<Sys::Guestfs::Lib(3)> for a set of useful library
+functions for using libguestfs from Perl, including integration
+with libvirt.
+
 =head1 ERRORS
 
 All errors turn into calls to C<croak> (see L<Carp(3)>).
@@ -6191,7 +6195,10 @@ Please see the file COPYING.LIB for the full license.
 
 =head1 SEE ALSO
 
-L<guestfs(3)>, L<guestfish(1)>.
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<http://libguestfs.org>,
+L<Sys::Guestfs::Lib(3)>.
 
 =cut
 "
