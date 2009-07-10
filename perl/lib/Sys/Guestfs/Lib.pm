@@ -21,6 +21,7 @@ use strict;
 use warnings;
 
 use Sys::Guestfs;
+use File::Temp qw/tempdir/;
 
 # Optional:
 eval "use Sys::Virt;";
