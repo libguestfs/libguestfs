@@ -175,6 +175,9 @@ sub open_guest
 	my $p = XML::XPath->new (xml => $xml);
 	my @disks = $p->findnodes ('//devices/disk/source/@dev');
 	push (@disks, $p->findnodes ('//devices/disk/source/@file'));
+
+	die "$images[0] seems to have no disk devices\n" unless @disks;
+
 	@images = map { $_->getData } @disks;
     }
 
