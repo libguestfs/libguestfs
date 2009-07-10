@@ -101,6 +101,7 @@ libguestfs-*.tar.gz
 .libs
 libtool
 *.lo
+localconfigure
 ltmain.sh
 m4/intmax.m4
 m4/libtool.m4
