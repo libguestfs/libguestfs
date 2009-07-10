@@ -41,6 +41,9 @@ endif
 if HAVE_INSPECTOR
 SUBDIRS += inspector
 endif
+if HAVE_V2V
+SUBDIRS += v2v
+endif
 
 EXTRA_DIST = \
 	config.rpath \
@@ -124,6 +127,7 @@ html/recipes.html: $(wildcard recipes/*.sh) $(wildcard recipes/*.html) $(wildcar
 
 HTMLFILES = html/guestfs.3.html html/guestfish.1.html \
 	html/virt-inspector.1.html \
+	html/virt-v2v.1.html \
 	html/recipes.html \
 	html/pod.css html/recipes.css
 

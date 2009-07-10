@@ -506,7 +506,7 @@ AC_CHECK_PROG([GHC],[ghc],[ghc],[no])
 AM_CONDITIONAL([HAVE_HASKELL],
     [test "x$GHC" != "xno"])
 
-dnl Check for Perl modules needed by the inspector.
+dnl Check for Perl modules needed by the inspector and V2V.
 missing_perl_modules=no
 for pm in Pod::Usage Getopt::Long Sys::Virt Data::Dumper XML::Writer; do
     AC_MSG_CHECKING([for $pm])
@@ -518,10 +518,12 @@ for pm in Pod::Usage Getopt::Long Sys::Virt Data::Dumper XML::Writer; do
     fi
 done
 if test "x$missing_perl_modules" = "xyes"; then
-    AC_MSG_WARN([some Perl modules required to compile virt-inspector are missing])
+    AC_MSG_WARN([some Perl modules required to compile virt-inspector and virt-v2v are missing])
 fi
 
 AM_CONDITIONAL([HAVE_INSPECTOR],
+    [test "x$PERL" != "xno" -a "x$missing_perl_modules" != "xyes"])
+AM_CONDITIONAL([HAVE_V2V],
     [test "x$PERL" != "xno" -a "x$missing_perl_modules" != "xyes"])
 
 dnl Library versioning.
@@ -558,6 +560,7 @@ AC_CONFIG_FILES([Makefile
 		 java/Makefile
 		 haskell/Makefile
 		 inspector/Makefile
+		 v2v/Makefile
 		 libguestfs.pc
 		 ocaml/META perl/Makefile.PL])
 AC_OUTPUT
@@ -585,6 +588,8 @@ echo -n "Haskell bindings .................... "
 if test "x$HAVE_HASKELL" = "x"; then echo "yes"; else echo "no"; fi
 echo -n "virt-inspector ...................... "
 if test "x$HAVE_INSPECTOR" = "x"; then echo "yes"; else echo "no"; fi
+echo -n "virt-v2v ............................ "
+if test "x$HAVE_V2V" = "x"; then echo "yes"; else echo "no"; fi
 echo "supermin appliance .................. $enable_supermin"
 echo
 echo "If any optional component is configured 'no' when you expected 'yes'"

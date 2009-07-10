@@ -68,6 +68,7 @@ html/guestfish.1.html
 html/guestfs.3.html
 html/recipes.html
 html/virt-inspector.1.html
+html/virt-v2v.1.html
 images/100kallnewlines
 images/100kallspaces
 images/100kallzeroes
@@ -158,3 +159,4 @@ src/guestfs-structs.h
 src/.pod2text.data
 src/stamp-generator
 stamp-h1
+v2v/virt-v2v.1

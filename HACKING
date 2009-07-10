@@ -85,6 +85,9 @@ src/
 	Source code to the C library.
 	Also contains the crucial generator program.
 
+v2v/
+	Xen to KVM (V2V) conversion tool.
+
 Debugging
 ----------------------------------------------------------------------
 
