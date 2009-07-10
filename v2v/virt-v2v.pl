@@ -62,6 +62,14 @@ Display brief help.
 
 =cut
 
+my $version;
+
+=item B<--version>
+
+Display version number and exit.
+
+=cut
+
 my $uri;
 
 =item B<--connect URI> | B<-c URI>
@@ -76,9 +84,16 @@ then libvirt is not used at all.
 =cut
 
 GetOptions ("help|?" => \$help,
+	    "version" => \$version,
 	    "connect|c=s" => \$uri,
     ) or pod2usage (2);
 pod2usage (1) if $help;
+if ($version) {
+    my $g = Sys::Guestfs->new ();
+    my %h = $g->version ();
+    print "$h{major}.$h{minor}.$h{release}$h{extra}\n";
+    exit
+}
 pod2usage ("$0: no image or VM names given") if @ARGV == 0;
 
 # my $g;

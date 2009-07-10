@@ -82,6 +82,14 @@ Display brief help.
 
 =cut
 
+my $version;
+
+=item B<--version>
+
+Display version number and exit.
+
+=cut
+
 my $uri;
 
 =item B<--connect URI> | B<-c URI>
@@ -122,12 +130,19 @@ Print inodes instead of blocks.
 =cut
 
 GetOptions ("help|?" => \$help,
+	    "version" => \$version,
 	    "connect|c=s" => \$uri,
             "csv" => \$csv,
             "human-readable|human|h" => \$human,
             "inodes|i" => \$inodes,
     ) or pod2usage (2);
 pod2usage (1) if $help;
+if ($version) {
+    my $g = Sys::Guestfs->new ();
+    my %h = $g->version ();
+    print "$h{major}.$h{minor}.$h{release}$h{extra}\n";
+    exit
+}
 
 # Open the guest handle.
 
