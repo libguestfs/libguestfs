@@ -1,5 +1,13 @@
 fish/alloc.c
+fish/cmds.c
+fish/completion.c
+fish/destpaths.c
 fish/echo.c
 fish/edit.c
 fish/fish.c
+fish/glob.c
+fish/lcd.c
+fish/more.c
+fish/time.c
 src/guestfs.c
+src/guestfs-actions.c
