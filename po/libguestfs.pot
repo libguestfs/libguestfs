@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2009-07-10 14:09+0100\n"
+"POT-Creation-Date: 2009-07-10 22:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -325,241 +325,241 @@ msgstr ""
 msgid "libguestfs: error: %s\n"
 msgstr ""
 
-#: src/guestfs.c:720
+#: src/guestfs.c:733
 msgid "command line cannot be altered after qemu subprocess launched"
 msgstr ""
 
-#: src/guestfs.c:734
+#: src/guestfs.c:747
 msgid "guestfs_config: parameter must begin with '-' character"
 msgstr ""
 
-#: src/guestfs.c:748
+#: src/guestfs.c:761
 #, c-format
 msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr ""
 
-#: src/guestfs.c:768 src/guestfs.c:790 src/guestfs.c:808
+#: src/guestfs.c:781 src/guestfs.c:803 src/guestfs.c:821
 msgid "filename cannot contain ',' (comma) character"
 msgstr ""
 
-#: src/guestfs.c:877
+#: src/guestfs.c:890
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr ""
 
-#: src/guestfs.c:882
+#: src/guestfs.c:895
 msgid "qemu has already been launched"
 msgstr ""
 
-#: src/guestfs.c:890
+#: src/guestfs.c:903
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr ""
 
-#: src/guestfs.c:980
+#: src/guestfs.c:993
 #, c-format
 msgid "cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)"
 msgstr ""
 
-#: src/guestfs.c:1187
+#: src/guestfs.c:1200
 msgid "failed to connect to vmchannel socket"
 msgstr ""
 
-#: src/guestfs.c:1206
+#: src/guestfs.c:1219
 msgid "could not watch qemu stdout"
 msgstr ""
 
-#: src/guestfs.c:1274
+#: src/guestfs.c:1287
 #, c-format
 msgid "external command failed: %s"
 msgstr ""
 
-#: src/guestfs.c:1313
+#: src/guestfs.c:1326
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
 "the LIBGUESTFS_QEMU environment variable."
 msgstr ""
 
-#: src/guestfs.c:1386
+#: src/guestfs.c:1399
 msgid "qemu has finished launching already"
 msgstr ""
 
-#: src/guestfs.c:1391
+#: src/guestfs.c:1404
 msgid "qemu has not been launched yet"
 msgstr ""
 
-#: src/guestfs.c:1404
+#: src/guestfs.c:1417
 msgid "guestfs_wait_ready failed, see earlier error messages"
 msgstr ""
 
-#: src/guestfs.c:1414
+#: src/guestfs.c:1427
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
-#: src/guestfs.c:1425
+#: src/guestfs.c:1438
 msgid "no subprocess to kill"
 msgstr ""
 
-#: src/guestfs.c:1473
+#: src/guestfs.c:1486
 #, c-format
 msgid "guestfs_set_ready: called when in state %d != BUSY"
 msgstr ""
 
-#: src/guestfs.c:1485
+#: src/guestfs.c:1498
 #, c-format
 msgid "guestfs_set_busy: called when in state %d != READY"
 msgstr ""
 
-#: src/guestfs.c:1506
+#: src/guestfs.c:1519
 #, c-format
 msgid "guestfs_end_busy: called when in state %d"
 msgstr ""
 
-#: src/guestfs.c:1564
+#: src/guestfs.c:1577
 #, c-format
 msgid "stdout_event: internal error: %d != %d"
 msgstr ""
 
-#: src/guestfs.c:1607
+#: src/guestfs.c:1620
 #, c-format
 msgid "sock_read_event: internal error: %d != %d"
 msgstr ""
 
-#: src/guestfs.c:1637
+#: src/guestfs.c:1650
 msgid "can't decode length word"
 msgstr ""
 
-#: src/guestfs.c:1647
+#: src/guestfs.c:1660
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr ""
 
-#: src/guestfs.c:1650
+#: src/guestfs.c:1663
 #, c-format
 msgid "received magic signature from guestfsd, but msg size is %d"
 msgstr ""
 
-#: src/guestfs.c:1675
+#: src/guestfs.c:1688
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr ""
 
-#: src/guestfs.c:1708
+#: src/guestfs.c:1721
 #, c-format
 msgid "state %d != BUSY"
 msgstr ""
 
-#: src/guestfs.c:1748
+#: src/guestfs.c:1761
 #, c-format
 msgid "sock_write_event: internal error: %d != %d"
 msgstr ""
 
-#: src/guestfs.c:1753
+#: src/guestfs.c:1766
 #, c-format
 msgid "sock_write_event: state %d != BUSY"
 msgstr ""
 
-#: src/guestfs.c:1860 src/guestfs.c:1883
+#: src/guestfs.c:1873 src/guestfs.c:1896
 msgid "remove_handle failed"
 msgstr ""
 
-#: src/guestfs.c:1871 src/guestfs.c:1894
+#: src/guestfs.c:1884 src/guestfs.c:1907
 msgid "add_handle failed"
 msgstr ""
 
-#: src/guestfs.c:1927
+#: src/guestfs.c:1940
 #, c-format
 msgid "guestfs__send_sync: state %d != BUSY"
 msgstr ""
 
-#: src/guestfs.c:1935 src/guestfs.c:2115
+#: src/guestfs.c:1948 src/guestfs.c:2128
 msgid "guestfs__send_sync: msg_out should be NULL"
 msgstr ""
 
-#: src/guestfs.c:1957
+#: src/guestfs.c:1970
 msgid "xdr_guestfs_message_header failed"
 msgstr ""
 
-#: src/guestfs.c:1966
+#: src/guestfs.c:1979
 msgid "dispatch failed to marshal args"
 msgstr ""
 
-#: src/guestfs.c:1992
+#: src/guestfs.c:2005
 msgid "send failed, see earlier error messages"
 msgstr ""
 
-#: src/guestfs.c:2107
+#: src/guestfs.c:2120
 #, c-format
 msgid "send_file_chunk_sync: state %d != READY"
 msgstr ""
 
-#: src/guestfs.c:2138
+#: src/guestfs.c:2151
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr ""
 
-#: src/guestfs.c:2163
+#: src/guestfs.c:2176
 msgid "send file chunk failed, see earlier error messages"
 msgstr ""
 
-#: src/guestfs.c:2214
+#: src/guestfs.c:2227
 #, c-format
 msgid "check_for_daemon_cancellation: read 0x%x from daemon, expected 0x%x\n"
 msgstr ""
 
-#: src/guestfs.c:2252
+#: src/guestfs.c:2265
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr ""
 
-#: src/guestfs.c:2280
+#: src/guestfs.c:2293
 msgid "write to daemon socket"
 msgstr ""
 
-#: src/guestfs.c:2327
+#: src/guestfs.c:2340
 msgid "failed to parse file chunk"
 msgstr ""
 
-#: src/guestfs.c:2359
+#: src/guestfs.c:2372
 msgid "receive_file_data_sync: reply callback not called\n"
 msgstr ""
 
-#: src/guestfs.c:2364
+#: src/guestfs.c:2377
 msgid "receive_file_data_sync: parse error in reply callback\n"
 msgstr ""
 
-#: src/guestfs.c:2378
+#: src/guestfs.c:2391
 msgid "file receive cancelled by daemon"
 msgstr ""
 
-#: src/guestfs.c:2413 src/guestfs.c:2471
+#: src/guestfs.c:2426 src/guestfs.c:2484
 #, c-format
 msgid "fd %d is out of range"
 msgstr ""
 
-#: src/guestfs.c:2421
+#: src/guestfs.c:2434
 #, c-format
 msgid "set of events (0x%x) contains unknown events"
 msgstr ""
 
-#: src/guestfs.c:2426
+#: src/guestfs.c:2439
 msgid "set of events is empty"
 msgstr ""
 
-#: src/guestfs.c:2433
+#: src/guestfs.c:2446
 #, c-format
 msgid "fd %d is already registered"
 msgstr ""
 
-#: src/guestfs.c:2438
+#: src/guestfs.c:2451
 msgid "callback is NULL"
 msgstr ""
 
-#: src/guestfs.c:2478
+#: src/guestfs.c:2491
 #, c-format
 msgid "fd %d was not registered"
 msgstr ""
 
-#: src/guestfs.c:2527
+#: src/guestfs.c:2540
 msgid "select_main_loop_run: this cannot be called recursively"
 msgstr ""
