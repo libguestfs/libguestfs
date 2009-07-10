@@ -84,6 +84,16 @@ and ret =
      * inefficient.  Keys should be unique.  NULLs are not permitted.
      *)
   | RHashtable of string
+(* Not implemented:
+    (* "RBufferOut" is handled almost exactly like RString, but
+     * it allows the string to contain arbitrary 8 bit data including
+     * ASCII NUL.  In the C API this causes an implicit extra parameter
+     * to be added of type <size_t *size_r>.  Other programming languages
+     * support strings with arbitrary 8 bit data.  At the RPC layer
+     * we have to use the opaque<> type instead of string<>.
+     *)
+  | RBufferOut of string
+*)
 
 and args = argt list	(* Function parameters, guestfs handle is implicit. *)
 
@@ -110,6 +120,18 @@ and argt =
      *)
   | FileIn of string
   | FileOut of string
+(* Not implemented:
+    (* Opaque buffer which can contain arbitrary 8 bit data.
+     * In the C API, this is expressed as <char *, int> pair.
+     * Most other languages have a string type which can contain
+     * ASCII NUL.  We use whatever type is appropriate for each
+     * language.
+     * Buffers are limited by the total message size.  To transfer
+     * large blocks of data, use FileIn/FileOut parameters instead.
+     * To return an arbitrary buffer, use RBufferOut.
+     *)
+  | BufferIn of string
+*)
 
 type flags =
   | ProtocolLimitWarning  (* display warning about protocol size limits *)
