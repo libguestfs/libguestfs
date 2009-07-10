@@ -118,6 +118,7 @@ and this function can only open disk images.
 
 sub open_guest
 {
+    local $_;
     my $first = shift;
     my %params = @_;
 
