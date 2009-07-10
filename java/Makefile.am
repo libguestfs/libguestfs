@@ -21,15 +21,7 @@ builddir ?= $(top_builddir)/java
 java_prefix = com/redhat/et/libguestfs
 
 java_sources = \
-	$(java_prefix)/LibGuestFSException.java \
-	$(java_prefix)/IntBool.java \
-	$(java_prefix)/PV.java \
-	$(java_prefix)/VG.java \
-	$(java_prefix)/LV.java \
-	$(java_prefix)/Stat.java \
-	$(java_prefix)/StatVFS.java \
-	$(java_prefix)/Dirent.java \
-	$(java_prefix)/GuestFS.java
+	$(java_prefix)/*.java
 
 java_tests = \
 	Bindtests.java \
