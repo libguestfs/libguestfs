@@ -209,14 +209,14 @@ sub get_partitions
 
     my @partitions = $g->list_partitions ();
     my @pvs = $g->pvs ();
-    @partitions = grep { ! is_pv ($_, @pvs) } @partitions;
+    @partitions = grep { ! _is_pv ($_, @pvs) } @partitions;
 
     my @lvs = $g->lvs ();
 
     return sort (@lvs, @partitions);
 }
 
-sub is_pv {
+sub _is_pv {
     local $_;
     my $t = shift;
 
@@ -533,7 +533,7 @@ sub inspect_partition
 	if ($g->is_file ("/grub/menu.lst") ||
 	    $g->is_file ("/grub/grub.conf")) {
 	    $r{content} = "linux-grub";
-	    check_grub ($g, \%r);
+	    _check_grub ($g, \%r);
 	    goto OUT;
 	}
 
@@ -542,7 +542,7 @@ sub inspect_partition
 	    $g->is_file ("/etc/fstab")) {
 	    $r{content} = "linux-root";
 	    $r{is_root} = 1;
-	    check_linux_root ($g, \%r);
+	    _check_linux_root ($g, \%r);
 	    goto OUT;
 	}
 
@@ -573,7 +573,7 @@ sub inspect_partition
 	    $r{fsos} = "windows";
 	    $r{content} = "windows-root";
 	    $r{is_root} = 1;
-	    check_windows_root ($g, \%r, $use_windows_registry);
+	    _check_windows_root ($g, \%r, $use_windows_registry);
 	    goto OUT;
 	}
     }
@@ -583,7 +583,7 @@ sub inspect_partition
     return \%r;
 }
 
-sub check_linux_root
+sub _check_linux_root
 {
     local $_;
     my $g = shift;
@@ -644,7 +644,7 @@ sub check_linux_root
 # XXX We could parse this better.  This won't work if /boot.ini is on
 # a different drive from the %systemroot%, and in other unusual cases.
 
-sub check_windows_root
+sub _check_windows_root
 {
     local $_;
     my $g = shift;
@@ -674,13 +674,13 @@ sub check_windows_root
 	if (defined $systemroot) {
 	    $r->{systemroot} = resolve_windows_path ($g, "/$systemroot");
 	    if (defined $r->{systemroot} && $use_windows_registry) {
-		check_windows_registry ($g, $r, $r->{systemroot});
+		_check_windows_registry ($g, $r, $r->{systemroot});
 	    }
 	}
     }
 }
 
-sub check_windows_registry
+sub _check_windows_registry
 {
     local $_;
     my $g = shift;
@@ -694,18 +694,18 @@ sub check_windows_registry
     if (defined $configdir) {
 	my $softwaredir = resolve_windows_path ($g, "$configdir/software");
 	if (defined $softwaredir) {
-	    load_windows_registry ($g, $r, $softwaredir,
-				   "HKEY_LOCAL_MACHINE\\SOFTWARE");
+	    _load_windows_registry ($g, $r, $softwaredir,
+				    "HKEY_LOCAL_MACHINE\\SOFTWARE");
 	}
 	my $systemdir = resolve_windows_path ($g, "$configdir/system");
 	if (defined $systemdir) {
-	    load_windows_registry ($g, $r, $systemdir,
-				   "HKEY_LOCAL_MACHINE\\System");
+	    _load_windows_registry ($g, $r, $systemdir,
+				    "HKEY_LOCAL_MACHINE\\System");
 	}
     }
 }
 
-sub load_windows_registry
+sub _load_windows_registry
 {
     local $_;
     my $g = shift;
@@ -756,7 +756,7 @@ sub load_windows_registry
     $r->{registry} = \@registry;
 }
 
-sub check_grub
+sub _check_grub
 {
     local $_;
     my $g = shift;
@@ -848,8 +848,8 @@ sub inspect_operating_systems
 		root => $fses->{$_},
 		root_device => $_
 		);
-	    get_os_version ($g, \%r);
-	    assign_mount_points ($g, $fses, \%r);
+	    _get_os_version ($g, \%r);
+	    _assign_mount_points ($g, $fses, \%r);
 	    $oses{$_} = \%r;
 	}
     }
@@ -857,7 +857,7 @@ sub inspect_operating_systems
     return \%oses;
 }
 
-sub get_os_version
+sub _get_os_version
 {
     local $_;
     my $g = shift;
@@ -868,7 +868,7 @@ sub get_os_version
     $r->{version} = $r->{root}->{osversion} if exists $r->{root}->{osversion};
 }
 
-sub assign_mount_points
+sub _assign_mount_points
 {
     local $_;
     my $g = shift;
@@ -884,7 +884,7 @@ sub assign_mount_points
 	foreach (@fstab) {
 	    my ($spec, $file) = @$_;
 
-	    my ($dev, $fs) = find_filesystem ($g, $fses, $spec);
+	    my ($dev, $fs) = _find_filesystem ($g, $fses, $spec);
 	    if ($dev) {
 		$r->{mounts}->{$file} = $dev;
 		$r->{filesystems}->{$dev} = $fs;
@@ -900,7 +900,7 @@ sub assign_mount_points
 }
 
 # Find filesystem by device name, LABEL=.. or UUID=..
-sub find_filesystem
+sub _find_filesystem
 {
     my $g = shift;
     my $fses = shift;
@@ -1027,15 +1027,15 @@ sub inspect_in_detail
     my $g = shift;
     my $os = shift;
 
-    check_for_applications ($g, $os);
-    check_for_kernels ($g, $os);
+    _check_for_applications ($g, $os);
+    _check_for_kernels ($g, $os);
     if ($os->{os} eq "linux") {
-	check_for_modprobe_aliases ($g, $os);
-	check_for_initrd ($g, $os);
+	_check_for_modprobe_aliases ($g, $os);
+	_check_for_initrd ($g, $os);
     }
 }
 
-sub check_for_applications
+sub _check_for_applications
 {
     local $_;
     my $g = shift;
@@ -1078,7 +1078,7 @@ sub check_for_applications
     $os->{apps} = \@apps;
 }
 
-sub check_for_kernels
+sub _check_for_kernels
 {
     local $_;
     my $g = shift;
@@ -1126,7 +1126,7 @@ sub check_for_kernels
 #
 # XXX This doesn't look beyond /etc/modprobe.conf, eg. in /etc/modprobe.d/
 
-sub check_for_modprobe_aliases
+sub _check_for_modprobe_aliases
 {
     local $_;
     my $g = shift;
@@ -1190,7 +1190,7 @@ sub check_for_modprobe_aliases
 # Get a listing of device drivers in any initrd corresponding to a
 # kernel.  This is an indication of what can possibly be booted.
 
-sub check_for_initrd
+sub _check_for_initrd
 {
     local $_;
     my $g = shift;
