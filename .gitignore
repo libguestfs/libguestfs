@@ -46,6 +46,7 @@ daemon/names.c
 daemon/stubs.c
 depcomp
 .deps
+df/virt-df.1
 emptydisk
 examples/hello
 examples/to-xml
@@ -67,6 +68,7 @@ haskell/Guestfs.hs
 html/guestfish.1.html
 html/guestfs.3.html
 html/recipes.html
+html/virt-df.1.html
 html/virt-inspector.1.html
 html/virt-v2v.1.html
 images/100kallnewlines

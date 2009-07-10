@@ -39,6 +39,9 @@ contrib/
 daemon/
 	The daemon that runs inside the guest and carries out actions.
 
+df/
+	The virt-df tool.
+
 examples/
 	The examples.
 
