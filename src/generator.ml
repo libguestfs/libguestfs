@@ -6048,30 +6048,33 @@ and generate_perl_struct_code typ cols name style n do_cleanups =
   do_cleanups ();
   pr "      if (%s == NULL)\n" n;
   pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
-  pr "      EXTEND (SP, %d);\n" (List.length cols);
+  pr "      EXTEND (SP, 2 * %d);\n" (List.length cols);
   List.iter (
-    function
-    | name, FString ->
-	pr "      PUSHs (sv_2mortal (newSVpv (%s->%s, 0)));\n"
-	  n name
-    | name, FUUID ->
-	pr "      PUSHs (sv_2mortal (newSVpv (%s->%s, 32)));\n"
-	  n name
-    | name, (FBytes|FUInt64) ->
-	pr "      PUSHs (sv_2mortal (my_newSVull (%s->%s)));\n"
-	  n name
-    | name, FInt64 ->
-	pr "      PUSHs (sv_2mortal (my_newSVll (%s->%s)));\n"
-	  n name
-    | name, (FInt32|FUInt32) ->
-	pr "      PUSHs (sv_2mortal (newSVnv (%s->%s)));\n"
-	  n name
-    | name, FChar ->
-	pr "      PUSHs (sv_2mortal (newSVpv (&%s->%s, 1)));\n"
-	  n name
-    | name, FOptPercent ->
-	pr "      PUSHs (sv_2mortal (newSVnv (%s->%s)));\n"
-	  n name
+    fun ((name, _) as col) ->
+      pr "      PUSHs (sv_2mortal (newSVpv (\"%s\", 0)));\n" name;
+
+      match col with
+      | name, FString ->
+	  pr "      PUSHs (sv_2mortal (newSVpv (%s->%s, 0)));\n"
+	    n name
+      | name, FUUID ->
+	  pr "      PUSHs (sv_2mortal (newSVpv (%s->%s, 32)));\n"
+	    n name
+      | name, (FBytes|FUInt64) ->
+	  pr "      PUSHs (sv_2mortal (my_newSVull (%s->%s)));\n"
+	    n name
+      | name, FInt64 ->
+	  pr "      PUSHs (sv_2mortal (my_newSVll (%s->%s)));\n"
+	    n name
+      | name, (FInt32|FUInt32) ->
+	  pr "      PUSHs (sv_2mortal (newSVnv (%s->%s)));\n"
+	    n name
+      | name, FChar ->
+	  pr "      PUSHs (sv_2mortal (newSVpv (&%s->%s, 1)));\n"
+	    n name
+      | name, FOptPercent ->
+	  pr "      PUSHs (sv_2mortal (newSVnv (%s->%s)));\n"
+	    n name
   ) cols;
   pr "      free (%s);\n" n
 
