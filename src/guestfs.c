@@ -327,6 +327,25 @@ guestfs_close (guestfs_h *g)
   if (g->state != CONFIG)
     guestfs_kill_subprocess (g);
 
+  /* Close any sockets and deregister any handlers. */
+  if (g->stdout_watch >= 0)
+    g->main_loop->remove_handle (g->main_loop, g, g->stdout_watch);
+  if (g->sock_watch >= 0)
+    g->main_loop->remove_handle (g->main_loop, g, g->sock_watch);
+  g->stdout_watch = -1;
+  g->sock_watch = -1;
+
+  if (g->fd[0] >= 0)
+    close (g->fd[0]);
+  if (g->fd[1] >= 0)
+    close (g->fd[1]);
+  if (g->sock >= 0)
+    close (g->sock);
+  g->fd[0] = -1;
+  g->fd[1] = -1;
+  g->sock = -1;
+
+  /* Remove tmpfiles. */
   if (g->tmpdir) {
     snprintf (filename, sizeof filename, "%s/sock", g->tmpdir);
     unlink (filename);
