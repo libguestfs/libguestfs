@@ -697,6 +697,19 @@ guestfs_get_pid (guestfs_h *g)
   }
 }
 
+struct guestfs_version *
+guestfs_version (guestfs_h *g)
+{
+  struct guestfs_version *r;
+
+  r = safe_malloc (g, sizeof *r);
+  r->major = PACKAGE_VERSION_MAJOR;
+  r->minor = PACKAGE_VERSION_MINOR;
+  r->release = PACKAGE_VERSION_RELEASE;
+  r->extra = safe_strdup (g, PACKAGE_VERSION_EXTRA);
+  return r;
+}
+
 /* Add a string to the current command line. */
 static void
 incr_cmdline_size (guestfs_h *g)

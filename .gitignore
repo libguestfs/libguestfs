@@ -94,6 +94,7 @@ java/com/redhat/et/libguestfs/LV.java
 java/com/redhat/et/libguestfs/PV.java
 java/com/redhat/et/libguestfs/Stat.java
 java/com/redhat/et/libguestfs/StatVFS.java
+java/com/redhat/et/libguestfs/Version.java
 java/com/redhat/et/libguestfs/VG.java
 java/doc-stamp
 *.la

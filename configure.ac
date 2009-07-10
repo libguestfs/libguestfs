@@ -15,12 +15,25 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-AC_INIT([libguestfs],[1.0.57])
+# major/minor/release must be numbers
+m4_define([libguestfs_major],   [1])
+m4_define([libguestfs_minor],   [0])
+m4_define([libguestfs_release], [57])
+# extra can be any string
+m4_define([libguestfs_extra],   [])
+
+AC_INIT([libguestfs],libguestfs_major.libguestfs_minor.libguestfs_release[]libguestfs_extra)
 AM_INIT_AUTOMAKE([foreign])
 
 AC_CONFIG_MACRO_DIR([m4])
 
 AC_PROG_LIBTOOL
+
+dnl Split up the version string.
+AC_DEFINE([PACKAGE_VERSION_MAJOR],[libguestfs_major],[Major version number])
+AC_DEFINE([PACKAGE_VERSION_MINOR],[libguestfs_minor],[Minor version number])
+AC_DEFINE([PACKAGE_VERSION_RELEASE],[libguestfs_release],[Release number])
+AC_DEFINE([PACKAGE_VERSION_EXTRA],["libguestfs_extra"],[Extra version string])
 
 dnl Check for basic C environment.
 AC_PROG_CC_STDC

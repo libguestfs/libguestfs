@@ -636,6 +636,36 @@ qemu subprocess, then this will return an error.
 
 This is an internal call used for debugging and testing.");
 
+  ("version", (RStruct ("version", "version"), []), -1, [],
+   [InitBasicFS, Always, TestOutputStruct (
+      [["version"]], [CompareWithInt ("major", 1)])],
+   "get the library version number",
+   "\
+Return the libguestfs version number that the program is linked
+against.
+
+Note that because of dynamic linking this is not necessarily
+the version of libguestfs that you compiled against.  You can
+compile the program, and then at runtime dynamically link
+against a completely different C<libguestfs.so> library.
+
+This call was added in version C<1.0.58>.  In previous
+versions of libguestfs there was no way to get the version
+number.  From C code you can use ELF weak linking tricks to find out if
+this symbol exists (if it doesn't, then it's an earlier version).
+
+The call returns a structure with four elements.  The first
+three (C<major>, C<minor> and C<release>) are numbers and
+correspond to the usual version triplet.  The fourth element
+(C<extra>) is a string and is normally empty, but may be
+used for distro-specific information.
+
+To construct the original version string:
+C<$major.$minor.$release$extra>
+
+I<Note:> Don't use this call to test for availability
+of features.  Distro backports makes this unreliable.");
+
 ]
 
 (* daemon_functions are any functions which cause some action
@@ -2928,6 +2958,14 @@ let structs = [
     "ftyp", FChar;
     "name", FString;
   ];
+
+  (* Version numbers. *)
+  "version", [
+    "major", FInt64;
+    "minor", FInt64;
+    "release", FInt64;
+    "extra", FString;
+  ];
 ] (* end of structs *)
 
 (* Ugh, Java has to be different ..
@@ -2940,7 +2978,8 @@ let java_structs = [
   "lvm_lv", "LV";
   "stat", "Stat";
   "statvfs", "StatVFS";
-  "dirent", "Dirent"
+  "dirent", "Dirent";
+  "version", "Version";
 ]
 
 (* Used for testing language bindings. *)
