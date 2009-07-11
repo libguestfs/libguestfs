@@ -4643,7 +4643,11 @@ static int %s (void)
 
 and generate_one_test_body name i test_name init test =
   (match init with
-   | InitNone
+   | InitNone (* XXX at some point, InitNone and InitEmpty became
+	       * folded together as the same thing.  Really we should
+	       * make InitNone do nothing at all, but the tests may
+	       * need to be checked to make sure this is OK.
+	       *)
    | InitEmpty ->
        pr "  /* InitNone|InitEmpty for %s */\n" test_name;
        List.iter (generate_test_command_call test_name)
