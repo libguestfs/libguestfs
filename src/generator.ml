@@ -659,7 +659,7 @@ qemu subprocess, then this will return an error.
 This is an internal call used for debugging and testing.");
 
   ("version", (RStruct ("version", "version"), []), -1, [],
-   [InitBasicFS, Always, TestOutputStruct (
+   [InitNone, Always, TestOutputStruct (
       [["version"]], [CompareWithInt ("major", 1)])],
    "get the library version number",
    "\
