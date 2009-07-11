@@ -149,6 +149,10 @@ This changes the C<-m> option so that mounts are done read-only
 Enable very verbose messages.  This is particularly useful if you find
 a bug.
 
+=item B<-x>
+
+Echo each command before executing it.
+
 =item B<-D> | B<--no-dest-paths>
 
 Don't tab-complete paths on the guest filesystem.  It is useful to be

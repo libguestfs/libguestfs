@@ -68,6 +68,7 @@ guestfs_h *g;
 int read_only = 0;
 int quit = 0;
 int verbose = 0;
+int echo_commands = 0;
 
 int
 launch (guestfs_h *_g)
@@ -112,6 +113,7 @@ usage (void)
 	     "  -n|--no-sync         Don't autosync\n"
 	     "  -r|--ro              Mount read-only\n"
 	     "  -v|--verbose         Verbose messages\n"
+	     "  -x                   Echo each command before executing it\n"
 	     "  -V|--version         Display version and exit\n"
 	     "For more information,  see the manpage guestfish(1).\n"));
 }
@@ -119,7 +121,7 @@ usage (void)
 int
 main (int argc, char *argv[])
 {
-  static const char *options = "a:Df:h::im:nrv?V";
+  static const char *options = "a:Df:h::im:nrv?Vx";
   static struct option long_options[] = {
     { "add", 1, 0, 'a' },
     { "cmd-help", 2, 0, 'h' },
@@ -251,6 +253,10 @@ main (int argc, char *argv[])
     case 'V':
       printf ("guestfish %s\n", PACKAGE_VERSION);
       exit (0);
+
+    case 'x':
+      echo_commands = 1;
+      break;
 
     case '?':
       usage ();
@@ -663,7 +669,14 @@ issue_command (const char *cmd, char *argv[], const char *pipecmd)
   int argc;
   int stdout_saved_fd = -1;
   int pid = 0;
-  int r;
+  int i, r;
+
+  if (echo_commands) {
+    printf ("%s", cmd);
+    for (i = 0; argv[i] != NULL; ++i)
+      printf (" %s", argv[i]);
+    printf ("\n");
+  }
 
   /* For | ... commands.  Annoyingly we can't use popen(3) here. */
   if (pipecmd) {
