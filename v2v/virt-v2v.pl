@@ -96,41 +96,66 @@ if ($version) {
 }
 pod2usage ("$0: no image or VM names given") if @ARGV == 0;
 
-# my $g;
-# if ($uri) {
-#     $g = open_guest (\@ARGV, rw => $rw, address => $uri);
-# } else {
-#     $g = open_guest (\@ARGV, rw => $rw);
-# }
+# XXX This should be an option.  Disable for now until we get
+# downloads working reliably.
+my $use_windows_registry = 0;
 
-# $g->launch ();
-# $g->wait_ready ();
+my @params = (\@ARGV);
+if ($uri) {
+    push @params, address => $uri;
+}
+my ($g, $conn, $dom) = open_guest (@params);
 
-# # List of possible filesystems.
-# my @partitions = get_partitions ($g);
+$g->launch ();
+$g->wait_ready ();
 
-# # Now query each one to build up a picture of what's in it.
-# my %fses =
-#     inspect_all_partitions ($g, \@partitions,
-#       use_windows_registry => $windows_registry);
+# List of possible filesystems.
+my @partitions = get_partitions ($g);
 
-# #print "fses -----------\n";
-# #print Dumper(\%fses);
+# Now query each one to build up a picture of what's in it.
+my %fses =
+    inspect_all_partitions ($g, \@partitions,
+			    use_windows_registry => $use_windows_registry);
 
-# my $oses = inspect_operating_systems ($g, \%fses);
+#print "fses -----------\n";
+#print Dumper(\%fses);
 
-# #print "oses -----------\n";
-# #print Dumper($oses);
+my $oses = inspect_operating_systems ($g, \%fses);
 
-# # Mount up the disks and check for applications.
+#print "oses -----------\n";
+#print Dumper($oses);
 
-# my $root_dev;
-# foreach $root_dev (sort keys %$oses) {
-#     my $os = $oses->{$root_dev};
-#     mount_operating_system ($g, $os);
-#     inspect_in_detail ($g, $os);
-#     $g->umount_all ();
-# }
+# We should probably refuse to do anything with those rare
+# multiboot VMs at this point ... (XXX)
+
+# Mount up the disks and check for applications.
+
+my $root_dev;
+foreach $root_dev (sort keys %$oses) {
+    my $os = $oses->{$root_dev};
+    mount_operating_system ($g, $os);
+    inspect_in_detail ($g, $os);
+    $g->umount_all ();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 =head1 SEE ALSO
 
