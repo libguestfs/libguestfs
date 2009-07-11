@@ -205,6 +205,10 @@ and test =
      *)
   | TestOutputInt of seq * int
     (* Run the command sequence and expect the output of the final
+     * command to be <op> <int>, eg. ">=", "1".
+     *)
+  | TestOutputIntOp of seq * string * int
+    (* Run the command sequence and expect the output of the final
      * command to be a true value (!= 0 or != NULL).
      *)
   | TestOutputTrue of seq
@@ -228,6 +232,7 @@ and test =
 
 and test_field_compare =
   | CompareWithInt of string * int
+  | CompareWithIntOp of string * string * int
   | CompareWithString of string * string
   | CompareFieldsIntEq of string * string
   | CompareFieldsStrEq of string * string
@@ -3152,7 +3157,8 @@ let cols_of_struct typ =
 let seq_of_test = function
   | TestRun s | TestOutput (s, _) | TestOutputList (s, _)
   | TestOutputListOfDevices (s, _)
-  | TestOutputInt (s, _) | TestOutputTrue s | TestOutputFalse s
+  | TestOutputInt (s, _) | TestOutputIntOp (s, _, _)
+  | TestOutputTrue s | TestOutputFalse s
   | TestOutputLength (s, _) | TestOutputStruct (s, _)
   | TestLastFail s -> s
 
@@ -4773,6 +4779,19 @@ and generate_one_test_body name i test_name init test =
       in
       List.iter (generate_test_command_call test_name) seq;
       generate_test_command_call ~test test_name last
+  | TestOutputIntOp (seq, op, expected) ->
+      pr "  /* TestOutputIntOp for %s (%d) */\n" name i;
+      let seq, last = get_seq_last seq in
+      let test () =
+	pr "    if (! (r %s %d)) {\n" op expected;
+	pr "      fprintf (stderr, \"%s: expected %s %d but got %%d\\n\","
+	  test_name op expected;
+	pr "               (int) r);\n";
+	pr "      return -1;\n";
+	pr "    }\n"
+      in
+      List.iter (generate_test_command_call test_name) seq;
+      generate_test_command_call ~test test_name last
   | TestOutputTrue seq ->
       pr "  /* TestOutputTrue for %s (%d) */\n" name i;
       let seq, last = get_seq_last seq in
@@ -4828,6 +4847,13 @@ and generate_one_test_body name i test_name init test =
 	      pr "    if (r->%s != %d) {\n" field expected;
 	      pr "      fprintf (stderr, \"%s: %s was %%d, expected %d\\n\",\n"
 		test_name field expected;
+	      pr "               (int) r->%s);\n" field;
+	      pr "      return -1;\n";
+	      pr "    }\n"
+	  | CompareWithIntOp (field, op, expected) ->
+	      pr "    if (!(r->%s %s %d)) {\n" field op expected;
+	      pr "      fprintf (stderr, \"%s: %s was %%d, expected %s %d\\n\",\n"
+		test_name field op expected;
 	      pr "               (int) r->%s);\n" field;
 	      pr "      return -1;\n";
 	      pr "    }\n"
