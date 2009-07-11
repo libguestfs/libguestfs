@@ -206,8 +206,6 @@ REPO="$with_repo"
 AC_SUBST(REPO)
 AC_DEFINE_UNQUOTED([REPO],["$REPO"],[Name of Fedora repository.])
 
-AC_DEFINE_UNQUOTED([host_cpu],["$host_cpu"],[Host architecture.])
-
 dnl --with-updates to specify a Fedora updates repository.
 AC_ARG_WITH([updates],
 	[AS_HELP_STRING([--with-updates],
@@ -216,8 +214,8 @@ AC_ARG_WITH([updates],
 	[with_updates=updates-released-f11])
 UPDATES="$with_updates"
 AC_SUBST(UPDATES)
-AC_DEFINE_UNQUOTED([UPDATES],["$UPDATES"],[Name of Fedora updates repository.])
 
+dnl Define a symbol for the host CPU architecture.
 AC_DEFINE_UNQUOTED([host_cpu],["$host_cpu"],[Host architecture.])
 
 dnl --with-mirror to specify a local Fedora mirror.
