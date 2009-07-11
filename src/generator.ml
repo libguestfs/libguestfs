@@ -469,7 +469,8 @@ environment variable.
 Setting C<qemu> to C<NULL> restores the default qemu binary.");
 
   ("get_qemu", (RConstString "qemu", []), -1, [],
-   [],
+   [InitNone, Always, TestRun (
+      [["get_qemu"]])],
    "get the qemu binary",
    "\
 Return the current qemu binary.
@@ -489,7 +490,8 @@ C<LIBGUESTFS_PATH> environment variable.
 Setting C<path> to C<NULL> restores the default path.");
 
   ("get_path", (RConstString "path", []), -1, [],
-   [],
+   [InitNone, Always, TestRun (
+      [["get_path"]])],
    "get the search path",
    "\
 Return the current search path.
@@ -511,6 +513,10 @@ Setting C<append> to C<NULL> means I<no> additional options
 are passed (libguestfs always adds a few of its own).");
 
   ("get_append", (RConstString "append", []), -1, [],
+   (* This cannot be tested with the current framework.  The
+    * function can return NULL in normal operations, which the
+    * test framework interprets as an error.
+    *)
    [],
    "get the additional kernel options",
    "\
@@ -532,7 +538,8 @@ This is disabled by default (except in guestfish where it is
 enabled by default).");
 
   ("get_autosync", (RBool "autosync", []), -1, [],
-   [],
+   [InitNone, Always, TestRun (
+      [["get_autosync"]])],
    "get autosync mode",
    "\
 Get the autosync flag.");
@@ -553,7 +560,8 @@ C<LIBGUESTFS_DEBUG> is defined and set to C<1>.");
 This returns the verbose messages flag.");
 
   ("is_ready", (RBool "ready", []), -1, [],
-   [],
+   [InitNone, Always, TestOutputTrue (
+      [["is_ready"]])],
    "is ready to accept commands",
    "\
 This returns true iff this handle is ready to accept commands
@@ -562,7 +570,8 @@ This returns true iff this handle is ready to accept commands
 For more information on states, see L<guestfs(3)>.");
 
   ("is_config", (RBool "config", []), -1, [],
-   [],
+   [InitNone, Always, TestOutputFalse (
+      [["is_config"]])],
    "is in configuration state",
    "\
 This returns true iff this handle is being configured
@@ -571,7 +580,8 @@ This returns true iff this handle is being configured
 For more information on states, see L<guestfs(3)>.");
 
   ("is_launching", (RBool "launching", []), -1, [],
-   [],
+   [InitNone, Always, TestOutputFalse (
+      [["is_launching"]])],
    "is launching subprocess",
    "\
 This returns true iff this handle is launching the subprocess
@@ -580,7 +590,8 @@ This returns true iff this handle is launching the subprocess
 For more information on states, see L<guestfs(3)>.");
 
   ("is_busy", (RBool "busy", []), -1, [],
-   [],
+   [InitNone, Always, TestOutputFalse (
+      [["is_busy"]])],
    "is busy processing a command",
    "\
 This returns true iff this handle is busy processing a command
@@ -626,7 +637,9 @@ actions using the low-level API.
 For more information on states, see L<guestfs(3)>.");
 
   ("set_memsize", (RErr, [Int "memsize"]), -1, [FishAlias "memsize"],
-   [],
+   [InitNone, Always, TestOutputInt (
+      [["set_memsize"; "500"];
+       ["get_memsize"]], 500)],
    "set memory allocated to the qemu subprocess",
    "\
 This sets the memory size in megabytes allocated to the
@@ -641,7 +654,8 @@ For more information on the architecture of libguestfs,
 see L<guestfs(3)>.");
 
   ("get_memsize", (RInt "memsize", []), -1, [],
-   [],
+   [InitNone, Always, TestOutputIntOp (
+      [["get_memsize"]], ">=", 256)],
    "get memory allocated to the qemu subprocess",
    "\
 This gets the memory size in megabytes allocated to the
@@ -655,7 +669,8 @@ For more information on the architecture of libguestfs,
 see L<guestfs(3)>.");
 
   ("get_pid", (RInt "pid", []), -1, [FishAlias "pid"],
-   [],
+   [InitNone, Always, TestOutputIntOp (
+      [["get_pid"]], ">=", 1)],
    "get PID of qemu subprocess",
    "\
 Return the process ID of the qemu subprocess.  If there is no
