@@ -33,16 +33,79 @@ use XML::Writer;
 
 =head1 NAME
 
-virt-v2v - Convert Xen guests to KVM
+virt-v2v - Convert Xen or VMWare guests to KVM
 
 =head1 SYNOPSIS
 
  virt-v2v xen_name -o kvm_name
 
+ virt-v2v guest.ovf.zip -o kvm_name
+
  virt-v2v guest.img [guest.img ...]
 
 =head1 DESCRIPTION
 
+Virt-v2v converts guests from one virtualization hypervisor to
+another.  Currently it is limited in what it can convert.  See the
+table below.
+
+ -------------------------------+----------------------------
+ SOURCE                         | TARGET
+ -------------------------------+----------------------------
+ Xen domain managed by          |
+ libvirt                        |
+                                |
+ Xen compatibility:             |
+   - PV or FV kernel            |  KVM guest managed by
+   - with or without PV drivers |  libvirt
+   - RHEL 3.9+, 4.8+, 5.3+      |    - with virtio drivers
+   - Windows XP, 2003           |
+                                |
+ -------------------------------+
+                                |
+ VMWare VMDK image with         |
+ OVF metadata, exported from    |
+ vSphere                        |
+                                |
+ VMWare compatibility:          |
+   - RHEL 3.9+, 4.8+, 5.3+      |
+   - VMWare tools               |
+                                |
+ -------------------------------+----------------------------
+
+=head2 CONVERTING XEN DOMAINS
+
+For Xen domains managed by libvirt, perform the initial conversion
+using:
+
+ virt-v2v xen_name -o kvm_name
+
+where C<xen_name> is the libvirt Xen domain name, and C<kvm_name> is
+the (new) name for the converted KVM guest.
+
+Then test boot the new guest in KVM:
+
+ virsh start kvm_name
+ virt-viewer kvm_name
+
+When you have verified that this works, shut down the new KVM domain
+and I<commit> the changes by doing:
+
+ virt-v2v --commit kvm_name
+
+I<This command will destroy the original Xen domain>.
+
+Or you can I<rollback> to the original Xen domain by doing:
+
+ virt-v2v --rollback kvm_name
+
+B<Very important note:> Do I<not> try to run both the original Xen
+domain and the KVM domain at the same time!  This will cause guest
+corruption.
+
+=head2 CONVERTING VMWARE GUESTS
+
+I<This section to be written>
 
 
 
@@ -83,9 +146,22 @@ then libvirt is not used at all.
 
 =cut
 
+my $output;
+
+=item B<--output name> | B<-o name>
+
+Set the output guest name.
+
+=cut
+
+=back
+
+=cut
+
 GetOptions ("help|?" => \$help,
 	    "version" => \$version,
 	    "connect|c=s" => \$uri,
+	    "output|o=s" => \$output,
     ) or pod2usage (2);
 pod2usage (1) if $help;
 if ($version) {
@@ -173,6 +249,8 @@ from L<http://home.eunet.no/~pnordahl/ntpasswd/>.
 =head1 AUTHOR
 
 Richard W.M. Jones L<http://et.redhat.com/~rjones/>
+
+Matthew Booth L<mbooth@redhat.com>
 
 =head1 COPYRIGHT
 
