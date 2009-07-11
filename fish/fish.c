@@ -767,6 +767,8 @@ list_builtin_commands (void)
   printf ("%-20s %s\n",
 	  "glob", _("expand wildcards in command"));
   printf ("%-20s %s\n",
+	  "more", _("view a file in the pager"));
+  printf ("%-20s %s\n",
 	  "time", _("measure time taken to run command"));
 
   /* actions are printed after this (see list_commands) */
