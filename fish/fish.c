@@ -727,6 +727,8 @@ issue_command (const char *cmd, char *argv[], const char *pipecmd)
   else if (strcasecmp (cmd, "more") == 0 ||
 	   strcasecmp (cmd, "less") == 0)
     r = do_more (cmd, argc, argv);
+  else if (strcasecmp (cmd, "reopen") == 0)
+    r = do_reopen (cmd, argc, argv);
   else if (strcasecmp (cmd, "time") == 0)
     r = do_time (cmd, argc, argv);
   else
@@ -768,6 +770,8 @@ list_builtin_commands (void)
 	  "glob", _("expand wildcards in command"));
   printf ("%-20s %s\n",
 	  "more", _("view a file in the pager"));
+  printf ("%-20s %s\n",
+	  "reopen", _("close and reopen libguestfs handle"));
   printf ("%-20s %s\n",
 	  "time", _("measure time taken to run command"));
 
@@ -831,6 +835,10 @@ display_builtin_command (const char *cmd)
 	      "    Glob runs <command> with wildcards expanded in any\n"
 	      "    command args.  Note that the command is run repeatedly\n"
 	      "    once for each expanded argument.\n"));
+  else if (strcasecmp (cmd, "help") == 0)
+    printf (_("help - display a list of commands or help on a command\n"
+	      "     help cmd\n"
+	      "     help\n"));
   else if (strcasecmp (cmd, "more") == 0 ||
 	   strcasecmp (cmd, "less") == 0)
     printf (_("more - view a file in the pager\n"
@@ -846,15 +854,18 @@ display_builtin_command (const char *cmd)
 	      "\n"
 	      "    NOTE: This will not work reliably for large files\n"
 	      "    (> 2 MB) or binary files containing \\0 bytes.\n"));
-  else if (strcasecmp (cmd, "help") == 0)
-    printf (_("help - display a list of commands or help on a command\n"
-	      "     help cmd\n"
-	      "     help\n"));
   else if (strcasecmp (cmd, "quit") == 0 ||
 	   strcasecmp (cmd, "exit") == 0 ||
 	   strcasecmp (cmd, "q") == 0)
     printf (_("quit - quit guestfish\n"
 	      "     quit\n"));
+  else if (strcasecmp (cmd, "reopen") == 0)
+    printf (_("reopen - close and reopen the libguestfs handle\n"
+	      "     reopen\n"
+	      "\n"
+	      "Close and reopen the libguestfs handle.  It is not necessary to use\n"
+	      "this normally, because the handle is closed properly when guestfish\n"
+	      "exits.  However this is occasionally useful for testing.\n"));
   else if (strcasecmp (cmd, "time") == 0)
     printf (_("time - measure time taken to run command\n"
 	      "    time <command> [<args> ...]\n"

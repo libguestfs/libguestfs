@@ -29,6 +29,7 @@ guestfish_SOURCES = \
 	glob.c \
 	lcd.c \
 	more.c \
+	reopen.c \
 	time.c
 
 guestfish_CFLAGS = \

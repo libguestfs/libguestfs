@@ -77,6 +77,9 @@ extern int do_glob (const char *cmd, int argc, char *argv[]);
 /* in more.c */
 extern int do_more (const char *cmd, int argc, char *argv[]);
 
+/* in reopen.c */
+extern int do_reopen (const char *cmd, int argc, char *argv[]);
+
 /* in time.c */
 extern int do_time (const char *cmd, int argc, char *argv[]);
 
@@ -92,6 +95,7 @@ extern int do_time (const char *cmd, int argc, char *argv[]);
   "lcd",				\
   "glob",				\
   "more", "less",			\
+  "reopen",				\
   "time"
 
 #endif /* FISH_H */

@@ -419,6 +419,14 @@ NOTE: This will not work reliably for large files
 
 This exits guestfish.  You can also use C<^D> key.
 
+=head2 reopen
+
+ reopen
+
+Close and reopen the libguestfs handle.  It is not necessary to use
+this normally, because the handle is closed properly when guestfish
+exits.  However this is occasionally useful for testing.
+
 =head2 time
 
  time command args...
