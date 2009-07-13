@@ -69,6 +69,9 @@ int read_only = 0;
 int quit = 0;
 int verbose = 0;
 int echo_commands = 0;
+int remote_control_listen = 0;
+int remote_control = 0;
+int exit_on_error = 1;
 
 int
 launch (guestfs_h *_g)
@@ -109,8 +112,10 @@ usage (void)
 	     "  -D|--no-dest-paths   Don't tab-complete paths from guest fs\n"
 	     "  -f|--file file       Read commands from file\n"
 	     "  -i|--inspector       Run virt-inspector to get disk mountpoints\n"
+	     "  --listen             Listen for remote commands\n"
 	     "  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
 	     "  -n|--no-sync         Don't autosync\n"
+	     "  --remote[=pid]       Send commands to remote guestfish\n"
 	     "  -r|--ro              Mount read-only\n"
 	     "  -v|--verbose         Verbose messages\n"
 	     "  -x                   Echo each command before executing it\n"
@@ -128,9 +133,11 @@ main (int argc, char *argv[])
     { "file", 1, 0, 'f' },
     { "help", 0, 0, '?' },
     { "inspector", 0, 0, 'i' },
+    { "listen", 0, 0, 0 },
     { "mount", 1, 0, 'm' },
     { "no-dest-paths", 0, 0, 'D' },
     { "no-sync", 0, 0, 'n' },
+    { "remote", 2, 0, 0 },
     { "ro", 0, 0, 'r' },
     { "verbose", 0, 0, 'v' },
     { "version", 0, 0, 'V' },
@@ -141,7 +148,9 @@ main (int argc, char *argv[])
   struct mp *mps = NULL;
   struct mp *mp;
   char *p, *file = NULL;
-  int c, inspector = 0;
+  int c;
+  int inspector = 0;
+  int option_index;
   struct sigaction sa;
 
   initialize_readline ();
@@ -176,10 +185,33 @@ main (int argc, char *argv[])
     guestfs_set_path (g, "appliance:" GUESTFS_DEFAULT_PATH);
 
   for (;;) {
-    c = getopt_long (argc, argv, options, long_options, NULL);
+    c = getopt_long (argc, argv, options, long_options, &option_index);
     if (c == -1) break;
 
     switch (c) {
+    case 0:			/* options which are long only */
+      if (strcmp (long_options[option_index].name, "listen") == 0)
+	remote_control_listen = 1;
+      else if (strcmp (long_options[option_index].name, "remote") == 0) {
+	if (optarg) {
+	  if (sscanf (optarg, "%d", &remote_control) != 1) {
+	    fprintf (stderr, _("guestfish: --listen=PID: PID was not a number: %s\n"), optarg);
+	    exit (1);
+	  }
+	} else {
+	  p = getenv ("GUESTFISH_PID");
+	  if (!p || sscanf (p, "%d", &remote_control) != 1) {
+	    fprintf (stderr, _("guestfish: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"));
+	    exit (1);
+	  }
+	}
+      } else {
+	fprintf (stderr, _("guestfish: unknown long option: %s (%d)\n"),
+		 long_options[option_index].name, option_index);
+	exit (1);
+      }
+      break;
+
     case 'a':
       if (access (optarg, R_OK) != 0) {
 	perror (optarg);
@@ -274,8 +306,8 @@ main (int argc, char *argv[])
     char cmd[1024];
     int r;
 
-    if (drvs || mps) {
-      fprintf (stderr, _("guestfish: cannot use -i option with -a or -m\n"));
+    if (drvs || mps || remote_control_listen || remote_control) {
+      fprintf (stderr, _("guestfish: cannot use -i option with -a, -m, --listen or --remote\n"));
       exit (1);
     }
     if (optind >= argc) {
@@ -325,6 +357,24 @@ main (int argc, char *argv[])
   if (mps != NULL) {
     if (launch (g) == -1) exit (1);
     mount_mps (mps);
+  }
+
+  /* Remote control? */
+  if (remote_control_listen && remote_control) {
+    fprintf (stderr, _("guestfish: cannot use --listen and --remote options at the same time\n"));
+    exit (1);
+  }
+
+  if (remote_control_listen) {
+    if (optind < argc) {
+      fprintf (stderr, _("guestfish: extra parameters on the command line with --listen flag\n"));
+      exit (1);
+    }
+    if (file) {
+      fprintf (stderr, _("guestfish: cannot use --listen and --file options at the same time\n"));
+      exit (1);
+    }
+    rc_listen ();
   }
 
   /* -f (file) parameter? */
@@ -464,7 +514,6 @@ script (int prompt)
   char *argv[64];
   int i, len;
   int global_exit_on_error = !prompt;
-  int exit_on_error;
 
   if (prompt)
     printf (_("\n"
@@ -641,6 +690,8 @@ cmdline (char *argv[], int optind, int argc)
   const char *cmd;
   char **params;
 
+  exit_on_error = 1;
+
   if (optind >= argc) return;
 
   cmd = argv[optind++];
@@ -711,7 +762,12 @@ issue_command (const char *cmd, char *argv[], const char *pipecmd)
   for (argc = 0; argv[argc] != NULL; ++argc)
     ;
 
-  if (strcasecmp (cmd, "help") == 0) {
+  /* If --remote was set, then send this command to a remote process. */
+  if (remote_control)
+    r = rc_remote (remote_control, cmd, argc, argv, exit_on_error);
+
+  /* Otherwise execute it locally. */
+  else if (strcasecmp (cmd, "help") == 0) {
     if (argc == 0)
       list_commands ();
     else

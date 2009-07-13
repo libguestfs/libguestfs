@@ -53,6 +53,8 @@ examples/to-xml
 fish/cmds.c
 fish/completion.c
 fish/guestfish
+fish/rc_protocol.c
+fish/rc_protocol.h
 guestfish.1
 guestfish-actions.pod
 guestfs.3

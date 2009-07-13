@@ -1,3 +1,4 @@
+#!/bin/sh -
 # libguestfs
 # Copyright (C) 2009 Red Hat Inc.
 #
@@ -15,34 +16,19 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-# Regression tests and other important tests which are not
-# specific to the C API.  We can write these more easily in
-# higher level languages than C.
-#
-# See also capitests/
+# Test remote control of guestfish.
 
-TESTS = \
-	rhbz503169c10.sh \
-	rhbz503169c13.sh \
-	test-cancellation-upload-daemoncancels.sh \
-	test-cancellation-download-librarycancels.sh \
-	test-qemudie-midcommand.sh \
-	test-qemudie-killsub.sh \
-	test-qemudie-synch.sh \
-	test-remote.sh \
-	test-reopen.sh
+set -e
 
-SKIPPED_TESTS = \
-	test-bootbootboot.sh
+rm -f test.img
 
-FAILING_TESTS = \
-	test-qemudie-launchfail.sh
+eval `../fish/guestfish --listen`
 
-TESTS_ENVIRONMENT = \
-	LD_LIBRARY_PATH=$(top_builddir)/src/.libs \
-	LIBGUESTFS_PATH=$(top_builddir)/appliance
+../fish/guestfish --remote alloc test.img 10M
+../fish/guestfish --remote run
+../fish/guestfish --remote sfdiskM /dev/sda ,
+../fish/guestfish --remote mkfs ext2 /dev/sda1
+../fish/guestfish --remote mount /dev/sda1 /
+../fish/guestfish --remote exit
 
-EXTRA_DIST = \
-	$(FAILING_TESTS) \
-	$(SKIPPED_TESTS) \
-	$(TESTS)
+rm -f test.img

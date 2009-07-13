@@ -66,6 +66,11 @@ Remove C</boot/grub/menu.lst> (in reality not such a great idea):
  sfdisk /dev/sda 0 0 0 ,
  mkfs ext2 /dev/sda1
 
+=head2 Remote control
+
+ eval `guestfish --listen`
+ guestfish --remote cmd
+
 =head1 DESCRIPTION
 
 Guestfish is a shell and command-line tool for examining and modifying
@@ -125,10 +130,16 @@ Typical usage is either:
 
  guestfish -i /dev/Guests/MyGuest
 
-You cannot use I<-a> or I<-m> in conjunction with this option, and
-options other than I<--ro> might not behave correctly.
+You cannot use I<-a>, I<-m>, I<--listen> or I<--remote> in conjunction
+with this option, and options other than I<--ro> might not behave
+correctly.
 
 See also: L<virt-inspector(1)>.
+
+=item B<--listen>
+
+Fork into the background and listen for remote commands.  See section
+I<REMOTE CONTROL GUESTFISH OVER A SOCKET> below.
 
 =item B<-m dev[:mountpoint]> | B<--mount dev[:mountpoint]>
 
@@ -145,6 +156,11 @@ automatically launched.
 
 Disable autosync.  This is enabled by default.  See the discussion
 of autosync in the L<guestfs(3)> manpage.
+
+=item B<--remote[=pid]>
+
+Send remote commands to C<$GUESTFISH_PID> or C<pid>.  See section
+I<REMOTE CONTROL GUESTFISH OVER A SOCKET> below.
 
 =item B<-r> | B<--ro>
 
@@ -323,6 +339,58 @@ If you prefix a command with a I<-> character, then that command will
 not cause guestfish to exit, even if that (one) command returns an
 error.
 
+=head1 REMOTE CONTROL GUESTFISH OVER A SOCKET
+
+Guestfish can be remote-controlled over a socket.  This is useful
+particularly in shell scripts where you want to make several different
+changes to a filesystem, but you don't want the overhead of starting
+up a guestfish process each time.
+
+Start a guestfish server process using:
+
+ eval `guestfish --listen`
+
+and then send it commands by doing:
+
+ guestfish --remote cmd [...]
+
+To cause the server to exit, send it the exit command:
+
+ guestfish --remote exit
+
+Note that the server will normally exit if there is an error in a
+command.  You can change this in the usual way.  See section I<EXIT ON
+ERROR BEHAVIOUR>.
+
+=head2 CONTROLLING MULTIPLE GUESTFISH PROCESSES
+
+The C<eval> statement sets the environment variable C<$GUESTFISH_PID>,
+which is how the C<--remote> option knows where to send the commands.
+You can have several guestfish listener processes running using:
+
+ eval `guestfish --listen`
+ pid1=$GUESTFISH_PID
+ eval `guestfish --listen`
+ pid2=$GUESTFISH_PID
+ ...
+ guestfish --remote=$pid1 cmd
+ guestfish --remote=$pid2 cmd
+
+=head2 STANDARD OUTPUT DURING REMOTE CONTROL
+
+Because of limitations in the C<eval> statement, stdout from the
+listener is currently redirected to C</dev/null>.
+
+Stderr is unchanged.
+
+=head2 REMOTE CONTROL DETAILS
+
+Remote control happens over a Unix domain socket called
+C</tmp/.guestfish-$UID/socket-$PID>, where C<$UID> is the effective
+user ID of the process, and C<$PID> is the process ID of the server.
+
+Guestfish client and server versions must match exactly.
+
 =head1 GUESTFISH COMMANDS
 
 The commands in this section are guestfish convenience commands, in
@@ -450,6 +518,12 @@ can be useful for benchmarking operations.
 
 The C<edit> command uses C<$EDITOR> as the editor.  If not
 set, it uses C<vi>.
+
+=item GUESTFISH_PID
+
+Used with the I<--remote> option to specify the remote guestfish
+process to control.  See section I<REMOTE CONTROL GUESTFISH OVER A
+SOCKET>.
 
 =item HOME
 
