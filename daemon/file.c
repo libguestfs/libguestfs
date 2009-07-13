@@ -376,3 +376,63 @@ do_file (char *path)
 
   return out;			/* caller frees */
 }
+
+/* zcat | file */
+char *
+do_zfile (char *method, char *path)
+{
+  int len;
+  char *cmd;
+  FILE *fp;
+  char line[256];
+
+  NEED_ROOT (NULL);
+  ABS_PATH (path, NULL);
+
+  len = 2 * strlen (path) + 64;
+  cmd = malloc (len);
+  if (!cmd) {
+    reply_with_perror ("malloc");
+    return NULL;
+  }
+
+  if (strcmp (method, "gzip") == 0 || strcmp (method, "compress") == 0)
+    strcpy (cmd, "zcat");
+  else if (strcmp (method, "bzip2") == 0)
+    strcpy (cmd, "bzcat");
+  else {
+    free (cmd);
+    reply_with_error ("zfile: unknown method");
+    return NULL;
+  }
+
+  strcat (cmd, " /sysroot");
+  shell_quote (cmd + strlen (cmd), len - strlen (cmd), path);
+  strcat (cmd, " | file -bsL -");
+
+  fp = popen (cmd, "r");
+  if (fp == NULL) {
+    reply_with_perror ("%s", cmd);
+    free (cmd);
+    return NULL;
+  }
+
+  free (cmd);
+
+  if (fgets (line, sizeof line, fp) == NULL) {
+    reply_with_perror ("zfile: fgets");
+    fclose (fp);
+    return NULL;
+  }
+
+  if (fclose (fp) == -1) {
+    reply_with_perror ("zfile: fclose");
+    return NULL;
+  }
+
+  len = strlen (line);
+  if (len > 0 && line[len-1] == '\n')
+    line[len-1] = '\0';
+
+  return strdup (line);
+}

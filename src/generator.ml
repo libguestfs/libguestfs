@@ -1718,8 +1718,8 @@ This uses the L<blockdev(8)> command.");
   ("upload", (RErr, [FileIn "filename"; String "remotefilename"]), 66, [],
    [InitBasicFS, Always, TestOutput (
       (* Pick a file from cwd which isn't likely to change. *)
-    [["upload"; "../COPYING.LIB"; "/COPYING.LIB"];
-     ["checksum"; "md5"; "/COPYING.LIB"]], "e3eda01d9815f8d24aae2dbd89b68b06")],
+      [["upload"; "../COPYING.LIB"; "/COPYING.LIB"];
+       ["checksum"; "md5"; "/COPYING.LIB"]], "e3eda01d9815f8d24aae2dbd89b68b06")],
    "upload a file from the local machine",
    "\
 Upload local file C<filename> to C<remotefilename> on the
@@ -1732,10 +1732,10 @@ See also C<guestfs_download>.");
   ("download", (RErr, [String "remotefilename"; FileOut "filename"]), 67, [],
    [InitBasicFS, Always, TestOutput (
       (* Pick a file from cwd which isn't likely to change. *)
-    [["upload"; "../COPYING.LIB"; "/COPYING.LIB"];
-     ["download"; "/COPYING.LIB"; "testdownload.tmp"];
-     ["upload"; "testdownload.tmp"; "/upload"];
-     ["checksum"; "md5"; "/upload"]], "e3eda01d9815f8d24aae2dbd89b68b06")],
+      [["upload"; "../COPYING.LIB"; "/COPYING.LIB"];
+       ["download"; "/COPYING.LIB"; "testdownload.tmp"];
+       ["upload"; "testdownload.tmp"; "/upload"];
+       ["checksum"; "md5"; "/upload"]], "e3eda01d9815f8d24aae2dbd89b68b06")],
    "download a file to the local machine",
    "\
 Download file C<remotefilename> and save it as C<filename>
@@ -2357,19 +2357,19 @@ are activated or deactivated.");
 
   ("lvresize", (RErr, [String "device"; Int "mbytes"]), 105, [],
    [InitNone, Always, TestOutput (
-    [["sfdiskM"; "/dev/sda"; ","];
-     ["pvcreate"; "/dev/sda1"];
-     ["vgcreate"; "VG"; "/dev/sda1"];
-     ["lvcreate"; "LV"; "VG"; "10"];
-     ["mkfs"; "ext2"; "/dev/VG/LV"];
-     ["mount"; "/dev/VG/LV"; "/"];
-     ["write_file"; "/new"; "test content"; "0"];
-     ["umount"; "/"];
-     ["lvresize"; "/dev/VG/LV"; "20"];
-     ["e2fsck_f"; "/dev/VG/LV"];
-     ["resize2fs"; "/dev/VG/LV"];
-     ["mount"; "/dev/VG/LV"; "/"];
-     ["cat"; "/new"]], "test content")],
+      [["sfdiskM"; "/dev/sda"; ","];
+       ["pvcreate"; "/dev/sda1"];
+       ["vgcreate"; "VG"; "/dev/sda1"];
+       ["lvcreate"; "LV"; "VG"; "10"];
+       ["mkfs"; "ext2"; "/dev/VG/LV"];
+       ["mount"; "/dev/VG/LV"; "/"];
+       ["write_file"; "/new"; "test content"; "0"];
+       ["umount"; "/"];
+       ["lvresize"; "/dev/VG/LV"; "20"];
+       ["e2fsck_f"; "/dev/VG/LV"];
+       ["resize2fs"; "/dev/VG/LV"];
+       ["mount"; "/dev/VG/LV"; "/"];
+       ["cat"; "/new"]], "test content")],
    "resize an LVM logical volume",
    "\
 This resizes (expands or shrinks) an existing LVM logical
@@ -2441,7 +2441,7 @@ This command is only needed because of C<guestfs_resize2fs>
 
   ("sleep", (RErr, [Int "secs"]), 109, [],
    [InitNone, Always, TestRun (
-    [["sleep"; "1"]])],
+      [["sleep"; "1"]])],
    "sleep for some seconds",
    "\
 Sleep for C<secs> seconds.");
@@ -2856,6 +2856,17 @@ to specify the cyls, heads and sectors parameters which
 were rarely if ever used anyway.
 
 See also C<guestfs_sfdisk> and the L<sfdisk(8)> manpage.");
+
+  ("zfile", (RString "description", [String "method"; String "path"]), 140, [],
+   [],
+   "determine file type inside a compressed file",
+   "\
+This command runs C<file> after first decompressing C<path>
+using C<method>.
+
+C<method> must be one of C<gzip>, C<compress> or C<bzip2>.
+
+See also: C<guestfs_file>");
 
 ]
 
