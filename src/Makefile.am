@@ -41,6 +41,17 @@ include_HEADERS = guestfs.h guestfs-actions.h guestfs-structs.h
 
 lib_LTLIBRARIES = libguestfs.la
 
+BUILT_SOURCES = \
+  guestfs_protocol.x \
+  guestfs_protocol.c \
+  guestfs_protocol.h \
+  guestfs-structs.h \
+  guestfs-actions.h \
+  guestfs-actions.c \
+  guestfs-bindtests.c
+
+$(BUILT_SOURCES): stamp-generator
+
 # From the libtool info file, with comments:
 #
 # |  1. Start with version information of `0:0:0' for each libtool library.
@@ -82,17 +93,6 @@ lib_LTLIBRARIES = libguestfs.la
 #
 # Note that this scheme means the real library version will always be
 # 'libguestfs.so.0.$(MAX_PROC_NR).0'.
-
-BUILT_SOURCES = \
-  guestfs_protocol.x \
-  guestfs_protocol.c \
-  guestfs_protocol.h \
-  guestfs-structs.h \
-  guestfs-actions.h \
-  guestfs-actions.c \
-  guestfs-bindtests.c
-
-$(BUILT_SOURCES): stamp-generator
 
 libguestfs_la_LDFLAGS = -version-info $(MAX_PROC_NR):0:$(MAX_PROC_NR)
 libguestfs_la_SOURCES = \
