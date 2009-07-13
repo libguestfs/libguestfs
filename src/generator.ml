@@ -8340,6 +8340,15 @@ Run it from the top source directory using the command
       close ();
   ) java_structs;
 
+  let close = output_to "java/Makefile.inc" in
+  pr "java_built_sources =";
+  List.iter (
+    fun (typ, jtyp) ->
+        pr " com/redhat/et/libguestfs/%s.java" jtyp;
+  ) java_structs;
+  pr " com/redhat/et/libguestfs/GuestFS.java\n";
+  close ();
+
   let close = output_to "java/com_redhat_et_libguestfs_GuestFS.c" in
   generate_java_c ();
   close ();
