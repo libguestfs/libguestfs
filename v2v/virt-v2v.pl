@@ -201,18 +201,22 @@ my $oses = inspect_operating_systems ($g, \%fses);
 #print "oses -----------\n";
 #print Dumper($oses);
 
-# We should probably refuse to do anything with those rare
-# multiboot VMs at this point ... (XXX)
+# Only work on single-root operating systems.
+my $root_dev;
+my @roots = keys %$oses;
+die "no root device found in this operating system image" if @roots == 0;
+die "multiboot operating systems are not supported by v2v" if @roots > 1;
+$root_dev = $roots[0];
 
 # Mount up the disks and check for applications.
 
-my $root_dev;
-foreach $root_dev (sort keys %$oses) {
-    my $os = $oses->{$root_dev};
-    mount_operating_system ($g, $os);
-    inspect_in_detail ($g, $os);
-    $g->umount_all ();
-}
+my $os = $oses->{$root_dev};
+mount_operating_system ($g, $os);
+inspect_in_detail ($g, $os);
+$g->umount_all ();
+
+
+
 
 
 
