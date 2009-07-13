@@ -1208,14 +1208,20 @@ sub _check_for_initrd
 	    my $version = $1;
 	    my @modules;
 
-	    eval {
-		@modules = $g->initrd_list ("/boot/$initrd");
-	    };
-	    unless ($@) {
-		@modules = grep { m,([^/]+)\.ko$, || m,([^/]+)\.o$, } @modules;
-		$initrd_modules{$version} = \@modules
-	    } else {
-		warn "/boot/$initrd: could not read initrd format"
+	    # Disregard old-style compressed ext2 files, since cpio
+	    # takes ages to (fail to) process these.
+	    if ($g->file ("/boot/$initrd") !~ /gzip compressed/ ||
+		$g->zfile ("gzip", "/boot/$initrd") !~ /ext2 filesystem/) {
+		eval {
+		    @modules = $g->initrd_list ("/boot/$initrd");
+		};
+		unless ($@) {
+		    @modules = grep { m,([^/]+)\.ko$, || m,([^/]+)\.o$, }
+		    @modules;
+		    $initrd_modules{$version} = \@modules
+		} else {
+		    warn "/boot/$initrd: could not read initrd format";
+	        }
 	    }
 	}
     }
