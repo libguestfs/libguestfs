@@ -24,8 +24,10 @@
  * this one to describe the interface (see the big table below), and
  * daemon/<somefile>.c to write the implementation.
  *
- * After editing this file, run it (./src/generator.ml) to regenerate
- * all the output files.
+ * After editing this file, run it (./src/generator.ml) to regenerate all the
+ * output files. Note that if you are using a separate build directory you must
+ * run generator.ml from your top level build directory. You must also have run
+ * configure before generator.ml will run.
  *
  * IMPORTANT: This script should NOT print any warnings.  If it prints
  * warnings, you should treat them as errors.
@@ -8212,7 +8214,7 @@ let output_to filename =
 let () =
   check_functions ();
 
-  if not (Sys.file_exists "HACKING") then (
+  if not (Sys.file_exists "config.status") then (
     eprintf "\
 You are probably running this from the wrong directory.
 Run it from the top source directory using the command
