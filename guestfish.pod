@@ -92,6 +92,13 @@ Displays detailed help on a single command C<cmd>.
 
 Add a block device or virtual machine image to the shell.
 
+=item B<-D> | B<--no-dest-paths>
+
+Don't tab-complete paths on the guest filesystem.  It is useful to be
+able to hit the tab key to complete paths on the guest filesystem, but
+this causes extra "hidden" guestfs calls to be made, so this option is
+here to allow this feature to be disabled.
+
 =item B<-f file> | B<--file file>
 
 Read commands from C<file>.  To write pure guestfish
@@ -149,20 +156,13 @@ This changes the C<-m> option so that mounts are done read-only
 Enable very verbose messages.  This is particularly useful if you find
 a bug.
 
-=item B<-x>
-
-Echo each command before executing it.
-
-=item B<-D> | B<--no-dest-paths>
-
-Don't tab-complete paths on the guest filesystem.  It is useful to be
-able to hit the tab key to complete paths on the guest filesystem, but
-this causes extra "hidden" guestfs calls to be made, so this option is
-here to allow this feature to be disabled.
-
 =item B<-V> | B<--version>
 
 Display the guestfish / libguestfs version number and exit.
+
+=item B<-x>
+
+Echo each command before executing it.
 
 =back
 
