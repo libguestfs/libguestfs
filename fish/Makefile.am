@@ -17,6 +17,9 @@
 
 bin_PROGRAMS = guestfish
 
+EXTRA_DIST = \
+	rc_protocol.x
+
 guestfish_SOURCES = \
 	alloc.c \
 	cmds.c \
