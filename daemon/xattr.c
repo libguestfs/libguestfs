@@ -21,12 +21,12 @@
 #include <stdio.h>
 #include <unistd.h>
 
-#ifdef HAVE_ATTR_XATTR_H
-#include <attr/xattr.h>
-
 #include "../src/guestfs_protocol.h"
 #include "daemon.h"
 #include "actions.h"
+
+#ifdef HAVE_ATTR_XATTR_H
+#include <attr/xattr.h>
 
 static guestfs_int_xattr_list *getxattrs (char *path, ssize_t (*listxattr) (const char *path, char *list, size_t size), ssize_t (*getxattr) (const char *path, const char *name, void *value, size_t size));
 static int _setxattr (char *xattr, char *val, int vallen, char *path, int (*setxattr) (const char *path, const char *name, const void *value, size_t size, int flags));
