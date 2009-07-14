@@ -3737,7 +3737,7 @@ check_state (guestfs_h *g, const char *caller)
 {
   if (!guestfs_is_ready (g)) {
     if (guestfs_is_config (g))
-      error (g, \"%%s: call launch() before using this function\",
+      error (g, \"%%s: call launch before using this function\\n(in guestfish, don't forget to use the 'run' command)\",
         caller);
     else if (guestfs_is_launching (g))
       error (g, \"%%s: call wait_ready() before using this function\",
