@@ -25,8 +25,15 @@
 #include "daemon.h"
 #include "actions.h"
 
+#if defined(HAVE_ATTR_XATTR_H) || defined(HAVE_SYS_XATTR_H)
+
 #ifdef HAVE_ATTR_XATTR_H
 #include <attr/xattr.h>
+#else
+#ifdef HAVE_SYS_XATTR_H
+#include <sys/xattr.h>
+#endif
+#endif
 
 static guestfs_int_xattr_list *getxattrs (char *path, ssize_t (*listxattr) (const char *path, char *list, size_t size), ssize_t (*getxattr) (const char *path, const char *name, void *value, size_t size));
 static int _setxattr (char *xattr, char *val, int vallen, char *path, int (*setxattr) (const char *path, const char *name, const void *value, size_t size, int flags));
@@ -237,7 +244,7 @@ _removexattr (char *xattr, char *path,
   return 0;
 }
 
-#else /* !HAVE_ATTR_XATTR_H */
+#else /* no xattr.h */
 
 guestfs_int_xattr_list *
 do_getxattrs (char *path)
@@ -281,4 +288,4 @@ do_lremovexattr (char *xattr, char *path)
   return -1;
 }
 
-#endif /* !HAVE_ATTR_XATTR_H */
+#endif /* no xattr.h */
