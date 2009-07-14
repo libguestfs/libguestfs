@@ -307,7 +307,7 @@ if ($output eq "fish" || $output eq "ro-fish") {
     # Have to mount / first.  Luckily '/' is early in the ASCII
     # character set, so this should be OK.
     foreach (sort keys %$mounts) {
-	print "-m $mounts->{$_}:$_ " if $_ ne "swap";
+	print "-m $mounts->{$_}:$_ " if $_ ne "swap" && $_ ne "none";
     }
     print "\n"
 }
