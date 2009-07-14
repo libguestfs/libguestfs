@@ -2868,6 +2868,65 @@ C<method> must be one of C<gzip>, C<compress> or C<bzip2>.
 
 See also: C<guestfs_file>");
 
+  ("getxattrs", (RStructList ("xattrs", "xattr"), [String "path"]), 141, [],
+   [],
+   "list extended attributes of a file or directory",
+   "\
+This call lists the extended attributes of the file or directory
+C<path>.
+
+At the system call level, this is a combination of the
+L<listxattr(2)> and L<getxattr(2)> calls.
+
+See also: C<guestfs_lgetxattrs>, L<attr(5)>.");
+
+  ("lgetxattrs", (RStructList ("xattrs", "xattr"), [String "path"]), 142, [],
+   [],
+   "list extended attributes of a file or directory",
+   "\
+This is the same as C<guestfs_getxattrs>, but if C<path>
+is a symbolic link, then it returns the extended attributes
+of the link itself.");
+
+  ("setxattr", (RErr, [String "xattr";
+		       String "val"; Int "vallen"; (* will be BufferIn *)
+		       String "path"]), 143, [],
+   [],
+   "set extended attribute of a file or directory",
+   "\
+This call sets the extended attribute named C<xattr>
+of the file C<path> to the value C<val> (of length C<vallen>).
+The value is arbitrary 8 bit data.
+
+See also: C<guestfs_lsetxattr>, L<attr(5)>.");
+
+  ("lsetxattr", (RErr, [String "xattr";
+			String "val"; Int "vallen"; (* will be BufferIn *)
+			String "path"]), 144, [],
+   [],
+   "set extended attribute of a file or directory",
+   "\
+This is the same as C<guestfs_setxattr>, but if C<path>
+is a symbolic link, then it sets an extended attribute
+of the link itself.");
+
+  ("removexattr", (RErr, [String "xattr"; String "path"]), 145, [],
+   [],
+   "remove extended attribute of a file or directory",
+   "\
+This call removes the extended attribute named C<xattr>
+of the file C<path>.
+
+See also: C<guestfs_lremovexattr>, L<attr(5)>.");
+
+  ("lremovexattr", (RErr, [String "xattr"; String "path"]), 146, [],
+   [],
+   "remove extended attribute of a file or directory",
+   "\
+This is the same as C<guestfs_removexattr>, but if C<path>
+is a symbolic link, then it removes an extended attribute
+of the link itself.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
@@ -2883,6 +2942,7 @@ let all_functions_sorted =
 type field =
   | FChar			(* C 'char' (really, a 7 bit byte). *)
   | FString			(* nul-terminated ASCII string. *)
+  | FBuffer			(* opaque buffer of bytes, (char *, int) pair *)
   | FUInt32
   | FInt32
   | FUInt64
@@ -3021,6 +3081,12 @@ let structs = [
     "release", FInt64;
     "extra", FString;
   ];
+
+  (* Extended attribute. *)
+  "xattr", [
+    "attrname", FString;
+    "attrval", FBuffer;
+  ];
 ] (* end of structs *)
 
 (* Ugh, Java has to be different ..
@@ -3035,6 +3101,7 @@ let java_structs = [
   "statvfs", "StatVFS";
   "dirent", "Dirent";
   "version", "Version";
+  "xattr", "XAttr";
 ]
 
 (* Used for testing language bindings. *)
@@ -3448,6 +3515,10 @@ and generate_structs_pod () =
 	| name, (FUInt64|FBytes) -> pr "   uint64_t %s;\n" name
 	| name, FInt64 -> pr "   int64_t %s;\n" name
 	| name, FString -> pr "   char *%s;\n" name
+	| name, FBuffer ->
+	    pr "   /* The next two fields describe a byte array. */\n";
+	    pr "   uint32_t %s_len;\n" name;
+	    pr "   char *%s;\n" name
 	| name, FUUID ->
 	    pr "   /* The next field is NOT nul-terminated, be careful when printing it: */\n";
 	    pr "   char %s[32];\n" name
@@ -3491,6 +3562,7 @@ and generate_xdr () =
 	List.iter (function
 		   | name, FChar -> pr "  char %s;\n" name
 		   | name, FString -> pr "  string %s<>;\n" name
+		   | name, FBuffer -> pr "  opaque %s<>;\n" name
 		   | name, FUUID -> pr "  opaque %s[32];\n" name
 		   | name, (FInt32|FUInt32) -> pr "  int %s;\n" name
 		   | name, (FInt64|FUInt64|FBytes) -> pr "  hyper %s;\n" name
@@ -3652,6 +3724,9 @@ and generate_structs_h () =
 	function
 	| name, FChar -> pr "  char %s;\n" name
 	| name, FString -> pr "  char *%s;\n" name
+	| name, FBuffer ->
+	    pr "  uint32_t %s_len;\n" name;
+	    pr "  char *%s;\n" name
 	| name, FUUID -> pr "  char %s[32]; /* this is NOT nul-terminated, be careful when printing */\n" name
 	| name, FUInt32 -> pr "  uint32_t %s;\n" name
 	| name, FInt32 -> pr "  int32_t %s;\n" name
@@ -4269,7 +4344,7 @@ and generate_daemon_actions () =
 		 pr "    fprintf (stderr, \"%%s: failed to parse float '%%s' from token %%s\\n\", __func__, tok, \"%s\");\n" name;
 		 pr "    return -1;\n";
 		 pr "  }\n";
-	     | FInt32 | FUInt32 | FUInt64 | FChar ->
+	     | FBuffer | FInt32 | FUInt32 | FUInt64 | FChar ->
 		 assert false (* can never be an LVM column *)
 	    );
 	    pr "  tok = next;\n";
@@ -5052,6 +5127,7 @@ and generate_fish_cmds () =
   pr "#include <stdlib.h>\n";
   pr "#include <string.h>\n";
   pr "#include <inttypes.h>\n";
+  pr "#include <ctype.h>\n";
   pr "\n";
   pr "#include <guestfs.h>\n";
   pr "#include \"fish.h\"\n";
@@ -5129,7 +5205,7 @@ and generate_fish_cmds () =
   List.iter (
     fun (typ, cols) ->
       let needs_i =
-        List.exists (function (_, FUUID) -> true | _ -> false) cols in
+        List.exists (function (_, (FUUID|FBuffer)) -> true | _ -> false) cols in
 
       pr "static void print_%s (struct guestfs_%s *%s)\n" typ typ typ;
       pr "{\n";
@@ -5145,6 +5221,14 @@ and generate_fish_cmds () =
 	    pr "  printf (\"%s: \");\n" name;
 	    pr "  for (i = 0; i < 32; ++i)\n";
 	    pr "    printf (\"%%c\", %s->%s[i]);\n" typ name;
+	    pr "  printf (\"\\n\");\n"
+	| name, FBuffer ->
+	    pr "  printf (\"%s: \");\n" name;
+	    pr "  for (i = 0; i < %s->%s_len; ++i)\n" typ name;
+	    pr "    if (isprint (%s->%s[i]))\n" typ name;
+	    pr "      printf (\"%%c\", %s->%s[i]);\n" typ name;
+	    pr "    else\n";
+	    pr "      printf (\"\\\\x%%02x\", %s->%s[i]);\n" typ name;
 	    pr "  printf (\"\\n\");\n"
 	| name, (FUInt64|FBytes) ->
 	    pr "  printf (\"%s: %%\" PRIu64 \"\\n\", %s->%s);\n" name typ name
@@ -5661,6 +5745,10 @@ copy_table (char * const * argv)
 	  (match col with
 	   | name, FString ->
 	       pr "  v = caml_copy_string (%s->%s);\n" typ name
+	   | name, FBuffer ->
+	       pr "  v = caml_alloc_string (%s->%s_len);\n" typ name;
+	       pr "  memcpy (String_val (v), %s->%s, %s->%s_len);\n"
+		 typ name typ name
 	   | name, FUUID ->
 	       pr "  v = caml_alloc_string (32);\n";
 	       pr "  memcpy (String_val (v), %s->%s, 32);\n" typ name
@@ -5841,6 +5929,7 @@ and generate_ocaml_structure_decls () =
       List.iter (
 	function
 	| name, FString -> pr "  %s : string;\n" name
+	| name, FBuffer -> pr "  %s : string;\n" name
 	| name, FUUID -> pr "  %s : string;\n" name
 	| name, (FBytes|FInt64|FUInt64) -> pr "  %s : int64;\n" name
 	| name, (FInt32|FUInt32) -> pr "  %s : int32;\n" name
@@ -6137,6 +6226,9 @@ and generate_perl_struct_list_code typ cols name style n do_cleanups =
     | name, FUUID ->
 	pr "        (void) hv_store (hv, \"%s\", %d, newSVpv (%s->val[i].%s, 32), 0);\n"
 	  name (String.length name) n name
+    | name, FBuffer ->
+	pr "        (void) hv_store (hv, \"%s\", %d, newSVpv (%s->val[i].%s, %s->val[i].%s_len), 0);\n"
+	  name (String.length name) n name n name
     | name, (FBytes|FUInt64) ->
 	pr "        (void) hv_store (hv, \"%s\", %d, my_newSVull (%s->val[i].%s), 0);\n"
 	  name (String.length name) n name
@@ -6176,6 +6268,9 @@ and generate_perl_struct_code typ cols name style n do_cleanups =
       | name, FString ->
 	  pr "      PUSHs (sv_2mortal (newSVpv (%s->%s, 0)));\n"
 	    n name
+      | name, FBuffer ->
+	  pr "      PUSHs (sv_2mortal (newSVpv (%s->%s, %s->%s_len)));\n"
+	    n name n name
       | name, FUUID ->
 	  pr "      PUSHs (sv_2mortal (newSVpv (%s->%s, 32)));\n"
 	    n name
@@ -6508,6 +6603,10 @@ py_guestfs_close (PyObject *self, PyObject *args)
 	    pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
 	    pr "                        PyString_FromString (%s->%s));\n"
 	      typ name
+	| name, FBuffer ->
+	    pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
+	    pr "                        PyString_FromStringAndSize (%s->%s, %s->%s_len));\n"
+	      typ name typ name
 	| name, FUUID ->
 	    pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
 	    pr "                        PyString_FromStringAndSize (%s->%s, 32));\n"
@@ -7051,6 +7150,8 @@ and generate_ruby_struct_code typ cols =
     function
     | name, FString ->
 	pr "  rb_hash_aset (rv, rb_str_new2 (\"%s\"), rb_str_new2 (r->%s));\n" name name
+    | name, FBuffer ->
+	pr "  rb_hash_aset (rv, rb_str_new2 (\"%s\"), rb_str_new (r->%s, r->%s_len));\n" name name name
     | name, FUUID ->
 	pr "  rb_hash_aset (rv, rb_str_new2 (\"%s\"), rb_str_new (r->%s, 32));\n" name name
     | name, (FBytes|FUInt64) ->
@@ -7079,6 +7180,8 @@ and generate_ruby_struct_list_code typ cols =
     function
     | name, FString ->
 	pr "    rb_hash_aset (hv, rb_str_new2 (\"%s\"), rb_str_new2 (r->val[i].%s));\n" name name
+    | name, FBuffer ->
+	pr "    rb_hash_aset (hv, rb_str_new2 (\"%s\"), rb_str_new (r->val[i].%s, r->val[i].%s_len));\n" name name name
     | name, FUUID ->
 	pr "    rb_hash_aset (hv, rb_str_new2 (\"%s\"), rb_str_new (r->val[i].%s, 32));\n" name name
     | name, (FBytes|FUInt64) ->
@@ -7290,7 +7393,8 @@ public class %s {
   List.iter (
     function
     | name, FString
-    | name, FUUID -> pr "  public String %s;\n" name
+    | name, FUUID
+    | name, FBuffer -> pr "  public String %s;\n" name
     | name, (FBytes|FUInt64|FInt64) -> pr "  public long %s;\n" name
     | name, (FUInt32|FInt32) -> pr "  public int %s;\n" name
     | name, FChar -> pr "  public char %s;\n" name
@@ -7554,6 +7658,15 @@ and generate_java_struct_return typ jtyp cols =
 	pr "    fl = (*env)->GetFieldID (env, cl, \"%s\", \"Ljava/lang/String;\");\n" name;
 	pr "    (*env)->SetObjectField (env, jr, fl, (*env)->NewStringUTF (env, s));\n";
 	pr "  }\n";
+    | name, FBuffer ->
+	pr "  {\n";
+	pr "    int len = r->%s_len;\n" name;
+	pr "    char s[len+1];\n";
+	pr "    memcpy (s, r->%s, len);\n" name;
+	pr "    s[len] = 0;\n";
+	pr "    fl = (*env)->GetFieldID (env, cl, \"%s\", \"Ljava/lang/String;\");\n" name;
+	pr "    (*env)->SetObjectField (env, jr, fl, (*env)->NewStringUTF (env, s));\n";
+	pr "  }\n";
     | name, (FBytes|FUInt64|FInt64) ->
 	pr "  fl = (*env)->GetFieldID (env, cl, \"%s\", \"J\");\n" name;
 	pr "  (*env)->SetLongField (env, jr, fl, r->%s);\n" name;
@@ -7585,6 +7698,15 @@ and generate_java_struct_list_return typ jtyp cols =
 	pr "      char s[33];\n";
 	pr "      memcpy (s, r->val[i].%s, 32);\n" name;
 	pr "      s[32] = 0;\n";
+	pr "      fl = (*env)->GetFieldID (env, cl, \"%s\", \"Ljava/lang/String;\");\n" name;
+	pr "      (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, s));\n";
+	pr "    }\n";
+    | name, FBuffer ->
+	pr "    {\n";
+	pr "      int len = r->val[i].%s_len;\n" name;
+	pr "      char s[len+1];\n";
+	pr "      memcpy (s, r->val[i].%s, len);\n" name;
+	pr "      s[len] = 0;\n";
 	pr "      fl = (*env)->GetFieldID (env, cl, \"%s\", \"Ljava/lang/String;\");\n" name;
 	pr "      (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, s));\n";
 	pr "    }\n";

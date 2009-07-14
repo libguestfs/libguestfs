@@ -96,6 +96,7 @@ java/com/redhat/et/libguestfs/Stat.java
 java/com/redhat/et/libguestfs/StatVFS.java
 java/com/redhat/et/libguestfs/Version.java
 java/com/redhat/et/libguestfs/VG.java
+java/com/redhat/et/libguestfs/XAttr.java
 java/doc-stamp
 java/Makefile.inc
 *.la

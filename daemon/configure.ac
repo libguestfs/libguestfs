@@ -63,7 +63,10 @@ AC_CHECK_LIB([portablexdr],[xdrmem_create],[],[
 	])
 
 dnl Functions which may not be available in older distributions.
-AC_CHECK_FUNCS([futimens])
+AC_CHECK_FUNCS([futimens listxattr llistxattr getxattr lgetxattr setxattr lsetxattr removexattr lremovexattr])
+
+dnl Headers.
+AC_CHECK_HEADERS([attr/xattr.h])
 
 dnl Produce output files.
 AC_CONFIG_HEADERS([config.h])

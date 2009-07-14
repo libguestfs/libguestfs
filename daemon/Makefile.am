@@ -65,6 +65,7 @@ guestfsd_SOURCES = \
 	umask.c \
 	upload.c \
 	wc.c \
+	xattr.c \
 	zero.c \
 	zerofree.c \
 	$(top_builddir)/../src/guestfs_protocol.h \
