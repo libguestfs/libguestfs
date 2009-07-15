@@ -149,6 +149,15 @@ dist-hook:
 	./gitlog-to-changelog > ChangeLog
 	cp ChangeLog $(distdir)/ChangeLog
 
+# Update the list of translatable files in po/POTFILES.in.
+all-local:
+	find -name '*.c' -o -name '*.pl' -o -name '*.pm' | \
+	grep -v '/blib/' | \
+	grep -v '/capitests/' | \
+	grep -v '/examples/' | \
+	sort | \
+	sed 's,^\./,,' > $(srcdir)/po/POTFILES.in
+
 # Pkgconfig.
 
 pkgconfigdir = $(libdir)/pkgconfig

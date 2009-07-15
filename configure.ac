@@ -306,7 +306,7 @@ AC_CHECK_PROG([PERL],[perl],[perl],[no])
 dnl Check for Perl modules that must be present to compile and
 dnl test the Perl bindings.
 missing_perl_modules=no
-for pm in Test::More Test::Pod Test::Pod::Coverage ExtUtils::MakeMaker; do
+for pm in Test::More Test::Pod Test::Pod::Coverage ExtUtils::MakeMaker Locale::TextDomain; do
     AC_MSG_CHECKING([for $pm])
     if ! perl -M$pm -e1 >/dev/null 2>&1; then
         AC_MSG_RESULT([no])
@@ -519,7 +519,7 @@ AM_CONDITIONAL([HAVE_HASKELL],
 
 dnl Check for Perl modules needed by virt-df, inspector and V2V.
 missing_perl_modules=no
-for pm in Pod::Usage Getopt::Long Sys::Virt Data::Dumper XML::Writer; do
+for pm in Pod::Usage Getopt::Long Sys::Virt Data::Dumper XML::Writer Locale::TextDomain; do
     AC_MSG_CHECKING([for $pm])
     if ! perl -M$pm -e1 >/dev/null 2>&1; then
         AC_MSG_RESULT([no])

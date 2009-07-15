@@ -27,6 +27,7 @@ use Pod::Usage;
 use Getopt::Long;
 use Data::Dumper;
 use XML::Writer;
+use Locale::TextDomain 'libguestfs';
 
 # Optional:
 eval "use YAML::Any;";
@@ -201,7 +202,7 @@ if ($version) {
     print "$h{major}.$h{minor}.$h{release}$h{extra}\n";
     exit
 }
-pod2usage ("$0: no image or VM names given") if @ARGV == 0;
+pod2usage (__"virt-inspector: no image or VM names given") if @ARGV == 0;
 
 my $rw = 0;
 $rw = 1 if $output eq "fish";
@@ -293,7 +294,7 @@ if ($output !~ /.*fish$/) {
 if ($output eq "fish" || $output eq "ro-fish") {
     my @osdevs = keys %$oses;
     # This only works if there is a single OS.
-    die "--fish output is only possible with a single OS\n" if @osdevs != 1;
+    die __"--fish output is only possible with a single OS\n" if @osdevs != 1;
 
     my $root_dev = $osdevs[0];
 
@@ -319,7 +320,7 @@ elsif ($output eq "perl") {
 
 # YAML output
 elsif ($output eq "yaml") {
-    die "virt-inspector: no YAML support\n"
+    die __"virt-inspector: no YAML support\n"
 	unless exists $INC{"YAML/Any.pm"};
 
     print Dump(%$oses);
@@ -354,13 +355,13 @@ sub output_text_os
     print $os->{version}, " " if exists $os->{version};
     print "on ", $os->{root_device}, ":\n";
 
-    print "  Mountpoints:\n";
+    print __"  Mountpoints:\n";
     my $mounts = $os->{mounts};
     foreach (sort keys %$mounts) {
 	printf "    %-30s %s\n", $mounts->{$_}, $_
     }
 
-    print "  Filesystems:\n";
+    print __"  Filesystems:\n";
     my $filesystems = $os->{filesystems};
     foreach (sort keys %$filesystems) {
 	print "    $_:\n";
@@ -378,7 +379,7 @@ sub output_text_os
 	my %aliases = %{$os->{modprobe_aliases}};
 	my @keys = sort keys %aliases;
 	if (@keys) {
-	    print "  Modprobe aliases:\n";
+	    print __"  Modprobe aliases:\n";
 	    foreach (@keys) {
 		printf "    %-30s %s\n", $_, $aliases{$_}->{modulename}
 	    }
@@ -389,7 +390,7 @@ sub output_text_os
 	my %modvers = %{$os->{initrd_modules}};
 	my @keys = sort keys %modvers;
 	if (@keys) {
-	    print "  Initrd modules:\n";
+	    print __"  Initrd modules:\n";
 	    foreach (@keys) {
 		my @modules = @{$modvers{$_}};
 		print "    $_:\n";
@@ -398,13 +399,13 @@ sub output_text_os
 	}
     }
 
-    print "  Applications:\n";
+    print __"  Applications:\n";
     my @apps =  @{$os->{apps}};
     foreach (@apps) {
 	print "    $_->{name} $_->{version}\n"
     }
 
-    print "  Kernels:\n";
+    print __"  Kernels:\n";
     my @kernels = @{$os->{kernels}};
     foreach (@kernels) {
 	print "    $_->{version}\n";
@@ -415,7 +416,7 @@ sub output_text_os
     }
 
     if (exists $os->{root}->{registry}) {
-	print "  Windows Registry entries:\n";
+	print __"  Windows Registry entries:\n";
 	# These are just lumps of text - dump them out.
 	foreach (@{$os->{root}->{registry}}) {
 	    print "$_\n";

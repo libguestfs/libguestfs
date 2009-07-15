@@ -22,6 +22,7 @@ use warnings;
 
 use Sys::Guestfs;
 use File::Temp qw/tempdir/;
+use Locale::TextDomain 'libguestfs';
 
 # Optional:
 eval "use Sys::Virt;";
@@ -131,35 +132,36 @@ sub open_guest
     } elsif (ref ($first) eq "SCALAR") {
 	@images = ($first);
     } else {
-	die "open_guest: first parameter must be a string or an arrayref"
+	die __"open_guest: first parameter must be a string or an arrayref"
     }
 
     my ($conn, $dom);
 
     if (-e $images[0]) {
 	foreach (@images) {
-	    die "guest image $_ does not exist or is not readable"
+	    die __x("guest image {imagename} does not exist or is not readable",
+		    imagename => $_)
 		unless -r $_;
 	}
     } else {
-	die "open_guest: no libvirt support (install Sys::Virt, XML::XPath and XML::XPath::XMLParser)"
+	die __"open_guest: no libvirt support (install Sys::Virt, XML::XPath and XML::XPath::XMLParser)"
 	    unless exists $INC{"Sys/Virt.pm"} &&
 	    exists $INC{"XML/XPath.pm"} &&
 	    exists $INC{"XML/XPath/XMLParser.pm"};
 
-	die "open_guest: too many domains listed on command line"
+	die __"open_guest: too many domains listed on command line"
 	    if @images > 1;
 
 	$conn = Sys::Virt->new (readonly => 1, @_);
-	die "open_guest: cannot connect to libvirt" unless $conn;
+	die __"open_guest: cannot connect to libvirt" unless $conn;
 
 	my @doms = $conn->list_defined_domains ();
-	my $isitinactive = "an inactive libvirt domain";
+	my $isitinactive = 1;
 	unless ($readwrite) {
 	    # In the case where we want read-only access to a domain,
 	    # allow the user to specify an active domain too.
 	    push @doms, $conn->list_domains ();
-	    $isitinactive = "a libvirt domain";
+	    $isitinactive = 0;
 	}
 	foreach (@doms) {
 	    if ($_->get_name () eq $images[0]) {
@@ -167,7 +169,16 @@ sub open_guest
 		last;
 	    }
 	}
-	die "$images[0] is not the name of $isitinactive\n" unless $dom;
+
+	unless ($dom) {
+	    if ($isitinactive) {
+		die __x("{imagename} is not the name of an inactive libvirt domain\n",
+			imagename => $images[0]);
+	    } else {
+		die __x("{imagename} is not the name of a libvirt domain\n",
+			imagename => $images[0]);
+	    }
+	}
 
 	# Get the names of the image(s).
 	my $xml = $dom->get_xml_description ();
@@ -176,7 +187,9 @@ sub open_guest
 	my @disks = $p->findnodes ('//devices/disk/source/@dev');
 	push (@disks, $p->findnodes ('//devices/disk/source/@file'));
 
-	die "$images[0] seems to have no disk devices\n" unless @disks;
+	die __x("{imagename} seems to have no disk devices\n",
+		imagename => $images[0])
+	    unless @disks;
 
 	@images = map { $_->getData } @disks;
     }
@@ -258,7 +271,7 @@ sub resolve_windows_path
     my $path = shift;
 
     if (substr ($path, 0, 1) ne "/") {
-	warn "resolve_windows_path: path must start with a / character";
+	warn __"resolve_windows_path: path must start with a / character";
 	return undef;
     }
 
@@ -740,7 +753,7 @@ sub _load_windows_registry
     close SAVEERR;
 
     unless ($res == 0) {
-	warn "reged command failed: $?";
+	warn __x("reged command failed: {errormsg}", errormsg => $?);
 	return;
     }
 
@@ -749,7 +762,7 @@ sub _load_windows_registry
     # it.
     my $content;
     unless (open F, "$dir/out") {
-	warn "no output from reged command: $!";
+	warn __x("no output from reged command: {errormsg}", errormsg => $!);
 	return;
     }
     { local $/ = undef; $content = <F>; }
@@ -919,7 +932,7 @@ sub _find_filesystem
 		return ($_, $fses->{$_});
 	    }
 	}
-	warn "unknown filesystem label $label\n";
+	warn __x("unknown filesystem label {label}\n", label => $label);
 	return ();
     } elsif (/^UUID=(.*)/) {
 	my $uuid = $1;
@@ -929,7 +942,7 @@ sub _find_filesystem
 		return ($_, $fses->{$_});
 	    }
 	}
-	warn "unknown filesystem UUID $uuid\n";
+	warn __x("unknown filesystem UUID {uuid}\n", uuid => $uuid);
 	return ();
     } else {
 	return ($_, $fses->{$_}) if exists $fses->{$_};
@@ -952,7 +965,7 @@ sub _find_filesystem
 
 	return () if m{/dev/cdrom};
 
-	warn "unknown filesystem $_\n";
+	warn __x("unknown filesystem {fs}\n", fs => $_);
 	return ();
     }
 }
@@ -1171,7 +1184,8 @@ sub _check_for_modprobe_aliases
 
         for my $path ( @results ) {
             $path =~ m{^/files(.*)/alias(?:\[\d*\])?$}
-                or die("$path doesn't match augeas pattern");
+                or die __x("{path} doesn't match augeas pattern",
+			   path => $path);
             my $file = $1;
 
             my $alias;
@@ -1220,7 +1234,8 @@ sub _check_for_initrd
 		    @modules;
 		    $initrd_modules{$version} = \@modules
 		} else {
-		    warn "/boot/$initrd: could not read initrd format";
+		    warn __x("{filename}: could not read initrd format",
+			     filename => "/boot/$initrd");
 	        }
 	    }
 	}

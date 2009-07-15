@@ -28,6 +28,7 @@ use Getopt::Long;
 use Data::Dumper;
 use File::Temp qw/tempdir/;
 use XML::Writer;
+use Locale::TextDomain 'libguestfs';
 
 =encoding utf8
 
@@ -254,21 +255,21 @@ sub print_stat
 
 sub print_title
 {
-    my @cols = ("Virtual Machine", "Filesystem");
+    my @cols = (__"Virtual Machine", __"Filesystem");
     if (!$inodes) {
 	if (!$human) {
-	    push @cols, "1K-blocks";
+	    push @cols, __"1K-blocks";
 	} else {
-	    push @cols, "Size";
+	    push @cols, __"Size";
 	}
-	push @cols, "Used";
-	push @cols, "Available";
-	push @cols, "Use%";
+	push @cols, __"Used";
+	push @cols, __"Available";
+	push @cols, __"Use%";
     } else {
-	push @cols, "Inodes";
-	push @cols, "IUsed";
-	push @cols, "IFree";
-	push @cols, "IUse%";
+	push @cols, __"Inodes";
+	push @cols, __"IUsed";
+	push @cols, __"IFree";
+	push @cols, __"IUse%";
     }
 
     if (!$csv) {

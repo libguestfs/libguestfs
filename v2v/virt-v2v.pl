@@ -28,6 +28,7 @@ use Getopt::Long;
 use Data::Dumper;
 use File::Temp qw/tempdir/;
 use XML::Writer;
+use Locale::TextDomain 'libguestfs';
 
 =encoding utf8
 
@@ -170,7 +171,7 @@ if ($version) {
     print "$h{major}.$h{minor}.$h{release}$h{extra}\n";
     exit
 }
-pod2usage ("$0: no image or VM names given") if @ARGV == 0;
+pod2usage (__"virt-v2v: no image or VM names given") if @ARGV == 0;
 
 # XXX This should be an option.  Disable for now until we get
 # downloads working reliably.
@@ -204,8 +205,8 @@ my $oses = inspect_operating_systems ($g, \%fses);
 # Only work on single-root operating systems.
 my $root_dev;
 my @roots = keys %$oses;
-die "no root device found in this operating system image" if @roots == 0;
-die "multiboot operating systems are not supported by v2v" if @roots > 1;
+die __"no root device found in this operating system image" if @roots == 0;
+die __"multiboot operating systems are not supported by v2v" if @roots > 1;
 $root_dev = $roots[0];
 
 # Mount up the disks and check for applications.

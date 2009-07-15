@@ -77,6 +77,8 @@ bindings
 - (Optional) Perl XML::XPath, Sys::Virt modules (for libvirt support
 in virt-inspector).
 
+- (Optional, but highly recommended) perl-libintl for translating perl code.
+
 Running ./configure will check you have all the requirements installed
 on your machine.
 
