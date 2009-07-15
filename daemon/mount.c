@@ -22,6 +22,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 #include "daemon.h"
 #include "actions.h"
@@ -344,6 +346,55 @@ do_mount_loop (char *file, char *mountpoint)
   if (r == -1) {
     reply_with_error ("mount: %s on %s: %s", file, mountpoint, error);
     free (error);
+    return -1;
+  }
+
+  return 0;
+}
+
+/* Specialized calls mkmountpoint and rmmountpoint are really
+ * variations on mkdir and rmdir which do no checking and (in the
+ * mkmountpoint case) set the root_mounted flag.
+ */
+int
+do_mkmountpoint (char *path)
+{
+  int r;
+
+  /* NEED_ROOT (-1); - we don't want this test for this call. */
+  ABS_PATH (path, -1);
+
+  CHROOT_IN;
+  r = mkdir (path, 0777);
+  CHROOT_OUT;
+
+  if (r == -1) {
+    reply_with_perror ("mkmountpoint: %s", path);
+    return -1;
+  }
+
+  /* Set the flag so that filesystems can be mounted here,
+   * not just on /sysroot.
+   */
+  root_mounted = 1;
+
+  return 0;
+}
+
+int
+do_rmmountpoint (char *path)
+{
+  int r;
+
+  NEED_ROOT (-1);
+  ABS_PATH (path, -1);
+
+  CHROOT_IN;
+  r = rmdir (path);
+  CHROOT_OUT;
+
+  if (r == -1) {
+    reply_with_perror ("rmmountpoint: %s", path);
     return -1;
   }
 

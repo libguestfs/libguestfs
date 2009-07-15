@@ -2937,6 +2937,42 @@ This call is similar to C<guestfs_mounts>.  That call returns
 a list of devices.  This one returns a hash table (map) of
 device name to directory where the device is mounted.");
 
+  ("mkmountpoint", (RErr, [String "path"]), 148, [],
+   [],
+   "create a mountpoint",
+   "\
+C<guestfs_mkmountpoint> and C<guestfs_rmmountpoint> are
+specialized calls that can be used to create extra mountpoints
+before mounting the first filesystem.
+
+These calls are I<only> necessary in some very limited circumstances,
+mainly the case where you want to mount a mix of unrelated and/or
+read-only filesystems together.
+
+For example, live CDs often contain a \"Russian doll\" nest of
+filesystems, an ISO outer layer, with a squashfs image inside, with
+an ext2/3 image inside that.  You can unpack this as follows
+in guestfish:
+
+ add-ro Fedora-11-i686-Live.iso
+ run
+ mkmountpoint /cd
+ mkmountpoint /squash
+ mkmountpoint /ext3
+ mount /dev/sda /cd
+ mount-loop /cd/LiveOS/squashfs.img /squash
+ mount-loop /squash/LiveOS/ext3fs.img /ext3
+
+The inner filesystem is now unpacked under the /ext3 mountpoint.");
+
+  ("rmmountpoint", (RErr, [String "path"]), 149, [],
+   [],
+   "remove a mountpoint",
+   "\
+This calls removes a mountpoint that was previously created
+with C<guestfs_mkmountpoint>.  See C<guestfs_mkmountpoint>
+for full details.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
