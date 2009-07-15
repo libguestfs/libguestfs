@@ -36,6 +36,7 @@ guestfish_SOURCES = \
 	rc_protocol.c \
 	rc_protocol.h \
 	reopen.c \
+	tilde.c \
 	time.c
 
 BUILT_SOURCES = \

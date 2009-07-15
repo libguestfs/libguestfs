@@ -88,6 +88,9 @@ extern int do_reopen (const char *cmd, int argc, char *argv[]);
 /* in time.c */
 extern int do_time (const char *cmd, int argc, char *argv[]);
 
+/* in tilde.c */
+extern char *try_tilde_expansion (char *path);
+
 /* This should just list all the built-in commands so they can
  * be added to the generated auto-completion code.
  */

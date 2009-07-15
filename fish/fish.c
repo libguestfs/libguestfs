@@ -514,6 +514,7 @@ script (int prompt)
   char *argv[64];
   int i, len;
   int global_exit_on_error = !prompt;
+  int tilde_candidate;
 
   if (prompt)
     printf (_("\n"
@@ -587,6 +588,8 @@ script (int prompt)
 
     /* Get the parameters. */
     while (*p && i < sizeof argv / sizeof argv[0]) {
+      tilde_candidate = 0;
+
       /* Parameters which start with quotes or pipes are treated
        * specially.  Bare parameters are delimited by whitespace.
        */
@@ -647,6 +650,11 @@ script (int prompt)
 	*(pend-1) = '\0';
 	*/
       } else if (*p != ' ' && *p != '\t') {
+	/* If the first character is a ~ then note that this parameter
+	 * is a candidate for ~username expansion.  NB this does not
+	 * apply to quoted parameters.
+	 */
+	tilde_candidate = *p == '~';
 	len = strcspn (p, " \t");
 	if (p[len]) {
 	  p[len] = '\0';
@@ -659,7 +667,11 @@ script (int prompt)
 	abort ();
       }
 
-      argv[i++] = p;
+      if (!tilde_candidate)
+	argv[i] = p;
+      else
+	argv[i] = try_tilde_expansion (p);
+      i++;
       p = pend;
 
       if (*p)

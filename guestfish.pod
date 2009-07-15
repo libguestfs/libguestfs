@@ -328,6 +328,20 @@ to quote it, eg:
 
  echo "|"
 
+=head1 HOME DIRECTORIES
+
+If a parameter starts with the character C<~> then the tilde may be
+expanded as a home directory path (either C<~> for the current user's
+home directory, or C<~user> for another user).
+
+Note that home directory expansion happens for users known I<on the
+host>, not in the guest filesystem.
+
+To use a literal argument which begins with a tilde, you have to quote
+it, eg:
+
+ echo "~"
+
 =head1 EXIT ON ERROR BEHAVIOUR
 
 By default, guestfish will ignore any errors when in interactive mode
