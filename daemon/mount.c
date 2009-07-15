@@ -142,14 +142,15 @@ do_umount (char *pathordevice)
   return 0;
 }
 
-char **
-do_mounts (void)
+static char **
+mounts_or_mountpoints (int mp)
 {
   char *out, *err;
   int r;
   char **ret = NULL;
   int size = 0, alloc = 0;
   char *p, *pend, *p2;
+  int len;
 
   r = command (&out, &err, "mount", NULL);
   if (r == -1) {
@@ -179,6 +180,20 @@ do_mounts (void)
 	free (out);
 	return NULL;
       }
+      if (mp) {
+	p2 += 12;		/* skip " on /sysroot" */
+	len = strcspn (p2, " ");
+
+	if (len == 0)		/* .. just /sysroot, so we turn it into "/" */
+	  p2 = (char *) "/";
+	else
+	  p2[len] = '\0';
+
+	if (add_string (&ret, &size, &alloc, p2) == -1) {
+	  free (out);
+	  return NULL;
+	}
+      }
     }
 
     p = pend;
@@ -190,6 +205,18 @@ do_mounts (void)
     return NULL;
 
   return ret;
+}
+
+char **
+do_mounts (void)
+{
+  return mounts_or_mountpoints (0);
+}
+
+char **
+do_mountpoints (void)
+{
+  return mounts_or_mountpoints (1);
 }
 
 /* Unmount everything mounted under /sysroot.

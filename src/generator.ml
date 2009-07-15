@@ -1371,7 +1371,9 @@ contains the filesystem.");
 This returns the list of currently mounted filesystems.  It returns
 the list of devices (eg. C</dev/sda1>, C</dev/VG/LV>).
 
-Some internal mounts are not shown.");
+Some internal mounts are not shown.
+
+See also: C<guestfs_mountpoints>");
 
   ("umount_all", (RErr, []), 47, [FishAlias "unmount-all"],
    [InitBasicFS, Always, TestOutputList (
@@ -2926,6 +2928,14 @@ See also: C<guestfs_lremovexattr>, L<attr(5)>.");
 This is the same as C<guestfs_removexattr>, but if C<path>
 is a symbolic link, then it removes an extended attribute
 of the link itself.");
+
+  ("mountpoints", (RHashtable "mps", []), 147, [],
+   [],
+   "show mountpoints",
+   "\
+This call is similar to C<guestfs_mounts>.  That call returns
+a list of devices.  This one returns a hash table (map) of
+device name to directory where the device is mounted.");
 
 ]
 
