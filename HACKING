@@ -30,6 +30,9 @@ Directories
 appliance/
 	The qemu appliance, build scripts and so on.
 
+cat/
+	The virt-cat tool.
+
 capitests/
 	Automated tests of the C API.
 

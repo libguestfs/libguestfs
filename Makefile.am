@@ -47,6 +47,9 @@ endif
 if HAVE_DF
 SUBDIRS += df
 endif
+if HAVE_CAT
+SUBDIRS += cat
+endif
 
 EXTRA_DIST = \
 	config.rpath \
@@ -129,6 +132,7 @@ html/recipes.html: $(wildcard recipes/*.sh) $(wildcard recipes/*.html) $(wildcar
 	mv $@-t $@
 
 HTMLFILES = html/guestfs.3.html html/guestfish.1.html \
+	html/virt-cat.1.html \
 	html/virt-df.1.html \
 	html/virt-inspector.1.html \
 	html/virt-v2v.1.html \

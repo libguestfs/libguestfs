@@ -517,7 +517,7 @@ AC_CHECK_PROG([GHC],[ghc],[ghc],[no])
 AM_CONDITIONAL([HAVE_HASKELL],
     [test "x$GHC" != "xno"])
 
-dnl Check for Perl modules needed by virt-df, inspector and V2V.
+dnl Check for Perl modules needed by virt-df, inspector, V2V etc.
 missing_perl_modules=no
 for pm in Pod::Usage Getopt::Long Sys::Virt Data::Dumper XML::Writer Locale::TextDomain; do
     AC_MSG_CHECKING([for $pm])
@@ -529,9 +529,11 @@ for pm in Pod::Usage Getopt::Long Sys::Virt Data::Dumper XML::Writer Locale::Tex
     fi
 done
 if test "x$missing_perl_modules" = "xyes"; then
-    AC_MSG_WARN([some Perl modules required to compile virt-df, virt-inspector and virt-v2v are missing])
+    AC_MSG_WARN([some Perl modules required to compile virt-cat, virt-df, virt-inspector and virt-v2v are missing])
 fi
 
+AM_CONDITIONAL([HAVE_CAT],
+    [test "x$PERL" != "xno" -a "x$missing_perl_modules" != "xyes"])
 AM_CONDITIONAL([HAVE_DF],
     [test "x$PERL" != "xno" -a "x$missing_perl_modules" != "xyes"])
 AM_CONDITIONAL([HAVE_INSPECTOR],
@@ -572,6 +574,7 @@ AC_CONFIG_FILES([Makefile
 		 ruby/Makefile ruby/Rakefile
 		 java/Makefile
 		 haskell/Makefile
+		 cat/Makefile
 		 df/Makefile
 		 inspector/Makefile
 		 v2v/Makefile
@@ -600,6 +603,8 @@ echo -n "Java bindings ....................... "
 if test "x$HAVE_JAVA_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo -n "Haskell bindings .................... "
 if test "x$HAVE_HASKELL" = "x"; then echo "yes"; else echo "no"; fi
+echo -n "virt-cat ............................ "
+if test "x$HAVE_CAT" = "x"; then echo "yes"; else echo "no"; fi
 echo -n "virt-df ............................. "
 if test "x$HAVE_DF" = "x"; then echo "yes"; else echo "no"; fi
 echo -n "virt-inspector ...................... "

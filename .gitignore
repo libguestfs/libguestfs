@@ -23,6 +23,7 @@ capitests/test*.img
 capitests/tests
 capitests/tests.c
 capitests/test*.tmp
+cat/virt-cat.1
 ChangeLog
 *.class
 *.cma
@@ -70,6 +71,7 @@ haskell/Guestfs.hs
 html/guestfish.1.html
 html/guestfs.3.html
 html/recipes.html
+html/virt-cat.1.html
 html/virt-df.1.html
 html/virt-inspector.1.html
 html/virt-v2v.1.html
