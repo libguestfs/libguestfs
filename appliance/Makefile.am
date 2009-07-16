@@ -16,9 +16,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 EXTRA_DIST = \
-	make.sh update.sh supermin-split.sh supermin-make.sh \
 	libguestfs-supermin-helper \
-	kmod.whitelist \
 	kmod.whitelist.in \
 	packagelist.in \
 	init \
