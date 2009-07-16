@@ -56,22 +56,22 @@ noinst_DATA += bindtests \
 	t/guestfs_005_load t/guestfs_010_launch t/guestfs_050_lvcreate \
 	t/guestfs_060_readdir
 
-bindtests: bindtests.ml mlguestfs.cmxa
+bindtests: bindtests.cmx mlguestfs.cmxa
 	$(OCAMLFIND) ocamlopt -cclib -L$(top_builddir)/src/.libs -I . unix.cmxa mlguestfs.cmxa $< -o $@
 
-t/guestfs_005_load: t/guestfs_005_load.ml mlguestfs.cmxa
+t/guestfs_005_load: t/guestfs_005_load.cmx mlguestfs.cmxa
 	mkdir -p t
 	$(OCAMLFIND) ocamlopt -cclib -L$(top_builddir)/src/.libs -I . unix.cmxa mlguestfs.cmxa $< -o $@
 
-t/guestfs_010_launch: t/guestfs_010_launch.ml mlguestfs.cmxa
+t/guestfs_010_launch: t/guestfs_010_launch.cmx mlguestfs.cmxa
 	mkdir -p t
 	$(OCAMLFIND) ocamlopt -cclib -L$(top_builddir)/src/.libs -I . unix.cmxa mlguestfs.cmxa $< -o $@
 
-t/guestfs_050_lvcreate: t/guestfs_050_lvcreate.ml mlguestfs.cmxa
+t/guestfs_050_lvcreate: t/guestfs_050_lvcreate.cmx mlguestfs.cmxa
 	mkdir -p t
 	$(OCAMLFIND) ocamlopt -cclib -L$(top_builddir)/src/.libs -I . unix.cmxa mlguestfs.cmxa $< -o $@
 
-t/guestfs_060_readdir: t/guestfs_060_readdir.ml mlguestfs.cmxa
+t/guestfs_060_readdir: t/guestfs_060_readdir.cmx mlguestfs.cmxa
 	mkdir -p t
 	$(OCAMLFIND) ocamlopt -cclib -L$(top_builddir)/src/.libs -I . unix.cmxa mlguestfs.cmxa $< -o $@
 
