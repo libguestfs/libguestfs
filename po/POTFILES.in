@@ -1,5 +1,3 @@
-build/fish/rc_protocol.c
-build/src/guestfs_protocol.c
 cat/virt-cat.pl
 daemon/augeas.c
 daemon/blockdev.c

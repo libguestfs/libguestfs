@@ -163,6 +163,8 @@ all-local:
 	grep -v '/blib/' | \
 	grep -v '/capitests/' | \
 	grep -v '/examples/' | \
+	grep -v '/guestfs_protocol.c' | \
+	grep -v '/rc_protocol.c' | \
 	sort | \
 	sed 's,^\./,,' > po/POTFILES.in
 
