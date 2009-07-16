@@ -155,12 +155,13 @@ dist-hook:
 
 # Update the list of translatable files in po/POTFILES.in.
 all-local:
+	cd $(srcdir); \
 	find -name '*.c' -o -name '*.pl' -o -name '*.pm' | \
 	grep -v '/blib/' | \
 	grep -v '/capitests/' | \
 	grep -v '/examples/' | \
 	sort | \
-	sed 's,^\./,,' > $(srcdir)/po/POTFILES.in
+	sed 's,^\./,,' > po/POTFILES.in
 
 # Pkgconfig.
 

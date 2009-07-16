@@ -21,7 +21,7 @@ builddir ?= $(top_builddir)/java
 java_prefix = com/redhat/et/libguestfs
 
 # Pull in automatically generated built sources
-include $(builddir)/Makefile.inc
+include $(srcdir)/Makefile.inc
 
 java_sources = \
 	$(java_built_sources) \

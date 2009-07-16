@@ -76,11 +76,11 @@ t/guestfs_060_readdir: t/guestfs_060_readdir.ml mlguestfs.cmxa
 	$(OCAMLFIND) ocamlopt -cclib -L$(top_builddir)/src/.libs -I . unix.cmxa mlguestfs.cmxa $< -o $@
 
 .mli.cmi:
-	$(OCAMLFIND) ocamlc -c $<
+	$(OCAMLFIND) ocamlc -c $< -o $@
 .ml.cmo:
-	$(OCAMLFIND) ocamlc -c $<
+	$(OCAMLFIND) ocamlc -c $< -o $@
 .ml.cmx:
-	$(OCAMLFIND) ocamlopt -c $<
+	$(OCAMLFIND) ocamlopt -c $< -o $@
 
 depend: .depend
 

@@ -144,7 +144,7 @@ test-boot-realistic: emptydisk
 
 # Make clean.
 
-CLEANFILES = $(APPLIANCE_FILES)
+CLEANFILES = $(APPLIANCE_FILES) packagelist kmod.whitelist
 
 clean-local:
 	rm -rf $(top_builddir)/initramfs
