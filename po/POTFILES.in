@@ -1,3 +1,4 @@
+build/fish/rc_protocol.c
 cat/virt-cat.pl
 daemon/augeas.c
 daemon/blockdev.c
@@ -58,7 +59,6 @@ fish/glob.c
 fish/lcd.c
 fish/more.c
 fish/rc.c
-fish/rc_protocol.c
 fish/reopen.c
 fish/tilde.c
 fish/time.c

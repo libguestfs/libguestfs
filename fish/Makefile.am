@@ -20,6 +20,8 @@ bin_PROGRAMS = guestfish
 EXTRA_DIST = \
 	rc_protocol.x
 
+CLEANFILES = rc_protocol.c rc_protocol.h
+
 guestfish_SOURCES = \
 	alloc.c \
 	cmds.c \
@@ -44,15 +46,19 @@ BUILT_SOURCES = \
 	rc_protocol.h
 
 guestfish_CFLAGS = \
-	-I$(top_srcdir)/src -I$(top_builddir)/src -Wall \
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/fish -I$(top_builddir)/fish \
+	-Wall \
 	-DGUESTFS_DEFAULT_PATH='"$(libdir)/guestfs"'
 guestfish_LDADD = $(top_builddir)/src/libguestfs.la $(LIBREADLINE)
 
 if HAVE_RPCGEN
 rc_protocol.c: rc_protocol.x
-	rm -f $@-t
+	rm -f $@-t $@-t2
 	$(RPCGEN) -c -o $@-t $<
-	mv $@-t $@
+	sed 's,\.\./\.\./fish/,,' < $@-t > $@-t2
+	rm $@-t
+	mv $@-t2 $@
 
 rc_protocol.h: rc_protocol.x
 	rm -f $@-t
