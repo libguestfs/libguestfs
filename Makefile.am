@@ -159,10 +159,10 @@ dist-hook:
 # Update the list of translatable files in po/POTFILES.in.
 all-local:
 	cd $(srcdir); \
-	find -name '*.c' -o -name '*.pl' -o -name '*.pm' | \
-	grep -v '/blib/' | \
-	grep -v '/capitests/' | \
-	grep -v '/examples/' | \
+	find $(DIST_SUBDIRS) -name '*.c' -o -name '*.pl' -o -name '*.pm' | \
+	grep -v 'perl/blib/' | \
+	grep -v 'capitests/' | \
+	grep -v 'examples/' | \
 	grep -v '/guestfs_protocol.c' | \
 	grep -v '/rc_protocol.c' | \
 	sort | \
