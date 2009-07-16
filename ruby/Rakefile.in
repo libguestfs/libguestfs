@@ -27,7 +27,7 @@ PKG_VERSION='@PACKAGE_VERSION@'
 EXT_CONF='@srcdir@/ext/guestfs/extconf.rb'
 MAKEFILE='@builddir@/ext/guestfs/Makefile'
 GUESTFS_MODULE='@builddir@/ext/guestfs/_guestfs.so'
-GUESTFS_SRC='@builddir@/ext/guestfs/_guestfs.c'
+GUESTFS_SRC='@srcdir@/ext/guestfs/_guestfs.c'
 
 CLEAN.include [ "@builddir@/ext/**/*.o", GUESTFS_MODULE,
                 "@builddir@/ext/**/depend" ]

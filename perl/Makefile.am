@@ -48,6 +48,11 @@ all: Makefile-pl
 Makefile-pl: Makefile.PL
 	perl Makefile.PL INSTALLDIRS=$(INSTALLDIRS) PREFIX=$(prefix)
 
+CLEANFILES = Makefile-pl
+
+clean-local:
+	-$(MAKE) -f Makefile-pl clean
+
 install-data-hook:
 	$(MAKE) -f Makefile-pl DESTDIR=$(DESTDIR) install
 
