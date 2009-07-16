@@ -176,8 +176,8 @@ pkgconfig_DATA = libguestfs.pc
 CLEANFILES = $(fs_DATA) \
 	emptydisk \
 	pod2htm?.tmp \
-	$(HTMLFILES) \
-	$(man_MANS)
+	html/*.html \
+	guestfs.3 guestfish.1
 
 clean-local:
 	rm -rf initramfs
