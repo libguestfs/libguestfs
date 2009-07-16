@@ -17,8 +17,6 @@
 
 EXTRA_DIST = \
 	guestfs_protocol.x \
-	guestfs_protocol.c \
-	guestfs_protocol.h \
 	MAX_PROC_NR \
 	stamp-generator \
 	generator.ml
@@ -51,6 +49,8 @@ BUILT_SOURCES = \
   guestfs-bindtests.c
 
 $(BUILT_SOURCES): stamp-generator
+
+CLEANFILES = guestfs_protocol.c guestfs_protocol.h
 
 # From the libtool info file, with comments:
 #
@@ -109,9 +109,11 @@ libguestfs_la_CFLAGS = -Wall -DGUESTFS_DEFAULT_PATH='"$(libdir)/guestfs"'
 
 if HAVE_RPCGEN
 guestfs_protocol.c: guestfs_protocol.x
-	rm -f $@-t
+	rm -f $@-t $@-t2
 	$(RPCGEN) -c -o $@-t $<
-	mv $@-t $@
+	sed 's,\.\./\.\./src/,,' < $@-t > $@-t2
+	rm $@-t
+	mv $@-t2 $@
 
 guestfs_protocol.h: guestfs_protocol.x
 	rm -f $@-t

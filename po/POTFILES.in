@@ -1,4 +1,5 @@
 build/fish/rc_protocol.c
+build/src/guestfs_protocol.c
 cat/virt-cat.pl
 daemon/augeas.c
 daemon/blockdev.c
@@ -75,5 +76,4 @@ ruby/ext/guestfs/_guestfs.c
 src/guestfs-actions.c
 src/guestfs-bindtests.c
 src/guestfs.c
-src/guestfs_protocol.c
 v2v/virt-v2v.pl

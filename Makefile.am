@@ -105,6 +105,7 @@ guestfish.1: guestfish.pod guestfish-actions.pod
 noinst_DATA = html/guestfs.3.html html/guestfish.1.html
 
 html/guestfs.3.html: guestfs.pod guestfs-actions.pod guestfs-structs.pod
+	mkdir -p html
 	sed \
 	  -e '/@ACTIONS@/rguestfs-actions.pod' -e 's/@ACTIONS@//' \
 	  -e '/@STRUCTS@/rguestfs-structs.pod' -e 's/@STRUCTS@//' \
@@ -116,6 +117,7 @@ html/guestfs.3.html: guestfs.pod guestfs-actions.pod guestfs-structs.pod
 	  --outfile $@
 
 html/guestfish.1.html: guestfish.pod guestfish-actions.pod
+	mkdir -p html
 	sed \
 	  -e '/@ACTIONS@/rguestfish-actions.pod' -e 's/@ACTIONS@//' \
 	  < $< | \
@@ -127,6 +129,7 @@ html/guestfish.1.html: guestfish.pod guestfish-actions.pod
 
 # Recipes web page.
 html/recipes.html: $(wildcard recipes/*.sh) $(wildcard recipes/*.html) $(wildcard recipes/*.example) Makefile make-recipes.sh
+	mkdir -p html
 	rm -f $@ $@-t
 	sh make-recipes.sh recipes/*.sh > $@-t
 	mv $@-t $@
@@ -170,7 +173,11 @@ pkgconfig_DATA = libguestfs.pc
 
 # Make clean.
 
-CLEANFILES = $(fs_DATA) emptydisk pod2htm?.tmp
+CLEANFILES = $(fs_DATA) \
+	emptydisk \
+	pod2htm?.tmp \
+	$(HTMLFILES) \
+	$(man_MANS)
 
 clean-local:
 	rm -rf initramfs

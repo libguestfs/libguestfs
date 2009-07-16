@@ -48,10 +48,12 @@ all: Makefile-pl
 Makefile-pl: Makefile.PL
 	perl Makefile.PL INSTALLDIRS=$(INSTALLDIRS) PREFIX=$(prefix)
 
-CLEANFILES = Makefile-pl
+# No!  Otherwise it is deleted before the clean-local rule runs.
+#CLEANFILES = Makefile-pl
 
 clean-local:
 	-$(MAKE) -f Makefile-pl clean
+	rm -f Makefile-pl
 
 install-data-hook:
 	$(MAKE) -f Makefile-pl DESTDIR=$(DESTDIR) install
