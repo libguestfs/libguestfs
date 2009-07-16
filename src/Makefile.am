@@ -30,10 +30,10 @@ EXTRA_DIST = \
 noinst_DATA = stamp-generator
 
 stamp-generator: generator.ml
-	mkdir -p $(top_builddir)/perl/lib/Sys
-	mkdir -p $(top_builddir)/ruby/ext/guestfs
-	mkdir -p $(top_builddir)/java/com/redhat/et/libguestfs
-	cd $(top_builddir) && ocaml -warn-error A ./src/$<
+	mkdir -p $(top_srcdir)/perl/lib/Sys
+	mkdir -p $(top_srcdir)/ruby/ext/guestfs
+	mkdir -p $(top_srcdir)/java/com/redhat/et/libguestfs
+	cd $(top_srcdir) && ocaml -warn-error A src/generator.ml
 
 guestfs_protocol.x: stamp-generator
 
