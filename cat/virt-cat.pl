@@ -61,6 +61,10 @@ List syslog messages from a VM:
 
  virt-cat mydomain /var/log/messages | tail
 
+Find out what DHCP IP address a VM acquired:
+
+ virt-cat mydomain /var/log/messages | grep 'dhclient: bound to' | tail
+
 Find out what packages were recently installed:
 
  virt-cat mydomain /var/log/yum.log | tail
