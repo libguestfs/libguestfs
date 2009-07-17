@@ -83,7 +83,7 @@ AC_ARG_WITH([qemu],
 	[],
 	[with_qemu="$default_qemu"])
 AC_PATH_PROGS([QEMU],[$with_qemu],[no],
-	[$PATH$PATH_SEPARATOR/usr/sbin$PATH_SEPARATOR/sbin])
+	[$PATH$PATH_SEPARATOR/usr/sbin$PATH_SEPARATOR/sbin$PATH_SEPARATOR/usr/libexec])
 test "x$QEMU" = "xno" && AC_MSG_ERROR([qemu must be installed])
 AC_DEFINE_UNQUOTED([QEMU],["$QEMU"],[Location of qemu binary.])
 
