@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2009-07-15 16:35+0100\n"
+"POT-Creation-Date: 2009-07-17 17:33+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,15 +17,15 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: cat/virt-cat.pl:126
+#: cat/virt-cat.pl:130
 msgid "virt-cat: no image, VM names or filenames to cat given"
 msgstr ""
 
-#: cat/virt-cat.pl:152 v2v/virt-v2v.pl:208
+#: cat/virt-cat.pl:156 v2v/virt-v2v.pl:208
 msgid "no root device found in this operating system image"
 msgstr ""
 
-#: cat/virt-cat.pl:153
+#: cat/virt-cat.pl:157
 msgid "multiboot operating systems are not supported by virt-cat"
 msgstr ""
 
@@ -474,31 +474,31 @@ msgstr ""
 msgid "virt-inspector: no YAML support\n"
 msgstr ""
 
-#: inspector/virt-inspector.pl:358
+#: inspector/virt-inspector.pl:359
 msgid "  Mountpoints:\n"
 msgstr ""
 
-#: inspector/virt-inspector.pl:364
+#: inspector/virt-inspector.pl:365
 msgid "  Filesystems:\n"
 msgstr ""
 
-#: inspector/virt-inspector.pl:382
+#: inspector/virt-inspector.pl:383
 msgid "  Modprobe aliases:\n"
 msgstr ""
 
-#: inspector/virt-inspector.pl:393
+#: inspector/virt-inspector.pl:394
 msgid "  Initrd modules:\n"
 msgstr ""
 
-#: inspector/virt-inspector.pl:402
+#: inspector/virt-inspector.pl:403
 msgid "  Applications:\n"
 msgstr ""
 
-#: inspector/virt-inspector.pl:408
+#: inspector/virt-inspector.pl:409
 msgid "  Kernels:\n"
 msgstr ""
 
-#: inspector/virt-inspector.pl:419
+#: inspector/virt-inspector.pl:420
 msgid "  Windows Registry entries:\n"
 msgstr ""
 
@@ -544,37 +544,37 @@ msgstr ""
 msgid "resolve_windows_path: path must start with a / character"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:756
+#: perl/lib/Sys/Guestfs/Lib.pm:788
 #, perl-brace-format
 msgid "reged command failed: {errormsg}"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:765
+#: perl/lib/Sys/Guestfs/Lib.pm:797
 #, perl-brace-format
 msgid "no output from reged command: {errormsg}"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:935
+#: perl/lib/Sys/Guestfs/Lib.pm:969
 #, perl-brace-format
 msgid "unknown filesystem label {label}\n"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:945
+#: perl/lib/Sys/Guestfs/Lib.pm:979
 #, perl-brace-format
 msgid "unknown filesystem UUID {uuid}\n"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:968
+#: perl/lib/Sys/Guestfs/Lib.pm:1002
 #, perl-brace-format
 msgid "unknown filesystem {fs}\n"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1187
+#: perl/lib/Sys/Guestfs/Lib.pm:1221
 #, perl-brace-format
 msgid "{path} doesn't match augeas pattern"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1237
+#: perl/lib/Sys/Guestfs/Lib.pm:1271
 #, perl-brace-format
 msgid "{filename}: could not read initrd format"
 msgstr ""
