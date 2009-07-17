@@ -139,6 +139,7 @@ perl/Guestfs.c
 perl/Guestfs.xs
 perl/lib/Sys/Guestfs.pm
 perl/Makefile-pl
+perl/Makefile-pl.old
 perl/Makefile.PL
 perl/pm_to_blib
 pod2htm?.tmp
