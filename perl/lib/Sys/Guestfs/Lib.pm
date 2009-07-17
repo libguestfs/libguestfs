@@ -475,8 +475,13 @@ Filesystem content, if we could determine it.  One of: "linux-grub",
 =item osdistro
 
 (For Linux root partitions only).
-Operating system distribution.  One of: "fedora", "redhat",
-"debian".
+Operating system distribution.  One of: "fedora", "rhel", "centos",
+"scientific", "debian".
+
+=item osdistrofamily
+
+(For Linux root partitions only)
+Operating system distribution family. One of: "redhat", "debian".
 
 =item osversion
 
@@ -609,20 +614,47 @@ sub _check_linux_root
 
     # Look into /etc to see if we recognise the operating system.
     if ($g->is_file ("/etc/redhat-release")) {
+        $r->{osdistrofamily} = "redhat";
+
 	$_ = $g->cat ("/etc/redhat-release");
 	if (/Fedora release (\d+\.\d+)/) {
 	    $r->{osdistro} = "fedora";
 	    $r->{osversion} = "$1"
-	} elsif (/(Red Hat Enterprise Linux|CentOS|Scientific Linux).*release (\d+).*Update (\d+)/) {
-	    $r->{osdistro} = "redhat";
-	    $r->{osversion} = "$2.$3";
-        } elsif (/(Red Hat Enterprise Linux|CentOS|Scientific Linux).*release (\d+(?:\.(\d+))?)/) {
-	    $r->{osdistro} = "redhat";
-	    $r->{osversion} = "$2";
-	} else {
-	    $r->{osdistro} = "redhat";
+	}
+        
+        elsif (/(Red Hat Enterprise Linux|CentOS|Scientific Linux)/) {
+            my $distro = $1;
+
+            if($distro eq "Red Hat Enterprise Linux") {
+                $r->{osdistro} = "rhel";
+            }
+
+            elsif($distro eq "CentOS") {
+                $r->{osdistro} = "centos";
+            }
+
+            elsif($distro eq "Scientific Linux") {
+                $r->{osdistro} = "scientific";
+            }
+
+            # Shouldn't be possible
+            else { die };
+
+            if (/$distro.*release (\d+).*Update (\d+)/) {
+                $r->{osversion} = "$1.$2";
+            }
+
+            elsif (/$distro.*release (\d+(?:\.(?:\d+))?)/) {
+                $r->{osversion} = "$1";
+            }
+        }
+
+        else {
+	    $r->{osdistro} = "redhat-based";
 	}
     } elsif ($g->is_file ("/etc/debian_version")) {
+        $r->{osdistrofamily} = "debian";
+
 	$_ = $g->cat ("/etc/debian_version");
 	if (/(\d+\.\d+)/) {
 	    $r->{osdistro} = "debian";
@@ -883,6 +915,8 @@ sub _get_os_version
 
     $r->{os} = $r->{root}->{fsos} if exists $r->{root}->{fsos};
     $r->{distro} = $r->{root}->{osdistro} if exists $r->{root}->{osdistro};
+    $r->{distrofamily} = $r->{root}->{osdistrofamily}
+        if exists $r->{root}->{osdistrofamily};
     $r->{version} = $r->{root}->{osversion} if exists $r->{root}->{osversion};
 }
 
@@ -1063,8 +1097,8 @@ sub _check_for_applications
 
     my $osn = $os->{os};
     if ($osn eq "linux") {
-	my $distro = $os->{distro};
-	if (defined $distro && ($distro eq "redhat" || $distro eq "fedora")) {
+	my $family = $os->{distrofamily};
+	if (defined $family && $family eq "redhat") {
 	    my @lines = $g->command_lines
 		(["rpm",
 		  "-q", "-a",

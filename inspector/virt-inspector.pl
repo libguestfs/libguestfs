@@ -353,6 +353,7 @@ sub output_text_os
     print $os->{os}, " " if exists $os->{os};
     print $os->{distro}, " " if exists $os->{distro};
     print $os->{version}, " " if exists $os->{version};
+    print "(".$os->{distrofamily}." family)", " " if exists $os->{distrofamily};
     print "on ", $os->{root_device}, ":\n";
 
     print __"  Mountpoints:\n";
@@ -443,6 +444,7 @@ sub output_xml_os
 
     foreach ( [ "name" => "os" ],
               [ "distro" => "distro" ],
+              [ "distrofamily" => "distrofamily" ],
               [ "version" => "version" ],
               [ "root" => "root_device" ] ) {
         $xml->dataElement($_->[0], $os->{$_->[1]}) if exists $os->{$_->[1]};
@@ -623,7 +625,8 @@ sub output_query_rhel
 {
     my $rhel = "no";
     foreach my $os (keys %$oses) {
-	$rhel="yes" if $oses->{$os}->{os} eq "linux" && $oses->{$os}->{distro} eq "redhat";
+	$rhel="yes" if ($oses->{$os}->{os} eq "linux" &&
+                        $oses->{$os}->{distro} eq "rhel");
     }
     print "rhel=$rhel\n";
 }
