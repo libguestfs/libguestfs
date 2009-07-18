@@ -36,6 +36,8 @@ fat.ko
 udf.ko
 crc_itu_t.ko
 nls_utf8.ko
+nls_cp437.ko
+nls_base.ko
 
 dm-*.ko
 
