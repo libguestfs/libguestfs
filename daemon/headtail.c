@@ -32,20 +32,18 @@ headtail (const char *prog, const char *flag, const char *n, char *path)
 {
   char *buf;
   char *out, *err;
-  int r, len;
+  int r;
   char **lines;
 
   NEED_ROOT (NULL);
   ABS_PATH (path, NULL);
 
   /* Make the path relative to /sysroot. */
-  len = strlen (path) + 9;
-  buf = malloc (len);
+  buf = sysroot_path (path);
   if (!buf) {
     reply_with_perror ("malloc");
     return NULL;
   }
-  snprintf (buf, len, "/sysroot%s", path);
 
   r = command (&out, &err, prog, flag, n, buf, NULL);
   free (buf);

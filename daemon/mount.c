@@ -44,7 +44,7 @@ int
 do_mount_vfs (char *options, char *vfstype,
 	      char *device, char *mountpoint)
 {
-  int len, r, is_root;
+  int r, is_root;
   char *mp;
   char *error;
 
@@ -57,15 +57,11 @@ do_mount_vfs (char *options, char *vfstype,
     return -1;
   }
 
-  len = strlen (mountpoint) + 9;
-
-  mp = malloc (len);
+  mp = sysroot_path (mountpoint);
   if (!mp) {
     reply_with_perror ("malloc");
     return -1;
   }
-
-  snprintf (mp, len, "/sysroot%s", mountpoint);
 
   if (vfstype)
     r = command (NULL, &error,
@@ -111,7 +107,7 @@ do_mount_options (char *options, char *device,
 int
 do_umount (char *pathordevice)
 {
-  int len, freeit = 0, r;
+  int freeit = 0, r;
   char *buf;
   char *err;
 
@@ -119,14 +115,12 @@ do_umount (char *pathordevice)
     buf = pathordevice;
     IS_DEVICE (buf, -1);
   } else {
-    len = strlen (pathordevice) + 9;
-    freeit = 1;
-    buf = malloc (len);
+    buf = sysroot_path (pathordevice);
     if (buf == NULL) {
       reply_with_perror ("malloc");
       return -1;
     }
-    snprintf (buf, len, "/sysroot%s", pathordevice);
+    freeit = 1;
   }
 
   r = command (NULL, &err, "umount", buf, NULL);
@@ -153,6 +147,7 @@ mounts_or_mountpoints (int mp)
   int size = 0, alloc = 0;
   char *p, *pend, *p2;
   int len;
+  char matching[5 + sysroot_len];
 
   r = command (&out, &err, "mount", NULL);
   if (r == -1) {
@@ -164,6 +159,11 @@ mounts_or_mountpoints (int mp)
 
   free (err);
 
+  /* Lines have the format:
+   *   /dev/foo on /mountpoint type ...
+   */
+  snprintf (matching, 5 + sysroot_len, " on %s", sysroot);
+
   p = out;
   while (p) {
     pend = strchr (p, '\n');
@@ -172,10 +172,7 @@ mounts_or_mountpoints (int mp)
       pend++;
     }
 
-    /* Lines have the format:
-     *   /dev/foo on /mountpoint type ...
-     */
-    p2 = strstr (p, " on /sysroot");
+    p2 = strstr (p, matching);
     if (p2 != NULL) {
       *p2 = '\0';
       if (add_string (&ret, &size, &alloc, p) == -1) {
@@ -183,7 +180,7 @@ mounts_or_mountpoints (int mp)
 	return NULL;
       }
       if (mp) {
-	p2 += 12;		/* skip " on /sysroot" */
+	p2 += 4 + sysroot_len;	/* skip " on /sysroot" */
 	len = strcspn (p2, " ");
 
 	if (len == 0)		/* .. just /sysroot, so we turn it into "/" */
@@ -249,6 +246,7 @@ do_umount_all (void)
   char **mounts = NULL;
   int size = 0, alloc = 0;
   char *p, *p2, *p3, *pend;
+  char matching[5 + sysroot_len];
 
   r = command (&out, &err, "mount", NULL);
   if (r == -1) {
@@ -260,6 +258,11 @@ do_umount_all (void)
 
   free (err);
 
+  /* Lines have the format:
+   *   /dev/foo on /mountpoint type ...
+   */
+  snprintf (matching, 5 + sysroot_len, " on %s", sysroot);
+
   p = out;
   while (p) {
     pend = strchr (p, '\n');
@@ -268,10 +271,7 @@ do_umount_all (void)
       pend++;
     }
 
-    /* Lines have the format:
-     *   /dev/foo on /mountpoint type ...
-     */
-    p2 = strstr (p, " on /sysroot");
+    p2 = strstr (p, matching);
     if (p2 != NULL) {
       p2 += 4;
       p3 = p2 + strcspn (p2, " ");
@@ -315,7 +315,7 @@ do_umount_all (void)
 int
 do_mount_loop (char *file, char *mountpoint)
 {
-  int len, r;
+  int r;
   char *buf, *mp;
   char *error;
 
@@ -323,22 +323,18 @@ do_mount_loop (char *file, char *mountpoint)
   ABS_PATH (file, -1);
 
   /* We have to prefix /sysroot on both the filename and the mountpoint. */
-  len = strlen (mountpoint) + 9;
-  mp = malloc (len);
+  mp = sysroot_path (mountpoint);
   if (!mp) {
     reply_with_perror ("malloc");
     return -1;
   }
-  snprintf (mp, len, "/sysroot%s", mountpoint);
 
-  len = strlen (file) + 9;
-  buf = malloc (len);
+  buf = sysroot_path (file);
   if (!file) {
     reply_with_perror ("malloc");
     free (mp);
     return -1;
   }
-  snprintf (buf, len, "/sysroot%s", file);
 
   r = command (NULL, &error, "mount", "-o", "loop", buf, mp, NULL);
   free (mp);

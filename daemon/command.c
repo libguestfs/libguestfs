@@ -31,6 +31,7 @@ do_command (char **argv)
 {
   char *out, *err;
   int r;
+  char *sysroot_proc, *sysroot_dev, *sysroot_dev_pts, *sysroot_sys;
   int proc_ok, dev_ok, dev_pts_ok, sys_ok;
 
   /* We need a root filesystem mounted to do this. */
@@ -53,23 +54,33 @@ do_command (char **argv)
    * We deliberately allow these commands to fail silently, BUT
    * if a mount fails, don't unmount the corresponding mount.
    */
-  r = command (NULL, NULL, "mount", "--bind", "/dev", "/sysroot/dev", NULL);
+  sysroot_dev = sysroot_path ("/dev");
+  sysroot_dev_pts = sysroot_path ("/dev/pts");
+  sysroot_proc = sysroot_path ("/proc");
+  sysroot_sys = sysroot_path ("/sys");
+
+  r = command (NULL, NULL, "mount", "--bind", "/dev", sysroot_dev, NULL);
   dev_ok = r != -1;
-  r = command (NULL, NULL, "mount", "--bind", "/dev/pts", "/sysroot/dev/pts", NULL);
+  r = command (NULL, NULL, "mount", "--bind", "/dev/pts", sysroot_dev_pts, NULL);
   dev_pts_ok = r != -1;
-  r = command (NULL, NULL, "mount", "--bind", "/proc", "/sysroot/proc", NULL);
+  r = command (NULL, NULL, "mount", "--bind", "/proc", sysroot_proc, NULL);
   proc_ok = r != -1;
-  r = command (NULL, NULL, "mount", "--bind", "/sys", "/sysroot/sys", NULL);
+  r = command (NULL, NULL, "mount", "--bind", "/sys", sysroot_sys, NULL);
   sys_ok = r != -1;
 
   CHROOT_IN;
   r = commandv (&out, &err, argv);
   CHROOT_OUT;
 
-  if (sys_ok) command (NULL, NULL, "umount", "/sysroot/sys", NULL);
-  if (proc_ok) command (NULL, NULL, "umount", "/sysroot/proc", NULL);
-  if (dev_pts_ok) command (NULL, NULL, "umount", "/sysroot/dev/pts", NULL);
-  if (dev_ok) command (NULL, NULL, "umount", "/sysroot/dev", NULL);
+  if (sys_ok) command (NULL, NULL, "umount", sysroot_sys, NULL);
+  if (proc_ok) command (NULL, NULL, "umount", sysroot_proc, NULL);
+  if (dev_pts_ok) command (NULL, NULL, "umount", sysroot_dev_pts, NULL);
+  if (dev_ok) command (NULL, NULL, "umount", sysroot_dev, NULL);
+
+  free (sysroot_dev);
+  free (sysroot_dev_pts);
+  free (sysroot_proc);
+  free (sysroot_sys);
 
   if (r == -1) {
     reply_with_error ("%s", err);

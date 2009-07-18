@@ -32,19 +32,17 @@ wc (char *flag, char *path)
 {
   char *buf;
   char *out, *err;
-  int r, len;
+  int r;
 
   NEED_ROOT (-1);
   ABS_PATH (path, -1);
 
   /* Make the path relative to /sysroot. */
-  len = strlen (path) + 9;
-  buf = malloc (len);
+  buf = sysroot_path (path);
   if (!buf) {
     reply_with_perror ("malloc");
     return -1;
   }
-  snprintf (buf, len, "/sysroot%s", path);
 
   r = command (&out, &err, "wc", flag, buf, NULL);
   free (buf);

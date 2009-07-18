@@ -47,6 +47,10 @@ static void usage (void);
 
 int verbose = 0;
 
+/* Location to mount root device. */
+const char *sysroot = "/sysroot"; /* No trailing slash. */
+int sysroot_len = 8;
+
 int
 main (int argc, char *argv[])
 {
@@ -219,6 +223,25 @@ main (int argc, char *argv[])
   main_loop (sock);
 
   exit (0);
+}
+
+/* Turn "/path" into "/sysroot/path".
+ *
+ * Caller must check for NULL and call reply_with_perror ("malloc")
+ * if it is.  Caller must also free the string.
+ */
+char *
+sysroot_path (const char *path)
+{
+  char *r;
+  int len = strlen (path) + sysroot_len + 1;
+
+  r = malloc (len);
+  if (r == NULL)
+    return NULL;
+
+  snprintf (r, len, "%s%s", sysroot, path);
+  return r;
 }
 
 int

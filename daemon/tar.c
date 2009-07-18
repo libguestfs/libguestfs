@@ -49,7 +49,7 @@ do_tar_in (char *dir)
   }
 
   /* "tar -C /sysroot%s -xf -" but we have to quote the dir. */
-  len = 2 * strlen (dir) + 32;
+  len = 2 * strlen (dir) + sysroot_len + 32;
   cmd = malloc (len);
   if (!cmd) {
     err = errno;
@@ -58,7 +58,8 @@ do_tar_in (char *dir)
     reply_with_perror ("malloc");
     return -1;
   }
-  strcpy (cmd, "tar -C /sysroot");
+  strcpy (cmd, "tar -C ");
+  strcat (cmd, sysroot);
   shell_quote (cmd+15, len-15, dir);
   strcat (cmd, " -xf -");
 
@@ -112,13 +113,14 @@ do_tar_out (char *dir)
   ABS_PATH (dir, -1);
 
   /* "tar -C /sysroot%s -cf - ." but we have to quote the dir. */
-  len = 2 * strlen (dir) + 32;
+  len = 2 * strlen (dir) + sysroot_len + 32;
   cmd = malloc (len);
   if (!cmd) {
     reply_with_perror ("malloc");
     return -1;
   }
-  strcpy (cmd, "tar -C /sysroot");
+  strcpy (cmd, "tar -C ");
+  strcat (cmd, sysroot);
   shell_quote (cmd+15, len-15, dir);
   strcat (cmd, " -cf - .");
 
@@ -175,7 +177,7 @@ do_tgz_in (char *dir)
   }
 
   /* "tar -C /sysroot%s -zxf -" but we have to quote the dir. */
-  len = 2 * strlen (dir) + 32;
+  len = 2 * strlen (dir) + sysroot_len + 32;
   cmd = malloc (len);
   if (!cmd) {
     err = errno;
@@ -184,7 +186,8 @@ do_tgz_in (char *dir)
     reply_with_perror ("malloc");
     return -1;
   }
-  strcpy (cmd, "tar -C /sysroot");
+  strcpy (cmd, "tar -C ");
+  strcat (cmd, sysroot);
   shell_quote (cmd+15, len-15, dir);
   strcat (cmd, " -zxf -");
 
@@ -238,13 +241,14 @@ do_tgz_out (char *dir)
   ABS_PATH (dir, -1);
 
   /* "tar -C /sysroot%s -zcf - ." but we have to quote the dir. */
-  len = 2 * strlen (dir) + 32;
+  len = 2 * strlen (dir) + sysroot_len + 32;
   cmd = malloc (len);
   if (!cmd) {
     reply_with_perror ("malloc");
     return -1;
   }
-  strcpy (cmd, "tar -C /sysroot");
+  strcpy (cmd, "tar -C ");
+  strcat (cmd, sysroot);
   shell_quote (cmd+15, len-15, dir);
   strcat (cmd, " -zcf - .");
 

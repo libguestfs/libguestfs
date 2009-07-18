@@ -29,6 +29,13 @@
 #include "../src/guestfs_protocol.h"
 
 /*-- in guestfsd.c --*/
+extern int verbose;
+
+extern const char *sysroot;
+extern int sysroot_len;
+
+extern char *sysroot_path (const char *path);
+
 extern int xwrite (int sock, const void *buf, size_t len);
 extern int xread (int sock, void *buf, size_t len);
 
@@ -52,8 +59,6 @@ extern int shell_quote (char *out, int len, const char *in);
 extern int device_name_translation (char *device, const char *func);
 
 extern void udev_settle (void);
-
-extern int verbose;
 
 /*-- in names.c (auto-generated) --*/
 extern const char *function_names[];
@@ -172,7 +177,7 @@ extern void reply (xdrproc_t xdrp, char *ret);
 #define CHROOT_IN				\
   do {						\
     int __old_errno = errno;			\
-    if (chroot ("/sysroot") == -1)		\
+    if (chroot (sysroot) == -1)			\
       perror ("CHROOT_IN: sysroot");		\
     errno = __old_errno;			\
   } while (0)

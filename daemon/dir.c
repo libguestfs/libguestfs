@@ -56,7 +56,7 @@ do_rmdir (char *path)
 int
 do_rm_rf (char *path)
 {
-  int r, len;
+  int r;
   char *buf, *err;
 
   NEED_ROOT (-1);
@@ -67,14 +67,11 @@ do_rm_rf (char *path)
     return -1;
   }
 
-  len = strlen (path) + 9;
-  buf = malloc (len);
+  buf = sysroot_path (path);
   if (buf == NULL) {
     reply_with_perror ("malloc");
     return -1;
   }
-
-  snprintf (buf, len, "/sysroot%s", path);
 
   r = command (NULL, &err, "rm", "-rf", buf, NULL);
   free (buf);

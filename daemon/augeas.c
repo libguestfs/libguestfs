@@ -53,7 +53,6 @@ do_aug_init (char *root, int flags)
 {
 #ifdef HAVE_AUGEAS
   char *buf;
-  int len;
 
   NEED_ROOT (-1);
   ABS_PATH (root, -1);
@@ -63,13 +62,11 @@ do_aug_init (char *root, int flags)
     aug = NULL;
   }
 
-  len = strlen (root) + 9;
-  buf = malloc (len);
+  buf = sysroot_path (root);
   if (!buf) {
     reply_with_perror ("malloc");
     return -1;
   }
-  snprintf (buf, len, "/sysroot%s", root);
 
   aug = aug_init (buf, NULL, flags);
   free (buf);

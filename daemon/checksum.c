@@ -33,7 +33,8 @@ do_checksum (char *csumtype, char *path)
   const char *program;
   char *buf;
   char *out, *err;
-  int r, len;
+  int r;
+  int len;
 
   NEED_ROOT (NULL);
   ABS_PATH (path, NULL);
@@ -58,13 +59,11 @@ do_checksum (char *csumtype, char *path)
   }
 
   /* Make the path relative to /sysroot. */
-  len = strlen (path) + 9;
-  buf = malloc (len);
+  buf = sysroot_path (path);
   if (!buf) {
     reply_with_perror ("malloc");
     return NULL;
   }
-  snprintf (buf, len, "/sysroot%s", path);
 
   r = command (&out, &err, program, buf, NULL);
   free (buf);

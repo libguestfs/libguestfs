@@ -77,7 +77,7 @@ do_ls (char *path)
 char *
 do_ll (char *path)
 {
-  int r, len;
+  int r;
   char *out, *err;
   char *spath;
 
@@ -90,13 +90,11 @@ do_ll (char *path)
    * interactive sessions.  For the same reason, you can also "escape"
    * the sysroot (eg. 'll /..').
    */
-  len = strlen (path) + 9;
-  spath = malloc (len);
+  spath = sysroot_path (path);
   if (!spath) {
     reply_with_perror ("malloc");
     return NULL;
   }
-  snprintf (spath, len, "/sysroot%s", path);
 
   r = command (&out, &err, "ls", "-la", spath, NULL);
   free (spath);

@@ -28,7 +28,6 @@
 char **
 do_strings_e (char *encoding, char *path)
 {
-  int len;
   char *buf;
   int r;
   char *out, *err;
@@ -37,14 +36,11 @@ do_strings_e (char *encoding, char *path)
   NEED_ROOT (NULL);
   ABS_PATH (path, NULL);
 
-  len = strlen (path) + 9;
-  buf = malloc (len);
+  buf = sysroot_path (path);
   if (!buf) {
     reply_with_perror ("malloc");
     return NULL;
   }
-
-  snprintf (buf, len, "/sysroot%s", path);
 
   r = command (&out, &err, "strings", "-e", encoding, buf, NULL);
   free (buf);

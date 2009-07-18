@@ -328,8 +328,9 @@ char *
 do_file (char *path)
 {
   char *out, *err;
-  int r, len, freeit = 0;
+  int r, freeit = 0;
   char *buf;
+  int len;
 
   NEED_ROOT_OR_IS_DEVICE (path, NULL);
   ABS_PATH (path, NULL);
@@ -337,13 +338,11 @@ do_file (char *path)
   if (strncmp (path, "/dev/", 5) == 0)
     buf = (char *) path;
   else {
-    len = strlen (path) + 9;
-    buf = malloc (len);
+    buf = sysroot_path (path);
     if (!buf) {
       reply_with_perror ("malloc");
       return NULL;
     }
-    snprintf (buf, len, "/sysroot%s", path);
     freeit = 1;
   }
 
@@ -389,7 +388,7 @@ do_zfile (char *method, char *path)
   NEED_ROOT (NULL);
   ABS_PATH (path, NULL);
 
-  len = 2 * strlen (path) + 64;
+  len = 2 * strlen (path) + sysroot_len + 64;
   cmd = malloc (len);
   if (!cmd) {
     reply_with_perror ("malloc");
@@ -406,7 +405,8 @@ do_zfile (char *method, char *path)
     return NULL;
   }
 
-  strcat (cmd, " /sysroot");
+  strcat (cmd, " ");
+  strcat (cmd, sysroot);
   shell_quote (cmd + strlen (cmd), len - strlen (cmd), path);
   strcat (cmd, " | file -bsL -");
 

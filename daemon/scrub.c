@@ -51,7 +51,6 @@ int
 do_scrub_file (char *file)
 {
   char *buf;
-  int len;
   char *err;
   int r;
 
@@ -59,13 +58,11 @@ do_scrub_file (char *file)
   ABS_PATH (file, -1);
 
   /* Make the path relative to /sysroot. */
-  len = strlen (file) + 9;
-  buf = malloc (len);
+  buf = sysroot_path (file);
   if (!buf) {
     reply_with_perror ("malloc");
     return -1;
   }
-  snprintf (buf, len, "/sysroot%s", file);
 
   r = command (NULL, &err, "scrub", "-r", buf, NULL);
   free (buf);
@@ -84,7 +81,6 @@ int
 do_scrub_freespace (char *dir)
 {
   char *buf;
-  int len;
   char *err;
   int r;
 
@@ -92,13 +88,11 @@ do_scrub_freespace (char *dir)
   ABS_PATH (dir, -1);
 
   /* Make the path relative to /sysroot. */
-  len = strlen (dir) + 9;
-  buf = malloc (len);
+  buf = sysroot_path (dir);
   if (!buf) {
     reply_with_perror ("malloc");
     return -1;
   }
-  snprintf (buf, len, "/sysroot%s", dir);
 
   r = command (NULL, &err, "scrub", "-X", buf, NULL);
   free (buf);

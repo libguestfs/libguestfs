@@ -31,7 +31,6 @@ int
 do_equal (char *file1, char *file2)
 {
   char *file1buf, *file2buf;
-  int file1len, file2len;
   char *err;
   int r;
 
@@ -39,23 +38,18 @@ do_equal (char *file1, char *file2)
   ABS_PATH (file1, -1);
   ABS_PATH (file2, -1);
 
-  file1len = strlen (file1) + 32;
-  file1buf = malloc (file1len);
+  file1buf = sysroot_path (file1);
   if (file1buf == NULL) {
     reply_with_perror ("malloc");
     return -1;
   }
 
-  file2len = strlen (file2) + 32;
-  file2buf = malloc (file2len);
+  file2buf = sysroot_path (file2);
   if (file2buf == NULL) {
     reply_with_perror ("malloc");
     free (file1buf);
     return -1;
   }
-
-  snprintf (file1buf, file1len, "/sysroot%s", file1);
-  snprintf (file2buf, file2len, "/sysroot%s", file2);
 
   r = commandr (NULL, &err, "cmp", "-s", file1buf, file2buf, NULL);
 

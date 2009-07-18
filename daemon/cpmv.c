@@ -49,7 +49,6 @@ static int
 cpmv_cmd (const char *cmd, const char *flags, const char *src, const char *dest)
 {
   char *srcbuf, *destbuf;
-  int srclen, destlen;
   char *err;
   int r;
 
@@ -57,23 +56,18 @@ cpmv_cmd (const char *cmd, const char *flags, const char *src, const char *dest)
   ABS_PATH (src, -1);
   ABS_PATH (dest, -1);
 
-  srclen = strlen (src) + 32;
-  srcbuf = malloc (srclen);
+  srcbuf = sysroot_path (src);
   if (srcbuf == NULL) {
     reply_with_perror ("malloc");
     return -1;
   }
 
-  destlen = strlen (dest) + 32;
-  destbuf = malloc (destlen);
+  destbuf = sysroot_path (dest);
   if (destbuf == NULL) {
     reply_with_perror ("malloc");
     free (srcbuf);
     return -1;
   }
-
-  snprintf (srcbuf, srclen, "/sysroot%s", src);
-  snprintf (destbuf, destlen, "/sysroot%s", dest);
 
   if (flags)
     r = command (NULL, &err, cmd, flags, srcbuf, destbuf, NULL);

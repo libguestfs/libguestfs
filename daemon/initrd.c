@@ -41,14 +41,15 @@ do_initrd_list (char *path)
   ABS_PATH (path, NULL);
 
   /* "zcat /sysroot/<path> | cpio --quiet -it", but path must be quoted. */
-  len = 64 + 2 * strlen (path);
+  len = 64 + sysroot_len + 2 * strlen (path);
   cmd = malloc (len);
   if (!cmd) {
     reply_with_perror ("malloc");
     return NULL;
   }
 
-  strcpy (cmd, "zcat /sysroot");
+  strcpy (cmd, "zcat ");
+  strcat (cmd, sysroot);
   shell_quote (cmd+13, len-13, path);
   strcat (cmd, " | cpio --quiet -it");
 

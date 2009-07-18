@@ -56,21 +56,27 @@ do_find (char *dir)
   FILE *fp;
   char **res = NULL;
   int size = 0, alloc = 0;
-  char sysrootdir[PATH_MAX];
+  char *sysrootdir;
   char str[PATH_MAX];
 
   NEED_ROOT (NULL);
   ABS_PATH (dir, NULL);
 
-  snprintf (sysrootdir, sizeof sysrootdir, "/sysroot%s", dir);
+  sysrootdir = sysroot_path (dir);
+  if (!sysrootdir) {
+    reply_with_perror ("malloc");
+    return NULL;
+  }
 
   r = stat (sysrootdir, &statbuf);
   if (r == -1) {
     reply_with_perror ("%s", dir);
+    free (sysrootdir);
     return NULL;
   }
   if (!S_ISDIR (statbuf.st_mode)) {
     reply_with_error ("%s: not a directory", dir);
+    free (sysrootdir);
     return NULL;
   }
 
@@ -81,11 +87,13 @@ do_find (char *dir)
   cmd = malloc (len);
   if (!cmd) {
     reply_with_perror ("malloc");
+    free (sysrootdir);
     return NULL;
   }
 
   strcpy (cmd, "find ");
   shell_quote (cmd+5, len-5, sysrootdir);
+  free (sysrootdir);
   strcat (cmd, " -print0");
 
   if (verbose)
