@@ -353,7 +353,6 @@ sub output_text_os
     print $os->{os}, " " if exists $os->{os};
     print $os->{distro}, " " if exists $os->{distro};
     print $os->{version}, " " if exists $os->{version};
-    print "(".$os->{distrofamily}." family)", " " if exists $os->{distrofamily};
     print "on ", $os->{root_device}, ":\n";
 
     print __"  Mountpoints:\n";
@@ -444,8 +443,9 @@ sub output_xml_os
 
     foreach ( [ "name" => "os" ],
               [ "distro" => "distro" ],
-              [ "distrofamily" => "distrofamily" ],
               [ "version" => "version" ],
+              [ "package_format" => "package_format" ],
+              [ "package_management" => "package_management" ],
               [ "root" => "root_device" ] ) {
         $xml->dataElement($_->[0], $os->{$_->[1]}) if exists $os->{$_->[1]};
     }

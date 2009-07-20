@@ -478,10 +478,16 @@ Filesystem content, if we could determine it.  One of: "linux-grub",
 Operating system distribution.  One of: "fedora", "rhel", "centos",
 "scientific", "debian".
 
-=item osdistrofamily
+=item package_format
 
 (For Linux root partitions only)
-Operating system distribution family. One of: "redhat", "debian".
+The package format used by the guest distribution. One of: "rpm", "dpkg".
+
+=item package_management
+
+(For Linux root partitions only)
+The package management tool used by the guest distribution. One of: "rhn",
+"yum", "apt".
 
 =item osversion
 
@@ -614,12 +620,13 @@ sub _check_linux_root
 
     # Look into /etc to see if we recognise the operating system.
     if ($g->is_file ("/etc/redhat-release")) {
-        $r->{osdistrofamily} = "redhat";
+        $r->{package_format} = "rpm";
 
 	$_ = $g->cat ("/etc/redhat-release");
 	if (/Fedora release (\d+\.\d+)/) {
 	    $r->{osdistro} = "fedora";
-	    $r->{osversion} = "$1"
+	    $r->{osversion} = "$1";
+	    $r->{package_management} = "yum";
 	}
         
         elsif (/(Red Hat Enterprise Linux|CentOS|Scientific Linux)/) {
@@ -631,10 +638,12 @@ sub _check_linux_root
 
             elsif($distro eq "CentOS") {
                 $r->{osdistro} = "centos";
+                $r->{package_management} = "yum";
             }
 
             elsif($distro eq "Scientific Linux") {
                 $r->{osdistro} = "scientific";
+                $r->{package_management} = "yum";
             }
 
             # Shouldn't be possible
@@ -647,13 +656,23 @@ sub _check_linux_root
             elsif (/$distro.*release (\d+(?:\.(?:\d+))?)/) {
                 $r->{osversion} = "$1";
             }
+
+            # Package management in RHEL changed in version 5
+            if ($r->{osdistro} eq "rhel") {
+                if ($r->{osversion} >= 5) {
+                    $r->{package_management} = "yum";
+                } else {
+                    $r->{package_management} = "rhn";
+                }
+            }
         }
 
         else {
 	    $r->{osdistro} = "redhat-based";
 	}
     } elsif ($g->is_file ("/etc/debian_version")) {
-        $r->{osdistrofamily} = "debian";
+        $r->{package_format} = "dpkg";
+        $r->{package_management} = "apt";
 
 	$_ = $g->cat ("/etc/debian_version");
 	if (/(\d+\.\d+)/) {
@@ -915,9 +934,11 @@ sub _get_os_version
 
     $r->{os} = $r->{root}->{fsos} if exists $r->{root}->{fsos};
     $r->{distro} = $r->{root}->{osdistro} if exists $r->{root}->{osdistro};
-    $r->{distrofamily} = $r->{root}->{osdistrofamily}
-        if exists $r->{root}->{osdistrofamily};
     $r->{version} = $r->{root}->{osversion} if exists $r->{root}->{osversion};
+    $r->{package_format} = $r->{root}->{package_format}
+        if exists $r->{root}->{package_format};
+    $r->{package_management} = $r->{root}->{package_management}
+        if exists $r->{root}->{package_management};
 }
 
 sub _assign_mount_points
@@ -1097,8 +1118,8 @@ sub _check_for_applications
 
     my $osn = $os->{os};
     if ($osn eq "linux") {
-	my $family = $os->{distrofamily};
-	if (defined $family && $family eq "redhat") {
+	my $package_format = $os->{package_format};
+	if (defined $package_format && $package_format eq "rpm") {
 	    my @lines = $g->command_lines
 		(["rpm",
 		  "-q", "-a",
