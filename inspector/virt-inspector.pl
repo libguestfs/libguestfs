@@ -207,10 +207,15 @@ pod2usage (__"virt-inspector: no image or VM names given") if @ARGV == 0;
 my $rw = 0;
 $rw = 1 if $output eq "fish";
 my $g;
+my @images;
 if ($uri) {
-    $g = open_guest (\@ARGV, rw => $rw, address => $uri);
+    my ($conn, $dom);
+    ($g, $conn, $dom, @images) =
+	open_guest (\@ARGV, rw => $rw, address => $uri);
 } else {
-    $g = open_guest (\@ARGV, rw => $rw);
+    my ($conn, $dom);
+    ($g, $conn, $dom, @images) =
+	open_guest (\@ARGV, rw => $rw);
 }
 
 $g->launch ();
@@ -302,7 +307,7 @@ if ($output eq "fish" || $output eq "ro-fish") {
 	print "--ro ";
     }
 
-    print "-a $_ " foreach @ARGV;
+    print "-a $_ " foreach @images;
 
     my $mounts = $oses->{$root_dev}->{mounts};
     # Have to mount / first.  Luckily '/' is early in the ASCII

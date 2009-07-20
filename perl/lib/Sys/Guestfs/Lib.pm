@@ -78,7 +78,7 @@ use vars qw(@EXPORT_OK @ISA);
 
  $g = open_guest ([$img1, $img2, ...], address => $uri, ...);
 
- ($g, $conn, $dom) = open_guest ($name);
+ ($g, $conn, $dom, @images) = open_guest ($name);
 
 This function opens a libguestfs handle for either the libvirt domain
 called C<$name>, or the disk image called C<$name>.  Any disk images
@@ -108,10 +108,10 @@ passed through to C<Sys::Virt-E<gt>new> unchanged.
 The implicit libvirt handle is closed after this function, I<unless>
 you call the function in C<wantarray> context, in which case the
 function returns a tuple of: the open libguestfs handle, the open
-libvirt handle, and the open libvirt domain handle.  (This is useful
-if you want to do other things like pulling the XML description of the
-guest).  Note that if this is a straight disk image, then C<$conn> and
-C<$dom> will be C<undef>.
+libvirt handle, and the open libvirt domain handle, and a list of
+images.  (This is useful if you want to do other things like pulling
+the XML description of the guest).  Note that if this is a straight
+disk image, then C<$conn> and C<$dom> will be C<undef>.
 
 If the C<Sys::Virt> module is not available, then libvirt is bypassed,
 and this function can only open disk images.
@@ -204,7 +204,7 @@ sub open_guest
 	}
     }
 
-    return wantarray ? ($g, $conn, $dom) : $g
+    return wantarray ? ($g, $conn, $dom, @images) : $g
 }
 
 =head2 get_partitions
