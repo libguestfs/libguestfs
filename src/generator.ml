@@ -25,9 +25,8 @@
  * daemon/<somefile>.c to write the implementation.
  *
  * After editing this file, run it (./src/generator.ml) to regenerate all the
- * output files. Note that if you are using a separate build directory you must
- * run generator.ml from your top level build directory. You must also have run
- * configure before generator.ml will run.
+ * output files.  Note that if you are using a separate build directory you
+ * must run generator.ml from the _source_ directory.
  *
  * IMPORTANT: This script should NOT print any warnings.  If it prints
  * warnings, you should treat them as errors.
