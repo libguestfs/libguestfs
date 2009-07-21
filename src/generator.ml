@@ -2842,6 +2842,50 @@ All entries in the directory are returned, including C<.> and
 C<..>.  The entries are I<not> sorted, but returned in the same
 order as the underlying filesystem.
 
+Also this call returns basic file type information about each
+file.  The C<ftyp> field will contain one of the following characters:
+
+=over 4
+
+=item 'b'
+
+Block special
+
+=item 'c'
+
+Char special
+
+=item 'd'
+
+Directory
+
+=item 'f'
+
+FIFO (named pipe)
+
+=item 'l'
+
+Symbolic link
+
+=item 'r'
+
+Regular file
+
+=item 's'
+
+Socket
+
+=item 'u'
+
+Unknown file type
+
+=item '?'
+
+The L<readdir(3)> returned a C<d_type> field with an
+unexpected value
+
+=back
+
 This function is primarily intended for use by programs.  To
 get a simple list of names, use C<guestfs_ls>.  To get a printable
 directory for human consumption, use C<guestfs_ll>.");
