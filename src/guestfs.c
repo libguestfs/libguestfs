@@ -1038,11 +1038,6 @@ guestfs_launch (guestfs_h *g)
      */
     g->cmdline[0] = g->qemu;
 
-    /* Construct the -net channel parameter for qemu. */
-    snprintf (vmchannel, sizeof vmchannel,
-	      "channel,%d:unix:%s,server,nowait",
-	      VMCHANNEL_PORT, unixsock);
-
 #define LINUX_CMDLINE							\
     "panic=1 "         /* force kernel to panic if daemon exits */	\
     "console=ttyS0 "   /* serial console */				\
@@ -1071,10 +1066,38 @@ guestfs_launch (guestfs_h *g)
     add_cmdline (g, "-nographic");
     add_cmdline (g, "-serial");
     add_cmdline (g, "stdio");
-    add_cmdline (g, "-net");
-    add_cmdline (g, vmchannel);
-    add_cmdline (g, "-net");
-    add_cmdline (g, "user,vlan=0");
+
+#if 0
+    /* Doesn't work.  See:
+     * http://lists.gnu.org/archive/html/qemu-devel/2009-07/threads.html
+     * Subject "guestfwd option doesn't allow supplementary ,server,nowait"
+     */
+    if (qemu_supports (g, "guestfwd")) {
+      /* New-style -net user,guestfwd=... syntax for vmchannel.  See:
+       * http://git.savannah.gnu.org/cgit/qemu.git/commit/?id=c92ef6a22d3c71538fcc48fb61ad353f7ba03b62
+       */
+      snprintf (vmchannel, sizeof vmchannel,
+		"user,vlan=0,guestfwd=tcp:%s:%d-unix:%s,server,nowait",
+		VMCHANNEL_ADDR, VMCHANNEL_PORT, unixsock);
+
+      add_cmdline (g, "-net");
+      add_cmdline (g, vmchannel);
+    } else {
+#endif
+      /* Not guestfwd.  HOPEFULLY this qemu uses the older -net channel
+       * syntax, or if not then we'll get a quick failure.
+       */
+      snprintf (vmchannel, sizeof vmchannel,
+		"channel,%d:unix:%s,server,nowait",
+		VMCHANNEL_PORT, unixsock);
+
+      add_cmdline (g, "-net");
+      add_cmdline (g, vmchannel);
+      add_cmdline (g, "-net");
+      add_cmdline (g, "user,vlan=0");
+#if 0
+    }
+#endif
     add_cmdline (g, "-net");
     add_cmdline (g, "nic,model=virtio,vlan=0");
 
