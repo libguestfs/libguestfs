@@ -1043,9 +1043,16 @@ guestfs_launch (guestfs_h *g)
 	      "channel,%d:unix:%s,server,nowait",
 	      VMCHANNEL_PORT, unixsock);
 
+#define LINUX_CMDLINE							\
+    "panic=1 "         /* force kernel to panic if daemon exits */	\
+    "console=ttyS0 "   /* serial console */				\
+    "udevtimeout=300 " /* good for very slow systems (RHBZ#480319) */	\
+    "noapic "          /* workaround for RHBZ#502058 - ok if not SMP */ \
+    "acpi=off "        /* we don't need ACPI, turn it off */
+
     /* Linux kernel command line. */
     snprintf (append, sizeof append,
-	      "panic=1 console=ttyS0 guestfs=%s:%d%s%s%s",
+	      LINUX_CMDLINE "guestfs=%s:%d%s%s%s",
 	      VMCHANNEL_ADDR, VMCHANNEL_PORT,
 	      g->verbose ? " guestfs_verbose=1" : "",
 	      g->append ? " " : "", g->append ? g->append : "");
