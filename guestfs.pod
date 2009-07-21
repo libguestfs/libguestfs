@@ -203,6 +203,140 @@ directory is I<not> searched unless the path contains an empty element
 or C<.>.  For example C<LIBGUESTFS_PATH=:/usr/lib/guestfs> would
 search the current directory and then C</usr/lib/guestfs>.
 
+=head1 API OVERVIEW
+
+This section provides additional documentation for groups of API
+calls, which may not be obvious from reading about the individual
+calls below.
+
+=head2 LVM2
+
+Libguestfs provides access to a large part of the LVM2 API.  It won't
+make much sense unless you familiarize yourself with the concepts of
+physical volumes, volume groups and logical volumes.
+
+This author strongly recommends reading the LVM HOWTO, online at
+L<http://tldp.org/HOWTO/LVM-HOWTO/>.
+
+=head2 PARTITIONING
+
+To create MBR-style (ie. normal PC) partitions use one of the
+C<guestfs_sfdisk*> variants.  These calls use the external
+L<sfdisk(8)> command.
+
+The simplest call is:
+
+ char *lines[] = { ",", NULL };
+ guestfs_sfdiskM (g, "/dev/sda", lines);
+
+This will create a single partition on C</dev/sda> called
+C</dev/sda1> covering the whole disk.
+
+In general MBR partitions are both unnecessarily complicated and
+depend on archaic details, namely the Cylinder-Head-Sector (CHS)
+geometry of the disk.  C<guestfs_sfdiskM> allows you to specify sizes
+in megabytes instead of cylinders, which is a small win.
+C<guestfs_sfdiskM> will choose the nearest cylinder to approximate the
+requested size.  There's a lot of crazy stuff to do with IDE and
+virtio disks having different, incompatible CHS geometries, that you
+probably don't want to know about.  My advice: make a single partition
+to cover the whole disk, then use LVM on top.
+
+In future we aim to provide access to libparted.
+
+=head2 UPLOADING
+
+For small, single files, use C<guestfs_write_file>.  In some versions
+of libguestfs there was a bug which limited this call to text files
+(not containing ASCII NUL characters).
+
+To upload a single file, use C<guestfs_upload>.  This call has no
+limits on file content or size (even files larger than 4 GB).
+
+To upload multiple files, see C<guestfs_tar_in> and C<guestfs_tgz_in>.
+
+However the fastest way to upload I<large numbers of arbitrary files>
+is to turn them into a squashfs or CD ISO (see L<mksquashfs(8)> and
+L<mkisofs(8)>), then attach this using C<guestfs_add_drive_ro>.  If
+you add the drive in a predictable way (eg. adding it last after all
+other drives) then you can get the device name from
+C<guestfs_list_devices> and mount it directly using
+C<guestfs_mount_ro>.  Note that squashfs images are sometimes
+non-portable between kernel versions, and they don't support labels or
+UUIDs.  If you want to pre-build an image or you need to mount it
+using a label or UUID, use an ISO image instead.
+
+=head2 DOWNLOADING
+
+Use C<guestfs_cat> to download small, text only files.  This call
+is limited to files which are less than 2 MB and which cannot contain
+any ASCII NUL (C<\0>) characters.  However it has a very simple
+to use API.
+
+C<guestfs_read_file> can be used to read files which contain
+arbitrary 8 bit data, since it returns a (pointer, size) pair.
+However it is still limited to "small" files, less than 2 MB.
+
+C<guestfs_download> can be used to download any file, with no
+limits on content or size (even files larger than 4 GB).
+
+To download multiple files, see C<guestfs_tar_out> and
+C<guestfs_tgz_out>.
+
+=head2 RUNNING COMMANDS
+
+Although libguestfs is a primarily an API for manipulating files
+inside guest images, we also provide some limited facilities for
+running commands inside guests.
+
+There are many limitations to this:
+
+=over 4
+
+=item *
+
+The kernel version that the command runs under will be different
+from what it expects.
+
+=item *
+
+If the command needs to communicate with daemons, then most likely
+they won't be running.
+
+=item *
+
+The command will be running in limited memory.
+
+=item *
+
+Only supports Linux guests (not Windows, BSD, etc).
+
+=item *
+
+Architecture limitations (eg. won't work for a PPC guest on
+an X86 host).
+
+=back
+
+The two main API calls to run commands are C<guestfs_command> and
+C<guestfs_sh> (there are also variations).
+
+The difference is that C<guestfs_sh> runs commands using the shell, so
+any shell globs, redirections, etc will work.
+
+=head2 LISTING FILES
+
+C<guestfs_ll> is just designed for humans to read (mainly when using
+the L<guestfish(1)>-equivalent command C<ll>).
+
+C<guestfs_ls> is a quick way to get a list of files in a directory
+from programs.
+
+C<guestfs_readdir> is a programmatic way to get a list of files in a
+directory, plus additional information about each one.
+
+C<guestfs_find> can be used to recursively list files.
+
 =head1 HIGH-LEVEL API ACTIONS
 
 =head2 ABI GUARANTEE
