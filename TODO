@@ -14,11 +14,11 @@ http://sourceforge.net/project/showfiles.php?group_id=121684&package_id=150116
 
 ----------------------------------------------------------------------
 
-BufferIn and BufferOut should turn into <char *, int> and simple
-strings in other languages that can handle 8 bit clean strings.
+BufferIn should turn into <char *, int> and simple strings in other
+languages that can handle 8 bit clean strings.
+
 Limit on transfers would still be 2MB for these types.
  - then implement write-file properly
- - and implement read-file
 
 ----------------------------------------------------------------------
 

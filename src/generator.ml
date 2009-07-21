@@ -85,16 +85,20 @@ and ret =
      * inefficient.  Keys should be unique.  NULLs are not permitted.
      *)
   | RHashtable of string
-(* Not implemented:
     (* "RBufferOut" is handled almost exactly like RString, but
      * it allows the string to contain arbitrary 8 bit data including
      * ASCII NUL.  In the C API this causes an implicit extra parameter
-     * to be added of type <size_t *size_r>.  Other programming languages
-     * support strings with arbitrary 8 bit data.  At the RPC layer
-     * we have to use the opaque<> type instead of string<>.
+     * to be added of type <size_t *size_r>.  The extra parameter
+     * returns the actual size of the return buffer in bytes.
+     *
+     * Other programming languages support strings with arbitrary 8 bit
+     * data.
+     *
+     * At the RPC layer we have to use the opaque<> type instead of
+     * string<>.  Returned data is still limited to the max message
+     * size (ie. ~ 2 MB).
      *)
   | RBufferOut of string
-*)
 
 and args = argt list	(* Function parameters, guestfs handle is implicit. *)
 
@@ -772,8 +776,8 @@ Return the contents of the file named C<path>.
 
 Note that this function cannot correctly handle binary files
 (specifically, files containing C<\\0> character which is treated
-as end of string).  For those you need to use the C<guestfs_download>
-function which has a more complex interface.");
+as end of string).  For those you need to use the C<guestfs_read_file>
+or C<guestfs_download> functions which have a more complex interface.");
 
   ("ll", (RString "listing", [String "directory"]), 5, [],
    [], (* XXX Tricky to test because it depends on the exact format
@@ -3016,6 +3020,20 @@ This calls removes a mountpoint that was previously created
 with C<guestfs_mkmountpoint>.  See C<guestfs_mkmountpoint>
 for full details.");
 
+  ("read_file", (RBufferOut "content", [String "path"]), 150, [ProtocolLimitWarning],
+   [InitBasicFS, Always, TestOutput (
+      [["write_file"; "/new"; "new file contents"; "0"];
+       ["read_file"; "/new"]], "new file contents")],
+   "read a file",
+   "\
+This calls returns the contents of the file C<path> as a
+buffer.
+
+Unlike C<guestfs_cat>, this function can correctly
+handle files that contain embedded ASCII NUL characters.
+However unlike C<guestfs_download>, this function is limited
+in the total size of file that can be handled.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
@@ -3399,7 +3417,7 @@ let check_functions () =
        | RErr -> ()
        | RInt n | RInt64 n | RBool n | RConstString n | RString n
        | RStringList n | RStruct (n, _) | RStructList (n, _)
-       | RHashtable n ->
+       | RHashtable n | RBufferOut n ->
 	   check_arg_ret_name n
       );
       List.iter (fun arg -> check_arg_ret_name (name_of_argt arg)) (snd style)
@@ -3581,6 +3599,10 @@ strings, or NULL if there was an error.
 The array of strings will always have length C<2n+1>, where
 C<n> keys and values alternate, followed by the trailing NULL entry.
 I<The caller must free the strings and the array after use>.\n\n"
+	 | RBufferOut _ ->
+	     pr "This function returns a buffer, or NULL on error.
+The size of the returned buffer is written to C<*size_r>.
+I<The caller must free the returned buffer after use>.\n\n"
 	);
 	if List.mem ProtocolLimitWarning flags then
 	  pr "%s\n\n" protocol_limit_warning;
@@ -3717,6 +3739,10 @@ and generate_xdr () =
        | RHashtable n ->
 	   pr "struct %s_ret {\n" name;
 	   pr "  str %s<>;\n" n;
+	   pr "};\n\n"
+       | RBufferOut n ->
+	   pr "struct %s_ret {\n" name;
+	   pr "  opaque %s<>;\n" n;
 	   pr "};\n\n"
       );
   ) daemon_functions;
@@ -3939,7 +3965,7 @@ check_state (guestfs_h *g, const char *caller)
        | RInt _ | RInt64 _
        | RBool _ | RString _ | RStringList _
        | RStruct _ | RStructList _
-       | RHashtable _ ->
+       | RHashtable _ | RBufferOut _ ->
 	   pr "  struct %s_ret ret;\n" name
       );
       pr "};\n";
@@ -3980,7 +4006,7 @@ check_state (guestfs_h *g, const char *caller)
        | RInt _ | RInt64 _
        | RBool _ | RString _ | RStringList _
        | RStruct _ | RStructList _
-       | RHashtable _ ->
+       | RHashtable _ | RBufferOut _ ->
 	   pr "  if (!xdr_%s_ret (xdr, &ctx->ret)) {\n" name;
 	   pr "    error (g, \"%%s: failed to parse reply\", \"%s\");\n" name;
 	   pr "    return;\n";
@@ -4002,7 +4028,7 @@ check_state (guestfs_h *g, const char *caller)
 	    failwithf "RConstString cannot be returned from a daemon function"
 	| RString _ | RStringList _
 	| RStruct _ | RStructList _
-	| RHashtable _ ->
+	| RHashtable _ | RBufferOut _ ->
 	    "NULL" in
 
       pr "{\n";
@@ -4140,6 +4166,9 @@ check_state (guestfs_h *g, const char *caller)
        | RStructList (n, _) ->
 	   pr "  /* caller will free this */\n";
 	   pr "  return safe_memdup (g, &ctx.ret.%s, sizeof (ctx.ret.%s));\n" n n
+       | RBufferOut n ->
+	   pr "  *size_r = ctx.ret.%s.%s_len;\n" n n;
+	   pr "  return ctx.ret.%s.%s_val; /* caller will free */\n" n n
       );
 
       pr "}\n\n"
@@ -4220,7 +4249,11 @@ and generate_daemon_actions () =
 	| RString _ -> pr "  char *r;\n"; "NULL"
 	| RStringList _ | RHashtable _ -> pr "  char **r;\n"; "NULL"
 	| RStruct (_, typ) -> pr "  guestfs_int_%s *r;\n" typ; "NULL"
-	| RStructList (_, typ) -> pr "  guestfs_int_%s_list *r;\n" typ; "NULL" in
+	| RStructList (_, typ) -> pr "  guestfs_int_%s_list *r;\n" typ; "NULL"
+	| RBufferOut _ ->
+	    pr "  size_t size;\n";
+	    pr "  char *r;\n";
+	    "NULL" in
 
       (match snd style with
        | [] -> ()
@@ -4274,11 +4307,11 @@ and generate_daemon_actions () =
       (* Don't want to call the impl with any FileIn or FileOut
        * parameters, since these go "outside" the RPC protocol.
        *)
-      let argsnofile =
+      let args' =
 	List.filter (function FileIn _ | FileOut _ -> false | _ -> true)
 	  (snd style) in
       pr "  r = do_%s " name;
-      generate_call_args argsnofile;
+      generate_c_call_args (fst style, args');
       pr ";\n";
 
       pr "  if (r == %s)\n" error_code;
@@ -4330,6 +4363,13 @@ and generate_daemon_actions () =
 	      name;
 	    pr "  xdr_free ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n"
 	      name
+	| RBufferOut n ->
+	    pr "  struct guestfs_%s_ret ret;\n" name;
+	    pr "  ret.%s.%s_val = r;\n" n n;
+	    pr "  ret.%s.%s_len = size;\n" n n;
+	    pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n"
+	      name;
+	    pr "  free (r);\n"
       );
 
       (* Free the args. *)
@@ -5138,7 +5178,11 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
 	| RStruct (_, typ) ->
 	    pr "    struct guestfs_%s *r;\n" typ; "NULL"
 	| RStructList (_, typ) ->
-	    pr "    struct guestfs_%s_list *r;\n" typ; "NULL" in
+	    pr "    struct guestfs_%s_list *r;\n" typ; "NULL"
+	| RBufferOut _ ->
+	    pr "    char *r;\n";
+	    pr "    size_t size;\n";
+	    "NULL" in
 
       pr "    suppress_error = %d;\n" (if expect_error then 1 else 0);
       pr "    r = guestfs_%s (g" name;
@@ -5164,7 +5208,13 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
 	    let b = bool_of_string arg in pr ", %d" (if b then 1 else 0)
       ) (List.combine (snd style) args);
 
+      (match fst style with
+       | RBufferOut _ -> pr ", &size"
+       | _ -> ()
+      );
+
       pr ");\n";
+
       if not expect_error then
 	pr "    if (r == %s)\n" error_code
       else
@@ -5179,7 +5229,7 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
 
       (match fst style with
        | RErr | RInt _ | RInt64 _ | RBool _ | RConstString _ -> ()
-       | RString _ -> pr "    free (r);\n"
+       | RString _ | RBufferOut _ -> pr "    free (r);\n"
        | RStringList _ | RHashtable _ ->
 	   pr "    for (i = 0; r[i] != NULL; ++i)\n";
 	   pr "      free (r[i]);\n";
@@ -5362,6 +5412,9 @@ and generate_fish_cmds () =
        | RStringList _ | RHashtable _ -> pr "  char **r;\n"
        | RStruct (_, typ) -> pr "  struct guestfs_%s *r;\n" typ
        | RStructList (_, typ) -> pr "  struct guestfs_%s_list *r;\n" typ
+       | RBufferOut _ ->
+	   pr "  char *r;\n";
+	   pr "  size_t size;\n";
       );
       List.iter (
 	function
@@ -5408,7 +5461,7 @@ and generate_fish_cmds () =
 	try find_map (function FishAction n -> Some n | _ -> None) flags
 	with Not_found -> sprintf "guestfs_%s" name in
       pr "  r = %s " fn;
-      generate_call_args ~handle:"g" (snd style);
+      generate_c_call_args ~handle:"g" style;
       pr ";\n";
 
       (* Check return value for errors and display command results. *)
@@ -5454,6 +5507,11 @@ and generate_fish_cmds () =
 	   pr "  if (r == NULL) return -1;\n";
 	   pr "  print_table (r);\n";
 	   pr "  free_strings (r);\n";
+	   pr "  return 0;\n"
+       | RBufferOut _ ->
+	   pr "  if (r == NULL) return -1;\n";
+	   pr "  fwrite (r, size, 1, stdout);\n";
+	   pr "  free (r);\n";
 	   pr "  return 0;\n"
       );
       pr "}\n";
@@ -5645,7 +5703,7 @@ and generate_prototype ?(extern = true) ?(static = false) ?(semicolon = true)
    | RInt64 _ -> pr "int64_t "
    | RBool _ -> pr "int "
    | RConstString _ -> pr "const char *"
-   | RString _ -> pr "char *"
+   | RString _ | RBufferOut _ -> pr "char *"
    | RStringList _ | RHashtable _ -> pr "char **"
    | RStruct (_, typ) ->
        if not in_daemon then pr "struct guestfs_%s *" typ
@@ -5654,8 +5712,9 @@ and generate_prototype ?(extern = true) ?(static = false) ?(semicolon = true)
        if not in_daemon then pr "struct guestfs_%s_list *" typ
        else pr "guestfs_int_%s_list *" typ
   );
+  let is_RBufferOut = match fst style with RBufferOut _ -> true | _ -> false in
   pr "%s%s (" prefix name;
-  if handle = None && List.length (snd style) = 0 then
+  if handle = None && List.length (snd style) = 0 && not is_RBufferOut then
     pr "void"
   else (
     let comma = ref false in
@@ -5686,25 +5745,37 @@ and generate_prototype ?(extern = true) ?(static = false) ?(semicolon = true)
       | FileOut n ->
 	  if not in_daemon then (next (); pr "const char *%s" n)
     ) (snd style);
+    if is_RBufferOut then (next (); pr "size_t *size_r");
   );
   pr ")";
   if semicolon then pr ";";
   if newline then pr "\n"
 
 (* Generate C call arguments, eg "(handle, foo, bar)" *)
-and generate_call_args ?handle args =
+and generate_c_call_args ?handle ?(decl = false) style =
   pr "(";
   let comma = ref false in
+  let next () =
+    if !comma then pr ", ";
+    comma := true
+  in
   (match handle with
    | None -> ()
    | Some handle -> pr "%s" handle; comma := true
   );
   List.iter (
     fun arg ->
-      if !comma then pr ", ";
-      comma := true;
+      next ();
       pr "%s" (name_of_argt arg)
-  ) args;
+  ) (snd style);
+  (* For RBufferOut calls, add implicit &size parameter. *)
+  if not decl then (
+    match fst style with
+    | RBufferOut _ ->
+	next ();
+	pr "&size"
+    | _ -> ()
+  );
   pr ")"
 
 (* Generate the OCaml bindings interface. *)
@@ -5949,12 +6020,16 @@ copy_table (char * const * argv)
 	| RHashtable _ ->
 	    pr "  int i;\n";
 	    pr "  char **r;\n";
+	    "NULL"
+	| RBufferOut _ ->
+	    pr "  char *r;\n";
+	    pr "  size_t size;\n";
 	    "NULL" in
       pr "\n";
 
       pr "  caml_enter_blocking_section ();\n";
       pr "  r = guestfs_%s " name;
-      generate_call_args ~handle:"g" (snd style);
+      generate_c_call_args ~handle:"g" style;
       pr ";\n";
       pr "  caml_leave_blocking_section ();\n";
 
@@ -5993,6 +6068,9 @@ copy_table (char * const * argv)
 	   pr "  rv = copy_table (r);\n";
 	   pr "  for (i = 0; r[i] != NULL; ++i) free (r[i]);\n";
 	   pr "  free (r);\n";
+       | RBufferOut _ ->
+	   pr "  rv = caml_alloc_string (size);\n";
+	   pr "  memcpy (String_val (rv), r, size);\n";
       );
 
       pr "  CAMLreturn (rv);\n";
@@ -6046,7 +6124,7 @@ and generate_ocaml_prototype ?(is_external = false) name style =
    | RInt64 _ -> pr "int64"
    | RBool _ -> pr "bool"
    | RConstString _ -> pr "string"
-   | RString _ -> pr "string"
+   | RString _ | RBufferOut _ -> pr "string"
    | RStringList _ -> pr "string array"
    | RStruct (_, typ) -> pr "%s" typ
    | RStructList (_, typ) -> pr "%s array" typ
@@ -6163,6 +6241,7 @@ DESTROY (g)
        | RBool _ -> pr "SV *\n"
        | RConstString _ -> pr "SV *\n"
        | RString _ -> pr "SV *\n"
+       | RBufferOut _ -> pr "SV *\n"
        | RStringList _
        | RStruct _ | RStructList _
        | RHashtable _ ->
@@ -6170,7 +6249,7 @@ DESTROY (g)
       );
       (* Call and arguments. *)
       pr "%s " name;
-      generate_call_args ~handle:"g" (snd style);
+      generate_c_call_args ~handle:"g" ~decl:true style;
       pr "\n";
       pr "      guestfs_h *g;\n";
       iteri (
@@ -6204,7 +6283,7 @@ DESTROY (g)
 	   pr "      int r;\n";
 	   pr " PPCODE:\n";
 	   pr "      r = guestfs_%s " name;
-	   generate_call_args ~handle:"g" (snd style);
+	   generate_c_call_args ~handle:"g" style;
 	   pr ";\n";
 	   do_cleanups ();
 	   pr "      if (r == -1)\n";
@@ -6215,7 +6294,7 @@ DESTROY (g)
 	   pr "      int %s;\n" n;
 	   pr "   CODE:\n";
 	   pr "      %s = guestfs_%s " n name;
-	   generate_call_args ~handle:"g" (snd style);
+	   generate_c_call_args ~handle:"g" style;
 	   pr ";\n";
 	   do_cleanups ();
 	   pr "      if (%s == -1)\n" n;
@@ -6228,7 +6307,7 @@ DESTROY (g)
 	   pr "      int64_t %s;\n" n;
 	   pr "   CODE:\n";
 	   pr "      %s = guestfs_%s " n name;
-	   generate_call_args ~handle:"g" (snd style);
+	   generate_c_call_args ~handle:"g" style;
 	   pr ";\n";
 	   do_cleanups ();
 	   pr "      if (%s == -1)\n" n;
@@ -6241,7 +6320,7 @@ DESTROY (g)
 	   pr "      const char *%s;\n" n;
 	   pr "   CODE:\n";
 	   pr "      %s = guestfs_%s " n name;
-	   generate_call_args ~handle:"g" (snd style);
+	   generate_c_call_args ~handle:"g" style;
 	   pr ";\n";
 	   do_cleanups ();
 	   pr "      if (%s == NULL)\n" n;
@@ -6254,7 +6333,7 @@ DESTROY (g)
 	   pr "      char *%s;\n" n;
 	   pr "   CODE:\n";
 	   pr "      %s = guestfs_%s " n name;
-	   generate_call_args ~handle:"g" (snd style);
+	   generate_c_call_args ~handle:"g" style;
 	   pr ";\n";
 	   do_cleanups ();
 	   pr "      if (%s == NULL)\n" n;
@@ -6269,7 +6348,7 @@ DESTROY (g)
 	   pr "      int i, n;\n";
 	   pr " PPCODE:\n";
 	   pr "      %s = guestfs_%s " n name;
-	   generate_call_args ~handle:"g" (snd style);
+	   generate_c_call_args ~handle:"g" style;
 	   pr ";\n";
 	   do_cleanups ();
 	   pr "      if (%s == NULL)\n" n;
@@ -6287,6 +6366,21 @@ DESTROY (g)
        | RStructList (n, typ) ->
 	   let cols = cols_of_struct typ in
 	   generate_perl_struct_list_code typ cols name style n do_cleanups
+       | RBufferOut n ->
+	   pr "PREINIT:\n";
+	   pr "      char *%s;\n" n;
+	   pr "      size_t size;\n";
+	   pr "   CODE:\n";
+	   pr "      %s = guestfs_%s " n name;
+	   generate_c_call_args ~handle:"g" style;
+	   pr ";\n";
+	   do_cleanups ();
+	   pr "      if (%s == NULL)\n" n;
+	   pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
+	   pr "      RETVAL = newSVpv (%s, size);\n" n;
+	   pr "      free (%s);\n" n;
+	   pr " OUTPUT:\n";
+	   pr "      RETVAL\n"
       );
 
       pr "\n"
@@ -6299,7 +6393,7 @@ and generate_perl_struct_list_code typ cols name style n do_cleanups =
   pr "      HV *hv;\n";
   pr " PPCODE:\n";
   pr "      %s = guestfs_%s " n name;
-  generate_call_args ~handle:"g" (snd style);
+  generate_c_call_args ~handle:"g" style;
   pr ";\n";
   do_cleanups ();
   pr "      if (%s == NULL)\n" n;
@@ -6343,7 +6437,7 @@ and generate_perl_struct_code typ cols name style n do_cleanups =
   pr "      struct guestfs_%s *%s;\n" typ n;
   pr " PPCODE:\n";
   pr "      %s = guestfs_%s " n name;
-  generate_call_args ~handle:"g" (snd style);
+  generate_c_call_args ~handle:"g" style;
   pr ";\n";
   do_cleanups ();
   pr "      if (%s == NULL)\n" n;
@@ -6516,7 +6610,8 @@ and generate_perl_prototype name style =
    | RInt n
    | RInt64 n
    | RConstString n
-   | RString n -> pr "$%s = " n
+   | RString n
+   | RBufferOut n -> pr "$%s = " n
    | RStruct (n,_)
    | RHashtable n -> pr "%%%s = " n
    | RStringList n
@@ -6767,7 +6862,11 @@ py_guestfs_close (PyObject *self, PyObject *args)
 	| RStringList _ | RHashtable _ -> pr "  char **r;\n"; "NULL"
 	| RStruct (_, typ) -> pr "  struct guestfs_%s *r;\n" typ; "NULL"
 	| RStructList (_, typ) ->
-	    pr "  struct guestfs_%s_list *r;\n" typ; "NULL" in
+	    pr "  struct guestfs_%s_list *r;\n" typ; "NULL"
+	| RBufferOut _ ->
+	    pr "  char *r;\n";
+	    pr "  size_t size;\n";
+	    "NULL" in
 
       List.iter (
 	function
@@ -6818,7 +6917,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
       pr "\n";
 
       pr "  r = guestfs_%s " name;
-      generate_call_args ~handle:"g" (snd style);
+      generate_c_call_args ~handle:"g" style;
       pr ";\n";
 
       List.iter (
@@ -6857,6 +6956,9 @@ py_guestfs_close (PyObject *self, PyObject *args)
        | RHashtable n ->
 	   pr "  py_r = put_table (r);\n";
 	   pr "  free_strings (r);\n"
+       | RBufferOut _ ->
+	   pr "  py_r = PyString_FromStringAndSize (r, size);\n";
+	   pr "  free (r);\n"
       );
 
       pr "  return py_r;\n";
@@ -6960,7 +7062,7 @@ class GuestFS:
   List.iter (
     fun (name, style, _, flags, _, _, longdesc) ->
       pr "    def %s " name;
-      generate_call_args ~handle:"self" (snd style);
+      generate_py_call_args ~handle:"self" (snd style);
       pr ":\n";
 
       if not (List.mem NotInDocs flags) then (
@@ -6968,7 +7070,7 @@ class GuestFS:
 	let doc =
           match fst style with
 	  | RErr | RInt _ | RInt64 _ | RBool _ | RConstString _
-	  | RString _ -> doc
+	  | RString _ | RBufferOut _ -> doc
 	  | RStringList _ ->
 	      doc ^ "\n\nThis function returns a list of strings."
 	  | RStruct (_, typ) ->
@@ -6991,10 +7093,16 @@ class GuestFS:
 	pr "        u\"\"\"%s\"\"\"\n" doc;
       );
       pr "        return libguestfsmod.%s " name;
-      generate_call_args ~handle:"self._o" (snd style);
+      generate_py_call_args ~handle:"self._o" (snd style);
       pr "\n";
       pr "\n";
   ) all_functions
+
+(* Generate Python call arguments, eg "(handle, foo, bar)" *)
+and generate_py_call_args ~handle args =
+  pr "(%s" handle;
+  List.iter (fun arg -> pr ", %s" (name_of_argt arg)) args;
+  pr ")"
 
 (* Useful if you need the longdesc POD text as plain text.  Returns a
  * list of lines.
@@ -7148,11 +7256,15 @@ static VALUE ruby_guestfs_close (VALUE gv)
 	| RStringList _ | RHashtable _ -> pr "  char **r;\n"; "NULL"
 	| RStruct (_, typ) -> pr "  struct guestfs_%s *r;\n" typ; "NULL"
 	| RStructList (_, typ) ->
-	    pr "  struct guestfs_%s_list *r;\n" typ; "NULL" in
+	    pr "  struct guestfs_%s_list *r;\n" typ; "NULL"
+	| RBufferOut _ ->
+	    pr "  char *r;\n";
+	    pr "  size_t size;\n";
+	    "NULL" in
       pr "\n";
 
       pr "  r = guestfs_%s " name;
-      generate_call_args ~handle:"g" (snd style);
+      generate_c_call_args ~handle:"g" style;
       pr ";\n";
 
       List.iter (
@@ -7205,6 +7317,10 @@ static VALUE ruby_guestfs_close (VALUE gv)
 	   pr "  }\n";
 	   pr "  free (r);\n";
 	   pr "  return rv;\n"
+       | RBufferOut _ ->
+	   pr "  VALUE rv = rb_str_new (r, size);\n";
+	   pr "  free (r);\n";
+	   pr "  return rv;\n";
       );
 
       pr "}\n";
@@ -7398,7 +7514,7 @@ public class GuestFS {
       pr "    ";
       if fst style <> RErr then pr "return ";
       pr "_%s " name;
-      generate_call_args ~handle:"g" (snd style);
+      generate_java_call_args ~handle:"g" (snd style);
       pr ";\n";
       pr "  }\n";
       pr "  ";
@@ -7408,6 +7524,12 @@ public class GuestFS {
   ) all_functions;
 
   pr "}\n"
+
+(* Generate Java call arguments, eg "(handle, foo, bar)" *)
+and generate_java_call_args ~handle args =
+  pr "(%s" handle;
+  List.iter (fun arg -> pr ", %s" (name_of_argt arg)) args;
+  pr ")"
 
 and generate_java_prototype ?(public=false) ?(privat=false) ?(native=false)
     ?(semicolon=true) name style =
@@ -7421,7 +7543,7 @@ and generate_java_prototype ?(public=false) ?(privat=false) ?(native=false)
    | RInt _ -> pr "int ";
    | RInt64 _ -> pr "long ";
    | RBool _ -> pr "boolean ";
-   | RConstString _ | RString _ -> pr "String ";
+   | RConstString _ | RString _ | RBufferOut _ -> pr "String ";
    | RStringList _ -> pr "String[] ";
    | RStruct (_, typ) ->
        let name = java_name_of_struct typ in
@@ -7550,7 +7672,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
        | RInt _ -> pr "jint ";
        | RInt64 _ -> pr "jlong ";
        | RBool _ -> pr "jboolean ";
-       | RConstString _ | RString _ -> pr "jstring ";
+       | RConstString _ | RString _ | RBufferOut _ -> pr "jstring ";
        | RStruct _ | RHashtable _ ->
 	   pr "jobject ";
        | RStringList _ | RStructList _ ->
@@ -7605,7 +7727,12 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
 	    pr "  jfieldID fl;\n";
 	    pr "  jobject jfl;\n";
 	    pr "  struct guestfs_%s_list *r;\n" typ; "NULL", "NULL"
-	| RHashtable _ -> pr "  char **r;\n"; "NULL", "NULL" in
+	| RHashtable _ -> pr "  char **r;\n"; "NULL", "NULL"
+	| RBufferOut _ ->
+	    pr "  jstring jr;\n";
+	    pr "  char *r;\n";
+	    pr "  size_t size;\n";
+	    "NULL", "NULL" in
       List.iter (
 	function
 	| String n
@@ -7625,7 +7752,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
 	(match fst style with
 	 | RStringList _ | RStructList _ -> true
 	 | RErr | RBool _ | RInt _ | RInt64 _ | RConstString _
-	 | RString _ | RStruct _ | RHashtable _ -> false) ||
+	 | RString _ | RBufferOut _ | RStruct _ | RHashtable _ -> false) ||
 	  List.exists (function StringList _ -> true | _ -> false) (snd style) in
       if needs_i then
 	pr "  int i;\n";
@@ -7660,7 +7787,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
 
       (* Make the call. *)
       pr "  r = guestfs_%s " name;
-      generate_call_args ~handle:"g" (snd style);
+      generate_c_call_args ~handle:"g" style;
       pr ";\n";
 
       (* Release the parameters. *)
@@ -7725,6 +7852,10 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
 	   (* XXX *)
 	   pr "  throw_exception (env, \"%s: internal error: please let us know how to make a Java HashMap from JNI bindings!\");\n" name;
 	   pr "  return NULL;\n"
+       | RBufferOut _ ->
+	   pr "  jr = (*env)->NewStringUTF (env, r); /* XXX size */\n";
+	   pr "  free (r);\n";
+	   pr "  return jr;\n"
       );
 
       pr "}\n";
@@ -7834,7 +7965,8 @@ and generate_haskell_hs () =
     | RStringList _, _
     | RStruct _, _
     | RStructList _, _
-    | RHashtable _, _ -> false in
+    | RHashtable _, _
+    | RBufferOut _, _ -> false in
 
   pr "\
 {-# INCLUDE <guestfs.h> #-}
@@ -7944,7 +8076,7 @@ last_error h = do
 	     pr "      err <- last_error h\n";
 	     pr "      fail err\n";
 	 | RConstString _ | RString _ | RStringList _ | RStruct _
-	 | RStructList _ | RHashtable _ ->
+	 | RStructList _ | RHashtable _ | RBufferOut _ ->
 	     pr "  if (r == nullPtr)\n";
 	     pr "    then do\n";
 	     pr "      err <- last_error h\n";
@@ -7964,7 +8096,8 @@ last_error h = do
 	 | RStringList _
 	 | RStruct _
 	 | RStructList _
-	 | RHashtable _ ->
+	 | RHashtable _
+	 | RBufferOut _ ->
 	     pr "    else return ()\n" (* XXXXXXXXXXXXXXXXXXXX *)
 	);
 	pr "\n";
@@ -8006,6 +8139,7 @@ and generate_haskell_prototype ~handle ?(hs = false) style =
        let name = java_name_of_struct typ in
        pr "[%s]" name
    | RHashtable _ -> pr "Hashtable"
+   | RBufferOut _ -> pr "%s" string
   );
   pr ")"
 
@@ -8129,6 +8263,8 @@ print_strings (char * const* const argv)
 	     pr "  }\n";
 	     pr "  strs[n*2] = NULL;\n";
 	     pr "  return strs;\n"
+	 | RBufferOut _ ->
+	     pr "  return strdup (val);\n"
 	);
 	pr "}\n";
 	pr "\n"
@@ -8144,7 +8280,8 @@ print_strings (char * const* const argv)
 	 | RConstString _
 	 | RString _ | RStringList _ | RStruct _
 	 | RStructList _
-	 | RHashtable _ ->
+	 | RHashtable _
+	 | RBufferOut _ ->
 	     pr "  return NULL;\n"
 	);
 	pr "}\n";

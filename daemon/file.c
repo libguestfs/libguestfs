@@ -323,6 +323,65 @@ do_write_file (char *path, char *content, int size)
   return 0;
 }
 
+char *
+do_read_file (char *path, size_t *size_r)
+{
+  int fd;
+  struct stat statbuf;
+  char *r;
+
+  NEED_ROOT (NULL);
+  ABS_PATH (path, NULL);
+
+  CHROOT_IN;
+  fd = open (path, O_RDONLY);
+  CHROOT_OUT;
+
+  if (fd == -1) {
+    reply_with_perror ("open: %s", path);
+    return NULL;
+  }
+
+  if (fstat (fd, &statbuf) == -1) {
+    reply_with_perror ("fstat: %s", path);
+    close (fd);
+    return NULL;
+  }
+
+  *size_r = statbuf.st_size;
+  /* The actual limit on messages is smaller than this.  This
+   * check just limits the amount of memory we'll try and allocate
+   * here.  If the message is larger than the real limit, that will
+   * be caught later when we try to serialize the message.
+   */
+  if (*size_r >= GUESTFS_MESSAGE_MAX) {
+    reply_with_error ("read_file: %s: file is too large for the protocol, use gusetfs_download instead", path);
+    close (fd);
+    return NULL;
+  }
+  r = malloc (*size_r);
+  if (r == NULL) {
+    reply_with_perror ("malloc");
+    close (fd);
+    return NULL;
+  }
+
+  if (xread (fd, r, *size_r) == -1) {
+    reply_with_perror ("read: %s", path);
+    close (fd);
+    free (r);
+    return NULL;
+  }
+
+  if (close (fd) == -1) {
+    reply_with_perror ("close: %s", path);
+    free (r);
+    return NULL;
+  }
+
+  return r;
+}
+
 /* This runs the 'file' command. */
 char *
 do_file (char *path)
