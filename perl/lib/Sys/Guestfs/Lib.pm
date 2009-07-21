@@ -489,10 +489,15 @@ The package format used by the guest distribution. One of: "rpm", "dpkg".
 The package management tool used by the guest distribution. One of: "rhn",
 "yum", "apt".
 
-=item osversion
+=item os_major_version
 
 (For root partitions only).
-Operating system version.
+Operating system major version number.
+
+=item os_minor_version
+
+(For root partitions only).
+Operating system minor version number.
 
 =item fstab
 
@@ -619,13 +624,15 @@ sub _check_linux_root
     my $r = shift;
 
     # Look into /etc to see if we recognise the operating system.
-    if ($g->is_file ("/etc/redhat-release")) {
+    # N.B. don't use $g->is_file here, because it might be a symlink
+    if ($g->exists ("/etc/redhat-release")) {
         $r->{package_format} = "rpm";
 
 	$_ = $g->cat ("/etc/redhat-release");
-	if (/Fedora release (\d+\.\d+)/) {
+	if (/Fedora release (\d+)(?:\.(\d+))?/) {
 	    $r->{osdistro} = "fedora";
-	    $r->{osversion} = "$1";
+	    $r->{os_major_version} = "$1";
+	    $r->{os_minor_version} = "$2" if(defined($2));
 	    $r->{package_management} = "yum";
 	}
         
@@ -650,16 +657,23 @@ sub _check_linux_root
             else { die };
 
             if (/$distro.*release (\d+).*Update (\d+)/) {
-                $r->{osversion} = "$1.$2";
+                $r->{os_major_version} = "$1";
+                $r->{os_minor_version} = "$2";
             }
 
-            elsif (/$distro.*release (\d+(?:\.(?:\d+))?)/) {
-                $r->{osversion} = "$1";
+            elsif (/$distro.*release (\d+)(?:\.(\d+))?/) {
+                $r->{os_major_version} = "$1";
+
+                if(defined($2)) {
+                    $r->{os_minor_version} = "$2";
+                } else {
+                    $r->{os_minor_version} = "0";
+                }
             }
 
             # Package management in RHEL changed in version 5
             if ($r->{osdistro} eq "rhel") {
-                if ($r->{osversion} >= 5) {
+                if ($r->{os_major_version} >= 5) {
                     $r->{package_management} = "yum";
                 } else {
                     $r->{package_management} = "rhn";
@@ -675,9 +689,10 @@ sub _check_linux_root
         $r->{package_management} = "apt";
 
 	$_ = $g->cat ("/etc/debian_version");
-	if (/(\d+\.\d+)/) {
+	if (/(\d+)\.(\d+)/) {
 	    $r->{osdistro} = "debian";
-	    $r->{osversion} = "$1";
+	    $r->{os_major_version} = "$1";
+	    $r->{os_minor_version} = "$2";
 	} else {
 	    $r->{osdistro} = "debian";
 	}
@@ -866,9 +881,13 @@ Operating system type, eg. "linux", "windows".
 
 Operating system distribution, eg. "debian".
 
-=item version
+=item major_version
 
-Operating system version, eg. "4.0".
+Operating system major version, eg. "4".
+
+=item minor_version
+
+Operating system minor version, eg "3".
 
 =item root
 
@@ -934,7 +953,10 @@ sub _get_os_version
 
     $r->{os} = $r->{root}->{fsos} if exists $r->{root}->{fsos};
     $r->{distro} = $r->{root}->{osdistro} if exists $r->{root}->{osdistro};
-    $r->{version} = $r->{root}->{osversion} if exists $r->{root}->{osversion};
+    $r->{major_version} = $r->{root}->{os_major_version}
+        if exists $r->{root}->{os_major_version};
+    $r->{minor_version} = $r->{root}->{os_minor_version}
+        if exists $r->{root}->{os_minor_version};
     $r->{package_format} = $r->{root}->{package_format}
         if exists $r->{root}->{package_format};
     $r->{package_management} = $r->{root}->{package_management}
