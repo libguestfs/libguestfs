@@ -875,7 +875,8 @@ static const char *supermin_hostfiles_name =
 int
 guestfs_launch (guestfs_h *g)
 {
-  static const char *dir_template = "/tmp/libguestfsXXXXXX";
+  const char *tmpdir;
+  char dir_template[PATH_MAX];
   int r, i, pmore;
   size_t len;
   int wfd[2], rfd[2];
@@ -884,6 +885,15 @@ guestfs_launch (guestfs_h *g)
   char *kernel = NULL, *initrd = NULL;
   char unixsock[256];
   struct sockaddr_un addr;
+
+#ifdef P_tmpdir
+  tmpdir = P_tmpdir;
+#else
+  tmpdir = "/tmp";
+#endif
+
+  tmpdir = getenv ("TMPDIR") ? : tmpdir;
+  snprintf (dir_template, sizeof dir_template, "%s/libguestfsXXXXXX", tmpdir);
 
   /* Configured? */
   if (!g->cmdline) {
