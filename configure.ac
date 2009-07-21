@@ -90,12 +90,18 @@ AC_DEFINE_UNQUOTED([QEMU],["$QEMU"],[Location of qemu binary.])
 dnl Check that the chosen qemu has vmchannel support.
 dnl http://lists.gnu.org/archive/html/qemu-devel/2009-02/msg01042.html
 if test "x$vmchannel_test" != "xno"; then
-    AC_MSG_CHECKING([for vmchannel support in $QEMU])
-    vmchannelout=`$QEMU -net channel /dev/zero 2>&1 ||:`
-    echo "vmchannel test command output: $vmchannelout" >&AS_MESSAGE_LOG_FD
-    if ! echo $vmchannelout | grep -sq "vmchannel wrong port number" ; then
-        AC_MSG_RESULT([no])
-	AC_MSG_FAILURE(
+    AC_MSG_CHECKING([for "guestfwd" support in $QEMU])
+    if qemu-kvm --help | grep -sq guestfwd; then
+        AC_MSG_RESULT([yes])
+    else
+        AC_MSG_CHECKING([for "-net channel" support in $QEMU])
+	vmchannelout=`$QEMU -net channel /dev/zero 2>&1 ||:`
+	echo "vmchannel test command output: $vmchannelout" >&AS_MESSAGE_LOG_FD
+	if echo $vmchannelout | grep -sq "vmchannel wrong port number" ; then
+	    AC_MSG_RESULT([yes])
+	else
+	    AC_MSG_RESULT([no])
+	    AC_MSG_FAILURE(
 [I did not find vmchannel support in $QEMU.
 
 vmchannel support is vital for libguestfs to operate.  You need a version
@@ -111,8 +117,8 @@ If I am using the wrong qemu or you want to compile qemu from source
 and install it in another location, then you should configure with
 the --with-qemu option.
 ])
+	fi
     fi
-    AC_MSG_RESULT([yes])
 fi
 
 dnl Set drive interface used by the guestfs_add_drive{,_ro} calls
