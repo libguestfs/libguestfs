@@ -355,7 +355,7 @@ do_read_file (char *path, size_t *size_r)
    * be caught later when we try to serialize the message.
    */
   if (*size_r >= GUESTFS_MESSAGE_MAX) {
-    reply_with_error ("read_file: %s: file is too large for the protocol, use gusetfs_download instead", path);
+    reply_with_error ("read_file: %s: file is too large for the protocol, use guestfs_download instead", path);
     close (fd);
     return NULL;
   }
