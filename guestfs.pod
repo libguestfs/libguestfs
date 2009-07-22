@@ -917,6 +917,10 @@ Pass additional options to the guest kernel.
 Set C<LIBGUESTFS_DEBUG=1> to enable verbose messages.  This
 has the same effect as calling C<guestfs_set_verbose (handle, 1)>.
 
+=item LIBGUESTFS_KERNEL
+
+Override the ordinary selection of appliance kernel.
+
 =item LIBGUESTFS_MEMSIZE
 
 Set the memory allocated to the qemu process, in megabytes.  For

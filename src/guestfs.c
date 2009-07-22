@@ -174,6 +174,7 @@ struct guestfs_h
   char *path;			/* Path to kernel, initrd. */
   char *qemu;			/* Qemu binary. */
   char *append;			/* Append to kernel command line. */
+  char *kernel;			/* Override appliance kernel. */
 
   int memsize;			/* Size of RAM (megabytes). */
 
@@ -247,6 +248,12 @@ guestfs_create (void)
   if (str) {
     g->append = strdup (str);
     if (!g->append) goto error;
+  }
+
+  str = getenv ("LIBGUESTFS_KERNEL");
+  if (str) {
+    g->kernel = strdup (str);
+    if (!g->kernel) goto error;
   }
 
   /* Choose a suitable memory size.  Previously we tried to choose
@@ -674,6 +681,22 @@ guestfs_get_append (guestfs_h *g)
 }
 
 int
+guestfs_set_kernel (guestfs_h *g, const char *kernel)
+{
+  free (g->kernel);
+  g->kernel = NULL;
+
+  g->kernel = kernel ? safe_strdup (g, kernel) : NULL;
+  return 0;
+}
+
+const char *
+guestfs_get_kernel (guestfs_h *g)
+{
+  return g->kernel;
+}
+
+int
 guestfs_set_memsize (guestfs_h *g, int memsize)
 {
   g->memsize = memsize;
@@ -1058,7 +1081,7 @@ guestfs_launch (guestfs_h *g)
     add_cmdline (g, memsize_str);
     add_cmdline (g, "-no-reboot"); /* Force exit instead of reboot on panic */
     add_cmdline (g, "-kernel");
-    add_cmdline (g, (char *) kernel);
+    add_cmdline (g, g->kernel ? : (char *) kernel);
     add_cmdline (g, "-initrd");
     add_cmdline (g, (char *) initrd);
     add_cmdline (g, "-append");

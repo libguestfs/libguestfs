@@ -530,6 +530,31 @@ guest kernel command line.
 
 If C<NULL> then no options are added.");
 
+  ("set_kernel", (RErr, [String "kernel"]), -1, [FishAlias "kernel"],
+   [],
+   "override the normal appliance kernel",
+   "\
+This function lets you override the ordinary selection
+of kernel used in the appliance.
+
+The default is C<NULL> unless overridden by setting
+C<LIBGUESTFS_KERNEL> environment variable.
+
+Setting C<kernel> to C<NULL> means the ordinary appliance
+kernel is selected by the usual means.");
+
+  ("get_kernel", (RConstString "kernel", []), -1, [],
+   (* This cannot be tested with the current framework.  The
+    * function can return NULL in normal operations, which the
+    * test framework interprets as an error.
+    *)
+   [],
+   "get the override appliance kernel",
+   "\
+Return the override appliance kernel (see C<guestfs_set_kernel>).
+
+If C<NULL> then the ordinary appliance kernel is used.");
+
   ("set_autosync", (RErr, [Bool "autosync"]), -1, [FishAlias "autosync"],
    [],
    "set autosync mode",
