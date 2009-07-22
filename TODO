@@ -176,3 +176,25 @@ Other initrd-* commands, such as:
 
 initrd-extract
 initrd-replace
+
+----------------------------------------------------------------------
+
+Some easy non-Augeas methods to edit configuration files.
+I'm thinking:
+
+  replace /etc/file key value
+
+which would look in /etc/file for any instances of
+
+  key=...
+  key ...
+  key:...
+
+and replace them with
+
+  key=value
+  key value
+  key:value
+
+That would solve about 50% of reconfiguration needs, and for the
+rest you'd use Augeas, 'download'+'upload' or 'edit'.
