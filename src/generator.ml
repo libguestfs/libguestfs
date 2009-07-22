@@ -504,7 +504,7 @@ Return the current search path.
 This is always non-NULL.  If it wasn't set already, then this will
 return the default path.");
 
-  ("set_append", (RErr, [String "append"]), -1, [FishAlias "append"],
+  ("set_append", (RErr, [OptString "append"]), -1, [FishAlias "append"],
    [],
    "add options to kernel command line",
    "\
@@ -530,7 +530,7 @@ guest kernel command line.
 
 If C<NULL> then no options are added.");
 
-  ("set_kernel", (RErr, [String "kernel"]), -1, [FishAlias "kernel"],
+  ("set_kernel", (RErr, [OptString "kernel"]), -1, [FishAlias "kernel"],
    [],
    "override the normal appliance kernel",
    "\
