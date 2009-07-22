@@ -574,6 +574,7 @@ AC_CONFIG_FILES([Makefile
 		 images/Makefile
 		 capitests/Makefile
 		 regressions/Makefile
+		 test-tool/Makefile
 		 ocaml/Makefile ocaml/examples/Makefile
 		 perl/Makefile
 		 python/Makefile

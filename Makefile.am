@@ -18,7 +18,7 @@
 ACLOCAL_AMFLAGS = -I m4
 
 SUBDIRS = src daemon appliance fish po examples images \
-	capitests regressions
+	capitests regressions test-tool
 
 if HAVE_OCAML
 SUBDIRS += ocaml

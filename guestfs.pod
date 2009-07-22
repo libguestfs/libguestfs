@@ -982,6 +982,11 @@ That you are testing a recent version.
 
 Describe the bug accurately, and give a way to reproduce it.
 
+=item *
+
+Run libguestfs-test-tool and paste the B<complete, unedited>
+output into the bug report.
+
 =back
 
 =head1 AUTHORS

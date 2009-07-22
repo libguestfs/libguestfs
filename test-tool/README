@@ -1,0 +1,9 @@
+This is a test tool, not a comprehensive test, but a "does it
+basically function" test, which can be packaged and given to end
+users.
+
+It also collects and prints a lot of internal debug information, which
+is useful in bug reports to track down appliance / qemu boot problems.
+
+For more information, please read the man page
+libguestfs-test-tool(1).

@@ -1,0 +1,136 @@
+=encoding utf8
+
+=head1 NAME
+
+libguestfs-test-tool - End user tests for libguestfs
+
+=head1 SYNOPSIS
+
+ libguestfs-test-tool [--options]
+
+=head1 DESCRIPTION
+
+libguestfs-test-tool is a test program shipped with libguestfs to end
+users and developers, to allow them to check basic libguestfs
+functionality is working.  This is needed because libguestfs
+occasionally breaks for reasons beyond our control: usually because of
+changes in the underlying qemu or kernel packages, or the host
+environment.
+
+If you suspect a problem in libguestfs, then just run:
+
+ libguestfs-test-tool
+
+It will print lots of diagnostic messages.
+
+If it runs to completion successfully, you will see this near the end:
+
+ ===== TEST FINISHED OK =====
+
+and the test tool will exit with code 0.
+
+If it fails (and/or exits with non-zero error code), please paste the
+B<complete, unedited> output of the test tool into a bug report.  More
+information about reporting bugs can be found on the
+L<http://libguestfs.org/> website.
+
+=head1 OPTIONS
+
+=over 4
+
+=item I<--help>
+
+Display short usage information and exit.
+
+=item I<--helper /path/to/libguestfs-test-tool-helper>
+
+Pass an alternate name for the helper program.  libguestfs-test-tool
+will normally look in the C<$libexec> directory that was configured
+when the tool was built.
+
+=item I<--qemu qemu_binary>
+
+If you have downloaded another qemu binary, point this option at the
+full path of the binary to try it.
+
+=item I<--qemudir qemu_source_dir>
+
+If you have compiled qemu from source, point this option at the source
+directory to try it.
+
+=item I<--timeout N>
+
+Set the launch timeout to C<N> seconds.  The default is 120 seconds
+which does not usually need to be adjusted unless your machine is very
+slow.
+
+=back
+
+=head1 TRYING OUT A DIFFERENT VERSION OF QEMU
+
+If you have compiled another version of qemu from source and would
+like to try that, then you can use the I<--qemudir> option to point to
+the qemu source directory.
+
+If you have downloaded a qemu binary from somewhere, use the I<--qemu>
+option to point to the binary.
+
+When using an alternate qemu with libguestfs, usually you would need
+to write a qemu wrapper script (see section I<QEMU WRAPPERS> in
+L<guestfs(3)>).  libguestfs-test-tool writes a temporary qemu wrapper
+script when you use either of the I<--qemudir> or I<--qemu> options.
+
+=head1 EXIT CODE
+
+libguestfs-test-tool returns I<0> if the tests completed without
+error, or I<1> if there was an error.
+
+=head1 FILES
+
+=over 4
+
+=item /usr/libexec/libguestfs-test-tool-helper
+
+This helper program is run inside the appliance and provides
+additional tests.
+
+=item /usr/bin/mkisofs
+
+The C<mkisofs> command is required in order to construct a CD-ROM ISO
+file which is used as part of the tests.
+
+=back
+
+=head1 ENVIRONMENT VARIABLES
+
+For the full list of environment variables which may affect
+libguestfs, please see the L<guestfs(3)> manual page.
+
+=head1 SEE ALSO
+
+L<guestfs(3)>,
+L<http://libguestfs.org/>,
+L<http://qemu.org/>.
+
+=head1 AUTHORS
+
+Richard W.M. Jones (C<rjones at redhat dot com>)
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009 Red Hat Inc.
+L<http://libguestfs.org/>
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
