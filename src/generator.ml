@@ -44,39 +44,62 @@ and ret =
      * indication, ie. 0 or -1.
      *)
   | RErr
+
     (* "RInt" as a return value means an int which is -1 for error
      * or any value >= 0 on success.  Only use this for smallish
      * positive ints (0 <= i < 2^30).
      *)
   | RInt of string
+
     (* "RInt64" is the same as RInt, but is guaranteed to be able
      * to return a full 64 bit value, _except_ that -1 means error
      * (so -1 cannot be a valid, non-error return value).
      *)
   | RInt64 of string
+
     (* "RBool" is a bool return value which can be true/false or
      * -1 for error.
      *)
   | RBool of string
+
     (* "RConstString" is a string that refers to a constant value.
+     * The return value must NOT be NULL (since NULL indicates
+     * an error).
+     *
      * Try to avoid using this.  In particular you cannot use this
      * for values returned from the daemon, because there is no
      * thread-safe way to return them in the C API.
      *)
   | RConstString of string
-    (* "RString" and "RStringList" are caller-frees. *)
+
+    (* "RConstOptString" is an even more broken version of
+     * "RConstString".  The returned string may be NULL and there
+     * is no way to return an error indication.  Avoid using this!
+     *)
+  | RConstOptString of string
+
+    (* "RString" is a returned string.  It must NOT be NULL, since
+     * a NULL return indicates an error.  The caller frees this.
+     *)
   | RString of string
+
+    (* "RStringList" is a list of strings.  No string in the list
+     * can be NULL.  The caller frees the strings and the array.
+     *)
   | RStringList of string
+
     (* "RStruct" is a function which returns a single named structure
      * or an error indication (in C, a struct, and in other languages
      * with varying representations, but usually very efficient).  See
      * after the function list below for the structures. 
      *)
   | RStruct of string * string		(* name of retval, name of struct *)
+
     (* "RStructList" is a function which returns either a list/array
      * of structures (could be zero-length), or an error indication.
      *)
   | RStructList of string * string	(* name of retval, name of struct *)
+
     (* Key-value pairs of untyped strings.  Turns into a hashtable or
      * dictionary in languages which support it.  DON'T use this as a
      * general "bucket" for results.  Prefer a stronger typed return
@@ -85,6 +108,7 @@ and ret =
      * inefficient.  Keys should be unique.  NULLs are not permitted.
      *)
   | RHashtable of string
+
     (* "RBufferOut" is handled almost exactly like RString, but
      * it allows the string to contain arbitrary 8 bit data including
      * ASCII NUL.  In the C API this causes an implicit extra parameter
@@ -310,6 +334,7 @@ let test_all_rets = [
   "test0rint64",       RInt64 "valout";
   "test0rbool",        RBool "valout";
   "test0rconststring", RConstString "valout";
+  "test0rconstoptstring", RConstOptString "valout";
   "test0rstring",      RString "valout";
   "test0rstringlist",  RStringList "valout";
   "test0rstruct",      RStruct ("valout", "lvm_pv");
@@ -517,7 +542,7 @@ C<LIBGUESTFS_APPEND> environment variable.
 Setting C<append> to C<NULL> means I<no> additional options
 are passed (libguestfs always adds a few of its own).");
 
-  ("get_append", (RConstString "append", []), -1, [],
+  ("get_append", (RConstOptString "append", []), -1, [],
    (* This cannot be tested with the current framework.  The
     * function can return NULL in normal operations, which the
     * test framework interprets as an error.
@@ -3415,7 +3440,8 @@ let check_functions () =
 
       (match fst style with
        | RErr -> ()
-       | RInt n | RInt64 n | RBool n | RConstString n | RString n
+       | RInt n | RInt64 n | RBool n
+       | RConstString n | RConstOptString n | RString n
        | RStringList n | RStruct (n, _) | RStructList (n, _)
        | RHashtable n | RBufferOut n ->
 	   check_arg_ret_name n
@@ -3577,6 +3603,10 @@ let rec generate_actions_pod () =
 	 | RConstString _ ->
 	     pr "This function returns a string, or NULL on error.
 The string is owned by the guest handle and must I<not> be freed.\n\n"
+	 | RConstOptString _ ->
+	     pr "This function returns a string which may be NULL.
+There is way to return an error from this function.
+The string is owned by the guest handle and must I<not> be freed.\n\n"
 	 | RString _ ->
 	     pr "This function returns a string, or NULL on error.
 I<The caller must free the returned string after use>.\n\n"
@@ -3718,8 +3748,8 @@ and generate_xdr () =
 	   pr "struct %s_ret {\n" name;
 	   pr "  bool %s;\n" n;
 	   pr "};\n\n"
-       | RConstString _ ->
-	   failwithf "RConstString cannot be returned from a daemon function"
+       | RConstString _ | RConstOptString _ ->
+	   failwithf "RConstString|RConstOptString cannot be used by daemon functions"
        | RString n ->
 	   pr "struct %s_ret {\n" name;
 	   pr "  string %s<>;\n" n;
@@ -3960,8 +3990,8 @@ check_state (guestfs_h *g, const char *caller)
       pr "  struct guestfs_message_error err;\n";
       (match fst style with
        | RErr -> ()
-       | RConstString _ ->
-	   failwithf "RConstString cannot be returned from a daemon function"
+       | RConstString _ | RConstOptString _ ->
+	   failwithf "RConstString|RConstOptString cannot be used by daemon functions"
        | RInt _ | RInt64 _
        | RBool _ | RString _ | RStringList _
        | RStruct _ | RStructList _
@@ -4001,8 +4031,8 @@ check_state (guestfs_h *g, const char *caller)
 
       (match fst style with
        | RErr -> ()
-       | RConstString _ ->
-	   failwithf "RConstString cannot be returned from a daemon function"
+       | RConstString _ | RConstOptString _ ->
+	   failwithf "RConstString|RConstOptString cannot be used by daemon functions"
        | RInt _ | RInt64 _
        | RBool _ | RString _ | RStringList _
        | RStruct _ | RStructList _
@@ -4024,8 +4054,8 @@ check_state (guestfs_h *g, const char *caller)
       let error_code =
 	match fst style with
 	| RErr | RInt _ | RInt64 _ | RBool _ -> "-1"
-	| RConstString _ ->
-	    failwithf "RConstString cannot be returned from a daemon function"
+	| RConstString _ | RConstOptString _ ->
+	    failwithf "RConstString|RConstOptString cannot be used by daemon functions"
 	| RString _ | RStringList _
 	| RStruct _ | RStructList _
 	| RHashtable _ | RBufferOut _ ->
@@ -4148,8 +4178,8 @@ check_state (guestfs_h *g, const char *caller)
        | RErr -> pr "  return 0;\n"
        | RInt n | RInt64 n | RBool n ->
 	   pr "  return ctx.ret.%s;\n" n
-       | RConstString _ ->
-	   failwithf "RConstString cannot be returned from a daemon function"
+       | RConstString _ | RConstOptString _ ->
+	   failwithf "RConstString|RConstOptString cannot be used by daemon functions"
        | RString n ->
 	   pr "  return ctx.ret.%s; /* caller will free */\n" n
        | RStringList n | RHashtable n ->
@@ -4244,8 +4274,8 @@ and generate_daemon_actions () =
 	| RErr | RInt _ -> pr "  int r;\n"; "-1"
 	| RInt64 _ -> pr "  int64_t r;\n"; "-1"
 	| RBool _ -> pr "  int r;\n"; "-1"
-	| RConstString _ ->
-	    failwithf "RConstString cannot be returned from a daemon function"
+	| RConstString _ | RConstOptString _ ->
+	    failwithf "RConstString|RConstOptString cannot be used by daemon functions"
 	| RString _ -> pr "  char *r;\n"; "NULL"
 	| RStringList _ | RHashtable _ -> pr "  char **r;\n"; "NULL"
 	| RStruct (_, typ) -> pr "  guestfs_int_%s *r;\n" typ; "NULL"
@@ -4334,8 +4364,8 @@ and generate_daemon_actions () =
 	    pr "  ret.%s = r;\n" n;
 	    pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n"
 	      name
-	| RConstString _ ->
-	    failwithf "RConstString cannot be returned from a daemon function"
+	| RConstString _ | RConstOptString _ ->
+	    failwithf "RConstString|RConstOptString cannot be used by daemon functions"
 	| RString n ->
 	    pr "  struct guestfs_%s_ret ret;\n" name;
 	    pr "  ret.%s = r;\n" n;
@@ -5169,7 +5199,8 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
 	match fst style with
 	| RErr | RInt _ | RBool _ -> pr "    int r;\n"; "-1"
 	| RInt64 _ -> pr "    int64_t r;\n"; "-1"
-	| RConstString _ -> pr "    const char *r;\n"; "NULL"
+	| RConstString _ | RConstOptString _ ->
+	    pr "    const char *r;\n"; "NULL"
 	| RString _ -> pr "    char *r;\n"; "NULL"
 	| RStringList _ | RHashtable _ ->
 	    pr "    char **r;\n";
@@ -5228,7 +5259,8 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
       );
 
       (match fst style with
-       | RErr | RInt _ | RInt64 _ | RBool _ | RConstString _ -> ()
+       | RErr | RInt _ | RInt64 _ | RBool _
+       | RConstString _ | RConstOptString _ -> ()
        | RString _ | RBufferOut _ -> pr "    free (r);\n"
        | RStringList _ | RHashtable _ ->
 	   pr "    for (i = 0; r[i] != NULL; ++i)\n";
@@ -5407,7 +5439,7 @@ and generate_fish_cmds () =
        | RInt _
        | RBool _ -> pr "  int r;\n"
        | RInt64 _ -> pr "  int64_t r;\n"
-       | RConstString _ -> pr "  const char *r;\n"
+       | RConstString _ | RConstOptString _ -> pr "  const char *r;\n"
        | RString _ -> pr "  char *r;\n"
        | RStringList _ | RHashtable _ -> pr "  char **r;\n"
        | RStruct (_, typ) -> pr "  struct guestfs_%s *r;\n" typ
@@ -5482,6 +5514,9 @@ and generate_fish_cmds () =
        | RConstString _ ->
 	   pr "  if (r == NULL) return -1;\n";
 	   pr "  printf (\"%%s\\n\", r);\n";
+	   pr "  return 0;\n"
+       | RConstOptString _ ->
+	   pr "  printf (\"%%s\\n\", r ? : \"(null)\");\n";
 	   pr "  return 0;\n"
        | RString _ ->
 	   pr "  if (r == NULL) return -1;\n";
@@ -5702,7 +5737,7 @@ and generate_prototype ?(extern = true) ?(static = false) ?(semicolon = true)
    | RInt _ -> pr "int "
    | RInt64 _ -> pr "int64_t "
    | RBool _ -> pr "int "
-   | RConstString _ -> pr "const char *"
+   | RConstString _ | RConstOptString _ -> pr "const char *"
    | RString _ | RBufferOut _ -> pr "char *"
    | RStringList _ | RHashtable _ -> pr "char **"
    | RStruct (_, typ) ->
@@ -5960,6 +5995,9 @@ copy_table (char * const * argv)
       let params =
 	"gv" :: List.map (fun arg -> name_of_argt arg ^ "v") (snd style) in
 
+      let needs_extra_vs =
+	match fst style with RConstOptString _ -> true | _ -> false in
+
       pr "CAMLprim value\n";
       pr "ocaml_guestfs_%s (value %s" name (List.hd params);
       List.iter (pr ", value %s") (List.tl params);
@@ -5976,7 +6014,10 @@ copy_table (char * const * argv)
        | ps ->
 	   pr "  CAMLparam%d (%s);\n" (List.length ps) (String.concat ", " ps)
       );
-      pr "  CAMLlocal1 (rv);\n";
+      if not needs_extra_vs then
+	pr "  CAMLlocal1 (rv);\n"
+      else
+	pr "  CAMLlocal3 (rv, v, v2);\n";
       pr "\n";
 
       pr "  guestfs_h *g = Guestfs_val (gv);\n";
@@ -6007,7 +6048,8 @@ copy_table (char * const * argv)
 	| RInt _ -> pr "  int r;\n"; "-1"
 	| RInt64 _ -> pr "  int64_t r;\n"; "-1"
 	| RBool _ -> pr "  int r;\n"; "-1"
-	| RConstString _ -> pr "  const char *r;\n"; "NULL"
+	| RConstString _ | RConstOptString _ ->
+	    pr "  const char *r;\n"; "NULL"
 	| RString _ -> pr "  char *r;\n"; "NULL"
 	| RStringList _ ->
 	    pr "  int i;\n";
@@ -6050,7 +6092,15 @@ copy_table (char * const * argv)
        | RInt64 _ ->
 	   pr "  rv = caml_copy_int64 (r);\n"
        | RBool _ -> pr "  rv = Val_bool (r);\n"
-       | RConstString _ -> pr "  rv = caml_copy_string (r);\n"
+       | RConstString _ ->
+	   pr "  rv = caml_copy_string (r);\n"
+       | RConstOptString _ ->
+	   pr "  if (r) { /* Some string */\n";
+	   pr "    v = caml_alloc (1, 0);\n";
+	   pr "    v2 = caml_copy_string (r);\n";
+	   pr "    Store_field (v, 0, v2);\n";
+	   pr "  } else /* None */\n";
+	   pr "    v = Val_int (0);\n";
        | RString _ ->
 	   pr "  rv = caml_copy_string (r);\n";
 	   pr "  free (r);\n"
@@ -6124,6 +6174,7 @@ and generate_ocaml_prototype ?(is_external = false) name style =
    | RInt64 _ -> pr "int64"
    | RBool _ -> pr "bool"
    | RConstString _ -> pr "string"
+   | RConstOptString _ -> pr "string option"
    | RString _ | RBufferOut _ -> pr "string"
    | RStringList _ -> pr "string array"
    | RStruct (_, typ) -> pr "%s" typ
@@ -6240,6 +6291,7 @@ DESTROY (g)
        | RInt64 _ -> pr "SV *\n"
        | RBool _ -> pr "SV *\n"
        | RConstString _ -> pr "SV *\n"
+       | RConstOptString _ -> pr "SV *\n"
        | RString _ -> pr "SV *\n"
        | RBufferOut _ -> pr "SV *\n"
        | RStringList _
@@ -6326,6 +6378,20 @@ DESTROY (g)
 	   pr "      if (%s == NULL)\n" n;
 	   pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
 	   pr "      RETVAL = newSVpv (%s, 0);\n" n;
+	   pr " OUTPUT:\n";
+	   pr "      RETVAL\n"
+       | RConstOptString n ->
+	   pr "PREINIT:\n";
+	   pr "      const char *%s;\n" n;
+	   pr "   CODE:\n";
+	   pr "      %s = guestfs_%s " n name;
+	   generate_c_call_args ~handle:"g" style;
+	   pr ";\n";
+	   do_cleanups ();
+	   pr "      if (%s == NULL)\n" n;
+	   pr "        RETVAL = &PL_sv_undef;\n";
+	   pr "      else\n";
+	   pr "        RETVAL = newSVpv (%s, 0);\n" n;
 	   pr " OUTPUT:\n";
 	   pr "      RETVAL\n"
        | RString n ->
@@ -6610,6 +6676,7 @@ and generate_perl_prototype name style =
    | RInt n
    | RInt64 n
    | RConstString n
+   | RConstOptString n
    | RString n
    | RBufferOut n -> pr "$%s = " n
    | RStruct (n,_)
@@ -6857,7 +6924,8 @@ py_guestfs_close (PyObject *self, PyObject *args)
 	match fst style with
 	| RErr | RInt _ | RBool _ -> pr "  int r;\n"; "-1"
 	| RInt64 _ -> pr "  int64_t r;\n"; "-1"
-	| RConstString _ -> pr "  const char *r;\n"; "NULL"
+	| RConstString _ | RConstOptString _ ->
+	    pr "  const char *r;\n"; "NULL"
 	| RString _ -> pr "  char *r;\n"; "NULL"
 	| RStringList _ | RHashtable _ -> pr "  char **r;\n"; "NULL"
 	| RStruct (_, typ) -> pr "  struct guestfs_%s *r;\n" typ; "NULL"
@@ -6941,6 +7009,13 @@ py_guestfs_close (PyObject *self, PyObject *args)
        | RBool _ -> pr "  py_r = PyInt_FromLong ((long) r);\n"
        | RInt64 _ -> pr "  py_r = PyLong_FromLongLong (r);\n"
        | RConstString _ -> pr "  py_r = PyString_FromString (r);\n"
+       | RConstOptString _ ->
+	   pr "  if (r)\n";
+	   pr "    py_r = PyString_FromString (r);\n";
+	   pr "  else {\n";
+	   pr "    Py_INCREF (Py_None);\n";
+	   pr "    py_r = Py_None;\n";
+	   pr "  }\n"
        | RString _ ->
 	   pr "  py_r = PyString_FromString (r);\n";
 	   pr "  free (r);\n"
@@ -7069,7 +7144,8 @@ class GuestFS:
 	let doc = replace_str longdesc "C<guestfs_" "C<g." in
 	let doc =
           match fst style with
-	  | RErr | RInt _ | RInt64 _ | RBool _ | RConstString _
+	  | RErr | RInt _ | RInt64 _ | RBool _
+	  | RConstOptString _ | RConstString _
 	  | RString _ | RBufferOut _ -> doc
 	  | RStringList _ ->
 	      doc ^ "\n\nThis function returns a list of strings."
@@ -7251,7 +7327,8 @@ static VALUE ruby_guestfs_close (VALUE gv)
 	match fst style with
 	| RErr | RInt _ | RBool _ -> pr "  int r;\n"; "-1"
 	| RInt64 _ -> pr "  int64_t r;\n"; "-1"
-	| RConstString _ -> pr "  const char *r;\n"; "NULL"
+	| RConstString _ | RConstOptString _ ->
+	    pr "  const char *r;\n"; "NULL"
 	| RString _ -> pr "  char *r;\n"; "NULL"
 	| RStringList _ | RHashtable _ -> pr "  char **r;\n"; "NULL"
 	| RStruct (_, typ) -> pr "  struct guestfs_%s *r;\n" typ; "NULL"
@@ -7287,6 +7364,11 @@ static VALUE ruby_guestfs_close (VALUE gv)
 	   pr "  return ULL2NUM (r);\n"
        | RConstString _ ->
 	   pr "  return rb_str_new2 (r);\n";
+       | RConstOptString _ ->
+	   pr "  if (r)\n";
+	   pr "    return rb_str_new2 (r);\n";
+	   pr "  else\n";
+	   pr "    return Qnil;\n";
        | RString _ ->
 	   pr "  VALUE rv = rb_str_new2 (r);\n";
 	   pr "  free (r);\n";
@@ -7543,7 +7625,8 @@ and generate_java_prototype ?(public=false) ?(privat=false) ?(native=false)
    | RInt _ -> pr "int ";
    | RInt64 _ -> pr "long ";
    | RBool _ -> pr "boolean ";
-   | RConstString _ | RString _ | RBufferOut _ -> pr "String ";
+   | RConstString _ | RConstOptString _ | RString _
+   | RBufferOut _ -> pr "String ";
    | RStringList _ -> pr "String[] ";
    | RStruct (_, typ) ->
        let name = java_name_of_struct typ in
@@ -7672,7 +7755,8 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
        | RInt _ -> pr "jint ";
        | RInt64 _ -> pr "jlong ";
        | RBool _ -> pr "jboolean ";
-       | RConstString _ | RString _ | RBufferOut _ -> pr "jstring ";
+       | RConstString _ | RConstOptString _ | RString _
+       | RBufferOut _ -> pr "jstring ";
        | RStruct _ | RHashtable _ ->
 	   pr "jobject ";
        | RStringList _ | RStructList _ ->
@@ -7707,6 +7791,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
 	| RInt _ -> pr "  int r;\n"; "-1", "0"
 	| RInt64 _ -> pr "  int64_t r;\n"; "-1", "0"
 	| RConstString _ -> pr "  const char *r;\n"; "NULL", "NULL"
+	| RConstOptString _ -> pr "  const char *r;\n"; "NULL", "NULL"
 	| RString _ ->
 	    pr "  jstring jr;\n";
 	    pr "  char *r;\n"; "NULL", "NULL"
@@ -7752,6 +7837,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
 	(match fst style with
 	 | RStringList _ | RStructList _ -> true
 	 | RErr | RBool _ | RInt _ | RInt64 _ | RConstString _
+	 | RConstOptString _
 	 | RString _ | RBufferOut _ | RStruct _ | RHashtable _ -> false) ||
 	  List.exists (function StringList _ -> true | _ -> false) (snd style) in
       if needs_i then
@@ -7824,6 +7910,8 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
        | RBool _ -> pr "  return (jboolean) r;\n"
        | RInt64 _ -> pr "  return (jlong) r;\n"
        | RConstString _ -> pr "  return (*env)->NewStringUTF (env, r);\n"
+       | RConstOptString _ ->
+	   pr "  return (*env)->NewStringUTF (env, r); /* XXX r NULL? */\n"
        | RString _ ->
 	   pr "  jr = (*env)->NewStringUTF (env, r);\n";
 	   pr "  free (r);\n";
@@ -7961,6 +8049,7 @@ and generate_haskell_hs () =
     | RInt64 _, _ -> true
     | RBool _, _
     | RConstString _, _
+    | RConstOptString _, _
     | RString _, _
     | RStringList _, _
     | RStruct _, _
@@ -8075,7 +8164,8 @@ last_error h = do
 	     pr "    then do\n";
 	     pr "      err <- last_error h\n";
 	     pr "      fail err\n";
-	 | RConstString _ | RString _ | RStringList _ | RStruct _
+	 | RConstString _ | RConstOptString _ | RString _
+	 | RStringList _ | RStruct _
 	 | RStructList _ | RHashtable _ | RBufferOut _ ->
 	     pr "  if (r == nullPtr)\n";
 	     pr "    then do\n";
@@ -8092,6 +8182,7 @@ last_error h = do
 	 | RBool _ ->
 	     pr "    else return (toBool r)\n"
 	 | RConstString _
+	 | RConstOptString _
 	 | RString _
 	 | RStringList _
 	 | RStruct _
@@ -8130,6 +8221,7 @@ and generate_haskell_prototype ~handle ?(hs = false) style =
    | RInt64 _ -> pr "%s" int64
    | RBool _ -> pr "%s" bool
    | RConstString _ -> pr "%s" string
+   | RConstOptString _ -> pr "Maybe %s" string
    | RString _ -> pr "%s" string
    | RStringList _ -> pr "[%s]" string
    | RStruct (_, typ) ->
@@ -8221,7 +8313,8 @@ print_strings (char * const* const argv)
 	     pr "  return r;\n"
 	 | RBool _ ->
 	     pr "  return strcmp (val, \"true\") == 0;\n"
-	 | RConstString _ ->
+	 | RConstString _
+	 | RConstOptString _ ->
 	     (* Can't return the input string here.  Return a static
 	      * string so we ensure we get a segfault if the caller
 	      * tries to free it.
@@ -8277,7 +8370,7 @@ print_strings (char * const* const argv)
 	(match fst style with
 	 | RErr | RInt _ | RInt64 _ | RBool _ ->
 	     pr "  return -1;\n"
-	 | RConstString _
+	 | RConstString _ | RConstOptString _
 	 | RString _ | RStringList _ | RStruct _
 	 | RStructList _
 	 | RHashtable _
