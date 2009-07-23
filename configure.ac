@@ -18,7 +18,7 @@
 # major/minor/release must be numbers
 m4_define([libguestfs_major],   [1])
 m4_define([libguestfs_minor],   [0])
-m4_define([libguestfs_release], [63])
+m4_define([libguestfs_release], [64])
 # extra can be any string
 m4_define([libguestfs_extra],   [])
 
@@ -91,7 +91,7 @@ dnl Check that the chosen qemu has vmchannel support.
 dnl http://lists.gnu.org/archive/html/qemu-devel/2009-02/msg01042.html
 if test "x$vmchannel_test" != "xno"; then
     AC_MSG_CHECKING([for "guestfwd" support in $QEMU])
-    if qemu-kvm --help | grep -sq guestfwd; then
+    if $QEMU --help | grep -sq guestfwd; then
         AC_MSG_RESULT([yes])
     else
         AC_MSG_CHECKING([for "-net channel" support in $QEMU])
