@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2009-07-17 17:33+0100\n"
+"POT-Creation-Date: 2009-07-23 10:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -466,39 +466,39 @@ msgstr ""
 msgid "virt-inspector: no image or VM names given"
 msgstr ""
 
-#: inspector/virt-inspector.pl:297
+#: inspector/virt-inspector.pl:302
 msgid "--fish output is only possible with a single OS\n"
 msgstr ""
 
-#: inspector/virt-inspector.pl:323
+#: inspector/virt-inspector.pl:328
 msgid "virt-inspector: no YAML support\n"
 msgstr ""
 
-#: inspector/virt-inspector.pl:359
+#: inspector/virt-inspector.pl:365
 msgid "  Mountpoints:\n"
 msgstr ""
 
-#: inspector/virt-inspector.pl:365
+#: inspector/virt-inspector.pl:371
 msgid "  Filesystems:\n"
 msgstr ""
 
-#: inspector/virt-inspector.pl:383
+#: inspector/virt-inspector.pl:389
 msgid "  Modprobe aliases:\n"
 msgstr ""
 
-#: inspector/virt-inspector.pl:394
+#: inspector/virt-inspector.pl:400
 msgid "  Initrd modules:\n"
 msgstr ""
 
-#: inspector/virt-inspector.pl:403
+#: inspector/virt-inspector.pl:409
 msgid "  Applications:\n"
 msgstr ""
 
-#: inspector/virt-inspector.pl:409
+#: inspector/virt-inspector.pl:415
 msgid "  Kernels:\n"
 msgstr ""
 
-#: inspector/virt-inspector.pl:420
+#: inspector/virt-inspector.pl:426
 msgid "  Windows Registry entries:\n"
 msgstr ""
 
@@ -544,37 +544,37 @@ msgstr ""
 msgid "resolve_windows_path: path must start with a / character"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:788
+#: perl/lib/Sys/Guestfs/Lib.pm:822
 #, perl-brace-format
 msgid "reged command failed: {errormsg}"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:797
+#: perl/lib/Sys/Guestfs/Lib.pm:831
 #, perl-brace-format
 msgid "no output from reged command: {errormsg}"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:969
+#: perl/lib/Sys/Guestfs/Lib.pm:1012
 #, perl-brace-format
 msgid "unknown filesystem label {label}\n"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:979
+#: perl/lib/Sys/Guestfs/Lib.pm:1022
 #, perl-brace-format
 msgid "unknown filesystem UUID {uuid}\n"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1002
+#: perl/lib/Sys/Guestfs/Lib.pm:1045
 #, perl-brace-format
 msgid "unknown filesystem {fs}\n"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1221
+#: perl/lib/Sys/Guestfs/Lib.pm:1264
 #, perl-brace-format
 msgid "{path} doesn't match augeas pattern"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1271
+#: perl/lib/Sys/Guestfs/Lib.pm:1314
 #, perl-brace-format
 msgid "{filename}: could not read initrd format"
 msgstr ""
@@ -606,226 +606,357 @@ msgstr ""
 msgid "filename cannot contain ',' (comma) character"
 msgstr ""
 
-#: src/guestfs.c:890
+#: src/guestfs.c:900
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr ""
 
-#: src/guestfs.c:895
+#: src/guestfs.c:905
 msgid "qemu has already been launched"
 msgstr ""
 
-#: src/guestfs.c:903
+#: src/guestfs.c:913
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr ""
 
-#: src/guestfs.c:993
+#: src/guestfs.c:1003
 #, c-format
 msgid "cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)"
 msgstr ""
 
-#: src/guestfs.c:1200
+#: src/guestfs.c:1240
 msgid "failed to connect to vmchannel socket"
 msgstr ""
 
-#: src/guestfs.c:1219
+#: src/guestfs.c:1259
 msgid "could not watch qemu stdout"
 msgstr ""
 
-#: src/guestfs.c:1287
+#: src/guestfs.c:1327
 #, c-format
 msgid "external command failed: %s"
 msgstr ""
 
-#: src/guestfs.c:1326
+#: src/guestfs.c:1366
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
 "the LIBGUESTFS_QEMU environment variable."
 msgstr ""
 
-#: src/guestfs.c:1399
+#: src/guestfs.c:1439
 msgid "qemu has finished launching already"
 msgstr ""
 
-#: src/guestfs.c:1404
+#: src/guestfs.c:1444
 msgid "qemu has not been launched yet"
 msgstr ""
 
-#: src/guestfs.c:1417
+#: src/guestfs.c:1457
 msgid "guestfs_wait_ready failed, see earlier error messages"
 msgstr ""
 
-#: src/guestfs.c:1427
+#: src/guestfs.c:1467
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
-#: src/guestfs.c:1438
+#: src/guestfs.c:1478
 msgid "no subprocess to kill"
 msgstr ""
 
-#: src/guestfs.c:1486
+#: src/guestfs.c:1526
 #, c-format
 msgid "guestfs_set_ready: called when in state %d != BUSY"
 msgstr ""
 
-#: src/guestfs.c:1498
+#: src/guestfs.c:1538
 #, c-format
 msgid "guestfs_set_busy: called when in state %d != READY"
 msgstr ""
 
-#: src/guestfs.c:1519
+#: src/guestfs.c:1559
 #, c-format
 msgid "guestfs_end_busy: called when in state %d"
 msgstr ""
 
-#: src/guestfs.c:1577
+#: src/guestfs.c:1617
 #, c-format
 msgid "stdout_event: internal error: %d != %d"
 msgstr ""
 
-#: src/guestfs.c:1620
+#: src/guestfs.c:1660
 #, c-format
 msgid "sock_read_event: internal error: %d != %d"
 msgstr ""
 
-#: src/guestfs.c:1650
+#: src/guestfs.c:1690
 msgid "can't decode length word"
 msgstr ""
 
-#: src/guestfs.c:1660
+#: src/guestfs.c:1700
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr ""
 
-#: src/guestfs.c:1663
+#: src/guestfs.c:1703
 #, c-format
 msgid "received magic signature from guestfsd, but msg size is %d"
 msgstr ""
 
-#: src/guestfs.c:1688
+#: src/guestfs.c:1728
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr ""
 
-#: src/guestfs.c:1721
+#: src/guestfs.c:1761
 #, c-format
 msgid "state %d != BUSY"
 msgstr ""
 
-#: src/guestfs.c:1761
+#: src/guestfs.c:1801
 #, c-format
 msgid "sock_write_event: internal error: %d != %d"
 msgstr ""
 
-#: src/guestfs.c:1766
+#: src/guestfs.c:1806
 #, c-format
 msgid "sock_write_event: state %d != BUSY"
 msgstr ""
 
-#: src/guestfs.c:1873 src/guestfs.c:1896
+#: src/guestfs.c:1913 src/guestfs.c:1936
 msgid "remove_handle failed"
 msgstr ""
 
-#: src/guestfs.c:1884 src/guestfs.c:1907
+#: src/guestfs.c:1924 src/guestfs.c:1947
 msgid "add_handle failed"
 msgstr ""
 
-#: src/guestfs.c:1940
+#: src/guestfs.c:1980
 #, c-format
 msgid "guestfs__send_sync: state %d != BUSY"
 msgstr ""
 
-#: src/guestfs.c:1948 src/guestfs.c:2128
+#: src/guestfs.c:1988 src/guestfs.c:2168
 msgid "guestfs__send_sync: msg_out should be NULL"
 msgstr ""
 
-#: src/guestfs.c:1970
+#: src/guestfs.c:2010
 msgid "xdr_guestfs_message_header failed"
 msgstr ""
 
-#: src/guestfs.c:1979
+#: src/guestfs.c:2019
 msgid "dispatch failed to marshal args"
 msgstr ""
 
-#: src/guestfs.c:2005
+#: src/guestfs.c:2045
 msgid "send failed, see earlier error messages"
 msgstr ""
 
-#: src/guestfs.c:2120
+#: src/guestfs.c:2160
 #, c-format
 msgid "send_file_chunk_sync: state %d != READY"
 msgstr ""
 
-#: src/guestfs.c:2151
+#: src/guestfs.c:2191
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr ""
 
-#: src/guestfs.c:2176
+#: src/guestfs.c:2216
 msgid "send file chunk failed, see earlier error messages"
 msgstr ""
 
-#: src/guestfs.c:2227
+#: src/guestfs.c:2267
 #, c-format
 msgid "check_for_daemon_cancellation: read 0x%x from daemon, expected 0x%x\n"
 msgstr ""
 
-#: src/guestfs.c:2265
+#: src/guestfs.c:2305
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr ""
 
-#: src/guestfs.c:2293
+#: src/guestfs.c:2333
 msgid "write to daemon socket"
 msgstr ""
 
-#: src/guestfs.c:2340
+#: src/guestfs.c:2380
 msgid "failed to parse file chunk"
 msgstr ""
 
-#: src/guestfs.c:2372
+#: src/guestfs.c:2412
 msgid "receive_file_data_sync: reply callback not called\n"
 msgstr ""
 
-#: src/guestfs.c:2377
+#: src/guestfs.c:2417
 msgid "receive_file_data_sync: parse error in reply callback\n"
 msgstr ""
 
-#: src/guestfs.c:2391
+#: src/guestfs.c:2431
 msgid "file receive cancelled by daemon"
 msgstr ""
 
-#: src/guestfs.c:2426 src/guestfs.c:2484
+#: src/guestfs.c:2466 src/guestfs.c:2524
 #, c-format
 msgid "fd %d is out of range"
 msgstr ""
 
-#: src/guestfs.c:2434
+#: src/guestfs.c:2474
 #, c-format
 msgid "set of events (0x%x) contains unknown events"
 msgstr ""
 
-#: src/guestfs.c:2439
+#: src/guestfs.c:2479
 msgid "set of events is empty"
 msgstr ""
 
-#: src/guestfs.c:2446
+#: src/guestfs.c:2486
 #, c-format
 msgid "fd %d is already registered"
 msgstr ""
 
-#: src/guestfs.c:2451
+#: src/guestfs.c:2491
 msgid "callback is NULL"
 msgstr ""
 
-#: src/guestfs.c:2491
+#: src/guestfs.c:2531
 #, c-format
 msgid "fd %d was not registered"
 msgstr ""
 
-#: src/guestfs.c:2540
+#: src/guestfs.c:2580
 msgid "select_main_loop_run: this cannot be called recursively"
+msgstr ""
+
+#: test-tool/test-tool.c:59
+#, c-format
+msgid ""
+"libguestfs-test-tool: interactive test tool\n"
+"Copyright (C) 2009 Red Hat Inc.\n"
+"Usage:\n"
+"  libguestfs-test-tool [--options]\n"
+"Options:\n"
+"  --help         Display usage\n"
+"  --helper libguestfs-test-tool-helper\n"
+"                 Helper program (default: %s)\n"
+"  --qemudir dir  Specify QEMU source directory\n"
+"  --qemu qemu    Specify QEMU binary\n"
+"  --timeout n\n"
+"  -t n           Set launch timeout (default: %d seconds)\n"
+msgstr ""
+
+#: test-tool/test-tool.c:111
+#, c-format
+msgid "libguestfs-test-tool: unknown long option: %s (%d)\n"
+msgstr ""
+
+#: test-tool/test-tool.c:120
+#, c-format
+msgid "libguestfs-test-tool: invalid timeout: %s\n"
+msgstr ""
+
+#: test-tool/test-tool.c:132
+#, c-format
+msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
+msgstr ""
+
+#: test-tool/test-tool.c:155
+#, c-format
+msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
+msgstr ""
+
+#: test-tool/test-tool.c:160 test-tool/test-tool.c:166
+#, c-format
+msgid "libguestfs-test-tool: failed to add drive '%s'\n"
+msgstr ""
+
+#: test-tool/test-tool.c:174
+#, c-format
+msgid "libguestfs-test-tool: guestfs_version failed\n"
+msgstr ""
+
+#: test-tool/test-tool.c:191
+#, c-format
+msgid "libguestfs-test-tool: failed to launch appliance\n"
+msgstr ""
+
+#: test-tool/test-tool.c:202
+#, c-format
+msgid "libguestfs-test-tool: failed or timed out in 'wait_ready'\n"
+msgstr ""
+
+#: test-tool/test-tool.c:214
+#, c-format
+msgid "libguestfs-test-tool: failed to run sfdisk\n"
+msgstr ""
+
+#: test-tool/test-tool.c:220
+#, c-format
+msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
+msgstr ""
+
+#: test-tool/test-tool.c:226
+#, c-format
+msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
+msgstr ""
+
+#: test-tool/test-tool.c:232
+#, c-format
+msgid "libguestfs-test-tool: failed to mkdir /iso\n"
+msgstr ""
+
+#: test-tool/test-tool.c:238
+#, c-format
+msgid "libguestfs-test-tool: failed to mount /dev/sdb on /iso\n"
+msgstr ""
+
+#: test-tool/test-tool.c:246
+#, c-format
+msgid "libguestfs-test-tool: could not run helper program, or helper failed\n"
+msgstr ""
+
+#: test-tool/test-tool.c:277
+#, c-format
+msgid ""
+"LIBGUESTFS_QEMU environment variable is already set, so\n"
+"--qemu/--qemudir options cannot be used.\n"
+msgstr ""
+
+#: test-tool/test-tool.c:285
+#, c-format
+msgid "Binary '%s' does not exist or is not executable\n"
+msgstr ""
+
+#: test-tool/test-tool.c:299
+#, c-format
+msgid "%s: does not look like a qemu source directory\n"
+msgstr ""
+
+#: test-tool/test-tool.c:348
+#, c-format
+msgid ""
+"Test tool helper program 'libguestfs-test-tool-helper' is not\n"
+"available.  Expected to find it in '%s'\n"
+"\n"
+"Use the --helper option to specify the location of this program.\n"
+msgstr ""
+
+#: test-tool/test-tool.c:364
+#, c-format
+msgid "command failed: %s"
+msgstr ""
+
+#: test-tool/test-tool.c:372
+#, c-format
+msgid ""
+"Test tool helper program %s\n"
+"is not statically linked.  This is a build error when this test tool\n"
+"was built.\n"
+msgstr ""
+
+#: test-tool/test-tool.c:406
+#, c-format
+msgid "mkisofs command failed: %s\n"
 msgstr ""
 
 #: v2v/virt-v2v.pl:174
