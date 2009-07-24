@@ -1067,14 +1067,22 @@ sub mount_operating_system
     local $_;
     my $g = shift;
     my $os = shift;
+    my $ro = shift; # Read-only?
+
+    $ro = 1 unless(defined($ro)); # ro defaults to 1 if unspecified
 
     my $mounts = $os->{mounts};
 
     # Have to mount / first.  Luckily '/' is early in the ASCII
     # character set, so this should be OK.
     foreach (sort keys %$mounts) {
-	$g->mount_ro ($mounts->{$_}, $_)
-	    if $_ ne "swap" && $_ ne "none" && ($_ eq '/' || $g->is_dir ($_));
+        if($_ ne "swap" && $_ ne "none" && ($_ eq '/' || $g->is_dir ($_))) {
+            if($ro) {
+                $g->mount_ro ($mounts->{$_}, $_)
+            } else {
+                $g->mount ($mounts->{$_}, $_)
+            }
+        }
     }
 }
 
