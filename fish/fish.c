@@ -340,7 +340,9 @@ main (int argc, char *argv[])
     if (!guestfs_get_autosync (g))
       strcat (cmd, " -n");
 
-    /*printf ("%s\n", cmd);*/
+    if (verbose)
+      fprintf (stderr,
+	       "guestfish -i: running virt-inspector command:\n%s\n", cmd);
 
     r = system (cmd);
     if (r == -1) {
