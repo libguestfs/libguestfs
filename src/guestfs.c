@@ -1043,7 +1043,8 @@ guestfs_launch (guestfs_h *g)
     "console=ttyS0 "   /* serial console */				\
     "udevtimeout=300 " /* good for very slow systems (RHBZ#480319) */	\
     "noapic "          /* workaround for RHBZ#502058 - ok if not SMP */ \
-    "acpi=off "        /* we don't need ACPI, turn it off */
+    "acpi=off "        /* we don't need ACPI, turn it off */		\
+    "cgroup_disable=memory " /* saves us about 5 MB of RAM */
 
     /* Linux kernel command line. */
     snprintf (append, sizeof append,
