@@ -1,18 +1,47 @@
+TODO list for libguestfs
+======================================================================
+
+This list contains random ideas and musings on features we could add
+to libguestfs in future.
+
+   - RWMJ
+
+Python bindings
+---------------
+
 Ideas for the Python bindings:
 https://www.redhat.com/archives/fedora-virt/2009-April/msg00114.html
 
-----------------------------------------------------------------------
+FTP server or FUSE?
+-------------------
 
-We badly need to actually implement the FTP server mentioned in the
-documentation.
+Originally we had intended to implement an NFS server inside the
+appliance, which would allow the guest filesystems to be mounted on
+the host, and large changes to be made.  We eventually rejected the
+idea of using NFS, partly because it requires root to mount
+filesystems in the host, and partly because of problems handling UID
+mappings between host and guest filesystem.
 
-Or: Implement a FUSE-based filesystem.  See the FUSE mountlo
-project which does something similar, albeit only to single
-filesystems:
+Then we look at implementing an FTP server instead.  FTP clients are
+widely available for many languages, don't require root, and don't
+have any UID mapping problems.  However there is the problem of
+getting the TCP connection into the guest, and that FTP requires a
+secondary data connection either in or out of the guest (the NFS
+situation is even more dire).
 
+Thirdly we looked at implementing a FUSE-based filesystem.  This is
+plausible - it could be implemented just by adding the additional FUSE
+operations to the standard guestfs(3) API, and then implementing a
+simple FUSE daemon.  (The FUSE website has some very helpful
+documentation and examples).  I [RWMJ] am not particularly convinced
+that a FUSE-based filesystem would really be useful to anyone, but am
+prepared to accept patches if someone does all the work.
+
+See also the mountlo project:
 http://sourceforge.net/project/showfiles.php?group_id=121684&package_id=150116
 
-----------------------------------------------------------------------
+BufferIn
+--------
 
 BufferIn should turn into <char *, int> and simple strings in other
 languages that can handle 8 bit clean strings.
@@ -20,41 +49,36 @@ languages that can handle 8 bit clean strings.
 Limit on transfers would still be 2MB for these types.
  - then implement write-file properly
 
-----------------------------------------------------------------------
+febootstrap / debootstrap inside appliance
+------------------------------------------
 
-Implement febootstrap command.
+This was originally proposed as a way to install new operating systems
+in the appliance.  However no one has come up with a workable
+solution.
 
-----------------------------------------------------------------------
+Haskell bindings
+----------------
 
 Complete the Haskell bindings (see discussion on haskell-cafe).
 
-----------------------------------------------------------------------
+Complete bind tests
+-------------------
 
-Complete the bindings tests - must test the return values and
-error cases.
+Complete the bind tests - must test the return values and error cases.
 
-----------------------------------------------------------------------
+virt-inspector - make libvirt XML
+---------------------------------
 
-For virt-inspector:
+It should be possible to generate libvirt XML from virt-inspector
+data, at least partially.  This would be just another output type so:
 
- - Make a libvirt XML config
+ virt-inspector --libvirt guest.img
 
- - Test over available OSes
-
- - Add 'reged' / NT registry support.
-
-----------------------------------------------------------------------
-
-Use virtio_blk by default.  It's faster and more natural.
-Unfortunately it seems like this will rename all devices - see next
-item.
-
-Note: virtio_blk *IS* supported by all our minimum platforms,
-ie. CentOS 5.3, Fedora 11, Debian.
-
-----------------------------------------------------------------------
+Note that recent versions of libvirt/virt-install allow guests to be
+imported, so this is not so useful any more.
 
 "Standalone/local mode"
+-----------------------
 
 Instead of running guestfsd (the daemon) inside qemu, there should be
 an option to just run guestfsd directly.
@@ -93,9 +117,11 @@ This is mainly useful from live CDs, ie. virt-p2v.
 Should we bother having the daemon at all and just link the guestfsd
 code directly into libguestfs?
 
-----------------------------------------------------------------------
+PPC problems
+------------
 
-PPC problems:
+[This section should be filed as bugs, but no one seems to care for
+PPC hosts and the hardware is rapidly becoming obsolete]
 
   ppc (32 bit) works with qemu from git, however there is no serial console
 
@@ -108,13 +134,13 @@ PPC problems:
   no serial console in ppc or ppc64 because no one can tell us what
   console=ttyXX option to use
 
-----------------------------------------------------------------------
+Supermin appliance to febootstrap
+---------------------------------
 
-Supermin appliance should be moved into febootstrap.
+Supermin appliance functionality should be moved into febootstrap.
 
-----------------------------------------------------------------------
-
-Extra commands / functionality:
+Ideas for extra commands
+------------------------
 
   General glibc / core programs:
     chgrp
@@ -151,11 +177,13 @@ Extra commands / functionality:
     pivot_root
     fts(3) / ftw(3)
 
-----------------------------------------------------------------------
+Swap space
+----------
 
 Allow swap space from the guest to be used.  Is it a good idea?
 
-----------------------------------------------------------------------
+Query guest architecture
+------------------------
 
 Need a way to query a binary or library file for its architecture.
 Using objdump or readelf?
@@ -170,14 +198,16 @@ similar to virt-inspector.
 Probably we should go all the way and have virt-inspector able to
 determine kernel and userspace architectures of guests.
 
-----------------------------------------------------------------------
+Other initrd-* commands
+-----------------------
 
-Other initrd-* commands, such as:
+Such as:
 
 initrd-extract
 initrd-replace
 
-----------------------------------------------------------------------
+Simple editing of configuration files
+-------------------------------------
 
 Some easy non-Augeas methods to edit configuration files.
 I'm thinking:
@@ -198,3 +228,19 @@ and replace them with
 
 That would solve about 50% of reconfiguration needs, and for the
 rest you'd use Augeas, 'download'+'upload' or 'edit'.
+
+RWMJ: I had a go at implementing this, but it's quite error-prone to
+do this sort of editing inside the C-based daemon code.  It's far
+better to do it with Augeas, or else to use an external language like
+Perl.
+
+Quick Perl scripts
+------------------
+
+Currently we can't do Perl "one-liners".  ie. The current syntax for
+any short Perl one-liner would be:
+
+  perl -MSys::Guestfs -e '$g = Sys::Guestfs->new(); $g->add_drive ("foo"); $g->launch; $g->wait_ready; $g->mount ("/dev/sda1", "/"); ....'
+
+You can see we're well beyond a single line just getting to the point
+of adding drives and mounting.
