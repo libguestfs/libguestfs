@@ -288,14 +288,17 @@ and test_init =
      * a bad idea.
      *)
   | InitNone
+
     (* Block devices are empty and no filesystems are mounted. *)
   | InitEmpty
+
     (* /dev/sda contains a single partition /dev/sda1, which is formatted
      * as ext2, empty [except for lost+found] and mounted on /.
      * /dev/sdb and /dev/sdc may have random content.
      * No LVM.
      *)
   | InitBasicFS
+
     (* /dev/sda:
      *   /dev/sda1 (is a PV):
      *     /dev/VG/LV (size 8MB):
@@ -303,6 +306,11 @@ and test_init =
      * /dev/sdb and /dev/sdc may have random content.
      *)
   | InitBasicFSonLVM
+
+    (* /dev/sdd (the squashfs, see images/ directory in source)
+     * is mounted on /
+     *)
+  | InitSquashFS
 
 (* Sequence of commands for testing. *)
 and seq = cmd list
@@ -1799,12 +1807,8 @@ See also C<guestfs_upload>, C<guestfs_cat>.");
     InitBasicFS, Always, TestOutput (
       [["write_file"; "/new"; "test\n"; "0"];
        ["checksum"; "sha512"; "/new"]], "0e3e75234abc68f4378a86b3f4b32a198ba301845b0cd6e50106e874345700cc6663a86c1ea125dc5e92be17c98f9a0f85ca9d5f595db2012f7cc3571945c123");
-    InitBasicFS, Always, TestOutput (
-      (* RHEL 5 thinks this is an HFS+ filesystem unless we give
-       * the type explicitly.
-       *)
-      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
-       ["checksum"; "md5"; "/known-3"]], "46d6ca27ee07cdc6fa99c2e138cc522c")],
+    InitSquashFS, Always, TestOutput (
+      [["checksum"; "md5"; "/known-3"]], "46d6ca27ee07cdc6fa99c2e138cc522c")],
    "compute MD5, SHAx or CRC checksum of file",
    "\
 This call computes the MD5, SHAx or CRC checksum of the
@@ -2279,9 +2283,8 @@ The returned strings are transcoded to UTF-8.");
     (* Test for RHBZ#501888c2 regression which caused large hexdump
      * commands to segfault.
      *)
-    InitBasicFS, Always, TestRun (
-      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
-       ["hexdump"; "/100krandom"]])],
+    InitSquashFS, Always, TestRun (
+      [["hexdump"; "/100krandom"]])],
    "dump a file in hexadecimal",
    "\
 This runs C<hexdump -C> on the given C<path>.  The result is
@@ -2618,51 +2621,44 @@ directory and its contents after use.
 See also: L<mkdtemp(3)>");
 
   ("wc_l", (RInt "lines", [String "path"]), 118, [],
-   [InitBasicFS, Always, TestOutputInt (
-      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
-       ["wc_l"; "/10klines"]], 10000)],
+   [InitSquashFS, Always, TestOutputInt (
+      [["wc_l"; "/10klines"]], 10000)],
    "count lines in a file",
    "\
 This command counts the lines in a file, using the
 C<wc -l> external command.");
 
   ("wc_w", (RInt "words", [String "path"]), 119, [],
-   [InitBasicFS, Always, TestOutputInt (
-      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
-       ["wc_w"; "/10klines"]], 10000)],
+   [InitSquashFS, Always, TestOutputInt (
+      [["wc_w"; "/10klines"]], 10000)],
    "count words in a file",
    "\
 This command counts the words in a file, using the
 C<wc -w> external command.");
 
   ("wc_c", (RInt "chars", [String "path"]), 120, [],
-   [InitBasicFS, Always, TestOutputInt (
-      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
-       ["wc_c"; "/100kallspaces"]], 102400)],
+   [InitSquashFS, Always, TestOutputInt (
+      [["wc_c"; "/100kallspaces"]], 102400)],
    "count characters in a file",
    "\
 This command counts the characters in a file, using the
 C<wc -c> external command.");
 
   ("head", (RStringList "lines", [String "path"]), 121, [ProtocolLimitWarning],
-   [InitBasicFS, Always, TestOutputList (
-      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
-       ["head"; "/10klines"]], ["0abcdefghijklmnopqrstuvwxyz";"1abcdefghijklmnopqrstuvwxyz";"2abcdefghijklmnopqrstuvwxyz";"3abcdefghijklmnopqrstuvwxyz";"4abcdefghijklmnopqrstuvwxyz";"5abcdefghijklmnopqrstuvwxyz";"6abcdefghijklmnopqrstuvwxyz";"7abcdefghijklmnopqrstuvwxyz";"8abcdefghijklmnopqrstuvwxyz";"9abcdefghijklmnopqrstuvwxyz"])],
+   [InitSquashFS, Always, TestOutputList (
+      [["head"; "/10klines"]], ["0abcdefghijklmnopqrstuvwxyz";"1abcdefghijklmnopqrstuvwxyz";"2abcdefghijklmnopqrstuvwxyz";"3abcdefghijklmnopqrstuvwxyz";"4abcdefghijklmnopqrstuvwxyz";"5abcdefghijklmnopqrstuvwxyz";"6abcdefghijklmnopqrstuvwxyz";"7abcdefghijklmnopqrstuvwxyz";"8abcdefghijklmnopqrstuvwxyz";"9abcdefghijklmnopqrstuvwxyz"])],
    "return first 10 lines of a file",
    "\
 This command returns up to the first 10 lines of a file as
 a list of strings.");
 
   ("head_n", (RStringList "lines", [Int "nrlines"; String "path"]), 122, [ProtocolLimitWarning],
-   [InitBasicFS, Always, TestOutputList (
-      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
-       ["head_n"; "3"; "/10klines"]], ["0abcdefghijklmnopqrstuvwxyz";"1abcdefghijklmnopqrstuvwxyz";"2abcdefghijklmnopqrstuvwxyz"]);
-    InitBasicFS, Always, TestOutputList (
-      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
-       ["head_n"; "-9997"; "/10klines"]], ["0abcdefghijklmnopqrstuvwxyz";"1abcdefghijklmnopqrstuvwxyz";"2abcdefghijklmnopqrstuvwxyz"]);
-    InitBasicFS, Always, TestOutputList (
-      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
-       ["head_n"; "0"; "/10klines"]], [])],
+   [InitSquashFS, Always, TestOutputList (
+      [["head_n"; "3"; "/10klines"]], ["0abcdefghijklmnopqrstuvwxyz";"1abcdefghijklmnopqrstuvwxyz";"2abcdefghijklmnopqrstuvwxyz"]);
+    InitSquashFS, Always, TestOutputList (
+      [["head_n"; "-9997"; "/10klines"]], ["0abcdefghijklmnopqrstuvwxyz";"1abcdefghijklmnopqrstuvwxyz";"2abcdefghijklmnopqrstuvwxyz"]);
+    InitSquashFS, Always, TestOutputList (
+      [["head_n"; "0"; "/10klines"]], [])],
    "return first N lines of a file",
    "\
 If the parameter C<nrlines> is a positive number, this returns the first
@@ -2674,24 +2670,20 @@ from the file C<path>, excluding the last C<nrlines> lines.
 If the parameter C<nrlines> is zero, this returns an empty list.");
 
   ("tail", (RStringList "lines", [String "path"]), 123, [ProtocolLimitWarning],
-   [InitBasicFS, Always, TestOutputList (
-      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
-       ["tail"; "/10klines"]], ["9990abcdefghijklmnopqrstuvwxyz";"9991abcdefghijklmnopqrstuvwxyz";"9992abcdefghijklmnopqrstuvwxyz";"9993abcdefghijklmnopqrstuvwxyz";"9994abcdefghijklmnopqrstuvwxyz";"9995abcdefghijklmnopqrstuvwxyz";"9996abcdefghijklmnopqrstuvwxyz";"9997abcdefghijklmnopqrstuvwxyz";"9998abcdefghijklmnopqrstuvwxyz";"9999abcdefghijklmnopqrstuvwxyz"])],
+   [InitSquashFS, Always, TestOutputList (
+      [["tail"; "/10klines"]], ["9990abcdefghijklmnopqrstuvwxyz";"9991abcdefghijklmnopqrstuvwxyz";"9992abcdefghijklmnopqrstuvwxyz";"9993abcdefghijklmnopqrstuvwxyz";"9994abcdefghijklmnopqrstuvwxyz";"9995abcdefghijklmnopqrstuvwxyz";"9996abcdefghijklmnopqrstuvwxyz";"9997abcdefghijklmnopqrstuvwxyz";"9998abcdefghijklmnopqrstuvwxyz";"9999abcdefghijklmnopqrstuvwxyz"])],
    "return last 10 lines of a file",
    "\
 This command returns up to the last 10 lines of a file as
 a list of strings.");
 
   ("tail_n", (RStringList "lines", [Int "nrlines"; String "path"]), 124, [ProtocolLimitWarning],
-   [InitBasicFS, Always, TestOutputList (
-      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
-       ["tail_n"; "3"; "/10klines"]], ["9997abcdefghijklmnopqrstuvwxyz";"9998abcdefghijklmnopqrstuvwxyz";"9999abcdefghijklmnopqrstuvwxyz"]);
-    InitBasicFS, Always, TestOutputList (
-      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
-       ["tail_n"; "-9998"; "/10klines"]], ["9997abcdefghijklmnopqrstuvwxyz";"9998abcdefghijklmnopqrstuvwxyz";"9999abcdefghijklmnopqrstuvwxyz"]);
-    InitBasicFS, Always, TestOutputList (
-      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
-       ["tail_n"; "0"; "/10klines"]], [])],
+   [InitSquashFS, Always, TestOutputList (
+      [["tail_n"; "3"; "/10klines"]], ["9997abcdefghijklmnopqrstuvwxyz";"9998abcdefghijklmnopqrstuvwxyz";"9999abcdefghijklmnopqrstuvwxyz"]);
+    InitSquashFS, Always, TestOutputList (
+      [["tail_n"; "-9998"; "/10klines"]], ["9997abcdefghijklmnopqrstuvwxyz";"9998abcdefghijklmnopqrstuvwxyz";"9999abcdefghijklmnopqrstuvwxyz"]);
+    InitSquashFS, Always, TestOutputList (
+      [["tail_n"; "0"; "/10klines"]], [])],
    "return last N lines of a file",
    "\
 If the parameter C<nrlines> is a positive number, this returns the last
@@ -2744,9 +2736,8 @@ The result is the estimated size in I<kilobytes>
 (ie. units of 1024 bytes).");
 
   ("initrd_list", (RStringList "filenames", [String "path"]), 128, [],
-   [InitBasicFS, Always, TestOutputList (
-      [["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"];
-       ["initrd_list"; "/initrd"]], ["empty";"known-1";"known-2";"known-3"])],
+   [InitSquashFS, Always, TestOutputList (
+      [["initrd_list"; "/initrd"]], ["empty";"known-1";"known-2";"known-3"])],
    "list files in an initrd",
    "\
 This command lists out files contained in an initrd.
@@ -4944,6 +4935,13 @@ and generate_one_test_body name i test_name init test =
 	  ["lvcreate"; "LV"; "VG"; "8"];
 	  ["mkfs"; "ext2"; "/dev/VG/LV"];
 	  ["mount"; "/dev/VG/LV"; "/"]]
+   | InitSquashFS ->
+       pr "  /* InitSquashFS for %s */\n" test_name;
+       List.iter (generate_test_command_call test_name)
+	 [["blockdev_setrw"; "/dev/sda"];
+	  ["umount_all"];
+	  ["lvm_remove_all"];
+	  ["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"]]
   );
 
   let get_seq_last = function
