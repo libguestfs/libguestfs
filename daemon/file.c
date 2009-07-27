@@ -440,6 +440,7 @@ char *
 do_zfile (char *method, char *path)
 {
   int len;
+  const char *zcat;
   char *cmd;
   FILE *fp;
   char line[256];
@@ -447,27 +448,22 @@ do_zfile (char *method, char *path)
   NEED_ROOT (NULL);
   ABS_PATH (path, NULL);
 
-  len = 2 * strlen (path) + sysroot_len + 64;
-  cmd = malloc (len);
-  if (!cmd) {
-    reply_with_perror ("malloc");
-    return NULL;
-  }
-
   if (strcmp (method, "gzip") == 0 || strcmp (method, "compress") == 0)
-    strcpy (cmd, "zcat");
+    zcat = "zcat";
   else if (strcmp (method, "bzip2") == 0)
-    strcpy (cmd, "bzcat");
+    zcat = "bzcat";
   else {
-    free (cmd);
     reply_with_error ("zfile: unknown method");
     return NULL;
   }
 
-  strcat (cmd, " ");
-  strcat (cmd, sysroot);
-  shell_quote (cmd + strlen (cmd), len - strlen (cmd), path);
-  strcat (cmd, " | file -bsL -");
+  if (asprintf_nowarn (&cmd, "%s %R | file -bsL -", zcat, path) == -1) {
+    reply_with_perror ("asprintf");
+    return NULL;
+  }
+
+  if (verbose)
+    fprintf (stderr, "%s\n", cmd);
 
   fp = popen (cmd, "r");
   if (fp == NULL) {

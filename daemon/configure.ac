@@ -65,6 +65,22 @@ AC_CHECK_LIB([portablexdr],[xdrmem_create],[],[
 dnl Functions which may not be available in older distributions.
 AC_CHECK_FUNCS([futimens listxattr llistxattr getxattr lgetxattr setxattr lsetxattr removexattr lremovexattr])
 
+dnl For modified printf, we need glibc either (old-style)
+dnl register_printf_function or (new-style) register_printf_specifier.
+AC_CHECK_FUNC([register_printf_specifier],[
+	AC_DEFINE([HAVE_REGISTER_PRINTF_SPECIFIER],[1],
+		[Define to 1 if you have new-style register_printf_specifier])
+	],[
+	AC_CHECK_FUNC([register_printf_function],[
+		AC_DEFINE([HAVE_REGISTER_PRINTF_FUNCTION],[1],
+			[Define to 1 if you have old-style register_printf_function])
+		],[
+		AC_MSG_FAILURE(
+[No support for glibc-style extended printf formatters.
+
+This means you either have a very old glibc (pre-2.0) or you
+are using some other libc where this is not supported.])])])
+
 dnl Headers.
 AC_CHECK_HEADERS([attr/xattr.h sys/xattr.h])
 

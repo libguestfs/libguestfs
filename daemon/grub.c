@@ -28,7 +28,7 @@
 int
 do_grub_install (char *root, char *device)
 {
-  int r, len;
+  int r;
   char *err;
   char *buf;
 
@@ -36,13 +36,10 @@ do_grub_install (char *root, char *device)
   ABS_PATH (root, -1);
   IS_DEVICE (device, -1);
 
-  len = strlen (root) + sysroot_len + 64;
-  buf = malloc (len);
-  if (!buf) {
-    reply_with_perror ("malloc");
+  if (asprintf_nowarn (&buf, "--root-directory=%R", root) == -1) {
+    reply_with_perror ("asprintf");
     return -1;
   }
-  snprintf (buf, len, "--root-directory=%s%s", sysroot, root);
 
   r = command (NULL, &err, "/sbin/grub-install", buf, device, NULL);
   free (buf);

@@ -31,29 +31,23 @@ char **
 do_initrd_list (char *path)
 {
   FILE *fp;
-  int len;
   char *cmd;
   char filename[PATH_MAX];
   char **filenames = NULL;
   int size = 0, alloc = 0;
+  size_t len;
 
   NEED_ROOT (NULL);
   ABS_PATH (path, NULL);
 
   /* "zcat /sysroot/<path> | cpio --quiet -it", but path must be quoted. */
-  len = 64 + sysroot_len + 2 * strlen (path);
-  cmd = malloc (len);
-  if (!cmd) {
-    reply_with_perror ("malloc");
+  if (asprintf_nowarn (&cmd, "zcat %R | cpio --quiet -it", path) == -1) {
+    reply_with_perror ("asprintf");
     return NULL;
   }
 
-  strcpy (cmd, "zcat ");
-  strcat (cmd, sysroot);
-  shell_quote (cmd+13, len-13, path);
-  strcat (cmd, " | cpio --quiet -it");
-
-  fprintf (stderr, "%s\n", cmd);
+  if (verbose)
+    fprintf (stderr, "%s\n", cmd);
 
   fp = popen (cmd, "r");
   if (fp == NULL) {

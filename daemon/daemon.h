@@ -54,11 +54,25 @@ extern int commandrv (char **stdoutput, char **stderror,
 
 extern char **split_lines (char *str);
 
-extern int shell_quote (char *out, int len, const char *in);
-
 extern int device_name_translation (char *device, const char *func);
 
 extern void udev_settle (void);
+
+/* This just stops gcc from giving a warning about our custom
+ * printf formatters %Q and %R.  See HACKING file for more
+ * info about these.
+ */
+static int
+asprintf_nowarn (char **strp, const char *fmt, ...)
+{
+  int r;
+  va_list args;
+
+  va_start (args, fmt);
+  r = vasprintf (strp, fmt, args);
+  va_end (args);
+  return r;
+}
 
 /*-- in names.c (auto-generated) --*/
 extern const char *function_names[];

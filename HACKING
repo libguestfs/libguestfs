@@ -126,3 +126,25 @@ into the appliance.
 
 Debugging messages are never translated, since they are intended for
 the programmers.
+
+Extended printf
+----------------------------------------------------------------------
+
+In the daemon code we have created custom printf formatters %Q and %R,
+which are used to do shell quoting.
+
+%Q => Simple shell quoted string.  Any spaces or other shell characters
+      are escaped for you.
+
+%R => Same as %Q except the string is treated as a path which is prefixed
+      by the sysroot.
+
+eg.
+
+asprintf (&cmd, "cat %R", path);
+==> "cat /sysroot/some\ path\ with\ spaces"
+
+Note: Do NOT use these when you are passing parameters to the
+command{,r,v,rv}() functions.  These parameters do NOT need to be
+quoted because they are not passed via the shell (instead, straight to
+exec).  You probably want to use the sysroot_path() function however.

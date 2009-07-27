@@ -36,6 +36,7 @@
 #include <fcntl.h>
 #include <ctype.h>
 #include <signal.h>
+#include <printf.h>
 
 #include "daemon.h"
 
@@ -46,6 +47,18 @@ static void usage (void);
 #define VMCHANNEL_ADDR "10.0.2.4"
 
 int verbose = 0;
+
+static int print_shell_quote (FILE *stream, const struct printf_info *info, const void *const *args);
+static int print_sysroot_shell_quote (FILE *stream, const struct printf_info *info, const void *const *args);
+#ifdef HAVE_REGISTER_PRINTF_SPECIFIER
+static int print_arginfo (const struct printf_info *info, size_t n, int *argtypes, int *size);
+#else
+#ifdef HAVE_REGISTER_PRINTF_FUNCTION
+static int print_arginfo (const struct printf_info *info, size_t n, int *argtypes);
+#else
+#error "HAVE_REGISTER_PRINTF_{SPECIFIER|FUNCTION} not defined"
+#endif
+#endif
 
 /* Location to mount root device. */
 const char *sysroot = "/sysroot"; /* No trailing slash. */
@@ -75,6 +88,19 @@ main (int argc, char *argv[])
   XDR xdr;
   uint32_t len;
   struct sigaction sa;
+
+#ifdef HAVE_REGISTER_PRINTF_SPECIFIER
+  /* http://udrepper.livejournal.com/20948.html */
+  register_printf_specifier ('Q', print_shell_quote, print_arginfo);
+  register_printf_specifier ('R', print_sysroot_shell_quote, print_arginfo);
+#else
+#ifdef HAVE_REGISTER_PRINTF_FUNCTION
+  register_printf_function ('Q', print_shell_quote, print_arginfo);
+  register_printf_function ('R', print_sysroot_shell_quote, print_arginfo);
+#else
+#error "HAVE_REGISTER_PRINTF_{SPECIFIER|FUNCTION} not defined"
+#endif
+#endif
 
   for (;;) {
     c = getopt_long (argc, argv, options, long_options, NULL);
@@ -229,6 +255,8 @@ main (int argc, char *argv[])
  *
  * Caller must check for NULL and call reply_with_perror ("malloc")
  * if it is.  Caller must also free the string.
+ *
+ * See also the custom %R printf formatter which does shell quoting too.
  */
 char *
 sysroot_path (const char *path)
@@ -685,42 +713,66 @@ split_lines (char *str)
   return lines;
 }
 
-/* Quote 'in' for the shell, and write max len-1 bytes to out.  The
- * result will be NUL-terminated, even if it is truncated.
- *
- * Returns number of bytes needed, so if result >= len then the buffer
- * should have been longer.
- *
- * XXX This doesn't quote \n correctly (but is still safe).
+/* printf helper function so we can use %Q ("quoted") and %R to print
+ * shell-quoted strings.  See HACKING file for more details.
  */
-int
-shell_quote (char *out, int len, const char *in)
+static int
+print_shell_quote (FILE *stream,
+                   const struct printf_info *info,
+                   const void *const *args)
 {
 #define SAFE(c) (isalnum((c)) ||					\
 		 (c) == '/' || (c) == '-' || (c) == '_' || (c) == '.')
-  int i, j;
-  int outlen = strlen (in);
+  int i, len;
+  const char *str = *((const char **) (args[0]));
 
-  /* Calculate how much output space this really needs. */
-  for (i = 0; in[i]; ++i)
-    if (!SAFE (in[i])) outlen++;
-
-  /* Now copy the string, but only up to len-1 bytes. */
-  for (i = 0, j = 0; in[i]; ++i) {
-    int is_safe = SAFE (in[i]);
-
-    /* Enough space left to write this character? */
-    if (j >= len-1 || (!is_safe && j >= len-2))
-      break;
-
-    if (!is_safe) out[j++] = '\\';
-    out[j++] = in[i];
+  for (i = len = 0; str[i]; ++i) {
+    if (!SAFE(str[i])) {
+      putc ('\\', stream);
+      len ++;
+    }
+    putc (str[i], stream);
+    len ++;
   }
 
-  out[j] = '\0';
-
-  return outlen;
+  return len;
 }
+
+static int
+print_sysroot_shell_quote (FILE *stream,
+			   const struct printf_info *info,
+			   const void *const *args)
+{
+#define SAFE(c) (isalnum((c)) ||					\
+		 (c) == '/' || (c) == '-' || (c) == '_' || (c) == '.')
+  fputs (sysroot, stream);
+  return sysroot_len + print_shell_quote (stream, info, args);
+}
+
+#ifdef HAVE_REGISTER_PRINTF_SPECIFIER
+static int
+print_arginfo (const struct printf_info *info,
+	       size_t n, int *argtypes, int *size)
+{
+  if (n > 0) {
+    argtypes[0] = PA_STRING;
+    size[0] = sizeof (const char *);
+  }
+  return 1;
+}
+#else
+#ifdef HAVE_REGISTER_PRINTF_FUNCTION
+static int
+print_arginfo (const struct printf_info *info, size_t n, int *argtypes)
+{
+  if (n > 0)
+    argtypes[0] = PA_STRING;
+  return 1;
+}
+#else
+#error "HAVE_REGISTER_PRINTF_{SPECIFIER|FUNCTION} not defined"
+#endif
+#endif
 
 /* Perform device name translation.  Don't call this directly -
  * use the IS_DEVICE macro.

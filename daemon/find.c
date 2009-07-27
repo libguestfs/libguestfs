@@ -83,21 +83,14 @@ do_find (char *dir)
   sysrootdirlen = strlen (sysrootdir);
 
   /* Assemble the external find command. */
-  len = 2 * sysrootdirlen + 32;
-  cmd = malloc (len);
-  if (!cmd) {
+  if (asprintf_nowarn (&cmd, "find %Q -print0", sysrootdir) == -1) {
     reply_with_perror ("malloc");
     free (sysrootdir);
     return NULL;
   }
 
-  strcpy (cmd, "find ");
-  shell_quote (cmd+5, len-5, sysrootdir);
-  free (sysrootdir);
-  strcat (cmd, " -print0");
-
   if (verbose)
-    printf ("%s\n", cmd);
+    fprintf (stderr, "%s\n", cmd);
 
   fp = popen (cmd, "r");
   if (fp == NULL) {
