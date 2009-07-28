@@ -416,7 +416,7 @@ do_file (char *path)
     return NULL;
   }
 
-  r = command (&out, &err, "file", "-bsL", buf, NULL);
+  r = command (&out, &err, "file", "-zbsL", buf, NULL);
   if (freeit) free (buf);
 
   if (r == -1) {

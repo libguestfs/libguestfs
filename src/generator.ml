@@ -1449,7 +1449,10 @@ This call uses the standard L<file(1)> command to determine
 the type or contents of the file.  This also works on devices,
 for example to find out whether a partition contains a filesystem.
 
-The exact command which runs is C<file -bsL path>.  Note in
+This call will also transparently look inside various types
+of compressed file.
+
+The exact command which runs is C<file -zbsL path>.  Note in
 particular that the filename is not prepended to the output
 (the C<-b> option).");
 
@@ -2914,7 +2917,7 @@ were rarely if ever used anyway.
 
 See also C<guestfs_sfdisk> and the L<sfdisk(8)> manpage.");
 
-  ("zfile", (RString "description", [String "method"; String "path"]), 140, [],
+  ("zfile", (RString "description", [String "method"; String "path"]), 140, [DeprecatedBy "file"],
    [],
    "determine file type inside a compressed file",
    "\
@@ -2923,7 +2926,8 @@ using C<method>.
 
 C<method> must be one of C<gzip>, C<compress> or C<bzip2>.
 
-See also: C<guestfs_file>");
+Since 1.0.63, use C<guestfs_file> instead which can now
+process compressed files.");
 
   ("getxattrs", (RStructList ("xattrs", "xattr"), [String "path"]), 141, [],
    [],
