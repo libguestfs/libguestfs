@@ -169,15 +169,7 @@ type flags =
   | FishAction of string  (* call this function in guestfish *)
   | NotInFish		  (* do not export via guestfish *)
   | NotInDocs		  (* do not add this function to documentation *)
-
-let protocol_limit_warning =
-  "Because of the message protocol, there is a transfer limit
-of somewhere between 2MB and 4MB.  To transfer large files you should use
-FTP."
-
-let danger_will_robinson =
-  "B<This command is dangerous.  Without careful use you
-can easily destroy all your data>."
+  | DeprecatedBy of string (* function is deprecated, use .. instead *)
 
 (* You can supply zero or as many tests as you want per API call.
  *
@@ -3380,6 +3372,31 @@ let seq_of_test = function
   | TestOutputLength (s, _) | TestOutputStruct (s, _)
   | TestLastFail s -> s
 
+(* Handling for function flags. *)
+let protocol_limit_warning =
+  "Because of the message protocol, there is a transfer limit
+of somewhere between 2MB and 4MB.  To transfer large files you should use
+FTP."
+
+let danger_will_robinson =
+  "B<This command is dangerous.  Without careful use you
+can easily destroy all your data>."
+
+let deprecation_notice flags =
+  try
+    let alt =
+      find_map (function DeprecatedBy str -> Some str | _ -> None) flags in
+    let txt =
+      sprintf "This function is deprecated.
+In new code, use the C<%s> call instead.
+
+Deprecated functions will not be removed from the API, but the
+fact that they are deprecated indicates that there are problems
+with correct use of these functions." alt in
+    Some txt
+  with
+    Not_found -> None
+
 (* Check function names etc. for consistency. *)
 let check_functions () =
   let contains_uppercase str =
@@ -3628,7 +3645,10 @@ I<The caller must free the returned buffer after use>.\n\n"
 	if List.mem ProtocolLimitWarning flags then
 	  pr "%s\n\n" protocol_limit_warning;
 	if List.mem DangerWillRobinson flags then
-	  pr "%s\n\n" danger_will_robinson
+	  pr "%s\n\n" danger_will_robinson;
+	match deprecation_notice flags with
+	| None -> ()
+	| Some txt -> pr "%s\n\n" txt
       )
   ) all_functions_sorted
 
@@ -5349,6 +5369,12 @@ and generate_fish_cmds () =
 	    ("\n\n" ^ danger_will_robinson)
 	  else "" in
 
+      let warnings =
+	warnings ^
+	  match deprecation_notice flags with
+	  | None -> ""
+	  | Some txt -> "\n\n" ^ txt in
+
       let describe_alias =
 	if name <> alias then
 	  sprintf "\n\nYou can use '%s' as an alias for this command." alias
@@ -5720,7 +5746,11 @@ and generate_fish_actions_pod () =
 	pr "%s\n\n" protocol_limit_warning;
 
       if List.mem DangerWillRobinson flags then
-	pr "%s\n\n" danger_will_robinson
+	pr "%s\n\n" danger_will_robinson;
+
+      match deprecation_notice flags with
+      | None -> ()
+      | Some txt -> pr "%s\n\n" txt
   ) all_functions_sorted
 
 (* Generate a C function prototype. *)
@@ -6637,7 +6667,10 @@ sub new {
 	if List.mem ProtocolLimitWarning flags then
 	  pr "%s\n\n" protocol_limit_warning;
 	if List.mem DangerWillRobinson flags then
-	  pr "%s\n\n" danger_will_robinson
+	  pr "%s\n\n" danger_will_robinson;
+	match deprecation_notice flags with
+	| None -> ()
+	| Some txt -> pr "%s\n\n" txt
       )
   ) all_functions_sorted;
 
@@ -7161,6 +7194,10 @@ class GuestFS:
 	  if List.mem DangerWillRobinson flags then
 	    doc ^ "\n\n" ^ danger_will_robinson
 	  else doc in
+	let doc =
+	  match deprecation_notice flags with
+	  | None -> doc
+	  | Some txt -> doc ^ "\n\n" ^ txt in
 	let doc = pod2text ~width:60 name doc in
 	let doc = List.map (fun line -> replace_str line "\\" "\\\\") doc in
 	let doc = String.concat "\n        " doc in
@@ -7569,6 +7606,10 @@ public class GuestFS {
 	  if List.mem DangerWillRobinson flags then
 	    doc ^ "\n\n" ^ danger_will_robinson
 	  else doc in
+	let doc =
+	  match deprecation_notice flags with
+	  | None -> doc
+	  | Some txt -> doc ^ "\n\n" ^ txt in
 	let doc = pod2text ~width:60 name doc in
 	let doc = List.map (		(* RHBZ#501883 *)
 	  function
