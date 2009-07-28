@@ -1307,10 +1307,10 @@ sub _check_for_initrd
 	    my $version = $1;
 	    my @modules;
 
-	    # Disregard old-style compressed ext2 files, since cpio
-	    # takes ages to (fail to) process these.
-	    if ($g->file ("/boot/$initrd") !~ /gzip compressed/ ||
-		$g->zfile ("gzip", "/boot/$initrd") !~ /ext2 filesystem/) {
+	    # Disregard old-style compressed ext2 files and only
+	    # work with real compressed cpio files, since cpio
+	    # takes ages to (fail to) process anything else.
+	    if ($g->file ("/boot/$initrd") =~ /cpio/) {
 		eval {
 		    @modules = $g->initrd_list ("/boot/$initrd");
 		};
