@@ -62,7 +62,7 @@ extern void udev_settle (void);
  * printf formatters %Q and %R.  See HACKING file for more
  * info about these.
  */
-static int
+static inline int
 asprintf_nowarn (char **strp, const char *fmt, ...)
 {
   int r;
