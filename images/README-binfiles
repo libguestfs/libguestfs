@@ -1,0 +1,13 @@
+The bin-* and lib-* files are used for testing the
+Sys::Guestfs::Lib::file_architecture API.
+
+The bin-* files are generated from empty source files (ie.
+"main(){}") on the respective architectures.
+
+The lib-* files are generated from a (really) empty source file called
+lib.c which is linked into a library using gcc -shared on the
+respective architectures.
+
+If you are concerned that these binary files "lack source" then you
+can just remove them, but you may need to patch out tests in the perl/
+directory.

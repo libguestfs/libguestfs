@@ -81,6 +81,8 @@ images/100kallzeroes
 images/100krandom
 images/10klines
 images/initrd
+images/initrd-x86_64.img
+images/initrd-x86_64.img.gz
 images/test.sqsh
 initramfs
 initramfs.timestamp
@@ -123,6 +125,7 @@ missing
 *.o
 ocaml/bindtests
 ocaml/bindtests.ml
+ocaml/dllmlguestfs.so
 ocaml/examples/lvs
 ocaml/guestfs_c_actions.c
 ocaml/guestfs.ml
@@ -156,9 +159,9 @@ python/guestfs.pyc
 ruby/bindtests.rb
 ruby/ext/guestfs/extconf.h
 ruby/ext/guestfs/_guestfs.c
+ruby/ext/guestfs/_guestfs.so
 ruby/ext/guestfs/mkmf.log
 ruby/Rakefile
-*.so
 src/guestfs-actions.c
 src/guestfs-actions.h
 src/guestfs-bindtests.c
@@ -166,6 +169,7 @@ src/guestfs_protocol.c
 src/guestfs_protocol.h
 src/guestfs_protocol.x
 src/guestfs-structs.h
+src/.libs/libguestfs.so
 src/.pod2text.data
 src/stamp-generator
 stamp-h1

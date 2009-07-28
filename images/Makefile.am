@@ -22,7 +22,18 @@ EXTRA_DIST = \
 	helloworld.tar \
 	helloworld.tar.gz \
 	mbr-ext2-empty.img.gz \
-	empty known-1 known-2 known-3
+	empty known-1 known-2 known-3 \
+	bin-i586-dynamic \
+	bin-sparc-dynamic \
+	bin-win32.exe \
+	bin-win64.exe \
+	bin-x86_64-dynamic \
+	lib-i586.so \
+	lib-sparc.so \
+	lib-win32.dll \
+	lib-win64.dll \
+	lib-x86_64.so
+
 
 noinst_DATA = test.sqsh
 
@@ -37,7 +48,17 @@ squash_files_src = \
 	$(srcdir)/empty \
 	$(srcdir)/known-1 \
 	$(srcdir)/known-2 \
-	$(srcdir)/known-3
+	$(srcdir)/known-3 \
+	$(srcdir)/bin-i586-dynamic \
+	$(srcdir)/bin-sparc-dynamic \
+	$(srcdir)/bin-win32.exe \
+	$(srcdir)/bin-win64.exe \
+	$(srcdir)/bin-x86_64-dynamic \
+	$(srcdir)/lib-i586.so \
+	$(srcdir)/lib-sparc.so \
+	$(srcdir)/lib-win32.dll \
+	$(srcdir)/lib-win64.dll \
+	$(srcdir)/lib-x86_64.so
 
 squash_files_build = \
 	$(builddir)/100kallzeroes \
@@ -45,7 +66,9 @@ squash_files_build = \
 	$(builddir)/100kallspaces \
 	$(builddir)/100krandom \
 	$(builddir)/10klines \
-	$(builddir)/initrd
+	$(builddir)/initrd \
+	$(builddir)/initrd-x86_64.img \
+	$(builddir)/initrd-x86_64.img.gz
 
 squash_files = $(squash_files_src) $(squash_files_build)
 
@@ -85,4 +108,19 @@ $(builddir)/10klines:
 $(builddir)/initrd: empty known-1 known-2 known-3
 	rm -f $@ $@-t
 	for f in $^; do echo $$f; done | cpio -o -H newc | gzip --best > $@-t
+	mv $@-t $@
+
+# Create a dummy initrd with a single file called 'bin/nash' which
+# is used to test the Sys::Guestfs::Lib::file_architecture function.
+$(builddir)/initrd-x86_64.img: bin-x86_64-dynamic
+	rm -rf bin $@ $@-t
+	mkdir bin
+	cp $< bin/nash
+	echo bin/nash | cpio -o -H newc > $@-t
+	mv $@-t $@
+	rm -rf bin $@-t
+
+$(builddir)/initrd-x86_64.img.gz: initrd-x86_64.img
+	rm -f $@ $@-t
+	gzip --best -c $< > $@-t
 	mv $@-t $@
