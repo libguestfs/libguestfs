@@ -32,20 +32,20 @@ CLEANFILES = \
 	initrd
 
 squash_files_src = \
-    $(srcdir)/helloworld.tar \
-    $(srcdir)/helloworld.tar.gz \
-    $(srcdir)/empty \
-    $(srcdir)/known-1 \
-    $(srcdir)/known-2 \
-    $(srcdir)/known-3
+	$(srcdir)/helloworld.tar \
+	$(srcdir)/helloworld.tar.gz \
+	$(srcdir)/empty \
+	$(srcdir)/known-1 \
+	$(srcdir)/known-2 \
+	$(srcdir)/known-3
 
 squash_files_build = \
-    $(builddir)/100kallzeroes \
-    $(builddir)/100kallnewlines \
-    $(builddir)/100kallspaces \
-    $(builddir)/100krandom \
-    $(builddir)/10klines \
-    $(builddir)/initrd
+	$(builddir)/100kallzeroes \
+	$(builddir)/100kallnewlines \
+	$(builddir)/100kallspaces \
+	$(builddir)/100krandom \
+	$(builddir)/10klines \
+	$(builddir)/initrd
 
 squash_files = $(squash_files_src) $(squash_files_build)
 
