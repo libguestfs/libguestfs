@@ -144,7 +144,6 @@ Ideas for extra commands
 
   General glibc / core programs:
     chgrp
-    grep (do it locally using pipe?)
     dd (?)
     ln / ln -s
     readlink

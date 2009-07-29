@@ -84,6 +84,7 @@ images/initrd
 images/initrd-x86_64.img
 images/initrd-x86_64.img.gz
 images/test.sqsh
+images/test-grep.txt.gz
 initramfs
 initramfs.timestamp
 inspector/virt-inspector.1

@@ -17,6 +17,7 @@ daemon/file.c
 daemon/find.c
 daemon/fsck.c
 daemon/glob.c
+daemon/grep.c
 daemon/grub.c
 daemon/guestfsd.c
 daemon/headtail.c

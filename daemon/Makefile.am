@@ -39,6 +39,7 @@ guestfsd_SOURCES = \
 	find.c \
 	fsck.c \
 	glob.c \
+	grep.c \
 	grub.c \
 	guestfsd.c \
 	headtail.c \

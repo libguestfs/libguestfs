@@ -32,8 +32,8 @@ EXTRA_DIST = \
 	lib-sparc.so \
 	lib-win32.dll \
 	lib-win64.dll \
-	lib-x86_64.so
-
+	lib-x86_64.so \
+	test-grep.txt
 
 noinst_DATA = test.sqsh
 
@@ -58,7 +58,8 @@ squash_files_src = \
 	$(srcdir)/lib-sparc.so \
 	$(srcdir)/lib-win32.dll \
 	$(srcdir)/lib-win64.dll \
-	$(srcdir)/lib-x86_64.so
+	$(srcdir)/lib-x86_64.so \
+	$(srcdir)/test-grep.txt
 
 squash_files_build = \
 	$(builddir)/100kallzeroes \
@@ -68,7 +69,8 @@ squash_files_build = \
 	$(builddir)/10klines \
 	$(builddir)/initrd \
 	$(builddir)/initrd-x86_64.img \
-	$(builddir)/initrd-x86_64.img.gz
+	$(builddir)/initrd-x86_64.img.gz \
+	$(builddir)/test-grep.txt.gz
 
 squash_files = $(squash_files_src) $(squash_files_build)
 
@@ -121,6 +123,11 @@ $(builddir)/initrd-x86_64.img: bin-x86_64-dynamic
 	rm -rf bin $@-t
 
 $(builddir)/initrd-x86_64.img.gz: initrd-x86_64.img
+	rm -f $@ $@-t
+	gzip --best -c $< > $@-t
+	mv $@-t $@
+
+$(builddir)/test-grep.txt.gz: test-grep.txt
 	rm -f $@ $@-t
 	gzip --best -c $< > $@-t
 	mv $@-t $@

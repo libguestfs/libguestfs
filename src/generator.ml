@@ -3046,6 +3046,104 @@ handle files that contain embedded ASCII NUL characters.
 However unlike C<guestfs_download>, this function is limited
 in the total size of file that can be handled.");
 
+  ("grep", (RStringList "lines", [String "regex"; String "path"]), 151, [ProtocolLimitWarning],
+   [InitSquashFS, Always, TestOutputList (
+      [["grep"; "abc"; "/test-grep.txt"]], ["abc"; "abc123"]);
+    InitSquashFS, Always, TestOutputList (
+      [["grep"; "nomatch"; "/test-grep.txt"]], [])],
+   "return lines matching a pattern",
+   "\
+This calls the external C<grep> program and returns the
+matching lines.");
+
+  ("egrep", (RStringList "lines", [String "regex"; String "path"]), 152, [ProtocolLimitWarning],
+   [InitSquashFS, Always, TestOutputList (
+      [["egrep"; "abc"; "/test-grep.txt"]], ["abc"; "abc123"])],
+   "return lines matching a pattern",
+   "\
+This calls the external C<egrep> program and returns the
+matching lines.");
+
+  ("fgrep", (RStringList "lines", [String "pattern"; String "path"]), 153, [ProtocolLimitWarning],
+   [InitSquashFS, Always, TestOutputList (
+      [["fgrep"; "abc"; "/test-grep.txt"]], ["abc"; "abc123"])],
+   "return lines matching a pattern",
+   "\
+This calls the external C<fgrep> program and returns the
+matching lines.");
+
+  ("grepi", (RStringList "lines", [String "regex"; String "path"]), 154, [ProtocolLimitWarning],
+   [InitSquashFS, Always, TestOutputList (
+      [["grepi"; "abc"; "/test-grep.txt"]], ["abc"; "abc123"; "ABC"])],
+   "return lines matching a pattern",
+   "\
+This calls the external C<grep -i> program and returns the
+matching lines.");
+
+  ("egrepi", (RStringList "lines", [String "regex"; String "path"]), 155, [ProtocolLimitWarning],
+   [InitSquashFS, Always, TestOutputList (
+      [["egrepi"; "abc"; "/test-grep.txt"]], ["abc"; "abc123"; "ABC"])],
+   "return lines matching a pattern",
+   "\
+This calls the external C<egrep -i> program and returns the
+matching lines.");
+
+  ("fgrepi", (RStringList "lines", [String "pattern"; String "path"]), 156, [ProtocolLimitWarning],
+   [InitSquashFS, Always, TestOutputList (
+      [["fgrepi"; "abc"; "/test-grep.txt"]], ["abc"; "abc123"; "ABC"])],
+   "return lines matching a pattern",
+   "\
+This calls the external C<fgrep -i> program and returns the
+matching lines.");
+
+  ("zgrep", (RStringList "lines", [String "regex"; String "path"]), 157, [ProtocolLimitWarning],
+   [InitSquashFS, Always, TestOutputList (
+      [["zgrep"; "abc"; "/test-grep.txt.gz"]], ["abc"; "abc123"])],
+   "return lines matching a pattern",
+   "\
+This calls the external C<zgrep> program and returns the
+matching lines.");
+
+  ("zegrep", (RStringList "lines", [String "regex"; String "path"]), 158, [ProtocolLimitWarning],
+   [InitSquashFS, Always, TestOutputList (
+      [["zegrep"; "abc"; "/test-grep.txt.gz"]], ["abc"; "abc123"])],
+   "return lines matching a pattern",
+   "\
+This calls the external C<zegrep> program and returns the
+matching lines.");
+
+  ("zfgrep", (RStringList "lines", [String "pattern"; String "path"]), 159, [ProtocolLimitWarning],
+   [InitSquashFS, Always, TestOutputList (
+      [["zfgrep"; "abc"; "/test-grep.txt.gz"]], ["abc"; "abc123"])],
+   "return lines matching a pattern",
+   "\
+This calls the external C<zfgrep> program and returns the
+matching lines.");
+
+  ("zgrepi", (RStringList "lines", [String "regex"; String "path"]), 160, [ProtocolLimitWarning],
+   [InitSquashFS, Always, TestOutputList (
+      [["zgrepi"; "abc"; "/test-grep.txt.gz"]], ["abc"; "abc123"; "ABC"])],
+   "return lines matching a pattern",
+   "\
+This calls the external C<zgrep -i> program and returns the
+matching lines.");
+
+  ("zegrepi", (RStringList "lines", [String "regex"; String "path"]), 161, [ProtocolLimitWarning],
+   [InitSquashFS, Always, TestOutputList (
+      [["zegrepi"; "abc"; "/test-grep.txt.gz"]], ["abc"; "abc123"; "ABC"])],
+   "return lines matching a pattern",
+   "\
+This calls the external C<zegrep -i> program and returns the
+matching lines.");
+
+  ("zfgrepi", (RStringList "lines", [String "pattern"; String "path"]), 162, [ProtocolLimitWarning],
+   [InitSquashFS, Always, TestOutputList (
+      [["zfgrepi"; "abc"; "/test-grep.txt.gz"]], ["abc"; "abc123"; "ABC"])],
+   "return lines matching a pattern",
+   "\
+This calls the external C<zfgrep -i> program and returns the
+matching lines.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
