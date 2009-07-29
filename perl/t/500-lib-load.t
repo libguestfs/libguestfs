@@ -17,7 +17,18 @@
 
 use strict;
 use warnings;
-use Test::More tests => 1;
+
+BEGIN {
+    use Test::More;
+
+    eval "use Locale::TextDomain";;
+    if (exists $INC{"Locale/TextDomain.pm"}) {
+	plan tests => 1;
+    } else {
+	plan skip_all => "no perl-libintl module";
+	exit 0;
+    }
+}
 
 use Sys::Guestfs;
 use Sys::Guestfs::Lib;
