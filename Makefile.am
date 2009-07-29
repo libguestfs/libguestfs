@@ -165,7 +165,7 @@ all-local:
 	grep -v 'examples/' | \
 	grep -v '/guestfs_protocol.c' | \
 	grep -v '/rc_protocol.c' | \
-	sort | \
+	LC_ALL=C sort | \
 	sed 's,^\./,,' > po/POTFILES.in
 
 # Pkgconfig.

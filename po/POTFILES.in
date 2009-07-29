@@ -63,12 +63,11 @@ fish/tilde.c
 fish/time.c
 inspector/virt-inspector.pl
 java/com_redhat_et_libguestfs_GuestFS.c
-ocaml/guestfs_c_actions.c
 ocaml/guestfs_c.c
+ocaml/guestfs_c_actions.c
 perl/bindtests.pl
-perl/Guestfs.c
-perl/lib/Sys/Guestfs/Lib.pm
 perl/lib/Sys/Guestfs.pm
+perl/lib/Sys/Guestfs/Lib.pm
 python/guestfs-py.c
 ruby/ext/guestfs/_guestfs.c
 src/guestfs-actions.c
