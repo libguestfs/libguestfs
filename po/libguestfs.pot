@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2009-07-29 13:38+0100\n"
+"POT-Creation-Date: 2009-07-29 16:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -544,12 +544,12 @@ msgstr ""
 msgid "resolve_windows_path: path must start with a / character"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:395
+#: perl/lib/Sys/Guestfs/Lib.pm:397
 #, perl-brace-format
 msgid "returning non-canonical architecture type '{arch}'"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:438
+#: perl/lib/Sys/Guestfs/Lib.pm:440
 #, perl-brace-format
 msgid "cpio command failed: {error}"
 msgstr ""
