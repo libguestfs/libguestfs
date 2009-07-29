@@ -956,6 +956,13 @@ L<qemu(1)>,
 L<febootstrap(1)>,
 L<http://libguestfs.org/>.
 
+Tools with a similar purpose:
+L<fdisk(8)>,
+L<parted(8)>,
+L<kpartx(8)>,
+L<lvm(8)>,
+L<disktype(1)>.
+
 =head1 BUGS
 
 To get a list of bugs against libguestfs use this link:
