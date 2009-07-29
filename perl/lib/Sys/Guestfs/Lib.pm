@@ -433,7 +433,7 @@ sub file_architecture
 	$g->download ($path, "$dir/initrd");
 
 	my $bins = join " ", map { "bin/$_" } @_initrd_binaries;
-	my $cmd = "cd $dir && $zcat initrd | cpio -id $bins";
+	my $cmd = "cd $dir && $zcat initrd | cpio --quiet -id $bins";
 	my $r = system ($cmd);
 	die __x("cpio command failed: {error}", error => $?)
 	    unless $r == 0;
