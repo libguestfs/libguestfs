@@ -440,9 +440,7 @@ sub file_architecture
 
 	foreach my $bin (@_initrd_binaries) {
 	    if (-f "$dir/bin/$bin") {
-		open PIPE, "file $dir/bin/$bin |";
-		local $/ = undef;
-		$_ = <PIPE>;
+		$_ = `file $dir/bin/$bin`;
 		if (/ELF.*executable, (.+?),/) {
 		    return _elf_arch_to_canonical ($1);
 		}
