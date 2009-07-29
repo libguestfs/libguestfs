@@ -1049,13 +1049,14 @@ sub _find_filesystem
 
 =head2 mount_operating_system
 
- mount_operating_system ($g, \%os);
+ mount_operating_system ($g, \%os, [$ro]);
 
 This function mounts the operating system described in the
 C<%os> hash according to the C<mounts> table in that hash (see
 C<inspect_operating_systems>).
 
-The partitions are mounted read-only.
+The partitions are mounted read-only unless the third parameter
+is specified as zero explicitly.
 
 To reverse the effect of this call, use the standard
 libguestfs API call C<$g-E<gt>umount_all ()>.
@@ -1067,9 +1068,9 @@ sub mount_operating_system
     local $_;
     my $g = shift;
     my $os = shift;
-    my $ro = shift; # Read-only?
+    my $ro = shift;		# Read-only?
 
-    $ro = 1 unless(defined($ro)); # ro defaults to 1 if unspecified
+    $ro = 1 unless defined $ro; # ro defaults to 1 if unspecified
 
     my $mounts = $os->{mounts};
 
