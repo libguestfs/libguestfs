@@ -264,7 +264,7 @@ version of febootstrap.
     AC_MSG_CHECKING([for --nocompress support in $FEBOOTSTRAP_TO_INITRAMFS])
     out=`$FEBOOTSTRAP_TO_INITRAMFS 2>&1 ||:`
     echo "febootstrap_to_initramfs test command output: $out" >&AS_MESSAGE_LOG_FD
-    if ! echo $out | grep -sq -- "--nocompress" ; then
+    if ! echo "$out" | grep -sq -e --nocompress ; then
         AC_MSG_RESULT([no])
 	AC_MSG_FAILURE(
 [febootstrap-to-initramfs does not support the --nocompress option.
