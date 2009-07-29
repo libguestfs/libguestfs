@@ -37,6 +37,7 @@ do_list_devices (void)
   DIR *dir;
   struct dirent *d;
   char buf[256];
+  int fd;
 
   dir = opendir ("/sys/block");
   if (!dir) {
@@ -49,6 +50,18 @@ do_list_devices (void)
 	strncmp (d->d_name, "hd", 2) == 0 ||
 	strncmp (d->d_name, "vd", 2) == 0) {
       snprintf (buf, sizeof buf, "/dev/%s", d->d_name);
+
+      /* RHBZ#514505: Some versions of qemu <= 0.10 device to add a
+       * CD-ROM device even though we didn't request it.  Try to
+       * detect this by seeing if the device contains media.
+       */
+      fd = open (buf, O_RDONLY);
+      if (fd == -1) {
+	perror (buf);
+	continue;
+      }
+      close (fd);
+
       if (add_string (&r, &size, &alloc, buf) == -1) {
 	closedir (dir);
 	return NULL;
@@ -79,6 +92,7 @@ do_list_partitions (void)
   DIR *dir, *dir2;
   struct dirent *d;
   char buf[256], devname[256];
+  int fd;
 
   dir = opendir ("/sys/block");
   if (!dir) {
@@ -90,6 +104,19 @@ do_list_partitions (void)
     if (strncmp (d->d_name, "sd", 2) == 0 ||
 	strncmp (d->d_name, "hd", 2) == 0 ||
 	strncmp (d->d_name, "vd", 2) == 0) {
+      snprintf (buf, sizeof buf, "/dev/%s", d->d_name);
+
+      /* RHBZ#514505: Some versions of qemu <= 0.10 device to add a
+       * CD-ROM device even though we didn't request it.  Try to
+       * detect this by seeing if the device contains media.
+       */
+      fd = open (buf, O_RDONLY);
+      if (fd == -1) {
+	perror (buf);
+	continue;
+      }
+      close (fd);
+
       strncpy (devname, d->d_name, sizeof devname);
       devname[sizeof devname - 1] = '\0';
 
