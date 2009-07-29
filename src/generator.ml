@@ -30,7 +30,6 @@
  *
  * IMPORTANT: This script should NOT print any warnings.  If it prints
  * warnings, you should treat them as errors.
- * [Need to add -warn-error to ocaml command line]
  *)
 
 #load "unix.cma";;
@@ -207,49 +206,60 @@ type tests = (test_init * test_prereq * test) list
 and test =
     (* Run the command sequence and just expect nothing to fail. *)
   | TestRun of seq
+
     (* Run the command sequence and expect the output of the final
      * command to be the string.
      *)
   | TestOutput of seq * string
+
     (* Run the command sequence and expect the output of the final
      * command to be the list of strings.
      *)
   | TestOutputList of seq * string list
+
     (* Run the command sequence and expect the output of the final
      * command to be the list of block devices (could be either
      * "/dev/sd.." or "/dev/hd.." form - we don't check the 5th
      * character of each string).
      *)
   | TestOutputListOfDevices of seq * string list
+
     (* Run the command sequence and expect the output of the final
      * command to be the integer.
      *)
   | TestOutputInt of seq * int
+
     (* Run the command sequence and expect the output of the final
      * command to be <op> <int>, eg. ">=", "1".
      *)
   | TestOutputIntOp of seq * string * int
+
     (* Run the command sequence and expect the output of the final
      * command to be a true value (!= 0 or != NULL).
      *)
   | TestOutputTrue of seq
+
     (* Run the command sequence and expect the output of the final
      * command to be a false value (== 0 or == NULL, but not an error).
      *)
   | TestOutputFalse of seq
+
     (* Run the command sequence and expect the output of the final
      * command to be a list of the given length (but don't care about
      * content).
      *)
   | TestOutputLength of seq * int
+
     (* Run the command sequence and expect the output of the final
      * command to be a buffer (RBufferOut), ie. string + size.
      *)
   | TestOutputBuffer of seq * string
+
     (* Run the command sequence and expect the output of the final
      * command to be a structure.
      *)
   | TestOutputStruct of seq * test_field_compare list
+
     (* Run the command sequence and expect the final command (only)
      * to fail.
      *)
@@ -266,14 +276,17 @@ and test_field_compare =
 and test_prereq =
     (* Test always runs. *)
   | Always
+
     (* Test is currently disabled - eg. it fails, or it tests some
      * unimplemented feature.
      *)
   | Disabled
+
     (* 'string' is some C code (a function body) that should return
      * true or false.  The test will run if the code returns true.
      *)
   | If of string
+
     (* As for 'If' but the test runs _unless_ the code returns true. *)
   | Unless of string
 
