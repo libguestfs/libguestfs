@@ -287,7 +287,7 @@ sub print_cols
 	my $label = sprintf "%s:%s", $_[0], $_[1];
 
 	printf ("%-36s", $label);
-	print "\n"," "x32 if length ($label) > 36;
+	print "\n"," "x36 if length ($label) > 36;
 
 	my $percent = sprintf "%3.1f%%", $_[5];
 	printf ("%10s %10s %10s %5s\n", $_[2], $_[3], $_[4], $percent);
