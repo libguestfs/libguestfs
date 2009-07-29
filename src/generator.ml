@@ -5421,15 +5421,16 @@ and generate_fish_cmds () =
   (* list_commands function, which implements guestfish -h *)
   pr "void list_commands (void)\n";
   pr "{\n";
-  pr "  printf (\"    %%-16s     %%s\\n\", \"Command\", \"Description\");\n";
+  pr "  printf (\"    %%-16s     %%s\\n\", _(\"Command\"), _(\"Description\"));\n";
   pr "  list_builtin_commands ();\n";
   List.iter (
     fun (name, _, _, flags, _, shortdesc, _) ->
       let name = replace_char name '_' '-' in
-      pr "  printf (\"%%-20s %%s\\n\", \"%s\", \"%s\");\n"
+      pr "  printf (\"%%-20s %%s\\n\", \"%s\", _(\"%s\"));\n"
 	name shortdesc
   ) all_functions_sorted;
-  pr "  printf (\"    Use -h <cmd> / help <cmd> to show detailed help for a command.\\n\");\n";
+  pr "  printf (\"    %%s\\n\",";
+  pr "          _(\"Use -h <cmd> / help <cmd> to show detailed help for a command.\"));\n";
   pr "}\n";
   pr "\n";
 
@@ -5483,7 +5484,7 @@ and generate_fish_cmds () =
       if name <> alias then
 	pr " || strcasecmp (cmd, \"%s\") == 0" alias;
       pr ")\n";
-      pr "    pod2text (\"%s - %s\", %S);\n"
+      pr "    pod2text (\"%s\", _(\"%s\"), %S);\n"
 	name2 shortdesc
 	(" " ^ synopsis ^ "\n\n" ^ longdesc ^ warnings ^ describe_alias);
       pr "  else\n"
@@ -5582,9 +5583,9 @@ and generate_fish_cmds () =
       (* Check and convert parameters. *)
       let argc_expected = List.length (snd style) in
       pr "  if (argc != %d) {\n" argc_expected;
-      pr "    fprintf (stderr, \"%%s should have %d parameter(s)\\n\", cmd);\n"
+      pr "    fprintf (stderr, _(\"%%s should have %%d parameter(s)\\n\"), cmd, %d);\n"
 	argc_expected;
-      pr "    fprintf (stderr, \"type 'help %%s' for help on %%s\\n\", cmd, cmd);\n";
+      pr "    fprintf (stderr, _(\"type 'help %%s' for help on %%s\\n\"), cmd, cmd);\n";
       pr "    return -1;\n";
       pr "  }\n";
       iteri (
@@ -5693,7 +5694,7 @@ and generate_fish_cmds () =
       pr "  else\n";
   ) all_functions;
   pr "    {\n";
-  pr "      fprintf (stderr, \"%%s: unknown command\\n\", cmd);\n";
+  pr "      fprintf (stderr, _(\"%%s: unknown command\\n\"), cmd);\n";
   pr "      return -1;\n";
   pr "    }\n";
   pr "  return 0;\n";

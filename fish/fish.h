@@ -35,7 +35,7 @@ extern guestfs_h *g;
 extern int quit;
 extern int verbose;
 extern int issue_command (const char *cmd, char *argv[], const char *pipe);
-extern void pod2text (const char *heading, const char *body);
+extern void pod2text (const char *name, const char *shortdesc, const char *body);
 extern void list_builtin_commands (void);
 extern void display_builtin_command (const char *cmd);
 extern void free_strings (char **argv);

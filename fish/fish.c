@@ -404,7 +404,7 @@ main (int argc, char *argv[])
 }
 
 void
-pod2text (const char *heading, const char *str)
+pod2text (const char *name, const char *shortdesc, const char *str)
 {
   FILE *fp;
 
@@ -413,12 +413,10 @@ pod2text (const char *heading, const char *str)
     /* pod2text failed, maybe not found, so let's just print the
      * source instead, since that's better than doing nothing.
      */
-    printf ("%s\n\n%s\n", heading, str);
+    printf ("%s - %s\n\n%s\n", name, shortdesc, str);
     return;
   }
-  fputs ("=head1 ", fp);
-  fputs (heading, fp);
-  fputs ("\n\n", fp);
+  fprintf (fp, "=head1 %s - %s\n\n", name, shortdesc);
   fputs (str, fp);
   pclose (fp);
 }
