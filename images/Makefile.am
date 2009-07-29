@@ -77,8 +77,11 @@ squash_files_build = \
 squash_files = $(squash_files_src) $(squash_files_build)
 
 test.sqsh: $(squash_files)
-	rm -f $@
-	$(MKSQUASHFS) $(squash_files) $@
+	rm -f $@ $@-t
+	mkdir -p directory
+	$(MKSQUASHFS) $(squash_files) directory $@-t
+	rmdir directory
+	mv $@-t $@
 
 $(builddir)/100kallzeroes:
 	rm -f $@ $@-t
@@ -109,7 +112,7 @@ $(builddir)/10klines:
 	done > $@-t
 	mv $@-t $@
 
-$(builddir)/initrd: empty known-1 known-2 known-3
+$(builddir)/initrd: empty known-1 known-2 known-3 known-4 known-5
 	rm -f $@ $@-t
 	for f in $^; do echo $$f; done | cpio -o -H newc | gzip --best > $@-t
 	mv $@-t $@

@@ -796,9 +796,8 @@ update the timestamps on a file, or, if the file does not exist,
 to create a new zero-length file.");
 
   ("cat", (RString "content", [String "path"]), 4, [ProtocolLimitWarning],
-   [InitBasicFS, Always, TestOutput (
-      [["write_file"; "/new"; "new file contents"; "0"];
-       ["cat"; "/new"]], "new file contents")],
+   [InitSquashFS, Always, TestOutput (
+      [["cat"; "/known-2"]], "abcdef\n")],
    "list the contents of a file",
    "\
 Return the contents of the file named C<path>.
@@ -945,12 +944,10 @@ List all the logical volumes detected.  This is the equivalent
 of the L<lvs(8)> command.  The \"full\" version includes all fields.");
 
   ("read_lines", (RStringList "lines", [String "path"]), 15, [],
-   [InitBasicFS, Always, TestOutputList (
-      [["write_file"; "/new"; "line1\r\nline2\nline3"; "0"];
-       ["read_lines"; "/new"]], ["line1"; "line2"; "line3"]);
-    InitBasicFS, Always, TestOutputList (
-      [["write_file"; "/new"; ""; "0"];
-       ["read_lines"; "/new"]], [])],
+   [InitSquashFS, Always, TestOutputList (
+      [["read_lines"; "/known-4"]], ["abc"; "def"; "ghi"]);
+    InitSquashFS, Always, TestOutputList (
+      [["read_lines"; "/empty"]], [])],
    "read file as lines",
    "\
 Return the contents of the file named C<path>.
@@ -1211,12 +1208,10 @@ names, you will need to locate and parse the password file
 yourself (Augeas support makes this relatively easy).");
 
   ("exists", (RBool "existsflag", [String "path"]), 36, [],
-   [InitBasicFS, Always, TestOutputTrue (
-      [["touch"; "/new"];
-       ["exists"; "/new"]]);
-    InitBasicFS, Always, TestOutputTrue (
-      [["mkdir"; "/new"];
-       ["exists"; "/new"]])],
+   [InitSquashFS, Always, TestOutputTrue (
+      [["exists"; "/empty"]]);
+    InitSquashFS, Always, TestOutputTrue (
+      [["exists"; "/directory"]])],
    "test if file or directory exists",
    "\
 This returns C<true> if and only if there is a file, directory
@@ -1225,12 +1220,10 @@ This returns C<true> if and only if there is a file, directory
 See also C<guestfs_is_file>, C<guestfs_is_dir>, C<guestfs_stat>.");
 
   ("is_file", (RBool "fileflag", [String "path"]), 37, [],
-   [InitBasicFS, Always, TestOutputTrue (
-      [["touch"; "/new"];
-       ["is_file"; "/new"]]);
-    InitBasicFS, Always, TestOutputFalse (
-      [["mkdir"; "/new"];
-       ["is_file"; "/new"]])],
+   [InitSquashFS, Always, TestOutputTrue (
+      [["is_file"; "/known-1"]]);
+    InitSquashFS, Always, TestOutputFalse (
+      [["is_file"; "/directory"]])],
    "test if file exists",
    "\
 This returns C<true> if and only if there is a file
@@ -1240,12 +1233,10 @@ other objects like directories.
 See also C<guestfs_stat>.");
 
   ("is_dir", (RBool "dirflag", [String "path"]), 38, [],
-   [InitBasicFS, Always, TestOutputFalse (
-      [["touch"; "/new"];
-       ["is_dir"; "/new"]]);
-    InitBasicFS, Always, TestOutputTrue (
-      [["mkdir"; "/new"];
-       ["is_dir"; "/new"]])],
+   [InitSquashFS, Always, TestOutputFalse (
+      [["is_dir"; "/known-3"]]);
+    InitSquashFS, Always, TestOutputTrue (
+      [["is_dir"; "/directory"]])],
    "test if file exists",
    "\
 This returns C<true> if and only if there is a directory
@@ -1439,14 +1430,12 @@ This command removes all LVM logical volumes, volume groups
 and physical volumes.");
 
   ("file", (RString "description", [String "path"]), 49, [],
-   [InitBasicFS, Always, TestOutput (
-      [["touch"; "/new"];
-       ["file"; "/new"]], "empty");
-    InitBasicFS, Always, TestOutput (
-      [["write_file"; "/new"; "some content\n"; "0"];
-       ["file"; "/new"]], "ASCII text");
-    InitBasicFS, Always, TestLastFail (
-      [["file"; "/nofile"]])],
+   [InitSquashFS, Always, TestOutput (
+      [["file"; "/empty"]], "empty");
+    InitSquashFS, Always, TestOutput (
+      [["file"; "/known-1"]], "ASCII text");
+    InitSquashFS, Always, TestLastFail (
+      [["file"; "/notexists"]])],
    "determine file type",
    "\
 This call uses the standard L<file(1)> command to determine
@@ -1594,9 +1583,8 @@ result into a list of lines.
 See also: C<guestfs_sh_lines>");
 
   ("stat", (RStruct ("statbuf", "stat"), [String "path"]), 52, [],
-   [InitBasicFS, Always, TestOutputStruct (
-      [["touch"; "/new"];
-       ["stat"; "/new"]], [CompareWithInt ("size", 0)])],
+   [InitSquashFS, Always, TestOutputStruct (
+      [["stat"; "/empty"]], [CompareWithInt ("size", 0)])],
    "get file information",
    "\
 Returns file information for the given C<path>.
@@ -1604,9 +1592,8 @@ Returns file information for the given C<path>.
 This is the same as the C<stat(2)> system call.");
 
   ("lstat", (RStruct ("statbuf", "stat"), [String "path"]), 53, [],
-   [InitBasicFS, Always, TestOutputStruct (
-      [["touch"; "/new"];
-       ["lstat"; "/new"]], [CompareWithInt ("size", 0)])],
+   [InitSquashFS, Always, TestOutputStruct (
+      [["lstat"; "/empty"]], [CompareWithInt ("size", 0)])],
    "get file information for a symbolic link",
    "\
 Returns file information for the given C<path>.
@@ -1618,9 +1605,9 @@ refers to.
 This is the same as the C<lstat(2)> system call.");
 
   ("statvfs", (RStruct ("statbuf", "statvfs"), [String "path"]), 54, [],
-   [InitBasicFS, Always, TestOutputStruct (
-      [["statvfs"; "/"]], [CompareWithInt ("namemax", 255);
-			   CompareWithInt ("bsize", 1024)])],
+   [InitSquashFS, Always, TestOutputStruct (
+      [["statvfs"; "/"]], [CompareWithInt ("namemax", 256);
+			   CompareWithInt ("bsize", 131072)])],
    "get file system statistics",
    "\
 Returns file system statistics for any mounted file system.
@@ -1783,31 +1770,22 @@ C<filename> can also be a named pipe.
 See also C<guestfs_upload>, C<guestfs_cat>.");
 
   ("checksum", (RString "checksum", [String "csumtype"; String "path"]), 68, [],
-   [InitBasicFS, Always, TestOutput (
-      [["write_file"; "/new"; "test\n"; "0"];
-       ["checksum"; "crc"; "/new"]], "935282863");
-    InitBasicFS, Always, TestLastFail (
-      [["checksum"; "crc"; "/new"]]);
-    InitBasicFS, Always, TestOutput (
-      [["write_file"; "/new"; "test\n"; "0"];
-       ["checksum"; "md5"; "/new"]], "d8e8fca2dc0f896fd7cb4cb0031ba249");
-    InitBasicFS, Always, TestOutput (
-      [["write_file"; "/new"; "test\n"; "0"];
-       ["checksum"; "sha1"; "/new"]], "4e1243bd22c66e76c2ba9eddc1f91394e57f9f83");
-    InitBasicFS, Always, TestOutput (
-      [["write_file"; "/new"; "test\n"; "0"];
-       ["checksum"; "sha224"; "/new"]], "52f1bf093f4b7588726035c176c0cdb4376cfea53819f1395ac9e6ec");
-    InitBasicFS, Always, TestOutput (
-      [["write_file"; "/new"; "test\n"; "0"];
-       ["checksum"; "sha256"; "/new"]], "f2ca1bb6c7e907d06dafe4687e579fce76b37e4e93b7605022da52e6ccc26fd2");
-    InitBasicFS, Always, TestOutput (
-      [["write_file"; "/new"; "test\n"; "0"];
-       ["checksum"; "sha384"; "/new"]], "109bb6b5b6d5547c1ce03c7a8bd7d8f80c1cb0957f50c4f7fda04692079917e4f9cad52b878f3d8234e1a170b154b72d");
-    InitBasicFS, Always, TestOutput (
-      [["write_file"; "/new"; "test\n"; "0"];
-       ["checksum"; "sha512"; "/new"]], "0e3e75234abc68f4378a86b3f4b32a198ba301845b0cd6e50106e874345700cc6663a86c1ea125dc5e92be17c98f9a0f85ca9d5f595db2012f7cc3571945c123");
+   [InitSquashFS, Always, TestOutput (
+      [["checksum"; "crc"; "/known-3"]], "2891671662");
+    InitSquashFS, Always, TestLastFail (
+      [["checksum"; "crc"; "/notexists"]]);
     InitSquashFS, Always, TestOutput (
-      [["checksum"; "md5"; "/known-3"]], "46d6ca27ee07cdc6fa99c2e138cc522c")],
+      [["checksum"; "md5"; "/known-3"]], "46d6ca27ee07cdc6fa99c2e138cc522c");
+    InitSquashFS, Always, TestOutput (
+      [["checksum"; "sha1"; "/known-3"]], "b7ebccc3ee418311091c3eda0a45b83c0a770f15");
+    InitSquashFS, Always, TestOutput (
+      [["checksum"; "sha224"; "/known-3"]], "d2cd1774b28f3659c14116be0a6dc2bb5c4b350ce9cd5defac707741");
+    InitSquashFS, Always, TestOutput (
+      [["checksum"; "sha256"; "/known-3"]], "75bb71b90cd20cb13f86d2bea8dad63ac7194e7517c3b52b8d06ff52d3487d30");
+    InitSquashFS, Always, TestOutput (
+      [["checksum"; "sha384"; "/known-3"]], "5fa7883430f357b5d7b7271d3a1d2872b51d73cba72731de6863d3dea55f30646af2799bef44d5ea776a5ec7941ac640");
+    InitSquashFS, Always, TestOutput (
+      [["checksum"; "sha512"; "/known-3"]], "2794062c328c6b216dca90443b7f7134c5f40e56bd0ed7853123275a09982a6f992e6ca682f9d2fba34a4c5e870d8fe077694ff831e3032a004ee077e00603f6")],
    "compute MD5, SHAx or CRC checksum of file",
    "\
 This call computes the MD5, SHAx or CRC checksum of the
@@ -2245,21 +2223,18 @@ true if their content is exactly equal, or false otherwise.
 The external L<cmp(1)> program is used for the comparison.");
 
   ("strings", (RStringList "stringsout", [String "path"]), 94, [ProtocolLimitWarning],
-   [InitBasicFS, Always, TestOutputList (
-      [["write_file"; "/new"; "hello\nworld\n"; "0"];
-       ["strings"; "/new"]], ["hello"; "world"]);
-    InitBasicFS, Always, TestOutputList (
-      [["touch"; "/new"];
-       ["strings"; "/new"]], [])],
+   [InitSquashFS, Always, TestOutputList (
+      [["strings"; "/known-5"]], ["abcdefghi"; "jklmnopqr"]);
+    InitSquashFS, Always, TestOutputList (
+      [["strings"; "/empty"]], [])],
    "print the printable strings in a file",
    "\
 This runs the L<strings(1)> command on a file and returns
 the list of printable strings found.");
 
   ("strings_e", (RStringList "stringsout", [String "encoding"; String "path"]), 95, [ProtocolLimitWarning],
-   [InitBasicFS, Always, TestOutputList (
-      [["write_file"; "/new"; "hello\nworld\n"; "0"];
-       ["strings_e"; "b"; "/new"]], []);
+   [InitSquashFS, Always, TestOutputList (
+      [["strings_e"; "b"; "/known-5"]], []);
     InitBasicFS, Disabled, TestOutputList (
       [["write_file"; "/new"; "\000h\000e\000l\000l\000o\000\n\000w\000o\000r\000l\000d\000\n"; "24"];
        ["strings_e"; "b"; "/new"]], ["hello"; "world"])],
@@ -2276,9 +2251,8 @@ show strings inside Windows/x86 files.
 The returned strings are transcoded to UTF-8.");
 
   ("hexdump", (RString "dump", [String "path"]), 96, [ProtocolLimitWarning],
-   [InitBasicFS, Always, TestOutput (
-      [["write_file"; "/new"; "hello\nworld\n"; "12"];
-       ["hexdump"; "/new"]], "00000000  68 65 6c 6c 6f 0a 77 6f  72 6c 64 0a              |hello.world.|\n0000000c\n");
+   [InitSquashFS, Always, TestOutput (
+      [["hexdump"; "/known-4"]], "00000000  61 62 63 0a 64 65 66 0a  67 68 69                 |abc.def.ghi|\n0000000b\n");
     (* Test for RHBZ#501888c2 regression which caused large hexdump
      * commands to segfault.
      *)
@@ -2719,9 +2693,8 @@ is I<not> intended that you try to parse the output string.
 Use C<statvfs> from programs.");
 
   ("du", (RInt64 "sizekb", [String "path"]), 127, [],
-   [InitBasicFS, Always, TestOutputInt (
-      [["mkdir"; "/p"];
-       ["du"; "/p"]], 1 (* ie. 1 block, so depends on ext3 blocksize *))],
+   [InitSquashFS, Always, TestOutputInt (
+      [["du"; "/directory"]], 0 (* squashfs doesn't have blocks *))],
    "estimate file space usage",
    "\
 This command runs the C<du -s> command to estimate file space
@@ -2736,7 +2709,7 @@ The result is the estimated size in I<kilobytes>
 
   ("initrd_list", (RStringList "filenames", [String "path"]), 128, [],
    [InitSquashFS, Always, TestOutputList (
-      [["initrd_list"; "/initrd"]], ["empty";"known-1";"known-2";"known-3"])],
+      [["initrd_list"; "/initrd"]], ["empty";"known-1";"known-2";"known-3";"known-4"; "known-5"])],
    "list files in an initrd",
    "\
 This command lists out files contained in an initrd.
