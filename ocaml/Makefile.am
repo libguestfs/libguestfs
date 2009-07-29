@@ -76,6 +76,11 @@ t/guestfs_060_readdir: t/guestfs_060_readdir.cmx mlguestfs.cmxa
 	mkdir -p t
 	$(OCAMLFIND) ocamlopt -cclib -L$(top_builddir)/src/.libs -I . unix.cmxa mlguestfs.cmxa $< -o $@
 
+# Need to rebuild the tests from source if the main library has
+# changed at all, otherwise we get inconsistent assumptions.
+t/%.cmx: t/%.ml mlguestfs.cmxa
+	$(OCAMLFIND) ocamlopt -c $< -o $@
+
 .mli.cmi:
 	$(OCAMLFIND) ocamlc -c $< -o $@
 .ml.cmo:
