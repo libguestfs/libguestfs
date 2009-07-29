@@ -381,6 +381,8 @@ sub _elf_arch_to_canonical
 	return "i486";	# probably not in the wild
     } elsif ($_ eq "x86-64") {
 	return "x86_64";
+    } elsif ($_ eq "AMD x86-64") {
+	return "x86_64";
     } elsif (/SPARC32/) {
 	return "sparc";
     } elsif (/SPARC V9/) {
