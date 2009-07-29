@@ -243,6 +243,10 @@ and test =
      *)
   | TestOutputLength of seq * int
     (* Run the command sequence and expect the output of the final
+     * command to be a buffer (RBufferOut), ie. string + size.
+     *)
+  | TestOutputBuffer of seq * string
+    (* Run the command sequence and expect the output of the final
      * command to be a structure.
      *)
   | TestOutputStruct of seq * test_field_compare list
@@ -3033,9 +3037,8 @@ with C<guestfs_mkmountpoint>.  See C<guestfs_mkmountpoint>
 for full details.");
 
   ("read_file", (RBufferOut "content", [String "path"]), 150, [ProtocolLimitWarning],
-   [InitBasicFS, Always, TestOutput (
-      [["write_file"; "/new"; "new file contents"; "0"];
-       ["read_file"; "/new"]], "new file contents")],
+   [InitSquashFS, Always, TestOutputBuffer (
+      [["read_file"; "/known-4"]], "abc\ndef\nghi")],
    "read a file",
    "\
 This calls returns the contents of the file C<path> as a
@@ -3471,7 +3474,8 @@ let seq_of_test = function
   | TestOutputListOfDevices (s, _)
   | TestOutputInt (s, _) | TestOutputIntOp (s, _, _)
   | TestOutputTrue s | TestOutputFalse s
-  | TestOutputLength (s, _) | TestOutputStruct (s, _)
+  | TestOutputLength (s, _) | TestOutputBuffer (s, _)
+  | TestOutputStruct (s, _)
   | TestLastFail s -> s
 
 (* Handling for function flags. *)
@@ -5214,6 +5218,23 @@ and generate_one_test_body name i test_name init test =
 	pr "      fprintf (stderr, \"%s: long list returned\\n\");\n"
 	  test_name;
 	pr "      print_strings (r);\n";
+	pr "      return -1;\n";
+	pr "    }\n"
+      in
+      List.iter (generate_test_command_call test_name) seq;
+      generate_test_command_call ~test test_name last
+  | TestOutputBuffer (seq, expected) ->
+      pr "  /* TestOutputBuffer for %s (%d) */\n" name i;
+      pr "  const char *expected = \"%s\";\n" (c_quote expected);
+      let seq, last = get_seq_last seq in
+      let len = String.length expected in
+      let test () =
+	pr "    if (size != %d) {\n" len;
+	pr "      fprintf (stderr, \"%s: returned size of buffer wrong, expected %d but got %%zu\\n\", size);\n" test_name len;
+	pr "      return -1;\n";
+	pr "    }\n";
+	pr "    if (strncmp (r, expected, size) != 0) {\n";
+	pr "      fprintf (stderr, \"%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", expected, r);\n" test_name;
 	pr "      return -1;\n";
 	pr "    }\n"
       in

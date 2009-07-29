@@ -22,7 +22,7 @@ EXTRA_DIST = \
 	helloworld.tar \
 	helloworld.tar.gz \
 	mbr-ext2-empty.img.gz \
-	empty known-1 known-2 known-3 \
+	empty known-1 known-2 known-3 known-4 known-5 \
 	bin-i586-dynamic \
 	bin-sparc-dynamic \
 	bin-win32.exe \
@@ -49,6 +49,8 @@ squash_files_src = \
 	$(srcdir)/known-1 \
 	$(srcdir)/known-2 \
 	$(srcdir)/known-3 \
+	$(srcdir)/known-4 \
+	$(srcdir)/known-5 \
 	$(srcdir)/bin-i586-dynamic \
 	$(srcdir)/bin-sparc-dynamic \
 	$(srcdir)/bin-win32.exe \
