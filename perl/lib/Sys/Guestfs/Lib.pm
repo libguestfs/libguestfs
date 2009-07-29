@@ -876,6 +876,17 @@ sub _check_linux_root
 	}
 	$r->{fstab} = \@fstab if @fstab;
     }
+
+    # Determine the architecture of this root.
+    my $arch;
+    foreach ("/bin/bash", "/bin/ls", "/bin/echo", "/bin/rm", "/bin/sh") {
+	if ($g->is_file ($_)) {
+	    $arch = file_architecture ($g, $_);
+	    last;
+	}
+    }
+
+    $r->{arch} = $arch if defined $arch;
 }
 
 # We only support NT.  The control file /boot.ini contains a list of
@@ -914,11 +925,28 @@ sub _check_windows_root
 
 	if (defined $systemroot) {
 	    $r->{systemroot} = resolve_windows_path ($g, "/$systemroot");
-	    if (defined $r->{systemroot} && $use_windows_registry) {
-		_check_windows_registry ($g, $r, $r->{systemroot});
+	    if (defined $r->{systemroot}) {
+		_check_windows_arch ($g, $r, $r->{systemroot});
+		if ($use_windows_registry) {
+		    _check_windows_registry ($g, $r, $r->{systemroot});
+		}
 	    }
 	}
     }
+}
+
+# Find Windows userspace arch.
+
+sub _check_windows_arch
+{
+    local $_;
+    my $g = shift;
+    my $r = shift;
+    my $systemroot = shift;
+
+    my $cmd_exe =
+	resolve_windows_path ($g, $r->{systemroot} . "/system32/cmd.exe");
+    $r->{arch} = file_architecture ($g, $cmd_exe) if $cmd_exe;
 }
 
 sub _check_windows_registry
@@ -1034,6 +1062,10 @@ The C<\%os> hash contains the following keys (any can be omitted):
 
 Operating system type, eg. "linux", "windows".
 
+=item arch
+
+Operating system userspace architecture, eg. "i386", "x86_64".
+
 =item distro
 
 Operating system distribution, eg. "debian".
@@ -1118,6 +1150,7 @@ sub _get_os_version
         if exists $r->{root}->{package_format};
     $r->{package_management} = $r->{root}->{package_management}
         if exists $r->{root}->{package_management};
+    $r->{arch} = $r->{root}->{arch} if exists $r->{root}->{arch};
 }
 
 sub _assign_mount_points
@@ -1267,6 +1300,24 @@ List of applications.
 
 List of kernels.
 
+This is a hash of kernel version =E<gt> a hash with the following keys:
+
+=over 4
+
+=item version
+
+Kernel version.
+
+=item arch
+
+Kernel architecture (eg. C<x86-64>).
+
+=item modules
+
+List of modules.
+
+=back
+
 =item modprobe_aliases
 
 (For Linux VMs).
@@ -1359,13 +1410,20 @@ sub _check_for_kernels
 
 		# List modules.
 		my @modules;
-		foreach ($g->find ("/lib/modules/$_")) {
+		my $any_module;
+		my $prefix = "/lib/modules/$_";
+		foreach ($g->find ($prefix)) {
 		    if (m,/([^/]+)\.ko$, || m,([^/]+)\.o$,) {
+			$any_module = "$prefix$_" unless defined $any_module;
 			push @modules, $1;
 		    }
 		}
 
 		$kernel{modules} = \@modules;
+
+		# Determine kernel architecture by looking at the arch
+		# of any kernel module.
+		$kernel{arch} = file_architecture ($g, $any_module);
 
 		push @kernels, \%kernel;
 	    }

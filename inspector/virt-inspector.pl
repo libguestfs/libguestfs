@@ -357,6 +357,7 @@ sub output_text_os
 
     print $os->{os}, " " if exists $os->{os};
     print $os->{distro}, " " if exists $os->{distro};
+    print $os->{arch}, " " if exists $os->{arch};
     print $os->{major_version} if exists $os->{major_version};
     print ".", $os->{minor_version} if exists $os->{minor_version};
     print " ";
@@ -415,7 +416,7 @@ sub output_text_os
     print __"  Kernels:\n";
     my @kernels = @{$os->{kernels}};
     foreach (@kernels) {
-	print "    $_->{version}\n";
+	print "    $_->{version} ($_->{arch})\n";
 	my @modules = @{$_->{modules}};
 	foreach (@modules) {
 	    print "      $_\n";
@@ -450,6 +451,7 @@ sub output_xml_os
 
     foreach ( [ "name" => "os" ],
               [ "distro" => "distro" ],
+              [ "arch" => "arch" ],
               [ "major_version" => "major_version" ],
               [ "minor_version" => "minor_version" ],
               [ "package_format" => "package_format" ],
@@ -531,7 +533,9 @@ sub output_xml_os
     $xml->startTag("kernels");
     my @kernels = @{$os->{kernels}};
     foreach (@kernels) {
-        $xml->startTag("kernel", "version" => $_->{version});
+        $xml->startTag("kernel",
+		       "version" => $_->{version},
+		       "arch" => $_->{arch});
         $xml->startTag("modules");
 	my @modules = @{$_->{modules}};
 	foreach (@modules) {
@@ -591,6 +595,8 @@ sub output_query
     output_query_xen_domU_kernel ();
     output_query_xen_pv_drivers ();
     output_query_virtio_drivers ();
+    output_query_kernel_arch ();
+    output_query_userspace_arch ();
 }
 
 =item windows=(yes|no)
@@ -761,6 +767,50 @@ sub output_query_virtio_drivers
 	}
     }
     print "virtio_drivers=no\n";
+}
+
+=item userspace_arch=(x86_64|...)
+
+Print the architecture of userspace.
+
+NB. For multi-boot VMs this can print several lines.
+
+=cut
+
+sub output_query_userspace_arch
+{
+    my %arches;
+
+    foreach my $os (keys %$oses) {
+	$arches{$oses->{$os}->{arch}} = 1 if exists $oses->{$os}->{arch};
+    }
+
+    foreach (sort keys %arches) {
+	print "userspace_arch=$_\n";
+    }
+}
+
+=item kernel_arch=(x86_64|...)
+
+Print the architecture of the kernel.
+
+NB. For multi-boot VMs this can print several lines.
+
+=cut
+
+sub output_query_kernel_arch
+{
+    my %arches;
+
+    foreach my $os (keys %$oses) {
+	foreach my $kernel (@{$oses->{$os}->{kernels}}) {
+	    $arches{$kernel->{arch}} = 1 if exists $kernel->{arch};
+	}
+    }
+
+    foreach (sort keys %arches) {
+	print "kernel_arch=$_\n";
+    }
 }
 
 =back
