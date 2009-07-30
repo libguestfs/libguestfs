@@ -98,7 +98,7 @@ if test "x$vmchannel_test" != "xno"; then
         AC_MSG_CHECKING([for "-net channel" support in $QEMU])
 	vmchannelout=`$QEMU -net channel /dev/zero 2>&1 ||:`
 	echo "vmchannel test command output: $vmchannelout" >&AS_MESSAGE_LOG_FD
-	if echo $vmchannelout | grep -sq "vmchannel wrong port number" ; then
+	if echo "$vmchannelout" | grep -sq "vmchannel wrong port number" ; then
 	    AC_MSG_RESULT([yes])
 	else
 	    AC_MSG_RESULT([no])
@@ -169,8 +169,8 @@ if test "x$FEBOOTSTRAP" != "xno"; then
     AC_MSG_WARN([fakechroot --version command failed, proceeding anyway])
   else
     AC_MSG_RESULT([$fakechroot_version])
-    fakechroot_major=`echo $fakechroot_version | awk -F. '{print $1}'`
-    fakechroot_minor=`echo $fakechroot_version | awk -F. '{print $2}'`
+    fakechroot_major=`echo "$fakechroot_version" | awk -F. '{print $1}'`
+    fakechroot_minor=`echo "$fakechroot_version" | awk -F. '{print $2}'`
     if test "$fakechroot_major" -lt 2 -o \
             \( "$fakechroot_major" -eq 2 -a "$fakechroot_minor" -lt 9 \); then
         AC_MSG_ERROR([fakechroot version must be >= 2.9])
@@ -187,7 +187,7 @@ else
   test "x$DEBIRF" = "xno" &&
         AC_MSG_ERROR([debirf must be installed])
   DIST="DEBIAN"
-  case $host_cpu in
+  case "$host_cpu" in
       *86)
           DEBIAN_KERNEL_ARCH=486
           ;;
@@ -395,6 +395,13 @@ AC_ARG_WITH(java_home,
 if test "x$with_java_home" != "xno"; then
     if test "x$with_java_home" != "xyes" -a "x$with_java_home" != "xcheck"
     then
+	# Reject unsafe characters in $JAVA_HOME
+	jh_lf='
+'
+	case $JAVA_HOME in
+	  *[\\\"\#\$\&\'\`$jh_lf\ \	]*)
+            AC_MSG_FAILURE([unsafe \$JAVA_HOME directory (use --with-java-home=no to disable Java support)]);;
+	esac
         if test -d "$with_java_home"; then
 	    JAVA_HOME="$with_java_home"
 	else
@@ -419,7 +426,7 @@ if test "x$with_java_home" != "xno"; then
         AC_MSG_CHECKING(for JDK in $JAVA_HOME)
 	if test ! -x "$JAVA_HOME/bin/java"; then
             AC_MSG_ERROR([missing $JAVA_HOME/bin/java binary (use --with-java-home=no to disable Java support)])
-    	else
+	else
 	    JAVA="$JAVA_HOME/bin/java"
 	fi
 	if test ! -x "$JAVA_HOME/bin/javac"; then
@@ -452,7 +459,7 @@ if test "x$with_java_home" != "xno"; then
         else
             if test "`find $JAVA_HOME -name jni.h`" != ""; then
                 head=`find $JAVA_HOME -name jni.h | tail -1`
-	        dir=`dirname $head`
+	        dir=`dirname "$head"`
 	        JNI_CFLAGS="-I$dir"
             else
 	        AC_MSG_FAILURE([missing jni.h header file])
@@ -473,7 +480,7 @@ if test "x$with_java_home" != "xno"; then
         else
             if test "`find $JAVA_HOME -name jni_md.h`" != ""; then
                 head=`find $JAVA_HOME -name jni_md.h | tail -1`
-        	dir=`dirname $head`
+                dir=`dirname "$head"`
                 JNI_CFLAGS="$JNI_CFLAGS -I$dir"
             else
                 AC_MSG_FAILURE([missing jni_md.h header file])
@@ -497,10 +504,10 @@ if test "x$with_java_home" != "xno"; then
         JNI_INSTALL_DIR=\${libdir}
 
         dnl JNI version.
-        jni_major_version=`echo $VERSION | awk -F. '{print $1}'`
-        jni_minor_version=`echo $VERSION | awk -F. '{print $2}'`
-        jni_micro_version=`echo $VERSION | awk -F. '{print $3}'`
-        JNI_VERSION_INFO=`expr $jni_major_version + $jni_minor_version`:$jni_micro_version:$jni_minor_version
+        jni_major_version=`echo "$VERSION" | awk -F. '{print $1}'`
+        jni_minor_version=`echo "$VERSION" | awk -F. '{print $2}'`
+        jni_micro_version=`echo "$VERSION" | awk -F. '{print $3}'`
+        JNI_VERSION_INFO=`expr "$jni_major_version" + "$jni_minor_version"`":$jni_micro_version:$jni_minor_version"
     fi
 fi
 
