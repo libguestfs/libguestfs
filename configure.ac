@@ -94,6 +94,7 @@ if test "x$vmchannel_test" != "xno"; then
     if $QEMU --help | grep -sq guestfwd; then
         AC_MSG_RESULT([yes])
     else
+        AC_MSG_RESULT([no])
         AC_MSG_CHECKING([for "-net channel" support in $QEMU])
 	vmchannelout=`$QEMU -net channel /dev/zero 2>&1 ||:`
 	echo "vmchannel test command output: $vmchannelout" >&AS_MESSAGE_LOG_FD
