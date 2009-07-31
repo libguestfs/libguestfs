@@ -57,8 +57,8 @@ endif
 $(INITRAMFSIMG) $(VMLINUZ): $(top_builddir)/initramfs/fakeroot.log
 
 $(top_builddir)/initramfs/fakeroot.log: make.sh kmod.whitelist packagelist
-	-mv $(INITRAMFSIMG) $(INITRAMFSIMG).bak
-	-mv $(VMLINUZ) $(VMLINUZ).bak
+	mv $(INITRAMFSIMG) $(INITRAMFSIMG).bak 2>/dev/null; :
+	mv $(VMLINUZ) $(VMLINUZ).bak 2>/dev/null; :
 	if ! bash make.sh; then rm -f $@; exit 1; fi
 
 $(INITRAMFSIMG): $(top_builddir)/initramfs/fakeroot.log $(top_builddir)/daemon/guestfsd init update.sh
