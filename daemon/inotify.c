@@ -1,0 +1,320 @@
+/* libguestfs - the guestfsd daemon
+ * Copyright (C) 2009 Red Hat Inc.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+#include <config.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/inotify.h>
+
+#include "../src/guestfs_protocol.h"
+#include "daemon.h"
+#include "actions.h"
+
+/* Currently open inotify handle, or -1 if not opened. */
+static int inotify_fd = -1;
+
+static char inotify_buf[64*1024*1024];	/* Event buffer, [0..posn-1] is valid */
+static int inotify_posn = 0;
+
+/* Because inotify_init does NEED_ROOT, NEED_INOTIFY implies NEED_ROOT. */
+#define NEED_INOTIFY(errcode)						\
+  do {									\
+    if (inotify_fd == -1) {						\
+      reply_with_error ("%s: you must call 'inotify_init' first to initialize inotify", __func__); \
+      return (errcode);							\
+    }									\
+  } while (0)
+
+#define MQE_PATH "/proc/sys/fs/inotify/max_queued_events"
+
+int
+do_inotify_init (int max_events)
+{
+  FILE *fp;
+
+  NEED_ROOT (-1);
+
+  if (max_events < 0) {
+    reply_with_error ("inotify_init: max_events < 0");
+    return -1;
+  }
+
+  if (max_events > 0) {
+    fp = fopen (MQE_PATH, "w");
+    if (fp == NULL) {
+      reply_with_perror (MQE_PATH);
+      return -1;
+    }
+    fprintf (fp, "%d\n", max_events);
+    fclose (fp);
+  }
+
+  if (inotify_fd >= 0)
+    if (do_inotify_close () == -1)
+      return -1;
+
+  inotify_fd = inotify_init1 (IN_NONBLOCK | IN_CLOEXEC);
+  if (inotify_fd == -1) {
+    reply_with_perror ("inotify_init");
+    return -1;
+  }
+
+  return 0;
+}
+
+int
+do_inotify_close (void)
+{
+  NEED_INOTIFY (-1);
+
+  if (inotify_fd == -1) {
+    reply_with_error ("inotify_close: handle is not open");
+    return -1;
+  }
+
+  if (close (inotify_fd) == -1) {
+    reply_with_perror ("close");
+    return -1;
+  }
+
+  inotify_fd = -1;
+  inotify_posn = 0;
+
+  return 0;
+}
+
+int64_t
+do_inotify_add_watch (char *path, int mask)
+{
+  int64_t r;
+  char *buf;
+
+  NEED_INOTIFY (-1);
+  ABS_PATH (path, -1);
+
+  buf = sysroot_path (path);
+  if (!buf) {
+    reply_with_perror ("malloc");
+    return -1;
+  }
+
+  r = inotify_add_watch (inotify_fd, buf, mask);
+  free (buf);
+  if (r == -1) {
+    reply_with_perror ("inotify_add_watch: %s", path);
+    return -1;
+  }
+
+  return r;
+}
+
+int
+do_inotify_rm_watch (int wd)
+{
+  NEED_INOTIFY (-1);
+
+  if (inotify_rm_watch (inotify_fd, wd) == -1) {
+    reply_with_perror ("inotify_rm_watch: %d", wd);
+    return -1;
+  }
+
+  return 0;
+}
+
+guestfs_int_inotify_event_list *
+do_inotify_read (void)
+{
+  int space;
+  guestfs_int_inotify_event_list *ret;
+
+  NEED_INOTIFY (NULL);
+
+  ret = malloc (sizeof *ret);
+  if (ret == NULL) {
+    reply_with_perror ("malloc");
+    return NULL;
+  }
+  ret->guestfs_int_inotify_event_list_len = 0;
+  ret->guestfs_int_inotify_event_list_val = NULL;
+
+  /* Read events that are available, but make sure we won't exceed
+   * maximum message size.  In order to achieve this we have to
+   * guesstimate the remaining space available.
+   */
+  space = GUESTFS_MESSAGE_MAX / 2;
+
+  while (space > 0) {
+    struct inotify_event *event;
+    int n, r;
+
+    r = read (inotify_fd, inotify_buf + inotify_posn,
+	      sizeof (inotify_buf) - inotify_posn);
+    if (r == -1) {
+      if (errno == EWOULDBLOCK || errno == EAGAIN) /* End of list. */
+	break;
+      reply_with_perror ("read");
+      goto error;
+    }
+    if (r == 0) {		/* End of file - we're not expecting it. */
+      reply_with_error ("inotify_read: unexpected end of file");
+      goto error;
+    }
+
+    inotify_posn += r;
+
+    /* Read complete events from the buffer and add them to the result. */
+    n = 0;
+    while (n < inotify_posn) {
+      guestfs_int_inotify_event *np;
+      guestfs_int_inotify_event *in;
+
+      event = (struct inotify_event *) &inotify_buf[n];
+
+      /* Have we got a complete event in the buffer? */
+#ifdef __GNUC__
+      if (n + sizeof (struct inotify_event) > inotify_posn ||
+	  n + sizeof (struct inotify_event) + event->len > inotify_posn)
+	break;
+#else
+#error "this code needs fixing so it works on non-GCC compilers"
+#endif
+
+      np = realloc (ret->guestfs_int_inotify_event_list_val,
+		    (ret->guestfs_int_inotify_event_list_len + 1) *
+		    sizeof (guestfs_int_inotify_event));
+      if (np == NULL) {
+	reply_with_perror ("realloc");
+	goto error;
+      }
+      ret->guestfs_int_inotify_event_list_val = np;
+      in = &ret->guestfs_int_inotify_event_list_val[ret->guestfs_int_inotify_event_list_len];
+      ret->guestfs_int_inotify_event_list_len++;
+
+      in->in_wd = event->wd;
+      in->in_mask = event->mask;
+      in->in_cookie = event->cookie;
+
+      if (event->len > 0)
+	in->in_name = strdup (event->name);
+      else
+	in->in_name = strdup (""); /* Should have optional string fields XXX. */
+      if (in->in_name == NULL) {
+	reply_with_perror ("strdup");
+	goto error;
+      }
+
+      /* Estimate space used by this event in the message. */
+      space -= 16 + 4 + strlen (in->in_name) + 4;
+
+      /* Move pointer to next event. */
+#ifdef __GNUC__
+      n += sizeof (struct inotify_event) + event->len;
+#else
+#error "this code needs fixing so it works on non-GCC compilers"
+#endif
+    }
+
+    /* 'n' now points to the first unprocessed/incomplete
+     * message in the buffer. Copy that to offset 0 in the buffer.
+     */
+    memmove (inotify_buf, &inotify_buf[n], inotify_posn - n);
+    inotify_posn -= n;
+  }
+
+  /* Return the messages. */
+  return ret;
+
+ error:
+  xdr_free ((xdrproc_t) xdr_guestfs_int_inotify_event_list, (char *) ret);
+  free (ret);
+  return NULL;
+}
+
+char **
+do_inotify_files (void)
+{
+  char **ret = NULL;
+  int size = 0, alloc = 0;
+  int i;
+  FILE *fp;
+  guestfs_int_inotify_event_list *events;
+  char buf[PATH_MAX];
+
+  NEED_INOTIFY (NULL);
+
+  fp = popen ("sort -u > /tmp/inotify", "w");
+  if (fp == NULL) {
+    reply_with_perror ("sort");
+    return NULL;
+  }
+
+  while (1) {
+    events = do_inotify_read ();
+    if (events == NULL)
+      goto error;
+
+    if (events->guestfs_int_inotify_event_list_len == 0) {
+      free (events);
+      break;			/* End of list of events. */
+    }
+
+    for (i = 0; i < events->guestfs_int_inotify_event_list_len; ++i) {
+      const char *name = events->guestfs_int_inotify_event_list_val[i].in_name;
+
+      if (name[0] != '\0')
+	fprintf (fp, "%s\n", name);
+    }
+
+    xdr_free ((xdrproc_t) xdr_guestfs_int_inotify_event_list, (char *) events);
+    free (events);
+  }
+
+  pclose (fp);
+
+  fp = fopen ("/tmp/inotify", "r");
+  if (fp == NULL) {
+    reply_with_perror ("/tmp/inotify");
+    return NULL;
+  }
+
+  while (fgets (buf, sizeof buf, fp) != NULL) {
+    int len = strlen (buf);
+
+    if (len > 0 && buf[len-1] == '\n')
+      buf[len-1] = '\0';
+
+    if (add_string (&ret, &size, &alloc, buf) == -1) {
+      fclose (fp);
+      goto error;
+    }
+  }
+
+  fclose (fp);
+
+  if (add_string (&ret, &size, &alloc, NULL) == -1)
+    goto error;
+
+  unlink ("/tmp/inotify");
+  return ret;
+
+ error:
+  unlink ("/tmp/inotify");
+  return NULL;
+}

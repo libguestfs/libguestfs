@@ -24,6 +24,7 @@ daemon/guestfsd.c
 daemon/headtail.c
 daemon/hexdump.c
 daemon/initrd.c
+daemon/inotify.c
 daemon/link.c
 daemon/ls.c
 daemon/lvm.c

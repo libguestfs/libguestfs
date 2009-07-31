@@ -3295,6 +3295,104 @@ Create a swap file.
 This command just writes a swap file signature to an existing
 file.  To create the file itself, use something like C<guestfs_fallocate>.");
 
+  ("inotify_init", (RErr, [Int "maxevents"]), 179, [],
+   [InitSquashFS, Always, TestRun (
+      [["inotify_init"; "0"]])],
+   "create an inotify handle",
+   "\
+This command creates a new inotify handle.
+The inotify subsystem can be used to notify events which happen to
+objects in the guest filesystem.
+
+C<maxevents> is the maximum number of events which will be
+queued up between calls to C<guestfs_inotify_read> or
+C<guestfs_inotify_files>.
+If this is passed as C<0>, then the kernel (or previously set)
+default is used.  For Linux 2.6.29 the default was 16384 events.
+Beyond this limit, the kernel throws away events, but records
+the fact that it threw them away by setting a flag
+C<IN_Q_OVERFLOW> in the returned structure list (see
+C<guestfs_inotify_read>).
+
+Before any events are generated, you have to add some
+watches to the internal watch list.  See:
+C<guestfs_inotify_add_watch>,
+C<guestfs_inotify_rm_watch> and
+C<guestfs_inotify_watch_all>.
+
+Queued up events should be read periodically by calling
+C<guestfs_inotify_read>
+(or C<guestfs_inotify_files> which is just a helpful
+wrapper around C<guestfs_inotify_read>).  If you don't
+read the events out often enough then you risk the internal
+queue overflowing.
+
+The handle should be closed after use by calling
+C<guestfs_inotify_close>.  This also removes any
+watches automatically.
+
+See also L<inotify(7)> for an overview of the inotify interface
+as exposed by the Linux kernel, which is roughly what we expose
+via libguestfs.  Note that there is one global inotify handle
+per libguestfs instance.");
+
+  ("inotify_add_watch", (RInt64 "wd", [String "path"; Int "mask"]), 180, [],
+   [InitBasicFS, Always, TestOutputList (
+      [["inotify_init"; "0"];
+       ["inotify_add_watch"; "/"; "1073741823"];
+       ["touch"; "/a"];
+       ["touch"; "/b"];
+       ["inotify_files"]], ["a"; "b"])],
+   "add an inotify watch",
+   "\
+Watch C<path> for the events listed in C<mask>.
+
+Note that if C<path> is a directory then events within that
+directory are watched, but this does I<not> happen recursively
+(in subdirectories).
+
+Note for non-C or non-Linux callers: the inotify events are
+defined by the Linux kernel ABI and are listed in
+C</usr/include/sys/inotify.h>.");
+
+  ("inotify_rm_watch", (RErr, [Int(*XXX64*) "wd"]), 181, [],
+   [],
+   "remove an inotify watch",
+   "\
+Remove a previously defined inotify watch.
+See C<guestfs_inotify_add_watch>.");
+
+  ("inotify_read", (RStructList ("events", "inotify_event"), []), 182, [],
+   [],
+   "return list of inotify events",
+   "\
+Return the complete queue of events that have happened
+since the previous read call.
+
+If no events have happened, this returns an empty list.
+
+I<Note>: In order to make sure that all events have been
+read, you must call this function repeatedly until it
+returns an empty list.  The reason is that the call will
+read events up to the maximum appliance-to-host message
+size and leave remaining events in the queue.");
+
+  ("inotify_files", (RStringList "paths", []), 183, [],
+   [],
+   "return list of watched files that had events",
+   "\
+This function is a helpful wrapper around C<guestfs_inotify_read>
+which just returns a list of pathnames of objects that were
+touched.  The returned pathnames are sorted and deduplicated.");
+
+  ("inotify_close", (RErr, []), 184, [],
+   [],
+   "close the inotify handle",
+   "\
+This closes the inotify handle which was previously
+opened by inotify_init.  It removes all watches, throws
+away any pending events, and deallocates all resources.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
@@ -3309,7 +3407,7 @@ let all_functions_sorted =
 (* Field types for structures. *)
 type field =
   | FChar			(* C 'char' (really, a 7 bit byte). *)
-  | FString			(* nul-terminated ASCII string. *)
+  | FString			(* nul-terminated ASCII string, NOT NULL. *)
   | FBuffer			(* opaque buffer of bytes, (char *, int) pair *)
   | FUInt32
   | FInt32
@@ -3455,6 +3553,14 @@ let structs = [
     "attrname", FString;
     "attrval", FBuffer;
   ];
+
+  (* Inotify events. *)
+  "inotify_event", [
+    "in_wd", FInt64;
+    "in_mask", FUInt32;
+    "in_cookie", FUInt32;
+    "in_name", FString;
+  ];
 ] (* end of structs *)
 
 (* Ugh, Java has to be different ..
@@ -3470,6 +3576,7 @@ let java_structs = [
   "dirent", "Dirent";
   "version", "Version";
   "xattr", "XAttr";
+  "inotify_event", "INotifyEvent";
 ]
 
 (* Used for testing language bindings. *)
