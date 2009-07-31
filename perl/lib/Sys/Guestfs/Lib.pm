@@ -1342,7 +1342,7 @@ sub inspect_in_detail
     _check_for_applications ($g, $os);
     _check_for_kernels ($g, $os);
     if ($os->{os} eq "linux") {
-	_check_for_modprobe_aliases ($g, $os);
+	_find_modprobe_aliases ($g, $os);
 	_check_for_initrd ($g, $os);
     }
 }
@@ -1436,16 +1436,14 @@ sub _check_for_kernels
     $os->{kernels} = \@kernels;
 }
 
-# Check /etc/modprobe.conf to see if there are any specified
-# drivers associated with network (ethX) or hard drives.  Normally
-# one might find something like:
-#
-#  alias eth0 xennet
-#  alias scsi_hostadapter xenblk
-#
-# XXX This doesn't look beyond /etc/modprobe.conf, eg. in /etc/modprobe.d/
+# Find all modprobe aliases. Specifically, this looks in the following
+# locations:
+#  * /etc/conf.modules
+#  * /etc/modules.conf
+#  * /etc/modprobe.conf
+#  * /etc/modprobe.d/*
 
-sub _check_for_modprobe_aliases
+sub _find_modprobe_aliases
 {
     local $_;
     my $g = shift;
