@@ -530,6 +530,27 @@ sub output_xml_os
     }
     $xml->endTag("applications");
 
+    if(defined($os->{boot}) && defined($os->{boot}->{configs})) {
+        my $default = $os->{boot}->{default};
+        my $configs = $os->{boot}->{configs};
+
+        $xml->startTag("boot");
+        for(my $i = 0; $i < scalar(@$configs); $i++) {
+            my $config = $configs->[$i];
+
+            my @attrs = ();
+            push(@attrs, ("default" => 1)) if($default == $i);
+            $xml->startTag("config", @attrs);
+            $xml->dataElement("title", $config->{title});
+            $xml->dataElement("kernel", $config->{kernel}->{version})
+                if(defined($config->{kernel}));
+            $xml->dataElement("cmdline", $config->{cmdline})
+                if(defined($config->{cmdline}));
+            $xml->endTag("config");
+        }
+        $xml->endTag("boot");
+    }
+
     $xml->startTag("kernels");
     my @kernels = @{$os->{kernels}};
     foreach (@kernels) {
@@ -542,6 +563,8 @@ sub output_xml_os
             $xml->dataElement("module", $_);
 	}
         $xml->endTag("modules");
+        $xml->dataElement("path", $_->{path}) if(defined($_->{path}));
+        $xml->dataElement("package", $_->{package}) if(defined($_->{package}));
         $xml->endTag("kernel");
     }
     $xml->endTag("kernels");

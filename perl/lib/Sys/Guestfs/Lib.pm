@@ -1296,6 +1296,44 @@ finds.  These extra keys are:
 
 List of applications.
 
+=item boot
+
+Boot configurations. A hash containing:
+
+=over 4
+
+=item configs
+
+An array of boot configurations. Each array entry is a hash containing:
+
+=over 4
+
+=item initrd
+
+A reference to the expanded initrd structure (see below) for the initrd used by
+this boot configuration.
+
+=item kernel
+
+A reference to the expanded kernel structure (see below) for the kernel used by
+this boot configuration.
+
+=item title
+
+The human readable name of the configuration.
+
+=item cmdline
+
+The kernel command line.
+
+=back
+
+=item default
+
+The index of the default configuration in the configs array
+
+=back
+
 =item kernels
 
 List of kernels.
@@ -1315,6 +1353,14 @@ Kernel architecture (eg. C<x86-64>).
 =item modules
 
 List of modules.
+
+=item path
+
+The path to the kernel's vmlinuz file.
+
+=item package
+
+If the kernel was installed in a package, the name of that package.
 
 =back
 
@@ -1343,7 +1389,6 @@ sub inspect_in_detail
     _check_for_kernels ($g, $os);
     if ($os->{os} eq "linux") {
 	_find_modprobe_aliases ($g, $os);
-	_check_for_initrd ($g, $os);
     }
 }
 
@@ -1392,48 +1437,187 @@ sub _check_for_applications
 
 sub _check_for_kernels
 {
-    local $_;
-    my $g = shift;
-    my $os = shift;
+    my ($g, $os) = @_;
 
-    my @kernels;
+    if ($os->{os} eq "linux") {
+        # Iterate over entries in grub.conf, populating $os->{boot}
+        # For every kernel we find, inspect it and add to $os->{kernels}
 
-    my $osn = $os->{os};
-    if ($osn eq "linux") {
-	# Installed kernels will have a corresponding /lib/modules/<version>
-	# directory, which is the easiest way to find out what kernels
-	# are installed, and what modules are available.
-	foreach ($g->ls ("/lib/modules")) {
-	    if ($g->is_dir ("/lib/modules/$_")) {
-		my %kernel;
-		$kernel{version} = $_;
+        my @boot_configs;
 
-		# List modules.
-		my @modules;
-		my $any_module;
-		my $prefix = "/lib/modules/$_";
-		foreach ($g->find ($prefix)) {
-		    if (m,/([^/]+)\.ko$, || m,([^/]+)\.o$,) {
-			$any_module = "$prefix$_" unless defined $any_module;
-			push @modules, $1;
-		    }
-		}
+        # We want
+        #  $os->{boot}
+        #       ->{configs}
+        #         ->[0]
+        #           ->{title}   = "Fedora (2.6.29.6-213.fc11.i686.PAE)"
+        #           ->{kernel}  = \kernel
+        #           ->{cmdline} = "ro root=/dev/mapper/vg_mbooth-lv_root rhgb"
+        #           ->{initrd}  = \initrd
+        #       ->{default} = \config
+        # Initialise augeas
+        $g->aug_init("/", 16);
 
-		$kernel{modules} = \@modules;
+        my @configs = ();
+        # Get all configurations from grub
+        foreach my $bootable
+            ($g->aug_match("/files/etc/grub.conf/title"))
+        {
+            my %config = ();
+            $config{title} = $g->aug_get($bootable);
 
-		# Determine kernel architecture by looking at the arch
-		# of any kernel module.
-		$kernel{arch} = file_architecture ($g, $any_module);
+            my $grub_kernel;
+            eval { $grub_kernel = $g->aug_get("$bootable/kernel"); };
+            if($@) {
+                warn __x("Grub entry {title} has no kernel",
+                         title => $config{title});
+            }
 
-		push @kernels, \%kernel;
-	    }
-	}
+            # Check we've got a kernel entry
+            if(defined($grub_kernel)) {
+                my $path = "/boot$grub_kernel";
 
-    } elsif ($osn eq "windows") {
-	# XXX
+                # Reconstruct the kernel command line
+                my @args = ();
+                foreach my $arg ($g->aug_match("$bootable/kernel/*")) {
+                    $arg =~ m{/kernel/([^/]*)$}
+                        or die("Unexpected return from aug_match: $arg");
+
+                    my $name = $1;
+                    my $value;
+                    eval { $value = $g->aug_get($arg); };
+
+                    if(defined($value)) {
+                        push(@args, "$name=$value");
+                    } else {
+                        push(@args, $name);
+                    }
+                }
+                $config{cmdline} = join(' ', @args) if(scalar(@args) > 0);
+
+                my $kernel = _inspect_linux_kernel($g, $os, "$path");
+
+                # Check the kernel was recognised
+                if(defined($kernel)) {
+                    $config{kernel} = $kernel;
+
+                    # Look for an initrd entry
+                    my $initrd;
+                    eval {
+                        $initrd = $g->aug_get("$bootable/initrd");
+                    };
+
+                    unless($@) {
+                        $config{initrd} =
+                            _inspect_initrd($g, $os, "/boot$initrd",
+                                            $kernel->{version});
+                    } else {
+                        warn __x("Grub entry {title} does not specify an ".
+                                 "initrd", title => $config{title});
+                    }
+                }
+            }
+
+            push(@configs, \%config);
+        }
+
+
+        # Create the top level boot entry
+        my %boot;
+        $boot{configs} = \@configs;
+
+        # Add the default configuration
+        eval {
+            $boot{default} = $g->aug_get("/files/etc/grub.conf/default");
+        };
+        if($@) {
+            warn __"No grub default specified";
+        }
+
+        $os->{boot} = \%boot;
     }
 
-    $os->{kernels} = \@kernels;
+    elsif ($os->{os} eq "windows") {
+	# XXX
+    }
+}
+
+sub _inspect_linux_kernel
+{
+    my ($g, $os, $path) = @_;
+
+    my %kernel = ();
+
+    $kernel{path} = $path;
+
+    # If this is a packaged kernel, try to work out the name of the package
+    # which installed it. This lets us know what to install to replace it with,
+    # e.g. kernel, kernel-smp, kernel-hugemem, kernel-PAE
+    if($os->{package_format} eq "rpm") {
+        my $package;
+        eval { $package = $g->command(['rpm', '-qf', '--qf',
+                                       '%{NAME}', $path]); };
+        $kernel{package} = $package if defined($package);;
+    }
+
+    # Try to get the kernel version by running file against it
+    my $version;
+    my $filedesc = $g->file($path);
+    if($filedesc =~ /^$path: Linux kernel .*\bversion\s+(\S+)\b/) {
+        $version = $1;
+    }
+
+    # Sometimes file can't work out the kernel version, for example because it's
+    # a Xen PV kernel. In this case try to guess the version from the filename
+    else {
+        if($path =~ m{/boot/vmlinuz-(.*)}) {
+            $version = $1;
+
+            # Check /lib/modules/$version exists
+            if(!$g->is_dir("/lib/modules/$version")) {
+                warn __x("Didn't find modules directory {modules} for kernel ".
+                         "{path}", modules => "/lib/modules/$version",
+                         path => $path);
+
+                # Give up
+                return undef;
+            }
+        } else {
+            warn __x("Couldn't guess kernel version number from path for ".
+                     "kernel {path}", path => $path);
+
+            # Give up
+            return undef;
+        }
+    }
+
+    $kernel{version} = $version;
+
+    # List modules.
+    my @modules;
+    my $any_module;
+    my $prefix = "/lib/modules/$version";
+    foreach my $module ($g->find ($prefix)) {
+        if ($module =~ m{/([^/]+)\.(?:ko|o)$}) {
+            $any_module = "$prefix$module" unless defined $any_module;
+            push @modules, $1;
+        }
+    }
+
+    $kernel{modules} = \@modules;
+
+    # Determine kernel architecture by looking at the arch
+    # of any kernel module.
+    $kernel{arch} = file_architecture ($g, $any_module);
+
+    # Put this kernel on the top level kernel list
+    my $kernels = $os->{kernels};
+    if(!defined($kernels)) {
+        $kernels = [];
+        $os->{kernels} = $kernels;
+    }
+    push(@$kernels, \%kernel);
+
+    return \%kernel;
 }
 
 # Find all modprobe aliases. Specifically, this looks in the following
@@ -1450,28 +1634,14 @@ sub _find_modprobe_aliases
     my $os = shift;
 
     # Initialise augeas
-    my $success = 0;
-    $success = $g->aug_init("/", 16);
+    $g->aug_init("/", 16);
 
-    # Register /etc/modules.conf and /etc/conf.modules to the Modprobe lens
-    my @results;
-    @results = $g->aug_match("/augeas/load/Modprobe/incl");
-
-    # Calculate the next index of /augeas/load/Modprobe/incl
-    my $i = 1;
-    foreach ( @results ) {
-        next unless m{/augeas/load/Modprobe/incl\[(\d*)]};
-        $i = $1 + 1 if ($1 == $i);
-    }
-
-    $success = $g->aug_set("/augeas/load/Modprobe/incl[$i]",
-                           "/etc/modules.conf");
-    $i++;
-    $success = $g->aug_set("/augeas/load/Modprobe/incl[$i]",
-                                  "/etc/conf.modules");
+    # Register additional paths to the Modprobe lens
+    $g->aug_set("/augeas/load/Modprobe/incl[last()+1]", "/etc/modules.conf");
+    $g->aug_set("/augeas/load/Modprobe/incl[last()+1]", "/etc/conf.modules");
 
     # Make augeas reload
-    $success = $g->aug_load();
+    $g->aug_load();
 
     my %modprobe_aliases;
 
@@ -1479,9 +1649,7 @@ sub _find_modprobe_aliases
                        /files/etc/modules.conf/alias
                        /files/etc/modprobe.conf/alias
                        /files/etc/modprobe.d/*/alias) {
-        @results = $g->aug_match($pattern);
-
-        for my $path ( @results ) {
+        for my $path ( $g->aug_match($pattern) ) {
             $path =~ m{^/files(.*)/alias(?:\[\d*\])?$}
                 or die __x("{path} doesn't match augeas pattern",
 			   path => $path);
@@ -1505,44 +1673,39 @@ sub _find_modprobe_aliases
     $os->{modprobe_aliases} = \%modprobe_aliases;
 }
 
-# Get a listing of device drivers in any initrd corresponding to a
-# kernel.  This is an indication of what can possibly be booted.
-
-sub _check_for_initrd
+# Get a listing of device drivers from an initrd
+sub _inspect_initrd
 {
-    local $_;
-    my $g = shift;
-    my $os = shift;
+    my ($g, $os, $path, $version) = @_;
 
-    my %initrd_modules;
+    my @modules;
 
-    foreach my $initrd ($g->ls ("/boot")) {
-	if ($initrd =~ m/^initrd-(.*)\.img$/ && $g->is_file ("/boot/$initrd")) {
-	    my $version = $1;
-	    my @modules;
-
-	    # Disregard old-style compressed ext2 files and only
-	    # work with real compressed cpio files, since cpio
-	    # takes ages to (fail to) process anything else.
-	    if ($g->file ("/boot/$initrd") =~ /cpio/) {
-		eval {
-		    @modules = $g->initrd_list ("/boot/$initrd");
-		};
-		unless ($@) {
-		    @modules = grep { m,([^/]+)\.ko$, || m,([^/]+)\.o$, }
-		    @modules;
-		    $initrd_modules{$version} = \@modules
-		} else {
-		    warn __x("{filename}: could not read initrd format",
-			     filename => "/boot/$initrd");
-	        }
-	    }
-	}
+    # Disregard old-style compressed ext2 files and only work with real
+    # compressed cpio files, since cpio takes ages to (fail to) process anything
+    # else.
+    if ($g->file ($path) =~ /cpio/) {
+        eval {
+            @modules = $g->initrd_list ($path);
+        };
+        unless ($@) {
+            @modules = grep { m{([^/]+)\.(?:ko|o)$} } @modules;
+        } else {
+            warn __x("{filename}: could not read initrd format",
+                     filename => "$path");
+        }
     }
 
-    $os->{initrd_modules} = \%initrd_modules;
-}
+    # Add to the top level initrd_modules entry
+    my $initrd_modules = $os->{initrd_modules};
+    if(!defined($initrd_modules)) {
+        $initrd_modules = {};
+        $os->{initrd_modules} = $initrd_modules;
+    }
+    
+    $initrd_modules->{$version} = \@modules;
 
+    return \@modules;
+}
 
 1;
 
