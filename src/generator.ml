@@ -3133,6 +3133,14 @@ matching lines.");
 This calls the external C<zfgrep -i> program and returns the
 matching lines.");
 
+  ("realpath", (RString "rpath", [String "path"]), 163, [],
+   [InitSquashFS, Always, TestOutput (
+      [["realpath"; "/../directory"]], "/directory")],
+   "canonicalized absolute pathname",
+   "\
+Return the canonicalized absolute pathname of C<path>.  The
+returned path has no C<.>, C<..> or symbolic link path elements.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

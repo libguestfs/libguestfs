@@ -150,7 +150,6 @@ Ideas for extra commands
     utime / utimes / futimes / futimens / l..
     more mk*temp calls
     some sort of alloc/fallocate/posix_fallocate call to create empty space
-    realpath
     trunc[ate??]
 
   ext2 properties:
