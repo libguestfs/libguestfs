@@ -1044,7 +1044,8 @@ guestfs_launch (guestfs_h *g)
     "udevtimeout=300 " /* good for very slow systems (RHBZ#480319) */	\
     "noapic "          /* workaround for RHBZ#502058 - ok if not SMP */ \
     "acpi=off "        /* we don't need ACPI, turn it off */		\
-    "cgroup_disable=memory " /* saves us about 5 MB of RAM */
+    "cgroup_disable=memory " /* saves us about 5 MB of RAM */           \
+    "selinux=0 "       /* SELinux is messed up if there's no policy */
 
     /* Linux kernel command line. */
     snprintf (append, sizeof append,
