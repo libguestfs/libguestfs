@@ -2757,7 +2757,11 @@ Create a swap partition on C<device>.");
        ["mkswap_L"; "hello"; "/dev/sda1"]])],
    "create a swap partition with a label",
    "\
-Create a swap partition on C<device> with label C<label>.");
+Create a swap partition on C<device> with label C<label>.
+
+Note that you cannot attach a swap label to a block device
+(eg. C</dev/sda>), just to a partition.  This appears to be
+a limitation of the kernel or swap tools.");
 
   ("mkswap_U", (RErr, [String "uuid"; String "device"]), 132, [],
    [InitEmpty, Always, TestRun (
@@ -3200,6 +3204,96 @@ is overwritten.
 Do not confuse this with the guestfish-specific
 C<alloc> command which allocates a file in the host and
 attaches it as a device.");
+
+  ("swapon_device", (RErr, [String "device"]), 170, [],
+   [InitNone, Always, TestRun (
+      [["mkswap"; "/dev/sdb"];
+       ["swapon_device"; "/dev/sdb"];
+       ["swapoff_device"; "/dev/sdb"]])],
+   "enable swap on device",
+   "\
+This command enables the libguestfs appliance to use the
+swap device or partition named C<device>.  The increased
+memory is made available for all commands, for example
+those run using C<guestfs_command> or C<guestfs_sh>.
+
+Note that you should not swap to existing guest swap
+partitions unless you know what you are doing.  They may
+contain hibernation information, or other information that
+the guest doesn't want you to trash.  You also risk leaking
+information about the host to the guest this way.  Instead,
+attach a new host device to the guest and swap on that.");
+
+  ("swapoff_device", (RErr, [String "device"]), 171, [],
+   [], (* XXX tested by swapon_device *)
+   "disable swap on device",
+   "\
+This command disables the libguestfs appliance swap
+device or partition named C<device>.
+See C<guestfs_swapon_device>.");
+
+  ("swapon_file", (RErr, [String "file"]), 172, [],
+   [InitBasicFS, Always, TestRun (
+      [["fallocate"; "/swap"; "8388608"];
+       ["mkswap_file"; "/swap"];
+       ["swapon_file"; "/swap"];
+       ["swapoff_file"; "/swap"]])],
+   "enable swap on file",
+   "\
+This command enables swap to a file.
+See C<guestfs_swapon_device> for other notes.");
+
+  ("swapoff_file", (RErr, [String "file"]), 173, [],
+   [], (* XXX tested by swapon_file *)
+   "disable swap on file",
+   "\
+This command disables the libguestfs appliance swap on file.");
+
+  ("swapon_label", (RErr, [String "label"]), 174, [],
+   [InitEmpty, Always, TestRun (
+      [["sfdiskM"; "/dev/sdb"; ","];
+       ["mkswap_L"; "swapit"; "/dev/sdb1"];
+       ["swapon_label"; "swapit"];
+       ["swapoff_label"; "swapit"]])],
+   "enable swap on labelled swap partition",
+   "\
+This command enables swap to a labelled swap partition.
+See C<guestfs_swapon_device> for other notes.");
+
+  ("swapoff_label", (RErr, [String "label"]), 175, [],
+   [], (* XXX tested by swapon_label *)
+   "disable swap on labelled swap partition",
+   "\
+This command disables the libguestfs appliance swap on
+labelled swap partition.");
+
+  ("swapon_uuid", (RErr, [String "uuid"]), 176, [],
+   [InitEmpty, Always, TestRun (
+      [["mkswap_U"; "a3a61220-882b-4f61-89f4-cf24dcc7297d"; "/dev/sdb"];
+       ["swapon_uuid"; "a3a61220-882b-4f61-89f4-cf24dcc7297d"];
+       ["swapoff_uuid"; "a3a61220-882b-4f61-89f4-cf24dcc7297d"]])],
+   "enable swap on swap partition by UUID",
+   "\
+This command enables swap to a swap partition with the given UUID.
+See C<guestfs_swapon_device> for other notes.");
+
+  ("swapoff_uuid", (RErr, [String "uuid"]), 177, [],
+   [], (* XXX tested by swapon_uuid *)
+   "disable swap on swap partition by UUID",
+   "\
+This command disables the libguestfs appliance swap partition
+with the given UUID.");
+
+  ("mkswap_file", (RErr, [String "path"]), 178, [],
+   [InitBasicFS, Always, TestRun (
+      [["fallocate"; "/swap"; "8388608"];
+       ["mkswap_file"; "/swap"]])],
+   "create a swap file",
+   "\
+Create a swap file.
+
+This command just writes a swap file signature to an existing
+file.  To create the file itself, use something like C<guestfs_fallocate>.");
 
 ]
 

@@ -35,6 +35,7 @@ TESTS_ENVIRONMENT = \
 	SKIP_TEST_NTFS_3G_PROBE=$(shell test -x ../initramfs/bin/ntfs-3g.probe || echo 1) \
 	SKIP_TEST_CHECKSUM_8=$(shell if test `find ../initramfs -name squashfs.ko | wc -l` -eq 0; then echo 1; fi) \
 	SKIP_TEST_MKSWAP_U=$(shell r=1; if test -x ../initramfs/sbin/mkswap; then if ../initramfs/sbin/mkswap --help 2>&1 | grep -sq -- -U; then r=0; fi; fi; echo $$r) \
+	SKIP_TEST_SWAPON_UUID=$$SKIP_TEST_MKSWAP_U \
 	SKIP_TEST_SCRUB_FILE=$(shell test -x ../initramfs/usr/bin/scrub || echo 1) \
 	SKIP_TEST_SCRUB_DEVICE=$(shell test -x ../initramfs/usr/bin/scrub || echo 1) \
 	$(VG)

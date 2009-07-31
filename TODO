@@ -172,11 +172,6 @@ Ideas for extra commands
     pivot_root
     fts(3) / ftw(3)
 
-Swap space
-----------
-
-Allow swap space from the guest to be used.  Is it a good idea?
-
 Other initrd-* commands
 -----------------------
 
