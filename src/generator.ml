@@ -3581,6 +3581,13 @@ let files_equal n1 n2 =
   | 1 -> false
   | i -> failwithf "%s: failed with error code %d" cmd i
 
+let rec filter_map f = function
+  | [] -> []
+  | x :: xs ->
+      match f x with
+      | Some y -> y :: filter_map f xs
+      | None -> filter_map f xs
+
 let rec find_map f = function
   | [] -> raise Not_found
   | x :: xs ->
@@ -4923,15 +4930,29 @@ static void print_table (char * const * const argv)
 }
 */
 
-static void no_test_warnings (void)
-{
 ";
 
+  (* Generate a list of commands which are not tested anywhere. *)
+  pr "static void no_test_warnings (void)\n";
+  pr "{\n";
+
+  let hash : (string, bool) Hashtbl.t = Hashtbl.create 13 in
   List.iter (
-    function
-    | name, _, _, _, [], _, _ ->
+    fun (_, _, _, _, tests, _, _) ->
+      let tests = filter_map (
+	function
+	| (_, (Always|If _|Unless _), test) -> Some test
+	| (_, Disabled, _) -> None
+      ) tests in
+      let seq = List.concat (List.map seq_of_test tests) in
+      let cmds_tested = List.map List.hd seq in
+      List.iter (fun cmd -> Hashtbl.replace hash cmd true) cmds_tested
+  ) all_functions;
+
+  List.iter (
+    fun (name, _, _, _, _, _, _) ->
+      if not (Hashtbl.mem hash name) then
 	pr "  fprintf (stderr, \"warning: \\\"guestfs_%s\\\" has no tests\\n\");\n" name
-    | name, _, _, _, tests, _, _ -> ()
   ) all_functions;
 
   pr "}\n";
