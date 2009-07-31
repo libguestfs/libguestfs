@@ -3187,6 +3187,20 @@ The C<-f> option removes the link (C<linkname>) if it exists already.");
    "\
 This command reads the target of a symbolic link.");
 
+  ("fallocate", (RErr, [String "path"; Int "len"]), 169, [],
+   [InitBasicFS, Always, TestOutputStruct (
+      [["fallocate"; "/a"; "1000000"];
+       ["stat"; "/a"]], [CompareWithInt ("size", 1_000_000)])],
+   "preallocate a file in the guest filesystem",
+   "\
+This command preallocates a file (containing zero bytes) named
+C<path> of size C<len> bytes.  If the file exists already, it
+is overwritten.
+
+Do not confuse this with the guestfish-specific
+C<alloc> command which allocates a file in the host and
+attaches it as a device.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

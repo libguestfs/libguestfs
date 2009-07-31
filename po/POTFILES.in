@@ -13,6 +13,7 @@ daemon/dmesg.c
 daemon/dropcaches.c
 daemon/du.c
 daemon/ext2.c
+daemon/fallocate.c
 daemon/file.c
 daemon/find.c
 daemon/fsck.c

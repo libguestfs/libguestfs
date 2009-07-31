@@ -147,7 +147,6 @@ Ideas for extra commands
     dd (?)
     utime / utimes / futimes / futimens / l..
     more mk*temp calls
-    some sort of alloc/fallocate/posix_fallocate call to create empty space
     trunc[ate??]
 
   ext2 properties:
