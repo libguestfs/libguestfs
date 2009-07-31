@@ -5802,7 +5802,7 @@ and generate_fish_cmds () =
       let needs_i =
         List.exists (function (_, (FUUID|FBuffer)) -> true | _ -> false) cols in
 
-      pr "static void print_%s (struct guestfs_%s *%s)\n" typ typ typ;
+      pr "static void print_%s_indent (struct guestfs_%s *%s, const char *indent)\n" typ typ typ;
       pr "{\n";
       if needs_i then (
         pr "  int i;\n";
@@ -5811,35 +5811,45 @@ and generate_fish_cmds () =
       List.iter (
 	function
 	| name, FString ->
-	    pr "  printf (\"%s: %%s\\n\", %s->%s);\n" name typ name
+	    pr "  printf (\"%%s%s: %%s\\n\", indent, %s->%s);\n" name typ name
 	| name, FUUID ->
 	    pr "  printf (\"%s: \");\n" name;
 	    pr "  for (i = 0; i < 32; ++i)\n";
-	    pr "    printf (\"%%c\", %s->%s[i]);\n" typ name;
+	    pr "    printf (\"%%s%%c\", indent, %s->%s[i]);\n" typ name;
 	    pr "  printf (\"\\n\");\n"
 	| name, FBuffer ->
-	    pr "  printf (\"%s: \");\n" name;
+	    pr "  printf (\"%%s%s: \", indent);\n" name;
 	    pr "  for (i = 0; i < %s->%s_len; ++i)\n" typ name;
 	    pr "    if (isprint (%s->%s[i]))\n" typ name;
-	    pr "      printf (\"%%c\", %s->%s[i]);\n" typ name;
+	    pr "      printf (\"%%s%%c\", indent, %s->%s[i]);\n" typ name;
 	    pr "    else\n";
-	    pr "      printf (\"\\\\x%%02x\", %s->%s[i]);\n" typ name;
+	    pr "      printf (\"%%s\\\\x%%02x\", indent, %s->%s[i]);\n" typ name;
 	    pr "  printf (\"\\n\");\n"
 	| name, (FUInt64|FBytes) ->
-	    pr "  printf (\"%s: %%\" PRIu64 \"\\n\", %s->%s);\n" name typ name
+	    pr "  printf (\"%%s%s: %%\" PRIu64 \"\\n\", indent, %s->%s);\n"
+	      name typ name
 	| name, FInt64 ->
-	    pr "  printf (\"%s: %%\" PRIi64 \"\\n\", %s->%s);\n" name typ name
+	    pr "  printf (\"%%s%s: %%\" PRIi64 \"\\n\", indent, %s->%s);\n"
+	      name typ name
 	| name, FUInt32 ->
-	    pr "  printf (\"%s: %%\" PRIu32 \"\\n\", %s->%s);\n" name typ name
+	    pr "  printf (\"%%s%s: %%\" PRIu32 \"\\n\", indent, %s->%s);\n"
+	      name typ name
 	| name, FInt32 ->
-	    pr "  printf (\"%s: %%\" PRIi32 \"\\n\", %s->%s);\n" name typ name
+	    pr "  printf (\"%%s%s: %%\" PRIi32 \"\\n\", indent, %s->%s);\n"
+	      name typ name
 	| name, FChar ->
-	    pr "  printf (\"%s: %%c\\n\", %s->%s);\n" name typ name
+	    pr "  printf (\"%%s%s: %%c\\n\", indent, %s->%s);\n"
+	      name typ name
 	| name, FOptPercent ->
-	    pr "  if (%s->%s >= 0) printf (\"%s: %%g %%%%\\n\", %s->%s);\n"
+	    pr "  if (%s->%s >= 0) printf (\"%%s%s: %%g %%%%\\n\", indent, %s->%s);\n"
 	      typ name name typ name;
-	    pr "  else printf (\"%s: \\n\");\n" name
+	    pr "  else printf (\"%%s%s: \\n\", indent);\n" name
       ) cols;
+      pr "}\n";
+      pr "\n";
+      pr "static void print_%s (struct guestfs_%s *%s)\n" typ typ typ;
+      pr "{\n";
+      pr "  print_%s_indent (%s, \"\");\n" typ typ;
       pr "}\n";
       pr "\n";
       pr "static void print_%s_list (struct guestfs_%s_list *%ss)\n"
@@ -5847,8 +5857,11 @@ and generate_fish_cmds () =
       pr "{\n";
       pr "  int i;\n";
       pr "\n";
-      pr "  for (i = 0; i < %ss->len; ++i)\n" typ;
-      pr "    print_%s (&%ss->val[i]);\n" typ typ;
+      pr "  for (i = 0; i < %ss->len; ++i) {\n" typ;
+      pr "    printf (\"[%%d] = {\\n\", i);\n";
+      pr "    print_%s_indent (&%ss->val[i], \"  \");\n" typ typ;
+      pr "    printf (\"}\\n\");\n";
+      pr "  }\n";
       pr "}\n";
       pr "\n";
   ) structs;
