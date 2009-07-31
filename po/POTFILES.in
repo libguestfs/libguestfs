@@ -23,6 +23,7 @@ daemon/guestfsd.c
 daemon/headtail.c
 daemon/hexdump.c
 daemon/initrd.c
+daemon/link.c
 daemon/ls.c
 daemon/lvm.c
 daemon/mknod.c
@@ -32,6 +33,7 @@ daemon/ntfs.c
 daemon/pingdaemon.c
 daemon/proto.c
 daemon/readdir.c
+daemon/realpath.c
 daemon/scrub.c
 daemon/sfdisk.c
 daemon/sleep.c

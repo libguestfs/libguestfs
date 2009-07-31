@@ -145,8 +145,6 @@ Ideas for extra commands
   General glibc / core programs:
     chgrp
     dd (?)
-    ln / ln -s
-    readlink
     utime / utimes / futimes / futimens / l..
     more mk*temp calls
     some sort of alloc/fallocate/posix_fallocate call to create empty space

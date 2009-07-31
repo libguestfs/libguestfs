@@ -3141,6 +3141,52 @@ matching lines.");
 Return the canonicalized absolute pathname of C<path>.  The
 returned path has no C<.>, C<..> or symbolic link path elements.");
 
+  ("ln", (RErr, [String "target"; String "linkname"]), 164, [],
+   [InitBasicFS, Always, TestOutputStruct (
+      [["touch"; "/a"];
+       ["ln"; "/a"; "/b"];
+       ["stat"; "/b"]], [CompareWithInt ("nlink", 2)])],
+   "create a hard link",
+   "\
+This command creates a hard link using the C<ln> command.");
+
+  ("ln_f", (RErr, [String "target"; String "linkname"]), 165, [],
+   [InitBasicFS, Always, TestOutputStruct (
+      [["touch"; "/a"];
+       ["touch"; "/b"];
+       ["ln_f"; "/a"; "/b"];
+       ["stat"; "/b"]], [CompareWithInt ("nlink", 2)])],
+   "create a hard link",
+   "\
+This command creates a hard link using the C<ln -f> command.
+The C<-f> option removes the link (C<linkname>) if it exists already.");
+
+  ("ln_s", (RErr, [String "target"; String "linkname"]), 166, [],
+   [InitBasicFS, Always, TestOutputStruct (
+      [["touch"; "/a"];
+       ["ln_s"; "a"; "/b"];
+       ["lstat"; "/b"]], [CompareWithInt ("mode", 0o120777)])],
+   "create a symbolic link",
+   "\
+This command creates a symbolic link using the C<ln -s> command.");
+
+  ("ln_sf", (RErr, [String "target"; String "linkname"]), 167, [],
+   [InitBasicFS, Always, TestOutput (
+      [["mkdir_p"; "/a/b"];
+       ["touch"; "/a/b/c"];
+       ["ln_sf"; "../d"; "/a/b/c"];
+       ["readlink"; "/a/b/c"]], "../d")],
+   "create a symbolic link",
+   "\
+This command creates a symbolic link using the C<ln -sf> command,
+The C<-f> option removes the link (C<linkname>) if it exists already.");
+
+  ("readlink", (RString "link", [String "path"]), 168, [],
+   [] (* XXX tested above *),
+   "read the target of a symbolic link",
+   "\
+This command reads the target of a symbolic link.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
