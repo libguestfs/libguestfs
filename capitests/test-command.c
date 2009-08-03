@@ -20,6 +20,7 @@
  * guestfs_command and guestfs_command_lines functions.
  */
 
+#include <config.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

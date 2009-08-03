@@ -4,6 +4,7 @@
  *   hello guest.img /dev/VolGroup00/LogVol00
  */
 
+#include <config.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
