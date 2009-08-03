@@ -17,8 +17,8 @@
 
 ACLOCAL_AMFLAGS = -I m4
 
-SUBDIRS = src daemon appliance fish po examples images \
-	capitests regressions test-tool
+SUBDIRS = gnulib/lib src daemon appliance fish po examples images \
+	gnulib/tests capitests regressions test-tool
 
 if HAVE_OCAML
 SUBDIRS += ocaml
@@ -52,13 +52,11 @@ SUBDIRS += cat
 endif
 
 EXTRA_DIST = \
-	config.rpath \
 	guestfs.pod guestfs-actions.pod guestfs-structs.pod \
 	guestfish.pod guestfish-actions.pod \
 	html/pod.css \
 	HACKING TODO \
 	libguestfs.pc libguestfs.pc.in \
-	gitlog-to-changelog \
 	recipes/LICENSE \
 	recipes/README \
 	recipes/*.html \
@@ -153,7 +151,7 @@ website: $(HTMLFILES) $(TEXTFILES)
 # Generate the ChangeLog automatically from the gitlog.
 
 dist-hook:
-	./gitlog-to-changelog > ChangeLog
+	$(top_srcdir)/build-aux/gitlog-to-changelog > ChangeLog
 	cp ChangeLog $(distdir)/ChangeLog
 
 # Update the list of translatable files in po/POTFILES.in.

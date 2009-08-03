@@ -1,0 +1,82 @@
+#!/bin/sh
+
+usage() {
+  echo >&2 "\
+Usage: $0 [OPTION]...
+Bootstrap this package from the checked-out sources.
+
+Options:
+ --gnulib-srcdir=DIRNAME  Specify the local directory where gnulib
+                          sources reside.  Use this if you already
+                          have gnulib sources on your machine, and
+                          do not want to waste your bandwidth downloading
+                          them again.
+
+If the file bootstrap.conf exists in the current working directory, its
+contents are read as shell variables to configure the bootstrap.
+
+Running without arguments will suffice in most cases.
+"
+}
+
+for option
+do
+  case $option in
+  --help)
+    usage
+    exit;;
+  --gnulib-srcdir=*)
+    GNULIB_SRCDIR=`expr "$option" : '--gnulib-srcdir=\(.*\)'`;;
+  *)
+    echo >&2 "$0: $option: unknown option"
+    exit 1;;
+  esac
+done
+
+# Get gnulib files.
+
+case ${GNULIB_SRCDIR--} in
+-)
+  echo "$0: getting gnulib files..."
+  git submodule init || exit $?
+  git submodule update || exit $?
+  GNULIB_SRCDIR=.gnulib
+  ;;
+*)
+  # Redirect the gnulib submodule to the directory on the command line
+  # if possible.
+  if test -d "$GNULIB_SRCDIR"/.git && \
+	git config --file .gitmodules submodule.gnulib.url >/dev/null; then
+    git submodule init
+    GNULIB_SRCDIR=`cd $GNULIB_SRCDIR && pwd`
+    git config --replace-all submodule.gnulib.url $GNULIB_SRCDIR
+    echo "$0: getting gnulib files..."
+    git submodule update || exit $?
+    GNULIB_SRCDIR=.gnulib
+  else
+    echo >&2 "$0: invalid gnulib srcdir: $GNULIB_SRCDIR"
+    exit 1
+  fi
+  ;;
+esac
+
+gnulib_tool=$GNULIB_SRCDIR/gnulib-tool
+<$gnulib_tool || exit
+
+modules='
+gitlog-to-changelog
+gnu-make
+gnumakefile
+maintainer-makefile
+manywarnings
+warnings
+vc-list-files
+'
+
+$gnulib_tool			\
+  --avoid=dummy			\
+  --with-tests			\
+  --m4-base=gnulib/m4		\
+  --source-base=gnulib/lib	\
+  --tests-base=gnulib/tests	\
+  --import $modules

@@ -23,6 +23,7 @@ m4_define([libguestfs_release], [65])
 m4_define([libguestfs_extra],   [])
 
 AC_INIT([libguestfs],libguestfs_major.libguestfs_minor.libguestfs_release[]libguestfs_extra)
+AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([foreign])
 
 AC_CONFIG_MACRO_DIR([m4])
@@ -39,6 +40,9 @@ dnl Check for basic C environment.
 AC_PROG_CC_STDC
 AC_PROG_INSTALL
 AC_PROG_CPP
+
+gl_EARLY
+gl_INIT
 
 AC_C_PROTOTYPES
 test "x$U" != "x" && AC_MSG_ERROR([Compiler not ANSI compliant])
@@ -594,6 +598,8 @@ AC_CONFIG_FILES([Makefile
 		 inspector/Makefile
 		 v2v/Makefile
 		 libguestfs.pc
+		 gnulib/lib/Makefile
+		 gnulib/tests/Makefile
 		 ocaml/META perl/Makefile.PL])
 AC_OUTPUT
 

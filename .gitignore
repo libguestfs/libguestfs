@@ -179,3 +179,8 @@ test-tool/libguestfs-test-tool.1
 test-tool/libguestfs-test-tool
 test-tool/libguestfs-test-tool-helper
 v2v/virt-v2v.1
+/GNUmakefile
+/maint.mk
+/build-aux
+/gnulib
+.git-module-status
