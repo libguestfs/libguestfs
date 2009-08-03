@@ -1,0 +1,8 @@
+^appliance/debian/modules/
+^images/
+^COPYING$
+^\.gitmodules$
+(^|\/)ChangeLog[^/]*$
+(^|\/)(?:GNU)?[Mm]akefile[^/]*$
+\.(am|mk)$
+^po/Rules-quot$

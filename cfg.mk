@@ -65,7 +65,6 @@ local-checks-to-skip =			\
 disable_temporarily =			\
   sc_makefile_TAB_only_indentation	\
   sc_unmarked_diagnostics		\
-  sc_TAB_in_indentation			\
   sc_prohibit_ctype_h			\
   sc_prohibit_asprintf			\
   sc_m4_quote_check			\
@@ -107,10 +106,10 @@ sc_prohibit_ctype_h:
 		1>&2; exit 1; } || :
 
 # Ensure that no C source file uses TABs for indentation.
+# Exclude some version-controlled symlinks.
 sc_TAB_in_indentation:
 	@grep -lE '^ *	' /dev/null					\
-	     $$($(VC_LIST_EXCEPT)					\
-		| grep -E '\.[ch](\.in)?$$') &&				\
+	     $$($(VC_LIST_EXCEPT)) &&					\
 	  { echo '$(ME): found TAB(s) used for indentation in C sources;'\
 	      'use spaces' 1>&2; exit 1; } || :
 
