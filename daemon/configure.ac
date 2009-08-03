@@ -16,6 +16,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 AC_INIT([libguestfs-daemon],[1.0.0])
+AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([foreign])
 
 AC_CONFIG_MACRO_DIR([m4])
@@ -40,6 +41,9 @@ dnl Check for basic C environment.
 AC_PROG_CC
 AC_PROG_INSTALL
 AC_PROG_CPP
+
+gl_EARLY
+gl_INIT
 
 AC_C_PROTOTYPES
 test "x$U" != "x" && AC_MSG_ERROR([Compiler not ANSI compliant])
@@ -86,5 +90,5 @@ AC_CHECK_HEADERS([attr/xattr.h sys/xattr.h])
 
 dnl Produce output files.
 AC_CONFIG_HEADERS([config.h])
-AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([Makefile lib/Makefile tests/Makefile])
 AC_OUTPUT

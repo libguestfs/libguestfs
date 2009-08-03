@@ -17,6 +17,8 @@
 
 ACLOCAL_AMFLAGS = -I m4
 
+SUBDIRS = lib tests .
+
 noinst_PROGRAMS = guestfsd
 guestfsd_SOURCES = \
 	actions.h \
@@ -76,4 +78,6 @@ guestfsd_SOURCES = \
 	$(top_builddir)/../src/guestfs_protocol.h \
 	$(top_builddir)/../src/guestfs_protocol.c
 
+AM_CPPFLAGS = -I$(srcdir)/lib -Ilib
 guestfsd_CFLAGS = -Wall
+LDADD = lib/libgnu.a

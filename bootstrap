@@ -78,6 +78,8 @@ sed '
 gnulib_tool=$GNULIB_SRCDIR/gnulib-tool
 <$gnulib_tool || exit
 
+(cd daemon && $GNULIB_SRCDIR/../gnulib-tool --update)
+
 modules='
 gitlog-to-changelog
 gnu-make
