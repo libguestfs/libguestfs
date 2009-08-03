@@ -54,40 +54,40 @@ for path in $(find -not -name fakeroot.log); do
     # All we're going to keep are the special files /init, the daemon,
     # configuration files (/etc), devices and modifiable stuff (/var).
     if [ "$path" = "./init" -o "$file" = "guestfsd" ]; then
-	echo "$path" >&5
+        echo "$path" >&5
 
     elif [[ "$path" =~ '^\./etc' || "$path" =~ '^./dev' || "$path" =~ '^\./var' ]]; then
-	echo "$path" >&5
+        echo "$path" >&5
 
     # Kernel modules are always copied in from the host, including all
     # the dependency files.
     elif [[ "$path" =~ '^\./lib/modules/' ]]; then
-	:
+        :
 
     elif [ -d "$path" ]; then
-	# Always write directory names to both output files.
-	echo "$path" >&5
-	echo "$path" >&6
+        # Always write directory names to both output files.
+        echo "$path" >&5
+        echo "$path" >&6
 
     # Some libraries need fixed version numbers replaced by wildcards.
 
     elif [[ "$file" =~ '^ld-[.0-9]+\.so$' ]]; then
-	echo "$dir/ld-*.so" >&6
+        echo "$dir/ld-*.so" >&6
 
     # libfoo-1.2.3.so
     elif [[ "$file" =~ '^lib(.*)-[-.0-9]+\.so$' ]]; then
-	echo "$dir/lib${BASH_REMATCH[1]}-*.so" >&6
+        echo "$dir/lib${BASH_REMATCH[1]}-*.so" >&6
 
     # libfoo-1.2.3.so.1.2.3 (but NOT '*.so.N')
     elif [[ "$file" =~ '^lib(.*)-[-.0-9]+\.so\.([0-9]+)\.' ]]; then
-	echo "$dir/lib${BASH_REMATCH[1]}-*.so.${BASH_REMATCH[2]}.*" >&6
+        echo "$dir/lib${BASH_REMATCH[1]}-*.so.${BASH_REMATCH[2]}.*" >&6
 
     # libfoo.so.1.2.3 (but NOT '*.so.N')
     elif [[ "$file" =~ '^lib(.*)\.so\.([0-9]+)\.' ]]; then
-	echo "$dir/lib${BASH_REMATCH[1]}.so.${BASH_REMATCH[2]}.*" >&6
+        echo "$dir/lib${BASH_REMATCH[1]}.so.${BASH_REMATCH[2]}.*" >&6
 
     else
-	# Anything else comes from the host directly.
-	echo "$path" >&6
+        # Anything else comes from the host directly.
+        echo "$path" >&6
     fi
 done

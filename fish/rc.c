@@ -131,52 +131,52 @@ rc_listen (void)
       xdrstdio_create (&xdr, fp, XDR_DECODE);
 
       if (!xdr_guestfish_hello (&xdr, &hello)) {
-	fprintf (stderr, _("guestfish: protocol error: could not read 'hello' message\n"));
-	goto error;
+        fprintf (stderr, _("guestfish: protocol error: could not read 'hello' message\n"));
+        goto error;
       }
 
       if (strcmp (hello.vers, PACKAGE_VERSION) != 0) {
-	fprintf (stderr, _("guestfish: protocol error: version mismatch, server version '%s' does not match client version '%s'.  The two versions must match exactly.\n"),
-		 PACKAGE_VERSION,
-		 hello.vers);
-	xdr_free ((xdrproc_t) xdr_guestfish_hello, (char *) &hello);
-	goto error;
+        fprintf (stderr, _("guestfish: protocol error: version mismatch, server version '%s' does not match client version '%s'.  The two versions must match exactly.\n"),
+                 PACKAGE_VERSION,
+                 hello.vers);
+        xdr_free ((xdrproc_t) xdr_guestfish_hello, (char *) &hello);
+        goto error;
       }
       xdr_free ((xdrproc_t) xdr_guestfish_hello, (char *) &hello);
 
       while (xdr_guestfish_call (&xdr, &call)) {
-	/* We have to extend and NULL-terminate the argv array. */
-	argc = call.args.args_len;
-	argv = realloc (call.args.args_val, (argc+1) * sizeof (char *));
-	if (argv == NULL) {
-	  perror ("realloc");
-	  exit (1);
-	}
-	call.args.args_val = argv;
-	argv[argc] = NULL;
+        /* We have to extend and NULL-terminate the argv array. */
+        argc = call.args.args_len;
+        argv = realloc (call.args.args_val, (argc+1) * sizeof (char *));
+        if (argv == NULL) {
+          perror ("realloc");
+          exit (1);
+        }
+        call.args.args_val = argv;
+        argv[argc] = NULL;
 
-	if (verbose) {
-	  fprintf (stderr, "guestfish(%d): %s", pid, call.cmd);
-	  for (i = 0; i < argc; ++i)
-	    fprintf (stderr, " %s", argv[i]);
-	  fprintf (stderr, "\n");
-	}
+        if (verbose) {
+          fprintf (stderr, "guestfish(%d): %s", pid, call.cmd);
+          for (i = 0; i < argc; ++i)
+            fprintf (stderr, " %s", argv[i]);
+          fprintf (stderr, "\n");
+        }
 
-	/* Run the command. */
-	reply.r = issue_command (call.cmd, argv, NULL);
+        /* Run the command. */
+        reply.r = issue_command (call.cmd, argv, NULL);
 
-	xdr_free ((xdrproc_t) xdr_guestfish_call, (char *) &call);
+        xdr_free ((xdrproc_t) xdr_guestfish_call, (char *) &call);
 
-	/* Send the reply. */
-	xdrstdio_create (&xdr2, fp, XDR_ENCODE);
-	(void) xdr_guestfish_reply (&xdr2, &reply);
-	xdr_destroy (&xdr2);
+        /* Send the reply. */
+        xdrstdio_create (&xdr2, fp, XDR_ENCODE);
+        (void) xdr_guestfish_reply (&xdr2, &reply);
+        xdr_destroy (&xdr2);
 
-	/* Exit on error? */
-	if (call.exit_on_error && reply.r == -1) {
-	  unlink (sockpath);
-	  exit (1);
-	}
+        /* Exit on error? */
+        if (call.exit_on_error && reply.r == -1) {
+          unlink (sockpath);
+          exit (1);
+        }
       }
 
     error:
@@ -192,7 +192,7 @@ rc_listen (void)
 /* Remote control client. */
 int
 rc_remote (int pid, const char *cmd, int argc, char *argv[],
-	   int exit_on_error)
+           int exit_on_error)
 {
   guestfish_hello hello;
   guestfish_call call;

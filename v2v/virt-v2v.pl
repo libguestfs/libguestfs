@@ -160,9 +160,9 @@ Set the output guest name.
 =cut
 
 GetOptions ("help|?" => \$help,
-	    "version" => \$version,
-	    "connect|c=s" => \$uri,
-	    "output|o=s" => \$output,
+            "version" => \$version,
+            "connect|c=s" => \$uri,
+            "output|o=s" => \$output,
     ) or pod2usage (2);
 pod2usage (1) if $help;
 if ($version) {
@@ -192,7 +192,7 @@ my @partitions = get_partitions ($g);
 # Now query each one to build up a picture of what's in it.
 my %fses =
     inspect_all_partitions ($g, \@partitions,
-			    use_windows_registry => $use_windows_registry);
+                            use_windows_registry => $use_windows_registry);
 
 #print "fses -----------\n";
 #print Dumper(\%fses);

@@ -80,7 +80,7 @@ extern int do_more (const char *cmd, int argc, char *argv[]);
 /* in rc.c (remote control) */
 extern void rc_listen (void);
 extern int rc_remote (int pid, const char *cmd, int argc, char *argv[],
-		      int exit_on_error);
+                      int exit_on_error);
 
 /* in reopen.c */
 extern int do_reopen (const char *cmd, int argc, char *argv[]);

@@ -31,6 +31,6 @@ public class LibGuestFSException extends Exception {
 
     public LibGuestFSException (String msg)
     {
-	super (msg);
+        super (msg);
     }
 }

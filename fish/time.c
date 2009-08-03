@@ -47,8 +47,8 @@ do_time (const char *cmd, int argc, char *argv[])
   end_us = (int64_t) end_t.tv_sec * 1000000 + end_t.tv_usec;
   elapsed_us = end_us - start_us;
   printf ("elapsed time: %d.%02d seconds\n",
-	  (int) (elapsed_us / 1000000),
-	  (int) ((elapsed_us / 10000) % 100));
+          (int) (elapsed_us / 1000000),
+          (int) ((elapsed_us / 10000) % 100));
 
   return 0;
 }

@@ -116,8 +116,8 @@ at all.
 =cut
 
 GetOptions ("help|?" => \$help,
-	    "version" => \$version,
-	    "connect|c=s" => \$uri,
+            "version" => \$version,
+            "connect|c=s" => \$uri,
     ) or pod2usage (2);
 pod2usage (1) if $help;
 if ($version) {

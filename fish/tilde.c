@@ -64,8 +64,8 @@ try_tilde_expansion (char *str)
       len = strlen (home) + strlen (rest);
       str = malloc (len);
       if (str == NULL) {
-	perror ("malloc");
-	exit (1);
+        perror ("malloc");
+        exit (1);
       }
       strcpy (str, home);
       strcat (str, rest);
@@ -113,7 +113,7 @@ find_home_for_username (const char *username, int ulen)
   setpwent ();
   while ((pw = getpwent ()) != NULL) {
     if (strlen (pw->pw_name) == ulen &&
-	strncmp (username, pw->pw_name, ulen) == 0)
+        strncmp (username, pw->pw_name, ulen) == 0)
       return pw->pw_dir;
   }
 

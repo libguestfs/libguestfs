@@ -46,7 +46,7 @@ case ${GNULIB_SRCDIR--} in
   # Redirect the gnulib submodule to the directory on the command line
   # if possible.
   if test -d "$GNULIB_SRCDIR"/.git && \
-	git config --file .gitmodules submodule.gnulib.url >/dev/null; then
+        git config --file .gitmodules submodule.gnulib.url >/dev/null; then
     git submodule init
     GNULIB_SRCDIR=`cd $GNULIB_SRCDIR && pwd`
     git config --replace-all submodule.gnulib.url $GNULIB_SRCDIR

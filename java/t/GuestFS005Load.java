@@ -21,13 +21,13 @@ import com.redhat.et.libguestfs.*;
 public class GuestFS005Load {
     public static void main (String[] argv)
     {
-	try {
-	    GuestFS g = new GuestFS ();
-	    g.close ();
-	}
-	catch (Exception exn) {
-	    System.err.println (exn);
-	    System.exit (1);
-	}
+        try {
+            GuestFS g = new GuestFS ();
+            g.close ();
+        }
+        catch (Exception exn) {
+            System.err.println (exn);
+            System.exit (1);
+        }
     }
 }

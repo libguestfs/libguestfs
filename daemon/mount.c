@@ -42,7 +42,7 @@ int root_mounted = 0;
 
 int
 do_mount_vfs (char *options, char *vfstype,
-	      char *device, char *mountpoint)
+              char *device, char *mountpoint)
 {
   int r, is_root;
   char *mp;
@@ -65,10 +65,10 @@ do_mount_vfs (char *options, char *vfstype,
 
   if (vfstype)
     r = command (NULL, &error,
-		 "mount", "-o", options, "-t", vfstype, device, mp, NULL);
+                 "mount", "-o", options, "-t", vfstype, device, mp, NULL);
   else
     r = command (NULL, &error,
-		 "mount", "-o", options, device, mp, NULL);
+                 "mount", "-o", options, device, mp, NULL);
   free (mp);
   if (r == -1) {
     reply_with_error ("mount: %s on %s: %s", device, mountpoint, error);
@@ -96,7 +96,7 @@ do_mount_ro (char *device, char *mountpoint)
 
 int
 do_mount_options (char *options, char *device,
-		  char *mountpoint)
+                  char *mountpoint)
 {
   return do_mount_vfs (options, NULL, device, mountpoint);
 }
@@ -176,22 +176,22 @@ mounts_or_mountpoints (int mp)
     if (p2 != NULL) {
       *p2 = '\0';
       if (add_string (&ret, &size, &alloc, p) == -1) {
-	free (out);
-	return NULL;
+        free (out);
+        return NULL;
       }
       if (mp) {
-	p2 += 4 + sysroot_len;	/* skip " on /sysroot" */
-	len = strcspn (p2, " ");
+        p2 += 4 + sysroot_len;	/* skip " on /sysroot" */
+        len = strcspn (p2, " ");
 
-	if (len == 0)		/* .. just /sysroot, so we turn it into "/" */
-	  p2 = (char *) "/";
-	else
-	  p2[len] = '\0';
+        if (len == 0)		/* .. just /sysroot, so we turn it into "/" */
+          p2 = (char *) "/";
+        else
+          p2[len] = '\0';
 
-	if (add_string (&ret, &size, &alloc, p2) == -1) {
-	  free (out);
-	  return NULL;
-	}
+        if (add_string (&ret, &size, &alloc, p2) == -1) {
+          free (out);
+          return NULL;
+        }
       }
     }
 
@@ -277,8 +277,8 @@ do_umount_all (void)
       p3 = p2 + strcspn (p2, " ");
       *p3 = '\0';
       if (add_string (&mounts, &size, &alloc, p2) == -1) {
-	free (out);
-	return -1;
+        free (out);
+        return -1;
       }
     }
 

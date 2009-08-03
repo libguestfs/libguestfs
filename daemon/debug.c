@@ -157,11 +157,11 @@ debug_fds (const char *subcmd, int argc, char *const *const argv)
     if (S_ISLNK (statbuf.st_mode)) {
       r = readlink (fname, link, sizeof link - 1);
       if (r == -1) {
-	reply_with_perror ("readline: %s", fname);
-	fclose (fp);
-	free (out);
-	closedir (dir);
-	return NULL;
+        reply_with_perror ("readline: %s", fname);
+        fclose (fp);
+        free (out);
+        closedir (dir);
+        return NULL;
       }
       link[r] = '\0';
 

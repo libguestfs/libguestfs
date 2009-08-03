@@ -181,19 +181,19 @@ default.
 =cut
 
 GetOptions ("help|?" => \$help,
-	    "version" => \$version,
-	    "connect|c=s" => \$uri,
-	    "text" => sub { $output = "text" },
-	    "none" => sub { $output = "none" },
-	    "xml" => sub { $output = "xml" },
-	    "yaml" => sub { $output = "yaml" },
-	    "perl" => sub { $output = "perl" },
-	    "fish" => sub { $output = "fish" },
-	    "guestfish" => sub { $output = "fish" },
-	    "ro-fish" => sub { $output = "ro-fish" },
-	    "ro-guestfish" => sub { $output = "ro-fish" },
-	    "query" => sub { $output = "query" },
-	    "windows-registry" => \$windows_registry,
+            "version" => \$version,
+            "connect|c=s" => \$uri,
+            "text" => sub { $output = "text" },
+            "none" => sub { $output = "none" },
+            "xml" => sub { $output = "xml" },
+            "yaml" => sub { $output = "yaml" },
+            "perl" => sub { $output = "perl" },
+            "fish" => sub { $output = "fish" },
+            "guestfish" => sub { $output = "fish" },
+            "ro-fish" => sub { $output = "ro-fish" },
+            "ro-guestfish" => sub { $output = "ro-fish" },
+            "query" => sub { $output = "query" },
+            "windows-registry" => \$windows_registry,
     ) or pod2usage (2);
 pod2usage (1) if $help;
 if ($version) {
@@ -211,11 +211,11 @@ my @images;
 if ($uri) {
     my ($conn, $dom);
     ($g, $conn, $dom, @images) =
-	open_guest (\@ARGV, rw => $rw, address => $uri);
+        open_guest (\@ARGV, rw => $rw, address => $uri);
 } else {
     my ($conn, $dom);
     ($g, $conn, $dom, @images) =
-	open_guest (\@ARGV, rw => $rw);
+        open_guest (\@ARGV, rw => $rw);
 }
 
 $g->launch ();
@@ -286,10 +286,10 @@ my $oses = inspect_operating_systems ($g, \%fses);
 if ($output !~ /.*fish$/) {
     my $root_dev;
     foreach $root_dev (sort keys %$oses) {
-	my $os = $oses->{$root_dev};
-	mount_operating_system ($g, $os);
-	inspect_in_detail ($g, $os);
-	$g->umount_all ();
+        my $os = $oses->{$root_dev};
+        mount_operating_system ($g, $os);
+        inspect_in_detail ($g, $os);
+        $g->umount_all ();
     }
 }
 
@@ -304,7 +304,7 @@ if ($output eq "fish" || $output eq "ro-fish") {
     my $root_dev = $osdevs[0];
 
     if ($output eq "ro-fish") {
-	print "--ro ";
+        print "--ro ";
     }
 
     print "-a $_ " foreach @images;
@@ -313,7 +313,7 @@ if ($output eq "fish" || $output eq "ro-fish") {
     # Have to mount / first.  Luckily '/' is early in the ASCII
     # character set, so this should be OK.
     foreach (sort keys %$mounts) {
-	print "-m $mounts->{$_}:$_ " if $_ ne "swap" && $_ ne "none";
+        print "-m $mounts->{$_}:$_ " if $_ ne "swap" && $_ ne "none";
     }
     print "\n"
 }
@@ -326,7 +326,7 @@ elsif ($output eq "perl") {
 # YAML output
 elsif ($output eq "yaml") {
     die __"virt-inspector: no YAML support\n"
-	unless exists $INC{"YAML/Any.pm"};
+        unless exists $INC{"YAML/Any.pm"};
 
     print Dump(%$oses);
 }
@@ -366,69 +366,69 @@ sub output_text_os
     print __"  Mountpoints:\n";
     my $mounts = $os->{mounts};
     foreach (sort keys %$mounts) {
-	printf "    %-30s %s\n", $mounts->{$_}, $_
+        printf "    %-30s %s\n", $mounts->{$_}, $_
     }
 
     print __"  Filesystems:\n";
     my $filesystems = $os->{filesystems};
     foreach (sort keys %$filesystems) {
-	print "    $_:\n";
-	print "      label: $filesystems->{$_}{label}\n"
-	    if exists $filesystems->{$_}{label};
-	print "      UUID: $filesystems->{$_}{uuid}\n"
-	    if exists $filesystems->{$_}{uuid};
-	print "      type: $filesystems->{$_}{fstype}\n"
-	    if exists $filesystems->{$_}{fstype};
-	print "      content: $filesystems->{$_}{content}\n"
-	    if exists $filesystems->{$_}{content};
+        print "    $_:\n";
+        print "      label: $filesystems->{$_}{label}\n"
+            if exists $filesystems->{$_}{label};
+        print "      UUID: $filesystems->{$_}{uuid}\n"
+            if exists $filesystems->{$_}{uuid};
+        print "      type: $filesystems->{$_}{fstype}\n"
+            if exists $filesystems->{$_}{fstype};
+        print "      content: $filesystems->{$_}{content}\n"
+            if exists $filesystems->{$_}{content};
     }
 
     if (exists $os->{modprobe_aliases}) {
-	my %aliases = %{$os->{modprobe_aliases}};
-	my @keys = sort keys %aliases;
-	if (@keys) {
-	    print __"  Modprobe aliases:\n";
-	    foreach (@keys) {
-		printf "    %-30s %s\n", $_, $aliases{$_}->{modulename}
-	    }
-	}
+        my %aliases = %{$os->{modprobe_aliases}};
+        my @keys = sort keys %aliases;
+        if (@keys) {
+            print __"  Modprobe aliases:\n";
+            foreach (@keys) {
+                printf "    %-30s %s\n", $_, $aliases{$_}->{modulename}
+            }
+        }
     }
 
     if (exists $os->{initrd_modules}) {
-	my %modvers = %{$os->{initrd_modules}};
-	my @keys = sort keys %modvers;
-	if (@keys) {
-	    print __"  Initrd modules:\n";
-	    foreach (@keys) {
-		my @modules = @{$modvers{$_}};
-		print "    $_:\n";
-		print "      $_\n" foreach @modules;
-	    }
-	}
+        my %modvers = %{$os->{initrd_modules}};
+        my @keys = sort keys %modvers;
+        if (@keys) {
+            print __"  Initrd modules:\n";
+            foreach (@keys) {
+                my @modules = @{$modvers{$_}};
+                print "    $_:\n";
+                print "      $_\n" foreach @modules;
+            }
+        }
     }
 
     print __"  Applications:\n";
     my @apps =  @{$os->{apps}};
     foreach (@apps) {
-	print "    $_->{name} $_->{version}\n"
+        print "    $_->{name} $_->{version}\n"
     }
 
     print __"  Kernels:\n";
     my @kernels = @{$os->{kernels}};
     foreach (@kernels) {
-	print "    $_->{version} ($_->{arch})\n";
-	my @modules = @{$_->{modules}};
-	foreach (@modules) {
-	    print "      $_\n";
-	}
+        print "    $_->{version} ($_->{arch})\n";
+        my @modules = @{$_->{modules}};
+        foreach (@modules) {
+            print "      $_\n";
+        }
     }
 
     if (exists $os->{root}->{registry}) {
-	print __"  Windows Registry entries:\n";
-	# These are just lumps of text - dump them out.
-	foreach (@{$os->{root}->{registry}}) {
-	    print "$_\n";
-	}
+        print __"  Windows Registry entries:\n";
+        # These are just lumps of text - dump them out.
+        foreach (@{$os->{root}->{registry}}) {
+            print "$_\n";
+        }
     }
 }
 
@@ -486,11 +486,11 @@ sub output_xml_os
     $xml->endTag("filesystems");
 
     if (exists $os->{modprobe_aliases}) {
-	my %aliases = %{$os->{modprobe_aliases}};
-	my @keys = sort keys %aliases;
-	if (@keys) {
+        my %aliases = %{$os->{modprobe_aliases}};
+        my @keys = sort keys %aliases;
+        if (@keys) {
             $xml->startTag("modprobealiases");
-	    foreach (@keys) {
+            foreach (@keys) {
                 $xml->startTag("alias", "device" => $_);
 
                 foreach my $field ( [ "modulename" => "modulename" ],
@@ -500,24 +500,24 @@ sub output_xml_os
                 }
 
                 $xml->endTag("alias");
-	    }
+            }
             $xml->endTag("modprobealiases");
-	}
+        }
     }
 
     if (exists $os->{initrd_modules}) {
-	my %modvers = %{$os->{initrd_modules}};
-	my @keys = sort keys %modvers;
-	if (@keys) {
+        my %modvers = %{$os->{initrd_modules}};
+        my @keys = sort keys %modvers;
+        if (@keys) {
             $xml->startTag("initrds");
-	    foreach (@keys) {
-		my @modules = @{$modvers{$_}};
+            foreach (@keys) {
+                my @modules = @{$modvers{$_}};
                 $xml->startTag("initrd", "version" => $_);
                 $xml->dataElement("module", $_) foreach @modules;
                 $xml->endTag("initrd");
-	    }
+            }
             $xml->endTag("initrds");
-	}
+        }
     }
 
     $xml->startTag("applications");
@@ -555,13 +555,13 @@ sub output_xml_os
     my @kernels = @{$os->{kernels}};
     foreach (@kernels) {
         $xml->startTag("kernel",
-		       "version" => $_->{version},
-		       "arch" => $_->{arch});
+                       "version" => $_->{version},
+                       "arch" => $_->{arch});
         $xml->startTag("modules");
-	my @modules = @{$_->{modules}};
-	foreach (@modules) {
+        my @modules = @{$_->{modules}};
+        foreach (@modules) {
             $xml->dataElement("module", $_);
-	}
+        }
         $xml->endTag("modules");
         $xml->dataElement("path", $_->{path}) if(defined($_->{path}));
         $xml->dataElement("package", $_->{package}) if(defined($_->{package}));
@@ -571,10 +571,10 @@ sub output_xml_os
 
     if (exists $os->{root}->{registry}) {
         $xml->startTag("windowsregistryentries");
-	# These are just lumps of text - dump them out.
-	foreach (@{$os->{root}->{registry}}) {
+        # These are just lumps of text - dump them out.
+        foreach (@{$os->{root}->{registry}}) {
             $xml->dataElement("windowsregistryentry", $_);
-	}
+        }
         $xml->endTag("windowsregistryentries");
     }
 
@@ -632,7 +632,7 @@ sub output_query_windows
 {
     my $windows = "no";
     foreach my $os (keys %$oses) {
-	$windows="yes" if $oses->{$os}->{os} eq "windows";
+        $windows="yes" if $oses->{$os}->{os} eq "windows";
     }
     print "windows=$windows\n";
 }
@@ -647,7 +647,7 @@ sub output_query_linux
 {
     my $linux = "no";
     foreach my $os (keys %$oses) {
-	$linux="yes" if $oses->{$os}->{os} eq "linux";
+        $linux="yes" if $oses->{$os}->{os} eq "linux";
     }
     print "linux=$linux\n";
 }
@@ -662,7 +662,7 @@ sub output_query_rhel
 {
     my $rhel = "no";
     foreach my $os (keys %$oses) {
-	$rhel="yes" if ($oses->{$os}->{os} eq "linux" &&
+        $rhel="yes" if ($oses->{$os}->{os} eq "linux" &&
                         $oses->{$os}->{distro} eq "rhel");
     }
     print "rhel=$rhel\n";
@@ -678,7 +678,7 @@ sub output_query_fedora
 {
     my $fedora = "no";
     foreach my $os (keys %$oses) {
-	$fedora="yes" if $oses->{$os}->{os} eq "linux" && $oses->{$os}->{distro} eq "fedora";
+        $fedora="yes" if $oses->{$os}->{os} eq "linux" && $oses->{$os}->{distro} eq "fedora";
     }
     print "fedora=$fedora\n";
 }
@@ -693,7 +693,7 @@ sub output_query_debian
 {
     my $debian = "no";
     foreach my $os (keys %$oses) {
-	$debian="yes" if $oses->{$os}->{os} eq "linux" && $oses->{$os}->{distro} eq "debian";
+        $debian="yes" if $oses->{$os}->{os} eq "linux" && $oses->{$os}->{distro} eq "debian";
     }
     print "debian=$debian\n";
 }
@@ -712,13 +712,13 @@ sub output_query_fullvirt
     # are identified as paravirt.
     # XXX Fails on Windows guests.
     foreach my $os (keys %$oses) {
-	foreach my $kernel (@{$oses->{$os}->{kernels}}) {
-	    my $is_pv = $kernel->{version} =~ m/xen/;
-	    unless ($is_pv) {
-		print "fullvirt=yes\n";
-		return;
-	    }
-	}
+        foreach my $kernel (@{$oses->{$os}->{kernels}}) {
+            my $is_pv = $kernel->{version} =~ m/xen/;
+            unless ($is_pv) {
+                print "fullvirt=yes\n";
+                return;
+            }
+        }
     }
     print "fullvirt=no\n";
 }
@@ -734,13 +734,13 @@ guest).
 sub output_query_xen_domU_kernel
 {
     foreach my $os (keys %$oses) {
-	foreach my $kernel (@{$oses->{$os}->{kernels}}) {
-	    my $is_xen = $kernel->{version} =~ m/xen/;
-	    if ($is_xen) {
-		print "xen_domU_kernel=yes\n";
-		return;
-	    }
-	}
+        foreach my $kernel (@{$oses->{$os}->{kernels}}) {
+            my $is_xen = $kernel->{version} =~ m/xen/;
+            if ($is_xen) {
+                print "xen_domU_kernel=yes\n";
+                return;
+            }
+        }
     }
     print "xen_domU_kernel=no\n";
 }
@@ -757,14 +757,14 @@ reasons).
 sub output_query_xen_pv_drivers
 {
     foreach my $os (keys %$oses) {
-	foreach my $kernel (@{$oses->{$os}->{kernels}}) {
-	    foreach my $module (@{$kernel->{modules}}) {
-		if ($module =~ m/xen-/) {
-		    print "xen_pv_drivers=yes\n";
-		    return;
-		}
-	    }
-	}
+        foreach my $kernel (@{$oses->{$os}->{kernels}}) {
+            foreach my $module (@{$kernel->{modules}}) {
+                if ($module =~ m/xen-/) {
+                    print "xen_pv_drivers=yes\n";
+                    return;
+                }
+            }
+        }
     }
     print "xen_pv_drivers=no\n";
 }
@@ -780,14 +780,14 @@ performance of KVM.
 sub output_query_virtio_drivers
 {
     foreach my $os (keys %$oses) {
-	foreach my $kernel (@{$oses->{$os}->{kernels}}) {
-	    foreach my $module (@{$kernel->{modules}}) {
-		if ($module =~ m/virtio_/) {
-		    print "virtio_drivers=yes\n";
-		    return;
-		}
-	    }
-	}
+        foreach my $kernel (@{$oses->{$os}->{kernels}}) {
+            foreach my $module (@{$kernel->{modules}}) {
+                if ($module =~ m/virtio_/) {
+                    print "virtio_drivers=yes\n";
+                    return;
+                }
+            }
+        }
     }
     print "virtio_drivers=no\n";
 }
@@ -805,11 +805,11 @@ sub output_query_userspace_arch
     my %arches;
 
     foreach my $os (keys %$oses) {
-	$arches{$oses->{$os}->{arch}} = 1 if exists $oses->{$os}->{arch};
+        $arches{$oses->{$os}->{arch}} = 1 if exists $oses->{$os}->{arch};
     }
 
     foreach (sort keys %arches) {
-	print "userspace_arch=$_\n";
+        print "userspace_arch=$_\n";
     }
 }
 
@@ -826,13 +826,13 @@ sub output_query_kernel_arch
     my %arches;
 
     foreach my $os (keys %$oses) {
-	foreach my $kernel (@{$oses->{$os}->{kernels}}) {
-	    $arches{$kernel->{arch}} = 1 if exists $kernel->{arch};
-	}
+        foreach my $kernel (@{$oses->{$os}->{kernels}}) {
+            $arches{$kernel->{arch}} = 1 if exists $kernel->{arch};
+        }
     }
 
     foreach (sort keys %arches) {
-	print "kernel_arch=$_\n";
+        print "kernel_arch=$_\n";
     }
 }
 

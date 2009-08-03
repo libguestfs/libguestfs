@@ -123,8 +123,8 @@ recursive_mkdir (const char *path)
       r = lstat (path, &buf);
       if (r == -1) return -1;
       if (!S_ISDIR (buf.st_mode)) {
-	errno = ENOTDIR;
-	return -1;
+        errno = ENOTDIR;
+        return -1;
       }
       return 0;			/* OK - directory exists here already. */
     }

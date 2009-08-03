@@ -159,11 +159,11 @@ main (int argc, char *argv[])
       p += 8;
       p2 = strchr (p, ':');
       if (p2) {
-	*p2++ = '\0';
-	host = p;
-	r = strcspn (p2, " \n");
-	p2[r] = '\0';
-	port = p2;
+        *p2++ = '\0';
+        host = p;
+        r = strcspn (p2, " \n");
+        p2[r] = '\0';
+        port = p2;
       }
     }
   }
@@ -209,7 +209,7 @@ main (int argc, char *argv[])
     sock = socket (rr->ai_family, rr->ai_socktype, rr->ai_protocol);
     if (sock != -1) {
       if (connect (sock, rr->ai_addr, rr->ai_addrlen) == 0)
-	break;
+        break;
       perror ("connect");
 
       close (sock);
@@ -578,40 +578,40 @@ commandrv (char **stdoutput, char **stderror, char * const* const argv)
     if (FD_ISSET (so_fd[0], &rset2)) { /* something on stdout */
       r = read (so_fd[0], buf, sizeof buf);
       if (r == -1) {
-	perror ("read");
-	goto quit;
+        perror ("read");
+        goto quit;
       }
       if (r == 0) { FD_CLR (so_fd[0], &rset); quit++; }
 
       if (r > 0 && stdoutput) {
-	so_size += r;
-	p = realloc (*stdoutput, so_size);
-	if (p == NULL) {
-	  perror ("realloc");
-	  goto quit;
-	}
-	*stdoutput = p;
-	memcpy (*stdoutput + so_size - r, buf, r);
+        so_size += r;
+        p = realloc (*stdoutput, so_size);
+        if (p == NULL) {
+          perror ("realloc");
+          goto quit;
+        }
+        *stdoutput = p;
+        memcpy (*stdoutput + so_size - r, buf, r);
       }
     }
 
     if (FD_ISSET (se_fd[0], &rset2)) { /* something on stderr */
       r = read (se_fd[0], buf, sizeof buf);
       if (r == -1) {
-	perror ("read");
-	goto quit;
+        perror ("read");
+        goto quit;
       }
       if (r == 0) { FD_CLR (se_fd[0], &rset); quit++; }
 
       if (r > 0 && stderror) {
-	se_size += r;
-	p = realloc (*stderror, se_size);
-	if (p == NULL) {
-	  perror ("realloc");
-	  goto quit;
-	}
-	*stderror = p;
-	memcpy (*stderror + se_size - r, buf, r);
+        se_size += r;
+        p = realloc (*stderror, se_size);
+        if (p == NULL) {
+          perror ("realloc");
+          goto quit;
+        }
+        *stderror = p;
+        memcpy (*stderror + se_size - r, buf, r);
       }
     }
   }
@@ -643,7 +643,7 @@ commandrv (char **stdoutput, char **stderror, char * const* const argv)
       (*stderror)[se_size] = '\0';
       se_size--;
       while (se_size >= 0 && (*stderror)[se_size] == '\n')
-	(*stderror)[se_size--] = '\0';
+        (*stderror)[se_size--] = '\0';
     }
   }
 
@@ -722,7 +722,7 @@ print_shell_quote (FILE *stream,
                    const void *const *args)
 {
 #define SAFE(c) (isalnum((c)) ||					\
-		 (c) == '/' || (c) == '-' || (c) == '_' || (c) == '.')
+                 (c) == '/' || (c) == '-' || (c) == '_' || (c) == '.')
   int i, len;
   const char *str = *((const char **) (args[0]));
 
@@ -740,11 +740,11 @@ print_shell_quote (FILE *stream,
 
 static int
 print_sysroot_shell_quote (FILE *stream,
-			   const struct printf_info *info,
-			   const void *const *args)
+                           const struct printf_info *info,
+                           const void *const *args)
 {
 #define SAFE(c) (isalnum((c)) ||					\
-		 (c) == '/' || (c) == '-' || (c) == '_' || (c) == '.')
+                 (c) == '/' || (c) == '-' || (c) == '_' || (c) == '.')
   fputs (sysroot, stream);
   return sysroot_len + print_shell_quote (stream, info, args);
 }
@@ -752,7 +752,7 @@ print_sysroot_shell_quote (FILE *stream,
 #ifdef HAVE_REGISTER_PRINTF_SPECIFIER
 static int
 print_arginfo (const struct printf_info *info,
-	       size_t n, int *argtypes, int *size)
+               size_t n, int *argtypes, int *size)
 {
   if (n > 0) {
     argtypes[0] = PA_STRING;

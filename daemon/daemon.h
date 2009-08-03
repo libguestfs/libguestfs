@@ -48,9 +48,9 @@ extern void free_stringslen (char **argv, int len);
 extern int command (char **stdoutput, char **stderror, const char *name, ...);
 extern int commandr (char **stdoutput, char **stderror, const char *name, ...);
 extern int commandv (char **stdoutput, char **stderror,
-		     char * const* const argv);
+                     char * const* const argv);
 extern int commandrv (char **stdoutput, char **stderror,
-		      char * const* const argv);
+                      char * const* const argv);
 
 extern char **split_lines (char *str);
 

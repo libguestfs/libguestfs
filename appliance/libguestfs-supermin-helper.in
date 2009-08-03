@@ -44,8 +44,8 @@ for f in $kernels; do
     b=$(echo "$b" | sed 's,vmlinuz-,,')
     modpath="/lib/modules/$b"
     if [ -d "$modpath" ]; then
-	ln -sf "$f" "$kernel"
-	break
+        ln -sf "$f" "$kernel"
+        break
     fi
     modpath=
 done

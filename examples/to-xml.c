@@ -89,14 +89,14 @@ main (int argc, char *argv[])
     int j;
     for (j = 0; lvs[j] != NULL; ++j) {
       if (strncmp (lvs[j], "/dev/", 5) == 0 &&
-	  strncmp (&lvs[j][5], vgs[i], len) == 0 &&
-	  lvs[j][len+5] == '/') {
-	int64_t size;
-	CALL (size = guestfs_blockdev_getsize64 (g, lvs[j]), -1);
-	printf ("<logvol name=\"%s\" size=\"%" PRIi64 "\">\n", lvs[j], size);
-	display_partition (g, lvs[j]);
-	printf ("</logvol>\n");
-	free (lvs[j]);
+          strncmp (&lvs[j][5], vgs[i], len) == 0 &&
+          lvs[j][len+5] == '/') {
+        int64_t size;
+        CALL (size = guestfs_blockdev_getsize64 (g, lvs[j]), -1);
+        printf ("<logvol name=\"%s\" size=\"%" PRIi64 "\">\n", lvs[j], size);
+        display_partition (g, lvs[j]);
+        printf ("</logvol>\n");
+        free (lvs[j]);
       }
     }
 

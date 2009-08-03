@@ -48,19 +48,19 @@ AM_PROG_CC_C_O
 
 dnl Check for Augeas (now optional).
 AC_CHECK_LIB([augeas],[aug_match],[
-	LIBS="-laugeas $LIBS"
-	have_augeas=yes
-	dnl Check for functions not available in earlier versions of Augeas.
-	AC_CHECK_FUNCS([aug_load aug_defvar aug_defnode])
-	],[have_augeas=no])
+        LIBS="-laugeas $LIBS"
+        have_augeas=yes
+        dnl Check for functions not available in earlier versions of Augeas.
+        AC_CHECK_FUNCS([aug_load aug_defvar aug_defnode])
+        ],[have_augeas=no])
 if test "x$have_augeas" = "xyes"; then
-	AC_DEFINE([HAVE_AUGEAS],[1],[Define to 1 if you have Augeas])
+        AC_DEFINE([HAVE_AUGEAS],[1],[Define to 1 if you have Augeas])
 fi
 
 dnl Check for XDR library.
 AC_CHECK_LIB([portablexdr],[xdrmem_create],[],[
-	AC_SEARCH_LIBS([xdrmem_create],[rpc xdr nsl])
-	])
+        AC_SEARCH_LIBS([xdrmem_create],[rpc xdr nsl])
+        ])
 
 dnl Functions which may not be available in older distributions.
 AC_CHECK_FUNCS([futimens listxattr llistxattr getxattr lgetxattr setxattr lsetxattr removexattr lremovexattr])
@@ -68,14 +68,14 @@ AC_CHECK_FUNCS([futimens listxattr llistxattr getxattr lgetxattr setxattr lsetxa
 dnl For modified printf, we need glibc either (old-style)
 dnl register_printf_function or (new-style) register_printf_specifier.
 AC_CHECK_FUNC([register_printf_specifier],[
-	AC_DEFINE([HAVE_REGISTER_PRINTF_SPECIFIER],[1],
-		[Define to 1 if you have new-style register_printf_specifier])
-	],[
-	AC_CHECK_FUNC([register_printf_function],[
-		AC_DEFINE([HAVE_REGISTER_PRINTF_FUNCTION],[1],
-			[Define to 1 if you have old-style register_printf_function])
-		],[
-		AC_MSG_FAILURE(
+        AC_DEFINE([HAVE_REGISTER_PRINTF_SPECIFIER],[1],
+                [Define to 1 if you have new-style register_printf_specifier])
+        ],[
+        AC_CHECK_FUNC([register_printf_function],[
+                AC_DEFINE([HAVE_REGISTER_PRINTF_FUNCTION],[1],
+                        [Define to 1 if you have old-style register_printf_function])
+                ],[
+                AC_MSG_FAILURE(
 [No support for glibc-style extended printf formatters.
 
 This means you either have a very old glibc (pre-2.0) or you

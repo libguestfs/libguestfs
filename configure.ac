@@ -62,8 +62,8 @@ dnl Check for rpcgen and XDR library.  rpcgen is optional.
 AC_CHECK_PROG([RPCGEN],[rpcgen],[rpcgen],[no])
 AM_CONDITIONAL([HAVE_RPCGEN],[test "x$RPCGEN" != "xno"])
 AC_CHECK_LIB([portablexdr],[xdrmem_create],[],[
-	AC_SEARCH_LIBS([xdrmem_create],[rpc xdr nsl])
-	])
+        AC_SEARCH_LIBS([xdrmem_create],[rpc xdr nsl])
+        ])
 
 dnl Check for pod2man and pod2text.
 AC_CHECK_PROG([POD2MAN],[pod2man],[pod2man],[no])
@@ -75,19 +75,19 @@ test "x$POD2TEXT" = "xno" &&
 
 dnl Check for mksquashfs.
 AC_PATH_PROGS([MKSQUASHFS],[mksquashfs],[no],
-	[$PATH$PATH_SEPARATOR/usr/sbin$PATH_SEPARATOR/sbin])
+        [$PATH$PATH_SEPARATOR/usr/sbin$PATH_SEPARATOR/sbin])
 test "x$MKSQUASHFS" = "xno" && AC_MSG_ERROR([mksquashfs must be installed])
 
 dnl Check for QEMU for running binaries on this $host_cpu, fall
 dnl back to basic 'qemu'.  Allow the user to override it.
 default_qemu="qemu-kvm qemu-system-$host_cpu qemu"
 AC_ARG_WITH([qemu],
-	[AS_HELP_STRING([--with-qemu],
-	  [set default QEMU binary @<:@default=[qemu-kvm] qemu-system-<host> qemu@:>@])],
-	[],
-	[with_qemu="$default_qemu"])
+        [AS_HELP_STRING([--with-qemu],
+          [set default QEMU binary @<:@default=[qemu-kvm] qemu-system-<host> qemu@:>@])],
+        [],
+        [with_qemu="$default_qemu"])
 AC_PATH_PROGS([QEMU],[$with_qemu],[no],
-	[$PATH$PATH_SEPARATOR/usr/sbin$PATH_SEPARATOR/sbin$PATH_SEPARATOR/usr/libexec])
+        [$PATH$PATH_SEPARATOR/usr/sbin$PATH_SEPARATOR/sbin$PATH_SEPARATOR/usr/libexec])
 test "x$QEMU" = "xno" && AC_MSG_ERROR([qemu must be installed])
 AC_DEFINE_UNQUOTED([QEMU],["$QEMU"],[Location of qemu binary.])
 
@@ -100,13 +100,13 @@ if test "x$vmchannel_test" != "xno"; then
     else
         AC_MSG_RESULT([no])
         AC_MSG_CHECKING([for "-net channel" support in $QEMU])
-	vmchannelout=`$QEMU -net channel /dev/zero 2>&1 ||:`
-	echo "vmchannel test command output: $vmchannelout" >&AS_MESSAGE_LOG_FD
-	if echo "$vmchannelout" | grep -sq "vmchannel wrong port number" ; then
-	    AC_MSG_RESULT([yes])
-	else
-	    AC_MSG_RESULT([no])
-	    AC_MSG_FAILURE(
+        vmchannelout=`$QEMU -net channel /dev/zero 2>&1 ||:`
+        echo "vmchannel test command output: $vmchannelout" >&AS_MESSAGE_LOG_FD
+        if echo "$vmchannelout" | grep -sq "vmchannel wrong port number" ; then
+            AC_MSG_RESULT([yes])
+        else
+            AC_MSG_RESULT([no])
+            AC_MSG_FAILURE(
 [I did not find vmchannel support in $QEMU.
 
 vmchannel support is vital for libguestfs to operate.  You need a version
@@ -122,7 +122,7 @@ If I am using the wrong qemu or you want to compile qemu from source
 and install it in another location, then you should configure with
 the --with-qemu option.
 ])
-	fi
+        fi
     fi
 fi
 
@@ -132,37 +132,37 @@ dnl
 dnl NB. We will change the default in future to virtio, but at the
 dnl moment this causes a performance problem, RHBZ#509383.
 AC_ARG_WITH([drive-if],
-	[AS_HELP_STRING([--with-drive-if],
-	  [set default driver (ide|scsi|virtio) @<:@default=ide@:>@])],
-	[],
-	[with_drive_if=ide])
+        [AS_HELP_STRING([--with-drive-if],
+          [set default driver (ide|scsi|virtio) @<:@default=ide@:>@])],
+        [],
+        [with_drive_if=ide])
 AC_DEFINE_UNQUOTED([DRIVE_IF],["$with_drive_if"],[Default drive interface.])
 
 dnl Check for febootstrap etc.
 AC_CHECK_PROG([FEBOOTSTRAP],
-	[febootstrap],[febootstrap],[no])
+        [febootstrap],[febootstrap],[no])
 if test "x$FEBOOTSTRAP" != "xno"; then
   AC_CHECK_PROG([FEBOOTSTRAP_RUN],
-	[febootstrap-run],[febootstrap-run],[no])
+        [febootstrap-run],[febootstrap-run],[no])
   test "x$FEBOOTSTRAP_RUN" = "xno" && \
      AC_MSG_ERROR([febootstrap-run must be installed])
   AC_CHECK_PROG([FEBOOTSTRAP_INSTALL],
-	[febootstrap-install],[febootstrap-install],[no])
+        [febootstrap-install],[febootstrap-install],[no])
   test "x$FEBOOTSTRAP_INSTALL" = "xno" && \
      AC_MSG_ERROR([febootstrap-install must be installed])
   AC_CHECK_PROG([FEBOOTSTRAP_MINIMIZE],
-	[febootstrap-minimize],[febootstrap-minimize],[no])
+        [febootstrap-minimize],[febootstrap-minimize],[no])
   test "x$FEBOOTSTRAP_MINIMIZE" = "xno" && \
      AC_MSG_ERROR([febootstrap-minimize must be installed])
   AC_CHECK_PROG([FEBOOTSTRAP_TO_INITRAMFS],
-	[febootstrap-to-initramfs],[febootstrap-to-initramfs],[no])
+        [febootstrap-to-initramfs],[febootstrap-to-initramfs],[no])
   test "x$FEBOOTSTRAP_TO_INITRAMFS" = "xno" && \
      AC_MSG_ERROR([febootstrap-to-initramfs must be installed])
 
   dnl Check we have fakechroot >= 2.9 (it's an indirect requirement
   dnl of febootstrap, but old versions will fail with yum).
   AC_CHECK_PROG([FAKECHROOT],
-	[fakechroot],[fakechroot],[no])
+        [fakechroot],[fakechroot],[no])
   test "x$FAKECHROOT" = "xno" && \
     AC_MSG_ERROR([fakechroot must be installed])
 
@@ -184,9 +184,9 @@ if test "x$FEBOOTSTRAP" != "xno"; then
 else
   # check for debootstrap and debirf
   AC_CHECK_PROG([DEBOOTSTRAP],
-	[debootstrap],[debootstrap],[no])
+        [debootstrap],[debootstrap],[no])
   test "x$DEBOOTSTRAP" = "xno" && \
-	AC_MSG_ERROR([Either febootstrap or debootstrap must be installed])
+        AC_MSG_ERROR([Either febootstrap or debootstrap must be installed])
   AC_CHECK_PROG([DEBIRF],[debirf],[debirf],[no])
   test "x$DEBIRF" = "xno" &&
         AC_MSG_ERROR([debirf must be installed])
@@ -209,20 +209,20 @@ AC_SUBST(DIST)
 
 dnl --with-repo to specify a Fedora repository.
 AC_ARG_WITH([repo],
-	[AS_HELP_STRING([--with-repo],
-	  [set name of Fedora repository @<:@default=fedora-11@:>@])],
-	[],
-	[with_repo=fedora-11])
+        [AS_HELP_STRING([--with-repo],
+          [set name of Fedora repository @<:@default=fedora-11@:>@])],
+        [],
+        [with_repo=fedora-11])
 REPO="$with_repo"
 AC_SUBST(REPO)
 AC_DEFINE_UNQUOTED([REPO],["$REPO"],[Name of Fedora repository.])
 
 dnl --with-updates to specify a Fedora updates repository.
 AC_ARG_WITH([updates],
-	[AS_HELP_STRING([--with-updates],
-	  [set name of Fedora updates repository @<:@default=updates-released-f11@:>@])],
-	[],
-	[with_updates=updates-released-f11])
+        [AS_HELP_STRING([--with-updates],
+          [set name of Fedora updates repository @<:@default=updates-released-f11@:>@])],
+        [],
+        [with_updates=updates-released-f11])
 UPDATES="$with_updates"
 AC_SUBST(UPDATES)
 
@@ -231,20 +231,20 @@ AC_DEFINE_UNQUOTED([host_cpu],["$host_cpu"],[Host architecture.])
 
 dnl --with-mirror to specify a local Fedora mirror.
 AC_ARG_WITH([mirror],
-	[AS_HELP_STRING([--with-mirror],
-	  [set URI of a local Fedora mirror])],
-	[],
-	[with_mirror=])
+        [AS_HELP_STRING([--with-mirror],
+          [set URI of a local Fedora mirror])],
+        [],
+        [with_mirror=])
 MIRROR="$with_mirror"
 AC_SUBST(MIRROR)
 
 dnl Build the supermin appliance?  Please see README file before
 dnl enabling this option.
 AC_ARG_ENABLE([supermin],
-	[AS_HELP_STRING([--enable-supermin],
-	  [enable supermin appliance (see README) @<:@default=no@:>@])],
-	[],
-	[enable_supermin=no])
+        [AS_HELP_STRING([--enable-supermin],
+          [enable supermin appliance (see README) @<:@default=no@:>@])],
+        [],
+        [enable_supermin=no])
 AM_CONDITIONAL([SUPERMIN],[test "x$enable_supermin" = "xyes"])
 
 if test "x$enable_supermin" = "xyes"; then
@@ -255,7 +255,7 @@ if test "x$enable_supermin" = "xyes"; then
     echo "febootstrap_to_initramfs test command output: $out" >&AS_MESSAGE_LOG_FD
     if ! echo "$out" | grep -sq -e --files ; then
         AC_MSG_RESULT([no])
-	AC_MSG_FAILURE(
+        AC_MSG_FAILURE(
 [febootstrap-to-initramfs does not support the --files option.
 
 To build the supermin appliance, you need to upgrade to the latest
@@ -271,7 +271,7 @@ version of febootstrap.
     echo "febootstrap_to_initramfs test command output: $out" >&AS_MESSAGE_LOG_FD
     if ! echo "$out" | grep -sq -e --nocompress ; then
         AC_MSG_RESULT([no])
-	AC_MSG_FAILURE(
+        AC_MSG_FAILURE(
 [febootstrap-to-initramfs does not support the --nocompress option.
 
 To build the supermin appliance, you need to upgrade to the latest
@@ -351,11 +351,11 @@ if test "x$PYTHON" != "xno"; then
     do
         AC_MSG_CHECKING([Python.h in $d])
         if test -r "$d/Python.h"; then
-	    AC_MSG_RESULT([found])
-	    PYTHON_INCLUDEDIR=$d
-	    break
-	fi
-	AC_MSG_RESULT([not found])
+            AC_MSG_RESULT([found])
+            PYTHON_INCLUDEDIR=$d
+            break
+        fi
+        AC_MSG_RESULT([not found])
     done
     for d in \
         $PYTHON_PREFIX/lib64/python$PYTHON_VERSION/site-packages \
@@ -366,11 +366,11 @@ if test "x$PYTHON" != "xno"; then
     do
         AC_MSG_CHECKING([for $d])
         if test -d "$d"; then
-	    AC_MSG_RESULT([found])
-	    PYTHON_SITE_PACKAGES=$d
-	    break
-	fi
-	AC_MSG_RESULT([not found])
+            AC_MSG_RESULT([found])
+            PYTHON_SITE_PACKAGES=$d
+            break
+        fi
+        AC_MSG_RESULT([not found])
     done
 fi
 
@@ -399,46 +399,46 @@ AC_ARG_WITH(java_home,
 if test "x$with_java_home" != "xno"; then
     if test "x$with_java_home" != "xyes" -a "x$with_java_home" != "xcheck"
     then
-	# Reject unsafe characters in $JAVA_HOME
-	jh_lf='
+        # Reject unsafe characters in $JAVA_HOME
+        jh_lf='
 '
-	case $JAVA_HOME in
-	  *[\\\"\#\$\&\'\`$jh_lf\ \	]*)
+        case $JAVA_HOME in
+          *[\\\"\#\$\&\'\`$jh_lf\ \	]*)
             AC_MSG_FAILURE([unsafe \$JAVA_HOME directory (use --with-java-home=no to disable Java support)]);;
-	esac
+        esac
         if test -d "$with_java_home"; then
-	    JAVA_HOME="$with_java_home"
-	else
+            JAVA_HOME="$with_java_home"
+        else
             AC_MSG_FAILURE([$with_java_home is not a directory (use --with-java-home=no to disable Java support)])
-	fi
+        fi
     fi
 
     if test "x$JAVA_HOME" = "x"; then
         # Look for Java in some likely locations.
-	for d in \
-	    /usr/lib/jvm/java \
-	    /usr/lib/jvm/java-6-openjdk
-	do
-	    if test -d $d -a -f $d/bin/java; then
+        for d in \
+            /usr/lib/jvm/java \
+            /usr/lib/jvm/java-6-openjdk
+        do
+            if test -d $d -a -f $d/bin/java; then
                 JAVA_HOME=$d
-		break
-	    fi
-	done
+                break
+            fi
+        done
     fi
 
     if test "x$JAVA_HOME" != "x"; then
         AC_MSG_CHECKING(for JDK in $JAVA_HOME)
-	if test ! -x "$JAVA_HOME/bin/java"; then
+        if test ! -x "$JAVA_HOME/bin/java"; then
             AC_MSG_ERROR([missing $JAVA_HOME/bin/java binary (use --with-java-home=no to disable Java support)])
-	else
-	    JAVA="$JAVA_HOME/bin/java"
-	fi
-	if test ! -x "$JAVA_HOME/bin/javac"; then
-            AC_MSG_ERROR([missing $JAVA_HOME/bin/javac binary])
-	else
-	    JAVAC="$JAVA_HOME/bin/javac"
+        else
+            JAVA="$JAVA_HOME/bin/java"
         fi
-	if test ! -x "$JAVA_HOME/bin/javah"; then
+        if test ! -x "$JAVA_HOME/bin/javac"; then
+            AC_MSG_ERROR([missing $JAVA_HOME/bin/javac binary])
+        else
+            JAVAC="$JAVA_HOME/bin/javac"
+        fi
+        if test ! -x "$JAVA_HOME/bin/javah"; then
             AC_MSG_ERROR([missing $JAVA_HOME/bin/javah binary])
         else
             JAVAH="$JAVA_HOME/bin/javah"
@@ -463,10 +463,10 @@ if test "x$with_java_home" != "xno"; then
         else
             if test "`find $JAVA_HOME -name jni.h`" != ""; then
                 head=`find $JAVA_HOME -name jni.h | tail -1`
-	        dir=`dirname "$head"`
-	        JNI_CFLAGS="-I$dir"
+                dir=`dirname "$head"`
+                JNI_CFLAGS="-I$dir"
             else
-	        AC_MSG_FAILURE([missing jni.h header file])
+                AC_MSG_FAILURE([missing jni.h header file])
             fi
         fi
         AC_MSG_RESULT([$JNI_CFLAGS])
@@ -570,37 +570,37 @@ dnl Produce output files.
 AC_CONFIG_HEADERS([config.h])
 dnl http://www.mail-archive.com/automake@gnu.org/msg10204.html
 AC_CONFIG_FILES([appliance/make.sh],
-		[chmod +x appliance/make.sh])
+                [chmod +x appliance/make.sh])
 AC_CONFIG_FILES([appliance/update.sh],
-		[chmod +x appliance/update.sh])
+                [chmod +x appliance/update.sh])
 AC_CONFIG_FILES([appliance/supermin-split.sh],
-		[chmod +x appliance/supermin-split.sh])
+                [chmod +x appliance/supermin-split.sh])
 AC_CONFIG_FILES([appliance/supermin-make.sh],
-		[chmod +x appliance/supermin-make.sh])
+                [chmod +x appliance/supermin-make.sh])
 AC_CONFIG_FILES([appliance/libguestfs-supermin-helper],
-		[chmod +x appliance/libguestfs-supermin-helper])
+                [chmod +x appliance/libguestfs-supermin-helper])
 AC_CONFIG_FILES([Makefile
-		 src/Makefile fish/Makefile po/Makefile.in examples/Makefile
-		 appliance/Makefile
-		 appliance/debian/debirf.conf
-		 images/Makefile
-		 capitests/Makefile
-		 regressions/Makefile
-		 test-tool/Makefile
-		 ocaml/Makefile ocaml/examples/Makefile
-		 perl/Makefile
-		 python/Makefile
-		 ruby/Makefile ruby/Rakefile
-		 java/Makefile
-		 haskell/Makefile
-		 cat/Makefile
-		 df/Makefile
-		 inspector/Makefile
-		 v2v/Makefile
-		 libguestfs.pc
-		 gnulib/lib/Makefile
-		 gnulib/tests/Makefile
-		 ocaml/META perl/Makefile.PL])
+                 src/Makefile fish/Makefile po/Makefile.in examples/Makefile
+                 appliance/Makefile
+                 appliance/debian/debirf.conf
+                 images/Makefile
+                 capitests/Makefile
+                 regressions/Makefile
+                 test-tool/Makefile
+                 ocaml/Makefile ocaml/examples/Makefile
+                 perl/Makefile
+                 python/Makefile
+                 ruby/Makefile ruby/Rakefile
+                 java/Makefile
+                 haskell/Makefile
+                 cat/Makefile
+                 df/Makefile
+                 inspector/Makefile
+                 v2v/Makefile
+                 libguestfs.pc
+                 gnulib/lib/Makefile
+                 gnulib/tests/Makefile
+                 ocaml/META perl/Makefile.PL])
 AC_OUTPUT
 
 dnl Produce summary.

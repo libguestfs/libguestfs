@@ -22,21 +22,21 @@ import com.redhat.et.libguestfs.*;
 public class GuestFS010Launch {
     public static void main (String[] argv)
     {
-	try {
-	    GuestFS g = new GuestFS ();
-	    RandomAccessFile f = new RandomAccessFile ("test.img", "rw");
-	    f.setLength (500 * 1024 * 1024);
-	    f.close ();
-	    g.add_drive ("test.img");
-	    g.launch ();
-	    g.wait_ready ();
-	    g.close ();
-	    File f2 = new File ("test.img");
-	    f2.delete ();
-	}
-	catch (Exception exn) {
-	    System.err.println (exn);
-	    System.exit (1);
-	}
+        try {
+            GuestFS g = new GuestFS ();
+            RandomAccessFile f = new RandomAccessFile ("test.img", "rw");
+            f.setLength (500 * 1024 * 1024);
+            f.close ();
+            g.add_drive ("test.img");
+            g.launch ();
+            g.wait_ready ();
+            g.close ();
+            File f2 = new File ("test.img");
+            f2.delete ();
+        }
+        catch (Exception exn) {
+            System.err.println (exn);
+            System.exit (1);
+        }
     }
 }

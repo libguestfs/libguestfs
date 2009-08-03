@@ -131,8 +131,8 @@ Print inodes instead of blocks.
 =cut
 
 GetOptions ("help|?" => \$help,
-	    "version" => \$version,
-	    "connect|c=s" => \$uri,
+            "version" => \$version,
+            "connect|c=s" => \$uri,
             "csv" => \$csv,
             "human-readable|human|h" => \$human,
             "inodes|i" => \$inodes,
@@ -151,9 +151,9 @@ if (@ARGV == 0) {
     my $conn;
 
     if ($uri) {
-	$conn = Sys::Virt->new (readonly => 1, address => $uri);
+        $conn = Sys::Virt->new (readonly => 1, address => $uri);
     } else {
-	$conn = Sys::Virt->new (readonly => 1);
+        $conn = Sys::Virt->new (readonly => 1);
     }
 
     my @doms = $conn->list_defined_domains ();
@@ -162,10 +162,10 @@ if (@ARGV == 0) {
     my @domnames = map { $_->get_name () } @doms;
 
     if (@domnames) {
-	print_title ();
-	foreach (@domnames) {
-	    do_df ($_);
-	}
+        print_title ();
+        foreach (@domnames) {
+            do_df ($_);
+        }
     }
 } else {
     print_title ();
@@ -177,9 +177,9 @@ sub do_df
     my $g;
 
     if ($uri) {
-	$g = open_guest (\@_, address => $uri);
+        $g = open_guest (\@_, address => $uri);
     } else {
-	$g = open_guest (\@_);
+        $g = open_guest (\@_);
     }
 
     $g->launch ();
@@ -195,15 +195,15 @@ sub do_df
 
     # Mount each partition in turn, and if mountable, do a statvfs on it.
     foreach my $partition (@partitions) {
-	my %stat;
-	eval {
-	    $g->mount_ro ($partition, "/");
-	    %stat = $g->statvfs ("/");
-	};
-	if (!$@) {
-	    print_stat ($domname, $partition, \%stat);
-	}
-	$g->umount_all ();
+        my %stat;
+        eval {
+            $g->mount_ro ($partition, "/");
+            %stat = $g->statvfs ("/");
+        };
+        if (!$@) {
+            print_stat ($domname, $partition, \%stat);
+        }
+        $g->umount_all ();
     }
 }
 
@@ -216,38 +216,38 @@ sub print_stat
     my @cols = ($domname, $partition);
 
     if (!$inodes) {
-	my $bsize = $stat->{bsize};	# block size
-	my $blocks = $stat->{blocks};	# total number of blocks
-	my $bfree = $stat->{bfree};	# blocks free (total)
-	my $bavail = $stat->{bavail};	# blocks free (for non-root users)
+        my $bsize = $stat->{bsize};	# block size
+        my $blocks = $stat->{blocks};	# total number of blocks
+        my $bfree = $stat->{bfree};	# blocks free (total)
+        my $bavail = $stat->{bavail};	# blocks free (for non-root users)
 
-	my $factor = $bsize / 1024;
+        my $factor = $bsize / 1024;
 
-	push @cols, $blocks*$factor;	# total 1K blocks
-	push @cols, ($blocks-$bfree)*$factor; # total 1K blocks used
-	push @cols, $bavail*$factor;	# total 1K blocks available
+        push @cols, $blocks*$factor;	# total 1K blocks
+        push @cols, ($blocks-$bfree)*$factor; # total 1K blocks used
+        push @cols, $bavail*$factor;	# total 1K blocks available
 
-	# XXX %used column comes out different from the native 'df'
-	# program.  Need to check how 'df' calculates this.
-	push @cols, 100.0 - 100.0 * $bavail / $blocks;
+        # XXX %used column comes out different from the native 'df'
+        # program.  Need to check how 'df' calculates this.
+        push @cols, 100.0 - 100.0 * $bavail / $blocks;
 
-	if ($human) {
-	    $cols[2] = human_size ($cols[2]);
-	    $cols[3] = human_size ($cols[3]);
-	    $cols[4] = human_size ($cols[4]);
-	}
+        if ($human) {
+            $cols[2] = human_size ($cols[2]);
+            $cols[3] = human_size ($cols[3]);
+            $cols[4] = human_size ($cols[4]);
+        }
     } else {
-	my $files = $stat->{files};	# total number of inodes
-	my $ffree = $stat->{ffree};	# inodes free (total)
-	my $favail = $stat->{favail};	# inodes free (for non-root users)
+        my $files = $stat->{files};	# total number of inodes
+        my $ffree = $stat->{ffree};	# inodes free (total)
+        my $favail = $stat->{favail};	# inodes free (for non-root users)
 
-	push @cols, $files;
-	push @cols, $files-$ffree;
-	push @cols, $ffree;
+        push @cols, $files;
+        push @cols, $files-$ffree;
+        push @cols, $ffree;
 
-	# XXX %used column comes out different from the native 'df'
-	# program.  Need to check how 'df' calculates this.
-	push @cols, 100.0 - 100.0 * $favail / $files;
+        # XXX %used column comes out different from the native 'df'
+        # program.  Need to check how 'df' calculates this.
+        push @cols, 100.0 - 100.0 * $favail / $files;
     }
 
     print_cols (@cols);
@@ -257,42 +257,42 @@ sub print_title
 {
     my @cols = (__"Virtual Machine", __"Filesystem");
     if (!$inodes) {
-	if (!$human) {
-	    push @cols, __"1K-blocks";
-	} else {
-	    push @cols, __"Size";
-	}
-	push @cols, __"Used";
-	push @cols, __"Available";
-	push @cols, __"Use%";
+        if (!$human) {
+            push @cols, __"1K-blocks";
+        } else {
+            push @cols, __"Size";
+        }
+        push @cols, __"Used";
+        push @cols, __"Available";
+        push @cols, __"Use%";
     } else {
-	push @cols, __"Inodes";
-	push @cols, __"IUsed";
-	push @cols, __"IFree";
-	push @cols, __"IUse%";
+        push @cols, __"Inodes";
+        push @cols, __"IUsed";
+        push @cols, __"IFree";
+        push @cols, __"IUse%";
     }
 
     if (!$csv) {
-	# ignore $cols[0] in this mode
-	printf "%-36s%10s %10s %10s %5s\n",
-	  $cols[1], $cols[2], $cols[3], $cols[4], $cols[5];
+        # ignore $cols[0] in this mode
+        printf "%-36s%10s %10s %10s %5s\n",
+          $cols[1], $cols[2], $cols[3], $cols[4], $cols[5];
     } else {
-	print (join (",", @cols), "\n");
+        print (join (",", @cols), "\n");
     }
 }
 
 sub print_cols
 {
     if (!$csv) {
-	my $label = sprintf "%s:%s", $_[0], $_[1];
+        my $label = sprintf "%s:%s", $_[0], $_[1];
 
-	printf ("%-36s", $label);
-	print "\n"," "x36 if length ($label) > 36;
+        printf ("%-36s", $label);
+        print "\n"," "x36 if length ($label) > 36;
 
-	my $percent = sprintf "%3.1f%%", $_[5];
-	printf ("%10s %10s %10s %5s\n", $_[2], $_[3], $_[4], $percent);
+        my $percent = sprintf "%3.1f%%", $_[5];
+        printf ("%10s %10s %10s %5s\n", $_[2], $_[3], $_[4], $percent);
     } else {
-	printf ("\"%s\",\"%s\",%d,%d,%d,%.1f%%\n", @_);
+        printf ("\"%s\",\"%s\",%d,%d,%d,%.1f%%\n", @_);
     }
 }
 
@@ -302,11 +302,11 @@ sub human_size
     local $_ = shift;
 
     if ($_ < 1024) {
-	sprintf "%dK", $_;
+        sprintf "%dK", $_;
     } elsif ($_ < 1024 * 1024) {
-	sprintf "%.1fM", ($_ / 1024);
+        sprintf "%.1fM", ($_ / 1024);
     } else {
-	sprintf "%.1fG", ($_ / 1024 / 1024);
+        sprintf "%.1fG", ($_ / 1024 / 1024);
     }
 }
 

@@ -43,8 +43,8 @@ for f in recipes/*.sh; do
     b=`basename $f .sh`
     echo -n '    <li> <a href="#'$b'">'$b.sh
     if [ -r recipes/$b.title ]; then
-	echo -n ': '
-	cat recipes/$b.title
+        echo -n ': '
+        cat recipes/$b.title
     fi
     echo '</a> </li>'
 done
@@ -57,23 +57,23 @@ for f in recipes/*.sh; do
     echo -n '<a name="'$b'"></a>'
     echo -n '<h2>'$b'.sh'
     if [ -r recipes/$b.title ]; then
-	echo -n ': '
-	cat recipes/$b.title
+        echo -n ': '
+        cat recipes/$b.title
     fi
     echo -n '<small style="font-size: 8pt; margin-left: 2em;"><a href="#'$b'">permalink</a></small>'
     echo '</h2>'
     if [ -r recipes/$b.html ]; then
-	cat recipes/$b.html
+        cat recipes/$b.html
     fi
     echo '<h3>'$b'.sh</h3>'
     echo '<pre class="example">'
     sed -e 's,&,\&amp;,g' -e 's,<,\&lt;,g' -e 's,>,\&gt;,g' < $f
     echo '</pre>'
     if [ -r recipes/$b.example ]; then
-	echo '<h3>Example output</h3>'
-	echo '<pre>'
-	sed -e 's,&,\&amp;,g' -e 's,<,\&lt;,g' -e 's,>,\&gt;,g' < recipes/$b.example
-	echo '</pre>'
+        echo '<h3>Example output</h3>'
+        echo '<pre>'
+        sed -e 's,&,\&amp;,g' -e 's,<,\&lt;,g' -e 's,>,\&gt;,g' < recipes/$b.example
+        echo '</pre>'
     fi
 done
 

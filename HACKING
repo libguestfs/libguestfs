@@ -28,74 +28,74 @@ Directories
 ----------------------------------------------------------------------
 
 appliance/
-	The qemu appliance, build scripts and so on.
+        The qemu appliance, build scripts and so on.
 
 cat/
-	The virt-cat tool.
+        The virt-cat tool.
 
 capitests/
-	Automated tests of the C API.
+        Automated tests of the C API.
 
 contrib/
-	Outside contributions, experimental parts.
+        Outside contributions, experimental parts.
 
 daemon/
-	The daemon that runs inside the guest and carries out actions.
+        The daemon that runs inside the guest and carries out actions.
 
 df/
-	The virt-df tool.
+        The virt-df tool.
 
 examples/
-	The examples.
+        The examples.
 
 fish/
-	Guestfish (the command-line program / shell)
+        Guestfish (the command-line program / shell)
 
 haskell/
-	Haskell bindings.
+        Haskell bindings.
 
 images/
-	Some guest images to test against.  These are gzipped to save
-	space.  You have to unzip them before use.
+        Some guest images to test against.  These are gzipped to save
+        space.  You have to unzip them before use.
 
-	Also contains some files used by the test suite.
+        Also contains some files used by the test suite.
 
 inspector/
-	Virtual machine image inspector (virt-inspector).
+        Virtual machine image inspector (virt-inspector).
 
 java/
-	Java bindings.
+        Java bindings.
 
 m4/
-	M4 macros used by autoconf.
+        M4 macros used by autoconf.
 
 ocaml/
-	OCaml bindings.
+        OCaml bindings.
 
 po/
-	Translations.
+        Translations.
 
 perl/
-	Perl bindings.
+        Perl bindings.
 
 python/
-	Python bindings.
+        Python bindings.
 
 regressions/
-	Regression tests.
+        Regression tests.
 
 ruby/
-	Ruby bindings.
+        Ruby bindings.
 
 src/
-	Source code to the C library.
-	Also contains the crucial generator program.
+        Source code to the C library.
+        Also contains the crucial generator program.
 
 test-tool/
-	Interactive qemu/kernel test tool.
+        Interactive qemu/kernel test tool.
 
 v2v/
-	Xen to KVM (V2V) conversion tool.
+        Xen to KVM (V2V) conversion tool.
 
 Debugging
 ----------------------------------------------------------------------

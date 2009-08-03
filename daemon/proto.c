@@ -69,7 +69,7 @@ main_loop (int _sock)
 
     if (len > GUESTFS_MESSAGE_MAX) {
       fprintf (stderr, "guestfsd: incoming message is too long (%u bytes)\n",
-	       len);
+               len);
       exit (1);
     }
 
@@ -86,20 +86,20 @@ main_loop (int _sock)
       int i, j;
 
       for (i = 0; i < len; i += 16) {
-	printf ("%04x: ", i);
-	for (j = i; j < MIN (i+16, len); ++j)
-	  printf ("%02x ", (unsigned char) buf[j]);
-	for (; j < i+16; ++j)
-	  printf ("   ");
-	printf ("|");
-	for (j = i; j < MIN (i+16, len); ++j)
-	  if (isprint (buf[j]))
-	    printf ("%c", buf[j]);
-	  else
-	    printf (".");
-	for (; j < i+16; ++j)
-	  printf (" ");
-	printf ("|\n");
+        printf ("%04x: ", i);
+        for (j = i; j < MIN (i+16, len); ++j)
+          printf ("%02x ", (unsigned char) buf[j]);
+        for (; j < i+16; ++j)
+          printf ("   ");
+        printf ("|");
+        for (j = i; j < MIN (i+16, len); ++j)
+          if (isprint (buf[j]))
+            printf ("%c", buf[j]);
+          else
+            printf (".");
+        for (; j < i+16; ++j)
+          printf (" ");
+        printf ("|\n");
       }
     }
 #endif
@@ -147,11 +147,11 @@ main_loop (int _sock)
       end_us = (int64_t) end_t.tv_sec * 1000000 + end_t.tv_usec;
       elapsed_us = end_us - start_us;
       fprintf (stderr, "proc %d (%s) took %d.%02d seconds\n",
-	       proc_nr,
-	       proc_nr >= 0 && proc_nr < GUESTFS_PROC_NR_PROCS
-	       ? function_names[proc_nr] : "UNKNOWN PROCEDURE",
-	       (int) (elapsed_us / 1000000),
-	       (int) ((elapsed_us / 10000) % 100));
+               proc_nr,
+               proc_nr >= 0 && proc_nr < GUESTFS_PROC_NR_PROCS
+               ? function_names[proc_nr] : "UNKNOWN PROCEDURE",
+               (int) (elapsed_us / 1000000),
+               (int) ((elapsed_us / 10000) % 100));
     }
 
   cont:
@@ -317,7 +317,7 @@ receive_file (receive_cb cb, void *opaque)
 
     if (len > GUESTFS_MESSAGE_MAX) {
       fprintf (stderr, "guestfsd: incoming message is too long (%u bytes)\n",
-	       len);
+               len);
       exit (1);
     }
 
@@ -341,7 +341,7 @@ receive_file (receive_cb cb, void *opaque)
 
     if (verbose)
       printf ("receive_file: got chunk: cancel = %d, len = %d, buf = %p\n",
-	      chunk.cancel, chunk.data.data_len, chunk.data.data_val);
+              chunk.cancel, chunk.data.data_len, chunk.data.data_val);
 
     if (chunk.cancel) {
       fprintf (stderr, "receive_file: received cancellation from library\n");
@@ -397,7 +397,7 @@ send_file_write (const void *buf, int len)
 
   if (len > GUESTFS_MAX_CHUNK_SIZE) {
     fprintf (stderr, "send_file_write: len (%d) > GUESTFS_MAX_CHUNK_SIZE (%d)\n",
-	     len, GUESTFS_MAX_CHUNK_SIZE);
+             len, GUESTFS_MAX_CHUNK_SIZE);
     return -1;
   }
 
@@ -455,7 +455,7 @@ check_for_library_cancellation (void)
 
   if (flag != GUESTFS_CANCEL_FLAG) {
     fprintf (stderr, "check_for_library_cancellation: read 0x%x from library, expected 0x%x\n",
-	     flag, GUESTFS_CANCEL_FLAG);
+             flag, GUESTFS_CANCEL_FLAG);
     return 0;
   }
 

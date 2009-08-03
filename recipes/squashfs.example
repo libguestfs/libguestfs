@@ -3,14 +3,14 @@ Parallel mksquashfs: Using 2 processors
 Creating 4.0 filesystem on test.sqsh, block size 131072.
 [===============================================================|] 663/663 100%
 Exportable Squashfs 4.0 filesystem, data block size 131072
-	compressed data, compressed metadata, compressed fragments
-	duplicates are removed
+        compressed data, compressed metadata, compressed fragments
+        duplicates are removed
 Filesystem size 1518.07 Kbytes (1.48 Mbytes)
-	98.41% of uncompressed filesystem size (1542.53 Kbytes)
+        98.41% of uncompressed filesystem size (1542.53 Kbytes)
 Inode table size 8095 bytes (7.91 Kbytes)
-	35.59% of uncompressed inode table size (22748 bytes)
+        35.59% of uncompressed inode table size (22748 bytes)
 Directory table size 7612 bytes (7.43 Kbytes)
-	49.11% of uncompressed directory table size (15499 bytes)
+        49.11% of uncompressed directory table size (15499 bytes)
 Number of duplicate files found 6
 Number of inodes 701
 Number of files 663
@@ -22,9 +22,9 @@ Number of socket nodes 0
 Number of directories 1
 Number of ids (unique uids + gids) 1
 Number of uids 1
-	root (0)
+        root (0)
 Number of gids 1
-	root (0)
+        root (0)
 total 1732
 drwxr-xr-x  2 root root 15498 May 27 10:34 .
 drwxr-xr-x 18 root root     0 May 29 08:44 ..

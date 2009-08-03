@@ -562,7 +562,7 @@ xread (int fd, void *buf, size_t len)
     r = read (fd, buf, len);
     if (r == -1) {
       if (errno == EINTR || errno == EAGAIN)
-	continue;
+        continue;
       return -1;
     }
 
@@ -743,7 +743,7 @@ add_cmdline (guestfs_h *g, const char *str)
 
 int
 guestfs_config (guestfs_h *g,
-		const char *qemu_param, const char *qemu_value)
+                const char *qemu_param, const char *qemu_value)
 {
   if (qemu_param[0] != '-') {
     error (g, _("guestfs_config: parameter must begin with '-' character"));
@@ -932,27 +932,27 @@ guestfs_launch (guestfs_h *g)
     /* Empty element of "." means cwd. */
     if (len == 0 || (len == 1 && *pelem == '.')) {
       if (g->verbose)
-	fprintf (stderr,
-		 "looking for supermin appliance in current directory\n");
+        fprintf (stderr,
+                 "looking for supermin appliance in current directory\n");
       if (dir_contains_files (".",
-			      supermin_name, supermin_hostfiles_name,
-			      "kmod.whitelist", NULL)) {
-	if (build_supermin_appliance (g, ".", &kernel, &initrd) == -1)
-	  return -1;
-	break;
+                              supermin_name, supermin_hostfiles_name,
+                              "kmod.whitelist", NULL)) {
+        if (build_supermin_appliance (g, ".", &kernel, &initrd) == -1)
+          return -1;
+        break;
       }
     }
     /* Look at <path>/supermin* etc. */
     else {
       if (g->verbose)
-	fprintf (stderr, "looking for supermin appliance in %s\n", pelem);
+        fprintf (stderr, "looking for supermin appliance in %s\n", pelem);
 
       if (dir_contains_files (pelem,
-			      supermin_name, supermin_hostfiles_name,
-			      "kmod.whitelist", NULL)) {
-	if (build_supermin_appliance (g, pelem, &kernel, &initrd) == -1)
-	  return -1;
-	break;
+                              supermin_name, supermin_hostfiles_name,
+                              "kmod.whitelist", NULL)) {
+        if (build_supermin_appliance (g, pelem, &kernel, &initrd) == -1)
+          return -1;
+        break;
       }
     }
 
@@ -972,27 +972,27 @@ guestfs_launch (guestfs_h *g)
 
       /* Empty element or "." means cwd. */
       if (len == 0 || (len == 1 && *pelem == '.')) {
-	if (g->verbose)
-	  fprintf (stderr,
-		   "looking for appliance in current directory\n");
-	if (dir_contains_files (".", kernel_name, initrd_name, NULL)) {
-	  kernel = safe_strdup (g, kernel_name);
-	  initrd = safe_strdup (g, initrd_name);
-	  break;
-	}
+        if (g->verbose)
+          fprintf (stderr,
+                   "looking for appliance in current directory\n");
+        if (dir_contains_files (".", kernel_name, initrd_name, NULL)) {
+          kernel = safe_strdup (g, kernel_name);
+          initrd = safe_strdup (g, initrd_name);
+          break;
+        }
       }
       /* Look at <path>/kernel etc. */
       else {
-	if (g->verbose)
-	  fprintf (stderr, "looking for appliance in %s\n", pelem);
+        if (g->verbose)
+          fprintf (stderr, "looking for appliance in %s\n", pelem);
 
-	if (dir_contains_files (pelem, kernel_name, initrd_name, NULL)) {
-	  kernel = safe_malloc (g, len + strlen (kernel_name) + 2);
-	  initrd = safe_malloc (g, len + strlen (initrd_name) + 2);
-	  sprintf (kernel, "%s/%s", pelem, kernel_name);
-	  sprintf (initrd, "%s/%s", pelem, initrd_name);
-	  break;
-	}
+        if (dir_contains_files (pelem, kernel_name, initrd_name, NULL)) {
+          kernel = safe_malloc (g, len + strlen (kernel_name) + 2);
+          initrd = safe_malloc (g, len + strlen (initrd_name) + 2);
+          sprintf (kernel, "%s/%s", pelem, kernel_name);
+          sprintf (initrd, "%s/%s", pelem, initrd_name);
+          break;
+        }
       }
 
       pelem = pend + 1;
@@ -1003,7 +1003,7 @@ guestfs_launch (guestfs_h *g)
 
   if (kernel == NULL || initrd == NULL) {
     error (g, _("cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)"),
-	   kernel_name, initrd_name, g->path);
+           kernel_name, initrd_name, g->path);
     goto cleanup0;
   }
 
@@ -1051,10 +1051,10 @@ guestfs_launch (guestfs_h *g)
 
     /* Linux kernel command line. */
     snprintf (append, sizeof append,
-	      LINUX_CMDLINE "guestfs=%s:%d%s%s%s",
-	      VMCHANNEL_ADDR, VMCHANNEL_PORT,
-	      g->verbose ? " guestfs_verbose=1" : "",
-	      g->append ? " " : "", g->append ? g->append : "");
+              LINUX_CMDLINE "guestfs=%s:%d%s%s%s",
+              VMCHANNEL_ADDR, VMCHANNEL_PORT,
+              g->verbose ? " guestfs_verbose=1" : "",
+              g->append ? " " : "", g->append ? g->append : "");
 
     snprintf (memsize_str, sizeof memsize_str, "%d", g->memsize);
 
@@ -1081,8 +1081,8 @@ guestfs_launch (guestfs_h *g)
        * http://git.savannah.gnu.org/cgit/qemu.git/commit/?id=c92ef6a22d3c71538fcc48fb61ad353f7ba03b62
        */
       snprintf (vmchannel, sizeof vmchannel,
-		"user,vlan=0,guestfwd=tcp:%s:%d-unix:%s,server,nowait",
-		VMCHANNEL_ADDR, VMCHANNEL_PORT, unixsock);
+                "user,vlan=0,guestfwd=tcp:%s:%d-unix:%s,server,nowait",
+                VMCHANNEL_ADDR, VMCHANNEL_PORT, unixsock);
 
       add_cmdline (g, "-net");
       add_cmdline (g, vmchannel);
@@ -1092,8 +1092,8 @@ guestfs_launch (guestfs_h *g)
        * syntax, or if not then we'll get a quick failure.
        */
       snprintf (vmchannel, sizeof vmchannel,
-		"channel,%d:unix:%s,server,nowait",
-		VMCHANNEL_PORT, unixsock);
+                "channel,%d:unix:%s,server,nowait",
+                VMCHANNEL_PORT, unixsock);
 
       add_cmdline (g, "-net");
       add_cmdline (g, vmchannel);
@@ -1119,7 +1119,7 @@ guestfs_launch (guestfs_h *g)
     if (g->verbose) {
       fprintf (stderr, "%s", g->qemu);
       for (i = 0; g->cmdline[i]; ++i)
-	fprintf (stderr, " %s", g->cmdline[i]);
+        fprintf (stderr, " %s", g->cmdline[i]);
       fprintf (stderr, "\n");
     }
 
@@ -1172,11 +1172,11 @@ guestfs_launch (guestfs_h *g)
      */
     for (;;) {
       if (kill (qemu_pid, 0) == -1) /* qemu's gone away, we aren't needed */
-	_exit (0);
+        _exit (0);
       if (kill (parent_pid, 0) == -1) {
-	/* Parent's gone away, qemu still around, so kill qemu. */
-	kill (qemu_pid, 9);
-	_exit (0);
+        /* Parent's gone away, qemu still around, so kill qemu. */
+        kill (qemu_pid, 9);
+        _exit (0);
       }
       sleep (2);
     }
@@ -1257,8 +1257,8 @@ guestfs_launch (guestfs_h *g)
 
   g->stdout_watch =
     g->main_loop->add_handle (g->main_loop, g, g->fd[1],
-			      GUESTFS_HANDLE_READABLE,
-			      stdout_event, NULL);
+                              GUESTFS_HANDLE_READABLE,
+                              stdout_event, NULL);
   if (g->stdout_watch == -1) {
     error (g, _("could not watch qemu stdout"));
     goto cleanup3;
@@ -1309,7 +1309,7 @@ guestfs_launch (guestfs_h *g)
  */
 static int
 build_supermin_appliance (guestfs_h *g, const char *path,
-			  char **kernel, char **initrd)
+                          char **kernel, char **initrd)
 {
   char cmd[4096];
   int r, len;
@@ -1321,10 +1321,10 @@ build_supermin_appliance (guestfs_h *g, const char *path,
   snprintf (*initrd, len+8, "%s/initrd", g->tmpdir);
 
   snprintf (cmd, sizeof cmd,
-	    "PATH='%s':$PATH "
-	    "libguestfs-supermin-helper '%s' %s %s",
-	    path,
-	    path, *kernel, *initrd);
+            "PATH='%s':$PATH "
+            "libguestfs-supermin-helper '%s' %s %s",
+            path,
+            path, *kernel, *initrd);
 
   r = system (cmd);
   if (r == -1 || WEXITSTATUS(r) != 0) {
@@ -1528,7 +1528,7 @@ guestfs_set_ready (guestfs_h *g)
 {
   if (g->state != BUSY) {
     error (g, _("guestfs_set_ready: called when in state %d != BUSY"),
-	   g->state);
+           g->state);
     return -1;
   }
   g->state = READY;
@@ -1540,7 +1540,7 @@ guestfs_set_busy (guestfs_h *g)
 {
   if (g->state != READY) {
     error (g, _("guestfs_set_busy: called when in state %d != READY"),
-	   g->state);
+           g->state);
     return -1;
   }
   g->state = BUSY;
@@ -1605,7 +1605,7 @@ child_cleanup (guestfs_h *g)
  */
 static void
 stdout_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
-	      int watch, int fd, int events)
+              int watch, int fd, int events)
 {
   char buf[4096];
   int n;
@@ -1613,8 +1613,8 @@ stdout_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
 #if 0
   if (g->verbose)
     fprintf (stderr,
-	     "stdout_event: %p g->state = %d, fd = %d, events = 0x%x\n",
-	     g, g->state, fd, events);
+             "stdout_event: %p g->state = %d, fd = %d, events = 0x%x\n",
+             g, g->state, fd, events);
 #endif
 
   if (g->fd[1] != fd) {
@@ -1649,7 +1649,7 @@ stdout_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
  */
 static void
 sock_read_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
-		 int watch, int fd, int events)
+                 int watch, int fd, int events)
 {
   XDR xdr;
   u_int32_t len;
@@ -1657,8 +1657,8 @@ sock_read_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
 
   if (g->verbose)
     fprintf (stderr,
-	     "sock_read_event: %p g->state = %d, fd = %d, events = 0x%x\n",
-	     g, g->state, fd, events);
+             "sock_read_event: %p g->state = %d, fd = %d, events = 0x%x\n",
+             g, g->state, fd, events);
 
   if (g->sock != fd) {
     error (g, _("sock_read_event: internal error: %d != %d"), g->sock, fd);
@@ -1670,7 +1670,7 @@ sock_read_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
     g->msg_in = safe_realloc (g, g->msg_in, g->msg_in_allocated);
   }
   n = read (g->sock, g->msg_in + g->msg_in_size,
-	    g->msg_in_allocated - g->msg_in_size);
+            g->msg_in_allocated - g->msg_in_size);
   if (n == 0) {
     /* Disconnected. */
     child_cleanup (g);
@@ -1702,14 +1702,14 @@ sock_read_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
   if (len == GUESTFS_LAUNCH_FLAG) {
     if (g->state != LAUNCHING)
       error (g, _("received magic signature from guestfsd, but in state %d"),
-	     g->state);
+             g->state);
     else if (g->msg_in_size != 4)
       error (g, _("received magic signature from guestfsd, but msg size is %d"),
-	     g->msg_in_size);
+             g->msg_in_size);
     else {
       g->state = READY;
       if (g->launch_done_cb)
-	g->launch_done_cb (g, g->launch_done_cb_data);
+        g->launch_done_cb (g, g->launch_done_cb_data);
     }
 
     goto cleanup;
@@ -1730,7 +1730,7 @@ sock_read_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
    */
   if (len > GUESTFS_MESSAGE_MAX) {
     error (g, _("message length (%u) > maximum possible size (%d)"),
-	   len, GUESTFS_MESSAGE_MAX);
+           len, GUESTFS_MESSAGE_MAX);
     goto cleanup;
   }
 
@@ -1744,17 +1744,17 @@ sock_read_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
     for (i = 0; i < g->msg_in_size; i += 16) {
       printf ("%04x: ", i);
       for (j = i; j < MIN (i+16, g->msg_in_size); ++j)
-	printf ("%02x ", (unsigned char) g->msg_in[j]);
+        printf ("%02x ", (unsigned char) g->msg_in[j]);
       for (; j < i+16; ++j)
-	printf ("   ");
+        printf ("   ");
       printf ("|");
       for (j = i; j < MIN (i+16, g->msg_in_size); ++j)
-	if (isprint (g->msg_in[j]))
-	  printf ("%c", g->msg_in[j]);
-	else
-	  printf (".");
+        if (isprint (g->msg_in[j]))
+          printf ("%c", g->msg_in[j]);
+        else
+          printf (".");
       for (; j < i+16; ++j)
-	printf (" ");
+        printf (" ");
       printf ("|\n");
     }
   }
@@ -1792,14 +1792,14 @@ sock_read_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
  */
 static void
 sock_write_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
-		  int watch, int fd, int events)
+                  int watch, int fd, int events)
 {
   int n, err;
 
   if (g->verbose)
     fprintf (stderr,
-	     "sock_write_event: %p g->state = %d, fd = %d, events = 0x%x\n",
-	     g, g->state, fd, events);
+             "sock_write_event: %p g->state = %d, fd = %d, events = 0x%x\n",
+             g, g->state, fd, events);
 
   if (g->sock != fd) {
     error (g, _("sock_write_event: internal error: %d != %d"), g->sock, fd);
@@ -1813,10 +1813,10 @@ sock_write_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
 
   if (g->verbose)
     fprintf (stderr, "sock_write_event: writing %d bytes ...\n",
-	     g->msg_out_size - g->msg_out_pos);
+             g->msg_out_size - g->msg_out_pos);
 
   n = write (g->sock, g->msg_out + g->msg_out_pos,
-	     g->msg_out_size - g->msg_out_pos);
+             g->msg_out_size - g->msg_out_pos);
   if (n == -1) {
     err = errno;
     if (err != EAGAIN)
@@ -1849,7 +1849,7 @@ sock_write_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
 
 void
 guestfs_set_send_callback (guestfs_h *g,
-			   guestfs_send_cb cb, void *opaque)
+                           guestfs_send_cb cb, void *opaque)
 {
   g->send_cb = cb;
   g->send_cb_data = opaque;
@@ -1857,7 +1857,7 @@ guestfs_set_send_callback (guestfs_h *g,
 
 void
 guestfs_set_reply_callback (guestfs_h *g,
-			    guestfs_reply_cb cb, void *opaque)
+                            guestfs_reply_cb cb, void *opaque)
 {
   g->reply_cb = cb;
   g->reply_cb_data = opaque;
@@ -1865,7 +1865,7 @@ guestfs_set_reply_callback (guestfs_h *g,
 
 void
 guestfs_set_log_message_callback (guestfs_h *g,
-				  guestfs_log_message_cb cb, void *opaque)
+                                  guestfs_log_message_cb cb, void *opaque)
 {
   g->log_message_cb = cb;
   g->log_message_cb_data = opaque;
@@ -1873,7 +1873,7 @@ guestfs_set_log_message_callback (guestfs_h *g,
 
 void
 guestfs_set_subprocess_quit_callback (guestfs_h *g,
-				      guestfs_subprocess_quit_cb cb, void *opaque)
+                                      guestfs_subprocess_quit_cb cb, void *opaque)
 {
   g->subprocess_quit_cb = cb;
   g->subprocess_quit_cb_data = opaque;
@@ -1881,7 +1881,7 @@ guestfs_set_subprocess_quit_callback (guestfs_h *g,
 
 void
 guestfs_set_launch_done_callback (guestfs_h *g,
-				  guestfs_launch_done_cb cb, void *opaque)
+                                  guestfs_launch_done_cb cb, void *opaque)
 {
   g->launch_done_cb = cb;
   g->launch_done_cb_data = opaque;
@@ -1922,8 +1922,8 @@ guestfs__switch_to_sending (guestfs_h *g)
 
   g->sock_watch =
     g->main_loop->add_handle (g->main_loop, g, g->sock,
-			      GUESTFS_HANDLE_WRITABLE,
-			      sock_write_event, NULL);
+                              GUESTFS_HANDLE_WRITABLE,
+                              sock_write_event, NULL);
   if (g->sock_watch == -1) {
     error (g, _("add_handle failed"));
     return -1;
@@ -1945,8 +1945,8 @@ guestfs__switch_to_receiving (guestfs_h *g)
 
   g->sock_watch =
     g->main_loop->add_handle (g->main_loop, g, g->sock,
-			      GUESTFS_HANDLE_READABLE,
-			      sock_read_event, NULL);
+                              GUESTFS_HANDLE_READABLE,
+                              sock_read_event, NULL);
   if (g->sock_watch == -1) {
     error (g, _("add_handle failed"));
     return -1;
@@ -1971,7 +1971,7 @@ send_cb (guestfs_h *g, void *data)
 
 int
 guestfs__send_sync (guestfs_h *g, int proc_nr,
-		    xdrproc_t xdrp, char *args)
+                    xdrproc_t xdrp, char *args)
 {
   struct guestfs_message_header hdr;
   XDR xdr;
@@ -2096,7 +2096,7 @@ guestfs__send_file_sync (guestfs_h *g, const char *filename)
     err = send_file_data_sync (g, buf, r);
     if (err < 0) {
       if (err == -2)		/* daemon sent cancellation */
-	send_file_cancellation_sync (g);
+        send_file_cancellation_sync (g);
       return err;
     }
   }
@@ -2193,7 +2193,7 @@ send_file_chunk_sync (guestfs_h *g, int cancel, const char *buf, size_t buflen)
 
   if (!xdr_guestfs_chunk (&xdr, &chunk)) {
     error (g, _("xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"),
-	   buf, buflen);
+           buf, buflen);
     xdr_destroy (&xdr);
     goto cleanup1;
   }
@@ -2269,7 +2269,7 @@ check_for_daemon_cancellation (guestfs_h *g)
 
   if (flag != GUESTFS_CANCEL_FLAG) {
     error (g, _("check_for_daemon_cancellation: read 0x%x from daemon, expected 0x%x\n"),
-	   flag, GUESTFS_CANCEL_FLAG);
+           flag, GUESTFS_CANCEL_FLAG);
     return 0;
   }
 
@@ -2327,7 +2327,7 @@ guestfs__receive_file_sync (guestfs_h *g, const char *filename)
 
   if (g->verbose)
     fprintf (stderr, "%s: waiting for daemon to acknowledge cancellation\n",
-	     __func__);
+             __func__);
 
   xdrmem_create (&xdr, fbuf, sizeof fbuf, XDR_ENCODE);
   xdr_uint32_t (&xdr, &flag);
@@ -2350,8 +2350,8 @@ guestfs__receive_file_sync (guestfs_h *g, const char *filename)
  */
 struct receive_file_ctx {
   int count;			/* 0 if receive_file_cb not called, or
-				 * else count number of chunks.
-				 */
+                                 * else count number of chunks.
+                                 */
   guestfs_chunk *chunks;	/* Array of chunks. */
 };
 
@@ -2390,7 +2390,7 @@ receive_file_cb (guestfs_h *g, void *data, XDR *xdr)
 
   /* Copy the chunk to the list. */
   ctx->chunks = safe_realloc (g, ctx->chunks,
-			      sizeof (guestfs_chunk) * (ctx->count+1));
+                              sizeof (guestfs_chunk) * (ctx->count+1));
   ctx->chunks[ctx->count] = chunk;
   ctx->count++;
 }
@@ -2448,7 +2448,7 @@ receive_file_data_sync (guestfs_h *g, void **buf, size_t *len_r)
     if (buf) {
       *buf = safe_realloc (g, *buf, len + ctx.chunks[i].data.data_len);
       memcpy (*buf+len, ctx.chunks[i].data.data_val,
-	      ctx.chunks[i].data.data_len);
+              ctx.chunks[i].data.data_len);
     }
     len += ctx.chunks[i].data.data_len;
   }
@@ -2462,7 +2462,7 @@ receive_file_data_sync (guestfs_h *g, void **buf, size_t *len_r)
 
 static int
 select_add_handle (guestfs_main_loop *mlv, guestfs_h *g, int fd, int events,
-		   guestfs_handle_event_cb cb, void *data)
+                   guestfs_handle_event_cb cb, void *data)
 {
   struct select_main_loop *ml = (struct select_main_loop *) mlv;
 
@@ -2472,9 +2472,9 @@ select_add_handle (guestfs_main_loop *mlv, guestfs_h *g, int fd, int events,
   }
 
   if ((events & ~(GUESTFS_HANDLE_READABLE |
-		  GUESTFS_HANDLE_WRITABLE |
-		  GUESTFS_HANDLE_HANGUP |
-		  GUESTFS_HANDLE_ERROR)) != 0) {
+                  GUESTFS_HANDLE_WRITABLE |
+                  GUESTFS_HANDLE_HANGUP |
+                  GUESTFS_HANDLE_ERROR)) != 0) {
     error (g, _("set of events (0x%x) contains unknown events"), events);
     return -1;
   }
@@ -2507,7 +2507,7 @@ select_add_handle (guestfs_main_loop *mlv, guestfs_h *g, int fd, int events,
     ml->max_fd = fd;
     ml->handle_cb_data =
       safe_realloc (g, ml->handle_cb_data,
-		    sizeof (struct select_handle_cb_data) * (ml->max_fd+1));
+                    sizeof (struct select_handle_cb_data) * (ml->max_fd+1));
   }
   ml->handle_cb_data[fd].cb = cb;
   ml->handle_cb_data[fd].g = g;
@@ -2544,7 +2544,7 @@ select_remove_handle (guestfs_main_loop *mlv, guestfs_h *g, int fd)
     ml->max_fd--;
     ml->handle_cb_data =
       safe_realloc (g, ml->handle_cb_data,
-		    sizeof (struct select_handle_cb_data) * (ml->max_fd+1));
+                    sizeof (struct select_handle_cb_data) * (ml->max_fd+1));
   }
 
   ml->nr_fds--;
@@ -2554,7 +2554,7 @@ select_remove_handle (guestfs_main_loop *mlv, guestfs_h *g, int fd)
 
 static int
 select_add_timeout (guestfs_main_loop *mlv, guestfs_h *g, int interval,
-		    guestfs_handle_timeout_cb cb, void *data)
+                    guestfs_handle_timeout_cb cb, void *data)
 {
   //struct select_main_loop *ml = (struct select_main_loop *) mlv;
 
@@ -2597,7 +2597,7 @@ select_main_loop_run (guestfs_main_loop *mlv, guestfs_h *g)
     r = select (ml->max_fd+1, &rset2, &wset2, &xset2, NULL);
     if (r == -1) {
       if (errno == EINTR || errno == EAGAIN)
-	continue;
+        continue;
       perrorf (g, "select");
       ml->is_running = 0;
       return -1;
@@ -2606,17 +2606,17 @@ select_main_loop_run (guestfs_main_loop *mlv, guestfs_h *g)
     for (fd = 0; r > 0 && fd <= ml->max_fd; ++fd) {
       events = 0;
       if (FD_ISSET (fd, &rset2))
-	events |= GUESTFS_HANDLE_READABLE;
+        events |= GUESTFS_HANDLE_READABLE;
       if (FD_ISSET (fd, &wset2))
-	events |= GUESTFS_HANDLE_WRITABLE;
+        events |= GUESTFS_HANDLE_WRITABLE;
       if (FD_ISSET (fd, &xset2))
-	events |= GUESTFS_HANDLE_ERROR | GUESTFS_HANDLE_HANGUP;
+        events |= GUESTFS_HANDLE_ERROR | GUESTFS_HANDLE_HANGUP;
       if (events) {
-	r--;
-	ml->handle_cb_data[fd].cb ((guestfs_main_loop *) ml,
-				   ml->handle_cb_data[fd].g,
-				   ml->handle_cb_data[fd].data,
-				   fd, fd, events);
+        r--;
+        ml->handle_cb_data[fd].cb ((guestfs_main_loop *) ml,
+                                   ml->handle_cb_data[fd].g,
+                                   ml->handle_cb_data[fd].data,
+                                   fd, fd, events);
       }
     }
   }

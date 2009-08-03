@@ -375,9 +375,9 @@ You probably don't want to call this function.");
   List.map (
     fun (name, ret) ->
       [(name, (ret, [String "val"]), -1, [NotInFish; NotInDocs],
-	[],
-	"internal test function - do not use",
-	"\
+        [],
+        "internal test function - do not use",
+        "\
 This is an internal test function which is used to test whether
 the automatically generated bindings can handle every possible
 return type correctly.
@@ -386,9 +386,9 @@ It converts string C<val> to the return type.
 
 You probably don't want to call this function.");
        (name ^ "err", (ret, []), -1, [NotInFish; NotInDocs],
-	[],
-	"internal test function - do not use",
-	"\
+        [],
+        "internal test function - do not use",
+        "\
 This is an internal test function which is used to test whether
 the automatically generated bindings can handle every possible
 return type correctly.
@@ -822,8 +822,8 @@ or C<guestfs_download> functions which have a more complex interface.");
 
   ("ll", (RString "listing", [String "directory"]), 5, [],
    [], (* XXX Tricky to test because it depends on the exact format
-	* of the 'ls -l' command, which changes between F10 and F11.
-	*)
+        * of the 'ls -l' command, which changes between F10 and F11.
+        *)
    "list the files in a directory (long format)",
    "\
 List the files in C<directory> (relative to the root directory,
@@ -1320,8 +1320,8 @@ or LVM logical volume).  The filesystem type is C<fstype>, for
 example C<ext3>.");
 
   ("sfdisk", (RErr, [String "device";
-		     Int "cyls"; Int "heads"; Int "sectors";
-		     StringList "lines"]), 43, [DangerWillRobinson],
+                     Int "cyls"; Int "heads"; Int "sectors";
+                     StringList "lines"]), 43, [DangerWillRobinson],
    [],
    "create partitions on a block device",
    "\
@@ -1620,7 +1620,7 @@ This is the same as the C<lstat(2)> system call.");
   ("statvfs", (RStruct ("statbuf", "statvfs"), [String "path"]), 54, [],
    [InitSquashFS, Always, TestOutputStruct (
       [["statvfs"; "/"]], [CompareWithInt ("namemax", 256);
-			   CompareWithInt ("bsize", 131072)])],
+                           CompareWithInt ("bsize", 131072)])],
    "get file system statistics",
    "\
 Returns file system statistics for any mounted file system.
@@ -2307,8 +2307,8 @@ This resizes (expands or shrinks) an existing LVM physical
 volume to match the new size of the underlying device.");
 
   ("sfdisk_N", (RErr, [String "device"; Int "partnum";
-		       Int "cyls"; Int "heads"; Int "sectors";
-		       String "line"]), 99, [DangerWillRobinson],
+                       Int "cyls"; Int "heads"; Int "sectors";
+                       String "line"]), 99, [DangerWillRobinson],
    [],
    "modify a single partition on a block device",
    "\
@@ -2682,8 +2682,8 @@ If the parameter C<nrlines> is zero, this returns an empty list.");
 
   ("df", (RString "output", []), 125, [],
    [], (* XXX Tricky to test because it depends on the exact format
-	* of the 'df' command and other imponderables.
-	*)
+        * of the 'df' command and other imponderables.
+        *)
    "report file system disk space usage",
    "\
 This command runs the C<df> command to report disk space used.
@@ -2694,8 +2694,8 @@ Use C<statvfs> from programs.");
 
   ("df_h", (RString "output", []), 126, [],
    [], (* XXX Tricky to test because it depends on the exact format
-	* of the 'df' command and other imponderables.
-	*)
+        * of the 'df' command and other imponderables.
+        *)
    "report file system disk space usage (human readable)",
    "\
 This command runs the C<df -h> command to report disk space used
@@ -2821,8 +2821,8 @@ It is just a convenient wrapper around C<guestfs_mknod>.");
 
   ("umask", (RInt "oldmask", [Int "mask"]), 137, [],
    [], (* XXX umask is one of those stateful things that we should
-	* reset between each test.
-	*)
+        * reset between each test.
+        *)
    "set file mode creation mask (umask)",
    "\
 This function sets the mask used for creating new files and
@@ -2944,8 +2944,8 @@ is a symbolic link, then it returns the extended attributes
 of the link itself.");
 
   ("setxattr", (RErr, [String "xattr";
-		       String "val"; Int "vallen"; (* will be BufferIn *)
-		       String "path"]), 143, [],
+                       String "val"; Int "vallen"; (* will be BufferIn *)
+                       String "path"]), 143, [],
    [],
    "set extended attribute of a file or directory",
    "\
@@ -2956,8 +2956,8 @@ The value is arbitrary 8 bit data.
 See also: C<guestfs_lsetxattr>, L<attr(5)>.");
 
   ("lsetxattr", (RErr, [String "xattr";
-			String "val"; Int "vallen"; (* will be BufferIn *)
-			String "path"]), 144, [],
+                        String "val"; Int "vallen"; (* will be BufferIn *)
+                        String "path"]), 144, [],
    [],
    "set extended attribute of a file or directory",
    "\
@@ -3402,7 +3402,7 @@ let all_functions = non_daemon_functions @ daemon_functions
  *)
 let all_functions_sorted =
   List.sort (fun (n1,_,_,_,_,_,_) (n2,_,_,_,_,_,_) ->
-	       compare n1 n2) all_functions
+               compare n1 n2) all_functions
 
 (* Field types for structures. *)
 type field =
@@ -3646,11 +3646,11 @@ let rec find s sub =
   let rec loop i =
     if i <= len-sublen then (
       let rec loop2 j =
-	if j < sublen then (
-	  if s.[i+j] = sub.[j] then loop2 (j+1)
-	  else -1
-	) else
-	  i (* found *)
+        if j < sublen then (
+          if s.[i+j] = sub.[j] then loop2 (j+1)
+          else -1
+        ) else
+          i (* found *)
       in
       let r = loop2 0 in
       if r = -1 then loop (i+1) else r
@@ -3772,9 +3772,9 @@ let check_functions () =
     let rec loop i =
       if i >= len then false
       else (
-	let c = str.[i] in
-	if c >= 'A' && c <= 'Z' then true
-	else loop (i+1)
+        let c = str.[i] in
+        if c >= 'A' && c <= 'Z' then true
+        else loop (i+1)
       )
     in
     loop 0
@@ -3784,34 +3784,34 @@ let check_functions () =
   List.iter (
     fun (name, _, _, _, _, _, _) ->
       if String.length name >= 7 && String.sub name 0 7 = "guestfs" then
-	failwithf "function name %s does not need 'guestfs' prefix" name;
+        failwithf "function name %s does not need 'guestfs' prefix" name;
       if name = "" then
-	failwithf "function name is empty";
+        failwithf "function name is empty";
       if name.[0] < 'a' || name.[0] > 'z' then
-	failwithf "function name %s must start with lowercase a-z" name;
+        failwithf "function name %s must start with lowercase a-z" name;
       if String.contains name '-' then
-	failwithf "function name %s should not contain '-', use '_' instead."
-	  name
+        failwithf "function name %s should not contain '-', use '_' instead."
+          name
   ) all_functions;
 
   (* Check function parameter/return names. *)
   List.iter (
     fun (name, style, _, _, _, _, _) ->
       let check_arg_ret_name n =
-	if contains_uppercase n then
-	  failwithf "%s param/ret %s should not contain uppercase chars"
-	    name n;
-	if String.contains n '-' || String.contains n '_' then
-	  failwithf "%s param/ret %s should not contain '-' or '_'"
-	    name n;
-	if n = "value" then
-	  failwithf "%s has a param/ret called 'value', which causes conflicts in the OCaml bindings, use something like 'val' or a more descriptive name" name;
-	if n = "int" || n = "char" || n = "short" || n = "long" then
-	  failwithf "%s has a param/ret which conflicts with a C type (eg. 'int', 'char' etc.)" name;
-	if n = "i" || n = "n" then
-	  failwithf "%s has a param/ret called 'i' or 'n', which will cause some conflicts in the generated code" name;
-	if n = "argv" || n = "args" then
-	  failwithf "%s has a param/ret called 'argv' or 'args', which will cause some conflicts in the generated code" name
+        if contains_uppercase n then
+          failwithf "%s param/ret %s should not contain uppercase chars"
+            name n;
+        if String.contains n '-' || String.contains n '_' then
+          failwithf "%s param/ret %s should not contain '-' or '_'"
+            name n;
+        if n = "value" then
+          failwithf "%s has a param/ret called 'value', which causes conflicts in the OCaml bindings, use something like 'val' or a more descriptive name" name;
+        if n = "int" || n = "char" || n = "short" || n = "long" then
+          failwithf "%s has a param/ret which conflicts with a C type (eg. 'int', 'char' etc.)" name;
+        if n = "i" || n = "n" then
+          failwithf "%s has a param/ret called 'i' or 'n', which will cause some conflicts in the generated code" name;
+        if n = "argv" || n = "args" then
+          failwithf "%s has a param/ret called 'argv' or 'args', which will cause some conflicts in the generated code" name
       in
 
       (match fst style with
@@ -3820,7 +3820,7 @@ let check_functions () =
        | RConstString n | RConstOptString n | RString n
        | RStringList n | RStruct (n, _) | RStructList (n, _)
        | RHashtable n | RBufferOut n ->
-	   check_arg_ret_name n
+           check_arg_ret_name n
       );
       List.iter (fun arg -> check_arg_ret_name (name_of_argt arg)) (snd style)
   ) all_functions;
@@ -3829,30 +3829,30 @@ let check_functions () =
   List.iter (
     fun (name, _, _, _, _, shortdesc, _) ->
       if shortdesc.[0] <> Char.lowercase shortdesc.[0] then
-	failwithf "short description of %s should begin with lowercase." name;
+        failwithf "short description of %s should begin with lowercase." name;
       let c = shortdesc.[String.length shortdesc-1] in
       if c = '\n' || c = '.' then
-	failwithf "short description of %s should not end with . or \\n." name
+        failwithf "short description of %s should not end with . or \\n." name
   ) all_functions;
 
   (* Check long dscriptions. *)
   List.iter (
     fun (name, _, _, _, _, _, longdesc) ->
       if longdesc.[String.length longdesc-1] = '\n' then
-	failwithf "long description of %s should not end with \\n." name
+        failwithf "long description of %s should not end with \\n." name
   ) all_functions;
 
   (* Check proc_nrs. *)
   List.iter (
     fun (name, _, proc_nr, _, _, _, _) ->
       if proc_nr <= 0 then
-	failwithf "daemon function %s should have proc_nr > 0" name
+        failwithf "daemon function %s should have proc_nr > 0" name
   ) daemon_functions;
 
   List.iter (
     fun (name, _, proc_nr, _, _, _, _) ->
       if proc_nr <> -1 then
-	failwithf "non-daemon function %s should have proc_nr -1" name
+        failwithf "non-daemon function %s should have proc_nr -1" name
   ) non_daemon_functions;
 
   let proc_nrs =
@@ -3864,10 +3864,10 @@ let check_functions () =
     | [] -> ()
     | [_] -> ()
     | (name1,nr1) :: ((name2,nr2) :: _ as rest) when nr1 < nr2 ->
-	loop rest
+        loop rest
     | (name1,nr1) :: (name2,nr2) :: _ ->
-	failwithf "%s and %s have conflicting procedure numbers (%d, %d)"
-	  name1 name2 nr1 nr2
+        failwithf "%s and %s have conflicting procedure numbers (%d, %d)"
+          name1 name2 nr1 nr2
   in
   loop proc_nrs;
 
@@ -3879,20 +3879,20 @@ let check_functions () =
        *)
     | name, _, _, _, [], _, _ -> ()
     | name, _, _, _, tests, _, _ ->
-	let funcs =
-	  List.map (
-	    fun (_, _, test) ->
-	      match seq_of_test test with
-	      | [] ->
-		  failwithf "%s has a test containing an empty sequence" name
-	      | cmds -> List.map List.hd cmds
-	  ) tests in
-	let funcs = List.flatten funcs in
+        let funcs =
+          List.map (
+            fun (_, _, test) ->
+              match seq_of_test test with
+              | [] ->
+                  failwithf "%s has a test containing an empty sequence" name
+              | cmds -> List.map List.hd cmds
+          ) tests in
+        let funcs = List.flatten funcs in
 
-	let tested = List.mem name funcs in
+        let tested = List.mem name funcs in
 
-	if not tested then
-	  failwithf "function %s has tests but does not test itself" name
+        if not tested then
+          failwithf "function %s has tests but does not test itself" name
   ) all_functions
 
 (* 'pr' prints to the current output file. *)
@@ -3961,62 +3961,62 @@ let rec generate_actions_pod () =
   List.iter (
     fun (shortname, style, _, flags, _, _, longdesc) ->
       if not (List.mem NotInDocs flags) then (
-	let name = "guestfs_" ^ shortname in
-	pr "=head2 %s\n\n" name;
-	pr " ";
-	generate_prototype ~extern:false ~handle:"handle" name style;
-	pr "\n\n";
-	pr "%s\n\n" longdesc;
-	(match fst style with
-	 | RErr ->
-	     pr "This function returns 0 on success or -1 on error.\n\n"
-	 | RInt _ ->
-	     pr "On error this function returns -1.\n\n"
-	 | RInt64 _ ->
-	     pr "On error this function returns -1.\n\n"
-	 | RBool _ ->
-	     pr "This function returns a C truth value on success or -1 on error.\n\n"
-	 | RConstString _ ->
-	     pr "This function returns a string, or NULL on error.
+        let name = "guestfs_" ^ shortname in
+        pr "=head2 %s\n\n" name;
+        pr " ";
+        generate_prototype ~extern:false ~handle:"handle" name style;
+        pr "\n\n";
+        pr "%s\n\n" longdesc;
+        (match fst style with
+         | RErr ->
+             pr "This function returns 0 on success or -1 on error.\n\n"
+         | RInt _ ->
+             pr "On error this function returns -1.\n\n"
+         | RInt64 _ ->
+             pr "On error this function returns -1.\n\n"
+         | RBool _ ->
+             pr "This function returns a C truth value on success or -1 on error.\n\n"
+         | RConstString _ ->
+             pr "This function returns a string, or NULL on error.
 The string is owned by the guest handle and must I<not> be freed.\n\n"
-	 | RConstOptString _ ->
-	     pr "This function returns a string which may be NULL.
+         | RConstOptString _ ->
+             pr "This function returns a string which may be NULL.
 There is way to return an error from this function.
 The string is owned by the guest handle and must I<not> be freed.\n\n"
-	 | RString _ ->
-	     pr "This function returns a string, or NULL on error.
+         | RString _ ->
+             pr "This function returns a string, or NULL on error.
 I<The caller must free the returned string after use>.\n\n"
-	 | RStringList _ ->
-	     pr "This function returns a NULL-terminated array of strings
+         | RStringList _ ->
+             pr "This function returns a NULL-terminated array of strings
 (like L<environ(3)>), or NULL if there was an error.
 I<The caller must free the strings and the array after use>.\n\n"
-	 | RStruct (_, typ) ->
-	     pr "This function returns a C<struct guestfs_%s *>,
+         | RStruct (_, typ) ->
+             pr "This function returns a C<struct guestfs_%s *>,
 or NULL if there was an error.
 I<The caller must call C<guestfs_free_%s> after use>.\n\n" typ typ
-	 | RStructList (_, typ) ->
-	     pr "This function returns a C<struct guestfs_%s_list *>
+         | RStructList (_, typ) ->
+             pr "This function returns a C<struct guestfs_%s_list *>
 (see E<lt>guestfs-structs.hE<gt>),
 or NULL if there was an error.
 I<The caller must call C<guestfs_free_%s_list> after use>.\n\n" typ typ
-	 | RHashtable _ ->
-	     pr "This function returns a NULL-terminated array of
+         | RHashtable _ ->
+             pr "This function returns a NULL-terminated array of
 strings, or NULL if there was an error.
 The array of strings will always have length C<2n+1>, where
 C<n> keys and values alternate, followed by the trailing NULL entry.
 I<The caller must free the strings and the array after use>.\n\n"
-	 | RBufferOut _ ->
-	     pr "This function returns a buffer, or NULL on error.
+         | RBufferOut _ ->
+             pr "This function returns a buffer, or NULL on error.
 The size of the returned buffer is written to C<*size_r>.
 I<The caller must free the returned buffer after use>.\n\n"
-	);
-	if List.mem ProtocolLimitWarning flags then
-	  pr "%s\n\n" protocol_limit_warning;
-	if List.mem DangerWillRobinson flags then
-	  pr "%s\n\n" danger_will_robinson;
-	match deprecation_notice flags with
-	| None -> ()
-	| Some txt -> pr "%s\n\n" txt
+        );
+        if List.mem ProtocolLimitWarning flags then
+          pr "%s\n\n" protocol_limit_warning;
+        if List.mem DangerWillRobinson flags then
+          pr "%s\n\n" danger_will_robinson;
+        match deprecation_notice flags with
+        | None -> ()
+        | Some txt -> pr "%s\n\n" txt
       )
   ) all_functions_sorted
 
@@ -4028,23 +4028,23 @@ and generate_structs_pod () =
       pr "\n";
       pr " struct guestfs_%s {\n" typ;
       List.iter (
-	function
-	| name, FChar -> pr "   char %s;\n" name
-	| name, FUInt32 -> pr "   uint32_t %s;\n" name
-	| name, FInt32 -> pr "   int32_t %s;\n" name
-	| name, (FUInt64|FBytes) -> pr "   uint64_t %s;\n" name
-	| name, FInt64 -> pr "   int64_t %s;\n" name
-	| name, FString -> pr "   char *%s;\n" name
-	| name, FBuffer ->
-	    pr "   /* The next two fields describe a byte array. */\n";
-	    pr "   uint32_t %s_len;\n" name;
-	    pr "   char *%s;\n" name
-	| name, FUUID ->
-	    pr "   /* The next field is NOT nul-terminated, be careful when printing it: */\n";
-	    pr "   char %s[32];\n" name
-	| name, FOptPercent ->
-	    pr "   /* The next field is [0..100] or -1 meaning 'not present': */\n";
-	    pr "   float %s;\n" name
+        function
+        | name, FChar -> pr "   char %s;\n" name
+        | name, FUInt32 -> pr "   uint32_t %s;\n" name
+        | name, FInt32 -> pr "   int32_t %s;\n" name
+        | name, (FUInt64|FBytes) -> pr "   uint64_t %s;\n" name
+        | name, FInt64 -> pr "   int64_t %s;\n" name
+        | name, FString -> pr "   char *%s;\n" name
+        | name, FBuffer ->
+            pr "   /* The next two fields describe a byte array. */\n";
+            pr "   uint32_t %s_len;\n" name;
+            pr "   char *%s;\n" name
+        | name, FUUID ->
+            pr "   /* The next field is NOT nul-terminated, be careful when printing it: */\n";
+            pr "   char %s[32];\n" name
+        | name, FOptPercent ->
+            pr "   /* The next field is [0..100] or -1 meaning 'not present': */\n";
+            pr "   float %s;\n" name
       ) cols;
       pr " };\n";
       pr " \n";
@@ -4055,7 +4055,7 @@ and generate_structs_pod () =
       pr " \n";
       pr " void guestfs_free_%s (struct guestfs_free_%s *);\n" typ typ;
       pr " void guestfs_free_%s_list (struct guestfs_free_%s_list *);\n"
-	typ typ;
+        typ typ;
       pr "\n"
   ) structs
 
@@ -4078,20 +4078,20 @@ and generate_xdr () =
   List.iter (
     function
     | typ, cols ->
-	pr "struct guestfs_int_%s {\n" typ;
-	List.iter (function
-		   | name, FChar -> pr "  char %s;\n" name
-		   | name, FString -> pr "  string %s<>;\n" name
-		   | name, FBuffer -> pr "  opaque %s<>;\n" name
-		   | name, FUUID -> pr "  opaque %s[32];\n" name
-		   | name, (FInt32|FUInt32) -> pr "  int %s;\n" name
-		   | name, (FInt64|FUInt64|FBytes) -> pr "  hyper %s;\n" name
-		   | name, FOptPercent -> pr "  float %s;\n" name
-		  ) cols;
-	pr "};\n";
-	pr "\n";
-	pr "typedef struct guestfs_int_%s guestfs_int_%s_list<>;\n" typ typ;
-	pr "\n";
+        pr "struct guestfs_int_%s {\n" typ;
+        List.iter (function
+                   | name, FChar -> pr "  char %s;\n" name
+                   | name, FString -> pr "  string %s<>;\n" name
+                   | name, FBuffer -> pr "  opaque %s<>;\n" name
+                   | name, FUUID -> pr "  opaque %s[32];\n" name
+                   | name, (FInt32|FUInt32) -> pr "  int %s;\n" name
+                   | name, (FInt64|FUInt64|FBytes) -> pr "  hyper %s;\n" name
+                   | name, FOptPercent -> pr "  float %s;\n" name
+                  ) cols;
+        pr "};\n";
+        pr "\n";
+        pr "typedef struct guestfs_int_%s guestfs_int_%s_list<>;\n" typ typ;
+        pr "\n";
   ) structs;
 
   List.iter (
@@ -4101,58 +4101,58 @@ and generate_xdr () =
       (match snd style with
        | [] -> ()
        | args ->
-	   pr "struct %s_args {\n" name;
-	   List.iter (
-	     function
-	     | String n -> pr "  string %s<>;\n" n
-	     | OptString n -> pr "  str *%s;\n" n
-	     | StringList n -> pr "  str %s<>;\n" n
-	     | Bool n -> pr "  bool %s;\n" n
-	     | Int n -> pr "  int %s;\n" n
-	     | FileIn _ | FileOut _ -> ()
-	   ) args;
-	   pr "};\n\n"
+           pr "struct %s_args {\n" name;
+           List.iter (
+             function
+             | String n -> pr "  string %s<>;\n" n
+             | OptString n -> pr "  str *%s;\n" n
+             | StringList n -> pr "  str %s<>;\n" n
+             | Bool n -> pr "  bool %s;\n" n
+             | Int n -> pr "  int %s;\n" n
+             | FileIn _ | FileOut _ -> ()
+           ) args;
+           pr "};\n\n"
       );
       (match fst style with
        | RErr -> ()
        | RInt n ->
-	   pr "struct %s_ret {\n" name;
-	   pr "  int %s;\n" n;
-	   pr "};\n\n"
+           pr "struct %s_ret {\n" name;
+           pr "  int %s;\n" n;
+           pr "};\n\n"
        | RInt64 n ->
-	   pr "struct %s_ret {\n" name;
-	   pr "  hyper %s;\n" n;
-	   pr "};\n\n"
+           pr "struct %s_ret {\n" name;
+           pr "  hyper %s;\n" n;
+           pr "};\n\n"
        | RBool n ->
-	   pr "struct %s_ret {\n" name;
-	   pr "  bool %s;\n" n;
-	   pr "};\n\n"
+           pr "struct %s_ret {\n" name;
+           pr "  bool %s;\n" n;
+           pr "};\n\n"
        | RConstString _ | RConstOptString _ ->
-	   failwithf "RConstString|RConstOptString cannot be used by daemon functions"
+           failwithf "RConstString|RConstOptString cannot be used by daemon functions"
        | RString n ->
-	   pr "struct %s_ret {\n" name;
-	   pr "  string %s<>;\n" n;
-	   pr "};\n\n"
+           pr "struct %s_ret {\n" name;
+           pr "  string %s<>;\n" n;
+           pr "};\n\n"
        | RStringList n ->
-	   pr "struct %s_ret {\n" name;
-	   pr "  str %s<>;\n" n;
-	   pr "};\n\n"
+           pr "struct %s_ret {\n" name;
+           pr "  str %s<>;\n" n;
+           pr "};\n\n"
        | RStruct (n, typ) ->
-	   pr "struct %s_ret {\n" name;
-	   pr "  guestfs_int_%s %s;\n" typ n;
-	   pr "};\n\n"
+           pr "struct %s_ret {\n" name;
+           pr "  guestfs_int_%s %s;\n" typ n;
+           pr "};\n\n"
        | RStructList (n, typ) ->
-	   pr "struct %s_ret {\n" name;
-	   pr "  guestfs_int_%s_list %s;\n" typ n;
-	   pr "};\n\n"
+           pr "struct %s_ret {\n" name;
+           pr "  guestfs_int_%s_list %s;\n" typ n;
+           pr "};\n\n"
        | RHashtable n ->
-	   pr "struct %s_ret {\n" name;
-	   pr "  str %s<>;\n" n;
-	   pr "};\n\n"
+           pr "struct %s_ret {\n" name;
+           pr "  str %s<>;\n" n;
+           pr "};\n\n"
        | RBufferOut n ->
-	   pr "struct %s_ret {\n" name;
-	   pr "  opaque %s<>;\n" n;
-	   pr "};\n\n"
+           pr "struct %s_ret {\n" name;
+           pr "  opaque %s<>;\n" n;
+           pr "};\n\n"
       );
   ) daemon_functions;
 
@@ -4245,18 +4245,18 @@ and generate_structs_h () =
     fun (typ, cols) ->
       pr "struct guestfs_%s {\n" typ;
       List.iter (
-	function
-	| name, FChar -> pr "  char %s;\n" name
-	| name, FString -> pr "  char *%s;\n" name
-	| name, FBuffer ->
-	    pr "  uint32_t %s_len;\n" name;
-	    pr "  char *%s;\n" name
-	| name, FUUID -> pr "  char %s[32]; /* this is NOT nul-terminated, be careful when printing */\n" name
-	| name, FUInt32 -> pr "  uint32_t %s;\n" name
-	| name, FInt32 -> pr "  int32_t %s;\n" name
-	| name, (FUInt64|FBytes) -> pr "  uint64_t %s;\n" name
-	| name, FInt64 -> pr "  int64_t %s;\n" name
-	| name, FOptPercent -> pr "  float %s; /* [0..100] or -1 */\n" name
+        function
+        | name, FChar -> pr "  char %s;\n" name
+        | name, FString -> pr "  char *%s;\n" name
+        | name, FBuffer ->
+            pr "  uint32_t %s_len;\n" name;
+            pr "  char *%s;\n" name
+        | name, FUUID -> pr "  char %s[32]; /* this is NOT nul-terminated, be careful when printing */\n" name
+        | name, FUInt32 -> pr "  uint32_t %s;\n" name
+        | name, FInt32 -> pr "  int32_t %s;\n" name
+        | name, (FUInt64|FBytes) -> pr "  uint64_t %s;\n" name
+        | name, FInt64 -> pr "  int64_t %s;\n" name
+        | name, FOptPercent -> pr "  float %s; /* [0..100] or -1 */\n" name
       ) cols;
       pr "};\n";
       pr "\n";
@@ -4277,7 +4277,7 @@ and generate_actions_h () =
     fun (shortname, style, _, _, _, _, _) ->
       let name = "guestfs_" ^ shortname in
       generate_prototype ~single_line:true ~newline:true ~handle:"handle"
-	name style
+        name style
   ) all_functions
 
 (* Generate the client-side dispatch stubs. *)
@@ -4310,12 +4310,12 @@ check_reply_header (guestfs_h *g,
   }
   if (hdr->vers != GUESTFS_PROTOCOL_VERSION) {
     error (g, \"wrong protocol version (%%d/%%d)\",
-	   hdr->vers, GUESTFS_PROTOCOL_VERSION);
+           hdr->vers, GUESTFS_PROTOCOL_VERSION);
     return -1;
   }
   if (hdr->direction != GUESTFS_DIRECTION_REPLY) {
     error (g, \"unexpected message direction (%%d/%%d)\",
-	   hdr->direction, GUESTFS_DIRECTION_REPLY);
+           hdr->direction, GUESTFS_DIRECTION_REPLY);
     return -1;
   }
   if (hdr->proc != proc_nr) {
@@ -4370,12 +4370,12 @@ check_state (guestfs_h *g, const char *caller)
       (match fst style with
        | RErr -> ()
        | RConstString _ | RConstOptString _ ->
-	   failwithf "RConstString|RConstOptString cannot be used by daemon functions"
+           failwithf "RConstString|RConstOptString cannot be used by daemon functions"
        | RInt _ | RInt64 _
        | RBool _ | RString _ | RStringList _
        | RStruct _ | RStructList _
        | RHashtable _ | RBufferOut _ ->
-	   pr "  struct %s_ret ret;\n" name
+           pr "  struct %s_ret ret;\n" name
       );
       pr "};\n";
       pr "\n";
@@ -4402,7 +4402,7 @@ check_state (guestfs_h *g, const char *caller)
       pr "  if (ctx->hdr.status == GUESTFS_STATUS_ERROR) {\n";
       pr "    if (!xdr_guestfs_message_error (xdr, &ctx->err)) {\n";
       pr "      error (g, \"%%s: failed to parse reply error\", \"%s\");\n"
-	name;
+        name;
       pr "      return;\n";
       pr "    }\n";
       pr "    goto done;\n";
@@ -4411,15 +4411,15 @@ check_state (guestfs_h *g, const char *caller)
       (match fst style with
        | RErr -> ()
        | RConstString _ | RConstOptString _ ->
-	   failwithf "RConstString|RConstOptString cannot be used by daemon functions"
+           failwithf "RConstString|RConstOptString cannot be used by daemon functions"
        | RInt _ | RInt64 _
        | RBool _ | RString _ | RStringList _
        | RStruct _ | RStructList _
        | RHashtable _ | RBufferOut _ ->
-	   pr "  if (!xdr_%s_ret (xdr, &ctx->ret)) {\n" name;
-	   pr "    error (g, \"%%s: failed to parse reply\", \"%s\");\n" name;
-	   pr "    return;\n";
-	   pr "  }\n";
+           pr "  if (!xdr_%s_ret (xdr, &ctx->ret)) {\n" name;
+           pr "    error (g, \"%%s: failed to parse reply\", \"%s\");\n" name;
+           pr "    return;\n";
+           pr "  }\n";
       );
 
       pr " done:\n";
@@ -4428,17 +4428,17 @@ check_state (guestfs_h *g, const char *caller)
 
       (* Generate the action stub. *)
       generate_prototype ~extern:false ~semicolon:false ~newline:true
-	~handle:"g" name style;
+        ~handle:"g" name style;
 
       let error_code =
-	match fst style with
-	| RErr | RInt _ | RInt64 _ | RBool _ -> "-1"
-	| RConstString _ | RConstOptString _ ->
-	    failwithf "RConstString|RConstOptString cannot be used by daemon functions"
-	| RString _ | RStringList _
-	| RStruct _ | RStructList _
-	| RHashtable _ | RBufferOut _ ->
-	    "NULL" in
+        match fst style with
+        | RErr | RInt _ | RInt64 _ | RBool _ -> "-1"
+        | RConstString _ | RConstOptString _ ->
+            failwithf "RConstString|RConstOptString cannot be used by daemon functions"
+        | RString _ | RStringList _
+        | RStruct _ | RStructList _
+        | RHashtable _ | RBufferOut _ ->
+            "NULL" in
 
       pr "{\n";
 
@@ -4460,28 +4460,28 @@ check_state (guestfs_h *g, const char *caller)
       (* Send the main header and arguments. *)
       (match snd style with
        | [] ->
-	   pr "  serial = guestfs__send_sync (g, GUESTFS_PROC_%s, NULL, NULL);\n"
-	     (String.uppercase shortname)
+           pr "  serial = guestfs__send_sync (g, GUESTFS_PROC_%s, NULL, NULL);\n"
+             (String.uppercase shortname)
        | args ->
-	   List.iter (
-	     function
-	     | String n ->
-		 pr "  args.%s = (char *) %s;\n" n n
-	     | OptString n ->
-		 pr "  args.%s = %s ? (char **) &%s : NULL;\n" n n n
-	     | StringList n ->
-		 pr "  args.%s.%s_val = (char **) %s;\n" n n n;
-		 pr "  for (args.%s.%s_len = 0; %s[args.%s.%s_len]; args.%s.%s_len++) ;\n" n n n n n n n;
-	     | Bool n ->
-		 pr "  args.%s = %s;\n" n n
-	     | Int n ->
-		 pr "  args.%s = %s;\n" n n
-	     | FileIn _ | FileOut _ -> ()
-	   ) args;
-	   pr "  serial = guestfs__send_sync (g, GUESTFS_PROC_%s,\n"
-	     (String.uppercase shortname);
-	   pr "        (xdrproc_t) xdr_%s_args, (char *) &args);\n"
-	     name;
+           List.iter (
+             function
+             | String n ->
+                 pr "  args.%s = (char *) %s;\n" n n
+             | OptString n ->
+                 pr "  args.%s = %s ? (char **) &%s : NULL;\n" n n n
+             | StringList n ->
+                 pr "  args.%s.%s_val = (char **) %s;\n" n n n;
+                 pr "  for (args.%s.%s_len = 0; %s[args.%s.%s_len]; args.%s.%s_len++) ;\n" n n n n n n n;
+             | Bool n ->
+                 pr "  args.%s = %s;\n" n n
+             | Int n ->
+                 pr "  args.%s = %s;\n" n n
+             | FileIn _ | FileOut _ -> ()
+           ) args;
+           pr "  serial = guestfs__send_sync (g, GUESTFS_PROC_%s,\n"
+             (String.uppercase shortname);
+           pr "        (xdrproc_t) xdr_%s_args, (char *) &args);\n"
+             name;
       );
       pr "  if (serial == -1) {\n";
       pr "    guestfs_end_busy (g);\n";
@@ -4492,22 +4492,22 @@ check_state (guestfs_h *g, const char *caller)
       (* Send any additional files (FileIn) requested. *)
       let need_read_reply_label = ref false in
       List.iter (
-	function
-	| FileIn n ->
-	    pr "  {\n";
-	    pr "    int r;\n";
-	    pr "\n";
-	    pr "    r = guestfs__send_file_sync (g, %s);\n" n;
-	    pr "    if (r == -1) {\n";
-	    pr "      guestfs_end_busy (g);\n";
-	    pr "      return %s;\n" error_code;
-	    pr "    }\n";
-	    pr "    if (r == -2) /* daemon cancelled */\n";
-	    pr "      goto read_reply;\n";
-	    need_read_reply_label := true;
-	    pr "  }\n";
-	    pr "\n";
-	| _ -> ()
+        function
+        | FileIn n ->
+            pr "  {\n";
+            pr "    int r;\n";
+            pr "\n";
+            pr "    r = guestfs__send_file_sync (g, %s);\n" n;
+            pr "    if (r == -1) {\n";
+            pr "      guestfs_end_busy (g);\n";
+            pr "      return %s;\n" error_code;
+            pr "    }\n";
+            pr "    if (r == -2) /* daemon cancelled */\n";
+            pr "      goto read_reply;\n";
+            need_read_reply_label := true;
+            pr "  }\n";
+            pr "\n";
+        | _ -> ()
       ) (snd style);
 
       (* Wait for the reply from the remote end. *)
@@ -4525,7 +4525,7 @@ check_state (guestfs_h *g, const char *caller)
       pr "\n";
 
       pr "  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_%s, serial) == -1) {\n"
-	(String.uppercase shortname);
+        (String.uppercase shortname);
       pr "    guestfs_end_busy (g);\n";
       pr "    return %s;\n" error_code;
       pr "  }\n";
@@ -4541,14 +4541,14 @@ check_state (guestfs_h *g, const char *caller)
 
       (* Expecting to receive further files (FileOut)? *)
       List.iter (
-	function
-	| FileOut n ->
-	    pr "  if (guestfs__receive_file_sync (g, %s) == -1) {\n" n;
-	    pr "    guestfs_end_busy (g);\n";
-	    pr "    return %s;\n" error_code;
-	    pr "  }\n";
-	    pr "\n";
-	| _ -> ()
+        function
+        | FileOut n ->
+            pr "  if (guestfs__receive_file_sync (g, %s) == -1) {\n" n;
+            pr "    guestfs_end_busy (g);\n";
+            pr "    return %s;\n" error_code;
+            pr "  }\n";
+            pr "\n";
+        | _ -> ()
       ) (snd style);
 
       pr "  guestfs_end_busy (g);\n";
@@ -4556,28 +4556,28 @@ check_state (guestfs_h *g, const char *caller)
       (match fst style with
        | RErr -> pr "  return 0;\n"
        | RInt n | RInt64 n | RBool n ->
-	   pr "  return ctx.ret.%s;\n" n
+           pr "  return ctx.ret.%s;\n" n
        | RConstString _ | RConstOptString _ ->
-	   failwithf "RConstString|RConstOptString cannot be used by daemon functions"
+           failwithf "RConstString|RConstOptString cannot be used by daemon functions"
        | RString n ->
-	   pr "  return ctx.ret.%s; /* caller will free */\n" n
+           pr "  return ctx.ret.%s; /* caller will free */\n" n
        | RStringList n | RHashtable n ->
-	   pr "  /* caller will free this, but we need to add a NULL entry */\n";
-	   pr "  ctx.ret.%s.%s_val =\n" n n;
-	   pr "    safe_realloc (g, ctx.ret.%s.%s_val,\n" n n;
-	   pr "                  sizeof (char *) * (ctx.ret.%s.%s_len + 1));\n"
-	     n n;
-	   pr "  ctx.ret.%s.%s_val[ctx.ret.%s.%s_len] = NULL;\n" n n n n;
-	   pr "  return ctx.ret.%s.%s_val;\n" n n
+           pr "  /* caller will free this, but we need to add a NULL entry */\n";
+           pr "  ctx.ret.%s.%s_val =\n" n n;
+           pr "    safe_realloc (g, ctx.ret.%s.%s_val,\n" n n;
+           pr "                  sizeof (char *) * (ctx.ret.%s.%s_len + 1));\n"
+             n n;
+           pr "  ctx.ret.%s.%s_val[ctx.ret.%s.%s_len] = NULL;\n" n n n n;
+           pr "  return ctx.ret.%s.%s_val;\n" n n
        | RStruct (n, _) ->
-	   pr "  /* caller will free this */\n";
-	   pr "  return safe_memdup (g, &ctx.ret.%s, sizeof (ctx.ret.%s));\n" n n
+           pr "  /* caller will free this */\n";
+           pr "  return safe_memdup (g, &ctx.ret.%s, sizeof (ctx.ret.%s));\n" n n
        | RStructList (n, _) ->
-	   pr "  /* caller will free this */\n";
-	   pr "  return safe_memdup (g, &ctx.ret.%s, sizeof (ctx.ret.%s));\n" n n
+           pr "  /* caller will free this */\n";
+           pr "  return safe_memdup (g, &ctx.ret.%s, sizeof (ctx.ret.%s));\n" n n
        | RBufferOut n ->
-	   pr "  *size_r = ctx.ret.%s.%s_len;\n" n n;
-	   pr "  return ctx.ret.%s.%s_val; /* caller will free */\n" n n
+           pr "  *size_r = ctx.ret.%s.%s_len;\n" n n;
+           pr "  return ctx.ret.%s.%s_val; /* caller will free */\n" n n
       );
 
       pr "}\n\n"
@@ -4620,8 +4620,8 @@ and generate_daemon_actions_h () =
   List.iter (
     fun (name, style, _, _, _, _, _) ->
       generate_prototype
-	~single_line:true ~newline:true ~in_daemon:true ~prefix:"do_"
-	name style;
+        ~single_line:true ~newline:true ~in_daemon:true ~prefix:"do_"
+        name style;
   ) daemon_functions
 
 (* Generate the server-side stubs. *)
@@ -4649,76 +4649,76 @@ and generate_daemon_actions () =
       pr "static void %s_stub (XDR *xdr_in)\n" name;
       pr "{\n";
       let error_code =
-	match fst style with
-	| RErr | RInt _ -> pr "  int r;\n"; "-1"
-	| RInt64 _ -> pr "  int64_t r;\n"; "-1"
-	| RBool _ -> pr "  int r;\n"; "-1"
-	| RConstString _ | RConstOptString _ ->
-	    failwithf "RConstString|RConstOptString cannot be used by daemon functions"
-	| RString _ -> pr "  char *r;\n"; "NULL"
-	| RStringList _ | RHashtable _ -> pr "  char **r;\n"; "NULL"
-	| RStruct (_, typ) -> pr "  guestfs_int_%s *r;\n" typ; "NULL"
-	| RStructList (_, typ) -> pr "  guestfs_int_%s_list *r;\n" typ; "NULL"
-	| RBufferOut _ ->
-	    pr "  size_t size;\n";
-	    pr "  char *r;\n";
-	    "NULL" in
+        match fst style with
+        | RErr | RInt _ -> pr "  int r;\n"; "-1"
+        | RInt64 _ -> pr "  int64_t r;\n"; "-1"
+        | RBool _ -> pr "  int r;\n"; "-1"
+        | RConstString _ | RConstOptString _ ->
+            failwithf "RConstString|RConstOptString cannot be used by daemon functions"
+        | RString _ -> pr "  char *r;\n"; "NULL"
+        | RStringList _ | RHashtable _ -> pr "  char **r;\n"; "NULL"
+        | RStruct (_, typ) -> pr "  guestfs_int_%s *r;\n" typ; "NULL"
+        | RStructList (_, typ) -> pr "  guestfs_int_%s_list *r;\n" typ; "NULL"
+        | RBufferOut _ ->
+            pr "  size_t size;\n";
+            pr "  char *r;\n";
+            "NULL" in
 
       (match snd style with
        | [] -> ()
        | args ->
-	   pr "  struct guestfs_%s_args args;\n" name;
-	   List.iter (
-	     function
-	       (* Note we allow the string to be writable, in order to
-		* allow device name translation.  This is safe because
-		* we can modify the string (passed from RPC).
-		*)
-	     | String n
-	     | OptString n -> pr "  char *%s;\n" n
-	     | StringList n -> pr "  char **%s;\n" n
-	     | Bool n -> pr "  int %s;\n" n
-	     | Int n -> pr "  int %s;\n" n
-	     | FileIn _ | FileOut _ -> ()
-	   ) args
+           pr "  struct guestfs_%s_args args;\n" name;
+           List.iter (
+             function
+               (* Note we allow the string to be writable, in order to
+                * allow device name translation.  This is safe because
+                * we can modify the string (passed from RPC).
+                *)
+             | String n
+             | OptString n -> pr "  char *%s;\n" n
+             | StringList n -> pr "  char **%s;\n" n
+             | Bool n -> pr "  int %s;\n" n
+             | Int n -> pr "  int %s;\n" n
+             | FileIn _ | FileOut _ -> ()
+           ) args
       );
       pr "\n";
 
       (match snd style with
        | [] -> ()
        | args ->
-	   pr "  memset (&args, 0, sizeof args);\n";
-	   pr "\n";
-	   pr "  if (!xdr_guestfs_%s_args (xdr_in, &args)) {\n" name;
-	   pr "    reply_with_error (\"%%s: daemon failed to decode procedure arguments\", \"%s\");\n" name;
-	   pr "    return;\n";
-	   pr "  }\n";
-	   List.iter (
-	     function
-	     | String n -> pr "  %s = args.%s;\n" n n
-	     | OptString n -> pr "  %s = args.%s ? *args.%s : NULL;\n" n n n
-	     | StringList n ->
-		 pr "  %s = realloc (args.%s.%s_val,\n" n n n;
-		 pr "                sizeof (char *) * (args.%s.%s_len+1));\n" n n;
-		 pr "  if (%s == NULL) {\n" n;
-		 pr "    reply_with_perror (\"realloc\");\n";
-		 pr "    goto done;\n";
-		 pr "  }\n";
-		 pr "  %s[args.%s.%s_len] = NULL;\n" n n n;
-		 pr "  args.%s.%s_val = %s;\n" n n n;
-	     | Bool n -> pr "  %s = args.%s;\n" n n
-	     | Int n -> pr "  %s = args.%s;\n" n n
-	     | FileIn _ | FileOut _ -> ()
-	   ) args;
-	   pr "\n"
+           pr "  memset (&args, 0, sizeof args);\n";
+           pr "\n";
+           pr "  if (!xdr_guestfs_%s_args (xdr_in, &args)) {\n" name;
+           pr "    reply_with_error (\"%%s: daemon failed to decode procedure arguments\", \"%s\");\n" name;
+           pr "    return;\n";
+           pr "  }\n";
+           List.iter (
+             function
+             | String n -> pr "  %s = args.%s;\n" n n
+             | OptString n -> pr "  %s = args.%s ? *args.%s : NULL;\n" n n n
+             | StringList n ->
+                 pr "  %s = realloc (args.%s.%s_val,\n" n n n;
+                 pr "                sizeof (char *) * (args.%s.%s_len+1));\n" n n;
+                 pr "  if (%s == NULL) {\n" n;
+                 pr "    reply_with_perror (\"realloc\");\n";
+                 pr "    goto done;\n";
+                 pr "  }\n";
+                 pr "  %s[args.%s.%s_len] = NULL;\n" n n n;
+                 pr "  args.%s.%s_val = %s;\n" n n n;
+             | Bool n -> pr "  %s = args.%s;\n" n n
+             | Int n -> pr "  %s = args.%s;\n" n n
+             | FileIn _ | FileOut _ -> ()
+           ) args;
+           pr "\n"
       );
 
       (* Don't want to call the impl with any FileIn or FileOut
        * parameters, since these go "outside" the RPC protocol.
        *)
       let args' =
-	List.filter (function FileIn _ | FileOut _ -> false | _ -> true)
-	  (snd style) in
+        List.filter (function FileIn _ | FileOut _ -> false | _ -> true)
+          (snd style) in
       pr "  r = do_%s " name;
       generate_c_call_args (fst style, args');
       pr ";\n";
@@ -4732,63 +4732,63 @@ and generate_daemon_actions () =
        * send its own reply.
        *)
       let no_reply =
-	List.exists (function FileOut _ -> true | _ -> false) (snd style) in
+        List.exists (function FileOut _ -> true | _ -> false) (snd style) in
       if no_reply then
-	pr "  /* do_%s has already sent a reply */\n" name
+        pr "  /* do_%s has already sent a reply */\n" name
       else (
-	match fst style with
-	| RErr -> pr "  reply (NULL, NULL);\n"
-	| RInt n | RInt64 n | RBool n ->
-	    pr "  struct guestfs_%s_ret ret;\n" name;
-	    pr "  ret.%s = r;\n" n;
-	    pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n"
-	      name
-	| RConstString _ | RConstOptString _ ->
-	    failwithf "RConstString|RConstOptString cannot be used by daemon functions"
-	| RString n ->
-	    pr "  struct guestfs_%s_ret ret;\n" name;
-	    pr "  ret.%s = r;\n" n;
-	    pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n"
-	      name;
-	    pr "  free (r);\n"
-	| RStringList n | RHashtable n ->
-	    pr "  struct guestfs_%s_ret ret;\n" name;
-	    pr "  ret.%s.%s_len = count_strings (r);\n" n n;
-	    pr "  ret.%s.%s_val = r;\n" n n;
-	    pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n"
-	      name;
-	    pr "  free_strings (r);\n"
-	| RStruct (n, _) ->
-	    pr "  struct guestfs_%s_ret ret;\n" name;
-	    pr "  ret.%s = *r;\n" n;
-	    pr "  reply ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n"
-	      name;
-	    pr "  xdr_free ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n"
-	      name
-	| RStructList (n, _) ->
-	    pr "  struct guestfs_%s_ret ret;\n" name;
-	    pr "  ret.%s = *r;\n" n;
-	    pr "  reply ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n"
-	      name;
-	    pr "  xdr_free ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n"
-	      name
-	| RBufferOut n ->
-	    pr "  struct guestfs_%s_ret ret;\n" name;
-	    pr "  ret.%s.%s_val = r;\n" n n;
-	    pr "  ret.%s.%s_len = size;\n" n n;
-	    pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n"
-	      name;
-	    pr "  free (r);\n"
+        match fst style with
+        | RErr -> pr "  reply (NULL, NULL);\n"
+        | RInt n | RInt64 n | RBool n ->
+            pr "  struct guestfs_%s_ret ret;\n" name;
+            pr "  ret.%s = r;\n" n;
+            pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n"
+              name
+        | RConstString _ | RConstOptString _ ->
+            failwithf "RConstString|RConstOptString cannot be used by daemon functions"
+        | RString n ->
+            pr "  struct guestfs_%s_ret ret;\n" name;
+            pr "  ret.%s = r;\n" n;
+            pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n"
+              name;
+            pr "  free (r);\n"
+        | RStringList n | RHashtable n ->
+            pr "  struct guestfs_%s_ret ret;\n" name;
+            pr "  ret.%s.%s_len = count_strings (r);\n" n n;
+            pr "  ret.%s.%s_val = r;\n" n n;
+            pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n"
+              name;
+            pr "  free_strings (r);\n"
+        | RStruct (n, _) ->
+            pr "  struct guestfs_%s_ret ret;\n" name;
+            pr "  ret.%s = *r;\n" n;
+            pr "  reply ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n"
+              name;
+            pr "  xdr_free ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n"
+              name
+        | RStructList (n, _) ->
+            pr "  struct guestfs_%s_ret ret;\n" name;
+            pr "  ret.%s = *r;\n" n;
+            pr "  reply ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n"
+              name;
+            pr "  xdr_free ((xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret);\n"
+              name
+        | RBufferOut n ->
+            pr "  struct guestfs_%s_ret ret;\n" name;
+            pr "  ret.%s.%s_val = r;\n" n n;
+            pr "  ret.%s.%s_len = size;\n" n n;
+            pr "  reply ((xdrproc_t) &xdr_guestfs_%s_ret, (char *) &ret);\n"
+              name;
+            pr "  free (r);\n"
       );
 
       (* Free the args. *)
       (match snd style with
        | [] ->
-	   pr "done: ;\n";
+           pr "done: ;\n";
        | _ ->
-	   pr "done:\n";
-	   pr "  xdr_free ((xdrproc_t) xdr_guestfs_%s_args, (char *) &args);\n"
-	     name
+           pr "done:\n";
+           pr "  xdr_free ((xdrproc_t) xdr_guestfs_%s_args, (char *) &args);\n"
+             name
       );
 
       pr "}\n\n";
@@ -4819,164 +4819,164 @@ and generate_daemon_actions () =
   List.iter (
     function
     | typ, cols ->
-	pr "static const char *lvm_%s_cols = \"%s\";\n"
-	  typ (String.concat "," (List.map fst cols));
-	pr "\n";
+        pr "static const char *lvm_%s_cols = \"%s\";\n"
+          typ (String.concat "," (List.map fst cols));
+        pr "\n";
 
-	pr "static int lvm_tokenize_%s (char *str, guestfs_int_lvm_%s *r)\n" typ typ;
-	pr "{\n";
-	pr "  char *tok, *p, *next;\n";
-	pr "  int i, j;\n";
-	pr "\n";
-	(*
-	  pr "  fprintf (stderr, \"%%s: <<%%s>>\\n\", __func__, str);\n";
-	  pr "\n";
-	*)
-	pr "  if (!str) {\n";
-	pr "    fprintf (stderr, \"%%s: failed: passed a NULL string\\n\", __func__);\n";
-	pr "    return -1;\n";
-	pr "  }\n";
-	pr "  if (!*str || isspace (*str)) {\n";
-	pr "    fprintf (stderr, \"%%s: failed: passed a empty string or one beginning with whitespace\\n\", __func__);\n";
-	pr "    return -1;\n";
-	pr "  }\n";
-	pr "  tok = str;\n";
-	List.iter (
-	  fun (name, coltype) ->
-	    pr "  if (!tok) {\n";
-	    pr "    fprintf (stderr, \"%%s: failed: string finished early, around token %%s\\n\", __func__, \"%s\");\n" name;
-	    pr "    return -1;\n";
-	    pr "  }\n";
-	    pr "  p = strchrnul (tok, ',');\n";
-	    pr "  if (*p) next = p+1; else next = NULL;\n";
-	    pr "  *p = '\\0';\n";
-	    (match coltype with
-	     | FString ->
-		 pr "  r->%s = strdup (tok);\n" name;
-		 pr "  if (r->%s == NULL) {\n" name;
-		 pr "    perror (\"strdup\");\n";
-		 pr "    return -1;\n";
-		 pr "  }\n"
-	     | FUUID ->
-		 pr "  for (i = j = 0; i < 32; ++j) {\n";
-		 pr "    if (tok[j] == '\\0') {\n";
-		 pr "      fprintf (stderr, \"%%s: failed to parse UUID from '%%s'\\n\", __func__, tok);\n";
-		 pr "      return -1;\n";
-		 pr "    } else if (tok[j] != '-')\n";
-		 pr "      r->%s[i++] = tok[j];\n" name;
-		 pr "  }\n";
-	     | FBytes ->
-		 pr "  if (sscanf (tok, \"%%\"SCNu64, &r->%s) != 1) {\n" name;
-		 pr "    fprintf (stderr, \"%%s: failed to parse size '%%s' from token %%s\\n\", __func__, tok, \"%s\");\n" name;
-		 pr "    return -1;\n";
-		 pr "  }\n";
-	     | FInt64 ->
-		 pr "  if (sscanf (tok, \"%%\"SCNi64, &r->%s) != 1) {\n" name;
-		 pr "    fprintf (stderr, \"%%s: failed to parse int '%%s' from token %%s\\n\", __func__, tok, \"%s\");\n" name;
-		 pr "    return -1;\n";
-		 pr "  }\n";
-	     | FOptPercent ->
-		 pr "  if (tok[0] == '\\0')\n";
-		 pr "    r->%s = -1;\n" name;
-		 pr "  else if (sscanf (tok, \"%%f\", &r->%s) != 1) {\n" name;
-		 pr "    fprintf (stderr, \"%%s: failed to parse float '%%s' from token %%s\\n\", __func__, tok, \"%s\");\n" name;
-		 pr "    return -1;\n";
-		 pr "  }\n";
-	     | FBuffer | FInt32 | FUInt32 | FUInt64 | FChar ->
-		 assert false (* can never be an LVM column *)
-	    );
-	    pr "  tok = next;\n";
-	) cols;
+        pr "static int lvm_tokenize_%s (char *str, guestfs_int_lvm_%s *r)\n" typ typ;
+        pr "{\n";
+        pr "  char *tok, *p, *next;\n";
+        pr "  int i, j;\n";
+        pr "\n";
+        (*
+          pr "  fprintf (stderr, \"%%s: <<%%s>>\\n\", __func__, str);\n";
+          pr "\n";
+        *)
+        pr "  if (!str) {\n";
+        pr "    fprintf (stderr, \"%%s: failed: passed a NULL string\\n\", __func__);\n";
+        pr "    return -1;\n";
+        pr "  }\n";
+        pr "  if (!*str || isspace (*str)) {\n";
+        pr "    fprintf (stderr, \"%%s: failed: passed a empty string or one beginning with whitespace\\n\", __func__);\n";
+        pr "    return -1;\n";
+        pr "  }\n";
+        pr "  tok = str;\n";
+        List.iter (
+          fun (name, coltype) ->
+            pr "  if (!tok) {\n";
+            pr "    fprintf (stderr, \"%%s: failed: string finished early, around token %%s\\n\", __func__, \"%s\");\n" name;
+            pr "    return -1;\n";
+            pr "  }\n";
+            pr "  p = strchrnul (tok, ',');\n";
+            pr "  if (*p) next = p+1; else next = NULL;\n";
+            pr "  *p = '\\0';\n";
+            (match coltype with
+             | FString ->
+                 pr "  r->%s = strdup (tok);\n" name;
+                 pr "  if (r->%s == NULL) {\n" name;
+                 pr "    perror (\"strdup\");\n";
+                 pr "    return -1;\n";
+                 pr "  }\n"
+             | FUUID ->
+                 pr "  for (i = j = 0; i < 32; ++j) {\n";
+                 pr "    if (tok[j] == '\\0') {\n";
+                 pr "      fprintf (stderr, \"%%s: failed to parse UUID from '%%s'\\n\", __func__, tok);\n";
+                 pr "      return -1;\n";
+                 pr "    } else if (tok[j] != '-')\n";
+                 pr "      r->%s[i++] = tok[j];\n" name;
+                 pr "  }\n";
+             | FBytes ->
+                 pr "  if (sscanf (tok, \"%%\"SCNu64, &r->%s) != 1) {\n" name;
+                 pr "    fprintf (stderr, \"%%s: failed to parse size '%%s' from token %%s\\n\", __func__, tok, \"%s\");\n" name;
+                 pr "    return -1;\n";
+                 pr "  }\n";
+             | FInt64 ->
+                 pr "  if (sscanf (tok, \"%%\"SCNi64, &r->%s) != 1) {\n" name;
+                 pr "    fprintf (stderr, \"%%s: failed to parse int '%%s' from token %%s\\n\", __func__, tok, \"%s\");\n" name;
+                 pr "    return -1;\n";
+                 pr "  }\n";
+             | FOptPercent ->
+                 pr "  if (tok[0] == '\\0')\n";
+                 pr "    r->%s = -1;\n" name;
+                 pr "  else if (sscanf (tok, \"%%f\", &r->%s) != 1) {\n" name;
+                 pr "    fprintf (stderr, \"%%s: failed to parse float '%%s' from token %%s\\n\", __func__, tok, \"%s\");\n" name;
+                 pr "    return -1;\n";
+                 pr "  }\n";
+             | FBuffer | FInt32 | FUInt32 | FUInt64 | FChar ->
+                 assert false (* can never be an LVM column *)
+            );
+            pr "  tok = next;\n";
+        ) cols;
 
-	pr "  if (tok != NULL) {\n";
-	pr "    fprintf (stderr, \"%%s: failed: extra tokens at end of string\\n\", __func__);\n";
-	pr "    return -1;\n";
-	pr "  }\n";
-	pr "  return 0;\n";
-	pr "}\n";
-	pr "\n";
+        pr "  if (tok != NULL) {\n";
+        pr "    fprintf (stderr, \"%%s: failed: extra tokens at end of string\\n\", __func__);\n";
+        pr "    return -1;\n";
+        pr "  }\n";
+        pr "  return 0;\n";
+        pr "}\n";
+        pr "\n";
 
-	pr "guestfs_int_lvm_%s_list *\n" typ;
-	pr "parse_command_line_%ss (void)\n" typ;
-	pr "{\n";
-	pr "  char *out, *err;\n";
-	pr "  char *p, *pend;\n";
-	pr "  int r, i;\n";
-	pr "  guestfs_int_lvm_%s_list *ret;\n" typ;
-	pr "  void *newp;\n";
-	pr "\n";
-	pr "  ret = malloc (sizeof *ret);\n";
-	pr "  if (!ret) {\n";
-	pr "    reply_with_perror (\"malloc\");\n";
-	pr "    return NULL;\n";
-	pr "  }\n";
-	pr "\n";
-	pr "  ret->guestfs_int_lvm_%s_list_len = 0;\n" typ;
-	pr "  ret->guestfs_int_lvm_%s_list_val = NULL;\n" typ;
-	pr "\n";
-	pr "  r = command (&out, &err,\n";
-	pr "	       \"/sbin/lvm\", \"%ss\",\n" typ;
-	pr "	       \"-o\", lvm_%s_cols, \"--unbuffered\", \"--noheadings\",\n" typ;
-	pr "	       \"--nosuffix\", \"--separator\", \",\", \"--units\", \"b\", NULL);\n";
-	pr "  if (r == -1) {\n";
-	pr "    reply_with_error (\"%%s\", err);\n";
-	pr "    free (out);\n";
-	pr "    free (err);\n";
-	pr "    free (ret);\n";
-	pr "    return NULL;\n";
-	pr "  }\n";
-	pr "\n";
-	pr "  free (err);\n";
-	pr "\n";
-	pr "  /* Tokenize each line of the output. */\n";
-	pr "  p = out;\n";
-	pr "  i = 0;\n";
-	pr "  while (p) {\n";
-	pr "    pend = strchr (p, '\\n');	/* Get the next line of output. */\n";
-	pr "    if (pend) {\n";
-	pr "      *pend = '\\0';\n";
-	pr "      pend++;\n";
-	pr "    }\n";
-	pr "\n";
-	pr "    while (*p && isspace (*p))	/* Skip any leading whitespace. */\n";
-	pr "      p++;\n";
-	pr "\n";
-	pr "    if (!*p) {			/* Empty line?  Skip it. */\n";
-	pr "      p = pend;\n";
-	pr "      continue;\n";
-	pr "    }\n";
-	pr "\n";
-	pr "    /* Allocate some space to store this next entry. */\n";
-	pr "    newp = realloc (ret->guestfs_int_lvm_%s_list_val,\n" typ;
-	pr "		    sizeof (guestfs_int_lvm_%s) * (i+1));\n" typ;
-	pr "    if (newp == NULL) {\n";
-	pr "      reply_with_perror (\"realloc\");\n";
-	pr "      free (ret->guestfs_int_lvm_%s_list_val);\n" typ;
-	pr "      free (ret);\n";
-	pr "      free (out);\n";
-	pr "      return NULL;\n";
-	pr "    }\n";
-	pr "    ret->guestfs_int_lvm_%s_list_val = newp;\n" typ;
-	pr "\n";
-	pr "    /* Tokenize the next entry. */\n";
-	pr "    r = lvm_tokenize_%s (p, &ret->guestfs_int_lvm_%s_list_val[i]);\n" typ typ;
-	pr "    if (r == -1) {\n";
-	pr "      reply_with_error (\"failed to parse output of '%ss' command\");\n" typ;
+        pr "guestfs_int_lvm_%s_list *\n" typ;
+        pr "parse_command_line_%ss (void)\n" typ;
+        pr "{\n";
+        pr "  char *out, *err;\n";
+        pr "  char *p, *pend;\n";
+        pr "  int r, i;\n";
+        pr "  guestfs_int_lvm_%s_list *ret;\n" typ;
+        pr "  void *newp;\n";
+        pr "\n";
+        pr "  ret = malloc (sizeof *ret);\n";
+        pr "  if (!ret) {\n";
+        pr "    reply_with_perror (\"malloc\");\n";
+        pr "    return NULL;\n";
+        pr "  }\n";
+        pr "\n";
+        pr "  ret->guestfs_int_lvm_%s_list_len = 0;\n" typ;
+        pr "  ret->guestfs_int_lvm_%s_list_val = NULL;\n" typ;
+        pr "\n";
+        pr "  r = command (&out, &err,\n";
+        pr "	       \"/sbin/lvm\", \"%ss\",\n" typ;
+        pr "	       \"-o\", lvm_%s_cols, \"--unbuffered\", \"--noheadings\",\n" typ;
+        pr "	       \"--nosuffix\", \"--separator\", \",\", \"--units\", \"b\", NULL);\n";
+        pr "  if (r == -1) {\n";
+        pr "    reply_with_error (\"%%s\", err);\n";
+        pr "    free (out);\n";
+        pr "    free (err);\n";
+        pr "    free (ret);\n";
+        pr "    return NULL;\n";
+        pr "  }\n";
+        pr "\n";
+        pr "  free (err);\n";
+        pr "\n";
+        pr "  /* Tokenize each line of the output. */\n";
+        pr "  p = out;\n";
+        pr "  i = 0;\n";
+        pr "  while (p) {\n";
+        pr "    pend = strchr (p, '\\n');	/* Get the next line of output. */\n";
+        pr "    if (pend) {\n";
+        pr "      *pend = '\\0';\n";
+        pr "      pend++;\n";
+        pr "    }\n";
+        pr "\n";
+        pr "    while (*p && isspace (*p))	/* Skip any leading whitespace. */\n";
+        pr "      p++;\n";
+        pr "\n";
+        pr "    if (!*p) {			/* Empty line?  Skip it. */\n";
+        pr "      p = pend;\n";
+        pr "      continue;\n";
+        pr "    }\n";
+        pr "\n";
+        pr "    /* Allocate some space to store this next entry. */\n";
+        pr "    newp = realloc (ret->guestfs_int_lvm_%s_list_val,\n" typ;
+        pr "		    sizeof (guestfs_int_lvm_%s) * (i+1));\n" typ;
+        pr "    if (newp == NULL) {\n";
+        pr "      reply_with_perror (\"realloc\");\n";
         pr "      free (ret->guestfs_int_lvm_%s_list_val);\n" typ;
         pr "      free (ret);\n";
-	pr "      free (out);\n";
-	pr "      return NULL;\n";
-	pr "    }\n";
-	pr "\n";
-	pr "    ++i;\n";
-	pr "    p = pend;\n";
-	pr "  }\n";
-	pr "\n";
-	pr "  ret->guestfs_int_lvm_%s_list_len = i;\n" typ;
-	pr "\n";
-	pr "  free (out);\n";
-	pr "  return ret;\n";
-	pr "}\n"
+        pr "      free (out);\n";
+        pr "      return NULL;\n";
+        pr "    }\n";
+        pr "    ret->guestfs_int_lvm_%s_list_val = newp;\n" typ;
+        pr "\n";
+        pr "    /* Tokenize the next entry. */\n";
+        pr "    r = lvm_tokenize_%s (p, &ret->guestfs_int_lvm_%s_list_val[i]);\n" typ typ;
+        pr "    if (r == -1) {\n";
+        pr "      reply_with_error (\"failed to parse output of '%ss' command\");\n" typ;
+        pr "      free (ret->guestfs_int_lvm_%s_list_val);\n" typ;
+        pr "      free (ret);\n";
+        pr "      free (out);\n";
+        pr "      return NULL;\n";
+        pr "    }\n";
+        pr "\n";
+        pr "    ++i;\n";
+        pr "    p = pend;\n";
+        pr "  }\n";
+        pr "\n";
+        pr "  ret->guestfs_int_lvm_%s_list_len = i;\n" typ;
+        pr "\n";
+        pr "  free (out);\n";
+        pr "  return ret;\n";
+        pr "}\n"
 
   ) ["pv", lvm_pv_cols; "vg", lvm_vg_cols; "lv", lvm_lv_cols]
 
@@ -5047,9 +5047,9 @@ static void print_table (char * const * const argv)
   List.iter (
     fun (_, _, _, _, tests, _, _) ->
       let tests = filter_map (
-	function
-	| (_, (Always|If _|Unless _), test) -> Some test
-	| (_, Disabled, _) -> None
+        function
+        | (_, (Always|If _|Unless _), test) -> Some test
+        | (_, Disabled, _) -> None
       ) tests in
       let seq = List.concat (List.map seq_of_test tests) in
       let cmds_tested = List.map List.hd seq in
@@ -5059,7 +5059,7 @@ static void print_table (char * const * const argv)
   List.iter (
     fun (name, _, _, _, _, _, _) ->
       if not (Hashtbl.mem hash name) then
-	pr "  fprintf (stderr, \"warning: \\\"guestfs_%s\\\" has no tests\\n\");\n" name
+        pr "  fprintf (stderr, \"warning: \\\"guestfs_%s\\\" has no tests\\n\");\n" name
   ) all_functions;
 
   pr "}\n";
@@ -5073,7 +5073,7 @@ static void print_table (char * const * const argv)
   let test_names =
     List.map (
       fun (name, _, _, _, tests, _, _) ->
-	mapi (generate_one_test name) tests
+        mapi (generate_one_test name) tests
     ) (List.rev all_functions) in
   let test_names = List.concat test_names in
   let nr_tests = List.length test_names in
@@ -5305,54 +5305,54 @@ static int %s (void)
 and generate_one_test_body name i test_name init test =
   (match init with
    | InitNone (* XXX at some point, InitNone and InitEmpty became
-	       * folded together as the same thing.  Really we should
-	       * make InitNone do nothing at all, but the tests may
-	       * need to be checked to make sure this is OK.
-	       *)
+               * folded together as the same thing.  Really we should
+               * make InitNone do nothing at all, but the tests may
+               * need to be checked to make sure this is OK.
+               *)
    | InitEmpty ->
        pr "  /* InitNone|InitEmpty for %s */\n" test_name;
        List.iter (generate_test_command_call test_name)
-	 [["blockdev_setrw"; "/dev/sda"];
-	  ["umount_all"];
-	  ["lvm_remove_all"]]
+         [["blockdev_setrw"; "/dev/sda"];
+          ["umount_all"];
+          ["lvm_remove_all"]]
    | InitBasicFS ->
        pr "  /* InitBasicFS for %s: create ext2 on /dev/sda1 */\n" test_name;
        List.iter (generate_test_command_call test_name)
-	 [["blockdev_setrw"; "/dev/sda"];
-	  ["umount_all"];
-	  ["lvm_remove_all"];
-	  ["sfdiskM"; "/dev/sda"; ","];
-	  ["mkfs"; "ext2"; "/dev/sda1"];
-	  ["mount"; "/dev/sda1"; "/"]]
+         [["blockdev_setrw"; "/dev/sda"];
+          ["umount_all"];
+          ["lvm_remove_all"];
+          ["sfdiskM"; "/dev/sda"; ","];
+          ["mkfs"; "ext2"; "/dev/sda1"];
+          ["mount"; "/dev/sda1"; "/"]]
    | InitBasicFSonLVM ->
        pr "  /* InitBasicFSonLVM for %s: create ext2 on /dev/VG/LV */\n"
-	 test_name;
+         test_name;
        List.iter (generate_test_command_call test_name)
-	 [["blockdev_setrw"; "/dev/sda"];
-	  ["umount_all"];
-	  ["lvm_remove_all"];
-	  ["sfdiskM"; "/dev/sda"; ","];
-	  ["pvcreate"; "/dev/sda1"];
-	  ["vgcreate"; "VG"; "/dev/sda1"];
-	  ["lvcreate"; "LV"; "VG"; "8"];
-	  ["mkfs"; "ext2"; "/dev/VG/LV"];
-	  ["mount"; "/dev/VG/LV"; "/"]]
+         [["blockdev_setrw"; "/dev/sda"];
+          ["umount_all"];
+          ["lvm_remove_all"];
+          ["sfdiskM"; "/dev/sda"; ","];
+          ["pvcreate"; "/dev/sda1"];
+          ["vgcreate"; "VG"; "/dev/sda1"];
+          ["lvcreate"; "LV"; "VG"; "8"];
+          ["mkfs"; "ext2"; "/dev/VG/LV"];
+          ["mount"; "/dev/VG/LV"; "/"]]
    | InitSquashFS ->
        pr "  /* InitSquashFS for %s */\n" test_name;
        List.iter (generate_test_command_call test_name)
-	 [["blockdev_setrw"; "/dev/sda"];
-	  ["umount_all"];
-	  ["lvm_remove_all"];
-	  ["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"]]
+         [["blockdev_setrw"; "/dev/sda"];
+          ["umount_all"];
+          ["lvm_remove_all"];
+          ["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"]]
   );
 
   let get_seq_last = function
     | [] ->
-	failwithf "%s: you cannot use [] (empty list) when expecting a command"
-	  test_name
+        failwithf "%s: you cannot use [] (empty list) when expecting a command"
+          test_name
     | seq ->
-	let seq = List.rev seq in
-	List.rev (List.tl seq), List.hd seq
+        let seq = List.rev seq in
+        List.rev (List.tl seq), List.hd seq
   in
 
   match test with
@@ -5364,10 +5364,10 @@ and generate_one_test_body name i test_name init test =
       pr "  const char *expected = \"%s\";\n" (c_quote expected);
       let seq, last = get_seq_last seq in
       let test () =
-	pr "    if (strcmp (r, expected) != 0) {\n";
-	pr "      fprintf (stderr, \"%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", expected, r);\n" test_name;
-	pr "      return -1;\n";
-	pr "    }\n"
+        pr "    if (strcmp (r, expected) != 0) {\n";
+        pr "      fprintf (stderr, \"%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", expected, r);\n" test_name;
+        pr "      return -1;\n";
+        pr "    }\n"
       in
       List.iter (generate_test_command_call test_name) seq;
       generate_test_command_call ~test test_name last
@@ -5375,27 +5375,27 @@ and generate_one_test_body name i test_name init test =
       pr "  /* TestOutputList for %s (%d) */\n" name i;
       let seq, last = get_seq_last seq in
       let test () =
-	iteri (
-	  fun i str ->
-	    pr "    if (!r[%d]) {\n" i;
-	    pr "      fprintf (stderr, \"%s: short list returned from command\\n\");\n" test_name;
-	    pr "      print_strings (r);\n";
-	    pr "      return -1;\n";
-	    pr "    }\n";
+        iteri (
+          fun i str ->
+            pr "    if (!r[%d]) {\n" i;
+            pr "      fprintf (stderr, \"%s: short list returned from command\\n\");\n" test_name;
+            pr "      print_strings (r);\n";
+            pr "      return -1;\n";
+            pr "    }\n";
             pr "    {\n";
             pr "      const char *expected = \"%s\";\n" (c_quote str);
-	    pr "      if (strcmp (r[%d], expected) != 0) {\n" i;
-	    pr "        fprintf (stderr, \"%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", expected, r[%d]);\n" test_name i;
-	    pr "        return -1;\n";
-	    pr "      }\n";
-	    pr "    }\n"
-	) expected;
-	pr "    if (r[%d] != NULL) {\n" (List.length expected);
-	pr "      fprintf (stderr, \"%s: extra elements returned from command\\n\");\n"
-	  test_name;
-	pr "      print_strings (r);\n";
-	pr "      return -1;\n";
-	pr "    }\n"
+            pr "      if (strcmp (r[%d], expected) != 0) {\n" i;
+            pr "        fprintf (stderr, \"%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", expected, r[%d]);\n" test_name i;
+            pr "        return -1;\n";
+            pr "      }\n";
+            pr "    }\n"
+        ) expected;
+        pr "    if (r[%d] != NULL) {\n" (List.length expected);
+        pr "      fprintf (stderr, \"%s: extra elements returned from command\\n\");\n"
+          test_name;
+        pr "      print_strings (r);\n";
+        pr "      return -1;\n";
+        pr "    }\n"
       in
       List.iter (generate_test_command_call test_name) seq;
       generate_test_command_call ~test test_name last
@@ -5403,28 +5403,28 @@ and generate_one_test_body name i test_name init test =
       pr "  /* TestOutputListOfDevices for %s (%d) */\n" name i;
       let seq, last = get_seq_last seq in
       let test () =
-	iteri (
-	  fun i str ->
-	    pr "    if (!r[%d]) {\n" i;
-	    pr "      fprintf (stderr, \"%s: short list returned from command\\n\");\n" test_name;
-	    pr "      print_strings (r);\n";
-	    pr "      return -1;\n";
-	    pr "    }\n";
+        iteri (
+          fun i str ->
+            pr "    if (!r[%d]) {\n" i;
+            pr "      fprintf (stderr, \"%s: short list returned from command\\n\");\n" test_name;
+            pr "      print_strings (r);\n";
+            pr "      return -1;\n";
+            pr "    }\n";
             pr "    {\n";
             pr "      const char *expected = \"%s\";\n" (c_quote str);
-	    pr "      r[%d][5] = 's';\n" i;
-	    pr "      if (strcmp (r[%d], expected) != 0) {\n" i;
-	    pr "        fprintf (stderr, \"%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", expected, r[%d]);\n" test_name i;
-	    pr "        return -1;\n";
-	    pr "      }\n";
-	    pr "    }\n"
-	) expected;
-	pr "    if (r[%d] != NULL) {\n" (List.length expected);
-	pr "      fprintf (stderr, \"%s: extra elements returned from command\\n\");\n"
-	  test_name;
-	pr "      print_strings (r);\n";
-	pr "      return -1;\n";
-	pr "    }\n"
+            pr "      r[%d][5] = 's';\n" i;
+            pr "      if (strcmp (r[%d], expected) != 0) {\n" i;
+            pr "        fprintf (stderr, \"%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", expected, r[%d]);\n" test_name i;
+            pr "        return -1;\n";
+            pr "      }\n";
+            pr "    }\n"
+        ) expected;
+        pr "    if (r[%d] != NULL) {\n" (List.length expected);
+        pr "      fprintf (stderr, \"%s: extra elements returned from command\\n\");\n"
+          test_name;
+        pr "      print_strings (r);\n";
+        pr "      return -1;\n";
+        pr "    }\n"
       in
       List.iter (generate_test_command_call test_name) seq;
       generate_test_command_call ~test test_name last
@@ -5432,12 +5432,12 @@ and generate_one_test_body name i test_name init test =
       pr "  /* TestOutputInt for %s (%d) */\n" name i;
       let seq, last = get_seq_last seq in
       let test () =
-	pr "    if (r != %d) {\n" expected;
-	pr "      fprintf (stderr, \"%s: expected %d but got %%d\\n\","
-	  test_name expected;
-	pr "               (int) r);\n";
-	pr "      return -1;\n";
-	pr "    }\n"
+        pr "    if (r != %d) {\n" expected;
+        pr "      fprintf (stderr, \"%s: expected %d but got %%d\\n\","
+          test_name expected;
+        pr "               (int) r);\n";
+        pr "      return -1;\n";
+        pr "    }\n"
       in
       List.iter (generate_test_command_call test_name) seq;
       generate_test_command_call ~test test_name last
@@ -5445,12 +5445,12 @@ and generate_one_test_body name i test_name init test =
       pr "  /* TestOutputIntOp for %s (%d) */\n" name i;
       let seq, last = get_seq_last seq in
       let test () =
-	pr "    if (! (r %s %d)) {\n" op expected;
-	pr "      fprintf (stderr, \"%s: expected %s %d but got %%d\\n\","
-	  test_name op expected;
-	pr "               (int) r);\n";
-	pr "      return -1;\n";
-	pr "    }\n"
+        pr "    if (! (r %s %d)) {\n" op expected;
+        pr "      fprintf (stderr, \"%s: expected %s %d but got %%d\\n\","
+          test_name op expected;
+        pr "               (int) r);\n";
+        pr "      return -1;\n";
+        pr "    }\n"
       in
       List.iter (generate_test_command_call test_name) seq;
       generate_test_command_call ~test test_name last
@@ -5458,11 +5458,11 @@ and generate_one_test_body name i test_name init test =
       pr "  /* TestOutputTrue for %s (%d) */\n" name i;
       let seq, last = get_seq_last seq in
       let test () =
-	pr "    if (!r) {\n";
-	pr "      fprintf (stderr, \"%s: expected true, got false\\n\");\n"
-	  test_name;
-	pr "      return -1;\n";
-	pr "    }\n"
+        pr "    if (!r) {\n";
+        pr "      fprintf (stderr, \"%s: expected true, got false\\n\");\n"
+          test_name;
+        pr "      return -1;\n";
+        pr "    }\n"
       in
       List.iter (generate_test_command_call test_name) seq;
       generate_test_command_call ~test test_name last
@@ -5470,11 +5470,11 @@ and generate_one_test_body name i test_name init test =
       pr "  /* TestOutputFalse for %s (%d) */\n" name i;
       let seq, last = get_seq_last seq in
       let test () =
-	pr "    if (r) {\n";
-	pr "      fprintf (stderr, \"%s: expected false, got true\\n\");\n"
-	  test_name;
-	pr "      return -1;\n";
-	pr "    }\n"
+        pr "    if (r) {\n";
+        pr "      fprintf (stderr, \"%s: expected false, got true\\n\");\n"
+          test_name;
+        pr "      return -1;\n";
+        pr "    }\n"
       in
       List.iter (generate_test_command_call test_name) seq;
       generate_test_command_call ~test test_name last
@@ -5482,20 +5482,20 @@ and generate_one_test_body name i test_name init test =
       pr "  /* TestOutputLength for %s (%d) */\n" name i;
       let seq, last = get_seq_last seq in
       let test () =
-	pr "    int j;\n";
-	pr "    for (j = 0; j < %d; ++j)\n" expected;
-	pr "      if (r[j] == NULL) {\n";
-	pr "        fprintf (stderr, \"%s: short list returned\\n\");\n"
-	  test_name;
-	pr "        print_strings (r);\n";
-	pr "        return -1;\n";
-	pr "      }\n";
-	pr "    if (r[j] != NULL) {\n";
-	pr "      fprintf (stderr, \"%s: long list returned\\n\");\n"
-	  test_name;
-	pr "      print_strings (r);\n";
-	pr "      return -1;\n";
-	pr "    }\n"
+        pr "    int j;\n";
+        pr "    for (j = 0; j < %d; ++j)\n" expected;
+        pr "      if (r[j] == NULL) {\n";
+        pr "        fprintf (stderr, \"%s: short list returned\\n\");\n"
+          test_name;
+        pr "        print_strings (r);\n";
+        pr "        return -1;\n";
+        pr "      }\n";
+        pr "    if (r[j] != NULL) {\n";
+        pr "      fprintf (stderr, \"%s: long list returned\\n\");\n"
+          test_name;
+        pr "      print_strings (r);\n";
+        pr "      return -1;\n";
+        pr "    }\n"
       in
       List.iter (generate_test_command_call test_name) seq;
       generate_test_command_call ~test test_name last
@@ -5505,14 +5505,14 @@ and generate_one_test_body name i test_name init test =
       let seq, last = get_seq_last seq in
       let len = String.length expected in
       let test () =
-	pr "    if (size != %d) {\n" len;
-	pr "      fprintf (stderr, \"%s: returned size of buffer wrong, expected %d but got %%zu\\n\", size);\n" test_name len;
-	pr "      return -1;\n";
-	pr "    }\n";
-	pr "    if (strncmp (r, expected, size) != 0) {\n";
-	pr "      fprintf (stderr, \"%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", expected, r);\n" test_name;
-	pr "      return -1;\n";
-	pr "    }\n"
+        pr "    if (size != %d) {\n" len;
+        pr "      fprintf (stderr, \"%s: returned size of buffer wrong, expected %d but got %%zu\\n\", size);\n" test_name len;
+        pr "      return -1;\n";
+        pr "    }\n";
+        pr "    if (strncmp (r, expected, size) != 0) {\n";
+        pr "      fprintf (stderr, \"%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", expected, r);\n" test_name;
+        pr "      return -1;\n";
+        pr "    }\n"
       in
       List.iter (generate_test_command_call test_name) seq;
       generate_test_command_call ~test test_name last
@@ -5520,44 +5520,44 @@ and generate_one_test_body name i test_name init test =
       pr "  /* TestOutputStruct for %s (%d) */\n" name i;
       let seq, last = get_seq_last seq in
       let test () =
-	List.iter (
-	  function
-	  | CompareWithInt (field, expected) ->
-	      pr "    if (r->%s != %d) {\n" field expected;
-	      pr "      fprintf (stderr, \"%s: %s was %%d, expected %d\\n\",\n"
-		test_name field expected;
-	      pr "               (int) r->%s);\n" field;
-	      pr "      return -1;\n";
-	      pr "    }\n"
-	  | CompareWithIntOp (field, op, expected) ->
-	      pr "    if (!(r->%s %s %d)) {\n" field op expected;
-	      pr "      fprintf (stderr, \"%s: %s was %%d, expected %s %d\\n\",\n"
-		test_name field op expected;
-	      pr "               (int) r->%s);\n" field;
-	      pr "      return -1;\n";
-	      pr "    }\n"
-	  | CompareWithString (field, expected) ->
-	      pr "    if (strcmp (r->%s, \"%s\") != 0) {\n" field expected;
-	      pr "      fprintf (stderr, \"%s: %s was \"%%s\", expected \"%s\"\\n\",\n"
-		test_name field expected;
-	      pr "               r->%s);\n" field;
-	      pr "      return -1;\n";
-	      pr "    }\n"
-	  | CompareFieldsIntEq (field1, field2) ->
-	      pr "    if (r->%s != r->%s) {\n" field1 field2;
-	      pr "      fprintf (stderr, \"%s: %s (%%d) <> %s (%%d)\\n\",\n"
-		test_name field1 field2;
-	      pr "               (int) r->%s, (int) r->%s);\n" field1 field2;
-	      pr "      return -1;\n";
-	      pr "    }\n"
-	  | CompareFieldsStrEq (field1, field2) ->
-	      pr "    if (strcmp (r->%s, r->%s) != 0) {\n" field1 field2;
-	      pr "      fprintf (stderr, \"%s: %s (\"%%s\") <> %s (\"%%s\")\\n\",\n"
-		test_name field1 field2;
-	      pr "               r->%s, r->%s);\n" field1 field2;
-	      pr "      return -1;\n";
-	      pr "    }\n"
-	) checks
+        List.iter (
+          function
+          | CompareWithInt (field, expected) ->
+              pr "    if (r->%s != %d) {\n" field expected;
+              pr "      fprintf (stderr, \"%s: %s was %%d, expected %d\\n\",\n"
+                test_name field expected;
+              pr "               (int) r->%s);\n" field;
+              pr "      return -1;\n";
+              pr "    }\n"
+          | CompareWithIntOp (field, op, expected) ->
+              pr "    if (!(r->%s %s %d)) {\n" field op expected;
+              pr "      fprintf (stderr, \"%s: %s was %%d, expected %s %d\\n\",\n"
+                test_name field op expected;
+              pr "               (int) r->%s);\n" field;
+              pr "      return -1;\n";
+              pr "    }\n"
+          | CompareWithString (field, expected) ->
+              pr "    if (strcmp (r->%s, \"%s\") != 0) {\n" field expected;
+              pr "      fprintf (stderr, \"%s: %s was \"%%s\", expected \"%s\"\\n\",\n"
+                test_name field expected;
+              pr "               r->%s);\n" field;
+              pr "      return -1;\n";
+              pr "    }\n"
+          | CompareFieldsIntEq (field1, field2) ->
+              pr "    if (r->%s != r->%s) {\n" field1 field2;
+              pr "      fprintf (stderr, \"%s: %s (%%d) <> %s (%%d)\\n\",\n"
+                test_name field1 field2;
+              pr "               (int) r->%s, (int) r->%s);\n" field1 field2;
+              pr "      return -1;\n";
+              pr "    }\n"
+          | CompareFieldsStrEq (field1, field2) ->
+              pr "    if (strcmp (r->%s, r->%s) != 0) {\n" field1 field2;
+              pr "      fprintf (stderr, \"%s: %s (\"%%s\") <> %s (\"%%s\")\\n\",\n"
+                test_name field1 field2;
+              pr "               r->%s, r->%s);\n" field1 field2;
+              pr "      return -1;\n";
+              pr "    }\n"
+        ) checks
       in
       List.iter (generate_test_command_call test_name) seq;
       generate_test_command_call ~test test_name last
@@ -5576,84 +5576,84 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
   | name :: args ->
       (* Look up the command to find out what args/ret it has. *)
       let style =
-	try
-	  let _, style, _, _, _, _, _ =
-	    List.find (fun (n, _, _, _, _, _, _) -> n = name) all_functions in
-	  style
-	with Not_found ->
-	  failwithf "%s: in test, command %s was not found" test_name name in
+        try
+          let _, style, _, _, _, _, _ =
+            List.find (fun (n, _, _, _, _, _, _) -> n = name) all_functions in
+          style
+        with Not_found ->
+          failwithf "%s: in test, command %s was not found" test_name name in
 
       if List.length (snd style) <> List.length args then
-	failwithf "%s: in test, wrong number of args given to %s"
-	  test_name name;
+        failwithf "%s: in test, wrong number of args given to %s"
+          test_name name;
 
       pr "  {\n";
 
       List.iter (
-	function
-	| OptString n, "NULL" -> ()
-	| String n, arg
-	| OptString n, arg ->
-	    pr "    const char *%s = \"%s\";\n" n (c_quote arg);
-	| Int _, _
-	| Bool _, _
-	| FileIn _, _ | FileOut _, _ -> ()
-	| StringList n, arg ->
-	    let strs = string_split " " arg in
-	    iteri (
-	      fun i str ->
+        function
+        | OptString n, "NULL" -> ()
+        | String n, arg
+        | OptString n, arg ->
+            pr "    const char *%s = \"%s\";\n" n (c_quote arg);
+        | Int _, _
+        | Bool _, _
+        | FileIn _, _ | FileOut _, _ -> ()
+        | StringList n, arg ->
+            let strs = string_split " " arg in
+            iteri (
+              fun i str ->
                 pr "    const char *%s_%d = \"%s\";\n" n i (c_quote str);
-	    ) strs;
-	    pr "    const char *%s[] = {\n" n;
-	    iteri (
-	      fun i _ -> pr "      %s_%d,\n" n i
-	    ) strs;
-	    pr "      NULL\n";
-	    pr "    };\n";
+            ) strs;
+            pr "    const char *%s[] = {\n" n;
+            iteri (
+              fun i _ -> pr "      %s_%d,\n" n i
+            ) strs;
+            pr "      NULL\n";
+            pr "    };\n";
       ) (List.combine (snd style) args);
 
       let error_code =
-	match fst style with
-	| RErr | RInt _ | RBool _ -> pr "    int r;\n"; "-1"
-	| RInt64 _ -> pr "    int64_t r;\n"; "-1"
-	| RConstString _ | RConstOptString _ ->
-	    pr "    const char *r;\n"; "NULL"
-	| RString _ -> pr "    char *r;\n"; "NULL"
-	| RStringList _ | RHashtable _ ->
-	    pr "    char **r;\n";
-	    pr "    int i;\n";
-	    "NULL"
-	| RStruct (_, typ) ->
-	    pr "    struct guestfs_%s *r;\n" typ; "NULL"
-	| RStructList (_, typ) ->
-	    pr "    struct guestfs_%s_list *r;\n" typ; "NULL"
-	| RBufferOut _ ->
-	    pr "    char *r;\n";
-	    pr "    size_t size;\n";
-	    "NULL" in
+        match fst style with
+        | RErr | RInt _ | RBool _ -> pr "    int r;\n"; "-1"
+        | RInt64 _ -> pr "    int64_t r;\n"; "-1"
+        | RConstString _ | RConstOptString _ ->
+            pr "    const char *r;\n"; "NULL"
+        | RString _ -> pr "    char *r;\n"; "NULL"
+        | RStringList _ | RHashtable _ ->
+            pr "    char **r;\n";
+            pr "    int i;\n";
+            "NULL"
+        | RStruct (_, typ) ->
+            pr "    struct guestfs_%s *r;\n" typ; "NULL"
+        | RStructList (_, typ) ->
+            pr "    struct guestfs_%s_list *r;\n" typ; "NULL"
+        | RBufferOut _ ->
+            pr "    char *r;\n";
+            pr "    size_t size;\n";
+            "NULL" in
 
       pr "    suppress_error = %d;\n" (if expect_error then 1 else 0);
       pr "    r = guestfs_%s (g" name;
 
       (* Generate the parameters. *)
       List.iter (
-	function
-	| OptString _, "NULL" -> pr ", NULL"
-	| String n, _
-	| OptString n, _ ->
+        function
+        | OptString _, "NULL" -> pr ", NULL"
+        | String n, _
+        | OptString n, _ ->
             pr ", %s" n
-	| FileIn _, arg | FileOut _, arg ->
-	    pr ", \"%s\"" (c_quote arg)
-	| StringList n, _ ->
-	    pr ", %s" n
-	| Int _, arg ->
-	    let i =
-	      try int_of_string arg
-	      with Failure "int_of_string" ->
-		failwithf "%s: expecting an int, but got '%s'" test_name arg in
-	    pr ", %d" i
-	| Bool _, arg ->
-	    let b = bool_of_string arg in pr ", %d" (if b then 1 else 0)
+        | FileIn _, arg | FileOut _, arg ->
+            pr ", \"%s\"" (c_quote arg)
+        | StringList n, _ ->
+            pr ", %s" n
+        | Int _, arg ->
+            let i =
+              try int_of_string arg
+              with Failure "int_of_string" ->
+                failwithf "%s: expecting an int, but got '%s'" test_name arg in
+            pr ", %d" i
+        | Bool _, arg ->
+            let b = bool_of_string arg in pr ", %d" (if b then 1 else 0)
       ) (List.combine (snd style) args);
 
       (match fst style with
@@ -5664,9 +5664,9 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
       pr ");\n";
 
       if not expect_error then
-	pr "    if (r == %s)\n" error_code
+        pr "    if (r == %s)\n" error_code
       else
-	pr "    if (r != %s)\n" error_code;
+        pr "    if (r != %s)\n" error_code;
       pr "      return -1;\n";
 
       (* Insert the test code. *)
@@ -5680,13 +5680,13 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
        | RConstString _ | RConstOptString _ -> ()
        | RString _ | RBufferOut _ -> pr "    free (r);\n"
        | RStringList _ | RHashtable _ ->
-	   pr "    for (i = 0; r[i] != NULL; ++i)\n";
-	   pr "      free (r[i]);\n";
-	   pr "    free (r);\n"
+           pr "    for (i = 0; r[i] != NULL; ++i)\n";
+           pr "      free (r[i]);\n";
+           pr "    free (r);\n"
        | RStruct (_, typ) ->
-	   pr "    guestfs_free_%s (r);\n" typ
+           pr "    guestfs_free_%s (r);\n" typ
        | RStructList (_, typ) ->
-	   pr "    guestfs_free_%s_list (r);\n" typ
+           pr "    guestfs_free_%s_list (r);\n" typ
       );
 
       pr "  }\n"
@@ -5730,7 +5730,7 @@ and generate_fish_cmds () =
     fun (name, _, _, flags, _, shortdesc, _) ->
       let name = replace_char name '_' '-' in
       pr "  printf (\"%%-20s %%s\\n\", \"%s\", _(\"%s\"));\n"
-	name shortdesc
+        name shortdesc
   ) all_functions_sorted;
   pr "  printf (\"    %%s\\n\",";
   pr "          _(\"Use -h <cmd> / help <cmd> to show detailed help for a command.\"));\n";
@@ -5744,52 +5744,52 @@ and generate_fish_cmds () =
     fun (name, style, _, flags, _, shortdesc, longdesc) ->
       let name2 = replace_char name '_' '-' in
       let alias =
-	try find_map (function FishAlias n -> Some n | _ -> None) flags
-	with Not_found -> name in
+        try find_map (function FishAlias n -> Some n | _ -> None) flags
+        with Not_found -> name in
       let longdesc = replace_str longdesc "C<guestfs_" "C<" in
       let synopsis =
-	match snd style with
-	| [] -> name2
-	| args ->
-	    sprintf "%s <%s>"
-	      name2 (String.concat "> <" (List.map name_of_argt args)) in
+        match snd style with
+        | [] -> name2
+        | args ->
+            sprintf "%s <%s>"
+              name2 (String.concat "> <" (List.map name_of_argt args)) in
 
       let warnings =
-	if List.mem ProtocolLimitWarning flags then
-	  ("\n\n" ^ protocol_limit_warning)
-	else "" in
+        if List.mem ProtocolLimitWarning flags then
+          ("\n\n" ^ protocol_limit_warning)
+        else "" in
 
       (* For DangerWillRobinson commands, we should probably have
        * guestfish prompt before allowing you to use them (especially
        * in interactive mode). XXX
        *)
       let warnings =
-	warnings ^
-	  if List.mem DangerWillRobinson flags then
-	    ("\n\n" ^ danger_will_robinson)
-	  else "" in
+        warnings ^
+          if List.mem DangerWillRobinson flags then
+            ("\n\n" ^ danger_will_robinson)
+          else "" in
 
       let warnings =
-	warnings ^
-	  match deprecation_notice flags with
-	  | None -> ""
-	  | Some txt -> "\n\n" ^ txt in
+        warnings ^
+          match deprecation_notice flags with
+          | None -> ""
+          | Some txt -> "\n\n" ^ txt in
 
       let describe_alias =
-	if name <> alias then
-	  sprintf "\n\nYou can use '%s' as an alias for this command." alias
-	else "" in
+        if name <> alias then
+          sprintf "\n\nYou can use '%s' as an alias for this command." alias
+        else "" in
 
       pr "  if (";
       pr "strcasecmp (cmd, \"%s\") == 0" name;
       if name <> name2 then
-	pr " || strcasecmp (cmd, \"%s\") == 0" name2;
+        pr " || strcasecmp (cmd, \"%s\") == 0" name2;
       if name <> alias then
-	pr " || strcasecmp (cmd, \"%s\") == 0" alias;
+        pr " || strcasecmp (cmd, \"%s\") == 0" alias;
       pr ")\n";
       pr "    pod2text (\"%s\", _(\"%s\"), %S);\n"
-	name2 shortdesc
-	(" " ^ synopsis ^ "\n\n" ^ longdesc ^ warnings ^ describe_alias);
+        name2 shortdesc
+        (" " ^ synopsis ^ "\n\n" ^ longdesc ^ warnings ^ describe_alias);
       pr "  else\n"
   ) all_functions;
   pr "    display_builtin_command (cmd);\n";
@@ -5809,41 +5809,41 @@ and generate_fish_cmds () =
         pr "\n"
       );
       List.iter (
-	function
-	| name, FString ->
-	    pr "  printf (\"%%s%s: %%s\\n\", indent, %s->%s);\n" name typ name
-	| name, FUUID ->
-	    pr "  printf (\"%s: \");\n" name;
-	    pr "  for (i = 0; i < 32; ++i)\n";
-	    pr "    printf (\"%%s%%c\", indent, %s->%s[i]);\n" typ name;
-	    pr "  printf (\"\\n\");\n"
-	| name, FBuffer ->
-	    pr "  printf (\"%%s%s: \", indent);\n" name;
-	    pr "  for (i = 0; i < %s->%s_len; ++i)\n" typ name;
-	    pr "    if (isprint (%s->%s[i]))\n" typ name;
-	    pr "      printf (\"%%s%%c\", indent, %s->%s[i]);\n" typ name;
-	    pr "    else\n";
-	    pr "      printf (\"%%s\\\\x%%02x\", indent, %s->%s[i]);\n" typ name;
-	    pr "  printf (\"\\n\");\n"
-	| name, (FUInt64|FBytes) ->
-	    pr "  printf (\"%%s%s: %%\" PRIu64 \"\\n\", indent, %s->%s);\n"
-	      name typ name
-	| name, FInt64 ->
-	    pr "  printf (\"%%s%s: %%\" PRIi64 \"\\n\", indent, %s->%s);\n"
-	      name typ name
-	| name, FUInt32 ->
-	    pr "  printf (\"%%s%s: %%\" PRIu32 \"\\n\", indent, %s->%s);\n"
-	      name typ name
-	| name, FInt32 ->
-	    pr "  printf (\"%%s%s: %%\" PRIi32 \"\\n\", indent, %s->%s);\n"
-	      name typ name
-	| name, FChar ->
-	    pr "  printf (\"%%s%s: %%c\\n\", indent, %s->%s);\n"
-	      name typ name
-	| name, FOptPercent ->
-	    pr "  if (%s->%s >= 0) printf (\"%%s%s: %%g %%%%\\n\", indent, %s->%s);\n"
-	      typ name name typ name;
-	    pr "  else printf (\"%%s%s: \\n\", indent);\n" name
+        function
+        | name, FString ->
+            pr "  printf (\"%%s%s: %%s\\n\", indent, %s->%s);\n" name typ name
+        | name, FUUID ->
+            pr "  printf (\"%s: \");\n" name;
+            pr "  for (i = 0; i < 32; ++i)\n";
+            pr "    printf (\"%%s%%c\", indent, %s->%s[i]);\n" typ name;
+            pr "  printf (\"\\n\");\n"
+        | name, FBuffer ->
+            pr "  printf (\"%%s%s: \", indent);\n" name;
+            pr "  for (i = 0; i < %s->%s_len; ++i)\n" typ name;
+            pr "    if (isprint (%s->%s[i]))\n" typ name;
+            pr "      printf (\"%%s%%c\", indent, %s->%s[i]);\n" typ name;
+            pr "    else\n";
+            pr "      printf (\"%%s\\\\x%%02x\", indent, %s->%s[i]);\n" typ name;
+            pr "  printf (\"\\n\");\n"
+        | name, (FUInt64|FBytes) ->
+            pr "  printf (\"%%s%s: %%\" PRIu64 \"\\n\", indent, %s->%s);\n"
+              name typ name
+        | name, FInt64 ->
+            pr "  printf (\"%%s%s: %%\" PRIi64 \"\\n\", indent, %s->%s);\n"
+              name typ name
+        | name, FUInt32 ->
+            pr "  printf (\"%%s%s: %%\" PRIu32 \"\\n\", indent, %s->%s);\n"
+              name typ name
+        | name, FInt32 ->
+            pr "  printf (\"%%s%s: %%\" PRIi32 \"\\n\", indent, %s->%s);\n"
+              name typ name
+        | name, FChar ->
+            pr "  printf (\"%%s%s: %%c\\n\", indent, %s->%s);\n"
+              name typ name
+        | name, FOptPercent ->
+            pr "  if (%s->%s >= 0) printf (\"%%s%s: %%g %%%%\\n\", indent, %s->%s);\n"
+              typ name name typ name;
+            pr "  else printf (\"%%s%s: \\n\", indent);\n" name
       ) cols;
       pr "}\n";
       pr "\n";
@@ -5853,7 +5853,7 @@ and generate_fish_cmds () =
       pr "}\n";
       pr "\n";
       pr "static void print_%s_list (struct guestfs_%s_list *%ss)\n"
-	typ typ typ;
+        typ typ typ;
       pr "{\n";
       pr "  int i;\n";
       pr "\n";
@@ -5882,53 +5882,53 @@ and generate_fish_cmds () =
        | RStruct (_, typ) -> pr "  struct guestfs_%s *r;\n" typ
        | RStructList (_, typ) -> pr "  struct guestfs_%s_list *r;\n" typ
        | RBufferOut _ ->
-	   pr "  char *r;\n";
-	   pr "  size_t size;\n";
+           pr "  char *r;\n";
+           pr "  size_t size;\n";
       );
       List.iter (
-	function
-	| String n
-	| OptString n
-	| FileIn n
-	| FileOut n -> pr "  const char *%s;\n" n
-	| StringList n -> pr "  char **%s;\n" n
-	| Bool n -> pr "  int %s;\n" n
-	| Int n -> pr "  int %s;\n" n
+        function
+        | String n
+        | OptString n
+        | FileIn n
+        | FileOut n -> pr "  const char *%s;\n" n
+        | StringList n -> pr "  char **%s;\n" n
+        | Bool n -> pr "  int %s;\n" n
+        | Int n -> pr "  int %s;\n" n
       ) (snd style);
 
       (* Check and convert parameters. *)
       let argc_expected = List.length (snd style) in
       pr "  if (argc != %d) {\n" argc_expected;
       pr "    fprintf (stderr, _(\"%%s should have %%d parameter(s)\\n\"), cmd, %d);\n"
-	argc_expected;
+        argc_expected;
       pr "    fprintf (stderr, _(\"type 'help %%s' for help on %%s\\n\"), cmd, cmd);\n";
       pr "    return -1;\n";
       pr "  }\n";
       iteri (
-	fun i ->
-	  function
-	  | String name -> pr "  %s = argv[%d];\n" name i
-	  | OptString name ->
-	      pr "  %s = strcmp (argv[%d], \"\") != 0 ? argv[%d] : NULL;\n"
-		name i i
-	  | FileIn name ->
-	      pr "  %s = strcmp (argv[%d], \"-\") != 0 ? argv[%d] : \"/dev/stdin\";\n"
-		name i i
-	  | FileOut name ->
-	      pr "  %s = strcmp (argv[%d], \"-\") != 0 ? argv[%d] : \"/dev/stdout\";\n"
-		name i i
-	  | StringList name ->
-	      pr "  %s = parse_string_list (argv[%d]);\n" name i
-	  | Bool name ->
-	      pr "  %s = is_true (argv[%d]) ? 1 : 0;\n" name i
-	  | Int name ->
-	      pr "  %s = atoi (argv[%d]);\n" name i
+        fun i ->
+          function
+          | String name -> pr "  %s = argv[%d];\n" name i
+          | OptString name ->
+              pr "  %s = strcmp (argv[%d], \"\") != 0 ? argv[%d] : NULL;\n"
+                name i i
+          | FileIn name ->
+              pr "  %s = strcmp (argv[%d], \"-\") != 0 ? argv[%d] : \"/dev/stdin\";\n"
+                name i i
+          | FileOut name ->
+              pr "  %s = strcmp (argv[%d], \"-\") != 0 ? argv[%d] : \"/dev/stdout\";\n"
+                name i i
+          | StringList name ->
+              pr "  %s = parse_string_list (argv[%d]);\n" name i
+          | Bool name ->
+              pr "  %s = is_true (argv[%d]) ? 1 : 0;\n" name i
+          | Int name ->
+              pr "  %s = atoi (argv[%d]);\n" name i
       ) (snd style);
 
       (* Call C API function. *)
       let fn =
-	try find_map (function FishAction n -> Some n | _ -> None) flags
-	with Not_found -> sprintf "guestfs_%s" name in
+        try find_map (function FishAction n -> Some n | _ -> None) flags
+        with Not_found -> sprintf "guestfs_%s" name in
       pr "  r = %s " fn;
       generate_c_call_args ~handle:"g" style;
       pr ";\n";
@@ -5937,54 +5937,54 @@ and generate_fish_cmds () =
       (match fst style with
        | RErr -> pr "  return r;\n"
        | RInt _ ->
-	   pr "  if (r == -1) return -1;\n";
-	   pr "  printf (\"%%d\\n\", r);\n";
-	   pr "  return 0;\n"
+           pr "  if (r == -1) return -1;\n";
+           pr "  printf (\"%%d\\n\", r);\n";
+           pr "  return 0;\n"
        | RInt64 _ ->
-	   pr "  if (r == -1) return -1;\n";
-	   pr "  printf (\"%%\" PRIi64 \"\\n\", r);\n";
-	   pr "  return 0;\n"
+           pr "  if (r == -1) return -1;\n";
+           pr "  printf (\"%%\" PRIi64 \"\\n\", r);\n";
+           pr "  return 0;\n"
        | RBool _ ->
-	   pr "  if (r == -1) return -1;\n";
-	   pr "  if (r) printf (\"true\\n\"); else printf (\"false\\n\");\n";
-	   pr "  return 0;\n"
+           pr "  if (r == -1) return -1;\n";
+           pr "  if (r) printf (\"true\\n\"); else printf (\"false\\n\");\n";
+           pr "  return 0;\n"
        | RConstString _ ->
-	   pr "  if (r == NULL) return -1;\n";
-	   pr "  printf (\"%%s\\n\", r);\n";
-	   pr "  return 0;\n"
+           pr "  if (r == NULL) return -1;\n";
+           pr "  printf (\"%%s\\n\", r);\n";
+           pr "  return 0;\n"
        | RConstOptString _ ->
-	   pr "  printf (\"%%s\\n\", r ? : \"(null)\");\n";
-	   pr "  return 0;\n"
+           pr "  printf (\"%%s\\n\", r ? : \"(null)\");\n";
+           pr "  return 0;\n"
        | RString _ ->
-	   pr "  if (r == NULL) return -1;\n";
-	   pr "  printf (\"%%s\\n\", r);\n";
-	   pr "  free (r);\n";
-	   pr "  return 0;\n"
+           pr "  if (r == NULL) return -1;\n";
+           pr "  printf (\"%%s\\n\", r);\n";
+           pr "  free (r);\n";
+           pr "  return 0;\n"
        | RStringList _ ->
-	   pr "  if (r == NULL) return -1;\n";
-	   pr "  print_strings (r);\n";
-	   pr "  free_strings (r);\n";
-	   pr "  return 0;\n"
+           pr "  if (r == NULL) return -1;\n";
+           pr "  print_strings (r);\n";
+           pr "  free_strings (r);\n";
+           pr "  return 0;\n"
        | RStruct (_, typ) ->
-	   pr "  if (r == NULL) return -1;\n";
-	   pr "  print_%s (r);\n" typ;
-	   pr "  guestfs_free_%s (r);\n" typ;
-	   pr "  return 0;\n"
+           pr "  if (r == NULL) return -1;\n";
+           pr "  print_%s (r);\n" typ;
+           pr "  guestfs_free_%s (r);\n" typ;
+           pr "  return 0;\n"
        | RStructList (_, typ) ->
-	   pr "  if (r == NULL) return -1;\n";
-	   pr "  print_%s_list (r);\n" typ;
-	   pr "  guestfs_free_%s_list (r);\n" typ;
-	   pr "  return 0;\n"
+           pr "  if (r == NULL) return -1;\n";
+           pr "  print_%s_list (r);\n" typ;
+           pr "  guestfs_free_%s_list (r);\n" typ;
+           pr "  return 0;\n"
        | RHashtable _ ->
-	   pr "  if (r == NULL) return -1;\n";
-	   pr "  print_table (r);\n";
-	   pr "  free_strings (r);\n";
-	   pr "  return 0;\n"
+           pr "  if (r == NULL) return -1;\n";
+           pr "  print_table (r);\n";
+           pr "  free_strings (r);\n";
+           pr "  return 0;\n"
        | RBufferOut _ ->
-	   pr "  if (r == NULL) return -1;\n";
-	   pr "  fwrite (r, size, 1, stdout);\n";
-	   pr "  free (r);\n";
-	   pr "  return 0;\n"
+           pr "  if (r == NULL) return -1;\n";
+           pr "  fwrite (r, size, 1, stdout);\n";
+           pr "  free (r);\n";
+           pr "  return 0;\n"
       );
       pr "}\n";
       pr "\n"
@@ -5997,14 +5997,14 @@ and generate_fish_cmds () =
     fun (name, _, _, flags, _, _, _) ->
       let name2 = replace_char name '_' '-' in
       let alias =
-	try find_map (function FishAlias n -> Some n | _ -> None) flags
-	with Not_found -> name in
+        try find_map (function FishAlias n -> Some n | _ -> None) flags
+        with Not_found -> name in
       pr "  if (";
       pr "strcasecmp (cmd, \"%s\") == 0" name;
       if name <> name2 then
-	pr " || strcasecmp (cmd, \"%s\") == 0" name2;
+        pr " || strcasecmp (cmd, \"%s\") == 0" name2;
       if name <> alias then
-	pr " || strcasecmp (cmd, \"%s\") == 0" alias;
+        pr " || strcasecmp (cmd, \"%s\") == 0" alias;
       pr ")\n";
       pr "    return run_%s (cmd, argc, argv);\n" name;
       pr "  else\n";
@@ -6051,12 +6051,12 @@ static const char *const commands[] = {
   let commands =
     List.map (
       fun (name, _, _, flags, _, _, _) ->
-	let name2 = replace_char name '_' '-' in
-	let alias =
-	  try find_map (function FishAlias n -> Some n | _ -> None) flags
-	  with Not_found -> name in
+        let name2 = replace_char name '_' '-' in
+        let alias =
+          try find_map (function FishAlias n -> Some n | _ -> None) flags
+          with Not_found -> name in
 
-	if name <> alias then [name2; alias] else [name2]
+        if name <> alias then [name2; alias] else [name2]
     ) all_functions in
   let commands = List.flatten commands in
 
@@ -6111,7 +6111,7 @@ and generate_fish_actions_pod () =
   let all_functions_sorted =
     List.filter (
       fun (_, _, _, flags, _, _, _) ->
-	not (List.mem NotInFish flags || List.mem NotInDocs flags)
+        not (List.mem NotInFish flags || List.mem NotInDocs flags)
     ) all_functions_sorted in
 
   let rex = Str.regexp "C<guestfs_\\([^>]+\\)>" in
@@ -6119,47 +6119,47 @@ and generate_fish_actions_pod () =
   List.iter (
     fun (name, style, _, flags, _, _, longdesc) ->
       let longdesc =
-	Str.global_substitute rex (
-	  fun s ->
-	    let sub =
-	      try Str.matched_group 1 s
-	      with Not_found ->
-		failwithf "error substituting C<guestfs_...> in longdesc of function %s" name in
-	    "C<" ^ replace_char sub '_' '-' ^ ">"
-	) longdesc in
+        Str.global_substitute rex (
+          fun s ->
+            let sub =
+              try Str.matched_group 1 s
+              with Not_found ->
+                failwithf "error substituting C<guestfs_...> in longdesc of function %s" name in
+            "C<" ^ replace_char sub '_' '-' ^ ">"
+        ) longdesc in
       let name = replace_char name '_' '-' in
       let alias =
-	try find_map (function FishAlias n -> Some n | _ -> None) flags
-	with Not_found -> name in
+        try find_map (function FishAlias n -> Some n | _ -> None) flags
+        with Not_found -> name in
 
       pr "=head2 %s" name;
       if name <> alias then
-	pr " | %s" alias;
+        pr " | %s" alias;
       pr "\n";
       pr "\n";
       pr " %s" name;
       List.iter (
-	function
-	| String n -> pr " %s" n
-	| OptString n -> pr " %s" n
-	| StringList n -> pr " '%s ...'" n
-	| Bool _ -> pr " true|false"
-	| Int n -> pr " %s" n
-	| FileIn n | FileOut n -> pr " (%s|-)" n
+        function
+        | String n -> pr " %s" n
+        | OptString n -> pr " %s" n
+        | StringList n -> pr " '%s ...'" n
+        | Bool _ -> pr " true|false"
+        | Int n -> pr " %s" n
+        | FileIn n | FileOut n -> pr " (%s|-)" n
       ) (snd style);
       pr "\n";
       pr "\n";
       pr "%s\n\n" longdesc;
 
       if List.exists (function FileIn _ | FileOut _ -> true
-		      | _ -> false) (snd style) then
-	pr "Use C<-> instead of a filename to read/write from stdin/stdout.\n\n";
+                      | _ -> false) (snd style) then
+        pr "Use C<-> instead of a filename to read/write from stdin/stdout.\n\n";
 
       if List.mem ProtocolLimitWarning flags then
-	pr "%s\n\n" protocol_limit_warning;
+        pr "%s\n\n" protocol_limit_warning;
 
       if List.mem DangerWillRobinson flags then
-	pr "%s\n\n" danger_will_robinson;
+        pr "%s\n\n" danger_will_robinson;
 
       match deprecation_notice flags with
       | None -> ()
@@ -6200,7 +6200,7 @@ and generate_prototype ?(extern = true) ?(static = false) ?(semicolon = true)
     );
     let next () =
       if !comma then (
-	if single_line then pr ", " else pr ",\n\t\t"
+        if single_line then pr ", " else pr ",\n\t\t"
       );
       comma := true
     in
@@ -6208,18 +6208,18 @@ and generate_prototype ?(extern = true) ?(static = false) ?(semicolon = true)
       function
       | String n
       | OptString n ->
-	  next ();
-	  if not in_daemon then pr "const char *%s" n
-	  else pr "char *%s" n
+          next ();
+          if not in_daemon then pr "const char *%s" n
+          else pr "char *%s" n
       | StringList n ->
-	  next ();
-	  if not in_daemon then pr "char * const* const %s" n
-	  else pr "char **%s" n
+          next ();
+          if not in_daemon then pr "char * const* const %s" n
+          else pr "char **%s" n
       | Bool n -> next (); pr "int %s" n
       | Int n -> next (); pr "int %s" n
       | FileIn n
       | FileOut n ->
-	  if not in_daemon then (next (); pr "const char *%s" n)
+          if not in_daemon then (next (); pr "const char *%s" n)
     ) (snd style);
     if is_RBufferOut then (next (); pr "size_t *size_r");
   );
@@ -6248,8 +6248,8 @@ and generate_c_call_args ?handle ?(decl = false) style =
   if not decl then (
     match fst style with
     | RBufferOut _ ->
-	next ();
-	pr "&size"
+        next ();
+        pr "&size"
     | _ -> ()
   );
   pr ")"
@@ -6364,45 +6364,45 @@ copy_table (char * const * argv)
   List.iter (
     fun (typ, cols) ->
       let has_optpercent_col =
-	List.exists (function (_, FOptPercent) -> true | _ -> false) cols in
+        List.exists (function (_, FOptPercent) -> true | _ -> false) cols in
 
       pr "static CAMLprim value\n";
       pr "copy_%s (const struct guestfs_%s *%s)\n" typ typ typ;
       pr "{\n";
       pr "  CAMLparam0 ();\n";
       if has_optpercent_col then
-	pr "  CAMLlocal3 (rv, v, v2);\n"
+        pr "  CAMLlocal3 (rv, v, v2);\n"
       else
-	pr "  CAMLlocal2 (rv, v);\n";
+        pr "  CAMLlocal2 (rv, v);\n";
       pr "\n";
       pr "  rv = caml_alloc (%d, 0);\n" (List.length cols);
       iteri (
-	fun i col ->
-	  (match col with
-	   | name, FString ->
-	       pr "  v = caml_copy_string (%s->%s);\n" typ name
-	   | name, FBuffer ->
-	       pr "  v = caml_alloc_string (%s->%s_len);\n" typ name;
-	       pr "  memcpy (String_val (v), %s->%s, %s->%s_len);\n"
-		 typ name typ name
-	   | name, FUUID ->
-	       pr "  v = caml_alloc_string (32);\n";
-	       pr "  memcpy (String_val (v), %s->%s, 32);\n" typ name
-	   | name, (FBytes|FInt64|FUInt64) ->
-	       pr "  v = caml_copy_int64 (%s->%s);\n" typ name
-	   | name, (FInt32|FUInt32) ->
-	       pr "  v = caml_copy_int32 (%s->%s);\n" typ name
-	   | name, FOptPercent ->
-	       pr "  if (%s->%s >= 0) { /* Some %s */\n" typ name name;
-	       pr "    v2 = caml_copy_double (%s->%s);\n" typ name;
-	       pr "    v = caml_alloc (1, 0);\n";
-	       pr "    Store_field (v, 0, v2);\n";
-	       pr "  } else /* None */\n";
-	       pr "    v = Val_int (0);\n";
-	   | name, FChar ->
-	       pr "  v = Val_int (%s->%s);\n" typ name
-	  );
-	  pr "  Store_field (rv, %d, v);\n" i
+        fun i col ->
+          (match col with
+           | name, FString ->
+               pr "  v = caml_copy_string (%s->%s);\n" typ name
+           | name, FBuffer ->
+               pr "  v = caml_alloc_string (%s->%s_len);\n" typ name;
+               pr "  memcpy (String_val (v), %s->%s, %s->%s_len);\n"
+                 typ name typ name
+           | name, FUUID ->
+               pr "  v = caml_alloc_string (32);\n";
+               pr "  memcpy (String_val (v), %s->%s, 32);\n" typ name
+           | name, (FBytes|FInt64|FUInt64) ->
+               pr "  v = caml_copy_int64 (%s->%s);\n" typ name
+           | name, (FInt32|FUInt32) ->
+               pr "  v = caml_copy_int32 (%s->%s);\n" typ name
+           | name, FOptPercent ->
+               pr "  if (%s->%s >= 0) { /* Some %s */\n" typ name name;
+               pr "    v2 = caml_copy_double (%s->%s);\n" typ name;
+               pr "    v = caml_alloc (1, 0);\n";
+               pr "    Store_field (v, 0, v2);\n";
+               pr "  } else /* None */\n";
+               pr "    v = Val_int (0);\n";
+           | name, FChar ->
+               pr "  v = Val_int (%s->%s);\n" typ name
+          );
+          pr "  Store_field (rv, %d, v);\n" i
       ) cols;
       pr "  CAMLreturn (rv);\n";
       pr "}\n";
@@ -6410,7 +6410,7 @@ copy_table (char * const * argv)
 
       pr "static CAMLprim value\n";
       pr "copy_%s_list (const struct guestfs_%s_list *%ss)\n"
-	typ typ typ;
+        typ typ typ;
       pr "{\n";
       pr "  CAMLparam0 ();\n";
       pr "  CAMLlocal2 (rv, v);\n";
@@ -6434,10 +6434,10 @@ copy_table (char * const * argv)
   List.iter (
     fun (name, style, _, _, _, _, _) ->
       let params =
-	"gv" :: List.map (fun arg -> name_of_argt arg ^ "v") (snd style) in
+        "gv" :: List.map (fun arg -> name_of_argt arg ^ "v") (snd style) in
 
       let needs_extra_vs =
-	match fst style with RConstOptString _ -> true | _ -> false in
+        match fst style with RConstOptString _ -> true | _ -> false in
 
       pr "CAMLprim value\n";
       pr "ocaml_guestfs_%s (value %s" name (List.hd params);
@@ -6447,18 +6447,18 @@ copy_table (char * const * argv)
 
       (match params with
        | [p1; p2; p3; p4; p5] ->
-	   pr "  CAMLparam5 (%s);\n" (String.concat ", " params)
+           pr "  CAMLparam5 (%s);\n" (String.concat ", " params)
        | p1 :: p2 :: p3 :: p4 :: p5 :: rest ->
-	   pr "  CAMLparam5 (%s);\n" (String.concat ", " [p1; p2; p3; p4; p5]);
-	   pr "  CAMLxparam%d (%s);\n"
-	     (List.length rest) (String.concat ", " rest)
+           pr "  CAMLparam5 (%s);\n" (String.concat ", " [p1; p2; p3; p4; p5]);
+           pr "  CAMLxparam%d (%s);\n"
+             (List.length rest) (String.concat ", " rest)
        | ps ->
-	   pr "  CAMLparam%d (%s);\n" (List.length ps) (String.concat ", " ps)
+           pr "  CAMLparam%d (%s);\n" (List.length ps) (String.concat ", " ps)
       );
       if not needs_extra_vs then
-	pr "  CAMLlocal1 (rv);\n"
+        pr "  CAMLlocal1 (rv);\n"
       else
-	pr "  CAMLlocal3 (rv, v, v2);\n";
+        pr "  CAMLlocal3 (rv, v, v2);\n";
       pr "\n";
 
       pr "  guestfs_h *g = Guestfs_val (gv);\n";
@@ -6467,47 +6467,47 @@ copy_table (char * const * argv)
       pr "\n";
 
       List.iter (
-	function
-	| String n
-	| FileIn n
-	| FileOut n ->
-	    pr "  const char *%s = String_val (%sv);\n" n n
-	| OptString n ->
-	    pr "  const char *%s =\n" n;
-	    pr "    %sv != Val_int (0) ? String_val (Field (%sv, 0)) : NULL;\n"
-	      n n
-	| StringList n ->
-	    pr "  char **%s = ocaml_guestfs_strings_val (g, %sv);\n" n n
-	| Bool n ->
-	    pr "  int %s = Bool_val (%sv);\n" n n
-	| Int n ->
-	    pr "  int %s = Int_val (%sv);\n" n n
+        function
+        | String n
+        | FileIn n
+        | FileOut n ->
+            pr "  const char *%s = String_val (%sv);\n" n n
+        | OptString n ->
+            pr "  const char *%s =\n" n;
+            pr "    %sv != Val_int (0) ? String_val (Field (%sv, 0)) : NULL;\n"
+              n n
+        | StringList n ->
+            pr "  char **%s = ocaml_guestfs_strings_val (g, %sv);\n" n n
+        | Bool n ->
+            pr "  int %s = Bool_val (%sv);\n" n n
+        | Int n ->
+            pr "  int %s = Int_val (%sv);\n" n n
       ) (snd style);
       let error_code =
-	match fst style with
-	| RErr -> pr "  int r;\n"; "-1"
-	| RInt _ -> pr "  int r;\n"; "-1"
-	| RInt64 _ -> pr "  int64_t r;\n"; "-1"
-	| RBool _ -> pr "  int r;\n"; "-1"
-	| RConstString _ | RConstOptString _ ->
-	    pr "  const char *r;\n"; "NULL"
-	| RString _ -> pr "  char *r;\n"; "NULL"
-	| RStringList _ ->
-	    pr "  int i;\n";
-	    pr "  char **r;\n";
-	    "NULL"
-	| RStruct (_, typ) ->
-	    pr "  struct guestfs_%s *r;\n" typ; "NULL"
-	| RStructList (_, typ) ->
-	    pr "  struct guestfs_%s_list *r;\n" typ; "NULL"
-	| RHashtable _ ->
-	    pr "  int i;\n";
-	    pr "  char **r;\n";
-	    "NULL"
-	| RBufferOut _ ->
-	    pr "  char *r;\n";
-	    pr "  size_t size;\n";
-	    "NULL" in
+        match fst style with
+        | RErr -> pr "  int r;\n"; "-1"
+        | RInt _ -> pr "  int r;\n"; "-1"
+        | RInt64 _ -> pr "  int64_t r;\n"; "-1"
+        | RBool _ -> pr "  int r;\n"; "-1"
+        | RConstString _ | RConstOptString _ ->
+            pr "  const char *r;\n"; "NULL"
+        | RString _ -> pr "  char *r;\n"; "NULL"
+        | RStringList _ ->
+            pr "  int i;\n";
+            pr "  char **r;\n";
+            "NULL"
+        | RStruct (_, typ) ->
+            pr "  struct guestfs_%s *r;\n" typ; "NULL"
+        | RStructList (_, typ) ->
+            pr "  struct guestfs_%s_list *r;\n" typ; "NULL"
+        | RHashtable _ ->
+            pr "  int i;\n";
+            pr "  char **r;\n";
+            "NULL"
+        | RBufferOut _ ->
+            pr "  char *r;\n";
+            pr "  size_t size;\n";
+            "NULL" in
       pr "\n";
 
       pr "  caml_enter_blocking_section ();\n";
@@ -6517,10 +6517,10 @@ copy_table (char * const * argv)
       pr "  caml_leave_blocking_section ();\n";
 
       List.iter (
-	function
-	| StringList n ->
-	    pr "  ocaml_guestfs_free_strings (%s);\n" n;
-	| String _ | OptString _ | Bool _ | Int _ | FileIn _ | FileOut _ -> ()
+        function
+        | StringList n ->
+            pr "  ocaml_guestfs_free_strings (%s);\n" n;
+        | String _ | OptString _ | Bool _ | Int _ | FileIn _ | FileOut _ -> ()
       ) (snd style);
 
       pr "  if (r == %s)\n" error_code;
@@ -6531,37 +6531,37 @@ copy_table (char * const * argv)
        | RErr -> pr "  rv = Val_unit;\n"
        | RInt _ -> pr "  rv = Val_int (r);\n"
        | RInt64 _ ->
-	   pr "  rv = caml_copy_int64 (r);\n"
+           pr "  rv = caml_copy_int64 (r);\n"
        | RBool _ -> pr "  rv = Val_bool (r);\n"
        | RConstString _ ->
-	   pr "  rv = caml_copy_string (r);\n"
+           pr "  rv = caml_copy_string (r);\n"
        | RConstOptString _ ->
-	   pr "  if (r) { /* Some string */\n";
-	   pr "    v = caml_alloc (1, 0);\n";
-	   pr "    v2 = caml_copy_string (r);\n";
-	   pr "    Store_field (v, 0, v2);\n";
-	   pr "  } else /* None */\n";
-	   pr "    v = Val_int (0);\n";
+           pr "  if (r) { /* Some string */\n";
+           pr "    v = caml_alloc (1, 0);\n";
+           pr "    v2 = caml_copy_string (r);\n";
+           pr "    Store_field (v, 0, v2);\n";
+           pr "  } else /* None */\n";
+           pr "    v = Val_int (0);\n";
        | RString _ ->
-	   pr "  rv = caml_copy_string (r);\n";
-	   pr "  free (r);\n"
+           pr "  rv = caml_copy_string (r);\n";
+           pr "  free (r);\n"
        | RStringList _ ->
-	   pr "  rv = caml_copy_string_array ((const char **) r);\n";
-	   pr "  for (i = 0; r[i] != NULL; ++i) free (r[i]);\n";
-	   pr "  free (r);\n"
+           pr "  rv = caml_copy_string_array ((const char **) r);\n";
+           pr "  for (i = 0; r[i] != NULL; ++i) free (r[i]);\n";
+           pr "  free (r);\n"
        | RStruct (_, typ) ->
-	   pr "  rv = copy_%s (r);\n" typ;
-	   pr "  guestfs_free_%s (r);\n" typ;
+           pr "  rv = copy_%s (r);\n" typ;
+           pr "  guestfs_free_%s (r);\n" typ;
        | RStructList (_, typ) ->
-	   pr "  rv = copy_%s_list (r);\n" typ;
-	   pr "  guestfs_free_%s_list (r);\n" typ;
+           pr "  rv = copy_%s_list (r);\n" typ;
+           pr "  guestfs_free_%s_list (r);\n" typ;
        | RHashtable _ ->
-	   pr "  rv = copy_table (r);\n";
-	   pr "  for (i = 0; r[i] != NULL; ++i) free (r[i]);\n";
-	   pr "  free (r);\n";
+           pr "  rv = copy_table (r);\n";
+           pr "  for (i = 0; r[i] != NULL; ++i) free (r[i]);\n";
+           pr "  free (r);\n";
        | RBufferOut _ ->
-	   pr "  rv = caml_alloc_string (size);\n";
-	   pr "  memcpy (String_val (rv), r, size);\n";
+           pr "  rv = caml_alloc_string (size);\n";
+           pr "  memcpy (String_val (rv), r, size);\n";
       );
 
       pr "  CAMLreturn (rv);\n";
@@ -6569,14 +6569,14 @@ copy_table (char * const * argv)
       pr "\n";
 
       if List.length params > 5 then (
-	pr "CAMLprim value\n";
-	pr "ocaml_guestfs_%s_byte (value *argv, int argn)\n" name;
-	pr "{\n";
-	pr "  return ocaml_guestfs_%s (argv[0]" name;
-	iteri (fun i _ -> pr ", argv[%d]" i) (List.tl params);
-	pr ");\n";
-	pr "}\n";
-	pr "\n"
+        pr "CAMLprim value\n";
+        pr "ocaml_guestfs_%s_byte (value *argv, int argn)\n" name;
+        pr "{\n";
+        pr "  return ocaml_guestfs_%s (argv[0]" name;
+        iteri (fun i _ -> pr ", argv[%d]" i) (List.tl params);
+        pr ");\n";
+        pr "}\n";
+        pr "\n"
       )
   ) all_functions
 
@@ -6585,14 +6585,14 @@ and generate_ocaml_structure_decls () =
     fun (typ, cols) ->
       pr "type %s = {\n" typ;
       List.iter (
-	function
-	| name, FString -> pr "  %s : string;\n" name
-	| name, FBuffer -> pr "  %s : string;\n" name
-	| name, FUUID -> pr "  %s : string;\n" name
-	| name, (FBytes|FInt64|FUInt64) -> pr "  %s : int64;\n" name
-	| name, (FInt32|FUInt32) -> pr "  %s : int32;\n" name
-	| name, FChar -> pr "  %s : char;\n" name
-	| name, FOptPercent -> pr "  %s : float option;\n" name
+        function
+        | name, FString -> pr "  %s : string;\n" name
+        | name, FBuffer -> pr "  %s : string;\n" name
+        | name, FUUID -> pr "  %s : string;\n" name
+        | name, (FBytes|FInt64|FUInt64) -> pr "  %s : int64;\n" name
+        | name, (FInt32|FUInt32) -> pr "  %s : int32;\n" name
+        | name, FChar -> pr "  %s : char;\n" name
+        | name, FOptPercent -> pr "  %s : float option;\n" name
       ) cols;
       pr "}\n";
       pr "\n"
@@ -6738,7 +6738,7 @@ DESTROY (g)
        | RStringList _
        | RStruct _ | RStructList _
        | RHashtable _ ->
-	   pr "void\n" (* all lists returned implictly on the stack *)
+           pr "void\n" (* all lists returned implictly on the stack *)
       );
       (* Call and arguments. *)
       pr "%s " name;
@@ -6746,148 +6746,148 @@ DESTROY (g)
       pr "\n";
       pr "      guestfs_h *g;\n";
       iteri (
-	fun i ->
-	  function
-	  | String n | FileIn n | FileOut n -> pr "      char *%s;\n" n
-	  | OptString n ->
-	      (* http://www.perlmonks.org/?node_id=554277
-	       * Note that the implicit handle argument means we have
-	       * to add 1 to the ST(x) operator.
-	       *)
-	      pr "      char *%s = SvOK(ST(%d)) ? SvPV_nolen(ST(%d)) : NULL;\n" n (i+1) (i+1)
-	  | StringList n -> pr "      char **%s;\n" n
-	  | Bool n -> pr "      int %s;\n" n
-	  | Int n -> pr "      int %s;\n" n
+        fun i ->
+          function
+          | String n | FileIn n | FileOut n -> pr "      char *%s;\n" n
+          | OptString n ->
+              (* http://www.perlmonks.org/?node_id=554277
+               * Note that the implicit handle argument means we have
+               * to add 1 to the ST(x) operator.
+               *)
+              pr "      char *%s = SvOK(ST(%d)) ? SvPV_nolen(ST(%d)) : NULL;\n" n (i+1) (i+1)
+          | StringList n -> pr "      char **%s;\n" n
+          | Bool n -> pr "      int %s;\n" n
+          | Int n -> pr "      int %s;\n" n
       ) (snd style);
 
       let do_cleanups () =
-	List.iter (
-	  function
-	  | String _ | OptString _ | Bool _ | Int _
-	  | FileIn _ | FileOut _ -> ()
-	  | StringList n -> pr "      free (%s);\n" n
-	) (snd style)
+        List.iter (
+          function
+          | String _ | OptString _ | Bool _ | Int _
+          | FileIn _ | FileOut _ -> ()
+          | StringList n -> pr "      free (%s);\n" n
+        ) (snd style)
       in
 
       (* Code. *)
       (match fst style with
        | RErr ->
-	   pr "PREINIT:\n";
-	   pr "      int r;\n";
-	   pr " PPCODE:\n";
-	   pr "      r = guestfs_%s " name;
-	   generate_c_call_args ~handle:"g" style;
-	   pr ";\n";
-	   do_cleanups ();
-	   pr "      if (r == -1)\n";
-	   pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
+           pr "PREINIT:\n";
+           pr "      int r;\n";
+           pr " PPCODE:\n";
+           pr "      r = guestfs_%s " name;
+           generate_c_call_args ~handle:"g" style;
+           pr ";\n";
+           do_cleanups ();
+           pr "      if (r == -1)\n";
+           pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
        | RInt n
        | RBool n ->
-	   pr "PREINIT:\n";
-	   pr "      int %s;\n" n;
-	   pr "   CODE:\n";
-	   pr "      %s = guestfs_%s " n name;
-	   generate_c_call_args ~handle:"g" style;
-	   pr ";\n";
-	   do_cleanups ();
-	   pr "      if (%s == -1)\n" n;
-	   pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
-	   pr "      RETVAL = newSViv (%s);\n" n;
-	   pr " OUTPUT:\n";
-	   pr "      RETVAL\n"
+           pr "PREINIT:\n";
+           pr "      int %s;\n" n;
+           pr "   CODE:\n";
+           pr "      %s = guestfs_%s " n name;
+           generate_c_call_args ~handle:"g" style;
+           pr ";\n";
+           do_cleanups ();
+           pr "      if (%s == -1)\n" n;
+           pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
+           pr "      RETVAL = newSViv (%s);\n" n;
+           pr " OUTPUT:\n";
+           pr "      RETVAL\n"
        | RInt64 n ->
-	   pr "PREINIT:\n";
-	   pr "      int64_t %s;\n" n;
-	   pr "   CODE:\n";
-	   pr "      %s = guestfs_%s " n name;
-	   generate_c_call_args ~handle:"g" style;
-	   pr ";\n";
-	   do_cleanups ();
-	   pr "      if (%s == -1)\n" n;
-	   pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
-	   pr "      RETVAL = my_newSVll (%s);\n" n;
-	   pr " OUTPUT:\n";
-	   pr "      RETVAL\n"
+           pr "PREINIT:\n";
+           pr "      int64_t %s;\n" n;
+           pr "   CODE:\n";
+           pr "      %s = guestfs_%s " n name;
+           generate_c_call_args ~handle:"g" style;
+           pr ";\n";
+           do_cleanups ();
+           pr "      if (%s == -1)\n" n;
+           pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
+           pr "      RETVAL = my_newSVll (%s);\n" n;
+           pr " OUTPUT:\n";
+           pr "      RETVAL\n"
        | RConstString n ->
-	   pr "PREINIT:\n";
-	   pr "      const char *%s;\n" n;
-	   pr "   CODE:\n";
-	   pr "      %s = guestfs_%s " n name;
-	   generate_c_call_args ~handle:"g" style;
-	   pr ";\n";
-	   do_cleanups ();
-	   pr "      if (%s == NULL)\n" n;
-	   pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
-	   pr "      RETVAL = newSVpv (%s, 0);\n" n;
-	   pr " OUTPUT:\n";
-	   pr "      RETVAL\n"
+           pr "PREINIT:\n";
+           pr "      const char *%s;\n" n;
+           pr "   CODE:\n";
+           pr "      %s = guestfs_%s " n name;
+           generate_c_call_args ~handle:"g" style;
+           pr ";\n";
+           do_cleanups ();
+           pr "      if (%s == NULL)\n" n;
+           pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
+           pr "      RETVAL = newSVpv (%s, 0);\n" n;
+           pr " OUTPUT:\n";
+           pr "      RETVAL\n"
        | RConstOptString n ->
-	   pr "PREINIT:\n";
-	   pr "      const char *%s;\n" n;
-	   pr "   CODE:\n";
-	   pr "      %s = guestfs_%s " n name;
-	   generate_c_call_args ~handle:"g" style;
-	   pr ";\n";
-	   do_cleanups ();
-	   pr "      if (%s == NULL)\n" n;
-	   pr "        RETVAL = &PL_sv_undef;\n";
-	   pr "      else\n";
-	   pr "        RETVAL = newSVpv (%s, 0);\n" n;
-	   pr " OUTPUT:\n";
-	   pr "      RETVAL\n"
+           pr "PREINIT:\n";
+           pr "      const char *%s;\n" n;
+           pr "   CODE:\n";
+           pr "      %s = guestfs_%s " n name;
+           generate_c_call_args ~handle:"g" style;
+           pr ";\n";
+           do_cleanups ();
+           pr "      if (%s == NULL)\n" n;
+           pr "        RETVAL = &PL_sv_undef;\n";
+           pr "      else\n";
+           pr "        RETVAL = newSVpv (%s, 0);\n" n;
+           pr " OUTPUT:\n";
+           pr "      RETVAL\n"
        | RString n ->
-	   pr "PREINIT:\n";
-	   pr "      char *%s;\n" n;
-	   pr "   CODE:\n";
-	   pr "      %s = guestfs_%s " n name;
-	   generate_c_call_args ~handle:"g" style;
-	   pr ";\n";
-	   do_cleanups ();
-	   pr "      if (%s == NULL)\n" n;
-	   pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
-	   pr "      RETVAL = newSVpv (%s, 0);\n" n;
-	   pr "      free (%s);\n" n;
-	   pr " OUTPUT:\n";
-	   pr "      RETVAL\n"
+           pr "PREINIT:\n";
+           pr "      char *%s;\n" n;
+           pr "   CODE:\n";
+           pr "      %s = guestfs_%s " n name;
+           generate_c_call_args ~handle:"g" style;
+           pr ";\n";
+           do_cleanups ();
+           pr "      if (%s == NULL)\n" n;
+           pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
+           pr "      RETVAL = newSVpv (%s, 0);\n" n;
+           pr "      free (%s);\n" n;
+           pr " OUTPUT:\n";
+           pr "      RETVAL\n"
        | RStringList n | RHashtable n ->
-	   pr "PREINIT:\n";
-	   pr "      char **%s;\n" n;
-	   pr "      int i, n;\n";
-	   pr " PPCODE:\n";
-	   pr "      %s = guestfs_%s " n name;
-	   generate_c_call_args ~handle:"g" style;
-	   pr ";\n";
-	   do_cleanups ();
-	   pr "      if (%s == NULL)\n" n;
-	   pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
-	   pr "      for (n = 0; %s[n] != NULL; ++n) /**/;\n" n;
-	   pr "      EXTEND (SP, n);\n";
-	   pr "      for (i = 0; i < n; ++i) {\n";
-	   pr "        PUSHs (sv_2mortal (newSVpv (%s[i], 0)));\n" n;
-	   pr "        free (%s[i]);\n" n;
-	   pr "      }\n";
-	   pr "      free (%s);\n" n;
+           pr "PREINIT:\n";
+           pr "      char **%s;\n" n;
+           pr "      int i, n;\n";
+           pr " PPCODE:\n";
+           pr "      %s = guestfs_%s " n name;
+           generate_c_call_args ~handle:"g" style;
+           pr ";\n";
+           do_cleanups ();
+           pr "      if (%s == NULL)\n" n;
+           pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
+           pr "      for (n = 0; %s[n] != NULL; ++n) /**/;\n" n;
+           pr "      EXTEND (SP, n);\n";
+           pr "      for (i = 0; i < n; ++i) {\n";
+           pr "        PUSHs (sv_2mortal (newSVpv (%s[i], 0)));\n" n;
+           pr "        free (%s[i]);\n" n;
+           pr "      }\n";
+           pr "      free (%s);\n" n;
        | RStruct (n, typ) ->
-	   let cols = cols_of_struct typ in
-	   generate_perl_struct_code typ cols name style n do_cleanups
+           let cols = cols_of_struct typ in
+           generate_perl_struct_code typ cols name style n do_cleanups
        | RStructList (n, typ) ->
-	   let cols = cols_of_struct typ in
-	   generate_perl_struct_list_code typ cols name style n do_cleanups
+           let cols = cols_of_struct typ in
+           generate_perl_struct_list_code typ cols name style n do_cleanups
        | RBufferOut n ->
-	   pr "PREINIT:\n";
-	   pr "      char *%s;\n" n;
-	   pr "      size_t size;\n";
-	   pr "   CODE:\n";
-	   pr "      %s = guestfs_%s " n name;
-	   generate_c_call_args ~handle:"g" style;
-	   pr ";\n";
-	   do_cleanups ();
-	   pr "      if (%s == NULL)\n" n;
-	   pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
-	   pr "      RETVAL = newSVpv (%s, size);\n" n;
-	   pr "      free (%s);\n" n;
-	   pr " OUTPUT:\n";
-	   pr "      RETVAL\n"
+           pr "PREINIT:\n";
+           pr "      char *%s;\n" n;
+           pr "      size_t size;\n";
+           pr "   CODE:\n";
+           pr "      %s = guestfs_%s " n name;
+           generate_c_call_args ~handle:"g" style;
+           pr ";\n";
+           do_cleanups ();
+           pr "      if (%s == NULL)\n" n;
+           pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
+           pr "      RETVAL = newSVpv (%s, size);\n" n;
+           pr "      free (%s);\n" n;
+           pr " OUTPUT:\n";
+           pr "      RETVAL\n"
       );
 
       pr "\n"
@@ -6911,29 +6911,29 @@ and generate_perl_struct_list_code typ cols name style n do_cleanups =
   List.iter (
     function
     | name, FString ->
-	pr "        (void) hv_store (hv, \"%s\", %d, newSVpv (%s->val[i].%s, 0), 0);\n"
-	  name (String.length name) n name
+        pr "        (void) hv_store (hv, \"%s\", %d, newSVpv (%s->val[i].%s, 0), 0);\n"
+          name (String.length name) n name
     | name, FUUID ->
-	pr "        (void) hv_store (hv, \"%s\", %d, newSVpv (%s->val[i].%s, 32), 0);\n"
-	  name (String.length name) n name
+        pr "        (void) hv_store (hv, \"%s\", %d, newSVpv (%s->val[i].%s, 32), 0);\n"
+          name (String.length name) n name
     | name, FBuffer ->
-	pr "        (void) hv_store (hv, \"%s\", %d, newSVpv (%s->val[i].%s, %s->val[i].%s_len), 0);\n"
-	  name (String.length name) n name n name
+        pr "        (void) hv_store (hv, \"%s\", %d, newSVpv (%s->val[i].%s, %s->val[i].%s_len), 0);\n"
+          name (String.length name) n name n name
     | name, (FBytes|FUInt64) ->
-	pr "        (void) hv_store (hv, \"%s\", %d, my_newSVull (%s->val[i].%s), 0);\n"
-	  name (String.length name) n name
+        pr "        (void) hv_store (hv, \"%s\", %d, my_newSVull (%s->val[i].%s), 0);\n"
+          name (String.length name) n name
     | name, FInt64 ->
-	pr "        (void) hv_store (hv, \"%s\", %d, my_newSVll (%s->val[i].%s), 0);\n"
-	  name (String.length name) n name
+        pr "        (void) hv_store (hv, \"%s\", %d, my_newSVll (%s->val[i].%s), 0);\n"
+          name (String.length name) n name
     | name, (FInt32|FUInt32) ->
-	pr "        (void) hv_store (hv, \"%s\", %d, newSVnv (%s->val[i].%s), 0);\n"
-	  name (String.length name) n name
+        pr "        (void) hv_store (hv, \"%s\", %d, newSVnv (%s->val[i].%s), 0);\n"
+          name (String.length name) n name
     | name, FChar ->
-	pr "        (void) hv_store (hv, \"%s\", %d, newSVpv (&%s->val[i].%s, 1), 0);\n"
-	  name (String.length name) n name
+        pr "        (void) hv_store (hv, \"%s\", %d, newSVpv (&%s->val[i].%s, 1), 0);\n"
+          name (String.length name) n name
     | name, FOptPercent ->
-	pr "        (void) hv_store (hv, \"%s\", %d, newSVnv (%s->val[i].%s), 0);\n"
-	  name (String.length name) n name
+        pr "        (void) hv_store (hv, \"%s\", %d, newSVnv (%s->val[i].%s), 0);\n"
+          name (String.length name) n name
   ) cols;
   pr "        PUSHs (sv_2mortal (newRV ((SV *) hv)));\n";
   pr "      }\n";
@@ -6956,29 +6956,29 @@ and generate_perl_struct_code typ cols name style n do_cleanups =
 
       match col with
       | name, FString ->
-	  pr "      PUSHs (sv_2mortal (newSVpv (%s->%s, 0)));\n"
-	    n name
+          pr "      PUSHs (sv_2mortal (newSVpv (%s->%s, 0)));\n"
+            n name
       | name, FBuffer ->
-	  pr "      PUSHs (sv_2mortal (newSVpv (%s->%s, %s->%s_len)));\n"
-	    n name n name
+          pr "      PUSHs (sv_2mortal (newSVpv (%s->%s, %s->%s_len)));\n"
+            n name n name
       | name, FUUID ->
-	  pr "      PUSHs (sv_2mortal (newSVpv (%s->%s, 32)));\n"
-	    n name
+          pr "      PUSHs (sv_2mortal (newSVpv (%s->%s, 32)));\n"
+            n name
       | name, (FBytes|FUInt64) ->
-	  pr "      PUSHs (sv_2mortal (my_newSVull (%s->%s)));\n"
-	    n name
+          pr "      PUSHs (sv_2mortal (my_newSVull (%s->%s)));\n"
+            n name
       | name, FInt64 ->
-	  pr "      PUSHs (sv_2mortal (my_newSVll (%s->%s)));\n"
-	    n name
+          pr "      PUSHs (sv_2mortal (my_newSVll (%s->%s)));\n"
+            n name
       | name, (FInt32|FUInt32) ->
-	  pr "      PUSHs (sv_2mortal (newSVnv (%s->%s)));\n"
-	    n name
+          pr "      PUSHs (sv_2mortal (newSVnv (%s->%s)));\n"
+            n name
       | name, FChar ->
-	  pr "      PUSHs (sv_2mortal (newSVpv (&%s->%s, 1)));\n"
-	    n name
+          pr "      PUSHs (sv_2mortal (newSVpv (&%s->%s, 1)));\n"
+            n name
       | name, FOptPercent ->
-	  pr "      PUSHs (sv_2mortal (newSVnv (%s->%s)));\n"
-	    n name
+          pr "      PUSHs (sv_2mortal (newSVnv (%s->%s)));\n"
+            n name
   ) cols;
   pr "      free (%s);\n" n
 
@@ -7072,18 +7072,18 @@ sub new {
   List.iter (
     fun (name, style, _, flags, _, _, longdesc) ->
       if not (List.mem NotInDocs flags) then (
-	let longdesc = replace_str longdesc "C<guestfs_" "C<$h-E<gt>" in
-	pr "=item ";
-	generate_perl_prototype name style;
-	pr "\n\n";
-	pr "%s\n\n" longdesc;
-	if List.mem ProtocolLimitWarning flags then
-	  pr "%s\n\n" protocol_limit_warning;
-	if List.mem DangerWillRobinson flags then
-	  pr "%s\n\n" danger_will_robinson;
-	match deprecation_notice flags with
-	| None -> ()
-	| Some txt -> pr "%s\n\n" txt
+        let longdesc = replace_str longdesc "C<guestfs_" "C<$h-E<gt>" in
+        pr "=item ";
+        generate_perl_prototype name style;
+        pr "\n\n";
+        pr "%s\n\n" longdesc;
+        if List.mem ProtocolLimitWarning flags then
+          pr "%s\n\n" protocol_limit_warning;
+        if List.mem DangerWillRobinson flags then
+          pr "%s\n\n" danger_will_robinson;
+        match deprecation_notice flags with
+        | None -> ()
+        | Some txt -> pr "%s\n\n" txt
       )
   ) all_functions_sorted;
 
@@ -7136,9 +7136,9 @@ and generate_perl_prototype name style =
       comma := true;
       match arg with
       | String n | OptString n | Bool n | Int n | FileIn n | FileOut n ->
-	  pr "$%s" n
+          pr "$%s" n
       | StringList n ->
-	  pr "\\@%s" n
+          pr "\\@%s" n
   ) (snd style);
   pr ");"
 
@@ -7293,47 +7293,47 @@ py_guestfs_close (PyObject *self, PyObject *args)
       pr "\n";
       pr "  dict = PyDict_New ();\n";
       List.iter (
-	function
-	| name, FString ->
-	    pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
-	    pr "                        PyString_FromString (%s->%s));\n"
-	      typ name
-	| name, FBuffer ->
-	    pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
-	    pr "                        PyString_FromStringAndSize (%s->%s, %s->%s_len));\n"
-	      typ name typ name
-	| name, FUUID ->
-	    pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
-	    pr "                        PyString_FromStringAndSize (%s->%s, 32));\n"
-	      typ name
-	| name, (FBytes|FUInt64) ->
-	    pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
-	    pr "                        PyLong_FromUnsignedLongLong (%s->%s));\n"
-	      typ name
-	| name, FInt64 ->
-	    pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
-	    pr "                        PyLong_FromLongLong (%s->%s));\n"
-	      typ name
-	| name, FUInt32 ->
-	    pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
-	    pr "                        PyLong_FromUnsignedLong (%s->%s));\n"
-	      typ name
-	| name, FInt32 ->
-	    pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
-	    pr "                        PyLong_FromLong (%s->%s));\n"
-	      typ name
-	| name, FOptPercent ->
-	    pr "  if (%s->%s >= 0)\n" typ name;
-	    pr "    PyDict_SetItemString (dict, \"%s\",\n" name;
-	    pr "                          PyFloat_FromDouble ((double) %s->%s));\n"
-	      typ name;
-	    pr "  else {\n";
-	    pr "    Py_INCREF (Py_None);\n";
-	    pr "    PyDict_SetItemString (dict, \"%s\", Py_None);" name;
-	    pr "  }\n"
-	| name, FChar ->
-	    pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
-	    pr "                        PyString_FromStringAndSize (&dirent->%s, 1));\n" name
+        function
+        | name, FString ->
+            pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
+            pr "                        PyString_FromString (%s->%s));\n"
+              typ name
+        | name, FBuffer ->
+            pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
+            pr "                        PyString_FromStringAndSize (%s->%s, %s->%s_len));\n"
+              typ name typ name
+        | name, FUUID ->
+            pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
+            pr "                        PyString_FromStringAndSize (%s->%s, 32));\n"
+              typ name
+        | name, (FBytes|FUInt64) ->
+            pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
+            pr "                        PyLong_FromUnsignedLongLong (%s->%s));\n"
+              typ name
+        | name, FInt64 ->
+            pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
+            pr "                        PyLong_FromLongLong (%s->%s));\n"
+              typ name
+        | name, FUInt32 ->
+            pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
+            pr "                        PyLong_FromUnsignedLong (%s->%s));\n"
+              typ name
+        | name, FInt32 ->
+            pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
+            pr "                        PyLong_FromLong (%s->%s));\n"
+              typ name
+        | name, FOptPercent ->
+            pr "  if (%s->%s >= 0)\n" typ name;
+            pr "    PyDict_SetItemString (dict, \"%s\",\n" name;
+            pr "                          PyFloat_FromDouble ((double) %s->%s));\n"
+              typ name;
+            pr "  else {\n";
+            pr "    Py_INCREF (Py_None);\n";
+            pr "    PyDict_SetItemString (dict, \"%s\", Py_None);" name;
+            pr "  }\n"
+        | name, FChar ->
+            pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
+            pr "                        PyString_FromStringAndSize (&dirent->%s, 1));\n" name
       ) cols;
       pr "  return dict;\n";
       pr "};\n";
@@ -7365,30 +7365,30 @@ py_guestfs_close (PyObject *self, PyObject *args)
       pr "  PyObject *py_r;\n";
 
       let error_code =
-	match fst style with
-	| RErr | RInt _ | RBool _ -> pr "  int r;\n"; "-1"
-	| RInt64 _ -> pr "  int64_t r;\n"; "-1"
-	| RConstString _ | RConstOptString _ ->
-	    pr "  const char *r;\n"; "NULL"
-	| RString _ -> pr "  char *r;\n"; "NULL"
-	| RStringList _ | RHashtable _ -> pr "  char **r;\n"; "NULL"
-	| RStruct (_, typ) -> pr "  struct guestfs_%s *r;\n" typ; "NULL"
-	| RStructList (_, typ) ->
-	    pr "  struct guestfs_%s_list *r;\n" typ; "NULL"
-	| RBufferOut _ ->
-	    pr "  char *r;\n";
-	    pr "  size_t size;\n";
-	    "NULL" in
+        match fst style with
+        | RErr | RInt _ | RBool _ -> pr "  int r;\n"; "-1"
+        | RInt64 _ -> pr "  int64_t r;\n"; "-1"
+        | RConstString _ | RConstOptString _ ->
+            pr "  const char *r;\n"; "NULL"
+        | RString _ -> pr "  char *r;\n"; "NULL"
+        | RStringList _ | RHashtable _ -> pr "  char **r;\n"; "NULL"
+        | RStruct (_, typ) -> pr "  struct guestfs_%s *r;\n" typ; "NULL"
+        | RStructList (_, typ) ->
+            pr "  struct guestfs_%s_list *r;\n" typ; "NULL"
+        | RBufferOut _ ->
+            pr "  char *r;\n";
+            pr "  size_t size;\n";
+            "NULL" in
 
       List.iter (
-	function
-	| String n | FileIn n | FileOut n -> pr "  const char *%s;\n" n
-	| OptString n -> pr "  const char *%s;\n" n
-	| StringList n ->
-	    pr "  PyObject *py_%s;\n" n;
-	    pr "  const char **%s;\n" n
-	| Bool n -> pr "  int %s;\n" n
-	| Int n -> pr "  int %s;\n" n
+        function
+        | String n | FileIn n | FileOut n -> pr "  const char *%s;\n" n
+        | OptString n -> pr "  const char *%s;\n" n
+        | StringList n ->
+            pr "  PyObject *py_%s;\n" n;
+            pr "  const char **%s;\n" n
+        | Bool n -> pr "  int %s;\n" n
+        | Int n -> pr "  int %s;\n" n
       ) (snd style);
 
       pr "\n";
@@ -7396,22 +7396,22 @@ py_guestfs_close (PyObject *self, PyObject *args)
       (* Convert the parameters. *)
       pr "  if (!PyArg_ParseTuple (args, (char *) \"O";
       List.iter (
-	function
-	| String _ | FileIn _ | FileOut _ -> pr "s"
-	| OptString _ -> pr "z"
-	| StringList _ -> pr "O"
-	| Bool _ -> pr "i" (* XXX Python has booleans? *)
-	| Int _ -> pr "i"
+        function
+        | String _ | FileIn _ | FileOut _ -> pr "s"
+        | OptString _ -> pr "z"
+        | StringList _ -> pr "O"
+        | Bool _ -> pr "i" (* XXX Python has booleans? *)
+        | Int _ -> pr "i"
       ) (snd style);
       pr ":guestfs_%s\",\n" name;
       pr "                         &py_g";
       List.iter (
-	function
-	| String n | FileIn n | FileOut n -> pr ", &%s" n
-	| OptString n -> pr ", &%s" n
-	| StringList n -> pr ", &py_%s" n
-	| Bool n -> pr ", &%s" n
-	| Int n -> pr ", &%s" n
+        function
+        | String n | FileIn n | FileOut n -> pr ", &%s" n
+        | OptString n -> pr ", &%s" n
+        | StringList n -> pr ", &py_%s" n
+        | Bool n -> pr ", &%s" n
+        | Int n -> pr ", &%s" n
       ) (snd style);
 
       pr "))\n";
@@ -7419,11 +7419,11 @@ py_guestfs_close (PyObject *self, PyObject *args)
 
       pr "  g = get_handle (py_g);\n";
       List.iter (
-	function
-	| String _ | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ -> ()
-	| StringList n ->
-	    pr "  %s = get_string_list (py_%s);\n" n n;
-	    pr "  if (!%s) return NULL;\n" n
+        function
+        | String _ | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ -> ()
+        | StringList n ->
+            pr "  %s = get_string_list (py_%s);\n" n n;
+            pr "  if (!%s) return NULL;\n" n
       ) (snd style);
 
       pr "\n";
@@ -7433,10 +7433,10 @@ py_guestfs_close (PyObject *self, PyObject *args)
       pr ";\n";
 
       List.iter (
-	function
-	| String _ | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ -> ()
-	| StringList n ->
-	    pr "  free (%s);\n" n
+        function
+        | String _ | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ -> ()
+        | StringList n ->
+            pr "  free (%s);\n" n
       ) (snd style);
 
       pr "  if (r == %s) {\n" error_code;
@@ -7447,37 +7447,37 @@ py_guestfs_close (PyObject *self, PyObject *args)
 
       (match fst style with
        | RErr ->
-	   pr "  Py_INCREF (Py_None);\n";
-	   pr "  py_r = Py_None;\n"
+           pr "  Py_INCREF (Py_None);\n";
+           pr "  py_r = Py_None;\n"
        | RInt _
        | RBool _ -> pr "  py_r = PyInt_FromLong ((long) r);\n"
        | RInt64 _ -> pr "  py_r = PyLong_FromLongLong (r);\n"
        | RConstString _ -> pr "  py_r = PyString_FromString (r);\n"
        | RConstOptString _ ->
-	   pr "  if (r)\n";
-	   pr "    py_r = PyString_FromString (r);\n";
-	   pr "  else {\n";
-	   pr "    Py_INCREF (Py_None);\n";
-	   pr "    py_r = Py_None;\n";
-	   pr "  }\n"
+           pr "  if (r)\n";
+           pr "    py_r = PyString_FromString (r);\n";
+           pr "  else {\n";
+           pr "    Py_INCREF (Py_None);\n";
+           pr "    py_r = Py_None;\n";
+           pr "  }\n"
        | RString _ ->
-	   pr "  py_r = PyString_FromString (r);\n";
-	   pr "  free (r);\n"
+           pr "  py_r = PyString_FromString (r);\n";
+           pr "  free (r);\n"
        | RStringList _ ->
-	   pr "  py_r = put_string_list (r);\n";
-	   pr "  free_strings (r);\n"
+           pr "  py_r = put_string_list (r);\n";
+           pr "  free_strings (r);\n"
        | RStruct (_, typ) ->
-	   pr "  py_r = put_%s (r);\n" typ;
-	   pr "  guestfs_free_%s (r);\n" typ
+           pr "  py_r = put_%s (r);\n" typ;
+           pr "  guestfs_free_%s (r);\n" typ
        | RStructList (_, typ) ->
-	   pr "  py_r = put_%s_list (r);\n" typ;
-	   pr "  guestfs_free_%s_list (r);\n" typ
+           pr "  py_r = put_%s_list (r);\n" typ;
+           pr "  guestfs_free_%s_list (r);\n" typ
        | RHashtable n ->
-	   pr "  py_r = put_table (r);\n";
-	   pr "  free_strings (r);\n"
+           pr "  py_r = put_table (r);\n";
+           pr "  free_strings (r);\n"
        | RBufferOut _ ->
-	   pr "  py_r = PyString_FromStringAndSize (r, size);\n";
-	   pr "  free (r);\n"
+           pr "  py_r = PyString_FromStringAndSize (r, size);\n";
+           pr "  free (r);\n"
       );
 
       pr "  return py_r;\n";
@@ -7492,7 +7492,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
   List.iter (
     fun (name, _, _, _, _, _, _) ->
       pr "  { (char *) \"%s\", py_guestfs_%s, METH_VARARGS, NULL },\n"
-	name name
+        name name
   ) all_functions;
   pr "  { NULL, NULL, 0, NULL }\n";
   pr "};\n";
@@ -7585,36 +7585,36 @@ class GuestFS:
       pr ":\n";
 
       if not (List.mem NotInDocs flags) then (
-	let doc = replace_str longdesc "C<guestfs_" "C<g." in
-	let doc =
+        let doc = replace_str longdesc "C<guestfs_" "C<g." in
+        let doc =
           match fst style with
-	  | RErr | RInt _ | RInt64 _ | RBool _
-	  | RConstOptString _ | RConstString _
-	  | RString _ | RBufferOut _ -> doc
-	  | RStringList _ ->
-	      doc ^ "\n\nThis function returns a list of strings."
-	  | RStruct (_, typ) ->
-	      doc ^ sprintf "\n\nThis function returns a dictionary, with keys matching the various fields in the guestfs_%s structure." typ
-	  | RStructList (_, typ) ->
-	      doc ^ sprintf "\n\nThis function returns a list of %ss.  Each %s is represented as a dictionary." typ typ
-	  | RHashtable _ ->
-	      doc ^ "\n\nThis function returns a dictionary." in
-	let doc =
-	  if List.mem ProtocolLimitWarning flags then
-	    doc ^ "\n\n" ^ protocol_limit_warning
-	  else doc in
-	let doc =
-	  if List.mem DangerWillRobinson flags then
-	    doc ^ "\n\n" ^ danger_will_robinson
-	  else doc in
-	let doc =
-	  match deprecation_notice flags with
-	  | None -> doc
-	  | Some txt -> doc ^ "\n\n" ^ txt in
-	let doc = pod2text ~width:60 name doc in
-	let doc = List.map (fun line -> replace_str line "\\" "\\\\") doc in
-	let doc = String.concat "\n        " doc in
-	pr "        u\"\"\"%s\"\"\"\n" doc;
+          | RErr | RInt _ | RInt64 _ | RBool _
+          | RConstOptString _ | RConstString _
+          | RString _ | RBufferOut _ -> doc
+          | RStringList _ ->
+              doc ^ "\n\nThis function returns a list of strings."
+          | RStruct (_, typ) ->
+              doc ^ sprintf "\n\nThis function returns a dictionary, with keys matching the various fields in the guestfs_%s structure." typ
+          | RStructList (_, typ) ->
+              doc ^ sprintf "\n\nThis function returns a list of %ss.  Each %s is represented as a dictionary." typ typ
+          | RHashtable _ ->
+              doc ^ "\n\nThis function returns a dictionary." in
+        let doc =
+          if List.mem ProtocolLimitWarning flags then
+            doc ^ "\n\n" ^ protocol_limit_warning
+          else doc in
+        let doc =
+          if List.mem DangerWillRobinson flags then
+            doc ^ "\n\n" ^ danger_will_robinson
+          else doc in
+        let doc =
+          match deprecation_notice flags with
+          | None -> doc
+          | Some txt -> doc ^ "\n\n" ^ txt in
+        let doc = pod2text ~width:60 name doc in
+        let doc = List.map (fun line -> replace_str line "\\" "\\\\") doc in
+        let doc = String.concat "\n        " doc in
+        pr "        u\"\"\"%s\"\"\"\n" doc;
       );
       pr "        return libguestfsmod.%s " name;
       generate_py_call_args ~handle:"self._o" (snd style);
@@ -7647,20 +7647,20 @@ and pod2text ~width name longdesc =
     let rec loop i =
       let line = input_line chan in
       if i = 1 then		(* discard the first line of output *)
-	loop (i+1)
+        loop (i+1)
       else (
-	let line = triml line in
-	lines := line :: !lines;
-	loop (i+1)
+        let line = triml line in
+        lines := line :: !lines;
+        loop (i+1)
       ) in
     let lines = try loop 1 with End_of_file -> List.rev !lines in
     Unix.unlink filename;
     (match Unix.close_process_in chan with
      | Unix.WEXITED 0 -> ()
      | Unix.WEXITED i ->
-	 failwithf "pod2text: process exited with non-zero status (%d)" i
+         failwithf "pod2text: process exited with non-zero status (%d)" i
      | Unix.WSIGNALED i | Unix.WSTOPPED i ->
-	 failwithf "pod2text: process signalled or stopped by signal %d" i
+         failwithf "pod2text: process signalled or stopped by signal %d" i
     );
     Hashtbl.add pod2text_memo key lines;
     let chan = open_out pod2text_memo_filename in
@@ -7737,55 +7737,55 @@ static VALUE ruby_guestfs_close (VALUE gv)
       pr "  Data_Get_Struct (gv, guestfs_h, g);\n";
       pr "  if (!g)\n";
       pr "    rb_raise (rb_eArgError, \"%%s: used handle after closing it\", \"%s\");\n"
-	name;
+        name;
       pr "\n";
 
       List.iter (
-	function
-	| String n | FileIn n | FileOut n ->
-	    pr "  Check_Type (%sv, T_STRING);\n" n;
-	    pr "  const char *%s = StringValueCStr (%sv);\n" n n;
-	    pr "  if (!%s)\n" n;
-	    pr "    rb_raise (rb_eTypeError, \"expected string for parameter %%s of %%s\",\n";
-	    pr "              \"%s\", \"%s\");\n" n name
-	| OptString n ->
-	    pr "  const char *%s = !NIL_P (%sv) ? StringValueCStr (%sv) : NULL;\n" n n n
-	| StringList n ->
-	    pr "  char **%s;\n" n;
-	    pr "  Check_Type (%sv, T_ARRAY);\n" n;
-	    pr "  {\n";
-	    pr "    int i, len;\n";
-	    pr "    len = RARRAY_LEN (%sv);\n" n;
-	    pr "    %s = guestfs_safe_malloc (g, sizeof (char *) * (len+1));\n"
-	      n;
-	    pr "    for (i = 0; i < len; ++i) {\n";
-	    pr "      VALUE v = rb_ary_entry (%sv, i);\n" n;
-	    pr "      %s[i] = StringValueCStr (v);\n" n;
-	    pr "    }\n";
-	    pr "    %s[len] = NULL;\n" n;
-	    pr "  }\n";
-	| Bool n ->
-	    pr "  int %s = RTEST (%sv);\n" n n
-	| Int n ->
-	    pr "  int %s = NUM2INT (%sv);\n" n n
+        function
+        | String n | FileIn n | FileOut n ->
+            pr "  Check_Type (%sv, T_STRING);\n" n;
+            pr "  const char *%s = StringValueCStr (%sv);\n" n n;
+            pr "  if (!%s)\n" n;
+            pr "    rb_raise (rb_eTypeError, \"expected string for parameter %%s of %%s\",\n";
+            pr "              \"%s\", \"%s\");\n" n name
+        | OptString n ->
+            pr "  const char *%s = !NIL_P (%sv) ? StringValueCStr (%sv) : NULL;\n" n n n
+        | StringList n ->
+            pr "  char **%s;\n" n;
+            pr "  Check_Type (%sv, T_ARRAY);\n" n;
+            pr "  {\n";
+            pr "    int i, len;\n";
+            pr "    len = RARRAY_LEN (%sv);\n" n;
+            pr "    %s = guestfs_safe_malloc (g, sizeof (char *) * (len+1));\n"
+              n;
+            pr "    for (i = 0; i < len; ++i) {\n";
+            pr "      VALUE v = rb_ary_entry (%sv, i);\n" n;
+            pr "      %s[i] = StringValueCStr (v);\n" n;
+            pr "    }\n";
+            pr "    %s[len] = NULL;\n" n;
+            pr "  }\n";
+        | Bool n ->
+            pr "  int %s = RTEST (%sv);\n" n n
+        | Int n ->
+            pr "  int %s = NUM2INT (%sv);\n" n n
       ) (snd style);
       pr "\n";
 
       let error_code =
-	match fst style with
-	| RErr | RInt _ | RBool _ -> pr "  int r;\n"; "-1"
-	| RInt64 _ -> pr "  int64_t r;\n"; "-1"
-	| RConstString _ | RConstOptString _ ->
-	    pr "  const char *r;\n"; "NULL"
-	| RString _ -> pr "  char *r;\n"; "NULL"
-	| RStringList _ | RHashtable _ -> pr "  char **r;\n"; "NULL"
-	| RStruct (_, typ) -> pr "  struct guestfs_%s *r;\n" typ; "NULL"
-	| RStructList (_, typ) ->
-	    pr "  struct guestfs_%s_list *r;\n" typ; "NULL"
-	| RBufferOut _ ->
-	    pr "  char *r;\n";
-	    pr "  size_t size;\n";
-	    "NULL" in
+        match fst style with
+        | RErr | RInt _ | RBool _ -> pr "  int r;\n"; "-1"
+        | RInt64 _ -> pr "  int64_t r;\n"; "-1"
+        | RConstString _ | RConstOptString _ ->
+            pr "  const char *r;\n"; "NULL"
+        | RString _ -> pr "  char *r;\n"; "NULL"
+        | RStringList _ | RHashtable _ -> pr "  char **r;\n"; "NULL"
+        | RStruct (_, typ) -> pr "  struct guestfs_%s *r;\n" typ; "NULL"
+        | RStructList (_, typ) ->
+            pr "  struct guestfs_%s_list *r;\n" typ; "NULL"
+        | RBufferOut _ ->
+            pr "  char *r;\n";
+            pr "  size_t size;\n";
+            "NULL" in
       pr "\n";
 
       pr "  r = guestfs_%s " name;
@@ -7793,10 +7793,10 @@ static VALUE ruby_guestfs_close (VALUE gv)
       pr ";\n";
 
       List.iter (
-	function
-	| String _ | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ -> ()
-	| StringList n ->
-	    pr "  free (%s);\n" n
+        function
+        | String _ | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ -> ()
+        | StringList n ->
+            pr "  free (%s);\n" n
       ) (snd style);
 
       pr "  if (r == %s)\n" error_code;
@@ -7805,52 +7805,52 @@ static VALUE ruby_guestfs_close (VALUE gv)
 
       (match fst style with
        | RErr ->
-	   pr "  return Qnil;\n"
+           pr "  return Qnil;\n"
        | RInt _ | RBool _ ->
-	   pr "  return INT2NUM (r);\n"
+           pr "  return INT2NUM (r);\n"
        | RInt64 _ ->
-	   pr "  return ULL2NUM (r);\n"
+           pr "  return ULL2NUM (r);\n"
        | RConstString _ ->
-	   pr "  return rb_str_new2 (r);\n";
+           pr "  return rb_str_new2 (r);\n";
        | RConstOptString _ ->
-	   pr "  if (r)\n";
-	   pr "    return rb_str_new2 (r);\n";
-	   pr "  else\n";
-	   pr "    return Qnil;\n";
+           pr "  if (r)\n";
+           pr "    return rb_str_new2 (r);\n";
+           pr "  else\n";
+           pr "    return Qnil;\n";
        | RString _ ->
-	   pr "  VALUE rv = rb_str_new2 (r);\n";
-	   pr "  free (r);\n";
-	   pr "  return rv;\n";
+           pr "  VALUE rv = rb_str_new2 (r);\n";
+           pr "  free (r);\n";
+           pr "  return rv;\n";
        | RStringList _ ->
-	   pr "  int i, len = 0;\n";
-	   pr "  for (i = 0; r[i] != NULL; ++i) len++;\n";
-	   pr "  VALUE rv = rb_ary_new2 (len);\n";
-	   pr "  for (i = 0; r[i] != NULL; ++i) {\n";
-	   pr "    rb_ary_push (rv, rb_str_new2 (r[i]));\n";
-	   pr "    free (r[i]);\n";
-	   pr "  }\n";
-	   pr "  free (r);\n";
-	   pr "  return rv;\n"
+           pr "  int i, len = 0;\n";
+           pr "  for (i = 0; r[i] != NULL; ++i) len++;\n";
+           pr "  VALUE rv = rb_ary_new2 (len);\n";
+           pr "  for (i = 0; r[i] != NULL; ++i) {\n";
+           pr "    rb_ary_push (rv, rb_str_new2 (r[i]));\n";
+           pr "    free (r[i]);\n";
+           pr "  }\n";
+           pr "  free (r);\n";
+           pr "  return rv;\n"
        | RStruct (_, typ) ->
-	   let cols = cols_of_struct typ in
-	   generate_ruby_struct_code typ cols
+           let cols = cols_of_struct typ in
+           generate_ruby_struct_code typ cols
        | RStructList (_, typ) ->
-	   let cols = cols_of_struct typ in
-	   generate_ruby_struct_list_code typ cols
+           let cols = cols_of_struct typ in
+           generate_ruby_struct_list_code typ cols
        | RHashtable _ ->
-	   pr "  VALUE rv = rb_hash_new ();\n";
-	   pr "  int i;\n";
-	   pr "  for (i = 0; r[i] != NULL; i+=2) {\n";
-	   pr "    rb_hash_aset (rv, rb_str_new2 (r[i]), rb_str_new2 (r[i+1]));\n";
-	   pr "    free (r[i]);\n";
-	   pr "    free (r[i+1]);\n";
-	   pr "  }\n";
-	   pr "  free (r);\n";
-	   pr "  return rv;\n"
+           pr "  VALUE rv = rb_hash_new ();\n";
+           pr "  int i;\n";
+           pr "  for (i = 0; r[i] != NULL; i+=2) {\n";
+           pr "    rb_hash_aset (rv, rb_str_new2 (r[i]), rb_str_new2 (r[i+1]));\n";
+           pr "    free (r[i]);\n";
+           pr "    free (r[i+1]);\n";
+           pr "  }\n";
+           pr "  free (r);\n";
+           pr "  return rv;\n"
        | RBufferOut _ ->
-	   pr "  VALUE rv = rb_str_new (r, size);\n";
-	   pr "  free (r);\n";
-	   pr "  return rv;\n";
+           pr "  VALUE rv = rb_str_new (r, size);\n";
+           pr "  free (r);\n";
+           pr "  return rv;\n";
       );
 
       pr "}\n";
@@ -7884,23 +7884,23 @@ and generate_ruby_struct_code typ cols =
   List.iter (
     function
     | name, FString ->
-	pr "  rb_hash_aset (rv, rb_str_new2 (\"%s\"), rb_str_new2 (r->%s));\n" name name
+        pr "  rb_hash_aset (rv, rb_str_new2 (\"%s\"), rb_str_new2 (r->%s));\n" name name
     | name, FBuffer ->
-	pr "  rb_hash_aset (rv, rb_str_new2 (\"%s\"), rb_str_new (r->%s, r->%s_len));\n" name name name
+        pr "  rb_hash_aset (rv, rb_str_new2 (\"%s\"), rb_str_new (r->%s, r->%s_len));\n" name name name
     | name, FUUID ->
-	pr "  rb_hash_aset (rv, rb_str_new2 (\"%s\"), rb_str_new (r->%s, 32));\n" name name
+        pr "  rb_hash_aset (rv, rb_str_new2 (\"%s\"), rb_str_new (r->%s, 32));\n" name name
     | name, (FBytes|FUInt64) ->
-	pr "  rb_hash_aset (rv, rb_str_new2 (\"%s\"), ULL2NUM (r->%s));\n" name name
+        pr "  rb_hash_aset (rv, rb_str_new2 (\"%s\"), ULL2NUM (r->%s));\n" name name
     | name, FInt64 ->
-	pr "  rb_hash_aset (rv, rb_str_new2 (\"%s\"), LL2NUM (r->%s));\n" name name
+        pr "  rb_hash_aset (rv, rb_str_new2 (\"%s\"), LL2NUM (r->%s));\n" name name
     | name, FUInt32 ->
-	pr "  rb_hash_aset (rv, rb_str_new2 (\"%s\"), UINT2NUM (r->%s));\n" name name
+        pr "  rb_hash_aset (rv, rb_str_new2 (\"%s\"), UINT2NUM (r->%s));\n" name name
     | name, FInt32 ->
-	pr "  rb_hash_aset (rv, rb_str_new2 (\"%s\"), INT2NUM (r->%s));\n" name name
+        pr "  rb_hash_aset (rv, rb_str_new2 (\"%s\"), INT2NUM (r->%s));\n" name name
     | name, FOptPercent ->
-	pr "  rb_hash_aset (rv, rb_str_new2 (\"%s\"), rb_dbl2big (r->%s));\n" name name
+        pr "  rb_hash_aset (rv, rb_str_new2 (\"%s\"), rb_dbl2big (r->%s));\n" name name
     | name, FChar -> (* XXX wrong? *)
-	pr "  rb_hash_aset (rv, rb_str_new2 (\"%s\"), ULL2NUM (r->%s));\n" name name
+        pr "  rb_hash_aset (rv, rb_str_new2 (\"%s\"), ULL2NUM (r->%s));\n" name name
   ) cols;
   pr "  guestfs_free_%s (r);\n" typ;
   pr "  return rv;\n"
@@ -7914,23 +7914,23 @@ and generate_ruby_struct_list_code typ cols =
   List.iter (
     function
     | name, FString ->
-	pr "    rb_hash_aset (hv, rb_str_new2 (\"%s\"), rb_str_new2 (r->val[i].%s));\n" name name
+        pr "    rb_hash_aset (hv, rb_str_new2 (\"%s\"), rb_str_new2 (r->val[i].%s));\n" name name
     | name, FBuffer ->
-	pr "    rb_hash_aset (hv, rb_str_new2 (\"%s\"), rb_str_new (r->val[i].%s, r->val[i].%s_len));\n" name name name
+        pr "    rb_hash_aset (hv, rb_str_new2 (\"%s\"), rb_str_new (r->val[i].%s, r->val[i].%s_len));\n" name name name
     | name, FUUID ->
-	pr "    rb_hash_aset (hv, rb_str_new2 (\"%s\"), rb_str_new (r->val[i].%s, 32));\n" name name
+        pr "    rb_hash_aset (hv, rb_str_new2 (\"%s\"), rb_str_new (r->val[i].%s, 32));\n" name name
     | name, (FBytes|FUInt64) ->
-	pr "    rb_hash_aset (hv, rb_str_new2 (\"%s\"), ULL2NUM (r->val[i].%s));\n" name name
+        pr "    rb_hash_aset (hv, rb_str_new2 (\"%s\"), ULL2NUM (r->val[i].%s));\n" name name
     | name, FInt64 ->
-	pr "    rb_hash_aset (hv, rb_str_new2 (\"%s\"), LL2NUM (r->val[i].%s));\n" name name
+        pr "    rb_hash_aset (hv, rb_str_new2 (\"%s\"), LL2NUM (r->val[i].%s));\n" name name
     | name, FUInt32 ->
-	pr "    rb_hash_aset (hv, rb_str_new2 (\"%s\"), UINT2NUM (r->val[i].%s));\n" name name
+        pr "    rb_hash_aset (hv, rb_str_new2 (\"%s\"), UINT2NUM (r->val[i].%s));\n" name name
     | name, FInt32 ->
-	pr "    rb_hash_aset (hv, rb_str_new2 (\"%s\"), INT2NUM (r->val[i].%s));\n" name name
+        pr "    rb_hash_aset (hv, rb_str_new2 (\"%s\"), INT2NUM (r->val[i].%s));\n" name name
     | name, FOptPercent ->
-	pr "    rb_hash_aset (hv, rb_str_new2 (\"%s\"), rb_dbl2big (r->val[i].%s));\n" name name
+        pr "    rb_hash_aset (hv, rb_str_new2 (\"%s\"), rb_dbl2big (r->val[i].%s));\n" name name
     | name, FChar -> (* XXX wrong? *)
-	pr "    rb_hash_aset (hv, rb_str_new2 (\"%s\"), ULL2NUM (r->val[i].%s));\n" name name
+        pr "    rb_hash_aset (hv, rb_str_new2 (\"%s\"), ULL2NUM (r->val[i].%s));\n" name name
   ) cols;
   pr "    rb_ary_push (rv, hv);\n";
   pr "  }\n";
@@ -8010,41 +8010,41 @@ public class GuestFS {
   List.iter (
     fun (name, style, _, flags, _, shortdesc, longdesc) ->
       if not (List.mem NotInDocs flags); then (
-	let doc = replace_str longdesc "C<guestfs_" "C<g." in
-	let doc =
-	  if List.mem ProtocolLimitWarning flags then
-	    doc ^ "\n\n" ^ protocol_limit_warning
-	  else doc in
-	let doc =
-	  if List.mem DangerWillRobinson flags then
-	    doc ^ "\n\n" ^ danger_will_robinson
-	  else doc in
-	let doc =
-	  match deprecation_notice flags with
-	  | None -> doc
-	  | Some txt -> doc ^ "\n\n" ^ txt in
-	let doc = pod2text ~width:60 name doc in
-	let doc = List.map (		(* RHBZ#501883 *)
-	  function
-	  | "" -> "<p>"
-	  | nonempty -> nonempty
-	) doc in
-	let doc = String.concat "\n   * " doc in
+        let doc = replace_str longdesc "C<guestfs_" "C<g." in
+        let doc =
+          if List.mem ProtocolLimitWarning flags then
+            doc ^ "\n\n" ^ protocol_limit_warning
+          else doc in
+        let doc =
+          if List.mem DangerWillRobinson flags then
+            doc ^ "\n\n" ^ danger_will_robinson
+          else doc in
+        let doc =
+          match deprecation_notice flags with
+          | None -> doc
+          | Some txt -> doc ^ "\n\n" ^ txt in
+        let doc = pod2text ~width:60 name doc in
+        let doc = List.map (		(* RHBZ#501883 *)
+          function
+          | "" -> "<p>"
+          | nonempty -> nonempty
+        ) doc in
+        let doc = String.concat "\n   * " doc in
 
-	pr "  /**\n";
-	pr "   * %s\n" shortdesc;
-	pr "   * <p>\n";
-	pr "   * %s\n" doc;
-	pr "   * @throws LibGuestFSException\n";
-	pr "   */\n";
-	pr "  ";
+        pr "  /**\n";
+        pr "   * %s\n" shortdesc;
+        pr "   * <p>\n";
+        pr "   * %s\n" doc;
+        pr "   * @throws LibGuestFSException\n";
+        pr "   */\n";
+        pr "  ";
       );
       generate_java_prototype ~public:true ~semicolon:false name style;
       pr "\n";
       pr "  {\n";
       pr "    if (g == 0)\n";
       pr "      throw new LibGuestFSException (\"%s: handle is closed\");\n"
-	name;
+        name;
       pr "    ";
       if fst style <> RErr then pr "return ";
       pr "_%s " name;
@@ -8108,13 +8108,13 @@ and generate_java_prototype ?(public=false) ?(privat=false) ?(native=false)
       | OptString n
       | FileIn n
       | FileOut n ->
-	  pr "String %s" n
+          pr "String %s" n
       | StringList n ->
-	  pr "String[] %s" n
+          pr "String[] %s" n
       | Bool n ->
-	  pr "boolean %s" n
+          pr "boolean %s" n
       | Int n ->
-	  pr "int %s" n
+          pr "int %s" n
   ) (snd style);
 
   pr ")\n";
@@ -8145,8 +8145,8 @@ public class %s {
     | name, (FUInt32|FInt32) -> pr "  public int %s;\n" name
     | name, FChar -> pr "  public char %s;\n" name
     | name, FOptPercent ->
-	pr "  /* The next field is [0..100] or -1 meaning 'not present': */\n";
-	pr "  public float %s;\n" name
+        pr "  /* The next field is [0..100] or -1 meaning 'not present': */\n";
+        pr "  public float %s;\n" name
   ) cols;
 
   pr "}\n"
@@ -8210,9 +8210,9 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
        | RConstString _ | RConstOptString _ | RString _
        | RBufferOut _ -> pr "jstring ";
        | RStruct _ | RHashtable _ ->
-	   pr "jobject ";
+           pr "jobject ";
        | RStringList _ | RStructList _ ->
-	   pr "jobjectArray ";
+           pr "jobjectArray ";
       );
       pr "JNICALL\n";
       pr "Java_com_redhat_et_libguestfs_GuestFS_";
@@ -8220,107 +8220,107 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
       pr "\n";
       pr "  (JNIEnv *env, jobject obj, jlong jg";
       List.iter (
-	function
-	| String n
-	| OptString n
-	| FileIn n
-	| FileOut n ->
-	    pr ", jstring j%s" n
-	| StringList n ->
-	    pr ", jobjectArray j%s" n
-	| Bool n ->
-	    pr ", jboolean j%s" n
-	| Int n ->
-	    pr ", jint j%s" n
+        function
+        | String n
+        | OptString n
+        | FileIn n
+        | FileOut n ->
+            pr ", jstring j%s" n
+        | StringList n ->
+            pr ", jobjectArray j%s" n
+        | Bool n ->
+            pr ", jboolean j%s" n
+        | Int n ->
+            pr ", jint j%s" n
       ) (snd style);
       pr ")\n";
       pr "{\n";
       pr "  guestfs_h *g = (guestfs_h *) (long) jg;\n";
       let error_code, no_ret =
-	match fst style with
-	| RErr -> pr "  int r;\n"; "-1", ""
-	| RBool _
-	| RInt _ -> pr "  int r;\n"; "-1", "0"
-	| RInt64 _ -> pr "  int64_t r;\n"; "-1", "0"
-	| RConstString _ -> pr "  const char *r;\n"; "NULL", "NULL"
-	| RConstOptString _ -> pr "  const char *r;\n"; "NULL", "NULL"
-	| RString _ ->
-	    pr "  jstring jr;\n";
-	    pr "  char *r;\n"; "NULL", "NULL"
-	| RStringList _ ->
-	    pr "  jobjectArray jr;\n";
-	    pr "  int r_len;\n";
-	    pr "  jclass cl;\n";
-	    pr "  jstring jstr;\n";
-	    pr "  char **r;\n"; "NULL", "NULL"
-	| RStruct (_, typ) ->
-	    pr "  jobject jr;\n";
-	    pr "  jclass cl;\n";
-	    pr "  jfieldID fl;\n";
-	    pr "  struct guestfs_%s *r;\n" typ; "NULL", "NULL"
-	| RStructList (_, typ) ->
-	    pr "  jobjectArray jr;\n";
-	    pr "  jclass cl;\n";
-	    pr "  jfieldID fl;\n";
-	    pr "  jobject jfl;\n";
-	    pr "  struct guestfs_%s_list *r;\n" typ; "NULL", "NULL"
-	| RHashtable _ -> pr "  char **r;\n"; "NULL", "NULL"
-	| RBufferOut _ ->
-	    pr "  jstring jr;\n";
-	    pr "  char *r;\n";
-	    pr "  size_t size;\n";
-	    "NULL", "NULL" in
+        match fst style with
+        | RErr -> pr "  int r;\n"; "-1", ""
+        | RBool _
+        | RInt _ -> pr "  int r;\n"; "-1", "0"
+        | RInt64 _ -> pr "  int64_t r;\n"; "-1", "0"
+        | RConstString _ -> pr "  const char *r;\n"; "NULL", "NULL"
+        | RConstOptString _ -> pr "  const char *r;\n"; "NULL", "NULL"
+        | RString _ ->
+            pr "  jstring jr;\n";
+            pr "  char *r;\n"; "NULL", "NULL"
+        | RStringList _ ->
+            pr "  jobjectArray jr;\n";
+            pr "  int r_len;\n";
+            pr "  jclass cl;\n";
+            pr "  jstring jstr;\n";
+            pr "  char **r;\n"; "NULL", "NULL"
+        | RStruct (_, typ) ->
+            pr "  jobject jr;\n";
+            pr "  jclass cl;\n";
+            pr "  jfieldID fl;\n";
+            pr "  struct guestfs_%s *r;\n" typ; "NULL", "NULL"
+        | RStructList (_, typ) ->
+            pr "  jobjectArray jr;\n";
+            pr "  jclass cl;\n";
+            pr "  jfieldID fl;\n";
+            pr "  jobject jfl;\n";
+            pr "  struct guestfs_%s_list *r;\n" typ; "NULL", "NULL"
+        | RHashtable _ -> pr "  char **r;\n"; "NULL", "NULL"
+        | RBufferOut _ ->
+            pr "  jstring jr;\n";
+            pr "  char *r;\n";
+            pr "  size_t size;\n";
+            "NULL", "NULL" in
       List.iter (
-	function
-	| String n
-	| OptString n
-	| FileIn n
-	| FileOut n ->
-	    pr "  const char *%s;\n" n
-	| StringList n ->
-	    pr "  int %s_len;\n" n;
-	    pr "  const char **%s;\n" n
-	| Bool n
-	| Int n ->
-	    pr "  int %s;\n" n
+        function
+        | String n
+        | OptString n
+        | FileIn n
+        | FileOut n ->
+            pr "  const char *%s;\n" n
+        | StringList n ->
+            pr "  int %s_len;\n" n;
+            pr "  const char **%s;\n" n
+        | Bool n
+        | Int n ->
+            pr "  int %s;\n" n
       ) (snd style);
 
       let needs_i =
-	(match fst style with
-	 | RStringList _ | RStructList _ -> true
-	 | RErr | RBool _ | RInt _ | RInt64 _ | RConstString _
-	 | RConstOptString _
-	 | RString _ | RBufferOut _ | RStruct _ | RHashtable _ -> false) ||
-	  List.exists (function StringList _ -> true | _ -> false) (snd style) in
+        (match fst style with
+         | RStringList _ | RStructList _ -> true
+         | RErr | RBool _ | RInt _ | RInt64 _ | RConstString _
+         | RConstOptString _
+         | RString _ | RBufferOut _ | RStruct _ | RHashtable _ -> false) ||
+          List.exists (function StringList _ -> true | _ -> false) (snd style) in
       if needs_i then
-	pr "  int i;\n";
+        pr "  int i;\n";
 
       pr "\n";
 
       (* Get the parameters. *)
       List.iter (
-	function
-	| String n
-	| FileIn n
-	| FileOut n ->
-	    pr "  %s = (*env)->GetStringUTFChars (env, j%s, NULL);\n" n n
-	| OptString n ->
-	    (* This is completely undocumented, but Java null becomes
-	     * a NULL parameter.
-	     *)
-	    pr "  %s = j%s ? (*env)->GetStringUTFChars (env, j%s, NULL) : NULL;\n" n n n
-	| StringList n ->
-	    pr "  %s_len = (*env)->GetArrayLength (env, j%s);\n" n n;
-	    pr "  %s = guestfs_safe_malloc (g, sizeof (char *) * (%s_len+1));\n" n n;
-	    pr "  for (i = 0; i < %s_len; ++i) {\n" n;
-	    pr "    jobject o = (*env)->GetObjectArrayElement (env, j%s, i);\n"
-	      n;
-	    pr "    %s[i] = (*env)->GetStringUTFChars (env, o, NULL);\n" n;
-	    pr "  }\n";
-	    pr "  %s[%s_len] = NULL;\n" n n;
-	| Bool n
-	| Int n ->
-	    pr "  %s = j%s;\n" n n
+        function
+        | String n
+        | FileIn n
+        | FileOut n ->
+            pr "  %s = (*env)->GetStringUTFChars (env, j%s, NULL);\n" n n
+        | OptString n ->
+            (* This is completely undocumented, but Java null becomes
+             * a NULL parameter.
+             *)
+            pr "  %s = j%s ? (*env)->GetStringUTFChars (env, j%s, NULL) : NULL;\n" n n n
+        | StringList n ->
+            pr "  %s_len = (*env)->GetArrayLength (env, j%s);\n" n n;
+            pr "  %s = guestfs_safe_malloc (g, sizeof (char *) * (%s_len+1));\n" n n;
+            pr "  for (i = 0; i < %s_len; ++i) {\n" n;
+            pr "    jobject o = (*env)->GetObjectArrayElement (env, j%s, i);\n"
+              n;
+            pr "    %s[i] = (*env)->GetStringUTFChars (env, o, NULL);\n" n;
+            pr "  }\n";
+            pr "  %s[%s_len] = NULL;\n" n n;
+        | Bool n
+        | Int n ->
+            pr "  %s = j%s;\n" n n
       ) (snd style);
 
       (* Make the call. *)
@@ -8330,23 +8330,23 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
 
       (* Release the parameters. *)
       List.iter (
-	function
-	| String n
-	| FileIn n
-	| FileOut n ->
-	    pr "  (*env)->ReleaseStringUTFChars (env, j%s, %s);\n" n n
-	| OptString n ->
-	    pr "  if (j%s)\n" n;
-	    pr "    (*env)->ReleaseStringUTFChars (env, j%s, %s);\n" n n
-	| StringList n ->
-	    pr "  for (i = 0; i < %s_len; ++i) {\n" n;
-	    pr "    jobject o = (*env)->GetObjectArrayElement (env, j%s, i);\n"
-	      n;
-	    pr "    (*env)->ReleaseStringUTFChars (env, o, %s[i]);\n" n;
-	    pr "  }\n";
-	    pr "  free (%s);\n" n
-	| Bool n
-	| Int n -> ()
+        function
+        | String n
+        | FileIn n
+        | FileOut n ->
+            pr "  (*env)->ReleaseStringUTFChars (env, j%s, %s);\n" n n
+        | OptString n ->
+            pr "  if (j%s)\n" n;
+            pr "    (*env)->ReleaseStringUTFChars (env, j%s, %s);\n" n n
+        | StringList n ->
+            pr "  for (i = 0; i < %s_len; ++i) {\n" n;
+            pr "    jobject o = (*env)->GetObjectArrayElement (env, j%s, i);\n"
+              n;
+            pr "    (*env)->ReleaseStringUTFChars (env, o, %s[i]);\n" n;
+            pr "  }\n";
+            pr "  free (%s);\n" n
+        | Bool n
+        | Int n -> ()
       ) (snd style);
 
       (* Check for errors. *)
@@ -8363,39 +8363,39 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
        | RInt64 _ -> pr "  return (jlong) r;\n"
        | RConstString _ -> pr "  return (*env)->NewStringUTF (env, r);\n"
        | RConstOptString _ ->
-	   pr "  return (*env)->NewStringUTF (env, r); /* XXX r NULL? */\n"
+           pr "  return (*env)->NewStringUTF (env, r); /* XXX r NULL? */\n"
        | RString _ ->
-	   pr "  jr = (*env)->NewStringUTF (env, r);\n";
-	   pr "  free (r);\n";
-	   pr "  return jr;\n"
+           pr "  jr = (*env)->NewStringUTF (env, r);\n";
+           pr "  free (r);\n";
+           pr "  return jr;\n"
        | RStringList _ ->
-	   pr "  for (r_len = 0; r[r_len] != NULL; ++r_len) ;\n";
-	   pr "  cl = (*env)->FindClass (env, \"java/lang/String\");\n";
-	   pr "  jstr = (*env)->NewStringUTF (env, \"\");\n";
-	   pr "  jr = (*env)->NewObjectArray (env, r_len, cl, jstr);\n";
-	   pr "  for (i = 0; i < r_len; ++i) {\n";
-	   pr "    jstr = (*env)->NewStringUTF (env, r[i]);\n";
-	   pr "    (*env)->SetObjectArrayElement (env, jr, i, jstr);\n";
-	   pr "    free (r[i]);\n";
-	   pr "  }\n";
-	   pr "  free (r);\n";
-	   pr "  return jr;\n"
+           pr "  for (r_len = 0; r[r_len] != NULL; ++r_len) ;\n";
+           pr "  cl = (*env)->FindClass (env, \"java/lang/String\");\n";
+           pr "  jstr = (*env)->NewStringUTF (env, \"\");\n";
+           pr "  jr = (*env)->NewObjectArray (env, r_len, cl, jstr);\n";
+           pr "  for (i = 0; i < r_len; ++i) {\n";
+           pr "    jstr = (*env)->NewStringUTF (env, r[i]);\n";
+           pr "    (*env)->SetObjectArrayElement (env, jr, i, jstr);\n";
+           pr "    free (r[i]);\n";
+           pr "  }\n";
+           pr "  free (r);\n";
+           pr "  return jr;\n"
        | RStruct (_, typ) ->
-	   let jtyp = java_name_of_struct typ in
-	   let cols = cols_of_struct typ in
-	   generate_java_struct_return typ jtyp cols
+           let jtyp = java_name_of_struct typ in
+           let cols = cols_of_struct typ in
+           generate_java_struct_return typ jtyp cols
        | RStructList (_, typ) ->
-	   let jtyp = java_name_of_struct typ in
-	   let cols = cols_of_struct typ in
-	   generate_java_struct_list_return typ jtyp cols
+           let jtyp = java_name_of_struct typ in
+           let cols = cols_of_struct typ in
+           generate_java_struct_list_return typ jtyp cols
        | RHashtable _ ->
-	   (* XXX *)
-	   pr "  throw_exception (env, \"%s: internal error: please let us know how to make a Java HashMap from JNI bindings!\");\n" name;
-	   pr "  return NULL;\n"
+           (* XXX *)
+           pr "  throw_exception (env, \"%s: internal error: please let us know how to make a Java HashMap from JNI bindings!\");\n" name;
+           pr "  return NULL;\n"
        | RBufferOut _ ->
-	   pr "  jr = (*env)->NewStringUTF (env, r); /* XXX size */\n";
-	   pr "  free (r);\n";
-	   pr "  return jr;\n"
+           pr "  jr = (*env)->NewStringUTF (env, r); /* XXX size */\n";
+           pr "  free (r);\n";
+           pr "  return jr;\n"
       );
 
       pr "}\n";
@@ -8408,37 +8408,37 @@ and generate_java_struct_return typ jtyp cols =
   List.iter (
     function
     | name, FString ->
-	pr "  fl = (*env)->GetFieldID (env, cl, \"%s\", \"Ljava/lang/String;\");\n" name;
-	pr "  (*env)->SetObjectField (env, jr, fl, (*env)->NewStringUTF (env, r->%s));\n" name;
+        pr "  fl = (*env)->GetFieldID (env, cl, \"%s\", \"Ljava/lang/String;\");\n" name;
+        pr "  (*env)->SetObjectField (env, jr, fl, (*env)->NewStringUTF (env, r->%s));\n" name;
     | name, FUUID ->
-	pr "  {\n";
-	pr "    char s[33];\n";
-	pr "    memcpy (s, r->%s, 32);\n" name;
-	pr "    s[32] = 0;\n";
-	pr "    fl = (*env)->GetFieldID (env, cl, \"%s\", \"Ljava/lang/String;\");\n" name;
-	pr "    (*env)->SetObjectField (env, jr, fl, (*env)->NewStringUTF (env, s));\n";
-	pr "  }\n";
+        pr "  {\n";
+        pr "    char s[33];\n";
+        pr "    memcpy (s, r->%s, 32);\n" name;
+        pr "    s[32] = 0;\n";
+        pr "    fl = (*env)->GetFieldID (env, cl, \"%s\", \"Ljava/lang/String;\");\n" name;
+        pr "    (*env)->SetObjectField (env, jr, fl, (*env)->NewStringUTF (env, s));\n";
+        pr "  }\n";
     | name, FBuffer ->
-	pr "  {\n";
-	pr "    int len = r->%s_len;\n" name;
-	pr "    char s[len+1];\n";
-	pr "    memcpy (s, r->%s, len);\n" name;
-	pr "    s[len] = 0;\n";
-	pr "    fl = (*env)->GetFieldID (env, cl, \"%s\", \"Ljava/lang/String;\");\n" name;
-	pr "    (*env)->SetObjectField (env, jr, fl, (*env)->NewStringUTF (env, s));\n";
-	pr "  }\n";
+        pr "  {\n";
+        pr "    int len = r->%s_len;\n" name;
+        pr "    char s[len+1];\n";
+        pr "    memcpy (s, r->%s, len);\n" name;
+        pr "    s[len] = 0;\n";
+        pr "    fl = (*env)->GetFieldID (env, cl, \"%s\", \"Ljava/lang/String;\");\n" name;
+        pr "    (*env)->SetObjectField (env, jr, fl, (*env)->NewStringUTF (env, s));\n";
+        pr "  }\n";
     | name, (FBytes|FUInt64|FInt64) ->
-	pr "  fl = (*env)->GetFieldID (env, cl, \"%s\", \"J\");\n" name;
-	pr "  (*env)->SetLongField (env, jr, fl, r->%s);\n" name;
+        pr "  fl = (*env)->GetFieldID (env, cl, \"%s\", \"J\");\n" name;
+        pr "  (*env)->SetLongField (env, jr, fl, r->%s);\n" name;
     | name, (FUInt32|FInt32) ->
-	pr "  fl = (*env)->GetFieldID (env, cl, \"%s\", \"I\");\n" name;
-	pr "  (*env)->SetLongField (env, jr, fl, r->%s);\n" name;
+        pr "  fl = (*env)->GetFieldID (env, cl, \"%s\", \"I\");\n" name;
+        pr "  (*env)->SetLongField (env, jr, fl, r->%s);\n" name;
     | name, FOptPercent ->
-	pr "  fl = (*env)->GetFieldID (env, cl, \"%s\", \"F\");\n" name;
-	pr "  (*env)->SetFloatField (env, jr, fl, r->%s);\n" name;
+        pr "  fl = (*env)->GetFieldID (env, cl, \"%s\", \"F\");\n" name;
+        pr "  (*env)->SetFloatField (env, jr, fl, r->%s);\n" name;
     | name, FChar ->
-	pr "  fl = (*env)->GetFieldID (env, cl, \"%s\", \"C\");\n" name;
-	pr "  (*env)->SetLongField (env, jr, fl, r->%s);\n" name;
+        pr "  fl = (*env)->GetFieldID (env, cl, \"%s\", \"C\");\n" name;
+        pr "  (*env)->SetLongField (env, jr, fl, r->%s);\n" name;
   ) cols;
   pr "  free (r);\n";
   pr "  return jr;\n"
@@ -8451,37 +8451,37 @@ and generate_java_struct_list_return typ jtyp cols =
   List.iter (
     function
     | name, FString ->
-	pr "    fl = (*env)->GetFieldID (env, cl, \"%s\", \"Ljava/lang/String;\");\n" name;
-	pr "    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].%s));\n" name;
+        pr "    fl = (*env)->GetFieldID (env, cl, \"%s\", \"Ljava/lang/String;\");\n" name;
+        pr "    (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, r->val[i].%s));\n" name;
     | name, FUUID ->
-	pr "    {\n";
-	pr "      char s[33];\n";
-	pr "      memcpy (s, r->val[i].%s, 32);\n" name;
-	pr "      s[32] = 0;\n";
-	pr "      fl = (*env)->GetFieldID (env, cl, \"%s\", \"Ljava/lang/String;\");\n" name;
-	pr "      (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, s));\n";
-	pr "    }\n";
+        pr "    {\n";
+        pr "      char s[33];\n";
+        pr "      memcpy (s, r->val[i].%s, 32);\n" name;
+        pr "      s[32] = 0;\n";
+        pr "      fl = (*env)->GetFieldID (env, cl, \"%s\", \"Ljava/lang/String;\");\n" name;
+        pr "      (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, s));\n";
+        pr "    }\n";
     | name, FBuffer ->
-	pr "    {\n";
-	pr "      int len = r->val[i].%s_len;\n" name;
-	pr "      char s[len+1];\n";
-	pr "      memcpy (s, r->val[i].%s, len);\n" name;
-	pr "      s[len] = 0;\n";
-	pr "      fl = (*env)->GetFieldID (env, cl, \"%s\", \"Ljava/lang/String;\");\n" name;
-	pr "      (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, s));\n";
-	pr "    }\n";
+        pr "    {\n";
+        pr "      int len = r->val[i].%s_len;\n" name;
+        pr "      char s[len+1];\n";
+        pr "      memcpy (s, r->val[i].%s, len);\n" name;
+        pr "      s[len] = 0;\n";
+        pr "      fl = (*env)->GetFieldID (env, cl, \"%s\", \"Ljava/lang/String;\");\n" name;
+        pr "      (*env)->SetObjectField (env, jfl, fl, (*env)->NewStringUTF (env, s));\n";
+        pr "    }\n";
     | name, (FBytes|FUInt64|FInt64) ->
-	pr "    fl = (*env)->GetFieldID (env, cl, \"%s\", \"J\");\n" name;
-	pr "    (*env)->SetLongField (env, jfl, fl, r->val[i].%s);\n" name;
+        pr "    fl = (*env)->GetFieldID (env, cl, \"%s\", \"J\");\n" name;
+        pr "    (*env)->SetLongField (env, jfl, fl, r->val[i].%s);\n" name;
     | name, (FUInt32|FInt32) ->
-	pr "    fl = (*env)->GetFieldID (env, cl, \"%s\", \"I\");\n" name;
-	pr "    (*env)->SetLongField (env, jfl, fl, r->val[i].%s);\n" name;
+        pr "    fl = (*env)->GetFieldID (env, cl, \"%s\", \"I\");\n" name;
+        pr "    (*env)->SetLongField (env, jfl, fl, r->val[i].%s);\n" name;
     | name, FOptPercent ->
-	pr "    fl = (*env)->GetFieldID (env, cl, \"%s\", \"F\");\n" name;
-	pr "    (*env)->SetFloatField (env, jfl, fl, r->val[i].%s);\n" name;
+        pr "    fl = (*env)->GetFieldID (env, cl, \"%s\", \"F\");\n" name;
+        pr "    (*env)->SetFloatField (env, jfl, fl, r->val[i].%s);\n" name;
     | name, FChar ->
-	pr "    fl = (*env)->GetFieldID (env, cl, \"%s\", \"C\");\n" name;
-	pr "    (*env)->SetLongField (env, jfl, fl, r->val[i].%s);\n" name;
+        pr "    fl = (*env)->GetFieldID (env, cl, \"%s\", \"C\");\n" name;
+        pr "    (*env)->SetLongField (env, jfl, fl, r->val[i].%s);\n" name;
   ) cols;
   pr "    (*env)->SetObjectArrayElement (env, jfl, i, jfl);\n";
   pr "  }\n";
@@ -8579,71 +8579,71 @@ last_error h = do
   List.iter (
     fun (name, style, _, _, _, _, _) ->
       if can_generate style then (
-	pr "foreign import ccall unsafe \"guestfs_%s\" c_%s\n" name name;
-	pr "  :: ";
-	generate_haskell_prototype ~handle:"GuestfsP" style;
-	pr "\n";
-	pr "\n";
-	pr "%s :: " name;
-	generate_haskell_prototype ~handle:"GuestfsH" ~hs:true style;
-	pr "\n";
-	pr "%s %s = do\n" name
-	  (String.concat " " ("h" :: List.map name_of_argt (snd style)));
-	pr "  r <- ";
-	(* Convert pointer arguments using with* functions. *)
-	List.iter (
-	  function
-	  | FileIn n
-	  | FileOut n
-	  | String n -> pr "withCString %s $ \\%s -> " n n
-	  | OptString n -> pr "maybeWith withCString %s $ \\%s -> " n n
-	  | StringList n -> pr "withMany withCString %s $ \\%s -> withArray0 nullPtr %s $ \\%s -> " n n n n
-	  | Bool _ | Int _ -> ()
-	) (snd style);
-	(* Convert integer arguments. *)
-	let args =
-	  List.map (
-	    function
-	    | Bool n -> sprintf "(fromBool %s)" n
-	    | Int n -> sprintf "(fromIntegral %s)" n
-	    | FileIn n | FileOut n | String n | OptString n | StringList n -> n
-	  ) (snd style) in
-	pr "withForeignPtr h (\\p -> c_%s %s)\n" name
-	  (String.concat " " ("p" :: args));
-	(match fst style with
-	 | RErr | RInt _ | RInt64 _ | RBool _ ->
-	     pr "  if (r == -1)\n";
-	     pr "    then do\n";
-	     pr "      err <- last_error h\n";
-	     pr "      fail err\n";
-	 | RConstString _ | RConstOptString _ | RString _
-	 | RStringList _ | RStruct _
-	 | RStructList _ | RHashtable _ | RBufferOut _ ->
-	     pr "  if (r == nullPtr)\n";
-	     pr "    then do\n";
-	     pr "      err <- last_error h\n";
-	     pr "      fail err\n";
-	);
-	(match fst style with
-	 | RErr ->
-	     pr "    else return ()\n"
-	 | RInt _ ->
-	     pr "    else return (fromIntegral r)\n"
-	 | RInt64 _ ->
-	     pr "    else return (fromIntegral r)\n"
-	 | RBool _ ->
-	     pr "    else return (toBool r)\n"
-	 | RConstString _
-	 | RConstOptString _
-	 | RString _
-	 | RStringList _
-	 | RStruct _
-	 | RStructList _
-	 | RHashtable _
-	 | RBufferOut _ ->
-	     pr "    else return ()\n" (* XXXXXXXXXXXXXXXXXXXX *)
-	);
-	pr "\n";
+        pr "foreign import ccall unsafe \"guestfs_%s\" c_%s\n" name name;
+        pr "  :: ";
+        generate_haskell_prototype ~handle:"GuestfsP" style;
+        pr "\n";
+        pr "\n";
+        pr "%s :: " name;
+        generate_haskell_prototype ~handle:"GuestfsH" ~hs:true style;
+        pr "\n";
+        pr "%s %s = do\n" name
+          (String.concat " " ("h" :: List.map name_of_argt (snd style)));
+        pr "  r <- ";
+        (* Convert pointer arguments using with* functions. *)
+        List.iter (
+          function
+          | FileIn n
+          | FileOut n
+          | String n -> pr "withCString %s $ \\%s -> " n n
+          | OptString n -> pr "maybeWith withCString %s $ \\%s -> " n n
+          | StringList n -> pr "withMany withCString %s $ \\%s -> withArray0 nullPtr %s $ \\%s -> " n n n n
+          | Bool _ | Int _ -> ()
+        ) (snd style);
+        (* Convert integer arguments. *)
+        let args =
+          List.map (
+            function
+            | Bool n -> sprintf "(fromBool %s)" n
+            | Int n -> sprintf "(fromIntegral %s)" n
+            | FileIn n | FileOut n | String n | OptString n | StringList n -> n
+          ) (snd style) in
+        pr "withForeignPtr h (\\p -> c_%s %s)\n" name
+          (String.concat " " ("p" :: args));
+        (match fst style with
+         | RErr | RInt _ | RInt64 _ | RBool _ ->
+             pr "  if (r == -1)\n";
+             pr "    then do\n";
+             pr "      err <- last_error h\n";
+             pr "      fail err\n";
+         | RConstString _ | RConstOptString _ | RString _
+         | RStringList _ | RStruct _
+         | RStructList _ | RHashtable _ | RBufferOut _ ->
+             pr "  if (r == nullPtr)\n";
+             pr "    then do\n";
+             pr "      err <- last_error h\n";
+             pr "      fail err\n";
+        );
+        (match fst style with
+         | RErr ->
+             pr "    else return ()\n"
+         | RInt _ ->
+             pr "    else return (fromIntegral r)\n"
+         | RInt64 _ ->
+             pr "    else return (fromIntegral r)\n"
+         | RBool _ ->
+             pr "    else return (toBool r)\n"
+         | RConstString _
+         | RConstOptString _
+         | RString _
+         | RStringList _
+         | RStruct _
+         | RStructList _
+         | RHashtable _
+         | RBufferOut _ ->
+             pr "    else return ()\n" (* XXXXXXXXXXXXXXXXXXXX *)
+        );
+        pr "\n";
       )
   ) all_functions
 
@@ -8748,89 +8748,89 @@ print_strings (char * const* const argv)
   List.iter (
     fun (name, style, _, _, _, _, _) ->
       if String.sub name (String.length name - 3) 3 <> "err" then (
-	pr "/* Test normal return. */\n";
-	generate_prototype ~extern:false ~semicolon:false ~newline:true
-	  ~handle:"g" ~prefix:"guestfs_" name style;
-	pr "{\n";
-	(match fst style with
-	 | RErr ->
-	     pr "  return 0;\n"
-	 | RInt _ ->
-	     pr "  int r;\n";
-	     pr "  sscanf (val, \"%%d\", &r);\n";
-	     pr "  return r;\n"
-	 | RInt64 _ ->
-	     pr "  int64_t r;\n";
-	     pr "  sscanf (val, \"%%\" SCNi64, &r);\n";
-	     pr "  return r;\n"
-	 | RBool _ ->
-	     pr "  return strcmp (val, \"true\") == 0;\n"
-	 | RConstString _
-	 | RConstOptString _ ->
-	     (* Can't return the input string here.  Return a static
-	      * string so we ensure we get a segfault if the caller
-	      * tries to free it.
-	      *)
-	     pr "  return \"static string\";\n"
-	 | RString _ ->
-	     pr "  return strdup (val);\n"
-	 | RStringList _ ->
-	     pr "  char **strs;\n";
-	     pr "  int n, i;\n";
-	     pr "  sscanf (val, \"%%d\", &n);\n";
-	     pr "  strs = safe_malloc (g, (n+1) * sizeof (char *));\n";
-	     pr "  for (i = 0; i < n; ++i) {\n";
-	     pr "    strs[i] = safe_malloc (g, 16);\n";
-	     pr "    snprintf (strs[i], 16, \"%%d\", i);\n";
-	     pr "  }\n";
-	     pr "  strs[n] = NULL;\n";
-	     pr "  return strs;\n"
-	 | RStruct (_, typ) ->
-	     pr "  struct guestfs_%s *r;\n" typ;
-	     pr "  r = safe_calloc (g, sizeof *r, 1);\n";
-	     pr "  return r;\n"
-	 | RStructList (_, typ) ->
-	     pr "  struct guestfs_%s_list *r;\n" typ;
-	     pr "  r = safe_calloc (g, sizeof *r, 1);\n";
-	     pr "  sscanf (val, \"%%d\", &r->len);\n";
-	     pr "  r->val = safe_calloc (g, r->len, sizeof *r->val);\n";
-	     pr "  return r;\n"
-	 | RHashtable _ ->
-	     pr "  char **strs;\n";
-	     pr "  int n, i;\n";
-	     pr "  sscanf (val, \"%%d\", &n);\n";
-	     pr "  strs = safe_malloc (g, (n*2+1) * sizeof (*strs));\n";
-	     pr "  for (i = 0; i < n; ++i) {\n";
-	     pr "    strs[i*2] = safe_malloc (g, 16);\n";
-	     pr "    strs[i*2+1] = safe_malloc (g, 16);\n";
-	     pr "    snprintf (strs[i*2], 16, \"%%d\", i);\n";
-	     pr "    snprintf (strs[i*2+1], 16, \"%%d\", i);\n";
-	     pr "  }\n";
-	     pr "  strs[n*2] = NULL;\n";
-	     pr "  return strs;\n"
-	 | RBufferOut _ ->
-	     pr "  return strdup (val);\n"
-	);
-	pr "}\n";
-	pr "\n"
+        pr "/* Test normal return. */\n";
+        generate_prototype ~extern:false ~semicolon:false ~newline:true
+          ~handle:"g" ~prefix:"guestfs_" name style;
+        pr "{\n";
+        (match fst style with
+         | RErr ->
+             pr "  return 0;\n"
+         | RInt _ ->
+             pr "  int r;\n";
+             pr "  sscanf (val, \"%%d\", &r);\n";
+             pr "  return r;\n"
+         | RInt64 _ ->
+             pr "  int64_t r;\n";
+             pr "  sscanf (val, \"%%\" SCNi64, &r);\n";
+             pr "  return r;\n"
+         | RBool _ ->
+             pr "  return strcmp (val, \"true\") == 0;\n"
+         | RConstString _
+         | RConstOptString _ ->
+             (* Can't return the input string here.  Return a static
+              * string so we ensure we get a segfault if the caller
+              * tries to free it.
+              *)
+             pr "  return \"static string\";\n"
+         | RString _ ->
+             pr "  return strdup (val);\n"
+         | RStringList _ ->
+             pr "  char **strs;\n";
+             pr "  int n, i;\n";
+             pr "  sscanf (val, \"%%d\", &n);\n";
+             pr "  strs = safe_malloc (g, (n+1) * sizeof (char *));\n";
+             pr "  for (i = 0; i < n; ++i) {\n";
+             pr "    strs[i] = safe_malloc (g, 16);\n";
+             pr "    snprintf (strs[i], 16, \"%%d\", i);\n";
+             pr "  }\n";
+             pr "  strs[n] = NULL;\n";
+             pr "  return strs;\n"
+         | RStruct (_, typ) ->
+             pr "  struct guestfs_%s *r;\n" typ;
+             pr "  r = safe_calloc (g, sizeof *r, 1);\n";
+             pr "  return r;\n"
+         | RStructList (_, typ) ->
+             pr "  struct guestfs_%s_list *r;\n" typ;
+             pr "  r = safe_calloc (g, sizeof *r, 1);\n";
+             pr "  sscanf (val, \"%%d\", &r->len);\n";
+             pr "  r->val = safe_calloc (g, r->len, sizeof *r->val);\n";
+             pr "  return r;\n"
+         | RHashtable _ ->
+             pr "  char **strs;\n";
+             pr "  int n, i;\n";
+             pr "  sscanf (val, \"%%d\", &n);\n";
+             pr "  strs = safe_malloc (g, (n*2+1) * sizeof (*strs));\n";
+             pr "  for (i = 0; i < n; ++i) {\n";
+             pr "    strs[i*2] = safe_malloc (g, 16);\n";
+             pr "    strs[i*2+1] = safe_malloc (g, 16);\n";
+             pr "    snprintf (strs[i*2], 16, \"%%d\", i);\n";
+             pr "    snprintf (strs[i*2+1], 16, \"%%d\", i);\n";
+             pr "  }\n";
+             pr "  strs[n*2] = NULL;\n";
+             pr "  return strs;\n"
+         | RBufferOut _ ->
+             pr "  return strdup (val);\n"
+        );
+        pr "}\n";
+        pr "\n"
       ) else (
-	pr "/* Test error return. */\n";
-	generate_prototype ~extern:false ~semicolon:false ~newline:true
-	  ~handle:"g" ~prefix:"guestfs_" name style;
-	pr "{\n";
-	pr "  error (g, \"error\");\n";
-	(match fst style with
-	 | RErr | RInt _ | RInt64 _ | RBool _ ->
-	     pr "  return -1;\n"
-	 | RConstString _ | RConstOptString _
-	 | RString _ | RStringList _ | RStruct _
-	 | RStructList _
-	 | RHashtable _
-	 | RBufferOut _ ->
-	     pr "  return NULL;\n"
-	);
-	pr "}\n";
-	pr "\n"
+        pr "/* Test error return. */\n";
+        generate_prototype ~extern:false ~semicolon:false ~newline:true
+          ~handle:"g" ~prefix:"guestfs_" name style;
+        pr "{\n";
+        pr "  error (g, \"error\");\n";
+        (match fst style with
+         | RErr | RInt _ | RInt64 _ | RBool _ ->
+             pr "  return -1;\n"
+         | RConstString _ | RConstOptString _
+         | RString _ | RStringList _ | RStruct _
+         | RStructList _
+         | RHashtable _
+         | RBufferOut _ ->
+             pr "  return NULL;\n"
+        );
+        pr "}\n";
+        pr "\n"
       )
   ) tests
 
@@ -8845,15 +8845,15 @@ let () =
   let mkargs args =
     String.concat " " (
       List.map (
-	function
-	| CallString s -> "\"" ^ s ^ "\""
-	| CallOptString None -> "None"
-	| CallOptString (Some s) -> sprintf "(Some \"%s\")" s
-	| CallStringList xs ->
-	    "[|" ^ String.concat ";" (List.map (sprintf "\"%s\"") xs) ^ "|]"
-	| CallInt i when i >= 0 -> string_of_int i
-	| CallInt i (* when i < 0 *) -> "(" ^ string_of_int i ^ ")"
-	| CallBool b -> string_of_bool b
+        function
+        | CallString s -> "\"" ^ s ^ "\""
+        | CallOptString None -> "None"
+        | CallOptString (Some s) -> sprintf "(Some \"%s\")" s
+        | CallStringList xs ->
+            "[|" ^ String.concat ";" (List.map (sprintf "\"%s\"") xs) ^ "|]"
+        | CallInt i when i >= 0 -> string_of_int i
+        | CallInt i (* when i < 0 *) -> "(" ^ string_of_int i ^ ")"
+        | CallBool b -> string_of_bool b
       ) args
     )
   in
@@ -8879,14 +8879,14 @@ my $g = Sys::Guestfs->new ();
   let mkargs args =
     String.concat ", " (
       List.map (
-	function
-	| CallString s -> "\"" ^ s ^ "\""
-	| CallOptString None -> "undef"
-	| CallOptString (Some s) -> sprintf "\"%s\"" s
-	| CallStringList xs ->
-	    "[" ^ String.concat "," (List.map (sprintf "\"%s\"") xs) ^ "]"
-	| CallInt i -> string_of_int i
-	| CallBool b -> if b then "1" else "0"
+        function
+        | CallString s -> "\"" ^ s ^ "\""
+        | CallOptString None -> "undef"
+        | CallOptString (Some s) -> sprintf "\"%s\"" s
+        | CallStringList xs ->
+            "[" ^ String.concat "," (List.map (sprintf "\"%s\"") xs) ^ "]"
+        | CallInt i -> string_of_int i
+        | CallBool b -> if b then "1" else "0"
       ) args
     )
   in
@@ -8909,14 +8909,14 @@ g = guestfs.GuestFS ()
   let mkargs args =
     String.concat ", " (
       List.map (
-	function
-	| CallString s -> "\"" ^ s ^ "\""
-	| CallOptString None -> "None"
-	| CallOptString (Some s) -> sprintf "\"%s\"" s
-	| CallStringList xs ->
-	    "[" ^ String.concat "," (List.map (sprintf "\"%s\"") xs) ^ "]"
-	| CallInt i -> string_of_int i
-	| CallBool b -> if b then "1" else "0"
+        function
+        | CallString s -> "\"" ^ s ^ "\""
+        | CallOptString None -> "None"
+        | CallOptString (Some s) -> sprintf "\"%s\"" s
+        | CallStringList xs ->
+            "[" ^ String.concat "," (List.map (sprintf "\"%s\"") xs) ^ "]"
+        | CallInt i -> string_of_int i
+        | CallBool b -> if b then "1" else "0"
       ) args
     )
   in
@@ -8939,14 +8939,14 @@ g = Guestfs::create()
   let mkargs args =
     String.concat ", " (
       List.map (
-	function
-	| CallString s -> "\"" ^ s ^ "\""
-	| CallOptString None -> "nil"
-	| CallOptString (Some s) -> sprintf "\"%s\"" s
-	| CallStringList xs ->
-	    "[" ^ String.concat "," (List.map (sprintf "\"%s\"") xs) ^ "]"
-	| CallInt i -> string_of_int i
-	| CallBool b -> string_of_bool b
+        function
+        | CallString s -> "\"" ^ s ^ "\""
+        | CallOptString None -> "nil"
+        | CallOptString (Some s) -> sprintf "\"%s\"" s
+        | CallStringList xs ->
+            "[" ^ String.concat "," (List.map (sprintf "\"%s\"") xs) ^ "]"
+        | CallInt i -> string_of_int i
+        | CallBool b -> string_of_bool b
       ) args
     )
   in
@@ -8973,15 +8973,15 @@ public class Bindtests {
   let mkargs args =
     String.concat ", " (
       List.map (
-	function
-	| CallString s -> "\"" ^ s ^ "\""
-	| CallOptString None -> "null"
-	| CallOptString (Some s) -> sprintf "\"%s\"" s
-	| CallStringList xs ->
-	    "new String[]{" ^
-	      String.concat "," (List.map (sprintf "\"%s\"") xs) ^ "}"
-	| CallInt i -> string_of_int i
-	| CallBool b -> string_of_bool b
+        function
+        | CallString s -> "\"" ^ s ^ "\""
+        | CallOptString None -> "null"
+        | CallOptString (Some s) -> sprintf "\"%s\"" s
+        | CallStringList xs ->
+            "new String[]{" ^
+              String.concat "," (List.map (sprintf "\"%s\"") xs) ^ "}"
+        | CallInt i -> string_of_int i
+        | CallBool b -> string_of_bool b
       ) args
     )
   in
@@ -9015,16 +9015,16 @@ main = do
   let mkargs args =
     String.concat " " (
       List.map (
-	function
-	| CallString s -> "\"" ^ s ^ "\""
-	| CallOptString None -> "Nothing"
-	| CallOptString (Some s) -> sprintf "(Just \"%s\")" s
-	| CallStringList xs ->
-	    "[" ^ String.concat "," (List.map (sprintf "\"%s\"") xs) ^ "]"
-	| CallInt i when i < 0 -> "(" ^ string_of_int i ^ ")"
-	| CallInt i -> string_of_int i
-	| CallBool true -> "True"
-	| CallBool false -> "False"
+        function
+        | CallString s -> "\"" ^ s ^ "\""
+        | CallOptString None -> "Nothing"
+        | CallOptString (Some s) -> sprintf "(Just \"%s\")" s
+        | CallStringList xs ->
+            "[" ^ String.concat "," (List.map (sprintf "\"%s\"") xs) ^ "]"
+        | CallInt i when i < 0 -> "(" ^ string_of_int i ^ ")"
+        | CallInt i -> string_of_int i
+        | CallBool true -> "True"
+        | CallBool false -> "False"
       ) args
     )
   in
@@ -9040,44 +9040,44 @@ main = do
  *)
 and generate_lang_bindtests call =
   call "test0" [CallString "abc"; CallOptString (Some "def");
-		CallStringList []; CallBool false;
-		CallInt 0; CallString "123"; CallString "456"];
+                CallStringList []; CallBool false;
+                CallInt 0; CallString "123"; CallString "456"];
   call "test0" [CallString "abc"; CallOptString None;
-		CallStringList []; CallBool false;
-		CallInt 0; CallString "123"; CallString "456"];
+                CallStringList []; CallBool false;
+                CallInt 0; CallString "123"; CallString "456"];
   call "test0" [CallString ""; CallOptString (Some "def");
-		CallStringList []; CallBool false;
-		CallInt 0; CallString "123"; CallString "456"];
+                CallStringList []; CallBool false;
+                CallInt 0; CallString "123"; CallString "456"];
   call "test0" [CallString ""; CallOptString (Some "");
-		CallStringList []; CallBool false;
-		CallInt 0; CallString "123"; CallString "456"];
+                CallStringList []; CallBool false;
+                CallInt 0; CallString "123"; CallString "456"];
   call "test0" [CallString "abc"; CallOptString (Some "def");
-		CallStringList ["1"]; CallBool false;
-		CallInt 0; CallString "123"; CallString "456"];
+                CallStringList ["1"]; CallBool false;
+                CallInt 0; CallString "123"; CallString "456"];
   call "test0" [CallString "abc"; CallOptString (Some "def");
-		CallStringList ["1"; "2"]; CallBool false;
-		CallInt 0; CallString "123"; CallString "456"];
+                CallStringList ["1"; "2"]; CallBool false;
+                CallInt 0; CallString "123"; CallString "456"];
   call "test0" [CallString "abc"; CallOptString (Some "def");
-		CallStringList ["1"]; CallBool true;
-		CallInt 0; CallString "123"; CallString "456"];
+                CallStringList ["1"]; CallBool true;
+                CallInt 0; CallString "123"; CallString "456"];
   call "test0" [CallString "abc"; CallOptString (Some "def");
-		CallStringList ["1"]; CallBool false;
-		CallInt (-1); CallString "123"; CallString "456"];
+                CallStringList ["1"]; CallBool false;
+                CallInt (-1); CallString "123"; CallString "456"];
   call "test0" [CallString "abc"; CallOptString (Some "def");
-		CallStringList ["1"]; CallBool false;
-		CallInt (-2); CallString "123"; CallString "456"];
+                CallStringList ["1"]; CallBool false;
+                CallInt (-2); CallString "123"; CallString "456"];
   call "test0" [CallString "abc"; CallOptString (Some "def");
-		CallStringList ["1"]; CallBool false;
-		CallInt 1; CallString "123"; CallString "456"];
+                CallStringList ["1"]; CallBool false;
+                CallInt 1; CallString "123"; CallString "456"];
   call "test0" [CallString "abc"; CallOptString (Some "def");
-		CallStringList ["1"]; CallBool false;
-		CallInt 2; CallString "123"; CallString "456"];
+                CallStringList ["1"]; CallBool false;
+                CallInt 2; CallString "123"; CallString "456"];
   call "test0" [CallString "abc"; CallOptString (Some "def");
-		CallStringList ["1"]; CallBool false;
-		CallInt 4095; CallString "123"; CallString "456"];
+                CallStringList ["1"]; CallBool false;
+                CallInt 4095; CallString "123"; CallString "456"];
   call "test0" [CallString "abc"; CallOptString (Some "def");
-		CallStringList ["1"]; CallBool false;
-		CallInt 0; CallString ""; CallString ""]
+                CallStringList ["1"]; CallBool false;
+                CallInt 0; CallString ""; CallString ""]
 
 (* XXX Add here tests of the return and error functions. *)
 

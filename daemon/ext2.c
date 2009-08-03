@@ -77,31 +77,31 @@ do_tune2fs_l (char *device)
       do { colon++; } while (*colon && isspace (*colon));
 
       if (add_string (&ret, &size, &alloc, p) == -1) {
-	free (out);
-	return NULL;
+        free (out);
+        return NULL;
       }
       if (strcmp (colon, "<none>") == 0 ||
-	  strcmp (colon, "<not available>") == 0 ||
-	  strcmp (colon, "(none)") == 0) {
-	if (add_string (&ret, &size, &alloc, "") == -1) {
-	  free (out);
-	  return NULL;
-	}
+          strcmp (colon, "<not available>") == 0 ||
+          strcmp (colon, "(none)") == 0) {
+        if (add_string (&ret, &size, &alloc, "") == -1) {
+          free (out);
+          return NULL;
+        }
       } else {
-	if (add_string (&ret, &size, &alloc, colon) == -1) {
-	  free (out);
-	  return NULL;
-	}
+        if (add_string (&ret, &size, &alloc, colon) == -1) {
+          free (out);
+          return NULL;
+        }
       }
     }
     else {
       if (add_string (&ret, &size, &alloc, p) == -1) {
-	free (out);
-	return NULL;
+        free (out);
+        return NULL;
       }
       if (add_string (&ret, &size, &alloc, "") == -1) {
-	free (out);
-	return NULL;
+        free (out);
+        return NULL;
       }
     }
 

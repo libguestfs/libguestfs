@@ -57,19 +57,19 @@ static void
 usage (void)
 {
   printf (_("libguestfs-test-tool: interactive test tool\n"
-	    "Copyright (C) 2009 Red Hat Inc.\n"
-	    "Usage:\n"
-	    "  libguestfs-test-tool [--options]\n"
-	    "Options:\n"
-	    "  --help         Display usage\n"
-	    "  --helper libguestfs-test-tool-helper\n"
-	    "                 Helper program (default: %s)\n"
-	    "  --qemudir dir  Specify QEMU source directory\n"
-	    "  --qemu qemu    Specify QEMU binary\n"
-	    "  --timeout n\n"
-	    "  -t n           Set launch timeout (default: %d seconds)\n"
-	    ),
-	  DEFAULT_HELPER, DEFAULT_TIMEOUT);
+            "Copyright (C) 2009 Red Hat Inc.\n"
+            "Usage:\n"
+            "  libguestfs-test-tool [--options]\n"
+            "Options:\n"
+            "  --help         Display usage\n"
+            "  --helper libguestfs-test-tool-helper\n"
+            "                 Helper program (default: %s)\n"
+            "  --qemudir dir  Specify QEMU source directory\n"
+            "  --qemu qemu    Specify QEMU binary\n"
+            "  --timeout n\n"
+            "  -t n           Set launch timeout (default: %d seconds)\n"
+            ),
+          DEFAULT_HELPER, DEFAULT_TIMEOUT);
 }
 
 int
@@ -101,25 +101,25 @@ main (int argc, char *argv[])
     switch (c) {
     case 0:			/* options which are long only */
       if (strcmp (long_options[option_index].name, "helper") == 0)
-	helper = optarg;
+        helper = optarg;
       else if (strcmp (long_options[option_index].name, "qemu") == 0)
-	set_qemu (optarg, 0);
+        set_qemu (optarg, 0);
       else if (strcmp (long_options[option_index].name, "qemudir") == 0)
-	set_qemu (optarg, 1);
+        set_qemu (optarg, 1);
       else {
-	fprintf (stderr,
-		 _("libguestfs-test-tool: unknown long option: %s (%d)\n"),
-		 long_options[option_index].name, option_index);
-	exit (1);
+        fprintf (stderr,
+                 _("libguestfs-test-tool: unknown long option: %s (%d)\n"),
+                 long_options[option_index].name, option_index);
+        exit (1);
       }
       break;
 
     case 't':
       if (sscanf (optarg, "%d", &timeout) != 1 || timeout < 0) {
-	fprintf (stderr,
-		 _("libguestfs-test-tool: invalid timeout: %s\n"),
-		 optarg);
-	exit (1);
+        fprintf (stderr,
+                 _("libguestfs-test-tool: invalid timeout: %s\n"),
+                 optarg);
+        exit (1);
       }
       break;
 
@@ -129,8 +129,8 @@ main (int argc, char *argv[])
 
     default:
       fprintf (stderr,
-	       _("libguestfs-test-tool: unexpected command line option 0x%x\n"),
-	       c);
+               _("libguestfs-test-tool: unexpected command line option 0x%x\n"),
+               c);
       exit (1);
     }
   }
@@ -152,19 +152,19 @@ main (int argc, char *argv[])
   g = guestfs_create ();
   if (g == NULL) {
     fprintf (stderr,
-	     _("libguestfs-test-tool: failed to create libguestfs handle\n"));
+             _("libguestfs-test-tool: failed to create libguestfs handle\n"));
     exit (1);
   }
   if (guestfs_add_drive (g, tmpf) == -1) {
     fprintf (stderr,
-	     _("libguestfs-test-tool: failed to add drive '%s'\n"),
-	     tmpf);
+             _("libguestfs-test-tool: failed to add drive '%s'\n"),
+             tmpf);
     exit (1);
   }
   if (guestfs_add_drive (g, isof) == -1) {
     fprintf (stderr,
-	     _("libguestfs-test-tool: failed to add drive '%s'\n"),
-	     isof);
+             _("libguestfs-test-tool: failed to add drive '%s'\n"),
+             isof);
     exit (1);
   }
 
@@ -175,7 +175,7 @@ main (int argc, char *argv[])
     exit (1);
   }
   printf ("library version: %"PRIi64".%"PRIi64".%"PRIi64"%s\n",
-	  vers->major, vers->minor, vers->release, vers->extra);
+          vers->major, vers->minor, vers->release, vers->extra);
   guestfs_free_version (vers);
 
   printf ("guestfs_get_append: %s\n", guestfs_get_append (g) ? : "(null)");
@@ -188,7 +188,7 @@ main (int argc, char *argv[])
   /* Launch the guest handle. */
   if (guestfs_launch (g) == -1) {
     fprintf (stderr,
-	     _("libguestfs-test-tool: failed to launch appliance\n"));
+             _("libguestfs-test-tool: failed to launch appliance\n"));
     exit (1);
   }
 
@@ -199,7 +199,7 @@ main (int argc, char *argv[])
 
   if (guestfs_wait_ready (g) == -1) {
     fprintf (stderr,
-	     _("libguestfs-test-tool: failed or timed out in 'wait_ready'\n"));
+             _("libguestfs-test-tool: failed or timed out in 'wait_ready'\n"));
     exit (1);
   }
 
@@ -211,31 +211,31 @@ main (int argc, char *argv[])
   /* Create the filesystem and mount everything. */
   if (guestfs_sfdiskM (g, "/dev/sda", sfdisk_lines) == -1) {
     fprintf (stderr,
-	     _("libguestfs-test-tool: failed to run sfdisk\n"));
+             _("libguestfs-test-tool: failed to run sfdisk\n"));
     exit (1);
   }
 
   if (guestfs_mkfs (g, "ext2", "/dev/sda1") == -1) {
     fprintf (stderr,
-	     _("libguestfs-test-tool: failed to mkfs.ext2\n"));
+             _("libguestfs-test-tool: failed to mkfs.ext2\n"));
     exit (1);
   }
 
   if (guestfs_mount (g, "/dev/sda1", "/") == -1) {
     fprintf (stderr,
-	     _("libguestfs-test-tool: failed to mount /dev/sda1 on /\n"));
+             _("libguestfs-test-tool: failed to mount /dev/sda1 on /\n"));
     exit (1);
   }
 
   if (guestfs_mkdir (g, "/iso") == -1) {
     fprintf (stderr,
-	     _("libguestfs-test-tool: failed to mkdir /iso\n"));
+             _("libguestfs-test-tool: failed to mkdir /iso\n"));
     exit (1);
   }
 
   if (guestfs_mount (g, "/dev/sdb", "/iso") == -1) {
     fprintf (stderr,
-	     _("libguestfs-test-tool: failed to mount /dev/sdb on /iso\n"));
+             _("libguestfs-test-tool: failed to mount /dev/sdb on /iso\n"));
     exit (1);
   }
 
@@ -243,7 +243,7 @@ main (int argc, char *argv[])
   str = guestfs_command (g, helper_args);
   if (str == NULL) {
     fprintf (stderr,
-	     _("libguestfs-test-tool: could not run helper program, or helper failed\n"));
+             _("libguestfs-test-tool: could not run helper program, or helper failed\n"));
     exit (1);
   }
   free (str);
@@ -282,8 +282,8 @@ set_qemu (const char *path, int use_wrapper)
   if (!use_wrapper) {
     if (access (path, X_OK) == -1) {
       fprintf (stderr,
-	       _("Binary '%s' does not exist or is not executable\n"),
-	       path);
+               _("Binary '%s' does not exist or is not executable\n"),
+               path);
       exit (1);
     }
 
@@ -296,8 +296,8 @@ set_qemu (const char *path, int use_wrapper)
   if (stat (buffer, &statbuf) == -1 ||
       !S_ISDIR (statbuf.st_mode)) {
     fprintf (stderr,
-	     _("%s: does not look like a qemu source directory\n"),
-	     path);
+             _("%s: does not look like a qemu source directory\n"),
+             path);
     exit (1);
   }
 
@@ -312,10 +312,10 @@ set_qemu (const char *path, int use_wrapper)
 
   fp = fdopen (fd, "w");
   fprintf (fp,
-	   "#!/bin/sh -\n"
-	   "qemudir='%s'\n"
-	   "\"$qemudir\"/",
-	   path);
+           "#!/bin/sh -\n"
+           "qemudir='%s'\n"
+           "\"$qemudir\"/",
+           path);
 
   /* Select the right qemu binary for the wrapper script. */
 #ifdef __i386__
@@ -349,7 +349,7 @@ preruncheck (void)
       "available.  Expected to find it in '%s'\n"
       "\n"
       "Use the --helper option to specify the location of this program.\n"),
-	     helper);
+             helper);
     exit (1);
   }
 
@@ -372,7 +372,7 @@ preruncheck (void)
     _("Test tool helper program %s\n"
       "is not statically linked.  This is a build error when this test tool\n"
       "was built.\n"),
-	     helper);
+             helper);
     exit (1);
   }
 }
@@ -399,11 +399,11 @@ make_files (void)
   close (fd);
 
   snprintf (cmd, sizeof cmd, "mkisofs -quiet -rJT -o '%s' '%s'",
-	    isof, helper);
+            isof, helper);
   r = system (cmd);
   if (r == -1 || WEXITSTATUS(r) != 0) {
     fprintf (stderr,
-	     _("mkisofs command failed: %s\n"), cmd);
+             _("mkisofs command failed: %s\n"), cmd);
     exit (1);
   }
 

@@ -93,7 +93,7 @@ do_pvs (void)
   int r;
 
   r = command (&out, &err,
-	       "/sbin/lvm", "pvs", "-o", "pv_name", "--noheadings", NULL);
+               "/sbin/lvm", "pvs", "-o", "pv_name", "--noheadings", NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     free (out);
@@ -113,7 +113,7 @@ do_vgs (void)
   int r;
 
   r = command (&out, &err,
-	       "/sbin/lvm", "vgs", "-o", "vg_name", "--noheadings", NULL);
+               "/sbin/lvm", "vgs", "-o", "vg_name", "--noheadings", NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     free (out);
@@ -133,9 +133,9 @@ do_lvs (void)
   int r;
 
   r = command (&out, &err,
-	       "/sbin/lvm", "lvs",
-	       "-o", "vg_name,lv_name", "--noheadings",
-	       "--separator", "/", NULL);
+               "/sbin/lvm", "lvs",
+               "-o", "vg_name,lv_name", "--noheadings",
+               "--separator", "/", NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     free (out);
@@ -179,7 +179,7 @@ do_pvcreate (char *device)
   IS_DEVICE (device, -1);
 
   r = command (NULL, &err,
-	       "/sbin/lvm", "pvcreate", device, NULL);
+               "/sbin/lvm", "pvcreate", device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     free (err);
@@ -240,8 +240,8 @@ do_lvcreate (char *logvol, char *volgroup, int mbytes)
   snprintf (size, sizeof size, "%d", mbytes);
 
   r = command (NULL, &err,
-	       "/sbin/lvm", "lvcreate",
-	       "-L", size, "-n", logvol, volgroup, NULL);
+               "/sbin/lvm", "lvcreate",
+               "-L", size, "-n", logvol, volgroup, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     free (err);
@@ -267,8 +267,8 @@ do_lvresize (char *logvol, int mbytes)
   snprintf (size, sizeof size, "%d", mbytes);
 
   r = command (NULL, &err,
-	       "/sbin/lvm", "lvresize",
-	       "-L", size, logvol, NULL);
+               "/sbin/lvm", "lvresize",
+               "-L", size, logvol, NULL);
   if (r == -1) {
     reply_with_error ("lvresize: %s", err);
     free (err);
@@ -355,7 +355,7 @@ do_lvremove (char *device)
   IS_DEVICE (device, -1);
 
   r = command (NULL, &err,
-	       "/sbin/lvm", "lvremove", "-f", device, NULL);
+               "/sbin/lvm", "lvremove", "-f", device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     free (err);
@@ -376,7 +376,7 @@ do_vgremove (char *device)
   int r;
 
   r = command (NULL, &err,
-	       "/sbin/lvm", "vgremove", "-f", device, NULL);
+               "/sbin/lvm", "vgremove", "-f", device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     free (err);
@@ -399,7 +399,7 @@ do_pvremove (char *device)
   IS_DEVICE (device, -1);
 
   r = command (NULL, &err,
-	       "/sbin/lvm", "pvremove", "-ff", device, NULL);
+               "/sbin/lvm", "pvremove", "-ff", device, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     free (err);
@@ -422,7 +422,7 @@ do_pvresize (char *device)
   IS_DEVICE (device, -1);
 
   r = command (NULL, &err,
-	       "/sbin/lvm", "pvresize", device, NULL);
+               "/sbin/lvm", "pvresize", device, NULL);
   if (r == -1) {
     reply_with_error ("pvresize: %s: %s", device, err);
     free (err);

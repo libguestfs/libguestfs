@@ -128,80 +128,80 @@ sub open_guest
 
     my @images = ();
     if (ref ($first) eq "ARRAY") {
-	@images = @$first;
+        @images = @$first;
     } elsif (ref ($first) eq "SCALAR") {
-	@images = ($first);
+        @images = ($first);
     } else {
-	die __"open_guest: first parameter must be a string or an arrayref"
+        die __"open_guest: first parameter must be a string or an arrayref"
     }
 
     my ($conn, $dom);
 
     if (-e $images[0]) {
-	foreach (@images) {
-	    die __x("guest image {imagename} does not exist or is not readable",
-		    imagename => $_)
-		unless -r $_;
-	}
+        foreach (@images) {
+            die __x("guest image {imagename} does not exist or is not readable",
+                    imagename => $_)
+                unless -r $_;
+        }
     } else {
-	die __"open_guest: no libvirt support (install Sys::Virt, XML::XPath and XML::XPath::XMLParser)"
-	    unless exists $INC{"Sys/Virt.pm"} &&
-	    exists $INC{"XML/XPath.pm"} &&
-	    exists $INC{"XML/XPath/XMLParser.pm"};
+        die __"open_guest: no libvirt support (install Sys::Virt, XML::XPath and XML::XPath::XMLParser)"
+            unless exists $INC{"Sys/Virt.pm"} &&
+            exists $INC{"XML/XPath.pm"} &&
+            exists $INC{"XML/XPath/XMLParser.pm"};
 
-	die __"open_guest: too many domains listed on command line"
-	    if @images > 1;
+        die __"open_guest: too many domains listed on command line"
+            if @images > 1;
 
-	$conn = Sys::Virt->new (readonly => 1, @_);
-	die __"open_guest: cannot connect to libvirt" unless $conn;
+        $conn = Sys::Virt->new (readonly => 1, @_);
+        die __"open_guest: cannot connect to libvirt" unless $conn;
 
-	my @doms = $conn->list_defined_domains ();
-	my $isitinactive = 1;
-	unless ($readwrite) {
-	    # In the case where we want read-only access to a domain,
-	    # allow the user to specify an active domain too.
-	    push @doms, $conn->list_domains ();
-	    $isitinactive = 0;
-	}
-	foreach (@doms) {
-	    if ($_->get_name () eq $images[0]) {
-		$dom = $_;
-		last;
-	    }
-	}
+        my @doms = $conn->list_defined_domains ();
+        my $isitinactive = 1;
+        unless ($readwrite) {
+            # In the case where we want read-only access to a domain,
+            # allow the user to specify an active domain too.
+            push @doms, $conn->list_domains ();
+            $isitinactive = 0;
+        }
+        foreach (@doms) {
+            if ($_->get_name () eq $images[0]) {
+                $dom = $_;
+                last;
+            }
+        }
 
-	unless ($dom) {
-	    if ($isitinactive) {
-		die __x("{imagename} is not the name of an inactive libvirt domain\n",
-			imagename => $images[0]);
-	    } else {
-		die __x("{imagename} is not the name of a libvirt domain\n",
-			imagename => $images[0]);
-	    }
-	}
+        unless ($dom) {
+            if ($isitinactive) {
+                die __x("{imagename} is not the name of an inactive libvirt domain\n",
+                        imagename => $images[0]);
+            } else {
+                die __x("{imagename} is not the name of a libvirt domain\n",
+                        imagename => $images[0]);
+            }
+        }
 
-	# Get the names of the image(s).
-	my $xml = $dom->get_xml_description ();
+        # Get the names of the image(s).
+        my $xml = $dom->get_xml_description ();
 
-	my $p = XML::XPath->new (xml => $xml);
-	my @disks = $p->findnodes ('//devices/disk/source/@dev');
-	push (@disks, $p->findnodes ('//devices/disk/source/@file'));
+        my $p = XML::XPath->new (xml => $xml);
+        my @disks = $p->findnodes ('//devices/disk/source/@dev');
+        push (@disks, $p->findnodes ('//devices/disk/source/@file'));
 
-	die __x("{imagename} seems to have no disk devices\n",
-		imagename => $images[0])
-	    unless @disks;
+        die __x("{imagename} seems to have no disk devices\n",
+                imagename => $images[0])
+            unless @disks;
 
-	@images = map { $_->getData } @disks;
+        @images = map { $_->getData } @disks;
     }
 
     # We've now got the list of @images, so feed them to libguestfs.
     my $g = Sys::Guestfs->new ();
     foreach (@images) {
-	if ($readwrite) {
-	    $g->add_drive ($_);
-	} else {
-	    $g->add_drive_ro ($_);
-	}
+        if ($readwrite) {
+            $g->add_drive ($_);
+        } else {
+            $g->add_drive_ro ($_);
+        }
     }
 
     return wantarray ? ($g, $conn, $dom, @images) : $g
@@ -239,7 +239,7 @@ sub _is_pv {
     my $t = shift;
 
     foreach (@_) {
-	return 1 if $_ eq $t;
+        return 1 if $_ eq $t;
     }
     0;
 }
@@ -271,8 +271,8 @@ sub resolve_windows_path
     my $path = shift;
 
     if (substr ($path, 0, 1) ne "/") {
-	warn __"resolve_windows_path: path must start with a / character";
-	return undef;
+        warn __"resolve_windows_path: path must start with a / character";
+        return undef;
     }
 
     my @elems = split (/\//, $path);
@@ -282,19 +282,19 @@ sub resolve_windows_path
     $path = "/";
 
     foreach my $dir (@elems) {
-	my $found = 0;
-	foreach ($g->ls ($path)) {
-	    if (lc ($_) eq lc ($dir)) {
-		if ($path eq "/") {
-		    $path = "/$_";
-		    $found = 1;
-		} else {
-		    $path = "$path/$_";
-		    $found = 1;
-		}
-	    }
-	}
-	return undef unless $found;
+        my $found = 0;
+        foreach ($g->ls ($path)) {
+            if (lc ($_) eq lc ($dir)) {
+                if ($path eq "/") {
+                    $path = "/$_";
+                    $found = 1;
+                } else {
+                    $path = "$path/$_";
+                    $found = 1;
+                }
+            }
+        }
+        return undef unless $found;
     }
 
     return $path;
@@ -376,27 +376,27 @@ sub _elf_arch_to_canonical
     local $_ = shift;
 
     if ($_ eq "Intel 80386") {
-	return "i386";
+        return "i386";
     } elsif ($_ eq "Intel 80486") {
-	return "i486";	# probably not in the wild
+        return "i486";	# probably not in the wild
     } elsif ($_ eq "x86-64") {
-	return "x86_64";
+        return "x86_64";
     } elsif ($_ eq "AMD x86-64") {
-	return "x86_64";
+        return "x86_64";
     } elsif (/SPARC32/) {
-	return "sparc";
+        return "sparc";
     } elsif (/SPARC V9/) {
-	return "sparc64";
+        return "sparc64";
     } elsif ($_ eq "IA-64") {
-	return "ia64";
+        return "ia64";
     } elsif (/64.*PowerPC/) {
-	return "ppc64";
+        return "ppc64";
     } elsif (/PowerPC/) {
-	return "ppc";
+        return "ppc";
     } else {
-	warn __x("returning non-canonical architecture type '{arch}'",
-		 arch => $_);
-	return $_;
+        warn __x("returning non-canonical architecture type '{arch}'",
+                 arch => $_);
+        return $_;
     }
 }
 
@@ -412,49 +412,49 @@ sub file_architecture
     my $file = $g->file ($path);
 
     if ($file =~ /ELF.*(?:executable|shared object|relocatable), (.+?),/) {
-	# ELF executable or shared object.  We need to convert
-	# what file(1) prints into the canonical form.
-	return _elf_arch_to_canonical ($1);
+        # ELF executable or shared object.  We need to convert
+        # what file(1) prints into the canonical form.
+        return _elf_arch_to_canonical ($1);
     } elsif ($file =~ /PE32 executable/) {
-	return "i386";		# Win32 executable or DLL
+        return "i386";		# Win32 executable or DLL
     } elsif ($file =~ /PE32\+ executable/) {
-	return "x86_64";	# Win64 executable or DLL
+        return "x86_64";	# Win64 executable or DLL
     }
 
     elsif ($file =~ /cpio archive/) {
-	# Probably an initrd.
-	my $zcat = "cat";
-	if ($file =~ /gzip/) {
-	    $zcat = "zcat";
-	} elsif ($file =~ /bzip2/) {
-	    $zcat = "bzcat";
-	}
+        # Probably an initrd.
+        my $zcat = "cat";
+        if ($file =~ /gzip/) {
+            $zcat = "zcat";
+        } elsif ($file =~ /bzip2/) {
+            $zcat = "bzcat";
+        }
 
-	# Download and unpack it to find a binary file.
-	my $dir = tempdir (CLEANUP => 1);
-	$g->download ($path, "$dir/initrd");
+        # Download and unpack it to find a binary file.
+        my $dir = tempdir (CLEANUP => 1);
+        $g->download ($path, "$dir/initrd");
 
-	my $bins = join " ", map { "bin/$_" } @_initrd_binaries;
-	my $cmd = "cd $dir && $zcat initrd | cpio --quiet -id $bins";
-	my $r = system ($cmd);
-	die __x("cpio command failed: {error}", error => $?)
-	    unless $r == 0;
+        my $bins = join " ", map { "bin/$_" } @_initrd_binaries;
+        my $cmd = "cd $dir && $zcat initrd | cpio --quiet -id $bins";
+        my $r = system ($cmd);
+        die __x("cpio command failed: {error}", error => $?)
+            unless $r == 0;
 
-	foreach my $bin (@_initrd_binaries) {
-	    if (-f "$dir/bin/$bin") {
-		$_ = `file $dir/bin/$bin`;
-		if (/ELF.*executable, (.+?),/) {
-		    return _elf_arch_to_canonical ($1);
-		}
-	    }
-	}
+        foreach my $bin (@_initrd_binaries) {
+            if (-f "$dir/bin/$bin") {
+                $_ = `file $dir/bin/$bin`;
+                if (/ELF.*executable, (.+?),/) {
+                    return _elf_arch_to_canonical ($1);
+                }
+            }
+        }
 
-	die __x("file_architecture: no known binaries found in initrd image: {path}",
-		path => $path);
+        die __x("file_architecture: no known binaries found in initrd image: {path}",
+                path => $path);
     }
 
     die __x("file_architecture: unknown architecture: {path}",
-	    path => $path);
+            path => $path);
 }
 
 =head1 OPERATING SYSTEM INSPECTION FUNCTIONS
@@ -689,84 +689,84 @@ sub inspect_partition
     # First try 'file(1)' on it.
     my $file = $g->file ($dev);
     if ($file =~ /ext2 filesystem data/) {
-	$r{fstype} = "ext2";
-	$r{fsos} = "linux";
+        $r{fstype} = "ext2";
+        $r{fsos} = "linux";
     } elsif ($file =~ /ext3 filesystem data/) {
-	$r{fstype} = "ext3";
-	$r{fsos} = "linux";
+        $r{fstype} = "ext3";
+        $r{fsos} = "linux";
     } elsif ($file =~ /ext4 filesystem data/) {
-	$r{fstype} = "ext4";
-	$r{fsos} = "linux";
+        $r{fstype} = "ext4";
+        $r{fsos} = "linux";
     } elsif ($file =~ m{Linux/i386 swap file}) {
-	$r{fstype} = "swap";
-	$r{fsos} = "linux";
-	$r{is_swap} = 1;
+        $r{fstype} = "swap";
+        $r{fsos} = "linux";
+        $r{is_swap} = 1;
     }
 
     # If it's ext2/3/4, then we want the UUID and label.
     if (exists $r{fstype} && $r{fstype} =~ /^ext/) {
-	$r{uuid} = $g->get_e2uuid ($dev);
-	$r{label} = $g->get_e2label ($dev);
+        $r{uuid} = $g->get_e2uuid ($dev);
+        $r{label} = $g->get_e2label ($dev);
     }
 
     # Try mounting it, fnarrr.
     if (!$r{is_swap}) {
-	$r{is_mountable} = 1;
-	eval { $g->mount_ro ($dev, "/") };
-	if ($@) {
-	    # It's not mountable, probably empty or some format
-	    # we don't understand.
-	    $r{is_mountable} = 0;
-	    goto OUT;
-	}
+        $r{is_mountable} = 1;
+        eval { $g->mount_ro ($dev, "/") };
+        if ($@) {
+            # It's not mountable, probably empty or some format
+            # we don't understand.
+            $r{is_mountable} = 0;
+            goto OUT;
+        }
 
-	# Grub /boot?
-	if ($g->is_file ("/grub/menu.lst") ||
-	    $g->is_file ("/grub/grub.conf")) {
-	    $r{content} = "linux-grub";
-	    _check_grub ($g, \%r);
-	    goto OUT;
-	}
+        # Grub /boot?
+        if ($g->is_file ("/grub/menu.lst") ||
+            $g->is_file ("/grub/grub.conf")) {
+            $r{content} = "linux-grub";
+            _check_grub ($g, \%r);
+            goto OUT;
+        }
 
-	# Linux root?
-	if ($g->is_dir ("/etc") && $g->is_dir ("/bin") &&
-	    $g->is_file ("/etc/fstab")) {
-	    $r{content} = "linux-root";
-	    $r{is_root} = 1;
-	    _check_linux_root ($g, \%r);
-	    goto OUT;
-	}
+        # Linux root?
+        if ($g->is_dir ("/etc") && $g->is_dir ("/bin") &&
+            $g->is_file ("/etc/fstab")) {
+            $r{content} = "linux-root";
+            $r{is_root} = 1;
+            _check_linux_root ($g, \%r);
+            goto OUT;
+        }
 
-	# Linux /usr/local.
-	if ($g->is_dir ("/etc") && $g->is_dir ("/bin") &&
-	    $g->is_dir ("/share") && !$g->exists ("/local") &&
-	    !$g->is_file ("/etc/fstab")) {
-	    $r{content} = "linux-usrlocal";
-	    goto OUT;
-	}
+        # Linux /usr/local.
+        if ($g->is_dir ("/etc") && $g->is_dir ("/bin") &&
+            $g->is_dir ("/share") && !$g->exists ("/local") &&
+            !$g->is_file ("/etc/fstab")) {
+            $r{content} = "linux-usrlocal";
+            goto OUT;
+        }
 
-	# Linux /usr.
-	if ($g->is_dir ("/etc") && $g->is_dir ("/bin") &&
-	    $g->is_dir ("/share") && $g->exists ("/local") &&
-	    !$g->is_file ("/etc/fstab")) {
-	    $r{content} = "linux-usr";
-	    goto OUT;
-	}
+        # Linux /usr.
+        if ($g->is_dir ("/etc") && $g->is_dir ("/bin") &&
+            $g->is_dir ("/share") && $g->exists ("/local") &&
+            !$g->is_file ("/etc/fstab")) {
+            $r{content} = "linux-usr";
+            goto OUT;
+        }
 
-	# Windows root?
-	if ($g->is_file ("/AUTOEXEC.BAT") ||
-	    $g->is_file ("/autoexec.bat") ||
-	    $g->is_dir ("/Program Files") ||
-	    $g->is_dir ("/WINDOWS") ||
-	    $g->is_file ("/boot.ini") ||
-	    $g->is_file ("/ntldr")) {
-	    $r{fstype} = "ntfs"; # XXX this is a guess
-	    $r{fsos} = "windows";
-	    $r{content} = "windows-root";
-	    $r{is_root} = 1;
-	    _check_windows_root ($g, \%r, $use_windows_registry);
-	    goto OUT;
-	}
+        # Windows root?
+        if ($g->is_file ("/AUTOEXEC.BAT") ||
+            $g->is_file ("/autoexec.bat") ||
+            $g->is_dir ("/Program Files") ||
+            $g->is_dir ("/WINDOWS") ||
+            $g->is_file ("/boot.ini") ||
+            $g->is_file ("/ntldr")) {
+            $r{fstype} = "ntfs"; # XXX this is a guess
+            $r{fsos} = "windows";
+            $r{content} = "windows-root";
+            $r{is_root} = 1;
+            _check_windows_root ($g, \%r, $use_windows_registry);
+            goto OUT;
+        }
     }
 
   OUT:
@@ -785,13 +785,13 @@ sub _check_linux_root
     if ($g->exists ("/etc/redhat-release")) {
         $r->{package_format} = "rpm";
 
-	$_ = $g->cat ("/etc/redhat-release");
-	if (/Fedora release (\d+)(?:\.(\d+))?/) {
-	    $r->{osdistro} = "fedora";
-	    $r->{os_major_version} = "$1";
-	    $r->{os_minor_version} = "$2" if(defined($2));
-	    $r->{package_management} = "yum";
-	}
+        $_ = $g->cat ("/etc/redhat-release");
+        if (/Fedora release (\d+)(?:\.(\d+))?/) {
+            $r->{osdistro} = "fedora";
+            $r->{os_major_version} = "$1";
+            $r->{os_minor_version} = "$2" if(defined($2));
+            $r->{package_management} = "yum";
+        }
 
         elsif (/(Red Hat Enterprise Linux|CentOS|Scientific Linux)/) {
             my $distro = $1;
@@ -839,51 +839,51 @@ sub _check_linux_root
         }
 
         else {
-	    $r->{osdistro} = "redhat-based";
-	}
+            $r->{osdistro} = "redhat-based";
+        }
     } elsif ($g->is_file ("/etc/debian_version")) {
         $r->{package_format} = "dpkg";
         $r->{package_management} = "apt";
 
-	$_ = $g->cat ("/etc/debian_version");
-	if (/(\d+)\.(\d+)/) {
-	    $r->{osdistro} = "debian";
-	    $r->{os_major_version} = "$1";
-	    $r->{os_minor_version} = "$2";
-	} else {
-	    $r->{osdistro} = "debian";
-	}
+        $_ = $g->cat ("/etc/debian_version");
+        if (/(\d+)\.(\d+)/) {
+            $r->{osdistro} = "debian";
+            $r->{os_major_version} = "$1";
+            $r->{os_minor_version} = "$2";
+        } else {
+            $r->{osdistro} = "debian";
+        }
     }
 
     # Parse the contents of /etc/fstab.  This is pretty vital so
     # we can determine where filesystems are supposed to be mounted.
     eval "\$_ = \$g->cat ('/etc/fstab');";
     if (!$@ && $_) {
-	my @lines = split /\n/;
-	my @fstab;
-	foreach (@lines) {
-	    my @fields = split /[ \t]+/;
-	    if (@fields >= 2) {
-		my $spec = $fields[0]; # first column (dev/label/uuid)
-		my $file = $fields[1]; # second column (mountpoint)
-		if ($spec =~ m{^/} ||
-		    $spec =~ m{^LABEL=} ||
-		    $spec =~ m{^UUID=} ||
-		    $file eq "swap") {
-		    push @fstab, [$spec, $file]
-		}
-	    }
-	}
-	$r->{fstab} = \@fstab if @fstab;
+        my @lines = split /\n/;
+        my @fstab;
+        foreach (@lines) {
+            my @fields = split /[ \t]+/;
+            if (@fields >= 2) {
+                my $spec = $fields[0]; # first column (dev/label/uuid)
+                my $file = $fields[1]; # second column (mountpoint)
+                if ($spec =~ m{^/} ||
+                    $spec =~ m{^LABEL=} ||
+                    $spec =~ m{^UUID=} ||
+                    $file eq "swap") {
+                    push @fstab, [$spec, $file]
+                }
+            }
+        }
+        $r->{fstab} = \@fstab if @fstab;
     }
 
     # Determine the architecture of this root.
     my $arch;
     foreach ("/bin/bash", "/bin/ls", "/bin/echo", "/bin/rm", "/bin/sh") {
-	if ($g->is_file ($_)) {
-	    $arch = file_architecture ($g, $_);
-	    last;
-	}
+        if ($g->is_file ($_)) {
+            $arch = file_architecture ($g, $_);
+            last;
+        }
     }
 
     $r->{arch} = $arch if defined $arch;
@@ -907,31 +907,31 @@ sub _check_windows_root
     $r->{boot_ini} = $boot_ini;
 
     if (defined $r->{boot_ini}) {
-	$_ = $g->cat ($boot_ini);
-	my @lines = split /\n/;
-	my $section;
-	my $systemroot;
-	foreach (@lines) {
-	    if (m/\[.*\]/) {
-		$section = $1;
-	    } elsif (m/^default=.*?\\(\w+)$/i) {
-		$systemroot = $1;
-		last;
-	    } elsif (m/\\(\w+)=/) {
-		$systemroot = $1;
-		last;
-	    }
-	}
+        $_ = $g->cat ($boot_ini);
+        my @lines = split /\n/;
+        my $section;
+        my $systemroot;
+        foreach (@lines) {
+            if (m/\[.*\]/) {
+                $section = $1;
+            } elsif (m/^default=.*?\\(\w+)$/i) {
+                $systemroot = $1;
+                last;
+            } elsif (m/\\(\w+)=/) {
+                $systemroot = $1;
+                last;
+            }
+        }
 
-	if (defined $systemroot) {
-	    $r->{systemroot} = resolve_windows_path ($g, "/$systemroot");
-	    if (defined $r->{systemroot}) {
-		_check_windows_arch ($g, $r, $r->{systemroot});
-		if ($use_windows_registry) {
-		    _check_windows_registry ($g, $r, $r->{systemroot});
-		}
-	    }
-	}
+        if (defined $systemroot) {
+            $r->{systemroot} = resolve_windows_path ($g, "/$systemroot");
+            if (defined $r->{systemroot}) {
+                _check_windows_arch ($g, $r, $r->{systemroot});
+                if ($use_windows_registry) {
+                    _check_windows_registry ($g, $r, $r->{systemroot});
+                }
+            }
+        }
     }
 }
 
@@ -945,7 +945,7 @@ sub _check_windows_arch
     my $systemroot = shift;
 
     my $cmd_exe =
-	resolve_windows_path ($g, $r->{systemroot} . "/system32/cmd.exe");
+        resolve_windows_path ($g, $r->{systemroot} . "/system32/cmd.exe");
     $r->{arch} = file_architecture ($g, $cmd_exe) if $cmd_exe;
 }
 
@@ -961,16 +961,16 @@ sub _check_windows_registry
 
     my $configdir = resolve_windows_path ($g, "$systemroot/system32/config");
     if (defined $configdir) {
-	my $softwaredir = resolve_windows_path ($g, "$configdir/software");
-	if (defined $softwaredir) {
-	    _load_windows_registry ($g, $r, $softwaredir,
-				    "HKEY_LOCAL_MACHINE\\SOFTWARE");
-	}
-	my $systemdir = resolve_windows_path ($g, "$configdir/system");
-	if (defined $systemdir) {
-	    _load_windows_registry ($g, $r, $systemdir,
-				    "HKEY_LOCAL_MACHINE\\System");
-	}
+        my $softwaredir = resolve_windows_path ($g, "$configdir/software");
+        if (defined $softwaredir) {
+            _load_windows_registry ($g, $r, $softwaredir,
+                                    "HKEY_LOCAL_MACHINE\\SOFTWARE");
+        }
+        my $systemdir = resolve_windows_path ($g, "$configdir/system");
+        if (defined $systemdir) {
+            _load_windows_registry ($g, $r, $systemdir,
+                                    "HKEY_LOCAL_MACHINE\\System");
+        }
     }
 }
 
@@ -1004,8 +1004,8 @@ sub _load_windows_registry
     close SAVEERR;
 
     unless ($res == 0) {
-	warn __x("reged command failed: {errormsg}", errormsg => $?);
-	return;
+        warn __x("reged command failed: {errormsg}", errormsg => $?);
+        return;
     }
 
     # Some versions of reged segfault on inputs.  If that happens we
@@ -1013,8 +1013,8 @@ sub _load_windows_registry
     # it.
     my $content;
     unless (open F, "$dir/out") {
-	warn __x("no output from reged command: {errormsg}", errormsg => $!);
-	return;
+        warn __x("no output from reged command: {errormsg}", errormsg => $!);
+        return;
     }
     { local $/ = undef; $content = <F>; }
     close F;
@@ -1120,15 +1120,15 @@ sub inspect_operating_systems
     my %oses = ();
 
     foreach (sort keys %$fses) {
-	if ($fses->{$_}->{is_root}) {
-	    my %r = (
-		root => $fses->{$_},
-		root_device => $_
-		);
-	    _get_os_version ($g, \%r);
-	    _assign_mount_points ($g, $fses, \%r);
-	    $oses{$_} = \%r;
-	}
+        if ($fses->{$_}->{is_root}) {
+            my %r = (
+                root => $fses->{$_},
+                root_device => $_
+                );
+            _get_os_version ($g, \%r);
+            _assign_mount_points ($g, $fses, \%r);
+            $oses{$_} = \%r;
+        }
     }
 
     return \%oses;
@@ -1165,22 +1165,22 @@ sub _assign_mount_points
 
     # Use /etc/fstab if we have it to mount the rest.
     if (exists $r->{root}->{fstab}) {
-	my @fstab = @{$r->{root}->{fstab}};
-	foreach (@fstab) {
-	    my ($spec, $file) = @$_;
+        my @fstab = @{$r->{root}->{fstab}};
+        foreach (@fstab) {
+            my ($spec, $file) = @$_;
 
-	    my ($dev, $fs) = _find_filesystem ($g, $fses, $spec);
-	    if ($dev) {
-		$r->{mounts}->{$file} = $dev;
-		$r->{filesystems}->{$dev} = $fs;
-		if (exists $fs->{used}) {
-		    $fs->{used}++
-		} else {
-		    $fs->{used} = 1
-	        }
+            my ($dev, $fs) = _find_filesystem ($g, $fses, $spec);
+            if ($dev) {
+                $r->{mounts}->{$file} = $dev;
+                $r->{filesystems}->{$dev} = $fs;
+                if (exists $fs->{used}) {
+                    $fs->{used}++
+                } else {
+                    $fs->{used} = 1
+                }
                 $fs->{spec} = $spec;
-	    }
-	}
+            }
+        }
     }
 }
 
@@ -1192,27 +1192,27 @@ sub _find_filesystem
     local $_ = shift;
 
     if (/^LABEL=(.*)/) {
-	my $label = $1;
-	foreach (sort keys %$fses) {
-	    if (exists $fses->{$_}->{label} &&
-		$fses->{$_}->{label} eq $label) {
-		return ($_, $fses->{$_});
-	    }
-	}
-	warn __x("unknown filesystem label {label}\n", label => $label);
-	return ();
+        my $label = $1;
+        foreach (sort keys %$fses) {
+            if (exists $fses->{$_}->{label} &&
+                $fses->{$_}->{label} eq $label) {
+                return ($_, $fses->{$_});
+            }
+        }
+        warn __x("unknown filesystem label {label}\n", label => $label);
+        return ();
     } elsif (/^UUID=(.*)/) {
-	my $uuid = $1;
-	foreach (sort keys %$fses) {
-	    if (exists $fses->{$_}->{uuid} &&
-		$fses->{$_}->{uuid} eq $uuid) {
-		return ($_, $fses->{$_});
-	    }
-	}
-	warn __x("unknown filesystem UUID {uuid}\n", uuid => $uuid);
-	return ();
+        my $uuid = $1;
+        foreach (sort keys %$fses) {
+            if (exists $fses->{$_}->{uuid} &&
+                $fses->{$_}->{uuid} eq $uuid) {
+                return ($_, $fses->{$_});
+            }
+        }
+        warn __x("unknown filesystem UUID {uuid}\n", uuid => $uuid);
+        return ();
     } else {
-	return ($_, $fses->{$_}) if exists $fses->{$_};
+        return ($_, $fses->{$_}) if exists $fses->{$_};
 
         # The following is to handle the case where an fstab entry specifies a
         # specific device rather than its label or uuid, and the libguestfs
@@ -1220,20 +1220,20 @@ sub _find_filesystem
         # different driver.
         # This will work as long as the underlying drivers recognise devices in
         # the same order.
-	if (m{^/dev/hd(.*)} && exists $fses->{"/dev/sd$1"}) {
-	    return ("/dev/sd$1", $fses->{"/dev/sd$1"});
-	}
-	if (m{^/dev/xvd(.*)} && exists $fses->{"/dev/sd$1"}) {
-	    return ("/dev/sd$1", $fses->{"/dev/sd$1"});
-	}
-	if (m{^/dev/mapper/(.*)-(.*)$} && exists $fses->{"/dev/$1/$2"}) {
-	    return ("/dev/$1/$2", $fses->{"/dev/$1/$2"});
-	}
+        if (m{^/dev/hd(.*)} && exists $fses->{"/dev/sd$1"}) {
+            return ("/dev/sd$1", $fses->{"/dev/sd$1"});
+        }
+        if (m{^/dev/xvd(.*)} && exists $fses->{"/dev/sd$1"}) {
+            return ("/dev/sd$1", $fses->{"/dev/sd$1"});
+        }
+        if (m{^/dev/mapper/(.*)-(.*)$} && exists $fses->{"/dev/$1/$2"}) {
+            return ("/dev/$1/$2", $fses->{"/dev/$1/$2"});
+        }
 
-	return () if m{/dev/cdrom};
+        return () if m{/dev/cdrom};
 
-	warn __x("unknown filesystem {fs}\n", fs => $_);
-	return ();
+        warn __x("unknown filesystem {fs}\n", fs => $_);
+        return ();
     }
 }
 
@@ -1388,7 +1388,7 @@ sub inspect_in_detail
     _check_for_applications ($g, $os);
     _check_for_kernels ($g, $os);
     if ($os->{os} eq "linux") {
-	_find_modprobe_aliases ($g, $os);
+        _find_modprobe_aliases ($g, $os);
     }
 }
 
@@ -1402,34 +1402,34 @@ sub _check_for_applications
 
     my $osn = $os->{os};
     if ($osn eq "linux") {
-	my $package_format = $os->{package_format};
-	if (defined $package_format && $package_format eq "rpm") {
-	    my @lines = $g->command_lines
-		(["rpm",
-		  "-q", "-a",
-		  "--qf", "%{name} %{epoch} %{version} %{release} %{arch}\n"]);
-	    foreach (@lines) {
-		if (m/^(.*) (.*) (.*) (.*) (.*)$/) {
-		    my $epoch = $2;
-		    $epoch = "" if $epoch eq "(none)";
-		    my $app = {
-			name => $1,
-			epoch => $epoch,
-			version => $3,
-			release => $4,
-			arch => $5
-		    };
-		    push @apps, $app
-		}
-	    }
-	}
+        my $package_format = $os->{package_format};
+        if (defined $package_format && $package_format eq "rpm") {
+            my @lines = $g->command_lines
+                (["rpm",
+                  "-q", "-a",
+                  "--qf", "%{name} %{epoch} %{version} %{release} %{arch}\n"]);
+            foreach (@lines) {
+                if (m/^(.*) (.*) (.*) (.*) (.*)$/) {
+                    my $epoch = $2;
+                    $epoch = "" if $epoch eq "(none)";
+                    my $app = {
+                        name => $1,
+                        epoch => $epoch,
+                        version => $3,
+                        release => $4,
+                        arch => $5
+                    };
+                    push @apps, $app
+                }
+            }
+        }
     } elsif ($osn eq "windows") {
-	# XXX
-	# I worked out a general plan for this, but haven't
-	# implemented it yet.  We can iterate over /Program Files
-	# looking for *.EXE files, which we download, then use
-	# i686-pc-mingw32-windres on, to find the VERSIONINFO
-	# section, which has a lot of useful information.
+        # XXX
+        # I worked out a general plan for this, but haven't
+        # implemented it yet.  We can iterate over /Program Files
+        # looking for *.EXE files, which we download, then use
+        # i686-pc-mingw32-windres on, to find the VERSIONINFO
+        # section, which has a lot of useful information.
     }
 
     $os->{apps} = \@apps;
@@ -1537,7 +1537,7 @@ sub _check_for_kernels
     }
 
     elsif ($os->{os} eq "windows") {
-	# XXX
+        # XXX
     }
 }
 
@@ -1652,7 +1652,7 @@ sub _find_modprobe_aliases
         for my $path ( $g->aug_match($pattern) ) {
             $path =~ m{^/files(.*)/alias(?:\[\d*\])?$}
                 or die __x("{path} doesn't match augeas pattern",
-			   path => $path);
+                           path => $path);
             my $file = $1;
 
             my $alias;

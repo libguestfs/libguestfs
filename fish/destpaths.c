@@ -112,24 +112,24 @@ complete_dest_paths_generator (const char *text, int state)
     if (strs) {								\
       size_t i;								\
       size_t n = count_strings (strs);					\
-									\
+                                                                        \
       if ( ! xalloc_oversized (nr_words + n, sizeof (struct word))) {	\
-	struct word *w;							\
-	w = realloc (words, sizeof (struct word) * (nr_words + n));	\
-									\
-	if (w == NULL) {						\
-	  free_words (words, nr_words);					\
-	  words = NULL;							\
-	  nr_words = 0;							\
-	} else {							\
-	  words = w;							\
-	  for (i = 0; i < n; ++i) {					\
-	    words[nr_words].name = strs[i];				\
-	    words[nr_words].is_dir = 0;					\
-	    nr_words++;							\
-	  }								\
-	}								\
-	free (strs);							\
+        struct word *w;							\
+        w = realloc (words, sizeof (struct word) * (nr_words + n));	\
+                                                                        \
+        if (w == NULL) {						\
+          free_words (words, nr_words);					\
+          words = NULL;							\
+          nr_words = 0;							\
+        } else {							\
+          words = w;							\
+          for (i = 0; i < n; ++i) {					\
+            words[nr_words].name = strs[i];				\
+            words[nr_words].is_dir = 0;					\
+            nr_words++;							\
+          }								\
+        }								\
+        free (strs);							\
       }									\
     }									\
   } while (0)
@@ -157,46 +157,46 @@ complete_dest_paths_generator (const char *text, int state)
       p = strrchr (text, '/');
       dir = p && p > text ? strndup (text, p - text) : strdup ("/");
       if (dir) {
-	dirents = guestfs_readdir (g, dir);
+        dirents = guestfs_readdir (g, dir);
 
-	/* Prepend directory to names before adding them to the list
-	 * of words.
-	 */
-	if (dirents) {
-	  size_t i;
+        /* Prepend directory to names before adding them to the list
+         * of words.
+         */
+        if (dirents) {
+          size_t i;
 
-	  for (i = 0; i < dirents->len; ++i) {
-	    int err;
+          for (i = 0; i < dirents->len; ++i) {
+            int err;
 
-	    if (strcmp (dirents->val[i].name, ".") != 0 &&
-		strcmp (dirents->val[i].name, "..") != 0) {
-	      if (strcmp (dir, "/") == 0)
-		err = asprintf (&p, "/%s", dirents->val[i].name);
-	      else
-		err = asprintf (&p, "%s/%s", dir, dirents->val[i].name);
-	      if (err >= 0) {
-		if (!xalloc_oversized (nr_words+1, sizeof (struct word))) {
-		  struct word *w;
+            if (strcmp (dirents->val[i].name, ".") != 0 &&
+                strcmp (dirents->val[i].name, "..") != 0) {
+              if (strcmp (dir, "/") == 0)
+                err = asprintf (&p, "/%s", dirents->val[i].name);
+              else
+                err = asprintf (&p, "%s/%s", dir, dirents->val[i].name);
+              if (err >= 0) {
+                if (!xalloc_oversized (nr_words+1, sizeof (struct word))) {
+                  struct word *w;
 
-		  w = realloc (words, sizeof (struct word) * (nr_words+1));
-		  if (w == NULL) {
-		    free_words (words, nr_words);
-		    words = NULL;
-		    nr_words = 0;
-		  }
-		  else {
-		    words = w;
-		    words[nr_words].name = p;
-		    words[nr_words].is_dir = dirents->val[i].ftyp == 'd';
-		    nr_words++;
-		  }
-		}
-	      }
-	    }
-	  }
+                  w = realloc (words, sizeof (struct word) * (nr_words+1));
+                  if (w == NULL) {
+                    free_words (words, nr_words);
+                    words = NULL;
+                    nr_words = 0;
+                  }
+                  else {
+                    words = w;
+                    words[nr_words].name = p;
+                    words[nr_words].is_dir = dirents->val[i].ftyp == 'd';
+                    nr_words++;
+                  }
+                }
+              }
+            }
+          }
 
-	  guestfs_free_dirent_list (dirents);
-	}
+          guestfs_free_dirent_list (dirents);
+        }
       }
     }
 
@@ -219,7 +219,7 @@ complete_dest_paths_generator (const char *text, int state)
 
     if (strncasecmp (word->name, text, len) == 0) {
       if (word->is_dir)
-	rl_completion_append_character = '/';
+        rl_completion_append_character = '/';
 
       return strdup (word->name);
     }

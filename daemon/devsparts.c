@@ -46,8 +46,8 @@ do_list_devices (void)
 
   while ((d = readdir (dir)) != NULL) {
     if (strncmp (d->d_name, "sd", 2) == 0 ||
-	strncmp (d->d_name, "hd", 2) == 0 ||
-	strncmp (d->d_name, "vd", 2) == 0) {
+        strncmp (d->d_name, "hd", 2) == 0 ||
+        strncmp (d->d_name, "vd", 2) == 0) {
       snprintf (buf, sizeof buf, "/dev/%s", d->d_name);
 
       /* RHBZ#514505: Some versions of qemu <= 0.10 add a
@@ -56,14 +56,14 @@ do_list_devices (void)
        */
       int fd = open (buf, O_RDONLY);
       if (fd == -1) {
-	perror (buf);
-	continue;
+        perror (buf);
+        continue;
       }
       close (fd);
 
       if (add_string (&r, &size, &alloc, buf) == -1) {
-	closedir (dir);
-	return NULL;
+        closedir (dir);
+        return NULL;
       }
     }
   }
@@ -100,8 +100,8 @@ do_list_partitions (void)
 
   while ((d = readdir (dir)) != NULL) {
     if (strncmp (d->d_name, "sd", 2) == 0 ||
-	strncmp (d->d_name, "hd", 2) == 0 ||
-	strncmp (d->d_name, "vd", 2) == 0) {
+        strncmp (d->d_name, "hd", 2) == 0 ||
+        strncmp (d->d_name, "vd", 2) == 0) {
       snprintf (buf, sizeof buf, "/dev/%s", d->d_name);
 
       /* RHBZ#514505: Some versions of qemu <= 0.10 add a
@@ -110,8 +110,8 @@ do_list_partitions (void)
        */
       int fd = open (buf, O_RDONLY);
       if (fd == -1) {
-	perror (buf);
-	continue;
+        perror (buf);
+        continue;
       }
       close (fd);
 
@@ -122,26 +122,26 @@ do_list_partitions (void)
 
       dir2 = opendir (buf);
       if (!dir2) {
-	reply_with_perror ("opendir: %s", buf);
-	free_stringslen (r, size);
-	return NULL;
+        reply_with_perror ("opendir: %s", buf);
+        free_stringslen (r, size);
+        return NULL;
       }
       while ((d = readdir (dir2)) != NULL) {
-	if (strncmp (d->d_name, devname, strlen (devname)) == 0) {
-	  snprintf (buf, sizeof buf, "/dev/%s", d->d_name);
+        if (strncmp (d->d_name, devname, strlen (devname)) == 0) {
+          snprintf (buf, sizeof buf, "/dev/%s", d->d_name);
 
-	  if (add_string (&r, &size, &alloc, buf) == -1) {
-	    closedir (dir2);
-	    closedir (dir);
-	    return NULL;
-	  }
-	}
+          if (add_string (&r, &size, &alloc, buf) == -1) {
+            closedir (dir2);
+            closedir (dir);
+            return NULL;
+          }
+        }
       }
 
       if (closedir (dir2) == -1) {
-	reply_with_perror ("closedir: /sys/block/%s", devname);
-	free_stringslen (r, size);
-	return NULL;
+        reply_with_perror ("closedir: /sys/block/%s", devname);
+        free_stringslen (r, size);
+        return NULL;
       }
     }
   }

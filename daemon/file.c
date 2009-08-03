@@ -97,18 +97,18 @@ do_cat (char *path)
     if (size >= alloc) {
       alloc += 8192;
       if (alloc > max) {
-	reply_with_error ("cat: %s: file is too large for message buffer",
-			  path);
-	free (buf);
-	close (fd);
-	return NULL;
+        reply_with_error ("cat: %s: file is too large for message buffer",
+                          path);
+        free (buf);
+        close (fd);
+        return NULL;
       }
       buf2 = realloc (buf, alloc);
       if (buf2 == NULL) {
-	reply_with_perror ("realloc");
-	free (buf);
-	close (fd);
-	return NULL;
+        reply_with_perror ("realloc");
+        free (buf);
+        close (fd);
+        return NULL;
       }
       buf = buf2;
     }

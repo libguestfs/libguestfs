@@ -63,7 +63,7 @@ do_readdir (char *path)
     guestfs_int_dirent *p;
 
     p = realloc (ret->guestfs_int_dirent_list_val,
-		 sizeof (guestfs_int_dirent) * (i+1));
+                 sizeof (guestfs_int_dirent) * (i+1));
     v.name = strdup (d->d_name);
     if (!p || !v.name) {
       reply_with_perror ("allocate");

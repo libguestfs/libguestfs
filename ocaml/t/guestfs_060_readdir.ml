@@ -44,10 +44,10 @@ let () =
   ) dirs in
 
   if dirs <> [ ".", 'd';
-	       "..", 'd';
-	       "lost+found", 'd';
-	       "p", 'd';
-	       "q", 'r' ] then
+               "..", 'd';
+               "lost+found", 'd';
+               "p", 'd';
+               "q", 'r' ] then
     failwith "Guestfs.readdir returned incorrect result";
 
   Guestfs.close g;

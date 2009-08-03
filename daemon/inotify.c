@@ -165,10 +165,10 @@ do_inotify_read (void)
     int n, r;
 
     r = read (inotify_fd, inotify_buf + inotify_posn,
-	      sizeof (inotify_buf) - inotify_posn);
+              sizeof (inotify_buf) - inotify_posn);
     if (r == -1) {
       if (errno == EWOULDBLOCK || errno == EAGAIN) /* End of list. */
-	break;
+        break;
       reply_with_perror ("read");
       goto error;
     }
@@ -190,18 +190,18 @@ do_inotify_read (void)
       /* Have we got a complete event in the buffer? */
 #ifdef __GNUC__
       if (n + sizeof (struct inotify_event) > inotify_posn ||
-	  n + sizeof (struct inotify_event) + event->len > inotify_posn)
-	break;
+          n + sizeof (struct inotify_event) + event->len > inotify_posn)
+        break;
 #else
 #error "this code needs fixing so it works on non-GCC compilers"
 #endif
 
       np = realloc (ret->guestfs_int_inotify_event_list_val,
-		    (ret->guestfs_int_inotify_event_list_len + 1) *
-		    sizeof (guestfs_int_inotify_event));
+                    (ret->guestfs_int_inotify_event_list_len + 1) *
+                    sizeof (guestfs_int_inotify_event));
       if (np == NULL) {
-	reply_with_perror ("realloc");
-	goto error;
+        reply_with_perror ("realloc");
+        goto error;
       }
       ret->guestfs_int_inotify_event_list_val = np;
       in = &ret->guestfs_int_inotify_event_list_val[ret->guestfs_int_inotify_event_list_len];
@@ -212,12 +212,12 @@ do_inotify_read (void)
       in->in_cookie = event->cookie;
 
       if (event->len > 0)
-	in->in_name = strdup (event->name);
+        in->in_name = strdup (event->name);
       else
-	in->in_name = strdup (""); /* Should have optional string fields XXX. */
+        in->in_name = strdup (""); /* Should have optional string fields XXX. */
       if (in->in_name == NULL) {
-	reply_with_perror ("strdup");
-	goto error;
+        reply_with_perror ("strdup");
+        goto error;
       }
 
       /* Estimate space used by this event in the message. */
@@ -279,7 +279,7 @@ do_inotify_files (void)
       const char *name = events->guestfs_int_inotify_event_list_val[i].in_name;
 
       if (name[0] != '\0')
-	fprintf (fp, "%s\n", name);
+        fprintf (fp, "%s\n", name);
     }
 
     xdr_free ((xdrproc_t) xdr_guestfs_int_inotify_event_list, (char *) events);

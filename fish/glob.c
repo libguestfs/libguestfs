@@ -69,46 +69,46 @@ do_glob (const char *cmd, int argc, char *argv[])
     if (argv[i][0] == '/') {
       pp = guestfs_glob_expand (g, argv[i]);
       if (pp == NULL) {		/* real error in glob_expand */
-	fprintf (stderr, _("glob: guestfs_glob_expand call failed: %s\n"),
-		 argv[i]);
-	goto error0;
+        fprintf (stderr, _("glob: guestfs_glob_expand call failed: %s\n"),
+                 argv[i]);
+        goto error0;
       }
 
       /* If there were no matches, then we add a single element list
        * containing just the original argv[i] string.
        */
       if (pp[0] == NULL) {
-	char **pp2;
+        char **pp2;
 
-	pp2 = realloc (pp, sizeof (char *) * 2);
-	if (pp2 == NULL) {
-	  perror ("realloc");
-	  free (pp);
-	  goto error0;
-	}
-	pp = pp2;
+        pp2 = realloc (pp, sizeof (char *) * 2);
+        if (pp2 == NULL) {
+          perror ("realloc");
+          free (pp);
+          goto error0;
+        }
+        pp = pp2;
 
-	pp[0] = strdup (argv[i]);
-	if (pp[0] == NULL) {
-	  perror ("strdup");
-	  free (pp);
-	  goto error0;
-	}
-	pp[1] = NULL;
+        pp[0] = strdup (argv[i]);
+        if (pp[0] == NULL) {
+          perror ("strdup");
+          free (pp);
+          goto error0;
+        }
+        pp[1] = NULL;
       }
     }
     /* Doesn't begin with '/' */
     else {
       pp = malloc (sizeof (char *) * 2);
       if (pp == NULL) {
-	perror ("malloc");
-	goto error0;
+        perror ("malloc");
+        goto error0;
       }
       pp[0] = strdup (argv[i]);
       if (pp[0] == NULL) {
-	perror ("strdup");
-	free (pp);
-	goto error0;
+        perror ("strdup");
+        free (pp);
+        goto error0;
       }
       pp[1] = NULL;
     }
@@ -130,8 +130,8 @@ do_glob (const char *cmd, int argc, char *argv[])
 
 static void
 glob_issue (char *cmd, int argc,
-	    char ***globs, int *posn, int *count,
-	    int *r)
+            char ***globs, int *posn, int *count,
+            int *r)
 {
   int i;
   char *argv[argc+1];

@@ -31,8 +31,8 @@
 
 static int
 sfdisk (char *device, int n, int cyls, int heads, int sectors,
-	const char *extra_flag,
-	char * const* const lines)
+        const char *extra_flag,
+        char * const* const lines)
 {
   FILE *fp;
   char buf[256];
@@ -85,14 +85,14 @@ sfdisk (char *device, int n, int cyls, int heads, int sectors,
 
 int
 do_sfdisk (char *device, int cyls, int heads, int sectors,
-	   char **lines)
+           char **lines)
 {
   return sfdisk (device, 0, cyls, heads, sectors, NULL, lines);
 }
 
 int
 do_sfdisk_N (char *device, int n, int cyls, int heads, int sectors,
-	     char *line)
+             char *line)
 {
   const char *lines[2] = { line, NULL };
 

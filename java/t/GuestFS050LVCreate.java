@@ -22,35 +22,35 @@ import com.redhat.et.libguestfs.*;
 public class GuestFS050LVCreate {
     public static void main (String[] argv)
     {
-	try {
-	    GuestFS g = new GuestFS ();
+        try {
+            GuestFS g = new GuestFS ();
 
-	    RandomAccessFile f = new RandomAccessFile ("test.img", "rw");
-	    f.setLength (500 * 1024 * 1024);
-	    f.close ();
+            RandomAccessFile f = new RandomAccessFile ("test.img", "rw");
+            f.setLength (500 * 1024 * 1024);
+            f.close ();
 
-	    g.add_drive ("test.img");
-	    g.launch ();
-	    g.wait_ready ();
+            g.add_drive ("test.img");
+            g.launch ();
+            g.wait_ready ();
 
-	    g.pvcreate ("/dev/sda");
-	    g.vgcreate ("VG", new String[] {"/dev/sda"});
-	    g.lvcreate ("LV1", "VG", 200);
-	    g.lvcreate ("LV2", "VG", 200);
+            g.pvcreate ("/dev/sda");
+            g.vgcreate ("VG", new String[] {"/dev/sda"});
+            g.lvcreate ("LV1", "VG", 200);
+            g.lvcreate ("LV2", "VG", 200);
 
-	    String[] lvs = g.lvs ();
-	    assert lvs[0].equals ("/dev/VG/LV1");
-	    assert lvs[1].equals ("/dev/VG/LV2");
+            String[] lvs = g.lvs ();
+            assert lvs[0].equals ("/dev/VG/LV1");
+            assert lvs[1].equals ("/dev/VG/LV2");
 
-	    g.sync ();
-	    g.close ();
+            g.sync ();
+            g.close ();
 
-	    File f2 = new File ("test.img");
-	    f2.delete ();
-	}
-	catch (Exception exn) {
-	    System.err.println (exn);
-	    System.exit (1);
-	}
+            File f2 = new File ("test.img");
+            f2.delete ();
+        }
+        catch (Exception exn) {
+            System.err.println (exn);
+            System.exit (1);
+        }
     }
 }

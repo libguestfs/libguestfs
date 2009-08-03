@@ -107,9 +107,9 @@ do_lremovexattr (char *xattr, char *path)
 
 static guestfs_int_xattr_list *
 getxattrs (char *path,
-	   ssize_t (*listxattr) (const char *path, char *list, size_t size),
-	   ssize_t (*getxattr) (const char *path, const char *name,
-				void *value, size_t size))
+           ssize_t (*listxattr) (const char *path, char *list, size_t size),
+           ssize_t (*getxattr) (const char *path, const char *name,
+                                void *value, size_t size))
 {
   ssize_t len, vlen;
   char *buf = NULL;
@@ -175,15 +175,15 @@ getxattrs (char *path,
     r->guestfs_int_xattr_list_val[j].attrval.attrval_len = vlen;
 
     if (r->guestfs_int_xattr_list_val[j].attrname == NULL ||
-	r->guestfs_int_xattr_list_val[j].attrval.attrval_val == NULL) {
+        r->guestfs_int_xattr_list_val[j].attrval.attrval_val == NULL) {
       reply_with_perror ("malloc");
       goto error;
     }
 
     CHROOT_IN;
     vlen = getxattr (path, &buf[i],
-		     r->guestfs_int_xattr_list_val[j].attrval.attrval_val,
-		     vlen);
+                     r->guestfs_int_xattr_list_val[j].attrval.attrval_val,
+                     vlen);
     CHROOT_OUT;
     if (vlen == -1) {
       reply_with_perror ("getxattr");
@@ -200,8 +200,8 @@ getxattrs (char *path,
   if (r) {
     if (r->guestfs_int_xattr_list_val)
       for (i = 0; i < r->guestfs_int_xattr_list_len; ++i) {
-	free (r->guestfs_int_xattr_list_val[i].attrname);
-	free (r->guestfs_int_xattr_list_val[i].attrval.attrval_val);
+        free (r->guestfs_int_xattr_list_val[i].attrname);
+        free (r->guestfs_int_xattr_list_val[i].attrval.attrval_val);
       }
     free (r->guestfs_int_xattr_list_val);
   }
@@ -211,8 +211,8 @@ getxattrs (char *path,
 
 static int
 _setxattr (char *xattr, char *val, int vallen, char *path,
-	   int (*setxattr) (const char *path, const char *name,
-			    const void *value, size_t size, int flags))
+           int (*setxattr) (const char *path, const char *name,
+                            const void *value, size_t size, int flags))
 {
   int r;
 
@@ -229,7 +229,7 @@ _setxattr (char *xattr, char *val, int vallen, char *path,
 
 static int
 _removexattr (char *xattr, char *path,
-	      int (*removexattr) (const char *path, const char *name))
+              int (*removexattr) (const char *path, const char *name))
 {
   int r;
 

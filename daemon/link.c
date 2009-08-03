@@ -90,19 +90,19 @@ _link (const char *flag, int symbolic, const char *target, const char *linkname)
 
   if (flag)
     r = command (NULL, &err,
-		 "ln", flag, "--", /* target could begin with '-' */
-		 buf_target ? : target, buf_linkname, NULL);
+                 "ln", flag, "--", /* target could begin with '-' */
+                 buf_target ? : target, buf_linkname, NULL);
   else
     r = command (NULL, &err,
-		 "ln", "--",
-		 buf_target ? : target, buf_linkname, NULL);
+                 "ln", "--",
+                 buf_target ? : target, buf_linkname, NULL);
   free (buf_linkname);
   free (buf_target);
   if (r == -1) {
     reply_with_error ("ln%s%s: %s: %s: %s",
-		      flag ? " " : "",
-		      flag ? : "",
-		      target, linkname, err);
+                      flag ? " " : "",
+                      flag ? : "",
+                      target, linkname, err);
     free (err);
     return -1;
   }
