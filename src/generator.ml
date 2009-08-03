@@ -3254,7 +3254,9 @@ This command disables the libguestfs appliance swap on file.");
       [["sfdiskM"; "/dev/sdb"; ","];
        ["mkswap_L"; "swapit"; "/dev/sdb1"];
        ["swapon_label"; "swapit"];
-       ["swapoff_label"; "swapit"]])],
+       ["swapoff_label"; "swapit"];
+       ["zero"; "/dev/sdb"];
+       ["blockdev_rereadpt"; "/dev/sdb"]])],
    "enable swap on labelled swap partition",
    "\
 This command enables swap to a labelled swap partition.
