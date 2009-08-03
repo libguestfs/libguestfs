@@ -59,7 +59,21 @@ local-checks-to-skip =			\
   sc_program_name			\
   sc_require_test_exit_idiom		\
   sc_makefile_check			\
+  $(disable_temporarily)		\
   sc_useless_cpp_parens
+
+disable_temporarily =			\
+  sc_makefile_TAB_only_indentation	\
+  sc_unmarked_diagnostics		\
+  sc_TAB_in_indentation			\
+  sc_prohibit_ctype_h			\
+  sc_prohibit_asprintf			\
+  sc_m4_quote_check			\
+  sc_prohibit_trailing_blank_lines	\
+  sc_avoid_ctype_macros			\
+  sc_const_long_option			\
+  sc_avoid_write			\
+  sc_trailing_blank
 
 # Avoid uses of write(2).  Either switch to streams (fwrite), or use
 # the safewrite wrapper.
