@@ -28,6 +28,9 @@ SUBDIRS = examples
 CLEANFILES = *.cmi *.cmo *.cmx *.cma *.cmxa *.o *.a *.so
 CLEANFILES += t/*.cmi t/*.cmo t/*.cmx t/*.o t/*.a t/*.so
 
+AM_CPPFLAGS = -I$(top_builddir) -I$(OCAMLLIB) -I$(top_srcdir)/ocaml \
+  -I$(top_srcdir)/src -I$(top_builddir)/src
+
 if HAVE_OCAML
 
 noinst_DATA = mlguestfs.cma mlguestfs.cmxa META
@@ -39,10 +42,10 @@ mlguestfs.cmxa: guestfs_c.o guestfs_c_actions.o guestfs.cmx
 	$(OCAMLMKLIB) -o mlguestfs $^ -L$(top_builddir)/src/.libs -lguestfs
 
 guestfs_c.o: guestfs_c.c
-	$(CC) $(CFLAGS) -I$(OCAMLLIB) -I$(top_srcdir)/ocaml -I$(top_srcdir)/src -I$(top_builddir)/src -fPIC -Wall -c $<
+	$(CC) $(AM_CPPFLAGS) $(CFLAGS) -fPIC -Wall -c $<
 
 guestfs_c_actions.o: guestfs_c_actions.c
-	$(CC) $(CFLAGS) -I$(OCAMLLIB) -I$(top_srcdir)/ocaml -I$(top_srcdir)/src -I$(top_builddir)/src -fPIC -Wall -c $<
+	$(CC) $(AM_CPPFLAGS) $(CFLAGS) -fPIC -Wall -c $<
 
 TESTS_ENVIRONMENT = \
 	LD_LIBRARY_PATH=$(top_builddir)/src/.libs \
