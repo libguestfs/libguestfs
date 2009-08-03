@@ -443,8 +443,10 @@ guestfs_perrorf (guestfs_h *g, const char *fs, ...)
   int err = errno;
 
   va_start (args, fs);
-  vasprintf (&msg, fs, args);
+  int err = vasprintf (&msg, fs, args);
   va_end (args);
+
+  if (err < 0) return;
 
 #ifndef _GNU_SOURCE
   char buf[256];
