@@ -506,7 +506,7 @@ described in more detail below, but at the top level looks like:
    '/dev/VG/Root1' => \%os1,
    '/dev/VG/Root2' => \%os2,
  }
- 
+
  %os1 = {
    os => 'linux',
    mounts => {
@@ -792,7 +792,7 @@ sub _check_linux_root
 	    $r->{os_minor_version} = "$2" if(defined($2));
 	    $r->{package_management} = "yum";
 	}
-        
+
         elsif (/(Red Hat Enterprise Linux|CentOS|Scientific Linux)/) {
             my $distro = $1;
 
@@ -1051,7 +1051,7 @@ like:
  %oses = {
    '/dev/VG/Root' => \%os,
  }
- 
+
 (There can be multiple roots for a multi-boot VM).
 
 The C<\%os> hash contains the following keys (any can be omitted):
@@ -1701,7 +1701,7 @@ sub _inspect_initrd
         $initrd_modules = {};
         $os->{initrd_modules} = $initrd_modules;
     }
-    
+
     $initrd_modules->{$version} = \@modules;
 
     return \@modules;
