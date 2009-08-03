@@ -440,7 +440,7 @@ guestfs_perrorf (guestfs_h *g, const char *fs, ...)
 {
   va_list args;
   char *msg;
-  int err = errno;
+  int errnum = errno;
 
   va_start (args, fs);
   int err = vasprintf (&msg, fs, args);
@@ -450,11 +450,11 @@ guestfs_perrorf (guestfs_h *g, const char *fs, ...)
 
 #ifndef _GNU_SOURCE
   char buf[256];
-  strerror_r (err, buf, sizeof buf);
+  strerror_r (errnum, buf, sizeof buf);
 #else
   char _buf[256];
   char *buf;
-  buf = strerror_r (err, _buf, sizeof _buf);
+  buf = strerror_r (errnum, _buf, sizeof _buf);
 #endif
 
   msg = safe_realloc (g, msg, strlen (msg) + 2 + strlen (buf) + 1);
