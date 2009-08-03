@@ -76,7 +76,7 @@ int
 main (int argc, char *argv[])
 {
   static const char *options = "?";
-  static struct option long_options[] = {
+  static const struct option long_options[] = {
     { "help", 0, 0, '?' },
     { "helper", 1, 0, 0 },
     { "qemu", 1, 0, 0 },

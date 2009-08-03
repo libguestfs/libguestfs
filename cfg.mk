@@ -71,7 +71,6 @@ disable_temporarily =			\
   sc_m4_quote_check			\
   sc_prohibit_trailing_blank_lines	\
   sc_avoid_ctype_macros			\
-  sc_const_long_option			\
   sc_avoid_write			\
   sc_trailing_blank
 

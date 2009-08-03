@@ -127,7 +127,7 @@ int
 main (int argc, char *argv[])
 {
   static const char *options = "a:Df:h::im:nrv?Vx";
-  static struct option long_options[] = {
+  static const struct option long_options[] = {
     { "add", 1, 0, 'a' },
     { "cmd-help", 2, 0, 'h' },
     { "file", 1, 0, 'f' },

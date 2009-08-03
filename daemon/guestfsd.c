@@ -68,7 +68,7 @@ int
 main (int argc, char *argv[])
 {
   static const char *options = "fh:p:?";
-  static struct option long_options[] = {
+  static const struct option long_options[] = {
     { "foreground", 0, 0, 'f' },
     { "help", 0, 0, '?' },
     { "host", 1, 0, 'h' },
