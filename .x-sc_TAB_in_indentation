@@ -1,6 +1,6 @@
 ^appliance/debian/modules/
 ^images/
-^COPYING$
+^COPYING(.LIB)?$
 ^\.gitmodules$
 (^|\/)ChangeLog[^/]*$
 (^|\/)(?:GNU)?[Mm]akefile[^/]*$
