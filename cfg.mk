@@ -70,8 +70,7 @@ disable_temporarily =			\
   sc_m4_quote_check			\
   sc_prohibit_trailing_blank_lines	\
   sc_avoid_ctype_macros			\
-  sc_avoid_write			\
-  sc_trailing_blank
+  sc_avoid_write
 
 # Avoid uses of write(2).  Either switch to streams (fwrite), or use
 # the safewrite wrapper.

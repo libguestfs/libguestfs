@@ -90,7 +90,7 @@ and ret =
     (* "RStruct" is a function which returns a single named structure
      * or an error indication (in C, a struct, and in other languages
      * with varying representations, but usually very efficient).  See
-     * after the function list below for the structures. 
+     * after the function list below for the structures.
      *)
   | RStruct of string * string		(* name of retval, name of struct *)
 

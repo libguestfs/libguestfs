@@ -18,7 +18,7 @@
 
 # Test download where the library cancels.
 #
-# 
+#
 
 set -e
 
