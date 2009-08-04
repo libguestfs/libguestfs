@@ -44,8 +44,8 @@ If you use Emacs, add the following to one of one of your start-up files
     (setq c-indent-level 2)
     (setq c-basic-offset 2))
   (add-hook 'c-mode-hook
-	    '(lambda () (if (string-match "/libguestfs" (buffer-file-name))
-			    (libguestfs-c-mode))))
+            '(lambda () (if (string-match "/libguestfs" (buffer-file-name))
+                            (libguestfs-c-mode))))
 
 Directories
 ----------------------------------------------------------------------
