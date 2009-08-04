@@ -34,4 +34,3 @@ drwxr-xr-x 18 root root     0 May 29 08:44 ..
 -rw-r--r--  1 root root  2938 Apr 10 12:15 PAM.8.gz
 -rw-r--r--  1 root root   736 Feb 24 20:25 PolicyKit.8.gz
 lrwxrwxrwx  1 root root    15 May 14 06:41 accept.8.gz -> cupsaccept.8.gz
-

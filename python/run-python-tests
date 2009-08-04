@@ -21,4 +21,3 @@ set -e
 for f in t/*.py; do
   python $f
 done
-

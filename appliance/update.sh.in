@@ -46,4 +46,3 @@ elif [ "@DIST@" = "DEBIAN" ]; then
   ln -sf debian/debirf-libguestfs_@REPO@*.cgz $output
   ln -sf debian/vmlinuz-* $vmlinuz
 fi
-

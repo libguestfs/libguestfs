@@ -30,4 +30,3 @@ rm -rf "$DEBIRF_ROOT"/usr/share/man/
 echo $PWD
 install -o root -g root -m 0755 ../daemon/guestfsd "$DEBIRF_ROOT"/sbin/guestfsd
 install -o root -g root -m 0755 init "$DEBIRF_ROOT"/sbin/init
-

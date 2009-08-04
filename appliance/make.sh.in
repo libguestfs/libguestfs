@@ -145,4 +145,3 @@ elif [ "@DIST@" = "DEBIAN" ]; then
   mkdir -p @top_builddir@/initramfs
   touch @top_builddir@/initramfs/fakeroot.log
 fi
-

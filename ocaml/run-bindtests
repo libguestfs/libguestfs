@@ -20,4 +20,3 @@ set -e
 
 ./bindtests > bindtests.tmp
 diff -u ../bindtests bindtests.tmp
-

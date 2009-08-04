@@ -146,4 +146,3 @@ CLEANFILES = $(APPLIANCE_FILES) packagelist kmod.whitelist supermin.incfiles
 
 clean-local:
 	rm -rf $(top_builddir)/initramfs
-

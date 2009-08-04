@@ -67,7 +67,6 @@ disable_temporarily =			\
   sc_prohibit_ctype_h			\
   sc_prohibit_asprintf			\
   sc_m4_quote_check			\
-  sc_prohibit_trailing_blank_lines	\
   sc_avoid_ctype_macros			\
   sc_avoid_write
 
