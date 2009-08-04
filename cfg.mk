@@ -63,7 +63,6 @@ local-checks-to-skip =			\
   sc_useless_cpp_parens
 
 disable_temporarily =			\
-  sc_makefile_TAB_only_indentation	\
   sc_unmarked_diagnostics		\
   sc_prohibit_ctype_h			\
   sc_prohibit_asprintf			\
