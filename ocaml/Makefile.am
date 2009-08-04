@@ -94,8 +94,9 @@ t/%.cmx: t/%.ml mlguestfs.cmxa
 depend: .depend
 
 .depend: $(wildcard *.mli) $(wildcard *.ml)
-	rm -f .depend
-	$(OCAMLFIND) ocamldep $^ > $@
+	rm -f $@ $@-t
+	$(OCAMLFIND) ocamldep $^ | sed 's/  *$$//' > $@-t
+	mv $@-t $@
 
 include .depend
 
