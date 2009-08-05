@@ -24,10 +24,11 @@
 TESTS = \
 	rhbz503169c10.sh \
 	rhbz503169c13.sh \
-	test-cancellation-upload-daemoncancels.sh \
 	test-cancellation-download-librarycancels.sh \
-	test-qemudie-midcommand.sh \
+	test-cancellation-upload-daemoncancels.sh \
+	test-noexec-stack.pl \
 	test-qemudie-killsub.sh \
+	test-qemudie-midcommand.sh \
 	test-qemudie-synch.sh \
 	test-read_file.sh \
 	test-remote.sh \
@@ -41,7 +42,8 @@ FAILING_TESTS = \
 
 TESTS_ENVIRONMENT = \
 	LD_LIBRARY_PATH=$(top_builddir)/src/.libs \
-	LIBGUESTFS_PATH=$(top_builddir)/appliance
+	LIBGUESTFS_PATH=$(top_builddir)/appliance \
+	NOEXEC_CHECK="$(top_builddir)/src/.libs/libguestfs.so $(top_builddir)/daemon/guestfsd"
 
 EXTRA_DIST = \
 	$(FAILING_TESTS) \
