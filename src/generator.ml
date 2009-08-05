@@ -1756,7 +1756,8 @@ This uses the L<blockdev(8)> command.");
    [InitBasicFS, Always, TestOutput (
       (* Pick a file from cwd which isn't likely to change. *)
       [["upload"; "../COPYING.LIB"; "/COPYING.LIB"];
-       ["checksum"; "md5"; "/COPYING.LIB"]], "e3eda01d9815f8d24aae2dbd89b68b06")],
+       ["checksum"; "md5"; "/COPYING.LIB"]],
+        Digest.to_hex (Digest.file "COPYING.LIB"))],
    "upload a file from the local machine",
    "\
 Upload local file C<filename> to C<remotefilename> on the
@@ -1772,7 +1773,8 @@ See also C<guestfs_download>.");
       [["upload"; "../COPYING.LIB"; "/COPYING.LIB"];
        ["download"; "/COPYING.LIB"; "testdownload.tmp"];
        ["upload"; "testdownload.tmp"; "/upload"];
-       ["checksum"; "md5"; "/upload"]], "e3eda01d9815f8d24aae2dbd89b68b06")],
+       ["checksum"; "md5"; "/upload"]],
+        Digest.to_hex (Digest.file "COPYING.LIB"))],
    "download a file to the local machine",
    "\
 Download file C<remotefilename> and save it as C<filename>
