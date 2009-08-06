@@ -1,5 +1,5 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Red Hat Inc.
+# Copyright (C) YEAR Free Software Foundation, Inc.
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
@@ -7,71 +7,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
-"component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2009-07-29 21:32+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-08-06 16:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: cat/virt-cat.pl:130
-msgid "virt-cat: no image, VM names or filenames to cat given"
-msgstr ""
-
-#: cat/virt-cat.pl:156 v2v/virt-v2v.pl:208
-msgid "no root device found in this operating system image"
-msgstr ""
-
-#: cat/virt-cat.pl:157
-msgid "multiboot operating systems are not supported by virt-cat"
-msgstr ""
-
-#: df/virt-df.pl:258
-msgid "Virtual Machine"
-msgstr ""
-
-#: df/virt-df.pl:258
-msgid "Filesystem"
-msgstr ""
-
-#: df/virt-df.pl:261
-msgid "1K-blocks"
-msgstr ""
-
-#: df/virt-df.pl:263
-msgid "Size"
-msgstr ""
-
-#: df/virt-df.pl:265
-msgid "Used"
-msgstr ""
-
-#: df/virt-df.pl:266
-msgid "Available"
-msgstr ""
-
-#: df/virt-df.pl:267
-msgid "Use%"
-msgstr ""
-
-#: df/virt-df.pl:269
-msgid "Inodes"
-msgstr ""
-
-#: df/virt-df.pl:270
-msgid "IUsed"
-msgstr ""
-
-#: df/virt-df.pl:271
-msgid "IFree"
-msgstr ""
-
-#: df/virt-df.pl:272
-msgid "IUse%"
-msgstr ""
 
 #: fish/alloc.c:39
 #, c-format
@@ -96,782 +39,874 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: fish/cmds.c:35 fish/cmds.c:237
+#: fish/cmds.c:35 fish/cmds.c:259
 msgid "add a CD-ROM disk image to examine"
 msgstr ""
 
-#: fish/cmds.c:36 fish/cmds.c:234
+#: fish/cmds.c:36 fish/cmds.c:256
 msgid "add an image to examine or modify"
 msgstr ""
 
-#: fish/cmds.c:37 fish/cmds.c:240
+#: fish/cmds.c:37 fish/cmds.c:262
 msgid "add a drive in snapshot mode (read-only)"
 msgstr ""
 
-#: fish/cmds.c:38 fish/cmds.c:351
+#: fish/cmds.c:38 fish/cmds.c:373
 msgid "close the current Augeas handle"
 msgstr ""
 
-#: fish/cmds.c:39 fish/cmds.c:357
+#: fish/cmds.c:39 fish/cmds.c:379
 msgid "define an Augeas node"
 msgstr ""
 
-#: fish/cmds.c:40 fish/cmds.c:354
+#: fish/cmds.c:40 fish/cmds.c:376
 msgid "define an Augeas variable"
 msgstr ""
 
-#: fish/cmds.c:41 fish/cmds.c:360
+#: fish/cmds.c:41 fish/cmds.c:382
 msgid "look up the value of an Augeas path"
 msgstr ""
 
-#: fish/cmds.c:42 fish/cmds.c:348
+#: fish/cmds.c:42 fish/cmds.c:370
 msgid "create a new Augeas handle"
 msgstr ""
 
-#: fish/cmds.c:43 fish/cmds.c:366
+#: fish/cmds.c:43 fish/cmds.c:388
 msgid "insert a sibling Augeas node"
 msgstr ""
 
-#: fish/cmds.c:44 fish/cmds.c:381
+#: fish/cmds.c:44 fish/cmds.c:403
 msgid "load files into the tree"
 msgstr ""
 
-#: fish/cmds.c:45 fish/cmds.c:384
+#: fish/cmds.c:45 fish/cmds.c:406
 msgid "list Augeas nodes under a path"
 msgstr ""
 
-#: fish/cmds.c:46 fish/cmds.c:375
+#: fish/cmds.c:46 fish/cmds.c:397
 msgid "return Augeas nodes which match path"
 msgstr ""
 
-#: fish/cmds.c:47 fish/cmds.c:372
+#: fish/cmds.c:47 fish/cmds.c:394
 msgid "move Augeas node"
 msgstr ""
 
-#: fish/cmds.c:48 fish/cmds.c:369
+#: fish/cmds.c:48 fish/cmds.c:391
 msgid "remove an Augeas path"
 msgstr ""
 
-#: fish/cmds.c:49 fish/cmds.c:378
+#: fish/cmds.c:49 fish/cmds.c:400
 msgid "write all pending Augeas changes to disk"
 msgstr ""
 
-#: fish/cmds.c:50 fish/cmds.c:363
+#: fish/cmds.c:50 fish/cmds.c:385
 msgid "set Augeas path to value"
 msgstr ""
 
-#: fish/cmds.c:51 fish/cmds.c:492
+#: fish/cmds.c:51 fish/cmds.c:514
 msgid "flush device buffers"
 msgstr ""
 
-#: fish/cmds.c:52 fish/cmds.c:480
+#: fish/cmds.c:52 fish/cmds.c:502
 msgid "get blocksize of block device"
 msgstr ""
 
-#: fish/cmds.c:53 fish/cmds.c:474
+#: fish/cmds.c:53 fish/cmds.c:496
 msgid "is block device set to read-only"
 msgstr ""
 
-#: fish/cmds.c:54 fish/cmds.c:489
+#: fish/cmds.c:54 fish/cmds.c:511
 msgid "get total size of device in bytes"
 msgstr ""
 
-#: fish/cmds.c:55 fish/cmds.c:477
+#: fish/cmds.c:55 fish/cmds.c:499
 msgid "get sectorsize of block device"
 msgstr ""
 
-#: fish/cmds.c:56 fish/cmds.c:486
+#: fish/cmds.c:56 fish/cmds.c:508
 msgid "get total size of device in 512-byte sectors"
 msgstr ""
 
-#: fish/cmds.c:57 fish/cmds.c:495
+#: fish/cmds.c:57 fish/cmds.c:517
 msgid "reread partition table"
 msgstr ""
 
-#: fish/cmds.c:58 fish/cmds.c:483
+#: fish/cmds.c:58 fish/cmds.c:505
 msgid "set blocksize of block device"
 msgstr ""
 
-#: fish/cmds.c:59 fish/cmds.c:468
+#: fish/cmds.c:59 fish/cmds.c:490
 msgid "set block device to read-only"
 msgstr ""
 
-#: fish/cmds.c:60 fish/cmds.c:471
+#: fish/cmds.c:60 fish/cmds.c:493
 msgid "set block device to read-write"
 msgstr ""
 
-#: fish/cmds.c:61 fish/cmds.c:312
+#: fish/cmds.c:61 fish/cmds.c:334
 msgid "list the contents of a file"
 msgstr ""
 
-#: fish/cmds.c:62 fish/cmds.c:504
+#: fish/cmds.c:62 fish/cmds.c:526
 msgid "compute MD5, SHAx or CRC checksum of file"
 msgstr ""
 
-#: fish/cmds.c:63 fish/cmds.c:402
+#: fish/cmds.c:63 fish/cmds.c:424
 msgid "change file mode"
 msgstr ""
 
-#: fish/cmds.c:64 fish/cmds.c:405
+#: fish/cmds.c:64 fish/cmds.c:427
 msgid "change file owner and group"
 msgstr ""
 
-#: fish/cmds.c:65 fish/cmds.c:450
+#: fish/cmds.c:65 fish/cmds.c:472
 msgid "run a command from the guest filesystem"
 msgstr ""
 
-#: fish/cmds.c:66 fish/cmds.c:453
+#: fish/cmds.c:66 fish/cmds.c:475
 msgid "run a command, returning lines"
 msgstr ""
 
-#: fish/cmds.c:67 fish/cmds.c:243
+#: fish/cmds.c:67 fish/cmds.c:265
 msgid "add qemu parameters"
 msgstr ""
 
-#: fish/cmds.c:68 fish/cmds.c:561
+#: fish/cmds.c:68 fish/cmds.c:583
 msgid "copy a file"
 msgstr ""
 
-#: fish/cmds.c:69 fish/cmds.c:564
+#: fish/cmds.c:69 fish/cmds.c:586
 msgid "copy a file or directory recursively"
 msgstr ""
 
-#: fish/cmds.c:70 fish/cmds.c:528
+#: fish/cmds.c:70 fish/cmds.c:550
 msgid "debugging and internals"
 msgstr ""
 
-#: fish/cmds.c:71 fish/cmds.c:675
+#: fish/cmds.c:71 fish/cmds.c:697
 msgid "report file system disk space usage"
 msgstr ""
 
-#: fish/cmds.c:72 fish/cmds.c:678
+#: fish/cmds.c:72 fish/cmds.c:700
 msgid "report file system disk space usage (human readable)"
 msgstr ""
 
-#: fish/cmds.c:73 fish/cmds.c:573
+#: fish/cmds.c:73 fish/cmds.c:595
 msgid "return kernel messages"
 msgstr ""
 
-#: fish/cmds.c:74 fish/cmds.c:501
+#: fish/cmds.c:74 fish/cmds.c:523
 msgid "download a file to the local machine"
 msgstr ""
 
-#: fish/cmds.c:75 fish/cmds.c:570
+#: fish/cmds.c:75 fish/cmds.c:592
 msgid "drop kernel page cache, dentries and inodes"
 msgstr ""
 
-#: fish/cmds.c:76 fish/cmds.c:681
+#: fish/cmds.c:76 fish/cmds.c:703
 msgid "estimate file space usage"
 msgstr ""
 
-#: fish/cmds.c:77 fish/cmds.c:624
+#: fish/cmds.c:77 fish/cmds.c:646
 msgid "check an ext2/ext3 filesystem"
 msgstr ""
 
-#: fish/cmds.c:78 fish/cmds.c:79 fish/cmds.c:82 fish/cmds.c:83 fish/cmds.c:99
-#: fish/cmds.c:100 fish/cmds.c:213 fish/cmds.c:214 fish/cmds.c:217
-#: fish/cmds.c:218 fish/cmds.c:220 fish/cmds.c:221 fish/cmds.c:753
-#: fish/cmds.c:756 fish/cmds.c:759 fish/cmds.c:762 fish/cmds.c:765
-#: fish/cmds.c:768 fish/cmds.c:771 fish/cmds.c:774 fish/cmds.c:777
-#: fish/cmds.c:780 fish/cmds.c:783 fish/cmds.c:786
+#: fish/cmds.c:78 fish/cmds.c:79 fish/cmds.c:83 fish/cmds.c:84 fish/cmds.c:100
+#: fish/cmds.c:101 fish/cmds.c:235 fish/cmds.c:236 fish/cmds.c:239
+#: fish/cmds.c:240 fish/cmds.c:242 fish/cmds.c:243 fish/cmds.c:775
+#: fish/cmds.c:778 fish/cmds.c:781 fish/cmds.c:784 fish/cmds.c:787
+#: fish/cmds.c:790 fish/cmds.c:793 fish/cmds.c:796 fish/cmds.c:799
+#: fish/cmds.c:802 fish/cmds.c:805 fish/cmds.c:808
 msgid "return lines matching a pattern"
 msgstr ""
 
-#: fish/cmds.c:80 fish/cmds.c:579
+#: fish/cmds.c:80 fish/cmds.c:601
 msgid "test if two files have equal contents"
 msgstr ""
 
-#: fish/cmds.c:81 fish/cmds.c:408
+#: fish/cmds.c:81 fish/cmds.c:430
 msgid "test if file or directory exists"
 msgstr ""
 
-#: fish/cmds.c:84 fish/cmds.c:447
+#: fish/cmds.c:82 fish/cmds.c:829
+msgid "preallocate a file in the guest filesystem"
+msgstr ""
+
+#: fish/cmds.c:85 fish/cmds.c:469
 msgid "determine file type"
 msgstr ""
 
-#: fish/cmds.c:85 fish/cmds.c:621
+#: fish/cmds.c:86 fish/cmds.c:643
 msgid "find all files and directories"
 msgstr ""
 
-#: fish/cmds.c:86 fish/cmds.c:552
+#: fish/cmds.c:87 fish/cmds.c:574
 msgid "run the filesystem checker"
 msgstr ""
 
-#: fish/cmds.c:87 fish/cmds.c:261
+#: fish/cmds.c:88 fish/cmds.c:283
 msgid "get the additional kernel options"
 msgstr ""
 
-#: fish/cmds.c:88 fish/cmds.c:267
+#: fish/cmds.c:89 fish/cmds.c:289
 msgid "get autosync mode"
 msgstr ""
 
-#: fish/cmds.c:89 fish/cmds.c:543
+#: fish/cmds.c:90 fish/cmds.c:565
 msgid "get the ext2/3/4 filesystem label"
 msgstr ""
 
-#: fish/cmds.c:90 fish/cmds.c:549
+#: fish/cmds.c:91 fish/cmds.c:571
 msgid "get the ext2/3/4 filesystem UUID"
 msgstr ""
 
-#: fish/cmds.c:91 fish/cmds.c:294
+#: fish/cmds.c:92 fish/cmds.c:316
 msgid "get memory allocated to the qemu subprocess"
 msgstr ""
 
-#: fish/cmds.c:92 fish/cmds.c:255
+#: fish/cmds.c:93 fish/cmds.c:277
 msgid "get the search path"
 msgstr ""
 
-#: fish/cmds.c:93 fish/cmds.c:297
+#: fish/cmds.c:94 fish/cmds.c:319
 msgid "get PID of qemu subprocess"
 msgstr ""
 
-#: fish/cmds.c:94 fish/cmds.c:249
+#: fish/cmds.c:95 fish/cmds.c:271
 msgid "get the qemu binary"
 msgstr ""
 
-#: fish/cmds.c:95 fish/cmds.c:288
+#: fish/cmds.c:96 fish/cmds.c:310
 msgid "get the current state"
 msgstr ""
 
-#: fish/cmds.c:96 fish/cmds.c:273
+#: fish/cmds.c:97 fish/cmds.c:295
 msgid "get verbose mode"
 msgstr ""
 
-#: fish/cmds.c:97 fish/cmds.c:114 fish/cmds.c:723 fish/cmds.c:726
+#: fish/cmds.c:98 fish/cmds.c:121 fish/cmds.c:745 fish/cmds.c:748
 msgid "list extended attributes of a file or directory"
 msgstr ""
 
-#: fish/cmds.c:98 fish/cmds.c:639
+#: fish/cmds.c:99 fish/cmds.c:661
 msgid "expand a wildcard path"
 msgstr ""
 
-#: fish/cmds.c:101 fish/cmds.c:558
+#: fish/cmds.c:102 fish/cmds.c:580
 msgid "install GRUB"
 msgstr ""
 
-#: fish/cmds.c:102 fish/cmds.c:663
+#: fish/cmds.c:103 fish/cmds.c:685
 msgid "return first 10 lines of a file"
 msgstr ""
 
-#: fish/cmds.c:103 fish/cmds.c:666
+#: fish/cmds.c:104 fish/cmds.c:688
 msgid "return first N lines of a file"
 msgstr ""
 
-#: fish/cmds.c:104 fish/cmds.c:588
+#: fish/cmds.c:105 fish/cmds.c:610
 msgid "dump a file in hexadecimal"
 msgstr ""
 
-#: fish/cmds.c:105 fish/cmds.c:684
+#: fish/cmds.c:106 fish/cmds.c:706
 msgid "list files in an initrd"
 msgstr ""
 
-#: fish/cmds.c:106 fish/cmds.c:285
+#: fish/cmds.c:107 fish/cmds.c:862
+msgid "add an inotify watch"
+msgstr ""
+
+#: fish/cmds.c:108 fish/cmds.c:874
+msgid "close the inotify handle"
+msgstr ""
+
+#: fish/cmds.c:109 fish/cmds.c:871
+msgid "return list of watched files that had events"
+msgstr ""
+
+#: fish/cmds.c:110 fish/cmds.c:859
+msgid "create an inotify handle"
+msgstr ""
+
+#: fish/cmds.c:111 fish/cmds.c:868
+msgid "return list of inotify events"
+msgstr ""
+
+#: fish/cmds.c:112 fish/cmds.c:865
+msgid "remove an inotify watch"
+msgstr ""
+
+#: fish/cmds.c:113 fish/cmds.c:307
 msgid "is busy processing a command"
 msgstr ""
 
-#: fish/cmds.c:107 fish/cmds.c:279
+#: fish/cmds.c:114 fish/cmds.c:301
 msgid "is in configuration state"
 msgstr ""
 
-#: fish/cmds.c:108 fish/cmds.c:109 fish/cmds.c:411 fish/cmds.c:414
+#: fish/cmds.c:115 fish/cmds.c:116 fish/cmds.c:433 fish/cmds.c:436
 msgid "test if file exists"
 msgstr ""
 
-#: fish/cmds.c:110 fish/cmds.c:282
+#: fish/cmds.c:117 fish/cmds.c:304
 msgid "is launching subprocess"
 msgstr ""
 
-#: fish/cmds.c:111 fish/cmds.c:276
+#: fish/cmds.c:118 fish/cmds.c:298
 msgid "is ready to accept commands"
 msgstr ""
 
-#: fish/cmds.c:112 fish/cmds.c:231
+#: fish/cmds.c:119 fish/cmds.c:253
 msgid "kill the qemu subprocess"
 msgstr ""
 
-#: fish/cmds.c:113 fish/cmds.c:228
+#: fish/cmds.c:120 fish/cmds.c:250
 msgid "launch the qemu subprocess"
 msgstr ""
 
-#: fish/cmds.c:115 fish/cmds.c:321
+#: fish/cmds.c:122 fish/cmds.c:343
 msgid "list the block devices"
 msgstr ""
 
-#: fish/cmds.c:116 fish/cmds.c:324
+#: fish/cmds.c:123 fish/cmds.c:346
 msgid "list the partitions"
 msgstr ""
 
-#: fish/cmds.c:117 fish/cmds.c:315
+#: fish/cmds.c:124 fish/cmds.c:337
 msgid "list the files in a directory (long format)"
 msgstr ""
 
-#: fish/cmds.c:118 fish/cmds.c:158 fish/cmds.c:735 fish/cmds.c:738
+#: fish/cmds.c:125 fish/cmds.c:126 fish/cmds.c:814 fish/cmds.c:817
+msgid "create a hard link"
+msgstr ""
+
+#: fish/cmds.c:127 fish/cmds.c:128 fish/cmds.c:820 fish/cmds.c:823
+msgid "create a symbolic link"
+msgstr ""
+
+#: fish/cmds.c:129 fish/cmds.c:172 fish/cmds.c:757 fish/cmds.c:760
 msgid "remove extended attribute of a file or directory"
 msgstr ""
 
-#: fish/cmds.c:119 fish/cmds.c:318
+#: fish/cmds.c:130 fish/cmds.c:340
 msgid "list the files in a directory"
 msgstr ""
 
-#: fish/cmds.c:120 fish/cmds.c:175 fish/cmds.c:729 fish/cmds.c:732
+#: fish/cmds.c:131 fish/cmds.c:189 fish/cmds.c:751 fish/cmds.c:754
 msgid "set extended attribute of a file or directory"
 msgstr ""
 
-#: fish/cmds.c:121 fish/cmds.c:459
+#: fish/cmds.c:132 fish/cmds.c:481
 msgid "get file information for a symbolic link"
 msgstr ""
 
-#: fish/cmds.c:122 fish/cmds.c:205 fish/cmds.c:420 fish/cmds.c:423
+#: fish/cmds.c:133 fish/cmds.c:227 fish/cmds.c:442 fish/cmds.c:445
 msgid "create an LVM volume group"
 msgstr ""
 
-#: fish/cmds.c:123 fish/cmds.c:444
+#: fish/cmds.c:134 fish/cmds.c:466
 msgid "remove all LVM LVs, VGs and PVs"
 msgstr ""
 
-#: fish/cmds.c:124 fish/cmds.c:531
+#: fish/cmds.c:135 fish/cmds.c:553
 msgid "remove an LVM logical volume"
 msgstr ""
 
-#: fish/cmds.c:125 fish/cmds.c:615
+#: fish/cmds.c:136 fish/cmds.c:637
 msgid "resize an LVM logical volume"
 msgstr ""
 
-#: fish/cmds.c:126 fish/cmds.c:127 fish/cmds.c:333 fish/cmds.c:342
+#: fish/cmds.c:137 fish/cmds.c:138 fish/cmds.c:355 fish/cmds.c:364
 msgid "list the LVM logical volumes (LVs)"
 msgstr ""
 
-#: fish/cmds.c:128 fish/cmds.c:396
+#: fish/cmds.c:139 fish/cmds.c:418
 msgid "create a directory"
 msgstr ""
 
-#: fish/cmds.c:129 fish/cmds.c:399
+#: fish/cmds.c:140 fish/cmds.c:421
 msgid "create a directory and parents"
 msgstr ""
 
-#: fish/cmds.c:130 fish/cmds.c:651
+#: fish/cmds.c:141 fish/cmds.c:673
 msgid "create a temporary directory"
 msgstr ""
 
-#: fish/cmds.c:131 fish/cmds.c:702
+#: fish/cmds.c:142 fish/cmds.c:724
 msgid "make FIFO (named pipe)"
 msgstr ""
 
-#: fish/cmds.c:132 fish/cmds.c:426
+#: fish/cmds.c:143 fish/cmds.c:448
 msgid "make a filesystem"
 msgstr ""
 
-#: fish/cmds.c:133 fish/cmds.c:744
+#: fish/cmds.c:144 fish/cmds.c:766
 msgid "create a mountpoint"
 msgstr ""
 
-#: fish/cmds.c:134 fish/cmds.c:699
+#: fish/cmds.c:145 fish/cmds.c:721
 msgid "make block, character or FIFO devices"
 msgstr ""
 
-#: fish/cmds.c:135 fish/cmds.c:705
+#: fish/cmds.c:146 fish/cmds.c:727
 msgid "make block device node"
 msgstr ""
 
-#: fish/cmds.c:136 fish/cmds.c:708
+#: fish/cmds.c:147 fish/cmds.c:730
 msgid "make char device node"
 msgstr ""
 
-#: fish/cmds.c:137 fish/cmds.c:690
+#: fish/cmds.c:148 fish/cmds.c:712
 msgid "create a swap partition"
 msgstr ""
 
-#: fish/cmds.c:138 fish/cmds.c:693
+#: fish/cmds.c:149 fish/cmds.c:715
 msgid "create a swap partition with a label"
 msgstr ""
 
-#: fish/cmds.c:139 fish/cmds.c:696
+#: fish/cmds.c:150 fish/cmds.c:718
 msgid "create a swap partition with an explicit UUID"
 msgstr ""
 
-#: fish/cmds.c:140 fish/cmds.c:303
+#: fish/cmds.c:151 fish/cmds.c:856
+msgid "create a swap file"
+msgstr ""
+
+#: fish/cmds.c:152 fish/cmds.c:325
 msgid "mount a guest disk at a position in the filesystem"
 msgstr ""
 
-#: fish/cmds.c:141 fish/cmds.c:687
+#: fish/cmds.c:153 fish/cmds.c:709
 msgid "mount a file using the loop device"
 msgstr ""
 
-#: fish/cmds.c:142 fish/cmds.c:522
+#: fish/cmds.c:154 fish/cmds.c:544
 msgid "mount a guest disk with mount options"
 msgstr ""
 
-#: fish/cmds.c:143 fish/cmds.c:519
+#: fish/cmds.c:155 fish/cmds.c:541
 msgid "mount a guest disk, read-only"
 msgstr ""
 
-#: fish/cmds.c:144 fish/cmds.c:525
+#: fish/cmds.c:156 fish/cmds.c:547
 msgid "mount a guest disk with mount options and vfstype"
 msgstr ""
 
-#: fish/cmds.c:145 fish/cmds.c:741
+#: fish/cmds.c:157 fish/cmds.c:763
 msgid "show mountpoints"
 msgstr ""
 
-#: fish/cmds.c:146 fish/cmds.c:438
+#: fish/cmds.c:158 fish/cmds.c:460
 msgid "show mounted filesystems"
 msgstr ""
 
-#: fish/cmds.c:147 fish/cmds.c:567
+#: fish/cmds.c:159 fish/cmds.c:589
 msgid "move a file"
 msgstr ""
 
-#: fish/cmds.c:148 fish/cmds.c:630
+#: fish/cmds.c:160 fish/cmds.c:652
 msgid "probe NTFS volume"
 msgstr ""
 
-#: fish/cmds.c:149 fish/cmds.c:576
+#: fish/cmds.c:161 fish/cmds.c:598
 msgid "ping the guest daemon"
 msgstr ""
 
-#: fish/cmds.c:150 fish/cmds.c:417
+#: fish/cmds.c:162 fish/cmds.c:439
 msgid "create an LVM physical volume"
 msgstr ""
 
-#: fish/cmds.c:151 fish/cmds.c:537
+#: fish/cmds.c:163 fish/cmds.c:559
 msgid "remove an LVM physical volume"
 msgstr ""
 
-#: fish/cmds.c:152 fish/cmds.c:594
+#: fish/cmds.c:164 fish/cmds.c:616
 msgid "resize an LVM physical volume"
 msgstr ""
 
-#: fish/cmds.c:153 fish/cmds.c:154 fish/cmds.c:327 fish/cmds.c:336
+#: fish/cmds.c:165 fish/cmds.c:166 fish/cmds.c:349 fish/cmds.c:358
 msgid "list the LVM physical volumes (PVs)"
 msgstr ""
 
-#: fish/cmds.c:155 fish/cmds.c:750
+#: fish/cmds.c:167 fish/cmds.c:772
 msgid "read a file"
 msgstr ""
 
-#: fish/cmds.c:156 fish/cmds.c:345
+#: fish/cmds.c:168 fish/cmds.c:367
 msgid "read file as lines"
 msgstr ""
 
-#: fish/cmds.c:157 fish/cmds.c:714
+#: fish/cmds.c:169 fish/cmds.c:736
 msgid "read directories entries"
 msgstr ""
 
-#: fish/cmds.c:159 fish/cmds.c:618
+#: fish/cmds.c:170 fish/cmds.c:826
+msgid "read the target of a symbolic link"
+msgstr ""
+
+#: fish/cmds.c:171 fish/cmds.c:811
+msgid "canonicalized absolute pathname"
+msgstr ""
+
+#: fish/cmds.c:173 fish/cmds.c:640
 msgid "resize an ext2/ext3 filesystem"
 msgstr ""
 
-#: fish/cmds.c:160 fish/cmds.c:387
+#: fish/cmds.c:174 fish/cmds.c:409
 msgid "remove a file"
 msgstr ""
 
-#: fish/cmds.c:161 fish/cmds.c:393
+#: fish/cmds.c:175 fish/cmds.c:415
 msgid "remove a file or directory recursively"
 msgstr ""
 
-#: fish/cmds.c:162 fish/cmds.c:390
+#: fish/cmds.c:176 fish/cmds.c:412
 msgid "remove a directory"
 msgstr ""
 
-#: fish/cmds.c:163 fish/cmds.c:747
+#: fish/cmds.c:177 fish/cmds.c:769
 msgid "remove a mountpoint"
 msgstr ""
 
-#: fish/cmds.c:164 fish/cmds.c:642
+#: fish/cmds.c:178 fish/cmds.c:664
 msgid "scrub (securely wipe) a device"
 msgstr ""
 
-#: fish/cmds.c:165 fish/cmds.c:645
+#: fish/cmds.c:179 fish/cmds.c:667
 msgid "scrub (securely wipe) a file"
 msgstr ""
 
-#: fish/cmds.c:166 fish/cmds.c:648
+#: fish/cmds.c:180 fish/cmds.c:670
 msgid "scrub (securely wipe) free space"
 msgstr ""
 
-#: fish/cmds.c:167 fish/cmds.c:258
+#: fish/cmds.c:181 fish/cmds.c:280
 msgid "add options to kernel command line"
 msgstr ""
 
-#: fish/cmds.c:168 fish/cmds.c:264
+#: fish/cmds.c:182 fish/cmds.c:286
 msgid "set autosync mode"
 msgstr ""
 
-#: fish/cmds.c:169 fish/cmds.c:540
+#: fish/cmds.c:183 fish/cmds.c:562
 msgid "set the ext2/3/4 filesystem label"
 msgstr ""
 
-#: fish/cmds.c:170 fish/cmds.c:546
+#: fish/cmds.c:184 fish/cmds.c:568
 msgid "set the ext2/3/4 filesystem UUID"
 msgstr ""
 
-#: fish/cmds.c:171 fish/cmds.c:291
+#: fish/cmds.c:185 fish/cmds.c:313
 msgid "set memory allocated to the qemu subprocess"
 msgstr ""
 
-#: fish/cmds.c:172 fish/cmds.c:252
+#: fish/cmds.c:186 fish/cmds.c:274
 msgid "set the search path"
 msgstr ""
 
-#: fish/cmds.c:173 fish/cmds.c:246
+#: fish/cmds.c:187 fish/cmds.c:268
 msgid "set the qemu binary"
 msgstr ""
 
-#: fish/cmds.c:174 fish/cmds.c:270
+#: fish/cmds.c:188 fish/cmds.c:292
 msgid "set verbose mode"
 msgstr ""
 
-#: fish/cmds.c:176 fish/cmds.c:177 fish/cmds.c:429 fish/cmds.c:717
+#: fish/cmds.c:190 fish/cmds.c:191 fish/cmds.c:451 fish/cmds.c:739
 msgid "create partitions on a block device"
 msgstr ""
 
-#: fish/cmds.c:178 fish/cmds.c:597
+#: fish/cmds.c:192 fish/cmds.c:619
 msgid "modify a single partition on a block device"
 msgstr ""
 
-#: fish/cmds.c:179 fish/cmds.c:606
+#: fish/cmds.c:193 fish/cmds.c:628
 msgid "display the disk geometry from the partition table"
 msgstr ""
 
-#: fish/cmds.c:180 fish/cmds.c:603
+#: fish/cmds.c:194 fish/cmds.c:625
 msgid "display the kernel geometry"
 msgstr ""
 
-#: fish/cmds.c:181 fish/cmds.c:600
+#: fish/cmds.c:195 fish/cmds.c:622
 msgid "display the partition table"
 msgstr ""
 
-#: fish/cmds.c:182 fish/cmds.c:633
+#: fish/cmds.c:196 fish/cmds.c:655
 msgid "run a command via the shell"
 msgstr ""
 
-#: fish/cmds.c:183 fish/cmds.c:636
+#: fish/cmds.c:197 fish/cmds.c:658
 msgid "run a command via the shell returning lines"
 msgstr ""
 
-#: fish/cmds.c:184 fish/cmds.c:627
+#: fish/cmds.c:198 fish/cmds.c:649
 msgid "sleep for some seconds"
 msgstr ""
 
-#: fish/cmds.c:185 fish/cmds.c:456
+#: fish/cmds.c:199 fish/cmds.c:478
 msgid "get file information"
 msgstr ""
 
-#: fish/cmds.c:186 fish/cmds.c:462
+#: fish/cmds.c:200 fish/cmds.c:484
 msgid "get file system statistics"
 msgstr ""
 
-#: fish/cmds.c:187 fish/cmds.c:188 fish/cmds.c:582 fish/cmds.c:585
+#: fish/cmds.c:201 fish/cmds.c:202 fish/cmds.c:604 fish/cmds.c:607
 msgid "print the printable strings in a file"
 msgstr ""
 
-#: fish/cmds.c:189 fish/cmds.c:306
+#: fish/cmds.c:203 fish/cmds.c:835
+msgid "disable swap on device"
+msgstr ""
+
+#: fish/cmds.c:204 fish/cmds.c:841
+msgid "disable swap on file"
+msgstr ""
+
+#: fish/cmds.c:205 fish/cmds.c:847
+msgid "disable swap on labelled swap partition"
+msgstr ""
+
+#: fish/cmds.c:206 fish/cmds.c:853
+msgid "disable swap on swap partition by UUID"
+msgstr ""
+
+#: fish/cmds.c:207 fish/cmds.c:832
+msgid "enable swap on device"
+msgstr ""
+
+#: fish/cmds.c:208 fish/cmds.c:838
+msgid "enable swap on file"
+msgstr ""
+
+#: fish/cmds.c:209 fish/cmds.c:844
+msgid "enable swap on labelled swap partition"
+msgstr ""
+
+#: fish/cmds.c:210 fish/cmds.c:850
+msgid "enable swap on swap partition by UUID"
+msgstr ""
+
+#: fish/cmds.c:211 fish/cmds.c:328
 msgid "sync disks, writes are flushed through to the disk image"
 msgstr ""
 
-#: fish/cmds.c:190 fish/cmds.c:669
+#: fish/cmds.c:212 fish/cmds.c:691
 msgid "return last 10 lines of a file"
 msgstr ""
 
-#: fish/cmds.c:191 fish/cmds.c:672
+#: fish/cmds.c:213 fish/cmds.c:694
 msgid "return last N lines of a file"
 msgstr ""
 
-#: fish/cmds.c:192 fish/cmds.c:507
+#: fish/cmds.c:214 fish/cmds.c:529
 msgid "unpack tarfile to directory"
 msgstr ""
 
-#: fish/cmds.c:193 fish/cmds.c:510
+#: fish/cmds.c:215 fish/cmds.c:532
 msgid "pack directory into tarfile"
 msgstr ""
 
-#: fish/cmds.c:194 fish/cmds.c:513
+#: fish/cmds.c:216 fish/cmds.c:535
 msgid "unpack compressed tarball to directory"
 msgstr ""
 
-#: fish/cmds.c:195 fish/cmds.c:516
+#: fish/cmds.c:217 fish/cmds.c:538
 msgid "pack directory into compressed tarball"
 msgstr ""
 
-#: fish/cmds.c:196 fish/cmds.c:309
+#: fish/cmds.c:218 fish/cmds.c:331
 msgid "update file timestamps or create a new file"
 msgstr ""
 
-#: fish/cmds.c:197 fish/cmds.c:465
+#: fish/cmds.c:219 fish/cmds.c:487
 msgid "get ext2/ext3/ext4 superblock details"
 msgstr ""
 
-#: fish/cmds.c:198 fish/cmds.c:711
+#: fish/cmds.c:220 fish/cmds.c:733
 msgid "set file mode creation mask (umask)"
 msgstr ""
 
-#: fish/cmds.c:199 fish/cmds.c:435
+#: fish/cmds.c:221 fish/cmds.c:457
 msgid "unmount a filesystem"
 msgstr ""
 
-#: fish/cmds.c:200 fish/cmds.c:441
+#: fish/cmds.c:222 fish/cmds.c:463
 msgid "unmount all filesystems"
 msgstr ""
 
-#: fish/cmds.c:201 fish/cmds.c:498
+#: fish/cmds.c:223 fish/cmds.c:520
 msgid "upload a file from the local machine"
 msgstr ""
 
-#: fish/cmds.c:202 fish/cmds.c:300
+#: fish/cmds.c:224 fish/cmds.c:322
 msgid "get the library version number"
 msgstr ""
 
-#: fish/cmds.c:203 fish/cmds.c:612
+#: fish/cmds.c:225 fish/cmds.c:634
 msgid "activate or deactivate some volume groups"
 msgstr ""
 
-#: fish/cmds.c:204 fish/cmds.c:609
+#: fish/cmds.c:226 fish/cmds.c:631
 msgid "activate or deactivate all volume groups"
 msgstr ""
 
-#: fish/cmds.c:206 fish/cmds.c:534
+#: fish/cmds.c:228 fish/cmds.c:556
 msgid "remove an LVM volume group"
 msgstr ""
 
-#: fish/cmds.c:207 fish/cmds.c:208 fish/cmds.c:330 fish/cmds.c:339
+#: fish/cmds.c:229 fish/cmds.c:230 fish/cmds.c:352 fish/cmds.c:361
 msgid "list the LVM volume groups (VGs)"
 msgstr ""
 
-#: fish/cmds.c:209 fish/cmds.c:660
+#: fish/cmds.c:231 fish/cmds.c:682
 msgid "count characters in a file"
 msgstr ""
 
-#: fish/cmds.c:210 fish/cmds.c:654
+#: fish/cmds.c:232 fish/cmds.c:676
 msgid "count lines in a file"
 msgstr ""
 
-#: fish/cmds.c:211 fish/cmds.c:657
+#: fish/cmds.c:233 fish/cmds.c:679
 msgid "count words in a file"
 msgstr ""
 
-#: fish/cmds.c:212 fish/cmds.c:432
+#: fish/cmds.c:234 fish/cmds.c:454
 msgid "create a file"
 msgstr ""
 
-#: fish/cmds.c:215 fish/cmds.c:555
+#: fish/cmds.c:237 fish/cmds.c:577
 msgid "write zeroes to the device"
 msgstr ""
 
-#: fish/cmds.c:216 fish/cmds.c:591
+#: fish/cmds.c:238 fish/cmds.c:613
 msgid "zero unused inodes and disk blocks on ext2/3 filesystem"
 msgstr ""
 
-#: fish/cmds.c:219 fish/cmds.c:720
+#: fish/cmds.c:241 fish/cmds.c:742
 msgid "determine file type inside a compressed file"
 msgstr ""
 
-#: fish/cmds.c:222
+#: fish/cmds.c:244
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
 msgstr ""
 
-#: fish/cmds.c:1012 fish/cmds.c:1024 fish/cmds.c:1037 fish/cmds.c:1051
-#: fish/cmds.c:1065 fish/cmds.c:1080 fish/cmds.c:1095 fish/cmds.c:1108
-#: fish/cmds.c:1123 fish/cmds.c:1136 fish/cmds.c:1151 fish/cmds.c:1164
-#: fish/cmds.c:1178 fish/cmds.c:1191 fish/cmds.c:1206 fish/cmds.c:1219
-#: fish/cmds.c:1233 fish/cmds.c:1247 fish/cmds.c:1261 fish/cmds.c:1275
-#: fish/cmds.c:1289 fish/cmds.c:1304 fish/cmds.c:1317 fish/cmds.c:1331
-#: fish/cmds.c:1345 fish/cmds.c:1362 fish/cmds.c:1376 fish/cmds.c:1389
-#: fish/cmds.c:1403 fish/cmds.c:1420 fish/cmds.c:1437 fish/cmds.c:1453
-#: fish/cmds.c:1468 fish/cmds.c:1483 fish/cmds.c:1498 fish/cmds.c:1513
-#: fish/cmds.c:1528 fish/cmds.c:1543 fish/cmds.c:1558 fish/cmds.c:1574
-#: fish/cmds.c:1592 fish/cmds.c:1606 fish/cmds.c:1620 fish/cmds.c:1639
-#: fish/cmds.c:1658 fish/cmds.c:1676 fish/cmds.c:1693 fish/cmds.c:1709
-#: fish/cmds.c:1726 fish/cmds.c:1741 fish/cmds.c:1757 fish/cmds.c:1769
-#: fish/cmds.c:1782 fish/cmds.c:1799 fish/cmds.c:1813 fish/cmds.c:1827
-#: fish/cmds.c:1841 fish/cmds.c:1855 fish/cmds.c:1870 fish/cmds.c:1887
-#: fish/cmds.c:1903 fish/cmds.c:1919 fish/cmds.c:1935 fish/cmds.c:1951
-#: fish/cmds.c:1966 fish/cmds.c:1983 fish/cmds.c:2000 fish/cmds.c:2019
-#: fish/cmds.c:2039 fish/cmds.c:2055 fish/cmds.c:2068 fish/cmds.c:2083
-#: fish/cmds.c:2095 fish/cmds.c:2108 fish/cmds.c:2125 fish/cmds.c:2142
-#: fish/cmds.c:2159 fish/cmds.c:2176 fish/cmds.c:2193 fish/cmds.c:2210
-#: fish/cmds.c:2227 fish/cmds.c:2241 fish/cmds.c:2255 fish/cmds.c:2271
-#: fish/cmds.c:2287 fish/cmds.c:2304 fish/cmds.c:2319 fish/cmds.c:2335
-#: fish/cmds.c:2351 fish/cmds.c:2365 fish/cmds.c:2380 fish/cmds.c:2396
-#: fish/cmds.c:2412 fish/cmds.c:2431 fish/cmds.c:2447 fish/cmds.c:2463
-#: fish/cmds.c:2479 fish/cmds.c:2495 fish/cmds.c:2512 fish/cmds.c:2531
-#: fish/cmds.c:2549 fish/cmds.c:2567 fish/cmds.c:2581 fish/cmds.c:2595
-#: fish/cmds.c:2610 fish/cmds.c:2625 fish/cmds.c:2643 fish/cmds.c:2658
-#: fish/cmds.c:2676 fish/cmds.c:2693 fish/cmds.c:2708 fish/cmds.c:2724
-#: fish/cmds.c:2740 fish/cmds.c:2756 fish/cmds.c:2771 fish/cmds.c:2784
-#: fish/cmds.c:2799 fish/cmds.c:2813 fish/cmds.c:2830 fish/cmds.c:2848
-#: fish/cmds.c:2866 fish/cmds.c:2883 fish/cmds.c:2897 fish/cmds.c:2916
-#: fish/cmds.c:2935 fish/cmds.c:2952 fish/cmds.c:2969 fish/cmds.c:2986
-#: fish/cmds.c:3001 fish/cmds.c:3017 fish/cmds.c:3032 fish/cmds.c:3046
-#: fish/cmds.c:3063 fish/cmds.c:3077 fish/cmds.c:3092 fish/cmds.c:3109
-#: fish/cmds.c:3126 fish/cmds.c:3143 fish/cmds.c:3160 fish/cmds.c:3174
-#: fish/cmds.c:3188 fish/cmds.c:3202 fish/cmds.c:3219 fish/cmds.c:3235
-#: fish/cmds.c:3251 fish/cmds.c:3267 fish/cmds.c:3285 fish/cmds.c:3303
-#: fish/cmds.c:3321 fish/cmds.c:3338 fish/cmds.c:3353 fish/cmds.c:3369
-#: fish/cmds.c:3385 fish/cmds.c:3403 fish/cmds.c:3418 fish/cmds.c:3433
-#: fish/cmds.c:3449 fish/cmds.c:3467 fish/cmds.c:3485 fish/cmds.c:3503
-#: fish/cmds.c:3523 fish/cmds.c:3540 fish/cmds.c:3556 fish/cmds.c:3574
-#: fish/cmds.c:3590 fish/cmds.c:3608 fish/cmds.c:3625 fish/cmds.c:3645
-#: fish/cmds.c:3665 fish/cmds.c:3683 fish/cmds.c:3699 fish/cmds.c:3713
-#: fish/cmds.c:3729 fish/cmds.c:3743 fish/cmds.c:3758 fish/cmds.c:3776
-#: fish/cmds.c:3795 fish/cmds.c:3814 fish/cmds.c:3833 fish/cmds.c:3852
-#: fish/cmds.c:3871 fish/cmds.c:3890 fish/cmds.c:3909 fish/cmds.c:3928
-#: fish/cmds.c:3947 fish/cmds.c:3966 fish/cmds.c:3985
+#: fish/cmds.c:1196 fish/cmds.c:1208 fish/cmds.c:1221 fish/cmds.c:1235
+#: fish/cmds.c:1249 fish/cmds.c:1264 fish/cmds.c:1279 fish/cmds.c:1292
+#: fish/cmds.c:1307 fish/cmds.c:1320 fish/cmds.c:1335 fish/cmds.c:1348
+#: fish/cmds.c:1362 fish/cmds.c:1375 fish/cmds.c:1390 fish/cmds.c:1403
+#: fish/cmds.c:1417 fish/cmds.c:1431 fish/cmds.c:1445 fish/cmds.c:1459
+#: fish/cmds.c:1473 fish/cmds.c:1488 fish/cmds.c:1501 fish/cmds.c:1515
+#: fish/cmds.c:1529 fish/cmds.c:1546 fish/cmds.c:1560 fish/cmds.c:1573
+#: fish/cmds.c:1587 fish/cmds.c:1604 fish/cmds.c:1621 fish/cmds.c:1637
+#: fish/cmds.c:1652 fish/cmds.c:1667 fish/cmds.c:1682 fish/cmds.c:1697
+#: fish/cmds.c:1712 fish/cmds.c:1727 fish/cmds.c:1742 fish/cmds.c:1758
+#: fish/cmds.c:1776 fish/cmds.c:1790 fish/cmds.c:1804 fish/cmds.c:1823
+#: fish/cmds.c:1842 fish/cmds.c:1860 fish/cmds.c:1877 fish/cmds.c:1893
+#: fish/cmds.c:1910 fish/cmds.c:1925 fish/cmds.c:1941 fish/cmds.c:1953
+#: fish/cmds.c:1966 fish/cmds.c:1983 fish/cmds.c:1997 fish/cmds.c:2011
+#: fish/cmds.c:2025 fish/cmds.c:2039 fish/cmds.c:2054 fish/cmds.c:2071
+#: fish/cmds.c:2087 fish/cmds.c:2103 fish/cmds.c:2119 fish/cmds.c:2135
+#: fish/cmds.c:2150 fish/cmds.c:2167 fish/cmds.c:2184 fish/cmds.c:2203
+#: fish/cmds.c:2223 fish/cmds.c:2239 fish/cmds.c:2252 fish/cmds.c:2267
+#: fish/cmds.c:2279 fish/cmds.c:2292 fish/cmds.c:2309 fish/cmds.c:2326
+#: fish/cmds.c:2343 fish/cmds.c:2360 fish/cmds.c:2377 fish/cmds.c:2394
+#: fish/cmds.c:2411 fish/cmds.c:2425 fish/cmds.c:2439 fish/cmds.c:2455
+#: fish/cmds.c:2471 fish/cmds.c:2488 fish/cmds.c:2503 fish/cmds.c:2519
+#: fish/cmds.c:2535 fish/cmds.c:2549 fish/cmds.c:2564 fish/cmds.c:2580
+#: fish/cmds.c:2596 fish/cmds.c:2615 fish/cmds.c:2631 fish/cmds.c:2647
+#: fish/cmds.c:2663 fish/cmds.c:2679 fish/cmds.c:2696 fish/cmds.c:2715
+#: fish/cmds.c:2733 fish/cmds.c:2751 fish/cmds.c:2765 fish/cmds.c:2779
+#: fish/cmds.c:2794 fish/cmds.c:2809 fish/cmds.c:2827 fish/cmds.c:2842
+#: fish/cmds.c:2860 fish/cmds.c:2877 fish/cmds.c:2892 fish/cmds.c:2908
+#: fish/cmds.c:2924 fish/cmds.c:2940 fish/cmds.c:2955 fish/cmds.c:2968
+#: fish/cmds.c:2983 fish/cmds.c:2997 fish/cmds.c:3014 fish/cmds.c:3032
+#: fish/cmds.c:3050 fish/cmds.c:3067 fish/cmds.c:3081 fish/cmds.c:3100
+#: fish/cmds.c:3119 fish/cmds.c:3136 fish/cmds.c:3153 fish/cmds.c:3170
+#: fish/cmds.c:3185 fish/cmds.c:3201 fish/cmds.c:3216 fish/cmds.c:3230
+#: fish/cmds.c:3247 fish/cmds.c:3261 fish/cmds.c:3276 fish/cmds.c:3293
+#: fish/cmds.c:3310 fish/cmds.c:3327 fish/cmds.c:3344 fish/cmds.c:3358
+#: fish/cmds.c:3372 fish/cmds.c:3386 fish/cmds.c:3403 fish/cmds.c:3419
+#: fish/cmds.c:3435 fish/cmds.c:3451 fish/cmds.c:3469 fish/cmds.c:3487
+#: fish/cmds.c:3505 fish/cmds.c:3522 fish/cmds.c:3537 fish/cmds.c:3553
+#: fish/cmds.c:3569 fish/cmds.c:3587 fish/cmds.c:3602 fish/cmds.c:3617
+#: fish/cmds.c:3633 fish/cmds.c:3651 fish/cmds.c:3669 fish/cmds.c:3687
+#: fish/cmds.c:3707 fish/cmds.c:3724 fish/cmds.c:3740 fish/cmds.c:3758
+#: fish/cmds.c:3774 fish/cmds.c:3792 fish/cmds.c:3809 fish/cmds.c:3829
+#: fish/cmds.c:3849 fish/cmds.c:3867 fish/cmds.c:3883 fish/cmds.c:3897
+#: fish/cmds.c:3913 fish/cmds.c:3927 fish/cmds.c:3942 fish/cmds.c:3960
+#: fish/cmds.c:3979 fish/cmds.c:3998 fish/cmds.c:4017 fish/cmds.c:4036
+#: fish/cmds.c:4055 fish/cmds.c:4074 fish/cmds.c:4093 fish/cmds.c:4112
+#: fish/cmds.c:4131 fish/cmds.c:4150 fish/cmds.c:4169 fish/cmds.c:4187
+#: fish/cmds.c:4205 fish/cmds.c:4221 fish/cmds.c:4237 fish/cmds.c:4253
+#: fish/cmds.c:4268 fish/cmds.c:4286 fish/cmds.c:4301 fish/cmds.c:4315
+#: fish/cmds.c:4329 fish/cmds.c:4343 fish/cmds.c:4357 fish/cmds.c:4371
+#: fish/cmds.c:4385 fish/cmds.c:4399 fish/cmds.c:4413 fish/cmds.c:4427
+#: fish/cmds.c:4442 fish/cmds.c:4459 fish/cmds.c:4472 fish/cmds.c:4487
+#: fish/cmds.c:4502
 #, c-format
 msgid "%s should have %d parameter(s)\n"
 msgstr ""
 
-#: fish/cmds.c:1013 fish/cmds.c:1025 fish/cmds.c:1038 fish/cmds.c:1052
-#: fish/cmds.c:1066 fish/cmds.c:1081 fish/cmds.c:1096 fish/cmds.c:1109
-#: fish/cmds.c:1124 fish/cmds.c:1137 fish/cmds.c:1152 fish/cmds.c:1165
-#: fish/cmds.c:1179 fish/cmds.c:1192 fish/cmds.c:1207 fish/cmds.c:1220
-#: fish/cmds.c:1234 fish/cmds.c:1248 fish/cmds.c:1262 fish/cmds.c:1276
-#: fish/cmds.c:1290 fish/cmds.c:1305 fish/cmds.c:1318 fish/cmds.c:1332
-#: fish/cmds.c:1346 fish/cmds.c:1363 fish/cmds.c:1377 fish/cmds.c:1390
-#: fish/cmds.c:1404 fish/cmds.c:1421 fish/cmds.c:1438 fish/cmds.c:1454
-#: fish/cmds.c:1469 fish/cmds.c:1484 fish/cmds.c:1499 fish/cmds.c:1514
-#: fish/cmds.c:1529 fish/cmds.c:1544 fish/cmds.c:1559 fish/cmds.c:1575
-#: fish/cmds.c:1593 fish/cmds.c:1607 fish/cmds.c:1621 fish/cmds.c:1640
-#: fish/cmds.c:1659 fish/cmds.c:1677 fish/cmds.c:1694 fish/cmds.c:1710
-#: fish/cmds.c:1727 fish/cmds.c:1742 fish/cmds.c:1758 fish/cmds.c:1770
-#: fish/cmds.c:1783 fish/cmds.c:1800 fish/cmds.c:1814 fish/cmds.c:1828
-#: fish/cmds.c:1842 fish/cmds.c:1856 fish/cmds.c:1871 fish/cmds.c:1888
-#: fish/cmds.c:1904 fish/cmds.c:1920 fish/cmds.c:1936 fish/cmds.c:1952
-#: fish/cmds.c:1967 fish/cmds.c:1984 fish/cmds.c:2001 fish/cmds.c:2020
-#: fish/cmds.c:2040 fish/cmds.c:2056 fish/cmds.c:2069 fish/cmds.c:2084
-#: fish/cmds.c:2096 fish/cmds.c:2109 fish/cmds.c:2126 fish/cmds.c:2143
-#: fish/cmds.c:2160 fish/cmds.c:2177 fish/cmds.c:2194 fish/cmds.c:2211
-#: fish/cmds.c:2228 fish/cmds.c:2242 fish/cmds.c:2256 fish/cmds.c:2272
-#: fish/cmds.c:2288 fish/cmds.c:2305 fish/cmds.c:2320 fish/cmds.c:2336
-#: fish/cmds.c:2352 fish/cmds.c:2366 fish/cmds.c:2381 fish/cmds.c:2397
-#: fish/cmds.c:2413 fish/cmds.c:2432 fish/cmds.c:2448 fish/cmds.c:2464
-#: fish/cmds.c:2480 fish/cmds.c:2496 fish/cmds.c:2513 fish/cmds.c:2532
-#: fish/cmds.c:2550 fish/cmds.c:2568 fish/cmds.c:2582 fish/cmds.c:2596
-#: fish/cmds.c:2611 fish/cmds.c:2626 fish/cmds.c:2644 fish/cmds.c:2659
-#: fish/cmds.c:2677 fish/cmds.c:2694 fish/cmds.c:2709 fish/cmds.c:2725
-#: fish/cmds.c:2741 fish/cmds.c:2757 fish/cmds.c:2772 fish/cmds.c:2785
-#: fish/cmds.c:2800 fish/cmds.c:2814 fish/cmds.c:2831 fish/cmds.c:2849
-#: fish/cmds.c:2867 fish/cmds.c:2884 fish/cmds.c:2898 fish/cmds.c:2917
-#: fish/cmds.c:2936 fish/cmds.c:2953 fish/cmds.c:2970 fish/cmds.c:2987
-#: fish/cmds.c:3002 fish/cmds.c:3018 fish/cmds.c:3033 fish/cmds.c:3047
-#: fish/cmds.c:3064 fish/cmds.c:3078 fish/cmds.c:3093 fish/cmds.c:3110
-#: fish/cmds.c:3127 fish/cmds.c:3144 fish/cmds.c:3161 fish/cmds.c:3175
-#: fish/cmds.c:3189 fish/cmds.c:3203 fish/cmds.c:3220 fish/cmds.c:3236
-#: fish/cmds.c:3252 fish/cmds.c:3268 fish/cmds.c:3286 fish/cmds.c:3304
-#: fish/cmds.c:3322 fish/cmds.c:3339 fish/cmds.c:3354 fish/cmds.c:3370
-#: fish/cmds.c:3386 fish/cmds.c:3404 fish/cmds.c:3419 fish/cmds.c:3434
-#: fish/cmds.c:3450 fish/cmds.c:3468 fish/cmds.c:3486 fish/cmds.c:3504
-#: fish/cmds.c:3524 fish/cmds.c:3541 fish/cmds.c:3557 fish/cmds.c:3575
-#: fish/cmds.c:3591 fish/cmds.c:3609 fish/cmds.c:3626 fish/cmds.c:3646
-#: fish/cmds.c:3666 fish/cmds.c:3684 fish/cmds.c:3700 fish/cmds.c:3714
-#: fish/cmds.c:3730 fish/cmds.c:3744 fish/cmds.c:3759 fish/cmds.c:3777
-#: fish/cmds.c:3796 fish/cmds.c:3815 fish/cmds.c:3834 fish/cmds.c:3853
-#: fish/cmds.c:3872 fish/cmds.c:3891 fish/cmds.c:3910 fish/cmds.c:3929
-#: fish/cmds.c:3948 fish/cmds.c:3967 fish/cmds.c:3986
+#: fish/cmds.c:1197 fish/cmds.c:1209 fish/cmds.c:1222 fish/cmds.c:1236
+#: fish/cmds.c:1250 fish/cmds.c:1265 fish/cmds.c:1280 fish/cmds.c:1293
+#: fish/cmds.c:1308 fish/cmds.c:1321 fish/cmds.c:1336 fish/cmds.c:1349
+#: fish/cmds.c:1363 fish/cmds.c:1376 fish/cmds.c:1391 fish/cmds.c:1404
+#: fish/cmds.c:1418 fish/cmds.c:1432 fish/cmds.c:1446 fish/cmds.c:1460
+#: fish/cmds.c:1474 fish/cmds.c:1489 fish/cmds.c:1502 fish/cmds.c:1516
+#: fish/cmds.c:1530 fish/cmds.c:1547 fish/cmds.c:1561 fish/cmds.c:1574
+#: fish/cmds.c:1588 fish/cmds.c:1605 fish/cmds.c:1622 fish/cmds.c:1638
+#: fish/cmds.c:1653 fish/cmds.c:1668 fish/cmds.c:1683 fish/cmds.c:1698
+#: fish/cmds.c:1713 fish/cmds.c:1728 fish/cmds.c:1743 fish/cmds.c:1759
+#: fish/cmds.c:1777 fish/cmds.c:1791 fish/cmds.c:1805 fish/cmds.c:1824
+#: fish/cmds.c:1843 fish/cmds.c:1861 fish/cmds.c:1878 fish/cmds.c:1894
+#: fish/cmds.c:1911 fish/cmds.c:1926 fish/cmds.c:1942 fish/cmds.c:1954
+#: fish/cmds.c:1967 fish/cmds.c:1984 fish/cmds.c:1998 fish/cmds.c:2012
+#: fish/cmds.c:2026 fish/cmds.c:2040 fish/cmds.c:2055 fish/cmds.c:2072
+#: fish/cmds.c:2088 fish/cmds.c:2104 fish/cmds.c:2120 fish/cmds.c:2136
+#: fish/cmds.c:2151 fish/cmds.c:2168 fish/cmds.c:2185 fish/cmds.c:2204
+#: fish/cmds.c:2224 fish/cmds.c:2240 fish/cmds.c:2253 fish/cmds.c:2268
+#: fish/cmds.c:2280 fish/cmds.c:2293 fish/cmds.c:2310 fish/cmds.c:2327
+#: fish/cmds.c:2344 fish/cmds.c:2361 fish/cmds.c:2378 fish/cmds.c:2395
+#: fish/cmds.c:2412 fish/cmds.c:2426 fish/cmds.c:2440 fish/cmds.c:2456
+#: fish/cmds.c:2472 fish/cmds.c:2489 fish/cmds.c:2504 fish/cmds.c:2520
+#: fish/cmds.c:2536 fish/cmds.c:2550 fish/cmds.c:2565 fish/cmds.c:2581
+#: fish/cmds.c:2597 fish/cmds.c:2616 fish/cmds.c:2632 fish/cmds.c:2648
+#: fish/cmds.c:2664 fish/cmds.c:2680 fish/cmds.c:2697 fish/cmds.c:2716
+#: fish/cmds.c:2734 fish/cmds.c:2752 fish/cmds.c:2766 fish/cmds.c:2780
+#: fish/cmds.c:2795 fish/cmds.c:2810 fish/cmds.c:2828 fish/cmds.c:2843
+#: fish/cmds.c:2861 fish/cmds.c:2878 fish/cmds.c:2893 fish/cmds.c:2909
+#: fish/cmds.c:2925 fish/cmds.c:2941 fish/cmds.c:2956 fish/cmds.c:2969
+#: fish/cmds.c:2984 fish/cmds.c:2998 fish/cmds.c:3015 fish/cmds.c:3033
+#: fish/cmds.c:3051 fish/cmds.c:3068 fish/cmds.c:3082 fish/cmds.c:3101
+#: fish/cmds.c:3120 fish/cmds.c:3137 fish/cmds.c:3154 fish/cmds.c:3171
+#: fish/cmds.c:3186 fish/cmds.c:3202 fish/cmds.c:3217 fish/cmds.c:3231
+#: fish/cmds.c:3248 fish/cmds.c:3262 fish/cmds.c:3277 fish/cmds.c:3294
+#: fish/cmds.c:3311 fish/cmds.c:3328 fish/cmds.c:3345 fish/cmds.c:3359
+#: fish/cmds.c:3373 fish/cmds.c:3387 fish/cmds.c:3404 fish/cmds.c:3420
+#: fish/cmds.c:3436 fish/cmds.c:3452 fish/cmds.c:3470 fish/cmds.c:3488
+#: fish/cmds.c:3506 fish/cmds.c:3523 fish/cmds.c:3538 fish/cmds.c:3554
+#: fish/cmds.c:3570 fish/cmds.c:3588 fish/cmds.c:3603 fish/cmds.c:3618
+#: fish/cmds.c:3634 fish/cmds.c:3652 fish/cmds.c:3670 fish/cmds.c:3688
+#: fish/cmds.c:3708 fish/cmds.c:3725 fish/cmds.c:3741 fish/cmds.c:3759
+#: fish/cmds.c:3775 fish/cmds.c:3793 fish/cmds.c:3810 fish/cmds.c:3830
+#: fish/cmds.c:3850 fish/cmds.c:3868 fish/cmds.c:3884 fish/cmds.c:3898
+#: fish/cmds.c:3914 fish/cmds.c:3928 fish/cmds.c:3943 fish/cmds.c:3961
+#: fish/cmds.c:3980 fish/cmds.c:3999 fish/cmds.c:4018 fish/cmds.c:4037
+#: fish/cmds.c:4056 fish/cmds.c:4075 fish/cmds.c:4094 fish/cmds.c:4113
+#: fish/cmds.c:4132 fish/cmds.c:4151 fish/cmds.c:4170 fish/cmds.c:4188
+#: fish/cmds.c:4206 fish/cmds.c:4222 fish/cmds.c:4238 fish/cmds.c:4254
+#: fish/cmds.c:4269 fish/cmds.c:4287 fish/cmds.c:4302 fish/cmds.c:4316
+#: fish/cmds.c:4330 fish/cmds.c:4344 fish/cmds.c:4358 fish/cmds.c:4372
+#: fish/cmds.c:4386 fish/cmds.c:4400 fish/cmds.c:4414 fish/cmds.c:4428
+#: fish/cmds.c:4443 fish/cmds.c:4460 fish/cmds.c:4473 fish/cmds.c:4488
+#: fish/cmds.c:4503
 #, c-format
 msgid "type 'help %s' for help on %s\n"
 msgstr ""
 
-#: fish/cmds.c:4562
+#: fish/cmds.c:5140
 #, c-format
 msgid "%s: unknown command\n"
 msgstr ""
@@ -1250,143 +1285,6 @@ msgstr ""
 msgid "use 'time command [args...]'\n"
 msgstr ""
 
-#: inspector/virt-inspector.pl:205
-msgid "virt-inspector: no image or VM names given"
-msgstr ""
-
-#: inspector/virt-inspector.pl:302
-msgid "--fish output is only possible with a single OS\n"
-msgstr ""
-
-#: inspector/virt-inspector.pl:328
-msgid "virt-inspector: no YAML support\n"
-msgstr ""
-
-#: inspector/virt-inspector.pl:366
-msgid "  Mountpoints:\n"
-msgstr ""
-
-#: inspector/virt-inspector.pl:372
-msgid "  Filesystems:\n"
-msgstr ""
-
-#: inspector/virt-inspector.pl:390
-msgid "  Modprobe aliases:\n"
-msgstr ""
-
-#: inspector/virt-inspector.pl:401
-msgid "  Initrd modules:\n"
-msgstr ""
-
-#: inspector/virt-inspector.pl:410
-msgid "  Applications:\n"
-msgstr ""
-
-#: inspector/virt-inspector.pl:416
-msgid "  Kernels:\n"
-msgstr ""
-
-#: inspector/virt-inspector.pl:427
-msgid "  Windows Registry entries:\n"
-msgstr ""
-
-#: perl/lib/Sys/Guestfs/Lib.pm:135
-msgid "open_guest: first parameter must be a string or an arrayref"
-msgstr ""
-
-#: perl/lib/Sys/Guestfs/Lib.pm:142
-#, perl-brace-format
-msgid "guest image {imagename} does not exist or is not readable"
-msgstr ""
-
-#: perl/lib/Sys/Guestfs/Lib.pm:147
-msgid ""
-"open_guest: no libvirt support (install Sys::Virt, XML::XPath and XML::"
-"XPath::XMLParser)"
-msgstr ""
-
-#: perl/lib/Sys/Guestfs/Lib.pm:152
-msgid "open_guest: too many domains listed on command line"
-msgstr ""
-
-#: perl/lib/Sys/Guestfs/Lib.pm:156
-msgid "open_guest: cannot connect to libvirt"
-msgstr ""
-
-#: perl/lib/Sys/Guestfs/Lib.pm:175
-#, perl-brace-format
-msgid "{imagename} is not the name of an inactive libvirt domain\n"
-msgstr ""
-
-#: perl/lib/Sys/Guestfs/Lib.pm:178
-#, perl-brace-format
-msgid "{imagename} is not the name of a libvirt domain\n"
-msgstr ""
-
-#: perl/lib/Sys/Guestfs/Lib.pm:190
-#, perl-brace-format
-msgid "{imagename} seems to have no disk devices\n"
-msgstr ""
-
-#: perl/lib/Sys/Guestfs/Lib.pm:274
-msgid "resolve_windows_path: path must start with a / character"
-msgstr ""
-
-#: perl/lib/Sys/Guestfs/Lib.pm:397
-#, perl-brace-format
-msgid "returning non-canonical architecture type '{arch}'"
-msgstr ""
-
-#: perl/lib/Sys/Guestfs/Lib.pm:440
-#, perl-brace-format
-msgid "cpio command failed: {error}"
-msgstr ""
-
-#: perl/lib/Sys/Guestfs/Lib.pm:452
-#, perl-brace-format
-msgid "file_architecture: no known binaries found in initrd image: {path}"
-msgstr ""
-
-#: perl/lib/Sys/Guestfs/Lib.pm:456
-#, perl-brace-format
-msgid "file_architecture: unknown architecture: {path}"
-msgstr ""
-
-#: perl/lib/Sys/Guestfs/Lib.pm:1007
-#, perl-brace-format
-msgid "reged command failed: {errormsg}"
-msgstr ""
-
-#: perl/lib/Sys/Guestfs/Lib.pm:1016
-#, perl-brace-format
-msgid "no output from reged command: {errormsg}"
-msgstr ""
-
-#: perl/lib/Sys/Guestfs/Lib.pm:1202
-#, perl-brace-format
-msgid "unknown filesystem label {label}\n"
-msgstr ""
-
-#: perl/lib/Sys/Guestfs/Lib.pm:1212
-#, perl-brace-format
-msgid "unknown filesystem UUID {uuid}\n"
-msgstr ""
-
-#: perl/lib/Sys/Guestfs/Lib.pm:1235
-#, perl-brace-format
-msgid "unknown filesystem {fs}\n"
-msgstr ""
-
-#: perl/lib/Sys/Guestfs/Lib.pm:1488
-#, perl-brace-format
-msgid "{path} doesn't match augeas pattern"
-msgstr ""
-
-#: perl/lib/Sys/Guestfs/Lib.pm:1538
-#, perl-brace-format
-msgid "{filename}: could not read initrd format"
-msgstr ""
-
 #: src/guestfs.c:309
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
@@ -1397,242 +1295,242 @@ msgstr ""
 msgid "libguestfs: error: %s\n"
 msgstr ""
 
-#: src/guestfs.c:733
+#: src/guestfs.c:735
 msgid "command line cannot be altered after qemu subprocess launched"
 msgstr ""
 
-#: src/guestfs.c:747
+#: src/guestfs.c:749
 msgid "guestfs_config: parameter must begin with '-' character"
 msgstr ""
 
-#: src/guestfs.c:761
+#: src/guestfs.c:763
 #, c-format
 msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr ""
 
-#: src/guestfs.c:781 src/guestfs.c:803 src/guestfs.c:821
+#: src/guestfs.c:783 src/guestfs.c:805 src/guestfs.c:823
 msgid "filename cannot contain ',' (comma) character"
 msgstr ""
 
-#: src/guestfs.c:900
+#: src/guestfs.c:902
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr ""
 
-#: src/guestfs.c:905
+#: src/guestfs.c:907
 msgid "qemu has already been launched"
 msgstr ""
 
-#: src/guestfs.c:913
+#: src/guestfs.c:915
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr ""
 
-#: src/guestfs.c:1003
+#: src/guestfs.c:1005
 #, c-format
 msgid "cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)"
 msgstr ""
 
-#: src/guestfs.c:1241
+#: src/guestfs.c:1244
 msgid "failed to connect to vmchannel socket"
 msgstr ""
 
-#: src/guestfs.c:1260
+#: src/guestfs.c:1263
 msgid "could not watch qemu stdout"
 msgstr ""
 
-#: src/guestfs.c:1328
+#: src/guestfs.c:1331
 #, c-format
 msgid "external command failed: %s"
 msgstr ""
 
-#: src/guestfs.c:1367
+#: src/guestfs.c:1370
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
 "the LIBGUESTFS_QEMU environment variable."
 msgstr ""
 
-#: src/guestfs.c:1440
+#: src/guestfs.c:1443
 msgid "qemu has finished launching already"
 msgstr ""
 
-#: src/guestfs.c:1445
+#: src/guestfs.c:1448
 msgid "qemu has not been launched yet"
 msgstr ""
 
-#: src/guestfs.c:1458
+#: src/guestfs.c:1461
 msgid "guestfs_wait_ready failed, see earlier error messages"
 msgstr ""
 
-#: src/guestfs.c:1468
+#: src/guestfs.c:1471
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 
-#: src/guestfs.c:1479
+#: src/guestfs.c:1482
 msgid "no subprocess to kill"
 msgstr ""
 
-#: src/guestfs.c:1527
+#: src/guestfs.c:1530
 #, c-format
 msgid "guestfs_set_ready: called when in state %d != BUSY"
 msgstr ""
 
-#: src/guestfs.c:1539
+#: src/guestfs.c:1542
 #, c-format
 msgid "guestfs_set_busy: called when in state %d != READY"
 msgstr ""
 
-#: src/guestfs.c:1560
+#: src/guestfs.c:1563
 #, c-format
 msgid "guestfs_end_busy: called when in state %d"
 msgstr ""
 
-#: src/guestfs.c:1618
+#: src/guestfs.c:1621
 #, c-format
 msgid "stdout_event: internal error: %d != %d"
 msgstr ""
 
-#: src/guestfs.c:1661
+#: src/guestfs.c:1664
 #, c-format
 msgid "sock_read_event: internal error: %d != %d"
 msgstr ""
 
-#: src/guestfs.c:1691
+#: src/guestfs.c:1694
 msgid "can't decode length word"
-msgstr ""
-
-#: src/guestfs.c:1701
-#, c-format
-msgid "received magic signature from guestfsd, but in state %d"
 msgstr ""
 
 #: src/guestfs.c:1704
 #, c-format
+msgid "received magic signature from guestfsd, but in state %d"
+msgstr ""
+
+#: src/guestfs.c:1707
+#, c-format
 msgid "received magic signature from guestfsd, but msg size is %d"
 msgstr ""
 
-#: src/guestfs.c:1729
+#: src/guestfs.c:1732
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr ""
 
-#: src/guestfs.c:1762
+#: src/guestfs.c:1765
 #, c-format
 msgid "state %d != BUSY"
 msgstr ""
 
-#: src/guestfs.c:1802
+#: src/guestfs.c:1805
 #, c-format
 msgid "sock_write_event: internal error: %d != %d"
 msgstr ""
 
-#: src/guestfs.c:1807
+#: src/guestfs.c:1810
 #, c-format
 msgid "sock_write_event: state %d != BUSY"
 msgstr ""
 
-#: src/guestfs.c:1914 src/guestfs.c:1937
+#: src/guestfs.c:1917 src/guestfs.c:1940
 msgid "remove_handle failed"
 msgstr ""
 
-#: src/guestfs.c:1925 src/guestfs.c:1948
+#: src/guestfs.c:1928 src/guestfs.c:1951
 msgid "add_handle failed"
 msgstr ""
 
-#: src/guestfs.c:1981
+#: src/guestfs.c:1984
 #, c-format
 msgid "guestfs__send_sync: state %d != BUSY"
 msgstr ""
 
-#: src/guestfs.c:1989 src/guestfs.c:2169
+#: src/guestfs.c:1992 src/guestfs.c:2172
 msgid "guestfs__send_sync: msg_out should be NULL"
 msgstr ""
 
-#: src/guestfs.c:2011
+#: src/guestfs.c:2014
 msgid "xdr_guestfs_message_header failed"
 msgstr ""
 
-#: src/guestfs.c:2020
+#: src/guestfs.c:2023
 msgid "dispatch failed to marshal args"
 msgstr ""
 
-#: src/guestfs.c:2046
+#: src/guestfs.c:2049
 msgid "send failed, see earlier error messages"
 msgstr ""
 
-#: src/guestfs.c:2161
+#: src/guestfs.c:2164
 #, c-format
 msgid "send_file_chunk_sync: state %d != READY"
 msgstr ""
 
-#: src/guestfs.c:2192
+#: src/guestfs.c:2195
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr ""
 
-#: src/guestfs.c:2217
+#: src/guestfs.c:2220
 msgid "send file chunk failed, see earlier error messages"
 msgstr ""
 
-#: src/guestfs.c:2268
+#: src/guestfs.c:2271
 #, c-format
 msgid "check_for_daemon_cancellation: read 0x%x from daemon, expected 0x%x\n"
 msgstr ""
 
-#: src/guestfs.c:2306
+#: src/guestfs.c:2309
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr ""
 
-#: src/guestfs.c:2334
+#: src/guestfs.c:2337
 msgid "write to daemon socket"
 msgstr ""
 
-#: src/guestfs.c:2381
+#: src/guestfs.c:2384
 msgid "failed to parse file chunk"
 msgstr ""
 
-#: src/guestfs.c:2413
+#: src/guestfs.c:2416
 msgid "receive_file_data_sync: reply callback not called\n"
 msgstr ""
 
-#: src/guestfs.c:2418
+#: src/guestfs.c:2421
 msgid "receive_file_data_sync: parse error in reply callback\n"
 msgstr ""
 
-#: src/guestfs.c:2432
+#: src/guestfs.c:2435
 msgid "file receive cancelled by daemon"
 msgstr ""
 
-#: src/guestfs.c:2467 src/guestfs.c:2525
+#: src/guestfs.c:2470 src/guestfs.c:2528
 #, c-format
 msgid "fd %d is out of range"
 msgstr ""
 
-#: src/guestfs.c:2475
+#: src/guestfs.c:2478
 #, c-format
 msgid "set of events (0x%x) contains unknown events"
 msgstr ""
 
-#: src/guestfs.c:2480
+#: src/guestfs.c:2483
 msgid "set of events is empty"
 msgstr ""
 
-#: src/guestfs.c:2487
+#: src/guestfs.c:2490
 #, c-format
 msgid "fd %d is already registered"
 msgstr ""
 
-#: src/guestfs.c:2492
+#: src/guestfs.c:2495
 msgid "callback is NULL"
 msgstr ""
 
-#: src/guestfs.c:2532
+#: src/guestfs.c:2535
 #, c-format
 msgid "fd %d was not registered"
 msgstr ""
 
-#: src/guestfs.c:2581
+#: src/guestfs.c:2584
 msgid "select_main_loop_run: this cannot be called recursively"
 msgstr ""
 
@@ -1765,12 +1663,4 @@ msgstr ""
 #: test-tool/test-tool.c:406
 #, c-format
 msgid "mkisofs command failed: %s\n"
-msgstr ""
-
-#: v2v/virt-v2v.pl:174
-msgid "virt-v2v: no image or VM names given"
-msgstr ""
-
-#: v2v/virt-v2v.pl:209
-msgid "multiboot operating systems are not supported by v2v"
 msgstr ""
