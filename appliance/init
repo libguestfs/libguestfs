@@ -50,6 +50,8 @@ lvm lvs
 ifconfig
 netstat -rn
 lsmod
+#ping -n -v -c 5 10.0.2.2
+#ping -n -v -c 5 10.0.2.4
 
 # Improve virtio-blk performance (RHBZ#509383).
 for f in /sys/block/vd*/queue/rotational; do echo 1 > $f; done
