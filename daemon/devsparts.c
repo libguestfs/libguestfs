@@ -40,7 +40,6 @@ foreach_block_device (block_dev_func_t func)
   int size = 0, alloc = 0;
 
   DIR *dir;
-  struct dirent *d;
   int err = 0;
 
   dir = opendir ("/sys/block");
@@ -49,8 +48,11 @@ foreach_block_device (block_dev_func_t func)
     return NULL;
   }
 
-  errno = 0;
-  while ((d = readdir (dir)) != NULL) {
+  while(1) {
+    errno = 0;
+    struct dirent *d = readdir(dir);
+    if(NULL == d) break;
+
     if (strncmp (d->d_name, "sd", 2) == 0 ||
         strncmp (d->d_name, "hd", 2) == 0 ||
         strncmp (d->d_name, "vd", 2) == 0 ||
