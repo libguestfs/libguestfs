@@ -78,7 +78,7 @@ sed '
 gnulib_tool=$GNULIB_SRCDIR/gnulib-tool
 <$gnulib_tool || exit
 
-(cd daemon && $GNULIB_SRCDIR/../gnulib-tool --update)
+(cd daemon && mkdir -p tests lib && $GNULIB_SRCDIR/../gnulib-tool --update)
 
 modules='
 gitlog-to-changelog
