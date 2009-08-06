@@ -1619,8 +1619,7 @@ This is the same as the C<lstat(2)> system call.");
 
   ("statvfs", (RStruct ("statbuf", "statvfs"), [String "path"]), 54, [],
    [InitSquashFS, Always, TestOutputStruct (
-      [["statvfs"; "/"]], [CompareWithInt ("namemax", 256);
-                           CompareWithInt ("bsize", 131072)])],
+      [["statvfs"; "/"]], [CompareWithInt ("namemax", 256)])],
    "get file system statistics",
    "\
 Returns file system statistics for any mounted file system.
