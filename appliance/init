@@ -34,15 +34,22 @@ else
 fi
 
 modprobe dm_mod ||:
-mount
-ls -l /dev
 
-/sbin/ifconfig lo 127.0.0.1
-/sbin/ifconfig eth0 10.0.2.10
-/sbin/route add default gw 10.0.2.2
+ifconfig lo 127.0.0.1
+ifconfig eth0 10.0.2.10
+route add default gw 10.0.2.2
 
 lvm vgscan --ignorelockingfailure
 lvm vgchange -ay --ignorelockingfailure
+
+# Keep these to enhance the usefulness of debug output.
+ls -l /dev
+lvm pvs
+lvm vgs
+lvm lvs
+ifconfig
+netstat -rn
+lsmod
 
 # Improve virtio-blk performance (RHBZ#509383).
 for f in /sys/block/vd*/queue/rotational; do echo 1 > $f; done
