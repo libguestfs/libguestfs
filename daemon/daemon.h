@@ -213,4 +213,14 @@ extern void reply (xdrproc_t xdrp, char *ret);
   }									\
   while (0)
 
+#ifndef __attribute__
+# if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 8)
+#  define __attribute__(x) /* empty */
+# endif
+#endif
+
+#ifndef ATTRIBUTE_UNUSED
+# define ATTRIBUTE_UNUSED __attribute__ ((__unused__))
+#endif
+
 #endif /* GUESTFSD_DAEMON_H */
