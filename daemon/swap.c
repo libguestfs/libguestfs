@@ -34,9 +34,9 @@ mkswap (char *device, const char *flag, const char *value)
   int r;
 
   if (!flag)
-    r = command (NULL, &err, "/sbin/mkswap", device, NULL);
+    r = command (NULL, &err, "/sbin/mkswap", "-f", device, NULL);
   else
-    r = command (NULL, &err, "/sbin/mkswap", flag, value, device, NULL);
+    r = command (NULL, &err, "/sbin/mkswap", "-f", flag, value, device, NULL);
 
   if (r == -1) {
     reply_with_error ("mkswap: %s", err);
