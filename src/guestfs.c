@@ -1081,7 +1081,7 @@ guestfs_launch (guestfs_h *g)
        * http://git.savannah.gnu.org/cgit/qemu.git/commit/?id=c92ef6a22d3c71538fcc48fb61ad353f7ba03b62
        */
       snprintf (vmchannel, sizeof vmchannel,
-                "user,vlan=0,guestfwd=tcp:%s:%d-unix:%s,server,nowait",
+                "user,vlan=0,net=10.0.2.0/8,guestfwd=tcp:%s:%d-unix:%s,server,nowait",
                 VMCHANNEL_ADDR, VMCHANNEL_PORT, unixsock);
 
       add_cmdline (g, "-net");
@@ -1098,7 +1098,7 @@ guestfs_launch (guestfs_h *g)
       add_cmdline (g, "-net");
       add_cmdline (g, vmchannel);
       add_cmdline (g, "-net");
-      add_cmdline (g, "user,vlan=0");
+      add_cmdline (g, "user,vlan=0,net=10.0.2.0/8");
 #if 0
     }
 #endif
