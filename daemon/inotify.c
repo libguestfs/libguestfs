@@ -21,6 +21,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
+#include <fcntl.h>
 #include <sys/inotify.h>
 
 #include "../src/guestfs_protocol.h"
@@ -70,11 +72,31 @@ do_inotify_init (int max_events)
     if (do_inotify_close () == -1)
       return -1;
 
+#ifdef HAVE_INOTIFY_INIT1
   inotify_fd = inotify_init1 (IN_NONBLOCK | IN_CLOEXEC);
   if (inotify_fd == -1) {
     reply_with_perror ("inotify_init");
     return -1;
   }
+#else
+  inotify_fd = inotify_init ();
+  if (inotify_fd == -1) {
+    reply_with_perror ("inotify_init");
+    return -1;
+  }
+  if (fcntl (inotify_fd, F_SETFL, O_NONBLOCK) == -1) {
+    reply_with_perror ("fcntl: O_NONBLOCK");
+    close (inotify_fd);
+    inotify_fd = -1;
+    return -1;
+  }
+  if (fcntl (inotify_fd, F_SETFD, FD_CLOEXEC) == -1) {
+    reply_with_perror ("fcntl: FD_CLOEXEC");
+    close (inotify_fd);
+    inotify_fd = -1;
+    return -1;
+  }
+#endif
 
   return 0;
 }

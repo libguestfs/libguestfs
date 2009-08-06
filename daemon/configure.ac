@@ -67,7 +67,7 @@ AC_CHECK_LIB([portablexdr],[xdrmem_create],[],[
         ])
 
 dnl Functions which may not be available in older distributions.
-AC_CHECK_FUNCS([futimens listxattr llistxattr getxattr lgetxattr setxattr lsetxattr removexattr lremovexattr])
+AC_CHECK_FUNCS([futimens listxattr llistxattr getxattr lgetxattr setxattr lsetxattr removexattr lremovexattr inotify_init1])
 
 dnl For modified printf, we need glibc either (old-style)
 dnl register_printf_function or (new-style) register_printf_specifier.
