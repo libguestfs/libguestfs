@@ -33,7 +33,7 @@
 static int inotify_fd = -1;
 
 static char inotify_buf[64*1024*1024];	/* Event buffer, [0..posn-1] is valid */
-static int inotify_posn = 0;
+static size_t inotify_posn = 0;
 
 /* Because inotify_init does NEED_ROOT, NEED_INOTIFY implies NEED_ROOT. */
 #define NEED_INOTIFY(errcode)						\
@@ -184,7 +184,8 @@ do_inotify_read (void)
 
   while (space > 0) {
     struct inotify_event *event;
-    int n, r;
+    int r;
+    size_t n;
 
     r = read (inotify_fd, inotify_buf + inotify_posn,
               sizeof (inotify_buf) - inotify_posn);
@@ -274,7 +275,7 @@ do_inotify_files (void)
 {
   char **ret = NULL;
   int size = 0, alloc = 0;
-  int i;
+  unsigned int i;
   FILE *fp;
   guestfs_int_inotify_event_list *events;
   char buf[PATH_MAX];
