@@ -7,6 +7,10 @@
 
 virtio*.ko
 
+# We normally use virtio_net, but keep these in reserve.
+8390.ko
+ne2k-pci.ko
+
 # drivers for QEMUs IDE/SCSI device emulation
 cdrom.ko
 i2c-piix4.ko
