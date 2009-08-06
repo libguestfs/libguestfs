@@ -718,7 +718,7 @@ split_lines (char *str)
  */
 static int
 print_shell_quote (FILE *stream,
-                   const struct printf_info *info,
+                   const struct printf_info *info ATTRIBUTE_UNUSED,
                    const void *const *args)
 {
 #define SAFE(c) (isalnum((c)) ||					\
@@ -751,7 +751,7 @@ print_sysroot_shell_quote (FILE *stream,
 
 #ifdef HAVE_REGISTER_PRINTF_SPECIFIER
 static int
-print_arginfo (const struct printf_info *info,
+print_arginfo (const struct printf_info *info ATTRIBUTE_UNUSED,
                size_t n, int *argtypes, int *size)
 {
   if (n > 0) {
