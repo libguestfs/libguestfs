@@ -113,7 +113,7 @@ complete_dest_paths_generator (const char *text, int state)
       size_t i;								\
       size_t n = count_strings (strs);					\
                                                                         \
-      if ( ! xalloc_oversized (nr_words + n, sizeof (struct word))) {	\
+      if ( n > 0 && ! xalloc_oversized (nr_words + n, sizeof (struct word))) { \
         struct word *w;							\
         w = realloc (words, sizeof (struct word) * (nr_words + n));	\
                                                                         \
@@ -129,8 +129,8 @@ complete_dest_paths_generator (const char *text, int state)
             nr_words++;							\
           }								\
         }								\
-        free (strs);							\
       }									\
+      free (strs);							\
     }									\
   } while (0)
 
