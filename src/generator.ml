@@ -8504,6 +8504,16 @@ and generate_java_struct_list_return typ jtyp cols =
   pr "  guestfs_free_%s_list (r);\n" typ;
   pr "  return jr;\n"
 
+and generate_java_makefile_inc () =
+  generate_header HashStyle GPLv2;
+
+  pr "java_built_sources = \\\n";
+  List.iter (
+    fun (typ, jtyp) ->
+        pr "\tcom/redhat/et/libguestfs/%s.java \\\n" jtyp;
+  ) java_structs;
+  pr "\tcom/redhat/et/libguestfs/GuestFS.java\n"
+
 and generate_haskell_hs () =
   generate_header HaskellStyle LGPLv2;
 
@@ -9261,12 +9271,7 @@ Run it from the top source directory using the command
   ) java_structs;
 
   let close = output_to "java/Makefile.inc" in
-  pr "java_built_sources =";
-  List.iter (
-    fun (typ, jtyp) ->
-        pr " com/redhat/et/libguestfs/%s.java" jtyp;
-  ) java_structs;
-  pr " com/redhat/et/libguestfs/GuestFS.java\n";
+  generate_java_makefile_inc ();
   close ();
 
   let close = output_to "java/com_redhat_et_libguestfs_GuestFS.c" in
