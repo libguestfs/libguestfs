@@ -866,6 +866,7 @@ dir_contains_files (const char *dir, ...)
 static int build_supermin_appliance (guestfs_h *g, const char *path, char **kernel, char **initrd);
 static int test_qemu (guestfs_h *g);
 static int qemu_supports (guestfs_h *g, const char *option);
+static void print_cmdline (guestfs_h *g);
 
 static const char *kernel_name = "vmlinuz." REPO "." host_cpu;
 static const char *initrd_name = "initramfs." REPO "." host_cpu ".img";
@@ -879,7 +880,7 @@ guestfs_launch (guestfs_h *g)
 {
   const char *tmpdir;
   char dir_template[PATH_MAX];
-  int r, i, pmore;
+  int r, pmore;
   size_t len;
   int wfd[2], rfd[2];
   int tries;
@@ -1116,12 +1117,8 @@ guestfs_launch (guestfs_h *g)
     incr_cmdline_size (g);
     g->cmdline[g->cmdline_size-1] = NULL;
 
-    if (g->verbose) {
-      fprintf (stderr, "%s", g->qemu);
-      for (i = 0; g->cmdline[i]; ++i)
-        fprintf (stderr, " %s", g->cmdline[i]);
-      fprintf (stderr, "\n");
-    }
+    if (g->verbose)
+      print_cmdline (g);
 
     /* Set up stdin, stdout. */
     close (0);
@@ -1299,6 +1296,33 @@ guestfs_launch (guestfs_h *g)
   free (kernel);
   free (initrd);
   return -1;
+}
+
+/* This function is used to print the qemu command line before it gets
+ * executed, when in verbose mode.
+ */
+static void
+print_cmdline (guestfs_h *g)
+{
+  int i = 0;
+  int needs_quote;
+
+  while (g->cmdline[i]) {
+    if (g->cmdline[i][0] == '-') /* -option starts a new line */
+      fprintf (stderr, " \\\n   ");
+
+    if (i > 0) fputc (' ', stderr);
+
+    /* Does it need shell quoting?  This only deals with simple cases. */
+    needs_quote = strcspn (g->cmdline[i], " ") != strlen (g->cmdline[i]);
+
+    if (needs_quote) fputc ('\'', stderr);
+    fprintf (stderr, "%s", g->cmdline[i]);
+    if (needs_quote) fputc ('\'', stderr);
+    i++;
+  }
+
+  fputc ('\n', stderr);
 }
 
 /* This function does the hard work of building the supermin appliance
