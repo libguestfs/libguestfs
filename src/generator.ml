@@ -301,6 +301,12 @@ and test_init =
     (* Block devices are empty and no filesystems are mounted. *)
   | InitEmpty
 
+    (* /dev/sda contains a single partition /dev/sda1, with random
+     * content.  /dev/sdb and /dev/sdc may have random content.
+     * No LVM.
+     *)
+  | InitPartition
+
     (* /dev/sda contains a single partition /dev/sda1, which is formatted
      * as ext2, empty [except for lost+found] and mounted on /.
      * /dev/sdb and /dev/sdc may have random content.
@@ -3207,10 +3213,10 @@ C<alloc> command which allocates a file in the host and
 attaches it as a device.");
 
   ("swapon_device", (RErr, [String "device"]), 170, [],
-   [InitNone, Always, TestRun (
-      [["mkswap"; "/dev/sdb"];
-       ["swapon_device"; "/dev/sdb"];
-       ["swapoff_device"; "/dev/sdb"]])],
+   [InitPartition, Always, TestRun (
+      [["mkswap"; "/dev/sda1"];
+       ["swapon_device"; "/dev/sda1"];
+       ["swapoff_device"; "/dev/sda1"]])],
    "enable swap on device",
    "\
 This command enables the libguestfs appliance to use the
@@ -5318,6 +5324,13 @@ and generate_one_test_body name i test_name init test =
          [["blockdev_setrw"; "/dev/sda"];
           ["umount_all"];
           ["lvm_remove_all"]]
+   | InitPartition ->
+       pr "  /* InitPartition for %s: create /dev/sda1 */\n" test_name;
+       List.iter (generate_test_command_call test_name)
+         [["blockdev_setrw"; "/dev/sda"];
+          ["umount_all"];
+          ["lvm_remove_all"];
+          ["sfdiskM"; "/dev/sda"; ","]]
    | InitBasicFS ->
        pr "  /* InitBasicFS for %s: create ext2 on /dev/sda1 */\n" test_name;
        List.iter (generate_test_command_call test_name)
