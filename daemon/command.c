@@ -27,7 +27,7 @@
 #include "actions.h"
 
 char *
-do_command (char **argv)
+do_command (char *const *argv)
 {
   char *out, *err;
   int r;
@@ -113,7 +113,7 @@ do_command (char **argv)
 }
 
 char **
-do_command_lines (char **argv)
+do_command_lines (char *const *argv)
 {
   char *out;
   char **lines;
@@ -134,15 +134,15 @@ do_command_lines (char **argv)
 char *
 do_sh (const char *command)
 {
-  char *argv[] = { "/bin/sh", "-c", command, NULL };
+  const char *argv[] = { "/bin/sh", "-c", command, NULL };
 
-  return do_command (argv);
+  return do_command ((char **) argv);
 }
 
 char **
 do_sh_lines (const char *command)
 {
-  char *argv[] = { "/bin/sh", "-c", command, NULL };
+  const char *argv[] = { "/bin/sh", "-c", command, NULL };
 
-  return do_command_lines (argv);
+  return do_command_lines ((char **) argv);
 }

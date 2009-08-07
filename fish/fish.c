@@ -974,7 +974,7 @@ free_strings (char **argv)
 }
 
 int
-count_strings (char * const * const argv)
+count_strings (char *const *argv)
 {
   int c;
 
@@ -984,7 +984,7 @@ count_strings (char * const * const argv)
 }
 
 void
-print_strings (char * const * const argv)
+print_strings (char *const *argv)
 {
   int argc;
 
@@ -993,7 +993,7 @@ print_strings (char * const * const argv)
 }
 
 void
-print_table (char * const * const argv)
+print_table (char *const *argv)
 {
   int i;
 

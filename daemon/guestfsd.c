@@ -351,7 +351,7 @@ add_string (char ***argv, int *size, int *alloc, const char *str)
 }
 
 int
-count_strings (char * const* const argv)
+count_strings (char *const *argv)
 {
   int argc;
 
@@ -403,7 +403,7 @@ int
 command (char **stdoutput, char **stderror, const char *name, ...)
 {
   va_list args;
-  char **argv, **p;
+  const char **argv;
   char *s;
   int i, r;
 
@@ -420,7 +420,7 @@ command (char **stdoutput, char **stderror, const char *name, ...)
   va_start (args, name);
 
   while ((s = va_arg (args, char *)) != NULL) {
-    p = realloc (argv, sizeof (char *) * (++i));
+    const char **p = realloc (argv, sizeof (char *) * (++i));
     if (p == NULL) {
       perror ("realloc");
       free (argv);
@@ -434,7 +434,7 @@ command (char **stdoutput, char **stderror, const char *name, ...)
 
   va_end (args);
 
-  r = commandv (stdoutput, stderror, argv);
+  r = commandv (stdoutput, stderror, (char **) argv);
 
   /* NB: Mustn't free the strings which are on the stack. */
   free (argv);
@@ -450,7 +450,7 @@ int
 commandr (char **stdoutput, char **stderror, const char *name, ...)
 {
   va_list args;
-  char **argv, **p;
+  const char **argv;
   char *s;
   int i, r;
 
@@ -467,7 +467,7 @@ commandr (char **stdoutput, char **stderror, const char *name, ...)
   va_start (args, name);
 
   while ((s = va_arg (args, char *)) != NULL) {
-    p = realloc (argv, sizeof (char *) * (++i));
+    const char **p = realloc (argv, sizeof (char *) * (++i));
     if (p == NULL) {
       perror ("realloc");
       free (argv);
@@ -491,11 +491,11 @@ commandr (char **stdoutput, char **stderror, const char *name, ...)
 
 /* Same as 'command', but passing an argv. */
 int
-commandv (char **stdoutput, char **stderror, char * const* const argv)
+commandv (char **stdoutput, char **stderror, char *const *argv)
 {
   int r;
 
-  r = commandrv (stdoutput, stderror, argv);
+  r = commandrv (stdoutput, stderror, (void *) argv);
   if (r == 0)
     return 0;
   else
@@ -503,7 +503,7 @@ commandv (char **stdoutput, char **stderror, char * const* const argv)
 }
 
 int
-commandrv (char **stdoutput, char **stderror, char * const* const argv)
+commandrv (char **stdoutput, char **stderror, char const* const *argv)
 {
   int so_size = 0, se_size = 0;
   int so_fd[2], se_fd[2];
@@ -547,7 +547,7 @@ commandrv (char **stdoutput, char **stderror, char * const* const argv)
     close (so_fd[1]);
     close (se_fd[1]);
 
-    execvp (argv[0], argv);
+    execvp (argv[0], (void *) argv);
     perror (argv[0]);
     _exit (1);
   }

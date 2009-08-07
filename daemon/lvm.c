@@ -192,15 +192,11 @@ do_pvcreate (const char *device)
 }
 
 int
-do_vgcreate (const char *volgroup, char **physvols)
+do_vgcreate (const char *volgroup, char *const *physvols)
 {
   char *err;
   int r, argc, i;
   const char **argv;
-
-  /* Check they are devices and also do device name translation. */
-  for (i = 0; physvols[i] != NULL; ++i)
-    RESOLVE_DEVICE (physvols[i], return -1);
 
   argc = count_strings (physvols) + 3;
   argv = malloc (sizeof (char *) * (argc + 1));
@@ -214,7 +210,7 @@ do_vgcreate (const char *volgroup, char **physvols)
   for (i = 3; i <= argc; ++i)
     argv[i] = physvols[i-3];
 
-  r = commandv (NULL, &err, argv);
+  r = commandv (NULL, &err, (char **) argv);
   if (r == -1) {
     reply_with_error ("%s", err);
     free (err);
@@ -424,7 +420,7 @@ do_pvresize (const char *device)
 }
 
 int
-do_vg_activate (int activate, char **volgroups)
+do_vg_activate (int activate, char *const *volgroups)
 {
   char *err;
   int r, i, argc;
@@ -444,7 +440,7 @@ do_vg_activate (int activate, char **volgroups)
   for (i = 4; i <= argc; ++i)
     argv[i] = volgroups[i-4];
 
-  r = commandv (NULL, &err, argv);
+  r = commandv (NULL, &err, (char **) argv);
   if (r == -1) {
     reply_with_error ("vgchange: %s", err);
     free (err);

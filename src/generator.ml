@@ -139,6 +139,7 @@ and argt =
   | Dev_or_Path of string (* /dev device name or Pathname, cannot be NULL *)
   | OptString of string	(* const char *name, may be NULL *)
   | StringList of string(* list of strings (each string cannot be NULL) *)
+  | DeviceList of string(* list of Device names (each cannot be NULL) *)
   | Bool of string	(* boolean *)
   | Int of string	(* int (smallish ints, signed, <= 31 bits) *)
     (* These are treated as filenames (simple string parameters) in
@@ -1320,7 +1321,7 @@ This creates an LVM physical volume on the named C<device>,
 where C<device> should usually be a partition name such
 as C</dev/sda1>.");
 
-  ("vgcreate", (RErr, [String "volgroup"; StringList "physvols"]), 40, [],
+  ("vgcreate", (RErr, [String "volgroup"; DeviceList "physvols"]), 40, [],
    [InitEmpty, Always, TestOutputList (
       [["sfdiskM"; "/dev/sda"; ",100 ,200 ,"];
        ["pvcreate"; "/dev/sda1"];
@@ -3941,7 +3942,8 @@ let mapi f xs =
   loop 0 xs
 
 let name_of_argt = function
-  | Pathname n | Device n | Dev_or_Path n | String n | OptString n | StringList n | Bool n | Int n
+  | Pathname n | Device n | Dev_or_Path n | String n | OptString n
+  | StringList n | DeviceList n | Bool n | Int n
   | FileIn n | FileOut n -> n
 
 let java_name_of_struct typ =
@@ -4330,7 +4332,7 @@ and generate_xdr () =
              function
              | Pathname n | Device n | Dev_or_Path n | String n -> pr "  string %s<>;\n" n
              | OptString n -> pr "  str *%s;\n" n
-             | StringList n -> pr "  str %s<>;\n" n
+             | StringList n | DeviceList n -> pr "  str %s<>;\n" n
              | Bool n -> pr "  bool %s;\n" n
              | Int n -> pr "  int %s;\n" n
              | FileIn _ | FileOut _ -> ()
@@ -4693,7 +4695,7 @@ check_state (guestfs_h *g, const char *caller)
                  pr "  args.%s = (char *) %s;\n" n n
              | OptString n ->
                  pr "  args.%s = %s ? (char **) &%s : NULL;\n" n n n
-             | StringList n ->
+             | StringList n | DeviceList n ->
                  pr "  args.%s.%s_val = (char **) %s;\n" n n n;
                  pr "  for (args.%s.%s_len = 0; %s[args.%s.%s_len]; args.%s.%s_len++) ;\n" n n n n n n n;
              | Bool n ->
@@ -4898,7 +4900,7 @@ and generate_daemon_actions () =
              | Pathname n
              | String n -> ()
              | OptString n -> pr "  char *%s;\n" n
-             | StringList n -> pr "  char **%s;\n" n
+             | StringList n | DeviceList n -> pr "  char **%s;\n" n
              | Bool n -> pr "  int %s;\n" n
              | Int n -> pr "  int %s;\n" n
              | FileIn _ | FileOut _ -> ()
@@ -4918,6 +4920,16 @@ and generate_daemon_actions () =
            let pr_args n =
              pr "  char *%s = args.%s;\n" n n
            in
+           let pr_list_handling_code n =
+             pr "  %s = realloc (args.%s.%s_val,\n" n n n;
+             pr "                sizeof (char *) * (args.%s.%s_len+1));\n" n n;
+             pr "  if (%s == NULL) {\n" n;
+             pr "    reply_with_perror (\"realloc\");\n";
+             pr "    goto done;\n";
+             pr "  }\n";
+             pr "  %s[args.%s.%s_len] = NULL;\n" n n n;
+             pr "  args.%s.%s_val = %s;\n" n n n;
+           in
            List.iter (
              function
              | Pathname n ->
@@ -4932,20 +4944,21 @@ and generate_daemon_actions () =
              | String n -> pr_args n
              | OptString n -> pr "  %s = args.%s ? *args.%s : NULL;\n" n n n
              | StringList n ->
-                 pr "  %s = realloc (args.%s.%s_val,\n" n n n;
-                 pr "                sizeof (char *) * (args.%s.%s_len+1));\n" n n;
-                 pr "  if (%s == NULL) {\n" n;
-                 pr "    reply_with_perror (\"realloc\");\n";
-                 pr "    goto done;\n";
+                 pr_list_handling_code n;
+             | DeviceList n ->
+                 pr_list_handling_code n;
+                 pr "  /* Ensure that each is a device,\n";
+                 pr "   * and perform device name translation. */\n";
+                 pr "  { int pvi; for (pvi = 0; physvols[pvi] != NULL; ++pvi)\n";
+                 pr "    RESOLVE_DEVICE (physvols[pvi], goto done);\n";
                  pr "  }\n";
-                 pr "  %s[args.%s.%s_len] = NULL;\n" n n n;
-                 pr "  args.%s.%s_val = %s;\n" n n n;
              | Bool n -> pr "  %s = args.%s;\n" n n
              | Int n -> pr "  %s = args.%s;\n" n n
              | FileIn _ | FileOut _ -> ()
            ) args;
            pr "\n"
       );
+
 
       (* this is used at least for do_equal *)
       if List.exists (function Pathname _ -> true | _ -> false) (snd style) then (
@@ -5260,7 +5273,8 @@ static void print_error (guestfs_h *g, void *data, const char *msg)
     fprintf (stderr, \"%%s\\n\", msg);
 }
 
-static void print_strings (char * const * const argv)
+/* FIXME: nearly identical code appears in fish.c */
+static void print_strings (char const *const *argv)
 {
   int argc;
 
@@ -5269,7 +5283,7 @@ static void print_strings (char * const * const argv)
 }
 
 /*
-static void print_table (char * const * const argv)
+static void print_table (char const *const *argv)
 {
   int i;
 
@@ -5849,7 +5863,7 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
         | Int _, _
         | Bool _, _
         | FileIn _, _ | FileOut _, _ -> ()
-        | StringList n, arg ->
+        | StringList n, arg | DeviceList n, arg ->
             let strs = string_split " " arg in
             iteri (
               fun i str ->
@@ -5897,7 +5911,7 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
             pr ", %s" n
         | FileIn _, arg | FileOut _, arg ->
             pr ", \"%s\"" (c_quote arg)
-        | StringList n, _ ->
+        | StringList n, _ | DeviceList n, _ ->
             pr ", %s" n
         | Int _, arg ->
             let i =
@@ -6146,7 +6160,7 @@ and generate_fish_cmds () =
         | OptString n
         | FileIn n
         | FileOut n -> pr "  const char *%s;\n" n
-        | StringList n -> pr "  char **%s;\n" n
+        | StringList n | DeviceList n -> pr "  char *const *%s;\n" n
         | Bool n -> pr "  int %s;\n" n
         | Int n -> pr "  int %s;\n" n
       ) (snd style);
@@ -6173,7 +6187,7 @@ and generate_fish_cmds () =
           | FileOut name ->
               pr "  %s = strcmp (argv[%d], \"-\") != 0 ? argv[%d] : \"/dev/stdout\";\n"
                 name i i
-          | StringList name ->
+          | StringList name | DeviceList name ->
               pr "  %s = parse_string_list (argv[%d]);\n" name i
           | Bool name ->
               pr "  %s = is_true (argv[%d]) ? 1 : 0;\n" name i
@@ -6398,7 +6412,7 @@ and generate_fish_actions_pod () =
         function
         | Pathname n | Device n | Dev_or_Path n | String n -> pr " %s" n
         | OptString n -> pr " %s" n
-        | StringList n -> pr " '%s ...'" n
+        | StringList n | DeviceList n -> pr " '%s ...'" n
         | Bool _ -> pr " true|false"
         | Int n -> pr " %s" n
         | FileIn n | FileOut n -> pr " (%s|-)" n
@@ -6468,10 +6482,9 @@ and generate_prototype ?(extern = true) ?(static = false) ?(semicolon = true)
       | OptString n ->
           next ();
           pr "const char *%s" n
-      | StringList n ->
+      | StringList n | DeviceList n ->
           next ();
-          if not in_daemon then pr "char * const* const %s" n
-          else pr "char **%s" n
+          pr "char *const *%s" n
       | Bool n -> next (); pr "int %s" n
       | Int n -> next (); pr "int %s" n
       | FileIn n
@@ -6735,7 +6748,7 @@ copy_table (char * const * argv)
             pr "  const char *%s =\n" n;
             pr "    %sv != Val_int (0) ? String_val (Field (%sv, 0)) : NULL;\n"
               n n
-        | StringList n ->
+        | StringList n | DeviceList n ->
             pr "  char **%s = ocaml_guestfs_strings_val (g, %sv);\n" n n
         | Bool n ->
             pr "  int %s = Bool_val (%sv);\n" n n
@@ -6777,7 +6790,7 @@ copy_table (char * const * argv)
 
       List.iter (
         function
-        | StringList n ->
+        | StringList n | DeviceList n ->
             pr "  ocaml_guestfs_free_strings (%s);\n" n;
         | Pathname _ | Device _ | Dev_or_Path _ | String _ | OptString _ | Bool _ | Int _
         | FileIn _ | FileOut _ -> ()
@@ -6865,7 +6878,7 @@ and generate_ocaml_prototype ?(is_external = false) name style =
     function
     | Pathname _ | Device _ | Dev_or_Path _ | String _ | FileIn _ | FileOut _ -> pr "string -> "
     | OptString _ -> pr "string option -> "
-    | StringList _ -> pr "string array -> "
+    | StringList _ | DeviceList _ -> pr "string array -> "
     | Bool _ -> pr "bool -> "
     | Int _ -> pr "int -> "
   ) (snd style);
@@ -7016,7 +7029,7 @@ DESTROY (g)
                * to add 1 to the ST(x) operator.
                *)
               pr "      char *%s = SvOK(ST(%d)) ? SvPV_nolen(ST(%d)) : NULL;\n" n (i+1) (i+1)
-          | StringList n -> pr "      char **%s;\n" n
+          | StringList n | DeviceList n -> pr "      char **%s;\n" n
           | Bool n -> pr "      int %s;\n" n
           | Int n -> pr "      int %s;\n" n
       ) (snd style);
@@ -7026,7 +7039,7 @@ DESTROY (g)
           function
           | Pathname _ | Device _ | Dev_or_Path _ | String _ | OptString _ | Bool _ | Int _
           | FileIn _ | FileOut _ -> ()
-          | StringList n -> pr "      free (%s);\n" n
+          | StringList n | DeviceList n -> pr "      free (%s);\n" n
         ) (snd style)
       in
 
@@ -7399,7 +7412,7 @@ and generate_perl_prototype name style =
       | Pathname n | Device n | Dev_or_Path n | String n
       | OptString n | Bool n | Int n | FileIn n | FileOut n ->
           pr "$%s" n
-      | StringList n ->
+      | StringList n | DeviceList n ->
           pr "\\@%s" n
   ) (snd style);
   pr ");"
@@ -7439,11 +7452,11 @@ put_handle (guestfs_h *g)
 }
 
 /* This list should be freed (but not the strings) after use. */
-static const char **
+static char **
 get_string_list (PyObject *obj)
 {
   int i, len;
-  const char **r;
+  char **r;
 
   assert (obj);
 
@@ -7659,9 +7672,9 @@ py_guestfs_close (PyObject *self, PyObject *args)
         | Pathname n | Device n | Dev_or_Path n | String n | FileIn n | FileOut n ->
             pr "  const char *%s;\n" n
         | OptString n -> pr "  const char *%s;\n" n
-        | StringList n ->
+        | StringList n | DeviceList n ->
             pr "  PyObject *py_%s;\n" n;
-            pr "  const char **%s;\n" n
+            pr "  char **%s;\n" n
         | Bool n -> pr "  int %s;\n" n
         | Int n -> pr "  int %s;\n" n
       ) (snd style);
@@ -7674,7 +7687,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
         function
         | Pathname _ | Device _ | Dev_or_Path _ | String _ | FileIn _ | FileOut _ -> pr "s"
         | OptString _ -> pr "z"
-        | StringList _ -> pr "O"
+        | StringList _ | DeviceList _ -> pr "O"
         | Bool _ -> pr "i" (* XXX Python has booleans? *)
         | Int _ -> pr "i"
       ) (snd style);
@@ -7684,7 +7697,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
         function
         | Pathname n | Device n | Dev_or_Path n | String n | FileIn n | FileOut n -> pr ", &%s" n
         | OptString n -> pr ", &%s" n
-        | StringList n -> pr ", &py_%s" n
+        | StringList n | DeviceList n -> pr ", &py_%s" n
         | Bool n -> pr ", &%s" n
         | Int n -> pr ", &%s" n
       ) (snd style);
@@ -7697,7 +7710,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
         function
         | Pathname _ | Device _ | Dev_or_Path _ | String _
         | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ -> ()
-        | StringList n ->
+        | StringList n | DeviceList n ->
             pr "  %s = get_string_list (py_%s);\n" n n;
             pr "  if (!%s) return NULL;\n" n
       ) (snd style);
@@ -7712,7 +7725,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
         function
         | Pathname _ | Device _ | Dev_or_Path _ | String _
         | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ -> ()
-        | StringList n ->
+        | StringList n | DeviceList n ->
             pr "  free (%s);\n" n
       ) (snd style);
 
@@ -8027,7 +8040,7 @@ static VALUE ruby_guestfs_close (VALUE gv)
             pr "              \"%s\", \"%s\");\n" n name
         | OptString n ->
             pr "  const char *%s = !NIL_P (%sv) ? StringValueCStr (%sv) : NULL;\n" n n n
-        | StringList n ->
+        | StringList n | DeviceList n ->
             pr "  char **%s;\n" n;
             pr "  Check_Type (%sv, T_ARRAY);\n" n;
             pr "  {\n";
@@ -8073,7 +8086,7 @@ static VALUE ruby_guestfs_close (VALUE gv)
         function
         | Pathname _ | Device _ | Dev_or_Path _ | String _
         | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ -> ()
-        | StringList n ->
+        | StringList n | DeviceList n ->
             pr "  free (%s);\n" n
       ) (snd style);
 
@@ -8389,7 +8402,7 @@ and generate_java_prototype ?(public=false) ?(privat=false) ?(native=false)
       | FileIn n
       | FileOut n ->
           pr "String %s" n
-      | StringList n ->
+      | StringList n | DeviceList n ->
           pr "String[] %s" n
       | Bool n ->
           pr "boolean %s" n
@@ -8508,7 +8521,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
         | FileIn n
         | FileOut n ->
             pr ", jstring j%s" n
-        | StringList n ->
+        | StringList n | DeviceList n ->
             pr ", jobjectArray j%s" n
         | Bool n ->
             pr ", jboolean j%s" n
@@ -8561,7 +8574,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
         | FileIn n
         | FileOut n ->
             pr "  const char *%s;\n" n
-        | StringList n ->
+        | StringList n | DeviceList n ->
             pr "  int %s_len;\n" n;
             pr "  const char **%s;\n" n
         | Bool n
@@ -8595,7 +8608,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
              * a NULL parameter.
              *)
             pr "  %s = j%s ? (*env)->GetStringUTFChars (env, j%s, NULL) : NULL;\n" n n n
-        | StringList n ->
+        | StringList n | DeviceList n ->
             pr "  %s_len = (*env)->GetArrayLength (env, j%s);\n" n n;
             pr "  %s = guestfs_safe_malloc (g, sizeof (char *) * (%s_len+1));\n" n n;
             pr "  for (i = 0; i < %s_len; ++i) {\n" n;
@@ -8626,7 +8639,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
         | OptString n ->
             pr "  if (j%s)\n" n;
             pr "    (*env)->ReleaseStringUTFChars (env, j%s, %s);\n" n n
-        | StringList n ->
+        | StringList n | DeviceList n ->
             pr "  for (i = 0; i < %s_len; ++i) {\n" n;
             pr "    jobject o = (*env)->GetObjectArrayElement (env, j%s, i);\n"
               n;
@@ -8895,7 +8908,7 @@ last_error h = do
           | FileOut n
           | Pathname n | Device n | Dev_or_Path n | String n -> pr "withCString %s $ \\%s -> " n n
           | OptString n -> pr "maybeWith withCString %s $ \\%s -> " n n
-          | StringList n -> pr "withMany withCString %s $ \\%s -> withArray0 nullPtr %s $ \\%s -> " n n n n
+          | StringList n | DeviceList n -> pr "withMany withCString %s $ \\%s -> withArray0 nullPtr %s $ \\%s -> " n n n n
           | Bool _ | Int _ -> ()
         ) (snd style);
         (* Convert integer arguments. *)
@@ -8905,7 +8918,7 @@ last_error h = do
             | Bool n -> sprintf "(fromBool %s)" n
             | Int n -> sprintf "(fromIntegral %s)" n
             | FileIn n | FileOut n
-            | Pathname n | Device n | Dev_or_Path n | String n | OptString n | StringList n -> n
+            | Pathname n | Device n | Dev_or_Path n | String n | OptString n | StringList n | DeviceList n -> n
           ) (snd style) in
         pr "withForeignPtr h (\\p -> c_%s %s)\n" name
           (String.concat " " ("p" :: args));
@@ -8957,7 +8970,7 @@ and generate_haskell_prototype ~handle ?(hs = false) style =
       (match arg with
        | Pathname _ | Device _ | Dev_or_Path _ | String _ -> pr "%s" string
        | OptString _ -> if hs then pr "Maybe String" else pr "CString"
-       | StringList _ -> if hs then pr "[String]" else pr "Ptr CString"
+       | StringList _ | DeviceList _ -> if hs then pr "[String]" else pr "Ptr CString"
        | Bool _ -> pr "%s" bool
        | Int _ -> pr "%s" int
        | FileIn _ -> pr "%s" string
@@ -9036,7 +9049,7 @@ print_strings (char * const* const argv)
       | FileIn n
       | FileOut n -> pr "  printf (\"%%s\\n\", %s);\n" n
       | OptString n -> pr "  printf (\"%%s\\n\", %s ? %s : \"null\");\n" n n
-      | StringList n -> pr "  print_strings (%s);\n" n
+      | StringList n | DeviceList n -> pr "  print_strings (%s);\n" n
       | Bool n -> pr "  printf (\"%%s\\n\", %s ? \"true\" : \"false\");\n" n
       | Int n -> pr "  printf (\"%%d\\n\", %s);\n" n
     ) (snd style);

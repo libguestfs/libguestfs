@@ -40,7 +40,7 @@ extern int xwrite (int sock, const void *buf, size_t len);
 extern int xread (int sock, void *buf, size_t len);
 
 extern int add_string (char ***argv, int *size, int *alloc, const char *str);
-extern int count_strings (char * const* const argv);
+extern int count_strings (char *const *argv);
 extern void sort_strings (char **argv, int len);
 extern void free_strings (char **argv);
 extern void free_stringslen (char **argv, int len);
@@ -48,9 +48,9 @@ extern void free_stringslen (char **argv, int len);
 extern int command (char **stdoutput, char **stderror, const char *name, ...);
 extern int commandr (char **stdoutput, char **stderror, const char *name, ...);
 extern int commandv (char **stdoutput, char **stderror,
-                     char * const* const argv);
+                     char *const *argv);
 extern int commandrv (char **stdoutput, char **stderror,
-                      char * const* const argv);
+                      char const* const *argv);
 
 extern char **split_lines (char *str);
 
