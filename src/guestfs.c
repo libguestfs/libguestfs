@@ -1103,7 +1103,7 @@ guestfs_launch (guestfs_h *g)
     }
 #endif
     add_cmdline (g, "-net");
-    add_cmdline (g, "nic,model=virtio,vlan=0"); /* model=ne2k_pci also works */
+    add_cmdline (g, "nic,model=" NET_IF ",vlan=0");
 
     /* These options recommended by KVM developers to improve reliability. */
     if (qemu_supports (g, "-no-hpet"))
