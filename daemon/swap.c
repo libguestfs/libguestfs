@@ -52,7 +52,7 @@ mkswap (char *device, const char *flag, const char *value)
 int
 do_mkswap (char *device)
 {
-  IS_DEVICE (device, -1);
+  RESOLVE_DEVICE (device, return -1);
 
   return mkswap (device, NULL, NULL);
 }
@@ -60,7 +60,7 @@ do_mkswap (char *device)
 int
 do_mkswap_L (char *label, char *device)
 {
-  IS_DEVICE (device, -1);
+  RESOLVE_DEVICE (device, return -1);
 
   return mkswap (device, "-L", label);
 }
@@ -68,7 +68,7 @@ do_mkswap_L (char *label, char *device)
 int
 do_mkswap_U (char *uuid, char *device)
 {
-  IS_DEVICE (device, -1);
+  RESOLVE_DEVICE (device, return -1);
 
   return mkswap (device, "-U", uuid);
 }
@@ -118,7 +118,7 @@ swaponoff (const char *cmd, const char *flag, const char *value)
 int
 do_swapon_device (char *device)
 {
-  IS_DEVICE (device, -1);
+  RESOLVE_DEVICE (device, return -1);
 
   return swaponoff ("/sbin/swapon", NULL, device);
 }
@@ -126,7 +126,7 @@ do_swapon_device (char *device)
 int
 do_swapoff_device (char *device)
 {
-  IS_DEVICE (device, -1);
+  RESOLVE_DEVICE (device, return -1);
 
   return swaponoff ("/sbin/swapoff", NULL, device);
 }

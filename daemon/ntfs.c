@@ -33,7 +33,7 @@ do_ntfs_3g_probe (int rw, char *device)
   int r;
   const char *rw_flag;
 
-  IS_DEVICE (device, -1);
+  RESOLVE_DEVICE (device, return -1);
 
   rw_flag = rw ? "-w" : "-r";
 

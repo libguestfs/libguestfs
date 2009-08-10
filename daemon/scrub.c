@@ -33,7 +33,7 @@ do_scrub_device (char *device)
   char *err;
   int r;
 
-  IS_DEVICE (device, -1);
+  RESOLVE_DEVICE (device, return -1);
 
   r = command (NULL, &err, "scrub", device, NULL);
   if (r == -1) {

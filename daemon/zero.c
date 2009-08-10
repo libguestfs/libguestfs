@@ -33,7 +33,7 @@ do_zero (char *device)
   int fd, i;
   char buf[4096];
 
-  IS_DEVICE (device, -1);
+  RESOLVE_DEVICE (device, return -1);
 
   fd = open (device, O_WRONLY);
   if (fd == -1) {

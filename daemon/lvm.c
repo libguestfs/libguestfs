@@ -176,7 +176,7 @@ do_pvcreate (char *device)
   char *err;
   int r;
 
-  IS_DEVICE (device, -1);
+  RESOLVE_DEVICE (device, return -1);
 
   r = command (NULL, &err,
                "/sbin/lvm", "pvcreate", device, NULL);
@@ -202,7 +202,7 @@ do_vgcreate (char *volgroup, char **physvols)
 
   /* Check they are devices and also do device name translation. */
   for (i = 0; physvols[i] != NULL; ++i)
-    IS_DEVICE (physvols[i], -1);
+    RESOLVE_DEVICE (physvols[i], return -1);
 
   argc = count_strings (physvols) + 3;
   argv = malloc (sizeof (char *) * (argc + 1));
@@ -262,7 +262,7 @@ do_lvresize (char *logvol, int mbytes)
   int r;
   char size[64];
 
-  IS_DEVICE (logvol, -1);
+  RESOLVE_DEVICE (logvol, return -1);
 
   snprintf (size, sizeof size, "%d", mbytes);
 
@@ -352,7 +352,7 @@ do_lvremove (char *device)
   char *err;
   int r;
 
-  IS_DEVICE (device, -1);
+  RESOLVE_DEVICE (device, return -1);
 
   r = command (NULL, &err,
                "/sbin/lvm", "lvremove", "-f", device, NULL);
@@ -396,7 +396,7 @@ do_pvremove (char *device)
   char *err;
   int r;
 
-  IS_DEVICE (device, -1);
+  RESOLVE_DEVICE (device, return -1);
 
   r = command (NULL, &err,
                "/sbin/lvm", "pvremove", "-ff", device, NULL);
@@ -419,7 +419,7 @@ do_pvresize (char *device)
   char *err;
   int r;
 
-  IS_DEVICE (device, -1);
+  RESOLVE_DEVICE (device, return -1);
 
   r = command (NULL, &err,
                "/sbin/lvm", "pvresize", device, NULL);

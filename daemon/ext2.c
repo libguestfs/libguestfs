@@ -36,7 +36,7 @@ do_tune2fs_l (char *device)
   char **ret = NULL;
   int size = 0, alloc = 0;
 
-  IS_DEVICE (device, NULL);
+  RESOLVE_DEVICE (device, return NULL);
 
   r = command (&out, &err, "/sbin/tune2fs", "-l", device, NULL);
   if (r == -1) {
@@ -122,7 +122,7 @@ do_set_e2label (char *device, char *label)
   int r;
   char *err;
 
-  IS_DEVICE (device, -1);
+  RESOLVE_DEVICE (device, return -1);
 
   r = command (NULL, &err, "/sbin/e2label", device, label, NULL);
   if (r == -1) {
@@ -141,7 +141,7 @@ do_get_e2label (char *device)
   int r, len;
   char *out, *err;
 
-  IS_DEVICE (device, NULL);
+  RESOLVE_DEVICE (device, return NULL);
 
   r = command (&out, &err, "/sbin/e2label", device, NULL);
   if (r == -1) {
@@ -167,7 +167,7 @@ do_set_e2uuid (char *device, char *uuid)
   int r;
   char *err;
 
-  IS_DEVICE (device, -1);
+  RESOLVE_DEVICE (device, return -1);
 
   r = command (NULL, &err, "/sbin/tune2fs", "-U", uuid, device, NULL);
   if (r == -1) {
@@ -186,7 +186,7 @@ do_get_e2uuid (char *device)
   int r;
   char *out, *err, *p, *q;
 
-  IS_DEVICE (device, NULL);
+  RESOLVE_DEVICE (device, return NULL);
 
   /* It's not so straightforward to get the volume UUID.  We have
    * to use tune2fs -l and then look for a particular string in
@@ -249,7 +249,7 @@ do_resize2fs (char *device)
   char *err;
   int r;
 
-  IS_DEVICE (device, -1);
+  RESOLVE_DEVICE (device, return -1);
 
   r = command (NULL, &err, "/sbin/resize2fs", device, NULL);
   if (r == -1) {
@@ -268,7 +268,7 @@ do_e2fsck_f (char *device)
   char *err;
   int r;
 
-  IS_DEVICE (device, -1);
+  RESOLVE_DEVICE (device, return -1);
 
   r = command (NULL, &err, "/sbin/e2fsck", "-p", "-f", device, NULL);
   if (r == -1) {

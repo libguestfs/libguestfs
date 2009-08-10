@@ -33,7 +33,7 @@ do_zerofree (char *device)
   char *err;
   int r;
 
-  IS_DEVICE (device, -1);
+  RESOLVE_DEVICE (device, return -1);
 
   r = command (NULL, &err, "/usr/sbin/zerofree", device, NULL);
   if (r == -1) {

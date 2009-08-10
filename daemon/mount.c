@@ -48,7 +48,7 @@ do_mount_vfs (char *options, char *vfstype,
   char *mp;
   char *error;
 
-  IS_DEVICE (device, -1);
+  RESOLVE_DEVICE (device, return -1);
 
   is_root = strcmp (mountpoint, "/") == 0;
 
@@ -113,7 +113,7 @@ do_umount (char *pathordevice)
 
   if (strncmp (pathordevice, "/dev/", 5) == 0) {
     buf = pathordevice;
-    IS_DEVICE (buf, -1);
+    RESOLVE_DEVICE (buf, return -1);
   } else {
     buf = sysroot_path (pathordevice);
     if (buf == NULL) {
