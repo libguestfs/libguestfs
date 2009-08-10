@@ -775,7 +775,7 @@ print_arginfo (const struct printf_info *info, size_t n, int *argtypes)
 #endif
 
 /* Perform device name translation.  Don't call this directly -
- * use the IS_DEVICE macro.
+ * use the RESOLVE_DEVICE macro.
  *
  * See guestfs(3) for the algorithm.
  *
