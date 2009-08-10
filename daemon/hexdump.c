@@ -33,7 +33,7 @@ do_hexdump (char *path)
   char *out, *err;
 
   NEED_ROOT (NULL);
-  ABS_PATH (path, NULL);
+  ABS_PATH (path, return NULL);
 
   buf = sysroot_path (path);
   if (!buf) {

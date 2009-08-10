@@ -35,7 +35,7 @@ wc (char *flag, char *path)
   int r;
 
   NEED_ROOT (-1);
-  ABS_PATH (path, -1);
+  ABS_PATH (path, return -1);
 
   /* Make the path relative to /sysroot. */
   buf = sysroot_path (path);

@@ -55,7 +55,7 @@ do_scrub_file (char *file)
   int r;
 
   NEED_ROOT (-1);
-  ABS_PATH (file, -1);
+  ABS_PATH (file, return -1);
 
   /* Make the path relative to /sysroot. */
   buf = sysroot_path (file);
@@ -85,7 +85,7 @@ do_scrub_freespace (char *dir)
   int r;
 
   NEED_ROOT (-1);
-  ABS_PATH (dir, -1);
+  ABS_PATH (dir, return -1);
 
   /* Make the path relative to /sysroot. */
   buf = sysroot_path (dir);

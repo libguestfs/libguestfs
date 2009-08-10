@@ -37,7 +37,7 @@ do_readdir (char *path)
   int i;
 
   NEED_ROOT (NULL);
-  ABS_PATH (path, NULL);
+  ABS_PATH (path, return NULL);
 
   ret = malloc (sizeof *ret);
   if (ret == NULL) {

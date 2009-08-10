@@ -35,8 +35,8 @@ do_equal (char *file1, char *file2)
   int r;
 
   NEED_ROOT (-1);
-  ABS_PATH (file1, -1);
-  ABS_PATH (file2, -1);
+  ABS_PATH (file1, return -1);
+  ABS_PATH (file2, return -1);
 
   file1buf = sysroot_path (file1);
   if (file1buf == NULL) {

@@ -55,7 +55,7 @@ do_aug_init (char *root, int flags)
   char *buf;
 
   NEED_ROOT (-1);
-  ABS_PATH (root, -1);
+  ABS_PATH (root, return -1);
 
   if (aug) {
     aug_close (aug);
@@ -350,7 +350,7 @@ do_aug_ls (char *path)
 
   NEED_AUG (NULL);
 
-  ABS_PATH (path, NULL);
+  ABS_PATH (path, return NULL);
 
   len = strlen (path);
 

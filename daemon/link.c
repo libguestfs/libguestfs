@@ -35,7 +35,7 @@ do_readlink (char *path)
   char link[PATH_MAX];
 
   NEED_ROOT (NULL);
-  ABS_PATH (path, NULL);
+  ABS_PATH (path, return NULL);
 
   CHROOT_IN;
   r = readlink (path, link, sizeof link);
@@ -63,7 +63,7 @@ _link (const char *flag, int symbolic, const char *target, const char *linkname)
   char *buf_target;
 
   NEED_ROOT (-1);
-  ABS_PATH (linkname, -1);
+  ABS_PATH (linkname, return -1);
   /* but target does not need to be absolute */
 
   /* Prefix linkname with sysroot. */

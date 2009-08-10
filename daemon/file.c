@@ -36,7 +36,7 @@ do_touch (char *path)
   int r;
 
   NEED_ROOT (-1);
-  ABS_PATH (path, -1);
+  ABS_PATH (path, return -1);
 
   CHROOT_IN;
   fd = open (path, O_WRONLY | O_CREAT | O_NOCTTY, 0666);
@@ -148,7 +148,7 @@ do_read_lines (char *path)
   ssize_t n;
 
   NEED_ROOT (NULL);
-  ABS_PATH (path, NULL);
+  ABS_PATH (path, return NULL);
 
   CHROOT_IN;
   fp = fopen (path, "r");
@@ -195,7 +195,7 @@ do_rm (char *path)
   int r;
 
   NEED_ROOT (-1);
-  ABS_PATH (path, -1);
+  ABS_PATH (path, return -1);
 
   CHROOT_IN;
   r = unlink (path);
@@ -215,7 +215,7 @@ do_chmod (int mode, char *path)
   int r;
 
   NEED_ROOT (-1);
-  ABS_PATH (path, -1);
+  ABS_PATH (path, return -1);
 
   CHROOT_IN;
   r = chmod (path, mode);
@@ -235,7 +235,7 @@ do_chown (int owner, int group, char *path)
   int r;
 
   NEED_ROOT (-1);
-  ABS_PATH (path, -1);
+  ABS_PATH (path, return -1);
 
   CHROOT_IN;
   r = chown (path, owner, group);
@@ -255,7 +255,7 @@ do_exists (char *path)
   int r;
 
   NEED_ROOT (-1);
-  ABS_PATH (path, -1);
+  ABS_PATH (path, return -1);
 
   CHROOT_IN;
   r = access (path, F_OK);
@@ -271,7 +271,7 @@ do_is_file (char *path)
   struct stat buf;
 
   NEED_ROOT (-1);
-  ABS_PATH (path, -1);
+  ABS_PATH (path, return -1);
 
   CHROOT_IN;
   r = lstat (path, &buf);
@@ -295,7 +295,7 @@ do_write_file (char *path, char *content, int size)
   int fd;
 
   NEED_ROOT (-1);
-  ABS_PATH (path, -1);
+  ABS_PATH (path, return -1);
 
   if (size == 0)
     size = strlen (content);
@@ -331,7 +331,7 @@ do_read_file (char *path, size_t *size_r)
   char *r;
 
   NEED_ROOT (NULL);
-  ABS_PATH (path, NULL);
+  ABS_PATH (path, return NULL);
 
   CHROOT_IN;
   fd = open (path, O_RDONLY);
@@ -445,7 +445,7 @@ do_zfile (char *method, char *path)
   char line[256];
 
   NEED_ROOT (NULL);
-  ABS_PATH (path, NULL);
+  ABS_PATH (path, return NULL);
 
   if (strcmp (method, "gzip") == 0 || strcmp (method, "compress") == 0)
     zcat = "zcat";

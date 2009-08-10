@@ -35,7 +35,7 @@ do_rmdir (char *path)
   int r;
 
   NEED_ROOT (-1);
-  ABS_PATH (path, -1);
+  ABS_PATH (path, return -1);
 
   CHROOT_IN;
   r = rmdir (path);
@@ -60,7 +60,7 @@ do_rm_rf (char *path)
   char *buf, *err;
 
   NEED_ROOT (-1);
-  ABS_PATH (path, -1);
+  ABS_PATH (path, return -1);
 
   if (strcmp (path, "/") == 0) {
     reply_with_error ("rm -rf: cannot remove root directory");
@@ -94,7 +94,7 @@ do_mkdir (char *path)
   int r;
 
   NEED_ROOT (-1);
-  ABS_PATH (path, -1);
+  ABS_PATH (path, return -1);
 
   CHROOT_IN;
   r = mkdir (path, 0777);
@@ -160,7 +160,7 @@ do_mkdir_p (char *path)
   int r;
 
   NEED_ROOT (-1);
-  ABS_PATH (path, -1);
+  ABS_PATH (path, return -1);
 
   CHROOT_IN;
   r = recursive_mkdir (path);
@@ -181,7 +181,7 @@ do_is_dir (char *path)
   struct stat buf;
 
   NEED_ROOT (-1);
-  ABS_PATH (path, -1);
+  ABS_PATH (path, return -1);
 
   CHROOT_IN;
   r = lstat (path, &buf);
@@ -205,7 +205,7 @@ do_mkdtemp (char *template)
   char *r;
 
   NEED_ROOT (NULL);
-  ABS_PATH (template, NULL);
+  ABS_PATH (template, return NULL);
 
   CHROOT_IN;
   r = mkdtemp (template);

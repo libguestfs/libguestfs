@@ -33,7 +33,7 @@ do_fallocate (char *path, int len)
   int fd, r;
 
   NEED_ROOT (-1);
-  ABS_PATH (path, -1);
+  ABS_PATH (path, return -1);
 
   CHROOT_IN;
   fd = open (path, O_WRONLY | O_CREAT | O_TRUNC | O_NOCTTY, 0666);

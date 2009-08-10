@@ -38,7 +38,7 @@ do_stat (char *path)
   struct stat statbuf;
 
   NEED_ROOT (NULL);
-  ABS_PATH (path, NULL);
+  ABS_PATH (path, return NULL);
 
   CHROOT_IN;
   r = stat (path, &statbuf);
@@ -80,7 +80,7 @@ do_lstat (char *path)
   struct stat statbuf;
 
   NEED_ROOT (NULL);
-  ABS_PATH (path, NULL);
+  ABS_PATH (path, return NULL);
 
   CHROOT_IN;
   r = lstat (path, &statbuf);
@@ -122,7 +122,7 @@ do_statvfs (char *path)
   struct statvfs statbuf;
 
   NEED_ROOT (NULL);
-  ABS_PATH (path, NULL);
+  ABS_PATH (path, return NULL);
 
   CHROOT_IN;
   r = statvfs (path, &statbuf);

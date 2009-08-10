@@ -36,7 +36,7 @@ grep (const char *prog, const char *flag, char *regex, char *path)
   char **lines;
 
   NEED_ROOT (NULL);
-  ABS_PATH (path, NULL);
+  ABS_PATH (path, return NULL);
 
   /* Make the path relative to /sysroot. */
   buf = sysroot_path (path);

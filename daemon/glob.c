@@ -32,7 +32,7 @@ do_glob_expand (char *pattern)
   glob_t buf;
 
   NEED_ROOT (NULL);
-  ABS_PATH (pattern, NULL);	/* Required so chroot can be used. */
+  ABS_PATH (pattern, return NULL);	/* Required so chroot can be used. */
 
   /* glob(3) in glibc never calls chdir, so this seems to be safe: */
   CHROOT_IN;

@@ -53,8 +53,8 @@ cpmv_cmd (const char *cmd, const char *flags, const char *src, const char *dest)
   int r;
 
   NEED_ROOT (-1);
-  ABS_PATH (src, -1);
-  ABS_PATH (dest, -1);
+  ABS_PATH (src, return -1);
+  ABS_PATH (dest, return -1);
 
   srcbuf = sysroot_path (src);
   if (srcbuf == NULL) {

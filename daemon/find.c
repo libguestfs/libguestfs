@@ -60,7 +60,7 @@ do_find (char *dir)
   char str[PATH_MAX];
 
   NEED_ROOT (NULL);
-  ABS_PATH (dir, NULL);
+  ABS_PATH (dir, return NULL);
 
   sysrootdir = sysroot_path (dir);
   if (!sysrootdir) {

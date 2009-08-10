@@ -37,7 +37,7 @@ do_checksum (char *csumtype, char *path)
   int len;
 
   NEED_ROOT (NULL);
-  ABS_PATH (path, NULL);
+  ABS_PATH (path, return NULL);
 
   if (strcasecmp (csumtype, "crc") == 0)
     program = "cksum";

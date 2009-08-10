@@ -36,7 +36,7 @@ do_mknod (int mode, int devmajor, int devminor, char *path)
   int r;
 
   NEED_ROOT (-1);
-  ABS_PATH (path, -1);
+  ABS_PATH (path, return -1);
 
   CHROOT_IN;
   r = mknod (path, mode, makedev (devmajor, devminor));

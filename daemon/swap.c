@@ -80,7 +80,7 @@ do_mkswap_file (char *path)
   int r;
 
   NEED_ROOT (-1);
-  ABS_PATH (path, -1);
+  ABS_PATH (path, return -1);
 
   buf = sysroot_path (path);
   if (!buf) {
@@ -138,7 +138,7 @@ do_swapon_file (char *path)
   int r;
 
   NEED_ROOT (-1);
-  ABS_PATH (path, -1);
+  ABS_PATH (path, return -1);
 
   buf = sysroot_path (path);
   if (!buf) {
@@ -158,7 +158,7 @@ do_swapoff_file (char *path)
   int r;
 
   NEED_ROOT (-1);
-  ABS_PATH (path, -1);
+  ABS_PATH (path, return -1);
 
   buf = sysroot_path (path);
   if (!buf) {

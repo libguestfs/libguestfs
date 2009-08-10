@@ -34,7 +34,7 @@ do_strings_e (char *encoding, char *path)
   char **lines;
 
   NEED_ROOT (NULL);
-  ABS_PATH (path, NULL);
+  ABS_PATH (path, return NULL);
 
   buf = sysroot_path (path);
   if (!buf) {
