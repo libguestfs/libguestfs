@@ -35,7 +35,7 @@ headtail (const char *prog, const char *flag, const char *n, char *path)
   int r;
   char **lines;
 
-  NEED_ROOT (NULL);
+  NEED_ROOT (return NULL);
   ABS_PATH (path, return NULL);
 
   /* Make the path relative to /sysroot. */

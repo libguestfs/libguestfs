@@ -36,7 +36,7 @@ do_readdir (char *path)
   struct dirent *d;
   int i;
 
-  NEED_ROOT (NULL);
+  NEED_ROOT (return NULL);
   ABS_PATH (path, return NULL);
 
   ret = malloc (sizeof *ret);

@@ -317,7 +317,7 @@ do_mount_loop (char *file, char *mountpoint)
   char *buf, *mp;
   char *error;
 
-  NEED_ROOT (-1);
+  NEED_ROOT (return -1);
   ABS_PATH (file, return -1);
 
   /* We have to prefix /sysroot on both the filename and the mountpoint. */
@@ -355,7 +355,7 @@ do_mkmountpoint (char *path)
 {
   int r;
 
-  /* NEED_ROOT (-1); - we don't want this test for this call. */
+  /* NEED_ROOT (return -1); - we don't want this test for this call. */
   ABS_PATH (path, return -1);
 
   CHROOT_IN;
@@ -380,7 +380,7 @@ do_rmmountpoint (char *path)
 {
   int r;
 
-  NEED_ROOT (-1);
+  NEED_ROOT (return -1);
   ABS_PATH (path, return -1);
 
   CHROOT_IN;

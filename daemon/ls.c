@@ -37,7 +37,7 @@ do_ls (char *path)
   DIR *dir;
   struct dirent *d;
 
-  NEED_ROOT (NULL);
+  NEED_ROOT (return NULL);
   ABS_PATH (path, return NULL);
 
   CHROOT_IN;

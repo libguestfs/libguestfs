@@ -34,7 +34,7 @@ do_rmdir (char *path)
 {
   int r;
 
-  NEED_ROOT (-1);
+  NEED_ROOT (return -1);
   ABS_PATH (path, return -1);
 
   CHROOT_IN;
@@ -59,7 +59,7 @@ do_rm_rf (char *path)
   int r;
   char *buf, *err;
 
-  NEED_ROOT (-1);
+  NEED_ROOT (return -1);
   ABS_PATH (path, return -1);
 
   if (strcmp (path, "/") == 0) {
@@ -93,7 +93,7 @@ do_mkdir (char *path)
 {
   int r;
 
-  NEED_ROOT (-1);
+  NEED_ROOT (return -1);
   ABS_PATH (path, return -1);
 
   CHROOT_IN;
@@ -159,7 +159,7 @@ do_mkdir_p (char *path)
 {
   int r;
 
-  NEED_ROOT (-1);
+  NEED_ROOT (return -1);
   ABS_PATH (path, return -1);
 
   CHROOT_IN;
@@ -180,7 +180,7 @@ do_is_dir (char *path)
   int r;
   struct stat buf;
 
-  NEED_ROOT (-1);
+  NEED_ROOT (return -1);
   ABS_PATH (path, return -1);
 
   CHROOT_IN;
@@ -204,7 +204,7 @@ do_mkdtemp (char *template)
 {
   char *r;
 
-  NEED_ROOT (NULL);
+  NEED_ROOT (return NULL);
   ABS_PATH (template, return NULL);
 
   CHROOT_IN;

@@ -32,7 +32,7 @@ do_realpath (char *path)
 {
   char *ret;
 
-  NEED_ROOT (NULL);
+  NEED_ROOT (return NULL);
   ABS_PATH (path, return NULL);
 
   CHROOT_IN;

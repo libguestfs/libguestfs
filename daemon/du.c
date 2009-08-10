@@ -36,7 +36,7 @@ do_du (char *path)
   char *out, *err;
   char *buf;
 
-  NEED_ROOT (-1);
+  NEED_ROOT (return -1);
   ABS_PATH (path, return -1);
 
   /* Make the path relative to /sysroot. */

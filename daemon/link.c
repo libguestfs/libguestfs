@@ -34,7 +34,7 @@ do_readlink (char *path)
   char *ret;
   char link[PATH_MAX];
 
-  NEED_ROOT (NULL);
+  NEED_ROOT (return NULL);
   ABS_PATH (path, return NULL);
 
   CHROOT_IN;
@@ -62,7 +62,7 @@ _link (const char *flag, int symbolic, const char *target, const char *linkname)
   char *buf_linkname;
   char *buf_target;
 
-  NEED_ROOT (-1);
+  NEED_ROOT (return -1);
   ABS_PATH (linkname, return -1);
   /* but target does not need to be absolute */
 

@@ -32,7 +32,7 @@ do_grub_install (char *root, char *device)
   char *err;
   char *buf;
 
-  NEED_ROOT (-1);
+  NEED_ROOT (return -1);
   ABS_PATH (root, return -1);
 
   if (asprintf_nowarn (&buf, "--root-directory=%R", root) == -1) {

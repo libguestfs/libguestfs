@@ -34,7 +34,7 @@ do_equal (char *file1, char *file2)
   char *err;
   int r;
 
-  NEED_ROOT (-1);
+  NEED_ROOT (return -1);
   ABS_PATH (file1, return -1);
   ABS_PATH (file2, return -1);
 

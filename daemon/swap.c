@@ -73,7 +73,7 @@ do_mkswap_file (char *path)
   char *buf;
   int r;
 
-  NEED_ROOT (-1);
+  NEED_ROOT (return -1);
   ABS_PATH (path, return -1);
 
   buf = sysroot_path (path);
@@ -127,7 +127,7 @@ do_swapon_file (char *path)
   char *buf;
   int r;
 
-  NEED_ROOT (-1);
+  NEED_ROOT (return -1);
   ABS_PATH (path, return -1);
 
   buf = sysroot_path (path);
@@ -147,7 +147,7 @@ do_swapoff_file (char *path)
   char *buf;
   int r;
 
-  NEED_ROOT (-1);
+  NEED_ROOT (return -1);
   ABS_PATH (path, return -1);
 
   buf = sysroot_path (path);

@@ -116,7 +116,7 @@ getxattrs (char *path,
   int i, j;
   guestfs_int_xattr_list *r = NULL;
 
-  NEED_ROOT (NULL);
+  NEED_ROOT (return NULL);
   ABS_PATH (path, return NULL);
 
   CHROOT_IN;

@@ -33,7 +33,7 @@ do_strings_e (char *encoding, char *path)
   char *out, *err;
   char **lines;
 
-  NEED_ROOT (NULL);
+  NEED_ROOT (return NULL);
   ABS_PATH (path, return NULL);
 
   buf = sysroot_path (path);

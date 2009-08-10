@@ -106,7 +106,7 @@ do_tar_out (char *dir)
   char *cmd;
   char buf[GUESTFS_MAX_CHUNK_SIZE];
 
-  NEED_ROOT (-1);
+  NEED_ROOT (return -1);
   ABS_PATH (dir, return -1);
 
   /* "tar -C /sysroot%s -cf - ." but we have to quote the dir. */
@@ -228,7 +228,7 @@ do_tgz_out (char *dir)
   char *cmd;
   char buf[GUESTFS_MAX_CHUNK_SIZE];
 
-  NEED_ROOT (-1);
+  NEED_ROOT (return -1);
   ABS_PATH (dir, return -1);
 
   /* "tar -C /sysroot%s -zcf - ." but we have to quote the dir. */

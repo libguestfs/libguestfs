@@ -37,7 +37,7 @@ do_initrd_list (char *path)
   int size = 0, alloc = 0;
   size_t len;
 
-  NEED_ROOT (NULL);
+  NEED_ROOT (return NULL);
   ABS_PATH (path, return NULL);
 
   /* "zcat /sysroot/<path> | cpio --quiet -it", but path must be quoted. */

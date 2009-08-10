@@ -54,7 +54,7 @@ do_aug_init (char *root, int flags)
 #ifdef HAVE_AUGEAS
   char *buf;
 
-  NEED_ROOT (-1);
+  NEED_ROOT (return -1);
   ABS_PATH (root, return -1);
 
   if (aug) {

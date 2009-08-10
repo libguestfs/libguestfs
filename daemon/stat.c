@@ -37,7 +37,7 @@ do_stat (char *path)
   guestfs_int_stat *ret;
   struct stat statbuf;
 
-  NEED_ROOT (NULL);
+  NEED_ROOT (return NULL);
   ABS_PATH (path, return NULL);
 
   CHROOT_IN;
@@ -79,7 +79,7 @@ do_lstat (char *path)
   guestfs_int_stat *ret;
   struct stat statbuf;
 
-  NEED_ROOT (NULL);
+  NEED_ROOT (return NULL);
   ABS_PATH (path, return NULL);
 
   CHROOT_IN;
@@ -121,7 +121,7 @@ do_statvfs (char *path)
   guestfs_int_statvfs *ret;
   struct statvfs statbuf;
 
-  NEED_ROOT (NULL);
+  NEED_ROOT (return NULL);
   ABS_PATH (path, return NULL);
 
   CHROOT_IN;

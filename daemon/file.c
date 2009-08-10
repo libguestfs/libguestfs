@@ -35,7 +35,7 @@ do_touch (char *path)
   int fd;
   int r;
 
-  NEED_ROOT (-1);
+  NEED_ROOT (return -1);
   ABS_PATH (path, return -1);
 
   CHROOT_IN;
@@ -73,7 +73,7 @@ do_cat (char *path)
   int alloc, size, r, max;
   char *buf, *buf2;
 
-  NEED_ROOT (NULL);
+  NEED_ROOT (return NULL);
   ABS_PATH (path, return NULL);
 
   CHROOT_IN;
@@ -147,7 +147,7 @@ do_read_lines (char *path)
   size_t len = 0;
   ssize_t n;
 
-  NEED_ROOT (NULL);
+  NEED_ROOT (return NULL);
   ABS_PATH (path, return NULL);
 
   CHROOT_IN;
@@ -194,7 +194,7 @@ do_rm (char *path)
 {
   int r;
 
-  NEED_ROOT (-1);
+  NEED_ROOT (return -1);
   ABS_PATH (path, return -1);
 
   CHROOT_IN;
@@ -214,7 +214,7 @@ do_chmod (int mode, char *path)
 {
   int r;
 
-  NEED_ROOT (-1);
+  NEED_ROOT (return -1);
   ABS_PATH (path, return -1);
 
   CHROOT_IN;
@@ -234,7 +234,7 @@ do_chown (int owner, int group, char *path)
 {
   int r;
 
-  NEED_ROOT (-1);
+  NEED_ROOT (return -1);
   ABS_PATH (path, return -1);
 
   CHROOT_IN;
@@ -254,7 +254,7 @@ do_exists (char *path)
 {
   int r;
 
-  NEED_ROOT (-1);
+  NEED_ROOT (return -1);
   ABS_PATH (path, return -1);
 
   CHROOT_IN;
@@ -270,7 +270,7 @@ do_is_file (char *path)
   int r;
   struct stat buf;
 
-  NEED_ROOT (-1);
+  NEED_ROOT (return -1);
   ABS_PATH (path, return -1);
 
   CHROOT_IN;
@@ -294,7 +294,7 @@ do_write_file (char *path, char *content, int size)
 {
   int fd;
 
-  NEED_ROOT (-1);
+  NEED_ROOT (return -1);
   ABS_PATH (path, return -1);
 
   if (size == 0)
@@ -330,7 +330,7 @@ do_read_file (char *path, size_t *size_r)
   struct stat statbuf;
   char *r;
 
-  NEED_ROOT (NULL);
+  NEED_ROOT (return NULL);
   ABS_PATH (path, return NULL);
 
   CHROOT_IN;
@@ -444,7 +444,7 @@ do_zfile (char *method, char *path)
   FILE *fp;
   char line[256];
 
-  NEED_ROOT (NULL);
+  NEED_ROOT (return NULL);
   ABS_PATH (path, return NULL);
 
   if (strcmp (method, "gzip") == 0 || strcmp (method, "compress") == 0)

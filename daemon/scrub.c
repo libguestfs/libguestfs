@@ -52,7 +52,7 @@ do_scrub_file (char *file)
   char *err;
   int r;
 
-  NEED_ROOT (-1);
+  NEED_ROOT (return -1);
   ABS_PATH (file, return -1);
 
   /* Make the path relative to /sysroot. */
@@ -82,7 +82,7 @@ do_scrub_freespace (char *dir)
   char *err;
   int r;
 
-  NEED_ROOT (-1);
+  NEED_ROOT (return -1);
   ABS_PATH (dir, return -1);
 
   /* Make the path relative to /sysroot. */

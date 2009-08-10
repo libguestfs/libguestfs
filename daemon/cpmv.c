@@ -52,7 +52,7 @@ cpmv_cmd (const char *cmd, const char *flags, const char *src, const char *dest)
   char *err;
   int r;
 
-  NEED_ROOT (-1);
+  NEED_ROOT (return -1);
   ABS_PATH (src, return -1);
   ABS_PATH (dest, return -1);
 
