@@ -391,7 +391,7 @@ do_file (char *path)
   char *buf;
   int len;
 
-  NEED_ROOT_OR_IS_DEVICE (path, return NULL);
+  REQUIRE_ROOT_OR_RESOLVE_DEVICE (path, return NULL);
 
   if (strncmp (path, "/dev/", 5) == 0)
     buf = (char *) path;

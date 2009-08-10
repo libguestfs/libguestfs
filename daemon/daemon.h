@@ -171,7 +171,7 @@ extern void reply (xdrproc_t xdrp, char *ret);
  * because we intend in future to make device parameters a distinct
  * type from filenames.
  */
-#define NEED_ROOT_OR_IS_DEVICE(path,fail_stmt)				\
+#define REQUIRE_ROOT_OR_RESOLVE_DEVICE(path,fail_stmt)			\
   do {									\
     if (strncmp ((path), "/dev/", 5) == 0)				\
       RESOLVE_DEVICE ((path), fail_stmt);				\
