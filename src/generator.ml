@@ -4520,7 +4520,6 @@ check_state (guestfs_h *g, const char *caller)
        | args ->
            List.iter (
              function
-	     (* FIXME *)
              | Device n | String n ->
                  pr "  args.%s = (char *) %s;\n" n n
              | OptString n ->
@@ -4730,7 +4729,6 @@ and generate_daemon_actions () =
                 * allow device name translation.  This is safe because
                 * we can modify the string (passed from RPC).
                 *)
-	       (* FIXME *)
              | Device n | String n
              | OptString n -> pr "  char *%s;\n" n
              | StringList n -> pr "  char **%s;\n" n
@@ -4752,7 +4750,10 @@ and generate_daemon_actions () =
            pr "  }\n";
            List.iter (
              function
-             | Device n | String n -> pr "  %s = args.%s;\n" n n
+             | Device n ->
+                 pr "  %s = args.%s;\n" n n;
+                 pr "  RESOLVE_DEVICE (%s, goto done);" n;
+             | String n -> pr "  %s = args.%s;\n" n n
              | OptString n -> pr "  %s = args.%s ? *args.%s : NULL;\n" n n n
              | StringList n ->
                  pr "  %s = realloc (args.%s.%s_val,\n" n n n;
@@ -6277,7 +6278,6 @@ and generate_prototype ?(extern = true) ?(static = false) ?(semicolon = true)
       | String n
       | OptString n ->
           next ();
-(* FIXME *)
           if not in_daemon then pr "const char *%s" n
           else pr "char *%s" n
       | StringList n ->
@@ -7493,7 +7493,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
       List.iter (
         function
         | Device _ | String _
-	| FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ -> ()
+        | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ -> ()
         | StringList n ->
             pr "  %s = get_string_list (py_%s);\n" n n;
             pr "  if (!%s) return NULL;\n" n
@@ -7508,7 +7508,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
       List.iter (
         function
         | Device _ | String _
-	| FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ -> ()
+        | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ -> ()
         | StringList n ->
             pr "  free (%s);\n" n
       ) (snd style);
@@ -7869,7 +7869,7 @@ static VALUE ruby_guestfs_close (VALUE gv)
       List.iter (
         function
         | Device _ | String _
-	| FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ -> ()
+        | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ -> ()
         | StringList n ->
             pr "  free (%s);\n" n
       ) (snd style);
