@@ -26,6 +26,9 @@ AC_INIT([libguestfs],libguestfs_major.libguestfs_minor.libguestfs_release[]libgu
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([foreign])
 
+m4_ifndef([AM_SILENT_RULES], [m4_define([AM_SILENT_RULES],[])])
+AM_SILENT_RULES([yes]) # make --enable-silent-rules the default.
+
 AC_CONFIG_MACRO_DIR([m4])
 
 AC_PROG_LIBTOOL

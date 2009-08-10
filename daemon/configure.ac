@@ -19,6 +19,9 @@ AC_INIT([libguestfs-daemon],[1.0.0])
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([foreign])
 
+m4_ifndef([AM_SILENT_RULES], [m4_define([AM_SILENT_RULES],[])])
+AM_SILENT_RULES([yes]) # make --enable-silent-rules the default.
+
 AC_CONFIG_MACRO_DIR([m4])
 
 dnl If the user specified --enable-32bit, then force the C compiler
