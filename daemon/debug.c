@@ -60,8 +60,14 @@ static struct cmd cmds[] = {
 };
 #endif
 
+#if ! ENABLE_DEBUG_COMMAND
+# define MAYBE_UNUSED ATTRIBUTE_UNUSED
+#else
+# define MAYBE_UNUSED /* empty */
+#endif
+
 char *
-do_debug (char *subcmd ATTRIBUTE_UNUSED, char **argv ATTRIBUTE_UNUSED)
+do_debug (char *subcmd MAYBE_UNUSED, char **argv MAYBE_UNUSED)
 {
 #if ENABLE_DEBUG_COMMAND
   int argc, i;
