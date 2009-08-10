@@ -46,8 +46,6 @@ call_blockdev (char *device, char *switc, int extraarg, int prints)
   };
   char buf[64];
 
-  RESOLVE_DEVICE (device, return -1);
-
   if (extraarg > 0) {
     snprintf (buf, sizeof buf, "%d", extraarg);
     argv[2] = buf;

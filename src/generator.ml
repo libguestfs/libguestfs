@@ -796,7 +796,7 @@ see L<guestfs(3)>.");
  *)
 
 let daemon_functions = [
-  ("mount", (RErr, [String "device"; String "mountpoint"]), 1, [],
+  ("mount", (RErr, [Device "device"; String "mountpoint"]), 1, [],
    [InitEmpty, Always, TestOutput (
       [["sfdiskM"; "/dev/sda"; ","];
        ["mkfs"; "ext2"; "/dev/sda1"];
@@ -1292,7 +1292,7 @@ other objects like files.
 
 See also C<guestfs_stat>.");
 
-  ("pvcreate", (RErr, [String "device"]), 39, [],
+  ("pvcreate", (RErr, [Device "device"]), 39, [],
    [InitEmpty, Always, TestOutputListOfDevices (
       [["sfdiskM"; "/dev/sda"; ",100 ,200 ,"];
        ["pvcreate"; "/dev/sda1"];
@@ -1340,7 +1340,7 @@ from the non-empty list of physical volumes C<physvols>.");
 This creates an LVM volume group called C<logvol>
 on the volume group C<volgroup>, with C<size> megabytes.");
 
-  ("mkfs", (RErr, [String "fstype"; String "device"]), 42, [],
+  ("mkfs", (RErr, [String "fstype"; Device "device"]), 42, [],
    [InitEmpty, Always, TestOutput (
       [["sfdiskM"; "/dev/sda"; ","];
        ["mkfs"; "ext2"; "/dev/sda1"];
@@ -1353,7 +1353,7 @@ This creates a filesystem on C<device> (usually a partition
 or LVM logical volume).  The filesystem type is C<fstype>, for
 example C<ext3>.");
 
-  ("sfdisk", (RErr, [String "device";
+  ("sfdisk", (RErr, [Device "device";
                      Int "cyls"; Int "heads"; Int "sectors";
                      StringList "lines"]), 43, [DangerWillRobinson],
    [],
@@ -1674,7 +1674,7 @@ manpage for more details.  The list of fields returned isn't
 clearly defined, and depends on both the version of C<tune2fs>
 that libguestfs was built against, and the filesystem itself.");
 
-  ("blockdev_setro", (RErr, [String "device"]), 56, [],
+  ("blockdev_setro", (RErr, [Device "device"]), 56, [],
    [InitEmpty, Always, TestOutputTrue (
       [["blockdev_setro"; "/dev/sda"];
        ["blockdev_getro"; "/dev/sda"]])],
@@ -1684,7 +1684,7 @@ Sets the block device named C<device> to read-only.
 
 This uses the L<blockdev(8)> command.");
 
-  ("blockdev_setrw", (RErr, [String "device"]), 57, [],
+  ("blockdev_setrw", (RErr, [Device "device"]), 57, [],
    [InitEmpty, Always, TestOutputFalse (
       [["blockdev_setrw"; "/dev/sda"];
        ["blockdev_getro"; "/dev/sda"]])],
@@ -1694,7 +1694,7 @@ Sets the block device named C<device> to read-write.
 
 This uses the L<blockdev(8)> command.");
 
-  ("blockdev_getro", (RBool "ro", [String "device"]), 58, [],
+  ("blockdev_getro", (RBool "ro", [Device "device"]), 58, [],
    [InitEmpty, Always, TestOutputTrue (
       [["blockdev_setro"; "/dev/sda"];
        ["blockdev_getro"; "/dev/sda"]])],
@@ -1705,7 +1705,7 @@ Returns a boolean indicating if the block device is read-only
 
 This uses the L<blockdev(8)> command.");
 
-  ("blockdev_getss", (RInt "sectorsize", [String "device"]), 59, [],
+  ("blockdev_getss", (RInt "sectorsize", [Device "device"]), 59, [],
    [InitEmpty, Always, TestOutputInt (
       [["blockdev_getss"; "/dev/sda"]], 512)],
    "get sectorsize of block device",
@@ -1718,7 +1718,7 @@ for that).
 
 This uses the L<blockdev(8)> command.");
 
-  ("blockdev_getbsz", (RInt "blocksize", [String "device"]), 60, [],
+  ("blockdev_getbsz", (RInt "blocksize", [Device "device"]), 60, [],
    [InitEmpty, Always, TestOutputInt (
       [["blockdev_getbsz"; "/dev/sda"]], 4096)],
    "get blocksize of block device",
@@ -1730,7 +1730,7 @@ I<filesystem block size>).
 
 This uses the L<blockdev(8)> command.");
 
-  ("blockdev_setbsz", (RErr, [String "device"; Int "blocksize"]), 61, [],
+  ("blockdev_setbsz", (RErr, [Device "device"; Int "blocksize"]), 61, [],
    [], (* XXX test *)
    "set blocksize of block device",
    "\
@@ -1741,7 +1741,7 @@ I<filesystem block size>).
 
 This uses the L<blockdev(8)> command.");
 
-  ("blockdev_getsz", (RInt64 "sizeinsectors", [String "device"]), 62, [],
+  ("blockdev_getsz", (RInt64 "sizeinsectors", [Device "device"]), 62, [],
    [InitEmpty, Always, TestOutputInt (
       [["blockdev_getsz"; "/dev/sda"]], 1024000)],
    "get total size of device in 512-byte sectors",
@@ -1755,7 +1755,7 @@ useful I<size in bytes>.
 
 This uses the L<blockdev(8)> command.");
 
-  ("blockdev_getsize64", (RInt64 "sizeinbytes", [String "device"]), 63, [],
+  ("blockdev_getsize64", (RInt64 "sizeinbytes", [Device "device"]), 63, [],
    [InitEmpty, Always, TestOutputInt (
       [["blockdev_getsize64"; "/dev/sda"]], 524288000)],
    "get total size of device in bytes",
@@ -1766,7 +1766,7 @@ See also C<guestfs_blockdev_getsz>.
 
 This uses the L<blockdev(8)> command.");
 
-  ("blockdev_flushbufs", (RErr, [String "device"]), 64, [],
+  ("blockdev_flushbufs", (RErr, [Device "device"]), 64, [],
    [InitEmpty, Always, TestRun
       [["blockdev_flushbufs"; "/dev/sda"]]],
    "flush device buffers",
@@ -1776,7 +1776,7 @@ with C<device>.
 
 This uses the L<blockdev(8)> command.");
 
-  ("blockdev_rereadpt", (RErr, [String "device"]), 65, [],
+  ("blockdev_rereadpt", (RErr, [Device "device"]), 65, [],
    [InitEmpty, Always, TestRun
       [["blockdev_rereadpt"; "/dev/sda"]]],
    "reread partition table",
@@ -1917,7 +1917,7 @@ it to local file C<tarball>.
 
 To download an uncompressed tarball, use C<guestfs_tar_out>.");
 
-  ("mount_ro", (RErr, [String "device"; String "mountpoint"]), 73, [],
+  ("mount_ro", (RErr, [Device "device"; String "mountpoint"]), 73, [],
    [InitBasicFS, Always, TestLastFail (
       [["umount"; "/"];
        ["mount_ro"; "/dev/sda1"; "/"];
@@ -1932,7 +1932,7 @@ To download an uncompressed tarball, use C<guestfs_tar_out>.");
 This is the same as the C<guestfs_mount> command, but it
 mounts the filesystem with the read-only (I<-o ro>) flag.");
 
-  ("mount_options", (RErr, [String "options"; String "device"; String "mountpoint"]), 74, [],
+  ("mount_options", (RErr, [String "options"; Device "device"; String "mountpoint"]), 74, [],
    [],
    "mount a guest disk with mount options",
    "\
@@ -1940,7 +1940,7 @@ This is the same as the C<guestfs_mount> command, but it
 allows you to set the mount options as for the
 L<mount(8)> I<-o> flag.");
 
-  ("mount_vfs", (RErr, [String "options"; String "vfstype"; String "device"; String "mountpoint"]), 75, [],
+  ("mount_vfs", (RErr, [String "options"; String "vfstype"; Device "device"; String "mountpoint"]), 75, [],
    [],
    "mount a guest disk with mount options and vfstype",
    "\
@@ -1960,7 +1960,7 @@ There is no comprehensive help for this command.  You have
 to look at the file C<daemon/debug.c> in the libguestfs source
 to find out what you can do.");
 
-  ("lvremove", (RErr, [String "device"]), 77, [],
+  ("lvremove", (RErr, [Device "device"]), 77, [],
    [InitEmpty, Always, TestOutputList (
       [["sfdiskM"; "/dev/sda"; ","];
        ["pvcreate"; "/dev/sda1"];
@@ -2017,7 +2017,7 @@ Remove an LVM volume group C<vgname>, (for example C<VG>).
 This also forcibly removes all logical volumes in the volume
 group (if any).");
 
-  ("pvremove", (RErr, [String "device"]), 79, [],
+  ("pvremove", (RErr, [Device "device"]), 79, [],
    [InitEmpty, Always, TestOutputListOfDevices (
       [["sfdiskM"; "/dev/sda"; ","];
        ["pvcreate"; "/dev/sda1"];
@@ -2054,7 +2054,7 @@ The implementation uses the C<pvremove> command which refuses to
 wipe physical volumes that contain any volume groups, so you have
 to remove those first.");
 
-  ("set_e2label", (RErr, [String "device"; String "label"]), 80, [],
+  ("set_e2label", (RErr, [Device "device"; String "label"]), 80, [],
    [InitBasicFS, Always, TestOutput (
       [["set_e2label"; "/dev/sda1"; "testlabel"];
        ["get_e2label"; "/dev/sda1"]], "testlabel")],
@@ -2067,14 +2067,14 @@ C<device> to C<label>.  Filesystem labels are limited to
 You can use either C<guestfs_tune2fs_l> or C<guestfs_get_e2label>
 to return the existing label on a filesystem.");
 
-  ("get_e2label", (RString "label", [String "device"]), 81, [],
+  ("get_e2label", (RString "label", [Device "device"]), 81, [],
    [],
    "get the ext2/3/4 filesystem label",
    "\
 This returns the ext2/3/4 filesystem label of the filesystem on
 C<device>.");
 
-  ("set_e2uuid", (RErr, [String "device"; String "uuid"]), 82, [],
+  ("set_e2uuid", (RErr, [Device "device"; String "uuid"]), 82, [],
    [InitBasicFS, Always, TestOutput (
       [["set_e2uuid"; "/dev/sda1"; "a3a61220-882b-4f61-89f4-cf24dcc7297d"];
        ["get_e2uuid"; "/dev/sda1"]], "a3a61220-882b-4f61-89f4-cf24dcc7297d");
@@ -2096,14 +2096,14 @@ L<tune2fs(8)> manpage.
 You can use either C<guestfs_tune2fs_l> or C<guestfs_get_e2uuid>
 to return the existing UUID of a filesystem.");
 
-  ("get_e2uuid", (RString "uuid", [String "device"]), 83, [],
+  ("get_e2uuid", (RString "uuid", [Device "device"]), 83, [],
    [],
    "get the ext2/3/4 filesystem UUID",
    "\
 This returns the ext2/3/4 filesystem UUID of the filesystem on
 C<device>.");
 
-  ("fsck", (RInt "status", [String "fstype"; String "device"]), 84, [],
+  ("fsck", (RInt "status", [String "fstype"; Device "device"]), 84, [],
    [InitBasicFS, Always, TestOutputInt (
       [["umount"; "/dev/sda1"];
        ["fsck"; "ext2"; "/dev/sda1"]], 0);
@@ -2141,7 +2141,7 @@ Checking or repairing NTFS volumes is not supported
 
 This command is entirely equivalent to running C<fsck -a -t fstype device>.");
 
-  ("zero", (RErr, [String "device"]), 85, [],
+  ("zero", (RErr, [Device "device"]), 85, [],
    [InitBasicFS, Always, TestOutput (
       [["umount"; "/dev/sda1"];
        ["zero"; "/dev/sda1"];
@@ -2156,7 +2156,7 @@ any partition tables, filesystem superblocks and so on.
 
 See also: C<guestfs_scrub_device>.");
 
-  ("grub_install", (RErr, [String "root"; String "device"]), 86, [],
+  ("grub_install", (RErr, [String "root"; Device "device"]), 86, [],
    (* Test disabled because grub-install incompatible with virtio-blk driver.
     * See also: https://bugzilla.redhat.com/show_bug.cgi?id=479760
     *)
@@ -2311,7 +2311,7 @@ The returned strings are transcoded to UTF-8.");
 This runs C<hexdump -C> on the given C<path>.  The result is
 the human-readable, canonical hex dump of the file.");
 
-  ("zerofree", (RErr, [String "device"]), 97, [],
+  ("zerofree", (RErr, [Device "device"]), 97, [],
    [InitNone, Always, TestOutput (
       [["sfdiskM"; "/dev/sda"; ","];
        ["mkfs"; "ext3"; "/dev/sda1"];
@@ -2334,14 +2334,14 @@ mounted.
 It is possible that using this program can damage the filesystem
 or data on the filesystem.");
 
-  ("pvresize", (RErr, [String "device"]), 98, [],
+  ("pvresize", (RErr, [Device "device"]), 98, [],
    [],
    "resize an LVM physical volume",
    "\
 This resizes (expands or shrinks) an existing LVM physical
 volume to match the new size of the underlying device.");
 
-  ("sfdisk_N", (RErr, [String "device"; Int "partnum";
+  ("sfdisk_N", (RErr, [Device "device"; Int "partnum";
                        Int "cyls"; Int "heads"; Int "sectors";
                        String "line"]), 99, [DangerWillRobinson],
    [],
@@ -2353,7 +2353,7 @@ partition C<n> (note: C<n> counts from 1).
 For other parameters, see C<guestfs_sfdisk>.  You should usually
 pass C<0> for the cyls/heads/sectors parameters.");
 
-  ("sfdisk_l", (RString "partitions", [String "device"]), 100, [],
+  ("sfdisk_l", (RString "partitions", [Device "device"]), 100, [],
    [],
    "display the partition table",
    "\
@@ -2361,7 +2361,7 @@ This displays the partition table on C<device>, in the
 human-readable output of the L<sfdisk(8)> command.  It is
 not intended to be parsed.");
 
-  ("sfdisk_kernel_geometry", (RString "partitions", [String "device"]), 101, [],
+  ("sfdisk_kernel_geometry", (RString "partitions", [Device "device"]), 101, [],
    [],
    "display the kernel geometry",
    "\
@@ -2370,7 +2370,7 @@ This displays the kernel's idea of the geometry of C<device>.
 The result is in human-readable format, and not designed to
 be parsed.");
 
-  ("sfdisk_disk_geometry", (RString "partitions", [String "device"]), 102, [],
+  ("sfdisk_disk_geometry", (RString "partitions", [Device "device"]), 102, [],
    [],
    "display the disk geometry from the partition table",
    "\
@@ -2409,7 +2409,7 @@ This command is the same as running C<vgchange -a y|n volgroups...>
 Note that if C<volgroups> is an empty list then B<all> volume groups
 are activated or deactivated.");
 
-  ("lvresize", (RErr, [String "device"; Int "mbytes"]), 105, [],
+  ("lvresize", (RErr, [Device "device"; Int "mbytes"]), 105, [],
    [InitNone, Always, TestOutput (
       [["sfdiskM"; "/dev/sda"; ","];
        ["pvcreate"; "/dev/sda1"];
@@ -2430,7 +2430,7 @@ This resizes (expands or shrinks) an existing LVM logical
 volume to C<mbytes>.  When reducing, data in the reduced part
 is lost.");
 
-  ("resize2fs", (RErr, [String "device"]), 106, [],
+  ("resize2fs", (RErr, [Device "device"]), 106, [],
    [], (* lvresize tests this *)
    "resize an ext2/ext3 filesystem",
    "\
@@ -2482,7 +2482,7 @@ an error.
 
 The returned list is sorted.");
 
-  ("e2fsck_f", (RErr, [String "device"]), 108, [],
+  ("e2fsck_f", (RErr, [Device "device"]), 108, [],
    [], (* lvresize tests this *)
    "check an ext2/ext3 filesystem",
    "\
@@ -2500,7 +2500,7 @@ This command is only needed because of C<guestfs_resize2fs>
    "\
 Sleep for C<secs> seconds.");
 
-  ("ntfs_3g_probe", (RInt "status", [Bool "rw"; String "device"]), 110, [],
+  ("ntfs_3g_probe", (RInt "status", [Bool "rw"; Device "device"]), 110, [],
    [InitNone, Always, TestOutputInt (
       [["sfdiskM"; "/dev/sda"; ","];
        ["mkfs"; "ntfs"; "/dev/sda1"];
@@ -2578,7 +2578,7 @@ It is just a wrapper around the C L<glob(3)> function
 with flags C<GLOB_MARK|GLOB_BRACE>.
 See that manual page for more details.");
 
-  ("scrub_device", (RErr, [String "device"]), 114, [DangerWillRobinson],
+  ("scrub_device", (RErr, [Device "device"]), 114, [DangerWillRobinson],
    [InitNone, Always, TestRun (	(* use /dev/sdc because it's smaller *)
       [["scrub_device"; "/dev/sdc"]])],
    "scrub (securely wipe) a device",
@@ -2778,7 +2778,7 @@ This command lets you mount C<file> (a filesystem image
 in a file) on a mount point.  It is entirely equivalent to
 the command C<mount -o loop file mountpoint>.");
 
-  ("mkswap", (RErr, [String "device"]), 130, [],
+  ("mkswap", (RErr, [Device "device"]), 130, [],
    [InitEmpty, Always, TestRun (
       [["sfdiskM"; "/dev/sda"; ","];
        ["mkswap"; "/dev/sda1"]])],
@@ -2786,7 +2786,7 @@ the command C<mount -o loop file mountpoint>.");
    "\
 Create a swap partition on C<device>.");
 
-  ("mkswap_L", (RErr, [String "label"; String "device"]), 131, [],
+  ("mkswap_L", (RErr, [String "label"; Device "device"]), 131, [],
    [InitEmpty, Always, TestRun (
       [["sfdiskM"; "/dev/sda"; ","];
        ["mkswap_L"; "hello"; "/dev/sda1"]])],
@@ -2798,7 +2798,7 @@ Note that you cannot attach a swap label to a block device
 (eg. C</dev/sda>), just to a partition.  This appears to be
 a limitation of the kernel or swap tools.");
 
-  ("mkswap_U", (RErr, [String "uuid"; String "device"]), 132, [],
+  ("mkswap_U", (RErr, [String "uuid"; Device "device"]), 132, [],
    [InitEmpty, Always, TestRun (
       [["sfdiskM"; "/dev/sda"; ","];
        ["mkswap_U"; "a3a61220-882b-4f61-89f4-cf24dcc7297d"; "/dev/sda1"]])],
@@ -2934,7 +2934,7 @@ This function is primarily intended for use by programs.  To
 get a simple list of names, use C<guestfs_ls>.  To get a printable
 directory for human consumption, use C<guestfs_ll>.");
 
-  ("sfdiskM", (RErr, [String "device"; StringList "lines"]), 139, [DangerWillRobinson],
+  ("sfdiskM", (RErr, [Device "device"; StringList "lines"]), 139, [DangerWillRobinson],
    [],
    "create partitions on a block device",
    "\
@@ -3240,7 +3240,7 @@ Do not confuse this with the guestfish-specific
 C<alloc> command which allocates a file in the host and
 attaches it as a device.");
 
-  ("swapon_device", (RErr, [String "device"]), 170, [],
+  ("swapon_device", (RErr, [Device "device"]), 170, [],
    [InitPartition, Always, TestRun (
       [["mkswap"; "/dev/sda1"];
        ["swapon_device"; "/dev/sda1"];
@@ -3259,7 +3259,7 @@ the guest doesn't want you to trash.  You also risk leaking
 information about the host to the guest this way.  Instead,
 attach a new host device to the guest and swap on that.");
 
-  ("swapoff_device", (RErr, [String "device"]), 171, [],
+  ("swapoff_device", (RErr, [Device "device"]), 171, [],
    [], (* XXX tested by swapon_device *)
    "disable swap on device",
    "\

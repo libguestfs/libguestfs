@@ -33,8 +33,6 @@ do_ntfs_3g_probe (int rw, char *device)
   int r;
   const char *rw_flag;
 
-  RESOLVE_DEVICE (device, return -1);
-
   rw_flag = rw ? "-w" : "-r";
 
   r = commandr (NULL, &err, "ntfs-3g.probe", rw_flag, device, NULL);

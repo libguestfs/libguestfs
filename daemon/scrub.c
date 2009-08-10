@@ -33,8 +33,6 @@ do_scrub_device (char *device)
   char *err;
   int r;
 
-  RESOLVE_DEVICE (device, return -1);
-
   r = command (NULL, &err, "scrub", device, NULL);
   if (r == -1) {
     reply_with_error ("scrub_device: %s: %s", device, err);

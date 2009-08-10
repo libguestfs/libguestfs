@@ -193,8 +193,6 @@ do_mkfs (char *fstype, char *device)
   char *err;
   int r;
 
-  RESOLVE_DEVICE (device, return -1);
-
   r = command (NULL, &err, "/sbin/mkfs", "-t", fstype, device, NULL);
   if (r == -1) {
     reply_with_error ("mkfs: %s", err);

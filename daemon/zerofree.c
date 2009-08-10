@@ -33,8 +33,6 @@ do_zerofree (char *device)
   char *err;
   int r;
 
-  RESOLVE_DEVICE (device, return -1);
-
   r = command (NULL, &err, "/usr/sbin/zerofree", device, NULL);
   if (r == -1) {
     reply_with_error ("zerofree: %s: %s", device, err);

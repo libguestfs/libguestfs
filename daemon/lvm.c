@@ -176,8 +176,6 @@ do_pvcreate (char *device)
   char *err;
   int r;
 
-  RESOLVE_DEVICE (device, return -1);
-
   r = command (NULL, &err,
                "/sbin/lvm", "pvcreate", device, NULL);
   if (r == -1) {
@@ -352,8 +350,6 @@ do_lvremove (char *device)
   char *err;
   int r;
 
-  RESOLVE_DEVICE (device, return -1);
-
   r = command (NULL, &err,
                "/sbin/lvm", "lvremove", "-f", device, NULL);
   if (r == -1) {
@@ -396,8 +392,6 @@ do_pvremove (char *device)
   char *err;
   int r;
 
-  RESOLVE_DEVICE (device, return -1);
-
   r = command (NULL, &err,
                "/sbin/lvm", "pvremove", "-ff", device, NULL);
   if (r == -1) {
@@ -418,8 +412,6 @@ do_pvresize (char *device)
 {
   char *err;
   int r;
-
-  RESOLVE_DEVICE (device, return -1);
 
   r = command (NULL, &err,
                "/sbin/lvm", "pvresize", device, NULL);

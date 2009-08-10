@@ -32,8 +32,6 @@ do_fsck (char *fstype, char *device)
   char *err;
   int r;
 
-  RESOLVE_DEVICE (device, return -1);
-
   r = commandr (NULL, &err, "/sbin/fsck", "-a", "-t", fstype, device, NULL);
   if (r == -1) {
     reply_with_error ("fsck: %s: %s", device, err);

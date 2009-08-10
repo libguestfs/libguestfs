@@ -33,8 +33,6 @@ do_zero (char *device)
   int fd, i;
   char buf[4096];
 
-  RESOLVE_DEVICE (device, return -1);
-
   fd = open (device, O_WRONLY);
   if (fd == -1) {
     reply_with_perror ("%s", device);

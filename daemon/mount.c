@@ -48,8 +48,6 @@ do_mount_vfs (char *options, char *vfstype,
   char *mp;
   char *error;
 
-  RESOLVE_DEVICE (device, return -1);
-
   is_root = strcmp (mountpoint, "/") == 0;
 
   if (!root_mounted && !is_root) {

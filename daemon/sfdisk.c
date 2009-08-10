@@ -38,8 +38,6 @@ sfdisk (char *device, int n, int cyls, int heads, int sectors,
   char buf[256];
   int i;
 
-  RESOLVE_DEVICE (device, return -1);
-
   strcpy (buf, "/sbin/sfdisk");
 
   if (n > 0)
@@ -110,8 +108,6 @@ sfdisk_flag (char *device, const char *flag)
 {
   char *out, *err;
   int r;
-
-  RESOLVE_DEVICE (device, return NULL);
 
   r = command (&out, &err, "/sbin/sfdisk", flag, device, NULL);
   if (r == -1) {
