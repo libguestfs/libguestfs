@@ -174,7 +174,7 @@ extern void reply (xdrproc_t xdrp, char *ret);
 #define NEED_ROOT_OR_IS_DEVICE(path,errcode) \
   do {									\
     if (strncmp ((path), "/dev/", 5) == 0)				\
-      IS_DEVICE ((path),(errcode));					\
+      RESOLVE_DEVICE ((path), return errcode);				\
     else {								\
       NEED_ROOT ((errcode));						\
       ABS_PATH ((path),(errcode));					\

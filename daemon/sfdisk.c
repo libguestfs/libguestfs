@@ -53,7 +53,7 @@ sfdisk (char *device, int n, int cyls, int heads, int sectors,
   if (extra_flag)
     sprintf (buf + strlen (buf), " %s", extra_flag);
 
-  /* Safe because of IS_DEVICE above: */
+  /* Safe because of RESOLVE_DEVICE above: */
   sprintf (buf + strlen (buf), " %s", device);
 
   if (verbose)
