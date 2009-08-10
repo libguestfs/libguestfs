@@ -151,14 +151,14 @@ extern void reply (xdrproc_t xdrp, char *ret);
  *
  * NB. Cannot be used for FileIn functions.
  */
-#define IS_DEVICE(path,errcode)						\
+#define RESOLVE_DEVICE(path,fail_stmt)					\
   do {									\
     if (strncmp ((path), "/dev/", 5) != 0) {				\
       reply_with_error ("%s: %s: expecting a device name", __func__, (path)); \
-      return (errcode);							\
+      fail_stmt;							\
     }									\
     if (device_name_translation ((path), __func__) == -1)		\
-      return (errcode);							\
+      fail_stmt;							\
   } while (0)
 
 /* Helper for functions which need either an absolute path in the
