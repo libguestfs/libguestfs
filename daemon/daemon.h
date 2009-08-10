@@ -176,7 +176,7 @@ extern void reply (xdrproc_t xdrp, char *ret);
     if (strncmp ((path), "/dev/", 5) == 0)				\
       RESOLVE_DEVICE ((path), fail_stmt);				\
     else {								\
-      NEED_ROOT (return fail_stmt);						\
+      NEED_ROOT (fail_stmt);						\
       ABS_PATH ((path),fail_stmt);					\
     }									\
   } while (0)
