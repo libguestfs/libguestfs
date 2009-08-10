@@ -74,7 +74,7 @@ do_cat (char *path)
   char *buf, *buf2;
 
   NEED_ROOT (NULL);
-  ABS_PATH (path,NULL);
+  ABS_PATH (path, return NULL);
 
   CHROOT_IN;
   fd = open (path, O_RDONLY);
