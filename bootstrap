@@ -28,6 +28,9 @@ GNULIB_SRCDIR=.gnulib
 
 ls po/*.po 2>/dev/null | sed 's|.*/||; s|\.po$||' > po/LINGUAS
 
+# Run autopoint, to get po/Makevars.template:
+autopoint
+
 # Create gettext configuration.
 echo "$0: Creating po/Makevars from po/Makevars.template ..."
 rm -f po/Makevars
