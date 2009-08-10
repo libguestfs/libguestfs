@@ -124,11 +124,11 @@ extern void reply (xdrproc_t xdrp, char *ret);
 /* Helper for functions that need a root filesystem mounted.
  * NB. Cannot be used for FileIn functions.
  */
-#define NEED_ROOT(errcode)						\
+#define NEED_ROOT(fail_stmt)						\
   do {									\
     if (!root_mounted) {						\
       reply_with_error ("%s: you must call 'mount' first to mount the root filesystem", __func__); \
-      return (errcode);							\
+      fail_stmt;							\
     }									\
   }									\
   while (0)
@@ -136,11 +136,11 @@ extern void reply (xdrproc_t xdrp, char *ret);
 /* Helper for functions that need an argument ("path") that is absolute.
  * NB. Cannot be used for FileIn functions.
  */
-#define ABS_PATH(path,errcode)						\
+#define ABS_PATH(path,fail_stmt)					\
   do {									\
     if ((path)[0] != '/') {						\
       reply_with_error ("%s: path must start with a / character", __func__); \
-      return (errcode);							\
+      fail_stmt;							\
     }									\
   } while (0)
 
@@ -171,13 +171,13 @@ extern void reply (xdrproc_t xdrp, char *ret);
  * because we intend in future to make device parameters a distinct
  * type from filenames.
  */
-#define NEED_ROOT_OR_IS_DEVICE(path,errcode) \
+#define NEED_ROOT_OR_IS_DEVICE(path,fail_stmt)				\
   do {									\
     if (strncmp ((path), "/dev/", 5) == 0)				\
-      RESOLVE_DEVICE ((path), return errcode);				\
+      RESOLVE_DEVICE ((path), fail_stmt);				\
     else {								\
-      NEED_ROOT ((errcode));						\
-      ABS_PATH ((path),(errcode));					\
+      NEED_ROOT (fail_stmt);						\
+      ABS_PATH ((path),fail_stmt);					\
     }									\
   } while (0)
 
