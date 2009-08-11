@@ -185,31 +185,22 @@ do_is_dir (const char *path)
 }
 
 char *
-do_mkdtemp (char *template)
+do_mkdtemp (const char *template)
 {
-  char *r;
-
-  NEED_ROOT (return NULL);
-  ABS_PATH (template, return NULL);
+  char *writable = strdup (template);
+  if (writable == NULL) {
+    reply_with_perror ("strdup");
+    return NULL;
+  }
 
   CHROOT_IN;
-  r = mkdtemp (template);
+  char *r = mkdtemp (writable);
   CHROOT_OUT;
 
   if (r == NULL) {
     reply_with_perror ("mkdtemp: %s", template);
-    return NULL;
+    free (writable);
   }
 
-  /* The caller will free template AND try to free the return value,
-   * so we must make a copy here.
-   */
-  if (r == template) {
-    r = strdup (template);
-    if (r == NULL) {
-      reply_with_perror ("strdup");
-      return NULL;
-    }
-  }
   return r;
 }

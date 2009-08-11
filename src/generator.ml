@@ -2621,8 +2621,7 @@ containing C<dir>.
 It is an interface to the L<scrub(1)> program.  See that
 manual page for more details.");
 
-(* FIXME: make this a WritableString? *)
-  ("mkdtemp", (RString "dir", [String "template"]), 117, [],
+  ("mkdtemp", (RString "dir", [Pathname "template"]), 117, [],
    [InitBasicFS, Always, TestRun (
       [["mkdir"; "/tmp"];
        ["mkdtemp"; "/tmp/tmpXXXXXX"]])],
@@ -4762,7 +4761,7 @@ and generate_daemon_actions () =
              | Pathname n ->
                  pr "  char *%s = args.%s;\n" n n;
                  pr "  ABS_PATH (%s, goto done);\n" n;
-	     | Device n ->
+             | Device n ->
                  pr "  char *%s = args.%s;\n" n n;
                  pr "  RESOLVE_DEVICE (%s, goto done);" n;
              | String n -> pr "  char *%s = args.%s;\n" n n
@@ -6843,7 +6842,6 @@ DESTROY (g)
       iteri (
         fun i ->
           function
-	  (* FIXME: ? *)
           | Pathname n | Device n | String n | FileIn n | FileOut n ->
               pr "      char *%s;\n" n
           | OptString n ->
