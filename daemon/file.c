@@ -361,8 +361,6 @@ do_file (const char *path)
   char *buf;
   int len;
 
-  REQUIRE_ROOT_OR_RESOLVE_DEVICE (path, return NULL);
-
   if (strncmp (path, "/dev/", 5) == 0)
     buf = (char *) path;
   else {

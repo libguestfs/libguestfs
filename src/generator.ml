@@ -3783,7 +3783,7 @@ let mapi f xs =
   loop 0 xs
 
 let name_of_argt = function
-  | Pathname n | Device n | String n | OptString n | StringList n | Bool n | Int n
+  | Pathname n | Device n | Dev_or_Path n | String n | OptString n | StringList n | Bool n | Int n
   | FileIn n | FileOut n -> n
 
 let java_name_of_struct typ =
@@ -4170,7 +4170,7 @@ and generate_xdr () =
            pr "struct %s_args {\n" name;
            List.iter (
              function
-             | Pathname n | Device n | String n -> pr "  string %s<>;\n" n
+             | Pathname n | Device n | Dev_or_Path n | String n -> pr "  string %s<>;\n" n
              | OptString n -> pr "  str *%s;\n" n
              | StringList n -> pr "  str %s<>;\n" n
              | Bool n -> pr "  bool %s;\n" n
@@ -4531,7 +4531,7 @@ check_state (guestfs_h *g, const char *caller)
        | args ->
            List.iter (
              function
-             | Pathname n | Device n | String n ->
+             | Pathname n | Device n | Dev_or_Path n | String n ->
                  pr "  args.%s = (char *) %s;\n" n n
              | OptString n ->
                  pr "  args.%s = %s ? (char **) &%s : NULL;\n" n n n
@@ -4736,7 +4736,7 @@ and generate_daemon_actions () =
            pr "  struct guestfs_%s_args args;\n" name;
            List.iter (
              function
-             | Device n
+             | Device n | Dev_or_Path n
              | Pathname n
              | String n -> ()
              | OptString n -> pr "  char *%s;\n" n
@@ -4765,6 +4765,9 @@ and generate_daemon_actions () =
              | Device n ->
                  pr "  char *%s = args.%s;\n" n n;
                  pr "  RESOLVE_DEVICE (%s, goto done);" n;
+	     | Dev_or_Path n ->
+                 pr "  char *%s = args.%s;\n" n n;
+                 pr "  REQUIRE_ROOT_OR_RESOLVE_DEVICE (%s, goto done);" n;
              | String n -> pr "  char *%s = args.%s;\n" n n
              | OptString n -> pr "  %s = args.%s ? *args.%s : NULL;\n" n n n
              | StringList n ->
@@ -5678,6 +5681,7 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
         | OptString n, "NULL" -> ()
         | Pathname n, arg
         | Device n, arg
+        | Dev_or_Path n, arg
         | String n, arg
         | OptString n, arg ->
             pr "    const char *%s = \"%s\";\n" n (c_quote arg);
@@ -5726,7 +5730,7 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
         function
         | OptString _, "NULL" -> pr ", NULL"
         | Pathname n, _
-        | Device n, _
+        | Device n, _ | Dev_or_Path n, _
         | String n, _
         | OptString n, _ ->
             pr ", %s" n
@@ -5976,7 +5980,7 @@ and generate_fish_cmds () =
       List.iter (
         function
         | Pathname n
-        | Device n
+        | Device n | Dev_or_Path n
         | String n
         | OptString n
         | FileIn n
@@ -5998,7 +6002,7 @@ and generate_fish_cmds () =
         fun i ->
           function
           | Pathname name
-          | Device name | String name -> pr "  %s = argv[%d];\n" name i
+          | Device name | Dev_or_Path name | String name -> pr "  %s = argv[%d];\n" name i
           | OptString name ->
               pr "  %s = strcmp (argv[%d], \"\") != 0 ? argv[%d] : NULL;\n"
                 name i i
@@ -6231,7 +6235,7 @@ and generate_fish_actions_pod () =
       pr " %s" name;
       List.iter (
         function
-        | Pathname n | Device n | String n -> pr " %s" n
+        | Pathname n | Device n | Dev_or_Path n | String n -> pr " %s" n
         | OptString n -> pr " %s" n
         | StringList n -> pr " '%s ...'" n
         | Bool _ -> pr " true|false"
@@ -6298,7 +6302,7 @@ and generate_prototype ?(extern = true) ?(static = false) ?(semicolon = true)
     List.iter (
       function
       | Pathname n
-      | Device n
+      | Device n | Dev_or_Path n
       | String n
       | OptString n ->
           next ();
@@ -6561,7 +6565,7 @@ copy_table (char * const * argv)
       List.iter (
         function
         | Pathname n
-        | Device n
+        | Device n | Dev_or_Path n
         | String n
         | FileIn n
         | FileOut n ->
@@ -6614,7 +6618,7 @@ copy_table (char * const * argv)
         function
         | StringList n ->
             pr "  ocaml_guestfs_free_strings (%s);\n" n;
-        | Pathname _ | Device _ | String _ | OptString _ | Bool _ | Int _
+        | Pathname _ | Device _ | Dev_or_Path _ | String _ | OptString _ | Bool _ | Int _
         | FileIn _ | FileOut _ -> ()
       ) (snd style);
 
@@ -6698,7 +6702,7 @@ and generate_ocaml_prototype ?(is_external = false) name style =
   pr "%s : t -> " name;
   List.iter (
     function
-    | Pathname _ | Device _ | String _ | FileIn _ | FileOut _ -> pr "string -> "
+    | Pathname _ | Device _ | Dev_or_Path _ | String _ | FileIn _ | FileOut _ -> pr "string -> "
     | OptString _ -> pr "string option -> "
     | StringList _ -> pr "string array -> "
     | Bool _ -> pr "bool -> "
@@ -6843,7 +6847,7 @@ DESTROY (g)
       iteri (
         fun i ->
           function
-          | Pathname n | Device n | String n | FileIn n | FileOut n ->
+          | Pathname n | Device n | Dev_or_Path n | String n | FileIn n | FileOut n ->
               pr "      char *%s;\n" n
           | OptString n ->
               (* http://www.perlmonks.org/?node_id=554277
@@ -6859,7 +6863,7 @@ DESTROY (g)
       let do_cleanups () =
         List.iter (
           function
-          | Pathname _ | Device _ | String _ | OptString _ | Bool _ | Int _
+          | Pathname _ | Device _ | Dev_or_Path _ | String _ | OptString _ | Bool _ | Int _
           | FileIn _ | FileOut _ -> ()
           | StringList n -> pr "      free (%s);\n" n
         ) (snd style)
@@ -7231,7 +7235,7 @@ and generate_perl_prototype name style =
       if !comma then pr ", ";
       comma := true;
       match arg with
-      | Pathname n | Device n | String n
+      | Pathname n | Device n | Dev_or_Path n | String n
       | OptString n | Bool n | Int n | FileIn n | FileOut n ->
           pr "$%s" n
       | StringList n ->
@@ -7479,7 +7483,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
 
       List.iter (
         function
-        | Pathname n | Device n | String n | FileIn n | FileOut n ->
+        | Pathname n | Device n | Dev_or_Path n | String n | FileIn n | FileOut n ->
             pr "  const char *%s;\n" n
         | OptString n -> pr "  const char *%s;\n" n
         | StringList n ->
@@ -7495,7 +7499,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
       pr "  if (!PyArg_ParseTuple (args, (char *) \"O";
       List.iter (
         function
-        | Pathname _ | Device _ | String _ | FileIn _ | FileOut _ -> pr "s"
+        | Pathname _ | Device _ | Dev_or_Path _ | String _ | FileIn _ | FileOut _ -> pr "s"
         | OptString _ -> pr "z"
         | StringList _ -> pr "O"
         | Bool _ -> pr "i" (* XXX Python has booleans? *)
@@ -7505,7 +7509,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
       pr "                         &py_g";
       List.iter (
         function
-        | Pathname n | Device n | String n | FileIn n | FileOut n -> pr ", &%s" n
+        | Pathname n | Device n | Dev_or_Path n | String n | FileIn n | FileOut n -> pr ", &%s" n
         | OptString n -> pr ", &%s" n
         | StringList n -> pr ", &py_%s" n
         | Bool n -> pr ", &%s" n
@@ -7518,7 +7522,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
       pr "  g = get_handle (py_g);\n";
       List.iter (
         function
-        | Pathname _ | Device _ | String _
+        | Pathname _ | Device _ | Dev_or_Path _ | String _
         | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ -> ()
         | StringList n ->
             pr "  %s = get_string_list (py_%s);\n" n n;
@@ -7533,7 +7537,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
 
       List.iter (
         function
-        | Pathname _ | Device _ | String _
+        | Pathname _ | Device _ | Dev_or_Path _ | String _
         | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ -> ()
         | StringList n ->
             pr "  free (%s);\n" n
@@ -7842,7 +7846,7 @@ static VALUE ruby_guestfs_close (VALUE gv)
 
       List.iter (
         function
-        | Pathname n | Device n | String n | FileIn n | FileOut n ->
+        | Pathname n | Device n | Dev_or_Path n | String n | FileIn n | FileOut n ->
             pr "  Check_Type (%sv, T_STRING);\n" n;
             pr "  const char *%s = StringValueCStr (%sv);\n" n n;
             pr "  if (!%s)\n" n;
@@ -7894,7 +7898,7 @@ static VALUE ruby_guestfs_close (VALUE gv)
 
       List.iter (
         function
-        | Pathname _ | Device _ | String _
+        | Pathname _ | Device _ | Dev_or_Path _ | String _
         | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ -> ()
         | StringList n ->
             pr "  free (%s);\n" n
@@ -8206,7 +8210,7 @@ and generate_java_prototype ?(public=false) ?(privat=false) ?(native=false)
 
       match arg with
       | Pathname n
-      | Device n
+      | Device n | Dev_or_Path n
       | String n
       | OptString n
       | FileIn n
@@ -8325,7 +8329,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
       List.iter (
         function
         | Pathname n
-        | Device n
+        | Device n | Dev_or_Path n
         | String n
         | OptString n
         | FileIn n
@@ -8378,7 +8382,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
       List.iter (
         function
         | Pathname n
-        | Device n
+        | Device n | Dev_or_Path n
         | String n
         | OptString n
         | FileIn n
@@ -8408,7 +8412,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
       List.iter (
         function
         | Pathname n
-        | Device n
+        | Device n | Dev_or_Path n
         | String n
         | FileIn n
         | FileOut n ->
@@ -8441,7 +8445,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
       List.iter (
         function
         | Pathname n
-        | Device n
+        | Device n | Dev_or_Path n
         | String n
         | FileIn n
         | FileOut n ->
@@ -8716,7 +8720,7 @@ last_error h = do
           function
           | FileIn n
           | FileOut n
-          | Pathname n | Device n | String n -> pr "withCString %s $ \\%s -> " n n
+          | Pathname n | Device n | Dev_or_Path n | String n -> pr "withCString %s $ \\%s -> " n n
           | OptString n -> pr "maybeWith withCString %s $ \\%s -> " n n
           | StringList n -> pr "withMany withCString %s $ \\%s -> withArray0 nullPtr %s $ \\%s -> " n n n n
           | Bool _ | Int _ -> ()
@@ -8728,7 +8732,7 @@ last_error h = do
             | Bool n -> sprintf "(fromBool %s)" n
             | Int n -> sprintf "(fromIntegral %s)" n
             | FileIn n | FileOut n
-            | Pathname n | Device n | String n | OptString n | StringList n -> n
+            | Pathname n | Device n | Dev_or_Path n | String n | OptString n | StringList n -> n
           ) (snd style) in
         pr "withForeignPtr h (\\p -> c_%s %s)\n" name
           (String.concat " " ("p" :: args));
@@ -8778,7 +8782,7 @@ and generate_haskell_prototype ~handle ?(hs = false) style =
   List.iter (
     fun arg ->
       (match arg with
-       | Pathname _ | Device _ | String _ -> pr "%s" string
+       | Pathname _ | Device _ | Dev_or_Path _ | String _ -> pr "%s" string
        | OptString _ -> if hs then pr "Maybe String" else pr "CString"
        | StringList _ -> if hs then pr "[String]" else pr "Ptr CString"
        | Bool _ -> pr "%s" bool
@@ -8854,7 +8858,7 @@ print_strings (char * const* const argv)
     List.iter (
       function
       | Pathname n
-      | Device n
+      | Device n | Dev_or_Path n
       | String n
       | FileIn n
       | FileOut n -> pr "  printf (\"%%s\\n\", %s);\n" n

@@ -93,8 +93,6 @@ do_download (const char *filename)
   int fd, r, is_dev;
   char buf[GUESTFS_MAX_CHUNK_SIZE];
 
-  REQUIRE_ROOT_OR_RESOLVE_DEVICE (filename, return -1);
-
   is_dev = strncmp (filename, "/dev/", 5) == 0;
 
   if (!is_dev) CHROOT_IN;
