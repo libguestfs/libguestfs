@@ -35,16 +35,24 @@ indentation level, and other than that, follow the K&R style.
 If you use Emacs, add the following to one of one of your start-up files
 (e.g., ~/.emacs), to help ensure that you get indentation right:
 
+  ;;; In libguestfs, indent with spaces everywhere (not TABs).
+  ;;; Exceptions: Makefile and ChangeLog modes.
+  (add-hook 'find-file-hook
+      '(lambda () (if (and buffer-file-name
+                           (string-match "/libguestfs\\>" (buffer-file-name))
+                           (not (string-equal mode-name "Change Log"))
+                           (not (string-equal mode-name "Makefile")))
+                      (setq indent-tabs-mode nil))))
+
   ;;; When editing C sources in libguestfs, use this style.
   (defun libguestfs-c-mode ()
     "C mode with adjusted defaults for use with libguestfs."
     (interactive)
     (c-set-style "K&R")
-    (setq indent-tabs-mode nil) ; indent using spaces, not TABs
     (setq c-indent-level 2)
     (setq c-basic-offset 2))
   (add-hook 'c-mode-hook
-            '(lambda () (if (string-match "/libguestfs" (buffer-file-name))
+            '(lambda () (if (string-match "/libguestfs\\>" (buffer-file-name))
                             (libguestfs-c-mode))))
 
 Directories
