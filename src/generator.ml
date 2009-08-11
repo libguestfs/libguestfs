@@ -4725,11 +4725,9 @@ and generate_daemon_actions () =
            pr "  struct guestfs_%s_args args;\n" name;
            List.iter (
              function
-               (* Note we allow the string to be writable, in order to
-                * allow device name translation.  This is safe because
-                * we can modify the string (passed from RPC).
-                *)
-             | Device n | String n
+	     (* FIXME: eventually, make String "const", too *)
+             | Device n -> pr "  const char *%s;\n" n
+             | String n
              | OptString n -> pr "  char *%s;\n" n
              | StringList n -> pr "  char **%s;\n" n
              | Bool n -> pr "  int %s;\n" n
@@ -6278,8 +6276,7 @@ and generate_prototype ?(extern = true) ?(static = false) ?(semicolon = true)
       | String n
       | OptString n ->
           next ();
-          if not in_daemon then pr "const char *%s" n
-          else pr "char *%s" n
+          pr "const char *%s" n
       | StringList n ->
           next ();
           if not in_daemon then pr "char * const* const %s" n
@@ -6819,6 +6816,7 @@ DESTROY (g)
       iteri (
         fun i ->
           function
+	  (* FIXME: ? *)
           | Device n | String n | FileIn n | FileOut n -> pr "      char *%s;\n" n
           | OptString n ->
               (* http://www.perlmonks.org/?node_id=554277
