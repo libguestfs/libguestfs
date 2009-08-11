@@ -136,6 +136,7 @@ and argt =
   | String of string	(* const char *name, cannot be NULL *)
   | Device of string	(* /dev device name, cannot be NULL *)
   | Pathname of string	(* file name, cannot be NULL *)
+  | Dev_or_Path of string (* /dev device name or Pathname, cannot be NULL *)
   | OptString of string	(* const char *name, may be NULL *)
   | StringList of string(* list of strings (each string cannot be NULL) *)
   | Bool of string	(* boolean *)
@@ -1477,7 +1478,7 @@ Some internal mounts are not unmounted by this call.");
 This command removes all LVM logical volumes, volume groups
 and physical volumes.");
 
-  ("file", (RString "description", [Pathname "path"]), 49, [],
+  ("file", (RString "description", [Dev_or_Path "path"]), 49, [],
    [InitSquashFS, Always, TestOutput (
       [["file"; "/empty"]], "empty");
     InitSquashFS, Always, TestOutput (
@@ -1801,7 +1802,7 @@ C<filename> can also be a named pipe.
 
 See also C<guestfs_download>.");
 
-  ("download", (RErr, [String "remotefilename"; FileOut "filename"]), 67, [],
+  ("download", (RErr, [Dev_or_Path "remotefilename"; FileOut "filename"]), 67, [],
    [InitBasicFS, Always, TestOutput (
       (* Pick a file from cwd which isn't likely to change. *)
       [["upload"; "../COPYING.LIB"; "/COPYING.LIB"];
