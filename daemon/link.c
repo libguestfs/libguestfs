@@ -28,14 +28,11 @@
 #include "actions.h"
 
 char *
-do_readlink (char *path)
+do_readlink (const char *path)
 {
   ssize_t r;
   char *ret;
   char link[PATH_MAX];
-
-  NEED_ROOT (return NULL);
-  ABS_PATH (path, return NULL);
 
   CHROOT_IN;
   r = readlink (path, link, sizeof link);
@@ -61,10 +58,6 @@ _link (const char *flag, int symbolic, const char *target, const char *linkname)
   char *err;
   char *buf_linkname;
   char *buf_target;
-
-  NEED_ROOT (return -1);
-  ABS_PATH (linkname, return -1);
-  /* but target does not need to be absolute */
 
   /* Prefix linkname with sysroot. */
   buf_linkname = sysroot_path (linkname);
@@ -113,25 +106,25 @@ _link (const char *flag, int symbolic, const char *target, const char *linkname)
 }
 
 int
-do_ln (char *target, char *linkname)
+do_ln (const char *target, const char *linkname)
 {
   return _link (NULL, 0, target, linkname);
 }
 
 int
-do_ln_f (char *target, char *linkname)
+do_ln_f (const char *target, const char *linkname)
 {
   return _link ("-f", 0, target, linkname);
 }
 
 int
-do_ln_s (char *target, char *linkname)
+do_ln_s (const char *target, const char *linkname)
 {
   return _link ("-s", 1, target, linkname);
 }
 
 int
-do_ln_sf (char *target, char *linkname)
+do_ln_sf (const char *target, const char *linkname)
 {
   return _link ("-sf", 1, target, linkname);
 }

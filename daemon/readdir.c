@@ -28,16 +28,13 @@
 #include "actions.h"
 
 guestfs_int_dirent_list *
-do_readdir (char *path)
+do_readdir (const char *path)
 {
   guestfs_int_dirent_list *ret;
   guestfs_int_dirent v;
   DIR *dir;
   struct dirent *d;
   int i;
-
-  NEED_ROOT (return NULL);
-  ABS_PATH (path, return NULL);
 
   ret = malloc (sizeof *ret);
   if (ret == NULL) {

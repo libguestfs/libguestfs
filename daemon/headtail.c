@@ -28,15 +28,12 @@
 #include "actions.h"
 
 static char **
-headtail (const char *prog, const char *flag, const char *n, char *path)
+headtail (const char *prog, const char *flag, const char *n, const char *path)
 {
   char *buf;
   char *out, *err;
   int r;
   char **lines;
-
-  NEED_ROOT (return NULL);
-  ABS_PATH (path, return NULL);
 
   /* Make the path relative to /sysroot. */
   buf = sysroot_path (path);
@@ -70,19 +67,19 @@ headtail (const char *prog, const char *flag, const char *n, char *path)
 }
 
 char **
-do_head (char *path)
+do_head (const char *path)
 {
   return headtail ("head", "-n", "10", path);
 }
 
 char **
-do_tail (char *path)
+do_tail (const char *path)
 {
   return headtail ("tail", "-n", "10", path);
 }
 
 char **
-do_head_n (int n, char *path)
+do_head_n (int n, const char *path)
 {
   char nbuf[16];
 
@@ -92,7 +89,7 @@ do_head_n (int n, char *path)
 }
 
 char **
-do_tail_n (int n, char *path)
+do_tail_n (int n, const char *path)
 {
   char nbuf[16];
 

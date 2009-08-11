@@ -32,7 +32,7 @@
  * we centralize it in one call.
  */
 static int64_t
-call_blockdev (char *device, char *switc, int extraarg, int prints)
+call_blockdev (const char *device, char *switc, int extraarg, int prints)
 {
   int r;
   int64_t rv;
@@ -78,37 +78,37 @@ call_blockdev (char *device, char *switc, int extraarg, int prints)
 }
 
 int
-do_blockdev_setro (char *device)
+do_blockdev_setro (const char *device)
 {
   return (int) call_blockdev (device, "--setro", 0, 0);
 }
 
 int
-do_blockdev_setrw (char *device)
+do_blockdev_setrw (const char *device)
 {
   return (int) call_blockdev (device, "--setrw", 0, 0);
 }
 
 int
-do_blockdev_getro (char *device)
+do_blockdev_getro (const char *device)
 {
   return (int) call_blockdev (device, "--getro", 0, 1);
 }
 
 int
-do_blockdev_getss (char *device)
+do_blockdev_getss (const char *device)
 {
   return (int) call_blockdev (device, "--getss", 0, 1);
 }
 
 int
-do_blockdev_getbsz (char *device)
+do_blockdev_getbsz (const char *device)
 {
   return (int) call_blockdev (device, "--getbsz", 0, 1);
 }
 
 int
-do_blockdev_setbsz (char *device, int blocksize)
+do_blockdev_setbsz (const char *device, int blocksize)
 {
   if (blocksize <= 0 /* || blocksize >= what? */) {
     reply_with_error ("blockdev_setbsz: blocksize must be > 0");
@@ -118,25 +118,25 @@ do_blockdev_setbsz (char *device, int blocksize)
 }
 
 int64_t
-do_blockdev_getsz (char *device)
+do_blockdev_getsz (const char *device)
 {
   return call_blockdev (device, "--getsz", 0, 1);
 }
 
 int64_t
-do_blockdev_getsize64 (char *device)
+do_blockdev_getsize64 (const char *device)
 {
   return call_blockdev (device, "--getsize64", 0, 1);
 }
 
 int
-do_blockdev_flushbufs (char *device)
+do_blockdev_flushbufs (const char *device)
 {
   return call_blockdev (device, "--flushbufs", 0, 0);
 }
 
 int
-do_blockdev_rereadpt (char *device)
+do_blockdev_rereadpt (const char *device)
 {
   return call_blockdev (device, "--rereadpt", 0, 0);
 }

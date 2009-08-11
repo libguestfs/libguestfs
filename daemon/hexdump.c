@@ -26,14 +26,11 @@
 #include "actions.h"
 
 char *
-do_hexdump (char *path)
+do_hexdump (const char *path)
 {
   char *buf;
   int r;
   char *out, *err;
-
-  NEED_ROOT (return NULL);
-  ABS_PATH (path, return NULL);
 
   buf = sysroot_path (path);
   if (!buf) {

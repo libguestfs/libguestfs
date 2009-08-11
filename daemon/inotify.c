@@ -123,7 +123,7 @@ do_inotify_close (void)
 }
 
 int64_t
-do_inotify_add_watch (char *path, int mask)
+do_inotify_add_watch (const char *path, int mask)
 {
   int64_t r;
   char *buf;

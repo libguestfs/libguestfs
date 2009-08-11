@@ -28,12 +28,9 @@
 #include "actions.h"
 
 char *
-do_realpath (char *path)
+do_realpath (const char *path)
 {
   char *ret;
-
-  NEED_ROOT (return NULL);
-  ABS_PATH (path, return NULL);
 
   CHROOT_IN;
   ret = realpath (path, NULL);

@@ -31,14 +31,11 @@
 #include "actions.h"
 
 guestfs_int_stat *
-do_stat (char *path)
+do_stat (const char *path)
 {
   int r;
   guestfs_int_stat *ret;
   struct stat statbuf;
-
-  NEED_ROOT (return NULL);
-  ABS_PATH (path, return NULL);
 
   CHROOT_IN;
   r = stat (path, &statbuf);
@@ -73,14 +70,11 @@ do_stat (char *path)
 }
 
 guestfs_int_stat *
-do_lstat (char *path)
+do_lstat (const char *path)
 {
   int r;
   guestfs_int_stat *ret;
   struct stat statbuf;
-
-  NEED_ROOT (return NULL);
-  ABS_PATH (path, return NULL);
 
   CHROOT_IN;
   r = lstat (path, &statbuf);
@@ -115,14 +109,11 @@ do_lstat (char *path)
 }
 
 guestfs_int_statvfs *
-do_statvfs (char *path)
+do_statvfs (const char *path)
 {
   int r;
   guestfs_int_statvfs *ret;
   struct statvfs statbuf;
-
-  NEED_ROOT (return NULL);
-  ABS_PATH (path, return NULL);
 
   CHROOT_IN;
   r = statvfs (path, &statbuf);

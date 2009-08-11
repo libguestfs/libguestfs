@@ -48,7 +48,7 @@ input_to_nul (FILE *fp, char *buf, int maxlen)
 }
 
 char **
-do_find (char *dir)
+do_find (const char *dir)
 {
   struct stat statbuf;
   int r, len, sysrootdirlen;
@@ -58,9 +58,6 @@ do_find (char *dir)
   int size = 0, alloc = 0;
   char *sysrootdir;
   char str[PATH_MAX];
-
-  NEED_ROOT (return NULL);
-  ABS_PATH (dir, return NULL);
 
   sysrootdir = sysroot_path (dir);
   if (!sysrootdir) {

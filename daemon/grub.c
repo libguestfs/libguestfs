@@ -26,14 +26,11 @@
 #include "actions.h"
 
 int
-do_grub_install (char *root, char *device)
+do_grub_install (const char *root, const char *device)
 {
   int r;
   char *err;
   char *buf;
-
-  NEED_ROOT (return -1);
-  ABS_PATH (root, return -1);
 
   if (asprintf_nowarn (&buf, "--root-directory=%R", root) == -1) {
     reply_with_perror ("asprintf");

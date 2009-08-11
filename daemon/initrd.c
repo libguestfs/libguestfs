@@ -28,7 +28,7 @@
 #include "actions.h"
 
 char **
-do_initrd_list (char *path)
+do_initrd_list (const char *path)
 {
   FILE *fp;
   char *cmd;
@@ -36,9 +36,6 @@ do_initrd_list (char *path)
   char **filenames = NULL;
   int size = 0, alloc = 0;
   size_t len;
-
-  NEED_ROOT (return NULL);
-  ABS_PATH (path, return NULL);
 
   /* "zcat /sysroot/<path> | cpio --quiet -it", but path must be quoted. */
   if (asprintf_nowarn (&cmd, "zcat %R | cpio --quiet -it", path) == -1) {

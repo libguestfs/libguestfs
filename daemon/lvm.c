@@ -32,7 +32,7 @@
  */
 
 static char **
-convert_lvm_output (char *out, char *prefix)
+convert_lvm_output (char *out, const char *prefix)
 {
   char *p, *pend;
   char **r = NULL;
@@ -171,7 +171,7 @@ do_lvs_full (void)
 }
 
 int
-do_pvcreate (char *device)
+do_pvcreate (const char *device)
 {
   char *err;
   int r;
@@ -192,7 +192,7 @@ do_pvcreate (char *device)
 }
 
 int
-do_vgcreate (char *volgroup, char **physvols)
+do_vgcreate (const char *volgroup, char **physvols)
 {
   char *err;
   int r, argc, i;
@@ -229,7 +229,7 @@ do_vgcreate (char *volgroup, char **physvols)
 }
 
 int
-do_lvcreate (char *logvol, char *volgroup, int mbytes)
+do_lvcreate (const char *logvol, const char *volgroup, int mbytes)
 {
   char *err;
   int r;
@@ -254,13 +254,11 @@ do_lvcreate (char *logvol, char *volgroup, int mbytes)
 }
 
 int
-do_lvresize (char *logvol, int mbytes)
+do_lvresize (const char *logvol, int mbytes)
 {
   char *err;
   int r;
   char size[64];
-
-  RESOLVE_DEVICE (logvol, return -1);
 
   snprintf (size, sizeof size, "%d", mbytes);
 
@@ -345,7 +343,7 @@ do_lvm_remove_all (void)
 }
 
 int
-do_lvremove (char *device)
+do_lvremove (const char *device)
 {
   char *err;
   int r;
@@ -366,7 +364,7 @@ do_lvremove (char *device)
 }
 
 int
-do_vgremove (char *device)
+do_vgremove (const char *device)
 {
   char *err;
   int r;
@@ -387,7 +385,7 @@ do_vgremove (char *device)
 }
 
 int
-do_pvremove (char *device)
+do_pvremove (const char *device)
 {
   char *err;
   int r;
@@ -408,7 +406,7 @@ do_pvremove (char *device)
 }
 
 int
-do_pvresize (char *device)
+do_pvresize (const char *device)
 {
   char *err;
   int r;

@@ -26,15 +26,12 @@
 #include "actions.h"
 
 char **
-do_strings_e (char *encoding, char *path)
+do_strings_e (const char *encoding, const char *path)
 {
   char *buf;
   int r;
   char *out, *err;
   char **lines;
-
-  NEED_ROOT (return NULL);
-  ABS_PATH (path, return NULL);
 
   buf = sysroot_path (path);
   if (!buf) {
@@ -64,7 +61,7 @@ do_strings_e (char *encoding, char *path)
 }
 
 char **
-do_strings (char *path)
+do_strings (const char *path)
 {
   return do_strings_e ("s", path);
 }

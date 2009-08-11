@@ -30,15 +30,12 @@
 #include "actions.h"
 
 char **
-do_ls (char *path)
+do_ls (const char *path)
 {
   char **r = NULL;
   int size = 0, alloc = 0;
   DIR *dir;
   struct dirent *d;
-
-  NEED_ROOT (return NULL);
-  ABS_PATH (path, return NULL);
 
   CHROOT_IN;
   dir = opendir (path);
@@ -84,14 +81,11 @@ do_ls (char *path)
  */
 
 char *
-do_ll (char *path)
+do_ll (const char *path)
 {
   int r;
   char *out, *err;
   char *spath;
-
-  NEED_ROOT (NULL);
-  ABS_PATH (path, NULL);
 
   spath = sysroot_path (path);
   if (!spath) {

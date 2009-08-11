@@ -28,16 +28,13 @@
 #include "actions.h"
 
 char *
-do_checksum (char *csumtype, char *path)
+do_checksum (const char *csumtype, const char *path)
 {
   const char *program;
   char *buf;
   char *out, *err;
   int r;
   int len;
-
-  NEED_ROOT (return NULL);
-  ABS_PATH (path, return NULL);
 
   if (strcasecmp (csumtype, "crc") == 0)
     program = "cksum";

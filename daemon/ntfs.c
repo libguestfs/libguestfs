@@ -27,7 +27,7 @@
 #include "actions.h"
 
 int
-do_ntfs_3g_probe (int rw, char *device)
+do_ntfs_3g_probe (int rw, const char *device)
 {
   char *err;
   int r;

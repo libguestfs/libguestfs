@@ -36,7 +36,7 @@ write_cb (void *fd_ptr, const void *buf, int len)
 
 /* Has one FileIn parameter. */
 int
-do_upload (char *filename)
+do_upload (const char *filename)
 {
   int err, fd, r, is_dev;
 
@@ -88,7 +88,7 @@ do_upload (char *filename)
 
 /* Has one FileOut parameter. */
 int
-do_download (char *filename)
+do_download (const char *filename)
 {
   int fd, r, is_dev;
   char buf[GUESTFS_MAX_CHUNK_SIZE];

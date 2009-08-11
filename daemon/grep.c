@@ -28,15 +28,12 @@
 #include "actions.h"
 
 static char **
-grep (const char *prog, const char *flag, char *regex, char *path)
+grep (const char *prog, const char *flag, const char *regex, const char *path)
 {
   char *buf;
   char *out, *err;
   int r;
   char **lines;
-
-  NEED_ROOT (return NULL);
-  ABS_PATH (path, return NULL);
 
   /* Make the path relative to /sysroot. */
   buf = sysroot_path (path);
@@ -67,74 +64,74 @@ grep (const char *prog, const char *flag, char *regex, char *path)
 }
 
 char **
-do_grep (char *regex, char *path)
+do_grep (const char *regex, const char *path)
 {
   /* The "--" is not really needed, but it helps when we don't need a flag. */
   return grep ("grep", "--", regex, path);
 }
 
 char **
-do_egrep (char *regex, char *path)
+do_egrep (const char *regex, const char *path)
 {
   return grep ("egrep", "--", regex, path);
 }
 
 char **
-do_fgrep (char *regex, char *path)
+do_fgrep (const char *regex, const char *path)
 {
   return grep ("fgrep", "--", regex, path);
 }
 
 char **
-do_grepi (char *regex, char *path)
+do_grepi (const char *regex, const char *path)
 {
   return grep ("grep", "-i", regex, path);
 }
 
 char **
-do_egrepi (char *regex, char *path)
+do_egrepi (const char *regex, const char *path)
 {
   return grep ("egrep", "-i", regex, path);
 }
 
 char **
-do_fgrepi (char *regex, char *path)
+do_fgrepi (const char *regex, const char *path)
 {
   return grep ("fgrep", "-i", regex, path);
 }
 
 char **
-do_zgrep (char *regex, char *path)
+do_zgrep (const char *regex, const char *path)
 {
   return grep ("zgrep", "--", regex, path);
 }
 
 char **
-do_zegrep (char *regex, char *path)
+do_zegrep (const char *regex, const char *path)
 {
   return grep ("zegrep", "--", regex, path);
 }
 
 char **
-do_zfgrep (char *regex, char *path)
+do_zfgrep (const char *regex, const char *path)
 {
   return grep ("zfgrep", "--", regex, path);
 }
 
 char **
-do_zgrepi (char *regex, char *path)
+do_zgrepi (const char *regex, const char *path)
 {
   return grep ("zgrep", "-i", regex, path);
 }
 
 char **
-do_zegrepi (char *regex, char *path)
+do_zegrepi (const char *regex, const char *path)
 {
   return grep ("zegrep", "-i", regex, path);
 }
 
 char **
-do_zfgrepi (char *regex, char *path)
+do_zfgrepi (const char *regex, const char *path)
 {
   return grep ("zfgrep", "-i", regex, path);
 }

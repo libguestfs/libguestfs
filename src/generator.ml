@@ -1008,7 +1008,7 @@ Note that this function cannot correctly handle binary files
 as end of line).  For those you need to use the C<guestfs_read_file>
 function which has a more complex interface.");
 
-  ("aug_init", (RErr, [String "root"; Int "flags"]), 16, [],
+  ("aug_init", (RErr, [Pathname "root"; Int "flags"]), 16, [],
    [], (* XXX Augeas code needs tests. *)
    "create a new Augeas handle",
    "\
@@ -2157,7 +2157,7 @@ any partition tables, filesystem superblocks and so on.
 
 See also: C<guestfs_scrub_device>.");
 
-  ("grub_install", (RErr, [String "root"; Device "device"]), 86, [],
+  ("grub_install", (RErr, [Pathname "root"; Device "device"]), 86, [],
    (* Test disabled because grub-install incompatible with virtio-blk driver.
     * See also: https://bugzilla.redhat.com/show_bug.cgi?id=479760
     *)
@@ -2253,7 +2253,7 @@ the qemu subprocess.  Calling this function checks that the
 daemon responds to the ping message, without affecting the daemon
 or attached block device(s) in any other way.");
 
-  ("equal", (RBool "equality", [String "file1"; String "file2"]), 93, [],
+  ("equal", (RBool "equality", [Pathname "file1"; Pathname "file2"]), 93, [],
    [InitBasicFS, Always, TestOutputTrue (
       [["write_file"; "/file1"; "contents of a file"; "0"];
        ["cp"; "/file1"; "/file2"];
@@ -2444,7 +2444,7 @@ C<resize2fs> sometimes gives an error about this and sometimes not.
 In any case, it is always safe to call C<guestfs_e2fsck_f> before
 calling this function.");
 
-  ("find", (RStringList "names", [String "directory"]), 107, [],
+  ("find", (RStringList "names", [Pathname "directory"]), 107, [],
    [InitBasicFS, Always, TestOutputList (
       [["find"; "/"]], ["lost+found"]);
     InitBasicFS, Always, TestOutputList (
@@ -2550,7 +2550,11 @@ into a list of lines.
 
 See also: C<guestfs_command_lines>");
 
-  ("glob_expand", (RStringList "paths", [String "pattern"]), 113, [],
+  ("glob_expand", (RStringList "paths", [Pathname "pattern"]), 113, [],
+   (* Use Pathname here, and hence ABS_PATH (pattern,... in generated
+    * code in stubs.c, since all valid glob patterns must start with "/".
+    * There is no concept of "cwd" in libguestfs, hence no "."-relative names.
+    *)
    [InitBasicFS, Always, TestOutputList (
       [["mkdir_p"; "/a/b/c"];
        ["touch"; "/a/b/c/d"];
@@ -2617,7 +2621,8 @@ containing C<dir>.
 It is an interface to the L<scrub(1)> program.  See that
 manual page for more details.");
 
-  ("mkdtemp", (RString "dir", [Pathname "template"]), 117, [],
+(* FIXME: make this a WritableString? *)
+  ("mkdtemp", (RString "dir", [String "template"]), 117, [],
    [InitBasicFS, Always, TestRun (
       [["mkdir"; "/tmp"];
        ["mkdtemp"; "/tmp/tmpXXXXXX"]])],
@@ -3026,7 +3031,12 @@ This call is similar to C<guestfs_mounts>.  That call returns
 a list of devices.  This one returns a hash table (map) of
 device name to directory where the device is mounted.");
 
-  ("mkmountpoint", (RErr, [Pathname "path"]), 148, [],
+  ("mkmountpoint", (RErr, [String "exemptpath"]), 148, [],
+  (* This is a special case: while you would expect a parameter
+   * of type "Pathname", that doesn't work, because it implies
+   * NEED_ROOT in the generated calling code in stubs.c, and
+   * this function cannot use NEED_ROOT.
+   *)
    [],
    "create a mountpoint",
    "\
@@ -3181,7 +3191,7 @@ matching lines.");
 Return the canonicalized absolute pathname of C<path>.  The
 returned path has no C<.>, C<..> or symbolic link path elements.");
 
-  ("ln", (RErr, [String "target"; String "linkname"]), 164, [],
+  ("ln", (RErr, [String "target"; Pathname "linkname"]), 164, [],
    [InitBasicFS, Always, TestOutputStruct (
       [["touch"; "/a"];
        ["ln"; "/a"; "/b"];
@@ -3190,7 +3200,7 @@ returned path has no C<.>, C<..> or symbolic link path elements.");
    "\
 This command creates a hard link using the C<ln> command.");
 
-  ("ln_f", (RErr, [String "target"; String "linkname"]), 165, [],
+  ("ln_f", (RErr, [String "target"; Pathname "linkname"]), 165, [],
    [InitBasicFS, Always, TestOutputStruct (
       [["touch"; "/a"];
        ["touch"; "/b"];
@@ -3201,7 +3211,7 @@ This command creates a hard link using the C<ln> command.");
 This command creates a hard link using the C<ln -f> command.
 The C<-f> option removes the link (C<linkname>) if it exists already.");
 
-  ("ln_s", (RErr, [String "target"; String "linkname"]), 166, [],
+  ("ln_s", (RErr, [String "target"; Pathname "linkname"]), 166, [],
    [InitBasicFS, Always, TestOutputStruct (
       [["touch"; "/a"];
        ["ln_s"; "a"; "/b"];
@@ -3210,7 +3220,7 @@ The C<-f> option removes the link (C<linkname>) if it exists already.");
    "\
 This command creates a symbolic link using the C<ln -s> command.");
 
-  ("ln_sf", (RErr, [String "target"; String "linkname"]), 167, [],
+  ("ln_sf", (RErr, [String "target"; Pathname "linkname"]), 167, [],
    [InitBasicFS, Always, TestOutput (
       [["mkdir_p"; "/a/b"];
        ["touch"; "/a/b/c"];
@@ -4726,8 +4736,8 @@ and generate_daemon_actions () =
            pr "  struct guestfs_%s_args args;\n" name;
            List.iter (
              function
-	     (* FIXME: eventually, make String "const", too *)
-             | Pathname n | Device n -> pr "  const char *%s;\n" n
+             | Device n -> pr "  const char *%s;\n" n
+             | Pathname n
              | String n
              | OptString n -> pr "  char *%s;\n" n
              | StringList n -> pr "  char **%s;\n" n
@@ -4750,7 +4760,7 @@ and generate_daemon_actions () =
            List.iter (
              function
              | Pathname n ->
-                 pr "  NEED_ROOT (goto done);\n";
+                 pr "  %s = args.%s;\n" n n;
                  pr "  ABS_PATH (%s, goto done);\n" n;
 	     | Device n ->
                  pr "  %s = args.%s;\n" n n;
@@ -4771,6 +4781,13 @@ and generate_daemon_actions () =
              | FileIn _ | FileOut _ -> ()
            ) args;
            pr "\n"
+      );
+
+      (* this is used at least for do_equal *)
+      if List.exists (function Pathname _ -> true | _ -> false) (snd style) then (
+        (* Emit NEED_ROOT just once, even when there are two or
+           more Pathname args *)
+        pr "  NEED_ROOT (goto done);\n";
       );
 
       (* Don't want to call the impl with any FileIn or FileOut

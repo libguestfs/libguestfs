@@ -30,12 +30,9 @@
 #include "actions.h"
 
 int
-do_rmdir (char *path)
+do_rmdir (const char *path)
 {
   int r;
-
-  NEED_ROOT (return -1);
-  ABS_PATH (path, return -1);
 
   CHROOT_IN;
   r = rmdir (path);
@@ -54,13 +51,10 @@ do_rmdir (char *path)
  * do stupid stuff, who are we to try to stop them?
  */
 int
-do_rm_rf (char *path)
+do_rm_rf (const char *path)
 {
   int r;
   char *buf, *err;
-
-  NEED_ROOT (return -1);
-  ABS_PATH (path, return -1);
 
   if (strcmp (path, "/") == 0) {
     reply_with_error ("rm -rf: cannot remove root directory");
@@ -89,12 +83,9 @@ do_rm_rf (char *path)
 }
 
 int
-do_mkdir (char *path)
+do_mkdir (const char *path)
 {
   int r;
-
-  NEED_ROOT (return -1);
-  ABS_PATH (path, return -1);
 
   CHROOT_IN;
   r = mkdir (path, 0777);
@@ -155,12 +146,9 @@ recursive_mkdir (const char *path)
 }
 
 int
-do_mkdir_p (char *path)
+do_mkdir_p (const char *path)
 {
   int r;
-
-  NEED_ROOT (return -1);
-  ABS_PATH (path, return -1);
 
   CHROOT_IN;
   r = recursive_mkdir (path);
@@ -175,13 +163,10 @@ do_mkdir_p (char *path)
 }
 
 int
-do_is_dir (char *path)
+do_is_dir (const char *path)
 {
   int r;
   struct stat buf;
-
-  NEED_ROOT (return -1);
-  ABS_PATH (path, return -1);
 
   CHROOT_IN;
   r = lstat (path, &buf);

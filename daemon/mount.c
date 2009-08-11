@@ -41,8 +41,8 @@ int root_mounted = 0;
  */
 
 int
-do_mount_vfs (char *options, char *vfstype,
-              char *device, char *mountpoint)
+do_mount_vfs (const char *options, const char *vfstype,
+              const char *device, const char *mountpoint)
 {
   int r, is_root;
   char *mp;
@@ -81,20 +81,20 @@ do_mount_vfs (char *options, char *vfstype,
 }
 
 int
-do_mount (char *device, char *mountpoint)
+do_mount (const char *device, const char *mountpoint)
 {
   return do_mount_vfs ("sync,noatime", NULL, device, mountpoint);
 }
 
 int
-do_mount_ro (char *device, char *mountpoint)
+do_mount_ro (const char *device, const char *mountpoint)
 {
   return do_mount_vfs ("ro", NULL, device, mountpoint);
 }
 
 int
-do_mount_options (char *options, char *device,
-                  char *mountpoint)
+do_mount_options (const char *options, const char *device,
+                  const char *mountpoint)
 {
   return do_mount_vfs (options, NULL, device, mountpoint);
 }
@@ -103,7 +103,7 @@ do_mount_options (char *options, char *device,
  * is kept updated.
  */
 int
-do_umount (char *pathordevice)
+do_umount (const char *pathordevice)
 {
   int freeit = 0, r;
   char *buf;
@@ -311,14 +311,11 @@ do_umount_all (void)
  * device.
  */
 int
-do_mount_loop (char *file, char *mountpoint)
+do_mount_loop (const char *file, const char *mountpoint)
 {
   int r;
   char *buf, *mp;
   char *error;
-
-  NEED_ROOT (return -1);
-  ABS_PATH (file, return -1);
 
   /* We have to prefix /sysroot on both the filename and the mountpoint. */
   mp = sysroot_path (mountpoint);
@@ -351,7 +348,7 @@ do_mount_loop (char *file, char *mountpoint)
  * mkmountpoint case) set the root_mounted flag.
  */
 int
-do_mkmountpoint (char *path)
+do_mkmountpoint (const char *path)
 {
   int r;
 
@@ -376,12 +373,9 @@ do_mkmountpoint (char *path)
 }
 
 int
-do_rmmountpoint (char *path)
+do_rmmountpoint (const char *path)
 {
   int r;
-
-  NEED_ROOT (return -1);
-  ABS_PATH (path, return -1);
 
   CHROOT_IN;
   r = rmdir (path);

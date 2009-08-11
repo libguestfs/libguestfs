@@ -28,7 +28,7 @@
 #include "actions.h"
 
 int
-do_scrub_device (char *device)
+do_scrub_device (const char *device)
 {
   char *err;
   int r;
@@ -46,14 +46,11 @@ do_scrub_device (char *device)
 }
 
 int
-do_scrub_file (char *file)
+do_scrub_file (const char *file)
 {
   char *buf;
   char *err;
   int r;
-
-  NEED_ROOT (return -1);
-  ABS_PATH (file, return -1);
 
   /* Make the path relative to /sysroot. */
   buf = sysroot_path (file);
@@ -76,14 +73,11 @@ do_scrub_file (char *file)
 }
 
 int
-do_scrub_freespace (char *dir)
+do_scrub_freespace (const char *dir)
 {
   char *buf;
   char *err;
   int r;
-
-  NEED_ROOT (return -1);
-  ABS_PATH (dir, return -1);
 
   /* Make the path relative to /sysroot. */
   buf = sysroot_path (dir);

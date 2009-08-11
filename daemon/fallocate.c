@@ -28,12 +28,9 @@
 #include "actions.h"
 
 int
-do_fallocate (char *path, int len)
+do_fallocate (const char *path, int len)
 {
   int fd, r;
-
-  NEED_ROOT (return -1);
-  ABS_PATH (path, return -1);
 
   CHROOT_IN;
   fd = open (path, O_WRONLY | O_CREAT | O_TRUNC | O_NOCTTY, 0666);

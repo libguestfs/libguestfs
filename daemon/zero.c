@@ -28,7 +28,7 @@
 #include "actions.h"
 
 int
-do_zero (char *device)
+do_zero (const char *device)
 {
   int fd, i;
   char buf[4096];

@@ -28,7 +28,7 @@
 #include "actions.h"
 
 int
-do_equal (char *file1, char *file2)
+do_equal (const char *file1, const char *file2)
 {
   char *file1buf, *file2buf;
   char *err;

@@ -35,12 +35,12 @@
 #endif
 #endif
 
-static guestfs_int_xattr_list *getxattrs (char *path, ssize_t (*listxattr) (const char *path, char *list, size_t size), ssize_t (*getxattr) (const char *path, const char *name, void *value, size_t size));
-static int _setxattr (char *xattr, char *val, int vallen, char *path, int (*setxattr) (const char *path, const char *name, const void *value, size_t size, int flags));
-static int _removexattr (char *xattr, char *path, int (*removexattr) (const char *path, const char *name));
+static guestfs_int_xattr_list *getxattrs (const char *path, ssize_t (*listxattr) (const char *path, char *list, size_t size), ssize_t (*getxattr) (const char *path, const char *name, void *value, size_t size));
+static int _setxattr (const char *xattr, const char *val, int vallen, const char *path, int (*setxattr) (const char *path, const char *name, const void *value, size_t size, int flags));
+static int _removexattr (const char *xattr, const char *path, int (*removexattr) (const char *path, const char *name));
 
 guestfs_int_xattr_list *
-do_getxattrs (char *path)
+do_getxattrs (const char *path)
 {
 #if defined(HAVE_LISTXATTR) && defined(HAVE_GETXATTR)
   return getxattrs (path, listxattr, getxattr);
@@ -51,7 +51,7 @@ do_getxattrs (char *path)
 }
 
 guestfs_int_xattr_list *
-do_lgetxattrs (char *path)
+do_lgetxattrs (const char *path)
 {
 #if defined(HAVE_LLISTXATTR) && defined(HAVE_LGETXATTR)
   return getxattrs (path, llistxattr, lgetxattr);
@@ -62,7 +62,7 @@ do_lgetxattrs (char *path)
 }
 
 int
-do_setxattr (char *xattr, char *val, int vallen, char *path)
+do_setxattr (const char *xattr, const char *val, int vallen, const char *path)
 {
 #if defined(HAVE_SETXATTR)
   return _setxattr (xattr, val, vallen, path, setxattr);
@@ -73,7 +73,7 @@ do_setxattr (char *xattr, char *val, int vallen, char *path)
 }
 
 int
-do_lsetxattr (char *xattr, char *val, int vallen, char *path)
+do_lsetxattr (const char *xattr, const char *val, int vallen, const char *path)
 {
 #if defined(HAVE_LSETXATTR)
   return _setxattr (xattr, val, vallen, path, lsetxattr);
@@ -84,7 +84,7 @@ do_lsetxattr (char *xattr, char *val, int vallen, char *path)
 }
 
 int
-do_removexattr (char *xattr, char *path)
+do_removexattr (const char *xattr, const char *path)
 {
 #if defined(HAVE_REMOVEXATTR)
   return _removexattr (xattr, path, removexattr);
@@ -95,7 +95,7 @@ do_removexattr (char *xattr, char *path)
 }
 
 int
-do_lremovexattr (char *xattr, char *path)
+do_lremovexattr (const char *xattr, const char *path)
 {
 #if defined(HAVE_LREMOVEXATTR)
   return _removexattr (xattr, path, lremovexattr);
@@ -106,7 +106,7 @@ do_lremovexattr (char *xattr, char *path)
 }
 
 static guestfs_int_xattr_list *
-getxattrs (char *path,
+getxattrs (const char *path,
            ssize_t (*listxattr) (const char *path, char *list, size_t size),
            ssize_t (*getxattr) (const char *path, const char *name,
                                 void *value, size_t size))
@@ -115,9 +115,6 @@ getxattrs (char *path,
   char *buf = NULL;
   int i, j;
   guestfs_int_xattr_list *r = NULL;
-
-  NEED_ROOT (return NULL);
-  ABS_PATH (path, return NULL);
 
   CHROOT_IN;
   len = listxattr (path, NULL, 0);
@@ -210,7 +207,7 @@ getxattrs (char *path,
 }
 
 static int
-_setxattr (char *xattr, char *val, int vallen, char *path,
+_setxattr (const char *xattr, const char *val, int vallen, const char *path,
            int (*setxattr) (const char *path, const char *name,
                             const void *value, size_t size, int flags))
 {
@@ -228,7 +225,7 @@ _setxattr (char *xattr, char *val, int vallen, char *path,
 }
 
 static int
-_removexattr (char *xattr, char *path,
+_removexattr (const char *xattr, const char *path,
               int (*removexattr) (const char *path, const char *name))
 {
   int r;
@@ -247,42 +244,42 @@ _removexattr (char *xattr, char *path,
 #else /* no xattr.h */
 
 guestfs_int_xattr_list *
-do_getxattrs (char *path)
+do_getxattrs (const char *path)
 {
   reply_with_error ("getxattrs: no support for xattrs");
   return NULL;
 }
 
 guestfs_int_xattr_list *
-do_lgetxattrs (char *path)
+do_lgetxattrs (const char *path)
 {
   reply_with_error ("lgetxattrs: no support for xattrs");
   return NULL;
 }
 
 int
-do_setxattr (char *xattr, char *val, int vallen, char *path)
+do_setxattr (const char *xattr, const char *val, int vallen, const char *path)
 {
   reply_with_error ("setxattr: no support for xattrs");
   return -1;
 }
 
 int
-do_lsetxattr (char *xattr, char *val, int vallen, char *path)
+do_lsetxattr (const char *xattr, const char *val, int vallen, const char *path)
 {
   reply_with_error ("lsetxattr: no support for xattrs");
   return -1;
 }
 
 int
-do_removexattr (char *xattr, char *path)
+do_removexattr (const char *xattr, const char *path)
 {
   reply_with_error ("removexattr: no support for xattrs");
   return -1;
 }
 
 int
-do_lremovexattr (char *xattr, char *path)
+do_lremovexattr (const char *xattr, const char *path)
 {
   reply_with_error ("lremovexattr: no support for xattrs");
   return -1;

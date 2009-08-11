@@ -28,7 +28,7 @@
 #include "actions.h"
 
 int
-do_zerofree (char *device)
+do_zerofree (const char *device)
 {
   char *err;
   int r;

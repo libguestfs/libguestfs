@@ -29,15 +29,12 @@
 #include "actions.h"
 
 int64_t
-do_du (char *path)
+do_du (const char *path)
 {
   int r;
   int64_t rv;
   char *out, *err;
   char *buf;
-
-  NEED_ROOT (return -1);
-  ABS_PATH (path, return -1);
 
   /* Make the path relative to /sysroot. */
   buf = sysroot_path (path);

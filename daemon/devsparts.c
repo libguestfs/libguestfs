@@ -188,7 +188,7 @@ do_list_partitions (void)
 }
 
 int
-do_mkfs (char *fstype, char *device)
+do_mkfs (const char *fstype, const char *device)
 {
   char *err;
   int r;

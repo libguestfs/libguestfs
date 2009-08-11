@@ -27,7 +27,7 @@
 #include "actions.h"
 
 int
-do_fsck (char *fstype, char *device)
+do_fsck (const char *fstype, const char *device)
 {
   char *err;
   int r;

@@ -28,14 +28,11 @@
 #include "actions.h"
 
 static int
-wc (char *flag, char *path)
+wc (char *flag, const char *path)
 {
   char *buf;
   char *out, *err;
   int r;
-
-  NEED_ROOT (return -1);
-  ABS_PATH (path, return -1);
 
   /* Make the path relative to /sysroot. */
   buf = sysroot_path (path);
@@ -73,19 +70,19 @@ wc (char *flag, char *path)
 }
 
 int
-do_wc_l (char *path)
+do_wc_l (const char *path)
 {
   return wc ("-l", path);
 }
 
 int
-do_wc_w (char *path)
+do_wc_w (const char *path)
 {
   return wc ("-w", path);
 }
 
 int
-do_wc_c (char *path)
+do_wc_c (const char *path)
 {
   return wc ("-c", path);
 }

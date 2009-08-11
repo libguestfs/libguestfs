@@ -37,7 +37,7 @@
  * - enforcing=0
  */
 int
-do_setcon (char *context)
+do_setcon (const char *context)
 {
 #ifdef HAVE_SETCON
   if (setcon ((char *) context) == -1) {

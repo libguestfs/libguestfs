@@ -36,7 +36,7 @@ fwrite_cb (void *fp_ptr, const void *buf, int len)
 
 /* Has one FileIn parameter. */
 int
-do_tar_in (char *dir)
+do_tar_in (const char *dir)
 {
   int err, r;
   FILE *fp;
@@ -99,15 +99,12 @@ do_tar_in (char *dir)
 
 /* Has one FileOut parameter. */
 int
-do_tar_out (char *dir)
+do_tar_out (const char *dir)
 {
   int r;
   FILE *fp;
   char *cmd;
   char buf[GUESTFS_MAX_CHUNK_SIZE];
-
-  NEED_ROOT (return -1);
-  ABS_PATH (dir, return -1);
 
   /* "tar -C /sysroot%s -cf - ." but we have to quote the dir. */
   if (asprintf_nowarn (&cmd, "tar -C %R -cf - .", dir) == -1) {
@@ -158,7 +155,7 @@ do_tar_out (char *dir)
 
 /* Has one FileIn parameter. */
 int
-do_tgz_in (char *dir)
+do_tgz_in (const char *dir)
 {
   int err, r;
   FILE *fp;
@@ -221,15 +218,12 @@ do_tgz_in (char *dir)
 
 /* Has one FileOut parameter. */
 int
-do_tgz_out (char *dir)
+do_tgz_out (const char *dir)
 {
   int r;
   FILE *fp;
   char *cmd;
   char buf[GUESTFS_MAX_CHUNK_SIZE];
-
-  NEED_ROOT (return -1);
-  ABS_PATH (dir, return -1);
 
   /* "tar -C /sysroot%s -zcf - ." but we have to quote the dir. */
   if (asprintf_nowarn (&cmd, "tar -C %R -zcf - .", dir) == -1) {
