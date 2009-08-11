@@ -4736,9 +4736,9 @@ and generate_daemon_actions () =
            pr "  struct guestfs_%s_args args;\n" name;
            List.iter (
              function
-             | Device n -> pr "  const char *%s;\n" n
+             | Device n
              | Pathname n
-             | String n
+             | String n -> ()
              | OptString n -> pr "  char *%s;\n" n
              | StringList n -> pr "  char **%s;\n" n
              | Bool n -> pr "  int %s;\n" n
@@ -4760,12 +4760,12 @@ and generate_daemon_actions () =
            List.iter (
              function
              | Pathname n ->
-                 pr "  %s = args.%s;\n" n n;
+                 pr "  char *%s = args.%s;\n" n n;
                  pr "  ABS_PATH (%s, goto done);\n" n;
 	     | Device n ->
-                 pr "  %s = args.%s;\n" n n;
+                 pr "  char *%s = args.%s;\n" n n;
                  pr "  RESOLVE_DEVICE (%s, goto done);" n;
-             | String n -> pr "  %s = args.%s;\n" n n
+             | String n -> pr "  char *%s = args.%s;\n" n n
              | OptString n -> pr "  %s = args.%s ? *args.%s : NULL;\n" n n n
              | StringList n ->
                  pr "  %s = realloc (args.%s.%s_val,\n" n n n;
