@@ -44,6 +44,7 @@ lvm vgchange -ay --ignorelockingfailure
 
 # Keep these to enhance the usefulness of debug output.
 ls -l /dev
+cat /proc/mounts
 lvm pvs
 lvm vgs
 lvm lvs
