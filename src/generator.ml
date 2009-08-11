@@ -135,6 +135,7 @@ and args = argt list	(* Function parameters, guestfs handle is implicit. *)
 and argt =
   | String of string	(* const char *name, cannot be NULL *)
   | Device of string	(* /dev device name, cannot be NULL *)
+  | Pathname of string	(* file name, cannot be NULL *)
   | OptString of string	(* const char *name, may be NULL *)
   | StringList of string(* list of strings (each string cannot be NULL) *)
   | Bool of string	(* boolean *)
@@ -534,7 +535,7 @@ Return the current qemu binary.
 This is always non-NULL.  If it wasn't set already, then this will
 return the default qemu binary name.");
 
-  ("set_path", (RErr, [String "path"]), -1, [FishAlias "path"],
+  ("set_path", (RErr, [String "searchpath"]), -1, [FishAlias "path"],
    [],
    "set the search path",
    "\
@@ -832,7 +833,7 @@ underlying disk image.
 You should always call this if you have modified a disk image, before
 closing the handle.");
 
-  ("touch", (RErr, [String "path"]), 3, [],
+  ("touch", (RErr, [Pathname "path"]), 3, [],
    [InitBasicFS, Always, TestOutputTrue (
       [["touch"; "/new"];
        ["exists"; "/new"]])],
@@ -842,7 +843,7 @@ Touch acts like the L<touch(1)> command.  It can be used to
 update the timestamps on a file, or, if the file does not exist,
 to create a new zero-length file.");
 
-  ("cat", (RString "content", [String "path"]), 4, [ProtocolLimitWarning],
+  ("cat", (RString "content", [Pathname "path"]), 4, [ProtocolLimitWarning],
    [InitSquashFS, Always, TestOutput (
       [["cat"; "/known-2"]], "abcdef\n")],
    "list the contents of a file",
@@ -990,7 +991,7 @@ of the L<vgs(8)> command.  The \"full\" version includes all fields.");
 List all the logical volumes detected.  This is the equivalent
 of the L<lvs(8)> command.  The \"full\" version includes all fields.");
 
-  ("read_lines", (RStringList "lines", [String "path"]), 15, [],
+  ("read_lines", (RStringList "lines", [Pathname "path"]), 15, [],
    [InitSquashFS, Always, TestOutputList (
       [["read_lines"; "/known-4"]], ["abc"; "def"; "ghi"]);
     InitSquashFS, Always, TestOutputList (
@@ -1093,20 +1094,20 @@ On success this returns a pair containing the
 number of nodes in the nodeset, and a boolean flag
 if a node was created.");
 
-  ("aug_get", (RString "val", [String "path"]), 19, [],
+  ("aug_get", (RString "val", [String "augpath"]), 19, [],
    [], (* XXX Augeas code needs tests. *)
    "look up the value of an Augeas path",
    "\
 Look up the value associated with C<path>.  If C<path>
 matches exactly one node, the C<value> is returned.");
 
-  ("aug_set", (RErr, [String "path"; String "val"]), 20, [],
+  ("aug_set", (RErr, [String "augpath"; String "val"]), 20, [],
    [], (* XXX Augeas code needs tests. *)
    "set Augeas path to value",
    "\
 Set the value associated with C<path> to C<value>.");
 
-  ("aug_insert", (RErr, [String "path"; String "label"; Bool "before"]), 21, [],
+  ("aug_insert", (RErr, [String "augpath"; String "label"; Bool "before"]), 21, [],
    [], (* XXX Augeas code needs tests. *)
    "insert a sibling Augeas node",
    "\
@@ -1118,7 +1119,7 @@ C<path> must match exactly one existing node in the tree, and
 C<label> must be a label, ie. not contain C</>, C<*> or end
 with a bracketed index C<[N]>.");
 
-  ("aug_rm", (RInt "nrnodes", [String "path"]), 22, [],
+  ("aug_rm", (RInt "nrnodes", [String "augpath"]), 22, [],
    [], (* XXX Augeas code needs tests. *)
    "remove an Augeas path",
    "\
@@ -1133,9 +1134,9 @@ On success this returns the number of entries which were removed.");
 Move the node C<src> to C<dest>.  C<src> must match exactly
 one node.  C<dest> is overwritten if it exists.");
 
-  ("aug_match", (RStringList "matches", [String "path"]), 24, [],
+  ("aug_match", (RStringList "matches", [String "augpath"]), 24, [],
    [], (* XXX Augeas code needs tests. *)
-   "return Augeas nodes which match path",
+   "return Augeas nodes which match augpath",
    "\
 Returns a list of paths which match the path expression C<path>.
 The returned paths are sufficiently qualified so that they match
@@ -1159,14 +1160,14 @@ Load files into the tree.
 See C<aug_load> in the Augeas documentation for the full gory
 details.");
 
-  ("aug_ls", (RStringList "matches", [String "path"]), 28, [],
+  ("aug_ls", (RStringList "matches", [String "augpath"]), 28, [],
    [], (* XXX Augeas code needs tests. *)
-   "list Augeas nodes under a path",
+   "list Augeas nodes under augpath",
    "\
 This is just a shortcut for listing C<guestfs_aug_match>
 C<path/*> and sorting the resulting nodes into alphabetical order.");
 
-  ("rm", (RErr, [String "path"]), 29, [],
+  ("rm", (RErr, [Pathname "path"]), 29, [],
    [InitBasicFS, Always, TestRun
       [["touch"; "/new"];
        ["rm"; "/new"]];
@@ -1179,7 +1180,7 @@ C<path/*> and sorting the resulting nodes into alphabetical order.");
    "\
 Remove the single file C<path>.");
 
-  ("rmdir", (RErr, [String "path"]), 30, [],
+  ("rmdir", (RErr, [Pathname "path"]), 30, [],
    [InitBasicFS, Always, TestRun
       [["mkdir"; "/new"];
        ["rmdir"; "/new"]];
@@ -1192,7 +1193,7 @@ Remove the single file C<path>.");
    "\
 Remove the single directory C<path>.");
 
-  ("rm_rf", (RErr, [String "path"]), 31, [],
+  ("rm_rf", (RErr, [Pathname "path"]), 31, [],
    [InitBasicFS, Always, TestOutputFalse
       [["mkdir"; "/new"];
        ["mkdir"; "/new/foo"];
@@ -1205,7 +1206,7 @@ Remove the file or directory C<path>, recursively removing the
 contents if its a directory.  This is like the C<rm -rf> shell
 command.");
 
-  ("mkdir", (RErr, [String "path"]), 32, [],
+  ("mkdir", (RErr, [Pathname "path"]), 32, [],
    [InitBasicFS, Always, TestOutputTrue
       [["mkdir"; "/new"];
        ["is_dir"; "/new"]];
@@ -1215,7 +1216,7 @@ command.");
    "\
 Create a directory named C<path>.");
 
-  ("mkdir_p", (RErr, [String "path"]), 33, [],
+  ("mkdir_p", (RErr, [Pathname "path"]), 33, [],
    [InitBasicFS, Always, TestOutputTrue
       [["mkdir_p"; "/new/foo/bar"];
        ["is_dir"; "/new/foo/bar"]];
@@ -1237,14 +1238,14 @@ Create a directory named C<path>.");
 Create a directory named C<path>, creating any parent directories
 as necessary.  This is like the C<mkdir -p> shell command.");
 
-  ("chmod", (RErr, [Int "mode"; String "path"]), 34, [],
+  ("chmod", (RErr, [Int "mode"; Pathname "path"]), 34, [],
    [], (* XXX Need stat command to test *)
    "change file mode",
    "\
 Change the mode (permissions) of C<path> to C<mode>.  Only
 numeric modes are supported.");
 
-  ("chown", (RErr, [Int "owner"; Int "group"; String "path"]), 35, [],
+  ("chown", (RErr, [Int "owner"; Int "group"; Pathname "path"]), 35, [],
    [], (* XXX Need stat command to test *)
    "change file owner and group",
    "\
@@ -1254,7 +1255,7 @@ Only numeric uid and gid are supported.  If you want to use
 names, you will need to locate and parse the password file
 yourself (Augeas support makes this relatively easy).");
 
-  ("exists", (RBool "existsflag", [String "path"]), 36, [],
+  ("exists", (RBool "existsflag", [Pathname "path"]), 36, [],
    [InitSquashFS, Always, TestOutputTrue (
       [["exists"; "/empty"]]);
     InitSquashFS, Always, TestOutputTrue (
@@ -1266,7 +1267,7 @@ This returns C<true> if and only if there is a file, directory
 
 See also C<guestfs_is_file>, C<guestfs_is_dir>, C<guestfs_stat>.");
 
-  ("is_file", (RBool "fileflag", [String "path"]), 37, [],
+  ("is_file", (RBool "fileflag", [Pathname "path"]), 37, [],
    [InitSquashFS, Always, TestOutputTrue (
       [["is_file"; "/known-1"]]);
     InitSquashFS, Always, TestOutputFalse (
@@ -1279,7 +1280,7 @@ other objects like directories.
 
 See also C<guestfs_stat>.");
 
-  ("is_dir", (RBool "dirflag", [String "path"]), 38, [],
+  ("is_dir", (RBool "dirflag", [Pathname "path"]), 38, [],
    [InitSquashFS, Always, TestOutputFalse (
       [["is_dir"; "/known-3"]]);
     InitSquashFS, Always, TestOutputTrue (
@@ -1381,7 +1382,7 @@ the string C<,> (comma).
 
 See also: C<guestfs_sfdisk_l>, C<guestfs_sfdisk_N>");
 
-  ("write_file", (RErr, [String "path"; String "content"; Int "size"]), 44, [ProtocolLimitWarning],
+  ("write_file", (RErr, [Pathname "path"; String "content"; Int "size"]), 44, [ProtocolLimitWarning],
    [InitBasicFS, Always, TestOutput (
       [["write_file"; "/new"; "new file contents"; "0"];
        ["cat"; "/new"]], "new file contents");
@@ -1476,7 +1477,7 @@ Some internal mounts are not unmounted by this call.");
 This command removes all LVM logical volumes, volume groups
 and physical volumes.");
 
-  ("file", (RString "description", [String "path"]), 49, [],
+  ("file", (RString "description", [Pathname "path"]), 49, [],
    [InitSquashFS, Always, TestOutput (
       [["file"; "/empty"]], "empty");
     InitSquashFS, Always, TestOutput (
@@ -1629,7 +1630,7 @@ result into a list of lines.
 
 See also: C<guestfs_sh_lines>");
 
-  ("stat", (RStruct ("statbuf", "stat"), [String "path"]), 52, [],
+  ("stat", (RStruct ("statbuf", "stat"), [Pathname "path"]), 52, [],
    [InitSquashFS, Always, TestOutputStruct (
       [["stat"; "/empty"]], [CompareWithInt ("size", 0)])],
    "get file information",
@@ -1638,7 +1639,7 @@ Returns file information for the given C<path>.
 
 This is the same as the C<stat(2)> system call.");
 
-  ("lstat", (RStruct ("statbuf", "stat"), [String "path"]), 53, [],
+  ("lstat", (RStruct ("statbuf", "stat"), [Pathname "path"]), 53, [],
    [InitSquashFS, Always, TestOutputStruct (
       [["lstat"; "/empty"]], [CompareWithInt ("size", 0)])],
    "get file information for a symbolic link",
@@ -1651,7 +1652,7 @@ refers to.
 
 This is the same as the C<lstat(2)> system call.");
 
-  ("statvfs", (RStruct ("statbuf", "statvfs"), [String "path"]), 54, [],
+  ("statvfs", (RStruct ("statbuf", "statvfs"), [Pathname "path"]), 54, [],
    [InitSquashFS, Always, TestOutputStruct (
       [["statvfs"; "/"]], [CompareWithInt ("namemax", 256)])],
    "get file system statistics",
@@ -1817,7 +1818,7 @@ C<filename> can also be a named pipe.
 
 See also C<guestfs_upload>, C<guestfs_cat>.");
 
-  ("checksum", (RString "checksum", [String "csumtype"; String "path"]), 68, [],
+  ("checksum", (RString "checksum", [String "csumtype"; Pathname "path"]), 68, [],
    [InitSquashFS, Always, TestOutput (
       [["checksum"; "crc"; "/known-3"]], "2891671662");
     InitSquashFS, Always, TestLastFail (
@@ -2270,7 +2271,7 @@ true if their content is exactly equal, or false otherwise.
 
 The external L<cmp(1)> program is used for the comparison.");
 
-  ("strings", (RStringList "stringsout", [String "path"]), 94, [ProtocolLimitWarning],
+  ("strings", (RStringList "stringsout", [Pathname "path"]), 94, [ProtocolLimitWarning],
    [InitSquashFS, Always, TestOutputList (
       [["strings"; "/known-5"]], ["abcdefghi"; "jklmnopqr"]);
     InitSquashFS, Always, TestOutputList (
@@ -2280,7 +2281,7 @@ The external L<cmp(1)> program is used for the comparison.");
 This runs the L<strings(1)> command on a file and returns
 the list of printable strings found.");
 
-  ("strings_e", (RStringList "stringsout", [String "encoding"; String "path"]), 95, [ProtocolLimitWarning],
+  ("strings_e", (RStringList "stringsout", [String "encoding"; Pathname "path"]), 95, [ProtocolLimitWarning],
    [InitSquashFS, Always, TestOutputList (
       [["strings_e"; "b"; "/known-5"]], []);
     InitBasicFS, Disabled, TestOutputList (
@@ -2298,7 +2299,7 @@ show strings inside Windows/x86 files.
 
 The returned strings are transcoded to UTF-8.");
 
-  ("hexdump", (RString "dump", [String "path"]), 96, [ProtocolLimitWarning],
+  ("hexdump", (RString "dump", [Pathname "path"]), 96, [ProtocolLimitWarning],
    [InitSquashFS, Always, TestOutput (
       [["hexdump"; "/known-4"]], "00000000  61 62 63 0a 64 65 66 0a  67 68 69                 |abc.def.ghi|\n0000000b\n");
     (* Test for RHBZ#501888c2 regression which caused large hexdump
@@ -2616,7 +2617,7 @@ containing C<dir>.
 It is an interface to the L<scrub(1)> program.  See that
 manual page for more details.");
 
-  ("mkdtemp", (RString "dir", [String "template"]), 117, [],
+  ("mkdtemp", (RString "dir", [Pathname "template"]), 117, [],
    [InitBasicFS, Always, TestRun (
       [["mkdir"; "/tmp"];
        ["mkdtemp"; "/tmp/tmpXXXXXX"]])],
@@ -2641,7 +2642,7 @@ directory and its contents after use.
 
 See also: L<mkdtemp(3)>");
 
-  ("wc_l", (RInt "lines", [String "path"]), 118, [],
+  ("wc_l", (RInt "lines", [Pathname "path"]), 118, [],
    [InitSquashFS, Always, TestOutputInt (
       [["wc_l"; "/10klines"]], 10000)],
    "count lines in a file",
@@ -2649,7 +2650,7 @@ See also: L<mkdtemp(3)>");
 This command counts the lines in a file, using the
 C<wc -l> external command.");
 
-  ("wc_w", (RInt "words", [String "path"]), 119, [],
+  ("wc_w", (RInt "words", [Pathname "path"]), 119, [],
    [InitSquashFS, Always, TestOutputInt (
       [["wc_w"; "/10klines"]], 10000)],
    "count words in a file",
@@ -2657,7 +2658,7 @@ C<wc -l> external command.");
 This command counts the words in a file, using the
 C<wc -w> external command.");
 
-  ("wc_c", (RInt "chars", [String "path"]), 120, [],
+  ("wc_c", (RInt "chars", [Pathname "path"]), 120, [],
    [InitSquashFS, Always, TestOutputInt (
       [["wc_c"; "/100kallspaces"]], 102400)],
    "count characters in a file",
@@ -2665,7 +2666,7 @@ C<wc -w> external command.");
 This command counts the characters in a file, using the
 C<wc -c> external command.");
 
-  ("head", (RStringList "lines", [String "path"]), 121, [ProtocolLimitWarning],
+  ("head", (RStringList "lines", [Pathname "path"]), 121, [ProtocolLimitWarning],
    [InitSquashFS, Always, TestOutputList (
       [["head"; "/10klines"]], ["0abcdefghijklmnopqrstuvwxyz";"1abcdefghijklmnopqrstuvwxyz";"2abcdefghijklmnopqrstuvwxyz";"3abcdefghijklmnopqrstuvwxyz";"4abcdefghijklmnopqrstuvwxyz";"5abcdefghijklmnopqrstuvwxyz";"6abcdefghijklmnopqrstuvwxyz";"7abcdefghijklmnopqrstuvwxyz";"8abcdefghijklmnopqrstuvwxyz";"9abcdefghijklmnopqrstuvwxyz"])],
    "return first 10 lines of a file",
@@ -2673,7 +2674,7 @@ C<wc -c> external command.");
 This command returns up to the first 10 lines of a file as
 a list of strings.");
 
-  ("head_n", (RStringList "lines", [Int "nrlines"; String "path"]), 122, [ProtocolLimitWarning],
+  ("head_n", (RStringList "lines", [Int "nrlines"; Pathname "path"]), 122, [ProtocolLimitWarning],
    [InitSquashFS, Always, TestOutputList (
       [["head_n"; "3"; "/10klines"]], ["0abcdefghijklmnopqrstuvwxyz";"1abcdefghijklmnopqrstuvwxyz";"2abcdefghijklmnopqrstuvwxyz"]);
     InitSquashFS, Always, TestOutputList (
@@ -2690,7 +2691,7 @@ from the file C<path>, excluding the last C<nrlines> lines.
 
 If the parameter C<nrlines> is zero, this returns an empty list.");
 
-  ("tail", (RStringList "lines", [String "path"]), 123, [ProtocolLimitWarning],
+  ("tail", (RStringList "lines", [Pathname "path"]), 123, [ProtocolLimitWarning],
    [InitSquashFS, Always, TestOutputList (
       [["tail"; "/10klines"]], ["9990abcdefghijklmnopqrstuvwxyz";"9991abcdefghijklmnopqrstuvwxyz";"9992abcdefghijklmnopqrstuvwxyz";"9993abcdefghijklmnopqrstuvwxyz";"9994abcdefghijklmnopqrstuvwxyz";"9995abcdefghijklmnopqrstuvwxyz";"9996abcdefghijklmnopqrstuvwxyz";"9997abcdefghijklmnopqrstuvwxyz";"9998abcdefghijklmnopqrstuvwxyz";"9999abcdefghijklmnopqrstuvwxyz"])],
    "return last 10 lines of a file",
@@ -2698,7 +2699,7 @@ If the parameter C<nrlines> is zero, this returns an empty list.");
 This command returns up to the last 10 lines of a file as
 a list of strings.");
 
-  ("tail_n", (RStringList "lines", [Int "nrlines"; String "path"]), 124, [ProtocolLimitWarning],
+  ("tail_n", (RStringList "lines", [Int "nrlines"; Pathname "path"]), 124, [ProtocolLimitWarning],
    [InitSquashFS, Always, TestOutputList (
       [["tail_n"; "3"; "/10klines"]], ["9997abcdefghijklmnopqrstuvwxyz";"9998abcdefghijklmnopqrstuvwxyz";"9999abcdefghijklmnopqrstuvwxyz"]);
     InitSquashFS, Always, TestOutputList (
@@ -2740,7 +2741,7 @@ This command is mostly useful for interactive sessions.  It
 is I<not> intended that you try to parse the output string.
 Use C<statvfs> from programs.");
 
-  ("du", (RInt64 "sizekb", [String "path"]), 127, [],
+  ("du", (RInt64 "sizekb", [Pathname "path"]), 127, [],
    [InitSquashFS, Always, TestOutputInt (
       [["du"; "/directory"]], 0 (* squashfs doesn't have blocks *))],
    "estimate file space usage",
@@ -2755,7 +2756,7 @@ subdirectories (recursively).
 The result is the estimated size in I<kilobytes>
 (ie. units of 1024 bytes).");
 
-  ("initrd_list", (RStringList "filenames", [String "path"]), 128, [],
+  ("initrd_list", (RStringList "filenames", [Pathname "path"]), 128, [],
    [InitSquashFS, Always, TestOutputList (
       [["initrd_list"; "/initrd"]], ["empty";"known-1";"known-2";"known-3";"known-4"; "known-5"])],
    "list files in an initrd",
@@ -2806,7 +2807,7 @@ a limitation of the kernel or swap tools.");
    "\
 Create a swap partition on C<device> with UUID C<uuid>.");
 
-  ("mknod", (RErr, [Int "mode"; Int "devmajor"; Int "devminor"; String "path"]), 133, [],
+  ("mknod", (RErr, [Int "mode"; Int "devmajor"; Int "devminor"; Pathname "path"]), 133, [],
    [InitBasicFS, Always, TestOutputStruct (
       [["mknod"; "0o10777"; "0"; "0"; "/node"];
        (* NB: default umask 022 means 0777 -> 0755 in these tests *)
@@ -2824,7 +2825,7 @@ constants.  C<devmajor> and C<devminor> are the
 device major and minor numbers, only used when creating block
 and character special devices.");
 
-  ("mkfifo", (RErr, [Int "mode"; String "path"]), 134, [],
+  ("mkfifo", (RErr, [Int "mode"; Pathname "path"]), 134, [],
    [InitBasicFS, Always, TestOutputStruct (
       [["mkfifo"; "0o777"; "/node"];
        ["stat"; "/node"]], [CompareWithInt ("mode", 0o10755)])],
@@ -2834,7 +2835,7 @@ This call creates a FIFO (named pipe) called C<path> with
 mode C<mode>.  It is just a convenient wrapper around
 C<guestfs_mknod>.");
 
-  ("mknod_b", (RErr, [Int "mode"; Int "devmajor"; Int "devminor"; String "path"]), 135, [],
+  ("mknod_b", (RErr, [Int "mode"; Int "devmajor"; Int "devminor"; Pathname "path"]), 135, [],
    [InitBasicFS, Always, TestOutputStruct (
       [["mknod_b"; "0o777"; "99"; "66"; "/node"];
        ["stat"; "/node"]], [CompareWithInt ("mode", 0o60755)])],
@@ -2844,7 +2845,7 @@ This call creates a block device node called C<path> with
 mode C<mode> and device major/minor C<devmajor> and C<devminor>.
 It is just a convenient wrapper around C<guestfs_mknod>.");
 
-  ("mknod_c", (RErr, [Int "mode"; Int "devmajor"; Int "devminor"; String "path"]), 136, [],
+  ("mknod_c", (RErr, [Int "mode"; Int "devmajor"; Int "devminor"; Pathname "path"]), 136, [],
    [InitBasicFS, Always, TestOutputStruct (
       [["mknod_c"; "0o777"; "99"; "66"; "/node"];
        ["stat"; "/node"]], [CompareWithInt ("mode", 0o20755)])],
@@ -2946,7 +2947,7 @@ were rarely if ever used anyway.
 
 See also C<guestfs_sfdisk> and the L<sfdisk(8)> manpage.");
 
-  ("zfile", (RString "description", [String "method"; String "path"]), 140, [DeprecatedBy "file"],
+  ("zfile", (RString "description", [String "method"; Pathname "path"]), 140, [DeprecatedBy "file"],
    [],
    "determine file type inside a compressed file",
    "\
@@ -2958,7 +2959,7 @@ C<method> must be one of C<gzip>, C<compress> or C<bzip2>.
 Since 1.0.63, use C<guestfs_file> instead which can now
 process compressed files.");
 
-  ("getxattrs", (RStructList ("xattrs", "xattr"), [String "path"]), 141, [],
+  ("getxattrs", (RStructList ("xattrs", "xattr"), [Pathname "path"]), 141, [],
    [],
    "list extended attributes of a file or directory",
    "\
@@ -2970,7 +2971,7 @@ L<listxattr(2)> and L<getxattr(2)> calls.
 
 See also: C<guestfs_lgetxattrs>, L<attr(5)>.");
 
-  ("lgetxattrs", (RStructList ("xattrs", "xattr"), [String "path"]), 142, [],
+  ("lgetxattrs", (RStructList ("xattrs", "xattr"), [Pathname "path"]), 142, [],
    [],
    "list extended attributes of a file or directory",
    "\
@@ -2980,7 +2981,7 @@ of the link itself.");
 
   ("setxattr", (RErr, [String "xattr";
                        String "val"; Int "vallen"; (* will be BufferIn *)
-                       String "path"]), 143, [],
+                       Pathname "path"]), 143, [],
    [],
    "set extended attribute of a file or directory",
    "\
@@ -2992,7 +2993,7 @@ See also: C<guestfs_lsetxattr>, L<attr(5)>.");
 
   ("lsetxattr", (RErr, [String "xattr";
                         String "val"; Int "vallen"; (* will be BufferIn *)
-                        String "path"]), 144, [],
+                        Pathname "path"]), 144, [],
    [],
    "set extended attribute of a file or directory",
    "\
@@ -3000,7 +3001,7 @@ This is the same as C<guestfs_setxattr>, but if C<path>
 is a symbolic link, then it sets an extended attribute
 of the link itself.");
 
-  ("removexattr", (RErr, [String "xattr"; String "path"]), 145, [],
+  ("removexattr", (RErr, [String "xattr"; Pathname "path"]), 145, [],
    [],
    "remove extended attribute of a file or directory",
    "\
@@ -3009,7 +3010,7 @@ of the file C<path>.
 
 See also: C<guestfs_lremovexattr>, L<attr(5)>.");
 
-  ("lremovexattr", (RErr, [String "xattr"; String "path"]), 146, [],
+  ("lremovexattr", (RErr, [String "xattr"; Pathname "path"]), 146, [],
    [],
    "remove extended attribute of a file or directory",
    "\
@@ -3025,7 +3026,7 @@ This call is similar to C<guestfs_mounts>.  That call returns
 a list of devices.  This one returns a hash table (map) of
 device name to directory where the device is mounted.");
 
-  ("mkmountpoint", (RErr, [String "path"]), 148, [],
+  ("mkmountpoint", (RErr, [Pathname "path"]), 148, [],
    [],
    "create a mountpoint",
    "\
@@ -3053,7 +3054,7 @@ in guestfish:
 
 The inner filesystem is now unpacked under the /ext3 mountpoint.");
 
-  ("rmmountpoint", (RErr, [String "path"]), 149, [],
+  ("rmmountpoint", (RErr, [String "exemptpath"]), 149, [],
    [],
    "remove a mountpoint",
    "\
@@ -3061,7 +3062,7 @@ This calls removes a mountpoint that was previously created
 with C<guestfs_mkmountpoint>.  See C<guestfs_mkmountpoint>
 for full details.");
 
-  ("read_file", (RBufferOut "content", [String "path"]), 150, [ProtocolLimitWarning],
+  ("read_file", (RBufferOut "content", [Pathname "path"]), 150, [ProtocolLimitWarning],
    [InitSquashFS, Always, TestOutputBuffer (
       [["read_file"; "/known-4"]], "abc\ndef\nghi")],
    "read a file",
@@ -3074,7 +3075,7 @@ handle files that contain embedded ASCII NUL characters.
 However unlike C<guestfs_download>, this function is limited
 in the total size of file that can be handled.");
 
-  ("grep", (RStringList "lines", [String "regex"; String "path"]), 151, [ProtocolLimitWarning],
+  ("grep", (RStringList "lines", [String "regex"; Pathname "path"]), 151, [ProtocolLimitWarning],
    [InitSquashFS, Always, TestOutputList (
       [["grep"; "abc"; "/test-grep.txt"]], ["abc"; "abc123"]);
     InitSquashFS, Always, TestOutputList (
@@ -3084,7 +3085,7 @@ in the total size of file that can be handled.");
 This calls the external C<grep> program and returns the
 matching lines.");
 
-  ("egrep", (RStringList "lines", [String "regex"; String "path"]), 152, [ProtocolLimitWarning],
+  ("egrep", (RStringList "lines", [String "regex"; Pathname "path"]), 152, [ProtocolLimitWarning],
    [InitSquashFS, Always, TestOutputList (
       [["egrep"; "abc"; "/test-grep.txt"]], ["abc"; "abc123"])],
    "return lines matching a pattern",
@@ -3092,7 +3093,7 @@ matching lines.");
 This calls the external C<egrep> program and returns the
 matching lines.");
 
-  ("fgrep", (RStringList "lines", [String "pattern"; String "path"]), 153, [ProtocolLimitWarning],
+  ("fgrep", (RStringList "lines", [String "pattern"; Pathname "path"]), 153, [ProtocolLimitWarning],
    [InitSquashFS, Always, TestOutputList (
       [["fgrep"; "abc"; "/test-grep.txt"]], ["abc"; "abc123"])],
    "return lines matching a pattern",
@@ -3100,7 +3101,7 @@ matching lines.");
 This calls the external C<fgrep> program and returns the
 matching lines.");
 
-  ("grepi", (RStringList "lines", [String "regex"; String "path"]), 154, [ProtocolLimitWarning],
+  ("grepi", (RStringList "lines", [String "regex"; Pathname "path"]), 154, [ProtocolLimitWarning],
    [InitSquashFS, Always, TestOutputList (
       [["grepi"; "abc"; "/test-grep.txt"]], ["abc"; "abc123"; "ABC"])],
    "return lines matching a pattern",
@@ -3108,7 +3109,7 @@ matching lines.");
 This calls the external C<grep -i> program and returns the
 matching lines.");
 
-  ("egrepi", (RStringList "lines", [String "regex"; String "path"]), 155, [ProtocolLimitWarning],
+  ("egrepi", (RStringList "lines", [String "regex"; Pathname "path"]), 155, [ProtocolLimitWarning],
    [InitSquashFS, Always, TestOutputList (
       [["egrepi"; "abc"; "/test-grep.txt"]], ["abc"; "abc123"; "ABC"])],
    "return lines matching a pattern",
@@ -3116,7 +3117,7 @@ matching lines.");
 This calls the external C<egrep -i> program and returns the
 matching lines.");
 
-  ("fgrepi", (RStringList "lines", [String "pattern"; String "path"]), 156, [ProtocolLimitWarning],
+  ("fgrepi", (RStringList "lines", [String "pattern"; Pathname "path"]), 156, [ProtocolLimitWarning],
    [InitSquashFS, Always, TestOutputList (
       [["fgrepi"; "abc"; "/test-grep.txt"]], ["abc"; "abc123"; "ABC"])],
    "return lines matching a pattern",
@@ -3124,7 +3125,7 @@ matching lines.");
 This calls the external C<fgrep -i> program and returns the
 matching lines.");
 
-  ("zgrep", (RStringList "lines", [String "regex"; String "path"]), 157, [ProtocolLimitWarning],
+  ("zgrep", (RStringList "lines", [String "regex"; Pathname "path"]), 157, [ProtocolLimitWarning],
    [InitSquashFS, Always, TestOutputList (
       [["zgrep"; "abc"; "/test-grep.txt.gz"]], ["abc"; "abc123"])],
    "return lines matching a pattern",
@@ -3132,7 +3133,7 @@ matching lines.");
 This calls the external C<zgrep> program and returns the
 matching lines.");
 
-  ("zegrep", (RStringList "lines", [String "regex"; String "path"]), 158, [ProtocolLimitWarning],
+  ("zegrep", (RStringList "lines", [String "regex"; Pathname "path"]), 158, [ProtocolLimitWarning],
    [InitSquashFS, Always, TestOutputList (
       [["zegrep"; "abc"; "/test-grep.txt.gz"]], ["abc"; "abc123"])],
    "return lines matching a pattern",
@@ -3140,7 +3141,7 @@ matching lines.");
 This calls the external C<zegrep> program and returns the
 matching lines.");
 
-  ("zfgrep", (RStringList "lines", [String "pattern"; String "path"]), 159, [ProtocolLimitWarning],
+  ("zfgrep", (RStringList "lines", [String "pattern"; Pathname "path"]), 159, [ProtocolLimitWarning],
    [InitSquashFS, Always, TestOutputList (
       [["zfgrep"; "abc"; "/test-grep.txt.gz"]], ["abc"; "abc123"])],
    "return lines matching a pattern",
@@ -3148,7 +3149,7 @@ matching lines.");
 This calls the external C<zfgrep> program and returns the
 matching lines.");
 
-  ("zgrepi", (RStringList "lines", [String "regex"; String "path"]), 160, [ProtocolLimitWarning],
+  ("zgrepi", (RStringList "lines", [String "regex"; Pathname "path"]), 160, [ProtocolLimitWarning],
    [InitSquashFS, Always, TestOutputList (
       [["zgrepi"; "abc"; "/test-grep.txt.gz"]], ["abc"; "abc123"; "ABC"])],
    "return lines matching a pattern",
@@ -3156,7 +3157,7 @@ matching lines.");
 This calls the external C<zgrep -i> program and returns the
 matching lines.");
 
-  ("zegrepi", (RStringList "lines", [String "regex"; String "path"]), 161, [ProtocolLimitWarning],
+  ("zegrepi", (RStringList "lines", [String "regex"; Pathname "path"]), 161, [ProtocolLimitWarning],
    [InitSquashFS, Always, TestOutputList (
       [["zegrepi"; "abc"; "/test-grep.txt.gz"]], ["abc"; "abc123"; "ABC"])],
    "return lines matching a pattern",
@@ -3164,7 +3165,7 @@ matching lines.");
 This calls the external C<zegrep -i> program and returns the
 matching lines.");
 
-  ("zfgrepi", (RStringList "lines", [String "pattern"; String "path"]), 162, [ProtocolLimitWarning],
+  ("zfgrepi", (RStringList "lines", [String "pattern"; Pathname "path"]), 162, [ProtocolLimitWarning],
    [InitSquashFS, Always, TestOutputList (
       [["zfgrepi"; "abc"; "/test-grep.txt.gz"]], ["abc"; "abc123"; "ABC"])],
    "return lines matching a pattern",
@@ -3172,7 +3173,7 @@ matching lines.");
 This calls the external C<zfgrep -i> program and returns the
 matching lines.");
 
-  ("realpath", (RString "rpath", [String "path"]), 163, [],
+  ("realpath", (RString "rpath", [Pathname "path"]), 163, [],
    [InitSquashFS, Always, TestOutput (
       [["realpath"; "/../directory"]], "/directory")],
    "canonicalized absolute pathname",
@@ -3220,13 +3221,13 @@ This command creates a symbolic link using the C<ln -s> command.");
 This command creates a symbolic link using the C<ln -sf> command,
 The C<-f> option removes the link (C<linkname>) if it exists already.");
 
-  ("readlink", (RString "link", [String "path"]), 168, [],
+  ("readlink", (RString "link", [Pathname "path"]), 168, [],
    [] (* XXX tested above *),
    "read the target of a symbolic link",
    "\
 This command reads the target of a symbolic link.");
 
-  ("fallocate", (RErr, [String "path"; Int "len"]), 169, [],
+  ("fallocate", (RErr, [Pathname "path"; Int "len"]), 169, [],
    [InitBasicFS, Always, TestOutputStruct (
       [["fallocate"; "/a"; "1000000"];
        ["stat"; "/a"]], [CompareWithInt ("size", 1_000_000)])],
@@ -3321,7 +3322,7 @@ See C<guestfs_swapon_device> for other notes.");
 This command disables the libguestfs appliance swap partition
 with the given UUID.");
 
-  ("mkswap_file", (RErr, [String "path"]), 178, [],
+  ("mkswap_file", (RErr, [Pathname "path"]), 178, [],
    [InitBasicFS, Always, TestRun (
       [["fallocate"; "/swap"; "8388608"];
        ["mkswap_file"; "/swap"]])],
@@ -3373,7 +3374,7 @@ as exposed by the Linux kernel, which is roughly what we expose
 via libguestfs.  Note that there is one global inotify handle
 per libguestfs instance.");
 
-  ("inotify_add_watch", (RInt64 "wd", [String "path"; Int "mask"]), 180, [],
+  ("inotify_add_watch", (RInt64 "wd", [Pathname "path"; Int "mask"]), 180, [],
    [InitBasicFS, Always, TestOutputList (
       [["inotify_init"; "0"];
        ["inotify_add_watch"; "/"; "1073741823"];
@@ -3772,7 +3773,7 @@ let mapi f xs =
   loop 0 xs
 
 let name_of_argt = function
-  | Device n | String n | OptString n | StringList n | Bool n | Int n
+  | Pathname n | Device n | String n | OptString n | StringList n | Bool n | Int n
   | FileIn n | FileOut n -> n
 
 let java_name_of_struct typ =
@@ -4159,7 +4160,7 @@ and generate_xdr () =
            pr "struct %s_args {\n" name;
            List.iter (
              function
-             | Device n | String n -> pr "  string %s<>;\n" n
+             | Pathname n | Device n | String n -> pr "  string %s<>;\n" n
              | OptString n -> pr "  str *%s;\n" n
              | StringList n -> pr "  str %s<>;\n" n
              | Bool n -> pr "  bool %s;\n" n
@@ -4520,7 +4521,7 @@ check_state (guestfs_h *g, const char *caller)
        | args ->
            List.iter (
              function
-             | Device n | String n ->
+             | Pathname n | Device n | String n ->
                  pr "  args.%s = (char *) %s;\n" n n
              | OptString n ->
                  pr "  args.%s = %s ? (char **) &%s : NULL;\n" n n n
@@ -4726,7 +4727,7 @@ and generate_daemon_actions () =
            List.iter (
              function
 	     (* FIXME: eventually, make String "const", too *)
-             | Device n -> pr "  const char *%s;\n" n
+             | Pathname n | Device n -> pr "  const char *%s;\n" n
              | String n
              | OptString n -> pr "  char *%s;\n" n
              | StringList n -> pr "  char **%s;\n" n
@@ -4748,7 +4749,10 @@ and generate_daemon_actions () =
            pr "  }\n";
            List.iter (
              function
-             | Device n ->
+             | Pathname n ->
+                 pr "  NEED_ROOT (goto done);\n";
+                 pr "  ABS_PATH (%s, goto done);\n" n;
+	     | Device n ->
                  pr "  %s = args.%s;\n" n n;
                  pr "  RESOLVE_DEVICE (%s, goto done);" n;
              | String n -> pr "  %s = args.%s;\n" n n
@@ -5655,6 +5659,7 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
       List.iter (
         function
         | OptString n, "NULL" -> ()
+        | Pathname n, arg
         | Device n, arg
         | String n, arg
         | OptString n, arg ->
@@ -5703,6 +5708,7 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
       List.iter (
         function
         | OptString _, "NULL" -> pr ", NULL"
+        | Pathname n, _
         | Device n, _
         | String n, _
         | OptString n, _ ->
@@ -5952,6 +5958,7 @@ and generate_fish_cmds () =
       );
       List.iter (
         function
+        | Pathname n
         | Device n
         | String n
         | OptString n
@@ -5973,6 +5980,7 @@ and generate_fish_cmds () =
       iteri (
         fun i ->
           function
+          | Pathname name
           | Device name | String name -> pr "  %s = argv[%d];\n" name i
           | OptString name ->
               pr "  %s = strcmp (argv[%d], \"\") != 0 ? argv[%d] : NULL;\n"
@@ -6206,7 +6214,7 @@ and generate_fish_actions_pod () =
       pr " %s" name;
       List.iter (
         function
-        | Device n | String n -> pr " %s" n
+        | Pathname n | Device n | String n -> pr " %s" n
         | OptString n -> pr " %s" n
         | StringList n -> pr " '%s ...'" n
         | Bool _ -> pr " true|false"
@@ -6272,6 +6280,7 @@ and generate_prototype ?(extern = true) ?(static = false) ?(semicolon = true)
     in
     List.iter (
       function
+      | Pathname n
       | Device n
       | String n
       | OptString n ->
@@ -6534,6 +6543,7 @@ copy_table (char * const * argv)
 
       List.iter (
         function
+        | Pathname n
         | Device n
         | String n
         | FileIn n
@@ -6587,7 +6597,7 @@ copy_table (char * const * argv)
         function
         | StringList n ->
             pr "  ocaml_guestfs_free_strings (%s);\n" n;
-        | Device _ | String _ | OptString _ | Bool _ | Int _
+        | Pathname _ | Device _ | String _ | OptString _ | Bool _ | Int _
         | FileIn _ | FileOut _ -> ()
       ) (snd style);
 
@@ -6671,7 +6681,7 @@ and generate_ocaml_prototype ?(is_external = false) name style =
   pr "%s : t -> " name;
   List.iter (
     function
-    | Device _ | String _ | FileIn _ | FileOut _ -> pr "string -> "
+    | Pathname _ | Device _ | String _ | FileIn _ | FileOut _ -> pr "string -> "
     | OptString _ -> pr "string option -> "
     | StringList _ -> pr "string array -> "
     | Bool _ -> pr "bool -> "
@@ -6817,7 +6827,8 @@ DESTROY (g)
         fun i ->
           function
 	  (* FIXME: ? *)
-          | Device n | String n | FileIn n | FileOut n -> pr "      char *%s;\n" n
+          | Pathname n | Device n | String n | FileIn n | FileOut n ->
+              pr "      char *%s;\n" n
           | OptString n ->
               (* http://www.perlmonks.org/?node_id=554277
                * Note that the implicit handle argument means we have
@@ -6832,7 +6843,7 @@ DESTROY (g)
       let do_cleanups () =
         List.iter (
           function
-          | Device _ | String _ | OptString _ | Bool _ | Int _
+          | Pathname _ | Device _ | String _ | OptString _ | Bool _ | Int _
           | FileIn _ | FileOut _ -> ()
           | StringList n -> pr "      free (%s);\n" n
         ) (snd style)
@@ -7204,7 +7215,7 @@ and generate_perl_prototype name style =
       if !comma then pr ", ";
       comma := true;
       match arg with
-      | Device n | String n
+      | Pathname n | Device n | String n
       | OptString n | Bool n | Int n | FileIn n | FileOut n ->
           pr "$%s" n
       | StringList n ->
@@ -7452,7 +7463,8 @@ py_guestfs_close (PyObject *self, PyObject *args)
 
       List.iter (
         function
-        | Device n | String n | FileIn n | FileOut n -> pr "  const char *%s;\n" n
+        | Pathname n | Device n | String n | FileIn n | FileOut n ->
+            pr "  const char *%s;\n" n
         | OptString n -> pr "  const char *%s;\n" n
         | StringList n ->
             pr "  PyObject *py_%s;\n" n;
@@ -7467,7 +7479,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
       pr "  if (!PyArg_ParseTuple (args, (char *) \"O";
       List.iter (
         function
-        | Device _ | String _ | FileIn _ | FileOut _ -> pr "s"
+        | Pathname _ | Device _ | String _ | FileIn _ | FileOut _ -> pr "s"
         | OptString _ -> pr "z"
         | StringList _ -> pr "O"
         | Bool _ -> pr "i" (* XXX Python has booleans? *)
@@ -7477,7 +7489,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
       pr "                         &py_g";
       List.iter (
         function
-        | Device n | String n | FileIn n | FileOut n -> pr ", &%s" n
+        | Pathname n | Device n | String n | FileIn n | FileOut n -> pr ", &%s" n
         | OptString n -> pr ", &%s" n
         | StringList n -> pr ", &py_%s" n
         | Bool n -> pr ", &%s" n
@@ -7490,7 +7502,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
       pr "  g = get_handle (py_g);\n";
       List.iter (
         function
-        | Device _ | String _
+        | Pathname _ | Device _ | String _
         | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ -> ()
         | StringList n ->
             pr "  %s = get_string_list (py_%s);\n" n n;
@@ -7505,7 +7517,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
 
       List.iter (
         function
-        | Device _ | String _
+        | Pathname _ | Device _ | String _
         | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ -> ()
         | StringList n ->
             pr "  free (%s);\n" n
@@ -7814,7 +7826,7 @@ static VALUE ruby_guestfs_close (VALUE gv)
 
       List.iter (
         function
-        | Device n | String n | FileIn n | FileOut n ->
+        | Pathname n | Device n | String n | FileIn n | FileOut n ->
             pr "  Check_Type (%sv, T_STRING);\n" n;
             pr "  const char *%s = StringValueCStr (%sv);\n" n n;
             pr "  if (!%s)\n" n;
@@ -7866,7 +7878,7 @@ static VALUE ruby_guestfs_close (VALUE gv)
 
       List.iter (
         function
-        | Device _ | String _
+        | Pathname _ | Device _ | String _
         | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ -> ()
         | StringList n ->
             pr "  free (%s);\n" n
@@ -8177,6 +8189,7 @@ and generate_java_prototype ?(public=false) ?(privat=false) ?(native=false)
       needs_comma := true;
 
       match arg with
+      | Pathname n
       | Device n
       | String n
       | OptString n
@@ -8295,6 +8308,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
       pr "  (JNIEnv *env, jobject obj, jlong jg";
       List.iter (
         function
+        | Pathname n
         | Device n
         | String n
         | OptString n
@@ -8347,6 +8361,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
             "NULL", "NULL" in
       List.iter (
         function
+        | Pathname n
         | Device n
         | String n
         | OptString n
@@ -8376,6 +8391,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
       (* Get the parameters. *)
       List.iter (
         function
+        | Pathname n
         | Device n
         | String n
         | FileIn n
@@ -8408,6 +8424,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
       (* Release the parameters. *)
       List.iter (
         function
+        | Pathname n
         | Device n
         | String n
         | FileIn n
@@ -8683,7 +8700,7 @@ last_error h = do
           function
           | FileIn n
           | FileOut n
-          | Device n | String n -> pr "withCString %s $ \\%s -> " n n
+          | Pathname n | Device n | String n -> pr "withCString %s $ \\%s -> " n n
           | OptString n -> pr "maybeWith withCString %s $ \\%s -> " n n
           | StringList n -> pr "withMany withCString %s $ \\%s -> withArray0 nullPtr %s $ \\%s -> " n n n n
           | Bool _ | Int _ -> ()
@@ -8695,7 +8712,7 @@ last_error h = do
             | Bool n -> sprintf "(fromBool %s)" n
             | Int n -> sprintf "(fromIntegral %s)" n
             | FileIn n | FileOut n
-            | Device n | String n | OptString n | StringList n -> n
+            | Pathname n | Device n | String n | OptString n | StringList n -> n
           ) (snd style) in
         pr "withForeignPtr h (\\p -> c_%s %s)\n" name
           (String.concat " " ("p" :: args));
@@ -8745,7 +8762,7 @@ and generate_haskell_prototype ~handle ?(hs = false) style =
   List.iter (
     fun arg ->
       (match arg with
-       | Device _ | String _ -> pr "%s" string
+       | Pathname _ | Device _ | String _ -> pr "%s" string
        | OptString _ -> if hs then pr "Maybe String" else pr "CString"
        | StringList _ -> if hs then pr "[String]" else pr "Ptr CString"
        | Bool _ -> pr "%s" bool
@@ -8820,6 +8837,7 @@ print_strings (char * const* const argv)
     pr "{\n";
     List.iter (
       function
+      | Pathname n
       | Device n
       | String n
       | FileIn n
