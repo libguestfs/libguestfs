@@ -74,6 +74,15 @@ do_ls (char *path)
   return r;
 }
 
+/* Because we can't chroot and run the ls command (since 'ls' won't
+ * necessarily exist in the chroot), this command can be used to escape
+ * from the sysroot (eg. 'll /..').  This command is not meant for
+ * serious use anyway, just for quick interactive sessions.
+ *
+ * FIXME: eventually, provide a "debug ll" command that would list files
+ * in the appliance.
+ */
+
 char *
 do_ll (char *path)
 {
@@ -81,15 +90,9 @@ do_ll (char *path)
   char *out, *err;
   char *spath;
 
-  //NEED_ROOT
+  NEED_ROOT (NULL);
   ABS_PATH (path, NULL);
 
-  /* This exposes the /sysroot, because we can't chroot and run the ls
-   * command (since 'ls' won't necessarily exist in the chroot).  This
-   * command is not meant for serious use anyway, just for quick
-   * interactive sessions.  For the same reason, you can also "escape"
-   * the sysroot (eg. 'll /..').
-   */
   spath = sysroot_path (path);
   if (!spath) {
     reply_with_perror ("malloc");
