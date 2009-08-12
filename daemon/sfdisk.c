@@ -48,10 +48,23 @@ sfdisk (const char *device, int n, int cyls, int heads, int sectors,
     sprintf (buf + strlen (buf), " -H %d", heads);
   if (sectors)
     sprintf (buf + strlen (buf), " -S %d", sectors);
-  if (extra_flag)
-    sprintf (buf + strlen (buf), " %s", extra_flag);
 
-  /* Safe because of RESOLVE_DEVICE above: */
+  /* The above are all guaranteed to fit in the fixed-size buffer.
+     However, extra_flag and device have no restrictions,
+     so we must check.  */
+
+  if (extra_flag) {
+    if (strlen (buf) + 1 + strlen (extra_flag) >= sizeof buf) {
+      reply_with_error ("internal buffer overflow: sfdisk extra_flag too long");
+      return -1;
+    }
+    sprintf (buf + strlen (buf), " %s", extra_flag);
+  }
+
+  if (strlen (buf) + 1 + strlen (device) >= sizeof buf) {
+    reply_with_error ("internal buffer overflow: sfdisk device name too long");
+    return -1;
+  }
   sprintf (buf + strlen (buf), " %s", device);
 
   if (verbose)
