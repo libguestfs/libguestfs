@@ -235,8 +235,8 @@ rc_remote (int pid, const char *cmd, int argc, char *argv[],
 
   if (!xdr_guestfish_hello (&xdr, &hello)) {
     fprintf (stderr, _("guestfish: protocol error: could not send initial greeting to server\n"));
-    fclose (fp);
     xdr_destroy (&xdr);
+    fclose (fp);
     return -1;
   }
 
@@ -249,8 +249,8 @@ rc_remote (int pid, const char *cmd, int argc, char *argv[],
   call.exit_on_error = exit_on_error;
   if (!xdr_guestfish_call (&xdr, &call)) {
     fprintf (stderr, _("guestfish: protocol error: could not send initial greeting to server\n"));
-    fclose (fp);
     xdr_destroy (&xdr);
+    fclose (fp);
     return -1;
   }
   xdr_destroy (&xdr);
@@ -260,13 +260,13 @@ rc_remote (int pid, const char *cmd, int argc, char *argv[],
 
   if (!xdr_guestfish_reply (&xdr, &reply)) {
     fprintf (stderr, _("guestfish: protocol error: could not decode reply from server\n"));
-    fclose (fp);
     xdr_destroy (&xdr);
+    fclose (fp);
     return -1;
   }
 
-  fclose (fp);
   xdr_destroy (&xdr);
+  fclose (fp);
 
   return reply.r;
 }
