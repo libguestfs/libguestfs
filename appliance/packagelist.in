@@ -15,6 +15,7 @@
   MAKEDEV
   ntfsprogs
   scrub
+  libselinux
   udev
   util-linux-ng
 #elif DEBIAN == 1

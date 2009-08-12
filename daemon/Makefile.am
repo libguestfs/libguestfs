@@ -61,6 +61,7 @@ guestfsd_SOURCES = \
 	readdir.c \
 	realpath.c \
 	scrub.c \
+	selinux.c \
 	sfdisk.c \
 	sleep.c \
 	stat.c \

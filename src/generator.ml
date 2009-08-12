@@ -3427,6 +3427,24 @@ This closes the inotify handle which was previously
 opened by inotify_init.  It removes all watches, throws
 away any pending events, and deallocates all resources.");
 
+  ("setcon", (RErr, [String "context"]), 185, [],
+   [],
+   "set SELinux security context",
+   "\
+This sets the SELinux security context of the daemon
+to the string C<context>.
+
+See the documentation about SELINUX in L<guestfs(3)>.");
+
+  ("getcon", (RString "context", []), 186, [],
+   [],
+   "get SELinux security context",
+   "\
+This gets the SELinux security context of the daemon.
+
+See the documentation about SELINUX in L<guestfs(3)>,
+and C<guestfs_setcon>");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

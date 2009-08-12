@@ -64,6 +64,17 @@ if test "x$have_augeas" = "xyes"; then
         AC_DEFINE([HAVE_AUGEAS],[1],[Define to 1 if you have Augeas])
 fi
 
+dnl Check for libselinux (optional).
+AC_CHECK_HEADERS([selinux/selinux.h])
+AC_CHECK_LIB([selinux],[setexeccon],[
+        LIBS="-lselinux $LIBS"
+	have_libselinux="$ac_cv_header_selinux_selinux_h"
+        AC_CHECK_FUNCS([setcon getcon])
+        ],[have_libselinux=no])
+if test "x$have_libselinux" = "xyes"; then
+        AC_DEFINE([HAVE_LIBSELINUX],[1],[Define to 1 if you have libselinux])
+fi
+
 dnl Check for XDR library.
 AC_CHECK_LIB([portablexdr],[xdrmem_create],[],[
         AC_SEARCH_LIBS([xdrmem_create],[rpc xdr nsl])

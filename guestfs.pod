@@ -367,6 +367,14 @@ guest itself:
 (Older versions of C<load_policy> require you to specify the
 name of the policy file).
 
+=item 3.
+
+Optionally, set the security context for the API.  The correct
+security context to use can only be known by inspecting the
+guest.  As an example:
+
+ guestfs_setcon (g, "unconfined_u:unconfined_r:unconfined_t:s0");
+
 =back
 
 This will work for running commands and editing existing files.

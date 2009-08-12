@@ -37,6 +37,7 @@ daemon/proto.c
 daemon/readdir.c
 daemon/realpath.c
 daemon/scrub.c
+daemon/selinux.c
 daemon/sfdisk.c
 daemon/sleep.c
 daemon/stat.c
