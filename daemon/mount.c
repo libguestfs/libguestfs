@@ -105,24 +105,20 @@ do_mount_options (const char *options, const char *device,
 int
 do_umount (const char *pathordevice)
 {
-  int freeit = 0, r;
-  char *buf;
+  int r;
   char *err;
 
-  if (strncmp (pathordevice, "/dev/", 5) == 0) {
-    buf = pathordevice;
-    RESOLVE_DEVICE (buf, return -1);
-  } else {
-    buf = sysroot_path (pathordevice);
-    if (buf == NULL) {
-      reply_with_perror ("malloc");
-      return -1;
-    }
-    freeit = 1;
+  char *buf = (strncmp (pathordevice, "/dev/", 5) == 0
+               ? strdup (pathordevice)
+               : sysroot_path (pathordevice));
+  if (buf == NULL) {
+    reply_with_perror ("malloc");
+    return -1;
   }
 
   r = command (NULL, &err, "umount", buf, NULL);
-  if (freeit) free (buf);
+  free (buf);
+
   if (r == -1) {
     reply_with_error ("umount: %s: %s", pathordevice, err);
     free (err);
