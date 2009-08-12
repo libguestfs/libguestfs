@@ -4757,18 +4757,21 @@ and generate_daemon_actions () =
            pr "    reply_with_error (\"%%s: daemon failed to decode procedure arguments\", \"%s\");\n" name;
            pr "    return;\n";
            pr "  }\n";
+	   let pr_args n =
+	     pr "  char *%s = args.%s;\n" n n
+	   in
            List.iter (
              function
              | Pathname n ->
-                 pr "  char *%s = args.%s;\n" n n;
+                 pr_args n;
                  pr "  ABS_PATH (%s, goto done);\n" n;
              | Device n ->
-                 pr "  char *%s = args.%s;\n" n n;
+                 pr_args n;
                  pr "  RESOLVE_DEVICE (%s, goto done);" n;
 	     | Dev_or_Path n ->
-                 pr "  char *%s = args.%s;\n" n n;
+                 pr_args n;
                  pr "  REQUIRE_ROOT_OR_RESOLVE_DEVICE (%s, goto done);" n;
-             | String n -> pr "  char *%s = args.%s;\n" n n
+             | String n -> pr_args n
              | OptString n -> pr "  %s = args.%s ? *args.%s : NULL;\n" n n n
              | StringList n ->
                  pr "  %s = realloc (args.%s.%s_val,\n" n n n;
