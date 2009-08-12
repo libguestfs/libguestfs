@@ -3289,17 +3289,17 @@ This command disables the libguestfs appliance swap on file.");
        ["swapoff_label"; "swapit"];
        ["zero"; "/dev/sdb"];
        ["blockdev_rereadpt"; "/dev/sdb"]])],
-   "enable swap on labelled swap partition",
+   "enable swap on labeled swap partition",
    "\
-This command enables swap to a labelled swap partition.
+This command enables swap to a labeled swap partition.
 See C<guestfs_swapon_device> for other notes.");
 
   ("swapoff_label", (RErr, [String "label"]), 175, [],
    [], (* XXX tested by swapon_label *)
-   "disable swap on labelled swap partition",
+   "disable swap on labeled swap partition",
    "\
 This command disables the libguestfs appliance swap on
-labelled swap partition.");
+labeled swap partition.");
 
   ("swapon_uuid", (RErr, [String "uuid"]), 176, [],
    [InitEmpty, Always, TestRun (
