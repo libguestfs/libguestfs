@@ -177,6 +177,8 @@ struct guestfs_h
 
   int memsize;			/* Size of RAM (megabytes). */
 
+  int selinux;                  /* selinux enabled? */
+
   char *last_error;
 
   /* Callbacks. */
@@ -689,6 +691,19 @@ guestfs_get_memsize (guestfs_h *g)
 }
 
 int
+guestfs_set_selinux (guestfs_h *g, int selinux)
+{
+  g->selinux = selinux;
+  return 0;
+}
+
+int
+guestfs_get_selinux (guestfs_h *g)
+{
+  return g->selinux;
+}
+
+int
 guestfs_get_pid (guestfs_h *g)
 {
   if (g->pid > 0)
@@ -1047,15 +1062,19 @@ guestfs_launch (guestfs_h *g)
     "udevtimeout=300 " /* good for very slow systems (RHBZ#480319) */	\
     "noapic "          /* workaround for RHBZ#502058 - ok if not SMP */ \
     "acpi=off "        /* we don't need ACPI, turn it off */		\
-    "cgroup_disable=memory " /* saves us about 5 MB of RAM */           \
-    "selinux=0 "       /* SELinux is messed up if there's no policy */
+    "cgroup_disable=memory " /* saves us about 5 MB of RAM */
 
     /* Linux kernel command line. */
     snprintf (append, sizeof append,
-              LINUX_CMDLINE "guestfs=%s:%d%s%s%s",
+              LINUX_CMDLINE
+              "guestfs=%s:%d "
+              "%s"              /* (selinux) */
+              "%s"              /* (verbose) */
+              "%s",             /* (append) */
               VMCHANNEL_ADDR, VMCHANNEL_PORT,
-              g->verbose ? " guestfs_verbose=1" : "",
-              g->append ? " " : "", g->append ? g->append : "");
+              g->selinux ? "selinux=1 enforcing=0 " : "selinux=0 ",
+              g->verbose ? "guestfs_verbose=1 " : " ",
+              g->append ? g->append : "");
 
     snprintf (memsize_str, sizeof memsize_str, "%d", g->memsize);
 

@@ -761,6 +761,31 @@ C<$major.$minor.$release$extra>
 I<Note:> Don't use this call to test for availability
 of features.  Distro backports makes this unreliable.");
 
+  ("set_selinux", (RErr, [Bool "selinux"]), -1, [FishAlias "selinux"],
+   [InitNone, Always, TestOutputTrue (
+      [["set_selinux"; "true"];
+       ["get_selinux"]])],
+   "set SELinux enabled or disabled at appliance boot",
+   "\
+This sets the selinux flag that is passed to the appliance
+at boot time.  The default is C<selinux=0> (disabled).
+
+Note that if SELinux is enabled, it is always in
+Permissive mode (C<enforcing=0>).
+
+For more information on the architecture of libguestfs,
+see L<guestfs(3)>.");
+
+  ("get_selinux", (RBool "selinux", []), -1, [],
+   [],
+   "get SELinux enabled flag",
+   "\
+This returns the current setting of the selinux flag which
+is passed to the appliance at boot time.  See C<guestfs_set_selinux>.
+
+For more information on the architecture of libguestfs,
+see L<guestfs(3)>.");
+
 ]
 
 (* daemon_functions are any functions which cause some action
