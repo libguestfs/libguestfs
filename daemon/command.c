@@ -31,8 +31,9 @@ do_command (char **argv)
 {
   char *out, *err;
   int r;
-  char *sysroot_proc, *sysroot_dev, *sysroot_dev_pts, *sysroot_sys;
-  int proc_ok, dev_ok, dev_pts_ok, sys_ok;
+  char *sysroot_dev, *sysroot_dev_pts, *sysroot_proc,
+    *sysroot_selinux, *sysroot_sys;
+  int dev_ok, dev_pts_ok, proc_ok, selinux_ok, sys_ok;
 
   /* We need a root filesystem mounted to do this. */
   NEED_ROOT (NULL);
@@ -57,6 +58,7 @@ do_command (char **argv)
   sysroot_dev = sysroot_path ("/dev");
   sysroot_dev_pts = sysroot_path ("/dev/pts");
   sysroot_proc = sysroot_path ("/proc");
+  sysroot_selinux = sysroot_path ("/selinux");
   sysroot_sys = sysroot_path ("/sys");
 
   r = command (NULL, NULL, "mount", "--bind", "/dev", sysroot_dev, NULL);
@@ -65,6 +67,8 @@ do_command (char **argv)
   dev_pts_ok = r != -1;
   r = command (NULL, NULL, "mount", "--bind", "/proc", sysroot_proc, NULL);
   proc_ok = r != -1;
+  r = command (NULL, NULL, "mount", "--bind", "/selinux", sysroot_selinux, NULL);
+  selinux_ok = r != -1;
   r = command (NULL, NULL, "mount", "--bind", "/sys", sysroot_sys, NULL);
   sys_ok = r != -1;
 
@@ -73,6 +77,7 @@ do_command (char **argv)
   CHROOT_OUT;
 
   if (sys_ok) command (NULL, NULL, "umount", sysroot_sys, NULL);
+  if (selinux_ok) command (NULL, NULL, "umount", sysroot_selinux, NULL);
   if (proc_ok) command (NULL, NULL, "umount", sysroot_proc, NULL);
   if (dev_pts_ok) command (NULL, NULL, "umount", sysroot_dev_pts, NULL);
   if (dev_ok) command (NULL, NULL, "umount", sysroot_dev, NULL);
@@ -80,6 +85,7 @@ do_command (char **argv)
   free (sysroot_dev);
   free (sysroot_dev_pts);
   free (sysroot_proc);
+  free (sysroot_selinux);
   free (sysroot_sys);
 
   if (r == -1) {

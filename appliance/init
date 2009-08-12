@@ -33,6 +33,10 @@ else
   modprobe virtio_net
 fi
 
+if grep -sq selinux=1 /proc/cmdline; then
+  mount -t selinuxfs none /selinux
+fi
+
 modprobe dm_mod ||:
 
 ifconfig lo 127.0.0.1

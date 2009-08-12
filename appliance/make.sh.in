@@ -47,6 +47,9 @@ if [ "@DIST@" = "REDHAT" ]; then
   # Create /tmp if it is missing.
   @FEBOOTSTRAP_RUN@ initramfs -- mkdir -p --mode=0777 /tmp
 
+  # Create /selinux if it is missing.
+  @FEBOOTSTRAP_RUN@ initramfs -- mkdir -p --mode=0755 /selinux
+
   # Nuke some stuff.  The kernel pulls mkinitrd and plymouth which pulls in
   # all of Python.  Sheez.
   (cd initramfs && find -name '*plymouth*' -print0) |
