@@ -78,7 +78,7 @@ are blocking calls.  You can use the low-level event API to do
 non-blocking operations instead.
 
 All functions that return integers, return C<-1> on error.  See
-section ERROR HANDLING below for how to handle errors.
+section L</ERROR HANDLING> below for how to handle errors.
 
 =head2 guestfs_h *
 
@@ -87,7 +87,7 @@ Create a handle by calling C<guestfs_create>.  Call C<guestfs_close>
 to free the handle and release all resources used.
 
 For information on using multiple handles and threads, see the section
-MULTIPLE HANDLES AND MULTIPLE THREADS below.
+L</MULTIPLE HANDLES AND MULTIPLE THREADS> below.
 
 =head2 guestfs_create
 
@@ -104,7 +104,7 @@ After configuring the handle, you have to call C<guestfs_launch> and
 C<guestfs_wait_ready>.
 
 You may also want to configure error handling for the handle.  See
-ERROR HANDLING section below.
+L</ERROR HANDLING> section below.
 
 =head2 guestfs_close
 
@@ -316,6 +316,11 @@ Only supports Linux guests (not Windows, BSD, etc).
 Architecture limitations (eg. won't work for a PPC guest on
 an X86 host).
 
+=item *
+
+For SELinux guests, you may need to enable SELinux and load policy
+first.  See L</SELINUX> in this manpage.
+
 =back
 
 The two main API calls to run commands are C<guestfs_command> and
@@ -336,6 +341,39 @@ C<guestfs_readdir> is a programmatic way to get a list of files in a
 directory, plus additional information about each one.
 
 C<guestfs_find> can be used to recursively list files.
+
+=head2 SELINUX
+
+We support SELinux guests.  To ensure that labeling happens correctly
+in SELinux guests, you need to enable SELinux and load the guest's
+policy:
+
+=over 4
+
+=item 1.
+
+Before launching, do:
+
+ guestfs_set_selinux (g, 1);
+
+=item 2.
+
+After mounting the guest's filesystem(s), load the policy.  This
+is best done by running the L<load_policy(8)> command in the
+guest itself:
+
+ guestfs_sh (g, "/usr/sbin/load_policy");
+
+(Older versions of C<load_policy> require you to specify the
+name of the policy file).
+
+=back
+
+This will work for running commands and editing existing files.
+
+When new files are created, you may need to label them explicitly,
+for example by running the external command
+C<restorecon pathname>.
 
 =head1 HIGH-LEVEL API ACTIONS
 
@@ -935,7 +973,7 @@ Set the default qemu binary that libguestfs uses.  If not set, then
 the qemu which was found at compile time by the configure script is
 used.
 
-See also L<QEMU WRAPPERS> above.
+See also L</QEMU WRAPPERS> above.
 
 =item TMPDIR
 
