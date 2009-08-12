@@ -61,6 +61,18 @@ do_command (char **argv)
   sysroot_selinux = sysroot_path ("/selinux");
   sysroot_sys = sysroot_path ("/sys");
 
+  if (sysroot_dev == NULL || sysroot_dev_pts == NULL ||
+      sysroot_proc == NULL || sysroot_selinux == NULL ||
+      sysroot_sys == NULL) {
+    reply_with_perror ("malloc");
+    free (sysroot_dev);
+    free (sysroot_dev_pts);
+    free (sysroot_proc);
+    free (sysroot_selinux);
+    free (sysroot_sys);
+    return NULL;
+  }
+
   r = command (NULL, NULL, "mount", "--bind", "/dev", sysroot_dev, NULL);
   dev_ok = r != -1;
   r = command (NULL, NULL, "mount", "--bind", "/dev/pts", sysroot_dev_pts, NULL);
