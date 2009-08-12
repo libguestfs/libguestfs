@@ -454,6 +454,8 @@ image).
 
 This is equivalent to the qemu parameter
 C<-drive file=filename,cache=off,if=...>.
+C<cache=off> is omitted in cases where it is not supported by
+the underlying filesystem.
 
 Note that this call checks for the existence of C<filename>.  This
 stops you from specifying other types of drive which are supported

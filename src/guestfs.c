@@ -799,13 +799,30 @@ guestfs_add_drive (guestfs_h *g, const char *filename)
     return -1;
   }
 
-  if (access (filename, F_OK) == -1) {
-    perrorf (g, "%s", filename);
-    return -1;
+  /* cache=off improves reliability in the event of a host crash.
+   *
+   * However this option causes qemu to try to open the file with
+   * O_DIRECT.  This fails on some filesystem types (notably tmpfs).
+   * So we check if we can open the file with or without O_DIRECT,
+   * and use cache=off (or not) accordingly.
+   *
+   * This test also checks for the presence of the file, which
+   * is a documented semantic of this interface.
+   */
+  int fd = open (filename, O_RDONLY|O_DIRECT);
+  if (fd >= 0) {
+    close (fd);
+    snprintf (buf, len, "file=%s,cache=off,if=" DRIVE_IF, filename);
+  } else {
+    fd = open (filename, O_RDONLY);
+    if (fd >= 0) {
+      close (fd);
+      snprintf (buf, len, "file=%s,if=" DRIVE_IF, filename);
+    } else {
+      perrorf (g, "%s", filename);
+      return -1;
+    }
   }
-
-  /* cache=off improves reliability in the event of a host crash. */
-  snprintf (buf, len, "file=%s,cache=off,if=%s", filename, DRIVE_IF);
 
   return guestfs_config (g, "-drive", buf);
 }
