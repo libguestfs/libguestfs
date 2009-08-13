@@ -30,8 +30,6 @@
 #include "daemon.h"
 #include "actions.h"
 
-#ifdef HAVE_LIBSELINUX
-
 /* setcon is only valid under the following circumstances:
  * - single threaded
  * - enforcing=0
@@ -39,7 +37,7 @@
 int
 do_setcon (const char *context)
 {
-#ifdef HAVE_SETCON
+#if defined(HAVE_LIBSELINUX) && defined(HAVE_SETCON)
   if (setcon ((char *) context) == -1) {
     reply_with_perror ("setcon");
     return -1;
@@ -55,7 +53,7 @@ do_setcon (const char *context)
 char *
 do_getcon (void)
 {
-#ifdef HAVE_GETCON
+#if defined(HAVE_LIBSELINUX) && defined(HAVE_GETCON)
   security_context_t context;
   char *r;
 
@@ -74,8 +72,6 @@ do_getcon (void)
   return r;                     /* caller frees */
 #else
   reply_with_error ("%s is not available", __func__);
-  return -1;
+  return NULL;
 #endif
 }
-
-#endif /* HAVE_LIBSELINUX */
