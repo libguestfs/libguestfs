@@ -129,7 +129,6 @@ do_inotify_add_watch (const char *path, int mask)
   char *buf;
 
   NEED_INOTIFY (-1);
-  ABS_PATH (path, return -1);
 
   buf = sysroot_path (path);
   if (!buf) {
