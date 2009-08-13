@@ -95,6 +95,7 @@ if [ "@DIST@" = "REDHAT" ]; then
     /usr/sbin/groupmod \
     /usr/sbin/groupmems \
     /sbin/unix_update \
+    /usr/sbin/tcpd \
     $(cd initramfs && echo usr/sbin/glibc_post_upgrade.*)
 
   # Kernel modules take up nearly half of the image.  Only include ones
