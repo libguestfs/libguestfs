@@ -34,10 +34,6 @@ do_equal (const char *file1, const char *file2)
   char *err;
   int r;
 
-  NEED_ROOT (return -1);
-  ABS_PATH (file1, return -1);
-  ABS_PATH (file2, return -1);
-
   file1buf = sysroot_path (file1);
   if (file1buf == NULL) {
     reply_with_perror ("malloc");
