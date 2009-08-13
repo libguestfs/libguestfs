@@ -48,6 +48,8 @@ do_mount_vfs (const char *options, const char *vfstype,
   char *mp;
   char *error;
 
+  ABS_PATH (mountpoint, return -1);
+
   is_root = strcmp (mountpoint, "/") == 0;
 
   if (!root_mounted && !is_root) {
