@@ -109,14 +109,19 @@ do_umount (const char *pathordevice)
 {
   int r;
   char *err;
+  char *buf;
+  int is_dev;
 
-  char *buf = (strncmp (pathordevice, "/dev/", 5) == 0
-               ? strdup (pathordevice)
-               : sysroot_path (pathordevice));
+  is_dev = strncmp (pathordevice, "/dev/", 5) == 0;
+  buf = is_dev ? strdup (pathordevice)
+               : sysroot_path (pathordevice);
   if (buf == NULL) {
     reply_with_perror ("malloc");
     return -1;
   }
+
+  if (is_dev)
+    RESOLVE_DEVICE (buf, { free (buf); return -1; });
 
   r = command (NULL, &err, "umount", buf, NULL);
   free (buf);
