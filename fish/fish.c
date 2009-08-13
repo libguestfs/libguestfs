@@ -117,6 +117,7 @@ usage (void)
              "  -n|--no-sync         Don't autosync\n"
              "  --remote[=pid]       Send commands to remote guestfish\n"
              "  -r|--ro              Mount read-only\n"
+             "  --selinux            Enable SELinux support\n"
              "  -v|--verbose         Verbose messages\n"
              "  -x                   Echo each command before executing it\n"
              "  -V|--version         Display version and exit\n"
@@ -139,6 +140,7 @@ main (int argc, char *argv[])
     { "no-sync", 0, 0, 'n' },
     { "remote", 2, 0, 0 },
     { "ro", 0, 0, 'r' },
+    { "selinux", 0, 0, 0 },
     { "verbose", 0, 0, 'v' },
     { "version", 0, 0, 'V' },
     { 0, 0, 0, 0 }
@@ -205,6 +207,8 @@ main (int argc, char *argv[])
             exit (1);
           }
         }
+      } else if (strcmp (long_options[option_index].name, "selinux") == 0) {
+        guestfs_set_selinux (g, 1);
       } else {
         fprintf (stderr, _("guestfish: unknown long option: %s (%d)\n"),
                  long_options[option_index].name, option_index);
@@ -306,8 +310,9 @@ main (int argc, char *argv[])
     char cmd[1024];
     int r;
 
-    if (drvs || mps || remote_control_listen || remote_control) {
-      fprintf (stderr, _("guestfish: cannot use -i option with -a, -m, --listen or --remote\n"));
+    if (drvs || mps || remote_control_listen || remote_control ||
+        guestfs_get_selinux (g)) {
+      fprintf (stderr, _("guestfish: cannot use -i option with -a, -m, --listen, --remote or --selinux\n"));
       exit (1);
     }
     if (optind >= argc) {

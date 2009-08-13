@@ -130,9 +130,9 @@ Typical usage is either:
 
  guestfish -i /dev/Guests/MyGuest
 
-You cannot use I<-a>, I<-m>, I<--listen> or I<--remote> in conjunction
-with this option, and options other than I<--ro> might not behave
-correctly.
+You cannot use I<-a>, I<-m>, I<--listen>, I<--remote> or I<--selinux>
+in conjunction with this option, and options other than I<--ro> might
+not behave correctly.
 
 See also: L<virt-inspector(1)>.
 
@@ -166,6 +166,10 @@ I<REMOTE CONTROL GUESTFISH OVER A SOCKET> below.
 
 This changes the C<-m> option so that mounts are done read-only
 (see C<guestfs_mount_ro> in the L<guestfs(3)> manpage).
+
+=item B<--selinux>
+
+Enable SELinux support for the guest.  See L<guestfs(3)/SELINUX>.
 
 =item B<-v> | B<--verbose>
 
