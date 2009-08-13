@@ -373,6 +373,9 @@ do_rmmountpoint (const char *path)
 {
   int r;
 
+  /* NEED_ROOT (return -1); - we don't want this test for this call. */
+  ABS_PATH (path, return -1);
+
   CHROOT_IN;
   r = rmdir (path);
   CHROOT_OUT;
