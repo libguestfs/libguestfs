@@ -52,10 +52,6 @@ cpmv_cmd (const char *cmd, const char *flags, const char *src, const char *dest)
   char *err;
   int r;
 
-  NEED_ROOT (return -1);
-  ABS_PATH (src, return -1);
-  ABS_PATH (dest, return -1);
-
   srcbuf = sysroot_path (src);
   if (srcbuf == NULL) {
     reply_with_perror ("malloc");

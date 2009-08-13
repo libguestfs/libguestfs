@@ -2170,7 +2170,7 @@ See also: C<guestfs_scrub_device>.");
 This command installs GRUB (the Grand Unified Bootloader) on
 C<device>, with the root directory being C<root>.");
 
-  ("cp", (RErr, [String "src"; String "dest"]), 87, [],
+  ("cp", (RErr, [Pathname "src"; Pathname "dest"]), 87, [],
    [InitBasicFS, Always, TestOutput (
       [["write_file"; "/old"; "file content"; "0"];
        ["cp"; "/old"; "/new"];
@@ -2189,7 +2189,7 @@ C<device>, with the root directory being C<root>.");
 This copies a file from C<src> to C<dest> where C<dest> is
 either a destination filename or destination directory.");
 
-  ("cp_a", (RErr, [String "src"; String "dest"]), 88, [],
+  ("cp_a", (RErr, [Pathname "src"; Pathname "dest"]), 88, [],
    [InitBasicFS, Always, TestOutput (
       [["mkdir"; "/olddir"];
        ["mkdir"; "/newdir"];
@@ -2201,7 +2201,7 @@ either a destination filename or destination directory.");
 This copies a file or directory from C<src> to C<dest>
 recursively using the C<cp -a> command.");
 
-  ("mv", (RErr, [String "src"; String "dest"]), 89, [],
+  ("mv", (RErr, [Pathname "src"; Pathname "dest"]), 89, [],
    [InitBasicFS, Always, TestOutput (
       [["write_file"; "/old"; "file content"; "0"];
        ["mv"; "/old"; "/new"];
