@@ -856,7 +856,7 @@ Note that this function cannot correctly handle binary files
 as end of string).  For those you need to use the C<guestfs_read_file>
 or C<guestfs_download> functions which have a more complex interface.");
 
-  ("ll", (RString "listing", [String "directory"]), 5, [],
+  ("ll", (RString "listing", [Pathname "directory"]), 5, [],
    [], (* XXX Tricky to test because it depends on the exact format
         * of the 'ls -l' command, which changes between F10 and F11.
         *)
@@ -868,7 +868,7 @@ there is no cwd) in the format of 'ls -la'.
 This command is mostly useful for interactive sessions.  It
 is I<not> intended that you try to parse the output string.");
 
-  ("ls", (RStringList "listing", [String "directory"]), 6, [],
+  ("ls", (RStringList "listing", [Pathname "directory"]), 6, [],
    [InitBasicFS, Always, TestOutputList (
       [["touch"; "/new"];
        ["touch"; "/newer"];
@@ -1910,7 +1910,7 @@ I<gzip compressed> tar file) into C<directory>.
 
 To upload an uncompressed tarball, use C<guestfs_tar_in>.");
 
-  ("tgz_out", (RErr, [String "directory"; FileOut "tarball"]), 72, [],
+  ("tgz_out", (RErr, [Pathname "directory"; FileOut "tarball"]), 72, [],
    [],
    "pack directory into compressed tarball",
    "\
@@ -2595,7 +2595,7 @@ more difficult.
 It is an interface to the L<scrub(1)> program.  See that
 manual page for more details.");
 
-  ("scrub_file", (RErr, [String "file"]), 115, [],
+  ("scrub_file", (RErr, [Pathname "file"]), 115, [],
    [InitBasicFS, Always, TestRun (
       [["write_file"; "/file"; "content"; "0"];
        ["scrub_file"; "/file"]])],
@@ -2609,7 +2609,7 @@ The file is I<removed> after scrubbing.
 It is an interface to the L<scrub(1)> program.  See that
 manual page for more details.");
 
-  ("scrub_freespace", (RErr, [String "dir"]), 116, [],
+  ("scrub_freespace", (RErr, [Pathname "dir"]), 116, [],
    [], (* XXX needs testing *)
    "scrub (securely wipe) free space",
    "\
@@ -2776,7 +2776,7 @@ Old Linux kernels (2.4 and earlier) used a compressed ext2
 filesystem as initrd.  We I<only> support the newer initramfs
 format (compressed cpio files).");
 
-  ("mount_loop", (RErr, [String "file"; String "mountpoint"]), 129, [],
+  ("mount_loop", (RErr, [Pathname "file"; Pathname "mountpoint"]), 129, [],
    [],
    "mount a file using the loop device",
    "\
@@ -2882,7 +2882,7 @@ See also L<umask(2)>, C<guestfs_mknod>, C<guestfs_mkdir>.
 
 This call returns the previous umask.");
 
-  ("readdir", (RStructList ("entries", "dirent"), [String "dir"]), 138, [],
+  ("readdir", (RStructList ("entries", "dirent"), [Pathname "dir"]), 138, [],
    [],
    "read directories entries",
    "\
@@ -3278,7 +3278,7 @@ This command disables the libguestfs appliance swap
 device or partition named C<device>.
 See C<guestfs_swapon_device>.");
 
-  ("swapon_file", (RErr, [String "file"]), 172, [],
+  ("swapon_file", (RErr, [Pathname "file"]), 172, [],
    [InitBasicFS, Always, TestRun (
       [["fallocate"; "/swap"; "8388608"];
        ["mkswap_file"; "/swap"];
@@ -3289,7 +3289,7 @@ See C<guestfs_swapon_device>.");
 This command enables swap to a file.
 See C<guestfs_swapon_device> for other notes.");
 
-  ("swapoff_file", (RErr, [String "file"]), 173, [],
+  ("swapoff_file", (RErr, [Pathname "file"]), 173, [],
    [], (* XXX tested by swapon_file *)
    "disable swap on file",
    "\
