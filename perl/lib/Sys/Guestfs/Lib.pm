@@ -1435,6 +1435,56 @@ sub _check_for_applications
     $os->{apps} = \@apps;
 }
 
+# Find the path which needs to be prepended to paths in grub.conf to make them
+# absolute
+sub _find_grub_prefix
+{
+    my ($g, $os) = @_;
+
+    my $fses = $os->{filesystems};
+    die("filesystems undefined") unless(defined($fses));
+
+    # Look for the filesystem which contains grub
+    my $grubdev;
+    foreach my $dev (keys(%$fses)) {
+        my $fsinfo = $fses->{$dev};
+        if(exists($fsinfo->{content}) && $fsinfo->{content} eq "linux-grub") {
+            $grubdev = $dev;
+            last;
+        }
+    }
+
+    my $mounts = $os->{mounts};
+    die("mounts undefined") unless(defined($mounts));
+
+    # Find where the filesystem is mounted
+    if(defined($grubdev)) {
+        foreach my $mount (keys(%$mounts)) {
+            if($mounts->{$mount} eq $grubdev) {
+                return "" if($mount eq '/');
+                return $mount;
+            }
+        }
+
+        die("$grubdev defined in filesystems, but not in mounts");
+    }
+
+    # If we didn't find it, look for /boot/grub/menu.lst, then try to work out
+    # what filesystem it's on. We use menu.lst rather than grub.conf because
+    # debian only uses menu.lst, and anaconda creates a symlink for it.
+    die(__"Can't find grub on guest") unless($g->exists('/boot/grub/menu.lst'));
+
+    # Look for the most specific mount point in mounts
+    foreach my $path qw(/boot/grub /boot /) {
+        if(exists($mounts->{$path})) {
+            return "" if($path eq '/');
+            return $path;
+        }
+    }
+
+    die("Couldn't determine which filesystem holds /boot/grub/menu.lst");
+}
+
 sub _check_for_kernels
 {
     my ($g, $os) = @_;
@@ -1442,6 +1492,8 @@ sub _check_for_kernels
     if ($os->{os} eq "linux") {
         # Iterate over entries in grub.conf, populating $os->{boot}
         # For every kernel we find, inspect it and add to $os->{kernels}
+
+        my $grub = _find_grub_prefix($g, $os);
 
         my @boot_configs;
 
@@ -1474,7 +1526,7 @@ sub _check_for_kernels
 
             # Check we've got a kernel entry
             if(defined($grub_kernel)) {
-                my $path = "/boot$grub_kernel";
+                my $path = "$grub$grub_kernel";
 
                 # Reconstruct the kernel command line
                 my @args = ();
@@ -1508,7 +1560,7 @@ sub _check_for_kernels
 
                     unless($@) {
                         $config{initrd} =
-                            _inspect_initrd($g, $os, "/boot$initrd",
+                            _inspect_initrd($g, $os, "$grub$initrd",
                                             $kernel->{version});
                     } else {
                         warn __x("Grub entry {title} does not specify an ".
