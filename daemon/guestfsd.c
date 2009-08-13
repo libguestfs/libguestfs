@@ -188,7 +188,7 @@ main (int argc, char *argv[])
    */
   setenv ("PATH", "/usr/bin:/bin", 1);
   setenv ("SHELL", "/bin/sh", 1);
-  setenv ("LANG", "C", 1);
+  setenv ("LC_ALL", "C", 1);
 
   /* We document that umask defaults to 022 (it should be this anyway). */
   umask (022);
