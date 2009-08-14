@@ -7516,8 +7516,16 @@ py_guestfs_close (PyObject *self, PyObject *args)
       pr "};\n";
       pr "\n";
 
-      emit_put_list_function typ
   ) structs;
+
+  (* Emit a put_TYPE_list function definition only if that function is used. *)
+  List.iter (
+    function
+    | typ, (RStructListOnly | RStructAndList) ->
+        (* generate the function for typ *)
+        emit_put_list_function typ
+    | typ, _ -> () (* empty *)
+  ) rstructs_used;
 
   (* Python wrapper functions. *)
   List.iter (
