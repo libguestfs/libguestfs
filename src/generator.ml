@@ -3645,6 +3645,64 @@ let java_structs = [
   "inotify_event", "INotifyEvent";
 ]
 
+(* What structs are actually returned. *)
+type rstructs_used_t = RStructOnly | RStructListOnly | RStructAndList
+
+(* Returns a list of RStruct/RStructList structs that are returned
+ * by any function.  Each element of returned list is a pair:
+ *
+ * (structname, RStructOnly)
+ *    == there exists function which returns RStruct (_, structname)
+ * (structname, RStructListOnly)
+ *    == there exists function which returns RStructList (_, structname)
+ * (structname, RStructAndList)
+ *    == there are functions returning both RStruct (_, structname)
+ *                                      and RStructList (_, structname)
+ *)
+let rstructs_used =
+  (* ||| is a "logical OR" for rstructs_used_t *)
+  let (|||) a b =
+    match a, b with
+    | RStructAndList, _
+    | _, RStructAndList -> RStructAndList
+    | RStructOnly, RStructListOnly
+    | RStructListOnly, RStructOnly -> RStructAndList
+    | RStructOnly, RStructOnly -> RStructOnly
+    | RStructListOnly, RStructListOnly -> RStructListOnly
+  in
+
+  let h = Hashtbl.create 13 in
+
+  (* if elem->oldv exists, update entry using ||| operator,
+   * else just add elem->newv to the hash
+   *)
+  let update elem newv =
+    try  let oldv = Hashtbl.find h elem in
+         Hashtbl.replace h elem (newv ||| oldv)
+    with Not_found -> Hashtbl.add h elem newv
+  in
+
+  List.iter (
+    fun (_, style, _, _, _, _, _) ->
+      match fst style with
+      | RStruct (_, structname) -> update structname RStructOnly
+      | RStructList (_, structname) -> update structname RStructListOnly
+      | _ -> ()
+  ) all_functions;
+
+  (* return key->values as a list of (key,value) *)
+  Hashtbl.fold (fun key value xs -> (key, value) :: xs) h []
+
+(* debug:
+let () =
+  List.iter (
+    function
+    | sn, RStructOnly -> printf "%s RStructOnly\n" sn
+    | sn, RStructListOnly -> printf "%s RStructListOnly\n" sn
+    | sn, RStructAndList -> printf "%s RStructAndList\n" sn
+  ) rstructs_used
+*)
+
 (* Used for testing language bindings. *)
 type callt =
   | CallString of string
@@ -7387,6 +7445,21 @@ py_guestfs_close (PyObject *self, PyObject *args)
 
 ";
 
+  let emit_put_list_function typ =
+    pr "static PyObject *\n";
+    pr "put_%s_list (struct guestfs_%s_list *%ss)\n" typ typ typ;
+    pr "{\n";
+    pr "  PyObject *list;\n";
+    pr "  int i;\n";
+    pr "\n";
+    pr "  list = PyList_New (%ss->len);\n" typ;
+    pr "  for (i = 0; i < %ss->len; ++i)\n" typ;
+    pr "    PyList_SetItem (list, i, put_%s (&%ss->val[i]));\n" typ typ;
+    pr "  return list;\n";
+    pr "};\n";
+    pr "\n"
+  in
+
   (* Structures, turned into Python dictionaries. *)
   List.iter (
     fun (typ, cols) ->
@@ -7443,19 +7516,16 @@ py_guestfs_close (PyObject *self, PyObject *args)
       pr "};\n";
       pr "\n";
 
-      pr "static PyObject *\n";
-      pr "put_%s_list (struct guestfs_%s_list *%ss)\n" typ typ typ;
-      pr "{\n";
-      pr "  PyObject *list;\n";
-      pr "  int i;\n";
-      pr "\n";
-      pr "  list = PyList_New (%ss->len);\n" typ;
-      pr "  for (i = 0; i < %ss->len; ++i)\n" typ;
-      pr "    PyList_SetItem (list, i, put_%s (&%ss->val[i]));\n" typ typ;
-      pr "  return list;\n";
-      pr "};\n";
-      pr "\n"
   ) structs;
+
+  (* Emit a put_TYPE_list function definition only if that function is used. *)
+  List.iter (
+    function
+    | typ, (RStructListOnly | RStructAndList) ->
+        (* generate the function for typ *)
+        emit_put_list_function typ
+    | typ, _ -> () (* empty *)
+  ) rstructs_used;
 
   (* Python wrapper functions. *)
   List.iter (
