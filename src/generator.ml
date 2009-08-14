@@ -3645,6 +3645,64 @@ let java_structs = [
   "inotify_event", "INotifyEvent";
 ]
 
+(* What structs are actually returned. *)
+type rstructs_used_t = RStructOnly | RStructListOnly | RStructAndList
+
+(* Returns a list of RStruct/RStructList structs that are returned
+ * by any function.  Each element of returned list is a pair:
+ *
+ * (structname, RStructOnly)
+ *    == there exists function which returns RStruct (_, structname)
+ * (structname, RStructListOnly)
+ *    == there exists function which returns RStructList (_, structname)
+ * (structname, RStructAndList)
+ *    == there are functions returning both RStruct (_, structname)
+ *                                      and RStructList (_, structname)
+ *)
+let rstructs_used =
+  (* ||| is a "logical OR" for rstructs_used_t *)
+  let (|||) a b =
+    match a, b with
+    | RStructAndList, _
+    | _, RStructAndList -> RStructAndList
+    | RStructOnly, RStructListOnly
+    | RStructListOnly, RStructOnly -> RStructAndList
+    | RStructOnly, RStructOnly -> RStructOnly
+    | RStructListOnly, RStructListOnly -> RStructListOnly
+  in
+
+  let h = Hashtbl.create 13 in
+
+  (* if elem->oldv exists, update entry using ||| operator,
+   * else just add elem->newv to the hash
+   *)
+  let update elem newv =
+    try  let oldv = Hashtbl.find h elem in
+         Hashtbl.replace h elem (newv ||| oldv)
+    with Not_found -> Hashtbl.add h elem newv
+  in
+
+  List.iter (
+    fun (_, style, _, _, _, _, _) ->
+      match fst style with
+      | RStruct (_, structname) -> update structname RStructOnly
+      | RStructList (_, structname) -> update structname RStructListOnly
+      | _ -> ()
+  ) all_functions;
+
+  (* return key->values as a list of (key,value) *)
+  Hashtbl.fold (fun key value xs -> (key, value) :: xs) h []
+
+(* debug:
+let () =
+  List.iter (
+    function
+    | sn, RStructOnly -> printf "%s RStructOnly\n" sn
+    | sn, RStructListOnly -> printf "%s RStructListOnly\n" sn
+    | sn, RStructAndList -> printf "%s RStructAndList\n" sn
+  ) rstructs_used
+*)
+
 (* Used for testing language bindings. *)
 type callt =
   | CallString of string
