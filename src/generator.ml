@@ -7422,11 +7422,11 @@ and generate_python_c () =
   generate_header CStyle LGPLv2;
 
   pr "\
+#include <Python.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-
-#include <Python.h>
 
 #include \"guestfs.h\"
 
