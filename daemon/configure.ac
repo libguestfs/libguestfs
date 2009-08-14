@@ -68,7 +68,7 @@ dnl Check for libselinux (optional).
 AC_CHECK_HEADERS([selinux/selinux.h])
 AC_CHECK_LIB([selinux],[setexeccon],[
         LIBS="-lselinux $LIBS"
-	have_libselinux="$ac_cv_header_selinux_selinux_h"
+        have_libselinux="$ac_cv_header_selinux_selinux_h"
         AC_CHECK_FUNCS([setcon getcon])
         ],[have_libselinux=no])
 if test "x$have_libselinux" = "xyes"; then
