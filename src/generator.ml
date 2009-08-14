@@ -7445,6 +7445,21 @@ py_guestfs_close (PyObject *self, PyObject *args)
 
 ";
 
+  let emit_put_list_function typ =
+    pr "static PyObject *\n";
+    pr "put_%s_list (struct guestfs_%s_list *%ss)\n" typ typ typ;
+    pr "{\n";
+    pr "  PyObject *list;\n";
+    pr "  int i;\n";
+    pr "\n";
+    pr "  list = PyList_New (%ss->len);\n" typ;
+    pr "  for (i = 0; i < %ss->len; ++i)\n" typ;
+    pr "    PyList_SetItem (list, i, put_%s (&%ss->val[i]));\n" typ typ;
+    pr "  return list;\n";
+    pr "};\n";
+    pr "\n"
+  in
+
   (* Structures, turned into Python dictionaries. *)
   List.iter (
     fun (typ, cols) ->
@@ -7501,18 +7516,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
       pr "};\n";
       pr "\n";
 
-      pr "static PyObject *\n";
-      pr "put_%s_list (struct guestfs_%s_list *%ss)\n" typ typ typ;
-      pr "{\n";
-      pr "  PyObject *list;\n";
-      pr "  int i;\n";
-      pr "\n";
-      pr "  list = PyList_New (%ss->len);\n" typ;
-      pr "  for (i = 0; i < %ss->len; ++i)\n" typ;
-      pr "    PyList_SetItem (list, i, put_%s (&%ss->val[i]));\n" typ typ;
-      pr "  return list;\n";
-      pr "};\n";
-      pr "\n"
+      emit_put_list_function typ
   ) structs;
 
   (* Python wrapper functions. *)
