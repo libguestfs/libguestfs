@@ -3475,6 +3475,90 @@ This gets the SELinux security context of the daemon.
 See the documentation about SELINUX in L<guestfs(3)>,
 and C<guestfs_setcon>");
 
+  ("mkfs_b", (RErr, [String "fstype"; Int "blocksize"; Device "device"]), 187, [],
+   [InitEmpty, Always, TestOutput (
+      [["sfdiskM"; "/dev/sda"; ","];
+       ["mkfs_b"; "ext2"; "4096"; "/dev/sda1"];
+       ["mount"; "/dev/sda1"; "/"];
+       ["write_file"; "/new"; "new file contents"; "0"];
+       ["cat"; "/new"]], "new file contents")],
+   "make a filesystem with block size",
+   "\
+This call is similar to C<guestfs_mkfs>, but it allows you to
+control the block size of the resulting filesystem.  Supported
+block sizes depend on the filesystem type, but typically they
+are C<1024>, C<2048> or C<4096> only.");
+
+  ("mke2journal", (RErr, [Int "blocksize"; Device "device"]), 188, [],
+   [InitEmpty, Always, TestOutput (
+      [["sfdiskM"; "/dev/sda"; ",100 ,"];
+       ["mke2journal"; "4096"; "/dev/sda1"];
+       ["mke2fs_J"; "ext2"; "4096"; "/dev/sda2"; "/dev/sda1"];
+       ["mount"; "/dev/sda2"; "/"];
+       ["write_file"; "/new"; "new file contents"; "0"];
+       ["cat"; "/new"]], "new file contents")],
+   "make ext2/3/4 external journal",
+   "\
+This creates an ext2 external journal on C<device>.  It is equivalent
+to the command:
+
+ mke2fs -O journal_dev -b blocksize device");
+
+  ("mke2journal_L", (RErr, [Int "blocksize"; String "label"; Device "device"]), 189, [],
+   [InitEmpty, Always, TestOutput (
+      [["sfdiskM"; "/dev/sda"; ",100 ,"];
+       ["mke2journal_L"; "4096"; "JOURNAL"; "/dev/sda1"];
+       ["mke2fs_JL"; "ext2"; "4096"; "/dev/sda2"; "JOURNAL"];
+       ["mount"; "/dev/sda2"; "/"];
+       ["write_file"; "/new"; "new file contents"; "0"];
+       ["cat"; "/new"]], "new file contents")],
+   "make ext2/3/4 external journal with label",
+   "\
+This creates an ext2 external journal on C<device> with label C<label>.");
+
+  ("mke2journal_U", (RErr, [Int "blocksize"; String "uuid"; Device "device"]), 190, [],
+   (let uuid = uuidgen () in
+    [InitEmpty, Always, TestOutput (
+       [["sfdiskM"; "/dev/sda"; ",100 ,"];
+	["mke2journal_U"; "4096"; uuid; "/dev/sda1"];
+	["mke2fs_JU"; "ext2"; "4096"; "/dev/sda2"; uuid];
+	["mount"; "/dev/sda2"; "/"];
+	["write_file"; "/new"; "new file contents"; "0"];
+	["cat"; "/new"]], "new file contents")]),
+   "make ext2/3/4 external journal with UUID",
+   "\
+This creates an ext2 external journal on C<device> with UUID C<uuid>.");
+
+  ("mke2fs_J", (RErr, [String "fstype"; Int "blocksize"; Device "device"; Device "journal"]), 191, [],
+   [],
+   "make ext2/3/4 filesystem with external journal",
+   "\
+This creates an ext2/3/4 filesystem on C<device> with
+an external journal on C<journal>.  It is equivalent
+to the command:
+
+ mke2fs -t fstype -b blocksize -J device=<journal> <device>
+
+See also C<guestfs_mke2journal>.");
+
+  ("mke2fs_JL", (RErr, [String "fstype"; Int "blocksize"; Device "device"; String "label"]), 192, [],
+   [],
+   "make ext2/3/4 filesystem with external journal",
+   "\
+This creates an ext2/3/4 filesystem on C<device> with
+an external journal on the journal labeled C<label>.
+
+See also C<guestfs_mke2journal_L>.");
+
+  ("mke2fs_JU", (RErr, [String "fstype"; Int "blocksize"; Device "device"; String "uuid"]), 193, [],
+   [],
+   "make ext2/3/4 filesystem with external journal",
+   "\
+This creates an ext2/3/4 filesystem on C<device> with
+an external journal on the journal with UUID C<uuid>.
+
+See also C<guestfs_mke2journal_U>.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

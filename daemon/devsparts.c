@@ -186,20 +186,3 @@ do_list_partitions (void)
 {
   return foreach_block_device(add_partitions);
 }
-
-int
-do_mkfs (const char *fstype, const char *device)
-{
-  char *err;
-  int r;
-
-  r = command (NULL, &err, "/sbin/mkfs", "-t", fstype, device, NULL);
-  if (r == -1) {
-    reply_with_error ("mkfs: %s", err);
-    free (err);
-    return -1;
-  }
-
-  free (err);
-  return 0;
-}

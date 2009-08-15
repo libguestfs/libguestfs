@@ -52,6 +52,7 @@ guestfsd_SOURCES = \
 	link.c \
 	ls.c \
 	lvm.c \
+	mkfs.c \
 	mknod.c \
 	mount.c \
 	names.c \

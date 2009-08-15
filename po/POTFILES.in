@@ -28,6 +28,7 @@ daemon/inotify.c
 daemon/link.c
 daemon/ls.c
 daemon/lvm.c
+daemon/mkfs.c
 daemon/mknod.c
 daemon/mount.c
 daemon/names.c

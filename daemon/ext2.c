@@ -266,3 +266,152 @@ do_e2fsck_f (const char *device)
   free (err);
   return 0;
 }
+
+int
+do_mke2journal (int blocksize, const char *device)
+{
+  char *err;
+  int r;
+
+  char blocksize_s[32];
+  snprintf (blocksize_s, sizeof blocksize_s, "%d", blocksize);
+
+  r = command (NULL, &err,
+	       "/sbin/mke2fs", "-O", "journal_dev", "-b", blocksize_s,
+	       device, NULL);
+  if (r == -1) {
+    reply_with_error ("mke2journal: %s", err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+  return 0;
+}
+
+int
+do_mke2journal_L (int blocksize, const char *label, const char *device)
+{
+  char *err;
+  int r;
+
+  char blocksize_s[32];
+  snprintf (blocksize_s, sizeof blocksize_s, "%d", blocksize);
+
+  r = command (NULL, &err,
+	       "/sbin/mke2fs", "-O", "journal_dev", "-b", blocksize_s,
+	       "-L", label,
+	       device, NULL);
+  if (r == -1) {
+    reply_with_error ("mke2journal_L: %s", err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+  return 0;
+}
+
+int
+do_mke2journal_U (int blocksize, const char *uuid, const char *device)
+{
+  char *err;
+  int r;
+
+  char blocksize_s[32];
+  snprintf (blocksize_s, sizeof blocksize_s, "%d", blocksize);
+
+  r = command (NULL, &err,
+	       "/sbin/mke2fs", "-O", "journal_dev", "-b", blocksize_s,
+	       "-U", uuid,
+	       device, NULL);
+  if (r == -1) {
+    reply_with_error ("mke2journal_U: %s", err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+  return 0;
+}
+
+int
+do_mke2fs_J (const char *fstype, int blocksize, const char *device,
+	     const char *journal)
+{
+  char *err;
+  int r;
+
+  char blocksize_s[32];
+  snprintf (blocksize_s, sizeof blocksize_s, "%d", blocksize);
+
+  int len = strlen (journal);
+  char jdev[len+32];
+  snprintf (jdev, len+32, "device=%s", journal);
+
+  r = command (NULL, &err,
+	       "/sbin/mke2fs", "-t", fstype, "-J", jdev, "-b", blocksize_s,
+	       device, NULL);
+  if (r == -1) {
+    reply_with_error ("mke2fs_J: %s", err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+  return 0;
+}
+
+int
+do_mke2fs_JL (const char *fstype, int blocksize, const char *device,
+	      const char *label)
+{
+  char *err;
+  int r;
+
+  char blocksize_s[32];
+  snprintf (blocksize_s, sizeof blocksize_s, "%d", blocksize);
+
+  int len = strlen (label);
+  char jdev[len+32];
+  snprintf (jdev, len+32, "device=LABEL=%s", label);
+
+  r = command (NULL, &err,
+	       "/sbin/mke2fs", "-t", fstype, "-J", jdev, "-b", blocksize_s,
+	       device, NULL);
+  if (r == -1) {
+    reply_with_error ("mke2fs_JL: %s", err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+  return 0;
+}
+
+int
+do_mke2fs_JU (const char *fstype, int blocksize, const char *device,
+	      const char *uuid)
+{
+  char *err;
+  int r;
+
+  char blocksize_s[32];
+  snprintf (blocksize_s, sizeof blocksize_s, "%d", blocksize);
+
+  int len = strlen (uuid);
+  char jdev[len+32];
+  snprintf (jdev, len+32, "device=UUID=%s", uuid);
+
+  r = command (NULL, &err,
+	       "/sbin/mke2fs", "-t", fstype, "-J", jdev, "-b", blocksize_s,
+	       device, NULL);
+  if (r == -1) {
+    reply_with_error ("mke2fs_JU: %s", err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+  return 0;
+}
