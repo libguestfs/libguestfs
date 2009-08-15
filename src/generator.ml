@@ -342,6 +342,19 @@ and cmd = string list
  * Apart from that, long descriptions are just perldoc paragraphs.
  *)
 
+(* Generate a random UUID (used in tests). *)
+let uuidgen () =
+  let chan = Unix.open_process_in "uuidgen" in
+  let uuid = input_line chan in
+  (match Unix.close_process_in chan with
+   | Unix.WEXITED 0 -> ()
+   | Unix.WEXITED _ ->
+       failwith "uuidgen: process exited with non-zero status"
+   | Unix.WSIGNALED _ | Unix.WSTOPPED _ ->
+       failwith "uuidgen: process signalled or stopped by signal"
+  );
+  uuid
+
 (* These test functions are used in the language binding tests. *)
 
 let test_all_args = [
@@ -2077,17 +2090,18 @@ This returns the ext2/3/4 filesystem label of the filesystem on
 C<device>.");
 
   ("set_e2uuid", (RErr, [Device "device"; String "uuid"]), 82, [],
-   [InitBasicFS, Always, TestOutput (
-      [["set_e2uuid"; "/dev/sda1"; "a3a61220-882b-4f61-89f4-cf24dcc7297d"];
-       ["get_e2uuid"; "/dev/sda1"]], "a3a61220-882b-4f61-89f4-cf24dcc7297d");
-    InitBasicFS, Always, TestOutput (
-      [["set_e2uuid"; "/dev/sda1"; "clear"];
-       ["get_e2uuid"; "/dev/sda1"]], "");
-    (* We can't predict what UUIDs will be, so just check the commands run. *)
-    InitBasicFS, Always, TestRun (
-      [["set_e2uuid"; "/dev/sda1"; "random"]]);
-    InitBasicFS, Always, TestRun (
-      [["set_e2uuid"; "/dev/sda1"; "time"]])],
+   (let uuid = uuidgen () in
+    [InitBasicFS, Always, TestOutput (
+       [["set_e2uuid"; "/dev/sda1"; uuid];
+	["get_e2uuid"; "/dev/sda1"]], uuid);
+     InitBasicFS, Always, TestOutput (
+       [["set_e2uuid"; "/dev/sda1"; "clear"];
+	["get_e2uuid"; "/dev/sda1"]], "");
+     (* We can't predict what UUIDs will be, so just check the commands run. *)
+     InitBasicFS, Always, TestRun (
+       [["set_e2uuid"; "/dev/sda1"; "random"]]);
+     InitBasicFS, Always, TestRun (
+       [["set_e2uuid"; "/dev/sda1"; "time"]])]),
    "set the ext2/3/4 filesystem UUID",
    "\
 This sets the ext2/3/4 filesystem UUID of the filesystem on
@@ -2805,9 +2819,10 @@ Note that you cannot attach a swap label to a block device
 a limitation of the kernel or swap tools.");
 
   ("mkswap_U", (RErr, [String "uuid"; Device "device"]), 132, [],
-   [InitEmpty, Always, TestRun (
-      [["sfdiskM"; "/dev/sda"; ","];
-       ["mkswap_U"; "a3a61220-882b-4f61-89f4-cf24dcc7297d"; "/dev/sda1"]])],
+   (let uuid = uuidgen () in
+    [InitEmpty, Always, TestRun (
+       [["sfdiskM"; "/dev/sda"; ","];
+	["mkswap_U"; uuid; "/dev/sda1"]])]),
    "create a swap partition with an explicit UUID",
    "\
 Create a swap partition on C<device> with UUID C<uuid>.");
@@ -3316,10 +3331,11 @@ This command disables the libguestfs appliance swap on
 labeled swap partition.");
 
   ("swapon_uuid", (RErr, [String "uuid"]), 176, [],
-   [InitEmpty, Always, TestRun (
-      [["mkswap_U"; "a3a61220-882b-4f61-89f4-cf24dcc7297d"; "/dev/sdb"];
-       ["swapon_uuid"; "a3a61220-882b-4f61-89f4-cf24dcc7297d"];
-       ["swapoff_uuid"; "a3a61220-882b-4f61-89f4-cf24dcc7297d"]])],
+   (let uuid = uuidgen () in
+    [InitEmpty, Always, TestRun (
+       [["mkswap_U"; uuid; "/dev/sdb"];
+	["swapon_uuid"; uuid];
+	["swapoff_uuid"; uuid]])]),
    "enable swap on swap partition by UUID",
    "\
 This command enables swap to a swap partition with the given UUID.
