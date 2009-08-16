@@ -75,7 +75,7 @@ usage (void)
 int
 main (int argc, char *argv[])
 {
-  static const char *options = "?";
+  static const char *options = "t:?";
   static const struct option long_options[] = {
     { "help", 0, 0, '?' },
     { "helper", 1, 0, 0 },
