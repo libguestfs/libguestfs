@@ -6063,6 +6063,21 @@ and generate_fish_cmds () =
   pr "}\n";
   pr "\n";
 
+  let emit_print_list_function typ =
+    pr "static void print_%s_list (struct guestfs_%s_list *%ss)\n"
+      typ typ typ;
+    pr "{\n";
+    pr "  int i;\n";
+    pr "\n";
+    pr "  for (i = 0; i < %ss->len; ++i) {\n" typ;
+    pr "    printf (\"[%%d] = {\\n\", i);\n";
+    pr "    print_%s_indent (&%ss->val[i], \"  \");\n" typ typ;
+    pr "    printf (\"}\\n\");\n";
+    pr "  }\n";
+    pr "}\n";
+    pr "\n";
+  in
+
   (* print_* functions *)
   List.iter (
     fun (typ, cols) ->
@@ -6119,19 +6134,16 @@ and generate_fish_cmds () =
       pr "  print_%s_indent (%s, \"\");\n" typ typ;
       pr "}\n";
       pr "\n";
-      pr "static void print_%s_list (struct guestfs_%s_list *%ss)\n"
-        typ typ typ;
-      pr "{\n";
-      pr "  int i;\n";
-      pr "\n";
-      pr "  for (i = 0; i < %ss->len; ++i) {\n" typ;
-      pr "    printf (\"[%%d] = {\\n\", i);\n";
-      pr "    print_%s_indent (&%ss->val[i], \"  \");\n" typ typ;
-      pr "    printf (\"}\\n\");\n";
-      pr "  }\n";
-      pr "}\n";
-      pr "\n";
   ) structs;
+
+  (* Emit a print_TYPE_list function definition only if that function is used. *)
+  List.iter (
+    function
+    | typ, (RStructListOnly | RStructAndList) ->
+        (* generate the function for typ *)
+        emit_print_list_function typ
+    | typ, _ -> () (* empty *)
+  ) rstructs_used;
 
   (* run_<action> actions *)
   List.iter (
