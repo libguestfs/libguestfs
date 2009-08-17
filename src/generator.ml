@@ -4937,10 +4937,10 @@ and generate_daemon_actions () =
                  pr "  ABS_PATH (%s, goto done);\n" n;
              | Device n ->
                  pr_args n;
-                 pr "  RESOLVE_DEVICE (%s, goto done);" n;
+                 pr "  RESOLVE_DEVICE (%s, goto done);\n" n;
              | Dev_or_Path n ->
                  pr_args n;
-                 pr "  REQUIRE_ROOT_OR_RESOLVE_DEVICE (%s, goto done);" n;
+                 pr "  REQUIRE_ROOT_OR_RESOLVE_DEVICE (%s, goto done);\n" n;
              | String n -> pr_args n
              | OptString n -> pr "  %s = args.%s ? *args.%s : NULL;\n" n n n
              | StringList n ->
@@ -7619,7 +7619,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
               typ name;
             pr "  else {\n";
             pr "    Py_INCREF (Py_None);\n";
-            pr "    PyDict_SetItemString (dict, \"%s\", Py_None);" name;
+            pr "    PyDict_SetItemString (dict, \"%s\", Py_None);\n" name;
             pr "  }\n"
         | name, FChar ->
             pr "  PyDict_SetItemString (dict, \"%s\",\n" name;
