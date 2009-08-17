@@ -5274,7 +5274,7 @@ static void print_error (guestfs_h *g, void *data, const char *msg)
 }
 
 /* FIXME: nearly identical code appears in fish.c */
-static void print_strings (char const *const *argv)
+static void print_strings (char *const *argv)
 {
   int argc;
 
@@ -5869,7 +5869,7 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
               fun i str ->
                 pr "    const char *%s_%d = \"%s\";\n" n i (c_quote str);
             ) strs;
-            pr "    const char *%s[] = {\n" n;
+            pr "    const char *const %s[] = {\n" n;
             iteri (
               fun i _ -> pr "      %s_%d,\n" n i
             ) strs;
@@ -5912,7 +5912,7 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
         | FileIn _, arg | FileOut _, arg ->
             pr ", \"%s\"" (c_quote arg)
         | StringList n, _ | DeviceList n, _ ->
-            pr ", %s" n
+            pr ", (char **) %s" n
         | Int _, arg ->
             let i =
               try int_of_string arg
@@ -9019,7 +9019,7 @@ and generate_bindtests () =
 #define safe_malloc guestfs_safe_malloc
 
 static void
-print_strings (char * const* const argv)
+print_strings (char *const *argv)
 {
   int argc;
 
