@@ -6129,11 +6129,6 @@ and generate_fish_cmds () =
       ) cols;
       pr "}\n";
       pr "\n";
-      pr "static void print_%s (struct guestfs_%s *%s)\n" typ typ typ;
-      pr "{\n";
-      pr "  print_%s_indent (%s, \"\");\n" typ typ;
-      pr "}\n";
-      pr "\n";
   ) structs;
 
   (* Emit a print_TYPE_list function definition only if that function is used. *)
@@ -6142,6 +6137,18 @@ and generate_fish_cmds () =
     | typ, (RStructListOnly | RStructAndList) ->
         (* generate the function for typ *)
         emit_print_list_function typ
+    | typ, _ -> () (* empty *)
+  ) rstructs_used;
+
+  (* Emit a print_TYPE function definition only if that function is used. *)
+  List.iter (
+    function
+    | typ, RStructOnly ->
+        pr "static void print_%s (struct guestfs_%s *%s)\n" typ typ typ;
+        pr "{\n";
+        pr "  print_%s_indent (%s, \"\");\n" typ typ;
+        pr "}\n";
+        pr "\n";
     | typ, _ -> () (* empty *)
   ) rstructs_used;
 
