@@ -41,10 +41,20 @@ do_zero (const char *device)
 
   memset (buf, 0, sizeof buf);
 
+  int err = 0;
+  int saved_errno = 0;
   for (i = 0; i < 32; ++i)
-    (void) write (fd, buf, sizeof buf);
+    if (write (fd, buf, sizeof buf) != sizeof buf) {
+      saved_errno = errno;
+      err = -1;
+    }
 
-  close (fd);
+  if (close (fd) && saved_errno == 0) {
+    saved_errno = errno;
+    err = -1;
+  }
 
-  return 0;
+  if (saved_errno)
+    errno = saved_errno;
+  return err;
 }
