@@ -48,6 +48,14 @@ BUILT_SOURCES = \
   guestfs-actions.c \
   guestfs-bindtests.c
 
+# This convenience library is solely to avoid compiler warnings
+# in its generated sources.
+libprotocol_la_SOURCES = \
+  guestfs_protocol.c \
+  guestfs_protocol.h
+
+libprotocol_la_CFLAGS = -Wall -Wno-unused
+
 $(BUILT_SOURCES): stamp-generator
 
 CLEANFILES = guestfs_protocol.c guestfs_protocol.h
@@ -98,12 +106,14 @@ libguestfs_la_LDFLAGS = -version-info $(MAX_PROC_NR):0:$(MAX_PROC_NR)
 libguestfs_la_SOURCES = \
 	guestfs.c \
 	guestfs.h \
-	guestfs_protocol.c \
-	guestfs_protocol.h \
 	guestfs-actions.h \
 	guestfs-actions.c \
 	guestfs-bindtests.c \
 	gettext.h
+
+# Make libguestfs include the convenience library.
+noinst_LTLIBRARIES = libprotocol.la
+libguestfs_la_LIBADD = libprotocol.la
 
 libguestfs_la_CFLAGS = -Wall -DGUESTFS_DEFAULT_PATH='"$(libdir)/guestfs"'
 
