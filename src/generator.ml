@@ -8589,9 +8589,9 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
          | RConstOptString _
          | RString _ | RBufferOut _ | RStruct _ | RHashtable _ -> false) ||
           List.exists (function
-		       | StringList _ -> true
-		       | DeviceList _ -> true
-		       | _ -> false) (snd style) in
+                       | StringList _ -> true
+                       | DeviceList _ -> true
+                       | _ -> false) (snd style) in
       if needs_i then
         pr "  int i;\n";
 
