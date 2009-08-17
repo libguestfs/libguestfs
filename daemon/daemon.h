@@ -91,7 +91,7 @@ extern guestfs_int_lvm_vg_list *parse_command_line_vgs (void);
 extern guestfs_int_lvm_lv_list *parse_command_line_lvs (void);
 
 /*-- in proto.c --*/
-extern void main_loop (int sock);
+extern void main_loop (int sock) __attribute__((noreturn));
 
 /* ordinary daemon functions use these to indicate errors */
 extern void reply_with_error (const char *fs, ...)
