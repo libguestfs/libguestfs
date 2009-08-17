@@ -72,13 +72,13 @@ sfdisk (const char *device, int n, int cyls, int heads, int sectors,
 
   fp = popen (buf, "w");
   if (fp == NULL) {
-    reply_with_perror (buf);
+    reply_with_perror ("failed to open pipe: %s", buf);
     return -1;
   }
 
   for (i = 0; lines[i] != NULL; ++i) {
     if (fprintf (fp, "%s\n", lines[i]) < 0) {
-      reply_with_perror (buf);
+      reply_with_perror ("failed to write to pipe: %s", buf);
       pclose (fp);
       return -1;
     }
