@@ -81,5 +81,6 @@ guestfsd_SOURCES = \
 	$(top_builddir)/../src/guestfs_protocol.c
 
 AM_CPPFLAGS = -I$(srcdir)/lib -Ilib
-guestfsd_CFLAGS = -Wall
+guestfsd_CFLAGS = $(WARN_CFLAGS) $(WERROR_CFLAGS)
+
 LDADD = lib/libgnu.a

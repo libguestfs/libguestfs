@@ -48,6 +48,67 @@ AC_PROG_CPP
 gl_EARLY
 gl_INIT
 
+AC_ARG_ENABLE([gcc-warnings],
+  [AS_HELP_STRING([--enable-gcc-warnings],
+		  [turn on lots of GCC warnings (for developers)])],
+  [case $enableval in
+     yes|no) ;;
+     *)      AC_MSG_ERROR([bad value $enableval for gcc-warnings option]) ;;
+   esac
+   gl_gcc_warnings=$enableval],
+  [gl_gcc_warnings=no]
+)
+
+if test "$gl_gcc_warnings" = yes; then
+  gl_WARN_ADD([-Werror], [WERROR_CFLAGS])
+  AC_SUBST([WERROR_CFLAGS])
+
+  nw=
+  # This, $nw, is the list of warnings we disable.
+  nw="$nw -Wdeclaration-after-statement" # too useful to forbid
+  nw="$nw -Waggregate-return"       # anachronistic
+  nw="$nw -Wc++-compat"             # We don't care about C++ compilers
+  nw="$nw -Wundef"                  # Warns on '#if GNULIB_FOO' etc in gnulib
+  nw="$nw -Wtraditional"            # Warns on #elif which we use often
+  nw="$nw -Wcast-qual"              # Too many warnings for now
+  nw="$nw -Wconversion"             # Too many warnings for now
+  nw="$nw -Wsystem-headers"         # Don't let system headers trigger warnings
+  nw="$nw -Wsign-conversion"        # Too many warnings for now
+  nw="$nw -Wtraditional-conversion" # Too many warnings for now
+  nw="$nw -Wunreachable-code"       # Too many warnings for now
+  nw="$nw -Wpadded"                 # Our structs are not padded
+  nw="$nw -Wredundant-decls"        # openat.h declares e.g., mkdirat
+  nw="$nw -Wlogical-op"             # any use of fwrite provokes this
+  nw="$nw -Wvla"                    # two warnings in mount.c
+  # things I might fix soon:
+  nw="$nw -Wmissing-format-attribute" # daemon.h's asprintf_nowarn
+  nw="$nw -Winline"                 # daemon.h's asprintf_nowarn
+  nw="$nw -Wshadow"                 # numerous, plus we're not unanimous
+  # ?? -Wstrict-overflow
+
+  gl_MANYWARN_ALL_GCC([ws])
+  gl_MANYWARN_COMPLEMENT([ws], [$ws], [$nw])
+  for w in $ws; do
+    gl_WARN_ADD([$w])
+  done
+  gl_WARN_ADD([-Wno-unused-parameter]) # stubs.c
+  gl_WARN_ADD([-Wno-jump-misses-init]) # stubs.c
+  gl_WARN_ADD([-Wno-unused-variable]) # FIXME: only temporary, for guestfs_protocol.c, etc
+
+  # In spite of excluding -Wlogical-op above, it is enabled, as of
+  # gcc 4.5.0 20090517, and it provokes warnings in cat.c, dd.c, truncate.c
+  gl_WARN_ADD([-Wno-logical-op])
+
+  gl_WARN_ADD([-fdiagnostics-show-option])
+
+  AC_SUBST([WARN_CFLAGS])
+
+  AC_DEFINE([lint], [1], [Define to 1 if the compiler is checking for lint.])
+  AC_DEFINE([_FORTIFY_SOURCE], [2],
+    [enable compile-time and run-time bounds-checking, and some warnings])
+  AC_DEFINE([GNULIB_PORTCHECK], [1], [enable some gnulib portability checks])
+fi
+
 AC_C_PROTOTYPES
 test "x$U" != "x" && AC_MSG_ERROR([Compiler not ANSI compliant])
 
