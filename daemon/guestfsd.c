@@ -273,9 +273,10 @@ sysroot_path (const char *path)
 }
 
 int
-xwrite (int sock, const void *buf, size_t len)
+xwrite (int sock, const void *v_buf, size_t len)
 {
   int r;
+  const char *buf = v_buf;
 
   while (len > 0) {
     r = write (sock, buf, len);
@@ -291,9 +292,10 @@ xwrite (int sock, const void *buf, size_t len)
 }
 
 int
-xread (int sock, void *buf, size_t len)
+xread (int sock, void *v_buf, size_t len)
 {
   int r;
+  char *buf = v_buf;
 
   while (len > 0) {
     r = read (sock, buf, len);
