@@ -745,8 +745,6 @@ print_sysroot_shell_quote (FILE *stream,
                            const struct printf_info *info,
                            const void *const *args)
 {
-#define SAFE(c) (isalnum((c)) ||					\
-                 (c) == '/' || (c) == '-' || (c) == '_' || (c) == '.')
   fputs (sysroot, stream);
   return sysroot_len + print_shell_quote (stream, info, args);
 }
