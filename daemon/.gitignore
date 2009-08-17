@@ -14,6 +14,7 @@ m4/include_next.m4
 m4/inline.m4
 m4/inttostr.m4
 m4/longlong.m4
+m4/manywarnings.m4
 m4/multiarch.m4
 m4/onceonly.m4
 m4/stdbool.m4
@@ -22,6 +23,7 @@ m4/stdlib_h.m4
 m4/strerror.m4
 m4/string_h.m4
 m4/unistd_h.m4
+m4/warnings.m4
 m4/wchar.m4
 m4/wchar_t.m4
 m4/wint_t.m4
