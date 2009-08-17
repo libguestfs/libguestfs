@@ -28,7 +28,7 @@
 #include "actions.h"
 
 static int
-wc (char *flag, const char *path)
+wc (const char *flag, const char *path)
 {
   char *buf;
   char *out, *err;

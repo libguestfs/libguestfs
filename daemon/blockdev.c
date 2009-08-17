@@ -32,7 +32,7 @@
  * we centralize it in one call.
  */
 static int64_t
-call_blockdev (const char *device, char *switc, int extraarg, int prints)
+call_blockdev (const char *device, const char *switc, int extraarg, int prints)
 {
   int r;
   int64_t rv;
