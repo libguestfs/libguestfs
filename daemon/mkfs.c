@@ -56,7 +56,7 @@ do_mkfs_b (const char *fstype, int blocksize, const char *device)
   snprintf (blocksize_s, sizeof blocksize_s, "%d", blocksize);
 
   r = command (NULL, &err,
-	       "/sbin/mkfs", "-t", fstype, "-b", blocksize_s, device, NULL);
+               "/sbin/mkfs", "-t", fstype, "-b", blocksize_s, device, NULL);
   if (r == -1) {
     reply_with_error ("mkfs_b: %s", err);
     free (err);

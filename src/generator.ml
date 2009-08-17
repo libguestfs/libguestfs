@@ -2094,10 +2094,10 @@ C<device>.");
    (let uuid = uuidgen () in
     [InitBasicFS, Always, TestOutput (
        [["set_e2uuid"; "/dev/sda1"; uuid];
-	["get_e2uuid"; "/dev/sda1"]], uuid);
+        ["get_e2uuid"; "/dev/sda1"]], uuid);
      InitBasicFS, Always, TestOutput (
        [["set_e2uuid"; "/dev/sda1"; "clear"];
-	["get_e2uuid"; "/dev/sda1"]], "");
+        ["get_e2uuid"; "/dev/sda1"]], "");
      (* We can't predict what UUIDs will be, so just check the commands run. *)
      InitBasicFS, Always, TestRun (
        [["set_e2uuid"; "/dev/sda1"; "random"]]);
@@ -2823,7 +2823,7 @@ a limitation of the kernel or swap tools.");
    (let uuid = uuidgen () in
     [InitEmpty, Always, TestRun (
        [["sfdiskM"; "/dev/sda"; ","];
-	["mkswap_U"; uuid; "/dev/sda1"]])]),
+        ["mkswap_U"; uuid; "/dev/sda1"]])]),
    "create a swap partition with an explicit UUID",
    "\
 Create a swap partition on C<device> with UUID C<uuid>.");
@@ -3335,8 +3335,8 @@ labeled swap partition.");
    (let uuid = uuidgen () in
     [InitEmpty, Always, TestRun (
        [["mkswap_U"; uuid; "/dev/sdb"];
-	["swapon_uuid"; uuid];
-	["swapoff_uuid"; uuid]])]),
+        ["swapon_uuid"; uuid];
+        ["swapoff_uuid"; uuid]])]),
    "enable swap on swap partition by UUID",
    "\
 This command enables swap to a swap partition with the given UUID.
@@ -3521,11 +3521,11 @@ This creates an ext2 external journal on C<device> with label C<label>.");
    (let uuid = uuidgen () in
     [InitEmpty, Always, TestOutput (
        [["sfdiskM"; "/dev/sda"; ",100 ,"];
-	["mke2journal_U"; "4096"; uuid; "/dev/sda1"];
-	["mke2fs_JU"; "ext2"; "4096"; "/dev/sda2"; uuid];
-	["mount"; "/dev/sda2"; "/"];
-	["write_file"; "/new"; "new file contents"; "0"];
-	["cat"; "/new"]], "new file contents")]),
+        ["mke2journal_U"; "4096"; uuid; "/dev/sda1"];
+        ["mke2fs_JU"; "ext2"; "4096"; "/dev/sda2"; uuid];
+        ["mount"; "/dev/sda2"; "/"];
+        ["write_file"; "/new"; "new file contents"; "0"];
+        ["cat"; "/new"]], "new file contents")]),
    "make ext2/3/4 external journal with UUID",
    "\
 This creates an ext2 external journal on C<device> with UUID C<uuid>.");
