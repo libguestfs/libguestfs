@@ -24,7 +24,7 @@
 #include "actions.h"
 
 int
-do_sync ()
+do_sync (void)
 {
   sync ();
   return 0;

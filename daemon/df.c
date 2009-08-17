@@ -28,7 +28,7 @@
 #include "actions.h"
 
 char *
-do_df ()
+do_df (void)
 {
   int r;
   char *out, *err;
@@ -49,7 +49,7 @@ do_df ()
 }
 
 char *
-do_df_h ()
+do_df_h (void)
 {
   int r;
   char *out, *err;
