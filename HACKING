@@ -24,6 +24,13 @@ Please make sure that the code compiles without warnings.
 
 Please test any changes.
 
+Useful targets:
+  make syntax-check    Checks the syntax of the C code.
+  make check           Runs the test suite.
+
+Enable warnings, and fix any you find:
+  ./configure --enable-gcc-warnings
+
 Code indentation
 ----------------------------------------------------------------------
 Our C source code generally adheres to some basic code-formatting
