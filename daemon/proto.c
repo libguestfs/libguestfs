@@ -288,7 +288,7 @@ reply (xdrproc_t xdrp, char *ret)
     fprintf (stderr, "xwrite failed\n");
     exit (1);
   }
-  if (xwrite (sock, buf, len) == len) {
+  if (xwrite (sock, buf, len) == -1) {
     fprintf (stderr, "xwrite failed\n");
     exit (1);
   }
