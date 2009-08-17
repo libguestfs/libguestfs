@@ -195,11 +195,13 @@ getxattrs (const char *path,
  error:
   free (buf);
   if (r) {
-    if (r->guestfs_int_xattr_list_val)
-      for (i = 0; i < r->guestfs_int_xattr_list_len; ++i) {
-        free (r->guestfs_int_xattr_list_val[i].attrname);
-        free (r->guestfs_int_xattr_list_val[i].attrval.attrval_val);
+    if (r->guestfs_int_xattr_list_val) {
+      unsigned int k;
+      for (k = 0; k < r->guestfs_int_xattr_list_len; ++k) {
+        free (r->guestfs_int_xattr_list_val[k].attrname);
+        free (r->guestfs_int_xattr_list_val[k].attrval.attrval_val);
       }
+    }
     free (r->guestfs_int_xattr_list_val);
   }
   free (r);
