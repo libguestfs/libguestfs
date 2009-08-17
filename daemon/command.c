@@ -132,17 +132,17 @@ do_command_lines (char *const *argv)
 }
 
 char *
-do_sh (const char *command)
+do_sh (const char *cmd)
 {
-  const char *argv[] = { "/bin/sh", "-c", command, NULL };
+  const char *argv[] = { "/bin/sh", "-c", cmd, NULL };
 
   return do_command ((char **) argv);
 }
 
 char **
-do_sh_lines (const char *command)
+do_sh_lines (const char *cmd)
 {
-  const char *argv[] = { "/bin/sh", "-c", command, NULL };
+  const char *argv[] = { "/bin/sh", "-c", cmd, NULL };
 
   return do_command_lines ((char **) argv);
 }
