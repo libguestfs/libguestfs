@@ -4541,7 +4541,7 @@ and generate_client_actions () =
 static int
 check_reply_header (guestfs_h *g,
                     const struct guestfs_message_header *hdr,
-                    int proc_nr, int serial)
+                    unsigned int proc_nr, unsigned int serial)
 {
   if (hdr->prog != GUESTFS_PROGRAM) {
     error (g, \"wrong program (%%d/%%d)\", hdr->prog, GUESTFS_PROGRAM);
