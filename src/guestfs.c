@@ -202,9 +202,9 @@ struct guestfs_h
 
   /* Messages sent and received from the daemon. */
   char *msg_in;
-  int msg_in_size, msg_in_allocated;
+  unsigned int msg_in_size, msg_in_allocated;
   char *msg_out;
-  int msg_out_size, msg_out_pos;
+  unsigned int msg_out_size, msg_out_pos;
 
   int msg_next_serial;
 };
