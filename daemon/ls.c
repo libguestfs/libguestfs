@@ -75,9 +75,6 @@ do_ls (const char *path)
  * necessarily exist in the chroot), this command can be used to escape
  * from the sysroot (eg. 'll /..').  This command is not meant for
  * serious use anyway, just for quick interactive sessions.
- *
- * FIXME: eventually, provide a "debug ll" command that would list files
- * in the appliance.
  */
 
 char *

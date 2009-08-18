@@ -47,6 +47,8 @@ struct cmd {
 static char *debug_help (const char *subcmd, int argc, char *const *const argv);
 static char *debug_env (const char *subcmd, int argc, char *const *const argv);
 static char *debug_fds (const char *subcmd, int argc, char *const *const argv);
+static char *debug_ls (const char *subcmd, int argc, char *const *const argv);
+static char *debug_ll (const char *subcmd, int argc, char *const *const argv);
 static char *debug_segv (const char *subcmd, int argc, char *const *const argv);
 static char *debug_sh (const char *subcmd, int argc, char *const *const argv);
 
@@ -54,6 +56,8 @@ static struct cmd cmds[] = {
   { "help", debug_help },
   { "env", debug_env },
   { "fds", debug_fds },
+  { "ls", debug_ls },
+  { "ll", debug_ll },
   { "segv", debug_segv },
   { "sh", debug_sh },
   { NULL, NULL }
@@ -249,6 +253,66 @@ debug_env (const char *subcmd, int argc, char *const *const argv)
   r = command (&out, &err, "printenv", NULL);
   if (r == -1) {
     reply_with_error ("printenv: %s", err);
+    free (out);
+    free (err);
+    return NULL;
+  }
+
+  free (err);
+
+  return out;
+}
+
+/* List files in the appliance. */
+static char *
+debug_ls (const char *subcmd, int argc, char *const *const argv)
+{
+  int len = count_strings (argv);
+  const char *cargv[len+3];
+  int i;
+
+  cargv[0] = "ls";
+  cargv[1] = "-a";
+  for (i = 0; i < len; ++i)
+    cargv[2+i] = argv[i];
+  cargv[2+len] = NULL;
+
+  int r;
+  char *out, *err;
+
+  r = commandv (&out, &err, (void *) cargv);
+  if (r == -1) {
+    reply_with_error ("ls: %s", err);
+    free (out);
+    free (err);
+    return NULL;
+  }
+
+  free (err);
+
+  return out;
+}
+
+/* List files in the appliance. */
+static char *
+debug_ll (const char *subcmd, int argc, char *const *const argv)
+{
+  int len = count_strings (argv);
+  const char *cargv[len+3];
+  int i;
+
+  cargv[0] = "ls";
+  cargv[1] = "-la";
+  for (i = 0; i < len; ++i)
+    cargv[2+i] = argv[i];
+  cargv[2+len] = NULL;
+
+  int r;
+  char *out, *err;
+
+  r = commandv (&out, &err, (void *) cargv);
+  if (r == -1) {
+    reply_with_error ("ll: %s", err);
     free (out);
     free (err);
     return NULL;
