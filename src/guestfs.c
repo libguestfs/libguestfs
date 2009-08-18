@@ -2625,6 +2625,7 @@ select_remove_handle (guestfs_main_loop *mlv, guestfs_h *g, int fd)
 }
 
 static int
+__attribute__((noreturn))
 select_add_timeout (guestfs_main_loop *mlv, guestfs_h *g, int interval,
                     guestfs_handle_timeout_cb cb, void *data)
 {
@@ -2634,6 +2635,7 @@ select_add_timeout (guestfs_main_loop *mlv, guestfs_h *g, int interval,
 }
 
 static int
+__attribute__((noreturn))
 select_remove_timeout (guestfs_main_loop *mlv, guestfs_h *g, int timer)
 {
   //struct select_main_loop *ml = (struct select_main_loop *) mlv;
