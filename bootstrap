@@ -53,6 +53,7 @@ modules='
 gitlog-to-changelog
 gnu-make
 gnumakefile
+ignore-value
 maintainer-makefile
 manywarnings
 warnings

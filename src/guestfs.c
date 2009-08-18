@@ -59,6 +59,7 @@
 
 #include "guestfs.h"
 #include "guestfs_protocol.h"
+#include "ignore-value.h"
 
 #ifdef HAVE_GETTEXT
 #include "gettext.h"
@@ -1697,7 +1698,7 @@ stdout_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
 
   /* In verbose mode, copy all log messages to stderr. */
   if (g->verbose)
-    write (2, buf, n);
+    ignore_value (write (STDERR_FILENO, buf, n));
 
   /* It's an actual log message, send it upwards if anyone is listening. */
   if (g->log_message_cb)

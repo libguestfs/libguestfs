@@ -54,7 +54,7 @@ libprotocol_la_SOURCES = \
   guestfs_protocol.c \
   guestfs_protocol.h
 
-libprotocol_la_CFLAGS = -Wall -Wno-unused
+libprotocol_la_CFLAGS =
 
 $(BUILT_SOURCES): stamp-generator
 
@@ -116,6 +116,8 @@ noinst_LTLIBRARIES = libprotocol.la
 libguestfs_la_LIBADD = libprotocol.la
 
 libguestfs_la_CFLAGS = -Wall -DGUESTFS_DEFAULT_PATH='"$(libdir)/guestfs"'
+
+libguestfs_la_CPPFLAGS = -I$(top_srcdir)/gnulib/lib
 
 if HAVE_RPCGEN
 guestfs_protocol.c: guestfs_protocol.x
