@@ -540,8 +540,9 @@ guestfs_safe_memdup (guestfs_h *g, void *ptr, size_t size)
 }
 
 static int
-xwrite (int fd, const void *buf, size_t len)
+xwrite (int fd, const void *v_buf, size_t len)
 {
+  const char *buf = v_buf;
   int r;
 
   while (len > 0) {
@@ -557,8 +558,9 @@ xwrite (int fd, const void *buf, size_t len)
 }
 
 static int
-xread (int fd, void *buf, size_t len)
+xread (int fd, void *v_buf, size_t len)
 {
+  char *buf = v_buf;
   int r;
 
   while (len > 0) {
@@ -2515,7 +2517,7 @@ receive_file_data_sync (guestfs_h *g, void **buf, size_t *len_r)
 
     if (buf) {
       *buf = safe_realloc (g, *buf, len + ctx.chunks[i].data.data_len);
-      memcpy (*buf+len, ctx.chunks[i].data.data_val,
+      memcpy (((char *)*buf)+len, ctx.chunks[i].data.data_val,
               ctx.chunks[i].data.data_len);
     }
     len += ctx.chunks[i].data.data_len;
