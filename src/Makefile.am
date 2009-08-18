@@ -115,7 +115,9 @@ libguestfs_la_SOURCES = \
 noinst_LTLIBRARIES = libprotocol.la
 libguestfs_la_LIBADD = libprotocol.la
 
-libguestfs_la_CFLAGS = -Wall -DGUESTFS_DEFAULT_PATH='"$(libdir)/guestfs"'
+libguestfs_la_CFLAGS = \
+  -DGUESTFS_DEFAULT_PATH='"$(libdir)/guestfs"' \
+  $(WARN_CFLAGS) $(WERROR_CFLAGS)
 
 libguestfs_la_CPPFLAGS = -I$(top_srcdir)/gnulib/lib
 
