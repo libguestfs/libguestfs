@@ -1628,8 +1628,10 @@ guestfs_end_busy (guestfs_h *g)
     case CONFIG:
     case READY:
       break;
+
     case LAUNCHING:
     case NO_HANDLE:
+    default:
       error (g, _("guestfs_end_busy: called when in state %d"), g->state);
       return -1;
     }
