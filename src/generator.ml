@@ -3822,6 +3822,10 @@ let pod2text_memo : ((int * string * string), string list) Hashtbl.t =
     v
   with
     _ -> Hashtbl.create 13
+let pod2text_memo_updated () =
+  let chan = open_out pod2text_memo_filename in
+  output_value chan pod2text_memo;
+  close_out chan
 
 (* Useful functions.
  * Note we don't want to use any external OCaml libraries which
@@ -7972,9 +7976,7 @@ and pod2text ~width name longdesc =
          failwithf "pod2text: process signalled or stopped by signal %d" i
     );
     Hashtbl.add pod2text_memo key lines;
-    let chan = open_out pod2text_memo_filename in
-    output_value chan pod2text_memo;
-    close_out chan;
+    pod2text_memo_updated ();
     lines
 
 (* Generate ruby bindings. *)
