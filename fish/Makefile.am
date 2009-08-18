@@ -35,11 +35,14 @@ guestfish_SOURCES = \
 	lcd.c \
 	more.c \
 	rc.c \
-	rc_protocol.c \
-	rc_protocol.h \
 	reopen.c \
 	tilde.c \
 	time.c
+
+# This convenience library is solely to avoid compiler warnings
+# in its generated sources.
+librc_protocol_la_SOURCES = rc_protocol.c
+librc_protocol_la_CFLAGS = -Wall -Wno-unused
 
 BUILT_SOURCES = \
 	rc_protocol.c \
@@ -50,7 +53,12 @@ guestfish_CFLAGS = \
 	-I$(top_srcdir)/fish -I$(top_builddir)/fish \
 	-Wall \
 	-DGUESTFS_DEFAULT_PATH='"$(libdir)/guestfs"'
+
 guestfish_LDADD = $(top_builddir)/src/libguestfs.la $(LIBREADLINE)
+
+# Make libguestfs use the convenience library.
+noinst_LTLIBRARIES = librc_protocol.la
+guestfish_LDADD += librc_protocol.la
 
 if HAVE_RPCGEN
 rc_protocol.c: rc_protocol.x
