@@ -3560,6 +3560,15 @@ an external journal on the journal with UUID C<uuid>.
 
 See also C<guestfs_mke2journal_U>.");
 
+  ("modprobe", (RErr, [String "module"]), 194, [],
+   [InitNone, Always, TestRun [["modprobe"; "ext2"]]],
+   "load a kernel module",
+   "\
+This loads a kernel module in the appliance.
+
+The kernel module must have been whitelisted when libguestfs
+was built (see C<appliance/kmod.whitelist.in> in the source).");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

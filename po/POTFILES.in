@@ -30,6 +30,7 @@ daemon/ls.c
 daemon/lvm.c
 daemon/mkfs.c
 daemon/mknod.c
+daemon/modprobe.c
 daemon/mount.c
 daemon/names.c
 daemon/ntfs.c

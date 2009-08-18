@@ -54,6 +54,7 @@ guestfsd_SOURCES = \
 	lvm.c \
 	mkfs.c \
 	mknod.c \
+	modprobe.c \
 	mount.c \
 	names.c \
 	ntfs.c \
