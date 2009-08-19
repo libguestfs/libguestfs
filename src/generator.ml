@@ -1669,7 +1669,7 @@ This is the same as the C<lstat(2)> system call.");
 
   ("statvfs", (RStruct ("statbuf", "statvfs"), [Pathname "path"]), 54, [],
    [InitISOFS, Always, TestOutputStruct (
-      [["statvfs"; "/"]], [CompareWithInt ("namemax", 256)])],
+      [["statvfs"; "/"]], [CompareWithInt ("namemax", 255)])],
    "get file system statistics",
    "\
 Returns file system statistics for any mounted file system.
