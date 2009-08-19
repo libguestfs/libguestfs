@@ -335,12 +335,49 @@ do_mke2journal_U (int blocksize, const char *uuid, const char *device)
   return 0;
 }
 
+/* Run mke2fs to create a filesystem of type fstype, where fstype
+ * is the string "ext2", "ext3" or "ext4".
+ *
+ * This is more complex than it seems.
+ *
+ * On RHEL 5, the -t option was deprecated.  Moreover RHEL <= 5.4
+ * systems have a bug where the -t option doesn't work (it doesn't
+ * correctly ignore the following argument).
+ *
+ * On RHEL 5, to create an ext4dev filesystem you have to use
+ * the special command /sbin/mke4fs.  This can also create ext2/3
+ * using the '-t fstype' option.
+ *
+ * On Fedora 11+, mke4fs was renamed mke2fs, and it can use the
+ * '-t fstype' option to specify the filesystem type.
+ *
+ * So it seems best to run /sbin/mke4fs if it exists, or /sbin/mke2fs
+ * otherwise.  We specify e4fsprogs in the package list to ensure it
+ * is loaded if it exists.
+ */
+static const char *
+get_mke2fs (void)
+{
+  static const char *const progs[] = { "/sbin/mke4fs", "/sbin/mke2fs", NULL };
+  int i;
+
+  for (i = 0; progs[i]; ++i)
+    if (access (progs[i], F_OK) == 0)
+      return progs[i];
+
+  reply_with_error ("mke2fs: no mke2fs binary found in appliance");
+  return NULL;
+}
+
 int
 do_mke2fs_J (const char *fstype, int blocksize, const char *device,
              const char *journal)
 {
   char *err;
   int r;
+
+  const char *prog = get_mke2fs ();
+  if (!prog) return -1;
 
   char blocksize_s[32];
   snprintf (blocksize_s, sizeof blocksize_s, "%d", blocksize);
@@ -350,7 +387,7 @@ do_mke2fs_J (const char *fstype, int blocksize, const char *device,
   snprintf (jdev, len+32, "device=%s", journal);
 
   r = command (NULL, &err,
-               "/sbin/mke2fs", "-t", fstype, "-J", jdev, "-b", blocksize_s,
+               prog, "-t", fstype, "-J", jdev, "-b", blocksize_s,
                device, NULL);
   if (r == -1) {
     reply_with_error ("mke2fs_J: %s", err);
@@ -369,6 +406,9 @@ do_mke2fs_JL (const char *fstype, int blocksize, const char *device,
   char *err;
   int r;
 
+  const char *prog = get_mke2fs ();
+  if (!prog) return -1;
+
   char blocksize_s[32];
   snprintf (blocksize_s, sizeof blocksize_s, "%d", blocksize);
 
@@ -377,7 +417,7 @@ do_mke2fs_JL (const char *fstype, int blocksize, const char *device,
   snprintf (jdev, len+32, "device=LABEL=%s", label);
 
   r = command (NULL, &err,
-               "/sbin/mke2fs", "-t", fstype, "-J", jdev, "-b", blocksize_s,
+               prog, "-t", fstype, "-J", jdev, "-b", blocksize_s,
                device, NULL);
   if (r == -1) {
     reply_with_error ("mke2fs_JL: %s", err);
@@ -396,6 +436,9 @@ do_mke2fs_JU (const char *fstype, int blocksize, const char *device,
   char *err;
   int r;
 
+  const char *prog = get_mke2fs ();
+  if (!prog) return -1;
+
   char blocksize_s[32];
   snprintf (blocksize_s, sizeof blocksize_s, "%d", blocksize);
 
@@ -404,7 +447,7 @@ do_mke2fs_JU (const char *fstype, int blocksize, const char *device,
   snprintf (jdev, len+32, "device=UUID=%s", uuid);
 
   r = command (NULL, &err,
-               "/sbin/mke2fs", "-t", fstype, "-J", jdev, "-b", blocksize_s,
+               prog, "-t", fstype, "-J", jdev, "-b", blocksize_s,
                device, NULL);
   if (r == -1) {
     reply_with_error ("mke2fs_JU: %s", err);
