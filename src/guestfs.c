@@ -1165,16 +1165,16 @@ guestfs_launch (guestfs_h *g)
     close (wfd[1]);
     close (rfd[0]);
 
-    int fail = 0;
-    fail |= dup (wfd[0]);
-    fail |= dup (rfd[1]);
-    close (wfd[0]);
-    close (rfd[1]);
-
-    if (fail) {
+    if (dup (wfd[0]) == -1) {
+    dup_failed:
       perror ("dup failed");
       _exit (1);
     }
+    if (dup (rfd[1]) == -1)
+      goto dup_failed;
+
+    close (wfd[0]);
+    close (rfd[1]);
 
 #if 0
     /* Set up a new process group, so we can signal this process
