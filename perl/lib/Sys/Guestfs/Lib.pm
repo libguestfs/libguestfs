@@ -1558,12 +1558,8 @@ sub _check_for_kernels
                 # Check the kernel was recognised
                 if(defined($kernel)) {
                     # Put this kernel on the top level kernel list
-                    my $kernels = $os->{kernels};
-                    if(!defined($kernels)) {
-                        $kernels = [];
-                        $os->{kernels} = $kernels;
-                    }
-                    push(@$kernels, $kernel);
+                    $os->{kernels} ||= [];
+                    push(@{$os->{kernels}}, $kernel);
 
                     $config{kernel} = $kernel;
 
@@ -1766,13 +1762,8 @@ sub _inspect_initrd
     }
 
     # Add to the top level initrd_modules entry
-    my $initrd_modules = $os->{initrd_modules};
-    if(!defined($initrd_modules)) {
-        $initrd_modules = {};
-        $os->{initrd_modules} = $initrd_modules;
-    }
-
-    $initrd_modules->{$version} = \@modules;
+    $os->{initrd_modules} ||= {};
+    $os->{initrd_modules}->{$version} = \@modules;
 
     return \@modules;
 }
