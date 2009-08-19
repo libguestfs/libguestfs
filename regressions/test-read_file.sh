@@ -23,9 +23,9 @@ set -e
 rm -f test.out
 
 ../fish/guestfish <<'EOF' > test.out
-add-ro ../images/test.sqsh
+add-ro ../images/test.iso
 run
-mount-vfs ro squashfs /dev/sda /
+mount-ro /dev/sda /
 read-file /helloworld.tar
 EOF
 

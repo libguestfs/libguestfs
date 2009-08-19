@@ -35,7 +35,7 @@ use Sys::Guestfs::Lib;
 my $h = Sys::Guestfs->new ();
 ok ($h);
 
-$h->add_drive_ro ("../images/test.sqsh");
+$h->add_drive_ro ("../images/test.iso");
 ok (1);
 
 $h->launch ();
@@ -43,7 +43,7 @@ ok (1);
 $h->wait_ready ();
 ok (1);
 
-$h->mount_vfs ("ro", "squashfs", "/dev/sda", "/");
+$h->mount_ro ("/dev/sda", "/");
 ok (1);
 
 is (Sys::Guestfs::Lib::file_architecture ($h, "/bin-i586-dynamic"),
