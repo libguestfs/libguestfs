@@ -1330,7 +1330,11 @@ The kernel command line.
 
 =item default
 
-The index of the default configuration in the configs array
+The index of the default configuration in the configs array.
+
+=item grub_fs
+
+The path of the filesystem containing the grub partition.
 
 =back
 
@@ -1506,6 +1510,7 @@ sub _check_for_kernels
         #           ->{cmdline} = "ro root=/dev/mapper/vg_mbooth-lv_root rhgb"
         #           ->{initrd}  = \initrd
         #       ->{default} = \config
+        #       ->{grub_fs} = "/boot"
         # Initialise augeas
         $g->aug_init("/", 16);
 
@@ -1576,6 +1581,7 @@ sub _check_for_kernels
         # Create the top level boot entry
         my %boot;
         $boot{configs} = \@configs;
+        $boot{grub_fs} = $grub;
 
         # Add the default configuration
         eval {
