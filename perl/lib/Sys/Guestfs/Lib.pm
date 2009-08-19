@@ -66,7 +66,8 @@ use vars qw(@EXPORT_OK @ISA);
 @ISA = qw(Exporter);
 @EXPORT_OK = qw(open_guest get_partitions resolve_windows_path
   inspect_all_partitions inspect_partition
-  inspect_operating_systems mount_operating_system inspect_in_detail);
+  inspect_operating_systems mount_operating_system inspect_in_detail
+  inspect_linux_kernel);
 
 =head2 open_guest
 
@@ -1551,10 +1552,19 @@ sub _check_for_kernels
                 }
                 $config{cmdline} = join(' ', @args) if(scalar(@args) > 0);
 
-                my $kernel = _inspect_linux_kernel($g, $os, "$path");
+                my $kernel =
+                    inspect_linux_kernel($g, $path, $os->{package_format});
 
                 # Check the kernel was recognised
                 if(defined($kernel)) {
+                    # Put this kernel on the top level kernel list
+                    my $kernels = $os->{kernels};
+                    if(!defined($kernels)) {
+                        $kernels = [];
+                        $os->{kernels} = $kernels;
+                    }
+                    push(@$kernels, $kernel);
+
                     $config{kernel} = $kernel;
 
                     # Look for an initrd entry
@@ -1599,9 +1609,19 @@ sub _check_for_kernels
     }
 }
 
-sub _inspect_linux_kernel
+=head2 inspect_linux_kernel
+
+ my $kernel_hash = inspect_linux_kernel($g, $vmlinuz_path, $package_format);
+
+inspect_linux_kernel returns a hash describing the target linux kernel. For the
+contents of the hash, see the I<kernels> structure described under
+L</inspect_in_detail>.
+
+=cut
+
+sub inspect_linux_kernel
 {
-    my ($g, $os, $path) = @_;
+    my ($g, $path, $package_format) = @_;
 
     my %kernel = ();
 
@@ -1610,7 +1630,7 @@ sub _inspect_linux_kernel
     # If this is a packaged kernel, try to work out the name of the package
     # which installed it. This lets us know what to install to replace it with,
     # e.g. kernel, kernel-smp, kernel-hugemem, kernel-PAE
-    if($os->{package_format} eq "rpm") {
+    if($package_format eq "rpm") {
         my $package;
         eval { $package = $g->command(['rpm', '-qf', '--qf',
                                        '%{NAME}', $path]); };
@@ -1666,14 +1686,6 @@ sub _inspect_linux_kernel
     # Determine kernel architecture by looking at the arch
     # of any kernel module.
     $kernel{arch} = file_architecture ($g, $any_module);
-
-    # Put this kernel on the top level kernel list
-    my $kernels = $os->{kernels};
-    if(!defined($kernels)) {
-        $kernels = [];
-        $os->{kernels} = $kernels;
-    }
-    push(@$kernels, \%kernel);
 
     return \%kernel;
 }
