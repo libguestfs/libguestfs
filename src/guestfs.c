@@ -64,10 +64,10 @@
 #ifdef HAVE_GETTEXT
 #include "gettext.h"
 #define _(str) dgettext(PACKAGE, (str))
-#define N_(str) dgettext(PACKAGE, (str))
+//#define N_(str) dgettext(PACKAGE, (str))
 #else
 #define _(str) str
-#define N_(str) str
+//#define N_(str) str
 #endif
 
 #define error guestfs_error
@@ -75,7 +75,7 @@
 #define safe_malloc guestfs_safe_malloc
 #define safe_realloc guestfs_safe_realloc
 #define safe_strdup guestfs_safe_strdup
-#define safe_memdup guestfs_safe_memdup
+//#define safe_memdup guestfs_safe_memdup
 
 static void default_error_cb (guestfs_h *g, void *data, const char *msg);
 static void stdout_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data, int watch, int fd, int events);

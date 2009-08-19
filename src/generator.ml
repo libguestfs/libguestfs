@@ -4531,10 +4531,10 @@ and generate_client_actions () =
 #include \"guestfs_protocol.h\"
 
 #define error guestfs_error
-#define perrorf guestfs_perrorf
-#define safe_malloc guestfs_safe_malloc
+//#define perrorf guestfs_perrorf
+//#define safe_malloc guestfs_safe_malloc
 #define safe_realloc guestfs_safe_realloc
-#define safe_strdup guestfs_safe_strdup
+//#define safe_strdup guestfs_safe_strdup
 #define safe_memdup guestfs_safe_memdup
 
 /* Check the return message from a call for validity. */
