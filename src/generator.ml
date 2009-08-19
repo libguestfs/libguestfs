@@ -3561,7 +3561,7 @@ an external journal on the journal with UUID C<uuid>.
 See also C<guestfs_mke2journal_U>.");
 
   ("modprobe", (RErr, [String "modulename"]), 194, [],
-   [InitNone, Always, TestRun [["modprobe"; "ext2"]]],
+   [InitNone, Always, TestRun [["modprobe"; "fat"]]],
    "load a kernel module",
    "\
 This loads a kernel module in the appliance.
