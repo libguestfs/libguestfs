@@ -750,8 +750,14 @@ issue_command (const char *cmd, char *argv[], const char *pipecmd)
   if (pipecmd) {
     int fd[2];
 
-    fflush (stdout);
-    pipe (fd);
+    if (fflush (stdout) == EOF) {
+      perror ("failed to flush standard output");
+      return -1;
+    }
+    if (pipe (fd) < 0) {
+      perror ("pipe failed");
+      return -1;
+    }
     pid = fork ();
     if (pid == -1) {
       perror ("fork");
@@ -760,7 +766,10 @@ issue_command (const char *cmd, char *argv[], const char *pipecmd)
 
     if (pid == 0) {		/* Child process. */
       close (fd[1]);
-      dup2 (fd[0], 0);
+      if (dup2 (fd[0], 0) < 0) {
+        perror ("dup2 of stdin failed");
+        _exit (1);
+      }
 
       r = system (pipecmd);
       if (r == -1) {
@@ -770,9 +779,16 @@ issue_command (const char *cmd, char *argv[], const char *pipecmd)
       _exit (WEXITSTATUS (r));
     }
 
-    stdout_saved_fd = dup (1);
+    if ((stdout_saved_fd = dup (1)) < 0) {
+      perror ("failed to dup stdout");
+      return -1;
+    }
     close (fd[0]);
-    dup2 (fd[1], 1);
+    if (dup2 (fd[1], 1) < 0) {
+      perror ("failed to dup stdout");
+      close (stdout_saved_fd);
+      return -1;
+    }
     close (fd[1]);
   }
 
@@ -823,13 +839,22 @@ issue_command (const char *cmd, char *argv[], const char *pipecmd)
   /* Always flush stdout after every command, so that messages, results
    * etc appear immediately.
    */
-  fflush (stdout);
+  if (fflush (stdout) == EOF) {
+    perror ("failed to flush standard output");
+    return -1;
+  }
 
   if (pipecmd) {
     close (1);
-    dup2 (stdout_saved_fd, 1);
+    if (dup2 (stdout_saved_fd, 1) < 0) {
+      perror ("failed to dup2 standard output");
+      r = -1;
+    }
     close (stdout_saved_fd);
-    waitpid (pid, NULL, 0);
+    if (waitpid (pid, NULL, 0) < 0) {
+      perror ("waiting for command to complete");
+      r = -1;
+    }
   }
 
   return r;
