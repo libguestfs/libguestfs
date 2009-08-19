@@ -83,7 +83,7 @@ images/10klines
 images/initrd
 images/initrd-x86_64.img
 images/initrd-x86_64.img.gz
-images/test.sqsh
+images/test.iso
 images/test-grep.txt.gz
 initramfs
 initramfs.timestamp

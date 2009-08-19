@@ -178,13 +178,13 @@ type flags =
  *
  * Note that the test environment has 3 block devices, of size 500MB,
  * 50MB and 10MB (respectively /dev/sda, /dev/sdb, /dev/sdc), and
- * a fourth squashfs block device with some known files on it (/dev/sdd).
+ * a fourth ISO block device with some known files on it (/dev/sdd).
  *
  * Note for partitioning purposes, the 500MB device has 1015 cylinders.
  * Number of cylinders was 63 for IDE emulated disks with precisely
  * the same size.  How exactly this is calculated is a mystery.
  *
- * The squashfs block device (/dev/sdd) comes from images/test.sqsh.
+ * The ISO block device (/dev/sdd) comes from images/test.iso.
  *
  * To be able to run the tests in a reasonable amount of time,
  * the virtual machine and block devices are reused between tests.
@@ -326,10 +326,10 @@ and test_init =
      *)
   | InitBasicFSonLVM
 
-    (* /dev/sdd (the squashfs, see images/ directory in source)
+    (* /dev/sdd (the ISO, see images/ directory in source)
      * is mounted on /
      *)
-  | InitSquashFS
+  | InitISOFS
 
 (* Sequence of commands for testing. *)
 and seq = cmd list
@@ -859,7 +859,7 @@ update the timestamps on a file, or, if the file does not exist,
 to create a new zero-length file.");
 
   ("cat", (RString "content", [Pathname "path"]), 4, [ProtocolLimitWarning],
-   [InitSquashFS, Always, TestOutput (
+   [InitISOFS, Always, TestOutput (
       [["cat"; "/known-2"]], "abcdef\n")],
    "list the contents of a file",
    "\
@@ -1007,9 +1007,9 @@ List all the logical volumes detected.  This is the equivalent
 of the L<lvs(8)> command.  The \"full\" version includes all fields.");
 
   ("read_lines", (RStringList "lines", [Pathname "path"]), 15, [],
-   [InitSquashFS, Always, TestOutputList (
+   [InitISOFS, Always, TestOutputList (
       [["read_lines"; "/known-4"]], ["abc"; "def"; "ghi"]);
-    InitSquashFS, Always, TestOutputList (
+    InitISOFS, Always, TestOutputList (
       [["read_lines"; "/empty"]], [])],
    "read file as lines",
    "\
@@ -1271,9 +1271,9 @@ names, you will need to locate and parse the password file
 yourself (Augeas support makes this relatively easy).");
 
   ("exists", (RBool "existsflag", [Pathname "path"]), 36, [],
-   [InitSquashFS, Always, TestOutputTrue (
+   [InitISOFS, Always, TestOutputTrue (
       [["exists"; "/empty"]]);
-    InitSquashFS, Always, TestOutputTrue (
+    InitISOFS, Always, TestOutputTrue (
       [["exists"; "/directory"]])],
    "test if file or directory exists",
    "\
@@ -1283,9 +1283,9 @@ This returns C<true> if and only if there is a file, directory
 See also C<guestfs_is_file>, C<guestfs_is_dir>, C<guestfs_stat>.");
 
   ("is_file", (RBool "fileflag", [Pathname "path"]), 37, [],
-   [InitSquashFS, Always, TestOutputTrue (
+   [InitISOFS, Always, TestOutputTrue (
       [["is_file"; "/known-1"]]);
-    InitSquashFS, Always, TestOutputFalse (
+    InitISOFS, Always, TestOutputFalse (
       [["is_file"; "/directory"]])],
    "test if file exists",
    "\
@@ -1296,9 +1296,9 @@ other objects like directories.
 See also C<guestfs_stat>.");
 
   ("is_dir", (RBool "dirflag", [Pathname "path"]), 38, [],
-   [InitSquashFS, Always, TestOutputFalse (
+   [InitISOFS, Always, TestOutputFalse (
       [["is_dir"; "/known-3"]]);
-    InitSquashFS, Always, TestOutputTrue (
+    InitISOFS, Always, TestOutputTrue (
       [["is_dir"; "/directory"]])],
    "test if file exists",
    "\
@@ -1493,11 +1493,11 @@ This command removes all LVM logical volumes, volume groups
 and physical volumes.");
 
   ("file", (RString "description", [Dev_or_Path "path"]), 49, [],
-   [InitSquashFS, Always, TestOutput (
+   [InitISOFS, Always, TestOutput (
       [["file"; "/empty"]], "empty");
-    InitSquashFS, Always, TestOutput (
+    InitISOFS, Always, TestOutput (
       [["file"; "/known-1"]], "ASCII text");
-    InitSquashFS, Always, TestLastFail (
+    InitISOFS, Always, TestLastFail (
       [["file"; "/notexists"]])],
    "determine file type",
    "\
@@ -1646,7 +1646,7 @@ result into a list of lines.
 See also: C<guestfs_sh_lines>");
 
   ("stat", (RStruct ("statbuf", "stat"), [Pathname "path"]), 52, [],
-   [InitSquashFS, Always, TestOutputStruct (
+   [InitISOFS, Always, TestOutputStruct (
       [["stat"; "/empty"]], [CompareWithInt ("size", 0)])],
    "get file information",
    "\
@@ -1655,7 +1655,7 @@ Returns file information for the given C<path>.
 This is the same as the C<stat(2)> system call.");
 
   ("lstat", (RStruct ("statbuf", "stat"), [Pathname "path"]), 53, [],
-   [InitSquashFS, Always, TestOutputStruct (
+   [InitISOFS, Always, TestOutputStruct (
       [["lstat"; "/empty"]], [CompareWithInt ("size", 0)])],
    "get file information for a symbolic link",
    "\
@@ -1668,7 +1668,7 @@ refers to.
 This is the same as the C<lstat(2)> system call.");
 
   ("statvfs", (RStruct ("statbuf", "statvfs"), [Pathname "path"]), 54, [],
-   [InitSquashFS, Always, TestOutputStruct (
+   [InitISOFS, Always, TestOutputStruct (
       [["statvfs"; "/"]], [CompareWithInt ("namemax", 256)])],
    "get file system statistics",
    "\
@@ -1834,21 +1834,21 @@ C<filename> can also be a named pipe.
 See also C<guestfs_upload>, C<guestfs_cat>.");
 
   ("checksum", (RString "checksum", [String "csumtype"; Pathname "path"]), 68, [],
-   [InitSquashFS, Always, TestOutput (
+   [InitISOFS, Always, TestOutput (
       [["checksum"; "crc"; "/known-3"]], "2891671662");
-    InitSquashFS, Always, TestLastFail (
+    InitISOFS, Always, TestLastFail (
       [["checksum"; "crc"; "/notexists"]]);
-    InitSquashFS, Always, TestOutput (
+    InitISOFS, Always, TestOutput (
       [["checksum"; "md5"; "/known-3"]], "46d6ca27ee07cdc6fa99c2e138cc522c");
-    InitSquashFS, Always, TestOutput (
+    InitISOFS, Always, TestOutput (
       [["checksum"; "sha1"; "/known-3"]], "b7ebccc3ee418311091c3eda0a45b83c0a770f15");
-    InitSquashFS, Always, TestOutput (
+    InitISOFS, Always, TestOutput (
       [["checksum"; "sha224"; "/known-3"]], "d2cd1774b28f3659c14116be0a6dc2bb5c4b350ce9cd5defac707741");
-    InitSquashFS, Always, TestOutput (
+    InitISOFS, Always, TestOutput (
       [["checksum"; "sha256"; "/known-3"]], "75bb71b90cd20cb13f86d2bea8dad63ac7194e7517c3b52b8d06ff52d3487d30");
-    InitSquashFS, Always, TestOutput (
+    InitISOFS, Always, TestOutput (
       [["checksum"; "sha384"; "/known-3"]], "5fa7883430f357b5d7b7271d3a1d2872b51d73cba72731de6863d3dea55f30646af2799bef44d5ea776a5ec7941ac640");
-    InitSquashFS, Always, TestOutput (
+    InitISOFS, Always, TestOutput (
       [["checksum"; "sha512"; "/known-3"]], "2794062c328c6b216dca90443b7f7134c5f40e56bd0ed7853123275a09982a6f992e6ca682f9d2fba34a4c5e870d8fe077694ff831e3032a004ee077e00603f6")],
    "compute MD5, SHAx or CRC checksum of file",
    "\
@@ -2288,9 +2288,9 @@ true if their content is exactly equal, or false otherwise.
 The external L<cmp(1)> program is used for the comparison.");
 
   ("strings", (RStringList "stringsout", [Pathname "path"]), 94, [ProtocolLimitWarning],
-   [InitSquashFS, Always, TestOutputList (
+   [InitISOFS, Always, TestOutputList (
       [["strings"; "/known-5"]], ["abcdefghi"; "jklmnopqr"]);
-    InitSquashFS, Always, TestOutputList (
+    InitISOFS, Always, TestOutputList (
       [["strings"; "/empty"]], [])],
    "print the printable strings in a file",
    "\
@@ -2298,7 +2298,7 @@ This runs the L<strings(1)> command on a file and returns
 the list of printable strings found.");
 
   ("strings_e", (RStringList "stringsout", [String "encoding"; Pathname "path"]), 95, [ProtocolLimitWarning],
-   [InitSquashFS, Always, TestOutputList (
+   [InitISOFS, Always, TestOutputList (
       [["strings_e"; "b"; "/known-5"]], []);
     InitBasicFS, Disabled, TestOutputList (
       [["write_file"; "/new"; "\000h\000e\000l\000l\000o\000\n\000w\000o\000r\000l\000d\000\n"; "24"];
@@ -2316,12 +2316,12 @@ show strings inside Windows/x86 files.
 The returned strings are transcoded to UTF-8.");
 
   ("hexdump", (RString "dump", [Pathname "path"]), 96, [ProtocolLimitWarning],
-   [InitSquashFS, Always, TestOutput (
+   [InitISOFS, Always, TestOutput (
       [["hexdump"; "/known-4"]], "00000000  61 62 63 0a 64 65 66 0a  67 68 69                 |abc.def.ghi|\n0000000b\n");
     (* Test for RHBZ#501888c2 regression which caused large hexdump
      * commands to segfault.
      *)
-    InitSquashFS, Always, TestRun (
+    InitISOFS, Always, TestRun (
       [["hexdump"; "/100krandom"]])],
    "dump a file in hexadecimal",
    "\
@@ -2663,7 +2663,7 @@ directory and its contents after use.
 See also: L<mkdtemp(3)>");
 
   ("wc_l", (RInt "lines", [Pathname "path"]), 118, [],
-   [InitSquashFS, Always, TestOutputInt (
+   [InitISOFS, Always, TestOutputInt (
       [["wc_l"; "/10klines"]], 10000)],
    "count lines in a file",
    "\
@@ -2671,7 +2671,7 @@ This command counts the lines in a file, using the
 C<wc -l> external command.");
 
   ("wc_w", (RInt "words", [Pathname "path"]), 119, [],
-   [InitSquashFS, Always, TestOutputInt (
+   [InitISOFS, Always, TestOutputInt (
       [["wc_w"; "/10klines"]], 10000)],
    "count words in a file",
    "\
@@ -2679,7 +2679,7 @@ This command counts the words in a file, using the
 C<wc -w> external command.");
 
   ("wc_c", (RInt "chars", [Pathname "path"]), 120, [],
-   [InitSquashFS, Always, TestOutputInt (
+   [InitISOFS, Always, TestOutputInt (
       [["wc_c"; "/100kallspaces"]], 102400)],
    "count characters in a file",
    "\
@@ -2687,7 +2687,7 @@ This command counts the characters in a file, using the
 C<wc -c> external command.");
 
   ("head", (RStringList "lines", [Pathname "path"]), 121, [ProtocolLimitWarning],
-   [InitSquashFS, Always, TestOutputList (
+   [InitISOFS, Always, TestOutputList (
       [["head"; "/10klines"]], ["0abcdefghijklmnopqrstuvwxyz";"1abcdefghijklmnopqrstuvwxyz";"2abcdefghijklmnopqrstuvwxyz";"3abcdefghijklmnopqrstuvwxyz";"4abcdefghijklmnopqrstuvwxyz";"5abcdefghijklmnopqrstuvwxyz";"6abcdefghijklmnopqrstuvwxyz";"7abcdefghijklmnopqrstuvwxyz";"8abcdefghijklmnopqrstuvwxyz";"9abcdefghijklmnopqrstuvwxyz"])],
    "return first 10 lines of a file",
    "\
@@ -2695,11 +2695,11 @@ This command returns up to the first 10 lines of a file as
 a list of strings.");
 
   ("head_n", (RStringList "lines", [Int "nrlines"; Pathname "path"]), 122, [ProtocolLimitWarning],
-   [InitSquashFS, Always, TestOutputList (
+   [InitISOFS, Always, TestOutputList (
       [["head_n"; "3"; "/10klines"]], ["0abcdefghijklmnopqrstuvwxyz";"1abcdefghijklmnopqrstuvwxyz";"2abcdefghijklmnopqrstuvwxyz"]);
-    InitSquashFS, Always, TestOutputList (
+    InitISOFS, Always, TestOutputList (
       [["head_n"; "-9997"; "/10klines"]], ["0abcdefghijklmnopqrstuvwxyz";"1abcdefghijklmnopqrstuvwxyz";"2abcdefghijklmnopqrstuvwxyz"]);
-    InitSquashFS, Always, TestOutputList (
+    InitISOFS, Always, TestOutputList (
       [["head_n"; "0"; "/10klines"]], [])],
    "return first N lines of a file",
    "\
@@ -2712,7 +2712,7 @@ from the file C<path>, excluding the last C<nrlines> lines.
 If the parameter C<nrlines> is zero, this returns an empty list.");
 
   ("tail", (RStringList "lines", [Pathname "path"]), 123, [ProtocolLimitWarning],
-   [InitSquashFS, Always, TestOutputList (
+   [InitISOFS, Always, TestOutputList (
       [["tail"; "/10klines"]], ["9990abcdefghijklmnopqrstuvwxyz";"9991abcdefghijklmnopqrstuvwxyz";"9992abcdefghijklmnopqrstuvwxyz";"9993abcdefghijklmnopqrstuvwxyz";"9994abcdefghijklmnopqrstuvwxyz";"9995abcdefghijklmnopqrstuvwxyz";"9996abcdefghijklmnopqrstuvwxyz";"9997abcdefghijklmnopqrstuvwxyz";"9998abcdefghijklmnopqrstuvwxyz";"9999abcdefghijklmnopqrstuvwxyz"])],
    "return last 10 lines of a file",
    "\
@@ -2720,11 +2720,11 @@ This command returns up to the last 10 lines of a file as
 a list of strings.");
 
   ("tail_n", (RStringList "lines", [Int "nrlines"; Pathname "path"]), 124, [ProtocolLimitWarning],
-   [InitSquashFS, Always, TestOutputList (
+   [InitISOFS, Always, TestOutputList (
       [["tail_n"; "3"; "/10klines"]], ["9997abcdefghijklmnopqrstuvwxyz";"9998abcdefghijklmnopqrstuvwxyz";"9999abcdefghijklmnopqrstuvwxyz"]);
-    InitSquashFS, Always, TestOutputList (
+    InitISOFS, Always, TestOutputList (
       [["tail_n"; "-9998"; "/10klines"]], ["9997abcdefghijklmnopqrstuvwxyz";"9998abcdefghijklmnopqrstuvwxyz";"9999abcdefghijklmnopqrstuvwxyz"]);
-    InitSquashFS, Always, TestOutputList (
+    InitISOFS, Always, TestOutputList (
       [["tail_n"; "0"; "/10klines"]], [])],
    "return last N lines of a file",
    "\
@@ -2762,8 +2762,8 @@ is I<not> intended that you try to parse the output string.
 Use C<statvfs> from programs.");
 
   ("du", (RInt64 "sizekb", [Pathname "path"]), 127, [],
-   [InitSquashFS, Always, TestOutputInt (
-      [["du"; "/directory"]], 0 (* squashfs doesn't have blocks *))],
+   [InitISOFS, Always, TestOutputInt (
+      [["du"; "/directory"]], 2 (* ISO fs blocksize is 2K *))],
    "estimate file space usage",
    "\
 This command runs the C<du -s> command to estimate file space
@@ -2777,7 +2777,7 @@ The result is the estimated size in I<kilobytes>
 (ie. units of 1024 bytes).");
 
   ("initrd_list", (RStringList "filenames", [Pathname "path"]), 128, [],
-   [InitSquashFS, Always, TestOutputList (
+   [InitISOFS, Always, TestOutputList (
       [["initrd_list"; "/initrd"]], ["empty";"known-1";"known-2";"known-3";"known-4"; "known-5"])],
    "list files in an initrd",
    "\
@@ -3089,7 +3089,7 @@ with C<guestfs_mkmountpoint>.  See C<guestfs_mkmountpoint>
 for full details.");
 
   ("read_file", (RBufferOut "content", [Pathname "path"]), 150, [ProtocolLimitWarning],
-   [InitSquashFS, Always, TestOutputBuffer (
+   [InitISOFS, Always, TestOutputBuffer (
       [["read_file"; "/known-4"]], "abc\ndef\nghi")],
    "read a file",
    "\
@@ -3102,9 +3102,9 @@ However unlike C<guestfs_download>, this function is limited
 in the total size of file that can be handled.");
 
   ("grep", (RStringList "lines", [String "regex"; Pathname "path"]), 151, [ProtocolLimitWarning],
-   [InitSquashFS, Always, TestOutputList (
+   [InitISOFS, Always, TestOutputList (
       [["grep"; "abc"; "/test-grep.txt"]], ["abc"; "abc123"]);
-    InitSquashFS, Always, TestOutputList (
+    InitISOFS, Always, TestOutputList (
       [["grep"; "nomatch"; "/test-grep.txt"]], [])],
    "return lines matching a pattern",
    "\
@@ -3112,7 +3112,7 @@ This calls the external C<grep> program and returns the
 matching lines.");
 
   ("egrep", (RStringList "lines", [String "regex"; Pathname "path"]), 152, [ProtocolLimitWarning],
-   [InitSquashFS, Always, TestOutputList (
+   [InitISOFS, Always, TestOutputList (
       [["egrep"; "abc"; "/test-grep.txt"]], ["abc"; "abc123"])],
    "return lines matching a pattern",
    "\
@@ -3120,7 +3120,7 @@ This calls the external C<egrep> program and returns the
 matching lines.");
 
   ("fgrep", (RStringList "lines", [String "pattern"; Pathname "path"]), 153, [ProtocolLimitWarning],
-   [InitSquashFS, Always, TestOutputList (
+   [InitISOFS, Always, TestOutputList (
       [["fgrep"; "abc"; "/test-grep.txt"]], ["abc"; "abc123"])],
    "return lines matching a pattern",
    "\
@@ -3128,7 +3128,7 @@ This calls the external C<fgrep> program and returns the
 matching lines.");
 
   ("grepi", (RStringList "lines", [String "regex"; Pathname "path"]), 154, [ProtocolLimitWarning],
-   [InitSquashFS, Always, TestOutputList (
+   [InitISOFS, Always, TestOutputList (
       [["grepi"; "abc"; "/test-grep.txt"]], ["abc"; "abc123"; "ABC"])],
    "return lines matching a pattern",
    "\
@@ -3136,7 +3136,7 @@ This calls the external C<grep -i> program and returns the
 matching lines.");
 
   ("egrepi", (RStringList "lines", [String "regex"; Pathname "path"]), 155, [ProtocolLimitWarning],
-   [InitSquashFS, Always, TestOutputList (
+   [InitISOFS, Always, TestOutputList (
       [["egrepi"; "abc"; "/test-grep.txt"]], ["abc"; "abc123"; "ABC"])],
    "return lines matching a pattern",
    "\
@@ -3144,7 +3144,7 @@ This calls the external C<egrep -i> program and returns the
 matching lines.");
 
   ("fgrepi", (RStringList "lines", [String "pattern"; Pathname "path"]), 156, [ProtocolLimitWarning],
-   [InitSquashFS, Always, TestOutputList (
+   [InitISOFS, Always, TestOutputList (
       [["fgrepi"; "abc"; "/test-grep.txt"]], ["abc"; "abc123"; "ABC"])],
    "return lines matching a pattern",
    "\
@@ -3152,7 +3152,7 @@ This calls the external C<fgrep -i> program and returns the
 matching lines.");
 
   ("zgrep", (RStringList "lines", [String "regex"; Pathname "path"]), 157, [ProtocolLimitWarning],
-   [InitSquashFS, Always, TestOutputList (
+   [InitISOFS, Always, TestOutputList (
       [["zgrep"; "abc"; "/test-grep.txt.gz"]], ["abc"; "abc123"])],
    "return lines matching a pattern",
    "\
@@ -3160,7 +3160,7 @@ This calls the external C<zgrep> program and returns the
 matching lines.");
 
   ("zegrep", (RStringList "lines", [String "regex"; Pathname "path"]), 158, [ProtocolLimitWarning],
-   [InitSquashFS, Always, TestOutputList (
+   [InitISOFS, Always, TestOutputList (
       [["zegrep"; "abc"; "/test-grep.txt.gz"]], ["abc"; "abc123"])],
    "return lines matching a pattern",
    "\
@@ -3168,7 +3168,7 @@ This calls the external C<zegrep> program and returns the
 matching lines.");
 
   ("zfgrep", (RStringList "lines", [String "pattern"; Pathname "path"]), 159, [ProtocolLimitWarning],
-   [InitSquashFS, Always, TestOutputList (
+   [InitISOFS, Always, TestOutputList (
       [["zfgrep"; "abc"; "/test-grep.txt.gz"]], ["abc"; "abc123"])],
    "return lines matching a pattern",
    "\
@@ -3176,7 +3176,7 @@ This calls the external C<zfgrep> program and returns the
 matching lines.");
 
   ("zgrepi", (RStringList "lines", [String "regex"; Pathname "path"]), 160, [ProtocolLimitWarning],
-   [InitSquashFS, Always, TestOutputList (
+   [InitISOFS, Always, TestOutputList (
       [["zgrepi"; "abc"; "/test-grep.txt.gz"]], ["abc"; "abc123"; "ABC"])],
    "return lines matching a pattern",
    "\
@@ -3184,7 +3184,7 @@ This calls the external C<zgrep -i> program and returns the
 matching lines.");
 
   ("zegrepi", (RStringList "lines", [String "regex"; Pathname "path"]), 161, [ProtocolLimitWarning],
-   [InitSquashFS, Always, TestOutputList (
+   [InitISOFS, Always, TestOutputList (
       [["zegrepi"; "abc"; "/test-grep.txt.gz"]], ["abc"; "abc123"; "ABC"])],
    "return lines matching a pattern",
    "\
@@ -3192,7 +3192,7 @@ This calls the external C<zegrep -i> program and returns the
 matching lines.");
 
   ("zfgrepi", (RStringList "lines", [String "pattern"; Pathname "path"]), 162, [ProtocolLimitWarning],
-   [InitSquashFS, Always, TestOutputList (
+   [InitISOFS, Always, TestOutputList (
       [["zfgrepi"; "abc"; "/test-grep.txt.gz"]], ["abc"; "abc123"; "ABC"])],
    "return lines matching a pattern",
    "\
@@ -3200,7 +3200,7 @@ This calls the external C<zfgrep -i> program and returns the
 matching lines.");
 
   ("realpath", (RString "rpath", [Pathname "path"]), 163, [],
-   [InitSquashFS, Always, TestOutput (
+   [InitISOFS, Always, TestOutput (
       [["realpath"; "/../directory"]], "/directory")],
    "canonicalized absolute pathname",
    "\
@@ -3361,7 +3361,7 @@ This command just writes a swap file signature to an existing
 file.  To create the file itself, use something like C<guestfs_fallocate>.");
 
   ("inotify_init", (RErr, [Int "maxevents"]), 179, [],
-   [InitSquashFS, Always, TestRun (
+   [InitISOFS, Always, TestRun (
       [["inotify_init"; "0"]])],
    "create an inotify handle",
    "\
@@ -5482,8 +5482,8 @@ int main (int argc, char *argv[])
     exit (1);
   }
 
-  if (guestfs_add_drive_ro (g, \"../images/test.sqsh\") == -1) {
-    printf (\"guestfs_add_drive_ro ../images/test.sqsh FAILED\\n\");
+  if (guestfs_add_drive_ro (g, \"../images/test.iso\") == -1) {
+    printf (\"guestfs_add_drive_ro ../images/test.iso FAILED\\n\");
     exit (1);
   }
 
@@ -5641,13 +5641,13 @@ and generate_one_test_body name i test_name init test =
           ["lvcreate"; "LV"; "VG"; "8"];
           ["mkfs"; "ext2"; "/dev/VG/LV"];
           ["mount"; "/dev/VG/LV"; "/"]]
-   | InitSquashFS ->
-       pr "  /* InitSquashFS for %s */\n" test_name;
+   | InitISOFS ->
+       pr "  /* InitISOFS for %s */\n" test_name;
        List.iter (generate_test_command_call test_name)
          [["blockdev_setrw"; "/dev/sda"];
           ["umount_all"];
           ["lvm_remove_all"];
-          ["mount_vfs"; "ro"; "squashfs"; "/dev/sdd"; "/"]]
+          ["mount_ro"; "/dev/sdd"; "/"]]
   );
 
   let get_seq_last = function

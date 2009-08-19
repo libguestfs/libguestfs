@@ -35,14 +35,14 @@ EXTRA_DIST = \
 	lib-x86_64.so \
 	test-grep.txt
 
-noinst_DATA = test.sqsh
+noinst_DATA = test.iso
 
 CLEANFILES = \
-	test.sqsh \
+	test.iso test.sqsh \
 	100kallzeroes 100kallnewlines 100kallspaces 100krandom 10klines \
 	initrd
 
-squash_files_src = \
+images_files_src = \
 	$(srcdir)/helloworld.tar \
 	$(srcdir)/helloworld.tar.gz \
 	$(srcdir)/empty \
@@ -63,7 +63,7 @@ squash_files_src = \
 	$(srcdir)/lib-x86_64.so \
 	$(srcdir)/test-grep.txt
 
-squash_files_build = \
+images_files_build = \
 	$(builddir)/100kallzeroes \
 	$(builddir)/100kallnewlines \
 	$(builddir)/100kallspaces \
@@ -74,12 +74,14 @@ squash_files_build = \
 	$(builddir)/initrd-x86_64.img.gz \
 	$(builddir)/test-grep.txt.gz
 
-squash_files = $(squash_files_src) $(squash_files_build)
+images_files = $(images_files_src) $(images_files_build)
 
-test.sqsh: $(squash_files)
+test.iso: $(images_files)
 	rm -f $@ $@-t
 	mkdir -p directory
-	$(MKSQUASHFS) $(squash_files) directory $@-t
+	$(MKISOFS) -J -r -graft-points \
+	  -o $@-t \
+	  $(images_files) /directory=directory
 	rmdir directory
 	mv $@-t $@
 
