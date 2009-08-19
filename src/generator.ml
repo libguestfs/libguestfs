@@ -2968,7 +2968,7 @@ were rarely if ever used anyway.
 
 See also C<guestfs_sfdisk> and the L<sfdisk(8)> manpage.");
 
-  ("zfile", (RString "description", [String "method"; Pathname "path"]), 140, [DeprecatedBy "file"],
+  ("zfile", (RString "description", [String "meth"; Pathname "path"]), 140, [DeprecatedBy "file"],
    [],
    "determine file type inside a compressed file",
    "\
@@ -3560,7 +3560,7 @@ an external journal on the journal with UUID C<uuid>.
 
 See also C<guestfs_mke2journal_U>.");
 
-  ("modprobe", (RErr, [String "module"]), 194, [],
+  ("modprobe", (RErr, [String "modulename"]), 194, [],
    [InitNone, Always, TestRun [["modprobe"; "ext2"]]],
    "load a kernel module",
    "\
@@ -4050,7 +4050,36 @@ let check_functions () =
         if n = "i" || n = "n" then
           failwithf "%s has a param/ret called 'i' or 'n', which will cause some conflicts in the generated code" name;
         if n = "argv" || n = "args" then
-          failwithf "%s has a param/ret called 'argv' or 'args', which will cause some conflicts in the generated code" name
+          failwithf "%s has a param/ret called 'argv' or 'args', which will cause some conflicts in the generated code" name;
+
+        (* List Haskell, OCaml and C keywords here.
+         * http://www.haskell.org/haskellwiki/Keywords
+         * http://caml.inria.fr/pub/docs/manual-ocaml/lex.html#operator-char
+         * http://en.wikipedia.org/wiki/C_syntax#Reserved_keywords
+         * Formatted via: cat c haskell ocaml|sort -u|grep -vE '_|^val$' \
+         *   |perl -pe 's/(.+)/"$1";/'|fmt -70
+         * Omitting _-containing words, since they're handled above.
+         * Omitting the OCaml reserved word, "val", is ok,
+         * and saves us from renaming several parameters.
+         *)
+        let reserved = [
+          "and"; "as"; "asr"; "assert"; "auto"; "begin"; "break"; "case";
+          "char"; "class"; "const"; "constraint"; "continue"; "data";
+          "default"; "deriving"; "do"; "done"; "double"; "downto"; "else";
+          "end"; "enum"; "exception"; "extern"; "external"; "false"; "float";
+          "for"; "forall"; "foreign"; "fun"; "function"; "functor"; "goto";
+          "hiding"; "if"; "import"; "in"; "include"; "infix"; "infixl";
+          "infixr"; "inherit"; "initializer"; "inline"; "instance"; "int";
+          "land"; "lazy"; "let"; "long"; "lor"; "lsl"; "lsr"; "lxor";
+          "match"; "mdo"; "method"; "mod"; "module"; "mutable"; "new";
+          "newtype"; "object"; "of"; "open"; "or"; "private"; "qualified";
+          "rec"; "register"; "restrict"; "return"; "short"; "sig"; "signed";
+          "sizeof"; "static"; "struct"; "switch"; "then"; "to"; "true"; "try";
+          "type"; "typedef"; "union"; "unsigned"; "virtual"; "void";
+          "volatile"; "when"; "where"; "while";
+          ] in
+        if List.mem n reserved then
+          failwithf "%s has param/ret using reserved word %s" name n;
       in
 
       (match fst style with
