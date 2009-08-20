@@ -149,7 +149,9 @@ do_tar_out (const char *dir)
     return -1;
   }
 
-  send_file_end (0);		/* Normal end of file. */
+  if (send_file_end (0))	/* Normal end of file. */
+    return -1;
+
   return 0;
 }
 
@@ -268,6 +270,8 @@ do_tgz_out (const char *dir)
     return -1;
   }
 
-  send_file_end (0);		/* Normal end of file. */
+  if (send_file_end (0))	/* Normal end of file. */
+    return -1;
+
   return 0;
 }

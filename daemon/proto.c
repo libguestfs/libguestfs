@@ -462,7 +462,7 @@ check_for_library_cancellation (void)
   return 1;
 }
 
-void
+int
 send_file_end (int cancel)
 {
   guestfs_chunk chunk;
@@ -470,7 +470,7 @@ send_file_end (int cancel)
   chunk.cancel = cancel;
   chunk.data.data_len = 0;
   chunk.data.data_val = NULL;
-  send_chunk (&chunk);
+  return send_chunk (&chunk);
 }
 
 static int
@@ -495,8 +495,12 @@ send_chunk (const guestfs_chunk *chunk)
   xdr_uint32_t (&xdr, &len);
   xdr_destroy (&xdr);
 
-  (void) xwrite (sock, lenbuf, 4);
-  (void) xwrite (sock, buf, len);
+  int err = (xwrite (sock, lenbuf, 4) == 0
+             && xwrite (sock, buf, len) == 0 ? 0 : -1);
+  if (err) {
+    fprintf (stderr, "send_chunk: write failed\n");
+    exit (1);
+  }
 
-  return 0;
+  return err;
 }

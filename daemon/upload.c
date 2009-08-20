@@ -129,6 +129,8 @@ do_download (const char *filename)
     return -1;
   }
 
-  send_file_end (0);		/* Normal end of file. */
+  if (send_file_end (0))	/* Normal end of file. */
+    return -1;
+
   return 0;
 }

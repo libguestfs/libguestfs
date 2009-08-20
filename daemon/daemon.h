@@ -116,7 +116,7 @@ extern void cancel_receive (void);
  * Note max write size if GUESTFS_MAX_CHUNK_SIZE.
  */
 extern int send_file_write (const void *buf, int len);
-extern void send_file_end (int cancel);
+extern int send_file_end (int cancel);
 
 /* only call this if there is a FileOut parameter */
 extern void reply (xdrproc_t xdrp, char *ret);
