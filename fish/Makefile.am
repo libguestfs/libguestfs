@@ -51,8 +51,8 @@ BUILT_SOURCES = \
 guestfish_CFLAGS = \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-I$(top_srcdir)/fish -I$(top_builddir)/fish \
-	-Wall \
-	-DGUESTFS_DEFAULT_PATH='"$(libdir)/guestfs"'
+	-DGUESTFS_DEFAULT_PATH='"$(libdir)/guestfs"' \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 
 guestfish_LDADD = $(top_builddir)/src/libguestfs.la $(LIBREADLINE)
 
