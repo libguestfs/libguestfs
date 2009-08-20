@@ -132,9 +132,6 @@ src/
 test-tool/
         Interactive qemu/kernel test tool.
 
-v2v/
-        Xen to KVM (V2V) conversion tool.
-
 Debugging
 ----------------------------------------------------------------------
 

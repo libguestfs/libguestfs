@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-19 09:09+0100\n"
+"POT-Creation-Date: 2009-08-19 17:53+0100\n"
 "PO-Revision-Date: 2009-07-29 17:31+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -1182,47 +1182,47 @@ msgstr "guestfish: za dużo parametrów\n"
 msgid "guestfish: empty command on command line\n"
 msgstr "guestfish: puste polecenie wiersza poleceń\n"
 
-#: fish/fish.c:843
+#: fish/fish.c:868
 msgid "display a list of commands or help on a command"
 msgstr "wyświetla listę poleceń lub pomoc polecenia"
 
-#: fish/fish.c:845
+#: fish/fish.c:870
 msgid "quit guestfish"
 msgstr "kończy pracę guestfish"
 
-#: fish/fish.c:848
+#: fish/fish.c:873
 msgid "allocate an image"
 msgstr "przydziela obraz"
 
-#: fish/fish.c:850
+#: fish/fish.c:875
 msgid "display a line of text"
 msgstr "wyświetla wiersz tekstu"
 
-#: fish/fish.c:852
+#: fish/fish.c:877
 msgid "edit a file in the image"
 msgstr "modyfikuje plik w obrazie"
 
-#: fish/fish.c:854
+#: fish/fish.c:879
 msgid "local change directory"
 msgstr "zmienia lokalny folder"
 
-#: fish/fish.c:856
+#: fish/fish.c:881
 msgid "expand wildcards in command"
 msgstr "rozwija wieloznaczniki w poleceniach"
 
-#: fish/fish.c:858
+#: fish/fish.c:883
 msgid "view a file in the pager"
 msgstr "wyświetla plik w pagerze"
 
-#: fish/fish.c:860
+#: fish/fish.c:885
 msgid "close and reopen libguestfs handle"
 msgstr "zamyka i ponownie otwiera program obsługi libguestfs"
 
-#: fish/fish.c:862
+#: fish/fish.c:887
 msgid "measure time taken to run command"
 msgstr "mierzy czas wykonania polecenia"
 
-#: fish/fish.c:874
+#: fish/fish.c:899
 #, c-format
 msgid ""
 "alloc - allocate an image\n"
@@ -1258,7 +1258,7 @@ msgstr ""
 "    <nn>G lub <nn>GB  liczba gigabajtów\n"
 "    <nn>sektory       liczba 512 bajtowych sektorów\n"
 
-#: fish/fish.c:890
+#: fish/fish.c:915
 #, c-format
 msgid ""
 "echo - display a line of text\n"
@@ -1271,7 +1271,7 @@ msgstr ""
 "\n"
 "    Wyświetla ostatnie parametry w terminalu.\n"
 
-#: fish/fish.c:897
+#: fish/fish.c:922
 #, c-format
 msgid ""
 "edit - edit a file in the image\n"
@@ -1303,7 +1303,7 @@ msgstr ""
 "    UWAGA: nie będzie działało poprawnie dla dużych plików\n"
 "    (> 2 MB) lub plików binarnych zawierających \\0 bajtów.\n"
 
-#: fish/fish.c:911
+#: fish/fish.c:936
 #, c-format
 msgid ""
 "lcd - local change directory\n"
@@ -1320,7 +1320,7 @@ msgstr ""
 "    przydatne, jeśli chcesz pobrać pliki do konkretnego\n"
 "    miejsca.\n"
 
-#: fish/fish.c:918
+#: fish/fish.c:943
 #, c-format
 msgid ""
 "glob - expand wildcards in command\n"
@@ -1338,7 +1338,7 @@ msgstr ""
 "    Zauważ, że polecenie jest wykonywane raz dla\n"
 "    każdego rozwiniętego parametru.\n"
 
-#: fish/fish.c:925
+#: fish/fish.c:950
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -1349,7 +1349,7 @@ msgstr ""
 "     help polecenie\n"
 "     help\n"
 
-#: fish/fish.c:930
+#: fish/fish.c:955
 #, c-format
 msgid ""
 "more - view a file in the pager\n"
@@ -1380,7 +1380,7 @@ msgstr ""
 "    UWAGA: nie będzie działało poprawnie dla dużych plików\n"
 "    (> 2 MB) lub plików binarnych zawierających \\0 bajtów.\n"
 
-#: fish/fish.c:946
+#: fish/fish.c:971
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -1389,7 +1389,7 @@ msgstr ""
 "quit - kończy pracę guestfish\n"
 "     quit\n"
 
-#: fish/fish.c:949
+#: fish/fish.c:974
 #, c-format
 msgid ""
 "reopen - close and reopen the libguestfs handle\n"
@@ -1407,7 +1407,7 @@ msgstr ""
 "zamykany, kiedy guestfish kończy działania. Mimo to może być czasem\n"
 "przydatne do testowania.\n"
 
-#: fish/fish.c:956
+#: fish/fish.c:981
 #, c-format
 msgid ""
 "time - measure time taken to run command\n"
@@ -1421,7 +1421,7 @@ msgstr ""
 "\n"
 "    Wykonuje <polecenie> i wyświetla czas, jaki upłynął.\n"
 
-#: fish/fish.c:962
+#: fish/fish.c:987
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""

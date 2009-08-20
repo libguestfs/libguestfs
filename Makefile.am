@@ -41,9 +41,6 @@ endif
 if HAVE_INSPECTOR
 SUBDIRS += inspector
 endif
-if HAVE_V2V
-SUBDIRS += v2v
-endif
 if HAVE_DF
 SUBDIRS += df
 endif
@@ -136,7 +133,6 @@ HTMLFILES = html/guestfs.3.html html/guestfish.1.html \
 	html/virt-cat.1.html \
 	html/virt-df.1.html \
 	html/virt-inspector.1.html \
-	html/virt-v2v.1.html \
 	html/recipes.html \
 	html/pod.css html/recipes.css
 

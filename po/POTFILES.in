@@ -85,4 +85,3 @@ src/guestfs-bindtests.c
 src/guestfs.c
 test-tool/helper.c
 test-tool/test-tool.c
-v2v/virt-v2v.pl

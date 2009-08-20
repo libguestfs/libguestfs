@@ -74,7 +74,6 @@ html/recipes.html
 html/virt-cat.1.html
 html/virt-df.1.html
 html/virt-inspector.1.html
-html/virt-v2v.1.html
 images/100kallnewlines
 images/100kallspaces
 images/100kallzeroes
@@ -189,7 +188,6 @@ stamp-h1
 test-tool/libguestfs-test-tool.1
 test-tool/libguestfs-test-tool
 test-tool/libguestfs-test-tool-helper
-v2v/virt-v2v.1
 /GNUmakefile
 /maint.mk
 /build-aux
