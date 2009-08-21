@@ -52,13 +52,14 @@ guestfish_CFLAGS = \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-I$(top_srcdir)/fish -I$(top_builddir)/fish \
 	-DGUESTFS_DEFAULT_PATH='"$(libdir)/guestfs"' \
+	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 
 guestfish_LDADD = $(top_builddir)/src/libguestfs.la $(LIBREADLINE)
 
 # Make libguestfs use the convenience library.
 noinst_LTLIBRARIES = librc_protocol.la
-guestfish_LDADD += librc_protocol.la
+guestfish_LDADD += librc_protocol.la ../gnulib/lib/libgnu.la
 
 if HAVE_RPCGEN
 rc_protocol.c: rc_protocol.x

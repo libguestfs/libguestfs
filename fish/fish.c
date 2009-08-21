@@ -40,6 +40,7 @@
 #include <guestfs.h>
 
 #include "fish.h"
+#include "progname.h"
 
 struct mp {
   struct mp *next;
@@ -87,21 +88,25 @@ launch (guestfs_h *_g)
   return 0;
 }
 
-static void
-usage (void)
+static void __attribute__((noreturn))
+usage (int status)
 {
-  fprintf (stderr,
-           _("guestfish: guest filesystem shell\n"
-             "guestfish lets you edit virtual machine filesystems\n"
+  if (status != EXIT_SUCCESS)
+    fprintf (stderr, _("Try `%s --help' for more information.\n"),
+             program_name);
+  else {
+    fprintf (stdout,
+           _("%s: guest filesystem shell\n"
+             "%s lets you edit virtual machine filesystems\n"
              "Copyright (C) 2009 Red Hat Inc.\n"
              "Usage:\n"
-             "  guestfish [--options] cmd [: cmd : cmd ...]\n"
-             "  guestfish -i libvirt-domain\n"
-             "  guestfish -i disk-image(s)\n"
+             "  %s [--options] cmd [: cmd : cmd ...]\n"
+             "  %s -i libvirt-domain\n"
+             "  %s -i disk-image(s)\n"
              "or for interactive use:\n"
-             "  guestfish\n"
+             "  %s\n"
              "or from a shell script:\n"
-             "  guestfish <<EOF\n"
+             "  %s <<EOF\n"
              "  cmd\n"
              "  ...\n"
              "  EOF\n"
@@ -115,24 +120,34 @@ usage (void)
              "  --listen             Listen for remote commands\n"
              "  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
              "  -n|--no-sync         Don't autosync\n"
-             "  --remote[=pid]       Send commands to remote guestfish\n"
+             "  --remote[=pid]       Send commands to remote %s\n"
              "  -r|--ro              Mount read-only\n"
              "  --selinux            Enable SELinux support\n"
              "  -v|--verbose         Verbose messages\n"
              "  -x                   Echo each command before executing it\n"
              "  -V|--version         Display version and exit\n"
-             "For more information,  see the manpage guestfish(1).\n"));
+             "For more information,  see the manpage %s(1).\n"),
+             program_name, program_name, program_name,
+             program_name, program_name, program_name,
+             program_name, program_name, program_name);
+  }
+  exit (status);
 }
 
 int
 main (int argc, char *argv[])
 {
+  /* Set global program name that is not polluted with libtool artifacts.  */
+  set_program_name (argv[0]);
+
+  enum { HELP_OPTION = CHAR_MAX + 1 };
+
   static const char *options = "a:Df:h::im:nrv?Vx";
   static const struct option long_options[] = {
     { "add", 1, 0, 'a' },
     { "cmd-help", 2, 0, 'h' },
     { "file", 1, 0, 'f' },
-    { "help", 0, 0, '?' },
+    { "help", 0, 0, HELP_OPTION },
     { "inspector", 0, 0, 'i' },
     { "listen", 0, 0, 0 },
     { "mount", 1, 0, 'm' },
@@ -186,6 +201,15 @@ main (int argc, char *argv[])
       (argv[0][0] != '/' || strstr (argv[0], "/.libs/lt-") != NULL))
     guestfs_set_path (g, "appliance:" GUESTFS_DEFAULT_PATH);
 
+  /* CAUTION: we are careful to modify argv[0] here, only after
+   * using it just above.
+   *
+   * getopt_long uses argv[0], so give it the sanitized name.  Save a copy
+   * of the original, in case it's needed in virt-inspector mode, below.
+   */
+  char *real_argv0 = argv[0];
+  argv[0] = bad_cast (program_name);
+
   for (;;) {
     c = getopt_long (argc, argv, options, long_options, &option_index);
     if (c == -1) break;
@@ -197,21 +221,24 @@ main (int argc, char *argv[])
       else if (strcmp (long_options[option_index].name, "remote") == 0) {
         if (optarg) {
           if (sscanf (optarg, "%d", &remote_control) != 1) {
-            fprintf (stderr, _("guestfish: --listen=PID: PID was not a number: %s\n"), optarg);
+            fprintf (stderr, _("%s: --listen=PID: PID was not a number: %s\n"),
+                     program_name, optarg);
             exit (1);
           }
         } else {
           p = getenv ("GUESTFISH_PID");
           if (!p || sscanf (p, "%d", &remote_control) != 1) {
-            fprintf (stderr, _("guestfish: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"));
+            fprintf (stderr, _("%s: remote: $GUESTFISH_PID must be set"
+                               " to the PID of the remote process\n"),
+                     program_name);
             exit (1);
           }
         }
       } else if (strcmp (long_options[option_index].name, "selinux") == 0) {
         guestfs_set_selinux (g, 1);
       } else {
-        fprintf (stderr, _("guestfish: unknown long option: %s (%d)\n"),
-                 long_options[option_index].name, option_index);
+        fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
+                 program_name, long_options[option_index].name, option_index);
         exit (1);
       }
       break;
@@ -237,7 +264,8 @@ main (int argc, char *argv[])
 
     case 'f':
       if (file) {
-        fprintf (stderr, _("guestfish: only one -f parameter can be given\n"));
+        fprintf (stderr, _("%s: only one -f parameter can be given\n"),
+                 program_name);
         exit (1);
       }
       file = optarg;
@@ -287,21 +315,20 @@ main (int argc, char *argv[])
       break;
 
     case 'V':
-      printf ("guestfish %s\n", PACKAGE_VERSION);
+      printf ("%s %s\n", program_name, PACKAGE_VERSION);
       exit (0);
 
     case 'x':
       echo_commands = 1;
       break;
 
-    case '?':
-      usage ();
-      exit (0);
+    case HELP_OPTION:
+      usage (0);
 
     default:
-      fprintf (stderr, _("guestfish: unexpected command line option 0x%x\n"),
-               c);
-      exit (1);
+      fprintf (stderr, _("%s: unexpected command line option 0x%x\n"),
+               program_name, c);
+      usage (1);
     }
   }
 
@@ -312,19 +339,25 @@ main (int argc, char *argv[])
 
     if (drvs || mps || remote_control_listen || remote_control ||
         guestfs_get_selinux (g)) {
-      fprintf (stderr, _("guestfish: cannot use -i option with -a, -m, --listen, --remote or --selinux\n"));
+      fprintf (stderr, _("%s: cannot use -i option with -a, -m,"
+                         " --listen, --remote or --selinux\n"),
+               program_name);
       exit (1);
     }
     if (optind >= argc) {
-      fprintf (stderr, _("guestfish -i requires a libvirt domain or path(s) to disk image(s)\n"));
+      fprintf (stderr,
+           _("%s: -i requires a libvirt domain or path(s) to disk image(s)\n"),
+               program_name);
       exit (1);
     }
 
     strcpy (cmd, "a=`virt-inspector");
     while (optind < argc) {
-      if (strlen (cmd) + strlen (argv[optind]) + strlen (argv[0]) + 60
+      if (strlen (cmd) + strlen (argv[optind]) + strlen (real_argv0) + 60
           >= sizeof cmd) {
-        fprintf (stderr, _("guestfish: virt-inspector command too long for fixed-size buffer\n"));
+        fprintf (stderr,
+                 _("%s: virt-inspector command too long for fixed-size buffer\n"),
+                 program_name);
         exit (1);
       }
       strcat (cmd, " '");
@@ -338,7 +371,7 @@ main (int argc, char *argv[])
     else
       strcat (cmd, " --fish");
 
-    sprintf (&cmd[strlen(cmd)], "` && %s $a", argv[0]);
+    sprintf (&cmd[strlen(cmd)], "` && %s $a", real_argv0);
 
     if (guestfs_get_verbose (g))
       strcat (cmd, " -v");
@@ -347,7 +380,7 @@ main (int argc, char *argv[])
 
     if (verbose)
       fprintf (stderr,
-               "guestfish -i: running virt-inspector command:\n%s\n", cmd);
+               "%s -i: running virt-inspector command:\n%s\n", program_name, cmd);
 
     r = system (cmd);
     if (r == -1) {
@@ -368,17 +401,23 @@ main (int argc, char *argv[])
 
   /* Remote control? */
   if (remote_control_listen && remote_control) {
-    fprintf (stderr, _("guestfish: cannot use --listen and --remote options at the same time\n"));
+    fprintf (stderr,
+             _("%s: cannot use --listen and --remote options at the same time\n"),
+             program_name);
     exit (1);
   }
 
   if (remote_control_listen) {
     if (optind < argc) {
-      fprintf (stderr, _("guestfish: extra parameters on the command line with --listen flag\n"));
+      fprintf (stderr,
+               _("%s: extra parameters on the command line with --listen flag\n"),
+               program_name);
       exit (1);
     }
     if (file) {
-      fprintf (stderr, _("guestfish: cannot use --listen and --file options at the same time\n"));
+      fprintf (stderr,
+               _("%s: cannot use --listen and --file options at the same time\n"),
+               program_name);
       exit (1);
     }
     rc_listen ();
@@ -602,12 +641,14 @@ script (int prompt)
         p++;
         len = strcspn (p, "\"");
         if (p[len] == '\0') {
-          fprintf (stderr, _("guestfish: unterminated double quote\n"));
+          fprintf (stderr, _("%s: unterminated double quote\n"), program_name);
           if (exit_on_error) exit (1);
           goto next_command;
         }
         if (p[len+1] && (p[len+1] != ' ' && p[len+1] != '\t')) {
-          fprintf (stderr, _("guestfish: command arguments not separated by whitespace\n"));
+          fprintf (stderr,
+                   _("%s: command arguments not separated by whitespace\n"),
+                   program_name);
           if (exit_on_error) exit (1);
           goto next_command;
         }
@@ -617,12 +658,14 @@ script (int prompt)
         p++;
         len = strcspn (p, "'");
         if (p[len] == '\0') {
-          fprintf (stderr, _("guestfish: unterminated single quote\n"));
+          fprintf (stderr, _("%s: unterminated single quote\n"), program_name);
           if (exit_on_error) exit (1);
           goto next_command;
         }
         if (p[len+1] && (p[len+1] != ' ' && p[len+1] != '\t')) {
-          fprintf (stderr, _("guestfish: command arguments not separated by whitespace\n"));
+          fprintf (stderr,
+                   _("%s: command arguments not separated by whitespace\n"),
+                   program_name);
           if (exit_on_error) exit (1);
           goto next_command;
         }
@@ -643,12 +686,15 @@ script (int prompt)
           pend++;
         }
         if (c != 0) {
-          fprintf (stderr, _("guestfish: unterminated \"[...]\" sequence\n"));
+          fprintf (stderr,
+                   _("%s: unterminated \"[...]\" sequence\n"), program_name);
           if (exit_on_error) exit (1);
           goto next_command;
         }
         if (*pend && (*pend != ' ' && *pend != '\t')) {
-          fprintf (stderr, _("guestfish: command arguments not separated by whitespace\n"));
+          fprintf (stderr,
+                   _("%s: command arguments not separated by whitespace\n"),
+                   program_name);
           if (exit_on_error) exit (1);
           goto next_command;
         }
@@ -667,8 +713,8 @@ script (int prompt)
         } else
           pend = &p[len];
       } else {
-        fprintf (stderr, _("guestfish: internal error parsing string at '%s'\n"),
-                 p);
+        fprintf (stderr, _("%s: internal error parsing string at '%s'\n"),
+                 program_name, p);
         abort ();
       }
 
@@ -684,7 +730,7 @@ script (int prompt)
     }
 
     if (i == sizeof argv / sizeof argv[0]) {
-      fprintf (stderr, _("guestfish: too many arguments\n"));
+      fprintf (stderr, _("%s: too many arguments\n"), program_name);
       if (exit_on_error) exit (1);
       goto next_command;
     }
@@ -713,7 +759,7 @@ cmdline (char *argv[], int optind, int argc)
 
   cmd = argv[optind++];
   if (strcmp (cmd, ":") == 0) {
-    fprintf (stderr, _("guestfish: empty command on command line\n"));
+    fprintf (stderr, _("%s: empty command on command line\n"), program_name);
     exit (1);
   }
   params = &argv[optind];
