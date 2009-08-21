@@ -18,8 +18,6 @@
 
 #include <config.h>
 
-#define _GNU_SOURCE		// for strndup, asprintf
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <stddef.h>

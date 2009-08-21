@@ -50,6 +50,7 @@ gnulib_tool=$GNULIB_SRCDIR/gnulib-tool
 (cd daemon && mkdir -p tests lib && ../$gnulib_tool --update)
 
 modules='
+asprintf
 closeout
 gitlog-to-changelog
 gnu-make
@@ -58,8 +59,12 @@ ignore-value
 maintainer-makefile
 manywarnings
 progname
-warnings
+strchrnul
+strerror
+strndup
+vasprintf
 vc-list-files
+warnings
 '
 
 $gnulib_tool			\

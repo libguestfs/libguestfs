@@ -19,7 +19,6 @@
 #include <config.h>
 
 #define _BSD_SOURCE /* for mkdtemp, usleep */
-#define _GNU_SOURCE /* for vasprintf, GNU strerror_r, strchrnul */
 
 #include <stdio.h>
 #include <stdlib.h>
