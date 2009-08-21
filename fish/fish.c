@@ -517,7 +517,7 @@ script (int prompt)
   char *cmd;
   char *p, *pend;
   char *argv[64];
-  int i, len;
+  int len;
   int global_exit_on_error = !prompt;
   int tilde_candidate;
 
@@ -581,7 +581,7 @@ script (int prompt)
     if (len == 0) continue;
 
     cmd = buf;
-    i = 0;
+    unsigned int i = 0;
     if (buf[len] == '\0') {
       argv[0] = NULL;
       goto got_command;
