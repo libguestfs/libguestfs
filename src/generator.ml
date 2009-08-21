@@ -6109,7 +6109,7 @@ and generate_fish_cmds () =
     pr "static void print_%s_list (struct guestfs_%s_list *%ss)\n"
       typ typ typ;
     pr "{\n";
-    pr "  int i;\n";
+    pr "  unsigned int i;\n";
     pr "\n";
     pr "  for (i = 0; i < %ss->len; ++i) {\n" typ;
     pr "    printf (\"[%%d] = {\\n\", i);\n";
@@ -6129,7 +6129,7 @@ and generate_fish_cmds () =
       pr "static void print_%s_indent (struct guestfs_%s *%s, const char *indent)\n" typ typ typ;
       pr "{\n";
       if needs_i then (
-        pr "  int i;\n";
+        pr "  unsigned int i;\n";
         pr "\n"
       );
       List.iter (
