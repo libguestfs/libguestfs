@@ -1117,9 +1117,10 @@ add_history_line (const char *line)
 }
 
 int
-xwrite (int fd, const void *buf, size_t len)
+xwrite (int fd, const void *v_buf, size_t len)
 {
   int r;
+  const char *buf = v_buf;
 
   while (len > 0) {
     r = write (fd, buf, len);
