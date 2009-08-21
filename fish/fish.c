@@ -267,7 +267,7 @@ main (int argc, char *argv[])
         *p = '\0';
         mp->mountpoint = p+1;
       } else
-        mp->mountpoint = "/";
+        mp->mountpoint = bad_cast ("/");
       mp->device = optarg;
       mp->next = mps;
       mps = mp;
