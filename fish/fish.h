@@ -78,7 +78,7 @@ extern int do_glob (const char *cmd, int argc, char *argv[]);
 extern int do_more (const char *cmd, int argc, char *argv[]);
 
 /* in rc.c (remote control) */
-extern void rc_listen (void);
+extern void rc_listen (void) __attribute__((noreturn));
 extern int rc_remote (int pid, const char *cmd, int argc, char *argv[],
                       int exit_on_error);
 

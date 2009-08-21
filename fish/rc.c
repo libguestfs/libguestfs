@@ -34,8 +34,6 @@
 #include "fish.h"
 #include "rc_protocol.h"
 
-#define UNIX_PATH_MAX 108
-
 static void
 create_sockpath (pid_t pid, char *sockpath, int len, struct sockaddr_un *addr)
 {
