@@ -30,7 +30,7 @@
 /* guestfish edit command, suggested by Ján Ondrej, implemented by RWMJ */
 
 static char *
-load_file (const char *filename, int *len_r)
+load_file (const char *filename, size_t *len_r)
 {
   int fd, r, start;
   char *content = NULL, *p;
@@ -80,7 +80,7 @@ do_edit (const char *cmd, int argc, char *argv[])
   char buf[256];
   const char *editor;
   char *content, *content_new;
-  int r, fd, size;
+  int r, fd;
 
   if (argc != 1) {
     fprintf (stderr, _("use '%s filename' to edit a file\n"), cmd);
@@ -138,6 +138,7 @@ do_edit (const char *cmd, int argc, char *argv[])
   }
 
   /* Reload it. */
+  size_t size;
   content_new = load_file (filename, &size);
   if (content_new == NULL) {
     unlink (filename);
