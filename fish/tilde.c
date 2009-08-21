@@ -30,7 +30,7 @@
 #include "fish.h"
 
 static char *expand_home (const char *);
-static const char *find_home_for_username (const char *, int);
+static const char *find_home_for_username (const char *, size_t);
 
 /* This is called from the script loop if we find a candidate for
  * ~username (tilde-expansion).
@@ -52,10 +52,8 @@ try_tilde_expansion (char *str)
    * username from the password file.
    */
   else {
-    int len;
     const char *home, *rest;
-
-    len = strcspn (&str[1], "/");
+    size_t len = strcspn (&str[1], "/");
     rest = &str[1+len];
 
     home = find_home_for_username (&str[1], len);
@@ -106,7 +104,7 @@ expand_home (const char *append)
  * or NULL if not found.
  */
 static const char *
-find_home_for_username (const char *username, int ulen)
+find_home_for_username (const char *username, size_t ulen)
 {
   struct passwd *pw;
 
