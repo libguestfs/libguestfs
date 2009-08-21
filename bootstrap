@@ -50,6 +50,7 @@ gnulib_tool=$GNULIB_SRCDIR/gnulib-tool
 (cd daemon && mkdir -p tests lib && ../$gnulib_tool --update)
 
 modules='
+closeout
 gitlog-to-changelog
 gnu-make
 gnumakefile

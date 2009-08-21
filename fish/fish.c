@@ -40,6 +40,7 @@
 #include <guestfs.h>
 
 #include "fish.h"
+#include "closeout.h"
 #include "progname.h"
 
 struct mp {
@@ -139,6 +140,8 @@ main (int argc, char *argv[])
 {
   /* Set global program name that is not polluted with libtool artifacts.  */
   set_program_name (argv[0]);
+
+  atexit (close_stdout);
 
   enum { HELP_OPTION = CHAR_MAX + 1 };
 
