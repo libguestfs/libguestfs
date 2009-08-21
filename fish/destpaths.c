@@ -61,7 +61,7 @@ struct word {
 };
 
 static void
-free_words (struct word *words, int nr_words)
+free_words (struct word *words, size_t nr_words)
 {
   size_t i;
 
