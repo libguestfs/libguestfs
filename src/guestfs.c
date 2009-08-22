@@ -348,6 +348,10 @@ guestfs_close (guestfs_h *g)
   g->fd[1] = -1;
   g->sock = -1;
 
+  /* Wait for subprocess(es) to exit. */
+  waitpid (g->pid, NULL, 0);
+  if (g->recoverypid > 0) waitpid (g->recoverypid, NULL, 0);
+
   /* Remove tmpfiles. */
   if (g->tmpdir) {
     snprintf (filename, sizeof filename, "%s/sock", g->tmpdir);
