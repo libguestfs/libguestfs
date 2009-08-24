@@ -326,8 +326,6 @@ main (int argc, char *argv[])
       usage (0);
 
     default:
-      fprintf (stderr, _("%s: unexpected command line option 0x%x\n"),
-               program_name, c);
       usage (1);
     }
   }
