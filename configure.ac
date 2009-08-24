@@ -31,21 +31,21 @@ AM_SILENT_RULES([yes]) # make --enable-silent-rules the default.
 
 AC_CONFIG_MACRO_DIR([m4])
 
-AC_PROG_LIBTOOL
-
 dnl Split up the version string.
 AC_DEFINE([PACKAGE_VERSION_MAJOR],[libguestfs_major],[Major version number])
 AC_DEFINE([PACKAGE_VERSION_MINOR],[libguestfs_minor],[Minor version number])
 AC_DEFINE([PACKAGE_VERSION_RELEASE],[libguestfs_release],[Release number])
 AC_DEFINE([PACKAGE_VERSION_EXTRA],["libguestfs_extra"],[Extra version string])
 
+gl_EARLY
+gl_INIT
+
+AC_PROG_LIBTOOL
+
 dnl Check for basic C environment.
 AC_PROG_CC_STDC
 AC_PROG_INSTALL
 AC_PROG_CPP
-
-gl_EARLY
-gl_INIT
 
 AC_ARG_ENABLE([gcc-warnings],
   [AS_HELP_STRING([--enable-gcc-warnings],
