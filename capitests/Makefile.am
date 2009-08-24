@@ -24,7 +24,8 @@ EXTRA_DIST = \
 check_PROGRAMS = tests test-command
 
 tests_SOURCES = tests.c
-tests_CFLAGS = -I$(top_srcdir)/src -I$(top_builddir)/src -Wall
+tests_CFLAGS = -I$(top_srcdir)/src -I$(top_builddir)/src \
+  $(WARN_CFLAGS) $(WERROR_CFLAGS)
 tests_LDADD = $(top_builddir)/src/libguestfs.la
 
 # Old version of e2fsprogs which didn't support UUIDs?
