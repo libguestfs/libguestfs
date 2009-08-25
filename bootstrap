@@ -76,7 +76,11 @@ warnings
 $gnulib_tool			\
   --avoid=dummy			\
   --with-tests			\
-  --m4-base=gnulib/m4		\
+  --m4-base=m4			\
   --source-base=gnulib/lib	\
   --tests-base=gnulib/tests	\
   --import $modules
+
+# Disable autopoint and libtoolize, since they were already done above.
+AUTOPOINT=true LIBTOOLIZE=true \
+    autoreconf --verbose --install --no-recursive
