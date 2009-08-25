@@ -29,7 +29,14 @@ GNULIB_SRCDIR=.gnulib
 ls po/*.po 2>/dev/null | sed 's|.*/||; s|\.po$||' > po/LINGUAS
 
 # Run autopoint, to get po/Makevars.template:
-autopoint
+# Also, released autopoint has the tendency to install macros that have
+# been obsoleted in current gnulib, so run this before gnulib-tool.
+autopoint --force
+
+# Autoreconf runs aclocal before libtoolize, which causes spurious
+# warnings if the initial aclocal is confused by the libtoolized
+# (or worse out-of-date) macro directory.
+libtoolize --copy --install
 
 # Create gettext configuration.
 echo "$0: Creating po/Makevars from po/Makevars.template ..."
@@ -50,7 +57,6 @@ gnulib_tool=$GNULIB_SRCDIR/gnulib-tool
 (cd daemon && mkdir -p tests lib && ../$gnulib_tool --update)
 
 modules='
-asprintf
 closeout
 gitlog-to-changelog
 gnu-make

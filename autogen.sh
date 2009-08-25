@@ -33,6 +33,10 @@ else
 fi
 
 mkdir -p daemon/m4
+
+# Remove this file, so autoreconf doesn't complain about it being
+# locally modified.
+rm -f build-aux/config.rpath
 autoreconf -i
 
 CONFIGUREDIR=.
