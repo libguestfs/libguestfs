@@ -131,7 +131,7 @@ ocaml_guestfs_strings_val (guestfs_h *g, value sv)
 {
   CAMLparam1 (sv);
   char **r;
-  int i;
+  unsigned int i;
 
   r = guestfs_safe_malloc (g, sizeof (char *) * (Wosize_val (sv) + 1));
   for (i = 0; i < Wosize_val (sv); ++i)
