@@ -51,7 +51,7 @@ guestfs_finalize (value gv)
 }
 
 static struct custom_operations guestfs_custom_operations = {
-  "guestfs_custom_operations",
+  (char *) "guestfs_custom_operations",
   guestfs_finalize,
   custom_compare_default,
   custom_hash_default,
