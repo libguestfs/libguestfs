@@ -42,6 +42,10 @@
 }while(0)
 #endif
 
+/* These prototypes are solely to quiet gcc warning.  */
+CAMLprim value ocaml_guestfs_create (void);
+CAMLprim value ocaml_guestfs_close (value gv);
+
 /* Allocate handles and deal with finalization. */
 static void
 guestfs_finalize (value gv)
