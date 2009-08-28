@@ -6770,6 +6770,10 @@ copy_table (char * const * argv)
       let needs_extra_vs =
         match fst style with RConstOptString _ -> true | _ -> false in
 
+      pr "/* Emit prototype to appease gcc's -Wmissing-prototypes. */\n";
+      pr "CAMLprim value ocaml_guestfs_%s (value %s" name (List.hd params);
+      List.iter (pr ", value %s") (List.tl params); pr ");\n";
+
       pr "CAMLprim value\n";
       pr "ocaml_guestfs_%s (value %s" name (List.hd params);
       List.iter (pr ", value %s") (List.tl params);
@@ -6903,6 +6907,9 @@ copy_table (char * const * argv)
       pr "\n";
 
       if List.length params > 5 then (
+        pr "/* Emit prototype to appease gcc's -Wmissing-prototypes. */\n";
+        pr "CAMLprim value ";
+        pr "ocaml_guestfs_%s_byte (value *argv, int argn);\n" name;
         pr "CAMLprim value\n";
         pr "ocaml_guestfs_%s_byte (value *argv, int argn)\n" name;
         pr "{\n";
