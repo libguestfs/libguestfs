@@ -5379,7 +5379,7 @@ static void print_table (char const *const *argv)
 int main (int argc, char *argv[])
 {
   char c = 0;
-  int failed = 0;
+  unsigned long int n_failed = 0;
   const char *filename;
   int fd;
   int nr_tests, test_num = 0;
@@ -5513,7 +5513,7 @@ int main (int argc, char *argv[])
       pr "  printf (\"%%3d/%%3d %s\\n\", test_num, nr_tests);\n" test_name;
       pr "  if (%s () == -1) {\n" test_name;
       pr "    printf (\"%s FAILED\\n\");\n" test_name;
-      pr "    failed++;\n";
+      pr "    n_failed++;\n";
       pr "  }\n";
   ) test_names;
   pr "\n";
@@ -5524,8 +5524,8 @@ int main (int argc, char *argv[])
   pr "  unlink (\"test3.img\");\n";
   pr "\n";
 
-  pr "  if (failed > 0) {\n";
-  pr "    printf (\"***** %%d / %%d tests FAILED *****\\n\", failed, nr_tests);\n";
+  pr "  if (n_failed > 0) {\n";
+  pr "    printf (\"***** %%lu / %%d tests FAILED *****\\n\", n_failed, nr_tests);\n";
   pr "    exit (1);\n";
   pr "  }\n";
   pr "\n";
