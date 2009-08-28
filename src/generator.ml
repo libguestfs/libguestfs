@@ -6692,6 +6692,29 @@ copy_table (char * const * argv)
 ";
 
   (* Struct copy functions. *)
+
+  let emit_ocaml_copy_list_function typ =
+    pr "static CAMLprim value\n";
+    pr "copy_%s_list (const struct guestfs_%s_list *%ss)\n" typ typ typ;
+    pr "{\n";
+    pr "  CAMLparam0 ();\n";
+    pr "  CAMLlocal2 (rv, v);\n";
+    pr "  unsigned int i;\n";
+    pr "\n";
+    pr "  if (%ss->len == 0)\n" typ;
+    pr "    CAMLreturn (Atom (0));\n";
+    pr "  else {\n";
+    pr "    rv = caml_alloc (%ss->len, 0);\n" typ;
+    pr "    for (i = 0; i < %ss->len; ++i) {\n" typ;
+    pr "      v = copy_%s (&%ss->val[i]);\n" typ typ;
+    pr "      caml_modify (&Field (rv, i), v);\n";
+    pr "    }\n";
+    pr "    CAMLreturn (rv);\n";
+    pr "  }\n";
+    pr "}\n";
+    pr "\n";
+  in
+
   List.iter (
     fun (typ, cols) ->
       let has_optpercent_col =
@@ -6738,28 +6761,16 @@ copy_table (char * const * argv)
       pr "  CAMLreturn (rv);\n";
       pr "}\n";
       pr "\n";
-
-      pr "static CAMLprim value\n";
-      pr "copy_%s_list (const struct guestfs_%s_list *%ss)\n"
-        typ typ typ;
-      pr "{\n";
-      pr "  CAMLparam0 ();\n";
-      pr "  CAMLlocal2 (rv, v);\n";
-      pr "  int i;\n";
-      pr "\n";
-      pr "  if (%ss->len == 0)\n" typ;
-      pr "    CAMLreturn (Atom (0));\n";
-      pr "  else {\n";
-      pr "    rv = caml_alloc (%ss->len, 0);\n" typ;
-      pr "    for (i = 0; i < %ss->len; ++i) {\n" typ;
-      pr "      v = copy_%s (&%ss->val[i]);\n" typ typ;
-      pr "      caml_modify (&Field (rv, i), v);\n";
-      pr "    }\n";
-      pr "    CAMLreturn (rv);\n";
-      pr "  }\n";
-      pr "}\n";
-      pr "\n";
   ) structs;
+
+  (* Emit a copy_TYPE_list function definition only if that function is used. *)
+  List.iter (
+    function
+    | typ, (RStructListOnly | RStructAndList) ->
+        (* generate the function for typ *)
+        emit_ocaml_copy_list_function typ
+    | typ, _ -> () (* empty *)
+  ) rstructs_used;
 
   (* The wrappers. *)
   List.iter (
