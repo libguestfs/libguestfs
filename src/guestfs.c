@@ -2413,7 +2413,7 @@ guestfs__receive_file_sync (guestfs_h *g, const char *filename)
     return -1;
   }
 
-  while ((r = receive_file_data_sync (g, NULL, NULL)) > 0)
+  while (receive_file_data_sync (g, NULL, NULL) > 0)
     ;				/* just discard it */
 
   return -1;
