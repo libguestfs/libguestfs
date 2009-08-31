@@ -41,7 +41,7 @@ extern void guestfs_close (guestfs_h *g);
 extern const char *guestfs_last_error (guestfs_h *g);
 
 typedef void (*guestfs_error_handler_cb) (guestfs_h *g, void *data, const char *msg);
-typedef void (*guestfs_abort_cb) (void);
+typedef void (*guestfs_abort_cb) (void) __attribute__((__noreturn__));
 
 extern void guestfs_set_error_handler (guestfs_h *g, guestfs_error_handler_cb cb, void *data);
 extern guestfs_error_handler_cb guestfs_get_error_handler (guestfs_h *g, void **data_rtn);
