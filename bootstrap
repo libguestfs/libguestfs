@@ -82,5 +82,4 @@ $gnulib_tool			\
   --import $modules
 
 # Disable autopoint and libtoolize, since they were already done above.
-AUTOPOINT=true LIBTOOLIZE=true \
-    autoreconf --verbose --install --no-recursive
+AUTOPOINT=true LIBTOOLIZE=true autoreconf --verbose --install
