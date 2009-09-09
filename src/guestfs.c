@@ -170,6 +170,7 @@ struct guestfs_h
   int cmdline_size;
 
   int verbose;
+  int trace;
   int autosync;
 
   char *path;			/* Path to kernel, initrd. */
@@ -237,6 +238,9 @@ guestfs_create (void)
 
   str = getenv ("LIBGUESTFS_DEBUG");
   g->verbose = str != NULL && strcmp (str, "1") == 0;
+
+  str = getenv ("LIBGUESTFS_TRACE");
+  g->trace = str != NULL && strcmp (str, "1") == 0;
 
   str = getenv ("LIBGUESTFS_PATH");
   g->path = str != NULL ? strdup (str) : strdup (GUESTFS_DEFAULT_PATH);
@@ -732,6 +736,19 @@ guestfs__version (guestfs_h *g)
   r->release = PACKAGE_VERSION_RELEASE;
   r->extra = safe_strdup (g, PACKAGE_VERSION_EXTRA);
   return r;
+}
+
+int
+guestfs__set_trace (guestfs_h *g, int t)
+{
+  g->trace = !!t;
+  return 0;
+}
+
+int
+guestfs__get_trace (guestfs_h *g)
+{
+  return g->trace;
 }
 
 /* Add a string to the current command line. */

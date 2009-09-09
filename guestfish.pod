@@ -568,6 +568,10 @@ Set the default qemu binary that libguestfs uses.  If not set, then
 the qemu which was found at compile time by the configure script is
 used.
 
+=item LIBGUESTFS_TRACE
+
+Set C<LIBGUESTFS_TRACE=1> to enable command traces.
+
 =item PAGER
 
 The C<more> command uses C<$PAGER> as the pager.  If not

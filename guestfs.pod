@@ -983,6 +983,11 @@ used.
 
 See also L</QEMU WRAPPERS> above.
 
+=item LIBGUESTFS_TRACE
+
+Set C<LIBGUESTFS_TRACE=1> to enable command traces.  This
+has the same effect as calling C<guestfs_set_trace (handle, 1)>.
+
 =item TMPDIR
 
 Location of temporary directory, defaults to C</tmp>.

@@ -805,6 +805,32 @@ is passed to the appliance at boot time.  See C<guestfs_set_selinux>.
 For more information on the architecture of libguestfs,
 see L<guestfs(3)>.");
 
+  ("set_trace", (RErr, [Bool "trace"]), -1, [FishAlias "trace"],
+   [InitNone, Always, TestOutputTrue (
+      [["set_trace"; "true"];
+       ["get_trace"]])],
+   "enable or disable command traces",
+   "\
+If the command trace flag is set to 1, then commands are
+printed on stdout before they are executed in a format
+which is very similar to the one used by guestfish.  In
+other words, you can run a program with this enabled, and
+you will get out a script which you can feed to guestfish
+to perform the same set of actions.
+
+If you want to trace C API calls into libguestfs (and
+other libraries) then possibly a better way is to use
+the external ltrace(1) command.
+
+Command traces are disabled unless the environment variable
+C<LIBGUESTFS_TRACE> is defined and set to C<1>.");
+
+  ("get_trace", (RBool "trace", []), -1, [],
+   [],
+   "get command trace enabled flag",
+   "\
+Return the command trace flag.");
+
 ]
 
 (* daemon_functions are any functions which cause some action
@@ -4643,6 +4669,52 @@ check_state (guestfs_h *g, const char *caller)
 
 ";
 
+  (* Generate code to generate guestfish call traces. *)
+  let trace_call shortname style =
+    pr "  if (guestfs__get_trace (g)) {\n";
+
+    let needs_i =
+      List.exists (function
+		   | StringList _ | DeviceList _ -> true
+		   | _ -> false) (snd style) in
+    if needs_i then (
+      pr "    int i;\n";
+      pr "\n"
+    );
+
+    pr "    printf (\"%s\");\n" shortname;
+    List.iter (
+      function
+      | String n			(* strings *)
+      | Device n
+      | Pathname n
+      | Dev_or_Path n
+      | FileIn n
+      | FileOut n ->
+	  (* guestfish doesn't support string escaping, so neither do we *)
+	  pr "    printf (\" \\\"%%s\\\"\", %s);\n" n
+      | OptString n ->			(* string option *)
+	  pr "    if (%s) printf (\" \\\"%%s\\\"\", %s);\n" n n;
+	  pr "    else printf (\" null\");\n"
+      | StringList n
+      | DeviceList n ->			(* string list *)
+	  pr "    putchar (' ');\n";
+	  pr "    putchar ('\"');\n";
+	  pr "    for (i = 0; %s[i]; ++i) {\n" n;
+	  pr "      if (i > 0) putchar (' ');\n";
+	  pr "      fputs (%s[i], stdout);\n" n;
+	  pr "    }\n";
+	  pr "    putchar ('\"');\n";
+      | Bool n ->			(* boolean *)
+	  pr "    fputs (%s ? \" true\" : \" false\", stdout);\n" n
+      | Int n ->			(* int *)
+	  pr "    printf (\" %%d\", %s);\n" n
+    ) (snd style);
+    pr "    putchar ('\\n');\n";
+    pr "  }\n";
+    pr "\n";
+  in
+
   (* For non-daemon functions, generate a wrapper around each function. *)
   List.iter (
     fun (shortname, style, _, _, _, _, _) ->
@@ -4651,6 +4723,7 @@ check_state (guestfs_h *g, const char *caller)
       generate_prototype ~extern:false ~semicolon:false ~newline:true
         ~handle:"g" name style;
       pr "{\n";
+      trace_call shortname style;
       pr "  return guestfs__%s " shortname;
       generate_c_call_args ~handle:"g" style;
       pr ";\n";
@@ -4758,6 +4831,7 @@ check_state (guestfs_h *g, const char *caller)
       pr "  guestfs_main_loop *ml = guestfs_get_main_loop (g);\n";
       pr "  int serial;\n";
       pr "\n";
+      trace_call shortname style;
       pr "  if (check_state (g, \"%s\") == -1) return %s;\n" name error_code;
       pr "  guestfs_set_busy (g);\n";
       pr "\n";
