@@ -18,6 +18,7 @@ m4/manywarnings.m4
 m4/multiarch.m4
 m4/onceonly.m4
 m4/stdbool.m4
+m4/stddef_h.m4
 m4/stdint.m4
 m4/stdlib_h.m4
 m4/strerror.m4

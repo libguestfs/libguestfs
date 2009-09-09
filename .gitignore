@@ -114,6 +114,7 @@ libtool
 *.lo
 localconfigure
 ltmain.sh
+m4/gnulib-cache.m4
 m4/intmax.m4
 m4/libtool.m4
 m4/lt~obsolete.m4
