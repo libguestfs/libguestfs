@@ -46,6 +46,7 @@ BUILT_SOURCES = \
   guestfs-structs.h \
   guestfs-actions.h \
   guestfs-actions.c \
+  guestfs-internal-actions.h \
   guestfs-bindtests.c
 
 # This convenience library is solely to avoid compiler warnings

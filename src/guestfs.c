@@ -57,6 +57,7 @@
 #endif
 
 #include "guestfs.h"
+#include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 #include "ignore-value.h"
 
@@ -608,33 +609,33 @@ guestfs_get_error_handler (guestfs_h *g, void **data_rtn)
 }
 
 int
-guestfs_set_verbose (guestfs_h *g, int v)
+guestfs__set_verbose (guestfs_h *g, int v)
 {
   g->verbose = !!v;
   return 0;
 }
 
 int
-guestfs_get_verbose (guestfs_h *g)
+guestfs__get_verbose (guestfs_h *g)
 {
   return g->verbose;
 }
 
 int
-guestfs_set_autosync (guestfs_h *g, int a)
+guestfs__set_autosync (guestfs_h *g, int a)
 {
   g->autosync = !!a;
   return 0;
 }
 
 int
-guestfs_get_autosync (guestfs_h *g)
+guestfs__get_autosync (guestfs_h *g)
 {
   return g->autosync;
 }
 
 int
-guestfs_set_path (guestfs_h *g, const char *path)
+guestfs__set_path (guestfs_h *g, const char *path)
 {
   free (g->path);
   g->path = NULL;
@@ -646,13 +647,13 @@ guestfs_set_path (guestfs_h *g, const char *path)
 }
 
 const char *
-guestfs_get_path (guestfs_h *g)
+guestfs__get_path (guestfs_h *g)
 {
   return g->path;
 }
 
 int
-guestfs_set_qemu (guestfs_h *g, const char *qemu)
+guestfs__set_qemu (guestfs_h *g, const char *qemu)
 {
   free (g->qemu);
   g->qemu = NULL;
@@ -662,13 +663,13 @@ guestfs_set_qemu (guestfs_h *g, const char *qemu)
 }
 
 const char *
-guestfs_get_qemu (guestfs_h *g)
+guestfs__get_qemu (guestfs_h *g)
 {
   return g->qemu;
 }
 
 int
-guestfs_set_append (guestfs_h *g, const char *append)
+guestfs__set_append (guestfs_h *g, const char *append)
 {
   free (g->append);
   g->append = NULL;
@@ -678,39 +679,39 @@ guestfs_set_append (guestfs_h *g, const char *append)
 }
 
 const char *
-guestfs_get_append (guestfs_h *g)
+guestfs__get_append (guestfs_h *g)
 {
   return g->append;
 }
 
 int
-guestfs_set_memsize (guestfs_h *g, int memsize)
+guestfs__set_memsize (guestfs_h *g, int memsize)
 {
   g->memsize = memsize;
   return 0;
 }
 
 int
-guestfs_get_memsize (guestfs_h *g)
+guestfs__get_memsize (guestfs_h *g)
 {
   return g->memsize;
 }
 
 int
-guestfs_set_selinux (guestfs_h *g, int selinux)
+guestfs__set_selinux (guestfs_h *g, int selinux)
 {
   g->selinux = selinux;
   return 0;
 }
 
 int
-guestfs_get_selinux (guestfs_h *g)
+guestfs__get_selinux (guestfs_h *g)
 {
   return g->selinux;
 }
 
 int
-guestfs_get_pid (guestfs_h *g)
+guestfs__get_pid (guestfs_h *g)
 {
   if (g->pid > 0)
     return g->pid;
@@ -721,7 +722,7 @@ guestfs_get_pid (guestfs_h *g)
 }
 
 struct guestfs_version *
-guestfs_version (guestfs_h *g)
+guestfs__version (guestfs_h *g)
 {
   struct guestfs_version *r;
 
@@ -763,8 +764,8 @@ add_cmdline (guestfs_h *g, const char *str)
 }
 
 int
-guestfs_config (guestfs_h *g,
-                const char *qemu_param, const char *qemu_value)
+guestfs__config (guestfs_h *g,
+                 const char *qemu_param, const char *qemu_value)
 {
   if (qemu_param[0] != '-') {
     error (g, _("guestfs_config: parameter must begin with '-' character"));
@@ -795,7 +796,7 @@ guestfs_config (guestfs_h *g,
 }
 
 int
-guestfs_add_drive (guestfs_h *g, const char *filename)
+guestfs__add_drive (guestfs_h *g, const char *filename)
 {
   size_t len = strlen (filename) + 64;
   char buf[len];
@@ -834,7 +835,7 @@ guestfs_add_drive (guestfs_h *g, const char *filename)
 }
 
 int
-guestfs_add_drive_ro (guestfs_h *g, const char *filename)
+guestfs__add_drive_ro (guestfs_h *g, const char *filename)
 {
   size_t len = strlen (filename) + 64;
   char buf[len];
@@ -855,7 +856,7 @@ guestfs_add_drive_ro (guestfs_h *g, const char *filename)
 }
 
 int
-guestfs_add_cdrom (guestfs_h *g, const char *filename)
+guestfs__add_cdrom (guestfs_h *g, const char *filename)
 {
   if (strchr (filename, ',') != NULL) {
     error (g, _("filename cannot contain ',' (comma) character"));
@@ -914,7 +915,7 @@ static const char *supermin_hostfiles_name =
   "initramfs." REPO "." host_cpu ".supermin.hostfiles";
 
 int
-guestfs_launch (guestfs_h *g)
+guestfs__launch (guestfs_h *g)
 {
   const char *tmpdir;
   char dir_template[PATH_MAX];
@@ -1506,7 +1507,7 @@ finish_wait_ready (guestfs_h *g, void *vp)
 }
 
 int
-guestfs_wait_ready (guestfs_h *g)
+guestfs__wait_ready (guestfs_h *g)
 {
   int finished = 0, r;
 
@@ -1549,7 +1550,7 @@ guestfs_wait_ready (guestfs_h *g)
 }
 
 int
-guestfs_kill_subprocess (guestfs_h *g)
+guestfs__kill_subprocess (guestfs_h *g)
 {
   if (g->state == CONFIG) {
     error (g, _("no subprocess to kill"));
@@ -1567,37 +1568,37 @@ guestfs_kill_subprocess (guestfs_h *g)
 
 /* Access current state. */
 int
-guestfs_is_config (guestfs_h *g)
+guestfs__is_config (guestfs_h *g)
 {
   return g->state == CONFIG;
 }
 
 int
-guestfs_is_launching (guestfs_h *g)
+guestfs__is_launching (guestfs_h *g)
 {
   return g->state == LAUNCHING;
 }
 
 int
-guestfs_is_ready (guestfs_h *g)
+guestfs__is_ready (guestfs_h *g)
 {
   return g->state == READY;
 }
 
 int
-guestfs_is_busy (guestfs_h *g)
+guestfs__is_busy (guestfs_h *g)
 {
   return g->state == BUSY;
 }
 
 int
-guestfs_get_state (guestfs_h *g)
+guestfs__get_state (guestfs_h *g)
 {
   return g->state;
 }
 
 int
-guestfs_set_ready (guestfs_h *g)
+guestfs__set_ready (guestfs_h *g)
 {
   if (g->state != BUSY) {
     error (g, _("guestfs_set_ready: called when in state %d != BUSY"),
@@ -1609,7 +1610,7 @@ guestfs_set_ready (guestfs_h *g)
 }
 
 int
-guestfs_set_busy (guestfs_h *g)
+guestfs__set_busy (guestfs_h *g)
 {
   if (g->state != READY) {
     error (g, _("guestfs_set_busy: called when in state %d != READY"),
@@ -1621,7 +1622,7 @@ guestfs_set_busy (guestfs_h *g)
 }
 
 int
-guestfs_end_busy (guestfs_h *g)
+guestfs__end_busy (guestfs_h *g)
 {
   switch (g->state)
     {

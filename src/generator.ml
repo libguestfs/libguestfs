@@ -4561,6 +4561,16 @@ and generate_actions_h () =
         name style
   ) all_functions
 
+(* Generate the guestfs-internal-actions.h file. *)
+and generate_internal_actions_h () =
+  generate_header CStyle LGPLv2;
+  List.iter (
+    fun (shortname, style, _, _, _, _, _) ->
+      let name = "guestfs__" ^ shortname in
+      generate_prototype ~single_line:true ~newline:true ~handle:"handle"
+        name style
+  ) non_daemon_functions
+
 (* Generate the client-side dispatch stubs. *)
 and generate_client_actions () =
   generate_header CStyle LGPLv2;
@@ -4570,6 +4580,7 @@ and generate_client_actions () =
 #include <stdlib.h>
 
 #include \"guestfs.h\"
+#include \"guestfs-internal-actions.h\"
 #include \"guestfs_protocol.h\"
 
 #define error guestfs_error
@@ -4631,6 +4642,21 @@ check_state (guestfs_h *g, const char *caller)
 }
 
 ";
+
+  (* For non-daemon functions, generate a wrapper around each function. *)
+  List.iter (
+    fun (shortname, style, _, _, _, _, _) ->
+      let name = "guestfs_" ^ shortname in
+
+      generate_prototype ~extern:false ~semicolon:false ~newline:true
+        ~handle:"g" name style;
+      pr "{\n";
+      pr "  return guestfs__%s " shortname;
+      generate_c_call_args ~handle:"g" style;
+      pr ";\n";
+      pr "}\n";
+      pr "\n"
+  ) non_daemon_functions;
 
   (* Client-side stubs for each function. *)
   List.iter (
@@ -9111,6 +9137,7 @@ and generate_bindtests () =
 #include <string.h>
 
 #include \"guestfs.h\"
+#include \"guestfs-internal-actions.h\"
 #include \"guestfs_protocol.h\"
 
 #define error guestfs_error
@@ -9141,7 +9168,7 @@ print_strings (char *const *argv)
   let () =
     let (name, style, _, _, _, _, _) = test0 in
     generate_prototype ~extern:false ~semicolon:false ~newline:true
-      ~handle:"g" ~prefix:"guestfs_" name style;
+      ~handle:"g" ~prefix:"guestfs__" name style;
     pr "{\n";
     List.iter (
       function
@@ -9166,7 +9193,7 @@ print_strings (char *const *argv)
       if String.sub name (String.length name - 3) 3 <> "err" then (
         pr "/* Test normal return. */\n";
         generate_prototype ~extern:false ~semicolon:false ~newline:true
-          ~handle:"g" ~prefix:"guestfs_" name style;
+          ~handle:"g" ~prefix:"guestfs__" name style;
         pr "{\n";
         (match fst style with
          | RErr ->
@@ -9232,7 +9259,7 @@ print_strings (char *const *argv)
       ) else (
         pr "/* Test error return. */\n";
         generate_prototype ~extern:false ~semicolon:false ~newline:true
-          ~handle:"g" ~prefix:"guestfs_" name style;
+          ~handle:"g" ~prefix:"guestfs__" name style;
         pr "{\n";
         pr "  error (g, \"error\");\n";
         (match fst style with
@@ -9553,6 +9580,10 @@ Run it from the top source directory using the command
 
   let close = output_to "src/guestfs-actions.h" in
   generate_actions_h ();
+  close ();
+
+  let close = output_to "src/guestfs-internal-actions.h" in
+  generate_internal_actions_h ();
   close ();
 
   let close = output_to "src/guestfs-actions.c" in

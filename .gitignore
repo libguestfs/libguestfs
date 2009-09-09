@@ -178,6 +178,7 @@ ruby/Rakefile
 src/guestfs-actions.c
 src/guestfs-actions.h
 src/guestfs-bindtests.c
+src/guestfs-internal-actions.h
 src/guestfs_protocol.c
 src/guestfs_protocol.h
 src/guestfs_protocol.x
