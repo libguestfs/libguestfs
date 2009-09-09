@@ -154,11 +154,13 @@ dist-hook:
 all-local:
 	cd $(srcdir); \
 	find $(DIST_SUBDIRS) -name '*.c' -o -name '*.pl' -o -name '*.pm' | \
-	grep -v 'perl/blib/' | \
-	grep -v 'capitests/' | \
-	grep -v 'daemon/lib/' | \
-	grep -v 'daemon/tests/' | \
-	grep -v 'examples/' | \
+	grep -v '^perl/blib/' | \
+	grep -v '^capitests/' | \
+	grep -v '^daemon/lib/' | \
+	grep -v '^daemon/tests/' | \
+	grep -v '^examples/' | \
+	grep -v '^gnulib/' | \
+	grep -v '^perl/examples/' | \
 	grep -v '/guestfs_protocol.c' | \
 	grep -v '/rc_protocol.c' | \
 	LC_ALL=C sort | \
