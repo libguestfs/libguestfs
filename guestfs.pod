@@ -486,8 +486,7 @@ register to receive these messages.
 =head2 SETTING CALLBACKS TO HANDLE EVENTS
 
 The child process generates events in some situations.  Current events
-include: receiving a reply message after some action, receiving a log
-message, the child process exits, &c.
+include: receiving a log message, the child process exits.
 
 Use the C<guestfs_set_*_callback> functions to set a callback for
 different types of events.
@@ -496,39 +495,6 @@ Only I<one callback of each type> can be registered for each handle.
 Calling C<guestfs_set_*_callback> again overwrites the previous
 callback of that type.  Cancel all callbacks of this type by calling
 this function with C<cb> set to C<NULL>.
-
-=head2 NON-BLOCKING ACTIONS
-
-XXX This section was documented in previous versions but never
-implemented in a way which matched the documentation.  For now I have
-removed the documentation, pending a working implementation.  See also
-C<src/guestfs-actions.c> in the source.
-
-
-=head2 guestfs_set_send_callback
-
- typedef void (*guestfs_send_cb) (guestfs_h *g, void *opaque);
- void guestfs_set_send_callback (guestfs_h *handle,
-                                 guestfs_send_cb cb,
-                                 void *opaque);
-
-The callback function C<cb> will be called whenever a message
-which is queued for sending, has been sent.
-
-=head2 guestfs_set_reply_callback
-
- typedef void (*guestfs_reply_cb) (guestfs_h *g, void *opaque, XDR *xdr);
- void guestfs_set_reply_callback (guestfs_h *handle,
-                                  guestfs_reply_cb cb,
-                                  void *opaque);
-
-The callback function C<cb> will be called whenever a reply is
-received from the child process.  (This corresponds to a transition
-from the BUSY state to the READY state).
-
-Note that the C<xdr> that you get in the callback is in C<XDR_DECODE>
-mode, and you need to consume it before you return from the callback
-function (since it gets destroyed after).
 
 =head2 guestfs_set_log_message_callback
 
@@ -571,113 +537,6 @@ corresponds to a transition from LAUNCHING to the READY state).
 
 You can use this instead of C<guestfs_wait_ready> to implement a
 non-blocking wait for the child process to finish booting up.
-
-=head2 EVENT MAIN LOOP
-
-To use the low-level event API and/or to use handles from multiple
-threads, you have to provide an event "main loop".  You can write your
-own, but if you don't want to write one, two types are provided for
-you:
-
-=over 4
-
-=item libguestfs-select
-
-A simple main loop that is implemented using L<select(2)>.
-
-This is the default main loop for new guestfs handles, unless you
-call C<guestfs_set_main_loop> after a handle is created.
-
-=item libguestfs-glib
-
-An implementation which can be used with GLib and GTK+ programs.  You
-can use this to write graphical (GTK+) programs which use libguestfs
-without hanging during long or slow operations.
-
-=back
-
-=head2 MULTIPLE HANDLES AND MULTIPLE THREADS
-
-The support for multiple handles and multiple threads is modelled
-after glib (although doesn't require glib, if you use the select-based
-main loop).
-
-L<http://library.gnome.org/devel/glib/unstable/glib-The-Main-Event-Loop.html>
-
-You will need to create one main loop for each thread that wants to
-use libguestfs.  Each guestfs handle should be confined to one thread.
-If you try to pass guestfs handles between threads, you will get
-undefined results.
-
-If you only want to use guestfs handles from one thread in your
-program, but your program has other threads doing other things, then
-you don't need to do anything special.
-
-=head2 SINGLE THREAD CASE
-
-In the single thread case, there is a single select-based main loop
-created for you.  All guestfs handles will use this main loop to
-execute high level API actions.
-
-=head2 MULTIPLE THREADS CASE
-
-In the multiple threads case, you will need to create a main loop for
-each thread that wants to use libguestfs.
-
-To create main loops for other threads, use
-C<guestfs_create_main_loop> or C<guestfs_glib_create_main_loop>.
-
-Then you will need to attach each handle to the thread-specific main
-loop by calling:
-
- handle = guestfs_create ();
- guestfs_set_main_loop (handle, main_loop_of_current_thread);
-
-=head2 guestfs_set_main_loop
-
- void guestfs_set_main_loop (guestfs_h *handle,
-                             guestfs_main_loop *main_loop);
-
-Sets the main loop used by high level API actions for this handle.  By
-default, the select-based main loop is used (see
-C<guestfs_get_default_main_loop>).
-
-You only need to use this in multi-threaded programs, where multiple
-threads want to use libguestfs.  Create a main loop for each thread,
-then call this function.
-
-You cannot pass guestfs handles between threads.
-
-=head2 guestfs_get_main_loop
-
- guestfs_main_loop *guestfs_get_main_loop (guestfs_h *handle);
-
-Return the main loop used by C<handle>.
-
-=head2 guestfs_get_default_main_loop
-
- guestfs_main_loop *guestfs_get_default_main_loop (void);
-
-Return the default select-based main loop.
-
-=head2 guestfs_create_main_loop
-
- guestfs_main_loop *guestfs_create_main_loop (void);
-
-This creates a select-based main loop.  You should create one main
-loop for each additional thread that needs to use libguestfs.
-
-=head2 guestfs_free_main_loop
-
- void guestfs_free_main_loop (guestfs_main_loop *);
-
-Free the select-based main loop which was previously allocated with
-C<guestfs_create_main_loop>.
-
-=head2 WRITING A CUSTOM MAIN LOOP
-
-This isn't documented.  Please see the libguestfs-select and
-libguestfs-glib implementations.
 
 =head1 BLOCK DEVICE NAMING
 

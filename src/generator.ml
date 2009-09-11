@@ -680,34 +680,6 @@ only useful for printing debug and internal error messages.
 
 For more information on states, see L<guestfs(3)>.");
 
-  ("set_busy", (RErr, []), -1, [NotInFish],
-   [],
-   "set state to busy",
-   "\
-This sets the state to C<BUSY>.  This is only used when implementing
-actions using the low-level API.
-
-For more information on states, see L<guestfs(3)>.");
-
-  ("set_ready", (RErr, []), -1, [NotInFish],
-   [],
-   "set state to ready",
-   "\
-This sets the state to C<READY>.  This is only used when implementing
-actions using the low-level API.
-
-For more information on states, see L<guestfs(3)>.");
-
-  ("end_busy", (RErr, []), -1, [NotInFish],
-   [],
-   "leave the busy state",
-   "\
-This sets the state to C<READY>, or if in C<CONFIG> then it leaves the
-state as is.  This is only used when implementing
-actions using the low-level API.
-
-For more information on states, see L<guestfs(3)>.");
-
   ("set_memsize", (RErr, [Int "memsize"]), -1, [FishAlias "memsize"],
    [InitNone, Always, TestOutputInt (
       [["set_memsize"; "500"];
@@ -4652,16 +4624,16 @@ check_reply_header (guestfs_h *g,
 static int
 check_state (guestfs_h *g, const char *caller)
 {
-  if (!guestfs_is_ready (g)) {
-    if (guestfs_is_config (g))
+  if (!guestfs__is_ready (g)) {
+    if (guestfs__is_config (g))
       error (g, \"%%s: call launch before using this function\\n(in guestfish, don't forget to use the 'run' command)\",
         caller);
-    else if (guestfs_is_launching (g))
+    else if (guestfs__is_launching (g))
       error (g, \"%%s: call wait_ready() before using this function\",
         caller);
     else
       error (g, \"%%s called from the wrong state, %%d != READY\",
-        caller, guestfs_get_state (g));
+        caller, guestfs__get_state (g));
     return -1;
   }
   return 0;
@@ -4736,76 +4708,6 @@ check_state (guestfs_h *g, const char *caller)
     fun (shortname, style, _, _, _, _, _) ->
       let name = "guestfs_" ^ shortname in
 
-      (* Generate the context struct which stores the high-level
-       * state between callback functions.
-       *)
-      pr "struct %s_ctx {\n" shortname;
-      pr "  /* This flag is set by the callbacks, so we know we've done\n";
-      pr "   * the callbacks as expected, and in the right sequence.\n";
-      pr "   * 0 = not called, 1 = reply_cb called.\n";
-      pr "   */\n";
-      pr "  int cb_sequence;\n";
-      pr "  struct guestfs_message_header hdr;\n";
-      pr "  struct guestfs_message_error err;\n";
-      (match fst style with
-       | RErr -> ()
-       | RConstString _ | RConstOptString _ ->
-           failwithf "RConstString|RConstOptString cannot be used by daemon functions"
-       | RInt _ | RInt64 _
-       | RBool _ | RString _ | RStringList _
-       | RStruct _ | RStructList _
-       | RHashtable _ | RBufferOut _ ->
-           pr "  struct %s_ret ret;\n" name
-      );
-      pr "};\n";
-      pr "\n";
-
-      (* Generate the reply callback function. *)
-      pr "static void %s_reply_cb (guestfs_h *g, void *data, XDR *xdr)\n" shortname;
-      pr "{\n";
-      pr "  guestfs_main_loop *ml = guestfs_get_main_loop (g);\n";
-      pr "  struct %s_ctx *ctx = (struct %s_ctx *) data;\n" shortname shortname;
-      pr "\n";
-      pr "  /* This should definitely not happen. */\n";
-      pr "  if (ctx->cb_sequence != 0) {\n";
-      pr "    ctx->cb_sequence = 9999;\n";
-      pr "    error (g, \"%%s: internal error: reply callback called twice\", \"%s\");\n" name;
-      pr "    return;\n";
-      pr "  }\n";
-      pr "\n";
-      pr "  ml->main_loop_quit (ml, g);\n";
-      pr "\n";
-      pr "  if (!xdr_guestfs_message_header (xdr, &ctx->hdr)) {\n";
-      pr "    error (g, \"%%s: failed to parse reply header\", \"%s\");\n" name;
-      pr "    return;\n";
-      pr "  }\n";
-      pr "  if (ctx->hdr.status == GUESTFS_STATUS_ERROR) {\n";
-      pr "    if (!xdr_guestfs_message_error (xdr, &ctx->err)) {\n";
-      pr "      error (g, \"%%s: failed to parse reply error\", \"%s\");\n"
-        name;
-      pr "      return;\n";
-      pr "    }\n";
-      pr "    goto done;\n";
-      pr "  }\n";
-
-      (match fst style with
-       | RErr -> ()
-       | RConstString _ | RConstOptString _ ->
-           failwithf "RConstString|RConstOptString cannot be used by daemon functions"
-       | RInt _ | RInt64 _
-       | RBool _ | RString _ | RStringList _
-       | RStruct _ | RStructList _
-       | RHashtable _ | RBufferOut _ ->
-           pr "  if (!xdr_%s_ret (xdr, &ctx->ret)) {\n" name;
-           pr "    error (g, \"%%s: failed to parse reply\", \"%s\");\n" name;
-           pr "    return;\n";
-           pr "  }\n";
-      );
-
-      pr " done:\n";
-      pr "  ctx->cb_sequence = 1;\n";
-      pr "}\n\n";
-
       (* Generate the action stub. *)
       generate_prototype ~extern:false ~semicolon:false ~newline:true
         ~handle:"g" name style;
@@ -4827,21 +4729,32 @@ check_state (guestfs_h *g, const char *caller)
        | _ -> pr "  struct %s_args args;\n" name
       );
 
-      pr "  struct %s_ctx ctx;\n" shortname;
-      pr "  guestfs_main_loop *ml = guestfs_get_main_loop (g);\n";
+      pr "  guestfs_message_header hdr;\n";
+      pr "  guestfs_message_error err;\n";
+      let has_ret =
+	match fst style with
+	| RErr -> false
+	| RConstString _ | RConstOptString _ ->
+            failwithf "RConstString|RConstOptString cannot be used by daemon functions"
+	| RInt _ | RInt64 _
+	| RBool _ | RString _ | RStringList _
+	| RStruct _ | RStructList _
+	| RHashtable _ | RBufferOut _ ->
+            pr "  struct %s_ret ret;\n" name;
+	    true in
+
       pr "  int serial;\n";
+      pr "  int r;\n";
       pr "\n";
       trace_call shortname style;
       pr "  if (check_state (g, \"%s\") == -1) return %s;\n" name error_code;
-      pr "  guestfs_set_busy (g);\n";
-      pr "\n";
-      pr "  memset (&ctx, 0, sizeof ctx);\n";
+      pr "  guestfs___set_busy (g);\n";
       pr "\n";
 
       (* Send the main header and arguments. *)
       (match snd style with
        | [] ->
-           pr "  serial = guestfs__send_sync (g, GUESTFS_PROC_%s, NULL, NULL);\n"
+           pr "  serial = guestfs___send (g, GUESTFS_PROC_%s, NULL, NULL);\n"
              (String.uppercase shortname)
        | args ->
            List.iter (
@@ -4859,13 +4772,13 @@ check_state (guestfs_h *g, const char *caller)
                  pr "  args.%s = %s;\n" n n
              | FileIn _ | FileOut _ -> ()
            ) args;
-           pr "  serial = guestfs__send_sync (g, GUESTFS_PROC_%s,\n"
+           pr "  serial = guestfs___send (g, GUESTFS_PROC_%s,\n"
              (String.uppercase shortname);
            pr "        (xdrproc_t) xdr_%s_args, (char *) &args);\n"
              name;
       );
       pr "  if (serial == -1) {\n";
-      pr "    guestfs_end_busy (g);\n";
+      pr "    guestfs___end_busy (g);\n";
       pr "    return %s;\n" error_code;
       pr "  }\n";
       pr "\n";
@@ -4875,47 +4788,48 @@ check_state (guestfs_h *g, const char *caller)
       List.iter (
         function
         | FileIn n ->
-            pr "  {\n";
-            pr "    int r;\n";
-            pr "\n";
-            pr "    r = guestfs__send_file_sync (g, %s);\n" n;
-            pr "    if (r == -1) {\n";
-            pr "      guestfs_end_busy (g);\n";
-            pr "      return %s;\n" error_code;
-            pr "    }\n";
-            pr "    if (r == -2) /* daemon cancelled */\n";
-            pr "      goto read_reply;\n";
-            need_read_reply_label := true;
+            pr "  r = guestfs___send_file (g, %s);\n" n;
+            pr "  if (r == -1) {\n";
+            pr "    guestfs___end_busy (g);\n";
+            pr "    return %s;\n" error_code;
             pr "  }\n";
+            pr "  if (r == -2) /* daemon cancelled */\n";
+            pr "    goto read_reply;\n";
+            need_read_reply_label := true;
             pr "\n";
         | _ -> ()
       ) (snd style);
 
       (* Wait for the reply from the remote end. *)
       if !need_read_reply_label then pr " read_reply:\n";
-      pr "  guestfs__switch_to_receiving (g);\n";
-      pr "  ctx.cb_sequence = 0;\n";
-      pr "  guestfs_set_reply_callback (g, %s_reply_cb, &ctx);\n" shortname;
-      pr "  (void) ml->main_loop_run (ml, g);\n";
-      pr "  guestfs_set_reply_callback (g, NULL, NULL);\n";
-      pr "  if (ctx.cb_sequence != 1) {\n";
-      pr "    error (g, \"%%s reply failed, see earlier error messages\", \"%s\");\n" name;
-      pr "    guestfs_end_busy (g);\n";
+      pr "  memset (&hdr, 0, sizeof hdr);\n";
+      pr "  memset (&err, 0, sizeof err);\n";
+      if has_ret then pr "  memset (&ret, 0, sizeof ret);\n";
+      pr "\n";
+      pr "  r = guestfs___recv (g, \"%s\", &hdr, &err,\n        " shortname;
+      if not has_ret then
+	pr "NULL, NULL"
+      else
+        pr "(xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret" shortname;
+      pr ");\n";
+
+      pr "  if (r == -1) {\n";
+      pr "    guestfs___end_busy (g);\n";
       pr "    return %s;\n" error_code;
       pr "  }\n";
       pr "\n";
 
-      pr "  if (check_reply_header (g, &ctx.hdr, GUESTFS_PROC_%s, serial) == -1) {\n"
+      pr "  if (check_reply_header (g, &hdr, GUESTFS_PROC_%s, serial) == -1) {\n"
         (String.uppercase shortname);
-      pr "    guestfs_end_busy (g);\n";
+      pr "    guestfs___end_busy (g);\n";
       pr "    return %s;\n" error_code;
       pr "  }\n";
       pr "\n";
 
-      pr "  if (ctx.hdr.status == GUESTFS_STATUS_ERROR) {\n";
-      pr "    error (g, \"%%s\", ctx.err.error_message);\n";
-      pr "    free (ctx.err.error_message);\n";
-      pr "    guestfs_end_busy (g);\n";
+      pr "  if (hdr.status == GUESTFS_STATUS_ERROR) {\n";
+      pr "    error (g, \"%%s: %%s\", \"%s\", err.error_message);\n" shortname;
+      pr "    free (err.error_message);\n";
+      pr "    guestfs___end_busy (g);\n";
       pr "    return %s;\n" error_code;
       pr "  }\n";
       pr "\n";
@@ -4924,41 +4838,41 @@ check_state (guestfs_h *g, const char *caller)
       List.iter (
         function
         | FileOut n ->
-            pr "  if (guestfs__receive_file_sync (g, %s) == -1) {\n" n;
-            pr "    guestfs_end_busy (g);\n";
+            pr "  if (guestfs___recv_file (g, %s) == -1) {\n" n;
+            pr "    guestfs___end_busy (g);\n";
             pr "    return %s;\n" error_code;
             pr "  }\n";
             pr "\n";
         | _ -> ()
       ) (snd style);
 
-      pr "  guestfs_end_busy (g);\n";
+      pr "  guestfs___end_busy (g);\n";
 
       (match fst style with
        | RErr -> pr "  return 0;\n"
        | RInt n | RInt64 n | RBool n ->
-           pr "  return ctx.ret.%s;\n" n
+           pr "  return ret.%s;\n" n
        | RConstString _ | RConstOptString _ ->
            failwithf "RConstString|RConstOptString cannot be used by daemon functions"
        | RString n ->
-           pr "  return ctx.ret.%s; /* caller will free */\n" n
+           pr "  return ret.%s; /* caller will free */\n" n
        | RStringList n | RHashtable n ->
            pr "  /* caller will free this, but we need to add a NULL entry */\n";
-           pr "  ctx.ret.%s.%s_val =\n" n n;
-           pr "    safe_realloc (g, ctx.ret.%s.%s_val,\n" n n;
-           pr "                  sizeof (char *) * (ctx.ret.%s.%s_len + 1));\n"
+           pr "  ret.%s.%s_val =\n" n n;
+           pr "    safe_realloc (g, ret.%s.%s_val,\n" n n;
+           pr "                  sizeof (char *) * (ret.%s.%s_len + 1));\n"
              n n;
-           pr "  ctx.ret.%s.%s_val[ctx.ret.%s.%s_len] = NULL;\n" n n n n;
-           pr "  return ctx.ret.%s.%s_val;\n" n n
+           pr "  ret.%s.%s_val[ret.%s.%s_len] = NULL;\n" n n n n;
+           pr "  return ret.%s.%s_val;\n" n n
        | RStruct (n, _) ->
            pr "  /* caller will free this */\n";
-           pr "  return safe_memdup (g, &ctx.ret.%s, sizeof (ctx.ret.%s));\n" n n
+           pr "  return safe_memdup (g, &ret.%s, sizeof (ret.%s));\n" n n
        | RStructList (n, _) ->
            pr "  /* caller will free this */\n";
-           pr "  return safe_memdup (g, &ctx.ret.%s, sizeof (ctx.ret.%s));\n" n n
+           pr "  return safe_memdup (g, &ret.%s, sizeof (ret.%s));\n" n n
        | RBufferOut n ->
-           pr "  *size_r = ctx.ret.%s.%s_len;\n" n n;
-           pr "  return ctx.ret.%s.%s_val; /* caller will free */\n" n n
+           pr "  *size_r = ret.%s.%s_len;\n" n n;
+           pr "  return ret.%s.%s_val; /* caller will free */\n" n n
       );
 
       pr "}\n\n"

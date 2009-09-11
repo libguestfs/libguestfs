@@ -78,64 +78,9 @@
 //#define safe_memdup guestfs_safe_memdup
 
 static void default_error_cb (guestfs_h *g, void *data, const char *msg);
-static void stdout_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data, int watch, int fd, int events);
-static void sock_read_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data, int watch, int fd, int events);
-static void sock_write_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data, int watch, int fd, int events);
-
+static int send_to_daemon (guestfs_h *g, const void *v_buf, size_t n);
+static int recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn);
 static void close_handles (void);
-
-static int select_add_handle (guestfs_main_loop *ml, guestfs_h *g, int fd, int events, guestfs_handle_event_cb cb, void *data);
-static int select_remove_handle (guestfs_main_loop *ml, guestfs_h *g, int watch);
-static int select_add_timeout (guestfs_main_loop *ml, guestfs_h *g, int interval, guestfs_handle_timeout_cb cb, void *data);
-static int select_remove_timeout (guestfs_main_loop *ml, guestfs_h *g, int timer);
-static int select_main_loop_run (guestfs_main_loop *ml, guestfs_h *g);
-static int select_main_loop_quit (guestfs_main_loop *ml, guestfs_h *g);
-
-/* Default select-based main loop. */
-struct select_handle_cb_data {
-  guestfs_handle_event_cb cb;
-  guestfs_h *g;
-  void *data;
-};
-
-struct select_main_loop {
-  /* NB. These fields must be the same as in struct guestfs_main_loop: */
-  guestfs_add_handle_cb add_handle;
-  guestfs_remove_handle_cb remove_handle;
-  guestfs_add_timeout_cb add_timeout;
-  guestfs_remove_timeout_cb remove_timeout;
-  guestfs_main_loop_run_cb main_loop_run;
-  guestfs_main_loop_quit_cb main_loop_quit;
-
-  /* Additional private data: */
-  int is_running;
-
-  fd_set rset;
-  fd_set wset;
-  fd_set xset;
-
-  int max_fd;
-  int nr_fds;
-  struct select_handle_cb_data *handle_cb_data;
-};
-
-/* Default main loop. */
-static struct select_main_loop default_main_loop = {
-  .add_handle = select_add_handle,
-  .remove_handle = select_remove_handle,
-  .add_timeout = select_add_timeout,
-  .remove_timeout = select_remove_timeout,
-  .main_loop_run = select_main_loop_run,
-  .main_loop_quit = select_main_loop_quit,
-
-  /* XXX hopefully .rset, .wset, .xset are initialized to the empty
-   * set by the normal action of everything being initialized to zero.
-   */
-  .is_running = 0,
-  .max_fd = -1,
-  .nr_fds = 0,
-  .handle_cb_data = NULL,
-};
 
 #define UNIX_PATH_MAX 108
 
@@ -158,9 +103,6 @@ struct guestfs_h
   pid_t pid;			/* Qemu PID. */
   pid_t recoverypid;		/* Recovery process PID. */
   time_t start_t;		/* The time when we started qemu. */
-
-  int stdout_watch;		/* Watches qemu stdout for log messages. */
-  int sock_watch;		/* Watches daemon comm socket. */
 
   char *tmpdir;			/* Temporary directory containing socket. */
 
@@ -187,25 +129,12 @@ struct guestfs_h
   guestfs_abort_cb           abort_cb;
   guestfs_error_handler_cb   error_cb;
   void *                     error_cb_data;
-  guestfs_send_cb            send_cb;
-  void *                     send_cb_data;
-  guestfs_reply_cb           reply_cb;
-  void *                     reply_cb_data;
   guestfs_log_message_cb     log_message_cb;
   void *                     log_message_cb_data;
   guestfs_subprocess_quit_cb subprocess_quit_cb;
   void *                     subprocess_quit_cb_data;
   guestfs_launch_done_cb     launch_done_cb;
   void *                     launch_done_cb_data;
-
-  /* Main loop used by this handle. */
-  guestfs_main_loop *main_loop;
-
-  /* Messages sent and received from the daemon. */
-  char *msg_in;
-  unsigned int msg_in_size, msg_in_allocated;
-  char *msg_out;
-  unsigned int msg_out_size, msg_out_pos;
 
   int msg_next_serial;
 };
@@ -229,8 +158,6 @@ guestfs_create (void)
   g->fd[0] = -1;
   g->fd[1] = -1;
   g->sock = -1;
-  g->stdout_watch = -1;
-  g->sock_watch = -1;
 
   g->abort_cb = abort;
   g->error_cb = default_error_cb;
@@ -271,8 +198,6 @@ guestfs_create (void)
     }
   } else
     g->memsize = 500;
-
-  g->main_loop = guestfs_get_default_main_loop ();
 
   /* Start with large serial numbers so they are easy to spot
    * inside the protocol.
@@ -334,14 +259,7 @@ guestfs_close (guestfs_h *g)
   if (g->state != CONFIG)
     guestfs_kill_subprocess (g);
 
-  /* Close any sockets and deregister any handlers. */
-  if (g->stdout_watch >= 0)
-    g->main_loop->remove_handle (g->main_loop, g, g->stdout_watch);
-  if (g->sock_watch >= 0)
-    g->main_loop->remove_handle (g->main_loop, g, g->sock_watch);
-  g->stdout_watch = -1;
-  g->sock_watch = -1;
-
+  /* Close sockets. */
   if (g->fd[0] >= 0)
     close (g->fd[0]);
   if (g->fd[1] >= 0)
@@ -391,8 +309,6 @@ guestfs_close (guestfs_h *g)
   }
   /* release mutex (XXX) */
 
-  free (g->msg_in);
-  free (g->msg_out);
   free (g->last_error);
   free (g->path);
   free (g->qemu);
@@ -557,27 +473,6 @@ xwrite (int fd, const void *v_buf, size_t len)
     r = write (fd, buf, len);
     if (r == -1)
       return -1;
-
-    buf += r;
-    len -= r;
-  }
-
-  return 0;
-}
-
-static int
-xread (int fd, void *v_buf, size_t len)
-{
-  char *buf = v_buf;
-  int r;
-
-  while (len > 0) {
-    r = read (fd, buf, len);
-    if (r == -1) {
-      if (errno == EINTR || errno == EAGAIN)
-        continue;
-      return -1;
-    }
 
     buf += r;
     len -= r;
@@ -848,7 +743,7 @@ guestfs__add_drive (guestfs_h *g, const char *filename)
     }
   }
 
-  return guestfs_config (g, "-drive", buf);
+  return guestfs__config (g, "-drive", buf);
 }
 
 int
@@ -869,7 +764,7 @@ guestfs__add_drive_ro (guestfs_h *g, const char *filename)
 
   snprintf (buf, len, "file=%s,snapshot=on,if=%s", filename, DRIVE_IF);
 
-  return guestfs_config (g, "-drive", buf);
+  return guestfs__config (g, "-drive", buf);
 }
 
 int
@@ -885,7 +780,7 @@ guestfs__add_cdrom (guestfs_h *g, const char *filename)
     return -1;
   }
 
-  return guestfs_config (g, "-cdrom", filename);
+  return guestfs__config (g, "-cdrom", filename);
 }
 
 /* Returns true iff file is contained in dir. */
@@ -1309,36 +1204,8 @@ guestfs__launch (guestfs_h *g)
   goto cleanup2;
 
  connected:
-  /* Watch the file descriptors. */
-  free (g->msg_in);
-  g->msg_in = NULL;
-  g->msg_in_size = g->msg_in_allocated = 0;
-
-  free (g->msg_out);
-  g->msg_out = NULL;
-  g->msg_out_size = 0;
-  g->msg_out_pos = 0;
-
-  g->stdout_watch =
-    g->main_loop->add_handle (g->main_loop, g, g->fd[1],
-                              GUESTFS_HANDLE_READABLE,
-                              stdout_event, NULL);
-  if (g->stdout_watch == -1) {
-    error (g, _("could not watch qemu stdout"));
-    goto cleanup3;
-  }
-
-  if (guestfs__switch_to_receiving (g) == -1)
-    goto cleanup3;
-
   g->state = LAUNCHING;
   return 0;
-
- cleanup3:
-  if (g->stdout_watch >= 0)
-    g->main_loop->remove_handle (g->main_loop, g, g->stdout_watch);
-  if (g->sock_watch >= 0)
-    g->main_loop->remove_handle (g->main_loop, g, g->sock_watch);
 
  cleanup2:
   close (g->sock);
@@ -1356,8 +1223,6 @@ guestfs__launch (guestfs_h *g)
   g->pid = 0;
   g->recoverypid = 0;
   g->start_t = 0;
-  g->stdout_watch = -1;
-  g->sock_watch = -1;
 
  cleanup0:
   free (kernel);
@@ -1513,20 +1378,12 @@ qemu_supports (guestfs_h *g, const char *option)
   return g->qemu_help && strstr (g->qemu_help, option) != NULL;
 }
 
-static void
-finish_wait_ready (guestfs_h *g, void *vp)
-{
-  if (g->verbose)
-    fprintf (stderr, "finish_wait_ready called, %p, vp = %p\n", g, vp);
-
-  *((int *)vp) = 1;
-  g->main_loop->main_loop_quit (g->main_loop, g);
-}
-
 int
 guestfs__wait_ready (guestfs_h *g)
 {
-  int finished = 0, r;
+  int r;
+  uint32_t size;
+  void *buf = NULL;
 
   if (g->state == READY) return 0;
 
@@ -1540,15 +1397,12 @@ guestfs__wait_ready (guestfs_h *g)
     return -1;
   }
 
-  g->launch_done_cb = finish_wait_ready;
-  g->launch_done_cb_data = &finished;
-  r = g->main_loop->main_loop_run (g->main_loop, g);
-  g->launch_done_cb = NULL;
-  g->launch_done_cb_data = NULL;
+  r = recv_from_daemon (g, &size, &buf);
+  free (buf);
 
   if (r == -1) return -1;
 
-  if (finished != 1) {
+  if (size != GUESTFS_LAUNCH_FLAG) {
     error (g, _("guestfs_wait_ready failed, see earlier error messages"));
     return -1;
   }
@@ -1614,348 +1468,6 @@ guestfs__get_state (guestfs_h *g)
   return g->state;
 }
 
-int
-guestfs__set_ready (guestfs_h *g)
-{
-  if (g->state != BUSY) {
-    error (g, _("guestfs_set_ready: called when in state %d != BUSY"),
-           g->state);
-    return -1;
-  }
-  g->state = READY;
-  return 0;
-}
-
-int
-guestfs__set_busy (guestfs_h *g)
-{
-  if (g->state != READY) {
-    error (g, _("guestfs_set_busy: called when in state %d != READY"),
-           g->state);
-    return -1;
-  }
-  g->state = BUSY;
-  return 0;
-}
-
-int
-guestfs__end_busy (guestfs_h *g)
-{
-  switch (g->state)
-    {
-    case BUSY:
-      g->state = READY;
-      break;
-    case CONFIG:
-    case READY:
-      break;
-
-    case LAUNCHING:
-    case NO_HANDLE:
-    default:
-      error (g, _("guestfs_end_busy: called when in state %d"), g->state);
-      return -1;
-    }
-  return 0;
-}
-
-/* We don't know if stdout_event or sock_read_event will be the
- * first to receive EOF if the qemu process dies.  This function
- * has the common cleanup code for both.
- */
-static void
-child_cleanup (guestfs_h *g)
-{
-  if (g->verbose)
-    fprintf (stderr, "stdout_event: %p: child process died\n", g);
-  /*kill (g->pid, SIGTERM);*/
-  if (g->recoverypid > 0) kill (g->recoverypid, 9);
-  waitpid (g->pid, NULL, 0);
-  if (g->recoverypid > 0) waitpid (g->recoverypid, NULL, 0);
-  if (g->stdout_watch >= 0)
-    g->main_loop->remove_handle (g->main_loop, g, g->stdout_watch);
-  if (g->sock_watch >= 0)
-    g->main_loop->remove_handle (g->main_loop, g, g->sock_watch);
-  close (g->fd[0]);
-  close (g->fd[1]);
-  close (g->sock);
-  g->fd[0] = -1;
-  g->fd[1] = -1;
-  g->sock = -1;
-  g->pid = 0;
-  g->recoverypid = 0;
-  g->start_t = 0;
-  g->stdout_watch = -1;
-  g->sock_watch = -1;
-  g->state = CONFIG;
-  if (g->subprocess_quit_cb)
-    g->subprocess_quit_cb (g, g->subprocess_quit_cb_data);
-}
-
-/* This function is called whenever qemu prints something on stdout.
- * Qemu's stdout is also connected to the guest's serial console, so
- * we see kernel messages here too.
- */
-static void
-stdout_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
-              int watch, int fd, int events)
-{
-  char buf[4096];
-  int n;
-
-#if 0
-  if (g->verbose)
-    fprintf (stderr,
-             "stdout_event: %p g->state = %d, fd = %d, events = 0x%x\n",
-             g, g->state, fd, events);
-#endif
-
-  if (g->fd[1] != fd) {
-    error (g, _("stdout_event: internal error: %d != %d"), g->fd[1], fd);
-    return;
-  }
-
-  n = read (fd, buf, sizeof buf);
-  if (n == 0) {
-    /* Hopefully this indicates the qemu child process has died. */
-    child_cleanup (g);
-    return;
-  }
-
-  if (n == -1) {
-    if (errno != EINTR && errno != EAGAIN)
-      perrorf (g, "read");
-    return;
-  }
-
-  /* In verbose mode, copy all log messages to stderr. */
-  if (g->verbose)
-    ignore_value (write (STDERR_FILENO, buf, n));
-
-  /* It's an actual log message, send it upwards if anyone is listening. */
-  if (g->log_message_cb)
-    g->log_message_cb (g, g->log_message_cb_data, buf, n);
-}
-
-/* The function is called whenever we can read something on the
- * guestfsd (daemon inside the guest) communication socket.
- */
-static void
-sock_read_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
-                 int watch, int fd, int events)
-{
-  XDR xdr;
-  u_int32_t len;
-  int n;
-
-  if (g->verbose)
-    fprintf (stderr,
-             "sock_read_event: %p g->state = %d, fd = %d, events = 0x%x\n",
-             g, g->state, fd, events);
-
-  if (g->sock != fd) {
-    error (g, _("sock_read_event: internal error: %d != %d"), g->sock, fd);
-    return;
-  }
-
-  if (g->msg_in_size <= g->msg_in_allocated) {
-    g->msg_in_allocated += 4096;
-    g->msg_in = safe_realloc (g, g->msg_in, g->msg_in_allocated);
-  }
-  n = read (g->sock, g->msg_in + g->msg_in_size,
-            g->msg_in_allocated - g->msg_in_size);
-  if (n == 0) {
-    /* Disconnected. */
-    child_cleanup (g);
-    return;
-  }
-
-  if (n == -1) {
-    if (errno != EINTR && errno != EAGAIN)
-      perrorf (g, "read");
-    return;
-  }
-
-  g->msg_in_size += n;
-
-  /* Have we got enough of a message to be able to process it yet? */
- again:
-  if (g->msg_in_size < 4) return;
-
-  xdrmem_create (&xdr, g->msg_in, g->msg_in_size, XDR_DECODE);
-  if (!xdr_uint32_t (&xdr, &len)) {
-    error (g, _("can't decode length word"));
-    goto cleanup;
-  }
-
-  /* Length is normally the length of the message, but when guestfsd
-   * starts up it sends a "magic" value (longer than any possible
-   * message).  Check for this.
-   */
-  if (len == GUESTFS_LAUNCH_FLAG) {
-    if (g->state != LAUNCHING)
-      error (g, _("received magic signature from guestfsd, but in state %d"),
-             g->state);
-    else if (g->msg_in_size != 4)
-      error (g, _("received magic signature from guestfsd, but msg size is %d"),
-             g->msg_in_size);
-    else {
-      g->state = READY;
-      if (g->launch_done_cb)
-        g->launch_done_cb (g, g->launch_done_cb_data);
-    }
-
-    goto cleanup;
-  }
-
-  /* This can happen if a cancellation happens right at the end
-   * of us sending a FileIn parameter to the daemon.  Discard.  The
-   * daemon should send us an error message next.
-   */
-  if (len == GUESTFS_CANCEL_FLAG) {
-    g->msg_in_size -= 4;
-    memmove (g->msg_in, g->msg_in+4, g->msg_in_size);
-    goto again;
-  }
-
-  /* If this happens, it's pretty bad and we've probably lost
-   * synchronization.
-   */
-  if (len > GUESTFS_MESSAGE_MAX) {
-    error (g, _("message length (%u) > maximum possible size (%d)"),
-           len, GUESTFS_MESSAGE_MAX);
-    goto cleanup;
-  }
-
-  if (g->msg_in_size-4 < len) return; /* Need more of this message. */
-
-  /* Got the full message, begin processing it. */
-#if 0
-  if (g->verbose) {
-    int i, j;
-
-    for (i = 0; i < g->msg_in_size; i += 16) {
-      printf ("%04x: ", i);
-      for (j = i; j < MIN (i+16, g->msg_in_size); ++j)
-        printf ("%02x ", (unsigned char) g->msg_in[j]);
-      for (; j < i+16; ++j)
-        printf ("   ");
-      printf ("|");
-      for (j = i; j < MIN (i+16, g->msg_in_size); ++j)
-        if (isprint (g->msg_in[j]))
-          printf ("%c", g->msg_in[j]);
-        else
-          printf (".");
-      for (; j < i+16; ++j)
-        printf (" ");
-      printf ("|\n");
-    }
-  }
-#endif
-
-  /* Not in the expected state. */
-  if (g->state != BUSY)
-    error (g, _("state %d != BUSY"), g->state);
-
-  /* Push the message up to the higher layer. */
-  if (g->reply_cb)
-    g->reply_cb (g, g->reply_cb_data, &xdr);
-  else
-    /* This message (probably) should never be printed. */
-    fprintf (stderr, "libguesfs: sock_read_event: !!! dropped message !!!\n");
-
-  g->msg_in_size -= len + 4;
-  memmove (g->msg_in, g->msg_in+len+4, g->msg_in_size);
-  if (g->msg_in_size > 0) goto again;
-
- cleanup:
-  /* Free the message buffer if it's grown excessively large. */
-  if (g->msg_in_allocated > 65536) {
-    free (g->msg_in);
-    g->msg_in = NULL;
-    g->msg_in_size = g->msg_in_allocated = 0;
-  } else
-    g->msg_in_size = 0;
-
-  xdr_destroy (&xdr);
-}
-
-/* The function is called whenever we can write something on the
- * guestfsd (daemon inside the guest) communication socket.
- */
-static void
-sock_write_event (struct guestfs_main_loop *ml, guestfs_h *g, void *data,
-                  int watch, int fd, int events)
-{
-  int n, err;
-
-  if (g->verbose)
-    fprintf (stderr,
-             "sock_write_event: %p g->state = %d, fd = %d, events = 0x%x\n",
-             g, g->state, fd, events);
-
-  if (g->sock != fd) {
-    error (g, _("sock_write_event: internal error: %d != %d"), g->sock, fd);
-    return;
-  }
-
-  if (g->state != BUSY) {
-    error (g, _("sock_write_event: state %d != BUSY"), g->state);
-    return;
-  }
-
-  if (g->verbose)
-    fprintf (stderr, "sock_write_event: writing %d bytes ...\n",
-             g->msg_out_size - g->msg_out_pos);
-
-  n = write (g->sock, g->msg_out + g->msg_out_pos,
-             g->msg_out_size - g->msg_out_pos);
-  if (n == -1) {
-    err = errno;
-    if (err != EAGAIN)
-      perrorf (g, "write");
-    if (err == EPIPE)	/* Disconnected from guest (RHBZ#508713). */
-      child_cleanup (g);
-    return;
-  }
-
-  if (g->verbose)
-    fprintf (stderr, "sock_write_event: wrote %d bytes\n", n);
-
-  g->msg_out_pos += n;
-
-  /* More to write? */
-  if (g->msg_out_pos < g->msg_out_size)
-    return;
-
-  if (g->verbose)
-    fprintf (stderr, "sock_write_event: done writing, calling send_cb\n");
-
-  free (g->msg_out);
-  g->msg_out = NULL;
-  g->msg_out_pos = g->msg_out_size = 0;
-
-  /* Done writing, call the higher layer. */
-  if (g->send_cb)
-    g->send_cb (g, g->send_cb_data);
-}
-
-void
-guestfs_set_send_callback (guestfs_h *g,
-                           guestfs_send_cb cb, void *opaque)
-{
-  g->send_cb = cb;
-  g->send_cb_data = opaque;
-}
-
-void
-guestfs_set_reply_callback (guestfs_h *g,
-                            guestfs_reply_cb cb, void *opaque)
-{
-  g->reply_cb = cb;
-  g->reply_cb_data = opaque;
-}
-
 void
 guestfs_set_log_message_callback (guestfs_h *g,
                                   guestfs_log_message_cb cb, void *opaque)
@@ -1980,109 +1492,453 @@ guestfs_set_launch_done_callback (guestfs_h *g,
   g->launch_done_cb_data = opaque;
 }
 
-/* Access to the handle's main loop and the default main loop. */
-void
-guestfs_set_main_loop (guestfs_h *g, guestfs_main_loop *main_loop)
-{
-  g->main_loop = main_loop;
-}
+/*----------------------------------------------------------------------*/
 
-guestfs_main_loop *
-guestfs_get_main_loop (guestfs_h *g)
-{
-  return g->main_loop;
-}
-
-guestfs_main_loop *
-guestfs_get_default_main_loop (void)
-{
-  return (guestfs_main_loop *) &default_main_loop;
-}
-
-/* Change the daemon socket handler so that we are now writing.
- * This sets the handle to sock_write_event.
+/* This is the code used to send and receive RPC messages and (for
+ * certain types of message) to perform file transfers.  This code is
+ * driven from the generated actions (src/guestfs-actions.c).  There
+ * are five different cases to consider:
+ *
+ * (1) A non-daemon function.  There is no RPC involved at all, it's
+ * all handled inside the library.
+ *
+ * (2) A simple RPC (eg. "mount").  We write the request, then read
+ * the reply.  The sequence of calls is:
+ *
+ *   guestfs___set_busy
+ *   guestfs___send
+ *   guestfs___recv
+ *   guestfs___end_busy
+ *
+ * (3) An RPC with FileOut parameters (eg. "upload").  We write the
+ * request, then write the file(s), then read the reply.  The sequence
+ * of calls is:
+ *
+ *   guestfs___set_busy
+ *   guestfs___send
+ *   guestfs___send_file  (possibly multiple times)
+ *   guestfs___recv
+ *   guestfs___end_busy
+ *
+ * (4) An RPC with FileIn parameters (eg. "download").  We write the
+ * request, then read the reply, then read the file(s).  The sequence
+ * of calls is:
+ *
+ *   guestfs___set_busy
+ *   guestfs___send
+ *   guestfs___recv
+ *   guestfs___recv_file  (possibly multiple times)
+ *   guestfs___end_busy
+ *
+ * (5) Both FileOut and FileIn parameters.  There are no calls like
+ * this in the current API, but they would be implemented as a
+ * combination of cases (3) and (4).
+ *
+ * During all writes and reads, we also select(2) on qemu stdout
+ * looking for messages (guestfsd stderr and guest kernel dmesg), and
+ * anything received is passed up through the log_message_cb.  This is
+ * also the reason why all the sockets are non-blocking.  We also have
+ * to check for EOF (qemu died).  All of this is handled by the
+ * functions send_to_daemon and recv_from_daemon.
  */
-int
-guestfs__switch_to_sending (guestfs_h *g)
-{
-  if (g->sock_watch >= 0) {
-    if (g->main_loop->remove_handle (g->main_loop, g, g->sock_watch) == -1) {
-      error (g, _("remove_handle failed"));
-      g->sock_watch = -1;
-      return -1;
-    }
-  }
 
-  g->sock_watch =
-    g->main_loop->add_handle (g->main_loop, g, g->sock,
-                              GUESTFS_HANDLE_WRITABLE,
-                              sock_write_event, NULL);
-  if (g->sock_watch == -1) {
-    error (g, _("add_handle failed"));
+int
+guestfs___set_busy (guestfs_h *g)
+{
+  if (g->state != READY) {
+    error (g, _("guestfs_set_busy: called when in state %d != READY"),
+           g->state);
     return -1;
   }
-
+  g->state = BUSY;
   return 0;
 }
 
 int
-guestfs__switch_to_receiving (guestfs_h *g)
+guestfs___end_busy (guestfs_h *g)
 {
-  if (g->sock_watch >= 0) {
-    if (g->main_loop->remove_handle (g->main_loop, g, g->sock_watch) == -1) {
-      error (g, _("remove_handle failed"));
-      g->sock_watch = -1;
+  switch (g->state)
+    {
+    case BUSY:
+      g->state = READY;
+      break;
+    case CONFIG:
+    case READY:
+      break;
+
+    case LAUNCHING:
+    case NO_HANDLE:
+    default:
+      error (g, _("guestfs_end_busy: called when in state %d"), g->state);
       return -1;
     }
-  }
-
-  g->sock_watch =
-    g->main_loop->add_handle (g->main_loop, g, g->sock,
-                              GUESTFS_HANDLE_READABLE,
-                              sock_read_event, NULL);
-  if (g->sock_watch == -1) {
-    error (g, _("add_handle failed"));
-    return -1;
-  }
-
   return 0;
 }
 
-/* Dispatch a call (len + header + args) to the remote daemon,
- * synchronously (ie. using the guest's main loop to wait until
- * it has been sent).  Returns -1 for error, or the serial
- * number of the message.
- */
+/* This is called if we detect EOF, ie. qemu died. */
 static void
-send_cb (guestfs_h *g, void *data)
+child_cleanup (guestfs_h *g)
 {
-  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  if (g->verbose)
+    fprintf (stderr, "child_cleanup: %p: child process died\n", g);
 
-  *((int *)data) = 1;
-  ml->main_loop_quit (ml, g);
+  /*kill (g->pid, SIGTERM);*/
+  if (g->recoverypid > 0) kill (g->recoverypid, 9);
+  waitpid (g->pid, NULL, 0);
+  if (g->recoverypid > 0) waitpid (g->recoverypid, NULL, 0);
+  close (g->fd[0]);
+  close (g->fd[1]);
+  close (g->sock);
+  g->fd[0] = -1;
+  g->fd[1] = -1;
+  g->sock = -1;
+  g->pid = 0;
+  g->recoverypid = 0;
+  g->start_t = 0;
+  g->state = CONFIG;
+  if (g->subprocess_quit_cb)
+    g->subprocess_quit_cb (g, g->subprocess_quit_cb_data);
+}
+
+static int
+read_log_message_or_eof (guestfs_h *g, int fd)
+{
+  char buf[BUFSIZ];
+  int n;
+
+#if 0
+  if (g->verbose)
+    fprintf (stderr,
+             "read_log_message_or_eof: %p g->state = %d, fd = %d\n",
+             g, g->state, fd);
+#endif
+
+  /* QEMU's console emulates a 16550A serial port.  The real 16550A
+   * device has a small FIFO buffer (16 bytes) which means here we see
+   * lots of small reads of 1-16 bytes in length, usually single
+   * bytes.
+   */
+  n = read (fd, buf, sizeof buf);
+  if (n == 0) {
+    /* Hopefully this indicates the qemu child process has died. */
+    child_cleanup (g);
+    return -1;
+  }
+
+  if (n == -1) {
+    if (errno == EINTR || errno == EAGAIN)
+      return 0;
+
+    perrorf (g, "read");
+    return -1;
+  }
+
+  /* In verbose mode, copy all log messages to stderr. */
+  if (g->verbose)
+    ignore_value (write (STDERR_FILENO, buf, n));
+
+  /* It's an actual log message, send it upwards if anyone is listening. */
+  if (g->log_message_cb)
+    g->log_message_cb (g, g->log_message_cb_data, buf, n);
+
+  return 0;
+}
+
+static int
+check_for_daemon_cancellation_or_eof (guestfs_h *g, int fd)
+{
+  char buf[4];
+  int n;
+  uint32_t flag;
+  XDR xdr;
+
+  if (g->verbose)
+    fprintf (stderr,
+             "check_for_daemon_cancellation_or_eof: %p g->state = %d, fd = %d\n",
+             g, g->state, fd);
+
+  n = read (fd, buf, 4);
+  if (n == 0) {
+    /* Hopefully this indicates the qemu child process has died. */
+    child_cleanup (g);
+    return -1;
+  }
+
+  if (n == -1) {
+    if (errno == EINTR || errno == EAGAIN)
+      return 0;
+
+    perrorf (g, "read");
+    return -1;
+  }
+
+  xdrmem_create (&xdr, buf, 4, XDR_DECODE);
+  xdr_uint32_t (&xdr, &flag);
+  xdr_destroy (&xdr);
+
+  if (flag != GUESTFS_CANCEL_FLAG) {
+    error (g, _("check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"),
+           flag, GUESTFS_CANCEL_FLAG);
+    return -1;
+  }
+
+  return -2;
+}
+
+/* This writes the whole N bytes of BUF to the daemon socket.
+ *
+ * If the whole write is successful, it returns 0.
+ * If there was an error, it returns -1.
+ * If the daemon sent a cancellation message, it returns -2.
+ *
+ * It also checks qemu stdout for log messages and passes those up
+ * through log_message_cb.
+ *
+ * It also checks for EOF (qemu died) and passes that up through the
+ * child_cleanup function above.
+ */
+static int
+send_to_daemon (guestfs_h *g, const void *v_buf, size_t n)
+{
+  const char *buf = v_buf;
+  fd_set rset, rset2;
+  fd_set wset, wset2;
+
+  if (g->verbose)
+    fprintf (stderr,
+             "send_to_daemon: %p g->state = %d, n = %zu\n", g, g->state, n);
+
+  FD_ZERO (&rset);
+  FD_ZERO (&wset);
+
+  FD_SET (g->fd[1], &rset);     /* Read qemu stdout for log messages & EOF. */
+  FD_SET (g->sock, &rset);      /* Read socket for cancellation & EOF. */
+  FD_SET (g->sock, &wset);      /* Write to socket to send the data. */
+
+  int max_fd = g->sock > g->fd[1] ? g->sock : g->fd[1];
+
+  while (n > 0) {
+    rset2 = rset;
+    wset2 = wset;
+    int r = select (max_fd+1, &rset2, &wset2, NULL, NULL);
+    if (r == -1) {
+      if (errno == EINTR || errno == EAGAIN)
+        continue;
+      perrorf (g, "select");
+      return -1;
+    }
+
+    if (FD_ISSET (g->fd[1], &rset2)) {
+      if (read_log_message_or_eof (g, g->fd[1]) == -1)
+        return -1;
+    }
+    if (FD_ISSET (g->sock, &rset2)) {
+      r = check_for_daemon_cancellation_or_eof (g, g->sock);
+      if (r < 0)
+        return r;
+    }
+    if (FD_ISSET (g->sock, &wset2)) {
+      r = write (g->sock, buf, n);
+      if (r == -1) {
+        if (errno == EINTR || errno == EAGAIN)
+          continue;
+        perrorf (g, "write");
+        if (errno == EPIPE) /* Disconnected from guest (RHBZ#508713). */
+          child_cleanup (g);
+        return -1;
+      }
+      buf += r;
+      n -= r;
+    }
+  }
+
+  return 0;
+}
+
+/* This reads a single message, file chunk, launch flag or
+ * cancellation flag from the daemon.  If something was read, it
+ * returns 0, otherwise -1.
+ *
+ * Both size_rtn and buf_rtn must be passed by the caller as non-NULL.
+ *
+ * *size_rtn returns the size of the returned message or it may be
+ * GUESTFS_LAUNCH_FLAG or GUESTFS_CANCEL_FLAG.
+ *
+ * *buf_rtn is returned containing the message (if any) or will be set
+ * to NULL.  *buf_rtn must be freed by the caller.
+ *
+ * It also checks qemu stdout for log messages and passes those up
+ * through log_message_cb.
+ *
+ * It also checks for EOF (qemu died) and passes that up through the
+ * child_cleanup function above.
+ */
+static int
+recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
+{
+  fd_set rset, rset2;
+
+  if (g->verbose)
+    fprintf (stderr,
+             "recv_from_daemon: %p g->state = %d, size_rtn = %p, buf_rtn = %p\n",
+             g, g->state, size_rtn, buf_rtn);
+
+  FD_ZERO (&rset);
+
+  FD_SET (g->fd[1], &rset);     /* Read qemu stdout for log messages & EOF. */
+  FD_SET (g->sock, &rset);      /* Read socket for data & EOF. */
+
+  int max_fd = g->sock > g->fd[1] ? g->sock : g->fd[1];
+
+  *size_rtn = 0;
+  *buf_rtn = NULL;
+
+  char lenbuf[4];
+  /* nr is the size of the message, but we prime it as -4 because we
+   * have to read the message length word first.
+   */
+  ssize_t nr = -4;
+
+  while (nr < *size_rtn) {
+    rset2 = rset;
+    int r = select (max_fd+1, &rset2, NULL, NULL, NULL);
+    if (r == -1) {
+      if (errno == EINTR || errno == EAGAIN)
+        continue;
+      perrorf (g, "select");
+      free (*buf_rtn);
+      *buf_rtn = NULL;
+      return -1;
+    }
+
+    if (FD_ISSET (g->fd[1], &rset2)) {
+      if (read_log_message_or_eof (g, g->fd[1]) == -1) {
+        free (*buf_rtn);
+        *buf_rtn = NULL;
+        return -1;
+      }
+    }
+    if (FD_ISSET (g->sock, &rset2)) {
+      if (nr < 0) {    /* Have we read the message length word yet? */
+        r = read (g->sock, lenbuf+nr+4, -nr);
+        if (r == -1) {
+          if (errno == EINTR || errno == EAGAIN)
+            continue;
+          int err = errno;
+          perrorf (g, "read");
+          /* Under some circumstances we see "Connection reset by peer"
+           * here when the child dies suddenly.  Catch this and call
+           * the cleanup function, same as for EOF.
+           */
+          if (err == ECONNRESET)
+            child_cleanup (g);
+          return -1;
+        }
+        if (r == 0) {
+          error (g, _("unexpected end of file when reading from daemon"));
+          child_cleanup (g);
+          return -1;
+        }
+        nr += r;
+
+        if (nr < 0)         /* Still not got the whole length word. */
+          continue;
+
+        XDR xdr;
+        xdrmem_create (&xdr, lenbuf, 4, XDR_DECODE);
+        xdr_uint32_t (&xdr, size_rtn);
+        xdr_destroy (&xdr);
+
+        if (*size_rtn == GUESTFS_LAUNCH_FLAG) {
+          if (g->state != LAUNCHING)
+            error (g, _("received magic signature from guestfsd, but in state %d"),
+                   g->state);
+          else {
+            g->state = READY;
+            if (g->launch_done_cb)
+              g->launch_done_cb (g, g->launch_done_cb_data);
+          }
+          return 0;
+        }
+        else if (*size_rtn == GUESTFS_CANCEL_FLAG)
+          return 0;
+        /* If this happens, it's pretty bad and we've probably lost
+         * synchronization.
+         */
+        else if (*size_rtn > GUESTFS_MESSAGE_MAX) {
+          error (g, _("message length (%u) > maximum possible size (%d)"),
+                 (unsigned) *size_rtn, GUESTFS_MESSAGE_MAX);
+          return -1;
+        }
+
+        /* Allocate the complete buffer, size now known. */
+        *buf_rtn = safe_malloc (g, *size_rtn);
+        /*FALLTHROUGH*/
+      }
+
+      size_t sizetoread = *size_rtn - nr;
+      if (sizetoread > BUFSIZ) sizetoread = BUFSIZ;
+
+      r = read (g->sock, (char *) (*buf_rtn) + nr, sizetoread);
+      if (r == -1) {
+        if (errno == EINTR || errno == EAGAIN)
+          continue;
+        perrorf (g, "read");
+        free (*buf_rtn);
+        *buf_rtn = NULL;
+        return -1;
+      }
+      if (r == 0) {
+        error (g, _("unexpected end of file when reading from daemon"));
+        child_cleanup (g);
+        free (*buf_rtn);
+        *buf_rtn = NULL;
+        return -1;
+      }
+      nr += r;
+    }
+  }
+
+  /* Got the full message, caller can start processing it. */
+#if 0
+  if (g->verbose) {
+    size_t i, j;
+
+    for (i = 0; i < nr; i += 16) {
+      printf ("%04x: ", i);
+      for (j = i; j < MIN (i+16, nr); ++j)
+        printf ("%02x ", (unsigned char) (*buf_rtn)[j]);
+      for (; j < i+16; ++j)
+        printf ("   ");
+      printf ("|");
+      for (j = i; j < MIN (i+16, g->nr); ++j)
+        if (isprint ((*buf_rtn)[j]))
+          printf ("%c", (*buf_rtn)[j]);
+        else
+          printf (".");
+      for (; j < i+16; ++j)
+        printf (" ");
+      printf ("|\n");
+    }
+  }
+#endif
+
+  return 0;
 }
 
 int
-guestfs__send_sync (guestfs_h *g, int proc_nr,
-                    xdrproc_t xdrp, char *args)
+guestfs___send (guestfs_h *g, int proc_nr, xdrproc_t xdrp, char *args)
 {
   struct guestfs_message_header hdr;
   XDR xdr;
   u_int32_t len;
   int serial = g->msg_next_serial++;
-  int sent;
-  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  int r;
+  char *msg_out;
+  size_t msg_out_size;
 
   if (g->state != BUSY) {
-    error (g, _("guestfs__send_sync: state %d != BUSY"), g->state);
-    return -1;
-  }
-
-  /* This is probably an internal error.  Or perhaps we should just
-   * free the buffer anyway?
-   */
-  if (g->msg_out != NULL) {
-    error (g, _("guestfs__send_sync: msg_out should be NULL"));
+    error (g, _("guestfs___send: state %d != BUSY"), g->state);
     return -1;
   }
 
@@ -2092,8 +1948,8 @@ guestfs__send_sync (guestfs_h *g, int proc_nr,
    * we have quite limited stack space available, notably when
    * running in the JVM.
    */
-  g->msg_out = safe_malloc (g, GUESTFS_MESSAGE_MAX + 4);
-  xdrmem_create (&xdr, g->msg_out + 4, GUESTFS_MESSAGE_MAX, XDR_ENCODE);
+  msg_out = safe_malloc (g, GUESTFS_MESSAGE_MAX + 4);
+  xdrmem_create (&xdr, msg_out + 4, GUESTFS_MESSAGE_MAX, XDR_ENCODE);
 
   /* Serialize the header. */
   hdr.prog = GUESTFS_PROGRAM;
@@ -2124,48 +1980,41 @@ guestfs__send_sync (guestfs_h *g, int proc_nr,
   len = xdr_getpos (&xdr);
   xdr_destroy (&xdr);
 
-  g->msg_out = safe_realloc (g, g->msg_out, len + 4);
-  g->msg_out_size = len + 4;
-  g->msg_out_pos = 0;
+  msg_out = safe_realloc (g, msg_out, len + 4);
+  msg_out_size = len + 4;
 
-  xdrmem_create (&xdr, g->msg_out, 4, XDR_ENCODE);
+  xdrmem_create (&xdr, msg_out, 4, XDR_ENCODE);
   xdr_uint32_t (&xdr, &len);
 
-  if (guestfs__switch_to_sending (g) == -1)
+ again:
+  r = send_to_daemon (g, msg_out, msg_out_size);
+  if (r == -2)                  /* Ignore stray daemon cancellations. */
+    goto again;
+  if (r == -1)
     goto cleanup1;
-
-  sent = 0;
-  guestfs_set_send_callback (g, send_cb, &sent);
-  if (ml->main_loop_run (ml, g) == -1)
-    goto cleanup1;
-  if (sent != 1) {
-    error (g, _("send failed, see earlier error messages"));
-    goto cleanup1;
-  }
+  free (msg_out);
 
   return serial;
 
  cleanup1:
-  free (g->msg_out);
-  g->msg_out = NULL;
-  g->msg_out_size = 0;
+  free (msg_out);
   return -1;
 }
 
 static int cancel = 0; /* XXX Implement file cancellation. */
-static int send_file_chunk_sync (guestfs_h *g, int cancel, const char *buf, size_t len);
-static int send_file_data_sync (guestfs_h *g, const char *buf, size_t len);
-static int send_file_cancellation_sync (guestfs_h *g);
-static int send_file_complete_sync (guestfs_h *g);
+static int send_file_chunk (guestfs_h *g, int cancel, const char *buf, size_t len);
+static int send_file_data (guestfs_h *g, const char *buf, size_t len);
+static int send_file_cancellation (guestfs_h *g);
+static int send_file_complete (guestfs_h *g);
 
-/* Synchronously send a file.
+/* Send a file.
  * Returns:
  *   0 OK
  *   -1 error
  *   -2 daemon cancelled (we must read the error message)
  */
 int
-guestfs__send_file_sync (guestfs_h *g, const char *filename)
+guestfs___send_file (guestfs_h *g, const char *filename)
 {
   char buf[GUESTFS_MAX_CHUNK_SIZE];
   int fd, r, err;
@@ -2173,7 +2022,7 @@ guestfs__send_file_sync (guestfs_h *g, const char *filename)
   fd = open (filename, O_RDONLY);
   if (fd == -1) {
     perrorf (g, "open: %s", filename);
-    send_file_cancellation_sync (g);
+    send_file_cancellation (g);
     /* Daemon sees cancellation and won't reply, so caller can
      * just return here.
      */
@@ -2186,22 +2035,22 @@ guestfs__send_file_sync (guestfs_h *g, const char *filename)
     if (r == -1 && (errno == EINTR || errno == EAGAIN))
       continue;
     if (r <= 0) break;
-    err = send_file_data_sync (g, buf, r);
+    err = send_file_data (g, buf, r);
     if (err < 0) {
       if (err == -2)		/* daemon sent cancellation */
-        send_file_cancellation_sync (g);
+        send_file_cancellation (g);
       return err;
     }
   }
 
   if (cancel) {			/* cancel from either end */
-    send_file_cancellation_sync (g);
+    send_file_cancellation (g);
     return -1;
   }
 
   if (r == -1) {
     perrorf (g, "read: %s", filename);
-    send_file_cancellation_sync (g);
+    send_file_cancellation (g);
     return -1;
   }
 
@@ -2210,74 +2059,55 @@ guestfs__send_file_sync (guestfs_h *g, const char *filename)
    */
   if (close (fd) == -1) {
     perrorf (g, "close: %s", filename);
-    send_file_cancellation_sync (g);
+    send_file_cancellation (g);
     return -1;
   }
 
-  return send_file_complete_sync (g);
+  return send_file_complete (g);
 }
 
 /* Send a chunk of file data. */
 static int
-send_file_data_sync (guestfs_h *g, const char *buf, size_t len)
+send_file_data (guestfs_h *g, const char *buf, size_t len)
 {
-  return send_file_chunk_sync (g, 0, buf, len);
+  return send_file_chunk (g, 0, buf, len);
 }
 
 /* Send a cancellation message. */
 static int
-send_file_cancellation_sync (guestfs_h *g)
+send_file_cancellation (guestfs_h *g)
 {
-  return send_file_chunk_sync (g, 1, NULL, 0);
+  return send_file_chunk (g, 1, NULL, 0);
 }
 
 /* Send a file complete chunk. */
 static int
-send_file_complete_sync (guestfs_h *g)
+send_file_complete (guestfs_h *g)
 {
   char buf[1];
-  return send_file_chunk_sync (g, 0, buf, 0);
+  return send_file_chunk (g, 0, buf, 0);
 }
 
-/* Send a chunk, cancellation or end of file, synchronously (ie. wait
- * for it to go).
- */
-static int check_for_daemon_cancellation (guestfs_h *g);
-
 static int
-send_file_chunk_sync (guestfs_h *g, int cancel, const char *buf, size_t buflen)
+send_file_chunk (guestfs_h *g, int cancel, const char *buf, size_t buflen)
 {
   u_int32_t len;
-  int sent;
+  int r;
   guestfs_chunk chunk;
   XDR xdr;
-  guestfs_main_loop *ml = guestfs_get_main_loop (g);
+  char *msg_out;
+  size_t msg_out_size;
 
   if (g->state != BUSY) {
-    error (g, _("send_file_chunk_sync: state %d != READY"), g->state);
+    error (g, _("send_file_chunk: state %d != READY"), g->state);
     return -1;
-  }
-
-  /* This is probably an internal error.  Or perhaps we should just
-   * free the buffer anyway?
-   */
-  if (g->msg_out != NULL) {
-    error (g, _("guestfs__send_sync: msg_out should be NULL"));
-    return -1;
-  }
-
-  /* Did the daemon send a cancellation message? */
-  if (check_for_daemon_cancellation (g)) {
-    if (g->verbose)
-      fprintf (stderr, "got daemon cancellation\n");
-    return -2;
   }
 
   /* Allocate the chunk buffer.  Don't use the stack to avoid
    * excessive stack usage and unnecessary copies.
    */
-  g->msg_out = safe_malloc (g, GUESTFS_MAX_CHUNK_SIZE + 4 + 48);
-  xdrmem_create (&xdr, g->msg_out + 4, GUESTFS_MAX_CHUNK_SIZE + 48, XDR_ENCODE);
+  msg_out = safe_malloc (g, GUESTFS_MAX_CHUNK_SIZE + 4 + 48);
+  xdrmem_create (&xdr, msg_out + 4, GUESTFS_MAX_CHUNK_SIZE + 48, XDR_ENCODE);
 
   /* Serialize the chunk. */
   chunk.cancel = cancel;
@@ -2295,87 +2125,98 @@ send_file_chunk_sync (guestfs_h *g, int cancel, const char *buf, size_t buflen)
   xdr_destroy (&xdr);
 
   /* Reduce the size of the outgoing message buffer to the real length. */
-  g->msg_out = safe_realloc (g, g->msg_out, len + 4);
-  g->msg_out_size = len + 4;
-  g->msg_out_pos = 0;
+  msg_out = safe_realloc (g, msg_out, len + 4);
+  msg_out_size = len + 4;
 
-  xdrmem_create (&xdr, g->msg_out, 4, XDR_ENCODE);
+  xdrmem_create (&xdr, msg_out, 4, XDR_ENCODE);
   xdr_uint32_t (&xdr, &len);
 
-  if (guestfs__switch_to_sending (g) == -1)
+  r = send_to_daemon (g, msg_out, msg_out_size);
+
+  /* Did the daemon send a cancellation message? */
+  if (r == -2) {
+    if (g->verbose)
+      fprintf (stderr, "got daemon cancellation\n");
+    return -2;
+  }
+
+  if (r == -1)
     goto cleanup1;
 
-  sent = 0;
-  guestfs_set_send_callback (g, send_cb, &sent);
-  if (ml->main_loop_run (ml, g) == -1)
-    goto cleanup1;
-  if (sent != 1) {
-    error (g, _("send file chunk failed, see earlier error messages"));
-    goto cleanup1;
-  }
+  free (msg_out);
 
   return 0;
 
  cleanup1:
-  free (g->msg_out);
-  g->msg_out = NULL;
-  g->msg_out_size = 0;
+  free (msg_out);
   return -1;
 }
 
-/* At this point we are sending FileIn file(s) to the guest, and not
- * expecting to read anything, so if we do read anything, it must be
- * a cancellation message.  This checks for this case without blocking.
- */
-static int
-check_for_daemon_cancellation (guestfs_h *g)
+/* Receive a reply. */
+int
+guestfs___recv (guestfs_h *g, const char *fn,
+                guestfs_message_header *hdr,
+                guestfs_message_error *err,
+                xdrproc_t xdrp, char *ret)
 {
-  fd_set rset;
-  struct timeval tv;
-  int r;
-  char buf[4];
-  uint32_t flag;
   XDR xdr;
+  void *buf;
+  uint32_t size;
+  int r;
 
-  FD_ZERO (&rset);
-  FD_SET (g->sock, &rset);
-  tv.tv_sec = 0;
-  tv.tv_usec = 0;
-  r = select (g->sock+1, &rset, NULL, NULL, &tv);
-  if (r == -1) {
-    perrorf (g, "select");
-    return 0;
+ again:
+  r = recv_from_daemon (g, &size, &buf);
+  if (r == -1)
+    return -1;
+
+  /* This can happen if a cancellation happens right at the end
+   * of us sending a FileIn parameter to the daemon.  Discard.  The
+   * daemon should send us an error message next.
+   */
+  if (size == GUESTFS_CANCEL_FLAG)
+    goto again;
+
+  if (size == GUESTFS_LAUNCH_FLAG) {
+    error (g, "%s: received unexpected launch flag from daemon when expecting reply", fn);
+    return -1;
   }
-  if (r == 0)
-    return 0;
 
-  /* Read the message from the daemon. */
-  r = xread (g->sock, buf, sizeof buf);
-  if (r == -1) {
-    perrorf (g, "read");
-    return 0;
+  xdrmem_create (&xdr, buf, size, XDR_DECODE);
+
+  if (!xdr_guestfs_message_header (&xdr, hdr)) {
+    error (g, "%s: failed to parse reply header", fn);
+    xdr_destroy (&xdr);
+    free (buf);
+    return -1;
   }
-
-  xdrmem_create (&xdr, buf, sizeof buf, XDR_DECODE);
-  xdr_uint32_t (&xdr, &flag);
+  if (hdr->status == GUESTFS_STATUS_ERROR) {
+    if (!xdr_guestfs_message_error (&xdr, err)) {
+      error (g, "%s: failed to parse reply error", fn);
+      xdr_destroy (&xdr);
+      free (buf);
+      return -1;
+    }
+  } else {
+    if (xdrp && ret && !xdrp (&xdr, ret)) {
+      error (g, "%s: failed to parse reply", fn);
+      xdr_destroy (&xdr);
+      free (buf);
+      return -1;
+    }
+  }
   xdr_destroy (&xdr);
+  free (buf);
 
-  if (flag != GUESTFS_CANCEL_FLAG) {
-    error (g, _("check_for_daemon_cancellation: read 0x%x from daemon, expected 0x%x\n"),
-           flag, GUESTFS_CANCEL_FLAG);
-    return 0;
-  }
-
-  return 1;
+  return 0;
 }
 
-/* Synchronously receive a file. */
+/* Receive a file. */
 
-/* Returns -1 = error, 0 = EOF, 1 = more data */
-static int receive_file_data_sync (guestfs_h *g, void **buf, size_t *len);
+/* Returns -1 = error, 0 = EOF, > 0 = more data */
+static ssize_t receive_file_data (guestfs_h *g, void **buf);
 
 int
-guestfs__receive_file_sync (guestfs_h *g, const char *filename)
+guestfs___recv_file (guestfs_h *g, const char *filename)
 {
   void *buf;
   int fd, r;
@@ -2388,14 +2229,13 @@ guestfs__receive_file_sync (guestfs_h *g, const char *filename)
   }
 
   /* Receive the file in chunked encoding. */
-  while ((r = receive_file_data_sync (g, &buf, &len)) >= 0) {
-    if (xwrite (fd, buf, len) == -1) {
+  while ((r = receive_file_data (g, &buf)) > 0) {
+    if (xwrite (fd, buf, r) == -1) {
       perrorf (g, "%s: write", filename);
       free (buf);
       goto cancel;
     }
     free (buf);
-    if (r == 0) break; /* End of file. */
   }
 
   if (r == -1) {
@@ -2431,304 +2271,59 @@ guestfs__receive_file_sync (guestfs_h *g, const char *filename)
     return -1;
   }
 
-  while (receive_file_data_sync (g, NULL, NULL) > 0)
-    ;				/* just discard it */
+  while (receive_file_data (g, NULL) > 0)
+    ;                           /* just discard it */
 
   return -1;
 }
 
-/* Note that the reply callback can be called multiple times before
- * the main loop quits and we get back to the synchronous code.  So
- * we have to be prepared to save multiple chunks on a list here.
- */
-struct receive_file_ctx {
-  int count;			/* 0 if receive_file_cb not called, or
-                                 * else count number of chunks.
-                                 */
-  guestfs_chunk *chunks;	/* Array of chunks. */
-};
-
-static void
-free_chunks (struct receive_file_ctx *ctx)
+/* Receive a chunk of file data. */
+/* Returns -1 = error, 0 = EOF, > 0 = more data */
+static ssize_t
+receive_file_data (guestfs_h *g, void **buf_r)
 {
-  int i;
-
-  for (i = 0; i < ctx->count; ++i)
-    free (ctx->chunks[i].data.data_val);
-
-  free (ctx->chunks);
-}
-
-static void
-receive_file_cb (guestfs_h *g, void *data, XDR *xdr)
-{
-  guestfs_main_loop *ml = guestfs_get_main_loop (g);
-  struct receive_file_ctx *ctx = (struct receive_file_ctx *) data;
+  int r;
+  void *buf;
+  uint32_t len;
+  XDR xdr;
   guestfs_chunk chunk;
 
-  if (ctx->count == -1)		/* Parse error occurred previously. */
-    return;
+  r = recv_from_daemon (g, &len, &buf);
+  if (r == -1) {
+    error (g, _("receive_file_data: parse error in reply callback"));
+    return -1;
+  }
 
-  ml->main_loop_quit (ml, g);
+  if (len == GUESTFS_LAUNCH_FLAG || len == GUESTFS_CANCEL_FLAG) {
+    error (g, _("receive_file_data: unexpected flag received when reading file chunks"));
+    return -1;
+  }
 
   memset (&chunk, 0, sizeof chunk);
 
-  if (!xdr_guestfs_chunk (xdr, &chunk)) {
+  xdrmem_create (&xdr, buf, len, XDR_DECODE);
+  if (!xdr_guestfs_chunk (&xdr, &chunk)) {
     error (g, _("failed to parse file chunk"));
-    free_chunks (ctx);
-    ctx->chunks = NULL;
-    ctx->count = -1;
-    return;
+    free (buf);
+    return -1;
   }
+  xdr_destroy (&xdr);
+  /* After decoding, the original buffer is no longer used. */
+  free (buf);
 
-  /* Copy the chunk to the list. */
-  ctx->chunks = safe_realloc (g, ctx->chunks,
-                              sizeof (guestfs_chunk) * (ctx->count+1));
-  ctx->chunks[ctx->count] = chunk;
-  ctx->count++;
-}
-
-/* Receive a chunk of file data. */
-/* Returns -1 = error, 0 = EOF, 1 = more data */
-static int
-receive_file_data_sync (guestfs_h *g, void **buf, size_t *len_r)
-{
-  struct receive_file_ctx ctx;
-  guestfs_main_loop *ml = guestfs_get_main_loop (g);
-  int i;
-  size_t len;
-
-  ctx.count = 0;
-  ctx.chunks = NULL;
-
-  guestfs_set_reply_callback (g, receive_file_cb, &ctx);
-  (void) ml->main_loop_run (ml, g);
-  guestfs_set_reply_callback (g, NULL, NULL);
-
-  if (ctx.count == 0) {
-    error (g, _("receive_file_data_sync: reply callback not called\n"));
+  if (chunk.cancel) {
+    error (g, _("file receive cancelled by daemon"));
+    free (chunk.data.data_val);
     return -1;
   }
 
-  if (ctx.count == -1) {
-    error (g, _("receive_file_data_sync: parse error in reply callback\n"));
-    /* callback already freed the chunks */
-    return -1;
+  if (chunk.data.data_len == 0) { /* end of transfer */
+    free (chunk.data.data_val);
+    return 0;
   }
 
-  if (g->verbose)
-    fprintf (stderr, "receive_file_data_sync: got %d chunks\n", ctx.count);
+  if (buf_r) *buf_r = chunk.data.data_val;
+  else free (chunk.data.data_val); /* else caller frees */
 
-  /* Process each chunk in the list. */
-  if (buf) *buf = NULL;		/* Accumulate data in this buffer. */
-  len = 0;
-
-  for (i = 0; i < ctx.count; ++i) {
-    if (ctx.chunks[i].cancel) {
-      error (g, _("file receive cancelled by daemon"));
-      free_chunks (&ctx);
-      if (buf) free (*buf);
-      if (len_r) *len_r = 0;
-      return -1;
-    }
-
-    if (ctx.chunks[i].data.data_len == 0) { /* end of transfer */
-      free_chunks (&ctx);
-      if (len_r) *len_r = len;
-      return 0;
-    }
-
-    if (buf) {
-      *buf = safe_realloc (g, *buf, len + ctx.chunks[i].data.data_len);
-      memcpy (((char *)*buf)+len, ctx.chunks[i].data.data_val,
-              ctx.chunks[i].data.data_len);
-    }
-    len += ctx.chunks[i].data.data_len;
-  }
-
-  if (len_r) *len_r = len;
-  free_chunks (&ctx);
-  return 1;
-}
-
-/* This is the default main loop implementation, using select(2). */
-
-static int
-select_add_handle (guestfs_main_loop *mlv, guestfs_h *g, int fd, int events,
-                   guestfs_handle_event_cb cb, void *data)
-{
-  struct select_main_loop *ml = (struct select_main_loop *) mlv;
-
-  if (fd < 0 || fd >= FD_SETSIZE) {
-    error (g, _("fd %d is out of range"), fd);
-    return -1;
-  }
-
-  if ((events & ~(GUESTFS_HANDLE_READABLE |
-                  GUESTFS_HANDLE_WRITABLE |
-                  GUESTFS_HANDLE_HANGUP |
-                  GUESTFS_HANDLE_ERROR)) != 0) {
-    error (g, _("set of events (0x%x) contains unknown events"), events);
-    return -1;
-  }
-
-  if (events == 0) {
-    error (g, _("set of events is empty"));
-    return -1;
-  }
-
-  if (FD_ISSET (fd, &ml->rset) ||
-      FD_ISSET (fd, &ml->wset) ||
-      FD_ISSET (fd, &ml->xset)) {
-    error (g, _("fd %d is already registered"), fd);
-    return -1;
-  }
-
-  if (cb == NULL) {
-    error (g, _("callback is NULL"));
-    return -1;
-  }
-
-  if ((events & GUESTFS_HANDLE_READABLE))
-    FD_SET (fd, &ml->rset);
-  if ((events & GUESTFS_HANDLE_WRITABLE))
-    FD_SET (fd, &ml->wset);
-  if ((events & GUESTFS_HANDLE_HANGUP) || (events & GUESTFS_HANDLE_ERROR))
-    FD_SET (fd, &ml->xset);
-
-  if (fd > ml->max_fd) {
-    ml->max_fd = fd;
-    ml->handle_cb_data =
-      safe_realloc (g, ml->handle_cb_data,
-                    sizeof (struct select_handle_cb_data) * (ml->max_fd+1));
-  }
-  ml->handle_cb_data[fd].cb = cb;
-  ml->handle_cb_data[fd].g = g;
-  ml->handle_cb_data[fd].data = data;
-
-  ml->nr_fds++;
-
-  /* Any integer >= 0 can be the handle, and this is as good as any ... */
-  return fd;
-}
-
-static int
-select_remove_handle (guestfs_main_loop *mlv, guestfs_h *g, int fd)
-{
-  struct select_main_loop *ml = (struct select_main_loop *) mlv;
-
-  if (fd < 0 || fd >= FD_SETSIZE) {
-    error (g, _("fd %d is out of range"), fd);
-    return -1;
-  }
-
-  if (!FD_ISSET (fd, &ml->rset) &&
-      !FD_ISSET (fd, &ml->wset) &&
-      !FD_ISSET (fd, &ml->xset)) {
-    error (g, _("fd %d was not registered"), fd);
-    return -1;
-  }
-
-  FD_CLR (fd, &ml->rset);
-  FD_CLR (fd, &ml->wset);
-  FD_CLR (fd, &ml->xset);
-
-  if (fd == ml->max_fd) {
-    ml->max_fd--;
-    ml->handle_cb_data =
-      safe_realloc (g, ml->handle_cb_data,
-                    sizeof (struct select_handle_cb_data) * (ml->max_fd+1));
-  }
-
-  ml->nr_fds--;
-
-  return 0;
-}
-
-static int
-__attribute__((noreturn))
-select_add_timeout (guestfs_main_loop *mlv, guestfs_h *g, int interval,
-                    guestfs_handle_timeout_cb cb, void *data)
-{
-  //struct select_main_loop *ml = (struct select_main_loop *) mlv;
-
-  abort ();			/* XXX not implemented yet */
-}
-
-static int
-__attribute__((noreturn))
-select_remove_timeout (guestfs_main_loop *mlv, guestfs_h *g, int timer)
-{
-  //struct select_main_loop *ml = (struct select_main_loop *) mlv;
-
-  abort ();			/* XXX not implemented yet */
-}
-
-/* The 'g' parameter is just used for error reporting.  Events
- * for multiple handles can be dispatched by running the main
- * loop.
- */
-static int
-select_main_loop_run (guestfs_main_loop *mlv, guestfs_h *g)
-{
-  struct select_main_loop *ml = (struct select_main_loop *) mlv;
-  int fd, r, events;
-  fd_set rset2, wset2, xset2;
-
-  if (ml->is_running) {
-    error (g, _("select_main_loop_run: this cannot be called recursively"));
-    return -1;
-  }
-
-  ml->is_running = 1;
-
-  while (ml->is_running) {
-    if (ml->nr_fds == 0)
-      break;
-
-    rset2 = ml->rset;
-    wset2 = ml->wset;
-    xset2 = ml->xset;
-    r = select (ml->max_fd+1, &rset2, &wset2, &xset2, NULL);
-    if (r == -1) {
-      if (errno == EINTR || errno == EAGAIN)
-        continue;
-      perrorf (g, "select");
-      ml->is_running = 0;
-      return -1;
-    }
-
-    for (fd = 0; r > 0 && fd <= ml->max_fd; ++fd) {
-      events = 0;
-      if (FD_ISSET (fd, &rset2))
-        events |= GUESTFS_HANDLE_READABLE;
-      if (FD_ISSET (fd, &wset2))
-        events |= GUESTFS_HANDLE_WRITABLE;
-      if (FD_ISSET (fd, &xset2))
-        events |= GUESTFS_HANDLE_ERROR | GUESTFS_HANDLE_HANGUP;
-      if (events) {
-        r--;
-        ml->handle_cb_data[fd].cb ((guestfs_main_loop *) ml,
-                                   ml->handle_cb_data[fd].g,
-                                   ml->handle_cb_data[fd].data,
-                                   fd, fd, events);
-      }
-    }
-  }
-
-  ml->is_running = 0;
-  return 0;
-}
-
-static int
-select_main_loop_quit (guestfs_main_loop *mlv, guestfs_h *g)
-{
-  struct select_main_loop *ml = (struct select_main_loop *) mlv;
-
-  /* Note that legitimately ml->is_running can be zero when
-   * this function is called.
-   */
-
-  ml->is_running = 0;
-  return 0;
+  return chunk.data.data_len;
 }
