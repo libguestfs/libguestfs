@@ -394,13 +394,6 @@ You can have several guestfish listener processes running using:
  guestfish --remote=$pid1 cmd
  guestfish --remote=$pid2 cmd
 
-=head2 STANDARD OUTPUT DURING REMOTE CONTROL
-
-Because of limitations in the C<eval> statement, stdout from the
-listener is currently redirected to C</dev/null>.
-
-Stderr is unchanged.
-
 =head2 REMOTE CONTROL DETAILS
 
 Remote control happens over a Unix domain socket called

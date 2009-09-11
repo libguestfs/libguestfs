@@ -27,6 +27,7 @@
 #include <sys/types.h>
 #include <sys/un.h>
 #include <signal.h>
+#include <sys/socket.h>
 
 #include <rpc/types.h>
 #include <rpc/xdr.h>
@@ -49,6 +50,124 @@ create_sockpath (pid_t pid, char *sockpath, int len, struct sockaddr_un *addr)
   strcpy (addr->sun_path, sockpath);
 }
 
+static const socklen_t controllen = CMSG_LEN (sizeof (int));
+
+static void
+receive_stdout (int s)
+{
+  static struct cmsghdr *cmptr = NULL, *h;
+  struct msghdr         msg;
+  struct iovec          iov[1];
+
+  /* Our 1 byte buffer */
+  char buf[1];
+
+  if (NULL == cmptr) {
+    cmptr = malloc (controllen);
+    if (NULL == cmptr) {
+      perror ("malloc");
+      exit (1);
+    }
+  }
+
+  /* Don't specify a source */
+  msg.msg_name = NULL;
+  msg.msg_namelen = 0;
+
+  /* Initialise the msghdr to receive zero byte */
+  iov[0].iov_base = buf;
+  iov[0].iov_len  = 1;
+  msg.msg_iov     = iov;
+  msg.msg_iovlen  = 1;
+
+  /* Initialise the control data */
+  msg.msg_control     = cmptr;
+  msg.msg_controllen  = controllen;
+
+  /* Read a message from the socket */
+  ssize_t n = recvmsg (s, &msg, 0);
+  if (n < 0) {
+    perror ("recvmsg stdout fd");
+    exit (1);
+  }
+
+  h = CMSG_FIRSTHDR(&msg);
+  if (NULL == h) {
+    fprintf (stderr, "didn't receive a stdout file descriptor\n");
+  }
+
+  else {
+    /* Extract the transferred file descriptor from the control data */
+    int fd = *(int *)CMSG_DATA (h);
+
+    /* Duplicate the received file descriptor to stdout */
+    dup2 (fd, STDOUT_FILENO);
+    close (fd);
+  }
+}
+
+static void
+send_stdout (int s)
+{
+  static struct cmsghdr *cmptr = NULL;
+  struct msghdr         msg;
+  struct iovec          iov[1];
+
+  /* Our 1 byte dummy buffer */
+  char buf[1];
+
+  /* Don't specify a destination */
+  msg.msg_name    = NULL;
+  msg.msg_namelen = 0;
+
+  /* Initialise the msghdr to send zero byte */
+  iov[0].iov_base = buf;
+  iov[0].iov_len  = 1;
+  msg.msg_iov     = iov;
+  msg.msg_iovlen  = 1;
+
+  /* Initialize the zero byte */
+  buf[0] = 0;
+
+  /* Initialize the control data */
+  if (NULL == cmptr) {
+    cmptr = malloc (controllen);
+    if (NULL == cmptr) {
+      perror ("malloc");
+      exit (1);
+    }
+  }
+  cmptr->cmsg_level = SOL_SOCKET;
+  cmptr->cmsg_type  = SCM_RIGHTS;
+  cmptr->cmsg_len   = controllen;
+
+  /* Add control header to the message */
+  msg.msg_control     = cmptr;
+  msg.msg_controllen  = controllen;
+
+  /* Add STDOUT to the control data */
+  *(int *)CMSG_DATA (cmptr) = STDOUT_FILENO;
+
+  if (sendmsg (s, &msg, 0) != 1) {
+    perror ("sendmsg stdout fd");
+    exit (1);
+  }
+}
+
+static void
+close_stdout (void)
+{
+  int fd;
+
+  fd = open ("/dev/null", O_WRONLY);
+  if (fd == -1)
+    perror ("/dev/null");
+  else {
+    dup2 (fd, STDOUT_FILENO);
+    close (fd);
+  }
+}
+
 /* Remote control server. */
 void
 rc_listen (void)
@@ -56,7 +175,7 @@ rc_listen (void)
   char sockpath[128];
   pid_t pid;
   struct sockaddr_un addr;
-  int sock, s, i, fd;
+  int sock, s, i;
   FILE *fp;
   XDR xdr, xdr2;
   guestfish_hello hello;
@@ -111,13 +230,7 @@ rc_listen (void)
   /* Now close stdout and substitute /dev/null.  This is necessary
    * so that eval `guestfish --listen` doesn't block forever.
    */
-  fd = open ("/dev/null", O_WRONLY);
-  if (fd == -1)
-    perror ("/dev/null");
-  else {
-    dup2 (fd, 1);
-    close (fd);
-  }
+  close_stdout();
 
   /* Read commands and execute them. */
   while (!quit) {
@@ -125,6 +238,8 @@ rc_listen (void)
     if (s == -1)
       perror ("accept");
     else {
+      receive_stdout(s);
+
       fp = fdopen (s, "r+");
       xdrstdio_create (&xdr, fp, XDR_DECODE);
 
@@ -180,6 +295,7 @@ rc_listen (void)
     error:
       xdr_destroy (&xdr);	/* NB. This doesn't close 'fp'. */
       fclose (fp);		/* Closes the underlying socket 's'. */
+      close_stdout(); /* Re-close stdout */
     }
   }
 
@@ -226,6 +342,8 @@ rc_remote (int pid, const char *cmd, int argc, char *argv[],
     close (sock);
     return -1;
   }
+
+  send_stdout(sock);
 
   /* Send the greeting. */
   fp = fdopen (sock, "r+");
