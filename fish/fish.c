@@ -1082,30 +1082,146 @@ is_true (const char *str)
     strcasecmp (str, "no") != 0;
 }
 
-/* XXX We could improve list parsing. */
+/* Free strings from a non-NULL terminated char** */
+static void
+free_n_strings (char **str, size_t len)
+{
+  for (size_t i = 0; i < len; i++) {
+    free (str[i]);
+  }
+  free (str);
+}
+
 char **
 parse_string_list (const char *str)
 {
-  char **argv;
-  const char *p, *pend;
-  int argc, i;
+  char **argv = NULL;
+  size_t argv_len = 0;
 
-  argc = 1;
-  for (i = 0; str[i]; ++i)
-    if (str[i] == ' ') argc++;
+  /* Current position pointer */
+  const char *p = str;
 
-  argv = malloc (sizeof (char *) * (argc+1));
-  if (argv == NULL) { perror ("malloc"); exit (1); }
-
-  p = str;
-  i = 0;
+  /* Token might be simple:
+   *  Token
+   * or be quoted:
+   *  'This is a single token'
+   * or contain embedded single-quoted sections:
+   *  This' is a sing'l'e to'ken
+   *
+   * The latter may seem over-complicated, but it's what a normal shell does.
+   * Not doing it risks surprising somebody.
+   *
+   * This outer loop is over complete tokens.
+   */
   while (*p) {
-    pend = strchrnul (p, ' ');
-    argv[i] = strndup (p, pend-p);
-    i++;
-    p = *pend == ' ' ? pend+1 : pend;
+    char *tok = NULL;
+    size_t tok_len = 0;
+
+    /* Skip leading whitespace */
+    p += strspn (p, " \t");
+
+    char in_quote = 0;
+
+    /* This loop is over token 'fragments'. A token can be in multiple bits if
+     * it contains single quotes. We also treat both sides of an escaped quote
+     * as separate fragments because we can't just copy it: we have to remove
+     * the \.
+     */
+    while (*p && (!isblank (*p) || in_quote)) {
+      const char *end = p;
+
+      /* Check if the fragment starts with a quote */
+      if ('\'' == *p) {
+        /* Toggle in_quote */
+        in_quote = !in_quote;
+
+        /* Skip the quote */
+        p++; end++;
+      }
+
+      /* If we're in a quote, look for an end quote */
+      if (in_quote) {
+        end += strcspn (end, "'");
+      }
+
+      /* Otherwise, look for whitespace or a quote */
+      else {
+        end += strcspn (end, " \t'");
+      }
+
+      /* Grow the token to accommodate the fragment */
+      size_t tok_end = tok_len;
+      tok_len += end - p;
+      char *tok_new = realloc (tok, tok_len + 1);
+      if (NULL == tok_new) {
+        perror ("realloc");
+        free_n_strings (argv, argv_len);
+        free (tok);
+        exit (1);
+      }
+      tok = tok_new;
+
+      /* Check if we stopped on an escaped quote */
+      if ('\'' == *end && end != p && *(end-1) == '\\') {
+        /* Add everything before \' to the token */
+        memcpy (&tok[tok_end], p, end - p - 1);
+
+        /* Add the quote */
+        tok[tok_len-1] = '\'';
+
+        /* Already processed the quote */
+        p = end + 1;
+      }
+
+      else {
+        /* Add the whole fragment */
+        memcpy (&tok[tok_end], p, end - p);
+
+        p = end;
+      }
+    }
+
+    /* We've reached the end of a token. We shouldn't still be in quotes. */
+    if (in_quote) {
+      fprintf (stderr, _("Runaway quote in string \"%s\"\n"), str);
+
+      free_n_strings (argv, argv_len);
+
+      return NULL;
+    }
+
+    /* Add this token if there is one. There might not be if there was
+     * whitespace at the end of the input string */
+    if (tok) {
+      /* Add the NULL terminator */
+      tok[tok_len] = '\0';
+
+      /* Add the argument to the argument list */
+      argv_len++;
+      char **argv_new = realloc (argv, sizeof (*argv) * argv_len);
+      if (NULL == argv_new) {
+        perror ("realloc");
+        free_n_strings (argv, argv_len-1);
+        free (tok);
+        exit (1);
+      }
+      argv = argv_new;
+
+      argv[argv_len-1] = tok;
+    }
   }
-  argv[i] = NULL;
+
+  /* NULL terminate the argument list */
+  argv_len++;
+  char **argv_new = realloc (argv, sizeof (*argv) * argv_len);
+  if (NULL == argv_new) {
+    perror ("realloc");
+    free_n_strings (argv, argv_len-1);
+    exit (1);
+  }
+  argv = argv_new;
+
+  argv[argv_len-1] = NULL;
 
   return argv;
 }

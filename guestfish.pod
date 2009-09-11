@@ -250,9 +250,13 @@ quotes.  For example:
  rm '/"'
 
 A few commands require a list of strings to be passed.  For these, use
-a space-separated list, enclosed in quotes.  For example:
+a whitespace-separated list, enclosed in quotes.  Strings containing whitespace
+to be passed through must be enclosed in single quotes.  A literal single quote
+must be escaped with a backslash.
 
  vgcreate VG "/dev/sda1 /dev/sdb1"
+ command "/bin/echo 'foo      bar'"
+ command "/bin/echo \'foo\'"
 
 =head1 WILDCARDS AND GLOBBING
 

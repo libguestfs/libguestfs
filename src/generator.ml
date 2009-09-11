@@ -6362,7 +6362,8 @@ and generate_fish_cmds () =
               pr "  %s = strcmp (argv[%d], \"-\") != 0 ? argv[%d] : \"/dev/stdout\";\n"
                 name i i
           | StringList name | DeviceList name ->
-              pr "  %s = parse_string_list (argv[%d]);\n" name i
+              pr "  %s = parse_string_list (argv[%d]);\n" name i;
+              pr "  if (%s == NULL) return -1;\n" name;
           | Bool name ->
               pr "  %s = is_true (argv[%d]) ? 1 : 0;\n" name i
           | Int name ->

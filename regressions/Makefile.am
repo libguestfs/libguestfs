@@ -32,7 +32,8 @@ TESTS = \
 	test-qemudie-synch.sh \
 	test-read_file.sh \
 	test-remote.sh \
-	test-reopen.sh
+	test-reopen.sh \
+	test-stringlist.sh
 
 SKIPPED_TESTS = \
 	test-bootbootboot.sh
