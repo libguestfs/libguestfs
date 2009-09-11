@@ -12,6 +12,7 @@ daemon/dir.c
 daemon/dmesg.c
 daemon/dropcaches.c
 daemon/du.c
+daemon/echo_daemon.c
 daemon/ext2.c
 daemon/fallocate.c
 daemon/file.c

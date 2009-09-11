@@ -3569,6 +3569,19 @@ This loads a kernel module in the appliance.
 The kernel module must have been whitelisted when libguestfs
 was built (see C<appliance/kmod.whitelist.in> in the source).");
 
+  ("echo_daemon", (RString "output", [StringList "words"]), 195, [],
+   [InitNone, Always, TestOutput (
+     [["echo_daemon"; "This is a test"]], "This is a test"
+   )],
+   "echo arguments back to the client",
+   "\
+This command concatenate the list of C<words> passed with single spaces between
+them and returns the resulting string.
+
+You can use this command to test the connection through to the daemon.
+
+See also C<guestfs_ping_daemon>.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
