@@ -6221,7 +6221,7 @@ and generate_fish_cmds () =
         | OptString n
         | FileIn n
         | FileOut n -> pr "  const char *%s;\n" n
-        | StringList n | DeviceList n -> pr "  char *const *%s;\n" n
+        | StringList n | DeviceList n -> pr "  char **%s;\n" n
         | Bool n -> pr "  int %s;\n" n
         | Int n -> pr "  int %s;\n" n
       ) (snd style);
@@ -6263,6 +6263,15 @@ and generate_fish_cmds () =
       pr "  r = %s " fn;
       generate_c_call_args ~handle:"g" style;
       pr ";\n";
+
+      List.iter (
+        function
+        | Pathname name | Device name | Dev_or_Path name | String name
+        | OptString name | FileIn name | FileOut name | Bool name
+        | Int name -> ()
+        | StringList name | DeviceList name ->
+            pr "  free_strings (%s);\n" name
+      ) (snd style);
 
       (* Check return value for errors and display command results. *)
       (match fst style with
