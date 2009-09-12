@@ -255,3 +255,13 @@ ntfsclone
 
 Useful imaging tool:
 http://man.linux-ntfs.org/ntfsclone.8.html
+
+Standard images
+---------------
+
+Equip guestfish with some standard images that it can load
+quickly, eg:
+
+  load ext2
+
+Maybe it's better to create these on the fly?
