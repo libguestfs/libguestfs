@@ -1086,7 +1086,9 @@ is_true (const char *str)
 static void
 free_n_strings (char **str, size_t len)
 {
-  for (size_t i = 0; i < len; i++) {
+  size_t i;
+
+  for (i = 0; i < len; i++) {
     free (str[i]);
   }
   free (str);
