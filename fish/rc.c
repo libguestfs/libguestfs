@@ -98,7 +98,8 @@ receive_stdout (int s)
 
   else {
     /* Extract the transferred file descriptor from the control data */
-    int fd = *(int *)CMSG_DATA (h);
+    unsigned char *data = CMSG_DATA (h);
+    int fd = *(int *)data;
 
     /* Duplicate the received file descriptor to stdout */
     dup2 (fd, STDOUT_FILENO);
@@ -146,7 +147,8 @@ send_stdout (int s)
   msg.msg_controllen  = controllen;
 
   /* Add STDOUT to the control data */
-  *(int *)CMSG_DATA (cmptr) = STDOUT_FILENO;
+  unsigned char *data = CMSG_DATA (cmptr);
+  *(int *)data = STDOUT_FILENO;
 
   if (sendmsg (s, &msg, 0) != 1) {
     perror ("sendmsg stdout fd");
