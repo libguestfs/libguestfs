@@ -19,7 +19,8 @@ EXTRA_DIST = \
 	guestfs_protocol.x \
 	MAX_PROC_NR \
 	stamp-generator \
-	generator.ml
+	generator.ml \
+	guestfs-internal-actions.h
 
 # Rerun the generator if it has changed.
 # Git removes empty directories, so in cases where the
@@ -46,7 +47,6 @@ BUILT_SOURCES = \
   guestfs-structs.h \
   guestfs-actions.h \
   guestfs-actions.c \
-  guestfs-internal-actions.h \
   guestfs-bindtests.c
 
 # This convenience library is solely to avoid compiler warnings
