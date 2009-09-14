@@ -806,8 +806,8 @@ For more information on the architecture of libguestfs,
 see L<guestfs(3)>.");
 
   ("set_trace", (RErr, [Bool "trace"]), -1, [FishAlias "trace"],
-   [InitNone, Always, TestOutputTrue (
-      [["set_trace"; "true"];
+   [InitNone, Always, TestOutputFalse (
+      [["set_trace"; "false"];
        ["get_trace"]])],
    "enable or disable command traces",
    "\
