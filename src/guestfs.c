@@ -1799,7 +1799,7 @@ recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
    */
   ssize_t nr = -4;
 
-  while (nr < *size_rtn) {
+  while (nr < (ssize_t) *size_rtn) {
     rset2 = rset;
     int r = select (max_fd+1, &rset2, NULL, NULL, NULL);
     if (r == -1) {
