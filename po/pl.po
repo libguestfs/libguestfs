@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-14 19:28+0100\n"
+"POT-Creation-Date: 2009-09-15 11:04+0100\n"
 "PO-Revision-Date: 2009-07-29 17:31+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -1436,7 +1436,7 @@ msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""
 "%s: nieznane polecenie, użyj -h, aby wyświetlić listę wszystkich poleceń\n"
 
-#: fish/fish.c:1186
+#: fish/fish.c:1188
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr ""
