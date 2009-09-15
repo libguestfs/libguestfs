@@ -85,8 +85,8 @@ static void close_handles (void);
 #define UNIX_PATH_MAX 108
 
 /* Also in guestfsd.c */
-#define VMCHANNEL_PORT 6666
-#define VMCHANNEL_ADDR "10.0.2.4"
+#define GUESTFWD_PORT 6666
+//#define GUESTFWD_ADDR "10.0.2.4"
 
 /* GuestFS handle and connection. */
 enum state { CONFIG, LAUNCHING, READY, BUSY, NO_HANDLE };
@@ -1003,11 +1003,9 @@ guestfs__launch (guestfs_h *g)
     /* Linux kernel command line. */
     snprintf (append, sizeof append,
               LINUX_CMDLINE
-              "guestfs=%s:%d "
               "%s"              /* (selinux) */
               "%s"              /* (verbose) */
               "%s",             /* (append) */
-              VMCHANNEL_ADDR, VMCHANNEL_PORT,
               g->selinux ? "selinux=1 enforcing=0 " : "selinux=0 ",
               g->verbose ? "guestfs_verbose=1 " : " ",
               g->append ? g->append : "");
@@ -1038,7 +1036,7 @@ guestfs__launch (guestfs_h *g)
        */
       snprintf (vmchannel, sizeof vmchannel,
                 "user,vlan=0,net=10.0.2.0/8,guestfwd=tcp:%s:%d-unix:%s,server,nowait",
-                VMCHANNEL_ADDR, VMCHANNEL_PORT, unixsock);
+                GUESTFWD_ADDR, GUESTFWD_PORT, unixsock);
 
       add_cmdline (g, "-net");
       add_cmdline (g, vmchannel);
@@ -1049,7 +1047,7 @@ guestfs__launch (guestfs_h *g)
        */
       snprintf (vmchannel, sizeof vmchannel,
                 "channel,%d:unix:%s,server,nowait",
-                VMCHANNEL_PORT, unixsock);
+                GUESTFWD_PORT, unixsock);
 
       add_cmdline (g, "-net");
       add_cmdline (g, vmchannel);

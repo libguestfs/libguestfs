@@ -43,8 +43,8 @@
 static void usage (void);
 
 /* Also in guestfs.c */
-#define VMCHANNEL_PORT "6666"
-#define VMCHANNEL_ADDR "10.0.2.4"
+#define GUESTFWD_PORT "6666"
+#define GUESTFWD_ADDR "10.0.2.4"
 
 int verbose = 0;
 
@@ -67,18 +67,14 @@ int sysroot_len = 8;
 int
 main (int argc, char *argv[])
 {
-  static const char *options = "fh:p:?";
+  static const char *options = "f?";
   static const struct option long_options[] = {
     { "foreground", 0, 0, 'f' },
     { "help", 0, 0, '?' },
-    { "host", 1, 0, 'h' },
-    { "port", 1, 0, 'p' },
     { 0, 0, 0, 0 }
   };
   int c, n, r;
   int dont_fork = 0;
-  const char *host = NULL;
-  const char *port = NULL;
   FILE *fp;
   char buf[4096];
   char *p, *p2;
@@ -111,14 +107,6 @@ main (int argc, char *argv[])
       dont_fork = 1;
       break;
 
-    case 'h':
-      host = optarg;
-      break;
-
-    case 'p':
-      port = optarg;
-      break;
-
     case '?':
       usage ();
       exit (0);
@@ -134,47 +122,21 @@ main (int argc, char *argv[])
     exit (1);
   }
 
-  /* If host and port aren't set yet, try /proc/cmdline. */
-  if (!host || !port) {
-    fp = fopen ("/proc/cmdline", "r");
-    if (fp == NULL) {
-      perror ("/proc/cmdline");
-      goto next;
-    }
-    n = fread (buf, 1, sizeof buf - 1, fp);
-    fclose (fp);
-    buf[n] = '\0';
-
-    /* Set the verbose flag.  Not quite right because this will only
-     * set the flag if host and port aren't set on the command line.
-     * Don't worry about this for now. (XXX)
-     */
-    verbose = strstr (buf, "guestfs_verbose=1") != NULL;
-    if (verbose)
-      printf ("verbose daemon enabled\n");
-
-    p = strstr (buf, "guestfs=");
-
-    if (p) {
-      p += 8;
-      p2 = strchr (p, ':');
-      if (p2) {
-        *p2++ = '\0';
-        host = p;
-        r = strcspn (p2, " \n");
-        p2[r] = '\0';
-        port = p2;
-      }
-    }
+  /* Set the verbose flag. */
+  fp = fopen ("/proc/cmdline", "r");
+  if (fp == NULL) {
+    perror ("/proc/cmdline");
+    goto next;
   }
+  n = fread (buf, 1, sizeof buf - 1, fp);
+  fclose (fp);
+  buf[n] = '\0';
+
+  verbose = strstr (buf, "guestfs_verbose=1") != NULL;
+  if (verbose)
+    printf ("verbose daemon enabled\n");
 
  next:
-  /* Can't parse /proc/cmdline, so use built-in defaults. */
-  if (!host || !port) {
-    host = VMCHANNEL_ADDR;
-    port = VMCHANNEL_PORT;
-  }
-
   /* Make sure SIGPIPE doesn't kill us. */
   memset (&sa, 0, sizeof sa);
   sa.sa_handler = SIG_IGN;
@@ -197,9 +159,10 @@ main (int argc, char *argv[])
   memset (&hints, 0, sizeof hints);
   hints.ai_socktype = SOCK_STREAM;
   hints.ai_flags = AI_ADDRCONFIG;
-  r = getaddrinfo (host, port, &hints, &res);
+  r = getaddrinfo (GUESTFWD_ADDR, GUESTFWD_PORT, &hints, &res);
   if (r != 0) {
-    fprintf (stderr, "%s:%s: %s\n", host, port, gai_strerror (r));
+    fprintf (stderr, "%s:%s: %s\n",
+             GUESTFWD_ADDR, GUESTFWD_PORT, gai_strerror (r));
     exit (1);
   }
 
@@ -219,7 +182,8 @@ main (int argc, char *argv[])
   freeaddrinfo (res);
 
   if (sock == -1) {
-    fprintf (stderr, "connection to %s:%s failed\n", host, port);
+    fprintf (stderr, "connection to %s:%s failed\n",
+             GUESTFWD_ADDR, GUESTFWD_PORT);
     exit (1);
   }
 
@@ -318,7 +282,7 @@ xread (int sock, void *v_buf, size_t len)
 static void
 usage (void)
 {
-  fprintf (stderr, "guestfsd [-f] [-h host -p port]\n");
+  fprintf (stderr, "guestfsd [-f]\n");
 }
 
 int
