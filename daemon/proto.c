@@ -45,7 +45,7 @@ main_loop (int _sock)
   XDR xdr;
   char *buf;
   char lenbuf[4];
-  unsigned len;
+  uint32_t len;
   struct guestfs_message_header hdr;
   struct timeval start_t, end_t;
   int64_t start_us, end_us, elapsed_us;
