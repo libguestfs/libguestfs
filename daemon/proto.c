@@ -29,6 +29,8 @@
 #include <rpc/types.h>
 #include <rpc/xdr.h>
 
+#include "ignore-value.h"
+
 #include "daemon.h"
 #include "../src/guestfs_protocol.h"
 
@@ -53,13 +55,11 @@ main_loop (int _sock)
   sock = _sock;
 
   for (;;) {
-#if 0
     /* Most common errors are leaked memory and leaked file descriptors,
      * so run this between each command:
      */
-    if (verbose)
-      system ("ls -l /proc/self/fd");
-#endif
+    if (verbose && 0)
+      ignore_value (system ("ls -l /proc/self/fd"));
 
     /* Read the length word. */
     if (xread (sock, lenbuf, 4) == -1)
