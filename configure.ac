@@ -358,6 +358,14 @@ version of febootstrap.
     AC_MSG_RESULT([yes])
 fi
 
+dnl Enable packet dumps when in verbose mode.  This generates lots
+dnl of debug info, only useful for people debugging the RPC mechanism.
+AC_ARG_ENABLE([packet-dump],
+        [AS_HELP_STRING([--enable-packet-dump],
+          [enable packet dumps in verbose mode @<:@default=no@:>@])],
+        [AC_DEFINE([ENABLE_PACKET_DUMP],[1],[Enable packet dumps in verbose mode.])],
+        [])
+
 dnl Readline.
 AC_ARG_WITH([readline],
     [AS_HELP_STRING([--with-readline],

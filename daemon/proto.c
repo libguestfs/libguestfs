@@ -81,12 +81,12 @@ main_loop (int _sock)
 
     xread (sock, buf, len);
 
-#if 0
+#ifdef ENABLE_PACKET_DUMP
     if (verbose) {
-      int i, j;
+      size_t i, j;
 
       for (i = 0; i < len; i += 16) {
-        printf ("%04x: ", i);
+        printf ("%04zx: ", i);
         for (j = i; j < MIN (i+16, len); ++j)
           printf ("%02x ", (unsigned char) buf[j]);
         for (; j < i+16; ++j)

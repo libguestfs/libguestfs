@@ -37,6 +37,14 @@ AC_ARG_ENABLE([debug-command],
   [AC_DEFINE_UNQUOTED([ENABLE_DEBUG_COMMAND],[1],[Enable the 'debug' command])],
   [])
 
+dnl Enable packet dumps when in verbose mode.  This generates lots
+dnl of debug info, only useful for people debugging the RPC mechanism.
+AC_ARG_ENABLE([packet-dump],
+        [AS_HELP_STRING([--enable-packet-dump],
+          [enable packet dumps in verbose mode @<:@default=no@:>@])],
+        [AC_DEFINE([ENABLE_PACKET_DUMP],[1],[Enable packet dumps in verbose mode.])],
+        [])
+
 dnl For strchrnul(3), asprintf(3), futimens(2) and getline(3).
 AC_GNU_SOURCE
 
