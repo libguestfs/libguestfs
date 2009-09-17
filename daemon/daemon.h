@@ -36,8 +36,10 @@ extern int sysroot_len;
 
 extern char *sysroot_path (const char *path);
 
-extern int xwrite (int sock, const void *buf, size_t len);
-extern int xread (int sock, void *buf, size_t len);
+extern int xwrite (int sock, const void *buf, size_t len)
+  __attribute__((__warn_unused_result__));
+extern int xread (int sock, void *buf, size_t len)
+  __attribute__((__warn_unused_result__));
 
 extern int add_string (char ***argv, int *size, int *alloc, const char *str);
 extern int count_strings (char *const *argv);

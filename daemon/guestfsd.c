@@ -233,7 +233,8 @@ main (int argc, char *argv[])
     exit (1);
   }
 
-  (void) xwrite (sock, buf, xdr_getpos (&xdr));
+  if (xwrite (sock, buf, xdr_getpos (&xdr)) == -1)
+    exit (1);
 
   xdr_destroy (&xdr);
 

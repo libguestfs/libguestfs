@@ -62,7 +62,9 @@ main_loop (int _sock)
 #endif
 
     /* Read the length word. */
-    xread (sock, lenbuf, 4);
+    if (xread (sock, lenbuf, 4) == -1)
+      exit (1);
+
     xdrmem_create (&xdr, lenbuf, 4, XDR_DECODE);
     xdr_uint32_t (&xdr, &len);
     xdr_destroy (&xdr);
@@ -79,7 +81,8 @@ main_loop (int _sock)
       continue;
     }
 
-    xread (sock, buf, len);
+    if (xread (sock, buf, len) == -1)
+      exit (1);
 
 #ifdef ENABLE_PACKET_DUMP
     if (verbose) {
@@ -307,7 +310,9 @@ receive_file (receive_cb cb, void *opaque)
 
   for (;;) {
     /* Read the length word. */
-    xread (sock, lenbuf, 4);
+    if (xread (sock, lenbuf, 4) == -1)
+      exit (1);
+
     xdrmem_create (&xdr, lenbuf, 4, XDR_DECODE);
     xdr_uint32_t (&xdr, &len);
     xdr_destroy (&xdr);
@@ -327,7 +332,8 @@ receive_file (receive_cb cb, void *opaque)
       return -1;
     }
 
-    xread (sock, buf, len);
+    if (xread (sock, buf, len) == -1)
+      exit (1);
 
     xdrmem_create (&xdr, buf, len, XDR_DECODE);
     memset (&chunk, 0, sizeof chunk);
@@ -444,10 +450,8 @@ check_for_library_cancellation (void)
 
   /* Read the message from the daemon. */
   r = xread (sock, buf, sizeof buf);
-  if (r == -1) {
-    perror ("read");
+  if (r == -1)
     return 0;
-  }
 
   xdrmem_create (&xdr, buf, sizeof buf, XDR_DECODE);
   xdr_uint32_t (&xdr, &flag);
