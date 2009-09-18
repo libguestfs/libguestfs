@@ -86,7 +86,7 @@ static void close_handles (void);
 
 /* Also in guestfsd.c */
 #define GUESTFWD_PORT 6666
-//#define GUESTFWD_ADDR "10.0.2.4"
+#define GUESTFWD_ADDR "10.0.2.4"
 
 /* GuestFS handle and connection. */
 enum state { CONFIG, LAUNCHING, READY, BUSY, NO_HANDLE };
@@ -983,7 +983,7 @@ guestfs__launch (guestfs_h *g)
   }
 
   if (r == 0) {			/* Child (qemu). */
-    char vmchannel[256];
+    char buf[256];
     char append[256];
     char memsize_str[256];
 
@@ -1025,37 +1025,43 @@ guestfs__launch (guestfs_h *g)
     add_cmdline (g, "-serial");
     add_cmdline (g, "stdio");
 
-#if 0
-    /* Doesn't work.  See:
-     * http://lists.gnu.org/archive/html/qemu-devel/2009-07/threads.html
-     * Subject "guestfwd option doesn't allow supplementary ,server,nowait"
-     */
-    if (qemu_supports (g, "guestfwd")) {
-      /* New-style -net user,guestfwd=... syntax for vmchannel.  See:
+    if (qemu_supports (g, "-chardev") && qemu_supports (g, "guestfwd")) {
+      /* New-style -net user,guestfwd=... syntax for guestfwd.  See:
+       *
        * http://git.savannah.gnu.org/cgit/qemu.git/commit/?id=c92ef6a22d3c71538fcc48fb61ad353f7ba03b62
+       *
+       * The original suggested format doesn't work, see:
+       *
+       * http://lists.gnu.org/archive/html/qemu-devel/2009-07/msg01654.html
+       *
+       * However Gerd Hoffman privately suggested to me using -chardev
+       * instead, which does work.
        */
-      snprintf (vmchannel, sizeof vmchannel,
-                "user,vlan=0,net=10.0.2.0/8,guestfwd=tcp:%s:%d-unix:%s,server,nowait",
-                GUESTFWD_ADDR, GUESTFWD_PORT, unixsock);
+      snprintf (buf, sizeof buf,
+                "socket,id=guestfsvmc,path=%s,server,nowait", unixsock);
+
+      add_cmdline (g, "-chardev");
+      add_cmdline (g, buf);
+
+      snprintf (buf, sizeof buf,
+                "user,vlan=0,net=10.0.2.0/8,"
+                "guestfwd=tcp:%s:%d-chardev:guestfsvmc",
+                GUESTFWD_ADDR, GUESTFWD_PORT);
 
       add_cmdline (g, "-net");
-      add_cmdline (g, vmchannel);
+      add_cmdline (g, buf);
     } else {
-#endif
       /* Not guestfwd.  HOPEFULLY this qemu uses the older -net channel
        * syntax, or if not then we'll get a quick failure.
        */
-      snprintf (vmchannel, sizeof vmchannel,
-                "channel,%d:unix:%s,server,nowait",
-                GUESTFWD_PORT, unixsock);
+      snprintf (buf, sizeof buf,
+                "channel,%d:unix:%s,server,nowait", GUESTFWD_PORT, unixsock);
 
       add_cmdline (g, "-net");
-      add_cmdline (g, vmchannel);
+      add_cmdline (g, buf);
       add_cmdline (g, "-net");
       add_cmdline (g, "user,vlan=0,net=10.0.2.0/8");
-#if 0
     }
-#endif
     add_cmdline (g, "-net");
     add_cmdline (g, "nic,model=" NET_IF ",vlan=0");
 
