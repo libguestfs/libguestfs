@@ -41,10 +41,11 @@
 #include "daemon.h"
 
 static void usage (void);
+static char *read_cmdline (void);
 
 /* Also in guestfs.c */
-#define GUESTFWD_PORT "6666"
 #define GUESTFWD_ADDR "10.0.2.4"
+#define GUESTFWD_PORT "6666"
 
 int verbose = 0;
 
@@ -73,17 +74,9 @@ main (int argc, char *argv[])
     { "help", 0, 0, '?' },
     { 0, 0, 0, 0 }
   };
-  int c, n, r;
+  int c;
   int dont_fork = 0;
-  FILE *fp;
-  char buf[4096];
-  char *p, *p2;
-  int sock;
-  struct addrinfo *res, *rr;
-  struct addrinfo hints;
-  XDR xdr;
-  uint32_t len;
-  struct sigaction sa;
+  char *cmdline;
 
 #ifdef HAVE_REGISTER_PRINTF_SPECIFIER
   /* http://udrepper.livejournal.com/20948.html */
@@ -122,22 +115,22 @@ main (int argc, char *argv[])
     exit (1);
   }
 
-  /* Set the verbose flag. */
-  fp = fopen ("/proc/cmdline", "r");
-  if (fp == NULL) {
-    perror ("/proc/cmdline");
-    goto next;
-  }
-  n = fread (buf, 1, sizeof buf - 1, fp);
-  fclose (fp);
-  buf[n] = '\0';
+  cmdline = read_cmdline ();
 
-  verbose = strstr (buf, "guestfs_verbose=1") != NULL;
+  /* Set the verbose flag. */
+  verbose = cmdline && strstr (cmdline, "guestfs_verbose=1") != NULL;
   if (verbose)
     printf ("verbose daemon enabled\n");
 
- next:
+  if (verbose) {
+    if (cmdline)
+      printf ("linux commmand line: %s\n", cmdline);
+    else
+      printf ("could not read linux command line\n");
+  }
+
   /* Make sure SIGPIPE doesn't kill us. */
+  struct sigaction sa;
   memset (&sa, 0, sizeof sa);
   sa.sa_handler = SIG_IGN;
   sa.sa_flags = 0;
@@ -156,6 +149,9 @@ main (int argc, char *argv[])
   umask (022);
 
   /* Resolve the hostname. */
+  struct addrinfo *res, *rr;
+  struct addrinfo hints;
+  int r;
   memset (&hints, 0, sizeof hints);
   hints.ai_socktype = SOCK_STREAM;
   hints.ai_flags = AI_ADDRCONFIG;
@@ -167,7 +163,7 @@ main (int argc, char *argv[])
   }
 
   /* Connect to the given TCP socket. */
-  sock = -1;
+  int sock = -1;
   for (rr = res; rr != NULL; rr = rr->ai_next) {
     sock = socket (rr->ai_family, rr->ai_socktype, rr->ai_protocol);
     if (sock != -1) {
@@ -190,14 +186,13 @@ main (int argc, char *argv[])
   /* Send the magic length message which indicates that
    * userspace is up inside the guest.
    */
-  len = GUESTFS_LAUNCH_FLAG;
-  xdrmem_create (&xdr, buf, sizeof buf, XDR_ENCODE);
-  if (!xdr_uint32_t (&xdr, &len)) {
-    fprintf (stderr, "xdr_uint32_t failed\n");
-    exit (1);
-  }
+  char lenbuf[4];
+  XDR xdr;
+  uint32_t len = GUESTFS_LAUNCH_FLAG;
+  xdrmem_create (&xdr, lenbuf, sizeof lenbuf, XDR_ENCODE);
+  xdr_uint32_t (&xdr, &len);
 
-  if (xwrite (sock, buf, xdr_getpos (&xdr)) == -1)
+  if (xwrite (sock, lenbuf, sizeof lenbuf) == -1)
     exit (1);
 
   xdr_destroy (&xdr);
@@ -214,6 +209,55 @@ main (int argc, char *argv[])
   main_loop (sock);
 
   exit (0);
+}
+
+/* Read /proc/cmdline. */
+static char *
+read_cmdline (void)
+{
+  int fd = open ("/proc/cmdline", O_RDONLY);
+  if (fd == -1) {
+    perror ("/proc/cmdline");
+    return NULL;
+  }
+
+  size_t len = 0;
+  ssize_t n;
+  char buf[256];
+  char *r = NULL;
+
+  for (;;) {
+    n = read (fd, buf, sizeof buf);
+    if (n == -1) {
+      perror ("read");
+      free (r);
+      close (fd);
+      return NULL;
+    }
+    if (n == 0)
+      break;
+    char *newr = realloc (r, len + n + 1); /* + 1 is for terminating NUL */
+    if (newr == NULL) {
+      perror ("realloc");
+      free (r);
+      close (fd);
+      return NULL;
+    }
+    r = newr;
+    memcpy (&r[len], buf, n);
+    len += n;
+  }
+
+  if (r)
+    r[len] = '\0';
+
+  if (close (fd) == -1) {
+    perror ("close");
+    free (r);
+    return NULL;
+  }
+
+  return r;
 }
 
 /* Turn "/path" into "/sysroot/path".
