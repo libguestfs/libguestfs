@@ -140,7 +140,6 @@ if ($uri) {
 }
 
 $g->launch ();
-$g->wait_ready ();
 
 # List of possible filesystems.
 my @partitions = get_partitions ($g);

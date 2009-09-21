@@ -1208,6 +1208,32 @@ guestfs__launch (guestfs_h *g)
 
  connected:
   g->state = LAUNCHING;
+
+  /* Wait for qemu to start and to connect back to us via vmchannel and
+   * send the GUESTFS_LAUNCH_FLAG message.
+   */
+  uint32_t size;
+  void *buf = NULL;
+  r = recv_from_daemon (g, &size, &buf);
+  free (buf);
+
+  if (r == -1) return -1;
+
+  if (size != GUESTFS_LAUNCH_FLAG) {
+    error (g, _("guestfs_launch failed, see earlier error messages"));
+    goto cleanup2;
+  }
+
+  /* This is possible in some really strange situations, such as
+   * guestfsd starts up OK but then qemu immediately exits.  Check for
+   * it because the caller is probably expecting to be able to send
+   * commands after this function returns.
+   */
+  if (g->state != READY) {
+    error (g, _("qemu launched and contacted daemon, but state != READY"));
+    goto cleanup2;
+  }
+
   return 0;
 
  cleanup2:
@@ -1381,42 +1407,14 @@ qemu_supports (guestfs_h *g, const char *option)
   return g->qemu_help && strstr (g->qemu_help, option) != NULL;
 }
 
+/* You had to call this function after launch in versions <= 1.0.70,
+ * but it is now a no-op.
+ */
 int
 guestfs__wait_ready (guestfs_h *g)
 {
-  int r;
-  uint32_t size;
-  void *buf = NULL;
-
-  if (g->state == READY) return 0;
-
-  if (g->state == BUSY) {
-    error (g, _("qemu has finished launching already"));
-    return -1;
-  }
-
-  if (g->state != LAUNCHING) {
+  if (g->state != READY)  {
     error (g, _("qemu has not been launched yet"));
-    return -1;
-  }
-
-  r = recv_from_daemon (g, &size, &buf);
-  free (buf);
-
-  if (r == -1) return -1;
-
-  if (size != GUESTFS_LAUNCH_FLAG) {
-    error (g, _("guestfs_wait_ready failed, see earlier error messages"));
-    return -1;
-  }
-
-  /* This is possible in some really strange situations, such as
-   * guestfsd starts up OK but then qemu immediately exits.  Check for
-   * it because the caller is probably expecting to be able to send
-   * commands after this function returns.
-   */
-  if (g->state != READY) {
-    error (g, _("qemu launched and contacted daemon, but state != READY"));
     return -1;
   }
 

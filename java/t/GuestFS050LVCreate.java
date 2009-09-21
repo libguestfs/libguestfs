@@ -31,7 +31,6 @@ public class GuestFS050LVCreate {
 
             g.add_drive ("test.img");
             g.launch ();
-            g.wait_ready ();
 
             g.pvcreate ("/dev/sda");
             g.vgcreate ("VG", new String[] {"/dev/sda"});

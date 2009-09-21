@@ -186,20 +186,14 @@ main (int argc, char *argv[])
   printf ("guestfs_get_verbose: %d\n", guestfs_get_verbose (g));
 
   /* Launch the guest handle. */
-  if (guestfs_launch (g) == -1) {
-    fprintf (stderr,
-             _("libguestfs-test-tool: failed to launch appliance\n"));
-    exit (1);
-  }
-
   printf ("Launching appliance, timeout set to %d seconds.\n", timeout);
   fflush (stdout);
 
   alarm (timeout);
 
-  if (guestfs_wait_ready (g) == -1) {
+  if (guestfs_launch (g) == -1) {
     fprintf (stderr,
-             _("libguestfs-test-tool: failed or timed out in 'wait_ready'\n"));
+             _("libguestfs-test-tool: failed to launch appliance\n"));
     exit (1);
   }
 

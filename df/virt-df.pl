@@ -183,7 +183,6 @@ sub do_df
     }
 
     $g->launch ();
-    $g->wait_ready ();
 
     my @partitions = get_partitions ($g);
 

@@ -30,7 +30,6 @@ class TestLoad < Test::Unit::TestCase
 
     g.add_drive("test.img")
     g.launch()
-    g.wait_ready()
 
     exception = assert_raise TypeError do
         g.command(1)

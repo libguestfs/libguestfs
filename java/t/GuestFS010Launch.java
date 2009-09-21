@@ -29,7 +29,6 @@ public class GuestFS010Launch {
             f.close ();
             g.add_drive ("test.img");
             g.launch ();
-            g.wait_ready ();
             g.close ();
             File f2 = new File ("test.img");
             f2.delete ();

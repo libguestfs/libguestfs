@@ -24,6 +24,5 @@ f.truncate (500 * 1024 * 1024)
 f.close ()
 g.add_drive ("test.img")
 g.launch ()
-g.wait_ready ()
 
 os.unlink ("test.img")

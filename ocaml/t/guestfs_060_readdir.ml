@@ -27,7 +27,6 @@ let () =
 
   Guestfs.add_drive g "test.img";
   Guestfs.launch g;
-  Guestfs.wait_ready g;
 
   Guestfs.sfdisk g "/dev/sda" 0 0 0 [|","|];
   Guestfs.mkfs g "ext2" "/dev/sda1";

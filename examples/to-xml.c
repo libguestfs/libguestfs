@@ -51,7 +51,6 @@ main (int argc, char *argv[])
     CALL (guestfs_add_drive (g, argv[i]), -1);
 
   CALL (guestfs_launch (g), -1);
-  CALL (guestfs_wait_ready (g), -1);
 
   printf ("<guestfs-system>\n");
 

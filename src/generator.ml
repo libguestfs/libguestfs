@@ -440,13 +440,18 @@ You should call this after configuring the handle
 
   ("wait_ready", (RErr, []), -1, [NotInFish],
    [],
-   "wait until the qemu subprocess launches",
+   "wait until the qemu subprocess launches (no op)",
    "\
-Internally libguestfs is implemented by running a virtual machine
-using L<qemu(1)>.
+This function is a no op.
 
-You should call this after C<guestfs_launch> to wait for the launch
-to complete.");
+In versions of the API E<lt> 1.0.71 you had to call this function
+just after calling C<guestfs_launch> to wait for the launch
+to complete.  However this is no longer necessary because
+C<guestfs_launch> now does the waiting.
+
+If you see any calls to this function in code then you can just
+remove them, unless you want to retain compatibility with older
+versions of the API.");
 
   ("kill_subprocess", (RErr, []), -1, [],
    [],
@@ -4625,11 +4630,8 @@ static int
 check_state (guestfs_h *g, const char *caller)
 {
   if (!guestfs__is_ready (g)) {
-    if (guestfs__is_config (g))
+    if (guestfs__is_config (g) || guestfs__is_launching (g))
       error (g, \"%%s: call launch before using this function\\n(in guestfish, don't forget to use the 'run' command)\",
-        caller);
-    else if (guestfs__is_launching (g))
-      error (g, \"%%s: call wait_ready() before using this function\",
         caller);
     else
       error (g, \"%%s called from the wrong state, %%d != READY\",
@@ -5521,11 +5523,6 @@ int main (int argc, char *argv[])
 
   /* Set a timeout in case qemu hangs during launch (RHBZ#505329). */
   alarm (600);
-
-  if (guestfs_wait_ready (g) == -1) {
-    printf (\"guestfs_wait_ready FAILED\\n\");
-    exit (1);
-  }
 
   /* Cancel previous alarm. */
   alarm (0);
@@ -7390,7 +7387,6 @@ Sys::Guestfs - Perl bindings for libguestfs
  my $h = Sys::Guestfs->new ();
  $h->add_drive ('guest.img');
  $h->launch ();
- $h->wait_ready ();
  $h->mount ('/dev/sda1', '/');
  $h->touch ('/hello');
  $h->sync ();
@@ -7928,7 +7924,6 @@ import guestfs
 g = guestfs.GuestFS ()
 g.add_drive (\"guest.img\")
 g.launch ()
-g.wait_ready ()
 parts = g.list_partitions ()
 
 The guestfs module provides a Python binding to the libguestfs API
@@ -7963,7 +7958,6 @@ g.add_drive (\"guest.img\")
 
 # Launch the qemu subprocess and wait for it to become ready:
 g.launch ()
-g.wait_ready ()
 
 # Now you can issue commands, for example:
 logvols = g.lvs ()

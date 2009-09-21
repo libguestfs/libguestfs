@@ -27,7 +27,6 @@ main (int argc, char *argv[])
   if (guestfs_add_drive (g, argv[1]) == -1) exit (1);
 
   if (guestfs_launch (g) == -1) exit (1);
-  if (guestfs_wait_ready (g) == -1) exit (1);
 
   if (guestfs_mount (g, argv[2], "/") == -1) exit (1);
 

@@ -11,7 +11,6 @@ guestfs - Library for accessing and modifying virtual machine images
  guestfs_h *handle = guestfs_create ();
  guestfs_add_drive (handle, "guest.img");
  guestfs_launch (handle);
- guestfs_wait_ready (handle);
  guestfs_mount (handle, "/dev/sda1", "/");
  guestfs_touch (handle, "/hello");
  guestfs_sync (handle);
@@ -56,7 +55,6 @@ functions in the following order:
   */
 
  guestfs_launch (handle);
- guestfs_wait_ready (handle);
 
  /* now you can examine what partitions, LVs etc are available
   * you have to mount / at least
@@ -73,7 +71,7 @@ functions in the following order:
 
  guestfs_close (handle);
 
-C<guestfs_wait_ready> and all of the actions including C<guestfs_sync>
+C<guestfs_launch> and all of the actions including C<guestfs_sync>
 are blocking calls.  You can use the low-level event API to do
 non-blocking operations instead.
 
@@ -100,8 +98,7 @@ You have to call C<guestfs_add_drive> on the handle at least once.
 This function returns a non-NULL pointer to a handle on success or
 NULL on error.
 
-After configuring the handle, you have to call C<guestfs_launch> and
-C<guestfs_wait_ready>.
+After configuring the handle, you have to call C<guestfs_launch>.
 
 You may also want to configure error handling for the handle.  See
 L</ERROR HANDLING> section below.
@@ -443,7 +440,7 @@ libguestfs uses a state machine to model the child process:
                  /     |   | LAUNCHING |
                 /      |   \___________/
                /       |       /
-              /        |  guestfs_wait_ready
+              /        |  guestfs_launch
              /         |     /
     ______  /        __|____V
    /      \ ------> /        \
@@ -463,12 +460,10 @@ Configuration commands for qemu such as C<guestfs_add_drive> can only
 be issued when in the CONFIG state.
 
 The high-level API offers two calls that go from CONFIG through
-LAUNCHING to READY.  C<guestfs_launch> is a non-blocking call that
-starts up the child process, immediately moving from CONFIG to
-LAUNCHING.  C<guestfs_wait_ready> blocks until the child process is
-READY to accept commands (or until some failure or timeout).  The
-low-level event API described below provides a non-blocking way to
-replace C<guestfs_wait_ready>.
+LAUNCHING to READY.  C<guestfs_launch> blocks until the child process
+is READY to accept commands (or until some failure or timeout).
+C<guestfs_launch> internally moves the state from CONFIG to LAUNCHING
+while it is running.
 
 High-level API actions such as C<guestfs_mount> can only be issued
 when in the READY state.  These high-level API calls block waiting for
@@ -534,9 +529,6 @@ any state to the CONFIG state).
 The callback function C<cb> will be called when the child process
 becomes ready first time after it has been launched.  (This
 corresponds to a transition from LAUNCHING to the READY state).
-
-You can use this instead of C<guestfs_wait_ready> to implement a
-non-blocking wait for the child process to finish booting up.
 
 =head1 BLOCK DEVICE NAMING
 
@@ -780,7 +772,7 @@ parameters, but with the roles of daemon and library reversed.
 Because the underlying channel (QEmu -net channel) doesn't have any
 sort of connection control, when the daemon launches it sends an
 initial word (C<GUESTFS_LAUNCH_FLAG>) which indicates that the guest
-and daemon is alive.  This is what C<guestfs_wait_ready> waits for.
+and daemon is alive.  This is what C<guestfs_launch> waits for.
 
 =head1 QEMU WRAPPERS
 

@@ -100,7 +100,7 @@ read-write handle, this function will refuse to use active libvirt
 domains.
 
 The handle is still in the config state when it is returned, so you
-have to call C<$g-E<gt>launch ()> and C<$g-E<gt>wait_ready>.
+have to call C<$g-E<gt>launch ()>.
 
 The optional C<address> parameter can be added to specify the libvirt
 URI.  In addition, L<Sys::Virt(3)> lists other parameters which are

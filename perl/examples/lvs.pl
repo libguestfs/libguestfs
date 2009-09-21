@@ -14,7 +14,6 @@ $h->add_drive ($ARGV[0]);
 
 print "Launching, this can take a few seconds\n";
 $h->launch ();
-$h->wait_ready ();
 
 print "Looking for PVs on the disk image\n";
 my @pvs = $h->pvs ();

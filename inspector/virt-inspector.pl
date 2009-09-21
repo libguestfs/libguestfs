@@ -219,7 +219,6 @@ if ($uri) {
 }
 
 $g->launch ();
-$g->wait_ready ();
 
 =head1 OUTPUT FORMAT
 

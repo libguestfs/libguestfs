@@ -17,7 +17,7 @@
 
 use strict;
 use warnings;
-use Test::More tests => 12;
+use Test::More tests => 11;
 
 use Sys::Guestfs;
 
@@ -32,8 +32,6 @@ $h->add_drive ("test.img");
 ok (1);
 
 $h->launch ();
-ok (1);
-$h->wait_ready ();
 ok (1);
 
 $h->pvcreate ("/dev/sda");

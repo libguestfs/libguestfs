@@ -28,7 +28,6 @@ main = do
   hClose fd
   Guestfs.add_drive g "test.img"
   Guestfs.launch g
-  Guestfs.wait_ready g
 
   Guestfs.pvcreate g "/dev/sda"
   Guestfs.vgcreate g "VG" ["/dev/sda"]

@@ -11,7 +11,6 @@ let () =
   let h = Guestfs.create () in
   Guestfs.add_drive h Sys.argv.(1);
   Guestfs.launch h;
-  Guestfs.wait_ready h;
 
   let pvs = Guestfs.pvs h in
   printf "PVs found: [ %s ]\n" (String.concat "; " (Array.to_list pvs));

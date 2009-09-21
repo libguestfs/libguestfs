@@ -22,7 +22,7 @@ BEGIN {
     use Test::More;
     eval "use Locale::TextDomain";;
     if (exists $INC{"Locale/TextDomain.pm"}) {
-        plan tests => 17;
+        plan tests => 16;
     } else {
         plan skip_all => "no perl-libintl module";
         exit 0;
@@ -39,8 +39,6 @@ $h->add_drive_ro ("../images/test.iso");
 ok (1);
 
 $h->launch ();
-ok (1);
-$h->wait_ready ();
 ok (1);
 
 $h->mount_ro ("/dev/sda", "/");

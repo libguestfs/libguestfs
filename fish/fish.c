@@ -81,8 +81,6 @@ launch (guestfs_h *_g)
   if (guestfs_is_config (g)) {
     if (guestfs_launch (g) == -1)
       return -1;
-    if (guestfs_wait_ready (g) == -1)
-      return -1;
   }
   return 0;
 }

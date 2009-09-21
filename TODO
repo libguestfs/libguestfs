@@ -214,7 +214,7 @@ Quick Perl scripts
 Currently we can't do Perl "one-liners".  ie. The current syntax for
 any short Perl one-liner would be:
 
-  perl -MSys::Guestfs -e '$g = Sys::Guestfs->new(); $g->add_drive ("foo"); $g->launch; $g->wait_ready; $g->mount ("/dev/sda1", "/"); ....'
+  perl -MSys::Guestfs -e '$g = Sys::Guestfs->new(); $g->add_drive ("foo"); $g->launch; $g->mount ("/dev/sda1", "/"); ....'
 
 You can see we're well beyond a single line just getting to the point
 of adding drives and mounting.
@@ -235,7 +235,6 @@ which is equivalent to the following sequence of calls:
  $h->set_autosync (1);
  $h->add_drive_ro ($filename);
  $h->launch ();
- $h->wait_ready ();
  $h->mount_ro (\"/dev/sda1\", \"/\");
 
 Command-line form would be:

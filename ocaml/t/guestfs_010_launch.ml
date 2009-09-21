@@ -27,6 +27,5 @@ let () =
 
   Guestfs.add_drive g "test.img";
   Guestfs.launch g;
-  Guestfs.wait_ready g;
 
   unlink "test.img"
