@@ -85,8 +85,8 @@ static void close_handles (void);
 #define UNIX_PATH_MAX 108
 
 /* Also in guestfsd.c */
-#define GUESTFWD_PORT 6666
 #define GUESTFWD_ADDR "10.0.2.4"
+#define GUESTFWD_PORT "6666"
 
 /* GuestFS handle and connection. */
 enum state { CONFIG, LAUNCHING, READY, BUSY, NO_HANDLE };
@@ -1026,8 +1026,8 @@ guestfs__launch (guestfs_h *g)
 
       snprintf (buf, sizeof buf,
                 "user,vlan=0,net=10.0.2.0/8,"
-                "guestfwd=tcp:%s:%d-chardev:guestfsvmc",
-                GUESTFWD_ADDR, GUESTFWD_PORT);
+                "guestfwd=tcp:" GUESTFWD_ADDR ":" GUESTFWD_PORT
+                "-chardev:guestfsvmc");
 
       add_cmdline (g, "-net");
       add_cmdline (g, buf);
@@ -1036,7 +1036,7 @@ guestfs__launch (guestfs_h *g)
        * syntax, or if not then we'll get a quick failure.
        */
       snprintf (buf, sizeof buf,
-                "channel,%d:unix:%s,server,nowait", GUESTFWD_PORT, unixsock);
+                "channel," GUESTFWD_PORT ":unix:%s,server,nowait", unixsock);
 
       add_cmdline (g, "-net");
       add_cmdline (g, buf);
