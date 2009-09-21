@@ -147,16 +147,9 @@ qemu
 By far the most common problem is with broken or incompatible
 qemu releases.
 
-First of all, you need qemu >= 0.10.4, which contains a vmchannel
-implementation.  There are several, conflicting, incompatible things
-called 'vmchannel' which at one time or another have been added or
-proposed for qemu/KVM.  The _only_ one we support is this one:
-
-  http://lists.gnu.org/archive/html/qemu-devel/2009-02/msg01042.html
-
-Secondly, different versions of qemu have problems booting the
-appliance for different reasons.  This varies between versions of
-qemu, and Linux distributions which add their own patches.
+Different versions of qemu have problems booting the appliance for
+different reasons.  This varies between versions of qemu, and Linux
+distributions which add their own patches.
 
 If you find a problem, you could try using your own qemu built from
 source (qemu is very easy to build from source), with a 'qemu
@@ -181,6 +174,32 @@ On some systems, this will work too:
 
 On some systems, the chmod will not survive a reboot, and you will
 need to make edits to the udev configuration.
+
+
+vmchannel
+----------------------------------------------------------------------
+
+Previous versions of libguestfs required something called "vmchannel".
+Vmchannel is a special device given to virtual machines which allows
+them to communicate in some way with the host, often (but not always)
+without using a traditional network device.  In reality, there is no
+one thing called "vmchannel".  This idea has been reimplemented
+several times under the name vmchannel, and other hypervisors have
+their own incompatible implementation(s) too.
+
+In libguestfs <= 1.0.71, we required a specific vmchannel which is
+properly known as "guestfwd" and has been upstream in qemu since here:
+
+  http://lists.gnu.org/archive/html/qemu-devel/2009-02/msg01042.html
+
+In libguestfs >= 1.0.71 we don't require any vmchannel implementation,
+as long as qemu has been compiled with support for SLIRP (user mode
+networking, or "-net user"), which is almost always the case.
+
+However we still offer the ability to use vmchannel, and in future we
+may add support for other types of qemu, which is useful in a few
+cases, specifically where qemu packagers decide to compile out support
+for SLIRP (qemu packagers: please don't do this).
 
 
 Supermin appliance
