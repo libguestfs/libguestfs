@@ -992,38 +992,21 @@ guestfs__launch (guestfs_h *g)
      */
     g->cmdline[0] = g->qemu;
 
-#define LINUX_CMDLINE							\
-    "panic=1 "         /* force kernel to panic if daemon exits */	\
-    "console=ttyS0 "   /* serial console */				\
-    "udevtimeout=300 " /* good for very slow systems (RHBZ#480319) */	\
-    "noapic "          /* workaround for RHBZ#502058 - ok if not SMP */ \
-    "acpi=off "        /* we don't need ACPI, turn it off */		\
-    "cgroup_disable=memory " /* saves us about 5 MB of RAM */
-
-    /* Linux kernel command line. */
-    snprintf (append, sizeof append,
-              LINUX_CMDLINE
-              "%s"              /* (selinux) */
-              "%s"              /* (verbose) */
-              "%s",             /* (append) */
-              g->selinux ? "selinux=1 enforcing=0 " : "selinux=0 ",
-              g->verbose ? "guestfs_verbose=1 " : " ",
-              g->append ? g->append : "");
-
     snprintf (memsize_str, sizeof memsize_str, "%d", g->memsize);
 
     add_cmdline (g, "-m");
     add_cmdline (g, memsize_str);
     add_cmdline (g, "-no-reboot"); /* Force exit instead of reboot on panic */
-    add_cmdline (g, "-kernel");
-    add_cmdline (g, (char *) kernel);
-    add_cmdline (g, "-initrd");
-    add_cmdline (g, (char *) initrd);
-    add_cmdline (g, "-append");
-    add_cmdline (g, append);
     add_cmdline (g, "-nographic");
     add_cmdline (g, "-serial");
     add_cmdline (g, "stdio");
+
+    /* These options recommended by KVM developers to improve reliability. */
+    if (qemu_supports (g, "-no-hpet"))
+      add_cmdline (g, "-no-hpet");
+
+    if (qemu_supports (g, "-rtc-td-hack"))
+      add_cmdline (g, "-rtc-td-hack");
 
     if (qemu_supports (g, "-chardev") && qemu_supports (g, "guestfwd")) {
       /* New-style -net user,guestfwd=... syntax for guestfwd.  See:
@@ -1065,12 +1048,30 @@ guestfs__launch (guestfs_h *g)
     add_cmdline (g, "-net");
     add_cmdline (g, "nic,model=" NET_IF ",vlan=0");
 
-    /* These options recommended by KVM developers to improve reliability. */
-    if (qemu_supports (g, "-no-hpet"))
-      add_cmdline (g, "-no-hpet");
+#define LINUX_CMDLINE							\
+    "panic=1 "         /* force kernel to panic if daemon exits */	\
+    "console=ttyS0 "   /* serial console */				\
+    "udevtimeout=300 " /* good for very slow systems (RHBZ#480319) */	\
+    "noapic "          /* workaround for RHBZ#502058 - ok if not SMP */ \
+    "acpi=off "        /* we don't need ACPI, turn it off */		\
+    "cgroup_disable=memory " /* saves us about 5 MB of RAM */
 
-    if (qemu_supports (g, "-rtc-td-hack"))
-      add_cmdline (g, "-rtc-td-hack");
+    /* Linux kernel command line. */
+    snprintf (append, sizeof append,
+              LINUX_CMDLINE
+              "%s"              /* (selinux) */
+              "%s"              /* (verbose) */
+              "%s",             /* (append) */
+              g->selinux ? "selinux=1 enforcing=0 " : "selinux=0 ",
+              g->verbose ? "guestfs_verbose=1 " : " ",
+              g->append ? g->append : "");
+
+    add_cmdline (g, "-kernel");
+    add_cmdline (g, (char *) kernel);
+    add_cmdline (g, "-initrd");
+    add_cmdline (g, (char *) initrd);
+    add_cmdline (g, "-append");
+    add_cmdline (g, append);
 
     /* Finish off the command line. */
     incr_cmdline_size (g);
