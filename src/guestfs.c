@@ -984,6 +984,7 @@ guestfs__launch (guestfs_h *g)
 
   if (r == 0) {			/* Child (qemu). */
     char buf[256];
+    const char *vmchannel = NULL;
 
     /* Set up the full command line.  Do this in the subprocess so we
      * don't need to worry about cleaning up.
@@ -1045,6 +1046,7 @@ guestfs__launch (guestfs_h *g)
     }
     add_cmdline (g, "-net");
     add_cmdline (g, "nic,model=" NET_IF ",vlan=0");
+    vmchannel = "guestfs_vmchannel=tcp:" GUESTFWD_ADDR ":" GUESTFWD_PORT " ";
 
 #define LINUX_CMDLINE							\
     "panic=1 "         /* force kernel to panic if daemon exits */	\
@@ -1058,9 +1060,11 @@ guestfs__launch (guestfs_h *g)
     snprintf (buf, sizeof buf,
               LINUX_CMDLINE
               "%s"              /* (selinux) */
+              "%s"              /* (vmchannel) */
               "%s"              /* (verbose) */
               "%s",             /* (append) */
               g->selinux ? "selinux=1 enforcing=0 " : "selinux=0 ",
+              vmchannel ? vmchannel : "",
               g->verbose ? "guestfs_verbose=1 " : "",
               g->append ? g->append : "");
 

@@ -40,7 +40,6 @@
 
 #include "daemon.h"
 
-static void usage (void);
 static char *read_cmdline (void);
 
 /* Also in guestfs.c */
@@ -65,18 +64,28 @@ static int print_arginfo (const struct printf_info *info, size_t n, int *argtype
 const char *sysroot = "/sysroot"; /* No trailing slash. */
 int sysroot_len = 8;
 
+static void
+usage (void)
+{
+  fprintf (stderr,
+    "guestfsd [-f|--foreground] [-c|--channel vmchannel] [-v|--verbose]\n");
+}
+
 int
 main (int argc, char *argv[])
 {
-  static const char *options = "f?";
+  static const char *options = "fc:v?";
   static const struct option long_options[] = {
+    { "channel", required_argument, 0, 'c' },
     { "foreground", 0, 0, 'f' },
     { "help", 0, 0, '?' },
+    { "verbose", 0, 0, 'v' },
     { 0, 0, 0, 0 }
   };
   int c;
   int dont_fork = 0;
   char *cmdline;
+  char *vmchannel = NULL;
 
 #ifdef HAVE_REGISTER_PRINTF_SPECIFIER
   /* http://udrepper.livejournal.com/20948.html */
@@ -96,8 +105,16 @@ main (int argc, char *argv[])
     if (c == -1) break;
 
     switch (c) {
+    case 'c':
+      vmchannel = optarg;
+      break;
+
     case 'f':
       dont_fork = 1;
+      break;
+
+    case 'v':
+      verbose = 1;
       break;
 
     case '?':
@@ -118,7 +135,8 @@ main (int argc, char *argv[])
   cmdline = read_cmdline ();
 
   /* Set the verbose flag. */
-  verbose = cmdline && strstr (cmdline, "guestfs_verbose=1") != NULL;
+  verbose = verbose ||
+    (cmdline && strstr (cmdline, "guestfs_verbose=1") != NULL);
   if (verbose)
     printf ("verbose daemon enabled\n");
 
@@ -148,38 +166,129 @@ main (int argc, char *argv[])
   /* We document that umask defaults to 022 (it should be this anyway). */
   umask (022);
 
-  /* Resolve the hostname. */
-  struct addrinfo *res, *rr;
-  struct addrinfo hints;
-  int r;
-  memset (&hints, 0, sizeof hints);
-  hints.ai_socktype = SOCK_STREAM;
-  hints.ai_flags = AI_ADDRCONFIG;
-  r = getaddrinfo (GUESTFWD_ADDR, GUESTFWD_PORT, &hints, &res);
-  if (r != 0) {
-    fprintf (stderr, "%s:%s: %s\n",
-             GUESTFWD_ADDR, GUESTFWD_PORT, gai_strerror (r));
+  /* Get the vmchannel string.
+   *
+   * Sources:
+   *   --channel/-c option on the command line
+   *   guestfs_vmchannel=... from the kernel command line
+   *   guestfs=... from the kernel command line
+   *   built-in default
+   *
+   * At the moment we expect this to contain "tcp:ip:port" but in
+   * future it might contain a device name, eg. "/dev/vcon4" for
+   * virtio-console vmchannel.
+   */
+  if (vmchannel == NULL && cmdline) {
+    char *p;
+    size_t len;
+
+    p = strstr (cmdline, "guestfs_vmchannel=");
+    if (p) {
+      len = strcspn (p + 18, " \t\n");
+      vmchannel = strndup (p + 18, len);
+      if (!vmchannel) {
+        perror ("strndup");
+        exit (1);
+      }
+    }
+
+    /* Old libraries passed guestfs=host:port.  Rewrite it as tcp:host:port. */
+    if (vmchannel == NULL) {
+      /* We will rewrite it part of the "guestfs=" string with
+       *                       "tcp:"       hence p + 4 below.    */
+      p = strstr (cmdline, "guestfs=");
+      if (p) {
+        len = strcspn (p + 4, " \t\n");
+        vmchannel = strndup (p + 4, len);
+        if (!vmchannel) {
+          perror ("strndup");
+          exit (1);
+        }
+        memcpy (vmchannel, "tcp:", 4);
+      }
+    }
+  }
+
+  /* Default vmchannel. */
+  if (vmchannel == NULL) {
+    vmchannel = strdup ("tcp:" GUESTFWD_ADDR ":" GUESTFWD_PORT);
+    if (!vmchannel) {
+      perror ("strdup");
+      exit (1);
+    }
+  }
+
+  if (verbose)
+    printf ("vmchannel: %s\n", vmchannel);
+
+  /* Connect to vmchannel. */
+  int sock = -1;
+
+  if (strncmp (vmchannel, "tcp:", 4) == 0) {
+    /* Resolve the hostname. */
+    struct addrinfo *res, *rr;
+    struct addrinfo hints;
+    int r;
+    char *host, *port;
+
+    host = vmchannel+4;
+    port = strchr (host, ':');
+    if (port) {
+      port[0] = '\0';
+      port++;
+    } else {
+      fprintf (stderr, "vmchannel: expecting \"tcp:<ip>:<port>\": %s\n",
+               vmchannel);
+      exit (1);
+    }
+
+    memset (&hints, 0, sizeof hints);
+    hints.ai_socktype = SOCK_STREAM;
+    hints.ai_flags = AI_ADDRCONFIG;
+    r = getaddrinfo (host, port, &hints, &res);
+    if (r != 0) {
+      fprintf (stderr, "%s:%s: %s\n",
+               host, port, gai_strerror (r));
+      exit (1);
+    }
+
+    /* Connect to the given TCP socket. */
+    for (rr = res; rr != NULL; rr = rr->ai_next) {
+      sock = socket (rr->ai_family, rr->ai_socktype, rr->ai_protocol);
+      if (sock != -1) {
+        if (connect (sock, rr->ai_addr, rr->ai_addrlen) == 0)
+          break;
+        perror ("connect");
+
+        close (sock);
+        sock = -1;
+      }
+    }
+    freeaddrinfo (res);
+  } else {
+    fprintf (stderr,
+             "unknown vmchannel connection type: %s\n"
+             "expecting \"tcp:<ip>:<port>\"\n",
+             vmchannel);
     exit (1);
   }
 
-  /* Connect to the given TCP socket. */
-  int sock = -1;
-  for (rr = res; rr != NULL; rr = rr->ai_next) {
-    sock = socket (rr->ai_family, rr->ai_socktype, rr->ai_protocol);
-    if (sock != -1) {
-      if (connect (sock, rr->ai_addr, rr->ai_addrlen) == 0)
-        break;
-      perror ("connect");
-
-      close (sock);
-      sock = -1;
-    }
-  }
-  freeaddrinfo (res);
-
   if (sock == -1) {
-    fprintf (stderr, "connection to %s:%s failed\n",
-             GUESTFWD_ADDR, GUESTFWD_PORT);
+    fprintf (stderr,
+             "\n"
+             "Failed to connect to any vmchannel implementation.\n"
+             "vmchannel: %s\n"
+             "\n"
+             "This is a fatal error and the appliance will now exit.\n"
+             "\n"
+             "Usually this error is caused by either QEMU or the appliance\n"
+             "kernel not supporting the vmchannel method that the\n"
+             "libguestfs library chose to use.  Please run\n"
+             "'libguestfs-test-tool' and provide the complete, unedited\n"
+             "output to the libguestfs developers, either in a bug report\n"
+             "or on the libguestfs redhat com mailing list.\n"
+             "\n",
+             vmchannel);
     exit (1);
   }
 
@@ -321,12 +430,6 @@ xread (int sock, void *v_buf, size_t len)
   }
 
   return 0;
-}
-
-static void
-usage (void)
-{
-  fprintf (stderr, "guestfsd [-f]\n");
 }
 
 int
