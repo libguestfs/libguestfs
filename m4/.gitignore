@@ -86,3 +86,7 @@ xsize.m4
 /wctob.m4
 /wctype.m4
 /xalloc.m4
+/arpa_inet_h.m4
+/netinet_in_h.m4
+/sockpfaf.m4
+/sys_socket_h.m4
