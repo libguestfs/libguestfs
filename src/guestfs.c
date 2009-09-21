@@ -1061,7 +1061,7 @@ guestfs__launch (guestfs_h *g)
               "%s"              /* (verbose) */
               "%s",             /* (append) */
               g->selinux ? "selinux=1 enforcing=0 " : "selinux=0 ",
-              g->verbose ? "guestfs_verbose=1 " : " ",
+              g->verbose ? "guestfs_verbose=1 " : "",
               g->append ? g->append : "");
 
     add_cmdline (g, "-kernel");
