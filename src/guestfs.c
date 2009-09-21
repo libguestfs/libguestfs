@@ -984,18 +984,16 @@ guestfs__launch (guestfs_h *g)
 
   if (r == 0) {			/* Child (qemu). */
     char buf[256];
-    char append[256];
-    char memsize_str[256];
 
     /* Set up the full command line.  Do this in the subprocess so we
      * don't need to worry about cleaning up.
      */
     g->cmdline[0] = g->qemu;
 
-    snprintf (memsize_str, sizeof memsize_str, "%d", g->memsize);
-
+    snprintf (buf, sizeof buf, "%d", g->memsize);
     add_cmdline (g, "-m");
-    add_cmdline (g, memsize_str);
+    add_cmdline (g, buf);
+
     add_cmdline (g, "-no-reboot"); /* Force exit instead of reboot on panic */
     add_cmdline (g, "-nographic");
     add_cmdline (g, "-serial");
@@ -1057,7 +1055,7 @@ guestfs__launch (guestfs_h *g)
     "cgroup_disable=memory " /* saves us about 5 MB of RAM */
 
     /* Linux kernel command line. */
-    snprintf (append, sizeof append,
+    snprintf (buf, sizeof buf,
               LINUX_CMDLINE
               "%s"              /* (selinux) */
               "%s"              /* (verbose) */
@@ -1071,7 +1069,7 @@ guestfs__launch (guestfs_h *g)
     add_cmdline (g, "-initrd");
     add_cmdline (g, (char *) initrd);
     add_cmdline (g, "-append");
-    add_cmdline (g, append);
+    add_cmdline (g, buf);
 
     /* Finish off the command line. */
     incr_cmdline_size (g);
