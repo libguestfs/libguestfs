@@ -61,7 +61,11 @@ lsmod
 # Improve virtio-blk performance (RHBZ#509383).
 for f in /sys/block/vd*/queue/rotational; do echo 1 > $f; done
 
-if grep -sq guestfs_rescue=1 /proc/cmdline; then
-  bash -i
+if ! grep -sq guestfs_rescue=1 /proc/cmdline; then
+  exec guestfsd -f
 fi
-exec guestfsd -f
+
+TERM=linux ;# XXX library should pass this from library's environment
+PS1='><rescue> '
+export TERM PS1
+exec bash -i
