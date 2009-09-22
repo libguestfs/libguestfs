@@ -119,6 +119,7 @@ struct guestfs_h
   int verbose;
   int trace;
   int autosync;
+  int direct;
 
   char *path;			/* Path to kernel, initrd. */
   char *qemu;			/* Qemu binary. */
@@ -651,6 +652,19 @@ guestfs__get_trace (guestfs_h *g)
   return g->trace;
 }
 
+int
+guestfs__set_direct (guestfs_h *g, int d)
+{
+  g->direct = !!d;
+  return 0;
+}
+
+int
+guestfs__get_direct (guestfs_h *g)
+{
+  return g->direct;
+}
+
 /* Add a string to the current command line. */
 static void
 incr_cmdline_size (guestfs_h *g)
@@ -1018,18 +1032,22 @@ guestfs__launch (guestfs_h *g)
     null_vmchannel_sock = 0;
   }
 
-  if (pipe (wfd) == -1 || pipe (rfd) == -1) {
-    perrorf (g, "pipe");
-    goto cleanup0;
+  if (!g->direct) {
+    if (pipe (wfd) == -1 || pipe (rfd) == -1) {
+      perrorf (g, "pipe");
+      goto cleanup0;
+    }
   }
 
   r = fork ();
   if (r == -1) {
     perrorf (g, "fork");
-    close (wfd[0]);
-    close (wfd[1]);
-    close (rfd[0]);
-    close (rfd[1]);
+    if (!g->direct) {
+      close (wfd[0]);
+      close (wfd[1]);
+      close (rfd[0]);
+      close (rfd[1]);
+    }
     goto cleanup0;
   }
 
@@ -1151,22 +1169,24 @@ guestfs__launch (guestfs_h *g)
     if (g->verbose)
       print_cmdline (g);
 
-    /* Set up stdin, stdout. */
-    close (0);
-    close (1);
-    close (wfd[1]);
-    close (rfd[0]);
+    if (!g->direct) {
+      /* Set up stdin, stdout. */
+      close (0);
+      close (1);
+      close (wfd[1]);
+      close (rfd[0]);
 
-    if (dup (wfd[0]) == -1) {
-    dup_failed:
-      perror ("dup failed");
-      _exit (1);
+      if (dup (wfd[0]) == -1) {
+      dup_failed:
+        perror ("dup failed");
+        _exit (1);
+      }
+      if (dup (rfd[1]) == -1)
+        goto dup_failed;
+
+      close (wfd[0]);
+      close (rfd[1]);
     }
-    if (dup (rfd[1]) == -1)
-      goto dup_failed;
-
-    close (wfd[0]);
-    close (rfd[1]);
 
 #if 0
     /* Set up a new process group, so we can signal this process
@@ -1225,18 +1245,32 @@ guestfs__launch (guestfs_h *g)
   /* Start the clock ... */
   time (&g->start_t);
 
-  /* Close the other ends of the pipe. */
-  close (wfd[0]);
-  close (rfd[1]);
+  if (!g->direct) {
+    /* Close the other ends of the pipe. */
+    close (wfd[0]);
+    close (rfd[1]);
 
-  if (fcntl (wfd[1], F_SETFL, O_NONBLOCK) == -1 ||
-      fcntl (rfd[0], F_SETFL, O_NONBLOCK) == -1) {
-    perrorf (g, "fcntl");
-    goto cleanup1;
+    if (fcntl (wfd[1], F_SETFL, O_NONBLOCK) == -1 ||
+        fcntl (rfd[0], F_SETFL, O_NONBLOCK) == -1) {
+      perrorf (g, "fcntl");
+      goto cleanup1;
+    }
+
+    g->fd[0] = wfd[1];		/* stdin of child */
+    g->fd[1] = rfd[0];		/* stdout of child */
+  } else {
+    g->fd[0] = open ("/dev/null", O_RDWR);
+    if (g->fd[0] == -1) {
+      perrorf (g, "open /dev/null");
+      goto cleanup1;
+    }
+    g->fd[1] = dup (g->fd[0]);
+    if (g->fd[1] == -1) {
+      perrorf (g, "dup");
+      close (g->fd[0]);
+      goto cleanup1;
+    }
   }
-
-  g->fd[0] = wfd[1];		/* stdin of child */
-  g->fd[1] = rfd[0];		/* stdout of child */
 
   if (null_vmchannel_sock) {
     int sock = -1;
@@ -1346,8 +1380,10 @@ guestfs__launch (guestfs_h *g)
   return 0;
 
  cleanup1:
-  close (wfd[1]);
-  close (rfd[0]);
+  if (!g->direct) {
+    close (wfd[1]);
+    close (rfd[0]);
+  }
   kill (g->pid, 9);
   if (g->recoverypid > 0) kill (g->recoverypid, 9);
   waitpid (g->pid, NULL, 0);

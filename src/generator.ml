@@ -808,6 +808,31 @@ C<LIBGUESTFS_TRACE> is defined and set to C<1>.");
    "\
 Return the command trace flag.");
 
+  ("set_direct", (RErr, [Bool "direct"]), -1, [FishAlias "direct"],
+   [InitNone, Always, TestOutputFalse (
+      [["set_direct"; "false"];
+       ["get_direct"]])],
+   "enable or disable direct appliance mode",
+   "\
+If the direct appliance mode flag is enabled, then stdin and
+stdout are passed directly through to the appliance once it
+is launched.
+
+One consequence of this is that log messages aren't caught
+by the library and handled by C<guestfs_set_log_message_callback>,
+but go straight to stdout.
+
+You probably don't want to use this unless you know what you
+are doing.
+
+The default is disabled.");
+
+  ("get_direct", (RBool "direct", []), -1, [],
+   [],
+   "get direct appliance mode flag",
+   "\
+Return the direct appliance mode flag.");
+
 ]
 
 (* daemon_functions are any functions which cause some action
