@@ -143,6 +143,11 @@ WEBSITEDIR = $(HOME)/d/redhat/websites/libguestfs
 website: $(HTMLFILES) $(TEXTFILES)
 	cp $(HTMLFILES) $(WEBSITEDIR)
 	for f in $(TEXTFILES); do cp $$f $(WEBSITEDIR)/$$f.txt; done
+	cd $(WEBSITEDIR) && \
+	date=`date +%F`; \
+	sed -e "s/SUBST_VERSION/$(VERSION)/" \
+	    -e "s/SUBST_DATE/$$date/" \
+	< index.html.in > index.html
 
 # Generate the ChangeLog automatically from the gitlog.
 

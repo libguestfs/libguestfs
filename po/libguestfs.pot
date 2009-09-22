@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.0.70\n"
+"Project-Id-Version: libguestfs 1.0.71\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-15 11:29+0100\n"
+"POT-Creation-Date: 2009-09-22 12:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -975,12 +975,12 @@ msgstr ""
 msgid "use '%s filename' to edit a file\n"
 msgstr ""
 
-#: fish/fish.c:94
+#: fish/fish.c:92
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr ""
 
-#: fish/fish.c:98
+#: fish/fish.c:96
 #, c-format
 msgid ""
 "%s: guest filesystem shell\n"
@@ -1016,63 +1016,63 @@ msgid ""
 "For more information,  see the manpage %s(1).\n"
 msgstr ""
 
-#: fish/fish.c:186
+#: fish/fish.c:184
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr ""
 
-#: fish/fish.c:225
+#: fish/fish.c:223
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
 msgstr ""
 
-#: fish/fish.c:232
+#: fish/fish.c:230
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 msgstr ""
 
-#: fish/fish.c:241
+#: fish/fish.c:239
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr ""
 
-#: fish/fish.c:268
+#: fish/fish.c:266
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
 msgstr ""
 
-#: fish/fish.c:341
+#: fish/fish.c:339
 #, c-format
 msgid "%s: cannot use -i option with -a, -m, --listen, --remote or --selinux\n"
 msgstr ""
 
-#: fish/fish.c:348
+#: fish/fish.c:346
 #, c-format
 msgid "%s: -i requires a libvirt domain or path(s) to disk image(s)\n"
 msgstr ""
 
-#: fish/fish.c:358
+#: fish/fish.c:356
 #, c-format
 msgid "%s: virt-inspector command too long for fixed-size buffer\n"
 msgstr ""
 
-#: fish/fish.c:404
+#: fish/fish.c:402
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr ""
 
-#: fish/fish.c:412
+#: fish/fish.c:410
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr ""
 
-#: fish/fish.c:418
+#: fish/fish.c:416
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr ""
 
-#: fish/fish.c:563
+#: fish/fish.c:561
 #, c-format
 msgid ""
 "\n"
@@ -1084,77 +1084,77 @@ msgid ""
 "\n"
 msgstr ""
 
-#: fish/fish.c:643
+#: fish/fish.c:641
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr ""
 
-#: fish/fish.c:649 fish/fish.c:666
+#: fish/fish.c:647 fish/fish.c:664
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr ""
 
-#: fish/fish.c:660
+#: fish/fish.c:658
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr ""
 
-#: fish/fish.c:715
+#: fish/fish.c:713
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr ""
 
-#: fish/fish.c:732
+#: fish/fish.c:730
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr ""
 
-#: fish/fish.c:761
+#: fish/fish.c:759
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr ""
 
-#: fish/fish.c:913
+#: fish/fish.c:911
 msgid "display a list of commands or help on a command"
 msgstr ""
 
-#: fish/fish.c:915
+#: fish/fish.c:913
 msgid "quit guestfish"
 msgstr ""
 
-#: fish/fish.c:918
+#: fish/fish.c:916
 msgid "allocate an image"
 msgstr ""
 
-#: fish/fish.c:920
+#: fish/fish.c:918
 msgid "display a line of text"
 msgstr ""
 
-#: fish/fish.c:922
+#: fish/fish.c:920
 msgid "edit a file in the image"
 msgstr ""
 
-#: fish/fish.c:924
+#: fish/fish.c:922
 msgid "local change directory"
 msgstr ""
 
-#: fish/fish.c:926
+#: fish/fish.c:924
 msgid "expand wildcards in command"
 msgstr ""
 
-#: fish/fish.c:928
+#: fish/fish.c:926
 msgid "view a file in the pager"
 msgstr ""
 
-#: fish/fish.c:930
+#: fish/fish.c:928
 msgid "close and reopen libguestfs handle"
 msgstr ""
 
-#: fish/fish.c:932
+#: fish/fish.c:930
 msgid "measure time taken to run command"
 msgstr ""
 
-#: fish/fish.c:944
+#: fish/fish.c:942
 #, c-format
 msgid ""
 "alloc - allocate an image\n"
@@ -1174,7 +1174,7 @@ msgid ""
 "    <nn>sects        number of 512 byte sectors\n"
 msgstr ""
 
-#: fish/fish.c:960
+#: fish/fish.c:958
 #, c-format
 msgid ""
 "echo - display a line of text\n"
@@ -1183,7 +1183,7 @@ msgid ""
 "    This echos the parameters to the terminal.\n"
 msgstr ""
 
-#: fish/fish.c:967
+#: fish/fish.c:965
 #, c-format
 msgid ""
 "edit - edit a file in the image\n"
@@ -1201,7 +1201,7 @@ msgid ""
 "    (> 2 MB) or binary files containing \\0 bytes.\n"
 msgstr ""
 
-#: fish/fish.c:981
+#: fish/fish.c:979
 #, c-format
 msgid ""
 "lcd - local change directory\n"
@@ -1212,7 +1212,7 @@ msgid ""
 "    place.\n"
 msgstr ""
 
-#: fish/fish.c:988
+#: fish/fish.c:986
 #, c-format
 msgid ""
 "glob - expand wildcards in command\n"
@@ -1223,7 +1223,7 @@ msgid ""
 "    once for each expanded argument.\n"
 msgstr ""
 
-#: fish/fish.c:995
+#: fish/fish.c:993
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -1231,7 +1231,7 @@ msgid ""
 "     help\n"
 msgstr ""
 
-#: fish/fish.c:1000
+#: fish/fish.c:998
 #, c-format
 msgid ""
 "more - view a file in the pager\n"
@@ -1249,14 +1249,14 @@ msgid ""
 "    (> 2 MB) or binary files containing \\0 bytes.\n"
 msgstr ""
 
-#: fish/fish.c:1016
+#: fish/fish.c:1014
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
 "     quit\n"
 msgstr ""
 
-#: fish/fish.c:1019
+#: fish/fish.c:1017
 #, c-format
 msgid ""
 "reopen - close and reopen the libguestfs handle\n"
@@ -1267,7 +1267,7 @@ msgid ""
 "exits.  However this is occasionally useful for testing.\n"
 msgstr ""
 
-#: fish/fish.c:1026
+#: fish/fish.c:1024
 #, c-format
 msgid ""
 "time - measure time taken to run command\n"
@@ -1277,12 +1277,12 @@ msgid ""
 "    time afterwards.\n"
 msgstr ""
 
-#: fish/fish.c:1032
+#: fish/fish.c:1030
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""
 
-#: fish/fish.c:1188
+#: fish/fish.c:1186
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr ""
@@ -1349,162 +1349,158 @@ msgstr ""
 msgid "use 'time command [args...]'\n"
 msgstr ""
 
-#: src/guestfs.c:241
+#: src/guestfs.c:246
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr ""
 
-#: src/guestfs.c:344
+#: src/guestfs.c:349
 #, c-format
 msgid "libguestfs: error: %s\n"
 msgstr ""
 
-#: src/guestfs.c:669
+#: src/guestfs.c:674
 msgid "command line cannot be altered after qemu subprocess launched"
 msgstr ""
 
-#: src/guestfs.c:683
+#: src/guestfs.c:688
 msgid "guestfs_config: parameter must begin with '-' character"
 msgstr ""
 
-#: src/guestfs.c:697
+#: src/guestfs.c:702
 #, c-format
 msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr ""
 
-#: src/guestfs.c:717 src/guestfs.c:756 src/guestfs.c:774
+#: src/guestfs.c:722 src/guestfs.c:761 src/guestfs.c:779
 msgid "filename cannot contain ',' (comma) character"
 msgstr ""
 
-#: src/guestfs.c:854
+#: src/guestfs.c:860
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr ""
 
-#: src/guestfs.c:859
+#: src/guestfs.c:865
 msgid "qemu has already been launched"
 msgstr ""
 
-#: src/guestfs.c:867
+#: src/guestfs.c:873
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr ""
 
-#: src/guestfs.c:957
+#: src/guestfs.c:963
 #, c-format
 msgid "cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)"
 msgstr ""
 
-#: src/guestfs.c:1203
+#: src/guestfs.c:1313
 msgid "failed to connect to vmchannel socket"
 msgstr ""
 
-#: src/guestfs.c:1287
+#: src/guestfs.c:1332
+msgid "guestfs_launch failed, see earlier error messages"
+msgstr ""
+
+#: src/guestfs.c:1342
+msgid "qemu launched and contacted daemon, but state != READY"
+msgstr ""
+
+#: src/guestfs.c:1426
 #, c-format
 msgid "external command failed: %s"
 msgstr ""
 
-#: src/guestfs.c:1326
+#: src/guestfs.c:1465
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
 "the LIBGUESTFS_QEMU environment variable."
 msgstr ""
 
-#: src/guestfs.c:1391
-msgid "qemu has finished launching already"
-msgstr ""
-
-#: src/guestfs.c:1396
+#: src/guestfs.c:1604
 msgid "qemu has not been launched yet"
 msgstr ""
 
-#: src/guestfs.c:1406
-msgid "guestfs_wait_ready failed, see earlier error messages"
-msgstr ""
-
-#: src/guestfs.c:1416
-msgid "qemu launched and contacted daemon, but state != READY"
-msgstr ""
-
-#: src/guestfs.c:1427
+#: src/guestfs.c:1615
 msgid "no subprocess to kill"
 msgstr ""
 
-#: src/guestfs.c:1549
+#: src/guestfs.c:1737
 #, c-format
 msgid "guestfs_set_busy: called when in state %d != READY"
 msgstr ""
 
-#: src/guestfs.c:1572
+#: src/guestfs.c:1760
 #, c-format
 msgid "guestfs_end_busy: called when in state %d"
 msgstr ""
 
-#: src/guestfs.c:1680
+#: src/guestfs.c:1868
 #, c-format
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
 msgstr ""
 
-#: src/guestfs.c:1838 src/guestfs.c:1892
+#: src/guestfs.c:2026 src/guestfs.c:2080
 msgid "unexpected end of file when reading from daemon"
 msgstr ""
 
-#: src/guestfs.c:1854
+#: src/guestfs.c:2042
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr ""
 
-#: src/guestfs.c:1869
+#: src/guestfs.c:2057
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr ""
 
-#: src/guestfs.c:1941
+#: src/guestfs.c:2179
 #, c-format
 msgid "guestfs___send: state %d != BUSY"
 msgstr ""
 
-#: src/guestfs.c:1963
+#: src/guestfs.c:2201
 msgid "xdr_guestfs_message_header failed"
 msgstr ""
 
-#: src/guestfs.c:1972
+#: src/guestfs.c:2210
 msgid "dispatch failed to marshal args"
 msgstr ""
 
-#: src/guestfs.c:2102
+#: src/guestfs.c:2340
 #, c-format
 msgid "send_file_chunk: state %d != READY"
 msgstr ""
 
-#: src/guestfs.c:2118
+#: src/guestfs.c:2356
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr ""
 
-#: src/guestfs.c:2242
+#: src/guestfs.c:2480
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr ""
 
-#: src/guestfs.c:2270
+#: src/guestfs.c:2508
 msgid "write to daemon socket"
 msgstr ""
 
-#: src/guestfs.c:2293
+#: src/guestfs.c:2531
 msgid "receive_file_data: parse error in reply callback"
 msgstr ""
 
-#: src/guestfs.c:2298
+#: src/guestfs.c:2536
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr ""
 
-#: src/guestfs.c:2306
+#: src/guestfs.c:2544
 msgid "failed to parse file chunk"
 msgstr ""
 
-#: src/guestfs.c:2315
+#: src/guestfs.c:2553
 msgid "file receive cancelled by daemon"
 msgstr ""
 
@@ -1555,64 +1551,59 @@ msgstr ""
 msgid "libguestfs-test-tool: guestfs_version failed\n"
 msgstr ""
 
-#: test-tool/test-tool.c:191
+#: test-tool/test-tool.c:196
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr ""
 
-#: test-tool/test-tool.c:202
-#, c-format
-msgid "libguestfs-test-tool: failed or timed out in 'wait_ready'\n"
-msgstr ""
-
-#: test-tool/test-tool.c:214
+#: test-tool/test-tool.c:208
 #, c-format
 msgid "libguestfs-test-tool: failed to run sfdisk\n"
 msgstr ""
 
-#: test-tool/test-tool.c:220
+#: test-tool/test-tool.c:214
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr ""
 
-#: test-tool/test-tool.c:226
+#: test-tool/test-tool.c:220
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr ""
 
-#: test-tool/test-tool.c:232
+#: test-tool/test-tool.c:226
 #, c-format
 msgid "libguestfs-test-tool: failed to mkdir /iso\n"
 msgstr ""
 
-#: test-tool/test-tool.c:238
+#: test-tool/test-tool.c:232
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sdb on /iso\n"
 msgstr ""
 
-#: test-tool/test-tool.c:246
+#: test-tool/test-tool.c:240
 #, c-format
 msgid "libguestfs-test-tool: could not run helper program, or helper failed\n"
 msgstr ""
 
-#: test-tool/test-tool.c:277
+#: test-tool/test-tool.c:271
 #, c-format
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
 "--qemu/--qemudir options cannot be used.\n"
 msgstr ""
 
-#: test-tool/test-tool.c:285
+#: test-tool/test-tool.c:279
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr ""
 
-#: test-tool/test-tool.c:299
+#: test-tool/test-tool.c:293
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr ""
 
-#: test-tool/test-tool.c:348
+#: test-tool/test-tool.c:342
 #, c-format
 msgid ""
 "Test tool helper program 'libguestfs-test-tool-helper' is not\n"
@@ -1621,12 +1612,12 @@ msgid ""
 "Use the --helper option to specify the location of this program.\n"
 msgstr ""
 
-#: test-tool/test-tool.c:364
+#: test-tool/test-tool.c:358
 #, c-format
 msgid "command failed: %s"
 msgstr ""
 
-#: test-tool/test-tool.c:372
+#: test-tool/test-tool.c:366
 #, c-format
 msgid ""
 "Test tool helper program %s\n"
@@ -1634,7 +1625,7 @@ msgid ""
 "was built.\n"
 msgstr ""
 
-#: test-tool/test-tool.c:406
+#: test-tool/test-tool.c:400
 #, c-format
 msgid "mkisofs command failed: %s\n"
 msgstr ""
