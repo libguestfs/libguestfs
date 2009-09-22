@@ -122,6 +122,9 @@ python/
 regressions/
         Regression tests.
 
+rescue/
+	The virt-rescue tool.
+
 ruby/
         Ruby bindings.
 

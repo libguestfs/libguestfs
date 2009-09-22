@@ -74,6 +74,7 @@ html/recipes.html
 html/virt-cat.1.html
 html/virt-df.1.html
 html/virt-inspector.1.html
+html/virt-rescue.1.html
 images/100kallnewlines
 images/100kallspaces
 images/100kallzeroes
@@ -170,6 +171,7 @@ python/guestfs.py
 python/guestfs-py.c
 python/guestfs.pyc
 regressions/test1.img
+rescue/virt-rescue.1
 ruby/bindtests.rb
 ruby/ext/guestfs/extconf.h
 ruby/ext/guestfs/_guestfs.c

@@ -653,7 +653,7 @@ for pm in Pod::Usage Getopt::Long Sys::Virt Data::Dumper XML::Writer Locale::Tex
     fi
 done
 if test "x$missing_perl_modules" = "xyes"; then
-    AC_MSG_WARN([some Perl modules required to compile virt-cat, virt-df and virt-inspector are missing])
+    AC_MSG_WARN([some Perl modules required to compile virt-cat, virt-df, virt-inspector and virt-rescue are missing])
 fi
 
 AM_CONDITIONAL([HAVE_CAT],
@@ -661,6 +661,8 @@ AM_CONDITIONAL([HAVE_CAT],
 AM_CONDITIONAL([HAVE_DF],
     [test "x$PERL" != "xno" -a "x$missing_perl_modules" != "xyes"])
 AM_CONDITIONAL([HAVE_INSPECTOR],
+    [test "x$PERL" != "xno" -a "x$missing_perl_modules" != "xyes"])
+AM_CONDITIONAL([HAVE_RESCUE],
     [test "x$PERL" != "xno" -a "x$missing_perl_modules" != "xyes"])
 
 dnl Library versioning.
@@ -700,6 +702,7 @@ AC_CONFIG_FILES([Makefile
                  cat/Makefile
                  df/Makefile
                  inspector/Makefile
+                 rescue/Makefile
                  libguestfs.pc
                  gnulib/lib/Makefile
                  gnulib/tests/Makefile
@@ -733,6 +736,8 @@ echo -n "virt-df ............................. "
 if test "x$HAVE_DF" = "x"; then echo "yes"; else echo "no"; fi
 echo -n "virt-inspector ...................... "
 if test "x$HAVE_INSPECTOR" = "x"; then echo "yes"; else echo "no"; fi
+echo -n "virt-rescue ......................... "
+if test "x$HAVE_RESCUE" = "x"; then echo "yes"; else echo "no"; fi
 echo "supermin appliance .................. $enable_supermin"
 echo
 echo "If any optional component is configured 'no' when you expected 'yes'"

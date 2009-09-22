@@ -47,6 +47,9 @@ endif
 if HAVE_CAT
 SUBDIRS += cat
 endif
+if HAVE_RESCUE
+SUBDIRS += rescue
+endif
 
 EXTRA_DIST = \
 	guestfs.pod guestfs-actions.pod guestfs-structs.pod \

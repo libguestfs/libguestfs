@@ -80,6 +80,7 @@ perl/lib/Sys/Guestfs.pm
 perl/lib/Sys/Guestfs/Lib.pm
 python/guestfs-py.c
 regressions/test-noexec-stack.pl
+rescue/virt-rescue.pl
 ruby/ext/guestfs/_guestfs.c
 src/guestfs-actions.c
 src/guestfs-bindtests.c
