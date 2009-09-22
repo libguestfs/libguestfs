@@ -1067,7 +1067,7 @@ guestfs__launch (guestfs_h *g)
       add_cmdline (g, "user,vlan=0,net=10.0.2.0/8");
 
       snprintf (buf, sizeof buf,
-                "guestfs_vmchannel=tcp:10.0.2.2:%d ", null_vmchannel_sock);
+                "guestfs_vmchannel=tcp:10.0.2.2:%d", null_vmchannel_sock);
       vmchannel = strdup (buf);
     }
 
@@ -1097,7 +1097,7 @@ guestfs__launch (guestfs_h *g)
       add_cmdline (g, "-net");
       add_cmdline (g, buf);
 
-      vmchannel = "guestfs_vmchannel=tcp:" GUESTFWD_ADDR ":" GUESTFWD_PORT " ";
+      vmchannel = "guestfs_vmchannel=tcp:" GUESTFWD_ADDR ":" GUESTFWD_PORT;
     }
 
     /* Not guestfwd.  HOPEFULLY this qemu uses the older -net channel
@@ -1112,7 +1112,7 @@ guestfs__launch (guestfs_h *g)
       add_cmdline (g, "-net");
       add_cmdline (g, "user,vlan=0,net=10.0.2.0/8");
 
-      vmchannel = "guestfs_vmchannel=tcp:" GUESTFWD_ADDR ":" GUESTFWD_PORT " ";
+      vmchannel = "guestfs_vmchannel=tcp:" GUESTFWD_ADDR ":" GUESTFWD_PORT;
     }
     add_cmdline (g, "-net");
     add_cmdline (g, "nic,model=" NET_IF ",vlan=0");
@@ -1128,13 +1128,13 @@ guestfs__launch (guestfs_h *g)
     /* Linux kernel command line. */
     snprintf (buf, sizeof buf,
               LINUX_CMDLINE
-              "%s"              /* (selinux) */
-              "%s"              /* (vmchannel) */
-              "%s"              /* (verbose) */
+              "%s "             /* (selinux) */
+              "%s "             /* (vmchannel) */
+              "%s "             /* (verbose) */
               "%s",             /* (append) */
-              g->selinux ? "selinux=1 enforcing=0 " : "selinux=0 ",
+              g->selinux ? "selinux=1 enforcing=0" : "selinux=0",
               vmchannel ? vmchannel : "",
-              g->verbose ? "guestfs_verbose=1 " : "",
+              g->verbose ? "guestfs_verbose=1" : "",
               g->append ? g->append : "");
 
     add_cmdline (g, "-kernel");
