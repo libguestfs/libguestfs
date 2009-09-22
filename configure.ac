@@ -157,38 +157,59 @@ AC_PATH_PROGS([QEMU],[$with_qemu],[no],
 test "x$QEMU" = "xno" && AC_MSG_ERROR([qemu must be installed])
 AC_DEFINE_UNQUOTED([QEMU],["$QEMU"],[Location of qemu binary.])
 
-dnl Check that the chosen qemu has vmchannel support.
-dnl http://lists.gnu.org/archive/html/qemu-devel/2009-02/msg01042.html
+dnl Check that the chosen qemu has vmchannel support or we can
+dnl fallback to null vmchannel (still using SLIRP).  See the
+dnl discussion in the README file.
 if test "x$vmchannel_test" != "xno"; then
-    AC_MSG_CHECKING([for "guestfwd" support in $QEMU])
+    AC_MSG_CHECKING([for guestfwd support in $QEMU])
     if $QEMU --help | grep -sq guestfwd; then
         AC_MSG_RESULT([yes])
+        vmchannel_guestfwd=guestfwd
     else
         AC_MSG_RESULT([no])
-        AC_MSG_CHECKING([for "-net channel" support in $QEMU])
+	# Note that this test must be conditional on the previous
+	# test failing.  This is because recent qemu will throw
+	# up an SDL window and hang if we try to run this test.
+        AC_MSG_CHECKING([for "-net channel" (old guestfwd) support in $QEMU])
         vmchannelout=`$QEMU -net channel /dev/zero 2>&1 ||:`
         echo "vmchannel test command output: $vmchannelout" >&AS_MESSAGE_LOG_FD
         if echo "$vmchannelout" | grep -sq "vmchannel wrong port number" ; then
             AC_MSG_RESULT([yes])
+            vmchannel_guestfwd=net_channel
         else
             AC_MSG_RESULT([no])
-            AC_MSG_FAILURE(
-[I did not find vmchannel support in $QEMU.
+            vmchannel_guestfwd=no
+        fi
+    fi
 
-vmchannel support is vital for libguestfs to operate.  You need a version
-of qemu >= 0.10, or the following patch backported to earlier versions:
+    AC_MSG_CHECKING([for "-net user" (user mode network) support in $QEMU])
+    if $QEMU --help | grep -sq -- "-net user"; then
+        AC_MSG_RESULT([yes])
+        vmchannel_net_user=yes
+    else
+        AC_MSG_RESULT([no])
+        vmchannel_net_user=no
+    fi
 
-http://lists.gnu.org/archive/html/qemu-devel/2009-02/msg01042.html
+    if test "x$vmchannel_net_user" = "xno" -a "x$vmchannel_guestfwd" = "xno"; then
+        AC_MSG_FAILURE(
+[I did not find user mode network or vmchannel support in
+$QEMU.
+
+Either user mode networking or vmchannel support is vital for
+libguestfs to operate.
+
+Please read the relevant section in the README file for more
+information about this.
 
 You can override this test by setting the environment variable
-vmchannel_test=no  However if you don't have vmchannel support
+vmchannel_test=no  However if you don't have the right support
 in your qemu, then this just delays the pain.
 
 If I am using the wrong qemu or you want to compile qemu from source
 and install it in another location, then you should configure with
 the --with-qemu option.
 ])
-        fi
     fi
 fi
 
