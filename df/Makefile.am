@@ -16,23 +16,23 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 EXTRA_DIST = \
-	run-df-locally \
-	virt-df.pl
+	run-df-locally
 
 if HAVE_DF
 
+bin_SCRIPTS = virt-df
 man_MANS = virt-df.1
 
 noinst_DATA = $(top_builddir)/html/virt-df.1.html
 
-virt-df.1: virt-df.pl
+virt-df.1: virt-df
 	$(POD2MAN) \
 	  --section 1 \
 	  -c "Virtualization Support" \
 	  --release "$(PACKAGE_NAME)-$(PACKAGE_VERSION)" \
 	  $< > $@-t && mv $@-t $@
 
-$(top_builddir)/html/virt-df.1.html: virt-df.pl
+$(top_builddir)/html/virt-df.1.html: virt-df
 	mkdir -p $(top_builddir)/html
 	cd $(top_builddir) && pod2html \
 	  --css 'pod.css' \
@@ -40,9 +40,5 @@ $(top_builddir)/html/virt-df.1.html: virt-df.pl
 	  --htmldir html \
 	  --outfile html/virt-df.1.html \
 	  df/$<
-
-install-data-hook:
-	mkdir -p $(DESTDIR)$(bindir)
-	install -m 0755 virt-df.pl $(DESTDIR)$(bindir)/virt-df
 
 endif

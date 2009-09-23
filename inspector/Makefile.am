@@ -16,23 +16,23 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 EXTRA_DIST = \
-	run-inspector-locally \
-	virt-inspector.pl
+	run-inspector-locally
 
 if HAVE_INSPECTOR
 
+bin_SCRIPTS = virt-inspector
 man_MANS = virt-inspector.1
 
 noinst_DATA = $(top_builddir)/html/virt-inspector.1.html
 
-virt-inspector.1: virt-inspector.pl
+virt-inspector.1: virt-inspector
 	$(POD2MAN) \
 	  --section 1 \
 	  -c "Virtualization Support" \
 	  --release "$(PACKAGE_NAME)-$(PACKAGE_VERSION)" \
 	  $< > $@-t && mv $@-t $@
 
-$(top_builddir)/html/virt-inspector.1.html: virt-inspector.pl
+$(top_builddir)/html/virt-inspector.1.html: virt-inspector
 	mkdir -p $(top_builddir)/html
 	cd $(top_builddir) && pod2html \
 	  --css 'pod.css' \
@@ -40,9 +40,5 @@ $(top_builddir)/html/virt-inspector.1.html: virt-inspector.pl
 	  --htmldir html \
 	  --outfile html/virt-inspector.1.html \
 	  inspector/$<
-
-install-data-hook:
-	mkdir -p $(DESTDIR)$(bindir)
-	install -m 0755 virt-inspector.pl $(DESTDIR)$(bindir)/virt-inspector
 
 endif

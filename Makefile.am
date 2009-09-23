@@ -164,7 +164,13 @@ dist-hook:
 # Update the list of translatable files in po/POTFILES.in.
 all-local:
 	cd $(srcdir); \
-	find $(DIST_SUBDIRS) -name '*.c' -o -name '*.pl' -o -name '*.pm' | \
+	find $(DIST_SUBDIRS) \
+	    -name '*.c' -o -name '*.pl' -o -name '*.pm' -o \
+	    -name 'virt-cat' -o \
+	    -name 'virt-df' -o \
+	    -name 'virt-edit' -o \
+	    -name 'virt-inspector' -o \
+	    -name 'virt-rescue' | \
 	grep -v '^perl/blib/' | \
 	grep -v '^capitests/' | \
 	grep -v '^daemon/lib/' | \
