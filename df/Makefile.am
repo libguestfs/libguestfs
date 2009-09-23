@@ -23,7 +23,7 @@ if HAVE_DF
 
 man_MANS = virt-df.1
 
-noinst_DATA = @top_builddir@/html/virt-df.1.html
+noinst_DATA = $(top_builddir)/html/virt-df.1.html
 
 virt-df.1: virt-df.pl
 	$(POD2MAN) \
@@ -32,9 +32,9 @@ virt-df.1: virt-df.pl
 	  --release "$(PACKAGE_NAME)-$(PACKAGE_VERSION)" \
 	  $< > $@
 
-@top_builddir@/html/virt-df.1.html: virt-df.pl
-	mkdir -p @top_builddir@/html
-	cd @top_builddir@ && pod2html \
+$(top_builddir)/html/virt-df.1.html: virt-df.pl
+	mkdir -p $(top_builddir)/html
+	cd $(top_builddir) && pod2html \
 	  --css 'pod.css' \
 	  --title 'virt-df, display free space on virtual filesystems' \
 	  --htmldir html \

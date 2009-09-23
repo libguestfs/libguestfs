@@ -23,7 +23,7 @@ if HAVE_EDIT
 
 man_MANS = virt-edit.1
 
-noinst_DATA = @top_builddir@/html/virt-edit.1.html
+noinst_DATA = $(top_builddir)/html/virt-edit.1.html
 
 virt-edit.1: virt-edit.pl
 	$(POD2MAN) \
@@ -32,9 +32,9 @@ virt-edit.1: virt-edit.pl
 	  --release "$(PACKAGE_NAME)-$(PACKAGE_VERSION)" \
 	  $< > $@
 
-@top_builddir@/html/virt-edit.1.html: virt-edit.pl
-	mkdir -p @top_builddir@/html
-	cd @top_builddir@ && pod2html \
+$(top_builddir)/html/virt-edit.1.html: virt-edit.pl
+	mkdir -p $(top_builddir)/html
+	cd $(top_builddir) && pod2html \
 	  --css 'pod.css' \
 	  --title 'virt-edit, edit a file in a virtual machine' \
 	  --htmldir html \

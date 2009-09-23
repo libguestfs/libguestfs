@@ -23,7 +23,7 @@ if HAVE_INSPECTOR
 
 man_MANS = virt-inspector.1
 
-noinst_DATA = @top_builddir@/html/virt-inspector.1.html
+noinst_DATA = $(top_builddir)/html/virt-inspector.1.html
 
 virt-inspector.1: virt-inspector.pl
 	$(POD2MAN) \
@@ -32,9 +32,9 @@ virt-inspector.1: virt-inspector.pl
 	  --release "$(PACKAGE_NAME)-$(PACKAGE_VERSION)" \
 	  $< > $@
 
-@top_builddir@/html/virt-inspector.1.html: virt-inspector.pl
-	mkdir -p @top_builddir@/html
-	cd @top_builddir@ && pod2html \
+$(top_builddir)/html/virt-inspector.1.html: virt-inspector.pl
+	mkdir -p $(top_builddir)/html
+	cd $(top_builddir) && pod2html \
 	  --css 'pod.css' \
 	  --title 'virt-inspector, display OS version, kernel, drivers, mount points, applications, etc. in a virtual machine' \
 	  --htmldir html \

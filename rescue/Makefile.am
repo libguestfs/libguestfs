@@ -23,7 +23,7 @@ if HAVE_RESCUE
 
 man_MANS = virt-rescue.1
 
-noinst_DATA = @top_builddir@/html/virt-rescue.1.html
+noinst_DATA = $(top_builddir)/html/virt-rescue.1.html
 
 virt-rescue.1: virt-rescue.pl
 	$(POD2MAN) \
@@ -32,9 +32,9 @@ virt-rescue.1: virt-rescue.pl
 	  --release "$(PACKAGE_NAME)-$(PACKAGE_VERSION)" \
 	  $< > $@
 
-@top_builddir@/html/virt-rescue.1.html: virt-rescue.pl
-	mkdir -p @top_builddir@/html
-	cd @top_builddir@ && pod2html \
+$(top_builddir)/html/virt-rescue.1.html: virt-rescue.pl
+	mkdir -p $(top_builddir)/html
+	cd $(top_builddir) && pod2html \
 	  --css 'pod.css' \
 	  --title 'virt-rescue, run a rescue shell on a virtual machine' \
 	  --htmldir html \

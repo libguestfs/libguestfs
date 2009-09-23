@@ -23,7 +23,7 @@ if HAVE_CAT
 
 man_MANS = virt-cat.1
 
-noinst_DATA = @top_builddir@/html/virt-cat.1.html
+noinst_DATA = $(top_builddir)/html/virt-cat.1.html
 
 virt-cat.1: virt-cat.pl
 	$(POD2MAN) \
@@ -32,9 +32,9 @@ virt-cat.1: virt-cat.pl
 	  --release "$(PACKAGE_NAME)-$(PACKAGE_VERSION)" \
 	  $< > $@
 
-@top_builddir@/html/virt-cat.1.html: virt-cat.pl
-	mkdir -p @top_builddir@/html
-	cd @top_builddir@ && pod2html \
+$(top_builddir)/html/virt-cat.1.html: virt-cat.pl
+	mkdir -p $(top_builddir)/html
+	cd $(top_builddir) && pod2html \
 	  --css 'pod.css' \
 	  --title 'virt-cat, display a file in a virtual machine' \
 	  --htmldir html \
