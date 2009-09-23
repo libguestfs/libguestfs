@@ -1,5 +1,5 @@
 #!/usr/bin/perl -w
-# virt-cat
+# virt-edit
 # Copyright (C) 2009 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -25,57 +25,37 @@ use Sys::Guestfs::Lib qw(open_guest get_partitions resolve_windows_path
   inspect_operating_systems mount_operating_system);
 use Pod::Usage;
 use Getopt::Long;
+use File::Temp qw/tempfile/;
 use Locale::TextDomain 'libguestfs';
 
 =encoding utf8
 
 =head1 NAME
 
-virt-cat - Display a file in a virtual machine
+virt-edit - Edit a file in a virtual machine
 
 =head1 SYNOPSIS
 
- virt-cat [--options] domname file
+ virt-edit [--options] domname file
 
- virt-cat [--options] disk.img [disk.img ...] file
+ virt-edit [--options] disk.img [disk.img ...] file
 
 =head1 DESCRIPTION
 
-C<virt-cat> is a command line tool to display the contents of C<file>
-where C<file> exists in the named virtual machine (or disk image).
+C<virt-edit> is a command line tool to edit C<file> where C<file>
+exists in the named virtual machine (or disk image).
 
-C<virt-cat> can be used to quickly view a single file.  To edit a
-file, use C<virt-edit>.  For more complex cases you should look at the
-L<guestfish(1)> tool.
+B<Note> you must I<not> use virt-edit on live virtual machines.  If
+you do this, you risk disk corruption in the VM.
+
+If you want to just view a file, use L<virt-cat(1)>.  For more complex
+cases you should look at the L<guestfish(1)> tool.
 
 =head1 EXAMPLES
 
-Display C</etc/fstab> file from inside the libvirt VM called
-C<mydomain>:
+ virt-edit mydomain /boot/grub/grub.conf
 
- virt-cat mydomain /etc/fstab
-
-List syslog messages from a VM:
-
- virt-cat mydomain /var/log/messages | tail
-
-Find out what DHCP IP address a VM acquired:
-
- virt-cat mydomain /var/log/messages | grep 'dhclient: bound to' | tail
-
-Find out what packages were recently installed:
-
- virt-cat mydomain /var/log/yum.log | tail
-
-Find out who is logged on inside a virtual machine:
-
- virt-cat mydomain /var/run/utmp > /tmp/utmp
- who /tmp/utmp
-
-or who was logged on:
-
- virt-cat mydomain /var/log/wtmp > /tmp/wtmp
- last -f /tmp/wtmp
+ virt-edit mydomain /etc/passwd
 
 =head1 OPTIONS
 
@@ -125,16 +105,16 @@ if ($version) {
     exit
 }
 
-pod2usage (__"virt-cat: no image, VM names or filenames to cat given")
+pod2usage (__"virt-edit: no image, VM names or filenames to edit given")
     if @ARGV <= 1;
 
 my $filename = pop @ARGV;
 
 my $g;
 if ($uri) {
-    $g = open_guest (\@ARGV, address => $uri);
+    $g = open_guest (\@ARGV, address => $uri, rw => 1);
 } else {
-    $g = open_guest (\@ARGV);
+    $g = open_guest (\@ARGV, rw => 1);
 }
 
 $g->launch ();
@@ -151,21 +131,57 @@ my $oses = inspect_operating_systems ($g, \%fses);
 
 my @roots = keys %$oses;
 die __"no root device found in this operating system image" if @roots == 0;
-die __"multiboot operating systems are not supported by virt-cat" if @roots > 1;
+die __"multiboot operating systems are not supported by virt-edit" if @roots > 1;
 my $root_dev = $roots[0];
 
 my $os = $oses->{$root_dev};
-mount_operating_system ($g, $os);
+mount_operating_system ($g, $os, 0);
+
+my ($fh, $tempname) = tempfile ();
 
 # Allow this to fail in case eg. the file does not exist.
-# NB: https://bugzilla.redhat.com/show_bug.cgi?id=501888
-print $g->download($filename, "/dev/stdout");
+$g->download($filename, $tempname);
+
+my $oldctime = (stat ($tempname))[10];
+
+my $editor = $ENV{EDITOR};
+$editor ||= "vi";
+system ("$editor $tempname") == 0
+    or die "edit failed: $editor: $?";
+
+my $newctime = (stat ($tempname))[10];
+
+if ($oldctime != $newctime) {
+    $g->upload ($tempname, $filename)
+} else {
+    print __"File not changed.\n";
+}
+
+$g->sync ();
+$g->umount_all ();
+
+undef $g;
+
+exit 0;
+
+=head1 ENVIRONMENT VARIABLES
+
+=over 4
+
+=item C<EDITOR>
+
+If set, this string is used as the editor.  It may contain arguments,
+eg. C<"emacs -nw">
+
+If not set, C<vi> is used.
+
+=back
 
 =head1 SEE ALSO
 
 L<guestfs(3)>,
 L<guestfish(1)>,
-L<virt-edit(1)>,
+L<virt-cat(1)>,
 L<Sys::Guestfs(3)>,
 L<Sys::Guestfs::Lib(3)>,
 L<Sys::Virt(3)>,

@@ -653,12 +653,14 @@ for pm in Pod::Usage Getopt::Long Sys::Virt Data::Dumper XML::Writer Locale::Tex
     fi
 done
 if test "x$missing_perl_modules" = "xyes"; then
-    AC_MSG_WARN([some Perl modules required to compile virt-cat, virt-df, virt-inspector and virt-rescue are missing])
+    AC_MSG_WARN([some Perl modules required to compile virt-cat, virt-df, virt-edit, virt-inspector and virt-rescue are missing])
 fi
 
 AM_CONDITIONAL([HAVE_CAT],
     [test "x$PERL" != "xno" -a "x$missing_perl_modules" != "xyes"])
 AM_CONDITIONAL([HAVE_DF],
+    [test "x$PERL" != "xno" -a "x$missing_perl_modules" != "xyes"])
+AM_CONDITIONAL([HAVE_EDIT],
     [test "x$PERL" != "xno" -a "x$missing_perl_modules" != "xyes"])
 AM_CONDITIONAL([HAVE_INSPECTOR],
     [test "x$PERL" != "xno" -a "x$missing_perl_modules" != "xyes"])
@@ -701,6 +703,7 @@ AC_CONFIG_FILES([Makefile
                  haskell/Makefile
                  cat/Makefile
                  df/Makefile
+                 edit/Makefile
                  inspector/Makefile
                  rescue/Makefile
                  libguestfs.pc
@@ -734,6 +737,8 @@ echo -n "virt-cat ............................ "
 if test "x$HAVE_CAT" = "x"; then echo "yes"; else echo "no"; fi
 echo -n "virt-df ............................. "
 if test "x$HAVE_DF" = "x"; then echo "yes"; else echo "no"; fi
+echo -n "virt-edit ........................... "
+if test "x$HAVE_EDIT" = "x"; then echo "yes"; else echo "no"; fi
 echo -n "virt-inspector ...................... "
 if test "x$HAVE_INSPECTOR" = "x"; then echo "yes"; else echo "no"; fi
 echo -n "virt-rescue ......................... "

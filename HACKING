@@ -83,6 +83,9 @@ daemon/
 df/
         The virt-df tool.
 
+edit/
+	The virt-edit tool.
+
 examples/
         The examples.
 

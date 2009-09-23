@@ -50,6 +50,9 @@ endif
 if HAVE_RESCUE
 SUBDIRS += rescue
 endif
+if HAVE_EDIT
+SUBDIRS += edit
+endif
 
 EXTRA_DIST = \
 	guestfs.pod guestfs-actions.pod guestfs-structs.pod \
