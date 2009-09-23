@@ -25,9 +25,6 @@ use Sys::Guestfs::Lib qw(open_guest get_partitions resolve_windows_path
   inspect_operating_systems mount_operating_system);
 use Pod::Usage;
 use Getopt::Long;
-use Data::Dumper;
-use File::Temp qw/tempdir/;
-use XML::Writer;
 use Locale::TextDomain 'libguestfs';
 
 =encoding utf8
