@@ -34,7 +34,7 @@ my $path = $0;
 
 # Follow symlinks until we get to the real file
 while(-l $path) {
-    my $link = readlink($path);
+    my $link = readlink($path) or die "readlink: $path: $!";
     if(File::Spec->file_name_is_absolute($link)) {
         $path = $link;
     } else {
