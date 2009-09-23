@@ -16,7 +16,8 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 EXTRA_DIST = \
-	run-df-locally
+	run-df-locally \
+	virt-df
 
 if HAVE_DF
 

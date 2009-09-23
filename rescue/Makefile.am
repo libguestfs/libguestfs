@@ -16,7 +16,8 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 EXTRA_DIST = \
-	run-rescue-locally
+	run-rescue-locally \
+	virt-rescue
 
 if HAVE_RESCUE
 
