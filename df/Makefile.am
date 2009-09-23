@@ -30,7 +30,7 @@ virt-df.1: virt-df.pl
 	  --section 1 \
 	  -c "Virtualization Support" \
 	  --release "$(PACKAGE_NAME)-$(PACKAGE_VERSION)" \
-	  $< > $@
+	  $< > $@-t && mv $@-t $@
 
 $(top_builddir)/html/virt-df.1.html: virt-df.pl
 	mkdir -p $(top_builddir)/html

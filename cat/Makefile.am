@@ -30,7 +30,7 @@ virt-cat.1: virt-cat.pl
 	  --section 1 \
 	  -c "Virtualization Support" \
 	  --release "$(PACKAGE_NAME)-$(PACKAGE_VERSION)" \
-	  $< > $@
+	  $< > $@-t && mv $@-t $@
 
 $(top_builddir)/html/virt-cat.1.html: virt-cat.pl
 	mkdir -p $(top_builddir)/html

@@ -30,7 +30,7 @@ virt-edit.1: virt-edit.pl
 	  --section 1 \
 	  -c "Virtualization Support" \
 	  --release "$(PACKAGE_NAME)-$(PACKAGE_VERSION)" \
-	  $< > $@
+	  $< > $@-t && mv $@-t $@
 
 $(top_builddir)/html/virt-edit.1.html: virt-edit.pl
 	mkdir -p $(top_builddir)/html

@@ -30,7 +30,7 @@ virt-rescue.1: virt-rescue.pl
 	  --section 1 \
 	  -c "Virtualization Support" \
 	  --release "$(PACKAGE_NAME)-$(PACKAGE_VERSION)" \
-	  $< > $@
+	  $< > $@-t && mv $@-t $@
 
 $(top_builddir)/html/virt-rescue.1.html: virt-rescue.pl
 	mkdir -p $(top_builddir)/html
