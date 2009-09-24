@@ -27,46 +27,29 @@ url_dir_list = \
 # Tests not to run as part of "make distcheck".
 local-checks-to-skip =			\
   sc_po_check				\
-  changelog-check			\
-  check-AUTHORS				\
-  makefile-check			\
-  makefile_path_separator_check		\
-  patch-check				\
   sc_GPL_version			\
-  sc_always_defined_macros		\
-  sc_cast_of_alloca_return_value	\
-  sc_dd_max_sym_length			\
   sc_error_exit_success			\
   sc_file_system			\
-  sc_immutable_NEWS			\
   sc_makefile_path_separator_check	\
   sc_obsolete_symbols			\
-  sc_prohibit_S_IS_definition		\
   sc_prohibit_atoi_atof			\
-  sc_prohibit_jm_in_m4			\
   sc_prohibit_quote_without_use		\
   sc_prohibit_quotearg_without_use	\
   sc_prohibit_stat_st_blocks		\
   sc_prohibit_strcmp_and_strncmp	\
   sc_prohibit_strcmp			\
-  sc_root_tests				\
   sc_space_tab				\
-  sc_sun_os_names			\
-  sc_system_h_headers			\
-  sc_tight_scope			\
   sc_two_space_separator_in_usage	\
   sc_error_message_uppercase		\
   sc_program_name			\
-  sc_require_test_exit_idiom		\
-  sc_makefile_check			\
   $(disable_temporarily)		\
   sc_useless_cpp_parens
 
 disable_temporarily =			\
+  sc_makefile_check			\
   sc_unmarked_diagnostics		\
   sc_prohibit_ctype_h			\
   sc_prohibit_asprintf			\
-  sc_m4_quote_check			\
   sc_avoid_ctype_macros			\
   sc_avoid_write
 
