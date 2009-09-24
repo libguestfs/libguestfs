@@ -26,7 +26,6 @@
 #include <getopt.h>
 #include <signal.h>
 #include <assert.h>
-#include <ctype.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 
@@ -38,6 +37,7 @@
 #include <guestfs.h>
 
 #include "fish.h"
+#include "c-ctype.h"
 #include "closeout.h"
 #include "progname.h"
 
@@ -579,7 +579,7 @@ script (int prompt)
 
     /* Skip any initial whitespace before the command. */
   again:
-    while (*buf && isspace (*buf))
+    while (*buf && c_isspace (*buf))
       buf++;
 
     if (!*buf) continue;
@@ -1127,7 +1127,7 @@ parse_string_list (const char *str)
      * as separate fragments because we can't just copy it: we have to remove
      * the \.
      */
-    while (*p && (!isblank (*p) || in_quote)) {
+    while (*p && (!c_isblank (*p) || in_quote)) {
       const char *end = p;
 
       /* Check if the fragment starts with a quote */

@@ -34,10 +34,10 @@
 #include <sys/wait.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include <ctype.h>
 #include <signal.h>
 #include <printf.h>
 
+#include "c-ctype.h"
 #include "daemon.h"
 
 static char *read_cmdline (void);
@@ -835,7 +835,7 @@ print_shell_quote (FILE *stream,
                    const struct printf_info *info ATTRIBUTE_UNUSED,
                    const void *const *args)
 {
-#define SAFE(c) (isalnum((c)) ||					\
+#define SAFE(c) (c_isalnum((c)) ||					\
                  (c) == '/' || (c) == '-' || (c) == '_' || (c) == '.')
   int i, len;
   const char *str = *((const char **) (args[0]));

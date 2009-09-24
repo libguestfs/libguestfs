@@ -4956,11 +4956,11 @@ and generate_daemon_actions () =
   pr "#include <stdlib.h>\n";
   pr "#include <string.h>\n";
   pr "#include <inttypes.h>\n";
-  pr "#include <ctype.h>\n";
   pr "#include <rpc/types.h>\n";
   pr "#include <rpc/xdr.h>\n";
   pr "\n";
   pr "#include \"daemon.h\"\n";
+  pr "#include \"c-ctype.h\"\n";
   pr "#include \"../src/guestfs_protocol.h\"\n";
   pr "#include \"actions.h\"\n";
   pr "\n";
@@ -5186,7 +5186,7 @@ and generate_daemon_actions () =
         pr "    fprintf (stderr, \"%%s: failed: passed a NULL string\\n\", __func__);\n";
         pr "    return -1;\n";
         pr "  }\n";
-        pr "  if (!*str || isspace (*str)) {\n";
+        pr "  if (!*str || c_isspace (*str)) {\n";
         pr "    fprintf (stderr, \"%%s: failed: passed a empty string or one beginning with whitespace\\n\", __func__);\n";
         pr "    return -1;\n";
         pr "  }\n";
@@ -5288,7 +5288,7 @@ and generate_daemon_actions () =
         pr "      pend++;\n";
         pr "    }\n";
         pr "\n";
-        pr "    while (*p && isspace (*p))	/* Skip any leading whitespace. */\n";
+        pr "    while (*p && c_isspace (*p))	/* Skip any leading whitespace. */\n";
         pr "      p++;\n";
         pr "\n";
         pr "    if (!*p) {			/* Empty line?  Skip it. */\n";
@@ -6073,9 +6073,9 @@ and generate_fish_cmds () =
   pr "#include <stdlib.h>\n";
   pr "#include <string.h>\n";
   pr "#include <inttypes.h>\n";
-  pr "#include <ctype.h>\n";
   pr "\n";
   pr "#include <guestfs.h>\n";
+  pr "#include \"c-ctype.h\"\n";
   pr "#include \"fish.h\"\n";
   pr "\n";
 
@@ -6193,7 +6193,7 @@ and generate_fish_cmds () =
         | name, FBuffer ->
             pr "  printf (\"%%s%s: \", indent);\n" name;
             pr "  for (i = 0; i < %s->%s_len; ++i)\n" typ name;
-            pr "    if (isprint (%s->%s[i]))\n" typ name;
+            pr "    if (c_isprint (%s->%s[i]))\n" typ name;
             pr "      printf (\"%%s%%c\", indent, %s->%s[i]);\n" typ name;
             pr "    else\n";
             pr "      printf (\"%%s\\\\x%%02x\", indent, %s->%s[i]);\n" typ name;

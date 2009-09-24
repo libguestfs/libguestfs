@@ -16,9 +16,9 @@
 #include <stdint.h>
 #include <inttypes.h>
 #include <unistd.h>
-#include <ctype.h>
 
 #include <guestfs.h>
+#include "c-ctype.h"
 
 /* Note that if any API call fails, we can just exit.  The
  * standard error handler will have printed the error message
@@ -149,7 +149,7 @@ display_partitions (guestfs_h *g, const char *dev)
    * That's a limitation of sorts of the Linux kernel.  (Actually,
    * we could do this if we add the kpartx program to libguestfs).
    */
-  if (strncmp (dev, "/dev/sd", 7) != 0 || isdigit (dev[strlen(dev)-1])) {
+  if (strncmp (dev, "/dev/sd", 7) != 0 || c_isdigit (dev[strlen(dev)-1])) {
     printf ("<vm-image dev=\"%s\"/>\n", dev);
     return;
   }

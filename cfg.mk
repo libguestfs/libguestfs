@@ -50,7 +50,6 @@ disable_temporarily =			\
   sc_unmarked_diagnostics		\
   sc_prohibit_ctype_h			\
   sc_prohibit_asprintf			\
-  sc_avoid_ctype_macros			\
   sc_avoid_write
 
 # Avoid uses of write(2).  Either switch to streams (fwrite), or use

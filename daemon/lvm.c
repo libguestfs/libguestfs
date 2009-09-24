@@ -22,9 +22,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <ctype.h>
 
 #include "daemon.h"
+#include "c-ctype.h"
 #include "actions.h"
 
 /* LVM actions.  Keep an eye on liblvm, although at the time
@@ -49,12 +49,12 @@ convert_lvm_output (char *out, const char *prefix)
       pend++;
     }
 
-    while (*p && isspace (*p))	/* Skip any leading whitespace. */
+    while (*p && c_isspace (*p))	/* Skip any leading whitespace. */
       p++;
 
     /* Sigh, skip trailing whitespace too.  "pvs", I'm looking at you. */
     len = strlen (p)-1;
-    while (*p && isspace (p[len]))
+    while (*p && c_isspace (p[len]))
       p[len--] = '\0';
 
     if (!*p) {			/* Empty line?  Skip it. */

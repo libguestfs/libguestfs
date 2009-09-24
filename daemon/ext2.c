@@ -21,10 +21,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <ctype.h>
 
 #include "../src/guestfs_protocol.h"
 #include "daemon.h"
+#include "c-ctype.h"
 #include "actions.h"
 
 char **
@@ -72,7 +72,7 @@ do_tune2fs_l (const char *device)
     if (colon) {
       *colon = '\0';
 
-      do { colon++; } while (*colon && isspace (*colon));
+      do { colon++; } while (*colon && c_isspace (*colon));
 
       if (add_string (&ret, &size, &alloc, p) == -1) {
         free (out);
@@ -202,7 +202,7 @@ do_get_e2uuid (const char *device)
   }
 
   p += 17;
-  while (*p && isspace (*p))
+  while (*p && c_isspace (*p))
     p++;
   if (!*p) {
     reply_with_error ("malformed Filesystem UUID in the output of tune2fs -l");
@@ -212,7 +212,7 @@ do_get_e2uuid (const char *device)
 
   /* Now 'p' hopefully points to the start of the UUID. */
   q = p;
-  while (*q && (isxdigit (*q) || *q == '-'))
+  while (*q && (c_isxdigit (*q) || *q == '-'))
     q++;
   if (!*q) {
     reply_with_error ("malformed Filesystem UUID in the output of tune2fs -l");

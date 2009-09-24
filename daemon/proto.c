@@ -24,11 +24,11 @@
 #include <string.h>
 #include <unistd.h>
 #include <errno.h>
-#include <ctype.h>
 #include <sys/param.h>		/* defines MIN */
 #include <rpc/types.h>
 #include <rpc/xdr.h>
 
+#include "c-ctype.h"
 #include "ignore-value.h"
 
 #include "daemon.h"
@@ -96,7 +96,7 @@ main_loop (int _sock)
           printf ("   ");
         printf ("|");
         for (j = i; j < MIN (i+16, len); ++j)
-          if (isprint (buf[j]))
+          if (c_isprint (buf[j]))
             printf ("%c", buf[j]);
           else
             printf (".");

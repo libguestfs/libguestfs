@@ -25,7 +25,6 @@
 #include <stdarg.h>
 #include <stddef.h>
 #include <unistd.h>
-#include <ctype.h>
 #include <string.h>
 #include <fcntl.h>
 #include <time.h>
@@ -62,6 +61,7 @@
 #include "guestfs.h"
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
+#include "c-ctype.h"
 #include "ignore-value.h"
 
 #ifdef HAVE_GETTEXT
@@ -2136,7 +2136,7 @@ recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
         printf ("   ");
       printf ("|");
       for (j = i; j < MIN (i+16, nr); ++j)
-        if (isprint ((*(char **)buf_rtn)[j]))
+        if (c_isprint ((*(char **)buf_rtn)[j]))
           printf ("%c", (*(char **)buf_rtn)[j]);
         else
           printf (".");
