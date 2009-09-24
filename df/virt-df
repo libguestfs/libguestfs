@@ -107,8 +107,9 @@ my $csv;
 
 =item B<--csv>
 
-Write out the results in CSV format (comma-separated values).
-This format can be imported easily into databases and spreadsheets.
+Write out the results in CSV format (comma-separated values).  This
+format can be imported easily into databases and spreadsheets, but
+read L</NOTE ABOUT CSV FORMAT> below.
 
 =cut
 
@@ -308,6 +309,30 @@ sub human_size
         sprintf "%.1fG", ($_ / 1024 / 1024);
     }
 }
+
+=head1 NOTE ABOUT CSV FORMAT
+
+Comma-separated values (CSV) is a deceptive format.  It I<seems> like
+it should be easy to parse, but it is definitely not easy to parse.
+
+Myth: Just split fields at commas.  Reality: This does I<not> work
+reliably.  This example has two columns:
+
+ "foo,bar",baz
+
+Myth: Read the file one line at a time.  Reality: This does I<not>
+work reliably.  This example has one row:
+
+ "foo
+ bar",baz
+
+For shell scripts, use C<csvtool> (L<http://merjis.com/developers/csv>
+also packaged in major Linux distributions).
+
+For other languages, use a CSV processing library (eg. C<Text::CSV>
+for Perl or Python's built-in csv library).
+
+Most spreadsheets and databases can import CSV directly.
 
 =head1 SEE ALSO
 
