@@ -167,9 +167,9 @@ if test "x$vmchannel_test" != "xno"; then
         vmchannel_guestfwd=guestfwd
     else
         AC_MSG_RESULT([no])
-	# Note that this test must be conditional on the previous
-	# test failing.  This is because recent qemu will throw
-	# up an SDL window and hang if we try to run this test.
+        # Note that this test must be conditional on the previous
+        # test failing.  This is because recent qemu will throw
+        # up an SDL window and hang if we try to run this test.
         AC_MSG_CHECKING([for "-net channel" (old guestfwd) support in $QEMU])
         vmchannelout=`$QEMU -net channel /dev/zero 2>&1 ||:`
         echo "vmchannel test command output: $vmchannelout" >&AS_MESSAGE_LOG_FD

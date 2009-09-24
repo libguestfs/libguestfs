@@ -84,7 +84,7 @@ df/
         The virt-df tool.
 
 edit/
-	The virt-edit tool.
+        The virt-edit tool.
 
 examples/
         The examples.
@@ -126,7 +126,7 @@ regressions/
         Regression tests.
 
 rescue/
-	The virt-rescue tool.
+        The virt-rescue tool.
 
 ruby/
         Ruby bindings.

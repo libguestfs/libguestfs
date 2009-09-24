@@ -111,7 +111,7 @@ Open the image read-only.
 GetOptions ("help|?" => \$help,
             "version" => \$version,
             "connect|c=s" => \$uri,
-	    "ro|r" => \$readonly,
+            "ro|r" => \$readonly,
     ) or pod2usage (2);
 pod2usage (1) if $help;
 if ($version) {

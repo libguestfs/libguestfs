@@ -4674,8 +4674,8 @@ check_state (guestfs_h *g, const char *caller)
 
     let needs_i =
       List.exists (function
-		   | StringList _ | DeviceList _ -> true
-		   | _ -> false) (snd style) in
+                   | StringList _ | DeviceList _ -> true
+                   | _ -> false) (snd style) in
     if needs_i then (
       pr "    int i;\n";
       pr "\n"
@@ -4690,24 +4690,24 @@ check_state (guestfs_h *g, const char *caller)
       | Dev_or_Path n
       | FileIn n
       | FileOut n ->
-	  (* guestfish doesn't support string escaping, so neither do we *)
-	  pr "    printf (\" \\\"%%s\\\"\", %s);\n" n
+          (* guestfish doesn't support string escaping, so neither do we *)
+          pr "    printf (\" \\\"%%s\\\"\", %s);\n" n
       | OptString n ->			(* string option *)
-	  pr "    if (%s) printf (\" \\\"%%s\\\"\", %s);\n" n n;
-	  pr "    else printf (\" null\");\n"
+          pr "    if (%s) printf (\" \\\"%%s\\\"\", %s);\n" n n;
+          pr "    else printf (\" null\");\n"
       | StringList n
       | DeviceList n ->			(* string list *)
-	  pr "    putchar (' ');\n";
-	  pr "    putchar ('\"');\n";
-	  pr "    for (i = 0; %s[i]; ++i) {\n" n;
-	  pr "      if (i > 0) putchar (' ');\n";
-	  pr "      fputs (%s[i], stdout);\n" n;
-	  pr "    }\n";
-	  pr "    putchar ('\"');\n";
+          pr "    putchar (' ');\n";
+          pr "    putchar ('\"');\n";
+          pr "    for (i = 0; %s[i]; ++i) {\n" n;
+          pr "      if (i > 0) putchar (' ');\n";
+          pr "      fputs (%s[i], stdout);\n" n;
+          pr "    }\n";
+          pr "    putchar ('\"');\n";
       | Bool n ->			(* boolean *)
-	  pr "    fputs (%s ? \" true\" : \" false\", stdout);\n" n
+          pr "    fputs (%s ? \" true\" : \" false\", stdout);\n" n
       | Int n ->			(* int *)
-	  pr "    printf (\" %%d\", %s);\n" n
+          pr "    printf (\" %%d\", %s);\n" n
     ) (snd style);
     pr "    putchar ('\\n');\n";
     pr "  }\n";
@@ -4759,16 +4759,16 @@ check_state (guestfs_h *g, const char *caller)
       pr "  guestfs_message_header hdr;\n";
       pr "  guestfs_message_error err;\n";
       let has_ret =
-	match fst style with
-	| RErr -> false
-	| RConstString _ | RConstOptString _ ->
+        match fst style with
+        | RErr -> false
+        | RConstString _ | RConstOptString _ ->
             failwithf "RConstString|RConstOptString cannot be used by daemon functions"
-	| RInt _ | RInt64 _
-	| RBool _ | RString _ | RStringList _
-	| RStruct _ | RStructList _
-	| RHashtable _ | RBufferOut _ ->
+        | RInt _ | RInt64 _
+        | RBool _ | RString _ | RStringList _
+        | RStruct _ | RStructList _
+        | RHashtable _ | RBufferOut _ ->
             pr "  struct %s_ret ret;\n" name;
-	    true in
+            true in
 
       pr "  int serial;\n";
       pr "  int r;\n";
@@ -4835,7 +4835,7 @@ check_state (guestfs_h *g, const char *caller)
       pr "\n";
       pr "  r = guestfs___recv (g, \"%s\", &hdr, &err,\n        " shortname;
       if not has_ret then
-	pr "NULL, NULL"
+        pr "NULL, NULL"
       else
         pr "(xdrproc_t) xdr_guestfs_%s_ret, (char *) &ret" shortname;
       pr ");\n";
