@@ -1,2 +1,6 @@
 All the examples in the ocaml/examples/ subdirectory may be freely
 copied without any restrictions.
+
+The files 'Throbber.png' and 'Throbber.gif' come from the source to
+Firefox, and you should check the Firefox license before
+redistributing those files.

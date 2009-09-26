@@ -133,6 +133,8 @@ ocaml/bindtests
 ocaml/bindtests.ml
 ocaml/dllmlguestfs.so
 ocaml/examples/lvs
+ocaml/examples/throbber.ml
+ocaml/examples/viewer
 ocaml/guestfs_c_actions.c
 ocaml/guestfs.ml
 ocaml/guestfs.mli

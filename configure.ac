@@ -416,6 +416,14 @@ AC_PROG_OCAML
 AC_PROG_FINDLIB
 AM_CONDITIONAL([HAVE_OCAML],[test "x$OCAMLC" != "xno" -a "x$OCAMLFIND" != "xno"])
 
+dnl Build the OCaml viewer example.
+AC_ARG_ENABLE([ocaml-viewer],
+        [AS_HELP_STRING([--enable-ocaml-viewer],
+          [enable OCaml viewer (see ocaml/examples) @<:@default=no@:>@])],
+        [],
+        [enable_ocaml_viewer=no])
+AM_CONDITIONAL([BUILD_OCAML_VIEWER],[test "x$enable_ocaml_viewer" = "xyes"])
+
 dnl Check for Perl (optional, for Perl bindings).
 dnl XXX This isn't quite right, we should check for Perl devel library.
 AC_CHECK_PROG([PERL],[perl],[perl],[no])
