@@ -227,6 +227,7 @@ end = struct
 	*)
        debug "Slave.slave_loop: command failed";
 
+       !busy_cb `Idle;
        with_lock q_lock (fun () -> Q.clear q);
        GtkThread.async !failure_cb exn
     );
@@ -383,7 +384,13 @@ type display_state = {
  * necessary to turn the exception into an error message.
  *)
 let failure ds exn =
-  debug "failure callback: %s" (Printexc.to_string exn)
+  let title = "Error" in
+  let msg = Printexc.to_string exn in
+  debug "failure callback: %s" msg;
+  let icon = GMisc.image () in
+  icon#set_stock `DIALOG_ERROR;
+  icon#set_icon_size `DIALOG;
+  GToolbox.message_box ~title ~icon msg
 
 (* This is called in the main thread when the slave thread transitions
  * to busy or idle.
