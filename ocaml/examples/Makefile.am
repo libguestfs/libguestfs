@@ -13,11 +13,11 @@ if BUILD_OCAML_VIEWER
 
 noinst_SCRIPTS += viewer
 
-viewer: throbber.ml viewer.ml
-	$(OCAMLFIND) ocamlopt \
+viewer: throbber.ml xmllight_loader.mli xmllight_loader.ml viewer.ml
+	ocamlducefind opt \
 	  -warn-error A \
 	  -thread \
-	  -package libvirt,lablgtk2,extlib,xml-light,threads -I .. \
+	  -package libvirt,lablgtk2,extlib,xml-light,ocamlduce,threads -I .. \
 	  -predicates init,threads \
 	  -linkpkg mlguestfs.cmxa gtkThread.cmx \
 	  $^ -o $@

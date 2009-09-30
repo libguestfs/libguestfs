@@ -10,6 +10,7 @@
  *   - extlib (http://code.google.com/p/ocaml-extlib/)
  *   - lablgtk2 (http://wwwfun.kurims.kyoto-u.ac.jp/soft/lsl/lablgtk.html
  *   - xml-light (http://tech.motion-twin.com/xmllight.html)
+ *   - cduce and ocamlduce (http://cduce.org/)
  *   - ocaml-libvirt (http://libvirt.org/ocaml)
  *   - ocaml-libguestfs
  *
@@ -314,52 +315,18 @@ end = struct
     (match !dom with Some dom -> D.free dom | None -> ());
     dom := None
 
-  (* This would be much simpler if OCaml had either a decent XPath
-   * implementation, or if ocamlduce was stable enough that we
-   * could rely on it being available.  So this is *not* an example
-   * of either good OCaml or good programming. XXX
-   *)
   and get_devices_from_xml xml =
-    let xml = Xml.parse_string xml in
-    let devices =
-      match xml with
-      | Xml.Element ("domain", _, children) ->
-	  let devices =
-	    List.filter_map (
-	      function
-	      | Xml.Element ("devices", _, devices) -> Some devices
-	      | _ -> None
-	    ) children in
-	  List.concat devices
-      | _ ->
-	  failwith "get_xml_desc didn't return <domain/>" in
-    let rec source_dev_of = function
-      | [] -> None
-      | Xml.Element ("source", attrs, _) :: rest ->
-	  (try Some (List.assoc "dev" attrs)
-	   with Not_found -> source_dev_of rest)
-      | _ :: rest -> source_dev_of rest
-    in
-    let rec source_file_of = function
-      | [] -> None
-      | Xml.Element ("source", attrs, _) :: rest ->
-	  (try Some (List.assoc "file" attrs)
-	   with Not_found -> source_file_of rest)
-      | _ :: rest -> source_file_of rest
-    in
-    let devs =
-      List.filter_map (
-	function
-	| Xml.Element ("disk", _, children) -> source_dev_of children
-	| _ -> None
-      ) devices in
-    let files =
-      List.filter_map (
-	function
-	| Xml.Element ("disk", _, children) -> source_file_of children
-	| _ -> None
-      ) devices in
-    devs @ files
+    (* Lengthy discussion of the merits or otherwise of this code here:
+     * http://groups.google.com/group/fa.caml/browse_thread/thread/48e05d49b0f21b8a/5296bceb31ebfff3
+     *)
+    let xml = Xmllight_loader.from_string xml in
+    let xs = {{ [xml] }} in
+    let xs = {{ (((xs.(<domain..>_)) / .(<devices..>_)) / .(<disk..>_)) / }} in
+    let xs = {{ map xs with
+		| <source dev=(Latin1 & s) ..>_
+                | <source file=(Latin1 & s) ..>_ -> [s]
+                | _ -> [] }} in
+    {: xs :}
 end
 (* End of slave thread code. *)
 (*----------------------------------------------------------------------*)
