@@ -247,10 +247,9 @@ Windows), the distribution and version.
 The diagram above shows what we return for each OS.
 
 With the I<--xml> option the output is mapped into an XML document.
-Unfortunately there is no clear schema for this document
-(contributions welcome) but you can get an idea of the format by
-looking at other documents and as a last resort the source for this
-program.
+There is a RELAX-NG schema for this XML in the file
+I<virt-inspector.rng> which normally ships with virt-inspector, or can
+be found in the source.
 
 With the I<--fish> or I<--ro-fish> option the mount points are mapped to
 L<guestfish(1)> command line parameters, so that you can go in

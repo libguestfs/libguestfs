@@ -1,0 +1,168 @@
+<grammar xmlns="http://relaxng.org/ns/structure/1.0">
+  <!-- -*- xml -*-
+  This is a RELAX NG schema for the output of 'virt-inspector - -xml'.
+
+  To validate an existing document against this schema, you can
+  use xmllint, like this:
+
+    virt-inspector - -xml Foo > output.xml
+    xmllint - -noout - -relaxng virt-inspector.rng output.xml
+
+  (Note that because of limitations of XML, I have had to put spaces
+  between double dashes in the above code.  Those spaces should not
+  be there in what you type on the command line).
+
+  Written by Richard W.M. Jones, with a little help from Daniel
+  Veillard.
+
+  This file can be freely copied and modified without restrictions.
+  -->
+  <start>
+    <element name="operatingsystems">
+      <oneOrMore>
+	<element name="operatingsystem">
+	  <interleave>
+
+	    <!-- required fields for an operating system -->
+	    <element name="name">
+	      <choice>
+		<value>linux</value>
+		<value>windows</value>
+	      </choice>
+	    </element>
+	    <element name="arch"><text/></element>
+	    <element name="root"><text/></element>
+
+	    <!-- optional fields for an operating system -->
+	    <optional><element name="distro"><text/></element></optional>
+	    <optional><element name="major_version"><text/></element></optional>
+	    <optional><element name="minor_version"><text/></element></optional>
+	    <optional><element name="package_format"><text/></element></optional>
+	    <optional><element name="package_management"><text/></element></optional>
+
+	    <ref name="mountpoints"/>
+	    <ref name="filesystems"/>
+	    <optional><ref name="applications"/></optional>
+	    <optional><ref name="modprobealiases"/></optional>
+	    <optional><ref name="initrds"/></optional>
+	    <optional><ref name="kernels"/></optional>
+	    <optional><ref name="boot"/></optional>
+
+	  </interleave>
+	</element>
+      </oneOrMore>
+    </element>
+  </start>
+
+  <!-- how filesystems are mounted on mount points -->
+  <define name="mountpoints">
+    <element name="mountpoints">
+      <oneOrMore>
+	<element name="mountpoint">
+	  <attribute name="dev"><text/></attribute>
+	  <text/>
+	</element>
+      </oneOrMore>
+    </element>
+  </define>
+
+  <!-- filesystems detected -->
+  <define name="filesystems">
+    <element name="filesystems">
+      <oneOrMore>
+	<element name="filesystem">
+	  <attribute name="dev"><text/></attribute>
+	  <interleave>
+	    <element name="type"><text/></element>
+	    <optional><element name="content"><text/></element></optional>
+	    <optional><element name="label"><text/></element></optional>
+	    <optional><element name="uuid"><text/></element></optional>
+	    <optional><element name="spec"><text/></element></optional>
+	  </interleave>
+	</element>
+      </oneOrMore>
+    </element>
+  </define>
+
+  <!-- applications installed -->
+  <define name="applications">
+    <element name="applications">
+      <zeroOrMore>
+	<element name="application">
+	  <element name="name"><text/></element>
+	  <element name="version"><text/></element>
+	</element>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <!-- contents of /etc/modprobe* -->
+  <define name="modprobealiases">
+    <element name="modprobealiases">
+      <zeroOrMore>
+	<element name="alias">
+	  <attribute name="device"><text/></attribute>
+	  <interleave>
+	    <element name="modulename"><text/></element>
+	    <optional><element name="augeas"><text/></element></optional>
+	    <element name="file"><text/></element>
+	  </interleave>
+	</element>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <!-- initrd images found -->
+  <define name="initrds">
+    <element name="initrds">
+      <zeroOrMore>
+	<element name="initrd">
+	  <attribute name="version"><text/></attribute>
+	  <zeroOrMore>
+	    <element name="module"><text/></element>
+	  </zeroOrMore>
+	</element>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <!-- boot configurations -->
+  <define name="boot">
+    <element name="boot">
+      <zeroOrMore>
+	<element name="config">
+	  <optional>
+	    <attribute name="default"><value>1</value></attribute>
+	  </optional>
+	  <interleave>
+	    <element name="title"><text/></element>
+	    <element name="kernel"><text/></element>
+	    <element name="cmdline"><text/></element>
+	  </interleave>
+	</element>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <!-- kernels -->
+  <define name="kernels">
+    <element name="kernels">
+      <zeroOrMore>
+	<element name="kernel">
+	  <attribute name="version"><text/></attribute>
+	  <attribute name="arch"><text/></attribute>
+	  <interleave>
+	    <element name="modules">
+	      <zeroOrMore>
+		<element name="module"><text/></element>
+	      </zeroOrMore>
+	    </element>
+	    <optional><element name="path"><text/></element></optional>
+	    <optional><element name="package"><text/></element></optional>
+	  </interleave>
+	</element>
+      </zeroOrMore>
+    </element>
+  </define>
+
+</grammar>
