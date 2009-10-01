@@ -1,0 +1,17 @@
+<operatingsystems>
+  <operatingsystem>
+    <name>windows</name>
+    <arch>i386</arch>
+    <root>/dev/vda1</root>
+    <mountpoints>
+      <mountpoint dev="/dev/vda1">/</mountpoint>
+    </mountpoints>
+    <filesystems>
+      <filesystem dev="/dev/vda1">
+        <type>ntfs</type>
+        <content>windows-root</content>
+      </filesystem>
+    </filesystems>
+    <applications></applications>
+  </operatingsystem>
+</operatingsystems>

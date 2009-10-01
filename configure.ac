@@ -144,6 +144,10 @@ AC_PATH_PROGS([MKISOFS],[mkisofs],[no],
         [$PATH$PATH_SEPARATOR/usr/sbin$PATH_SEPARATOR/sbin])
 test "x$MKISOFS" = "xno" && AC_MSG_ERROR([mkisofs must be installed])
 
+dnl Check for optional xmllint.
+AC_CHECK_PROG([XMLLINT],[xmllint],[xmllint],[no])
+AM_CONDITIONAL([HAVE_XMLLINT],[test "x$XMLLINT" != "xno"])
+
 dnl Check for QEMU for running binaries on this $host_cpu, fall
 dnl back to basic 'qemu'.  Allow the user to override it.
 default_qemu="qemu-kvm qemu-system-$host_cpu qemu"

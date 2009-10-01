@@ -1,0 +1,577 @@
+<operatingsystems>
+  <operatingsystem>
+    <name>linux</name>
+    <distro>debian</distro>
+    <arch>x86_64</arch>
+    <package_format>dpkg</package_format>
+    <package_management>apt</package_management>
+    <root>/dev/debian5x64/root</root>
+    <mountpoints>
+      <mountpoint dev="/dev/debian5x64/root">/</mountpoint>
+      <mountpoint dev="/dev/sda1">/boot</mountpoint>
+      <mountpoint dev="/dev/debian5x64/home">/home</mountpoint>
+      <mountpoint dev="/dev/debian5x64/tmp">/tmp</mountpoint>
+      <mountpoint dev="/dev/debian5x64/usr">/usr</mountpoint>
+      <mountpoint dev="/dev/debian5x64/var">/var</mountpoint>
+      <mountpoint dev="/dev/debian5x64/swap_1">none</mountpoint>
+    </mountpoints>
+    <filesystems>
+      <filesystem dev="/dev/debian5x64/home">
+        <label></label>
+        <uuid>db9654dc-2723-4577-8e24-1148218f9c33</uuid>
+        <type>ext3</type>
+        <spec>/dev/mapper/debian5x64-home</spec>
+      </filesystem>
+      <filesystem dev="/dev/debian5x64/root">
+        <label></label>
+        <uuid>eec1797d-6709-4bd6-8c24-7df39254a08f</uuid>
+        <type>ext3</type>
+        <content>linux-root</content>
+        <spec>/dev/mapper/debian5x64-root</spec>
+      </filesystem>
+      <filesystem dev="/dev/debian5x64/swap_1">
+        <type>swap</type>
+        <spec>/dev/mapper/debian5x64-swap_1</spec>
+      </filesystem>
+      <filesystem dev="/dev/debian5x64/tmp">
+        <label></label>
+        <uuid>60ad87e2-11d0-400b-952c-e2a05b1d0cdf</uuid>
+        <type>ext3</type>
+        <spec>/dev/mapper/debian5x64-tmp</spec>
+      </filesystem>
+      <filesystem dev="/dev/debian5x64/usr">
+        <label></label>
+        <uuid>acf471c0-f6f1-4f8f-87ba-cd4b8c54f3f0</uuid>
+        <type>ext3</type>
+        <spec>/dev/mapper/debian5x64-usr</spec>
+      </filesystem>
+      <filesystem dev="/dev/debian5x64/var">
+        <label></label>
+        <uuid>21906cff-f12f-4e92-a217-6bb71e1210b6</uuid>
+        <type>ext3</type>
+        <spec>/dev/mapper/debian5x64-var</spec>
+      </filesystem>
+      <filesystem dev="/dev/sda1">
+        <label></label>
+        <uuid>8971e6ea-f446-48ed-af9a-56ff479f79e3</uuid>
+        <type>ext2</type>
+        <content>linux-grub</content>
+        <spec>/dev/hda1</spec>
+      </filesystem>
+    </filesystems>
+    <modprobealiases>
+      <alias device="binfmt-0064">
+        <modulename>ia32_aout</modulename>
+        <augeas>/files/etc/modprobe.d/arch-aliases/alias[2]</augeas>
+        <file>/etc/modprobe.d/arch-aliases</file>
+      </alias>
+      <alias device="binfmt-204">
+        <modulename>binfmt_aout</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[7]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="binfmt-263">
+        <modulename>binfmt_aout</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[8]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="binfmt-264">
+        <modulename>binfmt_aout</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[9]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="binfmt-267">
+        <modulename>binfmt_aout</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[10]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="binfmt-387">
+        <modulename>binfmt_aout</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[11]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="block-major-22-*">
+        <modulename>ide_generic</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[13]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="block-major-3-*">
+        <modulename>ide_generic</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[12]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="block-major-33-*">
+        <modulename>ide_generic</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[14]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="block-major-34-*">
+        <modulename>ide_generic</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[15]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="block-major-37-*">
+        <modulename>ide_tape</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[16]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="block-major-44-*">
+        <modulename>ftl</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[17]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="block-major-46-*">
+        <modulename>pcd</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[18]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="block-major-47-*">
+        <modulename>pf</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[19]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="block-major-56-*">
+        <modulename>ide_generic</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[20]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="block-major-57-*">
+        <modulename>ide_generic</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[21]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="block-major-58-*">
+        <modulename>lvm_mod</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[22]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="block-major-88-*">
+        <modulename>ide_generic</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[23]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="block-major-89-*">
+        <modulename>ide_generic</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[24]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="block-major-90-*">
+        <modulename>ide_generic</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[25]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="block-major-91-*">
+        <modulename>ide_generic</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[26]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="block-major-93-*">
+        <modulename>nftl</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[27]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="block-major-97-*">
+        <modulename>pg</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[28]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="bt-proto-7">
+        <modulename>avdtp</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[86]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-10-1">
+        <modulename>psmouse</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[29]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-10-139">
+        <modulename>openprom</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[30]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-10-157">
+        <modulename>applicom</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[31]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-10-181">
+        <modulename>toshiba</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[32]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-10-183">
+        <modulename>hw_random</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[33]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-10-187">
+        <modulename>irnet</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[34]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-10-189">
+        <modulename>ussp</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[35]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-10-250">
+        <modulename>hci_vhci</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[36]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-107-*">
+        <modulename>3dfx</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[71]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-109-*">
+        <modulename>lvm_mod</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[72]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-13-0">
+        <modulename>joydev</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[37]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-13-1">
+        <modulename>joydev</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[38]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-13-2">
+        <modulename>joydev</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[39]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-13-3">
+        <modulename>joydev</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[40]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-13-32">
+        <modulename>mousedev</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[41]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-13-33">
+        <modulename>mousedev</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[42]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-13-34">
+        <modulename>mousedev</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[43]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-13-35">
+        <modulename>mousedev</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[44]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-13-63">
+        <modulename>mousedev</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[45]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-13-64">
+        <modulename>evdev</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[46]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-13-65">
+        <modulename>evdev</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[47]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-13-66">
+        <modulename>evdev</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[48]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-13-67">
+        <modulename>evdev</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[49]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-166-*">
+        <modulename>cdc_acm</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[73]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-171-0">
+        <modulename>raw1394</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[74]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-171-1">
+        <modulename>video1394</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[75]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-171-2">
+        <modulename>dv1394</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[76]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-171-3">
+        <modulename>amdtp</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[77]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-180-*">
+        <modulename>usbcore</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[78]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-19-*">
+        <modulename>cyclades</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[50]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-195-*">
+        <modulename>nvidia</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[79]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-20-*">
+        <modulename>cyclades</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[51]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-200-*">
+        <modulename>vxspec</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[80]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-202-*">
+        <modulename>msr</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[81]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-203-*">
+        <modulename>cpuid</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[82]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-206-*">
+        <modulename>osst</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[83]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-208-*">
+        <modulename>ussp</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[84]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-22-*">
+        <modulename>pcxx</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[52]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-227-*">
+        <modulename>tub3270</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[85]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-23-*">
+        <modulename>pcxx</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[53]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-27-*">
+        <modulename>ftape</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[54]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-34-*">
+        <modulename>scc</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[55]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-35-*">
+        <modulename>tclmidi</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[56]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-48-*">
+        <modulename>riscom8</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[57]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-49-*">
+        <modulename>riscom8</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[58]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-57-*">
+        <modulename>esp</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[59]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-58-*">
+        <modulename>esp</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[60]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-63-*">
+        <modulename>kdebug</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[61]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-67-*">
+        <modulename>coda</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[62]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-75-*">
+        <modulename>specialix</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[63]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-76-*">
+        <modulename>specialix</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[64]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-81-*">
+        <modulename>videodev</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[65]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-83-*">
+        <modulename>vtx</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[66]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-89-*">
+        <modulename>i2c_dev</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[67]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-90-*">
+        <modulename>mtdchar</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[68]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-96-*">
+        <modulename>pt</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[69]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="char-major-97-*">
+        <modulename>pg</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[70]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="cipcb0">
+        <modulename>cipcb</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[87]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="cipcb1">
+        <modulename>cipcb</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[88]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="cipcb2">
+        <modulename>cipcb</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[89]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="cipcb3">
+        <modulename>cipcb</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[90]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="dummy0">
+        <modulename>dummy</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[91]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="dummy1">
+        <modulename>dummy</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[92]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="gre0">
+        <modulename>ip_gre</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[98]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="net-pf-16-proto-1">
+        <modulename>wire</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[1]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="net-pf-16-proto-11">
+        <modulename>cn</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[5]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="net-pf-16-proto-13">
+        <modulename>ip6_queue</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[6]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="net-pf-16-proto-3">
+        <modulename>ip_queue</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[2]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="net-pf-16-proto-8">
+        <modulename>scsi_transport_iscsi</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[3]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="net-pf-16-proto-9">
+        <modulename>audit</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[4]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="nfs4">
+        <modulename>nfs</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[100]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="parport_lowlevel">
+        <modulename>parport_pc</modulename>
+        <augeas>/files/etc/modprobe.d/arch-aliases/alias[1]</augeas>
+        <file>/etc/modprobe.d/arch-aliases</file>
+      </alias>
+      <alias device="plip0">
+        <modulename>plip</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[93]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="plip1">
+        <modulename>plip</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[94]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="slip0">
+        <modulename>slip</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[95]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="slip1">
+        <modulename>slip</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[96]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="tunl0">
+        <modulename>ipip</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[97]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+      <alias device="usbdevfs">
+        <modulename>usbcore</modulename>
+        <augeas>/files/etc/modprobe.d/aliases/alias[99]</augeas>
+        <file>/etc/modprobe.d/aliases</file>
+      </alias>
+    </modprobealiases>
+    <applications></applications>
+    <boot></boot>
+  </operatingsystem>
+</operatingsystems>
