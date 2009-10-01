@@ -49,4 +49,4 @@ $ENV{LD_LIBRARY_PATH} = $path.'/src/.libs';
 $ENV{LIBGUESTFS_PATH} = $path.'/appliance';
 $ENV{PERL5LIB}        = $path.'/perl/blib/lib:'.$path.'/perl/blib/arch';
 
-exec('perl', $path.'/df/virt-df.pl', @ARGV);
+exec('perl', $path.'/df/virt-df', @ARGV);
