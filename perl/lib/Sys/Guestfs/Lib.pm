@@ -569,13 +569,23 @@ C<use_windows_registry> flag are explained below.
 
 =cut
 
+# Turn /dev/vd* and /dev/hd* into canonical device names
+# (see BLOCK DEVICE NAMING in guestfs(3)).
+
+sub _canonical_dev ($)
+{
+    my ($dev) = @_;
+    return "/dev/sd$1" if $dev =~ m{^/dev/[vh]d(\w+)};
+    return $dev;
+}
+
 sub inspect_all_partitions
 {
     local $_;
     my $g = shift;
     my $parts = shift;
     my @parts = @$parts;
-    return map { $_ => inspect_partition ($g, $_, @_) } @parts;
+    return map { _canonical_dev ($_) => inspect_partition ($g, $_, @_) } @parts;
 }
 
 =head2 inspect_partition
