@@ -17,7 +17,9 @@
 
 EXTRA_DIST = \
 	run-inspector-locally \
-	virt-inspector \
+	virt-inspector
+
+dist_doc_DATA = \
 	virt-inspector.rng \
 	example1.xml example2.xml example3.xml example4.xml
 
@@ -25,9 +27,6 @@ if HAVE_INSPECTOR
 
 bin_SCRIPTS = virt-inspector
 man_MANS = virt-inspector.1
-dist_doc_DATA = \
-	virt-inspector.rng \
-	example1.xml example2.xml example3.xml example4.xml
 
 noinst_DATA = $(top_builddir)/html/virt-inspector.1.html
 
