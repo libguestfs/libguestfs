@@ -420,6 +420,14 @@ AC_PROG_OCAML
 AC_PROG_FINDLIB
 AM_CONDITIONAL([HAVE_OCAML],[test "x$OCAMLC" != "xno" -a "x$OCAMLFIND" != "xno"])
 
+dnl Optional xml-light for building virt-inspector language bindings
+dnl from the virt-inspector.rng file.
+OCAML_PKG_xml_light=no
+if test "x$OCAMLC" != "xno" -a "x$OCAMLFIND" != "xno"; then
+    AC_CHECK_OCAML_PKG([xml-light])
+fi
+AM_CONDITIONAL([HAVE_XML_LIGHT],[test "x$OCAML_PKG_xml_light" != "xno"])
+
 dnl Build the OCaml viewer example.  This has a lengthy list of
 dnl dependencies and we don't attempt to detect them all.  Read
 dnl the top of ocaml/examples/viewer.ml before enabling this.

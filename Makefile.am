@@ -20,11 +20,14 @@ ACLOCAL_AMFLAGS = -I m4
 SUBDIRS = gnulib/lib src daemon appliance fish po examples images \
 	gnulib/tests capitests regressions test-tool
 
-if HAVE_OCAML
-SUBDIRS += ocaml ocaml/examples
-endif
 if HAVE_PERL
 SUBDIRS += perl
+endif
+if HAVE_INSPECTOR
+SUBDIRS += inspector
+endif
+if HAVE_OCAML
+SUBDIRS += ocaml ocaml/examples
 endif
 if HAVE_PYTHON
 SUBDIRS += python
@@ -37,9 +40,6 @@ SUBDIRS += java
 endif
 if HAVE_HASKELL
 SUBDIRS += haskell
-endif
-if HAVE_INSPECTOR
-SUBDIRS += inspector
 endif
 if HAVE_DF
 SUBDIRS += df

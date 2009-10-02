@@ -65,6 +65,9 @@ Requirements
 - (Optional) OCaml if you want to rebuild the generated files, and
   also to build the OCaml bindings
 
+- (Optional) OCaml xml-light, only needed if you want to rebuild the
+  virt-inspector bindings from virt-inspector.rng.
+
 - (Optional) local Fedora mirror
 
 - (Optional) Perl if you want to build the perl bindings
