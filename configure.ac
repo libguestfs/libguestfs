@@ -416,7 +416,9 @@ AC_PROG_OCAML
 AC_PROG_FINDLIB
 AM_CONDITIONAL([HAVE_OCAML],[test "x$OCAMLC" != "xno" -a "x$OCAMLFIND" != "xno"])
 
-dnl Build the OCaml viewer example.
+dnl Build the OCaml viewer example.  This has a lengthy list of
+dnl dependencies and we don't attempt to detect them all.  Read
+dnl the top of ocaml/examples/viewer.ml before enabling this.
 AC_ARG_ENABLE([ocaml-viewer],
         [AS_HELP_STRING([--enable-ocaml-viewer],
           [enable OCaml viewer (see ocaml/examples) @<:@default=no@:>@])],
