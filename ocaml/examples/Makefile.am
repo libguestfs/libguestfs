@@ -6,15 +6,18 @@ if HAVE_OCAML
 
 noinst_SCRIPTS = lvs
 
+OCAMLFINDFLAGS = -ccopt '-L $(top_builddir)/src/.libs'
+
 lvs:	lvs.ml
-	$(OCAMLFIND) ocamlopt -warn-error A -I .. mlguestfs.cmxa $< -o $@
+	$(OCAMLFIND) ocamlopt $(OCAMLFINDFLAGS) \
+          -warn-error A -I .. mlguestfs.cmxa $< -o $@
 
 if BUILD_OCAML_VIEWER
 
 noinst_SCRIPTS += viewer
 
 viewer: throbber.ml xmllight_loader.mli xmllight_loader.ml viewer.ml
-	ocamlducefind opt \
+	ocamlducefind opt $(OCAMLFINDFLAGS) \
 	  -warn-error A \
 	  -thread \
 	  -package libvirt,lablgtk2,extlib,xml-light,ocamlduce,threads -I .. \
