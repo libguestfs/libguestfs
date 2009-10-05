@@ -6,9 +6,9 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-09-23 13:59+0100\n"
-"PO-Revision-Date: 2009-07-29 17:31+0200\n"
+"PO-Revision-Date: 2009-10-04 23:10+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Polish <pl@li.org>\n"
+"Language-Team: Polish <fedora-trans-pl@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,205 +16,202 @@ msgstr ""
 #: fish/alloc.c:39
 #, c-format
 msgid "use 'alloc file size' to create an image\n"
-msgstr "użyj \"alloc plik rozmiar\", aby utworzyć obraz\n"
+msgstr "należy użyć \"alloc plik rozmiar\", aby utworzyć obraz\n"
 
 #: fish/alloc.c:47
 #, c-format
 msgid "can't allocate or add disks after launching\n"
-msgstr "nie przydzielać lub dodawaj dyski po uruchomieniu\n"
+msgstr "bez przydzielania lub dodawania dysków po uruchomieniu\n"
 
 #: fish/alloc.c:94 fish/alloc.c:101
 #, c-format
 msgid "could not parse size specification '%s'\n"
-msgstr "nie można przeanalizować określenia rozmiaru \"%s\"\n"
+msgstr "nie można przetworzyć określenia rozmiaru \"%s\"\n"
 
 #: fish/cmds.c:33
 msgid "Command"
-msgstr ""
+msgstr "Polecenie"
 
 #: fish/cmds.c:33
 msgid "Description"
-msgstr ""
+msgstr "Opis"
 
 #: fish/cmds.c:35 fish/cmds.c:276
 msgid "add a CD-ROM disk image to examine"
-msgstr ""
+msgstr "dodaje obraz płyty CD-ROM do sprawdzenia"
 
 #: fish/cmds.c:36 fish/cmds.c:273
 msgid "add an image to examine or modify"
-msgstr ""
+msgstr "dodaje obraz do sprawdzenia lub zmodyfikowania"
 
 #: fish/cmds.c:37 fish/cmds.c:279
 msgid "add a drive in snapshot mode (read-only)"
-msgstr ""
+msgstr "dodaje napęd w trybie migawki (tylko do odczytu)"
 
 #: fish/cmds.c:38 fish/cmds.c:408
-#, fuzzy
 msgid "close the current Augeas handle"
-msgstr "zamyka i ponownie otwiera program obsługi libguestfs"
+msgstr "zamyka bieżący program obsługi Augeas"
 
 #: fish/cmds.c:39 fish/cmds.c:414
 msgid "define an Augeas node"
-msgstr ""
+msgstr "określa węzeł Augeas"
 
 #: fish/cmds.c:40 fish/cmds.c:411
 msgid "define an Augeas variable"
-msgstr ""
+msgstr "określa zmienną Augeas"
 
 #: fish/cmds.c:41 fish/cmds.c:417
 msgid "look up the value of an Augeas path"
-msgstr ""
+msgstr "wyszukuje wartość ścieżki Augeas"
 
 #: fish/cmds.c:42 fish/cmds.c:405
 msgid "create a new Augeas handle"
-msgstr ""
+msgstr "tworzy nowy program obsługi Augeas"
 
 #: fish/cmds.c:43 fish/cmds.c:423
 msgid "insert a sibling Augeas node"
-msgstr ""
+msgstr "umieszcza podrzędny węzeł Augeas"
 
 #: fish/cmds.c:44 fish/cmds.c:438
-#, fuzzy
 msgid "load files into the tree"
-msgstr "modyfikuje plik w obrazie"
+msgstr "wczytuje pliki do drzewa"
 
 #: fish/cmds.c:45 fish/cmds.c:441
 msgid "list Augeas nodes under augpath"
-msgstr ""
+msgstr "wyświetla listę węzłów Augeas pod augpath"
 
 #: fish/cmds.c:46 fish/cmds.c:432
-#, fuzzy
 msgid "return Augeas nodes which match augpath"
-msgstr "{path} nie zgadza się z wzorem augeas"
+msgstr "zwraca węzły Augeas, które pasują do augpath"
 
 #: fish/cmds.c:47 fish/cmds.c:429
 msgid "move Augeas node"
-msgstr ""
+msgstr "przenosi węzeł Augeas"
 
 #: fish/cmds.c:48 fish/cmds.c:426
 msgid "remove an Augeas path"
-msgstr ""
+msgstr "usuwa ścieżkę Augeas"
 
 #: fish/cmds.c:49 fish/cmds.c:435
 msgid "write all pending Augeas changes to disk"
-msgstr ""
+msgstr "zapisuje wszystkie oczekujące zmiany Augeas na dysku"
 
 #: fish/cmds.c:50 fish/cmds.c:420
 msgid "set Augeas path to value"
-msgstr ""
+msgstr "ustawia ścieżkę Augeas na wartość"
 
 #: fish/cmds.c:51 fish/cmds.c:549
 msgid "flush device buffers"
-msgstr ""
+msgstr "czyści bufory urządzenia"
 
 #: fish/cmds.c:52 fish/cmds.c:537
 msgid "get blocksize of block device"
-msgstr ""
+msgstr "ustawia rozmiar bloku urządzenia blokowego"
 
 #: fish/cmds.c:53 fish/cmds.c:531
 msgid "is block device set to read-only"
-msgstr ""
+msgstr "jest urządzeniem blokowym tylko do odczytu"
 
 #: fish/cmds.c:54 fish/cmds.c:546
 msgid "get total size of device in bytes"
-msgstr ""
+msgstr "uzyskuje całkowity rozmiar urządzenia w bajtach"
 
 #: fish/cmds.c:55 fish/cmds.c:534
 msgid "get sectorsize of block device"
-msgstr ""
+msgstr "uzyskuje rozmiar sektora urządzenia blokowego"
 
 #: fish/cmds.c:56 fish/cmds.c:543
 msgid "get total size of device in 512-byte sectors"
-msgstr ""
+msgstr "uzyskuje całkowity rozmiar urządzenia w 512 bitowych sektorach"
 
 #: fish/cmds.c:57 fish/cmds.c:552
 msgid "reread partition table"
-msgstr ""
+msgstr "ponownie odczytuje tablicę partycji"
 
 #: fish/cmds.c:58 fish/cmds.c:540
 msgid "set blocksize of block device"
-msgstr ""
+msgstr "ustawia rozmiar bloku urządzenia blokowego"
 
 #: fish/cmds.c:59 fish/cmds.c:525
 msgid "set block device to read-only"
-msgstr ""
+msgstr "ustawia urządzenia blokowe w tryb tylko do odczytu"
 
 #: fish/cmds.c:60 fish/cmds.c:528
 msgid "set block device to read-write"
-msgstr ""
+msgstr "ustawia urządzenie blokowe w tryb odczytu i zapisu"
 
 #: fish/cmds.c:61 fish/cmds.c:369
 msgid "list the contents of a file"
-msgstr ""
+msgstr "wyświetla listę zawartości pliku"
 
 #: fish/cmds.c:62 fish/cmds.c:561
 msgid "compute MD5, SHAx or CRC checksum of file"
-msgstr ""
+msgstr "oblicza sumy kontrolne MD5, SHAx lub CRC pliku"
 
 #: fish/cmds.c:63 fish/cmds.c:459
-#, fuzzy
 msgid "change file mode"
-msgstr "add_handle nie powiodło się"
+msgstr "zmienia tryb pliku"
 
 #: fish/cmds.c:64 fish/cmds.c:462
 msgid "change file owner and group"
-msgstr ""
+msgstr "zmienia właściciela pliku i grupę"
 
 #: fish/cmds.c:65 fish/cmds.c:507
 msgid "run a command from the guest filesystem"
-msgstr ""
+msgstr "wykonuje polecenie z systemu plików gościa"
 
 #: fish/cmds.c:66 fish/cmds.c:510
 msgid "run a command, returning lines"
-msgstr ""
+msgstr "wykonuje polecenie, zwracając wiersze"
 
 #: fish/cmds.c:67 fish/cmds.c:282
 msgid "add qemu parameters"
-msgstr ""
+msgstr "dodaje parametry QEMU"
 
 #: fish/cmds.c:68 fish/cmds.c:618
 msgid "copy a file"
-msgstr ""
+msgstr "kopiuje plik"
 
 #: fish/cmds.c:69 fish/cmds.c:621
 msgid "copy a file or directory recursively"
-msgstr ""
+msgstr "rekursywnie kopiuje plik lub katalog"
 
 #: fish/cmds.c:70 fish/cmds.c:585
 msgid "debugging and internals"
-msgstr ""
+msgstr "debugowanie i wewnętrzne"
 
 #: fish/cmds.c:71 fish/cmds.c:732
 msgid "report file system disk space usage"
-msgstr ""
+msgstr "zgłasza użycie przestrzeni systemu plików dysku"
 
 #: fish/cmds.c:72 fish/cmds.c:735
 msgid "report file system disk space usage (human readable)"
 msgstr ""
+"zgłasza użycie przestrzeni systemu plików dysku (czytelne dla człowieka)"
 
 #: fish/cmds.c:73 fish/cmds.c:630
 msgid "return kernel messages"
-msgstr ""
+msgstr "zwraca komunikaty jądra"
 
 #: fish/cmds.c:74 fish/cmds.c:558
 msgid "download a file to the local machine"
-msgstr ""
+msgstr "pobiera plik do lokalnej maszyny"
 
 #: fish/cmds.c:75 fish/cmds.c:627
 msgid "drop kernel page cache, dentries and inodes"
-msgstr ""
+msgstr "odrzuca pamięć podręczną stron jądra, wpisy katalogów oraz i-węzły"
 
 #: fish/cmds.c:76 fish/cmds.c:738
 msgid "estimate file space usage"
-msgstr ""
+msgstr "szacuje użycie przestrzeni plików"
 
 #: fish/cmds.c:77 fish/cmds.c:681
 msgid "check an ext2/ext3 filesystem"
-msgstr ""
+msgstr "sprawdza system plików ext2/ext3"
 
 #: fish/cmds.c:78 fish/cmds.c:942
 msgid "echo arguments back to the client"
-msgstr ""
+msgstr "zwraca parametry z powrotem do klienta"
 
 #: fish/cmds.c:79 fish/cmds.c:80 fish/cmds.c:84 fish/cmds.c:85 fish/cmds.c:105
 #: fish/cmds.c:106 fish/cmds.c:252 fish/cmds.c:253 fish/cmds.c:256
@@ -222,666 +219,644 @@ msgstr ""
 #: fish/cmds.c:813 fish/cmds.c:816 fish/cmds.c:819 fish/cmds.c:822
 #: fish/cmds.c:825 fish/cmds.c:828 fish/cmds.c:831 fish/cmds.c:834
 #: fish/cmds.c:837 fish/cmds.c:840 fish/cmds.c:843
-#, fuzzy
 msgid "return lines matching a pattern"
-msgstr "{path} nie zgadza się z wzorem augeas"
+msgstr "zwraca wiersze zgadzające się ze wzorem"
 
 #: fish/cmds.c:81 fish/cmds.c:636
 msgid "test if two files have equal contents"
-msgstr ""
+msgstr "testuje, czy dwa pliki mają taką samą zawartość"
 
 #: fish/cmds.c:82 fish/cmds.c:465
 msgid "test if file or directory exists"
-msgstr ""
+msgstr "testuje, czy plik lub katalog istnieje"
 
 #: fish/cmds.c:83 fish/cmds.c:864
 msgid "preallocate a file in the guest filesystem"
-msgstr ""
+msgstr "przydziela przestrzeń plikowi w systemie plików gościa"
 
 #: fish/cmds.c:86 fish/cmds.c:504
 msgid "determine file type"
-msgstr ""
+msgstr "określa typ pliku"
 
 #: fish/cmds.c:87 fish/cmds.c:678
 msgid "find all files and directories"
-msgstr ""
+msgstr "znajduje wszystkie pliki i katalogi"
 
 #: fish/cmds.c:88 fish/cmds.c:609
 msgid "run the filesystem checker"
-msgstr ""
+msgstr "wykonuje sprawdzanie systemu plików"
 
 #: fish/cmds.c:89 fish/cmds.c:300
 msgid "get the additional kernel options"
-msgstr ""
+msgstr "uzyskuje dodatkowe opcje jądra"
 
 #: fish/cmds.c:90 fish/cmds.c:306
 msgid "get autosync mode"
-msgstr ""
+msgstr "uzyskuje tryb automatycznej synchronizacji"
 
 #: fish/cmds.c:91 fish/cmds.c:357
 msgid "get direct appliance mode flag"
-msgstr ""
+msgstr "uzyskuje bezpośrednią flagę trybu przyrządu"
 
 #: fish/cmds.c:92 fish/cmds.c:600
 msgid "get the ext2/3/4 filesystem label"
-msgstr ""
+msgstr "uzyskuje etykietę systemu plików ext2/3/4"
 
 #: fish/cmds.c:93 fish/cmds.c:606
 msgid "get the ext2/3/4 filesystem UUID"
-msgstr ""
+msgstr "uzyskuje UUID systemu plików ext2/3/4"
 
 #: fish/cmds.c:94 fish/cmds.c:333
 msgid "get memory allocated to the qemu subprocess"
-msgstr ""
+msgstr "uzyskuje pamięć przydzieloną do podprocesów QEMU"
 
 #: fish/cmds.c:95 fish/cmds.c:294
 msgid "get the search path"
-msgstr ""
+msgstr "uzyskuje ścieżkę wyszukiwania"
 
 #: fish/cmds.c:96 fish/cmds.c:336
 msgid "get PID of qemu subprocess"
-msgstr ""
+msgstr "uzyskuje PID podprocesu QEMU"
 
 #: fish/cmds.c:97 fish/cmds.c:288
 msgid "get the qemu binary"
-msgstr ""
+msgstr "uzyskuje plik binarny QEMU"
 
 #: fish/cmds.c:98 fish/cmds.c:345
 msgid "get SELinux enabled flag"
-msgstr ""
+msgstr "uzyskuje flagę włączenia SELinuksa"
 
 #: fish/cmds.c:99 fish/cmds.c:327
 msgid "get the current state"
-msgstr ""
+msgstr "uzyskuje bieżący stan"
 
 #: fish/cmds.c:100 fish/cmds.c:351
 msgid "get command trace enabled flag"
-msgstr ""
+msgstr "uzyskuje flagę włączenia śledzenia"
 
 #: fish/cmds.c:101 fish/cmds.c:312
 msgid "get verbose mode"
-msgstr ""
+msgstr "uzyskuje więcej komunikatów"
 
 #: fish/cmds.c:102 fish/cmds.c:915
 msgid "get SELinux security context"
-msgstr ""
+msgstr "uzyskuje kontekst bezpieczeństwa SELinuksa"
 
 #: fish/cmds.c:103 fish/cmds.c:126 fish/cmds.c:780 fish/cmds.c:783
 msgid "list extended attributes of a file or directory"
-msgstr ""
+msgstr "wyświetla listę rozszerzonych atrybutów pliku lub katalogu"
 
 #: fish/cmds.c:104 fish/cmds.c:696
-#, fuzzy
 msgid "expand a wildcard path"
-msgstr "rozwija wieloznaczniki w poleceniach"
+msgstr "rozwija wieloznaczniki w ścieżkach"
 
 #: fish/cmds.c:107 fish/cmds.c:615
 msgid "install GRUB"
-msgstr ""
+msgstr "instaluje program GRUB"
 
 #: fish/cmds.c:108 fish/cmds.c:720
 msgid "return first 10 lines of a file"
-msgstr ""
+msgstr "zwraca pierwsze 10 wierszy pliku"
 
 #: fish/cmds.c:109 fish/cmds.c:723
 msgid "return first N lines of a file"
-msgstr ""
+msgstr "zwraca pierwsze N wierszy pliku"
 
 #: fish/cmds.c:110 fish/cmds.c:645
-#, fuzzy
 msgid "dump a file in hexadecimal"
-msgstr "modyfikuje plik w obrazie"
+msgstr "zrzuca plik w formacie szesnastkowym"
 
 #: fish/cmds.c:111 fish/cmds.c:741
 msgid "list files in an initrd"
-msgstr ""
+msgstr "wyświetla listę plików w initrd"
 
 #: fish/cmds.c:112 fish/cmds.c:897
 msgid "add an inotify watch"
-msgstr ""
+msgstr "dodaje obserwację inotify"
 
 #: fish/cmds.c:113 fish/cmds.c:909
-#, fuzzy
 msgid "close the inotify handle"
-msgstr "zamyka i ponownie otwiera program obsługi libguestfs"
+msgstr "zamyka program obsługi inotify"
 
 #: fish/cmds.c:114 fish/cmds.c:906
 msgid "return list of watched files that had events"
-msgstr ""
+msgstr "zwraca listę obserwowanych plików, które miały zdarzenia"
 
 #: fish/cmds.c:115 fish/cmds.c:894
-#, fuzzy
 msgid "create an inotify handle"
-msgstr "remove_handle nie powiodło się"
+msgstr "tworzy program obsługi inotify"
 
 #: fish/cmds.c:116 fish/cmds.c:903
 msgid "return list of inotify events"
-msgstr ""
+msgstr "zwraca listę zdarzeń inotify"
 
 #: fish/cmds.c:117 fish/cmds.c:900
-#, fuzzy
 msgid "remove an inotify watch"
-msgstr "  Punkty montowania:\n"
+msgstr "usuwa obserwację inotify"
 
 #: fish/cmds.c:118 fish/cmds.c:324
 msgid "is busy processing a command"
-msgstr ""
+msgstr "jest zajęte przetwarzaniem polecenia"
 
 #: fish/cmds.c:119 fish/cmds.c:318
 msgid "is in configuration state"
-msgstr ""
+msgstr "jest w stanie konfiguracji"
 
 #: fish/cmds.c:120 fish/cmds.c:121 fish/cmds.c:468 fish/cmds.c:471
 msgid "test if file exists"
-msgstr ""
+msgstr "testuje, czy plik istnieje"
 
 #: fish/cmds.c:122 fish/cmds.c:321
 msgid "is launching subprocess"
-msgstr ""
+msgstr "uruchamia podprocesy"
 
 #: fish/cmds.c:123 fish/cmds.c:315
 msgid "is ready to accept commands"
-msgstr ""
+msgstr "jest gotowe na akceptowanie poleceń"
 
 #: fish/cmds.c:124 fish/cmds.c:270
 msgid "kill the qemu subprocess"
-msgstr ""
+msgstr "niszczy podproces QEMU"
 
 #: fish/cmds.c:125 fish/cmds.c:267
 msgid "launch the qemu subprocess"
-msgstr ""
+msgstr "uruchamia podproces QEMU"
 
 #: fish/cmds.c:127 fish/cmds.c:378
 msgid "list the block devices"
-msgstr ""
+msgstr "wyświetla listę urządzeń blokowych"
 
 #: fish/cmds.c:128 fish/cmds.c:381
 msgid "list the partitions"
-msgstr ""
+msgstr "wyświetla listę partycji"
 
 #: fish/cmds.c:129 fish/cmds.c:372
 msgid "list the files in a directory (long format)"
-msgstr ""
+msgstr "wyświetla listę plików w katalogu (długi format)"
 
 #: fish/cmds.c:130 fish/cmds.c:131 fish/cmds.c:849 fish/cmds.c:852
-#, fuzzy
 msgid "create a hard link"
-msgstr "remove_handle nie powiodło się"
+msgstr "tworzy twarde dowiązanie"
 
 #: fish/cmds.c:132 fish/cmds.c:133 fish/cmds.c:855 fish/cmds.c:858
-#, fuzzy
 msgid "create a symbolic link"
-msgstr "  Punkty montowania:\n"
+msgstr "tworzy dowiązanie symboliczne"
 
 #: fish/cmds.c:134 fish/cmds.c:185 fish/cmds.c:792 fish/cmds.c:795
 msgid "remove extended attribute of a file or directory"
-msgstr ""
+msgstr "usuwa rozszerzony atrybut pliku lub katalogu"
 
 #: fish/cmds.c:135 fish/cmds.c:375
 msgid "list the files in a directory"
-msgstr ""
+msgstr "wyświetla listę plików w katalogu"
 
 #: fish/cmds.c:136 fish/cmds.c:206 fish/cmds.c:786 fish/cmds.c:789
 msgid "set extended attribute of a file or directory"
-msgstr ""
+msgstr "ustawia rozszerzony atrybut pliku lub katalogu"
 
 #: fish/cmds.c:137 fish/cmds.c:516
 msgid "get file information for a symbolic link"
-msgstr ""
+msgstr "uzyskuje informacje o dowiązaniu symbolicznym"
 
 #: fish/cmds.c:138 fish/cmds.c:244 fish/cmds.c:477 fish/cmds.c:480
 msgid "create an LVM volume group"
-msgstr ""
+msgstr "tworzy grupę woluminów LVM"
 
 #: fish/cmds.c:139 fish/cmds.c:501
 msgid "remove all LVM LVs, VGs and PVs"
 msgstr ""
+"usuwa wszystkie woluminy logiczne, grupy woluminów i woluminy fizyczne LVM"
 
 #: fish/cmds.c:140 fish/cmds.c:588
 msgid "remove an LVM logical volume"
-msgstr ""
+msgstr "usuwa wolumin logiczny LVM"
 
 #: fish/cmds.c:141 fish/cmds.c:672
 msgid "resize an LVM logical volume"
-msgstr ""
+msgstr "zmienia rozmiar woluminu logicznego LVM"
 
 #: fish/cmds.c:142 fish/cmds.c:143 fish/cmds.c:390 fish/cmds.c:399
 msgid "list the LVM logical volumes (LVs)"
-msgstr ""
+msgstr "wyświetla listę woluminów logicznych LVM"
 
 #: fish/cmds.c:144 fish/cmds.c:453
-#, fuzzy
 msgid "create a directory"
-msgstr "%s: nie można utworzyć folderu tymczasowego"
+msgstr "tworzy katalog"
 
 #: fish/cmds.c:145 fish/cmds.c:456
-#, fuzzy
 msgid "create a directory and parents"
-msgstr "%s: nie można utworzyć folderu tymczasowego"
+msgstr "tworzy katalog i katalogi nadrzędne"
 
 #: fish/cmds.c:146 fish/cmds.c:708
-#, fuzzy
 msgid "create a temporary directory"
-msgstr "%s: nie można utworzyć folderu tymczasowego"
+msgstr "tworzy katalog tymczasowy"
 
 #: fish/cmds.c:147 fish/cmds.c:148 fish/cmds.c:149 fish/cmds.c:930
 #: fish/cmds.c:933 fish/cmds.c:936
 msgid "make ext2/3/4 filesystem with external journal"
-msgstr ""
+msgstr "tworzy system plików ext2/3/4 z zewnętrzną kroniką"
 
 #: fish/cmds.c:150 fish/cmds.c:921
 msgid "make ext2/3/4 external journal"
-msgstr ""
+msgstr "tworzy zewnętrzną kronikę ext2/3/4"
 
 #: fish/cmds.c:151 fish/cmds.c:924
 msgid "make ext2/3/4 external journal with label"
-msgstr ""
+msgstr "tworzy zewnętrzną kronikę ext2/3/4 za pomocą etykiety"
 
 #: fish/cmds.c:152 fish/cmds.c:927
 msgid "make ext2/3/4 external journal with UUID"
-msgstr ""
+msgstr "tworzy zewnętrzną kronikę ext2/3/4 za pomocą UUID"
 
 #: fish/cmds.c:153 fish/cmds.c:759
 msgid "make FIFO (named pipe)"
-msgstr ""
+msgstr "tworzy FIFO (nazwany potok)"
 
 #: fish/cmds.c:154 fish/cmds.c:483
-#, fuzzy
 msgid "make a filesystem"
-msgstr "  Systemy plików:\n"
+msgstr "tworzy system plików"
 
 #: fish/cmds.c:155 fish/cmds.c:918
-#, fuzzy
 msgid "make a filesystem with block size"
-msgstr "  Systemy plików:\n"
+msgstr "tworzy system plików za pomocą rozmiaru bloków"
 
 #: fish/cmds.c:156 fish/cmds.c:801
-#, fuzzy
 msgid "create a mountpoint"
-msgstr "  Punkty montowania:\n"
+msgstr "tworzy punkt montowania"
 
 #: fish/cmds.c:157 fish/cmds.c:756
 msgid "make block, character or FIFO devices"
-msgstr ""
+msgstr "tworzy urządzenia blokowe, znakowe lub FIFO"
 
 #: fish/cmds.c:158 fish/cmds.c:762
 msgid "make block device node"
-msgstr ""
+msgstr "tworzy węzeł urządzenia blokowego"
 
 #: fish/cmds.c:159 fish/cmds.c:765
 msgid "make char device node"
-msgstr ""
+msgstr "tworzy węzeł urządzenia znakowego"
 
 #: fish/cmds.c:160 fish/cmds.c:747
 msgid "create a swap partition"
-msgstr ""
+msgstr "tworzy partycję wymiany"
 
 #: fish/cmds.c:161 fish/cmds.c:750
 msgid "create a swap partition with a label"
-msgstr ""
+msgstr "tworzy partycję wymiany za pomocą etykiety"
 
 #: fish/cmds.c:162 fish/cmds.c:753
 msgid "create a swap partition with an explicit UUID"
-msgstr ""
+msgstr "tworzy partycję wymiany za pomocą jawnego UUID"
 
 #: fish/cmds.c:163 fish/cmds.c:891
-#, fuzzy
 msgid "create a swap file"
-msgstr "remove_handle nie powiodło się"
+msgstr "tworzy plik wymiany"
 
 #: fish/cmds.c:164 fish/cmds.c:939
 msgid "load a kernel module"
-msgstr ""
+msgstr "wczytuje moduł jądra"
 
 #: fish/cmds.c:165 fish/cmds.c:360
 msgid "mount a guest disk at a position in the filesystem"
-msgstr ""
+msgstr "montuje dysk gościa na pozycji w systemie plików"
 
 #: fish/cmds.c:166 fish/cmds.c:744
-#, fuzzy
 msgid "mount a file using the loop device"
-msgstr "modyfikuje plik w obrazie"
+msgstr "montuje plik używając urządzenia loop"
 
 #: fish/cmds.c:167 fish/cmds.c:579
 msgid "mount a guest disk with mount options"
-msgstr ""
+msgstr "montuje dysk gościa za pomocą opcji montowania"
 
 #: fish/cmds.c:168 fish/cmds.c:576
 msgid "mount a guest disk, read-only"
-msgstr ""
+msgstr "montuje dysk gościa, tylko do odczytu"
 
 #: fish/cmds.c:169 fish/cmds.c:582
 msgid "mount a guest disk with mount options and vfstype"
 msgstr ""
+"montuje dysk gościa za pomocą opcji montowania i typu wirtualnego systemu "
+"plików"
 
 #: fish/cmds.c:170 fish/cmds.c:798
-#, fuzzy
 msgid "show mountpoints"
-msgstr "  Punkty montowania:\n"
+msgstr "wyświetla punkty montowania"
 
 #: fish/cmds.c:171 fish/cmds.c:495
-#, fuzzy
 msgid "show mounted filesystems"
-msgstr "nieznany system plików {fs}\n"
+msgstr "wyświetla zamontowane systemy plików"
 
 #: fish/cmds.c:172 fish/cmds.c:624
-#, fuzzy
 msgid "move a file"
-msgstr "remove_handle nie powiodło się"
+msgstr "przenosi plik"
 
 #: fish/cmds.c:173 fish/cmds.c:687
 msgid "probe NTFS volume"
-msgstr ""
+msgstr "wykrywa wolumin NTFS"
 
 #: fish/cmds.c:174 fish/cmds.c:633
 msgid "ping the guest daemon"
-msgstr ""
+msgstr "odpytuje demona gościa"
 
 #: fish/cmds.c:175 fish/cmds.c:474
 msgid "create an LVM physical volume"
-msgstr ""
+msgstr "tworzy wolumin fizyczny LVM"
 
 #: fish/cmds.c:176 fish/cmds.c:594
 msgid "remove an LVM physical volume"
-msgstr ""
+msgstr "usuwa wolumin fizyczny LVM"
 
 #: fish/cmds.c:177 fish/cmds.c:651
 msgid "resize an LVM physical volume"
-msgstr ""
+msgstr "zmienia rozmiar woluminu fizycznego LVM"
 
 #: fish/cmds.c:178 fish/cmds.c:179 fish/cmds.c:384 fish/cmds.c:393
 msgid "list the LVM physical volumes (PVs)"
-msgstr ""
+msgstr "wyświetla listę woluminów fizycznych LVM"
 
 #: fish/cmds.c:180 fish/cmds.c:807
-#, fuzzy
 msgid "read a file"
-msgstr "remove_handle nie powiodło się"
+msgstr "odczytuje plik"
 
 #: fish/cmds.c:181 fish/cmds.c:402
 msgid "read file as lines"
-msgstr ""
+msgstr "odczytuje plik jako wiersze"
 
 #: fish/cmds.c:182 fish/cmds.c:771
 msgid "read directories entries"
-msgstr ""
+msgstr "odczytuje wpisy katalogów"
 
 #: fish/cmds.c:183 fish/cmds.c:861
 msgid "read the target of a symbolic link"
-msgstr ""
+msgstr "odczytuje cel dowiązania symbolicznego"
 
 #: fish/cmds.c:184 fish/cmds.c:846
 msgid "canonicalized absolute pathname"
-msgstr ""
+msgstr "kanoniczna nazwa ścieżki bezwzględnej"
 
 #: fish/cmds.c:186 fish/cmds.c:675
 msgid "resize an ext2/ext3 filesystem"
-msgstr ""
+msgstr "zmienia rozmiar systemu plików ext2/ext3"
 
 #: fish/cmds.c:187 fish/cmds.c:444
-#, fuzzy
 msgid "remove a file"
-msgstr "remove_handle nie powiodło się"
+msgstr "usuwa plik"
 
 #: fish/cmds.c:188 fish/cmds.c:450
 msgid "remove a file or directory recursively"
-msgstr ""
+msgstr "rekursywnie usuwa plik lub katalog"
 
 #: fish/cmds.c:189 fish/cmds.c:447
-#, fuzzy
 msgid "remove a directory"
-msgstr "%s: nie można utworzyć folderu tymczasowego"
+msgstr "usuwa katalog"
 
 #: fish/cmds.c:190 fish/cmds.c:804
-#, fuzzy
 msgid "remove a mountpoint"
-msgstr "  Punkty montowania:\n"
+msgstr "usuwa punkt montowania"
 
 #: fish/cmds.c:191 fish/cmds.c:699
 msgid "scrub (securely wipe) a device"
-msgstr ""
+msgstr "bezpiecznie usuwa zawartość urządzenia"
 
 #: fish/cmds.c:192 fish/cmds.c:702
 msgid "scrub (securely wipe) a file"
-msgstr ""
+msgstr "bezpiecznie usuwa plik"
 
 #: fish/cmds.c:193 fish/cmds.c:705
 msgid "scrub (securely wipe) free space"
-msgstr ""
+msgstr "bezpiecznie usuwa wolne miejsce"
 
 #: fish/cmds.c:194 fish/cmds.c:297
 msgid "add options to kernel command line"
-msgstr ""
+msgstr "dodaje opcje do wiersza poleceń jądra"
 
 #: fish/cmds.c:195 fish/cmds.c:303
 msgid "set autosync mode"
-msgstr ""
+msgstr "ustawia tryb automatycznej synchronizacji"
 
 #: fish/cmds.c:196 fish/cmds.c:354
 msgid "enable or disable direct appliance mode"
-msgstr ""
+msgstr "włącza lub wyłącza tryb bezpośredniego przyrządu"
 
 #: fish/cmds.c:197 fish/cmds.c:597
 msgid "set the ext2/3/4 filesystem label"
-msgstr ""
+msgstr "ustawia etykietę systemu plików ext2/3/4"
 
 #: fish/cmds.c:198 fish/cmds.c:603
 msgid "set the ext2/3/4 filesystem UUID"
-msgstr ""
+msgstr "ustawia UUID systemu plików ext2/3/4"
 
 #: fish/cmds.c:199 fish/cmds.c:330
 msgid "set memory allocated to the qemu subprocess"
-msgstr ""
+msgstr "ustawia pamięć przydzieloną podprocesowi QEMU"
 
 #: fish/cmds.c:200 fish/cmds.c:291
 msgid "set the search path"
-msgstr ""
+msgstr "ustawia ścieżkę wyszukiwania"
 
 #: fish/cmds.c:201 fish/cmds.c:285
 msgid "set the qemu binary"
-msgstr ""
+msgstr "ustawia plik binarny QEMU"
 
 #: fish/cmds.c:202 fish/cmds.c:342
 msgid "set SELinux enabled or disabled at appliance boot"
 msgstr ""
+"ustawia włączenie lub wyłączenie SELinuksa podczas uruchamiania przyrządu"
 
 #: fish/cmds.c:203 fish/cmds.c:348
 msgid "enable or disable command traces"
-msgstr ""
+msgstr "włącza lub wyłącza śledzenie poleceń"
 
 #: fish/cmds.c:204 fish/cmds.c:309
 msgid "set verbose mode"
-msgstr ""
+msgstr "ustawia wyświetlanie więcej komunikatów"
 
 #: fish/cmds.c:205 fish/cmds.c:912
 msgid "set SELinux security context"
-msgstr ""
+msgstr "ustawia kontekst bezpieczeństwa SELinuksa"
 
 #: fish/cmds.c:207 fish/cmds.c:208 fish/cmds.c:486 fish/cmds.c:774
 msgid "create partitions on a block device"
-msgstr ""
+msgstr "tworzy partycje na urządzeniu blokowym"
 
 #: fish/cmds.c:209 fish/cmds.c:654
 msgid "modify a single partition on a block device"
-msgstr ""
+msgstr "modyfikuje pojedynczą partycję na urządzeniu blokowym"
 
 #: fish/cmds.c:210 fish/cmds.c:663
 msgid "display the disk geometry from the partition table"
-msgstr ""
+msgstr "wyświetla geometrię dysku z tablicy partycji"
 
 #: fish/cmds.c:211 fish/cmds.c:660
-#, fuzzy
 msgid "display the kernel geometry"
-msgstr "wyświetla wiersz tekstu"
+msgstr "wyświetla geometrię jądra"
 
 #: fish/cmds.c:212 fish/cmds.c:657
 msgid "display the partition table"
-msgstr ""
+msgstr "wyświetla tablicę partycji"
 
 #: fish/cmds.c:213 fish/cmds.c:690
 msgid "run a command via the shell"
-msgstr ""
+msgstr "wykonuje polecenie przez powłokę"
 
 #: fish/cmds.c:214 fish/cmds.c:693
 msgid "run a command via the shell returning lines"
-msgstr ""
+msgstr "wykonuje polecenie przez powłokę zwracającą wiersze"
 
 #: fish/cmds.c:215 fish/cmds.c:684
 msgid "sleep for some seconds"
-msgstr ""
+msgstr "usypia na kilka sekund"
 
 #: fish/cmds.c:216 fish/cmds.c:513
 msgid "get file information"
-msgstr ""
+msgstr "uzyskuje informacje o pliku"
 
 #: fish/cmds.c:217 fish/cmds.c:519
 msgid "get file system statistics"
-msgstr ""
+msgstr "uzyskuje statystyki systemu plików"
 
 #: fish/cmds.c:218 fish/cmds.c:219 fish/cmds.c:639 fish/cmds.c:642
 msgid "print the printable strings in a file"
-msgstr ""
+msgstr "wyświetla widoczne znaki w pliku"
 
 #: fish/cmds.c:220 fish/cmds.c:870
 msgid "disable swap on device"
-msgstr ""
+msgstr "wyłącza przestrzeń wymiany na urządzeniu"
 
 #: fish/cmds.c:221 fish/cmds.c:876
 msgid "disable swap on file"
-msgstr ""
+msgstr "wyłącza przestrzeń wymiany na pliku"
 
 #: fish/cmds.c:222 fish/cmds.c:882
 msgid "disable swap on labeled swap partition"
-msgstr ""
+msgstr "wyłącza przestrzeń wymiany na partycji wymiany z etykietą"
 
 #: fish/cmds.c:223 fish/cmds.c:888
 msgid "disable swap on swap partition by UUID"
-msgstr ""
+msgstr "wyłącza przestrzeń wymiany na partycji wymiany według UUID"
 
 #: fish/cmds.c:224 fish/cmds.c:867
 msgid "enable swap on device"
-msgstr ""
+msgstr "włącza przestrzeń wymiany na urządzeniu"
 
 #: fish/cmds.c:225 fish/cmds.c:873
-#, fuzzy
 msgid "enable swap on file"
-msgstr "remove_handle nie powiodło się"
+msgstr "włącza przestrzeń wymiany w pliku"
 
 #: fish/cmds.c:226 fish/cmds.c:879
-#, fuzzy
 msgid "enable swap on labeled swap partition"
-msgstr "remove_handle nie powiodło się"
+msgstr "włącza przestrzeń wymiany na partycji wymiany z etykietą"
 
 #: fish/cmds.c:227 fish/cmds.c:885
 msgid "enable swap on swap partition by UUID"
-msgstr ""
+msgstr "włącza przestrzeń wymiany na partycji wymiany według UUID"
 
 #: fish/cmds.c:228 fish/cmds.c:363
 msgid "sync disks, writes are flushed through to the disk image"
-msgstr ""
+msgstr "synchronizuje dyski, zapisy są równo rozmieszczone na obrazie dysku"
 
 #: fish/cmds.c:229 fish/cmds.c:726
 msgid "return last 10 lines of a file"
-msgstr ""
+msgstr "zwraca ostatnie 10 wierszy pliku"
 
 #: fish/cmds.c:230 fish/cmds.c:729
 msgid "return last N lines of a file"
-msgstr ""
+msgstr "zwraca ostatnie N wierszy pliku"
 
 #: fish/cmds.c:231 fish/cmds.c:564
 msgid "unpack tarfile to directory"
-msgstr ""
+msgstr "rozpakowuje plik tar do katalogu"
 
 #: fish/cmds.c:232 fish/cmds.c:567
 msgid "pack directory into tarfile"
-msgstr ""
+msgstr "pakuje katalog do pliku tar"
 
 #: fish/cmds.c:233 fish/cmds.c:570
 msgid "unpack compressed tarball to directory"
-msgstr ""
+msgstr "rozpakowuje skompresowane archiwum tar do katalogu"
 
 #: fish/cmds.c:234 fish/cmds.c:573
 msgid "pack directory into compressed tarball"
-msgstr ""
+msgstr "pakuje katalog do skompresowanego archiwum tar"
 
 #: fish/cmds.c:235 fish/cmds.c:366
 msgid "update file timestamps or create a new file"
-msgstr ""
+msgstr "aktualizuje znaczniki czasu plików lub tworzy nowy plik"
 
 #: fish/cmds.c:236 fish/cmds.c:522
 msgid "get ext2/ext3/ext4 superblock details"
-msgstr ""
+msgstr "uzyskuje szczegóły superbloków ext2/ext3/ext4"
 
 #: fish/cmds.c:237 fish/cmds.c:768
 msgid "set file mode creation mask (umask)"
-msgstr ""
+msgstr "ustawia maskę tworzenia trybu pliku (umask)"
 
 #: fish/cmds.c:238 fish/cmds.c:492
-#, fuzzy
 msgid "unmount a filesystem"
-msgstr "nieznany system plików {fs}\n"
+msgstr "odmontowuje system plików"
 
 #: fish/cmds.c:239 fish/cmds.c:498
-#, fuzzy
 msgid "unmount all filesystems"
-msgstr "nieznany system plików {fs}\n"
+msgstr "odmontowuje wszystkie systemy plików"
 
 #: fish/cmds.c:240 fish/cmds.c:555
 msgid "upload a file from the local machine"
-msgstr ""
+msgstr "wysyła plik do z lokalnej maszyny"
 
 #: fish/cmds.c:241 fish/cmds.c:339
 msgid "get the library version number"
-msgstr ""
+msgstr "uzyskuje numer wersji biblioteki"
 
 #: fish/cmds.c:242 fish/cmds.c:669
 msgid "activate or deactivate some volume groups"
-msgstr ""
+msgstr "aktywuje lub deaktywuje niektóre grupy woluminów"
 
 #: fish/cmds.c:243 fish/cmds.c:666
 msgid "activate or deactivate all volume groups"
-msgstr ""
+msgstr "aktywuje lub deaktywuje wszystkie grupy woluminów"
 
 #: fish/cmds.c:245 fish/cmds.c:591
 msgid "remove an LVM volume group"
-msgstr ""
+msgstr "usuwa grupę woluminów LVM"
 
 #: fish/cmds.c:246 fish/cmds.c:247 fish/cmds.c:387 fish/cmds.c:396
 msgid "list the LVM volume groups (VGs)"
-msgstr ""
+msgstr "wyświetla listę grup woluminów LVM"
 
 #: fish/cmds.c:248 fish/cmds.c:717
 msgid "count characters in a file"
-msgstr ""
+msgstr "liczy znaki w pliku"
 
 #: fish/cmds.c:249 fish/cmds.c:711
 msgid "count lines in a file"
-msgstr ""
+msgstr "liczy wiersze w pliku"
 
 #: fish/cmds.c:250 fish/cmds.c:714
 msgid "count words in a file"
-msgstr ""
+msgstr "liczy wyrazy w pliku"
 
 #: fish/cmds.c:251 fish/cmds.c:489
-#, fuzzy
 msgid "create a file"
-msgstr "remove_handle nie powiodło się"
+msgstr "tworzy plik"
 
 #: fish/cmds.c:254 fish/cmds.c:612
 msgid "write zeroes to the device"
-msgstr ""
+msgstr "zapisuje zera na urządzeniu"
 
 #: fish/cmds.c:255 fish/cmds.c:648
 msgid "zero unused inodes and disk blocks on ext2/3 filesystem"
-msgstr ""
+msgstr "zeruje nieużywane i-węzły i bloki dysków na systemie plików ext2/3"
 
 #: fish/cmds.c:258 fish/cmds.c:777
 msgid "determine file type inside a compressed file"
-msgstr ""
+msgstr "ustala typ pliku wewnątrz skompresowanego pliku"
 
 #: fish/cmds.c:261
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
 msgstr ""
+"Należy użyć -h <polecenie>/help <polecenie>, aby wyświetlić szczegółową "
+"pomoc polecenia."
+"Użyj -h <cmd>/help <cmd>, aby wyświetlić szczegółową pomoc o poleceniu."
 
 #: fish/cmds.c:1190 fish/cmds.c:1202 fish/cmds.c:1215 fish/cmds.c:1229
 #: fish/cmds.c:1243 fish/cmds.c:1258 fish/cmds.c:1273 fish/cmds.c:1286
@@ -942,7 +917,7 @@ msgstr ""
 #: fish/cmds.c:4766 fish/cmds.c:4780
 #, c-format
 msgid "%s should have %d parameter(s)\n"
-msgstr ""
+msgstr "%s powinno posiadać %d parametry\n"
 
 #: fish/cmds.c:1191 fish/cmds.c:1203 fish/cmds.c:1216 fish/cmds.c:1230
 #: fish/cmds.c:1244 fish/cmds.c:1259 fish/cmds.c:1274 fish/cmds.c:1287
@@ -1003,25 +978,25 @@ msgstr ""
 #: fish/cmds.c:4767 fish/cmds.c:4781
 #, c-format
 msgid "type 'help %s' for help on %s\n"
-msgstr ""
+msgstr "należy wpisać \"help %s\", aby uzyskać pomoc o %s\n"
 
 #: fish/cmds.c:5475
 #, c-format
 msgid "%s: unknown command\n"
-msgstr ""
+msgstr "%s: nieznane polecenie\n"
 
 #: fish/edit.c:86
 #, c-format
 msgid "use '%s filename' to edit a file\n"
-msgstr "użyj \"%s nazwapliku\", aby zmodyfikować plik\n"
+msgstr "należy użyć \"%s nazwa_pliku\", aby zmodyfikować plik\n"
 
 #: fish/fish.c:92
 #, c-format
 msgid "Try `%s --help' for more information.\n"
-msgstr ""
+msgstr "Należy spróbować \"%s --help\", aby uzyskać więcej informacji.\n"
 
 #: fish/fish.c:96
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: guest filesystem shell\n"
 "%s lets you edit virtual machine filesystems\n"
@@ -1055,23 +1030,23 @@ msgid ""
 "  -V|--version         Display version and exit\n"
 "For more information,  see the manpage %s(1).\n"
 msgstr ""
-"guestfish: powłoka systemu plików gościa\n"
-"guestfish umożliwia modyfikowanie systemów pliku maszyn wirtualnych\n"
+"%s: powłoka systemu plików gościa\n"
+"%s umożliwia modyfikowanie systemów pliku maszyn wirtualnych\n"
 "Copyright (C) 2009 Red Hat Inc.\n"
 "Użycie:\n"
-"  guestfish [--opcje] polecenie [: polecenie : polecenie ...]\n"
-"  guestfish -i domena-libvirt\n"
-"  guestfish -i obrazy-dysków\n"
+"  %s [--opcje] polecenie [: polecenie : polecenie ...]\n"
+"  %s -i domena-libvirt\n"
+"  %s -i obrazy-dysków\n"
 "lub dla trybu interaktywnego:\n"
-"  guestfish\n"
+"  %s\n"
 "lub ze skryptu powłoki:\n"
-"  guestfish <<EOF\n"
+"  %s <<EOF\n"
 "  polecenie\n"
 "  ...\n"
 "  EOF\n"
 "Opcje:\n"
 "  -h|--cmd-help        Wyświetla listę dostępnych poleceń\n"
-"  -h|--cmd-help polecenie Wyświetla szczegółową pomoc o \"poleceniu\"\n"
+"  -h|--cmd-help polecenie  Wyświetla szczegółową pomoc o \"poleceniu\"\n"
 "  -a|--add image       Dodaje obraz\n"
 "  -D|--no-dest-paths   Nie uzupełnia ścieżek z systemu plików gościa za\n"
 "                       pomocą Tab\n"
@@ -1081,13 +1056,14 @@ msgstr ""
 "  --listen             Nasłuchuje zdalnych poleceń\n"
 "  -m|--mount dev[:mnt] Montuje dev w mnt (jeśli pominięto, w /)\n"
 "  -n|--no-sync         Nie synchronizuje automatycznie\n"
-"  --remote[=PID]       Wysyła polecenia do zdalnego guestfish\n"
+"  --remote[=PID]       Wysyła polecenia do zdalnego %s\n"
 "  -r|--ro              Montuje w trybie tylko do odczytu\n"
+"  --selinux            Włącza obsługę SELinuksa\n"
 "  -v|--verbose         Wyświetla więcej komunikatów\n"
 "  -x                   Wykonuje echo każdego polecenia przed jego\n"
 "                       wykonaniem\n"
 "  -V|--version         Wyświetla wersję i kończy pracę\n"
-"Aby dowiedzieć się więcej, zobacz stronę podręcznika guestfish(1).\n"
+"Aby dowiedzieć się więcej, proszę zobaczyć stronę podręcznika %s(1).\n"
 
 #: fish/fish.c:184
 #, c-format
@@ -1095,62 +1071,58 @@ msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: utworzenie programu obsługi nie powiodło się\n"
 
 #: fish/fish.c:223
-#, fuzzy, c-format
+#, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
-msgstr "guestfish: --listen=PID: PID nie był liczbą: %s\n"
+msgstr "%s: --listen=PID: PID nie był liczbą: %s\n"
 
 #: fish/fish.c:230
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 msgstr ""
-"guestfish: zdalnie: $GUESTFISH_PID musi być ustawiony na PID zdalnego "
-"procesu\n"
+"%s: zdalnie: $GUESTFISH_PID musi być ustawiony na PID zdalnego procesu\n"
 
 #: fish/fish.c:239
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unknown long option: %s (%d)\n"
-msgstr "guestfish: nieznana długa opcja: %s (%d)\n"
+msgstr "%s: nieznana długa opcja: %s (%d)\n"
 
 #: fish/fish.c:266
-#, fuzzy, c-format
+#, c-format
 msgid "%s: only one -f parameter can be given\n"
-msgstr "guestfish: można podać tylko jeden parametr -f\n"
+msgstr "%s: można podać tylko jeden parametr -f\n"
 
 #: fish/fish.c:339
-#, fuzzy, c-format
+#, c-format
 msgid "%s: cannot use -i option with -a, -m, --listen, --remote or --selinux\n"
-msgstr "guestfish: nie można użyć opcji -i z -a, -m, --listen lub --remote\n"
+msgstr ""
+"%s: nie można użyć opcji -i z -a, -m, --listen, --remote lub --selinux\n"
 
 #: fish/fish.c:346
-#, fuzzy, c-format
+#, c-format
 msgid "%s: -i requires a libvirt domain or path(s) to disk image(s)\n"
-msgstr "guestfish -i wymaga domeny libvirt lub ścieżek do obrazów dysków\n"
+msgstr "%s: -i wymaga domeny libvirt lub ścieżek do obrazów dysków\n"
 
 #: fish/fish.c:356
-#, fuzzy, c-format
+#, c-format
 msgid "%s: virt-inspector command too long for fixed-size buffer\n"
 msgstr ""
-"guestfish: polecenie virt-inspector jest za długie dla bufora o stałym "
-"rozmiarze\n"
+"%s: polecenie virt-inspector jest za długie dla bufora o stałym rozmiarze\n"
 
 #: fish/fish.c:402
-#, fuzzy, c-format
+#, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
-msgstr ""
-"guestfish: nie można używać opcji --listen i --remote w tym samym czasie\n"
+msgstr "%s: nie można używać opcji --listen i --remote w tym samym czasie\n"
 
 #: fish/fish.c:410
-#, fuzzy, c-format
+#, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
-msgstr ""
-"guestfish: dodatkowe parametry wiersza poleceń za pomocą flagi --listen\n"
+msgstr "%s: dodatkowe parametry wiersza poleceń za pomocą flagi --listen\n"
 
 #: fish/fish.c:416
-#, fuzzy, c-format
+#, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
-msgstr ""
-"guestfish: nie można używać opcji --listen i --file w tym samym czasie\n"
+msgstr "%s: nie można używać opcji --listen i --file w tym samym czasie\n"
 
 #: fish/fish.c:561
 #, c-format
@@ -1167,39 +1139,39 @@ msgstr ""
 "Witaj w guestfish, interaktywnej powłoce systemów plików libguestfs do\n"
 "modyfikowania systemów plików maszyn wirtualnych.\n"
 "\n"
-"Podaj: \"help\", aby uzyskać pomoc o poleceniach\n"
-"      \"quit\", aby zakończyć powłokę\n"
+"Proszę podać: \"help\", aby uzyskać pomoc o poleceniach\n"
+"              \"quit\", aby zakończyć powłokę\n"
 "\n"
 
 #: fish/fish.c:641
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unterminated double quote\n"
-msgstr "guestfish: niezakończony podwójny cudzysłów\n"
+msgstr "%s: niezakończony podwójny cudzysłów\n"
 
 #: fish/fish.c:647 fish/fish.c:664
-#, fuzzy, c-format
+#, c-format
 msgid "%s: command arguments not separated by whitespace\n"
-msgstr "guestfish: parametry poleceń nie są oddzielone spacjami\n"
+msgstr "%s: parametry poleceń nie są oddzielone spacjami\n"
 
 #: fish/fish.c:658
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unterminated single quote\n"
-msgstr "guestfish: niezakończony pojedynczy cudzysłów\n"
+msgstr "%s: niezakończony pojedynczy cudzysłów\n"
 
 #: fish/fish.c:713
-#, fuzzy, c-format
+#, c-format
 msgid "%s: internal error parsing string at '%s'\n"
-msgstr "guestfish: wewnętrzny błąd analizowania łańcucha \"%s\"\n"
+msgstr "%s: wewnętrzny błąd przetwarzania ciągu \"%s\"\n"
 
 #: fish/fish.c:730
-#, fuzzy, c-format
+#, c-format
 msgid "%s: too many arguments\n"
-msgstr "guestfish: za dużo parametrów\n"
+msgstr "%s: za dużo parametrów\n"
 
 #: fish/fish.c:759
-#, fuzzy, c-format
+#, c-format
 msgid "%s: empty command on command line\n"
-msgstr "guestfish: puste polecenie wiersza poleceń\n"
+msgstr "%s: puste polecenie wiersza poleceń\n"
 
 #: fish/fish.c:911
 msgid "display a list of commands or help on a command"
@@ -1223,7 +1195,7 @@ msgstr "modyfikuje plik w obrazie"
 
 #: fish/fish.c:922
 msgid "local change directory"
-msgstr "zmienia lokalny folder"
+msgstr "zmienia lokalny katalog"
 
 #: fish/fish.c:924
 msgid "expand wildcards in command"
@@ -1261,12 +1233,12 @@ msgid ""
 "    <nn>sects        number of 512 byte sectors\n"
 msgstr ""
 "alloc - przydziela obraz\n"
-"     alloc <nazwapliku> <rozmiar>\n"
+"     alloc <nazwa_pliku> <rozmiar>\n"
 "\n"
 "    Tworzy pusty (wypełniony zerami) plik o podanym rozmiarze,\n"
 "    a następnie dodaje go, aby mógł być dalej badany.\n"
 "\n"
-"    Aby uzyskać bardziej zaawansowane tworzenie obrazu, zobacz\n"
+"    Aby uzyskać bardziej zaawansowane tworzenie obrazu, proszę zobaczyć\n"
 "    narzędzie qemu-img.\n"
 "\n"
 "    Można podać rozmiar (gdzie <nn> oznacza liczbę):\n"
@@ -1308,7 +1280,7 @@ msgid ""
 "    (> 2 MB) or binary files containing \\0 bytes.\n"
 msgstr ""
 "edit - modyfikuje plik w obrazie\n"
-"     edit <nazwapliku>\n"
+"     edit <nazwa_pliku>\n"
 "\n"
 "    Jest używane do modyfikowania pliku.\n"
 "\n"
@@ -1332,12 +1304,11 @@ msgid ""
 "    useful if you want to download files to a particular\n"
 "    place.\n"
 msgstr ""
-"lcd - zmienia lokalny folder\n"
-"    lcd <folder>\n"
+"lcd - zmienia lokalny katalog\n"
+"    lcd <katalog>\n"
 "\n"
-"    Zmienia bieżący folder guestfish. Te polecenie jest\n"
-"    przydatne, jeśli chcesz pobrać pliki do konkretnego\n"
-"    miejsca.\n"
+"    Zmienia bieżący katalog guestfish. Te polecenie jest\n"
+"    przydatne, aby pobrać pliki do konkretnego miejsca.\n"
 
 #: fish/fish.c:986
 #, c-format
@@ -1354,8 +1325,8 @@ msgstr ""
 "\n"
 "    Glob wykonuje <polecenie> z wieloznacznikami\n"
 "    rozwiniętymi we wszystkie parametry polecenia.\n"
-"    Zauważ, że polecenie jest wykonywane raz dla\n"
-"    każdego rozwiniętego parametru.\n"
+"    Proszę zauważyć, że polecenie jest wykonywane\n"
+"    raz dla każdego rozwiniętego parametru.\n"
 
 #: fish/fish.c:993
 #, c-format
@@ -1386,7 +1357,7 @@ msgid ""
 "    (> 2 MB) or binary files containing \\0 bytes.\n"
 msgstr ""
 "more - wyświetla plik w pagerze\n"
-"     more <nazwapliku>\n"
+"     more <nazwa_pliku>\n"
 "\n"
 "    Jest używane do wyświetlania pliku w pagerze.\n"
 "\n"
@@ -1423,7 +1394,7 @@ msgstr ""
 "\n"
 "Zamyka i ponownie otwiera program obsługi libguestfs. Zwykle użycie\n"
 "tego nie jest wymagane, ponieważ program obsługi jest właściwie\n"
-"zamykany, kiedy guestfish kończy działania. Mimo to może być czasem\n"
+"zamykany, kiedy guestfish kończy działanie. Mimo to może być czasem\n"
 "przydatne do testowania.\n"
 
 #: fish/fish.c:1024
@@ -1444,17 +1415,18 @@ msgstr ""
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""
-"%s: nieznane polecenie, użyj -h, aby wyświetlić listę wszystkich poleceń\n"
+"%s: nieznane polecenie, należy użyć -h, aby wyświetlić listę wszystkich "
+"poleceń\n"
 
 #: fish/fish.c:1186
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
-msgstr ""
+msgstr "Cytat ucieczki w ciągu \"%s\"\n"
 
 #: fish/glob.c:52
 #, c-format
 msgid "use 'glob command [args...]'\n"
-msgstr "użyj \"glob polecenie [parametry...]\"\n"
+msgstr "należy użyć \"glob polecenie [parametry...]\"\n"
 
 #: fish/glob.c:72
 #, c-format
@@ -1464,12 +1436,12 @@ msgstr "glob: wywołanie guestfs_glob_expand nie powiodło się: %s\n"
 #: fish/lcd.c:34
 #, c-format
 msgid "use 'lcd directory' to change local directory\n"
-msgstr "użyj \"lcd folder\", aby zmienić lokalny folder\n"
+msgstr "należy użyć \"lcd katalog\", aby zmienić lokalny katalog\n"
 
 #: fish/more.c:40
 #, c-format
 msgid "use '%s filename' to page a file\n"
-msgstr "użyj \"%s nazwapliku\", aby wyświetlić plik\n"
+msgstr "należy użyć \"%s nazwa_pliku\", aby wyświetlić plik\n"
 
 #: fish/rc.c:249
 #, c-format
@@ -1489,7 +1461,7 @@ msgstr ""
 #: fish/rc.c:329 fish/rc.c:343
 #, c-format
 msgid "guestfish: remote: looks like the server is not running\n"
-msgstr "guestfish: zdalnie: wygląda na to, że serwer nie jest uruchomiony\n"
+msgstr "guestfish: zdalnie: serwer nie jest uruchomiony\n"
 
 #: fish/rc.c:355 fish/rc.c:369
 #, c-format
@@ -1501,7 +1473,8 @@ msgstr ""
 #: fish/rc.c:380
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
-msgstr "guestfish: błąd protokołu: nie można dekodować odpowiedzi od serwera\n"
+msgstr ""
+"guestfish: błąd protokołu: nie można rozszyfrować odpowiedzi od serwera\n"
 
 #: fish/reopen.c:36
 #, c-format
@@ -1516,7 +1489,7 @@ msgstr "reopen: guestfs_create: utworzenie programu obsługi nie powiodło się\
 #: fish/time.c:35
 #, c-format
 msgid "use 'time command [args...]'\n"
-msgstr "użyj \"time polecenie [parametry...]\"\n"
+msgstr "należy użyć \"time polecenie [parametry...]\"\n"
 
 #: src/guestfs.c:247
 #, c-format
@@ -1557,22 +1530,22 @@ msgstr "QEMU zostało już uruchomione"
 #: src/guestfs.c:887
 #, c-format
 msgid "%s: cannot create temporary directory"
-msgstr "%s: nie można utworzyć folderu tymczasowego"
+msgstr "%s: nie można utworzyć katalogu tymczasowego"
 
 #: src/guestfs.c:977
 #, c-format
 msgid "cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)"
-msgstr "nie można znaleźć %s lub %s w LIBGUESTFS_PATH (bieżąca ścieżka = %s)"
+msgstr "nie można odnaleźć %s lub %s w LIBGUESTFS_PATH (bieżąca ścieżka = %s)"
 
 #: src/guestfs.c:1347
 msgid "failed to connect to vmchannel socket"
 msgstr "połączenie się z gniazdem kanału maszyny wirtualnej nie powiodło się"
 
 #: src/guestfs.c:1366
-#, fuzzy
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr ""
-"guestfs_wait_ready nie powiodło się, zobacz wcześniejsze komunikaty błędów"
+"guestfs_launch nie powiodło się, proszę zobaczyć wcześniejsze komunikaty "
+"błędów"
 
 #: src/guestfs.c:1376
 msgid "qemu launched and contacted daemon, but state != READY"
@@ -1591,7 +1564,7 @@ msgid ""
 "the LIBGUESTFS_QEMU environment variable."
 msgstr ""
 "%s: polecenie nie powiodło się: jeśli QEMU jest położone w niestandardowej "
-"ścieżce, spróbuj ustawienia zmiennej środowiskowej LIBGUESTFS_QEMU."
+"ścieżce, należy spróbować ustawienia zmiennej środowiskowej LIBGUESTFS_QEMU."
 
 #: src/guestfs.c:1640
 msgid "qemu has not been launched yet"
@@ -1612,15 +1585,16 @@ msgid "guestfs_end_busy: called when in state %d"
 msgstr "guestfs_end_busy: wywołano, kiedy w stanie %d"
 
 #: src/guestfs.c:1904
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
 msgstr ""
-"check_for_daemon_cancellation: odczytano 0x%x z demona, oczekiwano 0x%x\n"
+"check_for_daemon_cancellation_or_eof: odczytano 0x%x z demona, oczekiwano "
+"0x%x\n"
 
 #: src/guestfs.c:2062 src/guestfs.c:2116
 msgid "unexpected end of file when reading from daemon"
-msgstr ""
+msgstr "nieoczekiwany koniec pliku podczas odczytywania z demona"
 
 #: src/guestfs.c:2078
 #, c-format
@@ -1633,9 +1607,9 @@ msgid "message length (%u) > maximum possible size (%d)"
 msgstr "długość komunikatu (%u) > maksymalny możliwy rozmiar (%d)"
 
 #: src/guestfs.c:2215
-#, fuzzy, c-format
+#, c-format
 msgid "guestfs___send: state %d != BUSY"
-msgstr "guestfs__send_sync: stan %d != ZAJĘTY"
+msgstr "guestfs___send: stan %d != ZAJĘTY"
 
 #: src/guestfs.c:2237
 msgid "xdr_guestfs_message_header failed"
@@ -1646,9 +1620,9 @@ msgid "dispatch failed to marshal args"
 msgstr "rozdzielenie parametrów marszałka nie powiodło się"
 
 #: src/guestfs.c:2376
-#, fuzzy, c-format
+#, c-format
 msgid "send_file_chunk: state %d != READY"
-msgstr "send_file_chunk_sync: stan %d != GOTOWY"
+msgstr "send_file_chunk: stan %d != GOTOWY"
 
 #: src/guestfs.c:2392
 #, c-format
@@ -1662,21 +1636,21 @@ msgstr "%s: błąd w kodowaniu fragmentu"
 
 #: src/guestfs.c:2544
 msgid "write to daemon socket"
-msgstr "zapisz do gniazda demona"
+msgstr "zapisuje do gniazda demona"
 
 #: src/guestfs.c:2567
-#, fuzzy
 msgid "receive_file_data: parse error in reply callback"
-msgstr ""
-"receive_file_data_sync: błąd analizy w odpowiedzi wywołania zwrotnego\n"
+msgstr "receive_file_data: błąd przetwarzania w odpowiedzi wywołania zwrotnego"
 
 #: src/guestfs.c:2572
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr ""
+"receive_file_data: otrzymano nieoczekiwaną flagę podczas odczytywania "
+"fragmentów pliku"
 
 #: src/guestfs.c:2580
 msgid "failed to parse file chunk"
-msgstr "przeanalizowanie fragmentu pliku nie powiodło się"
+msgstr "przetworzenie fragmentu pliku nie powiodło się"
 
 #: src/guestfs.c:2589
 msgid "file receive cancelled by daemon"
@@ -1706,7 +1680,7 @@ msgstr ""
 "  --help         Wyświetla użycie\n"
 "  --helper libguestfs-test-tool-helper\n"
 "                 Program pomocniczy (domyślnie: %s)\n"
-"  --qemudir folder Podaje folder źródłowy QEMU\n"
+"  --qemudir katalog  Podaje katalog źródłowy QEMU\n"
 "  --qemu QEMU    Podaje plik binarny QEMU\n"
 "  --timeout n\n"
 "  -t n           Ustawia czas oczekiwania na uruchomienie\n"
@@ -1767,7 +1741,7 @@ msgstr "libguestfs-test-tool: zamontowanie /dev/sda1 w / nie powiodło się\n"
 #: test-tool/test-tool.c:226
 #, c-format
 msgid "libguestfs-test-tool: failed to mkdir /iso\n"
-msgstr "libguestfs-test-tool: utworzenie folderu /iso nie powiodło się\n"
+msgstr "libguestfs-test-tool: utworzenie katalogu /iso nie powiodło się\n"
 
 #: test-tool/test-tool.c:232
 #, c-format
@@ -1798,7 +1772,7 @@ msgstr "Plik binarny \"%s\" nie istnieje lub nie jest wykonywalny\n"
 #: test-tool/test-tool.c:293
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
-msgstr "%s: nie wygląda jak folder źródłowy QEMU\n"
+msgstr "%s: nie wygląda na katalog źródłowy QEMU\n"
 
 #: test-tool/test-tool.c:342
 #, c-format
@@ -1809,9 +1783,9 @@ msgid ""
 "Use the --helper option to specify the location of this program.\n"
 msgstr ""
 "Program pomocniczy narzędzia testowania \"libguestfs-test-tool-helper\" nie\n"
-"jest dostępny. Oczekiwano znalezienie go w \"%s\"\n"
+"jest dostępny. Oczekiwano odnalezienie go w \"%s\"\n"
 "\n"
-"Użyj opcji --helper, aby podać położenie tego programu.\n"
+"Należy użyć opcji --helper, aby podać położenie tego programu.\n"
 
 #: test-tool/test-tool.c:358
 #, c-format
@@ -1832,220 +1806,3 @@ msgstr ""
 #, c-format
 msgid "mkisofs command failed: %s\n"
 msgstr "polecenie mkisofs nie powiodło się: %s\n"
-
-#~ msgid "qemu has finished launching already"
-#~ msgstr "QEMU zakończyło już uruchamianie"
-
-#~ msgid "libguestfs-test-tool: failed or timed out in 'wait_ready'\n"
-#~ msgstr ""
-#~ "libguestfs-test-tool: \"wait_ready\" nie powiodło się lub przekroczyło "
-#~ "czas oczekiwania\n"
-
-#~ msgid "guestfish: unexpected command line option 0x%x\n"
-#~ msgstr "guestfish: nieoczekiwane polecenie wiersza poleceń 0x%x\n"
-
-#~ msgid "could not watch qemu stdout"
-#~ msgstr "nie można obserwować standardowego wyjścia QEMU"
-
-#~ msgid "guestfs_set_ready: called when in state %d != BUSY"
-#~ msgstr "guestfs_set_ready: wywołano, kiedy w stanie %d != ZAJĘTY"
-
-#~ msgid "stdout_event: internal error: %d != %d"
-#~ msgstr "stdout_event: wewnętrzny błąd: %d != %d"
-
-#~ msgid "sock_read_event: internal error: %d != %d"
-#~ msgstr "sock_read_event: wewnętrzny błąd: %d != %d"
-
-#~ msgid "can't decode length word"
-#~ msgstr "nie można dekodować długości słowa"
-
-#~ msgid "received magic signature from guestfsd, but msg size is %d"
-#~ msgstr "otrzymano podpis magic z guestfsd, ale rozmiar komunikatu to %d"
-
-#~ msgid "state %d != BUSY"
-#~ msgstr "stan %d != ZAJĘTY"
-
-#~ msgid "sock_write_event: internal error: %d != %d"
-#~ msgstr "sock_write_event: wewnętrzny błąd: %d != %d"
-
-#~ msgid "sock_write_event: state %d != BUSY"
-#~ msgstr "sock_write_event: stan %d != ZAJĘTY"
-
-#~ msgid "remove_handle failed"
-#~ msgstr "remove_handle nie powiodło się"
-
-#~ msgid "add_handle failed"
-#~ msgstr "add_handle nie powiodło się"
-
-#~ msgid "guestfs__send_sync: msg_out should be NULL"
-#~ msgstr "guestfs__send_sync: msg_out powinno być PUSTE"
-
-#~ msgid "send failed, see earlier error messages"
-#~ msgstr "wysłanie nie powiodło się, zobacz wcześniejsze komunikaty błędów"
-
-#~ msgid "send file chunk failed, see earlier error messages"
-#~ msgstr ""
-#~ "wysłanie fragmentu pliku nie powiodło się, zobacz wcześniejsze komunikaty "
-#~ "błędów"
-
-#~ msgid "receive_file_data_sync: reply callback not called\n"
-#~ msgstr ""
-#~ "receive_file_data_sync: nie wywołano odpowiedzi wywołania zwrotnego\n"
-
-#~ msgid "fd %d is out of range"
-#~ msgstr "fd %d jest spoza zakresu"
-
-#~ msgid "set of events (0x%x) contains unknown events"
-#~ msgstr "zestaw zdarzeń (0x%x) zawiera nieznane zdarzenia"
-
-#~ msgid "set of events is empty"
-#~ msgstr "zestaw zdarzeń jest pusty"
-
-#~ msgid "fd %d is already registered"
-#~ msgstr "fd %d jest już zarejestrowane"
-
-#~ msgid "callback is NULL"
-#~ msgstr "wywołanie zwrotne jest PUSTE"
-
-#~ msgid "fd %d was not registered"
-#~ msgstr "fd %d nie zostało zarejestrowane"
-
-#~ msgid "select_main_loop_run: this cannot be called recursively"
-#~ msgstr "select_main_loop_run: nie może zostać wywołane rekursywnie"
-
-#~ msgid "virt-cat: no image, VM names or filenames to cat given"
-#~ msgstr ""
-#~ "virt-cat: nie podano obrazu, nazw maszyn wirtualnych lub nazw plików dla "
-#~ "cat"
-
-#~ msgid "no root device found in this operating system image"
-#~ msgstr "nie znaleziono urządzenia root w tym obrazie systemu operacyjnego"
-
-#~ msgid "multiboot operating systems are not supported by virt-cat"
-#~ msgstr "systemy operacyjne multiboot nie są obsługiwane przez virt-cat"
-
-#~ msgid "Virtual Machine"
-#~ msgstr "Maszyna wirtualna"
-
-#~ msgid "Filesystem"
-#~ msgstr "System plików"
-
-#~ msgid "1K-blocks"
-#~ msgstr "Bloki 1K"
-
-#~ msgid "Size"
-#~ msgstr "Rozmiar"
-
-#~ msgid "Used"
-#~ msgstr "Użyte"
-
-#~ msgid "Available"
-#~ msgstr "Dostępne"
-
-#~ msgid "Use%"
-#~ msgstr "Użycie%"
-
-#~ msgid "Inodes"
-#~ msgstr "I-węzły"
-
-#~ msgid "IUsed"
-#~ msgstr "IUżyte"
-
-#~ msgid "IFree"
-#~ msgstr "IWolne"
-
-#~ msgid "IUse%"
-#~ msgstr "IUżycie%"
-
-#~ msgid "virt-inspector: no image or VM names given"
-#~ msgstr "virt-inspector: nie podano nazw obrazu lub maszyny wirtualnej"
-
-#~ msgid "--fish output is only possible with a single OS\n"
-#~ msgstr ""
-#~ "wyjście --fish jest możliwe tylko za pomocą jednego systemu operacyjnego\n"
-
-#~ msgid "virt-inspector: no YAML support\n"
-#~ msgstr "virt-inspector: brak obsługi YAML\n"
-
-#~ msgid "  Mountpoints:\n"
-#~ msgstr "  Punkty montowania:\n"
-
-#~ msgid "  Filesystems:\n"
-#~ msgstr "  Systemy plików:\n"
-
-#~ msgid "  Modprobe aliases:\n"
-#~ msgstr "  Aliasy modprobe:\n"
-
-#~ msgid "  Initrd modules:\n"
-#~ msgstr "  Moduły initrd:\n"
-
-#~ msgid "  Applications:\n"
-#~ msgstr "  Aplikacje:\n"
-
-#~ msgid "  Kernels:\n"
-#~ msgstr "  Jądra:\n"
-
-#~ msgid "  Windows Registry entries:\n"
-#~ msgstr "  Wpisy rejestru Windows:\n"
-
-#~ msgid "open_guest: first parameter must be a string or an arrayref"
-#~ msgstr "open_guest: pierwszy parametr musi być łańcuchem lub arrayref"
-
-#~ msgid "guest image {imagename} does not exist or is not readable"
-#~ msgstr "obraz gościa {imagename} nie istnieje lub jest nieczytelny"
-
-#~ msgid ""
-#~ "open_guest: no libvirt support (install Sys::Virt, XML::XPath and XML::"
-#~ "XPath::XMLParser)"
-#~ msgstr ""
-#~ "open_guest: brak obsługi libvirt (zainstaluj Sys::Virt, XML::XPath i XML::"
-#~ "XPath::XMLParser)"
-
-#~ msgid "open_guest: too many domains listed on command line"
-#~ msgstr "open_guest: za dużo domen w wierszu poleceń"
-
-#~ msgid "open_guest: cannot connect to libvirt"
-#~ msgstr "open_guest: nie można połączyć się z libvirt"
-
-#~ msgid "{imagename} is not the name of an inactive libvirt domain\n"
-#~ msgstr "{imagename} nie jest nazwą nieaktywnej domeny libvirt\n"
-
-#~ msgid "{imagename} is not the name of a libvirt domain\n"
-#~ msgstr "{imagename} nie jest nazwą domeny libvirt\n"
-
-#~ msgid "{imagename} seems to have no disk devices\n"
-#~ msgstr "{imagename} wydaje się nie mieć żadnych urządzeń dysków\n"
-
-#~ msgid "resolve_windows_path: path must start with a / character"
-#~ msgstr "resolve_windows_path: ścieżka musi zaczynać się od znaku /"
-
-#, fuzzy
-#~ msgid "cpio command failed: {error}"
-#~ msgstr "polecenie reged nie powiodło się: {errormsg}"
-
-#~ msgid "reged command failed: {errormsg}"
-#~ msgstr "polecenie reged nie powiodło się: {errormsg}"
-
-#~ msgid "no output from reged command: {errormsg}"
-#~ msgstr "brak wyjście polecenia reged: {errormsg}"
-
-#~ msgid "unknown filesystem label {label}\n"
-#~ msgstr "nieznana etykieta systemu plików {label}\n"
-
-#~ msgid "unknown filesystem UUID {uuid}\n"
-#~ msgstr "nieznany UUID systemu plików {uuid}\n"
-
-#~ msgid "unknown filesystem {fs}\n"
-#~ msgstr "nieznany system plików {fs}\n"
-
-#~ msgid "{path} doesn't match augeas pattern"
-#~ msgstr "{path} nie zgadza się z wzorem augeas"
-
-#~ msgid "{filename}: could not read initrd format"
-#~ msgstr "{filename}: nie można odczytać formatu initrd"
-
-#~ msgid "virt-v2v: no image or VM names given"
-#~ msgstr "virt-v2v: nie podano nazw obrazu lub maszyny wirtualnej"
-
-#~ msgid "multiboot operating systems are not supported by v2v"
-#~ msgstr "systemy operacyjne multiboot nie są obsługiwane przez v2v"
