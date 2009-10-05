@@ -21,7 +21,7 @@ SUBDIRS = gnulib/lib src daemon appliance fish po examples images \
 	gnulib/tests capitests regressions test-tool
 
 if HAVE_OCAML
-SUBDIRS += ocaml
+SUBDIRS += ocaml ocaml/examples
 endif
 if HAVE_PERL
 SUBDIRS += perl

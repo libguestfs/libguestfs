@@ -23,8 +23,6 @@ EXTRA_DIST = \
 	run-bindtests \
 	t/*.ml
 
-SUBDIRS = examples
-
 CLEANFILES = *.cmi *.cmo *.cmx *.cma *.cmxa *.o *.a *.so
 CLEANFILES += t/*.cmi t/*.cmo t/*.cmx t/*.o t/*.a t/*.so
 
