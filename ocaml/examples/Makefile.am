@@ -1,4 +1,8 @@
-EXTRA_DIST = LICENSE README lvs.ml viewer.ml Throbber.png Throbber.gif
+EXTRA_DIST = \
+	LICENSE README \
+	lvs.ml \
+	viewer.ml xmllight_loader.ml xmllight_loader.mli \
+	Throbber.png Throbber.gif
 
 CLEANFILES = throbber.ml *.cmi *.cmo *.cmx *.o lvs
 

@@ -17,7 +17,8 @@
 
 EXTRA_DIST = \
 	run-inspector-locally \
-	virt-inspector
+	virt-inspector \
+	inspector_generator.ml
 
 dist_doc_DATA = \
 	virt-inspector.rng \
