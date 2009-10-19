@@ -2488,7 +2488,7 @@ C<resize2fs> sometimes gives an error about this and sometimes not.
 In any case, it is always safe to call C<guestfs_e2fsck_f> before
 calling this function.");
 
-  ("find", (RStringList "names", [Pathname "directory"]), 107, [],
+  ("find", (RStringList "names", [Pathname "directory"]), 107, [ProtocolLimitWarning],
    [InitBasicFS, Always, TestOutputList (
       [["find"; "/"]], ["lost+found"]);
     InitBasicFS, Always, TestOutputList (
