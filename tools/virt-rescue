@@ -37,6 +37,16 @@ virt-rescue - Run a rescue shell on a virtual machine
 
  virt-rescue [--options] disk.img [disk.img ...]
 
+=head1 WARNING
+
+You must I<not> use C<virt-rescue> on live virtual machines.  Doing so
+will probably result in disk corruption in the VM.  C<virt-rescue>
+tries to stop you from doing this, but doesn't catch all cases.
+
+However if you use the I<--ro> (read only) option, then you can attach
+a shell to a live virtual machine, but the results might be strange or
+inconsistent at times (but you won't get disk corruption).
+
 =head1 DESCRIPTION
 
 virt-rescue gives you a rescue shell and some simple recovery tools
@@ -52,12 +62,6 @@ eg:
  lv_swap vg_f11x64 -wi-a- 992.00M
  # mount /dev/vg_f11x64/lv_root /sysroot
  # ls /sysroot
-
-B<Note> that the virtual machine must not be powered on when you use
-this tool.  Doing so will probably result in disk corruption in the
-VM.  However if you use the I<--ro> (read only) option, then you can
-attach a shell to a running machine, but the results might be strange
-or inconsistent.
 
 This tool is just designed for quick interactive hacking on a virtual
 machine.  For more structured access to a virtual machine disk image,

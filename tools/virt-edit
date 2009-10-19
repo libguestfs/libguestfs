@@ -40,13 +40,16 @@ virt-edit - Edit a file in a virtual machine
 
  virt-edit [--options] disk.img [disk.img ...] file
 
+=head1 WARNING
+
+You must I<not> use C<virt-edit> on live virtual machines.  If you do
+this, you risk disk corruption in the VM.  C<virt-edit> tries to stop
+you from doing this, but doesn't catch all cases.
+
 =head1 DESCRIPTION
 
 C<virt-edit> is a command line tool to edit C<file> where C<file>
 exists in the named virtual machine (or disk image).
-
-B<Note> you must I<not> use virt-edit on live virtual machines.  If
-you do this, you risk disk corruption in the VM.
 
 If you want to just view a file, use L<virt-cat(1)>.  For more complex
 cases you should look at the L<guestfish(1)> tool.
