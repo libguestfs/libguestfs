@@ -23,7 +23,6 @@ capitests/test*.img
 capitests/tests
 capitests/tests.c
 capitests/test*.tmp
-cat/virt-cat.1
 ChangeLog
 *.class
 *.cma
@@ -47,8 +46,6 @@ daemon/names.c
 daemon/stubs.c
 depcomp
 .deps
-df/virt-df.1
-edit/virt-edit.1
 emptydisk
 examples/hello
 examples/to-xml
@@ -179,7 +176,6 @@ python/guestfs.py
 python/guestfs-py.c
 python/guestfs.pyc
 regressions/test1.img
-rescue/virt-rescue.1
 ruby/bindtests.rb
 ruby/ext/guestfs/extconf.h
 ruby/ext/guestfs/_guestfs.c
@@ -201,6 +197,7 @@ stamp-h1
 test-tool/libguestfs-test-tool.1
 test-tool/libguestfs-test-tool
 test-tool/libguestfs-test-tool-helper
+tools/virt-*.1
 /GNUmakefile
 /maint.mk
 /build-aux

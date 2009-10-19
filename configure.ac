@@ -675,18 +675,12 @@ for pm in Pod::Usage Getopt::Long Sys::Virt Data::Dumper XML::Writer Locale::Tex
     fi
 done
 if test "x$missing_perl_modules" = "xyes"; then
-    AC_MSG_WARN([some Perl modules required to compile virt-cat, virt-df, virt-edit, virt-inspector and virt-rescue are missing])
+    AC_MSG_WARN([some Perl modules required to compile virt-inspector and the other virt-* tools are missing])
 fi
 
-AM_CONDITIONAL([HAVE_CAT],
-    [test "x$PERL" != "xno" -a "x$missing_perl_modules" != "xyes"])
-AM_CONDITIONAL([HAVE_DF],
-    [test "x$PERL" != "xno" -a "x$missing_perl_modules" != "xyes"])
-AM_CONDITIONAL([HAVE_EDIT],
-    [test "x$PERL" != "xno" -a "x$missing_perl_modules" != "xyes"])
 AM_CONDITIONAL([HAVE_INSPECTOR],
     [test "x$PERL" != "xno" -a "x$missing_perl_modules" != "xyes"])
-AM_CONDITIONAL([HAVE_RESCUE],
+AM_CONDITIONAL([HAVE_TOOLS],
     [test "x$PERL" != "xno" -a "x$missing_perl_modules" != "xyes"])
 
 dnl Library versioning.
@@ -723,11 +717,8 @@ AC_CONFIG_FILES([Makefile
                  ruby/Makefile ruby/Rakefile
                  java/Makefile
                  haskell/Makefile
-                 cat/Makefile
-                 df/Makefile
-                 edit/Makefile
                  inspector/Makefile
-                 rescue/Makefile
+                 tools/Makefile
                  libguestfs.pc
                  gnulib/lib/Makefile
                  gnulib/tests/Makefile
@@ -755,16 +746,10 @@ echo -n "Java bindings ....................... "
 if test "x$HAVE_JAVA_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo -n "Haskell bindings .................... "
 if test "x$HAVE_HASKELL" = "x"; then echo "yes"; else echo "no"; fi
-echo -n "virt-cat ............................ "
-if test "x$HAVE_CAT" = "x"; then echo "yes"; else echo "no"; fi
-echo -n "virt-df ............................. "
-if test "x$HAVE_DF" = "x"; then echo "yes"; else echo "no"; fi
-echo -n "virt-edit ........................... "
-if test "x$HAVE_EDIT" = "x"; then echo "yes"; else echo "no"; fi
 echo -n "virt-inspector ...................... "
 if test "x$HAVE_INSPECTOR" = "x"; then echo "yes"; else echo "no"; fi
-echo -n "virt-rescue ......................... "
-if test "x$HAVE_RESCUE" = "x"; then echo "yes"; else echo "no"; fi
+echo -n "virt-* tools ........................ "
+if test "x$HAVE_TOOLS" = "x"; then echo "yes"; else echo "no"; fi
 echo "supermin appliance .................. $enable_supermin"
 echo
 echo "If any optional component is configured 'no' when you expected 'yes'"

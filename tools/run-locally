@@ -1,5 +1,4 @@
 #!/usr/bin/perl
-# virt-edit
 # Copyright (C) 2009 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -16,12 +15,15 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-# This script sets up the environment so you can run virt-edit in place
-# without needing to do 'make install' first. You can also run virt-edit
-# by creating a symlink to this script and putting it in your path.
+# This script sets up the environment so you can run virt-* tools in
+# place without needing to do 'make install' first. You can also run
+# the tools by creating a symlink to this script and putting it in
+# your path.
 #
 # Use it like this:
-#   ./run-edit-locally [usual virt-edit args ...]
+#   ./run-locally tool [usual virt-tool args ...]
+# eg:
+#   ./run-locally cat domname /etc/passwd
 
 use strict;
 use warnings;
@@ -31,6 +33,7 @@ use File::Spec;
 use Cwd qw(abs_path);
 
 my $path = $0;
+my $tool = shift @ARGV;
 
 # Follow symlinks until we get to the real file
 while(-l $path) {
@@ -49,4 +52,5 @@ $ENV{LD_LIBRARY_PATH} = $path.'/src/.libs';
 $ENV{LIBGUESTFS_PATH} = $path.'/appliance';
 $ENV{PERL5LIB}        = $path.'/perl/blib/lib:'.$path.'/perl/blib/arch';
 
-exec('perl', $path.'/edit/virt-edit', @ARGV);
+print (join " ", ("$path/tools/virt-$tool", @ARGV), "\n");
+exec('perl', "$path/tools/virt-$tool", @ARGV);

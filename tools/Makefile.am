@@ -1,4 +1,4 @@
-# libguestfs virt-edit
+# libguestfs virt-* tools
 # Copyright (C) 2009 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -15,31 +15,36 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+tools = cat df edit rescue
+
 EXTRA_DIST = \
-	run-edit-locally \
-	virt-edit
+	run-locally \
+	$(tools:%=virt-%)
 
-if HAVE_EDIT
+if HAVE_TOOLS
 
-bin_SCRIPTS = virt-edit
-man_MANS = virt-edit.1
+bin_SCRIPTS = $(tools:%=virt-%)
 
-noinst_DATA = $(top_builddir)/html/virt-edit.1.html
+# XXX Bug in automake?  If you list virt-cat.1 explicitly, then it
+# builds and installs the man pages.  However if this is removed,
+# then the man pages are neither built nor installed.
+man_MANS = virt-cat.1 $(patsubst %,virt-%.1,$(filter-out cat,$(tools)))
 
-virt-edit.1: virt-edit
+noinst_DATA = $(tools:%=$(top_builddir)/html/virt-%.1.html)
+
+virt-%.1: virt-%
 	$(POD2MAN) \
 	  --section 1 \
 	  -c "Virtualization Support" \
 	  --release "$(PACKAGE_NAME)-$(PACKAGE_VERSION)" \
 	  $< > $@-t && mv $@-t $@
 
-$(top_builddir)/html/virt-edit.1.html: virt-edit
+$(top_builddir)/html/virt-%.1.html: virt-%
 	mkdir -p $(top_builddir)/html
 	cd $(top_builddir) && pod2html \
 	  --css 'pod.css' \
-	  --title 'virt-edit, edit a file in a virtual machine' \
 	  --htmldir html \
-	  --outfile html/virt-edit.1.html \
-	  edit/$<
+	  --outfile html/$<.1.html \
+	  tools/$<
 
 endif

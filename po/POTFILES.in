@@ -1,4 +1,3 @@
-cat/virt-cat
 daemon/augeas.c
 daemon/blockdev.c
 daemon/checksum.c
@@ -55,8 +54,6 @@ daemon/wc.c
 daemon/xattr.c
 daemon/zero.c
 daemon/zerofree.c
-df/virt-df
-edit/virt-edit
 fish/alloc.c
 fish/cmds.c
 fish/completion.c
@@ -81,10 +78,13 @@ perl/lib/Sys/Guestfs.pm
 perl/lib/Sys/Guestfs/Lib.pm
 python/guestfs-py.c
 regressions/test-noexec-stack.pl
-rescue/virt-rescue
 ruby/ext/guestfs/_guestfs.c
 src/guestfs-actions.c
 src/guestfs-bindtests.c
 src/guestfs.c
 test-tool/helper.c
 test-tool/test-tool.c
+tools/virt-cat
+tools/virt-df
+tools/virt-edit
+tools/virt-rescue

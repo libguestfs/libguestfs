@@ -26,9 +26,14 @@ SUBDIRS = gnulib/lib src daemon appliance fish po examples images \
 if HAVE_PERL
 SUBDIRS += perl
 endif
+
 if HAVE_INSPECTOR
 SUBDIRS += inspector
 endif
+if HAVE_TOOLS
+SUBDIRS += tools
+endif
+
 if HAVE_OCAML
 SUBDIRS += ocaml ocaml/examples
 endif
@@ -43,18 +48,6 @@ SUBDIRS += java
 endif
 if HAVE_HASKELL
 SUBDIRS += haskell
-endif
-if HAVE_DF
-SUBDIRS += df
-endif
-if HAVE_CAT
-SUBDIRS += cat
-endif
-if HAVE_RESCUE
-SUBDIRS += rescue
-endif
-if HAVE_EDIT
-SUBDIRS += edit
 endif
 
 EXTRA_DIST = \

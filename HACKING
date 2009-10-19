@@ -68,9 +68,6 @@ Directories
 appliance/
         The qemu appliance, build scripts and so on.
 
-cat/
-        The virt-cat tool.
-
 capitests/
         Automated tests of the C API.
 
@@ -79,12 +76,6 @@ contrib/
 
 daemon/
         The daemon that runs inside the guest and carries out actions.
-
-df/
-        The virt-df tool.
-
-edit/
-        The virt-edit tool.
 
 examples/
         The examples.
@@ -125,11 +116,14 @@ python/
 regressions/
         Regression tests.
 
-rescue/
-        The virt-rescue tool.
-
 ruby/
         Ruby bindings.
+
+tools/
+	Command line tools like virt-cat, virt-df, virt-edit and more.
+	In versions <= 1.0.73 these were all in separate directories
+	like cat/, df/, edit/, but since then we moved them all into
+	one directory to simplify builds.
 
 src/
         Source code to the C library.
