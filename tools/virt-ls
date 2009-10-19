@@ -26,6 +26,7 @@ use Sys::Guestfs::Lib qw(open_guest get_partitions resolve_windows_path
 use Pod::Usage;
 use Getopt::Long;
 use Locale::TextDomain 'libguestfs';
+use File::Temp qw/tempdir/;
 
 =encoding utf8
 
@@ -189,15 +190,22 @@ my $root_dev = $roots[0];
 my $os = $oses->{$root_dev};
 mount_operating_system ($g, $os);
 
-my @r;
 unless ($mode) {
-    @r = $g->ls ($directory);
+    my @r = $g->ls ($directory);
     print "$_\n" foreach @r;
 } elsif ($mode eq "l") {
     print ($g->ll ($directory));
 } else { # $mode eq "R"
-    @r = $g->find ($directory);
-    print "$_\n" foreach @r;
+    my $dir = tempdir (CLEANUP => 1);
+    $g->find0 ($directory, "$dir/find0");
+    open F, "$dir/find0" or die "$dir/find0: $!\n";
+    my $r;
+    my $line;
+    while (($r = read (F, $line, 1024)) > 0) {
+	$line =~ tr{\0}{\n};
+	print $line;
+    }
+    close F;
 }
 
 =head1 SEE ALSO
