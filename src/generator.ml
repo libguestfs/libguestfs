@@ -2525,7 +2525,9 @@ then the returned list from C<guestfs_find> C</tmp> would be
 If C<directory> is not a directory, then this command returns
 an error.
 
-The returned list is sorted.");
+The returned list is sorted.
+
+See also C<guestfs_find0>.");
 
   ("e2fsck_f", (RErr, [Device "device"]), 108, [],
    [], (* lvresize tests this *)
@@ -3609,6 +3611,39 @@ them and returns the resulting string.
 You can use this command to test the connection through to the daemon.
 
 See also C<guestfs_ping_daemon>.");
+
+  ("find0", (RErr, [Pathname "directory"; FileOut "files"]), 196, [],
+   [], (* There is a regression test for this. *)
+   "find all files and directories, returning NUL-separated list",
+   "\
+This command lists out all files and directories, recursively,
+starting at C<directory>, placing the resulting list in the
+external file called C<files>.
+
+This command works the same way as C<guestfs_find> with the
+following exceptions:
+
+=over 4
+
+=item *
+
+The resulting list is written to an external file.
+
+=item *
+
+Items (filenames) in the result are separated
+by C<\\0> characters.  See L<find(1)> option I<-print0>.
+
+=item *
+
+This command is not limited in the number of names that it
+can return.
+
+=item *
+
+The result list is not sorted.
+
+=back");
 
 ]
 

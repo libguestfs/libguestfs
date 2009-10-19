@@ -129,3 +129,102 @@ do_find (const char *dir)
 
   return res;			/* caller frees */
 }
+
+/* The code below assumes each path returned can fit into a protocol
+ * chunk.  If this turns out not to be true at some point in the
+ * future then we'll need to modify the code a bit to handle it.
+ */
+#if PATH_MAX > GUESTFS_MAX_CHUNK_SIZE
+#error "PATH_MAX > GUESTFS_MAX_CHUNK_SIZE"
+#endif
+
+/* Has one FileOut parameter. */
+int
+do_find0 (const char *dir)
+{
+  struct stat statbuf;
+  int r;
+  FILE *fp;
+  char *cmd;
+  char *sysrootdir;
+  size_t sysrootdirlen, len;
+  char str[GUESTFS_MAX_CHUNK_SIZE];
+
+  sysrootdir = sysroot_path (dir);
+  if (!sysrootdir) {
+    reply_with_perror ("malloc");
+    return -1;
+  }
+
+  r = stat (sysrootdir, &statbuf);
+  if (r == -1) {
+    reply_with_perror ("%s", dir);
+    free (sysrootdir);
+    return -1;
+  }
+  if (!S_ISDIR (statbuf.st_mode)) {
+    reply_with_error ("%s: not a directory", dir);
+    free (sysrootdir);
+    return -1;
+  }
+
+  sysrootdirlen = strlen (sysrootdir);
+
+  if (asprintf_nowarn (&cmd, "find %Q -print0", sysrootdir) == -1) {
+    reply_with_perror ("asprintf");
+    free (sysrootdir);
+    return -1;
+  }
+  free (sysrootdir);
+
+  if (verbose)
+    fprintf (stderr, "%s\n", cmd);
+
+  fp = popen (cmd, "r");
+  if (fp == NULL) {
+    reply_with_perror ("%s", cmd);
+    free (cmd);
+    return -1;
+  }
+  free (cmd);
+
+  /* Now we must send the reply message, before the file contents.  After
+   * this there is no opportunity in the protocol to send any error
+   * message back.  Instead we can only cancel the transfer.
+   */
+  reply (NULL, NULL);
+
+  while ((r = input_to_nul (fp, str, GUESTFS_MAX_CHUNK_SIZE)) > 0) {
+    if (verbose)
+      printf ("find0 string: %s\n", str);
+
+    len = strlen (str);
+    if (len <= sysrootdirlen)
+      continue;
+
+    /* Remove the directory part of the path before sending it. */
+    if (send_file_write (str + sysrootdirlen, r - sysrootdirlen) < 0) {
+      pclose (fp);
+      return -1;
+    }
+  }
+
+  if (ferror (fp)) {
+    perror (dir);
+    send_file_end (1);		/* Cancel. */
+    pclose (fp);
+    return -1;
+  }
+
+  if (pclose (fp) != 0) {
+    perror (dir);
+    send_file_end (1);		/* Cancel. */
+    return -1;
+  }
+
+  if (send_file_end (0))	/* Normal end of file. */
+    return -1;
+
+  return 0;
+}
+

@@ -26,6 +26,7 @@ TESTS = \
 	rhbz503169c13.sh \
 	test-cancellation-download-librarycancels.sh \
 	test-cancellation-upload-daemoncancels.sh \
+	test-find0.sh \
 	test-noexec-stack.pl \
 	test-qemudie-killsub.sh \
 	test-qemudie-midcommand.sh \
