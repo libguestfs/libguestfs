@@ -1,0 +1,234 @@
+#!/usr/bin/perl -w
+# virt-ls
+# Copyright (C) 2009 Red Hat Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+use warnings;
+use strict;
+
+use Sys::Guestfs;
+use Sys::Guestfs::Lib qw(open_guest get_partitions resolve_windows_path
+  inspect_all_partitions inspect_partition
+  inspect_operating_systems mount_operating_system);
+use Pod::Usage;
+use Getopt::Long;
+use Locale::TextDomain 'libguestfs';
+
+=encoding utf8
+
+=head1 NAME
+
+virt-ls - List files in a virtual machine
+
+=head1 SYNOPSIS
+
+ virt-ls [--options] domname directory
+
+ virt-ls [--options] disk.img [disk.img ...] directory
+
+=head1 DESCRIPTION
+
+C<virt-ls> is a command line tool to list the names of files in a
+directory inside a virtual machine or disk image.
+
+C<virt-ls> is just a simple wrapper around L<libguestfs(3)>
+functionality.  For more complex cases you should look at the
+L<guestfish(1)> tool.
+
+C<virt-ls> can be used in one of three modes: simple, long and
+recursive.  A simple listing is like the ordinary L<ls(1)> command:
+
+ $ virt-ls myguest /
+ bin
+ boot
+ [etc.]
+
+With the C<-l> (C<--long>) option, C<virt-ls> shows more detail:
+
+ $ virt-ls -l myguest /
+ total 204
+ dr-xr-xr-x.   2 root root   4096 2009-08-25 19:06 bin
+ dr-xr-xr-x.   5 root root   3072 2009-08-25 19:06 boot
+ [etc.]
+
+With the C<-R> (C<--recursive>) option, C<virt-ls> lists the
+names of files and directories recursively:
+
+ $ virt-ls -R myguest /tmp
+ foo
+ foo/bar
+ [etc.]
+
+You I<cannot> combine these options.  To do more complicated things,
+use L<guestfish(1)>.
+
+=head1 OPTIONS
+
+=over 4
+
+=cut
+
+my $help;
+
+=item B<--help>
+
+Display brief help.
+
+=cut
+
+my $version;
+
+=item B<--version>
+
+Display version number and exit.
+
+=cut
+
+my $uri;
+
+=item B<--connect URI> | B<-c URI>
+
+If using libvirt, connect to the given I<URI>.  If omitted, then we
+connect to the default libvirt hypervisor.
+
+If you specify guest block devices directly, then libvirt is not used
+at all.
+
+=cut
+
+my $mode;
+
+=item B<-l> | B<--long>
+
+=item B<-R> | B<--recursive>
+
+Select the mode.  With neither of these options, C<virt-ls>
+produces a simple, flat list of the files in the named directory.
+
+C<virt-ls -l> produces a "long listing", which shows more detail (just
+like the plain C<ls -l> command).
+
+C<virt-ls -R> produces a recursive list of files starting at the named
+directory.  See the documentation for the C<guestfs_find> command
+L<guestfs(3)> for precise details.
+
+You cannot combine these options.
+
+=back
+
+=cut
+
+sub set_mode_l
+{
+    die __"virt-ls: cannot combine -l and -R options\n" if $mode;
+    $mode = "l";
+}
+
+sub set_mode_R
+{
+    die __"virt-ls: cannot combine -l and -R options\n" if $mode;
+    $mode = "R";
+}
+
+GetOptions ("help|?" => \$help,
+            "version" => \$version,
+            "connect|c=s" => \$uri,
+            "long|l" => \&set_mode_l,
+            "recursive|R" => \&set_mode_R,
+    ) or pod2usage (2);
+pod2usage (1) if $help;
+if ($version) {
+    my $g = Sys::Guestfs->new ();
+    my %h = $g->version ();
+    print "$h{major}.$h{minor}.$h{release}$h{extra}\n";
+    exit
+}
+
+pod2usage (__"virt-ls: no image, VM names or directory to list given")
+    if @ARGV <= 1;
+
+my $directory = pop @ARGV;
+
+my $g;
+if ($uri) {
+    $g = open_guest (\@ARGV, address => $uri);
+} else {
+    $g = open_guest (\@ARGV);
+}
+
+$g->launch ();
+
+# List of possible filesystems.
+my @partitions = get_partitions ($g);
+
+# Now query each one to build up a picture of what's in it.
+my %fses =
+    inspect_all_partitions ($g, \@partitions,
+      use_windows_registry => 0);
+
+my $oses = inspect_operating_systems ($g, \%fses);
+
+my @roots = keys %$oses;
+die __"no root device found in this operating system image\n" if @roots == 0;
+die __"multiboot operating systems are not supported by virt-ls\n" if @roots > 1;
+my $root_dev = $roots[0];
+
+my $os = $oses->{$root_dev};
+mount_operating_system ($g, $os);
+
+my @r;
+unless ($mode) {
+    @r = $g->ls ($directory);
+    print "$_\n" foreach @r;
+} elsif ($mode eq "l") {
+    print ($g->ll ($directory));
+} else { # $mode eq "R"
+    @r = $g->find ($directory);
+    print "$_\n" foreach @r;
+}
+
+=head1 SEE ALSO
+
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<virt-cat(1)>,
+L<virt-tar(1)>,
+L<Sys::Guestfs(3)>,
+L<Sys::Guestfs::Lib(3)>,
+L<Sys::Virt(3)>,
+L<http://libguestfs.org/>.
+
+=head1 AUTHOR
+
+Richard W.M. Jones L<http://et.redhat.com/~rjones/>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009 Red Hat Inc.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
