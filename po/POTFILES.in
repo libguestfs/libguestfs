@@ -88,3 +88,4 @@ tools/virt-cat
 tools/virt-df
 tools/virt-edit
 tools/virt-rescue
+tools/virt-tar

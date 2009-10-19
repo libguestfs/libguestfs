@@ -168,7 +168,8 @@ all-local:
 	    -name 'virt-df' -o \
 	    -name 'virt-edit' -o \
 	    -name 'virt-inspector' -o \
-	    -name 'virt-rescue' | \
+	    -name 'virt-rescue' -o \
+	    -name 'virt-tar' | \
 	grep -v '^perl/blib/' | \
 	grep -v '^capitests/' | \
 	grep -v '^daemon/lib/' | \

@@ -604,7 +604,8 @@ L<guestfs(3)>,
 L<http://libguestfs.org/>,
 L<virt-cat(1)>,
 L<virt-edit(1)>,
-L<virt-rescue(1)>.
+L<virt-rescue(1)>,
+L<virt-tar(1)>.
 
 =head1 AUTHORS
 
