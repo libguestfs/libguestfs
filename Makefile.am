@@ -136,7 +136,9 @@ HTMLFILES = html/guestfs.3.html html/guestfish.1.html \
 	html/virt-df.1.html \
 	html/virt-edit.1.html \
 	html/virt-inspector.1.html \
+	html/virt-ls.1.html \
 	html/virt-rescue.1.html \
+	html/virt-tar.1.html \
 	html/recipes.html \
 	html/pod.css html/recipes.css
 
