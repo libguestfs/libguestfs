@@ -85,6 +85,7 @@ do_find (const char *dir)
     free (sysrootdir);
     return NULL;
   }
+  free (sysrootdir);
 
   if (verbose)
     fprintf (stderr, "%s\n", cmd);
