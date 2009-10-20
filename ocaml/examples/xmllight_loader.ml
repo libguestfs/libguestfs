@@ -6,9 +6,9 @@ let from_xml ?ns xml =
   let l = make ?ns () in
   let rec aux = function
     | Element (tag, attrs, child) ->
-	start_elem l tag attrs; List.iter aux child; end_elem l ()
+        start_elem l tag attrs; List.iter aux child; end_elem l ()
     | PCData s ->
-	text l s in
+        text l s in
   aux xml;
   get l
 

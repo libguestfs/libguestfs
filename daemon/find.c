@@ -128,7 +128,7 @@ do_find (const char *dir)
 
   sort_strings (res, size-1);
 
-  return res;			/* caller frees */
+  return res;                        /* caller frees */
 }
 
 /* The code below assumes each path returned can fit into a protocol
@@ -212,20 +212,19 @@ do_find0 (const char *dir)
 
   if (ferror (fp)) {
     perror (dir);
-    send_file_end (1);		/* Cancel. */
+    send_file_end (1);                /* Cancel. */
     pclose (fp);
     return -1;
   }
 
   if (pclose (fp) != 0) {
     perror (dir);
-    send_file_end (1);		/* Cancel. */
+    send_file_end (1);                /* Cancel. */
     return -1;
   }
 
-  if (send_file_end (0))	/* Normal end of file. */
+  if (send_file_end (0))        /* Normal end of file. */
     return -1;
 
   return 0;
 }
-

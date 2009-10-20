@@ -59,15 +59,15 @@ let input = "inspector/virt-inspector.rng"
  * able to parse the specific input file.
  *)
 type rng =
-  | Element of string * rng list	(* <element name=name/> *)
-  | Attribute of string * rng list	(* <attribute name=name/> *)
-  | Interleave of rng list		(* <interleave/> *)
-  | ZeroOrMore of rng			(* <zeroOrMore/> *)
-  | OneOrMore of rng			(* <oneOrMore/> *)
-  | Optional of rng			(* <optional/> *)
-  | Choice of string list		(* <choice><value/>*</choice> *)
-  | Value of string			(* <value>str</value> *)
-  | Text				(* <text/> *)
+  | Element of string * rng list        (* <element name=name/> *)
+  | Attribute of string * rng list        (* <attribute name=name/> *)
+  | Interleave of rng list                (* <interleave/> *)
+  | ZeroOrMore of rng                        (* <zeroOrMore/> *)
+  | OneOrMore of rng                        (* <oneOrMore/> *)
+  | Optional of rng                        (* <optional/> *)
+  | Choice of string list                (* <choice><value/>*</choice> *)
+  | Value of string                        (* <value>str</value> *)
+  | Text                                (* <text/> *)
 
 let rec string_of_rng = function
   | Element (name, xs) ->
@@ -101,31 +101,31 @@ let rec parse_rng ?defines context = function
       (match rng with
        | [child] -> ZeroOrMore child :: parse_rng ?defines context rest
        | _ ->
-	   failwithf "%s: <zeroOrMore> contains more than one child element"
-	     context
+           failwithf "%s: <zeroOrMore> contains more than one child element"
+             context
       )
   | Xml.Element ("oneOrMore", [], [child]) :: rest ->
       let rng = parse_rng ?defines context [child] in
       (match rng with
        | [child] -> OneOrMore child :: parse_rng ?defines context rest
        | _ ->
-	   failwithf "%s: <oneOrMore> contains more than one child element"
-	     context
+           failwithf "%s: <oneOrMore> contains more than one child element"
+             context
       )
   | Xml.Element ("optional", [], [child]) :: rest ->
       let rng = parse_rng ?defines context [child] in
       (match rng with
        | [child] -> Optional child :: parse_rng ?defines context rest
        | _ ->
-	   failwithf "%s: <optional> contains more than one child element"
-	     context
+           failwithf "%s: <optional> contains more than one child element"
+             context
       )
   | Xml.Element ("choice", [], children) :: rest ->
       let values = List.map (
-	function Xml.Element ("value", [], [Xml.PCData value]) -> value
-	| _ ->
-	    failwithf "%s: can't handle anything except <value> in <choice>"
-	      context
+        function Xml.Element ("value", [], [Xml.PCData value]) -> value
+        | _ ->
+            failwithf "%s: can't handle anything except <value> in <choice>"
+              context
       ) children in
       Choice values
       :: parse_rng ?defines context rest
@@ -140,10 +140,10 @@ let rec parse_rng ?defines context = function
        *)
       (match defines with
        | None ->
-	   failwithf "%s: contains <ref>, but no refs are defined yet" context
+           failwithf "%s: contains <ref>, but no refs are defined yet" context
        | Some map ->
-	   let rng = StringMap.find name map in
-	   rng @ parse_rng ?defines context rest
+           let rng = StringMap.find name map in
+           rng @ parse_rng ?defines context rest
       )
   | x :: _ ->
       failwithf "%s: can't handle '%s' in schema" context (Xml.to_string x)
@@ -152,16 +152,16 @@ let grammar =
   let xml = Xml.parse_file input in
   match xml with
   | Xml.Element ("grammar", _,
-		 Xml.Element ("start", _, gram) :: defines) ->
+                 Xml.Element ("start", _, gram) :: defines) ->
       (* The <define/> elements are referenced in the <start> section,
        * so build a map of those first.
        *)
       let defines = List.fold_left (
-	fun map ->
-	  function Xml.Element ("define", ["name", name], defn) ->
-	    StringMap.add name defn map
-	  | _ ->
-	      failwithf "%s: expected <define name=name/>" input
+        fun map ->
+          function Xml.Element ("define", ["name", name], defn) ->
+            StringMap.add name defn map
+          | _ ->
+              failwithf "%s: expected <define name=name/>" input
       ) StringMap.empty defines in
       let defines = StringMap.mapi parse_rng defines in
 
@@ -258,37 +258,37 @@ let generate_types xs =
    * new line (BOL context).
    *)
   let rec generate_type = function
-    | Text ->				(* string *)
-	"string", true
-    | Choice values ->			(* [`val1|`val2|...] *)
-	"[" ^ String.concat "|" (List.map ((^)"`") values) ^ "]", true
-    | ZeroOrMore rng ->			(* <rng> list *)
-	let t, is_simple = generate_type rng in
-	t ^ " list (* 0 or more *)", is_simple
-    | OneOrMore rng ->			(* <rng> list *)
-	let t, is_simple = generate_type rng in
-	t ^ " list (* 1 or more *)", is_simple
-	                                (* virt-inspector hack: bool *)
+    | Text ->                                (* string *)
+        "string", true
+    | Choice values ->                        (* [`val1|`val2|...] *)
+        "[" ^ String.concat "|" (List.map ((^)"`") values) ^ "]", true
+    | ZeroOrMore rng ->                        (* <rng> list *)
+        let t, is_simple = generate_type rng in
+        t ^ " list (* 0 or more *)", is_simple
+    | OneOrMore rng ->                        (* <rng> list *)
+        let t, is_simple = generate_type rng in
+        t ^ " list (* 1 or more *)", is_simple
+                                        (* virt-inspector hack: bool *)
     | Optional (Attribute (name, [Value "1"])) ->
-	"bool", true
-    | Optional rng ->			(* <rng> list *)
-	let t, is_simple = generate_type rng in
-	t ^ " option", is_simple
+        "bool", true
+    | Optional rng ->                        (* <rng> list *)
+        let t, is_simple = generate_type rng in
+        t ^ " option", is_simple
                                         (* type name = { fields ... } *)
     | Element (name, fields) when is_attrs_interleave fields ->
-	generate_type_struct name (get_attrs_interleave fields)
-    | Element (name, [field])		(* type name = field *)
+        generate_type_struct name (get_attrs_interleave fields)
+    | Element (name, [field])                (* type name = field *)
     | Attribute (name, [field]) ->
-	let t, is_simple = generate_type field in
-	if is_simple then (t, true)
-	else (
-	  pr "type %s = %s\n" name t;
-	  name, false
-	)
-    | Element (name, fields) ->	      (* type name = { fields ... } *)
-	generate_type_struct name fields
+        let t, is_simple = generate_type field in
+        if is_simple then (t, true)
+        else (
+          pr "type %s = %s\n" name t;
+          name, false
+        )
+    | Element (name, fields) ->              (* type name = { fields ... } *)
+        generate_type_struct name fields
     | rng ->
-	failwithf "generate_type failed at: %s" (string_of_rng rng)
+        failwithf "generate_type failed at: %s" (string_of_rng rng)
 
   and is_attrs_interleave = function
     | [Interleave _] -> true
@@ -300,7 +300,7 @@ let generate_types xs =
     | [Interleave fields] -> fields
     | ((Attribute _) as field) :: fields
     | ((Optional (Attribute _)) as field) :: fields ->
-	field :: get_attrs_interleave fields
+        field :: get_attrs_interleave fields
     | _ -> assert false
 
   and generate_types xs =
@@ -317,25 +317,25 @@ let generate_types xs =
      *)
     match types with
     | ["string"; other] ->
-	let fname1, fname2 =
-	  match fields with
-	  | [f1; f2] -> name_of_field f1, name_of_field f2
-	  | _ -> assert false in
-	pr "type %s = string * %s (* %s -> %s *)\n" name other fname1 fname2;
-	name, false
+        let fname1, fname2 =
+          match fields with
+          | [f1; f2] -> name_of_field f1, name_of_field f2
+          | _ -> assert false in
+        pr "type %s = string * %s (* %s -> %s *)\n" name other fname1 fname2;
+        name, false
 
     | types ->
-	pr "type %s = {\n" name;
-	List.iter (
-	  fun (field, ftype) ->
-	    let fname = name_of_field field in
-	    pr "  %s_%s : %s;\n" name fname ftype
-	) (List.combine fields types);
-	pr "}\n";
-	(* Return the name of this type, and
-	 * false because it's not a simple type.
-	 *)
-	name, false
+        pr "type %s = {\n" name;
+        List.iter (
+          fun (field, ftype) ->
+            let fname = name_of_field field in
+            pr "  %s_%s : %s;\n" name fname ftype
+        ) (List.combine fields types);
+        pr "}\n";
+        (* Return the name of this type, and
+         * false because it's not a simple type.
+         *)
+        name, false
   in
 
   generate_types xs
@@ -347,45 +347,45 @@ let generate_parsers xs =
    * called in BOL context.
    *)
   let rec generate_parser = function
-    | Text ->				(* string *)
-	"string_child_or_empty"
-    | Choice values ->			(* [`val1|`val2|...] *)
-	sprintf "(fun x -> match Xml.pcdata (first_child x) with %s | str -> failwith (\"unexpected field value: \" ^ str))"
-	  (String.concat "|"
-	     (List.map (fun v -> sprintf "%S -> `%s" v v) values))
-    | ZeroOrMore rng ->			(* <rng> list *)
-	let pa = generate_parser rng in
-	sprintf "(fun x -> List.map %s (Xml.children x))" pa
-    | OneOrMore rng ->			(* <rng> list *)
-	let pa = generate_parser rng in
-	sprintf "(fun x -> List.map %s (Xml.children x))" pa
-	                                (* virt-inspector hack: bool *)
+    | Text ->                                (* string *)
+        "string_child_or_empty"
+    | Choice values ->                        (* [`val1|`val2|...] *)
+        sprintf "(fun x -> match Xml.pcdata (first_child x) with %s | str -> failwith (\"unexpected field value: \" ^ str))"
+          (String.concat "|"
+             (List.map (fun v -> sprintf "%S -> `%s" v v) values))
+    | ZeroOrMore rng ->                        (* <rng> list *)
+        let pa = generate_parser rng in
+        sprintf "(fun x -> List.map %s (Xml.children x))" pa
+    | OneOrMore rng ->                        (* <rng> list *)
+        let pa = generate_parser rng in
+        sprintf "(fun x -> List.map %s (Xml.children x))" pa
+                                        (* virt-inspector hack: bool *)
     | Optional (Attribute (name, [Value "1"])) ->
-	sprintf "(fun x -> try ignore (Xml.attrib x %S); true with Xml.No_attribute _ -> false)" name
-    | Optional rng ->			(* <rng> list *)
-	let pa = generate_parser rng in
-	sprintf "(function None -> None | Some x -> Some (%s x))" pa
+        sprintf "(fun x -> try ignore (Xml.attrib x %S); true with Xml.No_attribute _ -> false)" name
+    | Optional rng ->                        (* <rng> list *)
+        let pa = generate_parser rng in
+        sprintf "(function None -> None | Some x -> Some (%s x))" pa
                                         (* type name = { fields ... } *)
     | Element (name, fields) when is_attrs_interleave fields ->
-	generate_parser_struct name (get_attrs_interleave fields)
-    | Element (name, [field]) ->	(* type name = field *)
-	let pa = generate_parser field in
-	let parser_name = sprintf "parse_%s_%d" name (unique ()) in
-	pr "let %s =\n" parser_name;
-	pr "  %s\n" pa;
-	pr "let parse_%s = %s\n" name parser_name;
-	parser_name
+        generate_parser_struct name (get_attrs_interleave fields)
+    | Element (name, [field]) ->        (* type name = field *)
+        let pa = generate_parser field in
+        let parser_name = sprintf "parse_%s_%d" name (unique ()) in
+        pr "let %s =\n" parser_name;
+        pr "  %s\n" pa;
+        pr "let parse_%s = %s\n" name parser_name;
+        parser_name
     | Attribute (name, [field]) ->
-	let pa = generate_parser field in
-	let parser_name = sprintf "parse_%s_%d" name (unique ()) in
-	pr "let %s =\n" parser_name;
-	pr "  %s\n" pa;
-	pr "let parse_%s = %s\n" name parser_name;
-	parser_name
-    | Element (name, fields) ->	      (* type name = { fields ... } *)
-	generate_parser_struct name ([], fields)
+        let pa = generate_parser field in
+        let parser_name = sprintf "parse_%s_%d" name (unique ()) in
+        pr "let %s =\n" parser_name;
+        pr "  %s\n" pa;
+        pr "let parse_%s = %s\n" name parser_name;
+        parser_name
+    | Element (name, fields) ->              (* type name = { fields ... } *)
+        generate_parser_struct name ([], fields)
     | rng ->
-	failwithf "generate_parser failed at: %s" (string_of_rng rng)
+        failwithf "generate_parser failed at: %s" (string_of_rng rng)
 
   and is_attrs_interleave = function
     | [Interleave _] -> true
@@ -397,8 +397,8 @@ let generate_parsers xs =
     | [Interleave fields] -> [], fields
     | ((Attribute _) as field) :: fields
     | ((Optional (Attribute _)) as field) :: fields ->
-	let attrs, interleaves = get_attrs_interleave fields in
-	(field :: attrs), interleaves
+        let attrs, interleaves = get_attrs_interleave fields in
+        (field :: attrs), interleaves
     | _ -> assert false
 
   and generate_parsers xs =
@@ -424,48 +424,48 @@ let generate_parsers xs =
     let comma = ref false in
     List.iter (
       fun x ->
-	if !comma then pr ",\n    ";
-	comma := true;
-	match x with
-	| Optional (Attribute (fname, [field])), pa ->
-	    pr "%s x" pa
-	| Optional (Element (fname, [field])), pa ->
-	    pr "%s (optional_child %S x)" pa fname
-	| Attribute (fname, [Text]), _ ->
-	    pr "attribute %S x" fname
-	| (ZeroOrMore _ | OneOrMore _), pa ->
-	    pr "%s x" pa
-	| Text, pa ->
-	    pr "%s x" pa
-	| (field, pa) ->
-	    let fname = name_of_field field in
-	    pr "%s (child %S x)" pa fname
+        if !comma then pr ",\n    ";
+        comma := true;
+        match x with
+        | Optional (Attribute (fname, [field])), pa ->
+            pr "%s x" pa
+        | Optional (Element (fname, [field])), pa ->
+            pr "%s (optional_child %S x)" pa fname
+        | Attribute (fname, [Text]), _ ->
+            pr "attribute %S x" fname
+        | (ZeroOrMore _ | OneOrMore _), pa ->
+            pr "%s x" pa
+        | Text, pa ->
+            pr "%s x" pa
+        | (field, pa) ->
+            let fname = name_of_field field in
+            pr "%s (child %S x)" pa fname
     ) (List.combine fields pas);
     pr "\n  ) in\n";
 
     (match fields with
      | [Element (_, [Text]) | Attribute (_, [Text]); _] ->
-	 pr "  t\n"
+         pr "  t\n"
 
      | _ ->
-	 pr "  (Obj.magic t : %s)\n" name
+         pr "  (Obj.magic t : %s)\n" name
 (*
-	 List.iter (
-	   function
-	   | (Optional (Attribute (fname, [field])), pa) ->
-	       pr "  %s_%s =\n" name fname;
-	       pr "    %s x;\n" pa
-	   | (Optional (Element (fname, [field])), pa) ->
-	       pr "  %s_%s =\n" name fname;
-	       pr "    (let x = optional_child %S x in\n" fname;
-	       pr "     %s x);\n" pa
-	   | (field, pa) ->
-	       let fname = name_of_field field in
-	       pr "  %s_%s =\n" name fname;
-	       pr "    (let x = child %S x in\n" fname;
-	       pr "     %s x);\n" pa
-	 ) (List.combine fields pas);
-	 pr "}\n"
+         List.iter (
+           function
+           | (Optional (Attribute (fname, [field])), pa) ->
+               pr "  %s_%s =\n" name fname;
+               pr "    %s x;\n" pa
+           | (Optional (Element (fname, [field])), pa) ->
+               pr "  %s_%s =\n" name fname;
+               pr "    (let x = optional_child %S x in\n" fname;
+               pr "     %s x);\n" pa
+           | (field, pa) ->
+               let fname = name_of_field field in
+               pr "  %s_%s =\n" name fname;
+               pr "    (let x = child %S x in\n" fname;
+               pr "     %s x);\n" pa
+         ) (List.combine fields pas);
+         pr "}\n"
 *)
     );
     sprintf "parse_%s" name
@@ -612,7 +612,7 @@ let output_to filename =
 
     (* Is the new file different from the current file? *)
     if Sys.file_exists filename && files_equal filename filename_new then
-      Unix.unlink filename_new		(* same, so skip it *)
+      Unix.unlink filename_new                (* same, so skip it *)
     else (
       (* different, overwrite old one *)
       (try Unix.chmod filename 0o644 with Unix.Unix_error _ -> ());

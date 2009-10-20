@@ -550,23 +550,23 @@ sub output_xml_os
     }
 
     if ($os->{kernels}) {
-	$xml->startTag("kernels");
-	my @kernels = @{$os->{kernels}};
-	foreach (@kernels) {
-	    $xml->startTag("kernel",
-			   "version" => $_->{version},
-			   "arch" => $_->{arch});
-	    $xml->startTag("modules");
-	    my @modules = @{$_->{modules}};
-	    foreach (@modules) {
-		$xml->dataElement("module", $_);
-	    }
-	    $xml->endTag("modules");
-	    $xml->dataElement("path", $_->{path}) if(defined($_->{path}));
-	    $xml->dataElement("package", $_->{package}) if(defined($_->{package}));
-	    $xml->endTag("kernel");
-	}
-	$xml->endTag("kernels");
+        $xml->startTag("kernels");
+        my @kernels = @{$os->{kernels}};
+        foreach (@kernels) {
+            $xml->startTag("kernel",
+                           "version" => $_->{version},
+                           "arch" => $_->{arch});
+            $xml->startTag("modules");
+            my @modules = @{$_->{modules}};
+            foreach (@modules) {
+                $xml->dataElement("module", $_);
+            }
+            $xml->endTag("modules");
+            $xml->dataElement("path", $_->{path}) if(defined($_->{path}));
+            $xml->dataElement("package", $_->{package}) if(defined($_->{package}));
+            $xml->endTag("kernel");
+        }
+        $xml->endTag("kernels");
     }
 
     if (exists $os->{root}->{registry}) {

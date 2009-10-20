@@ -63,7 +63,7 @@ module G = Guestfs
 module M = Mutex
 module Q = Queue
 
-let verbose = ref false		       (* Verbose mode. *)
+let verbose = ref false                       (* Verbose mode. *)
 
 let debug fs =
   let f str = if !verbose then ( prerr_string str; prerr_newline () ) in
@@ -78,9 +78,9 @@ module Slave : sig
   type 'a callback = 'a -> unit
 
   type partinfo = {
-    pt_name : string;		(** device / LV name *)
-    pt_size : int64;		(** in bytes *)
-    pt_content : string;	(** the output of the 'file' command *)
+    pt_name : string;                (** device / LV name *)
+    pt_size : int64;                (** in bytes *)
+    pt_content : string;        (** the output of the 'file' command *)
     pt_statvfs : G.statvfs option; (** None if not mountable *)
   }
 
@@ -89,33 +89,33 @@ module Slave : sig
 
   val set_failure_callback : exn callback -> unit
     (** Set the function that is called in the main thread whenever
-	there is a command failure in the slave.  The command queue
-	is cleared before this is sent.  [exn] is the exception
-	associated with the failure. *)
+        there is a command failure in the slave.  The command queue
+        is cleared before this is sent.  [exn] is the exception
+        associated with the failure. *)
 
   val set_busy_callback : [`Busy|`Idle] callback -> unit
     (** Set the function that is called in the main thread whenever
-	the slave thread goes busy or idle. *)
+        the slave thread goes busy or idle. *)
 
   val exit_thread : unit -> unit
     (** [exit_thread ()] causes the slave thread to exit. *)
 
   val connect : string option -> string option callback -> unit
     (** [connect uri cb] connects to libvirt [uri], and calls [cb]
-	if it completes successfully.  Any previous connection is
-	automatically cleaned up and disconnected. *)
+        if it completes successfully.  Any previous connection is
+        automatically cleaned up and disconnected. *)
 
   val get_domains : string list callback -> unit
     (** [get_domains cb] gets the list of active domains from libvirt,
-	and calls [cb domains] with the names of those domains. *)
+        and calls [cb domains] with the names of those domains. *)
 
   val open_domain : string -> partinfo list callback -> unit
     (** [open_domain dom cb] sets the domain [dom] as the current
-	domain, and launches a libguestfs handle for it.  Any previously
-	current domain and libguestfs handle is closed.  Once the
-	libguestfs handle is opened (which usually takes some time),
-	callback [cb] is called with the list of partitions found
-	in the guest. *)
+        domain, and launches a libguestfs handle for it.  Any previously
+        current domain and libguestfs handle is closed.  Once the
+        libguestfs handle is opened (which usually takes some time),
+        callback [cb] is called with the list of partitions found
+        in the guest. *)
 
   val slave_loop : unit -> unit
     (** The slave thread's main loop, running in the slave thread. *)
@@ -168,7 +168,7 @@ end = struct
     | Either r -> r
     | Or exn -> raise exn
 
-  let q = Q.create ()			(* queue of commands *)
+  let q = Q.create ()                        (* queue of commands *)
   let q_lock = M.create ()
   let q_cond = Cd.create ()
 
@@ -177,8 +177,8 @@ end = struct
     debug "sending to slave: %s" (string_of_command c);
     with_lock q_lock (
       fun () ->
-	Q.push c q;
-	Cd.signal q_cond
+        Q.push c q;
+        Cd.signal q_cond
     )
 
   let exit_thread () =
@@ -198,9 +198,9 @@ end = struct
    * any references to these objects to escape from the slave
    * thread.
    *)
-  let conn = ref None			(* libvirt connection *)
-  let dom = ref None			(* libvirt domain *)
-  let g = ref None			(* libguestfs handle *)
+  let conn = ref None                        (* libvirt connection *)
+  let dom = ref None                        (* libvirt domain *)
+  let g = ref None                        (* libguestfs handle *)
 
   let quit = ref false
 
@@ -208,11 +208,11 @@ end = struct
     debug "Slave.slave_loop: waiting for a command";
     let c =
       with_lock q_lock (
-	fun () ->
-	  while Q.is_empty q do
-	    Cd.wait q_cond q_lock
-	  done;
-	  Q.pop q
+        fun () ->
+          while Q.is_empty q do
+            Cd.wait q_cond q_lock
+          done;
+          Q.pop q
       ) in
 
     (try
@@ -223,9 +223,9 @@ end = struct
        debug "Slave.slave_loop: command succeeded";
      with exn ->
        (* If an exception is thrown, it means the command failed.  In
-	* this case we clear the command queue and deliver the failure
-	* callback in the main thread.
-	*)
+        * this case we clear the command queue and deliver the failure
+        * callback in the main thread.
+        *)
        debug "Slave.slave_loop: command failed";
 
        !busy_cb `Idle;
@@ -238,69 +238,69 @@ end = struct
 
   and exec_command = function
     | Exit_thread ->
-	quit := true; (* quit first in case disconnect_all throws an exn *)
-	disconnect_all ()
+        quit := true; (* quit first in case disconnect_all throws an exn *)
+        disconnect_all ()
 
     | Connect (name, cb) ->
-	disconnect_all ();
-	conn := Some (C.connect_readonly ?name ());
-	cb name
+        disconnect_all ();
+        conn := Some (C.connect_readonly ?name ());
+        cb name
 
     | Get_domains cb ->
-	let conn = Option.get !conn in
-	let doms = D.get_domains conn [D.ListAll] in
-	(* Only return the names, so that the libvirt objects
-	 * aren't leaked outside the slave thread.
-	 *)
-	let doms = List.map D.get_name doms in
-	cb doms
+        let conn = Option.get !conn in
+        let doms = D.get_domains conn [D.ListAll] in
+        (* Only return the names, so that the libvirt objects
+         * aren't leaked outside the slave thread.
+         *)
+        let doms = List.map D.get_name doms in
+        cb doms
 
     | Open_domain (domname, cb) ->
-	let conn = Option.get !conn in
-	disconnect_dom ();
-	dom := Some (D.lookup_by_name conn domname);
-	let dom = Option.get !dom in
+        let conn = Option.get !conn in
+        disconnect_dom ();
+        dom := Some (D.lookup_by_name conn domname);
+        let dom = Option.get !dom in
 
-	(* Get the devices. *)
-	let xml = D.get_xml_desc dom in
-	let devs = get_devices_from_xml xml in
+        (* Get the devices. *)
+        let xml = D.get_xml_desc dom in
+        let devs = get_devices_from_xml xml in
 
-	(* Create the libguestfs handle and launch it. *)
-	let g' = G.create () in
-	List.iter (G.add_drive_ro g') devs;
-	G.launch g';
-	g := Some g';
+        (* Create the libguestfs handle and launch it. *)
+        let g' = G.create () in
+        List.iter (G.add_drive_ro g') devs;
+        G.launch g';
+        g := Some g';
 
-	(* Get the list of partitions. *)
-	let parts = Array.to_list (G.list_partitions g') in
-	(* Remove any which are PVs. *)
-	let pvs = Array.to_list (G.pvs g') in
-	let parts = List.filter (fun part -> not (List.mem part pvs)) parts in
-	let lvs = Array.to_list (G.lvs g') in
-	let parts = parts @ lvs in
+        (* Get the list of partitions. *)
+        let parts = Array.to_list (G.list_partitions g') in
+        (* Remove any which are PVs. *)
+        let pvs = Array.to_list (G.pvs g') in
+        let parts = List.filter (fun part -> not (List.mem part pvs)) parts in
+        let lvs = Array.to_list (G.lvs g') in
+        let parts = parts @ lvs in
 
-	let parts = List.map (
-	  fun part ->
-	    (* Find out the size of each partition. *)
-	    let size = G.blockdev_getsize64 g' part in
+        let parts = List.map (
+          fun part ->
+            (* Find out the size of each partition. *)
+            let size = G.blockdev_getsize64 g' part in
 
-	    (* Find out what's on each partition. *)
-	    let content = G.file g' part in
+            (* Find out what's on each partition. *)
+            let content = G.file g' part in
 
-	    (* Try to mount it. *)
-	    let statvfs =
-	      try
-		G.mount_ro g' part "/";
-		Some (G.statvfs g' "/")
-	      with _ -> None in
-	    G.umount_all g';
+            (* Try to mount it. *)
+            let statvfs =
+              try
+                G.mount_ro g' part "/";
+                Some (G.statvfs g' "/")
+              with _ -> None in
+            G.umount_all g';
 
-	    { pt_name = part; pt_size = size; pt_content = content;
-	      pt_statvfs = statvfs }
-	) parts in
+            { pt_name = part; pt_size = size; pt_content = content;
+              pt_statvfs = statvfs }
+        ) parts in
 
-	(* Call the callback. *)
-	cb parts
+        (* Call the callback. *)
+        cb parts
 
   (* Close all libvirt/libguestfs handles. *)
   and disconnect_all () =
@@ -323,7 +323,7 @@ end = struct
     let xs = {{ [xml] }} in
     let xs = {{ (((xs.(<domain..>_)) / .(<devices..>_)) / .(<disk..>_)) / }} in
     let xs = {{ map xs with
-		| <source dev=(Latin1 & s) ..>_
+                | <source dev=(Latin1 & s) ..>_
                 | <source file=(Latin1 & s) ..>_ -> [s]
                 | _ -> [] }} in
     {: xs :}
@@ -384,7 +384,7 @@ let main_window opened_domain repaint =
   ignore (window#connect#destroy ~callback:GMain.quit);
   ignore (window#event#connect#delete ~callback:quit);
   ignore (quit_item#connect#activate
-	    ~callback:(fun () -> ignore (quit ()); ()));
+            ~callback:(fun () -> ignore (quit ()); ()));
 
   (* Top status area. *)
   let hbox = GPack.hbox ~border_width:4 ~packing:vbox#pack () in
@@ -397,8 +397,8 @@ let main_window opened_domain repaint =
     model#clear ();
     List.iter (
       fun name ->
-	let row = model#append () in
-	model#set ~row ~column name
+        let row = model#append () in
+        model#set ~row ~column name
     ) names
   in
 
@@ -409,9 +409,9 @@ let main_window opened_domain repaint =
     GMisc.image ~pixbuf:static ~packing:(hbox#pack ~from:`END) () in
   let throbber_set = function
     | `Busy -> (*throbber#set_pixbuf animation*)
-	(* Workaround because no binding for GdkPixbufAnimation: *)
-	let file = Filename.dirname Sys.argv.(0) // "Throbber.gif" in
-	throbber#set_file file
+        (* Workaround because no binding for GdkPixbufAnimation: *)
+        let file = Filename.dirname Sys.argv.(0) // "Throbber.gif" in
+        throbber#set_file file
     | `Idle -> throbber#set_pixbuf static
   in
 
@@ -460,13 +460,13 @@ let main_window opened_domain repaint =
     let combo, (model, column) = vmcombo in
     combo#connect#changed
       ~callback:(
-	fun () ->
-	  match combo#active_iter with
-	  | None -> ()
-	  | Some row ->
-	      let name = model#get ~row ~column in
-	      ds.set_statusbar (sprintf "Opening %s ..." name);
-	      Slave.open_domain name (opened_domain ds))
+        fun () ->
+          match combo#active_iter with
+          | None -> ()
+          | Some row ->
+              let name = model#get ~row ~column in
+              ds.set_statusbar (sprintf "Opening %s ..." name);
+              Slave.open_domain name (opened_domain ds))
   );
 
   ignore (da#event#connect#expose ~callback:(repaint ds));
@@ -523,8 +523,8 @@ and real_repaint ds parts =
   let parts =
     List.map (
       fun ({ Slave.pt_size = size } as part) ->
-	let h = scale *. Int64.to_float size in
-	(h, part)
+        let h = scale *. Int64.to_float size in
+        (h, part)
     ) parts in
 
   (*
@@ -532,7 +532,7 @@ and real_repaint ds parts =
     eprintf "real_repaint: before borrowing:\n";
     List.iter (
       fun (h, part) ->
-	eprintf "%s\t%g pix\n" part.Slave.pt_name h
+        eprintf "%s\t%g pix\n" part.Slave.pt_name h
     ) parts
   );
   *)
@@ -544,34 +544,34 @@ and real_repaint ds parts =
   let rec borrow needed = function
     | [] -> 0., []
     | (h, part) :: parts ->
-	let spare = h -. min_h in
-	if spare >= needed then (
-	  needed, (h -. needed, part) :: parts
-	) else if spare > 0. then (
-	  let needed = needed -. spare in
-	  let spare', parts = borrow needed parts in
-	  spare +. spare', (h -. spare, part) :: parts
-	) else (
-	  let spare', parts = borrow needed parts in
-	  spare', (h, part) :: parts
-	)
+        let spare = h -. min_h in
+        if spare >= needed then (
+          needed, (h -. needed, part) :: parts
+        ) else if spare > 0. then (
+          let needed = needed -. spare in
+          let spare', parts = borrow needed parts in
+          spare +. spare', (h -. spare, part) :: parts
+        ) else (
+          let spare', parts = borrow needed parts in
+          spare', (h, part) :: parts
+        )
   in
   let rec loop = function
     | parts, [] -> List.rev parts
     | prev, ((h, part) :: parts) ->
-	let needed = min_h -. h in
-	let h, prev, parts =
-	  if needed > 0. then (
-	    (* Find some spare height in a succeeding partition(s). *)
-	    let spare, parts = borrow needed parts in
-	    (* Or if not, in a preceeding partition(s). *)
-	    let spare, prev =
-	      if spare = 0. then borrow needed prev else spare, prev in
-	    h +. spare, prev, parts
-	  ) else (
-	    h, prev, parts
-	  ) in
-	loop (((h, part) :: prev), parts)
+        let needed = min_h -. h in
+        let h, prev, parts =
+          if needed > 0. then (
+            (* Find some spare height in a succeeding partition(s). *)
+            let spare, parts = borrow needed parts in
+            (* Or if not, in a preceeding partition(s). *)
+            let spare, prev =
+              if spare = 0. then borrow needed prev else spare, prev in
+            h +. spare, prev, parts
+          ) else (
+            h, prev, parts
+          ) in
+        loop (((h, part) :: prev), parts)
   in
   let parts = loop ([], parts) in
 
@@ -580,7 +580,7 @@ and real_repaint ds parts =
     eprintf "real_repaint: after borrowing:\n";
     List.iter (
       fun (h, part) ->
-	eprintf "%s\t%g pix\n" part.Slave.pt_name h
+        eprintf "%s\t%g pix\n" part.Slave.pt_name h
     ) parts
   );
   *)
@@ -589,12 +589,12 @@ and real_repaint ds parts =
   let parts = List.map (
     fun (h, part) ->
       let used =
-	match part.Slave.pt_statvfs with
-	| None -> 0.
-	| Some { G.bavail = bavail; blocks = blocks } ->
-	    let num = Int64.to_float (Int64.sub blocks bavail) in
-	    let denom = Int64.to_float blocks in
-	    num /. denom in
+        match part.Slave.pt_statvfs with
+        | None -> 0.
+        | Some { G.bavail = bavail; blocks = blocks } ->
+            let num = Int64.to_float (Int64.sub blocks bavail) in
+            let denom = Int64.to_float blocks in
+            num /. denom in
       (h, used, part)
   ) parts in
 
@@ -602,54 +602,54 @@ and real_repaint ds parts =
   ignore (
     List.fold_left (
       fun y (h, used, part) ->
-	(* This partition occupies pixels 8+y .. 8+y+h-1 *)
-	let yb = 8 + int_of_float y
-	and yt = 8 + int_of_float (y +. h) in
+        (* This partition occupies pixels 8+y .. 8+y+h-1 *)
+        let yb = 8 + int_of_float y
+        and yt = 8 + int_of_float (y +. h) in
 
-	ds.draw#set_foreground `WHITE;
-	ds.draw#rectangle ~x:8 ~y:yb ~width:(width-16) ~height:(yt-yb)
-	  ~filled:true ();
+        ds.draw#set_foreground `WHITE;
+        ds.draw#rectangle ~x:8 ~y:yb ~width:(width-16) ~height:(yt-yb)
+          ~filled:true ();
 
-	let col =
-	  if used < 0.6 then `NAME "grey"
-	  else if used < 0.8 then `NAME "pink"
-	  else if used < 0.9 then `NAME "hot pink"
-	  else `NAME "red" in
-	ds.draw#set_foreground col;
-	let w = int_of_float (used *. (float width -. 16.)) in
-	ds.draw#rectangle ~x:8 ~y:yb ~width:w ~height:(yt-yb) ~filled:true ();
+        let col =
+          if used < 0.6 then `NAME "grey"
+          else if used < 0.8 then `NAME "pink"
+          else if used < 0.9 then `NAME "hot pink"
+          else `NAME "red" in
+        ds.draw#set_foreground col;
+        let w = int_of_float (used *. (float width -. 16.)) in
+        ds.draw#rectangle ~x:8 ~y:yb ~width:w ~height:(yt-yb) ~filled:true ();
 
-	ds.draw#set_foreground `BLACK;
-	ds.draw#rectangle ~x:8 ~y:yb ~width:(width-16) ~height:(yt-yb) ();
+        ds.draw#set_foreground `BLACK;
+        ds.draw#rectangle ~x:8 ~y:yb ~width:(width-16) ~height:(yt-yb) ();
 
-	(* Large text - the device name. *)
-	let txt = ds.pango_large_context#create_layout in
-	Pango.Layout.set_text txt part.Slave.pt_name;
-	let fore = `NAME "dark slate grey" in
-	ds.draw#put_layout ~x:12 ~y:(yb+4) ~fore txt;
+        (* Large text - the device name. *)
+        let txt = ds.pango_large_context#create_layout in
+        Pango.Layout.set_text txt part.Slave.pt_name;
+        let fore = `NAME "dark slate grey" in
+        ds.draw#put_layout ~x:12 ~y:(yb+4) ~fore txt;
 
-	let { Pango.height = txtheight; Pango.width = txtwidth } =
-	  Pango.Layout.get_pixel_extent txt in
+        let { Pango.height = txtheight; Pango.width = txtwidth } =
+          Pango.Layout.get_pixel_extent txt in
 
-	(* Small text below - the content. *)
-	let txt = ds.pango_small_context#create_layout in
-	Pango.Layout.set_text txt part.Slave.pt_content;
-	let fore = `BLACK in
-	ds.draw#put_layout ~x:12 ~y:(yb+4+txtheight) ~fore txt;
+        (* Small text below - the content. *)
+        let txt = ds.pango_small_context#create_layout in
+        Pango.Layout.set_text txt part.Slave.pt_content;
+        let fore = `BLACK in
+        ds.draw#put_layout ~x:12 ~y:(yb+4+txtheight) ~fore txt;
 
-	(* Small text right - size. *)
-	let size =
-	  match part.Slave.pt_statvfs with
-	  | None -> printable_size part.Slave.pt_size
-	  | Some { G.blocks = blocks; bsize = bsize } ->
-	      let bytes = Int64.mul blocks bsize in
-	      let pc = 100. *. used in
-	      sprintf "%s (%.1f%% used)" (printable_size bytes) pc in
-	let txt = ds.pango_small_context#create_layout in
-	Pango.Layout.set_text txt size;
-	ds.draw#put_layout ~x:(16+txtwidth) ~y:(yb+4) ~fore txt;
+        (* Small text right - size. *)
+        let size =
+          match part.Slave.pt_statvfs with
+          | None -> printable_size part.Slave.pt_size
+          | Some { G.blocks = blocks; bsize = bsize } ->
+              let bytes = Int64.mul blocks bsize in
+              let pc = 100. *. used in
+              sprintf "%s (%.1f%% used)" (printable_size bytes) pc in
+        let txt = ds.pango_small_context#create_layout in
+        Pango.Layout.set_text txt size;
+        ds.draw#put_layout ~x:(16+txtwidth) ~y:(yb+4) ~fore txt;
 
-	(y +. h)
+        (y +. h)
     ) 0. parts
   )
 
@@ -671,7 +671,7 @@ let argspec = Arg.align [
 
 let anon_fun _ =
   failwith (sprintf "%s: unknown command line argument"
-	      (Filename.basename Sys.executable_name))
+              (Filename.basename Sys.executable_name))
 
 let usage_msg =
   sprintf "\
