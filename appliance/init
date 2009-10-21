@@ -9,8 +9,8 @@ mount -t sysfs /sys /sys
 
 if [ -x /etc/init.d/udev ]; then
   /etc/init.d/udev start
-elif [ -x /sbin/start_udev ]; then
-  /sbin/start_udev
+elif [ -x /sbin/start_udev ] && /sbin/start_udev; then
+  :
 else
   echo No udev, creating /dev manually
   mount -t tmpfs none /dev
