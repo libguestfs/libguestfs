@@ -1195,6 +1195,8 @@ guestfs__launch (guestfs_h *g)
     setpgid (0, 0);
 #endif
 
+    setenv ("LC_ALL", "C", 1);
+
     execv (g->qemu, g->cmdline); /* Run qemu. */
     perror (g->qemu);
     _exit (1);
@@ -1486,7 +1488,7 @@ test_qemu (guestfs_h *g)
   g->qemu_help = NULL;
   g->qemu_version = NULL;
 
-  snprintf (cmd, sizeof cmd, "'%s' -help", g->qemu);
+  snprintf (cmd, sizeof cmd, "LC_ALL=C '%s' -help", g->qemu);
 
   fp = popen (cmd, "r");
   /* qemu -help should always work (qemu -version OTOH wasn't
@@ -1508,7 +1510,7 @@ test_qemu (guestfs_h *g)
   if (pclose (fp) == -1)
     goto error;
 
-  snprintf (cmd, sizeof cmd, "'%s' -version 2>/dev/null", g->qemu);
+  snprintf (cmd, sizeof cmd, "LC_ALL=C '%s' -version 2>/dev/null", g->qemu);
 
   fp = popen (cmd, "r");
   if (fp) {
