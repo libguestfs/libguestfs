@@ -48,6 +48,7 @@ dm-*.ko
 cramfs.ko
 squashfs.ko
 
+hfs.ko
 hfsplus.ko
 ufs.ko
 exportfs.ko
