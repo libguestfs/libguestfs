@@ -22,11 +22,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <fcntl.h>
 #include <limits.h>
 #include <sys/types.h>
 #include <dirent.h>
 
-#include "ignore-value.h"
+#include "openat.h"
 
 #include "daemon.h"
 #include "actions.h"
@@ -52,9 +53,13 @@ do_case_sensitive_path (const char *path)
 {
   char ret[PATH_MAX+1] = "/";
   size_t next = 1;
+  int fd_cwd;
 
-  /* MUST chdir ("/") before leaving this function. */
-  if (chdir (sysroot) == -1) {
+  /* 'fd_cwd' here is a surrogate for the current working directory, so
+   * that we don't have to actually call chdir(2).
+   */
+  fd_cwd = open (sysroot, O_RDONLY | O_DIRECTORY);
+  if (fd_cwd == -1) {
     reply_with_perror ("%s", sysroot);
     return NULL;
   }
@@ -93,7 +98,12 @@ do_case_sensitive_path (const char *path)
     /* Read the current directory looking (case insensitively) for
      * this element of the path.
      */
-    DIR *dir = opendir (".");
+    int fd2 = dup (fd_cwd); /* because closedir will close it */
+    if (fd2 == -1) {
+      reply_with_perror ("dup");
+      goto error;
+    }
+    DIR *dir = fdopendir (fd2);
     if (dir == NULL) {
       reply_with_perror ("opendir");
       goto error;
@@ -136,10 +146,15 @@ do_case_sensitive_path (const char *path)
     next += i;
 
     /* Is it a directory?  Try going into it. */
-    if (chdir (d->d_name) == -1) {
+    fd2 = openat (fd_cwd, d->d_name, O_RDONLY | O_DIRECTORY);
+    int err = errno;
+    close (fd_cwd);
+    fd_cwd = fd2;
+    errno = err;
+    if (fd_cwd == -1) {
       /* ENOTDIR is OK provided we've reached the end of the path. */
       if (errno != ENOTDIR) {
-        reply_with_perror ("chdir: %s", d->d_name);
+        reply_with_perror ("openat: %s", d->d_name);
         goto error;
       }
 
@@ -150,7 +165,7 @@ do_case_sensitive_path (const char *path)
     }
   }
 
-  ignore_value (chdir ("/"));
+  close (fd_cwd);
 
   ret[next] = '\0';
   char *retp = strdup (ret);
@@ -161,6 +176,6 @@ do_case_sensitive_path (const char *path)
   return retp;                  /* caller frees */
 
  error:
-  ignore_value (chdir ("/"));
+  close (fd_cwd);
   return NULL;
 }

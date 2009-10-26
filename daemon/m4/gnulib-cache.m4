@@ -15,7 +15,7 @@
 
 
 # Specification in the form of a command-line invocation:
-#   gnulib-tool --import --dir=. --lib=libgnu --source-base=lib --m4-base=m4 --doc-base=doc --tests-base=tests --aux-dir=build-aux --with-tests --no-libtool --macro-prefix=gl c-ctype hash ignore-value manywarnings warnings
+#   gnulib-tool --import --dir=. --lib=libgnu --source-base=lib --m4-base=m4 --doc-base=doc --tests-base=tests --aux-dir=build-aux --with-tests --no-libtool --macro-prefix=gl c-ctype hash ignore-value manywarnings openat warnings
 
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
 gl_LOCAL_DIR([])
@@ -24,6 +24,7 @@ gl_MODULES([
   hash
   ignore-value
   manywarnings
+  openat
   warnings
 ])
 gl_AVOID([])
