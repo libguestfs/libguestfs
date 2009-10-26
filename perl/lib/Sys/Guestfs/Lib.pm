@@ -267,38 +267,12 @@ by C</> characters.  Do not use C<\>, drive names, etc.
 
 sub resolve_windows_path
 {
-    local $_;
     my $g = shift;
     my $path = shift;
 
-    if (substr ($path, 0, 1) ne "/") {
-        warn __"resolve_windows_path: path must start with a / character";
-        return undef;
-    }
-
-    my @elems = split (/\//, $path);
-    shift @elems;
-
-    # Start reconstructing the path at the top.
-    $path = "/";
-
-    foreach my $dir (@elems) {
-        my $found = 0;
-        foreach ($g->ls ($path)) {
-            if (lc ($_) eq lc ($dir)) {
-                if ($path eq "/") {
-                    $path = "/$_";
-                    $found = 1;
-                } else {
-                    $path = "$path/$_";
-                    $found = 1;
-                }
-            }
-        }
-        return undef unless $found;
-    }
-
-    return $path;
+    my $r;
+    eval { $r = $g->case_sensitive_path ($path); };
+    return $r;
 }
 
 =head2 file_architecture
