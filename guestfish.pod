@@ -350,6 +350,23 @@ it, eg:
 
  echo "~"
 
+=head1 WINDOWS PATHS
+
+If a path is prefixed with C<win:> then you can use Windows-style
+paths (with some limitations).  The following commands are equivalent:
+
+ file /WINDOWS/system32/config/system.LOG
+
+ file win:/windows/system32/config/system.log
+
+ file win:\windows\system32\config\system.log
+
+ file WIN:C:\Windows\SYSTEM32\conFIG\SYSTEM.LOG
+
+This syntax implicitly calls C<case-sensitive-path> (q.v.) so it also
+handles case insensitivity like Windows would.  This only works in
+argument positions that expect a path.
+
 =head1 EXIT ON ERROR BEHAVIOUR
 
 By default, guestfish will ignore any errors when in interactive mode

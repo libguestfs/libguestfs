@@ -46,6 +46,7 @@ extern int launch (guestfs_h *);
 extern int is_true (const char *str);
 extern char **parse_string_list (const char *str);
 extern int xwrite (int fd, const void *buf, size_t len);
+extern char *resolve_win_path (const char *path);
 
 /* in cmds.c (auto-generated) */
 extern void list_commands (void);

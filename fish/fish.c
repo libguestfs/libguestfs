@@ -1295,3 +1295,51 @@ xwrite (int fd, const void *v_buf, size_t len)
 
   return 0;
 }
+
+/* Resolve the special "win:..." form for Windows-specific paths.
+ * This always returns a newly allocated string which is freed by the
+ * caller function in "cmds.c".
+ */
+char *
+resolve_win_path (const char *path)
+{
+  char *ret;
+  size_t i;
+
+  if (strncasecmp (path, "win:", 4) != 0) {
+    ret = strdup (path);
+    if (ret == NULL)
+      perror ("strdup");
+    return ret;
+  }
+
+  path += 4;
+
+  /* Drop drive letter, if it's "C:". */
+  if (strncasecmp (path, "c:", 2) == 0)
+    path += 2;
+
+  if (!*path) {
+    ret = strdup ("/");
+    if (ret == NULL)
+      perror ("strdup");
+    return ret;
+  }
+
+  ret = strdup (path);
+  if (ret == NULL) {
+    perror ("strdup");
+    return NULL;
+  }
+
+  /* Blindly convert any backslashes into forward slashes.  Is this good? */
+  for (i = 0; i < strlen (ret); ++i)
+    if (ret[i] == '\\')
+      ret[i] = '/';
+
+  char *t = guestfs_case_sensitive_path (g, ret);
+  free (ret);
+  ret = t;
+
+  return ret;
+}

@@ -6357,12 +6357,13 @@ and generate_fish_cmds () =
       );
       List.iter (
         function
-        | Pathname n
-        | Device n | Dev_or_Path n
+        | Device n
         | String n
         | OptString n
         | FileIn n
         | FileOut n -> pr "  const char *%s;\n" n
+        | Pathname n
+        | Dev_or_Path n -> pr "  char *%s;\n" n
         | StringList n | DeviceList n -> pr "  char **%s;\n" n
         | Bool n -> pr "  int %s;\n" n
         | Int n -> pr "  int %s;\n" n
@@ -6379,8 +6380,13 @@ and generate_fish_cmds () =
       iteri (
         fun i ->
           function
+          | Device name
+          | String name ->
+	      pr "  %s = argv[%d];\n" name i
           | Pathname name
-          | Device name | Dev_or_Path name | String name -> pr "  %s = argv[%d];\n" name i
+          | Dev_or_Path name ->
+	      pr "  %s = resolve_win_path (argv[%d]);\n" name i;
+	      pr "  if (%s == NULL) return -1;\n" name
           | OptString name ->
               pr "  %s = strcmp (argv[%d], \"\") != 0 ? argv[%d] : NULL;\n"
                 name i i
@@ -6409,9 +6415,11 @@ and generate_fish_cmds () =
 
       List.iter (
         function
-        | Pathname name | Device name | Dev_or_Path name | String name
+        | Device name | String name
         | OptString name | FileIn name | FileOut name | Bool name
         | Int name -> ()
+        | Pathname name | Dev_or_Path name ->
+            pr "  free (%s);\n" name
         | StringList name | DeviceList name ->
             pr "  free_strings (%s);\n" name
       ) (snd style);
