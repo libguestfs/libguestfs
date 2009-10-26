@@ -54,10 +54,6 @@ para-virtualized (PV), what applications are installed and more.
 Virt-inspector can produce output in several formats, including a
 readable text report, and XML for feeding into other programs.
 
-Virt-inspector should only be run on I<inactive> virtual machines.
-The program tries to determine that the machine is inactive and will
-refuse to run if it thinks you are trying to inspect a running domain.
-
 In the normal usage, use C<virt-inspector domname> where C<domname> is
 the libvirt domain (see: C<virsh list --all>).
 
