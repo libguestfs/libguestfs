@@ -3645,6 +3645,64 @@ The result list is not sorted.
 
 =back");
 
+  ("case_sensitive_path", (RString "rpath", [Pathname "path"]), 197, [],
+   [InitISOFS, Always, TestOutput (
+      [["case_sensitive_path"; "/DIRECTORY"]], "/directory");
+    InitISOFS, Always, TestOutput (
+      [["case_sensitive_path"; "/DIRECTORY/"]], "/directory");
+    InitISOFS, Always, TestOutput (
+      [["case_sensitive_path"; "/Known-1"]], "/known-1");
+    InitISOFS, Always, TestLastFail (
+      [["case_sensitive_path"; "/Known-1/"]]);
+    InitBasicFS, Always, TestOutput (
+      [["mkdir"; "/a"];
+       ["mkdir"; "/a/bbb"];
+       ["touch"; "/a/bbb/c"];
+       ["case_sensitive_path"; "/A/bbB/C"]], "/a/bbb/c");
+    InitBasicFS, Always, TestOutput (
+      [["mkdir"; "/a"];
+       ["mkdir"; "/a/bbb"];
+       ["touch"; "/a/bbb/c"];
+       ["case_sensitive_path"; "/A////bbB/C"]], "/a/bbb/c");
+    InitBasicFS, Always, TestLastFail (
+      [["mkdir"; "/a"];
+       ["mkdir"; "/a/bbb"];
+       ["touch"; "/a/bbb/c"];
+       ["case_sensitive_path"; "/A/bbb/../bbb/C"]])],
+   "return true path on case-insensitive filesystem",
+   "\
+This can be used to resolve case insensitive paths on
+a filesystem which is case sensitive.  The use case is
+to resolve paths which you have read from Windows configuration
+files or the Windows Registry, to the true path.
+
+The command handles a peculiarity of the Linux ntfs-3g
+filesystem driver (and probably others), which is that although
+the underlying filesystem is case-insensitive, the driver
+exports the filesystem to Linux as case-sensitive.
+
+One consequence of this is that special directories such
+as C<c:\\windows> may appear as C</WINDOWS> or C</windows>
+(or other things) depending on the precise details of how
+they were created.  In Windows itself this would not be
+a problem.
+
+Bug or feature?  You decide:
+L<http://www.tuxera.com/community/ntfs-3g-faq/#posixfilenames1>
+
+This function resolves the true case of each element in the
+path and returns the case-sensitive path.
+
+Thus C<guestfs_case_sensitive_path> (\"/Windows/System32\")
+might return C<\"/WINDOWS/system32\"> (the exact return value
+would depend on details of how the directories were originally
+created under Windows).
+
+I<Note>:
+This function does not handle drive names, backslashes etc.
+
+See also C<guestfs_realpath>.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

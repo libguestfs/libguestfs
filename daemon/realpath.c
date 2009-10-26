@@ -23,6 +23,10 @@
 #include <string.h>
 #include <unistd.h>
 #include <limits.h>
+#include <sys/types.h>
+#include <dirent.h>
+
+#include "ignore-value.h"
 
 #include "daemon.h"
 #include "actions.h"
@@ -41,4 +45,122 @@ do_realpath (const char *path)
   }
 
   return ret;			/* caller frees */
+}
+
+char *
+do_case_sensitive_path (const char *path)
+{
+  char ret[PATH_MAX+1] = "/";
+  size_t next = 1;
+
+  /* MUST chdir ("/") before leaving this function. */
+  if (chdir (sysroot) == -1) {
+    reply_with_perror ("%s", sysroot);
+    return NULL;
+  }
+
+  /* First character is a '/'.  Take each subsequent path element
+   * and follow it.
+   */
+  while (*path) {
+    size_t i = strcspn (path, "/");
+    if (i == 0) {
+      path++;
+      continue;
+    }
+
+    if (verbose)
+      fprintf (stderr, "case_sensitive_path: path = %s, next = %zu, i = %zu\n",
+               path, next, i);
+
+    if ((i == 1 && path[0] == '.') ||
+        (i == 2 && path[0] == '.' && path[1] == '.')) {
+      reply_with_error ("case_sensitive_path: path contained . or .. elements");
+      goto error;
+    }
+    if (i > NAME_MAX) {
+      reply_with_error ("case_sensitive_path: path element too long");
+      goto error;
+    }
+
+    char name[NAME_MAX+1];
+    memcpy (name, path, i);
+    name[i] = '\0';
+
+    /* Skip to next element in path (for the next loop iteration). */
+    path += i;
+
+    /* Read the current directory looking (case insensitively) for
+     * this element of the path.
+     */
+    DIR *dir = opendir (".");
+    if (dir == NULL) {
+      reply_with_perror ("opendir");
+      goto error;
+    }
+
+    struct dirent *d = NULL;
+
+    errno = 0;
+    while ((d = readdir (dir)) != NULL) {
+      if (strcasecmp (d->d_name, name) == 0)
+        break;
+    }
+
+    if (d == NULL && errno != 0) {
+      reply_with_perror ("readdir");
+      goto error;
+    }
+
+    if (closedir (dir) == -1) {
+      reply_with_perror ("closedir");
+      goto error;
+    }
+
+    if (d == NULL) {
+      reply_with_error ("%s: no file or directory found with this name", name);
+      goto error;
+    }
+
+    /* Add the real name of this path element to the return value. */
+    if (next > 1)
+      ret[next++] = '/';
+
+    i = strlen (d->d_name);
+    if (next + i >= PATH_MAX) {
+      reply_with_error ("final path too long");
+      goto error;
+    }
+
+    strcpy (&ret[next], d->d_name);
+    next += i;
+
+    /* Is it a directory?  Try going into it. */
+    if (chdir (d->d_name) == -1) {
+      /* ENOTDIR is OK provided we've reached the end of the path. */
+      if (errno != ENOTDIR) {
+        reply_with_perror ("chdir: %s", d->d_name);
+        goto error;
+      }
+
+      if (*path) {
+        reply_with_error ("%s: non-directory element in path", d->d_name);
+        goto error;
+      }
+    }
+  }
+
+  ignore_value (chdir ("/"));
+
+  ret[next] = '\0';
+  char *retp = strdup (ret);
+  if (retp == NULL) {
+    reply_with_perror ("strdup");
+    return NULL;
+  }
+  return retp;                  /* caller frees */
+
+ error:
+  ignore_value (chdir ("/"));
+  return NULL;
 }
