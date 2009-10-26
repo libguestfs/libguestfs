@@ -1,0 +1,308 @@
+#!/usr/bin/perl -w
+# virt-win-reg
+# Copyright (C) 2009 Red Hat Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+use warnings;
+use strict;
+
+use Sys::Guestfs;
+use Sys::Guestfs::Lib qw(open_guest get_partitions resolve_windows_path
+  inspect_all_partitions inspect_partition
+  inspect_operating_systems mount_operating_system);
+use Pod::Usage;
+use Getopt::Long;
+use File::Temp qw/tempdir/;
+use Locale::TextDomain 'libguestfs';
+
+=encoding utf8
+
+=head1 NAME
+
+virt-win-reg - Display Windows Registry entries from a Windows guest
+
+=head1 SYNOPSIS
+
+ virt-win-reg [--options] domname '\Path\To\Subkey' name ['\Path'...]
+
+ virt-win-reg [--options] domname '\Path\To\Subkey' @ ['\Path'...]
+
+ virt-win-reg [--options] domname '\Path\To\Subkey' ['\Path'...]
+
+ virt-win-reg [--options] disk.img [...] '\Path\To\Subkey' (name|@)
+
+=head1 DESCRIPTION
+
+This program can display Windows Registry entries from a Windows
+guest.
+
+The first parameter is the libvirt guest name or the raw disk image of
+the Windows guest.
+
+Then follow one or more sets of path specifiers.  The path must begin
+with a C<\> (backslash) character, and may be something like
+C<'\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion'>.
+
+The next parameter after that is either a value name, the single
+at-character C<@>, or missing.
+
+If it's a value name, then we print the data associated with that
+value.  If it's C<@>, then we print the default data associated with
+the subkey.  If it's missing, then we print all the data associated
+with the subkey.
+
+If this is confusing, look at the L</EXAMPLES> section below.
+
+Usually you should use single quotes to protect backslashes in the
+path from the shell.
+
+Paths and value names are case-insensitive.
+
+=head2 SUPPORTED SYSTEMS
+
+The program currently supports Windows NT-derived guests starting with
+Windows XP through to at least Windows 7.
+
+Registry support is done for C<\HKEY_LOCAL_MACHINE\SAM>,
+C<\HKEY_LOCAL_MACHINE\SECURITY>, C<\HKEY_LOCAL_MACHINE\SOFTWARE>,
+C<\HKEY_LOCAL_MACHINE\SYSTEM> and C<\HKEY_USERS\.DEFAULT>.
+
+C<\HKEY_USERS\$SID> and C<\HKEY_CURRENT_USER> are B<not> supported at
+this time.
+
+=head2 NOTES
+
+This program is only meant for simple access to the registry.  If you
+want to do complicated things with the registry, we suggest you
+download the Registry hive files from the guest using C<libguestfs(3)>
+or C<guestfish(1)> and access them locally, eg. using C<hivex(3)>,
+C<hivexml(1)> or C<reged(1)>.
+
+=head1 EXAMPLES
+
+ $ virt-win-reg MyWinGuest \
+   '\HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion' \
+   ProductName
+ Microsoft Windows Server 2003
+
+ $ virt-win-reg MyWinGuest \
+   '\HKEY_LOCAL_MACHINE\System\ControlSet001\Control' SystemBootDevice
+ multi(0)disk(0)rdisk(0)partition(1)
+
+ $ virt-win-reg MyWinGuest \
+   '\HKEY_LOCAL_MACHINE\System\ControlSet001\Control'
+ "CurrentUser"="USERNAME"
+ "WaitToKillServiceTimeout"="20000"
+ "SystemStartOptions"="NOEXECUTE=OPTOUT  FASTDETECT"
+ "SystemBootDevice"="multi(0)disk(0)rdisk(0)partition(1)"
+
+(please suggest some more)
+
+=head1 OPTIONS
+
+=over 4
+
+=cut
+
+my $help;
+
+=item B<--help>
+
+Display brief help.
+
+=cut
+
+my $version;
+
+=item B<--version>
+
+Display version number and exit.
+
+=cut
+
+my $uri;
+
+=item B<--connect URI> | B<-c URI>
+
+If using libvirt, connect to the given I<URI>.  If omitted, then we
+connect to the default libvirt hypervisor.
+
+If you specify guest block devices directly, then libvirt is not used
+at all.
+
+=back
+
+=cut
+
+GetOptions ("help|?" => \$help,
+            "version" => \$version,
+            "connect|c=s" => \$uri,
+    ) or pod2usage (2);
+pod2usage (1) if $help;
+if ($version) {
+    my $g = Sys::Guestfs->new ();
+    my %h = $g->version ();
+    print "$h{major}.$h{minor}.$h{release}$h{extra}\n";
+    exit
+}
+
+# Split the command line at the first path.  Paths begin with
+# backslash so this is predictable.
+
+my @lib_args;
+my $i;
+
+for ($i = 0; $i < @ARGV; ++$i) {
+    if (substr ($ARGV[$i], 0, 1) eq "\\") {
+	@lib_args = @ARGV[0 .. ($i-1)];
+	@ARGV = @ARGV[$i .. $#ARGV];
+	last;
+    }
+}
+
+pod2usage (__"virt-win-reg: no VM name, disk images or Registry path given") if 0 == @lib_args;
+
+my $g;
+if ($uri) {
+    $g = open_guest (\@lib_args, address => $uri);
+} else {
+    $g = open_guest (\@lib_args);
+}
+
+$g->launch ();
+
+# List of possible filesystems.
+my @partitions = get_partitions ($g);
+
+# Now query each one to build up a picture of what's in it.
+my %fses =
+    inspect_all_partitions ($g, \@partitions,
+      use_windows_registry => 0);
+
+my $oses = inspect_operating_systems ($g, \%fses);
+
+my @roots = keys %$oses;
+die __"no root device found in this operating system image" if @roots == 0;
+die __"multiboot operating systems are not supported by virt-win-reg" if @roots > 1;
+my $root_dev = $roots[0];
+
+my $os = $oses->{$root_dev};
+mount_operating_system ($g, $os);
+
+# Create a working directory to store the downloaded registry files.
+my $tmpdir = tempdir (CLEANUP => 1);
+
+# Now process each request in turn.
+my $winfile;
+my $localhive;
+my $path;
+
+for ($i = 0; $i < @ARGV; ++$i) {
+    $_ = $ARGV[$i];
+
+    if (/^\\HKEY_LOCAL_MACHINE\\SAM(\\.*)/i) {
+	$winfile = "/windows/system32/config/sam";
+	$localhive = "$tmpdir/sam";
+	$path = $1;
+    }
+    elsif (/^\\HKEY_LOCAL_MACHINE\\SECURITY(\\.*)/i) {
+	$winfile = "/windows/system32/config/security";
+	$localhive = "$tmpdir/security";
+	$path = $1;
+    }
+    elsif (/^\\HKEY_LOCAL_MACHINE\\SOFTWARE(\\.*)/i) {
+	$winfile = "/windows/system32/config/software";
+	$localhive = "$tmpdir/software";
+	$path = $1;
+    }
+    elsif (/^\\HKEY_LOCAL_MACHINE\\SYSTEM(\\.*)/i) {
+	$winfile = "/windows/system32/config/system";
+	$localhive = "$tmpdir/system";
+	$path = $1;
+    }
+    elsif (/^\\HKEY_USERS\\.DEFAULT(\\.*)/i) {
+	$winfile = "/windows/system32/config/default";
+	$localhive = "$tmpdir/default";
+	$path = $1;
+    }
+    else {
+	die "virt-win-reg: $_: not a supported Windows Registry path\n"
+    }
+
+    unless (-f $localhive) {
+	# Check the hive file exists and get the real name.
+	eval {
+	    $winfile = $g->case_sensitive_path ($winfile);
+	    $g->download ($winfile, $localhive);
+	};
+	if ($@) {
+	    die "virt-win-reg: $winfile: could not download registry file: $@\n"
+	}
+    }
+
+    # What sort of request is it?  Peek at the next arg.
+    my $name; # will be: undefined, @ or a name
+    if ($i+1 < @ARGV) {
+	if (substr ($ARGV[$i+1], 0, 1) ne "\\") {
+	    $name = $ARGV[$i+1];
+	    $i++;
+	}
+    }
+
+    my @cmd;
+    if (defined $name) {
+	@cmd = ("hivexget", $localhive, $path, $name);
+    } else {
+	@cmd = ("hivexget", $localhive, $path);
+    }
+
+    system (@cmd) == 0
+	or die "hivexget command failed: $?\n";
+}
+
+=head1 SEE ALSO
+
+L<hivex(3)>,
+L<hivexget(1)>,
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<virt-cat(1)>,
+L<Sys::Guestfs(3)>,
+L<Sys::Guestfs::Lib(3)>,
+L<Sys::Virt(3)>,
+L<http://libguestfs.org/>.
+
+=head1 AUTHOR
+
+Richard W.M. Jones L<http://et.redhat.com/~rjones/>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009 Red Hat Inc.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.

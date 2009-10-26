@@ -17,7 +17,7 @@
 
 ACLOCAL_AMFLAGS = -I m4
 
-SUBDIRS = gnulib/lib src daemon appliance fish po examples images \
+SUBDIRS = gnulib/lib hivex src daemon appliance fish po examples images \
 	gnulib/tests capitests regressions test-tool
 
 # NB: Must build inspector directory after perl and before ocaml.

@@ -69,6 +69,9 @@ fish/rc.c
 fish/reopen.c
 fish/tilde.c
 fish/time.c
+hivex/hivex.c
+hivex/hivexget.c
+hivex/hivexml.c
 inspector/virt-inspector
 java/com_redhat_et_libguestfs_GuestFS.c
 ocaml/guestfs_c.c

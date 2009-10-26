@@ -1,0 +1,94 @@
+=encoding utf8
+
+=head1 NAME
+
+hivexget - Get subkey from a Windows Registry binary "hive" file
+
+=head1 SYNOPSIS
+
+ hivexget hivefile '\Path\To\SubKey'
+
+ hivexget hivefile '\Path\To\SubKey' name
+
+=head1 DESCRIPTION
+
+I<Note:> This is a low-level tool.  For a more convenient way to
+navigate the Windows Registry in Windows virtual machines, see
+L<virt-win-reg(1)>.
+
+This program navigates through a Windows Registry binary "hive"
+file and extracts I<either> all the (key, value) data pairs
+stored in that subkey I<or> just the single named data item.
+
+In the first form:
+
+ hivexget hivefile '\Path\To\SubKey'
+
+C<hivefile> is some Windows Registry binary hive, and C<\Path\To\Subkey>
+is a path within that hive.  I<NB> the path is relative to the top
+of this hive, and is I<not> the full path as you would use in Windows
+(eg. C<\HKEY_LOCAL_MACHINE> is not a valid path).
+
+If the subkey exists, then the output lists all data pairs under this
+subkey, in a format compatible with C<regedit> in Windows.
+
+In the second form:
+
+ hivexget hivefile '\Path\To\SubKey' name
+
+C<hivefile> and path are as above.  C<name> is the name of the value
+of interest (use C<@> for the default value).
+
+The corresponding data item is printed "raw" (ie. no processing or
+escaping) except:
+
+=over 4
+
+=item 1
+
+If it's a string we will convert it from Windows UTF-16 to UTF-8, if
+this conversion is possible.  The string is printed with a single
+trailing newline.
+
+=item 2
+
+If it's a multiple-string value, each string is printed on a separate
+line.
+
+=item 3
+
+If it's a numeric value, it is printed as a decimal number.
+
+=back
+
+=head1 SEE ALSO
+
+L<hivex(3)>,
+L<hivexml(1)>,
+L<virt-win-reg(1)>,
+L<guestfs(3)>,
+L<http://libguestfs.org/>,
+L<virt-cat(1)>,
+L<virt-edit(1)>.
+
+=head1 AUTHORS
+
+Richard W.M. Jones (C<rjones at redhat dot com>)
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009 Red Hat Inc.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along
+with this program; if not, write to the Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.

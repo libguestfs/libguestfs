@@ -1,0 +1,64 @@
+=encoding utf8
+
+=head1 NAME
+
+hivexml - Convert Windows Registry binary "hive" into XML
+
+=head1 SYNOPSIS
+
+ hivexml [-dk] hivefile > output.xml
+
+=head1 DESCRIPTION
+
+This program converts a single Windows Registry binary "hive"
+file into a self-describing XML format.
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<-d>
+
+Enable lots of debug messages.  If you find a Registry file
+that this program cannot parse, please enable this option and
+post the complete output I<and> the Registry file in your
+bug report.
+
+=item B<-k>
+
+Keep going even if we find errors in the Registry file.  This
+skips over any parts of the Registry that we cannot read.
+
+=back
+
+=head1 SEE ALSO
+
+L<hivex(3)>,
+L<hivexget(1)>,
+L<virt-win-reg(1)>,
+L<guestfs(3)>,
+L<http://libguestfs.org/>,
+L<virt-cat(1)>,
+L<virt-edit(1)>.
+
+=head1 AUTHORS
+
+Richard W.M. Jones (C<rjones at redhat dot com>)
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009 Red Hat Inc.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along
+with this program; if not, write to the Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.

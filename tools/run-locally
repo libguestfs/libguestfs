@@ -48,9 +48,10 @@ while(-l $path) {
 # Get the absolute path of the parent directory
 $path = abs_path(dirname($path).'/..');
 
+$ENV{PATH}            = $path.'/hivex:'.$ENV{PATH};
 $ENV{LD_LIBRARY_PATH} = $path.'/src/.libs';
 $ENV{LIBGUESTFS_PATH} = $path.'/appliance';
 $ENV{PERL5LIB}        = $path.'/perl/blib/lib:'.$path.'/perl/blib/arch';
 
-print (join " ", ("$path/tools/virt-$tool", @ARGV), "\n");
+#print (join " ", ("$path/tools/virt-$tool", @ARGV), "\n");
 exec('perl', "$path/tools/virt-$tool", @ARGV);

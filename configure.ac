@@ -86,6 +86,7 @@ if test "$gl_gcc_warnings" = yes; then
   # ?? -Wstrict-overflow
   nw="$nw -Wunsafe-loop-optimizations" # just a warning that an optimization
                                     # was not possible, safe to ignore
+  nw="$nw -Wpacked"                 # Allow attribute((packed)) on structs
 
   gl_MANYWARN_ALL_GCC([ws])
   gl_MANYWARN_COMPLEMENT([ws], [$ws], [$nw])
@@ -415,6 +416,11 @@ dnl For i18n.
 AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([0.17])
 
+dnl libxml2 is used by the hivex library.
+PKG_CHECK_MODULES([LIBXML2], [libxml-2.0])
+AC_SUBST([LIBXML2_CFLAGS])
+AC_SUBST([LIBXML2_LIBS])
+
 dnl Check for OCaml (optional, for OCaml bindings).
 AC_PROG_OCAML
 AC_PROG_FINDLIB
@@ -722,6 +728,7 @@ AC_CONFIG_FILES([Makefile
                  libguestfs.pc
                  gnulib/lib/Makefile
                  gnulib/tests/Makefile
+		 hivex/Makefile
                  ocaml/META perl/Makefile.PL])
 AC_OUTPUT
 

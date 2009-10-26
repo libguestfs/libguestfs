@@ -86,6 +86,10 @@ fish/
 haskell/
         Haskell bindings.
 
+hivex/
+	Hive extraction library, for reading Windows Registry files.
+	See hivex/README for more details.
+
 images/
         Some guest images to test against.  These are gzipped to save
         space.  You have to unzip them before use.

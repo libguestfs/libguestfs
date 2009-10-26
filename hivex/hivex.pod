@@ -1,0 +1,396 @@
+=encoding utf8
+
+=head1 NAME
+
+hivex - Windows Registry "hive" extraction library
+
+=head1 SYNOPSIS
+
+ hive_h *hivex_open (const char *filename, int flags);
+ int hivex_close (hive_h *h);
+
+=head1 DESCRIPTION
+
+libhivex is a library for extracting the contents of Windows Registry
+"hive" files.  It is designed to be secure against buggy or malicious
+registry files, and to have limited functionality (writing or
+modifying these files is not in the scope of this library).
+
+Unlike many other tools in this area, it doesn't use the textual .REG
+format for output, because parsing that is as much trouble as parsing
+the original binary format.  Instead it makes the file available
+through a C API, or there is a separate program to export the hive as
+XML (see L<hivexml(1)>), or to get individual keys (see
+L<hivexget(1)>).
+
+=head2 OPENING AND CLOSING A HIVE
+
+=over 4
+
+=item hive_h *hivex_open (const char *filename, int flags);
+
+Opens the hive named C<filename> for reading.
+
+Flags is an ORed list of the open flags (or C<0> if you don't
+want to pass any flags).  Currently the only
+flags defined are:
+
+=over 4
+
+=item HIVEX_OPEN_VERBOSE
+
+Verbose messages.
+
+=item HIVEX_OPEN_DEBUG
+
+Very verbose messages, suitable for debugging problems in the library
+itself.
+
+This is also selected if the C<HIVEX_DEBUG> environment variable
+is set to 1.
+
+=back
+
+C<hivex_open> returns a hive handle.  On error this returns NULL and
+sets C<errno> to indicate the error.
+
+=item int hivex_close (hive_h *h);
+
+Close a hive handle and free all associated resources.
+
+Returns 0 on success.  On error this returns -1 and sets errno.
+
+=back
+
+=head2 NAVIGATING THE TREE OF HIVE SUBKEYS
+
+=over 4
+
+=item hive_node_h hivex_root (hive_h *h);
+
+Return root node of the hive.  All valid registries must contain
+a root node.
+
+On error this returns 0 and sets errno.
+
+=item char *hivex_node_name (hive_h *h, hive_node_h node);
+
+Return the name of the node.  The name is reencoded as UTF-8
+and returned as a C string.
+
+The string should be freed by the caller when it is no longer needed.
+
+Note that the name of the root node is a dummy, such as
+C<$$$PROTO.HIV> (other names are possible: it seems to depend on the
+tool or program that created the hive in the first place).  You can
+only know the "real" name of the root node by knowing which registry
+file this hive originally comes from, which is knowledge that is
+outside the scope of this library.
+
+On error this returns NULL and sets errno.
+
+=item hive_node_h *hivex_node_children (hive_h *h, hive_node_h node);
+
+Return a 0-terminated array of nodes which are the subkeys
+(children) of C<node>.
+
+The array should be freed by the caller when it is no longer needed.
+
+On error this returns NULL and sets errno.
+
+=item hive_node_h hivex_node_get_child (hive_h *h, hive_node_h node, const char *name);
+
+Return the child of node with the name C<name>, if it exists.
+
+The name is matched case insensitively.
+
+If the child node does not exist, this returns 0 without
+setting errno.
+
+On error this returns 0 and sets errno.
+
+=item hive_node_h hivex_node_parent (hive_h *h, hive_node_h node);
+
+Return the parent of C<node>.
+
+On error this returns 0 and sets errno.
+
+The parent pointer of the root node in registry files that we
+have examined seems to be invalid, and so this function will
+return an error if called on the root node.
+
+=back
+
+=head2 GETTING VALUES AT A NODE
+
+The enum below describes the possible types for the value(s)
+stored at each node.
+
+ enum hive_type {
+   hive_t_none = 0,
+   hive_t_string = 1,
+   hive_t_expand_string = 2,
+   hive_t_binary = 3,
+   hive_t_dword = 4,
+   hive_t_dword_be = 5,
+   hive_t_link = 6,
+   hive_t_multiple_strings = 7,
+   hive_t_resource_list = 8,
+   hive_t_full_resource_description = 9,
+   hive_t_resource_requirements_list = 10,
+   hive_t_qword = 11
+ };
+
+=over 4
+
+=item hive_value_h *hivex_node_values (hive_h *h, hive_node_h node);
+
+Return the 0-terminated array of (key, value) pairs attached to
+this node.
+
+The array should be freed by the caller when it is no longer needed.
+
+On error this returns NULL and sets errno.
+
+=item hive_value_h hivex_node_get_value (hive_h *h, hive_node_h node, const char *key);
+
+Return the value attached to this node which has the name C<key>,
+if it exists.
+
+The key name is matched case insensitively.
+
+Note that to get the default key, you should pass the empty
+string C<""> here.  The default key is often written C<"@">, but
+inside hives that has no meaning and won't give you the
+default key.
+
+If no such key exists, this returns 0 and does not set errno.
+
+On error this returns 0 and sets errno.
+
+=item char *hivex_value_key (hive_h *h, hive_value_h value);
+
+Return the key (name) of a (key, value) pair.  The name
+is reencoded as UTF-8 and returned as a C string.
+
+The string should be freed by the caller when it is no longer needed.
+
+Note that this function can return a zero-length string.  In the
+context of Windows Registries, this means that this value is the
+default key for this node in the tree.  This is usually written
+as C<"@">.
+
+On error this returns NULL and sets errno.
+
+=item int hivex_value_type (hive_h *h, hive_value_h value, hive_type *t, size_t *len);
+
+Return the data type and length of the value in this (key, value)
+pair.  See also C<hivex_value_value> which returns all this
+information, and the value itself.  Also, C<hivex_value_*> functions
+below which can be used to return the value in a more useful form when
+you know the type in advance.
+
+Returns 0 on success.  On error this returns -1 and sets errno.
+
+=item char *hivex_value_value (hive_h *h, hive_value_h value, hive_type *t, size_t *len);
+
+Return the value of this (key, value) pair.  The value should
+be interpreted according to its type (see C<hive_type>).
+
+The value is returned in an array of bytes of length C<len>.
+
+The value should be freed by the caller when it is no longer needed.
+
+On error this returns NULL and sets errno.
+
+=item char *hivex_value_string (hive_h *h, hive_value_h value);
+
+If this value is a string, return the string reencoded as UTF-8
+(as a C string).  This only works for values which have type
+C<hive_t_string>, C<hive_t_expand_string> or C<hive_t_link>.
+
+The string should be freed by the caller when it is no longer needed.
+
+On error this returns NULL and sets errno.
+
+=item char **hivex_value_multiple_strings (hive_h *h, hive_value_h value);
+
+If this value is a multiple-string, return the strings reencoded
+as UTF-8 (as a NULL-terminated array of C strings).  This only
+works for values which have type C<hive_t_multiple_strings>.
+
+The string array and each string in it should be freed by the
+caller when they are no longer needed.
+
+On error this returns NULL and sets errno.
+
+=item int32_t hivex_value_dword (hive_h *h, hive_value_h value);
+
+If this value is a DWORD (Windows int32), return it.  This only works
+for values which have type C<hive_t_dword> or C<hive_t_dword_be>.
+
+=item int64_t hivex_value_qword (hive_h *h, hive_value_h value);
+
+If this value is a QWORD (Windows int64), return it.  This only
+works for values which have type C<hive_t_qword>.
+
+=back
+
+=head2 VISITING ALL NODES
+
+The visitor pattern is useful if you want to visit all nodes
+in the tree or all nodes below a certain point in the tree.
+
+First you set up your own C<struct hivex_visitor> with your
+callback functions.
+
+Each of these callback functions should return 0 on success or -1
+on error.  If any callback returns -1, then the entire visit
+terminates immediately.  If you don't need a callback function at
+all, set the function pointer to NULL.
+
+ struct hivex_visitor {
+   int (*node_start) (hive_h *, void *opaque, hive_node_h, const char *name);
+   int (*node_end) (hive_h *, void *opaque, hive_node_h, const char *name);
+   int (*value_string) (hive_h *, void *opaque, hive_node_h, hive_value_h,
+         hive_type t, size_t len, const char *key, const char *str);
+   int (*value_multiple_strings) (hive_h *, void *opaque, hive_node_h,
+         hive_value_h, hive_type t, size_t len, const char *key, char **argv);
+   int (*value_string_invalid_utf16) (hive_h *, void *opaque, hive_node_h,
+         hive_value_h, hive_type t, size_t len, const char *key,
+         const char *str);
+   int (*value_dword) (hive_h *, void *opaque, hive_node_h, hive_value_h,
+         hive_type t, size_t len, const char *key, int32_t);
+   int (*value_qword) (hive_h *, void *opaque, hive_node_h, hive_value_h,
+         hive_type t, size_t len, const char *key, int64_t);
+   int (*value_binary) (hive_h *, void *opaque, hive_node_h, hive_value_h,
+         hive_type t, size_t len, const char *key, const char *value);
+   int (*value_none) (hive_h *, void *opaque, hive_node_h, hive_value_h,
+         hive_type t, size_t len, const char *key, const char *value);
+   int (*value_other) (hive_h *, void *opaque, hive_node_h, hive_value_h,
+         hive_type t, size_t len, const char *key, const char *value);
+ };
+
+=over 4
+
+=item int hivex_visit (hive_h *h, const struct hivex_visitor *visitor, size_t len, void *opaque, int flags);
+
+Visit all the nodes recursively in the hive C<h>.
+
+C<visitor> should be a C<hivex_visitor> structure with callback
+fields filled in as required (unwanted callbacks can be set to
+NULL).  C<len> must be the length of the 'visitor' struct (you
+should pass C<sizeof (struct hivex_visitor)> for this).
+
+This returns 0 if the whole recursive visit was completed
+successfully.  On error this returns -1.  If one of the callback
+functions returned an error than we don't touch errno.  If the
+error was generated internally then we set errno.
+
+You can skip bad registry entries by setting C<flag> to
+C<HIVEX_VISIT_SKIP_BAD>.  If this flag is not set, then a bad registry
+causes the function to return an error immediately.
+
+This function is robust if the registry contains cycles or
+pointers which are invalid or outside the registry.  It detects
+these cases and returns an error.
+
+=item int hivex_visit_node (hive_h *h, hive_node_h node, const struct hivex_visitor *visitor, size_t len, void *opaque);
+
+Same as C<hivex_visit> but instead of starting out at the root, this
+starts at C<node>.
+
+=back
+
+=head1 THE STRUCTURE OF THE WINDOWS REGISTRY
+
+Note: To understand the relationship between hives and the common
+Windows Registry keys (like C<HKEY_LOCAL_MACHINE>) please see the
+Wikipedia page on the Windows Registry.
+
+The Windows Registry is split across various binary files, each
+file being known as a "hive".  This library only handles a single
+hive file at a time.
+
+Hives are n-ary trees with a single root.  Each node in the tree
+has a name.
+
+Each node in the tree (including non-leaf nodes) may have an
+arbitrary list of (key, value) pairs attached to it.  It may
+be the case that one of these pairs has an empty key.  This
+is referred to as the default key for the node.
+
+The (key, value) pairs are the place where the useful data is
+stored in the registry.  The key is always a string (possibly the
+empty string for the default key).  The value is a typed object
+(eg. string, int32, binary, etc.).
+
+=head1 NOTE ON THE USE OF ERRNO
+
+Many functions in this library set errno to indicate errors.
+These are the values of errno you may encounter:
+
+=over 4
+
+=item ENOTSUP
+
+Corrupt or unsupported Registry file format.
+
+=item ENOKEY
+
+Missing root key.
+
+=item EINVAL
+
+Passed an invalid argument to the function.
+
+=item EFAULT
+
+Followed a Registry pointer which goes outside
+the registry or outside a registry block.
+
+=item ELOOP
+
+Registry contains cycles.
+
+=item ERANGE
+
+Field in the registry out of range.
+
+=back
+
+=head1 SEE ALSO
+
+L<hivexml(1)>,
+L<hivexget(1)>,
+L<virt-win-reg(1)>,
+L<guestfs(3)>,
+L<http://libguestfs.org/>,
+L<virt-cat(1)>,
+L<virt-edit(1)>.
+
+=head1 AUTHORS
+
+Richard W.M. Jones (C<rjones at redhat dot com>)
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009 Red Hat Inc.
+
+Derived from code by Petter Nordahl-Hagen under a compatible license:
+Copyright (c) 1997-2007 Petter Nordahl-Hagen.
+
+Derived from code by Markus Stephany under a compatible license:
+Copyright (c)2000-2004, Markus Stephany.
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation;
+version 2.1 of the License.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+See file LICENSE for the full license.
