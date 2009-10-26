@@ -3703,6 +3703,18 @@ This function does not handle drive names, backslashes etc.
 
 See also C<guestfs_realpath>.");
 
+  ("vfs_type", (RString "fstype", [Device "device"]), 198, [],
+   [InitBasicFS, Always, TestOutput (
+      [["vfs_type"; "/dev/sda1"]], "ext2")],
+   "get the Linux VFS type corresponding to a mounted device",
+   "\
+This command gets the block device type corresponding to
+a mounted device called C<device>.
+
+Usually the result is the name of the Linux VFS module that
+is used to mount this device (probably determined automatically
+if you used the C<guestfs_mount> call).");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

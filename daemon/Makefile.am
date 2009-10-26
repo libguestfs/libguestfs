@@ -23,6 +23,7 @@ noinst_PROGRAMS = guestfsd
 guestfsd_SOURCES = \
 	actions.h \
 	augeas.c \
+	blkid.c \
 	blockdev.c \
 	checksum.c \
 	cmp.c \

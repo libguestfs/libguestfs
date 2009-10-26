@@ -1,4 +1,5 @@
 daemon/augeas.c
+daemon/blkid.c
 daemon/blockdev.c
 daemon/checksum.c
 daemon/cmp.c
