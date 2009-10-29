@@ -46,13 +46,13 @@
 #define be64toh(x) __bswap_64 (x)
 #endif
 #ifndef le16toh
-#define le32toh(x) (x)
+#define le16toh(x) (x)
 #endif
 #ifndef le32toh
 #define le32toh(x) (x)
 #endif
 #ifndef le64toh
-#define le32toh(x) (x)
+#define le64toh(x) (x)
 #endif
 #else
 #ifndef be32toh
