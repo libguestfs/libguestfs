@@ -18,11 +18,12 @@
  * See file LICENSE for the full license.
  */
 
+#include <config.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
-#include <endian.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <errno.h>
@@ -30,6 +31,34 @@
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <assert.h>
+#ifdef HAVE_ENDIAN_H
+#include <endian.h>
+#endif
+#ifdef HAVE_BYTESWAP_H
+#include <byteswap.h>
+#endif
+
+#if __BYTE_ORDER == __LITTLE_ENDIAN
+#ifndef be32toh
+#define be32toh(x) __bswap_32 (x)
+#endif
+#ifndef be64toh
+#define be64toh(x) __bswap_64 (x)
+#endif
+#ifndef le32toh
+#define le32toh(x) (x)
+#endif
+#else
+#ifndef be32toh
+#define be32toh(x) (x)
+#endif
+#ifndef be64toh
+#define be64toh(x) (x)
+#endif
+#ifndef le32toh
+#define le32toh(x) __bswap_32 (x)
+#endif
+#endif
 
 #include "hivex.h"
 
