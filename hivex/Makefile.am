@@ -69,3 +69,32 @@ hivexget.1: hivexget.pod
 	  --name "hivexget" \
 	  --release "$(PACKAGE_NAME)-$(PACKAGE_VERSION)" \
 	  $< > $@-t; mv $@-t $@
+
+noinst_DATA = \
+	$(top_builddir)/html/hivex.3.html \
+	$(top_builddir)/html/hivexml.1.html \
+	$(top_builddir)/html/hivexget.1.html
+
+$(top_builddir)/html/hivex.3.html: hivex.pod
+	mkdir -p $(top_builddir)/html
+	cd $(top_builddir) && pod2html \
+	  --css 'pod.css' \
+	  --htmldir html \
+	  --outfile html/hivex.3.html \
+	  hivex/hivex.pod
+
+$(top_builddir)/html/hivexml.1.html: hivexml.pod
+	mkdir -p $(top_builddir)/html
+	cd $(top_builddir) && pod2html \
+	  --css 'pod.css' \
+	  --htmldir html \
+	  --outfile html/hivexml.1.html \
+	  hivex/hivexml.pod
+
+$(top_builddir)/html/hivexget.1.html: hivexget.pod
+	mkdir -p $(top_builddir)/html
+	cd $(top_builddir) && pod2html \
+	  --css 'pod.css' \
+	  --htmldir html \
+	  --outfile html/hivexget.1.html \
+	  hivex/hivexget.pod
