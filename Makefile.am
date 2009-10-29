@@ -139,6 +139,7 @@ HTMLFILES = html/guestfs.3.html html/guestfish.1.html \
 	html/virt-ls.1.html \
 	html/virt-rescue.1.html \
 	html/virt-tar.1.html \
+	html/virt-win-reg.1.html \
 	html/recipes.html \
 	html/pod.css html/recipes.css
 
@@ -172,7 +173,8 @@ all-local:
 	    -name 'virt-inspector' -o \
 	    -name 'virt-ls' -o \
 	    -name 'virt-rescue' -o \
-	    -name 'virt-tar' | \
+	    -name 'virt-tar' -o \
+	    -name 'virt-win-reg' | \
 	grep -v '^perl/blib/' | \
 	grep -v '^capitests/' | \
 	grep -v '^daemon/lib/' | \

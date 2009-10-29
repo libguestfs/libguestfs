@@ -94,3 +94,4 @@ tools/virt-edit
 tools/virt-ls
 tools/virt-rescue
 tools/virt-tar
+tools/virt-win-reg
