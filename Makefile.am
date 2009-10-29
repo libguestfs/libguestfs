@@ -131,7 +131,12 @@ html/recipes.html: $(wildcard recipes/*.sh) $(wildcard recipes/*.html) $(wildcar
 	sh make-recipes.sh recipes/*.sh > $@-t
 	mv $@-t $@
 
-HTMLFILES = html/guestfs.3.html html/guestfish.1.html \
+HTMLFILES = \
+	html/guestfs.3.html \
+	html/guestfish.1.html \
+	html/hivex.3.html \
+	html/hivexget.1.html \
+	html/hivexml.1.html \
 	html/virt-cat.1.html \
 	html/virt-df.1.html \
 	html/virt-edit.1.html \
