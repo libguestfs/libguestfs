@@ -145,9 +145,7 @@ Ideas for extra commands
   General glibc / core programs:
     chgrp
     dd (?)
-    utime / utimes / futimes / futimens / l..
     more mk*temp calls
-    trunc[ate??]
 
   ext2 properties:
     chattr

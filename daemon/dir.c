@@ -99,6 +99,23 @@ do_mkdir (const char *path)
   return 0;
 }
 
+int
+do_mkdir_mode (const char *path, int mode)
+{
+  int r;
+
+  CHROOT_IN;
+  r = mkdir (path, mode);
+  CHROOT_OUT;
+
+  if (r == -1) {
+    reply_with_perror ("mkdir_mode: %s", path);
+    return -1;
+  }
+
+  return 0;
+}
+
 static int
 recursive_mkdir (const char *path)
 {

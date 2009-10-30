@@ -232,6 +232,23 @@ do_chown (int owner, int group, const char *path)
 }
 
 int
+do_lchown (int owner, int group, const char *path)
+{
+  int r;
+
+  CHROOT_IN;
+  r = lchown (path, owner, group);
+  CHROOT_OUT;
+
+  if (r == -1) {
+    reply_with_perror ("lchown: %s: %d.%d", path, owner, group);
+    return -1;
+  }
+
+  return 0;
+}
+
+int
 do_exists (const char *path)
 {
   int r;

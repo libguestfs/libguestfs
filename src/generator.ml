@@ -142,6 +142,7 @@ and argt =
   | DeviceList of string(* list of Device names (each cannot be NULL) *)
   | Bool of string	(* boolean *)
   | Int of string	(* int (smallish ints, signed, <= 31 bits) *)
+  | Int64 of string	(* any 64 bit int *)
     (* These are treated as filenames (simple string parameters) in
      * the C API and bindings.  But in the RPC protocol, we transfer
      * the actual file content up to or down from the daemon.
@@ -364,6 +365,7 @@ let test_all_args = [
   StringList "strlist";
   Bool "b";
   Int "integer";
+  Int64 "integer64";
   FileIn "filein";
   FileOut "fileout";
 ]
@@ -3715,6 +3717,72 @@ Usually the result is the name of the Linux VFS module that
 is used to mount this device (probably determined automatically
 if you used the C<guestfs_mount> call).");
 
+  ("truncate", (RErr, [Pathname "path"]), 199, [],
+   [InitBasicFS, Always, TestOutputStruct (
+      [["write_file"; "/test"; "some stuff so size is not zero"; "0"];
+       ["truncate"; "/test"];
+       ["stat"; "/test"]], [CompareWithInt ("size", 0)])],
+   "truncate a file to zero size",
+   "\
+This command truncates C<path> to a zero-length file.  The
+file must exist already.");
+
+  ("truncate_size", (RErr, [Pathname "path"; Int64 "size"]), 200, [],
+   [InitBasicFS, Always, TestOutputStruct (
+      [["touch"; "/test"];
+       ["truncate_size"; "/test"; "1000"];
+       ["stat"; "/test"]], [CompareWithInt ("size", 1000)])],
+   "truncate a file to a particular size",
+   "\
+This command truncates C<path> to size C<size> bytes.  The file
+must exist already.  If the file is smaller than C<size> then
+the file is extended to the required size with null bytes.");
+
+  ("utimens", (RErr, [Pathname "path"; Int64 "atsecs"; Int64 "atnsecs"; Int64 "mtsecs"; Int64 "mtnsecs"]), 201, [],
+   [InitBasicFS, Always, TestOutputStruct (
+      [["touch"; "/test"];
+       ["utimens"; "/test"; "12345"; "67890"; "9876"; "5432"];
+       ["stat"; "/test"]], [CompareWithInt ("mtime", 9876)])],
+   "set timestamp of a file with nanosecond precision",
+   "\
+This command sets the timestamps of a file with nanosecond
+precision.
+
+C<atsecs, atnsecs> are the last access time (atime) in secs and
+nanoseconds from the epoch.
+
+C<mtsecs, mtnsecs> are the last modification time (mtime) in
+secs and nanoseconds from the epoch.
+
+If the C<*nsecs> field contains the special value C<-1> then
+the corresponding timestamp is set to the current time.  (The
+C<*secs> field is ignored in this case).
+
+If the C<*nsecs> field contains the special value C<-2> then
+the corresponding timestamp is left unchanged.  (The
+C<*secs> field is ignored in this case).");
+
+  ("mkdir_mode", (RErr, [Pathname "path"; Int "mode"]), 202, [],
+   [InitBasicFS, Always, TestOutputStruct (
+      [["mkdir_mode"; "/test"; "0o111"];
+       ["stat"; "/test"]], [CompareWithInt ("mode", 0o40111)])],
+   "create a directory with a particular mode",
+   "\
+This command creates a directory, setting the initial permissions
+of the directory to C<mode>.  See also C<guestfs_mkdir>.");
+
+  ("lchown", (RErr, [Int "owner"; Int "group"; Pathname "path"]), 203, [],
+   [], (* XXX *)
+   "change file owner and group",
+   "\
+Change the file owner to C<owner> and group to C<group>.
+This is like C<guestfs_chown> but if C<path> is a symlink then
+the link itself is changed, not the target.
+
+Only numeric uid and gid are supported.  If you want to use
+names, you will need to locate and parse the password file
+yourself (Augeas support makes this relatively easy).");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
@@ -3955,6 +4023,7 @@ type callt =
   | CallOptString of string option
   | CallStringList of string list
   | CallInt of int
+  | CallInt64 of int64
   | CallBool of bool
 
 (* Used to memoize the result of pod2text. *)
@@ -4092,7 +4161,7 @@ let mapi f xs =
 
 let name_of_argt = function
   | Pathname n | Device n | Dev_or_Path n | String n | OptString n
-  | StringList n | DeviceList n | Bool n | Int n
+  | StringList n | DeviceList n | Bool n | Int n | Int64 n
   | FileIn n | FileOut n -> n
 
 let java_name_of_struct typ =
@@ -4508,11 +4577,13 @@ and generate_xdr () =
            pr "struct %s_args {\n" name;
            List.iter (
              function
-             | Pathname n | Device n | Dev_or_Path n | String n -> pr "  string %s<>;\n" n
+             | Pathname n | Device n | Dev_or_Path n | String n ->
+		 pr "  string %s<>;\n" n
              | OptString n -> pr "  str *%s;\n" n
              | StringList n | DeviceList n -> pr "  str %s<>;\n" n
              | Bool n -> pr "  bool %s;\n" n
              | Int n -> pr "  int %s;\n" n
+             | Int64 n -> pr "  hyper %s;\n" n
              | FileIn _ | FileOut _ -> ()
            ) args;
            pr "};\n\n"
@@ -4701,6 +4772,8 @@ and generate_client_actions () =
   pr "\
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
+#include <inttypes.h>
 
 #include \"guestfs.h\"
 #include \"guestfs-internal-actions.h\"
@@ -4803,6 +4876,8 @@ check_state (guestfs_h *g, const char *caller)
           pr "    fputs (%s ? \" true\" : \" false\", stdout);\n" n
       | Int n ->			(* int *)
           pr "    printf (\" %%d\", %s);\n" n
+      | Int64 n ->
+          pr "    printf (\" %%\" PRIi64, %s);\n" n
     ) (snd style);
     pr "    putchar ('\\n');\n";
     pr "  }\n";
@@ -4891,6 +4966,8 @@ check_state (guestfs_h *g, const char *caller)
              | Bool n ->
                  pr "  args.%s = %s;\n" n n
              | Int n ->
+                 pr "  args.%s = %s;\n" n n
+             | Int64 n ->
                  pr "  args.%s = %s;\n" n n
              | FileIn _ | FileOut _ -> ()
            ) args;
@@ -5094,6 +5171,7 @@ and generate_daemon_actions () =
              | StringList n | DeviceList n -> pr "  char **%s;\n" n
              | Bool n -> pr "  int %s;\n" n
              | Int n -> pr "  int %s;\n" n
+             | Int64 n -> pr "  int64_t %s;\n" n
              | FileIn _ | FileOut _ -> ()
            ) args
       );
@@ -5145,6 +5223,7 @@ and generate_daemon_actions () =
                  pr "  }\n";
              | Bool n -> pr "  %s = args.%s;\n" n n
              | Int n -> pr "  %s = args.%s;\n" n n
+             | Int64 n -> pr "  %s = args.%s;\n" n n
              | FileIn _ | FileOut _ -> ()
            ) args;
            pr "\n"
@@ -6047,6 +6126,7 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
         | OptString n, arg ->
             pr "    const char *%s = \"%s\";\n" n (c_quote arg);
         | Int _, _
+        | Int64 _, _
         | Bool _, _
         | FileIn _, _ | FileOut _, _ -> ()
         | StringList n, arg | DeviceList n, arg ->
@@ -6105,6 +6185,12 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
               with Failure "int_of_string" ->
                 failwithf "%s: expecting an int, but got '%s'" test_name arg in
             pr ", %d" i
+        | Int64 _, arg ->
+            let i =
+              try Int64.of_string arg
+              with Failure "int_of_string" ->
+                failwithf "%s: expecting an int64, but got '%s'" test_name arg in
+            pr ", %Ld" i
         | Bool _, arg ->
             let b = bool_of_string arg in pr ", %d" (if b then 1 else 0)
       ) (List.combine (snd style) args);
@@ -6369,6 +6455,7 @@ and generate_fish_cmds () =
         | StringList n | DeviceList n -> pr "  char **%s;\n" n
         | Bool n -> pr "  int %s;\n" n
         | Int n -> pr "  int %s;\n" n
+        | Int64 n -> pr "  int64_t %s;\n" n
       ) (snd style);
 
       (* Check and convert parameters. *)
@@ -6405,6 +6492,8 @@ and generate_fish_cmds () =
               pr "  %s = is_true (argv[%d]) ? 1 : 0;\n" name i
           | Int name ->
               pr "  %s = atoi (argv[%d]);\n" name i
+          | Int64 name ->
+              pr "  %s = atoll (argv[%d]);\n" name i
       ) (snd style);
 
       (* Call C API function. *)
@@ -6419,7 +6508,7 @@ and generate_fish_cmds () =
         function
         | Device name | String name
         | OptString name | FileIn name | FileOut name | Bool name
-        | Int name -> ()
+        | Int name | Int64 name -> ()
         | Pathname name | Dev_or_Path name ->
             pr "  free (%s);\n" name
         | StringList name | DeviceList name ->
@@ -6638,6 +6727,7 @@ and generate_fish_actions_pod () =
         | StringList n | DeviceList n -> pr " '%s ...'" n
         | Bool _ -> pr " true|false"
         | Int n -> pr " %s" n
+        | Int64 n -> pr " %s" n
         | FileIn n | FileOut n -> pr " (%s|-)" n
       ) (snd style);
       pr "\n";
@@ -6710,6 +6800,7 @@ and generate_prototype ?(extern = true) ?(static = false) ?(semicolon = true)
           pr "char *const *%s" n
       | Bool n -> next (); pr "int %s" n
       | Int n -> next (); pr "int %s" n
+      | Int64 n -> next (); pr "int64_t %s" n
       | FileIn n
       | FileOut n ->
           if not in_daemon then (next (); pr "const char *%s" n)
@@ -6992,6 +7083,8 @@ copy_table (char * const * argv)
             pr "  int %s = Bool_val (%sv);\n" n n
         | Int n ->
             pr "  int %s = Int_val (%sv);\n" n n
+        | Int64 n ->
+            pr "  int64_t %s = Int64_val (%sv);\n" n n
       ) (snd style);
       let error_code =
         match fst style with
@@ -7030,7 +7123,8 @@ copy_table (char * const * argv)
         function
         | StringList n | DeviceList n ->
             pr "  ocaml_guestfs_free_strings (%s);\n" n;
-        | Pathname _ | Device _ | Dev_or_Path _ | String _ | OptString _ | Bool _ | Int _
+        | Pathname _ | Device _ | Dev_or_Path _ | String _ | OptString _
+	| Bool _ | Int _ | Int64 _
         | FileIn _ | FileOut _ -> ()
       ) (snd style);
 
@@ -7122,6 +7216,7 @@ and generate_ocaml_prototype ?(is_external = false) name style =
     | StringList _ | DeviceList _ -> pr "string array -> "
     | Bool _ -> pr "bool -> "
     | Int _ -> pr "int -> "
+    | Int64 _ -> pr "int64 -> "
   ) (snd style);
   (match fst style with
    | RErr -> pr "unit" (* all errors are turned into exceptions *)
@@ -7273,12 +7368,14 @@ DESTROY (g)
           | StringList n | DeviceList n -> pr "      char **%s;\n" n
           | Bool n -> pr "      int %s;\n" n
           | Int n -> pr "      int %s;\n" n
+          | Int64 n -> pr "      int64_t %s;\n" n
       ) (snd style);
 
       let do_cleanups () =
         List.iter (
           function
-          | Pathname _ | Device _ | Dev_or_Path _ | String _ | OptString _ | Bool _ | Int _
+          | Pathname _ | Device _ | Dev_or_Path _ | String _ | OptString _
+	  | Bool _ | Int _ | Int64 _
           | FileIn _ | FileOut _ -> ()
           | StringList n | DeviceList n -> pr "      free (%s);\n" n
         ) (snd style)
@@ -7650,7 +7747,7 @@ and generate_perl_prototype name style =
       comma := true;
       match arg with
       | Pathname n | Device n | Dev_or_Path n | String n
-      | OptString n | Bool n | Int n | FileIn n | FileOut n ->
+      | OptString n | Bool n | Int n | Int64 n | FileIn n | FileOut n ->
           pr "$%s" n
       | StringList n | DeviceList n ->
           pr "\\@%s" n
@@ -7917,6 +8014,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
             pr "  char **%s;\n" n
         | Bool n -> pr "  int %s;\n" n
         | Int n -> pr "  int %s;\n" n
+        | Int64 n -> pr "  long long %s;\n" n
       ) (snd style);
 
       pr "\n";
@@ -7930,6 +8028,9 @@ py_guestfs_close (PyObject *self, PyObject *args)
         | StringList _ | DeviceList _ -> pr "O"
         | Bool _ -> pr "i" (* XXX Python has booleans? *)
         | Int _ -> pr "i"
+        | Int64 _ -> pr "L" (* XXX Whoever thought it was a good idea to
+			     * emulate C's int/long/long long in Python?
+			     *)
       ) (snd style);
       pr ":guestfs_%s\",\n" name;
       pr "                         &py_g";
@@ -7940,6 +8041,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
         | StringList n | DeviceList n -> pr ", &py_%s" n
         | Bool n -> pr ", &%s" n
         | Int n -> pr ", &%s" n
+        | Int64 n -> pr ", &%s" n
       ) (snd style);
 
       pr "))\n";
@@ -7949,7 +8051,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
       List.iter (
         function
         | Pathname _ | Device _ | Dev_or_Path _ | String _
-        | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ -> ()
+        | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ | Int64 _ -> ()
         | StringList n | DeviceList n ->
             pr "  %s = get_string_list (py_%s);\n" n n;
             pr "  if (!%s) return NULL;\n" n
@@ -7964,7 +8066,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
       List.iter (
         function
         | Pathname _ | Device _ | Dev_or_Path _ | String _
-        | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ -> ()
+        | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ | Int64 _ -> ()
         | StringList n | DeviceList n ->
             pr "  free (%s);\n" n
       ) (snd style);
@@ -8294,6 +8396,8 @@ static VALUE ruby_guestfs_close (VALUE gv)
             pr "  int %s = RTEST (%sv);\n" n n
         | Int n ->
             pr "  int %s = NUM2INT (%sv);\n" n n
+        | Int64 n ->
+            pr "  long long %s = NUM2LL (%sv);\n" n n
       ) (snd style);
       pr "\n";
 
@@ -8321,7 +8425,7 @@ static VALUE ruby_guestfs_close (VALUE gv)
       List.iter (
         function
         | Pathname _ | Device _ | Dev_or_Path _ | String _
-        | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ -> ()
+        | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ | Int64 _ -> ()
         | StringList n | DeviceList n ->
             pr "  free (%s);\n" n
       ) (snd style);
@@ -8644,6 +8748,8 @@ and generate_java_prototype ?(public=false) ?(privat=false) ?(native=false)
           pr "boolean %s" n
       | Int n ->
           pr "int %s" n
+      | Int64 n ->
+          pr "long %s" n
   ) (snd style);
 
   pr ")\n";
@@ -8763,6 +8869,8 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
             pr ", jboolean j%s" n
         | Int n ->
             pr ", jint j%s" n
+        | Int64 n ->
+            pr ", jlong j%s" n
       ) (snd style);
       pr ")\n";
       pr "{\n";
@@ -8816,6 +8924,8 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
         | Bool n
         | Int n ->
             pr "  int %s;\n" n
+        | Int64 n ->
+            pr "  int64_t %s;\n" n
       ) (snd style);
 
       let needs_i =
@@ -8857,7 +8967,8 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
             pr "  }\n";
             pr "  %s[%s_len] = NULL;\n" n n;
         | Bool n
-        | Int n ->
+        | Int n
+        | Int64 n ->
             pr "  %s = j%s;\n" n n
       ) (snd style);
 
@@ -8886,7 +8997,8 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
             pr "  }\n";
             pr "  free (%s);\n" n
         | Bool n
-        | Int n -> ()
+        | Int n
+	| Int64 n -> ()
       ) (snd style);
 
       (* Check for errors. *)
@@ -9148,7 +9260,7 @@ last_error h = do
           | Pathname n | Device n | Dev_or_Path n | String n -> pr "withCString %s $ \\%s -> " n n
           | OptString n -> pr "maybeWith withCString %s $ \\%s -> " n n
           | StringList n | DeviceList n -> pr "withMany withCString %s $ \\%s -> withArray0 nullPtr %s $ \\%s -> " n n n n
-          | Bool _ | Int _ -> ()
+          | Bool _ | Int _ | Int64 _ -> ()
         ) (snd style);
         (* Convert integer arguments. *)
         let args =
@@ -9156,6 +9268,7 @@ last_error h = do
             function
             | Bool n -> sprintf "(fromBool %s)" n
             | Int n -> sprintf "(fromIntegral %s)" n
+            | Int64 n -> sprintf "(fromIntegral %s)" n
             | FileIn n | FileOut n
             | Pathname n | Device n | Dev_or_Path n | String n | OptString n | StringList n | DeviceList n -> n
           ) (snd style) in
@@ -9212,6 +9325,7 @@ and generate_haskell_prototype ~handle ?(hs = false) style =
        | StringList _ | DeviceList _ -> if hs then pr "[String]" else pr "Ptr CString"
        | Bool _ -> pr "%s" bool
        | Int _ -> pr "%s" int
+       | Int64 _ -> pr "%s" int
        | FileIn _ -> pr "%s" string
        | FileOut _ -> pr "%s" string
       );
@@ -9292,6 +9406,7 @@ print_strings (char *const *argv)
       | StringList n | DeviceList n -> pr "  print_strings (%s);\n" n
       | Bool n -> pr "  printf (\"%%s\\n\", %s ? \"true\" : \"false\");\n" n
       | Int n -> pr "  printf (\"%%d\\n\", %s);\n" n
+      | Int64 n -> pr "  printf (\"%%\" PRIi64 \"\\n\", %s);\n" n
     ) (snd style);
     pr "  /* Java changes stdout line buffering so we need this: */\n";
     pr "  fflush (stdout);\n";
@@ -9407,6 +9522,8 @@ let () =
             "[|" ^ String.concat ";" (List.map (sprintf "\"%s\"") xs) ^ "|]"
         | CallInt i when i >= 0 -> string_of_int i
         | CallInt i (* when i < 0 *) -> "(" ^ string_of_int i ^ ")"
+        | CallInt64 i when i >= 0L -> Int64.to_string i ^ "L"
+        | CallInt64 i (* when i < 0L *) -> "(" ^ Int64.to_string i ^ "L)"
         | CallBool b -> string_of_bool b
       ) args
     )
@@ -9440,6 +9557,7 @@ my $g = Sys::Guestfs->new ();
         | CallStringList xs ->
             "[" ^ String.concat "," (List.map (sprintf "\"%s\"") xs) ^ "]"
         | CallInt i -> string_of_int i
+        | CallInt64 i -> Int64.to_string i
         | CallBool b -> if b then "1" else "0"
       ) args
     )
@@ -9470,6 +9588,7 @@ g = guestfs.GuestFS ()
         | CallStringList xs ->
             "[" ^ String.concat "," (List.map (sprintf "\"%s\"") xs) ^ "]"
         | CallInt i -> string_of_int i
+        | CallInt64 i -> Int64.to_string i
         | CallBool b -> if b then "1" else "0"
       ) args
     )
@@ -9500,6 +9619,7 @@ g = Guestfs::create()
         | CallStringList xs ->
             "[" ^ String.concat "," (List.map (sprintf "\"%s\"") xs) ^ "]"
         | CallInt i -> string_of_int i
+        | CallInt64 i -> Int64.to_string i
         | CallBool b -> string_of_bool b
       ) args
     )
@@ -9535,6 +9655,7 @@ public class Bindtests {
             "new String[]{" ^
               String.concat "," (List.map (sprintf "\"%s\"") xs) ^ "}"
         | CallInt i -> string_of_int i
+        | CallInt64 i -> Int64.to_string i
         | CallBool b -> string_of_bool b
       ) args
     )
@@ -9577,6 +9698,8 @@ main = do
             "[" ^ String.concat "," (List.map (sprintf "\"%s\"") xs) ^ "]"
         | CallInt i when i < 0 -> "(" ^ string_of_int i ^ ")"
         | CallInt i -> string_of_int i
+        | CallInt64 i when i < 0L -> "(" ^ Int64.to_string i ^ ")"
+        | CallInt64 i -> Int64.to_string i
         | CallBool true -> "True"
         | CallBool false -> "False"
       ) args
@@ -9595,43 +9718,43 @@ main = do
 and generate_lang_bindtests call =
   call "test0" [CallString "abc"; CallOptString (Some "def");
                 CallStringList []; CallBool false;
-                CallInt 0; CallString "123"; CallString "456"];
+                CallInt 0; CallInt64 0L; CallString "123"; CallString "456"];
   call "test0" [CallString "abc"; CallOptString None;
                 CallStringList []; CallBool false;
-                CallInt 0; CallString "123"; CallString "456"];
+                CallInt 0; CallInt64 0L; CallString "123"; CallString "456"];
   call "test0" [CallString ""; CallOptString (Some "def");
                 CallStringList []; CallBool false;
-                CallInt 0; CallString "123"; CallString "456"];
+                CallInt 0; CallInt64 0L; CallString "123"; CallString "456"];
   call "test0" [CallString ""; CallOptString (Some "");
                 CallStringList []; CallBool false;
-                CallInt 0; CallString "123"; CallString "456"];
+                CallInt 0; CallInt64 0L; CallString "123"; CallString "456"];
   call "test0" [CallString "abc"; CallOptString (Some "def");
                 CallStringList ["1"]; CallBool false;
-                CallInt 0; CallString "123"; CallString "456"];
+                CallInt 0; CallInt64 0L; CallString "123"; CallString "456"];
   call "test0" [CallString "abc"; CallOptString (Some "def");
                 CallStringList ["1"; "2"]; CallBool false;
-                CallInt 0; CallString "123"; CallString "456"];
+                CallInt 0; CallInt64 0L; CallString "123"; CallString "456"];
   call "test0" [CallString "abc"; CallOptString (Some "def");
                 CallStringList ["1"]; CallBool true;
-                CallInt 0; CallString "123"; CallString "456"];
+                CallInt 0; CallInt64 0L; CallString "123"; CallString "456"];
   call "test0" [CallString "abc"; CallOptString (Some "def");
                 CallStringList ["1"]; CallBool false;
-                CallInt (-1); CallString "123"; CallString "456"];
+                CallInt (-1); CallInt64 (-1L); CallString "123"; CallString "456"];
   call "test0" [CallString "abc"; CallOptString (Some "def");
                 CallStringList ["1"]; CallBool false;
-                CallInt (-2); CallString "123"; CallString "456"];
+                CallInt (-2); CallInt64 (-2L); CallString "123"; CallString "456"];
   call "test0" [CallString "abc"; CallOptString (Some "def");
                 CallStringList ["1"]; CallBool false;
-                CallInt 1; CallString "123"; CallString "456"];
+                CallInt 1; CallInt64 1L; CallString "123"; CallString "456"];
   call "test0" [CallString "abc"; CallOptString (Some "def");
                 CallStringList ["1"]; CallBool false;
-                CallInt 2; CallString "123"; CallString "456"];
+                CallInt 2; CallInt64 2L; CallString "123"; CallString "456"];
   call "test0" [CallString "abc"; CallOptString (Some "def");
                 CallStringList ["1"]; CallBool false;
-                CallInt 4095; CallString "123"; CallString "456"];
+                CallInt 4095; CallInt64 4095L; CallString "123"; CallString "456"];
   call "test0" [CallString "abc"; CallOptString (Some "def");
                 CallStringList ["1"]; CallBool false;
-                CallInt 0; CallString ""; CallString ""]
+                CallInt 0; CallInt64 0L; CallString ""; CallString ""]
 
 (* XXX Add here tests of the return and error functions. *)
 

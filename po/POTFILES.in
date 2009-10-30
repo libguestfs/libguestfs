@@ -49,8 +49,10 @@ daemon/stubs.c
 daemon/swap.c
 daemon/sync.c
 daemon/tar.c
+daemon/truncate.c
 daemon/umask.c
 daemon/upload.c
+daemon/utimens.c
 daemon/wc.c
 daemon/xattr.c
 daemon/zero.c

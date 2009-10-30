@@ -74,8 +74,10 @@ guestfsd_SOURCES = \
 	swap.c \
 	sync.c \
 	tar.c \
+	truncate.c \
 	umask.c \
 	upload.c \
+	utimens.c \
 	wc.c \
 	xattr.c \
 	zero.c \
