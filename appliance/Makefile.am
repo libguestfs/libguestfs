@@ -61,6 +61,15 @@ $(top_builddir)/initramfs/fakeroot.log: make.sh kmod.whitelist packagelist
 	mv $(VMLINUZ) $(VMLINUZ).bak 2>/dev/null; :
 	if ! bash make.sh; then rm -f $@; exit 1; fi
 
+# This used to be a configure-generated file (as is update.sh still).
+# However config.status always touches the destination file, which
+# means the appliance got rebuilt too often.
+make.sh: make.sh.in
+	cd $(top_builddir) && \
+	  ./config.status --file=appliance/$@-t:appliance/$<
+	chmod +x $@-t
+	mv $@-t $@
+
 $(INITRAMFSIMG): $(top_builddir)/initramfs/fakeroot.log $(top_builddir)/daemon/guestfsd init update.sh
 	rm -f $@
 	bash update.sh

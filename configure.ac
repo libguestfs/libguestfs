@@ -699,8 +699,6 @@ AC_CONFIG_SUBDIRS([daemon])
 dnl Produce output files.
 AC_CONFIG_HEADERS([config.h])
 dnl http://www.mail-archive.com/automake@gnu.org/msg10204.html
-AC_CONFIG_FILES([appliance/make.sh],
-                [chmod +x appliance/make.sh])
 AC_CONFIG_FILES([appliance/update.sh],
                 [chmod +x appliance/update.sh])
 AC_CONFIG_FILES([appliance/supermin-split.sh],
