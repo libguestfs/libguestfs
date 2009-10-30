@@ -123,3 +123,5 @@ xsize.m4
 /unistd-safer.m4
 /xgetcwd.m4
 /xstrndup.m4
+/hash.m4
+/inttostr.m4

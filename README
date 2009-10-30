@@ -52,6 +52,8 @@ Requirements
 
 - libxml2
 
+- (Optional) FUSE to build the FUSE module
+
 - (Optional) Augeas (http://augeas.net/)
 
 - perldoc (pod2man, pod2text) to generate the manual pages and

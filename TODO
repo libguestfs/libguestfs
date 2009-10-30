@@ -12,33 +12,16 @@ Python bindings
 Ideas for the Python bindings:
 https://www.redhat.com/archives/fedora-virt/2009-April/msg00114.html
 
-FTP server or FUSE?
--------------------
+FUSE API
+--------
 
-Originally we had intended to implement an NFS server inside the
-appliance, which would allow the guest filesystems to be mounted on
-the host, and large changes to be made.  We eventually rejected the
-idea of using NFS, partly because it requires root to mount
-filesystems in the host, and partly because of problems handling UID
-mappings between host and guest filesystem.
+The API needs more test coverage, particularly lesser-used system
+calls.
 
-Then we look at implementing an FTP server instead.  FTP clients are
-widely available for many languages, don't require root, and don't
-have any UID mapping problems.  However there is the problem of
-getting the TCP connection into the guest, and that FTP requires a
-secondary data connection either in or out of the guest (the NFS
-situation is even more dire).
-
-Thirdly we looked at implementing a FUSE-based filesystem.  This is
-plausible - it could be implemented just by adding the additional FUSE
-operations to the standard guestfs(3) API, and then implementing a
-simple FUSE daemon.  (The FUSE website has some very helpful
-documentation and examples).  I [RWMJ] am not particularly convinced
-that a FUSE-based filesystem would really be useful to anyone, but am
-prepared to accept patches if someone does all the work.
-
-See also the mountlo project:
-http://sourceforge.net/project/showfiles.php?group_id=121684&package_id=150116
+The big unresolved issue is UID/GID mapping between guest filesystem
+IDs and the host.  It's not easy to automate this because you need
+extra details about the guest itself in order to get to its
+UID->username map (eg. /etc/passwd from the guest).
 
 BufferIn
 --------

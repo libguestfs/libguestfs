@@ -71,6 +71,8 @@ fish/rc.c
 fish/reopen.c
 fish/tilde.c
 fish/time.c
+fuse/dircache.c
+fuse/guestmount.c
 hivex/hivex.c
 hivex/hivexget.c
 hivex/hivexml.c

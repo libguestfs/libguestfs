@@ -63,6 +63,8 @@ closeout
 gitlog-to-changelog
 gnu-make
 gnumakefile
+hash
+hash-pjw
 ignore-value
 maintainer-makefile
 manywarnings

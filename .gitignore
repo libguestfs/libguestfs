@@ -54,6 +54,8 @@ fish/completion.c
 fish/guestfish
 fish/rc_protocol.c
 fish/rc_protocol.h
+fuse/guestmount
+fuse/guestmount.1
 guestfish.1
 guestfish-actions.pod
 guestfs.3
@@ -72,6 +74,7 @@ hivex/hivexget
 hivex/hivexml
 html/guestfish.1.html
 html/guestfs.3.html
+html/guestmount.1.html
 html/hivex.3.html
 html/hivexget.1.html
 html/hivexml.1.html

@@ -421,6 +421,13 @@ PKG_CHECK_MODULES([LIBXML2], [libxml-2.0])
 AC_SUBST([LIBXML2_CFLAGS])
 AC_SUBST([LIBXML2_LIBS])
 
+dnl FUSE is optional to build the FUSE module.
+HAVE_FUSE=yes
+PKG_CHECK_MODULES([FUSE],[fuse],,[
+	HAVE_FUSE=no
+	AC_MSG_WARN([FUSE library and headers are missing, so optional FUSE module won't be built])])
+AM_CONDITIONAL([HAVE_FUSE],[test "x$HAVE_FUSE" = "xyes"])
+
 dnl Check for OCaml (optional, for OCaml bindings).
 AC_PROG_OCAML
 AC_PROG_FINDLIB
@@ -726,7 +733,8 @@ AC_CONFIG_FILES([Makefile
                  libguestfs.pc
                  gnulib/lib/Makefile
                  gnulib/tests/Makefile
-		 hivex/Makefile
+                 hivex/Makefile
+                 fuse/Makefile
                  ocaml/META perl/Makefile.PL])
 AC_OUTPUT
 
@@ -756,6 +764,7 @@ if test "x$HAVE_INSPECTOR" = "x"; then echo "yes"; else echo "no"; fi
 echo -n "virt-* tools ........................ "
 if test "x$HAVE_TOOLS" = "x"; then echo "yes"; else echo "no"; fi
 echo "supermin appliance .................. $enable_supermin"
+echo "FUSE filesystem ..................... $HAVE_FUSE"
 echo
 echo "If any optional component is configured 'no' when you expected 'yes'"
 echo "then you should check the preceeding messages."

@@ -34,6 +34,10 @@ if HAVE_TOOLS
 SUBDIRS += tools
 endif
 
+if HAVE_FUSE
+SUBDIRS += fuse
+endif
+
 if HAVE_OCAML
 SUBDIRS += ocaml ocaml/examples
 endif
@@ -134,6 +138,7 @@ html/recipes.html: $(wildcard recipes/*.sh) $(wildcard recipes/*.html) $(wildcar
 HTMLFILES = \
 	html/guestfs.3.html \
 	html/guestfish.1.html \
+	html/guestmount.1.html \
 	html/hivex.3.html \
 	html/hivexget.1.html \
 	html/hivexml.1.html \

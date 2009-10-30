@@ -83,6 +83,9 @@ examples/
 fish/
         Guestfish (the command-line program / shell)
 
+fuse/
+	FUSE (userspace filesystem) built on top of libguestfs.
+
 haskell/
         Haskell bindings.
 

@@ -1,0 +1,205 @@
+=encoding utf8
+
+=head1 NAME
+
+guestmount - Mount a guest filesystem on the host using FUSE and libguestfs
+
+=head1 SYNOPSIS
+
+ guestmount [--options] -a disk.img -m device [--ro] mountpoint
+
+=head1 WARNING
+
+You must I<not> use C<guestmount> in read-write mode on live virtual
+machines.  If you do this, you risk disk corruption in the VM.
+
+=head1 DESCRIPTION
+
+The guestmount program can be used to mount virtual machine
+filesystems and other disk images on the host.  It uses libguestfs for
+access to the guest filesystem, and FUSE (the "filesystem in
+userspace") to make it appear as a mountable device.
+
+Along with other options, you have to give at least one device (I<-a>
+option) and at least one mountpoint (I<-m> option).  How this works is
+better explained in the L<guestfish(1)> manual page, or you can use
+L<virt-inspector(1)> and/or the the wrapper script
+C<guestmount-wrapper> to help you.
+
+FUSE lets you mount filesystems as non-root.  The mountpoint must be
+owned by you, and the filesystem will not be visible to any other
+users unless you make certain global configuration changes to
+C</etc/fuse.conf>.  To unmount the filesystem, use the C<fusermount -u>
+command.
+
+=head1 EXAMPLES
+
+For a typical Windows guest which has its main filesystem on the
+first partition:
+
+ guestmount -a windows.img -m /dev/sda1 --ro /mnt
+
+For a typical Linux guest which has a /boot filesystem on the first
+partition, and the root filesystem on a logical volume:
+
+ guestmount -a linux.img -m /dev/VG/LV -m /dev/sda1:/boot --ro /mnt
+
+To get L<virt-inspector(1)> to do the hard work of detecting guest
+mountpoints for you:
+
+ guestmount $(virt-inspector --ro-fish MyGuest) /mnt
+
+(or use --fish if you don't want it to be a read only mount).  The
+option is called I<--ro-fish> or I<--fish> because these parameters
+are compatible with L<guestfish(1)>.
+
+If you want to trace the libguestfs calls but without excessive
+debugging, we recommend:
+
+ guestmount [-a ... -m ...] --trace /mnt
+
+If you want to debug the program, we recommend:
+
+ guestmount [-a ... -m ...] --trace --verbose /mnt
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<-a image> | B<--add image>
+
+Add a block device or virtual machine image.
+
+=item B<--dir-cache-timeout N>
+
+Set the readdir cache timeout to I<N> seconds, the default being 60
+seconds.  The readdir cache [actually, there are several
+semi-independent caches] is populated after a readdir(2) call with the
+stat and extended attributes of the files in the directory, in
+anticipation that they will be requested soon after.
+
+There is also a different attribute cache implemented by FUSE
+(see the FUSE option I<-o attr_timeout>), but the FUSE cache
+does not anticipate future requests, only cache existing ones.
+
+=item B<--fuse-help>
+
+Display help on special FUSE options (see I<-o> below).
+
+=item B<--help>
+
+Display brief help and exit.
+
+=item B<-m dev[:mnt]> | B<--mount dev[:mnt]>
+
+Mount the named partition or logical volume on the given mountpoint
+B<in the guest> (this has nothing to do with mountpoints in the host).
+
+If the mountpoint is omitted, it defaults to C</>.  You have to mount
+something on C</>.
+
+=item B<-n> | B<--no-sync>
+
+By default, we attempt to sync the guest disk when the FUSE mountpoint
+is unmounted.  If you specify this option, then we don't attempt to
+sync the disk.  See the discussion of autosync in the L<guestfs(3)>
+manpage.
+
+=item B<-o option> | B<--option option>
+
+Pass extra options to FUSE.
+
+To get a list of all the extra options supported by FUSE, use the
+command below.  Note that only the FUSE I<-o> options can be passed,
+and only some of them are a good idea.
+
+ guestmount --fuse-help
+
+Some potentially useful FUSE options:
+
+=over 4
+
+=item B<-o allow_other>
+
+Allow other users to see the filesystem.
+
+=item B<-o attr_timeout=N>
+
+Enable attribute caching by FUSE, and set the timeout to I<N> seconds.
+
+=item B<-o kernel_cache>
+
+Allow the kernel to cache files (reduces the number of reads
+that have to go through the L<guestfs(3)> API).  This is generally
+a good idea if you can afford the extra memory usage.
+
+=item B<-o uid=N> B<-o gid=N>
+
+Use these options to map all UIDs and GIDs inside the guest filesystem
+to the chosen values.
+
+=back
+
+=item B<-r> | B<--ro>
+
+Add devices and mount everything read-only.  Also disallow writes and
+make the disk appear read-only to FUSE.
+
+This is highly recommended if you are not going to edit the guest
+disk.  If the guest is running and this option is I<not> supplied,
+then there is a strong risk of disk corruption in the guest.  We try
+to prevent this from happening, but it is not always possible.
+
+=item B<--selinux>
+
+Enable SELinux support for the guest.
+
+=item B<--trace>
+
+Trace libguestfs calls (to stderr).
+
+This also stops the daemon from forking into the background.
+
+=item B<-v> | B<--verbose>
+
+Enable verbose messages from underlying libguestfs.
+
+=item B<-V> | B<--version>
+
+Display the program version and exit.
+
+=back
+
+=head1 SEE ALSO
+
+L<guestfish(1)>,
+L<virt-inspector(1)>,
+L<virt-cat(1)>,
+L<virt-edit(1)>,
+L<virt-tar(1)>,
+L<guestfs(3)>,
+L<http://libguestfs.org/>,
+L<http://fuse.sf.net/>.
+
+=head1 AUTHORS
+
+Richard W.M. Jones (C<rjones at redhat dot com>)
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009 Red Hat Inc.
+L<http://libguestfs.org/>
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
