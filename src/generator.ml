@@ -3915,7 +3915,7 @@ type rstructs_used_t = RStructOnly | RStructListOnly | RStructAndList
  *    == there are functions returning both RStruct (_, structname)
  *                                      and RStructList (_, structname)
  *)
-let rstructs_used =
+let rstructs_used_by functions =
   (* ||| is a "logical OR" for rstructs_used_t *)
   let (|||) a b =
     match a, b with
@@ -3944,20 +3944,10 @@ let rstructs_used =
       | RStruct (_, structname) -> update structname RStructOnly
       | RStructList (_, structname) -> update structname RStructListOnly
       | _ -> ()
-  ) all_functions;
+  ) functions;
 
   (* return key->values as a list of (key,value) *)
   Hashtbl.fold (fun key value xs -> (key, value) :: xs) h []
-
-(* debug:
-let () =
-  List.iter (
-    function
-    | sn, RStructOnly -> printf "%s RStructOnly\n" sn
-    | sn, RStructListOnly -> printf "%s RStructListOnly\n" sn
-    | sn, RStructAndList -> printf "%s RStructAndList\n" sn
-  ) rstructs_used
-*)
 
 (* Used for testing language bindings. *)
 type callt =
@@ -6334,19 +6324,19 @@ and generate_fish_cmds () =
         (* generate the function for typ *)
         emit_print_list_function typ
     | typ, _ -> () (* empty *)
-  ) rstructs_used;
+  ) (rstructs_used_by all_functions);
 
   (* Emit a print_TYPE function definition only if that function is used. *)
   List.iter (
     function
-    | typ, RStructOnly ->
+    | typ, (RStructOnly | RStructAndList) ->
         pr "static void print_%s (struct guestfs_%s *%s)\n" typ typ typ;
         pr "{\n";
         pr "  print_%s_indent (%s, \"\");\n" typ typ;
         pr "}\n";
         pr "\n";
     | typ, _ -> () (* empty *)
-  ) rstructs_used;
+  ) (rstructs_used_by all_functions);
 
   (* run_<action> actions *)
   List.iter (
@@ -6942,7 +6932,7 @@ copy_table (char * const * argv)
         (* generate the function for typ *)
         emit_ocaml_copy_list_function typ
     | typ, _ -> () (* empty *)
-  ) rstructs_used;
+  ) (rstructs_used_by all_functions);
 
   (* The wrappers. *)
   List.iter (
@@ -7888,7 +7878,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
         (* generate the function for typ *)
         emit_put_list_function typ
     | typ, _ -> () (* empty *)
-  ) rstructs_used;
+  ) (rstructs_used_by all_functions);
 
   (* Python wrapper functions. *)
   List.iter (
