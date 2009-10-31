@@ -3783,6 +3783,79 @@ Only numeric uid and gid are supported.  If you want to use
 names, you will need to locate and parse the password file
 yourself (Augeas support makes this relatively easy).");
 
+  ("lstatlist", (RStructList ("statbufs", "stat"), [Pathname "path"; StringList "names"]), 204, [],
+   [], (* XXX *)
+   "lstat on multiple files",
+   "\
+This call allows you to perform the C<guestfs_lstat> operation
+on multiple files, where all files are in the directory C<path>.
+C<names> is the list of files from this directory.
+
+On return you get a list of stat structs, with a one-to-one
+correspondence to the C<names> list.  If any name did not exist
+or could not be lstat'd, then the C<ino> field of that structure
+is set to C<-1>.
+
+This call is intended for programs that want to efficiently
+list a directory contents without making many round-trips.
+See also C<guestfs_lxattrlist> for a similarly efficient call
+for getting extended attributes.  Very long directory listings
+might cause the protocol message size to be exceeded, causing
+this call to fail.  The caller must split up such requests
+into smaller groups of names.");
+
+  ("lxattrlist", (RStructList ("xattrs", "xattr"), [Pathname "path"; StringList "names"]), 205, [],
+   [], (* XXX *)
+   "lgetxattr on multiple files",
+   "\
+This call allows you to get the extended attributes
+of multiple files, where all files are in the directory C<path>.
+C<names> is the list of files from this directory.
+
+On return you get a flat list of xattr structs which must be
+interpreted sequentially.  The first xattr struct always has a zero-length
+C<attrname>.  C<attrval> in this struct is zero-length
+to indicate there was an error doing C<lgetxattr> for this
+file, I<or> is a C string which is a decimal number
+(the number of following attributes for this file, which could
+be C<\"0\">).  Then after the first xattr struct are the
+zero or more attributes for the first named file.
+This repeats for the second and subsequent files.
+
+This call is intended for programs that want to efficiently
+list a directory contents without making many round-trips.
+See also C<guestfs_lstatlist> for a similarly efficient call
+for getting standard stats.  Very long directory listings
+might cause the protocol message size to be exceeded, causing
+this call to fail.  The caller must split up such requests
+into smaller groups of names.");
+
+  ("readlinklist", (RStringList "links", [Pathname "path"; StringList "names"]), 206, [],
+   [], (* XXX *)
+   "readlink on multiple files",
+   "\
+This call allows you to do a C<readlink> operation
+on multiple files, where all files are in the directory C<path>.
+C<names> is the list of files from this directory.
+
+On return you get a list of strings, with a one-to-one
+correspondence to the C<names> list.  Each string is the
+value of the symbol link.
+
+If the C<readlink(2)> operation fails on any name, then
+the corresponding result string is the empty string C<\"\">.
+However the whole operation is completed even if there
+were C<readlink(2)> errors, and so you can call this
+function with names where you don't know if they are
+symbolic links already (albeit slightly less efficient).
+
+This call is intended for programs that want to efficiently
+list a directory contents without making many round-trips.
+Very long directory listings might cause the protocol
+message size to be exceeded, causing
+this call to fail.  The caller must split up such requests
+into smaller groups of names.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

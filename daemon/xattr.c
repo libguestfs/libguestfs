@@ -243,6 +243,204 @@ _removexattr (const char *xattr, const char *path,
   return 0;
 }
 
+guestfs_int_xattr_list *
+do_lxattrlist (const char *path, char *const *names)
+{
+#if defined(HAVE_LLISTXATTR) && defined(HAVE_LGETXATTR)
+  /* XXX This would be easier if the kernel had lgetxattrat.  In the
+   * meantime we use this buffer to store the whole path name.
+   */
+  char pathname[PATH_MAX];
+  size_t path_len = strlen (path);
+  guestfs_int_xattr_list *ret = NULL;
+  int i, j;
+  size_t k, m, nr_attrs;
+  ssize_t len, vlen;
+  char *buf = NULL;
+
+  if (path_len >= PATH_MAX) {
+    reply_with_perror ("lxattrlist: path longer than PATH_MAX");
+    goto error;
+  }
+
+  strcpy (pathname, path);
+
+  ret = malloc (sizeof (*ret));
+  if (ret == NULL) {
+    reply_with_perror ("malloc");
+    goto error;
+  }
+
+  ret->guestfs_int_xattr_list_len = 0;
+  ret->guestfs_int_xattr_list_val = NULL;
+
+  for (k = 0; names[k] != NULL; ++k) {
+    /* Be careful in here about which errors cause the whole call
+     * to abort, and which errors allow us to continue processing
+     * the call, recording a special "error attribute" in the
+     * outgoing struct list.
+     */
+    if (path_len + strlen (names[k]) + 2 > PATH_MAX) {
+      reply_with_perror ("lxattrlist: path and name longer than PATH_MAX");
+      goto error;
+    }
+    pathname[path_len] = '/';
+    strcpy (&pathname[path_len+1], names[k]);
+
+    /* Reserve space for the special attribute. */
+    void *newptr =
+      realloc (ret->guestfs_int_xattr_list_val,
+               (ret->guestfs_int_xattr_list_len+1)*sizeof (guestfs_int_xattr));
+    if (newptr == NULL) {
+      reply_with_perror ("realloc");
+      goto error;
+    }
+    ret->guestfs_int_xattr_list_val = newptr;
+    ret->guestfs_int_xattr_list_len++;
+
+    guestfs_int_xattr *entry =
+      &ret->guestfs_int_xattr_list_val[ret->guestfs_int_xattr_list_len-1];
+    entry->attrname = NULL;
+    entry->attrval.attrval_len = 0;
+    entry->attrval.attrval_val = NULL;
+
+    entry->attrname = strdup ("");
+    if (entry->attrname == NULL) {
+      reply_with_perror ("strdup");
+      goto error;
+    }
+
+    CHROOT_IN;
+    len = llistxattr (pathname, NULL, 0);
+    CHROOT_OUT;
+    if (len == -1)
+      continue; /* not fatal */
+
+    buf = malloc (len);
+    if (buf == NULL) {
+      reply_with_perror ("malloc");
+      goto error;
+    }
+
+    CHROOT_IN;
+    len = llistxattr (pathname, buf, len);
+    CHROOT_OUT;
+    if (len == -1)
+      continue; /* not fatal */
+
+    /* What we get from the kernel is a string "foo\0bar\0baz" of length
+     * len.  First count the strings.
+     */
+    nr_attrs = 0;
+    for (i = 0; i < len; i += strlen (&buf[i]) + 1)
+      nr_attrs++;
+
+    newptr =
+      realloc (ret->guestfs_int_xattr_list_val,
+               (ret->guestfs_int_xattr_list_len+nr_attrs) *
+               sizeof (guestfs_int_xattr));
+    if (newptr == NULL) {
+      reply_with_perror ("realloc");
+      goto error;
+    }
+    ret->guestfs_int_xattr_list_val = newptr;
+    ret->guestfs_int_xattr_list_len += nr_attrs;
+
+    /* entry[0] is the special attribute,
+     * entry[1..nr_attrs] are the attributes.
+     */
+    entry = &ret->guestfs_int_xattr_list_val[ret->guestfs_int_xattr_list_len-nr_attrs-1];
+    for (m = 1; m <= nr_attrs; ++m) {
+      entry[m].attrname = NULL;
+      entry[m].attrval.attrval_len = 0;
+      entry[m].attrval.attrval_val = NULL;
+    }
+
+    for (i = 0, j = 0; i < len; i += strlen (&buf[i]) + 1, ++j) {
+      CHROOT_IN;
+      vlen = lgetxattr (pathname, &buf[i], NULL, 0);
+      CHROOT_OUT;
+      if (vlen == -1) {
+        reply_with_perror ("getxattr");
+        goto error;
+      }
+
+      entry[j+1].attrname = strdup (&buf[i]);
+      entry[j+1].attrval.attrval_val = malloc (vlen);
+      entry[j+1].attrval.attrval_len = vlen;
+
+      if (entry[j+1].attrname == NULL ||
+          entry[j+1].attrval.attrval_val == NULL) {
+        reply_with_perror ("malloc");
+        goto error;
+      }
+
+      CHROOT_IN;
+      vlen = lgetxattr (pathname, &buf[i],
+                        entry[j+1].attrval.attrval_val, vlen);
+      CHROOT_OUT;
+      if (vlen == -1) {
+        reply_with_perror ("getxattr");
+        goto error;
+      }
+    }
+
+    free (buf); buf = NULL;
+
+    char num[16];
+    snprintf (num, sizeof num, "%zu", nr_attrs);
+    entry[0].attrval.attrval_len = strlen (num) + 1;
+    entry[0].attrval.attrval_val = strdup (num);
+
+    if (entry[0].attrval.attrval_val == NULL) {
+      reply_with_perror ("strdup");
+      goto error;
+    }
+  }
+
+  /* If verbose, debug what we're about to send back. */
+  if (verbose) {
+    fprintf (stderr, "lxattrlist: returning: [\n");
+    for (k = 0; k < ret->guestfs_int_xattr_list_len; ++k) {
+      const guestfs_int_xattr *entry = &ret->guestfs_int_xattr_list_val[k];
+      if (strcmp (entry[0].attrname, "") != 0) {
+        fprintf (stderr, "ERROR: expecting empty attrname at k = %zu\n", k);
+        break;
+      }
+      fprintf (stderr, "  %zu: special attrval = %s\n",
+               k, entry[0].attrval.attrval_val);
+      for (i = 1; k+i < ret->guestfs_int_xattr_list_len; ++i) {
+        if (strcmp (entry[i].attrname, "") == 0)
+          break;
+        fprintf (stderr, "    name %s, value length %d\n",
+                 entry[i].attrname, entry[i].attrval.attrval_len);
+      }
+      k += i-1;
+    }
+    fprintf (stderr, "]\n");
+  }
+
+  return ret;
+
+ error:
+  free (buf);
+  if (ret) {
+    if (ret->guestfs_int_xattr_list_val) {
+      for (k = 0; k < ret->guestfs_int_xattr_list_len; ++k) {
+        free (ret->guestfs_int_xattr_list_val[k].attrname);
+        free (ret->guestfs_int_xattr_list_val[k].attrval.attrval_val);
+      }
+      free (ret->guestfs_int_xattr_list_val);
+    }
+    free (ret);
+  }
+  return NULL;
+#else
+  reply_with_error ("lxattrlist: no support for llistxattr and lgetxattr");
+  return NULL;
+#endif
+}
+
 #else /* no xattr.h */
 
 guestfs_int_xattr_list *
@@ -285,6 +483,13 @@ do_lremovexattr (const char *xattr, const char *path)
 {
   reply_with_error ("lremovexattr: no support for xattrs");
   return -1;
+}
+
+guestfs_int_xattr_list *
+do_lxattrlist (const char *path, char *const *names)
+{
+  reply_with_error ("lxattrlist: no support for xattrs");
+  return NULL;
 }
 
 #endif /* no xattr.h */

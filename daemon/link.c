@@ -21,6 +21,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <fcntl.h>
 #include <unistd.h>
 #include <limits.h>
 
@@ -49,6 +50,56 @@ do_readlink (const char *path)
   }
 
   return ret;			/* caller frees */
+}
+
+char **
+do_readlinklist (const char *path, char *const *names)
+{
+  int fd_cwd;
+  size_t i;
+  ssize_t r;
+  char link[PATH_MAX];
+  const char *str;
+  char **ret = NULL;
+  int size = 0, alloc = 0;
+
+  CHROOT_IN;
+  fd_cwd = open (path, O_RDONLY | O_DIRECTORY);
+  CHROOT_OUT;
+
+  if (fd_cwd == -1) {
+    reply_with_perror ("readlinklist: %s", path);
+    return NULL;
+  }
+
+  for (i = 0; names[i] != NULL; ++i) {
+    r = readlinkat (fd_cwd, names[i], link, sizeof link);
+    if (r >= PATH_MAX) {
+      reply_with_perror ("readlinkat: returned link is too long");
+      free_strings (ret);
+      close (fd_cwd);
+      return NULL;
+    }
+    /* Because of the way this function is intended to be used,
+     * we actually expect to see errors here, and they are not fatal.
+     */
+    if (r >= 0) {
+      link[r] = '\0';
+      str = link;
+    } else
+      str = "";
+    if (add_string (&ret, &size, &alloc, str) == -1) {
+      close (fd_cwd);
+      return NULL;
+    }
+  }
+
+  close (fd_cwd);
+
+  if (add_string (&ret, &size, &alloc, NULL) == -1)
+    return NULL;
+
+  return ret;
 }
 
 static int

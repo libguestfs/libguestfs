@@ -24,6 +24,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/statvfs.h>
+#include <fcntl.h>
 #include <unistd.h>
 
 #include "../src/guestfs_protocol.h"
@@ -104,6 +105,73 @@ do_lstat (const char *path)
   ret->atime = statbuf.st_atime;
   ret->mtime = statbuf.st_mtime;
   ret->ctime = statbuf.st_ctime;
+
+  return ret;
+}
+
+guestfs_int_stat_list *
+do_lstatlist (const char *path, char *const *names)
+{
+  int path_fd;
+  guestfs_int_stat_list *ret;
+  size_t i, nr_names;
+
+  nr_names = count_strings (names);
+
+  ret = malloc (sizeof *ret);
+  if (!ret) {
+    reply_with_perror ("malloc");
+    return NULL;
+  }
+  ret->guestfs_int_stat_list_len = nr_names;
+  ret->guestfs_int_stat_list_val = calloc (nr_names, sizeof (guestfs_int_stat));
+  if (ret->guestfs_int_stat_list_val == NULL) {
+    reply_with_perror ("malloc");
+    free (ret);
+    return NULL;
+  }
+
+  CHROOT_IN;
+  path_fd = open (path, O_RDONLY | O_DIRECTORY);
+  CHROOT_OUT;
+
+  if (path_fd == -1) {
+    reply_with_perror ("lstatlist: %s", path);
+    free (ret->guestfs_int_stat_list_val);
+    free (ret);
+    return NULL;
+  }
+
+  for (i = 0; names[i] != NULL; ++i) {
+    int r;
+    struct stat statbuf;
+
+    r = fstatat (path_fd, names[i], &statbuf, AT_SYMLINK_NOFOLLOW);
+    if (r == -1)
+      ret->guestfs_int_stat_list_val[i].ino = -1;
+    else {
+      ret->guestfs_int_stat_list_val[i].dev = statbuf.st_dev;
+      ret->guestfs_int_stat_list_val[i].ino = statbuf.st_ino;
+      ret->guestfs_int_stat_list_val[i].mode = statbuf.st_mode;
+      ret->guestfs_int_stat_list_val[i].nlink = statbuf.st_nlink;
+      ret->guestfs_int_stat_list_val[i].uid = statbuf.st_uid;
+      ret->guestfs_int_stat_list_val[i].gid = statbuf.st_gid;
+      ret->guestfs_int_stat_list_val[i].rdev = statbuf.st_rdev;
+      ret->guestfs_int_stat_list_val[i].size = statbuf.st_size;
+      ret->guestfs_int_stat_list_val[i].blksize = statbuf.st_blksize;
+      ret->guestfs_int_stat_list_val[i].blocks = statbuf.st_blocks;
+      ret->guestfs_int_stat_list_val[i].atime = statbuf.st_atime;
+      ret->guestfs_int_stat_list_val[i].mtime = statbuf.st_mtime;
+      ret->guestfs_int_stat_list_val[i].ctime = statbuf.st_ctime;
+    }
+  }
+
+  if (close (path_fd) == -1) {
+    reply_with_perror ("close: %s", path);
+    free (ret->guestfs_int_stat_list_val);
+    free (ret);
+    return NULL;
+  }
 
   return ret;
 }
