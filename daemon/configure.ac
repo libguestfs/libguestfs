@@ -93,6 +93,8 @@ if test "$gl_gcc_warnings" = yes; then
   nw="$nw -Winline"                 # daemon.h's asprintf_nowarn
   nw="$nw -Wshadow"                 # numerous, plus we're not unanimous
   # ?? -Wstrict-overflow
+  nw="$nw -Wunsafe-loop-optimizations" # just a warning that an optimization
+                                    # was not possible, safe to ignore
 
   gl_MANYWARN_ALL_GCC([ws])
   gl_MANYWARN_COMPLEMENT([ws], [$ws], [$nw])
