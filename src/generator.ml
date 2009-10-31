@@ -6289,9 +6289,9 @@ and generate_fish_cmds () =
             pr "  printf (\"%%s%s: \", indent);\n" name;
             pr "  for (i = 0; i < %s->%s_len; ++i)\n" typ name;
             pr "    if (c_isprint (%s->%s[i]))\n" typ name;
-            pr "      printf (\"%%s%%c\", indent, %s->%s[i]);\n" typ name;
+            pr "      printf (\"%%c\", %s->%s[i]);\n" typ name;
             pr "    else\n";
-            pr "      printf (\"%%s\\\\x%%02x\", indent, %s->%s[i]);\n" typ name;
+            pr "      printf (\"\\\\x%%02x\", %s->%s[i]);\n" typ name;
             pr "  printf (\"\\n\");\n"
         | name, (FUInt64|FBytes) ->
             pr "  printf (\"%%s%s: %%\" PRIu64 \"\\n\", indent, %s->%s);\n"
