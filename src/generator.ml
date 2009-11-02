@@ -6281,7 +6281,7 @@ and generate_fish_cmds () =
         | name, FString ->
             pr "  printf (\"%%s%s: %%s\\n\", indent, %s->%s);\n" name typ name
         | name, FUUID ->
-            pr "  printf (\"%s: \");\n" name;
+            pr "  printf (\"%%s%s: \", indent);\n" name;
             pr "  for (i = 0; i < 32; ++i)\n";
             pr "    printf (\"%%c\", %s->%s[i]);\n" typ name;
             pr "  printf (\"\\n\");\n"
