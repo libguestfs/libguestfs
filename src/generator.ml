@@ -3856,6 +3856,17 @@ message size to be exceeded, causing
 this call to fail.  The caller must split up such requests
 into smaller groups of names.");
 
+  ("pread", (RBufferOut "content", [Pathname "path"; Int "count"; Int64 "offset"]), 207, [ProtocolLimitWarning],
+   [InitISOFS, Always, TestOutputBuffer (
+      [["pread"; "/known-4"; "1"; "3"]], "\n")],
+   "read part of a file",
+   "\
+This command lets you read part of a file.  It reads C<count>
+bytes of the file, starting at C<offset>, from file C<path>.
+
+This may read fewer bytes than requested.  For further details
+see the L<pread(2)> system call.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

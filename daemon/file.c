@@ -369,6 +369,58 @@ do_read_file (const char *path, size_t *size_r)
   return r;
 }
 
+char *
+do_pread (const char *path, int count, int64_t offset, size_t *size_r)
+{
+  int fd;
+  ssize_t r;
+  char *buf;
+
+  /* The actual limit on messages is smaller than this.  This check
+   * just limits the amount of memory we'll try and allocate in the
+   * function.  If the message is larger than the real limit, that
+   * will be caught later when we try to serialize the message.
+   */
+  if (count >= GUESTFS_MESSAGE_MAX) {
+    reply_with_error ("pread: %s: count is too large for the protocol, use smaller reads", path);
+    return NULL;
+  }
+
+  CHROOT_IN;
+  fd = open (path, O_RDONLY);
+  CHROOT_OUT;
+
+  if (fd == -1) {
+    reply_with_perror ("open: %s", path);
+    return NULL;
+  }
+
+  buf = malloc (count);
+  if (buf == NULL) {
+    reply_with_perror ("malloc");
+    close (fd);
+    return NULL;
+  }
+
+  r = pread (fd, buf, count, offset);
+  if (r == -1) {
+    reply_with_perror ("pread: %s", path);
+    close (fd);
+    free (buf);
+    return NULL;
+  }
+
+  if (close (fd) == -1) {
+    reply_with_perror ("close: %s", path);
+    close (fd);
+    free (buf);
+    return NULL;
+  }
+
+  *size_r = r;
+  return buf;
+}
+
 /* This runs the 'file' command. */
 char *
 do_file (const char *path)
