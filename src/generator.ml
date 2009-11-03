@@ -835,6 +835,32 @@ The default is disabled.");
    "\
 Return the direct appliance mode flag.");
 
+  ("set_recovery_proc", (RErr, [Bool "recoveryproc"]), -1, [FishAlias "recovery-proc"],
+   [InitNone, Always, TestOutputTrue (
+      [["set_recovery_proc"; "true"];
+       ["get_recovery_proc"]])],
+   "enable or disable the recovery process",
+   "\
+If this is called with the parameter C<false> then
+C<guestfs_launch> does not create a recovery process.  The
+purpose of the recovery process is to stop runaway qemu
+processes in the case where the main program aborts abruptly.
+
+This only has any effect if called before C<guestfs_launch>,
+and the default is true.
+
+About the only time when you would want to disable this is
+if the main process will fork itself into the background
+(\"daemonize\" itself).  In this case the recovery process
+thinks that the main program has disappeared and so kills
+qemu, which is not very helpful.");
+
+  ("get_recovery_proc", (RBool "recoveryproc", []), -1, [],
+   [],
+   "get recovery process enabled flag",
+   "\
+Return the recovery process enabled flag.");
+
 ]
 
 (* daemon_functions are any functions which cause some action

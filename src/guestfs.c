@@ -120,6 +120,7 @@ struct guestfs_h
   int trace;
   int autosync;
   int direct;
+  int recovery_proc;
 
   char *path;			/* Path to kernel, initrd. */
   char *qemu;			/* Qemu binary. */
@@ -168,6 +169,8 @@ guestfs_create (void)
   g->abort_cb = abort;
   g->error_cb = default_error_cb;
   g->error_cb_data = NULL;
+
+  g->recovery_proc = 1;
 
   str = getenv ("LIBGUESTFS_DEBUG");
   g->verbose = str != NULL && strcmp (str, "1") == 0;
@@ -663,6 +666,19 @@ int
 guestfs__get_direct (guestfs_h *g)
 {
   return g->direct;
+}
+
+int
+guestfs__set_recovery_proc (guestfs_h *g, int f)
+{
+  g->recovery_proc = !!f;
+  return 0;
+}
+
+int
+guestfs__get_recovery_proc (guestfs_h *g)
+{
+  return g->recovery_proc;
 }
 
 /* Add a string to the current command line. */
@@ -1213,36 +1229,39 @@ guestfs__launch (guestfs_h *g)
   /* Fork the recovery process off which will kill qemu if the parent
    * process fails to do so (eg. if the parent segfaults).
    */
-  r = fork ();
-  if (r == 0) {
-    pid_t qemu_pid = g->pid;
-    pid_t parent_pid = getppid ();
+  g->recoverypid = -1;
+  if (g->recovery_proc) {
+    r = fork ();
+    if (r == 0) {
+      pid_t qemu_pid = g->pid;
+      pid_t parent_pid = getppid ();
 
-    /* Writing to argv is hideously complicated and error prone.  See:
-     * http://anoncvs.postgresql.org/cvsweb.cgi/pgsql/src/backend/utils/misc/ps_status.c?rev=1.33.2.1;content-type=text%2Fplain
-     */
+      /* Writing to argv is hideously complicated and error prone.  See:
+       * http://anoncvs.postgresql.org/cvsweb.cgi/pgsql/src/backend/utils/misc/ps_status.c?rev=1.33.2.1;content-type=text%2Fplain
+       */
 
-    /* Loop around waiting for one or both of the other processes to
-     * disappear.  It's fair to say this is very hairy.  The PIDs that
-     * we are looking at might be reused by another process.  We are
-     * effectively polling.  Is the cure worse than the disease?
-     */
-    for (;;) {
-      if (kill (qemu_pid, 0) == -1) /* qemu's gone away, we aren't needed */
-        _exit (0);
-      if (kill (parent_pid, 0) == -1) {
-        /* Parent's gone away, qemu still around, so kill qemu. */
-        kill (qemu_pid, 9);
-        _exit (0);
+      /* Loop around waiting for one or both of the other processes to
+       * disappear.  It's fair to say this is very hairy.  The PIDs that
+       * we are looking at might be reused by another process.  We are
+       * effectively polling.  Is the cure worse than the disease?
+       */
+      for (;;) {
+        if (kill (qemu_pid, 0) == -1) /* qemu's gone away, we aren't needed */
+          _exit (0);
+        if (kill (parent_pid, 0) == -1) {
+          /* Parent's gone away, qemu still around, so kill qemu. */
+          kill (qemu_pid, 9);
+          _exit (0);
+        }
+        sleep (2);
       }
-      sleep (2);
     }
-  }
 
-  /* Don't worry, if the fork failed, this will be -1.  The recovery
-   * process isn't essential.
-   */
-  g->recoverypid = r;
+    /* Don't worry, if the fork failed, this will be -1.  The recovery
+     * process isn't essential.
+     */
+    g->recoverypid = r;
+  }
 
   /* Start the clock ... */
   time (&g->start_t);
