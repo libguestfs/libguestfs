@@ -23,7 +23,8 @@ EXTRA_DIST = \
 	debian/modules/install_kernel \
 	debian/modules/y0_install-guestfsd \
 	debian/modules/z99_final-cleanups \
-	debian/debirf.conf.in
+	debian/debirf.conf.in \
+	make.sh.in
 
 # Build the root filesystem (appliance).
 # Currently this is arch-dependent, so it seems like putting it in
