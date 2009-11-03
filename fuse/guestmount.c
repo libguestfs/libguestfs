@@ -1110,6 +1110,10 @@ main (int argc, char *argv[])
   /* Finish off FUSE args. */
   ADD_FUSE_ARG (argv[optind]);
 
+  /*
+    It says about the line containing the for-statement:
+    error: assuming signed overflow does not occur when simplifying conditional to constant [-Wstrict-overflow]
+
   if (verbose) {
     fprintf (stderr, "guestmount: invoking FUSE with args [");
     for (i = 0; i < fuse_argc; ++i) {
@@ -1118,6 +1122,7 @@ main (int argc, char *argv[])
     }
     fprintf (stderr, "]\n");
   }
+  */
 
   r = fuse_main (fuse_argc, (char **) fuse_argv, &fg_operations, NULL);
 
