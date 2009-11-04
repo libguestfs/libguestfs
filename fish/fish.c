@@ -874,6 +874,8 @@ issue_command (const char *cmd, char *argv[], const char *pipecmd)
     r = do_more (cmd, argc, argv);
   else if (strcasecmp (cmd, "reopen") == 0)
     r = do_reopen (cmd, argc, argv);
+  else if (strcasecmp (cmd, "sparse") == 0)
+    r = do_sparse (cmd, argc, argv);
   else if (strcasecmp (cmd, "time") == 0)
     r = do_time (cmd, argc, argv);
   else
@@ -926,6 +928,8 @@ list_builtin_commands (void)
           "more", _("view a file in the pager"));
   printf ("%-20s %s\n",
           "reopen", _("close and reopen libguestfs handle"));
+  printf ("%-20s %s\n",
+          "sparse", _("allocate a sparse image file"));
   printf ("%-20s %s\n",
           "time", _("measure time taken to run command"));
 
@@ -1020,6 +1024,30 @@ display_builtin_command (const char *cmd)
               "Close and reopen the libguestfs handle.  It is not necessary to use\n"
               "this normally, because the handle is closed properly when guestfish\n"
               "exits.  However this is occasionally useful for testing.\n"));
+  else if (strcasecmp (cmd, "sparse") == 0)
+    printf (_("sparse - allocate a sparse image file\n"
+              "     sparse <filename> <size>\n"
+              "\n"
+              "    This creates an empty sparse file of the given size,\n"
+              "    and then adds so it can be further examined.\n"
+              "\n"
+              "    In all respects it works the same as the 'alloc'\n"
+              "    command, except that the image file is allocated\n"
+              "    sparsely, which means that disk blocks are not assigned\n"
+              "    to the file until they are needed.  Sparse disk files\n"
+              "    only use space when written to, but they are slower\n"
+              "    and there is a danger you could run out of real disk\n"
+              "    space during a write operation.\n"
+              "\n"
+              "    For more advanced image creation, see qemu-img utility.\n"
+              "\n"
+              "    Size can be specified (where <nn> means a number):\n"
+              "    <nn>             number of kilobytes\n"
+              "      eg: 1440       standard 3.5\" floppy\n"
+              "    <nn>K or <nn>KB  number of kilobytes\n"
+              "    <nn>M or <nn>MB  number of megabytes\n"
+              "    <nn>G or <nn>GB  number of gigabytes\n"
+              "    <nn>sects        number of 512 byte sectors\n"));
   else if (strcasecmp (cmd, "time") == 0)
     printf (_("time - measure time taken to run command\n"
               "    time <command> [<args> ...]\n"

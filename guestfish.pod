@@ -531,6 +531,43 @@ Close and reopen the libguestfs handle.  It is not necessary to use
 this normally, because the handle is closed properly when guestfish
 exits.  However this is occasionally useful for testing.
 
+=head2 sparse
+
+ sparse filename size
+
+This creates an empty sparse file of the given size, and then adds
+so it can be further examined.
+
+In all respects it works the same as the C<alloc> command, except that
+the image file is allocated sparsely, which means that disk blocks are
+not assigned to the file until they are needed.  Sparse disk files
+only use space when written to, but they are slower and there is a
+danger you could run out of real disk space during a write operation.
+
+For more advanced image creation, see L<qemu-img(1)> utility.
+
+Size can be specified (where C<nn> means a number):
+
+=over 4
+
+=item C<nn> or C<nn>K or C<nn>KB
+
+number of kilobytes, eg: C<1440> = standard 3.5in floppy
+
+=item C<nn>M or C<nn>MB
+
+number of megabytes
+
+=item C<nn>G or C<nn>GB
+
+number of gigabytes
+
+=item C<nn>sects
+
+number of 512 byte sectors
+
+=back
+
 =head2 time
 
  time command args...

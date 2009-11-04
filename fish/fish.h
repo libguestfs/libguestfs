@@ -62,6 +62,7 @@ extern char *complete_dest_paths_generator (const char *text, int state);
 
 /* in alloc.c */
 extern int do_alloc (const char *cmd, int argc, char *argv[]);
+extern int do_sparse (const char *cmd, int argc, char *argv[]);
 
 /* in echo.c */
 extern int do_echo (const char *cmd, int argc, char *argv[]);
