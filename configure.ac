@@ -758,11 +758,11 @@ if test "x$HAVE_RUBY_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo -n "Java bindings ....................... "
 if test "x$HAVE_JAVA_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo -n "Haskell bindings .................... "
-if test "x$HAVE_HASKELL" = "x"; then echo "yes"; else echo "no"; fi
+if test "x$HAVE_HASKELL_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo -n "virt-inspector ...................... "
-if test "x$HAVE_INSPECTOR" = "x"; then echo "yes"; else echo "no"; fi
+if test "x$HAVE_INSPECTOR_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo -n "virt-* tools ........................ "
-if test "x$HAVE_TOOLS" = "x"; then echo "yes"; else echo "no"; fi
+if test "x$HAVE_TOOLS_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo "supermin appliance .................. $enable_supermin"
 echo "FUSE filesystem ..................... $HAVE_FUSE"
 echo
