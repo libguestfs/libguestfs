@@ -194,6 +194,7 @@ all-local:
 	grep -v '^perl/examples/' | \
 	grep -v '/guestfs_protocol.c' | \
 	grep -v '/rc_protocol.c' | \
+	grep -v 'appliance/debian/root' | \
 	LC_ALL=C sort | \
 	sed 's,^\./,,' > po/POTFILES.in
 
