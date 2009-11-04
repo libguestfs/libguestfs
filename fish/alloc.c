@@ -144,6 +144,8 @@ parse_size (const char *str, off_t *size_rtn)
     case 'm': case 'M': size *= 1024L * 1024; break;
     case 'g': case 'G': size *= 1024L * 1024 * 1024; break;
     case 't': case 'T': size *= 1024L * 1024 * 1024 * 1024; break;
+    case 'p': case 'P': size *= 1024L * 1024 * 1024 * 1024 * 1024; break;
+    case 'e': case 'E': size *= 1024L * 1024 * 1024 * 1024 * 1024 * 1024; break;
     case 's': size *= 512; break;
     default:
       fprintf (stderr, _("could not parse size specification '%s'\n"), str);

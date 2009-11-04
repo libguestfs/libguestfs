@@ -457,6 +457,14 @@ number of gigabytes
 
 number of terabytes
 
+=item C<nn>P or C<nn>PB
+
+number of petabytes
+
+=item C<nn>E or C<nn>EB
+
+number of exabytes
+
 =item C<nn>sects
 
 number of 512 byte sectors
@@ -569,6 +577,14 @@ number of gigabytes
 =item C<nn>T or C<nn>TB
 
 number of terabytes
+
+=item C<nn>P or C<nn>PB
+
+number of petabytes
+
+=item C<nn>E or C<nn>EB
+
+number of exabytes
 
 =item C<nn>sects
 

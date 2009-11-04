@@ -958,6 +958,8 @@ display_builtin_command (const char *cmd)
               "    <nn>M or <nn>MB  number of megabytes\n"
               "    <nn>G or <nn>GB  number of gigabytes\n"
               "    <nn>T or <nn>TB  number of terabytes\n"
+              "    <nn>P or <nn>PB  number of petabytes\n"
+              "    <nn>E or <nn>EB  number of exabytes\n"
               "    <nn>sects        number of 512 byte sectors\n"));
   else if (strcasecmp (cmd, "echo") == 0)
     printf (_("echo - display a line of text\n"
@@ -1049,6 +1051,8 @@ display_builtin_command (const char *cmd)
               "    <nn>M or <nn>MB  number of megabytes\n"
               "    <nn>G or <nn>GB  number of gigabytes\n"
               "    <nn>T or <nn>TB  number of terabytes\n"
+              "    <nn>P or <nn>PB  number of petabytes\n"
+              "    <nn>E or <nn>EB  number of exabytes\n"
               "    <nn>sects        number of 512 byte sectors\n"));
   else if (strcasecmp (cmd, "time") == 0)
     printf (_("time - measure time taken to run command\n"
