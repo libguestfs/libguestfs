@@ -453,6 +453,10 @@ number of megabytes
 
 number of gigabytes
 
+=item C<nn>T or C<nn>TB
+
+number of terabytes
+
 =item C<nn>sects
 
 number of 512 byte sectors
@@ -561,6 +565,10 @@ number of megabytes
 =item C<nn>G or C<nn>GB
 
 number of gigabytes
+
+=item C<nn>T or C<nn>TB
+
+number of terabytes
 
 =item C<nn>sects
 
