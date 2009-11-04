@@ -271,6 +271,8 @@ hivex_open (const char *filename, int flags)
   }
 
   h->bitmap = calloc (1 + h->size / 32, 1);
+  if (h->bitmap == NULL)
+    goto error;
 
 #if 0                           /* Doesn't work. */
   /* Header checksum. */
