@@ -1,4 +1,4 @@
-#!/bin/sh -
+#!/bin/bash -
 # libguestfs
 # Copyright (C) 2009 Red Hat Inc.
 #
