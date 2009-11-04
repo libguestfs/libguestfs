@@ -217,29 +217,27 @@ L<http://tldp.org/HOWTO/LVM-HOWTO/>.
 
 =head2 PARTITIONING
 
-To create MBR-style (ie. normal PC) partitions use one of the
-C<guestfs_sfdisk*> variants.  These calls use the external
-L<sfdisk(8)> command.
+In the common case where you want to create a single partition
+covering the whole disk, you should use the C<guestfs_part_disk>
+call:
 
-The simplest call is:
-
- char *lines[] = { ",", NULL };
- guestfs_sfdiskM (g, "/dev/sda", lines);
-
-This will create a single partition on C</dev/sda> called
-C</dev/sda1> covering the whole disk.
+ const char *parttype = "mbr";
+ if (disk_is_larger_than_2TB)
+   parttype = "gpt";
+ guestfs_part_disk (g, "/dev/sda", parttype);
 
 In general MBR partitions are both unnecessarily complicated and
 depend on archaic details, namely the Cylinder-Head-Sector (CHS)
-geometry of the disk.  C<guestfs_sfdiskM> allows you to specify sizes
-in megabytes instead of cylinders, which is a small win.
+geometry of the disk.  C<guestfs_sfdiskM> can be used to
+create more complex arrangements where the relative sizes are
+expressed in megabytes instead of cylinders, which is a small win.
 C<guestfs_sfdiskM> will choose the nearest cylinder to approximate the
 requested size.  There's a lot of crazy stuff to do with IDE and
 virtio disks having different, incompatible CHS geometries, that you
-probably don't want to know about.  My advice: make a single partition
-to cover the whole disk, then use LVM on top.
+probably don't want to know about.
 
-In future we aim to provide access to libparted.
+My advice: make a single partition to cover the whole disk, then use
+LVM on top.
 
 =head2 UPLOADING
 

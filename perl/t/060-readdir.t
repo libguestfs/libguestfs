@@ -34,7 +34,7 @@ ok (1);
 $h->launch ();
 ok (1);
 
-$h->sfdisk ("/dev/sda", 0, 0, 0, [","]);
+$h->part_disk ("/dev/sda", "mbr");
 ok (1);
 $h->mkfs ("ext2", "/dev/sda1");
 ok (1);

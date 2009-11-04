@@ -63,7 +63,7 @@ Remove C</boot/grub/menu.lst> (in reality not such a great idea):
  #!/usr/bin/guestfish -f
  alloc /tmp/output.img 10M
  run
- sfdisk /dev/sda 0 0 0 ,
+ part-disk /dev/sda mbr
  mkfs ext2 /dev/sda1
 
 =head2 Remote control

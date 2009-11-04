@@ -26,7 +26,7 @@ eval `../fish/guestfish --listen`
 
 ../fish/guestfish --remote alloc test.img 10M
 ../fish/guestfish --remote run
-../fish/guestfish --remote sfdiskM /dev/sda ,
+../fish/guestfish --remote part-disk /dev/sda mbr
 ../fish/guestfish --remote mkfs ext2 /dev/sda1
 ../fish/guestfish --remote mount /dev/sda1 /
 

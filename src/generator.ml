@@ -870,7 +870,7 @@ Return the recovery process enabled flag.");
 let daemon_functions = [
   ("mount", (RErr, [Device "device"; String "mountpoint"]), 1, [],
    [InitEmpty, Always, TestOutput (
-      [["sfdiskM"; "/dev/sda"; ","];
+      [["part_disk"; "/dev/sda"; "mbr"];
        ["mkfs"; "ext2"; "/dev/sda1"];
        ["mount"; "/dev/sda1"; "/"];
        ["write_file"; "/new"; "new file contents"; "0"];
@@ -1414,7 +1414,7 @@ on the volume group C<volgroup>, with C<size> megabytes.");
 
   ("mkfs", (RErr, [String "fstype"; Device "device"]), 42, [],
    [InitEmpty, Always, TestOutput (
-      [["sfdiskM"; "/dev/sda"; ","];
+      [["part_disk"; "/dev/sda"; "mbr"];
        ["mkfs"; "ext2"; "/dev/sda1"];
        ["mount"; "/dev/sda1"; "/"];
        ["write_file"; "/new"; "new file contents"; "0"];
@@ -1451,7 +1451,8 @@ To create a single partition occupying the whole disk, you would
 pass C<lines> as a single element list, when the single element being
 the string C<,> (comma).
 
-See also: C<guestfs_sfdisk_l>, C<guestfs_sfdisk_N>");
+See also: C<guestfs_sfdisk_l>, C<guestfs_sfdisk_N>,
+C<guestfs_part_init>");
 
   ("write_file", (RErr, [Pathname "path"; String "content"; Int "size"]), 44, [ProtocolLimitWarning],
    [InitBasicFS, Always, TestOutput (
@@ -1489,12 +1490,12 @@ use C<guestfs_upload>.");
 
   ("umount", (RErr, [String "pathordevice"]), 45, [FishAlias "unmount"],
    [InitEmpty, Always, TestOutputListOfDevices (
-      [["sfdiskM"; "/dev/sda"; ","];
+      [["part_disk"; "/dev/sda"; "mbr"];
        ["mkfs"; "ext2"; "/dev/sda1"];
        ["mount"; "/dev/sda1"; "/"];
        ["mounts"]], ["/dev/sda1"]);
     InitEmpty, Always, TestOutputList (
-      [["sfdiskM"; "/dev/sda"; ","];
+      [["part_disk"; "/dev/sda"; "mbr"];
        ["mkfs"; "ext2"; "/dev/sda1"];
        ["mount"; "/dev/sda1"; "/"];
        ["umount"; "/"];
@@ -2034,7 +2035,7 @@ to find out what you can do.");
 
   ("lvremove", (RErr, [Device "device"]), 77, [],
    [InitEmpty, Always, TestOutputList (
-      [["sfdiskM"; "/dev/sda"; ","];
+      [["part_disk"; "/dev/sda"; "mbr"];
        ["pvcreate"; "/dev/sda1"];
        ["vgcreate"; "VG"; "/dev/sda1"];
        ["lvcreate"; "LV1"; "VG"; "50"];
@@ -2042,7 +2043,7 @@ to find out what you can do.");
        ["lvremove"; "/dev/VG/LV1"];
        ["lvs"]], ["/dev/VG/LV2"]);
     InitEmpty, Always, TestOutputList (
-      [["sfdiskM"; "/dev/sda"; ","];
+      [["part_disk"; "/dev/sda"; "mbr"];
        ["pvcreate"; "/dev/sda1"];
        ["vgcreate"; "VG"; "/dev/sda1"];
        ["lvcreate"; "LV1"; "VG"; "50"];
@@ -2050,7 +2051,7 @@ to find out what you can do.");
        ["lvremove"; "/dev/VG"];
        ["lvs"]], []);
     InitEmpty, Always, TestOutputList (
-      [["sfdiskM"; "/dev/sda"; ","];
+      [["part_disk"; "/dev/sda"; "mbr"];
        ["pvcreate"; "/dev/sda1"];
        ["vgcreate"; "VG"; "/dev/sda1"];
        ["lvcreate"; "LV1"; "VG"; "50"];
@@ -2067,7 +2068,7 @@ the VG name, C</dev/VG>.");
 
   ("vgremove", (RErr, [String "vgname"]), 78, [],
    [InitEmpty, Always, TestOutputList (
-      [["sfdiskM"; "/dev/sda"; ","];
+      [["part_disk"; "/dev/sda"; "mbr"];
        ["pvcreate"; "/dev/sda1"];
        ["vgcreate"; "VG"; "/dev/sda1"];
        ["lvcreate"; "LV1"; "VG"; "50"];
@@ -2075,7 +2076,7 @@ the VG name, C</dev/VG>.");
        ["vgremove"; "VG"];
        ["lvs"]], []);
     InitEmpty, Always, TestOutputList (
-      [["sfdiskM"; "/dev/sda"; ","];
+      [["part_disk"; "/dev/sda"; "mbr"];
        ["pvcreate"; "/dev/sda1"];
        ["vgcreate"; "VG"; "/dev/sda1"];
        ["lvcreate"; "LV1"; "VG"; "50"];
@@ -2091,7 +2092,7 @@ group (if any).");
 
   ("pvremove", (RErr, [Device "device"]), 79, [],
    [InitEmpty, Always, TestOutputListOfDevices (
-      [["sfdiskM"; "/dev/sda"; ","];
+      [["part_disk"; "/dev/sda"; "mbr"];
        ["pvcreate"; "/dev/sda1"];
        ["vgcreate"; "VG"; "/dev/sda1"];
        ["lvcreate"; "LV1"; "VG"; "50"];
@@ -2100,7 +2101,7 @@ group (if any).");
        ["pvremove"; "/dev/sda1"];
        ["lvs"]], []);
     InitEmpty, Always, TestOutputListOfDevices (
-      [["sfdiskM"; "/dev/sda"; ","];
+      [["part_disk"; "/dev/sda"; "mbr"];
        ["pvcreate"; "/dev/sda1"];
        ["vgcreate"; "VG"; "/dev/sda1"];
        ["lvcreate"; "LV1"; "VG"; "50"];
@@ -2109,7 +2110,7 @@ group (if any).");
        ["pvremove"; "/dev/sda1"];
        ["vgs"]], []);
     InitEmpty, Always, TestOutputListOfDevices (
-      [["sfdiskM"; "/dev/sda"; ","];
+      [["part_disk"; "/dev/sda"; "mbr"];
        ["pvcreate"; "/dev/sda1"];
        ["vgcreate"; "VG"; "/dev/sda1"];
        ["lvcreate"; "LV1"; "VG"; "50"];
@@ -2386,7 +2387,7 @@ the human-readable, canonical hex dump of the file.");
 
   ("zerofree", (RErr, [Device "device"]), 97, [],
    [InitNone, Always, TestOutput (
-      [["sfdiskM"; "/dev/sda"; ","];
+      [["part_disk"; "/dev/sda"; "mbr"];
        ["mkfs"; "ext3"; "/dev/sda1"];
        ["mount"; "/dev/sda1"; "/"];
        ["write_file"; "/new"; "test file"; "0"];
@@ -2424,7 +2425,9 @@ This runs L<sfdisk(8)> option to modify just the single
 partition C<n> (note: C<n> counts from 1).
 
 For other parameters, see C<guestfs_sfdisk>.  You should usually
-pass C<0> for the cyls/heads/sectors parameters.");
+pass C<0> for the cyls/heads/sectors parameters.
+
+See also: C<guestfs_part_add>");
 
   ("sfdisk_l", (RString "partitions", [Device "device"]), 100, [],
    [],
@@ -2432,7 +2435,9 @@ pass C<0> for the cyls/heads/sectors parameters.");
    "\
 This displays the partition table on C<device>, in the
 human-readable output of the L<sfdisk(8)> command.  It is
-not intended to be parsed.");
+not intended to be parsed.
+
+See also: C<guestfs_part_list>");
 
   ("sfdisk_kernel_geometry", (RString "partitions", [Device "device"]), 101, [],
    [],
@@ -2484,7 +2489,7 @@ are activated or deactivated.");
 
   ("lvresize", (RErr, [Device "device"; Int "mbytes"]), 105, [],
    [InitNone, Always, TestOutput (
-      [["sfdiskM"; "/dev/sda"; ","];
+      [["part_disk"; "/dev/sda"; "mbr"];
        ["pvcreate"; "/dev/sda1"];
        ["vgcreate"; "VG"; "/dev/sda1"];
        ["lvcreate"; "LV"; "VG"; "10"];
@@ -2577,11 +2582,11 @@ Sleep for C<secs> seconds.");
 
   ("ntfs_3g_probe", (RInt "status", [Bool "rw"; Device "device"]), 110, [],
    [InitNone, Always, TestOutputInt (
-      [["sfdiskM"; "/dev/sda"; ","];
+      [["part_disk"; "/dev/sda"; "mbr"];
        ["mkfs"; "ntfs"; "/dev/sda1"];
        ["ntfs_3g_probe"; "true"; "/dev/sda1"]], 0);
     InitNone, Always, TestOutputInt (
-      [["sfdiskM"; "/dev/sda"; ","];
+      [["part_disk"; "/dev/sda"; "mbr"];
        ["mkfs"; "ext2"; "/dev/sda1"];
        ["ntfs_3g_probe"; "true"; "/dev/sda1"]], 12)],
    "probe NTFS volume",
@@ -2859,7 +2864,7 @@ the command C<mount -o loop file mountpoint>.");
 
   ("mkswap", (RErr, [Device "device"]), 130, [],
    [InitEmpty, Always, TestRun (
-      [["sfdiskM"; "/dev/sda"; ","];
+      [["part_disk"; "/dev/sda"; "mbr"];
        ["mkswap"; "/dev/sda1"]])],
    "create a swap partition",
    "\
@@ -2867,7 +2872,7 @@ Create a swap partition on C<device>.");
 
   ("mkswap_L", (RErr, [String "label"; Device "device"]), 131, [],
    [InitEmpty, Always, TestRun (
-      [["sfdiskM"; "/dev/sda"; ","];
+      [["part_disk"; "/dev/sda"; "mbr"];
        ["mkswap_L"; "hello"; "/dev/sda1"]])],
    "create a swap partition with a label",
    "\
@@ -2880,7 +2885,7 @@ a limitation of the kernel or swap tools.");
   ("mkswap_U", (RErr, [String "uuid"; Device "device"]), 132, [],
    (let uuid = uuidgen () in
     [InitEmpty, Always, TestRun (
-       [["sfdiskM"; "/dev/sda"; ","];
+       [["part_disk"; "/dev/sda"; "mbr"];
         ["mkswap_U"; uuid; "/dev/sda1"]])]),
    "create a swap partition with an explicit UUID",
    "\
@@ -3024,7 +3029,8 @@ only (rounded to the nearest cylinder) and you don't need
 to specify the cyls, heads and sectors parameters which
 were rarely if ever used anyway.
 
-See also C<guestfs_sfdisk> and the L<sfdisk(8)> manpage.");
+See also: C<guestfs_sfdisk>, the L<sfdisk(8)> manpage
+and C<guestfs_part_disk>");
 
   ("zfile", (RString "description", [String "meth"; Pathname "path"]), 140, [DeprecatedBy "file"],
    [],
@@ -3371,7 +3377,7 @@ This command disables the libguestfs appliance swap on file.");
 
   ("swapon_label", (RErr, [String "label"]), 174, [],
    [InitEmpty, Always, TestRun (
-      [["sfdiskM"; "/dev/sdb"; ","];
+      [["part_disk"; "/dev/sdb"; "mbr"];
        ["mkswap_L"; "swapit"; "/dev/sdb1"];
        ["swapon_label"; "swapit"];
        ["swapoff_label"; "swapit"];
@@ -3536,7 +3542,7 @@ and C<guestfs_setcon>");
 
   ("mkfs_b", (RErr, [String "fstype"; Int "blocksize"; Device "device"]), 187, [],
    [InitEmpty, Always, TestOutput (
-      [["sfdiskM"; "/dev/sda"; ","];
+      [["part_disk"; "/dev/sda"; "mbr"];
        ["mkfs_b"; "ext2"; "4096"; "/dev/sda1"];
        ["mount"; "/dev/sda1"; "/"];
        ["write_file"; "/new"; "new file contents"; "0"];
@@ -3893,6 +3899,193 @@ bytes of the file, starting at C<offset>, from file C<path>.
 This may read fewer bytes than requested.  For further details
 see the L<pread(2)> system call.");
 
+  ("part_init", (RErr, [Device "device"; String "parttype"]), 208, [],
+   [InitEmpty, Always, TestRun (
+      [["part_init"; "/dev/sda"; "gpt"]])],
+   "create an empty partition table",
+   "\
+This creates an empty partition table on C<device> of one of the
+partition types listed below.  Usually C<parttype> should be
+either C<msdos> or C<gpt> (for large disks).
+
+Initially there are no partitions.  Following this, you should
+call C<guestfs_part_add> for each partition required.
+
+Possible values for C<parttype> are:
+
+=over 4
+
+=item B<efi> | B<gpt>
+
+Intel EFI / GPT partition table.
+
+This is recommended for >= 2 TB partitions that will be accessed
+from Linux and Intel-based Mac OS X.  It also has limited backwards
+compatibility with the C<mbr> format.
+
+=item B<mbr> | B<msdos>
+
+The standard PC \"Master Boot Record\" (MBR) format used
+by MS-DOS and Windows.  This partition type will B<only> work
+for device sizes up to 2 TB.  For large disks we recommend
+using C<gpt>.
+
+=back
+
+Other partition table types that may work but are not
+supported include:
+
+=over 4
+
+=item B<aix>
+
+AIX disk labels.
+
+=item B<amiga> | B<rdb>
+
+Amiga \"Rigid Disk Block\" format.
+
+=item B<bsd>
+
+BSD disk labels.
+
+=item B<dasd>
+
+DASD, used on IBM mainframes.
+
+=item B<dvh>
+
+MIPS/SGI volumes.
+
+=item B<mac>
+
+Old Mac partition format.  Modern Macs use C<gpt>.
+
+=item B<pc98>
+
+NEC PC-98 format, common in Japan apparently.
+
+=item B<sun>
+
+Sun disk labels.
+
+=back");
+
+  ("part_add", (RErr, [Device "device"; String "prlogex"; Int64 "startsect"; Int64 "endsect"]), 209, [],
+   [InitEmpty, Always, TestRun (
+      [["part_init"; "/dev/sda"; "mbr"];
+       ["part_add"; "/dev/sda"; "primary"; "1"; "-1"]]);
+    InitEmpty, Always, TestRun (
+      [["part_init"; "/dev/sda"; "gpt"];
+       ["part_add"; "/dev/sda"; "primary"; "34"; "127"];
+       ["part_add"; "/dev/sda"; "primary"; "128"; "-34"]]);
+    InitEmpty, Always, TestRun (
+      [["part_init"; "/dev/sda"; "mbr"];
+       ["part_add"; "/dev/sda"; "primary"; "32"; "127"];
+       ["part_add"; "/dev/sda"; "primary"; "128"; "255"];
+       ["part_add"; "/dev/sda"; "primary"; "256"; "511"];
+       ["part_add"; "/dev/sda"; "primary"; "512"; "-1"]])],
+   "add a partition to the device",
+   "\
+This command adds a partition to C<device>.  If there is no partition
+table on the device, call C<guestfs_part_init> first.
+
+The C<prlogex> parameter is the type of partition.  Normally you
+should pass C<p> or C<primary> here, but MBR partition tables also
+support C<l> (or C<logical>) and C<e> (or C<extended>) partition
+types.
+
+C<startsect> and C<endsect> are the start and end of the partition
+in I<sectors>.  C<endsect> may be negative, which means it counts
+backwards from the end of the disk (C<-1> is the last sector).
+
+Creating a partition which covers the whole disk is not so easy.
+Use C<guestfs_part_disk> to do that.");
+
+  ("part_disk", (RErr, [Device "device"; String "parttype"]), 210, [DangerWillRobinson],
+   [InitEmpty, Always, TestRun (
+      [["part_disk"; "/dev/sda"; "mbr"]]);
+    InitEmpty, Always, TestRun (
+      [["part_disk"; "/dev/sda"; "gpt"]])],
+   "partition whole disk with a single primary partition",
+   "\
+This command is simply a combination of C<guestfs_part_init>
+followed by C<guestfs_part_add> to create a single primary partition
+covering the whole disk.
+
+C<parttype> is the partition table type, usually C<mbr> or C<gpt>,
+but other possible values are described in C<guestfs_part_init>.");
+
+  ("part_set_bootable", (RErr, [Device "device"; Int "partnum"; Bool "bootable"]), 211, [],
+   [InitEmpty, Always, TestRun (
+      [["part_disk"; "/dev/sda"; "mbr"];
+       ["part_set_bootable"; "/dev/sda"; "1"; "true"]])],
+   "make a partition bootable",
+   "\
+This sets the bootable flag on partition numbered C<partnum> on
+device C<device>.  Note that partitions are numbered from 1.
+
+The bootable flag is used by some PC BIOSes to determine which
+partition to boot from.  It is by no means universally recognized,
+and in any case if your operating system installed a boot
+sector on the device itself, then that takes precedence.");
+
+  ("part_set_name", (RErr, [Device "device"; Int "partnum"; String "name"]), 212, [],
+   [InitEmpty, Always, TestRun (
+      [["part_disk"; "/dev/sda"; "gpt"];
+       ["part_set_name"; "/dev/sda"; "1"; "thepartname"]])],
+   "set partition name",
+   "\
+This sets the partition name on partition numbered C<partnum> on
+device C<device>.  Note that partitions are numbered from 1.
+
+The partition name can only be set on certain types of partition
+table.  This works on C<gpt> but not on C<mbr> partitions.");
+
+  ("part_list", (RStructList ("partitions", "partition"), [Device "device"]), 213, [],
+   [], (* XXX Add a regression test for this. *)
+   "list partitions on a device",
+   "\
+This command parses the partition table on C<device> and
+returns the list of partitions found.
+
+The fields in the returned structure are:
+
+=over 4
+
+=item B<part_num>
+
+Partition number, counting from 1.
+
+=item B<part_start>
+
+Start of the partition I<in bytes>.  To get sectors you have to
+divide by the device's sector size, see C<guestfs_blockdev_getss>.
+
+=item B<part_end>
+
+End of the partition in bytes.
+
+=item B<part_size>
+
+Size of the partition in bytes.
+
+=back");
+
+  ("part_get_parttype", (RString "parttype", [Device "device"]), 214, [],
+   [InitEmpty, Always, TestOutput (
+      [["part_disk"; "/dev/sda"; "gpt"];
+       ["part_get_parttype"; "/dev/sda"]], "gpt")],
+   "get the partition table type",
+   "\
+This command examines the partition table on C<device> and
+returns the partition table type (format) being used.
+
+Common return values include: C<msdos> (a DOS/Windows style MBR
+partition table), C<gpt> (a GPT/EFI-style partition table).  Other
+values are possible, although unusual.  See C<guestfs_part_init>
+for a full list.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
@@ -4061,6 +4254,14 @@ let structs = [
     "in_cookie", FUInt32;
     "in_name", FString;
   ];
+
+  (* Partition table entry. *)
+  "partition", [
+    "part_num", FInt32;
+    "part_start", FBytes;
+    "part_end", FBytes;
+    "part_size", FBytes;
+  ];
 ] (* end of structs *)
 
 (* Ugh, Java has to be different ..
@@ -4077,6 +4278,7 @@ let java_structs = [
   "version", "Version";
   "xattr", "XAttr";
   "inotify_event", "INotifyEvent";
+  "partition", "Partition";
 ]
 
 (* What structs are actually returned. *)
@@ -5951,14 +6153,14 @@ and generate_one_test_body name i test_name init test =
          [["blockdev_setrw"; "/dev/sda"];
           ["umount_all"];
           ["lvm_remove_all"];
-          ["sfdiskM"; "/dev/sda"; ","]]
+          ["part_disk"; "/dev/sda"; "mbr"]]
    | InitBasicFS ->
        pr "  /* InitBasicFS for %s: create ext2 on /dev/sda1 */\n" test_name;
        List.iter (generate_test_command_call test_name)
          [["blockdev_setrw"; "/dev/sda"];
           ["umount_all"];
           ["lvm_remove_all"];
-          ["sfdiskM"; "/dev/sda"; ","];
+          ["part_disk"; "/dev/sda"; "mbr"];
           ["mkfs"; "ext2"; "/dev/sda1"];
           ["mount"; "/dev/sda1"; "/"]]
    | InitBasicFSonLVM ->
@@ -5968,7 +6170,7 @@ and generate_one_test_body name i test_name init test =
          [["blockdev_setrw"; "/dev/sda"];
           ["umount_all"];
           ["lvm_remove_all"];
-          ["sfdiskM"; "/dev/sda"; ","];
+          ["part_disk"; "/dev/sda"; "mbr"];
           ["pvcreate"; "/dev/sda1"];
           ["vgcreate"; "VG"; "/dev/sda1"];
           ["lvcreate"; "LV"; "VG"; "8"];

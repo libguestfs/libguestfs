@@ -60,6 +60,7 @@ guestfsd_SOURCES = \
 	mount.c \
 	names.c \
 	ntfs.c \
+	parted.c \
 	pingdaemon.c \
 	proto.c \
 	readdir.c \

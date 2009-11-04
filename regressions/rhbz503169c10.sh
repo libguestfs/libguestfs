@@ -26,7 +26,7 @@ dd if=/dev/zero of=test1.img bs=1024k count=10
 
 ../fish/guestfish -a test1.img <<EOF
 launch
-sfdisk /dev/sda 0 0 0 ,
+part-disk /dev/sda mbr
 mkfs ext2 /dev/sda1
 mount /dev/sda1 /
 ll /../dev/console

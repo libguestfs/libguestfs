@@ -28,7 +28,7 @@ rm -f test.img
 alloc test.img 10M
 run
 
-sfdiskM /dev/sda ,
+part-disk /dev/sda mbr
 mkfs ext2 /dev/sda1
 mount /dev/sda1 /
 
