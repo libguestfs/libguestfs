@@ -654,6 +654,7 @@ commandrv (char **stdoutput, char **stderror, char const* const *argv)
 
   if (pid == 0) {		/* Child process. */
     close (0);
+    open ("/dev/null", O_RDONLY); /* Set stdin to /dev/null (ignore failure) */
     close (so_fd[0]);
     close (se_fd[0]);
     dup2 (so_fd[1], 1);
