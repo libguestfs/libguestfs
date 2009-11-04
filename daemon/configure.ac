@@ -124,6 +124,9 @@ test "x$U" != "x" && AC_MSG_ERROR([Compiler not ANSI compliant])
 
 AM_PROG_CC_C_O
 
+dnl Check support for 64 bit file offsets.
+AC_SYS_LARGEFILE
+
 dnl Check for Augeas (now optional).
 AC_CHECK_LIB([augeas],[aug_match],[
         LIBS="-laugeas $LIBS"
