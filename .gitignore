@@ -2,6 +2,11 @@
 *.a
 ABOUT-NLS
 aclocal.m4
+appliance/debian/.bootstrap.log
+appliance/debian/.fakeroot-state.debirf-libguestfs
+appliance/debian/debirf-libguestfs*.cgz
+appliance/debian/root/
+appliance/debian/vmlinuz-*
 appliance/debian/debirf.conf
 appliance/initramfs.*.img
 appliance/initramfs.*.supermin.hostfiles
