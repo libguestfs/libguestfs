@@ -42,4 +42,5 @@ net-tools
 ntfs-3g
 procps
 strace
+xfsprogs
 zerofree
