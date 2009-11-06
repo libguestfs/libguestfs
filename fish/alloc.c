@@ -140,12 +140,12 @@ parse_size (const char *str, off_t *size_rtn)
    */
   if (sscanf (str, "%"SCNu64"%c", &size, &type) == 2) {
     switch (type) {
-    case 'k': case 'K': size *= 1024L; break;
-    case 'm': case 'M': size *= 1024L * 1024; break;
-    case 'g': case 'G': size *= 1024L * 1024 * 1024; break;
-    case 't': case 'T': size *= 1024L * 1024 * 1024 * 1024; break;
-    case 'p': case 'P': size *= 1024L * 1024 * 1024 * 1024 * 1024; break;
-    case 'e': case 'E': size *= 1024L * 1024 * 1024 * 1024 * 1024 * 1024; break;
+    case 'k': case 'K': size *= 1024ULL; break;
+    case 'm': case 'M': size *= 1024ULL * 1024ULL; break;
+    case 'g': case 'G': size *= 1024ULL * 1024ULL * 1024ULL; break;
+    case 't': case 'T': size *= 1024ULL * 1024ULL * 1024ULL * 1024ULL; break;
+    case 'p': case 'P': size *= 1024ULL * 1024ULL * 1024ULL * 1024ULL * 1024ULL; break;
+    case 'e': case 'E': size *= 1024ULL * 1024ULL * 1024ULL * 1024ULL * 1024ULL * 1024ULL; break;
     case 's': size *= 512; break;
     default:
       fprintf (stderr, _("could not parse size specification '%s'\n"), str);
@@ -153,7 +153,7 @@ parse_size (const char *str, off_t *size_rtn)
     }
   }
   else if (sscanf (str, "%"SCNu64, &size) == 1)
-    size *= 1024;
+    size *= 1024ULL;
   else {
     fprintf (stderr, _("could not parse size specification '%s'\n"), str);
     return -1;

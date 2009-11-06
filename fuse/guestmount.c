@@ -619,7 +619,7 @@ fg_read (const char *path, char *buf, size_t size, off_t offset,
   size_t rsize;
 
   if (verbose)
-    fprintf (stderr, "fg_read: %s: size %zu offset %zu\n",
+    fprintf (stderr, "fg_read: %s: size %zu offset %ju\n",
              path, size, offset);
 
   /* The guestfs protocol limits size to somewhere over 2MB.  We just
