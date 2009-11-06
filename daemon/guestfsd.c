@@ -508,13 +508,11 @@ free_stringslen (char **argv, int len)
   free (argv);
 }
 
-/* This is a more sane version of 'system(3)' for running external
- * commands.  It uses fork/execvp, so we don't need to worry about
- * quoting of parameters, and it allows us to capture any error
- * messages in a buffer.
+/* Easy ways to run external commands.  For full documentation, see
+ * 'commandrvf' below.
  */
 int
-command (char **stdoutput, char **stderror, const char *name, ...)
+commandf (char **stdoutput, char **stderror, int flags, const char *name, ...)
 {
   va_list args;
   const char **argv;
@@ -548,7 +546,7 @@ command (char **stdoutput, char **stderror, const char *name, ...)
 
   va_end (args);
 
-  r = commandv (stdoutput, stderror, (char **) argv);
+  r = commandvf (stdoutput, stderror, flags, (char **) argv);
 
   /* NB: Mustn't free the strings which are on the stack. */
   free (argv);
@@ -561,7 +559,7 @@ command (char **stdoutput, char **stderror, const char *name, ...)
  * We still return -1 if there was some other error.
  */
 int
-commandr (char **stdoutput, char **stderror, const char *name, ...)
+commandrf (char **stdoutput, char **stderror, int flags, const char *name, ...)
 {
   va_list args;
   const char **argv;
@@ -595,7 +593,7 @@ commandr (char **stdoutput, char **stderror, const char *name, ...)
 
   va_end (args);
 
-  r = commandrv (stdoutput, stderror, argv);
+  r = commandrvf (stdoutput, stderror, flags, argv);
 
   /* NB: Mustn't free the strings which are on the stack. */
   free (argv);
@@ -605,19 +603,42 @@ commandr (char **stdoutput, char **stderror, const char *name, ...)
 
 /* Same as 'command', but passing an argv. */
 int
-commandv (char **stdoutput, char **stderror, char *const *argv)
+commandvf (char **stdoutput, char **stderror, int flags, char *const *argv)
 {
   int r;
 
-  r = commandrv (stdoutput, stderror, (void *) argv);
+  r = commandrvf (stdoutput, stderror, flags, (void *) argv);
   if (r == 0)
     return 0;
   else
     return -1;
 }
 
+/* This is a more sane version of 'system(3)' for running external
+ * commands.  It uses fork/execvp, so we don't need to worry about
+ * quoting of parameters, and it allows us to capture any error
+ * messages in a buffer.
+ *
+ * If stdoutput is not NULL, then *stdoutput will return the stdout
+ * of the command.
+ *
+ * If stderror is not NULL, then *stderror will return the stderr
+ * of the command.  If there is a final \n character, it is removed
+ * so you can use the error string directly in a call to
+ * reply_with_error.
+ *
+ * Flags:
+ *
+ * COMMAND_FLAG_FOLD_STDOUT_ON_STDERR: For broken external commands
+ * that send error messages to stdout (hello, parted) but that don't
+ * have any useful stdout information, use this flag to capture the
+ * error messages in the *stderror buffer.  If using this flag,
+ * you should pass stdoutput as NULL because nothing could ever be
+ * captured in that buffer.
+ */
 int
-commandrv (char **stdoutput, char **stderror, char const* const *argv)
+commandrvf (char **stdoutput, char **stderror, int flags,
+	    char const* const *argv)
 {
   int so_size = 0, se_size = 0;
   int so_fd[2], se_fd[2];
@@ -657,7 +678,10 @@ commandrv (char **stdoutput, char **stderror, char const* const *argv)
     open ("/dev/null", O_RDONLY); /* Set stdin to /dev/null (ignore failure) */
     close (so_fd[0]);
     close (se_fd[0]);
-    dup2 (so_fd[1], 1);
+    if (!(flags & COMMAND_FLAG_FOLD_STDOUT_ON_STDERR))
+      dup2 (so_fd[1], 1);
+    else
+      dup2 (se_fd[1], 1);
     dup2 (se_fd[1], 2);
     close (so_fd[1]);
     close (se_fd[1]);

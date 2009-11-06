@@ -47,12 +47,21 @@ extern void sort_strings (char **argv, int len);
 extern void free_strings (char **argv);
 extern void free_stringslen (char **argv, int len);
 
-extern int command (char **stdoutput, char **stderror, const char *name, ...);
-extern int commandr (char **stdoutput, char **stderror, const char *name, ...);
-extern int commandv (char **stdoutput, char **stderror,
-                     char *const *argv);
-extern int commandrv (char **stdoutput, char **stderror,
-                      char const* const *argv);
+#define command(out,err,name,...) commandf((out),(err),0,(name),__VA_ARGS__)
+#define commandr(out,err,name,...) commandrf((out),(err),0,(name),__VA_ARGS__)
+#define commandv(out,err,argv) commandvf((out),(err),0,(argv))
+#define commandrv(out,err,argv) commandrvf((out),(err),0,(argv))
+
+#define COMMAND_FLAG_FOLD_STDOUT_ON_STDERR 1
+
+extern int commandf (char **stdoutput, char **stderror, int flags,
+		     const char *name, ...);
+extern int commandrf (char **stdoutput, char **stderror, int flags,
+		      const char *name, ...);
+extern int commandvf (char **stdoutput, char **stderror, int flags,
+		      char *const *argv);
+extern int commandrvf (char **stdoutput, char **stderror, int flags,
+		       char const* const *argv);
 
 extern char **split_lines (char *str);
 
