@@ -103,7 +103,7 @@ depend: .depend
 
 .depend: $(wildcard *.mli) $(wildcard *.ml)
 	rm -f $@ $@-t
-	$(OCAMLFIND) ocamldep $^ | sed 's/  *$$//' > $@-t
+	$(OCAMLFIND) ocamldep $^ | sed 's/  *$$//' | sort > $@-t
 	mv $@-t $@
 
 include .depend
