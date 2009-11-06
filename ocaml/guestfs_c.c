@@ -93,6 +93,17 @@ ocaml_guestfs_raise_error (guestfs_h *g, const char *func)
   CAMLnoreturn;
 }
 
+void
+ocaml_guestfs_raise_closed (const char *func)
+{
+  CAMLparam0 ();
+  CAMLlocal1 (v);
+
+  v = caml_copy_string (func);
+  caml_raise_with_arg (*caml_named_value ("ocaml_guestfs_closed"), v);
+  CAMLnoreturn;
+}
+
 /* Guestfs.create */
 CAMLprim value
 ocaml_guestfs_create (void)

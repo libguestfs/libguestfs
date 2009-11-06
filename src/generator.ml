@@ -6963,12 +6963,21 @@ type t
 exception Error of string
 (** This exception is raised when there is an error. *)
 
+exception Handle_closed of string
+(** This exception is raised if you use a {!Guestfs.t} handle
+    after calling {!close} on it.  The string is the name of
+    the function. *)
+
 val create : unit -> t
+(** Create a {!Guestfs.t} handle. *)
 
 val close : t -> unit
-(** Handles are closed by the garbage collector when they become
-    unreferenced, but callers can also call this in order to
-    provide predictable cleanup. *)
+(** Close the {!Guestfs.t} handle and free up all resources used
+    by it immediately.
+
+    Handles are closed by the garbage collector when they become
+    unreferenced, but callers can call this in order to provide
+    predictable cleanup. *)
 
 ";
   generate_ocaml_structure_decls ();
@@ -6979,7 +6988,7 @@ val close : t -> unit
       generate_ocaml_prototype name style;
       pr "(** %s *)\n" shortdesc;
       pr "\n"
-  ) all_functions
+  ) all_functions_sorted
 
 (* Generate the OCaml bindings implementation. *)
 and generate_ocaml_ml () =
@@ -6987,12 +6996,17 @@ and generate_ocaml_ml () =
 
   pr "\
 type t
+
 exception Error of string
+exception Handle_closed of string
+
 external create : unit -> t = \"ocaml_guestfs_create\"
 external close : t -> unit = \"ocaml_guestfs_close\"
 
+(* Give the exceptions names, so they can be raised from the C code. *)
 let () =
-  Callback.register_exception \"ocaml_guestfs_error\" (Error \"\")
+  Callback.register_exception \"ocaml_guestfs_error\" (Error \"\");
+  Callback.register_exception \"ocaml_guestfs_closed\" (Handle_closed \"\")
 
 ";
 
@@ -7002,7 +7016,7 @@ let () =
   List.iter (
     fun (name, style, _, _, _, shortdesc, _) ->
       generate_ocaml_prototype ~is_external:true name style;
-  ) all_functions
+  ) all_functions_sorted
 
 (* Generate the OCaml bindings C implementation. *)
 and generate_ocaml_c () =
@@ -7138,6 +7152,12 @@ copy_table (char * const * argv)
   (* The wrappers. *)
   List.iter (
     fun (name, style, _, _, _, _, _) ->
+      pr "/* Automatically generated wrapper for function\n";
+      pr " * ";
+      generate_ocaml_prototype name style;
+      pr " */\n";
+      pr "\n";
+
       let params =
         "gv" :: List.map (fun arg -> name_of_argt arg ^ "v") (snd style) in
 
@@ -7147,6 +7167,7 @@ copy_table (char * const * argv)
       pr "/* Emit prototype to appease gcc's -Wmissing-prototypes. */\n";
       pr "CAMLprim value ocaml_guestfs_%s (value %s" name (List.hd params);
       List.iter (pr ", value %s") (List.tl params); pr ");\n";
+      pr "\n";
 
       pr "CAMLprim value\n";
       pr "ocaml_guestfs_%s (value %s" name (List.hd params);
@@ -7172,7 +7193,7 @@ copy_table (char * const * argv)
 
       pr "  guestfs_h *g = Guestfs_val (gv);\n";
       pr "  if (g == NULL)\n";
-      pr "    caml_failwith (\"%s: used handle after closing it\");\n" name;
+      pr "    ocaml_guestfs_raise_closed (\"%s\");\n" name;
       pr "\n";
 
       List.iter (
@@ -7296,7 +7317,7 @@ copy_table (char * const * argv)
         pr "}\n";
         pr "\n"
       )
-  ) all_functions
+  ) all_functions_sorted
 
 and generate_ocaml_structure_decls () =
   List.iter (
