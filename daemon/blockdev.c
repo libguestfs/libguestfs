@@ -53,7 +53,7 @@ call_blockdev (const char *device, const char *switc, int extraarg, int prints)
   } else
     argv[2] = device;
 
-  r = commandv (&out, &err, (char **) argv);
+  r = commandv (&out, &err, argv);
 
   if (r == -1) {
     reply_with_error ("%s: %s", argv[0], err);

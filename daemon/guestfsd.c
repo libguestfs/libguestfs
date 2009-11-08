@@ -548,7 +548,7 @@ commandf (char **stdoutput, char **stderror, int flags, const char *name, ...)
 
   va_end (args);
 
-  r = commandvf (stdoutput, stderror, flags, (char **) argv);
+  r = commandvf (stdoutput, stderror, flags, (const char * const*) argv);
 
   /* NB: Mustn't free the strings which are on the stack. */
   free (argv);
@@ -605,7 +605,8 @@ commandrf (char **stdoutput, char **stderror, int flags, const char *name, ...)
 
 /* Same as 'command', but passing an argv. */
 int
-commandvf (char **stdoutput, char **stderror, int flags, char *const *argv)
+commandvf (char **stdoutput, char **stderror, int flags,
+           char const *const *argv)
 {
   int r;
 

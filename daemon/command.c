@@ -85,7 +85,7 @@ do_command (char *const *argv)
   sys_ok = r != -1;
 
   CHROOT_IN;
-  r = commandv (&out, &err, argv);
+  r = commandv (&out, &err, (const char * const *) argv);
   CHROOT_OUT;
 
   if (sys_ok) command (NULL, NULL, "umount", sysroot_sys, NULL);
