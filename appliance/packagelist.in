@@ -10,21 +10,33 @@
 
 #if REDHAT == 1
   augeas-libs
+  btrfs-progs
   diffutils
   /* e4fsprogs only exists on RHEL 5, will be ignored everywhere else. */
   e4fsprogs
+  gfs-utils
+  gfs2-utils
+  hfsplus-tools
   iputils
   kernel
   MAKEDEV
+  nilfs-utils
   ntfsprogs
+  reiserfs-utils
   scrub
   libselinux
   udev
   util-linux-ng
 #elif DEBIAN == 1
   bsdmainutils
+  btrfs-tools
+  gfs-tools
+  gfs2-tools
+  hfsplus
   iproute
   libaugeas0
+  nilfs2-tools
+  reiserfsprogs
   udev
   util-linux
 #endif
@@ -35,11 +47,18 @@ coreutils
 dosfstools
 file
 grub
+jfsutils
 lsof
 lvm2
 module-init-tools
 net-tools
 ntfs-3g
+/*
+Enabling this pulls out 140 extra packages
+into the appliance:
+ocfs2-tools
+*/
+parted
 procps
 strace
 xfsprogs
