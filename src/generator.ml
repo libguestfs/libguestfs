@@ -6146,7 +6146,7 @@ and generate_one_test_body name i test_name init test =
         pr "      fprintf (stderr, \"%s: returned size of buffer wrong, expected %d but got %%zu\\n\", size);\n" test_name len;
         pr "      return -1;\n";
         pr "    }\n";
-        pr "    if (strncmp (r, expected, size) != 0) {\n";
+        pr "    if (STRNEQLEN (r, expected, size)) {\n";
         pr "      fprintf (stderr, \"%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", expected, r);\n" test_name;
         pr "      return -1;\n";
         pr "    }\n"

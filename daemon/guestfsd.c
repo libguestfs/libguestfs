@@ -945,7 +945,7 @@ device_name_translation (char *device, const char *func)
   }
 
   /* If the name begins with "/dev/sd" then try the alternatives. */
-  if (strncmp (device, "/dev/sd", 7) != 0)
+  if (STRNEQLEN (device, "/dev/sd", 7))
     goto error;
 
   device[5] = 'h';		/* /dev/hd (old IDE driver) */

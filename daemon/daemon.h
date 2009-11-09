@@ -164,7 +164,7 @@ extern void reply (xdrproc_t xdrp, char *ret);
  */
 #define RESOLVE_DEVICE(path,fail_stmt)					\
   do {									\
-    if (strncmp ((path), "/dev/", 5) != 0) {				\
+    if (STRNEQLEN ((path), "/dev/", 5)) {				\
       reply_with_error ("%s: %s: expecting a device name", __func__, (path)); \
       fail_stmt;							\
     }									\

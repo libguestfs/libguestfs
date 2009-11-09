@@ -149,7 +149,7 @@ display_partitions (guestfs_h *g, const char *dev)
    * That's a limitation of sorts of the Linux kernel.  (Actually,
    * we could do this if we add the kpartx program to libguestfs).
    */
-  if (strncmp (dev, "/dev/sd", 7) != 0 || isdigit (dev[strlen(dev)-1])) {
+  if (STRNEQLEN (dev, "/dev/sd", 7) || isdigit (dev[strlen(dev)-1])) {
     printf ("<vm-image dev=\"%s\"/>\n", dev);
     return;
   }
