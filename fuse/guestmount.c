@@ -360,8 +360,10 @@ fg_readlink (const char *path, char *buf, size_t size)
   memcpy (buf, r, len);
   buf[len] = '\0';
 
-  if (free_it)
-    free ((char *) r);
+  if (free_it) {
+    char *tmp = (char *) r;
+    free (tmp);
+  }
 
   return 0;
 }
