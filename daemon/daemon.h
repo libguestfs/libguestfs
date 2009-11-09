@@ -184,7 +184,7 @@ extern void reply (xdrproc_t xdrp, char *ret);
  */
 #define REQUIRE_ROOT_OR_RESOLVE_DEVICE(path,fail_stmt)			\
   do {									\
-    if (strncmp ((path), "/dev/", 5) == 0)				\
+    if (STREQLEN ((path), "/dev/", 5))				\
       RESOLVE_DEVICE ((path), fail_stmt);				\
     else {								\
       NEED_ROOT (fail_stmt);						\

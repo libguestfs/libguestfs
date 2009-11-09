@@ -110,7 +110,7 @@ find_home_for_username (const char *username, size_t ulen)
   setpwent ();
   while ((pw = getpwent ()) != NULL) {
     if (strlen (pw->pw_name) == ulen &&
-        strncmp (username, pw->pw_name, ulen) == 0)
+        STREQLEN (username, pw->pw_name, ulen))
       return pw->pw_dir;
   }
 

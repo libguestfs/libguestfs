@@ -145,7 +145,7 @@ main (int argc, char *argv[])
 
   /* Print out any environment variables which may relate to this test. */
   for (i = 0; environ[i] != NULL; ++i)
-    if (strncmp (environ[i], "LIBGUESTFS_", 11) == 0)
+    if (STREQLEN (environ[i], "LIBGUESTFS_", 11))
       printf ("%s\n", environ[i]);
 
   /* Create the handle and configure it. */

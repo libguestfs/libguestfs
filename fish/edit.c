@@ -149,7 +149,7 @@ do_edit (const char *cmd, int argc, char *argv[])
   unlink (filename);
 
   /* Changed? */
-  if (strlen (content) == size && strncmp (content, content_new, size) == 0) {
+  if (strlen (content) == size && STREQLEN (content, content_new, size)) {
     free (content);
     free (content_new);
     return 0;

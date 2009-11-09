@@ -53,10 +53,10 @@ foreach_block_device (block_dev_func_t func)
     struct dirent *d = readdir(dir);
     if(NULL == d) break;
 
-    if (strncmp (d->d_name, "sd", 2) == 0 ||
-        strncmp (d->d_name, "hd", 2) == 0 ||
-        strncmp (d->d_name, "vd", 2) == 0 ||
-        strncmp (d->d_name, "sr", 2) == 0) {
+    if (STREQLEN (d->d_name, "sd", 2) ||
+        STREQLEN (d->d_name, "hd", 2) ||
+        STREQLEN (d->d_name, "vd", 2) ||
+        STREQLEN (d->d_name, "sr", 2)) {
       char dev_path[256];
       snprintf (dev_path, sizeof dev_path, "/dev/%s", d->d_name);
 
@@ -153,7 +153,7 @@ add_partitions(const char *device,
   errno = 0;
   struct dirent *d;
   while ((d = readdir (dir)) != NULL) {
-    if (strncmp (d->d_name, device, strlen (device)) == 0) {
+    if (STREQLEN (d->d_name, device, strlen (device))) {
       char part[256];
       snprintf (part, sizeof part, "/dev/%s", d->d_name);
 

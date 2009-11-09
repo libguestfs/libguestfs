@@ -430,7 +430,7 @@ do_file (const char *path)
   char *buf;
   int len;
 
-  if (strncmp (path, "/dev/", 5) == 0)
+  if (STREQLEN (path, "/dev/", 5))
     buf = (char *) path;
   else {
     buf = sysroot_path (path);

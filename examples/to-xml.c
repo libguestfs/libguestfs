@@ -87,8 +87,8 @@ main (int argc, char *argv[])
     int len = strlen (vgs[i]);
     int j;
     for (j = 0; lvs[j] != NULL; ++j) {
-      if (strncmp (lvs[j], "/dev/", 5) == 0 &&
-          strncmp (&lvs[j][5], vgs[i], len) == 0 &&
+      if (STREQLEN (lvs[j], "/dev/", 5) &&
+          STREQLEN (&lvs[j][5], vgs[i], len) &&
           lvs[j][len+5] == '/') {
         int64_t size;
         CALL (size = guestfs_blockdev_getsize64 (g, lvs[j]), -1);
@@ -125,7 +125,7 @@ display_partition (guestfs_h *g, const char *dev)
     printf ("<windows/>\n");
   else if (strstr (what, "boot sector") != NULL)
     display_partitions (g, dev);
-  else if (strncmp (what, "LVM2", 4) == 0)
+  else if (STREQLEN (what, "LVM2", 4))
     printf ("<physvol/>\n");
   else if (strstr (what, "ext2 filesystem data") != NULL)
     display_ext234 (g, dev, "ext2");
@@ -162,7 +162,7 @@ display_partitions (guestfs_h *g, const char *dev)
   len = strlen (dev);
   for (i = 0; parts[i] != NULL; ++i) {
     /* Only display partition if it's in the device. */
-    if (strncmp (parts[i], dev, len) == 0) {
+    if (STREQLEN (parts[i], dev, len)) {
       int64_t size;
       CALL (size = guestfs_blockdev_getsize64 (g, parts[i]), -1);
       printf ("<partition dev=\"%s\" size=\"%" PRIi64 "\">\n", parts[i], size);

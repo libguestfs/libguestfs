@@ -112,7 +112,7 @@ do_umount (const char *pathordevice)
   char *buf;
   int is_dev;
 
-  is_dev = strncmp (pathordevice, "/dev/", 5) == 0;
+  is_dev = STREQLEN (pathordevice, "/dev/", 5);
   buf = is_dev ? strdup (pathordevice)
                : sysroot_path (pathordevice);
   if (buf == NULL) {

@@ -48,7 +48,7 @@ do_tune2fs_l (const char *device)
   p = out;
 
   /* Discard the first line if it contains "tune2fs ...". */
-  if (strncmp (p, "tune2fs ", 8) == 0) {
+  if (STREQLEN (p, "tune2fs ", 8)) {
     p = strchr (p, '\n');
     if (p) p++;
     else {

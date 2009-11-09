@@ -133,7 +133,7 @@ complete_dest_paths_generator (const char *text, int state)
   } while (0)
 
     /* Is it a device? */
-    if (len < 5 || strncmp (text, "/dev/", 5) == 0) {
+    if (len < 5 || STREQLEN (text, "/dev/", 5)) {
       /* Get a list of everything that can possibly begin with /dev/ */
       strs = guestfs_list_devices (g);
       APPEND_STRS_AND_FREE;

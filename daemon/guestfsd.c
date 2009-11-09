@@ -226,7 +226,7 @@ main (int argc, char *argv[])
   /* Connect to vmchannel. */
   int sock = -1;
 
-  if (strncmp (vmchannel, "tcp:", 4) == 0) {
+  if (STREQLEN (vmchannel, "tcp:", 4)) {
     /* Resolve the hostname. */
     struct addrinfo *res, *rr;
     struct addrinfo hints;

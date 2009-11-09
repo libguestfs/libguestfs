@@ -40,7 +40,7 @@ do_upload (const char *filename)
 {
   int err, fd, r, is_dev;
 
-  is_dev = strncmp (filename, "/dev/", 5) == 0;
+  is_dev = STREQLEN (filename, "/dev/", 5);
   if (!is_dev) {
     if (!root_mounted || filename[0] != '/') {
       cancel_receive ();
@@ -93,7 +93,7 @@ do_download (const char *filename)
   int fd, r, is_dev;
   char buf[GUESTFS_MAX_CHUNK_SIZE];
 
-  is_dev = strncmp (filename, "/dev/", 5) == 0;
+  is_dev = STREQLEN (filename, "/dev/", 5);
 
   if (!is_dev) CHROOT_IN;
   fd = open (filename, O_RDONLY);
