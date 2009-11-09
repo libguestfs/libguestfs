@@ -24,6 +24,8 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <stddef.h>
+#include <stdint.h>
+#include <inttypes.h>
 #include <unistd.h>
 #include <string.h>
 #include <fcntl.h>
@@ -850,6 +852,7 @@ dir_contains_files (const char *dir, ...)
   return 1;
 }
 
+static void print_timestamped_message (guestfs_h *g, const char *fs, ...);
 static int build_supermin_appliance (guestfs_h *g, const char *path, char **kernel, char **initrd);
 static int test_qemu (guestfs_h *g);
 static int qemu_supports (guestfs_h *g, const char *option);
@@ -999,6 +1002,9 @@ guestfs__launch (guestfs_h *g)
     goto cleanup0;
   }
 
+  if (g->verbose)
+    print_timestamped_message (g, "begin testing qemu features");
+
   /* Get qemu help text and version. */
   if (test_qemu (g) == -1)
     goto cleanup0;
@@ -1058,6 +1064,9 @@ guestfs__launch (guestfs_h *g)
       goto cleanup0;
     }
   }
+
+  if (g->verbose)
+    print_timestamped_message (g, "finished testing qemu features");
 
   r = fork ();
   if (r == -1) {
@@ -1390,6 +1399,9 @@ guestfs__launch (guestfs_h *g)
     goto cleanup1;
   }
 
+  if (g->verbose)
+    print_timestamped_message (g, "appliance is up");
+
   /* This is possible in some really strange situations, such as
    * guestfsd starts up OK but then qemu immediately exits.  Check for
    * it because the caller is probably expecting to be able to send
@@ -1468,6 +1480,9 @@ build_supermin_appliance (guestfs_h *g, const char *path,
   char cmd[4096];
   int r, len;
 
+  if (g->verbose)
+    print_timestamped_message (g, "begin building supermin appliance");
+
   len = strlen (g->tmpdir);
   *kernel = safe_malloc (g, len + 8);
   snprintf (*kernel, len+8, "%s/kernel", g->tmpdir);
@@ -1489,7 +1504,46 @@ build_supermin_appliance (guestfs_h *g, const char *path,
     return -1;
   }
 
+  if (g->verbose)
+    print_timestamped_message (g, "finished building supermin appliance");
+
   return 0;
+}
+
+/* Compute Y - X and return the result in milliseconds.
+ * Approximately the same as this code:
+ * http://www.mpp.mpg.de/~huber/util/timevaldiff.c
+ */
+static int64_t
+timeval_diff (const struct timeval *x, const struct timeval *y)
+{
+  int64_t msec;
+
+  msec = (y->tv_sec - x->tv_sec) * 1000;
+  msec += (y->tv_usec - x->tv_usec) / 1000;
+  return msec;
+}
+
+static void
+print_timestamped_message (guestfs_h *g, const char *fs, ...)
+{
+  va_list args;
+  char *msg;
+  int err;
+  struct timeval tv, diff;
+
+  va_start (args, fs);
+  err = vasprintf (&msg, fs, args);
+  va_end (args);
+
+  if (err < 0) return;
+
+  gettimeofday (&tv, NULL);
+  
+  fprintf (stderr, "[%05" PRIi64 "ms] %s\n",
+           timeval_diff (&g->launch_t, &tv), msg);
+
+  free (msg);
 }
 
 static int read_all (guestfs_h *g, FILE *fp, char **ret);
