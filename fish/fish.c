@@ -1107,11 +1107,11 @@ int
 is_true (const char *str)
 {
   return
-    strcasecmp (str, "0") != 0 &&
-    strcasecmp (str, "f") != 0 &&
-    strcasecmp (str, "false") != 0 &&
-    strcasecmp (str, "n") != 0 &&
-    strcasecmp (str, "no") != 0;
+    STRCASENEQ (str, "0") &&
+    STRCASENEQ (str, "f") &&
+    STRCASENEQ (str, "false") &&
+    STRCASENEQ (str, "n") &&
+    STRCASENEQ (str, "no");
 }
 
 /* Free strings from a non-NULL terminated char** */
