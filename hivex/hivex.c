@@ -725,7 +725,7 @@ hivex_node_get_child (hive_h *h, hive_node_h node, const char *nname)
   for (i = 0; children[i] != 0; ++i) {
     name = hivex_node_name (h, children[i]);
     if (!name) goto error;
-    if (strcasecmp (name, nname) == 0) {
+    if (STRCASEEQ (name, nname)) {
       ret = children[i];
       break;
     }
@@ -856,7 +856,7 @@ hivex_node_get_value (hive_h *h, hive_node_h node, const char *key)
   for (i = 0; values[i] != 0; ++i) {
     name = hivex_value_key (h, values[i]);
     if (!name) goto error;
-    if (strcasecmp (name, key) == 0) {
+    if (STRCASEEQ (name, key)) {
       ret = values[i];
       break;
     }

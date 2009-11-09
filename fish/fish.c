@@ -843,40 +843,40 @@ issue_command (const char *cmd, char *argv[], const char *pipecmd)
     r = rc_remote (remote_control, cmd, argc, argv, exit_on_error);
 
   /* Otherwise execute it locally. */
-  else if (strcasecmp (cmd, "help") == 0) {
+  else if (STRCASEEQ (cmd, "help")) {
     if (argc == 0)
       list_commands ();
     else
       display_command (argv[0]);
     r = 0;
   }
-  else if (strcasecmp (cmd, "quit") == 0 ||
-           strcasecmp (cmd, "exit") == 0 ||
-           strcasecmp (cmd, "q") == 0) {
+  else if (STRCASEEQ (cmd, "quit") ||
+           STRCASEEQ (cmd, "exit") ||
+           STRCASEEQ (cmd, "q")) {
     quit = 1;
     r = 0;
   }
-  else if (strcasecmp (cmd, "alloc") == 0 ||
-           strcasecmp (cmd, "allocate") == 0)
+  else if (STRCASEEQ (cmd, "alloc") ||
+           STRCASEEQ (cmd, "allocate"))
     r = do_alloc (cmd, argc, argv);
-  else if (strcasecmp (cmd, "echo") == 0)
+  else if (STRCASEEQ (cmd, "echo"))
     r = do_echo (cmd, argc, argv);
-  else if (strcasecmp (cmd, "edit") == 0 ||
-           strcasecmp (cmd, "vi") == 0 ||
-           strcasecmp (cmd, "emacs") == 0)
+  else if (STRCASEEQ (cmd, "edit") ||
+           STRCASEEQ (cmd, "vi") ||
+           STRCASEEQ (cmd, "emacs"))
     r = do_edit (cmd, argc, argv);
-  else if (strcasecmp (cmd, "lcd") == 0)
+  else if (STRCASEEQ (cmd, "lcd"))
     r = do_lcd (cmd, argc, argv);
-  else if (strcasecmp (cmd, "glob") == 0)
+  else if (STRCASEEQ (cmd, "glob"))
     r = do_glob (cmd, argc, argv);
-  else if (strcasecmp (cmd, "more") == 0 ||
-           strcasecmp (cmd, "less") == 0)
+  else if (STRCASEEQ (cmd, "more") ||
+           STRCASEEQ (cmd, "less"))
     r = do_more (cmd, argc, argv);
-  else if (strcasecmp (cmd, "reopen") == 0)
+  else if (STRCASEEQ (cmd, "reopen"))
     r = do_reopen (cmd, argc, argv);
-  else if (strcasecmp (cmd, "sparse") == 0)
+  else if (STRCASEEQ (cmd, "sparse"))
     r = do_sparse (cmd, argc, argv);
-  else if (strcasecmp (cmd, "time") == 0)
+  else if (STRCASEEQ (cmd, "time"))
     r = do_time (cmd, argc, argv);
   else
     r = run_action (cmd, argc, argv);
@@ -941,8 +941,8 @@ display_builtin_command (const char *cmd)
 {
   /* help for actions is auto-generated, see display_command */
 
-  if (strcasecmp (cmd, "alloc") == 0 ||
-      strcasecmp (cmd, "allocate") == 0)
+  if (STRCASEEQ (cmd, "alloc") ||
+      STRCASEEQ (cmd, "allocate"))
     printf (_("alloc - allocate an image\n"
               "     alloc <filename> <size>\n"
               "\n"
@@ -961,14 +961,14 @@ display_builtin_command (const char *cmd)
               "    <nn>P or <nn>PB  number of petabytes\n"
               "    <nn>E or <nn>EB  number of exabytes\n"
               "    <nn>sects        number of 512 byte sectors\n"));
-  else if (strcasecmp (cmd, "echo") == 0)
+  else if (STRCASEEQ (cmd, "echo"))
     printf (_("echo - display a line of text\n"
               "     echo [<params> ...]\n"
               "\n"
               "    This echos the parameters to the terminal.\n"));
-  else if (strcasecmp (cmd, "edit") == 0 ||
-           strcasecmp (cmd, "vi") == 0 ||
-           strcasecmp (cmd, "emacs") == 0)
+  else if (STRCASEEQ (cmd, "edit") ||
+           STRCASEEQ (cmd, "vi") ||
+           STRCASEEQ (cmd, "emacs"))
     printf (_("edit - edit a file in the image\n"
               "     edit <filename>\n"
               "\n"
@@ -982,26 +982,26 @@ display_builtin_command (const char *cmd)
               "\n"
               "    NOTE: This will not work reliably for large files\n"
               "    (> 2 MB) or binary files containing \\0 bytes.\n"));
-  else if (strcasecmp (cmd, "lcd") == 0)
+  else if (STRCASEEQ (cmd, "lcd"))
     printf (_("lcd - local change directory\n"
               "    lcd <directory>\n"
               "\n"
               "    Change guestfish's current directory. This command is\n"
               "    useful if you want to download files to a particular\n"
               "    place.\n"));
-  else if (strcasecmp (cmd, "glob") == 0)
+  else if (STRCASEEQ (cmd, "glob"))
     printf (_("glob - expand wildcards in command\n"
               "    glob <command> [<args> ...]\n"
               "\n"
               "    Glob runs <command> with wildcards expanded in any\n"
               "    command args.  Note that the command is run repeatedly\n"
               "    once for each expanded argument.\n"));
-  else if (strcasecmp (cmd, "help") == 0)
+  else if (STRCASEEQ (cmd, "help"))
     printf (_("help - display a list of commands or help on a command\n"
               "     help cmd\n"
               "     help\n"));
-  else if (strcasecmp (cmd, "more") == 0 ||
-           strcasecmp (cmd, "less") == 0)
+  else if (STRCASEEQ (cmd, "more") ||
+           STRCASEEQ (cmd, "less"))
     printf (_("more - view a file in the pager\n"
               "     more <filename>\n"
               "\n"
@@ -1015,19 +1015,19 @@ display_builtin_command (const char *cmd)
               "\n"
               "    NOTE: This will not work reliably for large files\n"
               "    (> 2 MB) or binary files containing \\0 bytes.\n"));
-  else if (strcasecmp (cmd, "quit") == 0 ||
-           strcasecmp (cmd, "exit") == 0 ||
-           strcasecmp (cmd, "q") == 0)
+  else if (STRCASEEQ (cmd, "quit") ||
+           STRCASEEQ (cmd, "exit") ||
+           STRCASEEQ (cmd, "q"))
     printf (_("quit - quit guestfish\n"
               "     quit\n"));
-  else if (strcasecmp (cmd, "reopen") == 0)
+  else if (STRCASEEQ (cmd, "reopen"))
     printf (_("reopen - close and reopen the libguestfs handle\n"
               "     reopen\n"
               "\n"
               "Close and reopen the libguestfs handle.  It is not necessary to use\n"
               "this normally, because the handle is closed properly when guestfish\n"
               "exits.  However this is occasionally useful for testing.\n"));
-  else if (strcasecmp (cmd, "sparse") == 0)
+  else if (STRCASEEQ (cmd, "sparse"))
     printf (_("sparse - allocate a sparse image file\n"
               "     sparse <filename> <size>\n"
               "\n"
@@ -1054,7 +1054,7 @@ display_builtin_command (const char *cmd)
               "    <nn>P or <nn>PB  number of petabytes\n"
               "    <nn>E or <nn>EB  number of exabytes\n"
               "    <nn>sects        number of 512 byte sectors\n"));
-  else if (strcasecmp (cmd, "time") == 0)
+  else if (STRCASEEQ (cmd, "time"))
     printf (_("time - measure time taken to run command\n"
               "    time <command> [<args> ...]\n"
               "\n"

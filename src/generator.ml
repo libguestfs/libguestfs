@@ -6430,11 +6430,11 @@ and generate_fish_cmds () =
         else "" in
 
       pr "  if (";
-      pr "strcasecmp (cmd, \"%s\") == 0" name;
+      pr "STRCASEEQ (cmd, \"%s\")" name;
       if name <> name2 then
-        pr " || strcasecmp (cmd, \"%s\") == 0" name2;
+        pr " || STRCASEEQ (cmd, \"%s\")" name2;
       if name <> alias then
-        pr " || strcasecmp (cmd, \"%s\") == 0" alias;
+        pr " || STRCASEEQ (cmd, \"%s\")" alias;
       pr ")\n";
       pr "    pod2text (\"%s\", _(\"%s\"), %S);\n"
         name2 shortdesc
@@ -6692,11 +6692,11 @@ and generate_fish_cmds () =
         try find_map (function FishAlias n -> Some n | _ -> None) flags
         with Not_found -> name in
       pr "  if (";
-      pr "strcasecmp (cmd, \"%s\") == 0" name;
+      pr "STRCASEEQ (cmd, \"%s\")" name;
       if name <> name2 then
-        pr " || strcasecmp (cmd, \"%s\") == 0" name2;
+        pr " || STRCASEEQ (cmd, \"%s\")" name2;
       if name <> alias then
-        pr " || strcasecmp (cmd, \"%s\") == 0" alias;
+        pr " || STRCASEEQ (cmd, \"%s\")" alias;
       pr ")\n";
       pr "    return run_%s (cmd, argc, argv);\n" name;
       pr "  else\n";

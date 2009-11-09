@@ -113,7 +113,7 @@ do_case_sensitive_path (const char *path)
 
     errno = 0;
     while ((d = readdir (dir)) != NULL) {
-      if (strcasecmp (d->d_name, name) == 0)
+      if (STRCASEEQ (d->d_name, name))
         break;
     }
 

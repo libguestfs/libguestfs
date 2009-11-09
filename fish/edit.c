@@ -88,9 +88,9 @@ do_edit (const char *cmd, int argc, char *argv[])
   }
 
   /* Choose an editor. */
-  if (strcasecmp (cmd, "vi") == 0)
+  if (STRCASEEQ (cmd, "vi"))
     editor = "vi";
-  else if (strcasecmp (cmd, "emacs") == 0)
+  else if (STRCASEEQ (cmd, "emacs"))
     editor = "emacs -nw";
   else {
     editor = getenv ("EDITOR");

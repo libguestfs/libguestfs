@@ -80,7 +80,7 @@ do_debug (const char *subcmd MAYBE_UNUSED, char *const *argv MAYBE_UNUSED)
     argc++;
 
   for (i = 0; cmds[i].cmd != NULL; ++i) {
-    if (strcasecmp (subcmd, cmds[i].cmd) == 0)
+    if (STRCASEEQ (subcmd, cmds[i].cmd))
       return cmds[i].f (subcmd, argc, argv);
   }
 

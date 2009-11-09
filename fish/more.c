@@ -42,7 +42,7 @@ do_more (const char *cmd, int argc, char *argv[])
   }
 
   /* Choose a pager. */
-  if (strcasecmp (cmd, "less") == 0)
+  if (STRCASEEQ (cmd, "less"))
     pager = "less";
   else {
     pager = getenv ("PAGER");

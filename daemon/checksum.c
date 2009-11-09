@@ -36,19 +36,19 @@ do_checksum (const char *csumtype, const char *path)
   int r;
   int len;
 
-  if (strcasecmp (csumtype, "crc") == 0)
+  if (STRCASEEQ (csumtype, "crc"))
     program = "cksum";
-  else if (strcasecmp (csumtype, "md5") == 0)
+  else if (STRCASEEQ (csumtype, "md5"))
     program = "md5sum";
-  else if (strcasecmp (csumtype, "sha1") == 0)
+  else if (STRCASEEQ (csumtype, "sha1"))
     program = "sha1sum";
-  else if (strcasecmp (csumtype, "sha224") == 0)
+  else if (STRCASEEQ (csumtype, "sha224"))
     program = "sha224sum";
-  else if (strcasecmp (csumtype, "sha256") == 0)
+  else if (STRCASEEQ (csumtype, "sha256"))
     program = "sha256sum";
-  else if (strcasecmp (csumtype, "sha384") == 0)
+  else if (STRCASEEQ (csumtype, "sha384"))
     program = "sha384sum";
-  else if (strcasecmp (csumtype, "sha512") == 0)
+  else if (STRCASEEQ (csumtype, "sha512"))
     program = "sha512sum";
   else {
     reply_with_error ("unknown checksum type, expecting crc|md5|sha1|sha224|sha256|sha384|sha512");
