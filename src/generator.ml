@@ -9317,6 +9317,12 @@ module Guestfs (
 
   pr "
   ) where
+
+-- Unfortunately some symbols duplicate ones already present
+-- in Prelude.  We don't know which, so we hard-code a list
+-- here.
+import Prelude hiding (truncate)
+
 import Foreign
 import Foreign.C
 import Foreign.C.Types
