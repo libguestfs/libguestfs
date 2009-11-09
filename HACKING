@@ -84,14 +84,14 @@ fish/
         Guestfish (the command-line program / shell)
 
 fuse/
-	FUSE (userspace filesystem) built on top of libguestfs.
+        FUSE (userspace filesystem) built on top of libguestfs.
 
 haskell/
         Haskell bindings.
 
 hivex/
-	Hive extraction library, for reading Windows Registry files.
-	See hivex/README for more details.
+        Hive extraction library, for reading Windows Registry files.
+        See hivex/README for more details.
 
 images/
         Some guest images to test against.  These are gzipped to save

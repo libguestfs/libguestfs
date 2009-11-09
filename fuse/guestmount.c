@@ -694,7 +694,7 @@ fg_release (const char *path, struct fuse_file_info *fi)
 
 /* Emulate this by calling sync. */
 static int fg_fsync(const char *path, int isdatasync,
-		     struct fuse_file_info *fi)
+                     struct fuse_file_info *fi)
 {
   int r;
 

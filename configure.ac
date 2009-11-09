@@ -424,8 +424,8 @@ AC_SUBST([LIBXML2_LIBS])
 dnl FUSE is optional to build the FUSE module.
 HAVE_FUSE=yes
 PKG_CHECK_MODULES([FUSE],[fuse],,[
-	HAVE_FUSE=no
-	AC_MSG_WARN([FUSE library and headers are missing, so optional FUSE module won't be built])])
+        HAVE_FUSE=no
+        AC_MSG_WARN([FUSE library and headers are missing, so optional FUSE module won't be built])])
 AM_CONDITIONAL([HAVE_FUSE],[test "x$HAVE_FUSE" = "xyes"])
 
 dnl Check for OCaml (optional, for OCaml bindings).

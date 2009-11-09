@@ -167,9 +167,9 @@ my $i;
 
 for ($i = 0; $i < @ARGV; ++$i) {
     if (substr ($ARGV[$i], 0, 1) eq "\\") {
-	@lib_args = @ARGV[0 .. ($i-1)];
-	@ARGV = @ARGV[$i .. $#ARGV];
-	last;
+        @lib_args = @ARGV[0 .. ($i-1)];
+        @ARGV = @ARGV[$i .. $#ARGV];
+        last;
     }
 }
 
@@ -214,63 +214,63 @@ for ($i = 0; $i < @ARGV; ++$i) {
     $_ = $ARGV[$i];
 
     if (/^\\HKEY_LOCAL_MACHINE\\SAM(\\.*)/i) {
-	$winfile = "/windows/system32/config/sam";
-	$localhive = "$tmpdir/sam";
-	$path = $1;
+        $winfile = "/windows/system32/config/sam";
+        $localhive = "$tmpdir/sam";
+        $path = $1;
     }
     elsif (/^\\HKEY_LOCAL_MACHINE\\SECURITY(\\.*)/i) {
-	$winfile = "/windows/system32/config/security";
-	$localhive = "$tmpdir/security";
-	$path = $1;
+        $winfile = "/windows/system32/config/security";
+        $localhive = "$tmpdir/security";
+        $path = $1;
     }
     elsif (/^\\HKEY_LOCAL_MACHINE\\SOFTWARE(\\.*)/i) {
-	$winfile = "/windows/system32/config/software";
-	$localhive = "$tmpdir/software";
-	$path = $1;
+        $winfile = "/windows/system32/config/software";
+        $localhive = "$tmpdir/software";
+        $path = $1;
     }
     elsif (/^\\HKEY_LOCAL_MACHINE\\SYSTEM(\\.*)/i) {
-	$winfile = "/windows/system32/config/system";
-	$localhive = "$tmpdir/system";
-	$path = $1;
+        $winfile = "/windows/system32/config/system";
+        $localhive = "$tmpdir/system";
+        $path = $1;
     }
     elsif (/^\\HKEY_USERS\\.DEFAULT(\\.*)/i) {
-	$winfile = "/windows/system32/config/default";
-	$localhive = "$tmpdir/default";
-	$path = $1;
+        $winfile = "/windows/system32/config/default";
+        $localhive = "$tmpdir/default";
+        $path = $1;
     }
     else {
-	die "virt-win-reg: $_: not a supported Windows Registry path\n"
+        die "virt-win-reg: $_: not a supported Windows Registry path\n"
     }
 
     unless (-f $localhive) {
-	# Check the hive file exists and get the real name.
-	eval {
-	    $winfile = $g->case_sensitive_path ($winfile);
-	    $g->download ($winfile, $localhive);
-	};
-	if ($@) {
-	    die "virt-win-reg: $winfile: could not download registry file: $@\n"
-	}
+        # Check the hive file exists and get the real name.
+        eval {
+            $winfile = $g->case_sensitive_path ($winfile);
+            $g->download ($winfile, $localhive);
+        };
+        if ($@) {
+            die "virt-win-reg: $winfile: could not download registry file: $@\n"
+        }
     }
 
     # What sort of request is it?  Peek at the next arg.
     my $name; # will be: undefined, @ or a name
     if ($i+1 < @ARGV) {
-	if (substr ($ARGV[$i+1], 0, 1) ne "\\") {
-	    $name = $ARGV[$i+1];
-	    $i++;
-	}
+        if (substr ($ARGV[$i+1], 0, 1) ne "\\") {
+            $name = $ARGV[$i+1];
+            $i++;
+        }
     }
 
     my @cmd;
     if (defined $name) {
-	@cmd = ("hivexget", $localhive, $path, $name);
+        @cmd = ("hivexget", $localhive, $path, $name);
     } else {
-	@cmd = ("hivexget", $localhive, $path);
+        @cmd = ("hivexget", $localhive, $path);
     }
 
     system (@cmd) == 0
-	or die "hivexget command failed: $?\n";
+        or die "hivexget command failed: $?\n";
 }
 
 =head1 SEE ALSO

@@ -641,7 +641,7 @@ commandvf (char **stdoutput, char **stderror, int flags,
  */
 int
 commandrvf (char **stdoutput, char **stderror, int flags,
-	    char const* const *argv)
+            char const* const *argv)
 {
   int so_size = 0, se_size = 0;
   int so_fd[2], se_fd[2];
@@ -746,19 +746,19 @@ commandrvf (char **stdoutput, char **stderror, int flags,
       if (r == 0) { FD_CLR (se_fd[0], &rset); quit++; }
 
       if (r > 0) {
-	if (verbose)
-	  ignore_value (write (2, buf, r));
+        if (verbose)
+          ignore_value (write (2, buf, r));
 
-	if (stderror) {
-	  se_size += r;
-	  p = realloc (*stderror, se_size);
-	  if (p == NULL) {
-	    perror ("realloc");
-	    goto quit;
-	  }
-	  *stderror = p;
-	  memcpy (*stderror + se_size - r, buf, r);
-	}
+        if (stderror) {
+          se_size += r;
+          p = realloc (*stderror, se_size);
+          if (p == NULL) {
+            perror ("realloc");
+            goto quit;
+          }
+          *stderror = p;
+          memcpy (*stderror + se_size - r, buf, r);
+        }
       }
     }
   }

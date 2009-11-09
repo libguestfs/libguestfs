@@ -4688,7 +4688,7 @@ and generate_xdr () =
            List.iter (
              function
              | Pathname n | Device n | Dev_or_Path n | String n ->
-		 pr "  string %s<>;\n" n
+                 pr "  string %s<>;\n" n
              | OptString n -> pr "  str *%s;\n" n
              | StringList n | DeviceList n -> pr "  str %s<>;\n" n
              | Bool n -> pr "  bool %s;\n" n
@@ -6581,11 +6581,11 @@ and generate_fish_cmds () =
           function
           | Device name
           | String name ->
-	      pr "  %s = argv[%d];\n" name i
+              pr "  %s = argv[%d];\n" name i
           | Pathname name
           | Dev_or_Path name ->
-	      pr "  %s = resolve_win_path (argv[%d]);\n" name i;
-	      pr "  if (%s == NULL) return -1;\n" name
+              pr "  %s = resolve_win_path (argv[%d]);\n" name i;
+              pr "  if (%s == NULL) return -1;\n" name
           | OptString name ->
               pr "  %s = strcmp (argv[%d], \"\") != 0 ? argv[%d] : NULL;\n"
                 name i i
@@ -7255,7 +7255,7 @@ copy_table (char * const * argv)
         | StringList n | DeviceList n ->
             pr "  ocaml_guestfs_free_strings (%s);\n" n;
         | Pathname _ | Device _ | Dev_or_Path _ | String _ | OptString _
-	| Bool _ | Int _ | Int64 _
+        | Bool _ | Int _ | Int64 _
         | FileIn _ | FileOut _ -> ()
       ) (snd style);
 
@@ -7506,7 +7506,7 @@ DESTROY (g)
         List.iter (
           function
           | Pathname _ | Device _ | Dev_or_Path _ | String _ | OptString _
-	  | Bool _ | Int _ | Int64 _
+          | Bool _ | Int _ | Int64 _
           | FileIn _ | FileOut _ -> ()
           | StringList n | DeviceList n -> pr "      free (%s);\n" n
         ) (snd style)
@@ -8160,8 +8160,8 @@ py_guestfs_close (PyObject *self, PyObject *args)
         | Bool _ -> pr "i" (* XXX Python has booleans? *)
         | Int _ -> pr "i"
         | Int64 _ -> pr "L" (* XXX Whoever thought it was a good idea to
-			     * emulate C's int/long/long long in Python?
-			     *)
+                             * emulate C's int/long/long long in Python?
+                             *)
       ) (snd style);
       pr ":guestfs_%s\",\n" name;
       pr "                         &py_g";
@@ -9129,7 +9129,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
             pr "  free (%s);\n" n
         | Bool n
         | Int n
-	| Int64 n -> ()
+        | Int64 n -> ()
       ) (snd style);
 
       (* Check for errors. *)

@@ -55,13 +55,13 @@ extern void free_stringslen (char **argv, int len);
 #define COMMAND_FLAG_FOLD_STDOUT_ON_STDERR 1
 
 extern int commandf (char **stdoutput, char **stderror, int flags,
-		     const char *name, ...);
+                     const char *name, ...);
 extern int commandrf (char **stdoutput, char **stderror, int flags,
-		      const char *name, ...);
+                      const char *name, ...);
 extern int commandvf (char **stdoutput, char **stderror, int flags,
                       char const *const *argv);
 extern int commandrvf (char **stdoutput, char **stderror, int flags,
-		       char const* const *argv);
+                       char const* const *argv);
 
 extern char **split_lines (char *str);
 
