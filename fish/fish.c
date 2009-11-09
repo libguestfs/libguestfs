@@ -1340,7 +1340,7 @@ resolve_win_path (const char *path)
   char *ret;
   size_t i;
 
-  if (strncasecmp (path, "win:", 4) != 0) {
+  if (STRCASENEQLEN (path, "win:", 4)) {
     ret = strdup (path);
     if (ret == NULL)
       perror ("strdup");
