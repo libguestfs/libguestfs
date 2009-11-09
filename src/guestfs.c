@@ -107,7 +107,8 @@ struct guestfs_h
   int sock;			/* Daemon communications socket. */
   pid_t pid;			/* Qemu PID. */
   pid_t recoverypid;		/* Recovery process PID. */
-  time_t start_t;		/* The time when we started qemu. */
+
+  struct timeval launch_t;      /* The time that we called guestfs_launch. */
 
   char *tmpdir;			/* Temporary directory containing socket. */
 
@@ -876,6 +877,9 @@ guestfs__launch (guestfs_h *g)
   char unixsock[256];
   struct sockaddr_un addr;
 
+  /* Start the clock ... */
+  gettimeofday (&g->launch_t, NULL);
+
 #ifdef P_tmpdir
   tmpdir = P_tmpdir;
 #else
@@ -1264,9 +1268,6 @@ guestfs__launch (guestfs_h *g)
     g->recoverypid = r;
   }
 
-  /* Start the clock ... */
-  time (&g->start_t);
-
   if (!g->direct) {
     /* Close the other ends of the pipe. */
     close (wfd[0]);
@@ -1414,7 +1415,7 @@ guestfs__launch (guestfs_h *g)
   g->fd[1] = -1;
   g->pid = 0;
   g->recoverypid = 0;
-  g->start_t = 0;
+  memset (&g->launch_t, 0, sizeof g->launch_t);
 
  cleanup0:
   if (g->sock >= 0) {
@@ -1840,7 +1841,7 @@ child_cleanup (guestfs_h *g)
   g->sock = -1;
   g->pid = 0;
   g->recoverypid = 0;
-  g->start_t = 0;
+  memset (&g->launch_t, 0, sizeof g->launch_t);
   g->state = CONFIG;
   if (g->subprocess_quit_cb)
     g->subprocess_quit_cb (g, g->subprocess_quit_cb_data);
