@@ -36,8 +36,6 @@ local-checks-to-skip =			\
   sc_prohibit_quote_without_use		\
   sc_prohibit_quotearg_without_use	\
   sc_prohibit_stat_st_blocks		\
-  sc_prohibit_strcmp_and_strncmp	\
-  sc_prohibit_strcmp			\
   sc_space_tab				\
   sc_two_space_separator_in_usage	\
   sc_error_message_uppercase		\
