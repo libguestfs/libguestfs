@@ -6772,7 +6772,7 @@ generator (const char *text, int state)
 
   while ((name = commands[index]) != NULL) {
     index++;
-    if (strncasecmp (name, text, len) == 0)
+    if (STRCASEEQLEN (name, text, len))
       return strdup (name);
   }
 

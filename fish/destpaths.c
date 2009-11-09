@@ -215,7 +215,7 @@ complete_dest_paths_generator (const char *text, int state)
     word = &words[index];
     index++;
 
-    if (strncasecmp (word->name, text, len) == 0) {
+    if (STRCASEEQLEN (word->name, text, len)) {
       if (word->is_dir)
         rl_completion_append_character = '/';
 

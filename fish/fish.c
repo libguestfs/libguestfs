@@ -1350,7 +1350,7 @@ resolve_win_path (const char *path)
   path += 4;
 
   /* Drop drive letter, if it's "C:". */
-  if (strncasecmp (path, "c:", 2) == 0)
+  if (STRCASEEQLEN (path, "c:", 2))
     path += 2;
 
   if (!*path) {
