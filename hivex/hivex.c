@@ -30,7 +30,6 @@
 #include <iconv.h>
 #include <sys/mman.h>
 #include <sys/stat.h>
-#include <assert.h>
 #ifdef HAVE_ENDIAN_H
 #include <endian.h>
 #endif
