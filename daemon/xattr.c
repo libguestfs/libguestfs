@@ -410,7 +410,7 @@ do_lxattrlist (const char *path, char *const *names)
       fprintf (stderr, "  %zu: special attrval = %s\n",
                k, entry[0].attrval.attrval_val);
       for (i = 1; k+i < ret->guestfs_int_xattr_list_len; ++i) {
-        if (strcmp (entry[i].attrname, "") == 0)
+        if (STREQ (entry[i].attrname, ""))
           break;
         fprintf (stderr, "    name %s, value length %d\n",
                  entry[i].attrname, entry[i].attrval.attrval_len);

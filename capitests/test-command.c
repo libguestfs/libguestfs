@@ -30,27 +30,27 @@ int
 main (int argc, char *argv[])
 {
   if (argc > 1) {
-    if (strcmp (argv[1], "1") == 0) {
+    if (STREQ (argv[1], "1")) {
       printf ("Result1");
-    } else if (strcmp (argv[1], "2") == 0) {
+    } else if (STREQ (argv[1], "2")) {
       printf ("Result2\n");
-    } else if (strcmp (argv[1], "3") == 0) {
+    } else if (STREQ (argv[1], "3")) {
       printf ("\nResult3");
-    } else if (strcmp (argv[1], "4") == 0) {
+    } else if (STREQ (argv[1], "4")) {
       printf ("\nResult4\n");
-    } else if (strcmp (argv[1], "5") == 0) {
+    } else if (STREQ (argv[1], "5")) {
       printf ("\nResult5\n\n");
-    } else if (strcmp (argv[1], "6") == 0) {
+    } else if (STREQ (argv[1], "6")) {
       printf ("\n\nResult6\n\n");
-    } else if (strcmp (argv[1], "7") == 0) {
+    } else if (STREQ (argv[1], "7")) {
       /* nothing */
-    } else if (strcmp (argv[1], "8") == 0) {
+    } else if (STREQ (argv[1], "8")) {
       printf ("\n");
-    } else if (strcmp (argv[1], "9") == 0) {
+    } else if (STREQ (argv[1], "9")) {
       printf ("\n\n");
-    } else if (strcmp (argv[1], "10") == 0) {
+    } else if (STREQ (argv[1], "10")) {
       printf ("Result10-1\nResult10-2\n");
-    } else if (strcmp (argv[1], "11") == 0) {
+    } else if (STREQ (argv[1], "11")) {
       printf ("Result11-1\nResult11-2");
     } else {
       fprintf (stderr, "unknown parameter: %s\n", argv[1]);

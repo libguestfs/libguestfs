@@ -48,21 +48,21 @@ mkfs (const char *fstype, const char *device,
    * to every block and does bad block detection, neither of which
    * are useful behaviour for virtual devices.
    */
-  if (strcmp (fstype, "ntfs") == 0)
+  if (STREQ (fstype, "ntfs"))
     argv[i++] = "-Q";
 
   /* mkfs.reiserfs produces annoying interactive prompts unless you
    * tell it to be quiet.
    */
-  if (strcmp (fstype, "reiserfs") == 0)
+  if (STREQ (fstype, "reiserfs"))
     argv[i++] = "-f";
 
   /* Same for JFS. */
-  if (strcmp (fstype, "jfs") == 0)
+  if (STREQ (fstype, "jfs"))
     argv[i++] = "-f";
 
   /* For GFS, GFS2, assume a single node. */
-  if (strcmp (fstype, "gfs") == 0 || strcmp (fstype, "gfs2") == 0) {
+  if (STREQ (fstype, "gfs") || STREQ (fstype, "gfs2")) {
     argv[i++] = "-p";
     argv[i++] = "lock_nolock";
     /* The man page says this is default, but it doesn't seem to be: */

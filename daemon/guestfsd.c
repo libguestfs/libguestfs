@@ -831,7 +831,7 @@ split_lines (char *str)
   int size = 0, alloc = 0;
   char *p, *pend;
 
-  if (strcmp (str, "") == 0)
+  if (STREQ (str, ""))
     goto empty_list;
 
   p = str;

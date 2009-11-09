@@ -481,9 +481,9 @@ do_zfile (const char *method, const char *path)
   FILE *fp;
   char line[256];
 
-  if (strcmp (method, "gzip") == 0 || strcmp (method, "compress") == 0)
+  if (STREQ (method, "gzip") || STREQ (method, "compress"))
     zcat = "zcat";
-  else if (strcmp (method, "bzip2") == 0)
+  else if (STREQ (method, "bzip2"))
     zcat = "bzcat";
   else {
     reply_with_error ("zfile: unknown method");

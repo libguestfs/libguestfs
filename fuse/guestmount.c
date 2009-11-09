@@ -745,7 +745,7 @@ fg_getxattr (const char *path, const char *name, char *value,
   size_t i;
   int r = -ENOATTR;
   for (i = 0; i < xattrs->len; ++i) {
-    if (strcmp (xattrs->val[i].attrname, name) == 0) {
+    if (STREQ (xattrs->val[i].attrname, name)) {
       size_t sz = xattrs->val[i].attrval_len;
       if (sz > size)
         sz = size;
@@ -993,13 +993,13 @@ main (int argc, char *argv[])
 
     switch (c) {
     case 0:			/* options which are long only */
-      if (strcmp (long_options[option_index].name, "dir-cache-timeout") == 0)
+      if (STREQ (long_options[option_index].name, "dir-cache-timeout"))
         dir_cache_timeout = atoi (optarg);
-      else if (strcmp (long_options[option_index].name, "fuse-help") == 0)
+      else if (STREQ (long_options[option_index].name, "fuse-help"))
         fuse_help ();
-      else if (strcmp (long_options[option_index].name, "selinux") == 0)
+      else if (STREQ (long_options[option_index].name, "selinux"))
         guestfs_set_selinux (g, 1);
-      else if (strcmp (long_options[option_index].name, "trace") == 0) {
+      else if (STREQ (long_options[option_index].name, "trace")) {
         ADD_FUSE_ARG ("-f");
         guestfs_set_trace (g, 1);
         guestfs_set_recovery_proc (g, 1);

@@ -50,7 +50,7 @@ do_mount_vfs (const char *options, const char *vfstype,
 
   ABS_PATH (mountpoint, return -1);
 
-  is_root = strcmp (mountpoint, "/") == 0;
+  is_root = STREQ (mountpoint, "/");
 
   if (!root_mounted && !is_root) {
     reply_with_error ("mount: you must mount something on / first");

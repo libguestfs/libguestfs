@@ -215,9 +215,9 @@ main (int argc, char *argv[])
 
     switch (c) {
     case 0:			/* options which are long only */
-      if (strcmp (long_options[option_index].name, "listen") == 0)
+      if (STREQ (long_options[option_index].name, "listen"))
         remote_control_listen = 1;
-      else if (strcmp (long_options[option_index].name, "remote") == 0) {
+      else if (STREQ (long_options[option_index].name, "remote")) {
         if (optarg) {
           if (sscanf (optarg, "%d", &remote_control) != 1) {
             fprintf (stderr, _("%s: --listen=PID: PID was not a number: %s\n"),
@@ -233,7 +233,7 @@ main (int argc, char *argv[])
             exit (1);
           }
         }
-      } else if (strcmp (long_options[option_index].name, "selinux") == 0) {
+      } else if (STREQ (long_options[option_index].name, "selinux")) {
         guestfs_set_selinux (g, 1);
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
@@ -755,7 +755,7 @@ cmdline (char *argv[], int optind, int argc)
   if (optind >= argc) return;
 
   cmd = argv[optind++];
-  if (strcmp (cmd, ":") == 0) {
+  if (STREQ (cmd, ":")) {
     fprintf (stderr, _("%s: empty command on command line\n"), program_name);
     exit (1);
   }

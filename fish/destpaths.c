@@ -168,7 +168,7 @@ complete_dest_paths_generator (const char *text, int state)
 
             if (strcmp (dirents->val[i].name, ".") != 0 &&
                 strcmp (dirents->val[i].name, "..") != 0) {
-              if (strcmp (dir, "/") == 0)
+              if (STREQ (dir, "/"))
                 err = asprintf (&p, "/%s", dirents->val[i].name);
               else
                 err = asprintf (&p, "%s/%s", dir, dirents->val[i].name);

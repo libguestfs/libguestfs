@@ -5878,9 +5878,9 @@ static int %s_skip (void)
   if (str)
     return strstr (str, \"%s\") == NULL;
   str = getenv (\"SKIP_%s\");
-  if (str && strcmp (str, \"1\") == 0) return 1;
+  if (str && STREQ (str, \"1\")) return 1;
   str = getenv (\"SKIP_TEST_%s\");
-  if (str && strcmp (str, \"1\") == 0) return 1;
+  if (str && STREQ (str, \"1\")) return 1;
   return 0;
 }
 
@@ -9570,7 +9570,7 @@ print_strings (char *const *argv)
              pr "  sscanf (val, \"%%\" SCNi64, &r);\n";
              pr "  return r;\n"
          | RBool _ ->
-             pr "  return strcmp (val, \"true\") == 0;\n"
+             pr "  return STREQ (val, \"true\");\n"
          | RConstString _
          | RConstOptString _ ->
              (* Can't return the input string here.  Return a static

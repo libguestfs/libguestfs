@@ -47,7 +47,7 @@ do_ls (const char *path)
   }
 
   while ((d = readdir (dir)) != NULL) {
-    if (strcmp (d->d_name, ".") == 0 || strcmp (d->d_name, "..") == 0)
+    if (STREQ (d->d_name, ".") || STREQ (d->d_name, ".."))
       continue;
 
     if (add_string (&r, &size, &alloc, d->d_name) == -1) {

@@ -100,11 +100,11 @@ main (int argc, char *argv[])
 
     switch (c) {
     case 0:			/* options which are long only */
-      if (strcmp (long_options[option_index].name, "helper") == 0)
+      if (STREQ (long_options[option_index].name, "helper"))
         helper = optarg;
-      else if (strcmp (long_options[option_index].name, "qemu") == 0)
+      else if (STREQ (long_options[option_index].name, "qemu"))
         set_qemu (optarg, 0);
-      else if (strcmp (long_options[option_index].name, "qemudir") == 0)
+      else if (STREQ (long_options[option_index].name, "qemudir"))
         set_qemu (optarg, 1);
       else {
         fprintf (stderr,

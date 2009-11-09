@@ -173,10 +173,10 @@ guestfs_create (void)
   g->recovery_proc = 1;
 
   str = getenv ("LIBGUESTFS_DEBUG");
-  g->verbose = str != NULL && strcmp (str, "1") == 0;
+  g->verbose = str != NULL && STREQ (str, "1");
 
   str = getenv ("LIBGUESTFS_TRACE");
-  g->trace = str != NULL && strcmp (str, "1") == 0;
+  g->trace = str != NULL && STREQ (str, "1");
 
   str = getenv ("LIBGUESTFS_PATH");
   g->path = str != NULL ? strdup (str) : strdup (GUESTFS_DEFAULT_PATH);
@@ -722,13 +722,13 @@ guestfs__config (guestfs_h *g,
   /* A bit fascist, but the user will probably break the extra
    * parameters that we add if they try to set any of these.
    */
-  if (strcmp (qemu_param, "-kernel") == 0 ||
-      strcmp (qemu_param, "-initrd") == 0 ||
-      strcmp (qemu_param, "-nographic") == 0 ||
-      strcmp (qemu_param, "-serial") == 0 ||
-      strcmp (qemu_param, "-full-screen") == 0 ||
-      strcmp (qemu_param, "-std-vga") == 0 ||
-      strcmp (qemu_param, "-vnc") == 0) {
+  if (STREQ (qemu_param, "-kernel") ||
+      STREQ (qemu_param, "-initrd") ||
+      STREQ (qemu_param, "-nographic") ||
+      STREQ (qemu_param, "-serial") ||
+      STREQ (qemu_param, "-full-screen") ||
+      STREQ (qemu_param, "-std-vga") ||
+      STREQ (qemu_param, "-vnc")) {
     error (g, _("guestfs_config: parameter '%s' isn't allowed"), qemu_param);
     return -1;
   }

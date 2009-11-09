@@ -100,7 +100,7 @@ gen_compare (void const *x, void const *y)
 {
   struct lsc_entry const *a = x;
   struct lsc_entry const *b = y;
-  return strcmp (a->pathname, b->pathname) == 0;
+  return STREQ (a->pathname, b->pathname);
 }
 
 static void
@@ -250,7 +250,7 @@ lsc_insert (const char *path, const char *name, time_t now,
     free (entry);
     return -1;
   }
-  if (strcmp (path, "/") == 0)
+  if (STREQ (path, "/"))
     snprintf (entry->pathname, len, "/%s", name);
   else
     snprintf (entry->pathname, len, "%s/%s", path, name);
@@ -285,7 +285,7 @@ xac_insert (const char *path, const char *name, time_t now,
     free (entry);
     return -1;
   }
-  if (strcmp (path, "/") == 0)
+  if (STREQ (path, "/"))
     snprintf (entry->pathname, len, "/%s", name);
   else
     snprintf (entry->pathname, len, "%s/%s", path, name);
@@ -320,7 +320,7 @@ rlc_insert (const char *path, const char *name, time_t now,
     free (entry);
     return -1;
   }
-  if (strcmp (path, "/") == 0)
+  if (STREQ (path, "/"))
     snprintf (entry->pathname, len, "/%s", name);
   else
     snprintf (entry->pathname, len, "%s/%s", path, name);

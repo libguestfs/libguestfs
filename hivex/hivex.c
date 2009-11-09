@@ -235,7 +235,7 @@ hivex_open (const char *filename, int flags)
   h->msglvl = flags & HIVEX_OPEN_MSGLVL_MASK;
 
   const char *debug = getenv ("HIVEX_DEBUG");
-  if (debug && strcmp (debug, "1") == 0)
+  if (debug && STREQ (debug, "1"))
     h->msglvl = 2;
 
   if (h->msglvl >= 2)

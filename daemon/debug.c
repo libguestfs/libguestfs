@@ -150,7 +150,7 @@ debug_fds (const char *subcmd, int argc, char *const *const argv)
   }
 
   while ((d = readdir (dir)) != NULL) {
-    if (strcmp (d->d_name, ".") == 0 || strcmp (d->d_name, "..") == 0)
+    if (STREQ (d->d_name, ".") || STREQ (d->d_name, ".."))
       continue;
 
     snprintf (fname, sizeof fname, "/proc/self/fd/%s", d->d_name);

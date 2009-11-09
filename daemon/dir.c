@@ -56,7 +56,7 @@ do_rm_rf (const char *path)
   int r;
   char *buf, *err;
 
-  if (strcmp (path, "/") == 0) {
+  if (STREQ (path, "/")) {
     reply_with_error ("rm -rf: cannot remove root directory");
     return -1;
   }

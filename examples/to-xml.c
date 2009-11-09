@@ -120,7 +120,7 @@ display_partition (guestfs_h *g, const char *dev)
 
   CALL (what = guestfs_file (g, dev), NULL);
 
-  if (strcmp (what, "x86 boot sector") == 0)
+  if (STREQ (what, "x86 boot sector"))
     /* This is what 'file' program shows for Windows/NTFS partitions. */
     printf ("<windows/>\n");
   else if (strstr (what, "boot sector") != NULL)
@@ -190,9 +190,9 @@ display_ext234 (guestfs_h *g, const char *dev, const char *fstype)
     /* Just pick out a few important fields to display.  There
      * is much more that could be displayed here.
      */
-    if (strcmp (sbfields[i], "Filesystem UUID") == 0)
+    if (STREQ (sbfields[i], "Filesystem UUID"))
       printf ("<uuid>%s</uuid>\n", sbfields[i+1]);
-    else if (strcmp (sbfields[i], "Block size") == 0)
+    else if (STREQ (sbfields[i], "Block size"))
       printf ("<blocksize>%s</blocksize>\n", sbfields[i+1]);
 
     free (sbfields[i]);

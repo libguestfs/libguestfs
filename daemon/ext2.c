@@ -78,9 +78,9 @@ do_tune2fs_l (const char *device)
         free (out);
         return NULL;
       }
-      if (strcmp (colon, "<none>") == 0 ||
-          strcmp (colon, "<not available>") == 0 ||
-          strcmp (colon, "(none)") == 0) {
+      if (STREQ (colon, "<none>") ||
+          STREQ (colon, "<not available>") ||
+          STREQ (colon, "(none)")) {
         if (add_string (&ret, &size, &alloc, "") == -1) {
           free (out);
           return NULL;
