@@ -762,7 +762,7 @@ cmdline (char *argv[], int optind, int argc)
   params = &argv[optind];
 
   /* Search for end of command list or ":" ... */
-  while (optind < argc && strcmp (argv[optind], ":") != 0)
+  while (optind < argc && STRNEQ (argv[optind], ":"))
     optind++;
 
   if (optind == argc) {

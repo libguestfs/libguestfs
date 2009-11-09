@@ -250,7 +250,7 @@ rc_listen (void)
         goto error;
       }
 
-      if (strcmp (hello.vers, PACKAGE_VERSION) != 0) {
+      if (STRNEQ (hello.vers, PACKAGE_VERSION)) {
         fprintf (stderr, _("guestfish: protocol error: version mismatch, server version '%s' does not match client version '%s'.  The two versions must match exactly.\n"),
                  PACKAGE_VERSION,
                  hello.vers);

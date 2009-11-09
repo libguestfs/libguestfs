@@ -403,7 +403,7 @@ do_lxattrlist (const char *path, char *const *names)
     fprintf (stderr, "lxattrlist: returning: [\n");
     for (k = 0; k < ret->guestfs_int_xattr_list_len; ++k) {
       const guestfs_int_xattr *entry = &ret->guestfs_int_xattr_list_val[k];
-      if (strcmp (entry[0].attrname, "") != 0) {
+      if (STRNEQ (entry[0].attrname, "")) {
         fprintf (stderr, "ERROR: expecting empty attrname at k = %zu\n", k);
         break;
       }

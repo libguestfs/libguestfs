@@ -6001,7 +6001,7 @@ and generate_one_test_body name i test_name init test =
       pr "  const char *expected = \"%s\";\n" (c_quote expected);
       let seq, last = get_seq_last seq in
       let test () =
-        pr "    if (strcmp (r, expected) != 0) {\n";
+        pr "    if (STRNEQ (r, expected)) {\n";
         pr "      fprintf (stderr, \"%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", expected, r);\n" test_name;
         pr "      return -1;\n";
         pr "    }\n"
@@ -6021,7 +6021,7 @@ and generate_one_test_body name i test_name init test =
             pr "    }\n";
             pr "    {\n";
             pr "      const char *expected = \"%s\";\n" (c_quote str);
-            pr "      if (strcmp (r[%d], expected) != 0) {\n" i;
+            pr "      if (STRNEQ (r[%d], expected)) {\n" i;
             pr "        fprintf (stderr, \"%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", expected, r[%d]);\n" test_name i;
             pr "        return -1;\n";
             pr "      }\n";
@@ -6050,7 +6050,7 @@ and generate_one_test_body name i test_name init test =
             pr "    {\n";
             pr "      const char *expected = \"%s\";\n" (c_quote str);
             pr "      r[%d][5] = 's';\n" i;
-            pr "      if (strcmp (r[%d], expected) != 0) {\n" i;
+            pr "      if (STRNEQ (r[%d], expected)) {\n" i;
             pr "        fprintf (stderr, \"%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", expected, r[%d]);\n" test_name i;
             pr "        return -1;\n";
             pr "      }\n";
@@ -6174,7 +6174,7 @@ and generate_one_test_body name i test_name init test =
               pr "      return -1;\n";
               pr "    }\n"
           | CompareWithString (field, expected) ->
-              pr "    if (strcmp (r->%s, \"%s\") != 0) {\n" field expected;
+              pr "    if (STRNEQ (r->%s, \"%s\")) {\n" field expected;
               pr "      fprintf (stderr, \"%s: %s was \"%%s\", expected \"%s\"\\n\",\n"
                 test_name field expected;
               pr "               r->%s);\n" field;
@@ -6188,7 +6188,7 @@ and generate_one_test_body name i test_name init test =
               pr "      return -1;\n";
               pr "    }\n"
           | CompareFieldsStrEq (field1, field2) ->
-              pr "    if (strcmp (r->%s, r->%s) != 0) {\n" field1 field2;
+              pr "    if (STRNEQ (r->%s, r->%s)) {\n" field1 field2;
               pr "      fprintf (stderr, \"%s: %s (\"%%s\") <> %s (\"%%s\")\\n\",\n"
                 test_name field1 field2;
               pr "               r->%s, r->%s);\n" field1 field2;
@@ -6587,13 +6587,13 @@ and generate_fish_cmds () =
               pr "  %s = resolve_win_path (argv[%d]);\n" name i;
               pr "  if (%s == NULL) return -1;\n" name
           | OptString name ->
-              pr "  %s = strcmp (argv[%d], \"\") != 0 ? argv[%d] : NULL;\n"
+              pr "  %s = STRNEQ (argv[%d], \"\") ? argv[%d] : NULL;\n"
                 name i i
           | FileIn name ->
-              pr "  %s = strcmp (argv[%d], \"-\") != 0 ? argv[%d] : \"/dev/stdin\";\n"
+              pr "  %s = STRNEQ (argv[%d], \"-\") ? argv[%d] : \"/dev/stdin\";\n"
                 name i i
           | FileOut name ->
-              pr "  %s = strcmp (argv[%d], \"-\") != 0 ? argv[%d] : \"/dev/stdout\";\n"
+              pr "  %s = STRNEQ (argv[%d], \"-\") ? argv[%d] : \"/dev/stdout\";\n"
                 name i i
           | StringList name | DeviceList name ->
               pr "  %s = parse_string_list (argv[%d]);\n" name i;
