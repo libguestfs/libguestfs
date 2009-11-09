@@ -1157,6 +1157,7 @@ guestfs__launch (guestfs_h *g)
     "udevtimeout=300 " /* good for very slow systems (RHBZ#480319) */	\
     "noapic "          /* workaround for RHBZ#502058 - ok if not SMP */ \
     "acpi=off "        /* we don't need ACPI, turn it off */		\
+    "printk.time=1 "   /* display timestamp before kernel messages */   \
     "cgroup_disable=memory " /* saves us about 5 MB of RAM */
 
     /* Linux kernel command line. */
