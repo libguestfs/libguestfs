@@ -87,8 +87,8 @@ main (int argc, char *argv[])
     int len = strlen (vgs[i]);
     int j;
     for (j = 0; lvs[j] != NULL; ++j) {
-      if (STREQLEN (lvs[j], "/dev/", 5) &&
-          STREQLEN (&lvs[j][5], vgs[i], len) &&
+      if (strncmp (lvs[j], "/dev/", 5) == 0 &&
+          strncmp (&lvs[j][5], vgs[i], len) == 0 &&
           lvs[j][len+5] == '/') {
         int64_t size;
         CALL (size = guestfs_blockdev_getsize64 (g, lvs[j]), -1);
@@ -120,12 +120,12 @@ display_partition (guestfs_h *g, const char *dev)
 
   CALL (what = guestfs_file (g, dev), NULL);
 
-  if (STREQ (what, "x86 boot sector"))
+  if (strcmp (what, "x86 boot sector") == 0)
     /* This is what 'file' program shows for Windows/NTFS partitions. */
     printf ("<windows/>\n");
   else if (strstr (what, "boot sector") != NULL)
     display_partitions (g, dev);
-  else if (STREQLEN (what, "LVM2", 4))
+  else if (strncmp (what, "LVM2", 4) == 0)
     printf ("<physvol/>\n");
   else if (strstr (what, "ext2 filesystem data") != NULL)
     display_ext234 (g, dev, "ext2");
@@ -149,7 +149,7 @@ display_partitions (guestfs_h *g, const char *dev)
    * That's a limitation of sorts of the Linux kernel.  (Actually,
    * we could do this if we add the kpartx program to libguestfs).
    */
-  if (STRNEQLEN (dev, "/dev/sd", 7) || isdigit (dev[strlen(dev)-1])) {
+  if (strncmp (dev, "/dev/sd", 7) != 0 || isdigit (dev[strlen(dev)-1])) {
     printf ("<vm-image dev=\"%s\"/>\n", dev);
     return;
   }
@@ -162,7 +162,7 @@ display_partitions (guestfs_h *g, const char *dev)
   len = strlen (dev);
   for (i = 0; parts[i] != NULL; ++i) {
     /* Only display partition if it's in the device. */
-    if (STREQLEN (parts[i], dev, len)) {
+    if (strncmp (parts[i], dev, len) == 0) {
       int64_t size;
       CALL (size = guestfs_blockdev_getsize64 (g, parts[i]), -1);
       printf ("<partition dev=\"%s\" size=\"%" PRIi64 "\">\n", parts[i], size);
@@ -190,9 +190,9 @@ display_ext234 (guestfs_h *g, const char *dev, const char *fstype)
     /* Just pick out a few important fields to display.  There
      * is much more that could be displayed here.
      */
-    if (STREQ (sbfields[i], "Filesystem UUID"))
+    if (strcmp (sbfields[i], "Filesystem UUID") == 0)
       printf ("<uuid>%s</uuid>\n", sbfields[i+1]);
-    else if (STREQ (sbfields[i], "Block size"))
+    else if (strcmp (sbfields[i], "Block size") == 0)
       printf ("<blocksize>%s</blocksize>\n", sbfields[i+1]);
 
     free (sbfields[i]);
