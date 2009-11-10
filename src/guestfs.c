@@ -1539,7 +1539,7 @@ print_timestamped_message (guestfs_h *g, const char *fs, ...)
   if (err < 0) return;
 
   gettimeofday (&tv, NULL);
-  
+
   fprintf (stderr, "[%05" PRIi64 "ms] %s\n",
            timeval_diff (&g->launch_t, &tv), msg);
 

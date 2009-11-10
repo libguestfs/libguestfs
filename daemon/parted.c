@@ -43,7 +43,7 @@ recover_blkrrpart (const char *device, const char *err)
   int r;
 
   if (!strstr (err,
-	       "Error informing the kernel about modifications to partition"))
+               "Error informing the kernel about modifications to partition"))
     return -1;
 
   r = command (NULL, NULL, "/sbin/blockdev", "--rereadpt", device, NULL);
@@ -55,44 +55,44 @@ recover_blkrrpart (const char *device, const char *err)
   return 0;
 }
 
-#define RUN_PARTED(device,...)						\
-  do {									\
-    int r;								\
-    char *err;								\
-    									\
-    r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,	\
-		  "/sbin/parted", "-s", "--", (device), __VA_ARGS__);	\
-    if (r == -1) {							\
-      if (recover_blkrrpart ((device), err) == -1) {			\
-	reply_with_error ("%s: parted: %s: %s", __func__, (device), err); \
-	free (err);							\
-	return -1;							\
-      }									\
-    }									\
-									\
-    free (err);								\
+#define RUN_PARTED(device,...)                                          \
+  do {                                                                  \
+    int r;                                                              \
+    char *err;                                                          \
+                                                                        \
+    r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,       \
+                  "/sbin/parted", "-s", "--", (device), __VA_ARGS__);   \
+    if (r == -1) {                                                      \
+      if (recover_blkrrpart ((device), err) == -1) {                    \
+        reply_with_error ("%s: parted: %s: %s", __func__, (device), err); \
+        free (err);                                                     \
+        return -1;                                                      \
+      }                                                                 \
+    }                                                                   \
+                                                                        \
+    free (err);                                                         \
   } while (0)
 
 static const char *
 check_parttype (const char *parttype)
 {
   /* Check and translate parttype. */
-  if (strcmp (parttype, "aix") == 0 ||
-      strcmp (parttype, "amiga") == 0 ||
-      strcmp (parttype, "bsd") == 0 ||
-      strcmp (parttype, "dasd") == 0 ||
-      strcmp (parttype, "dvh") == 0 ||
-      strcmp (parttype, "gpt") == 0 ||
-      strcmp (parttype, "mac") == 0 ||
-      strcmp (parttype, "msdos") == 0 ||
-      strcmp (parttype, "pc98") == 0 ||
-      strcmp (parttype, "sun") == 0)
+  if (STREQ (parttype, "aix") ||
+      STREQ (parttype, "amiga") ||
+      STREQ (parttype, "bsd") ||
+      STREQ (parttype, "dasd") ||
+      STREQ (parttype, "dvh") ||
+      STREQ (parttype, "gpt") ||
+      STREQ (parttype, "mac") ||
+      STREQ (parttype, "msdos") ||
+      STREQ (parttype, "pc98") ||
+      STREQ (parttype, "sun"))
     return parttype;
-  else if (strcmp (parttype, "rdb") == 0)
+  else if (STREQ (parttype, "rdb"))
     return "amiga";
-  else if (strcmp (parttype, "efi") == 0)
+  else if (STREQ (parttype, "efi"))
     return "gpt";
-  else if (strcmp (parttype, "mbr") == 0)
+  else if (STREQ (parttype, "mbr"))
     return "msdos";
   else
     return NULL;
@@ -122,15 +122,15 @@ do_part_add (const char *device, const char *prlogex,
   char endstr[32];
 
   /* Check and translate prlogex. */
-  if (strcmp (prlogex, "primary") == 0 ||
-      strcmp (prlogex, "logical") == 0 ||
-      strcmp (prlogex, "extended") == 0)
+  if (STREQ (prlogex, "primary") ||
+      STREQ (prlogex, "logical") ||
+      STREQ (prlogex, "extended"))
     ;
-  else if (strcmp (prlogex, "p") == 0)
+  else if (STREQ (prlogex, "p"))
     prlogex = "primary";
-  else if (strcmp (prlogex, "l") == 0)
+  else if (STREQ (prlogex, "l"))
     prlogex = "logical";
-  else if (strcmp (prlogex, "e") == 0)
+  else if (STREQ (prlogex, "e"))
     prlogex = "extended";
   else {
     reply_with_error ("part-add: unknown partition type: %s: this should be \"primary\", \"logical\" or \"extended\"", prlogex);
@@ -171,10 +171,10 @@ do_part_disk (const char *device, const char *parttype)
   }
 
   /* Voooooodooooooooo (thanks Jim Meyering for working this out). */
-  if (strcmp (parttype, "msdos") == 0) {
+  if (STREQ (parttype, "msdos")) {
     startstr = "1s";
     endstr = "-1s";
-  } else if (strcmp (parttype, "gpt") == 0) {
+  } else if (STREQ (parttype, "gpt")) {
     startstr = "34s";
     endstr = "-34s";
   } else {
@@ -184,10 +184,10 @@ do_part_disk (const char *device, const char *parttype)
   }
 
   RUN_PARTED (device,
-	      "mklabel", parttype,
-	      /* See comment about about the parted mkpart command. */
-	      "mkpart", strcmp (parttype, "gpt") == 0 ? "p1" : "primary",
-	      startstr, endstr, NULL);
+              "mklabel", parttype,
+              /* See comment about about the parted mkpart command. */
+              "mkpart", STREQ (parttype, "gpt") ? "p1" : "primary",
+              startstr, endstr, NULL);
 
   udev_settle ();
 
@@ -248,7 +248,7 @@ print_partition_table (const char *device)
   if (!lines)
     return NULL;
 
-  if (lines[0] == NULL || strcmp (lines[0], "BYT;") != 0) {
+  if (lines[0] == NULL || STRNEQ (lines[0], "BYT;")) {
     reply_with_error ("parted print: unknown signature, expected \"BYT;\" as first line of the output: %s",
                       lines[0] ? lines[0] : "(signature was null)");
     free_strings (lines);
