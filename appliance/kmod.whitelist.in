@@ -22,6 +22,7 @@ scsi_transport_spi.ko
 scsi_mod.ko
 sd_mod.ko
 sym53c8xx.ko
+ata_piix.ko
 
 ext2.ko
 ext3.ko
