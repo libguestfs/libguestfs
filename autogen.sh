@@ -42,6 +42,26 @@ if [ ! -z "$BUILDDIR" ]; then
     CONFIGUREDIR=..
 fi
 
+# Ensure that an ocaml package is present for build-from sources.
+# This is *not* for anything that is required at configure-time
+# when configure is run from a distribution tarball.  From those,
+# nothing ocaml-related is required.
+require_ocaml_pkg()
+{
+  pkg=$1
+  test -d .git || return 1
+  url=$(git config remote.origin.url) || return 1
+  case $url in
+    *git.et.redhat.com/libguestfs.git) ;;
+    *) return 1;;
+  esac
+  ocamlfind query "$pkg" || return 1
+  return 0
+}
+
+require_ocaml_pkg xml-light \
+  || { echo "you must have ocaml, ocamlfind and ocaml-xml-light"; exit 1; }
+
 # If no arguments were specified and configure has run before, use the previous
 # arguments
 if [ $# == 0 -a -x ./config.status ]; then
