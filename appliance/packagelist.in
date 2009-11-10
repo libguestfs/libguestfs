@@ -30,8 +30,10 @@
 #elif DEBIAN == 1
   bsdmainutils
   btrfs-tools
+  /* Dependency problem prevents installation of these two:
   gfs-tools
   gfs2-tools
+  */
   hfsplus
   iproute
   libaugeas0
