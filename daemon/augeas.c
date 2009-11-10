@@ -36,7 +36,6 @@
  * considerably.
  */
 static augeas *aug = NULL;
-#endif
 
 #define NEED_AUG(errcode)						\
   do {									\
@@ -46,6 +45,7 @@ static augeas *aug = NULL;
     }									\
   }									\
   while (0)
+#endif
 
 /* We need to rewrite the root path so it is based at /sysroot. */
 int
