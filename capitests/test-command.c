@@ -26,6 +26,9 @@
 #include <string.h>
 #include <unistd.h>
 
+/* Get STREQ etc */
+#include "../src/guestfs-internal.h"
+
 int
 main (int argc, char *argv[])
 {

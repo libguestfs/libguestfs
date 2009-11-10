@@ -24,7 +24,8 @@ bin_PROGRAMS = guestmount
 guestmount_SOURCES = \
 	dircache.c \
 	dircache.h \
-	guestmount.c
+	guestmount.c \
+	guestmount.h
 
 guestmount_CFLAGS = \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \

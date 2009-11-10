@@ -22,25 +22,34 @@
  * See the file COPYING.
  */
 
-#ifndef GUESTMOUNT_DIRCACHE_H
-#define GUESTMOUNT_DIRCACHE_H 1
+#ifndef GUESTMOUNT_H_
+#define GUESTMOUNT_H_
 
-#include <time.h>
-#include <sys/stat.h>
-#include <guestfs.h>
+#ifdef HAVE_GETTEXT
+#include "gettext.h"
+#define _(str) dgettext(PACKAGE, (str))
+//#define N_(str) dgettext(PACKAGE, (str))
+#else
+#define _(str) str
+//#define N_(str) str
+#endif
 
-extern void init_dir_caches (void);
-extern void free_dir_caches (void);
-extern void dir_cache_remove_all_expired (time_t now);
-extern void dir_cache_invalidate (const char *path);
+#define STREQ(a,b) (strcmp((a),(b)) == 0)
+#define STRCASEEQ(a,b) (strcasecmp((a),(b)) == 0)
+#define STRNEQ(a,b) (strcmp((a),(b)) != 0)
+#define STRCASENEQ(a,b) (strcasecmp((a),(b)) != 0)
+#define STREQLEN(a,b,n) (strncmp((a),(b),(n)) == 0)
+#define STRCASEEQLEN(a,b,n) (strncasecmp((a),(b),(n)) == 0)
+#define STRNEQLEN(a,b,n) (strncmp((a),(b),(n)) != 0)
+#define STRCASENEQLEN(a,b,n) (strncasecmp((a),(b),(n)) != 0)
+#define STRPREFIX(a,b) (strncmp((a),(b),strlen((b))) == 0)
 
-extern int lsc_insert (const char *path, const char *name, time_t now, struct stat const *statbuf);
-extern int xac_insert (const char *path, const char *name, time_t now, struct guestfs_xattr_list *xattrs);
-extern int rlc_insert (const char *path, const char *name, time_t now, char *link);
-extern const struct stat *lsc_lookup (const char *pathname);
-extern const struct guestfs_xattr_list *xac_lookup (const char *pathname);
-extern const char *rlc_lookup (const char *pathname);
+static inline char *
+bad_cast (char const *s)
+{
+  return (char *) s;
+}
 
-extern int dir_cache_timeout;
+extern int verbose;
 
-#endif /* GUESTMOUNT_DIRCACHE_H */
+#endif /* GUESTMOUNT_H_ */

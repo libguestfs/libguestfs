@@ -5088,6 +5088,7 @@ and generate_client_actions () =
 #include <inttypes.h>
 
 #include \"guestfs.h\"
+#include \"guestfs-internal.h\"
 #include \"guestfs-internal-actions.h\"
 #include \"guestfs_protocol.h\"
 
@@ -5845,6 +5846,7 @@ and generate_tests () =
 #include <fcntl.h>
 
 #include \"guestfs.h\"
+#include \"guestfs-internal.h\"
 
 static guestfs_h *g;
 static int suppress_error = 0;
@@ -9701,6 +9703,7 @@ and generate_bindtests () =
 #include <string.h>
 
 #include \"guestfs.h\"
+#include \"guestfs-internal.h\"
 #include \"guestfs-internal-actions.h\"
 #include \"guestfs_protocol.h\"
 

@@ -46,27 +46,13 @@
 
 #include "progname.h"
 
+#include "guestmount.h"
 #include "dircache.h"
 
 /* See <attr/xattr.h> */
 #ifndef ENOATTR
 #define ENOATTR ENODATA
 #endif
-
-#ifdef HAVE_GETTEXT
-#include "gettext.h"
-#define _(str) dgettext(PACKAGE, (str))
-//#define N_(str) dgettext(PACKAGE, (str))
-#else
-#define _(str) str
-//#define N_(str) str
-#endif
-
-static inline char *
-bad_cast (char const *s)
-{
-  return (char *) s;
-}
 
 static guestfs_h *g = NULL;
 static int read_only = 0;

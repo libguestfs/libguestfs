@@ -37,16 +37,8 @@
 #include "hash.h"
 #include "hash-pjw.h"
 
+#include "guestmount.h"
 #include "dircache.h"
-
-extern int verbose;
-extern int dir_cache_timeout;
-
-static inline char *
-bad_cast (char const *s)
-{
-  return (char *) s;
-}
 
 /* Note on attribute caching: FUSE can cache filesystem attributes for
  * short periods of time (configurable via -o attr_timeout).  It

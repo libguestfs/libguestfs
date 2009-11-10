@@ -41,6 +41,16 @@
 #define N_(str) str
 #endif
 
+#define STREQ(a,b) (strcmp((a),(b)) == 0)
+#define STRCASEEQ(a,b) (strcasecmp((a),(b)) == 0)
+#define STRNEQ(a,b) (strcmp((a),(b)) != 0)
+#define STRCASENEQ(a,b) (strcasecmp((a),(b)) != 0)
+#define STREQLEN(a,b,n) (strncmp((a),(b),(n)) == 0)
+#define STRCASEEQLEN(a,b,n) (strncasecmp((a),(b),(n)) == 0)
+#define STRNEQLEN(a,b,n) (strncmp((a),(b),(n)) != 0)
+#define STRCASENEQLEN(a,b,n) (strncasecmp((a),(b),(n)) != 0)
+#define STRPREFIX(a,b) (strncmp((a),(b),strlen((b))) == 0)
+
 #define DEFAULT_TIMEOUT 120
 
 static const char *helper = DEFAULT_HELPER;

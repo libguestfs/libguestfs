@@ -61,6 +61,7 @@
 #include <netinet/in.h>
 
 #include "guestfs.h"
+#include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 #include "c-ctype.h"
