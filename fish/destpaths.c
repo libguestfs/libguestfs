@@ -31,6 +31,7 @@
 
 #include "fish.h"
 
+#ifdef HAVE_LIBREADLINE
 // From gnulib's xalloc.h:
 /* Return 1 if an array of N objects, each of size S, cannot exist due
    to size arithmetic overflow.  S must be positive and N must be
@@ -46,6 +47,7 @@
    branch when S is known to be 1.  */
 # define xalloc_oversized(n, s) \
     ((size_t) (sizeof (ptrdiff_t) <= sizeof (size_t) ? -1 : -2) / (s) < (n))
+#endif
 
 /* Readline completion for paths on the guest filesystem, also for
  * devices and LVM names.
@@ -58,6 +60,7 @@ struct word {
   int is_dir;
 };
 
+#ifdef HAVE_LIBREADLINE
 static void
 free_words (struct word *words, size_t nr_words)
 {
@@ -68,6 +71,7 @@ free_words (struct word *words, size_t nr_words)
     free (words[i].name);
   free (words);
 }
+#endif
 
 char *
 complete_dest_paths_generator (const char *text, int state)
