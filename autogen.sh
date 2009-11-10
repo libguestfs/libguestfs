@@ -52,15 +52,16 @@ require_ocaml_pkg()
   test -d .git || return 1
   url=$(git config remote.origin.url) || return 1
   case $url in
-    *git.et.redhat.com/libguestfs.git) ;;
+    *et.redhat.com/*) ;;
     *) return 1;;
   esac
-  ocamlfind query "$pkg" || return 1
+  ocamlfind query $pkg || return 1
+  test -f "$(ocamlfind query $pkg)/xml-light.cmxa" || return 1
   return 0
 }
 
 require_ocaml_pkg xml-light \
-  || { echo "you must have ocaml, ocamlfind and ocaml-xml-light"; exit 1; }
+  || { echo "you must have ocaml, ocamlfind, ocaml-xml-light and ocaml-xml-light-devel"; exit 1; }
 
 # If no arguments were specified and configure has run before, use the previous
 # arguments
