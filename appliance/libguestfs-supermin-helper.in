@@ -83,4 +83,4 @@ find "$modpath" \( -not -name '*.ko' $whitelist \) -a -print0 |
   ls -1df $(
       cat "$sourcedir"/initramfs.@REPO@.@host_cpu@.supermin.hostfiles
     ) 2>/dev/null |
-  cpio --quiet -o -H newc ) >> "$initrd"
+  cpio -C 65536 --quiet -o -H newc ) >> "$initrd"
