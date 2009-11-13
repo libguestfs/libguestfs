@@ -253,7 +253,7 @@ It's often the case that you want to write a file or files to the disk
 image.
 
 For small, single files, use C<guestfs_write_file>.  This call
-currently contains a bug which limited the call to plain text files
+currently contains a bug which limits the call to plain text files
 (not containing ASCII NUL characters).
 
 To upload a single file, use C<guestfs_upload>.  This call has no
