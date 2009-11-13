@@ -7,7 +7,7 @@ guestfs - Library for accessing and modifying virtual machine images
 =head1 SYNOPSIS
 
  #include <guestfs.h>
-
+ 
  guestfs_h *handle = guestfs_create ();
  guestfs_add_drive (handle, "guest.img");
  guestfs_launch (handle);
@@ -60,35 +60,35 @@ and finally closing the handle.  So the general structure of all
 libguestfs-using programs looks like this:
 
  guestfs_h *handle = guestfs_create ();
-
+ 
  /* Call guestfs_add_drive additional times if there are
   * multiple disk images.
   */
  guestfs_add_drive (handle, "guest.img");
-
+ 
  /* Most manipulation calls won't work until you've launched
   * the handle.  You have to do this _after_ adding drives
   * and _before_ other commands.
   */
  guestfs_launch (handle);
-
+ 
  /* Now you can examine what partitions, LVs etc are available.
   */
  char **partitions = guestfs_list_partitions (handle);
  char **logvols = guestfs_lvs (handle);
-
+ 
  /* To access a filesystem in the image, you must mount it.
   */
  guestfs_mount (handle, "/dev/sda1", "/");
-
+ 
  /* Now you can perform filesystem actions on the guest disk image. */
  guestfs_touch (handle, "/hello");
-
+ 
  /* You only need to call guestfs_sync if you have made
   * changes to the guest image.
   */
  guestfs_sync (handle);
-
+ 
  /* Close the handle. */
  guestfs_close (handle);
 
