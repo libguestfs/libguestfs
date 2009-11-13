@@ -81,7 +81,9 @@ libguestfs-using programs looks like this:
   */
  guestfs_mount (handle, "/dev/sda1", "/");
  
- /* Now you can perform filesystem actions on the guest disk image. */
+ /* Now you can perform filesystem actions on the guest
+  * disk image.
+  */
  guestfs_touch (handle, "/hello");
  
  /* You only need to call guestfs_sync if you have made
