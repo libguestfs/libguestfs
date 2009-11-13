@@ -935,6 +935,15 @@ sort of connection control, when the daemon launches it sends an
 initial word (C<GUESTFS_LAUNCH_FLAG>) which indicates that the guest
 and daemon is alive.  This is what C<guestfs_launch> waits for.
 
+=head1 MULTIPLE HANDLES AND MULTIPLE THREADS
+
+All high-level libguestfs actions are synchronous.  If you want
+to use libguestfs asynchronously then you must create a thread.
+
+Only use the handle from a single thread.  Either use the handle
+exclusively from one thread, or provide your own mutex so that two
+threads cannot issue calls on the same handle at the same time.
+
 =head1 QEMU WRAPPERS
 
 If you want to compile your own qemu, run qemu from a non-standard
