@@ -72,8 +72,7 @@ functions in the following order:
  guestfs_close (handle);
 
 C<guestfs_launch> and all of the actions including C<guestfs_sync>
-are blocking calls.  You can use the low-level event API to do
-non-blocking operations instead.
+are blocking calls.
 
 All functions that return integers, return C<-1> on error.  See
 section L</ERROR HANDLING> below for how to handle errors.
