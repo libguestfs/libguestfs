@@ -105,8 +105,8 @@ return error indications.
 =head2 DISK IMAGES
 
 The image filename (C<"guest.img"> in the example above) could be a
-disk image from a virtual machine, a L<dd(1)> copy of a physical block
-device, an actual block device, or simply an empty file of zeroes that
+disk image from a virtual machine, a L<dd(1)> copy of a physical hard
+disk, an actual block device, or simply an empty file of zeroes that
 you have created through L<posix_fallocate(3)>.  Libguestfs lets you
 do useful things to all of these.
 
@@ -142,7 +142,7 @@ first disk image that we added (C</dev/sda>).  If the disk contains
 Linux LVM2 logical volumes you could refer to those instead (eg. C</dev/VG/LV>).
 
 If you are given a disk image and you don't know what it contains then
-you have to find out.  Libguestfs can also do that: use
+you have to find out.  Libguestfs can do that too: use
 C<guestfs_list_partitions> and C<guestfs_lvs> to list possible
 partitions and LVs, and either try mounting each to see what is
 mountable, or else examine them with C<guestfs_file>.  But you might
@@ -424,16 +424,26 @@ help on this issue.
 Although we don't want to discourage you from using the C API, we will
 mention here that the same API is also available in other languages.
 
-The API is broadly identical in all supported languages.  As an
-example, in Python the handle itself is replaced by an object, but we
-don't try to "object orientify" any other parts of the API.
+The API is broadly identical in all supported languages.  This means
+that the C call C<guestfs_mount(handle,path)> is
+C<$handle-E<gt>mount($path)> in Perl, C<handle.mount(path)> in Python,
+and C<Guestfs.mount handle path> in OCaml.  In other words, a
+straightforward, predictable isomorphism between each language.
+
+Error messages are automatically transformed
+into exceptions if the language supports it.
+
+We don't try to "object orientify" parts of the API in OO languages,
+although contributors are welcome to write higher level APIs above
+what we provide in their favourite languages if they wish.
 
 =over 4
 
 =item B<C++>
 
 You can use the I<guestfs.h> header file from C++ programs.  The C++
-API is identical to the C API.
+API is identical to the C API.  C++ classes and exceptions are
+not implemented.
 
 =item B<Haskell>
 
