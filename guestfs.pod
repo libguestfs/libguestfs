@@ -42,40 +42,382 @@ or Haskell).  You can also use it from shell scripts or the command line.
 You don't need to be root to use libguestfs, although obviously you do
 need enough permissions to access the disk images.
 
-=head1 CONNECTION MANAGEMENT
+Libguestfs is a large API because it can do many things.  For a gentle
+introduction, please read the L</API OVERVIEW> section next.
 
-If you are using the high-level API, then you should call the
-functions in the following order:
+=head1 API OVERVIEW
+
+This section provides a gentler overview of the libguestfs API.  We
+also try to group API calls together, where that may not be obvious
+from reading about the individual calls below.
+
+=head2 HANDLES
+
+Before you can use libguestfs calls, you have to create a handle.
+Then you must add at least one disk image to the handle, followed by
+launching the handle, then performing whatever operations you want,
+and finally closing the handle.  So the general structure of all
+libguestfs-using programs looks like this:
 
  guestfs_h *handle = guestfs_create ();
 
- guestfs_add_drive (handle, "guest.img");
- /* call guestfs_add_drive additional times if the guest has
-  * multiple disks
+ /* Call guestfs_add_drive additional times if there are
+  * multiple disk images.
   */
+ guestfs_add_drive (handle, "guest.img");
 
+ /* Most manipulation calls won't work until you've launched
+  * the handle.  You have to do this _after_ adding drives
+  * and _before_ other commands.
+  */
  guestfs_launch (handle);
 
- /* now you can examine what partitions, LVs etc are available
-  * you have to mount / at least
+ /* Now you can examine what partitions, LVs etc are available.
+  */
+ char **partitions = guestfs_list_partitions (handle);
+ char **logvols = guestfs_lvs (handle);
+
+ /* To access a filesystem in the image, you must mount it.
   */
  guestfs_mount (handle, "/dev/sda1", "/");
 
- /* now you can perform actions on the guest disk image */
+ /* Now you can perform filesystem actions on the guest disk image. */
  guestfs_touch (handle, "/hello");
 
- /* you only need to call guestfs_sync if you have made
-  * changes to the guest image
+ /* You only need to call guestfs_sync if you have made
+  * changes to the guest image.
   */
  guestfs_sync (handle);
 
+ /* Close the handle. */
  guestfs_close (handle);
 
-C<guestfs_launch> and all of the actions including C<guestfs_sync>
-are blocking calls.
+The code above doesn't include any error checking.  In real code you
+should check return values carefully for errors.  In general all
+functions that return integers return C<-1> on error, and all
+functions that return pointers return C<NULL> on error.  See section
+L</ERROR HANDLING> below for how to handle errors, and consult the
+documentation for each function call below to see precisely how they
+return error indications.
 
-All functions that return integers, return C<-1> on error.  See
-section L</ERROR HANDLING> below for how to handle errors.
+=head2 DISK IMAGES
+
+The image filename (C<"guest.img"> in the example above) could be a
+disk image from a virtual machine, a L<dd(1)> copy of a physical block
+device, an actual block device, or simply an empty file of zeroes that
+you have created through L<posix_fallocate(3)>.  Libguestfs lets you
+do useful things to all of these.
+
+You can add a disk read-only using C<guestfs_add_drive_ro>, in which
+case libguestfs won't modify the file.
+
+Be extremely cautious if the disk image is in use, eg. if it is being
+used by a virtual machine.  Adding it read-write will almost certainly
+cause disk corruption, but adding it read-only is safe.
+
+You must add at least one disk image, and you may add multiple disk
+images.  In the API, the disk images are usually referred to as
+C</dev/sda> (for the first one you added), C</dev/sdb> (for the second
+one you added), etc.
+
+Once C<guestfs_launch> has been called you cannot add any more images.
+You can call C<guestfs_list_devices> to get a list of the device
+names, in the order that you added them.  See also L</BLOCK DEVICE
+NAMING> below.
+
+=head2 MOUNTING
+
+Before you can read or write files, create directories and so on in a
+disk image that contains filesystems, you have to mount those
+filesystems using C<guestfs_mount>.  If you already know that a disk
+image contains (for example) one partition with a filesystem on that
+partition, then you can mount it directly:
+
+ guestfs_mount (handle, "/dev/sda1", "/");
+
+where C</dev/sda1> means literally the first partition (C<1>) of the
+first disk image that we added (C</dev/sda>).  If the disk contains
+Linux LVM2 logical volumes you could refer to those instead (eg. C</dev/VG/LV>).
+
+If you are given a disk image and you don't know what it contains then
+you have to find out.  Libguestfs can also do that: use
+C<guestfs_list_partitions> and C<guestfs_lvs> to list possible
+partitions and LVs, and either try mounting each to see what is
+mountable, or else examine them with C<guestfs_file>.  But you might
+find it easier to look at higher level programs built on top of
+libguestfs, in particular L<virt-inspector(1)>.
+
+To mount a disk image read-only, use C<guestfs_mount_ro>.  There are
+several other variations of the C<guestfs_mount_*> call.
+
+=head2 FILESYSTEM ACCESS AND MODIFICATION
+
+The majority of the libguestfs API consists of fairly low-level calls
+for accessing and modifying the files, directories, symlinks etc on
+mounted filesystems.  There are over a hundred such calls which you
+can find listed in detail below in this man page, and we don't even
+pretend to cover them all in this overview.
+
+Specify filenames as full paths including the mount point.
+
+For example, if you mounted a filesystem at C<"/"> and you want to
+read the file called C<"etc/passwd"> then you could do:
+
+ char *data = guestfs_cat (handle, "/etc/passwd");
+
+This would return C<data> as a newly allocated buffer containing the
+full content of that file (with some conditions: see also
+L</DOWNLOADING> below), or C<NULL> if there was an error.
+
+As another example, to create a top-level directory on that filesystem
+called C<"var"> you would do:
+
+ guestfs_mkdir (handle, "/var");
+
+To create a symlink you could do:
+
+ guestfs_ln_s (handle, "/etc/init.d/portmap",
+               "/etc/rc3.d/S30portmap");
+
+Libguestfs will reject attempts to use relative paths.  There is no
+concept of a current working directory.  Libguestfs can return errors
+in many situations: for example if the filesystem isn't writable, or
+if a file or directory that you requested doesn't exist.  If you are
+using the C API (documented here) you have to check for those error
+conditions after each call.  (Other language bindings turn these
+errors into exceptions).
+
+File writes are affected by the per-handle umask, set by calling
+C<guestfs_umask> and defaulting to 022.
+
+=head2 PARTITIONING
+
+Libguestfs contains API calls to read, create and modify partition
+tables on disk images.
+
+In the common case where you want to create a single partition
+covering the whole disk, you should use the C<guestfs_part_disk>
+call:
+
+ const char *parttype = "mbr";
+ if (disk_is_larger_than_2TB)
+   parttype = "gpt";
+ guestfs_part_disk (g, "/dev/sda", parttype);
+
+Obviously this effectively wipes anything that was on that disk image
+before.
+
+In general MBR partitions are both unnecessarily complicated and
+depend on archaic details, namely the Cylinder-Head-Sector (CHS)
+geometry of the disk.  C<guestfs_sfdiskM> can be used to
+create more complex arrangements where the relative sizes are
+expressed in megabytes instead of cylinders, which is a small win.
+C<guestfs_sfdiskM> will choose the nearest cylinder to approximate the
+requested size.  There's a lot of crazy stuff to do with IDE and
+virtio disks having different, incompatible CHS geometries, that you
+probably don't want to know about.
+
+My advice: make a single partition to cover the whole disk, then use
+LVM on top.
+
+=head2 LVM2
+
+Libguestfs provides access to a large part of the LVM2 API, such as
+C<guestfs_lvcreate> and C<guestfs_vgremove>.  It won't make much sense
+unless you familiarize yourself with the concepts of physical volumes,
+volume groups and logical volumes.
+
+This author strongly recommends reading the LVM HOWTO, online at
+L<http://tldp.org/HOWTO/LVM-HOWTO/>.
+
+=head2 DOWNLOADING
+
+Use C<guestfs_cat> to download small, text only files.  This call
+is limited to files which are less than 2 MB and which cannot contain
+any ASCII NUL (C<\0>) characters.  However it has a very simple
+to use API.
+
+C<guestfs_read_file> can be used to read files which contain
+arbitrary 8 bit data, since it returns a (pointer, size) pair.
+However it is still limited to "small" files, less than 2 MB.
+
+C<guestfs_download> can be used to download any file, with no
+limits on content or size (even files larger than 4 GB).
+
+To download multiple files, see C<guestfs_tar_out> and
+C<guestfs_tgz_out>.
+
+=head2 UPLOADING
+
+It's often the case that you want to write a file or files to the disk
+image.
+
+For small, single files, use C<guestfs_write_file>.  This call
+currently contains a bug which limited the call to plain text files
+(not containing ASCII NUL characters).
+
+To upload a single file, use C<guestfs_upload>.  This call has no
+limits on file content or size (even files larger than 4 GB).
+
+To upload multiple files, see C<guestfs_tar_in> and C<guestfs_tgz_in>.
+
+However the fastest way to upload I<large numbers of arbitrary files>
+is to turn them into a squashfs or CD ISO (see L<mksquashfs(8)> and
+L<mkisofs(8)>), then attach this using C<guestfs_add_drive_ro>.  If
+you add the drive in a predictable way (eg. adding it last after all
+other drives) then you can get the device name from
+C<guestfs_list_devices> and mount it directly using
+C<guestfs_mount_ro>.  Note that squashfs images are sometimes
+non-portable between kernel versions, and they don't support labels or
+UUIDs.  If you want to pre-build an image or you need to mount it
+using a label or UUID, use an ISO image instead.
+
+=head2 LISTING FILES
+
+C<guestfs_ll> is just designed for humans to read (mainly when using
+the L<guestfish(1)>-equivalent command C<ll>).
+
+C<guestfs_ls> is a quick way to get a list of files in a directory
+from programs, as a flat list of strings.
+
+C<guestfs_readdir> is a programmatic way to get a list of files in a
+directory, plus additional information about each one.  It is more
+equivalent to using the L<readdir(3)> call on a local filesystem.
+
+C<guestfs_find> can be used to recursively list files.
+
+=head2 RUNNING COMMANDS
+
+Although libguestfs is a primarily an API for manipulating files
+inside guest images, we also provide some limited facilities for
+running commands inside guests.
+
+There are many limitations to this:
+
+=over 4
+
+=item *
+
+The kernel version that the command runs under will be different
+from what it expects.
+
+=item *
+
+If the command needs to communicate with daemons, then most likely
+they won't be running.
+
+=item *
+
+The command will be running in limited memory.
+
+=item *
+
+Only supports Linux guests (not Windows, BSD, etc).
+
+=item *
+
+Architecture limitations (eg. won't work for a PPC guest on
+an X86 host).
+
+=item *
+
+For SELinux guests, you may need to enable SELinux and load policy
+first.  See L</SELINUX> in this manpage.
+
+=back
+
+The two main API calls to run commands are C<guestfs_command> and
+C<guestfs_sh> (there are also variations).
+
+The difference is that C<guestfs_sh> runs commands using the shell, so
+any shell globs, redirections, etc will work.
+
+=head2 CONFIGURATION FILES
+
+To read and write configuration files in Linux guest filesystems, we
+strongly recommend using Augeas.  For example, Augeas understands how
+to read and write, say, a Linux shadow password file or X.org
+configuration file, and so avoids you having to write that code.
+
+The main Augeas calls are bound through the C<guestfs_aug_*> APIs.  We
+don't document Augeas itself here because there is excellent
+documentation on the L<http://augeas.net/> website.
+
+If you don't want to use Augeas (you fool!) then try calling
+C<guestfs_read_lines> to get the file as a list of lines which
+you can iterate over.
+
+=head2 SELINUX
+
+We support SELinux guests.  To ensure that labeling happens correctly
+in SELinux guests, you need to enable SELinux and load the guest's
+policy:
+
+=over 4
+
+=item 1.
+
+Before launching, do:
+
+ guestfs_set_selinux (g, 1);
+
+=item 2.
+
+After mounting the guest's filesystem(s), load the policy.  This
+is best done by running the L<load_policy(8)> command in the
+guest itself:
+
+ guestfs_sh (g, "/usr/sbin/load_policy");
+
+(Older versions of C<load_policy> require you to specify the
+name of the policy file).
+
+=item 3.
+
+Optionally, set the security context for the API.  The correct
+security context to use can only be known by inspecting the
+guest.  As an example:
+
+ guestfs_setcon (g, "unconfined_u:unconfined_r:unconfined_t:s0");
+
+=back
+
+This will work for running commands and editing existing files.
+
+When new files are created, you may need to label them explicitly,
+for example by running the external command
+C<restorecon pathname>.
+
+=head2 SPECIAL CONSIDERATIONS FOR WINDOWS GUESTS
+
+Libguestfs can mount NTFS partitions.  It does this using the
+L<http://www.ntfs-3g.org/> driver.
+
+DOS and Windows still use drive letters, and the filesystems are
+always treated as case insensitive by Windows itself, and therefore
+you might find a Windows configuration file referring to a path like
+C<c:\windows\system32>.  When the filesystem is mounted in libguestfs,
+that directory might be referred to as C</WINDOWS/System32>.
+
+Drive letter mappings are outside the scope of libguestfs.  You have
+to use libguestfs to read the appropriate Windows Registry and
+configuration files, to determine yourself how drives are mapped (see
+also L<virt-inspector(1)>).
+
+Replacing backslash characters with forward slash characters is also
+outside the scope of libguestfs, but something that you can easily do.
+
+Where we can help is in resolving the case insensitivity of paths.
+For this, call C<guestfs_case_sensitive_path>.
+
+Libguestfs also provides some help for decoding Windows Registry
+"hive" files, through the library C<libhivex> which is part of
+libguestfs.  You have to locate and download the hive file(s)
+yourself, and then pass them to C<libhivex> functions.  See also the
+programs L<hivexml(1)>, L<hivexget(1)> and L<virt-win-reg(1)> for more
+help on this issue.
+
+=head1 CONNECTION MANAGEMENT
 
 =head2 guestfs_h *
 
@@ -198,184 +540,6 @@ search in.  The value is a colon-separated list of paths.  The current
 directory is I<not> searched unless the path contains an empty element
 or C<.>.  For example C<LIBGUESTFS_PATH=:/usr/lib/guestfs> would
 search the current directory and then C</usr/lib/guestfs>.
-
-=head1 API OVERVIEW
-
-This section provides additional documentation for groups of API
-calls, which may not be obvious from reading about the individual
-calls below.
-
-=head2 LVM2
-
-Libguestfs provides access to a large part of the LVM2 API.  It won't
-make much sense unless you familiarize yourself with the concepts of
-physical volumes, volume groups and logical volumes.
-
-This author strongly recommends reading the LVM HOWTO, online at
-L<http://tldp.org/HOWTO/LVM-HOWTO/>.
-
-=head2 PARTITIONING
-
-In the common case where you want to create a single partition
-covering the whole disk, you should use the C<guestfs_part_disk>
-call:
-
- const char *parttype = "mbr";
- if (disk_is_larger_than_2TB)
-   parttype = "gpt";
- guestfs_part_disk (g, "/dev/sda", parttype);
-
-In general MBR partitions are both unnecessarily complicated and
-depend on archaic details, namely the Cylinder-Head-Sector (CHS)
-geometry of the disk.  C<guestfs_sfdiskM> can be used to
-create more complex arrangements where the relative sizes are
-expressed in megabytes instead of cylinders, which is a small win.
-C<guestfs_sfdiskM> will choose the nearest cylinder to approximate the
-requested size.  There's a lot of crazy stuff to do with IDE and
-virtio disks having different, incompatible CHS geometries, that you
-probably don't want to know about.
-
-My advice: make a single partition to cover the whole disk, then use
-LVM on top.
-
-=head2 UPLOADING
-
-For small, single files, use C<guestfs_write_file>.  In some versions
-of libguestfs there was a bug which limited this call to text files
-(not containing ASCII NUL characters).
-
-To upload a single file, use C<guestfs_upload>.  This call has no
-limits on file content or size (even files larger than 4 GB).
-
-To upload multiple files, see C<guestfs_tar_in> and C<guestfs_tgz_in>.
-
-However the fastest way to upload I<large numbers of arbitrary files>
-is to turn them into a squashfs or CD ISO (see L<mksquashfs(8)> and
-L<mkisofs(8)>), then attach this using C<guestfs_add_drive_ro>.  If
-you add the drive in a predictable way (eg. adding it last after all
-other drives) then you can get the device name from
-C<guestfs_list_devices> and mount it directly using
-C<guestfs_mount_ro>.  Note that squashfs images are sometimes
-non-portable between kernel versions, and they don't support labels or
-UUIDs.  If you want to pre-build an image or you need to mount it
-using a label or UUID, use an ISO image instead.
-
-=head2 DOWNLOADING
-
-Use C<guestfs_cat> to download small, text only files.  This call
-is limited to files which are less than 2 MB and which cannot contain
-any ASCII NUL (C<\0>) characters.  However it has a very simple
-to use API.
-
-C<guestfs_read_file> can be used to read files which contain
-arbitrary 8 bit data, since it returns a (pointer, size) pair.
-However it is still limited to "small" files, less than 2 MB.
-
-C<guestfs_download> can be used to download any file, with no
-limits on content or size (even files larger than 4 GB).
-
-To download multiple files, see C<guestfs_tar_out> and
-C<guestfs_tgz_out>.
-
-=head2 RUNNING COMMANDS
-
-Although libguestfs is a primarily an API for manipulating files
-inside guest images, we also provide some limited facilities for
-running commands inside guests.
-
-There are many limitations to this:
-
-=over 4
-
-=item *
-
-The kernel version that the command runs under will be different
-from what it expects.
-
-=item *
-
-If the command needs to communicate with daemons, then most likely
-they won't be running.
-
-=item *
-
-The command will be running in limited memory.
-
-=item *
-
-Only supports Linux guests (not Windows, BSD, etc).
-
-=item *
-
-Architecture limitations (eg. won't work for a PPC guest on
-an X86 host).
-
-=item *
-
-For SELinux guests, you may need to enable SELinux and load policy
-first.  See L</SELINUX> in this manpage.
-
-=back
-
-The two main API calls to run commands are C<guestfs_command> and
-C<guestfs_sh> (there are also variations).
-
-The difference is that C<guestfs_sh> runs commands using the shell, so
-any shell globs, redirections, etc will work.
-
-=head2 LISTING FILES
-
-C<guestfs_ll> is just designed for humans to read (mainly when using
-the L<guestfish(1)>-equivalent command C<ll>).
-
-C<guestfs_ls> is a quick way to get a list of files in a directory
-from programs.
-
-C<guestfs_readdir> is a programmatic way to get a list of files in a
-directory, plus additional information about each one.
-
-C<guestfs_find> can be used to recursively list files.
-
-=head2 SELINUX
-
-We support SELinux guests.  To ensure that labeling happens correctly
-in SELinux guests, you need to enable SELinux and load the guest's
-policy:
-
-=over 4
-
-=item 1.
-
-Before launching, do:
-
- guestfs_set_selinux (g, 1);
-
-=item 2.
-
-After mounting the guest's filesystem(s), load the policy.  This
-is best done by running the L<load_policy(8)> command in the
-guest itself:
-
- guestfs_sh (g, "/usr/sbin/load_policy");
-
-(Older versions of C<load_policy> require you to specify the
-name of the policy file).
-
-=item 3.
-
-Optionally, set the security context for the API.  The correct
-security context to use can only be known by inspecting the
-guest.  As an example:
-
- guestfs_setcon (g, "unconfined_u:unconfined_r:unconfined_t:s0");
-
-=back
-
-This will work for running commands and editing existing files.
-
-When new files are created, you may need to label them explicitly,
-for example by running the external command
-C<restorecon pathname>.
 
 =head1 HIGH-LEVEL API ACTIONS
 
