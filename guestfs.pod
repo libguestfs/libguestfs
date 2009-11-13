@@ -419,6 +419,60 @@ yourself, and then pass them to C<libhivex> functions.  See also the
 programs L<hivexml(1)>, L<hivexget(1)> and L<virt-win-reg(1)> for more
 help on this issue.
 
+=head2 USING LIBGUESTFS WITH OTHER PROGRAMMING LANGUAGES
+
+Although we don't want to discourage you from using the C API, we will
+mention here that the same API is also available in other languages.
+
+The API is broadly identical in all supported languages.  As an
+example, in Python the handle itself is replaced by an object, but we
+don't try to "object orientify" any other parts of the API.
+
+=over 4
+
+=item B<C++>
+
+You can use the I<guestfs.h> header file from C++ programs.  The C++
+API is identical to the C API.
+
+=item B<Haskell>
+
+This is the only language binding that is incomplete.  Only calls
+which return simple integers have been bound in Haskell, and we are
+looking for help to complete this binding.
+
+=item B<Java>
+
+Full documentation is contained in the Javadoc which is distributed
+with libguestfs.
+
+=item B<OCaml>
+
+For documentation see the file C<guestfs.mli>.
+
+=item B<Perl>
+
+For documentation see L<Sys::Guestfs(3)>.
+
+=item B<Python>
+
+For documentation do:
+
+ $ python
+ >>> import guestfs
+ >>> help (guestfs)
+
+=item B<Ruby>
+
+Use the Guestfs module.  There is no Ruby-specific documentation, but
+you can find examples written in Ruby in the libguestfs source.
+
+=item B<shell scripts>
+
+For documentation see L<guestfish(1)>.
+
+=back
+
 =head1 CONNECTION MANAGEMENT
 
 =head2 guestfs_h *
