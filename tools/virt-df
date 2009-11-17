@@ -160,6 +160,9 @@ if (@ARGV == 0) {
     my @doms = $conn->list_defined_domains ();
     push @doms, $conn->list_domains ();
 
+    # https://bugzilla.redhat.com/show_bug.cgi?id=538041
+    @doms = grep { $_->get_id () != 0 } @doms;
+
     my @domnames = map { $_->get_name () } @doms;
 
     if (@domnames) {
