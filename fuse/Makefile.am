@@ -39,6 +39,8 @@ guestmount_LDADD = \
 	$(top_builddir)/src/libguestfs.la \
 	../gnulib/lib/libgnu.la
 
+# Documentation.
+
 man_MANS = guestmount.1
 
 guestmount.1: guestmount.pod
@@ -59,5 +61,11 @@ $(top_builddir)/html/guestmount.1.html: guestmount.pod
 	  --htmldir html \
 	  --outfile html/guestmount.1.html \
 	  fuse/guestmount.pod
+
+# Tests.
+
+TESTS = test-fuse.sh
+TESTS_ENVIRONMENT = \
+	top_builddir=..
 
 endif
