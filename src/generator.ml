@@ -6617,8 +6617,8 @@ and generate_fish_cmds () =
         match snd style with
         | [] -> name2
         | args ->
-            sprintf "%s <%s>"
-              name2 (String.concat "> <" (List.map name_of_argt args)) in
+            sprintf "%s %s"
+              name2 (String.concat " " (List.map name_of_argt args)) in
 
       let warnings =
         if List.mem ProtocolLimitWarning flags then
@@ -6655,7 +6655,9 @@ and generate_fish_cmds () =
       pr ")\n";
       pr "    pod2text (\"%s\", _(\"%s\"), %S);\n"
         name2 shortdesc
-        (" " ^ synopsis ^ "\n\n" ^ longdesc ^ warnings ^ describe_alias);
+        ("=head1 SYNOPSIS\n\n " ^ synopsis ^ "\n\n" ^
+	 "=head1 DESCRIPTION\n\n" ^
+	 longdesc ^ warnings ^ describe_alias);
       pr "  else\n"
   ) all_functions;
   pr "    display_builtin_command (cmd);\n";

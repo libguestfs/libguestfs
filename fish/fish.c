@@ -457,7 +457,7 @@ pod2text (const char *name, const char *shortdesc, const char *str)
     printf ("%s - %s\n\n%s\n", name, shortdesc, str);
     return;
   }
-  fprintf (fp, "=head1 %s - %s\n\n", name, shortdesc);
+  fprintf (fp, "=head1 NAME\n\n%s - %s\n\n", name, shortdesc);
   fputs (str, fp);
   pclose (fp);
 }
