@@ -427,7 +427,7 @@ fg_symlink (const char *from, const char *to)
 
   dir_cache_invalidate (to);
 
-  r = guestfs_ln_s (g, to, from);
+  r = guestfs_ln_s (g, from, to);
   if (r == -1)
     return error ();
 
