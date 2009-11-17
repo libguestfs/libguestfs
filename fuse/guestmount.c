@@ -441,6 +441,7 @@ fg_rename (const char *from, const char *to)
 
   if (read_only) return -EROFS;
 
+  dir_cache_invalidate (from);
   dir_cache_invalidate (to);
 
   /* XXX It's not clear how close the 'mv' command is to the
