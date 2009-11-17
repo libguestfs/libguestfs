@@ -620,8 +620,14 @@ fg_read (const char *path, char *buf, size_t size, off_t offset,
   if (size > limit)
     size = limit;
 
+  /* Note the correct error handling here is tricky, because in the
+   * case where the call returns a zero-length buffer, it might return
+   * NULL.  However it won't adjust rsize along the error path, so we
+   * can set rsize to something beforehand and use that as a flag.
+   */
+  rsize = 1;
   r = guestfs_pread (g, path, size, offset, &rsize);
-  if (r == NULL)
+  if (rsize == 1 && r == NULL)
     return error ();
 
   /* This should never happen, but at least it stops us overflowing
