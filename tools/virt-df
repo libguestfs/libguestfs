@@ -165,7 +165,8 @@ if (@ARGV == 0) {
     if (@domnames) {
         print_title ();
         foreach (@domnames) {
-            do_df ($_);
+            eval { do_df ($_); };
+            warn $@ if $@;
         }
     }
 } else {
