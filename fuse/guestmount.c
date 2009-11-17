@@ -461,9 +461,10 @@ fg_link (const char *from, const char *to)
 
   if (read_only) return -EROFS;
 
+  dir_cache_invalidate (from);
   dir_cache_invalidate (to);
 
-  r = guestfs_ln (g, to, from);
+  r = guestfs_ln (g, from, to);
   if (r == -1)
     return error ();
 
