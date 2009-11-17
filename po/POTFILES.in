@@ -16,6 +16,7 @@ daemon/echo_daemon.c
 daemon/ext2.c
 daemon/fallocate.c
 daemon/file.c
+daemon/fill.c
 daemon/find.c
 daemon/fsck.c
 daemon/glob.c

@@ -4086,6 +4086,19 @@ partition table), C<gpt> (a GPT/EFI-style partition table).  Other
 values are possible, although unusual.  See C<guestfs_part_init>
 for a full list.");
 
+  ("fill", (RErr, [Int "c"; Int "len"; Pathname "path"]), 215, [],
+   [InitBasicFS, Always, TestOutputBuffer (
+      [["fill"; "0x63"; "10"; "/test"];
+       ["read_file"; "/test"]], "cccccccccc")],
+   "fill a file with octets",
+   "\
+This command creates a new file called C<path>.  The initial
+content of the file is C<len> octets of C<c>, where C<c>
+must be a number in the range C<[0..255]>.
+
+To fill a file with zero bytes (sparsely), it is
+much more efficient to use C<guestfs_truncate_size>.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

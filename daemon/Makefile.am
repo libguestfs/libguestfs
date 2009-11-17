@@ -41,6 +41,7 @@ guestfsd_SOURCES = \
 	ext2.c \
 	fallocate.c \
 	file.c \
+	fill.c \
 	find.c \
 	fsck.c \
 	glob.c \
