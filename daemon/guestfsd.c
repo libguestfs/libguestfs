@@ -976,5 +976,25 @@ device_name_translation (char *device, const char *func)
 void
 udev_settle (void)
 {
-  command (NULL, NULL, "/sbin/udevadm", "settle", NULL);
+  static int which_prog = 0;
+
+  if (which_prog == 0) {
+    if (access ("/sbin/udevsettle", X_OK) == 0)
+      which_prog = 2;
+    else if (access ("/sbin/udevadm", X_OK) == 0)
+      which_prog = 1;
+    else
+      which_prog = 3;
+  }
+
+  switch (which_prog) {
+  case 1:
+    command (NULL, NULL, "/sbin/udevadm", "settle", NULL);
+    break;
+  case 2:
+    command (NULL, NULL, "/sbin/udevsettle", NULL);
+    break;
+  default:
+    ;
+  }
 }
