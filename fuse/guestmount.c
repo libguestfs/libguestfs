@@ -534,14 +534,22 @@ fg_utimens (const char *path, const struct timespec ts[2])
   time_t mtsecs = ts[1].tv_sec;
   long mtnsecs = ts[1].tv_nsec;
 
+#ifdef UTIME_NOW
   if (atnsecs == UTIME_NOW)
     atnsecs = -1;
+#endif
+#ifdef UTIME_OMIT
   if (atnsecs == UTIME_OMIT)
     atnsecs = -2;
+#endif
+#ifdef UTIME_NOW
   if (mtnsecs == UTIME_NOW)
     mtnsecs = -1;
+#endif
+#ifdef UTIME_OMIT
   if (mtnsecs == UTIME_OMIT)
     mtnsecs = -2;
+#endif
 
   r = guestfs_utimens (g, path, atsecs, atnsecs, mtsecs, mtnsecs);
   if (r == -1)
