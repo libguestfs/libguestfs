@@ -25,7 +25,7 @@ cat <<EOF
   <body>
     <h1>guestfish recipes</h1>
     <p>You can also find these in the
-    <a href="http://git.et.redhat.com/?p=libguestfs.git;a=tree;f=recipes;hb=HEAD"><code>recipes/</code>
+    <a href="http://git.annexia.org/?p=libguestfs.git;a=tree;f=recipes;hb=HEAD"><code>recipes/</code>
     subdirectory</a> of the source.</p>
 
     <p>
