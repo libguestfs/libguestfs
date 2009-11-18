@@ -46,6 +46,9 @@ route add default gw 10.0.2.2
 lvm vgscan --ignorelockingfailure
 lvm vgchange -ay --ignorelockingfailure
 
+# Improve virtio-blk performance (RHBZ#509383).
+for f in /sys/block/vd*/queue/rotational; do echo 1 > $f; done
+
 # Keep these to enhance the usefulness of debug output.
 ls -l /dev
 cat /proc/mounts
@@ -58,8 +61,7 @@ lsmod
 #ping -n -v -c 5 10.0.2.2
 #ping -n -v -c 5 10.0.2.4
 
-# Improve virtio-blk performance (RHBZ#509383).
-for f in /sys/block/vd*/queue/rotational; do echo 1 > $f; done
+echo -n "uptime: "; cat /proc/uptime
 
 if ! grep -sq guestfs_rescue=1 /proc/cmdline; then
   exec guestfsd -f
