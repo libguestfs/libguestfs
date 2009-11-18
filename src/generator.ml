@@ -3890,7 +3890,9 @@ into smaller groups of names.");
 
   ("pread", (RBufferOut "content", [Pathname "path"; Int "count"; Int64 "offset"]), 207, [ProtocolLimitWarning],
    [InitISOFS, Always, TestOutputBuffer (
-      [["pread"; "/known-4"; "1"; "3"]], "\n")],
+      [["pread"; "/known-4"; "1"; "3"]], "\n");
+    InitISOFS, Always, TestOutputBuffer (
+      [["pread"; "/empty"; "0"; "100"]], "")],
    "read part of a file",
    "\
 This command lets you read part of a file.  It reads C<count>
@@ -5107,7 +5109,7 @@ and generate_client_actions () =
 
 #define error guestfs_error
 //#define perrorf guestfs_perrorf
-//#define safe_malloc guestfs_safe_malloc
+#define safe_malloc guestfs_safe_malloc
 #define safe_realloc guestfs_safe_realloc
 //#define safe_strdup guestfs_safe_strdup
 #define safe_memdup guestfs_safe_memdup
@@ -5396,8 +5398,20 @@ check_state (guestfs_h *g, const char *caller)
            pr "  /* caller will free this */\n";
            pr "  return safe_memdup (g, &ret.%s, sizeof (ret.%s));\n" n n
        | RBufferOut n ->
-           pr "  *size_r = ret.%s.%s_len;\n" n n;
-           pr "  return ret.%s.%s_val; /* caller will free */\n" n n
+	   pr "  /* RBufferOut is tricky: If the buffer is zero-length, then\n";
+	   pr "   * _val might be NULL here.  To make the API saner for\n";
+	   pr "   * callers, we turn this case into a unique pointer (using\n";
+	   pr "   * malloc(1)).\n";
+	   pr "   */\n";
+	   pr "  if (ret.%s.%s_len > 0) {\n" n n;
+           pr "    *size_r = ret.%s.%s_len;\n" n n;
+           pr "    return ret.%s.%s_val; /* caller will free */\n" n n;
+	   pr "  } else {\n";
+	   pr "    free (ret.%s.%s_val);\n" n n;
+	   pr "    char *p = safe_malloc (g, 1);\n";
+           pr "    *size_r = ret.%s.%s_len;\n" n n;
+           pr "    return p;\n";
+	   pr "  }\n";
       );
 
       pr "}\n\n"
@@ -5480,7 +5494,7 @@ and generate_daemon_actions () =
         | RStruct (_, typ) -> pr "  guestfs_int_%s *r;\n" typ; "NULL"
         | RStructList (_, typ) -> pr "  guestfs_int_%s_list *r;\n" typ; "NULL"
         | RBufferOut _ ->
-            pr "  size_t size;\n";
+            pr "  size_t size = 1;\n";
             pr "  char *r;\n";
             "NULL" in
 
@@ -5573,10 +5587,24 @@ and generate_daemon_actions () =
       generate_c_call_args (fst style, args');
       pr ";\n";
 
-      pr "  if (r == %s)\n" error_code;
-      pr "    /* do_%s has already called reply_with_error */\n" name;
-      pr "    goto done;\n";
-      pr "\n";
+      (match fst style with
+       | RErr | RInt _ | RInt64 _ | RBool _
+       | RConstString _ | RConstOptString _
+       | RString _ | RStringList _ | RHashtable _
+       | RStruct (_, _) | RStructList (_, _) ->
+	   pr "  if (r == %s)\n" error_code;
+	   pr "    /* do_%s has already called reply_with_error */\n" name;
+	   pr "    goto done;\n";
+	   pr "\n"
+       | RBufferOut _ ->
+	   pr "  /* size == 0 && r == NULL could be a non-error case (just\n";
+	   pr "   * an ordinary zero-length buffer), so be careful ...\n";
+	   pr "   */\n";
+	   pr "  if (size == 1 && r == %s)\n" error_code;
+	   pr "    /* do_%s has already called reply_with_error */\n" name;
+	   pr "    goto done;\n";
+	   pr "\n"
+      );
 
       (* If there are any FileOut parameters, then the impl must
        * send its own reply.
