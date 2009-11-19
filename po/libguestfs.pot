@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.0.79\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-18 13:28+0000\n"
+"POT-Creation-Date: 2009-11-19 16:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1084,7 +1084,7 @@ msgstr ""
 msgid "use '%s filename' to edit a file\n"
 msgstr ""
 
-#: fish/fish.c:92 fuse/guestmount.c:860
+#: fish/fish.c:92 fuse/guestmount.c:868
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr ""
@@ -1125,7 +1125,7 @@ msgid ""
 "For more information,  see the manpage %s(1).\n"
 msgstr ""
 
-#: fish/fish.c:184 fuse/guestmount.c:953
+#: fish/fish.c:184 fuse/guestmount.c:961
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr ""
@@ -1141,7 +1141,7 @@ msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 msgstr ""
 
-#: fish/fish.c:239 fuse/guestmount.c:998
+#: fish/fish.c:239 fuse/guestmount.c:1006
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr ""
@@ -1496,7 +1496,7 @@ msgstr ""
 msgid "use 'time command [args...]'\n"
 msgstr ""
 
-#: fuse/guestmount.c:864
+#: fuse/guestmount.c:872
 #, c-format
 msgid ""
 "%s: FUSE module for libguestfs\n"
@@ -1519,12 +1519,12 @@ msgid ""
 "  -V|--version         Display version and exit\n"
 msgstr ""
 
-#: fuse/guestmount.c:1069
+#: fuse/guestmount.c:1077
 #, c-format
 msgid "%s: must have at least one -a and at least one -m option\n"
 msgstr ""
 
-#: fuse/guestmount.c:1077
+#: fuse/guestmount.c:1085
 #, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr ""

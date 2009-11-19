@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-18 13:28+0000\n"
+"POT-Creation-Date: 2009-11-19 16:42+0000\n"
 "PO-Revision-Date: 2009-10-04 23:10+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <fedora-trans-pl@redhat.com>\n"
@@ -1100,7 +1100,7 @@ msgstr "%s: nieznane polecenie\n"
 msgid "use '%s filename' to edit a file\n"
 msgstr "należy użyć \"%s nazwa_pliku\", aby zmodyfikować plik\n"
 
-#: fish/fish.c:92 fuse/guestmount.c:860
+#: fish/fish.c:92 fuse/guestmount.c:868
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Należy spróbować \"%s --help\", aby uzyskać więcej informacji.\n"
@@ -1175,7 +1175,7 @@ msgstr ""
 "  -V|--version         Wyświetla wersję i kończy pracę\n"
 "Aby dowiedzieć się więcej, proszę zobaczyć stronę podręcznika %s(1).\n"
 
-#: fish/fish.c:184 fuse/guestmount.c:953
+#: fish/fish.c:184 fuse/guestmount.c:961
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: utworzenie programu obsługi nie powiodło się\n"
@@ -1192,7 +1192,7 @@ msgid ""
 msgstr ""
 "%s: zdalnie: $GUESTFISH_PID musi być ustawiony na PID zdalnego procesu\n"
 
-#: fish/fish.c:239 fuse/guestmount.c:998
+#: fish/fish.c:239 fuse/guestmount.c:1006
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: nieznana długa opcja: %s (%d)\n"
@@ -1640,7 +1640,7 @@ msgstr "reopen: guestfs_create: utworzenie programu obsługi nie powiodło się\
 msgid "use 'time command [args...]'\n"
 msgstr "należy użyć \"time polecenie [parametry...]\"\n"
 
-#: fuse/guestmount.c:864
+#: fuse/guestmount.c:872
 #, fuzzy, c-format
 msgid ""
 "%s: FUSE module for libguestfs\n"
@@ -1697,12 +1697,12 @@ msgstr ""
 "  -V|--version         Wyświetla wersję i kończy pracę\n"
 "Aby dowiedzieć się więcej, proszę zobaczyć stronę podręcznika %s(1).\n"
 
-#: fuse/guestmount.c:1069
+#: fuse/guestmount.c:1077
 #, c-format
 msgid "%s: must have at least one -a and at least one -m option\n"
 msgstr ""
 
-#: fuse/guestmount.c:1077
+#: fuse/guestmount.c:1085
 #, fuzzy, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr "montuje dysk gościa na pozycji w systemie plików"
