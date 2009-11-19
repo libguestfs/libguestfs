@@ -10188,15 +10188,15 @@ let () =
     try Unix.openfile "HACKING" [Unix.O_RDWR] 0
     with
     | Unix.Unix_error (Unix.ENOENT, _, _) ->
-	eprintf "\
+        eprintf "\
 You are probably running this from the wrong directory.
 Run it from the top source directory using the command
   src/generator.ml
 ";
-	exit 1
+        exit 1
     | exn ->
-	perror "open: HACKING" exn;
-	exit 1 in
+        perror "open: HACKING" exn;
+        exit 1 in
 
   (* Acquire a lock so parallel builds won't try to run the generator
    * twice at the same time.  Subsequent builds will wait for the first
