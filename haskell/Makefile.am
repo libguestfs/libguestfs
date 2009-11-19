@@ -25,8 +25,6 @@ generator_built = \
 # therefore won't generate, the files if they haven't been created yet
 EXTRA_DIST = $(generator_built) *.hs run-bindtests
 
-CLEANFILES = *~
-
 if HAVE_HASKELL
 
 TESTS_ENVIRONMENT = \
@@ -40,18 +38,26 @@ check_DATA = Bindtests
 
 GHCFLAGS = -I$(top_builddir)/src -L$(top_builddir)/src/.libs
 
-all: Bindtests Guestfs005Load Guestfs010Launch Guestfs050LVCreate
+all_targets = Bindtests Guestfs005Load Guestfs010Launch Guestfs050LVCreate
+$(all_targets): $(top_builddir)/src/libguestfs.la
 
-Bindtests: Bindtests.hs Guestfs.hs
+all: $(all_targets)
+
+Guestfs.o: Guestfs.hs
+	$(GHC)  $(GHCFLAGS) -c $<
+
+Bindtests: Bindtests.hs Guestfs.o
 	$(GHC)  $(GHCFLAGS) -main-is $(shell basename $@) --make -o $@ $< -lguestfs
 
-Guestfs005Load: Guestfs005Load.hs Guestfs.hs
+Guestfs005Load: Guestfs005Load.hs Guestfs.o
 	$(GHC)  $(GHCFLAGS) -main-is $(shell basename $@) --make -o $@ $< -lguestfs
 
-Guestfs010Launch: Guestfs010Launch.hs Guestfs.hs
+Guestfs010Launch: Guestfs010Launch.hs Guestfs.o
 	$(GHC)  $(GHCFLAGS) -main-is $(shell basename $@) --make -o $@ $< -lguestfs
 
-Guestfs050LVCreate: Guestfs050LVCreate.hs Guestfs.hs
+Guestfs050LVCreate: Guestfs050LVCreate.hs Guestfs.o
 	$(GHC)  $(GHCFLAGS) -main-is $(shell basename $@) --make -o $@ $< -lguestfs
+
+CLEANFILES = $(all_targets) *~ Guestfs.o
 
 endif
