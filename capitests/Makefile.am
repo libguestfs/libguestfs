@@ -15,8 +15,13 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-EXTRA_DIST = \
-	tests.c
+include $(top_srcdir)/subdir-rules.mk
+
+generator_built = tests.c
+
+BUILT_SOURCES = $(generator_built)
+
+EXTRA_DIST = $(BUILT_SOURCES)
 
 # Tests.  These are auto-generated from the test descriptions
 # in the generator.

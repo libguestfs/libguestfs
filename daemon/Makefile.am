@@ -19,6 +19,25 @@ ACLOCAL_AMFLAGS = -I m4
 
 SUBDIRS = lib tests .
 
+libsrcdir = $(top_builddir)/../src
+
+generator_built = \
+	actions.h \
+	stubs.c \
+	names.c
+
+.PHONY: force
+
+$(generator_built): force
+	$(MAKE) -C $(libsrcdir) stamp-generator
+
+BUILT_SOURCES = $(generator_built)
+
+EXTRA_DIST = $(BUILT_SOURCES)
+
+$(libsrcdir)/guestfs_protocol.o: force
+	$(MAKE) -C $(libsrcdir) guestfs_protocol.o
+
 noinst_PROGRAMS = guestfsd
 guestfsd_SOURCES = \
 	actions.h \
@@ -83,11 +102,8 @@ guestfsd_SOURCES = \
 	wc.c \
 	xattr.c \
 	zero.c \
-	zerofree.c \
-	$(top_builddir)/../src/guestfs_protocol.h \
-	$(top_builddir)/../src/guestfs_protocol.c
+	zerofree.c
+guestfsd_LDADD = $(libsrcdir)/guestfs_protocol.o lib/libgnu.a
 
 AM_CPPFLAGS = -I$(srcdir)/lib -Ilib
 guestfsd_CFLAGS = $(WARN_CFLAGS) $(WERROR_CFLAGS)
-
-LDADD = lib/libgnu.a

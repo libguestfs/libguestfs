@@ -15,6 +15,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+include $(top_srcdir)/subdir-rules.mk
+
 ACLOCAL_AMFLAGS = -I m4
 
 SUBDIRS = gnulib/lib hivex src daemon appliance fish po examples images \
@@ -54,9 +56,15 @@ if HAVE_HASKELL
 SUBDIRS += haskell
 endif
 
+generator_built = \
+	guestfs-structs.pod \
+	guestfs-actions.pod \
+	guestfish-actions.pod
+
 EXTRA_DIST = \
-	guestfs.pod guestfs-actions.pod guestfs-structs.pod \
-	guestfish.pod guestfish-actions.pod \
+	$(generator_built) \
+	guestfs.pod \
+	guestfish.pod \
 	html/pod.css \
 	HACKING TODO \
 	libguestfs.pc libguestfs.pc.in \

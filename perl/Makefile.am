@@ -15,17 +15,22 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-EXTRA_DIST = \
-	Makefile.PL.in \
+include $(top_srcdir)/subdir-rules.mk
+
+generator_built = \
 	Guestfs.xs \
+	lib/Sys/Guestfs.pm \
+	bindtests.pl
+
+EXTRA_DIST = \
+	$(generator_built) \
+	Makefile.PL.in \
 	examples/README \
 	examples/LICENSE \
 	examples/*.pl \
-	lib/Sys/Guestfs.pm \
 	lib/Sys/Guestfs/Lib.pm \
 	run-bindtests \
 	run-perl-tests \
-	bindtests.pl \
 	t/*.t \
 	typemap
 
@@ -42,7 +47,7 @@ TESTS_ENVIRONMENT = \
 
 INSTALLDIRS = site
 
-all: Makefile-pl
+all: Makefile-pl $(generator_built)
 	$(MAKE) -f Makefile-pl
 
 Makefile-pl: Makefile.PL

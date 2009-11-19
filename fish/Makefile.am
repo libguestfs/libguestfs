@@ -15,17 +15,26 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+include $(top_srcdir)/subdir-rules.mk
+
 bin_PROGRAMS = guestfish
 
+generator_built = \
+	cmds.c \
+	completion.c
+
+BUILT_SOURCES = \
+	$(generator_built) \
+	rc_protocol.h \
+	rc_protocol.c
+
 EXTRA_DIST = \
+	$(BUILT_SOURCES) \
 	rc_protocol.x
 
-CLEANFILES = rc_protocol.c rc_protocol.h
-
 guestfish_SOURCES = \
+	$(generator_built) \
 	alloc.c \
-	cmds.c \
-	completion.c \
 	destpaths.c \
 	echo.c \
 	edit.c \
@@ -43,10 +52,6 @@ guestfish_SOURCES = \
 # in its generated sources.
 librc_protocol_la_SOURCES = rc_protocol.c
 librc_protocol_la_CFLAGS = -Wall -Wno-unused
-
-BUILT_SOURCES = \
-	rc_protocol.c \
-	rc_protocol.h
 
 guestfish_CFLAGS = \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \

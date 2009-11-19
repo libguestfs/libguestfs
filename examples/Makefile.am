@@ -1,5 +1,7 @@
 # libguestfs examples
 
+include $(top_srcdir)/subdir-rules.mk
+
 noinst_PROGRAMS = hello to-xml
 
 hello_SOURCES = hello.c

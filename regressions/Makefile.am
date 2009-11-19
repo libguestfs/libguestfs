@@ -21,6 +21,8 @@
 #
 # See also capitests/
 
+include $(top_srcdir)/subdir-rules.mk
+
 TESTS = \
 	rhbz503169c10.sh \
 	rhbz503169c13.sh \

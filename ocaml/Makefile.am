@@ -15,12 +15,19 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+include $(top_srcdir)/subdir-rules.mk
+
+generator_built = \
+	guestfs.mli \
+	guestfs.ml \
+	guestfs_c_actions.c \
+	bindtests.ml
+
 EXTRA_DIST = \
-	guestfs.mli guestfs.ml \
-	guestfs_c.c guestfs_c.h guestfs_c_actions.c \
+	$(generator_built) \
+	guestfs_c.c guestfs_c.h \
 	guestfs_inspector.mli guestfs_inspector.ml \
 	.depend META.in \
-	bindtests.ml \
 	run-bindtests \
 	t/*.ml
 

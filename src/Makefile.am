@@ -15,12 +15,28 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-EXTRA_DIST = \
+include $(top_srcdir)/subdir-rules.mk
+
+generator_built = \
 	guestfs_protocol.x \
+	guestfs-structs.h \
+	guestfs-actions.h \
+	guestfs-internal-actions.h \
+	guestfs-actions.c \
+	guestfs-bindtests.c
+
+$(generator_built): stamp-generator
+
+BUILT_SOURCES = \
+  $(generator_built) \
+  guestfs_protocol.c \
+  guestfs_protocol.h
+
+EXTRA_DIST = \
+	$(BUILT_SOURCES) \
 	MAX_PROC_NR \
 	stamp-generator \
-	generator.ml \
-	guestfs-internal-actions.h
+	generator.ml
 
 # Rerun the generator if it has changed.
 # Git removes empty directories, so in cases where the
@@ -34,20 +50,9 @@ stamp-generator: generator.ml
 	mkdir -p $(top_srcdir)/java/com/redhat/et/libguestfs
 	cd $(top_srcdir) && ocaml -warn-error A src/generator.ml
 
-$(BUILT_SOURCES): stamp-generator
-
 include_HEADERS = guestfs.h guestfs-actions.h guestfs-structs.h
 
 lib_LTLIBRARIES = libguestfs.la
-
-BUILT_SOURCES = \
-  guestfs_protocol.x \
-  guestfs_protocol.c \
-  guestfs_protocol.h \
-  guestfs-structs.h \
-  guestfs-actions.h \
-  guestfs-actions.c \
-  guestfs-bindtests.c
 
 # This convenience library is solely to avoid compiler warnings
 # in its generated sources.
@@ -56,8 +61,6 @@ libprotocol_la_SOURCES = \
   guestfs_protocol.h
 
 libprotocol_la_CFLAGS =
-
-CLEANFILES = guestfs_protocol.c guestfs_protocol.h
 
 # From the libtool info file, with comments:
 #

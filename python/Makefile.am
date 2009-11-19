@@ -18,10 +18,15 @@
 # Old RHEL 5 autoconf doesn't have builddir.
 builddir ?= $(top_builddir)/python
 
-EXTRA_DIST = \
-	guestfs.py \
+include $(top_srcdir)/subdir-rules.mk
+
+generator_built = \
 	guestfs-py.c \
-	bindtests.py \
+	guestfs.py \
+	bindtests.py
+
+EXTRA_DIST = \
+	$(generator_built) \
 	run-bindtests \
 	run-python-tests \
 	t/*.py

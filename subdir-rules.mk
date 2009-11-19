@@ -1,4 +1,4 @@
-# libguestfs Ruby bindings
+# libguestfs
 # Copyright (C) 2009 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -15,40 +15,15 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-include $(top_srcdir)/subdir-rules.mk
+# Define a force dependency which will always be rebuilt
+.PHONY: force
 
-generator_built = \
-	ext/guestfs/_guestfs.c \
-	bindtests.rb
+# Rebuild rules for common dependencies
+$(top_builddir)/src/libguestfs.la: force
+	$(MAKE) -C $(top_builddir)/src libguestfs.la
 
-EXTRA_DIST = \
-	$(generator_built) \
-	Rakefile.in \
-	ext/guestfs/extconf.rb \
-	lib/guestfs.rb \
-	run-bindtests \
-	run-ruby-tests \
-	tests/tc_*.rb
-
-CLEANFILES = \
-	lib/*~ \
-	tests/*~ \
-	ext/guestfs/*~ \
-	ext/guestfs/extconf.h \
-	ext/guestfs/_guestfs.o \
-	ext/guestfs/_guestfs.so \
-	ext/guestfs/mkmf.log \
-	ext/guestfs/Makefile
-
-if HAVE_RUBY
-
-TESTS = run-bindtests run-ruby-tests
-
-TESTS_ENVIRONMENT = \
-	LD_LIBRARY_PATH=$(top_builddir)/src/.libs \
-	LIBGUESTFS_PATH=$(top_builddir)/appliance
-
-all: $(generator_built)
-	rake build
-
-endif
+# Automatically build targets defined in generator_built
+# generator_built is defined in individual Makefiles
+$(generator_built): $(top_builddir)/src/stamp-generator
+$(top_builddir)/src/stamp-generator: force
+	$(MAKE) -C $(top_builddir)/src stamp-generator

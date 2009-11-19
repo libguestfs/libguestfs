@@ -15,6 +15,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
+include $(top_srcdir)/subdir-rules.mk
+
 # Old RHEL 5 autoconf doesn't have builddir.
 builddir ?= $(top_builddir)/images
 
