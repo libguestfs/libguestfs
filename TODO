@@ -261,3 +261,24 @@ virt-rescue TERM
 
 Pass TERM from the library, through the kernel command line, to the
 init script.
+
+Windows-based daemon/appliance
+------------------------------
+
+See discussion on list:
+https://www.redhat.com/archives/libguestfs/2009-November/msg00165.html
+
+virt-grow, virt-shrink
+----------------------
+
+Grow and shrink existing guests.  The main problem comes with
+MBR-style partitions where you have to actually copy data around the
+disk (unless you only want to change the final partition).
+
+qemu locking
+------------
+
+Add -drive file=...,lock=exclusive and -drive file=...,lock=shared
+
+Change libguestfs and libvirt to do the right thing, so that multiple
+instances of qemu cannot stomp on each other.
