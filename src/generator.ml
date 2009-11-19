@@ -10176,18 +10176,39 @@ let output_to filename =
   in
   close
 
+let perror msg = function
+  | Unix.Unix_error (err, _, _) ->
+      eprintf "%s: %s\n" msg (Unix.error_message err)
+  | exn ->
+      eprintf "%s: %s\n" msg (Printexc.to_string exn)
+
 (* Main program. *)
 let () =
-  check_functions ();
-
-  if not (Sys.file_exists "HACKING") then (
-    eprintf "\
+  let lock_fd =
+    try Unix.openfile "HACKING" [Unix.O_RDWR] 0
+    with
+    | Unix.Unix_error (Unix.ENOENT, _, _) ->
+	eprintf "\
 You are probably running this from the wrong directory.
 Run it from the top source directory using the command
   src/generator.ml
 ";
-    exit 1
-  );
+	exit 1
+    | exn ->
+	perror "open: HACKING" exn;
+	exit 1 in
+
+  (* Acquire a lock so parallel builds won't try to run the generator
+   * twice at the same time.  Subsequent builds will wait for the first
+   * one to finish.  Note the lock is released implicitly when the
+   * program exits.
+   *)
+  (try Unix.lockf lock_fd Unix.F_LOCK 1
+   with exn ->
+     perror "lock: HACKING" exn;
+     exit 1);
+
+  check_functions ();
 
   let close = output_to "src/guestfs_protocol.x" in
   generate_xdr ();
