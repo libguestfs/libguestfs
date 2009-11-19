@@ -35,6 +35,7 @@
 #load "unix.cma";;
 #load "str.cma";;
 
+open Unix
 open Printf
 
 type style = ret * args
@@ -346,13 +347,13 @@ and cmd = string list
 
 (* Generate a random UUID (used in tests). *)
 let uuidgen () =
-  let chan = Unix.open_process_in "uuidgen" in
+  let chan = open_process_in "uuidgen" in
   let uuid = input_line chan in
-  (match Unix.close_process_in chan with
-   | Unix.WEXITED 0 -> ()
-   | Unix.WEXITED _ ->
+  (match close_process_in chan with
+   | WEXITED 0 -> ()
+   | WEXITED _ ->
        failwith "uuidgen: process exited with non-zero status"
-   | Unix.WSIGNALED _ | Unix.WSTOPPED _ ->
+   | WSIGNALED _ | WSTOPPED _ ->
        failwith "uuidgen: process signalled or stopped by signal"
   );
   uuid
@@ -4696,7 +4697,7 @@ let check_functions () =
   ) all_functions
 
 (* 'pr' prints to the current output file. *)
-let chan = ref stdout
+let chan = ref Pervasives.stdout
 let pr fs = ksprintf (output_string !chan) fs
 
 (* Generate a header block in a number of standard styles. *)
@@ -8650,7 +8651,7 @@ and pod2text ~width name longdesc =
     fprintf chan "=head1 %s\n\n%s\n" name longdesc;
     close_out chan;
     let cmd = sprintf "pod2text -w %d %s" width (Filename.quote filename) in
-    let chan = Unix.open_process_in cmd in
+    let chan = open_process_in cmd in
     let lines = ref [] in
     let rec loop i =
       let line = input_line chan in
@@ -8662,12 +8663,12 @@ and pod2text ~width name longdesc =
         loop (i+1)
       ) in
     let lines = try loop 1 with End_of_file -> List.rev !lines in
-    Unix.unlink filename;
-    (match Unix.close_process_in chan with
-     | Unix.WEXITED 0 -> ()
-     | Unix.WEXITED i ->
+    unlink filename;
+    (match close_process_in chan with
+     | WEXITED 0 -> ()
+     | WEXITED i ->
          failwithf "pod2text: process exited with non-zero status (%d)" i
-     | Unix.WSIGNALED i | Unix.WSTOPPED i ->
+     | WSIGNALED i | WSTOPPED i ->
          failwithf "pod2text: process signalled or stopped by signal %d" i
     );
     Hashtbl.add pod2text_memo key lines;
@@ -10161,33 +10162,33 @@ let output_to filename =
   chan := open_out filename_new;
   let close () =
     close_out !chan;
-    chan := stdout;
+    chan := Pervasives.stdout;
 
     (* Is the new file different from the current file? *)
     if Sys.file_exists filename && files_equal filename filename_new then
-      Unix.unlink filename_new		(* same, so skip it *)
+      unlink filename_new		(* same, so skip it *)
     else (
       (* different, overwrite old one *)
-      (try Unix.chmod filename 0o644 with Unix.Unix_error _ -> ());
-      Unix.rename filename_new filename;
-      Unix.chmod filename 0o444;
+      (try chmod filename 0o644 with Unix_error _ -> ());
+      rename filename_new filename;
+      chmod filename 0o444;
       printf "written %s\n%!" filename;
     )
   in
   close
 
 let perror msg = function
-  | Unix.Unix_error (err, _, _) ->
-      eprintf "%s: %s\n" msg (Unix.error_message err)
+  | Unix_error (err, _, _) ->
+      eprintf "%s: %s\n" msg (error_message err)
   | exn ->
       eprintf "%s: %s\n" msg (Printexc.to_string exn)
 
 (* Main program. *)
 let () =
   let lock_fd =
-    try Unix.openfile "HACKING" [Unix.O_RDWR] 0
+    try openfile "HACKING" [O_RDWR] 0
     with
-    | Unix.Unix_error (Unix.ENOENT, _, _) ->
+    | Unix_error (ENOENT, _, _) ->
         eprintf "\
 You are probably running this from the wrong directory.
 Run it from the top source directory using the command
@@ -10203,7 +10204,7 @@ Run it from the top source directory using the command
    * one to finish.  Note the lock is released implicitly when the
    * program exits.
    *)
-  (try Unix.lockf lock_fd Unix.F_LOCK 1
+  (try lockf lock_fd F_LOCK 1
    with exn ->
      perror "lock: HACKING" exn;
      exit 1);
