@@ -5398,20 +5398,20 @@ check_state (guestfs_h *g, const char *caller)
            pr "  /* caller will free this */\n";
            pr "  return safe_memdup (g, &ret.%s, sizeof (ret.%s));\n" n n
        | RBufferOut n ->
-	   pr "  /* RBufferOut is tricky: If the buffer is zero-length, then\n";
-	   pr "   * _val might be NULL here.  To make the API saner for\n";
-	   pr "   * callers, we turn this case into a unique pointer (using\n";
-	   pr "   * malloc(1)).\n";
-	   pr "   */\n";
-	   pr "  if (ret.%s.%s_len > 0) {\n" n n;
+           pr "  /* RBufferOut is tricky: If the buffer is zero-length, then\n";
+           pr "   * _val might be NULL here.  To make the API saner for\n";
+           pr "   * callers, we turn this case into a unique pointer (using\n";
+           pr "   * malloc(1)).\n";
+           pr "   */\n";
+           pr "  if (ret.%s.%s_len > 0) {\n" n n;
            pr "    *size_r = ret.%s.%s_len;\n" n n;
            pr "    return ret.%s.%s_val; /* caller will free */\n" n n;
-	   pr "  } else {\n";
-	   pr "    free (ret.%s.%s_val);\n" n n;
-	   pr "    char *p = safe_malloc (g, 1);\n";
+           pr "  } else {\n";
+           pr "    free (ret.%s.%s_val);\n" n n;
+           pr "    char *p = safe_malloc (g, 1);\n";
            pr "    *size_r = ret.%s.%s_len;\n" n n;
            pr "    return p;\n";
-	   pr "  }\n";
+           pr "  }\n";
       );
 
       pr "}\n\n"
@@ -5592,18 +5592,18 @@ and generate_daemon_actions () =
        | RConstString _ | RConstOptString _
        | RString _ | RStringList _ | RHashtable _
        | RStruct (_, _) | RStructList (_, _) ->
-	   pr "  if (r == %s)\n" error_code;
-	   pr "    /* do_%s has already called reply_with_error */\n" name;
-	   pr "    goto done;\n";
-	   pr "\n"
+           pr "  if (r == %s)\n" error_code;
+           pr "    /* do_%s has already called reply_with_error */\n" name;
+           pr "    goto done;\n";
+           pr "\n"
        | RBufferOut _ ->
-	   pr "  /* size == 0 && r == NULL could be a non-error case (just\n";
-	   pr "   * an ordinary zero-length buffer), so be careful ...\n";
-	   pr "   */\n";
-	   pr "  if (size == 1 && r == %s)\n" error_code;
-	   pr "    /* do_%s has already called reply_with_error */\n" name;
-	   pr "    goto done;\n";
-	   pr "\n"
+           pr "  /* size == 0 && r == NULL could be a non-error case (just\n";
+           pr "   * an ordinary zero-length buffer), so be careful ...\n";
+           pr "   */\n";
+           pr "  if (size == 1 && r == %s)\n" error_code;
+           pr "    /* do_%s has already called reply_with_error */\n" name;
+           pr "    goto done;\n";
+           pr "\n"
       );
 
       (* If there are any FileOut parameters, then the impl must
@@ -6684,8 +6684,8 @@ and generate_fish_cmds () =
       pr "    pod2text (\"%s\", _(\"%s\"), %S);\n"
         name2 shortdesc
         ("=head1 SYNOPSIS\n\n " ^ synopsis ^ "\n\n" ^
-	 "=head1 DESCRIPTION\n\n" ^
-	 longdesc ^ warnings ^ describe_alias);
+         "=head1 DESCRIPTION\n\n" ^
+         longdesc ^ warnings ^ describe_alias);
       pr "  else\n"
   ) all_functions;
   pr "    display_builtin_command (cmd);\n";

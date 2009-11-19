@@ -69,8 +69,8 @@ function cleanup ()
     # you from unmounting it!  Hence the need for this loop.
     count=10
     while ! fusermount -u "$mp" && [ $count -gt 0 ]; do
-	sleep 1
-	((count--))
+        sleep 1
+        ((count--))
     done
 
     rm -f "$image"
