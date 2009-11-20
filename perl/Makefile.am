@@ -39,7 +39,18 @@ if HAVE_PERL
 # Interfacing automake and ExtUtils::MakeMaker known to be
 # a nightmare, news at 11.
 
+# src/ dependencies
+.PHONY: src_deps
+src_deps: $(top_builddir)/src/libguestfs.la $(generator_built)
+
+# Images used by tests
+.PHONY: test_images
+test_images:
+	$(MAKE) -C $(top_builddir)/images
+
 TESTS = run-bindtests run-perl-tests
+
+$(TESTS): src_deps all appliance test_images
 
 TESTS_ENVIRONMENT = \
 	LD_LIBRARY_PATH=$(top_builddir)/src/.libs \
@@ -47,7 +58,7 @@ TESTS_ENVIRONMENT = \
 
 INSTALLDIRS = site
 
-all: Makefile-pl $(generator_built)
+all: Makefile-pl src_deps
 	$(MAKE) -f Makefile-pl
 
 Makefile-pl: Makefile.PL

@@ -31,3 +31,8 @@ $(top_builddir)/src/stamp-generator: force
 # The daemon
 $(top_builddir)/daemon/guestfsd: force
 	$(MAKE) -C $(top_builddir)/daemon
+
+# A symbolic rule to regenerate the appliance
+.PHONY: appliance
+appliance: force
+	$(MAKE) -C $(top_builddir)/appliance
