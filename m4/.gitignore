@@ -125,3 +125,4 @@ xsize.m4
 /xstrndup.m4
 /hash.m4
 /inttostr.m4
+/putenv.m4
