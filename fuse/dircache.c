@@ -138,7 +138,7 @@ init_dir_caches (void)
   rlc_ht = hash_initialize (1024, NULL, gen_hash, gen_compare, rlc_free);
   if (!lsc_ht || !xac_ht || !rlc_ht) {
     fprintf (stderr, "guestmount: could not initialize dir cache hashtables\n");
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 }
 

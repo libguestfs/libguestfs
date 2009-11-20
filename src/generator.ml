@@ -5975,7 +5975,7 @@ int main (int argc, char *argv[])
   g = guestfs_create ();
   if (g == NULL) {
     printf (\"guestfs_create FAILED\\n\");
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   guestfs_set_error_handler (g, print_error, NULL);
@@ -5986,94 +5986,94 @@ int main (int argc, char *argv[])
   fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_NONBLOCK|O_TRUNC, 0666);
   if (fd == -1) {
     perror (filename);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
   if (lseek (fd, %d, SEEK_SET) == -1) {
     perror (\"lseek\");
     close (fd);
     unlink (filename);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
   if (write (fd, &c, 1) == -1) {
     perror (\"write\");
     close (fd);
     unlink (filename);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
   if (close (fd) == -1) {
     perror (filename);
     unlink (filename);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
   if (guestfs_add_drive (g, filename) == -1) {
     printf (\"guestfs_add_drive %%s FAILED\\n\", filename);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   filename = \"test2.img\";
   fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_NONBLOCK|O_TRUNC, 0666);
   if (fd == -1) {
     perror (filename);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
   if (lseek (fd, %d, SEEK_SET) == -1) {
     perror (\"lseek\");
     close (fd);
     unlink (filename);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
   if (write (fd, &c, 1) == -1) {
     perror (\"write\");
     close (fd);
     unlink (filename);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
   if (close (fd) == -1) {
     perror (filename);
     unlink (filename);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
   if (guestfs_add_drive (g, filename) == -1) {
     printf (\"guestfs_add_drive %%s FAILED\\n\", filename);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   filename = \"test3.img\";
   fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_NONBLOCK|O_TRUNC, 0666);
   if (fd == -1) {
     perror (filename);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
   if (lseek (fd, %d, SEEK_SET) == -1) {
     perror (\"lseek\");
     close (fd);
     unlink (filename);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
   if (write (fd, &c, 1) == -1) {
     perror (\"write\");
     close (fd);
     unlink (filename);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
   if (close (fd) == -1) {
     perror (filename);
     unlink (filename);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
   if (guestfs_add_drive (g, filename) == -1) {
     printf (\"guestfs_add_drive %%s FAILED\\n\", filename);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   if (guestfs_add_drive_ro (g, \"../images/test.iso\") == -1) {
     printf (\"guestfs_add_drive_ro ../images/test.iso FAILED\\n\");
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   if (guestfs_launch (g) == -1) {
     printf (\"guestfs_launch FAILED\\n\");
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   /* Set a timeout in case qemu hangs during launch (RHBZ#505329). */
@@ -6105,11 +6105,11 @@ int main (int argc, char *argv[])
 
   pr "  if (n_failed > 0) {\n";
   pr "    printf (\"***** %%lu / %%d tests FAILED *****\\n\", n_failed, nr_tests);\n";
-  pr "    exit (1);\n";
+  pr "    exit (EXIT_FAILURE);\n";
   pr "  }\n";
   pr "\n";
 
-  pr "  exit (0);\n";
+  pr "  exit (EXIT_SUCCESS);\n";
   pr "}\n"
 
 and generate_one_test name i (init, prereq, test) =

@@ -59,7 +59,7 @@ static struct hivex_visitor visitor = {
   do {                                                                  \
     if ((proc args) == -1) {                                            \
       fprintf (stderr, "%s: failed to write XML document\n", #proc);    \
-      exit (1);                                                         \
+      exit (EXIT_FAILURE);                                                         \
     }                                                                   \
   } while (0)
 
@@ -80,19 +80,19 @@ main (int argc, char *argv[])
       break;
     default:
       fprintf (stderr, "hivexml [-dk] regfile > output.xml\n");
-      exit (1);
+      exit (EXIT_FAILURE);
     }
   }
 
   if (optind + 1 != argc) {
     fprintf (stderr, "hivexml: missing name of input file\n");
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   hive_h *h = hivex_open (argv[optind], open_flags);
   if (h == NULL) {
     perror (argv[optind]);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   /* Note both this macro, and xmlTextWriterStartDocument leak memory.  There
@@ -105,7 +105,7 @@ main (int argc, char *argv[])
   writer = xmlNewTextWriterFilename ("/dev/stdout", 0);
   if (writer == NULL) {
     fprintf (stderr, "xmlNewTextWriterFilename: failed to create XML writer\n");
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   XML_CHECK (xmlTextWriterStartDocument, (writer, NULL, "utf-8", NULL));
@@ -113,19 +113,19 @@ main (int argc, char *argv[])
 
   if (hivex_visit (h, &visitor, sizeof visitor, writer, visit_flags) == -1) {
     perror (argv[optind]);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   if (hivex_close (h) == -1) {
     perror (argv[optind]);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   XML_CHECK (xmlTextWriterEndElement, (writer));
   XML_CHECK (xmlTextWriterEndDocument, (writer));
   xmlFreeTextWriter (writer);
 
-  exit (0);
+  exit (EXIT_SUCCESS);
 }
 
 static int

@@ -42,32 +42,32 @@ main (void)
   if (mkdir ("/tmp", 0700) == -1) {
     perror ("mkdir");
     fprintf (stderr, "This program should not be run directly.  Use libguestfs-test-tool instead.\n");
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   if (geteuid () != 0) {
     fprintf (stderr, "helper: This program doesn't appear to be running as root.\n");
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   if (mkdir ("/tmp/helper", 0700) == -1) {
     perror ("/tmp/helper");
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   fd = open ("/tmp/helper/a", O_CREAT|O_EXCL|O_WRONLY, 0600);
   if (fd == -1) {
     perror ("create /tmp/helper/a");
-    exit (1);
+    exit (EXIT_FAILURE);
   }
   if (write (fd, buffer, sizeof buffer) != sizeof buffer) {
     perror ("write");
-    exit (1);
+    exit (EXIT_FAILURE);
   }
   if (close (fd) == -1) {
     perror ("close");
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
-  exit (0);
+  exit (EXIT_SUCCESS);
 }

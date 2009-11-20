@@ -19,18 +19,18 @@ main (int argc, char *argv[])
 
   if (argc != 3 || access (argv[1], F_OK) != 0) {
     fprintf (stderr, "Usage: hello disk-image partition\n");
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
-  if (!(g = guestfs_create ())) exit (1);
+  if (!(g = guestfs_create ())) exit (EXIT_FAILURE);
 
-  if (guestfs_add_drive (g, argv[1]) == -1) exit (1);
+  if (guestfs_add_drive (g, argv[1]) == -1) exit (EXIT_FAILURE);
 
-  if (guestfs_launch (g) == -1) exit (1);
+  if (guestfs_launch (g) == -1) exit (EXIT_FAILURE);
 
-  if (guestfs_mount (g, argv[2], "/") == -1) exit (1);
+  if (guestfs_mount (g, argv[2], "/") == -1) exit (EXIT_FAILURE);
 
-  if (guestfs_touch (g, "/hello") == -1) exit (1);
+  if (guestfs_touch (g, "/hello") == -1) exit (EXIT_FAILURE);
 
   guestfs_sync (g);
   guestfs_close (g);

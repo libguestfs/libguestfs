@@ -32,7 +32,7 @@ main (int argc, char *argv[])
 {
   if (argc < 3 || argc > 4) {
     fprintf (stderr, "hivexget regfile path [key]\n");
-    exit (1);
+    exit (EXIT_FAILURE);
   }
   char *file = argv[1];
   char *path = argv[2];
@@ -40,19 +40,19 @@ main (int argc, char *argv[])
 
   if (path[0] != '\\') {
     fprintf (stderr, "hivexget: path must start with a \\ character\n");
-    exit (1);
+    exit (EXIT_FAILURE);
   }
   if (path[1] == '\\') {
   doubled:
     fprintf (stderr, "hivexget: %s: \\ characters in path are doubled - are you escaping the path parameter correctly?\n", path);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   hive_h *h = hivex_open (file, 0);
   if (h == NULL) {
   error:
     perror (file);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   /* Navigate to the desired node. */
@@ -264,5 +264,5 @@ main (int argc, char *argv[])
   if (hivex_close (h) == -1)
     goto error;
 
-  exit (0);
+  exit (EXIT_SUCCESS);
 }

@@ -120,7 +120,7 @@ main (int argc, char *argv[])
         fprintf (stderr,
                  _("libguestfs-test-tool: unknown long option: %s (%d)\n"),
                  long_options[option_index].name, option_index);
-        exit (1);
+        exit (EXIT_FAILURE);
       }
       break;
 
@@ -129,19 +129,19 @@ main (int argc, char *argv[])
         fprintf (stderr,
                  _("libguestfs-test-tool: invalid timeout: %s\n"),
                  optarg);
-        exit (1);
+        exit (EXIT_FAILURE);
       }
       break;
 
     case '?':
       usage ();
-      exit (0);
+      exit (EXIT_SUCCESS);
 
     default:
       fprintf (stderr,
                _("libguestfs-test-tool: unexpected command line option 0x%x\n"),
                c);
-      exit (1);
+      exit (EXIT_FAILURE);
     }
   }
 
@@ -163,26 +163,26 @@ main (int argc, char *argv[])
   if (g == NULL) {
     fprintf (stderr,
              _("libguestfs-test-tool: failed to create libguestfs handle\n"));
-    exit (1);
+    exit (EXIT_FAILURE);
   }
   if (guestfs_add_drive (g, tmpf) == -1) {
     fprintf (stderr,
              _("libguestfs-test-tool: failed to add drive '%s'\n"),
              tmpf);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
   if (guestfs_add_drive (g, isof) == -1) {
     fprintf (stderr,
              _("libguestfs-test-tool: failed to add drive '%s'\n"),
              isof);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   /* Print any version info etc. */
   vers = guestfs_version (g);
   if (vers == NULL) {
     fprintf (stderr, _("libguestfs-test-tool: guestfs_version failed\n"));
-    exit (1);
+    exit (EXIT_FAILURE);
   }
   printf ("library version: %"PRIi64".%"PRIi64".%"PRIi64"%s\n",
           vers->major, vers->minor, vers->release, vers->extra);
@@ -204,7 +204,7 @@ main (int argc, char *argv[])
   if (guestfs_launch (g) == -1) {
     fprintf (stderr,
              _("libguestfs-test-tool: failed to launch appliance\n"));
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   alarm (0);
@@ -216,31 +216,31 @@ main (int argc, char *argv[])
   if (guestfs_sfdiskM (g, "/dev/sda", sfdisk_lines) == -1) {
     fprintf (stderr,
              _("libguestfs-test-tool: failed to run sfdisk\n"));
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   if (guestfs_mkfs (g, "ext2", "/dev/sda1") == -1) {
     fprintf (stderr,
              _("libguestfs-test-tool: failed to mkfs.ext2\n"));
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   if (guestfs_mount (g, "/dev/sda1", "/") == -1) {
     fprintf (stderr,
              _("libguestfs-test-tool: failed to mount /dev/sda1 on /\n"));
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   if (guestfs_mkdir (g, "/iso") == -1) {
     fprintf (stderr,
              _("libguestfs-test-tool: failed to mkdir /iso\n"));
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   if (guestfs_mount (g, "/dev/sdb", "/iso") == -1) {
     fprintf (stderr,
              _("libguestfs-test-tool: failed to mount /dev/sdb on /iso\n"));
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   /* Let's now run some simple tests using the helper program. */
@@ -248,12 +248,12 @@ main (int argc, char *argv[])
   if (str == NULL) {
     fprintf (stderr,
              _("libguestfs-test-tool: could not run helper program, or helper failed\n"));
-    exit (1);
+    exit (EXIT_FAILURE);
   }
   free (str);
 
   printf ("===== TEST FINISHED OK =====\n");
-  exit (0);
+  exit (EXIT_SUCCESS);
 }
 
 static char qemuwrapper[] = "/tmp/libguestfs-test-tool-wrapper-XXXXXX";
@@ -280,7 +280,7 @@ set_qemu (const char *path, int use_wrapper)
     fprintf (stderr,
     _("LIBGUESTFS_QEMU environment variable is already set, so\n"
       "--qemu/--qemudir options cannot be used.\n"));
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   if (!use_wrapper) {
@@ -288,7 +288,7 @@ set_qemu (const char *path, int use_wrapper)
       fprintf (stderr,
                _("Binary '%s' does not exist or is not executable\n"),
                path);
-      exit (1);
+      exit (EXIT_FAILURE);
     }
 
     setenv ("LIBGUESTFS_QEMU", path, 1);
@@ -302,14 +302,14 @@ set_qemu (const char *path, int use_wrapper)
     fprintf (stderr,
              _("%s: does not look like a qemu source directory\n"),
              path);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   /* Make a wrapper script. */
   fd = mkstemp (qemuwrapper);
   if (fd == -1) {
     perror (qemuwrapper);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   fchmod (fd, 0700);
@@ -354,19 +354,19 @@ preruncheck (void)
       "\n"
       "Use the --helper option to specify the location of this program.\n"),
              helper);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   snprintf (cmd, sizeof cmd, "file '%s'", helper);
   fp = popen (cmd, "r");
   if (fp == NULL) {
     perror (cmd);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
   r = fread (buffer, 1, sizeof buffer - 1, fp);
   if (r == 0) {
     fprintf (stderr, _("command failed: %s"), cmd);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
   pclose (fp);
   buffer[r] = '\0';
@@ -377,7 +377,7 @@ preruncheck (void)
       "is not statically linked.  This is a build error when this test tool\n"
       "was built.\n"),
              helper);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 }
 
@@ -398,7 +398,7 @@ make_files (void)
   fd = mkstemp (isof);
   if (fd == -1) {
     perror (isof);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
   close (fd);
 
@@ -408,7 +408,7 @@ make_files (void)
   if (r == -1 || WEXITSTATUS(r) != 0) {
     fprintf (stderr,
              _("mkisofs command failed: %s\n"), cmd);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   /* Allocate the sparse file for /dev/sda. */
@@ -416,7 +416,7 @@ make_files (void)
   if (fd == -1) {
     perror (tmpf);
     unlink (isof);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   if (lseek (fd, 100 * 1024 * 1024 - 1, SEEK_SET) == -1) {
@@ -424,7 +424,7 @@ make_files (void)
     close (fd);
     unlink (tmpf);
     unlink (isof);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   if (write (fd, "\0", 1) == -1) {
@@ -432,7 +432,7 @@ make_files (void)
     close (fd);
     unlink (tmpf);
     unlink (isof);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   close (fd);

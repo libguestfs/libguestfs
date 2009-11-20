@@ -57,12 +57,12 @@ main (int argc, char *argv[])
       printf ("Result11-1\nResult11-2");
     } else {
       fprintf (stderr, "unknown parameter: %s\n", argv[1]);
-      exit (1);
+      exit (EXIT_FAILURE);
     }
   } else {
     fprintf (stderr, "missing parameter\n");
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
-  exit (0);
+  exit (EXIT_SUCCESS);
 }

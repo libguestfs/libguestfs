@@ -62,7 +62,7 @@ try_tilde_expansion (char *str)
       str = malloc (len);
       if (str == NULL) {
         perror ("malloc");
-        exit (1);
+        exit (EXIT_FAILURE);
       }
       strcpy (str, home);
       strcat (str, rest);
@@ -89,7 +89,7 @@ expand_home (const char *append)
   str = malloc (len);
   if (str == NULL) {
     perror ("malloc");
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   strcpy (str, home);

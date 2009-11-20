@@ -858,7 +858,7 @@ fuse_help (void)
 {
   const char *tmp_argv[] = { program_name, "--help", NULL };
   fuse_main (2, (char **) tmp_argv, &fg_operations, NULL);
-  exit (0);
+  exit (EXIT_SUCCESS);
 }
 
 static void __attribute__((noreturn))
@@ -936,7 +936,7 @@ main (int argc, char *argv[])
     fuse_argv = realloc (fuse_argv, (1+fuse_argc) * sizeof (char *));   \
     if (!fuse_argv) {                                                   \
       perror ("realloc");                                               \
-      exit (1);                                                         \
+      exit (EXIT_FAILURE);                                                         \
     }                                                                   \
     fuse_argv[fuse_argc-1] = (str);                                     \
     fuse_argv[fuse_argc] = NULL;                                        \
@@ -959,7 +959,7 @@ main (int argc, char *argv[])
   g = guestfs_create ();
   if (g == NULL) {
     fprintf (stderr, _("guestfs_create: failed to create handle\n"));
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   guestfs_set_autosync (g, 1);
@@ -1005,19 +1005,19 @@ main (int argc, char *argv[])
       else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
                  program_name, long_options[option_index].name, option_index);
-        exit (1);
+        exit (EXIT_FAILURE);
       }
       break;
 
     case 'a':
       if (access (optarg, R_OK) != 0) {
         perror (optarg);
-        exit (1);
+        exit (EXIT_FAILURE);
       }
       drv = malloc (sizeof (struct drv));
       if (!drv) {
         perror ("malloc");
-        exit (1);
+        exit (EXIT_FAILURE);
       }
       drv->filename = optarg;
       drv->next = drvs;
@@ -1028,7 +1028,7 @@ main (int argc, char *argv[])
       mp = malloc (sizeof (struct mp));
       if (!mp) {
         perror ("malloc");
-        exit (1);
+        exit (EXIT_FAILURE);
       }
       p = strchr (optarg, ':');
       if (p) {
@@ -1061,7 +1061,7 @@ main (int argc, char *argv[])
 
     case 'V':
       printf ("%s %s\n", program_name, PACKAGE_VERSION);
-      exit (0);
+      exit (EXIT_SUCCESS);
 
     case HELP_OPTION:
       usage (0);
@@ -1076,7 +1076,7 @@ main (int argc, char *argv[])
     fprintf (stderr,
              _("%s: must have at least one -a and at least one -m option\n"),
              program_name);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   /* We'd better have a mountpoint. */
@@ -1084,18 +1084,18 @@ main (int argc, char *argv[])
     fprintf (stderr,
              _("%s: you must specify a mountpoint in the host filesystem\n"),
              program_name);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   /* Do the guest drives and mountpoints. */
   add_drives (drvs);
   if (guestfs_launch (g) == -1)
-    exit (1);
+    exit (EXIT_FAILURE);
   mount_mps (mps);
 
   /* FUSE example does this, not clear if it's necessary, but ... */
   if (guestfs_umask (g, 0) == -1)
-    exit (1);
+    exit (EXIT_FAILURE);
 
   /* At the last minute, remove the libguestfs error handler.  In code
    * above this point, the default error handler has been used which
@@ -1144,7 +1144,7 @@ add_drives (struct drv *drv)
     else
       r = guestfs_add_drive_ro (g, drv->filename);
     if (r == -1)
-      exit (1);
+      exit (EXIT_FAILURE);
   }
 }
 
@@ -1161,6 +1161,6 @@ mount_mps (struct mp *mp)
     else
       r = guestfs_mount_ro (g, mp->device, mp->mountpoint);
     if (r == -1)
-      exit (1);
+      exit (EXIT_FAILURE);
   }
 }

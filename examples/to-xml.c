@@ -25,7 +25,7 @@
  * to stderr already.
  */
 #define CALL(call,errcode)			\
-  if ((call) == (errcode)) exit (1);
+  if ((call) == (errcode)) exit (EXIT_FAILURE);
 
 static void display_partition (guestfs_h *g, const char *dev);
 static void display_partitions (guestfs_h *g, const char *dev);
@@ -39,12 +39,12 @@ main (int argc, char *argv[])
 
   if (argc < 2 || access (argv[1], F_OK) != 0) {
     fprintf (stderr, "Usage: to-xml guest.img [guest.img ...]\n");
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   if (!(g = guestfs_create ())) {
     fprintf (stderr, "Cannot create libguestfs handle.\n");
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   for (i = 1; i < argc; ++i)

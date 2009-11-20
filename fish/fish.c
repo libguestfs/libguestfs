@@ -182,7 +182,7 @@ main (int argc, char *argv[])
   g = guestfs_create ();
   if (g == NULL) {
     fprintf (stderr, _("guestfs_create: failed to create handle\n"));
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   guestfs_set_autosync (g, 1);
@@ -222,7 +222,7 @@ main (int argc, char *argv[])
           if (sscanf (optarg, "%d", &remote_control) != 1) {
             fprintf (stderr, _("%s: --listen=PID: PID was not a number: %s\n"),
                      program_name, optarg);
-            exit (1);
+            exit (EXIT_FAILURE);
           }
         } else {
           p = getenv ("GUESTFISH_PID");
@@ -230,7 +230,7 @@ main (int argc, char *argv[])
             fprintf (stderr, _("%s: remote: $GUESTFISH_PID must be set"
                                " to the PID of the remote process\n"),
                      program_name);
-            exit (1);
+            exit (EXIT_FAILURE);
           }
         }
       } else if (STREQ (long_options[option_index].name, "selinux")) {
@@ -238,19 +238,19 @@ main (int argc, char *argv[])
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
                  program_name, long_options[option_index].name, option_index);
-        exit (1);
+        exit (EXIT_FAILURE);
       }
       break;
 
     case 'a':
       if (access (optarg, R_OK) != 0) {
         perror (optarg);
-        exit (1);
+        exit (EXIT_FAILURE);
       }
       drv = malloc (sizeof (struct drv));
       if (!drv) {
         perror ("malloc");
-        exit (1);
+        exit (EXIT_FAILURE);
       }
       drv->filename = optarg;
       drv->next = drvs;
@@ -265,7 +265,7 @@ main (int argc, char *argv[])
       if (file) {
         fprintf (stderr, _("%s: only one -f parameter can be given\n"),
                  program_name);
-        exit (1);
+        exit (EXIT_FAILURE);
       }
       file = optarg;
       break;
@@ -277,7 +277,7 @@ main (int argc, char *argv[])
         display_command (argv[optind++]);
       else
         list_commands ();
-      exit (0);
+      exit (EXIT_SUCCESS);
 
     case 'i':
       inspector = 1;
@@ -287,7 +287,7 @@ main (int argc, char *argv[])
       mp = malloc (sizeof (struct mp));
       if (!mp) {
         perror ("malloc");
-        exit (1);
+        exit (EXIT_FAILURE);
       }
       p = strchr (optarg, ':');
       if (p) {
@@ -315,7 +315,7 @@ main (int argc, char *argv[])
 
     case 'V':
       printf ("%s %s\n", program_name, PACKAGE_VERSION);
-      exit (0);
+      exit (EXIT_SUCCESS);
 
     case 'x':
       echo_commands = 1;
@@ -339,13 +339,13 @@ main (int argc, char *argv[])
       fprintf (stderr, _("%s: cannot use -i option with -a, -m,"
                          " --listen, --remote or --selinux\n"),
                program_name);
-      exit (1);
+      exit (EXIT_FAILURE);
     }
     if (optind >= argc) {
       fprintf (stderr,
            _("%s: -i requires a libvirt domain or path(s) to disk image(s)\n"),
                program_name);
-      exit (1);
+      exit (EXIT_FAILURE);
     }
 
     strcpy (cmd, "a=`virt-inspector");
@@ -355,7 +355,7 @@ main (int argc, char *argv[])
         fprintf (stderr,
                  _("%s: virt-inspector command too long for fixed-size buffer\n"),
                  program_name);
-        exit (1);
+        exit (EXIT_FAILURE);
       }
       strcat (cmd, " '");
       strcat (cmd, argv[optind]);
@@ -382,7 +382,7 @@ main (int argc, char *argv[])
     r = system (cmd);
     if (r == -1) {
       perror ("system");
-      exit (1);
+      exit (EXIT_FAILURE);
     }
     exit (WEXITSTATUS (r));
   }
@@ -392,7 +392,7 @@ main (int argc, char *argv[])
 
   /* If we've got mountpoints, we must launch the guest and mount them. */
   if (mps != NULL) {
-    if (launch (g) == -1) exit (1);
+    if (launch (g) == -1) exit (EXIT_FAILURE);
     mount_mps (mps);
   }
 
@@ -401,7 +401,7 @@ main (int argc, char *argv[])
     fprintf (stderr,
              _("%s: cannot use --listen and --remote options at the same time\n"),
              program_name);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   if (remote_control_listen) {
@@ -409,13 +409,13 @@ main (int argc, char *argv[])
       fprintf (stderr,
                _("%s: extra parameters on the command line with --listen flag\n"),
                program_name);
-      exit (1);
+      exit (EXIT_FAILURE);
     }
     if (file) {
       fprintf (stderr,
                _("%s: cannot use --listen and --file options at the same time\n"),
                program_name);
-      exit (1);
+      exit (EXIT_FAILURE);
     }
     rc_listen ();
   }
@@ -425,7 +425,7 @@ main (int argc, char *argv[])
     close (0);
     if (open (file, O_RDONLY) == -1) {
       perror (file);
-      exit (1);
+      exit (EXIT_FAILURE);
     }
   }
 
@@ -441,7 +441,7 @@ main (int argc, char *argv[])
 
   cleanup_readline ();
 
-  exit (0);
+  exit (EXIT_SUCCESS);
 }
 
 void
@@ -475,7 +475,7 @@ mount_mps (struct mp *mp)
     else
       r = guestfs_mount_ro (g, mp->device, mp->mountpoint);
     if (r == -1)
-      exit (1);
+      exit (EXIT_FAILURE);
   }
 }
 
@@ -491,7 +491,7 @@ add_drives (struct drv *drv)
     else
       r = guestfs_add_drive_ro (g, drv->filename);
     if (r == -1)
-      exit (1);
+      exit (EXIT_FAILURE);
   }
 }
 
@@ -597,7 +597,7 @@ script (int prompt)
             (WIFSIGNALED (r) &&
              (WTERMSIG (r) == SIGINT || WTERMSIG (r) == SIGQUIT)) ||
             WEXITSTATUS (r) != 0)
-          exit (1);
+          exit (EXIT_FAILURE);
       }
       continue;
     }
@@ -639,14 +639,14 @@ script (int prompt)
         len = strcspn (p, "\"");
         if (p[len] == '\0') {
           fprintf (stderr, _("%s: unterminated double quote\n"), program_name);
-          if (exit_on_error) exit (1);
+          if (exit_on_error) exit (EXIT_FAILURE);
           goto next_command;
         }
         if (p[len+1] && (p[len+1] != ' ' && p[len+1] != '\t')) {
           fprintf (stderr,
                    _("%s: command arguments not separated by whitespace\n"),
                    program_name);
-          if (exit_on_error) exit (1);
+          if (exit_on_error) exit (EXIT_FAILURE);
           goto next_command;
         }
         p[len] = '\0';
@@ -656,14 +656,14 @@ script (int prompt)
         len = strcspn (p, "'");
         if (p[len] == '\0') {
           fprintf (stderr, _("%s: unterminated single quote\n"), program_name);
-          if (exit_on_error) exit (1);
+          if (exit_on_error) exit (EXIT_FAILURE);
           goto next_command;
         }
         if (p[len+1] && (p[len+1] != ' ' && p[len+1] != '\t')) {
           fprintf (stderr,
                    _("%s: command arguments not separated by whitespace\n"),
                    program_name);
-          if (exit_on_error) exit (1);
+          if (exit_on_error) exit (EXIT_FAILURE);
           goto next_command;
         }
         p[len] = '\0';
@@ -685,14 +685,14 @@ script (int prompt)
         if (c != 0) {
           fprintf (stderr,
                    _("%s: unterminated \"[...]\" sequence\n"), program_name);
-          if (exit_on_error) exit (1);
+          if (exit_on_error) exit (EXIT_FAILURE);
           goto next_command;
         }
         if (*pend && (*pend != ' ' && *pend != '\t')) {
           fprintf (stderr,
                    _("%s: command arguments not separated by whitespace\n"),
                    program_name);
-          if (exit_on_error) exit (1);
+          if (exit_on_error) exit (EXIT_FAILURE);
           goto next_command;
         }
         *(pend-1) = '\0';
@@ -728,7 +728,7 @@ script (int prompt)
 
     if (i == sizeof argv / sizeof argv[0]) {
       fprintf (stderr, _("%s: too many arguments\n"), program_name);
-      if (exit_on_error) exit (1);
+      if (exit_on_error) exit (EXIT_FAILURE);
       goto next_command;
     }
 
@@ -736,7 +736,7 @@ script (int prompt)
 
   got_command:
     if (issue_command (cmd, argv, pipe) == -1) {
-      if (exit_on_error) exit (1);
+      if (exit_on_error) exit (EXIT_FAILURE);
     }
 
   next_command:;
@@ -757,7 +757,7 @@ cmdline (char *argv[], int optind, int argc)
   cmd = argv[optind++];
   if (STREQ (cmd, ":")) {
     fprintf (stderr, _("%s: empty command on command line\n"), program_name);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
   params = &argv[optind];
 
@@ -766,10 +766,10 @@ cmdline (char *argv[], int optind, int argc)
     optind++;
 
   if (optind == argc) {
-    if (issue_command (cmd, params, NULL) == -1) exit (1);
+    if (issue_command (cmd, params, NULL) == -1) exit (EXIT_FAILURE);
   } else {
     argv[optind] = NULL;
-    if (issue_command (cmd, params, NULL) == -1) exit (1);
+    if (issue_command (cmd, params, NULL) == -1) exit (EXIT_FAILURE);
     cmdline (argv, optind+1, argc);
   }
 }
@@ -1191,7 +1191,7 @@ parse_string_list (const char *str)
         perror ("realloc");
         free_n_strings (argv, argv_len);
         free (tok);
-        exit (1);
+        exit (EXIT_FAILURE);
       }
       tok = tok_new;
 
@@ -1237,7 +1237,7 @@ parse_string_list (const char *str)
         perror ("realloc");
         free_n_strings (argv, argv_len-1);
         free (tok);
-        exit (1);
+        exit (EXIT_FAILURE);
       }
       argv = argv_new;
 
@@ -1251,7 +1251,7 @@ parse_string_list (const char *str)
   if (NULL == argv_new) {
     perror ("realloc");
     free_n_strings (argv, argv_len-1);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
   argv = argv_new;
 

@@ -66,7 +66,7 @@ receive_stdout (int s)
     cmptr = malloc (controllen);
     if (NULL == cmptr) {
       perror ("malloc");
-      exit (1);
+      exit (EXIT_FAILURE);
     }
   }
 
@@ -88,7 +88,7 @@ receive_stdout (int s)
   ssize_t n = recvmsg (s, &msg, 0);
   if (n < 0) {
     perror ("recvmsg stdout fd");
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   h = CMSG_FIRSTHDR(&msg);
@@ -135,7 +135,7 @@ send_stdout (int s)
     cmptr = malloc (controllen);
     if (NULL == cmptr) {
       perror ("malloc");
-      exit (1);
+      exit (EXIT_FAILURE);
     }
   }
   cmptr->cmsg_level = SOL_SOCKET;
@@ -152,7 +152,7 @@ send_stdout (int s)
 
   if (sendmsg (s, &msg, 0) != 1) {
     perror ("sendmsg stdout fd");
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 }
 
@@ -192,7 +192,7 @@ rc_listen (void)
   pid = fork ();
   if (pid == -1) {
     perror ("fork");
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   if (pid > 0) {
@@ -217,16 +217,16 @@ rc_listen (void)
   sock = socket (AF_UNIX, SOCK_STREAM, 0);
   if (sock == -1) {
     perror ("socket");
-    exit (1);
+    exit (EXIT_FAILURE);
   }
   unlink (sockpath);
   if (bind (sock, (struct sockaddr *) &addr, sizeof addr) == -1) {
     perror (sockpath);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
   if (listen (sock, 4) == -1) {
     perror ("listen");
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   /* Now close stdout and substitute /dev/null.  This is necessary
@@ -265,7 +265,7 @@ rc_listen (void)
         argv = realloc (call.args.args_val, (argc+1) * sizeof (char *));
         if (argv == NULL) {
           perror ("realloc");
-          exit (1);
+          exit (EXIT_FAILURE);
         }
         call.args.args_val = argv;
         argv[argc] = NULL;
@@ -290,7 +290,7 @@ rc_listen (void)
         /* Exit on error? */
         if (call.exit_on_error && reply.r == -1) {
           unlink (sockpath);
-          exit (1);
+          exit (EXIT_FAILURE);
         }
       }
 
@@ -302,7 +302,7 @@ rc_listen (void)
   }
 
   unlink (sockpath);
-  exit (0);
+  exit (EXIT_SUCCESS);
 }
 
 /* Remote control client. */

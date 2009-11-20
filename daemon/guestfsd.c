@@ -133,17 +133,17 @@ main (int argc, char *argv[])
 
     case '?':
       usage ();
-      exit (0);
+      exit (EXIT_SUCCESS);
 
     default:
       fprintf (stderr, "guestfsd: unexpected command line option 0x%x\n", c);
-      exit (1);
+      exit (EXIT_FAILURE);
     }
   }
 
   if (optind < argc) {
     usage ();
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   cmdline = read_cmdline ();
@@ -202,7 +202,7 @@ main (int argc, char *argv[])
       vmchannel = strndup (p + 18, len);
       if (!vmchannel) {
         perror ("strndup");
-        exit (1);
+        exit (EXIT_FAILURE);
       }
     }
 
@@ -216,7 +216,7 @@ main (int argc, char *argv[])
         vmchannel = strndup (p + 4, len);
         if (!vmchannel) {
           perror ("strndup");
-          exit (1);
+          exit (EXIT_FAILURE);
         }
         memcpy (vmchannel, "tcp:", 4);
       }
@@ -228,7 +228,7 @@ main (int argc, char *argv[])
     vmchannel = strdup ("tcp:" GUESTFWD_ADDR ":" GUESTFWD_PORT);
     if (!vmchannel) {
       perror ("strdup");
-      exit (1);
+      exit (EXIT_FAILURE);
     }
   }
 
@@ -253,7 +253,7 @@ main (int argc, char *argv[])
     } else {
       fprintf (stderr, "vmchannel: expecting \"tcp:<ip>:<port>\": %s\n",
                vmchannel);
-      exit (1);
+      exit (EXIT_FAILURE);
     }
 
     memset (&hints, 0, sizeof hints);
@@ -263,7 +263,7 @@ main (int argc, char *argv[])
     if (r != 0) {
       fprintf (stderr, "%s:%s: %s\n",
                host, port, gai_strerror (r));
-      exit (1);
+      exit (EXIT_FAILURE);
     }
 
     /* Connect to the given TCP socket. */
@@ -284,7 +284,7 @@ main (int argc, char *argv[])
              "unknown vmchannel connection type: %s\n"
              "expecting \"tcp:<ip>:<port>\"\n",
              vmchannel);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   if (sock == -1) {
@@ -303,7 +303,7 @@ main (int argc, char *argv[])
              "or on the libguestfs redhat com mailing list.\n"
              "\n",
              vmchannel);
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   /* Send the magic length message which indicates that
@@ -316,7 +316,7 @@ main (int argc, char *argv[])
   xdr_uint32_t (&xdr, &len);
 
   if (xwrite (sock, lenbuf, sizeof lenbuf) == -1)
-    exit (1);
+    exit (EXIT_FAILURE);
 
   xdr_destroy (&xdr);
 
@@ -324,14 +324,14 @@ main (int argc, char *argv[])
   if (!dont_fork) {
     if (daemon (0, 1) == -1) {
       perror ("daemon");
-      exit (1);
+      exit (EXIT_FAILURE);
     }
   }
 
   /* Enter the main loop, reading and performing actions. */
   main_loop (sock);
 
-  exit (0);
+  exit (EXIT_SUCCESS);
 }
 
 /* Read /proc/cmdline. */
