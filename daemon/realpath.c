@@ -32,6 +32,11 @@
 #include "daemon.h"
 #include "actions.h"
 
+/* On Windows, NAME_MAX is not defined. */
+#ifndef NAME_MAX
+#define NAME_MAX FILENAME_MAX
+#endif
+
 char *
 do_realpath (const char *path)
 {
