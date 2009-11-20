@@ -33,6 +33,7 @@
 int
 do_mknod (int mode, int devmajor, int devminor, const char *path)
 {
+#ifdef HAVE_MKNOD
   int r;
 
   CHROOT_IN;
@@ -45,6 +46,10 @@ do_mknod (int mode, int devmajor, int devminor, const char *path)
   }
 
   return 0;
+#else
+  reply_with_error ("%s is not available", __func__);
+  return -1;
+#endif
 }
 
 int

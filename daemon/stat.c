@@ -61,8 +61,16 @@ do_stat (const char *path)
   ret->gid = statbuf.st_gid;
   ret->rdev = statbuf.st_rdev;
   ret->size = statbuf.st_size;
+#ifdef HAVE_STRUCT_STAT_ST_BLKSIZE
   ret->blksize = statbuf.st_blksize;
+#else
+  ret->blksize = -1;
+#endif
+#ifdef HAVE_STRUCT_STAT_ST_BLOCKS
   ret->blocks = statbuf.st_blocks;
+#else
+  ret->blocks = -1;
+#endif
   ret->atime = statbuf.st_atime;
   ret->mtime = statbuf.st_mtime;
   ret->ctime = statbuf.st_ctime;
@@ -100,8 +108,16 @@ do_lstat (const char *path)
   ret->gid = statbuf.st_gid;
   ret->rdev = statbuf.st_rdev;
   ret->size = statbuf.st_size;
+#ifdef HAVE_STRUCT_STAT_ST_BLKSIZE
   ret->blksize = statbuf.st_blksize;
+#else
+  ret->blksize = -1;
+#endif
+#ifdef HAVE_STRUCT_STAT_ST_BLOCKS
   ret->blocks = statbuf.st_blocks;
+#else
+  ret->blocks = -1;
+#endif
   ret->atime = statbuf.st_atime;
   ret->mtime = statbuf.st_mtime;
   ret->ctime = statbuf.st_ctime;
@@ -158,8 +174,16 @@ do_lstatlist (const char *path, char *const *names)
       ret->guestfs_int_stat_list_val[i].gid = statbuf.st_gid;
       ret->guestfs_int_stat_list_val[i].rdev = statbuf.st_rdev;
       ret->guestfs_int_stat_list_val[i].size = statbuf.st_size;
+#ifdef HAVE_STRUCT_STAT_ST_BLKSIZE
       ret->guestfs_int_stat_list_val[i].blksize = statbuf.st_blksize;
+#else
+      ret->guestfs_int_stat_list_val[i].blksize = -1;
+#endif
+#ifdef HAVE_STRUCT_STAT_ST_BLOCKS
       ret->guestfs_int_stat_list_val[i].blocks = statbuf.st_blocks;
+#else
+      ret->guestfs_int_stat_list_val[i].blocks = -1;
+#endif
       ret->guestfs_int_stat_list_val[i].atime = statbuf.st_atime;
       ret->guestfs_int_stat_list_val[i].mtime = statbuf.st_mtime;
       ret->guestfs_int_stat_list_val[i].ctime = statbuf.st_ctime;

@@ -74,6 +74,7 @@ do_readdir (const char *path)
     ret->guestfs_int_dirent_list_val = p;
 
     v.ino = d->d_ino;
+#ifdef HAVE_STRUCT_DIRENT_D_TYPE
     switch (d->d_type) {
     case DT_BLK: v.ftyp = 'b'; break;
     case DT_CHR: v.ftyp = 'c'; break;
@@ -85,6 +86,9 @@ do_readdir (const char *path)
     case DT_UNKNOWN: v.ftyp = 'u'; break;
     default: v.ftyp = '?'; break;
     }
+#else
+    v.ftyp = 'u';
+#endif
 
     ret->guestfs_int_dirent_list_val[i] = v;
 

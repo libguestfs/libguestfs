@@ -23,17 +23,22 @@
 #include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
+
+#ifdef HAVE_SYS_INOTIFY_H
 #include <sys/inotify.h>
+#endif
 
 #include "../src/guestfs_protocol.h"
 #include "daemon.h"
 #include "actions.h"
 
+#ifdef HAVE_SYS_INOTIFY_H
 /* Currently open inotify handle, or -1 if not opened. */
 static int inotify_fd = -1;
 
 static char inotify_buf[64*1024*1024];	/* Event buffer, [0..posn-1] is valid */
 static size_t inotify_posn = 0;
+#endif
 
 /* Because inotify_init does NEED_ROOT, NEED_INOTIFY implies NEED_ROOT. */
 #define NEED_INOTIFY(errcode)						\
@@ -49,6 +54,7 @@ static size_t inotify_posn = 0;
 int
 do_inotify_init (int max_events)
 {
+#ifdef HAVE_SYS_INOTIFY_H
   FILE *fp;
 
   NEED_ROOT (return -1);
@@ -99,11 +105,16 @@ do_inotify_init (int max_events)
 #endif
 
   return 0;
+#else
+  reply_with_error ("%s is not available", __func__);
+  return -1;
+#endif
 }
 
 int
 do_inotify_close (void)
 {
+#ifdef HAVE_SYS_INOTIFY_H
   NEED_INOTIFY (-1);
 
   if (inotify_fd == -1) {
@@ -120,11 +131,16 @@ do_inotify_close (void)
   inotify_posn = 0;
 
   return 0;
+#else
+  reply_with_error ("%s is not available", __func__);
+  return -1;
+#endif
 }
 
 int64_t
 do_inotify_add_watch (const char *path, int mask)
 {
+#ifdef HAVE_SYS_INOTIFY_H
   int64_t r;
   char *buf;
 
@@ -144,11 +160,16 @@ do_inotify_add_watch (const char *path, int mask)
   }
 
   return r;
+#else
+  reply_with_error ("%s is not available", __func__);
+  return -1;
+#endif
 }
 
 int
 do_inotify_rm_watch (int wd)
 {
+#ifdef HAVE_SYS_INOTIFY_H
   NEED_INOTIFY (-1);
 
   if (inotify_rm_watch (inotify_fd, wd) == -1) {
@@ -157,11 +178,16 @@ do_inotify_rm_watch (int wd)
   }
 
   return 0;
+#else
+  reply_with_error ("%s is not available", __func__);
+  return -1;
+#endif
 }
 
 guestfs_int_inotify_event_list *
 do_inotify_read (void)
 {
+#ifdef HAVE_SYS_INOTIFY_H
   int space;
   guestfs_int_inotify_event_list *ret;
 
@@ -267,11 +293,16 @@ do_inotify_read (void)
   xdr_free ((xdrproc_t) xdr_guestfs_int_inotify_event_list, (char *) ret);
   free (ret);
   return NULL;
+#else
+  reply_with_error ("%s is not available", __func__);
+  return NULL;
+#endif
 }
 
 char **
 do_inotify_files (void)
 {
+#ifdef HAVE_SYS_INOTIFY_H
   char **ret = NULL;
   int size = 0, alloc = 0;
   unsigned int i;
@@ -339,4 +370,8 @@ do_inotify_files (void)
  error:
   unlink ("/tmp/inotify");
   return NULL;
+#else
+  reply_with_error ("%s is not available", __func__);
+  return NULL;
+#endif
 }
