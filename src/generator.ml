@@ -6076,8 +6076,8 @@ static void print_table (char const *const *argv)
    *)
   let test_names =
     List.map (
-      fun (name, _, _, _, tests, _, _) ->
-        mapi (generate_one_test name) tests
+      fun (name, _, _, flags, tests, _, _) ->
+        mapi (generate_one_test name flags) tests
     ) (List.rev all_functions) in
   let test_names = List.concat test_names in
   let nr_tests = List.length test_names in
@@ -6235,7 +6235,7 @@ int main (int argc, char *argv[])
   pr "  exit (EXIT_SUCCESS);\n";
   pr "}\n"
 
-and generate_one_test name i (init, prereq, test) =
+and generate_one_test name flags i (init, prereq, test) =
   let test_name = sprintf "test_%s_%d" name i in
 
   pr "\
@@ -6274,6 +6274,26 @@ static int %s (void)
   }
 
 " test_name test_name test_name;
+
+  (* Optional functions should only be tested if the relevant
+   * support is available in the daemon.
+   *)
+  List.iter (
+    function
+    | Optional group ->
+        pr "  {\n";
+        pr "    const char *groups[] = { \"%s\", NULL };\n" group;
+        pr "    int r;\n";
+        pr "    suppress_error = 1;\n";
+        pr "    r = guestfs_available (g, (char **) groups);\n";
+        pr "    suppress_error = 0;\n";
+        pr "    if (r == -1) {\n";
+        pr "      printf (\"        %%s skipped (reason: group %%s not available in daemon)\\n\", \"%s\", groups[0]);\n" test_name;
+        pr "      return 0;\n";
+        pr "    }\n";
+        pr "  }\n";
+    | _ -> ()
+  ) flags;
 
   (match prereq with
    | Disabled ->
