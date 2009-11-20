@@ -28,7 +28,8 @@ generator_built = \
 
 .PHONY: force
 
-$(generator_built): force
+$(generator_build): $(libsrcdir)/stamp-generator
+$(libsrcdir)/stamp-generator: force
 	$(MAKE) -C $(libsrcdir) stamp-generator
 
 BUILT_SOURCES = $(generator_built)
