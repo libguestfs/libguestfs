@@ -133,7 +133,7 @@ AC_STRUCT_DIRENT_D_TYPE
 dnl Check if stat has the required fields.
 AC_STRUCT_ST_BLOCKS
 AC_CHECK_MEMBER([struct stat.st_blksize],[
-	AC_DEFINE([HAVE_STRUCT_STAT_ST_BLKSIZE],[1],[Define to 1 if 'st_blksize' is a member of 'struct stat'])])
+        AC_DEFINE([HAVE_STRUCT_STAT_ST_BLKSIZE],[1],[Define to 1 if 'st_blksize' is a member of 'struct stat'])])
 
 dnl Check for Augeas (now optional).
 AC_CHECK_LIB([augeas],[aug_match],[
@@ -164,17 +164,17 @@ AC_CHECK_LIB([portablexdr],[xdrmem_create],[],[
 
 dnl Functions which may not be available in older distributions.
 AC_CHECK_FUNCS([\
-	futimens \
-	getxattr \
-	inotify_init1 \
-	lgetxattr \
-	listxattr \
-	llistxattr \
-	lsetxattr \
-	lremovexattr \
-	mknod \
-	removexattr \
-	setxattr])
+        futimens \
+        getxattr \
+        inotify_init1 \
+        lgetxattr \
+        listxattr \
+        llistxattr \
+        lsetxattr \
+        lremovexattr \
+        mknod \
+        removexattr \
+        setxattr])
 
 dnl Headers.
 AC_CHECK_HEADERS([\

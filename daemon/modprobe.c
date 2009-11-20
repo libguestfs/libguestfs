@@ -23,6 +23,14 @@
 
 #include "daemon.h"
 #include "actions.h"
+#include "optgroups.h"
+
+int
+optgroup_linuxmodules_available (void)
+{
+  int r = access ("/sbin/modprobe", X_OK);
+  return r == 0;
+}
 
 int
 do_modprobe (const char *module)

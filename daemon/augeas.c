@@ -29,6 +29,7 @@
 
 #include "daemon.h"
 #include "actions.h"
+#include "optgroups.h"
 
 #ifdef HAVE_AUGEAS
 /* The Augeas handle.  We maintain a single handle per daemon, which
@@ -45,6 +46,18 @@ static augeas *aug = NULL;
     }									\
   }									\
   while (0)
+
+int
+optgroup_augeas_available (void)
+{
+  return 1;
+}
+#else /* !HAVE_AUGEAS */
+int
+optgroup_augeas_available (void)
+{
+  return 0;
+}
 #endif
 
 /* We need to rewrite the root path so it is based at /sysroot. */
@@ -75,8 +88,7 @@ do_aug_init (const char *root, int flags)
 
   return 0;
 #else
-  reply_with_error ("%s is not available", __func__);
-  return -1;
+  NOT_AVAILABLE (-1);
 #endif
 }
 
@@ -91,8 +103,7 @@ do_aug_close (void)
 
   return 0;
 #else
-  reply_with_error ("%s is not available", __func__);
-  return -1;
+  NOT_AVAILABLE (-1);
 #endif
 }
 
@@ -111,8 +122,7 @@ do_aug_defvar (const char *name, const char *expr)
   }
   return r;
 #else
-  reply_with_error ("%s is not available", __func__);
-  return -1;
+  NOT_AVAILABLE (-1);
 #endif
 }
 
@@ -133,8 +143,7 @@ do_aug_defnode (const char *name, const char *expr, const char *val)
   r.b = created;
   return &r;
 #else
-  reply_with_error ("%s is not available", __func__);
-  return NULL;
+  NOT_AVAILABLE (-1);
 #endif
 }
 
@@ -176,8 +185,7 @@ do_aug_get (const char *path)
 
   return v;			/* Caller frees. */
 #else
-  reply_with_error ("%s is not available", __func__);
-  return NULL;
+  NOT_AVAILABLE (NULL);
 #endif
 }
 
@@ -197,8 +205,7 @@ do_aug_set (const char *path, const char *val)
 
   return 0;
 #else
-  reply_with_error ("%s is not available", __func__);
-  return -1;
+  NOT_AVAILABLE (-1);
 #endif
 }
 
@@ -218,8 +225,7 @@ do_aug_insert (const char *path, const char *label, int before)
 
   return 0;
 #else
-  reply_with_error ("%s is not available", __func__);
-  return -1;
+  NOT_AVAILABLE (-1);
 #endif
 }
 
@@ -239,8 +245,7 @@ do_aug_rm (const char *path)
 
   return r;
 #else
-  reply_with_error ("%s is not available", __func__);
-  return -1;
+  NOT_AVAILABLE (-1);
 #endif
 }
 
@@ -260,8 +265,7 @@ do_aug_mv (const char *src, const char *dest)
 
   return 0;
 #else
-  reply_with_error ("%s is not available", __func__);
-  return -1;
+  NOT_AVAILABLE (-1);
 #endif
 }
 
@@ -295,8 +299,7 @@ do_aug_match (const char *path)
 
   return matches;		/* Caller frees. */
 #else
-  reply_with_error ("%s is not available", __func__);
-  return NULL;
+  NOT_AVAILABLE (NULL);
 #endif
 }
 
@@ -313,8 +316,7 @@ do_aug_save (void)
 
   return 0;
 #else
-  reply_with_error ("%s is not available", __func__);
-  return -1;
+  NOT_AVAILABLE (-1);
 #endif
 }
 
@@ -331,8 +333,7 @@ do_aug_load (void)
 
   return 0;
 #else
-  reply_with_error ("%s is not available", __func__);
-  return -1;
+  NOT_AVAILABLE (-1);
 #endif
 }
 
@@ -379,7 +380,6 @@ do_aug_ls (const char *path)
   sort_strings (matches, count_strings ((void *) matches));
   return matches;		/* Caller frees. */
 #else
-  reply_with_error ("%s is not available", __func__);
-  return NULL;
+  NOT_AVAILABLE (NULL);
 #endif
 }

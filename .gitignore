@@ -48,6 +48,8 @@ daemon/guestfsd
 daemon/install-sh
 daemon/missing
 daemon/names.c
+daemon/optgroups.c
+daemon/optgroups.h
 daemon/stubs.c
 depcomp
 .deps
@@ -65,6 +67,7 @@ guestfish.1
 guestfish-actions.pod
 guestfs.3
 guestfs-actions.pod
+guestfs-availability.pod
 guestfs-structs.pod
 haskell/Bindtests
 haskell/Bindtests.hs

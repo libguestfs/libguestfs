@@ -24,16 +24,23 @@
 #include "../src/guestfs_protocol.h"
 #include "daemon.h"
 #include "actions.h"
+#include "optgroups.h"
 
 #if defined(HAVE_ATTR_XATTR_H) || defined(HAVE_SYS_XATTR_H)
 
-#ifdef HAVE_ATTR_XATTR_H
-#include <attr/xattr.h>
-#else
-#ifdef HAVE_SYS_XATTR_H
-#include <sys/xattr.h>
-#endif
-#endif
+# ifdef HAVE_ATTR_XATTR_H
+#  include <attr/xattr.h>
+# else
+#  ifdef HAVE_SYS_XATTR_H
+#   include <sys/xattr.h>
+#  endif
+# endif
+
+int
+optgroup_linuxxattrs_available (void)
+{
+  return 1;
+}
 
 static guestfs_int_xattr_list *getxattrs (const char *path, ssize_t (*listxattr) (const char *path, char *list, size_t size), ssize_t (*getxattr) (const char *path, const char *name, void *value, size_t size));
 static int _setxattr (const char *xattr, const char *val, int vallen, const char *path, int (*setxattr) (const char *path, const char *name, const void *value, size_t size, int flags));
@@ -442,54 +449,52 @@ do_lxattrlist (const char *path, char *const *names)
 }
 
 #else /* no xattr.h */
+int
+optgroup_linuxxattrs_available (void)
+{
+  return 0;
+}
 
 guestfs_int_xattr_list *
 do_getxattrs (const char *path)
 {
-  reply_with_error ("getxattrs: no support for xattrs");
-  return NULL;
+  NOT_AVAILABLE (NULL);
 }
 
 guestfs_int_xattr_list *
 do_lgetxattrs (const char *path)
 {
-  reply_with_error ("lgetxattrs: no support for xattrs");
-  return NULL;
+  NOT_AVAILABLE (NULL);
 }
 
 int
 do_setxattr (const char *xattr, const char *val, int vallen, const char *path)
 {
-  reply_with_error ("setxattr: no support for xattrs");
-  return -1;
+  NOT_AVAILABLE (-1);
 }
 
 int
 do_lsetxattr (const char *xattr, const char *val, int vallen, const char *path)
 {
-  reply_with_error ("lsetxattr: no support for xattrs");
-  return -1;
+  NOT_AVAILABLE (-1);
 }
 
 int
 do_removexattr (const char *xattr, const char *path)
 {
-  reply_with_error ("removexattr: no support for xattrs");
-  return -1;
+  NOT_AVAILABLE (-1);
 }
 
 int
 do_lremovexattr (const char *xattr, const char *path)
 {
-  reply_with_error ("lremovexattr: no support for xattrs");
-  return -1;
+  NOT_AVAILABLE (-1);
 }
 
 guestfs_int_xattr_list *
 do_lxattrlist (const char *path, char *const *names)
 {
-  reply_with_error ("lxattrlist: no support for xattrs");
-  return NULL;
+  NOT_AVAILABLE (NULL);
 }
 
 #endif /* no xattr.h */

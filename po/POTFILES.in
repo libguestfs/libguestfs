@@ -37,6 +37,7 @@ daemon/modprobe.c
 daemon/mount.c
 daemon/names.c
 daemon/ntfs.c
+daemon/optgroups.c
 daemon/parted.c
 daemon/pingdaemon.c
 daemon/proto.c

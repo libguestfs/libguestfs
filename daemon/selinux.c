@@ -29,6 +29,21 @@
 #include "../src/guestfs_protocol.h"
 #include "daemon.h"
 #include "actions.h"
+#include "optgroups.h"
+
+#if defined(HAVE_LIBSELINUX)
+int
+optgroup_selinux_available (void)
+{
+  return 1;
+}
+#else /* !HAVE_LIBSELINUX */
+int
+optgroup_selinux_available (void)
+{
+  return 0;
+}
+#endif /* !HAVE_LIBSELINUX */
 
 /* setcon is only valid under the following circumstances:
  * - single threaded
@@ -45,8 +60,7 @@ do_setcon (const char *context)
 
   return 0;
 #else
-  reply_with_error ("%s is not available", __func__);
-  return -1;
+  NOT_AVAILABLE (-1);
 #endif
 }
 
@@ -71,7 +85,6 @@ do_getcon (void)
 
   return r;                     /* caller frees */
 #else
-  reply_with_error ("%s is not available", __func__);
-  return NULL;
+  NOT_AVAILABLE (NULL);
 #endif
 }

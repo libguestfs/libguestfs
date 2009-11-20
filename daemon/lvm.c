@@ -26,6 +26,14 @@
 #include "daemon.h"
 #include "c-ctype.h"
 #include "actions.h"
+#include "optgroups.h"
+
+int
+optgroup_lvm2_available (void)
+{
+  int r = access ("/sbin/lvm", X_OK);
+  return r == 0;
+}
 
 /* LVM actions.  Keep an eye on liblvm, although at the time
  * of writing it hasn't progressed very far.

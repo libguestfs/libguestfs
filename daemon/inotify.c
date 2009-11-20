@@ -31,6 +31,7 @@
 #include "../src/guestfs_protocol.h"
 #include "daemon.h"
 #include "actions.h"
+#include "optgroups.h"
 
 #ifdef HAVE_SYS_INOTIFY_H
 /* Currently open inotify handle, or -1 if not opened. */
@@ -38,6 +39,18 @@ static int inotify_fd = -1;
 
 static char inotify_buf[64*1024*1024];	/* Event buffer, [0..posn-1] is valid */
 static size_t inotify_posn = 0;
+
+int
+optgroup_inotify_available (void)
+{
+  return 1;
+}
+#else /* !HAVE_SYS_INOTIFY_H */
+int
+optgroup_inotify_available (void)
+{
+  return 0;
+}
 #endif
 
 /* Because inotify_init does NEED_ROOT, NEED_INOTIFY implies NEED_ROOT. */
@@ -106,8 +119,7 @@ do_inotify_init (int max_events)
 
   return 0;
 #else
-  reply_with_error ("%s is not available", __func__);
-  return -1;
+  NOT_AVAILABLE (-1);
 #endif
 }
 
@@ -132,8 +144,7 @@ do_inotify_close (void)
 
   return 0;
 #else
-  reply_with_error ("%s is not available", __func__);
-  return -1;
+  NOT_AVAILABLE (-1);
 #endif
 }
 
@@ -161,8 +172,7 @@ do_inotify_add_watch (const char *path, int mask)
 
   return r;
 #else
-  reply_with_error ("%s is not available", __func__);
-  return -1;
+  NOT_AVAILABLE (-1);
 #endif
 }
 
@@ -179,8 +189,7 @@ do_inotify_rm_watch (int wd)
 
   return 0;
 #else
-  reply_with_error ("%s is not available", __func__);
-  return -1;
+  NOT_AVAILABLE (-1);
 #endif
 }
 
@@ -294,8 +303,7 @@ do_inotify_read (void)
   free (ret);
   return NULL;
 #else
-  reply_with_error ("%s is not available", __func__);
-  return NULL;
+  NOT_AVAILABLE (NULL);
 #endif
 }
 
@@ -371,7 +379,6 @@ do_inotify_files (void)
   unlink ("/tmp/inotify");
   return NULL;
 #else
-  reply_with_error ("%s is not available", __func__);
-  return NULL;
+  NOT_AVAILABLE (NULL);
 #endif
 }

@@ -623,6 +623,13 @@ developer to program in confidence against libguestfs.
 
 @STRUCTS@
 
+=head1 AVAILABILITY
+
+Using L</guestfs_available> you can test availability of
+the following groups of functions:
+
+@AVAILABILITY@
+
 =head1 STATE MACHINE AND LOW-LEVEL EVENT API
 
 Internally, libguestfs is implemented by running a virtual machine

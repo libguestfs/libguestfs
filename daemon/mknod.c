@@ -29,6 +29,21 @@
 #include "../src/guestfs_protocol.h"
 #include "daemon.h"
 #include "actions.h"
+#include "optgroups.h"
+
+#ifdef HAVE_MKNOD
+int
+optgroup_mknod_available (void)
+{
+  return 1;
+}
+#else
+int
+optgroup_mknod_available (void)
+{
+  return 0;
+}
+#endif
 
 int
 do_mknod (int mode, int devmajor, int devminor, const char *path)
@@ -47,8 +62,7 @@ do_mknod (int mode, int devmajor, int devminor, const char *path)
 
   return 0;
 #else
-  reply_with_error ("%s is not available", __func__);
-  return -1;
+  NOT_AVAILABLE (-1);
 #endif
 }
 

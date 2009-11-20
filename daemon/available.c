@@ -29,9 +29,26 @@
 int
 do_available (char *const *groups)
 {
-  if (groups[0] != NULL) {
-    reply_with_error ("%s: unknown group", groups[0]);
-    return -1;
+  int av;
+  size_t i, j;
+
+  for (i = 0; groups[i] != NULL; ++i) {
+    for (j = 0; optgroups[j].group != NULL; ++j) {
+      if (STREQ (groups[i], optgroups[j].group)) {
+        av = optgroups[j].available ();
+        if (!av) {
+          reply_with_error ("%s: group not available", optgroups[j].group);
+          return -1;
+        }
+        break; /* out of for (j) loop */
+      }
+    }
+
+    /* Unknown group? */
+    if (optgroups[j].group == NULL) {
+      reply_with_error ("%s: unknown group", groups[i]);
+      return -1;
+    }
   }
 
   return 0;

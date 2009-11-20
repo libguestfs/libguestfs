@@ -105,6 +105,13 @@ extern guestfs_int_lvm_lv_list *parse_command_line_lvs (void);
 /*-- in proto.c --*/
 extern void main_loop (int sock) __attribute__((noreturn));
 
+/*-- in optgroups.c (auto-generated) --*/
+struct optgroup {
+  const char *group;            /* Name of the optional group. */
+  int (*available) (void);      /* Function to test availability. */
+};
+extern struct optgroup optgroups[];
+
 /* ordinary daemon functions use these to indicate errors */
 extern void reply_with_error (const char *fs, ...)
   __attribute__((format (printf,1,2)));
@@ -221,6 +228,16 @@ extern void reply (xdrproc_t xdrp, char *ret);
 #define XXX_NOT_IMPL(errcode)						\
   do {									\
     reply_with_error ("%s: function not implemented", __func__);	\
+    return (errcode);							\
+  }									\
+  while (0)
+
+/* Marks functions which are not available.
+ * NB. Cannot be used for FileIn functions.
+ */
+#define NOT_AVAILABLE(errcode)                                          \
+  do {									\
+    reply_with_error ("%s: function not available", __func__);          \
     return (errcode);							\
   }									\
   while (0)

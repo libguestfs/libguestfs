@@ -25,6 +25,14 @@
 
 #include "daemon.h"
 #include "actions.h"
+#include "optgroups.h"
+
+int
+optgroup_ntfs3g_available (void)
+{
+  int r = access ("/bin/ntfs-3g.probe", X_OK);
+  return r == 0;
+}
 
 int
 do_ntfs_3g_probe (int rw, const char *device)

@@ -26,6 +26,25 @@
 #include "../src/guestfs_protocol.h"
 #include "daemon.h"
 #include "actions.h"
+#include "optgroups.h"
+
+/* Convenient place to test for the later version of e2fsprogs
+ * and util-linux which supports -U parameters to specify UUIDs.
+ * (Not supported in RHEL 5).
+ */
+int
+optgroup_linuxfsuuid_available (void)
+{
+  char *err;
+  int av;
+
+  /* Ignore return code - mkswap --help *will* fail. */
+  command (NULL, &err, "/sbin/mkswap", "--help", NULL);
+
+  av = strstr (err, "-U") != NULL;
+  free (err);
+  return av;
+}
 
 static int
 mkswap (const char *device, const char *flag, const char *value)

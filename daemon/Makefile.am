@@ -81,6 +81,8 @@ guestfsd_SOURCES = \
 	mount.c \
 	names.c \
 	ntfs.c \
+	optgroups.c \
+	optgroups.h \
 	parted.c \
 	pingdaemon.c \
 	proto.c \

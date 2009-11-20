@@ -175,6 +175,7 @@ type flags =
   | NotInFish		  (* do not export via guestfish *)
   | NotInDocs		  (* do not add this function to documentation *)
   | DeprecatedBy of string (* function is deprecated, use .. instead *)
+  | Optional of string	  (* function is part of an optional group *)
 
 (* You can supply zero or as many tests as you want per API call.
  *
@@ -979,7 +980,7 @@ The full partition device names are returned, eg. C</dev/sda1>
 This does not return logical volumes.  For that you will need to
 call C<guestfs_lvs>.");
 
-  ("pvs", (RStringList "physvols", []), 9, [],
+  ("pvs", (RStringList "physvols", []), 9, [Optional "lvm2"],
    [InitBasicFSonLVM, Always, TestOutputListOfDevices (
       [["pvs"]], ["/dev/sda1"]);
     InitEmpty, Always, TestOutputListOfDevices (
@@ -998,7 +999,7 @@ PVs (eg. C</dev/sda2>).
 
 See also C<guestfs_pvs_full>.");
 
-  ("vgs", (RStringList "volgroups", []), 10, [],
+  ("vgs", (RStringList "volgroups", []), 10, [Optional "lvm2"],
    [InitBasicFSonLVM, Always, TestOutputList (
       [["vgs"]], ["VG"]);
     InitEmpty, Always, TestOutputList (
@@ -1019,7 +1020,7 @@ detected (eg. C<VolGroup00>).
 
 See also C<guestfs_vgs_full>.");
 
-  ("lvs", (RStringList "logvols", []), 11, [],
+  ("lvs", (RStringList "logvols", []), 11, [Optional "lvm2"],
    [InitBasicFSonLVM, Always, TestOutputList (
       [["lvs"]], ["/dev/VG/LV"]);
     InitEmpty, Always, TestOutputList (
@@ -1043,21 +1044,21 @@ This returns a list of the logical volume device names
 
 See also C<guestfs_lvs_full>.");
 
-  ("pvs_full", (RStructList ("physvols", "lvm_pv"), []), 12, [],
+  ("pvs_full", (RStructList ("physvols", "lvm_pv"), []), 12, [Optional "lvm2"],
    [], (* XXX how to test? *)
    "list the LVM physical volumes (PVs)",
    "\
 List all the physical volumes detected.  This is the equivalent
 of the L<pvs(8)> command.  The \"full\" version includes all fields.");
 
-  ("vgs_full", (RStructList ("volgroups", "lvm_vg"), []), 13, [],
+  ("vgs_full", (RStructList ("volgroups", "lvm_vg"), []), 13, [Optional "lvm2"],
    [], (* XXX how to test? *)
    "list the LVM volume groups (VGs)",
    "\
 List all the volumes groups detected.  This is the equivalent
 of the L<vgs(8)> command.  The \"full\" version includes all fields.");
 
-  ("lvs_full", (RStructList ("logvols", "lvm_lv"), []), 14, [],
+  ("lvs_full", (RStructList ("logvols", "lvm_lv"), []), 14, [Optional "lvm2"],
    [], (* XXX how to test? *)
    "list the LVM logical volumes (LVs)",
    "\
@@ -1081,7 +1082,7 @@ Note that this function cannot correctly handle binary files
 as end of line).  For those you need to use the C<guestfs_read_file>
 function which has a more complex interface.");
 
-  ("aug_init", (RErr, [Pathname "root"; Int "flags"]), 16, [],
+  ("aug_init", (RErr, [Pathname "root"; Int "flags"]), 16, [Optional "augeas"],
    [], (* XXX Augeas code needs tests. *)
    "create a new Augeas handle",
    "\
@@ -1132,7 +1133,7 @@ To close the handle, you can call C<guestfs_aug_close>.
 
 To find out more about Augeas, see L<http://augeas.net/>.");
 
-  ("aug_close", (RErr, []), 26, [],
+  ("aug_close", (RErr, []), 26, [Optional "augeas"],
    [], (* XXX Augeas code needs tests. *)
    "close the current Augeas handle",
    "\
@@ -1141,7 +1142,7 @@ used by it.  After calling this, you have to call
 C<guestfs_aug_init> again before you can use any other
 Augeas functions.");
 
-  ("aug_defvar", (RInt "nrnodes", [String "name"; OptString "expr"]), 17, [],
+  ("aug_defvar", (RInt "nrnodes", [String "name"; OptString "expr"]), 17, [Optional "augeas"],
    [], (* XXX Augeas code needs tests. *)
    "define an Augeas variable",
    "\
@@ -1152,7 +1153,7 @@ undefined.
 On success this returns the number of nodes in C<expr>, or
 C<0> if C<expr> evaluates to something which is not a nodeset.");
 
-  ("aug_defnode", (RStruct ("nrnodescreated", "int_bool"), [String "name"; String "expr"; String "val"]), 18, [],
+  ("aug_defnode", (RStruct ("nrnodescreated", "int_bool"), [String "name"; String "expr"; String "val"]), 18, [Optional "augeas"],
    [], (* XXX Augeas code needs tests. *)
    "define an Augeas node",
    "\
@@ -1167,20 +1168,20 @@ On success this returns a pair containing the
 number of nodes in the nodeset, and a boolean flag
 if a node was created.");
 
-  ("aug_get", (RString "val", [String "augpath"]), 19, [],
+  ("aug_get", (RString "val", [String "augpath"]), 19, [Optional "augeas"],
    [], (* XXX Augeas code needs tests. *)
    "look up the value of an Augeas path",
    "\
 Look up the value associated with C<path>.  If C<path>
 matches exactly one node, the C<value> is returned.");
 
-  ("aug_set", (RErr, [String "augpath"; String "val"]), 20, [],
+  ("aug_set", (RErr, [String "augpath"; String "val"]), 20, [Optional "augeas"],
    [], (* XXX Augeas code needs tests. *)
    "set Augeas path to value",
    "\
 Set the value associated with C<path> to C<value>.");
 
-  ("aug_insert", (RErr, [String "augpath"; String "label"; Bool "before"]), 21, [],
+  ("aug_insert", (RErr, [String "augpath"; String "label"; Bool "before"]), 21, [Optional "augeas"],
    [], (* XXX Augeas code needs tests. *)
    "insert a sibling Augeas node",
    "\
@@ -1192,7 +1193,7 @@ C<path> must match exactly one existing node in the tree, and
 C<label> must be a label, ie. not contain C</>, C<*> or end
 with a bracketed index C<[N]>.");
 
-  ("aug_rm", (RInt "nrnodes", [String "augpath"]), 22, [],
+  ("aug_rm", (RInt "nrnodes", [String "augpath"]), 22, [Optional "augeas"],
    [], (* XXX Augeas code needs tests. *)
    "remove an Augeas path",
    "\
@@ -1200,14 +1201,14 @@ Remove C<path> and all of its children.
 
 On success this returns the number of entries which were removed.");
 
-  ("aug_mv", (RErr, [String "src"; String "dest"]), 23, [],
+  ("aug_mv", (RErr, [String "src"; String "dest"]), 23, [Optional "augeas"],
    [], (* XXX Augeas code needs tests. *)
    "move Augeas node",
    "\
 Move the node C<src> to C<dest>.  C<src> must match exactly
 one node.  C<dest> is overwritten if it exists.");
 
-  ("aug_match", (RStringList "matches", [String "augpath"]), 24, [],
+  ("aug_match", (RStringList "matches", [String "augpath"]), 24, [Optional "augeas"],
    [], (* XXX Augeas code needs tests. *)
    "return Augeas nodes which match augpath",
    "\
@@ -1215,7 +1216,7 @@ Returns a list of paths which match the path expression C<path>.
 The returned paths are sufficiently qualified so that they match
 exactly one node in the current tree.");
 
-  ("aug_save", (RErr, []), 25, [],
+  ("aug_save", (RErr, []), 25, [Optional "augeas"],
    [], (* XXX Augeas code needs tests. *)
    "write all pending Augeas changes to disk",
    "\
@@ -1224,7 +1225,7 @@ This writes all pending changes to disk.
 The flags which were passed to C<guestfs_aug_init> affect exactly
 how files are saved.");
 
-  ("aug_load", (RErr, []), 27, [],
+  ("aug_load", (RErr, []), 27, [Optional "augeas"],
    [], (* XXX Augeas code needs tests. *)
    "load files into the tree",
    "\
@@ -1233,7 +1234,7 @@ Load files into the tree.
 See C<aug_load> in the Augeas documentation for the full gory
 details.");
 
-  ("aug_ls", (RStringList "matches", [String "augpath"]), 28, [],
+  ("aug_ls", (RStringList "matches", [String "augpath"]), 28, [Optional "augeas"],
    [], (* XXX Augeas code needs tests. *)
    "list Augeas nodes under augpath",
    "\
@@ -1366,7 +1367,7 @@ other objects like files.
 
 See also C<guestfs_stat>.");
 
-  ("pvcreate", (RErr, [Device "device"]), 39, [],
+  ("pvcreate", (RErr, [Device "device"]), 39, [Optional "lvm2"],
    [InitEmpty, Always, TestOutputListOfDevices (
       [["sfdiskM"; "/dev/sda"; ",100 ,200 ,"];
        ["pvcreate"; "/dev/sda1"];
@@ -1379,7 +1380,7 @@ This creates an LVM physical volume on the named C<device>,
 where C<device> should usually be a partition name such
 as C</dev/sda1>.");
 
-  ("vgcreate", (RErr, [String "volgroup"; DeviceList "physvols"]), 40, [],
+  ("vgcreate", (RErr, [String "volgroup"; DeviceList "physvols"]), 40, [Optional "lvm2"],
    [InitEmpty, Always, TestOutputList (
       [["sfdiskM"; "/dev/sda"; ",100 ,200 ,"];
        ["pvcreate"; "/dev/sda1"];
@@ -1393,7 +1394,7 @@ as C</dev/sda1>.");
 This creates an LVM volume group called C<volgroup>
 from the non-empty list of physical volumes C<physvols>.");
 
-  ("lvcreate", (RErr, [String "logvol"; String "volgroup"; Int "mbytes"]), 41, [],
+  ("lvcreate", (RErr, [String "logvol"; String "volgroup"; Int "mbytes"]), 41, [Optional "lvm2"],
    [InitEmpty, Always, TestOutputList (
       [["sfdiskM"; "/dev/sda"; ",100 ,200 ,"];
        ["pvcreate"; "/dev/sda1"];
@@ -1544,7 +1545,7 @@ This unmounts all mounted filesystems.
 
 Some internal mounts are not unmounted by this call.");
 
-  ("lvm_remove_all", (RErr, []), 48, [DangerWillRobinson],
+  ("lvm_remove_all", (RErr, []), 48, [DangerWillRobinson; Optional "lvm2"],
    [],
    "remove all LVM LVs, VGs and PVs",
    "\
@@ -2035,7 +2036,7 @@ There is no comprehensive help for this command.  You have
 to look at the file C<daemon/debug.c> in the libguestfs source
 to find out what you can do.");
 
-  ("lvremove", (RErr, [Device "device"]), 77, [],
+  ("lvremove", (RErr, [Device "device"]), 77, [Optional "lvm2"],
    [InitEmpty, Always, TestOutputList (
       [["part_disk"; "/dev/sda"; "mbr"];
        ["pvcreate"; "/dev/sda1"];
@@ -2068,7 +2069,7 @@ the path to the LV, such as C</dev/VG/LV>.
 You can also remove all LVs in a volume group by specifying
 the VG name, C</dev/VG>.");
 
-  ("vgremove", (RErr, [String "vgname"]), 78, [],
+  ("vgremove", (RErr, [String "vgname"]), 78, [Optional "lvm2"],
    [InitEmpty, Always, TestOutputList (
       [["part_disk"; "/dev/sda"; "mbr"];
        ["pvcreate"; "/dev/sda1"];
@@ -2092,7 +2093,7 @@ Remove an LVM volume group C<vgname>, (for example C<VG>).
 This also forcibly removes all logical volumes in the volume
 group (if any).");
 
-  ("pvremove", (RErr, [Device "device"]), 79, [],
+  ("pvremove", (RErr, [Device "device"]), 79, [Optional "lvm2"],
    [InitEmpty, Always, TestOutputListOfDevices (
       [["part_disk"; "/dev/sda"; "mbr"];
        ["pvcreate"; "/dev/sda1"];
@@ -2387,7 +2388,7 @@ The returned strings are transcoded to UTF-8.");
 This runs C<hexdump -C> on the given C<path>.  The result is
 the human-readable, canonical hex dump of the file.");
 
-  ("zerofree", (RErr, [Device "device"]), 97, [],
+  ("zerofree", (RErr, [Device "device"]), 97, [Optional "zerofree"],
    [InitNone, Always, TestOutput (
       [["part_disk"; "/dev/sda"; "mbr"];
        ["mkfs"; "ext3"; "/dev/sda1"];
@@ -2410,7 +2411,7 @@ mounted.
 It is possible that using this program can damage the filesystem
 or data on the filesystem.");
 
-  ("pvresize", (RErr, [Device "device"]), 98, [],
+  ("pvresize", (RErr, [Device "device"]), 98, [Optional "lvm2"],
    [],
    "resize an LVM physical volume",
    "\
@@ -2462,7 +2463,7 @@ kernel's idea of the geometry (see C<guestfs_sfdisk_kernel_geometry>).
 The result is in human-readable format, and not designed to
 be parsed.");
 
-  ("vg_activate_all", (RErr, [Bool "activate"]), 103, [],
+  ("vg_activate_all", (RErr, [Bool "activate"]), 103, [Optional "lvm2"],
    [],
    "activate or deactivate all volume groups",
    "\
@@ -2474,7 +2475,7 @@ then those devices disappear.
 
 This command is the same as running C<vgchange -a y|n>");
 
-  ("vg_activate", (RErr, [Bool "activate"; StringList "volgroups"]), 104, [],
+  ("vg_activate", (RErr, [Bool "activate"; StringList "volgroups"]), 104, [Optional "lvm2"],
    [],
    "activate or deactivate some volume groups",
    "\
@@ -2489,7 +2490,7 @@ This command is the same as running C<vgchange -a y|n volgroups...>
 Note that if C<volgroups> is an empty list then B<all> volume groups
 are activated or deactivated.");
 
-  ("lvresize", (RErr, [Device "device"; Int "mbytes"]), 105, [],
+  ("lvresize", (RErr, [Device "device"; Int "mbytes"]), 105, [Optional "lvm2"],
    [InitNone, Always, TestOutput (
       [["part_disk"; "/dev/sda"; "mbr"];
        ["pvcreate"; "/dev/sda1"];
@@ -2582,7 +2583,7 @@ This command is only needed because of C<guestfs_resize2fs>
    "\
 Sleep for C<secs> seconds.");
 
-  ("ntfs_3g_probe", (RInt "status", [Bool "rw"; Device "device"]), 110, [],
+  ("ntfs_3g_probe", (RInt "status", [Bool "rw"; Device "device"]), 110, [Optional "ntfs3g"],
    [InitNone, Always, TestOutputInt (
       [["part_disk"; "/dev/sda"; "mbr"];
        ["mkfs"; "ntfs"; "/dev/sda1"];
@@ -2664,7 +2665,7 @@ It is just a wrapper around the C L<glob(3)> function
 with flags C<GLOB_MARK|GLOB_BRACE>.
 See that manual page for more details.");
 
-  ("scrub_device", (RErr, [Device "device"]), 114, [DangerWillRobinson],
+  ("scrub_device", (RErr, [Device "device"]), 114, [DangerWillRobinson; Optional "scrub"],
    [InitNone, Always, TestRun (	(* use /dev/sdc because it's smaller *)
       [["scrub_device"; "/dev/sdc"]])],
    "scrub (securely wipe) a device",
@@ -2675,7 +2676,7 @@ more difficult.
 It is an interface to the L<scrub(1)> program.  See that
 manual page for more details.");
 
-  ("scrub_file", (RErr, [Pathname "file"]), 115, [],
+  ("scrub_file", (RErr, [Pathname "file"]), 115, [Optional "scrub"],
    [InitBasicFS, Always, TestRun (
       [["write_file"; "/file"; "content"; "0"];
        ["scrub_file"; "/file"]])],
@@ -2689,7 +2690,7 @@ The file is I<removed> after scrubbing.
 It is an interface to the L<scrub(1)> program.  See that
 manual page for more details.");
 
-  ("scrub_freespace", (RErr, [Pathname "dir"]), 116, [],
+  ("scrub_freespace", (RErr, [Pathname "dir"]), 116, [Optional "scrub"],
    [], (* XXX needs testing *)
    "scrub (securely wipe) free space",
    "\
@@ -2884,7 +2885,7 @@ Note that you cannot attach a swap label to a block device
 (eg. C</dev/sda>), just to a partition.  This appears to be
 a limitation of the kernel or swap tools.");
 
-  ("mkswap_U", (RErr, [String "uuid"; Device "device"]), 132, [],
+  ("mkswap_U", (RErr, [String "uuid"; Device "device"]), 132, [Optional "linuxfsuuid"],
    (let uuid = uuidgen () in
     [InitEmpty, Always, TestRun (
        [["part_disk"; "/dev/sda"; "mbr"];
@@ -2893,7 +2894,7 @@ a limitation of the kernel or swap tools.");
    "\
 Create a swap partition on C<device> with UUID C<uuid>.");
 
-  ("mknod", (RErr, [Int "mode"; Int "devmajor"; Int "devminor"; Pathname "path"]), 133, [],
+  ("mknod", (RErr, [Int "mode"; Int "devmajor"; Int "devminor"; Pathname "path"]), 133, [Optional "mknod"],
    [InitBasicFS, Always, TestOutputStruct (
       [["mknod"; "0o10777"; "0"; "0"; "/node"];
        (* NB: default umask 022 means 0777 -> 0755 in these tests *)
@@ -2911,7 +2912,7 @@ constants.  C<devmajor> and C<devminor> are the
 device major and minor numbers, only used when creating block
 and character special devices.");
 
-  ("mkfifo", (RErr, [Int "mode"; Pathname "path"]), 134, [],
+  ("mkfifo", (RErr, [Int "mode"; Pathname "path"]), 134, [Optional "mknod"],
    [InitBasicFS, Always, TestOutputStruct (
       [["mkfifo"; "0o777"; "/node"];
        ["stat"; "/node"]], [CompareWithInt ("mode", 0o10755)])],
@@ -2921,7 +2922,7 @@ This call creates a FIFO (named pipe) called C<path> with
 mode C<mode>.  It is just a convenient wrapper around
 C<guestfs_mknod>.");
 
-  ("mknod_b", (RErr, [Int "mode"; Int "devmajor"; Int "devminor"; Pathname "path"]), 135, [],
+  ("mknod_b", (RErr, [Int "mode"; Int "devmajor"; Int "devminor"; Pathname "path"]), 135, [Optional "mknod"],
    [InitBasicFS, Always, TestOutputStruct (
       [["mknod_b"; "0o777"; "99"; "66"; "/node"];
        ["stat"; "/node"]], [CompareWithInt ("mode", 0o60755)])],
@@ -2931,7 +2932,7 @@ This call creates a block device node called C<path> with
 mode C<mode> and device major/minor C<devmajor> and C<devminor>.
 It is just a convenient wrapper around C<guestfs_mknod>.");
 
-  ("mknod_c", (RErr, [Int "mode"; Int "devmajor"; Int "devminor"; Pathname "path"]), 136, [],
+  ("mknod_c", (RErr, [Int "mode"; Int "devmajor"; Int "devminor"; Pathname "path"]), 136, [Optional "mknod"],
    [InitBasicFS, Always, TestOutputStruct (
       [["mknod_c"; "0o777"; "99"; "66"; "/node"];
        ["stat"; "/node"]], [CompareWithInt ("mode", 0o20755)])],
@@ -3046,7 +3047,7 @@ C<method> must be one of C<gzip>, C<compress> or C<bzip2>.
 Since 1.0.63, use C<guestfs_file> instead which can now
 process compressed files.");
 
-  ("getxattrs", (RStructList ("xattrs", "xattr"), [Pathname "path"]), 141, [],
+  ("getxattrs", (RStructList ("xattrs", "xattr"), [Pathname "path"]), 141, [Optional "linuxxattrs"],
    [],
    "list extended attributes of a file or directory",
    "\
@@ -3058,7 +3059,7 @@ L<listxattr(2)> and L<getxattr(2)> calls.
 
 See also: C<guestfs_lgetxattrs>, L<attr(5)>.");
 
-  ("lgetxattrs", (RStructList ("xattrs", "xattr"), [Pathname "path"]), 142, [],
+  ("lgetxattrs", (RStructList ("xattrs", "xattr"), [Pathname "path"]), 142, [Optional "linuxxattrs"],
    [],
    "list extended attributes of a file or directory",
    "\
@@ -3068,7 +3069,7 @@ of the link itself.");
 
   ("setxattr", (RErr, [String "xattr";
                        String "val"; Int "vallen"; (* will be BufferIn *)
-                       Pathname "path"]), 143, [],
+                       Pathname "path"]), 143, [Optional "linuxxattrs"],
    [],
    "set extended attribute of a file or directory",
    "\
@@ -3080,7 +3081,7 @@ See also: C<guestfs_lsetxattr>, L<attr(5)>.");
 
   ("lsetxattr", (RErr, [String "xattr";
                         String "val"; Int "vallen"; (* will be BufferIn *)
-                        Pathname "path"]), 144, [],
+                        Pathname "path"]), 144, [Optional "linuxxattrs"],
    [],
    "set extended attribute of a file or directory",
    "\
@@ -3088,7 +3089,7 @@ This is the same as C<guestfs_setxattr>, but if C<path>
 is a symbolic link, then it sets an extended attribute
 of the link itself.");
 
-  ("removexattr", (RErr, [String "xattr"; Pathname "path"]), 145, [],
+  ("removexattr", (RErr, [String "xattr"; Pathname "path"]), 145, [Optional "linuxxattrs"],
    [],
    "remove extended attribute of a file or directory",
    "\
@@ -3097,7 +3098,7 @@ of the file C<path>.
 
 See also: C<guestfs_lremovexattr>, L<attr(5)>.");
 
-  ("lremovexattr", (RErr, [String "xattr"; Pathname "path"]), 146, [],
+  ("lremovexattr", (RErr, [String "xattr"; Pathname "path"]), 146, [Optional "linuxxattrs"],
    [],
    "remove extended attribute of a file or directory",
    "\
@@ -3397,7 +3398,7 @@ See C<guestfs_swapon_device> for other notes.");
 This command disables the libguestfs appliance swap on
 labeled swap partition.");
 
-  ("swapon_uuid", (RErr, [String "uuid"]), 176, [],
+  ("swapon_uuid", (RErr, [String "uuid"]), 176, [Optional "linuxfsuuid"],
    (let uuid = uuidgen () in
     [InitEmpty, Always, TestRun (
        [["mkswap_U"; uuid; "/dev/sdb"];
@@ -3408,7 +3409,7 @@ labeled swap partition.");
 This command enables swap to a swap partition with the given UUID.
 See C<guestfs_swapon_device> for other notes.");
 
-  ("swapoff_uuid", (RErr, [String "uuid"]), 177, [],
+  ("swapoff_uuid", (RErr, [String "uuid"]), 177, [Optional "linuxfsuuid"],
    [], (* XXX tested by swapon_uuid *)
    "disable swap on swap partition by UUID",
    "\
@@ -3426,7 +3427,7 @@ Create a swap file.
 This command just writes a swap file signature to an existing
 file.  To create the file itself, use something like C<guestfs_fallocate>.");
 
-  ("inotify_init", (RErr, [Int "maxevents"]), 179, [],
+  ("inotify_init", (RErr, [Int "maxevents"]), 179, [Optional "inotify"],
    [InitISOFS, Always, TestRun (
       [["inotify_init"; "0"]])],
    "create an inotify handle",
@@ -3467,7 +3468,7 @@ as exposed by the Linux kernel, which is roughly what we expose
 via libguestfs.  Note that there is one global inotify handle
 per libguestfs instance.");
 
-  ("inotify_add_watch", (RInt64 "wd", [Pathname "path"; Int "mask"]), 180, [],
+  ("inotify_add_watch", (RInt64 "wd", [Pathname "path"; Int "mask"]), 180, [Optional "inotify"],
    [InitBasicFS, Always, TestOutputList (
       [["inotify_init"; "0"];
        ["inotify_add_watch"; "/"; "1073741823"];
@@ -3486,14 +3487,14 @@ Note for non-C or non-Linux callers: the inotify events are
 defined by the Linux kernel ABI and are listed in
 C</usr/include/sys/inotify.h>.");
 
-  ("inotify_rm_watch", (RErr, [Int(*XXX64*) "wd"]), 181, [],
+  ("inotify_rm_watch", (RErr, [Int(*XXX64*) "wd"]), 181, [Optional "inotify"],
    [],
    "remove an inotify watch",
    "\
 Remove a previously defined inotify watch.
 See C<guestfs_inotify_add_watch>.");
 
-  ("inotify_read", (RStructList ("events", "inotify_event"), []), 182, [],
+  ("inotify_read", (RStructList ("events", "inotify_event"), []), 182, [Optional "inotify"],
    [],
    "return list of inotify events",
    "\
@@ -3508,7 +3509,7 @@ returns an empty list.  The reason is that the call will
 read events up to the maximum appliance-to-host message
 size and leave remaining events in the queue.");
 
-  ("inotify_files", (RStringList "paths", []), 183, [],
+  ("inotify_files", (RStringList "paths", []), 183, [Optional "inotify"],
    [],
    "return list of watched files that had events",
    "\
@@ -3516,7 +3517,7 @@ This function is a helpful wrapper around C<guestfs_inotify_read>
 which just returns a list of pathnames of objects that were
 touched.  The returned pathnames are sorted and deduplicated.");
 
-  ("inotify_close", (RErr, []), 184, [],
+  ("inotify_close", (RErr, []), 184, [Optional "inotify"],
    [],
    "close the inotify handle",
    "\
@@ -3524,7 +3525,7 @@ This closes the inotify handle which was previously
 opened by inotify_init.  It removes all watches, throws
 away any pending events, and deallocates all resources.");
 
-  ("setcon", (RErr, [String "context"]), 185, [],
+  ("setcon", (RErr, [String "context"]), 185, [Optional "selinux"],
    [],
    "set SELinux security context",
    "\
@@ -3533,7 +3534,7 @@ to the string C<context>.
 
 See the documentation about SELINUX in L<guestfs(3)>.");
 
-  ("getcon", (RString "context", []), 186, [],
+  ("getcon", (RString "context", []), 186, [Optional "selinux"],
    [],
    "get SELinux security context",
    "\
@@ -3583,7 +3584,7 @@ to the command:
    "\
 This creates an ext2 external journal on C<device> with label C<label>.");
 
-  ("mke2journal_U", (RErr, [Int "blocksize"; String "uuid"; Device "device"]), 190, [],
+  ("mke2journal_U", (RErr, [Int "blocksize"; String "uuid"; Device "device"]), 190, [Optional "linuxfsuuid"],
    (let uuid = uuidgen () in
     [InitEmpty, Always, TestOutput (
        [["sfdiskM"; "/dev/sda"; ",100 ,"];
@@ -3617,7 +3618,7 @@ an external journal on the journal labeled C<label>.
 
 See also C<guestfs_mke2journal_L>.");
 
-  ("mke2fs_JU", (RErr, [String "fstype"; Int "blocksize"; Device "device"; String "uuid"]), 193, [],
+  ("mke2fs_JU", (RErr, [String "fstype"; Int "blocksize"; Device "device"; String "uuid"]), 193, [Optional "linuxfsuuid"],
    [],
    "make ext2/3/4 filesystem with external journal",
    "\
@@ -3626,7 +3627,7 @@ an external journal on the journal with UUID C<uuid>.
 
 See also C<guestfs_mke2journal_U>.");
 
-  ("modprobe", (RErr, [String "modulename"]), 194, [],
+  ("modprobe", (RErr, [String "modulename"]), 194, [Optional "linuxmodules"],
    [InitNone, Always, TestRun [["modprobe"; "fat"]]],
    "load a kernel module",
    "\
@@ -3838,7 +3839,7 @@ might cause the protocol message size to be exceeded, causing
 this call to fail.  The caller must split up such requests
 into smaller groups of names.");
 
-  ("lxattrlist", (RStructList ("xattrs", "xattr"), [Pathname "path"; StringList "names"]), 205, [],
+  ("lxattrlist", (RStructList ("xattrs", "xattr"), [Pathname "path"; StringList "names"]), 205, [Optional "linuxxattrs"],
    [], (* XXX *)
    "lgetxattr on multiple files",
    "\
@@ -4115,8 +4116,8 @@ The precise libguestfs function groups that may be checked by this
 command are listed in L<guestfs(3)/AVAILABILITY>.
 
 The argument C<groups> is a list of API group names, eg:
-C<[\"inotify\", \"part\"]> would check for the availability of
-the C<guestfs_inotify_*> functions and C<guestfs_part_*>
+C<[\"inotify\", \"augeas\"]> would check for the availability of
+the C<guestfs_inotify_*> functions and C<guestfs_aug_*>
 (partition editing) functions.
 
 The command returns no error if I<all> requested groups are available.
@@ -4596,6 +4597,26 @@ with correct use of these functions." alt in
   with
     Not_found -> None
 
+(* Create list of optional groups. *)
+let optgroups =
+  let h = Hashtbl.create 13 in
+  List.iter (
+    fun (name, _, _, flags, _, _, _) ->
+      List.iter (
+        function
+        | Optional group ->
+            let names = try Hashtbl.find h group with Not_found -> [] in
+            Hashtbl.replace h group (name :: names)
+        | _ -> ()
+      ) flags
+  ) daemon_functions;
+  let groups = Hashtbl.fold (fun k _ ks -> k :: ks) h [] in
+  let groups =
+    List.map (
+      fun group -> group, List.sort compare (Hashtbl.find h group)
+    ) groups in
+  List.sort (fun x y -> compare (fst x) (fst y)) groups
+
 (* Check function names etc. for consistency. *)
 let check_functions () =
   let contains_uppercase str =
@@ -4918,6 +4939,21 @@ and generate_structs_pod () =
         typ typ;
       pr "\n"
   ) structs
+
+and generate_availability_pod () =
+  (* Availability documentation. *)
+  pr "=over 4\n";
+  pr "\n";
+  List.iter (
+    fun (group, functions) ->
+      pr "=item B<%s>\n" group;
+      pr "\n";
+      pr "The following functions:\n";
+      List.iter (pr "L</guestfs_%s>\n") functions;
+      pr "\n"
+  ) optgroups;
+  pr "=back\n";
+  pr "\n"
 
 (* Generate the protocol (XDR) file, 'guestfs_protocol.x' and
  * indirectly 'guestfs_protocol.h' and 'guestfs_protocol.c'.
@@ -5933,6 +5969,34 @@ and generate_daemon_names () =
     fun (name, _, proc_nr, _, _, _, _) -> pr "  [%d] = \"%s\",\n" proc_nr name
   ) daemon_functions;
   pr "};\n";
+
+(* Generate the optional groups for the daemon to implement
+ * guestfs_available.
+ *)
+and generate_daemon_optgroups_c () =
+  generate_header CStyle GPLv2;
+
+  pr "#include <config.h>\n";
+  pr "\n";
+  pr "#include \"daemon.h\"\n";
+  pr "#include \"optgroups.h\"\n";
+  pr "\n";
+
+  pr "struct optgroup optgroups[] = {\n";
+  List.iter (
+    fun (group, _) ->
+      pr "  { \"%s\", optgroup_%s_available },\n" group group
+  ) optgroups;
+  pr "  { NULL, NULL }\n";
+  pr "};\n"
+
+and generate_daemon_optgroups_h () =
+  generate_header CStyle GPLv2;
+
+  List.iter (
+    fun (group, _) ->
+      pr "extern int optgroup_%s_available (void);\n" group
+  ) optgroups
 
 (* Generate the tests. *)
 and generate_tests () =
@@ -10302,6 +10366,14 @@ Run it from the top source directory using the command
   generate_daemon_names ();
   close ();
 
+  let close = output_to "daemon/optgroups.c" in
+  generate_daemon_optgroups_c ();
+  close ();
+
+  let close = output_to "daemon/optgroups.h" in
+  generate_daemon_optgroups_h ();
+  close ();
+
   let close = output_to "capitests/tests.c" in
   generate_tests ();
   close ();
@@ -10324,6 +10396,10 @@ Run it from the top source directory using the command
 
   let close = output_to "guestfs-actions.pod" in
   generate_actions_pod ();
+  close ();
+
+  let close = output_to "guestfs-availability.pod" in
+  generate_availability_pod ();
   close ();
 
   let close = output_to "guestfish-actions.pod" in
