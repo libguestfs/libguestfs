@@ -64,7 +64,8 @@ require Exporter;
 use vars qw(@EXPORT_OK @ISA);
 
 @ISA = qw(Exporter);
-@EXPORT_OK = qw(open_guest get_partitions resolve_windows_path
+@EXPORT_OK = qw(open_guest feature_available
+  get_partitions resolve_windows_path
   inspect_all_partitions inspect_partition
   inspect_operating_systems mount_operating_system inspect_in_detail
   inspect_linux_kernel);
@@ -208,6 +209,30 @@ sub open_guest
     return wantarray ? ($g, $conn, $dom, @images) : $g
 }
 
+=head2 feature_available
+
+ $bool = feature_available ($g, $feature [, $feature ...]);
+
+This function is a useful wrapper around the basic
+C<$g-E<gt>available> call.
+
+C<$g-E<gt>available> tests for availability of a list of features and
+dies with an error if any is not available.
+
+This call tests for the list of features and returns true if all are
+available, or false otherwise.
+
+For a list of features you can test for, see L<guestfs(3)/AVAILABILITY>.
+
+=cut
+
+sub feature_available {
+    my $g = shift;
+
+    eval { $g->available (\@_); };
+    return $@ ? 0 : 1;
+}
+
 =head2 get_partitions
 
  @partitions = get_partitions ($g);
@@ -230,7 +255,8 @@ sub get_partitions
     my @pvs = $g->pvs ();
     @partitions = grep { ! _is_pv ($_, @pvs) } @partitions;
 
-    my @lvs = $g->lvs ();
+    my @lvs;
+    @lvs = $g->lvs () if feature_available ($g, "lvm2");
 
     return sort (@lvs, @partitions);
 }
@@ -1478,7 +1504,7 @@ sub _check_for_kernels
 {
     my ($g, $os) = @_;
 
-    if ($os->{os} eq "linux") {
+    if ($os->{os} eq "linux" && feature_available ($g, "augeas")) {
         # Iterate over entries in grub.conf, populating $os->{boot}
         # For every kernel we find, inspect it and add to $os->{kernels}
 
