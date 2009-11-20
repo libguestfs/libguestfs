@@ -758,7 +758,8 @@ To construct the original version string:
 C<$major.$minor.$release$extra>
 
 I<Note:> Don't use this call to test for availability
-of features.  Distro backports makes this unreliable.");
+of features.  Distro backports makes this unreliable.  Use
+C<guestfs_available> instead.");
 
   ("set_selinux", (RErr, [Bool "selinux"]), -1, [FishAlias "selinux"],
    [InitNone, Always, TestOutputTrue (
@@ -4101,6 +4102,64 @@ must be a number in the range C<[0..255]>.
 
 To fill a file with zero bytes (sparsely), it is
 much more efficient to use C<guestfs_truncate_size>.");
+
+  ("available", (RErr, [StringList "groups"]), 216, [],
+   [],
+   "test availability of some parts of the API",
+   "\
+This command is used to check the availability of some
+groups of libguestfs functions which not all builds of
+libguestfs will be able to provide.
+
+The precise libguestfs function groups that may be checked by this
+command are listed in L<guestfs(3)/AVAILABILITY>.
+
+The argument C<groups> is a list of API group names, eg:
+C<[\"inotify\", \"part\"]> would check for the availability of
+the C<guestfs_inotify_*> functions and C<guestfs_part_*>
+(partition editing) functions.
+
+The command returns no error if I<all> requested groups are available.
+
+It returns an error if one or more of the requested
+groups is unavailable.
+
+If an unknown group name is included in the
+list of C<groups> then an error is always returned.
+
+I<Notes:>
+
+=over 4
+
+=item *
+
+You must call C<guestfs_launch> before calling this function.
+The reason is because we don't know what function groups are
+supported by the appliance/daemon until it is running and can
+be queried.
+
+=item *
+
+If a group of functions is available, this does not necessarily
+mean that they will work.  You still have to check for errors
+when calling individual API functions even if they are
+available.
+
+=item *
+
+It is usually the job of distro packagers to build
+complete functionality into the libguestfs appliance.
+Upstream libguestfs, if built from source with all
+requirements satisfied, will support everything.
+
+=item *
+
+This call was added in version C<1.0.80>.  In previous
+versions of libguestfs all you could do would be to speculatively
+execute a command to find out if the daemon implemented it.
+See also C<guestfs_version>.
+
+=back");
 
 ]
 

@@ -41,6 +41,7 @@ $(libsrcdir)/guestfs_protocol.o: force
 noinst_PROGRAMS = guestfsd
 guestfsd_SOURCES = \
 	actions.h \
+	available.c \
 	augeas.c \
 	blkid.c \
 	blockdev.c \
