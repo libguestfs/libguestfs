@@ -27,6 +27,8 @@
 
 #include "hivex.h"
 
+enum { EXIT_NOT_FOUND = 2 };
+
 int
 main (int argc, char *argv[])
 {
@@ -82,7 +84,7 @@ main (int argc, char *argv[])
       /* else node not found */
       fprintf (stderr, "hivexget: %s: %s: path element not found\n",
                path, p);
-      exit (2);
+      exit (EXIT_NOT_FOUND);
     }
 
     p = pnext;
@@ -103,7 +105,7 @@ main (int argc, char *argv[])
         goto error;
       /* else key not found */
       fprintf (stderr, "hivexget: %s: key not found\n", key);
-      exit (2);
+      exit (EXIT_NOT_FOUND);
     }
 
     /* Print the value. */
