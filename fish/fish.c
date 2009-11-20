@@ -322,10 +322,10 @@ main (int argc, char *argv[])
       break;
 
     case HELP_OPTION:
-      usage (0);
+      usage (EXIT_SUCCESS);
 
     default:
-      usage (1);
+      usage (EXIT_FAILURE);
     }
   }
 

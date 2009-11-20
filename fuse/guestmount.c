@@ -1064,10 +1064,10 @@ main (int argc, char *argv[])
       exit (EXIT_SUCCESS);
 
     case HELP_OPTION:
-      usage (0);
+      usage (EXIT_SUCCESS);
 
     default:
-      usage (1);
+      usage (EXIT_FAILURE);
     }
   }
 
