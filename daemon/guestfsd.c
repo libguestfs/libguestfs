@@ -27,15 +27,27 @@
 #include <rpc/types.h>
 #include <rpc/xdr.h>
 #include <getopt.h>
-#include <netdb.h>
 #include <sys/param.h>
-#include <sys/select.h>
 #include <sys/types.h>
-#include <sys/wait.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <signal.h>
+
+#ifdef HAVE_NETDB_H
+#include <netdb.h>
+#endif
+
+#ifdef HAVE_SYS_SELECT_H
+#include <sys/select.h>
+#endif
+
+#ifdef HAVE_SYS_WAIT_H
+#include <sys/wait.h>
+#endif
+
+#ifdef HAVE_PRINTF_H
 #include <printf.h>
+#endif
 
 #include "c-ctype.h"
 #include "ignore-value.h"
