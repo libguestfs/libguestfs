@@ -71,4 +71,5 @@ m4/wint_t.m4
 m4/xalloc.m4
 m4/xgetcwd.m4
 m4/xstrndup.m4
+mingw32-config.cache
 tests
