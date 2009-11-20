@@ -32,18 +32,9 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <signal.h>
-
-#ifdef HAVE_NETDB_H
 #include <netdb.h>
-#endif
-
-#ifdef HAVE_SYS_SELECT_H
 #include <sys/select.h>
-#endif
-
-#ifdef HAVE_SYS_WAIT_H
 #include <sys/wait.h>
-#endif
 
 #ifdef HAVE_PRINTF_H
 #include <printf.h>

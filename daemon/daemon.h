@@ -19,6 +19,7 @@
 #ifndef GUESTFSD_DAEMON_H
 #define GUESTFSD_DAEMON_H
 
+#include <stdio.h>
 #include <stdarg.h>
 #include <errno.h>
 #include <unistd.h>

@@ -15,17 +15,28 @@
 
 
 # Specification in the form of a command-line invocation:
-#   gnulib-tool --import --dir=. --lib=libgnu --source-base=lib --m4-base=m4 --doc-base=doc --tests-base=tests --aux-dir=build-aux --with-tests --no-libtool --macro-prefix=gl c-ctype glob hash ignore-value manywarnings openat warnings
+#   gnulib-tool --import --dir=. --lib=libgnu --source-base=lib --m4-base=m4 --doc-base=doc --tests-base=tests --aux-dir=build-aux --with-tests --no-libtool --macro-prefix=gl c-ctype getline glob hash ignore-value manywarnings mkdtemp netdb openat readlink select sleep strchrnul strndup sys_select sys_wait vasprintf warnings
 
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
 gl_LOCAL_DIR([])
 gl_MODULES([
   c-ctype
+  getline
   glob
   hash
   ignore-value
   manywarnings
+  mkdtemp
+  netdb
   openat
+  readlink
+  select
+  sleep
+  strchrnul
+  strndup
+  sys_select
+  sys_wait
+  vasprintf
   warnings
 ])
 gl_AVOID([])

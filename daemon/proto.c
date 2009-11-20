@@ -25,6 +25,7 @@
 #include <unistd.h>
 #include <errno.h>
 #include <sys/param.h>		/* defines MIN */
+#include <sys/select.h>
 #include <rpc/types.h>
 #include <rpc/xdr.h>
 

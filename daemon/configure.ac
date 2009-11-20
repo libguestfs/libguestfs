@@ -179,11 +179,8 @@ AC_CHECK_FUNCS([\
 dnl Headers.
 AC_CHECK_HEADERS([\
 	attr/xattr.h \
-	netdb.h \
 	printf.h \
 	sys/inotify.h \
-	sys/select.h \
-	sys/wait.h \
 	sys/xattr.h])
 
 dnl For modified printf, we need glibc either (old-style)
