@@ -27,3 +27,7 @@ $(top_builddir)/src/libguestfs.la: force
 $(generator_built): $(top_builddir)/src/stamp-generator
 $(top_builddir)/src/stamp-generator: force
 	$(MAKE) -C $(top_builddir)/src stamp-generator
+
+# The daemon
+$(top_builddir)/daemon/guestfsd: force
+	$(MAKE) -C $(top_builddir)/daemon
