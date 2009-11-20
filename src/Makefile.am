@@ -112,6 +112,7 @@ libguestfs_la_SOURCES = \
 	guestfs-actions.c \
 	guestfs-bindtests.c \
 	guestfs-internal.h \
+	guestfs-protocol.h \
 	gettext.h
 
 # Make libguestfs include the convenience library.
