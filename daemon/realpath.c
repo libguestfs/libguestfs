@@ -27,8 +27,6 @@
 #include <sys/types.h>
 #include <dirent.h>
 
-#include "openat.h"
-
 #include "daemon.h"
 #include "actions.h"
 
