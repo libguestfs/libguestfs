@@ -282,3 +282,17 @@ Add -drive file=...,lock=exclusive and -drive file=...,lock=shared
 
 Change libguestfs and libvirt to do the right thing, so that multiple
 instances of qemu cannot stomp on each other.
+
+virt-disk-explore
+-----------------
+
+For multi-level disk images such as live CDs:
+http://rwmj.wordpress.com/2009/07/15/unpack-the-russian-doll-of-a-f11-live-cd/
+
+It's possible with libguestfs to recursively look for anything that
+might be a filesystem, mount-{,loop} it and look in those, revealing
+anything in a disk image.
+
+However this won't work easily for VM disk images in the disk image.
+One would have to download those to the host and launch another
+libguestfs instance.
