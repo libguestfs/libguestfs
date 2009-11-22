@@ -1861,7 +1861,7 @@ Reread the partition table on C<device>.
 
 This uses the L<blockdev(8)> command.");
 
-  ("upload", (RErr, [FileIn "filename"; String "remotefilename"]), 66, [],
+  ("upload", (RErr, [FileIn "filename"; Dev_or_Path "remotefilename"]), 66, [],
    [InitBasicFS, Always, TestOutput (
       (* Pick a file from cwd which isn't likely to change. *)
       [["upload"; "../COPYING.LIB"; "/COPYING.LIB"];
