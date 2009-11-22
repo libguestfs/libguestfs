@@ -274,6 +274,41 @@ non-portable between kernel versions, and they don't support labels or
 UUIDs.  If you want to pre-build an image or you need to mount it
 using a label or UUID, use an ISO image instead.
 
+=head2 COPYING
+
+There are various different commands for copying between files and
+devices and in and out of the guest filesystem.  These are summarised
+in the table below.
+
+=over 4
+
+=item B<file> to B<file>
+
+Use L</guestfs_cp> to copy a single file, or
+L</guestfs_cp_a> to copy directories recursively.
+
+=item B<file or device> to B<file or device>
+
+Use L</guestfs_dd> which efficiently uses L<dd(1)>
+to copy between files and devices in the guest.
+
+Example: duplicate the contents of an LV:
+
+ guestfs_dd (g, "/dev/VG/Original", "/dev/VG/Copy");
+
+The destination (C</dev/VG/Copy>) must be at least as large as the
+source (C</dev/VG/Original>).
+
+=item B<file on the host> to B<file or device>
+
+Use L</guestfs_upload>.  See L</UPLOADING> above.
+
+=item B<file or device> to B<file on the host>
+
+Use L</guestfs_download>.  See L</DOWNLOADING> above.
+
+=back
+
 =head2 LISTING FILES
 
 C<guestfs_ll> is just designed for humans to read (mainly when using

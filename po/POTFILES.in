@@ -6,6 +6,7 @@ daemon/checksum.c
 daemon/cmp.c
 daemon/command.c
 daemon/cpmv.c
+daemon/dd.c
 daemon/debug.c
 daemon/devsparts.c
 daemon/df.c

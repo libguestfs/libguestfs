@@ -4162,6 +4162,22 @@ See also C<guestfs_version>.
 
 =back");
 
+  ("dd", (RErr, [Dev_or_Path "src"; Dev_or_Path "dest"]), 217, [],
+   [InitBasicFS, Always, TestOutputBuffer (
+      [["write_file"; "/src"; "hello, world"; "0"];
+       ["dd"; "/src"; "/dest"];
+       ["read_file"; "/dest"]], "hello, world")],
+   "copy from source to destination using dd",
+   "\
+This command copies from one source device or file C<src>
+to another destination device or file C<dest>.  Normally you
+would use this to copy to or from a device or partition, for
+example to duplicate a filesystem.
+
+If the destination is a device, it must be as large or larger
+than the source file or device, otherwise the copy will fail.
+This command cannot do partial copies.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

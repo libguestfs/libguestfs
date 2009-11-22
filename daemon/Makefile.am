@@ -51,6 +51,7 @@ guestfsd_SOURCES = \
 	command.c \
 	cpmv.c \
 	daemon.h \
+	dd.c \
 	debug.c \
 	devsparts.c \
 	df.c \

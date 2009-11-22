@@ -127,7 +127,6 @@ Ideas for extra commands
 
   General glibc / core programs:
     chgrp
-    dd (?)
     more mk*temp calls
 
   ext2 properties:
