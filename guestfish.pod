@@ -152,6 +152,11 @@ You have to mount something on C</> before most commands will work.
 If any C<-m> or C<--mount> options are given, the guest is
 automatically launched.
 
+If you don't know what filesystems a disk image contains, you
+can either run guestfish without this option, then list the partitions
+and LVs available (see L</list-partitions> and L</lvs> commands),
+or you can use the L<virt-list-filesystems(1)> program.
+
 =item B<-n> | B<--no-sync>
 
 Disable autosync.  This is enabled by default.  See the discussion
@@ -682,6 +687,7 @@ L<guestfs(3)>,
 L<http://libguestfs.org/>,
 L<virt-cat(1)>,
 L<virt-edit(1)>,
+L<virt-list-filesystems(1)>,
 L<virt-ls(1)>,
 L<virt-rescue(1)>,
 L<virt-tar(1)>.

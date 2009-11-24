@@ -100,6 +100,7 @@ test-tool/test-tool.c
 tools/virt-cat
 tools/virt-df
 tools/virt-edit
+tools/virt-list-filesystems
 tools/virt-ls
 tools/virt-rescue
 tools/virt-tar

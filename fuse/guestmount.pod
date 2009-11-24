@@ -53,6 +53,11 @@ mountpoints for you:
 option is called I<--ro-fish> or I<--fish> because these parameters
 are compatible with L<guestfish(1)>.
 
+If you don't know what filesystems are contained in a guest or
+disk image, use L<virt-list-filesystems(1)> first:
+
+ virt-list-filesystems MyGuest
+
 If you want to trace the libguestfs calls but without excessive
 debugging, we recommend:
 

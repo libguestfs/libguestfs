@@ -170,6 +170,7 @@ HTMLFILES = \
 	html/virt-df.1.html \
 	html/virt-edit.1.html \
 	html/virt-inspector.1.html \
+	html/virt-list-filesystems.1.html \
 	html/virt-ls.1.html \
 	html/virt-rescue.1.html \
 	html/virt-tar.1.html \
@@ -205,6 +206,7 @@ all-local:
 	    -name 'virt-df' -o \
 	    -name 'virt-edit' -o \
 	    -name 'virt-inspector' -o \
+	    -name 'virt-list-filesystems' -o \
 	    -name 'virt-ls' -o \
 	    -name 'virt-rescue' -o \
 	    -name 'virt-tar' -o \
