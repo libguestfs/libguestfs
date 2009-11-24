@@ -6644,6 +6644,8 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
         | Int64 _, _
         | Bool _, _
         | FileIn _, _ | FileOut _, _ -> ()
+        | StringList n, "" | DeviceList n, "" ->
+	    pr "    const char *const %s[1] = { NULL };\n" n
         | StringList n, arg | DeviceList n, arg ->
             let strs = string_split " " arg in
             iteri (
