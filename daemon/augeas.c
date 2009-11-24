@@ -143,7 +143,7 @@ do_aug_defnode (const char *name, const char *expr, const char *val)
   r.b = created;
   return &r;
 #else
-  NOT_AVAILABLE (-1);
+  NOT_AVAILABLE (NULL);
 #endif
 }
 
