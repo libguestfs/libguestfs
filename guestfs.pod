@@ -660,10 +660,83 @@ developer to program in confidence against libguestfs.
 
 =head1 AVAILABILITY
 
+=head2 GROUPS OF FUNCTIONALITY IN THE APPLIANCE
+
 Using L</guestfs_available> you can test availability of
-the following groups of functions:
+the following groups of functions.  This test queries the
+appliance to see if the appliance you are currently using
+supports the functionality.
 
 @AVAILABILITY@
+
+=head2 SINGLE CALLS AT COMPILE TIME
+
+If you need to test whether a single libguestfs function is
+available at compile time, we recommend using build tools
+such as autoconf or cmake.  For example in autotools you could
+use:
+
+ AC_CHECK_LIB([guestfs],[guestfs_create])
+ AC_CHECK_FUNCS([guestfs_dd])
+
+which would result in C<HAVE_GUESTFS_DD> being either defined
+or not defined in your program.
+
+=head2 SINGLE CALLS AT RUN TIME
+
+Testing at compile time doesn't guarantee that a function really
+exists in the library.  The reason is that you might be dynamically
+linked against a previous I<libguestfs.so> (dynamic library)
+which doesn't have the call.  This situation unfortunately results
+in a segmentation fault, which is a shortcoming of the C dynamic
+linking system itself.
+
+You can use L<dlopen(3)> to test if a function is available
+at run time, as in this example program (note that you still
+need the compile time check as well):
+
+ #include <config.h>
+ 
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <unistd.h>
+ #include <dlfcn.h>
+ #include <guestfs.h>
+ 
+ main ()
+ {
+ #ifdef HAVE_GUESTFS_DD
+   void *dl;
+   int has_function;
+
+   /* Test if the function guestfs_dd is really available. */
+   dl = dlopen (NULL, RTLD_LAZY);
+   if (!dl) {
+     fprintf (stderr, "dlopen: %s\n", dlerror ());
+     exit (1);
+   }
+   has_function = dlsym (dl, "guestfs_dd") != NULL;
+   dlclose (dl);
+ 
+   if (!has_function)
+     printf ("this libguestfs.so does NOT have guestfs_dd function\n");
+   else {
+     printf ("this libguestfs.so has guestfs_dd function\n");
+     /* Now it's safe to call
+     guestfs_dd (g, "foo", "bar");
+     */
+   }
+ #else
+   printf ("guestfs_dd function was not found at compile time\n");
+ #endif
+  }
+
+You may think the above is an awful lot of hassle, and it is.
+There are other ways outside of the C linking system to ensure
+that this kind of incompatibility never arises, such as using
+package versioning:
+
+ Requires: libguestfs >= 1.0.80
 
 =head1 STATE MACHINE AND LOW-LEVEL EVENT API
 
