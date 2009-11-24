@@ -30,7 +30,7 @@
 int
 do_fallocate (const char *path, int len)
 {
-  int fd, r;
+  int fd;
 
   CHROOT_IN;
   fd = open (path, O_WRONLY | O_CREAT | O_TRUNC | O_NOCTTY, 0666);
@@ -40,12 +40,33 @@ do_fallocate (const char *path, int len)
     return -1;
   }
 
+#ifdef HAVE_POSIX_FALLOCATE
+  int r;
+
   r = posix_fallocate (fd, 0, len);
   if (r == -1) {
     reply_with_perror ("posix_fallocate: %s", path);
     close (fd);
     return -1;
   }
+#else
+  ssize_t r;
+  char buf[BUFSIZ];
+  const size_t len_sz = (size_t) len;
+  size_t n;
+
+  memset (buf, 0, BUFSIZ);
+  n = 0;
+  while (n < len_sz) {
+    r = write (fd, buf, len_sz - n < BUFSIZ ? len_sz - n : BUFSIZ);
+    if (r == -1) {
+      reply_with_perror ("write: %s", path);
+      close (fd);
+      return -1;
+    }
+    n += r;
+  }
+#endif
 
   if (close (fd) == -1) {
     reply_with_perror ("close: %s", path);

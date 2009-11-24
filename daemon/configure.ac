@@ -179,6 +179,7 @@ AC_CHECK_FUNCS([\
         lsetxattr \
         lremovexattr \
         mknod \
+        posix_fallocate \
         removexattr \
         setxattr])
 
