@@ -4105,7 +4105,7 @@ To fill a file with zero bytes (sparsely), it is
 much more efficient to use C<guestfs_truncate_size>.");
 
   ("available", (RErr, [StringList "groups"]), 216, [],
-   [],
+   [InitNone, Always, TestRun [["available"; ""]]],
    "test availability of some parts of the API",
    "\
 This command is used to check the availability of some
