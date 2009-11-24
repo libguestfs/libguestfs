@@ -4109,24 +4109,24 @@ much more efficient to use C<guestfs_truncate_size>.");
    "test availability of some parts of the API",
    "\
 This command is used to check the availability of some
-groups of libguestfs functions which not all builds of
-libguestfs will be able to provide.
+groups of functionality in the appliance, which not all builds of
+the libguestfs appliance will be able to provide.
 
-The precise libguestfs function groups that may be checked by this
-command are listed in L<guestfs(3)/AVAILABILITY>.
+The libguestfs groups, and the functions that those
+groups correspond to, are listed in L<guestfs(3)/AVAILABILITY>.
 
-The argument C<groups> is a list of API group names, eg:
+The argument C<groups> is a list of group names, eg:
 C<[\"inotify\", \"augeas\"]> would check for the availability of
-the C<guestfs_inotify_*> functions and C<guestfs_aug_*>
-(partition editing) functions.
+the Linux inotify functions and Augeas (configuration file
+editing) functions.
 
 The command returns no error if I<all> requested groups are available.
 
-It returns an error if one or more of the requested
-groups is unavailable.
+It fails with an error if one or more of the requested
+groups is unavailable in the appliance.
 
 If an unknown group name is included in the
-list of C<groups> then an error is always returned.
+list of groups then an error is always returned.
 
 I<Notes:>
 
@@ -4135,7 +4135,8 @@ I<Notes:>
 =item *
 
 You must call C<guestfs_launch> before calling this function.
-The reason is because we don't know what function groups are
+
+The reason is because we don't know what groups are
 supported by the appliance/daemon until it is running and can
 be queried.
 
