@@ -81,6 +81,8 @@ m4/open.m4
 m4/openat.m4
 m4/pathmax.m4
 m4/perror.m4
+m4/pread.m4
+m4/printf.m4
 m4/priv-set.m4
 m4/rawmemchr.m4
 m4/readlink.m4

@@ -29,6 +29,7 @@ gl_MODULES([
   mkdtemp
   netdb
   openat
+  pread
   readlink
   select
   sleep
