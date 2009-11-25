@@ -181,14 +181,16 @@ AC_CHECK_FUNCS([\
         mknod \
         posix_fallocate \
         removexattr \
-        setxattr])
+        setxattr \
+        sync])
 
 dnl Headers.
 AC_CHECK_HEADERS([\
-	attr/xattr.h \
-	printf.h \
-	sys/inotify.h \
-	sys/xattr.h])
+        attr/xattr.h \
+        printf.h \
+        sys/inotify.h \
+        sys/xattr.h \
+        windows.h])
 
 dnl For modified printf, we need glibc either (old-style)
 dnl register_printf_function or (new-style) register_printf_specifier.

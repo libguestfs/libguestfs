@@ -112,6 +112,10 @@ struct optgroup {
 };
 extern struct optgroup optgroups[];
 
+/*-- in sync.c --*/
+/* Use this as a replacement for sync(2). */
+extern int sync_disks (void);
+
 /* ordinary daemon functions use these to indicate errors */
 extern void reply_with_error (const char *fs, ...)
   __attribute__((format (printf,1,2)));

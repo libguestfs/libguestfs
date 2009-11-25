@@ -34,7 +34,10 @@ do_drop_caches (int what)
 {
   FILE *fp;
 
-  sync ();
+  if (sync_disks () == -1) {
+    reply_with_perror ("sync");
+    return -1;
+  }
 
   fp = fopen (PROCFILE, "w");
   if (fp == NULL) {
