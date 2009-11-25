@@ -20,6 +20,10 @@
 
 #define _BSD_SOURCE		/* for daemon(3) */
 
+#ifdef HAVE_WINDOWS_H
+#include <windows.h>
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -167,6 +171,9 @@ main (int argc, char *argv[])
     perror ("sigaction SIGPIPE"); /* but try to continue anyway ... */
 #endif
 
+#ifdef WIN32
+#define setenv(n,v,f) _putenv(n "=" v)
+#endif
   /* Set up a basic environment.  After we are called by /init the
    * environment is essentially empty.
    * https://bugzilla.redhat.com/show_bug.cgi?id=502074#c5
