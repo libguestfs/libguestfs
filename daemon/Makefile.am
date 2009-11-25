@@ -109,7 +109,9 @@ guestfsd_SOURCES = \
 	xattr.c \
 	zero.c \
 	zerofree.c
-guestfsd_LDADD = $(libsrcdir)/guestfs_protocol.o lib/libgnu.a
+guestfsd_LDADD = \
+        $(libsrcdir)/guestfs_protocol.o \
+        lib/libgnu.a $(LIB_CLOCK_GETTIME)
 
 AM_CPPFLAGS = -I$(srcdir)/lib -Ilib
 guestfsd_CFLAGS = $(WARN_CFLAGS) $(WERROR_CFLAGS)
