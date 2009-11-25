@@ -182,8 +182,16 @@ main (int argc, char *argv[])
   setenv ("SHELL", "/bin/sh", 1);
   setenv ("LC_ALL", "C", 1);
 
+#ifndef WIN32
   /* We document that umask defaults to 022 (it should be this anyway). */
   umask (022);
+#else
+  /* This is the default for Windows anyway.  It's not even clear if
+   * Windows ever uses this -- the MSDN documentation for the function
+   * contains obvious errors.
+   */
+  _umask (0);
+#endif
 
   /* Get the vmchannel string.
    *
