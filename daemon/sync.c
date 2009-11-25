@@ -51,7 +51,8 @@ int
 sync_disks (void)
 {
 #if defined(HAVE_SYNC)
-  return sync ();
+  sync ();
+  return 0;
 #elif defined(WIN32)
   return sync_win32 ();
 #else
