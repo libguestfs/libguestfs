@@ -95,6 +95,7 @@ guestfsd_SOURCES = \
 	sfdisk.c \
 	sleep.c \
 	stat.c \
+	statvfs.c \
 	strings.c \
 	stubs.c \
 	swap.c \
