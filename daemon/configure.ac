@@ -181,6 +181,7 @@ AC_CHECK_FUNCS([\
         posix_fallocate \
         removexattr \
         setxattr \
+        statvfs \
         sync])
 
 dnl Headers.
@@ -188,6 +189,7 @@ AC_CHECK_HEADERS([\
         attr/xattr.h \
         printf.h \
         sys/inotify.h \
+        sys/statvfs.h \
         sys/xattr.h \
         windows.h])
 
