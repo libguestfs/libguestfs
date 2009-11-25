@@ -32,6 +32,7 @@ m4/float_h.m4
 m4/fnmatch.m4
 m4/fsusage.m4
 m4/futimens.m4
+m4/getaddrinfo.m4
 m4/getcwd-abort-bug.m4
 m4/getcwd-path-max.m4
 m4/getcwd.m4
@@ -49,7 +50,9 @@ m4/gnulib-common.m4
 m4/gnulib-comp.m4
 m4/gnulib-tool.m4
 m4/hash.m4
+m4/hostent.m4
 m4/include_next.m4
+m4/inet_ntop.m4
 m4/inet_pton.m4
 m4/inline.m4
 m4/intmax_t.m4
@@ -96,11 +99,13 @@ m4/safe-read.m4
 m4/safe-write.m4
 m4/save-cwd.m4
 m4/select.m4
+m4/servent.m4
 m4/size_max.m4
 m4/sleep.m4
 m4/sockets.m4
 m4/socklen.m4
 m4/sockpfaf.m4
+m4/snprintf.m4
 m4/ssize_t.m4
 m4/stat-time.m4
 m4/stat.m4

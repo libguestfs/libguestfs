@@ -51,6 +51,11 @@ static char *read_cmdline (void);
 #define GUESTFWD_ADDR "10.0.2.4"
 #define GUESTFWD_PORT "6666"
 
+/* This is only a hint.  If not defined, ignore it. */
+#ifndef AI_ADDRCONFIG
+#define AI_ADDRCONFIG 0
+#endif
+
 int verbose = 0;
 
 static int print_shell_quote (FILE *stream, const struct printf_info *info, const void *const *args);
