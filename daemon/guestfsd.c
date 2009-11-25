@@ -335,10 +335,15 @@ main (int argc, char *argv[])
 
   /* Fork into the background. */
   if (!dont_fork) {
+#ifndef WIN32
     if (daemon (0, 1) == -1) {
       perror ("daemon");
       exit (EXIT_FAILURE);
     }
+#else /* WIN32 */
+    fprintf (stderr, "On Windows the daemon does not support forking into the background.\nYou *must* run the daemon with the -f option.\n");
+    exit (EXIT_FAILURE);
+#endif /* WIN32 */
   }
 
   /* Enter the main loop, reading and performing actions. */
