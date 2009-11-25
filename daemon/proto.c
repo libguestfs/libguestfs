@@ -67,7 +67,7 @@ main_loop (int _sock)
       exit (EXIT_FAILURE);
 
     xdrmem_create (&xdr, lenbuf, 4, XDR_DECODE);
-    xdr_uint32_t (&xdr, &len);
+    xdr_u_int (&xdr, &len);
     xdr_destroy (&xdr);
 
     if (len > GUESTFS_MESSAGE_MAX) {
@@ -233,7 +233,7 @@ send_error (const char *msg)
   xdr_destroy (&xdr);
 
   xdrmem_create (&xdr, lenbuf, 4, XDR_ENCODE);
-  xdr_uint32_t (&xdr, &len);
+  xdr_u_int (&xdr, &len);
   xdr_destroy (&xdr);
 
   if (xwrite (sock, lenbuf, 4) == -1) {
@@ -285,7 +285,7 @@ reply (xdrproc_t xdrp, char *ret)
   xdr_destroy (&xdr);
 
   xdrmem_create (&xdr, lenbuf, 4, XDR_ENCODE);
-  xdr_uint32_t (&xdr, &len);
+  xdr_u_int (&xdr, &len);
   xdr_destroy (&xdr);
 
   if (xwrite (sock, lenbuf, 4) == -1) {
@@ -315,7 +315,7 @@ receive_file (receive_cb cb, void *opaque)
       exit (EXIT_FAILURE);
 
     xdrmem_create (&xdr, lenbuf, 4, XDR_DECODE);
-    xdr_uint32_t (&xdr, &len);
+    xdr_u_int (&xdr, &len);
     xdr_destroy (&xdr);
 
     if (len == GUESTFS_CANCEL_FLAG)
@@ -380,7 +380,7 @@ cancel_receive (void)
   uint32_t flag = GUESTFS_CANCEL_FLAG;
 
   xdrmem_create (&xdr, fbuf, sizeof fbuf, XDR_ENCODE);
-  xdr_uint32_t (&xdr, &flag);
+  xdr_u_int (&xdr, &flag);
   xdr_destroy (&xdr);
 
   if (xwrite (sock, fbuf, sizeof fbuf) == -1) {
@@ -455,7 +455,7 @@ check_for_library_cancellation (void)
     return 0;
 
   xdrmem_create (&xdr, buf, sizeof buf, XDR_DECODE);
-  xdr_uint32_t (&xdr, &flag);
+  xdr_u_int (&xdr, &flag);
   xdr_destroy (&xdr);
 
   if (flag != GUESTFS_CANCEL_FLAG) {
@@ -497,7 +497,7 @@ send_chunk (const guestfs_chunk *chunk)
   xdr_destroy (&xdr);
 
   xdrmem_create (&xdr, lenbuf, 4, XDR_ENCODE);
-  xdr_uint32_t (&xdr, &len);
+  xdr_u_int (&xdr, &len);
   xdr_destroy (&xdr);
 
   int err = (xwrite (sock, lenbuf, 4) == 0

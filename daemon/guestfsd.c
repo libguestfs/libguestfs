@@ -311,7 +311,7 @@ main (int argc, char *argv[])
   XDR xdr;
   uint32_t len = GUESTFS_LAUNCH_FLAG;
   xdrmem_create (&xdr, lenbuf, sizeof lenbuf, XDR_ENCODE);
-  xdr_uint32_t (&xdr, &len);
+  xdr_u_int (&xdr, &len);
 
   if (xwrite (sock, lenbuf, sizeof lenbuf) == -1)
     exit (EXIT_FAILURE);
