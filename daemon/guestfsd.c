@@ -157,6 +157,7 @@ main (int argc, char *argv[])
       printf ("could not read linux command line\n");
   }
 
+#ifndef WIN32
   /* Make sure SIGPIPE doesn't kill us. */
   struct sigaction sa;
   memset (&sa, 0, sizeof sa);
@@ -164,6 +165,7 @@ main (int argc, char *argv[])
   sa.sa_flags = 0;
   if (sigaction (SIGPIPE, &sa, NULL) == -1)
     perror ("sigaction SIGPIPE"); /* but try to continue anyway ... */
+#endif
 
   /* Set up a basic environment.  After we are called by /init the
    * environment is essentially empty.
