@@ -738,32 +738,59 @@ package versioning:
 
  Requires: libguestfs >= 1.0.80
 
-=head1 STATE MACHINE AND LOW-LEVEL EVENT API
+=begin html
 
-Internally, libguestfs is implemented by running a virtual machine
-using L<qemu(1)>.  QEmu runs as a child process of the main program,
-and most of this discussion won't make sense unless you understand
-that the complexity is dealing with the (asynchronous) actions of the
-child process.
+<!-- old anchor for the next section -->
+<a name="state_machine_and_low_level_event_api"/>
 
-                            child process
-  ___________________       _________________________
- /                   \     /                         \
- | main program      |     | qemu +-----------------+|
- |                   |     |      | Linux kernel    ||
- +-------------------+     |      +-----------------+|
- | libguestfs     <-------------->| guestfsd        ||
- |                   |     |      +-----------------+|
- \___________________/     \_________________________/
+=end html
 
-The diagram above shows libguestfs communicating with the guestfsd
-daemon running inside the qemu child process.  There are several
-points of failure here: qemu can fail to start, the virtual machine
-inside qemu can fail to boot, guestfsd can fail to start or not
-establish communication, any component can start successfully but fail
-asynchronously later, and so on.
+=head1 ARCHITECTURE
 
-=head2 STATE MACHINE
+Internally, libguestfs is implemented by running an appliance (a
+special type of small virtual machine) using L<qemu(1)>.  Qemu runs as
+a child process of the main program.
+
+  ___________________
+ /                   \
+ | main program      |
+ |                   |
+ |                   |           child process / appliance
+ |                   |           __________________________
+ |                   |          / qemu                     \
+ +-------------------+   RPC    |      +-----------------+ |
+ | libguestfs     <--------------------> guestfsd        | |
+ |                   |          |      +-----------------+ |
+ \___________________/          |      | Linux kernel    | |
+                                |      +--^--------------+ |
+                                \_________|________________/
+                                          |
+                                   _______v______
+                                  /              \
+                                  | Device or    |
+                                  | disk image   |
+                                  \______________/
+
+The library, linked to the main program, creates the child process and
+hence the appliance in the L</guestfs_launch> function.
+
+Inside the appliance is a Linux kernel and a complete stack of
+userspace tools (such as LVM and ext2 programs) and a small
+controlling daemon called C<guestfsd>.  The library talks to
+C<guestfsd> using remote procedure calls (RPC).  There is a mostly
+one-to-one correspondence between libguestfs API calls and RPC calls
+to the daemon.  Lastly the disk image(s) are attached to the qemu
+process which translates device access by the appliance's Linux kernel
+into accesses to the image.
+
+A common misunderstanding is that the appliance "is" the virtual
+machine.  Although the disk image you are attached to might also be
+used by some virtual machine, libguestfs doesn't know or care about
+this.  (But you will care if both libguestfs's qemu process and your
+virtual machine are trying to update the disk image at the same time,
+since these usually results in massive disk corruption).
+
+=head1 STATE MACHINE
 
 libguestfs uses a state machine to model the child process:
 
