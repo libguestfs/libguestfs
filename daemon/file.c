@@ -44,11 +44,7 @@ do_touch (const char *path)
     return -1;
   }
 
-#ifdef HAVE_FUTIMENS
   r = futimens (fd, NULL);
-#else
-  r = futimes (fd, NULL);
-#endif
   if (r == -1) {
     reply_with_perror ("futimens: %s", path);
     close (fd);

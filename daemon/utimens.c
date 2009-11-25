@@ -33,10 +33,6 @@ do_utimens (const char *path,
             int64_t atsecs, int64_t atnsecs,
             int64_t mtsecs, int64_t mtnsecs)
 {
-#ifndef HAVE_FUTIMENS
-  reply_with_error ("utimens: not supported in this appliance");
-  return -1;
-#else
   int fd;
   int r;
 
@@ -77,5 +73,4 @@ do_utimens (const char *path,
   }
 
   return 0;
-#endif /* HAVE_FUTIMENS */
 }

@@ -170,7 +170,6 @@ AC_CHECK_LIB([portablexdr],[xdrmem_create],[],[
 
 dnl Functions which may not be available in older distributions.
 AC_CHECK_FUNCS([\
-        futimens \
         getxattr \
         inotify_init1 \
         lgetxattr \
