@@ -708,7 +708,7 @@ need the compile time check as well):
  #ifdef HAVE_GUESTFS_DD
    void *dl;
    int has_function;
-
+ 
    /* Test if the function guestfs_dd is really available. */
    dl = dlopen (NULL, RTLD_LAZY);
    if (!dl) {
