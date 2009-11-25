@@ -49,6 +49,7 @@ daemon/selinux.c
 daemon/sfdisk.c
 daemon/sleep.c
 daemon/stat.c
+daemon/statvfs.c
 daemon/strings.c
 daemon/stubs.c
 daemon/swap.c
