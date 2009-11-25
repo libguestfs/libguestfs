@@ -60,6 +60,10 @@ static char *read_cmdline (void);
 #define AI_ADDRCONFIG 0
 #endif
 
+#ifndef MAX
+#define MAX(a,b) ((a)>(b)?(a):(b))
+#endif
+
 int verbose = 0;
 
 static int print_shell_quote (FILE *stream, const struct printf_info *info, const void *const *args);
