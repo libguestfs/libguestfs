@@ -124,6 +124,12 @@ test "x$U" != "x" && AC_MSG_ERROR([Compiler not ANSI compliant])
 
 AM_PROG_CC_C_O
 
+dnl If the host is Windows, define _WIN32_WINNT to a suitable value.
+AC_CANONICAL_HOST
+case $host in
+     *mingw*|*cygwin*|*win32*) CFLAGS="$CFLAGS -D_WIN32_WINNT=0x0500" ;;
+esac
+
 dnl Check support for 64 bit file offsets.
 AC_SYS_LARGEFILE
 
