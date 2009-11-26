@@ -14,3 +14,7 @@ fedora-libguestfs.spec
         This used to be a Fedora 10+ specfile.  Please use the specfile
         from Fedora instead:
         http://cvs.fedoraproject.org/viewvc/rpms/libguestfs/devel/
+
+guestfsd-in-wine.sh
+        Run a Windows-compiled guestfsd under Wine.  Read the
+        instructions at the top of this file carefully.

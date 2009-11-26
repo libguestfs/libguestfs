@@ -72,6 +72,7 @@ guestfs.3
 guestfs-actions.pod
 guestfs-availability.pod
 guestfs-structs.pod
+guestfsd-in-wine.log
 haskell/Bindtests
 haskell/Bindtests.hs
 haskell/Guestfs005Load
