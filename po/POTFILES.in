@@ -27,6 +27,7 @@ daemon/grub.c
 daemon/guestfsd.c
 daemon/headtail.c
 daemon/hexdump.c
+daemon/htonl.c
 daemon/initrd.c
 daemon/inotify.c
 daemon/link.c
