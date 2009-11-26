@@ -78,6 +78,17 @@ static int print_arginfo (const struct printf_info *info, size_t n, int *argtype
 #endif
 #endif
 
+#ifdef WIN32
+static int
+daemon (int nochdir, int noclose)
+{
+  fprintf (stderr,
+           "On Windows the daemon does not support forking into the "
+           "background.\nYou *must* run the daemon with the -f option.\n");
+  exit (EXIT_FAILURE);
+}
+#endif /* WIN32 */
+
 /* Location to mount root device. */
 const char *sysroot = "/sysroot"; /* No trailing slash. */
 int sysroot_len = 8;
@@ -339,15 +350,10 @@ main (int argc, char *argv[])
 
   /* Fork into the background. */
   if (!dont_fork) {
-#ifndef WIN32
     if (daemon (0, 1) == -1) {
       perror ("daemon");
       exit (EXIT_FAILURE);
     }
-#else /* WIN32 */
-    fprintf (stderr, "On Windows the daemon does not support forking into the background.\nYou *must* run the daemon with the -f option.\n");
-    exit (EXIT_FAILURE);
-#endif /* WIN32 */
   }
 
   /* Enter the main loop, reading and performing actions. */
