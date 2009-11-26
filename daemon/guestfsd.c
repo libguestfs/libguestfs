@@ -115,6 +115,9 @@ winsock_init (void)
 const char *sysroot = "/sysroot"; /* No trailing slash. */
 int sysroot_len = 8;
 
+/* Not used explicitly, but required by the gnulib 'error' module. */
+const char *program_name = "guestfsd";
+
 static void
 usage (void)
 {
