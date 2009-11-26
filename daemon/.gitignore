@@ -65,6 +65,7 @@ m4/locale-fr.m4
 m4/locale-ja.m4
 m4/locale-zh.m4
 m4/longlong.m4
+m4/lseek.m4
 m4/lstat.m4
 m4/malloc.m4
 m4/malloca.m4
