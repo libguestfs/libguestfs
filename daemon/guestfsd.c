@@ -21,7 +21,7 @@
 #define _BSD_SOURCE		/* for daemon(3) */
 
 #ifdef HAVE_WINDOWS_H
-#include <windows.h>
+# include <windows.h>
 #endif
 
 #include <stdio.h>
@@ -41,7 +41,7 @@
 #include <sys/wait.h>
 
 #ifdef HAVE_PRINTF_H
-#include <printf.h>
+# include <printf.h>
 #endif
 
 #include "c-ctype.h"
@@ -57,11 +57,11 @@ static char *read_cmdline (void);
 
 /* This is only a hint.  If not defined, ignore it. */
 #ifndef AI_ADDRCONFIG
-#define AI_ADDRCONFIG 0
+# define AI_ADDRCONFIG 0
 #endif
 
 #ifndef MAX
-#define MAX(a,b) ((a)>(b)?(a):(b))
+# define MAX(a,b) ((a)>(b)?(a):(b))
 #endif
 
 int verbose = 0;
@@ -187,7 +187,7 @@ main (int argc, char *argv[])
 #endif
 
 #ifdef WIN32
-#define setenv(n,v,f) _putenv(n "=" v)
+# define setenv(n,v,f) _putenv(n "=" v)
 #endif
   /* Set up a basic environment.  After we are called by /init the
    * environment is essentially empty.
