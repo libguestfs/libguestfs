@@ -32,12 +32,31 @@ $(generator_built): $(libsrcdir)/stamp-generator
 $(libsrcdir)/stamp-generator: force
 	$(MAKE) -C $(libsrcdir) stamp-generator
 
-BUILT_SOURCES = $(generator_built)
+BUILT_SOURCES = \
+	$(generator_built) \
+	guestfs_protocol.c \
+	guestfs_protocol.h
 
 EXTRA_DIST = $(BUILT_SOURCES)
 
-$(libsrcdir)/guestfs_protocol.o: force
-	$(MAKE) -C $(libsrcdir) guestfs_protocol.o
+# This convenience library is solely to avoid compiler warnings
+# in its generated sources.
+noinst_LIBRARIES = libprotocol.a
+libprotocol_a_SOURCES = \
+	guestfs_protocol.c \
+	guestfs_protocol.h
+libprotocol_a_CFLAGS =
+
+guestfs_protocol.c: $(libsrcdir)/guestfs_protocol.c
+	rm -f $@
+	ln $< $@
+guestfs_protocol.h: $(libsrcdir)/guestfs_protocol.h
+	rm -f $@
+	ln $< $@
+$(libsrcdir)/guestfs_protocol.c: force
+	$(MAKE) -C $(libsrcdir) guestfs_protocol.c
+$(libsrcdir)/guestfs_protocol.h: force
+	$(MAKE) -C $(libsrcdir) guestfs_protocol.h
 
 noinst_PROGRAMS = guestfsd
 guestfsd_SOURCES = \
@@ -110,8 +129,8 @@ guestfsd_SOURCES = \
 	zero.c \
 	zerofree.c
 guestfsd_LDADD = \
-        $(libsrcdir)/guestfs_protocol.o \
-        lib/libgnu.a $(LIB_CLOCK_GETTIME)
+	libprotocol.a \
+	lib/libgnu.a $(LIB_CLOCK_GETTIME)
 
 AM_CPPFLAGS = -I$(srcdir)/lib -Ilib
 guestfsd_CFLAGS = $(WARN_CFLAGS) $(WERROR_CFLAGS)
