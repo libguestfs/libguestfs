@@ -45,6 +45,7 @@ config.sub
 configure
 daemon/actions.h
 daemon/guestfsd
+daemon/guestfsd.exe
 daemon/guestfs_protocol.c
 daemon/guestfs_protocol.h
 daemon/install-sh
