@@ -41,20 +41,17 @@ do_zero (const char *device)
 
   memset (buf, 0, sizeof buf);
 
-  int err = 0;
-  int saved_errno = 0;
   for (i = 0; i < 32; ++i)
     if (write (fd, buf, sizeof buf) != sizeof buf) {
-      saved_errno = errno;
-      err = -1;
+      reply_with_perror ("write: %s", device);
+      close (fd);
+      return -1;
     }
 
-  if (close (fd) && saved_errno == 0) {
-    saved_errno = errno;
-    err = -1;
+  if (close (fd) == -1) {
+    reply_with_perror ("close: %s", device);
+    return -1;
   }
 
-  if (saved_errno)
-    errno = saved_errno;
-  return err;
+  return 0;
 }
