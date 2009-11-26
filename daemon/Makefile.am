@@ -91,6 +91,7 @@ guestfsd_SOURCES = \
 	guestfsd.c \
 	headtail.c \
 	hexdump.c \
+	htonl.c \
 	initrd.c \
 	inotify.c \
 	link.c \

@@ -171,6 +171,8 @@ AC_CHECK_LIB([portablexdr],[xdrmem_create],[],[
 dnl Functions which may not be available in older distributions.
 AC_CHECK_FUNCS([\
         getxattr \
+        htonl \
+        htons \
         inotify_init1 \
         lgetxattr \
         listxattr \
@@ -178,6 +180,8 @@ AC_CHECK_FUNCS([\
         lsetxattr \
         lremovexattr \
         mknod \
+        ntohl \
+        ntohs \
         posix_fallocate \
         removexattr \
         setxattr \
