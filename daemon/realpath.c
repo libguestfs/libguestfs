@@ -28,6 +28,7 @@
 #include <dirent.h>
 
 #include "daemon.h"
+#include "optgroups.h"
 #include "actions.h"
 
 /* On Windows, NAME_MAX is not defined. */
@@ -35,9 +36,20 @@
 #define NAME_MAX FILENAME_MAX
 #endif
 
+int
+optgroup_realpath_available (void)
+{
+#ifdef HAVE_REALPATH
+  return 1;
+#else
+  return 0;
+#endif
+}
+
 char *
 do_realpath (const char *path)
 {
+#ifdef HAVE_REALPATH
   char *ret;
 
   CHROOT_IN;
@@ -49,6 +61,9 @@ do_realpath (const char *path)
   }
 
   return ret;			/* caller frees */
+#else
+  NOT_AVAILABLE (NULL);
+#endif
 }
 
 char *

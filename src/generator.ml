@@ -3266,7 +3266,7 @@ matching lines.");
 This calls the external C<zfgrep -i> program and returns the
 matching lines.");
 
-  ("realpath", (RString "rpath", [Pathname "path"]), 163, [],
+  ("realpath", (RString "rpath", [Pathname "path"]), 163, [Optional "realpath"],
    [InitISOFS, Always, TestOutput (
       [["realpath"; "/../directory"]], "/directory")],
    "canonicalized absolute pathname",

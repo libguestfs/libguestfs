@@ -183,6 +183,7 @@ AC_CHECK_FUNCS([\
         ntohl \
         ntohs \
         posix_fallocate \
+        realpath \
         removexattr \
         setxattr \
         statvfs \
