@@ -5,6 +5,7 @@ centos5.3-libguestfs.spec
         http://cvs.fedoraproject.org/viewvc/rpms/libguestfs/EL-5/
 
 febootstrap/
+        [REMOVED]
         An experimental, non-working attempt to use febootstrap
         to install operating systems.
 
