@@ -131,7 +131,14 @@ guestfsd_SOURCES = \
 	zerofree.c
 guestfsd_LDADD = \
 	libprotocol.a \
-	lib/libgnu.a $(LIB_CLOCK_GETTIME)
+	lib/libgnu.a \
+	$(GETADDRINFO_LIB) \
+	$(HOSTENT_LIB) \
+	$(INET_NTOP_LIB) \
+	$(LIBSOCKET) \
+	$(LIB_CLOCK_GETTIME) \
+	$(LIBINTL) \
+	$(SERVENT_LIB)
 
 AM_CPPFLAGS = -I$(srcdir)/lib -Ilib
 guestfsd_CFLAGS = $(WARN_CFLAGS) $(WERROR_CFLAGS)

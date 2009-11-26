@@ -39,13 +39,17 @@
 #include <netdb.h>
 #include <sys/select.h>
 #include <sys/wait.h>
+#include <arpa/inet.h>
+#include <netinet/in.h>
 
 #ifdef HAVE_PRINTF_H
 # include <printf.h>
 #endif
 
+#include "sockets.h"
 #include "c-ctype.h"
 #include "ignore-value.h"
+#include "error.h"
 
 #include "daemon.h"
 
@@ -89,6 +93,24 @@ daemon (int nochdir, int noclose)
 }
 #endif /* WIN32 */
 
+#ifdef WIN32
+static int
+winsock_init (void)
+{
+  int r;
+
+  /* http://msdn2.microsoft.com/en-us/library/ms742213.aspx */
+  r = gl_sockets_startup (SOCKETS_2_2);
+  return r == 0 ? 0 : -1;
+}
+#else /* !WIN32 */
+static int
+winsock_init (void)
+{
+  return 0;
+}
+#endif /* !WIN32 */
+
 /* Location to mount root device. */
 const char *sysroot = "/sysroot"; /* No trailing slash. */
 int sysroot_len = 8;
@@ -115,6 +137,9 @@ main (int argc, char *argv[])
   int dont_fork = 0;
   char *cmdline;
   char *vmchannel = NULL;
+
+  if (winsock_init () == -1)
+    error (EXIT_FAILURE, 0, "winsock initialization failed");
 
 #ifdef HAVE_REGISTER_PRINTF_SPECIFIER
   /* http://udrepper.livejournal.com/20948.html */

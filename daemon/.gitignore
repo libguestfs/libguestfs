@@ -123,6 +123,7 @@ m4/string_h.m4
 m4/strndup.m4
 m4/strnlen.m4
 m4/symlink.m4
+m4/symlinkat.m4
 m4/sys_ioctl_h.m4
 m4/sys_select_h.m4
 m4/sys_socket_h.m4
