@@ -102,9 +102,6 @@ extern guestfs_int_lvm_pv_list *parse_command_line_pvs (void);
 extern guestfs_int_lvm_vg_list *parse_command_line_vgs (void);
 extern guestfs_int_lvm_lv_list *parse_command_line_lvs (void);
 
-/*-- in proto.c --*/
-extern void main_loop (int sock) __attribute__((noreturn));
-
 /*-- in optgroups.c (auto-generated) --*/
 struct optgroup {
   const char *group;            /* Name of the optional group. */
@@ -115,6 +112,9 @@ extern struct optgroup optgroups[];
 /*-- in sync.c --*/
 /* Use this as a replacement for sync(2). */
 extern int sync_disks (void);
+
+/*-- in proto.c --*/
+extern void main_loop (int sock) __attribute__((noreturn));
 
 /* ordinary daemon functions use these to indicate errors */
 extern void reply_with_error (const char *fs, ...)
