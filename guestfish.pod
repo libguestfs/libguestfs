@@ -2,49 +2,23 @@
 
 =head1 NAME
 
-guestfish - the libguestfs filesystem interactive shell
+guestfish - the libguestfs Filesystem Interactive SHell
 
 =head1 SYNOPSIS
 
  guestfish [--options] [commands]
 
+ guestfish
+
+ guestfish -a disk.img
+
+ guestfish -a disk.img -m dev[:mountpoint]
+
  guestfish -i libvirt-domain
 
- guestfish -i disk-image(s)
+ guestfish -i disk.img [disk.img ...]
 
 =head1 EXAMPLES
-
-=head2 From shell scripts
-
-Create a new C</etc/motd> file in a guest:
-
- guestfish <<_EOF_
- add disk.img
- run
- mount /dev/VolGroup00/LogVol00 /
- write_file /etc/motd "Hello users" 0
- _EOF_
-
-List the LVs in a guest:
-
- guestfish <<_EOF_
- add disk.img
- run
- lvs
- _EOF_
-
-=head2 On the command line
-
-List the LVM PVs in a guest image:
-
- guestfish add disk.img : run : pvs
-
-Remove C</boot/grub/menu.lst> (in reality not such a great idea):
-
- guestfish --add disk.img \
-   --mount /dev/VolGroup00/LogVol00 \
-   --mount /dev/sda1:/boot \
-   rm /boot/grub/menu.lst
 
 =head2 As an interactive shell
 
@@ -58,24 +32,79 @@ Remove C</boot/grub/menu.lst> (in reality not such a great idea):
  
  ><fs> help
 
+=head2 From shell scripts
+
+Create a new C</etc/motd> file in a guest:
+
+ guestfish <<_EOF_
+ add disk.img
+ run
+ mount /dev/vg_guest/lv_root /
+ write_file /etc/motd "Welcome, new users" 0
+ _EOF_
+
+List the LVM logical volumes in a guest:
+
+ guestfish -a disk.img --ro <<_EOF_
+ run
+ lvs
+ _EOF_
+
+=head2 On one command line
+
+Update C</etc/resolv.conf> in a guest:
+
+ guestfish \
+   add disk.img : run : mount /dev/vg_guest/lv_root / : \
+   write-file /etc/resolv.conf "nameserver 1.2.3.4" 0
+
+Edit C</boot/grub/grub.conf> interactively:
+
+ guestfish --add disk.img \
+   --mount /dev/vg_guest/lv_root \
+   --mount /dev/sda1:/boot \
+   edit /boot/grub/grub.conf
+
+=head2 Using virt-inspector
+
+Use the I<-i> option to get virt-inspector to mount
+the filesystems automatically as they would be mounted
+in the virtual machine:
+
+ guestfish --ro -i disk.img cat /etc/group
+
 =head2 As a script interpreter
 
+Create a 50MB disk containing an ext2-formatted partition:
+
  #!/usr/bin/guestfish -f
- alloc /tmp/output.img 10M
+ alloc /tmp/output.img 50M
  run
  part-disk /dev/sda mbr
  mkfs ext2 /dev/sda1
 
 =head2 Remote control
 
- eval `guestfish --listen`
- guestfish --remote cmd
+ eval `guestfish --listen --ro`
+ guestfish --remote add disk.img
+ guestfish --remote run
+ guestfish --remote lvs
 
 =head1 DESCRIPTION
 
 Guestfish is a shell and command-line tool for examining and modifying
 virtual machine filesystems.  It uses libguestfs and exposes all of
 the functionality of the guestfs API, see L<guestfs(3)>.
+
+Guestfish gives you structured access to the libguestfs API, from
+shell scripts or the command line or interactively.  If you want to
+rescue a broken virtual machine image, you might want to look at the
+L<virt-rescue(1)> command.
+
+Using guestfish in read/write mode on live virtual machines can be
+dangerous, potentially causing disk corruption.  Use the I<--ro>
+(read-only) option to use guestfish safely if the disk image or
+virtual machine might be live.
 
 =head1 OPTIONS
 
@@ -169,8 +198,12 @@ I<REMOTE CONTROL GUESTFISH OVER A SOCKET> below.
 
 =item B<-r> | B<--ro>
 
-This changes the C<-m> option so that mounts are done read-only
-(see C<guestfs_mount_ro> in the L<guestfs(3)> manpage).
+This changes the C<-a> and C<-m> options so that disks are added and
+mounts are done read-only (see L<guestfs(3)/guestfs_mount_ro>).
+
+The option must always be used if the disk image or virtual machine
+might be running, and is generally recommended in cases where you
+don't need write access to the disk.
 
 =item B<--selinux>
 
