@@ -53,15 +53,18 @@ virt-rescue gives you a rescue shell and some simple recovery tools
 which you can use on a virtual machine disk image.
 
 After running virt-rescue, what you see under C</> is the recovery
-appliance.  You must mount the virtual machine's filesystems by hand,
-eg:
+appliance.
 
- # lvs
+You must mount the virtual machine's filesystems by hand.  There
+is a directory C</sysroot> where you can mount filesystems.  For
+example:
+
+ ><rescue> lvs
  LV      VG        Attr   LSize   Origin Snap%  Move Log Copy%  Convert
  lv_root vg_f11x64 -wi-a-   8.83G
  lv_swap vg_f11x64 -wi-a- 992.00M
- # mount /dev/vg_f11x64/lv_root /sysroot
- # ls /sysroot
+ ><rescue> mount /dev/vg_f11x64/lv_root /sysroot
+ ><rescue> ls /sysroot
 
 This tool is just designed for quick interactive hacking on a virtual
 machine.  For more structured access to a virtual machine disk image,
@@ -107,6 +110,10 @@ my $readonly;
 =item B<--ro> | B<-r>
 
 Open the image read-only.
+
+The option must always be used if the disk image or virtual machine
+might be running, and is generally recommended in cases where you
+don't need write access to the disk.
 
 =back
 
