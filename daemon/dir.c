@@ -116,6 +116,11 @@ do_mkdir_mode (const char *path, int mode)
   return 0;
 }
 
+/* Returns:
+ * 0  if everything was OK,
+ * -1 for a general error (sets errno),
+ * -2 if an existing path element was not a directory.
+ */
 static int
 recursive_mkdir (const char *path)
 {
@@ -130,10 +135,7 @@ recursive_mkdir (const char *path)
     if (errno == EEXIST) {	/* Something exists here, might not be a dir. */
       r = lstat (path, &buf);
       if (r == -1) return -1;
-      if (!S_ISDIR (buf.st_mode)) {
-        errno = ENOTDIR;
-        return -1;
-      }
+      if (!S_ISDIR (buf.st_mode)) return -2;
       return 0;			/* OK - directory exists here already. */
     }
 
@@ -153,7 +155,7 @@ recursive_mkdir (const char *path)
       r = recursive_mkdir (ppath);
       free (ppath);
 
-      if (r == -1) return -1;
+      if (r != 0) return r;
 
       goto again;
     } else	  /* Failed for some other reason, so return error. */
@@ -173,6 +175,10 @@ do_mkdir_p (const char *path)
 
   if (r == -1) {
     reply_with_perror ("mkdir -p: %s", path);
+    return -1;
+  }
+  if (r == -2) {
+    reply_with_error ("mkdir -p: %s: a path element was not a directory", path);
     return -1;
   }
 
