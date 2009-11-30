@@ -29,6 +29,10 @@
 #include <rpc/types.h>
 #include <rpc/xdr.h>
 
+#ifdef HAVE_WINDOWS_H
+#include <windows.h>
+#endif
+
 #include "c-ctype.h"
 #include "ignore-value.h"
 
@@ -137,9 +141,20 @@ main_loop (int _sock)
       goto cont;
     }
 
-    /* Now start to process this message. */
     proc_nr = hdr.proc;
     serial = hdr.serial;
+
+    /* Clear errors before we call the stub functions.  This is just
+     * to ensure that we can accurately report errors in cases where
+     * error handling paths don't set errno correctly.
+     */
+    errno = 0;
+#ifdef WIN32
+    SetLastError (0);
+    WSASetLastError (0);
+#endif
+
+    /* Now start to process this message. */
     dispatch_incoming_message (&xdr);
     /* Note that dispatch_incoming_message will also send a reply. */
 
