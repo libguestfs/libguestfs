@@ -119,8 +119,9 @@ extern void main_loop (int sock) __attribute__((noreturn));
 /* ordinary daemon functions use these to indicate errors */
 extern void reply_with_error (const char *fs, ...)
   __attribute__((format (printf,1,2)));
-extern void reply_with_perror (const char *fs, ...)
-  __attribute__((format (printf,1,2)));
+extern void reply_with_perror_errno (int err, const char *fs, ...)
+  __attribute__((format (printf,2,3)));
+#define reply_with_perror(...) reply_with_perror_errno(errno, __VA_ARGS__)
 
 /* daemon functions that receive files (FileIn) should call
  * receive_file for each FileIn parameter.
@@ -130,7 +131,7 @@ extern int receive_file (receive_cb cb, void *opaque);
 
 /* daemon functions that receive files (FileIn) can call this
  * to cancel incoming transfers (eg. if there is a local error),
- * but they MUST then call reply_with_error or reply_with_perror.
+ * but they MUST then call reply_with_*.
  */
 extern void cancel_receive (void);
 

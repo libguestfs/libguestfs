@@ -195,12 +195,11 @@ reply_with_error (const char *fs, ...)
 }
 
 void
-reply_with_perror (const char *fs, ...)
+reply_with_perror_errno (int err, const char *fs, ...)
 {
   char buf1[GUESTFS_ERROR_LEN];
   char buf2[GUESTFS_ERROR_LEN];
   va_list args;
-  int err = errno;
 
   va_start (args, fs);
   vsnprintf (buf1, sizeof buf1, fs, args);
