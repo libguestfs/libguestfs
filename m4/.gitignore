@@ -126,3 +126,5 @@ xsize.m4
 /hash.m4
 /inttostr.m4
 /putenv.m4
+/thread.m4
+/yield.m4

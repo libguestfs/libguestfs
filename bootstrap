@@ -66,6 +66,7 @@ gnumakefile
 hash
 hash-pjw
 ignore-value
+lock
 maintainer-makefile
 manywarnings
 netinet_in

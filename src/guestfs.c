@@ -60,12 +60,14 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 
+#include "c-ctype.h"
+#include "glthread/lock.h"
+#include "ignore-value.h"
+
 #include "guestfs.h"
 #include "guestfs-internal.h"
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
-#include "c-ctype.h"
-#include "ignore-value.h"
 
 #ifdef HAVE_GETTEXT
 #include "gettext.h"
@@ -150,6 +152,7 @@ struct guestfs_h
   int msg_next_serial;
 };
 
+gl_lock_define_initialized (static, handles_lock);
 static guestfs_h *handles = NULL;
 static int atexit_handler_set = 0;
 
@@ -217,17 +220,15 @@ guestfs_create (void)
    */
   g->msg_next_serial = 0x00123400;
 
-  /* Link the handles onto a global list.  This is the one area
-   * where the library needs to be made thread-safe. (XXX)
-   */
-  /* acquire mutex (XXX) */
+  /* Link the handles onto a global list. */
+  gl_lock_lock (handles_lock);
   g->next = handles;
   handles = g;
   if (!atexit_handler_set) {
     atexit (close_handles);
     atexit_handler_set = 1;
   }
-  /* release mutex (XXX) */
+  gl_lock_unlock (handles_lock);
 
   if (g->verbose)
     fprintf (stderr, "new guestfs handle %p\n", g);
@@ -312,7 +313,7 @@ guestfs_close (guestfs_h *g)
   /* Mark the handle as dead before freeing it. */
   g->state = NO_HANDLE;
 
-  /* acquire mutex (XXX) */
+  gl_lock_lock (handles_lock);
   if (handles == g)
     handles = g->next;
   else {
@@ -320,7 +321,7 @@ guestfs_close (guestfs_h *g)
       ;
     gg->next = g->next;
   }
-  /* release mutex (XXX) */
+  gl_lock_unlock (handles_lock);
 
   free (g->last_error);
   free (g->path);
