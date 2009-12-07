@@ -115,9 +115,11 @@ libguestfs_la_SOURCES = \
 	guestfs-protocol.h \
 	gettext.h
 
+libguestfs_la_LIBADD = $(LTLIBTHREAD)
+
 # Make libguestfs include the convenience library.
 noinst_LTLIBRARIES = libprotocol.la
-libguestfs_la_LIBADD = libprotocol.la
+libguestfs_la_LIBADD += libprotocol.la
 
 libguestfs_la_CFLAGS = \
   -DGUESTFS_DEFAULT_PATH='"$(libdir)/guestfs"' \
