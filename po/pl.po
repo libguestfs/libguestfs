@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-12-16 11:54+0000\n"
-"PO-Revision-Date: 2009-10-04 23:10+0200\n"
+"PO-Revision-Date: 2009-12-05 14:54+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <fedora-trans-pl@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -24,9 +24,9 @@ msgid "can't allocate or add disks after launching\n"
 msgstr "bez przydzielania lub dodawania dysków po uruchomieniu\n"
 
 #: fish/alloc.c:86
-#, fuzzy, c-format
+#, c-format
 msgid "use 'sparse file size' to create a sparse image\n"
-msgstr "należy użyć \"alloc plik rozmiar\", aby utworzyć obraz\n"
+msgstr "należy użyć \"sparse plik rozmiar\", aby utworzyć rzadki obraz\n"
 
 #: fish/alloc.c:151 fish/alloc.c:158
 #, c-format
@@ -152,6 +152,7 @@ msgstr "ustawia urządzenie blokowe w tryb odczytu i zapisu"
 #: fish/cmds.c:62 fish/cmds.c:978
 msgid "return true path on case-insensitive filesystem"
 msgstr ""
+"zwraca prawdziwą ścieżkę w systemach plików rozróżniających wielkość znaków"
 
 #: fish/cmds.c:63 fish/cmds.c:399
 msgid "list the contents of a file"
@@ -257,16 +258,16 @@ msgstr "określa typ pliku"
 
 #: fish/cmds.c:90 fish/cmds.c:1032
 msgid "fill a file with octets"
-msgstr ""
+msgstr "wypełnia plik oktetami"
 
 #: fish/cmds.c:91 fish/cmds.c:708
 msgid "find all files and directories"
 msgstr "znajduje wszystkie pliki i katalogi"
 
 #: fish/cmds.c:92 fish/cmds.c:975
-#, fuzzy
 msgid "find all files and directories, returning NUL-separated list"
-msgstr "znajduje wszystkie pliki i katalogi"
+msgstr ""
+"znajduje wszystkie pliki i katalogi, zwracając listę oddzieloną znakiem NUL"
 
 #: fish/cmds.c:93 fish/cmds.c:639
 msgid "run the filesystem checker"
@@ -309,9 +310,8 @@ msgid "get the qemu binary"
 msgstr "uzyskuje plik binarny QEMU"
 
 #: fish/cmds.c:103 fish/cmds.c:387
-#, fuzzy
 msgid "get recovery process enabled flag"
-msgstr "uzyskuje flagę włączenia śledzenia"
+msgstr "uzyskuje flagę włączenia procesu przywracania"
 
 #: fish/cmds.c:104 fish/cmds.c:369
 msgid "get SELinux enabled flag"
@@ -451,7 +451,7 @@ msgstr "uzyskuje informacje o dowiązaniu symbolicznym"
 
 #: fish/cmds.c:145 fish/cmds.c:999
 msgid "lstat on multiple files"
-msgstr ""
+msgstr "wykonuje polecenie lstat na wielu plikach"
 
 #: fish/cmds.c:146 fish/cmds.c:268 fish/cmds.c:507 fish/cmds.c:510
 msgid "create an LVM volume group"
@@ -476,16 +476,15 @@ msgstr "wyświetla listę woluminów logicznych LVM"
 
 #: fish/cmds.c:152 fish/cmds.c:1002
 msgid "lgetxattr on multiple files"
-msgstr ""
+msgstr "wykonuje polecenie lgetxattr na wielu plikach"
 
 #: fish/cmds.c:153 fish/cmds.c:483
 msgid "create a directory"
 msgstr "tworzy katalog"
 
 #: fish/cmds.c:154 fish/cmds.c:993
-#, fuzzy
 msgid "create a directory with a particular mode"
-msgstr "tworzy katalog i katalogi nadrzędne"
+msgstr "tworzy katalog za pomocą konkretnego trybu"
 
 #: fish/cmds.c:155 fish/cmds.c:486
 msgid "create a directory and parents"
@@ -599,47 +598,40 @@ msgid "probe NTFS volume"
 msgstr "wykrywa wolumin NTFS"
 
 #: fish/cmds.c:184 fish/cmds.c:1014
-#, fuzzy
 msgid "add a partition to the device"
-msgstr "tworzy partycje na urządzeniu blokowym"
+msgstr "dodaje partycję do urządzenia"
 
 #: fish/cmds.c:185 fish/cmds.c:1017
 msgid "partition whole disk with a single primary partition"
-msgstr ""
+msgstr "Partycjonuje cały dysk za pomocą pojedynczej partycji podstawowej"
 
 #: fish/cmds.c:186 fish/cmds.c:1029
-#, fuzzy
 msgid "get the partition table type"
-msgstr "wyświetla tablicę partycji"
+msgstr "uzyskuje typ tablicy partycji"
 
 #: fish/cmds.c:187 fish/cmds.c:1011
-#, fuzzy
 msgid "create an empty partition table"
-msgstr "ponownie odczytuje tablicę partycji"
+msgstr "tworzy pustą tablicę partycji"
 
 #: fish/cmds.c:188 fish/cmds.c:1026
-#, fuzzy
 msgid "list partitions on a device"
-msgstr "tworzy partycje na urządzeniu blokowym"
+msgstr "wyświetla listę partycji na urządzeniu"
 
 #: fish/cmds.c:189 fish/cmds.c:1020
-#, fuzzy
 msgid "make a partition bootable"
-msgstr "ponownie odczytuje tablicę partycji"
+msgstr "zmienia partycję na startową"
 
 #: fish/cmds.c:190 fish/cmds.c:1023
-#, fuzzy
 msgid "set partition name"
-msgstr "ponownie odczytuje tablicę partycji"
+msgstr "ustawia nazwę partycji"
 
 #: fish/cmds.c:191 fish/cmds.c:663
 msgid "ping the guest daemon"
 msgstr "odpytuje demona gościa"
 
 #: fish/cmds.c:192 fish/cmds.c:1008
-#, fuzzy
 msgid "read part of a file"
-msgstr "odczytuje plik"
+msgstr "odczytuje część pliku"
 
 #: fish/cmds.c:193 fish/cmds.c:504
 msgid "create an LVM physical volume"
@@ -675,7 +667,7 @@ msgstr "odczytuje cel dowiązania symbolicznego"
 
 #: fish/cmds.c:202 fish/cmds.c:1005
 msgid "readlink on multiple files"
-msgstr ""
+msgstr "wykonuje polecenie readlink na wielu plikach"
 
 #: fish/cmds.c:203 fish/cmds.c:876
 msgid "canonicalized absolute pathname"
@@ -746,9 +738,8 @@ msgid "set the qemu binary"
 msgstr "ustawia plik binarny QEMU"
 
 #: fish/cmds.c:221 fish/cmds.c:384
-#, fuzzy
 msgid "enable or disable the recovery process"
-msgstr "włącza lub wyłącza śledzenie poleceń"
+msgstr "włącza lub wyłącza proces przywracania"
 
 #: fish/cmds.c:222 fish/cmds.c:366
 msgid "set SELinux enabled or disabled at appliance boot"
@@ -877,11 +868,11 @@ msgstr "aktualizuje znaczniki czasu plików lub tworzy nowy plik"
 
 #: fish/cmds.c:256 fish/cmds.c:984
 msgid "truncate a file to zero size"
-msgstr ""
+msgstr "obcina plik do zerowego rozmiaru"
 
 #: fish/cmds.c:257 fish/cmds.c:987
 msgid "truncate a file to a particular size"
-msgstr ""
+msgstr "obcina plik do konkretnego rozmiaru"
 
 #: fish/cmds.c:258 fish/cmds.c:552
 msgid "get ext2/ext3/ext4 superblock details"
@@ -905,7 +896,7 @@ msgstr "wysyła plik do z lokalnej maszyny"
 
 #: fish/cmds.c:263 fish/cmds.c:990
 msgid "set timestamp of a file with nanosecond precision"
-msgstr ""
+msgstr "ustawia znaczniki czasu pliku z nanosekundową dokładnością"
 
 #: fish/cmds.c:264 fish/cmds.c:363
 msgid "get the library version number"
@@ -914,6 +905,8 @@ msgstr "uzyskuje numer wersji biblioteki"
 #: fish/cmds.c:265 fish/cmds.c:981
 msgid "get the Linux VFS type corresponding to a mounted device"
 msgstr ""
+"uzyskuje typ wirtualnego systemu plików systemu Linux odpowiadający "
+"zamontowanemu urządzeniu"
 
 #: fish/cmds.c:266 fish/cmds.c:699
 msgid "activate or deactivate some volume groups"
@@ -963,8 +956,8 @@ msgstr "ustala typ pliku wewnątrz skompresowanego pliku"
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
 msgstr ""
 "Należy użyć -h <polecenie>/help <polecenie>, aby wyświetlić szczegółową "
-"pomoc polecenia.Użyj -h <cmd>/help <cmd>, aby wyświetlić szczegółową pomoc o "
-"poleceniu."
+"pomoc polecenia. Użyj -h <cmd>/help <cmd>, aby wyświetlić szczegółową pomoc "
+"o poleceniu."
 
 #: fish/cmds.c:1316 fish/cmds.c:1328 fish/cmds.c:1341 fish/cmds.c:1355
 #: fish/cmds.c:1369 fish/cmds.c:1384 fish/cmds.c:1399 fish/cmds.c:1412
@@ -1330,16 +1323,15 @@ msgid "close and reopen libguestfs handle"
 msgstr "zamyka i ponownie otwiera program obsługi libguestfs"
 
 #: fish/fish.c:932
-#, fuzzy
 msgid "allocate a sparse image file"
-msgstr "przydziela obraz"
+msgstr "przydziela plik rzadkiego obrazu"
 
 #: fish/fish.c:934
 msgid "measure time taken to run command"
 msgstr "mierzy czas wykonania polecenia"
 
 #: fish/fish.c:946
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "alloc - allocate an image\n"
 "     alloc <filename> <size>\n"
@@ -1366,8 +1358,8 @@ msgstr ""
 "    Tworzy pusty (wypełniony zerami) plik o podanym rozmiarze,\n"
 "    a następnie dodaje go, aby mógł być dalej badany.\n"
 "\n"
-"    Aby uzyskać bardziej zaawansowane tworzenie obrazu, proszę zobaczyć\n"
-"    narzędzie qemu-img.\n"
+"    Aby uzyskać bardziej zaawansowane tworzenie obrazu,\n"
+"    proszę zobaczyć narzędzie qemu-img.\n"
 "\n"
 "    Można podać rozmiar (gdzie <nn> oznacza liczbę):\n"
 "    <nn>              liczba kilobajtów\n"
@@ -1375,6 +1367,9 @@ msgstr ""
 "    <nn>K lub <nn>KB  liczba kilobajtów\n"
 "    <nn>M lub <nn>MB  liczba megabajtów\n"
 "    <nn>G lub <nn>GB  liczba gigabajtów\n"
+"    <nn>T lub <nn>TB  liczba terabajtów\n"
+"    <nn>P lub <nn>PB  liczba petabajtów\n"
+"    <nn>E lub <nn>EB  liczba eksabajtów\n"
 "    <nn>sektory       liczba 512 bajtowych sektorów\n"
 
 #: fish/fish.c:965
@@ -1555,6 +1550,33 @@ msgid ""
 "    <nn>E or <nn>EB  number of exabytes\n"
 "    <nn>sects        number of 512 byte sectors\n"
 msgstr ""
+"sparse - przydziela plik rzadkiego obrazu\n"
+"     sparse <nazwa_pliku> <rozmiar>\n"
+"\n"
+"    Tworzy pusty rzadki plik o podanym rozmiarze,\n"
+"    a następnie dodaje go, aby mógł być dalej badany.\n"
+"\n"
+"    We wszystkich aspektach działa tak samo jak polecenie\n"
+"    \"alloc\", poza tym, że plik obrazu jest przydzielany\n"
+"    rzadko. Oznacza to, że bloki dysku nie są przydzielane\n"
+"    do pliku, dopóki nie są potrzebne. Pliki rzadkich dysków\n"
+"    używają miejsca tylko, kiedy są zapisywane, ale są\n"
+"    wolniejsze i istnieje niebezpieczeństwo wyjścia poza\n"
+"    realne miejsce na dysku podczas działania zapisu.\n"
+"\n"
+"    Aby uzyskać bardziej zaawansowane tworzenie obrazu,\n"
+"    proszę zobaczyć narzędzie qemu-img.\n"
+"\n"
+"    Można podać rozmiar (gdzie <nn> oznacza liczbę):\n"
+"    <nn>             liczba kilobajtów\n"
+"      np.: 1440      standardowa dyskietka 3.5\"\n"
+"    <nn>K lub <nn>KB  liczba kilobajtów\n"
+"    <nn>M lub <nn>MB  liczba megabajtów\n"
+"    <nn>G lub <nn>GB  liczba gigabajtów\n"
+"    <nn>T lub <nn>TB  liczba terabajtów\n"
+"    <nn>P lub <nn>PB  liczba petabajtów\n"
+"    <nn>E lub <nn>EB  liczba eksabajtów\n"
+"    <nn>sektory        liczba 512 bajtowych sektorów\n"
 
 #: fish/fish.c:1058
 #, c-format
@@ -1651,7 +1673,7 @@ msgid "use 'time command [args...]'\n"
 msgstr "należy użyć \"time polecenie [parametry...]\"\n"
 
 #: fuse/guestmount.c:872
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: FUSE module for libguestfs\n"
 "%s lets you mount a virtual machine filesystem\n"
@@ -1672,50 +1694,36 @@ msgid ""
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
 msgstr ""
-"%s: powłoka systemu plików gościa\n"
-"%s umożliwia modyfikowanie systemów pliku maszyn wirtualnych\n"
+"%s: moduł FUSE dla biblioteki libguestfs\n"
+"%s umożliwia zamontowanie systemu plików maszyny wirtualnej\n"
 "Copyright (C) 2009 Red Hat Inc.\n"
 "Użycie:\n"
-"  %s [--opcje] polecenie [: polecenie : polecenie ...]\n"
-"  %s -i domena-libvirt\n"
-"  %s -i obrazy-dysków\n"
-"lub dla trybu interaktywnego:\n"
-"  %s\n"
-"lub ze skryptu powłoki:\n"
-"  %s <<EOF\n"
-"  polecenie\n"
-"  ...\n"
-"  EOF\n"
+"  %s [--opcje] [-- [--opcje-FUSE]] punkt_montowania\n"
 "Opcje:\n"
-"  -h|--cmd-help        Wyświetla listę dostępnych poleceń\n"
-"  -h|--cmd-help polecenie  Wyświetla szczegółową pomoc o \"poleceniu\"\n"
 "  -a|--add image       Dodaje obraz\n"
-"  -D|--no-dest-paths   Nie uzupełnia ścieżek z systemu plików gościa za\n"
-"                       pomocą Tab\n"
-"  -f|--file plik       Odczytuje polecenia z pliku\n"
-"  -i|--inspector       Uruchamia virt-inspector, aby uzyskać punkty\n"
-"                       montowania dysków\n"
-"  --listen             Nasłuchuje zdalnych poleceń\n"
+"  --dir-cache-timeout  Ustawia czas oczekiwania na pamięć podręczną\n"
+"                       odczytania katalogu (domyślnie pięć sekund)\n"
+"  --fuse-help          Wyświetla dodatkowe opcje FUSE\n"
+"  --help               Wyświetla komunikat pomocy i kończy działanie\n"
 "  -m|--mount dev[:mnt] Montuje dev w mnt (jeśli pominięto, w /)\n"
 "  -n|--no-sync         Nie synchronizuje automatycznie\n"
-"  --remote[=PID]       Wysyła polecenia do zdalnego %s\n"
+"  -o|--option opt      Przekazuje dodatkowe opcje do FUSE\n"
 "  -r|--ro              Montuje w trybie tylko do odczytu\n"
 "  --selinux            Włącza obsługę SELinuksa\n"
+"  --trace              Śledzi wywołania API biblioteki guestfs (do\n"
+"                       standardowego wyjścia błędów)\n"
 "  -v|--verbose         Wyświetla więcej komunikatów\n"
-"  -x                   Wykonuje echo każdego polecenia przed jego\n"
-"                       wykonaniem\n"
-"  -V|--version         Wyświetla wersję i kończy pracę\n"
-"Aby dowiedzieć się więcej, proszę zobaczyć stronę podręcznika %s(1).\n"
+"  -V|--version         Wyświetla wersję i kończy działanie\n"
 
 #: fuse/guestmount.c:1077
 #, c-format
 msgid "%s: must have at least one -a and at least one -m option\n"
-msgstr ""
+msgstr "%s: musi posiadać co najmniej jedną opcję -a i co najmniej jedną -m\n"
 
 #: fuse/guestmount.c:1085
-#, fuzzy, c-format
+#, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
-msgstr "montuje dysk gościa na pozycji w systemie plików"
+msgstr "%s: należy podać punkt montowania w systemie plików gospodarza\n"
 
 #: src/guestfs.c:255
 #, c-format
