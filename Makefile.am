@@ -77,9 +77,6 @@ EXTRA_DIST = \
 	html/recipes.css \
 	make-recipes.sh \
 	contrib/README \
-	contrib/febootstrap/install.title \
-	contrib/febootstrap/install.html \
-	contrib/febootstrap/install.sh \
 	bindtests \
 	libguestfs.3
 
