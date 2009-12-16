@@ -112,7 +112,7 @@ libguestfs_la_SOURCES = \
 	guestfs-actions.c \
 	guestfs-bindtests.c \
 	guestfs-internal.h \
-	guestfs-protocol.h \
+	guestfs_protocol.h \
 	gettext.h
 
 libguestfs_la_LIBADD = $(LTLIBTHREAD)
