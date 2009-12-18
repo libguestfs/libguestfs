@@ -1038,31 +1038,19 @@ device_name_translation (char *device, const char *func)
  * involved.  eg. You can create or remove some device, but the /dev
  * device node won't appear until some time later.  This means that
  * you get an error if you run one command followed by another.
+ *
  * Use 'udevadm settle' after certain commands, but don't be too
  * fussed if it fails.
+ *
+ * 'udevsettle' was the old name for this command (RHEL 5).  This was
+ * deprecated in favour of 'udevadm settle'.  The old 'udevsettle'
+ * command was left as a symlink.  Then in Fedora 13 the old symlink
+ * remained but it stopped working (RHBZ#548121), so we have to be
+ * careful not to assume that we can use 'udevsettle' if it exists.
  */
 void
 udev_settle (void)
 {
-  static int which_prog = 0;
-
-  if (which_prog == 0) {
-    if (access ("/sbin/udevsettle", X_OK) == 0)
-      which_prog = 2;
-    else if (access ("/sbin/udevadm", X_OK) == 0)
-      which_prog = 1;
-    else
-      which_prog = 3;
-  }
-
-  switch (which_prog) {
-  case 1:
-    command (NULL, NULL, "/sbin/udevadm", "settle", NULL);
-    break;
-  case 2:
-    command (NULL, NULL, "/sbin/udevsettle", NULL);
-    break;
-  default:
-    ;
-  }
+  (void) command (NULL, NULL, "/sbin/udevadm", "settle", NULL);
+  (void) command (NULL, NULL, "/sbin/udevsettle", NULL);
 }
