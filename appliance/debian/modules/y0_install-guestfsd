@@ -16,8 +16,8 @@ find $DEBIRF_ROOT/lib/modules/*/kernel -name '*.ko' $whitelist -a -exec rm '{}' 
 # install additional packages:
 PKGLIST=$(< packagelist)
 echo "Will add $PKGLIST"
-debirf_exec aptitude -R -y install $PKGLIST
-debirf_exec aptitude -y remove vim-tiny dhcp3-client iptables
+debirf_exec apt-get --assume-yes install $PKGLIST
+debirf_exec apt-get --assume-yes remove vim-tiny dhcp3-client iptables
 
 debirf_exec mkdir -p --mode=0777 /sysroot
 
