@@ -104,6 +104,7 @@ endif
 # Extra symlinks needed by the Debian appliance.
 debirf_symlinks = \
 	a0_prep-root \
+	install-kernel \
 	z0_remove-aptitude \
 	z0_remove-locales \
 	z1_clean-root
