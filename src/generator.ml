@@ -19,17 +19,24 @@
 
 (* This script generates a large amount of code and documentation for
  * all the daemon actions.
- *
+ * 
  * To add a new action there are only two files you need to change,
- * this one to describe the interface (see the big table below), and
- * daemon/<somefile>.c to write the implementation.
- *
- * After editing this file, run it (./src/generator.ml) to regenerate all the
- * output files.  Note that if you are using a separate build directory you
- * must run generator.ml from the _source_ directory.
- *
+ * this one to describe the interface (see the big table of
+ * 'daemon_functions' below), and daemon/<somefile>.c to write the
+ * implementation.
+ * 
+ * After editing this file, run it (./src/generator.ml) to regenerate
+ * all the output files.  'make' will rerun this automatically when
+ * necessary.  Note that if you are using a separate build directory
+ * you must run generator.ml from the _source_ directory.
+ * 
  * IMPORTANT: This script should NOT print any warnings.  If it prints
  * warnings, you should treat them as errors.
+ *
+ * OCaml tips:
+ * (1) In emacs, install tuareg-mode to display and format OCaml code
+ * correctly.  'vim' comes with a good OCaml editing mode by default.
+ * (2) Read the resources at http://ocaml-tutorial.org/
  *)
 
 #load "unix.cma";;
@@ -1866,7 +1873,7 @@ This uses the L<blockdev(8)> command.");
       (* Pick a file from cwd which isn't likely to change. *)
       [["upload"; "../COPYING.LIB"; "/COPYING.LIB"];
        ["checksum"; "md5"; "/COPYING.LIB"]],
-        Digest.to_hex (Digest.file "COPYING.LIB"))],
+      Digest.to_hex (Digest.file "COPYING.LIB"))],
    "upload a file from the local machine",
    "\
 Upload local file C<filename> to C<remotefilename> on the
@@ -1883,7 +1890,7 @@ See also C<guestfs_download>.");
        ["download"; "/COPYING.LIB"; "testdownload.tmp"];
        ["upload"; "testdownload.tmp"; "/upload"];
        ["checksum"; "md5"; "/upload"]],
-        Digest.to_hex (Digest.file "COPYING.LIB"))],
+      Digest.to_hex (Digest.file "COPYING.LIB"))],
    "download a file to the local machine",
    "\
 Download file C<remotefilename> and save it as C<filename>
@@ -3115,11 +3122,11 @@ a list of devices.  This one returns a hash table (map) of
 device name to directory where the device is mounted.");
 
   ("mkmountpoint", (RErr, [String "exemptpath"]), 148, [],
-  (* This is a special case: while you would expect a parameter
-   * of type "Pathname", that doesn't work, because it implies
-   * NEED_ROOT in the generated calling code in stubs.c, and
-   * this function cannot use NEED_ROOT.
-   *)
+   (* This is a special case: while you would expect a parameter
+    * of type "Pathname", that doesn't work, because it implies
+    * NEED_ROOT in the generated calling code in stubs.c, and
+    * this function cannot use NEED_ROOT.
+    *)
    [],
    "create a mountpoint",
    "\
@@ -3638,8 +3645,8 @@ was built (see C<appliance/kmod.whitelist.in> in the source).");
 
   ("echo_daemon", (RString "output", [StringList "words"]), 195, [],
    [InitNone, Always, TestOutput (
-     [["echo_daemon"; "This is a test"]], "This is a test"
-   )],
+      [["echo_daemon"; "This is a test"]], "This is a test"
+    )],
    "echo arguments back to the client",
    "\
 This command concatenate the list of C<words> passed with single spaces between
