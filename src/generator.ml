@@ -10883,13 +10883,13 @@ Run it from the top source directory using the command
   output_to "src/guestfs-actions.h" generate_actions_h;
   output_to "src/guestfs-internal-actions.h" generate_internal_actions_h;
   output_to "src/guestfs-actions.c" generate_client_actions;
+  output_to "src/guestfs-bindtests.c" generate_bindtests;
   output_to "daemon/actions.h" generate_daemon_actions_h;
   output_to "daemon/stubs.c" generate_daemon_actions;
   output_to "daemon/names.c" generate_daemon_names;
   output_to "daemon/optgroups.c" generate_daemon_optgroups_c;
   output_to "daemon/optgroups.h" generate_daemon_optgroups_h;
   output_to "capitests/tests.c" generate_tests;
-  output_to "src/guestfs-bindtests.c" generate_bindtests;
   output_to "fish/cmds.c" generate_fish_cmds;
   output_to "fish/completion.c" generate_fish_completion;
   output_to "guestfs-structs.pod" generate_structs_pod;
