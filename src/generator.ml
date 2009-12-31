@@ -1,6 +1,6 @@
 #!/usr/bin/env ocaml
 (* libguestfs
- * Copyright (C) 2009 Red Hat Inc.
+ * Copyright (C) 2009-2010 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -4810,6 +4810,10 @@ let check_functions () =
 let chan = ref Pervasives.stdout
 let pr fs = ksprintf (output_string !chan) fs
 
+let copyright_years =
+  let this_year = 1900 + (localtime (time ())).tm_year in
+  if this_year > 2009 then sprintf "2009-%04d" this_year else "2009"
+
 (* Generate a header block in a number of standard styles. *)
 type comment_style = CStyle | HashStyle | OCamlStyle | HaskellStyle
 type license = GPLv2 | LGPLv2
@@ -4826,7 +4830,7 @@ let generate_header ?(extra_inputs = []) comment license =
   List.iter (pr "%s   %s\n" c) inputs;
   pr "%s ANY CHANGES YOU MAKE TO THIS FILE WILL BE LOST.\n" c;
   pr "%s\n" c;
-  pr "%s Copyright (C) 2009 Red Hat Inc.\n" c;
+  pr "%s Copyright (C) %s Red Hat Inc.\n" c copyright_years;
   pr "%s\n" c;
   (match license with
    | GPLv2 ->
@@ -8264,7 +8268,7 @@ sub new {
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Red Hat Inc.
+Copyright (C) %s Red Hat Inc.
 
 =head1 LICENSE
 
@@ -8278,7 +8282,7 @@ L<http://libguestfs.org>,
 L<Sys::Guestfs::Lib(3)>.
 
 =cut
-"
+" copyright_years
 
 and generate_perl_prototype name style =
   (match fst style with
