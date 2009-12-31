@@ -4816,7 +4816,7 @@ let copyright_years =
 
 (* Generate a header block in a number of standard styles. *)
 type comment_style = CStyle | HashStyle | OCamlStyle | HaskellStyle
-type license = GPLv2 | LGPLv2
+type license = GPLv2plus | LGPLv2plus
 
 let generate_header ?(extra_inputs = []) comment license =
   let inputs = "src/generator.ml" :: extra_inputs in
@@ -4833,7 +4833,7 @@ let generate_header ?(extra_inputs = []) comment license =
   pr "%s Copyright (C) %s Red Hat Inc.\n" c copyright_years;
   pr "%s\n" c;
   (match license with
-   | GPLv2 ->
+   | GPLv2plus ->
        pr "%s This program is free software; you can redistribute it and/or modify\n" c;
        pr "%s it under the terms of the GNU General Public License as published by\n" c;
        pr "%s the Free Software Foundation; either version 2 of the License, or\n" c;
@@ -4848,7 +4848,7 @@ let generate_header ?(extra_inputs = []) comment license =
        pr "%s with this program; if not, write to the Free Software Foundation, Inc.,\n" c;
        pr "%s 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.\n" c;
 
-   | LGPLv2 ->
+   | LGPLv2plus ->
        pr "%s This library is free software; you can redistribute it and/or\n" c;
        pr "%s modify it under the terms of the GNU Lesser General Public\n" c;
        pr "%s License as published by the Free Software Foundation; either\n" c;
@@ -5000,7 +5000,7 @@ and generate_availability_pod () =
  * This header is NOT exported to clients, but see also generate_structs_h.
  *)
 and generate_xdr () =
-  generate_header CStyle LGPLv2;
+  generate_header CStyle LGPLv2plus;
 
   (* This has to be defined to get around a limitation in Sun's rpcgen. *)
   pr "typedef string str<>;\n";
@@ -5158,7 +5158,7 @@ struct guestfs_chunk {
 
 (* Generate the guestfs-structs.h file. *)
 and generate_structs_h () =
-  generate_header CStyle LGPLv2;
+  generate_header CStyle LGPLv2plus;
 
   (* This is a public exported header file containing various
    * structures.  The structures are carefully written to have
@@ -5206,7 +5206,7 @@ and generate_structs_h () =
 
 (* Generate the guestfs-actions.h file. *)
 and generate_actions_h () =
-  generate_header CStyle LGPLv2;
+  generate_header CStyle LGPLv2plus;
   List.iter (
     fun (shortname, style, _, _, _, _, _) ->
       let name = "guestfs_" ^ shortname in
@@ -5216,7 +5216,7 @@ and generate_actions_h () =
 
 (* Generate the guestfs-internal-actions.h file. *)
 and generate_internal_actions_h () =
-  generate_header CStyle LGPLv2;
+  generate_header CStyle LGPLv2plus;
   List.iter (
     fun (shortname, style, _, _, _, _, _) ->
       let name = "guestfs__" ^ shortname in
@@ -5226,7 +5226,7 @@ and generate_internal_actions_h () =
 
 (* Generate the client-side dispatch stubs. *)
 and generate_client_actions () =
-  generate_header CStyle LGPLv2;
+  generate_header CStyle LGPLv2plus;
 
   pr "\
 #include <stdio.h>
@@ -5578,7 +5578,7 @@ check_state (guestfs_h *g, const char *caller)
 
 (* Generate daemon/actions.h. *)
 and generate_daemon_actions_h () =
-  generate_header CStyle GPLv2;
+  generate_header CStyle GPLv2plus;
 
   pr "#include \"../src/guestfs_protocol.h\"\n";
   pr "\n";
@@ -5592,7 +5592,7 @@ and generate_daemon_actions_h () =
 
 (* Generate the server-side stubs. *)
 and generate_daemon_actions () =
-  generate_header CStyle GPLv2;
+  generate_header CStyle GPLv2plus;
 
   pr "#include <config.h>\n";
   pr "\n";
@@ -5992,7 +5992,7 @@ and generate_daemon_actions () =
 
 (* Generate a list of function names, for debugging in the daemon.. *)
 and generate_daemon_names () =
-  generate_header CStyle GPLv2;
+  generate_header CStyle GPLv2plus;
 
   pr "#include <config.h>\n";
   pr "\n";
@@ -6010,7 +6010,7 @@ and generate_daemon_names () =
  * guestfs_available.
  *)
 and generate_daemon_optgroups_c () =
-  generate_header CStyle GPLv2;
+  generate_header CStyle GPLv2plus;
 
   pr "#include <config.h>\n";
   pr "\n";
@@ -6027,7 +6027,7 @@ and generate_daemon_optgroups_c () =
   pr "};\n"
 
 and generate_daemon_optgroups_h () =
-  generate_header CStyle GPLv2;
+  generate_header CStyle GPLv2plus;
 
   List.iter (
     fun (group, _) ->
@@ -6036,7 +6036,7 @@ and generate_daemon_optgroups_h () =
 
 (* Generate the tests. *)
 and generate_tests () =
-  generate_header CStyle GPLv2;
+  generate_header CStyle GPLv2plus;
 
   pr "\
 #include <stdio.h>
@@ -6776,7 +6776,7 @@ and c_quote str =
 
 (* Generate a lot of different functions for guestfish. *)
 and generate_fish_cmds () =
-  generate_header CStyle GPLv2;
+  generate_header CStyle GPLv2plus;
 
   let all_functions =
     List.filter (
@@ -7140,7 +7140,7 @@ and generate_fish_cmds () =
 
 (* Readline completion for guestfish. *)
 and generate_fish_completion () =
-  generate_header CStyle GPLv2;
+  generate_header CStyle GPLv2plus;
 
   let all_functions =
     List.filter (
@@ -7379,7 +7379,7 @@ and generate_c_call_args ?handle ?(decl = false) style =
 
 (* Generate the OCaml bindings interface. *)
 and generate_ocaml_mli () =
-  generate_header OCamlStyle LGPLv2;
+  generate_header OCamlStyle LGPLv2plus;
 
   pr "\
 (** For API documentation you should refer to the C API
@@ -7421,7 +7421,7 @@ val close : t -> unit
 
 (* Generate the OCaml bindings implementation. *)
 and generate_ocaml_ml () =
-  generate_header OCamlStyle LGPLv2;
+  generate_header OCamlStyle LGPLv2plus;
 
   pr "\
 type t
@@ -7449,7 +7449,7 @@ let () =
 
 (* Generate the OCaml bindings C implementation. *)
 and generate_ocaml_c () =
-  generate_header CStyle LGPLv2;
+  generate_header CStyle LGPLv2plus;
 
   pr "\
 #include <stdio.h>
@@ -7801,7 +7801,7 @@ and generate_ocaml_prototype ?(is_external = false) name style =
 
 (* Generate Perl xs code, a sort of crazy variation of C with macros. *)
 and generate_perl_xs () =
-  generate_header CStyle LGPLv2;
+  generate_header CStyle LGPLv2plus;
 
   pr "\
 #include \"EXTERN.h\"
@@ -8156,7 +8156,7 @@ and generate_perl_struct_code typ cols name style n do_cleanups =
 
 (* Generate Sys/Guestfs.pm. *)
 and generate_perl_pm () =
-  generate_header HashStyle LGPLv2;
+  generate_header HashStyle LGPLv2plus;
 
   pr "\
 =pod
@@ -8316,7 +8316,7 @@ and generate_perl_prototype name style =
 
 (* Generate Python C module. *)
 and generate_python_c () =
-  generate_header CStyle LGPLv2;
+  generate_header CStyle LGPLv2plus;
 
   pr "\
 #include <Python.h>
@@ -8705,7 +8705,7 @@ initlibguestfsmod (void)
 
 (* Generate Python module. *)
 and generate_python_py () =
-  generate_header HashStyle LGPLv2;
+  generate_header HashStyle LGPLv2plus;
 
   pr "\
 u\"\"\"Python bindings for libguestfs
@@ -8858,7 +8858,7 @@ and pod2text ~width name longdesc =
 
 (* Generate ruby bindings. *)
 and generate_ruby_c () =
-  generate_header CStyle LGPLv2;
+  generate_header CStyle LGPLv2plus;
 
   pr "\
 #include <stdio.h>
@@ -9130,7 +9130,7 @@ and generate_ruby_struct_list_code typ cols =
 
 (* Generate Java bindings GuestFS.java file. *)
 and generate_java_java () =
-  generate_header CStyle LGPLv2;
+  generate_header CStyle LGPLv2plus;
 
   pr "\
 package com.redhat.et.libguestfs;
@@ -9317,7 +9317,7 @@ and generate_java_prototype ?(public=false) ?(privat=false) ?(native=false)
   if semicolon then pr ";"
 
 and generate_java_struct jtyp cols =
-  generate_header CStyle LGPLv2;
+  generate_header CStyle LGPLv2plus;
 
   pr "\
 package com.redhat.et.libguestfs;
@@ -9347,7 +9347,7 @@ public class %s {
   pr "}\n"
 
 and generate_java_c () =
-  generate_header CStyle LGPLv2;
+  generate_header CStyle LGPLv2plus;
 
   pr "\
 #include <stdio.h>
@@ -9701,7 +9701,7 @@ and generate_java_struct_list_return typ jtyp cols =
   pr "  return jr;\n"
 
 and generate_java_makefile_inc () =
-  generate_header HashStyle GPLv2;
+  generate_header HashStyle GPLv2plus;
 
   pr "java_built_sources = \\\n";
   List.iter (
@@ -9711,7 +9711,7 @@ and generate_java_makefile_inc () =
   pr "\tcom/redhat/et/libguestfs/GuestFS.java\n"
 
 and generate_haskell_hs () =
-  generate_header HaskellStyle LGPLv2;
+  generate_header HaskellStyle LGPLv2plus;
 
   (* XXX We only know how to generate partial FFI for Haskell
    * at the moment.  Please help out!
@@ -9919,7 +9919,7 @@ and generate_haskell_prototype ~handle ?(hs = false) style =
   pr ")"
 
 and generate_bindtests () =
-  generate_header CStyle LGPLv2;
+  generate_header CStyle LGPLv2plus;
 
   pr "\
 #include <stdio.h>
@@ -10071,7 +10071,7 @@ print_strings (char *const *argv)
   ) tests
 
 and generate_ocaml_bindtests () =
-  generate_header OCamlStyle GPLv2;
+  generate_header OCamlStyle GPLv2plus;
 
   pr "\
 let () =
@@ -10104,7 +10104,7 @@ let () =
 
 and generate_perl_bindtests () =
   pr "#!/usr/bin/perl -w\n";
-  generate_header HashStyle GPLv2;
+  generate_header HashStyle GPLv2plus;
 
   pr "\
 use strict;
@@ -10137,7 +10137,7 @@ my $g = Sys::Guestfs->new ();
   pr "print \"EOF\\n\"\n"
 
 and generate_python_bindtests () =
-  generate_header HashStyle GPLv2;
+  generate_header HashStyle GPLv2plus;
 
   pr "\
 import guestfs
@@ -10168,7 +10168,7 @@ g = guestfs.GuestFS ()
   pr "print \"EOF\"\n"
 
 and generate_ruby_bindtests () =
-  generate_header HashStyle GPLv2;
+  generate_header HashStyle GPLv2plus;
 
   pr "\
 require 'guestfs'
@@ -10199,7 +10199,7 @@ g = Guestfs::create()
   pr "print \"EOF\\n\"\n"
 
 and generate_java_bindtests () =
-  generate_header CStyle GPLv2;
+  generate_header CStyle GPLv2plus;
 
   pr "\
 import com.redhat.et.libguestfs.*;
@@ -10244,7 +10244,7 @@ public class Bindtests {
 "
 
 and generate_haskell_bindtests () =
-  generate_header HaskellStyle GPLv2;
+  generate_header HaskellStyle GPLv2plus;
 
   pr "\
 module Bindtests where
@@ -10692,7 +10692,7 @@ let generate_parsers xs =
 
 (* Generate ocaml/guestfs_inspector.mli. *)
 let generate_ocaml_inspector_mli () =
-  generate_header ~extra_inputs:[rng_input] OCamlStyle LGPLv2;
+  generate_header ~extra_inputs:[rng_input] OCamlStyle LGPLv2plus;
 
   pr "\
 (** This is an OCaml language binding to the external [virt-inspector]
@@ -10735,7 +10735,7 @@ val inspect : ?connect:string -> ?xml:string -> string list -> operatingsystems
 
 (* Generate ocaml/guestfs_inspector.ml. *)
 let generate_ocaml_inspector_ml () =
-  generate_header ~extra_inputs:[rng_input] OCamlStyle LGPLv2;
+  generate_header ~extra_inputs:[rng_input] OCamlStyle LGPLv2plus;
 
   pr "open Unix\n";
   pr "\n";
