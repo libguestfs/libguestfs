@@ -433,8 +433,7 @@ AC_PROG_OCAML
 AC_PROG_FINDLIB
 AM_CONDITIONAL([HAVE_OCAML],[test "x$OCAMLC" != "xno" -a "x$OCAMLFIND" != "xno"])
 
-dnl Optional xml-light for building virt-inspector language bindings
-dnl from the virt-inspector.rng file.
+dnl Optional xml-light for running the generator.
 OCAML_PKG_xml_light=no
 if test "x$OCAMLC" != "xno" -a "x$OCAMLFIND" != "xno"; then
     AC_CHECK_OCAML_PKG([xml-light])

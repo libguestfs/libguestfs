@@ -20,6 +20,8 @@ include $(top_srcdir)/subdir-rules.mk
 generator_built = \
 	guestfs.mli \
 	guestfs.ml \
+	guestfs_inspector.mli \
+	guestfs_inspector.ml \
 	guestfs_c_actions.c \
 	bindtests.ml
 

@@ -19,8 +19,7 @@ include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
 	run-inspector-locally \
-	virt-inspector \
-	inspector_generator.ml
+	virt-inspector
 
 dist_doc_DATA = \
 	virt-inspector.rng \
@@ -32,7 +31,7 @@ bin_SCRIPTS = virt-inspector
 man_MANS = virt-inspector.1
 
 noinst_DATA = \
-	$(top_builddir)/html/virt-inspector.1.html stamp-inspector-generator
+	$(top_builddir)/html/virt-inspector.1.html
 
 virt-inspector.1: virt-inspector
 	$(POD2MAN) \
@@ -55,17 +54,6 @@ if HAVE_XMLLINT
 TESTS = example1.xml example2.xml example3.xml example4.xml
 TESTS_ENVIRONMENT = $(XMLLINT) --noout --relaxng virt-inspector.rng
 
-endif
-
-if HAVE_XML_LIGHT
-stamp-inspector-generator: inspector_generator.ml
-	cd $(top_srcdir) && \
-	ocaml -warn-error A \
-	  inspector/inspector_generator.ml
-	touch $@
-else
-stamp-inspector-generator:
-	touch $@
 endif
 
 endif
