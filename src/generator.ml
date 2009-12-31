@@ -9316,7 +9316,7 @@ and generate_java_prototype ?(public=false) ?(privat=false) ?(native=false)
   pr "    throws LibGuestFSException";
   if semicolon then pr ";"
 
-and generate_java_struct jtyp cols =
+and generate_java_struct jtyp cols () =
   generate_header CStyle LGPLv2plus;
 
   pr "\
@@ -10826,25 +10826,23 @@ and generate_max_proc_nr () =
 
   pr "%d\n" max_proc_nr
 
-let output_to filename =
+let output_to filename k =
   let filename_new = filename ^ ".new" in
   chan := open_out filename_new;
-  let close () =
-    close_out !chan;
-    chan := Pervasives.stdout;
+  k ();
+  close_out !chan;
+  chan := Pervasives.stdout;
 
-    (* Is the new file different from the current file? *)
-    if Sys.file_exists filename && files_equal filename filename_new then
-      unlink filename_new		(* same, so skip it *)
-    else (
-      (* different, overwrite old one *)
-      (try chmod filename 0o644 with Unix_error _ -> ());
-      rename filename_new filename;
-      chmod filename 0o444;
-      printf "written %s\n%!" filename;
-    )
-  in
-  close
+  (* Is the new file different from the current file? *)
+  if Sys.file_exists filename && files_equal filename filename_new then
+    unlink filename_new                 (* same, so skip it *)
+  else (
+    (* different, overwrite old one *)
+    (try chmod filename 0o644 with Unix_error _ -> ());
+    rename filename_new filename;
+    chmod filename 0o444;
+    printf "written %s\n%!" filename;
+  )
 
 let perror msg = function
   | Unix_error (err, _, _) ->
@@ -10880,170 +10878,53 @@ Run it from the top source directory using the command
 
   check_functions ();
 
-  let close = output_to "src/guestfs_protocol.x" in
-  generate_xdr ();
-  close ();
-
-  let close = output_to "src/guestfs-structs.h" in
-  generate_structs_h ();
-  close ();
-
-  let close = output_to "src/guestfs-actions.h" in
-  generate_actions_h ();
-  close ();
-
-  let close = output_to "src/guestfs-internal-actions.h" in
-  generate_internal_actions_h ();
-  close ();
-
-  let close = output_to "src/guestfs-actions.c" in
-  generate_client_actions ();
-  close ();
-
-  let close = output_to "daemon/actions.h" in
-  generate_daemon_actions_h ();
-  close ();
-
-  let close = output_to "daemon/stubs.c" in
-  generate_daemon_actions ();
-  close ();
-
-  let close = output_to "daemon/names.c" in
-  generate_daemon_names ();
-  close ();
-
-  let close = output_to "daemon/optgroups.c" in
-  generate_daemon_optgroups_c ();
-  close ();
-
-  let close = output_to "daemon/optgroups.h" in
-  generate_daemon_optgroups_h ();
-  close ();
-
-  let close = output_to "capitests/tests.c" in
-  generate_tests ();
-  close ();
-
-  let close = output_to "src/guestfs-bindtests.c" in
-  generate_bindtests ();
-  close ();
-
-  let close = output_to "fish/cmds.c" in
-  generate_fish_cmds ();
-  close ();
-
-  let close = output_to "fish/completion.c" in
-  generate_fish_completion ();
-  close ();
-
-  let close = output_to "guestfs-structs.pod" in
-  generate_structs_pod ();
-  close ();
-
-  let close = output_to "guestfs-actions.pod" in
-  generate_actions_pod ();
-  close ();
-
-  let close = output_to "guestfs-availability.pod" in
-  generate_availability_pod ();
-  close ();
-
-  let close = output_to "guestfish-actions.pod" in
-  generate_fish_actions_pod ();
-  close ();
-
-  let close = output_to "ocaml/guestfs.mli" in
-  generate_ocaml_mli ();
-  close ();
-
-  let close = output_to "ocaml/guestfs.ml" in
-  generate_ocaml_ml ();
-  close ();
-
-  let close = output_to "ocaml/guestfs_c_actions.c" in
-  generate_ocaml_c ();
-  close ();
-
-  let close = output_to "ocaml/bindtests.ml" in
-  generate_ocaml_bindtests ();
-  close ();
-
-  let close = output_to "ocaml/guestfs_inspector.mli" in
-  generate_ocaml_inspector_mli ();
-  close ();
-
-  let close = output_to "ocaml/guestfs_inspector.ml" in
-  generate_ocaml_inspector_ml ();
-  close ();
-
-  let close = output_to "perl/Guestfs.xs" in
-  generate_perl_xs ();
-  close ();
-
-  let close = output_to "perl/lib/Sys/Guestfs.pm" in
-  generate_perl_pm ();
-  close ();
-
-  let close = output_to "perl/bindtests.pl" in
-  generate_perl_bindtests ();
-  close ();
-
-  let close = output_to "python/guestfs-py.c" in
-  generate_python_c ();
-  close ();
-
-  let close = output_to "python/guestfs.py" in
-  generate_python_py ();
-  close ();
-
-  let close = output_to "python/bindtests.py" in
-  generate_python_bindtests ();
-  close ();
-
-  let close = output_to "ruby/ext/guestfs/_guestfs.c" in
-  generate_ruby_c ();
-  close ();
-
-  let close = output_to "ruby/bindtests.rb" in
-  generate_ruby_bindtests ();
-  close ();
-
-  let close = output_to "java/com/redhat/et/libguestfs/GuestFS.java" in
-  generate_java_java ();
-  close ();
+  output_to "src/guestfs_protocol.x" generate_xdr;
+  output_to "src/guestfs-structs.h" generate_structs_h;
+  output_to "src/guestfs-actions.h" generate_actions_h;
+  output_to "src/guestfs-internal-actions.h" generate_internal_actions_h;
+  output_to "src/guestfs-actions.c" generate_client_actions;
+  output_to "daemon/actions.h" generate_daemon_actions_h;
+  output_to "daemon/stubs.c" generate_daemon_actions;
+  output_to "daemon/names.c" generate_daemon_names;
+  output_to "daemon/optgroups.c" generate_daemon_optgroups_c;
+  output_to "daemon/optgroups.h" generate_daemon_optgroups_h;
+  output_to "capitests/tests.c" generate_tests;
+  output_to "src/guestfs-bindtests.c" generate_bindtests;
+  output_to "fish/cmds.c" generate_fish_cmds;
+  output_to "fish/completion.c" generate_fish_completion;
+  output_to "guestfs-structs.pod" generate_structs_pod;
+  output_to "guestfs-actions.pod" generate_actions_pod;
+  output_to "guestfs-availability.pod" generate_availability_pod;
+  output_to "guestfish-actions.pod" generate_fish_actions_pod;
+  output_to "ocaml/guestfs.mli" generate_ocaml_mli;
+  output_to "ocaml/guestfs.ml" generate_ocaml_ml;
+  output_to "ocaml/guestfs_c_actions.c" generate_ocaml_c;
+  output_to "ocaml/bindtests.ml" generate_ocaml_bindtests;
+  output_to "ocaml/guestfs_inspector.mli" generate_ocaml_inspector_mli;
+  output_to "ocaml/guestfs_inspector.ml" generate_ocaml_inspector_ml;
+  output_to "perl/Guestfs.xs" generate_perl_xs;
+  output_to "perl/lib/Sys/Guestfs.pm" generate_perl_pm;
+  output_to "perl/bindtests.pl" generate_perl_bindtests;
+  output_to "python/guestfs-py.c" generate_python_c;
+  output_to "python/guestfs.py" generate_python_py;
+  output_to "python/bindtests.py" generate_python_bindtests;
+  output_to "ruby/ext/guestfs/_guestfs.c" generate_ruby_c;
+  output_to "ruby/bindtests.rb" generate_ruby_bindtests;
+  output_to "java/com/redhat/et/libguestfs/GuestFS.java" generate_java_java;
 
   List.iter (
     fun (typ, jtyp) ->
       let cols = cols_of_struct typ in
       let filename = sprintf "java/com/redhat/et/libguestfs/%s.java" jtyp in
-      let close = output_to filename in
-      generate_java_struct jtyp cols;
-      close ();
+      output_to filename (generate_java_struct jtyp cols);
   ) java_structs;
 
-  let close = output_to "java/Makefile.inc" in
-  generate_java_makefile_inc ();
-  close ();
-
-  let close = output_to "java/com_redhat_et_libguestfs_GuestFS.c" in
-  generate_java_c ();
-  close ();
-
-  let close = output_to "java/Bindtests.java" in
-  generate_java_bindtests ();
-  close ();
-
-  let close = output_to "haskell/Guestfs.hs" in
-  generate_haskell_hs ();
-  close ();
-
-  let close = output_to "haskell/Bindtests.hs" in
-  generate_haskell_bindtests ();
-  close ();
-
-  let close = output_to "src/MAX_PROC_NR" in
-  generate_max_proc_nr ();
-  close ();
+  output_to "java/Makefile.inc" generate_java_makefile_inc;
+  output_to "java/com_redhat_et_libguestfs_GuestFS.c" generate_java_c;
+  output_to "java/Bindtests.java" generate_java_bindtests;
+  output_to "haskell/Guestfs.hs" generate_haskell_hs;
+  output_to "haskell/Bindtests.hs" generate_haskell_bindtests;
+  output_to "src/MAX_PROC_NR" generate_max_proc_nr;
 
   (* Always generate this file last, and unconditionally.  It's used
    * by the Makefile to know when we must re-run the generator.
