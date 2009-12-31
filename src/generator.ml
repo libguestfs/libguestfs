@@ -10884,6 +10884,9 @@ Run it from the top source directory using the command
   output_to "src/guestfs-internal-actions.h" generate_internal_actions_h;
   output_to "src/guestfs-actions.c" generate_client_actions;
   output_to "src/guestfs-bindtests.c" generate_bindtests;
+  output_to "src/guestfs-structs.pod" generate_structs_pod;
+  output_to "src/guestfs-actions.pod" generate_actions_pod;
+  output_to "src/guestfs-availability.pod" generate_availability_pod;
   output_to "daemon/actions.h" generate_daemon_actions_h;
   output_to "daemon/stubs.c" generate_daemon_actions;
   output_to "daemon/names.c" generate_daemon_names;
@@ -10892,10 +10895,7 @@ Run it from the top source directory using the command
   output_to "capitests/tests.c" generate_tests;
   output_to "fish/cmds.c" generate_fish_cmds;
   output_to "fish/completion.c" generate_fish_completion;
-  output_to "guestfs-structs.pod" generate_structs_pod;
-  output_to "guestfs-actions.pod" generate_actions_pod;
-  output_to "guestfs-availability.pod" generate_availability_pod;
-  output_to "guestfish-actions.pod" generate_fish_actions_pod;
+  output_to "fish/guestfish-actions.pod" generate_fish_actions_pod;
   output_to "ocaml/guestfs.mli" generate_ocaml_mli;
   output_to "ocaml/guestfs.ml" generate_ocaml_ml;
   output_to "ocaml/guestfs_c_actions.c" generate_ocaml_c;
