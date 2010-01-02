@@ -4815,16 +4815,18 @@ let copyright_years =
   if this_year > 2009 then sprintf "2009-%04d" this_year else "2009"
 
 (* Generate a header block in a number of standard styles. *)
-type comment_style = CStyle | HashStyle | OCamlStyle | HaskellStyle
+type comment_style =
+    CStyle | CPlusPlusStyle | HashStyle | OCamlStyle | HaskellStyle
 type license = GPLv2plus | LGPLv2plus
 
 let generate_header ?(extra_inputs = []) comment license =
   let inputs = "src/generator.ml" :: extra_inputs in
   let c = match comment with
-    | CStyle ->     pr "/* "; " *"
-    | HashStyle ->  pr "# ";  "#"
-    | OCamlStyle -> pr "(* "; " *"
-    | HaskellStyle -> pr "{- "; "  " in
+    | CStyle ->         pr "/* "; " *"
+    | CPlusPlusStyle -> pr "// "; "//"
+    | HashStyle ->      pr "# ";  "#"
+    | OCamlStyle ->     pr "(* "; " *"
+    | HaskellStyle ->   pr "{- "; "  " in
   pr "libguestfs generated file\n";
   pr "%s WARNING: THIS FILE IS GENERATED FROM:\n" c;
   List.iter (pr "%s   %s\n" c) inputs;
@@ -4865,6 +4867,7 @@ let generate_header ?(extra_inputs = []) comment license =
   );
   (match comment with
    | CStyle -> pr " */\n"
+   | CPlusPlusStyle
    | HashStyle -> ()
    | OCamlStyle -> pr " *)\n"
    | HaskellStyle -> pr "-}\n"
@@ -9918,6 +9921,214 @@ and generate_haskell_prototype ~handle ?(hs = false) style =
   );
   pr ")"
 
+and generate_csharp () =
+  generate_header CPlusPlusStyle LGPLv2plus;
+
+  (* XXX Make this configurable by the C# assembly users. *)
+  let library = "libguestfs.so.0" in
+
+  pr "\
+using System;
+using System.IO;
+using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
+using System.Collections;
+
+namespace Guestfs
+{
+  class Error : System.ApplicationException
+  {
+    public Error (string message) : base (message) {}
+    protected Error (SerializationInfo info, StreamingContext context) {}
+  }
+
+  class Guestfs
+  {
+    IntPtr _handle;
+
+    [DllImport (\"%s\")]
+    static extern IntPtr guestfs_create ();
+
+    public Guestfs ()
+    {
+      _handle = guestfs_create ();
+      if (_handle == IntPtr.Zero)
+        throw new Error (\"could not create guestfs handle\");
+    }
+
+    [DllImport (\"%s\")]
+    static extern void guestfs_close (IntPtr h);
+
+    ~Guestfs ()
+    {
+      guestfs_close (_handle);
+    }
+
+    [DllImport (\"%s\")]
+    static extern string guestfs_last_error (IntPtr h);
+
+" library library library;
+
+  (* Generate C# structure bindings.  We prefix struct names with
+   * underscore because C# cannot have conflicting struct names and
+   * method names (eg. "class stat" and "stat").
+   *)
+  List.iter (
+    fun (typ, cols) ->
+      pr "    [StructLayout (LayoutKind.Sequential)]\n";
+      pr "    public class _%s {\n" typ;
+      List.iter (
+        function
+        | name, FChar -> pr "      char %s;\n" name
+        | name, FString -> pr "      string %s;\n" name
+        | name, FBuffer ->
+            pr "      uint %s_len;\n" name;
+            pr "      string %s;\n" name
+        | name, FUUID ->
+            pr "      [MarshalAs (UnmanagedType.ByValTStr, SizeConst=16)]\n";
+            pr "      string %s;\n" name
+        | name, FUInt32 -> pr "      uint %s;\n" name
+        | name, FInt32 -> pr "      int %s;\n" name
+        | name, (FUInt64|FBytes) -> pr "      ulong %s;\n" name
+        | name, FInt64 -> pr "      long %s;\n" name
+        | name, FOptPercent -> pr "      float %s; /* [0..100] or -1 */\n" name
+      ) cols;
+      pr "    }\n";
+      pr "\n"
+  ) structs;
+
+  (* Generate C# function bindings. *)
+  List.iter (
+    fun (name, style, _, _, _, shortdesc, _) ->
+      let rec csharp_return_type () =
+	match fst style with
+	| RErr -> "void"
+	| RBool n -> "bool"
+	| RInt n -> "int"
+	| RInt64 n -> "long"
+	| RConstString n
+	| RConstOptString n
+	| RString n
+	| RBufferOut n -> "string"
+	| RStruct (_,n) -> "_" ^ n
+	| RHashtable n -> "Hashtable"
+	| RStringList n -> "string[]"
+	| RStructList (_,n) -> sprintf "_%s[]" n
+
+      and c_return_type () =
+	match fst style with
+	| RErr
+	| RBool _
+	| RInt _ -> "int"
+	| RInt64 _ -> "long"
+	| RConstString _
+	| RConstOptString _
+	| RString _
+	| RBufferOut _ -> "string"
+	| RStruct (_,n) -> "_" ^ n
+	| RHashtable _
+	| RStringList _ -> "string[]"
+	| RStructList (_,n) -> sprintf "_%s[]" n
+    
+      and c_error_comparison () =
+	match fst style with
+	| RErr
+	| RBool _
+	| RInt _
+	| RInt64 _ -> "== -1"
+	| RConstString _
+	| RConstOptString _
+	| RString _
+	| RBufferOut _
+	| RStruct (_,_)
+	| RHashtable _
+	| RStringList _
+	| RStructList (_,_) -> "== null"
+    
+      and generate_extern_prototype () =
+	pr "    static extern %s guestfs_%s (IntPtr h"
+	  (c_return_type ()) name;
+	List.iter (
+	  function
+	  | Pathname n | Device n | Dev_or_Path n | String n | OptString n
+	  | FileIn n | FileOut n ->
+              pr ", [In] string %s" n
+	  | StringList n | DeviceList n ->
+              pr ", [In] string[] %s" n
+	  | Bool n ->
+	      pr ", bool %s" n
+	  | Int n ->
+	      pr ", int %s" n
+	  | Int64 n ->
+	      pr ", long %s" n
+	) (snd style);
+	pr ");\n"
+
+      and generate_public_prototype () =
+	pr "    public %s %s (" (csharp_return_type ()) name;
+	let comma = ref false in
+	let next () =
+	  if !comma then pr ", ";
+	  comma := true
+	in
+	List.iter (
+	  function
+	  | Pathname n | Device n | Dev_or_Path n | String n | OptString n
+	  | FileIn n | FileOut n ->
+              next (); pr "string %s" n
+	  | StringList n | DeviceList n ->
+              next (); pr "string[] %s" n
+	  | Bool n ->
+	      next (); pr "bool %s" n
+	  | Int n ->
+	      next (); pr "int %s" n
+	  | Int64 n ->
+	      next (); pr "long %s" n
+	) (snd style);
+	pr ")\n"
+
+      and generate_call () =
+	pr "guestfs_%s (_handle" name;
+	List.iter (fun arg -> pr ", %s" (name_of_argt arg)) (snd style);
+	pr ");\n";
+      in
+
+      pr "    [DllImport (\"%s\")]\n" library;
+      generate_extern_prototype ();
+      pr "\n";
+      pr "    /// <summary>\n";
+      pr "    /// %s\n" shortdesc;
+      pr "    /// </summary>\n";
+      generate_public_prototype ();
+      pr "    {\n";
+      pr "      %s r;\n" (c_return_type ());
+      pr "      r = ";
+      generate_call ();
+      pr "      if (r %s)\n" (c_error_comparison ());
+      pr "        throw new Error (\"%s: \" + guestfs_last_error (_handle));\n"
+        name;
+      (match fst style with
+       | RErr -> ()
+       | RBool _ ->
+           pr "      return r != 0 ? true : false;\n"
+       | RHashtable _ ->
+           pr "      Hashtable rr = new Hashtable ();\n";
+           pr "      for (int i = 0; i < r.Length; i += 2)\n";
+           pr "        rr.Add (r[i], r[i+1]);\n";
+           pr "      return rr;\n"
+       | RInt _ | RInt64 _ | RConstString _ | RConstOptString _
+       | RString _ | RBufferOut _ | RStruct _ | RStringList _
+       | RStructList _ ->
+           pr "      return r;\n"
+      );
+      pr "    }\n";
+      pr "\n";
+  ) all_functions_sorted;
+
+  pr "  }
+}
+"
+
 and generate_bindtests () =
   generate_header CStyle LGPLv2plus;
 
@@ -10924,6 +11135,7 @@ Run it from the top source directory using the command
   output_to "java/Bindtests.java" generate_java_bindtests;
   output_to "haskell/Guestfs.hs" generate_haskell_hs;
   output_to "haskell/Bindtests.hs" generate_haskell_bindtests;
+  output_to "csharp/Libguestfs.cs" generate_csharp;
   output_to "src/MAX_PROC_NR" generate_max_proc_nr;
 
   (* Always generate this file last, and unconditionally.  It's used

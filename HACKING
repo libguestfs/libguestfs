@@ -74,6 +74,9 @@ capitests/
 contrib/
         Outside contributions, experimental parts.
 
+csharp/
+        Experimental C# bindings.
+
 daemon/
         The daemon that runs inside the guest and carries out actions.
 

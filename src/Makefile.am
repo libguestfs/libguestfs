@@ -52,6 +52,7 @@ stamp-generator: generator.ml
 	mkdir -p $(top_srcdir)/perl/lib/Sys
 	mkdir -p $(top_srcdir)/ruby/ext/guestfs
 	mkdir -p $(top_srcdir)/java/com/redhat/et/libguestfs
+	mkdir -p $(top_srcdir)/csharp
 	cd $(top_srcdir) && ocaml -warn-error A src/generator.ml
 
 include_HEADERS = guestfs.h guestfs-actions.h guestfs-structs.h
