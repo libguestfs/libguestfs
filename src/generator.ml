@@ -4577,6 +4577,13 @@ let mapi f xs =
   in
   loop 0 xs
 
+let count_chars c str =
+  let count = ref 0 in
+  for i = 0 to String.length str - 1 do
+    if c = String.unsafe_get str i then incr count
+  done;
+  !count
+
 let name_of_argt = function
   | Pathname n | Device n | Dev_or_Path n | String n | OptString n
   | StringList n | DeviceList n | Bool n | Int n | Int64 n
@@ -4808,7 +4815,14 @@ let check_functions () =
 
 (* 'pr' prints to the current output file. *)
 let chan = ref Pervasives.stdout
-let pr fs = ksprintf (output_string !chan) fs
+let lines = ref 0
+let pr fs =
+  ksprintf
+    (fun str ->
+       let i = count_chars '\n' str in
+       lines := !lines + i;
+       output_string !chan str
+    ) fs
 
 let copyright_years =
   let this_year = 1900 + (localtime (time ())).tm_year in
@@ -11171,4 +11185,6 @@ Run it from the top source directory using the command
    *)
   let chan = open_out "src/stamp-generator" in
   fprintf chan "1\n";
-  close_out chan
+  close_out chan;
+
+  printf "generated %d lines of code\n" !lines
