@@ -116,6 +116,12 @@ test "x$U" != "x" && AC_MSG_ERROR([Compiler not ANSI compliant])
 
 AM_PROG_CC_C_O
 
+dnl Work out how to specify the linker script to the linker.
+VERSION_SCRIPT_FLAGS=-Wl,--version-script=
+`/usr/bin/ld --help 2>&1 | grep -- --version-script >/dev/null` || \
+    VERSION_SCRIPT_FLAGS="-Wl,-M -Wl,"
+AC_SUBST(VERSION_SCRIPT_FLAGS)
+
 dnl Check support for 64 bit file offsets.
 AC_SYS_LARGEFILE
 

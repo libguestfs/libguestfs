@@ -5607,6 +5607,51 @@ and generate_daemon_actions_h () =
         name style;
   ) daemon_functions
 
+(* Generate the linker script which controls the visibility of
+ * symbols in the public ABI and ensures no other symbols get
+ * exported accidentally.
+ *)
+and generate_linker_script () =
+  generate_header HashStyle GPLv2plus;
+
+  let globals = [
+    "guestfs_create";
+    "guestfs_close";
+    "guestfs_get_error_handler";
+    "guestfs_get_out_of_memory_handler";
+    "guestfs_last_error";
+    "guestfs_set_error_handler";
+    "guestfs_set_launch_done_callback";
+    "guestfs_set_log_message_callback";
+    "guestfs_set_out_of_memory_handler";
+    "guestfs_set_subprocess_quit_callback";
+
+    (* Unofficial parts of the API: the bindings code use these
+     * functions, so it is useful to export them.
+     *)
+    "guestfs_safe_calloc";
+    "guestfs_safe_malloc";
+  ] in
+  let functions =
+    List.map (fun (name, _, _, _, _, _, _) -> "guestfs_" ^ name)
+      all_functions in
+  let structs =
+    List.concat (
+      List.map (fun (typ, _) ->
+                  ["guestfs_free_" ^ typ; "guestfs_free_" ^ typ ^ "_list"])
+        structs
+    ) in
+  let globals = List.sort compare (globals @ functions @ structs) in
+
+  pr "{\n";
+  pr "    global:\n";
+  List.iter (pr "        %s;\n") globals;
+  pr "\n";
+
+  pr "    local:\n";
+  pr "        *;\n";
+  pr "};\n"
+
 (* Generate the server-side stubs. *)
 and generate_daemon_actions () =
   generate_header CStyle GPLv2plus;
@@ -11141,6 +11186,7 @@ Run it from the top source directory using the command
   output_to "src/guestfs-actions.pod" generate_actions_pod;
   output_to "src/guestfs-availability.pod" generate_availability_pod;
   output_to "src/MAX_PROC_NR" generate_max_proc_nr;
+  output_to "src/libguestfs.syms" generate_linker_script;
   output_to "daemon/actions.h" generate_daemon_actions_h;
   output_to "daemon/stubs.c" generate_daemon_actions;
   output_to "daemon/names.c" generate_daemon_names;

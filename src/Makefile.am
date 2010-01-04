@@ -26,7 +26,8 @@ generator_built = \
 	guestfs-bindtests.c \
 	guestfs-actions.pod \
 	guestfs-availability.pod \
-	guestfs-structs.pod
+	guestfs-structs.pod \
+	libguestfs.syms
 
 $(generator_built): stamp-generator
 
@@ -108,8 +109,10 @@ libprotocol_la_CFLAGS =
 #
 # Note that this scheme means the real library version will always be
 # 'libguestfs.so.0.$(MAX_PROC_NR).0'.
-
 libguestfs_la_LDFLAGS = -version-info $(MAX_PROC_NR):0:$(MAX_PROC_NR)
+
+libguestfs_la_LDFLAGS += $(VERSION_SCRIPT_FLAGS)libguestfs.syms
+
 libguestfs_la_SOURCES = \
 	guestfs.c \
 	guestfs.h \
@@ -118,7 +121,8 @@ libguestfs_la_SOURCES = \
 	guestfs-bindtests.c \
 	guestfs-internal.h \
 	guestfs_protocol.h \
-	gettext.h
+	gettext.h \
+	libguestfs.syms
 
 libguestfs_la_LIBADD = $(LTLIBTHREAD)
 
