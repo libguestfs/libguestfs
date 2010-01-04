@@ -11140,6 +11140,7 @@ Run it from the top source directory using the command
   output_to "src/guestfs-structs.pod" generate_structs_pod;
   output_to "src/guestfs-actions.pod" generate_actions_pod;
   output_to "src/guestfs-availability.pod" generate_availability_pod;
+  output_to "src/MAX_PROC_NR" generate_max_proc_nr;
   output_to "daemon/actions.h" generate_daemon_actions_h;
   output_to "daemon/stubs.c" generate_daemon_actions;
   output_to "daemon/names.c" generate_daemon_names;
@@ -11178,7 +11179,6 @@ Run it from the top source directory using the command
   output_to "haskell/Guestfs.hs" generate_haskell_hs;
   output_to "haskell/Bindtests.hs" generate_haskell_bindtests;
   output_to "csharp/Libguestfs.cs" generate_csharp;
-  output_to "src/MAX_PROC_NR" generate_max_proc_nr;
 
   (* Always generate this file last, and unconditionally.  It's used
    * by the Makefile to know when we must re-run the generator.
