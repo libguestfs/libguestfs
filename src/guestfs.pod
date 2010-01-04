@@ -36,8 +36,9 @@ LVs, what filesystem is in each LV, etc.).  It can also run commands
 in the context of the guest.  Also you can access filesystems over FTP.
 
 Libguestfs is a library that can be linked with C and C++ management
-programs (or management programs written in OCaml, Perl, Python, Ruby, Java
-or Haskell).  You can also use it from shell scripts or the command line.
+programs (or management programs written in OCaml, Perl, Python, Ruby,
+Java, Haskell or C#).  You can also use it from shell scripts or the
+command line.
 
 You don't need to be root to use libguestfs, although obviously you do
 need enough permissions to access the disk images.
@@ -480,11 +481,16 @@ You can use the I<guestfs.h> header file from C++ programs.  The C++
 API is identical to the C API.  C++ classes and exceptions are
 not implemented.
 
+=item B<C#>
+
+The C# bindings are highly experimental.  Please read the warnings
+at the top of C<csharp/Libguestfs.cs>.
+
 =item B<Haskell>
 
-This is the only language binding that is incomplete.  Only calls
-which return simple integers have been bound in Haskell, and we are
-looking for help to complete this binding.
+This is the only language binding that working but incomplete.  Only
+calls which return simple integers have been bound in Haskell, and we
+are looking for help to complete this binding.
 
 =item B<Java>
 

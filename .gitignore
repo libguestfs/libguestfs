@@ -43,6 +43,7 @@ config.log
 config.status
 config.sub
 configure
+csharp/
 daemon/actions.h
 daemon/guestfsd
 daemon/guestfsd.exe

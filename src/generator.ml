@@ -9928,6 +9928,34 @@ and generate_csharp () =
   let library = "libguestfs.so.0" in
 
   pr "\
+// These C# bindings are highly experimental at present.
+//
+// Firstly they only work on Linux (ie. Mono).  In order to get them
+// to work on Windows (ie. .Net) you would need to port the library
+// itself to Windows first.
+//
+// The second issue is that some calls are known to be incorrect and
+// can cause Mono to segfault.  Particularly: calls which pass or
+// return string[], or return any structure value.  This is because
+// we haven't worked out the correct way to do this from C#.
+//
+// The third issue is that when compiling you get a lot of warnings.
+// We are not sure whether the warnings are important or not.
+//
+// Fourthly we do not routinely build or test these bindings as part
+// of the make && make check cycle, which means that regressions might
+// go unnoticed.
+//
+// Suggestions and patches are welcome.
+
+// To compile:
+//
+// gmcs Libguestfs.cs
+// mono Libguestfs.exe
+//
+// (You'll probably want to add a Test class / static main function
+// otherwise this won't do anything useful).
+
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
