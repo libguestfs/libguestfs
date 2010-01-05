@@ -519,7 +519,10 @@ sub output_xml_os
     foreach (@apps) {
         $xml->startTag("application");
         $xml->dataElement("name", $_->{name});
+        $xml->dataElement("epoch", $_->{epoch}) if defined $_->{epoch};
         $xml->dataElement("version", $_->{version});
+        $xml->dataElement("release", $_->{release});
+        $xml->dataElement("arch", $_->{arch});
         $xml->endTag("application");
     }
     $xml->endTag("applications");

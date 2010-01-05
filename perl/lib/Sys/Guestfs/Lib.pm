@@ -1426,7 +1426,7 @@ sub _check_for_applications
             foreach (@lines) {
                 if (m/^(.*) (.*) (.*) (.*) (.*)$/) {
                     my $epoch = $2;
-                    $epoch = "" if $epoch eq "(none)";
+                    undef $epoch if $epoch eq "(none)";
                     my $app = {
                         name => $1,
                         epoch => $epoch,
