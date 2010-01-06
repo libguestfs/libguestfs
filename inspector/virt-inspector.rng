@@ -90,7 +90,10 @@
       <zeroOrMore>
         <element name="application">
           <element name="name"><text/></element>
+          <optional><element name="epoch"><text/></element></optional>
           <element name="version"><text/></element>
+          <element name="release"><text/></element>
+          <element name="arch"><text/></element>
         </element>
       </zeroOrMore>
     </element>
