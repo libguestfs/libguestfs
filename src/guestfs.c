@@ -1091,14 +1091,27 @@ guestfs__launch (guestfs_h *g)
      */
     g->cmdline[0] = g->qemu;
 
+    /* Newer versions of qemu (from around 2009/12) changed the
+     * behaviour of monitors so that an implicit '-monitor stdio' is
+     * assumed if we are in -nographic mode and there is no other
+     * -monitor option.  Only a single stdio device is allowed, so
+     * this broke the '-serial stdio' option.  There is a new flag
+     * called -nodefaults which gets rid of all this default crud, so
+     * let's use that to avoid this and any future surprises.
+     */
+    if (qemu_supports (g, "-nodefaults"))
+      add_cmdline (g, "-nodefaults");
+
+    add_cmdline (g, "-nographic");
+    add_cmdline (g, "-serial");
+    add_cmdline (g, "stdio");
+
     snprintf (buf, sizeof buf, "%d", g->memsize);
     add_cmdline (g, "-m");
     add_cmdline (g, buf);
 
-    add_cmdline (g, "-no-reboot"); /* Force exit instead of reboot on panic */
-    add_cmdline (g, "-nographic");
-    add_cmdline (g, "-serial");
-    add_cmdline (g, "stdio");
+    /* Force exit instead of reboot on panic */
+    add_cmdline (g, "-no-reboot");
 
     /* These options recommended by KVM developers to improve reliability. */
     if (qemu_supports (g, "-no-hpet"))
