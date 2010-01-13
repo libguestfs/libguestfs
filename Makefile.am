@@ -81,11 +81,11 @@ html/guestfs.3.html: src/guestfs.pod \
 		src/guestfs-structs.pod
 	mkdir -p html
 	sed \
-	  -e '/@ACTIONS@/rguestfs-actions.pod' \
+	  -e '/@ACTIONS@/rsrc/guestfs-actions.pod' \
 	  -e 's/@ACTIONS@//' \
-	  -e '/@AVAILABILITY@/rguestfs-availability.pod' \
+	  -e '/@AVAILABILITY@/rsrc/guestfs-availability.pod' \
 	  -e 's/@AVAILABILITY@//' \
-	  -e '/@STRUCTS@/rguestfs-structs.pod' \
+	  -e '/@STRUCTS@/rsrc/guestfs-structs.pod' \
 	  -e 's/@STRUCTS@//' \
 	  < $< | \
 	pod2html \
@@ -97,7 +97,7 @@ html/guestfs.3.html: src/guestfs.pod \
 html/guestfish.1.html: fish/guestfish.pod fish/guestfish-actions.pod
 	mkdir -p html
 	sed \
-	  -e '/@ACTIONS@/rguestfish-actions.pod' -e 's/@ACTIONS@//' \
+	  -e '/@ACTIONS@/rfish/guestfish-actions.pod' -e 's/@ACTIONS@//' \
 	  < $< | \
 	pod2html \
 	  --css 'pod.css' \
