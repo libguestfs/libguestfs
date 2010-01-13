@@ -9,6 +9,7 @@ m4/canonicalize-lgpl.m4
 m4/chdir-long.m4
 m4/chown.m4
 m4/clock_time.m4
+m4/cloexec.m4
 m4/close.m4
 m4/codeset.m4
 m4/d-ino.m4
@@ -26,8 +27,10 @@ m4/exitfail.m4
 m4/extensions.m4
 m4/fchdir.m4
 m4/fclose.m4
-m4/fcntl-safer.m4
 m4/fcntl_h.m4
+m4/fcntl-safer.m4
+m4/fcntl-o.m4
+m4/fcntl.m4
 m4/fdopendir.m4
 m4/float_h.m4
 m4/fnmatch.m4
@@ -38,6 +41,7 @@ m4/getcwd-abort-bug.m4
 m4/getcwd-path-max.m4
 m4/getcwd.m4
 m4/getdelim.m4
+m4/getdtablesize.m4
 m4/getgroups.m4
 m4/getline.m4
 m4/getlogin_r.m4
@@ -146,6 +150,7 @@ m4/utimes.m4
 m4/vasnprintf.m4
 m4/vasprintf.m4
 m4/warnings.m4
+m4/warn-on-use.m4
 m4/wchar.m4
 m4/wchar_t.m4
 m4/wctob.m4

@@ -128,3 +128,5 @@ xsize.m4
 /putenv.m4
 /thread.m4
 /yield.m4
+/fcntl-o.m4
+/warn-on-use.m4
