@@ -41,7 +41,8 @@ EXTRA_DIST = \
 	MAX_PROC_NR \
 	stamp-generator \
 	generator.ml \
-	libguestfs.3
+	libguestfs.3 \
+	guestfs.pod
 
 # Rerun the generator if it has changed.
 # Git removes empty directories, so in cases where the
