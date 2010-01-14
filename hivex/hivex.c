@@ -105,7 +105,7 @@ struct hive_h {
 #define BITMAP_SET(bitmap,off) (bitmap[(off)>>5] |= 1 << (((off)>>2)&7))
 #define BITMAP_CLR(bitmap,off) (bitmap[(off)>>5] &= ~ (1 << (((off)>>2)&7)))
 #define BITMAP_TST(bitmap,off) (bitmap[(off)>>5] & (1 << (((off)>>2)&7)))
-#define IS_VALID_BLOCK(h,off)                 \
+#define IS_VALID_BLOCK(h,off)               \
   (((off) & 3) == 0 &&                      \
    (off) >= 0x1000 &&                       \
    (off) < (h)->size &&                     \
