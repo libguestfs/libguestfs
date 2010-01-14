@@ -442,6 +442,17 @@ Field in the registry out of range.
 
 =back
 
+=head1 ENVIRONMENT VARIABLES
+
+=over 4
+
+=item HIVEX_DEBUG
+
+Setting HIVEX_DEBUG=1 will enable very verbose messages.  This is
+useful for debugging problems with the library itself.
+
+=back
+
 =head1 SEE ALSO
 
 L<hivexml(1)>,
