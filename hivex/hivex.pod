@@ -66,6 +66,12 @@ Returns 0 on success.  On error this returns -1 and sets errno.
 
 =over 4
 
+=item hive_node_h
+
+This is a node handle, an integer but opaque outside the library.
+Valid node handles cannot be 0.  The library returns 0 in some
+situations to indicate an error.
+
 =item hive_node_h hivex_root (hive_h *h);
 
 Return root node of the hive.  All valid registries must contain
@@ -143,6 +149,12 @@ stored at each node.
 
 =over 4
 
+=item hive_value_h
+
+This is a value handle, an integer but opaque outside the library.
+Valid value handles cannot be 0.  The library returns 0 in some
+situations to indicate an error.
+
 =item hive_value_h *hivex_node_values (hive_h *h, hive_node_h node);
 
 Return the 0-terminated array of (key, value) pairs attached to
@@ -195,7 +207,7 @@ Returns 0 on success.  On error this returns -1 and sets errno.
 =item char *hivex_value_value (hive_h *h, hive_value_h value, hive_type *t, size_t *len);
 
 Return the value of this (key, value) pair.  The value should
-be interpreted according to its type (see C<hive_type>).
+be interpreted according to its type (see C<enum hive_type>).
 
 The value is returned in an array of bytes of length C<len>.
 
@@ -325,10 +337,81 @@ stored in the registry.  The key is always a string (possibly the
 empty string for the default key).  The value is a typed object
 (eg. string, int32, binary, etc.).
 
+=head2 RELATIONSHIP TO .REG FILES
+
+Although this library does not care about or deal with Windows reg
+files, it's useful to look at the relationship between the registry
+itself and reg files because they are so common.
+
+A reg file is a text representation of the registry, or part of the
+registry.  The actual registry hives that Windows uses are binary
+files.  There are a number of Windows and Linux tools that let you
+generate reg files, or merge reg files back into the registry hives.
+Notable amongst them is Microsoft's REGEDIT program (formerly known as
+REGEDT32).
+
+A typical reg file will contain many sections looking like this:
+
+ [HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Stack]
+ "@"="Generic Stack"
+ "TileInfo"="prop:System.FileCount"
+ "TilePath"=str(2):"%systemroot%\\system32"
+ "ThumbnailCutoff"=dword:00000000
+ "FriendlyTypeName"=hex(2):40,00,25,00,53,00,79,00,73,00,74,00,65,00,6d,00,52,00,6f,00,\
+  6f,00,74,00,25,00,5c,00,53,00,79,00,73,00,74,00,65,00,6d,00,\
+  33,00,32,00,5c,00,73,00,65,00,61,00,72,00,63,00,68,00,66,00,\
+  6f,00,6c,00,64,00,65,00,72,00,2e,00,64,00,6c,00,6c,00,2c,00,\
+  2d,00,39,00,30,00,32,00,38,00,00,00,d8
+
+Taking this one piece at a time:
+
+ [HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Stack]
+
+This is the path to this node in the registry tree.  The first part,
+C<HKEY_LOCAL_MACHINE\SOFTWARE> means that this comes from a hive
+(file) called C<SOFTWARE>.  C<\Classes\Stack> is the real path part,
+starting at the root node of the C<SOFTWARE> hive.
+
+Below the node name is a list of zero or more key-value pairs.  Any
+interior or leaf node in the registry may have key-value pairs
+attached.
+
+ "@"="Generic Stack"
+
+This is the "default key".  In reality (ie. inside the binary hive)
+the key string is the empty string.  In reg files this is written as
+C<@> but this has no meaning either in the hives themselves or in this
+library.  The value is a string (type 1 - see C<enum hive_type>
+above).
+
+ "TileInfo"="prop:System.FileCount"
+
+This is a regular (key, value) pair, with the value being a type 1
+string.  Note that inside the binary file the string is likely to be
+UTF-16 encoded.  This library converts to and from UTF-8 strings
+transparently.
+
+ "TilePath"=str(2):"%systemroot%\\system32"
+
+The value in this case has type 2 (expanded string) meaning that some
+%...% variables get expanded by Windows.  (This library doesn't know
+or care about variable expansion).
+
+ "ThumbnailCutoff"=dword:00000000
+
+The value in this case is a dword (type 4).
+
+ "FriendlyTypeName"=hex(2):40,00,....
+
+This value is an expanded string (type 2) represented in the reg file
+as a series of hex bytes.  In this case the string appears to be a
+UTF-16 string.
+
 =head1 NOTE ON THE USE OF ERRNO
 
-Many functions in this library set errno to indicate errors.
-These are the values of errno you may encounter:
+Many functions in this library set errno to indicate errors.  These
+are the values of errno you may encounter (this list is not
+exhaustive):
 
 =over 4
 
@@ -367,7 +450,8 @@ L<virt-win-reg(1)>,
 L<guestfs(3)>,
 L<http://libguestfs.org/>,
 L<virt-cat(1)>,
-L<virt-edit(1)>.
+L<virt-edit(1)>,
+L<http://en.wikipedia.org/wiki/Windows_Registry>.
 
 =head1 AUTHORS
 
@@ -375,13 +459,13 @@ Richard W.M. Jones (C<rjones at redhat dot com>)
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Red Hat Inc.
+Copyright (C) 2009-2010 Red Hat Inc.
 
 Derived from code by Petter Nordahl-Hagen under a compatible license:
-Copyright (c) 1997-2007 Petter Nordahl-Hagen.
+Copyright (C) 1997-2007 Petter Nordahl-Hagen.
 
 Derived from code by Markus Stephany under a compatible license:
-Copyright (c)2000-2004, Markus Stephany.
+Copyright (C) 2000-2004 Markus Stephany.
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
