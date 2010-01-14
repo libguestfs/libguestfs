@@ -760,7 +760,6 @@ hivex_node_parent (hive_h *h, hive_node_h node)
 
   hive_node_h ret = le32toh (nk->parent);
   ret += 0x1000;
-  printf ("parent = %zu\n", ret);
   if (!IS_VALID_BLOCK (h, ret)) {
     if (h->msglvl >= 2)
       printf ("hivex_node_parent: returning EFAULT because parent is not a valid block (%zu)\n",
