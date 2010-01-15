@@ -23,6 +23,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <stddef.h>
+#include <inttypes.h>
 #include <string.h>
 #include <fcntl.h>
 #include <unistd.h>
@@ -30,6 +32,7 @@
 #include <iconv.h>
 #include <sys/mman.h>
 #include <sys/stat.h>
+#include <assert.h>
 #ifdef HAVE_ENDIAN_H
 #include <endian.h>
 #endif
@@ -83,6 +86,8 @@
 
 #include "hivex.h"
 
+static char *windows_utf16_to_utf8 (/* const */ char *input, size_t len);
+
 struct hive_h {
   int fd;
   size_t size;
@@ -113,6 +118,7 @@ struct hive_h {
 
   /* Fields from the header, extracted from little-endianness hell. */
   size_t rootoffs;              /* Root key offset (always an nk-block). */
+  size_t endpages;              /* Offset of end of pages. */
 
   /* Stats. */
   size_t pages;                 /* Number of hbin pages read. */
@@ -124,18 +130,37 @@ struct hive_h {
 /* NB. All fields are little endian. */
 struct ntreg_header {
   char magic[4];                /* "regf" */
-  uint32_t unknown1;
-  uint32_t unknown2;
+  uint32_t sequence1;
+  uint32_t sequence2;
   char last_modified[8];
-  uint32_t unknown3;            /* 1 */
-  uint32_t unknown4;            /* 3 */
+  uint32_t major_ver;           /* 1 */
+  uint32_t minor_ver;           /* 3 */
   uint32_t unknown5;            /* 0 */
   uint32_t unknown6;            /* 1 */
   uint32_t offset;              /* offset of root key record - 4KB */
-  uint32_t blocks;              /* size in bytes of data (filesize - 4KB) */
+  uint32_t blocks;              /* pointer AFTER last hbin in file - 4KB */
   uint32_t unknown7;            /* 1 */
-  char name[0x1fc-0x2c];
-  uint32_t csum;                /* checksum: sum of 32 bit words 0-0x1fb. */
+  /* 0x30 */
+  char name[64];                /* original file name of hive */
+  char unknown_guid1[16];
+  char unknown_guid2[16];
+  /* 0x90 */
+  uint32_t unknown8;
+  char unknown_guid3[16];
+  uint32_t unknown9;
+  /* 0xa8 */
+  char unknown10[340];
+  /* 0x1fc */
+  uint32_t csum;                /* checksum: xor of dwords 0-0x1fb. */
+  /* 0x200 */
+  char unknown11[3528];
+  /* 0xfc8 */
+  char unknown_guid4[16];
+  char unknown_guid5[16];
+  char unknown_guid6[16];
+  uint32_t unknown12;
+  uint32_t unknown13;
+  /* 0x1000 */
 } __attribute__((__packed__));
 
 struct ntreg_hbin_page {
@@ -228,7 +253,9 @@ struct ntreg_vk_record {
   uint32_t data_len;
   uint32_t data_offset;         /* pointer to the data (or data if inline) */
   hive_type data_type;          /* type of the data */
-  uint16_t unknown1;            /* possibly always 1 */
+  uint16_t flags;               /* bit 0 set => key name ASCII,
+                                   bit 0 clr => key name UTF-16.
+                                   Only seen ASCII here in the wild. */
   uint16_t unknown2;
   char name[1];                 /* key name follows here */
 } __attribute__((__packed__));
@@ -237,6 +264,9 @@ hive_h *
 hivex_open (const char *filename, int flags)
 {
   hive_h *h = NULL;
+
+  assert (sizeof (struct ntreg_header) == 0x1000);
+  assert (offsetof (struct ntreg_header, csum) == 0x1fc);
 
   h = calloc (1, sizeof *h);
   if (h == NULL)
@@ -279,6 +309,16 @@ hivex_open (const char *filename, int flags)
     goto error;
   }
 
+  /* Check major version. */
+  uint32_t major_ver = le32toh (h->hdr->major_ver);
+  if (major_ver != 1) {
+    fprintf (stderr,
+             "hivex: %s: hive file major version %" PRIu32 " (expected 1)\n",
+             filename, major_ver);
+    errno = ENOTSUP;
+    goto error;
+  }
+
   h->bitmap = calloc (1 + h->size / 32, 1);
   if (h->bitmap == NULL)
     goto error;
@@ -292,25 +332,36 @@ hivex_open (const char *filename, int flags)
     daddr++;
   }
 
-#if 0                           /* Doesn't work. */
   if (sum != le32toh (h->hdr->csum)) {
     fprintf (stderr, "hivex: %s: bad checksum in hive header\n", filename);
     errno = EINVAL;
     goto error;
   }
-#endif
 
-  if (h->msglvl >= 2)
+  if (h->msglvl >= 2) {
+    char *name = windows_utf16_to_utf8 (h->hdr->name, 64);
+
     fprintf (stderr,
              "hivex_open: header fields:\n"
-             "  root offset - 4KB        0x%x\n"
-             "  blocks (file size - 4KB) 0x%x (real file size 0x%zx)\n"
+             "  file version             %" PRIu32 ".%" PRIu32 "\n"
+             "  sequence nos             %" PRIu32 " %" PRIu32 "\n"
+             "    (sequences nos should match if hive was synched at shutdown)\n"
+             "  original file name       %s\n"
+             "    (only 32 chars are stored, name is probably truncated)\n"
+             "  root offset              0x%x + 0x1000\n"
+             "  end of last page         0x%x + 0x1000 (total file size 0x%zx)\n"
              "  checksum                 0x%x (calculated 0x%x)\n",
+             major_ver, le32toh (h->hdr->minor_ver),
+             le32toh (h->hdr->sequence1), le32toh (h->hdr->sequence2),
+             name ? name : "(conversion failed)",
              le32toh (h->hdr->offset),
              le32toh (h->hdr->blocks), h->size,
              le32toh (h->hdr->csum), sum);
+    free (name);
+  }
 
   h->rootoffs = le32toh (h->hdr->offset) + 0x1000;
+  h->endpages = le32toh (h->hdr->blocks) + 0x1000;
 
   if (h->msglvl >= 2)
     fprintf (stderr, "hivex_open: root offset = 0x%zx\n", h->rootoffs);
@@ -329,22 +380,23 @@ hivex_open (const char *filename, int flags)
   size_t off;
   struct ntreg_hbin_page *page;
   for (off = 0x1000; off < h->size; off += le32toh (page->offset_next)) {
-    h->pages++;
+    if (off >= h->endpages)
+      break;
 
     page = (struct ntreg_hbin_page *) (h->addr + off);
     if (page->magic[0] != 'h' ||
         page->magic[1] != 'b' ||
         page->magic[2] != 'i' ||
         page->magic[3] != 'n') {
-      /* NB: This error is seemingly common in uncorrupt registry files. */
-      if (h->msglvl >= 2)
-        fprintf (stderr, "hivex: %s: ignoring trailing garbage at end of file (at 0x%zx, after %zu pages)\n",
-                 filename, off, h->pages);
-      break;
+      fprintf (stderr, "hivex: %s: trailing garbage at end of file (at 0x%zx, after %zu pages)\n",
+               filename, off, h->pages);
+      errno = ENOTSUP;
+      goto error;
     }
 
     if (h->msglvl >= 2)
       fprintf (stderr, "hivex_open: page at 0x%zx\n", off);
+    h->pages++;
 
     if (le32toh (page->offset_next) <= sizeof (struct ntreg_hbin_page) ||
         (le32toh (page->offset_next) & 3) != 0) {
@@ -1010,10 +1062,10 @@ hivex_value_value (hive_h *h, hive_value_h value,
 
   /* Check that the declared size isn't larger than the block its in. */
   size_t blen = block_len (h, data_offset, NULL);
-  if (blen < len) {
+  if (len > blen) {
     if (h->msglvl >= 2)
-      fprintf (stderr, "hivex_value_value: returning EFAULT because data is longer than its block (%zu, %zu)\n",
-               blen, len);
+      fprintf (stderr, "hivex_value_value: returning EFAULT because data is longer than its block (data 0x%zx, data len %zu, block len %zu)\n",
+               data_offset, len, blen);
     errno = EFAULT;
     free (ret);
     return NULL;
