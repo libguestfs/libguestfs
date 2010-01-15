@@ -111,7 +111,7 @@ struct hive_h {
    (off) < (h)->size &&                     \
    BITMAP_TST((h)->bitmap,(off)))
 
-  /* Fields from the header, extracted from little-endianness. */
+  /* Fields from the header, extracted from little-endianness hell. */
   size_t rootoffs;              /* Root key offset (always an nk-block). */
 
   /* Stats. */
@@ -300,10 +300,20 @@ hivex_open (const char *filename, int flags)
   }
 #endif
 
+  if (h->msglvl >= 2)
+    fprintf (stderr,
+             "hivex_open: header fields:\n"
+             "  root offset - 4KB        0x%x\n"
+             "  blocks (file size - 4KB) 0x%x (real file size 0x%zx)\n"
+             "  checksum                 0x%x (calculated 0x%x)\n",
+             le32toh (h->hdr->offset),
+             le32toh (h->hdr->blocks), h->size,
+             le32toh (h->hdr->csum), sum);
+
   h->rootoffs = le32toh (h->hdr->offset) + 0x1000;
 
   if (h->msglvl >= 2)
-    fprintf (stderr, "hivex_open: root offset = %zu\n", h->rootoffs);
+    fprintf (stderr, "hivex_open: root offset = 0x%zx\n", h->rootoffs);
 
   /* We'll set this flag when we see a block with the root offset (ie.
    * the root block).
@@ -328,13 +338,13 @@ hivex_open (const char *filename, int flags)
         page->magic[3] != 'n') {
       /* NB: This error is seemingly common in uncorrupt registry files. */
       if (h->msglvl >= 2)
-        fprintf (stderr, "hivex: %s: ignoring trailing garbage at end of file (at %zu, after %zu pages)\n",
+        fprintf (stderr, "hivex: %s: ignoring trailing garbage at end of file (at 0x%zx, after %zu pages)\n",
                  filename, off, h->pages);
       break;
     }
 
     if (h->msglvl >= 2)
-      fprintf (stderr, "hivex_open: page at %zu\n", off);
+      fprintf (stderr, "hivex_open: page at 0x%zx\n", off);
 
     if (le32toh (page->offset_next) <= sizeof (struct ntreg_hbin_page) ||
         (le32toh (page->offset_next) & 3) != 0) {
@@ -368,7 +378,7 @@ hivex_open (const char *filename, int flags)
       }
 
       if (h->msglvl >= 2)
-        fprintf (stderr, "hivex_open: %s block id %d,%d at %zu%s\n",
+        fprintf (stderr, "hivex_open: %s block id %d,%d at 0x%zx%s\n",
                  used ? "used" : "free", block->id[0], block->id[1], blkoff,
                  is_root ? " (root)" : "");
 
@@ -619,7 +629,7 @@ hivex_node_children (hive_h *h, hive_node_h node)
       subkey += 0x1000;
       if (!IS_VALID_BLOCK (h, subkey)) {
         if (h->msglvl >= 2)
-          fprintf (stderr, "hivex_node_children: returning EFAULT because subkey is not a valid block (%zu)\n",
+          fprintf (stderr, "hivex_node_children: returning EFAULT because subkey is not a valid block (0x%zx)\n",
                    subkey);
         errno = EFAULT;
         free (ret);
@@ -643,7 +653,7 @@ hivex_node_children (hive_h *h, hive_node_h node)
       offset += 0x1000;
       if (!IS_VALID_BLOCK (h, offset)) {
         if (h->msglvl >= 2)
-          fprintf (stderr, "hivex_node_children: returning EFAULT because ri-offset is not a valid block (%zu)\n",
+          fprintf (stderr, "hivex_node_children: returning EFAULT because ri-offset is not a valid block (0x%zx)\n",
                    offset);
         errno = EFAULT;
         return NULL;
@@ -681,7 +691,7 @@ hivex_node_children (hive_h *h, hive_node_h node)
       offset += 0x1000;
       if (!IS_VALID_BLOCK (h, offset)) {
         if (h->msglvl >= 2)
-          fprintf (stderr, "hivex_node_children: returning EFAULT because ri-offset is not a valid block (%zu)\n",
+          fprintf (stderr, "hivex_node_children: returning EFAULT because ri-offset is not a valid block (0x%zx)\n",
                    offset);
         errno = EFAULT;
         return NULL;
@@ -700,7 +710,7 @@ hivex_node_children (hive_h *h, hive_node_h node)
         subkey += 0x1000;
         if (!IS_VALID_BLOCK (h, subkey)) {
           if (h->msglvl >= 2)
-            fprintf (stderr, "hivex_node_children: returning EFAULT because indirect subkey is not a valid block (%zu)\n",
+            fprintf (stderr, "hivex_node_children: returning EFAULT because indirect subkey is not a valid block (0x%zx)\n",
                      subkey);
           errno = EFAULT;
           free (ret);
@@ -763,7 +773,7 @@ hivex_node_parent (hive_h *h, hive_node_h node)
   ret += 0x1000;
   if (!IS_VALID_BLOCK (h, ret)) {
     if (h->msglvl >= 2)
-      fprintf (stderr, "hivex_node_parent: returning EFAULT because parent is not a valid block (%zu)\n",
+      fprintf (stderr, "hivex_node_parent: returning EFAULT because parent is not a valid block (0x%zx)\n",
               ret);
     errno = EFAULT;
     return 0;
@@ -807,7 +817,7 @@ hivex_node_values (hive_h *h, hive_node_h node)
   vlist_offset += 0x1000;
   if (!IS_VALID_BLOCK (h, vlist_offset)) {
     if (h->msglvl >= 2)
-      fprintf (stderr, "hivex_node_values: returning EFAULT because value list is not a valid block (%zu)\n",
+      fprintf (stderr, "hivex_node_values: returning EFAULT because value list is not a valid block (0x%zx)\n",
                vlist_offset);
     errno = EFAULT;
     return NULL;
@@ -836,7 +846,7 @@ hivex_node_values (hive_h *h, hive_node_h node)
     value += 0x1000;
     if (!IS_VALID_BLOCK (h, value)) {
       if (h->msglvl >= 2)
-        fprintf (stderr, "hivex_node_values: returning EFAULT because value is not a valid block (%zu)\n",
+        fprintf (stderr, "hivex_node_values: returning EFAULT because value is not a valid block (0x%zx)\n",
                  value);
       errno = EFAULT;
       free (ret);
@@ -963,7 +973,7 @@ hivex_value_value (hive_h *h, hive_value_h value,
   len &= 0x7fffffff;
 
   if (h->msglvl >= 2)
-    fprintf (stderr, "hivex_value_value: value=%zu, t=%d, len=%zu\n",
+    fprintf (stderr, "hivex_value_value: value=0x%zx, t=%d, len=%zu\n",
              value, t, len);
 
   if (t_rtn)
@@ -991,7 +1001,7 @@ hivex_value_value (hive_h *h, hive_value_h value,
   data_offset += 0x1000;
   if (!IS_VALID_BLOCK (h, data_offset)) {
     if (h->msglvl >= 2)
-      fprintf (stderr, "hivex_value_value: returning EFAULT because data offset is not a valid block (%zu)\n",
+      fprintf (stderr, "hivex_value_value: returning EFAULT because data offset is not a valid block (0x%zx)\n",
                data_offset);
     errno = EFAULT;
     free (ret);
@@ -1275,7 +1285,7 @@ hivex__visit_node (hive_h *h, hive_node_h node,
 
   if (!BITMAP_TST (unvisited, node)) {
     if (h->msglvl >= 2)
-      fprintf (stderr, "hivex__visit_node: contains cycle: visited node %zu already\n",
+      fprintf (stderr, "hivex__visit_node: contains cycle: visited node 0x%zx already\n",
                node);
 
     errno = ELOOP;
@@ -1430,7 +1440,7 @@ hivex__visit_node (hive_h *h, hive_node_h node,
 
   for (i = 0; children[i] != 0; ++i) {
     if (h->msglvl >= 2)
-      fprintf (stderr, "hivex__visit_node: %s: visiting subkey %d (%zu)\n",
+      fprintf (stderr, "hivex__visit_node: %s: visiting subkey %d (0x%zx)\n",
                name, i, children[i]);
 
     if (hivex__visit_node (h, children[i], vtor, unvisited, opaque, flags) == -1)
