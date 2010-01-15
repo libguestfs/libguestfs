@@ -283,15 +283,16 @@ hivex_open (const char *filename, int flags)
   if (h->bitmap == NULL)
     goto error;
 
-#if 0                           /* Doesn't work. */
   /* Header checksum. */
-  uint32_t *daddr = h->addr;
+  uint32_t *daddr = (uint32_t *) h->addr;
   size_t i;
   uint32_t sum = 0;
   for (i = 0; i < 0x1fc / 4; ++i) {
-    sum += le32toh (*daddr);
+    sum ^= le32toh (*daddr);
     daddr++;
   }
+
+#if 0                           /* Doesn't work. */
   if (sum != le32toh (h->hdr->csum)) {
     fprintf (stderr, "hivex: %s: bad checksum in hive header\n", filename);
     errno = EINVAL;
