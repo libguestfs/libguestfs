@@ -120,12 +120,6 @@ struct hive_h {
   /* Fields from the header, extracted from little-endianness hell. */
   size_t rootoffs;              /* Root key offset (always an nk-block). */
   size_t endpages;              /* Offset of end of pages. */
-
-  /* Stats. */
-  size_t pages;                 /* Number of hbin pages read. */
-  size_t blocks;                /* Total number of blocks found. */
-  size_t used_blocks;           /* Total number of used blocks found. */
-  size_t used_size;             /* Total size (bytes) of used blocks. */
 };
 
 /* NB. All fields are little endian. */
@@ -376,6 +370,14 @@ hivex_open (const char *filename, int flags)
    */
   int seen_root_block = 0, bad_root_block = 0;
 
+  /* Collect some stats. */
+  size_t pages = 0;           /* Number of hbin pages read. */
+  size_t smallest_page = SIZE_MAX, largest_page = 0;
+  size_t blocks = 0;          /* Total number of blocks found. */
+  size_t smallest_block = SIZE_MAX, largest_block = 0, blocks_bytes = 0;
+  size_t used_blocks = 0;     /* Total number of used blocks found. */
+  size_t used_size = 0;       /* Total size (bytes) of used blocks. */
+
   /* Read the pages and blocks.  The aim here is to be robust against
    * corrupt or malicious registries.  So we make sure the loops
    * always make forward progress.  We add the address of each block
@@ -394,14 +396,17 @@ hivex_open (const char *filename, int flags)
         page->magic[2] != 'i' ||
         page->magic[3] != 'n') {
       fprintf (stderr, "hivex: %s: trailing garbage at end of file (at 0x%zx, after %zu pages)\n",
-               filename, off, h->pages);
+               filename, off, pages);
       errno = ENOTSUP;
       goto error;
     }
 
+    size_t page_size = le32toh (page->offset_next);
     if (h->msglvl >= 2)
-      fprintf (stderr, "hivex_open: page at 0x%zx\n", off);
-    h->pages++;
+      fprintf (stderr, "hivex_open: page at 0x%zx, size %zu\n", off, page_size);
+    pages++;
+    if (page_size < smallest_page) smallest_page = page_size;
+    if (page_size > largest_page) largest_page = page_size;
 
     if (le32toh (page->offset_next) <= sizeof (struct ntreg_hbin_page) ||
         (le32toh (page->offset_next) & 3) != 0) {
@@ -414,11 +419,11 @@ hivex_open (const char *filename, int flags)
     /* Read the blocks in this page. */
     size_t blkoff;
     struct ntreg_hbin_block *block;
-    int32_t seg_len;
+    size_t seg_len;
     for (blkoff = off + 0x20;
          blkoff < off + le32toh (page->offset_next);
          blkoff += seg_len) {
-      h->blocks++;
+      blocks++;
 
       int is_root = blkoff == h->rootoffs;
       if (is_root)
@@ -435,16 +440,20 @@ hivex_open (const char *filename, int flags)
       }
 
       if (h->msglvl >= 2)
-        fprintf (stderr, "hivex_open: %s block id %d,%d at 0x%zx%s\n",
+        fprintf (stderr, "hivex_open: %s block id %d,%d at 0x%zx size %zu%s\n",
                  used ? "used" : "free", block->id[0], block->id[1], blkoff,
-                 is_root ? " (root)" : "");
+                 seg_len, is_root ? " (root)" : "");
+
+      blocks_bytes += seg_len;
+      if (seg_len < smallest_block) smallest_block = seg_len;
+      if (seg_len > largest_block) largest_block = seg_len;
 
       if (is_root && !used)
         bad_root_block = 1;
 
       if (used) {
-        h->used_blocks++;
-        h->used_size += seg_len;
+        used_blocks++;
+        used_size += seg_len;
 
         /* Root block must be an nk-block. */
         if (is_root && (block->id[0] != 'n' || block->id[1] != 'k'))
@@ -471,11 +480,13 @@ hivex_open (const char *filename, int flags)
   if (h->msglvl >= 1)
     fprintf (stderr,
              "hivex_open: successfully read Windows Registry hive file:\n"
-             "  pages:                  %zu\n"
-             "  blocks:                 %zu\n"
-             "  blocks used:            %zu\n"
-             "  bytes used:             %zu\n",
-             h->pages, h->blocks, h->used_blocks, h->used_size);
+             "  pages:          %zu [sml: %zu, lge: %zu]\n"
+             "  blocks:         %zu [sml: %zu, avg: %zu, lge: %zu]\n"
+             "  blocks used:    %zu\n"
+             "  bytes used:     %zu\n",
+             pages, smallest_page, largest_page,
+             blocks, smallest_block, blocks_bytes / blocks, largest_block,
+             used_blocks, used_size);
 
   return h;
 
