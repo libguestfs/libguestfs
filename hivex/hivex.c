@@ -89,6 +89,7 @@
 static char *windows_utf16_to_utf8 (/* const */ char *input, size_t len);
 
 struct hive_h {
+  char *filename;
   int fd;
   size_t size;
   int msglvl;
@@ -280,6 +281,10 @@ hivex_open (const char *filename, int flags)
 
   if (h->msglvl >= 2)
     fprintf (stderr, "hivex_open: created handle %p\n", h);
+
+  h->filename = strdup (filename);
+  if (h->filename == NULL)
+    goto error;
 
   h->fd = open (filename, O_RDONLY);
   if (h->fd == -1)
@@ -482,6 +487,7 @@ hivex_open (const char *filename, int flags)
       munmap (h->addr, h->size);
     if (h->fd >= 0)
       close (h->fd);
+    free (h->filename);
     free (h);
   }
   errno = err;
@@ -496,6 +502,7 @@ hivex_close (hive_h *h)
   free (h->bitmap);
   munmap (h->addr, h->size);
   r = close (h->fd);
+  free (h->filename);
   free (h);
 
   return r;
