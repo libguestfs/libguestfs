@@ -26,9 +26,9 @@ libhivex_la_SOURCES = \
   hivex.h \
   byte_conversions.h
 
-libhivex_la_LDFLAGS = -version-info 0:0:0
-libhivex_la_CFLAGS = \
-  $(WARN_CFLAGS) $(WERROR_CFLAGS)
+libhivex_la_LDFLAGS = -version-info 0:0:0 $(LTLIBINTL) $(LTLIBTHREAD)
+libhivex_la_CFLAGS = $(WARN_CFLAGS) $(WERROR_CFLAGS)
+libhivex_la_CPPFLAGS = -I$(top_srcdir)/gnulib/lib
 
 bin_PROGRAMS = hivexml hivexsh
 bin_SCRIPTS = hivexget
@@ -36,7 +36,7 @@ bin_SCRIPTS = hivexget
 hivexml_SOURCES = \
   hivexml.c
 
-hivexml_LDADD = libhivex.la $(LIBXML2_LIBS)
+hivexml_LDADD = libhivex.la $(LIBXML2_LIBS) ../gnulib/lib/libgnu.la
 hivexml_CFLAGS = \
   -I$(top_srcdir)/src \
   -DLOCALEBASEDIR=\""$(datadir)/locale"\" \

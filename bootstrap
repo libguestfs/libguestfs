@@ -60,6 +60,7 @@ modules='
 arpa_inet
 c-ctype
 closeout
+full-read
 full-write
 gitlog-to-changelog
 gnu-make

@@ -13,8 +13,7 @@ hivex - Windows Registry "hive" extraction library
 
 libhivex is a library for extracting the contents of Windows Registry
 "hive" files.  It is designed to be secure against buggy or malicious
-registry files, and to have limited functionality (writing or
-modifying these files is not in the scope of this library).
+registry files.
 
 Unlike many other tools in this area, it doesn't use the textual .REG
 format for output, because parsing that is as much trouble as parsing
@@ -32,8 +31,7 @@ L<hivexget(1)>).
 Opens the hive named C<filename> for reading.
 
 Flags is an ORed list of the open flags (or C<0> if you don't
-want to pass any flags).  Currently the only
-flags defined are:
+want to pass any flags).  These flags are defined:
 
 =over 4
 
@@ -49,6 +47,12 @@ itself.
 This is also selected if the C<HIVEX_DEBUG> environment variable
 is set to 1.
 
+=item HIVEX_OPEN_WRITE
+
+Open the hive for writing.  If omitted, the hive is read-only.
+
+See L</WRITING TO HIVE FILES>.
+
 =back
 
 C<hivex_open> returns a hive handle.  On error this returns NULL and
@@ -57,6 +61,9 @@ sets C<errno> to indicate the error.
 =item int hivex_close (hive_h *h);
 
 Close a hive handle and free all associated resources.
+
+Note that any uncommitted writes are I<not> committed by this call,
+but instead are lost.  See L</WRITING TO HIVE FILES>.
 
 Returns 0 on success.  On error this returns -1 and sets errno.
 

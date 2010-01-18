@@ -34,6 +34,12 @@
 #include <sys/stat.h>
 #include <assert.h>
 
+#include "full-read.h"
+
+#ifndef O_CLOEXEC
+#define O_CLOEXEC 0
+#endif
+
 #define STREQ(a,b) (strcmp((a),(b)) == 0)
 #define STRCASEEQ(a,b) (strcasecmp((a),(b)) == 0)
 //#define STRNEQ(a,b) (strcmp((a),(b)) != 0)
@@ -54,8 +60,9 @@ struct hive_h {
   int fd;
   size_t size;
   int msglvl;
+  int writable;
 
-  /* Memory-mapped (readonly) registry file. */
+  /* Registry file, memory mapped if read-only, or malloc'd if writing. */
   union {
     char *addr;
     struct ntreg_header *hdr;
@@ -260,11 +267,12 @@ hivex_open (const char *filename, int flags)
   if (h->msglvl >= 2)
     fprintf (stderr, "hivex_open: created handle %p\n", h);
 
+  h->writable = !!(flags & HIVEX_OPEN_WRITE);
   h->filename = strdup (filename);
   if (h->filename == NULL)
     goto error;
 
-  h->fd = open (filename, O_RDONLY);
+  h->fd = open (filename, O_RDONLY | O_CLOEXEC);
   if (h->fd == -1)
     goto error;
 
@@ -274,12 +282,21 @@ hivex_open (const char *filename, int flags)
 
   h->size = statbuf.st_size;
 
-  h->addr = mmap (NULL, h->size, PROT_READ, MAP_SHARED, h->fd, 0);
-  if (h->addr == MAP_FAILED)
-    goto error;
+  if (!h->writable) {
+    h->addr = mmap (NULL, h->size, PROT_READ, MAP_SHARED, h->fd, 0);
+    if (h->addr == MAP_FAILED)
+      goto error;
 
-  if (h->msglvl >= 2)
-    fprintf (stderr, "hivex_open: mapped file at %p\n", h->addr);
+    if (h->msglvl >= 2)
+      fprintf (stderr, "hivex_open: mapped file at %p\n", h->addr);
+  } else {
+    h->addr = malloc (h->size);
+    if (h->addr == NULL)
+      goto error;
+
+    if (full_read (h->fd, h->addr, h->size) < h->size)
+      goto error;
+  }
 
   /* Check header. */
   if (h->hdr->magic[0] != 'r' ||
@@ -471,8 +488,12 @@ hivex_open (const char *filename, int flags)
   int err = errno;
   if (h) {
     free (h->bitmap);
-    if (h->addr && h->size && h->addr != MAP_FAILED)
-      munmap (h->addr, h->size);
+    if (h->addr && h->size && h->addr != MAP_FAILED) {
+      if (!h->writable)
+        munmap (h->addr, h->size);
+      else
+        free (h->addr);
+    }
     if (h->fd >= 0)
       close (h->fd);
     free (h->filename);
@@ -488,7 +509,10 @@ hivex_close (hive_h *h)
   int r;
 
   free (h->bitmap);
-  munmap (h->addr, h->size);
+  if (!h->writable)
+    munmap (h->addr, h->size);
+  else
+    free (h->addr);
   r = close (h->fd);
   free (h->filename);
   free (h);

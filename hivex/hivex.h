@@ -69,9 +69,11 @@ enum hive_type {
 
 typedef enum hive_type hive_type;
 
+/* Bitmask of flags passed to hivex_open. */
 #define HIVEX_OPEN_VERBOSE      1
 #define HIVEX_OPEN_DEBUG        2
-#define HIVEX_OPEN_MSGLVL_MASK  3
+#define HIVEX_OPEN_MSGLVL_MASK  (HIVEX_OPEN_VERBOSE|HIVEX_OPEN_DEBUG)
+#define HIVEX_OPEN_WRITE        4
 
 extern hive_h *hivex_open (const char *filename, int flags);
 extern int hivex_close (hive_h *h);
