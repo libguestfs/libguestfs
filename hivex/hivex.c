@@ -255,6 +255,21 @@ struct ntreg_vk_record {
   char name[1];                 /* key name follows here */
 } __attribute__((__packed__));
 
+static uint32_t
+header_checksum (hive_h *h)
+{
+  uint32_t *daddr = (uint32_t *) h->addr;
+  size_t i;
+  uint32_t sum = 0;
+
+  for (i = 0; i < 0x1fc / 4; ++i) {
+    sum ^= le32toh (*daddr);
+    daddr++;
+  }
+
+  return sum;
+}
+
 hive_h *
 hivex_open (const char *filename, int flags)
 {
@@ -323,14 +338,7 @@ hivex_open (const char *filename, int flags)
     goto error;
 
   /* Header checksum. */
-  uint32_t *daddr = (uint32_t *) h->addr;
-  size_t i;
-  uint32_t sum = 0;
-  for (i = 0; i < 0x1fc / 4; ++i) {
-    sum ^= le32toh (*daddr);
-    daddr++;
-  }
-
+  uint32_t sum = header_checksum (h);
   if (sum != le32toh (h->hdr->csum)) {
     fprintf (stderr, "hivex: %s: bad checksum in hive header\n", filename);
     errno = EINVAL;
