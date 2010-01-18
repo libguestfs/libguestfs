@@ -161,7 +161,7 @@ struct ntreg_header {
 struct ntreg_hbin_page {
   char magic[4];                /* "hbin" */
   uint32_t offset_first;        /* offset from 1st block */
-  uint32_t offset_next;         /* offset of next (relative to this) */
+  uint32_t page_size;           /* size of this page (multiple of 4KB) */
   char unknown[20];
   /* Linked list of blocks follows here. */
 } __attribute__((__packed__));
@@ -386,7 +386,7 @@ hivex_open (const char *filename, int flags)
    */
   size_t off;
   struct ntreg_hbin_page *page;
-  for (off = 0x1000; off < h->size; off += le32toh (page->offset_next)) {
+  for (off = 0x1000; off < h->size; off += le32toh (page->page_size)) {
     if (off >= h->endpages)
       break;
 
@@ -401,17 +401,17 @@ hivex_open (const char *filename, int flags)
       goto error;
     }
 
-    size_t page_size = le32toh (page->offset_next);
+    size_t page_size = le32toh (page->page_size);
     if (h->msglvl >= 2)
       fprintf (stderr, "hivex_open: page at 0x%zx, size %zu\n", off, page_size);
     pages++;
     if (page_size < smallest_page) smallest_page = page_size;
     if (page_size > largest_page) largest_page = page_size;
 
-    if (le32toh (page->offset_next) <= sizeof (struct ntreg_hbin_page) ||
-        (le32toh (page->offset_next) & 3) != 0) {
-      fprintf (stderr, "hivex: %s: pagesize %d at %zu, bad registry\n",
-               filename, le32toh (page->offset_next), off);
+    if (page_size <= sizeof (struct ntreg_hbin_page) ||
+        (page_size & 0x0fff) != 0) {
+      fprintf (stderr, "hivex: %s: page size %zu at 0x%zx, bad registry\n",
+               filename, page_size, off);
       errno = ENOTSUP;
       goto error;
     }
@@ -421,7 +421,7 @@ hivex_open (const char *filename, int flags)
     struct ntreg_hbin_block *block;
     size_t seg_len;
     for (blkoff = off + 0x20;
-         blkoff < off + le32toh (page->offset_next);
+         blkoff < off + page_size;
          blkoff += seg_len) {
       blocks++;
 
