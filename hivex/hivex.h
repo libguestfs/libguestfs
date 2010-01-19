@@ -100,6 +100,7 @@ struct hivex_visitor {
   int (*value_binary) (hive_h *, void *opaque, hive_node_h, hive_value_h, hive_type t, size_t len, const char *key, const char *value);
   int (*value_none) (hive_h *, void *opaque, hive_node_h, hive_value_h, hive_type t, size_t len, const char *key, const char *value);
   int (*value_other) (hive_h *, void *opaque, hive_node_h, hive_value_h, hive_type t, size_t len, const char *key, const char *value);
+  int (*value_any) (hive_h *, void *opaque, hive_node_h, hive_value_h, hive_type t, size_t len, const char *key, const char *value);
 };
 
 #define HIVEX_VISIT_SKIP_BAD 1

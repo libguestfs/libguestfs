@@ -281,6 +281,11 @@ all, set the function pointer to NULL.
          hive_type t, size_t len, const char *key, const char *value);
    int (*value_other) (hive_h *, void *opaque, hive_node_h, hive_value_h,
          hive_type t, size_t len, const char *key, const char *value);
+   /* If value_any callback is not NULL, then the other value_*
+    * callbacks are not used, and value_any is called on all values.
+    */
+   int (*value_any) (hive_h *, void *opaque, hive_node_h, hive_value_h,
+         hive_type t, size_t len, const char *key, const char *value);
  };
 
 =over 4

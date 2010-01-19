@@ -1397,114 +1397,126 @@ hivex__visit_node (hive_h *h, hive_node_h node,
       goto error;
     }
 
-    switch (t) {
-    case hive_t_none:
+    if (vtor->value_any) {
       str = hivex_value_value (h, values[i], &t, &len);
       if (str == NULL) {
         ret = skip_bad ? 0 : -1;
         goto error;
       }
-      if (t != hive_t_none) {
-        ret = skip_bad ? 0 : -1;
-        goto error;
-      }
-      if (vtor->value_none &&
-          vtor->value_none (h, opaque, node, values[i], t, len, key, str) == -1)
+      if (vtor->value_any (h, opaque, node, values[i], t, len, key, str) == -1)
         goto error;
       free (str); str = NULL;
-      break;
-
-    case hive_t_string:
-    case hive_t_expand_string:
-    case hive_t_link:
-      str = hivex_value_string (h, values[i]);
-      if (str == NULL) {
-        if (errno != EILSEQ && errno != EINVAL) {
+    }
+    else {
+      switch (t) {
+      case hive_t_none:
+        str = hivex_value_value (h, values[i], &t, &len);
+        if (str == NULL) {
           ret = skip_bad ? 0 : -1;
           goto error;
         }
-        if (vtor->value_string_invalid_utf16) {
-          str = hivex_value_value (h, values[i], &t, &len);
-          if (vtor->value_string_invalid_utf16 (h, opaque, node, values[i], t, len, key, str) == -1)
-            goto error;
-          free (str); str = NULL;
-        }
-        break;
-      }
-      if (vtor->value_string &&
-          vtor->value_string (h, opaque, node, values[i], t, len, key, str) == -1)
-        goto error;
-      free (str); str = NULL;
-      break;
-
-    case hive_t_dword:
-    case hive_t_dword_be: {
-      int32_t i32 = hivex_value_dword (h, values[i]);
-      if (vtor->value_dword &&
-          vtor->value_dword (h, opaque, node, values[i], t, len, key, i32) == -1)
-        goto error;
-      break;
-    }
-
-    case hive_t_qword: {
-      int64_t i64 = hivex_value_qword (h, values[i]);
-      if (vtor->value_qword &&
-          vtor->value_qword (h, opaque, node, values[i], t, len, key, i64) == -1)
-        goto error;
-      break;
-    }
-
-    case hive_t_binary:
-      str = hivex_value_value (h, values[i], &t, &len);
-      if (str == NULL) {
-        ret = skip_bad ? 0 : -1;
-        goto error;
-      }
-      if (t != hive_t_binary) {
-        ret = skip_bad ? 0 : -1;
-        goto error;
-      }
-      if (vtor->value_binary &&
-          vtor->value_binary (h, opaque, node, values[i], t, len, key, str) == -1)
-        goto error;
-      free (str); str = NULL;
-      break;
-
-    case hive_t_multiple_strings:
-      strs = hivex_value_multiple_strings (h, values[i]);
-      if (strs == NULL) {
-        if (errno != EILSEQ && errno != EINVAL) {
+        if (t != hive_t_none) {
           ret = skip_bad ? 0 : -1;
           goto error;
         }
-        if (vtor->value_string_invalid_utf16) {
-          str = hivex_value_value (h, values[i], &t, &len);
-          if (vtor->value_string_invalid_utf16 (h, opaque, node, values[i], t, len, key, str) == -1)
+        if (vtor->value_none &&
+            vtor->value_none (h, opaque, node, values[i], t, len, key, str) == -1)
+          goto error;
+        free (str); str = NULL;
+        break;
+
+      case hive_t_string:
+      case hive_t_expand_string:
+      case hive_t_link:
+        str = hivex_value_string (h, values[i]);
+        if (str == NULL) {
+          if (errno != EILSEQ && errno != EINVAL) {
+            ret = skip_bad ? 0 : -1;
             goto error;
-          free (str); str = NULL;
+          }
+          if (vtor->value_string_invalid_utf16) {
+            str = hivex_value_value (h, values[i], &t, &len);
+            if (vtor->value_string_invalid_utf16 (h, opaque, node, values[i], t, len, key, str) == -1)
+              goto error;
+            free (str); str = NULL;
+          }
+          break;
         }
+        if (vtor->value_string &&
+            vtor->value_string (h, opaque, node, values[i], t, len, key, str) == -1)
+          goto error;
+        free (str); str = NULL;
+        break;
+
+      case hive_t_dword:
+      case hive_t_dword_be: {
+        int32_t i32 = hivex_value_dword (h, values[i]);
+        if (vtor->value_dword &&
+            vtor->value_dword (h, opaque, node, values[i], t, len, key, i32) == -1)
+          goto error;
         break;
       }
-      if (vtor->value_multiple_strings &&
-          vtor->value_multiple_strings (h, opaque, node, values[i], t, len, key, strs) == -1)
-        goto error;
-      free_strings (strs); strs = NULL;
-      break;
 
-    case hive_t_resource_list:
-    case hive_t_full_resource_description:
-    case hive_t_resource_requirements_list:
-    default:
-      str = hivex_value_value (h, values[i], &t, &len);
-      if (str == NULL) {
-        ret = skip_bad ? 0 : -1;
-        goto error;
+      case hive_t_qword: {
+        int64_t i64 = hivex_value_qword (h, values[i]);
+        if (vtor->value_qword &&
+            vtor->value_qword (h, opaque, node, values[i], t, len, key, i64) == -1)
+          goto error;
+        break;
       }
-      if (vtor->value_other &&
-          vtor->value_other (h, opaque, node, values[i], t, len, key, str) == -1)
-        goto error;
-      free (str); str = NULL;
-      break;
+
+      case hive_t_binary:
+        str = hivex_value_value (h, values[i], &t, &len);
+        if (str == NULL) {
+          ret = skip_bad ? 0 : -1;
+          goto error;
+        }
+        if (t != hive_t_binary) {
+          ret = skip_bad ? 0 : -1;
+          goto error;
+        }
+        if (vtor->value_binary &&
+            vtor->value_binary (h, opaque, node, values[i], t, len, key, str) == -1)
+          goto error;
+        free (str); str = NULL;
+        break;
+
+      case hive_t_multiple_strings:
+        strs = hivex_value_multiple_strings (h, values[i]);
+        if (strs == NULL) {
+          if (errno != EILSEQ && errno != EINVAL) {
+            ret = skip_bad ? 0 : -1;
+            goto error;
+          }
+          if (vtor->value_string_invalid_utf16) {
+            str = hivex_value_value (h, values[i], &t, &len);
+            if (vtor->value_string_invalid_utf16 (h, opaque, node, values[i], t, len, key, str) == -1)
+              goto error;
+            free (str); str = NULL;
+          }
+          break;
+        }
+        if (vtor->value_multiple_strings &&
+            vtor->value_multiple_strings (h, opaque, node, values[i], t, len, key, strs) == -1)
+          goto error;
+        free_strings (strs); strs = NULL;
+        break;
+
+      case hive_t_resource_list:
+      case hive_t_full_resource_description:
+      case hive_t_resource_requirements_list:
+      default:
+        str = hivex_value_value (h, values[i], &t, &len);
+        if (str == NULL) {
+          ret = skip_bad ? 0 : -1;
+          goto error;
+        }
+        if (vtor->value_other &&
+            vtor->value_other (h, opaque, node, values[i], t, len, key, str) == -1)
+          goto error;
+        free (str); str = NULL;
+        break;
+      }
     }
 
     free (key); key = NULL;
