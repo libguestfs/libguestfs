@@ -763,7 +763,7 @@ get_children (hive_h *h, hive_node_h node,
 
     size_t i;
     for (i = 0; i < nr_subkeys_in_lf; ++i) {
-      hive_node_h subkey = lf->keys[i].offset;
+      hive_node_h subkey = le32toh (lf->keys[i].offset);
       subkey += 0x1000;
       if (!IS_VALID_BLOCK (h, subkey)) {
         if (h->msglvl >= 2)
@@ -841,7 +841,7 @@ get_children (hive_h *h, hive_node_h node,
 
       size_t j;
       for (j = 0; j < le16toh (lf->nr_keys); ++j) {
-        hive_node_h subkey = lf->keys[j].offset;
+        hive_node_h subkey = le32toh (lf->keys[j].offset);
         subkey += 0x1000;
         if (!IS_VALID_BLOCK (h, subkey)) {
           if (h->msglvl >= 2)
@@ -1174,7 +1174,7 @@ hivex_value_value (hive_h *h, hive_value_h value,
     return ret;
   }
 
-  size_t data_offset = vk->data_offset;
+  size_t data_offset = le32toh (vk->data_offset);
   data_offset += 0x1000;
   if (!IS_VALID_BLOCK (h, data_offset)) {
     if (h->msglvl >= 2)
