@@ -620,33 +620,96 @@ hivex_node_classname (hive_h *h, hive_node_h node)
 }
 #endif
 
-hive_node_h *
-hivex_node_children (hive_h *h, hive_node_h node)
+/* Structure for returning 0-terminated lists of offsets (nodes,
+ * values, etc).
+ */
+struct offset_list {
+  size_t *offsets;
+  size_t len;
+  size_t alloc;
+};
+
+static void
+init_offset_list (struct offset_list *list)
+{
+  list->len = 0;
+  list->alloc = 0;
+  list->offsets = NULL;
+}
+
+#define INIT_OFFSET_LIST(name) \
+  struct offset_list name; \
+  init_offset_list (&name)
+
+/* Preallocates the offset_list, but doesn't make the contents longer. */
+static int
+grow_offset_list (struct offset_list *list, size_t alloc)
+{
+  assert (alloc >= list->len);
+  size_t *p = realloc (list->offsets, alloc * sizeof (size_t));
+  if (p == NULL)
+    return -1;
+  list->offsets = p;
+  list->alloc = alloc;
+  return 0;
+}
+
+static int
+add_to_offset_list (struct offset_list *list, size_t offset)
+{
+  if (list->len >= list->alloc) {
+    if (grow_offset_list (list, list->alloc ? list->alloc * 2 : 4) == -1)
+      return -1;
+  }
+  list->offsets[list->len] = offset;
+  list->len++;
+  return 0;
+}
+
+static void
+free_offset_list (struct offset_list *list)
+{
+  free (list->offsets);
+}
+
+static size_t *
+return_offset_list (struct offset_list *list)
+{
+  if (add_to_offset_list (list, 0) == -1)
+    return NULL;
+  return list->offsets;         /* caller frees */
+}
+
+/* Iterate over children, returning child nodes and intermediate blocks. */
+static int
+get_children (hive_h *h, hive_node_h node,
+              hive_node_h **children_ret, size_t **blocks_ret)
 {
   if (!IS_VALID_BLOCK (h, node) || !BLOCK_ID_EQ (h, node, "nk")) {
     errno = EINVAL;
-    return NULL;
+    return -1;
   }
 
   struct ntreg_nk_record *nk = (struct ntreg_nk_record *) (h->addr + node);
 
   size_t nr_subkeys_in_nk = le32toh (nk->nr_subkeys);
 
+  INIT_OFFSET_LIST (children);
+  INIT_OFFSET_LIST (blocks);
+
   /* Deal with the common "no subkeys" case quickly. */
-  hive_node_h *ret;
-  if (nr_subkeys_in_nk == 0) {
-    ret = malloc (sizeof (hive_node_h));
-    if (ret == NULL)
-      return NULL;
-    ret[0] = 0;
-    return ret;
-  }
+  if (nr_subkeys_in_nk == 0)
+    goto ok;
 
   /* Arbitrarily limit the number of subkeys we will ever deal with. */
   if (nr_subkeys_in_nk > 1000000) {
     errno = ERANGE;
-    return NULL;
+    goto error;
   }
+
+  /* Preallocate space for the children. */
+  if (grow_offset_list (&children, nr_subkeys_in_nk) == -1)
+    goto error;
 
   /* The subkey_lf field can point either to an lf-record, which is
    * the common case, or if there are lots of subkeys, to an
@@ -659,8 +722,11 @@ hivex_node_children (hive_h *h, hive_node_h node)
       fprintf (stderr, "hivex_node_children: returning EFAULT because subkey_lf is not a valid block (%zu)\n",
                subkey_lf);
     errno = EFAULT;
-    return NULL;
+    goto error;
   }
+
+  if (add_to_offset_list (&blocks, subkey_lf) == -1)
+    goto error;
 
   struct ntreg_hbin_block *block =
     (struct ntreg_hbin_block *) (h->addr + subkey_lf);
@@ -682,7 +748,7 @@ hivex_node_children (hive_h *h, hive_node_h node)
 
     if (nr_subkeys_in_nk != nr_subkeys_in_lf) {
       errno = ENOTSUP;
-      return NULL;
+      goto error;
     }
 
     size_t len = block_len (h, subkey_lf, NULL);
@@ -691,15 +757,8 @@ hivex_node_children (hive_h *h, hive_node_h node)
         fprintf (stderr, "hivex_node_children: returning EFAULT because too many subkeys (%zu, %zu)\n",
                  nr_subkeys_in_lf, len);
       errno = EFAULT;
-      return NULL;
+      goto error;
     }
-
-    /* Allocate space for the returned values.  Note that
-     * nr_subkeys_in_lf is limited to a 16 bit value.
-     */
-    ret = malloc ((1 + nr_subkeys_in_lf) * sizeof (hive_node_h));
-    if (ret == NULL)
-      return NULL;
 
     size_t i;
     for (i = 0; i < nr_subkeys_in_lf; ++i) {
@@ -710,13 +769,12 @@ hivex_node_children (hive_h *h, hive_node_h node)
           fprintf (stderr, "hivex_node_children: returning EFAULT because subkey is not a valid block (0x%zx)\n",
                    subkey);
         errno = EFAULT;
-        free (ret);
-        return NULL;
+        goto error;
       }
-      ret[i] = subkey;
+      if (add_to_offset_list (&children, subkey) == -1)
+        goto error;
     }
-    ret[i] = 0;
-    return ret;
+    goto ok;
   }
   /* Points to ri-record? */
   else if (block->id[0] == 'r' && block->id[1] == 'i') {
@@ -734,12 +792,15 @@ hivex_node_children (hive_h *h, hive_node_h node)
           fprintf (stderr, "hivex_node_children: returning EFAULT because ri-offset is not a valid block (0x%zx)\n",
                    offset);
         errno = EFAULT;
-        return NULL;
+        goto error;
       }
       if (!BLOCK_ID_EQ (h, offset, "lf") && !BLOCK_ID_EQ (h, offset, "lh")) {
         errno = ENOTSUP;
-        return NULL;
+        goto error;
       }
+
+      if (add_to_offset_list (&blocks, offset) == -1)
+        goto error;
 
       struct ntreg_lf_record *lf =
         (struct ntreg_lf_record *) (h->addr + offset);
@@ -753,17 +814,12 @@ hivex_node_children (hive_h *h, hive_node_h node)
 
     if (nr_subkeys_in_nk != count) {
       errno = ENOTSUP;
-      return NULL;
+      goto error;
     }
 
     /* Copy list of children.  Note nr_subkeys_in_nk is limited to
      * something reasonable above.
      */
-    ret = malloc ((1 + nr_subkeys_in_nk) * sizeof (hive_node_h));
-    if (ret == NULL)
-      return NULL;
-
-    count = 0;
     for (i = 0; i < nr_offsets; ++i) {
       hive_node_h offset = ri->offset[i];
       offset += 0x1000;
@@ -772,11 +828,11 @@ hivex_node_children (hive_h *h, hive_node_h node)
           fprintf (stderr, "hivex_node_children: returning EFAULT because ri-offset is not a valid block (0x%zx)\n",
                    offset);
         errno = EFAULT;
-        return NULL;
+        goto error;
       }
       if (!BLOCK_ID_EQ (h, offset, "lf") && !BLOCK_ID_EQ (h, offset, "lh")) {
         errno = ENOTSUP;
-        return NULL;
+        goto error;
       }
 
       struct ntreg_lf_record *lf =
@@ -791,20 +847,40 @@ hivex_node_children (hive_h *h, hive_node_h node)
             fprintf (stderr, "hivex_node_children: returning EFAULT because indirect subkey is not a valid block (0x%zx)\n",
                      subkey);
           errno = EFAULT;
-          free (ret);
-          return NULL;
+          goto error;
         }
-        ret[count++] = subkey;
+        if (add_to_offset_list (&children, subkey) == -1)
+          goto error;
       }
     }
-    ret[count] = 0;
+    goto ok;
+  }
+  /* else not supported, set errno and fall through */
+  errno = ENOTSUP;
+ error:
+  free_offset_list (&children);
+  free_offset_list (&blocks);
+  return -1;
 
-    return ret;
-  }
-  else {
-    errno = ENOTSUP;
+ ok:
+  *children_ret = return_offset_list (&children);
+  *blocks_ret = return_offset_list (&blocks);
+  if (!*children_ret || !*blocks_ret)
+    goto error;
+  return 0;
+}
+
+hive_node_h *
+hivex_node_children (hive_h *h, hive_node_h node)
+{
+  hive_node_h *children;
+  size_t *blocks;
+
+  if (get_children (h, node, &children, &blocks) == -1)
     return NULL;
-  }
+
+  free (blocks);
+  return children;
 }
 
 /* Very inefficient, but at least having a separate API call
@@ -859,12 +935,13 @@ hivex_node_parent (hive_h *h, hive_node_h node)
   return ret;
 }
 
-hive_value_h *
-hivex_node_values (hive_h *h, hive_node_h node)
+static int
+get_values (hive_h *h, hive_node_h node,
+            hive_value_h **values_ret, size_t **blocks_ret)
 {
   if (!IS_VALID_BLOCK (h, node) || !BLOCK_ID_EQ (h, node, "nk")) {
     errno = EINVAL;
-    return 0;
+    return -1;
   }
 
   struct ntreg_nk_record *nk = (struct ntreg_nk_record *) (h->addr + node);
@@ -874,21 +951,22 @@ hivex_node_values (hive_h *h, hive_node_h node)
   if (h->msglvl >= 2)
     fprintf (stderr, "hivex_node_values: nr_values = %zu\n", nr_values);
 
+  INIT_OFFSET_LIST (values);
+  INIT_OFFSET_LIST (blocks);
+
   /* Deal with the common "no values" case quickly. */
-  hive_node_h *ret;
-  if (nr_values == 0) {
-    ret = malloc (sizeof (hive_node_h));
-    if (ret == NULL)
-      return NULL;
-    ret[0] = 0;
-    return ret;
-  }
+  if (nr_values == 0)
+    goto ok;
 
   /* Arbitrarily limit the number of values we will ever deal with. */
   if (nr_values > 100000) {
     errno = ERANGE;
-    return NULL;
+    goto error;
   }
+
+  /* Preallocate space for the values. */
+  if (grow_offset_list (&values, nr_values) == -1)
+    goto error;
 
   /* Get the value list and check it looks reasonable. */
   size_t vlist_offset = le32toh (nk->vallist);
@@ -898,8 +976,11 @@ hivex_node_values (hive_h *h, hive_node_h node)
       fprintf (stderr, "hivex_node_values: returning EFAULT because value list is not a valid block (0x%zx)\n",
                vlist_offset);
     errno = EFAULT;
-    return NULL;
+    goto error;
   }
+
+  if (add_to_offset_list (&blocks, vlist_offset) == -1)
+    goto error;
 
   struct ntreg_value_list *vlist =
     (struct ntreg_value_list *) (h->addr + vlist_offset);
@@ -910,13 +991,8 @@ hivex_node_values (hive_h *h, hive_node_h node)
       fprintf (stderr, "hivex_node_values: returning EFAULT because value list is too long (%zu, %zu)\n",
                nr_values, len);
     errno = EFAULT;
-    return NULL;
+    goto error;
   }
-
-  /* Allocate return array and copy values in. */
-  ret = malloc ((1 + nr_values) * sizeof (hive_node_h));
-  if (ret == NULL)
-    return NULL;
 
   size_t i;
   for (i = 0; i < nr_values; ++i) {
@@ -927,14 +1003,36 @@ hivex_node_values (hive_h *h, hive_node_h node)
         fprintf (stderr, "hivex_node_values: returning EFAULT because value is not a valid block (0x%zx)\n",
                  value);
       errno = EFAULT;
-      free (ret);
-      return NULL;
+      goto error;
     }
-    ret[i] = value;
+    if (add_to_offset_list (&values, value) == -1)
+      goto error;
   }
 
-  ret[i] = 0;
-  return ret;
+ ok:
+  *values_ret = return_offset_list (&values);
+  *blocks_ret = return_offset_list (&blocks);
+  if (!*values_ret || !*blocks_ret)
+    goto error;
+  return 0;
+
+ error:
+  free_offset_list (&values);
+  free_offset_list (&blocks);
+  return -1;
+}
+
+hive_value_h *
+hivex_node_values (hive_h *h, hive_node_h node)
+{
+  hive_value_h *values;
+  size_t *blocks;
+
+  if (get_values (h, node, &values, &blocks) == -1)
+    return NULL;
+
+  free (blocks);
+  return values;
 }
 
 /* Very inefficient, but at least having a separate API call
