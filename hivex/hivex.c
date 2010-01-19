@@ -196,7 +196,8 @@ struct ntreg_nk_record {
   int32_t seg_len;              /* length (always -ve because used) */
   char id[2];                   /* "nk" */
   uint16_t flags;
-  char timestamp[12];
+  char timestamp[8];
+  char unknown0[4];
   uint32_t parent;              /* offset of owner/parent */
   uint32_t nr_subkeys;          /* number of subkeys */
   uint32_t unknown1;
@@ -219,7 +220,7 @@ struct ntreg_lf_record {
   uint16_t nr_keys;             /* number of keys in this record */
   struct {
     uint32_t offset;            /* offset of nk-record for this subkey */
-    char name[4];               /* first 4 characters of subkey name */
+    char hash[4];               /* hash of subkey name */
   } keys[1];
 } __attribute__((__packed__));
 
