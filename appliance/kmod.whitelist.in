@@ -28,7 +28,6 @@ ext2.ko
 ext3.ko
 ext4*.ko
 
-crc16.ko
 jbd.ko
 jbd2.ko
 mbcache.ko
@@ -39,7 +38,6 @@ vfat.ko
 fat.ko
 
 udf.ko
-crc_itu_t.ko
 nls_utf8.ko
 nls_cp437.ko
 nls_base.ko
@@ -59,3 +57,6 @@ exportfs.ko
 xfs.ko
 
 reiserfs.ko
+
+crc*.ko
+libcrc*.ko
