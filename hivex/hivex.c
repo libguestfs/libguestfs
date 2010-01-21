@@ -1187,7 +1187,7 @@ hivex_value_value (hive_h *h, hive_value_h value,
 
   /* Check that the declared size isn't larger than the block its in. */
   size_t blen = block_len (h, data_offset, NULL);
-  if (len > blen) {
+  if (len > blen - 4 /* subtract 4 for block header */) {
     if (h->msglvl >= 2)
       fprintf (stderr, "hivex_value_value: returning EFAULT because data is longer than its block (data 0x%zx, data len %zu, block len %zu)\n",
                data_offset, len, blen);
