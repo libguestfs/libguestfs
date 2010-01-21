@@ -248,7 +248,7 @@ struct ntreg_vk_record {
    */
   uint32_t data_len;
   uint32_t data_offset;         /* pointer to the data (or data if inline) */
-  hive_type data_type;          /* type of the data */
+  uint32_t data_type;           /* type of the data */
   uint16_t flags;               /* bit 0 set => key name ASCII,
                                    bit 0 clr => key name UTF-16.
                                    Only seen ASCII here in the wild. */
