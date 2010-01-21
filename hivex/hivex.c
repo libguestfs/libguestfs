@@ -442,7 +442,7 @@ hivex_open (const char *filename, int flags)
       int used;
       seg_len = block_len (h, blkoff, &used);
       if (seg_len <= 4 || (seg_len & 3) != 0) {
-        fprintf (stderr, "hivex: %s: block size %d at %zu, bad registry\n",
+        fprintf (stderr, "hivex: %s: block size %d at 0x%zx, bad registry\n",
                  filename, le32toh (block->seg_len), blkoff);
         errno = ENOTSUP;
         goto error;
