@@ -1326,7 +1326,11 @@ as necessary.  This is like the C<mkdir -p> shell command.");
    "change file mode",
    "\
 Change the mode (permissions) of C<path> to C<mode>.  Only
-numeric modes are supported.");
+numeric modes are supported.
+
+I<Note>: When using this command from guestfish, C<mode>
+by default would be decimal, unless you prefix it with
+C<0> to get octal, ie. use C<0700> not C<700>.");
 
   ("chown", (RErr, [Int "owner"; Int "group"; Pathname "path"]), 35, [],
    [], (* XXX Need stat command to test *)
@@ -6861,6 +6865,8 @@ and generate_fish_cmds () =
       fun (_, _, _, flags, _, _, _) -> not (List.mem NotInFish flags)
     ) all_functions_sorted in
 
+  pr "#include <config.h>\n";
+  pr "\n";
   pr "#include <stdio.h>\n";
   pr "#include <stdlib.h>\n";
   pr "#include <string.h>\n";
@@ -6868,6 +6874,8 @@ and generate_fish_cmds () =
   pr "\n";
   pr "#include <guestfs.h>\n";
   pr "#include \"c-ctype.h\"\n";
+  pr "#include \"full-write.h\"\n";
+  pr "#include \"xstrtol.h\"\n";
   pr "#include \"fish.h\"\n";
   pr "\n";
 
@@ -7079,6 +7087,34 @@ and generate_fish_cmds () =
       pr "    fprintf (stderr, _(\"type 'help %%s' for help on %%s\\n\"), cmd, cmd);\n";
       pr "    return -1;\n";
       pr "  }\n";
+
+      let parse_integer fn fntyp rtyp range name i =
+        pr "  {\n";
+        pr "    strtol_error xerr;\n";
+        pr "    %s r;\n" fntyp;
+        pr "\n";
+        pr "    xerr = %s (argv[%d], NULL, 0, &r, \"\");\n" fn i;
+        pr "    if (xerr != LONGINT_OK) {\n";
+        pr "      fprintf (stderr,\n";
+        pr "               _(\"%%s: %%s: invalid integer parameter (%%s returned %%d)\\n\"),\n";
+        pr "               cmd, \"%s\", \"%s\", xerr);\n" name fn;
+        pr "      return -1;\n";
+        pr "    }\n";
+        (match range with
+         | None -> ()
+         | Some (min, max, comment) ->
+             pr "    /* %s */\n" comment;
+             pr "    if (r < %s || r > %s) {\n" min max;
+             pr "      fprintf (stderr, _(\"%%s: %%s: integer out of range\\n\"), cmd, \"%s\");\n"
+               name;
+             pr "      return -1;\n";
+             pr "    }\n";
+             pr "    /* The check above should ensure this assignment does not overflow. */\n";
+        );
+        pr "    %s = r;\n" name;
+        pr "  }\n";
+      in
+
       iteri (
         fun i ->
           function
@@ -7104,9 +7140,15 @@ and generate_fish_cmds () =
           | Bool name ->
               pr "  %s = is_true (argv[%d]) ? 1 : 0;\n" name i
           | Int name ->
-              pr "  %s = atoi (argv[%d]);\n" name i
+              let range =
+                let min = "(-(2LL<<30))"
+                and max = "((2LL<<30)-1)"
+                and comment =
+                  "The Int type in the generator is a signed 31 bit int." in
+                Some (min, max, comment) in
+              parse_integer "xstrtol" "long" "int" range name i
           | Int64 name ->
-              pr "  %s = atoll (argv[%d]);\n" name i
+              parse_integer "xstrtoll" "long long" "int64_t" None name i
       ) (snd style);
 
       (* Call C API function. *)
@@ -7177,7 +7219,11 @@ and generate_fish_cmds () =
            pr "  return 0;\n"
        | RBufferOut _ ->
            pr "  if (r == NULL) return -1;\n";
-           pr "  fwrite (r, size, 1, stdout);\n";
+           pr "  if (full_write (1, r, size) != size) {\n";
+           pr "    perror (\"write\");\n";
+           pr "    free (r);\n";
+           pr "    return -1;\n";
+           pr "  }\n";
            pr "  free (r);\n";
            pr "  return 0;\n"
       );

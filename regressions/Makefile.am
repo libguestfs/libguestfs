@@ -26,6 +26,7 @@ include $(top_srcdir)/subdir-rules.mk
 TESTS = \
 	rhbz503169c10.sh \
 	rhbz503169c13.sh \
+	rhbz557655.sh \
 	test-cancellation-download-librarycancels.sh \
 	test-cancellation-upload-daemoncancels.sh \
 	test-find0.sh \
@@ -55,4 +56,5 @@ TESTS_ENVIRONMENT = \
 EXTRA_DIST = \
 	$(FAILING_TESTS) \
 	$(SKIPPED_TESTS) \
-	$(TESTS)
+	$(TESTS) \
+	rhbz557655-expected.out

@@ -1,0 +1,22 @@
+0
+16
+8
+-1073741824
+1073741823
+set-memsize: memsize: integer out of range
+set-memsize: memsize: integer out of range
+set-memsize: memsize: integer out of range
+set-memsize: memsize: integer out of range
+set-memsize: memsize: invalid integer parameter (xstrtol returned 4)
+set-memsize: memsize: invalid integer parameter (xstrtol returned 2)
+set-memsize: memsize: invalid integer parameter (xstrtol returned 2)
+set-memsize: memsize: invalid integer parameter (xstrtol returned 2)
+1234
+1234
+1234
+libguestfs: error: truncate_size: ftruncate: /test: File too large
+truncate-size: size: invalid integer parameter (xstrtoll returned 1)
+truncate-size: size: invalid integer parameter (xstrtoll returned 4)
+truncate-size: size: invalid integer parameter (xstrtoll returned 2)
+truncate-size: size: invalid integer parameter (xstrtoll returned 2)
+truncate-size: size: invalid integer parameter (xstrtoll returned 2)

@@ -130,3 +130,16 @@ xsize.m4
 /yield.m4
 /fcntl-o.m4
 /warn-on-use.m4
+/getopt.m4
+/stat.m4
+/symlink.m4
+/time_h.m4
+/xstrtol.m4
+/safe-read.m4
+/safe-write.m4
+/ssize_t.m4
+/write.m4
+/strtol.m4
+/strtoll.m4
+/strtoul.m4
+/strtoull.m4

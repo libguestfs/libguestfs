@@ -296,6 +296,25 @@ must be escaped with a backslash.
  command "/bin/echo 'foo      bar'"
  command "/bin/echo \'foo\'"
 
+=head1 NUMBERS
+
+Commands which take integers as parameters use the C convention which
+is to use C<0> to prefix an octal number or C<0x> to prefix a
+hexadecimal number.  For example:
+
+ 1234      decimal number 1234
+ 02322     octal number, equivalent to decimal 1234
+ 0x4d2     hexadecimal number, equivalent to decimal 1234
+
+When using the C<chmod> command, you almost always want to specify an
+octal number for the mode, and you must prefix it with C<0> (unlike
+the Unix L<chmod(1)> program):
+
+ chmod 0777 /public  # OK
+ chmod 777 /public   # WRONG! This is mode 777 decimal = 01411 octal.
+
+Commands that return numbers currently always print them in decimal.
+
 =head1 WILDCARDS AND GLOBBING
 
 Neither guestfish nor the underlying guestfs API performs
