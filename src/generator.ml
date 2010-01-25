@@ -4188,6 +4188,18 @@ If the destination is a device, it must be as large or larger
 than the source file or device, otherwise the copy will fail.
 This command cannot do partial copies.");
 
+  ("filesize", (RInt64 "size", [Pathname "file"]), 218, [],
+   [InitBasicFS, Always, TestOutputInt (
+      [["write_file"; "/file"; "hello, world"; "0"];
+       ["filesize"; "/file"]], 12)],
+   "return the size of the file in bytes",
+   "\
+This command returns the size of C<file> in bytes.
+
+To get other stats about a file, use C<guestfs_stat>, C<guestfs_lstat>,
+C<guestfs_is_dir>, C<guestfs_is_file> etc.
+To get the size of block devices, use C<guestfs_blockdev_getsize64>.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

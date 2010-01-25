@@ -520,3 +520,21 @@ do_zfile (const char *method, const char *path)
 
   return strdup (line);
 }
+
+int64_t
+do_filesize (const char *path)
+{
+  int r;
+  struct stat buf;
+
+  CHROOT_IN;
+  r = stat (path, &buf);        /* follow symlinks */
+  CHROOT_OUT;
+
+  if (r == -1) {
+    reply_with_perror ("filesize: %s", path);
+    return -1;
+  }
+
+  return buf.st_size;
+}
