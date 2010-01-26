@@ -717,8 +717,6 @@ AC_CONFIG_FILES([appliance/supermin-split.sh],
                 [chmod +x appliance/supermin-split.sh])
 AC_CONFIG_FILES([appliance/supermin-make.sh],
                 [chmod +x appliance/supermin-make.sh])
-AC_CONFIG_FILES([appliance/libguestfs-supermin-helper],
-                [chmod +x appliance/libguestfs-supermin-helper])
 AC_CONFIG_FILES([Makefile
                  src/Makefile fish/Makefile po/Makefile.in examples/Makefile
                  appliance/Makefile

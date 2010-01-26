@@ -1,5 +1,5 @@
 /* libguestfs
- * Copyright (C) 2009 Red Hat Inc.
+ * Copyright (C) 2009-2010 Red Hat Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -1506,9 +1506,11 @@ build_supermin_appliance (guestfs_h *g, const char *path,
 
   snprintf (cmd, sizeof cmd,
             "PATH='%s':$PATH "
-            "libguestfs-supermin-helper '%s' %s %s",
+            "libguestfs-supermin-helper '%s' " host_cpu " " REPO " %s %s",
             path,
             path, *kernel, *initrd);
+  if (g->verbose)
+    print_timestamped_message (g, "%s", cmd);
 
   r = system (cmd);
   if (r == -1 || WEXITSTATUS(r) != 0) {
