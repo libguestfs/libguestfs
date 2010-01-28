@@ -23,6 +23,7 @@
 set -e
 rm -f test.out
 export LANG=C
+unset LIBGUESTFS_DEBUG
 
 ../fish/guestfish >> test.out 2>&1 <<EOF
 # set-memsize is just a convenient non-daemon function that
