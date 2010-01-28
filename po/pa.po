@@ -1,235 +1,236 @@
-# translation of pl.po to Polish
-# Piotr Drąg <piotrdrag@gmail.com>, 2009.
+# Copyright (C) 2010 Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
 #
+# Jaswinder Singh <jsingh@redhat.com>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: pl\n"
+"Project-Id-Version: libguestfs 1.0.81\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-28 09:47+0000\n"
-"PO-Revision-Date: 2009-12-05 14:54+0100\n"
-"Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Polish <fedora-trans-pl@redhat.com>\n"
+"PO-Revision-Date: 2010-01-28 14:38+0530\n"
+"Last-Translator: Jaswinder Singh <jsingh@redhat.com>\n"
+"Language-Team: Punjabi/Panjabi <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.0\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: fish/alloc.c:39
 #, c-format
 msgid "use 'alloc file size' to create an image\n"
-msgstr "należy użyć \"alloc plik rozmiar\", aby utworzyć obraz\n"
+msgstr "ਇੱਕ ਈਮੇਜ਼ ਬਣਾਉਣ ਲਈ 'alloc file size' ਵਰਤੋ\n"
 
 #: fish/alloc.c:47 fish/alloc.c:94
 #, c-format
 msgid "can't allocate or add disks after launching\n"
-msgstr "bez przydzielania lub dodawania dysków po uruchomieniu\n"
+msgstr "ਚਾਲੂ ਕਰਨ ਤੋਂ ਬਾਅਦ ਡਿਸਕਾਂ ਨਿਰਧਾਰਤ ਜਾਂ ਸ਼ਾਮਿਲ ਨਹੀਂ ਕਰ ਸਕਦਾ\n"
 
 #: fish/alloc.c:86
 #, c-format
 msgid "use 'sparse file size' to create a sparse image\n"
-msgstr "należy użyć \"sparse plik rozmiar\", aby utworzyć rzadki obraz\n"
+msgstr "ਸਪਾਰਸ ਈਮੇਜ਼ ਬਣਾਉਣ ਲਈ 'sparse file size' ਵਰਤੋ\n"
 
 #: fish/alloc.c:151 fish/alloc.c:158
 #, c-format
 msgid "could not parse size specification '%s'\n"
-msgstr "nie można przetworzyć określenia rozmiaru \"%s\"\n"
+msgstr "ਅਕਾਰ ਨਿਰਧਾਰਨ '%s' ਨੂੰ ਪਾਰਸ ਨਹੀਂ ਕਰ ਸਕਦਾ\n"
 
 #: fish/cmds.c:38
 msgid "Command"
-msgstr "Polecenie"
+msgstr "ਕਮਾਂਡ"
 
 #: fish/cmds.c:38
 msgid "Description"
-msgstr "Opis"
+msgstr "ਵਰਣਨ"
 
 #: fish/cmds.c:40 fish/cmds.c:306
 msgid "add a CD-ROM disk image to examine"
-msgstr "dodaje obraz płyty CD-ROM do sprawdzenia"
+msgstr "ਜਾਂਚ ਲਈ ਇੱਕ CD-ROM ਡਿਸਕ ਈਮੇਜ਼ ਜੋੜੋ"
 
 #: fish/cmds.c:41 fish/cmds.c:303
 msgid "add an image to examine or modify"
-msgstr "dodaje obraz do sprawdzenia lub zmodyfikowania"
+msgstr "ਜਾਂਚ ਜਾਂ ਤਬਦੀਲੀ ਲਈ ਇੱਕ ਈਮੇਜ਼ ਜੋੜੋ"
 
 #: fish/cmds.c:42 fish/cmds.c:309
 msgid "add a drive in snapshot mode (read-only)"
-msgstr "dodaje napęd w trybie migawki (tylko do odczytu)"
+msgstr "ਸਨੈਪਸ਼ਾਟ ਮੋਡ ਵਿੱਚ ਇੱਕ ਡਰਾਈਵ ਜੋੜੋ (ਸਿਰਫ-ਪੜੋ)"
 
 #: fish/cmds.c:43 fish/cmds.c:444
 msgid "close the current Augeas handle"
-msgstr "zamyka bieżący program obsługi Augeas"
+msgstr ""
 
 #: fish/cmds.c:44 fish/cmds.c:450
 msgid "define an Augeas node"
-msgstr "określa węzeł Augeas"
+msgstr ""
 
 #: fish/cmds.c:45 fish/cmds.c:447
 msgid "define an Augeas variable"
-msgstr "określa zmienną Augeas"
+msgstr ""
 
 #: fish/cmds.c:46 fish/cmds.c:453
 msgid "look up the value of an Augeas path"
-msgstr "wyszukuje wartość ścieżki Augeas"
+msgstr ""
 
 #: fish/cmds.c:47 fish/cmds.c:441
 msgid "create a new Augeas handle"
-msgstr "tworzy nowy program obsługi Augeas"
+msgstr ""
 
 #: fish/cmds.c:48 fish/cmds.c:459
 msgid "insert a sibling Augeas node"
-msgstr "umieszcza podrzędny węzeł Augeas"
+msgstr ""
 
 #: fish/cmds.c:49 fish/cmds.c:474
 msgid "load files into the tree"
-msgstr "wczytuje pliki do drzewa"
+msgstr "ਫਾਇਲਾਂ ਨੂੰ ਟਰੀ ਵਿੱਚ ਲੋਡ ਕਰੋ"
 
 #: fish/cmds.c:50 fish/cmds.c:477
 msgid "list Augeas nodes under augpath"
-msgstr "wyświetla listę węzłów Augeas pod augpath"
+msgstr ""
 
 #: fish/cmds.c:51 fish/cmds.c:468
 msgid "return Augeas nodes which match augpath"
-msgstr "zwraca węzły Augeas, które pasują do augpath"
+msgstr ""
 
 #: fish/cmds.c:52 fish/cmds.c:465
 msgid "move Augeas node"
-msgstr "przenosi węzeł Augeas"
+msgstr ""
 
 #: fish/cmds.c:53 fish/cmds.c:462
 msgid "remove an Augeas path"
-msgstr "usuwa ścieżkę Augeas"
+msgstr ""
 
 #: fish/cmds.c:54 fish/cmds.c:471
 msgid "write all pending Augeas changes to disk"
-msgstr "zapisuje wszystkie oczekujące zmiany Augeas na dysku"
+msgstr ""
 
 #: fish/cmds.c:55 fish/cmds.c:456
 msgid "set Augeas path to value"
-msgstr "ustawia ścieżkę Augeas na wartość"
+msgstr ""
 
 #: fish/cmds.c:56 fish/cmds.c:1041
 msgid "test availability of some parts of the API"
-msgstr ""
+msgstr "API ਦੇ ਕੁਝ ਹਿੱਸਿਆਂ ਦੀ ਉਪਲੱਬਧਤਾ ਦੀ ਜਾਂਚ ਕਰੋ"
 
 #: fish/cmds.c:57 fish/cmds.c:585
 msgid "flush device buffers"
-msgstr "czyści bufory urządzenia"
+msgstr "ਜੰਤਰ ਬਫਰ ਫਲੱਸ਼ ਕਰੋ"
 
 #: fish/cmds.c:58 fish/cmds.c:573
 msgid "get blocksize of block device"
-msgstr "ustawia rozmiar bloku urządzenia blokowego"
+msgstr "ਬਲਾਕ ਜੰਤਰ ਦਾ ਬਲਾਕ-ਅਕਾਰ ਲਵੋ"
 
 #: fish/cmds.c:59 fish/cmds.c:567
 msgid "is block device set to read-only"
-msgstr "jest urządzeniem blokowym tylko do odczytu"
+msgstr "ਕੀ ਬਲਾਕ ਜੰਤਰ ਸਿਰਫ-ਪੜੋ ਸੈੱਟ ਕੀਤਾ ਹੈ"
 
 #: fish/cmds.c:60 fish/cmds.c:582
 msgid "get total size of device in bytes"
-msgstr "uzyskuje całkowity rozmiar urządzenia w bajtach"
+msgstr "ਜੰਤਰ ਦਾ ਕੁੱਲ ਅਕਾਰ ਬਾਈਟਾਂ ਵਿੱਚ ਲਵੋ"
 
 #: fish/cmds.c:61 fish/cmds.c:570
 msgid "get sectorsize of block device"
-msgstr "uzyskuje rozmiar sektora urządzenia blokowego"
+msgstr "ਬਲਾਕ ਜੰਤਰ ਦਾ ਸੈਕਟਰ-ਅਕਾਰ ਲਵੋ"
 
 #: fish/cmds.c:62 fish/cmds.c:579
 msgid "get total size of device in 512-byte sectors"
-msgstr "uzyskuje całkowity rozmiar urządzenia w 512 bitowych sektorach"
+msgstr "ਜੰਤਰ ਦਾ ਕੁੱਲ ਅਕਾਰ 512-ਬਾਈਟ ਸੈਕਟਰ ਵਿੱਚ ਲਵੋ"
 
 #: fish/cmds.c:63 fish/cmds.c:588
 msgid "reread partition table"
-msgstr "ponownie odczytuje tablicę partycji"
+msgstr "ਭਾਗ ਸਾਰਣੀ ਮੁੜ-ਪੜੋ"
 
 #: fish/cmds.c:64 fish/cmds.c:576
 msgid "set blocksize of block device"
-msgstr "ustawia rozmiar bloku urządzenia blokowego"
+msgstr "ਬਲਾਕ ਜੰਤਰ ਦਾ ਬਲਾਕ-ਅਕਾਰ ਸੈੱਟ ਕਰੋ"
 
 #: fish/cmds.c:65 fish/cmds.c:561
 msgid "set block device to read-only"
-msgstr "ustawia urządzenia blokowe w tryb tylko do odczytu"
+msgstr "ਬਲਾਕ ਜੰਤਰ ਨੂੰ ਸਿਰਫ-ਪੜੋ ਸੈੱਟ ਕਰੋ"
 
 #: fish/cmds.c:66 fish/cmds.c:564
 msgid "set block device to read-write"
-msgstr "ustawia urządzenie blokowe w tryb odczytu i zapisu"
+msgstr "ਬਲਾਕ ਜੰਤਰ ਨੂੰ ਸਿਰਫ-ਲਿਖੋ ਸੈੱਟ ਕਰੋ"
 
 #: fish/cmds.c:67 fish/cmds.c:984
 msgid "return true path on case-insensitive filesystem"
 msgstr ""
-"zwraca prawdziwą ścieżkę w systemach plików rozróżniających wielkość znaków"
 
 #: fish/cmds.c:68 fish/cmds.c:405
 msgid "list the contents of a file"
-msgstr "wyświetla listę zawartości pliku"
+msgstr "ਇੱਕ ਫਾਇਲ ਦੇ ਸੰਖੇਪ ਵੇਖਾਓ"
 
 #: fish/cmds.c:69 fish/cmds.c:597
 msgid "compute MD5, SHAx or CRC checksum of file"
-msgstr "oblicza sumy kontrolne MD5, SHAx lub CRC pliku"
+msgstr "ਫਾਇਲ ਦਾ MD5, SHAx ਜਾਨ CRC ਚੈੱਕਸਮ ਕੈਲਕੂਲੇਟ ਕਰੋ"
 
 #: fish/cmds.c:70 fish/cmds.c:495
 msgid "change file mode"
-msgstr "zmienia tryb pliku"
+msgstr "ਫਾਇਲ ਮੋਡ ਬਦਲੋ"
 
 #: fish/cmds.c:71 fish/cmds.c:138 fish/cmds.c:498 fish/cmds.c:1002
 msgid "change file owner and group"
-msgstr "zmienia właściciela pliku i grupę"
+msgstr "ਫਾਇਲ ਮਾਲਕ ਅਤੇ ਗਰੁੱਪ ਬਦਲੋ"
 
 #: fish/cmds.c:72 fish/cmds.c:543
 msgid "run a command from the guest filesystem"
-msgstr "wykonuje polecenie z systemu plików gościa"
+msgstr "ਗਿਸਟ ਫਾਇਲ-ਸਿਸਟਮ ਤੋਂ ਕਮਾਂਡ ਚਲਾਓ"
 
 #: fish/cmds.c:73 fish/cmds.c:546
 msgid "run a command, returning lines"
-msgstr "wykonuje polecenie, zwracając wiersze"
+msgstr "ਇੱਕ ਕਮਾਂਡ ਚਲਾਓ, ਨਤੀਜੇ ਵਜੋਂ ਲਾਈਨਾਂ"
 
 #: fish/cmds.c:74 fish/cmds.c:312
 msgid "add qemu parameters"
-msgstr "dodaje parametry QEMU"
+msgstr "qemu ਪੈਰਾਮੀਟਰ ਜੋੜੋ"
 
 #: fish/cmds.c:75 fish/cmds.c:654
 msgid "copy a file"
-msgstr "kopiuje plik"
+msgstr "ਇੱਕ ਫਾਇਲ ਨਕਲ ਕਰੋ"
 
 #: fish/cmds.c:76 fish/cmds.c:657
 msgid "copy a file or directory recursively"
-msgstr "rekursywnie kopiuje plik lub katalog"
+msgstr "ਇੱਕ ਫਾਇਲ ਜਾਂ ਡਾਇਰੈਕਟਰੀ ਨਕਲ ਕਰੋ"
 
 #: fish/cmds.c:77 fish/cmds.c:1044
 msgid "copy from source to destination using dd"
-msgstr ""
+msgstr "dd ਵਰਤ ਕੇ ਸਰੋਤ ਤੋਂ ਨੀਯਤ ਤੇ ਨਕਲ ਕਰੋ"
 
 #: fish/cmds.c:78 fish/cmds.c:621
 msgid "debugging and internals"
-msgstr "debugowanie i wewnętrzne"
+msgstr "ਡੀਬੱਗਿੰਗ ਅਤੇ ਅੰਦਰੂਨੀ"
 
 #: fish/cmds.c:79 fish/cmds.c:768
 msgid "report file system disk space usage"
-msgstr "zgłasza użycie przestrzeni systemu plików dysku"
+msgstr "ਫਾਇਲ ਸਿਸਟਮ ਡਿਸਕ ਸਪੇਸ ਵਰਤੋਂ ਦਿਓ"
 
 #: fish/cmds.c:80 fish/cmds.c:771
 msgid "report file system disk space usage (human readable)"
-msgstr ""
-"zgłasza użycie przestrzeni systemu plików dysku (czytelne dla człowieka)"
+msgstr "ਫਾਇਲ ਸਿਸਟਮ ਡਿਸਕ ਸਪੇਸ ਵਰਤੋਂ ਦਿਓ (ਇਨਸਾਨ ਦੇ ਪੜਨਯੋਗ)"
 
 #: fish/cmds.c:81 fish/cmds.c:666
 msgid "return kernel messages"
-msgstr "zwraca komunikaty jądra"
+msgstr "ਕਰਨਲ ਸੁਨੇਹਾ ਦਿਓ"
 
 #: fish/cmds.c:82 fish/cmds.c:594
 msgid "download a file to the local machine"
-msgstr "pobiera plik do lokalnej maszyny"
+msgstr "ਇੱਕ ਫਾਇਲ ਨੂੰ ਲੋਕਲ ਮਸ਼ੀਨ ਤੇ ਡਾਊਨਲੋਡ ਕਰੋ"
 
 #: fish/cmds.c:83 fish/cmds.c:663
 msgid "drop kernel page cache, dentries and inodes"
-msgstr "odrzuca pamięć podręczną stron jądra, wpisy katalogów oraz i-węzły"
+msgstr "ਕਰਨਲ ਪੇਜ਼ ਕੈਸ਼ੇ, dentries ਅਤੇ inodes ਛੱਡੋ"
 
 #: fish/cmds.c:84 fish/cmds.c:774
 msgid "estimate file space usage"
-msgstr "szacuje użycie przestrzeni plików"
+msgstr "ਫਾਇਲ ਸਪੇਸ ਵਰਤੋਂ ਦਾ ਅਨੁਮਾਨ ਲਾਓ"
 
 #: fish/cmds.c:85 fish/cmds.c:717
 msgid "check an ext2/ext3 filesystem"
-msgstr "sprawdza system plików ext2/ext3"
+msgstr "ਇੱਕ ext2/ext3 ਫਾਇਲ-ਸਿਸਟਮ ਦੀ ਜਾਂਚ ਕਰੋ"
 
 #: fish/cmds.c:86 fish/cmds.c:978
 msgid "echo arguments back to the client"
-msgstr "zwraca parametry z powrotem do klienta"
+msgstr "ਪਿੱਛੇ ਕਲਾਂਈਟ ਵੱਲ ਆਰਗੂਮੈਂਟ ਦਿਓ"
 
 #: fish/cmds.c:87 fish/cmds.c:88 fish/cmds.c:92 fish/cmds.c:93 fish/cmds.c:117
 #: fish/cmds.c:118 fish/cmds.c:282 fish/cmds.c:283 fish/cmds.c:286
@@ -238,731 +239,721 @@ msgstr "zwraca parametry z powrotem do klienta"
 #: fish/cmds.c:861 fish/cmds.c:864 fish/cmds.c:867 fish/cmds.c:870
 #: fish/cmds.c:873 fish/cmds.c:876 fish/cmds.c:879
 msgid "return lines matching a pattern"
-msgstr "zwraca wiersze zgadzające się ze wzorem"
+msgstr "ਨਮੂਨੇ ਨਾਲ ਮਿਲਦੀਆਂ ਲਾਈਨਾਂ ਭੇਜੋ"
 
 #: fish/cmds.c:89 fish/cmds.c:672
 msgid "test if two files have equal contents"
-msgstr "testuje, czy dwa pliki mają taką samą zawartość"
+msgstr "ਜਾਂਚ ਕਰੋ ਜੇ ਦੋ ਫਾਇਲਾਂ ਦੇ ਸੰਖੇਪ ਬਰਾਬਰ ਹਨ"
 
 #: fish/cmds.c:90 fish/cmds.c:501
 msgid "test if file or directory exists"
-msgstr "testuje, czy plik lub katalog istnieje"
+msgstr "ਜਾਂਚ ਕਰੋ ਜੇ ਫਾਇਲ ਜਾਂ ਡਾਇਰੈਕਟਰੀ ਮੌਜੂਦ ਹੈ"
 
 #: fish/cmds.c:91 fish/cmds.c:900
 msgid "preallocate a file in the guest filesystem"
-msgstr "przydziela przestrzeń plikowi w systemie plików gościa"
+msgstr "ਗਿਸਟ ਫਾਇਲ-ਸਿਸਟਮ ਵਿੱਚ ਇੱਕ ਫਾਇਲ ਪਹਿਲਾਂ-ਨਿਰਧਾਰਤ ਕਰੋ"
 
 #: fish/cmds.c:94 fish/cmds.c:540
 msgid "determine file type"
-msgstr "określa typ pliku"
+msgstr "ਫਾਇਲ ਕਿਸਮ ਪਤਾ ਕਰੋ"
 
 #: fish/cmds.c:95 fish/cmds.c:1047
 #, fuzzy
 msgid "return the size of the file in bytes"
-msgstr "uzyskuje całkowity rozmiar urządzenia w bajtach"
+msgstr "ਜੰਤਰ ਦਾ ਕੁੱਲ ਅਕਾਰ ਬਾਈਟਾਂ ਵਿੱਚ ਲਵੋ"
 
 #: fish/cmds.c:96 fish/cmds.c:1038
 msgid "fill a file with octets"
-msgstr "wypełnia plik oktetami"
+msgstr "ਫਾਇਲ ਨੂੰ ਔਕਟਿਟਸ ਨਾਲ ਭਰੋ"
 
 #: fish/cmds.c:97 fish/cmds.c:714
 msgid "find all files and directories"
-msgstr "znajduje wszystkie pliki i katalogi"
+msgstr "ਸਭ ਫਾਇਲਾਂ ਅਤੇ ਡਾਇਰੈਟਰੀਆਂ ਲੱਭੋ"
 
 #: fish/cmds.c:98 fish/cmds.c:981
 msgid "find all files and directories, returning NUL-separated list"
-msgstr ""
-"znajduje wszystkie pliki i katalogi, zwracając listę oddzieloną znakiem NUL"
+msgstr "ਸਭ ਫਾਇਲਾਂ ਅਤੇ ਡਾਇਰੈਟਰੀਆਂ ਲੱਭੋ, NUL-ਸੈੱਪਰੇਟਡ ਸੂਚੀ ਦੇ ਰਿਹਾ ਹੈ"
 
 #: fish/cmds.c:99 fish/cmds.c:645
 msgid "run the filesystem checker"
-msgstr "wykonuje sprawdzanie systemu plików"
+msgstr "ਫਾਇਲ-ਸਿਸਟਮ ਜਾਂਚਕਾਰ ਚਲਾਓ"
 
 #: fish/cmds.c:100 fish/cmds.c:330
 msgid "get the additional kernel options"
-msgstr "uzyskuje dodatkowe opcje jądra"
+msgstr "ਵਾਧੂ ਕਰਨਲ ਚੋਣਾਂ ਲਵੋ"
 
 #: fish/cmds.c:101 fish/cmds.c:336
 msgid "get autosync mode"
-msgstr "uzyskuje tryb automatycznej synchronizacji"
+msgstr "autosync ਮੋਡ ਲਵੋ"
 
 #: fish/cmds.c:102 fish/cmds.c:387
 msgid "get direct appliance mode flag"
-msgstr "uzyskuje bezpośrednią flagę trybu przyrządu"
+msgstr "ਸਿੱਧਾ ਉਪਕਰਨ ਮੋਡ ਫਲੈਗ ਲਵੋ"
 
 #: fish/cmds.c:103 fish/cmds.c:636
 msgid "get the ext2/3/4 filesystem label"
-msgstr "uzyskuje etykietę systemu plików ext2/3/4"
+msgstr "ext2/3/4 ਫਾਇਲ-ਸਿਸਟਮ ਲੇਬਲ ਲਵੋ"
 
 #: fish/cmds.c:104 fish/cmds.c:642
 msgid "get the ext2/3/4 filesystem UUID"
-msgstr "uzyskuje UUID systemu plików ext2/3/4"
+msgstr "ext2/3/4 ਫਾਇਲ-ਸਿਸਟਮ UUID ਲਵੋ"
 
 #: fish/cmds.c:105 fish/cmds.c:363
 msgid "get memory allocated to the qemu subprocess"
-msgstr "uzyskuje pamięć przydzieloną do podprocesów QEMU"
+msgstr "qemu ਉਪ-ਕਾਰਜਾਨ ਨੂੰ ਨਿਰਧਾਰਤ ਮੈਮੋਰੀ ਲਵੋ"
 
 #: fish/cmds.c:106 fish/cmds.c:324
 msgid "get the search path"
-msgstr "uzyskuje ścieżkę wyszukiwania"
+msgstr "ਖੋਜ ਮਾਰਗ ਲਵੋ"
 
 #: fish/cmds.c:107 fish/cmds.c:366
 msgid "get PID of qemu subprocess"
-msgstr "uzyskuje PID podprocesu QEMU"
+msgstr "qemu ਉਪ-ਕਾਰਜ ਦਾ PID ਲਵੋ"
 
 #: fish/cmds.c:108 fish/cmds.c:318
 msgid "get the qemu binary"
-msgstr "uzyskuje plik binarny QEMU"
+msgstr "qemu ਬਾਇਨਰੀ ਲਵੋ"
 
 #: fish/cmds.c:109 fish/cmds.c:393
 msgid "get recovery process enabled flag"
-msgstr "uzyskuje flagę włączenia procesu przywracania"
+msgstr "ਰਿਕਵਰੀ ਕਾਰਜ ਯੋਗ ਫਲੈਗ ਲਵੋ"
 
 #: fish/cmds.c:110 fish/cmds.c:375
 msgid "get SELinux enabled flag"
-msgstr "uzyskuje flagę włączenia SELinuksa"
+msgstr "SELinux ਯੋਗ ਫਲੈਗ ਲਵੋ"
 
 #: fish/cmds.c:111 fish/cmds.c:357
 msgid "get the current state"
-msgstr "uzyskuje bieżący stan"
+msgstr "ਮੌਜੂਦਾ ਸਥਿਤੀ ਲਵੋ"
 
 #: fish/cmds.c:112 fish/cmds.c:381
 msgid "get command trace enabled flag"
-msgstr "uzyskuje flagę włączenia śledzenia"
+msgstr "ਕਮਾਂਡ ਟਰੇਸ ਯੋਗ ਫਲੈਗ ਲਵੋ"
 
 #: fish/cmds.c:113 fish/cmds.c:342
 msgid "get verbose mode"
-msgstr "uzyskuje więcej komunikatów"
+msgstr "ਵਰਬੋਜ਼ ਮੋਡ ਲਵੋ"
 
 #: fish/cmds.c:114 fish/cmds.c:951
 msgid "get SELinux security context"
-msgstr "uzyskuje kontekst bezpieczeństwa SELinuksa"
+msgstr "SELinux ਸੁਰੱਖਿਆ ਪ੍ਰਸੰਗ ਲਵੋ"
 
 #: fish/cmds.c:115 fish/cmds.c:139 fish/cmds.c:816 fish/cmds.c:819
 msgid "list extended attributes of a file or directory"
-msgstr "wyświetla listę rozszerzonych atrybutów pliku lub katalogu"
+msgstr "ਫਾਇਲ ਜਾਂ ਡਾਇਰੈਕਟਰੀ ਦੇ ਫੈਲੇ ਗੁਣ ਵੇਖਾਓ"
 
 #: fish/cmds.c:116 fish/cmds.c:732
 msgid "expand a wildcard path"
-msgstr "rozwija wieloznaczniki w ścieżkach"
+msgstr "ਵਾਈਲਡਕਾਰਡ ਮਾਰਗ ਫੈਲਾਓ"
 
 #: fish/cmds.c:119 fish/cmds.c:651
 msgid "install GRUB"
-msgstr "instaluje program GRUB"
+msgstr "GRUB ਇੰਸਟਾਲ ਕਰੋ"
 
 #: fish/cmds.c:120 fish/cmds.c:756
 msgid "return first 10 lines of a file"
-msgstr "zwraca pierwsze 10 wierszy pliku"
+msgstr "ਫਾਇਲ ਦੀਆਂ ਪਹਿਲੀਆਂ 10 ਲਾਈਨਾਂ ਦਿਓ"
 
 #: fish/cmds.c:121 fish/cmds.c:759
 msgid "return first N lines of a file"
-msgstr "zwraca pierwsze N wierszy pliku"
+msgstr "ਫਾਇਲ ਦੀਆਂ ਪਹਿਲੀਆਂ N ਲਾਈਨਾਂ ਦਿਓ"
 
 #: fish/cmds.c:122 fish/cmds.c:681
 msgid "dump a file in hexadecimal"
-msgstr "zrzuca plik w formacie szesnastkowym"
+msgstr "ਫਾਇਲ ਨੂੰ ਹੈਕਸਾਡੈਸੀਮਲ ਵਿੱਚ ਡੰਪ ਕਰੋ"
 
 #: fish/cmds.c:123 fish/cmds.c:777
 msgid "list files in an initrd"
-msgstr "wyświetla listę plików w initrd"
+msgstr "ਫਾਇਲ ਨੂੰ initrd ਵਿੱਚ ਵੇਖਾਓ"
 
 #: fish/cmds.c:124 fish/cmds.c:933
 msgid "add an inotify watch"
-msgstr "dodaje obserwację inotify"
+msgstr "inotify ਪੜਤਾਲ ਜੋੜੋ"
 
 #: fish/cmds.c:125 fish/cmds.c:945
 msgid "close the inotify handle"
-msgstr "zamyka program obsługi inotify"
+msgstr "inotify ਹੈਂਡਲ ਬੰਦ ਕਰੋ"
 
 #: fish/cmds.c:126 fish/cmds.c:942
 msgid "return list of watched files that had events"
-msgstr "zwraca listę obserwowanych plików, które miały zdarzenia"
+msgstr "ਪੜਤਾਲ ਕੀਤੀਆਂ ਫਾਇਲਾਂ ਵੇਖਾਓ ਜਿੰਨਾ ਨਾਲ ਕੁਝ ਵਾਪਰਿਆ ਹੈ"
 
 #: fish/cmds.c:127 fish/cmds.c:930
 msgid "create an inotify handle"
-msgstr "tworzy program obsługi inotify"
+msgstr "ਇੱਕ inotify ਹੈਂਡਲ ਬਣਾਓ"
 
 #: fish/cmds.c:128 fish/cmds.c:939
 msgid "return list of inotify events"
-msgstr "zwraca listę zdarzeń inotify"
+msgstr "inotify ਘਟਨਾਵਾਂ ਦੀ ਸੂਚੀ ਦਿਓ"
 
 #: fish/cmds.c:129 fish/cmds.c:936
 msgid "remove an inotify watch"
-msgstr "usuwa obserwację inotify"
+msgstr "ਇੱਕ inotify ਪੜਤਾਲ ਹਟਾਓ"
 
 #: fish/cmds.c:130 fish/cmds.c:354
 msgid "is busy processing a command"
-msgstr "jest zajęte przetwarzaniem polecenia"
+msgstr "ਕੀ ਇੱਕ ਕਮਾਂਡ ਚਲਾਉਣ ਵਿੱਚ ਰੁੱਝਿਆ ਹੈ"
 
 #: fish/cmds.c:131 fish/cmds.c:348
 msgid "is in configuration state"
-msgstr "jest w stanie konfiguracji"
+msgstr "ਸੰਰਚਨਾ ਸਥਿਤੀ ਵਿੱਚ ਹੈ"
 
 #: fish/cmds.c:132 fish/cmds.c:133 fish/cmds.c:504 fish/cmds.c:507
 msgid "test if file exists"
-msgstr "testuje, czy plik istnieje"
+msgstr "ਵੇਖੋ ਕੀ ਫਾਇਲ ਮੌਜੂਦ ਹੈ"
 
 #: fish/cmds.c:134 fish/cmds.c:351
 msgid "is launching subprocess"
-msgstr "uruchamia podprocesy"
+msgstr "ਉਪ-ਕਾਰਜ ਚਲਾ ਰਿਹਾ ਹੈ"
 
 #: fish/cmds.c:135 fish/cmds.c:345
 msgid "is ready to accept commands"
-msgstr "jest gotowe na akceptowanie poleceń"
+msgstr "ਕਮਾਂਡਾਂ ਸਵੀਕਾਰ ਕਰਨ ਲਈ ਤਿਆਰ ਹੈ"
 
 #: fish/cmds.c:136 fish/cmds.c:300
 msgid "kill the qemu subprocess"
-msgstr "niszczy podproces QEMU"
+msgstr "qemu ਅਧੀਨ-ਕਾਰਜ ਖਤਮ ਕਰੋ"
 
 #: fish/cmds.c:137 fish/cmds.c:297
 msgid "launch the qemu subprocess"
-msgstr "uruchamia podproces QEMU"
+msgstr "qemu ਅਧੀਨ-ਕਾਰਜ ਚਲਾਓ"
 
 #: fish/cmds.c:140 fish/cmds.c:414
 msgid "list the block devices"
-msgstr "wyświetla listę urządzeń blokowych"
+msgstr "ਬਲਾਕ ਜੰਤਰ ਵੇਖਾਓ"
 
 #: fish/cmds.c:141 fish/cmds.c:417
 msgid "list the partitions"
-msgstr "wyświetla listę partycji"
+msgstr "ਭਾਗ ਵੇਖਾਓ"
 
 #: fish/cmds.c:142 fish/cmds.c:408
 msgid "list the files in a directory (long format)"
-msgstr "wyświetla listę plików w katalogu (długi format)"
+msgstr "ਡਾਇਰੈਕਟਰੀ ਵਿਚਲੀਆਂ ਫਾਇਲਾਂ ਵੇਖਾਓ (ਲੰਬਾ ਫਾਰਮੈਟ)"
 
 #: fish/cmds.c:143 fish/cmds.c:144 fish/cmds.c:885 fish/cmds.c:888
 msgid "create a hard link"
-msgstr "tworzy twarde dowiązanie"
+msgstr "ਇੱਕ ਹਾਰਡ ਲਿੰਕ ਬਣਾਓ"
 
 #: fish/cmds.c:145 fish/cmds.c:146 fish/cmds.c:891 fish/cmds.c:894
 msgid "create a symbolic link"
-msgstr "tworzy dowiązanie symboliczne"
+msgstr "ਇੱਕ ਸਿੰਬੌਲਿਕ ਲਿੰਕ ਬਣਾਓ"
 
 #: fish/cmds.c:147 fish/cmds.c:210 fish/cmds.c:828 fish/cmds.c:831
 msgid "remove extended attribute of a file or directory"
-msgstr "usuwa rozszerzony atrybut pliku lub katalogu"
+msgstr "ਫਾਇਲ ਜਾਂ ਡਾਇਰੈਕਟਰੀ ਦਾ ਐਕਸਟੈਂਡਡ ਐਟਰੀਬਿਊਟ ਹਟਾਓ"
 
 #: fish/cmds.c:148 fish/cmds.c:411
 msgid "list the files in a directory"
-msgstr "wyświetla listę plików w katalogu"
+msgstr "ਡਾਇਰੈਕਟਰੀ ਵਿਚਲੀਆਂ ਫਾਇਲਾਂ ਵੇਖਾਓ"
 
 #: fish/cmds.c:149 fish/cmds.c:232 fish/cmds.c:822 fish/cmds.c:825
 msgid "set extended attribute of a file or directory"
-msgstr "ustawia rozszerzony atrybut pliku lub katalogu"
+msgstr "ਫਾਇਲ ਜਾਂ ਡਾਇਰੈਕਟਰੀ ਦਾ ਐਕਸਟੈਂਡਡ ਐਟਰੀਬਿਊਟ ਸੈੱਟ ਕਰੋ"
 
 #: fish/cmds.c:150 fish/cmds.c:552
 msgid "get file information for a symbolic link"
-msgstr "uzyskuje informacje o dowiązaniu symbolicznym"
+msgstr "ਸਿੰਬੌਲਿਕ ਲਿੰਕ ਲਈ ਫਾਇਲ ਜਾਣਕਾਰੀ ਲਵੋ"
 
 #: fish/cmds.c:151 fish/cmds.c:1005
 msgid "lstat on multiple files"
-msgstr "wykonuje polecenie lstat na wielu plikach"
+msgstr "ਬਹੁਤੀਆਂ ਫਾਇਲਾਂ ਤੇ lstat ਚਲਾਓ"
 
 #: fish/cmds.c:152 fish/cmds.c:274 fish/cmds.c:513 fish/cmds.c:516
 msgid "create an LVM volume group"
-msgstr "tworzy grupę woluminów LVM"
+msgstr "ਇੱਕ LVM ਵਾਲੀਅਮ ਗਰੁੱਪ ਬਣਾਓ"
 
 #: fish/cmds.c:153 fish/cmds.c:537
 msgid "remove all LVM LVs, VGs and PVs"
-msgstr ""
-"usuwa wszystkie woluminy logiczne, grupy woluminów i woluminy fizyczne LVM"
+msgstr "ਸਭ LVM LVs, VGs ਅਤੇ PVs ਹਟਾਓ"
 
 #: fish/cmds.c:154 fish/cmds.c:624
 msgid "remove an LVM logical volume"
-msgstr "usuwa wolumin logiczny LVM"
+msgstr "ਇੱਕ LVM ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਹਟਾਓ"
 
 #: fish/cmds.c:155 fish/cmds.c:708
 msgid "resize an LVM logical volume"
-msgstr "zmienia rozmiar woluminu logicznego LVM"
+msgstr "ਇੱਕ LVM ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਮੁੜ-ਅਕਾਰ ਕਰੋ"
 
 #: fish/cmds.c:156 fish/cmds.c:157 fish/cmds.c:426 fish/cmds.c:435
 msgid "list the LVM logical volumes (LVs)"
-msgstr "wyświetla listę woluminów logicznych LVM"
+msgstr "LVM ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ (LVs) ਵੇਖਾਓ"
 
 #: fish/cmds.c:158 fish/cmds.c:1008
 msgid "lgetxattr on multiple files"
-msgstr "wykonuje polecenie lgetxattr na wielu plikach"
+msgstr "ਬਹੁਤੀਆਂ ਫਾਇਲਾਂ ਤੇ lgetxattr ਚਲਾਓ"
 
 #: fish/cmds.c:159 fish/cmds.c:489
 msgid "create a directory"
-msgstr "tworzy katalog"
+msgstr "ਇੱਕ ਡਾਇਰੈਕਟਰੀ ਬਣਾਓ"
 
 #: fish/cmds.c:160 fish/cmds.c:999
 msgid "create a directory with a particular mode"
-msgstr "tworzy katalog za pomocą konkretnego trybu"
+msgstr "ਖਾਸ ਮੋਡ ਨਾਲ ਇੱਕ ਡਾਇਰੈਕਟਰੀ ਬਣਾਓ"
 
 #: fish/cmds.c:161 fish/cmds.c:492
 msgid "create a directory and parents"
-msgstr "tworzy katalog i katalogi nadrzędne"
+msgstr "ਇੱਕ ਡਾਇਰੈਕਟਰੀ ਅਤੇ ਅਧਾਰ ਬਣਾਓ"
 
 #: fish/cmds.c:162 fish/cmds.c:744
 msgid "create a temporary directory"
-msgstr "tworzy katalog tymczasowy"
+msgstr "ਆਰਜੀ ਡਾਇਰੈਕਟਰੀ ਬਣਾਓ"
 
 #: fish/cmds.c:163 fish/cmds.c:164 fish/cmds.c:165 fish/cmds.c:966
 #: fish/cmds.c:969 fish/cmds.c:972
 msgid "make ext2/3/4 filesystem with external journal"
-msgstr "tworzy system plików ext2/3/4 z zewnętrzną kroniką"
+msgstr "ਬਾਹਰੀ ਜਰਨਲ ਨਾਲ ext2/3/4 ਫਾਇਲ-ਸਿਸਟਮ ਬਣਾਓ"
 
 #: fish/cmds.c:166 fish/cmds.c:957
 msgid "make ext2/3/4 external journal"
-msgstr "tworzy zewnętrzną kronikę ext2/3/4"
+msgstr "ext2/3/4 ਬਾਹਰੀ ਜਰਨਲ ਬਣਾਓ"
 
 #: fish/cmds.c:167 fish/cmds.c:960
 msgid "make ext2/3/4 external journal with label"
-msgstr "tworzy zewnętrzną kronikę ext2/3/4 za pomocą etykiety"
+msgstr "ਲੇਬਲ ਸਮੇਤ ext2/3/4 ਬਾਹਰੀ ਜਰਨਲ ਬਣਾਓ"
 
 #: fish/cmds.c:168 fish/cmds.c:963
 msgid "make ext2/3/4 external journal with UUID"
-msgstr "tworzy zewnętrzną kronikę ext2/3/4 za pomocą UUID"
+msgstr "UUID ਸਮੇਤ ext2/3/4 ਬਾਹਰੀ ਜਰਨਲ ਬਣਾਓ"
 
 #: fish/cmds.c:169 fish/cmds.c:795
 msgid "make FIFO (named pipe)"
-msgstr "tworzy FIFO (nazwany potok)"
+msgstr "FIFO (named ਪਾਈਪ) ਬਣਾਓ"
 
 #: fish/cmds.c:170 fish/cmds.c:519
 msgid "make a filesystem"
-msgstr "tworzy system plików"
+msgstr "ਇੱਕ ਫਾਇਲ-ਸਿਸਟਮ ਬਣਾਓ"
 
 #: fish/cmds.c:171 fish/cmds.c:954
 msgid "make a filesystem with block size"
-msgstr "tworzy system plików za pomocą rozmiaru bloków"
+msgstr "ਬਲਾਕ ਅਕਾਰ ਨਾਲ ਇੱਕ ਫਾਇਲ-ਸਿਸਟਮ ਬਣਾਓ"
 
 #: fish/cmds.c:172 fish/cmds.c:837
 msgid "create a mountpoint"
-msgstr "tworzy punkt montowania"
+msgstr "ਮਾਊਂਟ ਪੁਆਂਇਟ ਬਣਾਓ"
 
 #: fish/cmds.c:173 fish/cmds.c:792
 msgid "make block, character or FIFO devices"
-msgstr "tworzy urządzenia blokowe, znakowe lub FIFO"
+msgstr "ਬਲਾਕ, ਕੈਰੇਕਟਰ ਜਾਂ FIFO ਜੰਤਰ ਬਣਾਓ"
 
 #: fish/cmds.c:174 fish/cmds.c:798
 msgid "make block device node"
-msgstr "tworzy węzeł urządzenia blokowego"
+msgstr "ਬਲਾਕ ਜੰਤਰ ਨੋਡ ਬਣਾਓ"
 
 #: fish/cmds.c:175 fish/cmds.c:801
 msgid "make char device node"
-msgstr "tworzy węzeł urządzenia znakowego"
+msgstr "char ਜੰਤਰ ਨੋਡ ਬਣਾਓ"
 
 #: fish/cmds.c:176 fish/cmds.c:783
 msgid "create a swap partition"
-msgstr "tworzy partycję wymiany"
+msgstr "ਸਵੈਪ ਭਾਗ ਬਣਾਓ"
 
 #: fish/cmds.c:177 fish/cmds.c:786
 msgid "create a swap partition with a label"
-msgstr "tworzy partycję wymiany za pomocą etykiety"
+msgstr "ਲੇਬਲ ਸਮੇਤ ਸਵੈਪ ਭਾਗ ਬਣਾਓ"
 
 #: fish/cmds.c:178 fish/cmds.c:789
 msgid "create a swap partition with an explicit UUID"
-msgstr "tworzy partycję wymiany za pomocą jawnego UUID"
+msgstr "ਸ਼ਪੱਸ਼ਟ UUID ਸਮੇਤ ਸਵੈਪ ਭਾਗ ਬਣਾਓ"
 
 #: fish/cmds.c:179 fish/cmds.c:927
 msgid "create a swap file"
-msgstr "tworzy plik wymiany"
+msgstr "ਸਵੈਪ ਫਾਇਲ ਬਣਾਓ"
 
 #: fish/cmds.c:180 fish/cmds.c:975
 msgid "load a kernel module"
-msgstr "wczytuje moduł jądra"
+msgstr "ਕਰਨਲ ਮੈਡਿਊਲ ਲੋਡ ਕਰੋ"
 
 #: fish/cmds.c:181 fish/cmds.c:396
 msgid "mount a guest disk at a position in the filesystem"
-msgstr "montuje dysk gościa na pozycji w systemie plików"
+msgstr "ਫਾਇਲ-ਸਿਸਟਮ ਵਿੱਚ ਇੱਕ ਟਿਕਾਣੇ ਤੇ ਗਿਸਟ ਡਿਸਕ ਮਾਊਂਟ ਕਰੋ"
 
 #: fish/cmds.c:182 fish/cmds.c:780
 msgid "mount a file using the loop device"
-msgstr "montuje plik używając urządzenia loop"
+msgstr "ਲੂਪ ਜੰਤਰ ਵਰਤ ਕੇ ਇੱਕ ਫਾਇਲ ਮਾਊਂਟ ਕਰੋ"
 
 #: fish/cmds.c:183 fish/cmds.c:615
 msgid "mount a guest disk with mount options"
-msgstr "montuje dysk gościa za pomocą opcji montowania"
+msgstr "ਮਾਊਂਟ ਚੋਣਾਂ ਨਾਲ ਗਿਸਟ ਡਿਸਕ ਮਾਊਂਟ ਕਰੋ"
 
 #: fish/cmds.c:184 fish/cmds.c:612
 msgid "mount a guest disk, read-only"
-msgstr "montuje dysk gościa, tylko do odczytu"
+msgstr "ਗਿਸਟ ਡਿਸਕ ਮਾਊਂਟ ਕਰੋ, ਸਿਰਫ-ਪੜਨ ਲਈ"
 
 #: fish/cmds.c:185 fish/cmds.c:618
 msgid "mount a guest disk with mount options and vfstype"
-msgstr ""
-"montuje dysk gościa za pomocą opcji montowania i typu wirtualnego systemu "
-"plików"
+msgstr "ਗਿਸਟ ਡਿਸਕ ਨੂੰ ਮਾਊਂਟ ਚੋਣਾਂ ਅਤੇ vfstype ਨਾਲ ਮਾਊਂਟ ਕਰੋ"
 
 #: fish/cmds.c:186 fish/cmds.c:834
 msgid "show mountpoints"
-msgstr "wyświetla punkty montowania"
+msgstr "ਮਾਊਂਟ ਪੁਆਂਇਟ ਵੇਖਾਓ"
 
 #: fish/cmds.c:187 fish/cmds.c:531
 msgid "show mounted filesystems"
-msgstr "wyświetla zamontowane systemy plików"
+msgstr "ਮਾਊਂਟ ਕੀਤਾ ਫਾਇਲ-ਸਿਸਟਮ ਵੇਖਾਓ"
 
 #: fish/cmds.c:188 fish/cmds.c:660
 msgid "move a file"
-msgstr "przenosi plik"
+msgstr "ਇੱਕ ਫਾਇਲ ਤਬਦੀਲ ਕਰੋ"
 
 #: fish/cmds.c:189 fish/cmds.c:723
 msgid "probe NTFS volume"
-msgstr "wykrywa wolumin NTFS"
+msgstr "NTFS ਵਾਲੀਅਮ ਦੀ ਪੜਤਾਲ ਕਰੋ"
 
 #: fish/cmds.c:190 fish/cmds.c:1020
 msgid "add a partition to the device"
-msgstr "dodaje partycję do urządzenia"
+msgstr "ਜੰਤਰ ਵਿੱਚ ਇੱਕ ਭਾਗ ਜੋੜੋ"
 
 #: fish/cmds.c:191 fish/cmds.c:1023
 msgid "partition whole disk with a single primary partition"
-msgstr "Partycjonuje cały dysk za pomocą pojedynczej partycji podstawowej"
+msgstr "ਪੂਰੀ ਡਿਸਕ ਤੇ ਇੱਕ ਪਰਾਇਮਰੀ ਭਾਗ ਬਣਾਓ"
 
 #: fish/cmds.c:192 fish/cmds.c:1035
 msgid "get the partition table type"
-msgstr "uzyskuje typ tablicy partycji"
+msgstr "ਭਾਗ ਸਾਰਣੀ ਕਿਸਮ ਲਵੋ"
 
 #: fish/cmds.c:193 fish/cmds.c:1017
 msgid "create an empty partition table"
-msgstr "tworzy pustą tablicę partycji"
+msgstr "ਇੱਕ ਖਾਲੀ ਭਾਗ ਸਾਰਣੀ ਬਣਾਓ"
 
 #: fish/cmds.c:194 fish/cmds.c:1032
 msgid "list partitions on a device"
-msgstr "wyświetla listę partycji na urządzeniu"
+msgstr "ਜੰਤਰ ਉੱਪਰਲੇ ਭਾਗ ਵੇਖਾਓ"
 
 #: fish/cmds.c:195 fish/cmds.c:1026
 msgid "make a partition bootable"
-msgstr "zmienia partycję na startową"
+msgstr "ਭਾਗ ਨੂੰ ਬੂਟ ਯੋਗ ਬਣਾਓ"
 
 #: fish/cmds.c:196 fish/cmds.c:1029
 msgid "set partition name"
-msgstr "ustawia nazwę partycji"
+msgstr "ਪਰਾਇਮਰੀ ਨਾਂ ਸੈੱਟ ਕਰੋ"
 
 #: fish/cmds.c:197 fish/cmds.c:669
 msgid "ping the guest daemon"
-msgstr "odpytuje demona gościa"
+msgstr "ਗਿਸਟ ਡੈਮਨ ਨੂੰ ਪਿੰਗ ਕਰੋ"
 
 #: fish/cmds.c:198 fish/cmds.c:1014
 msgid "read part of a file"
-msgstr "odczytuje część pliku"
+msgstr "ਫਾਇਲ ਦਾ ਹਿੱਸਾ ਪੜੋ"
 
 #: fish/cmds.c:199 fish/cmds.c:510
 msgid "create an LVM physical volume"
-msgstr "tworzy wolumin fizyczny LVM"
+msgstr "ਇੱਕ LVM ਭੌਤਿਕ ਵਾਲੀਅਮ ਬਣਾਓ"
 
 #: fish/cmds.c:200 fish/cmds.c:630
 msgid "remove an LVM physical volume"
-msgstr "usuwa wolumin fizyczny LVM"
+msgstr "ਇੱਕ LVM ਭੌਤਿਕ ਵਾਲੀਅਮ ਹਟਾਓ"
 
 #: fish/cmds.c:201 fish/cmds.c:687
 msgid "resize an LVM physical volume"
-msgstr "zmienia rozmiar woluminu fizycznego LVM"
+msgstr "ਇੱਕ LVM ਭੌਤਿਕ ਵਾਲੀਅਮ ਨੂੰ ਮੁੜ-ਅਕਾਰ ਦਿਓ"
 
 #: fish/cmds.c:202 fish/cmds.c:203 fish/cmds.c:420 fish/cmds.c:429
 msgid "list the LVM physical volumes (PVs)"
-msgstr "wyświetla listę woluminów fizycznych LVM"
+msgstr "LVM ਭੌਤਿਕ ਵਾਲੀਅਮ (PVs) ਵੇਖਾਓ"
 
 #: fish/cmds.c:204 fish/cmds.c:843
 msgid "read a file"
-msgstr "odczytuje plik"
+msgstr "ਇੱਕ ਫਾਇਲ ਪੜੋ"
 
 #: fish/cmds.c:205 fish/cmds.c:438
 msgid "read file as lines"
-msgstr "odczytuje plik jako wiersze"
+msgstr "ਫਾਇਲ ਨੂੰ ਲਾਈਨ ਵਾਂਗ ਪੜੋ"
 
 #: fish/cmds.c:206 fish/cmds.c:807
 msgid "read directories entries"
-msgstr "odczytuje wpisy katalogów"
+msgstr "ਡਾਇਰੈਕਟਰੀ ਐਂਟਰੀਆਂ ਪੜੋ"
 
 #: fish/cmds.c:207 fish/cmds.c:897
 msgid "read the target of a symbolic link"
-msgstr "odczytuje cel dowiązania symbolicznego"
+msgstr "ਸਿੰਬੌਲਿਕ ਲਿੰਕ ਦਾ ਟਾਰਗਿਟ ਪੜੋ"
 
 #: fish/cmds.c:208 fish/cmds.c:1011
 msgid "readlink on multiple files"
-msgstr "wykonuje polecenie readlink na wielu plikach"
+msgstr "ਮਲਟੀਪਲ ਫਾਇਲਾਂ ਤੇ ਲਿੰਕ-ਪੜੋ"
 
 #: fish/cmds.c:209 fish/cmds.c:882
 msgid "canonicalized absolute pathname"
-msgstr "kanoniczna nazwa ścieżki bezwzględnej"
+msgstr ""
 
 #: fish/cmds.c:211 fish/cmds.c:711
 msgid "resize an ext2/ext3 filesystem"
-msgstr "zmienia rozmiar systemu plików ext2/ext3"
+msgstr "ਇੱਕ ext2/ext3 fਫਾਇਲ-ਸਿਸਟਮ ਨੂੰ ਮੁੜ-ਅਕਾਰ ਦਿਓ"
 
 #: fish/cmds.c:212 fish/cmds.c:480
 msgid "remove a file"
-msgstr "usuwa plik"
+msgstr "ਇੱਕ ਫਾਇਲ ਹਟਾਓ"
 
 #: fish/cmds.c:213 fish/cmds.c:486
 msgid "remove a file or directory recursively"
-msgstr "rekursywnie usuwa plik lub katalog"
+msgstr "ਫਾਇਲ ਜਾਂ ਡਾਇਰੈਕਟਰੀ ਪੂਰੀ ਤਰਾਂ ਹਟਾਓ"
 
 #: fish/cmds.c:214 fish/cmds.c:483
 msgid "remove a directory"
-msgstr "usuwa katalog"
+msgstr "ਇੱਕ ਡਾਇਰੈਕਟਰੀ ਹਟਾਓ"
 
 #: fish/cmds.c:215 fish/cmds.c:840
 msgid "remove a mountpoint"
-msgstr "usuwa punkt montowania"
+msgstr "ਮਾਊਂਟ-ਪੁਆਂਇਟ ਹਟਾਓ"
 
 #: fish/cmds.c:216 fish/cmds.c:735
 msgid "scrub (securely wipe) a device"
-msgstr "bezpiecznie usuwa zawartość urządzenia"
+msgstr "ਜੰਤਰ ਸਾਫ (ਸੁਰੱਖਿਅਤ ਸਫਾਈ) ਕਰੋ"
 
 #: fish/cmds.c:217 fish/cmds.c:738
 msgid "scrub (securely wipe) a file"
-msgstr "bezpiecznie usuwa plik"
+msgstr "ਫਾਇਲ ਸਾਫ (ਸੁਰੱਖਿਅਤ ਸਫਾਈ) ਕਰੋ"
 
 #: fish/cmds.c:218 fish/cmds.c:741
 msgid "scrub (securely wipe) free space"
-msgstr "bezpiecznie usuwa wolne miejsce"
+msgstr "ਖਾਲੀ ਸਪੇਸ ਸਾਫ (ਸੁਰੱਖਿਅਤ ਸਫਾਈ) ਕਰੋ"
 
 #: fish/cmds.c:219 fish/cmds.c:327
 msgid "add options to kernel command line"
-msgstr "dodaje opcje do wiersza poleceń jądra"
+msgstr "ਕਰਨਲ ਕਮਾਂਡ ਲਾਈਨ ਵਿੱਚ ਚੋਣਾਂ ਸ਼ਾਮਿਲ ਕਰੋ"
 
 #: fish/cmds.c:220 fish/cmds.c:333
 msgid "set autosync mode"
-msgstr "ustawia tryb automatycznej synchronizacji"
+msgstr "autosync ਮੋਡ ਸੈੱਟ ਕਰੋ"
 
 #: fish/cmds.c:221 fish/cmds.c:384
 msgid "enable or disable direct appliance mode"
-msgstr "włącza lub wyłącza tryb bezpośredniego przyrządu"
+msgstr "ਸਿੱਧਾ ਉਪਕਰਨ ਮੋਡ ਯੋਗ ਜਾਂ ਅਯੋਗ"
 
 #: fish/cmds.c:222 fish/cmds.c:633
 msgid "set the ext2/3/4 filesystem label"
-msgstr "ustawia etykietę systemu plików ext2/3/4"
+msgstr "ext2/3/4 ਫਾਇਲ-ਸਿਸਟਮ ਲੇਬਲ ਸੈੱਟ ਕਰੋ"
 
 #: fish/cmds.c:223 fish/cmds.c:639
 msgid "set the ext2/3/4 filesystem UUID"
-msgstr "ustawia UUID systemu plików ext2/3/4"
+msgstr "ext2/3/4 ਫਾਇਲ-ਸਿਸਟਮ UUID ਸੈੱਟ ਕਰੋ"
 
 #: fish/cmds.c:224 fish/cmds.c:360
 msgid "set memory allocated to the qemu subprocess"
-msgstr "ustawia pamięć przydzieloną podprocesowi QEMU"
+msgstr "qemu ਅਧੀਨ-ਕਾਰਜ ਨੂੰ ਨਿਰਧਾਰਤ ਮੈਮੋਰੀ ਸੈੱਟ ਕਰੋ"
 
 #: fish/cmds.c:225 fish/cmds.c:321
 msgid "set the search path"
-msgstr "ustawia ścieżkę wyszukiwania"
+msgstr "ਖੋਜ ਮਾਰਗ ਸੈੱਟ ਕਰੋ"
 
 #: fish/cmds.c:226 fish/cmds.c:315
 msgid "set the qemu binary"
-msgstr "ustawia plik binarny QEMU"
+msgstr "qemu ਬਾਇਨਰੀ ਸੈੱਟ ਕਰੋ"
 
 #: fish/cmds.c:227 fish/cmds.c:390
 msgid "enable or disable the recovery process"
-msgstr "włącza lub wyłącza proces przywracania"
+msgstr "ਰਿਕਵਰੀ ਕਾਰਜ ਯੋਗ ਜਾਂ ਅਯੋਗ"
 
 #: fish/cmds.c:228 fish/cmds.c:372
 msgid "set SELinux enabled or disabled at appliance boot"
-msgstr ""
-"ustawia włączenie lub wyłączenie SELinuksa podczas uruchamiania przyrządu"
+msgstr "ਉਪਕਰਨ ਬੂਟ ਹੋਣ ਤੇ SELinux ਯੋਗ ਜਾਂ ਅਯੋਗ ਸੈੱਟ ਕਰੋ"
 
 #: fish/cmds.c:229 fish/cmds.c:378
 msgid "enable or disable command traces"
-msgstr "włącza lub wyłącza śledzenie poleceń"
+msgstr "ਕਮਾਂਡ ਟਰੇਸ ਯੋਗ ਜਾਂ ਅਯੋਗ"
 
 #: fish/cmds.c:230 fish/cmds.c:339
 msgid "set verbose mode"
-msgstr "ustawia wyświetlanie więcej komunikatów"
+msgstr "ਵਰਬੋਜ਼ ਮੋਡ ਸੈੱਟ ਕਰੋ"
 
 #: fish/cmds.c:231 fish/cmds.c:948
 msgid "set SELinux security context"
-msgstr "ustawia kontekst bezpieczeństwa SELinuksa"
+msgstr "SELinux ਸੁਰੱਖਿਆ ਪ੍ਰਸੰਗ ਸੈੱਟ ਕਰੋ"
 
 #: fish/cmds.c:233 fish/cmds.c:234 fish/cmds.c:522 fish/cmds.c:810
 msgid "create partitions on a block device"
-msgstr "tworzy partycje na urządzeniu blokowym"
+msgstr "ਬਲਾਕ ਜੰਤਰ ਤੇ ਭਾਗ ਬਣਾਓ"
 
 #: fish/cmds.c:235 fish/cmds.c:690
 msgid "modify a single partition on a block device"
-msgstr "modyfikuje pojedynczą partycję na urządzeniu blokowym"
+msgstr "ਬਲਾਕ ਜੰਤਰ ਤੇ ਇੱਕ ਸਿੰਗਲ ਭਾਗ ਨੂੰ ਸੋਧੋ"
 
 #: fish/cmds.c:236 fish/cmds.c:699
 msgid "display the disk geometry from the partition table"
-msgstr "wyświetla geometrię dysku z tablicy partycji"
+msgstr "ਭਾਗ ਸਾਰਣੀ ਤੋਂ ਡਿਸਕ ਬਣਤਰ ਵੇਖਾਓ"
 
 #: fish/cmds.c:237 fish/cmds.c:696
 msgid "display the kernel geometry"
-msgstr "wyświetla geometrię jądra"
+msgstr "ਕਰਨਲ ਬਣਤਰ ਵੇਖਾਓ"
 
 #: fish/cmds.c:238 fish/cmds.c:693
 msgid "display the partition table"
-msgstr "wyświetla tablicę partycji"
+msgstr "ਭਾਗ ਸਾਰਣੀ ਵੇਖਾਓ"
 
 #: fish/cmds.c:239 fish/cmds.c:726
 msgid "run a command via the shell"
-msgstr "wykonuje polecenie przez powłokę"
+msgstr "ਸ਼ੈੱਲ ਰਾਹੀਂ ਕਮਾਂਡ ਚਲਾਓ"
 
 #: fish/cmds.c:240 fish/cmds.c:729
 msgid "run a command via the shell returning lines"
-msgstr "wykonuje polecenie przez powłokę zwracającą wiersze"
+msgstr "ਲਾਈਨਾਂ ਵਾਲੇ ਸ਼ੈੱਲ ਰਾਹੀਂ ਕਮਾਂਡ ਚਲਾਓ"
 
 #: fish/cmds.c:241 fish/cmds.c:720
 msgid "sleep for some seconds"
-msgstr "usypia na kilka sekund"
+msgstr "ਕੁਝ ਸਕਿੰਟਾਂ ਲਈ ਵਿਰਾਮ ਕਰੋ"
 
 #: fish/cmds.c:242 fish/cmds.c:549
 msgid "get file information"
-msgstr "uzyskuje informacje o pliku"
+msgstr "ਫਾਇਲ ਜਾਣਕਾਰੀ ਲਵੋ"
 
 #: fish/cmds.c:243 fish/cmds.c:555
 msgid "get file system statistics"
-msgstr "uzyskuje statystyki systemu plików"
+msgstr "ਫਾਇਲ ਸਿਸਟਮ ਅੰਕੜੇ ਲਵੋ"
 
 #: fish/cmds.c:244 fish/cmds.c:245 fish/cmds.c:675 fish/cmds.c:678
 msgid "print the printable strings in a file"
-msgstr "wyświetla widoczne znaki w pliku"
+msgstr "ਪ੍ਰਿੰਟਯੋਗ ਸਤਰਾਂ ਨੂੰ ਇੱਕ ਫਾਇਲ ਵਿੱਚ ਪ੍ਰਿੰਟ ਕਰੋ"
 
 #: fish/cmds.c:246 fish/cmds.c:906
 msgid "disable swap on device"
-msgstr "wyłącza przestrzeń wymiany na urządzeniu"
+msgstr "ਜੰਤਰ ਤੇ ਸਵੈਪ ਅਯੋਗ ਕਰੋ"
 
 #: fish/cmds.c:247 fish/cmds.c:912
 msgid "disable swap on file"
-msgstr "wyłącza przestrzeń wymiany na pliku"
+msgstr "ਫਾਇਲ ਤੇ ਸਵੈਪ ਅਯੋਗ ਕਰੋ"
 
 #: fish/cmds.c:248 fish/cmds.c:918
 msgid "disable swap on labeled swap partition"
-msgstr "wyłącza przestrzeń wymiany na partycji wymiany z etykietą"
+msgstr "ਲੇਬਲ ਕੀਤੇ ਸਵੈਪ ਭਾਗ ਤੇ ਸਵੈਪ ਅਯੋਗ ਕਰੋ"
 
 #: fish/cmds.c:249 fish/cmds.c:924
 msgid "disable swap on swap partition by UUID"
-msgstr "wyłącza przestrzeń wymiany na partycji wymiany według UUID"
+msgstr "UUID ਦੁਆਰਾ ਸਵੈਪ ਭਾਗ ਕੇ ਸਵੈਪ ਅਯੋਗ ਕਰੋ"
 
 #: fish/cmds.c:250 fish/cmds.c:903
 msgid "enable swap on device"
-msgstr "włącza przestrzeń wymiany na urządzeniu"
+msgstr "ਜੰਤਰ ਤੇ ਸਵੈਪ ਯੋਗ ਕਰੋ"
 
 #: fish/cmds.c:251 fish/cmds.c:909
 msgid "enable swap on file"
-msgstr "włącza przestrzeń wymiany w pliku"
+msgstr "ਫਾਇਲ ਤੇ ਸਵੈਪ ਯੋਗ ਕਰੋ"
 
 #: fish/cmds.c:252 fish/cmds.c:915
 msgid "enable swap on labeled swap partition"
-msgstr "włącza przestrzeń wymiany na partycji wymiany z etykietą"
+msgstr "ਲੇਬਲ ਕੀਤੇ ਸਵੈਪ ਭਾਗ ਤੇ ਸਵੈਪ ਯੋਗ ਕਰੋ"
 
 #: fish/cmds.c:253 fish/cmds.c:921
 msgid "enable swap on swap partition by UUID"
-msgstr "włącza przestrzeń wymiany na partycji wymiany według UUID"
+msgstr "UUID ਦੁਆਰਾ ਸਵੈਪ ਭਾਗ ਤੇ ਸਵੈਪ ਯੋਗ ਕਰੋ"
 
 #: fish/cmds.c:254 fish/cmds.c:399
 msgid "sync disks, writes are flushed through to the disk image"
-msgstr "synchronizuje dyski, zapisy są równo rozmieszczone na obrazie dysku"
+msgstr "sync ਡਿਸਕਾਂ, ਲਿਖਤਾਂ ਨੂੰ ਡਿਸਕ ਈਮੇਜ਼ਾਂ ਰਾਹੀਂ ਸਾਫ ਕੀਤਾ ਗਿਆ ਹੈ"
 
 #: fish/cmds.c:255 fish/cmds.c:762
 msgid "return last 10 lines of a file"
-msgstr "zwraca ostatnie 10 wierszy pliku"
+msgstr "ਫਾਇਲ ਦੀਆਂ ਆਖਰੀ 10 ਲਾਈਨਾਂ ਵੇਖਾਓ"
 
 #: fish/cmds.c:256 fish/cmds.c:765
 msgid "return last N lines of a file"
-msgstr "zwraca ostatnie N wierszy pliku"
+msgstr "ਫਾਇਲ ਦੀਆਂ ਆਖਰੀ N ਲਾਈਨਾਂ ਵੇਖਾਓ"
 
 #: fish/cmds.c:257 fish/cmds.c:600
 msgid "unpack tarfile to directory"
-msgstr "rozpakowuje plik tar do katalogu"
+msgstr "tarfile ਨੂੰ ਡਾਇਰੈਕਟਰੀ ਵਿੱਚ ਖੋਲੋ"
 
 #: fish/cmds.c:258 fish/cmds.c:603
 msgid "pack directory into tarfile"
-msgstr "pakuje katalog do pliku tar"
+msgstr "ਡਾਇਰੈਕਟਰੀ ਨੂੰ tarfile ਵਿੱਚ ਪੈਕ ਕਰੋ"
 
 #: fish/cmds.c:259 fish/cmds.c:606
 msgid "unpack compressed tarball to directory"
-msgstr "rozpakowuje skompresowane archiwum tar do katalogu"
+msgstr "ਸੰਕੁਚਿਤ tarball ਨੂੰ ਡਾਇਰੈਕਟਰੀ ਵਿੱਚ ਖੋਲੋ"
 
 #: fish/cmds.c:260 fish/cmds.c:609
 msgid "pack directory into compressed tarball"
-msgstr "pakuje katalog do skompresowanego archiwum tar"
+msgstr "ਡਾਇਰੈਕਟਰੀ ਨੂੰ ਸੰਕੁਚਿਤ tarball ਵਿੱਚ ਪੈਕ ਕਰੋ"
 
 #: fish/cmds.c:261 fish/cmds.c:402
 msgid "update file timestamps or create a new file"
-msgstr "aktualizuje znaczniki czasu plików lub tworzy nowy plik"
+msgstr "ਫਾਇਲ ਸਮਾਂ-ਮੋਹਰ ਅੱਪਡੇਟ ਕਰੋ ਜਾਂ ਇੱਕ ਨਵੀਂ ਫਾਇਲ ਬਣਾਓ"
 
 #: fish/cmds.c:262 fish/cmds.c:990
 msgid "truncate a file to zero size"
-msgstr "obcina plik do zerowego rozmiaru"
+msgstr "ਫਾਇਲ ਨੂੰ ਜ਼ੀਰੋ ਅਕਾਰ ਤੱਕ ਘਟਾਓ"
 
 #: fish/cmds.c:263 fish/cmds.c:993
 msgid "truncate a file to a particular size"
-msgstr "obcina plik do konkretnego rozmiaru"
+msgstr "ਫਾਇਲ ਨੂੰ ਖਾਸ ਅਕਾਰ ਤੱਕ ਘਟਾਓ"
 
 #: fish/cmds.c:264 fish/cmds.c:558
 msgid "get ext2/ext3/ext4 superblock details"
-msgstr "uzyskuje szczegóły superbloków ext2/ext3/ext4"
+msgstr "ext2/ext3/ext4 ਸੁਪਰਬਲਾਕ ਵੇਰਵਾ ਲਵੋ"
 
 #: fish/cmds.c:265 fish/cmds.c:804
 msgid "set file mode creation mask (umask)"
-msgstr "ustawia maskę tworzenia trybu pliku (umask)"
+msgstr "ਫਾਇਲ ਮੋਡ ਬਣਾਉਣ ਮਾਸਕ (umask) ਸੈੱਟ ਕਰੋ"
 
 #: fish/cmds.c:266 fish/cmds.c:528
 msgid "unmount a filesystem"
-msgstr "odmontowuje system plików"
+msgstr "ਫਾਇਲ-ਸਿਸਟਮ ਆਨ-ਮਾਊਂਟ ਕਰੋ"
 
 #: fish/cmds.c:267 fish/cmds.c:534
 msgid "unmount all filesystems"
-msgstr "odmontowuje wszystkie systemy plików"
+msgstr "ਸਭ ਫਾਇਲ-ਸਿਸਟਮ ਅਨ-ਮਾਊਂਟ ਕਰੋ"
 
 #: fish/cmds.c:268 fish/cmds.c:591
 msgid "upload a file from the local machine"
-msgstr "wysyła plik do z lokalnej maszyny"
+msgstr "ਲੋਕਲ ਮਸ਼ੀਨ ਤੋਂ ਫਾਇਲ ਅੱਪਲੋਡ ਕਰੋ"
 
 #: fish/cmds.c:269 fish/cmds.c:996
 msgid "set timestamp of a file with nanosecond precision"
-msgstr "ustawia znaczniki czasu pliku z nanosekundową dokładnością"
+msgstr "ਨੈਨੋਸਕਿੰਟ ਸੁੱਧਤਾ ਨਾਲ ਫਾਇਲ ਦੀ ਸਮਾਂ-ਮੋਹਰ ਸੈੱਟ ਕਰੋ"
 
 #: fish/cmds.c:270 fish/cmds.c:369
 msgid "get the library version number"
-msgstr "uzyskuje numer wersji biblioteki"
+msgstr "ਲਾਇਬਰੇਰੀ ਵਰਜਨ ਨੰਬਰ ਲਵੋ"
 
 #: fish/cmds.c:271 fish/cmds.c:987
 msgid "get the Linux VFS type corresponding to a mounted device"
-msgstr ""
-"uzyskuje typ wirtualnego systemu plików systemu Linux odpowiadający "
-"zamontowanemu urządzeniu"
+msgstr "ਮਾਊਂਟ ਕੀਤੇ ਜੰਤਰ ਸੰਬੰਧੀ ਲੀਨਕਸ VFS ਕਿਸਮ ਲਵੋ"
 
 #: fish/cmds.c:272 fish/cmds.c:705
 msgid "activate or deactivate some volume groups"
-msgstr "aktywuje lub deaktywuje niektóre grupy woluminów"
+msgstr "ਕੁਝ ਵਾਲੀਅਮ ਗਰੁੱਪ ਸਰਗਰਮ ਜਾਂ ਨਾ-ਸਰਗਰਮ ਕਰੋ"
 
 #: fish/cmds.c:273 fish/cmds.c:702
 msgid "activate or deactivate all volume groups"
-msgstr "aktywuje lub deaktywuje wszystkie grupy woluminów"
+msgstr "ਸਭ ਵਾਲੀਅਮ ਗਰੁੱਪ ਸਰਗਰਮ ਜਾਂ ਨਾ-ਸਰਗਰਮ ਕਰੋ"
 
 #: fish/cmds.c:275 fish/cmds.c:627
 msgid "remove an LVM volume group"
-msgstr "usuwa grupę woluminów LVM"
+msgstr "ਇੱਕ LVM ਵਾਲੀਅਮ ਗਰੁੱਪ ਹਟਾਓ"
 
 #: fish/cmds.c:276 fish/cmds.c:277 fish/cmds.c:423 fish/cmds.c:432
 msgid "list the LVM volume groups (VGs)"
-msgstr "wyświetla listę grup woluminów LVM"
+msgstr "LVM ਵਾਲੀਅਮ ਗਰੁੱਪ (VGs) ਵੇਖਾਓ"
 
 #: fish/cmds.c:278 fish/cmds.c:753
 msgid "count characters in a file"
-msgstr "liczy znaki w pliku"
+msgstr "ਫਾਇਲ ਵਿਚਲੇ ਅੱਖਰ ਗਿਣੋ"
 
 #: fish/cmds.c:279 fish/cmds.c:747
 msgid "count lines in a file"
-msgstr "liczy wiersze w pliku"
+msgstr "ਫਾਇਲ ਵਿਚਲੀਆਂ ਲਾਈਨਾ ਗਿਣੋ"
 
 #: fish/cmds.c:280 fish/cmds.c:750
 msgid "count words in a file"
-msgstr "liczy wyrazy w pliku"
+msgstr "ਫਾਇਲ ਵਿਚਲੇ ਸ਼ਬਦ ਗਿਣੋ"
 
 #: fish/cmds.c:281 fish/cmds.c:525
 msgid "create a file"
-msgstr "tworzy plik"
+msgstr "ਫਾਇਲ ਬਣਾਓ"
 
 #: fish/cmds.c:284 fish/cmds.c:648
 msgid "write zeroes to the device"
-msgstr "zapisuje zera na urządzeniu"
+msgstr "ਜੰਤਰ ਤੇ ਜ਼ੀਰੋ ਲਿਖੋ"
 
 #: fish/cmds.c:285 fish/cmds.c:684
 msgid "zero unused inodes and disk blocks on ext2/3 filesystem"
-msgstr "zeruje nieużywane i-węzły i bloki dysków na systemie plików ext2/3"
+msgstr ""
 
 #: fish/cmds.c:288 fish/cmds.c:813
 msgid "determine file type inside a compressed file"
-msgstr "ustala typ pliku wewnątrz skompresowanego pliku"
+msgstr ""
 
 #: fish/cmds.c:291
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
 msgstr ""
-"Należy użyć -h <polecenie>/help <polecenie>, aby wyświetlić szczegółową "
-"pomoc polecenia. Użyj -h <cmd>/help <cmd>, aby wyświetlić szczegółową pomoc "
-"o poleceniu."
 
 #: fish/cmds.c:1325 fish/cmds.c:1337 fish/cmds.c:1350 fish/cmds.c:1364
 #: fish/cmds.c:1378 fish/cmds.c:1393 fish/cmds.c:1408 fish/cmds.c:1421
@@ -1029,7 +1020,7 @@ msgstr ""
 #: fish/cmds.c:6565 fish/cmds.c:6582 fish/cmds.c:6601
 #, c-format
 msgid "%s should have %d parameter(s)\n"
-msgstr "%s powinno posiadać %d parametry\n"
+msgstr ""
 
 #: fish/cmds.c:1326 fish/cmds.c:1338 fish/cmds.c:1351 fish/cmds.c:1365
 #: fish/cmds.c:1379 fish/cmds.c:1394 fish/cmds.c:1409 fish/cmds.c:1422
@@ -1096,7 +1087,7 @@ msgstr "%s powinno posiadać %d parametry\n"
 #: fish/cmds.c:6566 fish/cmds.c:6583 fish/cmds.c:6602
 #, c-format
 msgid "type 'help %s' for help on %s\n"
-msgstr "należy wpisać \"help %s\", aby uzyskać pomoc o %s\n"
+msgstr ""
 
 #: fish/cmds.c:1628 fish/cmds.c:2058 fish/cmds.c:2364 fish/cmds.c:2401
 #: fish/cmds.c:2420 fish/cmds.c:2545 fish/cmds.c:2598 fish/cmds.c:2617
@@ -1137,17 +1128,17 @@ msgstr ""
 #: fish/cmds.c:7370
 #, c-format
 msgid "%s: unknown command\n"
-msgstr "%s: nieznane polecenie\n"
+msgstr ""
 
 #: fish/edit.c:86
 #, c-format
 msgid "use '%s filename' to edit a file\n"
-msgstr "należy użyć \"%s nazwa_pliku\", aby zmodyfikować plik\n"
+msgstr ""
 
 #: fish/fish.c:92 fuse/guestmount.c:868
 #, c-format
 msgid "Try `%s --help' for more information.\n"
-msgstr "Należy spróbować \"%s --help\", aby uzyskać więcej informacji.\n"
+msgstr ""
 
 #: fish/fish.c:96
 #, c-format
@@ -1184,99 +1175,62 @@ msgid ""
 "  -V|--version         Display version and exit\n"
 "For more information,  see the manpage %s(1).\n"
 msgstr ""
-"%s: powłoka systemu plików gościa\n"
-"%s umożliwia modyfikowanie systemów pliku maszyn wirtualnych\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Użycie:\n"
-"  %s [--opcje] polecenie [: polecenie : polecenie ...]\n"
-"  %s -i domena-libvirt\n"
-"  %s -i obrazy-dysków\n"
-"lub dla trybu interaktywnego:\n"
-"  %s\n"
-"lub ze skryptu powłoki:\n"
-"  %s <<EOF\n"
-"  polecenie\n"
-"  ...\n"
-"  EOF\n"
-"Opcje:\n"
-"  -h|--cmd-help        Wyświetla listę dostępnych poleceń\n"
-"  -h|--cmd-help polecenie  Wyświetla szczegółową pomoc o \"poleceniu\"\n"
-"  -a|--add image       Dodaje obraz\n"
-"  -D|--no-dest-paths   Nie uzupełnia ścieżek z systemu plików gościa za\n"
-"                       pomocą Tab\n"
-"  -f|--file plik       Odczytuje polecenia z pliku\n"
-"  -i|--inspector       Uruchamia virt-inspector, aby uzyskać punkty\n"
-"                       montowania dysków\n"
-"  --listen             Nasłuchuje zdalnych poleceń\n"
-"  -m|--mount dev[:mnt] Montuje dev w mnt (jeśli pominięto, w /)\n"
-"  -n|--no-sync         Nie synchronizuje automatycznie\n"
-"  --remote[=PID]       Wysyła polecenia do zdalnego %s\n"
-"  -r|--ro              Montuje w trybie tylko do odczytu\n"
-"  --selinux            Włącza obsługę SELinuksa\n"
-"  -v|--verbose         Wyświetla więcej komunikatów\n"
-"  -x                   Wykonuje echo każdego polecenia przed jego\n"
-"                       wykonaniem\n"
-"  -V|--version         Wyświetla wersję i kończy pracę\n"
-"Aby dowiedzieć się więcej, proszę zobaczyć stronę podręcznika %s(1).\n"
 
 #: fish/fish.c:184 fuse/guestmount.c:961
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
-msgstr "guestfs_create: utworzenie programu obsługi nie powiodło się\n"
+msgstr ""
 
 #: fish/fish.c:223
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
-msgstr "%s: --listen=PID: PID nie był liczbą: %s\n"
+msgstr ""
 
 #: fish/fish.c:230
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 msgstr ""
-"%s: zdalnie: $GUESTFISH_PID musi być ustawiony na PID zdalnego procesu\n"
 
 #: fish/fish.c:239 fuse/guestmount.c:1006
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
-msgstr "%s: nieznana długa opcja: %s (%d)\n"
+msgstr ""
 
 #: fish/fish.c:266
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
-msgstr "%s: można podać tylko jeden parametr -f\n"
+msgstr ""
 
 #: fish/fish.c:339
 #, c-format
 msgid "%s: cannot use -i option with -a, -m, --listen, --remote or --selinux\n"
 msgstr ""
-"%s: nie można użyć opcji -i z -a, -m, --listen, --remote lub --selinux\n"
 
 #: fish/fish.c:346
 #, c-format
 msgid "%s: -i requires a libvirt domain or path(s) to disk image(s)\n"
-msgstr "%s: -i wymaga domeny libvirt lub ścieżek do obrazów dysków\n"
+msgstr ""
 
 #: fish/fish.c:356
 #, c-format
 msgid "%s: virt-inspector command too long for fixed-size buffer\n"
 msgstr ""
-"%s: polecenie virt-inspector jest za długie dla bufora o stałym rozmiarze\n"
 
 #: fish/fish.c:402
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
-msgstr "%s: nie można używać opcji --listen i --remote w tym samym czasie\n"
+msgstr ""
 
 #: fish/fish.c:410
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
-msgstr "%s: dodatkowe parametry wiersza poleceń za pomocą flagi --listen\n"
+msgstr ""
 
 #: fish/fish.c:416
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
-msgstr "%s: nie można używać opcji --listen i --file w tym samym czasie\n"
+msgstr ""
 
 #: fish/fish.c:561
 #, c-format
@@ -1289,87 +1243,80 @@ msgid ""
 "      'quit' to quit the shell\n"
 "\n"
 msgstr ""
-"\n"
-"Witaj w guestfish, interaktywnej powłoce systemów plików libguestfs do\n"
-"modyfikowania systemów plików maszyn wirtualnych.\n"
-"\n"
-"Proszę podać: \"help\", aby uzyskać pomoc o poleceniach\n"
-"              \"quit\", aby zakończyć powłokę\n"
-"\n"
 
 #: fish/fish.c:641
 #, c-format
 msgid "%s: unterminated double quote\n"
-msgstr "%s: niezakończony podwójny cudzysłów\n"
+msgstr ""
 
 #: fish/fish.c:647 fish/fish.c:664
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
-msgstr "%s: parametry poleceń nie są oddzielone spacjami\n"
+msgstr ""
 
 #: fish/fish.c:658
 #, c-format
 msgid "%s: unterminated single quote\n"
-msgstr "%s: niezakończony pojedynczy cudzysłów\n"
+msgstr ""
 
 #: fish/fish.c:713
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
-msgstr "%s: wewnętrzny błąd przetwarzania ciągu \"%s\"\n"
+msgstr ""
 
 #: fish/fish.c:730
 #, c-format
 msgid "%s: too many arguments\n"
-msgstr "%s: za dużo parametrów\n"
+msgstr ""
 
 #: fish/fish.c:759
 #, c-format
 msgid "%s: empty command on command line\n"
-msgstr "%s: puste polecenie wiersza poleceń\n"
+msgstr ""
 
 #: fish/fish.c:913
 msgid "display a list of commands or help on a command"
-msgstr "wyświetla listę poleceń lub pomoc polecenia"
+msgstr ""
 
 #: fish/fish.c:915
 msgid "quit guestfish"
-msgstr "kończy pracę guestfish"
+msgstr ""
 
 #: fish/fish.c:918
 msgid "allocate an image"
-msgstr "przydziela obraz"
+msgstr ""
 
 #: fish/fish.c:920
 msgid "display a line of text"
-msgstr "wyświetla wiersz tekstu"
+msgstr ""
 
 #: fish/fish.c:922
 msgid "edit a file in the image"
-msgstr "modyfikuje plik w obrazie"
+msgstr ""
 
 #: fish/fish.c:924
 msgid "local change directory"
-msgstr "zmienia lokalny katalog"
+msgstr ""
 
 #: fish/fish.c:926
 msgid "expand wildcards in command"
-msgstr "rozwija wieloznaczniki w poleceniach"
+msgstr ""
 
 #: fish/fish.c:928
 msgid "view a file in the pager"
-msgstr "wyświetla plik w pagerze"
+msgstr ""
 
 #: fish/fish.c:930
 msgid "close and reopen libguestfs handle"
-msgstr "zamyka i ponownie otwiera program obsługi libguestfs"
+msgstr ""
 
 #: fish/fish.c:932
 msgid "allocate a sparse image file"
-msgstr "przydziela plik rzadkiego obrazu"
+msgstr ""
 
 #: fish/fish.c:934
 msgid "measure time taken to run command"
-msgstr "mierzy czas wykonania polecenia"
+msgstr ""
 
 #: fish/fish.c:946
 #, c-format
@@ -1393,25 +1340,6 @@ msgid ""
 "    <nn>E or <nn>EB  number of exabytes\n"
 "    <nn>sects        number of 512 byte sectors\n"
 msgstr ""
-"alloc - przydziela obraz\n"
-"     alloc <nazwa_pliku> <rozmiar>\n"
-"\n"
-"    Tworzy pusty (wypełniony zerami) plik o podanym rozmiarze,\n"
-"    a następnie dodaje go, aby mógł być dalej badany.\n"
-"\n"
-"    Aby uzyskać bardziej zaawansowane tworzenie obrazu,\n"
-"    proszę zobaczyć narzędzie qemu-img.\n"
-"\n"
-"    Można podać rozmiar (gdzie <nn> oznacza liczbę):\n"
-"    <nn>              liczba kilobajtów\n"
-"      np.: 1440       standardowa dyskietka 3.5\"\n"
-"    <nn>K lub <nn>KB  liczba kilobajtów\n"
-"    <nn>M lub <nn>MB  liczba megabajtów\n"
-"    <nn>G lub <nn>GB  liczba gigabajtów\n"
-"    <nn>T lub <nn>TB  liczba terabajtów\n"
-"    <nn>P lub <nn>PB  liczba petabajtów\n"
-"    <nn>E lub <nn>EB  liczba eksabajtów\n"
-"    <nn>sektory       liczba 512 bajtowych sektorów\n"
 
 #: fish/fish.c:965
 #, c-format
@@ -1421,10 +1349,6 @@ msgid ""
 "\n"
 "    This echos the parameters to the terminal.\n"
 msgstr ""
-"echo - wyświetla wiersz tekstu\n"
-"     echo [<parametry> ...]\n"
-"\n"
-"    Wyświetla ostatnie parametry w terminalu.\n"
 
 #: fish/fish.c:972
 #, c-format
@@ -1443,20 +1367,6 @@ msgid ""
 "    NOTE: This will not work reliably for large files\n"
 "    (> 2 MB) or binary files containing \\0 bytes.\n"
 msgstr ""
-"edit - modyfikuje plik w obrazie\n"
-"     edit <nazwa_pliku>\n"
-"\n"
-"    Jest używane do modyfikowania pliku.\n"
-"\n"
-"    Jest odpowiednikiem (i jest implementowane przez)\n"
-"    wykonania polecenia \"cat\", zmodyfikowania lokalnie, a\n"
-"    następnie wykonania polecenia \"write-file\".\n"
-"\n"
-"    Normalnie używa zmiennej $EDITOR, ale jeśli zostanie użyty\n"
-"    alias \"vi\" lub \"emacs\", uzyskane zostaną te edytory.\n"
-"\n"
-"    UWAGA: nie będzie działało poprawnie dla dużych plików\n"
-"    (> 2 MB) lub plików binarnych zawierających \\0 bajtów.\n"
 
 #: fish/fish.c:986
 #, c-format
@@ -1468,11 +1378,6 @@ msgid ""
 "    useful if you want to download files to a particular\n"
 "    place.\n"
 msgstr ""
-"lcd - zmienia lokalny katalog\n"
-"    lcd <katalog>\n"
-"\n"
-"    Zmienia bieżący katalog guestfish. Te polecenie jest\n"
-"    przydatne, aby pobrać pliki do konkretnego miejsca.\n"
 
 #: fish/fish.c:993
 #, c-format
@@ -1484,13 +1389,6 @@ msgid ""
 "    command args.  Note that the command is run repeatedly\n"
 "    once for each expanded argument.\n"
 msgstr ""
-"glob - rozwija wieloznaczniki w poleceniach\n"
-"    glob <polecenie> [<parametry> ...]\n"
-"\n"
-"    Glob wykonuje <polecenie> z wieloznacznikami\n"
-"    rozwiniętymi we wszystkie parametry polecenia.\n"
-"    Proszę zauważyć, że polecenie jest wykonywane\n"
-"    raz dla każdego rozwiniętego parametru.\n"
 
 #: fish/fish.c:1000
 #, c-format
@@ -1499,9 +1397,6 @@ msgid ""
 "     help cmd\n"
 "     help\n"
 msgstr ""
-"help - wyświetla listę poleceń lub pomoc polecenia\n"
-"     help polecenie\n"
-"     help\n"
 
 #: fish/fish.c:1005
 #, c-format
@@ -1520,19 +1415,6 @@ msgid ""
 "    NOTE: This will not work reliably for large files\n"
 "    (> 2 MB) or binary files containing \\0 bytes.\n"
 msgstr ""
-"more - wyświetla plik w pagerze\n"
-"     more <nazwa_pliku>\n"
-"\n"
-"    Jest używane do wyświetlania pliku w pagerze.\n"
-"\n"
-"    Jest odpowiednikiem (i jest implementowane przez)\n"
-"    wykonania polecenia \"cat\" i używanie pagera.\n"
-"\n"
-"    Normalnie używa zmiennej $PAGER, ale jeśli zostanie użyty\n"
-"    alias \"less\", zawsze będzie używane polecenie \"less\".\n"
-"\n"
-"    UWAGA: nie będzie działało poprawnie dla dużych plików\n"
-"    (> 2 MB) lub plików binarnych zawierających \\0 bajtów.\n"
 
 #: fish/fish.c:1021
 #, c-format
@@ -1540,8 +1422,6 @@ msgid ""
 "quit - quit guestfish\n"
 "     quit\n"
 msgstr ""
-"quit - kończy pracę guestfish\n"
-"     quit\n"
 
 #: fish/fish.c:1024
 #, c-format
@@ -1553,13 +1433,6 @@ msgid ""
 "this normally, because the handle is closed properly when guestfish\n"
 "exits.  However this is occasionally useful for testing.\n"
 msgstr ""
-"reopen - zamyka i ponownie otwiera program obsługi libguestfs\n"
-"     reopen\n"
-"\n"
-"Zamyka i ponownie otwiera program obsługi libguestfs. Zwykle użycie\n"
-"tego nie jest wymagane, ponieważ program obsługi jest właściwie\n"
-"zamykany, kiedy guestfish kończy działanie. Mimo to może być czasem\n"
-"przydatne do testowania.\n"
 
 #: fish/fish.c:1031
 #, c-format
@@ -1591,33 +1464,6 @@ msgid ""
 "    <nn>E or <nn>EB  number of exabytes\n"
 "    <nn>sects        number of 512 byte sectors\n"
 msgstr ""
-"sparse - przydziela plik rzadkiego obrazu\n"
-"     sparse <nazwa_pliku> <rozmiar>\n"
-"\n"
-"    Tworzy pusty rzadki plik o podanym rozmiarze,\n"
-"    a następnie dodaje go, aby mógł być dalej badany.\n"
-"\n"
-"    We wszystkich aspektach działa tak samo jak polecenie\n"
-"    \"alloc\", poza tym, że plik obrazu jest przydzielany\n"
-"    rzadko. Oznacza to, że bloki dysku nie są przydzielane\n"
-"    do pliku, dopóki nie są potrzebne. Pliki rzadkich dysków\n"
-"    używają miejsca tylko, kiedy są zapisywane, ale są\n"
-"    wolniejsze i istnieje niebezpieczeństwo wyjścia poza\n"
-"    realne miejsce na dysku podczas działania zapisu.\n"
-"\n"
-"    Aby uzyskać bardziej zaawansowane tworzenie obrazu,\n"
-"    proszę zobaczyć narzędzie qemu-img.\n"
-"\n"
-"    Można podać rozmiar (gdzie <nn> oznacza liczbę):\n"
-"    <nn>             liczba kilobajtów\n"
-"      np.: 1440      standardowa dyskietka 3.5\"\n"
-"    <nn>K lub <nn>KB  liczba kilobajtów\n"
-"    <nn>M lub <nn>MB  liczba megabajtów\n"
-"    <nn>G lub <nn>GB  liczba gigabajtów\n"
-"    <nn>T lub <nn>TB  liczba terabajtów\n"
-"    <nn>P lub <nn>PB  liczba petabajtów\n"
-"    <nn>E lub <nn>EB  liczba eksabajtów\n"
-"    <nn>sektory        liczba 512 bajtowych sektorów\n"
 
 #: fish/fish.c:1058
 #, c-format
@@ -1628,47 +1474,41 @@ msgid ""
 "    This runs <command> as usual, and prints the elapsed\n"
 "    time afterwards.\n"
 msgstr ""
-"time - mierzy czas wykonania polecenia\n"
-"    time <polecenie> [<parametry> ...]\n"
-"\n"
-"    Wykonuje <polecenie> i wyświetla czas, jaki upłynął.\n"
 
 #: fish/fish.c:1064
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""
-"%s: nieznane polecenie, należy użyć -h, aby wyświetlić listę wszystkich "
-"poleceń\n"
 
 #: fish/fish.c:1220
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
-msgstr "Cytat ucieczki w ciągu \"%s\"\n"
+msgstr ""
 
 #: fish/glob.c:52
 #, c-format
 msgid "use 'glob command [args...]'\n"
-msgstr "należy użyć \"glob polecenie [parametry...]\"\n"
+msgstr ""
 
 #: fish/glob.c:72
 #, c-format
 msgid "glob: guestfs_glob_expand call failed: %s\n"
-msgstr "glob: wywołanie guestfs_glob_expand nie powiodło się: %s\n"
+msgstr ""
 
 #: fish/lcd.c:34
 #, c-format
 msgid "use 'lcd directory' to change local directory\n"
-msgstr "należy użyć \"lcd katalog\", aby zmienić lokalny katalog\n"
+msgstr ""
 
 #: fish/more.c:40
 #, c-format
 msgid "use '%s filename' to page a file\n"
-msgstr "należy użyć \"%s nazwa_pliku\", aby wyświetlić plik\n"
+msgstr ""
 
 #: fish/rc.c:249
 #, c-format
 msgid "guestfish: protocol error: could not read 'hello' message\n"
-msgstr "guestfish: błąd protokołu: nie można odczytać komunikatu \"hello\"\n"
+msgstr ""
 
 #: fish/rc.c:254
 #, c-format
@@ -1676,42 +1516,36 @@ msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
 "match client version '%s'.  The two versions must match exactly.\n"
 msgstr ""
-"guestfish: błąd protokołu: wersja się nie zgadza, wersja serwera \"%s\" nie "
-"zgadza się z wersją klienta \"%s\". Obie wersje muszą się dokładnie "
-"zgadzać.\n"
 
 #: fish/rc.c:329 fish/rc.c:343
 #, c-format
 msgid "guestfish: remote: looks like the server is not running\n"
-msgstr "guestfish: zdalnie: serwer nie jest uruchomiony\n"
+msgstr ""
 
 #: fish/rc.c:355 fish/rc.c:369
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
 msgstr ""
-"guestfish: błąd protokołu: nie można wysłać początkowego powitania do "
-"serwera\n"
 
 #: fish/rc.c:380
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
 msgstr ""
-"guestfish: błąd protokołu: nie można rozszyfrować odpowiedzi od serwera\n"
 
 #: fish/reopen.c:36
 #, c-format
 msgid "'reopen' command takes no parameters\n"
-msgstr "polecenie \"reopen\" nie przyjmuje parametrów\n"
+msgstr ""
 
 #: fish/reopen.c:46
 #, c-format
 msgid "reopen: guestfs_create: failed to create handle\n"
-msgstr "reopen: guestfs_create: utworzenie programu obsługi nie powiodło się\n"
+msgstr ""
 
 #: fish/time.c:35
 #, c-format
 msgid "use 'time command [args...]'\n"
-msgstr "należy użyć \"time polecenie [parametry...]\"\n"
+msgstr ""
 
 #: fuse/guestmount.c:872
 #, c-format
@@ -1735,102 +1569,78 @@ msgid ""
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
 msgstr ""
-"%s: moduł FUSE dla biblioteki libguestfs\n"
-"%s umożliwia zamontowanie systemu plików maszyny wirtualnej\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Użycie:\n"
-"  %s [--opcje] [-- [--opcje-FUSE]] punkt_montowania\n"
-"Opcje:\n"
-"  -a|--add image       Dodaje obraz\n"
-"  --dir-cache-timeout  Ustawia czas oczekiwania na pamięć podręczną\n"
-"                       odczytania katalogu (domyślnie pięć sekund)\n"
-"  --fuse-help          Wyświetla dodatkowe opcje FUSE\n"
-"  --help               Wyświetla komunikat pomocy i kończy działanie\n"
-"  -m|--mount dev[:mnt] Montuje dev w mnt (jeśli pominięto, w /)\n"
-"  -n|--no-sync         Nie synchronizuje automatycznie\n"
-"  -o|--option opt      Przekazuje dodatkowe opcje do FUSE\n"
-"  -r|--ro              Montuje w trybie tylko do odczytu\n"
-"  --selinux            Włącza obsługę SELinuksa\n"
-"  --trace              Śledzi wywołania API biblioteki guestfs (do\n"
-"                       standardowego wyjścia błędów)\n"
-"  -v|--verbose         Wyświetla więcej komunikatów\n"
-"  -V|--version         Wyświetla wersję i kończy działanie\n"
 
 #: fuse/guestmount.c:1077
 #, c-format
 msgid "%s: must have at least one -a and at least one -m option\n"
-msgstr "%s: musi posiadać co najmniej jedną opcję -a i co najmniej jedną -m\n"
+msgstr ""
 
 #: fuse/guestmount.c:1085
 #, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
-msgstr "%s: należy podać punkt montowania w systemie plików gospodarza\n"
+msgstr ""
 
 #: src/guestfs.c:255
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
-msgstr "guestfs_close: wywołano dwa razy w tym samym programie obsługującym\n"
+msgstr ""
 
 #: src/guestfs.c:358
 #, c-format
 msgid "libguestfs: error: %s\n"
-msgstr "libguestfs: błąd: %s\n"
+msgstr ""
 
 #: src/guestfs.c:709
 msgid "command line cannot be altered after qemu subprocess launched"
 msgstr ""
-"wiersz poleceń nie może zostać zmieniony po uruchomieniu podprocesu QEMU"
 
 #: src/guestfs.c:723
 msgid "guestfs_config: parameter must begin with '-' character"
-msgstr "guestfs_config: parametr musi zaczynać się od znaku \"-\""
+msgstr ""
 
 #: src/guestfs.c:737
 #, c-format
 msgid "guestfs_config: parameter '%s' isn't allowed"
-msgstr "guestfs_config: parametr \"%s\" nie jest dozwolony"
+msgstr ""
 
 #: src/guestfs.c:757 src/guestfs.c:796 src/guestfs.c:814
 msgid "filename cannot contain ',' (comma) character"
-msgstr "nazwa pliku nie może zawierać znaku \",\" (przecinka)"
+msgstr ""
 
 #: src/guestfs.c:899
 msgid "you must call guestfs_add_drive before guestfs_launch"
-msgstr "należy wywołać guestfs_add_drive przed guestfs_launch"
+msgstr ""
 
 #: src/guestfs.c:904
 msgid "qemu has already been launched"
-msgstr "QEMU zostało już uruchomione"
+msgstr ""
 
 #: src/guestfs.c:912
 #, c-format
 msgid "%s: cannot create temporary directory"
-msgstr "%s: nie można utworzyć katalogu tymczasowego"
+msgstr ""
 
 #: src/guestfs.c:1002
 #, c-format
 msgid "cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)"
-msgstr "nie można odnaleźć %s lub %s w LIBGUESTFS_PATH (bieżąca ścieżka = %s)"
+msgstr ""
 
 #: src/guestfs.c:1394
 msgid "failed to connect to vmchannel socket"
-msgstr "połączenie się z gniazdem kanału maszyny wirtualnej nie powiodło się"
+msgstr ""
 
 #: src/guestfs.c:1413
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr ""
-"guestfs_launch nie powiodło się, proszę zobaczyć wcześniejsze komunikaty "
-"błędów"
 
 #: src/guestfs.c:1426
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
-"QEMU zostało uruchomione i skontaktowano się z demonem, ale stan != GOTOWY"
 
 #: src/guestfs.c:1517
 #, c-format
 msgid "external command failed: %s"
-msgstr "zewnętrzne polecenie nie powiodło się: %s"
+msgstr ""
 
 #: src/guestfs.c:1595
 #, c-format
@@ -1838,98 +1648,92 @@ msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
 "the LIBGUESTFS_QEMU environment variable."
 msgstr ""
-"%s: polecenie nie powiodło się: jeśli QEMU jest położone w niestandardowej "
-"ścieżce, należy spróbować ustawienia zmiennej środowiskowej LIBGUESTFS_QEMU."
 
 #: src/guestfs.c:1734
 msgid "qemu has not been launched yet"
-msgstr "QEMU nie zostało jeszcze uruchomione"
+msgstr ""
 
 #: src/guestfs.c:1745
 msgid "no subprocess to kill"
-msgstr "brak podprocesu do zniszczenia"
+msgstr ""
 
 #: src/guestfs.c:1867
 #, c-format
 msgid "guestfs_set_busy: called when in state %d != READY"
-msgstr "guestfs_set_busy: wywołano, kiedy w stanie %d != GOTOWY"
+msgstr ""
 
 #: src/guestfs.c:1890
 #, c-format
 msgid "guestfs_end_busy: called when in state %d"
-msgstr "guestfs_end_busy: wywołano, kiedy w stanie %d"
+msgstr ""
 
 #: src/guestfs.c:1998
 #, c-format
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
 msgstr ""
-"check_for_daemon_cancellation_or_eof: odczytano 0x%x z demona, oczekiwano 0x%"
-"x\n"
 
 #: src/guestfs.c:2156 src/guestfs.c:2210
 msgid "unexpected end of file when reading from daemon"
-msgstr "nieoczekiwany koniec pliku podczas odczytywania z demona"
+msgstr ""
 
 #: src/guestfs.c:2172
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
-msgstr "otrzymano podpis magic z guestfsd, ale w stanie %d"
+msgstr ""
 
 #: src/guestfs.c:2187
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
-msgstr "długość komunikatu (%u) > maksymalny możliwy rozmiar (%d)"
+msgstr ""
 
 #: src/guestfs.c:2309
 #, c-format
 msgid "guestfs___send: state %d != BUSY"
-msgstr "guestfs___send: stan %d != ZAJĘTY"
+msgstr ""
 
 #: src/guestfs.c:2331
 msgid "xdr_guestfs_message_header failed"
-msgstr "xdr_guestfs_message_header nie powiodło się"
+msgstr ""
 
 #: src/guestfs.c:2340
 msgid "dispatch failed to marshal args"
-msgstr "rozdzielenie parametrów marszałka nie powiodło się"
+msgstr ""
 
 #: src/guestfs.c:2470
 #, c-format
 msgid "send_file_chunk: state %d != READY"
-msgstr "send_file_chunk: stan %d != GOTOWY"
+msgstr ""
 
 #: src/guestfs.c:2486
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
-msgstr "xdr_guestfs_chunk nie powiodło się (bufor = %p, długość bufora = %zu)"
+msgstr ""
 
 #: src/guestfs.c:2610
 #, c-format
 msgid "%s: error in chunked encoding"
-msgstr "%s: błąd w kodowaniu fragmentu"
+msgstr ""
 
 #: src/guestfs.c:2638
 msgid "write to daemon socket"
-msgstr "zapisuje do gniazda demona"
+msgstr ""
 
 #: src/guestfs.c:2661
 msgid "receive_file_data: parse error in reply callback"
-msgstr "receive_file_data: błąd przetwarzania w odpowiedzi wywołania zwrotnego"
+msgstr ""
 
 #: src/guestfs.c:2666
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr ""
-"receive_file_data: otrzymano nieoczekiwaną flagę podczas odczytywania "
-"fragmentów pliku"
 
 #: src/guestfs.c:2674
 msgid "failed to parse file chunk"
-msgstr "przetworzenie fragmentu pliku nie powiodło się"
+msgstr ""
 
 #: src/guestfs.c:2683
 msgid "file receive cancelled by daemon"
-msgstr "otrzymanie pliku zostało anulowane przez demona"
+msgstr ""
 
 #: test-tool/test-tool.c:69
 #, c-format
@@ -1947,88 +1751,71 @@ msgid ""
 "  --timeout n\n"
 "  -t n           Set launch timeout (default: %d seconds)\n"
 msgstr ""
-"libguestfs-test-tool: interaktywne narzędzie testowania\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
-"Użycie:\n"
-"  libguestfs-test-tool [--opcje]\n"
-"Opcje:\n"
-"  --help         Wyświetla użycie\n"
-"  --helper libguestfs-test-tool-helper\n"
-"                 Program pomocniczy (domyślnie: %s)\n"
-"  --qemudir katalog  Podaje katalog źródłowy QEMU\n"
-"  --qemu QEMU    Podaje plik binarny QEMU\n"
-"  --timeout n\n"
-"  -t n           Ustawia czas oczekiwania na uruchomienie\n"
-"                 (domyślnie: %d sekundy)\n"
 
 #: test-tool/test-tool.c:121
 #, c-format
 msgid "libguestfs-test-tool: unknown long option: %s (%d)\n"
-msgstr "libguestfs-test-tool: nieznana długa opcja: %s (%d)\n"
+msgstr ""
 
 #: test-tool/test-tool.c:130
 #, c-format
 msgid "libguestfs-test-tool: invalid timeout: %s\n"
-msgstr "libguestfs-test-tool: nieprawidłowy czas oczekiwania: %s\n"
+msgstr ""
 
 #: test-tool/test-tool.c:142
 #, c-format
 msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
-msgstr "libguestfs-test-tool: nieoczekiwana opcja wiersza poleceń 0x%x\n"
+msgstr ""
 
 #: test-tool/test-tool.c:165
 #, c-format
 msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
 msgstr ""
-"libguestfs-test-tool: utworzenie programu obsługi libguestfs nie powiodło "
-"się\n"
 
 #: test-tool/test-tool.c:170 test-tool/test-tool.c:176
 #, c-format
 msgid "libguestfs-test-tool: failed to add drive '%s'\n"
-msgstr "libguestfs-test-tool: dodanie napędu \"%s\" nie powiodło się\n"
+msgstr ""
 
 #: test-tool/test-tool.c:184
 #, c-format
 msgid "libguestfs-test-tool: guestfs_version failed\n"
-msgstr "libguestfs-test-tool: guestfs_version nie powiodło się\n"
+msgstr ""
 
 #: test-tool/test-tool.c:206
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
-msgstr "libguestfs-test-tool: uruchomienie przyrządu nie powiodło się\n"
+msgstr ""
 
 #: test-tool/test-tool.c:218
 #, c-format
 msgid "libguestfs-test-tool: failed to run sfdisk\n"
-msgstr "libguestfs-test-tool: wykonanie sfdisk nie powiodło się\n"
+msgstr ""
 
 #: test-tool/test-tool.c:224
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
-msgstr "libguestfs-test-tool: mkfs.ext2 nie powiodło się\n"
+msgstr ""
 
 #: test-tool/test-tool.c:230
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
-msgstr "libguestfs-test-tool: zamontowanie /dev/sda1 w / nie powiodło się\n"
+msgstr ""
 
 #: test-tool/test-tool.c:236
 #, c-format
 msgid "libguestfs-test-tool: failed to mkdir /iso\n"
-msgstr "libguestfs-test-tool: utworzenie katalogu /iso nie powiodło się\n"
+msgstr ""
 
 #: test-tool/test-tool.c:242
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sdb on /iso\n"
-msgstr "libguestfs-test-tool: zamontowanie /dev/sdb w /iso nie powiodło się\n"
+msgstr ""
 
 #: test-tool/test-tool.c:250
 #, c-format
 msgid "libguestfs-test-tool: could not run helper program, or helper failed\n"
 msgstr ""
-"libguestfs-test-tool: nie można uruchomić programu pomocniczego lub program "
-"nie powiódł się\n"
 
 #: test-tool/test-tool.c:281
 #, c-format
@@ -2036,18 +1823,16 @@ msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
 "--qemu/--qemudir options cannot be used.\n"
 msgstr ""
-"Zmienna środowiskowa LIBGUESTFS_QEMU jest już ustawiona, więc nie można\n"
-"użyć opcji --qemu/--qemudir.\n"
 
 #: test-tool/test-tool.c:289
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
-msgstr "Plik binarny \"%s\" nie istnieje lub nie jest wykonywalny\n"
+msgstr ""
 
 #: test-tool/test-tool.c:303
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
-msgstr "%s: nie wygląda na katalog źródłowy QEMU\n"
+msgstr ""
 
 #: test-tool/test-tool.c:352
 #, c-format
@@ -2057,15 +1842,11 @@ msgid ""
 "\n"
 "Use the --helper option to specify the location of this program.\n"
 msgstr ""
-"Program pomocniczy narzędzia testowania \"libguestfs-test-tool-helper\" nie\n"
-"jest dostępny. Oczekiwano odnalezienie go w \"%s\"\n"
-"\n"
-"Należy użyć opcji --helper, aby podać położenie tego programu.\n"
 
 #: test-tool/test-tool.c:368
 #, c-format
 msgid "command failed: %s"
-msgstr "polecenie nie powiodło się: %s"
+msgstr ""
 
 #: test-tool/test-tool.c:376
 #, c-format
@@ -2074,10 +1855,8 @@ msgid ""
 "is not statically linked.  This is a build error when this test tool\n"
 "was built.\n"
 msgstr ""
-"Program pomocniczy narzędzia testowania %s\n"
-"nie jest skonsolidowany statycznie. Jest to błąd budowania.\n"
 
 #: test-tool/test-tool.c:410
 #, c-format
 msgid "mkisofs command failed: %s\n"
-msgstr "polecenie mkisofs nie powiodło się: %s\n"
+msgstr ""

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs.master.libguestfs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-27 15:28+0000\n"
+"POT-Creation-Date: 2010-01-28 09:47+0000\n"
 "PO-Revision-Date: 2010-01-27 20:03+0530\n"
 "Last-Translator: Krishna Babu K <kkrothap@redhat.com>\n"
 "Language-Team: Telugu <en@li.org>\n"
@@ -1796,12 +1796,12 @@ msgstr "guestfs_launch విఫలమైంది, ముందలి దోష
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu ఆరంభించబడింది మరియు డెమోన్‌ను సంప్రదించింది, అయితే state != READY"
 
-#: src/guestfs.c:1515
+#: src/guestfs.c:1517
 #, c-format
 msgid "external command failed: %s"
 msgstr "బహిర్గత ఆదేశము విఫలమైంది: %s"
 
-#: src/guestfs.c:1593
+#: src/guestfs.c:1595
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -1810,90 +1810,90 @@ msgstr ""
 "%s: ఆదేశము విఫలమైంది: ఒకవేళ qemu ప్రామాణికం-కాని పాత్‌పై వుంటే, LIBGUESTFS_QEMU ఎన్విరాన్మెంట్ "
 "వేరియబుల్ అమర్చుటకు ప్రయత్నించుము."
 
-#: src/guestfs.c:1732
+#: src/guestfs.c:1734
 msgid "qemu has not been launched yet"
 msgstr "qemu యింకా ఆరంభం కాలేదు"
 
-#: src/guestfs.c:1743
+#: src/guestfs.c:1745
 msgid "no subprocess to kill"
 msgstr "అంతంచేయుటకు యే వుపకార్యక్రమము లేదు"
 
-#: src/guestfs.c:1865
+#: src/guestfs.c:1867
 #, c-format
 msgid "guestfs_set_busy: called when in state %d != READY"
 msgstr "guestfs_set_busy: state %d != READY అయినప్పుడు పిలువబడును"
 
-#: src/guestfs.c:1888
+#: src/guestfs.c:1890
 #, c-format
 msgid "guestfs_end_busy: called when in state %d"
 msgstr "guestfs_end_busy: state %d నందు పిలువబడును"
 
-#: src/guestfs.c:1996
+#: src/guestfs.c:1998
 #, c-format
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
 msgstr ""
 "check_for_daemon_cancellation_or_eof: డెమోన్‌నుండి 0x%x చదివెను, కావలసినది 0x%x\n"
 
-#: src/guestfs.c:2154 src/guestfs.c:2208
+#: src/guestfs.c:2156 src/guestfs.c:2210
 msgid "unexpected end of file when reading from daemon"
 msgstr "డెమోన్‌నుండి చదువునప్పుడు అనుకోని ఫైలు ముగింపు"
 
-#: src/guestfs.c:2170
+#: src/guestfs.c:2172
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr "స్థితి %d నందు, guestfsd నుండి చమత్కార సంతకము పొందబడింది"
 
-#: src/guestfs.c:2185
+#: src/guestfs.c:2187
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "సందేశము పొడవు (%u) > సాధ్యమగు గరిష్ట పరిమాణము (%d)"
 
-#: src/guestfs.c:2307
+#: src/guestfs.c:2309
 #, c-format
 msgid "guestfs___send: state %d != BUSY"
 msgstr "guestfs___send: state %d != BUSY"
 
-#: src/guestfs.c:2329
+#: src/guestfs.c:2331
 msgid "xdr_guestfs_message_header failed"
 msgstr "xdr_guestfs_message_header విఫలమైంది"
 
-#: src/guestfs.c:2338
+#: src/guestfs.c:2340
 msgid "dispatch failed to marshal args"
 msgstr "మార్షల్ argsకు చేరవేత విఫలమైంది"
 
-#: src/guestfs.c:2468
+#: src/guestfs.c:2470
 #, c-format
 msgid "send_file_chunk: state %d != READY"
 msgstr "send_file_chunk: state %d != READY"
 
-#: src/guestfs.c:2484
+#: src/guestfs.c:2486
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk విఫలమైంది (buf = %p, buflen = %zu)"
 
-#: src/guestfs.c:2608
+#: src/guestfs.c:2610
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: చంకడ్ ఎన్కోడింగ్ నందు దోషము"
 
-#: src/guestfs.c:2636
+#: src/guestfs.c:2638
 msgid "write to daemon socket"
 msgstr "డెమోన్ సాకెట్‌కు వ్రాయుము"
 
-#: src/guestfs.c:2659
+#: src/guestfs.c:2661
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: రిప్లై కాల్‌బ్యాక్ నందు పార్శ్ దోషము"
 
-#: src/guestfs.c:2664
+#: src/guestfs.c:2666
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr "receive_file_data: ఫైలు ముక్కలను చదువునప్పుడు అనుకోని ఫ్లాగ్ స్వీకరించబడింది"
 
-#: src/guestfs.c:2672
+#: src/guestfs.c:2674
 msgid "failed to parse file chunk"
 msgstr "ఫైలు ముక్కను పార్శ్ చేయుటలో విఫలమైంది"
 
-#: src/guestfs.c:2681
+#: src/guestfs.c:2683
 msgid "file receive cancelled by daemon"
 msgstr "ఫైలు స్వీకరణ డెమోన్ ద్వారా రద్దుచేయబడింది"
 
