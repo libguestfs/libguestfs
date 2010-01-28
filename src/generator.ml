@@ -4204,6 +4204,26 @@ To get other stats about a file, use C<guestfs_stat>, C<guestfs_lstat>,
 C<guestfs_is_dir>, C<guestfs_is_file> etc.
 To get the size of block devices, use C<guestfs_blockdev_getsize64>.");
 
+  ("lvrename", (RErr, [String "logvol"; String "newlogvol"]), 219, [],
+   [InitBasicFSonLVM, Always, TestOutputList (
+      [["lvrename"; "/dev/VG/LV"; "/dev/VG/LV2"];
+       ["lvs"]], ["/dev/VG/LV2"])],
+   "rename an LVM logical volume",
+   "\
+Rename a logical volume C<logvol> with the new name C<newlogvol>.");
+
+  ("vgrename", (RErr, [String "volgroup"; String "newvolgroup"]), 220, [],
+   [InitBasicFSonLVM, Always, TestOutputList (
+      [["umount"; "/"];
+       ["vg_activate"; "false"; "VG"];
+       ["vgrename"; "VG"; "VG2"];
+       ["vg_activate"; "true"; "VG2"];
+       ["mount"; "/dev/VG2/LV"; "/"];
+       ["vgs"]], ["VG2"])],
+   "rename an LVM volume group",
+   "\
+Rename a volume group C<volgroup> with the new name C<newvolgroup>.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
