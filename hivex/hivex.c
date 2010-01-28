@@ -197,18 +197,24 @@ struct ntreg_nk_record {
   char id[2];                   /* "nk" */
   uint16_t flags;
   char timestamp[8];
-  char unknown0[4];
+  uint32_t unknown1;
   uint32_t parent;              /* offset of owner/parent */
   uint32_t nr_subkeys;          /* number of subkeys */
-  uint32_t unknown1;
+  uint32_t nr_subkeys_volatile;
   uint32_t subkey_lf;           /* lf record containing list of subkeys */
-  uint32_t unknown2;
+  uint32_t subkey_lf_volatile;
   uint32_t nr_values;           /* number of values */
   uint32_t vallist;             /* value-list record */
   uint32_t sk;                  /* offset of sk-record */
   uint32_t classname;           /* offset of classname record */
-  char unknown3[16];
-  uint32_t unknown4;
+  uint16_t max_subkey_name_len; /* maximum length of a subkey name in bytes
+                                   if the subkey was reencoded as UTF-16LE */
+  uint16_t unknown2;
+  uint32_t unknown3;
+  uint32_t max_vk_name_len;     /* maximum length of any vk name in bytes
+                                   if the name was reencoded as UTF-16LE */
+  uint32_t max_vk_data_len;     /* maximum length of any vk data in bytes */
+  uint32_t unknown6;
   uint16_t name_len;            /* length of name */
   uint16_t classname_len;       /* length of classname */
   char name[1];                 /* name follows here */
