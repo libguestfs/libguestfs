@@ -263,7 +263,7 @@ struct ntreg_vk_record {
 } __attribute__((__packed__));
 
 static uint32_t
-header_checksum (hive_h *h)
+header_checksum (const hive_h *h)
 {
   uint32_t *daddr = (uint32_t *) h->addr;
   size_t i;
