@@ -203,6 +203,7 @@ python/guestfs.py
 python/guestfs-py.c
 python/guestfs.pyc
 regressions/test1.img
+regressions/test.err
 regressions/test.out
 ruby/bindtests.rb
 ruby/ext/guestfs/extconf.h

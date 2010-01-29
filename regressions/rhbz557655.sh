@@ -21,11 +21,10 @@
 # "guestfish number parsing should not use atoi, should support '0...' for octal and '0x...' for hexadecimal"
 
 set -e
-rm -f test.out
+rm -f test.out test.err
 export LANG=C
-unset LIBGUESTFS_DEBUG
 
-../fish/guestfish >> test.out 2>&1 <<EOF
+../fish/guestfish >> test.out 2>> test.err <<EOF
 # set-memsize is just a convenient non-daemon function that
 # takes a single integer argument.
 set-memsize 0
@@ -50,7 +49,7 @@ get-memsize
 -set-memsize 123L
 EOF
 
-../fish/guestfish >> test.out 2>&1 <<EOF
+../fish/guestfish >> test.out 2>> test.err <<EOF
 alloc test1.img 10M
 run
 part-disk /dev/sda mbr
@@ -80,5 +79,15 @@ filesize /test
 -truncate-size /test 123L
 EOF
 
-diff -u test.out rhbz557655-expected.out
-rm test.out test1.img
+# If we are running with debugging enabled (or even if not), then
+# other messages and warnings can end up in the test.err (stderr) log.
+# Thus filter out only lines we expect.  'proc 200' is the procedure
+# number of truncate_size.
+mv test.err test.err~
+grep -E 'set[-_]memsize|truncate[-_]size' test.err~ |
+  grep -Ev 'proc 200' > test.err
+rm test.err~
+
+diff -u test.out rhbz557655-expected.stdout
+diff -u test.err rhbz557655-expected.stderr
+rm test.out test.err test1.img
