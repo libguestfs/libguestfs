@@ -27,7 +27,8 @@ libhivex_la_LDFLAGS = -version-info 0:0:0
 libhivex_la_CFLAGS = \
   $(WARN_CFLAGS) $(WERROR_CFLAGS)
 
-bin_PROGRAMS = hivexml hivexget hivexsh
+bin_PROGRAMS = hivexml hivexsh
+bin_SCRIPTS = hivexget
 
 hivexml_SOURCES = \
   hivexml.c
@@ -37,15 +38,6 @@ hivexml_CFLAGS = \
   -I$(top_srcdir)/src \
   -DLOCALEBASEDIR=\""$(datadir)/locale"\" \
   $(LIBXML2_CFLAGS) \
-  $(WARN_CFLAGS) $(WERROR_CFLAGS)
-
-hivexget_SOURCES = \
-  hivexget.c
-
-hivexget_LDADD = libhivex.la
-hivexget_CFLAGS = \
-  -I$(top_srcdir)/src \
-  -DLOCALEBASEDIR=\""$(datadir)/locale"\" \
   $(WARN_CFLAGS) $(WERROR_CFLAGS)
 
 hivexsh_SOURCES = \

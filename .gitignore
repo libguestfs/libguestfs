@@ -82,7 +82,6 @@ haskell/Guestfs.hs
 *.hi
 hivex/*.1
 hivex/*.3
-hivex/hivexget
 hivex/hivexsh
 hivex/hivexml
 html/guestfish.1.html
