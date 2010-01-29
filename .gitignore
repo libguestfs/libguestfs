@@ -83,12 +83,14 @@ haskell/Guestfs.hs
 hivex/*.1
 hivex/*.3
 hivex/hivexget
+hivex/hivexsh
 hivex/hivexml
 html/guestfish.1.html
 html/guestfs.3.html
 html/guestmount.1.html
 html/hivex.3.html
 html/hivexget.1.html
+html/hivexsh.1.html
 html/hivexml.1.html
 html/recipes.html
 html/virt-cat.1.html

@@ -60,7 +60,7 @@ main (int argc, char *argv[])
   }
   if (path[1] == '\\') {
   doubled:
-    fprintf (stderr, _("hivexget: %s: \\ characters in path are doubled - are you escaping the path parameter correctly?\n"), path);
+    fprintf (stderr, _("%s: %s: \\ characters in path are doubled - are you escaping the path parameter correctly?\n"), "hivexget", path);
     exit (EXIT_FAILURE);
   }
 
@@ -118,7 +118,7 @@ main (int argc, char *argv[])
       if (errno)
         goto error;
       /* else key not found */
-      fprintf (stderr, _("hivexget: %s: key not found\n"), key);
+      fprintf (stderr, _("%s: %s: key not found\n"), "hivexget", key);
       exit (EXIT_NOT_FOUND);
     }
 

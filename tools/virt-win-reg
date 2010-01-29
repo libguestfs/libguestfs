@@ -277,6 +277,7 @@ for ($i = 0; $i < @ARGV; ++$i) {
 
 L<hivex(3)>,
 L<hivexget(1)>,
+L<hivexsh(1)>,
 L<guestfs(3)>,
 L<guestfish(1)>,
 L<virt-cat(1)>,

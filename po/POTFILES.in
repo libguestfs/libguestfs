@@ -83,6 +83,7 @@ fuse/guestmount.c
 hivex/hivex.c
 hivex/hivexget.c
 hivex/hivexml.c
+hivex/hivexsh.c
 inspector/virt-inspector
 java/com_redhat_et_libguestfs_GuestFS.c
 ocaml/guestfs_c.c

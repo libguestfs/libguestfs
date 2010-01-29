@@ -65,6 +65,7 @@ If it's a numeric value, it is printed as a decimal number.
 
 L<hivex(3)>,
 L<hivexml(1)>,
+L<hivexsh(1)>,
 L<virt-win-reg(1)>,
 L<guestfs(3)>,
 L<http://libguestfs.org/>,

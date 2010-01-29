@@ -35,6 +35,7 @@ skips over any parts of the Registry that we cannot read.
 
 L<hivex(3)>,
 L<hivexget(1)>,
+L<hivexsh(1)>,
 L<virt-win-reg(1)>,
 L<guestfs(3)>,
 L<http://libguestfs.org/>,

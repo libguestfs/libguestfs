@@ -1,0 +1,179 @@
+=encoding utf8
+
+=head1 NAME
+
+hivexsh - Windows Registry hive shell
+
+=head1 SYNOPSIS
+
+ hivexsh [-options] [hivefile]
+
+=head1 DESCRIPTION
+
+This program provides a simple shell for navigating Windows Registry
+'hive' files.  It uses the hivex library for access to these binary
+files.
+
+Firstly you will need to provide a hive file from a Windows operating
+system.  The hive files are usually located in
+C<C:\Windows\System32\Config> and have names like C<software>,
+C<system> etc (without any file extension).  For more information
+about hive files, read L<hivex(3)>.  For information about downloading
+files from virtual machines, read L<virt-cat(1)> and L<guestfish(1)>.
+
+You can provide the name of the hive file to examine on the command
+line.  For example:
+
+ hivexsh software
+
+Or you can start C<hivexsh> without any arguments, and immediately use
+the C<load> command to load a hive:
+
+ $ hivexsh
+ 
+ Welcome to hivexsh, the hivex interactive shell for examining
+ Windows Registry binary hive files.
+ 
+ Type: 'help' for help with commands
+       'quit' to quit the shell
+ 
+ > load software
+ software\>
+
+Navigate through the hive's keys using the C<cd> command, as if it
+contained a filesystem, and use C<ls> to list the subkeys of the
+current key.  Other commands are listed below.
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<-d>
+
+Enable lots of debug messages.  If you find a Registry file that this
+program cannot parse, please enable this option and post the complete
+output I<and> the Registry hive file in your bug report.
+
+=item B<-f> filename
+
+Read commands from C<filename> instead of stdin.  To write a hivexsh
+script, use:
+
+ #!/usr/bin/hivexsh -f
+
+=back
+
+=head1 COMMANDS
+
+=over 4
+
+=item B<cd> path
+
+Change to the subkey C<path>.  Use Windows-style backslashes to
+separate path elements, and start with a backslash in order to start
+from the root of the hive.  For example:
+
+ cd \Classes\*
+
+moves from the root node, to the C<Classes> node, to the C<*> node.
+If you were already at the root node, you could do this instead:
+
+ cd Classes\*
+
+or even:
+
+ cd Classes
+ cd *
+
+Path elements (node names) are matched case insensitively, and
+characters like space, C<*>, and C<?> have I<no> special significance.
+
+C<..> may be used to go to the parent directory.
+
+=item B<close> | B<unload>
+
+Close the currently loaded hive.
+
+=item B<exit> | B<quit>
+
+Exit the shell.
+
+=item B<load> hivefile
+
+Load the binary hive named C<hivefile>.  The currently loaded hive, if
+any, is closed.  The current directory is changed back to the root
+node.
+
+=item B<ls>
+
+List the subkeys of the current hive Registry key.  Note this command
+does not take any arguments.
+
+=item B<lsval> [key]
+
+List the (key, value) pairs of the current hive Registry key.  If no
+argument is given then all pairs are displayed.  If C<key> is given,
+then the value of the named key is displayed.  If C<@> is given, then
+the value of the default key is displayed.
+
+=back
+
+=head1 EXAMPLE
+
+ $ guestfish --ro -i Windows7
+ ><fs> download win:c:\windows\system32\config\software software
+ ><fs> quit
+ 
+ $ hivexsh software
+ 
+ Welcome to hivexsh, the hivex interactive shell for examining
+ Windows Registry binary hive files.
+ 
+ Type: 'help' for help with commands
+       'quit' to quit the shell
+ 
+ software\> ls
+ ATI Technologies
+ Classes
+ Clients
+ Intel
+ Microsoft
+ ODBC
+ Policies
+ RegisteredApplications
+ Sonic
+ Wow6432Node
+ software\> quit
+
+=head1 SEE ALSO
+
+L<hivex(3)>,
+L<hivexget(1)>,
+L<hivexml(1)>,
+L<virt-win-reg(1)>,
+L<guestfs(3)>,
+L<http://libguestfs.org/>,
+L<virt-cat(1)>,
+L<virt-edit(1)>.
+
+=head1 AUTHORS
+
+Richard W.M. Jones (C<rjones at redhat dot com>)
+
+=head1 COPYRIGHT
+
+Copyright (C) 2009-2010 Red Hat Inc.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along
+with this program; if not, write to the Free Software Foundation, Inc.,
+51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.

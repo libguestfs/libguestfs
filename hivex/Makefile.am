@@ -15,7 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-EXTRA_DIST = hivex.pod hivexml.pod hivexget.pod LICENSE
+EXTRA_DIST = hivex.pod hivexml.pod hivexget.pod hivexsh.pod LICENSE
 
 lib_LTLIBRARIES = libhivex.la
 
@@ -27,7 +27,7 @@ libhivex_la_LDFLAGS = -version-info 0:0:0
 libhivex_la_CFLAGS = \
   $(WARN_CFLAGS) $(WERROR_CFLAGS)
 
-bin_PROGRAMS = hivexml hivexget
+bin_PROGRAMS = hivexml hivexget hivexsh
 
 hivexml_SOURCES = \
   hivexml.c
@@ -48,7 +48,17 @@ hivexget_CFLAGS = \
   -DLOCALEBASEDIR=\""$(datadir)/locale"\" \
   $(WARN_CFLAGS) $(WERROR_CFLAGS)
 
-man_MANS = hivex.3 hivexml.1 hivexget.1
+hivexsh_SOURCES = \
+  hivexsh.c
+
+hivexsh_LDADD = libhivex.la ../gnulib/lib/libgnu.la  $(LIBREADLINE)
+hivexsh_CFLAGS = \
+  -I$(top_srcdir)/gnulib/lib \
+  -I$(top_srcdir)/src \
+  -DLOCALEBASEDIR=\""$(datadir)/locale"\" \
+  $(WARN_CFLAGS) $(WERROR_CFLAGS)
+
+man_MANS = hivex.3 hivexml.1 hivexget.1 hivexsh.1
 
 hivex.3: hivex.pod
 	$(POD2MAN) \
@@ -74,10 +84,19 @@ hivexget.1: hivexget.pod
 	  --release "$(PACKAGE_NAME)-$(PACKAGE_VERSION)" \
 	  $< > $@-t; mv $@-t $@
 
+hivexsh.1: hivexsh.pod
+	$(POD2MAN) \
+	  --section 1 \
+	  -c "Windows Registry" \
+	  --name "hivexsh" \
+	  --release "$(PACKAGE_NAME)-$(PACKAGE_VERSION)" \
+	  $< > $@-t; mv $@-t $@
+
 noinst_DATA = \
 	$(top_builddir)/html/hivex.3.html \
 	$(top_builddir)/html/hivexml.1.html \
-	$(top_builddir)/html/hivexget.1.html
+	$(top_builddir)/html/hivexget.1.html \
+	$(top_builddir)/html/hivexsh.1.html
 
 $(top_builddir)/html/hivex.3.html: hivex.pod
 	mkdir -p $(top_builddir)/html
@@ -102,3 +121,11 @@ $(top_builddir)/html/hivexget.1.html: hivexget.pod
 	  --htmldir html \
 	  --outfile html/hivexget.1.html \
 	  hivex/hivexget.pod
+
+$(top_builddir)/html/hivexsh.1.html: hivexsh.pod
+	mkdir -p $(top_builddir)/html
+	cd $(top_builddir) && pod2html \
+	  --css 'pod.css' \
+	  --htmldir html \
+	  --outfile html/hivexsh.1.html \
+	  hivex/hivexsh.pod
