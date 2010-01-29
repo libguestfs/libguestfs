@@ -139,6 +139,10 @@ main (int argc, char *argv[])
 
   atexit (close_stdout);
 
+  setlocale (LC_ALL, "");
+  bindtextdomain (PACKAGE, LOCALEBASEDIR);
+  textdomain (PACKAGE);
+
   enum { HELP_OPTION = CHAR_MAX + 1 };
 
   static const char *options = "a:Df:h::im:nrv?Vx";

@@ -896,6 +896,10 @@ usage (int status)
 int
 main (int argc, char *argv[])
 {
+  setlocale (LC_ALL, "");
+  bindtextdomain (PACKAGE, LOCALEBASEDIR);
+  textdomain (PACKAGE);
+
   enum { HELP_OPTION = CHAR_MAX + 1 };
 
   /* The command line arguments are broadly compatible with (a subset

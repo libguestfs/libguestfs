@@ -33,6 +33,7 @@ guestmount_CFLAGS = \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \
 	-DGUESTFS_DEFAULT_PATH='"$(libdir)/guestfs"' \
+	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	$(FUSE_CFLAGS) \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 

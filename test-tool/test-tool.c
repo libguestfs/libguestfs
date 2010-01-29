@@ -85,6 +85,10 @@ usage (void)
 int
 main (int argc, char *argv[])
 {
+  setlocale (LC_ALL, "");
+  bindtextdomain (PACKAGE, LOCALEBASEDIR);
+  textdomain (PACKAGE);
+
   static const char *options = "t:?";
   static const struct option long_options[] = {
     { "help", 0, 0, '?' },

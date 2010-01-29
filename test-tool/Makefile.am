@@ -30,6 +30,7 @@ AM_CPPFLAGS = \
 
 libguestfs_test_tool_SOURCES = test-tool.c
 libguestfs_test_tool_CFLAGS = \
+	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-Wall
 libguestfs_test_tool_LDADD = \

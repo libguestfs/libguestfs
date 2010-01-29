@@ -27,26 +27,40 @@
 
 #include "hivex.h"
 
+#ifdef HAVE_GETTEXT
+#include "gettext.h"
+#define _(str) dgettext(PACKAGE, (str))
+//#define N_(str) dgettext(PACKAGE, (str))
+#else
+#define _(str) str
+//#define N_(str) str
+#endif
+
 enum { EXIT_NOT_FOUND = 2 };
 
 int
 main (int argc, char *argv[])
 {
+  setlocale (LC_ALL, "");
+  bindtextdomain (PACKAGE, LOCALEBASEDIR);
+  textdomain (PACKAGE);
+
   if (argc < 3 || argc > 4) {
-    fprintf (stderr, "hivexget regfile path [key]\n");
+    fprintf (stderr, _("hivexget regfile path [key]\n"));
     exit (EXIT_FAILURE);
   }
+
   char *file = argv[1];
   char *path = argv[2];
   char *key = argv[3];          /* could be NULL */
 
   if (path[0] != '\\') {
-    fprintf (stderr, "hivexget: path must start with a \\ character\n");
+    fprintf (stderr, _("hivexget: path must start with a \\ character\n"));
     exit (EXIT_FAILURE);
   }
   if (path[1] == '\\') {
   doubled:
-    fprintf (stderr, "hivexget: %s: \\ characters in path are doubled - are you escaping the path parameter correctly?\n", path);
+    fprintf (stderr, _("hivexget: %s: \\ characters in path are doubled - are you escaping the path parameter correctly?\n"), path);
     exit (EXIT_FAILURE);
   }
 
@@ -82,7 +96,7 @@ main (int argc, char *argv[])
       if (errno)
         goto error;
       /* else node not found */
-      fprintf (stderr, "hivexget: %s: %s: path element not found\n",
+      fprintf (stderr, _("hivexget: %s: %s: path element not found\n"),
                path, p);
       exit (EXIT_NOT_FOUND);
     }
@@ -104,7 +118,7 @@ main (int argc, char *argv[])
       if (errno)
         goto error;
       /* else key not found */
-      fprintf (stderr, "hivexget: %s: key not found\n", key);
+      fprintf (stderr, _("hivexget: %s: key not found\n"), key);
       exit (EXIT_NOT_FOUND);
     }
 

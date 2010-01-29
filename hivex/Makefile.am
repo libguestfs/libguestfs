@@ -34,6 +34,8 @@ hivexml_SOURCES = \
 
 hivexml_LDADD = libhivex.la $(LIBXML2_LIBS)
 hivexml_CFLAGS = \
+  -I$(top_srcdir)/src \
+  -DLOCALEBASEDIR=\""$(datadir)/locale"\" \
   $(LIBXML2_CFLAGS) \
   $(WARN_CFLAGS) $(WERROR_CFLAGS)
 
@@ -42,6 +44,8 @@ hivexget_SOURCES = \
 
 hivexget_LDADD = libhivex.la
 hivexget_CFLAGS = \
+  -I$(top_srcdir)/src \
+  -DLOCALEBASEDIR=\""$(datadir)/locale"\" \
   $(WARN_CFLAGS) $(WERROR_CFLAGS)
 
 man_MANS = hivex.3 hivexml.1 hivexget.1

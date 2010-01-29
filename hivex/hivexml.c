@@ -30,6 +30,15 @@
 
 #include "hivex.h"
 
+#ifdef HAVE_GETTEXT
+#include "gettext.h"
+#define _(str) dgettext(PACKAGE, (str))
+//#define N_(str) dgettext(PACKAGE, (str))
+#else
+#define _(str) str
+//#define N_(str) str
+#endif
+
 /* Callback functions. */
 static int node_start (hive_h *, void *, hive_node_h, const char *name);
 static int node_end (hive_h *, void *, hive_node_h, const char *name);
@@ -58,14 +67,18 @@ static struct hivex_visitor visitor = {
 #define XML_CHECK(proc, args)                                           \
   do {                                                                  \
     if ((proc args) == -1) {                                            \
-      fprintf (stderr, "%s: failed to write XML document\n", #proc);    \
-      exit (EXIT_FAILURE);                                                         \
+      fprintf (stderr, _("%s: failed to write XML document\n"), #proc); \
+      exit (EXIT_FAILURE);                                              \
     }                                                                   \
   } while (0)
 
 int
 main (int argc, char *argv[])
 {
+  setlocale (LC_ALL, "");
+  bindtextdomain (PACKAGE, LOCALEBASEDIR);
+  textdomain (PACKAGE);
+
   int c;
   int open_flags = 0;
   int visit_flags = 0;
@@ -85,7 +98,7 @@ main (int argc, char *argv[])
   }
 
   if (optind + 1 != argc) {
-    fprintf (stderr, "hivexml: missing name of input file\n");
+    fprintf (stderr, _("hivexml: missing name of input file\n"));
     exit (EXIT_FAILURE);
   }
 
@@ -104,7 +117,7 @@ main (int argc, char *argv[])
   xmlTextWriterPtr writer;
   writer = xmlNewTextWriterFilename ("/dev/stdout", 0);
   if (writer == NULL) {
-    fprintf (stderr, "xmlNewTextWriterFilename: failed to create XML writer\n");
+    fprintf (stderr, _("xmlNewTextWriterFilename: failed to create XML writer\n"));
     exit (EXIT_FAILURE);
   }
 
