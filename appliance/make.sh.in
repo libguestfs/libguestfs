@@ -115,6 +115,7 @@ if [ "@DIST@" = "REDHAT" ]; then
     /var/log/spooler \
     /var/log/messages \
     /var/log/btmp \
+    /var/log/yum.log \
     $(cd initramfs && echo usr/sbin/glibc_post_upgrade.*)
 
   # Kernel modules take up nearly half of the image.  Only include ones
