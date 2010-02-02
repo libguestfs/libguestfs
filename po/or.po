@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs.master.or\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-29 09:56+0000\n"
+"POT-Creation-Date: 2010-02-02 08:49+0000\n"
 "PO-Revision-Date: 2010-02-01 18:17+0530\n"
 "Last-Translator: Manoj Kumar Giri <mgiri@redhat.com>\n"
 "Language-Team: Oriya <oriya-it@googlegroups.com>\n"
@@ -15,7 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms:  nplurals=2; plural=(n!=1);\n\n"
+"Plural-Forms:  nplurals=2; plural=(n!=1);\n"
+"\n"
 "\n"
 "\n"
 
@@ -963,7 +964,8 @@ msgstr "ଗୋଟିଏ ସଂକୋଚିତ ଫାଇଲ ଭିତରେ ଫ�
 
 #: fish/cmds.c:293
 msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
-msgstr "ଗୋଟିଏ ନିର୍ଦ୍ଦେଶ ପାଇଁ ବିସ୍ତୃତ ସହାୟତା ଦର୍ଶାଇବା ପାଇଁ -h <cmd> / help <cmd> ବ୍ୟବହାର କରନ୍ତୁ।"
+msgstr ""
+"ଗୋଟିଏ ନିର୍ଦ୍ଦେଶ ପାଇଁ ବିସ୍ତୃତ ସହାୟତା ଦର୍ଶାଇବା ପାଇଁ -h <cmd> / help <cmd> ବ୍ୟବହାର କରନ୍ତୁ।"
 
 #: fish/cmds.c:1333 fish/cmds.c:1345 fish/cmds.c:1358 fish/cmds.c:1372
 #: fish/cmds.c:1386 fish/cmds.c:1401 fish/cmds.c:1416 fish/cmds.c:1429
@@ -1219,64 +1221,65 @@ msgstr ""
 "  -V|--version         ସଂସ୍କରଣ ଦର୍ଶାନ୍ତୁ ଏବଂ ପ୍ରସ୍ଥାନ କରନ୍ତୁ\n"
 "ଅଧିକ ସୂଚନା ପାଇଁ,  man ପୃଷ୍ଠା ଦେଖନ୍ତୁ %s(1).\n"
 
-#: fish/fish.c:184 fuse/guestmount.c:961
+#: fish/fish.c:188 fuse/guestmount.c:965
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: ନିୟନ୍ତ୍ରଣ ପ୍ରସ୍ତୁତ କରିବାରେ ବିଫଳ ହୋଇଛି\n"
 
-#: fish/fish.c:223
+#: fish/fish.c:227
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
 msgstr "%s: --listen=PID: PID ଗୋଟିଏ ସଂଖ୍ୟା ନୁହଁ: %s\n"
 
-#: fish/fish.c:230
+#: fish/fish.c:234
 #, c-format
-msgid "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
+msgid ""
+"%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 msgstr "%s: ସୁଦୂର: $GUESTFISH_PID ନିଶ୍ଚିତ ଭାବରେ PID ରେ ସୁଦୂର ପଦ୍ଧତିରେ ସେଟ ହୋଇଛି\n"
 
-#: fish/fish.c:239 fuse/guestmount.c:1006
+#: fish/fish.c:243 fuse/guestmount.c:1010
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: ଅଜଣା ଲମ୍ବା ବିକଳ୍ପ: %s (%d)\n"
 
-#: fish/fish.c:266
+#: fish/fish.c:270
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: କେବଳ ଗୋଟିଏ -f ପ୍ରାଚଳ ଦିଆହୋଇଛି\n"
 
-#: fish/fish.c:339
+#: fish/fish.c:343
 #, c-format
 msgid "%s: cannot use -i option with -a, -m, --listen, --remote or --selinux\n"
 msgstr ""
 "%s: -i ବିକଳ୍ପକୁ -a, -m, --listen, --remote କିମ୍ବା --selinux ସହିତ ବ୍ୟବହାର କରିପାରିବେ "
 "ନାହିଁ\n"
 
-#: fish/fish.c:346
+#: fish/fish.c:350
 #, c-format
 msgid "%s: -i requires a libvirt domain or path(s) to disk image(s)\n"
 msgstr "%s: -i ଗୋଟିଏ libvirt ଡମେନ ଅଥବା ପଥ(ଗୁଡ଼ିକୁ) ଡିସ୍କ ପ୍ରତିଛବି(ଗୁଡ଼ିକ)ରେ ଆବଶ୍ୟକ କରିଥାଏ\n"
 
-#: fish/fish.c:356
+#: fish/fish.c:360
 #, c-format
 msgid "%s: virt-inspector command too long for fixed-size buffer\n"
 msgstr "%s: virt-inspector ନିର୍ଦ୍ଦେଶଟି ସ୍ଥାୟୀ-ଆକାରର ବଫର ପାଇଁ ଅତ୍ୟଧିକ ଲମ୍ବା ଅଟେ\n"
 
-#: fish/fish.c:402
+#: fish/fish.c:406
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr "%s: --listen ଏବଂ --remote ବିକଳ୍ପଗୁଡ଼ିକୁ ଏକ ସମୟରେ ବ୍ୟବହାର କରିପାରିବେ ନାହିଁ\n"
 
-#: fish/fish.c:410
+#: fish/fish.c:414
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: ନିର୍ଦ୍ଦେଶ ନାମାରେ --listen ସୂଚକ ସହିତ ଅତିରିକ୍ତ ପ୍ରଚଳଗୁଡ଼ିକ\n"
 
-#: fish/fish.c:416
+#: fish/fish.c:420
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: --listen ଏବଂ --file ବିକଳ୍ପଗୁଡ଼ିକୁ ଏକା ସମୟରେ ବ୍ୟବହାର କରିପାରିବେ ନାହିଁ\n"
 
-#: fish/fish.c:561
+#: fish/fish.c:565
 #, c-format
 msgid ""
 "\n"
@@ -1295,81 +1298,81 @@ msgstr ""
 "      'quit' shellରୁ ପ୍ରସ୍ଥାନ କରିବା ପାଇଁ\n"
 "\n"
 
-#: fish/fish.c:641
+#: fish/fish.c:645
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: ସମାପ୍ତ ହୋଇନଥିବା ଦ୍ୱିତୀୟ କୋଟ\n"
 
-#: fish/fish.c:647 fish/fish.c:664
+#: fish/fish.c:651 fish/fish.c:668
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: ନିର୍ଦ୍ଦେଶ ସ୍ୱତନ୍ତ୍ରଚରଗୁଡ଼ିକ ଖାଲିସ୍ଥାନ ଦ୍ୱାରା ପୃଥକ ହୋଇନାହିଁ\n"
 
-#: fish/fish.c:658
+#: fish/fish.c:662
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: ଅସମାପ୍ତ ଏକକ କୋଟ\n"
 
-#: fish/fish.c:713
+#: fish/fish.c:717
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: '%s' ରେ ଆଭ୍ୟନ୍ତରୀଣ ତ୍ରୁଟି ବିଶ୍ଳେଷଣ ବାକ୍ୟଖଣ୍ଡ\n"
 
-#: fish/fish.c:730
+#: fish/fish.c:734
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: ଅତ୍ୟଧିକ ସ୍ୱତନ୍ତ୍ରଚର\n"
 
-#: fish/fish.c:759
+#: fish/fish.c:763
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: ନିର୍ଦ୍ଦେଶ ନାମରେ ଖାଲି ନିର୍ଦ୍ଦେଶ\n"
 
-#: fish/fish.c:913
+#: fish/fish.c:917
 msgid "display a list of commands or help on a command"
 msgstr "ନିର୍ଦ୍ଦେଶମାନଙ୍କର ଗୋଟିଏ ତାଲିକା ଦର୍ଶାନ୍ତୁ ଅଥବା ଗୋଟିଏ ନିର୍ଦ୍ଦେଶରେ ସହାୟତା ଦେଖାନ୍ତୁ"
 
-#: fish/fish.c:915
+#: fish/fish.c:919
 msgid "quit guestfish"
 msgstr "guestfish ରୁ ପ୍ରସ୍ଥାନ କରନ୍ତୁ"
 
-#: fish/fish.c:918
+#: fish/fish.c:922
 msgid "allocate an image"
 msgstr "ଗୋଟିଏ ପ୍ରତିଛବିକୁ ବାଣ୍ଟନ୍ତୁ"
 
-#: fish/fish.c:920
+#: fish/fish.c:924
 msgid "display a line of text"
 msgstr "ଗୋଟିଏ ପାଠ୍ୟ ଧାଡ଼ି ଦର୍ଶାନ୍ତୁ"
 
-#: fish/fish.c:922
+#: fish/fish.c:926
 msgid "edit a file in the image"
 msgstr "ପ୍ରତିଛବିରେ ଗୋଟିଏ ଫାଇଲକୁ ସମ୍ପାଦନ କରନ୍ତୁ"
 
-#: fish/fish.c:924
+#: fish/fish.c:928
 msgid "local change directory"
 msgstr "ସ୍ଥାନୀୟ ପରିବର୍ତ୍ତନ ଡିରେକ୍ଟୋରୀ"
 
-#: fish/fish.c:926
+#: fish/fish.c:930
 msgid "expand wildcards in command"
 msgstr "ନିର୍ଦ୍ଦେଶରେ ୱାଇଲ୍ଡ କାର୍ଡଗୁଡ଼ିକୁ ବିସ୍ତାର କରନ୍ତୁ"
 
-#: fish/fish.c:928
+#: fish/fish.c:932
 msgid "view a file in the pager"
 msgstr "ପେଜରରେ ଗୋଟିଏ ଫାଇଲକୁ ଦେଖନ୍ତୁ"
 
-#: fish/fish.c:930
+#: fish/fish.c:934
 msgid "close and reopen libguestfs handle"
 msgstr "libguestfs ନିୟନ୍ତ୍ରଣକୁ ବନ୍ଦ କରନ୍ତୁ ଏବଂ ପୁଣି ଖୋଲନ୍ତୁ"
 
-#: fish/fish.c:932
+#: fish/fish.c:936
 msgid "allocate a sparse image file"
 msgstr "ଗୋଟିଏ sparse ପ୍ରତିଛବି ଫାଇଲକୁ ବାଣ୍ଟନ୍ତୁ"
 
-#: fish/fish.c:934
+#: fish/fish.c:938
 msgid "measure time taken to run command"
 msgstr "ନିର୍ଦ୍ଦେଶକୁ ଚଲାଇବା ପାଇଁ ଆବଶ୍ୟକ ସମୟକୁ ମାପନ୍ତୁ"
 
-#: fish/fish.c:946
+#: fish/fish.c:950
 #, c-format
 msgid ""
 "alloc - allocate an image\n"
@@ -1410,7 +1413,7 @@ msgstr ""
 "    <nn>E କିମ୍ବା <nn>EB  ଏକ୍ସାବାଇଟ ସଂଖ୍ୟା\n"
 "    <nn>sects        512 ବାଇଟ ବିଭାଗଗୁଡ଼ିକର ସଂଖ୍ୟା\n"
 
-#: fish/fish.c:965
+#: fish/fish.c:969
 #, c-format
 msgid ""
 "echo - display a line of text\n"
@@ -1423,7 +1426,7 @@ msgstr ""
 "\n"
 "    ଏହା ଟର୍ମିନାଲର ପ୍ରାଚଳମାନଙ୍କର ପୁନରାବୃତ୍ତି କରିଥାଏ।\n"
 
-#: fish/fish.c:972
+#: fish/fish.c:976
 #, c-format
 msgid ""
 "edit - edit a file in the image\n"
@@ -1454,7 +1457,7 @@ msgstr ""
 "    ଟିପ୍ପଣୀ: ଏହା ବୃହତ ଫାଇଲଗୁଡ଼ିକ ପାଇଁ ବିଶ୍ୱସ୍ତ ଭାବରେ କାର୍ଯ୍ୟ କରିନଥାଏ\n"
 "    (> 2 MB) ଅଥବା \\0 ବାଇଟ ଧାରଣ କରିଥିବା ଦ୍ୱିମିକ ଫାଇଲ ପାଇଁ।\n"
 
-#: fish/fish.c:986
+#: fish/fish.c:990
 #, c-format
 msgid ""
 "lcd - local change directory\n"
@@ -1471,7 +1474,7 @@ msgstr ""
 "    ଯଦି ଆପଣ ଫାଇଲଗୁଡ଼ିକୁ ଗୋଟିଏ ନିର୍ଦ୍ଦିଷ୍ଟ ସ୍ଥାନରେ\n"
 "    ଆହରଣ କରିବାକୁ ଚାହୁଁଥାନ୍ତି।\n"
 
-#: fish/fish.c:993
+#: fish/fish.c:997
 #, c-format
 msgid ""
 "glob - expand wildcards in command\n"
@@ -1489,7 +1492,7 @@ msgstr ""
 "ନିର୍ଦ୍ଦେଶଟି ବାରମ୍ବାର ଚାଲିଥାଏ\n"
 "    ପ୍ରତ୍ୟେକ ବିସ୍ତୃତ ସ୍ୱତନ୍ତ୍ରଚର ପାଇଁ ଥରେ।\n"
 
-#: fish/fish.c:1000
+#: fish/fish.c:1004
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -1500,7 +1503,7 @@ msgstr ""
 "     ସହାୟତା cmd\n"
 "     ସହାୟତା\n"
 
-#: fish/fish.c:1005
+#: fish/fish.c:1009
 #, c-format
 msgid ""
 "more - view a file in the pager\n"
@@ -1531,7 +1534,7 @@ msgstr ""
 "    ଟିପ୍ପଣୀ: ଏହା ବୃହତ ଫାଇଲ ପାଇଁ ବିଶ୍ୱସ୍ତ ଭାବରେ କାର୍ଯ୍ୟକରିନଥାଏ\n"
 "    (> 2 MB) କିମ୍ବା ଦ୍ୱମିକ ଫାଇଲଗୁଡ଼ିକ \\0 ବାଇଟ ଧାରଣ କରିଥାଏ।\n"
 
-#: fish/fish.c:1021
+#: fish/fish.c:1025
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -1540,7 +1543,7 @@ msgstr ""
 "ପ୍ରସ୍ଥାନ କରନ୍ତୁ - guestfish ରୁ ପ୍ରସ୍ଥାନ କରନ୍ତୁ\n"
 "     ପ୍ରସ୍ଥାନ କରନ୍ତୁ\n"
 
-#: fish/fish.c:1024
+#: fish/fish.c:1028
 #, c-format
 msgid ""
 "reopen - close and reopen the libguestfs handle\n"
@@ -1558,7 +1561,7 @@ msgstr ""
 ", କାରଣ ନିୟନ୍ତ୍ରଣଟି ସଠିକ ଭାବରେ ବନ୍ଦ ହୋଇନାହିଁ ଯେତେବେଳେ guestfish\n"
 "ପ୍ରସ୍ଥାନ କରିଥାଏ।  ତଥାପି ଏହା ବେଳେବେଳେ ପରୀକ୍ଷା ପାଇଁ ବ୍ୟବହାର ହୋଇଥାଏ।\n"
 
-#: fish/fish.c:1031
+#: fish/fish.c:1035
 #, c-format
 msgid ""
 "sparse - allocate a sparse image file\n"
@@ -1615,7 +1618,7 @@ msgstr ""
 "    <nn>E ଅଥବା <nn>EB  ଏକ୍ସାବାଇଟ ସଂଖ୍ୟା\n"
 "    <nn>sects        512 ବାଇଟ ବିଭାଗ ସଂଖ୍ୟା\n"
 
-#: fish/fish.c:1058
+#: fish/fish.c:1062
 #, c-format
 msgid ""
 "time - measure time taken to run command\n"
@@ -1630,12 +1633,13 @@ msgstr ""
 "    ଏହା <command> କୁ ସେହିପରି ଚଲାଇଥାଏ, ଏବଂ ସମାପ୍ତ ହୋଇଥିବା ସମୟକୁ ପରବର୍ତ୍ତି ସମୟରେ\n"
 "    ମୁଦ୍ରଣ କରିଥାଏ।\n"
 
-#: fish/fish.c:1064
+#: fish/fish.c:1068
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
-msgstr "%s: ନିର୍ଦ୍ଦେଶଟି ପରିଚିତ ନୁହଁ, ସମସ୍ତ ନିର୍ଦ୍ଦେଶଗୁଡ଼ିକୁ ତାଲିକାଭୁକ୍ତ କରିବା ପାଇଁ -h କୁ ବ୍ୟବହାର କରନ୍ତୁ\n"
+msgstr ""
+"%s: ନିର୍ଦ୍ଦେଶଟି ପରିଚିତ ନୁହଁ, ସମସ୍ତ ନିର୍ଦ୍ଦେଶଗୁଡ଼ିକୁ ତାଲିକାଭୁକ୍ତ କରିବା ପାଇଁ -h କୁ ବ୍ୟବହାର କରନ୍ତୁ\n"
 
-#: fish/fish.c:1220
+#: fish/fish.c:1224
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "ବାକ୍ୟଖଣ୍ଡ \"%s\" ରେ ପଳାୟନ ଟିପ୍ପଣୀ\n"
@@ -1745,15 +1749,116 @@ msgstr ""
 "  -v|--verbose         ଭର୍ବୋଜ ସନ୍ଦେଶଗୁଡ଼ିକ\n"
 "  -V|--version         ସଂସ୍କରଣ ଦର୍ଶାନ୍ତୁ ଏବଂ ପ୍ରସ୍ଥାନ କରନ୍ତୁ\n"
 
-#: fuse/guestmount.c:1077
+#: fuse/guestmount.c:1081
 #, c-format
 msgid "%s: must have at least one -a and at least one -m option\n"
 msgstr "%s: ନିଶ୍ଚିତ ଭାବରେ ଗୋଟିଏ -a ଏବଂ ଅତିକମରେ ଗୋଟିଏ -m ବିକଳ୍ପ ଥିବା ଉଚିତ\n"
 
-#: fuse/guestmount.c:1085
+#: fuse/guestmount.c:1089
 #, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr "%s: ଆପଣଙ୍କୁ ହୋଷ୍ଟ ଫାଇଲତନ୍ତ୍ରରେ ଗୋଟିଏ ସ୍ଥାପନ ବିନ୍ଦୁ ଉଲ୍ଲେଖ କରିବାକୁ ହେବ\n"
+
+#: hivex/hivexml.c:70
+#, c-format
+msgid "%s: failed to write XML document\n"
+msgstr ""
+
+#: hivex/hivexml.c:101
+#, c-format
+msgid "hivexml: missing name of input file\n"
+msgstr ""
+
+#: hivex/hivexml.c:120
+#, c-format
+msgid "xmlNewTextWriterFilename: failed to create XML writer\n"
+msgstr ""
+
+#: hivex/hivexsh.c:136
+#, fuzzy, c-format
+msgid ""
+"\n"
+"Welcome to hivexsh, the hivex interactive shell for examining\n"
+"Windows Registry binary hive files.\n"
+"\n"
+"Type: 'help' for help summary\n"
+"      'quit' to quit the shell\n"
+"\n"
+msgstr ""
+"\n"
+"guestfish ରେ ଆପଣଙ୍କୁ ସ୍ୱାଗତ କରୁଅଛୁ, libguestfs ଫାଇଲତନ୍ତ୍ର ପାରସ୍ପରିକ shell\n"
+"ଆଭାସୀ ଯନ୍ତ୍ର ଫାଇଲତନ୍ତ୍ରଗୁଡ଼ିକରେ ସମ୍ପାଦନ କରୁଅଛି।\n"
+"\n"
+"ଟାଇପ କରନ୍ତୁ: 'help' ନିର୍ଦ୍ଦେଶ ସହିତ ସହାୟତା ପାଇଁ\n"
+"      'quit' shellରୁ ପ୍ରସ୍ଥାନ କରିବା ପାଇଁ\n"
+"\n"
+
+#: hivex/hivexsh.c:250
+#, c-format
+msgid "hivexsh: error getting parent of node %zu\n"
+msgstr ""
+
+#: hivex/hivexsh.c:260
+#, c-format
+msgid "hivexsh: error getting node name of node %zx\n"
+msgstr ""
+
+#: hivex/hivexsh.c:388
+#, c-format
+msgid "hivexsh: you must load a hive file first using 'load hivefile'\n"
+msgstr ""
+
+#: hivex/hivexsh.c:401
+#, c-format
+msgid "hivexsh: unknown command '%s', use 'help' for help summary\n"
+msgstr ""
+
+#: hivex/hivexsh.c:411
+#, c-format
+msgid "hivexsh: load: no hive file name given to load\n"
+msgstr ""
+
+#: hivex/hivexsh.c:427
+#, c-format
+msgid ""
+"hivexsh: failed to open hive file: %s: %m\n"
+"\n"
+"If you think this file is a valid Windows binary hive file (_not_\n"
+"a regedit *.reg file) then please run this command again using the\n"
+"hivexsh option '-d' and attach the complete output _and_ the hive file\n"
+"which fails into a bug report at https://bugzilla.redhat.com/\n"
+"\n"
+msgstr ""
+
+#: hivex/hivexsh.c:460 hivex/hivexsh.c:551
+#, c-format
+msgid "hivexsh: '%s' command should not be given arguments\n"
+msgstr ""
+
+#: hivex/hivexsh.c:488
+#, c-format
+msgid ""
+"%s: %s: \\ characters in path are doubled - are you escaping the path "
+"parameter correctly?\n"
+msgstr ""
+
+#: hivex/hivexsh.c:522
+#, c-format
+msgid "hivexsh: cd: subkey '%s' not found\n"
+msgstr ""
+
+#: hivex/hivexsh.c:540
+#, c-format
+msgid ""
+"Navigate through the hive's keys using the 'cd' command, as if it\n"
+"contained a filesystem, and use 'ls' to list the subkeys of the\n"
+"current key.  Full documentation is in the hivexsh(1) manual page.\n"
+msgstr ""
+
+#: hivex/hivexsh.c:615
+#, fuzzy, c-format
+msgid "%s: %s: key not found\n"
+msgstr "%s: %s: ଗଣନସଂଖ୍ୟାଟି ପରିସର ବାହାରେ\n"
 
 #: src/guestfs.c:255
 #, c-format
@@ -1846,7 +1951,8 @@ msgstr "guestfs_end_busy: ଅବସ୍ଥା %d ରେ ଥିବା ସମୟର
 
 #: src/guestfs.c:1998
 #, c-format
-msgid "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
+msgid ""
+"check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
 msgstr "check_for_daemon_cancellation_or_eof: ଡେମନରୁ 0x%x କୁ ପଢ଼ନ୍ତୁ, ଆଶାତିତ 0x%x\n"
 
 #: src/guestfs.c:2156 src/guestfs.c:2210
@@ -1940,72 +2046,73 @@ msgstr ""
 "  --timeout n\n"
 "  -t n           ଆରମ୍ଭ ସମୟ ସମାପ୍ତିକୁ ସେଟ କରନ୍ତୁ (ପୂର୍ବନିର୍ଦ୍ଧାରିତ: %d ସେକଣ୍ଡ)\n"
 
-#: test-tool/test-tool.c:121
+#: test-tool/test-tool.c:125
 #, c-format
 msgid "libguestfs-test-tool: unknown long option: %s (%d)\n"
 msgstr "libguestfs-test-tool: ଅଜଣା ବଡ଼ ବିକଳ୍ପ: %s (%d)\n"
 
-#: test-tool/test-tool.c:130
+#: test-tool/test-tool.c:134
 #, c-format
 msgid "libguestfs-test-tool: invalid timeout: %s\n"
 msgstr "libguestfs-test-tool: ଅବୈଧ ସମୟ ସମାପ୍ତି: %s\n"
 
-#: test-tool/test-tool.c:142
+#: test-tool/test-tool.c:146
 #, c-format
 msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
 msgstr "libguestfs-test-tool: ଅପ୍ରତ୍ୟାଶିତ ନିର୍ଦ୍ଦେଶନାମା ବିକଳ୍ପ 0x%x\n"
 
-#: test-tool/test-tool.c:165
+#: test-tool/test-tool.c:169
 #, c-format
 msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
 msgstr "libguestfs-test-tool: libguestfs ନିୟନ୍ତ୍ରଣକୁ ନିର୍ମାଣ କରିବାରେ ବିଫଳ ହୋଇଛି\n"
 
-#: test-tool/test-tool.c:170 test-tool/test-tool.c:176
+#: test-tool/test-tool.c:174 test-tool/test-tool.c:180
 #, c-format
 msgid "libguestfs-test-tool: failed to add drive '%s'\n"
 msgstr "libguestfs-test-tool: ଡ୍ରାଇଭ '%s' କୁ ଯୋଗ କରିବାରେ ବିଫଳ ହୋଇଛି\n"
 
-#: test-tool/test-tool.c:184
+#: test-tool/test-tool.c:188
 #, c-format
 msgid "libguestfs-test-tool: guestfs_version failed\n"
 msgstr "libguestfs-test-tool: guestfs_version ବିଫଳ ହୋଇଛି\n"
 
-#: test-tool/test-tool.c:206
+#: test-tool/test-tool.c:210
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: ଉପକରଣ ଆରମ୍ଭ କରିବାରେ ବିଫଳ ହୋଇଛି\n"
 
-#: test-tool/test-tool.c:218
+#: test-tool/test-tool.c:222
 #, c-format
 msgid "libguestfs-test-tool: failed to run sfdisk\n"
 msgstr "libguestfs-test-tool: sfdisk କୁ ଚଲାଇବାରେ ବିଫଳ\n"
 
-#: test-tool/test-tool.c:224
+#: test-tool/test-tool.c:228
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr "libguestfs-test-tool: mkfs.ext2 କରିବାରେ ବିଫଳ ହୋଇଛି\n"
 
-#: test-tool/test-tool.c:230
+#: test-tool/test-tool.c:234
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: /dev/sda1 କୁ / ଉପରେ ସ୍ଥାପନ କରିବାରେ ବିଫଳ ହୋଇଛି\n"
 
-#: test-tool/test-tool.c:236
+#: test-tool/test-tool.c:240
 #, c-format
 msgid "libguestfs-test-tool: failed to mkdir /iso\n"
 msgstr "libguestfs-test-tool: /iso କୁ mkdir କରିବାରେ ବିଫଳ ହୋଇଛି\n"
 
-#: test-tool/test-tool.c:242
+#: test-tool/test-tool.c:246
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sdb on /iso\n"
 msgstr "libguestfs-test-tool: /dev/sdb କୁ /iso ଉପରେ ସ୍ଥାପନ କରିବାରେ ବିଫଳ ହୋଇଛି\n"
 
-#: test-tool/test-tool.c:250
+#: test-tool/test-tool.c:254
 #, c-format
 msgid "libguestfs-test-tool: could not run helper program, or helper failed\n"
-msgstr "libguestfs-test-tool: ସହାୟକ ପ୍ରଗ୍ରାମକୁ ଚଲାଇପାରିଲା ନାହିଁ, ଅଥବା ସହାୟକ ବିଫଳ ହୋଇଛି\n"
+msgstr ""
+"libguestfs-test-tool: ସହାୟକ ପ୍ରଗ୍ରାମକୁ ଚଲାଇପାରିଲା ନାହିଁ, ଅଥବା ସହାୟକ ବିଫଳ ହୋଇଛି\n"
 
-#: test-tool/test-tool.c:281
+#: test-tool/test-tool.c:285
 #, c-format
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
@@ -2014,17 +2121,17 @@ msgstr ""
 "LIBGUESTFS_QEMU ପରିବେଶ ପ୍ରାଚଳଟି ପୂର୍ବରୁ ସେଟ ହୋଇଛି, ତେଣୁ\n"
 "--qemu/--qemudir ବିକଳ୍ପଗୁଡ଼ିକୁ ବ୍ୟବହାର କରାଯାଇପାରିବ ନାହିଁ।\n"
 
-#: test-tool/test-tool.c:289
+#: test-tool/test-tool.c:293
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr "ଦ୍ୱୀମିକ '%s' ଅବସ୍ଥିତ ନାହିଁ ଅଥବା ନିଷ୍ପାଦନ ଯୋଗ୍ୟ ନୁହଁ\n"
 
-#: test-tool/test-tool.c:303
+#: test-tool/test-tool.c:307
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: ଗୋଟିଏ qemu ଉତ୍ସ ଡିରେକ୍ଟୋରୀ ପରି ଲାଗୁନାହିଁ\n"
 
-#: test-tool/test-tool.c:352
+#: test-tool/test-tool.c:356
 #, c-format
 msgid ""
 "Test tool helper program 'libguestfs-test-tool-helper' is not\n"
@@ -2037,12 +2144,12 @@ msgstr ""
 "\n"
 "ଏହି ପ୍ରଗ୍ରାମର ଅବସ୍ଥିତି ଉଲ୍ଲେଖ କରିବା ପାଇଁ --helper ବିକଳ୍ପକୁ ବ୍ୟବହାର କରନ୍ତୁ।\n"
 
-#: test-tool/test-tool.c:368
+#: test-tool/test-tool.c:372
 #, c-format
 msgid "command failed: %s"
 msgstr "ନିର୍ଦ୍ଦେଶ ବିଫଳ ହୋଇଛି: %s"
 
-#: test-tool/test-tool.c:376
+#: test-tool/test-tool.c:380
 #, c-format
 msgid ""
 "Test tool helper program %s\n"
@@ -2053,8 +2160,7 @@ msgstr ""
 "ସ୍ଥାୟୀ ଭାବରେ ସଂଯୁକ୍ତ ହୋଇନାହିଁ।  ଏହା ଗୋଟିଏ ନିର୍ମାଣ ଜନିତ ତ୍ରୁଟି ଯେତେବେଳେ ଏହି ପରୀକ୍ଷଣ\n"
 "ସାଧନଟି ନିର୍ମିତ ହୋଇଥିଲା।\n"
 
-#: test-tool/test-tool.c:410
+#: test-tool/test-tool.c:414
 #, c-format
 msgid "mkisofs command failed: %s\n"
 msgstr "mkisofs ନିର୍ଦ୍ଦେଶ ବିଫଳ ହୋଇଛି: %s\n"
-

@@ -81,7 +81,6 @@ fish/time.c
 fuse/dircache.c
 fuse/guestmount.c
 hivex/hivex.c
-hivex/hivexget.c
 hivex/hivexml.c
 hivex/hivexsh.c
 inspector/virt-inspector

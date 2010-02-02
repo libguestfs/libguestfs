@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs.master.libguestfs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-29 09:56+0000\n"
+"POT-Creation-Date: 2010-02-02 08:49+0000\n"
 "PO-Revision-Date: 2010-01-27 20:03+0530\n"
 "Last-Translator: Krishna Babu K <kkrothap@redhat.com>\n"
 "Language-Team: Telugu <en@li.org>\n"
@@ -1221,63 +1221,63 @@ msgstr ""
 "  -V|--version         Display version and exit\n"
 "For more information,  see the manpage %s(1).\n"
 
-#: fish/fish.c:184 fuse/guestmount.c:961
+#: fish/fish.c:188 fuse/guestmount.c:965
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: సంభాలికను సృష్టించుటకు విఫలమైంది\n"
 
-#: fish/fish.c:223
+#: fish/fish.c:227
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
 msgstr "%s: --listen=PID: PID సంఖ్య కాదు: %s\n"
 
-#: fish/fish.c:230
+#: fish/fish.c:234
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 msgstr "%s: remote: $GUESTFISH_PID అనునది రిమోట్ కార్యక్రమము యొక్క PIDకు అమర్చాలి\n"
 
-#: fish/fish.c:239 fuse/guestmount.c:1006
+#: fish/fish.c:243 fuse/guestmount.c:1010
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: తెలియని long ఐచ్చికము: %s (%d)\n"
 
-#: fish/fish.c:266
+#: fish/fish.c:270
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: ఒక -f పారామితి మాత్రమే యివ్వగలము\n"
 
-#: fish/fish.c:339
+#: fish/fish.c:343
 #, c-format
 msgid "%s: cannot use -i option with -a, -m, --listen, --remote or --selinux\n"
 msgstr "%s: -i ఐచ్చికాన్ని -a, -m, --listen, --remote లేదా --selinuxతో వాడలేము\n"
 
-#: fish/fish.c:346
+#: fish/fish.c:350
 #, c-format
 msgid "%s: -i requires a libvirt domain or path(s) to disk image(s)\n"
 msgstr "%s: -i అనుదానికి libvirt డొమైన్ కాని లేదా డిస్కు ప్రతిబింబము(లు)కు పాత్(లు)కాని అవసరము\n"
 
-#: fish/fish.c:356
+#: fish/fish.c:360
 #, c-format
 msgid "%s: virt-inspector command too long for fixed-size buffer\n"
 msgstr "%s: నిర్ధిష్ట-పరిమాణపు బఫర్ కొరకు virt-inspector ఆదేశము మరీపొడవైంది\n"
 
-#: fish/fish.c:402
+#: fish/fish.c:406
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr "%s: ఒకే సమయం వద్ద --listen మరియు --remote ఐచ్చికాలను వుపయోగించలేము\n"
 
-#: fish/fish.c:410
+#: fish/fish.c:414
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: --listen ఫ్లాగ్‌తో ఆదేశ వరుసపై అదనపు పారామితులు\n"
 
-#: fish/fish.c:416
+#: fish/fish.c:420
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: ఒకే సమయంలో --listen మరియు --file ఐచ్చికాలను వుపయోగించలేము\n"
 
-#: fish/fish.c:561
+#: fish/fish.c:565
 #, c-format
 msgid ""
 "\n"
@@ -1296,81 +1296,81 @@ msgstr ""
 "      'quit' షెల్ నిష్క్రమించుటకు\n"
 "\n"
 
-#: fish/fish.c:641
+#: fish/fish.c:645
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: మూయని డబుల్ కోట్\n"
 
-#: fish/fish.c:647 fish/fish.c:664
+#: fish/fish.c:651 fish/fish.c:668
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: వెట్‌స్పేస్ ద్వారా వేరుచేయబడిన కమాండ్ ఆర్గుమెంట్స్\n"
 
-#: fish/fish.c:658
+#: fish/fish.c:662
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: మూయని సింగిల్ కోట్\n"
 
-#: fish/fish.c:713
+#: fish/fish.c:717
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: '%s'వద్ద స్ట్రింగును పార్శ్ చేయుటలో అంతర్గత దోషము\n"
 
-#: fish/fish.c:730
+#: fish/fish.c:734
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: చాలా యెక్కువ ఆర్గుమెంట్లు\n"
 
-#: fish/fish.c:759
+#: fish/fish.c:763
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: ఆదేశ వరుసపై ఖాళీ ఆదేశము\n"
 
-#: fish/fish.c:913
+#: fish/fish.c:917
 msgid "display a list of commands or help on a command"
 msgstr "ఆదేశముల జాబితాను లేదా ఆదేశముపై సహాయమును ప్రదర్శించుము"
 
-#: fish/fish.c:915
+#: fish/fish.c:919
 msgid "quit guestfish"
 msgstr "guestfish నిష్క్రమించుము"
 
-#: fish/fish.c:918
+#: fish/fish.c:922
 msgid "allocate an image"
 msgstr "ప్రతిబింబమును కేటాయించుము"
 
-#: fish/fish.c:920
+#: fish/fish.c:924
 msgid "display a line of text"
 msgstr "ఒక పాఠ్యపు వరుసను ప్రదర్శించుము"
 
-#: fish/fish.c:922
+#: fish/fish.c:926
 msgid "edit a file in the image"
 msgstr "ప్రతిబింబము నందలి ఫైలును సరికూర్చుము"
 
-#: fish/fish.c:924
+#: fish/fish.c:928
 msgid "local change directory"
 msgstr "స్థానిక మార్పు డైరెక్టరీ"
 
-#: fish/fish.c:926
+#: fish/fish.c:930
 msgid "expand wildcards in command"
 msgstr "ఆదేశమునందు వైల్డుకార్డ్సును విస్తరింపచేయుము"
 
-#: fish/fish.c:928
+#: fish/fish.c:932
 msgid "view a file in the pager"
 msgstr "పేజర్ నందలి ఫైలును దర్శించుము"
 
-#: fish/fish.c:930
+#: fish/fish.c:934
 msgid "close and reopen libguestfs handle"
 msgstr "libguestfs సంభాలికను మూయుము మరియు తిరిగితెరువుము"
 
-#: fish/fish.c:932
+#: fish/fish.c:936
 msgid "allocate a sparse image file"
 msgstr "స్పార్శ్ ప్రతిబింబ ఫైలును కేటాయించుము"
 
-#: fish/fish.c:934
+#: fish/fish.c:938
 msgid "measure time taken to run command"
 msgstr "ఆదేశమును నడుపుటకు తీసుకొనిన సమయాన్ని లెక్కించుము"
 
-#: fish/fish.c:946
+#: fish/fish.c:950
 #, c-format
 msgid ""
 "alloc - allocate an image\n"
@@ -1411,7 +1411,7 @@ msgstr ""
 "    <nn>E లేదా <nn>EB  హెగ్జాబైట్ల సంఖ్య\n"
 "    <nn>sects        512 బైట్ సెక్టార్ల సంఖ్య\n"
 
-#: fish/fish.c:965
+#: fish/fish.c:969
 #, c-format
 msgid ""
 "echo - display a line of text\n"
@@ -1424,7 +1424,7 @@ msgstr ""
 "\n"
 "    ఇది పారామితులను టెర్మినల్‌పై చూపిస్తుంది.\n"
 
-#: fish/fish.c:972
+#: fish/fish.c:976
 #, c-format
 msgid ""
 "edit - edit a file in the image\n"
@@ -1454,7 +1454,7 @@ msgstr ""
 "    గమనిక: ఇది పెద్ద ఫైళ్ళు (> 2 MB)కు లేదా \\0 బైట్లు కలిగివున్న బైనరీ ఫైళ్ళకు\n"
 "    యిది నమ్మకంగా పనిచేయదు.\n"
 
-#: fish/fish.c:986
+#: fish/fish.c:990
 #, c-format
 msgid ""
 "lcd - local change directory\n"
@@ -1470,7 +1470,7 @@ msgstr ""
 "    guestfish యొక్క ప్రస్తుత డైరెక్టరీను మార్చును. మీరు ఫైళ్ళను ఫలానా స్థానమునకు డౌనులోడు\n"
 "    చేయవలెనంటే ఈ ఆదేశము వుపయోగకరంగా వుంటుంది.\n"
 
-#: fish/fish.c:993
+#: fish/fish.c:997
 #, c-format
 msgid ""
 "glob - expand wildcards in command\n"
@@ -1487,7 +1487,7 @@ msgstr ""
 "ప్రతి విస్తరిత ఆర్గుమెంటు కొరకు ఈ ఆదేశము ఆవృతంగా\n"
 "    వొకసారి నడుచునని గమనించండి.\n"
 
-#: fish/fish.c:1000
+#: fish/fish.c:1004
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -1498,7 +1498,7 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:1005
+#: fish/fish.c:1009
 #, c-format
 msgid ""
 "more - view a file in the pager\n"
@@ -1529,7 +1529,7 @@ msgstr ""
 "    గమనిక: ఇది పెద్ద ఫైళ్ళు (> 2 MB) కొరకు నమ్మకంగా పనిచేయదు\n"
 "    లేదా \\0 బైట్లను కలిగివున్న బైనరీ ఫైళ్ళ కొరకు.\n"
 
-#: fish/fish.c:1021
+#: fish/fish.c:1025
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -1538,7 +1538,7 @@ msgstr ""
 "quit - guestfish నిష్క్రమించును\n"
 "     quit\n"
 
-#: fish/fish.c:1024
+#: fish/fish.c:1028
 #, c-format
 msgid ""
 "reopen - close and reopen the libguestfs handle\n"
@@ -1555,7 +1555,7 @@ msgstr ""
 "యెంచేతంటే guestfish నిష్క్రమించగానే సంభాలిక మూయబడును\n"
 "  పరిశీలన కొరకు యిది అరుదుగా వుపయోగించుబడును.\n"
 
-#: fish/fish.c:1031
+#: fish/fish.c:1035
 #, c-format
 msgid ""
 "sparse - allocate a sparse image file\n"
@@ -1611,7 +1611,7 @@ msgstr ""
 "    <nn>E లేదా <nn>EB  హెగ్జాబైట్ల సంఖ్య\n"
 "    <nn>sects        512 బైట్ సెక్టార్ల సంఖ్య\n"
 
-#: fish/fish.c:1058
+#: fish/fish.c:1062
 #, c-format
 msgid ""
 "time - measure time taken to run command\n"
@@ -1626,12 +1626,12 @@ msgstr ""
 "    ఇది సాధారణంగానే <command> నడుస్తుంది, మరియు పట్టిన సమయాన్ని తర్వాత\n"
 "    ముద్రిస్తుంది.\n"
 
-#: fish/fish.c:1064
+#: fish/fish.c:1068
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s: తెలియని ఆదేశము, అన్ని ఆదేశములను జాబితాచేయుటకు -h వుపయోగించుము\n"
 
-#: fish/fish.c:1220
+#: fish/fish.c:1224
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "\"%s\" స్ట్రింగునందు రన్‌యెవే స్ట్రింగ్\n"
@@ -1741,15 +1741,116 @@ msgstr ""
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
 
-#: fuse/guestmount.c:1077
+#: fuse/guestmount.c:1081
 #, c-format
 msgid "%s: must have at least one -a and at least one -m option\n"
 msgstr "%s: తప్పక కనీసం వొక -a మరియు వొక -m ఐచ్చికాన్ని కలిగివుండాలి\n"
 
-#: fuse/guestmount.c:1085
+#: fuse/guestmount.c:1089
 #, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr "%s:హోస్టు ఫైల్‌సిస్టమ్ నందు మీరు తప్పక వొక మౌంట్‌పాయింట్‌ను తెలుపవలెను\n"
+
+#: hivex/hivexml.c:70
+#, c-format
+msgid "%s: failed to write XML document\n"
+msgstr ""
+
+#: hivex/hivexml.c:101
+#, c-format
+msgid "hivexml: missing name of input file\n"
+msgstr ""
+
+#: hivex/hivexml.c:120
+#, c-format
+msgid "xmlNewTextWriterFilename: failed to create XML writer\n"
+msgstr ""
+
+#: hivex/hivexsh.c:136
+#, fuzzy, c-format
+msgid ""
+"\n"
+"Welcome to hivexsh, the hivex interactive shell for examining\n"
+"Windows Registry binary hive files.\n"
+"\n"
+"Type: 'help' for help summary\n"
+"      'quit' to quit the shell\n"
+"\n"
+msgstr ""
+"\n"
+"guestfishకు స్వాగతం, libguestfs అనునది వర్చ్యువల్ మిషన్ ఫైల్‌సిస్టమ్సును సరికూర్చుటకు‍ ఫైల్‌సిస్టమ్ "
+"యింటరాక్టివ్ షెల్.\n"
+"\n"
+"రకము: 'help' ఆదేశముల సహాయము కొరకు\n"
+"      'quit' షెల్ నిష్క్రమించుటకు\n"
+"\n"
+
+#: hivex/hivexsh.c:250
+#, c-format
+msgid "hivexsh: error getting parent of node %zu\n"
+msgstr ""
+
+#: hivex/hivexsh.c:260
+#, c-format
+msgid "hivexsh: error getting node name of node %zx\n"
+msgstr ""
+
+#: hivex/hivexsh.c:388
+#, c-format
+msgid "hivexsh: you must load a hive file first using 'load hivefile'\n"
+msgstr ""
+
+#: hivex/hivexsh.c:401
+#, c-format
+msgid "hivexsh: unknown command '%s', use 'help' for help summary\n"
+msgstr ""
+
+#: hivex/hivexsh.c:411
+#, c-format
+msgid "hivexsh: load: no hive file name given to load\n"
+msgstr ""
+
+#: hivex/hivexsh.c:427
+#, c-format
+msgid ""
+"hivexsh: failed to open hive file: %s: %m\n"
+"\n"
+"If you think this file is a valid Windows binary hive file (_not_\n"
+"a regedit *.reg file) then please run this command again using the\n"
+"hivexsh option '-d' and attach the complete output _and_ the hive file\n"
+"which fails into a bug report at https://bugzilla.redhat.com/\n"
+"\n"
+msgstr ""
+
+#: hivex/hivexsh.c:460 hivex/hivexsh.c:551
+#, c-format
+msgid "hivexsh: '%s' command should not be given arguments\n"
+msgstr ""
+
+#: hivex/hivexsh.c:488
+#, c-format
+msgid ""
+"%s: %s: \\ characters in path are doubled - are you escaping the path "
+"parameter correctly?\n"
+msgstr ""
+
+#: hivex/hivexsh.c:522
+#, c-format
+msgid "hivexsh: cd: subkey '%s' not found\n"
+msgstr ""
+
+#: hivex/hivexsh.c:540
+#, c-format
+msgid ""
+"Navigate through the hive's keys using the 'cd' command, as if it\n"
+"contained a filesystem, and use 'ls' to list the subkeys of the\n"
+"current key.  Full documentation is in the hivexsh(1) manual page.\n"
+msgstr ""
+
+#: hivex/hivexsh.c:615
+#, c-format
+msgid "%s: %s: key not found\n"
+msgstr ""
 
 #: src/guestfs.c:255
 #, c-format
@@ -1938,72 +2039,72 @@ msgstr ""
 "  --timeout n\n"
 "  -t n           Set launch timeout (default: %d seconds)\n"
 
-#: test-tool/test-tool.c:121
+#: test-tool/test-tool.c:125
 #, c-format
 msgid "libguestfs-test-tool: unknown long option: %s (%d)\n"
 msgstr "libguestfs-test-tool: తెలియని లాంగ్ ఐచ్చికము: %s (%d)\n"
 
-#: test-tool/test-tool.c:130
+#: test-tool/test-tool.c:134
 #, c-format
 msgid "libguestfs-test-tool: invalid timeout: %s\n"
 msgstr "libguestfs-test-tool: చెల్లని సమయముగింపు: %s\n"
 
-#: test-tool/test-tool.c:142
+#: test-tool/test-tool.c:146
 #, c-format
 msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
 msgstr "libguestfs-test-tool: అనుకోని కమాండ్ లైన్ ఐచ్చికము 0x%x\n"
 
-#: test-tool/test-tool.c:165
+#: test-tool/test-tool.c:169
 #, c-format
 msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
 msgstr "libguestfs-test-tool: libguestfs సంభాలిక సృష్టించుటలో విఫలమైంది\n"
 
-#: test-tool/test-tool.c:170 test-tool/test-tool.c:176
+#: test-tool/test-tool.c:174 test-tool/test-tool.c:180
 #, c-format
 msgid "libguestfs-test-tool: failed to add drive '%s'\n"
 msgstr "libguestfs-test-tool: డ్రైవ్ '%s' జతచేయుటకు విఫలమైంది\n"
 
-#: test-tool/test-tool.c:184
+#: test-tool/test-tool.c:188
 #, c-format
 msgid "libguestfs-test-tool: guestfs_version failed\n"
 msgstr "libguestfs-test-tool: guestfs_version విఫలమైంది\n"
 
-#: test-tool/test-tool.c:206
+#: test-tool/test-tool.c:210
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr "libguestfs-test-tool: ఉపకరణము ఆరంభించుటలో విఫలమైంది\n"
 
-#: test-tool/test-tool.c:218
+#: test-tool/test-tool.c:222
 #, c-format
 msgid "libguestfs-test-tool: failed to run sfdisk\n"
 msgstr "libguestfs-test-tool: sfdisk నడుపుటకు విఫలమైంది\n"
 
-#: test-tool/test-tool.c:224
+#: test-tool/test-tool.c:228
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr "libguestfs-test-tool: mkfs.ext2కు విఫలమైంది\n"
 
-#: test-tool/test-tool.c:230
+#: test-tool/test-tool.c:234
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr "libguestfs-test-tool: /dev/sda1ను /పై మౌంట్ చేయుటకు విఫలమైంది\n"
 
-#: test-tool/test-tool.c:236
+#: test-tool/test-tool.c:240
 #, c-format
 msgid "libguestfs-test-tool: failed to mkdir /iso\n"
 msgstr "libguestfs-test-tool: mkdir /iso విఫలమైంది\n"
 
-#: test-tool/test-tool.c:242
+#: test-tool/test-tool.c:246
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sdb on /iso\n"
 msgstr "libguestfs-test-tool: /dev/sdb ను /iso పై మౌంటుకు విఫలమైంది\n"
 
-#: test-tool/test-tool.c:250
+#: test-tool/test-tool.c:254
 #, c-format
 msgid "libguestfs-test-tool: could not run helper program, or helper failed\n"
 msgstr "libguestfs-test-tool: సహాయకి ప్రోగ్రామును నడుపలేక పోయింది,  లేదా సహాయకి విఫలమైంది\n"
 
-#: test-tool/test-tool.c:281
+#: test-tool/test-tool.c:285
 #, c-format
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
@@ -2012,17 +2113,17 @@ msgstr ""
 "LIBGUESTFS_QEMU ఎన్విరాన్మెంట్ వేరియబుల్ యిప్పటికే అమర్చబడింది, అందువలన\n"
 "--qemu/--qemudir ఐచ్చికములు వుపయోగించలేము.\n"
 
-#: test-tool/test-tool.c:289
+#: test-tool/test-tool.c:293
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr "బెనరీ '%s' లేదు లేదా అది నిర్వర్తించదగునది కాదు\n"
 
-#: test-tool/test-tool.c:303
+#: test-tool/test-tool.c:307
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr "%s: అనునది qemu మూలపు డైరెక్టరీవలె కనిపించుటలేదు\n"
 
-#: test-tool/test-tool.c:352
+#: test-tool/test-tool.c:356
 #, c-format
 msgid ""
 "Test tool helper program 'libguestfs-test-tool-helper' is not\n"
@@ -2035,12 +2136,12 @@ msgstr ""
 "\n"
 "ఈ ప్రోగ్రామ్ యొక్క స్థానమును తెలుపుటకు --helper ఐచ్చికాన్ని వుపయోగించుము.\n"
 
-#: test-tool/test-tool.c:368
+#: test-tool/test-tool.c:372
 #, c-format
 msgid "command failed: %s"
 msgstr "ఆదేశము విఫలమైంది: %s"
 
-#: test-tool/test-tool.c:376
+#: test-tool/test-tool.c:380
 #, c-format
 msgid ""
 "Test tool helper program %s\n"
@@ -2050,7 +2151,7 @@ msgstr ""
 "పరిశీలనా సాధనపు సహాయకి ప్రోగ్రామ్ %s\n"
 "స్థిరంగా లింకు కాబడిలేదు.  ఇది యీ పరిశీలనా సాధనము నిర్మించబడినప్పుటి వొక నిర్మాణ దోషము.\n"
 
-#: test-tool/test-tool.c:410
+#: test-tool/test-tool.c:414
 #, c-format
 msgid "mkisofs command failed: %s\n"
 msgstr "mkisofs ఆదేశము విఫలమైంది: %s\n"

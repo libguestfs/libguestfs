@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.0.82\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-29 09:56+0000\n"
+"POT-Creation-Date: 2010-02-02 08:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1185,63 +1185,63 @@ msgid ""
 "For more information,  see the manpage %s(1).\n"
 msgstr ""
 
-#: fish/fish.c:184 fuse/guestmount.c:961
+#: fish/fish.c:188 fuse/guestmount.c:965
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr ""
 
-#: fish/fish.c:223
+#: fish/fish.c:227
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
 msgstr ""
 
-#: fish/fish.c:230
+#: fish/fish.c:234
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 msgstr ""
 
-#: fish/fish.c:239 fuse/guestmount.c:1006
+#: fish/fish.c:243 fuse/guestmount.c:1010
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr ""
 
-#: fish/fish.c:266
+#: fish/fish.c:270
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
 msgstr ""
 
-#: fish/fish.c:339
+#: fish/fish.c:343
 #, c-format
 msgid "%s: cannot use -i option with -a, -m, --listen, --remote or --selinux\n"
 msgstr ""
 
-#: fish/fish.c:346
+#: fish/fish.c:350
 #, c-format
 msgid "%s: -i requires a libvirt domain or path(s) to disk image(s)\n"
 msgstr ""
 
-#: fish/fish.c:356
+#: fish/fish.c:360
 #, c-format
 msgid "%s: virt-inspector command too long for fixed-size buffer\n"
 msgstr ""
 
-#: fish/fish.c:402
+#: fish/fish.c:406
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr ""
 
-#: fish/fish.c:410
+#: fish/fish.c:414
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr ""
 
-#: fish/fish.c:416
+#: fish/fish.c:420
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr ""
 
-#: fish/fish.c:561
+#: fish/fish.c:565
 #, c-format
 msgid ""
 "\n"
@@ -1253,81 +1253,81 @@ msgid ""
 "\n"
 msgstr ""
 
-#: fish/fish.c:641
+#: fish/fish.c:645
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr ""
 
-#: fish/fish.c:647 fish/fish.c:664
+#: fish/fish.c:651 fish/fish.c:668
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr ""
 
-#: fish/fish.c:658
+#: fish/fish.c:662
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr ""
 
-#: fish/fish.c:713
+#: fish/fish.c:717
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr ""
 
-#: fish/fish.c:730
+#: fish/fish.c:734
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr ""
 
-#: fish/fish.c:759
+#: fish/fish.c:763
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr ""
 
-#: fish/fish.c:913
+#: fish/fish.c:917
 msgid "display a list of commands or help on a command"
 msgstr ""
 
-#: fish/fish.c:915
+#: fish/fish.c:919
 msgid "quit guestfish"
 msgstr ""
 
-#: fish/fish.c:918
+#: fish/fish.c:922
 msgid "allocate an image"
 msgstr ""
 
-#: fish/fish.c:920
+#: fish/fish.c:924
 msgid "display a line of text"
 msgstr ""
 
-#: fish/fish.c:922
+#: fish/fish.c:926
 msgid "edit a file in the image"
 msgstr ""
 
-#: fish/fish.c:924
+#: fish/fish.c:928
 msgid "local change directory"
 msgstr ""
 
-#: fish/fish.c:926
+#: fish/fish.c:930
 msgid "expand wildcards in command"
 msgstr ""
 
-#: fish/fish.c:928
+#: fish/fish.c:932
 msgid "view a file in the pager"
 msgstr ""
 
-#: fish/fish.c:930
+#: fish/fish.c:934
 msgid "close and reopen libguestfs handle"
 msgstr ""
 
-#: fish/fish.c:932
+#: fish/fish.c:936
 msgid "allocate a sparse image file"
 msgstr ""
 
-#: fish/fish.c:934
+#: fish/fish.c:938
 msgid "measure time taken to run command"
 msgstr ""
 
-#: fish/fish.c:946
+#: fish/fish.c:950
 #, c-format
 msgid ""
 "alloc - allocate an image\n"
@@ -1350,7 +1350,7 @@ msgid ""
 "    <nn>sects        number of 512 byte sectors\n"
 msgstr ""
 
-#: fish/fish.c:965
+#: fish/fish.c:969
 #, c-format
 msgid ""
 "echo - display a line of text\n"
@@ -1359,7 +1359,7 @@ msgid ""
 "    This echos the parameters to the terminal.\n"
 msgstr ""
 
-#: fish/fish.c:972
+#: fish/fish.c:976
 #, c-format
 msgid ""
 "edit - edit a file in the image\n"
@@ -1377,7 +1377,7 @@ msgid ""
 "    (> 2 MB) or binary files containing \\0 bytes.\n"
 msgstr ""
 
-#: fish/fish.c:986
+#: fish/fish.c:990
 #, c-format
 msgid ""
 "lcd - local change directory\n"
@@ -1388,7 +1388,7 @@ msgid ""
 "    place.\n"
 msgstr ""
 
-#: fish/fish.c:993
+#: fish/fish.c:997
 #, c-format
 msgid ""
 "glob - expand wildcards in command\n"
@@ -1399,7 +1399,7 @@ msgid ""
 "    once for each expanded argument.\n"
 msgstr ""
 
-#: fish/fish.c:1000
+#: fish/fish.c:1004
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -1407,7 +1407,7 @@ msgid ""
 "     help\n"
 msgstr ""
 
-#: fish/fish.c:1005
+#: fish/fish.c:1009
 #, c-format
 msgid ""
 "more - view a file in the pager\n"
@@ -1425,14 +1425,14 @@ msgid ""
 "    (> 2 MB) or binary files containing \\0 bytes.\n"
 msgstr ""
 
-#: fish/fish.c:1021
+#: fish/fish.c:1025
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
 "     quit\n"
 msgstr ""
 
-#: fish/fish.c:1024
+#: fish/fish.c:1028
 #, c-format
 msgid ""
 "reopen - close and reopen the libguestfs handle\n"
@@ -1443,7 +1443,7 @@ msgid ""
 "exits.  However this is occasionally useful for testing.\n"
 msgstr ""
 
-#: fish/fish.c:1031
+#: fish/fish.c:1035
 #, c-format
 msgid ""
 "sparse - allocate a sparse image file\n"
@@ -1474,7 +1474,7 @@ msgid ""
 "    <nn>sects        number of 512 byte sectors\n"
 msgstr ""
 
-#: fish/fish.c:1058
+#: fish/fish.c:1062
 #, c-format
 msgid ""
 "time - measure time taken to run command\n"
@@ -1484,12 +1484,12 @@ msgid ""
 "    time afterwards.\n"
 msgstr ""
 
-#: fish/fish.c:1064
+#: fish/fish.c:1068
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""
 
-#: fish/fish.c:1220
+#: fish/fish.c:1224
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr ""
@@ -1579,14 +1579,108 @@ msgid ""
 "  -V|--version         Display version and exit\n"
 msgstr ""
 
-#: fuse/guestmount.c:1077
+#: fuse/guestmount.c:1081
 #, c-format
 msgid "%s: must have at least one -a and at least one -m option\n"
 msgstr ""
 
-#: fuse/guestmount.c:1085
+#: fuse/guestmount.c:1089
 #, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
+msgstr ""
+
+#: hivex/hivexml.c:70
+#, c-format
+msgid "%s: failed to write XML document\n"
+msgstr ""
+
+#: hivex/hivexml.c:101
+#, c-format
+msgid "hivexml: missing name of input file\n"
+msgstr ""
+
+#: hivex/hivexml.c:120
+#, c-format
+msgid "xmlNewTextWriterFilename: failed to create XML writer\n"
+msgstr ""
+
+#: hivex/hivexsh.c:136
+#, c-format
+msgid ""
+"\n"
+"Welcome to hivexsh, the hivex interactive shell for examining\n"
+"Windows Registry binary hive files.\n"
+"\n"
+"Type: 'help' for help summary\n"
+"      'quit' to quit the shell\n"
+"\n"
+msgstr ""
+
+#: hivex/hivexsh.c:250
+#, c-format
+msgid "hivexsh: error getting parent of node %zu\n"
+msgstr ""
+
+#: hivex/hivexsh.c:260
+#, c-format
+msgid "hivexsh: error getting node name of node %zx\n"
+msgstr ""
+
+#: hivex/hivexsh.c:388
+#, c-format
+msgid "hivexsh: you must load a hive file first using 'load hivefile'\n"
+msgstr ""
+
+#: hivex/hivexsh.c:401
+#, c-format
+msgid "hivexsh: unknown command '%s', use 'help' for help summary\n"
+msgstr ""
+
+#: hivex/hivexsh.c:411
+#, c-format
+msgid "hivexsh: load: no hive file name given to load\n"
+msgstr ""
+
+#: hivex/hivexsh.c:427
+#, c-format
+msgid ""
+"hivexsh: failed to open hive file: %s: %m\n"
+"\n"
+"If you think this file is a valid Windows binary hive file (_not_\n"
+"a regedit *.reg file) then please run this command again using the\n"
+"hivexsh option '-d' and attach the complete output _and_ the hive file\n"
+"which fails into a bug report at https://bugzilla.redhat.com/\n"
+"\n"
+msgstr ""
+
+#: hivex/hivexsh.c:460 hivex/hivexsh.c:551
+#, c-format
+msgid "hivexsh: '%s' command should not be given arguments\n"
+msgstr ""
+
+#: hivex/hivexsh.c:488
+#, c-format
+msgid ""
+"%s: %s: \\ characters in path are doubled - are you escaping the path "
+"parameter correctly?\n"
+msgstr ""
+
+#: hivex/hivexsh.c:522
+#, c-format
+msgid "hivexsh: cd: subkey '%s' not found\n"
+msgstr ""
+
+#: hivex/hivexsh.c:540
+#, c-format
+msgid ""
+"Navigate through the hive's keys using the 'cd' command, as if it\n"
+"contained a filesystem, and use 'ls' to list the subkeys of the\n"
+"current key.  Full documentation is in the hivexsh(1) manual page.\n"
+msgstr ""
+
+#: hivex/hivexsh.c:615
+#, c-format
+msgid "%s: %s: key not found\n"
 msgstr ""
 
 #: src/guestfs.c:255
@@ -1761,89 +1855,89 @@ msgid ""
 "  -t n           Set launch timeout (default: %d seconds)\n"
 msgstr ""
 
-#: test-tool/test-tool.c:121
+#: test-tool/test-tool.c:125
 #, c-format
 msgid "libguestfs-test-tool: unknown long option: %s (%d)\n"
 msgstr ""
 
-#: test-tool/test-tool.c:130
+#: test-tool/test-tool.c:134
 #, c-format
 msgid "libguestfs-test-tool: invalid timeout: %s\n"
 msgstr ""
 
-#: test-tool/test-tool.c:142
+#: test-tool/test-tool.c:146
 #, c-format
 msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
 msgstr ""
 
-#: test-tool/test-tool.c:165
+#: test-tool/test-tool.c:169
 #, c-format
 msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
 msgstr ""
 
-#: test-tool/test-tool.c:170 test-tool/test-tool.c:176
+#: test-tool/test-tool.c:174 test-tool/test-tool.c:180
 #, c-format
 msgid "libguestfs-test-tool: failed to add drive '%s'\n"
 msgstr ""
 
-#: test-tool/test-tool.c:184
+#: test-tool/test-tool.c:188
 #, c-format
 msgid "libguestfs-test-tool: guestfs_version failed\n"
 msgstr ""
 
-#: test-tool/test-tool.c:206
+#: test-tool/test-tool.c:210
 #, c-format
 msgid "libguestfs-test-tool: failed to launch appliance\n"
 msgstr ""
 
-#: test-tool/test-tool.c:218
+#: test-tool/test-tool.c:222
 #, c-format
 msgid "libguestfs-test-tool: failed to run sfdisk\n"
 msgstr ""
 
-#: test-tool/test-tool.c:224
+#: test-tool/test-tool.c:228
 #, c-format
 msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
 msgstr ""
 
-#: test-tool/test-tool.c:230
+#: test-tool/test-tool.c:234
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
 msgstr ""
 
-#: test-tool/test-tool.c:236
+#: test-tool/test-tool.c:240
 #, c-format
 msgid "libguestfs-test-tool: failed to mkdir /iso\n"
 msgstr ""
 
-#: test-tool/test-tool.c:242
+#: test-tool/test-tool.c:246
 #, c-format
 msgid "libguestfs-test-tool: failed to mount /dev/sdb on /iso\n"
 msgstr ""
 
-#: test-tool/test-tool.c:250
+#: test-tool/test-tool.c:254
 #, c-format
 msgid "libguestfs-test-tool: could not run helper program, or helper failed\n"
 msgstr ""
 
-#: test-tool/test-tool.c:281
+#: test-tool/test-tool.c:285
 #, c-format
 msgid ""
 "LIBGUESTFS_QEMU environment variable is already set, so\n"
 "--qemu/--qemudir options cannot be used.\n"
 msgstr ""
 
-#: test-tool/test-tool.c:289
+#: test-tool/test-tool.c:293
 #, c-format
 msgid "Binary '%s' does not exist or is not executable\n"
 msgstr ""
 
-#: test-tool/test-tool.c:303
+#: test-tool/test-tool.c:307
 #, c-format
 msgid "%s: does not look like a qemu source directory\n"
 msgstr ""
 
-#: test-tool/test-tool.c:352
+#: test-tool/test-tool.c:356
 #, c-format
 msgid ""
 "Test tool helper program 'libguestfs-test-tool-helper' is not\n"
@@ -1852,12 +1946,12 @@ msgid ""
 "Use the --helper option to specify the location of this program.\n"
 msgstr ""
 
-#: test-tool/test-tool.c:368
+#: test-tool/test-tool.c:372
 #, c-format
 msgid "command failed: %s"
 msgstr ""
 
-#: test-tool/test-tool.c:376
+#: test-tool/test-tool.c:380
 #, c-format
 msgid ""
 "Test tool helper program %s\n"
@@ -1865,7 +1959,7 @@ msgid ""
 "was built.\n"
 msgstr ""
 
-#: test-tool/test-tool.c:410
+#: test-tool/test-tool.c:414
 #, c-format
 msgid "mkisofs command failed: %s\n"
 msgstr ""
