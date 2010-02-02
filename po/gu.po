@@ -1,0 +1,2036 @@
+# translation of libguestfs.po to Gujarati
+# Copyright (C) 2010 Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Sweta Kothari <swkothar@redhat.com>, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: libguestfs\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-01-29 09:56+0000\n"
+"PO-Revision-Date: 2010-02-02 13:45+0530\n"
+"Last-Translator: Sweta Kothari <swkothar@redhat.com>\n"
+"Language-Team: Gujarati\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: fish/alloc.c:39
+#, c-format
+msgid "use 'alloc file size' to create an image\n"
+msgstr "ઇમેજને બનાવવા માટે 'alloc file size' ને વાપરો\n"
+
+#: fish/alloc.c:47 fish/alloc.c:94
+#, c-format
+msgid "can't allocate or add disks after launching\n"
+msgstr "શરૂ કર્યા પછી ડિસ્કોને ફાળવી શકતા નથી અથવા ઉમેરો\n"
+
+#: fish/alloc.c:86
+#, c-format
+msgid "use 'sparse file size' to create a sparse image\n"
+msgstr "છૂટુંછવાયી ઇમેજને બનાવવા માટે 'sparse file size' ને વાપરો\n"
+
+#: fish/alloc.c:151 fish/alloc.c:158
+#, c-format
+msgid "could not parse size specification '%s'\n"
+msgstr "વિશિષ્ટ માપ '%s' નું પદચ્છેદન કરી શકાતુ નથી\n"
+
+#: fish/cmds.c:38
+msgid "Command"
+msgstr "આદેશ"
+
+#: fish/cmds.c:38
+msgid "Description"
+msgstr "વર્ણન"
+
+#: fish/cmds.c:40 fish/cmds.c:308
+msgid "add a CD-ROM disk image to examine"
+msgstr "નિરીક્ષણ કરવા માટે CD-ROM ડિસ્ક ઇમેજને ઉમેરો"
+
+#: fish/cmds.c:41 fish/cmds.c:305
+msgid "add an image to examine or modify"
+msgstr "નિરીક્ષણ અથવા બદલવા માટે ઇમેજને ઉમેરો"
+
+#: fish/cmds.c:42 fish/cmds.c:311
+msgid "add a drive in snapshot mode (read-only)"
+msgstr "સ્નેપશોટ સ્થિતિમાં ડ્રાઇવને ઉમેપો (ફક્ત વંચાય તેવુ)"
+
+#: fish/cmds.c:43 fish/cmds.c:446
+msgid "close the current Augeas handle"
+msgstr "હાલની Augeas હેન્ડલને બંધ કરો"
+
+#: fish/cmds.c:44 fish/cmds.c:452
+msgid "define an Augeas node"
+msgstr "Augeas નોડને વ્યાખ્યાયિત કરો"
+
+#: fish/cmds.c:45 fish/cmds.c:449
+msgid "define an Augeas variable"
+msgstr "Augeas ચલને વ્યાખ્યાયિત કરો"
+
+#: fish/cmds.c:46 fish/cmds.c:455
+msgid "look up the value of an Augeas path"
+msgstr "Augeas પાથની કિંમતને જૂઓ"
+
+#: fish/cmds.c:47 fish/cmds.c:443
+msgid "create a new Augeas handle"
+msgstr "નવી Augeas હેન્ડલને બનાવો"
+
+#: fish/cmds.c:48 fish/cmds.c:461
+msgid "insert a sibling Augeas node"
+msgstr "સિબ્લિંગ Augeas નોડને દાખલ કરો"
+
+#: fish/cmds.c:49 fish/cmds.c:476
+msgid "load files into the tree"
+msgstr "ટ્રીમાં ફાઇલોને લાવો"
+
+#: fish/cmds.c:50 fish/cmds.c:479
+msgid "list Augeas nodes under augpath"
+msgstr "augpath હેઠળ Augeas નોડોની યાદી"
+
+#: fish/cmds.c:51 fish/cmds.c:470
+msgid "return Augeas nodes which match augpath"
+msgstr "Augeas નોડોને પાછુ મેળવો કે જે augpath સાથે બંધબેસે છે"
+
+#: fish/cmds.c:52 fish/cmds.c:467
+msgid "move Augeas node"
+msgstr "Augeas નોડને ખસેડો"
+
+#: fish/cmds.c:53 fish/cmds.c:464
+msgid "remove an Augeas path"
+msgstr "Augeas પાથને દૂર કરો"
+
+#: fish/cmds.c:54 fish/cmds.c:473
+msgid "write all pending Augeas changes to disk"
+msgstr "ડિસ્કમાં બધા અટકેલ Augeas બદલાવોને લખો"
+
+#: fish/cmds.c:55 fish/cmds.c:458
+msgid "set Augeas path to value"
+msgstr "કિંમતમાં Augeas પાથને સુયોજિત કરો"
+
+#: fish/cmds.c:56 fish/cmds.c:1043
+msgid "test availability of some parts of the API"
+msgstr "API નાં અમુક ભાગોની ઉપલ્બધતાને ચકાસો"
+
+#: fish/cmds.c:57 fish/cmds.c:587
+msgid "flush device buffers"
+msgstr "ઉપકરણ બફરોને ફ્લશ કરો"
+
+#: fish/cmds.c:58 fish/cmds.c:575
+msgid "get blocksize of block device"
+msgstr "બ્લોક ઉપકરણનાં બ્લોકમાપને મેળવો"
+
+#: fish/cmds.c:59 fish/cmds.c:569
+msgid "is block device set to read-only"
+msgstr "શું બ્લોક ઉપકરણ એ ફક્ત વાંચવા માટે સુયોજિત છે"
+
+#: fish/cmds.c:60 fish/cmds.c:584
+msgid "get total size of device in bytes"
+msgstr "બાઇટોમાં ઉપકરણોનાં કુલ માપને મેળવો"
+
+#: fish/cmds.c:61 fish/cmds.c:572
+msgid "get sectorsize of block device"
+msgstr "બ્લોક ઉપકરણનાં સેક્ટરમાપને મેળવો"
+
+#: fish/cmds.c:62 fish/cmds.c:581
+msgid "get total size of device in 512-byte sectors"
+msgstr "512-બાઇટ સેક્ટરોમાં ઉપકરણનાં કુલ માપને મેળવો"
+
+#: fish/cmds.c:63 fish/cmds.c:590
+msgid "reread partition table"
+msgstr "પાર્ટીશન કોષ્ટકને પુન:વાંચો"
+
+#: fish/cmds.c:64 fish/cmds.c:578
+msgid "set blocksize of block device"
+msgstr "બ્લોક ઉપકરણનાં બ્લોકમાપને સુયોજિત કરો"
+
+#: fish/cmds.c:65 fish/cmds.c:563
+msgid "set block device to read-only"
+msgstr "ફક્ત વંચાય એ રીતે બ્લોક ઉપકરણને સુયોજિત કરો"
+
+#: fish/cmds.c:66 fish/cmds.c:566
+msgid "set block device to read-write"
+msgstr "વાંચી શકાય અને લખી શકાય તે રીતે બ્લોક ઉપકરણને સુયોજિત કરો"
+
+#: fish/cmds.c:67 fish/cmds.c:986
+msgid "return true path on case-insensitive filesystem"
+msgstr "નાનામોટા અક્ષરો પ્રત્યે સંવેદનશીલ ન હોય તેવી ફાઇલ સિસ્ટમ પર સાચા પાથને પાછુ લાવો"
+
+#: fish/cmds.c:68 fish/cmds.c:407
+msgid "list the contents of a file"
+msgstr "ફાઇલોનાં સમાવિષ્ટની યાદી કરો"
+
+#: fish/cmds.c:69 fish/cmds.c:599
+msgid "compute MD5, SHAx or CRC checksum of file"
+msgstr "ફાઇલનાં MD5, SHAx or CRC checksum ની ગણતરી કરો"
+
+#: fish/cmds.c:70 fish/cmds.c:497
+msgid "change file mode"
+msgstr "ફાઇલ સ્થિતિને બદલો"
+
+#: fish/cmds.c:71 fish/cmds.c:138 fish/cmds.c:500 fish/cmds.c:1004
+msgid "change file owner and group"
+msgstr "ફાઇલની માલિકી અને જૂથને બદલો"
+
+#: fish/cmds.c:72 fish/cmds.c:545
+msgid "run a command from the guest filesystem"
+msgstr "મહેમાન ફાઇલસિસ્ટમ માંથી આદેશને ચલાવો"
+
+#: fish/cmds.c:73 fish/cmds.c:548
+msgid "run a command, returning lines"
+msgstr "આદેશને ચલાવો, વાક્યોને પાછુ મેળવી રહ્યા છે"
+
+#: fish/cmds.c:74 fish/cmds.c:314
+msgid "add qemu parameters"
+msgstr "qemu પરિમાણોને ઉમેરો"
+
+#: fish/cmds.c:75 fish/cmds.c:656
+msgid "copy a file"
+msgstr "ફાઇલની નકલ કરો"
+
+#: fish/cmds.c:76 fish/cmds.c:659
+msgid "copy a file or directory recursively"
+msgstr "પુનરાવૃત્તિ થતી ફાઇલ અથવા ડિરેક્ટરીની નકલ કરો"
+
+#: fish/cmds.c:77 fish/cmds.c:1046
+msgid "copy from source to destination using dd"
+msgstr "dd ની મદદથી લક્ષ્ય માટે સ્ત્રોત માંથી નકલ કરો"
+
+#: fish/cmds.c:78 fish/cmds.c:623
+msgid "debugging and internals"
+msgstr "ડિબગીંગ અને આંતરિક"
+
+#: fish/cmds.c:79 fish/cmds.c:770
+msgid "report file system disk space usage"
+msgstr "ફાઇલ સિસ્ટમ ડિસ્ક જગ્યાનાં વપરાશનો અહેવાલ કરો"
+
+#: fish/cmds.c:80 fish/cmds.c:773
+msgid "report file system disk space usage (human readable)"
+msgstr "ફાઇલ સિસ્ટમ ડિસ્ક જગ્યાનાં વપરાશનો અહેવાલ કરો (માણસને વાંચી શકાય તેવુ)"
+
+#: fish/cmds.c:81 fish/cmds.c:668
+msgid "return kernel messages"
+msgstr "કર્નલ સંદેશાઓ પાછા લાવો"
+
+#: fish/cmds.c:82 fish/cmds.c:596
+msgid "download a file to the local machine"
+msgstr "સ્થાનિય મશીનમાં ફાઇલને ડાઉનલોડ કરો"
+
+#: fish/cmds.c:83 fish/cmds.c:665
+msgid "drop kernel page cache, dentries and inodes"
+msgstr "કર્નલ પાનું કેશ, નોંધણીઓ અને આઇનોડોને છોડી મુકો"
+
+#: fish/cmds.c:84 fish/cmds.c:776
+msgid "estimate file space usage"
+msgstr "આશરે ફાઇલ જગ્યાનો વપરાશ"
+
+#: fish/cmds.c:85 fish/cmds.c:719
+msgid "check an ext2/ext3 filesystem"
+msgstr "ext2/ext3 ફાઇલસિસ્ટમને ચકાસો"
+
+#: fish/cmds.c:86 fish/cmds.c:980
+msgid "echo arguments back to the client"
+msgstr "ક્લાઇન્ટની પાછળ ઇકો દલીલો"
+
+#: fish/cmds.c:87 fish/cmds.c:88 fish/cmds.c:92 fish/cmds.c:93 fish/cmds.c:117
+#: fish/cmds.c:118 fish/cmds.c:284 fish/cmds.c:285 fish/cmds.c:288
+#: fish/cmds.c:289 fish/cmds.c:291 fish/cmds.c:292 fish/cmds.c:848
+#: fish/cmds.c:851 fish/cmds.c:854 fish/cmds.c:857 fish/cmds.c:860
+#: fish/cmds.c:863 fish/cmds.c:866 fish/cmds.c:869 fish/cmds.c:872
+#: fish/cmds.c:875 fish/cmds.c:878 fish/cmds.c:881
+msgid "return lines matching a pattern"
+msgstr "ભાતને બંધબેસતા વાક્યોને પાછા લાવો"
+
+#: fish/cmds.c:89 fish/cmds.c:674
+msgid "test if two files have equal contents"
+msgstr "ચકાસો જો ફાઇલ પાસે સરખા સમાવિષ્ટો છે"
+
+#: fish/cmds.c:90 fish/cmds.c:503
+msgid "test if file or directory exists"
+msgstr "ચકાસો જો ફાઇલ અથવા ડિરેક્ટરી અસ્તિત્વ ધરાવે છે"
+
+#: fish/cmds.c:91 fish/cmds.c:902
+msgid "preallocate a file in the guest filesystem"
+msgstr "મહેમાન ફાઇલસિસ્ટમમાં ફાઇલને પહેલેથી ફાળવો"
+
+#: fish/cmds.c:94 fish/cmds.c:542
+msgid "determine file type"
+msgstr "ફાઇલ પ્રકારને નક્કી કરો"
+
+#: fish/cmds.c:95 fish/cmds.c:1049
+msgid "return the size of the file in bytes"
+msgstr "બાઇટોમાં ફાઇલનાં માપને પાછા લાવો"
+
+#: fish/cmds.c:96 fish/cmds.c:1040
+msgid "fill a file with octets"
+msgstr "octets સાથે ફાઇલને ભરો"
+
+#: fish/cmds.c:97 fish/cmds.c:716
+msgid "find all files and directories"
+msgstr "બધી ફાઇલો અને ડિરેક્ટરીઓને શોધો"
+
+#: fish/cmds.c:98 fish/cmds.c:983
+msgid "find all files and directories, returning NUL-separated list"
+msgstr "બધી ફાઇલો અને ડિરેક્ટરીઓને શોધો, NUL-અગલ થયેલ યાદીને પાછી મેળવી રહ્યા છે"
+
+#: fish/cmds.c:99 fish/cmds.c:647
+msgid "run the filesystem checker"
+msgstr "ફાઇલસિસ્ટમ ચેકરને ચલાવો"
+
+#: fish/cmds.c:100 fish/cmds.c:332
+msgid "get the additional kernel options"
+msgstr "વધારાનાં કર્ન વિકલ્પોને મેળવો"
+
+#: fish/cmds.c:101 fish/cmds.c:338
+msgid "get autosync mode"
+msgstr "આપમેળે સુમેળ થતી સ્થિતિને મેળવો"
+
+#: fish/cmds.c:102 fish/cmds.c:389
+msgid "get direct appliance mode flag"
+msgstr "સીધો ઉપકરણ સ્થિતિ ફલેગને મેળવો"
+
+#: fish/cmds.c:103 fish/cmds.c:638
+msgid "get the ext2/3/4 filesystem label"
+msgstr "ext2/3/4 ફાઇલસિસ્ટમ લેબલને મેળવો"
+
+#: fish/cmds.c:104 fish/cmds.c:644
+msgid "get the ext2/3/4 filesystem UUID"
+msgstr "ext2/3/4 ફાઇલસિસ્ટમ UUID ને મેળવો"
+
+#: fish/cmds.c:105 fish/cmds.c:365
+msgid "get memory allocated to the qemu subprocess"
+msgstr "qemu ઉપપ્રક્રિયામાં ફાળવેલ મેમરીને મેળવો"
+
+#: fish/cmds.c:106 fish/cmds.c:326
+msgid "get the search path"
+msgstr "શોધ પાથને મેળવો"
+
+#: fish/cmds.c:107 fish/cmds.c:368
+msgid "get PID of qemu subprocess"
+msgstr "qemu ઉપપ્રક્રિયાનાં PID ને મેળવો"
+
+#: fish/cmds.c:108 fish/cmds.c:320
+msgid "get the qemu binary"
+msgstr "qemu બાઇનરીને મેળવો"
+
+#: fish/cmds.c:109 fish/cmds.c:395
+msgid "get recovery process enabled flag"
+msgstr "સક્રિય થયેલ ફ્લેગની પાછી મળેલ પ્રક્રિયાને મેળવો"
+
+#: fish/cmds.c:110 fish/cmds.c:377
+msgid "get SELinux enabled flag"
+msgstr "SELinux સક્રિય થયેલ ફ્લેગને મેળવો"
+
+#: fish/cmds.c:111 fish/cmds.c:359
+msgid "get the current state"
+msgstr "હાલની સ્થિતિ ને મેળવો"
+
+#: fish/cmds.c:112 fish/cmds.c:383
+msgid "get command trace enabled flag"
+msgstr "આદેશ ટ્રેસ સક્રિય થયેલ ફ્લેગને મેળવો"
+
+#: fish/cmds.c:113 fish/cmds.c:344
+msgid "get verbose mode"
+msgstr "વર્બોસ સ્થિતિને મેળવો"
+
+#: fish/cmds.c:114 fish/cmds.c:953
+msgid "get SELinux security context"
+msgstr "SELinux સુરક્ષા સંદર્ભને મેળવો"
+
+#: fish/cmds.c:115 fish/cmds.c:139 fish/cmds.c:818 fish/cmds.c:821
+msgid "list extended attributes of a file or directory"
+msgstr "ફાઇલ અથવા ડિરેક્ટરીની વિસ્તરેલ ગુણધર્મોની યાદી"
+
+#: fish/cmds.c:116 fish/cmds.c:734
+msgid "expand a wildcard path"
+msgstr "વાઇલ્ડકાર્ડ પાથને વિસ્તારો"
+
+#: fish/cmds.c:119 fish/cmds.c:653
+msgid "install GRUB"
+msgstr "GRUB ને સ્થાપિત કરો"
+
+#: fish/cmds.c:120 fish/cmds.c:758
+msgid "return first 10 lines of a file"
+msgstr "ફાઇલનાં પહેલા 10 વાક્યોને પાછા લાવો"
+
+#: fish/cmds.c:121 fish/cmds.c:761
+msgid "return first N lines of a file"
+msgstr "ફાઇલનાં પહેલાં N વાક્યોને પાછા લાવો"
+
+#: fish/cmds.c:122 fish/cmds.c:683
+msgid "dump a file in hexadecimal"
+msgstr "હેક્ઝાડેસિમલમાં ફાઇલને ડમ્પ કરો"
+
+#: fish/cmds.c:123 fish/cmds.c:779
+msgid "list files in an initrd"
+msgstr "initrd માં ફાઇલોની યાદી કરો"
+
+#: fish/cmds.c:124 fish/cmds.c:935
+msgid "add an inotify watch"
+msgstr "inotify ને ધ્યાન રાખવાનું ઉમેરો"
+
+#: fish/cmds.c:125 fish/cmds.c:947
+msgid "close the inotify handle"
+msgstr "inotify હેન્ડલને બંધ કરો"
+
+#: fish/cmds.c:126 fish/cmds.c:944
+msgid "return list of watched files that had events"
+msgstr "ધ્યાન રાખેલ ફાઇલોની યાદીને પાછી મેળવો કે જેની પાસે ઘટનાઓ હતી"
+
+#: fish/cmds.c:127 fish/cmds.c:932
+msgid "create an inotify handle"
+msgstr "inotify હેન્ડલને બનાવો"
+
+#: fish/cmds.c:128 fish/cmds.c:941
+msgid "return list of inotify events"
+msgstr "inotify ઘટનાઓની યાદીને પાછી મેળવો"
+
+#: fish/cmds.c:129 fish/cmds.c:938
+msgid "remove an inotify watch"
+msgstr "inotify ધ્યાન રાખવાને દૂર કરો"
+
+#: fish/cmds.c:130 fish/cmds.c:356
+msgid "is busy processing a command"
+msgstr "આદેશને પ્રક્રિયા કરવામાં વ્યસ્ત છે"
+
+#: fish/cmds.c:131 fish/cmds.c:350
+msgid "is in configuration state"
+msgstr "રૂપરેખાંકન સ્થિતિમાં છે"
+
+#: fish/cmds.c:132 fish/cmds.c:133 fish/cmds.c:506 fish/cmds.c:509
+msgid "test if file exists"
+msgstr "ચકાસો જો ફાઇલ અસ્તિત્વ ધરાવે છે"
+
+#: fish/cmds.c:134 fish/cmds.c:353
+msgid "is launching subprocess"
+msgstr "ઉપપ્રક્રિયાને શરૂ કરી રહ્યા છે"
+
+#: fish/cmds.c:135 fish/cmds.c:347
+msgid "is ready to accept commands"
+msgstr "આદેશોને સ્વીકારવા માટે તૈયાર છે"
+
+#: fish/cmds.c:136 fish/cmds.c:302
+msgid "kill the qemu subprocess"
+msgstr "qemu ઉપપ્રક્રિયાને મારી નાખો"
+
+#: fish/cmds.c:137 fish/cmds.c:299
+msgid "launch the qemu subprocess"
+msgstr "qemu ઉપપ્રક્રિયાને શરૂ કરો"
+
+#: fish/cmds.c:140 fish/cmds.c:416
+msgid "list the block devices"
+msgstr "બ્લોક ઉપકરણોની યાદી કરો"
+
+#: fish/cmds.c:141 fish/cmds.c:419
+msgid "list the partitions"
+msgstr "પાર્ટીશનોની યાદી કરો"
+
+#: fish/cmds.c:142 fish/cmds.c:410
+msgid "list the files in a directory (long format)"
+msgstr "ડિરેક્ટરીમાં ફાઇલોની યાદી કરો (લાંબુ બંધારણ)"
+
+#: fish/cmds.c:143 fish/cmds.c:144 fish/cmds.c:887 fish/cmds.c:890
+msgid "create a hard link"
+msgstr "હાર્ડ કડી ને બનાવો"
+
+#: fish/cmds.c:145 fish/cmds.c:146 fish/cmds.c:893 fish/cmds.c:896
+msgid "create a symbolic link"
+msgstr "સાંકેતિક કડીને બનાવો"
+
+#: fish/cmds.c:147 fish/cmds.c:211 fish/cmds.c:830 fish/cmds.c:833
+msgid "remove extended attribute of a file or directory"
+msgstr "ફાઇલ અથવા ડિરેક્ટરીનાં વિસ્તરેલ ગુણધર્મને દૂર કરો"
+
+#: fish/cmds.c:148 fish/cmds.c:413
+msgid "list the files in a directory"
+msgstr "ડિરેક્ટરીમાં ફાઇલોની યાદી કરો"
+
+#: fish/cmds.c:149 fish/cmds.c:233 fish/cmds.c:824 fish/cmds.c:827
+msgid "set extended attribute of a file or directory"
+msgstr "ફાઇલ અથવા ડિરેક્ટરીનાં વિસ્તરેલ ગુણધર્મને સુયોજિત કરો"
+
+#: fish/cmds.c:150 fish/cmds.c:554
+msgid "get file information for a symbolic link"
+msgstr "સાંકેતિક કડી માટે ફાઇલ જાણકારીને મેળવો"
+
+#: fish/cmds.c:151 fish/cmds.c:1007
+msgid "lstat on multiple files"
+msgstr "ઘણીબધી ફાઇલો પર lstat"
+
+#: fish/cmds.c:152 fish/cmds.c:275 fish/cmds.c:515 fish/cmds.c:518
+msgid "create an LVM volume group"
+msgstr "LVM વોલ્યુમ જૂથને બનાવો"
+
+#: fish/cmds.c:153 fish/cmds.c:539
+msgid "remove all LVM LVs, VGs and PVs"
+msgstr "બધા LVM LVs, VGs અને PVs ને દૂર કરો"
+
+#: fish/cmds.c:154 fish/cmds.c:626
+msgid "remove an LVM logical volume"
+msgstr "LVM લોજીકલ વોલ્યુમને દૂર કરો"
+
+#: fish/cmds.c:155 fish/cmds.c:1052
+msgid "rename an LVM logical volume"
+msgstr "LVM લોજીકલ વોલ્યુમનું નામ બદલો"
+
+#: fish/cmds.c:156 fish/cmds.c:710
+msgid "resize an LVM logical volume"
+msgstr "LVM લોજીકલ વોલ્યુમનું માપ બદલો"
+
+#: fish/cmds.c:157 fish/cmds.c:158 fish/cmds.c:428 fish/cmds.c:437
+msgid "list the LVM logical volumes (LVs)"
+msgstr "LVM લોજીકલ વોલ્યુમોની યાદી કરો (LVs)"
+
+#: fish/cmds.c:159 fish/cmds.c:1010
+msgid "lgetxattr on multiple files"
+msgstr "ઘણીબધી ફાઇલો પર lgetxattr"
+
+#: fish/cmds.c:160 fish/cmds.c:491
+msgid "create a directory"
+msgstr "ડિરેક્ટરીને બનાવો"
+
+#: fish/cmds.c:161 fish/cmds.c:1001
+msgid "create a directory with a particular mode"
+msgstr "ચોક્કસ સ્થિતિ સાથે ડિરેક્ટરીને બનાવો"
+
+#: fish/cmds.c:162 fish/cmds.c:494
+msgid "create a directory and parents"
+msgstr "ડિરેક્ટરી અને પૂર્વસોપાનને બનાવો"
+
+#: fish/cmds.c:163 fish/cmds.c:746
+msgid "create a temporary directory"
+msgstr "કામચલાઉ ડિરેક્ટરીને બનાવો"
+
+#: fish/cmds.c:164 fish/cmds.c:165 fish/cmds.c:166 fish/cmds.c:968
+#: fish/cmds.c:971 fish/cmds.c:974
+msgid "make ext2/3/4 filesystem with external journal"
+msgstr "બહારનાં જર્નલ સાથે ext2/3/4 ફાઇલસિસ્ટમને બનાવો"
+
+#: fish/cmds.c:167 fish/cmds.c:959
+msgid "make ext2/3/4 external journal"
+msgstr "ext2/3/4 બહારનાં જર્નલ ને બનાવો"
+
+#: fish/cmds.c:168 fish/cmds.c:962
+msgid "make ext2/3/4 external journal with label"
+msgstr "લેબલ સાથે ext2/3/4 બહારનાં જર્નલને બનાવો"
+
+#: fish/cmds.c:169 fish/cmds.c:965
+msgid "make ext2/3/4 external journal with UUID"
+msgstr "UUID સાથે ext2/3/4 બહારનાં જર્નલને બનાવો"
+
+#: fish/cmds.c:170 fish/cmds.c:797
+msgid "make FIFO (named pipe)"
+msgstr "FIFO ને બનાવો (નામ થયેલ પાઇપ)"
+
+#: fish/cmds.c:171 fish/cmds.c:521
+msgid "make a filesystem"
+msgstr "ફાઇલસિસ્ટમને બનાવો"
+
+#: fish/cmds.c:172 fish/cmds.c:956
+msgid "make a filesystem with block size"
+msgstr "બ્લોક માપ સાથે ફાઇલસિસ્ટમને બનાવો"
+
+#: fish/cmds.c:173 fish/cmds.c:839
+msgid "create a mountpoint"
+msgstr "માઉન્ટબિંદુને બનાવો"
+
+#: fish/cmds.c:174 fish/cmds.c:794
+msgid "make block, character or FIFO devices"
+msgstr "બ્લોક, અક્ષર અથવા FIFO ઉપકરણોને બનાવો"
+
+#: fish/cmds.c:175 fish/cmds.c:800
+msgid "make block device node"
+msgstr "બ્લોક ઉપકરણ નોડને બનાવો"
+
+#: fish/cmds.c:176 fish/cmds.c:803
+msgid "make char device node"
+msgstr "અક્ષર ઉપકરણ નોડને બનાવો"
+
+#: fish/cmds.c:177 fish/cmds.c:785
+msgid "create a swap partition"
+msgstr "સ્વેપ પાર્ટીશનને બનાવો"
+
+#: fish/cmds.c:178 fish/cmds.c:788
+msgid "create a swap partition with a label"
+msgstr "લેબલ સાથે સ્વેપ પાર્ટીશનને બનાવો"
+
+#: fish/cmds.c:179 fish/cmds.c:791
+msgid "create a swap partition with an explicit UUID"
+msgstr "નિશ્ર્ચિત UUID સાથે સ્વેપ પાર્ટીશનને બનાવો"
+
+#: fish/cmds.c:180 fish/cmds.c:929
+msgid "create a swap file"
+msgstr "સ્વેપ ફાઇલને બનાવો"
+
+#: fish/cmds.c:181 fish/cmds.c:977
+msgid "load a kernel module"
+msgstr "કર્નલ મોડ્યુલને લાવો"
+
+#: fish/cmds.c:182 fish/cmds.c:398
+msgid "mount a guest disk at a position in the filesystem"
+msgstr "ફાઇલસિસ્ટમનાં સ્થાન પર મહેમાન ડિસ્કને માઉન્ટ કરો"
+
+#: fish/cmds.c:183 fish/cmds.c:782
+msgid "mount a file using the loop device"
+msgstr "લુપ ઉપકરણની મદદથી ફાઇલને માઉન્ટ કરો"
+
+#: fish/cmds.c:184 fish/cmds.c:617
+msgid "mount a guest disk with mount options"
+msgstr "માઉન્ટ વિકલ્પો સાથે મહેમાન ડિસ્કને માઉન્ટ કરો"
+
+#: fish/cmds.c:185 fish/cmds.c:614
+msgid "mount a guest disk, read-only"
+msgstr "મહેમાન ડિસ્કને માઉન્ટ કરો, ફક્ત વાંચી શકાય છે"
+
+#: fish/cmds.c:186 fish/cmds.c:620
+msgid "mount a guest disk with mount options and vfstype"
+msgstr "માઉન્ટ વિકલ્પો અને vfstype સાથે મહેમાન ડિસ્કને માઉન્ટ કરો"
+
+#: fish/cmds.c:187 fish/cmds.c:836
+msgid "show mountpoints"
+msgstr "માઉન્ટબિંદુઓને બતાવો"
+
+#: fish/cmds.c:188 fish/cmds.c:533
+msgid "show mounted filesystems"
+msgstr "માઉન્ટ થયેલ ફાઇલસિસ્ટમોને બતાવો"
+
+#: fish/cmds.c:189 fish/cmds.c:662
+msgid "move a file"
+msgstr "ફાઇલને ખસેડો"
+
+#: fish/cmds.c:190 fish/cmds.c:725
+msgid "probe NTFS volume"
+msgstr "પ્રોબ NTFS વોલ્યુમ"
+
+#: fish/cmds.c:191 fish/cmds.c:1022
+msgid "add a partition to the device"
+msgstr "ઉપકરણમાં પાર્ટીશનને ઉમેરો"
+
+#: fish/cmds.c:192 fish/cmds.c:1025
+msgid "partition whole disk with a single primary partition"
+msgstr "એક પ્રાથમિક પાર્ટીશન સાથે આખી ડિસ્કનું પાર્ટીશન કરો"
+
+#: fish/cmds.c:193 fish/cmds.c:1037
+msgid "get the partition table type"
+msgstr "પાર્ટીશન કોષ્ટક પ્રકારને મેળવો"
+
+#: fish/cmds.c:194 fish/cmds.c:1019
+msgid "create an empty partition table"
+msgstr "ખાલી પાર્ટીશન કોષ્ટકને બનાવો"
+
+#: fish/cmds.c:195 fish/cmds.c:1034
+msgid "list partitions on a device"
+msgstr "ઉપકરણ પર પાર્ટીશનોની યાદી કરો"
+
+#: fish/cmds.c:196 fish/cmds.c:1028
+msgid "make a partition bootable"
+msgstr "બુટ કરી શકાય તેવાં પાર્ટીશનને બનાવો"
+
+#: fish/cmds.c:197 fish/cmds.c:1031
+msgid "set partition name"
+msgstr "પાર્ટીશન નામન સુયોજિત કરો"
+
+#: fish/cmds.c:198 fish/cmds.c:671
+msgid "ping the guest daemon"
+msgstr "મહેમાન ડિમનને પિંગ કરો"
+
+#: fish/cmds.c:199 fish/cmds.c:1016
+msgid "read part of a file"
+msgstr "ફાઇલનાં ભાગને વાંચો"
+
+#: fish/cmds.c:200 fish/cmds.c:512
+msgid "create an LVM physical volume"
+msgstr "LVM ભૌતિક વોલ્યુમને બનાવો"
+
+#: fish/cmds.c:201 fish/cmds.c:632
+msgid "remove an LVM physical volume"
+msgstr "LVM ભૌતિક વોલ્યુમને દૂર કરો"
+
+#: fish/cmds.c:202 fish/cmds.c:689
+msgid "resize an LVM physical volume"
+msgstr "LVM ભૌતિક વોલ્યુમનું માપ બદલો"
+
+#: fish/cmds.c:203 fish/cmds.c:204 fish/cmds.c:422 fish/cmds.c:431
+msgid "list the LVM physical volumes (PVs)"
+msgstr "LVM ભૌતિક વોલ્યુમો (PVs) ની "
+
+#: fish/cmds.c:205 fish/cmds.c:845
+msgid "read a file"
+msgstr "ફાઇલને વાંચો"
+
+#: fish/cmds.c:206 fish/cmds.c:440
+msgid "read file as lines"
+msgstr "વાક્યો પ્રમાણે ફાઇલને વાંચો"
+
+#: fish/cmds.c:207 fish/cmds.c:809
+msgid "read directories entries"
+msgstr "ડિરેક્ટરીઓની નોંધણીઓને વાંચો"
+
+#: fish/cmds.c:208 fish/cmds.c:899
+msgid "read the target of a symbolic link"
+msgstr "સાંકેતિક કડીનાં લક્ષ્યને વાંચો"
+
+#: fish/cmds.c:209 fish/cmds.c:1013
+msgid "readlink on multiple files"
+msgstr "ઘણીબધી ફાઇલો પર readlink"
+
+#: fish/cmds.c:210 fish/cmds.c:884
+msgid "canonicalized absolute pathname"
+msgstr "કેનોનીકલવાળા પાથનું ચોક્કસ નામ"
+
+#: fish/cmds.c:212 fish/cmds.c:713
+msgid "resize an ext2/ext3 filesystem"
+msgstr "ext2/ext3 ફાઇલસિસ્ટમનું માપ બદલો"
+
+#: fish/cmds.c:213 fish/cmds.c:482
+msgid "remove a file"
+msgstr "ફાઇલને દૂર કરો"
+
+#: fish/cmds.c:214 fish/cmds.c:488
+msgid "remove a file or directory recursively"
+msgstr "પુનરાવૃત્તિ થતી ફાઇલ અથવા ડિરેક્ટરીને દૂર કરો"
+
+#: fish/cmds.c:215 fish/cmds.c:485
+msgid "remove a directory"
+msgstr "ડિરેક્ટરીને દૂર કરો"
+
+#: fish/cmds.c:216 fish/cmds.c:842
+msgid "remove a mountpoint"
+msgstr "માઉન્ટબિંદુને દૂર કરો"
+
+#: fish/cmds.c:217 fish/cmds.c:737
+msgid "scrub (securely wipe) a device"
+msgstr "ઉપકરણને ઘસી નાંખો (સુરક્ષિત રીતે લૂછી નાંખો)"
+
+#: fish/cmds.c:218 fish/cmds.c:740
+msgid "scrub (securely wipe) a file"
+msgstr "ફાઇલને ઘસી નાંખો (સુરક્ષિત રીતે લૂછી નાંખો)"
+
+#: fish/cmds.c:219 fish/cmds.c:743
+msgid "scrub (securely wipe) free space"
+msgstr "મુક્ત જગ્યાને ઘસી નાંખો (સુરક્ષિત રીતે ભૂસી નાંખો)"
+
+#: fish/cmds.c:220 fish/cmds.c:329
+msgid "add options to kernel command line"
+msgstr "કર્નલ આદેશ વાક્યમાં વિકલ્પોને ઉમેરો"
+
+#: fish/cmds.c:221 fish/cmds.c:335
+msgid "set autosync mode"
+msgstr "આપમેળે સુમેળ થતી સ્થિતિને સુયોજિત કરો"
+
+#: fish/cmds.c:222 fish/cmds.c:386
+msgid "enable or disable direct appliance mode"
+msgstr "સીધી ઉપકરણ સ્થિતિને સક્રિય અથવા નિષ્ક્રિય કરો"
+
+#: fish/cmds.c:223 fish/cmds.c:635
+msgid "set the ext2/3/4 filesystem label"
+msgstr "ext2/3/4 ફાઇલસિસ્ટમ લેબલને સુયોજિત કરો"
+
+#: fish/cmds.c:224 fish/cmds.c:641
+msgid "set the ext2/3/4 filesystem UUID"
+msgstr "ext2/3/4 ફાઇલસિસ્ટમ UUID ને સુયોજિત કરો"
+
+#: fish/cmds.c:225 fish/cmds.c:362
+msgid "set memory allocated to the qemu subprocess"
+msgstr "qemu ઉપપ્રક્રિયા માટે ફાળવેલ મેમરીને સુયોજિત કરો"
+
+#: fish/cmds.c:226 fish/cmds.c:323
+msgid "set the search path"
+msgstr "શોધ પાથને સુયોજિત કરો"
+
+#: fish/cmds.c:227 fish/cmds.c:317
+msgid "set the qemu binary"
+msgstr "qemu બાઇનરીને સુયોજિત કરો"
+
+#: fish/cmds.c:228 fish/cmds.c:392
+msgid "enable or disable the recovery process"
+msgstr "સુધારવાની પ્રક્રિયા ને સક્રિય કરો અથવા નિષ્ક્રિય કરો"
+
+#: fish/cmds.c:229 fish/cmds.c:374
+msgid "set SELinux enabled or disabled at appliance boot"
+msgstr "ઉપકરણ બુટ વખતે સક્રિય અથવા નિષ્ક્રિય થયેલ SELinux ને સુયોજિત કરો"
+
+#: fish/cmds.c:230 fish/cmds.c:380
+msgid "enable or disable command traces"
+msgstr "આદેશ ટ્રેસને સક્રિય કરો અથવા નિષ્ક્રિય કરો"
+
+#: fish/cmds.c:231 fish/cmds.c:341
+msgid "set verbose mode"
+msgstr "વર્બોસ સ્થિતિને સુયોજિત કરો"
+
+#: fish/cmds.c:232 fish/cmds.c:950
+msgid "set SELinux security context"
+msgstr "SELinux સુરક્ષા સંદર્ભને સુયોજિત કરો"
+
+#: fish/cmds.c:234 fish/cmds.c:235 fish/cmds.c:524 fish/cmds.c:812
+msgid "create partitions on a block device"
+msgstr "બ્લોક ઉપકરણ પર પાર્ટીશનોને બનાવો"
+
+#: fish/cmds.c:236 fish/cmds.c:692
+msgid "modify a single partition on a block device"
+msgstr "બ્લોક ઉપકરણ પર એક પાર્ટીશનને બદલો"
+
+#: fish/cmds.c:237 fish/cmds.c:701
+msgid "display the disk geometry from the partition table"
+msgstr "પાર્ટીશન કોષ્ટકમાંથી ડિસ્કની ભૂમિતિને દર્શાવો"
+
+#: fish/cmds.c:238 fish/cmds.c:698
+msgid "display the kernel geometry"
+msgstr "કર્નલ ભૂમિતિને દર્શાવો"
+
+#: fish/cmds.c:239 fish/cmds.c:695
+msgid "display the partition table"
+msgstr "પાર્ટીશન કોષ્ટકને દર્શાવો"
+
+#: fish/cmds.c:240 fish/cmds.c:728
+msgid "run a command via the shell"
+msgstr "શેલ મારફતે આદેશને ચલાવો"
+
+#: fish/cmds.c:241 fish/cmds.c:731
+msgid "run a command via the shell returning lines"
+msgstr "વાક્યો પાછા લાવતા શેલ મારફતે આદેશને ચલાવો"
+
+#: fish/cmds.c:242 fish/cmds.c:722
+msgid "sleep for some seconds"
+msgstr "અમુક સેંકડો માટે ઊંધી જાઓ"
+
+#: fish/cmds.c:243 fish/cmds.c:551
+msgid "get file information"
+msgstr "ફાઇલ જાણકારીને મેળવો"
+
+#: fish/cmds.c:244 fish/cmds.c:557
+msgid "get file system statistics"
+msgstr "ફાઇલ સિસ્ટમ પરિસ્થિતિઓને મેળવો"
+
+#: fish/cmds.c:245 fish/cmds.c:246 fish/cmds.c:677 fish/cmds.c:680
+msgid "print the printable strings in a file"
+msgstr "ફાઇલમાં છાપી શકાય તેવી શબ્દમાળાઓને છાપો"
+
+#: fish/cmds.c:247 fish/cmds.c:908
+msgid "disable swap on device"
+msgstr "ઉપકરણ પર સ્વેપને નિષ્ક્રિય કરો"
+
+#: fish/cmds.c:248 fish/cmds.c:914
+msgid "disable swap on file"
+msgstr "ફાઇલ પર સ્વેપને નિષ્ક્રિય કરો"
+
+#: fish/cmds.c:249 fish/cmds.c:920
+msgid "disable swap on labeled swap partition"
+msgstr "લેબલ થયેલ સ્વેપ પાર્ટીશન પર સ્વેપને નિષ્ક્રિય કરો"
+
+#: fish/cmds.c:250 fish/cmds.c:926
+msgid "disable swap on swap partition by UUID"
+msgstr "UUID દ્દારા સ્વેપ પાર્ટીશન પર સ્વેપને નિષ્ક્રિય કરો"
+
+#: fish/cmds.c:251 fish/cmds.c:905
+msgid "enable swap on device"
+msgstr "ઉપકરણ પર સ્વેપને સક્રિય કરો"
+
+#: fish/cmds.c:252 fish/cmds.c:911
+msgid "enable swap on file"
+msgstr "ફાઇલ પર સ્વેપને સક્રિય કરો"
+
+#: fish/cmds.c:253 fish/cmds.c:917
+msgid "enable swap on labeled swap partition"
+msgstr "લેબલ થયેલ સ્વેપ પાર્ટીશન પર સ્વેપને સક્રિય કરો"
+
+#: fish/cmds.c:254 fish/cmds.c:923
+msgid "enable swap on swap partition by UUID"
+msgstr "UUID દ્દારા સ્વેપ પાર્ટીશન પર સ્વેપને સક્રિય કરો"
+
+#: fish/cmds.c:255 fish/cmds.c:401
+msgid "sync disks, writes are flushed through to the disk image"
+msgstr "ડિસ્કોનો સુમેળ કરો, ડિસ્ક ઇમેજની મારફતે લખવાનું ફ્લશ થયેલ છે"
+
+#: fish/cmds.c:256 fish/cmds.c:764
+msgid "return last 10 lines of a file"
+msgstr "ફાઇલની છેલ્લા 10 વાક્યોને પાછા લાવો"
+
+#: fish/cmds.c:257 fish/cmds.c:767
+msgid "return last N lines of a file"
+msgstr "ફાઇલની છેલ્લી N વાક્યોને પાછુ લાવો"
+
+#: fish/cmds.c:258 fish/cmds.c:602
+msgid "unpack tarfile to directory"
+msgstr "ડિરેક્ટરીમાં tarfile ને ન બાંધો"
+
+#: fish/cmds.c:259 fish/cmds.c:605
+msgid "pack directory into tarfile"
+msgstr "tarfile માં tarfile ને બાંધો"
+
+#: fish/cmds.c:260 fish/cmds.c:608
+msgid "unpack compressed tarball to directory"
+msgstr "ડિરેક્ટરીમાં સંકોચાયેલ tarball ને ન બાંધો"
+
+#: fish/cmds.c:261 fish/cmds.c:611
+msgid "pack directory into compressed tarball"
+msgstr "સંકોચાયેલ tarball માં ડિરેક્ટરીને બાંધો"
+
+#: fish/cmds.c:262 fish/cmds.c:404
+msgid "update file timestamps or create a new file"
+msgstr "ફાઇલ ટાઇમસ્ટેમ્પોને સુધારો અથવા નવી ફાઇલને બનાવો"
+
+#: fish/cmds.c:263 fish/cmds.c:992
+msgid "truncate a file to zero size"
+msgstr "શૂન્ય માપમાં ફાઇલને કાઢી નાંખો"
+
+#: fish/cmds.c:264 fish/cmds.c:995
+msgid "truncate a file to a particular size"
+msgstr "ચોક્કસ માપમાં ફાઇલને કાઢી નાંખો"
+
+#: fish/cmds.c:265 fish/cmds.c:560
+msgid "get ext2/ext3/ext4 superblock details"
+msgstr "ext2/ext3/ext4 સુપરબ્લોક વિગતોને મેળવો"
+
+#: fish/cmds.c:266 fish/cmds.c:806
+msgid "set file mode creation mask (umask)"
+msgstr "ફાઇલ સ્થિતિ નિર્મિત માસ્કને સુયોજિત કરો (umask)"
+
+#: fish/cmds.c:267 fish/cmds.c:530
+msgid "unmount a filesystem"
+msgstr "ફાઇલસિસ્ટમને અનમાઉન્ટ કરો"
+
+#: fish/cmds.c:268 fish/cmds.c:536
+msgid "unmount all filesystems"
+msgstr "બધી ફાઇલસિસ્ટમોને અનમાઉન્ટ કરો"
+
+#: fish/cmds.c:269 fish/cmds.c:593
+msgid "upload a file from the local machine"
+msgstr "સ્થાનિય મશીન માંથી ફાઇલને અપલોડ કરો"
+
+#: fish/cmds.c:270 fish/cmds.c:998
+msgid "set timestamp of a file with nanosecond precision"
+msgstr "નેનોસેકંડ ચોક્સાઇ સાથે ફાઇલનાં ટાઇમસ્ટેમ્પને સુયોજિત કરો"
+
+#: fish/cmds.c:271 fish/cmds.c:371
+msgid "get the library version number"
+msgstr "લાઇબ્રેરી આવૃત્તિ નંબરને મેળવો"
+
+#: fish/cmds.c:272 fish/cmds.c:989
+msgid "get the Linux VFS type corresponding to a mounted device"
+msgstr "માઉન્ટ થયેલ ઉપકરણને સંકળાતુ Linux VFS પ્રક્રારને મેળવો"
+
+#: fish/cmds.c:273 fish/cmds.c:707
+msgid "activate or deactivate some volume groups"
+msgstr "અમુક વોલ્યુમ જૂથોને સક્રિય કરો અથવા નિષ્ક્રિય કરો"
+
+#: fish/cmds.c:274 fish/cmds.c:704
+msgid "activate or deactivate all volume groups"
+msgstr "બધા વોલ્યુમ જૂથોને સક્રિય કરો અથવા નિષ્ક્રિય કરો"
+
+#: fish/cmds.c:276 fish/cmds.c:629
+msgid "remove an LVM volume group"
+msgstr "LVM વોલ્યુમ જૂથને દૂર કરો"
+
+#: fish/cmds.c:277 fish/cmds.c:1055
+msgid "rename an LVM volume group"
+msgstr "LVM વોલ્યુમ જૂથનું નામ બદલો"
+
+#: fish/cmds.c:278 fish/cmds.c:279 fish/cmds.c:425 fish/cmds.c:434
+msgid "list the LVM volume groups (VGs)"
+msgstr "LVM વોલ્યુમ જૂથોની યાદી કરો (VGs)"
+
+#: fish/cmds.c:280 fish/cmds.c:755
+msgid "count characters in a file"
+msgstr "ફાઇલમાં અક્ષરોની ગણતરી કરો"
+
+#: fish/cmds.c:281 fish/cmds.c:749
+msgid "count lines in a file"
+msgstr "ફાઇલમાં વાક્યોની ગણતરી કરો"
+
+#: fish/cmds.c:282 fish/cmds.c:752
+msgid "count words in a file"
+msgstr "ફાઇલમાં શબ્દોની ગણતરી કરો"
+
+#: fish/cmds.c:283 fish/cmds.c:527
+msgid "create a file"
+msgstr "ફાઇલને બનાવો"
+
+#: fish/cmds.c:286 fish/cmds.c:650
+msgid "write zeroes to the device"
+msgstr "ઉપકરણોમાં શૂન્યોને લખો"
+
+#: fish/cmds.c:287 fish/cmds.c:686
+msgid "zero unused inodes and disk blocks on ext2/3 filesystem"
+msgstr "ext2/3 ફાઇલ સિસ્ટમ પર શૂન્ય ન વપરાયેલ આઇનોડ અને ડિસ્ક બોલ્કો"
+
+#: fish/cmds.c:290 fish/cmds.c:815
+msgid "determine file type inside a compressed file"
+msgstr "સંકોચાયેલ ફાઇલની અંદર ફાઇલ પ્રકારને નક્કી કરો"
+
+#: fish/cmds.c:293
+msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
+msgstr "આદેશ માટે વિગત થયેલ મદદને બતાવવા માટે -h <cmd> / help <cmd> ને વાપરો."
+
+#: fish/cmds.c:1333 fish/cmds.c:1345 fish/cmds.c:1358 fish/cmds.c:1372
+#: fish/cmds.c:1386 fish/cmds.c:1401 fish/cmds.c:1416 fish/cmds.c:1429
+#: fish/cmds.c:1444 fish/cmds.c:1457 fish/cmds.c:1472 fish/cmds.c:1485
+#: fish/cmds.c:1499 fish/cmds.c:1512 fish/cmds.c:1527 fish/cmds.c:1540
+#: fish/cmds.c:1554 fish/cmds.c:1568 fish/cmds.c:1582 fish/cmds.c:1596
+#: fish/cmds.c:1610 fish/cmds.c:1625 fish/cmds.c:1656 fish/cmds.c:1670
+#: fish/cmds.c:1684 fish/cmds.c:1700 fish/cmds.c:1713 fish/cmds.c:1728
+#: fish/cmds.c:1741 fish/cmds.c:1756 fish/cmds.c:1769 fish/cmds.c:1784
+#: fish/cmds.c:1797 fish/cmds.c:1813 fish/cmds.c:1827 fish/cmds.c:1840
+#: fish/cmds.c:1856 fish/cmds.c:1875 fish/cmds.c:1894 fish/cmds.c:1912
+#: fish/cmds.c:1927 fish/cmds.c:1942 fish/cmds.c:1957 fish/cmds.c:1972
+#: fish/cmds.c:1987 fish/cmds.c:2002 fish/cmds.c:2017 fish/cmds.c:2033
+#: fish/cmds.c:2053 fish/cmds.c:2087 fish/cmds.c:2101 fish/cmds.c:2120
+#: fish/cmds.c:2139 fish/cmds.c:2157 fish/cmds.c:2174 fish/cmds.c:2190
+#: fish/cmds.c:2207 fish/cmds.c:2222 fish/cmds.c:2238 fish/cmds.c:2250
+#: fish/cmds.c:2263 fish/cmds.c:2280 fish/cmds.c:2296 fish/cmds.c:2312
+#: fish/cmds.c:2328 fish/cmds.c:2344 fish/cmds.c:2361 fish/cmds.c:2398
+#: fish/cmds.c:2452 fish/cmds.c:2470 fish/cmds.c:2488 fish/cmds.c:2506
+#: fish/cmds.c:2521 fish/cmds.c:2540 fish/cmds.c:2575 fish/cmds.c:2594
+#: fish/cmds.c:2670 fish/cmds.c:2706 fish/cmds.c:2719 fish/cmds.c:2734
+#: fish/cmds.c:2746 fish/cmds.c:2759 fish/cmds.c:2778 fish/cmds.c:2797
+#: fish/cmds.c:2816 fish/cmds.c:2835 fish/cmds.c:2854 fish/cmds.c:2873
+#: fish/cmds.c:2890 fish/cmds.c:2904 fish/cmds.c:2918 fish/cmds.c:2934
+#: fish/cmds.c:2950 fish/cmds.c:2967 fish/cmds.c:3000 fish/cmds.c:3016
+#: fish/cmds.c:3032 fish/cmds.c:3046 fish/cmds.c:3061 fish/cmds.c:3079
+#: fish/cmds.c:3097 fish/cmds.c:3118 fish/cmds.c:3134 fish/cmds.c:3150
+#: fish/cmds.c:3166 fish/cmds.c:3184 fish/cmds.c:3201 fish/cmds.c:3220
+#: fish/cmds.c:3238 fish/cmds.c:3258 fish/cmds.c:3272 fish/cmds.c:3286
+#: fish/cmds.c:3301 fish/cmds.c:3316 fish/cmds.c:3334 fish/cmds.c:3349
+#: fish/cmds.c:3367 fish/cmds.c:3384 fish/cmds.c:3399 fish/cmds.c:3417
+#: fish/cmds.c:3437 fish/cmds.c:3457 fish/cmds.c:3476 fish/cmds.c:3507
+#: fish/cmds.c:3522 fish/cmds.c:3536 fish/cmds.c:3557 fish/cmds.c:3577
+#: fish/cmds.c:3597 fish/cmds.c:3616 fish/cmds.c:3630 fish/cmds.c:3649
+#: fish/cmds.c:3740 fish/cmds.c:3757 fish/cmds.c:3774 fish/cmds.c:3791
+#: fish/cmds.c:3806 fish/cmds.c:3824 fish/cmds.c:3857 fish/cmds.c:3871
+#: fish/cmds.c:3890 fish/cmds.c:3904 fish/cmds.c:3937 fish/cmds.c:3954
+#: fish/cmds.c:3971 fish/cmds.c:3988 fish/cmds.c:4007 fish/cmds.c:4021
+#: fish/cmds.c:4037 fish/cmds.c:4053 fish/cmds.c:4072 fish/cmds.c:4090
+#: fish/cmds.c:4108 fish/cmds.c:4126 fish/cmds.c:4146 fish/cmds.c:4184
+#: fish/cmds.c:4204 fish/cmds.c:4241 fish/cmds.c:4256 fish/cmds.c:4272
+#: fish/cmds.c:4290 fish/cmds.c:4310 fish/cmds.c:4329 fish/cmds.c:4344
+#: fish/cmds.c:4360 fish/cmds.c:4378 fish/cmds.c:4452 fish/cmds.c:4490
+#: fish/cmds.c:4566 fish/cmds.c:4639 fish/cmds.c:4673 fish/cmds.c:4693
+#: fish/cmds.c:4711 fish/cmds.c:4731 fish/cmds.c:4750 fish/cmds.c:4772
+#: fish/cmds.c:4812 fish/cmds.c:4850 fish/cmds.c:4868 fish/cmds.c:4884
+#: fish/cmds.c:4900 fish/cmds.c:4914 fish/cmds.c:4929 fish/cmds.c:4953
+#: fish/cmds.c:4974 fish/cmds.c:4995 fish/cmds.c:5016 fish/cmds.c:5037
+#: fish/cmds.c:5058 fish/cmds.c:5079 fish/cmds.c:5100 fish/cmds.c:5121
+#: fish/cmds.c:5142 fish/cmds.c:5163 fish/cmds.c:5184 fish/cmds.c:5204
+#: fish/cmds.c:5224 fish/cmds.c:5242 fish/cmds.c:5260 fish/cmds.c:5278
+#: fish/cmds.c:5295 fish/cmds.c:5315 fish/cmds.c:5350 fish/cmds.c:5364
+#: fish/cmds.c:5378 fish/cmds.c:5394 fish/cmds.c:5410 fish/cmds.c:5424
+#: fish/cmds.c:5438 fish/cmds.c:5452 fish/cmds.c:5466 fish/cmds.c:5482
+#: fish/cmds.c:5515 fish/cmds.c:5552 fish/cmds.c:5583 fish/cmds.c:5598
+#: fish/cmds.c:5613 fish/cmds.c:5626 fish/cmds.c:5639 fish/cmds.c:5657
+#: fish/cmds.c:5692 fish/cmds.c:5727 fish/cmds.c:5763 fish/cmds.c:5800
+#: fish/cmds.c:5838 fish/cmds.c:5876 fish/cmds.c:5911 fish/cmds.c:5925
+#: fish/cmds.c:5945 fish/cmds.c:5962 fish/cmds.c:5981 fish/cmds.c:5998
+#: fish/cmds.c:6015 fish/cmds.c:6048 fish/cmds.c:6117 fish/cmds.c:6154
+#: fish/cmds.c:6209 fish/cmds.c:6232 fish/cmds.c:6255 fish/cmds.c:6280
+#: fish/cmds.c:6336 fish/cmds.c:6354 fish/cmds.c:6396 fish/cmds.c:6413
+#: fish/cmds.c:6449 fish/cmds.c:6483 fish/cmds.c:6500 fish/cmds.c:6519
+#: fish/cmds.c:6573 fish/cmds.c:6590 fish/cmds.c:6609 fish/cmds.c:6628
+#: fish/cmds.c:6644
+#, c-format
+msgid "%s should have %d parameter(s)\n"
+msgstr "%s પાસે %d પરિમાણો હોવા જોઇએ\n"
+
+#: fish/cmds.c:1334 fish/cmds.c:1346 fish/cmds.c:1359 fish/cmds.c:1373
+#: fish/cmds.c:1387 fish/cmds.c:1402 fish/cmds.c:1417 fish/cmds.c:1430
+#: fish/cmds.c:1445 fish/cmds.c:1458 fish/cmds.c:1473 fish/cmds.c:1486
+#: fish/cmds.c:1500 fish/cmds.c:1513 fish/cmds.c:1528 fish/cmds.c:1541
+#: fish/cmds.c:1555 fish/cmds.c:1569 fish/cmds.c:1583 fish/cmds.c:1597
+#: fish/cmds.c:1611 fish/cmds.c:1626 fish/cmds.c:1657 fish/cmds.c:1671
+#: fish/cmds.c:1685 fish/cmds.c:1701 fish/cmds.c:1714 fish/cmds.c:1729
+#: fish/cmds.c:1742 fish/cmds.c:1757 fish/cmds.c:1770 fish/cmds.c:1785
+#: fish/cmds.c:1798 fish/cmds.c:1814 fish/cmds.c:1828 fish/cmds.c:1841
+#: fish/cmds.c:1857 fish/cmds.c:1876 fish/cmds.c:1895 fish/cmds.c:1913
+#: fish/cmds.c:1928 fish/cmds.c:1943 fish/cmds.c:1958 fish/cmds.c:1973
+#: fish/cmds.c:1988 fish/cmds.c:2003 fish/cmds.c:2018 fish/cmds.c:2034
+#: fish/cmds.c:2054 fish/cmds.c:2088 fish/cmds.c:2102 fish/cmds.c:2121
+#: fish/cmds.c:2140 fish/cmds.c:2158 fish/cmds.c:2175 fish/cmds.c:2191
+#: fish/cmds.c:2208 fish/cmds.c:2223 fish/cmds.c:2239 fish/cmds.c:2251
+#: fish/cmds.c:2264 fish/cmds.c:2281 fish/cmds.c:2297 fish/cmds.c:2313
+#: fish/cmds.c:2329 fish/cmds.c:2345 fish/cmds.c:2362 fish/cmds.c:2399
+#: fish/cmds.c:2453 fish/cmds.c:2471 fish/cmds.c:2489 fish/cmds.c:2507
+#: fish/cmds.c:2522 fish/cmds.c:2541 fish/cmds.c:2576 fish/cmds.c:2595
+#: fish/cmds.c:2671 fish/cmds.c:2707 fish/cmds.c:2720 fish/cmds.c:2735
+#: fish/cmds.c:2747 fish/cmds.c:2760 fish/cmds.c:2779 fish/cmds.c:2798
+#: fish/cmds.c:2817 fish/cmds.c:2836 fish/cmds.c:2855 fish/cmds.c:2874
+#: fish/cmds.c:2891 fish/cmds.c:2905 fish/cmds.c:2919 fish/cmds.c:2935
+#: fish/cmds.c:2951 fish/cmds.c:2968 fish/cmds.c:3001 fish/cmds.c:3017
+#: fish/cmds.c:3033 fish/cmds.c:3047 fish/cmds.c:3062 fish/cmds.c:3080
+#: fish/cmds.c:3098 fish/cmds.c:3119 fish/cmds.c:3135 fish/cmds.c:3151
+#: fish/cmds.c:3167 fish/cmds.c:3185 fish/cmds.c:3202 fish/cmds.c:3221
+#: fish/cmds.c:3239 fish/cmds.c:3259 fish/cmds.c:3273 fish/cmds.c:3287
+#: fish/cmds.c:3302 fish/cmds.c:3317 fish/cmds.c:3335 fish/cmds.c:3350
+#: fish/cmds.c:3368 fish/cmds.c:3385 fish/cmds.c:3400 fish/cmds.c:3418
+#: fish/cmds.c:3438 fish/cmds.c:3458 fish/cmds.c:3477 fish/cmds.c:3508
+#: fish/cmds.c:3523 fish/cmds.c:3537 fish/cmds.c:3558 fish/cmds.c:3578
+#: fish/cmds.c:3598 fish/cmds.c:3617 fish/cmds.c:3631 fish/cmds.c:3650
+#: fish/cmds.c:3741 fish/cmds.c:3758 fish/cmds.c:3775 fish/cmds.c:3792
+#: fish/cmds.c:3807 fish/cmds.c:3825 fish/cmds.c:3858 fish/cmds.c:3872
+#: fish/cmds.c:3891 fish/cmds.c:3905 fish/cmds.c:3938 fish/cmds.c:3955
+#: fish/cmds.c:3972 fish/cmds.c:3989 fish/cmds.c:4008 fish/cmds.c:4022
+#: fish/cmds.c:4038 fish/cmds.c:4054 fish/cmds.c:4073 fish/cmds.c:4091
+#: fish/cmds.c:4109 fish/cmds.c:4127 fish/cmds.c:4147 fish/cmds.c:4185
+#: fish/cmds.c:4205 fish/cmds.c:4242 fish/cmds.c:4257 fish/cmds.c:4273
+#: fish/cmds.c:4291 fish/cmds.c:4311 fish/cmds.c:4330 fish/cmds.c:4345
+#: fish/cmds.c:4361 fish/cmds.c:4379 fish/cmds.c:4453 fish/cmds.c:4491
+#: fish/cmds.c:4567 fish/cmds.c:4640 fish/cmds.c:4674 fish/cmds.c:4694
+#: fish/cmds.c:4712 fish/cmds.c:4732 fish/cmds.c:4751 fish/cmds.c:4773
+#: fish/cmds.c:4813 fish/cmds.c:4851 fish/cmds.c:4869 fish/cmds.c:4885
+#: fish/cmds.c:4901 fish/cmds.c:4915 fish/cmds.c:4930 fish/cmds.c:4954
+#: fish/cmds.c:4975 fish/cmds.c:4996 fish/cmds.c:5017 fish/cmds.c:5038
+#: fish/cmds.c:5059 fish/cmds.c:5080 fish/cmds.c:5101 fish/cmds.c:5122
+#: fish/cmds.c:5143 fish/cmds.c:5164 fish/cmds.c:5185 fish/cmds.c:5205
+#: fish/cmds.c:5225 fish/cmds.c:5243 fish/cmds.c:5261 fish/cmds.c:5279
+#: fish/cmds.c:5296 fish/cmds.c:5316 fish/cmds.c:5351 fish/cmds.c:5365
+#: fish/cmds.c:5379 fish/cmds.c:5395 fish/cmds.c:5411 fish/cmds.c:5425
+#: fish/cmds.c:5439 fish/cmds.c:5453 fish/cmds.c:5467 fish/cmds.c:5483
+#: fish/cmds.c:5516 fish/cmds.c:5553 fish/cmds.c:5584 fish/cmds.c:5599
+#: fish/cmds.c:5614 fish/cmds.c:5627 fish/cmds.c:5640 fish/cmds.c:5658
+#: fish/cmds.c:5693 fish/cmds.c:5728 fish/cmds.c:5764 fish/cmds.c:5801
+#: fish/cmds.c:5839 fish/cmds.c:5877 fish/cmds.c:5912 fish/cmds.c:5926
+#: fish/cmds.c:5946 fish/cmds.c:5963 fish/cmds.c:5982 fish/cmds.c:5999
+#: fish/cmds.c:6016 fish/cmds.c:6049 fish/cmds.c:6118 fish/cmds.c:6155
+#: fish/cmds.c:6210 fish/cmds.c:6233 fish/cmds.c:6256 fish/cmds.c:6281
+#: fish/cmds.c:6337 fish/cmds.c:6355 fish/cmds.c:6397 fish/cmds.c:6414
+#: fish/cmds.c:6450 fish/cmds.c:6484 fish/cmds.c:6501 fish/cmds.c:6520
+#: fish/cmds.c:6574 fish/cmds.c:6591 fish/cmds.c:6610 fish/cmds.c:6629
+#: fish/cmds.c:6645
+#, c-format
+msgid "type 'help %s' for help on %s\n"
+msgstr "%s પર મદદ માટે 'help %s' ને ટાઇપ કરો\n"
+
+#: fish/cmds.c:1636 fish/cmds.c:2066 fish/cmds.c:2372 fish/cmds.c:2409
+#: fish/cmds.c:2428 fish/cmds.c:2553 fish/cmds.c:2606 fish/cmds.c:2625
+#: fish/cmds.c:2644 fish/cmds.c:2684 fish/cmds.c:2979 fish/cmds.c:3487
+#: fish/cmds.c:3661 fish/cmds.c:3680 fish/cmds.c:3699 fish/cmds.c:3718
+#: fish/cmds.c:3836 fish/cmds.c:3915 fish/cmds.c:4157 fish/cmds.c:4215
+#: fish/cmds.c:4389 fish/cmds.c:4408 fish/cmds.c:4427 fish/cmds.c:4463
+#: fish/cmds.c:4501 fish/cmds.c:4520 fish/cmds.c:4539 fish/cmds.c:4577
+#: fish/cmds.c:4596 fish/cmds.c:4615 fish/cmds.c:4650 fish/cmds.c:4785
+#: fish/cmds.c:4825 fish/cmds.c:5328 fish/cmds.c:5493 fish/cmds.c:5528
+#: fish/cmds.c:5563 fish/cmds.c:5669 fish/cmds.c:5703 fish/cmds.c:5738
+#: fish/cmds.c:5774 fish/cmds.c:5812 fish/cmds.c:5850 fish/cmds.c:5888
+#: fish/cmds.c:6028 fish/cmds.c:6061 fish/cmds.c:6074 fish/cmds.c:6087
+#: fish/cmds.c:6100 fish/cmds.c:6130 fish/cmds.c:6165 fish/cmds.c:6184
+#: fish/cmds.c:6293 fish/cmds.c:6312 fish/cmds.c:6367 fish/cmds.c:6380
+#: fish/cmds.c:6425 fish/cmds.c:6461 fish/cmds.c:6530 fish/cmds.c:6549
+#, c-format
+msgid "%s: %s: invalid integer parameter (%s returned %d)\n"
+msgstr "%s: %s: અયોગ્ય ઇંટિજર પરિમાણ (%s એ %d ને પાછુ લાવેલ છે)\n"
+
+#: fish/cmds.c:1642 fish/cmds.c:2072 fish/cmds.c:2378 fish/cmds.c:2415
+#: fish/cmds.c:2434 fish/cmds.c:2559 fish/cmds.c:2612 fish/cmds.c:2631
+#: fish/cmds.c:2650 fish/cmds.c:2690 fish/cmds.c:2985 fish/cmds.c:3493
+#: fish/cmds.c:3667 fish/cmds.c:3686 fish/cmds.c:3705 fish/cmds.c:3724
+#: fish/cmds.c:3842 fish/cmds.c:3921 fish/cmds.c:4163 fish/cmds.c:4221
+#: fish/cmds.c:4395 fish/cmds.c:4414 fish/cmds.c:4433 fish/cmds.c:4469
+#: fish/cmds.c:4507 fish/cmds.c:4526 fish/cmds.c:4545 fish/cmds.c:4583
+#: fish/cmds.c:4602 fish/cmds.c:4621 fish/cmds.c:4656 fish/cmds.c:4791
+#: fish/cmds.c:4831 fish/cmds.c:5334 fish/cmds.c:5499 fish/cmds.c:5534
+#: fish/cmds.c:5569 fish/cmds.c:5675 fish/cmds.c:5709 fish/cmds.c:5744
+#: fish/cmds.c:5780 fish/cmds.c:5818 fish/cmds.c:5856 fish/cmds.c:5894
+#: fish/cmds.c:6136 fish/cmds.c:6171 fish/cmds.c:6190 fish/cmds.c:6299
+#: fish/cmds.c:6431 fish/cmds.c:6467 fish/cmds.c:6536 fish/cmds.c:6555
+#, c-format
+msgid "%s: %s: integer out of range\n"
+msgstr "%s: %s: સીમાની બહાર ઇંટિજર\n"
+
+#: fish/cmds.c:7416
+#, c-format
+msgid "%s: unknown command\n"
+msgstr "%s: અજ્ઞાત આદેશ\n"
+
+#: fish/edit.c:86
+#, c-format
+msgid "use '%s filename' to edit a file\n"
+msgstr "ફાઇલને સુધારવા માટે '%s filename' ને વાપરો\n"
+
+#: fish/fish.c:92 fuse/guestmount.c:868
+#, c-format
+msgid "Try `%s --help' for more information.\n"
+msgstr "વધારે જાણકારી માટે `%s --help' નો પ્રયત્ન કરો.\n"
+
+#: fish/fish.c:96
+#, c-format
+msgid ""
+"%s: guest filesystem shell\n"
+"%s lets you edit virtual machine filesystems\n"
+"Copyright (C) 2009 Red Hat Inc.\n"
+"Usage:\n"
+"  %s [--options] cmd [: cmd : cmd ...]\n"
+"  %s -i libvirt-domain\n"
+"  %s -i disk-image(s)\n"
+"or for interactive use:\n"
+"  %s\n"
+"or from a shell script:\n"
+"  %s <<EOF\n"
+"  cmd\n"
+"  ...\n"
+"  EOF\n"
+"Options:\n"
+"  -h|--cmd-help        List available commands\n"
+"  -h|--cmd-help cmd    Display detailed help on 'cmd'\n"
+"  -a|--add image       Add image\n"
+"  -D|--no-dest-paths   Don't tab-complete paths from guest fs\n"
+"  -f|--file file       Read commands from file\n"
+"  -i|--inspector       Run virt-inspector to get disk mountpoints\n"
+"  --listen             Listen for remote commands\n"
+"  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
+"  -n|--no-sync         Don't autosync\n"
+"  --remote[=pid]       Send commands to remote %s\n"
+"  -r|--ro              Mount read-only\n"
+"  --selinux            Enable SELinux support\n"
+"  -v|--verbose         Verbose messages\n"
+"  -x                   Echo each command before executing it\n"
+"  -V|--version         Display version and exit\n"
+"For more information,  see the manpage %s(1).\n"
+msgstr ""
+"%s: મહેમાન ફાઇલસિસ્ટમ શેલ\n"
+"%s ચાલે તમે વર્ચ્યુઅલ મશીન ફાઇલસિસ્ટમોને સુધારો\n"
+"Copyright (C) 2009 Red Hat Inc.\n"
+"વપરાશ:\n"
+"  %s [--options] cmd [: cmd : cmd ...]\n"
+"  %s -i libvirt-domain\n"
+"  %s -i disk-image(s)\n"
+"અથવા અરસપરસ વાપરવા માટે:\n"
+"  %s\n"
+"અથવા શેલ સ્ક્રિપ્ટ માંથી:\n"
+"  %s <<EOF\n"
+"  cmd\n"
+"  ...\n"
+"  EOF\n"
+"વિકલ્પો:\n"
+"  -h|--cmd-help        ઉપલ્બધ આદેશોની યાદી\n"
+"  -h|--cmd-help cmd    'cmd' પર વિગત થયેલ મદદ ને દર્શાવો\n"
+"  -a|--add image       ઇમેજને ઉમેરો\n"
+"  -D|--no-dest-paths   મહેમાન fs માંથી સંપૂર્ણ પાથોને ટેબ કરો નહિં\n"
+"  -f|--file file       ફાઇલ માંથી આદેશોને વાંચો\n"
+"  -i|--inspector       ડિસ્ક માઉન્ટબિંદુઓને મેળવવા માટે virt-inspector ને ચલાવો\n"
+"  --listen             દૂરસ્થ આદેશો માટે સાંભળો\n"
+"  -m|--mount dev[:mnt] mnt પર dev ને માઉન્ટ કરો (જો છોદી દીધેલ હોય તો, /)\n"
+"  -n|--no-sync         આપમેળે સુમેળ કરો નહિં\n"
+"  --remote[=pid]       દૂરસ્થ %s માટે આદેશોને મોકલો\n"
+"  -r|--ro              ફક્ચ વાંચી શકાય તેને માઉન્ટ કરો\n"
+"  --selinux            SELinux આધારને સક્રિય કરો\n"
+"  -v|--verbose         વર્બોસ સંદેશાઓ\n"
+"  -x                   તેને ચલાવતા પહેલાં દરેક આદેશને ઇકો કરો\n"
+"  -V|--version         આવૃત્તિને દર્શાવો અને બહાર નીકળો\n"
+"વધારે જાણકારી માટે,  મુખ્યપાનું %s(1) ને જુઓ.\n"
+
+#: fish/fish.c:184 fuse/guestmount.c:961
+#, c-format
+msgid "guestfs_create: failed to create handle\n"
+msgstr "guestfs_create: હેન્ડલ ને બનાવવાનું નિષ્ફળ\n"
+
+#: fish/fish.c:223
+#, c-format
+msgid "%s: --listen=PID: PID was not a number: %s\n"
+msgstr "%s: --listen=PID: PID એ નંબર ન હતો: %s\n"
+
+#: fish/fish.c:230
+#, c-format
+msgid "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
+msgstr "%s: દૂરસ્થ: $GUESTFISH_PID એ દૂરસ્થ પ્રક્રિયાનાં PID ને સુયોજિત કરવુ જ પડશે\n"
+
+#: fish/fish.c:239 fuse/guestmount.c:1006
+#, c-format
+msgid "%s: unknown long option: %s (%d)\n"
+msgstr "%s: અજ્ઞાત લાંબો વિકલ્પ: %s (%d)\n"
+
+#: fish/fish.c:266
+#, c-format
+msgid "%s: only one -f parameter can be given\n"
+msgstr "%s: ફક્ત એક -f પરિમાણને આપી શકાય છે\n"
+
+#: fish/fish.c:339
+#, c-format
+msgid "%s: cannot use -i option with -a, -m, --listen, --remote or --selinux\n"
+msgstr "%s: -a, -m, --listen, --remote અથવા --selinux સાથે -i વિકલ્પને વાપરી શકાતુ નથી\n"
+
+#: fish/fish.c:346
+#, c-format
+msgid "%s: -i requires a libvirt domain or path(s) to disk image(s)\n"
+msgstr "%s: -i એ ડિસ્ક ઇમેજ (ઓ) માટે libvirt ડોમેઇન અથવા પાથ (ઓ) ની જરૂર છે\n"
+
+#: fish/fish.c:356
+#, c-format
+msgid "%s: virt-inspector command too long for fixed-size buffer\n"
+msgstr "%s: virt-inspector આદેશ એ સ્થિર-માપનાં બફર માટે ઘણો લાંબો છે\n"
+
+#: fish/fish.c:402
+#, c-format
+msgid "%s: cannot use --listen and --remote options at the same time\n"
+msgstr "%s: સરખા સમયે --listen અને --remote વિકલ્પોને વાપરી શકાતા નથી\n"
+
+#: fish/fish.c:410
+#, c-format
+msgid "%s: extra parameters on the command line with --listen flag\n"
+msgstr "%s: --listen ફ્લેગ સાથે આદેશ વાક્ય પર વધારાનાં પરિમાણો\n"
+
+#: fish/fish.c:416
+#, c-format
+msgid "%s: cannot use --listen and --file options at the same time\n"
+msgstr "%s: સરખા સમયે --listen અને --file વિકલ્પોને વાપરી શકાતુ નથી\n"
+
+#: fish/fish.c:561
+#, c-format
+msgid ""
+"\n"
+"Welcome to guestfish, the libguestfs filesystem interactive shell for\n"
+"editing virtual machine filesystems.\n"
+"\n"
+"Type: 'help' for help with commands\n"
+"      'quit' to quit the shell\n"
+"\n"
+msgstr ""
+"\n"
+"guestfish માં તમારુ સ્વાગત છે, વર્ચ્યુઅલ મશીન ફાઇલસિસ્ટમોને સુધારવા માટે libguestfs ફાઇલસિસ્ટમ અરસપરસ શેલ.\n"
+"\n"
+"પ્રકાર: આદેશો સાથે મદદ માટે 'help'\n"
+"      શેલને બહાર નીકળવા માટે 'quit'\n"
+"\n"
+
+#: fish/fish.c:641
+#, c-format
+msgid "%s: unterminated double quote\n"
+msgstr "%s: અંત ન બમણા અવતરણચિહ્નો \n"
+
+#: fish/fish.c:647 fish/fish.c:664
+#, c-format
+msgid "%s: command arguments not separated by whitespace\n"
+msgstr "%s: આદેશ દલીલો એ ખાલી જગ્યા દ્દારા અલગ થયેલ નથી\n"
+
+#: fish/fish.c:658
+#, c-format
+msgid "%s: unterminated single quote\n"
+msgstr "%s: અંત ન આવેલ એક અવતરણ ચિહ્ન\n"
+
+#: fish/fish.c:713
+#, c-format
+msgid "%s: internal error parsing string at '%s'\n"
+msgstr "%s: આંતરિક ભૂલ '%s' પર શબ્દમાળાનું પદચ્છેદન કરી રહી છે\n"
+
+#: fish/fish.c:730
+#, c-format
+msgid "%s: too many arguments\n"
+msgstr "%s: ઘણીબધી દલીલો છે\n"
+
+#: fish/fish.c:759
+#, c-format
+msgid "%s: empty command on command line\n"
+msgstr "%s: આદેશ વાક્ય પર ખાલી આદેશ\n"
+
+#: fish/fish.c:913
+msgid "display a list of commands or help on a command"
+msgstr "આદેશોની યાદીને દર્શાવો અથવા આદેશ પર મદદ "
+
+#: fish/fish.c:915
+msgid "quit guestfish"
+msgstr "guestfish માંથી બહાર નીકળો"
+
+#: fish/fish.c:918
+msgid "allocate an image"
+msgstr "ઇમેજને ફાળવો"
+
+#: fish/fish.c:920
+msgid "display a line of text"
+msgstr "લખાણનાં વાક્યને દર્શાવો"
+
+#: fish/fish.c:922
+msgid "edit a file in the image"
+msgstr "ઇમેજામં ફાઇલને સુધારો"
+
+#: fish/fish.c:924
+msgid "local change directory"
+msgstr "સ્થાનિય બદલાતી ડિરેક્ટરી"
+
+#: fish/fish.c:926
+msgid "expand wildcards in command"
+msgstr "આદેશમાં વાઇલ્ડકાર્ડોને વિસ્તારો"
+
+#: fish/fish.c:928
+msgid "view a file in the pager"
+msgstr "પેજરમાં ફાઇલને દેખાડો"
+
+#: fish/fish.c:930
+msgid "close and reopen libguestfs handle"
+msgstr "libguestfs હેન્ડલને બંધ કરો અને પુન:ખોલો"
+
+#: fish/fish.c:932
+msgid "allocate a sparse image file"
+msgstr "છૂટીછવાયેલ ઇમેજ ફાઇલને ફાળવો"
+
+#: fish/fish.c:934
+msgid "measure time taken to run command"
+msgstr "આદેશને ચલાવવા માટે લીધેલ સમયને માપો"
+
+#: fish/fish.c:946
+#, c-format
+msgid ""
+"alloc - allocate an image\n"
+"     alloc <filename> <size>\n"
+"\n"
+"    This creates an empty (zeroed) file of the given size,\n"
+"    and then adds so it can be further examined.\n"
+"\n"
+"    For more advanced image creation, see qemu-img utility.\n"
+"\n"
+"    Size can be specified (where <nn> means a number):\n"
+"    <nn>             number of kilobytes\n"
+"      eg: 1440       standard 3.5\" floppy\n"
+"    <nn>K or <nn>KB  number of kilobytes\n"
+"    <nn>M or <nn>MB  number of megabytes\n"
+"    <nn>G or <nn>GB  number of gigabytes\n"
+"    <nn>T or <nn>TB  number of terabytes\n"
+"    <nn>P or <nn>PB  number of petabytes\n"
+"    <nn>E or <nn>EB  number of exabytes\n"
+"    <nn>sects        number of 512 byte sectors\n"
+msgstr ""
+"alloc - ઇમેજને ફાળવો\n"
+"     alloc <filename> <size>\n"
+"\n"
+"    આ આપેલ માપની ખાસી (શૂન્ય થયેલ) ફાઇલને બનાવે છે,\n"
+"    અને પછી ઉમેરે છે તેથી તેનું આગળ નિરીક્ષણ થઇ શકે.\n"
+"\n"
+"    ઇમેજ બનાવવાનું વધારે ઉન્નત કરવા માટે, qemu-img ઉપયોગિતાને જુઓ.\n"
+"\n"
+"    માપને સ્પષ્ટ કરી શકાય છે (જ્યાં <nn> નો મતલબ નંબર છે):\n"
+"    <nn>             કિલોબાઇટનો નંબર\n"
+"      દાત: 1440       મૂળભૂત 3.5\" ફ્લોપી\n"
+"    <nn>K અથવા કિલોબાઇટનો <nn>KB  નંબર\n"
+"    <nn>M અથવા મેગાબાઇટોનો <nn>MB  નંબર\n"
+"    <nn>G અથવા ગીગાબાઇટોનો <nn>GB  નંબર\n"
+"    <nn>T અથવા ટેરાબાઇટોનો <nn>TB  નંબર\n"
+"    <nn>P અથવા પેટાબાઇટોનો <nn>PB  નંબર\n"
+"    <nn>E અથવા એક્ઝાબાઇટોનો <nn>EB  નંબર\n"
+"    <nn>sects        512 બાઇટ સેક્ટરોનો નંબર\n"
+
+#: fish/fish.c:965
+#, c-format
+msgid ""
+"echo - display a line of text\n"
+"     echo [<params> ...]\n"
+"\n"
+"    This echos the parameters to the terminal.\n"
+msgstr ""
+"echo - લખાણનાં વાક્યને દર્શાવો\n"
+"     echo [<params> ...]\n"
+"\n"
+"    આ ટર્મિનલમાં પરિમાણોને ઇકો કરે છે.\n"
+
+#: fish/fish.c:972
+#, c-format
+msgid ""
+"edit - edit a file in the image\n"
+"     edit <filename>\n"
+"\n"
+"    This is used to edit a file.\n"
+"\n"
+"    It is the equivalent of (and is implemented by)\n"
+"    running \"cat\", editing locally, and then \"write-file\".\n"
+"\n"
+"    Normally it uses $EDITOR, but if you use the aliases\n"
+"    \"vi\" or \"emacs\" you will get those editors.\n"
+"\n"
+"    NOTE: This will not work reliably for large files\n"
+"    (> 2 MB) or binary files containing \\0 bytes.\n"
+msgstr ""
+"edit - ઇમેજમાં ફાઇલને સુધારો\n"
+"     <filename> નો ફેરફાર કરો\n"
+"\n"
+"    ફાઇલને સુધારવા માટે વાપરેલ છે.\n"
+"\n"
+"    તે \"cat\" ને ચલાવવા, સ્થાનિય રીતે સુધારવા, અને \"write-file\"(દ્દારા અમલીકરણ થયેલ છે) નાં જેવુ જ છે.\n"
+"\n"
+"    સામાન્ય રીતે તે $EDITOR વાપરે છે, પરંતુ જો તમે ઉપનામોને વાપરો તો\n"
+"    \"vi\" અથવા \"emacs\" તમે તે સંપાદકોને મેળવશો.\n"
+"\n"
+"    નોંધ: આ \\0 bytes ને સમાવતી વિશાળ ફાઇલો (> 2 MB) અથવા બાઇનરી ફાઇલો માટે ભરોસાપાત્ર કામ કરતુ નથી.\n"
+
+#: fish/fish.c:986
+#, c-format
+msgid ""
+"lcd - local change directory\n"
+"    lcd <directory>\n"
+"\n"
+"    Change guestfish's current directory. This command is\n"
+"    useful if you want to download files to a particular\n"
+"    place.\n"
+msgstr ""
+"lcd - સ્થાનિય બદલાતી ડિરેક્ટરી\n"
+"    lcd <directory>\n"
+"\n"
+"    guestfish ની હાલની ડિરેક્ટરીને બનાવો. આ આદેશ એ ઉપયોગી છે જો તમે ચોક્કસ સ્થાનેથી ફાઇલોને ડાઉનલોડ કરવા માંગો તો.\n"
+
+#: fish/fish.c:993
+#, c-format
+msgid ""
+"glob - expand wildcards in command\n"
+"    glob <command> [<args> ...]\n"
+"\n"
+"    Glob runs <command> with wildcards expanded in any\n"
+"    command args.  Note that the command is run repeatedly\n"
+"    once for each expanded argument.\n"
+msgstr ""
+"glob - આદેશમાં વાઇલ્ડકાર્ડોને વિસ્તારો\n"
+"    glob <command> [<args> ...]\n"
+"\n"
+"    Glob એ કોઇપણ આદેશ દલીલોમાં વિસ્તરેલ વાઇલ્ડકાર્ડો સાછે <command> ને ચલાવે છે.\n"
+"    નોંધો કે આ દેશ એ દરેક વિસ્તરેલ દલીલ માટે એકવાર વારંવાર ચાલે છે.\n"
+
+#: fish/fish.c:1000
+#, c-format
+msgid ""
+"help - display a list of commands or help on a command\n"
+"     help cmd\n"
+"     help\n"
+msgstr ""
+"help - આદેશોની યાદીને દર્શાવો અથવા આદેશ પર મદદ\n"
+"     help cmd\n"
+"     મદદ\n"
+
+#: fish/fish.c:1005
+#, c-format
+msgid ""
+"more - view a file in the pager\n"
+"     more <filename>\n"
+"\n"
+"    This is used to view a file in the pager.\n"
+"\n"
+"    It is the equivalent of (and is implemented by)\n"
+"    running \"cat\" and using the pager.\n"
+"\n"
+"    Normally it uses $PAGER, but if you use the alias\n"
+"    \"less\" then it always uses \"less\".\n"
+"\n"
+"    NOTE: This will not work reliably for large files\n"
+"    (> 2 MB) or binary files containing \\0 bytes.\n"
+msgstr ""
+"more - પેજરમાં ફાઇલને જુઓ\n"
+"     વધારે <filename>\n"
+"\n"
+"    આ પેજરમાં ફાઇલને જોવા માટે વાપરેલ છે.\n"
+"\n"
+"    તે \"cat\" ને ચલાવવાનાં (અને તેના દ્દારા અમલીકરણ થયેલ છે) જેવુ જ છે અને પેજરને વાપરી રહ્યા છે.\n"
+"\n"
+"    સામાન્ય રીતે તે $PAGER ને વાપરે છે, પરંતુ જો તમે ઉપનામને \"less\" વાપરેલ હોય તો પછી તે હંમેશા \"less\" ને વાપરે છે.\n"
+"\n"
+"    નોંધ: આ \\0 બાઇટો ને સમાવતી મોટી ફાઇલો (> 2 MB) અથવા બાઇનરી ફાઇલો માટે ે કામ કરશે નહtes.\n"
+
+#: fish/fish.c:1021
+#, c-format
+msgid ""
+"quit - quit guestfish\n"
+"     quit\n"
+msgstr ""
+"quit - guestfish માંથી બહાર નીકળો\n"
+"     બહાર નીકળો\n"
+
+#: fish/fish.c:1024
+#, c-format
+msgid ""
+"reopen - close and reopen the libguestfs handle\n"
+"     reopen\n"
+"\n"
+"Close and reopen the libguestfs handle.  It is not necessary to use\n"
+"this normally, because the handle is closed properly when guestfish\n"
+"exits.  However this is occasionally useful for testing.\n"
+msgstr ""
+"reopen - libguestfs હેન્ડલને પુન:ખોલો અને બંધ કરો\n"
+"     પુન:ખોલો\n"
+"\n"
+"libguestfs હેન્ડલને પુન:ખોલો અને બંધ કરો.  આ સામાન્ય રીતે વાપરવા માટે તે જરૂરી નથી, કારણ કે હેન્ડલ એ બરાબર રીતે બંધ થયેલ છે જ્યારે guestfish એ બહાર નીકળે છે ત્યારે.  છતાંપણ આ ચકાસણી માટે અવારનવાર ઉપયોગી છે.\n"
+
+#: fish/fish.c:1031
+#, c-format
+msgid ""
+"sparse - allocate a sparse image file\n"
+"     sparse <filename> <size>\n"
+"\n"
+"    This creates an empty sparse file of the given size,\n"
+"    and then adds so it can be further examined.\n"
+"\n"
+"    In all respects it works the same as the 'alloc'\n"
+"    command, except that the image file is allocated\n"
+"    sparsely, which means that disk blocks are not assigned\n"
+"    to the file until they are needed.  Sparse disk files\n"
+"    only use space when written to, but they are slower\n"
+"    and there is a danger you could run out of real disk\n"
+"    space during a write operation.\n"
+"\n"
+"    For more advanced image creation, see qemu-img utility.\n"
+"\n"
+"    Size can be specified (where <nn> means a number):\n"
+"    <nn>             number of kilobytes\n"
+"      eg: 1440       standard 3.5\" floppy\n"
+"    <nn>K or <nn>KB  number of kilobytes\n"
+"    <nn>M or <nn>MB  number of megabytes\n"
+"    <nn>G or <nn>GB  number of gigabytes\n"
+"    <nn>T or <nn>TB  number of terabytes\n"
+"    <nn>P or <nn>PB  number of petabytes\n"
+"    <nn>E or <nn>EB  number of exabytes\n"
+"    <nn>sects        number of 512 byte sectors\n"
+msgstr ""
+"sparse - sparse ઇમેજ ફાઇલને ફાળવો\n"
+"     sparse <filename> <size>\n"
+"\n"
+"    આ આપેલ માપની ખાલી sparse ફાઇલને બનાવે છે,\n"
+"    અને પછી ઉમેરે છે તેથી તેનું આગળ નિરીક્ષણ કરી શકાય.\n"
+"\n"
+"    બધાને માન રાખીને તે 'alloc' આદેશનાં જેવુ કામ કરે છે, આને બાદ કરતા જે ઇમેજ ફાઇલ ને છૂટુછવાયેલ ફાળવેલ છે, એનો મતલબ એ કે ડિસ્ક બ્લોકો એ ફાઇલમાં\n"
+"    સોંપેલ નથી જ્યાં સુધી તેઓને જરૂર ન હોય.\n"
+"    Sparse ડિસ્ક ફાઇલો એ જગ્યાને વાપરે છે જ્યારે તેમાં લખાયેલ હોય, પરંતુ તેઓ ધીમાં છે\n"
+"    ત્યાં ખતરનાક છે જો તમે લખવાની ક્રિયા દરમ્યાન રીઅલ ડિસ્ક જગ્યાની બહાર ચલાવી શકો તો.\n"
+"\n"
+"    વધારે ઉન્નત ઇમેજ બનાવવા માટે, qemu-img ઉપયોગિતાને જુઓ.\n"
+"\n"
+"    માપને સ્પષ્ટ કરી શકાય છે (જ્યાં <nn> નો મતલબ નંબર હોય):\n"
+"    <nn>             કિલોબાઇટનો નંબર\n"
+"      દાત: 1440       મૂળભૂત 3.5\" ફ્લોપી\n"
+"    <nn>K અથવા કિલોબાઇટનો <nn>KB  નંબર\n"
+"    <nn>M અથવા મેગાબાઇટોનો <nn>MB  નંબર\n"
+"    <nn>G અથવા ગીગાબાઇટોનો <nn>GB  નંબર\n"
+"    <nn>T અથવા ટેરાબાઇટોનો <nn>TB  નંબર\n"
+"    <nn>P અથવા પેટાબાઇટોનો <nn>PB  નંબર\n"
+"    <nn>E અથવા એક્ઝાબાઇટોનો <nn>EB  નંબર\n"
+"    <nn>sects        512 બાઇટ સેક્ટરોનો નંબર\n"
+
+#: fish/fish.c:1058
+#, c-format
+msgid ""
+"time - measure time taken to run command\n"
+"    time <command> [<args> ...]\n"
+"\n"
+"    This runs <command> as usual, and prints the elapsed\n"
+"    time afterwards.\n"
+msgstr ""
+"time - આદેશને ચલાવવા માટે લીધેલ સમયનું માપન કરો\n"
+"    time <command> [<args> ...]\n"
+"\n"
+"    આ સામાન્ય રીતે <command> ને ચલાવે છે, અને પછીથી પસાર થયેલ સમયને છાપે છે.\n"
+
+#: fish/fish.c:1064
+#, c-format
+msgid "%s: command not known, use -h to list all commands\n"
+msgstr "%s: આદેશ જાણીતો નથી, બધા આદેશોની યાદી માટે -h ને વાપરો\n"
+
+#: fish/fish.c:1220
+#, c-format
+msgid "Runaway quote in string \"%s\"\n"
+msgstr "શબ્દમાળા \"%s\" માં દૂર થતો અવતરણચિહ્ન\n"
+
+#: fish/glob.c:52
+#, c-format
+msgid "use 'glob command [args...]'\n"
+msgstr "'glob command [args...]' ને વાપરો\n"
+
+#: fish/glob.c:72
+#, c-format
+msgid "glob: guestfs_glob_expand call failed: %s\n"
+msgstr "glob: guestfs_glob_expand કોલ નિષ્ફળ: %s\n"
+
+#: fish/lcd.c:34
+#, c-format
+msgid "use 'lcd directory' to change local directory\n"
+msgstr "સ્થાનિય ડિરેક્ટરીને બદલવા માટે 'lcd directory' ને વાપરો\n"
+
+#: fish/more.c:40
+#, c-format
+msgid "use '%s filename' to page a file\n"
+msgstr "ફાઇલ પાના માટે '%s filename' ને વાપરો\n"
+
+#: fish/rc.c:249
+#, c-format
+msgid "guestfish: protocol error: could not read 'hello' message\n"
+msgstr "guestfish: પ્રોટોકોલ ભૂલ: 'hello' સંદેશને વાંચી શક્યા નહિં\n"
+
+#: fish/rc.c:254
+#, c-format
+msgid ""
+"guestfish: protocol error: version mismatch, server version '%s' does not "
+"match client version '%s'.  The two versions must match exactly.\n"
+msgstr ""
+"guestfish: પ્રોટોકોલ ભૂલ: આવૃત્તિ બંધબેસતી નથી, સર્વર આવૃત્તિ '%s' એ ક્લાઇન્ટ આવૃત્તિ '%s' સાથે બંધબેસતી નથી.  બે આવૃત્તિઓ એ બરાબર રીતે "
+"બંધબેસતી હોવી જ જોઇએ.\n"
+
+#: fish/rc.c:329 fish/rc.c:343
+#, c-format
+msgid "guestfish: remote: looks like the server is not running\n"
+msgstr "guestfish: દૂરસ્થ: એવુ લાગે છે કે સર્વર ચાલી રહ્યુ નથી\n"
+
+#: fish/rc.c:355 fish/rc.c:369
+#, c-format
+msgid "guestfish: protocol error: could not send initial greeting to server\n"
+msgstr "guestfish: પ્રોટોકોલ ભૂલ: સર્વરમાં પ્રારંભિત ગ્રીટિંગ મોકલી શક્યા નથી\n"
+
+#: fish/rc.c:380
+#, c-format
+msgid "guestfish: protocol error: could not decode reply from server\n"
+msgstr "guestfish: પ્રોટોકોલ ભૂલ: સર્વર માંથી જવાબને ડિકોડ કરી શક્યા નહિં\n"
+
+#: fish/reopen.c:36
+#, c-format
+msgid "'reopen' command takes no parameters\n"
+msgstr "'reopen' આદેશ એ પરિમાણોને લેતુ નથી\n"
+
+#: fish/reopen.c:46
+#, c-format
+msgid "reopen: guestfs_create: failed to create handle\n"
+msgstr "reopen: guestfs_create: હેન્ડલને બનાવવાનું નિષ્ફળ\n"
+
+#: fish/time.c:35
+#, c-format
+msgid "use 'time command [args...]'\n"
+msgstr "'time command [args...]' ને વાપરો\n"
+
+#: fuse/guestmount.c:872
+#, c-format
+msgid ""
+"%s: FUSE module for libguestfs\n"
+"%s lets you mount a virtual machine filesystem\n"
+"Copyright (C) 2009 Red Hat Inc.\n"
+"Usage:\n"
+"  %s [--options] [-- [--FUSE-options]] mountpoint\n"
+"Options:\n"
+"  -a|--add image       Add image\n"
+"  --dir-cache-timeout  Set readdir cache timeout (default 5 sec)\n"
+"  --fuse-help          Display extra FUSE options\n"
+"  --help               Display help message and exit\n"
+"  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
+"  -n|--no-sync         Don't autosync\n"
+"  -o|--option opt      Pass extra option to FUSE\n"
+"  -r|--ro              Mount read-only\n"
+"  --selinux            Enable SELinux support\n"
+"  --trace              Trace guestfs API calls (to stderr)\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+msgstr ""
+"%s: libguestfs માટે FUSE મોડ્યુલ\n"
+"%s ચાલો તમે વર્ચ્યુઅલ મશીન ફાઇલ સિસ્ટમને માઉન્ટ કરો\n"
+"Copyright (C) 2009 Red Hat Inc.\n"
+"વપરાશ:\n"
+"  %s [--options] [-- [--FUSE-options]] mountpoint\n"
+"વિકલ્પો:\n"
+"  -a|--add image       ઇમેજને ઉમેરો\n"
+"  --dir-cache-timeout  readdir કેશ સમયસમાપ્તિને સુયોજિત કરો (મૂળભૂત 5 સેકંડ)\n"
+"  --fuse-help          વધારાનાં FUSE વિકલ્પોને દર્શાવો\n"
+"  --help               મદદ સંદેશને દર્શાવો અને બહાર નીકળો\n"
+"  -m|--mount dev[:mnt] mnt પર dev ને માઉન્ટ કરો (જો છોડી દીધેલ હોય તો, /)\n"
+"  -n|--no-sync         આપમેળે સુમેળ કરો નહિં\n"
+"  -o|--option opt      FUSE માં વધારાનાં વિકલ્પોને પસાર કરોશાવો\n"
+"  -r|--ro          ફક્ત વંચાય તેવાને માઉન્ટ કરોonly\n"
+"  --selinux        ble SELiઆધારને સક્રિય કરોport\n"
+"  --trace          gce guestfs કોલોને ટ્રેસ કરોal(to st માટેderr)\n"
+"  -v|--verbose     વર્બોસ સંદેશાઓages\n"
+"  -V|--version     આવૃત્તિને દર્શાવોsઅને બહાર નીકળોexit\n"
+
+#: fuse/guestmount.c:1077
+#, c-format
+msgid "%s: must have at least one -a and at least one -m option\n"
+msgstr "%s: ઓછામાં ઓછુ એક -a અને -m વિકલ્પ પર હોવુ જ જોઇએ\n"
+
+#: fuse/guestmount.c:1085
+#, c-format
+msgid "%s: you must specify a mountpoint in the host filesystem\n"
+msgstr "%s: યજમાન ફાઇલસિસ્ટમમાં માઉન્ટબિંદુને સ્પષ્ટ કરવુ જ પડશે\n"
+
+#: src/guestfs.c:255
+#, c-format
+msgid "guestfs_close: called twice on the same handle\n"
+msgstr "guestfs_close: એજ હેન્ડલ પર બે વાર બોલાવેલ છે\n"
+
+#: src/guestfs.c:358
+#, c-format
+msgid "libguestfs: error: %s\n"
+msgstr "libguestfs: ભૂલ: %s\n"
+
+#: src/guestfs.c:709
+msgid "command line cannot be altered after qemu subprocess launched"
+msgstr "qemu ઉપપ્રક્રિયા શરૂ થાય પછી આદેશ વાક્યને બદલી શકાતુ નથી"
+
+#: src/guestfs.c:723
+msgid "guestfs_config: parameter must begin with '-' character"
+msgstr "guestfs_config: પરિમાણ એ '-' અક્ષર સાથે જ શરૂ થવુ જોઇએ"
+
+#: src/guestfs.c:737
+#, c-format
+msgid "guestfs_config: parameter '%s' isn't allowed"
+msgstr "guestfs_config: પરિમાણ '%s' ની પરવાનગી આપેલ નથી"
+
+#: src/guestfs.c:757 src/guestfs.c:796 src/guestfs.c:814
+msgid "filename cannot contain ',' (comma) character"
+msgstr "ફાઇલનામ એ ',' (અલ્પવિરામ) અક્ષરને સમાવી શકાતુ નથી"
+
+#: src/guestfs.c:899
+msgid "you must call guestfs_add_drive before guestfs_launch"
+msgstr "તમારે guestfs_launch પહેલાં guestfs_add_drive ને કોલ કરવુ જ જોઇએ"
+
+#: src/guestfs.c:904
+msgid "qemu has already been launched"
+msgstr "qemu ને પહેલેથી જ શરૂ કરી દેવામાં આવી છે"
+
+#: src/guestfs.c:912
+#, c-format
+msgid "%s: cannot create temporary directory"
+msgstr "%s: કામચલાઉ ડિરેક્ટરીને બનાવી શકાતી નથી"
+
+#: src/guestfs.c:1002
+#, c-format
+msgid "cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)"
+msgstr "%s અથવા LIBGUESTFS_PATH પર %s ને શોધી શકાતુ નથી (હાલનો પાથ = %s)"
+
+#: src/guestfs.c:1394
+msgid "failed to connect to vmchannel socket"
+msgstr "vmchannel સોકેટ ને જોડવાનું નિષ્ફળ"
+
+#: src/guestfs.c:1413
+msgid "guestfs_launch failed, see earlier error messages"
+msgstr "guestfs_launch નિષ્ફળ, પહેલાનાં ભૂલ સંદેશાઓને જૂઓ"
+
+#: src/guestfs.c:1426
+msgid "qemu launched and contacted daemon, but state != READY"
+msgstr "qemu શરૂ થયેલ છે, ડિમનનો સંપર્ક થયેલ છે, પરંતુ state != READY"
+
+#: src/guestfs.c:1517
+#, c-format
+msgid "external command failed: %s"
+msgstr "બહારનો આદેશ નિષ્ફળ: %s"
+
+#: src/guestfs.c:1595
+#, c-format
+msgid ""
+"%s: command failed: If qemu is located on a non-standard path, try setting "
+"the LIBGUESTFS_QEMU environment variable."
+msgstr "%s: આદેશ નિષ્ફળ: જો qemu એ બિન-મૂળભૂત પાથ પર સ્થિત થયેલ હોય તો, LIBGUESTFS_QEMU પર્યાવરણ ચલ સુયોજનોનો પ્રયત્ન કરો."
+
+#: src/guestfs.c:1734
+msgid "qemu has not been launched yet"
+msgstr "qemu એ હજુ શરૂ કરવામાં આવ્યુ નથી"
+
+#: src/guestfs.c:1745
+msgid "no subprocess to kill"
+msgstr "મારવા માટે ઉપપ્રક્રિયા નથી"
+
+#: src/guestfs.c:1867
+#, c-format
+msgid "guestfs_set_busy: called when in state %d != READY"
+msgstr "guestfs_set_busy: બોલાવેલ છે જ્યારે state %d != READY માં છે"
+
+#: src/guestfs.c:1890
+#, c-format
+msgid "guestfs_end_busy: called when in state %d"
+msgstr "guestfs_end_busy: બોલાવેલ છે જ્યારે state %d માં છે"
+
+#: src/guestfs.c:1998
+#, c-format
+msgid "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
+msgstr "check_for_daemon_cancellation_or_eof: ડિમન માંથી 0x%x ને વાંચો, ઇચ્છિત 0x%x\n"
+
+#: src/guestfs.c:2156 src/guestfs.c:2210
+msgid "unexpected end of file when reading from daemon"
+msgstr "ફાઇલનો અનિચ્છનીય અંત જ્યારે ડિમન માંથી વાંચી રહ્યા હોય"
+
+#: src/guestfs.c:2172
+#, c-format
+msgid "received magic signature from guestfsd, but in state %d"
+msgstr "guestfsd માંથી મળેલ જાદુઇ હસ્તાક્ષર, પરંતુ state %d માં છે"
+
+#: src/guestfs.c:2187
+#, c-format
+msgid "message length (%u) > maximum possible size (%d)"
+msgstr "સંદેશ લંબાઇ (%u) > મહત્તમ શક્ય માપ (%d)"
+
+#: src/guestfs.c:2309
+#, c-format
+msgid "guestfs___send: state %d != BUSY"
+msgstr "guestfs___send: state %d != BUSY"
+
+#: src/guestfs.c:2331
+msgid "xdr_guestfs_message_header failed"
+msgstr "xdr_guestfs_message_header નિષ્ફળ"
+
+#: src/guestfs.c:2340
+msgid "dispatch failed to marshal args"
+msgstr "માર્શલ દલીલોને મોકલવાનું નિષ્ફળ"
+
+#: src/guestfs.c:2470
+#, c-format
+msgid "send_file_chunk: state %d != READY"
+msgstr "send_file_chunk: state %d != READY"
+
+#: src/guestfs.c:2486
+#, c-format
+msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
+msgstr "xdr_guestfs_chunk નિષ્ફળ (buf = %p, buflen = %zu)"
+
+#: src/guestfs.c:2610
+#, c-format
+msgid "%s: error in chunked encoding"
+msgstr "%s: ટૂકડા થયેલ એનકોડીંગમાં ભૂલ"
+
+#: src/guestfs.c:2638
+msgid "write to daemon socket"
+msgstr "ડિમન સોકેટમાં લખો"
+
+#: src/guestfs.c:2661
+msgid "receive_file_data: parse error in reply callback"
+msgstr "receive_file_data: કોલબેક જવાબમાં પદચ્છેદન ભૂલ"
+
+#: src/guestfs.c:2666
+msgid "receive_file_data: unexpected flag received when reading file chunks"
+msgstr "receive_file_data: મળેલ અનિચ્છનીય ફ્લેગ જ્યારે ફાઇલ ટૂકડાઓને વાંચી રહ્યા હોય"
+
+#: src/guestfs.c:2674
+msgid "failed to parse file chunk"
+msgstr "ફાઇલનાં ટૂકડાને પદચ્છેદન કરવાનું નિષ્ફળ"
+
+#: src/guestfs.c:2683
+msgid "file receive cancelled by daemon"
+msgstr "ડિમન દ્દારા રદ થયેલ ફાઇલ મેળવી"
+
+#: test-tool/test-tool.c:69
+#, c-format
+msgid ""
+"libguestfs-test-tool: interactive test tool\n"
+"Copyright (C) 2009 Red Hat Inc.\n"
+"Usage:\n"
+"  libguestfs-test-tool [--options]\n"
+"Options:\n"
+"  --help         Display usage\n"
+"  --helper libguestfs-test-tool-helper\n"
+"                 Helper program (default: %s)\n"
+"  --qemudir dir  Specify QEMU source directory\n"
+"  --qemu qemu    Specify QEMU binary\n"
+"  --timeout n\n"
+"  -t n           Set launch timeout (default: %d seconds)\n"
+msgstr ""
+"libguestfs-test-tool: અરસપરસ ચકાસણી સાધન\n"
+"Copyright (C) 2009 Red Hat Inc.\n"
+"Usage:\n"
+"  libguestfs-test-tool [--options]\n"
+"વિકલ્પો:\n"
+"  --help         વપરાશને દર્શાવો\n"
+"  --helper libguestfs-test-tool-helper\n"
+"                 મદદકર્તા પ્રક્રિયા (મૂળભૂત: %s)\n"
+"  --qemudir dir  QEMU સ્ત્રોત ડિરેક્ટરીને સ્પષ્ટ કરો\n"
+"  --qemu qemu    QEMU બાઇનરીને સ્પષ્ટ કરો\n"
+"  --timeout n\n"
+"  -t n           શરૂ કરવા સમય સમાપ્તિને સુયોજિત કરો (મૂળભૂત: %d સેકંડો)\n"
+
+#: test-tool/test-tool.c:121
+#, c-format
+msgid "libguestfs-test-tool: unknown long option: %s (%d)\n"
+msgstr "libguestfs-test-tool: અજ્ઞાત લાંબો વિકલ્પ: %s (%d)\n"
+
+#: test-tool/test-tool.c:130
+#, c-format
+msgid "libguestfs-test-tool: invalid timeout: %s\n"
+msgstr "libguestfs-test-tool: અયોગ્ય સમયસમાપ્તિ: %s\n"
+
+#: test-tool/test-tool.c:142
+#, c-format
+msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
+msgstr "libguestfs-test-tool: અનિચ્છનીય આદેશ વાક્ય વિકલ્પ 0x%x\n"
+
+#: test-tool/test-tool.c:165
+#, c-format
+msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
+msgstr "libguestfs-test-tool: libguestfs હેન્ડલને બનાવવાનું નિષ્ફળ\n"
+
+#: test-tool/test-tool.c:170 test-tool/test-tool.c:176
+#, c-format
+msgid "libguestfs-test-tool: failed to add drive '%s'\n"
+msgstr "libguestfs-test-tool: ડ્રાઇવ '%s' ને ઉમેરવાનું નિષ્ફળ\n"
+
+#: test-tool/test-tool.c:184
+#, c-format
+msgid "libguestfs-test-tool: guestfs_version failed\n"
+msgstr "libguestfs-test-tool: guestfs_version નિષ્ફળ\n"
+
+#: test-tool/test-tool.c:206
+#, c-format
+msgid "libguestfs-test-tool: failed to launch appliance\n"
+msgstr "libguestfs-test-tool: સાધનને શરૂ કરવાનું નિષ્ફળ\n"
+
+#: test-tool/test-tool.c:218
+#, c-format
+msgid "libguestfs-test-tool: failed to run sfdisk\n"
+msgstr "libguestfs-test-tool: sfdisk ને ચલાવવાનું નિષ્ફળ\n"
+
+#: test-tool/test-tool.c:224
+#, c-format
+msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
+msgstr "libguestfs-test-tool: mkfs.ext2 કરવાનું નિષ્ફળ\n"
+
+#: test-tool/test-tool.c:230
+#, c-format
+msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
+msgstr "libguestfs-test-tool: / પર mount /dev/sda1 કરવાનું નિષ્ફળ\n"
+
+#: test-tool/test-tool.c:236
+#, c-format
+msgid "libguestfs-test-tool: failed to mkdir /iso\n"
+msgstr "libguestfs-test-tool: mkdir /iso કરવાનું નિષ્ફળ\n"
+
+#: test-tool/test-tool.c:242
+#, c-format
+msgid "libguestfs-test-tool: failed to mount /dev/sdb on /iso\n"
+msgstr "libguestfs-test-tool: /iso પર mount /dev/sdb કરવાનું નિષ્ફળ\n"
+
+#: test-tool/test-tool.c:250
+#, c-format
+msgid "libguestfs-test-tool: could not run helper program, or helper failed\n"
+msgstr "libguestfs-test-tool: મદદકર્તા પ્રક્રિયા ને ચલાવી શક્યા નહિં, અથવા મદદકર્તા નિષ્ફળ\n"
+
+#: test-tool/test-tool.c:281
+#, c-format
+msgid ""
+"LIBGUESTFS_QEMU environment variable is already set, so\n"
+"--qemu/--qemudir options cannot be used.\n"
+msgstr ""
+"LIBGUESTFS_QEMU પર્યાવરણ ચલ એ પહેલેથી જ સુયોજિત છે, તેથી\n"
+"--qemu/--qemudir વિકલ્પોને વાપરી શકાતા નથી.\n"
+
+#: test-tool/test-tool.c:289
+#, c-format
+msgid "Binary '%s' does not exist or is not executable\n"
+msgstr "બાઇનરી '%s' એ અસ્તિત્વ ધરાવતુ નથી અથવા એક્સિક્યૂટેબલ નથી\n"
+
+#: test-tool/test-tool.c:303
+#, c-format
+msgid "%s: does not look like a qemu source directory\n"
+msgstr "%s: qemu સ્ત્રોત ડિરેક્ટરીનાં જેવુ લાગતુ નથી\n"
+
+#: test-tool/test-tool.c:352
+#, c-format
+msgid ""
+"Test tool helper program 'libguestfs-test-tool-helper' is not\n"
+"available.  Expected to find it in '%s'\n"
+"\n"
+"Use the --helper option to specify the location of this program.\n"
+msgstr ""
+"ચકાસણી સાધન પ્રક્રિયા 'libguestfs-test-tool-helper' એ ઉપલ્બધ\n"
+"નથી.  '%s'માં તેને શોધવા માટે આશા રાખેલ છે\n"
+"\n"
+"આ પ્રક્રિયાનાં સ્થાનને સ્પષ્ટ કરવા માટે --helper વિકલ્પને વાપરો.\n"
+
+#: test-tool/test-tool.c:368
+#, c-format
+msgid "command failed: %s"
+msgstr "આદેશ નિષ્ફળ: %s"
+
+#: test-tool/test-tool.c:376
+#, c-format
+msgid ""
+"Test tool helper program %s\n"
+"is not statically linked.  This is a build error when this test tool\n"
+"was built.\n"
+msgstr ""
+"ચકાસણી સાધન મદદકરર્તા પ્રક્રિયા %s\n"
+"એ સ્થિર રીતે કડી થયેલ નથી.  આ બિલ્ડ ભૂલ છે જ્યારે આ ચકાસણી સાધન એ બિલ્ટ થયેલ હતુ.\n"
+
+#: test-tool/test-tool.c:410
+#, c-format
+msgid "mkisofs command failed: %s\n"
+msgstr "mkisofs આદેશ નિષ્ફળ: %s\n"
+
