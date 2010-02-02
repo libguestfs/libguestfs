@@ -6,9 +6,9 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-02-02 08:49+0000\n"
-"PO-Revision-Date: 2009-12-05 14:54+0100\n"
+"PO-Revision-Date: 2010-02-02 20:49+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Polish <fedora-trans-pl@redhat.com>\n"
+"Language-Team: Polish <trans-pl@lists.fedoraproject.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -107,7 +107,7 @@ msgstr "ustawia ścieżkę Augeas na wartość"
 
 #: fish/cmds.c:56 fish/cmds.c:1043
 msgid "test availability of some parts of the API"
-msgstr ""
+msgstr "testuje dostępność niektórych części API"
 
 #: fish/cmds.c:57 fish/cmds.c:587
 msgid "flush device buffers"
@@ -192,7 +192,7 @@ msgstr "rekursywnie kopiuje plik lub katalog"
 
 #: fish/cmds.c:77 fish/cmds.c:1046
 msgid "copy from source to destination using dd"
-msgstr ""
+msgstr "kopiuje ze źródła do celu używając dd"
 
 #: fish/cmds.c:78 fish/cmds.c:623
 msgid "debugging and internals"
@@ -257,9 +257,8 @@ msgid "determine file type"
 msgstr "określa typ pliku"
 
 #: fish/cmds.c:95 fish/cmds.c:1049
-#, fuzzy
 msgid "return the size of the file in bytes"
-msgstr "uzyskuje całkowity rozmiar urządzenia w bajtach"
+msgstr "zwraca rozmiar pliku w bajtach"
 
 #: fish/cmds.c:96 fish/cmds.c:1040
 msgid "fill a file with octets"
@@ -472,9 +471,8 @@ msgid "remove an LVM logical volume"
 msgstr "usuwa wolumin logiczny LVM"
 
 #: fish/cmds.c:155 fish/cmds.c:1052
-#, fuzzy
 msgid "rename an LVM logical volume"
-msgstr "usuwa wolumin logiczny LVM"
+msgstr "zmienia nazwę woluminu logicznego LVM"
 
 #: fish/cmds.c:156 fish/cmds.c:710
 msgid "resize an LVM logical volume"
@@ -931,9 +929,8 @@ msgid "remove an LVM volume group"
 msgstr "usuwa grupę woluminów LVM"
 
 #: fish/cmds.c:277 fish/cmds.c:1055
-#, fuzzy
 msgid "rename an LVM volume group"
-msgstr "tworzy grupę woluminów LVM"
+msgstr "zmienia nazwę grupy woluminów LVM"
 
 #: fish/cmds.c:278 fish/cmds.c:279 fish/cmds.c:425 fish/cmds.c:434
 msgid "list the LVM volume groups (VGs)"
@@ -1127,7 +1124,7 @@ msgstr "należy wpisać \"help %s\", aby uzyskać pomoc o %s\n"
 #: fish/cmds.c:6425 fish/cmds.c:6461 fish/cmds.c:6530 fish/cmds.c:6549
 #, c-format
 msgid "%s: %s: invalid integer parameter (%s returned %d)\n"
-msgstr ""
+msgstr "%s: %s: nieprawidłowy parametr liczby całkowitej (%s zwróciło %d)\n"
 
 #: fish/cmds.c:1642 fish/cmds.c:2072 fish/cmds.c:2378 fish/cmds.c:2415
 #: fish/cmds.c:2434 fish/cmds.c:2559 fish/cmds.c:2612 fish/cmds.c:2631
@@ -1144,7 +1141,7 @@ msgstr ""
 #: fish/cmds.c:6431 fish/cmds.c:6467 fish/cmds.c:6536 fish/cmds.c:6555
 #, c-format
 msgid "%s: %s: integer out of range\n"
-msgstr ""
+msgstr "%s: %s: liczba całkowita spoza zakresu\n"
 
 #: fish/cmds.c:7416
 #, c-format
@@ -1228,7 +1225,7 @@ msgstr ""
 "  -v|--verbose         Wyświetla więcej komunikatów\n"
 "  -x                   Wykonuje echo każdego polecenia przed jego\n"
 "                       wykonaniem\n"
-"  -V|--version         Wyświetla wersję i kończy pracę\n"
+"  -V|--version         Wyświetla wersję i kończy działanie\n"
 "Aby dowiedzieć się więcej, proszę zobaczyć stronę podręcznika %s(1).\n"
 
 #: fish/fish.c:188 fuse/guestmount.c:965
@@ -1345,7 +1342,7 @@ msgstr "wyświetla listę poleceń lub pomoc polecenia"
 
 #: fish/fish.c:919
 msgid "quit guestfish"
-msgstr "kończy pracę guestfish"
+msgstr "kończy działanie programu guestfish"
 
 #: fish/fish.c:922
 msgid "allocate an image"
@@ -1552,7 +1549,7 @@ msgid ""
 "quit - quit guestfish\n"
 "     quit\n"
 msgstr ""
-"quit - kończy pracę guestfish\n"
+"quit - kończy działanie programu guestfish\n"
 "     quit\n"
 
 #: fish/fish.c:1028
@@ -1621,15 +1618,15 @@ msgstr ""
 "    proszę zobaczyć narzędzie qemu-img.\n"
 "\n"
 "    Można podać rozmiar (gdzie <nn> oznacza liczbę):\n"
-"    <nn>             liczba kilobajtów\n"
-"      np.: 1440      standardowa dyskietka 3.5\"\n"
+"    <nn>              liczba kilobajtów\n"
+"      np.: 1440       standardowa dyskietka 3.5\"\n"
 "    <nn>K lub <nn>KB  liczba kilobajtów\n"
 "    <nn>M lub <nn>MB  liczba megabajtów\n"
 "    <nn>G lub <nn>GB  liczba gigabajtów\n"
 "    <nn>T lub <nn>TB  liczba terabajtów\n"
 "    <nn>P lub <nn>PB  liczba petabajtów\n"
 "    <nn>E lub <nn>EB  liczba eksabajtów\n"
-"    <nn>sektory        liczba 512 bajtowych sektorów\n"
+"    <nn>sektory       liczba 512 bajtowych sektorów\n"
 
 #: fish/fish.c:1062
 #, c-format
@@ -1781,20 +1778,20 @@ msgstr "%s: należy podać punkt montowania w systemie plików gospodarza\n"
 #: hivex/hivexml.c:70
 #, c-format
 msgid "%s: failed to write XML document\n"
-msgstr ""
+msgstr "%s: zapisanie dokumentu XML nie powiodło się\n"
 
 #: hivex/hivexml.c:101
 #, c-format
 msgid "hivexml: missing name of input file\n"
-msgstr ""
+msgstr "hivexml: brak nazwy pliku wejściowego\n"
 
 #: hivex/hivexml.c:120
 #, c-format
 msgid "xmlNewTextWriterFilename: failed to create XML writer\n"
-msgstr ""
+msgstr "xmlNewTextWriterFilename: utworzenie zapisu XML nie powiodło się\n"
 
 #: hivex/hivexsh.c:136
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "\n"
 "Welcome to hivexsh, the hivex interactive shell for examining\n"
@@ -1805,37 +1802,40 @@ msgid ""
 "\n"
 msgstr ""
 "\n"
-"Witaj w guestfish, interaktywnej powłoce systemów plików libguestfs do\n"
-"modyfikowania systemów plików maszyn wirtualnych.\n"
+"Witaj w hivexsh, interaktywnej powłoce hivex do sprawdzania\n"
+"binarnych plików typu \"hive\" Rejestru systemu Windows.\n"
 "\n"
-"Proszę podać: \"help\", aby uzyskać pomoc o poleceniach\n"
+"Proszę podać: \"help\", aby uzyskać podsumowanie pomocy\n"
 "              \"quit\", aby zakończyć powłokę\n"
 "\n"
 
 #: hivex/hivexsh.c:250
 #, c-format
 msgid "hivexsh: error getting parent of node %zu\n"
-msgstr ""
+msgstr "hivexsh: błąd podczas uzyskiwania nadrzędnego węzła %zu\n"
 
 #: hivex/hivexsh.c:260
 #, c-format
 msgid "hivexsh: error getting node name of node %zx\n"
-msgstr ""
+msgstr "hivexsh: błąd podczas uzyskiwania nazwy węzła %zx\n"
 
 #: hivex/hivexsh.c:388
 #, c-format
 msgid "hivexsh: you must load a hive file first using 'load hivefile'\n"
 msgstr ""
+"hivexsh: należy najpierw wczytać plik \"hive\" używając \"load plik_hive\"\n"
 
 #: hivex/hivexsh.c:401
 #, c-format
 msgid "hivexsh: unknown command '%s', use 'help' for help summary\n"
 msgstr ""
+"hivexsh: nieznane polecenie \"%s\", należy użyć \"help\", aby uzyskać "
+"podsumowanie pomocy\n"
 
 #: hivex/hivexsh.c:411
 #, c-format
 msgid "hivexsh: load: no hive file name given to load\n"
-msgstr ""
+msgstr "hivexsh: load: nie podano nazwy pliku \"hive\" do wczytania\n"
 
 #: hivex/hivexsh.c:427
 #, c-format
@@ -1848,11 +1848,18 @@ msgid ""
 "which fails into a bug report at https://bugzilla.redhat.com/\n"
 "\n"
 msgstr ""
+"hivexsh: otwarcie pliku \"hive\" nie powiodło się: %s: %m\n"
+"\n"
+"Jeśli ten plik jest binarnym plikiem \"hive\" systemu Windows (a _nie_\n"
+"plikiem *.reg programu regedit), proszę wykonać te polecenie ponownie,\n"
+"używając opcji \"-d\" programu hivexsh i dołączyć pełne wyjście _oraz_ ten\n"
+"plik \"hive\" do zgłoszenia błędu na https://bugzilla.redhat.com/\n"
+"\n"
 
 #: hivex/hivexsh.c:460 hivex/hivexsh.c:551
 #, c-format
 msgid "hivexsh: '%s' command should not be given arguments\n"
-msgstr ""
+msgstr "hivexsh: polecenie \"%s\" nie przyjmuje parametrów\n"
 
 #: hivex/hivexsh.c:488
 #, c-format
@@ -1860,11 +1867,13 @@ msgid ""
 "%s: %s: \\ characters in path are doubled - are you escaping the path "
 "parameter correctly?\n"
 msgstr ""
+"%s: %s: znaki \\ w ścieżce są podwójne - czy parametr ścieżki jest poprawnie "
+"poprzedzony znakiem modyfikacji?\n"
 
 #: hivex/hivexsh.c:522
 #, c-format
 msgid "hivexsh: cd: subkey '%s' not found\n"
-msgstr ""
+msgstr "hivexsh: cd: nie odnaleziono podklucza \"%s\"\n"
 
 #: hivex/hivexsh.c:540
 #, c-format
@@ -1873,11 +1882,14 @@ msgid ""
 "contained a filesystem, and use 'ls' to list the subkeys of the\n"
 "current key.  Full documentation is in the hivexsh(1) manual page.\n"
 msgstr ""
+"Należy nawigować między kluczami \"hive\" używając polecenia \"cd\", jakby\n"
+"zawierały system plików oraz \"ls\" do wyświetlania podkluczy bieżącego\n"
+"klucza. Pełna dokumentacja znajduje się na stronie podręcznika hivexsh(1).\n"
 
 #: hivex/hivexsh.c:615
 #, c-format
 msgid "%s: %s: key not found\n"
-msgstr ""
+msgstr "%s: %s: nie odnaleziono klucza\n"
 
 #: src/guestfs.c:255
 #, c-format
