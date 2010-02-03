@@ -21,7 +21,8 @@ lib_LTLIBRARIES = libhivex.la
 
 libhivex_la_SOURCES = \
   hivex.c \
-  hivex.h
+  hivex.h \
+  byte_conversions.h
 
 libhivex_la_LDFLAGS = -version-info 0:0:0
 libhivex_la_CFLAGS = \

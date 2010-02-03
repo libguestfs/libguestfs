@@ -1,5 +1,5 @@
 /* hivex - Windows Registry "hive" extraction library.
- * Copyright (C) 2009 Red Hat Inc.
+ * Copyright (C) 2009-2010 Red Hat Inc.
  * Derived from code by Petter Nordahl-Hagen under a compatible license:
  *   Copyright (c) 1997-2007 Petter Nordahl-Hagen.
  * Derived from code by Markus Stephany under a compatible license:
@@ -33,12 +33,6 @@
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <assert.h>
-#ifdef HAVE_ENDIAN_H
-#include <endian.h>
-#endif
-#ifdef HAVE_BYTESWAP_H
-#include <byteswap.h>
-#endif
 
 #define STREQ(a,b) (strcmp((a),(b)) == 0)
 #define STRCASEEQ(a,b) (strcasecmp((a),(b)) == 0)
@@ -50,41 +44,8 @@
 //#define STRCASENEQLEN(a,b,n) (strncasecmp((a),(b),(n)) != 0)
 //#define STRPREFIX(a,b) (strncmp((a),(b),strlen((b))) == 0)
 
-#if __BYTE_ORDER == __LITTLE_ENDIAN
-#ifndef be32toh
-#define be32toh(x) __bswap_32 (x)
-#endif
-#ifndef be64toh
-#define be64toh(x) __bswap_64 (x)
-#endif
-#ifndef le16toh
-#define le16toh(x) (x)
-#endif
-#ifndef le32toh
-#define le32toh(x) (x)
-#endif
-#ifndef le64toh
-#define le64toh(x) (x)
-#endif
-#else
-#ifndef be32toh
-#define be32toh(x) (x)
-#endif
-#ifndef be64toh
-#define be64toh(x) (x)
-#endif
-#ifndef le16toh
-#define le16toh(x) __bswap_16 (x)
-#endif
-#ifndef le32toh
-#define le32toh(x) __bswap_32 (x)
-#endif
-#ifndef le64toh
-#define le64toh(x) __bswap_64 (x)
-#endif
-#endif
-
 #include "hivex.h"
+#include "byte_conversions.h"
 
 static char *windows_utf16_to_utf8 (/* const */ char *input, size_t len);
 
