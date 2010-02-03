@@ -61,6 +61,18 @@ script, use:
 
  #!/usr/bin/hivexsh -f
 
+=item B<-w>
+
+If this option is given, then writes are allowed to the hive
+(see L</commit> command below, and the discussion of
+modifying hives in L<hivex(3)/WRITING TO HIVE FILES>).
+
+B<Important Note:> Even if you specify this option, nothing is written
+to a hive unless you call the L</commit> command.  If you exit the
+shell without committing, all changes will be discarded.
+
+If this option is not given, then write commands are disabled.
+
 =back
 
 =head1 COMMANDS
@@ -94,6 +106,19 @@ C<..> may be used to go to the parent directory.
 
 Close the currently loaded hive.
 
+If you modified the hive, all uncommitted writes are lost when you
+call this command (or if the shell exits).  You have to call C<commit>
+to write changes.
+
+=item B<commit> [newfile]
+
+Commit changes to the hive.  If the optional C<newfile> parameter is
+supplied, then the hive is written to that file, else the original
+file is overwritten.
+
+Note that you have to specify the C<-w> flag, otherwise no writes are
+allowed.
+
 =item B<exit> | B<quit>
 
 Exit the shell.
@@ -115,6 +140,60 @@ List the (key, value) pairs of the current hive Registry key.  If no
 argument is given then all pairs are displayed.  If C<key> is given,
 then the value of the named key is displayed.  If C<@> is given, then
 the value of the default key is displayed.
+
+=item B<setval> nrvals
+
+This command replaces all (key, value) pairs at the current node with
+the values in subsequent input.  C<nrvals> is the number of values
+(ie. (key, value) pairs), and any existing values at this node are
+deleted.  So C<setval 0> just deletes any values at the current node.
+
+The command reads 2 * nrvals lines of input, with each pair of
+lines of input corresponding to a key and a value to add.
+
+For example, the following setval command replaces whatever is at the
+current node with two (key, value) pairs.  The default key is set to
+the UTF16-LE-encoded string "abcd".  The other value is named
+"ANumber" and is a little-endian DWORD 0x12345678.
+
+ setval 2
+ @
+ string:abcd
+ ANumber
+ dword:12345678
+
+The first line of each pair is the key (the special key C<@> means
+the default key, but you can also use a blank line).
+
+The second line of each pair is the value, which has a special format
+C<type:value> with possible types summarized in the table below:
+
+ none                 No data is stored, and the type is set to 0.
+ 
+ string:abc           "abc" is stored as a UTF16-LE-encoded
+                      string (type 1).  Note that only 7 bit
+                      ASCII strings are supported as input.
+ 
+ expandstring:...     Same as string but with type 2.
+ 
+ dword:0x01234567     A DWORD (type 4) with the hex value
+                      0x01234567.  You can also use decimal
+                      or octal numbers here.
+ 
+ qword:0x0123456789abcdef
+                      A QWORD (type 11) with the hex value
+                      0x0123456789abcdef.  You can also use
+                      decimal or octal numbers here.
+ 
+ hex:<type>:<hexbytes>
+ hex:1:41,00,42,00,43,00,44,00,00,00
+                      This is the generic way to enter any
+                      value.  <type> is the integer value type.
+                      <hexbytes> is a list of pairs of hex
+                      digits which are treated as bytes.
+                      (Any non-hex-digits here are ignored,
+                      so you can separate bytes with commas
+                      or spaces if you want).
 
 =back
 

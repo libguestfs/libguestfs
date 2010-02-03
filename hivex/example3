@@ -1,0 +1,53 @@
+#!/bin/bash -
+# Copyright (C) 2009-2010 Red Hat Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+set -e
+
+# Example program which modifies a hive.
+#
+# This program removes any existing (key, value) pairs at the root
+# node and replaces them with some example values.
+#
+# You can load the modified hive using another tool to see the
+# changes.  eg. Using Windows regedit, select HKLM and then in the
+# File menu choose "Load Hive ...".  Point to the update hive, and
+# then give a key (eg. "test1").  The modified hive will be loaded
+# under HKLM\test1 and the values can be inspected there.  After
+# inspecting the changes, unload the hive using File -> Unload Hive.
+#
+# Don't replace the original Windows hive, else you'll break things :-)
+
+if [ $# -ne 0 ]; then
+    echo "$0: no arguments required"
+    exit 1
+fi
+
+d=`dirname $0`
+
+$d/hivexsh -w <<EOF
+load $d/t/minimal
+setval 4
+@
+string:Root
+A
+string:abcd
+B
+dword:0x12345678
+C
+string:dcbadcbadcbaabcd
+commit /tmp/modified
+EOF

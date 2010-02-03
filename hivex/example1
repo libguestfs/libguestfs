@@ -1,0 +1,40 @@
+#!/bin/bash -
+# Copyright (C) 2009-2010 Red Hat Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+set -e
+
+# Example program which loads and saves a hive.
+#
+# The intention of this example is just to check that we can do this
+# without corrupting the hive (header etc).
+#
+# NB: The copy of the hive will not be absolutely identical.  The
+# sequence numbers in the header will change.  If we implement the
+# last modified field in the header, then that and the checksum will
+# also change.
+
+if [ $# -ne 2 ]; then
+    echo "$0 input output"
+    exit 1
+fi
+
+d=`dirname $0`
+
+$d/hivexsh -w <<EOF
+load $1
+commit $2
+EOF

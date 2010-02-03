@@ -32,6 +32,7 @@ libhivex_la_CPPFLAGS = -I$(top_srcdir)/gnulib/lib
 
 bin_PROGRAMS = hivexml hivexsh
 bin_SCRIPTS = hivexget
+noinst_SCRIPTS = example1 example2 example3
 
 hivexml_SOURCES = \
   hivexml.c
@@ -44,7 +45,9 @@ hivexml_CFLAGS = \
   $(WARN_CFLAGS) $(WERROR_CFLAGS)
 
 hivexsh_SOURCES = \
-  hivexsh.c
+  hivexsh.c \
+  hivex.h \
+  byte_conversions.h
 
 hivexsh_LDADD = libhivex.la ../gnulib/lib/libgnu.la  $(LIBREADLINE)
 hivexsh_CFLAGS = \

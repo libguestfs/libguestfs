@@ -50,11 +50,13 @@
 //#define STRCASEEQLEN(a,b,n) (strncasecmp((a),(b),(n)) == 0)
 //#define STRNEQLEN(a,b,n) (strncmp((a),(b),(n)) != 0)
 //#define STRCASENEQLEN(a,b,n) (strncasecmp((a),(b),(n)) != 0)
-//#define STRPREFIX(a,b) (strncmp((a),(b),strlen((b))) == 0)
+#define STRPREFIX(a,b) (strncmp((a),(b),strlen((b))) == 0)
 
 #include "c-ctype.h"
+#include "xstrtol.h"
 
 #include "hivex.h"
+#include "byte_conversions.h"
 
 static int quit = 0;
 static int is_tty;
@@ -72,18 +74,21 @@ static void cleanup_readline (void);
 static void add_history_line (const char *);
 static char *rl_gets (const char *prompt_string);
 static void sort_strings (char **strings, int len);
+static int get_xdigit (char c);
 static int dispatch (char *cmd, char *args);
 static int cmd_cd (char *path);
 static int cmd_close (char *path);
+static int cmd_commit (char *path);
 static int cmd_help (char *args);
 static int cmd_load (char *hivefile);
 static int cmd_ls (char *args);
 static int cmd_lsval (char *args);
+static int cmd_setval (char *args);
 
 static void
 usage (void)
 {
-  fprintf (stderr, "hivexsh [-df] [hivefile]\n");
+  fprintf (stderr, "hivexsh [-dfw] [hivefile]\n");
   exit (EXIT_FAILURE);
 }
 
@@ -99,13 +104,16 @@ main (int argc, char *argv[])
 
   set_prompt_string ();
 
-  while ((c = getopt (argc, argv, "df")) != EOF) {
+  while ((c = getopt (argc, argv, "dfw")) != EOF) {
     switch (c) {
     case 'd':
       open_flags |= HIVEX_OPEN_DEBUG;
       break;
     case 'f':
       filename = optarg;
+      break;
+    case 'w':
+      open_flags |= HIVEX_OPEN_WRITE;
       break;
     default:
       usage ();
@@ -370,6 +378,17 @@ sort_strings (char **strings, int len)
 }
 
 static int
+get_xdigit (char c)
+{
+  switch (c) {
+  case '0'...'9': return c - '0';
+  case 'a'...'f': return c - 'a' + 10;
+  case 'A'...'F': return c - 'A' + 10;
+  default: return -1;
+  }
+}
+
+static int
 dispatch (char *cmd, char *args)
 {
   if (STRCASEEQ (cmd, "help"))
@@ -395,10 +414,14 @@ dispatch (char *cmd, char *args)
     return cmd_cd (args);
   else if (STRCASEEQ (cmd, "close") || STRCASEEQ (cmd, "unload"))
     return cmd_close (args);
+  else if (STRCASEEQ (cmd, "commit"))
+    return cmd_commit (args);
   else if (STRCASEEQ (cmd, "ls"))
     return cmd_ls (args);
   else if (STRCASEEQ (cmd, "lsval"))
     return cmd_lsval (args);
+  else if (STRCASEEQ (cmd, "setval"))
+    return cmd_setval (args);
   else {
     fprintf (stderr, _("hivexsh: unknown command '%s', use 'help' for help summary\n"),
              cmd);
@@ -473,6 +496,20 @@ cmd_close (char *args)
   cwd = 0;
 
   set_prompt_string ();
+
+  return 0;
+}
+
+static int
+cmd_commit (char *path)
+{
+  if (STREQ (path, ""))
+    path = NULL;
+
+  if (hivex_commit (h, path, 0) == -1) {
+    perror ("hivexsh: commit");
+    return -1;
+  }
 
   return 0;
 }
@@ -778,4 +815,232 @@ cmd_lsval (char *key)
  error:
   perror ("hivexsh: lsval");
   return -1;
+}
+
+static int
+cmd_setval (char *nrvals_str)
+{
+  strtol_error xerr;
+
+  /* Parse number of values. */
+  long nrvals;
+  xerr = xstrtol (nrvals_str, NULL, 0, &nrvals, "");
+  if (xerr != LONGINT_OK) {
+    fprintf (stderr, _("%s: %s: invalid integer parameter (%s returned %d)\n"),
+             "setval", "nrvals", "xstrtol", xerr);
+    return -1;
+  }
+  if (nrvals < 0 || nrvals > 1000) {
+    fprintf (stderr, _("%s: %s: integer out of range\n"),
+             "setval", "nrvals");
+    return -1;
+  }
+
+  struct hive_set_value *values =
+    calloc (nrvals, sizeof (struct hive_set_value));
+  if (values == NULL) {
+    perror ("calloc");
+    exit (EXIT_FAILURE);
+  }
+
+  int ret = -1;
+
+  /* Read nrvals * 2 lines of input, nrvals * (key, value) pairs, as
+   * explained in the man page.
+   */
+  int prompt = isatty (0) ? 2 : 0;
+  int i, j;
+  for (i = 0; i < nrvals; ++i) {
+    /* Read key. */
+    char *buf = rl_gets ("  key> ");
+    if (!buf) {
+      fprintf (stderr, _("hivexsh: setval: unexpected end of input\n"));
+      quit = 1;
+      goto error;
+    }
+
+    /* Note that buf will be overwritten by the next call to rl_gets. */
+    if (STREQ (buf, "@"))
+      values[i].key = strdup ("");
+    else
+      values[i].key = strdup (buf);
+    if (values[i].key == NULL) {
+      perror ("strdup");
+      exit (EXIT_FAILURE);
+    }
+
+    /* Read value. */
+    buf = rl_gets ("value> ");
+    if (!buf) {
+      fprintf (stderr, _("hivexsh: setval: unexpected end of input\n"));
+      quit = 1;
+      goto error;
+    }
+
+    if (STREQ (buf, "none")) {
+      values[i].t = hive_t_none;
+      values[i].len = 0;
+    }
+    else if (STRPREFIX (buf, "string:")) {
+      buf += 7;
+      values[i].t = hive_t_string;
+      int nr_chars = strlen (buf);
+      values[i].len = 2 * (nr_chars + 1);
+      values[i].value = malloc (values[i].len);
+      if (!values[i].value) {
+        perror ("malloc");
+        exit (EXIT_FAILURE);
+      }
+      for (j = 0; j <= /* sic */ nr_chars; ++j) {
+        if (buf[j] & 0x80) {
+          fprintf (stderr, _("hivexsh: string(utf16le): only 7 bit ASCII strings are supported for input\n"));
+          goto error;
+        }
+        values[i].value[2*j] = buf[j];
+        values[i].value[2*j+1] = '\0';
+      }
+    }
+    else if (STRPREFIX (buf, "expandstring:")) {
+      buf += 13;
+      values[i].t = hive_t_string;
+      int nr_chars = strlen (buf);
+      values[i].len = 2 * (nr_chars + 1);
+      values[i].value = malloc (values[i].len);
+      if (!values[i].value) {
+        perror ("malloc");
+        exit (EXIT_FAILURE);
+      }
+      for (j = 0; j <= /* sic */ nr_chars; ++j) {
+        if (buf[j] & 0x80) {
+          fprintf (stderr, _("hivexsh: string(utf16le): only 7 bit ASCII strings are supported for input\n"));
+          goto error;
+        }
+        values[i].value[2*j] = buf[j];
+        values[i].value[2*j+1] = '\0';
+      }
+    }
+    else if (STRPREFIX (buf, "dword:")) {
+      buf += 6;
+      values[i].t = hive_t_dword;
+      values[i].len = 4;
+      values[i].value = malloc (4);
+      if (!values[i].value) {
+        perror ("malloc");
+        exit (EXIT_FAILURE);
+      }
+      long n;
+      xerr = xstrtol (buf, NULL, 0, &n, "");
+      if (xerr != LONGINT_OK) {
+        fprintf (stderr, _("%s: %s: invalid integer parameter (%s returned %d)\n"),
+                 "setval", "dword", "xstrtol", xerr);
+        goto error;
+      }
+      if (n < 0 || n > UINT32_MAX) {
+        fprintf (stderr, _("%s: %s: integer out of range\n"),
+                 "setval", "dword");
+        goto error;
+      }
+      uint32_t u32 = htole32 (n);
+      memcpy (values[i].value, &u32, 4);
+    }
+    else if (STRPREFIX (buf, "qword:")) {
+      buf += 6;
+      values[i].t = hive_t_qword;
+      values[i].len = 8;
+      values[i].value = malloc (8);
+      if (!values[i].value) {
+        perror ("malloc");
+        exit (EXIT_FAILURE);
+      }
+      long long n;
+      xerr = xstrtoll (buf, NULL, 0, &n, "");
+      if (xerr != LONGINT_OK) {
+        fprintf (stderr, _("%s: %s: invalid integer parameter (%s returned %d)\n"),
+                 "setval", "dword", "xstrtoll", xerr);
+        goto error;
+      }
+#if 0
+      if (n < 0 || n > UINT64_MAX) {
+        fprintf (stderr, _("%s: %s: integer out of range\n"),
+                 "setval", "dword");
+        goto error;
+      }
+#endif
+      uint64_t u64 = htole64 (n);
+      memcpy (values[i].value, &u64, 4);
+    }
+    else if (STRPREFIX (buf, "hex:")) {
+      /* Read the type. */
+      buf += 4;
+      size_t len = strcspn (buf, ":");
+      char *nextbuf;
+      if (buf[len] == '\0')     /* "hex:t" */
+        nextbuf = &buf[len];
+      else {                    /* "hex:t:..." */
+        buf[len] = '\0';
+        nextbuf = &buf[len+1];
+      }
+
+      long t;
+      xerr = xstrtol (buf, NULL, 0, &t, "");
+      if (xerr != LONGINT_OK) {
+        fprintf (stderr, _("%s: %s: invalid integer parameter (%s returned %d)\n"),
+                 "setval", "hex", "xstrtol", xerr);
+        goto error;
+      }
+      if (t < 0 || t > UINT32_MAX) {
+        fprintf (stderr, _("%s: %s: integer out of range\n"),
+                 "setval", "hex");
+        goto error;
+      }
+      values[i].t = t;
+
+      /* Read the hex data. */
+      buf = nextbuf;
+
+      /* The allocation length is an overestimate, but it doesn't matter. */
+      values[i].value = malloc (1 + strlen (buf) / 2);
+      if (!values[i].value) {
+        perror ("malloc");
+        exit (EXIT_FAILURE);
+      }
+      values[i].len = 0;
+
+      while (*buf) {
+        int c = 0;
+
+        for (j = 0; *buf && j < 2; buf++) {
+          if (c_isxdigit (*buf)) { /* NB: ignore non-hex digits. */
+            c <<= 4;
+            c |= get_xdigit (*buf);
+            j++;
+          }
+        }
+
+        if (j == 2) values[i].value[values[i].len++] = c;
+        else if (j == 1) {
+          fprintf (stderr, _("hivexsh: setval: trailing garbage after hex string\n"));
+          goto error;
+        }
+      }
+    }
+    else {
+      fprintf (stderr,
+               _("hivexsh: setval: cannot parse value string, please refer to the man page hivexsh(1) for help: %s\n"),
+               buf);
+      goto error;
+    }
+  }
+
+  ret = hivex_node_set_values (h, cwd, nrvals, values, 0);
+
+ error:
+  /* Free values array. */
+  for (i = 0; i < nrvals; ++i) {
+    free (values[i].key);
+    free (values[i].value);
+  }
+  free (values);
+
+  return ret;
 }
