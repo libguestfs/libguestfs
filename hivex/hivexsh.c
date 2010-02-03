@@ -220,7 +220,7 @@ set_prompt_string (void)
   fp = open_memstream (&ptr, &size);
   if (fp == NULL) {
     perror ("open_memstream");
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   if (h) {
@@ -570,7 +570,7 @@ cmd_ls (char *args)
   char **names = calloc (len, sizeof (char *));
   if (names == NULL) {
     perror ("malloc");
-    exit (1);
+    exit (EXIT_FAILURE);
   }
 
   int ret = -1;
