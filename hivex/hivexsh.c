@@ -57,8 +57,9 @@
 #include "hivex.h"
 
 static int quit = 0;
+static int is_tty;
 static hive_h *h = NULL;
-static char *prompt_string = NULL; /* Prompt string. */
+static char *prompt_string = NULL; /* Normal prompt string. */
 static char *loaded = NULL;     /* Basename of loaded file, if any. */
 static hive_node_h cwd;         /* Current node. */
 static int open_flags = 0;      /* Flags used when loading a hive file. */
@@ -69,7 +70,7 @@ static void set_prompt_string (void);
 static void initialize_readline (void);
 static void cleanup_readline (void);
 static void add_history_line (const char *);
-static char *rl_gets (int prompt);
+static char *rl_gets (const char *prompt_string);
 static void sort_strings (char **strings, int len);
 static int dispatch (char *cmd, char *args);
 static int cmd_cd (char *path);
@@ -128,10 +129,10 @@ main (int argc, char *argv[])
   }
 
   /* Main loop. */
+  is_tty = isatty (0);
   initialize_readline ();
-  int prompt = isatty (0);
 
-  if (prompt)
+  if (is_tty)
     printf (_(
 "\n"
 "Welcome to hivexsh, the hivex interactive shell for examining\n"
@@ -142,7 +143,7 @@ main (int argc, char *argv[])
 "\n"));
 
   while (!quit) {
-    char *buf = rl_gets (prompt);
+    char *buf = rl_gets (prompt_string);
     if (!buf) {
       quit = 1;
       printf ("\n");
@@ -192,7 +193,7 @@ main (int argc, char *argv[])
   got_command:
     /*printf ("command: '%s'  args: '%s'\n", cmd, args)*/;
     int r = dispatch (cmd, args);
-    if (!prompt && r == -1)
+    if (!is_tty && r == -1)
       exit (EXIT_FAILURE);
   }
 
@@ -268,11 +269,11 @@ print_node_path (hive_node_h node, FILE *fp)
 static char *line_read = NULL;
 
 static char *
-rl_gets (int prompt)
+rl_gets (const char *prompt_string)
 {
 #ifdef HAVE_LIBREADLINE
 
-  if (prompt) {
+  if (is_tty) {
     if (line_read) {
       free (line_read);
       line_read = NULL;
@@ -291,7 +292,7 @@ rl_gets (int prompt)
   static char buf[8192];
   int len;
 
-  if (prompt)
+  if (is_tty)
     printf ("%s", prompt_string);
   line_read = fgets (buf, sizeof buf, stdin);
 
