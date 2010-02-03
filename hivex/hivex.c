@@ -218,7 +218,8 @@ struct ntreg_vk_record {
   uint32_t data_type;           /* type of the data */
   uint16_t flags;               /* bit 0 set => key name ASCII,
                                    bit 0 clr => key name UTF-16.
-                                   Only seen ASCII here in the wild. */
+                                   Only seen ASCII here in the wild.
+                                   NB: this is CLEAR for default key. */
   uint16_t unknown2;
   char name[1];                 /* key name follows here */
 } __attribute__((__packed__));
