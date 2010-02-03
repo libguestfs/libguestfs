@@ -146,7 +146,8 @@ main (int argc, char *argv[])
     char *buf = rl_gets (prompt_string);
     if (!buf) {
       quit = 1;
-      printf ("\n");
+      if (is_tty)
+        printf ("\n");
       break;
     }
 
