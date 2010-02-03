@@ -737,6 +737,7 @@ AC_CONFIG_FILES([Makefile
                  gnulib/lib/Makefile
                  gnulib/tests/Makefile
                  hivex/Makefile
+                 hivex/t/Makefile
                  hivex/tools/Makefile
                  fuse/Makefile
                  ocaml/META perl/Makefile.PL])

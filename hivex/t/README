@@ -1,0 +1,9 @@
+This directory contains tests for the hivex library.
+
+'minimal' is a valid registry containing a single root nk (with
+associated sk) which was created by chopping out everything possible
+from a Windows 2003 software hive and then doing lots of hand edits on
+the result.  There is no "source" for it as such, it is just a
+hand-crafted binary blob.
+
+- Richard W.M. Jones 2010-01-23.
