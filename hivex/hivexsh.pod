@@ -119,6 +119,14 @@ file is overwritten.
 Note that you have to specify the C<-w> flag, otherwise no writes are
 allowed.
 
+=item B<del>
+
+Delete the current node and everything beneath it.  The current
+directory is moved up one level (as if you did C<cd ..>) after
+this command.
+
+You cannot delete the root node.
+
 =item B<exit> | B<quit>
 
 Exit the shell.

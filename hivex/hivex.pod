@@ -379,6 +379,24 @@ operations on the hive after committing, including making more
 modifications.  If you no longer wish to use the hive, call
 C<hivex_close> after this.
 
+=item hive_node_h hivex_node_add_child (hive_h *h, hive_node_h parent, const char *name);
+
+Add a new child node named C<name> to the existing node C<parent>.
+The new child initially has no subnodes and contains no keys or
+values.  The parent must not have an existing child called C<name>, so
+if you want to overwrite an existing child, call
+C<hivex_node_delete_child> first.
+
+Returns the node handle.  On error this returns 0 and sets errno.
+
+=item int hivex_node_delete_child (hive_h *h, hive_node_h node);
+
+Delete the node C<node>.  All values at the node and all subnodes are
+deleted (recursively).  The C<node> handle and the handles of all
+subnodes become invalid.  You cannot delete the root node.
+
+Returns 0 on success.  On error this returns -1 and sets errno.
+
 =item hive_set_value
 
 The typedef C<hive_set_value> is used in conjunction with the

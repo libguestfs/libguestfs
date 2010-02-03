@@ -79,6 +79,7 @@ static int dispatch (char *cmd, char *args);
 static int cmd_cd (char *path);
 static int cmd_close (char *path);
 static int cmd_commit (char *path);
+static int cmd_del (char *args);
 static int cmd_help (char *args);
 static int cmd_load (char *hivefile);
 static int cmd_ls (char *args);
@@ -416,6 +417,8 @@ dispatch (char *cmd, char *args)
     return cmd_close (args);
   else if (STRCASEEQ (cmd, "commit"))
     return cmd_commit (args);
+  else if (STRCASEEQ (cmd, "del"))
+    return cmd_del (args);
   else if (STRCASEEQ (cmd, "ls"))
     return cmd_ls (args);
   else if (STRCASEEQ (cmd, "lsval"))
@@ -1043,4 +1046,30 @@ cmd_setval (char *nrvals_str)
   free (values);
 
   return ret;
+}
+
+static int
+cmd_del (char *args)
+{
+  if (STRNEQ (args, "")) {
+    fprintf (stderr, _("hivexsh: '%s' command should not be given arguments\n"),
+             "del");
+    return -1;
+  }
+
+  if (cwd == hivex_root (h)) {
+    fprintf (stderr, _("hivexsh: del: the root node cannot be deleted\n"));
+    return -1;
+  }
+
+  hive_node_h new_cwd = hivex_node_parent (h, cwd);
+
+  if (hivex_node_delete_child (h, cwd) == -1) {
+    perror ("del");
+    return -1;
+  }
+
+  cwd = new_cwd;
+  set_prompt_string ();
+  return 0;
 }

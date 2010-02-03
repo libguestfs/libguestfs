@@ -111,6 +111,8 @@ extern int hivex_visit (hive_h *h, const struct hivex_visitor *visitor, size_t l
 extern int hivex_visit_node (hive_h *h, hive_node_h node, const struct hivex_visitor *visitor, size_t len, void *opaque, int flags);
 
 extern int hivex_commit (hive_h *h, const char *filename, int flags);
+extern hive_node_h hivex_node_add_child (hive_h *h, hive_node_h parent, const char *name);
+extern int hivex_node_delete_child (hive_h *h, hive_node_h node);
 
 struct hive_set_value {
   char *key;

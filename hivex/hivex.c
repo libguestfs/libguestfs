@@ -236,6 +236,17 @@ struct ntreg_vk_record {
   char name[1];                 /* key name follows here */
 } __attribute__((__packed__));
 
+struct ntreg_sk_record {
+  int32_t seg_len;              /* length (always -ve because used) */
+  char id[2];                   /* "sk" */
+  uint16_t unknown1;
+  uint32_t sk_next;             /* linked into a circular list */
+  uint32_t sk_prev;
+  uint32_t refcount;            /* reference count */
+  uint32_t sec_len;             /* length of security info */
+  char sec_desc[1];             /* security info follows */
+} __attribute__((__packed__));
+
 static uint32_t
 header_checksum (const hive_h *h)
 {
@@ -1861,6 +1872,9 @@ mark_block_unused (hive_h *h, size_t offset)
   assert (h->writable);
   assert (IS_VALID_BLOCK (h, offset));
 
+  if (h->msglvl >= 2)
+    fprintf (stderr, "mark_block_unused: marking 0x%zx unused\n", offset);
+
   struct ntreg_hbin_block *blockhdr =
     (struct ntreg_hbin_block *) (h->addr + offset);
 
@@ -1958,6 +1972,218 @@ hivex_commit (hive_h *h, const char *filename, int flags)
 
   if (close (fd) == -1)
     return -1;
+
+  return 0;
+}
+
+#if 0
+hive_node_h
+hivex_node_add_child (hive_h *h, hive_node_h parent, const char *name)
+{
+  if (!h->writable) {
+    errno = EROFS;
+    return 0;
+  }
+
+  if (!IS_VALID_BLOCK (h, parent) || !BLOCK_ID_EQ (h, parent, "nk")) {
+    errno = EINVAL;
+    return -1;
+  }
+
+  if (name == NULL) {
+    errno = EINVAL;
+    return -1;
+  }
+
+
+
+
+
+
+}
+#endif
+
+/* Decrement the refcount of an sk-record, and if it reaches zero,
+ * unlink it from the chain and delete it.
+ */
+static int
+delete_sk (hive_h *h, size_t sk_offset)
+{
+  if (!IS_VALID_BLOCK (h, sk_offset) || !BLOCK_ID_EQ (h, sk_offset, "sk")) {
+    if (h->msglvl >= 2)
+      fprintf (stderr, "delete_sk: not an sk record: 0x%zx\n", sk_offset);
+    errno = EFAULT;
+    return -1;
+  }
+
+  struct ntreg_sk_record *sk = (struct ntreg_sk_record *) (h->addr + sk_offset);
+
+  if (sk->refcount == 0) {
+    if (h->msglvl >= 2)
+      fprintf (stderr, "delete_sk: sk record already has refcount 0: 0x%zx\n",
+               sk_offset);
+    errno = EINVAL;
+    return -1;
+  }
+
+  sk->refcount--;
+
+  if (sk->refcount == 0) {
+    size_t sk_prev_offset = sk->sk_prev;
+    sk_prev_offset += 0x1000;
+
+    size_t sk_next_offset = sk->sk_next;
+    sk_next_offset += 0x1000;
+
+    /* Update sk_prev/sk_next SKs, unless they both point back to this
+     * cell in which case we are deleting the last SK.
+     */
+    if (sk_prev_offset != sk_offset && sk_next_offset != sk_offset) {
+      struct ntreg_sk_record *sk_prev =
+        (struct ntreg_sk_record *) (h->addr + sk_prev_offset);
+      struct ntreg_sk_record *sk_next =
+        (struct ntreg_sk_record *) (h->addr + sk_next_offset);
+
+      sk_prev->sk_next = htole32 (sk_next_offset - 0x1000);
+      sk_next->sk_prev = htole32 (sk_prev_offset - 0x1000);
+    }
+
+    /* Refcount is zero so really delete this block. */
+    mark_block_unused (h, sk_offset);
+  }
+
+  return 0;
+}
+
+/* Callback from hivex_node_delete_child which is called to delete a
+ * node AFTER its subnodes have been visited.  The subnodes have been
+ * deleted but we still have to delete any lf/lh/li/ri records and the
+ * value list block and values, followed by deleting the node itself.
+ */
+static int
+delete_node (hive_h *h, void *opaque, hive_node_h node, const char *name)
+{
+  /* Get the intermediate blocks.  The subkeys have already been
+   * deleted by this point, so tell get_children() not to check for
+   * validity of the nk-records.
+   */
+  hive_node_h *unused;
+  size_t *blocks;
+  if (get_children (h, node, &unused, &blocks, GET_CHILDREN_NO_CHECK_NK) == -1)
+    return -1;
+  free (unused);
+
+  /* We don't care what's in these intermediate blocks, so we can just
+   * delete them unconditionally.
+   */
+  size_t i;
+  for (i = 0; blocks[i] != 0; ++i)
+    mark_block_unused (h, blocks[i]);
+
+  free (blocks);
+
+  /* Delete the values in the node. */
+  if (delete_values (h, node) == -1)
+    return -1;
+
+  struct ntreg_nk_record *nk = (struct ntreg_nk_record *) (h->addr + node);
+
+  /* If the NK references an SK, delete it. */
+  size_t sk_offs = le32toh (nk->sk);
+  if (sk_offs != 0xffffffff) {
+    sk_offs += 0x1000;
+    if (delete_sk (h, sk_offs) == -1)
+      return -1;
+    nk->sk = htole32 (0xffffffff);
+  }
+
+  /* If the NK references a classname, delete it. */
+  size_t cl_offs = le32toh (nk->classname);
+  if (cl_offs != 0xffffffff) {
+    cl_offs += 0x1000;
+    mark_block_unused (h, cl_offs);
+    nk->classname = htole32 (0xffffffff);
+  }
+
+  /* Delete the node itself. */
+  mark_block_unused (h, node);
+
+  return 0;
+}
+
+int
+hivex_node_delete_child (hive_h *h, hive_node_h node)
+{
+  if (!h->writable) {
+    errno = EROFS;
+    return -1;
+  }
+
+  if (!IS_VALID_BLOCK (h, node) || !BLOCK_ID_EQ (h, node, "nk")) {
+    errno = EINVAL;
+    return -1;
+  }
+
+  if (node == hivex_root (h)) {
+    if (h->msglvl >= 2)
+      fprintf (stderr, "hivex_node_delete_child: cannot delete root node\n");
+    errno = EINVAL;
+    return -1;
+  }
+
+  hive_node_h parent = hivex_node_parent (h, node);
+  if (parent == 0)
+    return -1;
+
+  /* Delete node and all its children and values recursively. */
+  static const struct hivex_visitor visitor = { .node_end = delete_node };
+  if (hivex_visit_node (h, node, &visitor, sizeof visitor, NULL, 0) == -1)
+    return -1;
+
+  /* Delete the link from parent to child.  We need to find the lf/lh
+   * record which contains the offset and remove the offset from that
+   * record, then decrement the element count in that record, and
+   * decrement the overall number of subkeys stored in the parent
+   * node.
+   */
+  hive_node_h *unused;
+  size_t *blocks;
+  if (get_children (h, parent, &unused, &blocks, GET_CHILDREN_NO_CHECK_NK)== -1)
+    return -1;
+  free (unused);
+
+  size_t i, j;
+  for (i = 0; blocks[i] != 0; ++i) {
+    struct ntreg_hbin_block *block =
+      (struct ntreg_hbin_block *) (h->addr + blocks[i]);
+
+    if (block->id[0] == 'l' && (block->id[1] == 'f' || block->id[1] == 'h')) {
+      struct ntreg_lf_record *lf = (struct ntreg_lf_record *) block;
+
+      size_t nr_subkeys_in_lf = le16toh (lf->nr_keys);
+
+      for (j = 0; j < nr_subkeys_in_lf; ++j)
+        if (le32toh (lf->keys[j].offset) + 0x1000 == node) {
+          for (; j < nr_subkeys_in_lf - 1; ++j)
+            memcpy (&lf->keys[j], &lf->keys[j+1], sizeof (lf->keys[j]));
+          lf->nr_keys = htole16 (nr_subkeys_in_lf - 1);
+          goto found;
+        }
+    }
+  }
+  if (h->msglvl >= 2)
+    fprintf (stderr, "hivex_node_delete_child: could not find parent to child link\n");
+  errno = ENOTSUP;
+  return -1;
+
+ found:;
+  struct ntreg_nk_record *nk = (struct ntreg_nk_record *) (h->addr + parent);
+  size_t nr_subkeys_in_nk = le32toh (nk->nr_subkeys);
+  nk->nr_subkeys = htole32 (nr_subkeys_in_nk - 1);
+
+  if (h->msglvl >= 2)
+    fprintf (stderr, "hivex_node_delete_child: updating nr_subkeys in parent 0x%zx to %zu\n",
+             parent, nr_subkeys_in_nk);
 
   return 0;
 }
