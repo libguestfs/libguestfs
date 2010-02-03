@@ -143,3 +143,4 @@ xsize.m4
 /strtoll.m4
 /strtoul.m4
 /strtoull.m4
+/xstrtol.m4

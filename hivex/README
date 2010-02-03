@@ -18,12 +18,14 @@ This library was derived from several sources:
 
  . NTREG registry reader/writer library by Petter Nordahl-Hagen
     (LGPL v2.1 licensed library and program)
- . http://home.eunet.no/pnordahl/ntpasswd/WinReg.txt
+ . http://pogostick.net/~pnh/ntpasswd/WinReg.txt
  . dumphive (a BSD-licensed Pascal program by Markus Stephany)
  . http://www.sentinelchicken.com/data/TheWindowsNTRegistryFileFormat.pdf
  . editreg program from Samba - this program was removed in later
    versions of Samba, so you have to go back in the source repository
    to find it (GPLv2+)
+ . http://amnesia.gtisc.gatech.edu/~moyix/suzibandit.ltd.uk/MSc/
+ . reverse engineering the format (see hivex/tools/visualizer.ml)
 
 Like NTREG, this library only attempts to read Windows NT registry
 files (ie. not Windows 3.1 or Windows 95/98/ME).  See the link above
