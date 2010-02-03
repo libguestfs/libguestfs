@@ -35,6 +35,7 @@
 #include <assert.h>
 
 #include "full-read.h"
+#include "full-write.h"
 
 #ifndef O_CLOEXEC
 #define O_CLOEXEC 0
@@ -88,6 +89,10 @@ struct hive_h {
   /* Fields from the header, extracted from little-endianness hell. */
   size_t rootoffs;              /* Root key offset (always an nk-block). */
   size_t endpages;              /* Offset of end of pages. */
+
+  /* For writing. */
+  size_t endblocks;             /* Offset to next block allocation (0
+                                   if not allocated anything yet). */
 };
 
 /* NB. All fields are little endian. */
@@ -519,6 +524,10 @@ hivex_close (hive_h *h)
 
   return r;
 }
+
+/*----------------------------------------------------------------------
+ * Reading.
+ */
 
 hive_node_h
 hivex_root (hive_h *h)
@@ -1399,6 +1408,10 @@ hivex_value_qword (hive_h *h, hive_value_h value)
   return ret;
 }
 
+/*----------------------------------------------------------------------
+ * Visiting.
+ */
+
 int
 hivex_visit (hive_h *h, const struct hivex_visitor *visitor, size_t len,
              void *opaque, int flags)
@@ -1641,4 +1654,375 @@ hivex__visit_node (hive_h *h, hive_node_h node,
   free (str);
   free_strings (strs);
   return ret;
+}
+
+/*----------------------------------------------------------------------
+ * Writing.
+ */
+
+/* Allocate an hbin (page), extending the malloc'd space if necessary,
+ * and updating the hive handle fields (but NOT the hive disk header
+ * -- the hive disk header is updated when we commit).  This function
+ * also extends the bitmap if necessary.
+ *
+ * 'allocation_hint' is the size of the block allocation we would like
+ * to make.  Normally registry blocks are very small (avg 50 bytes)
+ * and are contained in standard-sized pages (4KB), but the registry
+ * can support blocks which are larger than a standard page, in which
+ * case it creates a page of 8KB, 12KB etc.
+ *
+ * Returns:
+ * > 0 : offset of first usable byte of new page (after page header)
+ * 0   : error (errno set)
+ */
+static size_t
+allocate_page (hive_h *h, size_t allocation_hint)
+{
+  /* In almost all cases this will be 1. */
+  size_t nr_4k_pages =
+    1 + (allocation_hint + sizeof (struct ntreg_hbin_page) - 1) / 4096;
+  assert (nr_4k_pages >= 1);
+
+  /* 'extend' is the number of bytes to extend the file by.  Note that
+   * hives found in the wild often contain slack between 'endpages'
+   * and the actual end of the file, so we don't always need to make
+   * the file larger.
+   */
+  ssize_t extend = h->endpages + nr_4k_pages * 4096 - h->size;
+
+  if (h->msglvl >= 2) {
+    fprintf (stderr, "allocate_page: current endpages = 0x%zx, current size = 0x%zx\n",
+             h->endpages, h->size);
+    fprintf (stderr, "allocate_page: extending file by %zd bytes (<= 0 if no extension)\n",
+             extend);
+  }
+
+  if (extend > 0) {
+    size_t oldsize = h->size;
+    size_t newsize = h->size + extend;
+    char *newaddr = realloc (h->addr, newsize);
+    if (newaddr == NULL)
+      return 0;
+
+    size_t oldbitmapsize = 1 + oldsize / 32;
+    size_t newbitmapsize = 1 + newsize / 32;
+    char *newbitmap = realloc (h->bitmap, newbitmapsize);
+    if (newbitmap == NULL) {
+      free (newaddr);
+      return 0;
+    }
+
+    h->addr = newaddr;
+    h->size = newsize;
+    h->bitmap = newbitmap;
+
+    memset (h->addr + oldsize, 0, newsize - oldsize);
+    memset (h->bitmap + oldbitmapsize, 0, newbitmapsize - oldbitmapsize);
+  }
+
+  size_t offset = h->endpages;
+  h->endpages += nr_4k_pages * 4096;
+
+  if (h->msglvl >= 2)
+    fprintf (stderr, "allocate_page: new endpages = 0x%zx, new size = 0x%zx\n",
+             h->endpages, h->size);
+
+  /* Write the hbin header. */
+  struct ntreg_hbin_page *page =
+    (struct ntreg_hbin_page *) (h->addr + offset);
+  page->magic[0] = 'h';
+  page->magic[1] = 'b';
+  page->magic[2] = 'i';
+  page->magic[3] = 'n';
+  page->offset_first = htole32 (offset - 0x1000);
+  page->page_size = htole32 (nr_4k_pages * 4096);
+  memset (page->unknown, 0, sizeof (page->unknown));
+
+  if (h->msglvl >= 2)
+    fprintf (stderr, "allocate_page: new page at 0x%zx\n", offset);
+
+  /* Offset of first usable byte after the header. */
+  return offset + sizeof (struct ntreg_hbin_page);
+}
+
+/* Allocate a single block, first allocating an hbin (page) at the end
+ * of the current file if necessary.  NB. To keep the implementation
+ * simple and more likely to be correct, we do not reuse existing free
+ * blocks.
+ *
+ * seg_len is the size of the block (this INCLUDES the block header).
+ * The header of the block is initialized to -seg_len (negative to
+ * indicate used).  id[2] is the block ID (type), eg. "nk" for nk-
+ * record.  The block bitmap is updated to show this block as valid.
+ * The rest of the contents of the block will be zero.
+ *
+ * Returns:
+ * > 0 : offset of new block
+ * 0   : error (errno set)
+ */
+static size_t
+allocate_block (hive_h *h, size_t seg_len, const char id[2])
+{
+  if (!h->writable) {
+    errno = EROFS;
+    return 0;
+  }
+
+  if (seg_len < 4) {
+    /* The caller probably forgot to include the header.  Note that
+     * value lists have no ID field, so seg_len == 4 would be possible
+     * for them, albeit unusual.
+     */
+    if (h->msglvl >= 2)
+      fprintf (stderr, "allocate_block: refusing too small allocation (%zu), returning ERANGE\n",
+               seg_len);
+    errno = ERANGE;
+    return 0;
+  }
+
+  /* Refuse really large allocations. */
+  if (seg_len > 1000000) {
+    if (h->msglvl >= 2)
+      fprintf (stderr, "allocate_block: refusing large allocation (%zu), returning ERANGE\n",
+               seg_len);
+    errno = ERANGE;
+    return 0;
+  }
+
+  /* Round up allocation to multiple of 8 bytes.  All blocks must be
+   * on an 8 byte boundary.
+   */
+  seg_len = (seg_len + 7) & ~7;
+
+  /* Allocate a new page if necessary. */
+  if (h->endblocks == 0 || h->endblocks + seg_len > h->endpages) {
+    size_t newendblocks = allocate_page (h, seg_len);
+    if (newendblocks == 0)
+      return 0;
+    h->endblocks = newendblocks;
+  }
+
+  size_t offset = h->endblocks;
+
+  if (h->msglvl >= 2)
+    fprintf (stderr, "allocate_block: new block at 0x%zx, size %zu\n",
+             offset, seg_len);
+
+  struct ntreg_hbin_block *blockhdr =
+    (struct ntreg_hbin_block *) (h->addr + offset);
+
+  blockhdr->seg_len = htole32 (- (int32_t) seg_len);
+  if (id[0] && id[1] && seg_len >= 6) {
+    blockhdr->id[0] = id[0];
+    blockhdr->id[1] = id[1];
+  }
+
+  h->endblocks += seg_len;
+
+  /* If there is space after the last block in the last page, then we
+   * have to put a dummy free block header here to mark the rest of
+   * the page as free.
+   */
+  ssize_t rem = h->endpages - h->endblocks;
+  if (rem > 0) {
+    if (h->msglvl >= 2)
+      fprintf (stderr, "allocate_block: marking remainder of page free starting at 0x%zx, size %zd\n",
+               h->endblocks, rem);
+
+    assert (rem >= 4);
+
+    blockhdr = (struct ntreg_hbin_block *) (h->addr + h->endblocks);
+    blockhdr->seg_len = htole32 ((int32_t) rem);
+  }
+
+  return offset;
+}
+
+/* 'offset' must point to a valid, used block.  This function marks
+ * the block unused (by updating the seg_len field) and invalidates
+ * the bitmap.  It does NOT do this recursively, so to avoid creating
+ * unreachable used blocks, callers may have to recurse over the hive
+ * structures.  Also callers must ensure there are no references to
+ * this block from other parts of the hive.
+ */
+static void
+mark_block_unused (hive_h *h, size_t offset)
+{
+  assert (h->writable);
+  assert (IS_VALID_BLOCK (h, offset));
+
+  struct ntreg_hbin_block *blockhdr =
+    (struct ntreg_hbin_block *) (h->addr + offset);
+
+  size_t seg_len = block_len (h, offset, NULL);
+  blockhdr->seg_len = htole32 (seg_len);
+
+  BITMAP_CLR (h->bitmap, offset);
+}
+
+/* Delete all existing values at this node. */
+static int
+delete_values (hive_h *h, hive_node_h node)
+{
+  assert (h->writable);
+
+  hive_value_h *values;
+  size_t *blocks;
+  if (get_values (h, node, &values, &blocks) == -1)
+    return -1;
+
+  size_t i;
+  for (i = 0; blocks[i] != 0; ++i)
+    mark_block_unused (h, blocks[i]);
+
+  free (blocks);
+
+  for (i = 0; values[i] != 0; ++i) {
+    struct ntreg_vk_record *vk =
+      (struct ntreg_vk_record *) (h->addr + values[i]);
+
+    size_t len;
+    len = le32toh (vk->data_len);
+    if (len == 0x80000000)      /* special case */
+      len = 4;
+    len &= 0x7fffffff;
+
+    if (len > 4) {              /* non-inline, so remove data block */
+      size_t data_offset = le32toh (vk->data_offset);
+      data_offset += 0x1000;
+      mark_block_unused (h, data_offset);
+    }
+
+    /* remove vk record */
+    mark_block_unused (h, values[i]);
+  }
+
+  free (values);
+
+  struct ntreg_nk_record *nk = (struct ntreg_nk_record *) (h->addr + node);
+  nk->nr_values = htole32 (0);
+  nk->vallist = htole32 (0xffffffff);
+
+  return 0;
+}
+
+int
+hivex_commit (hive_h *h, const char *filename, int flags)
+{
+  if (flags != 0) {
+    errno = EINVAL;
+    return -1;
+  }
+
+  if (!h->writable) {
+    errno = EROFS;
+    return -1;
+  }
+
+  filename = filename ? : h->filename;
+  int fd = open (filename, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY, 0666);
+  if (fd == -1)
+    return -1;
+
+  /* Update the header fields. */
+  uint32_t sequence = le32toh (h->hdr->sequence1);
+  sequence++;
+  h->hdr->sequence1 = htole32 (sequence);
+  h->hdr->sequence2 = htole32 (sequence);
+  /* XXX Ought to update h->hdr->last_modified. */
+  h->hdr->blocks = htole32 (h->endpages - 0x1000);
+
+  /* Recompute header checksum. */
+  uint32_t sum = header_checksum (h);
+  h->hdr->csum = htole32 (sum);
+
+  if (h->msglvl >= 2)
+    fprintf (stderr, "hivex_commit: new header checksum: 0x%x\n", sum);
+
+  if (full_write (fd, h->addr, h->size) != h->size) {
+    int err = errno;
+    close (fd);
+    errno = err;
+    return -1;
+  }
+
+  if (close (fd) == -1)
+    return -1;
+
+  return 0;
+}
+
+int
+hivex_node_set_values (hive_h *h, hive_node_h node,
+                       size_t nr_values, const hive_set_value *values,
+                       int flags)
+{
+  if (!h->writable) {
+    errno = EROFS;
+    return -1;
+  }
+
+  if (!IS_VALID_BLOCK (h, node) || !BLOCK_ID_EQ (h, node, "nk")) {
+    errno = EINVAL;
+    return -1;
+  }
+
+  /* Delete all existing values. */
+  if (delete_values (h, node) == -1)
+    return -1;
+
+  if (nr_values == 0)
+    return 0;
+
+  /* Allocate value list node.  Value lists have no id field. */
+  static const char nul_id[2] = { 0, 0 };
+  size_t seg_len =
+    sizeof (struct ntreg_value_list) + (nr_values - 1) * sizeof (uint32_t);
+  size_t vallist_offs = allocate_block (h, seg_len, nul_id);
+  if (vallist_offs == 0)
+    return -1;
+
+  struct ntreg_nk_record *nk = (struct ntreg_nk_record *) (h->addr + node);
+  nk->nr_values = htole32 (nr_values);
+  nk->vallist = htole32 (vallist_offs - 0x1000);
+
+  struct ntreg_value_list *vallist =
+    (struct ntreg_value_list *) (h->addr + vallist_offs);
+
+  size_t i;
+  for (i = 0; i < nr_values; ++i) {
+    /* Allocate vk record to store this (key, value) pair. */
+    static const char vk_id[2] = { 'v', 'k' };
+    seg_len = sizeof (struct ntreg_vk_record) + strlen (values[i].key);
+    size_t vk_offs = allocate_block (h, seg_len, vk_id);
+    if (vk_offs == 0)
+      return -1;
+
+    vallist->offset[i] = htole32 (vk_offs - 0x1000);
+
+    struct ntreg_vk_record *vk = (struct ntreg_vk_record *) (h->addr + vk_offs);
+    size_t name_len = strlen (values[i].key);
+    vk->name_len = htole16 (name_len);
+    strcpy (vk->name, values[i].key);
+    vk->data_type = htole32 (values[i].t);
+    vk->data_len = htole16 (values[i].len);
+    vk->flags = name_len == 0 ? 0 : 1;
+
+    if (values[i].len <= 4)     /* Store data inline. */
+      memcpy (&vk->data_offset, values[i].value, values[i].len);
+    else {
+      size_t offs = allocate_block (h, values[i].len + 4, nul_id);
+      if (offs == 0)
+        return -1;
+      memcpy (h->addr + offs + 4, values[i].value, values[i].len);
+      vk->data_offset = htole32 (offs - 0x1000);
+    }
+
+    if (name_len * 2 > le32toh (nk->max_vk_name_len))
+      nk->max_vk_name_len = htole32 (name_len * 2);
+    if (values[i].len > le32toh (nk->max_vk_data_len))
+      nk->max_vk_data_len = htole32 (values[i].len);
+  }
+
+  return 0;
 }

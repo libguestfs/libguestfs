@@ -326,6 +326,127 @@ starts at C<node>.
 
 =back
 
+=head2 WRITING TO HIVE FILES
+
+The hivex library supports making limited modifications to hive files.
+We have tried to implement this very conservatively in order to reduce
+the chance of corrupting your registry.  However you should be careful
+and take back-ups, since Microsoft has never documented the hive
+format, and so it is possible there are nuances in the
+reverse-engineered format that we do not understand.
+
+To be able to modify a hive, you must pass the C<HIVEX_OPEN_WRITE>
+flag to C<hivex_open>, otherwise any write operation will return with
+errno C<EROFS>.
+
+The write operations shown below do not modify the on-disk file
+immediately.  You must call C<hivex_commit> in order to write the
+changes to disk.  If you call C<hivex_close> without committing then
+any writes are discarded.
+
+Hive files internally consist of a "memory dump" of binary blocks
+(like the C heap), and some of these blocks can be unused.  The hivex
+library never reuses these unused blocks.  Instead, to ensure
+robustness in the face of the partially understood on-disk format,
+hivex only allocates new blocks after the end of the file, and makes
+minimal modifications to existing structures in the file to point to
+these new blocks.  This makes hivex slightly less disk-efficient than
+it could be, but disk is cheap, and registry modifications tend to be
+very small.
+
+When deleting nodes, it is possible that this library may leave
+unreachable live blocks in the hive.  This is because certain parts of
+the hive disk format such as security (sk) records and big data (db)
+records and classname fields are not well understood (and not
+documented at all) and we play it safe by not attempting to modify
+them.  Apart from wasting a little bit of disk space, it is not
+thought that unreachable blocks are a problem.
+
+=over 4
+
+=item int hivex_commit (hive_h *h, const char *filename, int flags);
+
+Commit (write) any changes which have been made.
+
+C<filename> is the new file to write.  If C<filename == NULL> then we
+overwrite the original file (ie. the file name that was passed to
+C<hivex_open>).  C<flags> is not used, always pass 0.
+
+Returns 0 on success.  On error this returns -1 and sets errno.
+
+Note this does not close the hive handle.  You can perform further
+operations on the hive after committing, including making more
+modifications.  If you no longer wish to use the hive, call
+C<hivex_close> after this.
+
+=item hive_set_value
+
+The typedef C<hive_set_value> is used in conjunction with the
+C<hivex_node_set_values> call described below.
+
+ struct hive_set_value {
+   char *key;     /* key - a UTF-8 encoded ASCIIZ string */
+   hive_type t;   /* type of value field */
+   size_t len;    /* length of value field in bytes */
+   char *value;   /* value field */
+ };
+ typedef struct hive_set_value hive_set_value;
+
+To set the default value for a node, you have to pass C<key = "">.
+
+Note that the C<value> field is just treated as a list of bytes, and
+is stored directly in the hive.  The caller has to ensure correct
+encoding and endianness, for example converting dwords to little
+endian.
+
+The correct type and encoding for values depends on the node and key
+in the registry, the version of Windows, and sometimes even changes
+between versions of Windows for the same key.  We don't document it
+here.  Often it's not documented at all.
+
+=item int hivex_node_set_values (hive_h *h, hive_node_h node, size_t nr_values, const hive_set_value *values, int flags);
+
+This call can be used to set all the (key, value) pairs stored in C<node>.
+
+C<node> is the node to modify.  C<values> is an array of (key, value)
+pairs.  There should be C<nr_values> elements in this array.  C<flags>
+is not used, always pass 0.
+
+Any existing values stored at the node are discarded, and their
+C<hive_value_h> handles become invalid.  Thus you can remove all
+values stored at C<node> by passing C<nr_values = 0>.
+
+Returns 0 on success.  On error this returns -1 and sets errno.
+
+Note that this library does not offer a way to modify just a single
+key at a node.  We don't implement a way to do this efficiently.
+
+=back
+
+=head3 WRITE OPERATIONS WHICH ARE NOT SUPPORTED
+
+=over 4
+
+=item *
+
+Changing the root node.
+
+=item *
+
+Creating a new hive file from scratch.  This is impossible at present
+because not all fields in the header are understood.
+
+=item *
+
+Modifying or deleting single values at a node.
+
+=item *
+
+Modifying security key (sk) records or classnames.  These are not
+well understood.
+
+=back
+
 =head1 THE STRUCTURE OF THE WINDOWS REGISTRY
 
 Note: To understand the relationship between hives and the common
@@ -451,6 +572,10 @@ Registry contains cycles.
 =item ERANGE
 
 Field in the registry out of range.
+
+=item EROFS
+
+Tried to write to a registry which is not opened for writing.
 
 =back
 

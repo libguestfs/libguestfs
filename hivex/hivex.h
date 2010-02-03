@@ -110,6 +110,18 @@ struct hivex_visitor {
 extern int hivex_visit (hive_h *h, const struct hivex_visitor *visitor, size_t len, void *opaque, int flags);
 extern int hivex_visit_node (hive_h *h, hive_node_h node, const struct hivex_visitor *visitor, size_t len, void *opaque, int flags);
 
+extern int hivex_commit (hive_h *h, const char *filename, int flags);
+
+struct hive_set_value {
+  char *key;
+  hive_type t;
+  size_t len;
+  char *value;
+};
+typedef struct hive_set_value hive_set_value;
+
+extern int hivex_node_set_values (hive_h *h, hive_node_h node, size_t nr_values, const hive_set_value *values, int flags);
+
 #ifdef __cplusplus
 }
 #endif
