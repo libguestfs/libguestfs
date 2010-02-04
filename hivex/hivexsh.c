@@ -784,7 +784,7 @@ cmd_lsval (char *key)
       case hive_t_dword:
       case hive_t_dword_be: {
         int32_t j = hivex_value_dword (h, values[i]);
-        printf ("dword:%08" PRIx32 "\"", j);
+        printf ("dword:%08" PRIx32, j);
         break;
       }
 
