@@ -1847,6 +1847,8 @@ allocate_block (hive_h *h, size_t seg_len, const char id[2])
     blockhdr->id[1] = id[1];
   }
 
+  BITMAP_SET (h->bitmap, offset);
+
   h->endblocks += seg_len;
 
   /* If there is space after the last block in the last page, then we
