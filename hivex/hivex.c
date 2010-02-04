@@ -1186,15 +1186,18 @@ hivex_value_value (hive_h *h, hive_value_h value,
     return NULL;
   }
 
-  /* Check that the declared size isn't larger than the block its in. */
+  /* Check that the declared size isn't larger than the block its in.
+   *
+   * XXX Some apparently valid registries are seen to have this,
+   * so turn this into a warning and substitute the smaller length
+   * instead.
+   */
   size_t blen = block_len (h, data_offset, NULL);
   if (len > blen - 4 /* subtract 4 for block header */) {
     if (h->msglvl >= 2)
-      fprintf (stderr, "hivex_value_value: returning EFAULT because data is longer than its block (data 0x%zx, data len %zu, block len %zu)\n",
+      fprintf (stderr, "hivex_value_value: warning: declared data length is longer than the block it is in (data 0x%zx, data len %zu, block len %zu)\n",
                data_offset, len, blen);
-    errno = EFAULT;
-    free (ret);
-    return NULL;
+    len = blen - 4;
   }
 
   char *data = h->addr + data_offset + 4;
