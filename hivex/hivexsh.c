@@ -559,10 +559,14 @@ cmd_cd (char *path)
       continue;
     }
 
+    errno = 0;
     new_cwd = hivex_node_get_child (h, new_cwd, elem);
     if (new_cwd == 0) {
-      fprintf (stderr, _("hivexsh: cd: subkey '%s' not found\n"),
-               elem);
+      if (errno)
+        perror ("hivexsh: cd");
+      else
+        fprintf (stderr, _("hivexsh: cd: subkey '%s' not found\n"),
+                 elem);
       return -1;
     }
   }
