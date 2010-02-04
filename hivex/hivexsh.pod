@@ -79,6 +79,20 @@ If this option is not given, then write commands are disabled.
 
 =over 4
 
+=item B<add> name
+
+Add a subkey named C<name> below the current node.  The name may
+contain spaces and punctuation characters, and does not need to be
+quoted.
+
+The new key will have no subkeys and no values (see C<setval>).
+
+There must be no existing subkey called C<name>, or this command will
+fail.  To replace an existing subkey, delete it first like this:
+
+ cd name
+ del
+
 =item B<cd> path
 
 Change to the subkey C<path>.  Use Windows-style backslashes to

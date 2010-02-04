@@ -383,9 +383,12 @@ C<hivex_close> after this.
 
 Add a new child node named C<name> to the existing node C<parent>.
 The new child initially has no subnodes and contains no keys or
-values.  The parent must not have an existing child called C<name>, so
-if you want to overwrite an existing child, call
-C<hivex_node_delete_child> first.
+values.  The sk-record (security descriptor) is inherited from
+the parent.
+
+The parent must not have an existing child called C<name>, so if you
+want to overwrite an existing child, call C<hivex_node_delete_child>
+first.
 
 Returns the node handle.  On error this returns 0 and sets errno.
 
@@ -460,8 +463,10 @@ Modifying or deleting single values at a node.
 
 =item *
 
-Modifying security key (sk) records or classnames.  These are not
-well understood.
+Modifying security key (sk) records or classnames.
+Previously we did not understand these records.  However now they
+are well-understood and we could add support if it was required
+(but nothing much really uses them).
 
 =back
 
@@ -590,6 +595,10 @@ Registry contains cycles.
 =item ERANGE
 
 Field in the registry out of range.
+
+=item EEXIST
+
+Registry key already exists.
 
 =item EROFS
 

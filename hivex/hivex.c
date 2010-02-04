@@ -34,6 +34,7 @@
 #include <sys/stat.h>
 #include <assert.h>
 
+#include "c-ctype.h"
 #include "full-read.h"
 #include "full-write.h"
 
@@ -49,7 +50,7 @@
 //#define STRCASEEQLEN(a,b,n) (strncasecmp((a),(b),(n)) == 0)
 //#define STRNEQLEN(a,b,n) (strncmp((a),(b),(n)) != 0)
 //#define STRCASENEQLEN(a,b,n) (strncasecmp((a),(b),(n)) != 0)
-//#define STRPREFIX(a,b) (strncmp((a),(b),strlen((b))) == 0)
+#define STRPREFIX(a,b) (strncmp((a),(b),strlen((b))) == 0)
 
 #include "hivex.h"
 #include "byte_conversions.h"
@@ -1987,7 +1988,117 @@ hivex_commit (hive_h *h, const char *filename, int flags)
   return 0;
 }
 
-#if 0
+/* Calculate the hash for a lf or lh record offset.
+ */
+static void
+calc_hash (const char *type, const char *name, char *ret)
+{
+  size_t len = strlen (name);
+
+  if (STRPREFIX (type, "lf"))
+    /* Old-style, not used in current registries. */
+    memcpy (ret, name, len < 4 ? len : 4);
+  else {
+    /* New-style for lh-records. */
+    size_t i, c;
+    uint32_t h = 0;
+    for (i = 0; i < len; ++i) {
+      c = c_toupper (name[i]);
+      h *= 37;
+      h += c;
+    }
+    *((uint32_t *) ret) = htole32 (h);
+  }
+}
+
+/* Create a completely new lh-record containing just the single node. */
+static size_t
+new_lh_record (hive_h *h, const char *name, hive_node_h node)
+{
+  static const char id[2] = { 'l', 'h' };
+  size_t seg_len = sizeof (struct ntreg_lf_record);
+  size_t offset = allocate_block (h, seg_len, id);
+  if (offset == 0)
+    return 0;
+
+  struct ntreg_lf_record *lh = (struct ntreg_lf_record *) (h->addr + offset);
+  lh->nr_keys = htole16 (1);
+  lh->keys[0].offset = htole32 (node - 0x1000);
+  calc_hash ("lh", name, lh->keys[0].hash);
+
+  return offset;
+}
+
+/* Insert node into existing lf/lh-record at position.
+ * This allocates a new record and marks the old one as unused.
+ */
+static size_t
+insert_lf_record (hive_h *h, size_t old_offs, size_t posn,
+                  const char *name, hive_node_h node)
+{
+  assert (IS_VALID_BLOCK (h, old_offs));
+
+  /* Work around C stupidity.
+   * http://www.redhat.com/archives/libguestfs/2010-February/msg00056.html
+   */
+  int test = BLOCK_ID_EQ (h, old_offs, "lf") || BLOCK_ID_EQ (h, old_offs, "lh");
+  assert (test);
+
+  struct ntreg_lf_record *old_lf =
+    (struct ntreg_lf_record *) (h->addr + old_offs);
+  size_t nr_keys = le16toh (old_lf->nr_keys);
+
+  nr_keys++; /* in new record ... */
+
+  size_t seg_len = sizeof (struct ntreg_lf_record) + (nr_keys-1) * 8;
+  size_t new_offs = allocate_block (h, seg_len, old_lf->id);
+  if (new_offs == 0)
+    return 0;
+
+  struct ntreg_lf_record *new_lf =
+    (struct ntreg_lf_record *) (h->addr + new_offs);
+  new_lf->nr_keys = htole16 (nr_keys);
+
+  /* Copy the keys until we reach posn, insert the new key there, then
+   * copy the remaining keys.
+   */
+  size_t i;
+  for (i = 0; i < posn; ++i)
+    new_lf->keys[i] = old_lf->keys[i];
+
+  new_lf->keys[i].offset = htole32 (node - 0x1000);
+  calc_hash (new_lf->id, name, new_lf->keys[i].hash);
+
+  for (i = posn+1; i < nr_keys; ++i)
+    new_lf->keys[i] = old_lf->keys[i-1];
+
+  /* Old block is unused, return new block. */
+  mark_block_unused (h, old_offs);
+  return new_offs;
+}
+
+/* Compare name with name in nk-record. */
+static int
+compare_name_with_nk_name (hive_h *h, const char *name, hive_node_h nk_offs)
+{
+  assert (IS_VALID_BLOCK (h, nk_offs));
+  assert (BLOCK_ID_EQ (h, nk_offs, "nk"));
+
+  /* Name in nk is not necessarily nul-terminated. */
+  char *nname = hivex_node_name (h, nk_offs);
+
+  /* Unfortunately we don't have a way to return errors here. */
+  if (!nname) {
+    perror ("compare_name_with_nk_name");
+    return 0;
+  }
+
+  int r = strcasecmp (name, nname);
+  free (nname);
+
+  return r;
+}
+
 hive_node_h
 hivex_node_add_child (hive_h *h, hive_node_h parent, const char *name)
 {
@@ -1998,21 +2109,185 @@ hivex_node_add_child (hive_h *h, hive_node_h parent, const char *name)
 
   if (!IS_VALID_BLOCK (h, parent) || !BLOCK_ID_EQ (h, parent, "nk")) {
     errno = EINVAL;
-    return -1;
+    return 0;
   }
 
-  if (name == NULL) {
+  if (name == NULL || strlen (name) == 0) {
     errno = EINVAL;
-    return -1;
+    return 0;
   }
 
+  if (hivex_node_get_child (h, parent, name) != 0) {
+    errno = EEXIST;
+    return 0;
+  }
 
+  /* Create the new nk-record. */
+  static const char nk_id[2] = { 'n', 'k' };
+  size_t seg_len = sizeof (struct ntreg_nk_record) + strlen (name);
+  hive_node_h node = allocate_block (h, seg_len, nk_id);
+  if (node == 0)
+    return 0;
 
+  if (h->msglvl >= 2)
+    fprintf (stderr, "hivex_node_add_child: allocated new nk-record for child at 0x%zx\n", node);
 
+  struct ntreg_nk_record *nk = (struct ntreg_nk_record *) (h->addr + node);
+  nk->flags = htole16 (0x0020); /* key is ASCII. */
+  nk->parent = htole32 (parent - 0x1000);
+  nk->subkey_lf = htole32 (0xffffffff);
+  nk->subkey_lf_volatile = htole32 (0xffffffff);
+  nk->vallist = htole32 (0xffffffff);
+  nk->classname = htole32 (0xffffffff);
+  nk->name_len = htole16 (strlen (name));
+  strcpy (nk->name, name);
 
+  /* Inherit parent sk. */
+  struct ntreg_nk_record *parent_nk =
+    (struct ntreg_nk_record *) (h->addr + parent);
+  size_t parent_sk_offset = le32toh (parent_nk->sk);
+  parent_sk_offset += 0x1000;
+  if (!IS_VALID_BLOCK (h, parent_sk_offset) ||
+      !BLOCK_ID_EQ (h, parent_sk_offset, "sk")) {
+    if (h->msglvl >= 2)
+      fprintf (stderr, "hivex_node_add_child: returning EFAULT because parent sk is not a valid block (%zu)\n",
+               parent_sk_offset);
+    errno = EFAULT;
+    return 0;
+  }
+  struct ntreg_sk_record *sk =
+    (struct ntreg_sk_record *) (h->addr + parent_sk_offset);
+  sk->refcount = htole32 (le32toh (sk->refcount) + 1);
+  nk->sk = htole32 (parent_sk_offset - 0x1000);
 
+  /* Inherit parent timestamp. */
+  memcpy (nk->timestamp, parent_nk->timestamp, sizeof (parent_nk->timestamp));
+
+  /* What I found out the hard way (not documented anywhere): the
+   * subkeys in lh-records must be kept sorted.  If you just add a
+   * subkey in a non-sorted position (eg. just add it at the end) then
+   * Windows won't see the subkey _and_ Windows will corrupt the hive
+   * itself when it modifies or saves it.
+   *
+   * So use get_children() to get a list of intermediate
+   * lf/lh-records.  get_children() returns these in reading order
+   * (which is sorted), so we look for the lf/lh-records in sequence
+   * until we find the key name just after the one we are inserting,
+   * and we insert the subkey just before it.
+   *
+   * The only other case is the no-subkeys case, where we have to
+   * create a brand new lh-record.
+   */
+  hive_node_h *unused;
+  size_t *blocks;
+
+  if (get_children (h, parent, &unused, &blocks, 0) == -1)
+    return 0;
+  free (unused);
+
+  size_t i, j;
+  size_t nr_subkeys_in_parent_nk = le32toh (parent_nk->nr_subkeys);
+  if (nr_subkeys_in_parent_nk == 0) { /* No subkeys case. */
+    /* Free up any existing intermediate blocks. */
+    for (i = 0; blocks[i] != 0; ++i)
+      mark_block_unused (h, blocks[i]);
+    size_t lh_offs = new_lh_record (h, name, node);
+    if (lh_offs == 0) {
+      free (blocks);
+      return 0;
+    }
+
+    if (h->msglvl >= 2)
+      fprintf (stderr, "hivex_node_add_child: no keys, allocated new lh-record at 0x%zx\n", lh_offs);
+
+    parent_nk->subkey_lf = htole32 (lh_offs - 0x1000);
+  }
+  else {                        /* Insert subkeys case. */
+    size_t old_offs = 0, new_offs = 0;
+    struct ntreg_lf_record *old_lf = NULL;
+
+    /* Find lf/lh key name just after the one we are inserting. */
+    for (i = 0; blocks[i] != 0; ++i) {
+      if (BLOCK_ID_EQ (h, blocks[i], "lf") ||
+          BLOCK_ID_EQ (h, blocks[i], "lh")) {
+        old_offs = blocks[i];
+        old_lf = (struct ntreg_lf_record *) (h->addr + old_offs);
+        for (j = 0; j < le16toh (old_lf->nr_keys); ++j) {
+          hive_node_h nk_offs = le32toh (old_lf->keys[j].offset);
+          nk_offs += 0x1000;
+          if (compare_name_with_nk_name (h, name, nk_offs) < 0)
+            goto insert_it;
+        }
+      }
+    }
+
+    /* Insert it at the end.
+     * old_offs points to the last lf record, set j.
+     */
+    assert (old_offs != 0);   /* should never happen if nr_subkeys > 0 */
+    j = le16toh (old_lf->nr_keys);
+
+    /* Insert it. */
+  insert_it:
+    if (h->msglvl >= 2)
+      fprintf (stderr, "hivex_node_add_child: insert key in existing lh-record at 0x%zx, posn %zu\n", old_offs, j);
+
+    new_offs = insert_lf_record (h, old_offs, j, name, node);
+    if (new_offs == 0) {
+      free (blocks);
+      return 0;
+    }
+
+    if (h->msglvl >= 2)
+      fprintf (stderr, "hivex_node_add_child: new lh-record at 0x%zx\n",
+               new_offs);
+
+    /* If the lf/lh-record was directly referenced by the parent nk,
+     * then update the parent nk.
+     */
+    if (le32toh (parent_nk->subkey_lf) + 0x1000 == old_offs)
+      parent_nk->subkey_lf = htole32 (new_offs - 0x1000);
+    /* Else we have to look for the intermediate ri-record and update
+     * that in-place.
+     */
+    else {
+      for (i = 0; blocks[i] != 0; ++i) {
+        if (BLOCK_ID_EQ (h, blocks[i], "ri")) {
+          struct ntreg_ri_record *ri =
+            (struct ntreg_ri_record *) (h->addr + blocks[i]);
+          for (j = 0; j < le16toh (ri->nr_offsets); ++j)
+            if (le32toh (ri->offset[j] + 0x1000) == old_offs) {
+              ri->offset[j] = htole32 (new_offs - 0x1000);
+              goto found_it;
+            }
+        }
+      }
+
+      /* Not found ..  This is an internal error. */
+      if (h->msglvl >= 2)
+        fprintf (stderr, "hivex_node_add_child: returning ENOTSUP because could not find ri->lf link\n");
+      errno = ENOTSUP;
+      free (blocks);
+      return 0;
+
+    found_it:
+      ;
+    }
+  }
+
+  free (blocks);
+
+  /* Update nr_subkeys in parent nk. */
+  nr_subkeys_in_parent_nk++;
+  parent_nk->nr_subkeys = htole32 (nr_subkeys_in_parent_nk);
+
+  /* Update max_subkey_name_len in parent nk. */
+  uint16_t max = le16toh (parent_nk->max_subkey_name_len);
+  if (max < strlen (name) * 2)  /* *2 because "recoded" in UTF16-LE. */
+    parent_nk->max_subkey_name_len = htole16 (strlen (name) * 2);
+
+  return node;
 }
-#endif
 
 /* Decrement the refcount of an sk-record, and if it reaches zero,
  * unlink it from the chain and delete it.

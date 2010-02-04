@@ -76,6 +76,7 @@ static char *rl_gets (const char *prompt_string);
 static void sort_strings (char **strings, int len);
 static int get_xdigit (char c);
 static int dispatch (char *cmd, char *args);
+static int cmd_add (char *name);
 static int cmd_cd (char *path);
 static int cmd_close (char *path);
 static int cmd_commit (char *path);
@@ -411,7 +412,9 @@ dispatch (char *cmd, char *args)
     return -1;
   }
 
-  if (STRCASEEQ (cmd, "cd"))
+  if (STRCASEEQ (cmd, "add"))
+    return cmd_add (args);
+  else if (STRCASEEQ (cmd, "cd"))
     return cmd_cd (args);
   else if (STRCASEEQ (cmd, "close") || STRCASEEQ (cmd, "unload"))
     return cmd_close (args);
@@ -1075,5 +1078,16 @@ cmd_del (char *args)
 
   cwd = new_cwd;
   set_prompt_string ();
+  return 0;
+}
+
+static int
+cmd_add (char *name)
+{
+  hive_node_h node = hivex_node_add_child (h, cwd, name);
+  if (node == 0) {
+    perror ("hivexsh: add");
+    return -1;
+  }
   return 0;
 }
