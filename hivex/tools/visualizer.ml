@@ -408,19 +408,27 @@ let bitmatch nk_fields =
     classname : 4*8 : littleendian, bind (get_offset classname);
     (* sentinelchicken.com says this is a single 32 bit field
      * containing maximum number of bytes in a subkey name, however
-     * that does not seem to be correct.  We think it is two 16 bit
+     * that does not seem to be correct.  We think it is several
      * fields, the first being the maximum number of bytes in the
      * UTF16-LE encoded version of the subkey names, (since subkey
      * names are usually ASCII, that would be max length of names * 2).
      * This is a historical maximum, so it can be greater than the
      * current maximum name field.
      * 
-     * The second field is often non-zero, but the purpose is unknown.
-     * In the hives we examined it had values 0, 1, 0x20, 0x21, 0xa0,
-     * 0xa1, 0xe1, suggesting some sort of flags.
+     * The remaining fields are often non-zero, but the purpose is
+     * unknown.
+     * 
+     * In the hives we examined the other fields had values as
+     * follows:
+     *   userflags: 0, 2, 0xa, 0xe
+     *   virtcontrolflags: 0, 1
+     *   debug: always 0
      *)
     max_subkey_name_len : 2*8 : littleendian;
-    unknown2 : 2*8 : littleendian;
+    unknown2_userflags : 4;
+    unknown2_virtcontrolflags : 4;
+    unknown2_debug : 8;
+
     (* sentinelchicken.com says: maximum subkey CLASSNAME length,
      * however that does not seem to be correct.  In hives I looked
      * at, it has value 0, 0xc, 0x10, 0x18, 0x1a, 0x28.
@@ -453,7 +461,7 @@ let fprintf_nk chan nk =
   bitmatch bits with
   | { :nk_fields } ->
       fprintf chan
-        "NK %s %s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s %s %08lx %s %d %ld %s %08lx %d %s %s %s %d %04x %08lx %d %d %08lx %d %d %s\n"
+        "NK %s %s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s %s %08lx %s %d %ld %s %08lx %d %s %s %s %d %x %x %x %08lx %d %d %08lx %d %d %s\n"
         (print_offset nk)
         (if unknownflag8000 then "8" else ".")
         (if unknownflag4000 then "4" else ".")
@@ -476,8 +484,9 @@ let fprintf_nk chan nk =
         (print_offset subkeys) subkeys_vol
         nr_values (print_offset vallist)
         (print_offset sk) (print_offset classname)
-        max_subkey_name_len unknown2 unknown3
-        max_vk_name_len max_vk_data_len unknown6
+        max_subkey_name_len
+        unknown2_userflags unknown2_virtcontrolflags unknown2_debug
+        unknown3 max_vk_name_len max_vk_data_len unknown6
         name_len classname_len name
 
 type data_t = Inline of bitstring | Offset of int
@@ -601,8 +610,15 @@ let rec visit_nk ?(nk_is_root = false) nk =
          eprintf "NK %s unknownflag0400 is set\n" (print_offset nk);
        if unknown1 <> 0_l then
          eprintf "NK %s unknown1 <> 0 (%08lx)\n" (print_offset nk) unknown1;
-       if unknown2 <> 0 then
-         eprintf "NK %s unknown2 <> 0 (%04x)\n" (print_offset nk) unknown2;
+       if unknown2_userflags <> 0 then
+         eprintf "NK %s unknown2_userflags <> 0 (%x)\n"
+           (print_offset nk) unknown2_userflags;
+       if unknown2_virtcontrolflags <> 0 then
+         eprintf "NK %s unknown2_virtcontrolflags <> 0 (%x)\n"
+           (print_offset nk) unknown2_virtcontrolflags;
+       if unknown2_debug <> 0 then
+         eprintf "NK %s unknown2_debug <> 0 (%x)\n"
+           (print_offset nk) unknown2_debug;
        if unknown3 <> 0_l then
          eprintf "NK %s unknown3 <> 0 (%08lx)\n" (print_offset nk) unknown3;
        if unknown6 <> 0_l then
