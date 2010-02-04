@@ -683,9 +683,12 @@ return_offset_list (struct offset_list *list)
 }
 
 /* Iterate over children, returning child nodes and intermediate blocks. */
+#define GET_CHILDREN_NO_CHECK_NK 1
+
 static int
 get_children (hive_h *h, hive_node_h node,
-              hive_node_h **children_ret, size_t **blocks_ret)
+              hive_node_h **children_ret, size_t **blocks_ret,
+              int flags)
 {
   if (!IS_VALID_BLOCK (h, node) || !BLOCK_ID_EQ (h, node, "nk")) {
     errno = EINVAL;
@@ -766,12 +769,14 @@ get_children (hive_h *h, hive_node_h node,
     for (i = 0; i < nr_subkeys_in_lf; ++i) {
       hive_node_h subkey = le32toh (lf->keys[i].offset);
       subkey += 0x1000;
-      if (!IS_VALID_BLOCK (h, subkey)) {
-        if (h->msglvl >= 2)
-          fprintf (stderr, "hivex_node_children: returning EFAULT because subkey is not a valid block (0x%zx)\n",
-                   subkey);
-        errno = EFAULT;
-        goto error;
+      if (!(flags & GET_CHILDREN_NO_CHECK_NK)) {
+        if (!IS_VALID_BLOCK (h, subkey)) {
+          if (h->msglvl >= 2)
+            fprintf (stderr, "hivex_node_children: returning EFAULT because subkey is not a valid block (0x%zx)\n",
+                     subkey);
+          errno = EFAULT;
+          goto error;
+        }
       }
       if (add_to_offset_list (&children, subkey) == -1)
         goto error;
@@ -844,12 +849,14 @@ get_children (hive_h *h, hive_node_h node,
       for (j = 0; j < le16toh (lf->nr_keys); ++j) {
         hive_node_h subkey = le32toh (lf->keys[j].offset);
         subkey += 0x1000;
-        if (!IS_VALID_BLOCK (h, subkey)) {
-          if (h->msglvl >= 2)
-            fprintf (stderr, "hivex_node_children: returning EFAULT because indirect subkey is not a valid block (0x%zx)\n",
-                     subkey);
-          errno = EFAULT;
-          goto error;
+        if (!(flags & GET_CHILDREN_NO_CHECK_NK)) {
+          if (!IS_VALID_BLOCK (h, subkey)) {
+            if (h->msglvl >= 2)
+              fprintf (stderr, "hivex_node_children: returning EFAULT because indirect subkey is not a valid block (0x%zx)\n",
+                       subkey);
+            errno = EFAULT;
+            goto error;
+          }
         }
         if (add_to_offset_list (&children, subkey) == -1)
           goto error;
@@ -878,7 +885,7 @@ hivex_node_children (hive_h *h, hive_node_h node)
   hive_node_h *children;
   size_t *blocks;
 
-  if (get_children (h, node, &children, &blocks) == -1)
+  if (get_children (h, node, &children, &blocks, 0) == -1)
     return NULL;
 
   free (blocks);
