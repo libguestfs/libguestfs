@@ -100,7 +100,14 @@ or even:
 Path elements (node names) are matched case insensitively, and
 characters like space, C<*>, and C<?> have I<no> special significance.
 
-C<..> may be used to go to the parent directory.
+C<cd ..> may be used to go to the parent directory.
+
+C<cd> without any arguments prints the current path.
+
+Be careful with C<cd \> since the readline library has an undocumented
+behaviour where it will think the final backslash is a continuation
+(it reads the next line of input and appends it).  Put a single space
+after the backslash.
 
 =item B<close> | B<unload>
 
