@@ -803,7 +803,7 @@ get_children (hive_h *h, hive_node_h node,
     /* Count total number of children. */
     size_t i, count = 0;
     for (i = 0; i < nr_offsets; ++i) {
-      hive_node_h offset = ri->offset[i];
+      hive_node_h offset = le32toh (ri->offset[i]);
       offset += 0x1000;
       if (!IS_VALID_BLOCK (h, offset)) {
         if (h->msglvl >= 2)
@@ -839,7 +839,7 @@ get_children (hive_h *h, hive_node_h node,
      * something reasonable above.
      */
     for (i = 0; i < nr_offsets; ++i) {
-      hive_node_h offset = ri->offset[i];
+      hive_node_h offset = le32toh (ri->offset[i]);
       offset += 0x1000;
       if (!IS_VALID_BLOCK (h, offset)) {
         if (h->msglvl >= 2)
