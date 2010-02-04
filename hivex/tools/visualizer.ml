@@ -636,7 +636,7 @@ let rec visit_nk ?(nk_is_root = false) nk =
 
        (* Visit the subkeys of this node. *)
        if subkeys <> -1 then (
-         let counted, max_name_len = visit_subkeys subkeys in
+         let counted, max_name_len, _ = visit_subkeys subkeys in
 
          if counted <> nr_subkeys then
            failwithf "%s: incorrect count of subkeys (%d, counted %d) in subkey list at %s\n"
@@ -728,11 +728,17 @@ and visit_subkeys subkeys =
   let (_, _, bits) = lookup "visit_subkeys" subkeys in
   mark_visited subkeys;
   (bitmatch bits with
-   | { ("lf"|"lh") : 2*8 : string;
+   | { "lf" : 2*8 : string;
        len : 2*8 : littleendian; (* number of subkeys of this node *)
        rest : len*8*8 : bitstring } ->
        printf "LF %s %d\n" (print_offset subkeys) len;
-       visit_subkeys_in_lf_list subkeys len rest
+       visit_subkeys_in_lf_list false subkeys len rest
+
+   | { "lh" : 2*8 : string;
+       len : 2*8 : littleendian; (* number of subkeys of this node *)
+       rest : len*8*8 : bitstring } ->
+       printf "LF %s %d\n" (print_offset subkeys) len;
+       visit_subkeys_in_lf_list true subkeys len rest
 
    | { "ri" : 2*8 : string;
        len : 2*8 : littleendian;
@@ -746,55 +752,90 @@ and visit_subkeys subkeys =
 
    | { "nk" : 2*8 : string } ->
        visit_nk subkeys;
-       let name_len = name_len_of_nk subkeys in
-       1, name_len
+       let name, name_len = name_of_nk subkeys in
+       1, name_len, name
 
    | {_} ->
        failwithf "%s: invalid subkey node found at %s\n"
          basename (print_offset subkeys)
   )
 
-and visit_subkeys_in_lf_list subkeys_top len bits =
+and visit_subkeys_in_lf_list newstyle_hash subkeys_top len bits =
   if len > 0 then (
     bitmatch bits with
     | { rest : -1 : bitstring } when bitstring_length rest = 0 ->
         assert (len = 0);
-        0, 0
+        0, 0, ""
 
     | { offset : 4*8 : littleendian, bind (get_offset offset);
-        _ (* hash *) : 4*8 : bitstring;
+        hash : 4*8 : bitstring;
         rest : -1 : bitstring } ->
-        let c1, name_len1 = visit_subkeys offset in
-        let c2, name_len2 = visit_subkeys_in_lf_list subkeys_top (len-1) rest in
-        c1 + c2, max name_len1 name_len2
+        let c1, name_len1, name = visit_subkeys offset in
+
+        check_hash offset newstyle_hash hash name;
+
+        let c2, name_len2, _ =
+          visit_subkeys_in_lf_list newstyle_hash subkeys_top (len-1) rest in
+        c1 + c2, max name_len1 name_len2, ""
 
     | {_} ->
         failwithf "%s: invalid subkey in lf/lh list at %s\n"
           basename (print_offset subkeys_top)
-  ) else 0, 0
+  ) else 0, 0, ""
 
 and visit_subkeys_in_ri_list subkeys_top len bits =
   if len > 0 then (
     bitmatch bits with
     | { rest : -1 : bitstring } when bitstring_length rest = 0 ->
         assert (len = 0);
-        0, 0
+        0, 0, ""
 
     | { offset : 4*8 : littleendian, bind (get_offset offset);
         rest : -1 : bitstring } ->
-        let c1, name_len1 = visit_subkeys offset in
-        let c2, name_len2 = visit_subkeys_in_ri_list subkeys_top (len-1) rest in
-        c1 + c2, max name_len1 name_len2
+        let c1, name_len1, _ = visit_subkeys offset in
+        let c2, name_len2, _ =
+          visit_subkeys_in_ri_list subkeys_top (len-1) rest in
+        c1 + c2, max name_len1 name_len2, ""
 
     | {_} ->
         failwithf "%s: invalid subkey in ri list at %s\n"
           basename (print_offset subkeys_top)
-  ) else 0, 0
+  ) else 0, 0, ""
 
-and name_len_of_nk nk =
-  let (_, _, bits) = lookup "name_len_of_nk" nk in
+and check_hash offset newstyle_hash hash name =
+  if not newstyle_hash then (
+    (* Old-style lf record hash the first four bytes of the name
+     * as the has.
+     *)
+    let len = String.length name in
+    let name_bits =
+      if len >= 4 then
+        bitstring_of_string (String.sub name 0 4)
+      else (
+        let zeroes = zeroes_bitstring ((4-len)*8) in
+        concat [bitstring_of_string name; zeroes]
+      ) in
+    if not (equals hash name_bits) then
+      eprintf "LF incorrect hash for name %s, expected %s, actual %s\n"
+        name (print_bitstring name_bits) (print_bitstring hash)
+  ) else (
+    (* New-style lh record has a proper hash. *)
+    let actual = bitmatch hash with { hash : 4*8 : littleendian } -> hash in
+    let h = ref 0_l in
+    String.iter (
+      fun c ->
+        h := Int32.mul !h 37_l;
+        h := Int32.add !h (Int32.of_int (Char.code (Char.uppercase c)))
+    ) name;
+    if actual <> !h then
+      eprintf "LH incorrect hash for name %s, expected 0x%08lx, actual 0x%08lx\n"
+        name !h actual
+  )
+
+and name_of_nk nk =
+  let (_, _, bits) = lookup "name_of_nk" nk in
   bitmatch bits with
-  | { :nk_fields } -> name_len
+  | { :nk_fields } -> name, name_len
 
 and visit_sk sk =
   let (_, _, bits) = lookup "visit_sk" sk in
