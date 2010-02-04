@@ -1069,7 +1069,7 @@ cmd_del (char *args)
   hive_node_h new_cwd = hivex_node_parent (h, cwd);
 
   if (hivex_node_delete_child (h, cwd) == -1) {
-    perror ("del");
+    perror ("hivexsh: del");
     return -1;
   }
 
