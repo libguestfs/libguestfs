@@ -735,7 +735,7 @@ get_children (hive_h *h, hive_node_h node,
   subkey_lf += 0x1000;
   if (!IS_VALID_BLOCK (h, subkey_lf)) {
     if (h->msglvl >= 2)
-      fprintf (stderr, "hivex_node_children: returning EFAULT because subkey_lf is not a valid block (%zu)\n",
+      fprintf (stderr, "hivex_node_children: returning EFAULT because subkey_lf is not a valid block (0x%zx)\n",
                subkey_lf);
     errno = EFAULT;
     goto error;
@@ -813,6 +813,9 @@ get_children (hive_h *h, hive_node_h node,
         goto error;
       }
       if (!BLOCK_ID_EQ (h, offset, "lf") && !BLOCK_ID_EQ (h, offset, "lh")) {
+        if (h->msglvl >= 2)
+          fprintf (stderr, "get_children: returning ENOTSUP because ri-record offset does not point to lf/lh (0x%zx)\n",
+                   offset);
         errno = ENOTSUP;
         goto error;
       }
@@ -849,6 +852,9 @@ get_children (hive_h *h, hive_node_h node,
         goto error;
       }
       if (!BLOCK_ID_EQ (h, offset, "lf") && !BLOCK_ID_EQ (h, offset, "lh")) {
+        if (h->msglvl >= 2)
+          fprintf (stderr, "get_children: returning ENOTSUP because ri-record offset does not point to lf/lh (0x%zx)\n",
+                   offset);
         errno = ENOTSUP;
         goto error;
       }
@@ -876,6 +882,9 @@ get_children (hive_h *h, hive_node_h node,
     goto ok;
   }
   /* else not supported, set errno and fall through */
+  if (h->msglvl >= 2)
+    fprintf (stderr, "get_children: returning ENOTSUP because subkey block is not lf/lh/ri (0x%zx, %d, %d)\n",
+             subkey_lf, block->id[0], block->id[1]);
   errno = ENOTSUP;
  error:
   free_offset_list (&children);
