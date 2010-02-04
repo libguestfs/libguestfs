@@ -195,7 +195,7 @@ struct ntreg_nk_record {
 
 struct ntreg_lf_record {
   int32_t seg_len;
-  char id[2];                   /* "lf" */
+  char id[2];                   /* "lf"|"lh" */
   uint16_t nr_keys;             /* number of keys in this record */
   struct {
     uint32_t offset;            /* offset of nk-record for this subkey */
