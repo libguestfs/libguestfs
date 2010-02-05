@@ -913,7 +913,7 @@ cmd_setval (char *nrvals_str)
     }
     else if (STRPREFIX (buf, "expandstring:")) {
       buf += 13;
-      values[i].t = hive_t_string;
+      values[i].t = hive_t_expand_string;
       int nr_chars = strlen (buf);
       values[i].len = 2 * (nr_chars + 1);
       values[i].value = malloc (values[i].len);
