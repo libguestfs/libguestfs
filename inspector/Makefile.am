@@ -21,6 +21,7 @@ EXTRA_DIST = \
 	run-inspector-locally \
 	virt-inspector
 
+docdir = @docdir@
 dist_doc_DATA = \
 	virt-inspector.rng \
 	example1.xml example2.xml example3.xml example4.xml
