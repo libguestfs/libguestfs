@@ -57,4 +57,5 @@ EXTRA_DIST = \
 	$(FAILING_TESTS) \
 	$(SKIPPED_TESTS) \
 	$(TESTS) \
-	rhbz557655-expected.out
+	rhbz557655-expected.stdout \
+	rhbz557655-expected.stderr
