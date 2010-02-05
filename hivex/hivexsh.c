@@ -58,6 +58,8 @@
 #include "hivex.h"
 #include "byte_conversions.h"
 
+#define HIVEX_MAX_VALUES         1000
+
 static int quit = 0;
 static int is_tty;
 static hive_h *h = NULL;
@@ -840,7 +842,7 @@ cmd_setval (char *nrvals_str)
              "setval", "nrvals", "xstrtol", xerr);
     return -1;
   }
-  if (nrvals < 0 || nrvals > 1000) {
+  if (nrvals < 0 || nrvals > HIVEX_MAX_VALUES) {
     fprintf (stderr, _("%s: %s: integer out of range\n"),
              "setval", "nrvals");
     return -1;

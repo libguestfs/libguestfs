@@ -55,6 +55,12 @@
 #include "hivex.h"
 #include "byte_conversions.h"
 
+/* These limits are in place to stop really stupid stuff and/or exploits. */
+#define HIVEX_MAX_SUBKEYS       10000
+#define HIVEX_MAX_VALUES         1000
+#define HIVEX_MAX_VALUE_LEN   1000000
+#define HIVEX_MAX_ALLOCATION  1000000
+
 static char *windows_utf16_to_utf8 (/* const */ char *input, size_t len);
 
 struct hive_h {
@@ -719,7 +725,7 @@ get_children (hive_h *h, hive_node_h node,
     goto ok;
 
   /* Arbitrarily limit the number of subkeys we will ever deal with. */
-  if (nr_subkeys_in_nk > 1000000) {
+  if (nr_subkeys_in_nk > HIVEX_MAX_SUBKEYS) {
     errno = ERANGE;
     goto error;
   }
@@ -989,7 +995,7 @@ get_values (hive_h *h, hive_node_h node,
     goto ok;
 
   /* Arbitrarily limit the number of values we will ever deal with. */
-  if (nr_values > 100000) {
+  if (nr_values > HIVEX_MAX_VALUES) {
     errno = ERANGE;
     goto error;
   }
@@ -1188,7 +1194,7 @@ hivex_value_value (hive_h *h, hive_value_h value,
     *len_rtn = len;
 
   /* Arbitrarily limit the length that we will read. */
-  if (len > 1000000) {
+  if (len > HIVEX_MAX_VALUE_LEN) {
     errno = ERANGE;
     return NULL;
   }
@@ -1812,7 +1818,7 @@ allocate_block (hive_h *h, size_t seg_len, const char id[2])
   }
 
   /* Refuse really large allocations. */
-  if (seg_len > 1000000) {
+  if (seg_len > HIVEX_MAX_ALLOCATION) {
     if (h->msglvl >= 2)
       fprintf (stderr, "allocate_block: refusing large allocation (%zu), returning ERANGE\n",
                seg_len);
