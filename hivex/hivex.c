@@ -1849,7 +1849,7 @@ allocate_block (hive_h *h, size_t seg_len, const char id[2])
     (struct ntreg_hbin_block *) (h->addr + offset);
 
   blockhdr->seg_len = htole32 (- (int32_t) seg_len);
-  if (id[0] && id[1] && seg_len >= 6) {
+  if (id[0] && id[1] && seg_len >= sizeof (struct ntreg_hbin_block)) {
     blockhdr->id[0] = id[0];
     blockhdr->id[1] = id[1];
   }
@@ -2547,6 +2547,7 @@ hivex_node_set_values (hive_h *h, hive_node_h node,
     }
 
     if (name_len * 2 > le32toh (nk->max_vk_name_len))
+      /* * 2 for UTF16-LE "reencoding" */
       nk->max_vk_name_len = htole32 (name_len * 2);
     if (values[i].len > le32toh (nk->max_vk_data_len))
       nk->max_vk_data_len = htole32 (values[i].len);
