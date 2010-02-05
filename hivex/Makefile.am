@@ -17,7 +17,19 @@
 
 SUBDIRS = t tools
 
-EXTRA_DIST = hivex.pod hivexml.pod hivexget.pod hivexsh.pod LICENSE
+EXTRA_DIST = \
+	hivex.pod \
+	hivexml.pod \
+	hivexget.pod \
+	hivexget \
+	hivexsh.pod \
+	LICENSE \
+	example1 \
+	example2 \
+	example3 \
+	example4 \
+	example5 \
+	example6
 
 lib_LTLIBRARIES = libhivex.la
 
@@ -32,7 +44,7 @@ libhivex_la_CPPFLAGS = -I$(top_srcdir)/gnulib/lib
 
 bin_PROGRAMS = hivexml hivexsh
 bin_SCRIPTS = hivexget
-noinst_SCRIPTS = example1 example2 example3
+noinst_SCRIPTS = example1 example2 example3 example4 example5 example6
 
 hivexml_SOURCES = \
   hivexml.c
