@@ -1,0 +1,126 @@
+#!/bin/bash -
+# Copyright (C) 2009-2010 Red Hat Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+set -e
+
+# Hypothetical viostor installation in a W2K3 system registry.
+
+if [ $# -ne 2 ]; then
+    echo "$0 system system.new"
+    exit 1
+fi
+
+d=`dirname $0`
+
+$d/hivexsh -w <<EOF
+load $1
+
+cd \ControlSet001\Control\CriticalDeviceDatabase
+
+add pci#ven_1af4&dev_1001&subsys_00000000
+cd pci#ven_1af4&dev_1001&subsys_00000000
+setval 2
+Service
+string:viostor
+ClassGUID
+string:{4D36E97B-E325-11CE-BFC1-08002BE10318}
+cd ..
+
+add pci#ven_1af4&dev_1001&subsys_00020000
+cd pci#ven_1af4&dev_1001&subsys_00020000
+setval 2
+Service
+string:viostor
+ClassGUID
+string:{4D36E97B-E325-11CE-BFC1-08002BE10318}
+cd ..
+
+add pci#ven_1af4&dev_1001&subsys_00021af4
+cd pci#ven_1af4&dev_1001&subsys_00021af4
+setval 2
+Service
+string:viostor
+ClassGUID
+string:{4D36E97B-E325-11CE-BFC1-08002BE10318}
+
+cd \ControlSet001\Services
+add viostor
+cd viostor
+setval 6
+Type
+dword:0x00000001
+Start
+dword:0x00000000
+Group
+string:SCSI miniport
+ErrorControl
+dword:0x00000001
+ImagePath
+string:system32\\drivers\\viostor.sys
+Tag
+dword:0x00000021
+
+add Parameters
+cd Parameters
+setval 1
+BusType
+dword:0x00000001
+
+add MaxTransferSize
+cd MaxTransferSize
+setval 3
+ParamDesc
+string:Maximum Transfer Size
+type
+string:enum
+default
+string:0
+
+add enum
+cd enum
+setval 3
+0
+string:64  KB
+1
+string:128 KB
+2
+string:256 KB
+cd ..
+
+cd ..
+
+add PnpInterface
+cd PnpInterface
+setval 1
+5
+dword:0x00000001
+cd ..
+
+cd ..
+
+add Enum
+cd Enum
+setval 3
+0
+string:PCI\VEN_1AF4&DEV_1001&SUBSYS_00021AF4&REV_00\3&13c0b0c5&0&20
+Count
+dword:0x00000001
+NextInstance
+dword:0x00000001
+
+commit $2
+EOF
