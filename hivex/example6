@@ -70,7 +70,7 @@ string:SCSI miniport
 ErrorControl
 dword:0x00000001
 ImagePath
-string:system32\\drivers\\viostor.sys
+string:system32\drivers\viostor.sys
 Tag
 dword:0x00000021
 
