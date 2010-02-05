@@ -858,7 +858,6 @@ cmd_setval (char *nrvals_str)
   /* Read nrvals * 2 lines of input, nrvals * (key, value) pairs, as
    * explained in the man page.
    */
-  int prompt = isatty (0) ? 2 : 0;
   int i, j;
   for (i = 0; i < nrvals; ++i) {
     /* Read key. */
