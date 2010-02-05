@@ -493,18 +493,18 @@ type data_t = Inline of bitstring | Offset of int
 let bitmatch vk_fields =
   { "vk" : 2*8 : string;
     name_len : 2*8 : littleendian;
-    (* No one documents the important fact that data_len can have the
-     * top bit set (randomly or is it meaningful?).  The length can
-     * also be 0 (or 0x80000000) if the data type is NONE.
+    (* Top bit set means that the data is stored inline.  In that case
+     * the data length must be <= 4.  The length can also be 0 (or
+     * 0x80000000) if the data type is NONE.
      *)
     data_len : 4*8
       : littleendian, bind (
-        let data_len = Int32.logand data_len 0x7fff_ffff_l in
-        Int32.to_int data_len
+        let is_inline = Int32.logand data_len 0x8000_0000_l = 0x8000_0000_l in
+        let data_len = Int32.to_int (Int32.logand data_len 0x7fff_ffff_l) in
+        if is_inline then assert (data_len <= 4) else assert (data_len > 4);
+        is_inline, data_len
       );
-    (* Inline data if len <= 4, offset otherwise.
-     *
-     * The data itself depends on the type field.
+    (* The data itself depends on the type field.
      *
      * For REG_SZ type, the data always seems to be NUL-terminated, which
      * means because these strings are often UTF-16LE, that the string will
@@ -515,7 +515,8 @@ let bitmatch vk_fields =
      *)
     data : 4*8
       : bitstring, bind (
-        if data_len <= 4 then
+        let is_inline, data_len = data_len in
+        if is_inline then
           Inline (takebits (data_len*8) data)
         else (
           let offset =
@@ -546,9 +547,10 @@ let fprintf_vk chan vk =
         | Offset offset ->
             let (_, _, bits) = lookup "fprintf_vk (data)" offset in
             bits in
-      fprintf chan "VK %s %s %d %s%s %s %08x %s %08x %08x\n"
+      let is_inline, data_len = data_len in
+      fprintf chan "VK %s %s %s %d %s%s %s %08x %s %08x %08x\n"
         (print_offset vk)
-        name data_len
+        name (if is_inline then "inline" else "-") data_len
         (match data with
          | Inline _ -> ""
          | Offset offset -> "["^print_offset offset^"]")
@@ -706,6 +708,8 @@ and visit_vk vk =
   (bitmatch bits with
    | { :vk_fields } ->
        fprintf_vk stdout vk;
+
+       let is_inline, data_len = data_len in
 
        if unknown1 <> 0 then
          eprintf "VK %s unknown1 flags set (%02x)\n"

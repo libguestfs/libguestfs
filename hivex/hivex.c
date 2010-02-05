@@ -229,8 +229,7 @@ struct ntreg_vk_record {
   uint16_t name_len;            /* length of name */
   /* length of the data:
    * If data_len is <= 4, then it's stored inline.
-   * If data_len is 0x80000000, then it's an inline dword.
-   * Top bit may be set or not set at random.
+   * Top bit is set to indicate inline.
    */
   uint32_t data_len;
   uint32_t data_offset;         /* pointer to the data (or data if inline) */
@@ -1151,11 +1150,7 @@ hivex_value_type (hive_h *h, hive_value_h value, hive_type *t, size_t *len)
 
   if (len) {
     *len = le32toh (vk->data_len);
-    if (*len == 0x80000000) {   /* special case */
-      *len = 4;
-      if (t) *t = hive_t_dword;
-    }
-    *len &= 0x7fffffff;
+    *len &= 0x7fffffff;         /* top bit indicates if data is stored inline */
   }
 
   return 0;
@@ -1174,24 +1169,27 @@ hivex_value_value (hive_h *h, hive_value_h value,
 
   hive_type t;
   size_t len;
+  int is_inline;
 
   t = le32toh (vk->data_type);
 
   len = le32toh (vk->data_len);
-  if (len == 0x80000000) {      /* special case */
-    len = 4;
-    t = hive_t_dword;
-  }
+  is_inline = !!(len & 0x80000000);
   len &= 0x7fffffff;
 
   if (h->msglvl >= 2)
-    fprintf (stderr, "hivex_value_value: value=0x%zx, t=%d, len=%zu\n",
-             value, t, len);
+    fprintf (stderr, "hivex_value_value: value=0x%zx, t=%d, len=%zu, inline=%d\n",
+             value, t, len, is_inline);
 
   if (t_rtn)
     *t_rtn = t;
   if (len_rtn)
     *len_rtn = len;
+
+  if (is_inline && len > 4) {
+    errno = ENOTSUP;
+    return NULL;
+  }
 
   /* Arbitrarily limit the length that we will read. */
   if (len > HIVEX_MAX_VALUE_LEN) {
@@ -1203,8 +1201,7 @@ hivex_value_value (hive_h *h, hive_value_h value,
   if (ret == NULL)
     return NULL;
 
-  /* If length is <= 4 it's always stored inline. */
-  if (len <= 4) {
+  if (is_inline) {
     memcpy (ret, (char *) &vk->data_offset, len);
     return ret;
   }
@@ -1924,12 +1921,12 @@ delete_values (hive_h *h, hive_node_h node)
       (struct ntreg_vk_record *) (h->addr + values[i]);
 
     size_t len;
+    int is_inline;
     len = le32toh (vk->data_len);
-    if (len == 0x80000000)      /* special case */
-      len = 4;
+    is_inline = !!(len & 0x80000000); /* top bit indicates is inline */
     len &= 0x7fffffff;
 
-    if (len > 4) {              /* non-inline, so remove data block */
+    if (!is_inline) {           /* non-inline, so remove data block */
       size_t data_offset = le32toh (vk->data_offset);
       data_offset += 0x1000;
       mark_block_unused (h, data_offset);
@@ -2533,10 +2530,13 @@ hivex_node_set_values (hive_h *h, hive_node_h node,
     vk->name_len = htole16 (name_len);
     strcpy (vk->name, values[i].key);
     vk->data_type = htole32 (values[i].t);
-    vk->data_len = htole16 (values[i].len);
+    uint32_t len = values[i].len;
+    if (len <= 4)               /* store it inline => set MSB flag */
+      len |= 0x80000000;
+    vk->data_len = htole32 (len);
     vk->flags = name_len == 0 ? 0 : 1;
 
-    if (values[i].len <= 4)     /* Store data inline. */
+    if (values[i].len <= 4)     /* store it inline */
       memcpy (&vk->data_offset, values[i].value, values[i].len);
     else {
       size_t offs = allocate_block (h, values[i].len + 4, nul_id);
