@@ -119,6 +119,7 @@ HTMLFILES = \
 	html/hivex.3.html \
 	html/hivexget.1.html \
 	html/hivexml.1.html \
+	html/hivexsh.1.html \
 	html/virt-cat.1.html \
 	html/virt-df.1.html \
 	html/virt-edit.1.html \
