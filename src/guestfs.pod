@@ -524,6 +524,61 @@ For documentation see L<guestfish(1)>.
 
 =back
 
+=head2 LIBGUESTFS GOTCHAS
+
+L<http://en.wikipedia.org/wiki/Gotcha_(programming)>: "A feature of a
+system [...] that works in the way it is documented but is
+counterintuitive and almost invites mistakes."
+
+Since we developed libguestfs and the associated tools, there are
+several things we would have designed differently, but are now stuck
+with for backwards compatibility or other reasons.  If there is ever a
+libguestfs 2.0 release, you can expect these to change.  Beware of
+them.
+
+=over 4
+
+=item Autosync / forgetting to sync.
+
+When modifying a filesystem from C or another language, you B<must>
+unmount all filesystems and call L</guestfs_sync> explicitly before
+you close the libguestfs handle.  You can also call:
+
+ guestfs_set_autosync (handle, 1);
+
+to have the unmount/sync done automatically for you when the handle is
+closed.  (This feature is called "autosync", L</guestfs_set_autosync>
+q.v.)
+
+If you forget to do this, then it is entirely possible that your
+changes won't be written out, or will be partially written, or (very
+rarely) that you'll get disk corruption.
+
+Note that in L<guestfish(3)> I<autosync is the default>.  So quick and
+dirty guestfish scripts that forget to sync will work just fine, which
+can make this extra-puzzling if you are trying to debug a problem.
+
+=item Read-only should be the default.
+
+In L<guestfish(3)>, I<--ro> should be the default, and you should
+have to specify I<--rw> if you want to make changes to the image.
+
+This would reduce the potential to corrupt live VM images.
+
+Note that many filesystems change the disk when you just mount and
+unmount, even if you didn't perform any writes.  You need to use
+C<guestfs_add_drive_ro> to guarantee that the disk is not changed.
+
+=item guestfish command line is hard to use.
+
+C<guestfish disk.img> doesn't do what people expect (open C<disk.img>
+for examination).  It tries to run a guestfish command C<disk.img>
+which doesn't exist, so it fails, and it fails with a strange and
+unintuitive error message.  Like the Bourne shell, we should have used
+C<guestfish -c command> to run commands.
+
+=back
+
 =head1 CONNECTION MANAGEMENT
 
 =head2 guestfs_h *
