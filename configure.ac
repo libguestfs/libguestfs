@@ -227,13 +227,13 @@ fi
 dnl Set drive interface used by the guestfs_add_drive{,_ro} calls
 dnl ('-drive ...,if=...' option to qemu).
 dnl
-dnl NB. We will change the default in future to virtio, but at the
-dnl moment this causes a performance problem, RHBZ#509383.
+dnl If you encounter performance problems with virtio (RHBZ#509383)
+dnl then try '--with-drive-if=ide'.
 AC_ARG_WITH([drive-if],
         [AS_HELP_STRING([--with-drive-if],
-          [set default driver (ide|scsi|virtio) @<:@default=ide@:>@])],
+          [set default driver (ide|scsi|virtio) @<:@default=virtio@:>@])],
         [],
-        [with_drive_if=ide])
+        [with_drive_if=virtio])
 AC_DEFINE_UNQUOTED([DRIVE_IF],["$with_drive_if"],[Default drive interface.])
 
 dnl Set interface used by the network.  Normally you should
