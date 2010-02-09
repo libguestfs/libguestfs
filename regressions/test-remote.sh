@@ -28,7 +28,7 @@ eval `../fish/guestfish --listen`
 ../fish/guestfish --remote run
 ../fish/guestfish --remote part-disk /dev/sda mbr
 ../fish/guestfish --remote mkfs ext2 /dev/sda1
-../fish/guestfish --remote mount /dev/sda1 /
+../fish/guestfish --remote mount-options "" /dev/sda1 /
 
 # Failure of the above commands will cause the guestfish listener to exit.
 # Incorrect return from echo_daemon will not, so need to ensure the listener

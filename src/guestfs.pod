@@ -558,6 +558,15 @@ Note that in L<guestfish(3)> I<autosync is the default>.  So quick and
 dirty guestfish scripts that forget to sync will work just fine, which
 can make this extra-puzzling if you are trying to debug a problem.
 
+=item Mount option C<-o sync> should not be the default.
+
+If you use C<guestfs_mount>, then C<-o sync,noatime> are added
+implicitly.  However C<-o sync> does not add any reliability benefit,
+but does have a very large performance impact.
+
+The work around is to use C<guestfs_mount_options> and set the mount
+options that you actually want to use.
+
 =item Read-only should be the default.
 
 In L<guestfish(3)>, I<--ro> should be the default, and you should

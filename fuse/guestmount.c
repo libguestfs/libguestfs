@@ -1160,10 +1160,13 @@ mount_mps (struct mp *mp)
 
   if (mp) {
     mount_mps (mp->next);
-    if (!read_only)
-      r = guestfs_mount (g, mp->device, mp->mountpoint);
-    else
-      r = guestfs_mount_ro (g, mp->device, mp->mountpoint);
+
+    /* Don't use guestfs_mount here because that will default to mount
+     * options -o sync,noatime.  For more information, see guestfs(3)
+     * section "LIBGUESTFS GOTCHAS".
+     */
+    const char *options = read_only ? "ro" : "";
+    r = guestfs_mount_options (g, options, mp->device, mp->mountpoint);
     if (r == -1)
       exit (EXIT_FAILURE);
   }

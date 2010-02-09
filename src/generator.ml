@@ -1432,7 +1432,7 @@ on the volume group C<volgroup>, with C<size> megabytes.");
    [InitEmpty, Always, TestOutput (
       [["part_disk"; "/dev/sda"; "mbr"];
        ["mkfs"; "ext2"; "/dev/sda1"];
-       ["mount"; "/dev/sda1"; "/"];
+       ["mount_options"; ""; "/dev/sda1"; "/"];
        ["write_file"; "/new"; "new file contents"; "0"];
        ["cat"; "/new"]], "new file contents")],
    "make a filesystem",
@@ -1508,12 +1508,12 @@ use C<guestfs_upload>.");
    [InitEmpty, Always, TestOutputListOfDevices (
       [["part_disk"; "/dev/sda"; "mbr"];
        ["mkfs"; "ext2"; "/dev/sda1"];
-       ["mount"; "/dev/sda1"; "/"];
+       ["mount_options"; ""; "/dev/sda1"; "/"];
        ["mounts"]], ["/dev/sda1"]);
     InitEmpty, Always, TestOutputList (
       [["part_disk"; "/dev/sda"; "mbr"];
        ["mkfs"; "ext2"; "/dev/sda1"];
-       ["mount"; "/dev/sda1"; "/"];
+       ["mount_options"; ""; "/dev/sda1"; "/"];
        ["umount"; "/"];
        ["mounts"]], [])],
    "unmount a filesystem",
@@ -1544,11 +1544,11 @@ See also: C<guestfs_mountpoints>");
        ["mkfs"; "ext2"; "/dev/sda1"];
        ["mkfs"; "ext2"; "/dev/sda2"];
        ["mkfs"; "ext2"; "/dev/sda3"];
-       ["mount"; "/dev/sda1"; "/"];
+       ["mount_options"; ""; "/dev/sda1"; "/"];
        ["mkdir"; "/mp1"];
-       ["mount"; "/dev/sda2"; "/mp1"];
+       ["mount_options"; ""; "/dev/sda2"; "/mp1"];
        ["mkdir"; "/mp1/mp2"];
-       ["mount"; "/dev/sda3"; "/mp1/mp2"];
+       ["mount_options"; ""; "/dev/sda3"; "/mp1/mp2"];
        ["mkdir"; "/mp1/mp2/mp3"];
        ["umount_all"];
        ["mounts"]], [])],
@@ -2405,11 +2405,11 @@ the human-readable, canonical hex dump of the file.");
    [InitNone, Always, TestOutput (
       [["part_disk"; "/dev/sda"; "mbr"];
        ["mkfs"; "ext3"; "/dev/sda1"];
-       ["mount"; "/dev/sda1"; "/"];
+       ["mount_options"; ""; "/dev/sda1"; "/"];
        ["write_file"; "/new"; "test file"; "0"];
        ["umount"; "/dev/sda1"];
        ["zerofree"; "/dev/sda1"];
-       ["mount"; "/dev/sda1"; "/"];
+       ["mount_options"; ""; "/dev/sda1"; "/"];
        ["cat"; "/new"]], "test file")],
    "zero unused inodes and disk blocks on ext2/3 filesystem",
    "\
@@ -2510,13 +2510,13 @@ are activated or deactivated.");
        ["vgcreate"; "VG"; "/dev/sda1"];
        ["lvcreate"; "LV"; "VG"; "10"];
        ["mkfs"; "ext2"; "/dev/VG/LV"];
-       ["mount"; "/dev/VG/LV"; "/"];
+       ["mount_options"; ""; "/dev/VG/LV"; "/"];
        ["write_file"; "/new"; "test content"; "0"];
        ["umount"; "/"];
        ["lvresize"; "/dev/VG/LV"; "20"];
        ["e2fsck_f"; "/dev/VG/LV"];
        ["resize2fs"; "/dev/VG/LV"];
-       ["mount"; "/dev/VG/LV"; "/"];
+       ["mount_options"; ""; "/dev/VG/LV"; "/"];
        ["cat"; "/new"]], "test content")],
    "resize an LVM logical volume",
    "\
@@ -3560,7 +3560,7 @@ and C<guestfs_setcon>");
    [InitEmpty, Always, TestOutput (
       [["part_disk"; "/dev/sda"; "mbr"];
        ["mkfs_b"; "ext2"; "4096"; "/dev/sda1"];
-       ["mount"; "/dev/sda1"; "/"];
+       ["mount_options"; ""; "/dev/sda1"; "/"];
        ["write_file"; "/new"; "new file contents"; "0"];
        ["cat"; "/new"]], "new file contents")],
    "make a filesystem with block size",
@@ -3575,7 +3575,7 @@ are C<1024>, C<2048> or C<4096> only.");
       [["sfdiskM"; "/dev/sda"; ",100 ,"];
        ["mke2journal"; "4096"; "/dev/sda1"];
        ["mke2fs_J"; "ext2"; "4096"; "/dev/sda2"; "/dev/sda1"];
-       ["mount"; "/dev/sda2"; "/"];
+       ["mount_options"; ""; "/dev/sda2"; "/"];
        ["write_file"; "/new"; "new file contents"; "0"];
        ["cat"; "/new"]], "new file contents")],
    "make ext2/3/4 external journal",
@@ -3590,7 +3590,7 @@ to the command:
       [["sfdiskM"; "/dev/sda"; ",100 ,"];
        ["mke2journal_L"; "4096"; "JOURNAL"; "/dev/sda1"];
        ["mke2fs_JL"; "ext2"; "4096"; "/dev/sda2"; "JOURNAL"];
-       ["mount"; "/dev/sda2"; "/"];
+       ["mount_options"; ""; "/dev/sda2"; "/"];
        ["write_file"; "/new"; "new file contents"; "0"];
        ["cat"; "/new"]], "new file contents")],
    "make ext2/3/4 external journal with label",
@@ -3603,7 +3603,7 @@ This creates an ext2 external journal on C<device> with label C<label>.");
        [["sfdiskM"; "/dev/sda"; ",100 ,"];
         ["mke2journal_U"; "4096"; uuid; "/dev/sda1"];
         ["mke2fs_JU"; "ext2"; "4096"; "/dev/sda2"; uuid];
-        ["mount"; "/dev/sda2"; "/"];
+        ["mount_options"; ""; "/dev/sda2"; "/"];
         ["write_file"; "/new"; "new file contents"; "0"];
         ["cat"; "/new"]], "new file contents")]),
    "make ext2/3/4 external journal with UUID",
@@ -4218,7 +4218,7 @@ Rename a logical volume C<logvol> with the new name C<newlogvol>.");
        ["vg_activate"; "false"; "VG"];
        ["vgrename"; "VG"; "VG2"];
        ["vg_activate"; "true"; "VG2"];
-       ["mount"; "/dev/VG2/LV"; "/"];
+       ["mount_options"; ""; "/dev/VG2/LV"; "/"];
        ["vgs"]], ["VG2"])],
    "rename an LVM volume group",
    "\
@@ -6500,7 +6500,7 @@ and generate_one_test_body name i test_name init test =
           ["lvm_remove_all"];
           ["part_disk"; "/dev/sda"; "mbr"];
           ["mkfs"; "ext2"; "/dev/sda1"];
-          ["mount"; "/dev/sda1"; "/"]]
+          ["mount_options"; ""; "/dev/sda1"; "/"]]
    | InitBasicFSonLVM ->
        pr "  /* InitBasicFSonLVM for %s: create ext2 on /dev/VG/LV */\n"
          test_name;
@@ -6513,7 +6513,7 @@ and generate_one_test_body name i test_name init test =
           ["vgcreate"; "VG"; "/dev/sda1"];
           ["lvcreate"; "LV"; "VG"; "8"];
           ["mkfs"; "ext2"; "/dev/VG/LV"];
-          ["mount"; "/dev/VG/LV"; "/"]]
+          ["mount_options"; ""; "/dev/VG/LV"; "/"]]
    | InitISOFS ->
        pr "  /* InitISOFS for %s */\n" test_name;
        List.iter (generate_test_command_call test_name)

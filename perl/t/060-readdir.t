@@ -38,7 +38,7 @@ $h->part_disk ("/dev/sda", "mbr");
 ok (1);
 $h->mkfs ("ext2", "/dev/sda1");
 ok (1);
-$h->mount ("/dev/sda1", "/");
+$h->mount_options ("", "/dev/sda1", "/");
 ok (1);
 $h->mkdir ("/p");
 ok (1);

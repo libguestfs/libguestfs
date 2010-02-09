@@ -33,7 +33,7 @@ dd if=/dev/zero of=test1.img bs=1024k count=10
 run
 part-disk /dev/sda mbr
 mkfs ext2 /dev/sda1
-mount /dev/sda1 /
+mount-options "" /dev/sda1 /
 mkdir /dev
 -command /ignore-this-error
 unmount-all

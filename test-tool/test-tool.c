@@ -229,7 +229,7 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
   }
 
-  if (guestfs_mount (g, "/dev/sda1", "/") == -1) {
+  if (guestfs_mount_options (g, "", "/dev/sda1", "/") == -1) {
     fprintf (stderr,
              _("libguestfs-test-tool: failed to mount /dev/sda1 on /\n"));
     exit (EXIT_FAILURE);
