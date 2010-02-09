@@ -858,6 +858,7 @@ static void print_timestamped_message (guestfs_h *g, const char *fs, ...);
 static int build_supermin_appliance (guestfs_h *g, const char *path, char **kernel, char **initrd);
 static int test_qemu (guestfs_h *g);
 static int qemu_supports (guestfs_h *g, const char *option);
+static int is_openable (guestfs_h *g, const char *path, int flags);
 static void print_cmdline (guestfs_h *g);
 
 static const char *kernel_name = "vmlinuz." REPO "." host_cpu;
@@ -1090,6 +1091,22 @@ guestfs__launch (guestfs_h *g)
      * don't need to worry about cleaning up.
      */
     g->cmdline[0] = g->qemu;
+
+    /* qemu sometimes needs this option to enable hardware
+     * virtualization, but some versions of 'qemu-kvm' will use KVM
+     * regardless (even where this option appears in the help text).
+     * It is rumoured that there are versions of qemu where supplying
+     * this option when hardware virtualization is not available will
+     * cause qemu to fail, so we we have to check at least that
+     * /dev/kvm is openable.  That's not reliable, since /dev/kvm
+     * might be openable by qemu but not by us (think: SELinux) in
+     * which case the user would not get hardware virtualization,
+     * although at least shouldn't fail.  A giant clusterfuck with the
+     * qemu command line, again.
+     */
+    if (qemu_supports (g, "-enable-kvm") &&
+        is_openable (g, "/dev/kvm", O_RDWR))
+      add_cmdline (g, "-enable-kvm");
 
     /* Newer versions of qemu (from around 2009/12) changed the
      * behaviour of monitors so that an implicit '-monitor stdio' is
@@ -1645,6 +1662,20 @@ static int
 qemu_supports (guestfs_h *g, const char *option)
 {
   return g->qemu_help && strstr (g->qemu_help, option) != NULL;
+}
+
+/* Check if a file can be opened. */
+static int
+is_openable (guestfs_h *g, const char *path, int flags)
+{
+  int fd = open (path, flags);
+  if (fd == -1) {
+    if (g->verbose)
+      perror (path);
+    return 0;
+  }
+  close (fd);
+  return 1;
 }
 
 /* Check the peer effective UID for a TCP socket.  Ideally we'd like
