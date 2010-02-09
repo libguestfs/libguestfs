@@ -23,6 +23,8 @@
 #include <string.h>
 #include <limits.h>
 #include <unistd.h>
+#include <fcntl.h>
+#include <sys/stat.h>
 
 #include "../src/guestfs_protocol.h"
 #include "daemon.h"
@@ -78,4 +80,123 @@ do_initrd_list (const char *path)
   }
 
   return filenames;
+}
+
+char *
+do_initrd_cat (const char *path, const char *filename, size_t *size_r)
+{
+  char tmpdir[] = "/tmp/initrd-cat-XXXXXX";
+  if (mkdtemp (tmpdir) == NULL) {
+    reply_with_perror ("mkdtemp");
+    return NULL;
+  }
+
+  /* "zcat /sysroot/<path> | cpio --quiet -id file", but paths must be quoted */
+  char *cmd;
+  if (asprintf_nowarn (&cmd, "cd %Q && zcat %R | cpio --quiet -id %Q",
+                       tmpdir, path, filename) == -1) {
+    reply_with_perror ("asprintf");
+    rmdir (tmpdir);
+    return NULL;
+  }
+
+  /* Extract file into temporary directory.  This may create subdirs.
+   * It's also possible that this doesn't create anything at all
+   * (eg. if the named file does not exist in the cpio archive) --
+   * cpio is silent in this case.
+   */
+  int r = system (cmd);
+  if (r == -1) {
+    reply_with_perror ("command failed: %s", cmd);
+    rmdir (tmpdir);
+    return NULL;
+  }
+  if (WEXITSTATUS (r) != 0) {
+    reply_with_perror ("command failed with return code %d",
+                       WEXITSTATUS (r));
+    rmdir (tmpdir);
+    return NULL;
+  }
+
+  /* See if we got a file. */
+  char fullpath[PATH_MAX];
+  snprintf (fullpath, sizeof fullpath, "%s/%s", tmpdir, filename);
+
+  struct stat statbuf;
+  int fd;
+
+  fd = open (fullpath, O_RDONLY);
+  if (fd == -1) {
+    reply_with_perror ("open: %s:%s", path, filename);
+    rmdir (tmpdir);
+    return NULL;
+  }
+
+  /* From this point, we know the file exists, so we require full
+   * cleanup.
+   */
+  char *ret = NULL;
+
+  if (fstat (fd, &statbuf) == -1) {
+    reply_with_perror ("fstat: %s:%s", path, filename);
+    goto cleanup;
+  }
+
+  *size_r = statbuf.st_size;
+  /* The actual limit on messages is smaller than this.  This
+   * check just limits the amount of memory we'll try and allocate
+   * here.  If the message is larger than the real limit, that will
+   * be caught later when we try to serialize the message.
+   */
+  if (*size_r >= GUESTFS_MESSAGE_MAX) {
+    reply_with_error ("initrd_cat: %s:%s: file is too large for the protocol",
+                      path, filename);
+    goto cleanup;
+  }
+
+  ret = malloc (*size_r);
+  if (ret == NULL) {
+    reply_with_perror ("malloc");
+    goto cleanup;
+  }
+
+  if (xread (fd, ret, *size_r) == -1) {
+    reply_with_perror ("read: %s:%s", path, filename);
+    free (ret);
+    ret = NULL;
+    goto cleanup;
+  }
+
+  if (close (fd) == -1) {
+    reply_with_perror ("close: %s:%s", path, filename);
+    free (ret);
+    ret = NULL;
+    goto cleanup;
+  }
+  fd = -1;
+
+ cleanup:
+  if (fd >= 0)
+    close (fd);
+
+  /* Remove the file. */
+  if (unlink (fullpath) == -1) {
+    fprintf (stderr, "unlink: ");
+    perror (fullpath);
+    /* non-fatal */
+  }
+
+  /* Remove the directories up to and including the temp directory. */
+  do {
+    char *p = strrchr (fullpath, '/');
+    if (!p) break;
+    *p = '\0';
+    if (rmdir (fullpath) == -1) {
+      fprintf (stderr, "rmdir: ");
+      perror (fullpath);
+      /* non-fatal */
+    }
+  } while (STRNEQ (fullpath, tmpdir));
+
+  return ret;
 }

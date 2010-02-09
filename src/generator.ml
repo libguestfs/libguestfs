@@ -4224,6 +4224,23 @@ Rename a logical volume C<logvol> with the new name C<newlogvol>.");
    "\
 Rename a volume group C<volgroup> with the new name C<newvolgroup>.");
 
+  ("initrd_cat", (RBufferOut "content", [Pathname "initrdpath"; String "filename"]), 221, [],
+   [InitISOFS, Always, TestOutputBuffer (
+      [["initrd_cat"; "/initrd"; "known-4"]], "abc\ndef\nghi")],
+   "list the contents of a single file in an initrd",
+   "\
+This command unpacks the file C<filename> from the initrd file
+called C<initrdpath>.  The filename must be given I<without> the
+initial C</> character.
+
+For example, in guestfish you could use the following command
+to examine the boot script (usually called C</init>)
+contained in a Linux initrd or initramfs image:
+
+ initrd-cat /boot/initrd-<version>.img init
+
+See also C<guestfs_initrd_list>.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
