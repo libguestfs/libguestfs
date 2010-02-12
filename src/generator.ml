@@ -489,8 +489,14 @@ image).
 
 This is equivalent to the qemu parameter
 C<-drive file=filename,cache=off,if=...>.
+
 C<cache=off> is omitted in cases where it is not supported by
 the underlying filesystem.
+
+C<if=...> is set at compile time by the configuration option
+C<./configure --with-drive-if=...>.  In the rare case where you
+might need to change this at run time, use C<guestfs_add_drive_with_if>
+or C<guestfs_add_drive_ro_with_if>.
 
 Note that this call checks for the existence of C<filename>.  This
 stops you from specifying other types of drive which are supported
@@ -539,6 +545,11 @@ changes to be committed, although qemu can support this.
 
 This is equivalent to the qemu parameter
 C<-drive file=filename,snapshot=on,if=...>.
+
+C<if=...> is set at compile time by the configuration option
+C<./configure --with-drive-if=...>.  In the rare case where you
+might need to change this at run time, use C<guestfs_add_drive_with_if>
+or C<guestfs_add_drive_ro_with_if>.
 
 Note that this call checks for the existence of C<filename>.  This
 stops you from specifying other types of drive which are supported
@@ -886,6 +897,20 @@ qemu, which is not very helpful.");
    "get recovery process enabled flag",
    "\
 Return the recovery process enabled flag.");
+
+  ("add_drive_with_if", (RErr, [String "filename"; String "iface"]), -1, [],
+   [],
+   "add a drive specifying the QEMU block emulation to use",
+   "\
+This is the same as C<guestfs_add_drive> but it allows you
+to specify the QEMU interface emulation to use at run time.");
+
+  ("add_drive_ro_with_if", (RErr, [String "filename"; String "iface"]), -1, [],
+   [],
+   "add a drive read-only specifying the QEMU block emulation to use",
+   "\
+This is the same as C<guestfs_add_drive_ro> but it allows you
+to specify the QEMU interface emulation to use at run time.");
 
 ]
 

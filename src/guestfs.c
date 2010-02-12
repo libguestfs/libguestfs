@@ -748,7 +748,8 @@ guestfs__config (guestfs_h *g,
 }
 
 int
-guestfs__add_drive (guestfs_h *g, const char *filename)
+guestfs__add_drive_with_if (guestfs_h *g, const char *filename,
+                            const char *drive_if)
 {
   size_t len = strlen (filename) + 64;
   char buf[len];
@@ -771,12 +772,12 @@ guestfs__add_drive (guestfs_h *g, const char *filename)
   int fd = open (filename, O_RDONLY|O_DIRECT);
   if (fd >= 0) {
     close (fd);
-    snprintf (buf, len, "file=%s,cache=off,if=" DRIVE_IF, filename);
+    snprintf (buf, len, "file=%s,cache=off,if=%s", filename, drive_if);
   } else {
     fd = open (filename, O_RDONLY);
     if (fd >= 0) {
       close (fd);
-      snprintf (buf, len, "file=%s,if=" DRIVE_IF, filename);
+      snprintf (buf, len, "file=%s,if=%s", filename, drive_if);
     } else {
       perrorf (g, "%s", filename);
       return -1;
@@ -787,7 +788,8 @@ guestfs__add_drive (guestfs_h *g, const char *filename)
 }
 
 int
-guestfs__add_drive_ro (guestfs_h *g, const char *filename)
+guestfs__add_drive_ro_with_if (guestfs_h *g, const char *filename,
+                               const char *drive_if)
 {
   size_t len = strlen (filename) + 64;
   char buf[len];
@@ -802,9 +804,21 @@ guestfs__add_drive_ro (guestfs_h *g, const char *filename)
     return -1;
   }
 
-  snprintf (buf, len, "file=%s,snapshot=on,if=%s", filename, DRIVE_IF);
+  snprintf (buf, len, "file=%s,snapshot=on,if=%s", filename, drive_if);
 
   return guestfs__config (g, "-drive", buf);
+}
+
+int
+guestfs__add_drive (guestfs_h *g, const char *filename)
+{
+  return guestfs__add_drive_with_if (g, filename, DRIVE_IF);
+}
+
+int
+guestfs__add_drive_ro (guestfs_h *g, const char *filename)
+{
+  return guestfs__add_drive_ro_with_if (g, filename, DRIVE_IF);
 }
 
 int
