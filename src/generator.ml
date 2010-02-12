@@ -8149,7 +8149,7 @@ DESTROY (g)
            pr ";\n";
            do_cleanups ();
            pr "      if (r == -1)\n";
-           pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
+           pr "        croak (\"%%s\", guestfs_last_error (g));\n";
        | RInt n
        | RBool n ->
            pr "PREINIT:\n";
@@ -8160,7 +8160,7 @@ DESTROY (g)
            pr ";\n";
            do_cleanups ();
            pr "      if (%s == -1)\n" n;
-           pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
+           pr "        croak (\"%%s\", guestfs_last_error (g));\n";
            pr "      RETVAL = newSViv (%s);\n" n;
            pr " OUTPUT:\n";
            pr "      RETVAL\n"
@@ -8173,7 +8173,7 @@ DESTROY (g)
            pr ";\n";
            do_cleanups ();
            pr "      if (%s == -1)\n" n;
-           pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
+           pr "        croak (\"%%s\", guestfs_last_error (g));\n";
            pr "      RETVAL = my_newSVll (%s);\n" n;
            pr " OUTPUT:\n";
            pr "      RETVAL\n"
@@ -8186,7 +8186,7 @@ DESTROY (g)
            pr ";\n";
            do_cleanups ();
            pr "      if (%s == NULL)\n" n;
-           pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
+           pr "        croak (\"%%s\", guestfs_last_error (g));\n";
            pr "      RETVAL = newSVpv (%s, 0);\n" n;
            pr " OUTPUT:\n";
            pr "      RETVAL\n"
@@ -8213,7 +8213,7 @@ DESTROY (g)
            pr ";\n";
            do_cleanups ();
            pr "      if (%s == NULL)\n" n;
-           pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
+           pr "        croak (\"%%s\", guestfs_last_error (g));\n";
            pr "      RETVAL = newSVpv (%s, 0);\n" n;
            pr "      free (%s);\n" n;
            pr " OUTPUT:\n";
@@ -8228,7 +8228,7 @@ DESTROY (g)
            pr ";\n";
            do_cleanups ();
            pr "      if (%s == NULL)\n" n;
-           pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
+           pr "        croak (\"%%s\", guestfs_last_error (g));\n";
            pr "      for (n = 0; %s[n] != NULL; ++n) /**/;\n" n;
            pr "      EXTEND (SP, n);\n";
            pr "      for (i = 0; i < n; ++i) {\n";
@@ -8252,7 +8252,7 @@ DESTROY (g)
            pr ";\n";
            do_cleanups ();
            pr "      if (%s == NULL)\n" n;
-           pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
+           pr "        croak (\"%%s\", guestfs_last_error (g));\n";
            pr "      RETVAL = newSVpv (%s, size);\n" n;
            pr "      free (%s);\n" n;
            pr " OUTPUT:\n";
@@ -8273,7 +8273,7 @@ and generate_perl_struct_list_code typ cols name style n do_cleanups =
   pr ";\n";
   do_cleanups ();
   pr "      if (%s == NULL)\n" n;
-  pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
+  pr "        croak (\"%%s\", guestfs_last_error (g));\n";
   pr "      EXTEND (SP, %s->len);\n" n;
   pr "      for (i = 0; i < %s->len; ++i) {\n" n;
   pr "        hv = newHV ();\n";
@@ -8317,7 +8317,7 @@ and generate_perl_struct_code typ cols name style n do_cleanups =
   pr ";\n";
   do_cleanups ();
   pr "      if (%s == NULL)\n" n;
-  pr "        croak (\"%s: %%s\", guestfs_last_error (g));\n" name;
+  pr "        croak (\"%%s\", guestfs_last_error (g));\n";
   pr "      EXTEND (SP, 2 * %d);\n" (List.length cols);
   List.iter (
     fun ((name, _) as col) ->
@@ -10327,8 +10327,7 @@ namespace Guestfs
       pr "      r = ";
       generate_call ();
       pr "      if (r %s)\n" (c_error_comparison ());
-      pr "        throw new Error (\"%s: \" + guestfs_last_error (_handle));\n"
-        name;
+      pr "        throw new Error (guestfs_last_error (_handle));\n";
       (match fst style with
        | RErr -> ()
        | RBool _ ->
