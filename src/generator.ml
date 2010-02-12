@@ -4787,6 +4787,7 @@ let check_functions () =
           "for"; "forall"; "foreign"; "fun"; "function"; "functor"; "goto";
           "hiding"; "if"; "import"; "in"; "include"; "infix"; "infixl";
           "infixr"; "inherit"; "initializer"; "inline"; "instance"; "int";
+          "interface";
           "land"; "lazy"; "let"; "long"; "lor"; "lsl"; "lsr"; "lxor";
           "match"; "mdo"; "method"; "mod"; "module"; "mutable"; "new";
           "newtype"; "object"; "of"; "open"; "or"; "private"; "qualified";
