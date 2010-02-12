@@ -73,7 +73,7 @@ do_inotify_init (int max_events)
   NEED_ROOT (return -1);
 
   if (max_events < 0) {
-    reply_with_error ("inotify_init: max_events < 0");
+    reply_with_error ("max_events < 0");
     return -1;
   }
 
@@ -94,7 +94,7 @@ do_inotify_init (int max_events)
 #ifdef HAVE_INOTIFY_INIT1
   inotify_fd = inotify_init1 (IN_NONBLOCK | IN_CLOEXEC);
   if (inotify_fd == -1) {
-    reply_with_perror ("inotify_init");
+    reply_with_perror ("inotify_init1");
     return -1;
   }
 #else
@@ -130,7 +130,7 @@ do_inotify_close (void)
   NEED_INOTIFY (-1);
 
   if (inotify_fd == -1) {
-    reply_with_error ("inotify_close: handle is not open");
+    reply_with_error ("handle is not open");
     return -1;
   }
 
@@ -166,7 +166,7 @@ do_inotify_add_watch (const char *path, int mask)
   r = inotify_add_watch (inotify_fd, buf, mask);
   free (buf);
   if (r == -1) {
-    reply_with_perror ("inotify_add_watch: %s", path);
+    reply_with_perror ("%s", path);
     return -1;
   }
 
@@ -183,7 +183,7 @@ do_inotify_rm_watch (int wd)
   NEED_INOTIFY (-1);
 
   if (inotify_rm_watch (inotify_fd, wd) == -1) {
-    reply_with_perror ("inotify_rm_watch: %d", wd);
+    reply_with_perror ("%d", wd);
     return -1;
   }
 
@@ -230,7 +230,7 @@ do_inotify_read (void)
       goto error;
     }
     if (r == 0) {		/* End of file - we're not expecting it. */
-      reply_with_error ("inotify_read: unexpected end of file");
+      reply_with_error ("unexpected end of file");
       goto error;
     }
 

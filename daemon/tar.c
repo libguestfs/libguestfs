@@ -44,7 +44,7 @@ do_tar_in (const char *dir)
 
   if (!root_mounted || dir[0] != '/') {
     cancel_receive ();
-    reply_with_error ("tar-in: root must be mounted and path must be absolute");
+    reply_with_error ("root must be mounted and path must be absolute");
     return -1;
   }
 
@@ -165,7 +165,7 @@ do_tgz_in (const char *dir)
 
   if (!root_mounted || dir[0] != '/') {
     cancel_receive ();
-    reply_with_error ("tar-in: root must be mounted and path must be absolute");
+    reply_with_error ("root must be mounted and path must be absolute");
     return -1;
   }
 

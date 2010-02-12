@@ -103,7 +103,7 @@ do_part_init (const char *device, const char *parttype)
 {
   parttype = check_parttype (parttype);
   if (!parttype) {
-    reply_with_error ("part-init: unknown partition type: common choices are \"gpt\" and \"msdos\"");
+    reply_with_error ("unknown partition type: common choices are \"gpt\" and \"msdos\"");
     return -1;
   }
 
@@ -133,12 +133,12 @@ do_part_add (const char *device, const char *prlogex,
   else if (STREQ (prlogex, "e"))
     prlogex = "extended";
   else {
-    reply_with_error ("part-add: unknown partition type: %s: this should be \"primary\", \"logical\" or \"extended\"", prlogex);
+    reply_with_error ("unknown partition type: %s: this should be \"primary\", \"logical\" or \"extended\"", prlogex);
     return -1;
   }
 
   if (startsect < 0) {
-    reply_with_error ("part-add: startsect cannot be negative");
+    reply_with_error ("startsect cannot be negative");
     return -1;
   }
   /* but endsect can be negative */
@@ -166,7 +166,7 @@ do_part_disk (const char *device, const char *parttype)
 
   parttype = check_parttype (parttype);
   if (!parttype) {
-    reply_with_error ("part-disk: unknown partition type: common choices are \"gpt\" and \"msdos\"");
+    reply_with_error ("unknown partition type: common choices are \"gpt\" and \"msdos\"");
     return -1;
   }
 
@@ -249,14 +249,14 @@ print_partition_table (const char *device)
     return NULL;
 
   if (lines[0] == NULL || STRNEQ (lines[0], "BYT;")) {
-    reply_with_error ("parted print: unknown signature, expected \"BYT;\" as first line of the output: %s",
+    reply_with_error ("unknown signature, expected \"BYT;\" as first line of the output: %s",
                       lines[0] ? lines[0] : "(signature was null)");
     free_strings (lines);
     return NULL;
   }
 
   if (lines[1] == NULL) {
-    reply_with_error ("parted print: parted didn't return a line describing the device");
+    reply_with_error ("parted didn't return a line describing the device");
     free_strings (lines);
     return NULL;
   }
@@ -284,7 +284,7 @@ do_part_get_parttype (const char *device)
       || strtok (NULL, ":") == NULL  /* physical sector size */
       || (r = strtok (NULL, ":")) == NULL /* return value */
       ) {
-    reply_with_error ("part_get_parttype: too few fields in output from parted print command: %s", lines[1]);
+    reply_with_error ("too few fields in output from parted print command: %s", lines[1]);
     free_strings (lines);
     return NULL;
   }
@@ -339,7 +339,7 @@ do_part_list (const char *device)
                 &r->guestfs_int_partition_list_val[i].part_start,
                 &r->guestfs_int_partition_list_val[i].part_end,
                 &r->guestfs_int_partition_list_val[i].part_size) != 4) {
-      reply_with_error ("part_list: could not parse row from output of parted print command: %s", lines[row]);
+      reply_with_error ("could not parse row from output of parted print command: %s", lines[row]);
       goto error3;
     }
   }

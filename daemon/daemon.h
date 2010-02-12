@@ -116,7 +116,10 @@ extern int sync_disks (void);
 /*-- in proto.c --*/
 extern void main_loop (int sock) __attribute__((noreturn));
 
-/* ordinary daemon functions use these to indicate errors */
+/* ordinary daemon functions use these to indicate errors
+ * NB: you don't need to prefix the string with the current command,
+ * it is added automatically by the client-side RPC stubs.
+ */
 extern void reply_with_error (const char *fs, ...)
   __attribute__((format (printf,1,2)));
 extern void reply_with_perror_errno (int err, const char *fs, ...)

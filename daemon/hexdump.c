@@ -41,7 +41,7 @@ do_hexdump (const char *path)
   r = command (&out, &err, "hexdump", "-C", buf, NULL);
   free (buf);
   if (r == -1) {
-    reply_with_error ("hexdump: %s: %s", path, err);
+    reply_with_error ("%s: %s", path, err);
     free (err);
     free (out);
     return NULL;

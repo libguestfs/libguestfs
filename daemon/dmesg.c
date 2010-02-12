@@ -35,7 +35,7 @@ do_dmesg (void)
 
   r = command (&out, &err, "dmesg", NULL);
   if (r == -1) {
-    reply_with_error ("dmesg: %s", err);
+    reply_with_error ("%s", err);
     free (out);
     free (err);
     return NULL;

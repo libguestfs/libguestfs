@@ -62,7 +62,7 @@ do_dd (const char *src, const char *dest)
   free (of_arg);
 
   if (r == -1) {
-    reply_with_error ("dd: %s: %s: %s", src, dest, err);
+    reply_with_error ("%s: %s: %s", src, dest, err);
     free (err);
     return -1;
   }

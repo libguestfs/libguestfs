@@ -44,7 +44,7 @@ do_upload (const char *filename)
   if (!is_dev) {
     if (!root_mounted || filename[0] != '/') {
       cancel_receive ();
-      reply_with_error ("upload: root must be mounted and path must be absolute");
+      reply_with_error ("root must be mounted and path must be absolute");
       return -1;
     }
   }

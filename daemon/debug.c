@@ -215,7 +215,7 @@ debug_sh (const char *subcmd, int argc, char *const *const argv)
   char *out;
 
   if (argc < 1) {
-    reply_with_error ("debug: sh: expecting a command to run");
+    reply_with_error ("sh: expecting a command to run");
     return NULL;
   }
 

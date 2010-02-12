@@ -56,7 +56,7 @@ do_mknod (int mode, int devmajor, int devminor, const char *path)
   CHROOT_OUT;
 
   if (r == -1) {
-    reply_with_perror ("mknod: %s", path);
+    reply_with_perror ("%s", path);
     return -1;
   }
 

@@ -111,7 +111,7 @@ int
 do_blockdev_setbsz (const char *device, int blocksize)
 {
   if (blocksize <= 0 /* || blocksize >= what? */) {
-    reply_with_error ("blockdev_setbsz: blocksize must be > 0");
+    reply_with_error ("blocksize must be > 0");
     return -1;
   }
   return (int) call_blockdev (device, "--setbsz", blocksize, 0);

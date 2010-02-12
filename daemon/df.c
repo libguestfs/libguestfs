@@ -37,7 +37,7 @@ do_df (void)
 
   r = command (&out, &err, "df", NULL);
   if (r == -1) {
-    reply_with_error ("df: %s", err);
+    reply_with_error ("%s", err);
     free (out);
     free (err);
     return NULL;
@@ -58,7 +58,7 @@ do_df_h (void)
 
   r = command (&out, &err, "df", "-h", NULL);
   if (r == -1) {
-    reply_with_error ("df -h: %s", err);
+    reply_with_error ("%s", err);
     free (out);
     free (err);
     return NULL;

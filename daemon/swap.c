@@ -58,7 +58,7 @@ mkswap (const char *device, const char *flag, const char *value)
     r = command (NULL, &err, "/sbin/mkswap", "-f", flag, value, device, NULL);
 
   if (r == -1) {
-    reply_with_error ("mkswap: %s", err);
+    reply_with_error ("%s", err);
     free (err);
     return -1;
   }
@@ -115,7 +115,7 @@ swaponoff (const char *cmd, const char *flag, const char *value)
     r = command (NULL, &err, cmd, flag, value, NULL);
 
   if (r == -1) {
-    reply_with_error ("%s: %s: %s", cmd, value, err);
+    reply_with_error ("%s: %s", value, err);
     free (err);
     return -1;
   }

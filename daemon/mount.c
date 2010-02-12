@@ -53,7 +53,7 @@ do_mount_vfs (const char *options, const char *vfstype,
   is_root = STREQ (mountpoint, "/");
 
   if (!root_mounted && !is_root) {
-    reply_with_error ("mount: you must mount something on / first");
+    reply_with_error ("you must mount something on / first");
     return -1;
   }
 
@@ -71,7 +71,7 @@ do_mount_vfs (const char *options, const char *vfstype,
                  "mount", "-o", options, device, mp, NULL);
   free (mp);
   if (r == -1) {
-    reply_with_error ("mount: %s on %s: %s", device, mountpoint, error);
+    reply_with_error ("%s on %s: %s", device, mountpoint, error);
     free (error);
     return -1;
   }
@@ -127,7 +127,7 @@ do_umount (const char *pathordevice)
   free (buf);
 
   if (r == -1) {
-    reply_with_error ("umount: %s: %s", pathordevice, err);
+    reply_with_error ("%s: %s", pathordevice, err);
     free (err);
     return -1;
   }
@@ -338,7 +338,7 @@ do_mount_loop (const char *file, const char *mountpoint)
   free (mp);
   free (buf);
   if (r == -1) {
-    reply_with_error ("mount: %s on %s: %s", file, mountpoint, error);
+    reply_with_error ("%s on %s: %s", file, mountpoint, error);
     free (error);
     return -1;
   }
@@ -363,7 +363,7 @@ do_mkmountpoint (const char *path)
   CHROOT_OUT;
 
   if (r == -1) {
-    reply_with_perror ("mkmountpoint: %s", path);
+    reply_with_perror ("%s", path);
     return -1;
   }
 
@@ -388,7 +388,7 @@ do_rmmountpoint (const char *path)
   CHROOT_OUT;
 
   if (r == -1) {
-    reply_with_perror ("rmmountpoint: %s", path);
+    reply_with_perror ("%s", path);
     return -1;
   }
 

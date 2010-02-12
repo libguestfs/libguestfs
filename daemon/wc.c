@@ -60,7 +60,7 @@ wc (const char *flag, const char *path)
 
   /* Parse the number. */
   if (sscanf (out, "%d", &r) != 1) {
-    reply_with_error ("wc: cannot parse number: %s", out);
+    reply_with_error ("cannot parse number: %s", out);
     free (out);
     return -1;
   }

@@ -5810,7 +5810,7 @@ and generate_daemon_actions () =
            pr "  memset (&args, 0, sizeof args);\n";
            pr "\n";
            pr "  if (!xdr_guestfs_%s_args (xdr_in, &args)) {\n" name;
-           pr "    reply_with_error (\"%%s: daemon failed to decode procedure arguments\", \"%s\");\n" name;
+           pr "    reply_with_error (\"daemon failed to decode procedure arguments\");\n";
            pr "    return;\n";
            pr "  }\n";
            let pr_args n =

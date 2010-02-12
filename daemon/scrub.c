@@ -43,7 +43,7 @@ do_scrub_device (const char *device)
 
   r = command (NULL, &err, "scrub", device, NULL);
   if (r == -1) {
-    reply_with_error ("scrub_device: %s: %s", device, err);
+    reply_with_error ("%s: %s", device, err);
     free (err);
     return -1;
   }
@@ -70,7 +70,7 @@ do_scrub_file (const char *file)
   r = command (NULL, &err, "scrub", "-r", buf, NULL);
   free (buf);
   if (r == -1) {
-    reply_with_error ("scrub_file: %s: %s", file, err);
+    reply_with_error ("%s: %s", file, err);
     free (err);
     return -1;
   }
@@ -97,7 +97,7 @@ do_scrub_freespace (const char *dir)
   r = command (NULL, &err, "scrub", "-X", buf, NULL);
   free (buf);
   if (r == -1) {
-    reply_with_error ("scrub_freespace: %s: %s", dir, err);
+    reply_with_error ("%s: %s", dir, err);
     free (err);
     return -1;
   }

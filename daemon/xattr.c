@@ -52,7 +52,7 @@ do_getxattrs (const char *path)
 #if defined(HAVE_LISTXATTR) && defined(HAVE_GETXATTR)
   return getxattrs (path, listxattr, getxattr);
 #else
-  reply_with_error ("getxattrs: no support for listxattr and getxattr");
+  reply_with_error ("no support for listxattr and getxattr");
   return NULL;
 #endif
 }
@@ -63,7 +63,7 @@ do_lgetxattrs (const char *path)
 #if defined(HAVE_LLISTXATTR) && defined(HAVE_LGETXATTR)
   return getxattrs (path, llistxattr, lgetxattr);
 #else
-  reply_with_error ("lgetxattrs: no support for llistxattr and lgetxattr");
+  reply_with_error ("no support for llistxattr and lgetxattr");
   return NULL;
 #endif
 }
@@ -74,7 +74,7 @@ do_setxattr (const char *xattr, const char *val, int vallen, const char *path)
 #if defined(HAVE_SETXATTR)
   return _setxattr (xattr, val, vallen, path, setxattr);
 #else
-  reply_with_error ("setxattr: no support for setxattr");
+  reply_with_error ("no support for setxattr");
   return -1;
 #endif
 }
@@ -85,7 +85,7 @@ do_lsetxattr (const char *xattr, const char *val, int vallen, const char *path)
 #if defined(HAVE_LSETXATTR)
   return _setxattr (xattr, val, vallen, path, lsetxattr);
 #else
-  reply_with_error ("lsetxattr: no support for lsetxattr");
+  reply_with_error ("no support for lsetxattr");
   return -1;
 #endif
 }
@@ -96,7 +96,7 @@ do_removexattr (const char *xattr, const char *path)
 #if defined(HAVE_REMOVEXATTR)
   return _removexattr (xattr, path, removexattr);
 #else
-  reply_with_error ("removexattr: no support for removexattr");
+  reply_with_error ("no support for removexattr");
   return -1;
 #endif
 }
@@ -107,7 +107,7 @@ do_lremovexattr (const char *xattr, const char *path)
 #if defined(HAVE_LREMOVEXATTR)
   return _removexattr (xattr, path, lremovexattr);
 #else
-  reply_with_error ("lremovexattr: no support for lremovexattr");
+  reply_with_error ("no support for lremovexattr");
   return -1;
 #endif
 }
@@ -127,7 +127,7 @@ getxattrs (const char *path,
   len = listxattr (path, NULL, 0);
   CHROOT_OUT;
   if (len == -1) {
-    reply_with_perror ("listxattr");
+    reply_with_perror ("listxattr: %s", path);
     goto error;
   }
 
@@ -141,7 +141,7 @@ getxattrs (const char *path,
   len = listxattr (path, buf, len);
   CHROOT_OUT;
   if (len == -1) {
-    reply_with_perror ("listxattr");
+    reply_with_perror ("listxattr: %s", path);
     goto error;
   }
 
@@ -266,7 +266,7 @@ do_lxattrlist (const char *path, char *const *names)
   char *buf = NULL;
 
   if (path_len >= PATH_MAX) {
-    reply_with_perror ("lxattrlist: path longer than PATH_MAX");
+    reply_with_perror ("path longer than PATH_MAX");
     goto error;
   }
 
@@ -288,7 +288,7 @@ do_lxattrlist (const char *path, char *const *names)
      * outgoing struct list.
      */
     if (path_len + strlen (names[k]) + 2 > PATH_MAX) {
-      reply_with_perror ("lxattrlist: path and name longer than PATH_MAX");
+      reply_with_perror ("path and name longer than PATH_MAX");
       goto error;
     }
     pathname[path_len] = '/';
@@ -443,7 +443,7 @@ do_lxattrlist (const char *path, char *const *names)
   }
   return NULL;
 #else
-  reply_with_error ("lxattrlist: no support for llistxattr and lgetxattr");
+  reply_with_error ("no support for llistxattr and lgetxattr");
   return NULL;
 #endif
 }

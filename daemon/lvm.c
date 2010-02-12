@@ -270,7 +270,7 @@ do_lvresize (const char *logvol, int mbytes)
                "/sbin/lvm", "lvresize",
                "-L", size, logvol, NULL);
   if (r == -1) {
-    reply_with_error ("lvresize: %s", err);
+    reply_with_error ("%s", err);
     free (err);
     return -1;
   }
@@ -418,7 +418,7 @@ do_pvresize (const char *device)
   r = command (NULL, &err,
                "/sbin/lvm", "pvresize", device, NULL);
   if (r == -1) {
-    reply_with_error ("pvresize: %s: %s", device, err);
+    reply_with_error ("%s: %s", device, err);
     free (err);
     return -1;
   }
@@ -479,7 +479,7 @@ do_lvrename (const char *logvol, const char *newlogvol)
                "/sbin/lvm", "lvrename",
                logvol, newlogvol, NULL);
   if (r == -1) {
-    reply_with_error ("lvrename: %s -> %s: %s", logvol, newlogvol, err);
+    reply_with_error ("%s -> %s: %s", logvol, newlogvol, err);
     free (err);
     return -1;
   }
@@ -501,7 +501,7 @@ do_vgrename (const char *volgroup, const char *newvolgroup)
                "/sbin/lvm", "vgrename",
                volgroup, newvolgroup, NULL);
   if (r == -1) {
-    reply_with_error ("vgrename: %s -> %s: %s", volgroup, newvolgroup, err);
+    reply_with_error ("%s -> %s: %s", volgroup, newvolgroup, err);
     free (err);
     return -1;
   }

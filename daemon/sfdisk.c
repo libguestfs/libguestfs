@@ -124,7 +124,7 @@ sfdisk_flag (const char *device, const char *flag)
 
   r = command (&out, &err, "/sbin/sfdisk", flag, device, NULL);
   if (r == -1) {
-    reply_with_error ("sfdisk: %s: %s", device, err);
+    reply_with_error ("%s: %s", device, err);
     free (out);
     free (err);
     return NULL;

@@ -39,7 +39,7 @@ do_rmdir (const char *path)
   CHROOT_OUT;
 
   if (r == -1) {
-    reply_with_perror ("rmdir: %s", path);
+    reply_with_perror ("%s", path);
     return -1;
   }
 
@@ -57,7 +57,7 @@ do_rm_rf (const char *path)
   char *buf, *err;
 
   if (STREQ (path, "/")) {
-    reply_with_error ("rm -rf: cannot remove root directory");
+    reply_with_error ("cannot remove root directory");
     return -1;
   }
 
@@ -72,7 +72,7 @@ do_rm_rf (const char *path)
 
   /* rm -rf is never supposed to fail.  I/O errors perhaps? */
   if (r == -1) {
-    reply_with_error ("rm -rf: %s: %s", path, err);
+    reply_with_error ("%s: %s", path, err);
     free (err);
     return -1;
   }
@@ -92,7 +92,7 @@ do_mkdir (const char *path)
   CHROOT_OUT;
 
   if (r == -1) {
-    reply_with_perror ("mkdir: %s", path);
+    reply_with_perror ("%s", path);
     return -1;
   }
 
@@ -109,7 +109,7 @@ do_mkdir_mode (const char *path, int mode)
   CHROOT_OUT;
 
   if (r == -1) {
-    reply_with_perror ("mkdir_mode: %s", path);
+    reply_with_perror ("%s", path);
     return -1;
   }
 
@@ -174,11 +174,11 @@ do_mkdir_p (const char *path)
   CHROOT_OUT;
 
   if (r == -1) {
-    reply_with_perror ("mkdir -p: %s", path);
+    reply_with_perror ("%s", path);
     return -1;
   }
   if (r == -2) {
-    reply_with_error ("mkdir -p: %s: a path element was not a directory", path);
+    reply_with_error ("%s: a path element was not a directory", path);
     return -1;
   }
 
@@ -221,7 +221,7 @@ do_mkdtemp (const char *template)
   CHROOT_OUT;
 
   if (r == NULL) {
-    reply_with_perror ("mkdtemp: %s", template);
+    reply_with_perror ("%s", template);
     free (writable);
   }
 

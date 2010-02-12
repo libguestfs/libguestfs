@@ -114,7 +114,7 @@ do_find (const char *dir)
     }
   }
   if (pclose (fp) != 0) {
-    reply_with_perror ("pclose: find");
+    reply_with_perror ("pclose");
     free_stringslen (res, size);
     return NULL;
   }

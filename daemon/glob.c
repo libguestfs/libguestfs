@@ -46,7 +46,7 @@ do_glob_expand (const char *pattern)
 
   if (r != 0) {
     if (errno != 0)
-      reply_with_perror ("glob: %s", pattern);
+      reply_with_perror ("%s", pattern);
     else
       reply_with_error ("glob failed: %s", pattern);
     return NULL;

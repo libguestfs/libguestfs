@@ -68,7 +68,7 @@ do_readlinklist (const char *path, char *const *names)
   CHROOT_OUT;
 
   if (fd_cwd == -1) {
-    reply_with_perror ("readlinklist: %s", path);
+    reply_with_perror ("open: %s", path);
     return NULL;
   }
 

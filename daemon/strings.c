@@ -42,7 +42,7 @@ do_strings_e (const char *encoding, const char *path)
   r = command (&out, &err, "strings", "-e", encoding, buf, NULL);
   free (buf);
   if (r == -1) {
-    reply_with_error ("strings: %s: %s", path, err);
+    reply_with_error ("%s: %s", path, err);
     free (err);
     free (out);
     return NULL;

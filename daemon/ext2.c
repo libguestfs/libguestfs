@@ -39,7 +39,7 @@ do_tune2fs_l (const char *device)
 
   r = command (&out, &err, "/sbin/tune2fs", "-l", device, NULL);
   if (r == -1) {
-    reply_with_error ("tune2fs: %s", err);
+    reply_with_error ("%s", err);
     free (err);
     free (out);
     return NULL;
@@ -53,7 +53,7 @@ do_tune2fs_l (const char *device)
     p = strchr (p, '\n');
     if (p) p++;
     else {
-      reply_with_error ("tune2fs: truncated output");
+      reply_with_error ("truncated output");
       free (out);
       return NULL;
     }
@@ -123,7 +123,7 @@ do_set_e2label (const char *device, const char *label)
 
   r = command (NULL, &err, "/sbin/e2label", device, label, NULL);
   if (r == -1) {
-    reply_with_error ("e2label: %s", err);
+    reply_with_error ("%s", err);
     free (err);
     return -1;
   }
@@ -140,7 +140,7 @@ do_get_e2label (const char *device)
 
   r = command (&out, &err, "/sbin/e2label", device, NULL);
   if (r == -1) {
-    reply_with_error ("e2label: %s", err);
+    reply_with_error ("%s", err);
     free (out);
     free (err);
     return NULL;
@@ -164,7 +164,7 @@ do_set_e2uuid (const char *device, const char *uuid)
 
   r = command (NULL, &err, "/sbin/tune2fs", "-U", uuid, device, NULL);
   if (r == -1) {
-    reply_with_error ("tune2fs -U: %s", err);
+    reply_with_error ("%s", err);
     free (err);
     return -1;
   }
@@ -186,7 +186,7 @@ do_get_e2uuid (const char *device)
 
   r = command (&out, &err, "/sbin/tune2fs", "-l", device, NULL);
   if (r == -1) {
-    reply_with_error ("tune2fs -l: %s", err);
+    reply_with_error ("%s", err);
     free (out);
     free (err);
     return NULL;
@@ -242,7 +242,7 @@ do_resize2fs (const char *device)
 
   r = command (NULL, &err, "/sbin/resize2fs", device, NULL);
   if (r == -1) {
-    reply_with_error ("resize2fs: %s", err);
+    reply_with_error ("%s", err);
     free (err);
     return -1;
   }
@@ -259,7 +259,7 @@ do_e2fsck_f (const char *device)
 
   r = command (NULL, &err, "/sbin/e2fsck", "-p", "-f", device, NULL);
   if (r == -1) {
-    reply_with_error ("e2fsck: %s", err);
+    reply_with_error ("%s", err);
     free (err);
     return -1;
   }
@@ -281,7 +281,7 @@ do_mke2journal (int blocksize, const char *device)
                "/sbin/mke2fs", "-O", "journal_dev", "-b", blocksize_s,
                device, NULL);
   if (r == -1) {
-    reply_with_error ("mke2journal: %s", err);
+    reply_with_error ("%s", err);
     free (err);
     return -1;
   }
@@ -304,7 +304,7 @@ do_mke2journal_L (int blocksize, const char *label, const char *device)
                "-L", label,
                device, NULL);
   if (r == -1) {
-    reply_with_error ("mke2journal_L: %s", err);
+    reply_with_error ("%s", err);
     free (err);
     return -1;
   }
@@ -327,7 +327,7 @@ do_mke2journal_U (int blocksize, const char *uuid, const char *device)
                "-U", uuid,
                device, NULL);
   if (r == -1) {
-    reply_with_error ("mke2journal_U: %s", err);
+    reply_with_error ("%s", err);
     free (err);
     return -1;
   }
@@ -366,7 +366,7 @@ get_mke2fs (void)
     if (access (progs[i], F_OK) == 0)
       return progs[i];
 
-  reply_with_error ("mke2fs: no mke2fs binary found in appliance");
+  reply_with_error ("no mke2fs binary found in appliance");
   return NULL;
 }
 
@@ -391,7 +391,7 @@ do_mke2fs_J (const char *fstype, int blocksize, const char *device,
                prog, "-t", fstype, "-J", jdev, "-b", blocksize_s,
                device, NULL);
   if (r == -1) {
-    reply_with_error ("mke2fs_J: %s", err);
+    reply_with_error ("%s", err);
     free (err);
     return -1;
   }
@@ -421,7 +421,7 @@ do_mke2fs_JL (const char *fstype, int blocksize, const char *device,
                prog, "-t", fstype, "-J", jdev, "-b", blocksize_s,
                device, NULL);
   if (r == -1) {
-    reply_with_error ("mke2fs_JL: %s", err);
+    reply_with_error ("%s", err);
     free (err);
     return -1;
   }
@@ -451,7 +451,7 @@ do_mke2fs_JU (const char *fstype, int blocksize, const char *device,
                prog, "-t", fstype, "-J", jdev, "-b", blocksize_s,
                device, NULL);
   if (r == -1) {
-    reply_with_error ("mke2fs_JU: %s", err);
+    reply_with_error ("%s", err);
     free (err);
     return -1;
   }

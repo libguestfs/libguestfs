@@ -53,7 +53,7 @@ do_equal (const char *file1, const char *file2)
   free (file2buf);
 
   if (r == -1 || r > 1) {
-    reply_with_error ("cmp: %s", err);
+    reply_with_error ("%s", err);
     free (err);
     return -1;
   }

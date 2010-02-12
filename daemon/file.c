@@ -87,7 +87,7 @@ do_cat (const char *path)
     if (size >= alloc) {
       alloc += 8192;
       if (alloc > max) {
-        reply_with_error ("cat: %s: file is too large for message buffer",
+        reply_with_error ("%s: file is too large for message buffer",
                           path);
         free (buf);
         close (fd);
@@ -186,7 +186,7 @@ do_rm (const char *path)
   CHROOT_OUT;
 
   if (r == -1) {
-    reply_with_perror ("unlink: %s", path);
+    reply_with_perror ("%s", path);
     return -1;
   }
 
@@ -203,7 +203,7 @@ do_chmod (int mode, const char *path)
   CHROOT_OUT;
 
   if (r == -1) {
-    reply_with_perror ("chmod: %s: 0%o", path, mode);
+    reply_with_perror ("%s: 0%o", path, mode);
     return -1;
   }
 
@@ -220,7 +220,7 @@ do_chown (int owner, int group, const char *path)
   CHROOT_OUT;
 
   if (r == -1) {
-    reply_with_perror ("chown: %s: %d.%d", path, owner, group);
+    reply_with_perror ("%s: %d.%d", path, owner, group);
     return -1;
   }
 
@@ -237,7 +237,7 @@ do_lchown (int owner, int group, const char *path)
   CHROOT_OUT;
 
   if (r == -1) {
-    reply_with_perror ("lchown: %s: %d.%d", path, owner, group);
+    reply_with_perror ("%s: %d.%d", path, owner, group);
     return -1;
   }
 
@@ -338,7 +338,7 @@ do_read_file (const char *path, size_t *size_r)
    * be caught later when we try to serialize the message.
    */
   if (*size_r >= GUESTFS_MESSAGE_MAX) {
-    reply_with_error ("read_file: %s: file is too large for the protocol, use guestfs_download instead", path);
+    reply_with_error ("%s: file is too large for the protocol, use guestfs_download instead", path);
     close (fd);
     return NULL;
   }
@@ -378,7 +378,7 @@ do_pread (const char *path, int count, int64_t offset, size_t *size_r)
    * will be caught later when we try to serialize the message.
    */
   if (count >= GUESTFS_MESSAGE_MAX) {
-    reply_with_error ("pread: %s: count is too large for the protocol, use smaller reads", path);
+    reply_with_error ("%s: count is too large for the protocol, use smaller reads", path);
     return NULL;
   }
 
@@ -453,7 +453,7 @@ do_file (const char *path)
 
   if (r == -1) {
     free (out);
-    reply_with_error ("file: %s: %s", path, err);
+    reply_with_error ("%s: %s", path, err);
     free (err);
     return NULL;
   }
@@ -482,7 +482,7 @@ do_zfile (const char *method, const char *path)
   else if (STREQ (method, "bzip2"))
     zcat = "bzcat";
   else {
-    reply_with_error ("zfile: unknown method");
+    reply_with_error ("unknown method");
     return NULL;
   }
 
@@ -504,13 +504,13 @@ do_zfile (const char *method, const char *path)
   free (cmd);
 
   if (fgets (line, sizeof line, fp) == NULL) {
-    reply_with_perror ("zfile: fgets");
+    reply_with_perror ("fgets");
     fclose (fp);
     return NULL;
   }
 
   if (fclose (fp) == -1) {
-    reply_with_perror ("zfile: fclose");
+    reply_with_perror ("fclose");
     return NULL;
   }
 
@@ -532,7 +532,7 @@ do_filesize (const char *path)
   CHROOT_OUT;
 
   if (r == -1) {
-    reply_with_perror ("filesize: %s", path);
+    reply_with_perror ("%s", path);
     return -1;
   }
 

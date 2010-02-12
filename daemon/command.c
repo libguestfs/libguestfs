@@ -43,7 +43,7 @@ do_command (char *const *argv)
    * commandv.  We just have to check the list is non-empty.
    */
   if (argv[0] == NULL) {
-    reply_with_error ("command: passed an empty list");
+    reply_with_error ("passed an empty list");
     return NULL;
   }
 

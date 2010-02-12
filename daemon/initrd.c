@@ -149,7 +149,7 @@ do_initrd_cat (const char *path, const char *filename, size_t *size_r)
    * be caught later when we try to serialize the message.
    */
   if (*size_r >= GUESTFS_MESSAGE_MAX) {
-    reply_with_error ("initrd_cat: %s:%s: file is too large for the protocol",
+    reply_with_error ("%s:%s: file is too large for the protocol",
                       path, filename);
     goto cleanup;
   }

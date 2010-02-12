@@ -38,12 +38,12 @@ do_fill (int c, int len, const char *path)
   char buf[BUFSIZ];
 
   if (c < 0 || c > 255) {
-    reply_with_error ("fill: %d: byte number must be in range 0..255", c);
+    reply_with_error ("%d: byte number must be in range 0..255", c);
     return -1;
   }
   memset (buf, c, BUFSIZ);
   if (len < 0) {
-    reply_with_error ("fill: %d: length is < 0", len);
+    reply_with_error ("%d: length is < 0", len);
     return -1;
   }
   len_sz = (size_t) len;

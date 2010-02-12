@@ -45,7 +45,7 @@ do_ntfs_3g_probe (int rw, const char *device)
 
   r = commandr (NULL, &err, "ntfs-3g.probe", rw_flag, device, NULL);
   if (r == -1) {
-    reply_with_error ("ntfs-3g.probe: %s: %s", device, err);
+    reply_with_error ("%s: %s", device, err);
     free (err);
     return -1;
   }

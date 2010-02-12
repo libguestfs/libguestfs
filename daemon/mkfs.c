@@ -83,7 +83,7 @@ mkfs (const char *fstype, const char *device,
 
   r = commandv (NULL, &err, argv);
   if (r == -1) {
-    reply_with_error ("mkfs: %s: %s: %s", fstype, device, err);
+    reply_with_error ("%s: %s: %s", fstype, device, err);
     free (err);
     return -1;
   }

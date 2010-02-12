@@ -41,7 +41,7 @@ do_grub_install (const char *root, const char *device)
   free (buf);
 
   if (r == -1) {
-    reply_with_error ("grub-install: %s", err);
+    reply_with_error ("%s", err);
     free (err);
     return -1;
   }

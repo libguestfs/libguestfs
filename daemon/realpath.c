@@ -56,7 +56,7 @@ do_realpath (const char *path)
   ret = realpath (path, NULL);
   CHROOT_OUT;
   if (ret == NULL) {
-    reply_with_perror ("realpath");
+    reply_with_perror ("%s", path);
     return NULL;
   }
 
@@ -98,11 +98,11 @@ do_case_sensitive_path (const char *path)
 
     if ((i == 1 && path[0] == '.') ||
         (i == 2 && path[0] == '.' && path[1] == '.')) {
-      reply_with_error ("case_sensitive_path: path contained . or .. elements");
+      reply_with_error ("path contained . or .. elements");
       goto error;
     }
     if (i > NAME_MAX) {
-      reply_with_error ("case_sensitive_path: path element too long");
+      reply_with_error ("path element too long");
       goto error;
     }
 

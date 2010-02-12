@@ -46,7 +46,7 @@ do_du (const char *path)
   r = command (&out, &err, "du", "-s", buf, NULL);
   free (buf);
   if (r == -1) {
-    reply_with_error ("du: %s: %s", path, err);
+    reply_with_error ("%s: %s", path, err);
     free (out);
     free (err);
     return -1;
@@ -55,7 +55,7 @@ do_du (const char *path)
   free (err);
 
   if (sscanf (out, "%"SCNi64, &rv) != 1) {
-    reply_with_error ("du: %s: could not read output: %s", path, out);
+    reply_with_error ("%s: could not read output: %s", path, out);
     free (out);
     return -1;
   }

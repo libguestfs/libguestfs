@@ -36,7 +36,7 @@ do_vfs_type (const char *device)
   r = command (&out, &err,
                "/sbin/blkid", "-o", "value", "-s", "TYPE", device, NULL);
   if (r == -1) {
-    reply_with_error ("vfs_type: %s: %s", device, err);
+    reply_with_error ("%s: %s", device, err);
     free (out);
     free (err);
     return NULL;

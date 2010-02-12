@@ -43,7 +43,7 @@ do_zerofree (const char *device)
 
   r = command (NULL, &err, "/usr/sbin/zerofree", device, NULL);
   if (r == -1) {
-    reply_with_error ("zerofree: %s: %s", device, err);
+    reply_with_error ("%s: %s", device, err);
     free (err);
     return -1;
   }

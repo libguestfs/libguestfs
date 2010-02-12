@@ -151,7 +151,7 @@ do_lstatlist (const char *path, char *const *names)
   CHROOT_OUT;
 
   if (path_fd == -1) {
-    reply_with_perror ("lstatlist: %s", path);
+    reply_with_perror ("%s", path);
     free (ret->guestfs_int_stat_list_val);
     free (ret);
     return NULL;

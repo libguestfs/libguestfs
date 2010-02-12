@@ -36,7 +36,7 @@ do_fallocate (const char *path, int len)
   fd = open (path, O_WRONLY | O_CREAT | O_TRUNC | O_NOCTTY, 0666);
   CHROOT_OUT;
   if (fd == -1) {
-    reply_with_perror ("failed to open %s", path);
+    reply_with_perror ("open: %s", path);
     return -1;
   }
 
@@ -45,7 +45,7 @@ do_fallocate (const char *path, int len)
 
   r = posix_fallocate (fd, 0, len);
   if (r == -1) {
-    reply_with_perror ("posix_fallocate: %s", path);
+    reply_with_perror ("%s", path);
     close (fd);
     return -1;
   }
