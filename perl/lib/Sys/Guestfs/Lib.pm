@@ -117,6 +117,10 @@ disk image, then C<$conn> and C<$dom> will be C<undef>.
 If the C<Sys::Virt> module is not available, then libvirt is bypassed,
 and this function can only open disk images.
 
+The optional C<interface> parameter can be used to open devices with
+C<add_drive{,_ro}_with_if>.  See
+L<Sys::Guestfs/guestfs_add_drive_with_if> for more details.
+
 =cut
 
 sub open_guest
@@ -127,6 +131,7 @@ sub open_guest
 
     my $rw = $params{rw};
     my $address = $params{address};
+    my $interface = $params{interface};
 
     my @images = ();
     if (ref ($first) eq "ARRAY") {
@@ -203,9 +208,17 @@ sub open_guest
     my $g = Sys::Guestfs->new ();
     foreach (@images) {
         if ($rw) {
-            $g->add_drive ($_);
+            if ($interface) {
+                $g->add_drive_with_if ($_, $interface);
+            } else {
+                $g->add_drive ($_);
+            }
         } else {
-            $g->add_drive_ro ($_);
+            if ($interface) {
+                $g->add_drive_ro_with_if ($_, $interface);
+            } else {
+                $g->add_drive_ro ($_);
+            }
         }
     }
 
