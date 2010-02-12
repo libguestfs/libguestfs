@@ -104,8 +104,7 @@ The handle is still in the config state when it is returned, so you
 have to call C<$g-E<gt>launch ()>.
 
 The optional C<address> parameter can be added to specify the libvirt
-URI.  In addition, L<Sys::Virt(3)> lists other parameters which are
-passed through to C<Sys::Virt-E<gt>new> unchanged.
+URI.
 
 The implicit libvirt handle is closed after this function, I<unless>
 you call the function in C<wantarray> context, in which case the
@@ -126,7 +125,8 @@ sub open_guest
     my $first = shift;
     my %params = @_;
 
-    my $readwrite = $params{rw};
+    my $rw = $params{rw};
+    my $address = $params{address};
 
     my @images = ();
     if (ref ($first) eq "ARRAY") {
@@ -154,12 +154,15 @@ sub open_guest
         die __"open_guest: too many domains listed on command line"
             if @images > 1;
 
-        $conn = Sys::Virt->new (readonly => 1, @_);
+        my @libvirt_args = ();
+        push @libvirt_args, address => $address if defined $address;
+
+        $conn = Sys::Virt->new (readonly => 1, @libvirt_args);
         die __"open_guest: cannot connect to libvirt" unless $conn;
 
         my @doms = $conn->list_defined_domains ();
         my $isitinactive = 1;
-        unless ($readwrite) {
+        unless ($rw) {
             # In the case where we want read-only access to a domain,
             # allow the user to specify an active domain too.
             push @doms, $conn->list_domains ();
@@ -199,7 +202,7 @@ sub open_guest
     # We've now got the list of @images, so feed them to libguestfs.
     my $g = Sys::Guestfs->new ();
     foreach (@images) {
-        if ($readwrite) {
+        if ($rw) {
             $g->add_drive ($_);
         } else {
             $g->add_drive_ro ($_);
