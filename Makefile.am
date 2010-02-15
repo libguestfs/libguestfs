@@ -69,7 +69,9 @@ EXTRA_DIST = \
 	html/recipes.css \
 	make-recipes.sh \
 	contrib/README \
-	bindtests
+	bindtests \
+	.gitignore \
+	m4/.gitignore
 
 # HTML versions of manual pages.
 

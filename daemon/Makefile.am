@@ -37,7 +37,8 @@ BUILT_SOURCES = \
 	guestfs_protocol.c \
 	guestfs_protocol.h
 
-EXTRA_DIST = $(BUILT_SOURCES)
+EXTRA_DIST = $(BUILT_SOURCES) \
+	.gitignore
 
 # This convenience library is solely to avoid compiler warnings
 # in its generated sources.
