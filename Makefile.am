@@ -193,3 +193,12 @@ CLEANFILES = $(fs_DATA) \
 
 clean-local:
 	rm -rf initramfs
+
+# If you don't want to run all of the tests ('make check') then this
+# will just run libguestfs-test-tool for a quick check.  Note this
+# is NOT a substitute for proper testing!
+
+quickcheck:
+	LIBGUESTFS_PATH=appliance \
+	test-tool/libguestfs-test-tool \
+	  --helper test-tool/libguestfs-test-tool-helper
