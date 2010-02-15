@@ -4704,8 +4704,7 @@ let seq_of_test = function
 (* Handling for function flags. *)
 let protocol_limit_warning =
   "Because of the message protocol, there is a transfer limit
-of somewhere between 2MB and 4MB.  To transfer large files, see
-L<guestfs(3)/UPLOADING>."
+of somewhere between 2MB and 4MB.  See L<guestfs(3)/PROTOCOL LIMITS>."
 
 let danger_will_robinson =
   "B<This command is dangerous.  Without careful use you

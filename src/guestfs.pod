@@ -589,6 +589,29 @@ C<guestfish -c command> to run commands.
 
 =back
 
+=head2 PROTOCOL LIMITS
+
+Internally libguestfs uses a message-based protocol to pass API calls
+and their responses to and from a small "appliance" (see L</INTERNALS>
+for plenty more detail about this).  The maximum message size used by
+the protocol is slightly less than 4 MB.  For some API calls you may
+need to be aware of this limit.  The API calls which may be affected
+are individually documented, with a link back to this section of the
+documentation.
+
+A simple call such as C<guestfs_cat> returns its result (the file
+data) in a simple string.  Because this string is at some point
+internally encoded as a message, the maximum size that it can return
+is slightly under 4 MB.  If the requested file is larger than this
+then you will get an error.
+
+In order to transfer large files into and out of the guest filesystem,
+you need to use particular calls that support this.  The sections
+L</UPLOADING> and L</DOWNLOADING> document how to do this.
+
+You might also consider mounting the disk image using our FUSE
+filesystem support (L<guestmount(1)>).
+
 =head1 CONNECTION MANAGEMENT
 
 =head2 guestfs_h *
