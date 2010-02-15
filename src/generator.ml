@@ -4263,7 +4263,7 @@ Rename a logical volume C<logvol> with the new name C<newlogvol>.");
    "\
 Rename a volume group C<volgroup> with the new name C<newvolgroup>.");
 
-  ("initrd_cat", (RBufferOut "content", [Pathname "initrdpath"; String "filename"]), 221, [],
+  ("initrd_cat", (RBufferOut "content", [Pathname "initrdpath"; String "filename"]), 221, [ProtocolLimitWarning],
    [InitISOFS, Always, TestOutputBuffer (
       [["initrd_cat"; "/initrd"; "known-4"]], "abc\ndef\nghi")],
    "list the contents of a single file in an initrd",
