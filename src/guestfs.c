@@ -1578,7 +1578,7 @@ print_timestamped_message (guestfs_h *g, const char *fs, ...)
   va_list args;
   char *msg;
   int err;
-  struct timeval tv, diff;
+  struct timeval tv;
 
   va_start (args, fs);
   err = vasprintf (&msg, fs, args);
@@ -2633,7 +2633,6 @@ guestfs___recv_file (guestfs_h *g, const char *filename)
 {
   void *buf;
   int fd, r;
-  size_t len;
 
   fd = open (filename, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY, 0666);
   if (fd == -1) {

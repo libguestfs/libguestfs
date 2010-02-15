@@ -184,7 +184,6 @@ main (int argc, char *argv[])
 
     char *cmd = buf;
     char *args;
-    size_t i = 0;
 
     if (buf[len] == '\0') {
       /* This is mostly safe.  Although the cmd_* functions do sometimes

@@ -927,7 +927,7 @@ main (int argc, char *argv[])
   struct mp *mps = NULL;
   struct mp *mp;
   char *p;
-  int c, i, r;
+  int c, r;
   int option_index;
   struct sigaction sa;
 
