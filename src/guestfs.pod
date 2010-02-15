@@ -33,7 +33,8 @@ schemes, qcow, qcow2, vmdk.
 
 Libguestfs provides ways to enumerate guest storage (eg. partitions,
 LVs, what filesystem is in each LV, etc.).  It can also run commands
-in the context of the guest.  Also you can access filesystems over FTP.
+in the context of the guest.  Also you can access filesystems over
+FUSE.
 
 Libguestfs is a library that can be linked with C and C++ management
 programs (or management programs written in OCaml, Perl, Python, Ruby,

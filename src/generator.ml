@@ -4704,8 +4704,8 @@ let seq_of_test = function
 (* Handling for function flags. *)
 let protocol_limit_warning =
   "Because of the message protocol, there is a transfer limit
-of somewhere between 2MB and 4MB.  To transfer large files you should use
-FTP."
+of somewhere between 2MB and 4MB.  To transfer large files, see
+L<guestfs(3)/UPLOADING>."
 
 let danger_will_robinson =
   "B<This command is dangerous.  Without careful use you
@@ -5213,8 +5213,7 @@ and generate_xdr () =
   (* Having to choose a maximum message size is annoying for several
    * reasons (it limits what we can do in the API), but it (a) makes
    * the protocol a lot simpler, and (b) provides a bound on the size
-   * of the daemon which operates in limited memory space.  For large
-   * file transfers you should use FTP.
+   * of the daemon which operates in limited memory space.
    *)
   pr "const GUESTFS_MESSAGE_MAX = %d;\n" (4 * 1024 * 1024);
   pr "\n";
@@ -8393,7 +8392,8 @@ schemes, qcow, qcow2, vmdk.
 
 Libguestfs provides ways to enumerate guest storage (eg. partitions,
 LVs, what filesystem is in each LV, etc.).  It can also run commands
-in the context of the guest.  Also you can access filesystems over FTP.
+in the context of the guest.  Also you can access filesystems over
+FUSE.
 
 See also L<Sys::Guestfs::Lib(3)> for a set of useful library
 functions for using libguestfs from Perl, including integration
@@ -8930,7 +8930,8 @@ schemes, qcow, qcow2, vmdk.
 
 Libguestfs provides ways to enumerate guest storage (eg. partitions,
 LVs, what filesystem is in each LV, etc.).  It can also run commands
-in the context of the guest.  Also you can access filesystems over FTP.
+in the context of the guest.  Also you can access filesystems over
+FUSE.
 
 Errors which happen while using the API are turned into Python
 RuntimeError exceptions.

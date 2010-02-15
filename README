@@ -13,7 +13,8 @@ schemes, qcow, qcow2, vmdk.
 
 Libguestfs provides ways to enumerate guest storage (eg. partitions,
 LVs, what filesystem is in each LV, etc.).  It can also run commands
-in the context of the guest.  Also you can access filesystems over FTP.
+in the context of the guest.  Also you can access filesystems over
+FUSE.
 
 Libguestfs is a library that can be linked with C and C++ management
 programs (or management programs written in OCaml, Perl, Python, Ruby,
@@ -271,8 +272,8 @@ Notes on cross-architecture support
 
 At the moment we basically don't support cross-architecture or
 32-on-64.  This limits what is possible for some guests.  Filesystem
-operations and FTP export will work fine, but running commands in
-guests may not be possible.
+operations and FUSE will work fine, but running commands in guests may
+not be possible.
 
 To enable this requires work for cross-architecture and 32-on-64
 support in febootstrap, fakeroot and fakechroot.
