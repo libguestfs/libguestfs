@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs.master.libguestfs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-12 19:27+0000\n"
+"POT-Creation-Date: 2010-02-16 08:05+0000\n"
 "PO-Revision-Date: 2010-01-27 20:03+0530\n"
 "Last-Translator: Krishna Babu K <kkrothap@redhat.com>\n"
 "Language-Team: Telugu <en@li.org>\n"
@@ -1131,8 +1131,8 @@ msgstr "'help %s' అనునది టైపుచేయండి %sపై స
 #: fish/cmds.c:6144 fish/cmds.c:6174 fish/cmds.c:6209 fish/cmds.c:6228
 #: fish/cmds.c:6337 fish/cmds.c:6356 fish/cmds.c:6411 fish/cmds.c:6424
 #: fish/cmds.c:6469 fish/cmds.c:6505 fish/cmds.c:6574 fish/cmds.c:6593
-#: hivex/hivexsh.c:841 hivex/hivexsh.c:945 hivex/hivexsh.c:969
-#: hivex/hivexsh.c:998
+#: hivex/hivexsh.c:840 hivex/hivexsh.c:944 hivex/hivexsh.c:968
+#: hivex/hivexsh.c:997
 #, c-format
 msgid "%s: %s: invalid integer parameter (%s returned %d)\n"
 msgstr ""
@@ -1150,8 +1150,8 @@ msgstr ""
 #: fish/cmds.c:5824 fish/cmds.c:5862 fish/cmds.c:5900 fish/cmds.c:5938
 #: fish/cmds.c:6180 fish/cmds.c:6215 fish/cmds.c:6234 fish/cmds.c:6343
 #: fish/cmds.c:6475 fish/cmds.c:6511 fish/cmds.c:6580 fish/cmds.c:6599
-#: hivex/hivexsh.c:846 hivex/hivexsh.c:950 hivex/hivexsh.c:975
-#: hivex/hivexsh.c:1003
+#: hivex/hivexsh.c:845 hivex/hivexsh.c:949 hivex/hivexsh.c:974
+#: hivex/hivexsh.c:1002
 #, c-format
 msgid "%s: %s: integer out of range\n"
 msgstr ""
@@ -1802,32 +1802,32 @@ msgstr ""
 "      'quit' షెల్ నిష్క్రమించుటకు\n"
 "\n"
 
-#: hivex/hivexsh.c:264
+#: hivex/hivexsh.c:263
 #, c-format
 msgid "hivexsh: error getting parent of node %zu\n"
 msgstr ""
 
-#: hivex/hivexsh.c:274
+#: hivex/hivexsh.c:273
 #, c-format
 msgid "hivexsh: error getting node name of node %zx\n"
 msgstr ""
 
-#: hivex/hivexsh.c:413
+#: hivex/hivexsh.c:412
 #, c-format
 msgid "hivexsh: you must load a hive file first using 'load hivefile'\n"
 msgstr ""
 
-#: hivex/hivexsh.c:434
+#: hivex/hivexsh.c:433
 #, c-format
 msgid "hivexsh: unknown command '%s', use 'help' for help summary\n"
 msgstr ""
 
-#: hivex/hivexsh.c:444
+#: hivex/hivexsh.c:443
 #, c-format
 msgid "hivexsh: load: no hive file name given to load\n"
 msgstr ""
 
-#: hivex/hivexsh.c:460
+#: hivex/hivexsh.c:459
 #, c-format
 msgid ""
 "hivexsh: failed to open hive file: %s: %m\n"
@@ -1839,24 +1839,24 @@ msgid ""
 "\n"
 msgstr ""
 
-#: hivex/hivexsh.c:493 hivex/hivexsh.c:602 hivex/hivexsh.c:1063
+#: hivex/hivexsh.c:492 hivex/hivexsh.c:601 hivex/hivexsh.c:1062
 #, c-format
 msgid "hivexsh: '%s' command should not be given arguments\n"
 msgstr ""
 
-#: hivex/hivexsh.c:535
+#: hivex/hivexsh.c:534
 #, c-format
 msgid ""
 "%s: %s: \\ characters in path are doubled - are you escaping the path "
 "parameter correctly?\n"
 msgstr ""
 
-#: hivex/hivexsh.c:573
+#: hivex/hivexsh.c:572
 #, c-format
 msgid "hivexsh: cd: subkey '%s' not found\n"
 msgstr ""
 
-#: hivex/hivexsh.c:591
+#: hivex/hivexsh.c:590
 #, c-format
 msgid ""
 "Navigate through the hive's keys using the 'cd' command, as if it\n"
@@ -1864,35 +1864,35 @@ msgid ""
 "current key.  Full documentation is in the hivexsh(1) manual page.\n"
 msgstr ""
 
-#: hivex/hivexsh.c:666
+#: hivex/hivexsh.c:665
 #, c-format
 msgid "%s: %s: key not found\n"
 msgstr ""
 
-#: hivex/hivexsh.c:868 hivex/hivexsh.c:886
+#: hivex/hivexsh.c:867 hivex/hivexsh.c:885
 #, c-format
 msgid "hivexsh: setval: unexpected end of input\n"
 msgstr ""
 
-#: hivex/hivexsh.c:907 hivex/hivexsh.c:926
+#: hivex/hivexsh.c:906 hivex/hivexsh.c:925
 #, c-format
 msgid ""
 "hivexsh: string(utf16le): only 7 bit ASCII strings are supported for input\n"
 msgstr ""
 
-#: hivex/hivexsh.c:1033
+#: hivex/hivexsh.c:1032
 #, c-format
 msgid "hivexsh: setval: trailing garbage after hex string\n"
 msgstr ""
 
-#: hivex/hivexsh.c:1040
+#: hivex/hivexsh.c:1039
 #, c-format
 msgid ""
 "hivexsh: setval: cannot parse value string, please refer to the man page "
 "hivexsh(1) for help: %s\n"
 msgstr ""
 
-#: hivex/hivexsh.c:1069
+#: hivex/hivexsh.c:1068
 #, c-format
 msgid "hivexsh: del: the root node cannot be deleted\n"
 msgstr ""
@@ -2030,28 +2030,28 @@ msgstr "send_file_chunk: state %d != READY"
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk విఫలమైంది (buf = %p, buflen = %zu)"
 
-#: src/guestfs.c:2655
+#: src/guestfs.c:2654
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: చంకడ్ ఎన్కోడింగ్ నందు దోషము"
 
-#: src/guestfs.c:2683
+#: src/guestfs.c:2682
 msgid "write to daemon socket"
 msgstr "డెమోన్ సాకెట్‌కు వ్రాయుము"
 
-#: src/guestfs.c:2706
+#: src/guestfs.c:2705
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: రిప్లై కాల్‌బ్యాక్ నందు పార్శ్ దోషము"
 
-#: src/guestfs.c:2711
+#: src/guestfs.c:2710
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr "receive_file_data: ఫైలు ముక్కలను చదువునప్పుడు అనుకోని ఫ్లాగ్ స్వీకరించబడింది"
 
-#: src/guestfs.c:2719
+#: src/guestfs.c:2718
 msgid "failed to parse file chunk"
 msgstr "ఫైలు ముక్కను పార్శ్ చేయుటలో విఫలమైంది"
 
-#: src/guestfs.c:2728
+#: src/guestfs.c:2727
 msgid "file receive cancelled by daemon"
 msgstr "ఫైలు స్వీకరణ డెమోన్ ద్వారా రద్దుచేయబడింది"
 
