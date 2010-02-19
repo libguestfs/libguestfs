@@ -800,7 +800,8 @@ cmd_lsval (char *key)
       case hive_t_full_resource_description:
       case hive_t_resource_requirements_list:
       default: {
-        char *data = hivex_value_value (h, values[i], &t, &len);
+        unsigned char *data =
+          (unsigned char *) hivex_value_value (h, values[i], &t, &len);
         if (!data)
           goto error;
 
