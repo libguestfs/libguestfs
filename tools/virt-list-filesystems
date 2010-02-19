@@ -24,7 +24,6 @@ use Sys::Guestfs::Lib qw(open_guest get_partitions);
 use Pod::Usage;
 use Getopt::Long;
 use Locale::TextDomain 'libguestfs';
-use File::Temp qw/tempdir/;
 
 =encoding utf8
 
