@@ -23,7 +23,6 @@
   nilfs-utils
   ntfsprogs
   reiserfs-utils
-  scrub
   libselinux
   udev
   util-linux-ng
@@ -62,6 +61,7 @@ ocfs2-tools
 */
 parted
 procps
+scrub
 strace
 xfsprogs
 zerofree
