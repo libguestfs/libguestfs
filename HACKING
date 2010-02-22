@@ -92,9 +92,10 @@ fuse/
 haskell/
         Haskell bindings.
 
-hivex/
-        Hive extraction library, for reading Windows Registry files.
-        See hivex/README for more details.
+hivex/ [removed in 1.0.85]
+       This used to contain the hivex library for reading and
+       writing Windows Registry binary hive files.  This is now
+       available as a separate upstream project.
 
 images/
         Some guest images to test against.  These are gzipped to save

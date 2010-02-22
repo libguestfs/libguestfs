@@ -450,10 +450,10 @@ Where we can help is in resolving the case insensitivity of paths.
 For this, call C<guestfs_case_sensitive_path>.
 
 Libguestfs also provides some help for decoding Windows Registry
-"hive" files, through the library C<libhivex> which is part of
-libguestfs.  You have to locate and download the hive file(s)
-yourself, and then pass them to C<libhivex> functions.  See also the
-programs L<hivexml(1)>, L<hivexget(1)> and L<virt-win-reg(1)> for more
+"hive" files, through the library C<hivex> which is part of the
+libguestfs project.  You have to locate and download the hive file(s)
+yourself, and then pass them to C<hivex> functions.  See also the
+programs L<hivexml(1)>, L<hivexsh(1)> and L<virt-win-reg(1)> for more
 help on this issue.
 
 =head2 USING LIBGUESTFS WITH OTHER PROGRAMMING LANGUAGES

@@ -52,7 +52,7 @@ Requirements
 
 - genisoimage / mkisofs
 
-- libxml2
+- (Optional) hivex to build Windows Registry support
 
 - (Optional) FUSE to build the FUSE module
 

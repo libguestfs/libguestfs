@@ -19,7 +19,7 @@ include $(top_srcdir)/subdir-rules.mk
 
 ACLOCAL_AMFLAGS = -I m4
 
-SUBDIRS = gnulib/lib hivex src daemon appliance fish po examples images \
+SUBDIRS = gnulib/lib src daemon appliance fish po examples images \
 	gnulib/tests capitests regressions test-tool
 
 # NB: Must build inspector directory after perl and before ocaml.
@@ -118,10 +118,6 @@ HTMLFILES = \
 	html/guestfs.3.html \
 	html/guestfish.1.html \
 	html/guestmount.1.html \
-	html/hivex.3.html \
-	html/hivexget.1.html \
-	html/hivexml.1.html \
-	html/hivexsh.1.html \
 	html/virt-cat.1.html \
 	html/virt-df.1.html \
 	html/virt-edit.1.html \

@@ -422,10 +422,16 @@ dnl For i18n.
 AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([0.17])
 
-dnl libxml2 is used by the hivex library.
-PKG_CHECK_MODULES([LIBXML2], [libxml-2.0])
-AC_SUBST([LIBXML2_CFLAGS])
-AC_SUBST([LIBXML2_LIBS])
+dnl hivex library (highly recommended).
+dnl This used to be a part of libguestfs, but was spun off into its
+dnl own separate upstream project in libguestfs 1.0.85.
+HAVE_HIVEX=yes
+PKG_CHECK_MODULES([HIVEX], [hivex],,[
+        HAVE_HIVEX=no
+        AC_MSG_WARN([Hivex library and headers are missing, so optional Windows Registry tools won't be built])])
+AM_CONDITIONAL([HAVE_HIVEX],[test "x$HAVE_HIVEX" = "xyes"])
+AC_SUBST([HIVEX_CFLAGS])
+AC_SUBST([HIVEX_LIBS])
 
 dnl FUSE is optional to build the FUSE module.
 HAVE_FUSE=yes
@@ -736,9 +742,6 @@ AC_CONFIG_FILES([Makefile
                  libguestfs.pc
                  gnulib/lib/Makefile
                  gnulib/tests/Makefile
-                 hivex/Makefile
-                 hivex/t/Makefile
-                 hivex/tools/Makefile
                  fuse/Makefile
                  ocaml/META perl/Makefile.PL])
 AC_OUTPUT
