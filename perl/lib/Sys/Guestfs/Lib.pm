@@ -1525,6 +1525,12 @@ sub _check_for_kernels
         # For every kernel we find, inspect it and add to $os->{kernels}
 
         my $grub = _find_grub_prefix($g, $os);
+        my $grub_conf = "/etc/grub.conf";
+
+        # Debian and other's have no /etc/grub.conf:
+        if ( ! -f "$grub_conf" ) {
+            $grub_conf = "$grub/grub/menu.lst";
+        }
 
         my @boot_configs;
 
@@ -1544,7 +1550,7 @@ sub _check_for_kernels
         my @configs = ();
         # Get all configurations from grub
         foreach my $bootable
-            ($g->aug_match("/files/etc/grub.conf/title"))
+            ($g->aug_match("/files/$grub_conf/title"))
         {
             my %config = ();
             $config{title} = $g->aug_get($bootable);
@@ -1617,7 +1623,7 @@ sub _check_for_kernels
 
         # Add the default configuration
         eval {
-            $boot{default} = $g->aug_get("/files/etc/grub.conf/default");
+            $boot{default} = $g->aug_get("/files/$grub_conf/default");
         };
         if($@) {
             warn __"No grub default specified";
