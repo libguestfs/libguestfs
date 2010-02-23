@@ -8,9 +8,18 @@ mount -t proc /proc /proc
 mount -t sysfs /sys /sys
 
 if [ -x /etc/init.d/udev ]; then
-  /etc/init.d/udev start
+  if type service >/dev/null 2>&1; then
+     service udev start
+  else
+     /etc/init.d/udev start
+  fi
 elif [ -x /sbin/start_udev ] && /sbin/start_udev; then
   :
+elif [ -x /sbin/udevd ]; then
+  echo -e '\000\000\000\000' > /proc/sys/kernel/hotplug
+  /sbin/udevd --daemon
+  /sbin/udevadm trigger
+  /sbin/udevadm settle --timeout=10
 else
   echo No udev, creating /dev manually
   mount -t tmpfs none /dev
