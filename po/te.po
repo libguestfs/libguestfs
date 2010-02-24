@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs.master.libguestfs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-16 08:05+0000\n"
+"POT-Creation-Date: 2010-02-24 10:33+0000\n"
 "PO-Revision-Date: 2010-01-27 20:03+0530\n"
 "Last-Translator: Krishna Babu K <kkrothap@redhat.com>\n"
 "Language-Team: Telugu <en@li.org>\n"
@@ -1131,8 +1131,6 @@ msgstr "'help %s' అనునది టైపుచేయండి %sపై స
 #: fish/cmds.c:6144 fish/cmds.c:6174 fish/cmds.c:6209 fish/cmds.c:6228
 #: fish/cmds.c:6337 fish/cmds.c:6356 fish/cmds.c:6411 fish/cmds.c:6424
 #: fish/cmds.c:6469 fish/cmds.c:6505 fish/cmds.c:6574 fish/cmds.c:6593
-#: hivex/hivexsh.c:840 hivex/hivexsh.c:944 hivex/hivexsh.c:968
-#: hivex/hivexsh.c:997
 #, c-format
 msgid "%s: %s: invalid integer parameter (%s returned %d)\n"
 msgstr ""
@@ -1150,8 +1148,6 @@ msgstr ""
 #: fish/cmds.c:5824 fish/cmds.c:5862 fish/cmds.c:5900 fish/cmds.c:5938
 #: fish/cmds.c:6180 fish/cmds.c:6215 fish/cmds.c:6234 fish/cmds.c:6343
 #: fish/cmds.c:6475 fish/cmds.c:6511 fish/cmds.c:6580 fish/cmds.c:6599
-#: hivex/hivexsh.c:845 hivex/hivexsh.c:949 hivex/hivexsh.c:974
-#: hivex/hivexsh.c:1002
 #, c-format
 msgid "%s: %s: integer out of range\n"
 msgstr ""
@@ -1768,135 +1764,6 @@ msgstr "%s: తప్పక కనీసం వొక -a మరియు వొ�
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr "%s:హోస్టు ఫైల్‌సిస్టమ్ నందు మీరు తప్పక వొక మౌంట్‌పాయింట్‌ను తెలుపవలెను\n"
 
-#: hivex/hivexml.c:70
-#, c-format
-msgid "%s: failed to write XML document\n"
-msgstr ""
-
-#: hivex/hivexml.c:101
-#, c-format
-msgid "hivexml: missing name of input file\n"
-msgstr ""
-
-#: hivex/hivexml.c:120
-#, c-format
-msgid "xmlNewTextWriterFilename: failed to create XML writer\n"
-msgstr ""
-
-#: hivex/hivexsh.c:149
-#, fuzzy, c-format
-msgid ""
-"\n"
-"Welcome to hivexsh, the hivex interactive shell for examining\n"
-"Windows Registry binary hive files.\n"
-"\n"
-"Type: 'help' for help summary\n"
-"      'quit' to quit the shell\n"
-"\n"
-msgstr ""
-"\n"
-"guestfishకు స్వాగతం, libguestfs అనునది వర్చ్యువల్ మిషన్ ఫైల్‌సిస్టమ్సును సరికూర్చుటకు‍ ఫైల్‌సిస్టమ్ "
-"యింటరాక్టివ్ షెల్.\n"
-"\n"
-"రకము: 'help' ఆదేశముల సహాయము కొరకు\n"
-"      'quit' షెల్ నిష్క్రమించుటకు\n"
-"\n"
-
-#: hivex/hivexsh.c:263
-#, c-format
-msgid "hivexsh: error getting parent of node %zu\n"
-msgstr ""
-
-#: hivex/hivexsh.c:273
-#, c-format
-msgid "hivexsh: error getting node name of node %zx\n"
-msgstr ""
-
-#: hivex/hivexsh.c:412
-#, c-format
-msgid "hivexsh: you must load a hive file first using 'load hivefile'\n"
-msgstr ""
-
-#: hivex/hivexsh.c:433
-#, c-format
-msgid "hivexsh: unknown command '%s', use 'help' for help summary\n"
-msgstr ""
-
-#: hivex/hivexsh.c:443
-#, c-format
-msgid "hivexsh: load: no hive file name given to load\n"
-msgstr ""
-
-#: hivex/hivexsh.c:459
-#, c-format
-msgid ""
-"hivexsh: failed to open hive file: %s: %m\n"
-"\n"
-"If you think this file is a valid Windows binary hive file (_not_\n"
-"a regedit *.reg file) then please run this command again using the\n"
-"hivexsh option '-d' and attach the complete output _and_ the hive file\n"
-"which fails into a bug report at https://bugzilla.redhat.com/\n"
-"\n"
-msgstr ""
-
-#: hivex/hivexsh.c:492 hivex/hivexsh.c:601 hivex/hivexsh.c:1062
-#, c-format
-msgid "hivexsh: '%s' command should not be given arguments\n"
-msgstr ""
-
-#: hivex/hivexsh.c:534
-#, c-format
-msgid ""
-"%s: %s: \\ characters in path are doubled - are you escaping the path "
-"parameter correctly?\n"
-msgstr ""
-
-#: hivex/hivexsh.c:572
-#, c-format
-msgid "hivexsh: cd: subkey '%s' not found\n"
-msgstr ""
-
-#: hivex/hivexsh.c:590
-#, c-format
-msgid ""
-"Navigate through the hive's keys using the 'cd' command, as if it\n"
-"contained a filesystem, and use 'ls' to list the subkeys of the\n"
-"current key.  Full documentation is in the hivexsh(1) manual page.\n"
-msgstr ""
-
-#: hivex/hivexsh.c:665
-#, c-format
-msgid "%s: %s: key not found\n"
-msgstr ""
-
-#: hivex/hivexsh.c:867 hivex/hivexsh.c:885
-#, c-format
-msgid "hivexsh: setval: unexpected end of input\n"
-msgstr ""
-
-#: hivex/hivexsh.c:906 hivex/hivexsh.c:925
-#, c-format
-msgid ""
-"hivexsh: string(utf16le): only 7 bit ASCII strings are supported for input\n"
-msgstr ""
-
-#: hivex/hivexsh.c:1032
-#, c-format
-msgid "hivexsh: setval: trailing garbage after hex string\n"
-msgstr ""
-
-#: hivex/hivexsh.c:1039
-#, c-format
-msgid ""
-"hivexsh: setval: cannot parse value string, please refer to the man page "
-"hivexsh(1) for help: %s\n"
-msgstr ""
-
-#: hivex/hivexsh.c:1068
-#, c-format
-msgid "hivexsh: del: the root node cannot be deleted\n"
-msgstr ""
-
 #: src/guestfs.c:255
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
@@ -2200,3 +2067,21 @@ msgstr ""
 #, c-format
 msgid "mkisofs command failed: %s\n"
 msgstr "mkisofs ఆదేశము విఫలమైంది: %s\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "\n"
+#~ "Welcome to hivexsh, the hivex interactive shell for examining\n"
+#~ "Windows Registry binary hive files.\n"
+#~ "\n"
+#~ "Type: 'help' for help summary\n"
+#~ "      'quit' to quit the shell\n"
+#~ "\n"
+#~ msgstr ""
+#~ "\n"
+#~ "guestfishకు స్వాగతం, libguestfs అనునది వర్చ్యువల్ మిషన్ ఫైల్‌సిస్టమ్సును సరికూర్చుటకు‍ "
+#~ "ఫైల్‌సిస్టమ్ యింటరాక్టివ్ షెల్.\n"
+#~ "\n"
+#~ "రకము: 'help' ఆదేశముల సహాయము కొరకు\n"
+#~ "      'quit' షెల్ నిష్క్రమించుటకు\n"
+#~ "\n"
