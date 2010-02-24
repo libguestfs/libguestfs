@@ -1453,6 +1453,23 @@ sub _check_for_applications
                     push @apps, $app
                 }
             }
+        } elsif (defined $package_format && $package_format eq "deb") {
+            my @lines = $g->command_lines
+                (["dpkg-query",
+                  "-f", '${Package} ${Version} ${Architecture} ${Status}\n',
+                  "-W"]);
+            foreach (@lines) {
+                if (m/^(.*) (.*) (.*) (.*) (.*) (.*)$/) {
+                    if ( $6 eq "installed" ) {
+                        my $app = {
+                            name => $1,
+                            version => $2,
+                            arch => $3
+                        };
+                        push @apps, $app
+                    }
+                }
+            }
         }
     } elsif ($osn eq "windows") {
         # XXX
