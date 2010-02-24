@@ -665,7 +665,7 @@ Operating system distribution.  One of: "fedora", "rhel", "centos",
 =item package_format
 
 (For Linux root partitions only)
-The package format used by the guest distribution. One of: "rpm", "dpkg".
+The package format used by the guest distribution. One of: "rpm", "deb".
 
 =item package_management
 
@@ -869,7 +869,7 @@ sub _check_linux_root
             $r->{osdistro} = "redhat-based";
         }
     } elsif ($g->is_file ("/etc/debian_version")) {
-        $r->{package_format} = "dpkg";
+        $r->{package_format} = "deb";
         $r->{package_management} = "apt";
 
         $_ = $g->cat ("/etc/debian_version");
