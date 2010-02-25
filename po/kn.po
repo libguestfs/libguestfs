@@ -1152,11 +1152,6 @@ msgstr "%s: %s: ಅಮಾನ್ಯವಾದ ಪೂರ್ಣ ನಿಯತಾಂ�
 msgid "%s: %s: integer out of range\n"
 msgstr "%s: %s: ಪೂರ್ಣಾಂಕವು ವ್ಯಾಪ್ತಿಯ ಹೊರಗಿದೆ\n"
 
-#: fish/cmds.c:7495
-#, c-format
-msgid "%s: unknown command\n"
-msgstr "%: ಗೊತ್ತಿಲ್ಲದ ಆಜ್ಞೆ"
-
 #: fish/edit.c:86
 #, c-format
 msgid "use '%s filename' to edit a file\n"
