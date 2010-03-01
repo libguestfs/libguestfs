@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs.master.libguestfs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-12 19:27+0000\n"
+"POT-Creation-Date: 2010-03-01 14:19+0000\n"
 "PO-Revision-Date: 2010-02-16 12:57+0530\n"
 "Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
 "Language-Team: Hindi <Red Hat>\n"
@@ -15,7 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"\n"
 "\n"
 "\n"
 
@@ -1128,8 +1129,6 @@ msgstr "'help %s' को %s पर मदद के लिए टाइप क�
 #: fish/cmds.c:6144 fish/cmds.c:6174 fish/cmds.c:6209 fish/cmds.c:6228
 #: fish/cmds.c:6337 fish/cmds.c:6356 fish/cmds.c:6411 fish/cmds.c:6424
 #: fish/cmds.c:6469 fish/cmds.c:6505 fish/cmds.c:6574 fish/cmds.c:6593
-#: hivex/hivexsh.c:841 hivex/hivexsh.c:945 hivex/hivexsh.c:969
-#: hivex/hivexsh.c:998
 #, c-format
 msgid "%s: %s: invalid integer parameter (%s returned %d)\n"
 msgstr "%s: %s: अवैध पूर्णांक पैरामीटर (%s ने %d लौटाया)\n"
@@ -1147,8 +1146,6 @@ msgstr "%s: %s: अवैध पूर्णांक पैरामीटर (
 #: fish/cmds.c:5824 fish/cmds.c:5862 fish/cmds.c:5900 fish/cmds.c:5938
 #: fish/cmds.c:6180 fish/cmds.c:6215 fish/cmds.c:6234 fish/cmds.c:6343
 #: fish/cmds.c:6475 fish/cmds.c:6511 fish/cmds.c:6580 fish/cmds.c:6599
-#: hivex/hivexsh.c:846 hivex/hivexsh.c:950 hivex/hivexsh.c:975
-#: hivex/hivexsh.c:1003
 #, c-format
 msgid "%s: %s: integer out of range\n"
 msgstr "%s: %s: परिसर के बाहर पूर्णांक\n"
@@ -1247,8 +1244,10 @@ msgstr "%s: --listen=PID: PID was not a number: %s\n"
 
 #: fish/fish.c:234
 #, c-format
-msgid "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
-msgstr "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
+msgid ""
+"%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
+msgstr ""
+"%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 
 #: fish/fish.c:243 fuse/guestmount.c:1010
 #, c-format
@@ -1263,7 +1262,8 @@ msgstr "%s: only one -f parameter can be given\n"
 #: fish/fish.c:343
 #, c-format
 msgid "%s: cannot use -i option with -a, -m, --listen, --remote or --selinux\n"
-msgstr "%s: cannot use -i option with -a, -m, --listen, --remote or --selinux\n"
+msgstr ""
+"%s: cannot use -i option with -a, -m, --listen, --remote or --selinux\n"
 
 #: fish/fish.c:350
 #, c-format
@@ -1767,148 +1767,6 @@ msgstr "%s: must have at least one -a and at least one -m option\n"
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr "%s: तुम्हें मेजबान फाइल सिस्टम में कोई माउंटप्वाइंट को जरूर निर्दिष्ट करना चाहिए\n"
 
-#: hivex/hivexml.c:70
-#, c-format
-msgid "%s: failed to write XML document\n"
-msgstr "%s: XML दस्तावेजीकरण लिखने में विफल\n"
-
-#: hivex/hivexml.c:101
-#, c-format
-msgid "hivexml: missing name of input file\n"
-msgstr "hivexml: इनपुट फाइल का अनुपस्थित नाम\n"
-
-#: hivex/hivexml.c:120
-#, c-format
-msgid "xmlNewTextWriterFilename: failed to create XML writer\n"
-msgstr "xmlNewTextWriterFilename: XML राइटर बनाने में विफल\n"
-
-#: hivex/hivexsh.c:149
-#, c-format
-msgid ""
-"\n"
-"Welcome to hivexsh, the hivex interactive shell for examining\n"
-"Windows Registry binary hive files.\n"
-"\n"
-"Type: 'help' for help summary\n"
-"      'quit' to quit the shell\n"
-"\n"
-msgstr ""
-"\n"
-"Welcome to hivexsh, the hivex interactive shell for examining\n"
-"Windows Registry binary hive files.\n"
-"\n"
-"Type: 'help' for help summary\n"
-"      'quit' to quit the shell\n"
-"\n"
-
-#: hivex/hivexsh.c:264
-#, c-format
-msgid "hivexsh: error getting parent of node %zu\n"
-msgstr "hivexsh: नोड %zu के जनक को पाने में त्रुटि\n"
-
-#: hivex/hivexsh.c:274
-#, c-format
-msgid "hivexsh: error getting node name of node %zx\n"
-msgstr "hivexsh: नोड %zx के नोड नाम को पाने में त्रुटि\n"
-
-#: hivex/hivexsh.c:413
-#, c-format
-msgid "hivexsh: you must load a hive file first using 'load hivefile'\n"
-msgstr "hivexsh: आपको जरूर एक पहले हाइव फाइल को 'load hivefile' के प्रयोग के पहले लोड करना चाहिए\n"
-
-#: hivex/hivexsh.c:434
-#, c-format
-msgid "hivexsh: unknown command '%s', use 'help' for help summary\n"
-msgstr "hivexsh: अज्ञात कमांड '%s', 'help' को मदद सारांश के लिए उपयोग करें\n"
-
-#: hivex/hivexsh.c:444
-#, c-format
-msgid "hivexsh: load: no hive file name given to load\n"
-msgstr "hivexsh: load: किसी हाइव फाइल नाम लोड करने के लिए है\n"
-
-#: hivex/hivexsh.c:460
-#, c-format
-msgid ""
-"hivexsh: failed to open hive file: %s: %m\n"
-"\n"
-"If you think this file is a valid Windows binary hive file (_not_\n"
-"a regedit *.reg file) then please run this command again using the\n"
-"hivexsh option '-d' and attach the complete output _and_ the hive file\n"
-"which fails into a bug report at https://bugzilla.redhat.com/\n"
-"\n"
-msgstr ""
-"hivexsh: failed to open hive file: %s: %m\n"
-"\n"
-"If you think this file is a valid Windows binary hive file (_not_\n"
-"a regedit *.reg file) then please run this command again using the\n"
-"hivexsh option '-d' and attach the complete output _and_ the hive file\n"
-"which fails into a bug report at https://bugzilla.redhat.com/\n"
-"\n"
-
-#: hivex/hivexsh.c:493 hivex/hivexsh.c:602 hivex/hivexsh.c:1063
-#, c-format
-msgid "hivexsh: '%s' command should not be given arguments\n"
-msgstr "hivexsh: '%s' कमांड को दिए तर्क में नहीं देना चाहिए\n"
-
-#: hivex/hivexsh.c:535
-#, c-format
-msgid ""
-"%s: %s: \\ characters in path are doubled - are you escaping the path "
-"parameter correctly?\n"
-msgstr ""
-"%s: %s: \\ characters in path are doubled - are you escaping the path "
-"parameter correctly?\n"
-
-#: hivex/hivexsh.c:573
-#, c-format
-msgid "hivexsh: cd: subkey '%s' not found\n"
-msgstr "hivexsh: cd: subkey '%s' not found\n"
-
-#: hivex/hivexsh.c:591
-#, c-format
-msgid ""
-"Navigate through the hive's keys using the 'cd' command, as if it\n"
-"contained a filesystem, and use 'ls' to list the subkeys of the\n"
-"current key.  Full documentation is in the hivexsh(1) manual page.\n"
-msgstr ""
-"हाइव कुंजी से होकर संचरित करें 'cd' कमांड के उपयोग से, जैसे कि\n"
-"यह एक फाइलसिस्टम समाहित करता है, और 'ls' का उपयोग मौजूदा कुंजी के\n"
-"उपकुंजी की सूती के लिए करें.  hivexsh(1) मैनुअल पेज में पूर्ण दस्तावेजीकरण है.\n"
-
-#: hivex/hivexsh.c:666
-#, c-format
-msgid "%s: %s: key not found\n"
-msgstr "%s: %s: कुंजी नहीं मिला\n"
-
-#: hivex/hivexsh.c:868 hivex/hivexsh.c:886
-#, c-format
-msgid "hivexsh: setval: unexpected end of input\n"
-msgstr "hivexsh: setval: इनपुट का अप्रत्याशित अंत\n"
-
-#: hivex/hivexsh.c:907 hivex/hivexsh.c:926
-#, c-format
-msgid "hivexsh: string(utf16le): only 7 bit ASCII strings are supported for input\n"
-msgstr "hivexsh: string(utf16le): केवल 7 bit ASCII स्ट्रिंग को इनपुट के लिए समर्थन दिया गया है\n"
-
-#: hivex/hivexsh.c:1033
-#, c-format
-msgid "hivexsh: setval: trailing garbage after hex string\n"
-msgstr "hivexsh: setval: हेक्स स्ट्रिंग के बाद पीछा करता कचड़ा\n"
-
-#: hivex/hivexsh.c:1040
-#, c-format
-msgid ""
-"hivexsh: setval: cannot parse value string, please refer to the man page "
-"hivexsh(1) for help: %s\n"
-msgstr ""
-"hivexsh: setval: मान स्ट्रिंग को विश्लेषित नहीं कर सका, कृपया"
-"hivexsh(1) का मदद के लिए संदर्भ लें: %s\n"
-
-#: hivex/hivexsh.c:1069
-#, c-format
-msgid "hivexsh: del: the root node cannot be deleted\n"
-msgstr "hivexsh: del: रूट नोड को मिटाया नहीं जा सकता है\n"
-
 #: src/guestfs.c:255
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
@@ -2000,8 +1858,10 @@ msgstr "guestfs_end_busy: called when in state %d"
 
 #: src/guestfs.c:2043
 #, c-format
-msgid "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
-msgstr "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
+msgid ""
+"check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
+msgstr ""
+"check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
 
 #: src/guestfs.c:2201 src/guestfs.c:2255
 msgid "unexpected end of file when reading from daemon"
@@ -2040,28 +1900,28 @@ msgstr "send_file_chunk: state %d != READY"
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 
-#: src/guestfs.c:2655
+#: src/guestfs.c:2654
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: error in chunked encoding"
 
-#: src/guestfs.c:2683
+#: src/guestfs.c:2682
 msgid "write to daemon socket"
 msgstr "डेमॉन सॉकेट में लिखें"
 
-#: src/guestfs.c:2706
+#: src/guestfs.c:2705
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: parse error in reply callback"
 
-#: src/guestfs.c:2711
+#: src/guestfs.c:2710
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr "receive_file_data: unexpected flag received when reading file chunks"
 
-#: src/guestfs.c:2719
+#: src/guestfs.c:2718
 msgid "failed to parse file chunk"
 msgstr "फाइल के ढेर को विश्लेषित नहीं कर सका"
 
-#: src/guestfs.c:2728
+#: src/guestfs.c:2727
 msgid "file receive cancelled by daemon"
 msgstr "फाइल प्राप्ति को डेमॉन के द्वारा रद्द किया गया"
 
@@ -2212,3 +2072,110 @@ msgstr ""
 msgid "mkisofs command failed: %s\n"
 msgstr "mkisofs कमांड विफल: %s\n"
 
+#~ msgid "%s: failed to write XML document\n"
+#~ msgstr "%s: XML दस्तावेजीकरण लिखने में विफल\n"
+
+#~ msgid "hivexml: missing name of input file\n"
+#~ msgstr "hivexml: इनपुट फाइल का अनुपस्थित नाम\n"
+
+#~ msgid "xmlNewTextWriterFilename: failed to create XML writer\n"
+#~ msgstr "xmlNewTextWriterFilename: XML राइटर बनाने में विफल\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Welcome to hivexsh, the hivex interactive shell for examining\n"
+#~ "Windows Registry binary hive files.\n"
+#~ "\n"
+#~ "Type: 'help' for help summary\n"
+#~ "      'quit' to quit the shell\n"
+#~ "\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Welcome to hivexsh, the hivex interactive shell for examining\n"
+#~ "Windows Registry binary hive files.\n"
+#~ "\n"
+#~ "Type: 'help' for help summary\n"
+#~ "      'quit' to quit the shell\n"
+#~ "\n"
+
+#~ msgid "hivexsh: error getting parent of node %zu\n"
+#~ msgstr "hivexsh: नोड %zu के जनक को पाने में त्रुटि\n"
+
+#~ msgid "hivexsh: error getting node name of node %zx\n"
+#~ msgstr "hivexsh: नोड %zx के नोड नाम को पाने में त्रुटि\n"
+
+#~ msgid "hivexsh: you must load a hive file first using 'load hivefile'\n"
+#~ msgstr ""
+#~ "hivexsh: आपको जरूर एक पहले हाइव फाइल को 'load hivefile' के प्रयोग के पहले लोड "
+#~ "करना चाहिए\n"
+
+#~ msgid "hivexsh: unknown command '%s', use 'help' for help summary\n"
+#~ msgstr "hivexsh: अज्ञात कमांड '%s', 'help' को मदद सारांश के लिए उपयोग करें\n"
+
+#~ msgid "hivexsh: load: no hive file name given to load\n"
+#~ msgstr "hivexsh: load: किसी हाइव फाइल नाम लोड करने के लिए है\n"
+
+#~ msgid ""
+#~ "hivexsh: failed to open hive file: %s: %m\n"
+#~ "\n"
+#~ "If you think this file is a valid Windows binary hive file (_not_\n"
+#~ "a regedit *.reg file) then please run this command again using the\n"
+#~ "hivexsh option '-d' and attach the complete output _and_ the hive file\n"
+#~ "which fails into a bug report at https://bugzilla.redhat.com/\n"
+#~ "\n"
+#~ msgstr ""
+#~ "hivexsh: failed to open hive file: %s: %m\n"
+#~ "\n"
+#~ "If you think this file is a valid Windows binary hive file (_not_\n"
+#~ "a regedit *.reg file) then please run this command again using the\n"
+#~ "hivexsh option '-d' and attach the complete output _and_ the hive file\n"
+#~ "which fails into a bug report at https://bugzilla.redhat.com/\n"
+#~ "\n"
+
+#~ msgid "hivexsh: '%s' command should not be given arguments\n"
+#~ msgstr "hivexsh: '%s' कमांड को दिए तर्क में नहीं देना चाहिए\n"
+
+#~ msgid ""
+#~ "%s: %s: \\ characters in path are doubled - are you escaping the path "
+#~ "parameter correctly?\n"
+#~ msgstr ""
+#~ "%s: %s: \\ characters in path are doubled - are you escaping the path "
+#~ "parameter correctly?\n"
+
+#~ msgid "hivexsh: cd: subkey '%s' not found\n"
+#~ msgstr "hivexsh: cd: subkey '%s' not found\n"
+
+#~ msgid ""
+#~ "Navigate through the hive's keys using the 'cd' command, as if it\n"
+#~ "contained a filesystem, and use 'ls' to list the subkeys of the\n"
+#~ "current key.  Full documentation is in the hivexsh(1) manual page.\n"
+#~ msgstr ""
+#~ "हाइव कुंजी से होकर संचरित करें 'cd' कमांड के उपयोग से, जैसे कि\n"
+#~ "यह एक फाइलसिस्टम समाहित करता है, और 'ls' का उपयोग मौजूदा कुंजी के\n"
+#~ "उपकुंजी की सूती के लिए करें.  hivexsh(1) मैनुअल पेज में पूर्ण दस्तावेजीकरण है.\n"
+
+#~ msgid "%s: %s: key not found\n"
+#~ msgstr "%s: %s: कुंजी नहीं मिला\n"
+
+#~ msgid "hivexsh: setval: unexpected end of input\n"
+#~ msgstr "hivexsh: setval: इनपुट का अप्रत्याशित अंत\n"
+
+#~ msgid ""
+#~ "hivexsh: string(utf16le): only 7 bit ASCII strings are supported for "
+#~ "input\n"
+#~ msgstr ""
+#~ "hivexsh: string(utf16le): केवल 7 bit ASCII स्ट्रिंग को इनपुट के लिए समर्थन दिया "
+#~ "गया है\n"
+
+#~ msgid "hivexsh: setval: trailing garbage after hex string\n"
+#~ msgstr "hivexsh: setval: हेक्स स्ट्रिंग के बाद पीछा करता कचड़ा\n"
+
+#~ msgid ""
+#~ "hivexsh: setval: cannot parse value string, please refer to the man page "
+#~ "hivexsh(1) for help: %s\n"
+#~ msgstr ""
+#~ "hivexsh: setval: मान स्ट्रिंग को विश्लेषित नहीं कर सका, कृपयाhivexsh(1) का मदद के "
+#~ "लिए संदर्भ लें: %s\n"
+
+#~ msgid "hivexsh: del: the root node cannot be deleted\n"
+#~ msgstr "hivexsh: del: रूट नोड को मिटाया नहीं जा सकता है\n"
