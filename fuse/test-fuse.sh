@@ -86,7 +86,7 @@ function stage ()
     ((s++))
 }
 
-stage Create filesystem with some inital content
+stage Create filesystem with some initial content
 $guestfish <<EOF
   sparse "$image" 10M
   run
