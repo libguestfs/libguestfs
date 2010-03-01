@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-02-24 10:33+0000\n"
-"PO-Revision-Date: 2010-02-02 20:49+0100\n"
+"PO-Revision-Date: 2010-02-28 03:02+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <trans-pl@lists.fedoraproject.org>\n"
 "MIME-Version: 1.0\n"
@@ -56,10 +56,11 @@ msgstr "dodaje napęd w trybie migawki (tylko do odczytu)"
 #: fish/cmds.c:43 fish/cmds.c:404
 msgid "add a drive read-only specifying the QEMU block emulation to use"
 msgstr ""
+"dodaje napęd w trybie tylko do odczytu określając używaną emulację bloku QEMU"
 
 #: fish/cmds.c:44 fish/cmds.c:401
 msgid "add a drive specifying the QEMU block emulation to use"
-msgstr ""
+msgstr "dodaje napęd określając używaną emulację bloku QEMU"
 
 #: fish/cmds.c:45 fish/cmds.c:455
 msgid "close the current Augeas handle"
@@ -370,9 +371,8 @@ msgid "dump a file in hexadecimal"
 msgstr "zrzuca plik w formacie szesnastkowym"
 
 #: fish/cmds.c:125 fish/cmds.c:1067
-#, fuzzy
 msgid "list the contents of a single file in an initrd"
-msgstr "wyświetla listę zawartości pliku"
+msgstr "wyświetla listę zawartości pojedynczego pliku w initrd"
 
 #: fish/cmds.c:126 fish/cmds.c:788
 msgid "list files in an initrd"
@@ -2103,93 +2103,3 @@ msgstr ""
 #, c-format
 msgid "mkisofs command failed: %s\n"
 msgstr "polecenie mkisofs nie powiodło się: %s\n"
-
-#~ msgid "%s: failed to write XML document\n"
-#~ msgstr "%s: zapisanie dokumentu XML nie powiodło się\n"
-
-#~ msgid "hivexml: missing name of input file\n"
-#~ msgstr "hivexml: brak nazwy pliku wejściowego\n"
-
-#~ msgid "xmlNewTextWriterFilename: failed to create XML writer\n"
-#~ msgstr "xmlNewTextWriterFilename: utworzenie zapisu XML nie powiodło się\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Welcome to hivexsh, the hivex interactive shell for examining\n"
-#~ "Windows Registry binary hive files.\n"
-#~ "\n"
-#~ "Type: 'help' for help summary\n"
-#~ "      'quit' to quit the shell\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Witaj w hivexsh, interaktywnej powłoce hivex do sprawdzania\n"
-#~ "binarnych plików typu \"hive\" Rejestru systemu Windows.\n"
-#~ "\n"
-#~ "Proszę podać: \"help\", aby uzyskać podsumowanie pomocy\n"
-#~ "              \"quit\", aby zakończyć powłokę\n"
-#~ "\n"
-
-#~ msgid "hivexsh: error getting parent of node %zu\n"
-#~ msgstr "hivexsh: błąd podczas uzyskiwania nadrzędnego węzła %zu\n"
-
-#~ msgid "hivexsh: error getting node name of node %zx\n"
-#~ msgstr "hivexsh: błąd podczas uzyskiwania nazwy węzła %zx\n"
-
-#~ msgid "hivexsh: you must load a hive file first using 'load hivefile'\n"
-#~ msgstr ""
-#~ "hivexsh: należy najpierw wczytać plik \"hive\" używając \"load plik_hive"
-#~ "\"\n"
-
-#~ msgid "hivexsh: unknown command '%s', use 'help' for help summary\n"
-#~ msgstr ""
-#~ "hivexsh: nieznane polecenie \"%s\", należy użyć \"help\", aby uzyskać "
-#~ "podsumowanie pomocy\n"
-
-#~ msgid "hivexsh: load: no hive file name given to load\n"
-#~ msgstr "hivexsh: load: nie podano nazwy pliku \"hive\" do wczytania\n"
-
-#~ msgid ""
-#~ "hivexsh: failed to open hive file: %s: %m\n"
-#~ "\n"
-#~ "If you think this file is a valid Windows binary hive file (_not_\n"
-#~ "a regedit *.reg file) then please run this command again using the\n"
-#~ "hivexsh option '-d' and attach the complete output _and_ the hive file\n"
-#~ "which fails into a bug report at https://bugzilla.redhat.com/\n"
-#~ "\n"
-#~ msgstr ""
-#~ "hivexsh: otwarcie pliku \"hive\" nie powiodło się: %s: %m\n"
-#~ "\n"
-#~ "Jeśli ten plik jest binarnym plikiem \"hive\" systemu Windows (a _nie_\n"
-#~ "plikiem *.reg programu regedit), proszę wykonać te polecenie ponownie,\n"
-#~ "używając opcji \"-d\" programu hivexsh i dołączyć pełne wyjście _oraz_ "
-#~ "ten\n"
-#~ "plik \"hive\" do zgłoszenia błędu na https://bugzilla.redhat.com/\n"
-#~ "\n"
-
-#~ msgid "hivexsh: '%s' command should not be given arguments\n"
-#~ msgstr "hivexsh: polecenie \"%s\" nie przyjmuje parametrów\n"
-
-#~ msgid ""
-#~ "%s: %s: \\ characters in path are doubled - are you escaping the path "
-#~ "parameter correctly?\n"
-#~ msgstr ""
-#~ "%s: %s: znaki \\ w ścieżce są podwójne - czy parametr ścieżki jest "
-#~ "poprawnie poprzedzony znakiem modyfikacji?\n"
-
-#~ msgid "hivexsh: cd: subkey '%s' not found\n"
-#~ msgstr "hivexsh: cd: nie odnaleziono podklucza \"%s\"\n"
-
-#~ msgid ""
-#~ "Navigate through the hive's keys using the 'cd' command, as if it\n"
-#~ "contained a filesystem, and use 'ls' to list the subkeys of the\n"
-#~ "current key.  Full documentation is in the hivexsh(1) manual page.\n"
-#~ msgstr ""
-#~ "Należy nawigować między kluczami \"hive\" używając polecenia \"cd\", "
-#~ "jakby\n"
-#~ "zawierały system plików oraz \"ls\" do wyświetlania podkluczy bieżącego\n"
-#~ "klucza. Pełna dokumentacja znajduje się na stronie podręcznika hivexsh"
-#~ "(1).\n"
-
-#~ msgid "%s: %s: key not found\n"
-#~ msgstr "%s: %s: nie odnaleziono klucza\n"
