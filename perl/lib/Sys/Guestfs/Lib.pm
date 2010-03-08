@@ -1439,6 +1439,7 @@ sub _check_for_applications
                 (["rpm",
                   "-q", "-a",
                   "--qf", "%{name} %{epoch} %{version} %{release} %{arch}\n"]);
+            @lines = sort @lines;
             foreach (@lines) {
                 if (m/^(.*) (.*) (.*) (.*) (.*)$/) {
                     my $epoch = $2;
@@ -1458,6 +1459,7 @@ sub _check_for_applications
                 (["dpkg-query",
                   "-f", '${Package} ${Version} ${Architecture} ${Status}\n',
                   "-W"]);
+            @lines = sort @lines;
             foreach (@lines) {
                 if (m/^(.*) (.*) (.*) (.*) (.*) (.*)$/) {
                     if ( $6 eq "installed" ) {
