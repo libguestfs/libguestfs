@@ -35,6 +35,7 @@
 
             <!-- optional fields for an operating system -->
             <optional><element name="distro"><text/></element></optional>
+            <optional><element name="product_name"><text/></element></optional>
             <optional><element name="major_version"><text/></element></optional>
             <optional><element name="minor_version"><text/></element></optional>
             <optional><element name="package_format"><text/></element></optional>

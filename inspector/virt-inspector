@@ -354,6 +354,7 @@ sub output_text_os
     print $os->{arch}, " " if exists $os->{arch};
     print $os->{major_version} if exists $os->{major_version};
     print ".", $os->{minor_version} if exists $os->{minor_version};
+    print " (", $os->{product_name}, ")" if exists $os->{product_name};
     print " ";
     print "on ", $os->{root_device}, ":\n";
 
@@ -447,6 +448,7 @@ sub output_xml_os
 
     foreach ( [ "name" => "os" ],
               [ "distro" => "distro" ],
+              [ "product_name" => "product_name" ],
               [ "arch" => "arch" ],
               [ "major_version" => "major_version" ],
               [ "minor_version" => "minor_version" ],

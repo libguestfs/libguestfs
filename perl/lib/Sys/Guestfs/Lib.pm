@@ -814,6 +814,7 @@ sub _check_linux_root
 
         $_ = $g->cat ("/etc/redhat-release");
         if (/Fedora release (\d+)(?:\.(\d+))?/) {
+            chomp; $r->{product_name} = $_;
             $r->{osdistro} = "fedora";
             $r->{os_major_version} = "$1";
             $r->{os_minor_version} = "$2" if(defined($2));
@@ -821,6 +822,8 @@ sub _check_linux_root
         }
 
         elsif (/(Red Hat Enterprise Linux|CentOS|Scientific Linux)/) {
+            chomp; $r->{product_name} = $_;
+
             my $distro = $1;
 
             if($distro eq "Red Hat Enterprise Linux") {
@@ -874,6 +877,7 @@ sub _check_linux_root
 
         $_ = $g->cat ("/etc/debian_version");
         if (/(\d+)\.(\d+)/) {
+            chomp; $r->{product_name} = $_;
             $r->{osdistro} = "debian";
             $r->{os_major_version} = "$1";
             $r->{os_minor_version} = "$2";
@@ -1097,6 +1101,10 @@ Operating system userspace architecture, eg. "i386", "x86_64".
 
 Operating system distribution, eg. "debian".
 
+=item product_name
+
+Free text product name.
+
 =item major_version
 
 Operating system major version, eg. "4".
@@ -1168,6 +1176,8 @@ sub _get_os_version
     my $r = shift;
 
     $r->{os} = $r->{root}->{fsos} if exists $r->{root}->{fsos};
+    $r->{product_name} = $r->{root}->{product_name}
+        if exists $r->{root}->{product_name};
     $r->{distro} = $r->{root}->{osdistro} if exists $r->{root}->{osdistro};
     $r->{major_version} = $r->{root}->{os_major_version}
         if exists $r->{root}->{os_major_version};
