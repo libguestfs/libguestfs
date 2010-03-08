@@ -1,13 +1,16 @@
 <operatingsystems>
   <operatingsystem>
     <name>windows</name>
+    <product_name>Microsoft Windows Server 2003</product_name>
     <arch>i386</arch>
-    <root>/dev/vda1</root>
+    <major_version>5</major_version>
+    <minor_version>2</minor_version>
+    <root>/dev/sda1</root>
     <mountpoints>
-      <mountpoint dev="/dev/vda1">/</mountpoint>
+      <mountpoint dev="/dev/sda1">/</mountpoint>
     </mountpoints>
     <filesystems>
-      <filesystem dev="/dev/vda1">
+      <filesystem dev="/dev/sda1">
         <type>ntfs</type>
         <content>windows-root</content>
       </filesystem>

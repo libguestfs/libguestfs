@@ -63,9 +63,6 @@ Requirements
 
 - (Optional) Readline to have nicer command-line editing in guestfish.
 
-- (Optional) 'reged' program from chntpw to decode Windows registry
-  entries (http://home.eunet.no/~pnordahl/ntpasswd/)
-
 - (Optional) xmllint to validate virt-inspector RELAX NG schema
 
 - (Optional) OCaml + OCaml library xml-light if you want to rebuild

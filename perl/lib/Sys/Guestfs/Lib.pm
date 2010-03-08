@@ -28,6 +28,7 @@ use Locale::TextDomain 'libguestfs';
 eval "use Sys::Virt;";
 eval "use XML::XPath;";
 eval "use XML::XPath::XMLParser;";
+eval "use Win::Hivex;";
 
 =pod
 
@@ -573,15 +574,12 @@ L<virt-inspector(1)> to get useful output.
 
  %fses = inspect_all_partitions ($g, \@partitions);
 
- %fses = inspect_all_partitions ($g, \@partitions, use_windows_registry => 1);
-
 This calls C<inspect_partition> for each partition in the list
 C<@partitions>.
 
 The result is a hash which maps partition name to C<\%fs> hashref.
 
-The contents of the C<%fs> hash and the meaning of the
-C<use_windows_registry> flag are explained below.
+The contents of the C<%fs> hash is explained below.
 
 =cut
 
@@ -601,26 +599,21 @@ sub inspect_all_partitions
     my $g = shift;
     my $parts = shift;
     my @parts = @$parts;
-    return map { _canonical_dev ($_) => inspect_partition ($g, $_, @_) } @parts;
+    return map { _canonical_dev ($_) => inspect_partition ($g, $_) } @parts;
 }
 
 =head2 inspect_partition
 
  \%fs = inspect_partition ($g, $partition);
 
- \%fs = inspect_partition ($g, $partition, use_windows_registry => 1);
-
 This function inspects the device named C<$partition> in isolation and
 tries to determine what it is.  It returns information such as whether
 the partition is formatted, and with what, whether it is mountable,
 and what it appears to contain (eg. a Windows root, or a Linux /usr).
 
-If C<use_windows_registry> is set to 1, then we will try to download
-and parse the content of the Windows registry (for Windows root
-devices).  However since this is an expensive and error-prone
-operation, we don't do this by default.  It also requires the external
-program C<reged>, patched to remove numerous crashing bugs in the
-upstream version.
+If the Perl module L<Win::Hivex(3)> is installed, then additional
+information is made available for Windows guests, if we can locate and
+read their registries.
 
 The returned value is a hashref C<\%fs> which may contain the
 following top-level keys (any key can be missing):
@@ -707,9 +700,6 @@ sub inspect_partition
     local $_;
     my $g = shift;
     my $dev = shift;		# LV or partition name.
-    my %params = @_;
-
-    my $use_windows_registry = $params{use_windows_registry};
 
     my %r;			# Result hash.
 
@@ -791,7 +781,7 @@ sub inspect_partition
             $r{fsos} = "windows";
             $r{content} = "windows-root";
             $r{is_root} = 1;
-            _check_windows_root ($g, \%r, $use_windows_registry);
+            _check_windows_root ($g, \%r);
             goto OUT;
         }
     }
@@ -924,24 +914,23 @@ sub _check_linux_root
 # Windows installations and their %systemroot%s in a simple text
 # format.
 #
-# XXX We could parse this better.  This won't work if /boot.ini is on
-# a different drive from the %systemroot%, and in other unusual cases.
+# XXX We don't handle the case where /boot.ini is on a different
+# partition very well (Windows Vista and later).
 
 sub _check_windows_root
 {
     local $_;
     my $g = shift;
     my $r = shift;
-    my $use_windows_registry = shift;
 
     my $boot_ini = resolve_windows_path ($g, "/boot.ini");
     $r->{boot_ini} = $boot_ini;
 
+    my $systemroot;
     if (defined $r->{boot_ini}) {
         $_ = $g->cat ($boot_ini);
         my @lines = split /\n/;
         my $section;
-        my $systemroot;
         foreach (@lines) {
             if (m/\[.*\]/) {
                 $section = $1;
@@ -953,15 +942,24 @@ sub _check_windows_root
                 last;
             }
         }
+    }
 
-        if (defined $systemroot) {
-            $r->{systemroot} = resolve_windows_path ($g, "/$systemroot");
-            if (defined $r->{systemroot}) {
-                _check_windows_arch ($g, $r, $r->{systemroot});
-                if ($use_windows_registry) {
-                    _check_windows_registry ($g, $r, $r->{systemroot});
-                }
+    if (!defined $systemroot) {
+        # Last ditch ... try to guess %systemroot% location.
+        foreach ("windows", "winnt") {
+            my $dir = resolve_windows_path ($g, "/$_/system32");
+            if (defined $dir) {
+                $systemroot = $_;
+                last;
             }
+        }
+    }
+
+    if (defined $systemroot) {
+        $r->{systemroot} = resolve_windows_path ($g, "/$systemroot");
+        if (defined $r->{systemroot}) {
+            _check_windows_arch ($g, $r, $r->{systemroot});
+            _check_windows_registry ($g, $r, $r->{systemroot});
         }
     }
 }
@@ -988,72 +986,90 @@ sub _check_windows_registry
     my $systemroot = shift;
 
     # Download the system registry files.  Only download the
-    # interesting ones, and we don't bother with user profiles at all.
+    # interesting ones (SOFTWARE and SYSTEM).  We don't bother with
+    # the user ones.
+
+    return unless exists $INC{"Win/Hivex.pm"};
 
     my $configdir = resolve_windows_path ($g, "$systemroot/system32/config");
-    if (defined $configdir) {
-        my $softwaredir = resolve_windows_path ($g, "$configdir/software");
-        if (defined $softwaredir) {
-            _load_windows_registry ($g, $r, $softwaredir,
-                                    "HKEY_LOCAL_MACHINE\\SOFTWARE");
+    return unless defined $configdir;
+
+    my $tmpdir = tempdir (CLEANUP => 1);
+
+    my $software = resolve_windows_path ($g, "$configdir/software");
+    my $software_hive;
+    if (defined $software) {
+        eval {
+            $g->download ($software, "$tmpdir/software");
+            $software_hive = Win::Hivex->open ("$tmpdir/software");
+        };
+        warn "$@\n" if $@;
+        $r->{windows_software_hive} = $software;
+    }
+
+    my $system = resolve_windows_path ($g, "$configdir/system");
+    my $system_hive;
+    if (defined $system) {
+        eval {
+            $g->download ($system, "$tmpdir/system");
+            $system_hive = Win::Hivex->open ("$tmpdir/system");
+        };
+        warn "$@\n" if $@;
+        $r->{windows_system_hive} = $system;
+    }
+
+    # Get the ProductName, major and minor version, etc.
+    if (defined $software_hive) {
+        my $cv_node;
+        eval {
+            $cv_node = $software_hive->root;
+            $cv_node = $software_hive->node_get_child ($cv_node, $_)
+                foreach ("Microsoft", "Windows NT", "CurrentVersion");
+        };
+        warn "$@\n" if $@;
+
+        if ($cv_node) {
+            my @values = $software_hive->node_values ($cv_node);
+
+            foreach (@values) {
+                my $k = $software_hive->value_key ($_);
+                if ($k eq "ProductName") {
+                    $_ = $software_hive->value_string ($_);
+                    $r->{product_name} = $_ if defined $_;
+                } elsif ($k eq "CurrentVersion") {
+                    $_ = $software_hive->value_string ($_);
+                    if (defined $_ && m/^(\d+)\.(\d+)/) {
+                        $r->{os_major_version} = $1;
+                        $r->{os_minor_version} = $2;
+                    }
+                } elsif ($k eq "CurrentBuild") {
+                    $_ = $software_hive->value_string ($_);
+                    $r->{windows_current_build} = $_ if defined $_;
+                } elsif ($k eq "SoftwareType") {
+                    $_ = $software_hive->value_string ($_);
+                    $r->{windows_software_type} = $_ if defined $_;
+                } elsif ($k eq "CurrentType") {
+                    $_ = $software_hive->value_string ($_);
+                    $r->{windows_current_type} = $_ if defined $_;
+                } elsif ($k eq "RegisteredOwner") {
+                    $_ = $software_hive->value_string ($_);
+                    $r->{windows_registered_owner} = $_ if defined $_;
+                } elsif ($k eq "RegisteredOrganization") {
+                    $_ = $software_hive->value_string ($_);
+                    $r->{windows_registered_organization} = $_ if defined $_;
+                } elsif ($k eq "InstallationType") {
+                    $_ = $software_hive->value_string ($_);
+                    $r->{windows_installation_type} = $_ if defined $_;
+                } elsif ($k eq "EditionID") {
+                    $_ = $software_hive->value_string ($_);
+                    $r->{windows_edition_id} = $_ if defined $_;
+                } elsif ($k eq "ProductID") {
+                    $_ = $software_hive->value_string ($_);
+                    $r->{windows_product_id} = $_ if defined $_;
+                }
+            }
         }
-        my $systemdir = resolve_windows_path ($g, "$configdir/system");
-        if (defined $systemdir) {
-            _load_windows_registry ($g, $r, $systemdir,
-                                    "HKEY_LOCAL_MACHINE\\System");
-        }
     }
-}
-
-sub _load_windows_registry
-{
-    local $_;
-    my $g = shift;
-    my $r = shift;
-    my $regfile = shift;
-    my $prefix = shift;
-
-    my $dir = tempdir (CLEANUP => 1);
-
-    $g->download ($regfile, "$dir/reg");
-
-    # 'reged' command is particularly noisy.  Redirect stdout and
-    # stderr to /dev/null temporarily.
-    open SAVEOUT, ">&STDOUT";
-    open SAVEERR, ">&STDERR";
-    open STDOUT, ">/dev/null";
-    open STDERR, ">/dev/null";
-
-    my @cmd = ("reged", "-x", "$dir/reg", "$prefix", "\\", "$dir/out");
-    my $res = system (@cmd);
-
-    close STDOUT;
-    close STDERR;
-    open STDOUT, ">&SAVEOUT";
-    open STDERR, ">&SAVEERR";
-    close SAVEOUT;
-    close SAVEERR;
-
-    unless ($res == 0) {
-        warn __x("reged command failed: {errormsg}", errormsg => $?);
-        return;
-    }
-
-    # Some versions of reged segfault on inputs.  If that happens we
-    # may get no / partial output file.  Anyway, if it exists, load
-    # it.
-    my $content;
-    unless (open F, "$dir/out") {
-        warn __x("no output from reged command: {errormsg}", errormsg => $!);
-        return;
-    }
-    { local $/ = undef; $content = <F>; }
-    close F;
-
-    my @registry = ();
-    @registry = @{$r->{registry}} if exists $r->{registry};
-    push @registry, $content;
-    $r->{registry} = \@registry;
 }
 
 sub _check_grub

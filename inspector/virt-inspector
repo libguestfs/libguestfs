@@ -164,13 +164,11 @@ my $windows_registry;
 
 =item B<--windows-registry>
 
-If this item is passed, I<and> the guest is Windows, I<and> the
-external program C<reged> is available (see SEE ALSO section), then we
-attempt to parse the Windows registry.  This allows much more
-information to be gathered for Windows guests.
+This flag is ignored for compatibility with earlier releases of the
+software.
 
-This is quite an expensive and slow operation, so we don't do it by
-default.
+In this version, if L<Win::Hivex(3)> is available, then we attempt to
+parse information out of the Registry for any Windows guest.
 
 =back
 
@@ -262,8 +260,7 @@ my @partitions = get_partitions ($g);
 
 # Now query each one to build up a picture of what's in it.
 my %fses =
-    inspect_all_partitions ($g, \@partitions,
-      use_windows_registry => $windows_registry);
+    inspect_all_partitions ($g, \@partitions);
 
 #print "fses -----------\n";
 #print Dumper(\%fses);
@@ -849,9 +846,6 @@ L<Sys::Guestfs(3)>,
 L<Sys::Guestfs::Lib(3)>,
 L<Sys::Virt(3)>,
 L<http://libguestfs.org/>.
-
-For Windows registry parsing we require the C<reged> program
-from L<http://home.eunet.no/~pnordahl/ntpasswd/>.
 
 =head1 AUTHOR
 
