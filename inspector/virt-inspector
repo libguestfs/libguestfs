@@ -407,13 +407,15 @@ sub output_text_os
         print "    $_->{name} $_->{version}\n"
     }
 
-    print __"  Kernels:\n";
-    my @kernels = @{$os->{kernels}};
-    foreach (@kernels) {
-        print "    $_->{version} ($_->{arch})\n";
-        my @modules = @{$_->{modules}};
-        foreach (@modules) {
-            print "      $_\n";
+    if ($os->{kernels}) {
+        print __"  Kernels:\n";
+        my @kernels = @{$os->{kernels}};
+        foreach (@kernels) {
+            print "    $_->{version} ($_->{arch})\n";
+            my @modules = @{$_->{modules}};
+            foreach (@modules) {
+                print "      $_\n";
+            }
         }
     }
 
