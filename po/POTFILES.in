@@ -1,3 +1,4 @@
+appliance/libguestfs-supermin-helper.c
 daemon/augeas.c
 daemon/available.c
 daemon/blkid.c

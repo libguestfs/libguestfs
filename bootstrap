@@ -60,6 +60,9 @@ modules='
 arpa_inet
 c-ctype
 closeout
+error
+filevercmp
+fts
 full-read
 full-write
 gitlog-to-changelog
@@ -79,8 +82,11 @@ strndup
 vasprintf
 vc-list-files
 warnings
+xalloc
+xalloc-die
 xstrtol
 xstrtoll
+xvasprintf
 '
 
 $gnulib_tool			\

@@ -18,7 +18,6 @@
 include $(top_srcdir)/subdir-rules.mk
 
 EXTRA_DIST = \
-	libguestfs-supermin-helper \
 	kmod.whitelist.in \
 	packagelist.in \
 	init \
@@ -45,7 +44,14 @@ fs_DATA = $(APPLIANCE_FILES)
 APPLIANCE_FILES = $(INITRAMFSIMG) $(VMLINUZ)
 if SUPERMIN
 APPLIANCE_FILES += $(SUPERMINIMG) $(SUPERMINFILES) kmod.whitelist
-bin_SCRIPTS = libguestfs-supermin-helper
+bin_PROGRAMS = libguestfs-supermin-helper
+libguestfs_supermin_helper_SOURCES = \
+	libguestfs-supermin-helper.c ../gnulib/lib/xalloc-die.c
+libguestfs_supermin_helper_CFLAGS = \
+	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+libguestfs_supermin_helper_LDADD = \
+	../gnulib/lib/libgnu.la
 endif
 
 # Don't change these names - they must be the same as in '*.sh' scripts.

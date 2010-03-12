@@ -11,6 +11,8 @@ appliance/debian/debirf.conf
 appliance/initramfs.*.img
 appliance/initramfs.*.supermin.hostfiles
 appliance/kmod.whitelist
+appliance/libguestfs-supermin-helper
+appliance/libguestfs-supermin-helper.old
 appliance/make.sh
 appliance/packagelist
 appliance/stamp-debirf-modules

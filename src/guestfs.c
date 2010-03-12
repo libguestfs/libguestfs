@@ -1537,8 +1537,9 @@ build_supermin_appliance (guestfs_h *g, const char *path,
 
   snprintf (cmd, sizeof cmd,
             "PATH='%s':$PATH "
-            "libguestfs-supermin-helper '%s' " host_cpu " " REPO " %s %s",
+            "libguestfs-supermin-helper%s '%s' " host_cpu " " REPO " %s %s",
             path,
+            g->verbose ? " --verbose" : "",
             path, *kernel, *initrd);
   if (g->verbose)
     print_timestamped_message (g, "%s", cmd);
