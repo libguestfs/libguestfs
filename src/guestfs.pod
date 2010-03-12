@@ -807,7 +807,7 @@ need the compile time check as well):
    dl = dlopen (NULL, RTLD_LAZY);
    if (!dl) {
      fprintf (stderr, "dlopen: %s\n", dlerror ());
-     exit (1);
+     exit (EXIT_FAILURE);
    }
    has_function = dlsym (dl, "guestfs_dd") != NULL;
    dlclose (dl);
