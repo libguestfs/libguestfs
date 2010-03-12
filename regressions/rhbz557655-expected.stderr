@@ -2,10 +2,10 @@ set-memsize: memsize: integer out of range
 set-memsize: memsize: integer out of range
 set-memsize: memsize: integer out of range
 set-memsize: memsize: integer out of range
-set-memsize: memsize: invalid integer parameter (xstrtol returned 4)
-set-memsize: memsize: invalid integer parameter (xstrtol returned 2)
-set-memsize: memsize: invalid integer parameter (xstrtol returned 2)
-set-memsize: memsize: invalid integer parameter (xstrtol returned 2)
+set-memsize: memsize: invalid integer parameter (xstrtoll returned 4)
+set-memsize: memsize: invalid integer parameter (xstrtoll returned 2)
+set-memsize: memsize: invalid integer parameter (xstrtoll returned 2)
+set-memsize: memsize: invalid integer parameter (xstrtoll returned 2)
 libguestfs: error: truncate_size: ftruncate: /test: File too large
 truncate-size: size: invalid integer parameter (xstrtoll returned 1)
 truncate-size: size: invalid integer parameter (xstrtoll returned 4)

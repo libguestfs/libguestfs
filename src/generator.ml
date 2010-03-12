@@ -7221,7 +7221,7 @@ and generate_fish_cmds () =
                 and comment =
                   "The Int type in the generator is a signed 31 bit int." in
                 Some (min, max, comment) in
-              parse_integer "xstrtol" "long" "int" range name i
+              parse_integer "xstrtoll" "long long" "int" range name i
           | Int64 name ->
               parse_integer "xstrtoll" "long long" "int64_t" None name i
       ) (snd style);
