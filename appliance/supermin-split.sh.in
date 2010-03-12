@@ -107,8 +107,8 @@ for path in $(find -not -name fakeroot.log); do
 
     # Special case for libntfs-3g.so.*
     elif [[ "$file" =~ $p_libntfs3g ]]; then
-	[ -n "$libntfs3g_once" ] || echo "$dir/libntfs-3g.so.*" >&6
-	libntfs3g_once=1
+        [ -n "$libntfs3g_once" ] || echo "$dir/libntfs-3g.so.*" >&6
+        libntfs3g_once=1
 
     # libfoo-1.2.3.so
     elif [[ "$file" =~ $p_lib123so ]]; then

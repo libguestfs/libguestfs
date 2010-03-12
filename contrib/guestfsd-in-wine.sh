@@ -97,8 +97,8 @@ fi
 append=
 while [ $# -gt 0 ]; do
     if [ $1 = "-append" ]; then
-	append="$2"
-	shift
+        append="$2"
+        shift
     fi
     shift
 done

@@ -19,17 +19,17 @@
 
 (* This script generates a large amount of code and documentation for
  * all the daemon actions.
- * 
+ *
  * To add a new action there are only two files you need to change,
  * this one to describe the interface (see the big table of
  * 'daemon_functions' below), and daemon/<somefile>.c to write the
  * implementation.
- * 
+ *
  * After editing this file, run it (./src/generator.ml) to regenerate
  * all the output files.  'make' will rerun this automatically when
  * necessary.  Note that if you are using a separate build directory
  * you must run generator.ml from the _source_ directory.
- * 
+ *
  * IMPORTANT: This script should NOT print any warnings.  If it prints
  * warnings, you should treat them as errors.
  *
@@ -6818,7 +6818,7 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
         | Bool _, _
         | FileIn _, _ | FileOut _, _ -> ()
         | StringList n, "" | DeviceList n, "" ->
-	    pr "    const char *const %s[1] = { NULL };\n" n
+            pr "    const char *const %s[1] = { NULL };\n" n
         | StringList n, arg | DeviceList n, arg ->
             let strs = string_split " " arg in
             iteri (
@@ -10223,96 +10223,96 @@ namespace Guestfs
   List.iter (
     fun (name, style, _, _, _, shortdesc, _) ->
       let rec csharp_return_type () =
-	match fst style with
-	| RErr -> "void"
-	| RBool n -> "bool"
-	| RInt n -> "int"
-	| RInt64 n -> "long"
-	| RConstString n
-	| RConstOptString n
-	| RString n
-	| RBufferOut n -> "string"
-	| RStruct (_,n) -> "_" ^ n
-	| RHashtable n -> "Hashtable"
-	| RStringList n -> "string[]"
-	| RStructList (_,n) -> sprintf "_%s[]" n
+        match fst style with
+        | RErr -> "void"
+        | RBool n -> "bool"
+        | RInt n -> "int"
+        | RInt64 n -> "long"
+        | RConstString n
+        | RConstOptString n
+        | RString n
+        | RBufferOut n -> "string"
+        | RStruct (_,n) -> "_" ^ n
+        | RHashtable n -> "Hashtable"
+        | RStringList n -> "string[]"
+        | RStructList (_,n) -> sprintf "_%s[]" n
 
       and c_return_type () =
-	match fst style with
-	| RErr
-	| RBool _
-	| RInt _ -> "int"
-	| RInt64 _ -> "long"
-	| RConstString _
-	| RConstOptString _
-	| RString _
-	| RBufferOut _ -> "string"
-	| RStruct (_,n) -> "_" ^ n
-	| RHashtable _
-	| RStringList _ -> "string[]"
-	| RStructList (_,n) -> sprintf "_%s[]" n
-    
+        match fst style with
+        | RErr
+        | RBool _
+        | RInt _ -> "int"
+        | RInt64 _ -> "long"
+        | RConstString _
+        | RConstOptString _
+        | RString _
+        | RBufferOut _ -> "string"
+        | RStruct (_,n) -> "_" ^ n
+        | RHashtable _
+        | RStringList _ -> "string[]"
+        | RStructList (_,n) -> sprintf "_%s[]" n
+
       and c_error_comparison () =
-	match fst style with
-	| RErr
-	| RBool _
-	| RInt _
-	| RInt64 _ -> "== -1"
-	| RConstString _
-	| RConstOptString _
-	| RString _
-	| RBufferOut _
-	| RStruct (_,_)
-	| RHashtable _
-	| RStringList _
-	| RStructList (_,_) -> "== null"
-    
+        match fst style with
+        | RErr
+        | RBool _
+        | RInt _
+        | RInt64 _ -> "== -1"
+        | RConstString _
+        | RConstOptString _
+        | RString _
+        | RBufferOut _
+        | RStruct (_,_)
+        | RHashtable _
+        | RStringList _
+        | RStructList (_,_) -> "== null"
+
       and generate_extern_prototype () =
-	pr "    static extern %s guestfs_%s (IntPtr h"
-	  (c_return_type ()) name;
-	List.iter (
-	  function
-	  | Pathname n | Device n | Dev_or_Path n | String n | OptString n
-	  | FileIn n | FileOut n ->
+        pr "    static extern %s guestfs_%s (IntPtr h"
+          (c_return_type ()) name;
+        List.iter (
+          function
+          | Pathname n | Device n | Dev_or_Path n | String n | OptString n
+          | FileIn n | FileOut n ->
               pr ", [In] string %s" n
-	  | StringList n | DeviceList n ->
+          | StringList n | DeviceList n ->
               pr ", [In] string[] %s" n
-	  | Bool n ->
-	      pr ", bool %s" n
-	  | Int n ->
-	      pr ", int %s" n
-	  | Int64 n ->
-	      pr ", long %s" n
-	) (snd style);
-	pr ");\n"
+          | Bool n ->
+              pr ", bool %s" n
+          | Int n ->
+              pr ", int %s" n
+          | Int64 n ->
+              pr ", long %s" n
+        ) (snd style);
+        pr ");\n"
 
       and generate_public_prototype () =
-	pr "    public %s %s (" (csharp_return_type ()) name;
-	let comma = ref false in
-	let next () =
-	  if !comma then pr ", ";
-	  comma := true
-	in
-	List.iter (
-	  function
-	  | Pathname n | Device n | Dev_or_Path n | String n | OptString n
-	  | FileIn n | FileOut n ->
+        pr "    public %s %s (" (csharp_return_type ()) name;
+        let comma = ref false in
+        let next () =
+          if !comma then pr ", ";
+          comma := true
+        in
+        List.iter (
+          function
+          | Pathname n | Device n | Dev_or_Path n | String n | OptString n
+          | FileIn n | FileOut n ->
               next (); pr "string %s" n
-	  | StringList n | DeviceList n ->
+          | StringList n | DeviceList n ->
               next (); pr "string[] %s" n
-	  | Bool n ->
-	      next (); pr "bool %s" n
-	  | Int n ->
-	      next (); pr "int %s" n
-	  | Int64 n ->
-	      next (); pr "long %s" n
-	) (snd style);
-	pr ")\n"
+          | Bool n ->
+              next (); pr "bool %s" n
+          | Int n ->
+              next (); pr "int %s" n
+          | Int64 n ->
+              next (); pr "long %s" n
+        ) (snd style);
+        pr ")\n"
 
       and generate_call () =
-	pr "guestfs_%s (_handle" name;
-	List.iter (fun arg -> pr ", %s" (name_of_argt arg)) (snd style);
-	pr ");\n";
+        pr "guestfs_%s (_handle" name;
+        List.iter (fun arg -> pr ", %s" (name_of_argt arg)) (snd style);
+        pr ");\n";
       in
 
       pr "    [DllImport (\"%s\")]\n" library;

@@ -97,7 +97,7 @@ sync_win32 (void)
        */
       TCHAR volname[50];
       if (!GetVolumeNameForVolumeMountPoint (p, volname, 50))
-	return -1;
+        return -1;
 
       drive = CreateFile (volname, GENERIC_READ|GENERIC_WRITE,
                           FILE_SHARE_READ|FILE_SHARE_WRITE,

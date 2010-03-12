@@ -143,22 +143,22 @@ foreach $dev (@partitions) {
     my $mountable = $@ ? 0 : 1;
     $g->umount_all ();
     if ($mountable) {
-	push @fses, $dev;
+        push @fses, $dev;
     } else {
-	push @not_mountable, $dev;
+        push @not_mountable, $dev;
     }
 }
 
 foreach $dev (@fses) {
     print canonicalize($dev);
     if ($long) {
-	my $fstype;
-	eval { $fstype = $g->vfs_type ($dev); };
-	if ($fstype) {
-	    print " $fstype";
-	} else {
-	    print " unknown";
-	}
+        my $fstype;
+        eval { $fstype = $g->vfs_type ($dev); };
+        if ($fstype) {
+            print " $fstype";
+        } else {
+            print " unknown";
+        }
     }
     print "\n";
 }
@@ -166,13 +166,13 @@ foreach $dev (@fses) {
 # If asked, look in the not_mountable list for potential swap devices.
 if ($all) {
     foreach $dev (@not_mountable) {
-	my $file;
-	eval { $file = $g->file ($dev); };
-	if ($file && $file =~ /\bswap\b/) {
-	    print canonicalize($dev);
-	    print " swap" if $long;
-	    print "\n"
-	}
+        my $file;
+        eval { $file = $g->file ($dev); };
+        if ($file && $file =~ /\bswap\b/) {
+            print canonicalize($dev);
+            print " swap" if $long;
+            print "\n"
+        }
     }
 }
 
@@ -183,7 +183,7 @@ sub canonicalize
     local $_ = shift;
 
     if (m{^/dev/[hv]d([a-z]\d)$}) {
-	return "/dev/sd$1";
+        return "/dev/sd$1";
     }
     $_;
 }
