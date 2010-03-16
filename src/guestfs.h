@@ -1,5 +1,5 @@
 /* libguestfs
- * Copyright (C) 2009 Red Hat Inc.
+ * Copyright (C) 2009-2010 Red Hat Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,12 +19,15 @@
 #ifndef GUESTFS_H_
 #define GUESTFS_H_
 
-/* IMPORTANT NOTE!
- * All API documentation is in the manual page --> guestfs(3) <--
- * Go and read it now, I'll wait.
+/* IMPORTANT NOTE
+ *
+ * All API documentation is in the manpage, 'guestfs(3)'.
+ * To read it, type:
+ *   man 3 guestfs
+ * Or read it online here:
+ *   http://libguestfs.org/guestfs.3.html
+ * Go and read it now, I'll wait for you to come back.
  */
-
-#include <rpc/xdr.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -48,9 +51,6 @@ extern guestfs_error_handler_cb guestfs_get_error_handler (guestfs_h *g, void **
 extern void guestfs_set_out_of_memory_handler (guestfs_h *g, guestfs_abort_cb);
 extern guestfs_abort_cb guestfs_get_out_of_memory_handler (guestfs_h *g);
 
-#include <guestfs-structs.h>
-#include <guestfs-actions.h>
-
 /* Events. */
 typedef void (*guestfs_log_message_cb) (guestfs_h *g, void *data, char *buf, int len);
 typedef void (*guestfs_subprocess_quit_cb) (guestfs_h *g, void *data);
@@ -60,7 +60,14 @@ extern void guestfs_set_log_message_callback (guestfs_h *g, guestfs_log_message_
 extern void guestfs_set_subprocess_quit_callback (guestfs_h *g, guestfs_subprocess_quit_cb cb, void *opaque);
 extern void guestfs_set_launch_done_callback (guestfs_h *g, guestfs_launch_done_cb cb, void *opaque);
 
-/* Private, for use only by the actions. */
+#include <rpc/xdr.h>
+#include <guestfs-structs.h>
+#include <guestfs-actions.h>
+
+/* PRIVATE: These are NOT part of the public, stable API, and can
+ * change at any time!  We export them because they are used by some
+ * of the language bindings.
+ */
 struct guestfs_message_header;
 struct guestfs_message_error;
 extern void guestfs_error (guestfs_h *g, const char *fs, ...)
@@ -78,6 +85,7 @@ extern int guestfs___send (guestfs_h *g, int proc_nr, xdrproc_t xdrp, char *args
 extern int guestfs___recv (guestfs_h *g, const char *fn, struct guestfs_message_header *hdr, struct guestfs_message_error *err, xdrproc_t xdrp, char *ret);
 extern int guestfs___send_file (guestfs_h *g, const char *filename);
 extern int guestfs___recv_file (guestfs_h *g, const char *filename);
+/* End of private functions. */
 
 #ifdef __cplusplus
 }
