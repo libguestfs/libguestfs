@@ -26,8 +26,7 @@
 #include <string.h>
 #include <unistd.h>
 
-/* Get STREQ etc */
-#include "../src/guestfs-internal.h"
+#define STREQ(a,b) (strcmp((a),(b)) == 0)
 
 int
 main (int argc, char *argv[])
