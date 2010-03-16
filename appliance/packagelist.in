@@ -26,6 +26,7 @@
   libselinux
   udev
   util-linux-ng
+  vim-minimal
 #elif DEBIAN == 1
   bsdmainutils
   btrfs-tools
@@ -40,6 +41,7 @@
   reiserfsprogs
   udev
   util-linux
+  vim-tiny
 #endif
 
 bash
