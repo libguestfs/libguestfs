@@ -91,6 +91,7 @@ static int recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn);
 static int accept_from_daemon (guestfs_h *g);
 static int check_peer_euid (guestfs_h *g, int sock, uid_t *rtn);
 static void close_handles (void);
+static int qemu_supports (guestfs_h *g, const char *option);
 
 #define UNIX_PATH_MAX 108
 
@@ -870,8 +871,6 @@ dir_contains_files (const char *dir, ...)
 
 static void print_timestamped_message (guestfs_h *g, const char *fs, ...);
 static int build_supermin_appliance (guestfs_h *g, const char *path, char **kernel, char **initrd);
-static int test_qemu (guestfs_h *g);
-static int qemu_supports (guestfs_h *g, const char *option);
 static int is_openable (guestfs_h *g, const char *path, int flags);
 static void print_cmdline (guestfs_h *g);
 
@@ -1023,7 +1022,7 @@ guestfs__launch (guestfs_h *g)
     print_timestamped_message (g, "begin testing qemu features");
 
   /* Get qemu help text and version. */
-  if (test_qemu (g) == -1)
+  if (qemu_supports (g, NULL) == -1)
     goto cleanup0;
 
   /* Choose which vmchannel implementation to use. */
@@ -1607,11 +1606,6 @@ test_qemu (guestfs_h *g)
   char cmd[1024];
   FILE *fp;
 
-  free (g->qemu_help);
-  free (g->qemu_version);
-  g->qemu_help = NULL;
-  g->qemu_version = NULL;
-
   snprintf (cmd, sizeof cmd, "LC_ALL=C '%s' -help", g->qemu);
 
   fp = popen (cmd, "r");
@@ -1672,11 +1666,26 @@ read_all (guestfs_h *g, FILE *fp, char **ret)
 
 /* Test if option is supported by qemu command line (just by grepping
  * the help text).
+ *
+ * The first time this is used, it has to run the external qemu
+ * binary.  If that fails, it returns -1.
+ *
+ * To just do the first-time run of the qemu binary, call this with
+ * option == NULL, in which case it will return -1 if there was an
+ * error doing that.
  */
 static int
 qemu_supports (guestfs_h *g, const char *option)
 {
-  return g->qemu_help && strstr (g->qemu_help, option) != NULL;
+  if (!g->qemu_help) {
+    if (test_qemu (g) == -1)
+      return -1;
+  }
+
+  if (option == NULL)
+    return 1;
+
+  return strstr (g->qemu_help, option) != NULL;
 }
 
 /* Check if a file can be opened. */

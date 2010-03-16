@@ -581,7 +581,15 @@ configure script.
 You can also override this by setting the C<LIBGUESTFS_QEMU>
 environment variable.
 
-Setting C<qemu> to C<NULL> restores the default qemu binary.");
+Setting C<qemu> to C<NULL> restores the default qemu binary.
+
+Note that you should call this function as early as possible
+after creating the handle.  This is because some pre-launch
+operations depend on testing qemu features (by running C<qemu -help>).
+If the qemu binary changes, we don't retest features, and
+so you might see inconsistent results.  Using the environment
+variable C<LIBGUESTFS_QEMU> is safest of all since that picks
+the qemu binary at the same time as the handle is created.");
 
   ("get_qemu", (RConstString "qemu", []), -1, [],
    [InitNone, Always, TestRun (
