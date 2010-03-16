@@ -68,23 +68,8 @@ extern void guestfs_set_launch_done_callback (guestfs_h *g, guestfs_launch_done_
  * change at any time!  We export them because they are used by some
  * of the language bindings.
  */
-struct guestfs_message_header;
-struct guestfs_message_error;
-extern void guestfs_error (guestfs_h *g, const char *fs, ...)
-  __attribute__((format (printf,2,3)));
-extern void guestfs_perrorf (guestfs_h *g, const char *fs, ...)
-  __attribute__((format (printf,2,3)));
 extern void *guestfs_safe_malloc (guestfs_h *g, size_t nbytes);
 extern void *guestfs_safe_calloc (guestfs_h *g, size_t n, size_t s);
-extern void *guestfs_safe_realloc (guestfs_h *g, void *ptr, int nbytes);
-extern char *guestfs_safe_strdup (guestfs_h *g, const char *str);
-extern void *guestfs_safe_memdup (guestfs_h *g, void *ptr, size_t size);
-extern int guestfs___set_busy (guestfs_h *g);
-extern int guestfs___end_busy (guestfs_h *g);
-extern int guestfs___send (guestfs_h *g, int proc_nr, xdrproc_t xdrp, char *args);
-extern int guestfs___recv (guestfs_h *g, const char *fn, struct guestfs_message_header *hdr, struct guestfs_message_error *err, xdrproc_t xdrp, char *ret);
-extern int guestfs___send_file (guestfs_h *g, const char *filename);
-extern int guestfs___recv_file (guestfs_h *g, const char *filename);
 /* End of private functions. */
 
 #ifdef __cplusplus
