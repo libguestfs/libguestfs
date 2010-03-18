@@ -512,3 +512,86 @@ do_vgrename (const char *volgroup, const char *newvolgroup)
 
   return 0;
 }
+
+static char *
+get_lvm_field (const char *cmd, const char *field, const char *device)
+{
+  char *out;
+  char *err;
+  int r = command (&out, &err,
+                   "/sbin/lvm", cmd,
+                   "--unbuffered", "--noheadings", "-o", field,
+                   device, NULL);
+  if (r == -1) {
+    reply_with_error ("%s: %s", device, err);
+    free (out);
+    free (err);
+    return NULL;
+  }
+
+  free (err);
+
+  trim (out);
+  return out;                   /* Caller frees. */
+}
+
+char *
+do_pvuuid (const char *device)
+{
+  return get_lvm_field ("pvs", "pv_uuid", device);
+}
+
+char *
+do_vguuid (const char *vgname)
+{
+  return get_lvm_field ("vgs", "vg_uuid", vgname);
+}
+
+char *
+do_lvuuid (const char *device)
+{
+  return get_lvm_field ("lvs", "lv_uuid", device);
+}
+
+static char **
+get_lvm_fields (const char *cmd, const char *field, const char *device)
+{
+  char *out;
+  char *err;
+  int r = command (&out, &err,
+                   "/sbin/lvm", cmd,
+                   "--unbuffered", "--noheadings", "-o", field,
+                   device, NULL);
+  if (r == -1) {
+    reply_with_error ("%s: %s", device, err);
+    free (out);
+    free (err);
+    return NULL;
+  }
+
+  free (err);
+
+  char **ret = split_lines (out);
+  free (out);
+
+  if (ret == NULL)
+    return NULL;
+
+  size_t i;
+  for (i = 0; ret[i] != NULL; ++i)
+    trim (ret[i]);
+
+  return ret;
+}
+
+char **
+do_vgpvuuids (const char *vgname)
+{
+  return get_lvm_fields ("vgs", "pv_uuid", vgname);
+}
+
+char **
+do_vglvuuids (const char *vgname)
+{
+  return get_lvm_fields ("vgs", "lv_uuid", vgname);
+}

@@ -30,6 +30,7 @@ TESTS = \
 	test-cancellation-download-librarycancels.sh \
 	test-cancellation-upload-daemoncancels.sh \
 	test-find0.sh \
+	test-lvm-mapping.pl \
 	test-noexec-stack.pl \
 	test-qemudie-killsub.sh \
 	test-qemudie-midcommand.sh \
@@ -51,6 +52,7 @@ TESTS_ENVIRONMENT = \
 	MALLOC_PERTURB_=$(random_val) \
 	LD_LIBRARY_PATH=$(top_builddir)/src/.libs \
 	LIBGUESTFS_PATH=$(top_builddir)/appliance \
+	PERL5LIB=$(top_builddir)/perl/blib/lib:$(top_builddir)/perl/blib/arch \
 	NOEXEC_CHECK="$(top_builddir)/src/.libs/libguestfs.so $(top_builddir)/daemon/guestfsd"
 
 EXTRA_DIST = \

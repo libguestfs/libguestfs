@@ -4290,6 +4290,48 @@ contained in a Linux initrd or initramfs image:
 
 See also C<guestfs_initrd_list>.");
 
+  ("pvuuid", (RString "uuid", [Device "device"]), 222, [],
+   [],
+   "get the UUID of a physical volume",
+   "\
+This command returns the UUID of the LVM PV C<device>.");
+
+  ("vguuid", (RString "uuid", [String "vgname"]), 223, [],
+   [],
+   "get the UUID of a volume group",
+   "\
+This command returns the UUID of the LVM VG named C<vgname>.");
+
+  ("lvuuid", (RString "uuid", [Device "device"]), 224, [],
+   [],
+   "get the UUID of a logical volume",
+   "\
+This command returns the UUID of the LVM LV C<device>.");
+
+  ("vgpvuuids", (RStringList "uuids", [String "vgname"]), 225, [],
+   [],
+   "get the PV UUIDs containing the volume group",
+   "\
+Given a VG called C<vgname>, this returns the UUIDs of all
+the physical volumes that this volume group resides on.
+
+You can use this along with C<guestfs_pvs> and C<guestfs_pvuuid>
+calls to associate physical volumes and volume groups.
+
+See also C<guestfs_vglvuuids>.");
+
+  ("vglvuuids", (RStringList "uuids", [String "vgname"]), 226, [],
+   [],
+   "get the LV UUIDs of all LVs in the volume group",
+   "\
+Given a VG called C<vgname>, this returns the UUIDs of all
+the logical volumes created in this volume group.
+
+You can use this along with C<guestfs_lvs> and C<guestfs_lvuuid>
+calls to associate logical volumes and volume groups.
+
+See also C<guestfs_vgpvuuids>.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
