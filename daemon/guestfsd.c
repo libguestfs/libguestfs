@@ -928,6 +928,28 @@ split_lines (char *str)
   return lines;
 }
 
+/* Skip leading and trailing whitespace, updating the original string
+ * in-place.
+ */
+void
+trim (char *str)
+{
+  size_t len = strlen (str);
+
+  while (len > 0 && c_isspace (str[len-1])) {
+    str[len-1] = '\0';
+    len--;
+  }
+
+  const char *p = str;
+  while (*p && c_isspace (*p)) {
+    p++;
+    len--;
+  }
+
+  memmove (str, p, len+1);
+}
+
 /* printf helper function so we can use %Q ("quoted") and %R to print
  * shell-quoted strings.  See HACKING file for more details.
  */

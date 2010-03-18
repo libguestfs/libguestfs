@@ -66,6 +66,8 @@ extern int commandrvf (char **stdoutput, char **stderror, int flags,
 
 extern char **split_lines (char *str);
 
+extern void trim (char *str);
+
 extern int device_name_translation (char *device, const char *func);
 
 extern void udev_settle (void);
