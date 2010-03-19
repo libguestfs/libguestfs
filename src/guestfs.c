@@ -1287,7 +1287,7 @@ guestfs__launch (guestfs_h *g)
       if (dup (wfd[0]) == -1) {
       dup_failed:
         perror ("dup failed");
-        _exit (1);
+        _exit (EXIT_FAILURE);
       }
       if (dup (rfd[1]) == -1)
         goto dup_failed;
@@ -1307,7 +1307,7 @@ guestfs__launch (guestfs_h *g)
 
     execv (g->qemu, g->cmdline); /* Run qemu. */
     perror (g->qemu);
-    _exit (1);
+    _exit (EXIT_FAILURE);
   }
 
   /* Parent (library). */
@@ -1339,11 +1339,11 @@ guestfs__launch (guestfs_h *g)
        */
       for (;;) {
         if (kill (qemu_pid, 0) == -1) /* qemu's gone away, we aren't needed */
-          _exit (0);
+          _exit (EXIT_SUCCESS);
         if (kill (parent_pid, 0) == -1) {
           /* Parent's gone away, qemu still around, so kill qemu. */
           kill (qemu_pid, 9);
-          _exit (0);
+          _exit (EXIT_SUCCESS);
         }
         sleep (2);
       }
