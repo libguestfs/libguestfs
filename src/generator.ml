@@ -5393,6 +5393,7 @@ and generate_client_actions () =
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <string.h>
 #include <inttypes.h>
 
 #include \"guestfs.h\"
