@@ -42,6 +42,7 @@
 #load "unix.cma";;
 #load "str.cma";;
 #directory "+xml-light";;
+#directory "+../pkg-lib/xml-light";; (* for GODI users *)
 #load "xml-light.cma";;
 
 open Unix
