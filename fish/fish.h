@@ -30,6 +30,13 @@
 #define N_(str) str
 #endif
 
+#if !ENABLE_NLS
+#undef textdomain
+#define textdomain(Domainname) /* empty */
+#undef bindtextdomain
+#define bindtextdomain(Domainname, Dirname) /* empty */
+#endif
+
 #define STREQ(a,b) (strcmp((a),(b)) == 0)
 #define STRCASEEQ(a,b) (strcasecmp((a),(b)) == 0)
 #define STRNEQ(a,b) (strcmp((a),(b)) != 0)
