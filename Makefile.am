@@ -31,9 +31,6 @@ endif
 SUBDIRS += fish po examples images
 SUBDIRS += gnulib/tests capitests regressions test-tool
 
-# NB: Must build inspector directory after perl and before ocaml.
-# We could relax this if we combined the inspector_generator with
-# the ordinary generator, but that brings other problems.
 if HAVE_PERL
 SUBDIRS += perl
 endif
