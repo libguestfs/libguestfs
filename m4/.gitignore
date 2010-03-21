@@ -168,3 +168,4 @@ xsize.m4
 /usleep.m4
 /stdarg.m4
 /xvasprintf.m4
+/intmax.m4
