@@ -440,7 +440,12 @@ AS_IF([test "x$with_readline" != xno],
          AC_MSG_FAILURE(
              [--with-readline was given, but test for readline failed])
          fi
-        ], -lncurses)])
+        ], -lncurses)
+     old_LIBS="$LIBS"
+     LIBS="$LIBS $LIBREADLINE"
+     AC_CHECK_FUNCS([append_history completion_matches rl_completion_matches])
+     LIBS="$old_LIBS"
+    ])
 
 dnl For i18n.
 AM_GNU_GETTEXT([external])

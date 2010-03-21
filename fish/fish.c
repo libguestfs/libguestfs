@@ -1304,7 +1304,11 @@ cleanup_readline (void)
     }
     close (fd);
 
+#ifdef HAVE_APPEND_HISTORY
     (void) append_history (nr_history_lines, histfile);
+#else
+    (void) write_history (histfile);
+#endif
   }
 #endif
 }

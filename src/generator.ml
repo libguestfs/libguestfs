@@ -7459,7 +7459,16 @@ generator (const char *text, int state)
 
 #endif /* HAVE_LIBREADLINE */
 
-char **do_completion (const char *text, int start, int end)
+#ifdef HAVE_RL_COMPLETION_MATCHES
+#define RL_COMPLETION_MATCHES rl_completion_matches
+#else
+#ifdef HAVE_COMPLETION_MATCHES
+#define RL_COMPLETION_MATCHES completion_matches
+#endif
+#endif /* else just fail if we don't have either symbol */
+
+char **
+do_completion (const char *text, int start, int end)
 {
   char **matches = NULL;
 
@@ -7467,9 +7476,9 @@ char **do_completion (const char *text, int start, int end)
   rl_completion_append_character = ' ';
 
   if (start == 0)
-    matches = rl_completion_matches (text, generator);
+    matches = RL_COMPLETION_MATCHES (text, generator);
   else if (complete_dest_paths)
-    matches = rl_completion_matches (text, complete_dest_paths_generator);
+    matches = RL_COMPLETION_MATCHES (text, complete_dest_paths_generator);
 #endif
 
   return matches;
