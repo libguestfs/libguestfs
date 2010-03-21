@@ -100,6 +100,10 @@ static int qemu_supports (guestfs_h *g, const char *option);
 #define MAX(a,b) ((a)>(b)?(a):(b))
 #endif
 
+#ifdef __APPLE__
+#define xdr_uint32_t xdr_u_int32_t
+#endif
+
 /* Also in guestfsd.c */
 #define GUESTFWD_ADDR "10.0.2.4"
 #define GUESTFWD_PORT "6666"
