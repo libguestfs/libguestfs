@@ -41,6 +41,11 @@ if [ "@DIST@" = "REDHAT" ]; then
 
   @FEBOOTSTRAP@ $packages -u @UPDATES@ @REPO@ initramfs @MIRROR@
 
+  # Create modules.dep.  This is only used in the normal appliance
+  # (not supermin).
+  kversion=$(basename initramfs/lib/modules/*)
+  @FEBOOTSTRAP_RUN@ initramfs -- /sbin/depmod -a $kversion
+
   # /sysroot is where the guest root filesystem will be mounted.
   @FEBOOTSTRAP_RUN@ initramfs -- mkdir -p --mode=0777 /sysroot
 
