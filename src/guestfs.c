@@ -395,7 +395,7 @@ guestfs_perrorf (guestfs_h *g, const char *fs, ...)
 
   if (err < 0) return;
 
-#ifndef _GNU_SOURCE
+#if !defined(_GNU_SOURCE) || defined(__APPLE__)
   char buf[256];
   strerror_r (errnum, buf, sizeof buf);
 #else
