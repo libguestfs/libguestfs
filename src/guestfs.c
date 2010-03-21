@@ -439,7 +439,11 @@ guestfs_safe_malloc (guestfs_h *g, size_t nbytes)
 
 /* Technically we should add an autoconf test for this, testing for the desired
    functionality, like what's done in gnulib, but for now, this is fine.  */
+#if defined(__GLIBC__)
 #define HAVE_GNU_CALLOC (__GLIBC__ >= 2)
+#else
+#define HAVE_GNU_CALLOC 0
+#endif
 
 /* Allocate zeroed memory for N elements of S bytes, with error
    checking.  S must be nonzero.  */
