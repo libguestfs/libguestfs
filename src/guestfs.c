@@ -86,6 +86,12 @@
 #define safe_strdup guestfs_safe_strdup
 //#define safe_memdup guestfs_safe_memdup
 
+#ifdef __linux__
+#define CAN_CHECK_PEER_EUID 1
+#else
+#define CAN_CHECK_PEER_EUID 0
+#endif
+
 static void default_error_cb (guestfs_h *g, void *data, const char *msg);
 static int send_to_daemon (guestfs_h *g, const void *v_buf, size_t n);
 static int recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn);
@@ -1053,7 +1059,7 @@ guestfs__launch (guestfs_h *g)
     goto cleanup0;
 
   /* Choose which vmchannel implementation to use. */
-  if (qemu_supports (g, "-net user")) {
+  if (CAN_CHECK_PEER_EUID && qemu_supports (g, "-net user")) {
     /* The "null vmchannel" implementation.  Requires SLIRP (user mode
      * networking in qemu) but no other vmchannel support.  The daemon
      * will connect back to a random port number on localhost.
@@ -1737,6 +1743,7 @@ is_openable (guestfs_h *g, const char *path, int flags)
 static int
 check_peer_euid (guestfs_h *g, int sock, uid_t *rtn)
 {
+#if CAN_CHECK_PEER_EUID
   struct sockaddr_in peer;
   socklen_t addrlen = sizeof peer;
 
@@ -1805,6 +1812,12 @@ check_peer_euid (guestfs_h *g, int sock, uid_t *rtn)
   error (g, "check_peer_euid: no matching TCP connection found in /proc/net/tcp");
   fclose (fp);
   return -1;
+#else /* !CAN_CHECK_PEER_EUID */
+  /* This function exists but should never be called in this
+   * configuration.
+   */
+  abort ();
+#endif /* !CAN_CHECK_PEER_EUID */
 }
 
 /* You had to call this function after launch in versions <= 1.0.70,
