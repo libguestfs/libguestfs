@@ -30,6 +30,7 @@
 #include <sys/stat.h>
 #include <sys/wait.h>
 #include <locale.h>
+#include <limits.h>
 
 #include <guestfs.h>
 
