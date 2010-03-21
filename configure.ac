@@ -1,5 +1,5 @@
 # libguestfs
-# Copyright (C) 2009 Red Hat Inc.
+# Copyright (C) 2009-2010 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -134,6 +134,26 @@ AC_DEFINE_UNQUOTED([host_cpu],["$host_cpu"],[Host architecture.])
 dnl Headers.
 AC_CHECK_HEADERS([errno.h sys/types.h sys/un.h sys/wait.h sys/socket.h endian.h byteswap.h])
 
+dnl Build the daemon?
+AC_MSG_CHECKING([if we should build the daemon])
+AC_ARG_ENABLE([daemon],
+        [AS_HELP_STRING([--enable-daemon],
+          [enable building the daemon @<:@default=yes@:>@])],
+        [],
+        [enable_daemon=yes])
+AM_CONDITIONAL([ENABLE_DAEMON],[test "x$enable_daemon" = "xyes"])
+AC_MSG_RESULT([$enable_daemon])
+
+dnl Build the appliance?
+AC_MSG_CHECKING([if we should build the appliance])
+AC_ARG_ENABLE([appliance],
+        [AS_HELP_STRING([--enable-appliance],
+          [enable building the appliance @<:@default=yes@:>@])],
+        [],
+        [enable_appliance=yes])
+AM_CONDITIONAL([ENABLE_APPLIANCE],[test "x$enable_appliance" = "xyes"])
+AC_MSG_RESULT([$enable_appliance])
+
 dnl Check for rpcgen and XDR library.  rpcgen is optional.
 AC_CHECK_PROG([RPCGEN],[rpcgen],[rpcgen],[no])
 AM_CONDITIONAL([HAVE_RPCGEN],[test "x$RPCGEN" != "xno"])
@@ -251,59 +271,60 @@ AC_ARG_WITH([net-if],
 AC_DEFINE_UNQUOTED([NET_IF],["$with_net_if"],[Default network interface.])
 
 dnl Check for febootstrap etc.
-AC_CHECK_PROG([FEBOOTSTRAP],
-        [febootstrap],[febootstrap],[no])
-if test "x$FEBOOTSTRAP" != "xno"; then
-  AC_CHECK_PROG([FEBOOTSTRAP_RUN],
-        [febootstrap-run],[febootstrap-run],[no])
-  test "x$FEBOOTSTRAP_RUN" = "xno" && \
-     AC_MSG_ERROR([febootstrap-run must be installed])
-  AC_CHECK_PROG([FEBOOTSTRAP_INSTALL],
-        [febootstrap-install],[febootstrap-install],[no])
-  test "x$FEBOOTSTRAP_INSTALL" = "xno" && \
-     AC_MSG_ERROR([febootstrap-install must be installed])
-  AC_CHECK_PROG([FEBOOTSTRAP_MINIMIZE],
-        [febootstrap-minimize],[febootstrap-minimize],[no])
-  test "x$FEBOOTSTRAP_MINIMIZE" = "xno" && \
-     AC_MSG_ERROR([febootstrap-minimize must be installed])
-  AC_CHECK_PROG([FEBOOTSTRAP_TO_INITRAMFS],
-        [febootstrap-to-initramfs],[febootstrap-to-initramfs],[no])
-  test "x$FEBOOTSTRAP_TO_INITRAMFS" = "xno" && \
-     AC_MSG_ERROR([febootstrap-to-initramfs must be installed])
+if test "x$enable_appliance" = "xyes"; then
+    AC_CHECK_PROG([FEBOOTSTRAP],
+                  [febootstrap],[febootstrap],[no])
+    if test "x$FEBOOTSTRAP" != "xno"; then
+      AC_CHECK_PROG([FEBOOTSTRAP_RUN],
+                    [febootstrap-run],[febootstrap-run],[no])
+      test "x$FEBOOTSTRAP_RUN" = "xno" && \
+          AC_MSG_ERROR([febootstrap-run must be installed])
+      AC_CHECK_PROG([FEBOOTSTRAP_INSTALL],
+                    [febootstrap-install],[febootstrap-install],[no])
+      test "x$FEBOOTSTRAP_INSTALL" = "xno" && \
+          AC_MSG_ERROR([febootstrap-install must be installed])
+      AC_CHECK_PROG([FEBOOTSTRAP_MINIMIZE],
+                    [febootstrap-minimize],[febootstrap-minimize],[no])
+      test "x$FEBOOTSTRAP_MINIMIZE" = "xno" && \
+          AC_MSG_ERROR([febootstrap-minimize must be installed])
+      AC_CHECK_PROG([FEBOOTSTRAP_TO_INITRAMFS],
+                    [febootstrap-to-initramfs],[febootstrap-to-initramfs],[no])
+      test "x$FEBOOTSTRAP_TO_INITRAMFS" = "xno" && \
+          AC_MSG_ERROR([febootstrap-to-initramfs must be installed])
 
-  dnl Check we have fakechroot >= 2.9 (it's an indirect requirement
-  dnl of febootstrap, but old versions will fail with yum).
-  AC_CHECK_PROG([FAKECHROOT],
-        [fakechroot],[fakechroot],[no])
-  test "x$FAKECHROOT" = "xno" && \
-    AC_MSG_ERROR([fakechroot must be installed])
+      dnl Check we have fakechroot >= 2.9 (it's an indirect requirement
+      dnl of febootstrap, but old versions will fail with yum).
+      AC_CHECK_PROG([FAKECHROOT],
+                    [fakechroot],[fakechroot],[no])
+      test "x$FAKECHROOT" = "xno" && \
+         AC_MSG_ERROR([fakechroot must be installed])
 
-  AC_MSG_CHECKING([fakechroot version])
-  fakechroot_version=`$FAKECHROOT --version | awk '{print $3}'`
-  if test -z "$fakechroot_version"; then
-    AC_MSG_RESULT([failed])
-    AC_MSG_WARN([fakechroot --version command failed, proceeding anyway])
-  else
-    AC_MSG_RESULT([$fakechroot_version])
-    fakechroot_major=`echo "$fakechroot_version" | awk -F. '{print $1}'`
-    fakechroot_minor=`echo "$fakechroot_version" | awk -F. '{print $2}'`
-    if test "$fakechroot_major" -lt 2 -o \
+      AC_MSG_CHECKING([fakechroot version])
+      fakechroot_version=`$FAKECHROOT --version | awk '{print $3}'`
+      if test -z "$fakechroot_version"; then
+        AC_MSG_RESULT([failed])
+        AC_MSG_WARN([fakechroot --version command failed, proceeding anyway])
+      else
+        AC_MSG_RESULT([$fakechroot_version])
+        fakechroot_major=`echo "$fakechroot_version" | awk -F. '{print $1}'`
+        fakechroot_minor=`echo "$fakechroot_version" | awk -F. '{print $2}'`
+        if test "$fakechroot_major" -lt 2 -o \
             \( "$fakechroot_major" -eq 2 -a "$fakechroot_minor" -lt 9 \); then
-        AC_MSG_ERROR([fakechroot version must be >= 2.9])
-    fi
-  fi
-  DIST="REDHAT"
-else
-  # check for debootstrap and debirf
-  AC_CHECK_PROG([DEBOOTSTRAP],
-        [debootstrap],[debootstrap],[no])
-  test "x$DEBOOTSTRAP" = "xno" && \
-        AC_MSG_ERROR([Either febootstrap or debootstrap must be installed])
-  AC_CHECK_PROG([DEBIRF],[debirf],[debirf],[no])
-  test "x$DEBIRF" = "xno" &&
-        AC_MSG_ERROR([debirf must be installed])
-  DIST="DEBIAN"
-  case "$host_cpu" in
+          AC_MSG_ERROR([fakechroot version must be >= 2.9])
+        fi
+      fi
+      DIST="REDHAT"
+    else
+      # check for debootstrap and debirf
+      AC_CHECK_PROG([DEBOOTSTRAP],
+                    [debootstrap],[debootstrap],[no])
+      test "x$DEBOOTSTRAP" = "xno" && \
+          AC_MSG_ERROR([Either febootstrap or debootstrap must be installed])
+      AC_CHECK_PROG([DEBIRF],[debirf],[debirf],[no])
+      test "x$DEBIRF" = "xno" &&
+          AC_MSG_ERROR([debirf must be installed])
+      DIST="DEBIAN"
+      case "$host_cpu" in
       *86)
           DEBIAN_KERNEL_ARCH=486
           ;;
@@ -313,11 +334,29 @@ else
       *)
          DEBIAN_KERNEL_ARCH=$host_cpu
          ;;
-   esac
-   AC_SUBST(DEBIAN_KERNEL_ARCH)
-fi
-AC_SUBST(DIST)
+      esac
+      AC_SUBST(DEBIAN_KERNEL_ARCH)
+    fi
+    AC_SUBST(DIST)
 
+    dnl --with-updates to specify a Fedora updates repository.
+    AC_ARG_WITH([updates],
+        [AS_HELP_STRING([--with-updates],
+          [set name of Fedora updates repository @<:@default=updates-released-f11@:>@])],
+        [],
+        [with_updates=updates-released-f11])
+    UPDATES="$with_updates"
+    AC_SUBST(UPDATES)
+
+    dnl --with-mirror to specify a local Fedora mirror.
+    AC_ARG_WITH([mirror],
+        [AS_HELP_STRING([--with-mirror],
+          [set URI of a local Fedora mirror])],
+        [],
+        [with_mirror=])
+    MIRROR="$with_mirror"
+    AC_SUBST(MIRROR)
+fi
 
 dnl --with-repo to specify a Fedora repository.
 AC_ARG_WITH([repo],
@@ -328,24 +367,6 @@ AC_ARG_WITH([repo],
 REPO="$with_repo"
 AC_SUBST(REPO)
 AC_DEFINE_UNQUOTED([REPO],["$REPO"],[Name of Fedora repository.])
-
-dnl --with-updates to specify a Fedora updates repository.
-AC_ARG_WITH([updates],
-        [AS_HELP_STRING([--with-updates],
-          [set name of Fedora updates repository @<:@default=updates-released-f11@:>@])],
-        [],
-        [with_updates=updates-released-f11])
-UPDATES="$with_updates"
-AC_SUBST(UPDATES)
-
-dnl --with-mirror to specify a local Fedora mirror.
-AC_ARG_WITH([mirror],
-        [AS_HELP_STRING([--with-mirror],
-          [set URI of a local Fedora mirror])],
-        [],
-        [with_mirror=])
-MIRROR="$with_mirror"
-AC_SUBST(MIRROR)
 
 dnl Build the supermin appliance?  Please see README file before
 dnl enabling this option.
@@ -712,7 +733,9 @@ MAX_PROC_NR=`cat $srcdir/src/MAX_PROC_NR`
 AC_SUBST(MAX_PROC_NR)
 
 dnl Run in subdirs.
-AC_CONFIG_SUBDIRS([daemon])
+if test "x$enable_daemon" = "xyes"; then
+    AC_CONFIG_SUBDIRS([daemon])
+fi
 
 dnl Produce output files.
 AC_CONFIG_HEADERS([config.h])
@@ -754,6 +777,8 @@ echo "Thank you for downloading $PACKAGE_STRING"
 echo
 echo "This is how we have configured the optional components for you today:"
 echo
+echo    "Daemon .............................. $enable_daemon"
+echo    "Appliance ........................... $enable_appliance"
 echo    "QEMU ................................ $QEMU"
 echo -n "OCaml bindings ...................... "
 if test "x$HAVE_OCAML_TRUE" = "x"; then echo "yes"; else echo "no"; fi

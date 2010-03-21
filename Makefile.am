@@ -1,5 +1,5 @@
 # libguestfs
-# Copyright (C) 2009 Red Hat Inc.
+# Copyright (C) 2009-2010 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,8 +19,17 @@ include $(top_srcdir)/subdir-rules.mk
 
 ACLOCAL_AMFLAGS = -I m4
 
-SUBDIRS = gnulib/lib src daemon appliance fish po examples images \
-	gnulib/tests capitests regressions test-tool
+SUBDIRS = gnulib/lib src
+
+if ENABLE_DAEMON
+SUBDIRS += daemon
+endif
+if ENABLE_APPLIANCE
+SUBDIRS += appliance
+endif
+
+SUBDIRS += fish po examples images
+SUBDIRS += gnulib/tests capitests regressions test-tool
 
 # NB: Must build inspector directory after perl and before ocaml.
 # We could relax this if we combined the inspector_generator with
