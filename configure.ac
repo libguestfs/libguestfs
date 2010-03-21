@@ -128,6 +128,9 @@ AC_SYS_LARGEFILE
 dnl Check sizeof long.
 AC_CHECK_SIZEOF([long])
 
+dnl Define a C symbol for the host CPU architecture.
+AC_DEFINE_UNQUOTED([host_cpu],["$host_cpu"],[Host architecture.])
+
 dnl Headers.
 AC_CHECK_HEADERS([errno.h sys/types.h sys/un.h sys/wait.h sys/socket.h endian.h byteswap.h])
 
@@ -334,9 +337,6 @@ AC_ARG_WITH([updates],
         [with_updates=updates-released-f11])
 UPDATES="$with_updates"
 AC_SUBST(UPDATES)
-
-dnl Define a symbol for the host CPU architecture.
-AC_DEFINE_UNQUOTED([host_cpu],["$host_cpu"],[Host architecture.])
 
 dnl --with-mirror to specify a local Fedora mirror.
 AC_ARG_WITH([mirror],
