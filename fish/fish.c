@@ -28,6 +28,7 @@
 #include <assert.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <locale.h>
 
 #ifdef HAVE_LIBREADLINE
 #include <readline/readline.h>
