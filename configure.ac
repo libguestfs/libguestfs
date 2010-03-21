@@ -176,7 +176,7 @@ dnl fallback to null vmchannel (still using SLIRP).  See the
 dnl discussion in the README file.
 if test "x$vmchannel_test" != "xno"; then
     AC_MSG_CHECKING([for guestfwd support in $QEMU])
-    if $QEMU --help | grep -sq guestfwd; then
+    if $QEMU -nographic --help | grep -sq guestfwd; then
         AC_MSG_RESULT([yes])
         vmchannel_guestfwd=guestfwd
     else
@@ -185,7 +185,7 @@ if test "x$vmchannel_test" != "xno"; then
         # test failing.  This is because recent qemu will throw
         # up an SDL window and hang if we try to run this test.
         AC_MSG_CHECKING([for "-net channel" (old guestfwd) support in $QEMU])
-        vmchannelout=`$QEMU -net channel /dev/zero 2>&1 ||:`
+        vmchannelout=`$QEMU -nographic -net channel /dev/zero 2>&1 ||:`
         echo "vmchannel test command output: $vmchannelout" >&AS_MESSAGE_LOG_FD
         if echo "$vmchannelout" | grep -sq "vmchannel wrong port number" ; then
             AC_MSG_RESULT([yes])
@@ -197,7 +197,7 @@ if test "x$vmchannel_test" != "xno"; then
     fi
 
     AC_MSG_CHECKING([for "-net user" (user mode network) support in $QEMU])
-    if $QEMU --help | grep -sq -- "-net user"; then
+    if $QEMU -nographic --help | grep -sq -- "-net user"; then
         AC_MSG_RESULT([yes])
         vmchannel_net_user=yes
     else

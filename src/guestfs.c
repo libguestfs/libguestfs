@@ -1620,7 +1620,7 @@ test_qemu (guestfs_h *g)
   char cmd[1024];
   FILE *fp;
 
-  snprintf (cmd, sizeof cmd, "LC_ALL=C '%s' -help", g->qemu);
+  snprintf (cmd, sizeof cmd, "LC_ALL=C '%s' -nographic -help", g->qemu);
 
   fp = popen (cmd, "r");
   /* qemu -help should always work (qemu -version OTOH wasn't
@@ -1642,7 +1642,8 @@ test_qemu (guestfs_h *g)
   if (pclose (fp) == -1)
     goto error;
 
-  snprintf (cmd, sizeof cmd, "LC_ALL=C '%s' -version 2>/dev/null", g->qemu);
+  snprintf (cmd, sizeof cmd, "LC_ALL=C '%s' -nographic -version 2>/dev/null",
+	    g->qemu);
 
   fp = popen (cmd, "r");
   if (fp) {
