@@ -54,12 +54,31 @@ do_alloc (const char *cmd, int argc, char *argv[])
     return -1;
   }
 
+#ifdef HAVE_POSIX_FALLOCATE
   if (posix_fallocate (fd, 0, size) == -1) {
     perror ("fallocate");
     close (fd);
     unlink (argv[0]);
     return -1;
   }
+#else
+  /* Slow emulation of posix_fallocate on platforms which don't have it. */
+  char buffer[BUFSIZ];
+  memset (buffer, 0, sizeof buffer);
+
+  size_t remaining = size;
+  while (remaining > 0) {
+    size_t n = remaining > sizeof buffer ? sizeof buffer : remaining;
+    ssize_t r = write (fd, buffer, n);
+    if (r == -1) {
+      perror ("write");
+      close (fd);
+      unlink (argv[0]);
+      return -1;
+    }
+    remaining -= r;
+  }
+#endif
 
   if (close (fd) == -1) {
     perror (argv[0]);
