@@ -96,6 +96,10 @@ static int qemu_supports (guestfs_h *g, const char *option);
 
 #define UNIX_PATH_MAX 108
 
+#ifndef MAX
+#define MAX(a,b) ((a)>(b)?(a):(b))
+#endif
+
 /* Also in guestfsd.c */
 #define GUESTFWD_ADDR "10.0.2.4"
 #define GUESTFWD_PORT "6666"
