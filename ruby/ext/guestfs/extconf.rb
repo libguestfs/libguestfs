@@ -22,7 +22,10 @@ extension_name = '_guestfs'
 
 dir_config(extension_name)
 
-unless have_library("guestfs", "guestfs_create")
+unless have_header ("guestfs.h")
+  raise "<guestfs.h> not found"
+end
+unless have_library("guestfs", "guestfs_create", "guestfs.h")
   raise "libguestfs not found"
 end
 

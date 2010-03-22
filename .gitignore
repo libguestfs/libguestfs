@@ -202,6 +202,7 @@ regressions/test.err
 regressions/test.out
 ruby/bindtests.rb
 ruby/ext/guestfs/extconf.h
+ruby/ext/guestfs/_guestfs.bundle
 ruby/ext/guestfs/_guestfs.c
 ruby/ext/guestfs/_guestfs.so
 ruby/ext/guestfs/mkmf.log
