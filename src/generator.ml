@@ -4240,7 +4240,7 @@ example to duplicate a filesystem.
 
 If the destination is a device, it must be as large or larger
 than the source file or device, otherwise the copy will fail.
-This command cannot do partial copies.");
+This command cannot do partial copies (see C<guestfs_copy_size>).");
 
   ("filesize", (RInt64 "size", [Pathname "file"]), 218, [],
    [InitBasicFS, Always, TestOutputInt (
@@ -4332,6 +4332,19 @@ You can use this along with C<guestfs_lvs> and C<guestfs_lvuuid>
 calls to associate logical volumes and volume groups.
 
 See also C<guestfs_vgpvuuids>.");
+
+  ("copy_size", (RErr, [Dev_or_Path "src"; Dev_or_Path "dest"; Int64 "size"]), 227, [],
+   [InitBasicFS, Always, TestOutputBuffer (
+      [["write_file"; "/src"; "hello, world"; "0"];
+       ["copy_size"; "/src"; "/dest"; "5"];
+       ["read_file"; "/dest"]], "hello")],
+   "copy size bytes from source to destination using dd",
+   "\
+This command copies exactly C<size> bytes from one source device
+or file C<src> to another destination device or file C<dest>.
+
+Note this will fail if the source is too short or if the destination
+is not large enough.");
 
 ]
 

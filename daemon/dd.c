@@ -21,6 +21,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <fcntl.h>
 
 #include "../src/guestfs_protocol.h"
 #include "daemon.h"
@@ -67,6 +68,86 @@ do_dd (const char *src, const char *dest)
     return -1;
   }
   free (err);
+
+  return 0;
+}
+
+int
+do_copy_size (const char *src, const char *dest, int64_t size)
+{
+  char *buf;
+  int src_fd, dest_fd;
+
+  if (STRPREFIX (src, "/dev/"))
+    src_fd = open (src, O_RDONLY);
+  else {
+    buf = sysroot_path (src);
+    if (!buf) {
+      reply_with_perror ("malloc");
+      return -1;
+    }
+    src_fd = open (buf, O_RDONLY);
+    free (buf);
+  }
+  if (src_fd == -1) {
+    reply_with_perror ("%s", src);
+    return -1;
+  }
+
+  if (STRPREFIX (dest, "/dev/"))
+    dest_fd = open (dest, O_WRONLY);
+  else {
+    buf = sysroot_path (dest);
+    if (!buf) {
+      reply_with_perror ("malloc");
+      close (src_fd);
+      return -1;
+    }
+    dest_fd = open (buf, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY, 0666);
+    free (buf);
+  }
+  if (dest_fd == -1) {
+    reply_with_perror ("%s", dest);
+    close (src_fd);
+    return -1;
+  }
+
+  while (size > 0) {
+    char buf[1024*1024];
+    size_t n = size > (int64_t) (sizeof buf) ? sizeof buf : (size_t) size;
+    ssize_t r = read (src_fd, buf, n);
+    if (r == -1) {
+      reply_with_perror ("%s: read", src);
+      close (src_fd);
+      close (dest_fd);
+      return -1;
+    }
+    if (r == 0) {
+      reply_with_error ("%s: input file too short", src);
+      close (src_fd);
+      close (dest_fd);
+      return -1;
+    }
+
+    if (xwrite (dest_fd, buf, r) == -1) {
+      reply_with_perror ("%s: write", dest);
+      close (src_fd);
+      close (dest_fd);
+      return -1;
+    }
+
+    size -= r;
+  }
+
+  if (close (src_fd) == -1) {
+    reply_with_perror ("%s: close", src);
+    close (dest_fd);
+    return -1;
+  }
+  if (close (dest_fd) == -1) {
+    reply_with_perror ("%s: close", dest);
+    return -1;
+  }
 
   return 0;
 }
