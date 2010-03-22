@@ -129,8 +129,10 @@ HTMLFILES = \
 	html/virt-edit.1.html \
 	html/virt-inspector.1.html \
 	html/virt-list-filesystems.1.html \
+	html/virt-list-partitions.1.html \
 	html/virt-ls.1.html \
 	html/virt-rescue.1.html \
+	html/virt-resize.1.html \
 	html/virt-tar.1.html \
 	html/virt-win-reg.1.html \
 	html/recipes.html \
@@ -165,8 +167,10 @@ all-local:
 	    -name 'virt-edit' -o \
 	    -name 'virt-inspector' -o \
 	    -name 'virt-list-filesystems' -o \
+	    -name 'virt-list-partitions' -o \
 	    -name 'virt-ls' -o \
 	    -name 'virt-rescue' -o \
+	    -name 'virt-resize' -o \
 	    -name 'virt-tar' -o \
 	    -name 'virt-win-reg' | \
 	grep -v '^perl/blib/' | \

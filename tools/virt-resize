@@ -1,0 +1,983 @@
+#!/usr/bin/perl -w
+# virt-resize
+# Copyright (C) 2010 Red Hat Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+use warnings;
+use strict;
+
+use Sys::Guestfs;
+use Fcntl qw(S_ISREG SEEK_SET);
+use POSIX qw(floor);
+use Pod::Usage;
+use Getopt::Long;
+use Data::Dumper;
+use Locale::TextDomain 'libguestfs';
+
+$Data::Dumper::Sortkeys = 1;
+
+die __"virt-resize: sorry this program does not work on a 32 bit host\n"
+    if ~1 == 4294967294;
+
+=encoding utf8
+
+=head1 NAME
+
+virt-resize - Resize a virtual machine disk
+
+=head1 SYNOPSIS
+
+ virt-resize [--resize /dev/sdaN=[+/-]<size>[%]] [--expand /dev/sdaN]
+   [--shrink /dev/sdaN] [--ignore /dev/sdaN] [--delete /dev/sdaN] [...]
+   indisk outdisk
+
+=head1 DESCRIPTION
+
+Virt-resize is a tool which can resize a virtual machine disk, making
+it larger or smaller overall, and resizing or deleting any partitions
+contained within.
+
+Virt-resize B<cannot> resize disk images in-place.  Virt-resize
+B<should not> be used on live virtual machines - for consistent
+results, shut the virtual machine down before resizing it.
+
+If you are not familiar with the associated tools:
+L<virt-list-partitions(1)>,
+L<virt-list-filesystems(1)> and
+L<virt-df(1)>,
+we recommend you go and read those manual pages first.
+
+=head2 BASIC USAGE
+
+This describes the common case where you want to expand an image to
+give your guest more space.  Shrinking images is considerably more
+complicated (unfortunately).
+
+=over 4
+
+=item 1. Locate disk image
+
+Locate the disk image that you want to resize.  It could be in a local
+file or device.  If the guest is managed by libvirt, you can use
+C<virsh dumpxml> like this to find the disk image name:
+
+ # virsh dumpxml guestname | xpath /domain/devices/disk/source
+ Found 1 nodes:
+ -- NODE --
+ <source dev="/dev/vg/lv_guest" />
+
+=item 2. Look at current sizing
+
+Use L<virt-list-partitions(1)> to display the current partitions and
+sizes:
+
+ # virt-list-partitions -lh /dev/vg/lv_guest
+ /dev/sda1 ext3 101.9M
+ /dev/sda2 pv 7.9G
+
+(This example is a virtual machine with an 8 GB disk which we would
+like to expand up to 10 GB).
+
+=item 3. Create destination disk
+
+Virt-resize cannot do in-place disk modifications.  You have to have
+space to store the resized destination disk.
+
+To store the resized disk image in a file, create a file of a suitable
+size:
+
+ # rm -f outdisk
+ # truncate -s 10G outdisk
+
+Use L<lvcreate(1)> to create a logical volume:
+
+ # lvcreate -L 10G -n lv_name vg_name
+
+Or use L<virsh(1)> vol-create-as to create a libvirt storage volume:
+
+ # virsh pool-list
+ # virsh vol-create-as poolname newvol 10G
+
+=item 4. Resize
+
+ virt-resize indisk outdisk
+
+This command just copies disk image C<indisk> to disk image C<outdisk>
+I<without> resizing or changing any existing partitions.  If
+C<outdisk> is larger, then an extra, empty partition is created at the
+end of the disk covering the extra space.  If C<outdisk> is smaller,
+then it will give an error.
+
+To resize, you need to pass extra options (for the full list see the
+L</OPTIONS> section below).
+
+L</--expand> is the most useful option.  It expands the named
+partition within the disk to fill any extra space:
+
+ virt-resize --expand /dev/sda2 indisk outdisk
+
+(In this case, an extra partition is I<not> created at the end of the
+disk, because there will be no unused space).
+
+If /dev/sda2 in the image contains a filesystem or LVM PV, then
+this content is B<not> automatically resized.  You can resize it
+afterwards either using L<guestfish(1)> (offline) or using commands
+inside the guest (online resizing).
+
+L</--resize> is the other commonly used option.  The following would
+increase the size of /dev/sda1 by 200M, and expand /dev/sda2
+to fill the rest of the available space:
+
+ virt-resize --resize /dev/sda1=+200M --expand /dev/sda2 \
+   indisk outdisk
+
+Other options are covered below.
+
+=item 5. Test
+
+Thoroughly test the new disk image I<before> discarding the old one.
+
+If you are using libvirt, edit the XML to point at the new disk:
+
+ # virsh edit guestname
+
+Change E<lt>source ...E<gt>, see
+L<http://libvirt.org/formatdomain.html#elementsDisks>
+
+Then start up the domain with the new, resized disk:
+
+ # virsh start guestname
+
+and check that it still works.
+
+Note that to see the extra space in the guest, you may need to use
+guest commands to resize PVs, LVs and/or filesystems to fit the extra
+space available.  Three common guest commands for doing this for Linux
+guests are L<pvresize(8)>, L<lvresize(8)> and L<resize2fs(8)>.  It is
+also possible to do this offline (eg. for scripting changes) using
+L<guestfish(1)>.
+
+=back
+
+=head1 OPTIONS
+
+=over 4
+
+=cut
+
+my $help;
+
+=item B<--help>
+
+Display help.
+
+=cut
+
+my $version;
+
+=item B<--version>
+
+Display version number and exit.
+
+=cut
+
+my @resize;
+
+=item B<--resize part=size>
+
+Resize the named partition (expanding or shrinking it) so that it has
+the given size.
+
+C<size> can be expressed as an absolute number followed by
+b/K/M/G/T/P/E to mean bytes, Kilobytes, Megabytes, Gigabytes,
+Terabytes, Petabytes or Exabytes; or as a percentage of the current
+size; or as a relative number or percentage.  For example:
+
+ --resize /dev/sda2=10G
+
+ --resize /dev/sda4=90%
+
+ --resize /dev/sda2=+1G
+
+ --resize /dev/sda2=-200M
+
+ --resize /dev/sda1=+128K
+
+ --resize /dev/sda1=+10%
+
+ --resize /dev/sda1=-10%
+
+You can increase the size of any partition.
+
+You can I<only> B<decrease> the size of partitions that contain
+filesystems or PVs which have already been shrunk.  Virt-resize will
+check this has been done before proceeding, or else will print an
+error (see also C<--resize-force>).
+
+You can give this option multiple times.
+
+=cut
+
+my @resize_force;
+
+=item B<--resize-force part=size>
+
+This is the same as C<--resize> except that it will let you decrease
+the size of any partition.  Generally this means you will lose any
+data which was at the end of the partition you shrink, but you may not
+care about that (eg. if shrinking an unused partition, or if you can
+easily recreate it such as a swap partition).
+
+See also the C<--ignore> option.
+
+=cut
+
+my $expand;
+
+=item B<--expand part>
+
+Expand the named partition so it uses up all extra space (space left
+over after any other resize changes that you request have been done).
+
+Any filesystem inside the partition is I<not> expanded.  You will need
+to expand the filesystem (or PV) to fit the extra space either using
+L<guestfish(1)> (offline) or online guest tools.
+
+Note that you cannot use C<--expand> and C<--shrink> together.
+
+=cut
+
+my $shrink;
+
+=item B<--shrink part>
+
+Shrink the named partition until the overall disk image fits in the
+destination.  The named partition B<must> contain a filesystem or PV
+which has already been shrunk using another tool (eg. L<guestfish(1)>
+or other online tools).  Virt-resize will check this and give an error
+if it has not been done.
+
+The amount by which the overall disk must be shrunk (after carrying
+out all other operations requested by the user) is called the
+"deficit".  For example, a straight copy (assume no other operations)
+from a 5GB disk image to a 4GB disk image results in a 1GB deficit.
+In this case, virt-resize would give an error unless the user
+specified a partition to shrink and that partition had more than a
+gigabyte of free space.
+
+Note that you cannot use C<--expand> and C<--shrink> together.
+
+=cut
+
+my @ignore;
+
+=item B<--ignore part>
+
+Ignore the named partition.  Effectively this means the partition is
+allocated on the destination disk, but the content is not copied
+across from the source disk.  The content of the partition will be
+blank (all zero bytes).
+
+You can give this option multiple times.
+
+=cut
+
+my @delete;
+
+=item B<--delete part>
+
+Delete the named partition.  It would be more accurate to describe
+this as "don't copy it over", since virt-resize doesn't do in-place
+changes and the original disk image is left intact.
+
+Note that when you delete a partition, then anything contained in the
+partition is also deleted.  Furthermore, this causes any partitions
+that come after to be I<renumbered>, which can easily make your guest
+unbootable.
+
+You can give this option multiple times.
+
+=cut
+
+my $copy_boot_loader = 1;
+
+=item B<--no-copy-boot-loader>
+
+By default, virt-resize copies over some sectors at the start of the
+disk (up to the beginning of the first partition).  Commonly these
+sectors contain the Master Boot Record (MBR) and the boot loader, and
+are required in order for the guest to boot correctly.
+
+If you specify this flag, then this initial copy is not done.  You may
+need to reinstall the boot loader in this case.
+
+=cut
+
+my $extra_partition = 1;
+my $min_extra_partition = 10 * 1024 * 1024; # see below
+
+=item B<--no-extra-partition>
+
+By default, virt-resize creates an extra partition if there is any
+extra, unused space after all resizing has happened.  Use this option
+to prevent the extra partition from being created.  If you do this
+then the extra space will be inaccessible until you run fdisk, parted,
+or some other partitioning tool in the guest.
+
+Note that if the surplus space is smaller than 10 MB, no extra
+partition will be created.
+
+=cut
+
+my $debug;
+
+=item B<-d> | B<--debug>
+
+Enable debugging messages.
+
+=cut
+
+my $dryrun;
+
+=item B<-n> | B<--dryrun>
+
+Print a summary of what would be done, but don't do anything.
+
+=cut
+
+my $quiet;
+
+=item B<-q> | B<--quiet>
+
+Don't print the summary.
+
+=back
+
+=cut
+
+GetOptions ("help|?" => \$help,
+            "version" => \$version,
+            "resize=s" => \@resize,
+            "resize-force=s" => \@resize_force,
+            "expand=s" => \$expand,
+            "shrink=s" => \$shrink,
+            "ignore=s" => \@ignore,
+            "delete=s" => \@delete,
+            "copy-boot-loader!" => \$copy_boot_loader,
+            "extra-partition!" => \$extra_partition,
+            "d|debug" => \$debug,
+            "n|dryrun" => \$dryrun,
+            "q|quiet" => \$quiet,
+    ) or pod2usage (2);
+pod2usage (1) if $help;
+if ($version) {
+    my $g = Sys::Guestfs->new ();
+    my %h = $g->version ();
+    print "$h{major}.$h{minor}.$h{release}$h{extra}\n";
+    exit
+}
+
+die "virt-resize [--options] indisk outdisk\n" unless @ARGV == 2;
+
+# Check in and out images exist.
+my $infile = $ARGV[0];
+my $outfile = $ARGV[1];
+die __x("virt-resize: {file}: does not exist or is not readable\n", file => $infile)
+    unless -r $infile;
+die __x("virt-resize: {file}: does not exist or is not writable\nYou have to create the destination disk before running this program.\nPlease read the virt-resize(1) manpage for more information.\n", file => $outfile)
+    unless -w $outfile;
+
+my @s;
+@s = stat $infile;
+my $insize = S_ISREG ($s[2]) ? $s[7] : host_blockdevsize ($infile);
+@s = stat $outfile;
+my $outsize = S_ISREG ($s[2]) ? $s[7] : host_blockdevsize ($outfile);
+
+if ($debug) {
+    print "$infile size $insize bytes\n";
+    print "$outfile size $outsize bytes\n";
+}
+
+die __x("virt-resize: {file}: file is too small to be a disk image ({sz} bytes)\n",
+        file => $infile, sz => $insize)
+    if $insize < 64 * 512;
+die __x("virt-resize: {file}: file is too small to be a disk image ({sz} bytes)\n",
+        file => $outfile, sz => $outsize)
+    if $outsize < 64 * 512;
+
+# Copy the boot loader across.
+do_copy_boot_loader () if $copy_boot_loader;
+
+sub do_copy_boot_loader
+{
+    print "copying boot loader ...\n" if $debug;
+    open IFILE, $infile or die "$infile: $!";
+    my $s;
+    my $r = sysread (IFILE, $s, 64 * 512) or die "$infile: $!";
+    die "$infile: short read" if $r < 64 * 512;
+    open OFILE, "+<$outfile" or die "$outfile: $!";
+    sysseek OFILE, 0, SEEK_SET or die "$outfile: seek: $!";
+    $r = syswrite (OFILE, $s, 64 * 512) or die "$outfile: $!";
+    die "$outfile: short write" if $r < 64 * 512;
+}
+
+# Add them to the handle and launch the appliance.
+my $g;
+launch_guestfs ();
+
+sub launch_guestfs
+{
+    $g = Sys::Guestfs->new ();
+    $g->set_trace (1) if $debug;
+    $g->add_drive_ro ($infile);
+    $g->add_drive ($outfile);
+    $g->launch ();
+}
+
+my $sectsize = $g->blockdev_getss ("/dev/sdb");
+
+# Get the partitions on the source disk.
+my @partitions;
+my %partitions;
+check_source_disk ();
+
+sub check_source_disk
+{
+    local $_;
+
+    # Partitions and PVs.
+    my @p = $g->part_list ("/dev/sda");
+    foreach (@p) {
+        my $name = "/dev/sda" . $_->{part_num};
+        push @partitions, $name;
+
+        my %h = %$_;
+        $h{name} = $name;
+        $partitions{$name} = \%h;
+    }
+}
+
+# Examine each partition.
+my @pvs_full = $g->pvs_full ();
+examine_partition ($_) foreach @partitions;
+
+sub examine_partition
+{
+    local $_;
+    my $part = shift;
+
+    # What is it?
+    my $type = "unknown";
+    eval {
+        $type = $g->vfs_type ($part);
+    };
+    $partitions{$part}->{type} = $type;
+
+    # Can we get the actual size of this object (ie. to find out if it
+    # is smaller than the container for shrinking)?
+    my $fssize;
+    if ($type eq "LVM2_member") { # LVM PV
+        foreach (@pvs_full) {
+            $fssize = $_->{pv_size}
+              if canonicalize ($_->{pv_name}) eq $part;
+        }
+    } else {                    # Something mountable?
+        eval {
+            $g->mount_ro ($part, "/");
+
+            my %stat = $g->statvfs ("/");
+            $fssize = $stat{bsize} * $stat{blocks};
+        };
+
+        eval {
+            $g->umount_all ();
+        };
+    }
+
+    # This might be undef if we didn't successfully find the size.  In
+    # that case user won't be allowed to shrink this partition except
+    # by forcing it.
+    $partitions{$part}->{fssize} = $fssize;
+}
+
+if ($debug) {
+    print "partitions found: ", join (", ", @partitions), "\n";
+    foreach my $part (@partitions) {
+        print "$part:\n";
+        foreach (sort keys %{$partitions{$part}}) {
+            print("\t", $_, " = ",
+                  defined ($partitions{$part}->{$_})
+                  ? $partitions{$part}->{$_} : "undef",
+                  "\n");
+        }
+    }
+}
+
+sub find_partition
+{
+    local $_ = shift;
+    my $option = shift;
+
+    $_ = "/dev/$_" unless $_ =~ m{^/dev};
+    $_ = canonicalize ($_);
+
+    unless (exists $partitions{$_}) {
+        die __x("{p}: partition not found in the source disk image, when using the '{opt}' command line option\n",
+                p => $_,
+                opt => $option)
+    }
+
+    if ($partitions{$_}->{ignore}) {
+        die __x("{p}: partition ignored, you cannot use it in another command line argument\n",
+                p => $_)
+    }
+    if ($partitions{$_}->{delete}) {
+        die __x("{p}: partition deleted, you cannot use it in another command line argument\n",
+                p => $_)
+    }
+
+    return $_;
+}
+
+# Handle --ignore.
+do_ignore ($_) foreach @ignore;
+
+sub do_ignore
+{
+    local $_ = shift;
+    $_ = find_partition ($_, "--ignore");
+    $partitions{$_}->{ignore} = 1;
+}
+
+# Handle --delete.
+do_delete ($_) foreach @delete;
+
+sub do_delete
+{
+    local $_ = shift;
+    $_ = find_partition ($_, "--delete");
+    $partitions{$_}->{delete} = 1;
+}
+
+# Handle --resize and --resize-force.
+do_resize ($_, 0, "--resize") foreach @resize;
+do_resize ($_, 1, "--resize-force") foreach @resize_force;
+
+sub do_resize
+{
+    local $_ = shift;
+    my $force = shift;
+    my $option = shift;
+
+    # Argument is "part=size" ...
+    my ($part, $sizefield) = split /=/, $_, 2;
+    $part = find_partition ($part, $option);
+
+    if (exists $partitions{$part}->{newsize}) {
+        die __x("{p}: this partition has already been marked for resizing\n",
+                p => $part);
+    }
+
+    # Parse the size field.
+    my $oldsize = $partitions{$part}->{part_size};
+    my $newsize;
+    if (!defined ($sizefield) || $sizefield eq "") {
+        die __x("{p}: missing size field in {o} option\n",
+                p => $part, o => $option);
+    } elsif ($sizefield =~ /^([.\d]+)([bKMGTPE])$/) {
+        $newsize = sizebytes ($1, $2);
+    } elsif ($sizefield =~ /^\+([.\d]+)([bKMGTPE])$/) {
+        my $incr = sizebytes ($1, $2);
+        $newsize = $oldsize + $incr;
+    } elsif ($sizefield =~ /^-([.\d]+)([bKMGTPE])$/) {
+        my $decr = sizebytes ($1, $2);
+        $newsize = $oldsize - $decr;
+    } elsif ($sizefield =~ /^([.\d]+)%$/) {
+        $newsize = $oldsize * $1 / 100;
+    } elsif ($sizefield =~ /^\+([.\d]+)%$/) {
+        $newsize = $oldsize + $oldsize * $1 / 100;
+    } elsif ($sizefield =~ /^-([.\d]+)%$/) {
+        $newsize = $oldsize - $oldsize * $1 / 100;
+    } else {
+        die __x("{p}: {f}: cannot parse size field\n",
+                p => $part, f => $sizefield)
+    }
+
+    $newsize > 0 or
+        die __x("{p}: new size is zero or negative\n", p => $part);
+
+    mark_partition_for_resize ($part, $oldsize, $newsize, $force, $option);
+}
+
+sub mark_partition_for_resize
+{
+    local $_;
+    my $part = shift;
+    my $oldsize = shift;
+    my $newsize = shift;
+    my $force = shift;
+    my $option = shift;
+
+    # Do nothing if the size is the same.
+    return if $oldsize == $newsize;
+
+    my $bigger = $newsize > $oldsize;
+
+    # Check there is space to shrink this.
+    unless ($bigger || $force) {
+        if (! $partitions{$part}->{fssize} ||
+            $partitions{$part}->{fssize} > $newsize) {
+            die __x("{p}: cannot make this partition smaller because it contains a\nfilesystem, physical volume or other content that is larger than the new size.\nYou have to resize the content first, see virt-resize(1).\n",
+                    p => $part);
+        }
+    }
+
+    $partitions{$part}->{newsize} = $newsize;
+}
+
+# Handle --expand and --shrink.
+my $surplus;
+if (defined $expand && defined $shrink) {
+    die __"virt-resize: you cannot use options --expand and --shrink together\n"
+}
+if (defined $expand || defined $shrink) {
+    calculate_surplus ();
+
+    if ($debug) {
+        print "surplus before --expand or --shrink: $surplus (",
+          human_size ($surplus), ")\n";
+    }
+
+    do_expand () if $expand;
+    do_shrink () if $shrink;
+}
+
+# (Re-)calculate surplus after doing expand or shrink.
+calculate_surplus ();
+
+# Add up the total space required on the target so far, compared
+# to the size of the target.  We end up with a surplus or deficit.
+sub calculate_surplus
+{
+    local $_;
+
+    # We need some overhead for partitioning.  Worst case would be for
+    # EFI partitioning + massive per-partition alignment.
+    my $overhead = $sectsize * (2 * 64 + (64 * (@partitions + 1)) + 128);
+
+    my $required = 0;
+    foreach (@partitions) {
+        if ($partitions{$_}->{newsize}) {
+            $required += $partitions{$_}->{newsize}
+        } else {
+            $required += $partitions{$_}->{part_size}
+        }
+    }
+
+    # Compare that to the actual target disk.
+    $surplus = $outsize - ($required + $overhead);
+}
+
+sub do_expand
+{
+    local $_;
+
+    unless ($surplus > 0) {
+        die __x("virt-resize: error: cannot use --expand when there is no surplus space to\nexpand into.  You need to make the target disk larger by at least {h}.\n",
+                h => human_size (-$surplus));
+    }
+
+    my $part = find_partition ($expand, "--expand");
+    my $oldsize = $partitions{$part}->{part_size};
+    mark_partition_for_resize ($part, $oldsize, $oldsize + $surplus,
+                               0, "--expand");
+}
+
+sub do_shrink
+{
+    local $_;
+
+    unless ($surplus < 0) {
+        die __"virt-resize: error: cannot use --shrink because there is no deficit\n(see 'deficit' in the virt-resize(1) man page)\n"
+    }
+
+    my $part = find_partition ($shrink, "--shrink");
+    my $oldsize = $partitions{$part}->{part_size};
+    mark_partition_for_resize ($part, $oldsize, $oldsize + $surplus,
+                               0, "--shrink");
+}
+
+# Print summary.
+print_summary () unless $quiet;
+
+sub print_summary
+{
+    local $_;
+    print __"Summary of changes:\n";
+
+    foreach my $part (@partitions) {
+        if ($partitions{$part}->{ignore}) {
+            print __x("{p}: partition will be ignored", p => $part);
+        } elsif ($partitions{$part}->{delete}) {
+            print __x("{p}: partition will be deleted", p => $part);
+        } elsif ($partitions{$part}->{newsize}) {
+            print __x("{p}: partition will be resized from {oldsize} to {newsize}",
+                      p => $part,
+                      oldsize => human_size ($partitions{$part}->{part_size}),
+                      newsize => human_size ($partitions{$part}->{newsize}));
+        } else {
+            print __x("{p}: partition will be left alone", p => $part);
+        }
+        print "\n"
+    }
+
+    if ($surplus > 0) {
+        print __x("There is a surplus of {spl} bytes ({h}).\n",
+                  spl => $surplus,
+                  h => human_size ($surplus));
+        if ($extra_partition) {
+            if ($surplus >= $min_extra_partition) {
+                print __"An extra partition will be created for the surplus.\n";
+            } else {
+                print __"The surplus space is not large enough for an extra partition to be created\nand so it will just be ignored.\n";
+            }
+        } else {
+            print __"The surplus space will be ignored.  Run a partitioning program in the guest\nto partition this extra space if you want.\n";
+        }
+    } elsif ($surplus < 0) {
+        die __x("virt-resize: error: there is a deficit of {def} bytes ({h}).\nYou need to make the target disk larger by at least this amount,\nor adjust your resizing requests.\n",
+                def => -$surplus,
+                h => human_size (-$surplus));
+    }
+}
+
+exit 0 if $dryrun;
+
+# Repartition the target disk.
+my $nextpart = 1;
+my $parttype;
+repartition ();
+
+sub repartition
+{
+    local $_;
+
+    if ($copy_boot_loader) {
+        $parttype = $g->part_get_parttype ("/dev/sdb");
+        print "partition table type: $parttype\n" if $debug;
+    } else {
+        # Didn't copy over the initial boot loader, so we need
+        # to make a new partition type here.
+        $parttype = "efi";
+    }
+
+    # Delete any existing partitions on the destination disk.
+    $g->part_init ("/dev/sdb", $parttype);
+
+    my $start = 64;
+
+    # Create the new partitions.
+    foreach my $part (@partitions) {
+        unless ($partitions{$part}->{delete}) {
+            # Size in sectors.
+            my $size;
+            if ($partitions{$part}->{newsize}) {
+                $size = ($partitions{$part}->{newsize} + $sectsize - 1)
+                    / $sectsize;
+            } else {
+                $size = ($partitions{$part}->{part_size} + $sectsize - 1)
+                    / $sectsize;
+            }
+
+            # Create it.
+            my ($target, $end) = add_partition ($start, $size);
+            $partitions{$part}->{target} = $target;
+
+            # Start of next partition + alignment.
+            $start = $end + 1;
+            $start = ($start + 63) & ~63;
+        }
+    }
+
+    # Create surplus partition.
+    if ($extra_partition && $surplus >= $min_extra_partition) {
+        add_partition ($start, $outsize / $sectsize - 64 - $start);
+    }
+}
+
+# Add a partition.
+sub add_partition
+{
+    local $_;
+    my $start = shift;
+    my $size = shift;
+
+    my ($target, $end);
+
+    if ($nextpart <= 3 || $parttype ne "msdos") {
+        $target = "/dev/sdb$nextpart";
+        $end = $start + $size - 1;
+        $g->part_add ("/dev/sdb", "primary", $start, $end);
+        $nextpart++;
+    } else {
+        if ($nextpart == 4) {
+            $g->part_add ("/dev/sdb", "extended", $start, -1);
+            $nextpart++;
+            $start += 64;
+        }
+        $target = "/dev/sdb$nextpart";
+        $end = $start + $size - 1;
+        $g->part_add ("/dev/sdb", "logical", $start, $end);
+        $nextpart++;
+    }
+
+    return ($target, $end);
+}
+
+# Copy over the data.
+copy_data ();
+
+sub copy_data
+{
+    foreach my $part (@partitions)
+    {
+        unless ($partitions{$part}->{ignore}) {
+            my $target = $partitions{$part}->{target};
+            if ($target) {
+                my $oldsize = $partitions{$part}->{part_size};
+                my $newsize;
+                if ($partitions{$part}->{newsize}) {
+                    $newsize = $partitions{$part}->{newsize};
+                } else {
+                    $newsize = $partitions{$part}->{part_size};
+                }
+
+                if (!$quiet && !$debug) {
+                    local $| = 1;
+                    print "Copying $part ...";
+                }
+
+                $g->copy_size ($part, $target,
+                               $newsize < $oldsize ? $newsize : $oldsize);
+
+                if (!$quiet && !$debug) {
+                    print " done\n"
+                }
+            }
+        }
+    }
+}
+
+exit 0;
+
+sub sizebytes
+{
+    local $_ = shift;
+    my $unit = shift;
+
+    $_ *= 1024 if $unit =~ /[KMGTPE]/;
+    $_ *= 1024 if $unit =~ /[MGTPE]/;
+    $_ *= 1024 if $unit =~ /[GTPE]/;
+    $_ *= 1024 if $unit =~ /[TPE]/;
+    $_ *= 1024 if $unit =~ /[PE]/;
+    $_ *= 1024 if $unit =~ /[E]/;
+
+    return floor($_);
+}
+
+# Convert a number of bytes to a human-readable number.
+sub human_size
+{
+    local $_ = shift;
+
+    my $sgn = "";
+    if ($_ < 0) {
+        $sgn = "-";
+        $_ = -$_;
+    }
+
+    $_ /= 1024;
+
+    if ($_ < 1024) {
+        sprintf "%s%dK", $sgn, $_;
+    } elsif ($_ < 1024 * 1024) {
+        sprintf "%s%.1fM", $sgn, ($_ / 1024);
+    } else {
+        sprintf "%s%.1fG", $sgn, ($_ / 1024 / 1024);
+    }
+}
+
+# Return the size in bytes of a HOST block device.
+sub host_blockdevsize
+{
+    local $_;
+    my $dev = shift;
+
+    open BD, "PATH=/usr/sbin:/sbin:\$PATH blockdev --getsize64 $dev |"
+        or die "blockdev: $!";
+    $_ = <BD>;
+    chomp $_;
+    $_;
+}
+
+# The reverse of device name translation, see
+# BLOCK DEVICE NAMING in guestfs(3).
+sub canonicalize
+{
+    local $_ = shift;
+
+    if (m{^/dev/[hv]d([a-z]\d)$}) {
+        return "/dev/sd$1";
+    }
+    $_;
+}
+
+=head1 SEE ALSO
+
+L<virt-list-partitions(1)>,
+L<virt-list-filesystems(1)>,
+L<virt-df(1)>,
+L<guestfs(3)>,
+L<guestfish(1)>,
+L<lvm(8)>,
+L<pvresize(8)>,
+L<lvresize(8)>,
+L<resize2fs(8)>,
+L<virsh(1)>,
+L<Sys::Guestfs(3)>,
+L<http://libguestfs.org/>.
+
+=head1 AUTHOR
+
+Richard W.M. Jones L<http://et.redhat.com/~rjones/>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2010 Red Hat Inc.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.

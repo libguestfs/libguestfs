@@ -102,7 +102,9 @@ tools/virt-cat
 tools/virt-df
 tools/virt-edit
 tools/virt-list-filesystems
+tools/virt-list-partitions
 tools/virt-ls
 tools/virt-rescue
+tools/virt-resize
 tools/virt-tar
 tools/virt-win-reg

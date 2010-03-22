@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
-# virt-list-filesystems
-# Copyright (C) 2009 Red Hat Inc.
+# virt-list-partitions
+# Copyright (C) 2010 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@ use warnings;
 use strict;
 
 use Sys::Guestfs;
-use Sys::Guestfs::Lib qw(open_guest get_partitions);
+use Sys::Guestfs::Lib qw(open_guest);
 use Pod::Usage;
 use Getopt::Long;
 use Locale::TextDomain 'libguestfs';
@@ -29,21 +29,22 @@ use Locale::TextDomain 'libguestfs';
 
 =head1 NAME
 
-virt-list-filesystems - List filesystems in a virtual machine or disk image
+virt-list-partitions - List partitions in a virtual machine or disk image
 
 =head1 SYNOPSIS
 
- virt-list-filesystems [--options] domname
+ virt-list-partitions [--options] domname
 
- virt-list-filesystems [--options] disk.img [disk.img ...]
+ virt-list-partitions [--options] disk.img [disk.img ...]
 
 =head1 DESCRIPTION
 
-C<virt-list-filesystems> is a command line tool to list
-the filesystems that are contained in a virtual machine or
-disk image.
+C<virt-list-partitions> is a command line tool to list
+the partitions that are contained in a virtual machine or
+disk image.  It is mainly useful as a first step to using
+L<virt-resize(1)>.
 
-C<virt-list-filesystems> is just a simple wrapper around
+C<virt-list-partitions> is just a simple wrapper around
 L<libguestfs(3)> functionality.  For more complex cases you should
 look at the L<guestfish(1)> tool.
 
@@ -85,30 +86,29 @@ my $long;
 
 =item B<-l> | B<--long>
 
-With this option, C<virt-list-filesystems> displays the type of
-each filesystem too (where "type" means C<ext3>, C<xfs> etc.)
+With this option, C<virt-list-partitions> displays the type
+and size of each partition too (where "type" means C<ext3>, C<pv> etc.)
 
 =cut
 
-my $all;
+my $human;
 
-=item B<-a> | B<--all>
+=item B<-h> | B<--human-readable>
 
-Normally we only show mountable filesystems.  If this option
-is given then swap devices are shown too.
+Show sizes in human-readable form (eg. "1G").
 
 =back
 
 =cut
 
-# Configure bundling, otherwise '-al' is treated as '--all'.
+# Configure bundling, otherwise '-lh' is unrecognized.
 Getopt::Long::Configure ("bundling");
 
 GetOptions ("help|?" => \$help,
             "version" => \$version,
             "connect|c=s" => \$uri,
             "long|l" => \$long,
-            "all|a" => \$all,
+            "human-readable|h" => \$human,
     ) or pod2usage (2);
 pod2usage (1) if $help;
 if ($version) {
@@ -118,7 +118,7 @@ if ($version) {
     exit
 }
 
-pod2usage (__"virt-list-filesystems: no image or VM name given")
+pod2usage (__"virt-list-partitions: no image or VM name given")
     if @ARGV <= 0;
 
 my $g;
@@ -130,50 +130,36 @@ if ($uri) {
 
 $g->launch ();
 
-# List of partitions, LVs etc.
-my @partitions = get_partitions ($g);
-
-my @fses;
-my @not_mountable;
-my $dev;
-
-# Try and mount each one, to see what's mountable.
-foreach $dev (@partitions) {
-    eval { $g->mount_ro ($dev, "/"); };
-    my $mountable = $@ ? 0 : 1;
-    $g->umount_all ();
-    if ($mountable) {
-        push @fses, $dev;
-    } else {
-        push @not_mountable, $dev;
+# List of partitions and sizes.
+my @partitions;
+my @devices = $g->list_devices ();
+foreach my $dev (@devices) {
+    my @p = $g->part_list ($dev);
+    foreach (@p) {
+        $_->{name} = canonicalize ("$dev" . $_->{part_num});
+        push @partitions, $_;
     }
 }
 
-foreach $dev (@fses) {
-    print canonicalize($dev);
+# Print them.
+foreach my $part (@partitions) {
+    print $part->{name};
+
     if ($long) {
-        my $fstype;
-        eval { $fstype = $g->vfs_type ($dev); };
-        if ($fstype) {
-            print " $fstype";
+        my $type;
+        eval {
+            $type = $g->vfs_type ($part->{name});
+        };
+        $type ||= "unknown";
+        $type = "pv" if $type eq "LVM2_member";
+        print " $type ";
+        if ($human) {
+            print (human_size($part->{part_size}));
         } else {
-            print " unknown";
+            print $part->{part_size};
         }
     }
     print "\n";
-}
-
-# If asked, look in the not_mountable list for potential swap devices.
-if ($all) {
-    foreach $dev (@not_mountable) {
-        my $file;
-        eval { $file = $g->file ($dev); };
-        if ($file && $file =~ /\bswap\b/) {
-            print canonicalize($dev);
-            print " swap" if $long;
-            print "\n"
-        }
-    }
 }
 
 # The reverse of device name translation, see
@@ -188,13 +174,28 @@ sub canonicalize
     $_;
 }
 
+# Convert a number of bytes to a human-readable number.
+sub human_size
+{
+    local $_ = shift;
+
+    $_ /= 1024;                 # blocks
+
+    if ($_ < 1024) {
+        sprintf "%dK", $_;
+    } elsif ($_ < 1024 * 1024) {
+        sprintf "%.1fM", ($_ / 1024);
+    } else {
+        sprintf "%.1fG", ($_ / 1024 / 1024);
+    }
+}
+
 =head1 SEE ALSO
 
 L<guestfs(3)>,
 L<guestfish(1)>,
-L<virt-cat(1)>,
-L<virt-tar(1)>,
-L<virt-list-partitions(1)>,
+L<virt-list-filesystems(1)>,
+L<virt-resize(1)>,
 L<Sys::Guestfs(3)>,
 L<Sys::Guestfs::Lib(3)>,
 L<Sys::Virt(3)>,

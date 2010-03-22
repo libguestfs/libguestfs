@@ -17,7 +17,7 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
-tools = cat df edit list-filesystems ls rescue tar win-reg
+tools = cat df edit list-filesystems list-partitions ls rescue resize tar win-reg
 
 EXTRA_DIST = \
 	run-locally \
