@@ -62,6 +62,7 @@ extern void guestfs_set_subprocess_quit_callback (guestfs_h *g, guestfs_subproce
 extern void guestfs_set_launch_done_callback (guestfs_h *g, guestfs_launch_done_cb cb, void *opaque);
 
 /*--- Structures and actions ---*/
+#include <stdint.h>
 #include <rpc/types.h>
 #include <rpc/xdr.h>
 #include <guestfs-structs.h>
