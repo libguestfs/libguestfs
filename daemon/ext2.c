@@ -310,8 +310,15 @@ do_e2fsck_f (const char *device)
   if (e2prog (prog) == -1)
     return -1;
 
-  r = command (NULL, &err, prog, "-p", "-f", device, NULL);
-  if (r == -1) {
+  /* 0 = no errors, 1 = errors corrected.
+   *
+   * >= 4 means uncorrected or other errors.
+   *
+   * 2, 3 means errors were corrected and we require a reboot.  This is
+   * a difficult corner case.
+   */
+  r = commandr (NULL, &err, prog, "-p", "-f", device, NULL);
+  if (r == -1 || r >= 2) {
     reply_with_error ("%s", err);
     free (err);
     return -1;
