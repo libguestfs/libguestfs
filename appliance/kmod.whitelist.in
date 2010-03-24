@@ -37,6 +37,8 @@ fuse.ko
 vfat.ko
 fat.ko
 
+minix.ko
+
 udf.ko
 nls_utf8.ko
 nls_cp437.ko
