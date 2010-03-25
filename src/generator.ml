@@ -8327,7 +8327,7 @@ DESTROY (g)
            do_cleanups ();
            pr "      if (%s == NULL)\n" n;
            pr "        croak (\"%%s\", guestfs_last_error (g));\n";
-           pr "      RETVAL = newSVpv (%s, size);\n" n;
+           pr "      RETVAL = newSVpvn (%s, size);\n" n;
            pr "      free (%s);\n" n;
            pr " OUTPUT:\n";
            pr "      RETVAL\n"
@@ -8360,7 +8360,7 @@ and generate_perl_struct_list_code typ cols name style n do_cleanups =
         pr "        (void) hv_store (hv, \"%s\", %d, newSVpv (%s->val[i].%s, 32), 0);\n"
           name (String.length name) n name
     | name, FBuffer ->
-        pr "        (void) hv_store (hv, \"%s\", %d, newSVpv (%s->val[i].%s, %s->val[i].%s_len), 0);\n"
+        pr "        (void) hv_store (hv, \"%s\", %d, newSVpvn (%s->val[i].%s, %s->val[i].%s_len), 0);\n"
           name (String.length name) n name n name
     | name, (FBytes|FUInt64) ->
         pr "        (void) hv_store (hv, \"%s\", %d, my_newSVull (%s->val[i].%s), 0);\n"
@@ -8402,7 +8402,7 @@ and generate_perl_struct_code typ cols name style n do_cleanups =
           pr "      PUSHs (sv_2mortal (newSVpv (%s->%s, 0)));\n"
             n name
       | name, FBuffer ->
-          pr "      PUSHs (sv_2mortal (newSVpv (%s->%s, %s->%s_len)));\n"
+          pr "      PUSHs (sv_2mortal (newSVpvn (%s->%s, %s->%s_len)));\n"
             n name n name
       | name, FUUID ->
           pr "      PUSHs (sv_2mortal (newSVpv (%s->%s, 32)));\n"
