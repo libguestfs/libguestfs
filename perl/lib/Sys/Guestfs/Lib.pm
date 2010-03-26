@@ -20,6 +20,8 @@ package Sys::Guestfs::Lib;
 use strict;
 use warnings;
 
+use Carp qw(croak);
+
 use Sys::Guestfs;
 use File::Temp qw/tempdir/;
 use Locale::TextDomain 'libguestfs';
@@ -140,14 +142,14 @@ sub open_guest
     } elsif (ref ($first) eq "SCALAR") {
         @images = ($first);
     } else {
-        die __"open_guest: first parameter must be a string or an arrayref"
+        croak __"open_guest: first parameter must be a string or an arrayref"
     }
 
     my ($conn, $dom);
 
     if (-e $images[0]) {
         foreach (@images) {
-            die __x("guest image {imagename} does not exist or is not readable",
+            croak __x("guest image {imagename} does not exist or is not readable",
                     imagename => $_)
                 unless -r $_;
         }

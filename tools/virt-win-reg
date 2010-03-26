@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 # virt-win-reg
-# Copyright (C) 2009 Red Hat Inc.
+# Copyright (C) 2010 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,6 +23,9 @@ use Sys::Guestfs;
 use Sys::Guestfs::Lib qw(open_guest get_partitions resolve_windows_path
   inspect_all_partitions inspect_partition
   inspect_operating_systems mount_operating_system);
+use Win::Hivex;
+use Win::Hivex::Regedit qw(reg_import reg_export);
+
 use Pod::Usage;
 use Getopt::Long;
 use File::Temp qw/tempdir/;
@@ -32,84 +35,124 @@ use Locale::TextDomain 'libguestfs';
 
 =head1 NAME
 
-virt-win-reg - Display Windows Registry entries from a Windows guest
+virt-win-reg - Export and merge Windows Registry entries from a Windows guest
 
 =head1 SYNOPSIS
 
- virt-win-reg [--options] domname '\Path\To\Subkey' name ['\Path'...]
+ virt-win-reg domname 'HKLM\Path\To\Subkey'
 
- virt-win-reg [--options] domname '\Path\To\Subkey' @ ['\Path'...]
+ virt-win-reg domname 'HKLM\Path\To\Subkey' name
 
- virt-win-reg [--options] domname '\Path\To\Subkey' ['\Path'...]
+ virt-win-reg domname 'HKLM\Path\To\Subkey' @
 
- virt-win-reg [--options] disk.img [...] '\Path\To\Subkey' (name|@)
+ virt-win-reg --merge domname [input.reg ...]
+
+ virt-win-reg [--options] disk.img ... # instead of domname
+
+=head1 WARNING
+
+You must I<not> use C<virt-win-reg> with the C<--merge> option on live
+virtual machines.  If you do this, you I<will> get irreversible disk
+corruption in the VM.  C<virt-win-reg> tries to stop you from doing
+this, but doesn't catch all cases.
+
+Modifying the Windows Registry is an inherently risky operation.  The format
+is deliberately obscure and undocumented, and Registry changes
+can leave the system unbootable.  Therefore when using the C<--merge>
+option, make sure you have a reliable backup first.
 
 =head1 DESCRIPTION
 
-This program can display Windows Registry entries from a Windows
-guest.
+This program can export and merge Windows Registry entries from a
+Windows guest.
 
 The first parameter is the libvirt guest name or the raw disk image of
-the Windows guest.
+a Windows guest.
 
-Then follow one or more sets of path specifiers.  The path must begin
-with a C<\> (backslash) character, and may be something like
-C<'\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion'>.
+If C<--merge> is I<not> specified, then the chosen registry
+key is displayed/exported (recursively).  For example:
 
-The next parameter after that is either a value name, the single
-at-character C<@>, or missing.
+ $ virt-win-reg Windows7 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft'
 
-If it's a value name, then we print the data associated with that
-value.  If it's C<@>, then we print the default data associated with
-the subkey.  If it's missing, then we print all the data associated
-with the subkey.
+You can also display single values from within registry keys,
+for example:
 
-If this is confusing, look at the L</EXAMPLES> section below.
+ $ cvkey='HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion'
+ $ virt-win-reg Windows7 $cvkey ProductName
+ Windows 7 Enterprise
 
-Usually you should use single quotes to protect backslashes in the
-path from the shell.
+With C<--merge>, you can merge a textual regedit file into
+the Windows Registry:
 
-Paths and value names are case-insensitive.
+ $ virt-win-reg --merge Windows7 changes.reg
 
 =head2 SUPPORTED SYSTEMS
 
 The program currently supports Windows NT-derived guests starting with
 Windows XP through to at least Windows 7.
 
-Registry support is done for C<\HKEY_LOCAL_MACHINE\SAM>,
-C<\HKEY_LOCAL_MACHINE\SECURITY>, C<\HKEY_LOCAL_MACHINE\SOFTWARE>,
-C<\HKEY_LOCAL_MACHINE\SYSTEM> and C<\HKEY_USERS\.DEFAULT>.
+Registry support is done for C<HKEY_LOCAL_MACHINE\SAM>,
+C<HKEY_LOCAL_MACHINE\SECURITY>, C<HKEY_LOCAL_MACHINE\SOFTWARE>,
+C<HKEY_LOCAL_MACHINE\SYSTEM> and C<HKEY_USERS\.DEFAULT>.
 
-C<\HKEY_USERS\$SID> and C<\HKEY_CURRENT_USER> are B<not> supported at
+You can use C<HKLM> as a shorthand for C<HKEY_LOCAL_MACHINE>, and
+C<HKU> for C<HKEY_USERS>.
+
+C<HKEY_USERS\$SID> and C<HKEY_CURRENT_USER> are B<not> supported at
 this time.
 
-=head2 NOTES
+=head2 NOTE
 
 This program is only meant for simple access to the registry.  If you
 want to do complicated things with the registry, we suggest you
-download the Registry hive files from the guest using C<libguestfs(3)>
-or C<guestfish(1)> and access them locally, eg. using C<hivex(3)>,
-C<hivexml(1)> or C<reged(1)>.
+download the Registry hive files from the guest using L<libguestfs(3)>
+or L<guestfish(1)> and access them locally, eg. using L<hivex(3)>,
+L<hivexsh(1)> or L<hivexregedit(1)>.
 
-=head1 EXAMPLES
+=head2 ENCODING
 
- $ virt-win-reg MyWinGuest \
-   '\HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion' \
-   ProductName
- Microsoft Windows Server 2003
+C<virt-win-reg> expects that regedit files have already been reencoded
+in the local encoding.  Usually on Linux hosts, this means UTF-8 with
+Unix-style line endings.  Since Windows regedit files are often in
+UTF-16LE with Windows-style line endings, you may need to reencode the
+whole file before or after processing.
 
- $ virt-win-reg MyWinGuest \
-   '\HKEY_LOCAL_MACHINE\System\ControlSet001\Control' SystemBootDevice
- multi(0)disk(0)rdisk(0)partition(1)
+To reencode a file from Windows format to Linux (before processing it
+with the C<--merge> option), you would do something like this:
 
- $ virt-win-reg MyWinGuest \
-   '\HKEY_LOCAL_MACHINE\System\ControlSet001\Control'
- "CurrentUser"="USERNAME"
- "WaitToKillServiceTimeout"="20000"
- "SystemStartOptions"="NOEXECUTE=OPTOUT  FASTDETECT"
- "SystemBootDevice"="multi(0)disk(0)rdisk(0)partition(1)"
+ iconv -f utf-16le -t utf-8 < win.reg | dos2unix > linux.reg
 
-(please suggest some more)
+To go in the opposite direction, after exporting and before sending
+the file to a Windows user, do something like this:
+
+ unix2dos linux.reg | iconv -f utf-8 -t utf-16le > win.reg
+
+For more information about encoding, see L<Win::Hivex::Regedit(3)>.
+
+If you are unsure about the current encoding, use the L<file(1)>
+command.  Recent versions of Windows regedit.exe produce a UTF-16LE
+file with Windows-style (CRLF) line endings, like this:
+
+ $ file software.reg
+ software.reg: Little-endian UTF-16 Unicode text, with very long lines,
+ with CRLF line terminators
+
+This file would need conversion before you could C<--merge> it.
+
+=head2 SHELL QUOTING
+
+Be careful when passing parameters containing C<\> (backslash) in the
+shell.  Usually you will have to use 'single quotes' or double
+backslashes (but not both) to protect them from the shell.
+
+Paths and value names are case-insensitive.
+
+=head2 CurrentControlSet etc.
+
+Registry keys like C<CurrentControlSet> don't really exist in the
+Windows Registry at the level of the hive file, and therefore you
+cannot modify these.  Replace this with C<ControlSet001>, and
+similarly for other C<Current...> keys.
 
 =head1 OPTIONS
 
@@ -133,6 +176,14 @@ Display version number and exit.
 
 =cut
 
+my $debug;
+
+=item B<--debug>
+
+Enable debugging messages.
+
+=cut
+
 my $uri;
 
 =item B<--connect URI> | B<-c URI>
@@ -143,6 +194,33 @@ connect to the default libvirt hypervisor.
 If you specify guest block devices directly, then libvirt is not used
 at all.
 
+=cut
+
+my $merge;
+
+=item B<--merge>
+
+In merge mode, this merges a textual regedit file into the Windows
+Registry of the virtual machine.  If this flag is I<not> given then
+virt-win-reg displays or exports Registry entries instead.
+
+Note that C<--merge> is I<unsafe> to use on live virtual machines, and
+will result in disk corruption.  However exporting (without this flag)
+is always safe.
+
+=cut
+
+my $encoding;
+
+=item B<--encoding> UTF-16LE|ASCII
+
+When merging (only), you may need to specify the encoding for strings
+to be used in the hive file.  This is explained in detail in
+L<Win::Hivex::Regedit(3)/ENCODING STRINGS>.
+
+The default is to use UTF-16LE, which should work with recent versions
+of Windows.
+
 =back
 
 =cut
@@ -150,6 +228,9 @@ at all.
 GetOptions ("help|?" => \$help,
             "version" => \$version,
             "connect|c=s" => \$uri,
+            "debug|d" => \$debug,
+            "merge" => \$merge,
+            "encoding=s" => \$encoding,
     ) or pod2usage (2);
 pod2usage (1) if $help;
 if ($version) {
@@ -159,30 +240,19 @@ if ($version) {
     exit
 }
 
-# Split the command line at the first path.  Paths begin with
-# backslash so this is predictable.
+# virt-win-reg only takes a single disk image ...
+die __"no libvirt domain name or disk image given\n" if @ARGV == 0;
+my $domname_or_image = shift @ARGV;
 
-my @lib_args;
-my $i;
+warn "launching libguestfs ..." if $debug;
 
-for ($i = 0; $i < @ARGV; ++$i) {
-    if (substr ($ARGV[$i], 0, 1) eq "\\") {
-        @lib_args = @ARGV[0 .. ($i-1)];
-        @ARGV = @ARGV[$i .. $#ARGV];
-        last;
-    }
-}
-
-pod2usage (__"virt-win-reg: no VM name, disk images or Registry path given") if 0 == @lib_args;
-
-my $g;
-if ($uri) {
-    $g = open_guest (\@lib_args, address => $uri);
-} else {
-    $g = open_guest (\@lib_args);
-}
-
+my @lib_args = ([$domname_or_image]);
+push @lib_args, address => $uri if $uri;
+push @lib_args, rw => 1 if $merge;
+my $g = open_guest (@lib_args);
 $g->launch ();
+
+warn "inspecting guest ..." if $debug;
 
 # List of possible filesystems.
 my @partitions = get_partitions ($g);
@@ -200,91 +270,205 @@ die __"multiboot operating systems are not supported by virt-win-reg" if @roots 
 my $root_dev = $roots[0];
 
 my $os = $oses->{$root_dev};
-mount_operating_system ($g, $os);
+my $ro = $merge ? 0 : 1;
+mount_operating_system ($g, $os, $ro);
 
 # Create a working directory to store the downloaded registry files.
 my $tmpdir = tempdir (CLEANUP => 1);
 
-# Now process each request in turn.
-my $winfile;
-my $localhive;
-my $path;
+# Only used when merging to map downloaded hive names to hive handles.
+my %hives;
 
-for ($i = 0; $i < @ARGV; ++$i) {
-    $_ = $ARGV[$i];
+if (!$merge) {                  # Export mode.
+    die __"expecting 1 or 2 more parameters, subkey path and optionally the value to export\n"
+        if @ARGV < 1 || @ARGV > 2;
 
-    if (/^\\HKEY_LOCAL_MACHINE\\SAM(\\.*)/i) {
-        $winfile = "/windows/system32/config/sam";
-        $localhive = "$tmpdir/sam";
-        $path = $1;
+    my $path = shift @ARGV;
+    my $name = shift @ARGV; # or undef
+
+    # Map this to the hive name.  This function dies on failure.
+    my ($hivename, $prefix);
+    ($hivename, $path, $prefix) = map_path_to_hive ($path);
+
+    # Download the chosen hive.
+    download_hive ($hivename);
+
+    # Open it.
+    my $h = Win::Hivex->open ("$tmpdir/$hivename", debug => $debug);
+
+    unless ($name) {
+        # Export it.
+        warn "exporting $path from $hivename with prefix $prefix ..." if $debug;
+        reg_export ($h, $path, \*STDOUT, prefix => $prefix);
+    } else {
+        # Export a single key using hivexget.
+        my @args = ("hivexget", "$tmpdir/$hivename", $path, $name);
+        warn "running ", join (" ", @args), " ..." if $debug;
+        system (@args) == 0 or die "hivexget failed: $?"
     }
-    elsif (/^\\HKEY_LOCAL_MACHINE\\SECURITY(\\.*)/i) {
-        $winfile = "/windows/system32/config/security";
-        $localhive = "$tmpdir/security";
-        $path = $1;
+}
+else {                          # Import mode.
+    if (@ARGV == 0) {
+        reg_import (\*STDIN, \&import_mapper, encoding => $encoding);
+    } else {
+        foreach (@ARGV) {
+            open my $fh, $_ or die "open: $_: $!";
+            reg_import ($fh, \&import_mapper, encoding => $encoding);
+        }
     }
-    elsif (/^\\HKEY_LOCAL_MACHINE\\SOFTWARE(\\.*)/i) {
-        $winfile = "/windows/system32/config/software";
-        $localhive = "$tmpdir/software";
-        $path = $1;
+
+    # Now we've done importing, commit all the hive handles and
+    # close them all.
+    $_->commit (undef) foreach values %hives;
+    %hives = ();
+
+    # Look in the tmpdir for all the hive files which have been
+    # downloaded / modified by the import mapper, and upload
+    # each one.
+    opendir my $dh, $tmpdir or die "$tmpdir: $!";
+    foreach (readdir $dh) {
+        unless (/^\./) {
+            upload_hive ($_)
+        }
     }
-    elsif (/^\\HKEY_LOCAL_MACHINE\\SYSTEM(\\.*)/i) {
-        $winfile = "/windows/system32/config/system";
-        $localhive = "$tmpdir/system";
-        $path = $1;
+
+    # Sync everything.
+    $g->umount_all ();
+    $g->sync ();
+}
+
+exit 0;
+
+# map function passed to reg_import.
+sub import_mapper
+{
+    local $_ = shift;
+
+    my ($hivename, $path, $prefix) = map_path_to_hive ($_);
+
+    # Need to download this hive?
+    unless (-f "$tmpdir/$hivename") {
+        download_hive ($hivename);
+
+        my $h = Win::Hivex->open ("$tmpdir/$hivename",
+                                  write => 1, debug => $debug);
+        $hives{$hivename} = $h;
     }
-    elsif (/^\\HKEY_USERS\\.DEFAULT(\\.*)/i) {
-        $winfile = "/windows/system32/config/default";
-        $localhive = "$tmpdir/default";
-        $path = $1;
+
+    return ($hives{$hivename}, $path);
+}
+
+# Given a path, map that to the name of the hive and the true path
+# within that hive.
+sub map_path_to_hive
+{
+    local $_ = shift;
+    my ($hivename, $prefix);
+
+    if (/^\\?(?:HKEY_LOCAL_MACHINE|HKLM)\\SAM(\\.*)?$/i) {
+        $hivename = "sam";
+        $_ = defined $1 ? $1 : "\\";
+        $prefix = "HKEY_LOCAL_MACHINE\\SAM";
+    }
+    elsif (/^\\?(?:HKEY_LOCAL_MACHINE|HKLM)\\SECURITY(\\.*)?$/i) {
+        $hivename = "security";
+        $_ = defined $1 ? $1 : "\\";
+        $prefix = "HKEY_LOCAL_MACHINE\\SECURITY";
+    }
+    elsif (/^\\?(?:HKEY_LOCAL_MACHINE|HKLM)\\SOFTWARE(\\.*)?$/i) {
+        $hivename = "software";
+        $_ = defined $1 ? $1 : "\\";
+        $prefix = "HKEY_LOCAL_MACHINE\\SOFTWARE";
+    }
+    elsif (/^\\?(?:HKEY_LOCAL_MACHINE|HKLM)\\SYSTEM(\\.*)?$/i) {
+        $hivename = "system";
+        $_ = defined $1 ? $1 : "\\";
+        $prefix = "HKEY_LOCAL_MACHINE\\SYSTEM";
+    }
+    elsif (/^\\?(?:HKEY_USERS|HKU)\\.DEFAULT(\\.*)?$/i) {
+        $hivename = "default";
+        $_ = defined $1 ? $1 : "\\";
+        $prefix = "HKEY_LOCAL_MACHINE\\.DEFAULT";
     }
     else {
-        die "virt-win-reg: $_: not a supported Windows Registry path\n"
+        die __x("virt-win-reg: {p}: not a supported Windows Registry path\n",
+                p => $_)
     }
 
-    unless (-f $localhive) {
-        # Check the hive file exists and get the real name.
-        eval {
-            $winfile = $g->case_sensitive_path ($winfile);
-            $g->download ($winfile, $localhive);
-        };
-        if ($@) {
-            die "virt-win-reg: $winfile: could not download registry file: $@\n"
-        }
+    return ($hivename, $_, $prefix);
+}
+
+# Download a named hive file.  Die on failure.
+sub download_hive
+{
+    local $_;
+    my $hivename = shift;
+
+    my $systemroot = $os->{root}->{systemroot} || "/windows";
+    my $winfile_before = "$systemroot/system32/config/$hivename";
+    my $winfile;
+    eval { $winfile = $g->case_sensitive_path ($winfile_before); };
+    if ($@) {
+        die __x("virt-win-reg: {p}: file not found in guest: {err}\n",
+                p => $winfile_before, err => $@);
     }
 
-    # What sort of request is it?  Peek at the next arg.
-    my $name; # will be: undefined, @ or a name
-    if ($i+1 < @ARGV) {
-        if (substr ($ARGV[$i+1], 0, 1) ne "\\") {
-            $name = $ARGV[$i+1];
-            $i++;
-        }
+    warn "downloading $winfile ..." if $debug;
+    eval { $g->download ($winfile, "$tmpdir/$hivename"); };
+    if ($@) {
+        die __x("virt-win-reg: {p}: could not download registry file: {err}\n",
+                p => $winfile, err => $@);
+    }
+}
+
+# Upload a named hive file.  Die on failure.
+sub upload_hive
+{
+    local $_;
+    my $hivename = shift;
+
+    my $systemroot = $os->{root}->{systemroot} || "/windows";
+    my $winfile_before = "$systemroot/system32/config/$hivename";
+    my $winfile;
+    eval { $winfile = $g->case_sensitive_path ($winfile_before); };
+    if ($@) {
+        die __x("virt-win-reg: {p}: file not found in guest: {err}\n",
+                p => $winfile_before, err => $@);
     }
 
-    my @cmd;
-    if (defined $name) {
-        @cmd = ("hivexget", $localhive, $path, $name);
-    } else {
-        @cmd = ("hivexget", $localhive, $path);
+    warn "uploading $winfile ..." if $debug;
+    eval { $g->upload ("$tmpdir/$hivename", $winfile); };
+    if ($@) {
+        die __x("virt-win-reg: {p}: could not upload registry file: {err}\n",
+                p => $winfile, err => $@);
     }
-
-    system (@cmd) == 0
-        or die "hivexget command failed: $?\n";
 }
 
 =head1 SEE ALSO
 
 L<hivex(3)>,
-L<hivexget(1)>,
 L<hivexsh(1)>,
+L<hivexregedit(1)>,
 L<guestfs(3)>,
 L<guestfish(1)>,
 L<virt-cat(1)>,
 L<Sys::Guestfs(3)>,
 L<Sys::Guestfs::Lib(3)>,
+L<Win::Hivex(3)>,
+L<Win::Hivex::Regedit(3)>,
 L<Sys::Virt(3)>,
 L<http://libguestfs.org/>.
+
+=head1 BUGS
+
+When reporting bugs, please enable debugging and capture the
+I<complete> output:
+
+ export LIBGUESTFS_DEBUG=1
+ virt-win-reg --debug [... rest ...] > /tmp/virt-win-reg.log 2>&1
+
+Attach /tmp/virt-win-reg.log to a new bug report at
+L<https://bugzilla.redhat.com/>
 
 =head1 AUTHOR
 
@@ -292,7 +476,7 @@ Richard W.M. Jones L<http://et.redhat.com/~rjones/>
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Red Hat Inc.
+Copyright (C) 2010 Red Hat Inc.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
