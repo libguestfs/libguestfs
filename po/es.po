@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-23 22:28+0000\n"
+"POT-Creation-Date: 2010-03-26 21:08+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Héctor Daniel Cabrera <logan@fedoraproject.org>\n"
 "Language-Team: Fedora Spanish <trans-es@lists.fedoraproject.org>\n"
@@ -1885,25 +1885,25 @@ msgstr "%s: no es posible crear directorio temporal"
 msgid "cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)"
 msgstr "no es posible encontrar %s o %s en LIBGUESTFS_PATH (ruta actual = %s)"
 
-#: src/guestfs.c:1457
+#: src/guestfs.c:1459
 msgid "failed to connect to vmchannel socket"
 msgstr "falló al conectarse con el socket vmchannel"
 
-#: src/guestfs.c:1476
+#: src/guestfs.c:1478
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "falló guestfs_launch, vea mensajes de errores anteriores"
 
-#: src/guestfs.c:1489
+#: src/guestfs.c:1491
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu ha sido iniciado y contactado el demonio, pero es estado es != READY"
 
-#: src/guestfs.c:1581
+#: src/guestfs.c:1583
 #, c-format
 msgid "external command failed: %s"
 msgstr "falló el comando externo: %s"
 
-#: src/guestfs.c:1654
+#: src/guestfs.c:1656
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -1912,25 +1912,25 @@ msgstr ""
 "%s: falló el comando: Si qemu se encuentra ubicado en una ruta no estándar, "
 "intente definir el entorno LIBGUESTFS_QEMU como variable"
 
-#: src/guestfs.c:1830
+#: src/guestfs.c:1832
 msgid "qemu has not been launched yet"
 msgstr "todavía qemu no ha sido iniciado "
 
-#: src/guestfs.c:1841
+#: src/guestfs.c:1843
 msgid "no subprocess to kill"
 msgstr "ningún subproceso que finalizar"
 
-#: src/guestfs.c:1963
+#: src/guestfs.c:1965
 #, c-format
 msgid "guestfs_set_busy: called when in state %d != READY"
 msgstr "guestfs_set_busy: llamado cuando se encontraba en estado %d != READY "
 
-#: src/guestfs.c:1986
+#: src/guestfs.c:1988
 #, c-format
 msgid "guestfs_end_busy: called when in state %d"
 msgstr "guestfs_end_busy: llamado cuando se encontraba en estado %d"
 
-#: src/guestfs.c:2094
+#: src/guestfs.c:2096
 #, c-format
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
@@ -1938,69 +1938,69 @@ msgstr ""
 "check_for_daemon_cancellation_or_eof: se ha leído 0x%x desde el demonio, se "
 "esperaba 0x%x\n"
 
-#: src/guestfs.c:2252 src/guestfs.c:2306
+#: src/guestfs.c:2254 src/guestfs.c:2308
 msgid "unexpected end of file when reading from daemon"
 msgstr "fin no esperado del archivo mientras se leía desde el demonio"
 
-#: src/guestfs.c:2268
+#: src/guestfs.c:2270
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr ""
 "se ha recibido una identificación mágica desde guestfsd, pero en estado %d"
 
-#: src/guestfs.c:2283
+#: src/guestfs.c:2285
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "la longitud del mensaje (%u) > tamaño máximo posible (%d)"
 
-#: src/guestfs.c:2405
+#: src/guestfs.c:2407
 #, c-format
 msgid "guestfs___send: state %d != BUSY"
 msgstr "guestfs___send: estado %d != BUSY"
 
-#: src/guestfs.c:2427
+#: src/guestfs.c:2429
 msgid "xdr_guestfs_message_header failed"
 msgstr "falló xdr_guestfs_message_header"
 
-#: src/guestfs.c:2436
+#: src/guestfs.c:2438
 msgid "dispatch failed to marshal args"
 msgstr "el despacho falló al presentar los argumentos"
 
-#: src/guestfs.c:2566
+#: src/guestfs.c:2568
 #, c-format
 msgid "send_file_chunk: state %d != READY"
 msgstr "send_file_chunk: estado %d != READY"
 
-#: src/guestfs.c:2582
+#: src/guestfs.c:2584
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "falló xdr_guestfs_chunk (buf = %p, buflen = %zu)"
 
-#: src/guestfs.c:2705
+#: src/guestfs.c:2707
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: error en codificación fragmentada"
 
-#: src/guestfs.c:2733
+#: src/guestfs.c:2735
 msgid "write to daemon socket"
 msgstr "escribe en el socket del demonio"
 
-#: src/guestfs.c:2756
+#: src/guestfs.c:2758
 msgid "receive_file_data: parse error in reply callback"
 msgstr ""
 "receive_file_data: error de análisis en la respuesta de devolución de llamada"
 
-#: src/guestfs.c:2761
+#: src/guestfs.c:2763
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr ""
 "receive_file_data: se ha recibido una marca no esperada mientras se leían "
 "porciones del archivo "
 
-#: src/guestfs.c:2769
+#: src/guestfs.c:2771
 msgid "failed to parse file chunk"
 msgstr "falló al analizar porciones del archivo"
 
-#: src/guestfs.c:2778
+#: src/guestfs.c:2780
 msgid "file receive cancelled by daemon"
 msgstr "el demonio ha cancelado la recepción del archivo"
 

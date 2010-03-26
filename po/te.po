@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs.master.libguestfs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-23 22:28+0000\n"
+"POT-Creation-Date: 2010-03-26 21:08+0000\n"
 "PO-Revision-Date: 2010-01-27 20:03+0530\n"
 "Last-Translator: Krishna Babu K <kkrothap@redhat.com>\n"
 "Language-Team: Telugu <en@li.org>\n"
@@ -1842,24 +1842,24 @@ msgstr "%s: తాత్కాలిక డైరెక్టరీను సృ
 msgid "cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)"
 msgstr "%s లేదా %sను LIBGUESTFS_PATH (current path = %s) పై కనుగొనలేదు"
 
-#: src/guestfs.c:1457
+#: src/guestfs.c:1459
 msgid "failed to connect to vmchannel socket"
 msgstr "vmchannel సాకెట్‌కు అనుసంధానమగుటలో విఫలమైంది"
 
-#: src/guestfs.c:1476
+#: src/guestfs.c:1478
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch విఫలమైంది, ముందలి దోషపు సందేశములను చూడుము"
 
-#: src/guestfs.c:1489
+#: src/guestfs.c:1491
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu ఆరంభించబడింది మరియు డెమోన్‌ను సంప్రదించింది, అయితే state != READY"
 
-#: src/guestfs.c:1581
+#: src/guestfs.c:1583
 #, c-format
 msgid "external command failed: %s"
 msgstr "బహిర్గత ఆదేశము విఫలమైంది: %s"
 
-#: src/guestfs.c:1654
+#: src/guestfs.c:1656
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -1868,90 +1868,90 @@ msgstr ""
 "%s: ఆదేశము విఫలమైంది: ఒకవేళ qemu ప్రామాణికం-కాని పాత్‌పై వుంటే, LIBGUESTFS_QEMU ఎన్విరాన్మెంట్ "
 "వేరియబుల్ అమర్చుటకు ప్రయత్నించుము."
 
-#: src/guestfs.c:1830
+#: src/guestfs.c:1832
 msgid "qemu has not been launched yet"
 msgstr "qemu యింకా ఆరంభం కాలేదు"
 
-#: src/guestfs.c:1841
+#: src/guestfs.c:1843
 msgid "no subprocess to kill"
 msgstr "అంతంచేయుటకు యే వుపకార్యక్రమము లేదు"
 
-#: src/guestfs.c:1963
+#: src/guestfs.c:1965
 #, c-format
 msgid "guestfs_set_busy: called when in state %d != READY"
 msgstr "guestfs_set_busy: state %d != READY అయినప్పుడు పిలువబడును"
 
-#: src/guestfs.c:1986
+#: src/guestfs.c:1988
 #, c-format
 msgid "guestfs_end_busy: called when in state %d"
 msgstr "guestfs_end_busy: state %d నందు పిలువబడును"
 
-#: src/guestfs.c:2094
+#: src/guestfs.c:2096
 #, c-format
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
 msgstr ""
 "check_for_daemon_cancellation_or_eof: డెమోన్‌నుండి 0x%x చదివెను, కావలసినది 0x%x\n"
 
-#: src/guestfs.c:2252 src/guestfs.c:2306
+#: src/guestfs.c:2254 src/guestfs.c:2308
 msgid "unexpected end of file when reading from daemon"
 msgstr "డెమోన్‌నుండి చదువునప్పుడు అనుకోని ఫైలు ముగింపు"
 
-#: src/guestfs.c:2268
+#: src/guestfs.c:2270
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr "స్థితి %d నందు, guestfsd నుండి చమత్కార సంతకము పొందబడింది"
 
-#: src/guestfs.c:2283
+#: src/guestfs.c:2285
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "సందేశము పొడవు (%u) > సాధ్యమగు గరిష్ట పరిమాణము (%d)"
 
-#: src/guestfs.c:2405
+#: src/guestfs.c:2407
 #, c-format
 msgid "guestfs___send: state %d != BUSY"
 msgstr "guestfs___send: state %d != BUSY"
 
-#: src/guestfs.c:2427
+#: src/guestfs.c:2429
 msgid "xdr_guestfs_message_header failed"
 msgstr "xdr_guestfs_message_header విఫలమైంది"
 
-#: src/guestfs.c:2436
+#: src/guestfs.c:2438
 msgid "dispatch failed to marshal args"
 msgstr "మార్షల్ argsకు చేరవేత విఫలమైంది"
 
-#: src/guestfs.c:2566
+#: src/guestfs.c:2568
 #, c-format
 msgid "send_file_chunk: state %d != READY"
 msgstr "send_file_chunk: state %d != READY"
 
-#: src/guestfs.c:2582
+#: src/guestfs.c:2584
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk విఫలమైంది (buf = %p, buflen = %zu)"
 
-#: src/guestfs.c:2705
+#: src/guestfs.c:2707
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: చంకడ్ ఎన్కోడింగ్ నందు దోషము"
 
-#: src/guestfs.c:2733
+#: src/guestfs.c:2735
 msgid "write to daemon socket"
 msgstr "డెమోన్ సాకెట్‌కు వ్రాయుము"
 
-#: src/guestfs.c:2756
+#: src/guestfs.c:2758
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: రిప్లై కాల్‌బ్యాక్ నందు పార్శ్ దోషము"
 
-#: src/guestfs.c:2761
+#: src/guestfs.c:2763
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr "receive_file_data: ఫైలు ముక్కలను చదువునప్పుడు అనుకోని ఫ్లాగ్ స్వీకరించబడింది"
 
-#: src/guestfs.c:2769
+#: src/guestfs.c:2771
 msgid "failed to parse file chunk"
 msgstr "ఫైలు ముక్కను పార్శ్ చేయుటలో విఫలమైంది"
 
-#: src/guestfs.c:2778
+#: src/guestfs.c:2780
 msgid "file receive cancelled by daemon"
 msgstr "ఫైలు స్వీకరణ డెమోన్ ద్వారా రద్దుచేయబడింది"
 

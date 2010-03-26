@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs.master.or\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-23 22:28+0000\n"
+"POT-Creation-Date: 2010-03-26 21:08+0000\n"
 "PO-Revision-Date: 2010-02-01 18:17+0530\n"
 "Last-Translator: Manoj Kumar Giri <mgiri@redhat.com>\n"
 "Language-Team: Oriya <oriya-it@googlegroups.com>\n"
@@ -1850,24 +1850,24 @@ msgstr "%s: ଅସ୍ଥାୟୀ ଡିରେକ୍ଟୋରୀ ନିର୍ମ
 msgid "cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)"
 msgstr "LIBGUESTFS_PATH ରେ %s କିମ୍ବା %s କୁ ପାଇ ପାରିବେ ନାହିଁ (ପ୍ରଚଳିତ ପଥ = %s)"
 
-#: src/guestfs.c:1457
+#: src/guestfs.c:1459
 msgid "failed to connect to vmchannel socket"
 msgstr "vmchannel ସକେଟ ସହିତ ସଂଯୁକ୍ତ ହେବାରେ ବିଫଳ ହୋଇଛି"
 
-#: src/guestfs.c:1476
+#: src/guestfs.c:1478
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch ବିଫଳ ହୋଇଛି, ପୂର୍ବର ତ୍ରୁଟି ସନ୍ଦେଶଗୁଡ଼ିକୁ ଦେଖନ୍ତୁ"
 
-#: src/guestfs.c:1489
+#: src/guestfs.c:1491
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu ଆରମ୍ଭ ହୋଇଛି ଏବଂ ଡେମନ ସହିତ ଯୋଗାଯୋଗ ଆରମ୍ଭ କରିଛି, କିନ୍ତୁ ଅବସ୍ଥା != READY"
 
-#: src/guestfs.c:1581
+#: src/guestfs.c:1583
 #, c-format
 msgid "external command failed: %s"
 msgstr "ବାହ୍ୟ ନିର୍ଦ୍ଦେଶ ବିଫଳ ହୋଇଛି: %s"
 
-#: src/guestfs.c:1654
+#: src/guestfs.c:1656
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -1876,89 +1876,89 @@ msgstr ""
 "%s: ନିର୍ଦ୍ଦେଶ ବିଫଳ ହୋଇଛି: ଯଦି qemu ମାନ୍ୟତା ପ୍ରାପ୍ତ ହୋଇନଥିବା ପଥରେ ଅବସ୍ଥିତ, ତେବେ "
 "LIBGUESTFS_QEMU ପରିବେଶ ପ୍ରାଚଳକୁ ସେଟ କରିବା ପାଇଁ ଚେଷ୍ଟା କରନ୍ତୁ।"
 
-#: src/guestfs.c:1830
+#: src/guestfs.c:1832
 msgid "qemu has not been launched yet"
 msgstr "qemu ଏପର୍ଯ୍ୟନ୍ତ ଆରମ୍ଭ ହୋଇନାହିଁ"
 
-#: src/guestfs.c:1841
+#: src/guestfs.c:1843
 msgid "no subprocess to kill"
 msgstr "ବନ୍ଦ କରିବା ପାଇଁ କୌଣସି ଉପ-ପଦ୍ଧତି ନାହିଁ"
 
-#: src/guestfs.c:1963
+#: src/guestfs.c:1965
 #, c-format
 msgid "guestfs_set_busy: called when in state %d != READY"
 msgstr "guestfs_set_busy: ଅବସ୍ଥା %d ରେ ଥିବା ସମୟରେ ଡ଼ାକିଥିଲା != READY"
 
-#: src/guestfs.c:1986
+#: src/guestfs.c:1988
 #, c-format
 msgid "guestfs_end_busy: called when in state %d"
 msgstr "guestfs_end_busy: ଅବସ୍ଥା %d ରେ ଥିବା ସମୟରେ ଡ଼ାକିଥିଲା"
 
-#: src/guestfs.c:2094
+#: src/guestfs.c:2096
 #, c-format
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
 msgstr "check_for_daemon_cancellation_or_eof: ଡେମନରୁ 0x%x କୁ ପଢ଼ନ୍ତୁ, ଆଶାତିତ 0x%x\n"
 
-#: src/guestfs.c:2252 src/guestfs.c:2306
+#: src/guestfs.c:2254 src/guestfs.c:2308
 msgid "unexpected end of file when reading from daemon"
 msgstr "ଫାଇଲର ଅପ୍ରତ୍ୟାଶିତ ସମାପ୍ତି ଯେତେବେଳେ ଡେମନରୁ ପଢ଼ୁଅଛି"
 
-#: src/guestfs.c:2268
+#: src/guestfs.c:2270
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr "guestfsd ରୁ ଚମତ୍କାର ହସ୍ତାକ୍ଷର ଗ୍ରହଣ କରିଛି, କିନ୍ତୁ ଅବସ୍ଥା %d ରେ"
 
-#: src/guestfs.c:2283
+#: src/guestfs.c:2285
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "ସନ୍ଦେଶ ଲମ୍ବ (%u) > ସର୍ବାଧିକ ସମ୍ଭାବ୍ୟ ଆକାର (%d)"
 
-#: src/guestfs.c:2405
+#: src/guestfs.c:2407
 #, c-format
 msgid "guestfs___send: state %d != BUSY"
 msgstr "guestfs___send: ଅବସ୍ଥା %d != BUSY"
 
-#: src/guestfs.c:2427
+#: src/guestfs.c:2429
 msgid "xdr_guestfs_message_header failed"
 msgstr "xdr_guestfs_message_header ବିଫଳ ହୋଇଛି"
 
-#: src/guestfs.c:2436
+#: src/guestfs.c:2438
 msgid "dispatch failed to marshal args"
 msgstr "ମାର୍ଶାଲ args କୁ ପଠାଇବା ବିଫଳ ହୋଇଛି"
 
-#: src/guestfs.c:2566
+#: src/guestfs.c:2568
 #, c-format
 msgid "send_file_chunk: state %d != READY"
 msgstr "send_file_chunk: ଅବସ୍ଥା %d != READY"
 
-#: src/guestfs.c:2582
+#: src/guestfs.c:2584
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk ବିଫଳ ହୋଇଛି (buf = %p, buflen = %zu)"
 
-#: src/guestfs.c:2705
+#: src/guestfs.c:2707
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: ମିଶ୍ରିତ ସାଙ୍କେତିକରଣରେ ତ୍ରୁଟି"
 
-#: src/guestfs.c:2733
+#: src/guestfs.c:2735
 msgid "write to daemon socket"
 msgstr "ଡେମନ ସକେଟରେ ଲେଖନ୍ତୁ"
 
-#: src/guestfs.c:2756
+#: src/guestfs.c:2758
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: ଉତ୍ତର ଡ଼ାକରାରେ ବିଶ୍ଳେଷଣ ତ୍ରୁଟି"
 
-#: src/guestfs.c:2761
+#: src/guestfs.c:2763
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr "receive_file_data: ଫାଇଲ ମାଳାକୁ ପଢ଼ିବା ସମୟରେ ଅପ୍ରତ୍ୟାଶିତ ଫ୍ଲାଗ ଗ୍ରହଣ ହୋଇଛି"
 
-#: src/guestfs.c:2769
+#: src/guestfs.c:2771
 msgid "failed to parse file chunk"
 msgstr "ଫାଇଲ ମାଳାକୁ ବିଶ୍ଳେଷଣ କରିବାରେ ବିଫଳ"
 
-#: src/guestfs.c:2778
+#: src/guestfs.c:2780
 msgid "file receive cancelled by daemon"
 msgstr "ଫାଇଲ ଗ୍ରହଣ ଡେମନ ଦ୍ଵାରା ବାତିଲ ହୋଇଛି"
 
