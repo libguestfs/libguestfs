@@ -1065,7 +1065,7 @@ device_name_translation (char *device, const char *func)
 int
 prog_exists (const char *prog)
 {
-  static const char *dirs[] =
+  static const char * const dirs[] =
     { "/sbin", "/usr/sbin", "/bin", "/usr/bin" };
   size_t i;
   char buf[1024];
