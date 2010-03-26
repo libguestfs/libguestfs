@@ -78,7 +78,7 @@ if ! grep -sq guestfs_rescue=1 /proc/cmdline; then
 fi
 
 # Use appliance in rescue mode, also used by the virt-rescue command.
-TERM=linux ;# XXX library should pass this from library's environment
+eval $(grep -Eo 'TERM=[^[:space:]]+' /proc/cmdline)
 PS1='><rescue> '
 export TERM PS1
 echo

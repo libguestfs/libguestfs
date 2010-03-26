@@ -1257,10 +1257,12 @@ guestfs__launch (guestfs_h *g)
               "%s "             /* (selinux) */
               "%s "             /* (vmchannel) */
               "%s "             /* (verbose) */
+              "TERM=%s "        /* (TERM environment variable) */
               "%s",             /* (append) */
               g->selinux ? "selinux=1 enforcing=0" : "selinux=0",
               vmchannel ? vmchannel : "",
               g->verbose ? "guestfs_verbose=1" : "",
+              getenv ("TERM") ? : "linux",
               g->append ? g->append : "");
 
     add_cmdline (g, "-kernel");
