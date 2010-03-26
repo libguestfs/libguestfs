@@ -37,7 +37,7 @@ do_grub_install (const char *root, const char *device)
     return -1;
   }
 
-  r = command (NULL, &err, "/sbin/grub-install", buf, device, NULL);
+  r = command (NULL, &err, "grub-install", buf, device, NULL);
   free (buf);
 
   if (r == -1) {

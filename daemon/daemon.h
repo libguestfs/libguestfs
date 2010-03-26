@@ -70,6 +70,8 @@ extern void trim (char *str);
 
 extern int device_name_translation (char *device, const char *func);
 
+extern int prog_exists (const char *prog);
+
 extern void udev_settle (void);
 
 /* This just stops gcc from giving a warning about our custom

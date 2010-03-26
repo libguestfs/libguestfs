@@ -38,7 +38,7 @@ sfdisk (const char *device, int n, int cyls, int heads, int sectors,
   char buf[256];
   int i;
 
-  strcpy (buf, "/sbin/sfdisk");
+  strcpy (buf, "sfdisk");
 
   if (n > 0)
     sprintf (buf + strlen (buf), " -N %d", n);
@@ -122,7 +122,7 @@ sfdisk_flag (const char *device, const char *flag)
   char *out, *err;
   int r;
 
-  r = command (&out, &err, "/sbin/sfdisk", flag, device, NULL);
+  r = command (&out, &err, "sfdisk", flag, device, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
     free (out);

@@ -220,8 +220,11 @@ main (int argc, char *argv[])
   /* Set up a basic environment.  After we are called by /init the
    * environment is essentially empty.
    * https://bugzilla.redhat.com/show_bug.cgi?id=502074#c5
+   *
+   * NOTE: if you change $PATH, you must also change 'prog_exists'
+   * function below.
    */
-  setenv ("PATH", "/usr/bin:/bin", 1);
+  setenv ("PATH", "/sbin:/usr/sbin:/bin:/usr/bin", 1);
   setenv ("SHELL", "/bin/sh", 1);
   setenv ("LC_ALL", "C", 1);
 
@@ -1056,6 +1059,25 @@ device_name_translation (char *device, const char *func)
   goto error;
 }
 
+/* Check program exists and is executable on $PATH.  Actually, we
+ * just assume PATH contains the default entries (see main() above).
+ */
+int
+prog_exists (const char *prog)
+{
+  static const char *dirs[] =
+    { "/sbin", "/usr/sbin", "/bin", "/usr/bin" };
+  size_t i;
+  char buf[1024];
+
+  for (i = 0; i < sizeof dirs / sizeof dirs[0]; ++i) {
+    snprintf (buf, sizeof buf, "%s/%s", dirs[i], prog);
+    if (access (buf, X_OK) == 0)
+      return 1;
+  }
+  return 0;
+}
+
 /* LVM and other commands aren't synchronous, especially when udev is
  * involved.  eg. You can create or remove some device, but the /dev
  * device node won't appear until some time later.  This means that
@@ -1073,6 +1095,6 @@ device_name_translation (char *device, const char *func)
 void
 udev_settle (void)
 {
-  (void) command (NULL, NULL, "/sbin/udevadm", "settle", NULL);
-  (void) command (NULL, NULL, "/sbin/udevsettle", NULL);
+  (void) command (NULL, NULL, "udevadm", "settle", NULL);
+  (void) command (NULL, NULL, "udevsettle", NULL);
 }

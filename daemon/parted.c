@@ -46,7 +46,7 @@ recover_blkrrpart (const char *device, const char *err)
                "Error informing the kernel about modifications to partition"))
     return -1;
 
-  r = command (NULL, NULL, "/sbin/blockdev", "--rereadpt", device, NULL);
+  r = command (NULL, NULL, "blockdev", "--rereadpt", device, NULL);
   if (r == -1)
     return -1;
 
@@ -61,7 +61,7 @@ recover_blkrrpart (const char *device, const char *err)
     char *err;                                                          \
                                                                         \
     r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,       \
-                  "/sbin/parted", "-s", "--", (device), __VA_ARGS__);   \
+                  "parted", "-s", "--", (device), __VA_ARGS__);   \
     if (r == -1) {                                                      \
       if (recover_blkrrpart ((device), err) == -1) {                    \
         reply_with_error ("%s: parted: %s: %s", __func__, (device), err); \
@@ -229,7 +229,7 @@ print_partition_table (const char *device)
   int r;
   char **lines;
 
-  r = command (&out, &err, "/sbin/parted", "-m", "--", device,
+  r = command (&out, &err, "parted", "-m", "--", device,
                "unit", "b",
                "print", NULL);
   if (r == -1) {

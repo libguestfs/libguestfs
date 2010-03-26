@@ -32,7 +32,7 @@ do_fsck (const char *fstype, const char *device)
   char *err;
   int r;
 
-  r = commandr (NULL, &err, "/sbin/fsck", "-a", "-t", fstype, device, NULL);
+  r = commandr (NULL, &err, "fsck", "-a", "-t", fstype, device, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
     free (err);

@@ -38,7 +38,7 @@ call_blockdev (const char *device, const char *switc, int extraarg, int prints)
   int64_t rv;
   char *out, *err;
   const char *argv[] = {
-    "/sbin/blockdev",
+    "blockdev",
     switc,
     NULL,
     NULL,

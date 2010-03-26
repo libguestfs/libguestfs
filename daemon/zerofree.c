@@ -31,8 +31,7 @@
 int
 optgroup_zerofree_available (void)
 {
-  int r = access ("/usr/sbin/zerofree", X_OK);
-  return r == 0;
+  return prog_exists ("zerofree");
 }
 
 int
@@ -41,7 +40,7 @@ do_zerofree (const char *device)
   char *err;
   int r;
 
-  r = command (NULL, &err, "/usr/sbin/zerofree", device, NULL);
+  r = command (NULL, &err, "zerofree", device, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
     free (err);

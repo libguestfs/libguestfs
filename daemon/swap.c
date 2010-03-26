@@ -39,7 +39,7 @@ optgroup_linuxfsuuid_available (void)
   int av;
 
   /* Ignore return code - mkswap --help *will* fail. */
-  command (NULL, &err, "/sbin/mkswap", "--help", NULL);
+  command (NULL, &err, "mkswap", "--help", NULL);
 
   av = strstr (err, "-U") != NULL;
   free (err);
@@ -53,9 +53,9 @@ mkswap (const char *device, const char *flag, const char *value)
   int r;
 
   if (!flag)
-    r = command (NULL, &err, "/sbin/mkswap", "-f", device, NULL);
+    r = command (NULL, &err, "mkswap", "-f", device, NULL);
   else
-    r = command (NULL, &err, "/sbin/mkswap", "-f", flag, value, device, NULL);
+    r = command (NULL, &err, "mkswap", "-f", flag, value, device, NULL);
 
   if (r == -1) {
     reply_with_error ("%s", err);
@@ -128,13 +128,13 @@ swaponoff (const char *cmd, const char *flag, const char *value)
 int
 do_swapon_device (const char *device)
 {
-  return swaponoff ("/sbin/swapon", NULL, device);
+  return swaponoff ("swapon", NULL, device);
 }
 
 int
 do_swapoff_device (const char *device)
 {
-  return swaponoff ("/sbin/swapoff", NULL, device);
+  return swaponoff ("swapoff", NULL, device);
 }
 
 int
@@ -149,7 +149,7 @@ do_swapon_file (const char *path)
     return -1;
   }
 
-  r = swaponoff ("/sbin/swapon", NULL, buf);
+  r = swaponoff ("swapon", NULL, buf);
   free (buf);
   return r;
 }
@@ -166,7 +166,7 @@ do_swapoff_file (const char *path)
     return -1;
   }
 
-  r = swaponoff ("/sbin/swapoff", NULL, buf);
+  r = swaponoff ("swapoff", NULL, buf);
   free (buf);
   return r;
 }
@@ -174,23 +174,23 @@ do_swapoff_file (const char *path)
 int
 do_swapon_label (const char *label)
 {
-  return swaponoff ("/sbin/swapon", "-L", label);
+  return swaponoff ("swapon", "-L", label);
 }
 
 int
 do_swapoff_label (const char *label)
 {
-  return swaponoff ("/sbin/swapoff", "-L", label);
+  return swaponoff ("swapoff", "-L", label);
 }
 
 int
 do_swapon_uuid (const char *uuid)
 {
-  return swaponoff ("/sbin/swapon", "-U", uuid);
+  return swaponoff ("swapon", "-U", uuid);
 }
 
 int
 do_swapoff_uuid (const char *uuid)
 {
-  return swaponoff ("/sbin/swapoff", "-U", uuid);
+  return swaponoff ("swapoff", "-U", uuid);
 }

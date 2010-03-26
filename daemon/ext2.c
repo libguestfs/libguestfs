@@ -43,11 +43,11 @@ e2prog (char *name)
   p++;
 
   *p = '4';
-  if (access (name, X_OK) == 0)
+  if (prog_exists (name))
     return 0;
 
   *p = '2';
-  if (access (name, X_OK) == 0)
+  if (prog_exists (name))
     return 0;
 
   reply_with_error ("cannot find required program %s", name);
@@ -63,7 +63,7 @@ do_tune2fs_l (const char *device)
   char **ret = NULL;
   int size = 0, alloc = 0;
 
-  char prog[] = "/sbin/tune2fs";
+  char prog[] = "tune2fs";
   if (e2prog (prog) == -1)
     return NULL;
 
@@ -151,7 +151,7 @@ do_set_e2label (const char *device, const char *label)
   int r;
   char *err;
 
-  char prog[] = "/sbin/e2label";
+  char prog[] = "e2label";
   if (e2prog (prog) == -1)
     return -1;
 
@@ -172,7 +172,7 @@ do_get_e2label (const char *device)
   int r, len;
   char *out, *err;
 
-  char prog[] = "/sbin/e2label";
+  char prog[] = "e2label";
   if (e2prog (prog) == -1)
     return NULL;
 
@@ -200,7 +200,7 @@ do_set_e2uuid (const char *device, const char *uuid)
   int r;
   char *err;
 
-  char prog[] = "/sbin/tune2fs";
+  char prog[] = "tune2fs";
   if (e2prog (prog) == -1)
     return -1;
 
@@ -225,7 +225,7 @@ do_get_e2uuid (const char *device)
    * to use tune2fs -l and then look for a particular string in
    * the output.
    */
-  char prog[] = "/sbin/tune2fs";
+  char prog[] = "tune2fs";
   if (e2prog (prog) == -1)
     return NULL;
 
@@ -285,7 +285,7 @@ do_resize2fs (const char *device)
   char *err;
   int r;
 
-  char prog[] = "/sbin/resize2fs";
+  char prog[] = "resize2fs";
   if (e2prog (prog) == -1)
     return -1;
 
@@ -306,7 +306,7 @@ do_e2fsck_f (const char *device)
   char *err;
   int r;
 
-  char prog[] = "/sbin/e2fsck";
+  char prog[] = "e2fsck";
   if (e2prog (prog) == -1)
     return -1;
 
@@ -334,7 +334,7 @@ do_mke2journal (int blocksize, const char *device)
   char *err;
   int r;
 
-  char prog[] = "/sbin/mke2fs";
+  char prog[] = "mke2fs";
   if (e2prog (prog) == -1)
     return -1;
 
@@ -360,7 +360,7 @@ do_mke2journal_L (int blocksize, const char *label, const char *device)
   char *err;
   int r;
 
-  char prog[] = "/sbin/mke2fs";
+  char prog[] = "mke2fs";
   if (e2prog (prog) == -1)
     return -1;
 
@@ -387,7 +387,7 @@ do_mke2journal_U (int blocksize, const char *uuid, const char *device)
   char *err;
   int r;
 
-  char prog[] = "/sbin/mke2fs";
+  char prog[] = "mke2fs";
   if (e2prog (prog) == -1)
     return -1;
 
@@ -415,7 +415,7 @@ do_mke2fs_J (const char *fstype, int blocksize, const char *device,
   char *err;
   int r;
 
-  char prog[] = "/sbin/mke2fs";
+  char prog[] = "mke2fs";
   if (e2prog (prog) == -1)
     return -1;
 
@@ -446,7 +446,7 @@ do_mke2fs_JL (const char *fstype, int blocksize, const char *device,
   char *err;
   int r;
 
-  char prog[] = "/sbin/mke2fs";
+  char prog[] = "mke2fs";
   if (e2prog (prog) == -1)
     return -1;
 
@@ -477,7 +477,7 @@ do_mke2fs_JU (const char *fstype, int blocksize, const char *device,
   char *err;
   int r;
 
-  char prog[] = "/sbin/mke2fs";
+  char prog[] = "mke2fs";
   if (e2prog (prog) == -1)
     return -1;
 

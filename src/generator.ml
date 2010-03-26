@@ -6145,7 +6145,7 @@ and generate_daemon_actions () =
         pr "  ret->guestfs_int_lvm_%s_list_val = NULL;\n" typ;
         pr "\n";
         pr "  r = command (&out, &err,\n";
-        pr "	       \"/sbin/lvm\", \"%ss\",\n" typ;
+        pr "	       \"lvm\", \"%ss\",\n" typ;
         pr "	       \"-o\", lvm_%s_cols, \"--unbuffered\", \"--noheadings\",\n" typ;
         pr "	       \"--nosuffix\", \"--separator\", \",\", \"--units\", \"b\", NULL);\n";
         pr "  if (r == -1) {\n";

@@ -28,15 +28,14 @@
 int
 optgroup_linuxmodules_available (void)
 {
-  int r = access ("/sbin/modprobe", X_OK);
-  return r == 0;
+  return prog_exists ("modprobe");
 }
 
 int
 do_modprobe (const char *module)
 {
   char *err;
-  int r = command (NULL, &err, "/sbin/modprobe", module, NULL);
+  int r = command (NULL, &err, "modprobe", module, NULL);
 
   if (r == -1) {
     reply_with_error ("%s", err);

@@ -40,7 +40,7 @@ mkfs (const char *fstype, const char *device,
   int r;
   char *err;
 
-  argv[i++] = "/sbin/mkfs";
+  argv[i++] = "mkfs";
   argv[i++] = "-t";
   argv[i++] = fstype;
 

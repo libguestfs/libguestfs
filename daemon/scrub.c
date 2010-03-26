@@ -31,8 +31,7 @@
 int
 optgroup_scrub_available (void)
 {
-  int r = access ("/usr/bin/scrub", X_OK);
-  return r == 0;
+  return prog_exists ("scrub");
 }
 
 int
