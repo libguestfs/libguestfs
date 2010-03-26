@@ -82,10 +82,19 @@ TERM=linux ;# XXX library should pass this from library's environment
 PS1='><rescue> '
 export TERM PS1
 echo
+echo "------------------------------------------------------------"
+echo
 echo "Welcome to virt-rescue, the libguestfs rescue shell."
 echo
 echo "Note: The contents of / are the rescue appliance."
 echo "You have to mount the guest's partitions under /sysroot"
 echo "before you can examine them."
 echo
-exec bash -i
+bash -i
+echo
+echo "virt-rescue: Syncing the disk now before exiting ..."
+echo "(Don't worry if you see a 'Kernel panic' message below)"
+echo
+sync
+sleep 1
+sync
