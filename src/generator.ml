@@ -6450,13 +6450,13 @@ int main (int argc, char *argv[])
     exit (EXIT_FAILURE);
   }
 
+  /* Set a timeout in case qemu hangs during launch (RHBZ#505329). */
+  alarm (600);
+
   if (guestfs_launch (g) == -1) {
     printf (\"guestfs_launch FAILED\\n\");
     exit (EXIT_FAILURE);
   }
-
-  /* Set a timeout in case qemu hangs during launch (RHBZ#505329). */
-  alarm (600);
 
   /* Cancel previous alarm. */
   alarm (0);
