@@ -289,7 +289,7 @@ reply (xdrproc_t xdrp, char *ret)
      * we want to return an error message instead. (RHBZ#509597).
      */
     if (!(*xdrp) (&xdr, ret)) {
-      reply_with_perror ("guestfsd: failed to encode reply body\n");
+      reply_with_error ("guestfsd: failed to encode reply body\n(maybe the reply exceeds the maximum message size in the protocol?)");
       xdr_destroy (&xdr);
       return;
     }
