@@ -227,6 +227,7 @@ main (int argc, char *argv[])
   setenv ("PATH", "/sbin:/usr/sbin:/bin:/usr/bin", 1);
   setenv ("SHELL", "/bin/sh", 1);
   setenv ("LC_ALL", "C", 1);
+  setenv ("TERM", "dumb", 1);
 
 #ifndef WIN32
   /* We document that umask defaults to 022 (it should be this anyway). */
