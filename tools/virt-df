@@ -23,10 +23,13 @@ use Sys::Guestfs;
 use Sys::Guestfs::Lib qw(open_guest get_partitions resolve_windows_path
   inspect_all_partitions inspect_partition
   inspect_operating_systems mount_operating_system inspect_in_detail);
+
 use Pod::Usage;
 use Getopt::Long;
 use Data::Dumper;
 use XML::Writer;
+use POSIX qw(ceil);
+
 use Locale::TextDomain 'libguestfs';
 
 =encoding utf8
@@ -106,8 +109,8 @@ my $csv;
 
 =item B<--csv>
 
-Write out the results in CSV format (comma-separated values).  This
-format can be imported easily into databases and spreadsheets, but
+Write out the results in CSV format (comma-separated values).  This format
+can be imported easily into databases and spreadsheets, but
 read L</NOTE ABOUT CSV FORMAT> below.
 
 =cut
@@ -230,9 +233,7 @@ sub print_stat
         push @cols, ($blocks-$bfree)*$factor; # total 1K blocks used
         push @cols, $bavail*$factor;	# total 1K blocks available
 
-        # XXX %used column comes out different from the native 'df'
-        # program.  Need to check how 'df' calculates this.
-        push @cols, 100.0 - 100.0 * $bavail / $blocks;
+        push @cols, 100.0 - 100.0 * $bfree / $blocks;
 
         if ($human) {
             $cols[2] = human_size ($cols[2]);
@@ -248,9 +249,7 @@ sub print_stat
         push @cols, $files-$ffree;
         push @cols, $ffree;
 
-        # XXX %used column comes out different from the native 'df'
-        # program.  Need to check how 'df' calculates this.
-        push @cols, 100.0 - 100.0 * $favail / $files;
+        push @cols, 100.0 - 100.0 * $ffree / $files;
     }
 
     print_cols (@cols);
@@ -292,7 +291,10 @@ sub print_cols
         printf ("%-36s", $label);
         print "\n"," "x36 if length ($label) > 36;
 
-        my $percent = sprintf "%3.1f%%", $_[5];
+        # Use 'ceil' on the percentage in order to emulate
+        # what df itself does.
+        my $percent = sprintf "%3d%%", ceil($_[5]);
+
         printf ("%10s %10s %10s %5s\n", $_[2], $_[3], $_[4], $percent);
     } else {
         printf ("\"%s\",\"%s\",%d,%d,%d,%.1f%%\n", @_);

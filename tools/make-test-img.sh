@@ -49,11 +49,11 @@ lvcreate LV2 VG 32
 lvcreate LV3 VG 64
 
 # Phony /boot filesystem.
-mkfs ext2 /dev/sda1
+mkfs-b ext2 4096 /dev/sda1
 set-e2label /dev/sda1 BOOT
 
 # Phony root filesystem.
-mkfs ext2 /dev/VG/Root
+mkfs-b ext2 4096 /dev/VG/Root
 set-e2label /dev/VG/Root ROOT
 
 # Enough to fool virt-inspector.
@@ -79,9 +79,10 @@ mkfifo 0777 /bin/test6
 mknod 0777 10 10 /bin/test7
 
 # Other filesystems.
-mkfs ext2 /dev/VG/LV1
-mkfs ext2 /dev/VG/LV2
-mkfs ext2 /dev/VG/LV3
+# Note that these should be empty, for testing virt-df.
+mkfs-b ext2 4096 /dev/VG/LV1
+mkfs-b ext2 1024 /dev/VG/LV2
+mkfs-b ext2 2048 /dev/VG/LV3
 EOF
 
 rm fstab
