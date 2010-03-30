@@ -37,6 +37,8 @@ if HAVE_TOOLS
 
 bin_SCRIPTS = $(tools:%=virt-%)
 
+# Manual pages and HTML files for the website.
+
 # XXX Bug in automake?  If you list virt-cat.1 explicitly, then it
 # builds and installs the man pages.  However if this is removed,
 # then the man pages are neither built nor installed.
