@@ -30,9 +30,10 @@ tools = \
 	win-reg
 
 EXTRA_DIST = \
-	make-test-img.sh
 	run-locally \
-	$(tools:%=virt-%)
+	$(tools:%=virt-%) \
+	make-test-img.sh \
+	test-virt-*.sh
 
 CLEANFILES = test.img
 
