@@ -1,24 +1,87 @@
 /* CSS to make pod2html files look a little bit better. */
-@import url("http://et.redhat.com/~rjones/css/standard.css");
+@import url("http://people.redhat.com/~rjones/css/standard.css");
 
 /* Put the index on the right hand side in a floating box. */
 div[name="index"] {
     float: right;
-    width: 24em;
-    background-color: white;
-    margin-right: 2em;
+    width: 18em;
+    border-left: 1px solid #f0f0f0;
+    background-color: #fcfcfc;
+    margin-top: 0px;
+    padding-top: 0px;
+    margin-left: 1em;
+    padding-left: 1em;
+    padding-right: 1em;
+    font-size: 90%;
 }
+
+div[name="index"] a[href] {
+    text-decoration: none;
+}
+
+div[name="index"] a[href]:hover {
+    text-decoration: underline;
+}
+
+div[name="index"] a[href]:before {
+    content: '#\00a0';
+    color: #e00;
+    font-size: x-small;
+}
+
+div[name="index"] > ul {
+    width: 17em;
+    list-style: none;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+div[name="index"] > ul > li {
+    margin-bottom: 0.5em;
+}
+
+div[name="index"] > ul ul {
+    width: 16em;
+    list-style: none;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-bottom: 0.5em;
+}
+
+div[name="index"] > ul > ul li {
+    display: inline;
+    margin-right: 1em;
+}
+
+/*
+div[name="index"] > ul > ul li:after {
+    color: #ccc;
+    content: '\2014';
+}
+*/
 
 /* Get rid of those horrible <hr>'s :-( */
 hr { display: none; }
 
-/* Demote <h1>'s. */
+/* Demote <h1>'s and set rest of headers relative. */
 h1 {
     font-size: 100%;
-    border-bottom: none;
+    border-bottom: solid 1px black;
 }
 
 h2 {
-    font-size: 120%;
+    font-size: 95%;
     border-bottom: none;
+}
+
+h3 {
+    font-size: 90%;
+}
+
+h4 {
+    font-size: 85%;
 }
