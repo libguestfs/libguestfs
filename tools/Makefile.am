@@ -30,8 +30,11 @@ tools = \
 	win-reg
 
 EXTRA_DIST = \
+	make-test-img.sh
 	run-locally \
 	$(tools:%=virt-%)
+
+CLEANFILES = test.img
 
 if HAVE_TOOLS
 
@@ -60,5 +63,26 @@ $(top_builddir)/html/virt-%.1.html: virt-%
 	  --htmldir html \
 	  --outfile html/$<.1.html \
 	  tools/$<
+
+# Tests.
+
+random_val := $(shell awk 'BEGIN{srand(); print 1+int(255*rand())}' < /dev/null)
+
+TESTS_ENVIRONMENT = \
+	MALLOC_PERTURB_=$(random_val) \
+	LD_LIBRARY_PATH=$(top_builddir)/src/.libs \
+	LIBGUESTFS_PATH=$(top_builddir)/appliance \
+	PERL5LIB=$(top_builddir)/perl/blib/lib:$(top_builddir)/perl/blib/arch
+
+# Build a standard test image to be used by all these tests.
+check_DATA = test.img
+test.img: make-test-img.sh
+	$(TESTS_ENVIRONMENT) $(srcdir)/make-test-img.sh
+
+TESTS = test-virt-cat.sh \
+	test-virt-df.sh \
+	test-virt-list-filesystems.sh \
+	test-virt-ls.sh \
+	test-virt-tar.sh
 
 endif

@@ -225,6 +225,7 @@ stamp-h1
 test-tool/libguestfs-test-tool.1
 test-tool/libguestfs-test-tool
 test-tool/libguestfs-test-tool-helper
+tools/test.img
 tools/virt-*.1
 /GNUmakefile
 /maint.mk
