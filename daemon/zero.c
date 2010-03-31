@@ -20,6 +20,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <inttypes.h>
 #include <string.h>
 #include <fcntl.h>
 #include <unistd.h>
@@ -47,6 +48,42 @@ do_zero (const char *device)
       close (fd);
       return -1;
     }
+
+  if (close (fd) == -1) {
+    reply_with_perror ("close: %s", device);
+    return -1;
+  }
+
+  return 0;
+}
+
+int
+do_zero_device (const char *device)
+{
+  int64_t size = do_blockdev_getsize64 (device);
+  if (size == -1)
+    return -1;
+
+  int fd = open (device, O_WRONLY);
+  if (fd == -1) {
+    reply_with_perror ("%s", device);
+    return -1;
+  }
+
+  char buf[1024*1024];
+  memset (buf, 0, sizeof buf);
+
+  while (size > 0) {
+    size_t n = size > sizeof buf ? sizeof buf : size;
+    ssize_t r = write (fd, buf, n);
+    if (r == -1) {
+      reply_with_perror ("write: %s (with %" PRId64 " bytes left to write)",
+                         device, size);
+      close (fd);
+      return -1;
+    }
+    size -= r;
+  }
 
   if (close (fd) == -1) {
     reply_with_perror ("close: %s", device);

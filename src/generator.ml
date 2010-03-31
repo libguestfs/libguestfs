@@ -2294,7 +2294,7 @@ How many blocks are zeroed isn't specified (but it's I<not> enough
 to securely wipe the device).  It should be sufficient to remove
 any partition tables, filesystem superblocks and so on.
 
-See also: C<guestfs_scrub_device>.");
+See also: C<guestfs_zero_device>, C<guestfs_scrub_device>.");
 
   ("grub_install", (RErr, [Pathname "root"; Device "device"]), 86, [],
    (* Test disabled because grub-install incompatible with virtio-blk driver.
@@ -4345,6 +4345,15 @@ or file C<src> to another destination device or file C<dest>.
 
 Note this will fail if the source is too short or if the destination
 is not large enough.");
+
+  ("zero_device", (RErr, [Device "device"]), 228, [DangerWillRobinson],
+   [InitBasicFSonLVM, Always, TestRun (
+      [["zero_device"; "/dev/VG/LV"]])],
+   "write zeroes to an entire device",
+   "\
+This command writes zeroes over the entire C<device>.  Compare
+with C<guestfs_zero> which just zeroes the first few blocks of
+a device.");
 
 ]
 
