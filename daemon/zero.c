@@ -74,7 +74,7 @@ do_zero_device (const char *device)
   memset (buf, 0, sizeof buf);
 
   while (size > 0) {
-    size_t n = size > sizeof buf ? sizeof buf : size;
+    size_t n = (size_t) size > sizeof buf ? sizeof buf : (size_t) size;
     ssize_t r = write (fd, buf, n);
     if (r == -1) {
       reply_with_perror ("write: %s (with %" PRId64 " bytes left to write)",
