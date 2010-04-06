@@ -24,6 +24,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <inttypes.h>
+#include <errno.h>
 
 #include "fish.h"
 
@@ -55,7 +56,9 @@ do_alloc (const char *cmd, int argc, char *argv[])
   }
 
 #ifdef HAVE_POSIX_FALLOCATE
-  if (posix_fallocate (fd, 0, size) == -1) {
+  int err = posix_fallocate (fd, 0, size);
+  if (err != 0) {
+    errno = err;
     perror ("fallocate");
     close (fd);
     unlink (argv[0]);
