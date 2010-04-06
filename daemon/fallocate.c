@@ -23,6 +23,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <errno.h>
 
 #include "daemon.h"
 #include "actions.h"
@@ -41,10 +42,9 @@ do_fallocate (const char *path, int len)
   }
 
 #ifdef HAVE_POSIX_FALLOCATE
-  int r;
-
-  r = posix_fallocate (fd, 0, len);
-  if (r == -1) {
+  int err = posix_fallocate (fd, 0, len);
+  if (err != 0) {
+    errno = err;
     reply_with_perror ("%s", path);
     close (fd);
     return -1;
