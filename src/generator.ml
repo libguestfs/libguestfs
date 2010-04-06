@@ -7403,6 +7403,8 @@ and generate_fish_cmds () =
   ) all_functions;
   pr "    {\n";
   pr "      fprintf (stderr, _(\"%%s: unknown command\\n\"), cmd);\n";
+  pr "      if (command_num == 1)\n";
+  pr "        extended_help_message ();\n";
   pr "      return -1;\n";
   pr "    }\n";
   pr "  return 0;\n";
