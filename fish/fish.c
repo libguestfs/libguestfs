@@ -73,6 +73,7 @@ int echo_commands = 0;
 int remote_control_listen = 0;
 int remote_control = 0;
 int exit_on_error = 1;
+int command_num = 0;
 
 int
 launch (guestfs_h *_g)
@@ -790,6 +791,9 @@ issue_command (const char *cmd, char *argv[], const char *pipecmd)
   int pid = 0;
   int i, r;
 
+  /* This counts the commands issued, starting at 1. */
+  command_num++;
+
   if (echo_commands) {
     printf ("%s", cmd);
     for (i = 0; argv[i] != NULL; ++i)
@@ -1071,6 +1075,21 @@ display_builtin_command (const char *cmd)
   else
     fprintf (stderr, _("%s: command not known, use -h to list all commands\n"),
              cmd);
+}
+
+/* This is printed when the user types in an unknown command for the
+ * first command issued.  A common case is the user doing:
+ *   guestfish disk.img
+ * expecting guestfish to open 'disk.img' (in fact, this tried to
+ * run a command 'disk.img').
+ */
+void
+extended_help_message (void)
+{
+  fprintf (stderr,
+           _("Did you mean to open a disk image?  guestfish -a disk.img\n"
+             "For a list of commands:             guestfish -h\n"
+             "For complete documentation:         man guestfish\n"));
 }
 
 void

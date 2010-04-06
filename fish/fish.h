@@ -51,6 +51,7 @@
 extern guestfs_h *g;
 extern int quit;
 extern int verbose;
+extern int command_num;
 extern int issue_command (const char *cmd, char *argv[], const char *pipe);
 extern void pod2text (const char *name, const char *shortdesc, const char *body);
 extern void list_builtin_commands (void);
@@ -64,6 +65,7 @@ extern int is_true (const char *str);
 extern char **parse_string_list (const char *str);
 extern int xwrite (int fd, const void *buf, size_t len);
 extern char *resolve_win_path (const char *path);
+extern void extended_help_message (void);
 
 /* in cmds.c (auto-generated) */
 extern void list_commands (void);
