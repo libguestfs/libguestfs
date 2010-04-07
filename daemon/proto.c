@@ -324,6 +324,9 @@ receive_file (receive_cb cb, void *opaque)
   uint32_t len;
 
   for (;;) {
+    if (verbose)
+      fprintf (stderr, "receive_file: reading length word\n");
+
     /* Read the length word. */
     if (xread (sock, lenbuf, 4) == -1)
       exit (EXIT_FAILURE);
@@ -361,15 +364,18 @@ receive_file (receive_cb cb, void *opaque)
     free (buf);
 
     if (verbose)
-      printf ("receive_file: got chunk: cancel = %d, len = %d, buf = %p\n",
-              chunk.cancel, chunk.data.data_len, chunk.data.data_val);
+      fprintf (stderr, "receive_file: got chunk: cancel = %d, len = %d, buf = %p\n",
+               chunk.cancel, chunk.data.data_len, chunk.data.data_val);
 
     if (chunk.cancel) {
-      fprintf (stderr, "receive_file: received cancellation from library\n");
+      if (verbose)
+        fprintf (stderr, "receive_file: received cancellation from library\n");
       xdr_free ((xdrproc_t) xdr_guestfs_chunk, (char *) &chunk);
       return -2;
     }
     if (chunk.data.data_len == 0) {
+      if (verbose)
+        fprintf (stderr, "receive_file: end of file, leaving function\n");
       xdr_free ((xdrproc_t) xdr_guestfs_chunk, (char *) &chunk);
       return 0;			/* end of file */
     }
@@ -380,8 +386,11 @@ receive_file (receive_cb cb, void *opaque)
       r = 0;
 
     xdr_free ((xdrproc_t) xdr_guestfs_chunk, (char *) &chunk);
-    if (r == -1)		/* write error */
+    if (r == -1) {		/* write error */
+      if (verbose)
+        fprintf (stderr, "receive_file: write error\n");
       return -1;
+    }
   }
 }
 
