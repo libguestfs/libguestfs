@@ -1,0 +1,571 @@
+#!/usr/bin/perl -w
+# virt-make-fs
+# Copyright (C) 2010 Red Hat Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+use warnings;
+use strict;
+
+use Sys::Guestfs;
+
+use Pod::Usage;
+use Getopt::Long;
+use File::Temp qw(tempdir);
+use POSIX qw(mkfifo floor);
+use Data::Dumper;
+use String::ShellQuote qw(shell_quote);
+use Locale::TextDomain 'libguestfs';
+
+=encoding utf8
+
+=head1 NAME
+
+virt-make-fs - Make a filesystem from a tar archive or files
+
+=head1 SYNOPSIS
+
+ virt-make-fs [--options] input.tar output.img
+
+ virt-make-fs [--options] input.tar.gz output.img
+
+ virt-make-fs [--options] directory output.img
+
+=head1 DESCRIPTION
+
+Virt-make-fs is a command line tool for creating a filesystem from a
+tar archive or some files in a directory.  It is similar to tools like
+L<mkisofs(1)>, L<genisoimage(1)> and L<mksquashfs(1)>.  Unlike those
+tools, it can create common filesystem types like ext2/3 or NTFS,
+which can be useful if you want to attach these filesystems to
+existing virtual machines (eg. to import large amounts of read-only
+data to a VM).
+
+Basic usage is:
+
+ virt-make-fs input output
+
+where C<input> is either a directory containing files that you want to
+add, or a tar archive (either uncompressed tar or gzip-compressed
+tar); and C<output> is a disk image.  The input type is detected
+automatically.  The output disk image defaults to a raw ext2 image
+unless you specify extra flags (see L</OPTIONS> below).
+
+=head2 EXTRA SPACE
+
+Unlike formats such as tar and squashfs, a filesystem does not "just
+fit" the files that it contains, but might have extra space.
+Depending on how you are going to use the output, you might think this
+extra space is wasted and want to minimize it, or you might want to
+leave space so that more files can be added later.  Virt-make-fs
+defaults to minimizing the extra space, but you can use the C<--size>
+flag to leave space in the filesystem if you want it.
+
+An alternative way to leave extra space but not make the output image
+any bigger is to use an alternative disk image format (instead of the
+default "raw" format).  Using C<--format=qcow2> will use the native
+QEmu/KVM qcow2 image format (check your hypervisor supports this
+before using it).  This allows you to choose a large C<--size> but the
+extra space won't actually be allocated in the image until you try to
+store something in it.
+
+Don't forget that you can also use local commands including
+L<resize2fs(8)> and L<virt-resize(1)> to resize existing filesystems,
+or rerun virt-make-resize to build another image from scratch.
+
+=head3 EXAMPLE
+
+ virt-make-fs --format=qcow2 --size=+200M input output.img
+
+=head2 FILESYSTEM TYPE
+
+The default filesystem type is C<ext2>.  Just about any filesystem
+type that libguestfs supports can be used (but I<not> read-only
+formats like ISO9660).  Here are some of the more common choices:
+
+=over 4
+
+=item I<ext3>
+
+Note that ext3 filesystems contain a journal, typically 1-32 MB in size.
+If you are not going to use the filesystem in a way that requires the
+journal, then this is just wasted overhead.
+
+=item I<ntfs> or I<vfat>
+
+Useful if exporting data to a Windows guest.
+
+I<Note for vfat>: The tar archive or local directory must only contain
+files which are owned by root (ie. UID:GID = 0:0).  The reason is that
+the tar program running within libguestfs is unable to change the
+ownership of non-root files, since vfat itself does not support this.
+
+=item I<minix>
+
+Lower overhead than C<ext2>, but certain limitations on filename
+length and total filesystem size.
+
+=back
+
+=head3 EXAMPLE
+
+ virt-make-fs --type=minix input minixfs.img
+
+=head2 TO PARTITION OR NOT TO PARTITION
+
+Optionally virt-make-fs can add a partition table to the output disk.
+
+Adding a partition can make the disk image more compatible with
+certain virtualized operating systems which don't expect to see a
+filesystem directly located on a block device (Linux doesn't care and
+will happily handle both types).
+
+On the other hand, if you have a partition table then the output image
+is no longer a straight filesystem.  For example you cannot run
+L<fsck(8)> directly on a partitioned disk image.  (However libguestfs
+tools such as L<guestfish(1)> and L<virt-resize(1)> can still be
+used).
+
+=head3 EXAMPLE
+
+Add an MBR partition:
+
+ virt-make-fs --partition -- input disk.img
+
+If the output disk image could be terabyte-sized or larger, it's
+better to use an EFI/GPT-compatible partition table:
+
+ virt-make-fs --partition=gpt --size=+4T --format=qcow2 input disk.img
+
+=head1 OPTIONS
+
+=over 4
+
+=cut
+
+my $help;
+
+=item B<--help>
+
+Display brief help.
+
+=cut
+
+my $version;
+
+=item B<--version>
+
+Display version number and exit.
+
+=cut
+
+my $debug;
+
+=item B<--debug>
+
+Enable debugging information.
+
+=cut
+
+my $size;
+
+=item B<--size=E<lt>NE<gt>>
+
+=item B<--size=+E<lt>NE<gt>>
+
+=item B<-s E<lt>NE<gt>>
+
+=item B<-s +E<lt>NE<gt>>
+
+Use the C<--size> (or C<-s>) option to choose the size of the output
+image.
+
+If this option is I<not> given, then the output image will be just
+large enough to contain all the files, with not much wasted space.
+
+To choose a fixed size output disk, specify an absolute number
+followed by b/K/M/G/T/P/E to mean bytes, Kilobytes, Megabytes,
+Gigabytes, Terabytes, Petabytes or Exabytes.  This must be large
+enough to contain all the input files, else you will get an error.
+
+To leave extra space, specify C<+> (plus sign) and a number followed
+by b/K/M/G/T/P/E to mean bytes, Kilobytes, Megabytes, Gigabytes,
+Terabytes, Petabytes or Exabytes.  For example: C<--size=+200M> means
+enough space for the input files, and (approximately) an extra 200 MB
+free space.
+
+Note that virt-make-fs estimates free space, and therefore will not
+produce filesystems containing precisely the free space requested.
+(It is much more expensive and time-consuming to produce a filesystem
+which has precisely the desired free space).
+
+=cut
+
+my $format = "raw";
+
+=item B<--format=E<lt>fmtE<gt>>
+
+=item B<-F E<lt>fmtE<gt>>
+
+Choose the output disk image format.
+
+The default is C<raw> (raw disk image).
+
+For other choices, see the L<qemu-img(1)> manpage.  The only other
+choice that would really make sense here is C<qcow2>.
+
+=cut
+
+my $type = "ext2";
+
+=item B<--type=E<lt>fsE<gt>>
+
+=item B<-t E<lt>fsE<gt>>
+
+Choose the output filesystem type.
+
+The default is C<ext2>.
+
+Any filesystem which is supported read-write by libguestfs can be used
+here.
+
+=cut
+
+my $partition;
+
+=item B<--partition>
+
+=item B<--partition=E<lt>parttypeE<gt>>
+
+If specified, this flag adds an MBR partition table to the output disk
+image.
+
+You can change the partition table type, eg. C<--partition=gpt> for
+large disks.
+
+Note that if you just use a lonesome C<--partition>, the Perl option
+parser might consider the next parameter to be the partition type.
+For example:
+
+ virt-make-fs --partition input.tar ...
+
+would cause virt-make-fs to think you wanted to use a partition type
+of C<input.tar> which is completely wrong.  To avoid this, use C<-->
+(a double dash) between options and the input file argument:
+
+ virt-make-fs --partition -- input.tar ...
+
+=back
+
+=cut
+
+GetOptions ("help|?" => \$help,
+            "version" => \$version,
+            "debug" => \$debug,
+            "s|size=s" => \$size,
+            "F|format=s" => \$format,
+            "t|type=s" => \$type,
+            "partition:s" => \$partition,
+    ) or pod2usage (2);
+pod2usage (1) if $help;
+if ($version) {
+    my $g = Sys::Guestfs->new ();
+    my %h = $g->version ();
+    print "$h{major}.$h{minor}.$h{release}$h{extra}\n";
+    exit
+}
+
+die __"virt-make-fs input output\n" if @ARGV != 2;
+
+my $input = $ARGV[0];
+my $output = $ARGV[1];
+
+# Input.  What is it?  Estimate how much space it will need.
+#
+# Estimation is a Hard Problem.  Some factors which make it hard:
+#
+#   - Superblocks, block free bitmaps, FAT and other fixed overhead
+#   - Indirect blocks (ext2, ext3), and extents
+#   - Journal size
+#   - Internal fragmentation of files
+#
+# What we could also do is try shrinking the filesystem after creating
+# and populating it, but that is complex given partitions.
+
+my $estimate;     # Estimated size required (in bytes).
+my $ifmt;         # Input format.
+
+if (-d $input) {
+    $ifmt = "directory";
+
+    my @cmd = ("du", "--apparent-size", "-b", "-s", $input);
+    open PIPE, "-|", @cmd or die "du $input: $!";
+
+    $_ = <PIPE>;
+    if (/^(\d+)/) {
+        $estimate = $1;
+    } else {
+        die __"unexpected output from 'du' command";
+    }
+} else {
+    local $ENV{LANG} = "C";
+    my @cmd = ("file", "-bsLz", $input);
+    open PIPE, "-|", @cmd or die "file $input: $!";
+
+    $ifmt = <PIPE>;
+    chomp $ifmt;
+    close PIPE;
+
+    if ($ifmt !~ /tar archive/) {
+        die __x("{f}: unknown input format: {fmt}\n",
+                f => $input, fmt => $ifmt);
+    }
+
+    if ($ifmt =~ /compress.d/) {
+        if ($ifmt =~ /compress'd/) {
+            @cmd = ("uncompress", "-c", $input);
+        } elsif ($ifmt =~ /gzip compressed/) {
+            @cmd = ("gzip", "-cd", $input);
+        } elsif ($ifmt =~ /bzip2 compressed/) {
+            @cmd = ("bzip2", "-cd", $input);
+        } elsif ($ifmt =~ /xz compressed/) {
+            @cmd = ("xz", "-cd", $input);
+        } else {
+            die __x("{f}: unknown input format: {fmt}\n",
+                    f => $input, fmt => $ifmt);
+        }
+
+        open PIPE, "-|", @cmd or die "uncompress $input: $!";
+        $estimate = 0;
+        $estimate += length while <PIPE>;
+        close PIPE or die "close: $!";
+    } else {
+        # Plain tar file, just get the size directly.  Tar files have
+        # a 512 byte block size (compared with typically 1K or 4K for
+        # filesystems) so this isn't very accurate.
+        $estimate = -s $input;
+    }
+}
+
+if ($debug) {
+    printf STDERR "input format = %s\n", $ifmt;
+    printf STDERR "estimate = %s bytes (%s 1K blocks, %s 4K blocks)\n",
+      $estimate, $estimate / 1024, $estimate / 4096;
+}
+
+$estimate += 256 * 1024;        # For superblocks &c.
+
+if ($type =~ /^ext[3-9]/) {
+    $estimate += 1024 * 1024;   # For ext3/4, add some more for the journal.
+}
+
+if ($type =~ /^ntfs/) {
+    $estimate += 4 * 1024 * 1024; # NTFS journal.
+}
+
+$estimate *= 1.10;              # Add 10%, see above.
+
+# Calculate the output size.
+
+if (!defined $size) {
+    $size = $estimate;
+} else {
+    if ($size =~ /^\+([.\d]+)([bKMGTPE])$/) {
+        $size = $estimate + sizebytes ($1, $2);
+    } elsif ($size =~ /^([.\d]+)([bKMGTPE])$/) {
+        $size = sizebytes ($1, $2);
+    } else {
+        die __x("virt-make-fs: cannot parse size parameter: {sz}\n",
+                sz => $size);
+    }
+}
+
+# Create the output disk.
+# Take the unusual step of invoking qemu-img here.
+
+my @cmd = ("qemu-img", "create", "-f", $format, $output, $size);
+system (@cmd) == 0 or
+    die __"qemu-img create: failed to create disk image, see earlier error messages\n";
+
+eval {
+    print STDERR "starting libguestfs ...\n" if $debug;
+
+    # Run libguestfs.
+    my $g = Sys::Guestfs->new ();
+    $g->add_drive ($output);
+    $g->launch ();
+
+    if ($type eq "ntfs") {
+        $g->available ([ "ntfs3g" ]);
+    }
+
+    # Partition the disk.
+    my $dev = "/dev/sda";
+    if (defined $partition) {
+        $partition = "mbr" if $partition eq "";
+        $g->part_disk ($dev, $partition);
+        $dev = "/dev/sda1";
+    }
+
+    print STDERR "creating $type filesystem on $dev ...\n" if $debug;
+
+    # Create the filesystem.
+    $g->mkfs ($type, $dev);
+    $g->mount_options ("", $dev, "/");
+
+    # Copy the data in.
+    my $ifile;
+
+    if ($ifmt eq "directory") {
+        my $pfile = create_pipe ();
+        my $cmd = sprintf ("tar -C %s -cf - . > $pfile &",
+                           shell_quote ($input));
+        print STDERR "command: $cmd\n" if $debug;
+        system ($cmd) == 0 or die __"tar: failed, see earlier messages\n";
+        $ifile = $pfile;
+    } else {
+        if ($ifmt =~ /compress.d/) {
+            my $pfile = create_pipe ();
+            my $cmd;
+            if ($ifmt =~ /compress'd/) {
+                $cmd = sprintf ("uncompress -c %s > $pfile",
+                                shell_quote ($input));
+            } elsif ($ifmt =~ /gzip compressed/) {
+                $cmd = sprintf ("gzip -cd %s", shell_quote ($input));
+            } elsif ($ifmt =~ /bzip2 compressed/) {
+                $cmd = sprintf ("bzip2 -cd %s", shell_quote ($input));
+            } elsif ($ifmt =~ /xz compressed/) {
+                $cmd = sprintf ("xz -cd %s", shell_quote ($input));
+            } else {
+                die __x("{f}: unknown input format: {fmt}\n",
+                        f => $input, fmt => $ifmt);
+            }
+            $cmd .= " > $pfile &";
+            print STDERR "command: $cmd\n" if $debug;
+            system ($cmd) == 0 or
+                die __"uncompress command failed, see earlier messages\n";
+            $ifile = $pfile;
+        } else {
+            print STDERR "reading directly from $input\n" if $debug;
+            $ifile = $input;
+        }
+    }
+
+    if ($debug) {
+        # For debugging, print statvfs before and after doing
+        # the tar-in.
+        my %stat = $g->statvfs ("/");
+        print STDERR "Before uploading ...\n";
+        print STDERR Dumper(\%stat);
+    }
+
+    print STDERR "Uploading from $ifile to / ...\n" if $debug;
+    $g->tar_in ($ifile, "/");
+
+    if ($debug) {
+        my %stat = $g->statvfs ("/");
+        print STDERR "After uploading ...\n";
+        print STDERR Dumper(\%stat);
+    }
+
+    print STDERR "finishing off\n" if $debug;
+    $g->umount_all ();
+    $g->sync ();
+    undef $g;
+};
+if ($@) {
+    # Error: delete the output before exiting.
+    my $err = $@;
+    unlink $output;
+    if ($err =~ /tar_in/) {
+        print STDERR __"virt-make-fs: error copying contents into filesystem\nAn error here usually means that the program did not estimate the\nfilesystem size correctly.  Please read the BUGS section of the manpage.\n";
+    }
+    print STDERR $err;
+    exit 1;
+}
+
+exit 0;
+
+sub sizebytes
+{
+    local $_ = shift;
+    my $unit = shift;
+
+    $_ *= 1024 if $unit =~ /[KMGTPE]/;
+    $_ *= 1024 if $unit =~ /[MGTPE]/;
+    $_ *= 1024 if $unit =~ /[GTPE]/;
+    $_ *= 1024 if $unit =~ /[TPE]/;
+    $_ *= 1024 if $unit =~ /[PE]/;
+    $_ *= 1024 if $unit =~ /[E]/;
+
+    return floor($_);
+}
+
+sub create_pipe
+{
+    local $_;
+    my $dir = tempdir (CLEANUP => 1);
+    my $pipe = "$dir/pipe";
+    mkfifo ($pipe, 0600) or
+        die "mkfifo: $pipe: $!";
+    return $pipe;
+}
+
+=head1 SEE ALSO
+
+L<guestfish(1)>,
+L<virt-resize(1)>,
+L<virt-tar(1)>,
+L<mkisofs(1)>,
+L<genisoimage(1)>,
+L<mksquashfs(1)>,
+L<mke2fs(8)>,
+L<resize2fs(8)>,
+L<guestfs(3)>,
+L<Sys::Guestfs(3)>,
+L<http://libguestfs.org/>.
+
+=head1 BUGS
+
+When reporting bugs, please enable debugging and capture the
+I<complete> output:
+
+ export LIBGUESTFS_DEBUG=1
+ virt-make-fs --debug [...] > /tmp/virt-make-fs.log 2>&1
+
+Attach /tmp/virt-make-fs.log to a new bug report at
+L<https://bugzilla.redhat.com/>
+
+=head1 AUTHOR
+
+Richard W.M. Jones L<http://et.redhat.com/~rjones/>
+
+=head1 COPYRIGHT
+
+Copyright (C) 2010 Red Hat Inc.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.

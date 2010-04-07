@@ -104,6 +104,7 @@ tools/virt-edit
 tools/virt-list-filesystems
 tools/virt-list-partitions
 tools/virt-ls
+tools/virt-make-fs
 tools/virt-rescue
 tools/virt-resize
 tools/virt-tar

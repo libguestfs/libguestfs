@@ -24,6 +24,7 @@ tools = \
 	list-filesystems \
 	list-partitions \
 	ls \
+	make-fs \
 	rescue \
 	resize \
 	tar \
@@ -84,6 +85,7 @@ TESTS = test-virt-cat.sh \
 	test-virt-df.sh \
 	test-virt-list-filesystems.sh \
 	test-virt-ls.sh \
+	test-virt-make-fs.sh \
 	test-virt-tar.sh
 
 endif
