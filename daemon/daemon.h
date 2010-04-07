@@ -133,7 +133,7 @@ extern void reply_with_perror_errno (int err, const char *fs, ...)
 /* daemon functions that receive files (FileIn) should call
  * receive_file for each FileIn parameter.
  */
-typedef int (*receive_cb) (void *opaque, const void *buf, int len);
+typedef int (*receive_cb) (void *opaque, const void *buf, size_t len);
 extern int receive_file (receive_cb cb, void *opaque);
 
 /* daemon functions that receive files (FileIn) can call this

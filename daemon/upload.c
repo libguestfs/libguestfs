@@ -28,7 +28,7 @@
 #include "actions.h"
 
 static int
-write_cb (void *fd_ptr, const void *buf, int len)
+write_cb (void *fd_ptr, const void *buf, size_t len)
 {
   int fd = *(int *)fd_ptr;
   return xwrite (fd, buf, len);
@@ -65,7 +65,7 @@ do_upload (const char *filename)
     err = errno;
     cancel_receive ();
     errno = err;
-    reply_with_perror ("write: %s", filename);
+    reply_with_error ("write error: %s", filename);
     close (fd);
     return -1;
   }

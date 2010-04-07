@@ -28,10 +28,10 @@
 #include "actions.h"
 
 static int
-fwrite_cb (void *fp_ptr, const void *buf, int len)
+write_cb (void *fd_ptr, const void *buf, size_t len)
 {
-  FILE *fp = *(FILE **)fp_ptr;
-  return fwrite (buf, len, 1, fp) == 1 ? 0 : -1;
+  int fd = *(int *)fd_ptr;
+  return xwrite (fd, buf, len);
 }
 
 /* Has one FileIn parameter. */
@@ -71,12 +71,15 @@ do_tar_in (const char *dir)
   }
   free (cmd);
 
-  r = receive_file (fwrite_cb, &fp);
+  /* The semantics of fwrite are too undefined, so write to the
+   * file descriptor directly instead.
+   */
+  int fd = fileno (fp);
+
+  r = receive_file (write_cb, &fd);
   if (r == -1) {		/* write error */
-    err = errno;
     cancel_receive ();
-    errno = err;
-    reply_with_perror ("write: %s", dir);
+    reply_with_error ("write error on directory: %s", dir);
     pclose (fp);
     return -1;
   }
@@ -87,11 +90,9 @@ do_tar_in (const char *dir)
   }
 
   if (pclose (fp) != 0) {
-    err = errno;
     if (r == -1)                /* if r == 0, file transfer ended already */
       cancel_receive ();
-    errno = err;
-    reply_with_perror ("pclose: %s", dir);
+    reply_with_error ("tar subcommand failed on directory: %s", dir);
     return -1;
   }
 
@@ -193,12 +194,12 @@ do_tgz_in (const char *dir)
   }
   free (cmd);
 
-  r = receive_file (fwrite_cb, &fp);
+  int fd = fileno (fp);
+
+  r = receive_file (write_cb, &fd);
   if (r == -1) {		/* write error */
-    err = errno;
     cancel_receive ();
-    errno = err;
-    reply_with_perror ("write: %s", dir);
+    reply_with_error ("write error on directory: %s", dir);
     pclose (fp);
     return -1;
   }
@@ -209,11 +210,9 @@ do_tgz_in (const char *dir)
   }
 
   if (pclose (fp) != 0) {
-    err = errno;
     if (r == -1)                /* if r == 0, file transfer ended already */
       cancel_receive ();
-    errno = err;
-    reply_with_perror ("pclose: %s", dir);
+    reply_with_error ("tar subcommand failed on directory: %s", dir);
     return -1;
   }
 
