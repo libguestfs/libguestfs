@@ -88,7 +88,8 @@ do_tar_in (const char *dir)
 
   if (pclose (fp) != 0) {
     err = errno;
-    cancel_receive ();
+    if (r == -1)                /* if r == 0, file transfer ended already */
+      cancel_receive ();
     errno = err;
     reply_with_perror ("pclose: %s", dir);
     return -1;
@@ -209,7 +210,8 @@ do_tgz_in (const char *dir)
 
   if (pclose (fp) != 0) {
     err = errno;
-    cancel_receive ();
+    if (r == -1)                /* if r == 0, file transfer ended already */
+      cancel_receive ();
     errno = err;
     reply_with_perror ("pclose: %s", dir);
     return -1;

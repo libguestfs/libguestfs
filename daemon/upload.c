@@ -77,7 +77,8 @@ do_upload (const char *filename)
 
   if (close (fd) == -1) {
     err = errno;
-    cancel_receive ();
+    if (r == -1)                /* if r == 0, file transfer ended already */
+      cancel_receive ();
     errno = err;
     reply_with_perror ("close: %s", filename);
     return -1;
