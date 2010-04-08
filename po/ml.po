@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs.master.libguestfs.ml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-30 17:43+0100\n"
+"POT-Creation-Date: 2010-04-08 22:55+0100\n"
 "PO-Revision-Date: 2010-02-02 18:35+0530\n"
 "Last-Translator: Ani Peter | അനി പീറ്റര്‍ <apeter@redhat.com>\n"
 "Language-Team: Swathanthra Malayalam Computing | സ്വതന്ത്ര മലയാളം കമ്പ്യൂട്ടിങ് <smc-"
@@ -16,22 +16,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: fish/alloc.c:39
+#: fish/alloc.c:40
 #, c-format
 msgid "use 'alloc file size' to create an image\n"
 msgstr "ഒരു ചിത്രം ഉണ്ടാക്കുന്നതിനായി 'alloc file size' ഉപയോഗിക്കുക\n"
 
-#: fish/alloc.c:47 fish/alloc.c:113
+#: fish/alloc.c:48 fish/alloc.c:116
 #, c-format
 msgid "can't allocate or add disks after launching\n"
 msgstr "ലഭ്യമാക്കിയ ശേഷം സ്ഥലം അനുവദിക്കുകയോ ഡിസ്കുകള്‍ ചേര്‍ക്കുകയോ സാധ്യമല്ല\n"
 
-#: fish/alloc.c:105
+#: fish/alloc.c:108
 #, c-format
 msgid "use 'sparse file size' to create a sparse image\n"
 msgstr "ഒരു സ്പാര്‍സ് ചിത്രം ഉണ്ടാക്കുന്നതിനായി 'sparse file size' ഉപയോഗിക്കുക\n"
 
-#: fish/alloc.c:170 fish/alloc.c:177
+#: fish/alloc.c:173 fish/alloc.c:180
 #, c-format
 msgid "could not parse size specification '%s'\n"
 msgstr "വ്യാപ്തിയുടെ വിവരണം '%s' പാഴ്സ് ചെയ്യുവാന്‍ സാധ്യമായില്ല\n"
@@ -1195,12 +1195,12 @@ msgstr "%s: അപരിചിതമായ കമാന്‍ഡ്\n"
 msgid "use '%s filename' to edit a file\n"
 msgstr "ഒരു ഫയല്‍ ചിട്ടപ്പെടുത്തുന്നതിനായി '%s filename' ഉപയോഗിക്കുക\n"
 
-#: fish/fish.c:93 fuse/guestmount.c:868
+#: fish/fish.c:94 fuse/guestmount.c:868
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "കൂടുതല്‍ വിവരങ്ങള്‍ക്കായി `%s --help' ശ്രമിക്കുക.\n"
 
-#: fish/fish.c:97
+#: fish/fish.c:98
 #, c-format
 msgid ""
 "%s: guest filesystem shell\n"
@@ -1267,66 +1267,66 @@ msgstr ""
 "  -V|--version         Display version and exit\n"
 "For more information,  see the manpage %s(1).\n"
 
-#: fish/fish.c:189 fuse/guestmount.c:965
+#: fish/fish.c:190 fuse/guestmount.c:965
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: ഹാന്‍ഡില്‍ ഉണ്ടാക്കുന്നതില്‍ പരാജയപ്പെട്ടു\n"
 
-#: fish/fish.c:228
+#: fish/fish.c:229
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
 msgstr "%s: --listen=PID: PID ഒരു നംബറല്ല: %s\n"
 
-#: fish/fish.c:235
+#: fish/fish.c:236
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 msgstr "%s: remote: റിമോട്ട് പ്രക്രിയയുടെ PID-ലേക്ക് $GUESTFISH_PID സജ്ജമാക്കേണം\n"
 
-#: fish/fish.c:244 fuse/guestmount.c:1010
+#: fish/fish.c:245 fuse/guestmount.c:1010
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: അപരിചിതമായ ലോങ് ഉപാധി: %s (%d)\n"
 
-#: fish/fish.c:271
+#: fish/fish.c:272
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: ഒരു -f പരാമീറ്റര്‍ മാത്രമേ പാടുള്ളൂ\n"
 
-#: fish/fish.c:344
+#: fish/fish.c:345
 #, c-format
 msgid "%s: cannot use -i option with -a, -m, --listen, --remote or --selinux\n"
 msgstr ""
 "%s: -a, -m, --listen, --remote അല്ലെങ്കില്‍ --selinux എന്നിവയ്ക്കൊപ്പം -i ഉപാധി "
 "ഉപയോഗിക്കുവാന്‍ സാധ്യമല്ല\n"
 
-#: fish/fish.c:351
+#: fish/fish.c:352
 #, c-format
 msgid "%s: -i requires a libvirt domain or path(s) to disk image(s)\n"
 msgstr ""
 "%s: -i-യ്ക്കു് ഒരു libvirt ഡൊമെയിന്‍ അല്ലെങ്കില്‍ ഡിസ്ക് ഇമേജുകളിലേക്കുള്ള പാഥുകള്‍ ആവശ്യമുണ്ടു്\n"
 
-#: fish/fish.c:361
+#: fish/fish.c:362
 #, c-format
 msgid "%s: virt-inspector command too long for fixed-size buffer\n"
 msgstr "%s: virt-inspector കമാന്‍ഡ് സ്ഥിരമായ വ്യാപ്തിയുള്ള ബഫറിനേക്കാള്‍ വലുതാണു്\n"
 
-#: fish/fish.c:407
+#: fish/fish.c:408
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr "%s: ഒരേ സമയത്തു് --listen, --remote എന്നീ ഉപാധികള്‍ ഉപയോഗിക്കുവാന്‍ സാധ്യമല്ല\n"
 
-#: fish/fish.c:415
+#: fish/fish.c:416
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: --listen ഫ്ലാഗിനൊപ്പം കമാന്‍ഡ് ലൈനില്‍ അധികമായ പരാമീറ്ററുകള്‍\n"
 
-#: fish/fish.c:421
+#: fish/fish.c:422
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: ഒരേ സമയത്തു് --listen, --file എന്നീ ഉപാധികള്‍ ഉപയോഗിക്കുവാന്‍ സാധ്യമല്ല\n"
 
-#: fish/fish.c:569
+#: fish/fish.c:570
 #, c-format
 msgid ""
 "\n"
@@ -1345,81 +1345,81 @@ msgstr ""
 "      ഷെല്ലില്‍ നിന്നും പുറത്തു് കടക്കുന്നതിനായി 'quit'\n"
 "\n"
 
-#: fish/fish.c:649
+#: fish/fish.c:650
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: അപൂര്‍ണ്ണമായ ഡബിള്‍ കോട്ട്\n"
 
-#: fish/fish.c:655 fish/fish.c:672
+#: fish/fish.c:656 fish/fish.c:673
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: കമാന്‍ഡ് ആര്‍ഗ്യുമെന്റുകള്‍ വൈറ്റ്സ്പെയിസ് ഉപയോഗിച്ചു് വേര്‍തിരിച്ചിട്ടില്ല\n"
 
-#: fish/fish.c:666
+#: fish/fish.c:667
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: അപൂര്‍ണ്ണമായ സിംഗിള്‍ കോട്ട്\n"
 
-#: fish/fish.c:721
+#: fish/fish.c:722
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: '%s'-ല്‍ സ്ട്രിങ് പാഴ്സ് ചെയ്യുമ്പോള്‍ ഇന്റേര്‍ണല്‍ പിശക്\n"
 
-#: fish/fish.c:738
+#: fish/fish.c:739
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: അനവധി ആര്‍ഗ്യുമെന്റുകള്‍\n"
 
-#: fish/fish.c:767
+#: fish/fish.c:768
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: കമാന്‍ഡ് ലൈനില്‍ കാലിയായ കമാന്‍ഡ്\n"
 
-#: fish/fish.c:921
+#: fish/fish.c:925
 msgid "display a list of commands or help on a command"
 msgstr "കമാന്‍ഡുകളുടെ ഒരു പട്ടിക അല്ലെങ്കില്‍ ഒരു കമാന്‍ഡിനുള്ള സഹായം കാണിക്കുക"
 
-#: fish/fish.c:923
+#: fish/fish.c:927
 msgid "quit guestfish"
 msgstr "guestfish-ല്‍ നിന്നും പുറത്തു് കടക്കുക"
 
-#: fish/fish.c:926
+#: fish/fish.c:930
 msgid "allocate an image"
 msgstr "ഒരു ചിത്രം അനുവദിക്കുക"
 
-#: fish/fish.c:928
+#: fish/fish.c:932
 msgid "display a line of text"
 msgstr "ഒരു വരി കാണിക്കുക"
 
-#: fish/fish.c:930
+#: fish/fish.c:934
 msgid "edit a file in the image"
 msgstr "ചിത്രത്തില്‍ ഒരു ഫയലില്‍ മാറ്റം വരുത്തുക"
 
-#: fish/fish.c:932
+#: fish/fish.c:936
 msgid "local change directory"
 msgstr "പ്രാദേശികമായി മാറ്റുവാനുള്ള ഡയറക്ടറി"
 
-#: fish/fish.c:934
+#: fish/fish.c:938
 msgid "expand wildcards in command"
 msgstr "കമാന്‍ഡില്‍ വൈള്‍ഡ്കാര്‍ഡുകള്‍ വികസിപ്പിക്കുക"
 
-#: fish/fish.c:936
+#: fish/fish.c:940
 msgid "view a file in the pager"
 msgstr "പേജറില്‍ ഒരു ഫയല്‍ കാണുക"
 
-#: fish/fish.c:938
+#: fish/fish.c:942
 msgid "close and reopen libguestfs handle"
 msgstr "libguestfs ഹാന്‍ഡില്‍ അടയ്ക്കുക, ശേഷം വീണ്ടും തുറക്കുക"
 
-#: fish/fish.c:940
+#: fish/fish.c:944
 msgid "allocate a sparse image file"
 msgstr "ഒരു സ്പാഴ്സ് ഇമേജ് ഫയല്‍ അനുവദിക്കുക"
 
-#: fish/fish.c:942
+#: fish/fish.c:946
 msgid "measure time taken to run command"
 msgstr "ഒരു കമാന്‍ഡ് പ്രവര്‍ത്തിപ്പിക്കുന്നതിനുള്ള സമയം അളക്കുക"
 
-#: fish/fish.c:954
+#: fish/fish.c:958
 #, c-format
 msgid ""
 "alloc - allocate an image\n"
@@ -1460,7 +1460,7 @@ msgstr ""
 "    <nn>E or <nn>EB  number of exabytes\n"
 "    <nn>sects        number of 512 byte sectors\n"
 
-#: fish/fish.c:973
+#: fish/fish.c:977
 #, c-format
 msgid ""
 "echo - display a line of text\n"
@@ -1473,7 +1473,7 @@ msgstr ""
 "\n"
 "    പരാമീറ്ററുകള്‍ ടെര്‍മിനലിലേക്കു് എക്കോ ചെയ്യുന്നു.\n"
 
-#: fish/fish.c:980
+#: fish/fish.c:984
 #, c-format
 msgid ""
 "edit - edit a file in the image\n"
@@ -1504,7 +1504,7 @@ msgstr ""
 "    NOTE: This will not work reliably for large files\n"
 "    (> 2 MB) or binary files containing \\0 bytes.\n"
 
-#: fish/fish.c:994
+#: fish/fish.c:998
 #, c-format
 msgid ""
 "lcd - local change directory\n"
@@ -1521,7 +1521,7 @@ msgstr ""
 "    ഫയലുകള്‍ ഡൌണ്‍ലോഡ് ചെയ്യുന്നതിനായി ഈ കമാന്‍ഡ്\n"
 "    ഉപയോഗപ്പെടുന്നു.\n"
 
-#: fish/fish.c:1001
+#: fish/fish.c:1005
 #, c-format
 msgid ""
 "glob - expand wildcards in command\n"
@@ -1538,7 +1538,7 @@ msgstr ""
 "    Glob <command> പ്രവര്‍ത്തിപ്പിക്കുന്നു. ഓരോ വികസിച്ച ആര്‍ഗ്യുമെന്റിനും\n"
 "    കമാന്‍ഡ് ഓരോ തവണ ആവര്‍ത്തിക്കുന്നു.\n"
 
-#: fish/fish.c:1008
+#: fish/fish.c:1012
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -1549,7 +1549,7 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:1013
+#: fish/fish.c:1017
 #, c-format
 msgid ""
 "more - view a file in the pager\n"
@@ -1580,7 +1580,7 @@ msgstr ""
 "    NOTE: This will not work reliably for large files\n"
 "    (> 2 MB) or binary files containing \\0 bytes.\n"
 
-#: fish/fish.c:1029
+#: fish/fish.c:1033
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -1589,7 +1589,7 @@ msgstr ""
 "quit - quit guestfish\n"
 "     quit\n"
 
-#: fish/fish.c:1032
+#: fish/fish.c:1036
 #, c-format
 msgid ""
 "reopen - close and reopen the libguestfs handle\n"
@@ -1606,7 +1606,7 @@ msgstr ""
 "കാരണം guestfish പുറത്തുകടക്കുമ്പോള്‍ ഹാന്‍ഡില്‍ ശരിയായി അടയ്ക്കപ്പെടുന്നു.\n"
 "എന്നിരുന്നാലും , ചില പരീക്ഷണങ്ങള്‍ക്കായി ഇതു് ഉപയോഗപ്പെടുന്നു.\n"
 
-#: fish/fish.c:1039
+#: fish/fish.c:1043
 #, c-format
 msgid ""
 "sparse - allocate a sparse image file\n"
@@ -1663,7 +1663,7 @@ msgstr ""
 "    <nn>E or <nn>EB  number of exabytes\n"
 "    <nn>sects        number of 512 byte sectors\n"
 
-#: fish/fish.c:1066
+#: fish/fish.c:1070
 #, c-format
 msgid ""
 "time - measure time taken to run command\n"
@@ -1678,12 +1678,20 @@ msgstr ""
 "    പതിവു് പോലെ ഇതു് <command> പ്രവര്‍ത്തിപ്പിക്കുന്നു, കൂടാതെ അതിനുശേഷമുള്ള\n"
 "    സമയം പ്രിന്റ് ചെയ്യുന്നു.\n"
 
-#: fish/fish.c:1072
+#: fish/fish.c:1076
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s: കമാന്‍ഡ് അപരിചിതം, എല്ലാ കമാന്‍ഡുകളും ലഭ്യമാക്കുന്നതിനായി -h ഉപയോഗിക്കുക\n"
 
-#: fish/fish.c:1228
+#: fish/fish.c:1090
+#, c-format
+msgid ""
+"Did you mean to open a disk image?  guestfish -a disk.img\n"
+"For a list of commands:             guestfish -h\n"
+"For complete documentation:         man guestfish\n"
+msgstr ""
+
+#: fish/fish.c:1247
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "Runaway quote in string \"%s\"\n"
@@ -1849,24 +1857,24 @@ msgstr "%s: താല്‍ക്കാലിക ഡയറക്ടറി ഉണ
 msgid "cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)"
 msgstr "LIBGUESTFS_PATH-ല്‍ %s അല്ലെങ്കില്‍ %s ലഭ്യമല്ല (ഇപ്പോഴുള്ള പാഥ് = %s)"
 
-#: src/guestfs.c:1459
+#: src/guestfs.c:1460
 msgid "failed to connect to vmchannel socket"
 msgstr "vmchannel സോക്കറ്റിലേക്കു് കണക്ട് ചെയ്യുന്നതില്‍ പരാജയപ്പെട്ടു"
 
-#: src/guestfs.c:1478
+#: src/guestfs.c:1479
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch പരാജയപ്പെട്ടു, മുമ്പുള്ള പിശക് സന്ദേശങ്ങള്‍ കാണുക"
 
-#: src/guestfs.c:1491
+#: src/guestfs.c:1492
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu വിന്യസിച്ചു് ഡെമണുമായി ബന്ധപ്പെട്ടു, പക്ഷേ state != READY"
 
-#: src/guestfs.c:1583
+#: src/guestfs.c:1584
 #, c-format
 msgid "external command failed: %s"
 msgstr "എക്സ്റ്റേണല്‍ കമാന്‍ഡ് പരാജയപ്പെട്ടു: %s"
 
-#: src/guestfs.c:1656
+#: src/guestfs.c:1657
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -1875,90 +1883,90 @@ msgstr ""
 "%s: കമാന്‍ഡ് പരാജയപ്പെട്ടു: നിലവാരമില്ലാത്ത പാഥിലാണു് qemu ലഭ്യമെങ്കില്‍, LIBGUESTFS_QEMU "
 "എന്‍വയോണ്മെന്റ് വേരിയബിള്‍ സജ്ജമാക്കുവാന്‍ ശ്രമിക്കുക."
 
-#: src/guestfs.c:1832
+#: src/guestfs.c:1833
 msgid "qemu has not been launched yet"
 msgstr "qemu ഇതുവരെ വിന്യസിച്ചിട്ടില്ല"
 
-#: src/guestfs.c:1843
+#: src/guestfs.c:1844
 msgid "no subprocess to kill"
 msgstr "ഇല്ലാതാക്കുന്നതിനായി ഉപപ്രക്രിയകളില്ല"
 
-#: src/guestfs.c:1965
+#: src/guestfs.c:1966
 #, c-format
 msgid "guestfs_set_busy: called when in state %d != READY"
 msgstr "guestfs_set_busy: %d != READY അവസ്ഥയില്‍ വിളിച്ചിരിക്കുന്നു"
 
-#: src/guestfs.c:1988
+#: src/guestfs.c:1989
 #, c-format
 msgid "guestfs_end_busy: called when in state %d"
 msgstr "guestfs_end_busy: %d അവസ്ഥയില്‍ വിളിച്ചിരിക്കുന്നു"
 
-#: src/guestfs.c:2096
+#: src/guestfs.c:2097
 #, c-format
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
 msgstr ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
 
-#: src/guestfs.c:2254 src/guestfs.c:2308
+#: src/guestfs.c:2255 src/guestfs.c:2309
 msgid "unexpected end of file when reading from daemon"
 msgstr "ഡെമണില്‍ നിന്നും വായിക്കുമ്പോള്‍ അപ്രതീക്ഷിതമായി ഫയല്‍ അവസാനിച്ചിരിക്കുന്നു"
 
-#: src/guestfs.c:2270
+#: src/guestfs.c:2271
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr "guestfsd-ല്‍ നിന്നും ഒപ്പ് ലഭിച്ചു, പക്ഷേ %d അവസ്ഥയില്‍"
 
-#: src/guestfs.c:2285
+#: src/guestfs.c:2286
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "സന്ദേശത്തിന്റെ നീളം (%u) > ഏറ്റവും കൂടിയ സാധ്യമായ വ്യാപ്തി (%d)"
 
-#: src/guestfs.c:2407
+#: src/guestfs.c:2416
 #, c-format
 msgid "guestfs___send: state %d != BUSY"
 msgstr "guestfs___send: അവസ്ഥ %d != BUSY"
 
-#: src/guestfs.c:2429
+#: src/guestfs.c:2438
 msgid "xdr_guestfs_message_header failed"
 msgstr "xdr_guestfs_message_header പരാജയപ്പെട്ടു"
 
-#: src/guestfs.c:2438
+#: src/guestfs.c:2447
 msgid "dispatch failed to marshal args"
 msgstr "മാര്‍ഷല്‍ ആര്‍ഗ്യുമെന്റുകളിലേക്കു് നല്‍കുന്നതു് പരാജയപ്പെട്ടു"
 
-#: src/guestfs.c:2568
+#: src/guestfs.c:2577
 #, c-format
 msgid "send_file_chunk: state %d != READY"
 msgstr "send_file_chunk: അവസ്ഥ %d != READY"
 
-#: src/guestfs.c:2584
+#: src/guestfs.c:2593
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk പരാജയപ്പെട്ടു (buf = %p, buflen = %zu)"
 
-#: src/guestfs.c:2707
+#: src/guestfs.c:2716
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: ചങ്ക്ഡ് എന്‍കോഡിങില്‍ പിശക്"
 
-#: src/guestfs.c:2735
+#: src/guestfs.c:2744
 msgid "write to daemon socket"
 msgstr "ഡെമണ്‍ സോക്കറ്റിലേക്ക് സൂക്ഷിക്കുക"
 
-#: src/guestfs.c:2758
+#: src/guestfs.c:2767
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: parse error in reply callback"
 
-#: src/guestfs.c:2763
+#: src/guestfs.c:2772
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr "receive_file_data: ഫയല്‍ ലഭ്യമാക്കുമ്പോള്‍ അപ്രതീക്ഷിതമായ ഫ്ലാഗ് ലഭിച്ചിരിക്കുന്നു"
 
-#: src/guestfs.c:2771
+#: src/guestfs.c:2780
 msgid "failed to parse file chunk"
 msgstr "ഫയല്‍ പാഴ്സ് ചെയ്യുന്നതില്‍ പരാജയപ്പെട്ടു"
 
-#: src/guestfs.c:2780
+#: src/guestfs.c:2789
 msgid "file receive cancelled by daemon"
 msgstr "ഫയല്‍ ലഭ്യമാക്കുന്നതു് ഡെമണ്‍ റദ്ദാക്കിയിരിക്കുന്നു"
 
