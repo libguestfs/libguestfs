@@ -1405,6 +1405,7 @@ guestfs__launch (guestfs_h *g)
                  "libguestfs: warning: unexpected connection from UID %d to port %d\n",
                  uid, null_vmchannel_sock);
         close (sock);
+        sock = -1;
         continue;
       }
     }
