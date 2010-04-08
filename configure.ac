@@ -345,9 +345,9 @@ if test "x$enable_appliance" = "xyes"; then
     dnl --with-updates to specify a Fedora updates repository.
     AC_ARG_WITH([updates],
         [AS_HELP_STRING([--with-updates],
-          [set name of Fedora updates repository @<:@default=updates-released-f11@:>@])],
+          [set name of Fedora updates repository @<:@default=updates-released-f12@:>@])],
         [],
-        [with_updates=updates-released-f11])
+        [with_updates=updates-released-f12])
     UPDATES="$with_updates"
     AC_SUBST(UPDATES)
 
@@ -364,9 +364,9 @@ fi
 dnl --with-repo to specify a Fedora repository.
 AC_ARG_WITH([repo],
         [AS_HELP_STRING([--with-repo],
-          [set name of Fedora repository @<:@default=fedora-11@:>@])],
+          [set name of Fedora repository @<:@default=fedora-12@:>@])],
         [],
-        [with_repo=fedora-11])
+        [with_repo=fedora-12])
 REPO="$with_repo"
 AC_SUBST(REPO)
 AC_DEFINE_UNQUOTED([REPO],["$REPO"],[Name of Fedora repository.])
