@@ -23,6 +23,7 @@ builddir ?= $(top_builddir)/images
 EXTRA_DIST = \
 	helloworld.tar \
 	helloworld.tar.gz \
+	helloworld.tar.xz \
 	mbr-ext2-empty.img.gz \
 	empty known-1 known-2 known-3 known-4 known-5 \
 	bin-i586-dynamic \
@@ -47,6 +48,7 @@ CLEANFILES = \
 images_files_src = \
 	$(srcdir)/helloworld.tar \
 	$(srcdir)/helloworld.tar.gz \
+	$(srcdir)/helloworld.tar.xz \
 	$(srcdir)/empty \
 	$(srcdir)/known-1 \
 	$(srcdir)/known-2 \

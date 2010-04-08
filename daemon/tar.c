@@ -158,8 +158,8 @@ do_tar_out (const char *dir)
 }
 
 /* Has one FileIn parameter. */
-int
-do_tgz_in (const char *dir)
+static int
+do_tXz_in (const char *dir, char filter)
 {
   int err, r;
   FILE *fp;
@@ -172,7 +172,7 @@ do_tgz_in (const char *dir)
   }
 
   /* "tar -C /sysroot%s -zxf -" but we have to quote the dir. */
-  if (asprintf_nowarn (&cmd, "tar -C %R -zxf -", dir) == -1) {
+  if (asprintf_nowarn (&cmd, "tar -C %R -%cxf -", dir, filter) == -1) {
     err = errno;
     cancel_receive ();
     errno = err;
@@ -219,9 +219,23 @@ do_tgz_in (const char *dir)
   return 0;
 }
 
-/* Has one FileOut parameter. */
+/* Has one FileIn parameter. */
 int
-do_tgz_out (const char *dir)
+do_tgz_in (const char *dir)
+{
+  return do_tXz_in (dir, 'z');
+}
+
+/* Has one FileIn parameter. */
+int
+do_txz_in (const char *dir)
+{
+  return do_tXz_in (dir, 'J');
+}
+
+/* Has one FileOut parameter. */
+static int
+do_tXz_out (const char *dir, char filter)
 {
   int r;
   FILE *fp;
@@ -229,7 +243,7 @@ do_tgz_out (const char *dir)
   char buf[GUESTFS_MAX_CHUNK_SIZE];
 
   /* "tar -C /sysroot%s -zcf - ." but we have to quote the dir. */
-  if (asprintf_nowarn (&cmd, "tar -C %R -zcf - .", dir) == -1) {
+  if (asprintf_nowarn (&cmd, "tar -C %R -%ccf - .", dir, filter) == -1) {
     reply_with_perror ("asprintf");
     return -1;
   }
@@ -275,4 +289,18 @@ do_tgz_out (const char *dir)
     return -1;
 
   return 0;
+}
+
+/* Has one FileOut parameter. */
+int
+do_tgz_out (const char *dir)
+{
+  return do_tXz_out (dir, 'z');
+}
+
+/* Has one FileOut parameter. */
+int
+do_txz_out (const char *dir)
+{
+  return do_tXz_out (dir, 'J');
 }

@@ -27,6 +27,7 @@
   udev
   util-linux-ng
   vim-minimal
+  xz
 #elif DEBIAN == 1
   bsdmainutils
   btrfs-tools
@@ -42,6 +43,7 @@
   udev
   util-linux
   vim-tiny
+  xz-utils
 #endif
 
 bash

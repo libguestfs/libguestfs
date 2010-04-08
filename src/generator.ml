@@ -2025,7 +2025,8 @@ The checksum is returned as a printable string.");
 This command uploads and unpacks local file C<tarfile> (an
 I<uncompressed> tar file) into C<directory>.
 
-To upload a compressed tarball, use C<guestfs_tgz_in>.");
+To upload a compressed tarball, use C<guestfs_tgz_in>
+or C<guestfs_txz_in>.");
 
   ("tar_out", (RErr, [String "directory"; FileOut "tarfile"]), 70, [],
    [],
@@ -2034,7 +2035,8 @@ To upload a compressed tarball, use C<guestfs_tgz_in>.");
 This command packs the contents of C<directory> and downloads
 it to local file C<tarfile>.
 
-To download a compressed tarball, use C<guestfs_tgz_out>.");
+To download a compressed tarball, use C<guestfs_tgz_out>
+or C<guestfs_txz_out>.");
 
   ("tgz_in", (RErr, [FileIn "tarball"; String "directory"]), 71, [],
    [InitBasicFS, Always, TestOutput (
@@ -4354,6 +4356,22 @@ is not large enough.");
 This command writes zeroes over the entire C<device>.  Compare
 with C<guestfs_zero> which just zeroes the first few blocks of
 a device.");
+
+  ("txz_in", (RErr, [FileIn "tarball"; String "directory"]), 229, [],
+   [InitBasicFS, Always, TestOutput (
+      [["txz_in"; "../images/helloworld.tar.xz"; "/"];
+       ["cat"; "/hello"]], "hello\n")],
+   "unpack compressed tarball to directory",
+   "\
+This command uploads and unpacks local file C<tarball> (an
+I<xz compressed> tar file) into C<directory>.");
+
+  ("txz_out", (RErr, [Pathname "directory"; FileOut "tarball"]), 230, [],
+   [],
+   "pack directory into compressed tarball",
+   "\
+This command packs the contents of C<directory> and downloads
+it to local file C<tarball> (as an xz compressed tar archive).");
 
 ]
 
