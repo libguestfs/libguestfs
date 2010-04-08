@@ -2366,8 +2366,16 @@ accept_from_daemon (guestfs_h *g)
   int sock = -1;
 
   while (sock == -1) {
+    /* If the qemu process has died, clean up the zombie (RHBZ#579155).
+     * By partially polling in the select below we ensure that this
+     * function will be called eventually.
+     */
+    waitpid (g->pid, NULL, WNOHANG);
+
     rset2 = rset;
-    int r = select (max_fd+1, &rset2, NULL, NULL, NULL);
+
+    struct timeval tv = { .tv_sec = 1, .tv_usec = 0 };
+    int r = select (max_fd+1, &rset2, NULL, NULL, &tv);
     if (r == -1) {
       if (errno == EINTR || errno == EAGAIN)
         continue;
