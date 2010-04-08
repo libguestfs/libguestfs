@@ -1672,9 +1672,6 @@ sub _check_for_kernels
         eval {
             $boot{default} = $g->aug_get("/files/$grub_conf/default");
         };
-        if($@) {
-            warn __"No grub default specified";
-        }
 
         $os->{boot} = \%boot;
     }
