@@ -1500,7 +1500,7 @@ guestfs__launch (guestfs_h *g)
     close (wfd[1]);
     close (rfd[0]);
   }
-  kill (g->pid, 9);
+  if (g->pid > 0) kill (g->pid, 9);
   if (g->recoverypid > 0) kill (g->recoverypid, 9);
   waitpid (g->pid, NULL, 0);
   if (g->recoverypid > 0) waitpid (g->recoverypid, NULL, 0);
@@ -1848,7 +1848,7 @@ guestfs__kill_subprocess (guestfs_h *g)
   if (g->verbose)
     fprintf (stderr, "sending SIGTERM to process %d\n", g->pid);
 
-  kill (g->pid, SIGTERM);
+  if (g->pid > 0) kill (g->pid, SIGTERM);
   if (g->recoverypid > 0) kill (g->recoverypid, 9);
 
   return 0;
@@ -1999,7 +1999,7 @@ child_cleanup (guestfs_h *g)
   if (g->verbose)
     fprintf (stderr, "child_cleanup: %p: child process died\n", g);
 
-  /*kill (g->pid, SIGTERM);*/
+  /*if (g->pid > 0) kill (g->pid, SIGTERM);*/
   if (g->recoverypid > 0) kill (g->recoverypid, 9);
   waitpid (g->pid, NULL, 0);
   if (g->recoverypid > 0) waitpid (g->recoverypid, NULL, 0);
