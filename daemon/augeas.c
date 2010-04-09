@@ -348,7 +348,9 @@ do_aug_ls (const char *path)
 
   NEED_AUG (NULL);
 
-  ABS_PATH (path, return NULL);
+  /* Note that path might also be a previously defined variable
+   * (defined with aug_defvar).  See RHBZ#580016.
+   */
 
   len = strlen (path);
 
@@ -358,9 +360,8 @@ do_aug_ls (const char *path)
     return NULL;
   }
 
-  if (len == 1)
-    /* we know path must be "/" because of ABS_PATH above */
-    matches = do_aug_match ("/");
+  if (STREQ (path, "/"))
+    matches = do_aug_match ("/*");
   else {
     len += 3;			/* / * + terminating \0 */
     buf = malloc (len);
