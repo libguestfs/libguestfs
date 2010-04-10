@@ -4381,6 +4381,14 @@ This command resizes an NTFS filesystem, expanding or
 shrinking it to the size of the underlying device.
 See also L<ntfsresize(8)>.");
 
+  ("vgscan", (RErr, []), 232, [],
+   [InitEmpty, Always, TestRun (
+      [["vgscan"]])],
+   "rescan for LVM physical volumes, volume groups and logical volumes",
+   "\
+This rescans all block devices and rebuilds the list of LVM
+physical volumes, volume groups and logical volumes.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

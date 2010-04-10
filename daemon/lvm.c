@@ -594,3 +594,21 @@ do_vglvuuids (const char *vgname)
 {
   return get_lvm_fields ("vgs", "lv_uuid", vgname);
 }
+
+int
+do_vgscan (void)
+{
+  char *err;
+  int r;
+
+  r = command (NULL, &err,
+               "lvm", "vgscan", NULL);
+  if (r == -1) {
+    reply_with_error ("%s", err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+  return 0;
+}
