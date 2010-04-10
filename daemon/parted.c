@@ -55,7 +55,7 @@ recover_blkrrpart (const char *device, const char *err)
   return 0;
 }
 
-#define RUN_PARTED(device,...)                                          \
+#define RUN_PARTED(error,device,...)                                    \
   do {                                                                  \
     int r;                                                              \
     char *err;                                                          \
@@ -66,7 +66,7 @@ recover_blkrrpart (const char *device, const char *err)
       if (recover_blkrrpart ((device), err) == -1) {                    \
         reply_with_error ("%s: parted: %s: %s", __func__, (device), err); \
         free (err);                                                     \
-        return -1;                                                      \
+        error;                                                          \
       }                                                                 \
     }                                                                   \
                                                                         \
@@ -107,7 +107,7 @@ do_part_init (const char *device, const char *parttype)
     return -1;
   }
 
-  RUN_PARTED (device, "mklabel", parttype, NULL);
+  RUN_PARTED (return -1, device, "mklabel", parttype, NULL);
 
   udev_settle ();
 
@@ -151,7 +151,7 @@ do_part_add (const char *device, const char *prlogex,
    * name_ to prlogex, eg. "primary".  I would essentially describe
    * this as a bug in the parted mkpart command.
    */
-  RUN_PARTED (device, "mkpart", prlogex, startstr, endstr, NULL);
+  RUN_PARTED (return -1, device, "mkpart", prlogex, startstr, endstr, NULL);
 
   udev_settle ();
 
@@ -183,7 +183,8 @@ do_part_disk (const char *device, const char *parttype)
     endstr = "-1s";
   }
 
-  RUN_PARTED (device,
+  RUN_PARTED (return -1,
+              device,
               "mklabel", parttype,
               /* See comment about about the parted mkpart command. */
               "mkpart", STREQ (parttype, "gpt") ? "p1" : "primary",
@@ -201,7 +202,8 @@ do_part_set_bootable (const char *device, int partnum, int bootable)
 
   snprintf (partstr, sizeof partstr, "%d", partnum);
 
-  RUN_PARTED (device, "set", partstr, "boot", bootable ? "on" : "off", NULL);
+  RUN_PARTED (return -1,
+              device, "set", partstr, "boot", bootable ? "on" : "off", NULL);
 
   udev_settle ();
 
@@ -215,7 +217,7 @@ do_part_set_name (const char *device, int partnum, const char *name)
 
   snprintf (partstr, sizeof partstr, "%d", partnum);
 
-  RUN_PARTED (device, "name", partstr, name, NULL);
+  RUN_PARTED (return -1, device, "name", partstr, name, NULL);
 
   udev_settle ();
 
