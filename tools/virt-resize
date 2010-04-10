@@ -411,12 +411,23 @@ if ($debug) {
     print "$outfile size $outsize bytes\n";
 }
 
+# In reality the number of sectors containing boot loader data will be
+# less than this (although Windows 7 defaults to putting the first
+# partition on sector 2048, and has quite a large boot loader).
+#
+# However make this large enough to be sure that we have copied over
+# the boot loader.  We could also do this by looking for the sector
+# offset of the first partition.
+#
+# It doesn't matter if we copy too much.
+my $boot_sectors = 4096;
+
 die __x("virt-resize: {file}: file is too small to be a disk image ({sz} bytes)\n",
         file => $infile, sz => $insize)
-    if $insize < 64 * 512;
+    if $insize < $boot_sectors * 512;
 die __x("virt-resize: {file}: file is too small to be a disk image ({sz} bytes)\n",
         file => $outfile, sz => $outsize)
-    if $outsize < 64 * 512;
+    if $outsize < $boot_sectors * 512;
 
 # Copy the boot loader across.
 do_copy_boot_loader () if $copy_boot_loader;
@@ -426,12 +437,12 @@ sub do_copy_boot_loader
     print "copying boot loader ...\n" if $debug;
     open IFILE, $infile or die "$infile: $!";
     my $s;
-    my $r = sysread (IFILE, $s, 64 * 512) or die "$infile: $!";
-    die "$infile: short read" if $r < 64 * 512;
+    my $r = sysread (IFILE, $s, $boot_sectors * 512) or die "$infile: $!";
+    die "$infile: short read" if $r < $boot_sectors * 512;
     open OFILE, "+<$outfile" or die "$outfile: $!";
     sysseek OFILE, 0, SEEK_SET or die "$outfile: seek: $!";
-    $r = syswrite (OFILE, $s, 64 * 512) or die "$outfile: $!";
-    die "$outfile: short write" if $r < 64 * 512;
+    $r = syswrite (OFILE, $s, $boot_sectors * 512) or die "$outfile: $!";
+    die "$outfile: short write" if $r < $boot_sectors * 512;
 }
 
 # Add them to the handle and launch the appliance.
@@ -466,6 +477,8 @@ sub check_source_disk
 
         my %h = %$_;
         $h{name} = $name;
+        $h{bootable} = $g->part_get_bootable ("/dev/sda", $h{part_num});
+        eval { $h{mbr_id} = $g->part_get_mbr_id ("/dev/sda", $h{part_num}); };
         $partitions{$name} = \%h;
     }
 }
@@ -676,7 +689,11 @@ sub calculate_surplus
 
     # We need some overhead for partitioning.  Worst case would be for
     # EFI partitioning + massive per-partition alignment.
-    my $overhead = $sectsize * (2 * 64 + (64 * (@partitions + 1)) + 128);
+    my $overhead = $sectsize * (
+        2 * 64 +                   # GPT start and end
+        (64 * (@partitions + 1)) + # Maximum alignment
+        ($boot_sectors - 64)       # Boot loader
+        );
 
     my $required = 0;
     foreach (@partitions) {
@@ -777,17 +794,36 @@ sub repartition
 
     if ($copy_boot_loader) {
         $parttype = $g->part_get_parttype ("/dev/sdb");
-        print "partition table type: $parttype\n" if $debug;
     } else {
-        # Didn't copy over the initial boot loader, so we need
-        # to make a new partition type here.
         $parttype = "efi";
     }
+    print "partition table type: $parttype\n" if $debug;
 
-    # Delete any existing partitions on the destination disk.
-    $g->part_init ("/dev/sdb", $parttype);
+    # Delete any existing partitions on the destination disk,
+    # but leave the bootloader that we copied over intact.
+    if ($copy_boot_loader) {
+        # Delete in reverse as an easy way to deal with extended
+        # partitions.
+        foreach (sort { $b cmp $a } $g->list_partitions ()) {
+            if (m{^/dev/.db(\d+)$}) {
+                $g->part_del ("/dev/sdb", $1);
+            }
+        }
+    } else {
+        # Didn't copy over the initial boot loader, so we need
+        # to make a new partition table here.
+        $g->part_init ("/dev/sdb", $parttype);
+    }
 
-    my $start = 64;
+    # Work out where to start the first partition.
+    die __"virt-resize: source disk does not have a first partition\n"
+        unless exists ($partitions{"/dev/sda1"});
+    my $start = $partitions{"/dev/sda1"}->{part_start} / $sectsize;
+
+    # Align to 64.
+    $start = ($start + 63) & ~63;
+
+    print "starting to partition from $start\n" if $debug;
 
     # Create the new partitions.
     foreach my $part (@partitions) {
@@ -803,8 +839,17 @@ sub repartition
             }
 
             # Create it.
-            my ($target, $end) = add_partition ($start, $size);
+            my ($target, $end, $part_num) = add_partition ($start, $size);
             $partitions{$part}->{target} = $target;
+
+            if ($partitions{$part}->{bootable}) {
+                $g->part_set_bootable ("/dev/sdb", $part_num, 1);
+            }
+
+            if ($partitions{$part}->{mbr_id}) {
+                $g->part_set_mbr_id ("/dev/sdb", $part_num,
+                                     $partitions{$part}->{mbr_id});
+            }
 
             # Start of next partition + alignment.
             $start = $end + 1;
@@ -825,26 +870,26 @@ sub add_partition
     my $start = shift;
     my $size = shift;
 
-    my ($target, $end);
+    my ($target, $end, $part_num);
 
     if ($nextpart <= 3 || $parttype ne "msdos") {
         $target = "/dev/sdb$nextpart";
         $end = $start + $size - 1;
         $g->part_add ("/dev/sdb", "primary", $start, $end);
-        $nextpart++;
+        $part_num = $nextpart++;
     } else {
         if ($nextpart == 4) {
             $g->part_add ("/dev/sdb", "extended", $start, -1);
-            $nextpart++;
+            $part_num = $nextpart++;
             $start += 64;
         }
         $target = "/dev/sdb$nextpart";
         $end = $start + $size - 1;
         $g->part_add ("/dev/sdb", "logical", $start, $end);
-        $nextpart++;
+        $part_num = $nextpart++;
     }
 
-    return ($target, $end);
+    return ($target, $end, $part_num);
 }
 
 # Copy over the data.
@@ -880,6 +925,11 @@ sub copy_data
         }
     }
 }
+
+# Sync disk and exit.
+$g->umount_all ();
+$g->sync ();
+undef $g;
 
 exit 0;
 
