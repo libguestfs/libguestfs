@@ -35,6 +35,13 @@ optgroup_ntfs3g_available (void)
 }
 
 int
+optgroup_ntfsprogs_available (void)
+{
+  int r = access ("/usr/sbin/ntfsresize", X_OK);
+  return r == 0;
+}
+
+int
 do_ntfs_3g_probe (int rw, const char *device)
 {
   char *err;
@@ -51,4 +58,20 @@ do_ntfs_3g_probe (int rw, const char *device)
   }
 
   return r;
+}
+
+int
+do_ntfsresize (const char *device)
+{
+  char *err;
+  int r;
+
+  r = command (NULL, &err, "ntfsresize", "-P", device, NULL);
+  if (r == -1) {
+    reply_with_error ("%s: %s", device, err);
+    free (err);
+    return -1;
+  }
+
+  return 0;
 }

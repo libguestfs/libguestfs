@@ -4373,6 +4373,14 @@ I<xz compressed> tar file) into C<directory>.");
 This command packs the contents of C<directory> and downloads
 it to local file C<tarball> (as an xz compressed tar archive).");
 
+  ("ntfsresize", (RErr, [Device "device"]), 231, [Optional "ntfsprogs"],
+   [],
+   "resize an NTFS filesystem",
+   "\
+This command resizes an NTFS filesystem, expanding or
+shrinking it to the size of the underlying device.
+See also L<ntfsresize(8)>.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
