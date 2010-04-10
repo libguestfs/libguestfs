@@ -4095,10 +4095,9 @@ but other possible values are described in C<guestfs_part_init>.");
 This sets the bootable flag on partition numbered C<partnum> on
 device C<device>.  Note that partitions are numbered from 1.
 
-The bootable flag is used by some PC BIOSes to determine which
-partition to boot from.  It is by no means universally recognized,
-and in any case if your operating system installed a boot
-sector on the device itself, then that takes precedence.");
+The bootable flag is used by some operating systems (notably
+Windows) to determine which partition to boot from.  It is by
+no means universally recognized.");
 
   ("part_set_name", (RErr, [Device "device"; Int "partnum"; String "name"]), 212, [],
    [InitEmpty, Always, TestRun (
