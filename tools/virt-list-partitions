@@ -82,6 +82,14 @@ at all.
 
 =cut
 
+my $human;
+
+=item B<-h> | B<--human-readable>
+
+Show sizes in human-readable form (eg. "1G").
+
+=cut
+
 my $long;
 
 =item B<-l> | B<--long>
@@ -91,11 +99,12 @@ and size of each partition too (where "type" means C<ext3>, C<pv> etc.)
 
 =cut
 
-my $human;
+my $total;
 
-=item B<-h> | B<--human-readable>
+=item B<-t> | B<--total>
 
-Show sizes in human-readable form (eg. "1G").
+Display the total size of each block device (as a separate row or
+rows).
 
 =back
 
@@ -107,8 +116,9 @@ Getopt::Long::Configure ("bundling");
 GetOptions ("help|?" => \$help,
             "version" => \$version,
             "connect|c=s" => \$uri,
-            "long|l" => \$long,
             "human-readable|h" => \$human,
+            "long|l" => \$long,
+            "total|t" => \$total,
     ) or pod2usage (2);
 pod2usage (1) if $help;
 if ($version) {
@@ -131,35 +141,61 @@ if ($uri) {
 $g->launch ();
 
 # List of partitions and sizes.
-my @partitions;
-my @devices = $g->list_devices ();
-foreach my $dev (@devices) {
-    my @p = $g->part_list ($dev);
-    foreach (@p) {
-        $_->{name} = canonicalize ("$dev" . $_->{part_num});
-        push @partitions, $_;
-    }
-}
+my @partitions = $g->list_partitions ();
+foreach my $name (@partitions) {
+    $name = canonicalize ($name);
 
-# Print them.
-foreach my $part (@partitions) {
-    print $part->{name};
+    print $name;
 
     if ($long) {
         my $type;
         eval {
-            $type = $g->vfs_type ($part->{name});
+            $type = $g->vfs_type ($name);
         };
         $type ||= "unknown";
         $type = "pv" if $type eq "LVM2_member";
         print " $type ";
+
+        my $size;
+        eval {
+            $size = $g->blockdev_getsize64 ($name);
+        };
+        $size ||= "unknown";
+
         if ($human) {
-            print (human_size($part->{part_size}));
+            print (human_size($size));
         } else {
-            print $part->{part_size};
+            print $size;
         }
     }
     print "\n";
+}
+
+if ($total) {
+    # List of devices and sizes.
+    my @devices = $g->list_devices ();
+    foreach my $name (@devices) {
+        $name = canonicalize ($name);
+
+        print $name;
+
+        if ($long) {
+            print " device ";
+
+            my $size;
+            eval {
+                $size = $g->blockdev_getsize64 ($name);
+            };
+            $size ||= "unknown";
+
+            if ($human) {
+                print (human_size($size));
+            } else {
+                print $size;
+            }
+        }
+        print "\n";
+    }
 }
 
 # The reverse of device name translation, see
@@ -168,7 +204,7 @@ sub canonicalize
 {
     local $_ = shift;
 
-    if (m{^/dev/[hv]d([a-z]\d)$}) {
+    if (m{^/dev/[hv]d([a-z]+\d*)$}) {
         return "/dev/sd$1";
     }
     $_;
