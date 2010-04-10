@@ -159,6 +159,18 @@ do_part_add (const char *device, const char *prlogex,
 }
 
 int
+do_part_del (const char *device, int partnum)
+{
+  char partnum_str[16];
+  snprintf (partnum_str, sizeof partnum_str, "%d", partnum);
+
+  RUN_PARTED (return -1, device, "rm", partnum_str, NULL);
+
+  udev_settle ();
+  return 0;
+}
+
+int
 do_part_disk (const char *device, const char *parttype)
 {
   const char *startstr;
@@ -370,4 +382,93 @@ do_part_list (const char *device)
  error1:
   free_strings (lines);
   return NULL;
+}
+
+int
+do_part_get_bootable (const char *device, int partnum)
+{
+  char **lines = print_partition_table (device);
+  if (!lines)
+    return -1;
+
+  /* We want lines[1+partnum]. */
+  if (count_strings (lines) < 1+partnum) {
+    reply_with_error ("partition number out of range: %d", partnum);
+    free_strings (lines);
+    return -1;
+  }
+
+  char *boot = get_table_field (lines[1+partnum], 6);
+  if (boot == NULL) {
+    free_strings (lines);
+    return -1;
+  }
+
+  int r = STREQ (boot, "boot");
+
+  free (boot);
+  free_strings (lines);
+
+  return r;
+}
+
+/* Currently we use sfdisk for getting and setting the ID byte.  In
+ * future, extend parted to provide this functionality.  As a result
+ * of using sfdisk, this won't work for non-MBR-style partitions, but
+ * that limitation is noted in the documentation and we can extend it
+ * later without breaking the ABI.
+ */
+int
+do_part_get_mbr_id (const char *device, int partnum)
+{
+  char partnum_str[16];
+  snprintf (partnum_str, sizeof partnum_str, "%d", partnum);
+
+  char *out, *err;
+  int r;
+
+  r = command (&out, &err, "sfdisk", "--print-id", device, partnum_str, NULL);
+  if (r == -1) {
+    reply_with_error ("sfdisk --print-id: %s", err);
+    free (out);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+
+  /* It's printed in hex ... */
+  int id;
+  if (sscanf (out, "%x", &id) != 1) {
+    reply_with_error ("sfdisk --print-id: cannot parse output: %s", out);
+    free (out);
+    return -1;
+  }
+
+  free (out);
+  return id;
+}
+
+int
+do_part_set_mbr_id (const char *device, int partnum, int idbyte)
+{
+  char partnum_str[16];
+  snprintf (partnum_str, sizeof partnum_str, "%d", partnum);
+
+  char idbyte_str[16];
+  snprintf (idbyte_str, sizeof partnum_str, "%x", idbyte); /* NB: hex */
+
+  char *err;
+  int r;
+
+  r = command (NULL, &err, "sfdisk",
+               "--change-id", device, partnum_str, idbyte_str, NULL);
+  if (r == -1) {
+    reply_with_error ("sfdisk --change-id: %s", err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+  return 0;
 }
