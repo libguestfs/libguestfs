@@ -20,6 +20,7 @@ use warnings;
 use strict;
 
 use Sys::Guestfs;
+use Sys::Guestfs::Lib qw(feature_available);
 use Fcntl qw(S_ISREG SEEK_SET);
 use POSIX qw(floor);
 use Pod::Usage;
@@ -40,9 +41,9 @@ virt-resize - Resize a virtual machine disk
 
 =head1 SYNOPSIS
 
- virt-resize [--resize /dev/sdaN=[+/-]<size>[%]] [--expand /dev/sdaN]
-   [--shrink /dev/sdaN] [--ignore /dev/sdaN] [--delete /dev/sdaN] [...]
-   indisk outdisk
+ virt-resize [--resize /dev/sdaN=[+/-]<size>[%]]
+   [--expand /dev/sdaN] [--shrink /dev/sdaN]
+   [--ignore /dev/sdaN] [--delete /dev/sdaN] [...] indisk outdisk
 
 =head1 DESCRIPTION
 
@@ -60,41 +61,42 @@ L<virt-list-filesystems(1)> and
 L<virt-df(1)>,
 we recommend you go and read those manual pages first.
 
-=head2 BASIC USAGE
+=head1 BASIC USAGE
 
-This describes the common case where you want to expand an image to
-give your guest more space.  Shrinking images is considerably more
-complicated (unfortunately).
+=head2 EXPANDING A VIRTUAL MACHINE DISK
 
 =over 4
 
-=item 1. Locate disk image
+=item 1. Shut down the virtual machine
 
-Locate the disk image that you want to resize.  It could be in a local
-file or device.  If the guest is managed by libvirt, you can use
-C<virsh dumpxml> like this to find the disk image name:
+=item 2. Locate input disk image
+
+Locate the input disk image (ie. the file or device on the host
+containing the guest's disk).  If the guest is managed by libvirt, you
+can use C<virsh dumpxml> like this to find the disk image name:
 
  # virsh dumpxml guestname | xpath /domain/devices/disk/source
  Found 1 nodes:
  -- NODE --
  <source dev="/dev/vg/lv_guest" />
 
-=item 2. Look at current sizing
+=item 3. Look at current sizing
 
 Use L<virt-list-partitions(1)> to display the current partitions and
 sizes:
 
- # virt-list-partitions -lh /dev/vg/lv_guest
+ # virt-list-partitions -lht /dev/vg/lv_guest
  /dev/sda1 ext3 101.9M
  /dev/sda2 pv 7.9G
+ /dev/sda device 8.0G
 
 (This example is a virtual machine with an 8 GB disk which we would
 like to expand up to 10 GB).
 
-=item 3. Create destination disk
+=item 4. Create output disk
 
 Virt-resize cannot do in-place disk modifications.  You have to have
-space to store the resized destination disk.
+space to store the resized output disk.
 
 To store the resized disk image in a file, create a file of a suitable
 size:
@@ -102,7 +104,7 @@ size:
  # rm -f outdisk
  # truncate -s 10G outdisk
 
-Use L<lvcreate(1)> to create a logical volume:
+Or use L<lvcreate(1)> to create a logical volume:
 
  # lvcreate -L 10G -n lv_name vg_name
 
@@ -111,9 +113,13 @@ Or use L<virsh(1)> vol-create-as to create a libvirt storage volume:
  # virsh pool-list
  # virsh vol-create-as poolname newvol 10G
 
-=item 4. Resize
+=item 5. Resize
 
- virt-resize indisk outdisk
+virt-resize takes two mandatory parameters, the input disk (eg. device
+or file) and the output disk.  The output disk is the one created in
+the previous step.
+
+ # virt-resize indisk outdisk
 
 This command just copies disk image C<indisk> to disk image C<outdisk>
 I<without> resizing or changing any existing partitions.  If
@@ -121,32 +127,37 @@ C<outdisk> is larger, then an extra, empty partition is created at the
 end of the disk covering the extra space.  If C<outdisk> is smaller,
 then it will give an error.
 
-To resize, you need to pass extra options (for the full list see the
+More realistically you'd want to expand existing partitions in the
+disk image by passing extra options (for the full list see the
 L</OPTIONS> section below).
 
 L</--expand> is the most useful option.  It expands the named
 partition within the disk to fill any extra space:
 
- virt-resize --expand /dev/sda2 indisk outdisk
+ # virt-resize --expand /dev/sda2 indisk outdisk
 
 (In this case, an extra partition is I<not> created at the end of the
 disk, because there will be no unused space).
-
-If /dev/sda2 in the image contains a filesystem or LVM PV, then
-this content is B<not> automatically resized.  You can resize it
-afterwards either using L<guestfish(1)> (offline) or using commands
-inside the guest (online resizing).
 
 L</--resize> is the other commonly used option.  The following would
 increase the size of /dev/sda1 by 200M, and expand /dev/sda2
 to fill the rest of the available space:
 
- virt-resize --resize /dev/sda1=+200M --expand /dev/sda2 \
-   indisk outdisk
+ # virt-resize --resize /dev/sda1=+200M --expand /dev/sda2 \
+     indisk outdisk
+
+If the expanded partition in the image contains a filesystem or LVM
+PV, then if virt-resize knows how, it will resize the contents, the
+equivalent of calling a command such as L<pvresize(8)>,
+L<resize2fs(8)> or L<ntfsresize(8)>.  However virt-resize does not
+know how to resize some filesystems, so you would have to online
+resize them after booting the guest.  And virt-resize also does not
+resize anything inside an LVM PV, it just resizes the PV itself and
+leaves the user to resize any LVs inside that PV as desired.
 
 Other options are covered below.
 
-=item 5. Test
+=item 6. Test
 
 Thoroughly test the new disk image I<before> discarding the old one.
 
@@ -161,16 +172,46 @@ Then start up the domain with the new, resized disk:
 
  # virsh start guestname
 
-and check that it still works.
+and check that it still works.  See also the L</NOTES> section below
+for additional information.
 
-Note that to see the extra space in the guest, you may need to use
-guest commands to resize PVs, LVs and/or filesystems to fit the extra
-space available.  Three common guest commands for doing this for Linux
-guests are L<pvresize(8)>, L<lvresize(8)> and L<resize2fs(8)>.  It is
-also possible to do this offline (eg. for scripting changes) using
-L<guestfish(1)>.
+=item 7. Resize LVs etc inside the guest
+
+(This can also be done offline using L<guestfish(1)>)
+
+Once the guest has booted you should see the new space available, at
+least for filesystems that virt-resize knows how to resize, and for
+PVs.  The user may need to resize LVs inside PVs, and also resize
+filesystem types that virt-resize does not know how to expand.
 
 =back
+
+=head2 SHRINKING A VIRTUAL MACHINE DISK
+
+Shrinking is somewhat more complex than expanding, and only an
+overview is given here.
+
+Firstly virt-resize will not attempt to shrink any partition content
+(PVs, filesystems).  The user has to shrink content before passing the
+disk image to virt-resize, and virt-resize will check that the content
+has been shrunk properly.
+
+(Shrinking can also be done offline using L<guestfish(1)>)
+
+After shrinking PVs and filesystems, shut down the guest, and proceed
+with steps 3 and 4 above to allocate a new disk image.
+
+Then run virt-resize with any of the C<--shrink> and/or C<--resize>
+options.
+
+=head2 IGNORING OR DELETING PARTITIONS
+
+virt-resize also gives a convenient way to ignore or delete partitions
+when copying from the input disk to the output disk.  Ignoring a
+partition speeds up the copy where you don't care about the existing
+contents of a partition.  Deleting a partition removes it completely,
+but note that it also renumbers any partitions after the one which is
+deleted, which can leave some guests unbootable.
 
 =head1 OPTIONS
 
@@ -220,9 +261,11 @@ size; or as a relative number or percentage.  For example:
 
  --resize /dev/sda1=-10%
 
-You can increase the size of any partition.
+You can increase the size of any partition.  Virt-resize will expand
+the direct content of the partition if it knows how (see C<--expand>
+below).
 
-You can I<only> B<decrease> the size of partitions that contain
+You can only I<decrease> the size of partitions that contain
 filesystems or PVs which have already been shrunk.  Virt-resize will
 check this has been done before proceeding, or else will print an
 error (see also C<--resize-force>).
@@ -252,9 +295,37 @@ my $expand;
 Expand the named partition so it uses up all extra space (space left
 over after any other resize changes that you request have been done).
 
-Any filesystem inside the partition is I<not> expanded.  You will need
-to expand the filesystem (or PV) to fit the extra space either using
-L<guestfish(1)> (offline) or online guest tools.
+If virt-resize knows how, it will expand the direct content of the
+partition.  For example, if the partition is an LVM PV, it will expand
+the PV to fit (like calling L<pvresize(8)>).  Virt-resize leaves any
+other content it doesn't know about alone.
+
+Currently virt-resize can resize:
+
+=over 4
+
+=item *
+
+ext2, ext3 and ext4 filesystems when they are contained
+directly inside a partition.
+
+=item *
+
+NTFS filesystems contained directly in a partition, if libguestfs was
+compiled with support for NTFS.
+
+The filesystem must have been shut down consistently last time it was
+used.  Additionally, L<ntfsresize(8)> marks the resized filesystem as
+requiring a consistency check, so at the first boot after resizing
+Windows will check the disk.
+
+=item *
+
+LVM PVs (physical volumes).  However virt-resize does I<not>
+resize anything inside the PV.  The user will have to resize
+LVs as desired.
+
+=back
 
 Note that you cannot use C<--expand> and C<--shrink> together.
 
@@ -342,6 +413,18 @@ partition will be created.
 
 =cut
 
+my $expand_content = 1;
+
+=item B<--no-expand-content>
+
+By default, virt-resize will try to expand the direct contents
+of partitions, if it knows how (see C<--expand> option above).
+
+If you give the C<--no-expand-content> option then virt-resize
+will not attempt this.
+
+=cut
+
 my $debug;
 
 =item B<-d> | B<--debug>
@@ -378,8 +461,9 @@ GetOptions ("help|?" => \$help,
             "delete=s" => \@delete,
             "copy-boot-loader!" => \$copy_boot_loader,
             "extra-partition!" => \$extra_partition,
+            "expand-content!" => \$expand_content,
             "d|debug" => \$debug,
-            "n|dryrun" => \$dryrun,
+            "n|dryrun|dry-run" => \$dryrun,
             "q|quiet" => \$quiet,
     ) or pod2usage (2);
 pod2usage (1) if $help;
@@ -524,6 +608,21 @@ sub examine_partition
     # that case user won't be allowed to shrink this partition except
     # by forcing it.
     $partitions{$part}->{fssize} = $fssize;
+
+    # Is it partition content that we know how to expand?
+    $partitions{$part}->{can_expand_content} = 0;
+    if ($expand_content) {
+        if ($type eq "LVM2_member") {
+            $partitions{$part}->{can_expand_content} = 1;
+            $partitions{$part}->{expand_content_method} = "pvresize";
+        } elsif ($type =~ /^ext[234]/) {
+            $partitions{$part}->{can_expand_content} = 1;
+            $partitions{$part}->{expand_content_method} = "resize2fs";
+        } elsif ($type eq "ntfs" && feature_available ($g, "ntfsprogs")) {
+            $partitions{$part}->{can_expand_content} = 1;
+            $partitions{$part}->{expand_content_method} = "ntfsresize";
+        }
+    }
 }
 
 if ($debug) {
@@ -586,6 +685,8 @@ sub do_delete
 }
 
 # Handle --resize and --resize-force.
+my $to_be_expanded = 0;
+
 do_resize ($_, 0, "--resize") foreach @resize;
 do_resize ($_, 1, "--resize-force") foreach @resize_force;
 
@@ -659,6 +760,11 @@ sub mark_partition_for_resize
     }
 
     $partitions{$part}->{newsize} = $newsize;
+
+    if ($partitions{$part}->{can_expand_content} && $bigger) {
+        $partitions{$part}->{will_expand_content} = 1;
+        $to_be_expanded++;
+    }
 }
 
 # Handle --expand and --shrink.
@@ -747,18 +853,22 @@ sub print_summary
 
     foreach my $part (@partitions) {
         if ($partitions{$part}->{ignore}) {
-            print __x("{p}: partition will be ignored", p => $part);
+            print __x("{p}: partition will be ignored\n", p => $part);
         } elsif ($partitions{$part}->{delete}) {
-            print __x("{p}: partition will be deleted", p => $part);
+            print __x("{p}: partition will be deleted\n", p => $part);
         } elsif ($partitions{$part}->{newsize}) {
-            print __x("{p}: partition will be resized from {oldsize} to {newsize}",
+            print __x("{p}: partition will be resized from {oldsize} to {newsize}\n",
                       p => $part,
                       oldsize => human_size ($partitions{$part}->{part_size}),
                       newsize => human_size ($partitions{$part}->{newsize}));
+            if ($partitions{$part}->{will_expand_content}) {
+                print __x("{p}: content will be expanded using the '{meth}' method\n",
+                          p => $part,
+                          meth => $partitions{$part}->{expand_content_method});
+            }
         } else {
-            print __x("{p}: partition will be left alone", p => $part);
+            print __x("{p}: partition will be left alone\n", p => $part);
         }
-        print "\n"
     }
 
     if ($surplus > 0) {
@@ -912,17 +1022,107 @@ sub copy_data
 
                 if (!$quiet && !$debug) {
                     local $| = 1;
-                    print "Copying $part ...";
+                    print __x("Copying {p} ...", p => $part);
                 }
 
                 $g->copy_size ($part, $target,
                                $newsize < $oldsize ? $newsize : $oldsize);
 
                 if (!$quiet && !$debug) {
-                    print " done\n"
+                    print " ", __"done", "\n";
                 }
             }
         }
+    }
+}
+
+# After copying the data over we must shut down and restart the
+# appliance in order to expand the content.  The reason for this may
+# not be obvious, but it's because otherwise we'll have duplicate VGs
+# (the old VG(s) and the new VG(s)) which breaks LVM.
+#
+# The restart is only required if we're going to expand something.
+
+if ($to_be_expanded > 0) {
+    restart_appliance ();
+    expand_partitions ();
+}
+
+sub restart_appliance
+{
+    # Sync disk and exit.
+    $g->umount_all ();
+    $g->sync ();
+    undef $g;
+
+    $g = Sys::Guestfs->new ();
+    $g->set_trace (1) if $debug;
+    $g->add_drive ($outfile);
+    $g->launch ();
+
+    # Target partitions have changed from /dev/sdb to /dev/sda,
+    # so change them.
+    foreach my $part (@partitions)
+    {
+        my $target = $partitions{$part}->{target};
+        if ($target) {
+            if ($target =~ m{/dev/(.)db(.*)}) {
+                $partitions{$part}->{target} = "/dev/$1da$2";
+            } else {
+                die "internal error: unexpected partition target: $target";
+            }
+        }
+    }
+}
+
+sub expand_partitions
+{
+    foreach my $part (@partitions)
+    {
+        unless ($partitions{$part}->{ignore}) {
+            my $target = $partitions{$part}->{target};
+            if ($target) {
+                # Expand if requested.
+                if ($partitions{$part}->{will_expand_content}) {
+                    if (!$quiet && !$debug) {
+                        print __x("Expanding {p} using the '{meth}' method",
+                                  p => $part,
+                                  meth => $partitions{$part}->{expand_content_method});
+                    }
+                    expand_target_partition ($part)
+                }
+            }
+        }
+    }
+}
+
+sub expand_target_partition
+{
+    local $_;
+    my $part = shift;
+
+    # Assertions.
+    die unless $part;
+    die unless $partitions{$part}->{can_expand_content};
+    die unless $partitions{$part}->{will_expand_content};
+    die unless $partitions{$part}->{expand_content_method};
+    die unless $partitions{$part}->{target};
+    die unless $expand_content;
+
+    my $target = $partitions{$part}->{target};
+    my $method = $partitions{$part}->{expand_content_method};
+    if ($method eq "pvresize") {
+        $g->pvresize ($target);
+    }
+    elsif ($method eq "resize2fs") {
+        $g->e2fsck_f ($target);
+        $g->resize2fs ($target);
+    }
+    elsif ($method eq "ntfsresize") {
+        $g->ntfsresize ($target);
+    }
+    else {
+        die "internal error: unknown method: $method";
     }
 }
 
@@ -995,6 +1195,30 @@ sub canonicalize
     $_;
 }
 
+=head1 NOTES
+
+=head2 "Partition 1 does not end on cylinder boundary."
+
+Virt-resize aligns partitions to multiples of 64 sectors.  Usually
+this means the partitions will not be aligned to the ancient CHS
+geometry.  However CHS geometry is meaningless for disks manufactured
+since the early 1990s, and doubly so for virtual hard drives.
+Alignment of partitions to cylinders is not required by any modern
+operating system.
+
+=head2 RESIZING WINDOWS VIRTUAL MACHINES
+
+In Windows Vista and later versions, Microsoft switched to using a
+separate boot partition.  In these VMs, typically C</dev/sda1> is the
+boot partition and C</dev/sda2> is the main (C:) drive.  We have not
+had any luck resizing the boot partition.  Doing so seems to break the
+guest completely.  However expanding the second partition (ie. C:
+drive) should work.
+
+Windows may initiate a lengthy "chkdsk" on first boot after a resize,
+if NTFS partitions have been expanded.  This is just a safety check
+and (unless it find errors) is nothing to worry about.
+
 =head1 SEE ALSO
 
 L<virt-list-partitions(1)>,
@@ -1006,6 +1230,7 @@ L<lvm(8)>,
 L<pvresize(8)>,
 L<lvresize(8)>,
 L<resize2fs(8)>,
+L<ntfsresize(8)>,
 L<virsh(1)>,
 L<Sys::Guestfs(3)>,
 L<http://libguestfs.org/>.
