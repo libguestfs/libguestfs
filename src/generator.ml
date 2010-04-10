@@ -4345,6 +4345,61 @@ or file C<src> to another destination device or file C<dest>.
 Note this will fail if the source is too short or if the destination
 is not large enough.");
 
+  ("part_del", (RErr, [Device "device"; Int "partnum"]), 233, [],
+   [InitEmpty, Always, TestRun (
+      [["part_init"; "/dev/sda"; "mbr"];
+       ["part_add"; "/dev/sda"; "primary"; "1"; "-1"];
+       ["part_del"; "/dev/sda"; "1"]])],
+   "delete a partition",
+   "\
+This command deletes the partition numbered C<partnum> on C<device>.
+
+Note that in the case of MBR partitioning, deleting an
+extended partition also deletes any logical partitions
+it contains.");
+
+  ("part_get_bootable", (RBool "bootable", [Device "device"; Int "partnum"]), 234, [],
+   [InitEmpty, Always, TestOutputTrue (
+      [["part_init"; "/dev/sda"; "mbr"];
+       ["part_add"; "/dev/sda"; "primary"; "1"; "-1"];
+       ["part_set_bootable"; "/dev/sda"; "1"; "true"];
+       ["part_get_bootable"; "/dev/sda"; "1"]])],
+   "return true if a partition is bootable",
+   "\
+This command returns true if the partition C<partnum> on
+C<device> has the bootable flag set.
+
+See also C<guestfs_part_set_bootable>.");
+
+  ("part_get_mbr_id", (RInt "idbyte", [Device "device"; Int "partnum"]), 235, [],
+   [InitEmpty, Always, TestOutputInt (
+      [["part_init"; "/dev/sda"; "mbr"];
+       ["part_add"; "/dev/sda"; "primary"; "1"; "-1"];
+       ["part_set_mbr_id"; "/dev/sda"; "1"; "0x7f"];
+       ["part_get_mbr_id"; "/dev/sda"; "1"]], 0x7f)],
+   "get the MBR type byte (ID byte) from a partition",
+   "\
+Returns the MBR type byte (also known as the ID byte) from
+the numbered partition C<partnum>.
+
+Note that only MBR (old DOS-style) partitions have type bytes.
+You will get undefined results for other partition table
+types (see C<guestfs_part_get_parttype>).");
+
+  ("part_set_mbr_id", (RErr, [Device "device"; Int "partnum"; Int "idbyte"]), 236, [],
+   [], (* tested by part_get_mbr_id *)
+   "set the MBR type byte (ID byte) of a partition",
+   "\
+Sets the MBR type byte (also known as the ID byte) of
+the numbered partition C<partnum> to C<idbyte>.  Note
+that the type bytes quoted in most documentation are
+in fact hexadecimal numbers, but usually documented
+without any leading \"0x\" which might be confusing.
+
+Note that only MBR (old DOS-style) partitions have type bytes.
+You will get undefined results for other partition table
+types (see C<guestfs_part_get_parttype>).");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
