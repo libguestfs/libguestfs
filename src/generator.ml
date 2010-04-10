@@ -4443,6 +4443,16 @@ Note that only MBR (old DOS-style) partitions have type bytes.
 You will get undefined results for other partition table
 types (see C<guestfs_part_get_parttype>).");
 
+  ("checksum_device", (RString "checksum", [String "csumtype"; Device "device"]), 237, [],
+   [InitISOFS, Always, TestOutput (
+      [["checksum_device"; "md5"; "/dev/sdd"]],
+      (Digest.to_hex (Digest.file "images/test.iso")))],
+   "compute MD5, SHAx or CRC checksum of the contents of a device",
+   "\
+This call computes the MD5, SHAx or CRC checksum of the
+contents of the device named C<device>.  For the types of
+checksums supported see the C<guestfs_checksum> command.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

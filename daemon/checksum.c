@@ -27,11 +27,10 @@
 #include "daemon.h"
 #include "actions.h"
 
-char *
-do_checksum (const char *csumtype, const char *path)
+static char *
+checksum (const char *csumtype, const char *path)
 {
   const char *program;
-  char *buf;
   char *out, *err;
   int r;
   int len;
@@ -55,15 +54,7 @@ do_checksum (const char *csumtype, const char *path)
     return NULL;
   }
 
-  /* Make the path relative to /sysroot. */
-  buf = sysroot_path (path);
-  if (!buf) {
-    reply_with_perror ("malloc");
-    return NULL;
-  }
-
-  r = command (&out, &err, program, buf, NULL);
-  free (buf);
+  r = command (&out, &err, program, path, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", program, err);
     free (out);
@@ -78,4 +69,25 @@ do_checksum (const char *csumtype, const char *path)
   out[len] = '\0';
 
   return out;			/* Caller frees. */
+}
+
+char *
+do_checksum (const char *csumtype, const char *path)
+{
+  /* Make the path relative to /sysroot. */
+  char *buf = sysroot_path (path);
+  if (!buf) {
+    reply_with_perror ("malloc");
+    return NULL;
+  }
+
+  char *r = checksum (csumtype, buf);
+  free (buf);
+  return r;
+}
+
+char *
+do_checksum_device (const char *csumtype, const char *device)
+{
+  return checksum (csumtype, device);
 }
