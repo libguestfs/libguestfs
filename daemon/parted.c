@@ -224,6 +224,36 @@ do_part_set_name (const char *device, int partnum, const char *name)
   return 0;
 }
 
+/* Return the nth field from a string of ':'/';'-delimited strings.
+ * Useful for parsing the return value from print_partition_table
+ * function below.
+ */
+static char *
+get_table_field (const char *line, int n)
+{
+  const char *p = line;
+
+  while (*p && n > 0) {
+    p += strcspn (p, ":;") + 1;
+    n--;
+  }
+
+  if (n > 0) {
+    reply_with_error ("not enough fields in output of parted print command: %s",
+                      line);
+    return NULL;
+  }
+
+  size_t len = strcspn (p, ":;");
+  char *q = strndup (p, len);
+  if (q == NULL) {
+    reply_with_perror ("strndup");
+    return NULL;
+  }
+
+  return q;
+}
+
 static char **
 print_partition_table (const char *device)
 {
@@ -269,31 +299,15 @@ print_partition_table (const char *device)
 char *
 do_part_get_parttype (const char *device)
 {
-  char **lines;
-  char *r;
-
-  lines = print_partition_table (device);
+  char **lines = print_partition_table (device);
   if (!lines)
     return NULL;
 
   /* lines[1] is something like:
    * "/dev/sda:1953525168s:scsi:512:512:msdos:ATA Hitachi HDT72101;"
    */
-  if (strtok (lines[1], ":") == NULL /* device */
-      || strtok (NULL, ":") == NULL  /* size */
-      || strtok (NULL, ":") == NULL  /* transport */
-      || strtok (NULL, ":") == NULL  /* sector size */
-      || strtok (NULL, ":") == NULL  /* physical sector size */
-      || (r = strtok (NULL, ":")) == NULL /* return value */
-      ) {
-    reply_with_error ("too few fields in output from parted print command: %s", lines[1]);
-    free_strings (lines);
-    return NULL;
-  }
-
-  r = strdup (r);
-  if (!r) {
-    reply_with_perror ("strdup");
+  char *r = get_table_field (lines[1], 5);
+  if (r == NULL) {
     free_strings (lines);
     return NULL;
   }
