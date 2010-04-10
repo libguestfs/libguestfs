@@ -20,6 +20,7 @@ use warnings;
 use strict;
 
 use Sys::Guestfs;
+use Sys::Guestfs::Lib qw(feature_available);
 
 use Pod::Usage;
 use Getopt::Long;
@@ -407,8 +408,8 @@ eval {
     $g->add_drive ($output);
     $g->launch ();
 
-    if ($type eq "ntfs") {
-        $g->available ([ "ntfs3g" ]);
+    if ($type eq "ntfs" && !feature_available ($g, "ntfs3g", "ntfsprogs")) {
+        die __"virt-make-fs: NTFS support was disabled when libguestfs was compiled\n"
     }
 
     # Partition the disk.
