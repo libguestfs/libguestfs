@@ -1326,8 +1326,21 @@ enough.
 =head1 SEE ALSO
 
 L<guestfish(1)>,
+L<guestmount(1)>,
+L<virt-cat(1)>,
+L<virt-df(1)>,
+L<virt-edit(1)>,
+L<virt-inspector(1)>,
+L<virt-list-filesystems(1)>,
+L<virt-list-partitions(1)>,
+L<virt-ls(1)>,
+L<virt-make-fs(1)>,
+L<virt-rescue(1)>,
+L<virt-tar(1)>,
+L<virt-win-reg(1)>,
 L<qemu(1)>,
 L<febootstrap(1)>,
+L<hivex(3)>,
 L<http://libguestfs.org/>.
 
 Tools with a similar purpose:
