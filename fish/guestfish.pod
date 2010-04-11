@@ -98,7 +98,7 @@ the functionality of the guestfs API, see L<guestfs(3)>.
 
 Guestfish gives you structured access to the libguestfs API, from
 shell scripts or the command line or interactively.  If you want to
-rescue a broken virtual machine image, you might want to look at the
+rescue a broken virtual machine image, you should look at the
 L<virt-rescue(1)> command.
 
 Using guestfish in read/write mode on live virtual machines can be
@@ -738,11 +738,15 @@ I<1> if there was an error.
 L<guestfs(3)>,
 L<http://libguestfs.org/>,
 L<virt-cat(1)>,
+L<virt-df(1)>,
 L<virt-edit(1)>,
 L<virt-list-filesystems(1)>,
+L<virt-list-partitions(1)>,
 L<virt-ls(1)>,
+L<virt-make-fs(1)>,
 L<virt-rescue(1)>,
-L<virt-tar(1)>.
+L<virt-tar(1)>,
+L<virt-win-reg(1)>.
 
 =head1 AUTHORS
 

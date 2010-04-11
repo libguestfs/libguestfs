@@ -847,9 +847,9 @@ L<Sys::Guestfs::Lib(3)>,
 L<Sys::Virt(3)>,
 L<http://libguestfs.org/>.
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Richard W.M. Jones L<http://et.redhat.com/~rjones/>
+Richard W.M. Jones L<http://people.redhat.com/~rjones/>
 
 Matthew Booth L<mbooth@redhat.com>
 

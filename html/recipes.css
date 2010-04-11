@@ -1,5 +1,5 @@
 /* CSS to make pod2html files look a little bit better. */
-@import url("http://et.redhat.com/~rjones/css/standard.css");
+@import url("http://people.redhat.com/~rjones/css/standard.css");
 
 pre.example {
   font-weight: bold;

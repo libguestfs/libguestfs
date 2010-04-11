@@ -315,13 +315,13 @@ first:
  - python
  - rpm-python    http://www.rpm.org/
  - yum           http://yum.baseurl.org/
- - febootstrap   http://et.redhat.com/~rjones/febootstrap/
+ - febootstrap   http://people.redhat.com/~rjones/febootstrap/
 
 
 Copyright and license information
 ----------------------------------------------------------------------
 
-Copyright (C) 2009 Red Hat Inc.
+Copyright (C) 2009-2010 Red Hat Inc.
 
 The library is distributed under the LGPLv2+.  The programs are
 distributed under the GPLv2+.  Please see the files COPYING and
