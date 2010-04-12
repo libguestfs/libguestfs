@@ -73,6 +73,10 @@ for path in $(find -not -name fakeroot.log); do
     if [ "$path" = "./init" -o "$file" = "guestfsd" ]; then
         echo "$path" >&5
 
+    # Get timezone configuration from local system.
+    elif [ "$path" = "./etc/localtime" ]; then
+        echo "$path" >&6
+
     elif [[ "$path" =~ $p_etc || "$path" =~ $p_dev || "$path" =~ $p_var ]]
     then
         echo "$path" >&5
