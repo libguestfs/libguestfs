@@ -383,6 +383,34 @@ You can give this option multiple times.
 
 =cut
 
+my @lv_expand;
+
+=item B<--LV-expand logvol>
+
+This takes the logical volume and, as a final step, expands it to fill
+all the space available in its volume group.  A typical usage,
+assuming a Linux guest with a single PV C</dev/sda2> and a root device
+called C</dev/vg_guest/lv_root> would be:
+
+ virt-resize indisk outdisk \
+   --expand /dev/sda2 --LV-expand /dev/vg_guest/lv_root
+
+This would first expand the partition (and PV), and then expand the
+root device to fill the extra space in the PV.
+
+The contents of the LV are also resized if virt-resize knows how to do
+that.  You can stop virt-resize from trying to expand the content by
+using the option C<--no-expand-content>.
+
+Use L<virt-list-filesystems(1)> to list the filesystems in
+the guest.
+
+You can give this option multiple times, I<but> it doesn't
+make sense to do this unless the logical volumes you specify
+are all in different volume groups.
+
+=cut
+
 my $copy_boot_loader = 1;
 
 =item B<--no-copy-boot-loader>
@@ -459,6 +487,7 @@ GetOptions ("help|?" => \$help,
             "shrink=s" => \$shrink,
             "ignore=s" => \@ignore,
             "delete=s" => \@delete,
+            "lv-expand=s" => \@lv_expand,
             "copy-boot-loader!" => \$copy_boot_loader,
             "extra-partition!" => \$extra_partition,
             "expand-content!" => \$expand_content,
@@ -543,6 +572,8 @@ sub launch_guestfs
 }
 
 my $sectsize = $g->blockdev_getss ("/dev/sdb");
+
+my $to_be_expanded = 0;
 
 # Get the partitions on the source disk.
 my @partitions;
@@ -638,6 +669,50 @@ if ($debug) {
     }
 }
 
+# Examine the LVs (for --lv-expand option).
+my @lvs = $g->lvs ();
+my %lvs;
+examine_lv ($_) foreach @lvs;
+mark_lvs_to_expand ();
+
+sub examine_lv
+{
+    local $_ = shift;
+
+    $lvs{$_}->{name} = $_;
+
+    my $type = "unknown";
+    eval {
+        $type = $g->vfs_type ($_);
+    };
+    $lvs{$_}->{type} = $type;
+
+    if ($expand_content) {
+        if ($type =~ /^ext[234]$/) {
+            $lvs{$_}->{can_expand_content} = 1;
+            $lvs{$_}->{expand_content_method} = "resize2fs";
+        } elsif ($type eq "ntfs" && feature_available ($g, "ntfsprogs")) {
+            $lvs{$_}->{can_expand_content} = 1;
+            $lvs{$_}->{expand_content_method} = "ntfsresize";
+        }
+    }
+}
+
+sub mark_lvs_to_expand {
+    local $_;
+
+    foreach (@lv_expand) {
+        die __x("virt-resize: no logical volume called {n}\n",
+                n => $_)
+            unless exists $lvs{$_};
+
+        if ($lvs{$_}->{can_expand_content}) {
+            $lvs{$_}->{will_expand_content} = 1;
+            $to_be_expanded++;
+        }
+    }
+}
+
 sub find_partition
 {
     local $_ = shift;
@@ -685,8 +760,6 @@ sub do_delete
 }
 
 # Handle --resize and --resize-force.
-my $to_be_expanded = 0;
-
 do_resize ($_, 0, "--resize") foreach @resize;
 do_resize ($_, 1, "--resize-force") foreach @resize_force;
 
@@ -871,6 +944,19 @@ sub print_summary
         }
     }
 
+    foreach my $lv (@lv_expand) {
+        print __x("{n}: LV will be expanded to maximum size\n",
+                  n => $lv);
+    }
+
+    foreach my $lv (@lvs) {
+        if ($lvs{$lv}->{will_expand_content}) {
+            print __x("{n}: content will be expanded using the '{meth}' method\n",
+                      n => $lv,
+                      meth => $lvs{$lv}->{expand_content_method});
+        }
+    }
+
     if ($surplus > 0) {
         print __x("There is a surplus of {spl} bytes ({h}).\n",
                   spl => $surplus,
@@ -1046,6 +1132,8 @@ sub copy_data
 if ($to_be_expanded > 0) {
     restart_appliance ();
     expand_partitions ();
+    expand_lvs ();
+    expand_lvs_content ();
 }
 
 sub restart_appliance
@@ -1123,6 +1211,38 @@ sub expand_target_partition
     }
     else {
         die "internal error: unknown method: $method";
+    }
+}
+
+sub expand_lvs
+{
+    local $_;
+
+    foreach (@lv_expand) {
+        $g->lvresize_free ($_, 100);
+    }
+}
+
+sub expand_lvs_content
+{
+    local $_;
+
+    foreach (@lvs) {
+        if ($lvs{$_}->{will_expand_content}) {
+            my $method = $lvs{$_}->{expand_content_method};
+            if (!$quiet && !$debug) {
+                print __x("Expanding {p} using the '{meth}' method\n",
+                          p => $_, meth => $method);
+                    }
+            if ($method eq "resize2fs") {
+                $g->e2fsck_f ($_);
+                $g->resize2fs ($_);
+            } elsif ($method eq "ntfsresize") {
+                $g->ntfsresize ($_);
+            } else {
+                die "internal error: unknown method: $method";
+            }
+        }
     }
 }
 
