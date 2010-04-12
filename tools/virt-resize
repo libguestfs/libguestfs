@@ -995,6 +995,22 @@ sub canonicalize
     $_;
 }
 
+=head1 ALTERNATIVE TOOLS
+
+There are several proprietary tools for resizing partitions.  We
+won't mention any here.
+
+L<parted(8)> and its graphical shell gparted can do some types of
+resizing operations on disk images.  They can resize and move
+partitions, but I don't think they can do anything with the contents,
+and they certainly don't understand LVM.
+
+L<guestfish(1)> can do everything that virt-resize can do and a lot
+more, but at a much lower level.  You will probably end up
+hand-calculating sector offsets, which is something that virt-resize
+was designed to avoid.  If you want to see the guestfish-equivalent
+commands that virt-resize runs, use the C<--debug> flag.
+
 =head1 SEE ALSO
 
 L<virt-list-partitions(1)>,
@@ -1007,6 +1023,7 @@ L<pvresize(8)>,
 L<lvresize(8)>,
 L<resize2fs(8)>,
 L<virsh(1)>,
+L<parted(8)>,
 L<Sys::Guestfs(3)>,
 L<http://libguestfs.org/>.
 
