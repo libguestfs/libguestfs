@@ -278,6 +278,32 @@ do_lvresize (const char *logvol, int mbytes)
   return 0;
 }
 
+int
+do_lvresize_free (const char *logvol, int percent)
+{
+  char *err;
+  int r;
+
+  if (percent < 0 || percent > 100) {
+    reply_with_error ("percentage must be [0..100] (was %d)", percent);
+    return -1;
+  }
+
+  char size[64];
+  snprintf (size, sizeof size, "+%d%%FREE", percent);
+
+  r = command (NULL, &err,
+               "lvm", "lvresize", "-l", size, logvol, NULL);
+  if (r == -1) {
+    reply_with_error ("%s", err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+  return 0;
+}
+
 /* Super-dangerous command used for testing.  It removes all
  * LVs, VGs and PVs permanently.
  */

@@ -4453,6 +4453,21 @@ This call computes the MD5, SHAx or CRC checksum of the
 contents of the device named C<device>.  For the types of
 checksums supported see the C<guestfs_checksum> command.");
 
+  ("lvresize_free", (RErr, [Device "lv"; Int "percent"]), 238, [Optional "lvm2"],
+   [InitNone, Always, TestRun (
+      [["part_disk"; "/dev/sda"; "mbr"];
+       ["pvcreate"; "/dev/sda1"];
+       ["vgcreate"; "VG"; "/dev/sda1"];
+       ["lvcreate"; "LV"; "VG"; "10"];
+       ["lvresize_free"; "/dev/VG/LV"; "100"]])],
+   "expand an LV to fill free space",
+   "\
+This expands an existing logical volume C<lv> so that it fills
+C<pc>% of the remaining free space in the volume group.  Commonly
+you would call this with pc = 100 which expands the logical volume
+as much as possible, using all remaining free space in the volume
+group.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
