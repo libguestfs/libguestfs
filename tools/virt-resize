@@ -1085,7 +1085,7 @@ sub expand_partitions
                 # Expand if requested.
                 if ($partitions{$part}->{will_expand_content}) {
                     if (!$quiet && !$debug) {
-                        print __x("Expanding {p} using the '{meth}' method",
+                        print __x("Expanding {p} using the '{meth}' method\n",
                                   p => $part,
                                   meth => $partitions{$part}->{expand_content_method});
                     }
