@@ -47,11 +47,16 @@ if grep -sq selinux=1 /proc/cmdline; then
   mount -t selinuxfs none /selinux
 fi
 
-modprobe dm_mod ||:
+# Update the system clock.
+hwclock -u -s
 
+# Set up the network.
 ifconfig lo 127.0.0.1
 ifconfig eth0 10.0.2.10
 route add default gw 10.0.2.2
+
+# Scan for LVM.
+modprobe dm_mod ||:
 
 lvm vgscan --ignorelockingfailure
 lvm vgchange -ay --ignorelockingfailure
@@ -68,6 +73,8 @@ lvm lvs
 ifconfig
 netstat -rn
 lsmod
+#hwclock -r
+date
 #ping -n -v -c 5 10.0.2.2
 #ping -n -v -c 5 10.0.2.4
 
