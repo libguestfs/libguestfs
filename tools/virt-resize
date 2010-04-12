@@ -615,7 +615,7 @@ sub examine_partition
         if ($type eq "LVM2_member") {
             $partitions{$part}->{can_expand_content} = 1;
             $partitions{$part}->{expand_content_method} = "pvresize";
-        } elsif ($type =~ /^ext[234]/) {
+        } elsif ($type =~ /^ext[234]$/) {
             $partitions{$part}->{can_expand_content} = 1;
             $partitions{$part}->{expand_content_method} = "resize2fs";
         } elsif ($type eq "ntfs" && feature_available ($g, "ntfsprogs")) {
