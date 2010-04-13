@@ -27,6 +27,7 @@ TESTS = \
 	rhbz503169c10.sh \
 	rhbz503169c13.sh \
 	rhbz557655.sh \
+	rhbz578407.sh \
 	rhbz580246.sh \
 	test-cancellation-download-librarycancels.sh \
 	test-cancellation-upload-daemoncancels.sh \
