@@ -385,6 +385,7 @@ Other examples:
 
  hexdump /bin/ls | head
  list-devices | tail -1
+ tgz-out / - | tar ztf -
 
 The space before the pipe symbol is required, any space after the pipe
 symbol is optional.  Everything after the pipe symbol is just passed
