@@ -768,6 +768,15 @@ cmdline (char *argv[], int optind, int argc)
     fprintf (stderr, _("%s: empty command on command line\n"), program_name);
     exit (EXIT_FAILURE);
   }
+
+  /* Allow -cmd on the command line to mean (temporarily) override
+   * the normal exit on error (RHBZ#578407).
+   */
+  if (cmd[0] == '-') {
+    exit_on_error = 0;
+    cmd++;
+  }
+
   params = &argv[optind];
 
   /* Search for end of command list or ":" ... */
@@ -775,10 +784,12 @@ cmdline (char *argv[], int optind, int argc)
     optind++;
 
   if (optind == argc) {
-    if (issue_command (cmd, params, NULL) == -1) exit (EXIT_FAILURE);
+    if (issue_command (cmd, params, NULL) == -1 && exit_on_error)
+        exit (EXIT_FAILURE);
   } else {
     argv[optind] = NULL;
-    if (issue_command (cmd, params, NULL) == -1) exit (EXIT_FAILURE);
+    if (issue_command (cmd, params, NULL) == -1 && exit_on_error)
+      exit (EXIT_FAILURE);
     cmdline (argv, optind+1, argc);
   }
 }
