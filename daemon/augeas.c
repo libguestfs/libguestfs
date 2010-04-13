@@ -210,6 +210,26 @@ do_aug_set (const char *path, const char *val)
 }
 
 int
+do_aug_clear (const char *path)
+{
+#ifdef HAVE_AUGEAS
+  int r;
+
+  NEED_AUG (-1);
+
+  r = aug_set (aug, path, NULL);
+  if (r == -1) {
+    reply_with_error ("Augeas clear failed");
+    return -1;
+  }
+
+  return 0;
+#else
+  NOT_AVAILABLE (-1);
+#endif
+}
+
+int
 do_aug_insert (const char *path, const char *label, int before)
 {
 #ifdef HAVE_AUGEAS

@@ -1238,7 +1238,12 @@ matches exactly one node, the C<value> is returned.");
    [], (* XXX Augeas code needs tests. *)
    "set Augeas path to value",
    "\
-Set the value associated with C<path> to C<value>.");
+Set the value associated with C<path> to C<val>.
+
+In the Augeas API, it is possible to clear a node by setting
+the value to NULL.  Due to an oversight in the libguestfs API
+you cannot do that with this call.  Instead you must use the
+C<guestfs_aug_clear> call.");
 
   ("aug_insert", (RErr, [String "augpath"; String "label"; Bool "before"]), 21, [Optional "augeas"],
    [], (* XXX Augeas code needs tests. *)
@@ -4467,6 +4472,13 @@ C<pc>% of the remaining free space in the volume group.  Commonly
 you would call this with pc = 100 which expands the logical volume
 as much as possible, using all remaining free space in the volume
 group.");
+
+  ("aug_clear", (RErr, [String "augpath"]), 239, [Optional "augeas"],
+   [], (* XXX Augeas code needs tests. *)
+   "clear Augeas path",
+   "\
+Set the value associated with C<path> to C<NULL>.  This
+is the same as the L<augtool(1)> C<clear> command.");
 
 ]
 
