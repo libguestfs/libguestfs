@@ -367,6 +367,9 @@ will create a directory C<local> on the host, and then export
 the contents of C</remote> on the mounted filesystem to
 C<local/remote-data.tar.gz>.  (See C<tgz-out>).
 
+To change the local directory, use the C<lcd> command.  C<!cd> will
+have no effect, due to the way that subprocesses work in Unix.
+
 =head1 PIPES
 
 Use C<command E<lt>spaceE<gt> | command> to pipe the output of the
