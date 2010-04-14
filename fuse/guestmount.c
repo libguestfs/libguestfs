@@ -40,6 +40,7 @@
 #include <assert.h>
 #include <sys/time.h>
 #include <sys/types.h>
+#include <locale.h>
 
 #include <fuse.h>
 #include <guestfs.h>
