@@ -3034,7 +3034,8 @@ The default umask is C<022>.  This is important because it
 means that directories and device nodes will be created with
 C<0644> or C<0755> mode even if you specify C<0777>.
 
-See also L<umask(2)>, C<guestfs_mknod>, C<guestfs_mkdir>.
+See also C<guestfs_get_umask>,
+L<umask(2)>, C<guestfs_mknod>, C<guestfs_mkdir>.
 
 This call returns the previous umask.");
 
@@ -4483,6 +4484,14 @@ group.");
    "\
 Set the value associated with C<path> to C<NULL>.  This
 is the same as the L<augtool(1)> C<clear> command.");
+
+  ("get_umask", (RInt "mask", []), 240, [FishOutput FishOutputOctal],
+   [InitEmpty, Always, TestOutputInt (
+      [["get_umask"]], 0o22)],
+   "get the current umask",
+   "\
+Return the current umask.  By default the umask is C<022>
+unless it has been set by calling C<guestfs_umask>.");
 
 ]
 

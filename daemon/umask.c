@@ -44,3 +44,20 @@ do_umask (int mask)
 
   return r;
 }
+
+int
+do_get_umask (void)
+{
+  int r;
+
+  r = umask (022);
+  if (r == -1) {
+    reply_with_perror ("umask");
+    return -1;
+  }
+
+  /* Restore the umask, since the call above corrupted it. */
+  umask (r);
+
+  return r;
+}
