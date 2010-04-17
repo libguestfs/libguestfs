@@ -6,12 +6,6 @@ to libguestfs in future.
 
    - RWMJ
 
-Python bindings
----------------
-
-Ideas for the Python bindings:
-https://www.redhat.com/archives/fedora-virt/2009-April/msg00114.html
-
 FUSE API
 --------
 
