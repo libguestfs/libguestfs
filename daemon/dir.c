@@ -104,6 +104,11 @@ do_mkdir_mode (const char *path, int mode)
 {
   int r;
 
+  if (mode < 0) {
+    reply_with_error ("%s: mode is negative", path);
+    return -1;
+  }
+
   CHROOT_IN;
   r = mkdir (path, mode);
   CHROOT_OUT;

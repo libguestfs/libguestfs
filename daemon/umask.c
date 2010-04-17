@@ -35,6 +35,11 @@ do_umask (int mask)
 {
   int r;
 
+  if (mask < 0 || mask > 0777) {
+    reply_with_error ("0%o: mask negative or out of range", mask);
+    return -1;
+  }
+
   r = umask (mask);
 
   if (r == -1) {

@@ -51,6 +51,11 @@ do_mknod (int mode, int devmajor, int devminor, const char *path)
 #ifdef HAVE_MKNOD
   int r;
 
+  if (mode < 0) {
+    reply_with_error ("%s: mode is negative", path);
+    return -1;
+  }
+
   CHROOT_IN;
   r = mknod (path, mode, makedev (devmajor, devminor));
   CHROOT_OUT;
