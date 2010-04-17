@@ -70,7 +70,7 @@ do_inotify_init (int max_events)
 #ifdef HAVE_SYS_INOTIFY_H
   FILE *fp;
 
-  NEED_ROOT (return -1);
+  NEED_ROOT (, return -1);
 
   if (max_events < 0) {
     reply_with_error ("max_events < 0");

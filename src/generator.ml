@@ -2028,7 +2028,7 @@ Compute the SHA512 hash (using the C<sha512sum> program).
 
 The checksum is returned as a printable string.");
 
-  ("tar_in", (RErr, [FileIn "tarfile"; String "directory"]), 69, [],
+  ("tar_in", (RErr, [FileIn "tarfile"; Pathname "directory"]), 69, [],
    [InitBasicFS, Always, TestOutput (
       [["tar_in"; "../images/helloworld.tar"; "/"];
        ["cat"; "/hello"]], "hello\n")],
@@ -2050,7 +2050,7 @@ it to local file C<tarfile>.
 To download a compressed tarball, use C<guestfs_tgz_out>
 or C<guestfs_txz_out>.");
 
-  ("tgz_in", (RErr, [FileIn "tarball"; String "directory"]), 71, [],
+  ("tgz_in", (RErr, [FileIn "tarball"; Pathname "directory"]), 71, [],
    [InitBasicFS, Always, TestOutput (
       [["tgz_in"; "../images/helloworld.tar.gz"; "/"];
        ["cat"; "/hello"]], "hello\n")],
@@ -4382,7 +4382,7 @@ This command writes zeroes over the entire C<device>.  Compare
 with C<guestfs_zero> which just zeroes the first few blocks of
 a device.");
 
-  ("txz_in", (RErr, [FileIn "tarball"; String "directory"]), 229, [],
+  ("txz_in", (RErr, [FileIn "tarball"; Pathname "directory"]), 229, [],
    [InitBasicFS, Always, TestOutput (
       [["txz_in"; "../images/helloworld.tar.xz"; "/"];
        ["cat"; "/hello"]], "hello\n")],
@@ -6032,14 +6032,19 @@ and generate_daemon_actions () =
       );
       pr "\n";
 
+      let is_filein =
+        List.exists (function FileIn _ -> true | _ -> false) (snd style) in
+
       (match snd style with
        | [] -> ()
        | args ->
            pr "  memset (&args, 0, sizeof args);\n";
            pr "\n";
            pr "  if (!xdr_guestfs_%s_args (xdr_in, &args)) {\n" name;
+           if is_filein then
+             pr "    cancel_receive ();\n";
            pr "    reply_with_error (\"daemon failed to decode procedure arguments\");\n";
-           pr "    return;\n";
+           pr "    goto done;\n";
            pr "  }\n";
            let pr_args n =
              pr "  char *%s = args.%s;\n" n n
@@ -6048,6 +6053,8 @@ and generate_daemon_actions () =
              pr "  %s = realloc (args.%s.%s_val,\n" n n n;
              pr "                sizeof (char *) * (args.%s.%s_len+1));\n" n n;
              pr "  if (%s == NULL) {\n" n;
+             if is_filein then
+               pr "    cancel_receive ();\n";
              pr "    reply_with_perror (\"realloc\");\n";
              pr "    goto done;\n";
              pr "  }\n";
@@ -6058,13 +6065,16 @@ and generate_daemon_actions () =
              function
              | Pathname n ->
                  pr_args n;
-                 pr "  ABS_PATH (%s, goto done);\n" n;
+                 pr "  ABS_PATH (%s, %s, goto done);\n"
+                   n (if is_filein then "cancel_receive ()" else "");
              | Device n ->
                  pr_args n;
-                 pr "  RESOLVE_DEVICE (%s, goto done);\n" n;
+                 pr "  RESOLVE_DEVICE (%s, %s, goto done);\n"
+                   n (if is_filein then "cancel_receive ()" else "");
              | Dev_or_Path n ->
                  pr_args n;
-                 pr "  REQUIRE_ROOT_OR_RESOLVE_DEVICE (%s, goto done);\n" n;
+                 pr "  REQUIRE_ROOT_OR_RESOLVE_DEVICE (%s, %s, goto done);\n"
+                   n (if is_filein then "cancel_receive ()" else "");
              | String n -> pr_args n
              | OptString n -> pr "  %s = args.%s ? *args.%s : NULL;\n" n n n
              | StringList n ->
@@ -6074,7 +6084,8 @@ and generate_daemon_actions () =
                  pr "  /* Ensure that each is a device,\n";
                  pr "   * and perform device name translation. */\n";
                  pr "  { int pvi; for (pvi = 0; physvols[pvi] != NULL; ++pvi)\n";
-                 pr "    RESOLVE_DEVICE (physvols[pvi], goto done);\n";
+                 pr "    RESOLVE_DEVICE (physvols[pvi], %s, goto done);\n"
+                   (if is_filein then "cancel_receive ()" else "");
                  pr "  }\n";
              | Bool n -> pr "  %s = args.%s;\n" n n
              | Int n -> pr "  %s = args.%s;\n" n n
@@ -6089,7 +6100,8 @@ and generate_daemon_actions () =
       if List.exists (function Pathname _ -> true | _ -> false) (snd style) then (
         (* Emit NEED_ROOT just once, even when there are two or
            more Pathname args *)
-        pr "  NEED_ROOT (goto done);\n";
+        pr "  NEED_ROOT (%s, goto done);\n"
+          (if is_filein then "cancel_receive ()" else "");
       );
 
       (* Don't want to call the impl with any FileIn or FileOut
@@ -6175,15 +6187,14 @@ and generate_daemon_actions () =
       );
 
       (* Free the args. *)
+      pr "done:\n";
       (match snd style with
-       | [] ->
-           pr "done: ;\n";
+       | [] -> ()
        | _ ->
-           pr "done:\n";
            pr "  xdr_free ((xdrproc_t) xdr_guestfs_%s_args, (char *) &args);\n"
              name
       );
-
+      pr "  return;\n";
       pr "}\n\n";
   ) daemon_functions;
 

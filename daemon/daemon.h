@@ -68,7 +68,7 @@ extern char **split_lines (char *str);
 
 extern void trim (char *str);
 
-extern int device_name_translation (char *device, const char *func);
+extern int device_name_translation (char *device);
 
 extern int prog_exists (const char *prog);
 
@@ -155,9 +155,10 @@ extern void reply (xdrproc_t xdrp, char *ret);
 /* Helper for functions that need a root filesystem mounted.
  * NB. Cannot be used for FileIn functions.
  */
-#define NEED_ROOT(fail_stmt)						\
+#define NEED_ROOT(cancel_stmt,fail_stmt)                                \
   do {									\
     if (!root_mounted) {						\
+      cancel_stmt;                                                      \
       reply_with_error ("%s: you must call 'mount' first to mount the root filesystem", __func__); \
       fail_stmt;							\
     }									\
@@ -167,9 +168,10 @@ extern void reply (xdrproc_t xdrp, char *ret);
 /* Helper for functions that need an argument ("path") that is absolute.
  * NB. Cannot be used for FileIn functions.
  */
-#define ABS_PATH(path,fail_stmt)					\
+#define ABS_PATH(path,cancel_stmt,fail_stmt)                            \
   do {									\
     if ((path)[0] != '/') {						\
+      cancel_stmt;							\
       reply_with_error ("%s: path must start with a / character", __func__); \
       fail_stmt;							\
     }									\
@@ -182,14 +184,20 @@ extern void reply (xdrproc_t xdrp, char *ret);
  *
  * NB. Cannot be used for FileIn functions.
  */
-#define RESOLVE_DEVICE(path,fail_stmt)					\
+#define RESOLVE_DEVICE(path,cancel_stmt,fail_stmt)                      \
   do {									\
     if (STRNEQLEN ((path), "/dev/", 5)) {				\
+      cancel_stmt;							\
       reply_with_error ("%s: %s: expecting a device name", __func__, (path)); \
       fail_stmt;							\
     }									\
-    if (device_name_translation ((path), __func__) == -1)		\
+    if (device_name_translation ((path)) == -1) {                       \
+      int err = errno;                                                  \
+      cancel_stmt;                                                      \
+      errno = err;                                                      \
+      reply_with_perror ("%s: %s", __func__, path);                     \
       fail_stmt;							\
+    }                                                                   \
   } while (0)
 
 /* Helper for functions which need either an absolute path in the
@@ -202,13 +210,13 @@ extern void reply (xdrproc_t xdrp, char *ret);
  * because we intend in future to make device parameters a distinct
  * type from filenames.
  */
-#define REQUIRE_ROOT_OR_RESOLVE_DEVICE(path,fail_stmt)			\
+#define REQUIRE_ROOT_OR_RESOLVE_DEVICE(path,cancel_stmt,fail_stmt)      \
   do {									\
     if (STREQLEN ((path), "/dev/", 5))                                  \
-      RESOLVE_DEVICE ((path), fail_stmt);				\
+      RESOLVE_DEVICE ((path), cancel_stmt, fail_stmt);                  \
     else {								\
-      NEED_ROOT (fail_stmt);						\
-      ABS_PATH ((path),fail_stmt);					\
+      NEED_ROOT (cancel_stmt, fail_stmt);                               \
+      ABS_PATH ((path), cancel_stmt, fail_stmt);                        \
     }									\
   } while (0)
 

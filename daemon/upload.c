@@ -41,13 +41,6 @@ do_upload (const char *filename)
   int err, fd, r, is_dev;
 
   is_dev = STRPREFIX (filename, "/dev/");
-  if (!is_dev) {
-    if (!root_mounted || filename[0] != '/') {
-      cancel_receive ();
-      reply_with_error ("root must be mounted and path must be absolute");
-      return -1;
-    }
-  }
 
   if (!is_dev) CHROOT_IN;
   fd = open (filename, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY, 0666);

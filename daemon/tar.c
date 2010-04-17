@@ -42,12 +42,6 @@ do_tar_in (const char *dir)
   FILE *fp;
   char *cmd;
 
-  if (!root_mounted || dir[0] != '/') {
-    cancel_receive ();
-    reply_with_error ("root must be mounted and path must be absolute");
-    return -1;
-  }
-
   /* "tar -C /sysroot%s -xf -" but we have to quote the dir. */
   if (asprintf_nowarn (&cmd, "tar -C %R -xf -", dir) == -1) {
     err = errno;
@@ -164,12 +158,6 @@ do_tXz_in (const char *dir, char filter)
   int err, r;
   FILE *fp;
   char *cmd;
-
-  if (!root_mounted || dir[0] != '/') {
-    cancel_receive ();
-    reply_with_error ("root must be mounted and path must be absolute");
-    return -1;
-  }
 
   /* "tar -C /sysroot%s -zxf -" but we have to quote the dir. */
   if (asprintf_nowarn (&cmd, "tar -C %R -%cxf -", dir, filter) == -1) {

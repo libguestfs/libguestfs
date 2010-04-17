@@ -36,7 +36,7 @@ do_command (char *const *argv)
   int dev_ok, dev_pts_ok, proc_ok, selinux_ok, sys_ok;
 
   /* We need a root filesystem mounted to do this. */
-  NEED_ROOT (return NULL);
+  NEED_ROOT (, return NULL);
 
   /* Conveniently, argv is already a NULL-terminated argv-style array
    * of parameters, so we can pass it straight in to our internal

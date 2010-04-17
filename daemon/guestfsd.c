@@ -1022,42 +1022,36 @@ print_arginfo (const struct printf_info *info, size_t n, int *argtypes)
  * the device nodes themselves will exist in the appliance.
  */
 int
-device_name_translation (char *device, const char *func)
+device_name_translation (char *device)
 {
   int fd;
 
   fd = open (device, O_RDONLY);
   if (fd >= 0) {
+  close_ok:
     close (fd);
     return 0;
   }
 
-  if (errno != ENXIO && errno != ENOENT) {
-  error:
-    reply_with_perror ("%s: %s", func, device);
+  if (errno != ENXIO && errno != ENOENT)
     return -1;
-  }
 
   /* If the name begins with "/dev/sd" then try the alternatives. */
   if (STRNEQLEN (device, "/dev/sd", 7))
-    goto error;
+    return -1;
 
   device[5] = 'h';		/* /dev/hd (old IDE driver) */
   fd = open (device, O_RDONLY);
-  if (fd >= 0) {
-    close (fd);
-    return 0;
-  }
+  if (fd >= 0)
+    goto close_ok;
 
   device[5] = 'v';		/* /dev/vd (for virtio devices) */
   fd = open (device, O_RDONLY);
-  if (fd >= 0) {
-    close (fd);
-    return 0;
-  }
+  if (fd >= 0)
+    goto close_ok;
 
   device[5] = 's';		/* Restore original device name. */
-  goto error;
+  return -1;
 }
 
 /* Check program exists and is executable on $PATH.  Actually, we
