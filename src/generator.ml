@@ -1390,7 +1390,9 @@ numeric modes are supported.
 
 I<Note>: When using this command from guestfish, C<mode>
 by default would be decimal, unless you prefix it with
-C<0> to get octal, ie. use C<0700> not C<700>.");
+C<0> to get octal, ie. use C<0700> not C<700>.
+
+The mode actually set is affected by the umask.");
 
   ("chown", (RErr, [Int "owner"; Int "group"; Pathname "path"]), 35, [],
    [], (* XXX Need stat command to test *)
@@ -2985,7 +2987,9 @@ named pipes (FIFOs).
 The C<mode> parameter should be the mode, using the standard
 constants.  C<devmajor> and C<devminor> are the
 device major and minor numbers, only used when creating block
-and character special devices.");
+and character special devices.
+
+The mode actually set is affected by the umask.");
 
   ("mkfifo", (RErr, [Int "mode"; Pathname "path"]), 134, [Optional "mknod"],
    [InitBasicFS, Always, TestOutputStruct (
@@ -2995,7 +2999,9 @@ and character special devices.");
    "\
 This call creates a FIFO (named pipe) called C<path> with
 mode C<mode>.  It is just a convenient wrapper around
-C<guestfs_mknod>.");
+C<guestfs_mknod>.
+
+The mode actually set is affected by the umask.");
 
   ("mknod_b", (RErr, [Int "mode"; Int "devmajor"; Int "devminor"; Pathname "path"]), 135, [Optional "mknod"],
    [InitBasicFS, Always, TestOutputStruct (
@@ -3005,7 +3011,9 @@ C<guestfs_mknod>.");
    "\
 This call creates a block device node called C<path> with
 mode C<mode> and device major/minor C<devmajor> and C<devminor>.
-It is just a convenient wrapper around C<guestfs_mknod>.");
+It is just a convenient wrapper around C<guestfs_mknod>.
+
+The mode actually set is affected by the umask.");
 
   ("mknod_c", (RErr, [Int "mode"; Int "devmajor"; Int "devminor"; Pathname "path"]), 136, [Optional "mknod"],
    [InitBasicFS, Always, TestOutputStruct (
@@ -3015,7 +3023,9 @@ It is just a convenient wrapper around C<guestfs_mknod>.");
    "\
 This call creates a char device node called C<path> with
 mode C<mode> and device major/minor C<devmajor> and C<devminor>.
-It is just a convenient wrapper around C<guestfs_mknod>.");
+It is just a convenient wrapper around C<guestfs_mknod>.
+
+The mode actually set is affected by the umask.");
 
   ("umask", (RInt "oldmask", [Int "mask"]), 137, [FishOutput FishOutputOctal],
    [InitEmpty, Always, TestOutputInt (
@@ -3879,7 +3889,13 @@ C<*secs> field is ignored in this case).");
    "create a directory with a particular mode",
    "\
 This command creates a directory, setting the initial permissions
-of the directory to C<mode>.  See also C<guestfs_mkdir>.");
+of the directory to C<mode>.
+
+For common Linux filesystems, the actual mode which is set will
+be C<mode & ~umask & 01777>.  Non-native-Linux filesystems may
+interpret the mode in other ways.
+
+See also C<guestfs_mkdir>, C<guestfs_umask>");
 
   ("lchown", (RErr, [Int "owner"; Int "group"; Pathname "path"]), 203, [],
    [], (* XXX *)
