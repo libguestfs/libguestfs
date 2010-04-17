@@ -5742,7 +5742,8 @@ check_state (guestfs_h *g, const char *caller)
       pr "  int r;\n";
       pr "\n";
       trace_call shortname style;
-      pr "  if (check_state (g, \"%s\") == -1) return %s;\n" name error_code;
+      pr "  if (check_state (g, \"%s\") == -1) return %s;\n"
+        shortname error_code;
       pr "  guestfs___set_busy (g);\n";
       pr "\n";
 
