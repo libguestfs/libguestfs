@@ -1478,9 +1478,9 @@ from the non-empty list of physical volumes C<physvols>.");
        ["lvs"]],
       ["/dev/VG1/LV1"; "/dev/VG1/LV2";
        "/dev/VG2/LV3"; "/dev/VG2/LV4"; "/dev/VG2/LV5"])],
-   "create an LVM volume group",
+   "create an LVM logical volume",
    "\
-This creates an LVM volume group called C<logvol>
+This creates an LVM logical volume called C<logvol>
 on the volume group C<volgroup>, with C<size> megabytes.");
 
   ("mkfs", (RErr, [String "fstype"; Device "device"]), 42, [],
