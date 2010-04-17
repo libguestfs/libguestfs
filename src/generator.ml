@@ -3006,9 +3006,8 @@ mode C<mode> and device major/minor C<devmajor> and C<devminor>.
 It is just a convenient wrapper around C<guestfs_mknod>.");
 
   ("umask", (RInt "oldmask", [Int "mask"]), 137, [],
-   [], (* XXX umask is one of those stateful things that we should
-        * reset between each test.
-        *)
+   [InitEmpty, Always, TestOutputInt (
+      [["umask"; "0o22"]], 0o22)],
    "set file mode creation mask (umask)",
    "\
 This function sets the mask used for creating new files and
