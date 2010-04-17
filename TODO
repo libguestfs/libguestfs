@@ -259,3 +259,15 @@ anything in a disk image.
 However this won't work easily for VM disk images in the disk image.
 One would have to download those to the host and launch another
 libguestfs instance.
+
+List, mount filesystems by UUID and label
+-----------------------------------------
+
+[See related:
+http://www.redhat.com/archives/libguestfs/2009-August/msg00031.html]
+
+List filesystems by UUID or label.
+
+Mount filesystems by UUID or label.  (I'm not really sure if we can do
+this at the moment but we ought to be able to do it, and perhaps make
+it easier by having a direct command).
