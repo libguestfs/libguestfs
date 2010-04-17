@@ -238,13 +238,6 @@ Windows-based daemon/appliance
 See discussion on list:
 https://www.redhat.com/archives/libguestfs/2009-November/msg00165.html
 
-virt-grow, virt-shrink
-----------------------
-
-Grow and shrink existing guests.  The main problem comes with
-MBR-style partitions where you have to actually copy data around the
-disk (unless you only want to change the final partition).
-
 qemu locking
 ------------
 
