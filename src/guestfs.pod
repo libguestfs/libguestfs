@@ -16,6 +16,10 @@ guestfs - Library for accessing and modifying virtual machine images
  guestfs_sync (handle);
  guestfs_close (handle);
 
+ cc prog.c -o prog -lguestfs
+or:
+ cc prog.c -o prog `pkg-config libguestfs --cflags --libs`
+
 =head1 DESCRIPTION
 
 Libguestfs is a library for accessing and modifying guest disk images.
