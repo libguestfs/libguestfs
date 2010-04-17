@@ -5074,7 +5074,7 @@ let check_functions () =
         failwithf "short description of %s should not end with . or \\n." name
   ) all_functions;
 
-  (* Check long dscriptions. *)
+  (* Check long descriptions. *)
   List.iter (
     fun (name, _, _, _, _, _, longdesc) ->
       if longdesc.[String.length longdesc-1] = '\n' then
