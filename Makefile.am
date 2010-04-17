@@ -19,7 +19,8 @@ include $(top_srcdir)/subdir-rules.mk
 
 ACLOCAL_AMFLAGS = -I m4
 
-SUBDIRS = gnulib/lib src
+# Basic source for the library.
+SUBDIRS = gnulib/lib images src examples po
 
 if ENABLE_DAEMON
 SUBDIRS += daemon
@@ -28,24 +29,16 @@ if ENABLE_APPLIANCE
 SUBDIRS += appliance
 endif
 
-SUBDIRS += fish po examples images
+# Tests and the test-tool.
 SUBDIRS += gnulib/tests capitests regressions test-tool
 
+# Guestfish.
+SUBDIRS += fish 
+
+# Language bindings.
 if HAVE_PERL
 SUBDIRS += perl
 endif
-
-if HAVE_INSPECTOR
-SUBDIRS += inspector
-endif
-if HAVE_TOOLS
-SUBDIRS += tools
-endif
-
-if HAVE_FUSE
-SUBDIRS += fuse
-endif
-
 if HAVE_OCAML
 SUBDIRS += ocaml ocaml/examples
 endif
@@ -60,6 +53,19 @@ SUBDIRS += java
 endif
 if HAVE_HASKELL
 SUBDIRS += haskell
+endif
+
+# Virt-inspector, tools and guestmount.
+if HAVE_INSPECTOR
+SUBDIRS += inspector
+endif
+
+if HAVE_TOOLS
+SUBDIRS += tools
+endif
+
+if HAVE_FUSE
+SUBDIRS += fuse
 endif
 
 EXTRA_DIST = \
