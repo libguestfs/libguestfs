@@ -50,12 +50,15 @@ EXTRA_DIST = \
 # have to create the directory first.
 noinst_DATA = stamp-generator
 
-stamp-generator: generator.ml
+stamp-generator: generator.ml ../images/test.iso
 	mkdir -p $(top_srcdir)/perl/lib/Sys
 	mkdir -p $(top_srcdir)/ruby/ext/guestfs
 	mkdir -p $(top_srcdir)/java/com/redhat/et/libguestfs
 	mkdir -p $(top_srcdir)/csharp
 	cd $(top_srcdir) && ocaml -warn-error A src/generator.ml
+
+../images/test.iso:
+	make -C ../images test.iso
 
 include_HEADERS = guestfs.h guestfs-actions.h guestfs-structs.h
 
