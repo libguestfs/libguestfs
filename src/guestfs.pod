@@ -13,6 +13,7 @@ guestfs - Library for accessing and modifying virtual machine images
  guestfs_launch (handle);
  guestfs_mount (handle, "/dev/sda1", "/");
  guestfs_touch (handle, "/hello");
+ guestfs_umount (handle, "/");
  guestfs_sync (handle);
  guestfs_close (handle);
 
