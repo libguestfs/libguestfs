@@ -125,6 +125,7 @@ extern char *try_tilde_expansion (char *path);
   "glob",				\
   "more", "less",			\
   "reopen",				\
+  "sparse",                             \
   "time"
 
 static inline char *
