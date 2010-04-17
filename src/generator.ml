@@ -5219,7 +5219,7 @@ let rec generate_actions_pod () =
         let name = "guestfs_" ^ shortname in
         pr "=head2 %s\n\n" name;
         pr " ";
-        generate_prototype ~extern:false ~handle:"handle" name style;
+        generate_prototype ~extern:false ~handle:"g" name style;
         pr "\n\n";
         pr "%s\n\n" longdesc;
         (match fst style with
@@ -5547,7 +5547,7 @@ and generate_actions_h () =
   List.iter (
     fun (shortname, style, _, _, _, _, _) ->
       let name = "guestfs_" ^ shortname in
-      generate_prototype ~single_line:true ~newline:true ~handle:"handle"
+      generate_prototype ~single_line:true ~newline:true ~handle:"g"
         name style
   ) all_functions
 
@@ -5557,7 +5557,7 @@ and generate_internal_actions_h () =
   List.iter (
     fun (shortname, style, _, _, _, _, _) ->
       let name = "guestfs__" ^ shortname in
-      generate_prototype ~single_line:true ~newline:true ~handle:"handle"
+      generate_prototype ~single_line:true ~newline:true ~handle:"g"
         name style
   ) non_daemon_functions
 

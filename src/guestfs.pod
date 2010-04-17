@@ -8,14 +8,14 @@ guestfs - Library for accessing and modifying virtual machine images
 
  #include <guestfs.h>
  
- guestfs_h *handle = guestfs_create ();
- guestfs_add_drive (handle, "guest.img");
- guestfs_launch (handle);
- guestfs_mount (handle, "/dev/sda1", "/");
- guestfs_touch (handle, "/hello");
- guestfs_umount (handle, "/");
- guestfs_sync (handle);
- guestfs_close (handle);
+ guestfs_h *g = guestfs_create ();
+ guestfs_add_drive (g, "guest.img");
+ guestfs_launch (g);
+ guestfs_mount (g, "/dev/sda1", "/");
+ guestfs_touch (g, "/hello");
+ guestfs_umount (g, "/");
+ guestfs_sync (g);
+ guestfs_close (g);
 
  cc prog.c -o prog -lguestfs
 or:
@@ -63,43 +63,48 @@ from reading about the individual calls below.
 Before you can use libguestfs calls, you have to create a handle.
 Then you must add at least one disk image to the handle, followed by
 launching the handle, then performing whatever operations you want,
-and finally closing the handle.  So the general structure of all
-libguestfs-using programs looks like this:
+and finally closing the handle.  By convention we use the single
+letter C<g> for the name of the handle variable, although of course
+you can use any name you want.
 
- guestfs_h *handle = guestfs_create ();
+The general structure of all libguestfs-using programs looks like
+this:
+
+ guestfs_h *g = guestfs_create ();
  
  /* Call guestfs_add_drive additional times if there are
   * multiple disk images.
   */
- guestfs_add_drive (handle, "guest.img");
+ guestfs_add_drive (g, "guest.img");
  
  /* Most manipulation calls won't work until you've launched
-  * the handle.  You have to do this _after_ adding drives
+  * the handle 'g'.  You have to do this _after_ adding drives
   * and _before_ other commands.
   */
- guestfs_launch (handle);
+ guestfs_launch (g);
  
  /* Now you can examine what partitions, LVs etc are available.
   */
- char **partitions = guestfs_list_partitions (handle);
- char **logvols = guestfs_lvs (handle);
+ char **partitions = guestfs_list_partitions (g);
+ char **logvols = guestfs_lvs (g);
  
  /* To access a filesystem in the image, you must mount it.
   */
- guestfs_mount (handle, "/dev/sda1", "/");
+ guestfs_mount (g, "/dev/sda1", "/");
  
  /* Now you can perform filesystem actions on the guest
   * disk image.
   */
- guestfs_touch (handle, "/hello");
+ guestfs_touch (g, "/hello");
  
  /* You only need to call guestfs_sync if you have made
-  * changes to the guest image.
+  * changes to the guest image.  (But if you've made changes
+  * then you *must* sync).
   */
- guestfs_sync (handle);
+ guestfs_sync (g);
  
- /* Close the handle. */
- guestfs_close (handle);
+ /* Close the handle 'g'. */
+ guestfs_close (g);
 
 The code above doesn't include any error checking.  In real code you
 should check return values carefully for errors.  In general all
@@ -142,7 +147,7 @@ filesystems using C<guestfs_mount>.  If you already know that a disk
 image contains (for example) one partition with a filesystem on that
 partition, then you can mount it directly:
 
- guestfs_mount (handle, "/dev/sda1", "/");
+ guestfs_mount (g, "/dev/sda1", "/");
 
 where C</dev/sda1> means literally the first partition (C<1>) of the
 first disk image that we added (C</dev/sda>).  If the disk contains
@@ -172,7 +177,7 @@ Specify filenames as full paths including the mount point.
 For example, if you mounted a filesystem at C<"/"> and you want to
 read the file called C<"etc/passwd"> then you could do:
 
- char *data = guestfs_cat (handle, "/etc/passwd");
+ char *data = guestfs_cat (g, "/etc/passwd");
 
 This would return C<data> as a newly allocated buffer containing the
 full content of that file (with some conditions: see also
@@ -181,11 +186,11 @@ L</DOWNLOADING> below), or C<NULL> if there was an error.
 As another example, to create a top-level directory on that filesystem
 called C<"var"> you would do:
 
- guestfs_mkdir (handle, "/var");
+ guestfs_mkdir (g, "/var");
 
 To create a symlink you could do:
 
- guestfs_ln_s (handle, "/etc/init.d/portmap",
+ guestfs_ln_s (g, "/etc/init.d/portmap",
                "/etc/rc3.d/S30portmap");
 
 Libguestfs will reject attempts to use relative paths.  There is no
@@ -467,9 +472,9 @@ Although we don't want to discourage you from using the C API, we will
 mention here that the same API is also available in other languages.
 
 The API is broadly identical in all supported languages.  This means
-that the C call C<guestfs_mount(handle,path)> is
-C<$handle-E<gt>mount($path)> in Perl, C<handle.mount(path)> in Python,
-and C<Guestfs.mount handle path> in OCaml.  In other words, a
+that the C call C<guestfs_mount(g,path)> is
+C<$g-E<gt>mount($path)> in Perl, C<g.mount(path)> in Python,
+and C<Guestfs.mount g path> in OCaml.  In other words, a
 straightforward, predictable isomorphism between each language.
 
 Error messages are automatically transformed
@@ -550,10 +555,10 @@ When modifying a filesystem from C or another language, you B<must>
 unmount all filesystems and call L</guestfs_sync> explicitly before
 you close the libguestfs handle.  You can also call:
 
- guestfs_set_autosync (handle, 1);
+ guestfs_set_autosync (g, 1);
 
-to have the unmount/sync done automatically for you when the handle is
-closed.  (This feature is called "autosync", L</guestfs_set_autosync>
+to have the unmount/sync done automatically for you when the handle 'g'
+is closed.  (This feature is called "autosync", L</guestfs_set_autosync>
 q.v.)
 
 If you forget to do this, then it is entirely possible that your
@@ -646,7 +651,7 @@ L</ERROR HANDLING> section below.
 
 =head2 guestfs_close
 
- void guestfs_close (guestfs_h *handle);
+ void guestfs_close (guestfs_h *g);
 
 This closes the connection handle and frees up all resources used.
 
@@ -665,9 +670,9 @@ handler using C<guestfs_set_out_of_memory_handler>.
 
 =head2 guestfs_last_error
 
- const char *guestfs_last_error (guestfs_h *handle);
+ const char *guestfs_last_error (guestfs_h *g);
 
-This returns the last error message that happened on C<handle>.  If
+This returns the last error message that happened on C<g>.  If
 there has not been an error since the handle was created, then this
 returns C<NULL>.
 
@@ -680,10 +685,10 @@ largest number of results.
 
 =head2 guestfs_set_error_handler
 
- typedef void (*guestfs_error_handler_cb) (guestfs_h *handle,
+ typedef void (*guestfs_error_handler_cb) (guestfs_h *g,
                                            void *data,
                                            const char *msg);
- void guestfs_set_error_handler (guestfs_h *handle,
+ void guestfs_set_error_handler (guestfs_h *g,
                                  guestfs_error_handler_cb cb,
                                  void *data);
 
@@ -701,7 +706,7 @@ If you set C<cb> to C<NULL> then I<no> handler is called.
 
 =head2 guestfs_get_error_handler
 
- guestfs_error_handler_cb guestfs_get_error_handler (guestfs_h *handle,
+ guestfs_error_handler_cb guestfs_get_error_handler (guestfs_h *g,
                                                      void **data_rtn);
 
 Returns the current error handler callback.
@@ -709,7 +714,7 @@ Returns the current error handler callback.
 =head2 guestfs_set_out_of_memory_handler
 
  typedef void (*guestfs_abort_cb) (void);
- int guestfs_set_out_of_memory_handler (guestfs_h *handle,
+ int guestfs_set_out_of_memory_handler (guestfs_h *g,
                                         guestfs_abort_cb);
 
 The callback C<cb> will be called if there is an out of memory
@@ -722,7 +727,7 @@ situations.
 
 =head2 guestfs_get_out_of_memory_handler
 
- guestfs_abort_fn guestfs_get_out_of_memory_handler (guestfs_h *handle);
+ guestfs_abort_fn guestfs_get_out_of_memory_handler (guestfs_h *g);
 
 This returns the current out of memory handler.
 
@@ -963,7 +968,7 @@ this function with C<cb> set to C<NULL>.
 
  typedef void (*guestfs_log_message_cb) (guestfs_h *g, void *opaque,
                                          char *buf, int len);
- void guestfs_set_log_message_callback (guestfs_h *handle,
+ void guestfs_set_log_message_callback (guestfs_h *g,
                                         guestfs_log_message_cb cb,
                                         void *opaque);
 
@@ -978,7 +983,7 @@ discarded.
 =head2 guestfs_set_subprocess_quit_callback
 
  typedef void (*guestfs_subprocess_quit_cb) (guestfs_h *g, void *opaque);
- void guestfs_set_subprocess_quit_callback (guestfs_h *handle,
+ void guestfs_set_subprocess_quit_callback (guestfs_h *g,
                                             guestfs_subprocess_quit_cb cb,
                                             void *opaque);
 
@@ -990,7 +995,7 @@ any state to the CONFIG state).
 =head2 guestfs_set_launch_done_callback
 
  typedef void (*guestfs_launch_done_cb) (guestfs_h *g, void *opaque);
- void guestfs_set_launch_done_callback (guestfs_h *handle,
+ void guestfs_set_launch_done_callback (guestfs_h *g,
                                         guestfs_ready_cb cb,
                                         void *opaque);
 
@@ -1289,7 +1294,7 @@ Pass additional options to the guest kernel.
 =item LIBGUESTFS_DEBUG
 
 Set C<LIBGUESTFS_DEBUG=1> to enable verbose messages.  This
-has the same effect as calling C<guestfs_set_verbose (handle, 1)>.
+has the same effect as calling C<guestfs_set_verbose (g, 1)>.
 
 =item LIBGUESTFS_MEMSIZE
 
@@ -1314,7 +1319,7 @@ See also L</QEMU WRAPPERS> above.
 =item LIBGUESTFS_TRACE
 
 Set C<LIBGUESTFS_TRACE=1> to enable command traces.  This
-has the same effect as calling C<guestfs_set_trace (handle, 1)>.
+has the same effect as calling C<guestfs_set_trace (g, 1)>.
 
 =item TMPDIR
 
