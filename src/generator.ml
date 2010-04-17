@@ -182,10 +182,15 @@ type flags =
   | DangerWillRobinson	  (* flags particularly dangerous commands *)
   | FishAlias of string	  (* provide an alias for this cmd in guestfish *)
   | FishAction of string  (* call this function in guestfish *)
+  | FishOutput of fish_output_t (* how to display output in guestfish *)
   | NotInFish		  (* do not export via guestfish *)
   | NotInDocs		  (* do not add this function to documentation *)
   | DeprecatedBy of string (* function is deprecated, use .. instead *)
   | Optional of string	  (* function is part of an optional group *)
+
+and fish_output_t =
+  | FishOutputOctal       (* for int return, print in octal *)
+  | FishOutputHexadecimal (* for int return, print in hex *)
 
 (* You can supply zero or as many tests as you want per API call.
  *
@@ -2250,7 +2255,7 @@ to return the existing UUID of a filesystem.");
 This returns the ext2/3/4 filesystem UUID of the filesystem on
 C<device>.");
 
-  ("fsck", (RInt "status", [String "fstype"; Device "device"]), 84, [],
+  ("fsck", (RInt "status", [String "fstype"; Device "device"]), 84, [FishOutput FishOutputHexadecimal],
    [InitBasicFS, Always, TestOutputInt (
       [["umount"; "/dev/sda1"];
        ["fsck"; "ext2"; "/dev/sda1"]], 0);
@@ -3012,7 +3017,7 @@ This call creates a char device node called C<path> with
 mode C<mode> and device major/minor C<devmajor> and C<devminor>.
 It is just a convenient wrapper around C<guestfs_mknod>.");
 
-  ("umask", (RInt "oldmask", [Int "mask"]), 137, [],
+  ("umask", (RInt "oldmask", [Int "mask"]), 137, [FishOutput FishOutputOctal],
    [], (* XXX umask is one of those stateful things that we should
         * reset between each test.
         *)
@@ -4419,7 +4424,7 @@ C<device> has the bootable flag set.
 
 See also C<guestfs_part_set_bootable>.");
 
-  ("part_get_mbr_id", (RInt "idbyte", [Device "device"; Int "partnum"]), 235, [],
+  ("part_get_mbr_id", (RInt "idbyte", [Device "device"; Int "partnum"]), 235, [FishOutput FishOutputHexadecimal],
    [InitEmpty, Always, TestOutputInt (
       [["part_init"; "/dev/sda"; "mbr"];
        ["part_add"; "/dev/sda"; "primary"; "1"; "-1"];
@@ -7446,16 +7451,39 @@ and generate_fish_cmds () =
             pr "  free_strings (%s);\n" name
       ) (snd style);
 
+      (* Any output flags? *)
+      let fish_output =
+        let flags = filter_map (
+          function FishOutput flag -> Some flag | _ -> None
+        ) flags in
+        match flags with
+        | [] -> None
+        | [f] -> Some f
+        | _ ->
+            failwithf "%s: more than one FishOutput flag is not allowed" name in
+
       (* Check return value for errors and display command results. *)
       (match fst style with
        | RErr -> pr "  return r;\n"
        | RInt _ ->
            pr "  if (r == -1) return -1;\n";
-           pr "  printf (\"%%d\\n\", r);\n";
+           (match fish_output with
+            | None ->
+                pr "  printf (\"%%d\\n\", r);\n";
+            | Some FishOutputOctal ->
+                pr "  printf (\"%%s%%o\\n\", r != 0 ? \"0\" : \"\", r);\n";
+            | Some FishOutputHexadecimal ->
+                pr "  printf (\"%%s%%x\\n\", r != 0 ? \"0x\" : \"\", r);\n");
            pr "  return 0;\n"
        | RInt64 _ ->
            pr "  if (r == -1) return -1;\n";
-           pr "  printf (\"%%\" PRIi64 \"\\n\", r);\n";
+           (match fish_output with
+            | None ->
+                pr "  printf (\"%%\" PRIi64 \"\\n\", r);\n";
+            | Some FishOutputOctal ->
+                pr "  printf (\"%%s%%\" PRIo64 \"\\n\", r != 0 ? \"0\" : \"\", r);\n";
+            | Some FishOutputHexadecimal ->
+                pr "  printf (\"%%s%%\" PRIx64 \"\\n\", r != 0 ? \"0x\" : \"\", r);\n");
            pr "  return 0;\n"
        | RBool _ ->
            pr "  if (r == -1) return -1;\n";

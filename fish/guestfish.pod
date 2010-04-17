@@ -313,7 +313,9 @@ the Unix L<chmod(1)> program):
  chmod 0777 /public  # OK
  chmod 777 /public   # WRONG! This is mode 777 decimal = 01411 octal.
 
-Commands that return numbers currently always print them in decimal.
+Commands that return numbers usually print them in decimal, but
+some commands print numbers in other radices (eg. C<umask> prints
+the mode in octal, preceeded by C<0>).
 
 =head1 WILDCARDS AND GLOBBING
 
