@@ -232,12 +232,6 @@ http://www.perlmonks.org/index.pl?node_id=582185
 Note that pty requires cooperation inside the C code too (there are
 two sides to a pty, and one has to be handled after the fork).
 
-virt-rescue TERM
-----------------
-
-Pass TERM from the library, through the kernel command line, to the
-init script.
-
 Windows-based daemon/appliance
 ------------------------------
 
