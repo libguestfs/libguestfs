@@ -4509,6 +4509,17 @@ is the same as the L<augtool(1)> C<clear> command.");
 Return the current umask.  By default the umask is C<022>
 unless it has been set by calling C<guestfs_umask>.");
 
+  ("debug_upload", (RErr, [FileIn "filename"; String "tmpname"; Int "mode"]), 241, [],
+   [],
+   "upload a file to the appliance (internal use only)",
+   "\
+The C<guestfs_debug_upload> command uploads a file to
+the libguestfs appliance.
+
+There is no comprehensive help for this command.  You have
+to look at the file C<daemon/debug.c> in the libguestfs source
+to find out what it is for.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

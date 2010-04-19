@@ -24,6 +24,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <fcntl.h>
 #include <dirent.h>
 
 #include "../src/guestfs_protocol.h"
@@ -203,21 +204,17 @@ debug_segv (const char *subcmd, int argc, char *const *const argv)
  *
  * Note this is somewhat different from the ordinary guestfs_sh command
  * because it's not using the guest shell, and is not chrooted.
- *
- * Also we ignore any errors and you can see the full output if you
- * add 2>&1 to the end of the command string.
  */
 static char *
 debug_sh (const char *subcmd, int argc, char *const *const argv)
 {
-  char *cmd;
-  int len, i, j;
-  char *out;
-
   if (argc < 1) {
     reply_with_error ("sh: expecting a command to run");
     return NULL;
   }
+
+  char *cmd;
+  int len, i, j;
 
   /* guestfish splits the parameter(s) into a list of strings,
    * and we have to reassemble them here.  Not ideal. XXX
@@ -238,9 +235,27 @@ debug_sh (const char *subcmd, int argc, char *const *const argv)
   }
   cmd[j-1] = '\0';
 
-  command (&out, NULL, "/bin/sh", "-c", cmd, NULL);
+  /* Set up some environment variables. */
+  setenv ("root", sysroot, 1);
+  if (access ("/sys/block/sda", F_OK) == 0)
+    setenv ("sd", "sd", 1);
+  else if (access ("/sys/block/hda", F_OK) == 0)
+    setenv ("sd", "hd", 1);
+  else if (access ("/sys/block/vda", F_OK) == 0)
+    setenv ("sd", "vd", 1);
+
+  char *err;
+  int r = commandf (NULL, &err, COMMAND_FLAG_FOLD_STDOUT_ON_STDERR,
+                    "/bin/sh", "-c", cmd, NULL);
   free (cmd);
-  return out;
+
+  if (r == -1) {
+    reply_with_error ("%s", err);
+    free (err);
+    return NULL;
+  }
+
+  return err;
 }
 
 /* Print the environment that commands get (by running external printenv). */
@@ -324,3 +339,61 @@ debug_ll (const char *subcmd, int argc, char *const *const argv)
 }
 
 #endif /* ENABLE_DEBUG_COMMAND */
+
+#if ENABLE_DEBUG_COMMAND
+static int
+write_cb (void *fd_ptr, const void *buf, size_t len)
+{
+  int fd = *(int *)fd_ptr;
+  return xwrite (fd, buf, len);
+}
+#endif
+
+/* Has one FileIn parameter. */
+int
+do_debug_upload (const char *filename MAYBE_UNUSED, int mode MAYBE_UNUSED)
+{
+#if ENABLE_DEBUG_COMMAND
+  /* Not chrooted - this command lets you upload a file to anywhere
+   * in the appliance.
+   */
+  int fd = open (filename, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY, mode);
+
+  if (fd == -1) {
+    int err = errno;
+    cancel_receive ();
+    errno = err;
+    reply_with_perror ("%s", filename);
+    return -1;
+  }
+
+  int r = receive_file (write_cb, &fd);
+  if (r == -1) {		/* write error */
+    int err = errno;
+    cancel_receive ();
+    errno = err;
+    reply_with_error ("write error: %s", filename);
+    close (fd);
+    return -1;
+  }
+  if (r == -2) {		/* cancellation from library */
+    close (fd);
+    /* Do NOT send any error. */
+    return -1;
+  }
+
+  if (close (fd) == -1) {
+    int err = errno;
+    if (r == -1)                /* if r == 0, file transfer ended already */
+      cancel_receive ();
+    errno = err;
+    reply_with_perror ("close: %s", filename);
+    return -1;
+  }
+
+  return 0;
+#else
+  reply_with_error ("guestfsd was not configured with --enable-debug-command");
+  return NULL;
+#endif
+}
