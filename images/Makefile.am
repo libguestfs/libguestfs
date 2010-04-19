@@ -73,6 +73,7 @@ images_files_build = \
 	$(builddir)/100kallspaces \
 	$(builddir)/100krandom \
 	$(builddir)/10klines \
+	$(builddir)/hello.b64 \
 	$(builddir)/initrd \
 	$(builddir)/initrd-x86_64.img \
 	$(builddir)/initrd-x86_64.img.gz \
@@ -117,6 +118,9 @@ $(builddir)/10klines:
 	  i=$$(($$i+1)); \
 	done > $@-t
 	mv $@-t $@
+
+$(builddir)/hello.b64:
+	echo "hello" | base64 > $@
 
 $(builddir)/initrd: empty known-1 known-2 known-3 known-4 known-5
 	rm -f $@ $@-t

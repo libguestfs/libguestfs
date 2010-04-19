@@ -64,6 +64,7 @@ guestfsd_SOURCES = \
 	actions.h \
 	available.c \
 	augeas.c \
+	base64.c \
 	blkid.c \
 	blockdev.c \
 	checksum.c \

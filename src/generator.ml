@@ -4520,6 +4520,22 @@ There is no comprehensive help for this command.  You have
 to look at the file C<daemon/debug.c> in the libguestfs source
 to find out what it is for.");
 
+  ("base64_in", (RErr, [FileIn "base64file"; Pathname "filename"]), 242, [],
+   [InitBasicFS, Always, TestOutput (
+      [["base64_in"; "../images/hello.b64"; "/hello"];
+       ["cat"; "/hello"]], "hello\n")],
+   "upload base64-encoded data to file",
+   "\
+This command uploads base64-encoded data from C<base64file>
+to C<filename>.");
+
+  ("base64_out", (RErr, [Pathname "filename"; FileOut "base64file"]), 243, [],
+   [],
+   "download file and encode as base64",
+   "\
+This command downloads the contents of C<filename>, writing
+it out to local file C<base64file> encoded as base64.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
