@@ -749,6 +749,7 @@ L<virt-list-partitions(1)>,
 L<virt-ls(1)>,
 L<virt-make-fs(1)>,
 L<virt-rescue(1)>,
+L<virt-resize(1)>,
 L<virt-tar(1)>,
 L<virt-win-reg(1)>.
 
