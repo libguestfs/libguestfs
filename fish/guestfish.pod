@@ -486,6 +486,39 @@ user ID of the process, and C<$PID> is the process ID of the server.
 
 Guestfish client and server versions must match exactly.
 
+=head1 UPLOADING AND DOWNLOADING FILES
+
+For commands such as C<upload>, C<download>, C<tar-in>, C<tar-out> and
+others which upload from or download to a local file, you can use the
+special filename C<-> to mean "from stdin" or "to stdout".  For example:
+
+ upload - /foo
+
+reads stdin and creates from that a file C</foo> in the disk image,
+and:
+
+ tar-out /etc - | tar tf -
+
+writes the tarball to stdout and then pipes that into the external
+"tar" command (see L</PIPES>).
+
+When using C<-> to read from stdin, the input is read up to the end of
+stdin.  You can also use a special "heredoc"-like syntax to read up to
+some arbitrary end marker:
+
+ upload -<<END /foo
+ input line 1
+ input line 2
+ input line 3
+ END
+
+Any string of characters can be used instead of C<END>.  The end
+marker must appear on a line of its own, without any preceeding or
+following characters (not even spaces).
+
+Note that the C<-E<lt>E<lt>> syntax only applies to parameters used to
+upload local files (so-called "FileIn" parameters in the generator).
+
 =head1 GUESTFISH COMMANDS
 
 The commands in this section are guestfish convenience commands, in

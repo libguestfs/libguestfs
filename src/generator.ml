@@ -7385,11 +7385,11 @@ and generate_fish_cmds () =
         function
         | Device n
         | String n
-        | OptString n
-        | FileIn n
-        | FileOut n -> pr "  const char *%s;\n" n
+        | OptString n -> pr "  const char *%s;\n" n
         | Pathname n
-        | Dev_or_Path n -> pr "  char *%s;\n" n
+        | Dev_or_Path n
+        | FileIn n
+        | FileOut n -> pr "  char *%s;\n" n
         | StringList n | DeviceList n -> pr "  char **%s;\n" n
         | Bool n -> pr "  int %s;\n" n
         | Int n -> pr "  int %s;\n" n
@@ -7446,11 +7446,11 @@ and generate_fish_cmds () =
               pr "  %s = STRNEQ (argv[%d], \"\") ? argv[%d] : NULL;\n"
                 name i i
           | FileIn name ->
-              pr "  %s = STRNEQ (argv[%d], \"-\") ? argv[%d] : \"/dev/stdin\";\n"
-                name i i
+              pr "  %s = file_in (argv[%d]);\n" name i;
+              pr "  if (%s == NULL) return -1;\n" name
           | FileOut name ->
-              pr "  %s = STRNEQ (argv[%d], \"-\") ? argv[%d] : \"/dev/stdout\";\n"
-                name i i
+              pr "  %s = file_out (argv[%d]);\n" name i;
+              pr "  if (%s == NULL) return -1;\n" name
           | StringList name | DeviceList name ->
               pr "  %s = parse_string_list (argv[%d]);\n" name i;
               pr "  if (%s == NULL) return -1;\n" name;
@@ -7479,10 +7479,12 @@ and generate_fish_cmds () =
       List.iter (
         function
         | Device name | String name
-        | OptString name | FileIn name | FileOut name | Bool name
+        | OptString name | Bool name
         | Int name | Int64 name -> ()
-        | Pathname name | Dev_or_Path name ->
+        | Pathname name | Dev_or_Path name | FileOut name ->
             pr "  free (%s);\n" name
+        | FileIn name ->
+            pr "  free_file_in (%s);\n" name
         | StringList name | DeviceList name ->
             pr "  free_strings (%s);\n" name
       ) (snd style);

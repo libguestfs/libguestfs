@@ -1419,3 +1419,144 @@ resolve_win_path (const char *path)
 
   return ret;
 }
+
+/* Resolve the special FileIn paths ("-" or "-<<END" or filename).
+ * The caller (cmds.c) will call free_file_in after the command has
+ * run which should clean up resources.
+ */
+static char *file_in_heredoc (const char *endmarker);
+static char *file_in_tmpfile = NULL;
+
+char *
+file_in (const char *arg)
+{
+  char *ret;
+
+  if (STREQ (arg, "-")) {
+    ret = strdup ("/dev/stdin");
+    if (!ret) {
+      perror ("strdup");
+      return NULL;
+    }
+  }
+  else if (STRPREFIX (arg, "-<<")) {
+    const char *endmarker = &arg[3];
+    if (*endmarker == '\0') {
+      fprintf (stderr, "%s: missing end marker in -<< expression\n",
+               program_name);
+      return NULL;
+    }
+    ret = file_in_heredoc (endmarker);
+    if (ret == NULL)
+      return NULL;
+  }
+  else {
+    ret = strdup (arg);
+    if (!ret) {
+      perror ("strdup");
+      return NULL;
+    }
+  }
+
+  return ret;
+}
+
+static char *
+file_in_heredoc (const char *endmarker)
+{
+  static const char template[] = "/tmp/heredocXXXXXX";
+  file_in_tmpfile = strdup (template);
+  if (file_in_tmpfile == NULL) {
+    perror ("strdup");
+    return NULL;
+  }
+
+  int fd = mkstemp (file_in_tmpfile);
+  if (fd == -1) {
+    perror ("mkstemp");
+    goto error1;
+  }
+
+  size_t markerlen = strlen (endmarker);
+
+  char buffer[BUFSIZ];
+  int write_error = 0;
+  while (fgets (buffer, sizeof buffer, stdin) != NULL) {
+    /* Look for "END"<EOF> or "END\n" in input. */
+    size_t blen = strlen (buffer);
+    if (STREQLEN (buffer, endmarker, markerlen) &&
+        (blen == markerlen ||
+         (blen == markerlen+1 && buffer[markerlen] == '\n')))
+      goto found_end;
+
+    if (xwrite (fd, buffer, blen) == -1) {
+      if (!write_error) perror ("write");
+      write_error = 1;
+      /* continue reading up to the end marker */
+    }
+  }
+
+  /* Reached EOF of stdin without finding the end marker, which
+   * is likely to be an error.
+   */
+  fprintf (stderr, "%s: end of input reached without finding '%s'\n",
+           program_name, endmarker);
+  goto error2;
+
+ found_end:
+  if (write_error) {
+    close (fd);
+    goto error2;
+  }
+
+  if (close (fd) == -1) {
+    perror ("close");
+    goto error2;
+  }
+
+  return file_in_tmpfile;
+
+ error2:
+  unlink (file_in_tmpfile);
+
+ error1:
+  free (file_in_tmpfile);
+  file_in_tmpfile = NULL;
+  return NULL;
+}
+
+void
+free_file_in (char *s)
+{
+  if (file_in_tmpfile) {
+    if (unlink (file_in_tmpfile) == -1)
+      perror (file_in_tmpfile);
+    file_in_tmpfile = NULL;
+  }
+
+  /* Free the device or file name which was strdup'd in file_in().
+   * Note it's not immediately clear, but for -<< heredocs,
+   * s == file_in_tmpfile, so this frees up that buffer.
+   */
+  free (s);
+}
+
+/* Resolve the special FileOut paths ("-" or filename).
+ * The caller (cmds.c) will call free (str) after the command has run.
+ */
+char *
+file_out (const char *arg)
+{
+  char *ret;
+
+  if (STREQ (arg, "-"))
+    ret = strdup ("/dev/stdout");
+  else
+    ret = strdup (arg);
+
+  if (!ret) {
+    perror ("strdup");
+    return NULL;
+  }
+  return ret;
+}
