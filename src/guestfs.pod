@@ -202,7 +202,7 @@ conditions after each call.  (Other language bindings turn these
 errors into exceptions).
 
 File writes are affected by the per-handle umask, set by calling
-C<guestfs_umask> and defaulting to 022.
+C<guestfs_umask> and defaulting to 022.  See L</UMASK>.
 
 =head2 PARTITIONING
 
@@ -436,6 +436,23 @@ This will work for running commands and editing existing files.
 When new files are created, you may need to label them explicitly,
 for example by running the external command
 C<restorecon pathname>.
+
+=head2 UMASK
+
+Certain calls are affected by the current file mode creation mask (the
+"umask").  In particular ones which create files or directories, such
+as C<guestfs_touch>, C<guestfs_mknod> or C<guestfs_mkdir>.  This
+affects either the default mode that the file is created with or
+modifies the mode that you supply.
+
+The default umask is C<022>, so files are created with modes such as
+C<0644> and directories with C<0755>.
+
+There are two ways to avoid being affected by umask.  Either set umask
+to 0 (call C<guestfs_umask (g, 0)> early after launching).  Or call
+C<guestfs_chmod> after creating each file or directory.
+
+For more information about umask, see L<umask(2)>.
 
 =head2 SPECIAL CONSIDERATIONS FOR WINDOWS GUESTS
 
