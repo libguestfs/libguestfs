@@ -2977,6 +2977,14 @@ constants.  C<devmajor> and C<devminor> are the
 device major and minor numbers, only used when creating block
 and character special devices.
 
+Note that, just like L<mknod(2)>, the mode must be bitwise
+OR'd with S_IFBLK, S_IFCHR, S_IFIFO or S_IFSOCK (otherwise this call
+just creates a regular file).  These constants are
+available in the standard Linux header files, or you can use
+C<guestfs_mknod_b>, C<guestfs_mknod_c> or C<guestfs_mkfifo>
+which are wrappers around this command which bitwise OR
+in the appropriate constant for you.
+
 The mode actually set is affected by the umask.");
 
   ("mkfifo", (RErr, [Int "mode"; Pathname "path"]), 134, [Optional "mknod"],
