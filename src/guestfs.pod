@@ -1300,6 +1300,69 @@ For example:
 Note that libguestfs also calls qemu with the -help and -version
 options in order to determine features.
 
+=head1 LIBGUESTFS VERSION NUMBERS
+
+Since April 2010, libguestfs has started to make separate development
+and stable releases, along with corresponding branches in our git
+repository.  These separate releases can be identified by version
+number:
+
+                 even numbers for stable: 1.2.x, 1.4.x, ...
+       .-------- odd numbers for development: 1.3.x, 1.5.x, ...
+       |
+       v
+ 1  .  3  .  5
+ ^           ^
+ |           |
+ |           `-------- sub-version
+ |
+ `------ always '1' because we don't change the ABI
+
+Thus "1.3.5" is the 5th update to the development branch "1.3".
+
+As time passes we cherry pick fixes from the development branch and
+backport those into the stable branch, the effect being that the
+stable branch should get more stable and less buggy over time.  So the
+stable releases are ideal for people who don't need new features but
+would just like the software to work.
+
+Our criteria for backporting changes are:
+
+=over 4
+
+=item *
+
+Documentation changes which don't affect any code are
+backported unless the documentation refers to a future feature
+which is not in stable.
+
+=item *
+
+Bug fixes which are not controversial, fix obvious problems, and
+have been well tested are backported.
+
+=item *
+
+Simple rearrangements of code which shouldn't affect how it works get
+backported.  This is so that the code in the two branches doesn't get
+too far out of step, allowing us to backport future fixes more easily.
+
+=item *
+
+We I<don't> backport new features, new APIs, new tools etc, except in
+one exceptional case: the new feature is required in order to
+implement an important bug fix.
+
+=back
+
+A new stable branch starts when we think the new features in
+development are substantial and compelling enough over the current
+stable branch to warrant it.  When that happens we create new stable
+and development versions 1.N.0 and 1.(N+1).0 [N is even].  The new
+dot-oh release won't necessarily be so stable at this point, but by
+backporting fixes from development, that branch will stabilize over
+time.
+
 =head1 ENVIRONMENT VARIABLES
 
 =over 4
