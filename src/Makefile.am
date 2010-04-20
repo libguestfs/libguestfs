@@ -176,3 +176,14 @@ guestfs.3: guestfs.pod \
 	  --name "guestfs" \
 	  --release "$(PACKAGE_NAME)-$(PACKAGE_VERSION)" \
 	  > $@
+
+# Check user doesn't try to do 'make all' or 'make check' as root.
+# https://www.redhat.com/archives/libguestfs/2010-April/msg00098.html
+
+all-local: checkroot
+check-local: checkroot
+checkroot:
+	@if [ "`id -u`" = 0 ]; then \
+	    echo "*** Error: Don't run 'make' or 'make check' as root."; \
+	    exit 1; \
+	fi

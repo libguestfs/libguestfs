@@ -37,6 +37,17 @@ AC_DEFINE([PACKAGE_VERSION_MINOR],[libguestfs_minor],[Minor version number])
 AC_DEFINE([PACKAGE_VERSION_RELEASE],[libguestfs_release],[Release number])
 AC_DEFINE([PACKAGE_VERSION_EXTRA],["libguestfs_extra"],[Extra version string])
 
+dnl Die if the user tries to configure as root, see:
+dnl https://www.redhat.com/archives/libguestfs/2010-April/msg00098.html
+AC_MSG_CHECKING([if you are trying to configure as root])
+AS_IF([test "`id -u`" = 0 ],[
+            AC_MSG_RESULT([yes])
+            AC_MSG_FAILURE([Don't run './configure' or 'make' as root.])
+      ],[
+            AC_MSG_RESULT([no])
+      ])
+
+dnl Early gnulib initialization.
 gl_EARLY
 gl_INIT
 
