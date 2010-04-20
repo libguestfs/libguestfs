@@ -69,3 +69,4 @@ scrub
 strace
 xfsprogs
 zerofree
+zfs-fuse
