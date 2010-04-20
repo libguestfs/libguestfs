@@ -24,7 +24,6 @@
 set -e
 
 rm -f test1.img
-dd if=/dev/zero of=test1.img bs=1024k count=500
 
 n=10
 if [ -n "$1" ]; then n=$1; fi
@@ -33,7 +32,7 @@ export LIBGUESTFS_DEBUG=1
 
 for i in $(seq 1 $n); do
   echo Test boot $i of $n ...
-  ../fish/guestfish -a test1.img run
+  ../fish/guestfish sparse test1.img 500M : run
 done
 
 rm test1.img
