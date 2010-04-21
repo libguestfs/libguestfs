@@ -1463,10 +1463,16 @@ sub _check_for_applications
     if ($osn eq "linux") {
         my $package_format = $os->{package_format};
         if (defined $package_format && $package_format eq "rpm") {
-            my @lines = $g->command_lines
-                (["rpm",
-                  "-q", "-a",
-                  "--qf", "%{name} %{epoch} %{version} %{release} %{arch}\n"]);
+            my @lines = ();
+            eval {
+                @lines = $g->command_lines
+                    (["rpm",
+                      "-q", "-a", "--qf",
+                      "%{name} %{epoch} %{version} %{release} %{arch}\n"]);
+            };
+
+            warn(__x("Error running rpm -qa: {error}", error => $@)) if ($@);
+
             @lines = sort @lines;
             foreach (@lines) {
                 if (m/^(.*) (.*) (.*) (.*) (.*)$/) {
@@ -1483,10 +1489,16 @@ sub _check_for_applications
                 }
             }
         } elsif (defined $package_format && $package_format eq "deb") {
-            my @lines = $g->command_lines
-                (["dpkg-query",
-                  "-f", '${Package} ${Version} ${Architecture} ${Status}\n',
-                  "-W"]);
+            my @lines = ();
+            eval {
+                @lines = $g->command_lines
+                    (["dpkg-query",
+                      "-f", '${Package} ${Version} ${Architecture} ${Status}\n',
+                      "-W"]);
+            };
+
+            warn(__x("Error running dpkg-query: {error}", error => $@)) if ($@);
+
             @lines = sort @lines;
             foreach (@lines) {
                 if (m/^(.*) (.*) (.*) (.*) (.*) (.*)$/) {
