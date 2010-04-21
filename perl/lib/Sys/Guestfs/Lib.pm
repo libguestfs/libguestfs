@@ -1825,7 +1825,7 @@ sub _inspect_initrd
     # Disregard old-style compressed ext2 files and only work with real
     # compressed cpio files, since cpio takes ages to (fail to) process anything
     # else.
-    if ($g->file ($path) =~ /cpio/) {
+    if ($g->exists($path) && $g->file($path) =~ /cpio/) {
         eval {
             @modules = $g->initrd_list ($path);
         };
