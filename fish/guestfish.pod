@@ -178,7 +178,7 @@ If the mountpoint is omitted, it defaults to C</>.
 
 You have to mount something on C</> before most commands will work.
 
-If any C<-m> or C<--mount> options are given, the guest is
+If any I<-m> or I<--mount> options are given, the guest is
 automatically launched.
 
 If you don't know what filesystems a disk image contains, you
@@ -198,7 +198,7 @@ L</REMOTE CONTROL GUESTFISH OVER A SOCKET> below.
 
 =item B<-r> | B<--ro>
 
-This changes the C<-a> and C<-m> options so that disks are added and
+This changes the I<-a> and I<-m> options so that disks are added and
 mounts are done read-only (see L<guestfs(3)/guestfs_mount_ro>).
 
 The option must always be used if the disk image or virtual machine
@@ -272,7 +272,7 @@ any other commands
 C<run> is a synonym for C<launch>.  You must C<launch> (or C<run>)
 your guest before mounting or performing any other commands.
 
-The only exception is that if the C<-m> or C<--mount> option was
+The only exception is that if the I<-m> or I<--mount> option was
 given, the guest is automatically run for you (simply because
 guestfish can't mount the disks you asked for without doing this).
 
@@ -467,7 +467,7 @@ L</EXIT ON ERROR BEHAVIOUR>.
 =head2 CONTROLLING MULTIPLE GUESTFISH PROCESSES
 
 The C<eval> statement sets the environment variable C<$GUESTFISH_PID>,
-which is how the C<--remote> option knows where to send the commands.
+which is how the I<--remote> option knows where to send the commands.
 You can have several guestfish listener processes running using:
 
  eval `guestfish --listen`
