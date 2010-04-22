@@ -168,7 +168,7 @@ See also: L<virt-inspector(1)>.
 =item B<--listen>
 
 Fork into the background and listen for remote commands.  See section
-I<REMOTE CONTROL GUESTFISH OVER A SOCKET> below.
+L</REMOTE CONTROL GUESTFISH OVER A SOCKET> below.
 
 =item B<-m dev[:mountpoint]> | B<--mount dev[:mountpoint]>
 
@@ -194,7 +194,7 @@ of autosync in the L<guestfs(3)> manpage.
 =item B<--remote[=pid]>
 
 Send remote commands to C<$GUESTFISH_PID> or C<pid>.  See section
-I<REMOTE CONTROL GUESTFISH OVER A SOCKET> below.
+L</REMOTE CONTROL GUESTFISH OVER A SOCKET> below.
 
 =item B<-r> | B<--ro>
 
@@ -459,8 +459,8 @@ To cause the server to exit, send it the exit command:
  guestfish --remote exit
 
 Note that the server will normally exit if there is an error in a
-command.  You can change this in the usual way.  See section I<EXIT ON
-ERROR BEHAVIOUR>.
+command.  You can change this in the usual way.  See section
+L</EXIT ON ERROR BEHAVIOUR>.
 
 =head2 CONTROLLING MULTIPLE GUESTFISH PROCESSES
 
@@ -676,8 +676,8 @@ set, it uses C<vi>.
 =item GUESTFISH_PID
 
 Used with the I<--remote> option to specify the remote guestfish
-process to control.  See section I<REMOTE CONTROL GUESTFISH OVER A
-SOCKET>.
+process to control.  See section
+L</REMOTE CONTROL GUESTFISH OVER A SOCKET>.
 
 =item HOME
 
