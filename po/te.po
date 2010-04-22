@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs.master.libguestfs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-19 17:24+0100\n"
+"POT-Creation-Date: 2010-04-22 22:28+0100\n"
 "PO-Revision-Date: 2010-01-27 20:03+0530\n"
 "Last-Translator: Krishna Babu K <kkrothap@redhat.com>\n"
 "Language-Team: Telugu <en@li.org>\n"
@@ -18,22 +18,22 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 "\n"
 
-#: fish/alloc.c:40
+#: fish/alloc.c:35
 #, c-format
 msgid "use 'alloc file size' to create an image\n"
 msgstr "ప్రతిబింబమును సృష్టించుటకు 'alloc file size' వుపయోగించుము\n"
 
-#: fish/alloc.c:48 fish/alloc.c:116
-#, c-format
-msgid "can't allocate or add disks after launching\n"
-msgstr "ఆరంభించిన తర్వాత డిస్కులను కేటాయించలేము లేదా జతచేయలేము\n"
-
-#: fish/alloc.c:108
+#: fish/alloc.c:49
 #, c-format
 msgid "use 'sparse file size' to create a sparse image\n"
 msgstr "స్పార్స్ ప్రతిబింబమును సృష్టించుటకు 'sparse file size' వుపయోగించుము\n"
 
-#: fish/alloc.c:173 fish/alloc.c:180
+#: fish/alloc.c:75
+#, c-format
+msgid "can't allocate or add disks after launching\n"
+msgstr "ఆరంభించిన తర్వాత డిస్కులను కేటాయించలేము లేదా జతచేయలేము\n"
+
+#: fish/alloc.c:164 fish/alloc.c:171
 #, c-format
 msgid "could not parse size specification '%s'\n"
 msgstr "పరిమాణ వివరణలను పార్శ్ చేయలేకపోయింది '%s'\n"
@@ -1276,13 +1276,13 @@ msgstr "%s: తెలియని ఆదేశము\n"
 msgid "use '%s filename' to edit a file\n"
 msgstr "ఫైలును సరికూర్చుటకు '%s filename' వుపయోగించుము\n"
 
-#: fish/fish.c:94 fuse/guestmount.c:869
+#: fish/fish.c:97 fuse/guestmount.c:869
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "అధిక సమాచారము కొరకు `%s --help' ప్రయత్నించండి\n"
 
-#: fish/fish.c:98
-#, c-format
+#: fish/fish.c:101
+#, fuzzy, c-format
 msgid ""
 "%s: guest filesystem shell\n"
 "%s lets you edit virtual machine filesystems\n"
@@ -1308,6 +1308,7 @@ msgid ""
 "  --listen             Listen for remote commands\n"
 "  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
 "  -n|--no-sync         Don't autosync\n"
+"  -N|--new type        Create prepared disk (test1.img, ...)\n"
 "  --remote[=pid]       Send commands to remote %s\n"
 "  -r|--ro              Mount read-only\n"
 "  --selinux            Enable SELinux support\n"
@@ -1348,63 +1349,64 @@ msgstr ""
 "  -V|--version         Display version and exit\n"
 "For more information,  see the manpage %s(1).\n"
 
-#: fish/fish.c:190 fuse/guestmount.c:966
+#: fish/fish.c:197 fuse/guestmount.c:966
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: సంభాలికను సృష్టించుటకు విఫలమైంది\n"
 
-#: fish/fish.c:229
+#: fish/fish.c:236
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
 msgstr "%s: --listen=PID: PID సంఖ్య కాదు: %s\n"
 
-#: fish/fish.c:236
+#: fish/fish.c:243
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 msgstr "%s: remote: $GUESTFISH_PID అనునది రిమోట్ కార్యక్రమము యొక్క PIDకు అమర్చాలి\n"
 
-#: fish/fish.c:245 fuse/guestmount.c:1011
+#: fish/fish.c:252 fuse/guestmount.c:1011
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: తెలియని long ఐచ్చికము: %s (%d)\n"
 
-#: fish/fish.c:272
+#: fish/fish.c:309
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: ఒక -f పారామితి మాత్రమే యివ్వగలము\n"
 
-#: fish/fish.c:345
-#, c-format
-msgid "%s: cannot use -i option with -a, -m, --listen, --remote or --selinux\n"
+#: fish/fish.c:382
+#, fuzzy, c-format
+msgid ""
+"%s: cannot use -i option with -a, -m, -N, --listen, --remote or --selinux\n"
 msgstr "%s: -i ఐచ్చికాన్ని -a, -m, --listen, --remote లేదా --selinuxతో వాడలేము\n"
 
-#: fish/fish.c:352
+#: fish/fish.c:389
 #, c-format
 msgid "%s: -i requires a libvirt domain or path(s) to disk image(s)\n"
 msgstr "%s: -i అనుదానికి libvirt డొమైన్ కాని లేదా డిస్కు ప్రతిబింబము(లు)కు పాత్(లు)కాని అవసరము\n"
 
-#: fish/fish.c:362
+#: fish/fish.c:399
 #, c-format
 msgid "%s: virt-inspector command too long for fixed-size buffer\n"
 msgstr "%s: నిర్ధిష్ట-పరిమాణపు బఫర్ కొరకు virt-inspector ఆదేశము మరీపొడవైంది\n"
 
-#: fish/fish.c:408
+#: fish/fish.c:448
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr "%s: ఒకే సమయం వద్ద --listen మరియు --remote ఐచ్చికాలను వుపయోగించలేము\n"
 
-#: fish/fish.c:416
+#: fish/fish.c:456
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: --listen ఫ్లాగ్‌తో ఆదేశ వరుసపై అదనపు పారామితులు\n"
 
-#: fish/fish.c:422
+#: fish/fish.c:462
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: ఒకే సమయంలో --listen మరియు --file ఐచ్చికాలను వుపయోగించలేము\n"
 
-#: fish/fish.c:570
+#: fish/fish.c:620
 #, c-format
 msgid ""
 "\n"
@@ -1423,81 +1425,81 @@ msgstr ""
 "      'quit' షెల్ నిష్క్రమించుటకు\n"
 "\n"
 
-#: fish/fish.c:650
+#: fish/fish.c:700
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: మూయని డబుల్ కోట్\n"
 
-#: fish/fish.c:656 fish/fish.c:673
+#: fish/fish.c:706 fish/fish.c:723
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: వెట్‌స్పేస్ ద్వారా వేరుచేయబడిన కమాండ్ ఆర్గుమెంట్స్\n"
 
-#: fish/fish.c:667
+#: fish/fish.c:717
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: మూయని సింగిల్ కోట్\n"
 
-#: fish/fish.c:722
+#: fish/fish.c:772
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: '%s'వద్ద స్ట్రింగును పార్శ్ చేయుటలో అంతర్గత దోషము\n"
 
-#: fish/fish.c:739
+#: fish/fish.c:789
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: చాలా యెక్కువ ఆర్గుమెంట్లు\n"
 
-#: fish/fish.c:768
+#: fish/fish.c:818
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: ఆదేశ వరుసపై ఖాళీ ఆదేశము\n"
 
-#: fish/fish.c:936
+#: fish/fish.c:986
 msgid "display a list of commands or help on a command"
 msgstr "ఆదేశముల జాబితాను లేదా ఆదేశముపై సహాయమును ప్రదర్శించుము"
 
-#: fish/fish.c:938
+#: fish/fish.c:988
 msgid "quit guestfish"
 msgstr "guestfish నిష్క్రమించుము"
 
-#: fish/fish.c:941
+#: fish/fish.c:991
 msgid "allocate an image"
 msgstr "ప్రతిబింబమును కేటాయించుము"
 
-#: fish/fish.c:943
+#: fish/fish.c:993
 msgid "display a line of text"
 msgstr "ఒక పాఠ్యపు వరుసను ప్రదర్శించుము"
 
-#: fish/fish.c:945
+#: fish/fish.c:995
 msgid "edit a file in the image"
 msgstr "ప్రతిబింబము నందలి ఫైలును సరికూర్చుము"
 
-#: fish/fish.c:947
+#: fish/fish.c:997
 msgid "local change directory"
 msgstr "స్థానిక మార్పు డైరెక్టరీ"
 
-#: fish/fish.c:949
+#: fish/fish.c:999
 msgid "expand wildcards in command"
 msgstr "ఆదేశమునందు వైల్డుకార్డ్సును విస్తరింపచేయుము"
 
-#: fish/fish.c:951
+#: fish/fish.c:1001
 msgid "view a file in the pager"
 msgstr "పేజర్ నందలి ఫైలును దర్శించుము"
 
-#: fish/fish.c:953
+#: fish/fish.c:1003
 msgid "close and reopen libguestfs handle"
 msgstr "libguestfs సంభాలికను మూయుము మరియు తిరిగితెరువుము"
 
-#: fish/fish.c:955
+#: fish/fish.c:1005
 msgid "allocate a sparse image file"
 msgstr "స్పార్శ్ ప్రతిబింబ ఫైలును కేటాయించుము"
 
-#: fish/fish.c:957
+#: fish/fish.c:1007
 msgid "measure time taken to run command"
 msgstr "ఆదేశమును నడుపుటకు తీసుకొనిన సమయాన్ని లెక్కించుము"
 
-#: fish/fish.c:969
+#: fish/fish.c:1019
 #, c-format
 msgid ""
 "alloc - allocate an image\n"
@@ -1538,7 +1540,7 @@ msgstr ""
 "    <nn>E లేదా <nn>EB  హెగ్జాబైట్ల సంఖ్య\n"
 "    <nn>sects        512 బైట్ సెక్టార్ల సంఖ్య\n"
 
-#: fish/fish.c:988
+#: fish/fish.c:1038
 #, c-format
 msgid ""
 "echo - display a line of text\n"
@@ -1551,7 +1553,7 @@ msgstr ""
 "\n"
 "    ఇది పారామితులను టెర్మినల్‌పై చూపిస్తుంది.\n"
 
-#: fish/fish.c:995
+#: fish/fish.c:1045
 #, c-format
 msgid ""
 "edit - edit a file in the image\n"
@@ -1581,7 +1583,7 @@ msgstr ""
 "    గమనిక: ఇది పెద్ద ఫైళ్ళు (> 2 MB)కు లేదా \\0 బైట్లు కలిగివున్న బైనరీ ఫైళ్ళకు\n"
 "    యిది నమ్మకంగా పనిచేయదు.\n"
 
-#: fish/fish.c:1009
+#: fish/fish.c:1059
 #, c-format
 msgid ""
 "lcd - local change directory\n"
@@ -1597,7 +1599,7 @@ msgstr ""
 "    guestfish యొక్క ప్రస్తుత డైరెక్టరీను మార్చును. మీరు ఫైళ్ళను ఫలానా స్థానమునకు డౌనులోడు\n"
 "    చేయవలెనంటే ఈ ఆదేశము వుపయోగకరంగా వుంటుంది.\n"
 
-#: fish/fish.c:1016
+#: fish/fish.c:1066
 #, c-format
 msgid ""
 "glob - expand wildcards in command\n"
@@ -1614,7 +1616,7 @@ msgstr ""
 "ప్రతి విస్తరిత ఆర్గుమెంటు కొరకు ఈ ఆదేశము ఆవృతంగా\n"
 "    వొకసారి నడుచునని గమనించండి.\n"
 
-#: fish/fish.c:1023
+#: fish/fish.c:1073
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -1625,7 +1627,7 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:1028
+#: fish/fish.c:1078
 #, c-format
 msgid ""
 "more - view a file in the pager\n"
@@ -1656,7 +1658,7 @@ msgstr ""
 "    గమనిక: ఇది పెద్ద ఫైళ్ళు (> 2 MB) కొరకు నమ్మకంగా పనిచేయదు\n"
 "    లేదా \\0 బైట్లను కలిగివున్న బైనరీ ఫైళ్ళ కొరకు.\n"
 
-#: fish/fish.c:1044
+#: fish/fish.c:1094
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -1665,7 +1667,7 @@ msgstr ""
 "quit - guestfish నిష్క్రమించును\n"
 "     quit\n"
 
-#: fish/fish.c:1047
+#: fish/fish.c:1097
 #, c-format
 msgid ""
 "reopen - close and reopen the libguestfs handle\n"
@@ -1682,7 +1684,7 @@ msgstr ""
 "యెంచేతంటే guestfish నిష్క్రమించగానే సంభాలిక మూయబడును\n"
 "  పరిశీలన కొరకు యిది అరుదుగా వుపయోగించుబడును.\n"
 
-#: fish/fish.c:1054
+#: fish/fish.c:1104
 #, c-format
 msgid ""
 "sparse - allocate a sparse image file\n"
@@ -1738,7 +1740,7 @@ msgstr ""
 "    <nn>E లేదా <nn>EB  హెగ్జాబైట్ల సంఖ్య\n"
 "    <nn>sects        512 బైట్ సెక్టార్ల సంఖ్య\n"
 
-#: fish/fish.c:1081
+#: fish/fish.c:1131
 #, c-format
 msgid ""
 "time - measure time taken to run command\n"
@@ -1753,12 +1755,12 @@ msgstr ""
 "    ఇది సాధారణంగానే <command> నడుస్తుంది, మరియు పట్టిన సమయాన్ని తర్వాత\n"
 "    ముద్రిస్తుంది.\n"
 
-#: fish/fish.c:1087
+#: fish/fish.c:1137
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s: తెలియని ఆదేశము, అన్ని ఆదేశములను జాబితాచేయుటకు -h వుపయోగించుము\n"
 
-#: fish/fish.c:1101
+#: fish/fish.c:1151
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -1766,7 +1768,7 @@ msgid ""
 "For complete documentation:         man guestfish\n"
 msgstr ""
 
-#: fish/fish.c:1258
+#: fish/fish.c:1308
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "\"%s\" స్ట్రింగునందు రన్‌యెవే స్ట్రింగ్\n"
@@ -1790,6 +1792,71 @@ msgstr "స్థానిక డైరెక్టరీను మార్చ�
 #, c-format
 msgid "use '%s filename' to page a file\n"
 msgstr "ఒక ఫైలును పేజ్ చేయుటకు '%s filename' వుపయోగించుము\n"
+
+#: fish/prep.c:112
+#, c-format
+msgid ""
+"List of available prepared disk images:\n"
+"\n"
+msgstr ""
+
+#: fish/prep.c:115
+#, c-format
+msgid ""
+"guestfish -N %-16s %s\n"
+"\n"
+"%s\n"
+msgstr ""
+
+#: fish/prep.c:123
+#, c-format
+msgid "  Optional parameters:\n"
+msgstr ""
+
+#: fish/prep.c:130
+#, c-format
+msgid "<%s> %s (default: %s)\n"
+msgstr ""
+
+#: fish/prep.c:140
+#, c-format
+msgid ""
+"Prepared disk images are written to file \"test1.img\" in the local\n"
+"directory.  (\"test2.img\" etc if -N option is given multiple times).\n"
+"For more information see the guestfish(1) manual.\n"
+msgstr ""
+
+#: fish/prep.c:160
+#, c-format
+msgid "guestfish: file '%s' exists and the '-N' option will not overwrite it\n"
+msgstr ""
+
+#: fish/prep.c:183
+#, c-format
+msgid ""
+"guestfish: -N parameter '%s': no such prepared disk image known.\n"
+"Use 'guestfish -N list' to list possible values for the -N parameter.\n"
+msgstr ""
+
+#: fish/prep.c:245
+#, c-format
+msgid "guestfish: error creating prepared disk image '%s' on '%s': "
+msgstr ""
+
+#: fish/prep.c:262 fish/prep.c:269 fish/prep.c:284
+#, fuzzy
+msgid "failed to allocate disk"
+msgstr "ఫైలు ముక్కను పార్శ్ చేయుటలో విఫలమైంది"
+
+#: fish/prep.c:276 fish/prep.c:291
+#, c-format
+msgid "failed to partition disk: %s"
+msgstr ""
+
+#: fish/prep.c:301
+#, c-format
+msgid "failed to create filesystem (%s): %s"
+msgstr ""
 
 #: fish/rc.c:249
 #, c-format
