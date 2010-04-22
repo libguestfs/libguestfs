@@ -75,13 +75,24 @@ in the virtual machine:
 
 =head2 As a script interpreter
 
-Create a 50MB disk containing an ext2-formatted partition:
+Create a 100MB disk containing an ext2-formatted partition:
 
  #!/usr/bin/guestfish -f
- alloc /tmp/output.img 50M
+ sparse test1.img 100M
  run
  part-disk /dev/sda mbr
  mkfs ext2 /dev/sda1
+
+=head2 Start with a prepared disk
+
+An alternate way to create a 100MB disk called C<test1.img> containing
+a single ext2-formatted partition:
+
+ guestfish -N fs
+
+To list what is available do:
+
+ guestfish -N list | less
 
 =head2 Remote control
 
@@ -159,9 +170,9 @@ Typical usage is either:
 
  guestfish -i /dev/Guests/MyGuest
 
-You cannot use I<-a>, I<-m>, I<--listen>, I<--remote> or I<--selinux>
-in conjunction with this option, and options other than I<--ro> might
-not behave correctly.
+You cannot use I<-a>, I<-m>, I<-N>, I<--listen>, I<--remote> or
+I<--selinux> in conjunction with this option, and options other than
+I<--ro> might not behave correctly.
 
 See also: L<virt-inspector(1)>.
 
@@ -191,6 +202,13 @@ or you can use the L<virt-list-filesystems(1)> program.
 Disable autosync.  This is enabled by default.  See the discussion
 of autosync in the L<guestfs(3)> manpage.
 
+=item B<-N type> | B<--new type> | B<-N list>
+
+Prepare a fresh disk image formatted as "type".  This is an
+alternative to the I<-a> option: whereas I<-a> adds an existing disk,
+I<-N> creates a preformatted disk with a filesystem and adds it.
+See L</PREPARED DISK IMAGES> below.
+
 =item B<--remote[=pid]>
 
 Send remote commands to C<$GUESTFISH_PID> or C<pid>.  See section
@@ -204,6 +222,9 @@ mounts are done read-only (see L<guestfs(3)/guestfs_mount_ro>).
 The option must always be used if the disk image or virtual machine
 might be running, and is generally recommended in cases where you
 don't need write access to the disk.
+
+Note that prepared disk images created with I<-N> are not affected by
+the I<--ro> option.
 
 =item B<--selinux>
 
@@ -485,6 +506,51 @@ C</tmp/.guestfish-$UID/socket-$PID>, where C<$UID> is the effective
 user ID of the process, and C<$PID> is the process ID of the server.
 
 Guestfish client and server versions must match exactly.
+
+=head1 PREPARED DISK IMAGES
+
+Use the I<-N type> or I<--new type> parameter to select one of a set
+of preformatted disk images that guestfish can make for you to save
+typing.  This is particularly useful for testing purposes.  This
+option is used instead of the I<-a> option, and like I<-a> can appear
+multiple times (and can be mixed with I<-a>).
+
+The new disk is called C<test1.img> for the first I<-N>, C<test2.img>
+for the second and so on.  Existing files in the current directory are
+not overwritten, so you may need to do C<rm -f test1.img>.
+
+The type briefly describes how the disk should be sized, partitioned,
+how filesystem(s) should be created, and how content should be added.
+Optionally the type can be followed by extra parameters, separated by
+C<:> (colon) characters.  For example, I<-N fs> creates a default
+100MB, sparsely-allocated disk, containing a single partition, with
+the partition formatted as ext2.  I<-N fs:ext4:1G> is the same, but
+for an ext4 filesystem on a 1GB disk instead.
+
+To list the available types and any extra parameters they take, run:
+
+ guestfish -N list | less
+
+Note that the prepared filesystem is not mounted.  You would usually
+have to use the C<mount /dev/sda1 /> command or add the
+I<-m /dev/sda1> option.
+
+If any I<-N> or I<--new> options are given, the guest is automatically
+launched.
+
+=head2 EXAMPLES
+
+Create a 100MB disk with an ext4-formatted partition:
+
+ guestfish -N fs:ext4
+
+Create a 32MB disk with a VFAT-formatted partition, and mount it:
+
+ guestfish -N fs:vfat:32M -m /dev/sda1
+
+Create a blank 200MB disk:
+
+ guestfish -N disk:200M
 
 =head1 UPLOADING AND DOWNLOADING FILES
 

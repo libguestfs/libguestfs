@@ -23,12 +23,7 @@ set -e
 
 rm -f test1.img
 
-../fish/guestfish <<EOF
-sparse test1.img 10M
-launch
-part-disk /dev/sda mbr
-mkfs ext2 /dev/sda1
-mount-options "" /dev/sda1 /
+../fish/guestfish -N fs -m /dev/sda1 <<EOF
 ll /../dev/console
 ll /../dev/full
 ll /../dev/mapper/

@@ -32,7 +32,7 @@ export LIBGUESTFS_DEBUG=1
 
 for i in $(seq 1 $n); do
   echo Test boot $i of $n ...
-  ../fish/guestfish sparse test1.img 500M : run
+  ../fish/guestfish -N disk </dev/null
 done
 
 rm test1.img

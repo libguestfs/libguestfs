@@ -45,6 +45,7 @@ guestfish_SOURCES = \
 	glob.c \
 	lcd.c \
 	more.c \
+	prep.c \
 	rc.c \
 	reopen.c \
 	tilde.c \

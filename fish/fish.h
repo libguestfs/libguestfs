@@ -85,6 +85,8 @@ extern char *complete_dest_paths_generator (const char *text, int state);
 /* in alloc.c */
 extern int do_alloc (const char *cmd, int argc, char *argv[]);
 extern int do_sparse (const char *cmd, int argc, char *argv[]);
+extern int alloc_disk (const char *filename, const char *size,
+                       int add, int sparse);
 
 /* in echo.c */
 extern int do_echo (const char *cmd, int argc, char *argv[]);
@@ -100,6 +102,14 @@ extern int do_glob (const char *cmd, int argc, char *argv[]);
 
 /* in more.c */
 extern int do_more (const char *cmd, int argc, char *argv[]);
+
+/* in prep.c */
+typedef struct prep_data prep_data;
+extern void list_prepared_drives (void);
+extern prep_data *create_prepared_file (const char *type_string,
+                                        const char *filename);
+extern void prepare_drive (const char *filename, prep_data *data,
+                           const char *device);
 
 /* in rc.c (remote control) */
 extern void rc_listen (void) __attribute__((noreturn));

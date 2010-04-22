@@ -42,18 +42,21 @@
 #include "closeout.h"
 #include "progname.h"
 
+struct drv {
+  struct drv *next;
+  char *filename;               /* disk filename (for -a or -N options) */
+  prep_data *data;              /* prepared type (for -N option only) */
+  char *device;                 /* device inside the appliance */
+};
+
 struct mp {
   struct mp *next;
   char *device;
   char *mountpoint;
 };
 
-struct drv {
-  struct drv *next;
-  char *filename;
-};
-
 static void add_drives (struct drv *drv);
+static void prepare_drives (struct drv *drv);
 static void mount_mps (struct mp *mp);
 static void interactive (void);
 static void shell_script (void);
@@ -119,6 +122,7 @@ usage (int status)
              "  --listen             Listen for remote commands\n"
              "  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
              "  -n|--no-sync         Don't autosync\n"
+             "  -N|--new type        Create prepared disk (test1.img, ...)\n"
              "  --remote[=pid]       Send commands to remote %s\n"
              "  -r|--ro              Mount read-only\n"
              "  --selinux            Enable SELinux support\n"
@@ -147,7 +151,7 @@ main (int argc, char *argv[])
 
   enum { HELP_OPTION = CHAR_MAX + 1 };
 
-  static const char *options = "a:Df:h::im:nrv?Vx";
+  static const char *options = "a:Df:h::im:nN:rv?Vx";
   static const struct option long_options[] = {
     { "add", 1, 0, 'a' },
     { "cmd-help", 2, 0, 'h' },
@@ -156,6 +160,7 @@ main (int argc, char *argv[])
     { "inspector", 0, 0, 'i' },
     { "listen", 0, 0, 0 },
     { "mount", 1, 0, 'm' },
+    { "new", 1, 0, 'N' },
     { "no-dest-paths", 0, 0, 'D' },
     { "no-sync", 0, 0, 'n' },
     { "remote", 2, 0, 0 },
@@ -174,6 +179,8 @@ main (int argc, char *argv[])
   int inspector = 0;
   int option_index;
   struct sigaction sa;
+  char next_drive = 'a';
+  int next_prepared_drive = 1;
 
   initialize_readline ();
 
@@ -259,6 +266,36 @@ main (int argc, char *argv[])
         exit (EXIT_FAILURE);
       }
       drv->filename = optarg;
+      drv->data = NULL;
+      /* We could fill the device field in, but in fact we
+       * only use it for the -N option at present.
+       */
+      drv->device = NULL;
+      drv->next = drvs;
+      drvs = drv;
+      next_drive++;
+      break;
+
+    case 'N':
+      if (STRCASEEQ (optarg, "list")) {
+        list_prepared_drives ();
+        exit (EXIT_SUCCESS);
+      }
+      drv = malloc (sizeof (struct drv));
+      if (!drv) {
+        perror ("malloc");
+        exit (EXIT_FAILURE);
+      }
+      if (asprintf (&drv->filename, "test%d.img",
+                    next_prepared_drive++) == -1) {
+        perror ("asprintf");
+        exit (EXIT_FAILURE);
+      }
+      drv->data = create_prepared_file (optarg, drv->filename);
+      if (asprintf (&drv->device, "/dev/sd%c", next_drive++) == -1) {
+        perror ("asprintf");
+        exit (EXIT_FAILURE);
+      }
       drv->next = drvs;
       drvs = drv;
       break;
@@ -342,8 +379,8 @@ main (int argc, char *argv[])
 
     if (drvs || mps || remote_control_listen || remote_control ||
         guestfs_get_selinux (g)) {
-      fprintf (stderr, _("%s: cannot use -i option with -a, -m,"
-                         " --listen, --remote or --selinux\n"),
+      fprintf (stderr, _("%s: cannot use -i option with -a, -m, -N, "
+                         "--listen, --remote or --selinux\n"),
                program_name);
       exit (EXIT_FAILURE);
     }
@@ -396,9 +433,12 @@ main (int argc, char *argv[])
   /* If we've got drives to add, add them now. */
   add_drives (drvs);
 
-  /* If we've got mountpoints, we must launch the guest and mount them. */
-  if (mps != NULL) {
+  /* If we've got mountpoints or prepared drives, we must launch the
+   * guest and mount them.
+   */
+  if (next_prepared_drive > 1 || mps != NULL) {
     if (launch (g) == -1) exit (EXIT_FAILURE);
+    prepare_drives (drvs);
     mount_mps (mps);
   }
 
@@ -495,12 +535,22 @@ add_drives (struct drv *drv)
 
   if (drv) {
     add_drives (drv->next);
-    if (!read_only)
+
+    if (drv->data /* -N option is not affected by --ro */ || !read_only)
       r = guestfs_add_drive (g, drv->filename);
     else
       r = guestfs_add_drive_ro (g, drv->filename);
     if (r == -1)
       exit (EXIT_FAILURE);
+  }
+}
+
+static void
+prepare_drives (struct drv *drv)
+{
+  if (drv) {
+    prepare_drives (drv->next);
+    prepare_drive (drv->filename, drv->data, drv->device);
   }
 }
 

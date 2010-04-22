@@ -28,71 +28,16 @@
 
 #include "fish.h"
 
-static int parse_size (const char *str, off_t *size_rtn);
-
 int
 do_alloc (const char *cmd, int argc, char *argv[])
 {
-  off_t size;
-  int fd;
-
   if (argc != 2) {
     fprintf (stderr, _("use 'alloc file size' to create an image\n"));
     return -1;
   }
 
-  if (parse_size (argv[1], &size) == -1)
+  if (alloc_disk (argv[0], argv[1], 1, 0) == -1)
     return -1;
-
-  if (!guestfs_is_config (g)) {
-    fprintf (stderr, _("can't allocate or add disks after launching\n"));
-    return -1;
-  }
-
-  fd = open (argv[0], O_WRONLY|O_CREAT|O_NOCTTY|O_TRUNC, 0666);
-  if (fd == -1) {
-    perror (argv[0]);
-    return -1;
-  }
-
-#ifdef HAVE_POSIX_FALLOCATE
-  int err = posix_fallocate (fd, 0, size);
-  if (err != 0) {
-    errno = err;
-    perror ("fallocate");
-    close (fd);
-    unlink (argv[0]);
-    return -1;
-  }
-#else
-  /* Slow emulation of posix_fallocate on platforms which don't have it. */
-  char buffer[BUFSIZ];
-  memset (buffer, 0, sizeof buffer);
-
-  size_t remaining = size;
-  while (remaining > 0) {
-    size_t n = remaining > sizeof buffer ? sizeof buffer : remaining;
-    ssize_t r = write (fd, buffer, n);
-    if (r == -1) {
-      perror ("write");
-      close (fd);
-      unlink (argv[0]);
-      return -1;
-    }
-    remaining -= r;
-  }
-#endif
-
-  if (close (fd) == -1) {
-    perror (argv[0]);
-    unlink (argv[0]);
-    return -1;
-  }
-
-  if (guestfs_add_drive (g, argv[0]) == -1) {
-    unlink (argv[0]);
-    return -1;
-  }
 
   return 0;
 }
@@ -100,16 +45,30 @@ do_alloc (const char *cmd, int argc, char *argv[])
 int
 do_sparse (const char *cmd, int argc, char *argv[])
 {
-  off_t size;
-  int fd;
-  char c = 0;
-
   if (argc != 2) {
     fprintf (stderr, _("use 'sparse file size' to create a sparse image\n"));
     return -1;
   }
 
-  if (parse_size (argv[1], &size) == -1)
+  if (alloc_disk (argv[0], argv[1], 1, 1) == -1)
+    return -1;
+
+  return 0;
+}
+
+static int parse_size (const char *str, off_t *size_rtn);
+
+/* This is the underlying allocation function.  It's called from
+ * a few other places in guestfish.
+ */
+int
+alloc_disk (const char *filename, const char *size_str, int add, int sparse)
+{
+  off_t size;
+  int fd;
+  char c = 0;
+
+  if (parse_size (size_str, &size) == -1)
     return -1;
 
   if (!guestfs_is_config (g)) {
@@ -117,35 +76,67 @@ do_sparse (const char *cmd, int argc, char *argv[])
     return -1;
   }
 
-  fd = open (argv[0], O_WRONLY|O_CREAT|O_NOCTTY|O_TRUNC, 0666);
+  fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_TRUNC, 0666);
   if (fd == -1) {
-    perror (argv[0]);
+    perror (filename);
     return -1;
   }
 
-  if (lseek (fd, size-1, SEEK_SET) == (off_t) -1) {
-    perror ("lseek");
-    close (fd);
-    unlink (argv[0]);
-    return -1;
-  }
+  if (!sparse) {                /* Not sparse */
+#ifdef HAVE_POSIX_FALLOCATE
+    int err = posix_fallocate (fd, 0, size);
+    if (err != 0) {
+      errno = err;
+      perror ("fallocate");
+      close (fd);
+      unlink (filename);
+      return -1;
+    }
+#else
+    /* Slow emulation of posix_fallocate on platforms which don't have it. */
+    char buffer[BUFSIZ];
+    memset (buffer, 0, sizeof buffer);
 
-  if (write (fd, &c, 1) != 1) {
-    perror ("write");
-    close (fd);
-    unlink (argv[0]);
-    return -1;
+    size_t remaining = size;
+    while (remaining > 0) {
+      size_t n = remaining > sizeof buffer ? sizeof buffer : remaining;
+      ssize_t r = write (fd, buffer, n);
+      if (r == -1) {
+        perror ("write");
+        close (fd);
+        unlink (filename);
+        return -1;
+      }
+      remaining -= r;
+    }
+#endif
+  } else {                      /* Sparse */
+    if (lseek (fd, size-1, SEEK_SET) == (off_t) -1) {
+      perror ("lseek");
+      close (fd);
+      unlink (filename);
+      return -1;
+    }
+
+    if (write (fd, &c, 1) != 1) {
+      perror ("write");
+      close (fd);
+      unlink (filename);
+      return -1;
+    }
   }
 
   if (close (fd) == -1) {
-    perror (argv[0]);
-    unlink (argv[0]);
+    perror (filename);
+    unlink (filename);
     return -1;
   }
 
-  if (guestfs_add_drive (g, argv[0]) == -1) {
-    unlink (argv[0]);
-    return -1;
+  if (add) {
+    if (guestfs_add_drive (g, filename) == -1) {
+      unlink (filename);
+      return -1;
+    }
   }
 
   return 0;

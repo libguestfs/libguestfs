@@ -20,12 +20,9 @@
 
 set -e
 
-rm -f test.pid test.img
+rm -f test.pid test1.img
 
-../fish/guestfish <<'EOF'
-alloc test.img 10M
-run
-
+../fish/guestfish -N disk <<'EOF'
 # Kill the subprocess after a short wait.
 pid | cat > test.pid
 ! sleep 2 ; kill $(cat test.pid) &
@@ -38,4 +35,4 @@ run
 ping-daemon
 EOF
 
-rm -f test.pid test.img
+rm -f test.pid test1.img

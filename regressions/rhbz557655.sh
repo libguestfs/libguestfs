@@ -49,13 +49,7 @@ get-memsize
 -set-memsize 123L
 EOF
 
-../fish/guestfish >> test.out 2>> test.err <<EOF
-alloc test1.img 10M
-run
-part-disk /dev/sda mbr
-mkfs ext2 /dev/sda1
-mount /dev/sda1 /
-
+../fish/guestfish -N fs -m /dev/sda1 >> test.out 2>> test.err <<EOF
 touch /test
 
 # truncate-size takes an Int64 argument
