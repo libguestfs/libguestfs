@@ -281,3 +281,15 @@ blocks they occupy.
 And vice versa.
 
 Is it even possible?
+
+Integration with host intrusion systems
+---------------------------------------
+
+Perfect way to monitor VMs from outside the VM.  Look for file
+hashes, log events, login/logout etc.
+
+http://www.ossec.net/
+http://la-samhna.de/samhain/
+http://sourceforge.net/projects/aide/
+http://osiris.shmoo.com/
+http://sourceforge.net/projects/tripwire/
