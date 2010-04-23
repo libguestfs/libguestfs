@@ -22,6 +22,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/stat.h>
 
 #include "../src/guestfs_protocol.h"
 #include "daemon.h"
@@ -98,4 +99,87 @@ char *
 do_checksum_device (const char *csumtype, const char *device)
 {
   return checksum (csumtype, device);
+}
+
+/* Has one FileOut parameter. */
+int
+do_checksums_out (const char *csumtype, const char *dir)
+{
+  struct stat statbuf;
+  int r;
+
+  const char *program = program_of_csum (csumtype);
+  if (program == NULL)
+    return -1;
+
+  char *sysrootdir = sysroot_path (dir);
+  if (!sysrootdir) {
+    reply_with_perror ("malloc");
+    return -1;
+  }
+
+  r = stat (sysrootdir, &statbuf);
+  if (r == -1) {
+    reply_with_perror ("%s", dir);
+    free (sysrootdir);
+    return -1;
+  }
+  if (!S_ISDIR (statbuf.st_mode)) {
+    reply_with_error ("%s: not a directory", dir);
+    free (sysrootdir);
+    return -1;
+  }
+
+  char *cmd;
+  if (asprintf_nowarn (&cmd, "cd %Q && find -type f -print0 | xargs -0 %s",
+                       sysrootdir, program) == -1) {
+    reply_with_perror ("asprintf");
+    free (sysrootdir);
+    return -1;
+  }
+  free (sysrootdir);
+
+  if (verbose)
+    fprintf (stderr, "%s\n", cmd);
+
+  FILE *fp = popen (cmd, "r");
+  if (fp == NULL) {
+    reply_with_perror ("%s", cmd);
+    free (cmd);
+    return -1;
+  }
+  free (cmd);
+
+  /* Now we must send the reply message, before the file contents.  After
+   * this there is no opportunity in the protocol to send any error
+   * message back.  Instead we can only cancel the transfer.
+   */
+  reply (NULL, NULL);
+
+  char str[GUESTFS_MAX_CHUNK_SIZE];
+
+  while ((r = fread (str, 1, GUESTFS_MAX_CHUNK_SIZE, fp)) > 0) {
+    if (send_file_write (str, r) < 0) {
+      pclose (fp);
+      return -1;
+    }
+  }
+
+  if (ferror (fp)) {
+    perror (dir);
+    send_file_end (1);                /* Cancel. */
+    pclose (fp);
+    return -1;
+  }
+
+  if (pclose (fp) != 0) {
+    perror (dir);
+    send_file_end (1);                /* Cancel. */
+    return -1;
+  }
+
+  if (send_file_end (0))        /* Normal end of file. */
+    return -1;
+
+  return 0;
 }

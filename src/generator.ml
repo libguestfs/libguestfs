@@ -2028,7 +2028,9 @@ Compute the SHA512 hash (using the C<sha512sum> program).
 
 The checksum is returned as a printable string.
 
-To get the checksum for a device, use C<guestfs_checksum_device>.");
+To get the checksum for a device, use C<guestfs_checksum_device>.
+
+To get the checksums for many files, use C<guestfs_checksums_out>.");
 
   ("tar_in", (RErr, [FileIn "tarfile"; Pathname "directory"]), 69, [],
    [InitBasicFS, Always, TestOutput (
@@ -4545,6 +4547,22 @@ to C<filename>.");
    "\
 This command downloads the contents of C<filename>, writing
 it out to local file C<base64file> encoded as base64.");
+
+  ("checksums_out", (RErr, [String "csumtype"; Pathname "directory"; FileOut "sumsfile"]), 244, [],
+   [],
+   "compute MD5, SHAx or CRC checksum of files in a directory",
+   "\
+This command computes the checksums of all regular files in
+C<directory> and then emits a list of those checksums to
+the local output file C<sumsfile>.
+
+This can be used for verifying the integrity of a virtual
+machine.  However to be properly secure you should pay
+attention to the output of the checksum command (it uses
+the ones from GNU coreutils).  In particular when the
+filename is not printable, coreutils uses a special
+backslash syntax.  For more information, see the GNU
+coreutils info file.");
 
 ]
 
