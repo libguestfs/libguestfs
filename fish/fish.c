@@ -550,7 +550,8 @@ prepare_drives (struct drv *drv)
 {
   if (drv) {
     prepare_drives (drv->next);
-    prepare_drive (drv->filename, drv->data, drv->device);
+    if (drv->data)
+      prepare_drive (drv->filename, drv->data, drv->device);
   }
 }
 
