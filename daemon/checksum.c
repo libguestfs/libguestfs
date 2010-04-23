@@ -27,6 +27,29 @@
 #include "daemon.h"
 #include "actions.h"
 
+static const char *
+program_of_csum (const char *csumtype)
+{
+  if (STRCASEEQ (csumtype, "crc"))
+    return "cksum";
+  else if (STRCASEEQ (csumtype, "md5"))
+    return "md5sum";
+  else if (STRCASEEQ (csumtype, "sha1"))
+    return "sha1sum";
+  else if (STRCASEEQ (csumtype, "sha224"))
+    return "sha224sum";
+  else if (STRCASEEQ (csumtype, "sha256"))
+    return "sha256sum";
+  else if (STRCASEEQ (csumtype, "sha384"))
+    return "sha384sum";
+  else if (STRCASEEQ (csumtype, "sha512"))
+    return "sha512sum";
+  else {
+    reply_with_error ("unknown checksum type, expecting crc|md5|sha1|sha224|sha256|sha384|sha512");
+    return NULL;
+  }
+}
+
 char *
 do_checksum (const char *csumtype, const char *path)
 {
@@ -36,24 +59,9 @@ do_checksum (const char *csumtype, const char *path)
   int r;
   int len;
 
-  if (STRCASEEQ (csumtype, "crc"))
-    program = "cksum";
-  else if (STRCASEEQ (csumtype, "md5"))
-    program = "md5sum";
-  else if (STRCASEEQ (csumtype, "sha1"))
-    program = "sha1sum";
-  else if (STRCASEEQ (csumtype, "sha224"))
-    program = "sha224sum";
-  else if (STRCASEEQ (csumtype, "sha256"))
-    program = "sha256sum";
-  else if (STRCASEEQ (csumtype, "sha384"))
-    program = "sha384sum";
-  else if (STRCASEEQ (csumtype, "sha512"))
-    program = "sha512sum";
-  else {
-    reply_with_error ("unknown checksum type, expecting crc|md5|sha1|sha224|sha256|sha384|sha512");
+  program = program_of_csum (csumtype);
+  if (program == NULL)
     return NULL;
-  }
 
   /* Make the path relative to /sysroot. */
   buf = sysroot_path (path);
