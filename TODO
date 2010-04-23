@@ -261,3 +261,13 @@ List filesystems by UUID or label.
 Mount filesystems by UUID or label.  (I'm not really sure if we can do
 this at the moment but we ought to be able to do it, and perhaps make
 it easier by having a direct command).
+
+Map filesystems to disk blocks
+------------------------------
+
+Map files/filesystems/(any other object) to the actual disk
+blocks they occupy.
+
+And vice versa.
+
+Is it even possible?
