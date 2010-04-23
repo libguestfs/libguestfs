@@ -2026,7 +2026,9 @@ Compute the SHA512 hash (using the C<sha512sum> program).
 
 =back
 
-The checksum is returned as a printable string.");
+The checksum is returned as a printable string.
+
+To get the checksum for a device, use C<guestfs_checksum_device>.");
 
   ("tar_in", (RErr, [FileIn "tarfile"; Pathname "directory"]), 69, [],
    [InitBasicFS, Always, TestOutput (
