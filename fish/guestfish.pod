@@ -451,6 +451,39 @@ This syntax implicitly calls C<case-sensitive-path> (q.v.) so it also
 handles case insensitivity like Windows would.  This only works in
 argument positions that expect a path.
 
+=head1 UPLOADING AND DOWNLOADING FILES
+
+For commands such as C<upload>, C<download>, C<tar-in>, C<tar-out> and
+others which upload from or download to a local file, you can use the
+special filename C<-> to mean "from stdin" or "to stdout".  For example:
+
+ upload - /foo
+
+reads stdin and creates from that a file C</foo> in the disk image,
+and:
+
+ tar-out /etc - | tar tf -
+
+writes the tarball to stdout and then pipes that into the external
+"tar" command (see L</PIPES>).
+
+When using C<-> to read from stdin, the input is read up to the end of
+stdin.  You can also use a special "heredoc"-like syntax to read up to
+some arbitrary end marker:
+
+ upload -<<END /foo
+ input line 1
+ input line 2
+ input line 3
+ END
+
+Any string of characters can be used instead of C<END>.  The end
+marker must appear on a line of its own, without any preceeding or
+following characters (not even spaces).
+
+Note that the C<-E<lt>E<lt>> syntax only applies to parameters used to
+upload local files (so-called "FileIn" parameters in the generator).
+
 =head1 EXIT ON ERROR BEHAVIOUR
 
 By default, guestfish will ignore any errors when in interactive mode
@@ -551,39 +584,6 @@ Create a 32MB disk with a VFAT-formatted partition, and mount it:
 Create a blank 200MB disk:
 
  guestfish -N disk:200M
-
-=head1 UPLOADING AND DOWNLOADING FILES
-
-For commands such as C<upload>, C<download>, C<tar-in>, C<tar-out> and
-others which upload from or download to a local file, you can use the
-special filename C<-> to mean "from stdin" or "to stdout".  For example:
-
- upload - /foo
-
-reads stdin and creates from that a file C</foo> in the disk image,
-and:
-
- tar-out /etc - | tar tf -
-
-writes the tarball to stdout and then pipes that into the external
-"tar" command (see L</PIPES>).
-
-When using C<-> to read from stdin, the input is read up to the end of
-stdin.  You can also use a special "heredoc"-like syntax to read up to
-some arbitrary end marker:
-
- upload -<<END /foo
- input line 1
- input line 2
- input line 3
- END
-
-Any string of characters can be used instead of C<END>.  The end
-marker must appear on a line of its own, without any preceeding or
-following characters (not even spaces).
-
-Note that the C<-E<lt>E<lt>> syntax only applies to parameters used to
-upload local files (so-called "FileIn" parameters in the generator).
 
 =head1 GUESTFISH COMMANDS
 
@@ -835,8 +835,8 @@ enough.
 
 =head1 EXIT CODE
 
-guestfish returns I<0> if the commands completed without error, or
-I<1> if there was an error.
+guestfish returns 0 if the commands completed without error, or
+1 if there was an error.
 
 =head1 SEE ALSO
 
@@ -860,7 +860,7 @@ Richard W.M. Jones (C<rjones at redhat dot com>)
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Red Hat Inc.
+Copyright (C) 2009-2010 Red Hat Inc.
 L<http://libguestfs.org/>
 
 This program is free software; you can redistribute it and/or modify
