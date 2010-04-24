@@ -622,7 +622,8 @@ script (int prompt)
               "Welcome to guestfish, the libguestfs filesystem interactive shell for\n"
               "editing virtual machine filesystems.\n"
               "\n"
-              "Type: 'help' for help with commands\n"
+              "Type: 'help' for a list of commands\n"
+              "      'man' to read the manual\n"
               "      'quit' to quit the shell\n"
               "\n"));
 
@@ -943,6 +944,9 @@ issue_command (const char *cmd, char *argv[], const char *pipecmd)
     r = do_lcd (cmd, argc, argv);
   else if (STRCASEEQ (cmd, "glob"))
     r = do_glob (cmd, argc, argv);
+  else if (STRCASEEQ (cmd, "man") ||
+           STRCASEEQ (cmd, "manual"))
+    r = do_man (cmd, argc, argv);
   else if (STRCASEEQ (cmd, "more") ||
            STRCASEEQ (cmd, "less"))
     r = do_more (cmd, argc, argv);
@@ -982,9 +986,11 @@ issue_command (const char *cmd, char *argv[], const char *pipecmd)
 void
 list_builtin_commands (void)
 {
-  /* help and quit should appear at the top */
+  /* help, man and quit should appear at the top */
   printf ("%-20s %s\n",
           "help", _("display a list of commands or help on a command"));
+  printf ("%-20s %s\n",
+          "man", _("read the manual"));
   printf ("%-20s %s\n",
           "quit", _("quit guestfish"));
 
@@ -1070,6 +1076,12 @@ display_builtin_command (const char *cmd)
               "    Glob runs <command> with wildcards expanded in any\n"
               "    command args.  Note that the command is run repeatedly\n"
               "    once for each expanded argument.\n"));
+  else if (STRCASEEQ (cmd, "man") ||
+           STRCASEEQ (cmd, "manual"))
+    printf (_("man - read the manual\n"
+              "    man\n"
+              "\n"
+              "    Opens the manual page for guestfish.\n"));
   else if (STRCASEEQ (cmd, "help"))
     printf (_("help - display a list of commands or help on a command\n"
               "     help cmd\n"

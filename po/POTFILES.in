@@ -75,6 +75,7 @@ fish/edit.c
 fish/fish.c
 fish/glob.c
 fish/lcd.c
+fish/man.c
 fish/more.c
 fish/prep.c
 fish/rc.c

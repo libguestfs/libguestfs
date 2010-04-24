@@ -100,6 +100,9 @@ extern int do_lcd (const char *cmd, int argc, char *argv[]);
 /* in glob.c */
 extern int do_glob (const char *cmd, int argc, char *argv[]);
 
+/* in man.c */
+extern int do_man (const char *cmd, int argc, char *argv[]);
+
 /* in more.c */
 extern int do_more (const char *cmd, int argc, char *argv[]);
 
@@ -136,6 +139,7 @@ extern char *try_tilde_expansion (char *path);
   "edit", "vi", "emacs",		\
   "lcd",				\
   "glob",				\
+  "man", "manual",                      \
   "more", "less",			\
   "reopen",				\
   "sparse",                             \

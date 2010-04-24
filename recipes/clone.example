@@ -8,7 +8,8 @@ $ guestfish -a /tmp/new.img -m /dev/sda1
 Welcome to guestfish, the libguestfs filesystem interactive shell for
 editing virtual machine filesystems.
 
-Type: 'help' for help with commands
+Type: 'help' for a list of commands
+      'man' to read the manual
       'quit' to quit the shell
 
 ><fs> cat /etc/resolv.conf

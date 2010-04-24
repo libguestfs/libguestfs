@@ -27,10 +27,11 @@ guestfish - the libguestfs Filesystem Interactive SHell
  Welcome to guestfish, the libguestfs filesystem interactive shell for
  editing virtual machine filesystems.
  
- Type: 'help' for help with commands
+ Type: 'help' for a list of commands
+       'man' to read the manual
        'quit' to quit the shell
  
- ><fs> help
+ ><fs> man
 
 =head2 From shell scripts
 
@@ -678,6 +679,12 @@ Change the local directory, ie. the current directory of guestfish
 itself.
 
 Note that C<!cd> won't do what you might expect.
+
+=head2 man | manual
+
+ man
+
+Opens the manual page for guestfish.
 
 =head2 more | less
 
