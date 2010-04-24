@@ -56,7 +56,8 @@ introduction, please read the L</API OVERVIEW> section next.
 
 This section provides a gentler overview of the libguestfs API.  We
 also try to group API calls together, where that may not be obvious
-from reading about the individual calls below.
+from reading about the individual calls in the main section of this
+manual.
 
 =head2 HANDLES
 
@@ -99,7 +100,8 @@ this:
  
  /* You only need to call guestfs_sync if you have made
   * changes to the guest image.  (But if you've made changes
-  * then you *must* sync).
+  * then you *must* sync).  See also: guestfs_umount and
+  * guestfs_umount_all calls.
   */
  guestfs_sync (g);
  
@@ -122,7 +124,7 @@ disk, an actual block device, or simply an empty file of zeroes that
 you have created through L<posix_fallocate(3)>.  Libguestfs lets you
 do useful things to all of these.
 
-You can add a disk read-only using C<guestfs_add_drive_ro>, in which
+You can add a disk read-only using L</guestfs_add_drive_ro>, in which
 case libguestfs won't modify the file.
 
 Be extremely cautious if the disk image is in use, eg. if it is being
@@ -134,8 +136,8 @@ images.  In the API, the disk images are usually referred to as
 C</dev/sda> (for the first one you added), C</dev/sdb> (for the second
 one you added), etc.
 
-Once C<guestfs_launch> has been called you cannot add any more images.
-You can call C<guestfs_list_devices> to get a list of the device
+Once L</guestfs_launch> has been called you cannot add any more images.
+You can call L</guestfs_list_devices> to get a list of the device
 names, in the order that you added them.  See also L</BLOCK DEVICE
 NAMING> below.
 
@@ -143,7 +145,7 @@ NAMING> below.
 
 Before you can read or write files, create directories and so on in a
 disk image that contains filesystems, you have to mount those
-filesystems using C<guestfs_mount>.  If you already know that a disk
+filesystems using L</guestfs_mount>.  If you already know that a disk
 image contains (for example) one partition with a filesystem on that
 partition, then you can mount it directly:
 
@@ -155,13 +157,14 @@ Linux LVM2 logical volumes you could refer to those instead (eg. C</dev/VG/LV>).
 
 If you are given a disk image and you don't know what it contains then
 you have to find out.  Libguestfs can do that too: use
-C<guestfs_list_partitions> and C<guestfs_lvs> to list possible
+L</guestfs_list_partitions> and L</guestfs_lvs> to list possible
 partitions and LVs, and either try mounting each to see what is
-mountable, or else examine them with C<guestfs_file>.  But you might
-find it easier to look at higher level programs built on top of
-libguestfs, in particular L<virt-inspector(1)>.
+mountable, or else examine them with L</guestfs_vfs_type> or
+L</guestfs_file>.  But you might find it easier to look at higher level
+programs built on top of libguestfs, in particular
+L<virt-inspector(1)>.
 
-To mount a disk image read-only, use C<guestfs_mount_ro>.  There are
+To mount a disk image read-only, use L</guestfs_mount_ro>.  There are
 several other variations of the C<guestfs_mount_*> call.
 
 =head2 FILESYSTEM ACCESS AND MODIFICATION
@@ -172,7 +175,8 @@ mounted filesystems.  There are over a hundred such calls which you
 can find listed in detail below in this man page, and we don't even
 pretend to cover them all in this overview.
 
-Specify filenames as full paths including the mount point.
+Specify filenames as full paths, starting with C<"/"> and including
+the mount point.
 
 For example, if you mounted a filesystem at C<"/"> and you want to
 read the file called C<"etc/passwd"> then you could do:
@@ -193,16 +197,17 @@ To create a symlink you could do:
  guestfs_ln_s (g, "/etc/init.d/portmap",
                "/etc/rc3.d/S30portmap");
 
-Libguestfs will reject attempts to use relative paths.  There is no
-concept of a current working directory.  Libguestfs can return errors
-in many situations: for example if the filesystem isn't writable, or
-if a file or directory that you requested doesn't exist.  If you are
-using the C API (documented here) you have to check for those error
-conditions after each call.  (Other language bindings turn these
-errors into exceptions).
+Libguestfs will reject attempts to use relative paths and there is no
+concept of a current working directory.
+
+Libguestfs can return errors in many situations: for example if the
+filesystem isn't writable, or if a file or directory that you
+requested doesn't exist.  If you are using the C API (documented here)
+you have to check for those error conditions after each call.  (Other
+language bindings turn these errors into exceptions).
 
 File writes are affected by the per-handle umask, set by calling
-C<guestfs_umask> and defaulting to 022.  See L</UMASK>.
+L</guestfs_umask> and defaulting to 022.  See L</UMASK>.
 
 =head2 PARTITIONING
 
@@ -210,7 +215,7 @@ Libguestfs contains API calls to read, create and modify partition
 tables on disk images.
 
 In the common case where you want to create a single partition
-covering the whole disk, you should use the C<guestfs_part_disk>
+covering the whole disk, you should use the L</guestfs_part_disk>
 call:
 
  const char *parttype = "mbr";
@@ -221,23 +226,10 @@ call:
 Obviously this effectively wipes anything that was on that disk image
 before.
 
-In general MBR partitions are both unnecessarily complicated and
-depend on archaic details, namely the Cylinder-Head-Sector (CHS)
-geometry of the disk.  C<guestfs_sfdiskM> can be used to
-create more complex arrangements where the relative sizes are
-expressed in megabytes instead of cylinders, which is a small win.
-C<guestfs_sfdiskM> will choose the nearest cylinder to approximate the
-requested size.  There's a lot of crazy stuff to do with IDE and
-virtio disks having different, incompatible CHS geometries, that you
-probably don't want to know about.
-
-My advice: make a single partition to cover the whole disk, then use
-LVM on top.
-
 =head2 LVM2
 
 Libguestfs provides access to a large part of the LVM2 API, such as
-C<guestfs_lvcreate> and C<guestfs_vgremove>.  It won't make much sense
+L</guestfs_lvcreate> and L</guestfs_vgremove>.  It won't make much sense
 unless you familiarize yourself with the concepts of physical volumes,
 volume groups and logical volumes.
 
@@ -246,42 +238,42 @@ L<http://tldp.org/HOWTO/LVM-HOWTO/>.
 
 =head2 DOWNLOADING
 
-Use C<guestfs_cat> to download small, text only files.  This call
+Use L</guestfs_cat> to download small, text only files.  This call
 is limited to files which are less than 2 MB and which cannot contain
 any ASCII NUL (C<\0>) characters.  However it has a very simple
 to use API.
 
-C<guestfs_read_file> can be used to read files which contain
+L</guestfs_read_file> can be used to read files which contain
 arbitrary 8 bit data, since it returns a (pointer, size) pair.
 However it is still limited to "small" files, less than 2 MB.
 
-C<guestfs_download> can be used to download any file, with no
+L</guestfs_download> can be used to download any file, with no
 limits on content or size (even files larger than 4 GB).
 
-To download multiple files, see C<guestfs_tar_out> and
-C<guestfs_tgz_out>.
+To download multiple files, see L</guestfs_tar_out> and
+L</guestfs_tgz_out>.
 
 =head2 UPLOADING
 
 It's often the case that you want to write a file or files to the disk
 image.
 
-For small, single files, use C<guestfs_write_file>.  This call
+For small, single files, use L</guestfs_write_file>.  This call
 currently contains a bug which limits the call to plain text files
 (not containing ASCII NUL characters).
 
-To upload a single file, use C<guestfs_upload>.  This call has no
+To upload a single file, use L</guestfs_upload>.  This call has no
 limits on file content or size (even files larger than 4 GB).
 
-To upload multiple files, see C<guestfs_tar_in> and C<guestfs_tgz_in>.
+To upload multiple files, see L</guestfs_tar_in> and L</guestfs_tgz_in>.
 
 However the fastest way to upload I<large numbers of arbitrary files>
 is to turn them into a squashfs or CD ISO (see L<mksquashfs(8)> and
-L<mkisofs(8)>), then attach this using C<guestfs_add_drive_ro>.  If
+L<mkisofs(8)>), then attach this using L</guestfs_add_drive_ro>.  If
 you add the drive in a predictable way (eg. adding it last after all
 other drives) then you can get the device name from
-C<guestfs_list_devices> and mount it directly using
-C<guestfs_mount_ro>.  Note that squashfs images are sometimes
+L</guestfs_list_devices> and mount it directly using
+L</guestfs_mount_ro>.  Note that squashfs images are sometimes
 non-portable between kernel versions, and they don't support labels or
 UUIDs.  If you want to pre-build an image or you need to mount it
 using a label or UUID, use an ISO image instead.
@@ -309,7 +301,8 @@ Example: duplicate the contents of an LV:
  guestfs_dd (g, "/dev/VG/Original", "/dev/VG/Copy");
 
 The destination (C</dev/VG/Copy>) must be at least as large as the
-source (C</dev/VG/Original>).
+source (C</dev/VG/Original>).  To copy less than the whole
+source device, use L</guestfs_copy_size>.
 
 =item B<file on the host> to B<file or device>
 
@@ -323,17 +316,18 @@ Use L</guestfs_download>.  See L</DOWNLOADING> above.
 
 =head2 LISTING FILES
 
-C<guestfs_ll> is just designed for humans to read (mainly when using
+L</guestfs_ll> is just designed for humans to read (mainly when using
 the L<guestfish(1)>-equivalent command C<ll>).
 
-C<guestfs_ls> is a quick way to get a list of files in a directory
+L</guestfs_ls> is a quick way to get a list of files in a directory
 from programs, as a flat list of strings.
 
-C<guestfs_readdir> is a programmatic way to get a list of files in a
+L</guestfs_readdir> is a programmatic way to get a list of files in a
 directory, plus additional information about each one.  It is more
 equivalent to using the L<readdir(3)> call on a local filesystem.
 
-C<guestfs_find> can be used to recursively list files.
+L</guestfs_find> and L</guestfs_find0> can be used to recursively list
+files.
 
 =head2 RUNNING COMMANDS
 
@@ -375,10 +369,10 @@ first.  See L</SELINUX> in this manpage.
 
 =back
 
-The two main API calls to run commands are C<guestfs_command> and
-C<guestfs_sh> (there are also variations).
+The two main API calls to run commands are L</guestfs_command> and
+L</guestfs_sh> (there are also variations).
 
-The difference is that C<guestfs_sh> runs commands using the shell, so
+The difference is that L</guestfs_sh> runs commands using the shell, so
 any shell globs, redirections, etc will work.
 
 =head2 CONFIGURATION FILES
@@ -393,7 +387,7 @@ don't document Augeas itself here because there is excellent
 documentation on the L<http://augeas.net/> website.
 
 If you don't want to use Augeas (you fool!) then try calling
-C<guestfs_read_lines> to get the file as a list of lines which
+L</guestfs_read_lines> to get the file as a list of lines which
 you can iterate over.
 
 =head2 SELINUX
@@ -441,7 +435,7 @@ C<restorecon pathname>.
 
 Certain calls are affected by the current file mode creation mask (the
 "umask").  In particular ones which create files or directories, such
-as C<guestfs_touch>, C<guestfs_mknod> or C<guestfs_mkdir>.  This
+as L</guestfs_touch>, L</guestfs_mknod> or L</guestfs_mkdir>.  This
 affects either the default mode that the file is created with or
 modifies the mode that you supply.
 
@@ -450,7 +444,7 @@ C<0644> and directories with C<0755>.
 
 There are two ways to avoid being affected by umask.  Either set umask
 to 0 (call C<guestfs_umask (g, 0)> early after launching).  Or call
-C<guestfs_chmod> after creating each file or directory.
+L</guestfs_chmod> after creating each file or directory.
 
 For more information about umask, see L<umask(2)>.
 
@@ -474,14 +468,15 @@ Replacing backslash characters with forward slash characters is also
 outside the scope of libguestfs, but something that you can easily do.
 
 Where we can help is in resolving the case insensitivity of paths.
-For this, call C<guestfs_case_sensitive_path>.
+For this, call L</guestfs_case_sensitive_path>.
 
 Libguestfs also provides some help for decoding Windows Registry
 "hive" files, through the library C<hivex> which is part of the
-libguestfs project.  You have to locate and download the hive file(s)
-yourself, and then pass them to C<hivex> functions.  See also the
-programs L<hivexml(1)>, L<hivexsh(1)> and L<virt-win-reg(1)> for more
-help on this issue.
+libguestfs project although ships as a separate tarball.  You have to
+locate and download the hive file(s) yourself, and then pass them to
+C<hivex> functions.  See also the programs L<hivexml(1)>,
+L<hivexsh(1)>, L<hivexregedit(1)> and L<virt-win-reg(1)> for more help
+on this issue.
 
 =head2 USING LIBGUESTFS WITH OTHER PROGRAMMING LANGUAGES
 
@@ -506,8 +501,8 @@ what we provide in their favourite languages if they wish.
 =item B<C++>
 
 You can use the I<guestfs.h> header file from C++ programs.  The C++
-API is identical to the C API.  C++ classes and exceptions are
-not implemented.
+API is identical to the C API.  C++ classes and exceptions are not
+used.
 
 =item B<C#>
 
@@ -516,9 +511,9 @@ at the top of C<csharp/Libguestfs.cs>.
 
 =item B<Haskell>
 
-This is the only language binding that working but incomplete.  Only
-calls which return simple integers have been bound in Haskell, and we
-are looking for help to complete this binding.
+This is the only language binding that is working but incomplete.
+Only calls which return simple integers have been bound in Haskell,
+and we are looking for help to complete this binding.
 
 =item B<Java>
 
@@ -582,17 +577,17 @@ If you forget to do this, then it is entirely possible that your
 changes won't be written out, or will be partially written, or (very
 rarely) that you'll get disk corruption.
 
-Note that in L<guestfish(3)> I<autosync is the default>.  So quick and
+Note that in L<guestfish(3)> autosync is the default.  So quick and
 dirty guestfish scripts that forget to sync will work just fine, which
-can make this extra-puzzling if you are trying to debug a problem.
+can make this very puzzling if you are trying to debug a problem.
 
 =item Mount option C<-o sync> should not be the default.
 
-If you use C<guestfs_mount>, then C<-o sync,noatime> are added
+If you use L</guestfs_mount>, then C<-o sync,noatime> are added
 implicitly.  However C<-o sync> does not add any reliability benefit,
 but does have a very large performance impact.
 
-The work around is to use C<guestfs_mount_options> and set the mount
+The work around is to use L</guestfs_mount_options> and set the mount
 options that you actually want to use.
 
 =item Read-only should be the default.
@@ -604,15 +599,16 @@ This would reduce the potential to corrupt live VM images.
 
 Note that many filesystems change the disk when you just mount and
 unmount, even if you didn't perform any writes.  You need to use
-C<guestfs_add_drive_ro> to guarantee that the disk is not changed.
+L</guestfs_add_drive_ro> to guarantee that the disk is not changed.
 
 =item guestfish command line is hard to use.
 
 C<guestfish disk.img> doesn't do what people expect (open C<disk.img>
 for examination).  It tries to run a guestfish command C<disk.img>
-which doesn't exist, so it fails, and it fails with a strange and
-unintuitive error message.  Like the Bourne shell, we should have used
-C<guestfish -c command> to run commands.
+which doesn't exist, so it fails.  In earlier versions of guestfish
+the error message was also unintuitive, but we have corrected this
+since.  Like the Bourne shell, we should have used C<guestfish -c
+command> to run commands.
 
 =back
 
@@ -626,7 +622,7 @@ need to be aware of this limit.  The API calls which may be affected
 are individually documented, with a link back to this section of the
 documentation.
 
-A simple call such as C<guestfs_cat> returns its result (the file
+A simple call such as L</guestfs_cat> returns its result (the file
 data) in a simple string.  Because this string is at some point
 internally encoded as a message, the maximum size that it can return
 is slightly under 4 MB.  If the requested file is larger than this
@@ -644,7 +640,7 @@ filesystem support (L<guestmount(1)>).
 =head2 guestfs_h *
 
 C<guestfs_h> is the opaque type representing a connection handle.
-Create a handle by calling C<guestfs_create>.  Call C<guestfs_close>
+Create a handle by calling L</guestfs_create>.  Call L</guestfs_close>
 to free the handle and release all resources used.
 
 For information on using multiple handles and threads, see the section
@@ -656,12 +652,12 @@ L</MULTIPLE HANDLES AND MULTIPLE THREADS> below.
 
 Create a connection handle.
 
-You have to call C<guestfs_add_drive> on the handle at least once.
+You have to call L</guestfs_add_drive> on the handle at least once.
 
 This function returns a non-NULL pointer to a handle on success or
 NULL on error.
 
-After configuring the handle, you have to call C<guestfs_launch>.
+After configuring the handle, you have to call L</guestfs_launch>.
 
 You may also want to configure error handling for the handle.  See
 L</ERROR HANDLING> section below.
@@ -676,14 +672,14 @@ This closes the connection handle and frees up all resources used.
 
 The convention in all functions that return C<int> is that they return
 C<-1> to indicate an error.  You can get additional information on
-errors by calling C<guestfs_last_error> and/or by setting up an error
-handler with C<guestfs_set_error_handler>.
+errors by calling L</guestfs_last_error> and/or by setting up an error
+handler with L</guestfs_set_error_handler>.
 
 The default error handler prints the information string to C<stderr>.
 
 Out of memory errors are handled differently.  The default action is
 to call L<abort(3)>.  If this is undesirable, then you can set a
-handler using C<guestfs_set_out_of_memory_handler>.
+handler using L</guestfs_set_out_of_memory_handler>.
 
 =head2 guestfs_last_error
 
@@ -694,7 +690,7 @@ there has not been an error since the handle was created, then this
 returns C<NULL>.
 
 The lifetime of the returned string is until the next error occurs, or
-C<guestfs_close> is called.
+L</guestfs_close> is called.
 
 The error string is not localized (ie. is always in English), because
 this makes searching for error messages in search engines give the
@@ -756,8 +752,8 @@ along an internal path.
 By default it looks for these in the directory C<$libdir/guestfs>
 (eg. C</usr/local/lib/guestfs> or C</usr/lib64/guestfs>).
 
-Use C<guestfs_set_path> or set the environment variable
-C<LIBGUESTFS_PATH> to change the directories that libguestfs will
+Use L</guestfs_set_path> or set the environment variable
+L</LIBGUESTFS_PATH> to change the directories that libguestfs will
 search in.  The value is a colon-separated list of paths.  The current
 directory is I<not> searched unless the path contains an empty element
 or C<.>.  For example C<LIBGUESTFS_PATH=:/usr/lib/guestfs> would
@@ -771,7 +767,7 @@ We guarantee the libguestfs ABI (binary interface), for public,
 high-level actions as outlined in this section.  Although we will
 deprecate some actions, for example if they get replaced by newer
 calls, we will keep the old actions forever.  This allows you the
-developer to program in confidence against libguestfs.
+developer to program in confidence against the libguestfs API.
 
 @ACTIONS@
 
@@ -897,8 +893,8 @@ hence the appliance in the L</guestfs_launch> function.
 
 Inside the appliance is a Linux kernel and a complete stack of
 userspace tools (such as LVM and ext2 programs) and a small
-controlling daemon called C<guestfsd>.  The library talks to
-C<guestfsd> using remote procedure calls (RPC).  There is a mostly
+controlling daemon called L</guestfsd>.  The library talks to
+L</guestfsd> using remote procedure calls (RPC).  There is a mostly
 one-to-one correspondence between libguestfs API calls and RPC calls
 to the daemon.  Lastly the disk image(s) are attached to the qemu
 process which translates device access by the appliance's Linux kernel
@@ -942,20 +938,20 @@ there is no child process), (2) LAUNCHING (when the child process is
 booting up), (3) alternating between READY and BUSY as commands are
 issued to, and carried out by, the child process.
 
-The guest may be killed by C<guestfs_kill_subprocess>, or may die
+The guest may be killed by L</guestfs_kill_subprocess>, or may die
 asynchronously at any time (eg. due to some internal error), and that
 causes the state to transition back to CONFIG.
 
-Configuration commands for qemu such as C<guestfs_add_drive> can only
+Configuration commands for qemu such as L</guestfs_add_drive> can only
 be issued when in the CONFIG state.
 
 The high-level API offers two calls that go from CONFIG through
-LAUNCHING to READY.  C<guestfs_launch> blocks until the child process
+LAUNCHING to READY.  L</guestfs_launch> blocks until the child process
 is READY to accept commands (or until some failure or timeout).
-C<guestfs_launch> internally moves the state from CONFIG to LAUNCHING
+L</guestfs_launch> internally moves the state from CONFIG to LAUNCHING
 while it is running.
 
-High-level API actions such as C<guestfs_mount> can only be issued
+High-level API actions such as L</guestfs_mount> can only be issued
 when in the READY state.  These high-level API calls block waiting for
 the command to be carried out (ie. the state to transition to BUSY and
 then back to READY).  But using the low-level event API, you get
@@ -1006,7 +1002,7 @@ discarded.
 
 The callback function C<cb> will be called when the child process
 quits, either asynchronously or if killed by
-C<guestfs_kill_subprocess>.  (This corresponds to a transition from
+L</guestfs_kill_subprocess>.  (This corresponds to a transition from
 any state to the CONFIG state).
 
 =head2 guestfs_set_launch_done_callback
@@ -1050,7 +1046,7 @@ C</dev/hd*> scheme, any device parameter C</dev/sda2> is translated to
 C</dev/hda2> transparently.
 
 Note that this I<only> applies to parameters.  The
-C<guestfs_list_devices>, C<guestfs_list_partitions> and similar calls
+L</guestfs_list_devices>, L</guestfs_list_partitions> and similar calls
 return the true names of the devices and partitions as known to the
 appliance.
 
@@ -1058,13 +1054,13 @@ appliance.
 
 Usually this translation is transparent.  However in some (very rare)
 cases you may need to know the exact algorithm.  Such cases include
-where you use C<guestfs_config> to add a mixture of virtio and IDE
+where you use L</guestfs_config> to add a mixture of virtio and IDE
 devices to the qemu-based appliance, so have a mixture of C</dev/sd*>
 and C</dev/vd*> devices.
 
 The algorithm is applied only to I<parameters> which are known to be
 either device or partition names.  Return values from functions such
-as C<guestfs_list_devices> are never changed.
+as L</guestfs_list_devices> are never changed.
 
 =over 4
 
@@ -1110,7 +1106,7 @@ libguestfs should use these future-proof techniques:
 
 =item *
 
-Use C<guestfs_list_devices> or C<guestfs_list_partitions> to list
+Use L</guestfs_list_devices> or L</guestfs_list_partitions> to list
 actual device names, and then use those names directly.
 
 Since those device names exist by definition, they will never be
@@ -1262,7 +1258,7 @@ parameters, but with the roles of daemon and library reversed.
 Because the underlying channel (QEmu -net channel) doesn't have any
 sort of connection control, when the daemon launches it sends an
 initial word (C<GUESTFS_LAUNCH_FLAG>) which indicates that the guest
-and daemon is alive.  This is what C<guestfs_launch> waits for.
+and daemon is alive.  This is what L</guestfs_launch> waits for.
 
 =head1 MULTIPLE HANDLES AND MULTIPLE THREADS
 
@@ -1479,7 +1475,7 @@ Richard W.M. Jones (C<rjones at redhat dot com>)
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Red Hat Inc.
+Copyright (C) 2009-2010 Red Hat Inc.
 L<http://libguestfs.org/>
 
 This library is free software; you can redistribute it and/or
