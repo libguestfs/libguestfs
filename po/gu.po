@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-23 14:41+0100\n"
+"POT-Creation-Date: 2010-04-27 15:48+0100\n"
 "PO-Revision-Date: 2010-02-02 13:45+0530\n"
 "Last-Translator: Sweta Kothari <swkothar@redhat.com>\n"
 "Language-Team: Gujarati\n"
@@ -1409,13 +1409,14 @@ msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: સરખા સમયે --listen અને --file વિકલ્પોને વાપરી શકાતુ નથી\n"
 
 #: fish/fish.c:621
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "\n"
 "Welcome to guestfish, the libguestfs filesystem interactive shell for\n"
 "editing virtual machine filesystems.\n"
 "\n"
-"Type: 'help' for help with commands\n"
+"Type: 'help' for a list of commands\n"
+"      'man' to read the manual\n"
 "      'quit' to quit the shell\n"
 "\n"
 msgstr ""
@@ -1427,81 +1428,85 @@ msgstr ""
 "      શેલને બહાર નીકળવા માટે 'quit'\n"
 "\n"
 
-#: fish/fish.c:701
+#: fish/fish.c:702
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: અંત ન બમણા અવતરણચિહ્નો \n"
 
-#: fish/fish.c:707 fish/fish.c:724
+#: fish/fish.c:708 fish/fish.c:725
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: આદેશ દલીલો એ ખાલી જગ્યા દ્દારા અલગ થયેલ નથી\n"
 
-#: fish/fish.c:718
+#: fish/fish.c:719
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: અંત ન આવેલ એક અવતરણ ચિહ્ન\n"
 
-#: fish/fish.c:773
+#: fish/fish.c:774
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: આંતરિક ભૂલ '%s' પર શબ્દમાળાનું પદચ્છેદન કરી રહી છે\n"
 
-#: fish/fish.c:790
+#: fish/fish.c:791
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: ઘણીબધી દલીલો છે\n"
 
-#: fish/fish.c:819
+#: fish/fish.c:820
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: આદેશ વાક્ય પર ખાલી આદેશ\n"
 
-#: fish/fish.c:987
+#: fish/fish.c:991
 msgid "display a list of commands or help on a command"
 msgstr "આદેશોની યાદીને દર્શાવો અથવા આદેશ પર મદદ "
 
-#: fish/fish.c:989
+#: fish/fish.c:993
+msgid "read the manual"
+msgstr ""
+
+#: fish/fish.c:995
 msgid "quit guestfish"
 msgstr "guestfish માંથી બહાર નીકળો"
 
-#: fish/fish.c:992
+#: fish/fish.c:998
 msgid "allocate an image"
 msgstr "ઇમેજને ફાળવો"
 
-#: fish/fish.c:994
+#: fish/fish.c:1000
 msgid "display a line of text"
 msgstr "લખાણનાં વાક્યને દર્શાવો"
 
-#: fish/fish.c:996
+#: fish/fish.c:1002
 msgid "edit a file in the image"
 msgstr "ઇમેજામં ફાઇલને સુધારો"
 
-#: fish/fish.c:998
+#: fish/fish.c:1004
 msgid "local change directory"
 msgstr "સ્થાનિય બદલાતી ડિરેક્ટરી"
 
-#: fish/fish.c:1000
+#: fish/fish.c:1006
 msgid "expand wildcards in command"
 msgstr "આદેશમાં વાઇલ્ડકાર્ડોને વિસ્તારો"
 
-#: fish/fish.c:1002
+#: fish/fish.c:1008
 msgid "view a file in the pager"
 msgstr "પેજરમાં ફાઇલને દેખાડો"
 
-#: fish/fish.c:1004
+#: fish/fish.c:1010
 msgid "close and reopen libguestfs handle"
 msgstr "libguestfs હેન્ડલને બંધ કરો અને પુન:ખોલો"
 
-#: fish/fish.c:1006
+#: fish/fish.c:1012
 msgid "allocate a sparse image file"
 msgstr "છૂટીછવાયેલ ઇમેજ ફાઇલને ફાળવો"
 
-#: fish/fish.c:1008
+#: fish/fish.c:1014
 msgid "measure time taken to run command"
 msgstr "આદેશને ચલાવવા માટે લીધેલ સમયને માપો"
 
-#: fish/fish.c:1020
+#: fish/fish.c:1026
 #, c-format
 msgid ""
 "alloc - allocate an image\n"
@@ -1542,7 +1547,7 @@ msgstr ""
 "    <nn>E અથવા એક્ઝાબાઇટોનો <nn>EB  નંબર\n"
 "    <nn>sects        512 બાઇટ સેક્ટરોનો નંબર\n"
 
-#: fish/fish.c:1039
+#: fish/fish.c:1045
 #, c-format
 msgid ""
 "echo - display a line of text\n"
@@ -1555,7 +1560,7 @@ msgstr ""
 "\n"
 "    આ ટર્મિનલમાં પરિમાણોને ઇકો કરે છે.\n"
 
-#: fish/fish.c:1046
+#: fish/fish.c:1052
 #, c-format
 msgid ""
 "edit - edit a file in the image\n"
@@ -1586,7 +1591,7 @@ msgstr ""
 "    નોંધ: આ \\0 bytes ને સમાવતી વિશાળ ફાઇલો (> 2 MB) અથવા બાઇનરી ફાઇલો માટે "
 "ભરોસાપાત્ર કામ કરતુ નથી.\n"
 
-#: fish/fish.c:1060
+#: fish/fish.c:1066
 #, c-format
 msgid ""
 "lcd - local change directory\n"
@@ -1602,7 +1607,7 @@ msgstr ""
 "    guestfish ની હાલની ડિરેક્ટરીને બનાવો. આ આદેશ એ ઉપયોગી છે જો તમે ચોક્કસ સ્થાનેથી "
 "ફાઇલોને ડાઉનલોડ કરવા માંગો તો.\n"
 
-#: fish/fish.c:1067
+#: fish/fish.c:1073
 #, c-format
 msgid ""
 "glob - expand wildcards in command\n"
@@ -1618,7 +1623,16 @@ msgstr ""
 "    Glob એ કોઇપણ આદેશ દલીલોમાં વિસ્તરેલ વાઇલ્ડકાર્ડો સાછે <command> ને ચલાવે છે.\n"
 "    નોંધો કે આ દેશ એ દરેક વિસ્તરેલ દલીલ માટે એકવાર વારંવાર ચાલે છે.\n"
 
-#: fish/fish.c:1074
+#: fish/fish.c:1081
+#, c-format
+msgid ""
+"man - read the manual\n"
+"    man\n"
+"\n"
+"    Opens the manual page for guestfish.\n"
+msgstr ""
+
+#: fish/fish.c:1086
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -1629,7 +1643,7 @@ msgstr ""
 "     help cmd\n"
 "     મદદ\n"
 
-#: fish/fish.c:1079
+#: fish/fish.c:1091
 #, c-format
 msgid ""
 "more - view a file in the pager\n"
@@ -1660,7 +1674,7 @@ msgstr ""
 "    નોંધ: આ \\0 બાઇટો ને સમાવતી મોટી ફાઇલો (> 2 MB) અથવા બાઇનરી ફાઇલો માટે ે કામ "
 "કરશે નહtes.\n"
 
-#: fish/fish.c:1095
+#: fish/fish.c:1107
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -1669,7 +1683,7 @@ msgstr ""
 "quit - guestfish માંથી બહાર નીકળો\n"
 "     બહાર નીકળો\n"
 
-#: fish/fish.c:1098
+#: fish/fish.c:1110
 #, c-format
 msgid ""
 "reopen - close and reopen the libguestfs handle\n"
@@ -1686,7 +1700,7 @@ msgstr ""
 "કારણ કે હેન્ડલ એ બરાબર રીતે બંધ થયેલ છે જ્યારે guestfish એ બહાર નીકળે છે ત્યારે.  છતાંપણ આ "
 "ચકાસણી માટે અવારનવાર ઉપયોગી છે.\n"
 
-#: fish/fish.c:1105
+#: fish/fish.c:1117
 #, c-format
 msgid ""
 "sparse - allocate a sparse image file\n"
@@ -1742,7 +1756,7 @@ msgstr ""
 "    <nn>E અથવા એક્ઝાબાઇટોનો <nn>EB  નંબર\n"
 "    <nn>sects        512 બાઇટ સેક્ટરોનો નંબર\n"
 
-#: fish/fish.c:1132
+#: fish/fish.c:1144
 #, c-format
 msgid ""
 "time - measure time taken to run command\n"
@@ -1756,12 +1770,12 @@ msgstr ""
 "\n"
 "    આ સામાન્ય રીતે <command> ને ચલાવે છે, અને પછીથી પસાર થયેલ સમયને છાપે છે.\n"
 
-#: fish/fish.c:1138
+#: fish/fish.c:1150
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s: આદેશ જાણીતો નથી, બધા આદેશોની યાદી માટે -h ને વાપરો\n"
 
-#: fish/fish.c:1152
+#: fish/fish.c:1164
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -1769,7 +1783,7 @@ msgid ""
 "For complete documentation:         man guestfish\n"
 msgstr ""
 
-#: fish/fish.c:1309
+#: fish/fish.c:1321
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "શબ્દમાળા \"%s\" માં દૂર થતો અવતરણચિહ્ન\n"
@@ -1788,6 +1802,16 @@ msgstr "glob: guestfs_glob_expand કોલ નિષ્ફળ: %s\n"
 #, c-format
 msgid "use 'lcd directory' to change local directory\n"
 msgstr "સ્થાનિય ડિરેક્ટરીને બદલવા માટે 'lcd directory' ને વાપરો\n"
+
+#: fish/man.c:34
+#, c-format
+msgid "use 'man' without parameters to open the manual\n"
+msgstr ""
+
+#: fish/man.c:53
+#, fuzzy, c-format
+msgid "the external 'man' program failed\n"
+msgstr "બહારનો આદેશ નિષ્ફળ: %s"
 
 #: fish/more.c:40
 #, c-format

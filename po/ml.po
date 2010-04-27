@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs.master.libguestfs.ml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-23 14:41+0100\n"
+"POT-Creation-Date: 2010-04-27 15:48+0100\n"
 "PO-Revision-Date: 2010-02-02 18:35+0530\n"
 "Last-Translator: Ani Peter | അനി പീറ്റര്‍ <apeter@redhat.com>\n"
 "Language-Team: Swathanthra Malayalam Computing | സ്വതന്ത്ര മലയാളം കമ്പ്യൂട്ടിങ് <smc-"
@@ -1415,13 +1415,14 @@ msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: ഒരേ സമയത്തു് --listen, --file എന്നീ ഉപാധികള്‍ ഉപയോഗിക്കുവാന്‍ സാധ്യമല്ല\n"
 
 #: fish/fish.c:621
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "\n"
 "Welcome to guestfish, the libguestfs filesystem interactive shell for\n"
 "editing virtual machine filesystems.\n"
 "\n"
-"Type: 'help' for help with commands\n"
+"Type: 'help' for a list of commands\n"
+"      'man' to read the manual\n"
 "      'quit' to quit the shell\n"
 "\n"
 msgstr ""
@@ -1433,81 +1434,85 @@ msgstr ""
 "      ഷെല്ലില്‍ നിന്നും പുറത്തു് കടക്കുന്നതിനായി 'quit'\n"
 "\n"
 
-#: fish/fish.c:701
+#: fish/fish.c:702
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: അപൂര്‍ണ്ണമായ ഡബിള്‍ കോട്ട്\n"
 
-#: fish/fish.c:707 fish/fish.c:724
+#: fish/fish.c:708 fish/fish.c:725
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: കമാന്‍ഡ് ആര്‍ഗ്യുമെന്റുകള്‍ വൈറ്റ്സ്പെയിസ് ഉപയോഗിച്ചു് വേര്‍തിരിച്ചിട്ടില്ല\n"
 
-#: fish/fish.c:718
+#: fish/fish.c:719
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: അപൂര്‍ണ്ണമായ സിംഗിള്‍ കോട്ട്\n"
 
-#: fish/fish.c:773
+#: fish/fish.c:774
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: '%s'-ല്‍ സ്ട്രിങ് പാഴ്സ് ചെയ്യുമ്പോള്‍ ഇന്റേര്‍ണല്‍ പിശക്\n"
 
-#: fish/fish.c:790
+#: fish/fish.c:791
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: അനവധി ആര്‍ഗ്യുമെന്റുകള്‍\n"
 
-#: fish/fish.c:819
+#: fish/fish.c:820
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: കമാന്‍ഡ് ലൈനില്‍ കാലിയായ കമാന്‍ഡ്\n"
 
-#: fish/fish.c:987
+#: fish/fish.c:991
 msgid "display a list of commands or help on a command"
 msgstr "കമാന്‍ഡുകളുടെ ഒരു പട്ടിക അല്ലെങ്കില്‍ ഒരു കമാന്‍ഡിനുള്ള സഹായം കാണിക്കുക"
 
-#: fish/fish.c:989
+#: fish/fish.c:993
+msgid "read the manual"
+msgstr ""
+
+#: fish/fish.c:995
 msgid "quit guestfish"
 msgstr "guestfish-ല്‍ നിന്നും പുറത്തു് കടക്കുക"
 
-#: fish/fish.c:992
+#: fish/fish.c:998
 msgid "allocate an image"
 msgstr "ഒരു ചിത്രം അനുവദിക്കുക"
 
-#: fish/fish.c:994
+#: fish/fish.c:1000
 msgid "display a line of text"
 msgstr "ഒരു വരി കാണിക്കുക"
 
-#: fish/fish.c:996
+#: fish/fish.c:1002
 msgid "edit a file in the image"
 msgstr "ചിത്രത്തില്‍ ഒരു ഫയലില്‍ മാറ്റം വരുത്തുക"
 
-#: fish/fish.c:998
+#: fish/fish.c:1004
 msgid "local change directory"
 msgstr "പ്രാദേശികമായി മാറ്റുവാനുള്ള ഡയറക്ടറി"
 
-#: fish/fish.c:1000
+#: fish/fish.c:1006
 msgid "expand wildcards in command"
 msgstr "കമാന്‍ഡില്‍ വൈള്‍ഡ്കാര്‍ഡുകള്‍ വികസിപ്പിക്കുക"
 
-#: fish/fish.c:1002
+#: fish/fish.c:1008
 msgid "view a file in the pager"
 msgstr "പേജറില്‍ ഒരു ഫയല്‍ കാണുക"
 
-#: fish/fish.c:1004
+#: fish/fish.c:1010
 msgid "close and reopen libguestfs handle"
 msgstr "libguestfs ഹാന്‍ഡില്‍ അടയ്ക്കുക, ശേഷം വീണ്ടും തുറക്കുക"
 
-#: fish/fish.c:1006
+#: fish/fish.c:1012
 msgid "allocate a sparse image file"
 msgstr "ഒരു സ്പാഴ്സ് ഇമേജ് ഫയല്‍ അനുവദിക്കുക"
 
-#: fish/fish.c:1008
+#: fish/fish.c:1014
 msgid "measure time taken to run command"
 msgstr "ഒരു കമാന്‍ഡ് പ്രവര്‍ത്തിപ്പിക്കുന്നതിനുള്ള സമയം അളക്കുക"
 
-#: fish/fish.c:1020
+#: fish/fish.c:1026
 #, c-format
 msgid ""
 "alloc - allocate an image\n"
@@ -1548,7 +1553,7 @@ msgstr ""
 "    <nn>E or <nn>EB  number of exabytes\n"
 "    <nn>sects        number of 512 byte sectors\n"
 
-#: fish/fish.c:1039
+#: fish/fish.c:1045
 #, c-format
 msgid ""
 "echo - display a line of text\n"
@@ -1561,7 +1566,7 @@ msgstr ""
 "\n"
 "    പരാമീറ്ററുകള്‍ ടെര്‍മിനലിലേക്കു് എക്കോ ചെയ്യുന്നു.\n"
 
-#: fish/fish.c:1046
+#: fish/fish.c:1052
 #, c-format
 msgid ""
 "edit - edit a file in the image\n"
@@ -1592,7 +1597,7 @@ msgstr ""
 "    NOTE: This will not work reliably for large files\n"
 "    (> 2 MB) or binary files containing \\0 bytes.\n"
 
-#: fish/fish.c:1060
+#: fish/fish.c:1066
 #, c-format
 msgid ""
 "lcd - local change directory\n"
@@ -1609,7 +1614,7 @@ msgstr ""
 "    ഫയലുകള്‍ ഡൌണ്‍ലോഡ് ചെയ്യുന്നതിനായി ഈ കമാന്‍ഡ്\n"
 "    ഉപയോഗപ്പെടുന്നു.\n"
 
-#: fish/fish.c:1067
+#: fish/fish.c:1073
 #, c-format
 msgid ""
 "glob - expand wildcards in command\n"
@@ -1626,7 +1631,16 @@ msgstr ""
 "    Glob <command> പ്രവര്‍ത്തിപ്പിക്കുന്നു. ഓരോ വികസിച്ച ആര്‍ഗ്യുമെന്റിനും\n"
 "    കമാന്‍ഡ് ഓരോ തവണ ആവര്‍ത്തിക്കുന്നു.\n"
 
-#: fish/fish.c:1074
+#: fish/fish.c:1081
+#, c-format
+msgid ""
+"man - read the manual\n"
+"    man\n"
+"\n"
+"    Opens the manual page for guestfish.\n"
+msgstr ""
+
+#: fish/fish.c:1086
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -1637,7 +1651,7 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:1079
+#: fish/fish.c:1091
 #, c-format
 msgid ""
 "more - view a file in the pager\n"
@@ -1668,7 +1682,7 @@ msgstr ""
 "    NOTE: This will not work reliably for large files\n"
 "    (> 2 MB) or binary files containing \\0 bytes.\n"
 
-#: fish/fish.c:1095
+#: fish/fish.c:1107
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -1677,7 +1691,7 @@ msgstr ""
 "quit - quit guestfish\n"
 "     quit\n"
 
-#: fish/fish.c:1098
+#: fish/fish.c:1110
 #, c-format
 msgid ""
 "reopen - close and reopen the libguestfs handle\n"
@@ -1694,7 +1708,7 @@ msgstr ""
 "കാരണം guestfish പുറത്തുകടക്കുമ്പോള്‍ ഹാന്‍ഡില്‍ ശരിയായി അടയ്ക്കപ്പെടുന്നു.\n"
 "എന്നിരുന്നാലും , ചില പരീക്ഷണങ്ങള്‍ക്കായി ഇതു് ഉപയോഗപ്പെടുന്നു.\n"
 
-#: fish/fish.c:1105
+#: fish/fish.c:1117
 #, c-format
 msgid ""
 "sparse - allocate a sparse image file\n"
@@ -1751,7 +1765,7 @@ msgstr ""
 "    <nn>E or <nn>EB  number of exabytes\n"
 "    <nn>sects        number of 512 byte sectors\n"
 
-#: fish/fish.c:1132
+#: fish/fish.c:1144
 #, c-format
 msgid ""
 "time - measure time taken to run command\n"
@@ -1766,12 +1780,12 @@ msgstr ""
 "    പതിവു് പോലെ ഇതു് <command> പ്രവര്‍ത്തിപ്പിക്കുന്നു, കൂടാതെ അതിനുശേഷമുള്ള\n"
 "    സമയം പ്രിന്റ് ചെയ്യുന്നു.\n"
 
-#: fish/fish.c:1138
+#: fish/fish.c:1150
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s: കമാന്‍ഡ് അപരിചിതം, എല്ലാ കമാന്‍ഡുകളും ലഭ്യമാക്കുന്നതിനായി -h ഉപയോഗിക്കുക\n"
 
-#: fish/fish.c:1152
+#: fish/fish.c:1164
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -1779,7 +1793,7 @@ msgid ""
 "For complete documentation:         man guestfish\n"
 msgstr ""
 
-#: fish/fish.c:1309
+#: fish/fish.c:1321
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "Runaway quote in string \"%s\"\n"
@@ -1798,6 +1812,16 @@ msgstr "glob: guestfs_glob_expand കോള്‍ പരാജയപ്പെട
 #, c-format
 msgid "use 'lcd directory' to change local directory\n"
 msgstr "ലോക്കല്‍ ഡയറക്ടറി മാറ്റുന്നതിനായി 'lcd directory' ഉപയോഗിക്കുക\n"
+
+#: fish/man.c:34
+#, c-format
+msgid "use 'man' without parameters to open the manual\n"
+msgstr ""
+
+#: fish/man.c:53
+#, fuzzy, c-format
+msgid "the external 'man' program failed\n"
+msgstr "എക്സ്റ്റേണല്‍ കമാന്‍ഡ് പരാജയപ്പെട്ടു: %s"
 
 #: fish/more.c:40
 #, c-format
