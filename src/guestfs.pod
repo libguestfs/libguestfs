@@ -610,6 +610,23 @@ the error message was also unintuitive, but we have corrected this
 since.  Like the Bourne shell, we should have used C<guestfish -c
 command> to run commands.
 
+=item Protocol limit of 256 characters for error messages
+
+This limit is both rather small and quite unnecessary.  We should be
+able to return error messages up to the length of the protocol message
+(2-4 MB).
+
+Note that we cannot change the protocol without some breakage, because
+there are distributions that repackage the Fedora appliance.
+
+=item Protocol should return errno with error messages.
+
+It would be a nice-to-have to be able to get the original value of
+'errno' from inside the appliance along error paths (where set).
+Currently L<guestmount(1)> goes through hoops to try to reverse the
+error message string into an errno, see the function error() in
+fuse/guestmount.c.
+
 =back
 
 =head2 PROTOCOL LIMITS
