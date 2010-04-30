@@ -1,3 +1,6 @@
+Random contributions and things which don't fit in anywhere else
+----------------------------------------------------------------------
+
 centos5.3-libguestfs.spec
         [REMOVED]
         This used to be a centos5.3 specfile.  Please use the specfile
