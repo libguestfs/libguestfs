@@ -6563,6 +6563,8 @@ int main (int argc, char *argv[])
   iteri (
     fun i test_name ->
       pr "  test_num++;\n";
+      pr "  if (guestfs_get_verbose (g))\n";
+      pr "    printf (\"-------------------------------------------------------------------------------\\n\");\n";
       pr "  printf (\"%%3d/%%3d %s\\n\", test_num, nr_tests);\n" test_name;
       pr "  if (%s () == -1) {\n" test_name;
       pr "    printf (\"%s FAILED\\n\");\n" test_name;
