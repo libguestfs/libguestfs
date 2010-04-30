@@ -2569,7 +2569,14 @@ are activated or deactivated.");
        ["e2fsck_f"; "/dev/VG/LV"];
        ["resize2fs"; "/dev/VG/LV"];
        ["mount_options"; ""; "/dev/VG/LV"; "/"];
-       ["cat"; "/new"]], "test content")],
+       ["cat"; "/new"]], "test content");
+    InitNone, Always, TestRun (
+      (* Make an LV smaller to test RHBZ#587484. *)
+      [["part_disk"; "/dev/sda"; "mbr"];
+       ["pvcreate"; "/dev/sda1"];
+       ["vgcreate"; "VG"; "/dev/sda1"];
+       ["lvcreate"; "LV"; "VG"; "20"];
+       ["lvresize"; "/dev/VG/LV"; "10"]])],
    "resize an LVM logical volume",
    "\
 This resizes (expands or shrinks) an existing LVM logical
