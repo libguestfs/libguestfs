@@ -958,8 +958,15 @@ exist.
 The mounted filesystem is writable, if we have sufficient permissions
 on the underlying device.
 
-The filesystem options C<sync> and C<noatime> are set with this
-call, in order to improve reliability.");
+B<Important note:>
+When you use this call, the filesystem options C<sync> and C<noatime>
+are set implicitly.  This was originally done because we thought it
+would improve reliability, but it turns out that I<-o sync> has a
+very large negative performance impact and negligible effect on
+reliability.  Therefore we recommend that you avoid using
+C<guestfs_mount> in any code that needs performance, and instead
+use C<guestfs_mount_options> (use an empty string for the first
+parameter if you don't want any options).");
 
   ("sync", (RErr, []), 2, [],
    [ InitEmpty, Always, TestRun [["sync"]]],
@@ -2095,7 +2102,11 @@ mounts the filesystem with the read-only (I<-o ro>) flag.");
    "\
 This is the same as the C<guestfs_mount> command, but it
 allows you to set the mount options as for the
-L<mount(8)> I<-o> flag.");
+L<mount(8)> I<-o> flag.
+
+If the C<options> parameter is an empty string, then
+no options are passed (all options default to whatever
+the filesystem uses).");
 
   ("mount_vfs", (RErr, [String "options"; String "vfstype"; Device "device"; String "mountpoint"]), 75, [],
    [],
