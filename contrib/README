@@ -7,6 +7,12 @@ centos5.3-libguestfs.spec
         from EL-5 here:
         http://cvs.fedoraproject.org/viewvc/rpms/libguestfs/EL-5/
 
+dependency-diagram/
+        A "dot" file (for graphviz) which describes the dependencies
+        between the many different components of the libguestfs
+        ecosystem.  Good place to get started if you want to jump
+        into the code.
+
 febootstrap/
         [REMOVED]
         An experimental, non-working attempt to use febootstrap
