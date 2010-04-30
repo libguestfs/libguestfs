@@ -267,7 +267,7 @@ do_lvresize (const char *logvol, int mbytes)
 
   r = command (NULL, &err,
                "lvm", "lvresize",
-               "-L", size, logvol, NULL);
+               "--force", "-L", size, logvol, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     free (err);
