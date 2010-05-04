@@ -55,9 +55,14 @@
 
 static char *read_cmdline (void);
 
-/* Also in guestfs.c */
-#define GUESTFWD_ADDR "10.0.2.4"
-#define GUESTFWD_PORT "6666"
+/* This is the default address we connect to for very old libraries
+ * which didn't specify the address and port number explicitly on the
+ * kernel command line.  It's now recommended to always specify the
+ * address and port number on the command line, so this will not be
+ * used any more.
+ */
+#define OLD_GUESTFWD_ADDR "10.0.2.4"
+#define OLD_GUESTFWD_PORT "6666"
 
 /* This is only a hint.  If not defined, ignore it. */
 #ifndef AI_ADDRCONFIG
@@ -285,7 +290,7 @@ main (int argc, char *argv[])
 
   /* Default vmchannel. */
   if (vmchannel == NULL) {
-    vmchannel = strdup ("tcp:" GUESTFWD_ADDR ":" GUESTFWD_PORT);
+    vmchannel = strdup ("tcp:" OLD_GUESTFWD_ADDR ":" OLD_GUESTFWD_PORT);
     if (!vmchannel) {
       perror ("strdup");
       exit (EXIT_FAILURE);

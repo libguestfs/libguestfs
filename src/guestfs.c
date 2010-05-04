@@ -110,7 +110,26 @@ static int qemu_supports (guestfs_h *g, const char *option);
 #define xdr_uint32_t xdr_u_int32_t
 #endif
 
-/* Also in guestfsd.c */
+/* Network configuration of the appliance.  Note these addresses are
+ * only meaningful within the context of the running appliance.  QEMU
+ * translates network connections to these magic addresses into
+ * userspace calls on the host (eg. connect(2)).  qemu-doc has a nice
+ * diagram which is also useful to refer to.
+ *
+ * NETWORK: The network.
+ *
+ * ROUTER: The address of the "host", ie. this library.
+ *
+ * [Note: If you change NETWORK and ROUTER then you also have to
+ * change the network configuration in appliance/init].
+ *
+ * GUESTFWD_ADDR, GUESTFWD_PORT: The guestfwd feature of qemu
+ * magically connects this pseudo-address to the guestfwd channel.  In
+ * typical Linux configurations of libguestfs, guestfwd is not
+ * actually used any more.
+ */
+#define NETWORK "10.0.2.0/8"
+#define ROUTER "10.0.2.2"
 #define GUESTFWD_ADDR "10.0.2.4"
 #define GUESTFWD_PORT "6666"
 
@@ -1189,10 +1208,11 @@ guestfs__launch (guestfs_h *g)
      */
     if (null_vmchannel_sock) {
       add_cmdline (g, "-net");
-      add_cmdline (g, "user,vlan=0,net=10.0.2.0/8");
+      add_cmdline (g, "user,vlan=0,net=" NETWORK);
 
       snprintf (buf, sizeof buf,
-                "guestfs_vmchannel=tcp:10.0.2.2:%d", null_vmchannel_sock);
+                "guestfs_vmchannel=tcp:" ROUTER ":%d",
+                null_vmchannel_sock);
       vmchannel = strdup (buf);
     }
 
@@ -1215,7 +1235,7 @@ guestfs__launch (guestfs_h *g)
       add_cmdline (g, buf);
 
       snprintf (buf, sizeof buf,
-                "user,vlan=0,net=10.0.2.0/8,"
+                "user,vlan=0,net=" NETWORK ","
                 "guestfwd=tcp:" GUESTFWD_ADDR ":" GUESTFWD_PORT
                 "-chardev:guestfsvmc");
 
@@ -1235,7 +1255,7 @@ guestfs__launch (guestfs_h *g)
       add_cmdline (g, "-net");
       add_cmdline (g, buf);
       add_cmdline (g, "-net");
-      add_cmdline (g, "user,vlan=0,net=10.0.2.0/8");
+      add_cmdline (g, "user,vlan=0,net=" NETWORK);
 
       vmchannel = "guestfs_vmchannel=tcp:" GUESTFWD_ADDR ":" GUESTFWD_PORT;
     }
