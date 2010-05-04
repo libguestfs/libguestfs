@@ -128,9 +128,9 @@ static int qemu_supports (guestfs_h *g, const char *option);
  * typical Linux configurations of libguestfs, guestfwd is not
  * actually used any more.
  */
-#define NETWORK "10.0.2.0/8"
-#define ROUTER "10.0.2.2"
-#define GUESTFWD_ADDR "10.0.2.4"
+#define NETWORK "169.254.0.0/16"
+#define ROUTER "169.254.2.2"
+#define GUESTFWD_ADDR "169.254.2.4"
 #define GUESTFWD_PORT "6666"
 
 /* GuestFS handle and connection. */

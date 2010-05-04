@@ -52,8 +52,8 @@ hwclock -u -s
 
 # Set up the network.
 ifconfig lo 127.0.0.1
-ifconfig eth0 10.0.2.10
-route add default gw 10.0.2.2
+ifconfig eth0 169.254.2.10
+route add default gw 169.254.2.2
 
 # Scan for LVM.
 modprobe dm_mod ||:
