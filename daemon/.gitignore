@@ -63,6 +63,7 @@ m4/inline.m4
 m4/intmax_t.m4
 m4/inttostr.m4
 m4/inttypes_h.m4
+m4/ioctl.m4
 m4/lchown.m4
 m4/localcharset.m4
 m4/locale-fr.m4
@@ -152,9 +153,11 @@ m4/vasprintf.m4
 m4/warnings.m4
 m4/warn-on-use.m4
 m4/wchar.m4
+m4/wchar_h.m4
 m4/wchar_t.m4
 m4/wctob.m4
 m4/wctype.m4
+m4/wctype_h.m4
 m4/wint_t.m4
 m4/write.m4
 m4/xalloc.m4
