@@ -2474,7 +2474,10 @@ The returned strings are transcoded to UTF-8.");
      * commands to segfault.
      *)
     InitISOFS, Always, TestRun (
-      [["hexdump"; "/100krandom"]])],
+      [["hexdump"; "/100krandom"]]);
+    (* Test for RHBZ#579608, absolute symbolic links. *)
+    InitISOFS, Always, TestRun (
+      [["hexdump"; "/abssymlink"]])],
    "dump a file in hexadecimal",
    "\
 This runs C<hexdump -C> on the given C<path>.  The result is
