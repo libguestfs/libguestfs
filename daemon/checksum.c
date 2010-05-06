@@ -22,6 +22,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <fcntl.h>
 #include <sys/stat.h>
 
 #include "../src/guestfs_protocol.h"
@@ -52,18 +53,19 @@ program_of_csum (const char *csumtype)
 }
 
 static char *
-checksum (const char *csumtype, const char *path)
+checksum (const char *csumtype, int fd)
 {
   const char *program;
   char *out, *err;
-  int r;
+  int flags, r;
   int len;
 
   program = program_of_csum (csumtype);
   if (program == NULL)
     return NULL;
 
-  r = command (&out, &err, program, path, NULL);
+  flags = COMMAND_FLAG_CHROOT_COPY_FILE_TO_STDIN | fd;
+  r = commandf (&out, &err, flags, program, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", program, err);
     free (out);
@@ -83,22 +85,32 @@ checksum (const char *csumtype, const char *path)
 char *
 do_checksum (const char *csumtype, const char *path)
 {
-  /* Make the path relative to /sysroot. */
-  char *buf = sysroot_path (path);
-  if (!buf) {
-    reply_with_perror ("malloc");
+  int fd;
+
+  CHROOT_IN;
+  fd = open (path, O_RDONLY);
+  CHROOT_OUT;
+
+  if (fd == -1) {
+    reply_with_perror ("%s", path);
     return NULL;
   }
 
-  char *r = checksum (csumtype, buf);
-  free (buf);
-  return r;
+  return checksum (csumtype, fd);
 }
 
 char *
 do_checksum_device (const char *csumtype, const char *device)
 {
-  return checksum (csumtype, device);
+  int fd;
+
+  fd = open (device, O_RDONLY);
+  if (fd == -1) {
+    reply_with_perror ("%s", device);
+    return NULL;
+  }
+
+  return checksum (csumtype, fd);
 }
 
 /* Has one FileOut parameter. */

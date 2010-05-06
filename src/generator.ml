@@ -1991,7 +1991,10 @@ See also C<guestfs_upload>, C<guestfs_cat>.");
     InitISOFS, Always, TestOutput (
       [["checksum"; "sha384"; "/known-3"]], "5fa7883430f357b5d7b7271d3a1d2872b51d73cba72731de6863d3dea55f30646af2799bef44d5ea776a5ec7941ac640");
     InitISOFS, Always, TestOutput (
-      [["checksum"; "sha512"; "/known-3"]], "2794062c328c6b216dca90443b7f7134c5f40e56bd0ed7853123275a09982a6f992e6ca682f9d2fba34a4c5e870d8fe077694ff831e3032a004ee077e00603f6")],
+      [["checksum"; "sha512"; "/known-3"]], "2794062c328c6b216dca90443b7f7134c5f40e56bd0ed7853123275a09982a6f992e6ca682f9d2fba34a4c5e870d8fe077694ff831e3032a004ee077e00603f6");
+    (* Test for RHBZ#579608, absolute symbolic links. *)
+    InitISOFS, Always, TestOutput (
+      [["checksum"; "sha512"; "/abssymlink"]], "5f57d0639bc95081c53afc63a449403883818edc64da48930ad6b1a4fb49be90404686877743fbcd7c99811f3def7df7bc22635c885c6a8cf79c806b43451c1a")],
    "compute MD5, SHAx or CRC checksum of file",
    "\
 This call computes the MD5, SHAx or CRC checksum of the
