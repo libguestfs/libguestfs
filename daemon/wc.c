@@ -22,6 +22,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <fcntl.h>
 
 #include "../src/guestfs_protocol.h"
 #include "daemon.h"
@@ -30,19 +31,20 @@
 static int
 wc (const char *flag, const char *path)
 {
-  char *buf;
   char *out, *err;
-  int r;
+  int fd, flags, r;
 
-  /* Make the path relative to /sysroot. */
-  buf = sysroot_path (path);
-  if (!buf) {
-    reply_with_perror ("malloc");
+  CHROOT_IN;
+  fd = open (path, O_RDONLY);
+  CHROOT_OUT;
+
+  if (fd == -1) {
+    reply_with_perror ("wc %s: %s", flag, path);
     return -1;
   }
 
-  r = command (&out, &err, "wc", flag, buf, NULL);
-  free (buf);
+  flags = COMMAND_FLAG_CHROOT_COPY_FILE_TO_STDIN | fd;
+  r = commandf (&out, &err, flags, "wc", flag, NULL);
   if (r == -1) {
     reply_with_error ("wc %s: %s", flag, err);
     free (out);

@@ -2838,7 +2838,10 @@ See also: L<mkdtemp(3)>");
 
   ("wc_l", (RInt "lines", [Pathname "path"]), 118, [],
    [InitISOFS, Always, TestOutputInt (
-      [["wc_l"; "/10klines"]], 10000)],
+      [["wc_l"; "/10klines"]], 10000);
+    (* Test for RHBZ#579608, absolute symbolic links. *)
+    InitISOFS, Always, TestOutputInt (
+      [["wc_l"; "/abssymlink"]], 10000)],
    "count lines in a file",
    "\
 This command counts the lines in a file, using the
