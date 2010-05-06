@@ -1,5 +1,5 @@
 /* libguestfs - the guestfsd daemon
- * Copyright (C) 2009 Red Hat Inc.
+ * Copyright (C) 2009-2010 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -738,19 +738,24 @@ commandrvf (char **stdoutput, char **stderror, int flags,
     printf ("\n");
   }
 
+  /* Note: abort is used in a few places along the error paths early
+   * in this function.  This is because (a) cleaning up correctly is
+   * very complex at these places and (b) abort is used when a
+   * resource problems is indicated which would be due to much more
+   * serious issues - eg. memory or file descriptor leaks.  We
+   * wouldn't expect fork(2) or pipe(2) to fail in normal
+   * circumstances.
+   */
+
   if (pipe (so_fd) == -1 || pipe (se_fd) == -1) {
     perror ("pipe");
-    return -1;
+    abort ();
   }
 
   pid = fork ();
   if (pid == -1) {
     perror ("fork");
-    close (so_fd[0]);
-    close (so_fd[1]);
-    close (se_fd[0]);
-    close (se_fd[1]);
-    return -1;
+    abort ();
   }
 
   if (pid == 0) {		/* Child process. */
