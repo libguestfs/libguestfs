@@ -2446,7 +2446,10 @@ The external L<cmp(1)> program is used for the comparison.");
    [InitISOFS, Always, TestOutputList (
       [["strings"; "/known-5"]], ["abcdefghi"; "jklmnopqr"]);
     InitISOFS, Always, TestOutputList (
-      [["strings"; "/empty"]], [])],
+      [["strings"; "/empty"]], []);
+    (* Test for RHBZ#579608, absolute symbolic links. *)
+    InitISOFS, Always, TestRun (
+      [["strings"; "/abssymlink"]])],
    "print the printable strings in a file",
    "\
 This runs the L<strings(1)> command on a file and returns

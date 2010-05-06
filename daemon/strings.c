@@ -21,6 +21,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
+#include <fcntl.h>
 
 #include "daemon.h"
 #include "actions.h"
@@ -28,19 +30,21 @@
 char **
 do_strings_e (const char *encoding, const char *path)
 {
-  char *buf;
-  int r;
+  int fd, flags, r;
   char *out, *err;
   char **lines;
 
-  buf = sysroot_path (path);
-  if (!buf) {
-    reply_with_perror ("malloc");
+  CHROOT_IN;
+  fd = open (path, O_RDONLY);
+  CHROOT_OUT;
+
+  if (fd == -1) {
+    reply_with_perror ("%s", path);
     return NULL;
   }
 
-  r = command (&out, &err, "strings", "-e", encoding, buf, NULL);
-  free (buf);
+  flags = COMMAND_FLAG_CHROOT_COPY_FILE_TO_STDIN | fd;
+  r = commandf (&out, &err, flags, "strings", "-e", encoding, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", path, err);
     free (err);
