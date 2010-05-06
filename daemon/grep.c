@@ -22,6 +22,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <fcntl.h>
 
 #include "../src/guestfs_protocol.h"
 #include "daemon.h"
@@ -30,23 +31,24 @@
 static char **
 grep (const char *prog, const char *flag, const char *regex, const char *path)
 {
-  char *buf;
   char *out, *err;
-  int r;
+  int fd, flags, r;
   char **lines;
 
-  /* Make the path relative to /sysroot. */
-  buf = sysroot_path (path);
-  if (!buf) {
-    reply_with_perror ("malloc");
+  CHROOT_IN;
+  fd = open (path, O_RDONLY);
+  CHROOT_OUT;
+
+  if (fd == -1) {
+    reply_with_perror ("%s", path);
     return NULL;
   }
 
   /* Note that grep returns an error if no match.  We want to
    * suppress this error and return an empty list.
    */
-  r = commandr (&out, &err, prog, flag, regex, buf, NULL);
-  free (buf);
+  flags = COMMAND_FLAG_CHROOT_COPY_FILE_TO_STDIN | fd;
+  r = commandrf (&out, &err, flags, prog, flag, regex, NULL);
   if (r == -1 || r > 1) {
     reply_with_error ("%s %s %s: %s", prog, flag, regex, err);
     free (out);

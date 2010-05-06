@@ -3293,7 +3293,10 @@ in the total size of file that can be handled.");
    [InitISOFS, Always, TestOutputList (
       [["grep"; "abc"; "/test-grep.txt"]], ["abc"; "abc123"]);
     InitISOFS, Always, TestOutputList (
-      [["grep"; "nomatch"; "/test-grep.txt"]], [])],
+      [["grep"; "nomatch"; "/test-grep.txt"]], []);
+    (* Test for RHBZ#579608, absolute symbolic links. *)
+    InitISOFS, Always, TestOutputList (
+      [["grep"; "nomatch"; "/abssymlink"]], [])],
    "return lines matching a pattern",
    "\
 This calls the external C<grep> program and returns the
