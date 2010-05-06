@@ -53,7 +53,9 @@ extern void free_stringslen (char **argv, int len);
 #define commandv(out,err,argv) commandvf((out),(err),0,(argv))
 #define commandrv(out,err,argv) commandrvf((out),(err),0,(argv))
 
-#define COMMAND_FLAG_FOLD_STDOUT_ON_STDERR 1
+#define COMMAND_FLAG_FD_MASK                   (1024-1)
+#define COMMAND_FLAG_FOLD_STDOUT_ON_STDERR     1024
+#define COMMAND_FLAG_CHROOT_COPY_FILE_TO_STDIN 2048
 
 extern int commandf (char **stdoutput, char **stderror, int flags,
                      const char *name, ...);

@@ -715,6 +715,14 @@ commandvf (char **stdoutput, char **stderror, int flags,
  * error messages in the *stderror buffer.  If using this flag,
  * you should pass stdoutput as NULL because nothing could ever be
  * captured in that buffer.
+ *
+ * COMMAND_FLAG_CHROOT_COPY_FILE_TO_STDIN: For running external
+ * commands on chrooted files correctly (see RHBZ#579608) specifying
+ * this flag causes another process to be forked which chroots into
+ * sysroot and just copies the input file to stdin of the specified
+ * command.  The file descriptor is ORed with the flags, and that file
+ * descriptor is always closed by this function.  See hexdump.c for an
+ * example of usage.
  */
 int
 commandrvf (char **stdoutput, char **stderror, int flags,
@@ -722,7 +730,9 @@ commandrvf (char **stdoutput, char **stderror, int flags,
 {
   int so_size = 0, se_size = 0;
   int so_fd[2], se_fd[2];
-  pid_t pid;
+  int flag_copy_stdin = flags & COMMAND_FLAG_CHROOT_COPY_FILE_TO_STDIN;
+  int stdin_fd[2] = { -1, -1 };
+  pid_t pid, stdin_pid = -1;
   int r, quit, i;
   fd_set rset, rset2;
   char buf[256];
@@ -752,15 +762,28 @@ commandrvf (char **stdoutput, char **stderror, int flags,
     abort ();
   }
 
+  if (flag_copy_stdin) {
+    if (pipe (stdin_fd) == -1) {
+      perror ("pipe");
+      abort ();
+    }
+  }
+
   pid = fork ();
   if (pid == -1) {
     perror ("fork");
     abort ();
   }
 
-  if (pid == 0) {		/* Child process. */
+  if (pid == 0) {		/* Child process running the command. */
     close (0);
-    open ("/dev/null", O_RDONLY); /* Set stdin to /dev/null (ignore failure) */
+    if (flag_copy_stdin) {
+      dup2 (stdin_fd[0], 0);
+      close (stdin_fd[0]);
+      close (stdin_fd[1]);
+    } else
+      /* Set stdin to /dev/null (ignore failure) */
+      open ("/dev/null", O_RDONLY);
     close (so_fd[0]);
     close (se_fd[0]);
     if (!(flags & COMMAND_FLAG_FOLD_STDOUT_ON_STDERR))
@@ -773,7 +796,61 @@ commandrvf (char **stdoutput, char **stderror, int flags,
 
     execvp (argv[0], (void *) argv);
     perror (argv[0]);
-    _exit (1);
+    _exit (EXIT_FAILURE);
+  }
+
+  if (flag_copy_stdin) {
+    int fd = flags & COMMAND_FLAG_FD_MASK;
+
+    stdin_pid = fork ();
+    if (stdin_pid == -1) {
+      perror ("fork");
+      abort ();
+    }
+
+    if (stdin_pid == 0) {       /* Child process copying stdin. */
+      close (so_fd[0]);
+      close (so_fd[1]);
+      close (se_fd[0]);
+      close (se_fd[1]);
+
+      close (1);
+      dup2 (stdin_fd[1], 1);
+      close (stdin_fd[0]);
+      close (stdin_fd[1]);
+
+      if (chroot (sysroot) == -1) {
+        perror ("chroot");
+        _exit (EXIT_FAILURE);
+      }
+
+      ssize_t n;
+      char buffer[BUFSIZ];
+      while ((n = read (fd, buffer, sizeof buffer)) > 0) {
+        if (xwrite (1, buffer, n) == -1)
+          /* EPIPE error indicates the command process has exited
+           * early.  If the command process fails that will be caught
+           * by the daemon, and if not, then it's not an error.
+           */
+          _exit (errno == EPIPE ? EXIT_SUCCESS : EXIT_FAILURE);
+      }
+
+      if (n == -1) {
+        perror ("read");
+        _exit (EXIT_FAILURE);
+      }
+
+      if (close (fd) == -1) {
+        perror ("close");
+        _exit (EXIT_FAILURE);
+      }
+
+      _exit (EXIT_SUCCESS);
+    }
+
+    close (fd);
+    close (stdin_fd[0]);
+    close (stdin_fd[1]);
   }
 
   /* Parent process. */
@@ -796,6 +873,7 @@ commandrvf (char **stdoutput, char **stderror, int flags,
       close (so_fd[0]);
       close (se_fd[0]);
       waitpid (pid, NULL, 0);
+      if (stdin_pid >= 0) waitpid (stdin_pid, NULL, 0);
       return -1;
     }
 
@@ -873,6 +951,23 @@ commandrvf (char **stdoutput, char **stderror, int flags,
       se_size--;
       while (se_size >= 0 && (*stderror)[se_size] == '\n')
         (*stderror)[se_size--] = '\0';
+    }
+  }
+
+  if (flag_copy_stdin) {
+    /* Check copy process didn't fail. */
+    if (waitpid (stdin_pid, &r, 0) != stdin_pid) {
+      perror ("waitpid");
+      kill (pid, 9);
+      waitpid (pid, NULL, 0);
+      return -1;
+    }
+
+    if (!WIFEXITED (r) || WEXITSTATUS (r) != 0) {
+      fprintf (stderr, "failed copying from input file, see earlier messages\n");
+      kill (pid, 9);
+      waitpid (pid, NULL, 0);
+      return -1;
     }
   }
 
