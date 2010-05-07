@@ -2038,7 +2038,7 @@ child_cleanup (guestfs_h *g)
 }
 
 static int
-read_log_message_or_eof (guestfs_h *g, int fd)
+read_log_message_or_eof (guestfs_h *g, int fd, int error_if_eof)
 {
   char buf[BUFSIZ];
   int n;
@@ -2059,6 +2059,13 @@ read_log_message_or_eof (guestfs_h *g, int fd)
   if (n == 0) {
     /* Hopefully this indicates the qemu child process has died. */
     child_cleanup (g);
+
+    if (error_if_eof) {
+      /* We weren't expecting eof here (called from launch) so place
+       * something in the error buffer.  RHBZ#588851.
+       */
+      error (g, "child process died unexpectedly");
+    }
     return -1;
   }
 
@@ -2166,7 +2173,7 @@ send_to_daemon (guestfs_h *g, const void *v_buf, size_t n)
     }
 
     if (FD_ISSET (g->fd[1], &rset2)) {
-      if (read_log_message_or_eof (g, g->fd[1]) == -1)
+      if (read_log_message_or_eof (g, g->fd[1], 0) == -1)
         return -1;
     }
     if (FD_ISSET (g->sock, &rset2)) {
@@ -2249,7 +2256,7 @@ recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
     }
 
     if (FD_ISSET (g->fd[1], &rset2)) {
-      if (read_log_message_or_eof (g, g->fd[1]) == -1) {
+      if (read_log_message_or_eof (g, g->fd[1], 0) == -1) {
         free (*buf_rtn);
         *buf_rtn = NULL;
         return -1;
@@ -2404,7 +2411,7 @@ accept_from_daemon (guestfs_h *g)
     }
 
     if (FD_ISSET (g->fd[1], &rset2)) {
-      if (read_log_message_or_eof (g, g->fd[1]) == -1)
+      if (read_log_message_or_eof (g, g->fd[1], 1) == -1)
         return -1;
     }
     if (FD_ISSET (g->sock, &rset2)) {
