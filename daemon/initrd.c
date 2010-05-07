@@ -142,25 +142,24 @@ do_initrd_cat (const char *path, const char *filename, size_t *size_r)
     goto cleanup;
   }
 
-  *size_r = statbuf.st_size;
   /* The actual limit on messages is smaller than this.  This
    * check just limits the amount of memory we'll try and allocate
    * here.  If the message is larger than the real limit, that will
    * be caught later when we try to serialize the message.
    */
-  if (*size_r >= GUESTFS_MESSAGE_MAX) {
+  if (statbuf.st_size >= GUESTFS_MESSAGE_MAX) {
     reply_with_error ("%s:%s: file is too large for the protocol",
                       path, filename);
     goto cleanup;
   }
 
-  ret = malloc (*size_r);
+  ret = malloc (statbuf.st_size);
   if (ret == NULL) {
     reply_with_perror ("malloc");
     goto cleanup;
   }
 
-  if (xread (fd, ret, *size_r) == -1) {
+  if (xread (fd, ret, statbuf.st_size) == -1) {
     reply_with_perror ("read: %s:%s", path, filename);
     free (ret);
     ret = NULL;
@@ -174,6 +173,11 @@ do_initrd_cat (const char *path, const char *filename, size_t *size_r)
     goto cleanup;
   }
   fd = -1;
+
+  /* Mustn't touch *size_r until we are sure that we won't return any
+   * error (RHBZ#589039).
+   */
+  *size_r = statbuf.st_size;
 
  cleanup:
   if (fd >= 0)

@@ -336,25 +336,24 @@ do_read_file (const char *path, size_t *size_r)
     return NULL;
   }
 
-  *size_r = statbuf.st_size;
   /* The actual limit on messages is smaller than this.  This
    * check just limits the amount of memory we'll try and allocate
    * here.  If the message is larger than the real limit, that will
    * be caught later when we try to serialize the message.
    */
-  if (*size_r >= GUESTFS_MESSAGE_MAX) {
+  if (statbuf.st_size >= GUESTFS_MESSAGE_MAX) {
     reply_with_error ("%s: file is too large for the protocol, use guestfs_download instead", path);
     close (fd);
     return NULL;
   }
-  r = malloc (*size_r);
+  r = malloc (statbuf.st_size);
   if (r == NULL) {
     reply_with_perror ("malloc");
     close (fd);
     return NULL;
   }
 
-  if (xread (fd, r, *size_r) == -1) {
+  if (xread (fd, r, statbuf.st_size) == -1) {
     reply_with_perror ("read: %s", path);
     close (fd);
     free (r);
@@ -367,6 +366,10 @@ do_read_file (const char *path, size_t *size_r)
     return NULL;
   }
 
+  /* Mustn't touch *size_r until we are sure that we won't return any
+   * error (RHBZ#589039).
+   */
+  *size_r = statbuf.st_size;
   return r;
 }
 
@@ -418,6 +421,9 @@ do_pread (const char *path, int count, int64_t offset, size_t *size_r)
     return NULL;
   }
 
+  /* Mustn't touch *size_r until we are sure that we won't return any
+   * error (RHBZ#589039).
+   */
   *size_r = r;
   return buf;
 }
