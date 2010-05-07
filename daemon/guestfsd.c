@@ -781,9 +781,10 @@ commandrvf (char **stdoutput, char **stderror, int flags,
       dup2 (stdin_fd[0], 0);
       close (stdin_fd[0]);
       close (stdin_fd[1]);
-    } else
+    } else {
       /* Set stdin to /dev/null (ignore failure) */
       open ("/dev/null", O_RDONLY);
+    }
     close (so_fd[0]);
     close (se_fd[0]);
     if (!(flags & COMMAND_FLAG_FOLD_STDOUT_ON_STDERR))
