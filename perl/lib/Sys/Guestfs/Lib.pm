@@ -1643,8 +1643,14 @@ sub _check_for_kernels
                 }
                 $config{cmdline} = join(' ', @args) if(scalar(@args) > 0);
 
-                my $kernel =
-                    inspect_linux_kernel($g, $path, $os->{package_format});
+                my $kernel;
+                if ($g->exists($path)) {
+                    $kernel =
+                        inspect_linux_kernel($g, $path, $os->{package_format});
+                } else {
+                    warn __x("grub refers to {path}, which doesn't exist\n",
+                             path => $path);
+                }
 
                 # Check the kernel was recognised
                 if(defined($kernel)) {
