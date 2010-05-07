@@ -3255,7 +3255,20 @@ for full details.");
 
   ("read_file", (RBufferOut "content", [Pathname "path"]), 150, [ProtocolLimitWarning],
    [InitISOFS, Always, TestOutputBuffer (
-      [["read_file"; "/known-4"]], "abc\ndef\nghi")],
+      [["read_file"; "/known-4"]], "abc\ndef\nghi");
+    (* Test various near large, large and too large files (RHBZ#589039). *)
+    InitBasicFS, Always, TestLastFail (
+      [["touch"; "/a"];
+       ["truncate_size"; "/a"; "4194303"]; (* GUESTFS_MESSAGE_MAX - 1 *)
+       ["read_file"; "/a"]]);
+    InitBasicFS, Always, TestLastFail (
+      [["touch"; "/a"];
+       ["truncate_size"; "/a"; "4194304"]; (* GUESTFS_MESSAGE_MAX *)
+       ["read_file"; "/a"]]);
+    InitBasicFS, Always, TestLastFail (
+      [["touch"; "/a"];
+       ["truncate_size"; "/a"; "41943040"]; (* GUESTFS_MESSAGE_MAX * 10 *)
+       ["read_file"; "/a"]])],
    "read a file",
    "\
 This calls returns the contents of the file C<path> as a
