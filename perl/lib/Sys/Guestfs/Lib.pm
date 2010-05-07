@@ -260,15 +260,26 @@ This function takes an open libguestfs handle C<$g> and returns all
 partitions and logical volumes found on it.
 
 What is returned is everything that could contain a filesystem (or
-swap).  Physical volumes are excluded from the list, and so are any
-devices which are partitioned (eg. C</dev/sda> would not be returned
-if C</dev/sda1> exists).
+swap).  Physical volumes are not normally included from the list
+except if they contain a filesystem directly.  Nor are devices which
+are partitioned (eg. C</dev/sda> would not be returned if C</dev/sda1>
+exists).
 
 =cut
 
 sub get_partitions
 {
+    local $_;
     my $g = shift;
+
+    # Look to see if any devices directly contain filesystems (RHBZ#590167).
+    my @devices = $g->list_devices ();
+    my @fses_on_device = ();
+    foreach (@devices) {
+        eval { $g->mount_ro ($_, "/"); };
+        push @fses_on_device, $_ unless $@;
+        $g->umount_all ();
+    }
 
     my @partitions = $g->list_partitions ();
     my @pvs = $g->pvs ();
@@ -277,7 +288,7 @@ sub get_partitions
     my @lvs;
     @lvs = $g->lvs () if feature_available ($g, "lvm2");
 
-    return sort (@lvs, @partitions);
+    return sort (@fses_on_device, @lvs, @partitions);
 }
 
 sub _is_pv {
