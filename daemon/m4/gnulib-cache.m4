@@ -23,6 +23,7 @@ gl_MODULES([
   byteswap
   c-ctype
   connect
+  error
   fsusage
   futimens
   getaddrinfo
