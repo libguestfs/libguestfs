@@ -41,6 +41,7 @@
 #include <sys/wait.h>
 #include <arpa/inet.h>
 #include <netinet/in.h>
+#include <errno.h>
 
 #ifdef HAVE_PRINTF_H
 # include <printf.h>
@@ -758,20 +759,20 @@ commandrvf (char **stdoutput, char **stderror, int flags,
    */
 
   if (pipe (so_fd) == -1 || pipe (se_fd) == -1) {
-    perror ("pipe");
+    error (0, errno, "pipe");
     abort ();
   }
 
   if (flag_copy_stdin) {
     if (pipe (stdin_fd) == -1) {
-      perror ("pipe");
+      error (0, errno, "pipe");
       abort ();
     }
   }
 
   pid = fork ();
   if (pid == -1) {
-    perror ("fork");
+    error (0, errno, "fork");
     abort ();
   }
 
@@ -805,7 +806,7 @@ commandrvf (char **stdoutput, char **stderror, int flags,
 
     stdin_pid = fork ();
     if (stdin_pid == -1) {
-      perror ("fork");
+      error (0, errno, "fork");
       abort ();
     }
 
