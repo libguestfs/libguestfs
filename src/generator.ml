@@ -181,7 +181,6 @@ type flags =
   | ProtocolLimitWarning  (* display warning about protocol size limits *)
   | DangerWillRobinson	  (* flags particularly dangerous commands *)
   | FishAlias of string	  (* provide an alias for this cmd in guestfish *)
-  | FishAction of string  (* call this function in guestfish *)
   | FishOutput of fish_output_t (* how to display output in guestfish *)
   | NotInFish		  (* do not export via guestfish *)
   | NotInDocs		  (* do not add this function to documentation *)
@@ -7575,10 +7574,7 @@ and generate_fish_cmds () =
       ) (snd style);
 
       (* Call C API function. *)
-      let fn =
-        try find_map (function FishAction n -> Some n | _ -> None) flags
-        with Not_found -> sprintf "guestfs_%s" name in
-      pr "  r = %s " fn;
+      pr "  r = guestfs_%s " name;
       generate_c_call_args ~handle:"g" style;
       pr ";\n";
 
