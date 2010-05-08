@@ -54,6 +54,10 @@ do_reopen (const char *cmd, int argc, char *argv[])
   if (r >= 0)
     guestfs_set_verbose (g2, r);
 
+  r = guestfs_get_trace (g);
+  if (r >= 0)
+    guestfs_set_trace (g2, r);
+
   r = guestfs_get_autosync (g);
   if (r >= 0)
     guestfs_set_autosync (g2, r);
