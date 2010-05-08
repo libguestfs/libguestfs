@@ -121,6 +121,14 @@ Display version number and exit.
 
 =cut
 
+my $append;
+
+=item B<--append kernelopts>
+
+Pass additional options to the rescue kernel.
+
+=cut
+
 my $uri;
 
 =item B<--connect URI> | B<-c URI>
@@ -130,6 +138,17 @@ connect to the default libvirt hypervisor.
 
 If you specify guest block devices directly, then libvirt is not used
 at all.
+
+=cut
+
+my $memsize;
+
+=item B<--memsize MB> | B<-m MB>
+
+Change the amount of memory allocated to the rescue system.  The
+default is set by libguestfs and is small but adequate for running
+system tools.  The occasional program might need more memory.  The
+parameter is specified in megabytes.
 
 =cut
 
@@ -143,14 +162,26 @@ The option must always be used if the disk image or virtual machine
 might be running, and is generally recommended in cases where you
 don't need write access to the disk.
 
+=cut
+
+my $selinux;
+
+=item B<--selinux>
+
+Enable SELinux in the rescue appliance.  You should read
+L<guestfs(3)/SELINUX> before using this option.
+
 =back
 
 =cut
 
 GetOptions ("help|?" => \$help,
             "version" => \$version,
+            "append=s" => \$append,
             "connect|c=s" => \$uri,
+            "memsize|m=i" => \$memsize,
             "ro|r" => \$readonly,
+            "selinux" => \$selinux,
     ) or pod2usage (2);
 pod2usage (1) if $help;
 if ($version) {
@@ -168,9 +199,21 @@ push @args, address => $uri if $uri;
 push @args, rw => 1 unless $readonly;
 my $g = open_guest (@args);
 
+# Setting "direct mode" is required for the rescue appliance.
 $g->set_direct (1);
-$g->set_append ("guestfs_rescue=1");
 
+# Set other features.
+$g->set_selinux (1) if $selinux;
+$g->set_memsize ($memsize) if defined $memsize;
+
+# Set the kernel command line, which must include guestfs_rescue=1
+# (see appliance/init).
+my $str = "guestfs_rescue=1";
+$str .= " $append" if defined $append;
+$g->set_append ($str);
+
+# Run the appliance.  This won't return until the user quite the
+# appliance.
 $g->launch ();
 
 exit 0;
