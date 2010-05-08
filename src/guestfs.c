@@ -948,9 +948,21 @@ guestfs__launch (guestfs_h *g)
   char unixsock[256];
   struct sockaddr_un addr;
 
+  /* Configured? */
+  if (!g->cmdline) {
+    error (g, _("you must call guestfs_add_drive before guestfs_launch"));
+    return -1;
+  }
+
+  if (g->state != CONFIG) {
+    error (g, _("the libguestfs handle has already been launched"));
+    return -1;
+  }
+
   /* Start the clock ... */
   gettimeofday (&g->launch_t, NULL);
 
+  /* Make the temporary directory. */
 #ifdef P_tmpdir
   tmpdir = P_tmpdir;
 #else
@@ -960,18 +972,6 @@ guestfs__launch (guestfs_h *g)
   tmpdir = getenv ("TMPDIR") ? : tmpdir;
   snprintf (dir_template, sizeof dir_template, "%s/libguestfsXXXXXX", tmpdir);
 
-  /* Configured? */
-  if (!g->cmdline) {
-    error (g, _("you must call guestfs_add_drive before guestfs_launch"));
-    return -1;
-  }
-
-  if (g->state != CONFIG) {
-    error (g, _("qemu has already been launched"));
-    return -1;
-  }
-
-  /* Make the temporary directory. */
   if (!g->tmpdir) {
     g->tmpdir = safe_strdup (g, dir_template);
     if (mkdtemp (g->tmpdir) == NULL) {
