@@ -551,7 +551,7 @@ multiple times (and can be mixed with I<-a>).
 
 The new disk is called C<test1.img> for the first I<-N>, C<test2.img>
 for the second and so on.  Existing files in the current directory are
-not overwritten, so you may need to do C<rm -f test1.img>.
+I<overwritten>.
 
 The type briefly describes how the disk should be sized, partitioned,
 how filesystem(s) should be created, and how content should be added.

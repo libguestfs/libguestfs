@@ -156,12 +156,6 @@ struct prep_data {
 prep_data *
 create_prepared_file (const char *type_string, const char *filename)
 {
-  if (access (filename, F_OK) == 0) {
-    fprintf (stderr, _("guestfish: file '%s' exists and the '-N' option will not overwrite it\n"),
-             filename);
-    exit (EXIT_FAILURE);
-  }
-
   prep_data *data = parse_type_string (type_string);
   if (data->prep->prelaunch)
     data->prep->prelaunch (filename, data);
