@@ -69,7 +69,6 @@ guestfs_h *g;
 int read_only = 0;
 int quit = 0;
 int verbose = 0;
-int echo_commands = 0;
 int remote_control_listen = 0;
 int remote_control = 0;
 int exit_on_error = 1;
@@ -324,7 +323,7 @@ main (int argc, char *argv[])
       exit (EXIT_SUCCESS);
 
     case 'x':
-      echo_commands = 1;
+      guestfs_set_trace (g, 1);
       break;
 
     case HELP_OPTION:
@@ -380,6 +379,8 @@ main (int argc, char *argv[])
       strcat (cmd, " -v");
     if (!guestfs_get_autosync (g))
       strcat (cmd, " -n");
+    if (guestfs_get_trace (g))
+      strcat (cmd, " -x");
 
     if (verbose)
       fprintf (stderr,
@@ -804,13 +805,6 @@ issue_command (const char *cmd, char *argv[], const char *pipecmd)
 
   /* This counts the commands issued, starting at 1. */
   command_num++;
-
-  if (echo_commands) {
-    printf ("%s", cmd);
-    for (i = 0; argv[i] != NULL; ++i)
-      printf (" %s", argv[i]);
-    printf ("\n");
-  }
 
   /* For | ... commands.  Annoyingly we can't use popen(3) here. */
   if (pipecmd) {
