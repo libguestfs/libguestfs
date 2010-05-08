@@ -547,8 +547,6 @@ static int
 launch (void)
 {
   if (guestfs_is_config (g)) {
-    if (isatty (0))
-      printf (_("guestfish: wait a moment while we launch libguestfs ...\n"));
     if (guestfs_launch (g) == -1)
       return -1;
   }
