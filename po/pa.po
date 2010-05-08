@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.0.81\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-07 16:14+0100\n"
+"POT-Creation-Date: 2010-05-08 20:12+0100\n"
 "PO-Revision-Date: 2010-01-29 12:50+0530\n"
 "Last-Translator: Jaswinder Singh <jsingh@redhat.com>\n"
 "Language-Team: Punjabi/Panjabi <kde-i18n-doc@kde.org>\n"
@@ -1279,12 +1279,12 @@ msgstr "%s: ਅਣਜਾਣ ਕਮਾਂਡ\n"
 msgid "use '%s filename' to edit a file\n"
 msgstr "ਇੱਕ ਫਾਇਲ ਸੋਧ ਕਰਨ ਲਈ '%s filename' ਵਰਤੋ\n"
 
-#: fish/fish.c:97 fuse/guestmount.c:869
+#: fish/fish.c:85 fuse/guestmount.c:869
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "ਵਧੇਰੇ ਜਾਣਕਾਰੀ ਲਈ `%s --help' ਵਰਤੋ।\n"
 
-#: fish/fish.c:101
+#: fish/fish.c:89
 #, fuzzy, c-format
 msgid ""
 "%s: guest filesystem shell\n"
@@ -1352,66 +1352,66 @@ msgstr ""
 "  -V|--version         Display version and exit\n"
 "For more information,  see the manpage %s(1).\n"
 
-#: fish/fish.c:197 fuse/guestmount.c:966
+#: fish/fish.c:185 fuse/guestmount.c:966
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: ਹੈਂਡਲ ਬਣਾਉਣ ਵਿੱਚ ਫੇਲ\n"
 
-#: fish/fish.c:236
+#: fish/fish.c:224
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
 msgstr "%s: --listen=PID: PID was not a number: %s\n"
 
-#: fish/fish.c:243
+#: fish/fish.c:231
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 msgstr ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 
-#: fish/fish.c:252 fuse/guestmount.c:1011
+#: fish/fish.c:240 fuse/guestmount.c:1011
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: unknown long option: %s (%d)\n"
 
-#: fish/fish.c:309
+#: fish/fish.c:297
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: only one -f parameter can be given\n"
 
-#: fish/fish.c:382
+#: fish/fish.c:370
 #, fuzzy, c-format
 msgid ""
 "%s: cannot use -i option with -a, -m, -N, --listen, --remote or --selinux\n"
 msgstr ""
 "%s: cannot use -i option with -a, -m, --listen, --remote or --selinux\n"
 
-#: fish/fish.c:389
+#: fish/fish.c:377
 #, c-format
 msgid "%s: -i requires a libvirt domain or path(s) to disk image(s)\n"
 msgstr "%s: -i requires a libvirt domain or path(s) to disk image(s)\n"
 
-#: fish/fish.c:399
+#: fish/fish.c:387
 #, c-format
 msgid "%s: virt-inspector command too long for fixed-size buffer\n"
 msgstr "%s: virt-inspector command too long for fixed-size buffer\n"
 
-#: fish/fish.c:448
+#: fish/fish.c:436
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr "%s: cannot use --listen and --remote options at the same time\n"
 
-#: fish/fish.c:456
+#: fish/fish.c:444
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: extra parameters on the command line with --listen flag\n"
 
-#: fish/fish.c:462
+#: fish/fish.c:450
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: cannot use --listen and --file options at the same time\n"
 
-#: fish/fish.c:621
+#: fish/fish.c:619
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -1431,85 +1431,85 @@ msgstr ""
 "      'quit' to quit the shell\n"
 "\n"
 
-#: fish/fish.c:702
+#: fish/fish.c:700
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: unterminated double quote\n"
 
-#: fish/fish.c:708 fish/fish.c:725
+#: fish/fish.c:706 fish/fish.c:723
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: ਕਮਾਂਡ ਆਰਗੂਮੈਂਟ ਸਪੇਸ ਨਾਲ ਵੱਖ ਨਹੀਂ ਕੀਤਾ\n"
 
-#: fish/fish.c:719
+#: fish/fish.c:717
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: unterminated single quote\n"
 
-#: fish/fish.c:774
+#: fish/fish.c:772
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: internal error parsing string at '%s'\n"
 
-#: fish/fish.c:791
+#: fish/fish.c:789
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: too many arguments\n"
 
-#: fish/fish.c:820
+#: fish/fish.c:818
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: empty command on command line\n"
 
-#: fish/fish.c:991
+#: fish/fish.c:982
 msgid "display a list of commands or help on a command"
 msgstr "ਕਮਾਂਡਾਂ ਦੀ ਸੂਚੀ ਜਾਂ ਕਮਾਂਡ ਬਾਰੇ ਸਹਾਇਤਾ ਵੇਖਾਓ"
 
-#: fish/fish.c:993
+#: fish/fish.c:984
 msgid "read the manual"
 msgstr ""
 
-#: fish/fish.c:995
+#: fish/fish.c:986
 msgid "quit guestfish"
 msgstr "quit guestfish"
 
-#: fish/fish.c:998
+#: fish/fish.c:989
 msgid "allocate an image"
 msgstr "ਈਮੇਜ਼ ਨਿਰਧਾਰਤ ਕਰੋ"
 
-#: fish/fish.c:1000
+#: fish/fish.c:991
 msgid "display a line of text"
 msgstr "ਪਾਠ ਦੀ ਸਤਰ ਵੇਖਾਓ"
 
-#: fish/fish.c:1002
+#: fish/fish.c:993
 msgid "edit a file in the image"
 msgstr "ਈਮੇਜ਼ ਵਿੱਚ ਫਾਇਲ ਸੋਧ ਕਰੋ"
 
-#: fish/fish.c:1004
+#: fish/fish.c:995
 msgid "local change directory"
 msgstr "ਲੋਕਲ ਤਬਦੀਲ ਡਾਇਰੈਕਟਰੀ"
 
-#: fish/fish.c:1006
+#: fish/fish.c:997
 msgid "expand wildcards in command"
 msgstr "ਕਮਾਂਡ ਵਿੱਚ ਵਾਈਲਡਕਾਰਡ ਫੈਲਾਓ"
 
-#: fish/fish.c:1008
+#: fish/fish.c:999
 msgid "view a file in the pager"
 msgstr "ਪੇਜਰ ਵਿੱਚ ਫਾਇਲ ਵੇਖੋ"
 
-#: fish/fish.c:1010
+#: fish/fish.c:1001
 msgid "close and reopen libguestfs handle"
 msgstr "libguestfs ਹੈਂਡਲ ਬੰਦ ਕਰੋ ਅਤੇ ਮੁੜ-ਖੋਲੋ"
 
-#: fish/fish.c:1012
+#: fish/fish.c:1003
 msgid "allocate a sparse image file"
 msgstr "ਸਪਾਰਸ ਈਮੇਜ਼ ਫਾਇਲ ਨਿਰਧਾਰਤ ਕਰੋ"
 
-#: fish/fish.c:1014
+#: fish/fish.c:1005
 msgid "measure time taken to run command"
 msgstr "ਕਮਾਂਡ ਚੱਲਣ ਲਈ ਸਮਾਂ ਮਾਪੋ"
 
-#: fish/fish.c:1026
+#: fish/fish.c:1017
 #, c-format
 msgid ""
 "alloc - allocate an image\n"
@@ -1550,7 +1550,7 @@ msgstr ""
 "    <nn>E or <nn>EB  number of exabytes\n"
 "    <nn>sects        number of 512 byte sectors\n"
 
-#: fish/fish.c:1045
+#: fish/fish.c:1036
 #, c-format
 msgid ""
 "echo - display a line of text\n"
@@ -1563,7 +1563,7 @@ msgstr ""
 "\n"
 "    This echos the parameters to the terminal.\n"
 
-#: fish/fish.c:1052
+#: fish/fish.c:1043
 #, c-format
 msgid ""
 "edit - edit a file in the image\n"
@@ -1594,7 +1594,7 @@ msgstr ""
 "    NOTE: This will not work reliably for large files\n"
 "    (> 2 MB) or binary files containing \\0 bytes.\n"
 
-#: fish/fish.c:1066
+#: fish/fish.c:1057
 #, c-format
 msgid ""
 "lcd - local change directory\n"
@@ -1611,7 +1611,7 @@ msgstr ""
 "    useful if you want to download files to a particular\n"
 "    place.\n"
 
-#: fish/fish.c:1073
+#: fish/fish.c:1064
 #, c-format
 msgid ""
 "glob - expand wildcards in command\n"
@@ -1628,7 +1628,7 @@ msgstr ""
 "    command args.  Note that the command is run repeatedly\n"
 "    once for each expanded argument.\n"
 
-#: fish/fish.c:1081
+#: fish/fish.c:1072
 #, c-format
 msgid ""
 "man - read the manual\n"
@@ -1637,7 +1637,7 @@ msgid ""
 "    Opens the manual page for guestfish.\n"
 msgstr ""
 
-#: fish/fish.c:1086
+#: fish/fish.c:1077
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -1648,7 +1648,7 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:1091
+#: fish/fish.c:1082
 #, c-format
 msgid ""
 "more - view a file in the pager\n"
@@ -1679,7 +1679,7 @@ msgstr ""
 "    NOTE: This will not work reliably for large files\n"
 "    (> 2 MB) or binary files containing \\0 bytes.\n"
 
-#: fish/fish.c:1107
+#: fish/fish.c:1098
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -1688,7 +1688,7 @@ msgstr ""
 "quit - quit guestfish\n"
 "     quit\n"
 
-#: fish/fish.c:1110
+#: fish/fish.c:1101
 #, c-format
 msgid ""
 "reopen - close and reopen the libguestfs handle\n"
@@ -1705,7 +1705,7 @@ msgstr ""
 "this normally, because the handle is closed properly when guestfish\n"
 "exits.  However this is occasionally useful for testing.\n"
 
-#: fish/fish.c:1117
+#: fish/fish.c:1108
 #, c-format
 msgid ""
 "sparse - allocate a sparse image file\n"
@@ -1762,7 +1762,7 @@ msgstr ""
 "    <nn>E or <nn>EB  number of exabytes\n"
 "    <nn>sects        number of 512 byte sectors\n"
 
-#: fish/fish.c:1144
+#: fish/fish.c:1135
 #, c-format
 msgid ""
 "time - measure time taken to run command\n"
@@ -1777,12 +1777,12 @@ msgstr ""
 "    This runs <command> as usual, and prints the elapsed\n"
 "    time afterwards.\n"
 
-#: fish/fish.c:1150
+#: fish/fish.c:1141
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s: command not known, use -h to list all commands\n"
 
-#: fish/fish.c:1164
+#: fish/fish.c:1155
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -1790,7 +1790,7 @@ msgid ""
 "For complete documentation:         man guestfish\n"
 msgstr ""
 
-#: fish/fish.c:1321
+#: fish/fish.c:1312
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "ਸਤਰ \"%s\" ਵਿੱਚ ਗਲਤ ਸ਼ਬਦਾਵਲੀ ਹੈ\n"
@@ -1858,34 +1858,29 @@ msgid ""
 "For more information see the guestfish(1) manual.\n"
 msgstr ""
 
-#: fish/prep.c:160
-#, c-format
-msgid "guestfish: file '%s' exists and the '-N' option will not overwrite it\n"
-msgstr ""
-
-#: fish/prep.c:183
+#: fish/prep.c:177
 #, c-format
 msgid ""
 "guestfish: -N parameter '%s': no such prepared disk image known.\n"
 "Use 'guestfish -N list' to list possible values for the -N parameter.\n"
 msgstr ""
 
-#: fish/prep.c:245
+#: fish/prep.c:239
 #, c-format
 msgid "guestfish: error creating prepared disk image '%s' on '%s': "
 msgstr ""
 
-#: fish/prep.c:262 fish/prep.c:269 fish/prep.c:284
+#: fish/prep.c:256 fish/prep.c:263 fish/prep.c:278
 #, fuzzy
 msgid "failed to allocate disk"
 msgstr "ਫਾਇਲ ਚੰਕ ਪਾਰਸ ਕਰਨ ਵਿੱਚ ਫੇਲ ਹੋਇਆ"
 
-#: fish/prep.c:276 fish/prep.c:291
+#: fish/prep.c:270 fish/prep.c:285
 #, c-format
 msgid "failed to partition disk: %s"
 msgstr ""
 
-#: fish/prep.c:301
+#: fish/prep.c:295
 #, c-format
 msgid "failed to create filesystem (%s): %s"
 msgstr ""
@@ -2012,12 +2007,13 @@ msgstr "guestfs_config: parameter '%s' isn't allowed"
 msgid "filename cannot contain ',' (comma) character"
 msgstr "ਫਾਇਲ-ਨਾਂ ਵਿੱਚ ',' (comma) ਅੱਖਰ ਸ਼ਾਮਿਲ ਨਹੀਂ ਹੈ"
 
-#: src/guestfs.c:965
+#: src/guestfs.c:953
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "you must call guestfs_add_drive before guestfs_launch"
 
-#: src/guestfs.c:970
-msgid "qemu has already been launched"
+#: src/guestfs.c:958
+#, fuzzy
+msgid "the libguestfs handle has already been launched"
 msgstr "qemu ਪਹਿਲਾਂ ਹੀ ਚਾਲੂ ਹੋ ਗਿਆ ਹੈ"
 
 #: src/guestfs.c:978
@@ -2074,72 +2070,72 @@ msgstr "guestfs_set_busy: called when in state %d != READY"
 msgid "guestfs_end_busy: called when in state %d"
 msgstr "guestfs_end_busy: called when in state %d"
 
-#: src/guestfs.c:2117
+#: src/guestfs.c:2124
 #, c-format
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
 msgstr ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
 
-#: src/guestfs.c:2275 src/guestfs.c:2329
+#: src/guestfs.c:2282 src/guestfs.c:2336
 msgid "unexpected end of file when reading from daemon"
 msgstr "ਡੈਮਨ ਤੋਂ ਪੜਨ ਸਮੇਂ ਅਚਾਨਕ ਫਾਇਲ ਅੰਤ"
 
-#: src/guestfs.c:2291
+#: src/guestfs.c:2298
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr "guestfsd ਤੋਂ ਮੈਜਿਕ ਸਿਗਨੇਚਰ , ਪਰ %d ਸਥਿਤੀ ਵਿੱਚ"
 
-#: src/guestfs.c:2306
+#: src/guestfs.c:2313
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "message length (%u) > maximum possible size (%d)"
 
-#: src/guestfs.c:2436
+#: src/guestfs.c:2443
 #, c-format
 msgid "guestfs___send: state %d != BUSY"
 msgstr "guestfs___send: state %d != BUSY"
 
-#: src/guestfs.c:2458
+#: src/guestfs.c:2465
 msgid "xdr_guestfs_message_header failed"
 msgstr "xdr_guestfs_message_header failed"
 
-#: src/guestfs.c:2467
+#: src/guestfs.c:2474
 msgid "dispatch failed to marshal args"
 msgstr "dispatch failed to marshal args"
 
-#: src/guestfs.c:2597
+#: src/guestfs.c:2604
 #, c-format
 msgid "send_file_chunk: state %d != READY"
 msgstr "send_file_chunk: state %d != READY"
 
-#: src/guestfs.c:2613
+#: src/guestfs.c:2620
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 
-#: src/guestfs.c:2736
+#: src/guestfs.c:2743
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: error in chunked encoding"
 
-#: src/guestfs.c:2764
+#: src/guestfs.c:2771
 msgid "write to daemon socket"
 msgstr "ਡੈਮਨ ਸਾਕਟ ਵਿੱਚ ਲਿਖੋ"
 
-#: src/guestfs.c:2787
+#: src/guestfs.c:2794
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: parse error in reply callback"
 
-#: src/guestfs.c:2792
+#: src/guestfs.c:2799
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr "receive_file_data: unexpected flag received when reading file chunks"
 
-#: src/guestfs.c:2800
+#: src/guestfs.c:2807
 msgid "failed to parse file chunk"
 msgstr "ਫਾਇਲ ਚੰਕ ਪਾਰਸ ਕਰਨ ਵਿੱਚ ਫੇਲ ਹੋਇਆ"
 
-#: src/guestfs.c:2809
+#: src/guestfs.c:2816
 msgid "file receive cancelled by daemon"
 msgstr "ਫਾਇਲ ਸਵੀਕਾਰ ਕਰਨਾ ਡੈਮਨ ਦੁਆਰਾ ਰੱਦ ਕੀਤਾ ਗਿਆ ਹੈ"
 
