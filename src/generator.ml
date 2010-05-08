@@ -447,7 +447,7 @@ You probably don't want to call this function.")]
  *)
 
 let non_daemon_functions = test_functions @ [
-  ("launch", (RErr, []), -1, [FishAlias "run"; FishAction "launch"],
+  ("launch", (RErr, []), -1, [FishAlias "run"],
    [],
    "launch the qemu subprocess",
    "\

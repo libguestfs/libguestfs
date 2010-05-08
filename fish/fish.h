@@ -60,7 +60,6 @@ extern void free_strings (char **argv);
 extern int count_strings (char *const *argv);
 extern void print_strings (char *const *argv);
 extern void print_table (char *const *argv);
-extern int launch (guestfs_h *);
 extern int is_true (const char *str);
 extern char **parse_string_list (const char *str);
 extern int xwrite (int fd, const void *buf, size_t len);

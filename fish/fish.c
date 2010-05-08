@@ -58,6 +58,7 @@ struct mp {
 static void add_drives (struct drv *drv);
 static void prepare_drives (struct drv *drv);
 static void mount_mps (struct mp *mp);
+static int launch (void);
 static void interactive (void);
 static void shell_script (void);
 static void script (int prompt);
@@ -76,18 +77,6 @@ int remote_control_listen = 0;
 int remote_control = 0;
 int exit_on_error = 1;
 int command_num = 0;
-
-int
-launch (guestfs_h *_g)
-{
-  assert (_g == g);
-
-  if (guestfs_is_config (g)) {
-    if (guestfs_launch (g) == -1)
-      return -1;
-  }
-  return 0;
-}
 
 static void __attribute__((noreturn))
 usage (int status)
@@ -436,7 +425,7 @@ main (int argc, char *argv[])
    * guest and mount them.
    */
   if (next_prepared_drive > 1 || mps != NULL) {
-    if (launch (g) == -1) exit (EXIT_FAILURE);
+    if (launch () == -1) exit (EXIT_FAILURE);
     prepare_drives (drvs);
     mount_mps (mps);
   }
@@ -552,6 +541,16 @@ prepare_drives (struct drv *drv)
     if (drv->data)
       prepare_drive (drv->filename, drv->data, drv->device);
   }
+}
+
+static int
+launch (void)
+{
+  if (guestfs_is_config (g)) {
+    if (guestfs_launch (g) == -1)
+      return -1;
+  }
+  return 0;
 }
 
 static void
