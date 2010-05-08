@@ -44,20 +44,36 @@ will probably result in disk corruption in the VM.  C<virt-rescue>
 tries to stop you from doing this, but doesn't catch all cases.
 
 However if you use the I<--ro> (read only) option, then you can attach
-a shell to a live virtual machine, but the results might be strange or
-inconsistent at times (but you won't get disk corruption).
+a shell to a live virtual machine.  The results might be strange or
+inconsistent at times but you won't get disk corruption.
 
 =head1 DESCRIPTION
 
-virt-rescue gives you a rescue shell and some simple recovery tools
-which you can use on a virtual machine disk image.
+virt-rescue is like a Rescue CD, but for virtual machines, and without
+the need for a CD.  virt-rescue gives you a rescue shell and some
+simple recovery tools which you can use to examine or rescue a virtual
+machine or disk image.
 
-After running virt-rescue, what you see under C</> is the recovery
-appliance.
+You can run virt-rescue on any virtual machine known to libvirt, or
+directly on disk image(s):
 
-You must mount the virtual machine's filesystems by hand.  There
-is a directory C</sysroot> where you can mount filesystems.  For
-example:
+ virt-rescue GuestName
+
+ virt-rescue --ro /path/to/disk.img
+
+ virt-rescue /dev/sdc
+
+For live VMs you I<must> use the --ro option.
+
+When you run virt-rescue on a virtual machine or disk image, you are
+placed in an interactive bash shell where you can use many ordinary
+Linux commands.  What you see in C</> (C</bin>, C</lib> etc) is the
+rescue appliance.  You must mount the virtual machine's filesystems by
+hand.  There is an empty directory called C</sysroot> where you can
+mount filesystems.
+
+In the example below, we list logical volumes, then choose one to
+mount under C</sysroot>:
 
  ><rescue> lvs
  LV      VG        Attr   LSize   Origin Snap%  Move Log Copy%  Convert
@@ -66,10 +82,22 @@ example:
  ><rescue> mount /dev/vg_f11x64/lv_root /sysroot
  ><rescue> ls /sysroot
 
+If you don't know what filesystems are available on the virtual
+machine then you can use commands such as L<parted(8)> and L<lvs(8)>
+to find out.
+
+=head2 NOTES
+
+Virt-rescue can be used on I<any> disk image file or device, not just
+a virtual machine.  For example you can use it on a blank file if you
+want to partition that file (although we would recommend using
+L<guestfish(1)> instead as it is more suitable for this purpose).  You
+can even use virt-rescue on things like SD cards.
+
 This tool is just designed for quick interactive hacking on a virtual
 machine.  For more structured access to a virtual machine disk image,
-you should use L<guestfs(3)>.  To get a structured shell, use
-L<guestfish(1)>.
+you should use L<guestfs(3)>.  To get a structured shell that you can
+use to make scripted changes to guests, use L<guestfish(1)>.
 
 =head1 OPTIONS
 
@@ -147,6 +175,11 @@ $g->launch ();
 
 exit 0;
 
+=head1 ENVIRONMENT VARIABLES
+
+Several environment variables affect virt-rescue.  See
+L<guestfs(3)/ENVIRONMENT VARIABLES> for the complete list.
+
 =head1 SEE ALSO
 
 L<guestfs(3)>,
@@ -163,7 +196,7 @@ Richard W.M. Jones L<http://people.redhat.com/~rjones/>
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Red Hat Inc.
+Copyright (C) 2009-2010 Red Hat Inc.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
