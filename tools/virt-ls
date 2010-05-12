@@ -183,7 +183,6 @@ my %fses =
 my $oses = inspect_operating_systems ($g, \%fses);
 
 my @roots = keys %$oses;
-die __"no root device found in this operating system image\n" if @roots == 0;
 die __"multiboot operating systems are not supported by virt-ls\n" if @roots > 1;
 my $root_dev = $roots[0];
 

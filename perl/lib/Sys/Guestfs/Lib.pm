@@ -25,7 +25,7 @@ use warnings;
 # make a change which is not backwards compatible.  It is not related
 # to the libguestfs version number.
 use vars qw($VERSION);
-$VERSION = '0.1';
+$VERSION = '0.2';
 
 use Carp qw(croak);
 
@@ -1119,7 +1119,8 @@ like:
    '/dev/VG/Root' => \%os,
  }
 
-(There can be multiple roots for a multi-boot VM).
+There can be multiple roots for a multi-boot VM, but this function
+will throw an error if no roots (ie. OSes) could be found.
 
 The C<\%os> hash contains the following keys (any can be omitted):
 
@@ -1200,6 +1201,11 @@ sub inspect_operating_systems
             _assign_mount_points ($g, $fses, \%r);
             $oses{$_} = \%r;
         }
+    }
+
+    # If we didn't find any operating systems then it's an error (RHBZ#591142).
+    if (0 == keys %oses) {
+        die __"No operating system could be detected inside this disk image.\n\nThis may be because the file is not a disk image, or is not a virtual machine\nimage, or because the OS type is not understood by virt-inspector.\n\nIf you feel this is an error, please file a bug report including as much\ninformation about the disk image as possible.\n";
     }
 
     return \%oses;
