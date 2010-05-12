@@ -4252,7 +4252,9 @@ content of the file is C<len> octets of C<c>, where C<c>
 must be a number in the range C<[0..255]>.
 
 To fill a file with zero bytes (sparsely), it is
-much more efficient to use C<guestfs_truncate_size>.");
+much more efficient to use C<guestfs_truncate_size>.
+To create a file with a pattern of repeating bytes
+use C<guestfs_fill_pattern>.");
 
   ("available", (RErr, [StringList "groups"]), 216, [],
    [InitNone, Always, TestRun [["available"; ""]]],
@@ -4611,6 +4613,17 @@ the ones from GNU coreutils).  In particular when the
 filename is not printable, coreutils uses a special
 backslash syntax.  For more information, see the GNU
 coreutils info file.");
+
+  ("fill_pattern", (RErr, [String "pattern"; Int "len"; Pathname "path"]), 245, [],
+   [InitBasicFS, Always, TestOutputBuffer (
+      [["fill_pattern"; "abcdefghijklmnopqrstuvwxyz"; "28"; "/test"];
+       ["read_file"; "/test"]], "abcdefghijklmnopqrstuvwxyzab")],
+   "fill a file with a repeating pattern of bytes",
+   "\
+This function is like C<guestfs_fill> except that it creates
+a new file of length C<len> containing the repeating pattern
+of bytes in C<pattern>.  The pattern is truncated if necessary
+to ensure the length of the file is exactly C<len> bytes.");
 
 ]
 

@@ -75,3 +75,49 @@ do_fill (int c, int len, const char *path)
 
   return 0;
 }
+
+int
+do_fill_pattern (const char *pattern, int len, const char *path)
+{
+  size_t patlen = strlen (pattern);
+
+  if (patlen < 1) {
+    reply_with_error ("pattern string must be non-empty");
+    return -1;
+  }
+
+  if (len < 0) {
+    reply_with_error ("%d: length is < 0", len);
+    return -1;
+  }
+  size_t len_sz = (size_t) len;
+
+  int fd;
+  CHROOT_IN;
+  fd = open (path, O_WRONLY | O_CREAT | O_NOCTTY, 0666);
+  CHROOT_OUT;
+
+  if (fd == -1) {
+    reply_with_perror ("open: %s", path);
+    return -1;
+  }
+
+  /* XXX This implementation won't be very efficient for large files. */
+  size_t n = 0;
+  while (n < len_sz) {
+    size_t wrlen = len_sz - n < patlen ? len_sz - n : patlen;
+    if (xwrite (fd, pattern, wrlen) == -1) {
+      reply_with_perror ("write: %s", path);
+      close (fd);
+      return -1;
+    }
+    n += wrlen;
+  }
+
+  if (close (fd) == -1) {
+    reply_with_perror ("close: %s", path);
+    return -1;
+  }
+
+  return 0;
+}
