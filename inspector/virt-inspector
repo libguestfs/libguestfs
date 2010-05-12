@@ -27,6 +27,7 @@ use Pod::Usage;
 use Getopt::Long;
 use Data::Dumper;
 use XML::Writer;
+use String::ShellQuote qw(shell_quote);
 use Locale::TextDomain 'libguestfs';
 
 # Optional:
@@ -298,13 +299,17 @@ if ($output eq "fish" || $output eq "ro-fish") {
         print "--ro ";
     }
 
-    print "-a $_ " foreach @images;
+    foreach (@images) {
+        printf "-a %s ", shell_quote ($_);
+    }
 
     my $mounts = $oses->{$root_dev}->{mounts};
     # Have to mount / first.  Luckily '/' is early in the ASCII
     # character set, so this should be OK.
     foreach (sort keys %$mounts) {
-        print "-m $mounts->{$_}:$_ " if $_ ne "swap" && $_ ne "none";
+        if ($_ ne "swap" && $_ ne "none") {
+            printf "-m %s ", shell_quote ("$mounts->{$_}:$_");
+        }
     }
     print "\n"
 }

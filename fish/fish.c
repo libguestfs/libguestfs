@@ -1,5 +1,5 @@
 /* guestfish - the filesystem interactive shell
- * Copyright (C) 2009 Red Hat Inc.
+ * Copyright (C) 2009-2010 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -66,6 +66,7 @@ static void cmdline (char *argv[], int optind, int argc);
 static void initialize_readline (void);
 static void cleanup_readline (void);
 static void add_history_line (const char *);
+static int print_shell_quote (FILE *stream, const char *str);
 
 /* Currently open libguestfs handle. */
 guestfs_h *g;
@@ -362,9 +363,6 @@ main (int argc, char *argv[])
 
   /* Inspector mode invalidates most of the other arguments. */
   if (inspector) {
-    char cmd[1024];
-    int r;
-
     if (drvs || mps || remote_control_listen || remote_control ||
         guestfs_get_selinux (g)) {
       fprintf (stderr, _("%s: cannot use -i option with -a, -m, -N, "
@@ -379,44 +377,89 @@ main (int argc, char *argv[])
       exit (EXIT_FAILURE);
     }
 
-    strcpy (cmd, "a=`virt-inspector");
+    char *cmd;
+    size_t cmdlen;
+    FILE *fp = open_memstream (&cmd, &cmdlen);
+    if (fp == NULL) {
+      perror ("open_memstream");
+      exit (EXIT_FAILURE);
+    }
+
+    fprintf (fp, "virt-inspector");
     while (optind < argc) {
-      if (strlen (cmd) + strlen (argv[optind]) + strlen (real_argv0) + 60
-          >= sizeof cmd) {
-        fprintf (stderr,
-                 _("%s: virt-inspector command too long for fixed-size buffer\n"),
-                 program_name);
-        exit (EXIT_FAILURE);
-      }
-      strcat (cmd, " '");
-      strcat (cmd, argv[optind]);
-      strcat (cmd, "'");
+      fputc (' ', fp);
+      print_shell_quote (fp, argv[optind]);
       optind++;
     }
 
     if (read_only)
-      strcat (cmd, " --ro-fish");
+      fprintf (fp, " --ro-fish");
     else
-      strcat (cmd, " --fish");
+      fprintf (fp, " --fish");
 
-    sprintf (&cmd[strlen(cmd)], "` && %s $a", real_argv0);
-
-    if (guestfs_get_verbose (g))
-      strcat (cmd, " -v");
-    if (!guestfs_get_autosync (g))
-      strcat (cmd, " -n");
-    if (guestfs_get_trace (g))
-      strcat (cmd, " -x");
+    if (fclose (fp) == -1) {
+      perror ("fclose");
+      exit (EXIT_FAILURE);
+    }
 
     if (verbose)
       fprintf (stderr,
-               "%s -i: running virt-inspector command:\n%s\n", program_name, cmd);
+               "%s -i: running: %s\n", program_name, cmd);
 
-    r = system (cmd);
-    if (r == -1) {
-      perror ("system");
+    FILE *pp = popen (cmd, "r");
+    if (pp == NULL) {
+      perror (cmd);
       exit (EXIT_FAILURE);
     }
+
+    char *cmd2;
+    fp = open_memstream (&cmd2, &cmdlen);
+    if (fp == NULL) {
+      perror ("open_memstream");
+      exit (EXIT_FAILURE);
+    }
+
+    fprintf (fp, "%s", real_argv0);
+
+    if (guestfs_get_verbose (g))
+      fprintf (fp, " -v");
+    if (!guestfs_get_autosync (g))
+      fprintf (fp, " -n");
+    if (guestfs_get_trace (g))
+      fprintf (fp, " -x");
+
+    char *insp = NULL;
+    size_t insplen;
+    if (getline (&insp, &insplen, pp) == -1) {
+      perror (cmd);
+      exit (EXIT_FAILURE);
+    }
+    fprintf (fp, " %s", insp);
+
+    if (pclose (pp) == -1) {
+      perror (cmd);
+      exit (EXIT_FAILURE);
+    }
+
+    if (fclose (fp) == -1) {
+      perror ("fclose");
+      exit (EXIT_FAILURE);
+    }
+
+    if (verbose)
+      fprintf (stderr,
+               "%s -i: running: %s\n", program_name, cmd2);
+
+    int r = system (cmd2);
+    if (r == -1) {
+      perror (cmd2);
+      exit (EXIT_FAILURE);
+    }
+
+    free (cmd);
+    free (cmd2);
+    free (insp);
+
     exit (WEXITSTATUS (r));
   }
 
@@ -1615,4 +1658,18 @@ file_out (const char *arg)
     return NULL;
   }
   return ret;
+}
+
+static void
+print_shell_quote (FILE *stream, const char *str)
+{
+#define SAFE(c) (c_isalnum((c)) ||					\
+                 (c) == '/' || (c) == '-' || (c) == '_' || (c) == '.')
+  int i;
+
+  for (i = 0; str[i]; ++i) {
+    if (!SAFE(str[i]))
+      putc ('\\', stream);
+    putc (str[i], stream);
+  }
 }
