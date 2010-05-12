@@ -104,6 +104,8 @@ static const struct prep preps[] = {
   },
 };
 
+#define nr_preps (sizeof preps / sizeof preps[0])
+
 void
 list_prepared_drives (void)
 {
@@ -111,7 +113,7 @@ list_prepared_drives (void)
 
   printf (_("List of available prepared disk images:\n\n"));
 
-  for (i = 0; i < sizeof preps / sizeof preps[0]; ++i) {
+  for (i = 0; i < nr_preps; ++i) {
     printf (_("\
 guestfish -N %-16s %s\n\
 \n\
@@ -169,11 +171,11 @@ parse_type_string (const char *type_string)
 
   /* Match on the type part (without parameters). */
   size_t len = strcspn (type_string, ":");
-  for (i = 0; i < sizeof preps / sizeof preps[0]; ++i)
+  for (i = 0; i < nr_preps; ++i)
     if (STRCASEEQLEN (type_string, preps[i].name, len))
       break;
 
-  if (preps[i].name == NULL) {
+  if (i == nr_preps) {
     fprintf (stderr, _("\
 guestfish: -N parameter '%s': no such prepared disk image known.\n\
 Use 'guestfish -N list' to list possible values for the -N parameter.\n"),
