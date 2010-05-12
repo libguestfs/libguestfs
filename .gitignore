@@ -190,7 +190,6 @@ po/stamp-it
 po/stamp-po
 po/LINGUAS
 po/Makefile.in.in
-po/Makevars
 po/Rules-quot
 po/boldquot.sed
 po/en@boldquot.header
