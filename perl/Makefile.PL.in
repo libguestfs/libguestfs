@@ -1,5 +1,5 @@
 # libguestfs Perl bindings
-# Copyright (C) 2009 Red Hat Inc.
+# Copyright (C) 2009-2010 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@ WriteMakefile (
     FIRST_MAKEFILE => 'Makefile-pl',
 
     NAME => 'Sys::Guestfs',
-    VERSION => '@PACKAGE_VERSION@',
+    VERSION => '0.@MAX_PROC_NR@',
 
     LIBS => '-L@top_builddir@/src/.libs -lguestfs',
     INC => '-I@top_builddir@/src -I@top_srcdir@/src',

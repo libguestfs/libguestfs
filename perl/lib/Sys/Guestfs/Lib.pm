@@ -1,5 +1,5 @@
 # Sys::Guestfs::Lib
-# Copyright (C) 2009 Red Hat Inc.
+# Copyright (C) 2009-2010 Red Hat Inc.
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -19,6 +19,13 @@ package Sys::Guestfs::Lib;
 
 use strict;
 use warnings;
+
+# The minor part of this version number is incremented when some
+# change is made to this module.  The major part is incremented if we
+# make a change which is not backwards compatible.  It is not related
+# to the libguestfs version number.
+use vars qw($VERSION);
+$VERSION = '0.1';
 
 use Carp qw(croak);
 

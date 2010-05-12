@@ -4636,6 +4636,16 @@ let all_functions_sorted =
   List.sort (fun (n1,_,_,_,_,_,_) (n2,_,_,_,_,_,_) ->
                compare n1 n2) all_functions
 
+(* This is used to generate the src/MAX_PROC_NR file which
+ * contains the maximum procedure number, a surrogate for the
+ * ABI version number.  See src/Makefile.am for the details.
+ *)
+let max_proc_nr =
+  let proc_nrs = List.map (
+    fun (_, _, proc_nr, _, _, _, _) -> proc_nr
+  ) daemon_functions in
+  List.fold_left max 0 proc_nrs
+
 (* Field types for structures. *)
 type field =
   | FChar			(* C 'char' (really, a 7 bit byte). *)
@@ -8806,6 +8816,12 @@ package Sys::Guestfs;
 use strict;
 use warnings;
 
+# This version number changes whenever a new function
+# is added to the libguestfs API.  It is not directly
+# related to the libguestfs version number.
+use vars qw($VERSION);
+$VERSION = '0.%d';
+
 require XSLoader;
 XSLoader::load ('Sys::Guestfs');
 
@@ -8824,7 +8840,7 @@ sub new {
   return $self;
 }
 
-";
+" max_proc_nr;
 
   (* Actions.  We only need to print documentation for these as
    * they are pulled in from the XS code automatically.
@@ -11638,17 +11654,7 @@ let inspect ?connect ?xml names =
   parse_operatingsystems xml
 "
 
-(* This is used to generate the src/MAX_PROC_NR file which
- * contains the maximum procedure number, a surrogate for the
- * ABI version number.  See src/Makefile.am for the details.
- *)
 and generate_max_proc_nr () =
-  let proc_nrs = List.map (
-    fun (_, _, proc_nr, _, _, _, _) -> proc_nr
-  ) daemon_functions in
-
-  let max_proc_nr = List.fold_left max 0 proc_nrs in
-
   pr "%d\n" max_proc_nr
 
 let output_to filename k =
