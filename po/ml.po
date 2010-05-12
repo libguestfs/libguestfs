@@ -6,8 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs.master.libguestfs.ml\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-08 20:12+0100\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
+"component=libguestfs&product=Virtualization+Tools\n"
+"POT-Creation-Date: 2010-05-12 14:17+0100\n"
 "PO-Revision-Date: 2010-02-02 18:35+0530\n"
 "Last-Translator: Ani Peter | അനി പീറ്റര്‍ <apeter@redhat.com>\n"
 "Language-Team: Swathanthra Malayalam Computing | സ്വതന്ത്ര മലയാളം കമ്പ്യൂട്ടിങ് <smc-"
@@ -1984,6 +1985,129 @@ msgstr "%s: കുറഞ്ഞതു് ഒരു -a ഉപാധിയും �
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr "%s: ഹോസ്റ്റ് ഫയല്‍സിസ്റ്റത്തില്‍ ഒരു മൌണ്ട് പോയിന്റ് നല്‍കണം\n"
 
+#: perl/lib/Sys/Guestfs/Lib.pm:145
+msgid "open_guest: first parameter must be a string or an arrayref"
+msgstr ""
+
+#: perl/lib/Sys/Guestfs/Lib.pm:152
+#, fuzzy, perl-brace-format
+msgid "guest image {imagename} does not exist or is not readable"
+msgstr "ബൈനറി '%s' നിലവിലില്ല അല്ലെങ്കില്‍ പ്രവര്‍ത്തിക്കുന്നില്ല\n"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:157
+msgid ""
+"open_guest: no libvirt support (install Sys::Virt, XML::XPath and XML::"
+"XPath::XMLParser)"
+msgstr ""
+
+#: perl/lib/Sys/Guestfs/Lib.pm:162
+#, fuzzy
+msgid "open_guest: too many domains listed on command line"
+msgstr "%s: കമാന്‍ഡ് ലൈനില്‍ കാലിയായ കമാന്‍ഡ്\n"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:169
+msgid "open_guest: cannot connect to libvirt"
+msgstr ""
+
+#: perl/lib/Sys/Guestfs/Lib.pm:188
+#, perl-brace-format
+msgid "{imagename} is not the name of an inactive libvirt domain\n"
+msgstr ""
+
+#: perl/lib/Sys/Guestfs/Lib.pm:191
+#, perl-brace-format
+msgid "{imagename} is not the name of a libvirt domain\n"
+msgstr ""
+
+#: perl/lib/Sys/Guestfs/Lib.pm:203
+#, perl-brace-format
+msgid "{imagename} seems to have no disk devices\n"
+msgstr ""
+
+#: perl/lib/Sys/Guestfs/Lib.pm:428
+#, perl-brace-format
+msgid "returning non-canonical architecture type '{arch}'"
+msgstr ""
+
+#: perl/lib/Sys/Guestfs/Lib.pm:471
+#, fuzzy, perl-brace-format
+msgid "cpio command failed: {error}"
+msgstr "കമാന്‍ഡ് പരാജയപ്പെട്ടു: %s"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:483
+#, perl-brace-format
+msgid "file_architecture: no known binaries found in initrd image: {path}"
+msgstr ""
+
+#: perl/lib/Sys/Guestfs/Lib.pm:487
+#, perl-brace-format
+msgid "file_architecture: unknown architecture: {path}"
+msgstr ""
+
+#: perl/lib/Sys/Guestfs/Lib.pm:1268
+#, perl-brace-format
+msgid "unknown filesystem label {label}\n"
+msgstr ""
+
+#: perl/lib/Sys/Guestfs/Lib.pm:1278
+#, perl-brace-format
+msgid "unknown filesystem UUID {uuid}\n"
+msgstr ""
+
+#: perl/lib/Sys/Guestfs/Lib.pm:1301
+#, fuzzy, perl-brace-format
+msgid "unknown filesystem {fs}\n"
+msgstr "ഒരു ഫയല്‍സിസ്റ്റം അണ്‍മൌണ്ട് ചെയ്യുക"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:1485
+#, perl-brace-format
+msgid "Error running rpm -qa: {error}"
+msgstr ""
+
+#: perl/lib/Sys/Guestfs/Lib.pm:1511
+#, perl-brace-format
+msgid "Error running dpkg-query: {error}"
+msgstr ""
+
+#: perl/lib/Sys/Guestfs/Lib.pm:1576
+msgid "Can't find grub on guest"
+msgstr ""
+
+#: perl/lib/Sys/Guestfs/Lib.pm:1631
+#, perl-brace-format
+msgid "Grub entry {title} has no kernel"
+msgstr ""
+
+#: perl/lib/Sys/Guestfs/Lib.pm:1662
+#, perl-brace-format
+msgid "grub refers to {path}, which doesn't exist\n"
+msgstr ""
+
+#: perl/lib/Sys/Guestfs/Lib.pm:1685
+#, perl-brace-format
+msgid "Grub entry {title} does not specify an initrd"
+msgstr ""
+
+#: perl/lib/Sys/Guestfs/Lib.pm:1756
+#, perl-brace-format
+msgid "Didn't find modules directory {modules} for kernel {path}"
+msgstr ""
+
+#: perl/lib/Sys/Guestfs/Lib.pm:1764
+#, perl-brace-format
+msgid "Couldn't guess kernel version number from path for kernel {path}"
+msgstr ""
+
+#: perl/lib/Sys/Guestfs/Lib.pm:1825
+#, fuzzy, perl-brace-format
+msgid "{path} doesn't match augeas pattern"
+msgstr "ഒരു മാതൃകയ്ക്കു് ചേരുന്ന വരികള്‍ തിരികെ ലഭ്യമാക്കുക"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:1864
+#, perl-brace-format
+msgid "{filename}: could not read initrd format"
+msgstr ""
+
 #: src/guestfs.c:290
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
@@ -2291,3 +2415,385 @@ msgstr ""
 #, c-format
 msgid "mkisofs command failed: %s\n"
 msgstr "mkisofs കമാന്‍ഡ് പരാജയപ്പെട്ടു: %s\n"
+
+#: tools/virt-cat.pl:128
+msgid "virt-cat: no image, VM names or filenames to cat given"
+msgstr ""
+
+#: tools/virt-cat.pl:153 tools/virt-edit.pl:136 tools/virt-win-reg.pl:283
+msgid "no root device found in this operating system image"
+msgstr ""
+
+#: tools/virt-cat.pl:154
+msgid "multiboot operating systems are not supported by virt-cat"
+msgstr ""
+
+#: tools/virt-df.pl:260
+msgid "Virtual Machine"
+msgstr ""
+
+#: tools/virt-df.pl:260
+#, fuzzy
+msgid "Filesystem"
+msgstr "ഒരു ഫയല്‍സിസ്റ്റം ഉണ്ടാക്കുക"
+
+#: tools/virt-df.pl:263
+msgid "1K-blocks"
+msgstr ""
+
+#: tools/virt-df.pl:265
+msgid "Size"
+msgstr ""
+
+#: tools/virt-df.pl:267
+msgid "Used"
+msgstr ""
+
+#: tools/virt-df.pl:268
+msgid "Available"
+msgstr ""
+
+#: tools/virt-df.pl:269
+msgid "Use%"
+msgstr ""
+
+#: tools/virt-df.pl:271
+msgid "Inodes"
+msgstr ""
+
+#: tools/virt-df.pl:272
+msgid "IUsed"
+msgstr ""
+
+#: tools/virt-df.pl:273
+msgid "IFree"
+msgstr ""
+
+#: tools/virt-df.pl:274
+msgid "IUse%"
+msgstr ""
+
+#: tools/virt-edit.pl:111
+msgid "virt-edit: no image, VM names or filenames to edit given"
+msgstr ""
+
+#: tools/virt-edit.pl:137
+msgid "multiboot operating systems are not supported by virt-edit"
+msgstr ""
+
+#: tools/virt-edit.pl:160
+msgid "File not changed.\n"
+msgstr ""
+
+#: tools/virt-list-filesystems.pl:121
+msgid "virt-list-filesystems: no image or VM name given"
+msgstr ""
+
+#: tools/virt-list-partitions.pl:131
+msgid "virt-list-partitions: no image or VM name given"
+msgstr ""
+
+#: tools/virt-ls.pl:137 tools/virt-ls.pl:143
+msgid "virt-ls: cannot combine -l and -R options\n"
+msgstr ""
+
+#: tools/virt-ls.pl:161
+msgid "virt-ls: no image, VM names or directory to list given"
+msgstr ""
+
+#: tools/virt-ls.pl:186 tools/virt-tar.pl:230
+msgid "no root device found in this operating system image\n"
+msgstr ""
+
+#: tools/virt-ls.pl:187
+msgid "multiboot operating systems are not supported by virt-ls\n"
+msgstr ""
+
+#: tools/virt-make-fs.pl:291
+msgid "virt-make-fs input output\n"
+msgstr ""
+
+#: tools/virt-make-fs.pl:321
+msgid "unexpected output from 'du' command"
+msgstr ""
+
+#: tools/virt-make-fs.pl:333 tools/virt-make-fs.pl:347
+#: tools/virt-make-fs.pl:453
+#, perl-brace-format
+msgid "{f}: unknown input format: {fmt}\n"
+msgstr ""
+
+#: tools/virt-make-fs.pl:391
+#, perl-brace-format
+msgid "virt-make-fs: cannot parse size parameter: {sz}\n"
+msgstr ""
+
+#: tools/virt-make-fs.pl:401
+#, fuzzy
+msgid ""
+"qemu-img create: failed to create disk image, see earlier error messages\n"
+msgstr "guestfs_launch പരാജയപ്പെട്ടു, മുമ്പുള്ള പിശക് സന്ദേശങ്ങള്‍ കാണുക"
+
+#: tools/virt-make-fs.pl:412
+msgid "virt-make-fs: NTFS support was disabled when libguestfs was compiled\n"
+msgstr ""
+
+#: tools/virt-make-fs.pl:437
+#, fuzzy
+msgid "tar: failed, see earlier messages\n"
+msgstr "guestfs_launch പരാജയപ്പെട്ടു, മുമ്പുള്ള പിശക് സന്ദേശങ്ങള്‍ കാണുക"
+
+#: tools/virt-make-fs.pl:459
+#, fuzzy
+msgid "uncompress command failed, see earlier messages\n"
+msgstr "guestfs_launch പരാജയപ്പെട്ടു, മുമ്പുള്ള പിശക് സന്ദേശങ്ങള്‍ കാണുക"
+
+#: tools/virt-make-fs.pl:494
+msgid ""
+"virt-make-fs: error copying contents into filesystem\n"
+"An error here usually means that the program did not estimate the\n"
+"filesystem size correctly.  Please read the BUGS section of the manpage.\n"
+msgstr ""
+
+#: tools/virt-rescue.pl:194
+msgid "virt-rescue: no image or VM names rescue given"
+msgstr ""
+
+#: tools/virt-resize.pl:33
+msgid "virt-resize: sorry this program does not work on a 32 bit host\n"
+msgstr ""
+
+#: tools/virt-resize.pl:511
+#, fuzzy, perl-brace-format
+msgid "virt-resize: {file}: does not exist or is not readable\n"
+msgstr "ബൈനറി '%s' നിലവിലില്ല അല്ലെങ്കില്‍ പ്രവര്‍ത്തിക്കുന്നില്ല\n"
+
+#: tools/virt-resize.pl:513
+#, perl-brace-format
+msgid ""
+"virt-resize: {file}: does not exist or is not writable\n"
+"You have to create the destination disk before running this program.\n"
+"Please read the virt-resize(1) manpage for more information.\n"
+msgstr ""
+
+#: tools/virt-resize.pl:538 tools/virt-resize.pl:541
+#, perl-brace-format
+msgid ""
+"virt-resize: {file}: file is too small to be a disk image ({sz} bytes)\n"
+msgstr ""
+
+#: tools/virt-resize.pl:705
+#, fuzzy, perl-brace-format
+msgid "virt-resize: no logical volume called {n}\n"
+msgstr "ഒരു എല്‍വിഎം ലോജിക്കല്‍ വോള്യത്തിന്റെ വ്യാപ്തി മാറ്റുക"
+
+#: tools/virt-resize.pl:725
+#, perl-brace-format
+msgid ""
+"{p}: partition not found in the source disk image, when using the '{opt}' "
+"command line option\n"
+msgstr ""
+
+#: tools/virt-resize.pl:731
+#, perl-brace-format
+msgid ""
+"{p}: partition ignored, you cannot use it in another command line argument\n"
+msgstr ""
+
+#: tools/virt-resize.pl:735
+#, perl-brace-format
+msgid ""
+"{p}: partition deleted, you cannot use it in another command line argument\n"
+msgstr ""
+
+#: tools/virt-resize.pl:777
+#, perl-brace-format
+msgid "{p}: this partition has already been marked for resizing\n"
+msgstr ""
+
+#: tools/virt-resize.pl:785
+#, perl-brace-format
+msgid "{p}: missing size field in {o} option\n"
+msgstr ""
+
+#: tools/virt-resize.pl:802
+#, perl-brace-format
+msgid "{p}: {f}: cannot parse size field\n"
+msgstr ""
+
+#: tools/virt-resize.pl:807
+#, perl-brace-format
+msgid "{p}: new size is zero or negative\n"
+msgstr ""
+
+#: tools/virt-resize.pl:830
+#, perl-brace-format
+msgid ""
+"{p}: cannot make this partition smaller because it contains a\n"
+"filesystem, physical volume or other content that is larger than the new "
+"size.\n"
+"You have to resize the content first, see virt-resize(1).\n"
+msgstr ""
+
+#: tools/virt-resize.pl:846
+msgid "virt-resize: you cannot use options --expand and --shrink together\n"
+msgstr ""
+
+#: tools/virt-resize.pl:895
+#, perl-brace-format
+msgid ""
+"virt-resize: error: cannot use --expand when there is no surplus space to\n"
+"expand into.  You need to make the target disk larger by at least {h}.\n"
+msgstr ""
+
+#: tools/virt-resize.pl:910
+msgid ""
+"virt-resize: error: cannot use --shrink because there is no deficit\n"
+"(see 'deficit' in the virt-resize(1) man page)\n"
+msgstr ""
+
+#: tools/virt-resize.pl:925
+msgid "Summary of changes:\n"
+msgstr ""
+
+#: tools/virt-resize.pl:929
+#, perl-brace-format
+msgid "{p}: partition will be ignored\n"
+msgstr ""
+
+#: tools/virt-resize.pl:931
+#, perl-brace-format
+msgid "{p}: partition will be deleted\n"
+msgstr ""
+
+#: tools/virt-resize.pl:933
+#, perl-brace-format
+msgid "{p}: partition will be resized from {oldsize} to {newsize}\n"
+msgstr ""
+
+#: tools/virt-resize.pl:938
+#, perl-brace-format
+msgid "{p}: content will be expanded using the '{meth}' method\n"
+msgstr ""
+
+#: tools/virt-resize.pl:943
+#, perl-brace-format
+msgid "{p}: partition will be left alone\n"
+msgstr ""
+
+#: tools/virt-resize.pl:948
+#, perl-brace-format
+msgid "{n}: LV will be expanded to maximum size\n"
+msgstr ""
+
+#: tools/virt-resize.pl:954
+#, perl-brace-format
+msgid "{n}: content will be expanded using the '{meth}' method\n"
+msgstr ""
+
+#: tools/virt-resize.pl:961
+#, perl-brace-format
+msgid "There is a surplus of {spl} bytes ({h}).\n"
+msgstr ""
+
+#: tools/virt-resize.pl:966
+msgid "An extra partition will be created for the surplus.\n"
+msgstr ""
+
+#: tools/virt-resize.pl:968
+msgid ""
+"The surplus space is not large enough for an extra partition to be created\n"
+"and so it will just be ignored.\n"
+msgstr ""
+
+#: tools/virt-resize.pl:971
+msgid ""
+"The surplus space will be ignored.  Run a partitioning program in the guest\n"
+"to partition this extra space if you want.\n"
+msgstr ""
+
+#: tools/virt-resize.pl:974
+#, perl-brace-format
+msgid ""
+"virt-resize: error: there is a deficit of {def} bytes ({h}).\n"
+"You need to make the target disk larger by at least this amount,\n"
+"or adjust your resizing requests.\n"
+msgstr ""
+
+#: tools/virt-resize.pl:1015
+msgid "virt-resize: source disk does not have a first partition\n"
+msgstr ""
+
+#: tools/virt-resize.pl:1111
+#, perl-brace-format
+msgid "Copying {p} ..."
+msgstr ""
+
+#: tools/virt-resize.pl:1118
+msgid "done"
+msgstr ""
+
+#: tools/virt-resize.pl:1176 tools/virt-resize.pl:1234
+#, perl-brace-format
+msgid "Expanding {p} using the '{meth}' method\n"
+msgstr ""
+
+#: tools/virt-tar.pl:163 tools/virt-tar.pl:170
+msgid "virt-tar: extract/upload mode specified twice on the command line\n"
+msgstr ""
+
+#: tools/virt-tar.pl:191
+msgid "virt-tar: no image, VM names, directory or filename given"
+msgstr ""
+
+#: tools/virt-tar.pl:194
+msgid "virt-tar: either -x or -u must be specified on the command line\n"
+msgstr ""
+
+#: tools/virt-tar.pl:205
+#, perl-brace-format
+msgid "virt-tar: {tarball}: file not found\n"
+msgstr ""
+
+#: tools/virt-tar.pl:208
+#, perl-brace-format
+msgid "virt-tar: {dir}: directory name must start with '/' character\n"
+msgstr ""
+
+#: tools/virt-tar.pl:231
+msgid "multiboot operating systems are not supported by virt-tar\n"
+msgstr ""
+
+#: tools/virt-win-reg.pl:259
+msgid "no libvirt domain name or disk image given\n"
+msgstr ""
+
+#: tools/virt-win-reg.pl:284
+msgid "multiboot operating systems are not supported by virt-win-reg"
+msgstr ""
+
+#: tools/virt-win-reg.pl:298
+msgid ""
+"expecting 1 or 2 more parameters, subkey path and optionally the value to "
+"export\n"
+msgstr ""
+
+#: tools/virt-win-reg.pl:409
+#, perl-brace-format
+msgid "virt-win-reg: {p}: not a supported Windows Registry path\n"
+msgstr ""
+
+#: tools/virt-win-reg.pl:427 tools/virt-win-reg.pl:450
+#, perl-brace-format
+msgid "virt-win-reg: {p}: file not found in guest: {err}\n"
+msgstr ""
+
+#: tools/virt-win-reg.pl:434
+#, perl-brace-format
+msgid "virt-win-reg: {p}: could not download registry file: {err}\n"
+msgstr ""
+
+#: tools/virt-win-reg.pl:457
+#, perl-brace-format
+msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
+msgstr ""
