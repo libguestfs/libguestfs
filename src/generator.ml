@@ -6198,8 +6198,8 @@ and generate_daemon_actions () =
            pr "\n";
            pr "  if (!xdr_guestfs_%s_args (xdr_in, &args)) {\n" name;
            if is_filein then
-             pr "    cancel_receive ();\n";
-           pr "    reply_with_error (\"daemon failed to decode procedure arguments\");\n";
+             pr "    if (cancel_receive () != -2)\n";
+           pr "      reply_with_error (\"daemon failed to decode procedure arguments\");\n";
            pr "    goto done;\n";
            pr "  }\n";
            let pr_args n =
@@ -6210,8 +6210,8 @@ and generate_daemon_actions () =
              pr "                sizeof (char *) * (args.%s.%s_len+1));\n" n n;
              pr "  if (%s == NULL) {\n" n;
              if is_filein then
-               pr "    cancel_receive ();\n";
-             pr "    reply_with_perror (\"realloc\");\n";
+               pr "    if (cancel_receive () != -2)\n";
+             pr "      reply_with_perror (\"realloc\");\n";
              pr "    goto done;\n";
              pr "  }\n";
              pr "  %s[args.%s.%s_len] = NULL;\n" n n n;
@@ -6222,15 +6222,15 @@ and generate_daemon_actions () =
              | Pathname n ->
                  pr_args n;
                  pr "  ABS_PATH (%s, %s, goto done);\n"
-                   n (if is_filein then "cancel_receive ()" else "");
+                   n (if is_filein then "cancel_receive ()" else "0");
              | Device n ->
                  pr_args n;
                  pr "  RESOLVE_DEVICE (%s, %s, goto done);\n"
-                   n (if is_filein then "cancel_receive ()" else "");
+                   n (if is_filein then "cancel_receive ()" else "0");
              | Dev_or_Path n ->
                  pr_args n;
                  pr "  REQUIRE_ROOT_OR_RESOLVE_DEVICE (%s, %s, goto done);\n"
-                   n (if is_filein then "cancel_receive ()" else "");
+                   n (if is_filein then "cancel_receive ()" else "0");
              | String n -> pr_args n
              | OptString n -> pr "  %s = args.%s ? *args.%s : NULL;\n" n n n
              | StringList n ->
@@ -6241,7 +6241,7 @@ and generate_daemon_actions () =
                  pr "   * and perform device name translation. */\n";
                  pr "  { int pvi; for (pvi = 0; physvols[pvi] != NULL; ++pvi)\n";
                  pr "    RESOLVE_DEVICE (physvols[pvi], %s, goto done);\n"
-                   (if is_filein then "cancel_receive ()" else "");
+                   (if is_filein then "cancel_receive ()" else "0");
                  pr "  }\n";
              | Bool n -> pr "  %s = args.%s;\n" n n
              | Int n -> pr "  %s = args.%s;\n" n n
@@ -6257,7 +6257,7 @@ and generate_daemon_actions () =
         (* Emit NEED_ROOT just once, even when there are two or
            more Pathname args *)
         pr "  NEED_ROOT (%s, goto done);\n"
-          (if is_filein then "cancel_receive ()" else "");
+          (if is_filein then "cancel_receive ()" else "0");
       );
 
       (* Don't want to call the impl with any FileIn or FileOut

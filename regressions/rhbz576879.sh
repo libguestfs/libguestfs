@@ -29,3 +29,13 @@ rm -f test1.img
 # Shouldn't lose synchronization, so next command should work:
 ping-daemon
 EOF
+
+# Second patch tests the problem found in comment 5 where both ends
+# send cancel messages simultaneously.
+
+../fish/guestfish -N disk <<EOF
+-tar-in /tmp/nosuchfile /blah
+ping-daemon
+EOF
+
+rm -f test1.img

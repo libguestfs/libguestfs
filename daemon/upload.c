@@ -47,18 +47,18 @@ do_upload (const char *filename)
   if (!is_dev) CHROOT_OUT;
   if (fd == -1) {
     err = errno;
-    cancel_receive ();
+    r = cancel_receive ();
     errno = err;
-    reply_with_perror ("%s", filename);
+    if (r != -2) reply_with_perror ("%s", filename);
     return -1;
   }
 
   r = receive_file (write_cb, &fd);
   if (r == -1) {		/* write error */
     err = errno;
-    cancel_receive ();
+    r = cancel_receive ();
     errno = err;
-    reply_with_error ("write error: %s", filename);
+    if (r != -2) reply_with_error ("write error: %s", filename);
     close (fd);
     return -1;
   }
@@ -71,9 +71,10 @@ do_upload (const char *filename)
   if (close (fd) == -1) {
     err = errno;
     if (r == -1)                /* if r == 0, file transfer ended already */
-      cancel_receive ();
+      r = cancel_receive ();
     errno = err;
-    reply_with_perror ("close: %s", filename);
+    if (r != -2)
+      reply_with_perror ("close: %s", filename);
     return -1;
   }
 

@@ -139,10 +139,13 @@ typedef int (*receive_cb) (void *opaque, const void *buf, size_t len);
 extern int receive_file (receive_cb cb, void *opaque);
 
 /* daemon functions that receive files (FileIn) can call this
- * to cancel incoming transfers (eg. if there is a local error),
- * but they MUST then call reply_with_*.
+ * to cancel incoming transfers (eg. if there is a local error).
+ *
+ * If and only if this function does NOT return -2, they MUST then
+ * call reply_with_*
+ * (see https://bugzilla.redhat.com/show_bug.cgi?id=576879#c5).
  */
-extern void cancel_receive (void);
+extern int cancel_receive (void);
 
 /* daemon functions that return files (FileOut) should call
  * reply, then send_file_* for each FileOut parameter.
@@ -160,8 +163,8 @@ extern void reply (xdrproc_t xdrp, char *ret);
 #define NEED_ROOT(cancel_stmt,fail_stmt)                                \
   do {									\
     if (!root_mounted) {						\
-      cancel_stmt;                                                      \
-      reply_with_error ("%s: you must call 'mount' first to mount the root filesystem", __func__); \
+      if ((cancel_stmt) != -2)                                          \
+        reply_with_error ("%s: you must call 'mount' first to mount the root filesystem", __func__); \
       fail_stmt;							\
     }									\
   }									\
@@ -173,8 +176,8 @@ extern void reply (xdrproc_t xdrp, char *ret);
 #define ABS_PATH(path,cancel_stmt,fail_stmt)                            \
   do {									\
     if ((path)[0] != '/') {						\
-      cancel_stmt;							\
-      reply_with_error ("%s: path must start with a / character", __func__); \
+      if ((cancel_stmt) != -2)                                          \
+        reply_with_error ("%s: path must start with a / character", __func__); \
       fail_stmt;							\
     }									\
   } while (0)
@@ -189,15 +192,16 @@ extern void reply (xdrproc_t xdrp, char *ret);
 #define RESOLVE_DEVICE(path,cancel_stmt,fail_stmt)                      \
   do {									\
     if (STRNEQLEN ((path), "/dev/", 5)) {				\
-      cancel_stmt;							\
-      reply_with_error ("%s: %s: expecting a device name", __func__, (path)); \
+      if ((cancel_stmt) != -2)                                          \
+        reply_with_error ("%s: %s: expecting a device name", __func__, (path)); \
       fail_stmt;							\
     }									\
     if (device_name_translation ((path)) == -1) {                       \
       int err = errno;                                                  \
-      cancel_stmt;                                                      \
+      int r = cancel_stmt;                                              \
       errno = err;                                                      \
-      reply_with_perror ("%s: %s", __func__, path);                     \
+      if (r != -2)                                                      \
+        reply_with_perror ("%s: %s", __func__, path);                   \
       fail_stmt;							\
     }                                                                   \
   } while (0)

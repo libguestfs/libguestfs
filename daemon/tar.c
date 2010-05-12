@@ -45,9 +45,9 @@ do_tar_in (const char *dir)
   /* "tar -C /sysroot%s -xf -" but we have to quote the dir. */
   if (asprintf_nowarn (&cmd, "tar -C %R -xf -", dir) == -1) {
     err = errno;
-    cancel_receive ();
+    r = cancel_receive ();
     errno = err;
-    reply_with_perror ("asprintf");
+    if (r != -2) reply_with_perror ("asprintf");
     return -1;
   }
 
@@ -57,9 +57,9 @@ do_tar_in (const char *dir)
   fp = popen (cmd, "w");
   if (fp == NULL) {
     err = errno;
-    cancel_receive ();
+    r = cancel_receive ();
     errno = err;
-    reply_with_perror ("%s", cmd);
+    if (r != -2) reply_with_perror ("%s", cmd);
     free (cmd);
     return -1;
   }
@@ -72,8 +72,8 @@ do_tar_in (const char *dir)
 
   r = receive_file (write_cb, &fd);
   if (r == -1) {		/* write error */
-    cancel_receive ();
-    reply_with_error ("write error on directory: %s", dir);
+    if (cancel_receive () != -2)
+      reply_with_error ("write error on directory: %s", dir);
     pclose (fp);
     return -1;
   }
@@ -85,8 +85,9 @@ do_tar_in (const char *dir)
 
   if (pclose (fp) != 0) {
     if (r == -1)                /* if r == 0, file transfer ended already */
-      cancel_receive ();
-    reply_with_error ("tar subcommand failed on directory: %s", dir);
+      r = cancel_receive ();
+    if (r != -2)
+      reply_with_error ("tar subcommand failed on directory: %s", dir);
     return -1;
   }
 
@@ -162,9 +163,9 @@ do_tXz_in (const char *dir, char filter)
   /* "tar -C /sysroot%s -zxf -" but we have to quote the dir. */
   if (asprintf_nowarn (&cmd, "tar -C %R -%cxf -", dir, filter) == -1) {
     err = errno;
-    cancel_receive ();
+    r = cancel_receive ();
     errno = err;
-    reply_with_perror ("asprintf");
+    if (r != -2) reply_with_perror ("asprintf");
     return -1;
   }
 
@@ -174,9 +175,9 @@ do_tXz_in (const char *dir, char filter)
   fp = popen (cmd, "w");
   if (fp == NULL) {
     err = errno;
-    cancel_receive ();
+    r = cancel_receive ();
     errno = err;
-    reply_with_perror ("%s", cmd);
+    if (r != -2) reply_with_perror ("%s", cmd);
     free (cmd);
     return -1;
   }
@@ -186,8 +187,8 @@ do_tXz_in (const char *dir, char filter)
 
   r = receive_file (write_cb, &fd);
   if (r == -1) {		/* write error */
-    cancel_receive ();
-    reply_with_error ("write error on directory: %s", dir);
+    r = cancel_receive ();
+    if (r != -2) reply_with_error ("write error on directory: %s", dir);
     pclose (fp);
     return -1;
   }
@@ -199,8 +200,9 @@ do_tXz_in (const char *dir, char filter)
 
   if (pclose (fp) != 0) {
     if (r == -1)                /* if r == 0, file transfer ended already */
-      cancel_receive ();
-    reply_with_error ("tar subcommand failed on directory: %s", dir);
+      r = cancel_receive ();
+    if (r != -2)
+      reply_with_error ("tar subcommand failed on directory: %s", dir);
     return -1;
   }
 

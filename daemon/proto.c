@@ -395,7 +395,7 @@ receive_file (receive_cb cb, void *opaque)
 }
 
 /* Send a cancellation flag back to the library. */
-void
+int
 cancel_receive (void)
 {
   XDR xdr;
@@ -408,11 +408,11 @@ cancel_receive (void)
 
   if (xwrite (sock, fbuf, sizeof fbuf) == -1) {
     perror ("write to socket");
-    return;
+    return -1;
   }
 
   /* Keep receiving chunks and discarding, until library sees cancel. */
-  (void) receive_file (NULL, NULL);
+  return receive_file (NULL, NULL);
 }
 
 static int check_for_library_cancellation (void);
