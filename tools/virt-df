@@ -20,9 +20,7 @@ use warnings;
 use strict;
 
 use Sys::Guestfs;
-use Sys::Guestfs::Lib qw(open_guest get_partitions resolve_windows_path
-  inspect_all_partitions inspect_partition
-  inspect_operating_systems mount_operating_system inspect_in_detail);
+use Sys::Guestfs::Lib qw(open_guest get_partitions);
 
 use Pod::Usage;
 use Getopt::Long;
