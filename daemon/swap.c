@@ -122,6 +122,11 @@ swaponoff (const char *cmd, const char *flag, const char *value)
 
   free (err);
 
+  /* Possible fix for RHBZ#516096.  It probably doesn't hurt to do
+   * this in any case.
+   */
+  udev_settle ();
+
   return 0;
 }
 
