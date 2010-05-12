@@ -34,6 +34,12 @@ do_strings_e (const char *encoding, const char *path)
   char *out, *err;
   char **lines;
 
+  if (strlen (encoding) != 1 ||
+      strchr ("sSblBL", encoding[0]) == NULL) {
+    reply_with_error ("%s: invalid encoding", encoding);
+    return NULL;
+  }
+
   CHROOT_IN;
   fd = open (path, O_RDONLY);
   CHROOT_OUT;

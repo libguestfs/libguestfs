@@ -2463,12 +2463,41 @@ the list of printable strings found.");
    "print the printable strings in a file",
    "\
 This is like the C<guestfs_strings> command, but allows you to
-specify the encoding.
+specify the encoding of strings that are looked for in
+the source file C<path>.
 
-See the L<strings(1)> manpage for the full list of encodings.
+Allowed encodings are:
 
-Commonly useful encodings are C<l> (lower case L) which will
-show strings inside Windows/x86 files.
+=over 4
+
+=item s
+
+Single 7-bit-byte characters like ASCII and the ASCII-compatible
+parts of ISO-8859-X (this is what C<guestfs_strings> uses).
+
+=item S
+
+Single 8-bit-byte characters.
+
+=item b
+
+16-bit big endian strings such as those encoded in
+UTF-16BE or UCS-2BE.
+
+=item l (lower case letter L)
+
+16-bit little endian such as UTF-16LE and UCS-2LE.
+This is useful for examining binaries in Windows guests.
+
+=item B
+
+32-bit big endian such as UCS-4BE.
+
+=item L
+
+32-bit little endian such as UCS-4LE.
+
+=back
 
 The returned strings are transcoded to UTF-8.");
 
