@@ -405,6 +405,8 @@ main (int argc, char *argv[])
       strcat (cmd, " -v");
     if (!guestfs_get_autosync (g))
       strcat (cmd, " -n");
+    if (guestfs_get_trace (g))
+      strcat (cmd, " -x");
 
     if (verbose)
       fprintf (stderr,
