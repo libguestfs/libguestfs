@@ -168,19 +168,7 @@ dist-hook:
 all-local:
 	cd $(srcdir); \
 	find $(DIST_SUBDIRS) \
-	    -name '*.c' -o -name '*.pl' -o -name '*.pm' -o \
-	    -name 'virt-cat' -o \
-	    -name 'virt-df' -o \
-	    -name 'virt-edit' -o \
-	    -name 'virt-inspector' -o \
-	    -name 'virt-list-filesystems' -o \
-	    -name 'virt-list-partitions' -o \
-	    -name 'virt-ls' -o \
-	    -name 'virt-make-fs' -o \
-	    -name 'virt-rescue' -o \
-	    -name 'virt-resize' -o \
-	    -name 'virt-tar' -o \
-	    -name 'virt-win-reg' | \
+	    -name '*.c' -o -name '*.pl' -o -name '*.pm' | \
 	grep -v '^perl/blib/' | \
 	grep -v '^capitests/' | \
 	grep -v '^daemon/lib/' | \

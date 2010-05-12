@@ -113,6 +113,7 @@ images/test-grep.txt.gz
 initramfs
 initramfs.timestamp
 inspector/virt-inspector.1
+inspector/virt-inspector.pl
 inspector/stamp-inspector-generator
 install-sh
 *.jar
@@ -230,6 +231,7 @@ test-tool/libguestfs-test-tool
 test-tool/libguestfs-test-tool-helper
 tools/test.img
 tools/virt-*.1
+tools/virt-*.pl
 /GNUmakefile
 /maint.mk
 /build-aux

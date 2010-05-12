@@ -338,7 +338,7 @@ else {                          # Import mode.
     %hives = ();
 
     # Look in the tmpdir for all the hive files which have been
-    # downloaded / modified by the import mapper, and upload
+    # downloaded / modified by the import mapper, and upload
     # each one.
     opendir my $dh, $tmpdir or die "$tmpdir: $!";
     foreach (readdir $dh) {

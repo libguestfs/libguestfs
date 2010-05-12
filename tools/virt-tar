@@ -202,9 +202,11 @@ if ($mode eq "x") {
 } else { # $mode eq "u"
     $directory = pop @ARGV;
     $tarball = pop @ARGV;
-    die __"virt-tar: $tarball: file not found\n" unless -f $tarball;
+    die __x("virt-tar: {tarball}: file not found\n",
+            tarball => $tarball) unless -f $tarball;
 }
-die __"virt-tar: $directory: directory name must start with '/' character\n"
+die __x("virt-tar: {dir}: directory name must start with '/' character\n",
+        dir => $directory)
     unless substr ($directory, 0, 1) eq "/";
 
 my @args = (\@ARGV);

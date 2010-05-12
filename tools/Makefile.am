@@ -1,5 +1,5 @@
 # libguestfs virt-* tools
-# Copyright (C) 2009 Red Hat Inc.
+# Copyright (C) 2009-2010 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -89,3 +89,12 @@ TESTS = test-virt-cat.sh \
 	test-virt-tar.sh
 
 endif
+
+# Make symlinks from virt-foo.pl to virt-foo.  This is just to keep
+# xgettext happy since it uses the file extension to determine the
+# implementation language of a file.
+
+all-local: $(tools:%=virt-%.pl)
+
+virt-%.pl: virt-%
+	ln -sf $< $@

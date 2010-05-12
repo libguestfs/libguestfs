@@ -58,3 +58,12 @@ TESTS_ENVIRONMENT = $(XMLLINT) --noout --relaxng virt-inspector.rng
 endif
 
 endif
+
+# Make symlink from virt-inspector.pl to virt-inspector.  This is just
+# to keep xgettext happy since it uses the file extension to determine
+# the implementation language of a file.
+
+all-local: virt-inspector.pl
+
+virt-inspector.pl: virt-inspector
+	ln -sf $< $@
