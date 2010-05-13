@@ -66,7 +66,7 @@ static void cmdline (char *argv[], int optind, int argc);
 static void initialize_readline (void);
 static void cleanup_readline (void);
 static void add_history_line (const char *);
-static int print_shell_quote (FILE *stream, const char *str);
+static void print_shell_quote (FILE *stream, const char *str);
 
 /* Currently open libguestfs handle. */
 guestfs_h *g;
