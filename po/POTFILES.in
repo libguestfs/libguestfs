@@ -1,4 +1,3 @@
-appliance/libguestfs-supermin-helper.c
 daemon/augeas.c
 daemon/available.c
 daemon/base64.c

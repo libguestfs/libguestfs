@@ -5,6 +5,8 @@ echo Starting /init script ...
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 export PATH
 
+mkdir -p /sysroot
+
 mount -t proc /proc /proc
 mount -t sysfs /sys /sys
 

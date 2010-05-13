@@ -928,10 +928,6 @@ static void print_cmdline (guestfs_h *g);
 
 static const char *kernel_name = "vmlinuz." REPO "." host_cpu;
 static const char *initrd_name = "initramfs." REPO "." host_cpu ".img";
-static const char *supermin_name =
-  "initramfs." REPO "." host_cpu ".supermin.img";
-static const char *supermin_hostfiles_name =
-  "initramfs." REPO "." host_cpu ".supermin.hostfiles";
 
 int
 guestfs__launch (guestfs_h *g)
@@ -998,8 +994,7 @@ guestfs__launch (guestfs_h *g)
         fprintf (stderr,
                  "looking for supermin appliance in current directory\n");
       if (dir_contains_files (".",
-                              supermin_name, supermin_hostfiles_name,
-                              "kmod.whitelist", NULL)) {
+                              "supermin.d", "kmod.whitelist", NULL)) {
         if (build_supermin_appliance (g, ".", &kernel, &initrd) == -1)
           return -1;
         break;
@@ -1011,8 +1006,7 @@ guestfs__launch (guestfs_h *g)
         fprintf (stderr, "looking for supermin appliance in %s\n", pelem);
 
       if (dir_contains_files (pelem,
-                              supermin_name, supermin_hostfiles_name,
-                              "kmod.whitelist", NULL)) {
+                              "supermin.d", "kmod.whitelist", NULL)) {
         if (build_supermin_appliance (g, pelem, &kernel, &initrd) == -1)
           return -1;
         break;
@@ -1591,11 +1585,15 @@ build_supermin_appliance (guestfs_h *g, const char *path,
   snprintf (*initrd, len+8, "%s/initrd", g->tmpdir);
 
   snprintf (cmd, sizeof cmd,
-            "PATH='%s':$PATH "
-            "libguestfs-supermin-helper%s '%s' " host_cpu " " REPO " %s %s",
-            path,
+            "febootstrap-supermin-helper%s "
+            "-k '%s/kmod.whitelist' "
+            "'%s/supermin.d' "
+            host_cpu " "
+            "%s %s",
             g->verbose ? " --verbose" : "",
-            path, *kernel, *initrd);
+            path,
+            path,
+            *kernel, *initrd);
   if (g->verbose)
     print_timestamped_message (g, "%s", cmd);
 

@@ -305,6 +305,10 @@ if test "x$enable_appliance" = "xyes"; then
                     [febootstrap-to-initramfs],[febootstrap-to-initramfs],[no])
       test "x$FEBOOTSTRAP_TO_INITRAMFS" = "xno" && \
           AC_MSG_ERROR([febootstrap-to-initramfs must be installed])
+      AC_CHECK_PROG([FEBOOTSTRAP_TO_SUPERMIN],
+                    [febootstrap-to-supermin],[febootstrap-to-supermin],[no])
+      test "x$FEBOOTSTRAP_TO_SUPERMIN" = "xno" && \
+          AC_MSG_ERROR([febootstrap-to-supermin must be installed])
 
       dnl Check we have fakechroot >= 2.9 (it's an indirect requirement
       dnl of febootstrap, but old versions will fail with yum).
@@ -390,40 +394,6 @@ AC_ARG_ENABLE([supermin],
         [],
         [enable_supermin=no])
 AM_CONDITIONAL([SUPERMIN],[test "x$enable_supermin" = "xyes"])
-
-if test "x$enable_supermin" = "xyes"; then
-    dnl Check febootstrap-to-initramfs accepts the --files option
-    dnl (febootstrap >= 2.2).
-    AC_MSG_CHECKING([for --files support in $FEBOOTSTRAP_TO_INITRAMFS])
-    out=`$FEBOOTSTRAP_TO_INITRAMFS 2>&1 ||:`
-    echo "febootstrap_to_initramfs test command output: $out" >&AS_MESSAGE_LOG_FD
-    if ! echo "$out" | grep -sq -e --files ; then
-        AC_MSG_RESULT([no])
-        AC_MSG_FAILURE(
-[febootstrap-to-initramfs does not support the --files option.
-
-To build the supermin appliance, you need to upgrade to the latest
-version of febootstrap.
-])
-    fi
-    AC_MSG_RESULT([yes])
-
-    dnl Check febootstrap-to-initramfs accepts the --nocompress option
-    dnl (febootstrap >= 2.3).
-    AC_MSG_CHECKING([for --nocompress support in $FEBOOTSTRAP_TO_INITRAMFS])
-    out=`$FEBOOTSTRAP_TO_INITRAMFS 2>&1 ||:`
-    echo "febootstrap_to_initramfs test command output: $out" >&AS_MESSAGE_LOG_FD
-    if ! echo "$out" | grep -sq -e --nocompress ; then
-        AC_MSG_RESULT([no])
-        AC_MSG_FAILURE(
-[febootstrap-to-initramfs does not support the --nocompress option.
-
-To build the supermin appliance, you need to upgrade to the latest
-version of febootstrap.
-])
-    fi
-    AC_MSG_RESULT([yes])
-fi
 
 dnl Enable packet dumps when in verbose mode.  This generates lots
 dnl of debug info, only useful for people debugging the RPC mechanism.
@@ -761,10 +731,6 @@ AC_CONFIG_HEADERS([config.h])
 dnl http://www.mail-archive.com/automake@gnu.org/msg10204.html
 AC_CONFIG_FILES([appliance/update.sh],
                 [chmod +x appliance/update.sh])
-AC_CONFIG_FILES([appliance/supermin-split.sh],
-                [chmod +x appliance/supermin-split.sh])
-AC_CONFIG_FILES([appliance/supermin-make.sh],
-                [chmod +x appliance/supermin-make.sh])
 AC_CONFIG_FILES([Makefile
                  src/Makefile fish/Makefile po/Makefile.in examples/Makefile
                  appliance/Makefile

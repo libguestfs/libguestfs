@@ -32,35 +32,24 @@ EXTRA_DIST = \
 # $(libdir) is best.  When we build cross-architecture filesystems we
 # should probably move them to $(datadir).
 fsdir = $(libdir)/guestfs
-fs_DATA = $(APPLIANCE_FILES)
+superminfsdir = $(libdir)/guestfs/supermin.d
 
 # These are the resulting output files from the whole process:
 #   VMLINUZ        kernel for the full appliance
 #   INITRAMFSIMG   initramfs (ie. root fs) for the full appliance
-# For details of the supermin appliance, read the README file:
-#   SUPERMINIMG    initramfs (ie. partial root fs) for the supermin appliance
-#   SUPERMINFILES  list of missing files (the ones we will pull out of the
-#                    host filesystem at runtime) in the supermin appliance
-APPLIANCE_FILES = $(INITRAMFSIMG) $(VMLINUZ)
+# For details of the supermin appliance, read the README file.
+fs_DATA = $(INITRAMFSIMG) $(VMLINUZ)
 if SUPERMIN
-APPLIANCE_FILES += $(SUPERMINIMG) $(SUPERMINFILES) kmod.whitelist
-bin_PROGRAMS = libguestfs-supermin-helper
-libguestfs_supermin_helper_SOURCES = \
-	libguestfs-supermin-helper.c ../gnulib/lib/xalloc-die.c
-libguestfs_supermin_helper_CFLAGS = \
-	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \
-	$(WARN_CFLAGS) $(WERROR_CFLAGS)
-libguestfs_supermin_helper_LDADD = \
-	../gnulib/lib/libgnu.la
+fs_DATA += kmod.whitelist
+superminfs_DATA = \
+	supermin.d/base.img \
+	supermin.d/daemon.img \
+	supermin.d/hostfiles
 endif
 
 # Don't change these names - they must be the same as in '*.sh' scripts.
 INITRAMFSIMG = initramfs.$(REPO).$(host_cpu).img
 VMLINUZ = vmlinuz.$(REPO).$(host_cpu)
-if SUPERMIN
-SUPERMINIMG = initramfs.$(REPO).$(host_cpu).supermin.img
-SUPERMINFILES = initramfs.$(REPO).$(host_cpu).supermin.hostfiles
-endif
 
 # This is for building the normal appliance:
 $(INITRAMFSIMG) $(VMLINUZ): $(top_builddir)/initramfs/fakeroot.log
@@ -97,19 +86,19 @@ packagelist: packagelist.in
 
 if SUPERMIN
 
-# First we need to decide which files go in and out of the supermin
-# appliance.  This decision is made by 'supermin-split.sh'.
-$(SUPERMINFILES): supermin.incfiles
-supermin.incfiles: $(top_builddir)/initramfs/fakeroot.log $(top_builddir)/daemon/guestfsd supermin-split.sh
-	rm -f supermin.incfiles $(SUPERMINFILES)
-	bash supermin-split.sh
+supermin.d/base.img supermin.d/hostfiles: stamp-supermin
+stamp-supermin: $(top_builddir)/initramfs/fakeroot.log $(top_builddir)/initramfs/init
+	mkdir -p supermin.d
+	rm -f $@ supermin.d/base.img supermin.d/hostfiles
+	febootstrap-to-supermin $(top_builddir)/initramfs supermin.d/base.img supermin.d/hostfiles
+	touch $@
 
-# Second we need to create a supermin appliance with just the included
-# files (leaving out the host files, which we'll add back at runtime).
-$(SUPERMINIMG): supermin.incfiles supermin-make.sh
-	rm -f $@
-	bash supermin-make.sh
-
+supermin.d/daemon.img: $(top_builddir)/initramfs/sbin/guestfsd
+	mkdir -p supermin.d
+	rm -f $@ $@-t
+	(cd $(top_builddir)/initramfs && \
+	  echo -e "sbin\nsbin/guestfsd" | cpio --quiet -o -H newc ) > $@-t
+	mv $@-t $@
 endif
 
 # Extra symlinks needed by the Debian appliance.
@@ -160,7 +149,8 @@ test-boot-realistic: emptydisk
 
 # Make clean.
 
-CLEANFILES = $(APPLIANCE_FILES) packagelist kmod.whitelist supermin.incfiles
+CLEANFILES = packagelist kmod.whitelist
 
 clean-local:
+	rm -f supermin.d/*
 	rm -rf $(top_builddir)/initramfs
