@@ -23,9 +23,39 @@
 #include <string.h>
 #include <fcntl.h>
 
+#include "read-file.h"
+
 #include "../src/guestfs_protocol.h"
 #include "daemon.h"
 #include "actions.h"
+
+/* Redirect errors from the tar command to the error file, then
+ * provide functions for reading it in.  We overwrite the file each
+ * time, and since it's small and stored on the appliance we don't
+ * bother to delete it.
+ */
+static const char *error_file = "/tmp/error";
+
+static char *
+read_error_file (void)
+{
+  size_t len;
+  char *str = read_file (error_file, &len);
+  if (str == NULL) {
+    str = strdup ("(no error)");
+    if (str == NULL) {
+      perror ("strdup");
+      exit (EXIT_FAILURE);
+    }
+    len = strlen (str);
+  }
+
+  /* Remove trailing \n character if any. */
+  if (len > 0 && str[len-1] == '\n')
+    str[--len] = '\0';
+
+  return str;                   /* caller frees */
+}
 
 static int
 write_cb (void *fd_ptr, const void *buf, size_t len)
@@ -43,8 +73,8 @@ do_tXz_in (const char *dir, const char *filter)
   char *cmd;
 
   /* "tar -C /sysroot%s -xf -" but we have to quote the dir. */
-  if (asprintf_nowarn (&cmd, "tar -C %R -%sxf -",
-                       dir, filter) == -1) {
+  if (asprintf_nowarn (&cmd, "tar -C %R -%sxf - 2> %s",
+                       dir, filter, error_file) == -1) {
     err = errno;
     r = cancel_receive ();
     errno = err;
@@ -73,8 +103,11 @@ do_tXz_in (const char *dir, const char *filter)
 
   r = receive_file (write_cb, &fd);
   if (r == -1) {		/* write error */
-    if (cancel_receive () != -2)
-      reply_with_error ("write error on directory: %s", dir);
+    if (cancel_receive () != -2) {
+      char *errstr = read_error_file ();
+      reply_with_error ("write error on directory: %s: %s", dir, errstr);
+      free (errstr);
+    }
     pclose (fp);
     return -1;
   }
@@ -87,8 +120,12 @@ do_tXz_in (const char *dir, const char *filter)
   if (pclose (fp) != 0) {
     if (r == -1)                /* if r == 0, file transfer ended already */
       r = cancel_receive ();
-    if (r != -2)
-      reply_with_error ("tar subcommand failed on directory: %s", dir);
+    if (r != -2) {
+      char *errstr = read_error_file ();
+      reply_with_error ("tar subcommand failed on directory: %s: %s",
+                        dir, errstr);
+      free (errstr);
+    }
     return -1;
   }
 

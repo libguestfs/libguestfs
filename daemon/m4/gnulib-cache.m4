@@ -15,7 +15,7 @@
 
 
 # Specification in the form of a command-line invocation:
-#   gnulib-tool --import --dir=. --lib=libgnu --source-base=lib --m4-base=m4 --doc-base=doc --tests-base=tests --aux-dir=build-aux --with-tests --no-libtool --macro-prefix=gl byteswap c-ctype connect fsusage futimens getaddrinfo getline glob hash ignore-value manywarnings mkdtemp netdb openat perror pread readlink select sleep socket strchrnul strndup symlinkat sys_select sys_wait vasprintf warnings
+#   gnulib-tool --import --dir=. --lib=libgnu --source-base=lib --m4-base=m4 --doc-base=doc --tests-base=tests --aux-dir=build-aux --with-tests --no-libtool --macro-prefix=gl byteswap c-ctype connect error fsusage futimens getaddrinfo getline glob hash ignore-value manywarnings mkdtemp netdb openat perror pread read-file readlink select sleep socket strchrnul strndup symlinkat sys_select sys_wait vasprintf warnings
 
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
 gl_LOCAL_DIR([])
@@ -37,6 +37,7 @@ gl_MODULES([
   openat
   perror
   pread
+  read-file
   readlink
   select
   sleep
