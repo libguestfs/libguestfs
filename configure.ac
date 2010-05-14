@@ -18,7 +18,7 @@
 # major/minor/release must be numbers
 m4_define([libguestfs_major],   [1])
 m4_define([libguestfs_minor],   [2])
-m4_define([libguestfs_release], [5])
+m4_define([libguestfs_release], [6])
 # extra can be any string
 m4_define([libguestfs_extra],   [])
 
