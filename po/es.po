@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-30 18:10+0100\n"
+"POT-Creation-Date: 2010-05-14 18:10+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Héctor Daniel Cabrera <logan@fedoraproject.org>\n"
 "Language-Team: Fedora Spanish <trans-es@lists.fedoraproject.org>\n"
@@ -1235,12 +1235,12 @@ msgstr "%s: comando desconocido\n"
 msgid "use '%s filename' to edit a file\n"
 msgstr "utilice '%s nombre de archivo' para editar un archivo\n"
 
-#: fish/fish.c:94 fuse/guestmount.c:869
+#: fish/fish.c:93 fuse/guestmount.c:869
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Intente con `%s --help' para más información.\n"
 
-#: fish/fish.c:98
+#: fish/fish.c:97
 #, c-format
 msgid ""
 "%s: guest filesystem shell\n"
@@ -1309,17 +1309,17 @@ msgstr ""
 "  -V|--version         Muestra la versión y finaliza\n"
 "Para mayor información, vea la página man %s(1).\n"
 
-#: fish/fish.c:190 fuse/guestmount.c:966
+#: fish/fish.c:189 fuse/guestmount.c:966
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: falló al crear manipulador\n"
 
-#: fish/fish.c:229
+#: fish/fish.c:228
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
 msgstr "%s: --listen=PID: PID no era un número: %s\n"
 
-#: fish/fish.c:236
+#: fish/fish.c:235
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
@@ -1327,55 +1327,55 @@ msgstr ""
 "%s: remote: $GUESTFISH_PID debe estar definido con el PID del proceso "
 "remoto\n"
 
-#: fish/fish.c:245 fuse/guestmount.c:1011
+#: fish/fish.c:244 fuse/guestmount.c:1011
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: opción extensa desconocida: %s (%d)\n"
 
-#: fish/fish.c:272
+#: fish/fish.c:271
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: sólo puede ofrecerse un parámetro -f\n"
 
-#: fish/fish.c:345
+#: fish/fish.c:344
 #, c-format
 msgid "%s: cannot use -i option with -a, -m, --listen, --remote or --selinux\n"
 msgstr ""
 "%s: no es posible utilizar la opción -i con -a, -m, --listen, --remote o --"
 "selinux\n"
 
-#: fish/fish.c:352
+#: fish/fish.c:351
 #, c-format
 msgid "%s: -i requires a libvirt domain or path(s) to disk image(s)\n"
 msgstr ""
 "%s: -i necesita un dominio libvirt, o ruta(s) hacia la(s) imagen(es) de disco"
 "(s)\n"
 
-#: fish/fish.c:362
+#: fish/fish.c:361
 #, c-format
 msgid "%s: virt-inspector command too long for fixed-size buffer\n"
 msgstr ""
 "%s: el comando virt-inspector es demasiado extenso para el búfer de tamaño "
 "predeterminado\n"
 
-#: fish/fish.c:408
+#: fish/fish.c:409
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr ""
 "%s: no es posible utilizar al mismo tiempo las opciones --listen y --remote\n"
 
-#: fish/fish.c:416
+#: fish/fish.c:417
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: parámetros extra de la línea de comando con marca --listen\n"
 
-#: fish/fish.c:422
+#: fish/fish.c:423
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr ""
 "%s no es posible utilizar al mismo tiempo las opciones --listen y --file\n"
 
-#: fish/fish.c:570
+#: fish/fish.c:571
 #, c-format
 msgid ""
 "\n"
@@ -1395,82 +1395,82 @@ msgstr ""
 "      'quit' para abandonar la shell\n"
 "\n"
 
-#: fish/fish.c:650
+#: fish/fish.c:651
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: doble cuota no finalizada\n"
 
-#: fish/fish.c:656 fish/fish.c:673
+#: fish/fish.c:657 fish/fish.c:674
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr ""
 "%s: los argumentos del comando no están separados por un espacio en blanco\n"
 
-#: fish/fish.c:667
+#: fish/fish.c:668
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: cuota simple no finalizada\n"
 
-#: fish/fish.c:722
+#: fish/fish.c:723
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: error interno analizando cadena en '%s'\n"
 
-#: fish/fish.c:739
+#: fish/fish.c:740
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: demasiados argumentos\n"
 
-#: fish/fish.c:768
+#: fish/fish.c:769
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: comando vacío en la línea de comando\n"
 
-#: fish/fish.c:936
+#: fish/fish.c:930
 msgid "display a list of commands or help on a command"
 msgstr "muestra una lista de comandos o asistencia sobre un comando"
 
-#: fish/fish.c:938
+#: fish/fish.c:932
 msgid "quit guestfish"
 msgstr "salir de guestfish"
 
-#: fish/fish.c:941
+#: fish/fish.c:935
 msgid "allocate an image"
 msgstr "aloja una imagen"
 
-#: fish/fish.c:943
+#: fish/fish.c:937
 msgid "display a line of text"
 msgstr "muestra una línea de texto"
 
-#: fish/fish.c:945
+#: fish/fish.c:939
 msgid "edit a file in the image"
 msgstr "edita un archivo en la imagen"
 
-#: fish/fish.c:947
+#: fish/fish.c:941
 msgid "local change directory"
 msgstr "modifica directorio local"
 
-#: fish/fish.c:949
+#: fish/fish.c:943
 msgid "expand wildcards in command"
 msgstr "expande comodines en un comando"
 
-#: fish/fish.c:951
+#: fish/fish.c:945
 msgid "view a file in the pager"
 msgstr "visualiza un archivo en el paginador"
 
-#: fish/fish.c:953
+#: fish/fish.c:947
 msgid "close and reopen libguestfs handle"
 msgstr "cierra y vuelve a abrir el manipulador libguestfs"
 
-#: fish/fish.c:955
+#: fish/fish.c:949
 msgid "allocate a sparse image file"
 msgstr "aloja una imagen de archivo sparse"
 
-#: fish/fish.c:957
+#: fish/fish.c:951
 msgid "measure time taken to run command"
 msgstr "mide el tiempo requerido para ejecutar un comando"
 
-#: fish/fish.c:969
+#: fish/fish.c:963
 #, c-format
 msgid ""
 "alloc - allocate an image\n"
@@ -1512,7 +1512,7 @@ msgstr ""
 "    <nn>E o <nn>EB  número de exabytes\n"
 "    <nn>sects        número de sectores de 512 bytes\n"
 
-#: fish/fish.c:988
+#: fish/fish.c:982
 #, c-format
 msgid ""
 "echo - display a line of text\n"
@@ -1525,7 +1525,7 @@ msgstr ""
 "\n"
 "    Esto muestra los parámetros en la terminal.\n"
 
-#: fish/fish.c:995
+#: fish/fish.c:989
 #, c-format
 msgid ""
 "edit - edit a file in the image\n"
@@ -1556,7 +1556,7 @@ msgstr ""
 "    NOTA: Esto no funcionará en forma confiable con archivos muy grandes\n"
 "    (> 2 MB) o archivos binarios que tengan \\0 bytes.\n"
 
-#: fish/fish.c:1009
+#: fish/fish.c:1003
 #, c-format
 msgid ""
 "lcd - local change directory\n"
@@ -1572,7 +1572,7 @@ msgstr ""
 "    Modificar el directorio actual de guestfish. Este comando\n"
 "    es útil si desea descargar archivos hacia un lugar en particular.\n"
 
-#: fish/fish.c:1016
+#: fish/fish.c:1010
 #, c-format
 msgid ""
 "glob - expand wildcards in command\n"
@@ -1590,7 +1590,7 @@ msgstr ""
 "reiteradamente\n"
 "    una vez por cada argumento expandido.\n"
 
-#: fish/fish.c:1023
+#: fish/fish.c:1017
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -1601,7 +1601,7 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:1028
+#: fish/fish.c:1022
 #, c-format
 msgid ""
 "more - view a file in the pager\n"
@@ -1633,7 +1633,7 @@ msgstr ""
 "grandes\n"
 "    (> 2 MB) o binarios conteniendo \\0 bytes.\n"
 
-#: fish/fish.c:1044
+#: fish/fish.c:1038
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -1642,7 +1642,7 @@ msgstr ""
 "quit - abandonar guestfish\n"
 "     quit\n"
 
-#: fish/fish.c:1047
+#: fish/fish.c:1041
 #, c-format
 msgid ""
 "reopen - close and reopen the libguestfs handle\n"
@@ -1661,7 +1661,7 @@ msgstr ""
 "finaliza\n"
 "guestfish. Sin embargo, esto es ocasionalmente útil para realizar pruebas.\n"
 
-#: fish/fish.c:1054
+#: fish/fish.c:1048
 #, c-format
 msgid ""
 "sparse - allocate a sparse image file\n"
@@ -1719,7 +1719,7 @@ msgstr ""
 "    <nn>E o <nn>EB  número de exabytes\n"
 "    <nn>sects        número de sectores de 512 bytes\n"
 
-#: fish/fish.c:1081
+#: fish/fish.c:1075
 #, c-format
 msgid ""
 "time - measure time taken to run command\n"
@@ -1734,12 +1734,12 @@ msgstr ""
 "   Esto ejecuta <comando> como siempre, e imprime luego el\n"
 "    tiempo transcurrido.\n"
 
-#: fish/fish.c:1087
+#: fish/fish.c:1081
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s comando no conocido, utilice -h para listar todos los comandos\n"
 
-#: fish/fish.c:1101
+#: fish/fish.c:1095
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -1747,7 +1747,7 @@ msgid ""
 "For complete documentation:         man guestfish\n"
 msgstr ""
 
-#: fish/fish.c:1258
+#: fish/fish.c:1252
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "Cuota problemática en la cadena \"%s\"\n"
@@ -1874,72 +1874,73 @@ msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr ""
 "%s: debe indicar un punto de montaje en el sistema de archivos del equipo\n"
 
-#: src/guestfs.c:271
+#: src/guestfs.c:290
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: llamado dos veces en la misma manipulación\n"
 
-#: src/guestfs.c:374
+#: src/guestfs.c:393
 #, c-format
 msgid "libguestfs: error: %s\n"
 msgstr "libguestfs: error: %s\n"
 
-#: src/guestfs.c:729
+#: src/guestfs.c:748
 msgid "command line cannot be altered after qemu subprocess launched"
 msgstr ""
 "la línea de comando no puede ser modificada luego de haber sido lanzado el "
 "subproceso qemu"
 
-#: src/guestfs.c:743
+#: src/guestfs.c:762
 msgid "guestfs_config: parameter must begin with '-' character"
 msgstr "guestfs_config: el parámetro debe comenzar con el carácter '-'"
 
-#: src/guestfs.c:757
+#: src/guestfs.c:776
 #, c-format
 msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr "guestfs_config: no está permitido el parámetro '%s'"
 
-#: src/guestfs.c:778 src/guestfs.c:815 src/guestfs.c:862
+#: src/guestfs.c:797 src/guestfs.c:834 src/guestfs.c:881
 msgid "filename cannot contain ',' (comma) character"
 msgstr "el nombre del archivo no puede contener el carácter ',' (coma)"
 
-#: src/guestfs.c:946
+#: src/guestfs.c:953
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "antes de guestfs_launch, debe llamar guestfs_add_drive"
 
-#: src/guestfs.c:951
-msgid "qemu has already been launched"
+#: src/guestfs.c:958
+#, fuzzy
+msgid "the libguestfs handle has already been launched"
 msgstr "qemu ya ha sido iniciado"
 
-#: src/guestfs.c:959
+#: src/guestfs.c:978
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: no es posible crear directorio temporal"
 
-#: src/guestfs.c:1049
+#: src/guestfs.c:1068
 #, c-format
 msgid "cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)"
 msgstr "no es posible encontrar %s o %s en LIBGUESTFS_PATH (ruta actual = %s)"
 
-#: src/guestfs.c:1460
+#: src/guestfs.c:1480
 msgid "failed to connect to vmchannel socket"
 msgstr "falló al conectarse con el socket vmchannel"
 
-#: src/guestfs.c:1479
+#: src/guestfs.c:1499
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "falló guestfs_launch, vea mensajes de errores anteriores"
 
-#: src/guestfs.c:1492
+#: src/guestfs.c:1512
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu ha sido iniciado y contactado el demonio, pero es estado es != READY"
 
-#: src/guestfs.c:1584
+#: src/guestfs.c:1604
 #, c-format
 msgid "external command failed: %s"
 msgstr "falló el comando externo: %s"
 
-#: src/guestfs.c:1657
+#: src/guestfs.c:1677
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -1948,25 +1949,25 @@ msgstr ""
 "%s: falló el comando: Si qemu se encuentra ubicado en una ruta no estándar, "
 "intente definir el entorno LIBGUESTFS_QEMU como variable"
 
-#: src/guestfs.c:1833
+#: src/guestfs.c:1853
 msgid "qemu has not been launched yet"
 msgstr "todavía qemu no ha sido iniciado "
 
-#: src/guestfs.c:1844
+#: src/guestfs.c:1864
 msgid "no subprocess to kill"
 msgstr "ningún subproceso que finalizar"
 
-#: src/guestfs.c:1966
+#: src/guestfs.c:1986
 #, c-format
 msgid "guestfs_set_busy: called when in state %d != READY"
 msgstr "guestfs_set_busy: llamado cuando se encontraba en estado %d != READY "
 
-#: src/guestfs.c:1989
+#: src/guestfs.c:2009
 #, c-format
 msgid "guestfs_end_busy: called when in state %d"
 msgstr "guestfs_end_busy: llamado cuando se encontraba en estado %d"
 
-#: src/guestfs.c:2097
+#: src/guestfs.c:2124
 #, c-format
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
@@ -1974,69 +1975,69 @@ msgstr ""
 "check_for_daemon_cancellation_or_eof: se ha leído 0x%x desde el demonio, se "
 "esperaba 0x%x\n"
 
-#: src/guestfs.c:2255 src/guestfs.c:2309
+#: src/guestfs.c:2282 src/guestfs.c:2336
 msgid "unexpected end of file when reading from daemon"
 msgstr "fin no esperado del archivo mientras se leía desde el demonio"
 
-#: src/guestfs.c:2271
+#: src/guestfs.c:2298
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr ""
 "se ha recibido una identificación mágica desde guestfsd, pero en estado %d"
 
-#: src/guestfs.c:2286
+#: src/guestfs.c:2313
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "la longitud del mensaje (%u) > tamaño máximo posible (%d)"
 
-#: src/guestfs.c:2416
+#: src/guestfs.c:2443
 #, c-format
 msgid "guestfs___send: state %d != BUSY"
 msgstr "guestfs___send: estado %d != BUSY"
 
-#: src/guestfs.c:2438
+#: src/guestfs.c:2465
 msgid "xdr_guestfs_message_header failed"
 msgstr "falló xdr_guestfs_message_header"
 
-#: src/guestfs.c:2447
+#: src/guestfs.c:2474
 msgid "dispatch failed to marshal args"
 msgstr "el despacho falló al presentar los argumentos"
 
-#: src/guestfs.c:2577
+#: src/guestfs.c:2604
 #, c-format
 msgid "send_file_chunk: state %d != READY"
 msgstr "send_file_chunk: estado %d != READY"
 
-#: src/guestfs.c:2593
+#: src/guestfs.c:2620
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "falló xdr_guestfs_chunk (buf = %p, buflen = %zu)"
 
-#: src/guestfs.c:2716
+#: src/guestfs.c:2743
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: error en codificación fragmentada"
 
-#: src/guestfs.c:2744
+#: src/guestfs.c:2771
 msgid "write to daemon socket"
 msgstr "escribe en el socket del demonio"
 
-#: src/guestfs.c:2767
+#: src/guestfs.c:2794
 msgid "receive_file_data: parse error in reply callback"
 msgstr ""
 "receive_file_data: error de análisis en la respuesta de devolución de llamada"
 
-#: src/guestfs.c:2772
+#: src/guestfs.c:2799
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr ""
 "receive_file_data: se ha recibido una marca no esperada mientras se leían "
 "porciones del archivo "
 
-#: src/guestfs.c:2780
+#: src/guestfs.c:2807
 msgid "failed to parse file chunk"
 msgstr "falló al analizar porciones del archivo"
 
-#: src/guestfs.c:2789
+#: src/guestfs.c:2816
 msgid "file receive cancelled by daemon"
 msgstr "el demonio ha cancelado la recepción del archivo"
 
