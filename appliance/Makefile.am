@@ -87,13 +87,13 @@ packagelist: packagelist.in
 if SUPERMIN
 
 supermin.d/base.img supermin.d/hostfiles: stamp-supermin
-stamp-supermin: $(top_builddir)/initramfs/fakeroot.log $(top_builddir)/initramfs/init
+stamp-supermin: $(INITRAMFSIMG)
 	mkdir -p supermin.d
 	rm -f $@ supermin.d/base.img supermin.d/hostfiles
 	febootstrap-to-supermin $(top_builddir)/initramfs supermin.d/base.img supermin.d/hostfiles
 	touch $@
 
-supermin.d/daemon.img: $(top_builddir)/initramfs/sbin/guestfsd
+supermin.d/daemon.img: $(INITRAMFSIMG)
 	mkdir -p supermin.d
 	rm -f $@ $@-t
 	(cd $(top_builddir)/initramfs && \
