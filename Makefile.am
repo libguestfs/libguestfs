@@ -157,11 +157,13 @@ website: $(HTMLFILES) $(TEXTFILES)
 	    -e "s/SUBST_DATE/$$date/" \
 	< index.html.in > index.html
 
-# Generate the ChangeLog automatically from the gitlog.
-
+# When doing 'make dist' update a few files automatically.
 dist-hook:
 	$(top_srcdir)/build-aux/gitlog-to-changelog > ChangeLog
 	cp ChangeLog $(distdir)/ChangeLog
+	$(top_srcdir)/update-bugs > BUGS-t
+	mv BUGS-t BUGS
+	cp BUGS $(distdir)/BUGS
 
 # Update the list of translatable files in po/POTFILES.in.
 all-local:
