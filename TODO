@@ -17,15 +17,6 @@ IDs and the host.  It's not easy to automate this because you need
 extra details about the guest itself in order to get to its
 UID->username map (eg. /etc/passwd from the guest).
 
-BufferIn
---------
-
-BufferIn should turn into <char *, int> and simple strings in other
-languages that can handle 8 bit clean strings.
-
-Limit on transfers would still be 2MB for these types.
- - then implement write-file properly
-
 febootstrap / debootstrap inside appliance
 ------------------------------------------
 
