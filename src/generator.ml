@@ -4062,7 +4062,9 @@ This command lets you read part of a file.  It reads C<count>
 bytes of the file, starting at C<offset>, from file C<path>.
 
 This may read fewer bytes than requested.  For further details
-see the L<pread(2)> system call.");
+see the L<pread(2)> system call.
+
+See also C<guestfs_pwrite>.");
 
   ("part_init", (RErr, [Device "device"; String "parttype"]), 208, [],
    [InitEmpty, Always, TestRun (
@@ -4657,6 +4659,32 @@ to ensure the length of the file is exactly C<len> bytes.");
    "\
 This call creates a file called C<path>.  The content of the
 file is the string C<content> (which can contain any 8 bit data).");
+
+  ("pwrite", (RInt "nbytes", [Pathname "path"; BufferIn "content"; Int64 "offset"]), 247, [ProtocolLimitWarning],
+   [InitBasicFS, Always, TestOutput (
+      [["write"; "/new"; "new file contents"];
+       ["pwrite"; "/new"; "data"; "4"];
+       ["cat"; "/new"]], "new data contents");
+    InitBasicFS, Always, TestOutput (
+      [["write"; "/new"; "new file contents"];
+       ["pwrite"; "/new"; "is extended"; "9"];
+       ["cat"; "/new"]], "new file is extended");
+    InitBasicFS, Always, TestOutput (
+      [["write"; "/new"; "new file contents"];
+       ["pwrite"; "/new"; ""; "4"];
+       ["cat"; "/new"]], "new file contents")],
+   "write to part of a file",
+   "\
+This command writes to part of a file.  It writes the data
+buffer C<content> to the file C<path> starting at offset C<offset>.
+
+This command implements the L<pwrite(2)> system call, and like
+that system call it may not write the full data requested.  The
+return value is the number of bytes that were actually written
+to the file.  This could even be 0, although short writes are
+unlikely for regular files in ordinary circumstances.
+
+See also C<guestfs_pread>.");
 
 ]
 

@@ -456,6 +456,37 @@ do_pread (const char *path, int count, int64_t offset, size_t *size_r)
   return buf;
 }
 
+int
+do_pwrite (const char *path, const char *content, size_t size, int64_t offset)
+{
+  int fd;
+  ssize_t r;
+
+  CHROOT_IN;
+  fd = open (path, O_WRONLY);
+  CHROOT_OUT;
+
+  if (fd == -1) {
+    reply_with_perror ("open: %s", path);
+    return -1;
+  }
+
+  r = pwrite (fd, content, size, offset);
+  if (r == -1) {
+    reply_with_perror ("pwrite: %s", path);
+    close (fd);
+    return -1;
+  }
+
+  if (close (fd) == -1) {
+    reply_with_perror ("close: %s", path);
+    close (fd);
+    return -1;
+  }
+
+  return r;
+}
+
 /* This runs the 'file' command. */
 char *
 do_file (const char *path)
