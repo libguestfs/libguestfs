@@ -94,6 +94,7 @@ if [ "@DIST@" = "REDHAT" ]; then
     /usr/bin/chfn \
     /usr/bin/chsh \
     /usr/libexec/pt_chown \
+    /usr/libexec/utempter/utempter \
     /usr/sbin/groupdel \
     /usr/sbin/groupadd \
     /usr/sbin/useradd \
