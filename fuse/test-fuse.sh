@@ -207,6 +207,17 @@ for ts in 12345 1234567 987654321; do
     [ "$(stat -c %Y timestamp)" -eq $ts ]
 done
 
+stage Checking writes
+cp hello.txt copy.txt
+echo >> copy.txt
+echo world >> copy.txt
+echo bigger >> copy.txt
+echo biggest >> copy.txt
+[ "$(cat copy.txt)" = "hello
+world
+bigger
+biggest" ]
+
 # These ones are not yet tested by the current script:
 #stage XXX statfs/statvfs
 #stage XXX xattr operations

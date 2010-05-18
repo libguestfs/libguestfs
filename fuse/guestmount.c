@@ -653,7 +653,17 @@ fg_write (const char *path, const char *buf, size_t size,
 
   dir_cache_invalidate (path);
 
-  return -ENOSYS;               /* XXX */
+  /* See fg_read. */
+  const size_t limit = 2 * 1024 * 1024;
+  if (size > limit)
+    size = limit;
+
+  int r;
+  r = guestfs_pwrite (g, path, buf, size, offset);
+  if (r == -1)
+    return error ();
+
+  return r;
 }
 
 static int
