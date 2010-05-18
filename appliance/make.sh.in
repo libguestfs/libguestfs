@@ -86,9 +86,10 @@ if [ "@DIST@" = "REDHAT" ]; then
 
   # Remove some unreadable binaries which are incompatible with
   # the supermin appliance.  Since these binaries can't be read
-  # from the host filesystem, they generate warnings like:
-  #   cpio: ./usr/bin/chfn: Cannot open: Permission denied
-  # These binaries are not needed for operation of the appliance.
+  # from the host filesystem, they cannot be added to the supermin
+  # appliance at run time.  XXX Need a better fix for this.
+  # Probably we should change libguestfs-supermin-helper to just
+  # ignore such files.
   @FEBOOTSTRAP_RUN@ initramfs -- rm -f \
     /usr/bin/chfn \
     /usr/bin/chsh \
