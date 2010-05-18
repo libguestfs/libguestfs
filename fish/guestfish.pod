@@ -41,7 +41,7 @@ Create a new C</etc/motd> file in a guest:
  add disk.img
  run
  mount /dev/vg_guest/lv_root /
- write_file /etc/motd "Welcome, new users" 0
+ write /etc/motd "Welcome, new users"
  _EOF_
 
 List the LVM logical volumes in a guest:
@@ -57,7 +57,7 @@ Update C</etc/resolv.conf> in a guest:
 
  guestfish \
    add disk.img : run : mount /dev/vg_guest/lv_root / : \
-   write-file /etc/resolv.conf "nameserver 1.2.3.4" 0
+   write /etc/resolv.conf "nameserver 1.2.3.4"
 
 Edit C</boot/grub/grub.conf> interactively:
 

@@ -938,7 +938,7 @@ let daemon_functions = [
       [["part_disk"; "/dev/sda"; "mbr"];
        ["mkfs"; "ext2"; "/dev/sda1"];
        ["mount"; "/dev/sda1"; "/"];
-       ["write_file"; "/new"; "new file contents"; "0"];
+       ["write"; "/new"; "new file contents"];
        ["cat"; "/new"]], "new file contents")],
    "mount a guest disk at a position in the filesystem",
    "\
@@ -1500,7 +1500,7 @@ on the volume group C<volgroup>, with C<size> megabytes.");
       [["part_disk"; "/dev/sda"; "mbr"];
        ["mkfs"; "ext2"; "/dev/sda1"];
        ["mount_options"; ""; "/dev/sda1"; "/"];
-       ["write_file"; "/new"; "new file contents"; "0"];
+       ["write"; "/new"; "new file contents"];
        ["cat"; "/new"]], "new file contents")],
    "make a filesystem",
    "\
@@ -1537,25 +1537,8 @@ the string C<,> (comma).
 See also: C<guestfs_sfdisk_l>, C<guestfs_sfdisk_N>,
 C<guestfs_part_init>");
 
-  ("write_file", (RErr, [Pathname "path"; String "content"; Int "size"]), 44, [ProtocolLimitWarning],
-   [InitBasicFS, Always, TestOutput (
-      [["write_file"; "/new"; "new file contents"; "0"];
-       ["cat"; "/new"]], "new file contents");
-    InitBasicFS, Always, TestOutput (
-      [["write_file"; "/new"; "\nnew file contents\n"; "0"];
-       ["cat"; "/new"]], "\nnew file contents\n");
-    InitBasicFS, Always, TestOutput (
-      [["write_file"; "/new"; "\n\n"; "0"];
-       ["cat"; "/new"]], "\n\n");
-    InitBasicFS, Always, TestOutput (
-      [["write_file"; "/new"; ""; "0"];
-       ["cat"; "/new"]], "");
-    InitBasicFS, Always, TestOutput (
-      [["write_file"; "/new"; "\n\n\n"; "0"];
-       ["cat"; "/new"]], "\n\n\n");
-    InitBasicFS, Always, TestOutput (
-      [["write_file"; "/new"; "\n"; "0"];
-       ["cat"; "/new"]], "\n")],
+  ("write_file", (RErr, [Pathname "path"; String "content"; Int "size"]), 44, [ProtocolLimitWarning; DeprecatedBy "write"],
+   [],
    "create a file",
    "\
 This call creates a file called C<path>.  The contents of the
@@ -1567,9 +1550,7 @@ then the length is calculated using C<strlen> (so in this case
 the content cannot contain embedded ASCII NULs).
 
 I<NB.> Owing to a bug, writing content containing ASCII NUL
-characters does I<not> work, even if the length is specified.
-We hope to resolve this bug in a future version.  In the meantime
-use C<guestfs_upload>.");
+characters does I<not> work, even if the length is specified.");
 
   ("umount", (RErr, [String "pathordevice"]), 45, [FishAlias "unmount"],
    [InitEmpty, Always, TestOutputListOfDevices (
@@ -2088,7 +2069,7 @@ To download an uncompressed tarball, use C<guestfs_tar_out>.");
        ["mount_ro"; "/dev/sda1"; "/"];
        ["touch"; "/new"]]);
     InitBasicFS, Always, TestOutput (
-      [["write_file"; "/new"; "data"; "0"];
+      [["write"; "/new"; "data"];
        ["umount"; "/"];
        ["mount_ro"; "/dev/sda1"; "/"];
        ["cat"; "/new"]], "data")],
@@ -2340,15 +2321,15 @@ C<device>, with the root directory being C<root>.");
 
   ("cp", (RErr, [Pathname "src"; Pathname "dest"]), 87, [],
    [InitBasicFS, Always, TestOutput (
-      [["write_file"; "/old"; "file content"; "0"];
+      [["write"; "/old"; "file content"];
        ["cp"; "/old"; "/new"];
        ["cat"; "/new"]], "file content");
     InitBasicFS, Always, TestOutputTrue (
-      [["write_file"; "/old"; "file content"; "0"];
+      [["write"; "/old"; "file content"];
        ["cp"; "/old"; "/new"];
        ["is_file"; "/old"]]);
     InitBasicFS, Always, TestOutput (
-      [["write_file"; "/old"; "file content"; "0"];
+      [["write"; "/old"; "file content"];
        ["mkdir"; "/dir"];
        ["cp"; "/old"; "/dir/new"];
        ["cat"; "/dir/new"]], "file content")],
@@ -2361,7 +2342,7 @@ either a destination filename or destination directory.");
    [InitBasicFS, Always, TestOutput (
       [["mkdir"; "/olddir"];
        ["mkdir"; "/newdir"];
-       ["write_file"; "/olddir/file"; "file content"; "0"];
+       ["write"; "/olddir/file"; "file content"];
        ["cp_a"; "/olddir"; "/newdir"];
        ["cat"; "/newdir/olddir/file"]], "file content")],
    "copy a file or directory recursively",
@@ -2371,11 +2352,11 @@ recursively using the C<cp -a> command.");
 
   ("mv", (RErr, [Pathname "src"; Pathname "dest"]), 89, [],
    [InitBasicFS, Always, TestOutput (
-      [["write_file"; "/old"; "file content"; "0"];
+      [["write"; "/old"; "file content"];
        ["mv"; "/old"; "/new"];
        ["cat"; "/new"]], "file content");
     InitBasicFS, Always, TestOutputFalse (
-      [["write_file"; "/old"; "file content"; "0"];
+      [["write"; "/old"; "file content"];
        ["mv"; "/old"; "/new"];
        ["is_file"; "/old"]])],
    "move a file",
@@ -2424,12 +2405,12 @@ or attached block device(s) in any other way.");
 
   ("equal", (RBool "equality", [Pathname "file1"; Pathname "file2"]), 93, [],
    [InitBasicFS, Always, TestOutputTrue (
-      [["write_file"; "/file1"; "contents of a file"; "0"];
+      [["write"; "/file1"; "contents of a file"];
        ["cp"; "/file1"; "/file2"];
        ["equal"; "/file1"; "/file2"]]);
     InitBasicFS, Always, TestOutputFalse (
-      [["write_file"; "/file1"; "contents of a file"; "0"];
-       ["write_file"; "/file2"; "contents of another file"; "0"];
+      [["write"; "/file1"; "contents of a file"];
+       ["write"; "/file2"; "contents of another file"];
        ["equal"; "/file1"; "/file2"]]);
     InitBasicFS, Always, TestLastFail (
       [["equal"; "/file1"; "/file2"]])],
@@ -2456,8 +2437,8 @@ the list of printable strings found.");
   ("strings_e", (RStringList "stringsout", [String "encoding"; Pathname "path"]), 95, [ProtocolLimitWarning],
    [InitISOFS, Always, TestOutputList (
       [["strings_e"; "b"; "/known-5"]], []);
-    InitBasicFS, Disabled, TestOutputList (
-      [["write_file"; "/new"; "\000h\000e\000l\000l\000o\000\n\000w\000o\000r\000l\000d\000\n"; "24"];
+    InitBasicFS, Always, TestOutputList (
+      [["write"; "/new"; "\000h\000e\000l\000l\000o\000\n\000w\000o\000r\000l\000d\000\n"];
        ["strings_e"; "b"; "/new"]], ["hello"; "world"])],
    "print the printable strings in a file",
    "\
@@ -2521,7 +2502,7 @@ the human-readable, canonical hex dump of the file.");
       [["part_disk"; "/dev/sda"; "mbr"];
        ["mkfs"; "ext3"; "/dev/sda1"];
        ["mount_options"; ""; "/dev/sda1"; "/"];
-       ["write_file"; "/new"; "test file"; "0"];
+       ["write"; "/new"; "test file"];
        ["umount"; "/dev/sda1"];
        ["zerofree"; "/dev/sda1"];
        ["mount_options"; ""; "/dev/sda1"; "/"];
@@ -2626,7 +2607,7 @@ are activated or deactivated.");
        ["lvcreate"; "LV"; "VG"; "10"];
        ["mkfs"; "ext2"; "/dev/VG/LV"];
        ["mount_options"; ""; "/dev/VG/LV"; "/"];
-       ["write_file"; "/new"; "test content"; "0"];
+       ["write"; "/new"; "test content"];
        ["umount"; "/"];
        ["lvresize"; "/dev/VG/LV"; "20"];
        ["e2fsck_f"; "/dev/VG/LV"];
@@ -2813,7 +2794,7 @@ manual page for more details.");
 
   ("scrub_file", (RErr, [Pathname "file"]), 115, [Optional "scrub"],
    [InitBasicFS, Always, TestRun (
-      [["write_file"; "/file"; "content"; "0"];
+      [["write"; "/file"; "content"];
        ["scrub_file"; "/file"]])],
    "scrub (securely wipe) a file",
    "\
@@ -3721,7 +3702,7 @@ and C<guestfs_setcon>");
       [["part_disk"; "/dev/sda"; "mbr"];
        ["mkfs_b"; "ext2"; "4096"; "/dev/sda1"];
        ["mount_options"; ""; "/dev/sda1"; "/"];
-       ["write_file"; "/new"; "new file contents"; "0"];
+       ["write"; "/new"; "new file contents"];
        ["cat"; "/new"]], "new file contents")],
    "make a filesystem with block size",
    "\
@@ -3736,7 +3717,7 @@ are C<1024>, C<2048> or C<4096> only.");
        ["mke2journal"; "4096"; "/dev/sda1"];
        ["mke2fs_J"; "ext2"; "4096"; "/dev/sda2"; "/dev/sda1"];
        ["mount_options"; ""; "/dev/sda2"; "/"];
-       ["write_file"; "/new"; "new file contents"; "0"];
+       ["write"; "/new"; "new file contents"];
        ["cat"; "/new"]], "new file contents")],
    "make ext2/3/4 external journal",
    "\
@@ -3751,7 +3732,7 @@ to the command:
        ["mke2journal_L"; "4096"; "JOURNAL"; "/dev/sda1"];
        ["mke2fs_JL"; "ext2"; "4096"; "/dev/sda2"; "JOURNAL"];
        ["mount_options"; ""; "/dev/sda2"; "/"];
-       ["write_file"; "/new"; "new file contents"; "0"];
+       ["write"; "/new"; "new file contents"];
        ["cat"; "/new"]], "new file contents")],
    "make ext2/3/4 external journal with label",
    "\
@@ -3764,7 +3745,7 @@ This creates an ext2 external journal on C<device> with label C<label>.");
         ["mke2journal_U"; "4096"; uuid; "/dev/sda1"];
         ["mke2fs_JU"; "ext2"; "4096"; "/dev/sda2"; uuid];
         ["mount_options"; ""; "/dev/sda2"; "/"];
-        ["write_file"; "/new"; "new file contents"; "0"];
+        ["write"; "/new"; "new file contents"];
         ["cat"; "/new"]], "new file contents")]),
    "make ext2/3/4 external journal with UUID",
    "\
@@ -3927,7 +3908,7 @@ if you used the C<guestfs_mount> call).");
 
   ("truncate", (RErr, [Pathname "path"]), 199, [],
    [InitBasicFS, Always, TestOutputStruct (
-      [["write_file"; "/test"; "some stuff so size is not zero"; "0"];
+      [["write"; "/test"; "some stuff so size is not zero"];
        ["truncate"; "/test"];
        ["stat"; "/test"]], [CompareWithInt ("size", 0)])],
    "truncate a file to zero size",
@@ -4345,7 +4326,7 @@ See also C<guestfs_version>.
 
   ("dd", (RErr, [Dev_or_Path "src"; Dev_or_Path "dest"]), 217, [],
    [InitBasicFS, Always, TestOutputBuffer (
-      [["write_file"; "/src"; "hello, world"; "0"];
+      [["write"; "/src"; "hello, world"];
        ["dd"; "/src"; "/dest"];
        ["read_file"; "/dest"]], "hello, world")],
    "copy from source to destination using dd",
@@ -4361,7 +4342,7 @@ This command cannot do partial copies (see C<guestfs_copy_size>).");
 
   ("filesize", (RInt64 "size", [Pathname "file"]), 218, [],
    [InitBasicFS, Always, TestOutputInt (
-      [["write_file"; "/file"; "hello, world"; "0"];
+      [["write"; "/file"; "hello, world"];
        ["filesize"; "/file"]], 12)],
    "return the size of the file in bytes",
    "\
@@ -4452,7 +4433,7 @@ See also C<guestfs_vgpvuuids>.");
 
   ("copy_size", (RErr, [Dev_or_Path "src"; Dev_or_Path "dest"; Int64 "size"]), 227, [],
    [InitBasicFS, Always, TestOutputBuffer (
-      [["write_file"; "/src"; "hello, world"; "0"];
+      [["write"; "/src"; "hello, world"];
        ["copy_size"; "/src"; "/dest"; "5"];
        ["read_file"; "/dest"]], "hello")],
    "copy size bytes from source to destination using dd",
@@ -4652,6 +4633,30 @@ This function is like C<guestfs_fill> except that it creates
 a new file of length C<len> containing the repeating pattern
 of bytes in C<pattern>.  The pattern is truncated if necessary
 to ensure the length of the file is exactly C<len> bytes.");
+
+  ("write", (RErr, [Pathname "path"; BufferIn "content"]), 246, [ProtocolLimitWarning],
+   [InitBasicFS, Always, TestOutput (
+      [["write"; "/new"; "new file contents"];
+       ["cat"; "/new"]], "new file contents");
+    InitBasicFS, Always, TestOutput (
+      [["write"; "/new"; "\nnew file contents\n"];
+       ["cat"; "/new"]], "\nnew file contents\n");
+    InitBasicFS, Always, TestOutput (
+      [["write"; "/new"; "\n\n"];
+       ["cat"; "/new"]], "\n\n");
+    InitBasicFS, Always, TestOutput (
+      [["write"; "/new"; ""];
+       ["cat"; "/new"]], "");
+    InitBasicFS, Always, TestOutput (
+      [["write"; "/new"; "\n\n\n"];
+       ["cat"; "/new"]], "\n\n\n");
+    InitBasicFS, Always, TestOutput (
+      [["write"; "/new"; "\n"];
+       ["cat"; "/new"]], "\n")],
+   "create a new file",
+   "\
+This call creates a file called C<path>.  The content of the
+file is the string C<content> (which can contain any 8 bit data).");
 
 ]
 

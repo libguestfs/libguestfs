@@ -93,8 +93,8 @@ $guestfish <<EOF
   part-disk /dev/sda mbr
   mkfs ext2 /dev/sda1
   mount /dev/sda1 /
-  write-file /hello.txt hello 0
-  write-file /world.txt "hello world" 0
+  write /hello.txt hello
+  write /world.txt "hello world"
   touch /empty
 EOF
 

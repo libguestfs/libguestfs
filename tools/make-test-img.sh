@@ -68,12 +68,12 @@ mkdir /boot/grub
 touch /boot/grub/grub.conf
 
 # Test files.
-write-file /etc/test1 "abcdefg" 0
-write-file /etc/test2 "" 0
-write-file /bin/test1 "abcdefg" 0
-write-file /bin/test2 "zxcvbnm" 0
-write-file /bin/test3 "1234567" 0
-write-file /bin/test4 "" 0
+write /etc/test1 "abcdefg"
+write /etc/test2 ""
+write /bin/test1 "abcdefg"
+write /bin/test2 "zxcvbnm"
+write /bin/test3 "1234567"
+write /bin/test4 ""
 ln-s /bin/test1 /bin/test5
 mkfifo 0777 /bin/test6
 mknod 0777 10 10 /bin/test7

@@ -258,9 +258,7 @@ L</guestfs_tgz_out>.
 It's often the case that you want to write a file or files to the disk
 image.
 
-For small, single files, use L</guestfs_write_file>.  This call
-currently contains a bug which limits the call to plain text files
-(not containing ASCII NUL characters).
+For small, single files, use L</guestfs_write>.
 
 To upload a single file, use L</guestfs_upload>.  This call has no
 limits on file content or size (even files larger than 4 GB).

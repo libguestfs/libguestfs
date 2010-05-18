@@ -1093,7 +1093,7 @@ display_builtin_command (const char *cmd)
               "    This is used to edit a file.\n"
               "\n"
               "    It is the equivalent of (and is implemented by)\n"
-              "    running \"cat\", editing locally, and then \"write-file\".\n"
+              "    running \"cat\", editing locally, and then \"write\".\n"
               "\n"
               "    Normally it uses $EDITOR, but if you use the aliases\n"
               "    \"vi\" or \"emacs\" you will get those editors.\n"

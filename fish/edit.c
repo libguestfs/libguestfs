@@ -156,7 +156,7 @@ do_edit (const char *cmd, int argc, char *argv[])
   }
 
   /* Write new content. */
-  if (guestfs_write_file (g, argv[0], content_new, size) == -1) {
+  if (guestfs_write (g, argv[0], content_new, size) == -1) {
     free (content);
     free (content_new);
     return -1;
