@@ -162,7 +162,7 @@ __EOF__
       @FEBOOTSTRAP_RUN@ initramfs -- touch /etc/fstab
   fi
 
-  echo nameserver 10.0.2.3 > resolv.conf.new
+  echo nameserver 169.254.2.3 > resolv.conf.new
   @FEBOOTSTRAP_INSTALL@ initramfs resolv.conf.new /etc/resolv.conf 0644 root.root
   rm resolv.conf.new
 
