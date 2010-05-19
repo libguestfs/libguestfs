@@ -5835,6 +5835,50 @@ check_state (guestfs_h *g, const char *caller)
 
 ";
 
+  let error_code_of = function
+    | RErr | RInt _ | RInt64 _ | RBool _ -> "-1"
+    | RConstString _ | RConstOptString _
+    | RString _ | RStringList _
+    | RStruct _ | RStructList _
+    | RHashtable _ | RBufferOut _ -> "NULL"
+  in
+
+  (* Generate code to check String-like parameters are not passed in
+   * as NULL (returning an error if they are).
+   *)
+  let check_null_strings shortname style =
+    let pr_newline = ref false in
+    List.iter (
+      function
+      (* parameters which should not be NULL *)
+      | String n
+      | Device n
+      | Pathname n
+      | Dev_or_Path n
+      | FileIn n
+      | FileOut n
+      | BufferIn n
+      | StringList n
+      | DeviceList n ->
+          pr "  if (%s == NULL) {\n" n;
+          pr "    error (g, \"%%s: %%s: parameter cannot be NULL\",\n";
+          pr "           \"%s\", \"%s\");\n" shortname n;
+          pr "    return %s;\n" (error_code_of (fst style));
+          pr "  }\n";
+          pr_newline := true
+
+      (* can be NULL *)
+      | OptString _
+
+      (* not applicable *)
+      | Bool _
+      | Int _
+      | Int64 _ -> ()
+    ) (snd style);
+
+    if !pr_newline then pr "\n";
+  in
+
   (* Generate code to generate guestfish call traces. *)
   let trace_call shortname style =
     pr "  if (guestfs__get_trace (g)) {\n";
@@ -5892,6 +5936,7 @@ check_state (guestfs_h *g, const char *caller)
       generate_prototype ~extern:false ~semicolon:false ~newline:true
         ~handle:"g" name style;
       pr "{\n";
+      check_null_strings shortname style;
       trace_call shortname style;
       pr "  return guestfs__%s " shortname;
       generate_c_call_args ~handle:"g" style;
@@ -5904,20 +5949,11 @@ check_state (guestfs_h *g, const char *caller)
   List.iter (
     fun (shortname, style, _, _, _, _, _) ->
       let name = "guestfs_" ^ shortname in
+      let error_code = error_code_of (fst style) in
 
       (* Generate the action stub. *)
       generate_prototype ~extern:false ~semicolon:false ~newline:true
         ~handle:"g" name style;
-
-      let error_code =
-        match fst style with
-        | RErr | RInt _ | RInt64 _ | RBool _ -> "-1"
-        | RConstString _ | RConstOptString _ ->
-            failwithf "RConstString|RConstOptString cannot be used by daemon functions"
-        | RString _ | RStringList _
-        | RStruct _ | RStructList _
-        | RHashtable _ | RBufferOut _ ->
-            "NULL" in
 
       pr "{\n";
 
@@ -5943,6 +5979,7 @@ check_state (guestfs_h *g, const char *caller)
       pr "  int serial;\n";
       pr "  int r;\n";
       pr "\n";
+      check_null_strings shortname style;
       trace_call shortname style;
       pr "  if (check_state (g, \"%s\") == -1) return %s;\n"
         shortname error_code;

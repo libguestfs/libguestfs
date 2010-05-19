@@ -24,6 +24,7 @@
 include $(top_srcdir)/subdir-rules.mk
 
 TESTS = \
+	rhbz501893 \
 	rhbz503169c10.sh \
 	rhbz503169c13.sh \
 	rhbz557655.sh \
@@ -57,6 +58,16 @@ TESTS_ENVIRONMENT = \
 	LIBGUESTFS_PATH=$(top_builddir)/appliance \
 	PERL5LIB=$(top_builddir)/perl/blib/lib:$(top_builddir)/perl/blib/arch \
 	NOEXEC_CHECK="$(top_builddir)/src/.libs/libguestfs.so $(top_builddir)/daemon/guestfsd"
+
+check_PROGRAMS = \
+	rhbz501893
+
+rhbz501893_SOURCES = rhbz501893.c
+rhbz501893_CFLAGS = \
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+rhbz501893_LDADD = \
+	$(top_builddir)/src/libguestfs.la
 
 EXTRA_DIST = \
 	$(FAILING_TESTS) \
