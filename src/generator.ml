@@ -572,7 +572,7 @@ The first character of C<param> string must be a C<-> (dash).
 
 C<value> can be NULL.");
 
-  ("set_qemu", (RErr, [String "qemu"]), -1, [FishAlias "qemu"],
+  ("set_qemu", (RErr, [OptString "qemu"]), -1, [FishAlias "qemu"],
    [],
    "set the qemu binary",
    "\
@@ -604,7 +604,7 @@ Return the current qemu binary.
 This is always non-NULL.  If it wasn't set already, then this will
 return the default qemu binary name.");
 
-  ("set_path", (RErr, [String "searchpath"]), -1, [FishAlias "path"],
+  ("set_path", (RErr, [OptString "searchpath"]), -1, [FishAlias "path"],
    [],
    "set the search path",
    "\
