@@ -13,8 +13,16 @@ exec 5<&-
 echo "Module whitelist: $whitelist"
 find $DEBIRF_ROOT/lib/modules/*/kernel -name '*.ko' $whitelist -a -exec rm '{}' \;
 
-# install additional packages:
-PKGLIST=$(< packagelist)
+# install additional packages from the package list, but
+# only ones which exist in the repository
+PKGLIST=
+for pkg in $(< packagelist); do
+  if [ "$(debirf_exec apt-get -s install $pkg 3>&1 1>&2 2>&3 1>&- | grep '^E:' | wc -l)" -gt 0 ]; then
+    echo "Ignoring package $pkg, because it was not found in this repository."
+  else
+    PKGLIST="$PKGLIST $pkg"
+  fi
+done
 echo "Will add $PKGLIST"
 debirf_exec apt-get --assume-yes install $PKGLIST
 debirf_exec apt-get --assume-yes remove vim-tiny dhcp3-client iptables
