@@ -22,12 +22,14 @@
   MAKEDEV
   nilfs-utils
   ntfsprogs
+  ntfs-3g
   reiserfs-utils
   libselinux
   udev
   util-linux-ng
   vim-minimal
   xz
+  zfs-fuse
 #elif DEBIAN == 1
   bsdmainutils
   btrfs-tools
@@ -44,6 +46,11 @@
   util-linux
   vim-tiny
   xz-utils
+  /* Can't be installed under debirf because the fuse-utils post script
+     requires udevd to be running.
+  ntfs-3g
+  zfs-fuse
+  */
 #endif
 
 bash
@@ -57,7 +64,6 @@ lsof
 lvm2
 module-init-tools
 net-tools
-ntfs-3g
 /*
 Enabling this pulls out 140 extra packages
 into the appliance:
@@ -69,4 +75,3 @@ scrub
 strace
 xfsprogs
 zerofree
-zfs-fuse
