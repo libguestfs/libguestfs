@@ -65,7 +65,9 @@ static void script (int prompt);
 static void cmdline (char *argv[], int optind, int argc);
 static void initialize_readline (void);
 static void cleanup_readline (void);
+#ifdef HAVE_LIBREADLINE
 static void add_history_line (const char *);
+#endif
 static void print_shell_quote (FILE *stream, const char *str);
 
 /* Currently open libguestfs handle. */
@@ -1443,14 +1445,14 @@ cleanup_readline (void)
 #endif
 }
 
+#ifdef HAVE_LIBREADLINE
 static void
 add_history_line (const char *line)
 {
-#ifdef HAVE_LIBREADLINE
   add_history (line);
   nr_history_lines++;
-#endif
 }
+#endif
 
 int
 xwrite (int fd, const void *v_buf, size_t len)
