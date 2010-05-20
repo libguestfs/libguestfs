@@ -10,7 +10,7 @@ mkdir -p /sysroot
 mount -t proc /proc /proc
 mount -t sysfs /sys /sys
 
-if [ -x /etc/init.d/udev ]; then
+if [ ! -L /etc/init.d/udev -a -x /etc/init.d/udev ]; then
   if type service >/dev/null 2>&1; then
      service udev start
   else
