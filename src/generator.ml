@@ -4455,7 +4455,7 @@ This command writes zeroes over the entire C<device>.  Compare
 with C<guestfs_zero> which just zeroes the first few blocks of
 a device.");
 
-  ("txz_in", (RErr, [FileIn "tarball"; Pathname "directory"]), 229, [],
+  ("txz_in", (RErr, [FileIn "tarball"; Pathname "directory"]), 229, [Optional "xz"],
    [InitBasicFS, Always, TestOutput (
       [["txz_in"; "../images/helloworld.tar.xz"; "/"];
        ["cat"; "/hello"]], "hello\n")],
@@ -4464,7 +4464,7 @@ a device.");
 This command uploads and unpacks local file C<tarball> (an
 I<xz compressed> tar file) into C<directory>.");
 
-  ("txz_out", (RErr, [Pathname "directory"; FileOut "tarball"]), 230, [],
+  ("txz_out", (RErr, [Pathname "directory"; FileOut "tarball"]), 230, [Optional "xz"],
    [],
    "pack directory into compressed tarball",
    "\

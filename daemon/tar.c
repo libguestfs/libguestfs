@@ -28,6 +28,14 @@
 #include "../src/guestfs_protocol.h"
 #include "daemon.h"
 #include "actions.h"
+#include "optgroups.h"
+
+int
+optgroup_xz_available (void)
+{
+  int r = access ("/usr/bin/xz", X_OK);
+  return r == 0;
+}
 
 /* Redirect errors from the tar command to the error file, then
  * provide functions for reading it in.  We overwrite the file each
