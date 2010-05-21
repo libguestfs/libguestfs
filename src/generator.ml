@@ -4693,6 +4693,13 @@ See also C<guestfs_pread>.");
 This command is the same as C<guestfs_resize2fs> except that it
 allows you to specify the new size (in bytes) explicitly.");
 
+  ("pvresize_size", (RErr, [Device "device"; Int64 "size"]), 249, [Optional "lvm2"],
+   [],
+   "resize an LVM physical volume (with size)",
+   "\
+This command is the same as C<guestfs_pvresize> except that it
+allows you to specify the new size (in bytes) explicitly.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

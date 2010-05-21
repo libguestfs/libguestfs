@@ -20,6 +20,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <inttypes.h>
 #include <string.h>
 #include <unistd.h>
 
@@ -442,6 +443,29 @@ do_pvresize (const char *device)
 
   r = command (NULL, &err,
                "lvm", "pvresize", device, NULL);
+  if (r == -1) {
+    reply_with_error ("%s: %s", device, err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+  return 0;
+}
+
+int
+do_pvresize_size (const char *device, int64_t size)
+{
+  char *err;
+  int r;
+
+  char buf[32];
+  snprintf (buf, sizeof buf, "%" PRIi64 "b", size);
+
+  r = command (NULL, &err,
+               "lvm", "pvresize",
+               "--setphysicalvolumesize", buf,
+               device, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
     free (err);
