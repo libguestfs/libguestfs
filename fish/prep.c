@@ -268,7 +268,7 @@ prelaunch_part (const char *filename, prep_data *data)
 static void
 postlaunch_part (const char *filename, prep_data *data, const char *device)
 {
-  if (guestfs_part_disk (g, device, data->params[2]) == -1)
+  if (guestfs_part_disk (g, device, data->params[1]) == -1)
     prep_error (data, filename, _("failed to partition disk: %s"),
                 guestfs_last_error (g));
 }
