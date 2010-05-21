@@ -20,6 +20,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <inttypes.h>
 #include <string.h>
 #include <unistd.h>
 
@@ -67,6 +68,26 @@ do_ntfsresize (const char *device)
   int r;
 
   r = command (NULL, &err, "ntfsresize", "-P", device, NULL);
+  if (r == -1) {
+    reply_with_error ("%s: %s", device, err);
+    free (err);
+    return -1;
+  }
+
+  return 0;
+}
+
+int
+do_ntfsresize_size (const char *device, int64_t size)
+{
+  char *err;
+  int r;
+
+  char buf[32];
+  snprintf (buf, sizeof buf, "%" PRIi64, size);
+
+  r = command (NULL, &err, "ntfsresize", "-P", "--size", buf,
+               device, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
     free (err);

@@ -4700,6 +4700,13 @@ allows you to specify the new size (in bytes) explicitly.");
 This command is the same as C<guestfs_pvresize> except that it
 allows you to specify the new size (in bytes) explicitly.");
 
+  ("ntfsresize_size", (RErr, [Device "device"; Int64 "size"]), 250, [Optional "ntfsprogs"],
+   [],
+   "resize an NTFS filesystem (with size)",
+   "\
+This command is the same as C<guestfs_ntfsresize> except that it
+allows you to specify the new size (in bytes) explicitly.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
