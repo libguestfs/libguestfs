@@ -7456,6 +7456,9 @@ and generate_fish_cmds () =
   pr "#include \"xstrtol.h\"\n";
   pr "#include \"fish.h\"\n";
   pr "\n";
+  pr "/* Valid suffixes allowed for numbers.  See Gnulib xstrtol function. */\n";
+  pr "static const char *xstrtol_suffixes = \"0kKMGTPEZY\";\n";
+  pr "\n";
 
   (* list_commands function, which implements guestfish -h *)
   pr "void list_commands (void)\n";
@@ -7674,7 +7677,7 @@ and generate_fish_cmds () =
         pr "    strtol_error xerr;\n";
         pr "    %s r;\n" fntyp;
         pr "\n";
-        pr "    xerr = %s (argv[%d], NULL, 0, &r, \"\");\n" fn i;
+        pr "    xerr = %s (argv[%d], NULL, 0, &r, xstrtol_suffixes);\n" fn i;
         pr "    if (xerr != LONGINT_OK) {\n";
         pr "      fprintf (stderr,\n";
         pr "               _(\"%%s: %%s: invalid integer parameter (%%s returned %%d)\\n\"),\n";

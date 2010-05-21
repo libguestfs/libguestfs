@@ -1069,16 +1069,8 @@ display_builtin_command (const char *cmd)
               "\n"
               "    For more advanced image creation, see qemu-img utility.\n"
               "\n"
-              "    Size can be specified (where <nn> means a number):\n"
-              "    <nn>             number of kilobytes\n"
-              "      eg: 1440       standard 3.5\" floppy\n"
-              "    <nn>K or <nn>KB  number of kilobytes\n"
-              "    <nn>M or <nn>MB  number of megabytes\n"
-              "    <nn>G or <nn>GB  number of gigabytes\n"
-              "    <nn>T or <nn>TB  number of terabytes\n"
-              "    <nn>P or <nn>PB  number of petabytes\n"
-              "    <nn>E or <nn>EB  number of exabytes\n"
-              "    <nn>sects        number of 512 byte sectors\n"));
+              "    Size can be specified using standard suffixes, eg. '1M'.\n"
+              ));
   else if (STRCASEEQ (cmd, "echo"))
     printf (_("echo - display a line of text\n"
               "     echo [<params> ...]\n"
@@ -1168,16 +1160,8 @@ display_builtin_command (const char *cmd)
               "\n"
               "    For more advanced image creation, see qemu-img utility.\n"
               "\n"
-              "    Size can be specified (where <nn> means a number):\n"
-              "    <nn>             number of kilobytes\n"
-              "      eg: 1440       standard 3.5\" floppy\n"
-              "    <nn>K or <nn>KB  number of kilobytes\n"
-              "    <nn>M or <nn>MB  number of megabytes\n"
-              "    <nn>G or <nn>GB  number of gigabytes\n"
-              "    <nn>T or <nn>TB  number of terabytes\n"
-              "    <nn>P or <nn>PB  number of petabytes\n"
-              "    <nn>E or <nn>EB  number of exabytes\n"
-              "    <nn>sects        number of 512 byte sectors\n"));
+              "    Size can be specified using standard suffixes, eg. '1M'.\n"
+              ));
   else if (STRCASEEQ (cmd, "time"))
     printf (_("time - measure time taken to run command\n"
               "    time <command> [<args> ...]\n"

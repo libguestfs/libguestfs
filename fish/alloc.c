@@ -26,6 +26,8 @@
 #include <inttypes.h>
 #include <errno.h>
 
+#include "xstrtol.h"
+
 #include "fish.h"
 
 int
@@ -145,30 +147,14 @@ alloc_disk (const char *filename, const char *size_str, int add, int sparse)
 static int
 parse_size (const char *str, off_t *size_rtn)
 {
-  uint64_t size;
-  char type;
+  unsigned long long size;
+  strtol_error xerr;
 
-  /* Note that the parsing here is looser than what is specified in the
-   * help, but we may tighten it up in future so beware.
-   */
-  if (sscanf (str, "%"SCNu64"%c", &size, &type) == 2) {
-    switch (type) {
-    case 'k': case 'K': size *= 1024ULL; break;
-    case 'm': case 'M': size *= 1024ULL * 1024ULL; break;
-    case 'g': case 'G': size *= 1024ULL * 1024ULL * 1024ULL; break;
-    case 't': case 'T': size *= 1024ULL * 1024ULL * 1024ULL * 1024ULL; break;
-    case 'p': case 'P': size *= 1024ULL * 1024ULL * 1024ULL * 1024ULL * 1024ULL; break;
-    case 'e': case 'E': size *= 1024ULL * 1024ULL * 1024ULL * 1024ULL * 1024ULL * 1024ULL; break;
-    case 's': size *= 512; break;
-    default:
-      fprintf (stderr, _("could not parse size specification '%s'\n"), str);
-      return -1;
-    }
-  }
-  else if (sscanf (str, "%"SCNu64, &size) == 1)
-    size *= 1024ULL;
-  else {
-    fprintf (stderr, _("could not parse size specification '%s'\n"), str);
+  xerr = xstrtoull (str, NULL, 0, &size, "0kKMGTPEZY");
+  if (xerr != LONGINT_OK) {
+    fprintf (stderr,
+             _("%s: invalid integer parameter (%s returned %d)\n"),
+             "alloc_disk", "xstrtoull", xerr);
     return -1;
   }
 

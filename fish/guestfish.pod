@@ -320,9 +320,97 @@ must be escaped with a backslash.
 
 =head1 NUMBERS
 
-Commands which take integers as parameters use the C convention which
-is to use C<0> to prefix an octal number or C<0x> to prefix a
-hexadecimal number.  For example:
+This section applies to all commands which can take integers
+as parameters.
+
+=head2 SIZE SUFFIX
+
+When the command takes a parameter measured in bytes, you can use one
+of the following suffixes to specify kilobytes, megabytes and larger
+sizes:
+
+=over 4
+
+=item B<k> or B<K> or B<KiB>
+
+The size in kilobytes (multiplied by 1024).
+
+=item B<KB>
+
+The size in SI 1000 byte units.
+
+=item B<M> or B<MiB>
+
+The size in megabytes (multiplied by 1048576).
+
+=item B<MB>
+
+The size in SI 1000000 byte units.
+
+=item B<G> or B<GiB>
+
+The size in gigabytes (multiplied by 2**30).
+
+=item B<GB>
+
+The size in SI 10**9 byte units.
+
+=item B<T> or B<TiB>
+
+The size in terabytes (multiplied by 2**40).
+
+=item B<TB>
+
+The size in SI 10**12 byte units.
+
+=item B<P> or B<PiB>
+
+The size in petabytes (multiplied by 2**50).
+
+=item B<PB>
+
+The size in SI 10**15 byte units.
+
+=item B<E> or B<EiB>
+
+The size in exabytes (multiplied by 2**60).
+
+=item B<EB>
+
+The size in SI 10**18 byte units.
+
+=item B<Z> or B<ZiB>
+
+The size in zettabytes (multiplied by 2**70).
+
+=item B<ZB>
+
+The size in SI 10**21 byte units.
+
+=item B<Y> or B<YiB>
+
+The size in yottabytes (multiplied by 2**80).
+
+=item B<YB>
+
+The size in SI 10**24 byte units.
+
+=back
+
+For example:
+
+ truncate-size /file 1G
+
+would truncate the file to 1 gigabyte.
+
+Be careful because a few commands take sizes in kilobytes or megabytes
+(eg. the parameter to L</memsize> is specified in megabytes already).
+Adding a suffix will probably not do what you expect.
+
+=head2 OCTAL AND HEXADECIMAL NUMBERS
+
+For specifying the radix (base) use the C convention: C<0> to prefix
+an octal number or C<0x> to prefix a hexadecimal number.  For example:
 
  1234      decimal number 1234
  02322     octal number, equivalent to decimal 1234
@@ -600,39 +688,7 @@ so it can be further examined.
 
 For more advanced image creation, see L<qemu-img(1)> utility.
 
-Size can be specified (where C<nn> means a number):
-
-=over 4
-
-=item C<nn> or C<nn>K or C<nn>KB
-
-number of kilobytes, eg: C<1440> = standard 3.5in floppy
-
-=item C<nn>M or C<nn>MB
-
-number of megabytes
-
-=item C<nn>G or C<nn>GB
-
-number of gigabytes
-
-=item C<nn>T or C<nn>TB
-
-number of terabytes
-
-=item C<nn>P or C<nn>PB
-
-number of petabytes
-
-=item C<nn>E or C<nn>EB
-
-number of exabytes
-
-=item C<nn>sects
-
-number of 512 byte sectors
-
-=back
+Size can be specified using standard suffixes, eg. C<1M>.
 
 =head2 echo
 
@@ -727,39 +783,7 @@ danger you could run out of real disk space during a write operation.
 
 For more advanced image creation, see L<qemu-img(1)> utility.
 
-Size can be specified (where C<nn> means a number):
-
-=over 4
-
-=item C<nn> or C<nn>K or C<nn>KB
-
-number of kilobytes, eg: C<1440> = standard 3.5in floppy
-
-=item C<nn>M or C<nn>MB
-
-number of megabytes
-
-=item C<nn>G or C<nn>GB
-
-number of gigabytes
-
-=item C<nn>T or C<nn>TB
-
-number of terabytes
-
-=item C<nn>P or C<nn>PB
-
-number of petabytes
-
-=item C<nn>E or C<nn>EB
-
-number of exabytes
-
-=item C<nn>sects
-
-number of 512 byte sectors
-
-=back
+Size can be specified using standard suffixes, eg. C<1M>.
 
 =head2 time
 

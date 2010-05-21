@@ -45,7 +45,6 @@ get-memsize
 -set-memsize 07777770000000000000
 -set-memsize ABC
 -set-memsize 09
--set-memsize 123K
 -set-memsize 123L
 EOF
 
@@ -69,7 +68,6 @@ filesize /test
 # these should all provoke parse errors:
 -truncate-size /test ABC
 -truncate-size /test 09
--truncate-size /test 123K
 -truncate-size /test 123L
 EOF
 
@@ -82,6 +80,6 @@ grep -E 'set[-_]memsize|truncate[-_]size' test.err~ |
   grep -Ev 'proc 200' > test.err
 rm test.err~
 
-diff -u test.out rhbz557655-expected.stdout
-diff -u test.err rhbz557655-expected.stderr
+diff -u rhbz557655-expected.stdout test.out
+diff -u rhbz557655-expected.stderr test.err
 rm test.out test.err test1.img
