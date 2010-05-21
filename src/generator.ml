@@ -4686,6 +4686,13 @@ unlikely for regular files in ordinary circumstances.
 
 See also C<guestfs_pread>.");
 
+  ("resize2fs_size", (RErr, [Device "device"; Int64 "size"]), 248, [],
+   [],
+   "resize an ext2/ext3 filesystem (with size)",
+   "\
+This command is the same as C<guestfs_resize2fs> except that it
+allows you to specify the new size (in bytes) explicitly.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

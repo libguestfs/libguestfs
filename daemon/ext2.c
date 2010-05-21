@@ -20,6 +20,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <inttypes.h>
 #include <string.h>
 #include <unistd.h>
 
@@ -290,6 +291,41 @@ do_resize2fs (const char *device)
     return -1;
 
   r = command (NULL, &err, prog, device, NULL);
+  if (r == -1) {
+    reply_with_error ("%s", err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+  return 0;
+}
+
+int
+do_resize2fs_size (const char *device, int64_t size)
+{
+  char *err;
+  int r;
+
+  char prog[] = "resize2fs";
+  if (e2prog (prog) == -1)
+    return -1;
+
+  /* resize2fs itself may impose additional limits.  Since we are
+   * going to use the 'K' suffix however we can only work with whole
+   * kilobytes.
+   */
+  if (size & 1023) {
+    reply_with_error ("%" PRIi64 ": size must be a round number of kilobytes",
+                      size);
+    return -1;
+  }
+  size /= 1024;
+
+  char buf[32];
+  snprintf (buf, sizeof buf, "%" PRIi64 "K", size);
+
+  r = command (NULL, &err, prog, device, buf, NULL);
   if (r == -1) {
     reply_with_error ("%s", err);
     free (err);
