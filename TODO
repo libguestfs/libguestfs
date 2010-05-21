@@ -119,6 +119,7 @@ Ideas for extra commands
     findfs
     logsave
     mklost+found
+    ext2undelete
 
   SELinux:
     chcat
