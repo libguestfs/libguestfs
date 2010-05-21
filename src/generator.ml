@@ -11035,9 +11035,12 @@ print_strings (char *const *argv)
       | FileIn n
       | FileOut n -> pr "  printf (\"%%s\\n\", %s);\n" n
       | BufferIn n ->
-          pr "  for (size_t i = 0; i < %s_size; ++i)\n" n;
-          pr "    printf (\"<%%02x>\", %s[i]);\n" n;
-          pr "  printf (\"\\n\");\n"
+	  pr "  {\n";
+	  pr "    size_t i;\n";
+          pr "    for (i = 0; i < %s_size; ++i)\n" n;
+          pr "      printf (\"<%%02x>\", %s[i]);\n" n;
+          pr "    printf (\"\\n\");\n";
+	  pr "  }\n";
       | OptString n -> pr "  printf (\"%%s\\n\", %s ? %s : \"null\");\n" n n
       | StringList n | DeviceList n -> pr "  print_strings (%s);\n" n
       | Bool n -> pr "  printf (\"%%s\\n\", %s ? \"true\" : \"false\");\n" n
