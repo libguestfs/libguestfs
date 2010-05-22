@@ -794,8 +794,9 @@ against a completely different C<libguestfs.so> library.
 
 This call was added in version C<1.0.58>.  In previous
 versions of libguestfs there was no way to get the version
-number.  From C code you can use ELF weak linking tricks to find out if
-this symbol exists (if it doesn't, then it's an earlier version).
+number.  From C code you can use dynamic linker functions
+to find out if this symbol exists (if it doesn't, then
+it's an earlier version).
 
 The call returns a structure with four elements.  The first
 three (C<major>, C<minor> and C<release>) are numbers and
