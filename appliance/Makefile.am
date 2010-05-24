@@ -21,7 +21,6 @@ EXTRA_DIST = \
 	kmod.whitelist.in \
 	packagelist.in \
 	init \
-	debian/modules/install_kernel \
 	debian/modules/y0_install-guestfsd \
 	debian/modules/z99_final-cleanups \
 	debian/debirf.conf.in \
