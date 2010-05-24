@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.0.81\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-17 12:11+0100\n"
+"POT-Creation-Date: 2010-05-24 15:03+0100\n"
 "PO-Revision-Date: 2010-01-29 13:38+0530\n"
 "Last-Translator: I. Felix <ifelix@redhat.com>\n"
 "Language-Team: ta_IN <kde-i18n-doc@kde.org>\n"
@@ -1222,12 +1222,12 @@ msgstr "%s: தெரியாத கட்டளை\n"
 msgid "use '%s filename' to edit a file\n"
 msgstr "ஒரு கோப்பினை திருத்துவதற்கு '%s கோப்புபெயரை' பயன்படுத்து\n"
 
-#: fish/fish.c:93 fuse/guestmount.c:869
+#: fish/fish.c:95 fuse/guestmount.c:869
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "`%s --help' க்கான கூடுதல் தகவலுக்கு முயற்சிக்கவும்.\n"
 
-#: fish/fish.c:97
+#: fish/fish.c:99
 #, c-format
 msgid ""
 "%s: guest filesystem shell\n"
@@ -1294,66 +1294,66 @@ msgstr ""
 "  -V|--version         Display version and exit\n"
 "For more information,  see the manpage %s(1).\n"
 
-#: fish/fish.c:189 fuse/guestmount.c:966
+#: fish/fish.c:191 fuse/guestmount.c:966
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: ஹாண்டிலை உருவாக்க முடியவில்லை\n"
 
-#: fish/fish.c:228
+#: fish/fish.c:230
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
 msgstr "%s: --listen=PID: PID ஆனது எண் இல்லை: %s\n"
 
-#: fish/fish.c:235
+#: fish/fish.c:237
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 msgstr "%s: remote: $GUESTFISH_PID க்கு தொலை செயற்பாட்டைPID க்கு அமை\n"
 
-#: fish/fish.c:244 fuse/guestmount.c:1011
+#: fish/fish.c:246 fuse/guestmount.c:1011
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: தெரியாத நீண்ட விருப்பம்: %s (%d)\n"
 
-#: fish/fish.c:271
+#: fish/fish.c:273
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: ஒரே ஒரு -f அளவுரு கொடுக்கப்படலாம்\n"
 
-#: fish/fish.c:344
+#: fish/fish.c:346
 #, c-format
 msgid "%s: cannot use -i option with -a, -m, --listen, --remote or --selinux\n"
 msgstr ""
 "%s:  -i விருப்பத்தை -a, -m, --listen, --remote or --selinux உடன் பயன்படுத்த "
 "முடியவில்லை\n"
 
-#: fish/fish.c:351
+#: fish/fish.c:353
 #, c-format
 msgid "%s: -i requires a libvirt domain or path(s) to disk image(s)\n"
 msgstr ""
 "%s: -i க்கு ஒரு libvirt டொமைன் பாதை(கள்) வட்டு செய்தி(களுக்கு) தேவைப்படுகிறது\n"
 
-#: fish/fish.c:361
+#: fish/fish.c:363
 #, c-format
 msgid "%s: virt-inspector command too long for fixed-size buffer\n"
 msgstr "%s: virt-inspector command too long for fixed-size buffer\n"
 
-#: fish/fish.c:409
+#: fish/fish.c:411
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr "%s: cannot use --listen and --remote options at the same time\n"
 
-#: fish/fish.c:417
+#: fish/fish.c:419
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: extra parameters on the command line with --listen flag\n"
 
-#: fish/fish.c:423
+#: fish/fish.c:425
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s:  --listen மற்றும் --file விருப்பங்களை அதே நேரத்தில் பயன்படுத்த முடியாது\n"
 
-#: fish/fish.c:571
+#: fish/fish.c:573
 #, c-format
 msgid ""
 "\n"
@@ -1372,81 +1372,81 @@ msgstr ""
 "      'quit' to quit the shell\n"
 "\n"
 
-#: fish/fish.c:651
+#: fish/fish.c:653
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: unterminated double quote\n"
 
-#: fish/fish.c:657 fish/fish.c:674
+#: fish/fish.c:659 fish/fish.c:676
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: கட்டளை விவாதங்கள் வொயிட்ஸ்பேஸ்ஸால் பிரிக்கப்படவில்லை\n"
 
-#: fish/fish.c:668
+#: fish/fish.c:670
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: unterminated single quote\n"
 
-#: fish/fish.c:723
+#: fish/fish.c:725
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: அகப்பிழையை '%s' சரத்தில் பகுக்கிறது\n"
 
-#: fish/fish.c:740
+#: fish/fish.c:742
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: அதிக விவாதங்கள்\n"
 
-#: fish/fish.c:769
+#: fish/fish.c:771
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: கட்டளை வரியில் காலியான கட்டளை\n"
 
-#: fish/fish.c:930
+#: fish/fish.c:932
 msgid "display a list of commands or help on a command"
 msgstr "கட்டளைகளின் ஒரு பட்டியலைக் காட்டு அல்லது ஒரு கட்டளையில் உதவு"
 
-#: fish/fish.c:932
+#: fish/fish.c:934
 msgid "quit guestfish"
 msgstr "guestfishஐ நிறுத்து"
 
-#: fish/fish.c:935
+#: fish/fish.c:937
 msgid "allocate an image"
 msgstr "ஒரு படத்தை ஒதுக்கீடு"
 
-#: fish/fish.c:937
+#: fish/fish.c:939
 msgid "display a line of text"
 msgstr "உரையின் ஒரு வரியைக் காட்டு"
 
-#: fish/fish.c:939
+#: fish/fish.c:941
 msgid "edit a file in the image"
 msgstr "படத்திலுள்ள ஒரு கோப்பினை திருத்து"
 
-#: fish/fish.c:941
+#: fish/fish.c:943
 msgid "local change directory"
 msgstr "உள்ளமை மாற்று அடைவு"
 
-#: fish/fish.c:943
+#: fish/fish.c:945
 msgid "expand wildcards in command"
 msgstr "கட்டளையில் வைல்கார்ட்டை விவரி"
 
-#: fish/fish.c:945
+#: fish/fish.c:947
 msgid "view a file in the pager"
 msgstr "பேஜரில் ஒரு பக்கத்தைக் காட்டு"
 
-#: fish/fish.c:947
+#: fish/fish.c:949
 msgid "close and reopen libguestfs handle"
 msgstr "libguestfs ஹாண்டிலை மூடு மற்றும் மறுபடி திற"
 
-#: fish/fish.c:949
+#: fish/fish.c:951
 msgid "allocate a sparse image file"
 msgstr "ஒரு ஸ்பார்ஸ் படக்கோப்பை ஒதுக்கீடு"
 
-#: fish/fish.c:951
+#: fish/fish.c:953
 msgid "measure time taken to run command"
 msgstr "கட்டளையை இயக்குவதற்கு எடுத்துக் கொண்ட நேரத்தை அளவிடு"
 
-#: fish/fish.c:963
+#: fish/fish.c:965
 #, c-format
 msgid ""
 "alloc - allocate an image\n"
@@ -1487,7 +1487,7 @@ msgstr ""
 "    <nn>E or <nn>EB  number of exabytes\n"
 "    <nn>sects        number of 512 byte sectors\n"
 
-#: fish/fish.c:982
+#: fish/fish.c:984
 #, c-format
 msgid ""
 "echo - display a line of text\n"
@@ -1500,7 +1500,7 @@ msgstr ""
 "\n"
 "    This echos the parameters to the terminal.\n"
 
-#: fish/fish.c:989
+#: fish/fish.c:991
 #, c-format
 msgid ""
 "edit - edit a file in the image\n"
@@ -1531,7 +1531,7 @@ msgstr ""
 "    NOTE: This will not work reliably for large files\n"
 "    (> 2 MB) or binary files containing \\0 bytes.\n"
 
-#: fish/fish.c:1003
+#: fish/fish.c:1005
 #, c-format
 msgid ""
 "lcd - local change directory\n"
@@ -1548,7 +1548,7 @@ msgstr ""
 "    useful if you want to download files to a particular\n"
 "    place.\n"
 
-#: fish/fish.c:1010
+#: fish/fish.c:1012
 #, c-format
 msgid ""
 "glob - expand wildcards in command\n"
@@ -1565,7 +1565,7 @@ msgstr ""
 "    command args.  Note that the command is run repeatedly\n"
 "    once for each expanded argument.\n"
 
-#: fish/fish.c:1017
+#: fish/fish.c:1019
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -1576,7 +1576,7 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:1022
+#: fish/fish.c:1024
 #, c-format
 msgid ""
 "more - view a file in the pager\n"
@@ -1607,7 +1607,7 @@ msgstr ""
 "    NOTE: This will not work reliably for large files\n"
 "    (> 2 MB) or binary files containing \\0 bytes.\n"
 
-#: fish/fish.c:1038
+#: fish/fish.c:1040
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -1616,7 +1616,7 @@ msgstr ""
 "quit - guestfishஐ நிறுத்து\n"
 "     quit\n"
 
-#: fish/fish.c:1041
+#: fish/fish.c:1043
 #, c-format
 msgid ""
 "reopen - close and reopen the libguestfs handle\n"
@@ -1633,7 +1633,7 @@ msgstr ""
 "this normally, because the handle is closed properly when guestfish\n"
 "exits.  However this is occasionally useful for testing.\n"
 
-#: fish/fish.c:1048
+#: fish/fish.c:1050
 #, c-format
 msgid ""
 "sparse - allocate a sparse image file\n"
@@ -1690,7 +1690,7 @@ msgstr ""
 "    <nn>E or <nn>EB  number of exabytes\n"
 "    <nn>sects        number of 512 byte sectors\n"
 
-#: fish/fish.c:1075
+#: fish/fish.c:1077
 #, c-format
 msgid ""
 "time - measure time taken to run command\n"
@@ -1705,13 +1705,13 @@ msgstr ""
 "    இது எப்போதும் போல <command> இயங்கும், நேரத்திற்கு பின்\n"
 "    அச்சடித்தும் கழித்தும்விடும்.\n"
 
-#: fish/fish.c:1081
+#: fish/fish.c:1083
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""
 "%s: கட்டளை என்னவென்று தெரியவில்லை, அனைத்து கட்டளைகளையும் பட்டியலிட  -hஐ பயன்படுத்து\n"
 
-#: fish/fish.c:1095
+#: fish/fish.c:1097
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -1719,7 +1719,7 @@ msgid ""
 "For complete documentation:         man guestfish\n"
 msgstr ""
 
-#: fish/fish.c:1252
+#: fish/fish.c:1254
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "Runaway quote in string \"%s\"\n"

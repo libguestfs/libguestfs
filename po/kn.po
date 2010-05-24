@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.0.83\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-17 12:11+0100\n"
+"POT-Creation-Date: 2010-05-24 15:03+0100\n"
 "PO-Revision-Date: 2010-02-24 11:56+0530\n"
 "Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
 "Language-Team: kn-IN <>\n"
@@ -1221,12 +1221,12 @@ msgstr "%s: ಗೊತ್ತಿರದ ಉದ್ದನೆಯ ಆಯ್ಕೆ: %s (
 msgid "use '%s filename' to edit a file\n"
 msgstr "ಒಂದು ಕಡತವನ್ನು ಸಂಪಾದಿಸಲು '%s filename' ಅನ್ನು ಬಳಸಿ\n"
 
-#: fish/fish.c:93 fuse/guestmount.c:869
+#: fish/fish.c:95 fuse/guestmount.c:869
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "ಹೆಚ್ಚಿನ ಮಾಹಿತಿಗಾಗಿ `%s -help' ಅನ್ನು ಪ್ರಯತ್ನಿಸಿ .\n"
 
-#: fish/fish.c:97
+#: fish/fish.c:99
 #, c-format
 msgid ""
 "%s: guest filesystem shell\n"
@@ -1293,66 +1293,66 @@ msgstr ""
 "  -V|--version         Display version and exit\n"
 "For more information,  see the manpage %s(1).\n"
 
-#: fish/fish.c:189 fuse/guestmount.c:966
+#: fish/fish.c:191 fuse/guestmount.c:966
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: ಹ್ಯಾಂಡಲ್ ಅನ್ನು ನಿರ್ಮಿಸುವಲ್ಲಿ ವಿಫಲಗೊಂಡಿದೆ\n"
 
-#: fish/fish.c:228
+#: fish/fish.c:230
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
 msgstr "%s: --listen=PID: PID ಒಂದು ಸಂಖ್ಯೆಯಾಗಿಲ್ಲ: %s\n"
 
-#: fish/fish.c:235
+#: fish/fish.c:237
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 msgstr "%s: remote: $GUESTFISH_PID ಅನ್ನು ದೂರಸ್ಥ ಪ್ರಕ್ರಿಯೆಯ PID ಗೆ ಹೊಂದಿಸಬೇಕು\n"
 
-#: fish/fish.c:244 fuse/guestmount.c:1011
+#: fish/fish.c:246 fuse/guestmount.c:1011
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: ಗೊತ್ತಿರದ ಉದ್ದನೆಯ ಆಯ್ಕೆ: %s (%d)\n"
 
-#: fish/fish.c:271
+#: fish/fish.c:273
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: ಕೇವಲ ಒಂದು -f ನಿಯತಾಂಕವನ್ನು ಒದಗಿಸಬಹುದು\n"
 
-#: fish/fish.c:344
+#: fish/fish.c:346
 #, c-format
 msgid "%s: cannot use -i option with -a, -m, --listen, --remote or --selinux\n"
 msgstr ""
 "%s: -a, -m, --listen, --remote ಅಥವ --selinux ದೊಂದಿಗೆ -i ಎಂಬ ಅಯ್ಕೆಯನ್ನು "
 "ಬಳಸುವಂತಿಲ್ಲ\n"
 
-#: fish/fish.c:351
+#: fish/fish.c:353
 #, c-format
 msgid "%s: -i requires a libvirt domain or path(s) to disk image(s)\n"
 msgstr ""
 "%s: -i ಗಾಗಿ libvirt ಡೊಮೈನ್ ಅಥವ ಮಾರ್ಗ(ಗಳ) ಡಿಸ್ಕ್ ಚಿತ್ರಿಕೆಯ(ಗಳ) ಅಗತ್ಯವಿರುತ್ತದೆ\n"
 
-#: fish/fish.c:361
+#: fish/fish.c:363
 #, c-format
 msgid "%s: virt-inspector command too long for fixed-size buffer\n"
 msgstr "%s: virt-inspector ಎನ್ನುವುದು ನಿಶ್ಚಿತ ಬಫರಿಗಾಗಿ ಬಹಳ ಉದ್ದವಾಗಿದೆ\n"
 
-#: fish/fish.c:409
+#: fish/fish.c:411
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr "%s: --listen ಹಾಗು --remote ಆಯ್ಕೆಗಳನ್ನು ಒಟ್ಟಿಗೆ ಬಳಸುವಂತಿಲ್ಲ\n"
 
-#: fish/fish.c:417
+#: fish/fish.c:419
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: --listen ಫ್ಲಾಗ್‌ಗಾಗಿ ಆಜ್ಞಾ ಸಾಲಿನಲ್ಲಿ ಹೆಚ್ಚುವರಿ ನಿಯತಾಂಕಗಳು\n"
 
-#: fish/fish.c:423
+#: fish/fish.c:425
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: --listen ಹಾಗು --file ಆಯ್ಕೆಗಳನ್ನು ಒಟ್ಟಿಗೆ ಬಳಸುವಂತಿಲ್ಲ\n"
 
-#: fish/fish.c:571
+#: fish/fish.c:573
 #, c-format
 msgid ""
 "\n"
@@ -1371,81 +1371,81 @@ msgstr ""
 "      ಶೆಲ್‌ನಿಂದ ನಿರ್ಗಮಿಸಲು 'quit' ಅನ್ನು ಬಳಸಿ\n"
 "\n"
 
-#: fish/fish.c:651
+#: fish/fish.c:653
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: ಅಂತ್ಯಗೊಳಿಸದೆ ಇರುವ ಜೋಡಿ ಉದ್ಧರಣ ಚಿಹ್ನೆ(ಕೋಟ್)\n"
 
-#: fish/fish.c:657 fish/fish.c:674
+#: fish/fish.c:659 fish/fish.c:676
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: ಆಜ್ಞೆಯ ಆರ್ಗುಮೆಂಟ್‌ಗಳ ನಡುವೆ ಖಾಲಿ ಜಾಗಗಳು ಇರುವಂತಿಲ್ಲ\n"
 
-#: fish/fish.c:668
+#: fish/fish.c:670
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: ಅಂತ್ಯಗೊಳಿಸದೆ ಇರುವ ಒಂದೆ ಒಂದು ಉದ್ಧರಣ ಚಿಹ್ನೆ(ಕೋಟ್)\n"
 
-#: fish/fish.c:723
+#: fish/fish.c:725
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: '%s' ನಲ್ಲಿ ವಾಕ್ಯವನ್ನು ಪಾರ್ಸ್ ಮಾಡುವಲ್ಲಿ ಆಂತರಿಕ ದೋಷ\n"
 
-#: fish/fish.c:740
+#: fish/fish.c:742
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: ಅಗತ್ಯಕ್ಕಿಂತಲೂ ಹೆಚ್ಚು   ಚರಪರಿಮಾಣಗಳು (ಆರ್ಗ್ಯೂಮೆಂಟ್)\n"
 
-#: fish/fish.c:769
+#: fish/fish.c:771
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: ಆಜ್ಞಾ ಸಾಲಿನಲ್ಲಿ ಯಾವುದೆ ಆಜ್ಞೆ ಇಲ್ಲ\n"
 
-#: fish/fish.c:930
+#: fish/fish.c:932
 msgid "display a list of commands or help on a command"
 msgstr "ಆಜ್ಞೆಗಳ ಒಂದು ಪಟ್ಟಿಯನ್ನು ತೋರಿಸು ಅಥವ ಒಂದು ಆಜ್ಞೆಯ ನೆರವನ್ನು ತೋರಿಸು"
 
-#: fish/fish.c:932
+#: fish/fish.c:934
 msgid "quit guestfish"
 msgstr "guestfish ಇಂದ ನಿರ್ಗಮಿಸು"
 
-#: fish/fish.c:935
+#: fish/fish.c:937
 msgid "allocate an image"
 msgstr "ಒಂದು ಚಿತ್ರವನ್ನು ನಿಯೋಜಿಸು"
 
-#: fish/fish.c:937
+#: fish/fish.c:939
 msgid "display a line of text"
 msgstr "ಪಠ್ಯದ ಒಂದು ಸಾಲನ್ನು ತೋರಿಸು"
 
-#: fish/fish.c:939
+#: fish/fish.c:941
 msgid "edit a file in the image"
 msgstr "ಚಿತ್ರದಲ್ಲಿನ ಒಂದು ಕಡತವನ್ನು ಸಂಪಾದಿಸಿ"
 
-#: fish/fish.c:941
+#: fish/fish.c:943
 msgid "local change directory"
 msgstr "ಸ್ಥಳೀಯ ಬದಲಾವಣೆ ಕೋಶ"
 
-#: fish/fish.c:943
+#: fish/fish.c:945
 msgid "expand wildcards in command"
 msgstr "ಆಜ್ಞೆಯಲ್ಲಿನ ವೈಲ್ಡ್‌ಕಾರ್ಡುಗಳನ್ನು ತೋರಿಸು"
 
-#: fish/fish.c:945
+#: fish/fish.c:947
 msgid "view a file in the pager"
 msgstr "ಒಂದು ಕಡತವನ್ನು ಪೇಜರಿನಲ್ಲಿ ನೋಡು"
 
-#: fish/fish.c:947
+#: fish/fish.c:949
 msgid "close and reopen libguestfs handle"
 msgstr "libguestfs ಹ್ಯಾಂಡಲ್ ಅನ್ನು ಮುಚ್ಚು ಅಥವ ಮರಳಿ ತೆರೆ"
 
-#: fish/fish.c:949
+#: fish/fish.c:951
 msgid "allocate a sparse image file"
 msgstr "ಚದುರಿದ ಚಿತ್ರಿಕಾ ಕಡತವನ್ನು ನಿಯೋಜಿಸು"
 
-#: fish/fish.c:951
+#: fish/fish.c:953
 msgid "measure time taken to run command"
 msgstr "ಒಂದು ಆಜ್ಞೆಯನ್ನು ಚಲಾಯಿಸಲು ತಗಲುವ ಸಮಯವನ್ನು ಲೆಕ್ಕ ಹಾಕು"
 
-#: fish/fish.c:963
+#: fish/fish.c:965
 #, c-format
 msgid ""
 "alloc - allocate an image\n"
@@ -1487,7 +1487,7 @@ msgstr ""
 "    <nn>E ಅಥವ <nn>EB  ಎಕ್ಸಾಬೈಟ್‌ಗಳ ಸಂಖ್ಯೆ\n"
 "    <nn>sects        512 ಬೈಟ್‌ ವಿಭಾಗಗಳ ಸಂಖ್ಯೆ\n"
 
-#: fish/fish.c:982
+#: fish/fish.c:984
 #, c-format
 msgid ""
 "echo - display a line of text\n"
@@ -1500,7 +1500,7 @@ msgstr ""
 "\n"
 "    ಇದು ನಿಯತಾಂಕಗಳನ್ನು ಟರ್ಮಿನಲ್‌ಗೆ ಪ್ರತಿಧ್ವನಿಸುತ್ತದೆ(ಎಕೊ).\n"
 
-#: fish/fish.c:989
+#: fish/fish.c:991
 #, c-format
 msgid ""
 "edit - edit a file in the image\n"
@@ -1531,7 +1531,7 @@ msgstr ""
 "    ಸೂಚನೆ: ಇದು ದೊಡ್ಡದಾದ ಕಡತಗಳಲ್ಲಿ (> 2 MB) ಅಥವ \\0 ಬೈಟ್‌ಗಳನ್ನು\n"
 "    ಹೊಂದಿರುವ ಬೈನರಿ ಕಡತಗಳಲ್ಲಿ ಸಮರ್ಪಕವಾಗಿ ಕೆಲಸ ಮಾಡುವುದಿಲ್ಲ.\n"
 
-#: fish/fish.c:1003
+#: fish/fish.c:1005
 #, c-format
 msgid ""
 "lcd - local change directory\n"
@@ -1548,7 +1548,7 @@ msgstr ""
 "    ಡೌನ್‌ಲೋಡ್ ಮಾಡಲು ನೀವು ಬಯಸಿದಲ್ಲಿ ಇದು\n"
 "    ಸಹಾಯಕವಾಗುತ್ತದೆ.\n"
 
-#: fish/fish.c:1010
+#: fish/fish.c:1012
 #, c-format
 msgid ""
 "glob - expand wildcards in command\n"
@@ -1565,7 +1565,7 @@ msgstr ""
 "    <command> ಅನ್ನು ಚಲಾಯಿಸುತ್ತದೆ.  ಹಿಗ್ಗಿಸಲಾದ ಪ್ರತಿಯೊಂದು ಆರ್ಗ್ಯುಮೆಂಟ್‌ಗಳೊಂದಿಗೆ\n"
 "    ಆಜ್ಞೆಯನ್ನು ಮತ್ತೆ ಮತ್ತೆ ಚಲಾಯಿಸಲಾಗುತ್ತದೆ ಎಂಬುದನ್ನು ನೆನಪಿಡಿ.\n"
 
-#: fish/fish.c:1017
+#: fish/fish.c:1019
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -1576,7 +1576,7 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:1022
+#: fish/fish.c:1024
 #, c-format
 msgid ""
 "more - view a file in the pager\n"
@@ -1607,7 +1607,7 @@ msgstr ""
 "    ಸೂಚನೆ: ಇದು ದೊಡ್ಡದಾದ ಕಡತಗಳಲ್ಲಿ (> 2 MB) ಅಥವ \\0 ಬೈಟ್‌ಗಳನ್ನು\n"
 "    ಹೊಂದಿರುವ ಬೈನರಿ ಕಡತಗಳಲ್ಲಿ ಸಮರ್ಪಕವಾಗಿ ಕೆಲಸ ಮಾಡುವುದಿಲ್ಲ.\n"
 
-#: fish/fish.c:1038
+#: fish/fish.c:1040
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -1616,7 +1616,7 @@ msgstr ""
 "quit - guestfish ಇಂದ ನಿರ್ಗಮಿಸು \n"
 "     quit\n"
 
-#: fish/fish.c:1041
+#: fish/fish.c:1043
 #, c-format
 msgid ""
 "reopen - close and reopen the libguestfs handle\n"
@@ -1633,7 +1633,7 @@ msgstr ""
 "ಅಗತ್ಯವಿರುವುದಿಲ್ಲ, ಏಕೆಂದರೆ guestfish ನಿರ್ಗಮಿಸಿದಾಗ ಹ್ಯಾಂಡಲ್ ಸರಿಯಾಗಿ ಮುಚ್ಚಲ್ಪಡುತ್ತದೆ.\n"
 "ಆದರೆ ಇದು ಪರೀಕ್ಷಿಸುವ ಕಾರ್ಯದಲ್ಲಿ ಒಮ್ಮೊಮ್ಮೆ ಉಪಯೋಗಕ್ಕೆ ಬರುತ್ತದೆ.\n"
 
-#: fish/fish.c:1048
+#: fish/fish.c:1050
 #, c-format
 msgid ""
 "sparse - allocate a sparse image file\n"
@@ -1688,7 +1688,7 @@ msgstr ""
 "    <nn>E ಅಥವ <nn>EB  ಎಕ್ಸಾಬೈಟ್‌ಗಳ ಸಂಖ್ಯೆ\n"
 "    <nn>sects        512 ಬೈಟ್‌ ವಿಭಾಗಗಳ ಸಂಖ್ಯೆ\n"
 
-#: fish/fish.c:1075
+#: fish/fish.c:1077
 #, c-format
 msgid ""
 "time - measure time taken to run command\n"
@@ -1703,12 +1703,12 @@ msgstr ""
 "    ಇದು <command> ಅನ್ನು ಸಾಮಾನ್ಯ ಕ್ರಮದಲ್ಲಿಯೆ ಚಲಾಯಿಸುತ್ತದೆ, ಹಾಗು\n"
 "    ಕೊನೆಯಲ್ಲಿ ತಗುಲಿದ ಸಮಯವನ್ನು ತೋರಿಸುತ್ತದೆ.\n"
 
-#: fish/fish.c:1081
+#: fish/fish.c:1083
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s: ಆಜ್ಞೆಯು ತಿಳಿದಿಲ್ಲ, ಎಲ್ಲಾ ಆಜ್ಞೆಗಳ ಪಟ್ಟಿಯನ್ನು ತೋರಿಸಲು -h ಉಪಯೋಗಿಸಿ\n"
 
-#: fish/fish.c:1095
+#: fish/fish.c:1097
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -1716,7 +1716,7 @@ msgid ""
 "For complete documentation:         man guestfish\n"
 msgstr ""
 
-#: fish/fish.c:1252
+#: fish/fish.c:1254
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "\"%s\" ಎಂಬ ವಾಕ್ಯದಲ್ಲಿ ರನ್‌ಅವೆ ಕೋಟ್\n"
