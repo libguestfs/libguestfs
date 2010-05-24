@@ -37,6 +37,22 @@ AC_DEFINE([PACKAGE_VERSION_MINOR],[libguestfs_minor],[Minor version number])
 AC_DEFINE([PACKAGE_VERSION_RELEASE],[libguestfs_release],[Release number])
 AC_DEFINE([PACKAGE_VERSION_EXTRA],["libguestfs_extra"],[Extra version string])
 
+dnl Stable or unstable version?
+AC_MSG_CHECKING([if this is a stable or unstable branch of libguestfs])
+AS_IF([test "$((libguestfs_minor % 2))" -eq 0 ],[
+            AC_MSG_RESULT([stable])
+       ],[
+            AC_MSG_RESULT([unstable])
+            AC_MSG_NOTICE([
+***
+This is a development version of libguestfs. Some APIs may be unstable
+until they appear in a stable release of libguestfs (at which point
+the C API and ABI is guaranteed to remain stable forever).  For
+more information about stable and development branches of libguestfs
+please see the section "LIBGUESTFS VERSION NUMBERS" in guestfs(3).
+***])
+       ])
+
 dnl Die if the user tries to configure as root, see:
 dnl https://www.redhat.com/archives/libguestfs/2010-April/msg00098.html
 AC_MSG_CHECKING([if you are trying to configure as root])
