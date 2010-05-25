@@ -18,6 +18,13 @@ guestfish - the libguestfs Filesystem Interactive SHell
 
  guestfish -i disk.img [disk.img ...]
 
+=head1 WARNING
+
+Using guestfish in read/write mode on live virtual machines can be
+dangerous, potentially causing disk corruption.  Use the I<--ro>
+(read-only) option to use guestfish safely if the disk image or
+virtual machine might be live.
+
 =head1 EXAMPLES
 
 =head2 As an interactive shell
@@ -100,11 +107,6 @@ Guestfish gives you structured access to the libguestfs API, from
 shell scripts or the command line or interactively.  If you want to
 rescue a broken virtual machine image, you should look at the
 L<virt-rescue(1)> command.
-
-Using guestfish in read/write mode on live virtual machines can be
-dangerous, potentially causing disk corruption.  Use the I<--ro>
-(read-only) option to use guestfish safely if the disk image or
-virtual machine might be live.
 
 =head1 OPTIONS
 
