@@ -1,5 +1,5 @@
 # libguestfs
-# Copyright (C) 2009 Red Hat Inc.
+# Copyright (C) 2009-2010 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -102,3 +102,8 @@ guestfish.1: guestfish.pod guestfish-actions.pod
 	  --name "guestfish" \
 	  --release "$(PACKAGE_NAME)-$(PACKAGE_VERSION)" \
 	  > $@
+
+# Bash completion script.
+
+bashcompletiondir = $(sysconfdir)/bash_completion.d
+bashcompletion_DATA = guestfish-bash-completion.sh
