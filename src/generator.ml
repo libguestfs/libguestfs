@@ -4711,7 +4711,7 @@ This command is the same as C<guestfs_ntfsresize> except that it
 allows you to specify the new size (in bytes) explicitly.");
 
   ("available_all_groups", (RStringList "groups", []), 251, [],
-   [],
+   [InitNone, Always, TestRun [["available_all_groups"]]],
    "return a list of all optional groups",
    "\
 This command returns a list of all optional groups that this
