@@ -808,6 +808,11 @@ can be useful for benchmarking operations.
 
 @ACTIONS@
 
+=head1 EXIT CODE
+
+guestfish returns 0 if the commands completed without error, or
+1 if there was an error.
+
 =head1 ENVIRONMENT VARIABLES
 
 =over 4
@@ -875,11 +880,6 @@ configure another directory to use in case C</tmp> is not large
 enough.
 
 =back
-
-=head1 EXIT CODE
-
-guestfish returns 0 if the commands completed without error, or
-1 if there was an error.
 
 =head1 SEE ALSO
 
