@@ -785,6 +785,16 @@ For more advanced image creation, see L<qemu-img(1)> utility.
 
 Size can be specified using standard suffixes, eg. C<1M>.
 
+=head2 supported
+
+ supported
+
+This command returns a list of the optional groups
+known to the daemon, and indicates which ones are
+supported by this build of the libguestfs appliance.
+
+See also L<guestfs(3)/AVAILABILITY>.
+
 =head2 time
 
  time command args...

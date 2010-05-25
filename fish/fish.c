@@ -992,6 +992,8 @@ issue_command (const char *cmd, char *argv[], const char *pipecmd)
     r = do_reopen (cmd, argc, argv);
   else if (STRCASEEQ (cmd, "sparse"))
     r = do_sparse (cmd, argc, argv);
+  else if (STRCASEEQ (cmd, "supported"))
+    r = do_supported (cmd, argc, argv);
   else if (STRCASEEQ (cmd, "time"))
     r = do_time (cmd, argc, argv);
   else
@@ -1048,6 +1050,8 @@ list_builtin_commands (void)
           "reopen", _("close and reopen libguestfs handle"));
   printf ("%-20s %s\n",
           "sparse", _("allocate a sparse image file"));
+  printf ("%-20s %s\n",
+          "supported", _("list supported groups of commands"));
   printf ("%-20s %s\n",
           "time", _("measure time taken to run command"));
 
@@ -1161,6 +1165,16 @@ display_builtin_command (const char *cmd)
               "    For more advanced image creation, see qemu-img utility.\n"
               "\n"
               "    Size can be specified using standard suffixes, eg. '1M'.\n"
+              ));
+  else if (STRCASEEQ (cmd, "supported"))
+    printf (_("supported - list supported groups of commands\n"
+              "     supported\n"
+              "\n"
+              "    This command returns a list of the optional groups\n"
+              "    known to the daemon, and indicates which ones are\n"
+              "    supported by this build of the libguestfs appliance.\n"
+              "\n"
+              "    See also guestfs(3) section AVAILABILITY.\n"
               ));
   else if (STRCASEEQ (cmd, "time"))
     printf (_("time - measure time taken to run command\n"

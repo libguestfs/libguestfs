@@ -49,6 +49,7 @@ guestfish_SOURCES = \
 	prep.c \
 	rc.c \
 	reopen.c \
+	supported.c \
 	tilde.c \
 	time.c
 

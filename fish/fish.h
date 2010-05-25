@@ -121,6 +121,9 @@ extern int rc_remote (int pid, const char *cmd, int argc, char *argv[],
 /* in reopen.c */
 extern int do_reopen (const char *cmd, int argc, char *argv[]);
 
+/* in supported.c */
+extern int do_supported (const char *cmd, int argc, char *argv[]);
+
 /* in time.c */
 extern int do_time (const char *cmd, int argc, char *argv[]);
 
@@ -142,6 +145,7 @@ extern char *try_tilde_expansion (char *path);
   "more", "less",			\
   "reopen",				\
   "sparse",                             \
+  "supported",                          \
   "time"
 
 static inline char *

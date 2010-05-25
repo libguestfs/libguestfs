@@ -79,6 +79,7 @@ fish/more.c
 fish/prep.c
 fish/rc.c
 fish/reopen.c
+fish/supported.c
 fish/tilde.c
 fish/time.c
 fuse/dircache.c

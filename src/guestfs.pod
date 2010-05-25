@@ -801,6 +801,13 @@ supports the functionality.
 
 @AVAILABILITY@
 
+=head2 GUESTFISH supported COMMAND
+
+In L<guestfish(3)> there is a handy interactive command
+C<supported> which prints out the available groups and
+whether they are supported by this build of libguestfs.
+Note however that you have to do C<run> first.
+
 =head2 SINGLE CALLS AT COMPILE TIME
 
 If you need to test whether a single libguestfs function is
