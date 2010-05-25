@@ -60,7 +60,23 @@ L<virt-list-filesystems(1)> and
 L<virt-df(1)>,
 we recommend you go and read those manual pages first.
 
-=head2 BASIC USAGE
+=head2 EXAMPLES
+
+Copy C<olddisk> to C<newdisk>, extending one of the guest's partitions
+to fill the extra 5GB of space.
+
+ virt-list-partitions -lh olddisk
+ # Make a new blank disk which is larger than the old disk file.
+ dd if=/dev/zero of=newdisk bs=1024k count=15000
+ # Note "/dev/sda2" is a partition inside the "olddisk" file.
+ virt-resize --expand /dev/sda2 olddisk newdisk
+
+As above, but make the /boot partition 200MB bigger, while giving the
+remaining space to /dev/sda2:
+
+ virt-resize --resize /dev/sda1=+200M --expand /dev/sda2 olddisk newdisk
+
+=head2 DETAILED USAGE
 
 This describes the common case where you want to expand an image to
 give your guest more space.  Shrinking images is considerably more
