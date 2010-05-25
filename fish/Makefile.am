@@ -32,7 +32,8 @@ BUILT_SOURCES = \
 EXTRA_DIST = \
 	$(BUILT_SOURCES) \
 	rc_protocol.x \
-	guestfish.pod
+	guestfish.pod \
+	guestfish-bash-completion.sh
 
 guestfish_SOURCES = \
 	$(generator_built) \
