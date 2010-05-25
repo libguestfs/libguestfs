@@ -904,6 +904,15 @@ To write rules which only apply to guestfish, use:
  ...
  $endif
 
+=item test1.img
+
+=item test2.img (etc)
+
+When using the C<-N> or C<--new> option, the prepared disk or
+filesystem will be created in the file C<test1.img> in the current
+directory.  The second use of C<-N> will use C<test2.img> and so on.
+Any existing file with the same name will be overwritten.
+
 =back
 
 =head1 SEE ALSO
