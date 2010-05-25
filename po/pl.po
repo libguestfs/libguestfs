@@ -7,7 +7,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2010-05-24 13:30+0100\n"
-"PO-Revision-Date: 2010-02-28 03:02+0100\n"
+"PO-Revision-Date: 2010-05-24 21:26+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <trans-pl@lists.fedoraproject.org>\n"
 "MIME-Version: 1.0\n"
@@ -30,9 +30,9 @@ msgid "can't allocate or add disks after launching\n"
 msgstr "bez przydzielania lub dodawania dysków po uruchomieniu\n"
 
 #: fish/alloc.c:156
-#, fuzzy, c-format
+#, c-format
 msgid "%s: invalid integer parameter (%s returned %d)\n"
-msgstr "%s: %s: nieprawidłowy parametr liczby całkowitej (%s zwróciło %d)\n"
+msgstr "%s: nieprawidłowy parametr liczby całkowitej (%s zwróciło %d)\n"
 
 #: fish/cmds.c:41
 msgid "Command"
@@ -64,9 +64,8 @@ msgid "add a drive specifying the QEMU block emulation to use"
 msgstr "dodaje napęd określając używaną emulację bloku QEMU"
 
 #: fish/cmds.c:48 fish/cmds.c:1153
-#, fuzzy
 msgid "clear Augeas path"
-msgstr "usuwa ścieżkę Augeas"
+msgstr "czyści ścieżkę Augeas"
 
 #: fish/cmds.c:49 fish/cmds.c:487
 msgid "close the current Augeas handle"
@@ -126,12 +125,11 @@ msgstr "testuje dostępność niektórych części API"
 
 #: fish/cmds.c:63 fish/cmds.c:1162
 msgid "upload base64-encoded data to file"
-msgstr ""
+msgstr "wysyła dane zakodowane jako base64 do pliku"
 
 #: fish/cmds.c:64 fish/cmds.c:1165
-#, fuzzy
 msgid "download file and encode as base64"
-msgstr "pobiera plik do lokalnej maszyny"
+msgstr "pobiera plik i koduje go jako base64"
 
 #: fish/cmds.c:65 fish/cmds.c:628
 msgid "flush device buffers"
@@ -187,14 +185,12 @@ msgid "compute MD5, SHAx or CRC checksum of file"
 msgstr "oblicza sumy kontrolne MD5, SHAx lub CRC pliku"
 
 #: fish/cmds.c:78 fish/cmds.c:1147
-#, fuzzy
 msgid "compute MD5, SHAx or CRC checksum of the contents of a device"
-msgstr "oblicza sumy kontrolne MD5, SHAx lub CRC pliku"
+msgstr "oblicza sumy kontrolne MD5, SHAx lub CRC zawartości urządzenia"
 
 #: fish/cmds.c:79 fish/cmds.c:1168
-#, fuzzy
 msgid "compute MD5, SHAx or CRC checksum of files in a directory"
-msgstr "oblicza sumy kontrolne MD5, SHAx lub CRC pliku"
+msgstr "oblicza sumy kontrolne MD5, SHAx lub CRC plików w katalogu"
 
 #: fish/cmds.c:80 fish/cmds.c:538
 msgid "change file mode"
@@ -217,9 +213,8 @@ msgid "add qemu parameters"
 msgstr "dodaje parametry QEMU"
 
 #: fish/cmds.c:85 fish/cmds.c:1117
-#, fuzzy
 msgid "copy size bytes from source to destination using dd"
-msgstr "kopiuje ze źródła do celu używając dd"
+msgstr "kopiuje bajty rozmiaru ze źródła do celu używając dd"
 
 #: fish/cmds.c:86 fish/cmds.c:697
 msgid "copy a file"
@@ -238,9 +233,8 @@ msgid "debugging and internals"
 msgstr "debugowanie i wewnętrzne"
 
 #: fish/cmds.c:90 fish/cmds.c:1159
-#, fuzzy
 msgid "upload a file to the appliance (internal use only)"
-msgstr "wysyła plik do z lokalnej maszyny"
+msgstr "wysyła plik do przyrządu (tylko do użytku wewnętrznego)"
 
 #: fish/cmds.c:91 fish/cmds.c:811
 msgid "report file system disk space usage"
@@ -309,9 +303,8 @@ msgid "fill a file with octets"
 msgstr "wypełnia plik oktetami"
 
 #: fish/cmds.c:109 fish/cmds.c:1171
-#, fuzzy
 msgid "fill a file with a repeating pattern of bytes"
-msgstr "wypełnia plik oktetami"
+msgstr "wypełnia plik powtarzającym się wzorem bajtów"
 
 #: fish/cmds.c:110 fish/cmds.c:757
 msgid "find all files and directories"
@@ -379,9 +372,8 @@ msgid "get command trace enabled flag"
 msgstr "uzyskuje flagę włączenia śledzenia"
 
 #: fish/cmds.c:126 fish/cmds.c:1156
-#, fuzzy
 msgid "get the current umask"
-msgstr "uzyskuje bieżący stan"
+msgstr "uzyskuje bieżące \"umask\""
 
 #: fish/cmds.c:127 fish/cmds.c:379
 msgid "get verbose mode"
@@ -516,9 +508,8 @@ msgid "lstat on multiple files"
 msgstr "wykonuje polecenie lstat na wielu plikach"
 
 #: fish/cmds.c:167 fish/cmds.c:559
-#, fuzzy
 msgid "create an LVM logical volume"
-msgstr "zmienia nazwę woluminu logicznego LVM"
+msgstr "tworzy wolumin logiczny LVM"
 
 #: fish/cmds.c:168 fish/cmds.c:580
 msgid "remove all LVM LVs, VGs and PVs"
@@ -539,16 +530,15 @@ msgstr "zmienia rozmiar woluminu logicznego LVM"
 
 #: fish/cmds.c:172 fish/cmds.c:1150
 msgid "expand an LV to fill free space"
-msgstr ""
+msgstr "rozszerza wolumin logiczny, aby wypełnić wolne miejsce"
 
 #: fish/cmds.c:173 fish/cmds.c:174 fish/cmds.c:469 fish/cmds.c:478
 msgid "list the LVM logical volumes (LVs)"
 msgstr "wyświetla listę woluminów logicznych LVM"
 
 #: fish/cmds.c:175 fish/cmds.c:1108
-#, fuzzy
 msgid "get the UUID of a logical volume"
-msgstr "wyświetla listę woluminów logicznych LVM"
+msgstr "uzyskuje UUID woluminu logicznego"
 
 #: fish/cmds.c:176 fish/cmds.c:1051
 msgid "lgetxattr on multiple files"
@@ -674,36 +664,32 @@ msgid "probe NTFS volume"
 msgstr "wykrywa wolumin NTFS"
 
 #: fish/cmds.c:208 fish/cmds.c:1129
-#, fuzzy
 msgid "resize an NTFS filesystem"
-msgstr "zmienia rozmiar systemu plików ext2/ext3"
+msgstr "zmienia rozmiar systemu plików NTFS"
 
 #: fish/cmds.c:209 fish/cmds.c:1186
-#, fuzzy
 msgid "resize an NTFS filesystem (with size)"
-msgstr "zmienia rozmiar systemu plików ext2/ext3"
+msgstr "zmienia rozmiar systemu plików NTFS (za pomocą rozmiaru)"
 
 #: fish/cmds.c:210 fish/cmds.c:1063
 msgid "add a partition to the device"
 msgstr "dodaje partycję do urządzenia"
 
 #: fish/cmds.c:211 fish/cmds.c:1135
-#, fuzzy
 msgid "delete a partition"
-msgstr "tworzy partycję wymiany"
+msgstr "usuwa partycję"
 
 #: fish/cmds.c:212 fish/cmds.c:1066
 msgid "partition whole disk with a single primary partition"
 msgstr "Partycjonuje cały dysk za pomocą pojedynczej partycji podstawowej"
 
 #: fish/cmds.c:213 fish/cmds.c:1138
-#, fuzzy
 msgid "return true if a partition is bootable"
-msgstr "ponownie odczytuje tablicę partycji"
+msgstr "zwraca wartość \"true\", jeśli partycja jest startowa"
 
 #: fish/cmds.c:214 fish/cmds.c:1141
 msgid "get the MBR type byte (ID byte) from a partition"
-msgstr ""
+msgstr "uzyskuje bajt typu MBR (bajt identyfikatora) z partycji"
 
 #: fish/cmds.c:215 fish/cmds.c:1078
 msgid "get the partition table type"
@@ -723,7 +709,7 @@ msgstr "zmienia partycję na startową"
 
 #: fish/cmds.c:219 fish/cmds.c:1144
 msgid "set the MBR type byte (ID byte) of a partition"
-msgstr ""
+msgstr "ustawia bajt typu MBR (bajt identyfikatora) partycji"
 
 #: fish/cmds.c:220 fish/cmds.c:1072
 msgid "set partition name"
@@ -750,23 +736,20 @@ msgid "resize an LVM physical volume"
 msgstr "zmienia rozmiar woluminu fizycznego LVM"
 
 #: fish/cmds.c:226 fish/cmds.c:1183
-#, fuzzy
 msgid "resize an LVM physical volume (with size)"
-msgstr "zmienia rozmiar woluminu fizycznego LVM"
+msgstr "zmienia rozmiar woluminu fizycznego LVM (za pomocą rozmiaru)"
 
 #: fish/cmds.c:227 fish/cmds.c:228 fish/cmds.c:463 fish/cmds.c:472
 msgid "list the LVM physical volumes (PVs)"
 msgstr "wyświetla listę woluminów fizycznych LVM"
 
 #: fish/cmds.c:229 fish/cmds.c:1102
-#, fuzzy
 msgid "get the UUID of a physical volume"
-msgstr "tworzy wolumin fizyczny LVM"
+msgstr "uzyskuje UUID woluminu fizycznego"
 
 #: fish/cmds.c:230 fish/cmds.c:1177
-#, fuzzy
 msgid "write to part of a file"
-msgstr "odczytuje część pliku"
+msgstr "zapisuje do części pliku"
 
 #: fish/cmds.c:231 fish/cmds.c:886
 msgid "read a file"
@@ -797,9 +780,8 @@ msgid "resize an ext2/ext3 filesystem"
 msgstr "zmienia rozmiar systemu plików ext2/ext3"
 
 #: fish/cmds.c:239 fish/cmds.c:1180
-#, fuzzy
 msgid "resize an ext2/ext3 filesystem (with size)"
-msgstr "zmienia rozmiar systemu plików ext2/ext3"
+msgstr "zmienia rozmiar systemu plików ext2/ext3 (za pomocą rozmiaru)"
 
 #: fish/cmds.c:240 fish/cmds.c:523
 msgid "remove a file"
@@ -1016,7 +998,7 @@ msgstr "odmontowuje wszystkie systemy plików"
 
 #: fish/cmds.c:298 fish/cmds.c:634
 msgid "upload a file from the local machine"
-msgstr "wysyła plik do z lokalnej maszyny"
+msgstr "wysyła plik z lokalnej maszyny"
 
 #: fish/cmds.c:299 fish/cmds.c:1039
 msgid "set timestamp of a file with nanosecond precision"
@@ -1046,11 +1028,11 @@ msgstr "tworzy grupę woluminów LVM"
 
 #: fish/cmds.c:305 fish/cmds.c:1114
 msgid "get the LV UUIDs of all LVs in the volume group"
-msgstr ""
+msgstr "uzyskuje UUID wszystkich woluminów logicznych w grupie woluminów"
 
 #: fish/cmds.c:306 fish/cmds.c:1111
 msgid "get the PV UUIDs containing the volume group"
-msgstr ""
+msgstr "uzyskuje UUID woluminów fizycznych zawierających grupę woluminów"
 
 #: fish/cmds.c:307 fish/cmds.c:670
 msgid "remove an LVM volume group"
@@ -1067,11 +1049,11 @@ msgstr "wyświetla listę grup woluminów LVM"
 #: fish/cmds.c:311 fish/cmds.c:1132
 msgid "rescan for LVM physical volumes, volume groups and logical volumes"
 msgstr ""
+"ponownie skanuje woluminy fizyczne, grupy woluminów i woluminy logiczne LVM"
 
 #: fish/cmds.c:312 fish/cmds.c:1105
-#, fuzzy
 msgid "get the UUID of a volume group"
-msgstr "tworzy grupę woluminów LVM"
+msgstr "uzyskuje UUID grupy woluminów"
 
 #: fish/cmds.c:313 fish/cmds.c:796
 msgid "count characters in a file"
@@ -1086,9 +1068,8 @@ msgid "count words in a file"
 msgstr "liczy wyrazy w pliku"
 
 #: fish/cmds.c:316 fish/cmds.c:1174
-#, fuzzy
 msgid "create a new file"
-msgstr "tworzy plik"
+msgstr "tworzy nowy plik"
 
 #: fish/cmds.c:317 fish/cmds.c:568
 msgid "create a file"
@@ -1099,9 +1080,8 @@ msgid "write zeroes to the device"
 msgstr "zapisuje zera na urządzeniu"
 
 #: fish/cmds.c:321 fish/cmds.c:1120
-#, fuzzy
 msgid "write zeroes to an entire device"
-msgstr "zapisuje zera na urządzeniu"
+msgstr "zapisuje zera na całym urządzeniu"
 
 #: fish/cmds.c:322 fish/cmds.c:727
 msgid "zero unused inodes and disk blocks on ext2/3 filesystem"
@@ -1328,7 +1308,7 @@ msgid "Try `%s --help' for more information.\n"
 msgstr "Należy spróbować \"%s --help\", aby uzyskać więcej informacji.\n"
 
 #: fish/fish.c:92
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: guest filesystem shell\n"
 "%s lets you edit virtual machine filesystems\n"
@@ -1389,6 +1369,7 @@ msgstr ""
 "  --listen             Nasłuchuje zdalnych poleceń\n"
 "  -m|--mount dev[:mnt] Montuje dev w mnt (jeśli pominięto, w /)\n"
 "  -n|--no-sync         Nie synchronizuje automatycznie\n"
+"  -N|--new type        Tworzy przygotowany dysk (test1.img...)\n"
 "  --remote[=PID]       Wysyła polecenia do zdalnego %s\n"
 "  -r|--ro              Montuje w trybie tylko do odczytu\n"
 "  --selinux            Włącza obsługę SELinuksa\n"
@@ -1426,11 +1407,11 @@ msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: można podać tylko jeden parametr -f\n"
 
 #: fish/fish.c:370
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: cannot use -i option with -a, -m, -N, --listen, --remote or --selinux\n"
 msgstr ""
-"%s: nie można użyć opcji -i z -a, -m, --listen, --remote lub --selinux\n"
+"%s: nie można użyć opcji -i z -a, -m, -N, --listen, --remote lub --selinux\n"
 
 #: fish/fish.c:377
 #, c-format
@@ -1453,7 +1434,7 @@ msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: nie można używać opcji --listen i --file w tym samym czasie\n"
 
 #: fish/fish.c:666
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "\n"
 "Welcome to guestfish, the libguestfs filesystem interactive shell for\n"
@@ -1469,6 +1450,7 @@ msgstr ""
 "modyfikowania systemów plików maszyn wirtualnych.\n"
 "\n"
 "Proszę podać: \"help\", aby uzyskać pomoc o poleceniach\n"
+"              \"man\", aby wyświetlić podręcznik\n"
 "              \"quit\", aby zakończyć powłokę\n"
 "\n"
 
@@ -1508,7 +1490,7 @@ msgstr "wyświetla listę poleceń lub pomoc polecenia"
 
 #: fish/fish.c:1031
 msgid "read the manual"
-msgstr ""
+msgstr "wyświetla podręcznik"
 
 #: fish/fish.c:1033
 msgid "quit guestfish"
@@ -1563,6 +1545,17 @@ msgid ""
 "\n"
 "    Size can be specified using standard suffixes, eg. '1M'.\n"
 msgstr ""
+"alloc - przydziela obraz\n"
+"     alloc <nazwa_pliku> <rozmiar>\n"
+"\n"
+"    Tworzy pusty (wypełniony zerami) plik o podanym rozmiarze,\n"
+"    a następnie dodaje go do dalszego badania.\n"
+"\n"
+"    Aby uzyskać bardziej zaawansowane tworzenie obrazu,\n"
+"    proszę zobaczyć narzędzie qemu-img.\n"
+"\n"
+"    Rozmiar może być podawany używając standardowych\n"
+"    przyrostków, np. \"1M\".\n"
 
 #: fish/fish.c:1075
 #, c-format
@@ -1578,7 +1571,7 @@ msgstr ""
 "    Wyświetla ostatnie parametry w terminalu.\n"
 
 #: fish/fish.c:1082
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "edit - edit a file in the image\n"
 "     edit <filename>\n"
@@ -1601,7 +1594,7 @@ msgstr ""
 "\n"
 "    Jest odpowiednikiem (i jest implementowane przez)\n"
 "    wykonania polecenia \"cat\", zmodyfikowania lokalnie, a\n"
-"    następnie wykonania polecenia \"write-file\".\n"
+"    następnie wykonania polecenia \"write\".\n"
 "\n"
 "    Normalnie używa zmiennej $EDITOR, ale jeśli zostanie użyty\n"
 "    alias \"vi\" lub \"emacs\", uzyskane zostaną te edytory.\n"
@@ -1651,6 +1644,10 @@ msgid ""
 "\n"
 "    Opens the manual page for guestfish.\n"
 msgstr ""
+"man - wyświetla podręcznik\n"
+"    man\n"
+"\n"
+"    Otwiera stronę podręcznika dla programu guestfish.\n"
 
 #: fish/fish.c:1116
 #, c-format
@@ -1722,7 +1719,7 @@ msgstr ""
 "przydatne do testowania.\n"
 
 #: fish/fish.c:1147
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "sparse - allocate a sparse image file\n"
 "     sparse <filename> <size>\n"
@@ -1759,16 +1756,8 @@ msgstr ""
 "    Aby uzyskać bardziej zaawansowane tworzenie obrazu,\n"
 "    proszę zobaczyć narzędzie qemu-img.\n"
 "\n"
-"    Można podać rozmiar (gdzie <nn> oznacza liczbę):\n"
-"    <nn>              liczba kilobajtów\n"
-"      np.: 1440       standardowa dyskietka 3.5\"\n"
-"    <nn>K lub <nn>KB  liczba kilobajtów\n"
-"    <nn>M lub <nn>MB  liczba megabajtów\n"
-"    <nn>G lub <nn>GB  liczba gigabajtów\n"
-"    <nn>T lub <nn>TB  liczba terabajtów\n"
-"    <nn>P lub <nn>PB  liczba petabajtów\n"
-"    <nn>E lub <nn>EB  liczba eksabajtów\n"
-"    <nn>sektory       liczba 512 bajtowych sektorów\n"
+"    Rozmiar może być podawany używając standardowych\n"
+"    przyrostków, np. \"1M\".\n"
 
 #: fish/fish.c:1166
 #, c-format
@@ -1798,6 +1787,9 @@ msgid ""
 "For a list of commands:             guestfish -h\n"
 "For complete documentation:         man guestfish\n"
 msgstr ""
+"Czy miał zostać otwarty obraz dysku?  guestfish -a dysk.img\n"
+"Lista poleceń:                        guestfish -h\n"
+"Pełna dokumentacja:                   man guestfish\n"
 
 #: fish/fish.c:1343
 #, c-format
@@ -1822,12 +1814,12 @@ msgstr "należy użyć \"lcd katalog\", aby zmienić lokalny katalog\n"
 #: fish/man.c:34
 #, c-format
 msgid "use 'man' without parameters to open the manual\n"
-msgstr ""
+msgstr "należy użyć \"man\" bez parametrów, aby otworzyć podręcznik\n"
 
 #: fish/man.c:53
-#, fuzzy, c-format
+#, c-format
 msgid "the external 'man' program failed\n"
-msgstr "zewnętrzne polecenie nie powiodło się: %s"
+msgstr "zewnętrzny program \"man\" nie powiódł się\n"
 
 #: fish/more.c:40
 #, c-format
@@ -1840,6 +1832,8 @@ msgid ""
 "List of available prepared disk images:\n"
 "\n"
 msgstr ""
+"Lista dostępnych przygotowanych obrazów dysków:\n"
+"\n"
 
 #: fish/prep.c:117
 #, c-format
@@ -1848,16 +1842,19 @@ msgid ""
 "\n"
 "%s\n"
 msgstr ""
+"guestfish -N %-16s %s\n"
+"\n"
+"%s\n"
 
 #: fish/prep.c:125
 #, c-format
 msgid "  Optional parameters:\n"
-msgstr ""
+msgstr "  Opcjonalne parametry:\n"
 
 #: fish/prep.c:132
 #, c-format
 msgid "<%s> %s (default: %s)\n"
-msgstr ""
+msgstr "<%s> %s (domyślnie: %s)\n"
 
 #: fish/prep.c:142
 #, c-format
@@ -1866,6 +1863,9 @@ msgid ""
 "directory.  (\"test2.img\" etc if -N option is given multiple times).\n"
 "For more information see the guestfish(1) manual.\n"
 msgstr ""
+"Przygotowane obrazy dysków są zapisywane do pliku \"test1.img\" w katalogu\n"
+"lokalnym. (\"test2.img\" itp.m jeśli podano opcję -N wiele razy).\n"
+"Więcej informacji można znaleźć w podręczniku guestfish(1).\n"
 
 #: fish/prep.c:179
 #, c-format
@@ -1873,26 +1873,30 @@ msgid ""
 "guestfish: -N parameter '%s': no such prepared disk image known.\n"
 "Use 'guestfish -N list' to list possible values for the -N parameter.\n"
 msgstr ""
+"guestfish: -N parametr \"%s\": nie ma takiego przygotowanego obrazu dysku.\n"
+"Należy użyć polecenia \"guestfish -N list\", aby wyświetlić listę możliwych\n"
+"wartości dla parametru -N.\n"
 
 #: fish/prep.c:241
 #, c-format
 msgid "guestfish: error creating prepared disk image '%s' on '%s': "
 msgstr ""
+"guestfish: błąd podczas tworzenia przygotowanego obrazu dysku \"%s\" na "
+"\"%s\": "
 
 #: fish/prep.c:258 fish/prep.c:265 fish/prep.c:280
-#, fuzzy
 msgid "failed to allocate disk"
-msgstr "przetworzenie fragmentu pliku nie powiodło się"
+msgstr "przydzielenie dysku nie powiodło się"
 
 #: fish/prep.c:272 fish/prep.c:287
 #, c-format
 msgid "failed to partition disk: %s"
-msgstr ""
+msgstr "partycjonowanie dysku nie powiodło się: %s"
 
 #: fish/prep.c:297
 #, c-format
 msgid "failed to create filesystem (%s): %s"
-msgstr ""
+msgstr "utworzenie systemu plików (%s) nie powiodło się: %s"
 
 #: fish/rc.c:249
 #, c-format
@@ -1997,104 +2001,105 @@ msgstr "%s: należy podać punkt montowania w systemie plików gospodarza\n"
 
 #: inspector/virt-inspector.pl:200
 msgid "virt-inspector: no image or VM names given"
-msgstr ""
+msgstr "virt-inspector: nie podano nazw obrazu lub maszyny wirtualnej"
 
 #: inspector/virt-inspector.pl:294
 msgid "--fish output is only possible with a single OS\n"
-msgstr ""
+msgstr "wyjście --fish jest możliwe tylko z pojedynczym systemem operacyjnym\n"
 
 #: inspector/virt-inspector.pl:324
 msgid "virt-inspector: no YAML support\n"
-msgstr ""
+msgstr "virt-inspector: brak obsługi YAML\n"
 
 #: inspector/virt-inspector.pl:363
-#, fuzzy
 msgid "  Mountpoints:\n"
-msgstr "wyświetla punkty montowania"
+msgstr " Punkty montowania:\n"
 
 #: inspector/virt-inspector.pl:369
-#, fuzzy
 msgid "  Filesystems:\n"
-msgstr "tworzy system plików"
+msgstr "  Systemy plików:\n"
 
 #: inspector/virt-inspector.pl:387
 msgid "  Modprobe aliases:\n"
-msgstr ""
+msgstr "  Aliasy modprobe:\n"
 
 #: inspector/virt-inspector.pl:398
 msgid "  Initrd modules:\n"
-msgstr ""
+msgstr "  Moduły initrd:\n"
 
 #: inspector/virt-inspector.pl:407
 msgid "  Applications:\n"
-msgstr ""
+msgstr "  Aplikacje:\n"
 
 #: inspector/virt-inspector.pl:414
 msgid "  Kernels:\n"
-msgstr ""
+msgstr "  Jądra:\n"
 
 #: inspector/virt-inspector.pl:426
 msgid "  Windows Registry entries:\n"
-msgstr ""
+msgstr "  Wpisy rejestru systemu Windows:\n"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:152
 msgid "open_guest: first parameter must be a string or an arrayref"
-msgstr ""
+msgstr "open_guest: pierwszy parametr musi być ciągiem lub \"arrayref\""
 
 #: perl/lib/Sys/Guestfs/Lib.pm:159
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "guest image {imagename} does not exist or is not readable"
-msgstr "Plik binarny \"%s\" nie istnieje lub nie jest wykonywalny\n"
+msgstr "obraz gościa {imagename} nie istnieje lub nie jest odczytywalny"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:164
 msgid ""
 "open_guest: no libvirt support (install Sys::Virt, XML::XPath and XML::"
 "XPath::XMLParser)"
 msgstr ""
+"open_guest: brak obsługi biblioteki libvirt (należy zainstalować Sys::Virt, "
+"XML::XPath i XML::XPath::XMLParser)"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:169
-#, fuzzy
 msgid "open_guest: too many domains listed on command line"
-msgstr "%s: puste polecenie wiersza poleceń\n"
+msgstr "open_guest: wyświetlono za dużo domen w wierszu poleceń"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:176
 msgid "open_guest: cannot connect to libvirt"
-msgstr ""
+msgstr "open_guest: nie można połączyć się z biblioteką libvirt"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:195
 #, perl-brace-format
 msgid "{imagename} is not the name of an inactive libvirt domain\n"
-msgstr ""
+msgstr "{imagename} nie jest nazwą nieaktywnej domeny biblioteki libvirt\n"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:198
 #, perl-brace-format
 msgid "{imagename} is not the name of a libvirt domain\n"
-msgstr ""
+msgstr "{imagename} nie jest nazwą domeny biblioteki libvirt\n"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:210
 #, perl-brace-format
 msgid "{imagename} seems to have no disk devices\n"
-msgstr ""
+msgstr "{imagename} nie posiada żadnych urządzeń dyskowych\n"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:435
 #, perl-brace-format
 msgid "returning non-canonical architecture type '{arch}'"
-msgstr ""
+msgstr "zwracanie niekanonicznego typu architektury \"{arch}\""
 
 #: perl/lib/Sys/Guestfs/Lib.pm:478
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "cpio command failed: {error}"
-msgstr "polecenie nie powiodło się: %s"
+msgstr "polecenie cpio nie powiodło się: {error}"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:490
 #, perl-brace-format
 msgid "file_architecture: no known binaries found in initrd image: {path}"
 msgstr ""
+"file_architecture: nie odnaleziono znanych plików binarnych w obrazie "
+"initrd: {path}"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:494
 #, perl-brace-format
 msgid "file_architecture: unknown architecture: {path}"
-msgstr ""
+msgstr "file_architecture: nieznana architektura: {path}"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:1208
 msgid ""
@@ -2107,70 +2112,77 @@ msgid ""
 "If you feel this is an error, please file a bug report including as much\n"
 "information about the disk image as possible.\n"
 msgstr ""
+"Nie wykryto żadnego systemu operacyjnego wewnątrz tego obrazu dysku.\n"
+"\n"
+"Może to być spowodowane faktem, że plik nie jest obrazem dysku, nie jest "
+"maszyną wirtualną lub program virt-inspector nie rozumie tego typu systemu.\n"
+"\n"
+"Jeśli jest to błąd, proszę wypełnić zgłoszenie błędu dołączając tak dużo "
+"informacji o pliku obrazu, jak to tylko możliwe (w języku angielskim).\n"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:1281
 #, perl-brace-format
 msgid "unknown filesystem label {label}\n"
-msgstr ""
+msgstr "nieznana etykieta systemu plików {label}\n"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:1291
 #, perl-brace-format
 msgid "unknown filesystem UUID {uuid}\n"
-msgstr ""
+msgstr "nieznany UUID systemu plików {uuid}\n"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:1314
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "unknown filesystem {fs}\n"
-msgstr "odmontowuje system plików"
+msgstr "nieznany system plików {fs}\n"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:1498
 #, perl-brace-format
 msgid "Error running rpm -qa: {error}"
-msgstr ""
+msgstr "Błąd podczas wykonywania polecenia rpm -qa: {error}"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:1524
 #, perl-brace-format
 msgid "Error running dpkg-query: {error}"
-msgstr ""
+msgstr "Błąd podczas wykonywania polecenia dpkg-query: {error}"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:1589
 msgid "Can't find grub on guest"
-msgstr ""
+msgstr "Nie można odnaleźć programu GRUB w gościu"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:1644
 #, perl-brace-format
 msgid "Grub entry {title} has no kernel"
-msgstr ""
+msgstr "Wpis programu GRUB {title} nie posiada jądra"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:1675
 #, perl-brace-format
 msgid "grub refers to {path}, which doesn't exist\n"
-msgstr ""
+msgstr "program GRUB odnosi się do {path}, który nie istnieje\n"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:1698
 #, perl-brace-format
 msgid "Grub entry {title} does not specify an initrd"
-msgstr ""
+msgstr "Wpis programu GRUB {title} nie określa initrd"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:1769
 #, perl-brace-format
 msgid "Didn't find modules directory {modules} for kernel {path}"
-msgstr ""
+msgstr "Nie odnaleziono katalogu modułów {modules} dla jądra {path}"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:1777
 #, perl-brace-format
 msgid "Couldn't guess kernel version number from path for kernel {path}"
-msgstr ""
+msgstr "Nie można odgadnąć numeru wersji jądra ze ścieżki jądra {path}"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:1838
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{path} doesn't match augeas pattern"
-msgstr "zwraca wiersze zgadzające się ze wzorem"
+msgstr "{path} nie zgadza się ze wzorem Augeas"
 
 #: perl/lib/Sys/Guestfs/Lib.pm:1877
 #, perl-brace-format
 msgid "{filename}: could not read initrd format"
-msgstr ""
+msgstr "{filename}: nie można odczytać formatu initrd"
 
 #: src/guestfs.c:290
 #, c-format
@@ -2205,9 +2217,8 @@ msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "należy wywołać guestfs_add_drive przed guestfs_launch"
 
 #: src/guestfs.c:954
-#, fuzzy
 msgid "the libguestfs handle has already been launched"
-msgstr "QEMU zostało już uruchomione"
+msgstr "program obsługi libguestfs został już uruchomiony"
 
 #: src/guestfs.c:974
 #, c-format
@@ -2492,132 +2503,138 @@ msgstr "polecenie mkisofs nie powiodło się: %s\n"
 #: tools/virt-cat.pl:128
 msgid "virt-cat: no image, VM names or filenames to cat given"
 msgstr ""
+"virt-cat: nie podano obrazu, nazw maszyn wirtualnych lub nazw plików dla "
+"polecenia cat"
 
 #: tools/virt-cat.pl:153
 msgid "multiboot operating systems are not supported by virt-cat"
 msgstr ""
+"systemy operacyjne \"multiboot\" nie są obsługiwane przez narzędzie virt-cat"
 
 #: tools/virt-df.pl:258
 msgid "Virtual Machine"
-msgstr ""
+msgstr "Maszyna wirtualna"
 
 #: tools/virt-df.pl:258
-#, fuzzy
 msgid "Filesystem"
-msgstr "tworzy system plików"
+msgstr "System plików"
 
 #: tools/virt-df.pl:261
 msgid "1K-blocks"
-msgstr ""
+msgstr "K-bloki"
 
 #: tools/virt-df.pl:263
 msgid "Size"
-msgstr ""
+msgstr "Rozmiar"
 
 #: tools/virt-df.pl:265
 msgid "Used"
-msgstr ""
+msgstr "Użyte"
 
 #: tools/virt-df.pl:266
 msgid "Available"
-msgstr ""
+msgstr "Dostępne"
 
 #: tools/virt-df.pl:267
 msgid "Use%"
-msgstr ""
+msgstr "Użycie%"
 
 #: tools/virt-df.pl:269
 msgid "Inodes"
-msgstr ""
+msgstr "I-węzły"
 
 #: tools/virt-df.pl:270
 msgid "IUsed"
-msgstr ""
+msgstr "IUżyte"
 
 #: tools/virt-df.pl:271
 msgid "IFree"
-msgstr ""
+msgstr "IWolne"
 
 #: tools/virt-df.pl:272
 msgid "IUse%"
-msgstr ""
+msgstr "IUżyte%"
 
 #: tools/virt-edit.pl:111
 msgid "virt-edit: no image, VM names or filenames to edit given"
 msgstr ""
+"virt-edit: nie podano obrazu, nazw maszyn wirtualnych lub nazw plików dla "
+"polecenia edit"
 
 #: tools/virt-edit.pl:136
 msgid "multiboot operating systems are not supported by virt-edit"
 msgstr ""
+"systemy operacyjne \"multiboot\" nie są obsługiwane przez narzędzie virt-edit"
 
 #: tools/virt-edit.pl:159
 msgid "File not changed.\n"
-msgstr ""
+msgstr "Plik nie został zmieniony.\n"
 
 #: tools/virt-list-filesystems.pl:121
 msgid "virt-list-filesystems: no image or VM name given"
-msgstr ""
+msgstr "virt-list-filesystems: nie podano obrazu lub nazwy maszyny wirtualnej"
 
 #: tools/virt-list-partitions.pl:131
 msgid "virt-list-partitions: no image or VM name given"
-msgstr ""
+msgstr "virt-list-partitions: nie podano obrazu lub nazwy maszyny wirtualnej"
 
 #: tools/virt-ls.pl:137 tools/virt-ls.pl:143
 msgid "virt-ls: cannot combine -l and -R options\n"
-msgstr ""
+msgstr "virt-ls: nie można łączyć opcji -l i -R\n"
 
 #: tools/virt-ls.pl:161
 msgid "virt-ls: no image, VM names or directory to list given"
 msgstr ""
+"virt-ls: nie podano obrazu, nazw maszyn wirtualnych lub katalogu do "
+"wyświetlenia"
 
 #: tools/virt-ls.pl:186
 msgid "multiboot operating systems are not supported by virt-ls\n"
 msgstr ""
+"systemy operacyjne \"multiboot\" nie są obsługiwane przez narzędzie virt-ls\n"
 
 #: tools/virt-make-fs.pl:291
 msgid "virt-make-fs input output\n"
-msgstr ""
+msgstr "virt-make-fs wejście wyjście\n"
 
 #: tools/virt-make-fs.pl:321
 msgid "unexpected output from 'du' command"
-msgstr ""
+msgstr "nieoczekiwane wyjście polecenia \"du\""
 
 #: tools/virt-make-fs.pl:333 tools/virt-make-fs.pl:347
 #: tools/virt-make-fs.pl:453
 #, perl-brace-format
 msgid "{f}: unknown input format: {fmt}\n"
-msgstr ""
+msgstr "{f}: nieznany format wyjścia: {fmt}\n"
 
 #: tools/virt-make-fs.pl:391
 #, perl-brace-format
 msgid "virt-make-fs: cannot parse size parameter: {sz}\n"
-msgstr ""
+msgstr "virt-make-fs: nie można przetworzyć parametru rozmiaru: {sz}\n"
 
 #: tools/virt-make-fs.pl:401
-#, fuzzy
 msgid ""
 "qemu-img create: failed to create disk image, see earlier error messages\n"
 msgstr ""
-"guestfs_launch nie powiodło się, proszę zobaczyć wcześniejsze komunikaty "
-"błędów"
+"qemu-img create: utworzenie obrazu dysku nie powiodło się, proszę zobaczyć "
+"wcześniejsze komunikaty błędów\n"
 
 #: tools/virt-make-fs.pl:412
 msgid "virt-make-fs: NTFS support was disabled when libguestfs was compiled\n"
 msgstr ""
+"virt-make-fs: obsługa systemu plików NTFS została wyłączona podczas "
+"komplikacji biblioteki libguestfs\n"
 
 #: tools/virt-make-fs.pl:437
-#, fuzzy
 msgid "tar: failed, see earlier messages\n"
 msgstr ""
-"guestfs_launch nie powiodło się, proszę zobaczyć wcześniejsze komunikaty "
-"błędów"
+"tar: nie powiodło się, proszę zobaczyć wcześniejsze komunikaty błędów\n"
 
 #: tools/virt-make-fs.pl:459
-#, fuzzy
 msgid "uncompress command failed, see earlier messages\n"
 msgstr ""
-"guestfs_launch nie powiodło się, proszę zobaczyć wcześniejsze komunikaty "
-"błędów"
+"polecenie uncompress nie powiodło się, proszę zobaczyć wcześniejsze "
+"komunikaty błędów\n"
 
 #: tools/virt-make-fs.pl:494
 msgid ""
@@ -2625,19 +2642,24 @@ msgid ""
 "An error here usually means that the program did not estimate the\n"
 "filesystem size correctly.  Please read the BUGS section of the manpage.\n"
 msgstr ""
+"virt-make-fs: błąd podczas kopiowania zawartości do systemu plików\n"
+"Błąd w tym miejscu zwykle oznacza, że program nie oszacował poprawnie\n"
+"rozmiar systemu plików. Proszę przeczytać sekcję BUGS strony podręcznika.\n"
 
 #: tools/virt-rescue.pl:194
 msgid "virt-rescue: no image or VM names rescue given"
 msgstr ""
+"virt-rescue: nie podano obrazu lub nazw maszyn wirtualnych dla polecenia "
+"rescue"
 
 #: tools/virt-resize.pl:33
 msgid "virt-resize: sorry this program does not work on a 32 bit host\n"
-msgstr ""
+msgstr "virt-rescue: ten program nie działa na 32 bitowym gospodarzu\n"
 
 #: tools/virt-resize.pl:511
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "virt-resize: {file}: does not exist or is not readable\n"
-msgstr "Plik binarny \"%s\" nie istnieje lub nie jest wykonywalny\n"
+msgstr "virt-resize: {file}: nie istnieje lub nie jest odczytywalny\n"
 
 #: tools/virt-resize.pl:513
 #, perl-brace-format
@@ -2646,17 +2668,22 @@ msgid ""
 "You have to create the destination disk before running this program.\n"
 "Please read the virt-resize(1) manpage for more information.\n"
 msgstr ""
+"virt-resize: {file}: nie istnieje lub nie jest zapisywalny\n"
+"Należy utworzyć dysk docelowy przed uruchomieniem tego programu.\n"
+"Proszę przeczytać stronę podręcznika virt-resize(1), aby dowiedzieć "
+"się więcej.\n"
 
 #: tools/virt-resize.pl:538 tools/virt-resize.pl:541
 #, perl-brace-format
 msgid ""
 "virt-resize: {file}: file is too small to be a disk image ({sz} bytes)\n"
 msgstr ""
+"virt-resize: {file}: plik jest za mały, aby był obrazem dysku ({sz} bajtów)\n"
 
 #: tools/virt-resize.pl:705
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "virt-resize: no logical volume called {n}\n"
-msgstr "zmienia rozmiar woluminu logicznego LVM"
+msgstr "virt-resize: brak woluminu logicznego o nazwie {n}\n"
 
 #: tools/virt-resize.pl:725
 #, perl-brace-format
@@ -2664,38 +2691,44 @@ msgid ""
 "{p}: partition not found in the source disk image, when using the '{opt}' "
 "command line option\n"
 msgstr ""
+"{p}: nie odnaleziono partycji w źródłowym obrazie dysku podczas używania "
+"opcji wiersza poleceń\"{opt}\"\n"
 
 #: tools/virt-resize.pl:731
 #, perl-brace-format
 msgid ""
 "{p}: partition ignored, you cannot use it in another command line argument\n"
 msgstr ""
+"{p}: zignorowano partycję, nie można jej używać w kolejnych parametrach "
+"wiersza poleceń\n"
 
 #: tools/virt-resize.pl:735
 #, perl-brace-format
 msgid ""
 "{p}: partition deleted, you cannot use it in another command line argument\n"
 msgstr ""
+"{p}: usunięto partycję, nie można jej używać w kolejnych parametrach wiersza "
+"poleceń\n"
 
 #: tools/virt-resize.pl:777
 #, perl-brace-format
 msgid "{p}: this partition has already been marked for resizing\n"
-msgstr ""
+msgstr "{p}: ta partycja została już oznaczona do zmiany rozmiaru\n"
 
 #: tools/virt-resize.pl:785
 #, perl-brace-format
 msgid "{p}: missing size field in {o} option\n"
-msgstr ""
+msgstr "{p}: brak pola rozmiaru w opcji {o}\n"
 
 #: tools/virt-resize.pl:802
 #, perl-brace-format
 msgid "{p}: {f}: cannot parse size field\n"
-msgstr ""
+msgstr "{p}: {f}: nie można przetworzyć pola rozmiaru\n"
 
 #: tools/virt-resize.pl:807
 #, perl-brace-format
 msgid "{p}: new size is zero or negative\n"
-msgstr ""
+msgstr "{p}: nowy rozmiar wynosi zero lub jest ujemny\n"
 
 #: tools/virt-resize.pl:830
 #, perl-brace-format
@@ -2705,10 +2738,15 @@ msgid ""
 "size.\n"
 "You have to resize the content first, see virt-resize(1).\n"
 msgstr ""
+"{p}: nie można zmniejszyć tej partycji, ponieważ zawiera ona system plików,\n"
+"wolumin fizyczny lub inną zawartość, która jest większa niż nowy rozmiar.\n"
+"Należy najpierw zmienić rozmiar zawartości, w tym celu proszę zobaczyć "
+"stronę podręcznika virt-resize(1).\n"
 
 #: tools/virt-resize.pl:846
 msgid "virt-resize: you cannot use options --expand and --shrink together\n"
 msgstr ""
+"virt-resize: nie można używać razem opcji --expand i --shrink together\n"
 
 #: tools/virt-resize.pl:895
 #, perl-brace-format
@@ -2716,72 +2754,81 @@ msgid ""
 "virt-resize: error: cannot use --expand when there is no surplus space to\n"
 "expand into.  You need to make the target disk larger by at least {h}.\n"
 msgstr ""
+"virt-resize: błąd: nie można użyć opcji --expand, kiedy nie ma miejsca na\n"
+"rozszerzenie. Należy zwiększyć dysk docelowy o co najmniej {h}.\n"
 
 #: tools/virt-resize.pl:910
 msgid ""
 "virt-resize: error: cannot use --shrink because there is no deficit\n"
 "(see 'deficit' in the virt-resize(1) man page)\n"
 msgstr ""
+"virt-resize: błąd: nie można użyć opcji --shrink, ponieważ brak deficytu\n"
+"(proszę zobaczyć \"deficit\" na stronie podręcznika virt-resize(1)).\n"
 
 #: tools/virt-resize.pl:925
 msgid "Summary of changes:\n"
-msgstr ""
+msgstr "Podsumowanie zmian:\n"
 
 #: tools/virt-resize.pl:929
 #, perl-brace-format
 msgid "{p}: partition will be ignored\n"
-msgstr ""
+msgstr "{p}: partycja zostanie zignorowana\n"
 
 #: tools/virt-resize.pl:931
 #, perl-brace-format
 msgid "{p}: partition will be deleted\n"
-msgstr ""
+msgstr "{p}: partycja zostanie usunięta\n"
 
 #: tools/virt-resize.pl:933
 #, perl-brace-format
 msgid "{p}: partition will be resized from {oldsize} to {newsize}\n"
-msgstr ""
+msgstr "{p}: rozmiar partycji zostanie zmieniony z {oldsize} do {newsize}\n"
 
 #: tools/virt-resize.pl:938
 #, perl-brace-format
 msgid "{p}: content will be expanded using the '{meth}' method\n"
-msgstr ""
+msgstr "{p}: zawartość zostanie rozszerzona używając metody \"{meth}\"\n"
 
 #: tools/virt-resize.pl:943
 #, perl-brace-format
 msgid "{p}: partition will be left alone\n"
-msgstr ""
+msgstr "{p}: partycja zostanie pozostawiona bez zmian\n"
 
 #: tools/virt-resize.pl:948
 #, perl-brace-format
 msgid "{n}: LV will be expanded to maximum size\n"
-msgstr ""
+msgstr "{n}: wolumin logiczny zostanie rozszerzony do maksymalnego rozmiaru\n"
 
 #: tools/virt-resize.pl:954
 #, perl-brace-format
 msgid "{n}: content will be expanded using the '{meth}' method\n"
-msgstr ""
+msgstr "{n}: zawartość zostanie rozszerzona używając metody \"{meth}\"\n"
 
 #: tools/virt-resize.pl:961
 #, perl-brace-format
 msgid "There is a surplus of {spl} bytes ({h}).\n"
-msgstr ""
+msgstr "Istnieje nadmiar {spl} bajtów ({h}).\n"
 
 #: tools/virt-resize.pl:966
 msgid "An extra partition will be created for the surplus.\n"
-msgstr ""
+msgstr "Dodatkowa partycja zostanie utworzona dla nadmiarowego miejsca.\n"
 
 #: tools/virt-resize.pl:968
 msgid ""
 "The surplus space is not large enough for an extra partition to be created\n"
 "and so it will just be ignored.\n"
 msgstr ""
+"Nadmiarowe miejsce nie jest dostatecznie duże do utworzenia dodatkowej\n"
+"partycji, więc zostanie zignorowane.\n"
 
 #: tools/virt-resize.pl:971
 msgid ""
 "The surplus space will be ignored.  Run a partitioning program in the guest\n"
 "to partition this extra space if you want.\n"
 msgstr ""
+"Nadmiarowe miejsce zostanie zignorowane. Można uruchomić program\n"
+"partycjonowania w gościu, aby partycjonować te dodatkowe miejsce w razie\n"
+"potrzeby.\n"
 
 #: tools/virt-resize.pl:974
 #, perl-brace-format
@@ -2790,129 +2837,92 @@ msgid ""
 "You need to make the target disk larger by at least this amount,\n"
 "or adjust your resizing requests.\n"
 msgstr ""
+"virt-resize: błąd: istnieje deficyt {def} bajtów ({h}).\n"
+"Należy zwiększyć dysk docelowy co najmniej o tę ilość lub dostosować\n"
+"żądania zmiany rozmiaru.\n"
 
 #: tools/virt-resize.pl:1015
 msgid "virt-resize: source disk does not have a first partition\n"
-msgstr ""
+msgstr "virt-resize: dysk źródłowy nie posiada pierwszej partycji\n"
 
 #: tools/virt-resize.pl:1111
 #, perl-brace-format
 msgid "Copying {p} ..."
-msgstr ""
+msgstr "Kopiowanie {p}..."
 
 #: tools/virt-resize.pl:1118
 msgid "done"
-msgstr ""
+msgstr "ukończono"
 
 #: tools/virt-resize.pl:1176 tools/virt-resize.pl:1234
 #, perl-brace-format
 msgid "Expanding {p} using the '{meth}' method\n"
-msgstr ""
+msgstr "Rozszerzanie {p} używając metody \"{meth}\"\n"
 
 #: tools/virt-tar.pl:163 tools/virt-tar.pl:170
 msgid "virt-tar: extract/upload mode specified twice on the command line\n"
-msgstr ""
+msgstr "virt-tar: wydobywa/wysyła tryb podany dwukrotnie w wierszu poleceń\n"
 
 #: tools/virt-tar.pl:191
 msgid "virt-tar: no image, VM names, directory or filename given"
 msgstr ""
+"virt-tar: nie podano obrazu, nazw maszyn wirtualnych, katalogu lub nazwy "
+"pliku"
 
 #: tools/virt-tar.pl:194
 msgid "virt-tar: either -x or -u must be specified on the command line\n"
-msgstr ""
+msgstr "virt-tar: należy podać opcję -x lub -u w wierszu poleceń\n"
 
 #: tools/virt-tar.pl:205
 #, perl-brace-format
 msgid "virt-tar: {tarball}: file not found\n"
-msgstr ""
+msgstr "virt-tar: {tarball}: nie odnaleziono pliku\n"
 
 #: tools/virt-tar.pl:208
 #, perl-brace-format
 msgid "virt-tar: {dir}: directory name must start with '/' character\n"
-msgstr ""
+msgstr "virt-tar: {dir}: nazwa katalogu musi zaczynać się od znaku \"/\"\n"
 
 #: tools/virt-tar.pl:230
 msgid "multiboot operating systems are not supported by virt-tar\n"
 msgstr ""
+"systemy operacyjne \"multiboot\" nie są obsługiwane przez program virt-tar\n"
 
 #: tools/virt-win-reg.pl:259
 msgid "no libvirt domain name or disk image given\n"
-msgstr ""
+msgstr "nie podano nazwy domeny libvirt lub obrazu dysku\n"
 
 #: tools/virt-win-reg.pl:283
 msgid "multiboot operating systems are not supported by virt-win-reg"
 msgstr ""
+"systemy operacyjne \"multiboot\" nie są obsługiwane przez program virt-win-"
+"reg"
 
 #: tools/virt-win-reg.pl:297
 msgid ""
 "expecting 1 or 2 more parameters, subkey path and optionally the value to "
 "export\n"
 msgstr ""
+"oczekiwano jednego lub dwóch parametrów, ścieżki do podklucza i opcjonalnie "
+"wartości do wyeksportowania\n"
 
 #: tools/virt-win-reg.pl:408
 #, perl-brace-format
 msgid "virt-win-reg: {p}: not a supported Windows Registry path\n"
 msgstr ""
+"virt-win-reg: {p}: nie jest obsługiwaną ścieżką rejestru systemu Windows\n"
 
 #: tools/virt-win-reg.pl:426 tools/virt-win-reg.pl:449
 #, perl-brace-format
 msgid "virt-win-reg: {p}: file not found in guest: {err}\n"
-msgstr ""
+msgstr "virt-win-reg: {p}: nie odnaleziono pliku w gościu: {err}\n"
 
 #: tools/virt-win-reg.pl:433
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not download registry file: {err}\n"
-msgstr ""
+msgstr "virt-win-reg: {p}: nie można pobrać pliku rejestru: {err}\n"
 
 #: tools/virt-win-reg.pl:456
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
-msgstr ""
-
-#~ msgid "could not parse size specification '%s'\n"
-#~ msgstr "nie można przetworzyć określenia rozmiaru \"%s\"\n"
-
-#~ msgid ""
-#~ "alloc - allocate an image\n"
-#~ "     alloc <filename> <size>\n"
-#~ "\n"
-#~ "    This creates an empty (zeroed) file of the given size,\n"
-#~ "    and then adds so it can be further examined.\n"
-#~ "\n"
-#~ "    For more advanced image creation, see qemu-img utility.\n"
-#~ "\n"
-#~ "    Size can be specified (where <nn> means a number):\n"
-#~ "    <nn>             number of kilobytes\n"
-#~ "      eg: 1440       standard 3.5\" floppy\n"
-#~ "    <nn>K or <nn>KB  number of kilobytes\n"
-#~ "    <nn>M or <nn>MB  number of megabytes\n"
-#~ "    <nn>G or <nn>GB  number of gigabytes\n"
-#~ "    <nn>T or <nn>TB  number of terabytes\n"
-#~ "    <nn>P or <nn>PB  number of petabytes\n"
-#~ "    <nn>E or <nn>EB  number of exabytes\n"
-#~ "    <nn>sects        number of 512 byte sectors\n"
-#~ msgstr ""
-#~ "alloc - przydziela obraz\n"
-#~ "     alloc <nazwa_pliku> <rozmiar>\n"
-#~ "\n"
-#~ "    Tworzy pusty (wypełniony zerami) plik o podanym rozmiarze,\n"
-#~ "    a następnie dodaje go, aby mógł być dalej badany.\n"
-#~ "\n"
-#~ "    Aby uzyskać bardziej zaawansowane tworzenie obrazu,\n"
-#~ "    proszę zobaczyć narzędzie qemu-img.\n"
-#~ "\n"
-#~ "    Można podać rozmiar (gdzie <nn> oznacza liczbę):\n"
-#~ "    <nn>              liczba kilobajtów\n"
-#~ "      np.: 1440       standardowa dyskietka 3.5\"\n"
-#~ "    <nn>K lub <nn>KB  liczba kilobajtów\n"
-#~ "    <nn>M lub <nn>MB  liczba megabajtów\n"
-#~ "    <nn>G lub <nn>GB  liczba gigabajtów\n"
-#~ "    <nn>T lub <nn>TB  liczba terabajtów\n"
-#~ "    <nn>P lub <nn>PB  liczba petabajtów\n"
-#~ "    <nn>E lub <nn>EB  liczba eksabajtów\n"
-#~ "    <nn>sektory       liczba 512 bajtowych sektorów\n"
-
-#~ msgid "%s: virt-inspector command too long for fixed-size buffer\n"
-#~ msgstr ""
-#~ "%s: polecenie virt-inspector jest za długie dla bufora o stałym "
-#~ "rozmiarze\n"
+msgstr "virt-win-reg: {p}: nie można wysłać pliku rejestru: {err}\n"
