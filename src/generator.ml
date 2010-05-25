@@ -4278,6 +4278,8 @@ the libguestfs appliance will be able to provide.
 
 The libguestfs groups, and the functions that those
 groups correspond to, are listed in L<guestfs(3)/AVAILABILITY>.
+You can also fetch this list at runtime by calling
+C<guestfs_available_all_groups>.
 
 The argument C<groups> is a list of group names, eg:
 C<[\"inotify\", \"augeas\"]> would check for the availability of
@@ -4707,6 +4709,18 @@ allows you to specify the new size (in bytes) explicitly.");
    "\
 This command is the same as C<guestfs_ntfsresize> except that it
 allows you to specify the new size (in bytes) explicitly.");
+
+  ("available_all_groups", (RStringList "groups", []), 251, [],
+   [],
+   "return a list of all optional groups",
+   "\
+This command returns a list of all optional groups that this
+daemon knows about.  Note this returns both supported and unsupported
+groups.  To find out which ones the daemon can actually support
+you have to call C<guestfs_available> on each member of the
+returned list.
+
+See also C<guestfs_available> and L<guestfs(3)/AVAILABILITY>.");
 
 ]
 
