@@ -707,8 +707,8 @@ L</REMOTE CONTROL GUESTFISH OVER A SOCKET>.
 
 =item HOME
 
-If compiled with GNU readline support, then the command history
-is saved in C<$HOME/.guestfish>
+If compiled with GNU readline support, various files in the
+home directory can be used.  See L</FILES>.
 
 =item LIBGUESTFS_APPEND
 
@@ -755,6 +755,31 @@ handle will require rather a large amount of space in this directory
 for short periods of time (~ 80 MB).  You can use C<$TMPDIR> to
 configure another directory to use in case C</tmp> is not large
 enough.
+
+=back
+
+=head1 FILES
+
+=over 4
+
+=item $HOME/.guestfish
+
+If compiled with GNU readline support, then the command history
+is saved in this file.
+
+=item $HOME/.inputrc
+
+=item /etc/inputrc
+
+If compiled with GNU readline support, then these files can be used to
+configure readline.  For further information, please see
+L<readline(3)/INITIALIZATION FILE>.
+
+To write rules which only apply to guestfish, use:
+
+ $if guestfish
+ ...
+ $endif
 
 =back
 
