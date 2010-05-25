@@ -61,7 +61,22 @@ L<virt-list-filesystems(1)> and
 L<virt-df(1)>,
 we recommend you go and read those manual pages first.
 
-=head1 BASIC USAGE
+=head1 EXAMPLES
+
+Copy C<olddisk> to C<newdisk>, extending one of the guest's partitions
+to fill the extra 5GB of space.
+
+ truncate -r olddisk newdisk; truncate -s +5G newdisk
+ virt-list-partitions -lht olddisk
+ # Note "/dev/sda2" is a partition inside the "olddisk" file.
+ virt-resize --expand /dev/sda2 olddisk newdisk
+
+As above, but make the /boot partition 200MB bigger, while giving the
+remaining space to /dev/sda2:
+
+ virt-resize --resize /dev/sda1=+200M --expand /dev/sda2 olddisk newdisk
+
+=head1 DETAILED USAGE
 
 =head2 EXPANDING A VIRTUAL MACHINE DISK
 
