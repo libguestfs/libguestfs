@@ -904,6 +904,22 @@ To write rules which only apply to guestfish, use:
  ...
  $endif
 
+Variables that you can set in inputrc that change the behaviour
+of guestfish in useful ways include:
+
+=over 4
+
+=item completion-ignore-case (default: on)
+
+By default, guestfish will ignore case when tab-completing
+paths on the disk.  Use:
+
+ set completion-ignore-case off
+
+to make guestfish case sensitive.
+
+=back
+
 =item test1.img
 
 =item test2.img (etc)

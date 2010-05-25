@@ -1417,6 +1417,13 @@ initialize_readline (void)
 
   rl_readline_name = "guestfish";
   rl_attempted_completion_function = do_completion;
+
+  /* Note that .inputrc (or /etc/inputrc) is not read until the first
+   * call the readline(), which happens later.  Therefore, these
+   * provide default values which can be overridden by the user if
+   * they wish.
+   */
+  (void) rl_variable_bind ("completion-ignore-case", "on");
 #endif
 }
 
