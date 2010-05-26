@@ -3783,8 +3783,8 @@ was built (see C<appliance/kmod.whitelist.in> in the source).");
     )],
    "echo arguments back to the client",
    "\
-This command concatenate the list of C<words> passed with single spaces between
-them and returns the resulting string.
+This command concatenates the list of C<words> passed with single spaces
+between them and returns the resulting string.
 
 You can use this command to test the connection through to the daemon.
 
