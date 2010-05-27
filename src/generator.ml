@@ -3911,8 +3911,13 @@ file must exist already.");
    "truncate a file to a particular size",
    "\
 This command truncates C<path> to size C<size> bytes.  The file
-must exist already.  If the file is smaller than C<size> then
-the file is extended to the required size with null bytes.");
+must exist already.
+
+If the current file size is less than C<size> then
+the file is extended to the required size with zero bytes.
+This creates a sparse file (ie. disk blocks are not allocated
+for the file until you write to it).  To create a non-sparse
+file of zeroes, use C<guestfs_fallocate64> instead.");
 
   ("utimens", (RErr, [Pathname "path"; Int64 "atsecs"; Int64 "atnsecs"; Int64 "mtsecs"; Int64 "mtnsecs"]), 201, [],
    [InitBasicFS, Always, TestOutputStruct (
