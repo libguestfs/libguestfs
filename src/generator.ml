@@ -3904,12 +3904,13 @@ See also C<guestfs_realpath>.");
       [["vfs_type"; "/dev/sda1"]], "ext2")],
    "get the Linux VFS type corresponding to a mounted device",
    "\
-This command gets the block device type corresponding to
-a mounted device called C<device>.
+This command gets the filesystem type corresponding to
+the filesystem on C<device>.
 
-Usually the result is the name of the Linux VFS module that
-is used to mount this device (probably determined automatically
-if you used the C<guestfs_mount> call).");
+For most filesystems, the result is the name of the Linux
+VFS module which would be used to mount this filesystem
+if you mounted it without specifying the filesystem type.
+For example a string such as C<ext3> or C<ntfs>.");
 
   ("truncate", (RErr, [Pathname "path"]), 199, [],
    [InitBasicFS, Always, TestOutputStruct (
