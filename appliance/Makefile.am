@@ -90,6 +90,9 @@ stamp-supermin: $(INITRAMFSIMG)
 	mkdir -p supermin.d
 	rm -f $@ supermin.d/base.img supermin.d/hostfiles
 	febootstrap-to-supermin $(top_builddir)/initramfs supermin.d/base.img supermin.d/hostfiles
+	if grep -q /usr/share/augeas/lenses supermin.d/hostfiles; then \
+		echo "./usr/share/augeas/lenses/*.aug" >> supermin.d/hostfiles; \
+	fi
 	touch $@
 
 supermin.d/daemon.img: $(INITRAMFSIMG)
