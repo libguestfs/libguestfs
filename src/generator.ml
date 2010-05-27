@@ -3141,7 +3141,7 @@ Unknown file type
 
 =item '?'
 
-The L<readdir(3)> returned a C<d_type> field with an
+The L<readdir(3)> call returned a C<d_type> field with an
 unexpected value
 
 =back
