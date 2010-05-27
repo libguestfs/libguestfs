@@ -4022,7 +4022,7 @@ C<names> is the list of files from this directory.
 
 On return you get a list of strings, with a one-to-one
 correspondence to the C<names> list.  Each string is the
-value of the symbol link.
+value of the symbolic link.
 
 If the C<readlink(2)> operation fails on any name, then
 the corresponding result string is the empty string C<\"\">.
