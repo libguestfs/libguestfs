@@ -807,8 +807,10 @@ C<$major.$minor.$release$extra>
 See also: L<guestfs(3)/LIBGUESTFS VERSION NUMBERS>.
 
 I<Note:> Don't use this call to test for availability
-of features.  Distro backports makes this unreliable.  Use
-C<guestfs_available> instead.");
+of features.  In enterprise distributions we backport
+features from later versions into earlier versions,
+making this an unreliable way to test for features.
+Use C<guestfs_available> instead.");
 
   ("set_selinux", (RErr, [Bool "selinux"]), -1, [FishAlias "selinux"],
    [InitNone, Always, TestOutputTrue (
