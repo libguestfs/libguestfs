@@ -807,6 +807,8 @@ used for distro-specific information.
 To construct the original version string:
 C<$major.$minor.$release$extra>
 
+See also: L<guestfs(3)/LIBGUESTFS VERSION NUMBERS>.
+
 I<Note:> Don't use this call to test for availability
 of features.  Distro backports makes this unreliable.  Use
 C<guestfs_available> instead.");
