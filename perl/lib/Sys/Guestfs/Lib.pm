@@ -1802,13 +1802,6 @@ sub _find_modprobe_aliases
     # Initialise augeas
     $g->aug_init("/", 16);
 
-    # Register additional paths to the Modprobe lens
-    $g->aug_set("/augeas/load/Modprobe/incl[last()+1]", "/etc/modules.conf");
-    $g->aug_set("/augeas/load/Modprobe/incl[last()+1]", "/etc/conf.modules");
-
-    # Make augeas reload
-    $g->aug_load();
-
     my %modprobe_aliases;
 
     for my $pattern qw(/files/etc/conf.modules/alias
