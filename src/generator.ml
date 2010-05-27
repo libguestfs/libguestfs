@@ -3475,7 +3475,7 @@ The C<-f> option removes the link (C<linkname>) if it exists already.");
    "\
 This command reads the target of a symbolic link.");
 
-  ("fallocate", (RErr, [Pathname "path"; Int "len"]), 169, [],
+  ("fallocate", (RErr, [Pathname "path"; Int "len"]), 169, [DeprecatedBy "fallocate64"],
    [InitBasicFS, Always, TestOutputStruct (
       [["fallocate"; "/a"; "1000000"];
        ["stat"; "/a"]], [CompareWithInt ("size", 1_000_000)])],
@@ -4721,6 +4721,28 @@ you have to call C<guestfs_available> on each member of the
 returned list.
 
 See also C<guestfs_available> and L<guestfs(3)/AVAILABILITY>.");
+
+  ("fallocate64", (RErr, [Pathname "path"; Int64 "len"]), 252, [],
+   [InitBasicFS, Always, TestOutputStruct (
+      [["fallocate64"; "/a"; "1000000"];
+       ["stat"; "/a"]], [CompareWithInt ("size", 1_000_000)])],
+   "preallocate a file in the guest filesystem",
+   "\
+This command preallocates a file (containing zero bytes) named
+C<path> of size C<len> bytes.  If the file exists already, it
+is overwritten.
+
+Note that this call allocates disk blocks for the file.
+To create a sparse file use C<guestfs_truncate_size> instead.
+
+The deprecated call C<guestfs_fallocate> does the same,
+but owing to an oversight it only allowed 30 bit lengths
+to be specified, effectively limiting the maximum size
+of files created through that call to 1GB.
+
+Do not confuse this with the guestfish-specific
+C<alloc> and C<sparse> commands which create
+a file in the host and attach it as a device.");
 
 ]
 

@@ -31,6 +31,17 @@
 int
 do_fallocate (const char *path, int len)
 {
+  if (len < 0) {
+    reply_with_error ("length < 0");
+    return -1;
+  }
+
+  return do_fallocate64 (path, len);
+}
+
+int
+do_fallocate64 (const char *path, int64_t len)
+{
   int fd;
 
   CHROOT_IN;
