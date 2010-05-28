@@ -275,3 +275,9 @@ http://la-samhna.de/samhain/
 http://sourceforge.net/projects/aide/
 http://osiris.shmoo.com/
 http://sourceforge.net/projects/tripwire/
+
+-N option should be generated
+-----------------------------
+
+'-N' option should be generated code, and should generate
+documentation in guestfish(1) manpage.
