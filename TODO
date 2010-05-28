@@ -294,20 +294,3 @@ http://la-samhna.de/samhain/
 http://sourceforge.net/projects/aide/
 http://osiris.shmoo.com/
 http://sourceforge.net/projects/tripwire/
-
-Resizing, shrinking, specifying sizes in guestfish
---------------------------------------------------
-
-Owing to an oversight we don't really supporting shrinking
-filesystems.  See:
-
-https://bugzilla.redhat.com/show_bug.cgi?id=585221
-https://bugzilla.redhat.com/show_bug.cgi?id=585222
-https://bugzilla.redhat.com/show_bug.cgi?id=585223
-
-But a related problem is how to specify sizes to guestfish, ie. "100M"
-or "1G".  Currently the specific alloc and sparse functions contain
-code to parse these size strings, but that cannot be used anywhere
-else that would take a byte count.  This is awkward because some
-commands take units of megabytes (lvresize, sfdiskM) or sectors
-(part-add), with no unifying theme.
