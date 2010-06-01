@@ -1552,7 +1552,10 @@ C<guestfs_part_init>");
        ["cat"; "/new"]], "\n\n\n");
     InitBasicFS, Always, TestOutput (
       [["write_file"; "/new"; "\n"; "0"];
-       ["cat"; "/new"]], "\n")],
+       ["cat"; "/new"]], "\n");
+    (* Regression test for RHBZ#597135. *)
+    InitBasicFS, Always, TestLastFail
+      [["write_file"; "/new"; "abc"; "10000"]]],
    "create a file",
    "\
 This call creates a file called C<path>.  The contents of the

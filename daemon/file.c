@@ -288,8 +288,29 @@ do_write_file (const char *path, const char *content, int size)
 {
   int fd;
 
+  /* This call is deprecated, and it has a broken interface.  New code
+   * should use the 'guestfs_write' call instead.  Because we used an
+   * XDR string type, 'content' cannot contain ASCII NUL and 'size'
+   * must never be longer than the string.  We must check this to
+   * ensure random stuff from XDR or daemon memory isn't written to
+   * the file (RHBZ#597135).
+   */
+  if (size < 0) {
+    reply_with_error ("size cannot be negative");
+    return -1;
+  }
+
+  /* Note content_len must be small because of the limits on protocol
+   * message size.
+   */
+  int content_len = (int) strlen (content);
+
   if (size == 0)
-    size = strlen (content);
+    size = content_len;
+  else if (size > content_len) {
+    reply_with_error ("size parameter is larger than string content");
+    return -1;
+  }
 
   CHROOT_IN;
   fd = open (path, O_WRONLY | O_TRUNC | O_CREAT | O_NOCTTY, 0666);
