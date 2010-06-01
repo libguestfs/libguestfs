@@ -27,14 +27,14 @@
 #include "daemon.h"
 #include "actions.h"
 
-char *
-do_vfs_type (const char *device)
+static char *
+get_blkid_tag (const char *device, const char *tag)
 {
   char *out, *err;
   int r;
 
   r = command (&out, &err,
-               "blkid", "-o", "value", "-s", "TYPE", device, NULL);
+               "blkid", "-o", "value", "-s", tag, device, NULL);
   if (r == -1) {
     reply_with_error ("%s: %s", device, err);
     free (out);
@@ -50,4 +50,10 @@ do_vfs_type (const char *device)
     out[len-1] = '\0';
 
   return out;                   /* caller frees */
+}
+
+char *
+do_vfs_type (const char *device)
+{
+  return get_blkid_tag (device, "TYPE");
 }
