@@ -170,29 +170,7 @@ do_set_e2label (const char *device, const char *label)
 char *
 do_get_e2label (const char *device)
 {
-  int r, len;
-  char *out, *err;
-
-  char prog[] = "e2label";
-  if (e2prog (prog) == -1)
-    return NULL;
-
-  r = command (&out, &err, prog, device, NULL);
-  if (r == -1) {
-    reply_with_error ("%s", err);
-    free (out);
-    free (err);
-    return NULL;
-  }
-
-  free (err);
-
-  /* Remove any trailing \n from the label. */
-  len = strlen (out);
-  if (len > 0 && out[len-1] == '\n')
-    out[len-1] = '\0';
-
-  return out;			/* caller frees */
+  return do_vfs_label (device);
 }
 
 int
@@ -219,65 +197,7 @@ do_set_e2uuid (const char *device, const char *uuid)
 char *
 do_get_e2uuid (const char *device)
 {
-  int r;
-  char *out, *err, *p, *q;
-
-  /* It's not so straightforward to get the volume UUID.  We have
-   * to use tune2fs -l and then look for a particular string in
-   * the output.
-   */
-  char prog[] = "tune2fs";
-  if (e2prog (prog) == -1)
-    return NULL;
-
-  r = command (&out, &err, prog, "-l", device, NULL);
-  if (r == -1) {
-    reply_with_error ("%s", err);
-    free (out);
-    free (err);
-    return NULL;
-  }
-
-  free (err);
-
-  /* Look for /\nFilesystem UUID:\s+/ in the output. */
-  p = strstr (out, "\nFilesystem UUID:");
-  if (p == NULL) {
-    reply_with_error ("no Filesystem UUID in the output of tune2fs -l");
-    free (out);
-    return NULL;
-  }
-
-  p += 17;
-  while (*p && c_isspace (*p))
-    p++;
-  if (!*p) {
-    reply_with_error ("malformed Filesystem UUID in the output of tune2fs -l");
-    free (out);
-    return NULL;
-  }
-
-  /* Now 'p' hopefully points to the start of the UUID. */
-  q = p;
-  while (*q && (c_isxdigit (*q) || *q == '-'))
-    q++;
-  if (!*q) {
-    reply_with_error ("malformed Filesystem UUID in the output of tune2fs -l");
-    free (out);
-    return NULL;
-  }
-
-  *q = '\0';
-
-  p = strdup (p);
-  if (!p) {
-    reply_with_perror ("strdup");
-    free (out);
-    return NULL;
-  }
-
-  free (out);
-  return p;			/* caller frees */
+  return do_vfs_uuid (device);
 }
 
 int

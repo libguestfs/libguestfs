@@ -2222,7 +2222,7 @@ C<device> to C<label>.  Filesystem labels are limited to
 You can use either C<guestfs_tune2fs_l> or C<guestfs_get_e2label>
 to return the existing label on a filesystem.");
 
-  ("get_e2label", (RString "label", [Device "device"]), 81, [],
+  ("get_e2label", (RString "label", [Device "device"]), 81, [DeprecatedBy "vfs_label"],
    [],
    "get the ext2/3/4 filesystem label",
    "\
@@ -2252,8 +2252,13 @@ L<tune2fs(8)> manpage.
 You can use either C<guestfs_tune2fs_l> or C<guestfs_get_e2uuid>
 to return the existing UUID of a filesystem.");
 
-  ("get_e2uuid", (RString "uuid", [Device "device"]), 83, [],
-   [],
+  ("get_e2uuid", (RString "uuid", [Device "device"]), 83, [DeprecatedBy "vfs_uuid"],
+   (* Regression test for RHBZ#597112. *)
+   (let uuid = uuidgen () in
+    [InitBasicFS, Always, TestOutput (
+       [["mke2journal"; "1024"; "/dev/sdb"];
+        ["set_e2uuid"; "/dev/sdb"; uuid];
+        ["get_e2uuid"; "/dev/sdb"]], uuid)]),
    "get the ext2/3/4 filesystem UUID",
    "\
 This returns the ext2/3/4 filesystem UUID of the filesystem on
