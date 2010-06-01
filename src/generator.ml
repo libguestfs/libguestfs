@@ -1543,7 +1543,9 @@ See also: C<guestfs_sfdisk_l>, C<guestfs_sfdisk_N>,
 C<guestfs_part_init>");
 
   ("write_file", (RErr, [Pathname "path"; String "content"; Int "size"]), 44, [ProtocolLimitWarning; DeprecatedBy "write"],
-   [],
+   (* Regression test for RHBZ#597135. *)
+   [InitBasicFS, Always, TestLastFail
+      [["write_file"; "/new"; "abc"; "10000"]]],
    "create a file",
    "\
 This call creates a file called C<path>.  The contents of the
