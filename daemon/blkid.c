@@ -33,6 +33,13 @@ get_blkid_tag (const char *device, const char *tag)
   char *out, *err;
   int r;
 
+  /* Kill the cache file, forcing blkid to reread values from the
+   * original filesystems.  In blkid there is a '-p' option which is
+   * supposed to do this, but (a) it doesn't work and (b) that option
+   * is not supported in RHEL 5.
+   */
+  unlink ("/etc/blkid/blkid.tab");
+
   r = command (&out, &err,
                "blkid", "-o", "value", "-s", tag, device, NULL);
   if (r == -1) {
