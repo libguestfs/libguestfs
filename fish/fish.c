@@ -304,14 +304,18 @@ main (int argc, char *argv[])
       file = optarg;
       break;
 
-    case 'h':
+    case 'h': {
+      int r = 0;
+
       if (optarg)
-        display_command (optarg);
+        r = display_command (optarg);
       else if (argv[optind] && argv[optind][0] != '-')
-        display_command (argv[optind++]);
+        r = display_command (argv[optind++]);
       else
         list_commands ();
-      exit (EXIT_SUCCESS);
+
+      exit (r == 0 ? EXIT_SUCCESS : EXIT_FAILURE);
+    }
 
     case 'i':
       inspector = 1;
@@ -957,11 +961,11 @@ issue_command (const char *cmd, char *argv[], const char *pipecmd)
 
   /* Otherwise execute it locally. */
   else if (STRCASEEQ (cmd, "help")) {
-    if (argc == 0)
+    if (argc == 0) {
       list_commands ();
-    else
-      display_command (argv[0]);
-    r = 0;
+      r = 0;
+    } else
+      r = display_command (argv[0]);
   }
   else if (STRCASEEQ (cmd, "quit") ||
            STRCASEEQ (cmd, "exit") ||
@@ -1058,13 +1062,13 @@ list_builtin_commands (void)
   /* actions are printed after this (see list_commands) */
 }
 
-void
+int
 display_builtin_command (const char *cmd)
 {
   /* help for actions is auto-generated, see display_command */
 
   if (STRCASEEQ (cmd, "alloc") ||
-      STRCASEEQ (cmd, "allocate"))
+      STRCASEEQ (cmd, "allocate")) {
     printf (_("alloc - allocate an image\n"
               "     alloc <filename> <size>\n"
               "\n"
@@ -1075,14 +1079,18 @@ display_builtin_command (const char *cmd)
               "\n"
               "    Size can be specified using standard suffixes, eg. '1M'.\n"
               ));
-  else if (STRCASEEQ (cmd, "echo"))
+    return 0;
+  }
+  else if (STRCASEEQ (cmd, "echo")) {
     printf (_("echo - display a line of text\n"
               "     echo [<params> ...]\n"
               "\n"
               "    This echos the parameters to the terminal.\n"));
+    return 0;
+  }
   else if (STRCASEEQ (cmd, "edit") ||
            STRCASEEQ (cmd, "vi") ||
-           STRCASEEQ (cmd, "emacs"))
+           STRCASEEQ (cmd, "emacs")) {
     printf (_("edit - edit a file in the image\n"
               "     edit <filename>\n"
               "\n"
@@ -1096,32 +1104,42 @@ display_builtin_command (const char *cmd)
               "\n"
               "    NOTE: This will not work reliably for large files\n"
               "    (> 2 MB) or binary files containing \\0 bytes.\n"));
-  else if (STRCASEEQ (cmd, "lcd"))
+    return 0;
+  }
+  else if (STRCASEEQ (cmd, "lcd")) {
     printf (_("lcd - local change directory\n"
               "    lcd <directory>\n"
               "\n"
               "    Change guestfish's current directory. This command is\n"
               "    useful if you want to download files to a particular\n"
               "    place.\n"));
-  else if (STRCASEEQ (cmd, "glob"))
+    return 0;
+  }
+  else if (STRCASEEQ (cmd, "glob")) {
     printf (_("glob - expand wildcards in command\n"
               "    glob <command> [<args> ...]\n"
               "\n"
               "    Glob runs <command> with wildcards expanded in any\n"
               "    command args.  Note that the command is run repeatedly\n"
               "    once for each expanded argument.\n"));
+    return 0;
+  }
   else if (STRCASEEQ (cmd, "man") ||
-           STRCASEEQ (cmd, "manual"))
+           STRCASEEQ (cmd, "manual")) {
     printf (_("man - read the manual\n"
               "    man\n"
               "\n"
               "    Opens the manual page for guestfish.\n"));
-  else if (STRCASEEQ (cmd, "help"))
+    return 0;
+  }
+  else if (STRCASEEQ (cmd, "help")) {
     printf (_("help - display a list of commands or help on a command\n"
               "     help cmd\n"
               "     help\n"));
+    return 0;
+  }
   else if (STRCASEEQ (cmd, "more") ||
-           STRCASEEQ (cmd, "less"))
+           STRCASEEQ (cmd, "less")) {
     printf (_("more - view a file in the pager\n"
               "     more <filename>\n"
               "\n"
@@ -1135,19 +1153,25 @@ display_builtin_command (const char *cmd)
               "\n"
               "    NOTE: This will not work reliably for large files\n"
               "    (> 2 MB) or binary files containing \\0 bytes.\n"));
+    return 0;
+  }
   else if (STRCASEEQ (cmd, "quit") ||
            STRCASEEQ (cmd, "exit") ||
-           STRCASEEQ (cmd, "q"))
+           STRCASEEQ (cmd, "q")) {
     printf (_("quit - quit guestfish\n"
               "     quit\n"));
-  else if (STRCASEEQ (cmd, "reopen"))
+    return 0;
+  }
+  else if (STRCASEEQ (cmd, "reopen")) {
     printf (_("reopen - close and reopen the libguestfs handle\n"
               "     reopen\n"
               "\n"
               "Close and reopen the libguestfs handle.  It is not necessary to use\n"
               "this normally, because the handle is closed properly when guestfish\n"
               "exits.  However this is occasionally useful for testing.\n"));
-  else if (STRCASEEQ (cmd, "sparse"))
+    return 0;
+  }
+  else if (STRCASEEQ (cmd, "sparse")) {
     printf (_("sparse - allocate a sparse image file\n"
               "     sparse <filename> <size>\n"
               "\n"
@@ -1166,7 +1190,9 @@ display_builtin_command (const char *cmd)
               "\n"
               "    Size can be specified using standard suffixes, eg. '1M'.\n"
               ));
-  else if (STRCASEEQ (cmd, "supported"))
+    return 0;
+  }
+  else if (STRCASEEQ (cmd, "supported")) {
     printf (_("supported - list supported groups of commands\n"
               "     supported\n"
               "\n"
@@ -1176,15 +1202,21 @@ display_builtin_command (const char *cmd)
               "\n"
               "    See also guestfs(3) section AVAILABILITY.\n"
               ));
-  else if (STRCASEEQ (cmd, "time"))
+    return 0;
+  }
+  else if (STRCASEEQ (cmd, "time")) {
     printf (_("time - measure time taken to run command\n"
               "    time <command> [<args> ...]\n"
               "\n"
               "    This runs <command> as usual, and prints the elapsed\n"
               "    time afterwards.\n"));
-  else
+    return 0;
+  }
+  else {
     fprintf (stderr, _("%s: command not known, use -h to list all commands\n"),
              cmd);
+    return -1;
+  }
 }
 
 /* This is printed when the user types in an unknown command for the
