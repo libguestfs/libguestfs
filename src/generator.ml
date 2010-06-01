@@ -7191,7 +7191,7 @@ and generate_fish_cmds () =
   pr "\n";
 
   (* display_command function, which implements guestfish -h cmd *)
-  pr "void display_command (const char *cmd)\n";
+  pr "int display_command (const char *cmd)\n";
   pr "{\n";
   List.iter (
     fun (name, style, _, flags, _, shortdesc, longdesc) ->
@@ -7239,15 +7239,17 @@ and generate_fish_cmds () =
         pr " || STRCASEEQ (cmd, \"%s\")" name2;
       if name <> alias then
         pr " || STRCASEEQ (cmd, \"%s\")" alias;
-      pr ")\n";
+      pr ") {\n";
       pr "    pod2text (\"%s\", _(\"%s\"), %S);\n"
         name2 shortdesc
         ("=head1 SYNOPSIS\n\n " ^ synopsis ^ "\n\n" ^
          "=head1 DESCRIPTION\n\n" ^
          longdesc ^ warnings ^ describe_alias);
+      pr "    return 0;\n";
+      pr "  }\n";
       pr "  else\n"
   ) all_functions;
-  pr "    display_builtin_command (cmd);\n";
+  pr "    return display_builtin_command (cmd);\n";
   pr "}\n";
   pr "\n";
 

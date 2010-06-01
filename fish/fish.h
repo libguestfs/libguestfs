@@ -55,7 +55,7 @@ extern int command_num;
 extern int issue_command (const char *cmd, char *argv[], const char *pipe);
 extern void pod2text (const char *name, const char *shortdesc, const char *body);
 extern void list_builtin_commands (void);
-extern void display_builtin_command (const char *cmd);
+extern int display_builtin_command (const char *cmd);
 extern void free_strings (char **argv);
 extern int count_strings (char *const *argv);
 extern void print_strings (char *const *argv);
@@ -69,7 +69,7 @@ extern void extended_help_message (void);
 
 /* in cmds.c (auto-generated) */
 extern void list_commands (void);
-extern void display_command (const char *cmd);
+extern int display_command (const char *cmd);
 extern int run_action (const char *cmd, int argc, char *argv[]);
 
 /* in completion.c (auto-generated) */
