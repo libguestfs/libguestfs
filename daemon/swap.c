@@ -28,6 +28,9 @@
 #include "actions.h"
 #include "optgroups.h"
 
+/* Confirmed this is true for Linux swap partitions from the Linux sources. */
+#define SWAP_LABEL_MAX 16
+
 /* Convenient place to test for the later version of e2fsprogs
  * and util-linux which supports -U parameters to specify UUIDs.
  * (Not supported in RHEL 5).
@@ -77,6 +80,12 @@ do_mkswap (const char *device)
 int
 do_mkswap_L (const char *label, const char *device)
 {
+  if (strlen (label) > SWAP_LABEL_MAX) {
+    reply_with_error ("%s: Linux swap labels are limited to %d bytes",
+                      label, SWAP_LABEL_MAX);
+    return -1;
+  }
+
   return mkswap (device, "-L", label);
 }
 
@@ -179,12 +188,24 @@ do_swapoff_file (const char *path)
 int
 do_swapon_label (const char *label)
 {
+  if (strlen (label) > SWAP_LABEL_MAX) {
+    reply_with_error ("%s: Linux swap labels are limited to %d bytes",
+                      label, SWAP_LABEL_MAX);
+    return -1;
+  }
+
   return swaponoff ("swapon", "-L", label);
 }
 
 int
 do_swapoff_label (const char *label)
 {
+  if (strlen (label) > SWAP_LABEL_MAX) {
+    reply_with_error ("%s: Linux swap labels are limited to %d bytes",
+                      label, SWAP_LABEL_MAX);
+    return -1;
+  }
+
   return swaponoff ("swapoff", "-L", label);
 }
 

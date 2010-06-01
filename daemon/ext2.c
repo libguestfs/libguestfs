@@ -29,6 +29,9 @@
 #include "c-ctype.h"
 #include "actions.h"
 
+/* Confirmed this is true up to ext4 from the Linux sources. */
+#define EXT2_LABEL_MAX 16
+
 /* Choose which tools like mke2fs to use.  For RHEL 5 (only) there
  * is a special set of tools which support ext2/3/4.  eg. On RHEL 5,
  * mke2fs only supports ext2/3, but mke4fs supports ext2/3/4.
@@ -155,6 +158,12 @@ do_set_e2label (const char *device, const char *label)
   char prog[] = "e2label";
   if (e2prog (prog) == -1)
     return -1;
+
+  if (strlen (label) > EXT2_LABEL_MAX) {
+    reply_with_error ("%s: ext2 labels are limited to %d bytes",
+                      label, EXT2_LABEL_MAX);
+    return -1;
+  }
 
   r = command (NULL, &err, prog, device, label, NULL);
   if (r == -1) {
@@ -320,6 +329,12 @@ do_mke2journal_L (int blocksize, const char *label, const char *device)
   if (e2prog (prog) == -1)
     return -1;
 
+  if (strlen (label) > EXT2_LABEL_MAX) {
+    reply_with_error ("%s: ext2 labels are limited to %d bytes",
+                      label, EXT2_LABEL_MAX);
+    return -1;
+  }
+
   char blocksize_s[32];
   snprintf (blocksize_s, sizeof blocksize_s, "%d", blocksize);
 
@@ -405,6 +420,12 @@ do_mke2fs_JL (const char *fstype, int blocksize, const char *device,
   char prog[] = "mke2fs";
   if (e2prog (prog) == -1)
     return -1;
+
+  if (strlen (label) > EXT2_LABEL_MAX) {
+    reply_with_error ("%s: ext2 labels are limited to %d bytes",
+                      label, EXT2_LABEL_MAX);
+    return -1;
+  }
 
   char blocksize_s[32];
   snprintf (blocksize_s, sizeof blocksize_s, "%d", blocksize);
