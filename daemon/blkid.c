@@ -64,3 +64,15 @@ do_vfs_type (const char *device)
 {
   return get_blkid_tag (device, "TYPE");
 }
+
+char *
+do_vfs_label (const char *device)
+{
+  return get_blkid_tag (device, "LABEL");
+}
+
+char *
+do_vfs_uuid (const char *device)
+{
+  return get_blkid_tag (device, "UUID");
+}

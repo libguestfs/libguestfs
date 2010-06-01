@@ -4754,6 +4754,29 @@ Do not confuse this with the guestfish-specific
 C<alloc> and C<sparse> commands which create
 a file in the host and attach it as a device.");
 
+  ("vfs_label", (RString "label", [Device "device"]), 253, [],
+   [InitBasicFS, Always, TestOutput (
+       [["set_e2label"; "/dev/sda1"; "LTEST"];
+        ["vfs_label"; "/dev/sda1"]], "LTEST")],
+   "get the filesystem label",
+   "\
+This returns the filesystem label of the filesystem on
+C<device>.
+
+If the filesystem is unlabeled, this returns the empty string.");
+
+  ("vfs_uuid", (RString "uuid", [Device "device"]), 254, [],
+   (let uuid = uuidgen () in
+    [InitBasicFS, Always, TestOutput (
+       [["set_e2uuid"; "/dev/sda1"; uuid];
+        ["vfs_uuid"; "/dev/sda1"]], uuid)]),
+   "get the filesystem UUID",
+   "\
+This returns the filesystem UUID of the filesystem on
+C<device>.
+
+If the filesystem does not have a UUID, this returns the empty string.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
