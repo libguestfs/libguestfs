@@ -392,7 +392,7 @@ do_part_get_bootable (const char *device, int partnum)
     return -1;
 
   /* We want lines[1+partnum]. */
-  if (count_strings (lines) < 1+partnum) {
+  if (count_strings (lines) < (size_t) (1+partnum)) {
     reply_with_error ("partition number out of range: %d", partnum);
     free_strings (lines);
     return -1;

@@ -43,7 +43,7 @@ extern int xread (int sock, void *buf, size_t len)
   __attribute__((__warn_unused_result__));
 
 extern int add_string (char ***argv, int *size, int *alloc, const char *str);
-extern int count_strings (char *const *argv);
+extern size_t count_strings (char *const *argv);
 extern void sort_strings (char **argv, int len);
 extern void free_strings (char **argv);
 extern void free_stringslen (char **argv, int len);
