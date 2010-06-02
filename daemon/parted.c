@@ -161,6 +161,11 @@ do_part_add (const char *device, const char *prlogex,
 int
 do_part_del (const char *device, int partnum)
 {
+  if (partnum <= 0) {
+    reply_with_error ("partition number must be >= 1");
+    return -1;
+  }
+
   char partnum_str[16];
   snprintf (partnum_str, sizeof partnum_str, "%d", partnum);
 
@@ -210,6 +215,11 @@ do_part_disk (const char *device, const char *parttype)
 int
 do_part_set_bootable (const char *device, int partnum, int bootable)
 {
+  if (partnum <= 0) {
+    reply_with_error ("partition number must be >= 1");
+    return -1;
+  }
+
   char partstr[16];
 
   snprintf (partstr, sizeof partstr, "%d", partnum);
@@ -225,6 +235,11 @@ do_part_set_bootable (const char *device, int partnum, int bootable)
 int
 do_part_set_name (const char *device, int partnum, const char *name)
 {
+  if (partnum <= 0) {
+    reply_with_error ("partition number must be >= 1");
+    return -1;
+  }
+
   char partstr[16];
 
   snprintf (partstr, sizeof partstr, "%d", partnum);
@@ -529,6 +544,11 @@ do_part_list (const char *device)
 int
 do_part_get_bootable (const char *device, int partnum)
 {
+  if (partnum <= 0) {
+    reply_with_error ("partition number must be >= 1");
+    return -1;
+  }
+
   int parted_has_m_opt = test_parted_m_opt ();
   if (parted_has_m_opt == -1)
     return -1;
@@ -622,6 +642,11 @@ do_part_get_bootable (const char *device, int partnum)
 int
 do_part_get_mbr_id (const char *device, int partnum)
 {
+  if (partnum <= 0) {
+    reply_with_error ("partition number must be >= 1");
+    return -1;
+  }
+
   char partnum_str[16];
   snprintf (partnum_str, sizeof partnum_str, "%d", partnum);
 
@@ -653,6 +678,11 @@ do_part_get_mbr_id (const char *device, int partnum)
 int
 do_part_set_mbr_id (const char *device, int partnum, int idbyte)
 {
+  if (partnum <= 0) {
+    reply_with_error ("partition number must be >= 1");
+    return -1;
+  }
+
   char partnum_str[16];
   snprintf (partnum_str, sizeof partnum_str, "%d", partnum);
 
