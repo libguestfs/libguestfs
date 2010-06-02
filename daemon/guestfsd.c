@@ -543,10 +543,10 @@ add_string (char ***argv, int *size, int *alloc, const char *str)
   return 0;
 }
 
-int
+size_t
 count_strings (char *const *argv)
 {
-  int argc;
+  size_t argc;
 
   for (argc = 0; argv[argc] != NULL; ++argc)
     ;
