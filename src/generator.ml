@@ -2641,9 +2641,9 @@ is lost.");
 
   ("resize2fs", (RErr, [Device "device"]), 106, [],
    [], (* lvresize tests this *)
-   "resize an ext2/ext3 filesystem",
+   "resize an ext2, ext3 or ext4 filesystem",
    "\
-This resizes an ext2 or ext3 filesystem to match the size of
+This resizes an ext2, ext3 or ext4 filesystem to match the size of
 the underlying device.
 
 I<Note:> It is sometimes required that you run C<guestfs_e2fsck_f>
@@ -4708,7 +4708,7 @@ See also C<guestfs_pread>.");
 
   ("resize2fs_size", (RErr, [Device "device"; Int64 "size"]), 248, [],
    [],
-   "resize an ext2/ext3 filesystem (with size)",
+   "resize an ext2, ext3 or ext4 filesystem (with size)",
    "\
 This command is the same as C<guestfs_resize2fs> except that it
 allows you to specify the new size (in bytes) explicitly.");
