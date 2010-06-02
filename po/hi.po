@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master.libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-06-02 12:38+0100\n"
+"POT-Creation-Date: 2010-06-02 18:41+0100\n"
 "PO-Revision-Date: 2010-02-16 12:57+0530\n"
 "Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
 "Language-Team: Hindi <Red Hat>\n"
@@ -798,12 +798,13 @@ msgid "canonicalized absolute pathname"
 msgstr "निरपेक्ष पथनाम कैनोकनिलाइज करें"
 
 #: fish/cmds.c:240 fish/cmds.c:1038
-msgid "resize an ext2/ext3 filesystem"
+#, fuzzy
+msgid "resize an ext2, ext3 or ext4 filesystem"
 msgstr "ext2/ext3 फाइलसिस्टम का आकार बदलें"
 
 #: fish/cmds.c:241 fish/cmds.c:1748
 #, fuzzy
-msgid "resize an ext2/ext3 filesystem (with size)"
+msgid "resize an ext2, ext3 or ext4 filesystem (with size)"
 msgstr "ext2/ext3 फाइलसिस्टम का आकार बदलें"
 
 #: fish/cmds.c:242 fish/cmds.c:653

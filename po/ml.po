@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master.libguestfs.ml\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-06-02 12:38+0100\n"
+"POT-Creation-Date: 2010-06-02 18:41+0100\n"
 "PO-Revision-Date: 2010-02-02 18:35+0530\n"
 "Last-Translator: Ani Peter | അനി പീറ്റര്‍ <apeter@redhat.com>\n"
 "Language-Team: Swathanthra Malayalam Computing | സ്വതന്ത്ര മലയാളം കമ്പ്യൂട്ടിങ് <smc-"
@@ -798,12 +798,13 @@ msgid "canonicalized absolute pathname"
 msgstr "കാണോണിക്കല്‍ ആയ ആബ്സല്യൂട്ട് പാഥ്‌നെയിം"
 
 #: fish/cmds.c:240 fish/cmds.c:1038
-msgid "resize an ext2/ext3 filesystem"
+#, fuzzy
+msgid "resize an ext2, ext3 or ext4 filesystem"
 msgstr "ഒരു ext2/ext3 ഫയല്‍സിസ്റ്റത്തിന്റെ വ്യാപ്തി മാറ്റുക"
 
 #: fish/cmds.c:241 fish/cmds.c:1748
 #, fuzzy
-msgid "resize an ext2/ext3 filesystem (with size)"
+msgid "resize an ext2, ext3 or ext4 filesystem (with size)"
 msgstr "ഒരു ext2/ext3 ഫയല്‍സിസ്റ്റത്തിന്റെ വ്യാപ്തി മാറ്റുക"
 
 #: fish/cmds.c:242 fish/cmds.c:653

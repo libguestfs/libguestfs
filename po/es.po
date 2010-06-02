@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-06-02 12:38+0100\n"
+"POT-Creation-Date: 2010-06-02 18:41+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Héctor Daniel Cabrera <logan@fedoraproject.org>\n"
 "Language-Team: Fedora Spanish <trans-es@lists.fedoraproject.org>\n"
@@ -793,11 +793,13 @@ msgid "canonicalized absolute pathname"
 msgstr "nombre de camino canónico absoluto"
 
 #: fish/cmds.c:240 fish/cmds.c:1038
-msgid "resize an ext2/ext3 filesystem"
+#, fuzzy
+msgid "resize an ext2, ext3 or ext4 filesystem"
 msgstr "modifica el tamaño de un sistema de archivos ext2/3"
 
 #: fish/cmds.c:241 fish/cmds.c:1748
-msgid "resize an ext2/ext3 filesystem (with size)"
+#, fuzzy
+msgid "resize an ext2, ext3 or ext4 filesystem (with size)"
 msgstr "modifica el tamaño de un sistema de archivos ext2/ext3 (con tamaño)"
 
 #: fish/cmds.c:242 fish/cmds.c:653

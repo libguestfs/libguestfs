@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.0.81\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-06-02 12:38+0100\n"
+"POT-Creation-Date: 2010-06-02 18:41+0100\n"
 "PO-Revision-Date: 2010-01-29 13:38+0530\n"
 "Last-Translator: I. Felix <ifelix@redhat.com>\n"
 "Language-Team: ta_IN <kde-i18n-doc@kde.org>\n"
@@ -798,12 +798,13 @@ msgid "canonicalized absolute pathname"
 msgstr "canonicalized absolute pathname"
 
 #: fish/cmds.c:240 fish/cmds.c:1038
-msgid "resize an ext2/ext3 filesystem"
+#, fuzzy
+msgid "resize an ext2, ext3 or ext4 filesystem"
 msgstr "ஒரு ext2/ext3 கோப்புமுறைமையை மறுஅளவிடு"
 
 #: fish/cmds.c:241 fish/cmds.c:1748
 #, fuzzy
-msgid "resize an ext2/ext3 filesystem (with size)"
+msgid "resize an ext2, ext3 or ext4 filesystem (with size)"
 msgstr "ஒரு ext2/ext3 கோப்புமுறைமையை மறுஅளவிடு"
 
 #: fish/cmds.c:242 fish/cmds.c:653
