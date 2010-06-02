@@ -42,7 +42,7 @@ do_base64_in (const char *file)
   FILE *fp;
   char *cmd;
 
-  if (asprintf_nowarn (&cmd, "base64 -d > %R", file) == -1) {
+  if (asprintf_nowarn (&cmd, "base64 -d -i > %R", file) == -1) {
     err = errno;
     cancel_receive ();
     errno = err;
