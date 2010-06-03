@@ -2320,11 +2320,14 @@ any partition tables, filesystem superblocks and so on.
 See also: C<guestfs_zero_device>, C<guestfs_scrub_device>.");
 
   ("grub_install", (RErr, [Pathname "root"; Device "device"]), 86, [],
-   (* Test disabled because grub-install incompatible with virtio-blk driver.
-    * See also: https://bugzilla.redhat.com/show_bug.cgi?id=479760
+   (* See:
+    * https://bugzilla.redhat.com/show_bug.cgi?id=484986
+    * https://bugzilla.redhat.com/show_bug.cgi?id=479760
     *)
-   [InitBasicFS, Disabled, TestOutputTrue (
-      [["grub_install"; "/"; "/dev/sda1"];
+   [InitBasicFS, Always, TestOutputTrue (
+      [["mkdir_p"; "/boot/grub"];
+       ["write"; "/boot/grub/device.map"; "(hd0) /dev/vda"];
+       ["grub_install"; "/"; "/dev/vda"];
        ["is_dir"; "/boot"]])],
    "install GRUB",
    "\
