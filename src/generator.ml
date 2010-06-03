@@ -3732,13 +3732,28 @@ and C<guestfs_setcon>");
        ["mkfs_b"; "ext2"; "4096"; "/dev/sda1"];
        ["mount_options"; ""; "/dev/sda1"; "/"];
        ["write"; "/new"; "new file contents"];
-       ["cat"; "/new"]], "new file contents")],
+       ["cat"; "/new"]], "new file contents");
+    InitEmpty, Always, TestRun (
+      [["part_disk"; "/dev/sda"; "mbr"];
+       ["mkfs_b"; "vfat"; "32768"; "/dev/sda1"]]);
+    InitEmpty, Always, TestLastFail (
+      [["part_disk"; "/dev/sda"; "mbr"];
+       ["mkfs_b"; "vfat"; "32769"; "/dev/sda1"]]);
+    InitEmpty, Always, TestLastFail (
+      [["part_disk"; "/dev/sda"; "mbr"];
+       ["mkfs_b"; "vfat"; "33280"; "/dev/sda1"]]);
+    InitEmpty, IfAvailable "ntfsprogs", TestRun (
+      [["part_disk"; "/dev/sda"; "mbr"];
+       ["mkfs_b"; "ntfs"; "32768"; "/dev/sda1"]])],
    "make a filesystem with block size",
    "\
 This call is similar to C<guestfs_mkfs>, but it allows you to
 control the block size of the resulting filesystem.  Supported
 block sizes depend on the filesystem type, but typically they
-are C<1024>, C<2048> or C<4096> only.");
+are C<1024>, C<2048> or C<4096> only.
+
+For VFAT and NTFS the C<blocksize> parameter is treated as
+the requested cluster size.");
 
   ("mke2journal", (RErr, [Int "blocksize"; Device "device"]), 188, [],
    [InitEmpty, Always, TestOutput (

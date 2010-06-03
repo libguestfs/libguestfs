@@ -102,17 +102,46 @@ int
 do_mkfs_b (const char *fstype, int blocksize, const char *device)
 {
   const char *extra[2];
-  char blocksize_s[32];
+  char n[32];
 
   if (blocksize <= 0 || !is_power_of_2 (blocksize)) {
     reply_with_error ("block size must be > 0 and a power of 2");
     return -1;
   }
 
-  snprintf (blocksize_s, sizeof blocksize_s, "%d", blocksize);
+  if (STREQ (fstype, "vfat") ||
+      STREQ (fstype, "msdos")) {
+    /* For VFAT map the blocksize into a cluster size.  However we
+     * have to determine the block device sector size in order to do
+     * this.
+     */
+    int sectorsize = do_blockdev_getss (device);
+    if (sectorsize == -1)
+      return -1;
 
-  extra[0] = "-b";
-  extra[1] = blocksize_s;
+    int sectors_per_cluster = blocksize / sectorsize;
+    if (sectors_per_cluster < 1 || sectors_per_cluster > 128) {
+      reply_with_error ("unsupported cluster size for %s filesystem (requested cluster size = %d, sector size = %d, trying sectors per cluster = %d)",
+                        fstype, blocksize, sectorsize, sectors_per_cluster);
+      return -1;
+    }
+
+    snprintf (n, sizeof n, "%d", sectors_per_cluster);
+    extra[0] = "-s";
+    extra[1] = n;
+  }
+  else if (STREQ (fstype, "ntfs")) {
+    /* For NTFS map the blocksize into a cluster size. */
+    snprintf (n, sizeof n, "%d", blocksize);
+    extra[0] = "-c";
+    extra[1] = n;
+  }
+  else {
+    /* For all other filesystem types, try the -b option. */
+    snprintf (n, sizeof n, "%d", blocksize);
+    extra[0] = "-b";
+    extra[1] = n;
+  }
 
   return mkfs (fstype, device, extra, 2);
 }
