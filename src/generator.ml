@@ -2327,7 +2327,18 @@ See also: C<guestfs_scrub_device>.");
    "install GRUB",
    "\
 This command installs GRUB (the Grand Unified Bootloader) on
-C<device>, with the root directory being C<root>.");
+C<device>, with the root directory being C<root>.
+
+Note: If grub-install reports the error
+\"No suitable drive was found in the generated device map.\"
+it may be that you need to create a C</boot/grub/device.map>
+file first that contains the mapping between grub device names
+and Linux device names.  It is usually sufficient to create
+a file containing:
+
+ (hd0) /dev/vda
+
+replacing C</dev/vda> with the name of the installation device.");
 
   ("cp", (RErr, [Pathname "src"; Pathname "dest"]), 87, [],
    [InitBasicFS, Always, TestOutput (
