@@ -307,6 +307,9 @@ and test_prereq =
     (* As for 'If' but the test runs _unless_ the code returns true. *)
   | Unless of string
 
+    (* Run the test only if 'string' is available in the daemon. *)
+  | IfAvailable of string
+
 (* Some initial scenarios for testing. *)
 and test_init =
     (* Do nothing, block devices could contain random stuff including
@@ -6483,7 +6486,7 @@ is_available (const char *group)
     fun (_, _, _, _, tests, _, _) ->
       let tests = filter_map (
         function
-        | (_, (Always|If _|Unless _), test) -> Some test
+        | (_, (Always|If _|Unless _|IfAvailable _), test) -> Some test
         | (_, Disabled, _) -> None
       ) tests in
       let seq = List.concat (List.map seq_of_test tests) in
@@ -6689,7 +6692,7 @@ static int %s_skip (void)
 " test_name name (String.uppercase test_name) (String.uppercase name);
 
   (match prereq with
-   | Disabled | Always -> ()
+   | Disabled | Always | IfAvailable _ -> ()
    | If code | Unless code ->
        pr "static int %s_prereq (void)\n" test_name;
        pr "{\n";
@@ -6734,6 +6737,13 @@ static int %s (void)
    | Unless _ ->
        pr "  if (%s_prereq ()) {\n" test_name;
        pr "    printf (\"        %%s skipped (reason: test prerequisite)\\n\", \"%s\");\n" test_name;
+       pr "    return 0;\n";
+       pr "  }\n";
+       pr "\n";
+       generate_one_test_body name i test_name init test;
+   | IfAvailable group ->
+       pr "  if (!is_available (\"%s\")) {\n" group;
+       pr "    printf (\"        %%s skipped (reason: %%s not available)\\n\", \"%s\", \"%s\");\n" test_name group;
        pr "    return 0;\n";
        pr "  }\n";
        pr "\n";
