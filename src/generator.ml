@@ -6459,6 +6459,19 @@ static void print_table (char const *const *argv)
 }
 */
 
+static int
+is_available (const char *group)
+{
+  const char *groups[] = { group, NULL };
+  int r;
+
+  suppress_error = 1;
+  r = guestfs_available (g, (char **) groups);
+  suppress_error = 0;
+
+  return r == 0;
+}
+
 ";
 
   (* Generate a list of commands which are not tested anywhere. *)
@@ -6701,16 +6714,9 @@ static int %s (void)
   List.iter (
     function
     | Optional group ->
-        pr "  {\n";
-        pr "    const char *groups[] = { \"%s\", NULL };\n" group;
-        pr "    int r;\n";
-        pr "    suppress_error = 1;\n";
-        pr "    r = guestfs_available (g, (char **) groups);\n";
-        pr "    suppress_error = 0;\n";
-        pr "    if (r == -1) {\n";
-        pr "      printf (\"        %%s skipped (reason: group %%s not available in daemon)\\n\", \"%s\", groups[0]);\n" test_name;
-        pr "      return 0;\n";
-        pr "    }\n";
+        pr "  if (!is_available (\"%s\")) {\n" group;
+        pr "    printf (\"        %%s skipped (reason: group %%s not available in daemon)\\n\", \"%s\", \"%s\");\n" test_name group;
+        pr "    return 0;\n";
         pr "  }\n";
     | _ -> ()
   ) flags;
