@@ -104,6 +104,11 @@ do_mkfs_b (const char *fstype, int blocksize, const char *device)
   const char *extra[2];
   char blocksize_s[32];
 
+  if (blocksize <= 0 || !is_power_of_2 (blocksize)) {
+    reply_with_error ("block size must be > 0 and a power of 2");
+    return -1;
+  }
+
   snprintf (blocksize_s, sizeof blocksize_s, "%d", blocksize);
 
   extra[0] = "-b";

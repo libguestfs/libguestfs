@@ -554,6 +554,13 @@ count_strings (char *const *argv)
   return argc;
 }
 
+/* http://graphics.stanford.edu/~seander/bithacks.html#DetermineIfPowerOf2 */
+int
+is_power_of_2 (unsigned long v)
+{
+  return v && ((v & (v - 1)) == 0);
+}
+
 static int
 compare (const void *vp1, const void *vp2)
 {

@@ -48,6 +48,8 @@ extern void sort_strings (char **argv, int len);
 extern void free_strings (char **argv);
 extern void free_stringslen (char **argv, int len);
 
+extern int is_power_of_2 (unsigned long v);
+
 #define command(out,err,name,...) commandf((out),(err),0,(name),__VA_ARGS__)
 #define commandr(out,err,name,...) commandrf((out),(err),0,(name),__VA_ARGS__)
 #define commandv(out,err,argv) commandvf((out),(err),0,(argv))
