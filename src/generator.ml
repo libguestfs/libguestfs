@@ -1632,19 +1632,32 @@ and physical volumes.");
     InitISOFS, Always, TestOutput (
       [["file"; "/known-1"]], "ASCII text");
     InitISOFS, Always, TestLastFail (
-      [["file"; "/notexists"]])],
+      [["file"; "/notexists"]]);
+    InitISOFS, Always, TestOutput (
+      [["file"; "/abssymlink"]], "symbolic link");
+    InitISOFS, Always, TestOutput (
+      [["file"; "/directory"]], "directory")],
    "determine file type",
    "\
 This call uses the standard L<file(1)> command to determine
-the type or contents of the file.  This also works on devices,
-for example to find out whether a partition contains a filesystem.
+the type or contents of the file.
 
 This call will also transparently look inside various types
 of compressed file.
 
-The exact command which runs is C<file -zbsL path>.  Note in
+The exact command which runs is C<file -zbs path>.  Note in
 particular that the filename is not prepended to the output
-(the C<-b> option).");
+(the C<-b> option).
+
+This command can also be used on C</dev/> devices
+(and partitions, LV names).  You can for example use this
+to determine if a device contains a filesystem, although
+it's usually better to use C<guestfs_vfs_type>.
+
+If the C<path> does not begin with C</dev/> then
+this command only works for the content of regular files.
+For other file types (directory, symbolic link etc) it
+will just return the string C<directory> etc.");
 
   ("command", (RString "output", [StringList "arguments"]), 50, [ProtocolLimitWarning],
    [InitBasicFS, Always, TestOutput (

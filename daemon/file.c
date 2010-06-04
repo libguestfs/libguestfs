@@ -544,21 +544,45 @@ do_file (const char *path)
       return NULL;
     }
     path = buf;
-  }
 
-  /* file(1) manpage claims "file returns 0 on success, and non-zero on
-   * error", but this is evidently not true.  It always returns 0, in
-   * every scenario I can think up.  So check the target is readable
-   * first.
-   */
-  if (access (path, R_OK) == -1) {
-    reply_with_perror ("access: %s", display_path);
-    free (buf);
-    return NULL;
+    /* For non-dev, check this is a regular file, else just return the
+     * file type as a string (RHBZ#582484).
+     */
+    struct stat statbuf;
+    if (lstat (path, &statbuf) == -1) {
+      reply_with_perror ("lstat: %s", display_path);
+      free (buf);
+      return NULL;
+    }
+
+    if (! S_ISREG (statbuf.st_mode)) {
+      char *ret;
+
+      free (buf);
+
+      if (S_ISDIR (statbuf.st_mode))
+        ret = strdup ("directory");
+      else if (S_ISCHR (statbuf.st_mode))
+        ret = strdup ("character device");
+      else if (S_ISBLK (statbuf.st_mode))
+        ret = strdup ("block device");
+      else if (S_ISFIFO (statbuf.st_mode))
+        ret = strdup ("FIFO");
+      else if (S_ISLNK (statbuf.st_mode))
+        ret = strdup ("symbolic link");
+      else if (S_ISSOCK (statbuf.st_mode))
+        ret = strdup ("socket");
+      else
+        ret = strdup ("unknown, not regular file");
+
+      if (ret == NULL)
+        reply_with_perror ("strdup");
+      return ret;
+    }
   }
 
   char *out, *err;
-  int r = command (&out, &err, "file", "-zbsL", path, NULL);
+  int r = command (&out, &err, "file", "-zbs", path, NULL);
   free (buf);
 
   if (r == -1) {
