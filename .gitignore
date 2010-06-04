@@ -140,7 +140,6 @@ libtool
 localconfigure
 localrepo
 ltmain.sh
-m4/asm-underscore.m4
 m4/gnulib-cache.m4
 m4/intmax.m4
 m4/libtool.m4
