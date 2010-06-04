@@ -34,6 +34,26 @@ do_touch (const char *path)
 {
   int fd;
   int r;
+  struct stat buf;
+
+  /* RHBZ#582484: Restrict touch to regular files.  It's also OK
+   * here if the file does not exist, since we will create it.
+   */
+  CHROOT_IN;
+  r = lstat (path, &buf);
+  CHROOT_OUT;
+
+  if (r == -1) {
+    if (errno != ENOENT) {
+      reply_with_perror ("lstat: %s", path);
+      return -1;
+    }
+  } else {
+    if (! S_ISREG (buf.st_mode)) {
+      reply_with_error ("%s: touch can only be used on a regular files", path);
+      return -1;
+    }
+  }
 
   CHROOT_IN;
   fd = open (path, O_WRONLY | O_CREAT | O_NOCTTY, 0666);

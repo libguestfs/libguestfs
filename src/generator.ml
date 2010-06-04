@@ -992,7 +992,10 @@ closing the handle.");
    "\
 Touch acts like the L<touch(1)> command.  It can be used to
 update the timestamps on a file, or, if the file does not exist,
-to create a new zero-length file.");
+to create a new zero-length file.
+
+This command only works on regular files, and will fail on other
+file types such as directories, symbolic links, block special etc.");
 
   ("cat", (RString "content", [Pathname "path"]), 4, [ProtocolLimitWarning],
    [InitISOFS, Always, TestOutput (
