@@ -4,6 +4,7 @@ link-warning.h
 m4/00gnulib.m4
 m4/alloca.m4
 m4/arpa_inet_h.m4
+m4/asm-underscore.m4
 m4/byteswap.m4
 m4/canonicalize-lgpl.m4
 m4/chdir-long.m4
