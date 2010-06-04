@@ -512,20 +512,18 @@ do_pwrite (const char *path, const char *content, size_t size, int64_t offset)
 char *
 do_file (const char *path)
 {
-  char *out, *err;
-  int r, freeit = 0;
-  char *buf;
-  int len;
+  char *buf = NULL;
+  const char *display_path = path;
 
-  if (STREQLEN (path, "/dev/", 5))
-    buf = (char *) path;
-  else {
+  int is_dev = STRPREFIX (path, "/dev/");
+
+  if (!is_dev) {
     buf = sysroot_path (path);
     if (!buf) {
       reply_with_perror ("malloc");
       return NULL;
     }
-    freeit = 1;
+    path = buf;
   }
 
   /* file(1) manpage claims "file returns 0 on success, and non-zero on
@@ -533,26 +531,27 @@ do_file (const char *path)
    * every scenario I can think up.  So check the target is readable
    * first.
    */
-  if (access (buf, R_OK) == -1) {
-    if (freeit) free (buf);
-    reply_with_perror ("access: %s", path);
+  if (access (path, R_OK) == -1) {
+    reply_with_perror ("access: %s", display_path);
+    free (buf);
     return NULL;
   }
 
-  r = command (&out, &err, "file", "-zbsL", buf, NULL);
-  if (freeit) free (buf);
+  char *out, *err;
+  int r = command (&out, &err, "file", "-zbsL", path, NULL);
+  free (buf);
 
   if (r == -1) {
     free (out);
-    reply_with_error ("%s: %s", path, err);
+    reply_with_error ("%s: %s", display_path, err);
     free (err);
     return NULL;
   }
   free (err);
 
   /* We need to remove the trailing \n from output of file(1). */
-  len = strlen (out);
-  if (out[len-1] == '\n')
+  size_t len = strlen (out);
+  if (len > 0 && out[len-1] == '\n')
     out[len-1] = '\0';
 
   return out;			/* caller frees */
