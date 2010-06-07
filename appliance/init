@@ -66,6 +66,9 @@ lvm vgchange -ay --ignorelockingfailure
 # Improve virtio-blk performance (RHBZ#509383).
 for f in /sys/block/vd*/queue/rotational; do echo 1 > $f; done
 
+# http://kbase.redhat.com/faq/docs/DOC-5428
+for f in /sys/block/[hsv]d*/queue/scheduler; do echo noop > $f; done
+
 # Keep these to enhance the usefulness of debug output.
 ls -l /dev
 cat /proc/mounts
