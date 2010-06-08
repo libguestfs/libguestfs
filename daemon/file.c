@@ -581,8 +581,13 @@ do_file (const char *path)
     }
   }
 
+  /* Which flags to use?  For /dev paths, follow links because
+   * /dev/VG/LV is a symbolic link.
+   */
+  const char *flags = is_dev ? "-zbsL" : "-zb";
+
   char *out, *err;
-  int r = command (&out, &err, "file", "-zbs", path, NULL);
+  int r = command (&out, &err, "file", flags, path, NULL);
   free (buf);
 
   if (r == -1) {

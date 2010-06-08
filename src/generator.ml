@@ -1645,7 +1645,7 @@ the type or contents of the file.
 This call will also transparently look inside various types
 of compressed file.
 
-The exact command which runs is C<file -zbs path>.  Note in
+The exact command which runs is C<file -zb path>.  Note in
 particular that the filename is not prepended to the output
 (the C<-b> option).
 
