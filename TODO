@@ -281,3 +281,9 @@ http://sourceforge.net/projects/tripwire/
 
 '-N' option should be generated code, and should generate
 documentation in guestfish(1) manpage.
+
+Fix 'file'
+----------
+
+https://www.redhat.com/archives/libguestfs/2010-June/msg00053.html
+https://www.redhat.com/archives/libguestfs/2010-June/msg00079.html
