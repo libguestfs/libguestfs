@@ -61,8 +61,7 @@ INSTALLDIRS = site
 all: Makefile-pl src_deps
 	$(MAKE) -f Makefile-pl
 
-Makefile-pl: Makefile.PL $(top_srcdir)/src/MAX_PROC_NR
-	cd $(top_srcdir) && ./config.status --recheck
+Makefile-pl: Makefile.PL
 	perl Makefile.PL INSTALLDIRS=$(INSTALLDIRS) PREFIX=$(prefix)
 
 # No!  Otherwise it is deleted before the clean-local rule runs.
