@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.0.81\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-06-04 16:38+0100\n"
+"POT-Creation-Date: 2010-06-08 17:58+0100\n"
 "PO-Revision-Date: 2010-01-29 13:38+0530\n"
 "Last-Translator: I. Felix <ifelix@redhat.com>\n"
 "Language-Team: ta_IN <kde-i18n-doc@kde.org>\n"
@@ -2519,48 +2519,53 @@ msgstr ""
 msgid "multiboot operating systems are not supported by virt-cat"
 msgstr ""
 
-#: tools/virt-df.pl:258
+#: tools/virt-df.pl:152
+#, fuzzy
+msgid "virt-df: cannot use -h and --csv options together\n"
+msgstr "%s:  --listen மற்றும் --file விருப்பங்களை அதே நேரத்தில் பயன்படுத்த முடியாது\n"
+
+#: tools/virt-df.pl:263
 msgid "Virtual Machine"
 msgstr ""
 
-#: tools/virt-df.pl:258
+#: tools/virt-df.pl:263
 #, fuzzy
 msgid "Filesystem"
 msgstr "ஒரு கோப்புமுறையை செய்"
 
-#: tools/virt-df.pl:261
+#: tools/virt-df.pl:266
 msgid "1K-blocks"
 msgstr ""
 
-#: tools/virt-df.pl:263
+#: tools/virt-df.pl:268
 msgid "Size"
 msgstr ""
 
-#: tools/virt-df.pl:265
+#: tools/virt-df.pl:270
 msgid "Used"
 msgstr ""
 
-#: tools/virt-df.pl:266
+#: tools/virt-df.pl:271
 msgid "Available"
 msgstr ""
 
-#: tools/virt-df.pl:267
+#: tools/virt-df.pl:272
 msgid "Use%"
 msgstr ""
 
-#: tools/virt-df.pl:269
+#: tools/virt-df.pl:274
 msgid "Inodes"
 msgstr ""
 
-#: tools/virt-df.pl:270
+#: tools/virt-df.pl:275
 msgid "IUsed"
 msgstr ""
 
-#: tools/virt-df.pl:271
+#: tools/virt-df.pl:276
 msgid "IFree"
 msgstr ""
 
-#: tools/virt-df.pl:272
+#: tools/virt-df.pl:277
 msgid "IUse%"
 msgstr ""
 
