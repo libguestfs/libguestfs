@@ -119,6 +119,8 @@ my $human;
 
 Print sizes in human-readable format.
 
+You are not allowed to use I<-h> and I<--csv> at the same time.
+
 =cut
 
 my $inodes;
@@ -145,6 +147,9 @@ if ($version) {
     print "$h{major}.$h{minor}.$h{release}$h{extra}\n";
     exit
 }
+
+# RHBZ#600977
+die __"virt-df: cannot use -h and --csv options together\n" if $human && $csv;
 
 # Open the guest handle.
 
