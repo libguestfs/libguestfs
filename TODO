@@ -287,3 +287,10 @@ Fix 'file'
 
 https://www.redhat.com/archives/libguestfs/2010-June/msg00053.html
 https://www.redhat.com/archives/libguestfs/2010-June/msg00079.html
+
+Regression test on virt-inspector
+---------------------------------
+
+Occasionally we break virt-inspector through some change.  We should
+add a regression test for it.  However this is hard because we'd need
+to avoid having to carry huge images.
