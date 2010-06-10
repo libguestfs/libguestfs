@@ -183,6 +183,8 @@ struct guestfs_h
   void *                     subprocess_quit_cb_data;
   guestfs_launch_done_cb     launch_done_cb;
   void *                     launch_done_cb_data;
+  guestfs_close_cb           close_cb;
+  void *                     close_cb_data;
 
   int msg_next_serial;
 };
@@ -293,6 +295,10 @@ guestfs_close (guestfs_h *g)
 
   if (g->verbose)
     fprintf (stderr, "closing guestfs handle %p (state %d)\n", g, g->state);
+
+  /* Run user close callback before anything else. */
+  if (g->close_cb)
+    g->close_cb (g, g->close_cb_data);
 
   /* Try to sync if autosync flag is set. */
   if (g->autosync && g->state == READY) {
@@ -1925,6 +1931,14 @@ guestfs_set_launch_done_callback (guestfs_h *g,
 {
   g->launch_done_cb = cb;
   g->launch_done_cb_data = opaque;
+}
+
+void
+guestfs_set_close_callback (guestfs_h *g,
+                            guestfs_close_cb cb, void *opaque)
+{
+  g->close_cb = cb;
+  g->close_cb_data = opaque;
 }
 
 /*----------------------------------------------------------------------*/

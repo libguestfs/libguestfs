@@ -1042,6 +1042,24 @@ The callback function C<cb> will be called when the child process
 becomes ready first time after it has been launched.  (This
 corresponds to a transition from LAUNCHING to the READY state).
 
+=head2 guestfs_set_close_callback
+
+ typedef void (*guestfs_close_cb) (guestfs_h *g, void *opaque);
+ void guestfs_set_close_callback (guestfs_h *g,
+                                  guestfs_close_cb cb,
+                                  void *opaque);
+
+The callback function C<cb> will be called while the handle
+is being closed (synchronously from L</guestfs_close>).
+
+Note that libguestfs installs an L<atexit(3)> handler to try to
+clean up handles that are open when the program exits.  This
+means that this callback might be called indirectly from
+L<exit(3)>, which can cause unexpected problems in higher-level
+languages (eg. if your HLL interpreter has already been cleaned
+up by the time this is called, and if your callback then jumps
+into some HLL function).
+
 =head1 BLOCK DEVICE NAMING
 
 In the kernel there is now quite a profusion of schemata for naming

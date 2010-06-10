@@ -6337,6 +6337,7 @@ and generate_linker_script () =
     "guestfs_get_error_handler";
     "guestfs_get_out_of_memory_handler";
     "guestfs_last_error";
+    "guestfs_set_close_callback";
     "guestfs_set_error_handler";
     "guestfs_set_launch_done_callback";
     "guestfs_set_log_message_callback";
@@ -6885,6 +6886,13 @@ is_available (const char *group)
   return r == 0;
 }
 
+static void
+incr (guestfs_h *g, void *iv)
+{
+  int *i = (int *) iv;
+  (*i)++;
+}
+
 ";
 
   (* Generate a list of commands which are not tested anywhere. *)
@@ -7066,11 +7074,22 @@ int main (int argc, char *argv[])
   ) test_names;
   pr "\n";
 
-  pr "  guestfs_close (g);\n";
-  pr "  unlink (\"test1.img\");\n";
-  pr "  unlink (\"test2.img\");\n";
-  pr "  unlink (\"test3.img\");\n";
-  pr "\n";
+  pr "  /* Check close callback is called. */
+  int close_sentinel = 1;
+  guestfs_set_close_callback (g, incr, &close_sentinel);
+
+  guestfs_close (g);
+
+  if (close_sentinel != 2) {
+    fprintf (stderr, \"close callback was not called\\n\");
+    exit (EXIT_FAILURE);
+  }
+
+  unlink (\"test1.img\");
+  unlink (\"test2.img\");
+  unlink (\"test3.img\");
+
+";
 
   pr "  if (n_failed > 0) {\n";
   pr "    printf (\"***** %%lu / %%d tests FAILED *****\\n\", n_failed, nr_tests);\n";

@@ -56,10 +56,12 @@ extern guestfs_abort_cb guestfs_get_out_of_memory_handler (guestfs_h *g);
 typedef void (*guestfs_log_message_cb) (guestfs_h *g, void *data, char *buf, int len);
 typedef void (*guestfs_subprocess_quit_cb) (guestfs_h *g, void *data);
 typedef void (*guestfs_launch_done_cb) (guestfs_h *g, void *data);
+typedef void (*guestfs_close_cb) (guestfs_h *g, void *data);
 
 extern void guestfs_set_log_message_callback (guestfs_h *g, guestfs_log_message_cb cb, void *opaque);
 extern void guestfs_set_subprocess_quit_callback (guestfs_h *g, guestfs_subprocess_quit_cb cb, void *opaque);
 extern void guestfs_set_launch_done_callback (guestfs_h *g, guestfs_launch_done_cb cb, void *opaque);
+extern void guestfs_set_close_callback (guestfs_h *g, guestfs_close_cb cb, void *opaque);
 
 /*--- Structures and actions ---*/
 #include <stdint.h>
