@@ -6,13 +6,18 @@ int64_t	  	T_IV
 
 INPUT
 O_OBJECT_guestfs_h
-    if (sv_isobject ($arg) && SvTYPE (SvRV ($arg)) == SVt_PVMG)
-        $var = ($type) SvIV ((SV *) SvRV ($arg));
-    else {
-        warn (\"${Package}::$func_name(): $var is not a blessed SV reference\");
-        XSRETURN_UNDEF;
+    if (sv_isobject ($arg) && sv_derived_from ($arg, \"Sys::Guestfs\") &&
+        SvTYPE ($arg) == SVt_RV &&
+        SvTYPE (SvRV ($arg)) == SVt_PVHV) {
+        HV *hv = (HV *) SvRV ($arg);
+        SV **svp = hv_fetch (hv, \"_g\", 2, 0);
+        if (svp == NULL)
+            croak (\"${Package}::$func_name(): called on a closed handle\");
+        $var = ($type) SvIV (*svp);
+    } else {
+        croak (\"${Package}::$func_name(): $var is not a blessed HV reference\");
     }
 
 OUTPUT
 O_OBJECT_guestfs_h
-    sv_setref_pv ($arg, "Sys::Guestfs", (void *) $var);
+    sv_setiv ($arg, PTR2IV ($var));

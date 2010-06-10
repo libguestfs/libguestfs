@@ -8821,10 +8821,30 @@ _create ()
       RETVAL
 
 void
-DESTROY (g)
+DESTROY (sv)
+      SV *sv;
+ PPCODE:
+      /* For the 'g' argument above we do the conversion explicitly and
+       * don't rely on the typemap, because if the handle has been
+       * explicitly closed we don't want the typemap conversion to
+       * display an error.
+       */
+      HV *hv = (HV *) SvRV (sv);
+      SV **svp = hv_fetch (hv, \"_g\", 2, 0);
+      if (svp != NULL) {
+        guestfs_h *g = (guestfs_h *) SvIV (*svp);
+        assert (g != NULL);
+        guestfs_close (g);
+      }
+
+void
+close (g)
       guestfs_h *g;
  PPCODE:
       guestfs_close (g);
+      /* Avoid double-free in DESTROY method. */
+      HV *hv = (HV *) SvRV (ST(0));
+      (void) hv_delete (hv, \"_g\", 2, G_DISCARD);
 
 ";
 
@@ -9179,10 +9199,27 @@ sub new {
   my $proto = shift;
   my $class = ref ($proto) || $proto;
 
-  my $self = Sys::Guestfs::_create ();
+  my $g = Sys::Guestfs::_create ();
+  my $self = { _g => $g };
   bless $self, $class;
   return $self;
 }
+
+=item $h->close ();
+
+Explicitly close the guestfs handle.
+
+B<Note:> You should not usually call this function.  The handle will
+be closed implicitly when its reference count goes to zero (eg.
+when it goes out of scope or the program ends).  This call is
+only required in some exceptional cases, such as where the program
+may contain cached references to the handle 'somewhere' and you
+really have to have the close happen right away.  After calling
+C<close> the program must not call any method (including C<close>)
+on the handle (but the implicit call to C<DESTROY> that happens
+when the final reference is cleaned up is OK).
+
+=cut
 
 " max_proc_nr;
 
