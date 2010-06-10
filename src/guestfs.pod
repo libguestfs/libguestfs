@@ -1026,7 +1026,7 @@ any state to the CONFIG state).
 
  typedef void (*guestfs_launch_done_cb) (guestfs_h *g, void *opaque);
  void guestfs_set_launch_done_callback (guestfs_h *g,
-                                        guestfs_ready_cb cb,
+                                        guestfs_launch_done_cb cb,
                                         void *opaque);
 
 The callback function C<cb> will be called when the child process
