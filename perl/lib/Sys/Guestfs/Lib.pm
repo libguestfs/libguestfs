@@ -152,6 +152,13 @@ sub open_guest
         croak __"open_guest: first parameter must be a string or an arrayref"
     }
 
+    # Check each element of @images is defined.
+    # (See https://bugzilla.redhat.com/show_bug.cgi?id=601092#c3).
+    foreach (@images) {
+        croak __"open_guest: first argument contains undefined element"
+            unless defined $_;
+    }
+
     my ($conn, $dom);
 
     if (-e $images[0]) {
