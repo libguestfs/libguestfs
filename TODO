@@ -300,3 +300,43 @@ Freeze/thaw filesystems
 
 Access to these ioctls:
 http://git.kernel.org/linus/fcccf502540e3d7
+
+Tips for new users in guestfish
+-------------------------------
+
+$ guestfish
+Tip: You need to 'add disk.img' or 'alloc disk.img nn' to make a new image.
+Type 'notips' to disable tips permanently.
+><fs> add mydisk
+Tip: You need to type 'run' before you can see into the disk image.
+><fs> run
+Tip: Use 'list-filesystems' to see what filesystems are available.
+><fs> list-filesystems
+/dev/vda1
+Tip: Use 'mount fs /' to mount a filesystem.
+><fs> mount /dev/vda1 /
+Tip: Use 'll /' to view the filesystem or ...
+><fs> ll /
+
+New guestfish commands
+----------------------
+
+'list-filesystems' => list mountable filesystems
+
+Could we make guestfish interactive if commands are used without params?
+------------------------------------------------------------------------
+
+><fs> sparse
+[[Prints man page]]
+Image name? disk.img
+Size of image? 10M
+
+Common problems
+---------------
+
+How can we solve these common user problems?
+
+- http://lists.fedoraproject.org/pipermail/users/2010-June/374931.html
+  In guestfish, specified -m non-existent filesystem.  We could suggest
+  a list of filesystems, or suggest they run the virt-list-filesystems
+  command.
