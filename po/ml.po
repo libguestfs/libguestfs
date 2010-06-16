@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master.libguestfs.ml\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-06-08 17:58+0100\n"
+"POT-Creation-Date: 2010-06-16 16:11+0100\n"
 "PO-Revision-Date: 2010-02-02 18:35+0530\n"
 "Last-Translator: Ani Peter | അനി പീറ്റര്‍ <apeter@redhat.com>\n"
 "Language-Team: Swathanthra Malayalam Computing | സ്വതന്ത്ര മലയാളം കമ്പ്യൂട്ടിങ് <smc-"
@@ -2070,62 +2070,66 @@ msgstr ""
 msgid "open_guest: first parameter must be a string or an arrayref"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:159
+#: perl/lib/Sys/Guestfs/Lib.pm:158
+msgid "open_guest: first argument contains undefined element"
+msgstr ""
+
+#: perl/lib/Sys/Guestfs/Lib.pm:166
 #, fuzzy, perl-brace-format
 msgid "guest image {imagename} does not exist or is not readable"
 msgstr "ബൈനറി '%s' നിലവിലില്ല അല്ലെങ്കില്‍ പ്രവര്‍ത്തിക്കുന്നില്ല\n"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:164
+#: perl/lib/Sys/Guestfs/Lib.pm:171
 msgid ""
 "open_guest: no libvirt support (install Sys::Virt, XML::XPath and XML::"
 "XPath::XMLParser)"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:169
+#: perl/lib/Sys/Guestfs/Lib.pm:176
 #, fuzzy
 msgid "open_guest: too many domains listed on command line"
 msgstr "%s: കമാന്‍ഡ് ലൈനില്‍ കാലിയായ കമാന്‍ഡ്\n"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:176
+#: perl/lib/Sys/Guestfs/Lib.pm:183
 msgid "open_guest: cannot connect to libvirt"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:195
+#: perl/lib/Sys/Guestfs/Lib.pm:202
 #, perl-brace-format
 msgid "{imagename} is not the name of an inactive libvirt domain\n"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:198
+#: perl/lib/Sys/Guestfs/Lib.pm:205
 #, perl-brace-format
 msgid "{imagename} is not the name of a libvirt domain\n"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:210
+#: perl/lib/Sys/Guestfs/Lib.pm:217
 #, perl-brace-format
 msgid "{imagename} seems to have no disk devices\n"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:435
+#: perl/lib/Sys/Guestfs/Lib.pm:442
 #, perl-brace-format
 msgid "returning non-canonical architecture type '{arch}'"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:478
+#: perl/lib/Sys/Guestfs/Lib.pm:485
 #, fuzzy, perl-brace-format
 msgid "cpio command failed: {error}"
 msgstr "കമാന്‍ഡ് പരാജയപ്പെട്ടു: %s"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:490
+#: perl/lib/Sys/Guestfs/Lib.pm:497
 #, perl-brace-format
 msgid "file_architecture: no known binaries found in initrd image: {path}"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:494
+#: perl/lib/Sys/Guestfs/Lib.pm:501
 #, perl-brace-format
 msgid "file_architecture: unknown architecture: {path}"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1208
+#: perl/lib/Sys/Guestfs/Lib.pm:1215
 msgid ""
 "No operating system could be detected inside this disk image.\n"
 "\n"
@@ -2137,134 +2141,134 @@ msgid ""
 "information about the disk image as possible.\n"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1281
+#: perl/lib/Sys/Guestfs/Lib.pm:1288
 #, perl-brace-format
 msgid "unknown filesystem label {label}\n"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1291
+#: perl/lib/Sys/Guestfs/Lib.pm:1298
 #, perl-brace-format
 msgid "unknown filesystem UUID {uuid}\n"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1314
+#: perl/lib/Sys/Guestfs/Lib.pm:1321
 #, fuzzy, perl-brace-format
 msgid "unknown filesystem {fs}\n"
 msgstr "ഒരു ഫയല്‍സിസ്റ്റം അണ്‍മൌണ്ട് ചെയ്യുക"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1498
+#: perl/lib/Sys/Guestfs/Lib.pm:1505
 #, perl-brace-format
 msgid "Error running rpm -qa: {error}"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1524
+#: perl/lib/Sys/Guestfs/Lib.pm:1531
 #, perl-brace-format
 msgid "Error running dpkg-query: {error}"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1589
+#: perl/lib/Sys/Guestfs/Lib.pm:1596
 msgid "Can't find grub on guest"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1644
+#: perl/lib/Sys/Guestfs/Lib.pm:1651
 #, perl-brace-format
 msgid "Grub entry {title} has no kernel"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1675
+#: perl/lib/Sys/Guestfs/Lib.pm:1682
 #, perl-brace-format
 msgid "grub refers to {path}, which doesn't exist\n"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1698
+#: perl/lib/Sys/Guestfs/Lib.pm:1705
 #, perl-brace-format
 msgid "Grub entry {title} does not specify an initrd"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1769
+#: perl/lib/Sys/Guestfs/Lib.pm:1776
 #, perl-brace-format
 msgid "Didn't find modules directory {modules} for kernel {path}"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1777
+#: perl/lib/Sys/Guestfs/Lib.pm:1784
 #, perl-brace-format
 msgid "Couldn't guess kernel version number from path for kernel {path}"
 msgstr ""
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1831
+#: perl/lib/Sys/Guestfs/Lib.pm:1838
 #, fuzzy, perl-brace-format
 msgid "{path} doesn't match augeas pattern"
 msgstr "ഒരു മാതൃകയ്ക്കു് ചേരുന്ന വരികള്‍ തിരികെ ലഭ്യമാക്കുക"
 
-#: perl/lib/Sys/Guestfs/Lib.pm:1870
+#: perl/lib/Sys/Guestfs/Lib.pm:1877
 #, perl-brace-format
 msgid "{filename}: could not read initrd format"
 msgstr ""
 
-#: src/guestfs.c:290
+#: src/guestfs.c:292
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: ഒരേ ഹാന്‍ഡിലില്‍ രണ്ടു് തവണ വിളിച്ചിരിക്കുന്നു\n"
 
-#: src/guestfs.c:393
+#: src/guestfs.c:399
 #, c-format
 msgid "libguestfs: error: %s\n"
 msgstr "libguestfs: പിശക്: %s\n"
 
-#: src/guestfs.c:748
+#: src/guestfs.c:754
 msgid "command line cannot be altered after qemu subprocess launched"
 msgstr "qemu ഉപപ്രക്രിയ വിന്യസിച്ചശേഷം കമാന്‍ഡ് ലൈനില്‍ മാറ്റം വരുത്തുവാന്‍ സാധ്യമല്ല"
 
-#: src/guestfs.c:762
+#: src/guestfs.c:768
 msgid "guestfs_config: parameter must begin with '-' character"
 msgstr "guestfs_config: പരാമീറ്റര്‍ '-' ഉപയോഗിച്ചു് ആരംഭിക്കണം"
 
-#: src/guestfs.c:776
+#: src/guestfs.c:782
 #, fuzzy, c-format
 msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr "guestfs_config: പരാമീറ്റര്‍ '%s' അനുവദിച്ചിട്ടില്ല"
 
-#: src/guestfs.c:797 src/guestfs.c:834 src/guestfs.c:881
+#: src/guestfs.c:803 src/guestfs.c:840 src/guestfs.c:887
 msgid "filename cannot contain ',' (comma) character"
 msgstr "ഫയല്‍നാമത്തില്‍ ',' (കോമാ) അടങ്ങുന്നു"
 
-#: src/guestfs.c:949
+#: src/guestfs.c:955
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "guestfs_launch-നു് മുമ്പു് guestfs_add_drive വിളിക്കേണ്ടതു്"
 
-#: src/guestfs.c:954
+#: src/guestfs.c:960
 #, fuzzy
 msgid "the libguestfs handle has already been launched"
 msgstr "qemu നിലവില്‍ വിന്യസിച്ചിരിക്കുന്നു"
 
-#: src/guestfs.c:974
+#: src/guestfs.c:980
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: താല്‍ക്കാലിക ഡയറക്ടറി ഉണ്ടാക്കുവാന്‍ സാധ്യമല്ല"
 
-#: src/guestfs.c:1062
+#: src/guestfs.c:1068
 #, c-format
 msgid "cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)"
 msgstr "LIBGUESTFS_PATH-ല്‍ %s അല്ലെങ്കില്‍ %s ലഭ്യമല്ല (ഇപ്പോഴുള്ള പാഥ് = %s)"
 
-#: src/guestfs.c:1474
+#: src/guestfs.c:1480
 msgid "failed to connect to vmchannel socket"
 msgstr "vmchannel സോക്കറ്റിലേക്കു് കണക്ട് ചെയ്യുന്നതില്‍ പരാജയപ്പെട്ടു"
 
-#: src/guestfs.c:1493
+#: src/guestfs.c:1499
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch പരാജയപ്പെട്ടു, മുമ്പുള്ള പിശക് സന്ദേശങ്ങള്‍ കാണുക"
 
-#: src/guestfs.c:1506
+#: src/guestfs.c:1512
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu വിന്യസിച്ചു് ഡെമണുമായി ബന്ധപ്പെട്ടു, പക്ഷേ state != READY"
 
-#: src/guestfs.c:1602
+#: src/guestfs.c:1608
 #, c-format
 msgid "external command failed: %s"
 msgstr "എക്സ്റ്റേണല്‍ കമാന്‍ഡ് പരാജയപ്പെട്ടു: %s"
 
-#: src/guestfs.c:1675
+#: src/guestfs.c:1681
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -2273,90 +2277,90 @@ msgstr ""
 "%s: കമാന്‍ഡ് പരാജയപ്പെട്ടു: നിലവാരമില്ലാത്ത പാഥിലാണു് qemu ലഭ്യമെങ്കില്‍, LIBGUESTFS_QEMU "
 "എന്‍വയോണ്മെന്റ് വേരിയബിള്‍ സജ്ജമാക്കുവാന്‍ ശ്രമിക്കുക."
 
-#: src/guestfs.c:1851
+#: src/guestfs.c:1857
 msgid "qemu has not been launched yet"
 msgstr "qemu ഇതുവരെ വിന്യസിച്ചിട്ടില്ല"
 
-#: src/guestfs.c:1862
+#: src/guestfs.c:1868
 msgid "no subprocess to kill"
 msgstr "ഇല്ലാതാക്കുന്നതിനായി ഉപപ്രക്രിയകളില്ല"
 
-#: src/guestfs.c:1984
+#: src/guestfs.c:1998
 #, c-format
 msgid "guestfs_set_busy: called when in state %d != READY"
 msgstr "guestfs_set_busy: %d != READY അവസ്ഥയില്‍ വിളിച്ചിരിക്കുന്നു"
 
-#: src/guestfs.c:2007
+#: src/guestfs.c:2021
 #, c-format
 msgid "guestfs_end_busy: called when in state %d"
 msgstr "guestfs_end_busy: %d അവസ്ഥയില്‍ വിളിച്ചിരിക്കുന്നു"
 
-#: src/guestfs.c:2122
+#: src/guestfs.c:2136
 #, c-format
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
 msgstr ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
 
-#: src/guestfs.c:2280 src/guestfs.c:2334
+#: src/guestfs.c:2294 src/guestfs.c:2348
 msgid "unexpected end of file when reading from daemon"
 msgstr "ഡെമണില്‍ നിന്നും വായിക്കുമ്പോള്‍ അപ്രതീക്ഷിതമായി ഫയല്‍ അവസാനിച്ചിരിക്കുന്നു"
 
-#: src/guestfs.c:2296
+#: src/guestfs.c:2310
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr "guestfsd-ല്‍ നിന്നും ഒപ്പ് ലഭിച്ചു, പക്ഷേ %d അവസ്ഥയില്‍"
 
-#: src/guestfs.c:2311
+#: src/guestfs.c:2325
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "സന്ദേശത്തിന്റെ നീളം (%u) > ഏറ്റവും കൂടിയ സാധ്യമായ വ്യാപ്തി (%d)"
 
-#: src/guestfs.c:2441
+#: src/guestfs.c:2455
 #, c-format
 msgid "guestfs___send: state %d != BUSY"
 msgstr "guestfs___send: അവസ്ഥ %d != BUSY"
 
-#: src/guestfs.c:2463
+#: src/guestfs.c:2477
 msgid "xdr_guestfs_message_header failed"
 msgstr "xdr_guestfs_message_header പരാജയപ്പെട്ടു"
 
-#: src/guestfs.c:2472
+#: src/guestfs.c:2486
 msgid "dispatch failed to marshal args"
 msgstr "മാര്‍ഷല്‍ ആര്‍ഗ്യുമെന്റുകളിലേക്കു് നല്‍കുന്നതു് പരാജയപ്പെട്ടു"
 
-#: src/guestfs.c:2602
+#: src/guestfs.c:2616
 #, c-format
 msgid "send_file_chunk: state %d != READY"
 msgstr "send_file_chunk: അവസ്ഥ %d != READY"
 
-#: src/guestfs.c:2618
+#: src/guestfs.c:2632
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk പരാജയപ്പെട്ടു (buf = %p, buflen = %zu)"
 
-#: src/guestfs.c:2741
+#: src/guestfs.c:2755
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: ചങ്ക്ഡ് എന്‍കോഡിങില്‍ പിശക്"
 
-#: src/guestfs.c:2769
+#: src/guestfs.c:2783
 msgid "write to daemon socket"
 msgstr "ഡെമണ്‍ സോക്കറ്റിലേക്ക് സൂക്ഷിക്കുക"
 
-#: src/guestfs.c:2792
+#: src/guestfs.c:2806
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: parse error in reply callback"
 
-#: src/guestfs.c:2797
+#: src/guestfs.c:2811
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr "receive_file_data: ഫയല്‍ ലഭ്യമാക്കുമ്പോള്‍ അപ്രതീക്ഷിതമായ ഫ്ലാഗ് ലഭിച്ചിരിക്കുന്നു"
 
-#: src/guestfs.c:2805
+#: src/guestfs.c:2819
 msgid "failed to parse file chunk"
 msgstr "ഫയല്‍ പാഴ്സ് ചെയ്യുന്നതില്‍ പരാജയപ്പെട്ടു"
 
-#: src/guestfs.c:2814
+#: src/guestfs.c:2828
 msgid "file receive cancelled by daemon"
 msgstr "ഫയല്‍ ലഭ്യമാക്കുന്നതു് ഡെമണ്‍ റദ്ദാക്കിയിരിക്കുന്നു"
 
