@@ -19,6 +19,8 @@
 #ifndef GUESTFS_OCAML_C_H
 #define GUESTFS_OCAML_C_H
 
+#include "guestfs-internal.h"
+
 #define Guestfs_val(v) (*((guestfs_h **)Data_custom_val(v)))
 extern void ocaml_guestfs_raise_error (guestfs_h *g, const char *func)
   Noreturn;

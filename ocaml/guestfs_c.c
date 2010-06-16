@@ -136,11 +136,7 @@ ocaml_guestfs_close (value gv)
   CAMLreturn (Val_unit);
 }
 
-/* Copy string array value.
- * The return value is only 'safe' provided we don't allocate anything
- * further on the OCaml heap (ie. cannot trigger the OCaml GC) because
- * that could move the strings around.
- */
+/* Copy string array value. */
 char **
 ocaml_guestfs_strings_val (guestfs_h *g, value sv)
 {
@@ -150,7 +146,7 @@ ocaml_guestfs_strings_val (guestfs_h *g, value sv)
 
   r = guestfs_safe_malloc (g, sizeof (char *) * (Wosize_val (sv) + 1));
   for (i = 0; i < Wosize_val (sv); ++i)
-    r[i] = String_val (Field (sv, i));
+    r[i] = guestfs_safe_strdup (g, String_val (Field (sv, i)));
   r[i] = NULL;
 
   CAMLreturnT (char **, r);
@@ -160,8 +156,9 @@ ocaml_guestfs_strings_val (guestfs_h *g, value sv)
 void
 ocaml_guestfs_free_strings (char **argv)
 {
-  /* Don't free the actual strings - they are String_vals on
-   * the OCaml heap.
-   */
+  unsigned int i;
+
+  for (i = 0; argv[i] != NULL; ++i)
+    free (argv[i]);
   free (argv);
 }
