@@ -323,6 +323,15 @@ New guestfish commands
 
 'list-filesystems' => list mountable filesystems
 
+We could implement this as a new API call, replacing a number of areas
+of the current code where this is done already (in virt-inspector and
+elsewhere).  What we normally do to find out if a partition contains a
+mountable filesystem is to just blindly mount it, and see if that
+succeeds.  However the kernel won't let us do this if the filesystem
+is already mounted somewhere, so a naive implementation of this in the
+daemon won't work.  We would have to check if the partition was
+already mounted.
+
 Could we make guestfish interactive if commands are used without params?
 ------------------------------------------------------------------------
 
