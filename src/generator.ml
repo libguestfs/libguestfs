@@ -6349,6 +6349,8 @@ and generate_linker_script () =
      *)
     "guestfs_safe_calloc";
     "guestfs_safe_malloc";
+    "guestfs_safe_strdup";
+    "guestfs_safe_memdup";
   ] in
   let functions =
     List.map (fun (name, _, _, _, _, _, _) -> "guestfs_" ^ name)
@@ -8395,7 +8397,7 @@ and generate_ocaml_c () =
 #include <caml/mlvalues.h>
 #include <caml/signals.h>
 
-#include <guestfs.h>
+#include \"guestfs.h\"
 
 #include \"guestfs_c.h\"
 
@@ -8563,14 +8565,15 @@ copy_table (char * const * argv)
         | String n
         | FileIn n
         | FileOut n ->
-            pr "  const char *%s = String_val (%sv);\n" n n
+            (* Copy strings in case the GC moves them: RHBZ#604691 *)
+            pr "  char *%s = guestfs_safe_strdup (g, String_val (%sv));\n" n n
         | OptString n ->
-            pr "  const char *%s =\n" n;
-            pr "    %sv != Val_int (0) ? String_val (Field (%sv, 0)) : NULL;\n"
-              n n
+            pr "  char *%s =\n" n;
+            pr "    %sv != Val_int (0) ?" n;
+            pr "      guestfs_safe_strdup (g, String_val (Field (%sv, 0))) : NULL;\n" n
         | BufferIn n ->
-            pr "  const char *%s = String_val (%sv);\n" n n;
-            pr "  size_t %s_size = caml_string_length (%sv);\n" n n
+            pr "  size_t %s_size = caml_string_length (%sv);\n" n n;
+            pr "  char *%s = guestfs_safe_memdup (g, String_val (%sv), %s_size);\n" n n n
         | StringList n | DeviceList n ->
             pr "  char **%s = ocaml_guestfs_strings_val (g, %sv);\n" n n
         | Bool n ->
@@ -8613,13 +8616,15 @@ copy_table (char * const * argv)
       pr ";\n";
       pr "  caml_leave_blocking_section ();\n";
 
+      (* Free strings if we copied them above. *)
       List.iter (
         function
+        | Pathname n | Device n | Dev_or_Path n | String n | OptString n
+        | FileIn n | FileOut n | BufferIn n ->
+            pr "  free (%s);\n" n
         | StringList n | DeviceList n ->
             pr "  ocaml_guestfs_free_strings (%s);\n" n;
-        | Pathname _ | Device _ | Dev_or_Path _ | String _ | OptString _
-        | Bool _ | Int _ | Int64 _
-        | FileIn _ | FileOut _ | BufferIn _ -> ()
+        | Bool _ | Int _ | Int64 _ -> ()
       ) (snd style);
 
       pr "  if (r == %s)\n" error_code;

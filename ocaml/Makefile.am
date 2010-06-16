@@ -67,10 +67,10 @@ TESTS_ENVIRONMENT = \
 
 TESTS = run-bindtests \
 	t/guestfs_005_load t/guestfs_010_launch t/guestfs_050_lvcreate \
-	t/guestfs_060_readdir t/guestfs_500_inspect
+	t/guestfs_060_readdir t/guestfs_070_threads t/guestfs_500_inspect
 noinst_DATA += bindtests \
 	t/guestfs_005_load t/guestfs_010_launch t/guestfs_050_lvcreate \
-	t/guestfs_060_readdir t/guestfs_500_inspect
+	t/guestfs_060_readdir t/guestfs_070_threads t/guestfs_500_inspect
 
 bindtests: bindtests.cmx mlguestfs.cmxa
 	mkdir -p t
@@ -92,12 +92,19 @@ t/guestfs_060_readdir: t/guestfs_060_readdir.cmx mlguestfs.cmxa
 	mkdir -p t
 	$(OCAMLFIND) ocamlopt -cclib -L$(top_builddir)/src/.libs -I . -package xml-light,unix -linkpkg mlguestfs.cmxa $< -o $@
 
+t/guestfs_070_threads: t/guestfs_070_threads.cmx mlguestfs.cmxa
+	mkdir -p t
+	$(OCAMLFIND) ocamlopt -cclib -L$(top_builddir)/src/.libs -I . -package unix,threads -thread -linkpkg mlguestfs.cmxa $< -o $@
+
 t/guestfs_500_inspect: t/guestfs_500_inspect.cmx mlguestfs.cmxa
 	mkdir -p t
 	$(OCAMLFIND) ocamlopt -cclib -L$(top_builddir)/src/.libs -I . -package xml-light,unix -linkpkg mlguestfs.cmxa $< -o $@
 
 # Need to rebuild the tests from source if the main library has
 # changed at all, otherwise we get inconsistent assumptions.
+t/guestfs_070_threads.cmx: t/guestfs_070_threads.ml mlguestfs.cmxa
+	$(OCAMLFIND) ocamlopt -package unix,threads -thread -linkpkg -c $< -o $@
+
 t/%.cmx: t/%.ml mlguestfs.cmxa
 	$(OCAMLFIND) ocamlopt -package xml-light,unix -linkpkg -c $< -o $@
 
