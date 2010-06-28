@@ -65,3 +65,7 @@ crc*.ko
 libcrc*.ko
 
 loop.ko
+
+gfs2.ko
+dlm.ko
+configfs.ko
