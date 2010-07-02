@@ -321,7 +321,7 @@ elsif ($output eq "perl") {
 
 # YAML output
 elsif ($output eq "yaml") {
-    die __"virt-inspector: no YAML support\n"
+    die __"virt-inspector: no YAML support, try installing perl-YAML or libyaml-perl\n"
         unless exists $INC{"YAML/Any.pm"};
 
     print Dump(%$oses);
