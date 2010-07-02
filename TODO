@@ -349,3 +349,10 @@ How can we solve these common user problems?
   In guestfish, specified -m non-existent filesystem.  We could suggest
   a list of filesystems, or suggest they run the virt-list-filesystems
   command.
+
+Progress of long-running operations
+-----------------------------------
+
+For example, copying in virt-resize.  How can we display the progress
+of these operations?  This is a basic usability requirement, and
+frequently requested.
