@@ -982,6 +982,14 @@ guestfs__launch (guestfs_h *g)
     }
   }
 
+  /* Allow anyone to read the temporary directory.  There are no
+   * secrets in the kernel or initrd files.  The socket in this
+   * directory won't be readable but anyone can see it exists if they
+   * want. (RHBZ#610880).
+   */
+  if (chmod (g->tmpdir, 0755) == -1)
+    fprintf (stderr, "chmod: %s: %m (ignored)\n", g->tmpdir);
+
   /* First search g->path for the supermin appliance, and try to
    * synthesize a kernel and initrd from that.  If it fails, we
    * try the path search again looking for a backup ordinary
@@ -1590,7 +1598,11 @@ build_supermin_appliance (guestfs_h *g, const char *path,
   *initrd = safe_malloc (g, len + 8);
   snprintf (*initrd, len+8, "%s/initrd", g->tmpdir);
 
+  /* Set a sensible umask in the subprocess, so kernel and initrd
+   * output files are world-readable (RHBZ#610880).
+   */
   snprintf (cmd, sizeof cmd,
+            "umask 0002; "
             "febootstrap-supermin-helper%s "
             "-k '%s/kmod.whitelist' "
             "'%s/supermin.d' "
