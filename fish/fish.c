@@ -476,6 +476,17 @@ main (int argc, char *argv[])
    * guest and mount them.
    */
   if (next_prepared_drive > 1 || mps != NULL) {
+    /* RHBZ#612178: If --listen flag is given, then we will fork into
+     * the background in rc_listen().  However you can't do this while
+     * holding a libguestfs handle open because the recovery process
+     * will think the main program has died and kill qemu.  Therefore
+     * don't use the recovery process for this case.  (A better
+     * solution would be to call launch () etc after the fork, but
+     * that greatly complicates the code here).
+     */
+    if (remote_control_listen)
+      guestfs_set_recovery_proc (g, 0);
+
     if (launch () == -1) exit (EXIT_FAILURE);
     prepare_drives (drvs);
     mount_mps (mps);
