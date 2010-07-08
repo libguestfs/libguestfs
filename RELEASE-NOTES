@@ -1,6 +1,5 @@
 Release notes for libguestfs 1.4.0
 ----------------------------------
-[updated to 6c27155621f75351a3b18237ac7631f0eb12c336]
 
 These release notes only cover the differences from the previous
 stable/dev branch split (1.2.0).  For detailed changelogs, please see
@@ -14,7 +13,7 @@ New features
  - Add write support to guestmount (FUSE) module.
 
  - virt-resize can now resize the content of partitions and logical
-   volumes in the guest, and we fully support shrinking guests.
+   volumes in the guest, and we have better support for shrinking guests.
 
  - Bash tab-completion script for guestfish.
 
@@ -69,6 +68,10 @@ New features
 
  - Include extra Augeas lenses in the supermin appliance (Matthew Booth).
 
+ - Add error and close callbacks.
+
+ - Add explicit close method in the Perl API.
+
  - Multiple fixes for RHEL 5 compatibility.
 
  - Multiple fixes for Debian/Ubuntu compatibility.
@@ -118,13 +121,21 @@ Internals
  - Extend the protocol to support sending arbitrary 8 bit data buffers.
  - Ship 'BUGS' file with releases.  This is a summary of the bugs in
    the Red Hat Bugzilla database.
+ - Ship 'RELEASE-NOTES' file with releases, containing release notes.
  - Unify supermin appliance building into one place, in febootstrap 2.7.
  - Fix the protocol code to handle the case where both ends send cancel
    messages at the same time.
 
 Bugs fixed
 
+ - 612178 guestfish: using -m option in conjunction with --listen option causes appliance to die
+ - 610880 libguestfs should set broader read perms on tmpdir, so works in some situations when executed with umask 077
+ - 604691 OCaml bindings are not thread safe
+ - 603870 Updates to Spanish translation
+ - 602592 [RFE] expose guestfs_close in perl bindings
+ - 600977 virt-df -h --csv "Argument .. isn't numeric in printf"
  - 599464 mkfs-b does not support vfat/ntfs
+ - 598807 add_cdrom does not work in RHEL 6
  - 598309 part-list and several other cmd failed on libguestfs on RHEL5
  - 597145 guestfish 'help' command should indicate error in exit status with an unknown command
  - 597135 guestfish write-file cmd does not check "size" parameter
