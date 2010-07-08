@@ -71,7 +71,7 @@ endif
 EXTRA_DIST = \
 	$(generator_built) \
 	html/pod.css \
-	HACKING TODO \
+	BUGS HACKING RELEASE-NOTES TODO \
 	libguestfs.pc libguestfs.pc.in \
 	recipes/LICENSE \
 	recipes/README \
