@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 # virt-edit
-# Copyright (C) 2009 Red Hat Inc.
+# Copyright (C) 2009-2010 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -40,6 +40,8 @@ virt-edit - Edit a file in a virtual machine
 
  virt-edit [--options] disk.img [disk.img ...] file
 
+ virt-edit [domname|disk.img] file -e 'expr'
+
 =head1 WARNING
 
 You must I<not> use C<virt-edit> on live virtual machines.  If you do
@@ -56,9 +58,17 @@ cases you should look at the L<guestfish(1)> tool.
 
 =head1 EXAMPLES
 
+Edit the named files interactively:
+
  virt-edit mydomain /boot/grub/grub.conf
 
  virt-edit mydomain /etc/passwd
+
+You can also edit files non-interactively (see
+L</NON-INTERACTIVE EDITING> below).
+To change the init default level to 5:
+
+ virt-edit mydomain /etc/inittab -e 's/^id:.*/id:5:initdefault:/'
 
 =head1 OPTIONS
 
@@ -92,6 +102,19 @@ connect to the default libvirt hypervisor.
 If you specify guest block devices directly, then libvirt is not used
 at all.
 
+=cut
+
+my $expr;
+
+=item B<--expr EXPR> | B<-e EXPR>
+
+Instead of launching the external editor, non-interactively
+apply the Perl expression C<EXPR> to each line in the file.
+See L</NON-INTERACTIVE EDITING> below.
+
+Be careful to properly quote the expression to prevent it from
+being altered by the shell.
+
 =back
 
 =cut
@@ -99,6 +122,7 @@ at all.
 GetOptions ("help|?" => \$help,
             "version" => \$version,
             "connect|c=s" => \$uri,
+            "expr|e=s" => \$expr,
     ) or pod2usage (2);
 pod2usage (1) if $help;
 if ($version) {
@@ -139,32 +163,116 @@ my $root_dev = $roots[0];
 my $os = $oses->{$root_dev};
 mount_operating_system ($g, $os, 0);
 
-my ($fh, $tempname) = tempfile ();
+my ($fh_not_used, $tempname) = tempfile ();
 
 # Allow this to fail in case eg. the file does not exist.
 $g->download($filename, $tempname);
 
-my $oldctime = (stat ($tempname))[10];
+my $do_upload = $tempname;
 
-my $editor = $ENV{EDITOR};
-$editor ||= "vi";
-system ("$editor $tempname") == 0
-    or die "edit failed: $editor: $?";
+if (!defined $expr) {
+    # Interactively edit the file.
+    my $oldctime = (stat ($tempname))[10];
 
-my $newctime = (stat ($tempname))[10];
+    my $editor = $ENV{EDITOR};
+    $editor ||= "vi";
+    system ("$editor $tempname") == 0
+        or die "edit failed: $editor: $?";
 
-if ($oldctime != $newctime) {
-    $g->upload ($tempname, $filename)
+    my $newctime = (stat ($tempname))[10];
+
+    if ($oldctime == $newctime) {
+        $do_upload = undef;
+        print __"File not changed.\n";
+    }
 } else {
-    print __"File not changed.\n";
+    my ($fh, $tempout) = tempfile ();
+
+    # Apply a Perl expression to the lines of the file.
+    open IFILE, $tempname or die "$tempname: $!";
+    my $lineno = 0;
+    while (<IFILE>) {
+        $lineno++;
+        eval $expr;
+        die if $@;
+        print $fh $_ or die "print: $!";
+    }
+    close $fh;
+
+    $do_upload = $tempout;
 }
 
-$g->sync ();
-$g->umount_all ();
+if (defined $do_upload) {
+    $g->upload ($do_upload, $filename);
+    $g->umount_all ();
+    $g->sync ();
+}
 
 undef $g;
 
 exit 0;
+
+=head1 NON-INTERACTIVE EDITING
+
+C<virt-edit> normally calls out to C<$EDITOR> (or vi) so
+the system administrator can interactively edit the file.
+
+There are two ways also to use C<virt-edit> from scripts in order to
+make automated edits to files.  (Note that although you I<can> use
+C<virt-edit> like this, it's less error-prone to write scripts
+directly using the libguestfs API and Augeas for configuration file
+editing.)
+
+The first method is to temporarily set C<$EDITOR> to any script or
+program you want to run.  The script is invoked as C<$EDITOR tmpfile>
+and it should update C<tmpfile> in place however it likes.
+
+The second method is to use the C<-e> parameter of C<virt-edit> to run
+a short Perl snippet in the style of L<sed(1)>.  For example to
+replace all instances of C<foo> with C<bar> in a file:
+
+ virt-edit domname filename -e 's/foo/bar/'
+
+The full power of Perl regular expressions can be used (see
+L<perlre(1)>).  For example to delete root's password you could do:
+
+ virt-edit domname /etc/passwd -e 's/^root:.*?:/root::/'
+
+What really happens is that the snippet is evaluated as a Perl
+expression for each line of the file.  The line, including the final
+C<\n>, is passed in C<$_> and the expression should update C<$_> or
+leave it unchanged.
+
+To delete a line, set C<$_> to the empty string.  For example, to
+delete the C<apache> user account from the password file you can do:
+
+ virt-edit mydomain /etc/passwd -e '$_ = "" if /^apache:/'
+
+To insert a line, prepend or append it to C<$_>.  However appending
+lines to the end of the file is rather difficult this way since there
+is no concept of "last line of the file" - your expression just
+doesn't get called again.  You might want to use the first method
+(setting C<$EDITOR>) if you want to do this.
+
+The variable C<$lineno> contains the current line number.
+As is traditional, the first line in the file is number C<1>.
+
+The return value from the expression is ignored, but the expression
+may call C<die> in order to abort the whole program, leaving the
+original file untouched.
+
+Remember when matching the end of a line that C<$_> may contain the
+final C<\n>, or (for DOS files) C<\r\n>, or if the file does not end
+with a newline then neither of these.  Thus to match or substitute
+some text at the end of a line, use this regular expression:
+
+ /some text(\r?\n)?$/
+
+Alternately, use the perl C<chomp> function, being careful not to
+chomp C<$_> itself (since that would remove all newlines from the
+file):
+
+ my $m = $_; chomp $m; $m =~ /some text$/
 
 =head1 ENVIRONMENT VARIABLES
 
@@ -187,7 +295,9 @@ L<virt-cat(1)>,
 L<Sys::Guestfs(3)>,
 L<Sys::Guestfs::Lib(3)>,
 L<Sys::Virt(3)>,
-L<http://libguestfs.org/>.
+L<http://libguestfs.org/>,
+L<perl(1)>,
+L<perlre(1)>.
 
 =head1 AUTHOR
 
@@ -195,7 +305,7 @@ Richard W.M. Jones L<http://people.redhat.com/~rjones/>
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Red Hat Inc.
+Copyright (C) 2009-2010 Red Hat Inc.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
