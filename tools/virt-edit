@@ -180,7 +180,7 @@ my $root_dev = $roots[0];
 my $os = $oses->{$root_dev};
 mount_operating_system ($g, $os, 0);
 
-my ($fh_not_used, $tempname) = tempfile ();
+my ($fh_not_used, $tempname) = tempfile (UNLINK => 1);
 
 # Allow this to fail in case eg. the file does not exist.
 $g->download($filename, $tempname);
@@ -203,7 +203,7 @@ if (!defined $expr) {
         print __"File not changed.\n";
     }
 } else {
-    my ($fh, $tempout) = tempfile ();
+    my ($fh, $tempout) = tempfile (UNLINK => 1);
 
     # Apply a Perl expression to the lines of the file.
     open IFILE, $tempname or die "$tempname: $!";
