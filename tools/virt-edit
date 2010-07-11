@@ -139,7 +139,7 @@ my $root_dev = $roots[0];
 my $os = $oses->{$root_dev};
 mount_operating_system ($g, $os, 0);
 
-my ($fh, $tempname) = tempfile ();
+my ($fh_not_used, $tempname) = tempfile (UNLINK => 1);
 
 # Allow this to fail in case eg. the file does not exist.
 $g->download($filename, $tempname);
