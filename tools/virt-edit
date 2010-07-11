@@ -92,6 +92,22 @@ Display version number and exit.
 
 =cut
 
+my $backup;
+
+=item B<--backup extension> | B<-b extension>
+
+Create a backup of the original file I<in the guest disk image>.
+The backup has the original filename with C<extension> added.
+
+Usually the first character of C<extension> would be a dot C<.>
+so you would write:
+
+ virt-edit -b .orig [etc]
+
+By default, no backup file is made.
+
+=cut
+
 my $uri;
 
 =item B<--connect URI> | B<-c URI>
@@ -123,6 +139,7 @@ GetOptions ("help|?" => \$help,
             "version" => \$version,
             "connect|c=s" => \$uri,
             "expr|e=s" => \$expr,
+            "backup|b=s" => \$backup,
     ) or pod2usage (2);
 pod2usage (1) if $help;
 if ($version) {
@@ -203,7 +220,25 @@ if (!defined $expr) {
 }
 
 if (defined $do_upload) {
-    $g->upload ($do_upload, $filename);
+    # Upload to a new file, so if it fails we don't end up with
+    # a partially written file.  Give the new file a completely
+    # random name so we have only a tiny chance of overwriting
+    # some existing file.
+    my $dirname = $filename;
+    $dirname =~ s{/[^/]+$}{/};
+
+    my @chars = ('a'..'z', 'A'..'Z', '0'..'9');
+    my $newname = $dirname;
+    foreach (0..7) {
+        $newname .= $chars[rand @chars];
+    }
+
+    $g->upload ($do_upload, $newname);
+
+    # Backup or overwrite?
+    $g->mv ($filename, "$filename$backup") if defined $backup;
+    $g->mv ($newname, $filename);
+
     $g->umount_all ();
     $g->sync ();
 }
