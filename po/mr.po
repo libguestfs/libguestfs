@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-02 20:31+0100\n"
+"POT-Creation-Date: 2010-07-12 10:15+0100\n"
 "PO-Revision-Date: 2010-02-03 19:10+0530\n"
 "Last-Translator: Sandeep Shedmake <sshedmak@redhat.com>\n"
 "Language-Team: Marathi <fedora-trans-mr@redhat.com>\n"
@@ -1334,22 +1334,22 @@ msgstr "%s: -i यांस libvirt क्षेत्र किंवा डि
 msgid "%s: virt-inspector command too long for fixed-size buffer\n"
 msgstr "%s: virt-inspector आदेश ठराविक-आकाराचे बफर करीता खूप लांब आहे\n"
 
-#: fish/fish.c:415
+#: fish/fish.c:426
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr "%s: --listen व --remote पर्याय एकाच वेळी वापरणे अशक्य\n"
 
-#: fish/fish.c:423
+#: fish/fish.c:434
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: --listen फ्लॅगसह आदेश ओळीवरील अगाऊ घटके\n"
 
-#: fish/fish.c:429
+#: fish/fish.c:440
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: --listen व --file पर्यायचा वापर एकाचवेळी करणे अशक्य\n"
 
-#: fish/fish.c:577
+#: fish/fish.c:588
 #, c-format
 msgid ""
 "\n"
@@ -1368,81 +1368,81 @@ msgstr ""
 "      शेल पासून बाहेर पडण्यासाठी 'quit' करा\n"
 "\n"
 
-#: fish/fish.c:657
+#: fish/fish.c:668
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: न ओळखलेले डबल क्वोट\n"
 
-#: fish/fish.c:663 fish/fish.c:680
+#: fish/fish.c:674 fish/fish.c:691
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: आदेश घटके वाईटस्पेस द्वारे विभाजीत नाही\n"
 
-#: fish/fish.c:674
+#: fish/fish.c:685
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: न ओळखलेले सींगल क्वोट\n"
 
-#: fish/fish.c:729
+#: fish/fish.c:740
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: '%s' येथील अक्षरसंच वाचतेवेळी आंतरीक त्रुटी आढळली\n"
 
-#: fish/fish.c:746
+#: fish/fish.c:757
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: खूप जास्त घटके आढळले\n"
 
-#: fish/fish.c:775
+#: fish/fish.c:786
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: आदेश ओळवर रिकामे आदेश आढळले\n"
 
-#: fish/fish.c:936
+#: fish/fish.c:947
 msgid "display a list of commands or help on a command"
 msgstr "आदेश सूची किंवा आदेशकरीता मदत दाखवा"
 
-#: fish/fish.c:938
+#: fish/fish.c:949
 msgid "quit guestfish"
 msgstr "guestfish पासून बाहेर पडा"
 
-#: fish/fish.c:941
+#: fish/fish.c:952
 msgid "allocate an image"
 msgstr "प्रतिमाचे वाटप करा"
 
-#: fish/fish.c:943
+#: fish/fish.c:954
 msgid "display a line of text"
 msgstr "मजकूर ओळ दाखवा"
 
-#: fish/fish.c:945
+#: fish/fish.c:956
 msgid "edit a file in the image"
 msgstr "प्रतिमामधील फाइल संपादीत करा"
 
-#: fish/fish.c:947
+#: fish/fish.c:958
 msgid "local change directory"
 msgstr "स्थानीय बदल डिरेक्ट्री"
 
-#: fish/fish.c:949
+#: fish/fish.c:960
 msgid "expand wildcards in command"
 msgstr "आदेशमधील वाईल्डकार्डस् विस्तारीत करा"
 
-#: fish/fish.c:951
+#: fish/fish.c:962
 msgid "view a file in the pager"
 msgstr "पेजरमधील फाइलचे दृष्य"
 
-#: fish/fish.c:953
+#: fish/fish.c:964
 msgid "close and reopen libguestfs handle"
 msgstr "libguestfs हँडल बंद करा व पुन्हा उघडा"
 
-#: fish/fish.c:955
+#: fish/fish.c:966
 msgid "allocate a sparse image file"
 msgstr "sparse प्रतिमा फाइलचे वाटप करा"
 
-#: fish/fish.c:957
+#: fish/fish.c:968
 msgid "measure time taken to run command"
 msgstr "आदेश चालवण्यासाठी व्याप्त वेळ मोजा"
 
-#: fish/fish.c:969
+#: fish/fish.c:980
 #, c-format
 msgid ""
 "alloc - allocate an image\n"
@@ -1483,7 +1483,7 @@ msgstr ""
 "    <nn>E किंवा <nn>EB  एक्जाबाईट्समधील प्रमाण\n"
 "    <nn>sects        512 बाईट सेक्टरचे प्रमाण\n"
 
-#: fish/fish.c:990
+#: fish/fish.c:1001
 #, c-format
 msgid ""
 "echo - display a line of text\n"
@@ -1496,7 +1496,7 @@ msgstr ""
 "\n"
 "    यामुळे घटके टर्मिनलवर दाखवले जातात.\n"
 
-#: fish/fish.c:999
+#: fish/fish.c:1010
 #, c-format
 msgid ""
 "edit - edit a file in the image\n"
@@ -1529,7 +1529,7 @@ msgstr ""
 "    (> 2 MB) किंवा \\0 बाईट्स् समाविष्टीत बाईनरी फाइल्स् करीता यशस्वीरित्या कार्य करत "
 "नाही.\n"
 
-#: fish/fish.c:1015
+#: fish/fish.c:1026
 #, c-format
 msgid ""
 "lcd - local change directory\n"
@@ -1546,7 +1546,7 @@ msgstr ""
 "    ठराविक स्थळावर फाइल्स् डाऊनलोड करण्यासाठी\n"
 "    उपयोगी ठरतो.\n"
 
-#: fish/fish.c:1024
+#: fish/fish.c:1035
 #, c-format
 msgid ""
 "glob - expand wildcards in command\n"
@@ -1563,7 +1563,7 @@ msgstr ""
 "    चालवतो.  लक्षात ठेवा आदेश दरवेळी प्रत्येक विस्तारीत घटकासाठी पुनः\n"
 "    चालवले जाते.\n"
 
-#: fish/fish.c:1033
+#: fish/fish.c:1044
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -1574,7 +1574,7 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:1040
+#: fish/fish.c:1051
 #, c-format
 msgid ""
 "more - view a file in the pager\n"
@@ -1606,7 +1606,7 @@ msgstr ""
 "    (> 2 MB) किंवा \\0 बाईट्स् समाविष्टीत बाईनरी फाइल्स् करीता यशस्वीपणे कार्य करत "
 "नाही.\n"
 
-#: fish/fish.c:1058
+#: fish/fish.c:1069
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -1615,7 +1615,7 @@ msgstr ""
 "quit - guestfish पासून बाहेर पडा\n"
 "     quit\n"
 
-#: fish/fish.c:1063
+#: fish/fish.c:1074
 #, c-format
 msgid ""
 "reopen - close and reopen the libguestfs handle\n"
@@ -1632,7 +1632,7 @@ msgstr ""
 ", परंतु guestfish बाहेर पडतेवेळी हँडल योग्यप्रकारे\n"
 " बंद होते.  तरी याचा वापर औपचारीकपणे चाचणीवेळी होतो.\n"
 
-#: fish/fish.c:1072
+#: fish/fish.c:1083
 #, c-format
 msgid ""
 "sparse - allocate a sparse image file\n"
@@ -1687,7 +1687,7 @@ msgstr ""
 "    <nn>E किंवा <nn>EB  एक्जाबाईट्समधील प्रमाण\n"
 "    <nn>sects        512 बाईट सेक्टरचे प्रमाण\n"
 
-#: fish/fish.c:1101
+#: fish/fish.c:1112
 #, c-format
 msgid ""
 "time - measure time taken to run command\n"
@@ -1702,12 +1702,12 @@ msgstr ""
 "    यामुळे <command> साधारणपणे चालवले जाते, व व्याप्त वेळची\n"
 "    नंतर छपाई केली जाते.\n"
 
-#: fish/fish.c:1109
+#: fish/fish.c:1120
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s: आदेश परिचीत नाही, सर्व आदेश दाखवण्यासाठी -h याचा वापर करा\n"
 
-#: fish/fish.c:1125
+#: fish/fish.c:1136
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -1715,7 +1715,7 @@ msgid ""
 "For complete documentation:         man guestfish\n"
 msgstr ""
 
-#: fish/fish.c:1282
+#: fish/fish.c:1293
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "\"%s\" अक्षरमाळामध्ये रनअव्हे शब्द आढळले\n"

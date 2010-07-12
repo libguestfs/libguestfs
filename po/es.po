@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs.master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-02 20:31+0100\n"
+"POT-Creation-Date: 2010-07-12 10:15+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Héctor Daniel Cabrera <logan@fedoraproject.org>\n"
 "Language-Team: Fedora Spanish <trans-es@lists.fedoraproject.org>\n"
@@ -1359,24 +1359,24 @@ msgstr ""
 "%s: el comando virt-inspector es demasiado extenso para el búfer de tamaño "
 "predeterminado\n"
 
-#: fish/fish.c:415
+#: fish/fish.c:426
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr ""
 "%s: no es posible utilizar al mismo tiempo las opciones --listen y --remote\n"
 
-#: fish/fish.c:423
+#: fish/fish.c:434
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: parámetros extra de la línea de comando con marca --listen\n"
 
-#: fish/fish.c:429
+#: fish/fish.c:440
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr ""
 "%s no es posible utilizar al mismo tiempo las opciones --listen y --file\n"
 
-#: fish/fish.c:577
+#: fish/fish.c:588
 #, c-format
 msgid ""
 "\n"
@@ -1396,82 +1396,82 @@ msgstr ""
 "      'quit' para abandonar la shell\n"
 "\n"
 
-#: fish/fish.c:657
+#: fish/fish.c:668
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: doble cuota no finalizada\n"
 
-#: fish/fish.c:663 fish/fish.c:680
+#: fish/fish.c:674 fish/fish.c:691
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr ""
 "%s: los argumentos del comando no están separados por un espacio en blanco\n"
 
-#: fish/fish.c:674
+#: fish/fish.c:685
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: cuota simple no finalizada\n"
 
-#: fish/fish.c:729
+#: fish/fish.c:740
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: error interno analizando cadena en '%s'\n"
 
-#: fish/fish.c:746
+#: fish/fish.c:757
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: demasiados argumentos\n"
 
-#: fish/fish.c:775
+#: fish/fish.c:786
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: comando vacío en la línea de comando\n"
 
-#: fish/fish.c:936
+#: fish/fish.c:947
 msgid "display a list of commands or help on a command"
 msgstr "muestra una lista de comandos o asistencia sobre un comando"
 
-#: fish/fish.c:938
+#: fish/fish.c:949
 msgid "quit guestfish"
 msgstr "salir de guestfish"
 
-#: fish/fish.c:941
+#: fish/fish.c:952
 msgid "allocate an image"
 msgstr "aloja una imagen"
 
-#: fish/fish.c:943
+#: fish/fish.c:954
 msgid "display a line of text"
 msgstr "muestra una línea de texto"
 
-#: fish/fish.c:945
+#: fish/fish.c:956
 msgid "edit a file in the image"
 msgstr "edita un archivo en la imagen"
 
-#: fish/fish.c:947
+#: fish/fish.c:958
 msgid "local change directory"
 msgstr "modifica directorio local"
 
-#: fish/fish.c:949
+#: fish/fish.c:960
 msgid "expand wildcards in command"
 msgstr "expande comodines en un comando"
 
-#: fish/fish.c:951
+#: fish/fish.c:962
 msgid "view a file in the pager"
 msgstr "visualiza un archivo en el paginador"
 
-#: fish/fish.c:953
+#: fish/fish.c:964
 msgid "close and reopen libguestfs handle"
 msgstr "cierra y vuelve a abrir el manipulador libguestfs"
 
-#: fish/fish.c:955
+#: fish/fish.c:966
 msgid "allocate a sparse image file"
 msgstr "aloja una imagen de archivo sparse"
 
-#: fish/fish.c:957
+#: fish/fish.c:968
 msgid "measure time taken to run command"
 msgstr "mide el tiempo requerido para ejecutar un comando"
 
-#: fish/fish.c:969
+#: fish/fish.c:980
 #, c-format
 msgid ""
 "alloc - allocate an image\n"
@@ -1513,7 +1513,7 @@ msgstr ""
 "    <nn>E o <nn>EB  número de exabytes\n"
 "    <nn>sects        número de sectores de 512 bytes\n"
 
-#: fish/fish.c:990
+#: fish/fish.c:1001
 #, c-format
 msgid ""
 "echo - display a line of text\n"
@@ -1526,7 +1526,7 @@ msgstr ""
 "\n"
 "    Esto muestra los parámetros en la terminal.\n"
 
-#: fish/fish.c:999
+#: fish/fish.c:1010
 #, c-format
 msgid ""
 "edit - edit a file in the image\n"
@@ -1557,7 +1557,7 @@ msgstr ""
 "    NOTA: Esto no funcionará en forma confiable con archivos muy grandes\n"
 "    (> 2 MB) o archivos binarios que tengan \\0 bytes.\n"
 
-#: fish/fish.c:1015
+#: fish/fish.c:1026
 #, c-format
 msgid ""
 "lcd - local change directory\n"
@@ -1573,7 +1573,7 @@ msgstr ""
 "    Modificar el directorio actual de guestfish. Este comando\n"
 "    es útil si desea descargar archivos hacia un lugar en particular.\n"
 
-#: fish/fish.c:1024
+#: fish/fish.c:1035
 #, c-format
 msgid ""
 "glob - expand wildcards in command\n"
@@ -1591,7 +1591,7 @@ msgstr ""
 "reiteradamente\n"
 "    una vez por cada argumento expandido.\n"
 
-#: fish/fish.c:1033
+#: fish/fish.c:1044
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -1602,7 +1602,7 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:1040
+#: fish/fish.c:1051
 #, c-format
 msgid ""
 "more - view a file in the pager\n"
@@ -1634,7 +1634,7 @@ msgstr ""
 "grandes\n"
 "    (> 2 MB) o binarios conteniendo \\0 bytes.\n"
 
-#: fish/fish.c:1058
+#: fish/fish.c:1069
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -1643,7 +1643,7 @@ msgstr ""
 "quit - abandonar guestfish\n"
 "     quit\n"
 
-#: fish/fish.c:1063
+#: fish/fish.c:1074
 #, c-format
 msgid ""
 "reopen - close and reopen the libguestfs handle\n"
@@ -1662,7 +1662,7 @@ msgstr ""
 "finaliza\n"
 "guestfish. Sin embargo, esto es ocasionalmente útil para realizar pruebas.\n"
 
-#: fish/fish.c:1072
+#: fish/fish.c:1083
 #, c-format
 msgid ""
 "sparse - allocate a sparse image file\n"
@@ -1720,7 +1720,7 @@ msgstr ""
 "    <nn>E o <nn>EB  número de exabytes\n"
 "    <nn>sects        número de sectores de 512 bytes\n"
 
-#: fish/fish.c:1101
+#: fish/fish.c:1112
 #, c-format
 msgid ""
 "time - measure time taken to run command\n"
@@ -1735,12 +1735,12 @@ msgstr ""
 "   Esto ejecuta <comando> como siempre, e imprime luego el\n"
 "    tiempo transcurrido.\n"
 
-#: fish/fish.c:1109
+#: fish/fish.c:1120
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s comando no conocido, utilice -h para listar todos los comandos\n"
 
-#: fish/fish.c:1125
+#: fish/fish.c:1136
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -1748,7 +1748,7 @@ msgid ""
 "For complete documentation:         man guestfish\n"
 msgstr ""
 
-#: fish/fish.c:1282
+#: fish/fish.c:1293
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "Cuota problemática en la cadena \"%s\"\n"
