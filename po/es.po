@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-07-08 12:50+0100\n"
+"POT-Creation-Date: 2010-07-12 10:14+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Héctor Daniel Cabrera <logan@fedoraproject.org>\n"
 "Language-Team: Fedora Spanish <trans-es@lists.fedoraproject.org>\n"
@@ -2950,34 +2950,34 @@ msgstr "listo"
 msgid "Expanding {p} using the '{meth}' method\n"
 msgstr "Expandiendo {p} utilizando el método '{meth}'\n"
 
-#: tools/virt-tar.pl:163 tools/virt-tar.pl:170
+#: tools/virt-tar.pl:162 tools/virt-tar.pl:169
 msgid "virt-tar: extract/upload mode specified twice on the command line\n"
 msgstr ""
 "virt-tar: extraer/cargar el modo especificado dos veces en la línea de "
 "comando\n"
 
-#: tools/virt-tar.pl:191
+#: tools/virt-tar.pl:190
 msgid "virt-tar: no image, VM names, directory or filename given"
 msgstr ""
 "virt-tar: no se han ofrecido imágenes, nombres MV, directorios o nombres de "
 "archivo"
 
-#: tools/virt-tar.pl:194
+#: tools/virt-tar.pl:193
 msgid "virt-tar: either -x or -u must be specified on the command line\n"
 msgstr "virt-tar: o bien -x o -u deben ser indicados en la línea de comando\n"
 
-#: tools/virt-tar.pl:205
+#: tools/virt-tar.pl:204
 #, perl-brace-format
 msgid "virt-tar: {tarball}: file not found\n"
 msgstr "virt-tar: {tarball}: archivo no encontrado\n"
 
-#: tools/virt-tar.pl:208
+#: tools/virt-tar.pl:207
 #, perl-brace-format
 msgid "virt-tar: {dir}: directory name must start with '/' character\n"
 msgstr ""
 "virt-tar: {dir}: el nombre del directorio debe empezar con el caracter '/'\n"
 
-#: tools/virt-tar.pl:230
+#: tools/virt-tar.pl:229
 msgid "multiboot operating systems are not supported by virt-tar\n"
 msgstr "virt-tar no tiene soporte para sistemas operativos multiarranque\n"
 
