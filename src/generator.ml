@@ -5645,7 +5645,7 @@ check_state (guestfs_h *g, const char *caller)
                    | StringList _ | DeviceList _ -> true
                    | _ -> false) (snd style) in
     if needs_i then (
-      pr "    int i;\n";
+      pr "    size_t i;\n";
       pr "\n"
     );
 
@@ -6079,7 +6079,7 @@ and generate_daemon_actions () =
                  pr "   * and perform device name translation.\n";
                  pr "   */\n";
                  pr "  {\n";
-                 pr "    int i;\n";
+                 pr "    size_t i;\n";
                  pr "    for (i = 0; %s[i] != NULL; ++i)\n" n;
                  pr "      RESOLVE_DEVICE (%s[i], goto done);\n" n;
                  pr "  }\n";
@@ -6226,7 +6226,7 @@ and generate_daemon_actions () =
         pr "static int lvm_tokenize_%s (char *str, guestfs_int_lvm_%s *r)\n" typ typ;
         pr "{\n";
         pr "  char *tok, *p, *next;\n";
-        pr "  int i, j;\n";
+        pr "  size_t i, j;\n";
         pr "\n";
         (*
           pr "  fprintf (stderr, \"%%s: <<%%s>>\\n\", __func__, str);\n";
@@ -6451,7 +6451,7 @@ static void print_error (guestfs_h *g, void *data, const char *msg)
 /* FIXME: nearly identical code appears in fish.c */
 static void print_strings (char *const *argv)
 {
-  int argc;
+  size_t argc;
 
   for (argc = 0; argv[argc] != NULL; ++argc)
     printf (\"\\t%%s\\n\", argv[argc]);
@@ -6460,7 +6460,7 @@ static void print_strings (char *const *argv)
 /*
 static void print_table (char const *const *argv)
 {
-  int i;
+  size_t i;
 
   for (i = 0; argv[i] != NULL; i += 2)
     printf (\"%%s: %%s\\n\", argv[i], argv[i+1]);
@@ -7094,7 +7094,7 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
         | RString _ -> pr "    char *r;\n"; "NULL"
         | RStringList _ | RHashtable _ ->
             pr "    char **r;\n";
-            pr "    int i;\n";
+            pr "    size_t i;\n";
             "NULL"
         | RStruct (_, typ) ->
             pr "    struct guestfs_%s *r;\n" typ; "NULL"
@@ -7640,7 +7640,7 @@ static const char *const commands[] = {
 static char *
 generator (const char *text, int state)
 {
-  static int index, len;
+  static size_t index, len;
   const char *name;
 
   if (!state) {
@@ -7937,7 +7937,7 @@ copy_table (char * const * argv)
 {
   CAMLparam0 ();
   CAMLlocal5 (rv, pairv, kv, vv, cons);
-  int i;
+  size_t i;
 
   rv = Val_int (0);
   for (i = 0; argv[i] != NULL; i += 2) {
@@ -8117,7 +8117,7 @@ copy_table (char * const * argv)
             pr "  const char *r;\n"; "NULL"
         | RString _ -> pr "  char *r;\n"; "NULL"
         | RStringList _ ->
-            pr "  int i;\n";
+            pr "  size_t i;\n";
             pr "  char **r;\n";
             "NULL"
         | RStruct (_, typ) ->
@@ -8125,7 +8125,7 @@ copy_table (char * const * argv)
         | RStructList (_, typ) ->
             pr "  struct guestfs_%s_list *r;\n" typ; "NULL"
         | RHashtable _ ->
-            pr "  int i;\n";
+            pr "  size_t i;\n";
             pr "  char **r;\n";
             "NULL"
         | RBufferOut _ ->
@@ -8487,7 +8487,7 @@ DESTROY (g)
        | RStringList n | RHashtable n ->
            pr "PREINIT:\n";
            pr "      char **%s;\n" n;
-           pr "      int i, n;\n";
+           pr "      size_t i, n;\n";
            pr " PPCODE:\n";
            pr "      %s = guestfs_%s " n name;
            generate_c_call_args ~handle:"g" style;
@@ -8531,7 +8531,7 @@ DESTROY (g)
 and generate_perl_struct_list_code typ cols name style n do_cleanups =
   pr "PREINIT:\n";
   pr "      struct guestfs_%s_list *%s;\n" typ n;
-  pr "      int i;\n";
+  pr "      size_t i;\n";
   pr "      HV *hv;\n";
   pr " PPCODE:\n";
   pr "      %s = guestfs_%s " n name;
@@ -8816,7 +8816,7 @@ put_handle (guestfs_h *g)
 static char **
 get_string_list (PyObject *obj)
 {
-  int i, len;
+  size_t i, len;
   char **r;
 
   assert (obj);
@@ -8826,7 +8826,12 @@ get_string_list (PyObject *obj)
     return NULL;
   }
 
-  len = PyList_Size (obj);
+  Py_ssize_t slen = PyList_Size (obj);
+  if (slen == -1) {
+    PyErr_SetString (PyExc_RuntimeError, \"get_string_list: PyList_Size failure\");
+    return NULL;
+  }
+  len = (size_t) slen;
   r = malloc (sizeof (char *) * (len+1));
   if (r == NULL) {
     PyErr_SetString (PyExc_RuntimeError, \"get_string_list: out of memory\");
@@ -8924,7 +8929,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
     pr "put_%s_list (struct guestfs_%s_list *%ss)\n" typ typ typ;
     pr "{\n";
     pr "  PyObject *list;\n";
-    pr "  int i;\n";
+    pr "  size_t i;\n";
     pr "\n";
     pr "  list = PyList_New (%ss->len);\n" typ;
     pr "  for (i = 0; i < %ss->len; ++i)\n" typ;
@@ -9407,7 +9412,7 @@ static VALUE ruby_guestfs_close (VALUE gv)
             pr "  char **%s;\n" n;
             pr "  Check_Type (%sv, T_ARRAY);\n" n;
             pr "  {\n";
-            pr "    int i, len;\n";
+            pr "    size_t i, len;\n";
             pr "    len = RARRAY_LEN (%sv);\n" n;
             pr "    %s = guestfs_safe_malloc (g, sizeof (char *) * (len+1));\n"
               n;
@@ -9478,7 +9483,7 @@ static VALUE ruby_guestfs_close (VALUE gv)
            pr "  free (r);\n";
            pr "  return rv;\n";
        | RStringList _ ->
-           pr "  int i, len = 0;\n";
+           pr "  size_t i, len = 0;\n";
            pr "  for (i = 0; r[i] != NULL; ++i) len++;\n";
            pr "  VALUE rv = rb_ary_new2 (len);\n";
            pr "  for (i = 0; r[i] != NULL; ++i) {\n";
@@ -9495,7 +9500,7 @@ static VALUE ruby_guestfs_close (VALUE gv)
            generate_ruby_struct_list_code typ cols
        | RHashtable _ ->
            pr "  VALUE rv = rb_hash_new ();\n";
-           pr "  int i;\n";
+           pr "  size_t i;\n";
            pr "  for (i = 0; r[i] != NULL; i+=2) {\n";
            pr "    rb_hash_aset (rv, rb_str_new2 (r[i]), rb_str_new2 (r[i+1]));\n";
            pr "    free (r[i]);\n";
@@ -9564,7 +9569,7 @@ and generate_ruby_struct_code typ cols =
 (* Ruby code to return a struct list. *)
 and generate_ruby_struct_list_code typ cols =
   pr "  VALUE rv = rb_ary_new2 (r->len);\n";
-  pr "  int i;\n";
+  pr "  size_t i;\n";
   pr "  for (i = 0; i < r->len; ++i) {\n";
   pr "    VALUE hv = rb_hash_new ();\n";
   List.iter (
@@ -9964,7 +9969,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
                        | DeviceList _ -> true
                        | _ -> false) (snd style) in
       if needs_i then
-        pr "  int i;\n";
+        pr "  size_t i;\n";
 
       pr "\n";
 
@@ -10602,7 +10607,7 @@ namespace Guestfs
            pr "      return r != 0 ? true : false;\n"
        | RHashtable _ ->
            pr "      Hashtable rr = new Hashtable ();\n";
-           pr "      for (int i = 0; i < r.Length; i += 2)\n";
+           pr "      for (size_t i = 0; i < r.Length; i += 2)\n";
            pr "        rr.Add (r[i], r[i+1]);\n";
            pr "      return rr;\n"
        | RInt _ | RInt64 _ | RConstString _ | RConstOptString _
@@ -10639,7 +10644,7 @@ and generate_bindtests () =
 static void
 print_strings (char *const *argv)
 {
-  int argc;
+  size_t argc;
 
   printf (\"[\");
   for (argc = 0; argv[argc] != NULL; ++argc) {

@@ -110,7 +110,6 @@ if test "$gl_gcc_warnings" = yes; then
   nw="$nw -Wmissing-format-attribute" # daemon.h's asprintf_nowarn
   nw="$nw -Winline"                 # daemon.h's asprintf_nowarn
   nw="$nw -Wshadow"                 # numerous, plus we're not unanimous
-  # ?? -Wstrict-overflow
   nw="$nw -Wunsafe-loop-optimizations" # just a warning that an optimization
                                     # was not possible, safe to ignore
   nw="$nw -Wpacked"                 # Allow attribute((packed)) on structs
