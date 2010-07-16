@@ -6076,9 +6076,12 @@ and generate_daemon_actions () =
              | DeviceList n ->
                  pr_list_handling_code n;
                  pr "  /* Ensure that each is a device,\n";
-                 pr "   * and perform device name translation. */\n";
-                 pr "  { int pvi; for (pvi = 0; physvols[pvi] != NULL; ++pvi)\n";
-                 pr "    RESOLVE_DEVICE (physvols[pvi], goto done);\n";
+                 pr "   * and perform device name translation.\n";
+                 pr "   */\n";
+                 pr "  {\n";
+                 pr "    int i;\n";
+                 pr "    for (i = 0; %s[i] != NULL; ++i)\n" n;
+                 pr "      RESOLVE_DEVICE (%s[i], goto done);\n" n;
                  pr "  }\n";
              | Bool n -> pr "  %s = args.%s;\n" n n
              | Int n -> pr "  %s = args.%s;\n" n n
