@@ -20,12 +20,11 @@ use warnings;
 use strict;
 
 use Sys::Guestfs;
-use Sys::Guestfs::Lib qw(open_guest get_partitions);
+use Sys::Guestfs::Lib qw(feature_available);
 
 use Pod::Usage;
 use Getopt::Long;
-use Data::Dumper;
-use XML::Writer;
+use File::Basename qw(basename);
 use POSIX qw(ceil);
 
 use Locale::TextDomain 'libguestfs';
@@ -151,9 +150,22 @@ if ($version) {
 # RHBZ#600977
 die __"virt-df: cannot use -h and --csv options together\n" if $human && $csv;
 
-# Open the guest handle.
+# Get the list of domains and block devices.
+#
+# We can't use Sys::Guestfs::Lib::open_guest here because we want to
+# create the libguestfs handle/appliance as few times as possible.
+#
+# If virt-df is called with no parameters, then run the libvirt
+# equivalent of "virsh list --all", get the XML for each domain, and
+# get the disk devices.
+#
+# If virt-df is called with parameters, assume it must either be a
+# single disk image filename, a list of disk image filenames, or a
+# single libvirt guest name.  Construct disk devices accordingly.
 
-if (@ARGV == 0) {
+my @domains = ();
+
+if (@ARGV == 0) {               # No params, use libvirt.
     my $conn;
 
     if ($uri) {
@@ -168,61 +180,186 @@ if (@ARGV == 0) {
     # https://bugzilla.redhat.com/show_bug.cgi?id=538041
     @doms = grep { $_->get_id () != 0 } @doms;
 
-    my @domnames = sort (map { $_->get_name () } @doms);
+    exit 0 unless @doms;
 
-    if (@domnames) {
-        print_title ();
-        foreach (@domnames) {
-            eval { do_df ($_); };
-            warn $@ if $@;
-        }
+    foreach my $dom (@doms) {
+        my @disks = get_disks_from_libvirt ($dom);
+        push @domains, { dom => $dom,
+                         name => $dom->get_name (),
+                         disks => \@disks }
     }
-} else {
-    print_title ();
-    do_df (@ARGV);
+} elsif (@ARGV == 1) {          # One param, could be disk image or domname.
+    if (-e $ARGV[0]) {
+        push @domains, { name => basename ($ARGV[0]),
+                         disks => [ $ARGV[0] ] }
+    } else {
+        my $conn;
+
+        if ($uri) {
+            $conn = Sys::Virt->new (readonly => 1, address => $uri);
+        } else {
+            $conn = Sys::Virt->new (readonly => 1);
+        }
+
+        my $dom = $conn->get_domain_by_name ($ARGV[0])
+            or die __x("{name} is not the name of a libvirt domain\n",
+                       name => $ARGV[0]);
+        my @disks = get_disks_from_libvirt ($dom);
+        push @domains, { dom => $dom,
+                         name => $dom->get_name (),
+                         disks => \@disks }
+    }
+} else {                        # >= 2 params, all disk images.
+    push @domains, { name => basename ($ARGV[0]),
+                     disks => \@ARGV }
 }
 
-sub do_df
+sub get_disks_from_libvirt
 {
-    my $g;
+    my $dom = shift;
+    my $xml = $dom->get_xml_description ();
 
-    if ($uri) {
-        $g = open_guest (\@_, address => $uri);
-    } else {
-        $g = open_guest (\@_);
+    my $p = XML::XPath->new (xml => $xml);
+    my @disks = $p->findnodes ('//devices/disk/source/@dev');
+    push (@disks, $p->findnodes ('//devices/disk/source/@file'));
+
+    # Code in Sys::Guestfs::Lib dies here if there are no disks at all.
+
+    return map { $_->getData } @disks;
+}
+
+# Sort the domains by name for display.
+@domains = sort { $a->{name} cmp $b->{name} } @domains;
+
+# Since we got this far, we're somewhat sure we're going to
+# get to print the result, so display the title.
+print_title ();
+
+# To minimize the number of times we have to launch the appliance,
+# shuffle as many domains together as we can, but not exceeding 26
+# disks per request.  (26 = # of letters in the English alphabet, and
+# we are only confident that /dev/sd[a-z] will work because of various
+# limits).
+my $n = 0;
+my @request = ();
+while (@domains) {
+    while (@domains) {
+        my $c = @{$domains[0]->{disks}};
+        last if $n + $c > 26;
+        push @request, shift @domains;
+    }
+    multi_df (@request);
+}
+
+sub multi_df
+{
+    local $_;
+    my $g = Sys::Guestfs->new ();
+
+    my ($d, $disk);
+
+    foreach $d (@_) {
+        foreach $disk (@{$d->{disks}}) {
+            $g->add_drive_ro ($disk);
+        }
     }
 
     $g->launch ();
+    my $has_lvm2 = feature_available ($g, "lvm2");
 
-    my @partitions = get_partitions ($g);
+    my @devices = $g->list_devices ();
+    my @partitions = $g->list_partitions ();
 
-    # Think of a printable name for this domain.  Just choose the
-    # first parameter passed to this function, which will work for
-    # most cases (it'll either be the domain name or the first disk
-    # image name).
-    my $domname = $_[0];
+    my $n = 0;
+    foreach $d (@_) {
+        my $name = $d->{name};
+        my $nr_disks = @{$d->{disks}};
 
-    # Mount each partition in turn, and if mountable, do a statvfs on it.
-    foreach my $partition (@partitions) {
-        my %stat;
-        eval {
-            $g->mount_ro ($partition, "/");
-            %stat = $g->statvfs ("/");
-        };
-        if (!$@) {
-            print_stat ($domname, $partition, \%stat);
+        # Filter LVM to only the devices applying to the original domain.
+        my @devs = @devices[$n .. $n+$nr_disks-1];
+        $g->lvm_set_filter (\@devs) if $has_lvm2;
+
+        # Find which whole devices (RHBZ#590167), partitions and LVs
+        # contain mountable filesystems.  Stat those which are
+        # mountable, and ignore the others.
+        foreach (@devs) {
+            try_df ($name, $g, $_, canonical_dev ($_, $n));
         }
-        $g->umount_all ();
+        foreach (filter_partitions (\@devs, @partitions)) {
+            try_df ($name, $g, $_, canonical_dev ($_, $n));
+        }
+        if ($has_lvm2) {
+            foreach ($g->lvs ()) {
+                try_df ($name, $g, $_);
+            }
+        }
+
+        $n += $nr_disks;
     }
+}
+
+sub filter_partitions
+{
+    my $devs = shift;
+    my @devs = @$devs;
+    my @r;
+
+    foreach my $p (@_) {
+        foreach my $d (@devs) {
+            if ($p =~ /^$d\d/) {
+                push @r, $p;
+                last;
+            }
+        }
+    }
+
+    return @r;
+}
+
+# Calculate the canonical name for a device.
+# eg: /dev/vdb1 when offset = 1
+#     => canonical name is /dev/sda1
+sub canonical_dev
+{
+    local $_;
+    my $dev = shift;
+    my $offset = shift;
+
+    return $dev unless $dev =~ m{^/dev/.d([a-z])(\d*)$};
+    my $disk = $1;
+    my $partnum = $2;
+
+    $disk = chr (ord ($disk) - $offset);
+
+    return "/dev/sd$disk$partnum"
+}
+
+sub try_df
+{
+    local $_;
+    my $domname = shift;
+    my $g = shift;
+    my $dev = shift;
+    my $display = shift || $dev;
+
+    my %stat;
+    eval {
+        $g->mount_ro ($dev, "/");
+        %stat = $g->statvfs ("/");
+    };
+    if (!$@) {
+        print_stat ($domname, $display, \%stat);
+    }
+    $g->umount_all ();
 }
 
 sub print_stat
 {
     my $domname = shift;
-    my $partition = shift;
+    my $dev = shift;
     my $stat = shift;
 
-    my @cols = ($domname, $partition);
+    my @cols = ($domname, $dev);
 
     if (!$inodes) {
         my $bsize = $stat->{bsize};	# block size
