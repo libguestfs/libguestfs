@@ -99,6 +99,7 @@ guestfsd_SOURCES = \
 	link.c \
 	ls.c \
 	lvm.c \
+	lvm-filter.c \
 	mkfs.c \
 	mknod.c \
 	modprobe.c \

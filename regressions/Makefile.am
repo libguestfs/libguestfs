@@ -34,6 +34,7 @@ TESTS = \
 	test-cancellation-download-librarycancels.sh \
 	test-cancellation-upload-daemoncancels.sh \
 	test-find0.sh \
+	test-lvm-filtering.sh \
 	test-lvm-mapping.pl \
 	test-noexec-stack.pl \
 	test-qemudie-killsub.sh \

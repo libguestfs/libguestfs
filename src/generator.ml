@@ -4832,6 +4832,47 @@ C<device>.
 
 If the filesystem does not have a UUID, this returns the empty string.");
 
+  ("lvm_set_filter", (RErr, [DeviceList "devices"]), 255, [Optional "lvm2"],
+   (* Can't be tested with the current framework because
+    * the VG is being used by the mounted filesystem, so
+    * the vgchange -an command we do first will fail.
+    *)
+    [],
+   "set LVM device filter",
+   "\
+This sets the LVM device filter so that LVM will only be
+able to \"see\" the block devices in the list C<devices>,
+and will ignore all other attached block devices.
+
+Where disk image(s) contain duplicate PVs or VGs, this
+command is useful to get LVM to ignore the duplicates, otherwise
+LVM can get confused.  Note also there are two types
+of duplication possible: either cloned PVs/VGs which have
+identical UUIDs; or VGs that are not cloned but just happen
+to have the same name.  In normal operation you cannot
+create this situation, but you can do it outside LVM, eg.
+by cloning disk images or by bit twiddling inside the LVM
+metadata.
+
+This command also clears the LVM cache and performs a volume
+group scan.
+
+You can filter whole block devices or individual partitions.
+
+You cannot use this if any VG is currently in use (eg.
+contains a mounted filesystem), even if you are not
+filtering out that VG.");
+
+  ("lvm_clear_filter", (RErr, []), 256, [],
+   [], (* see note on lvm_set_filter *)
+   "clear LVM device filter",
+   "\
+This undoes the effect of C<guestfs_lvm_set_filter>.  LVM
+will be able to see every block device.
+
+This command also clears the LVM cache and performs a volume
+group scan.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

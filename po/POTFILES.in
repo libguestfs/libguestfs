@@ -33,6 +33,7 @@ daemon/initrd.c
 daemon/inotify.c
 daemon/link.c
 daemon/ls.c
+daemon/lvm-filter.c
 daemon/lvm.c
 daemon/mkfs.c
 daemon/mknod.c

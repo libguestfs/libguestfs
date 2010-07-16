@@ -201,6 +201,7 @@ python/guestfs-py.c
 python/guestfs.pyc
 regressions/rhbz501893
 regressions/test1.img
+regressions/test2.img
 regressions/test.err
 regressions/test.out
 ruby/bindtests.rb
