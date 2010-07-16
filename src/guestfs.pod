@@ -612,6 +612,27 @@ the error message was also unintuitive, but we have corrected this
 since.  Like the Bourne shell, we should have used C<guestfish -c
 command> to run commands.
 
+=item guestfish megabyte modifiers don't work right on all commands
+
+In recent guestfish you can use C<1M> to mean 1 megabyte (and
+similarly for other modifiers).  What guestfish actually does is to
+multiply the number part by the modifier part and pass the result to
+the C API.  However this doesn't work for a few APIs which aren't
+expecting bytes, but are already expecting some other unit
+(eg. megabytes).
+
+The most common is L</guestfs_lvcreate>.  The guestfish command:
+
+ lvcreate LV VG 100M
+
+does not do what you might expect.  Instead because
+L</guestfs_lvcreate> is already expecting megabytes, this tries to
+create a 100 I<terabyte> (100 megabytes * megabytes) logical volume.
+The error message you get from this is also a little obscure.
+
+This could be fixed in the generator by specially marking parameters
+and return values which take bytes or other units.
+
 =item Protocol limit of 256 characters for error messages
 
 This limit is both rather small and quite unnecessary.  We should be
