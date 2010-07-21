@@ -675,6 +675,21 @@ L</UPLOADING> and L</DOWNLOADING> document how to do this.
 You might also consider mounting the disk image using our FUSE
 filesystem support (L<guestmount(1)>).
 
+=head2 KEYS AND PASSPHRASES
+
+Certain libguestfs calls take a parameter that contains sensitive key
+material, passed in as a C string.
+
+In the future we would hope to change the libguestfs implementation so
+that keys are L<mlock(2)>-ed into physical RAM, and thus can never end
+up in swap.  However this is I<not> done at the moment, because of the
+complexity of such an implementation.
+
+Therefore you should be aware that any key parameter you pass to
+libguestfs might end up being written out to the swap partition.  If
+this is a concern, scrub the swap partition or don't use libguestfs on
+encrypted devices.
+
 =head1 CONNECTION MANAGEMENT
 
 =head2 guestfs_h *

@@ -68,6 +68,7 @@ extern char *file_in (const char *arg);
 extern void free_file_in (char *s);
 extern char *file_out (const char *arg);
 extern void extended_help_message (void);
+extern char *read_key (const char *param);
 
 /* in cmds.c (auto-generated) */
 extern void list_commands (void);

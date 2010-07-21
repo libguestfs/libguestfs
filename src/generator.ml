@@ -174,6 +174,14 @@ and argt =
      * To return an arbitrary buffer, use RBufferOut.
      *)
   | BufferIn of string
+    (* Key material / passphrase.  Eventually we should treat this
+     * as sensitive and mlock it into physical RAM.  However this
+     * is highly complex because of all the places that XDR-encoded
+     * strings can end up.  So currently the only difference from
+     * 'String' is the way that guestfish requests these parameters
+     * from the user.
+     *)
+  | Key of string
 
 type flags =
   | ProtocolLimitWarning  (* display warning about protocol size limits *)
@@ -5294,7 +5302,7 @@ let map_chars f str =
 let name_of_argt = function
   | Pathname n | Device n | Dev_or_Path n | String n | OptString n
   | StringList n | DeviceList n | Bool n | Int n | Int64 n
-  | FileIn n | FileOut n | BufferIn n -> n
+  | FileIn n | FileOut n | BufferIn n | Key n -> n
 
 let java_name_of_struct typ =
   try List.assoc typ java_structs
@@ -5655,6 +5663,10 @@ I<The caller must free the returned buffer after use>.\n\n"
           pr "%s\n\n" protocol_limit_warning;
         if List.mem DangerWillRobinson flags then
           pr "%s\n\n" danger_will_robinson;
+        if List.exists (function Key _ -> true | _ -> false) (snd style) then
+          pr "This function takes a key or passphrase parameter which
+could contain sensitive material.  Read the section
+L</KEYS AND PASSPHRASES> for more information.\n\n";
         match deprecation_notice flags with
         | None -> ()
         | Some txt -> pr "%s\n\n" txt
@@ -5760,7 +5772,7 @@ and generate_xdr () =
            pr "struct %s_args {\n" name;
            List.iter (
              function
-             | Pathname n | Device n | Dev_or_Path n | String n ->
+             | Pathname n | Device n | Dev_or_Path n | String n | Key n ->
                  pr "  string %s<>;\n" n
              | OptString n -> pr "  str *%s;\n" n
              | StringList n | DeviceList n -> pr "  str %s<>;\n" n
@@ -6046,7 +6058,8 @@ check_state (guestfs_h *g, const char *caller)
       | FileOut n
       | BufferIn n
       | StringList n
-      | DeviceList n ->
+      | DeviceList n
+      | Key n ->
           pr "  if (%s == NULL) {\n" n;
           pr "    error (g, \"%%s: %%s: parameter cannot be NULL\",\n";
           pr "           \"%s\", \"%s\");\n" shortname n;
@@ -6088,7 +6101,8 @@ check_state (guestfs_h *g, const char *caller)
       | Dev_or_Path n
       | FileIn n
       | FileOut n
-      | BufferIn n ->
+      | BufferIn n
+      | Key n ->
           (* guestfish doesn't support string escaping, so neither do we *)
           pr "    printf (\" \\\"%%s\\\"\", %s);\n" n
       | OptString n ->			(* string option *)
@@ -6181,7 +6195,7 @@ check_state (guestfs_h *g, const char *caller)
        | args ->
            List.iter (
              function
-             | Pathname n | Device n | Dev_or_Path n | String n ->
+             | Pathname n | Device n | Dev_or_Path n | String n | Key n ->
                  pr "  args.%s = (char *) %s;\n" n n
              | OptString n ->
                  pr "  args.%s = %s ? (char **) &%s : NULL;\n" n n n
@@ -6461,7 +6475,8 @@ and generate_daemon_actions () =
              function
              | Device n | Dev_or_Path n
              | Pathname n
-             | String n -> ()
+             | String n
+             | Key n -> ()
              | OptString n -> pr "  char *%s;\n" n
              | StringList n | DeviceList n -> pr "  char **%s;\n" n
              | Bool n -> pr "  int %s;\n" n
@@ -6518,7 +6533,7 @@ and generate_daemon_actions () =
                  pr_args n;
                  pr "  REQUIRE_ROOT_OR_RESOLVE_DEVICE (%s, %s, goto done);\n"
                    n (if is_filein then "cancel_receive ()" else "0");
-             | String n -> pr_args n
+             | String n | Key n -> pr_args n
              | OptString n -> pr "  %s = args.%s ? *args.%s : NULL;\n" n n n
              | StringList n ->
                  pr_list_handling_code n;
@@ -7533,7 +7548,8 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
         | Device n, arg
         | Dev_or_Path n, arg
         | String n, arg
-        | OptString n, arg ->
+        | OptString n, arg
+        | Key n, arg ->
             pr "    const char *%s = \"%s\";\n" n (c_quote arg);
         | BufferIn n, arg ->
             pr "    const char *%s = \"%s\";\n" n (c_quote arg);
@@ -7588,7 +7604,8 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
         | Pathname n, _
         | Device n, _ | Dev_or_Path n, _
         | String n, _
-        | OptString n, _ ->
+        | OptString n, _
+        | Key n, _ ->
             pr ", %s" n
         | BufferIn n, _ ->
             pr ", %s, %s_size" n n
@@ -7714,6 +7731,7 @@ and generate_fish_cmds () =
         match snd style with
         | [] -> name2
         | args ->
+            let args = List.filter (function Key _ -> false | _ -> true) args in
             sprintf "%s %s"
               name2 (String.concat " " (List.map name_of_argt args)) in
 
@@ -7879,7 +7897,8 @@ and generate_fish_cmds () =
         | Pathname n
         | Dev_or_Path n
         | FileIn n
-        | FileOut n -> pr "  char *%s;\n" n
+        | FileOut n
+        | Key n -> pr "  char *%s;\n" n
         | BufferIn n ->
             pr "  const char *%s;\n" n;
             pr "  size_t %s_size;\n" n
@@ -7890,7 +7909,10 @@ and generate_fish_cmds () =
       ) (snd style);
 
       (* Check and convert parameters. *)
-      let argc_expected = List.length (snd style) in
+      let argc_expected =
+        let args_no_keys =
+          List.filter (function Key _ -> false | _ -> true) (snd style) in
+        List.length args_no_keys in
       pr "  if (argc != %d) {\n" argc_expected;
       pr "    fprintf (stderr, _(\"%%s should have %%d parameter(s)\\n\"), cmd, %d);\n"
         argc_expected;
@@ -7898,12 +7920,12 @@ and generate_fish_cmds () =
       pr "    return -1;\n";
       pr "  }\n";
 
-      let parse_integer fn fntyp rtyp range name i =
+      let parse_integer fn fntyp rtyp range name =
         pr "  {\n";
         pr "    strtol_error xerr;\n";
         pr "    %s r;\n" fntyp;
         pr "\n";
-        pr "    xerr = %s (argv[%d], NULL, 0, &r, xstrtol_suffixes);\n" fn i;
+        pr "    xerr = %s (argv[i++], NULL, 0, &r, xstrtol_suffixes);\n" fn;
         pr "    if (xerr != LONGINT_OK) {\n";
         pr "      fprintf (stderr,\n";
         pr "               _(\"%%s: %%s: invalid integer parameter (%%s returned %%d)\\n\"),\n";
@@ -7925,43 +7947,49 @@ and generate_fish_cmds () =
         pr "  }\n";
       in
 
-      iteri (
-        fun i ->
-          function
-          | Device name
-          | String name ->
-              pr "  %s = argv[%d];\n" name i
-          | Pathname name
-          | Dev_or_Path name ->
-              pr "  %s = resolve_win_path (argv[%d]);\n" name i;
-              pr "  if (%s == NULL) return -1;\n" name
-          | OptString name ->
-              pr "  %s = STRNEQ (argv[%d], \"\") ? argv[%d] : NULL;\n"
-                name i i
-          | BufferIn name ->
-              pr "  %s = argv[%d];\n" name i;
-              pr "  %s_size = strlen (argv[%d]);\n" name i
-          | FileIn name ->
-              pr "  %s = file_in (argv[%d]);\n" name i;
-              pr "  if (%s == NULL) return -1;\n" name
-          | FileOut name ->
-              pr "  %s = file_out (argv[%d]);\n" name i;
-              pr "  if (%s == NULL) return -1;\n" name
-          | StringList name | DeviceList name ->
-              pr "  %s = parse_string_list (argv[%d]);\n" name i;
-              pr "  if (%s == NULL) return -1;\n" name;
-          | Bool name ->
-              pr "  %s = is_true (argv[%d]) ? 1 : 0;\n" name i
-          | Int name ->
-              let range =
-                let min = "(-(2LL<<30))"
-                and max = "((2LL<<30)-1)"
-                and comment =
-                  "The Int type in the generator is a signed 31 bit int." in
-                Some (min, max, comment) in
-              parse_integer "xstrtoll" "long long" "int" range name i
-          | Int64 name ->
-              parse_integer "xstrtoll" "long long" "int64_t" None name i
+      if snd style <> [] then
+        pr "  size_t i = 0;\n";
+
+      List.iter (
+        function
+        | Device name
+        | String name ->
+            pr "  %s = argv[i++];\n" name
+        | Pathname name
+        | Dev_or_Path name ->
+            pr "  %s = resolve_win_path (argv[i++]);\n" name;
+            pr "  if (%s == NULL) return -1;\n" name
+        | OptString name ->
+            pr "  %s = STRNEQ (argv[i], \"\") ? argv[i] : NULL;\n" name;
+            pr "  i++;\n"
+        | BufferIn name ->
+            pr "  %s = argv[i];\n" name;
+            pr "  %s_size = strlen (argv[i]);\n" name;
+            pr "  i++;\n"
+        | FileIn name ->
+            pr "  %s = file_in (argv[i++]);\n" name;
+            pr "  if (%s == NULL) return -1;\n" name
+        | FileOut name ->
+            pr "  %s = file_out (argv[i++]);\n" name;
+            pr "  if (%s == NULL) return -1;\n" name
+        | StringList name | DeviceList name ->
+            pr "  %s = parse_string_list (argv[i++]);\n" name;
+            pr "  if (%s == NULL) return -1;\n" name
+        | Key name ->
+            pr "  %s = read_key (\"%s\");\n" name name;
+            pr "  if (%s == NULL) return -1;\n" name
+        | Bool name ->
+            pr "  %s = is_true (argv[i++]) ? 1 : 0;\n" name
+        | Int name ->
+            let range =
+              let min = "(-(2LL<<30))"
+              and max = "((2LL<<30)-1)"
+              and comment =
+                "The Int type in the generator is a signed 31 bit int." in
+              Some (min, max, comment) in
+            parse_integer "xstrtoll" "long long" "int" range name
+        | Int64 name ->
+            parse_integer "xstrtoll" "long long" "int64_t" None name
       ) (snd style);
 
       (* Call C API function. *)
@@ -7975,7 +8003,8 @@ and generate_fish_cmds () =
         | OptString _ | Bool _
         | Int _ | Int64 _
         | BufferIn _ -> ()
-        | Pathname name | Dev_or_Path name | FileOut name ->
+        | Pathname name | Dev_or_Path name | FileOut name
+        | Key name ->
             pr "  free (%s);\n" name
         | FileIn name ->
             pr "  free_file_in (%s);\n" name
@@ -8228,7 +8257,8 @@ and generate_fish_actions_pod () =
       pr " %s" name;
       List.iter (
         function
-        | Pathname n | Device n | Dev_or_Path n | String n -> pr " %s" n
+        | Pathname n | Device n | Dev_or_Path n | String n ->
+            pr " %s" n
         | OptString n -> pr " %s" n
         | StringList n | DeviceList n -> pr " '%s ...'" n
         | Bool _ -> pr " true|false"
@@ -8236,6 +8266,7 @@ and generate_fish_actions_pod () =
         | Int64 n -> pr " %s" n
         | FileIn n | FileOut n -> pr " (%s|-)" n
         | BufferIn n -> pr " %s" n
+        | Key _ -> () (* keys are entered at a prompt *)
       ) (snd style);
       pr "\n";
       pr "\n";
@@ -8244,6 +8275,10 @@ and generate_fish_actions_pod () =
       if List.exists (function FileIn _ | FileOut _ -> true
                       | _ -> false) (snd style) then
         pr "Use C<-> instead of a filename to read/write from stdin/stdout.\n\n";
+
+      if List.exists (function Key _ -> true | _ -> false) (snd style) then
+        pr "This command has one or more key or passphrase parameters.
+Guestfish will prompt for these separately.\n\n";
 
       if List.mem ProtocolLimitWarning flags then
         pr "%s\n\n" protocol_limit_warning;
@@ -8299,7 +8334,8 @@ and generate_prototype ?(extern = true) ?(static = false) ?(semicolon = true)
       | Pathname n
       | Device n | Dev_or_Path n
       | String n
-      | OptString n ->
+      | OptString n
+      | Key n ->
           next ();
           pr "const char *%s" n
       | StringList n | DeviceList n ->
@@ -8608,7 +8644,8 @@ copy_table (char * const * argv)
         | Device n | Dev_or_Path n
         | String n
         | FileIn n
-        | FileOut n ->
+        | FileOut n
+        | Key n ->
             (* Copy strings in case the GC moves them: RHBZ#604691 *)
             pr "  char *%s = guestfs_safe_strdup (g, String_val (%sv));\n" n n
         | OptString n ->
@@ -8664,7 +8701,7 @@ copy_table (char * const * argv)
       List.iter (
         function
         | Pathname n | Device n | Dev_or_Path n | String n | OptString n
-        | FileIn n | FileOut n | BufferIn n ->
+        | FileIn n | FileOut n | BufferIn n | Key n ->
             pr "  free (%s);\n" n
         | StringList n | DeviceList n ->
             pr "  ocaml_guestfs_free_strings (%s);\n" n;
@@ -8755,7 +8792,7 @@ and generate_ocaml_prototype ?(is_external = false) name style =
   List.iter (
     function
     | Pathname _ | Device _ | Dev_or_Path _ | String _ | FileIn _ | FileOut _
-    | BufferIn _ -> pr "string -> "
+    | BufferIn _ | Key _ -> pr "string -> "
     | OptString _ -> pr "string option -> "
     | StringList _ | DeviceList _ -> pr "string array -> "
     | Bool _ -> pr "bool -> "
@@ -8924,7 +8961,7 @@ close (g)
         fun i ->
           function
           | Pathname n | Device n | Dev_or_Path n | String n
-          | FileIn n | FileOut n ->
+          | FileIn n | FileOut n | Key n ->
               pr "      char *%s;\n" n
           | BufferIn n ->
               pr "      char *%s;\n" n;
@@ -8947,7 +8984,7 @@ close (g)
           | Pathname _ | Device _ | Dev_or_Path _ | String _ | OptString _
           | Bool _ | Int _ | Int64 _
           | FileIn _ | FileOut _
-          | BufferIn _ -> ()
+          | BufferIn _ | Key _ -> ()
           | StringList n | DeviceList n -> pr "      free (%s);\n" n
         ) (snd style)
       in
@@ -9343,7 +9380,7 @@ and generate_perl_prototype name style =
       match arg with
       | Pathname n | Device n | Dev_or_Path n | String n
       | OptString n | Bool n | Int n | Int64 n | FileIn n | FileOut n
-      | BufferIn n ->
+      | BufferIn n | Key n ->
           pr "$%s" n
       | StringList n | DeviceList n ->
           pr "\\@%s" n
@@ -9614,7 +9651,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
 
       List.iter (
         function
-        | Pathname n | Device n | Dev_or_Path n | String n
+        | Pathname n | Device n | Dev_or_Path n | String n | Key n
         | FileIn n | FileOut n ->
             pr "  const char *%s;\n" n
         | OptString n -> pr "  const char *%s;\n" n
@@ -9635,7 +9672,8 @@ py_guestfs_close (PyObject *self, PyObject *args)
       pr "  if (!PyArg_ParseTuple (args, (char *) \"O";
       List.iter (
         function
-        | Pathname _ | Device _ | Dev_or_Path _ | String _ | FileIn _ | FileOut _ -> pr "s"
+        | Pathname _ | Device _ | Dev_or_Path _ | String _ | Key _
+        | FileIn _ | FileOut _ -> pr "s"
         | OptString _ -> pr "z"
         | StringList _ | DeviceList _ -> pr "O"
         | Bool _ -> pr "i" (* XXX Python has booleans? *)
@@ -9649,7 +9687,8 @@ py_guestfs_close (PyObject *self, PyObject *args)
       pr "                         &py_g";
       List.iter (
         function
-        | Pathname n | Device n | Dev_or_Path n | String n | FileIn n | FileOut n -> pr ", &%s" n
+        | Pathname n | Device n | Dev_or_Path n | String n | Key n
+        | FileIn n | FileOut n -> pr ", &%s" n
         | OptString n -> pr ", &%s" n
         | StringList n | DeviceList n -> pr ", &py_%s" n
         | Bool n -> pr ", &%s" n
@@ -9664,7 +9703,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
       pr "  g = get_handle (py_g);\n";
       List.iter (
         function
-        | Pathname _ | Device _ | Dev_or_Path _ | String _
+        | Pathname _ | Device _ | Dev_or_Path _ | String _ | Key _
         | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ | Int64 _
         | BufferIn _ -> ()
         | StringList n | DeviceList n ->
@@ -9680,7 +9719,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
 
       List.iter (
         function
-        | Pathname _ | Device _ | Dev_or_Path _ | String _
+        | Pathname _ | Device _ | Dev_or_Path _ | String _ | Key _
         | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ | Int64 _
         | BufferIn _ -> ()
         | StringList n | DeviceList n ->
@@ -9987,7 +10026,8 @@ static VALUE ruby_guestfs_close (VALUE gv)
 
       List.iter (
         function
-        | Pathname n | Device n | Dev_or_Path n | String n | FileIn n | FileOut n ->
+        | Pathname n | Device n | Dev_or_Path n | String n | Key n
+        | FileIn n | FileOut n ->
             pr "  Check_Type (%sv, T_STRING);\n" n;
             pr "  const char *%s = StringValueCStr (%sv);\n" n n;
             pr "  if (!%s)\n" n;
@@ -10048,7 +10088,7 @@ static VALUE ruby_guestfs_close (VALUE gv)
 
       List.iter (
         function
-        | Pathname _ | Device _ | Dev_or_Path _ | String _
+        | Pathname _ | Device _ | Dev_or_Path _ | String _ | Key _
         | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ | Int64 _
         | BufferIn _ -> ()
         | StringList n | DeviceList n ->
@@ -10365,7 +10405,8 @@ and generate_java_prototype ?(public=false) ?(privat=false) ?(native=false)
       | String n
       | OptString n
       | FileIn n
-      | FileOut n ->
+      | FileOut n
+      | Key n ->
           pr "String %s" n
       | BufferIn n ->
           pr "byte[] %s" n
@@ -10488,7 +10529,8 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
         | String n
         | OptString n
         | FileIn n
-        | FileOut n ->
+        | FileOut n
+        | Key n ->
             pr ", jstring j%s" n
         | BufferIn n ->
             pr ", jbyteArray j%s" n
@@ -10545,7 +10587,8 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
         | String n
         | OptString n
         | FileIn n
-        | FileOut n ->
+        | FileOut n
+        | Key n ->
             pr "  const char *%s;\n" n
         | BufferIn n ->
             pr "  jbyte *%s;\n" n;
@@ -10582,7 +10625,8 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
         | Device n | Dev_or_Path n
         | String n
         | FileIn n
-        | FileOut n ->
+        | FileOut n
+        | Key n ->
             pr "  %s = (*env)->GetStringUTFChars (env, j%s, NULL);\n" n n
         | OptString n ->
             (* This is completely undocumented, but Java null becomes
@@ -10619,7 +10663,8 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
         | Device n | Dev_or_Path n
         | String n
         | FileIn n
-        | FileOut n ->
+        | FileOut n
+        | Key n ->
             pr "  (*env)->ReleaseStringUTFChars (env, j%s, %s);\n" n n
         | OptString n ->
             pr "  if (j%s)\n" n;
@@ -10900,7 +10945,7 @@ last_error h = do
           function
           | FileIn n
           | FileOut n
-          | Pathname n | Device n | Dev_or_Path n | String n ->
+          | Pathname n | Device n | Dev_or_Path n | String n | Key n ->
               pr "withCString %s $ \\%s -> " n n
           | BufferIn n ->
               pr "withCStringLen %s $ \\(%s, %s_size) -> " n n n
@@ -10916,7 +10961,10 @@ last_error h = do
             | Int n -> sprintf "(fromIntegral %s)" n
             | Int64 n -> sprintf "(fromIntegral %s)" n
             | FileIn n | FileOut n
-            | Pathname n | Device n | Dev_or_Path n | String n | OptString n | StringList n | DeviceList n -> n
+            | Pathname n | Device n | Dev_or_Path n
+            | String n | OptString n
+            | StringList n | DeviceList n
+            | Key n -> n
             | BufferIn n -> sprintf "%s (fromIntegral %s_size)" n n
           ) (snd style) in
         pr "withForeignPtr h (\\p -> c_%s %s)\n" name
@@ -10967,7 +11015,8 @@ and generate_haskell_prototype ~handle ?(hs = false) style =
   List.iter (
     fun arg ->
       (match arg with
-       | Pathname _ | Device _ | Dev_or_Path _ | String _ -> pr "%s" string
+       | Pathname _ | Device _ | Dev_or_Path _ | String _ | Key _ ->
+           pr "%s" string
        | BufferIn _ ->
            if hs then pr "String"
            else pr "CString -> CInt"
@@ -11161,6 +11210,7 @@ namespace Guestfs
           function
           | Pathname n | Device n | Dev_or_Path n | String n | OptString n
           | FileIn n | FileOut n
+          | Key n
           | BufferIn n ->
               pr ", [In] string %s" n
           | StringList n | DeviceList n ->
@@ -11185,6 +11235,7 @@ namespace Guestfs
           function
           | Pathname n | Device n | Dev_or_Path n | String n | OptString n
           | FileIn n | FileOut n
+          | Key n
           | BufferIn n ->
               next (); pr "string %s" n
           | StringList n | DeviceList n ->
@@ -11289,7 +11340,8 @@ print_strings (char *const *argv)
       | Device n | Dev_or_Path n
       | String n
       | FileIn n
-      | FileOut n -> pr "  printf (\"%%s\\n\", %s);\n" n
+      | FileOut n
+      | Key n -> pr "  printf (\"%%s\\n\", %s);\n" n
       | BufferIn n ->
 	  pr "  {\n";
 	  pr "    size_t i;\n";
