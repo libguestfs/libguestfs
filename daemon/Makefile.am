@@ -98,6 +98,7 @@ guestfsd_SOURCES = \
 	inotify.c \
 	link.c \
 	ls.c \
+	luks.c \
 	lvm.c \
 	lvm-filter.c \
 	mkfs.c \

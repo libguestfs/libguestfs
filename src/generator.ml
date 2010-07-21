@@ -4881,6 +4881,43 @@ will be able to see every block device.
 This command also clears the LVM cache and performs a volume
 group scan.");
 
+  ("luks_open", (RErr, [Device "device"; Key "key"; String "mapname"]), 257, [Optional "luks"],
+   [],
+   "open a LUKS-encrypted block device",
+   "\
+This command opens a block device which has been encrypted
+according to the Linux Unified Key Setup (LUKS) standard.
+
+C<device> is the encrypted block device or partition.
+
+The caller must supply one of the keys associated with the
+LUKS block device, in the C<key> parameter.
+
+This creates a new block device called C</dev/mapper/mapname>.
+Reads and writes to this block device are decrypted from and
+encrypted to the underlying C<device> respectively.
+
+If this block device contains LVM volume groups, then
+calling C<guestfs_vgscan> followed by C<guestfs_vg_activate_all>
+will make them visible.");
+
+  ("luks_open_ro", (RErr, [Device "device"; Key "key"; String "mapname"]), 258, [Optional "luks"],
+   [],
+   "open a LUKS-encrypted block device read-only",
+   "\
+This is the same as C<guestfs_luks_open> except that a read-only
+mapping is created.");
+
+  ("luks_close", (RErr, [Device "device"]), 259, [Optional "luks"],
+   [],
+   "close a LUKS device",
+   "\
+This closes a LUKS device that was created earlier by
+C<guestfs_luks_open> or C<guestfs_luks_open_ro>.  The
+C<device> parameter must be the name of the LUKS mapping
+device (ie. C</dev/mapper/mapname>) and I<not> the name
+of the underlying block device.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

@@ -530,6 +530,39 @@ it, eg:
 
  echo "~"
 
+=head1 ENCRYPTED DISKS
+
+Libguestfs has some support for Linux guests encrypted according to
+the Linux Unified Key Setup (LUKS) standard, which includes nearly all
+whole disk encryption systems used by modern Linux guests.  Currently
+only LVM-on-LUKS is supported.
+
+Identify encrypted block devices and partitions using L</vfs-type>:
+
+ ><fs> vfs-type /dev/sda2
+ crypto_LUKS
+
+Then open those devices using L</luks-open>.  This creates a
+device-mapper device called C</dev/mapper/luksdev>.
+
+ ><fs> luks-open /dev/sda2 luksdev
+ Enter key or passphrase ("key"): <enter the passphrase>
+
+Finally you have to tell LVM to scan for volume groups on
+the newly created mapper device:
+
+ ><fs> vgscan
+ ><fs> vg-activate-all true
+
+The logical volume(s) can now be mounted in the usual way.
+
+Before closing a LUKS device you must unmount any logical volumes on
+it and deactivate the volume groups by calling C<vg-activate false VG>
+on each one.  Then you can close the mapper device:
+
+ ><fs> vg-activate false /dev/VG
+ ><fs> luks-close /dev/mapper/luksdev
+
 =head1 WINDOWS PATHS
 
 If a path is prefixed with C<win:> then you can use Windows-style

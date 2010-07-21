@@ -11,6 +11,7 @@
 #if REDHAT == 1
   augeas-libs
   btrfs-progs
+  cryptsetup-luks
   diffutils
   e2fsprogs
   /* e4fsprogs only exists on RHEL 5, will be ignored everywhere else. */
@@ -34,6 +35,7 @@
 #elif DEBIAN == 1
   bsdmainutils
   btrfs-tools
+  cryptsetup
   /* Dependency problem prevents installation of these two:
   gfs-tools
   gfs2-tools

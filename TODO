@@ -356,3 +356,16 @@ Progress of long-running operations
 For example, copying in virt-resize.  How can we display the progress
 of these operations?  This is a basic usability requirement, and
 frequently requested.
+
+Better support for encrypted devices
+------------------------------------
+
+Currently LUKS support only works if the device contains volume
+groups.  If it contains, eg., partitions, you cannot access them.
+We would like to add:
+
+  - An easier way to use this from guestfish.
+  - Ability to create LUKS devices.
+  - Ability to change LUKS keys on existing devices.
+  - Direct access to the /dev/mapper device (eg. if it contains
+    anything apart from VGs).

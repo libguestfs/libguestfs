@@ -69,3 +69,18 @@ loop.ko
 gfs2.ko
 dlm.ko
 configfs.ko
+
+# Used by dm-crypt.  Probably many more crypto modules
+# should be added here.
+aes*.ko
+blkcipher.ko
+cbc.ko
+cryptd.ko
+crypto_blkcipher.ko
+gf128mul.ko
+padlock-aes.ko
+sha256*.ko
+sha512*.ko
+xor.ko
+xts.ko
+zlib.ko
