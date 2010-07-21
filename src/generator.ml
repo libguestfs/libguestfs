@@ -7971,10 +7971,10 @@ and generate_fish_cmds () =
 
       List.iter (
         function
-        | Device name | String name
-        | OptString name | Bool name
-        | Int name | Int64 name
-        | BufferIn name -> ()
+        | Device _ | String _
+        | OptString _ | Bool _
+        | Int _ | Int64 _
+        | BufferIn _ -> ()
         | Pathname name | Dev_or_Path name | FileOut name ->
             pr "  free (%s);\n" name
         | FileIn name ->
