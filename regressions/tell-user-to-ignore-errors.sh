@@ -1,6 +1,6 @@
 #!/bin/bash -
 # libguestfs
-# Copyright (C) 2009 Red Hat Inc.
+# Copyright (C) 2010 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,24 +16,11 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-# Test download where the library cancels.
-#
-#
-
-set -e
-
-rm -f test.img
-
-../fish/guestfish <<'EOF'
-add ../images/test.iso
-run
-
-mount-ro /dev/sda /
-
-# Download a file to /dev/full.
--download /100krandom /dev/full
-
-ping-daemon
-EOF
-
-rm -f test.img
+echo
+echo '*****'
+echo
+echo 'Some of these tests print error messages.  You can ignore'
+echo 'these error messages as long as the tests print "PASS".'
+echo
+echo '*****'
+echo

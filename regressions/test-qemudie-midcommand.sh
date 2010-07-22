@@ -27,7 +27,6 @@ rm -f test.pid test1.img
 pid | cat > test.pid
 ! sleep 2 ; kill $(cat test.pid) &
 
-echo "Expect: 'guestfs_sleep reply failed, see earlier error messages'"
 -sleep 1000
 
 # We should now be able to rerun the subprocess.
