@@ -27,7 +27,6 @@ rm -f test1.img
 ../fish/guestfish -N fs -m /dev/sda1 <<'EOF'
 # Upload image, daemon should cancel because the image is too large
 # to upload into itself.
-echo "Expect: write: /test: No space left on device"
 -upload test.img /test
 
 ping-daemon

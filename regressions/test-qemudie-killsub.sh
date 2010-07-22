@@ -27,7 +27,6 @@ rm -f test1.img
 kill-subprocess
 
 # XXX The following sleep should NOT be necessary.
-echo "Expect an error from the next command"
 -sleep 1
 
 # We should now be able to rerun the subprocess.
