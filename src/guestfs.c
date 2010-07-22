@@ -830,9 +830,6 @@ int
 guestfs__add_drive_ro_with_if (guestfs_h *g, const char *filename,
                                const char *drive_if)
 {
-  size_t len = strlen (filename) + 64;
-  char buf[len];
-
   if (strchr (filename, ',') != NULL) {
     error (g, _("filename cannot contain ',' (comma) character"));
     return -1;
@@ -842,6 +839,9 @@ guestfs__add_drive_ro_with_if (guestfs_h *g, const char *filename,
     perrorf (g, "%s", filename);
     return -1;
   }
+
+  size_t len = strlen (filename) + 64;
+  char buf[len];
 
   snprintf (buf, len, "file=%s,snapshot=on,if=%s", filename, drive_if);
 
