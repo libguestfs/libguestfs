@@ -31,7 +31,6 @@ pid | cat > test.pid
 ! kill $(cat test.pid) ; sleep 2
 
 # XXX The following sleep should NOT be necessary.
-echo "Expect an error from the next command"
 -sleep 1
 
 # We should now be able to rerun the subprocess.
