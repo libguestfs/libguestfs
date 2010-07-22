@@ -33,6 +33,49 @@ optgroup_luks_available (void)
   return prog_exists ("cryptsetup");
 }
 
+/* Callers must also call remove_temp (tempfile). */
+static char *
+write_key_to_temp (const char *key)
+{
+  char *tempfile = strdup ("/tmp/luksXXXXXX");
+  if (!tempfile) {
+    reply_with_perror ("strdup");
+    return NULL;
+  }
+
+  int fd = mkstemp (tempfile);
+  if (fd == -1) {
+    reply_with_perror ("mkstemp");
+    goto error;
+  }
+
+  size_t len = strlen (key);
+  if (xwrite (fd, key, len) == -1) {
+    reply_with_perror ("write");
+    close (fd);
+    goto error;
+  }
+
+  if (close (fd) == -1) {
+    reply_with_perror ("close");
+    goto error;
+  }
+
+  return tempfile;
+
+ error:
+  unlink (tempfile);
+  free (tempfile);
+  return NULL;
+}
+
+static void
+remove_temp (char *tempfile)
+{
+  unlink (tempfile);
+  free (tempfile);
+}
+
 static int
 luks_open (const char *device, const char *key, const char *mapname,
            int readonly)
@@ -49,26 +92,9 @@ luks_open (const char *device, const char *key, const char *mapname,
     return -1;
   }
 
-  char tempfile[] = "/tmp/luksXXXXXX";
-  int fd = mkstemp (tempfile);
-  if (fd == -1) {
-    reply_with_perror ("mkstemp");
+  char *tempfile = write_key_to_temp (key);
+  if (!tempfile)
     return -1;
-  }
-
-  len = strlen (key);
-  if (xwrite (fd, key, len) == -1) {
-    reply_with_perror ("write");
-    close (fd);
-    unlink (tempfile);
-    return -1;
-  }
-
-  if (close (fd) == -1) {
-    reply_with_perror ("close");
-    unlink (tempfile);
-    return -1;
-  }
 
   const char *argv[16];
   size_t i = 0;
@@ -84,7 +110,7 @@ luks_open (const char *device, const char *key, const char *mapname,
 
   char *err;
   int r = commandv (NULL, &err, (const char * const *) argv);
-  unlink (tempfile);
+  remove_temp (tempfile);
 
   if (r == -1) {
     reply_with_error ("%s", err);
@@ -133,6 +159,144 @@ do_luks_close (const char *device)
   free (err);
 
   udev_settle ();
+
+  return 0;
+}
+
+static int
+luks_format (const char *device, const char *key, int keyslot,
+             const char *cipher)
+{
+  char *tempfile = write_key_to_temp (key);
+  if (!tempfile)
+    return -1;
+
+  const char *argv[16];
+  char keyslot_s[16];
+  size_t i = 0;
+
+  argv[i++] = "cryptsetup";
+  argv[i++] = "-q";
+  if (cipher) {
+    argv[i++] = "--cipher";
+    argv[i++] = cipher;
+  }
+  argv[i++] = "--key-slot";
+  snprintf (keyslot_s, sizeof keyslot_s, "%d", keyslot);
+  argv[i++] = keyslot_s;
+  argv[i++] = "luksFormat";
+  argv[i++] = device;
+  argv[i++] = tempfile;
+  argv[i++] = NULL;
+
+  char *err;
+  int r = commandv (NULL, &err, (const char * const *) argv);
+  remove_temp (tempfile);
+
+  if (r == -1) {
+    reply_with_error ("%s", err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+
+  udev_settle ();
+
+  return 0;
+}
+
+int
+do_luks_format (const char *device, const char *key, int keyslot)
+{
+  return luks_format (device, key, keyslot, NULL);
+}
+
+int
+do_luks_format_cipher (const char *device, const char *key, int keyslot,
+                       const char *cipher)
+{
+  return luks_format (device, key, keyslot, cipher);
+}
+
+int
+do_luks_add_key (const char *device, const char *key, const char *newkey,
+                 int keyslot)
+{
+  char *keyfile = write_key_to_temp (key);
+  if (!keyfile)
+    return -1;
+
+  char *newkeyfile = write_key_to_temp (newkey);
+  if (!newkeyfile) {
+    remove_temp (keyfile);
+    return -1;
+  }
+
+  const char *argv[16];
+  char keyslot_s[16];
+  size_t i = 0;
+
+  argv[i++] = "cryptsetup";
+  argv[i++] = "-q";
+  argv[i++] = "-d";
+  argv[i++] = keyfile;
+  argv[i++] = "--key-slot";
+  snprintf (keyslot_s, sizeof keyslot_s, "%d", keyslot);
+  argv[i++] = keyslot_s;
+  argv[i++] = "luksAddKey";
+  argv[i++] = device;
+  argv[i++] = newkeyfile;
+  argv[i++] = NULL;
+
+  char *err;
+  int r = commandv (NULL, &err, (const char * const *) argv);
+  remove_temp (keyfile);
+  remove_temp (newkeyfile);
+
+  if (r == -1) {
+    reply_with_error ("%s", err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
+
+  return 0;
+}
+
+int
+do_luks_kill_slot (const char *device, const char *key, int keyslot)
+{
+  char *tempfile = write_key_to_temp (key);
+  if (!tempfile)
+    return -1;
+
+  const char *argv[16];
+  char keyslot_s[16];
+  size_t i = 0;
+
+  argv[i++] = "cryptsetup";
+  argv[i++] = "-q";
+  argv[i++] = "-d";
+  argv[i++] = tempfile;
+  argv[i++] = "luksKillSlot";
+  argv[i++] = device;
+  snprintf (keyslot_s, sizeof keyslot_s, "%d", keyslot);
+  argv[i++] = keyslot_s;
+  argv[i++] = NULL;
+
+  char *err;
+  int r = commandv (NULL, &err, (const char * const *) argv);
+  remove_temp (tempfile);
+
+  if (r == -1) {
+    reply_with_error ("%s", err);
+    free (err);
+    return -1;
+  }
+
+  free (err);
 
   return 0;
 }

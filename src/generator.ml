@@ -4916,6 +4916,43 @@ C<device> parameter must be the name of the LUKS mapping
 device (ie. C</dev/mapper/mapname>) and I<not> the name
 of the underlying block device.");
 
+  ("luks_format", (RErr, [Device "device"; Key "key"; Int "keyslot"]), 260, [Optional "luks"; DangerWillRobinson],
+   [],
+   "format a block device as a LUKS encrypted device",
+   "\
+This command erases existing data on C<device> and formats
+the device as a LUKS encrypted device.  C<key> is the
+initial key, which is added to key slot C<slot>.  (LUKS
+supports 8 key slots, numbered 0-7).");
+
+  ("luks_format_cipher", (RErr, [Device "device"; Key "key"; Int "keyslot"; String "cipher"]), 261, [Optional "luks"; DangerWillRobinson],
+   [],
+   "format a block device as a LUKS encrypted device",
+   "\
+This command is the same as C<guestfs_luks_format> but
+it also allows you to set the C<cipher> used.");
+
+  ("luks_add_key", (RErr, [Device "device"; Key "key"; Key "newkey"; Int "keyslot"]), 262, [Optional "luks"],
+   [],
+   "add a key on a LUKS encrypted device",
+   "\
+This command adds a new key on LUKS device C<device>.
+C<key> is any existing key, and is used to access the device.
+C<newkey> is the new key to add.  C<keyslot> is the key slot
+that will be replaced.
+
+Note that if C<keyslot> already contains a key, then this
+command will fail.  You have to use C<guestfs_luks_kill_slot>
+first to remove that key.");
+
+  ("luks_kill_slot", (RErr, [Device "device"; Key "key"; Int "keyslot"]), 263, [Optional "luks"],
+   [],
+   "remove a key from a LUKS encrypted device",
+   "\
+This command deletes the key in key slot C<keyslot> from the
+encrypted LUKS device C<device>.  C<key> must be one of the
+I<other> keys.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

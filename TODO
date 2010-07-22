@@ -365,7 +365,5 @@ groups.  If it contains, eg., partitions, you cannot access them.
 We would like to add:
 
   - An easier way to use this from guestfish.
-  - Ability to create LUKS devices.
-  - Ability to change LUKS keys on existing devices.
   - Direct access to the /dev/mapper device (eg. if it contains
     anything apart from VGs).
