@@ -7773,9 +7773,16 @@ and generate_fish_cmds () =
               name2 (String.concat " " (List.map name_of_argt args)) in
 
       let warnings =
-        if List.mem ProtocolLimitWarning flags then
-          ("\n\n" ^ protocol_limit_warning)
+        if List.exists (function Key _ -> true | _ -> false) (snd style) then
+          "\n\nThis command has one or more key or passphrase parameters.
+Guestfish will prompt for these separately."
         else "" in
+
+      let warnings =
+        warnings ^
+          if List.mem ProtocolLimitWarning flags then
+            ("\n\n" ^ protocol_limit_warning)
+          else "" in
 
       (* For DangerWillRobinson commands, we should probably have
        * guestfish prompt before allowing you to use them (especially
