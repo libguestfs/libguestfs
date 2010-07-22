@@ -559,14 +559,12 @@ handle is closed.  We don't currently have any method to enable
 changes to be committed, although qemu can support this.
 
 This is equivalent to the qemu parameter
-C<-drive file=filename,snapshot=on,readonly=on,if=...>.
+C<-drive file=filename,snapshot=on,if=...>.
 
 C<if=...> is set at compile time by the configuration option
 C<./configure --with-drive-if=...>.  In the rare case where you
 might need to change this at run time, use C<guestfs_add_drive_with_if>
 or C<guestfs_add_drive_ro_with_if>.
-
-C<readonly=on> is only added where qemu supports this option.
 
 Note that this call checks for the existence of C<filename>.  This
 stops you from specifying other types of drive which are supported
