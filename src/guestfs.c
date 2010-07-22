@@ -830,6 +830,9 @@ int
 guestfs__add_drive_ro_with_if (guestfs_h *g, const char *filename,
                                const char *drive_if)
 {
+  size_t len = strlen (filename) + 64;
+  char buf[len];
+
   if (strchr (filename, ',') != NULL) {
     error (g, _("filename cannot contain ',' (comma) character"));
     return -1;
@@ -840,24 +843,7 @@ guestfs__add_drive_ro_with_if (guestfs_h *g, const char *filename,
     return -1;
   }
 
-  if (qemu_supports (g, NULL) == -1)
-    return -1;
-
-  /* Only SCSI and virtio drivers support readonly mode.
-   * This is only supported as a QEMU feature since 2010/01.
-   */
-  int supports_ro = 0;
-  if ((STREQ (drive_if, "scsi") || STREQ (drive_if, "virtio")) &&
-      qemu_supports (g, "readonly=on"))
-    supports_ro = 1;
-
-  size_t len = strlen (filename) + 100;
-  char buf[len];
-
-  snprintf (buf, len, "file=%s,snapshot=on,%sif=%s",
-            filename,
-            supports_ro ? "readonly=on," : "",
-            drive_if);
+  snprintf (buf, len, "file=%s,snapshot=on,if=%s", filename, drive_if);
 
   return guestfs__config (g, "-drive", buf);
 }
