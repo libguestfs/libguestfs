@@ -126,6 +126,8 @@ libguestfs_la_SOURCES = \
 	gettext.h \
 	actions.c \
 	bindtests.c \
+	launch.c \
+	proto.c \
 	libguestfs.syms
 
 libguestfs_la_LIBADD = $(LTLIBTHREAD) ../gnulib/lib/libgnu.la

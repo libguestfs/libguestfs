@@ -1,5 +1,5 @@
 /* libguestfs
- * Copyright (C) 2009 Red Hat Inc.
+ * Copyright (C) 2009-2010 Red Hat Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,6 +29,110 @@
 #define STRCASENEQLEN(a,b,n) (strncasecmp((a),(b),(n)) != 0)
 #define STRPREFIX(a,b) (strncmp((a),(b),strlen((b))) == 0)
 
+#ifdef HAVE_GETTEXT
+#include "gettext.h"
+#define _(str) dgettext(PACKAGE, (str))
+#define N_(str) dgettext(PACKAGE, (str))
+#else
+#define _(str) str
+#define N_(str) str
+#endif
+
+#ifdef __linux__
+#define CAN_CHECK_PEER_EUID 1
+#else
+#define CAN_CHECK_PEER_EUID 0
+#endif
+
+#define UNIX_PATH_MAX 108
+
+#ifndef MAX
+#define MAX(a,b) ((a)>(b)?(a):(b))
+#endif
+
+#ifdef __APPLE__
+#define xdr_uint32_t xdr_u_int32_t
+#endif
+
+/* Network configuration of the appliance.  Note these addresses are
+ * only meaningful within the context of the running appliance.  QEMU
+ * translates network connections to these magic addresses into
+ * userspace calls on the host (eg. connect(2)).  qemu-doc has a nice
+ * diagram which is also useful to refer to.
+ *
+ * NETWORK: The network.
+ *
+ * ROUTER: The address of the "host", ie. this library.
+ *
+ * [Note: If you change NETWORK and ROUTER then you also have to
+ * change the network configuration in appliance/init].
+ *
+ * GUESTFWD_ADDR, GUESTFWD_PORT: The guestfwd feature of qemu
+ * magically connects this pseudo-address to the guestfwd channel.  In
+ * typical Linux configurations of libguestfs, guestfwd is not
+ * actually used any more.
+ */
+#define NETWORK "169.254.0.0/16"
+#define ROUTER "169.254.2.2"
+#define GUESTFWD_ADDR "169.254.2.4"
+#define GUESTFWD_PORT "6666"
+
+/* GuestFS handle and connection. */
+enum state { CONFIG, LAUNCHING, READY, BUSY, NO_HANDLE };
+
+struct guestfs_h
+{
+  struct guestfs_h *next;	/* Linked list of open handles. */
+
+  /* State: see the state machine diagram in the man page guestfs(3). */
+  enum state state;
+
+  int fd[2];			/* Stdin/stdout of qemu. */
+  int sock;			/* Daemon communications socket. */
+  pid_t pid;			/* Qemu PID. */
+  pid_t recoverypid;		/* Recovery process PID. */
+
+  struct timeval launch_t;      /* The time that we called guestfs_launch. */
+
+  char *tmpdir;			/* Temporary directory containing socket. */
+
+  char *qemu_help, *qemu_version; /* Output of qemu -help, qemu -version. */
+
+  char **cmdline;		/* Qemu command line. */
+  int cmdline_size;
+
+  int verbose;
+  int trace;
+  int autosync;
+  int direct;
+  int recovery_proc;
+
+  char *path;			/* Path to kernel, initrd. */
+  char *qemu;			/* Qemu binary. */
+  char *append;			/* Append to kernel command line. */
+
+  int memsize;			/* Size of RAM (megabytes). */
+
+  int selinux;                  /* selinux enabled? */
+
+  char *last_error;
+
+  /* Callbacks. */
+  guestfs_abort_cb           abort_cb;
+  guestfs_error_handler_cb   error_cb;
+  void *                     error_cb_data;
+  guestfs_log_message_cb     log_message_cb;
+  void *                     log_message_cb_data;
+  guestfs_subprocess_quit_cb subprocess_quit_cb;
+  void *                     subprocess_quit_cb_data;
+  guestfs_launch_done_cb     launch_done_cb;
+  void *                     launch_done_cb_data;
+  guestfs_close_cb           close_cb;
+  void *                     close_cb_data;
+
+  int msg_next_serial;
+};
+
 struct guestfs_message_header;
 struct guestfs_message_error;
 extern void guestfs_error (guestfs_h *g, const char *fs, ...)
@@ -44,5 +148,15 @@ extern int guestfs___send (guestfs_h *g, int proc_nr, xdrproc_t xdrp, char *args
 extern int guestfs___recv (guestfs_h *g, const char *fn, struct guestfs_message_header *hdr, struct guestfs_message_error *err, xdrproc_t xdrp, char *ret);
 extern int guestfs___send_file (guestfs_h *g, const char *filename);
 extern int guestfs___recv_file (guestfs_h *g, const char *filename);
+extern int guestfs__send_to_daemon (guestfs_h *g, const void *v_buf, size_t n);
+extern int guestfs__recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn);
+extern int guestfs__accept_from_daemon (guestfs_h *g);
+
+#define error guestfs_error
+#define perrorf guestfs_perrorf
+#define safe_malloc guestfs_safe_malloc
+#define safe_realloc guestfs_safe_realloc
+#define safe_strdup guestfs_safe_strdup
+#define safe_memdup guestfs_safe_memdup
 
 #endif /* GUESTFS_INTERNAL_H_ */
