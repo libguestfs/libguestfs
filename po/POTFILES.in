@@ -102,6 +102,8 @@ ruby/ext/guestfs/_guestfs.c
 src/actions.c
 src/bindtests.c
 src/guestfs.c
+src/launch.c
+src/proto.c
 test-tool/helper.c
 test-tool/test-tool.c
 tools/virt-cat.pl
