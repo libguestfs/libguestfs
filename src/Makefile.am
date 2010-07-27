@@ -22,8 +22,8 @@ generator_built = \
 	guestfs-structs.h \
 	guestfs-actions.h \
 	guestfs-internal-actions.h \
-	guestfs-actions.c \
-	guestfs-bindtests.c \
+	actions.c \
+	bindtests.c \
 	guestfs-actions.pod \
 	guestfs-availability.pod \
 	guestfs-structs.pod \
@@ -121,11 +121,11 @@ libguestfs_la_SOURCES = \
 	guestfs.c \
 	guestfs.h \
 	guestfs-actions.h \
-	guestfs-actions.c \
-	guestfs-bindtests.c \
 	guestfs-internal.h \
 	guestfs_protocol.h \
 	gettext.h \
+	actions.c \
+	bindtests.c \
 	libguestfs.syms
 
 libguestfs_la_LIBADD = $(LTLIBTHREAD) ../gnulib/lib/libgnu.la
