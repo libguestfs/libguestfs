@@ -211,9 +211,9 @@ ruby/ext/guestfs/_guestfs.c
 ruby/ext/guestfs/_guestfs.so
 ruby/ext/guestfs/mkmf.log
 ruby/Rakefile
-src/guestfs-actions.c
+src/actions.c
+src/bindtests.c
 src/guestfs-actions.h
-src/guestfs-bindtests.c
 src/guestfs-internal-actions.h
 src/guestfs_protocol.c
 src/guestfs_protocol.h

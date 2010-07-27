@@ -99,8 +99,8 @@ regressions/rhbz501893.c
 regressions/test-lvm-mapping.pl
 regressions/test-noexec-stack.pl
 ruby/ext/guestfs/_guestfs.c
-src/guestfs-actions.c
-src/guestfs-bindtests.c
+src/actions.c
+src/bindtests.c
 src/guestfs.c
 test-tool/helper.c
 test-tool/test-tool.c

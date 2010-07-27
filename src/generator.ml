@@ -12353,8 +12353,8 @@ Run it from the top source directory using the command
   output_to "src/guestfs-structs.h" generate_structs_h;
   output_to "src/guestfs-actions.h" generate_actions_h;
   output_to "src/guestfs-internal-actions.h" generate_internal_actions_h;
-  output_to "src/guestfs-actions.c" generate_client_actions;
-  output_to "src/guestfs-bindtests.c" generate_bindtests;
+  output_to "src/actions.c" generate_client_actions;
+  output_to "src/bindtests.c" generate_bindtests;
   output_to "src/guestfs-structs.pod" generate_structs_pod;
   output_to "src/guestfs-actions.pod" generate_actions_pod;
   output_to "src/guestfs-availability.pod" generate_availability_pod;
