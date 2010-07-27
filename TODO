@@ -390,3 +390,14 @@ command such as:
   copy-out-recursive remotedir localdir
 
 which would hide use of tgz-in etc.
+
+Sys::Guestfs::Lib / inspector code in C
+---------------------------------------
+
+This would allow us to:
+
+- use inspection from other languages
+- get rid of inspector_generator
+- don't use external virt-inspector process in guestfish
+
+See: https://www.redhat.com/archives/libguestfs/2010-July/msg00067.html
