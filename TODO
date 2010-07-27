@@ -357,6 +357,9 @@ For example, copying in virt-resize.  How can we display the progress
 of these operations?  This is a basic usability requirement, and
 frequently requested.
 
+See: https://www.redhat.com/archives/libguestfs/2010-July/msg00003.html
+and follow-ups.
+
 Better support for encrypted devices
 ------------------------------------
 
