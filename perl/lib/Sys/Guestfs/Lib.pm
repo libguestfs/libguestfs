@@ -347,159 +347,18 @@ sub resolve_windows_path
 
 =head2 file_architecture
 
- $arch = file_architecture ($g, $path)
+Deprecated function.  Replace any calls to this function with:
 
-The C<file_architecture> function lets you get the architecture for a
-particular binary or library in the guest.  By "architecture" we mean
-what processor it is compiled for (eg. C<i586> or C<x86_64>).
-
-The function works on at least the following types of files:
-
-=over 4
-
-=item *
-
-many types of Un*x binary
-
-=item *
-
-many types of Un*x shared library
-
-=item *
-
-Windows Win32 and Win64 binaries
-
-=item *
-
-Windows Win32 and Win64 DLLs
-
-Win32 binaries and DLLs return C<i386>.
-
-Win64 binaries and DLLs return C<x86_64>.
-
-=item *
-
-Linux kernel modules
-
-=item *
-
-Linux new-style initrd images
-
-=item *
-
-some non-x86 Linux vmlinuz kernels
-
-=back
-
-What it can't do currently:
-
-=over 4
-
-=item *
-
-static libraries (libfoo.a)
-
-=item *
-
-Linux old-style initrd as compressed ext2 filesystem (RHEL 3)
-
-=item *
-
-x86 Linux vmlinuz kernels
-
-x86 vmlinuz images (bzImage format) consist of a mix of 16-, 32- and
-compressed code, and are horribly hard to unpack.  If you want to find
-the architecture of a kernel, use the architecture of the associated
-initrd or kernel module(s) instead.
-
-=back
+ $g->file_architecture ($path);
 
 =cut
 
-sub _elf_arch_to_canonical
-{
-    local $_ = shift;
-
-    if ($_ eq "Intel 80386") {
-        return "i386";
-    } elsif ($_ eq "Intel 80486") {
-        return "i486";	# probably not in the wild
-    } elsif ($_ eq "x86-64") {
-        return "x86_64";
-    } elsif ($_ eq "AMD x86-64") {
-        return "x86_64";
-    } elsif (/SPARC32/) {
-        return "sparc";
-    } elsif (/SPARC V9/) {
-        return "sparc64";
-    } elsif ($_ eq "IA-64") {
-        return "ia64";
-    } elsif (/64.*PowerPC/) {
-        return "ppc64";
-    } elsif (/PowerPC/) {
-        return "ppc";
-    } else {
-        warn __x("returning non-canonical architecture type '{arch}'",
-                 arch => $_);
-        return $_;
-    }
-}
-
-my @_initrd_binaries = ("nash", "modprobe", "sh", "bash");
-
 sub file_architecture
 {
-    local $_;
     my $g = shift;
     my $path = shift;
 
-    # Our basic tool is 'file' ...
-    my $file = $g->file ($path);
-
-    if ($file =~ /ELF.*(?:executable|shared object|relocatable), (.+?),/) {
-        # ELF executable or shared object.  We need to convert
-        # what file(1) prints into the canonical form.
-        return _elf_arch_to_canonical ($1);
-    } elsif ($file =~ /PE32 executable/) {
-        return "i386";		# Win32 executable or DLL
-    } elsif ($file =~ /PE32\+ executable/) {
-        return "x86_64";	# Win64 executable or DLL
-    }
-
-    elsif ($file =~ /cpio archive/) {
-        # Probably an initrd.
-        my $zcat = "cat";
-        if ($file =~ /gzip/) {
-            $zcat = "zcat";
-        } elsif ($file =~ /bzip2/) {
-            $zcat = "bzcat";
-        }
-
-        # Download and unpack it to find a binary file.
-        my $dir = tempdir (CLEANUP => 1);
-        $g->download ($path, "$dir/initrd");
-
-        my $bins = join " ", map { "bin/$_" } @_initrd_binaries;
-        my $cmd = "cd $dir && $zcat initrd | cpio --quiet -id $bins";
-        my $r = system ($cmd);
-        die __x("cpio command failed: {error}", error => $?)
-            unless $r == 0;
-
-        foreach my $bin (@_initrd_binaries) {
-            if (-f "$dir/bin/$bin") {
-                $_ = `file $dir/bin/$bin`;
-                if (/ELF.*executable, (.+?),/) {
-                    return _elf_arch_to_canonical ($1);
-                }
-            }
-        }
-
-        die __x("file_architecture: no known binaries found in initrd image: {path}",
-                path => $path);
-    }
-
-    die __x("file_architecture: unknown architecture: {path}",
-            path => $path);
+    return $g->file_architecture ($path);
 }
 
 =head1 OPERATING SYSTEM INSPECTION FUNCTIONS

@@ -126,11 +126,12 @@ libguestfs_la_SOURCES = \
 	gettext.h \
 	actions.c \
 	bindtests.c \
+	inspect.c \
 	launch.c \
 	proto.c \
 	libguestfs.syms
 
-libguestfs_la_LIBADD = $(LTLIBTHREAD) ../gnulib/lib/libgnu.la
+libguestfs_la_LIBADD = $(LIBPCRE) $(LIBMAGIC) $(LTLIBTHREAD) ../gnulib/lib/libgnu.la
 
 # Make libguestfs include the convenience library.
 noinst_LTLIBRARIES = libprotocol.la

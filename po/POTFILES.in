@@ -102,6 +102,7 @@ ruby/ext/guestfs/_guestfs.c
 src/actions.c
 src/bindtests.c
 src/guestfs.c
+src/inspect.c
 src/launch.c
 src/proto.c
 test-tool/helper.c

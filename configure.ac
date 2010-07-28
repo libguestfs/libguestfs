@@ -185,6 +185,15 @@ AC_ARG_ENABLE([appliance],
 AM_CONDITIONAL([ENABLE_APPLIANCE],[test "x$enable_appliance" = "xyes"])
 AC_MSG_RESULT([$enable_appliance])
 
+dnl Check for PCRE.
+AC_CHECK_LIB([pcre],[pcre_compile],
+        [AC_SUBST([LIBPCRE], ["-lpcre"])],
+        [AC_MSG_FAILURE(
+             [Perl Compatible Regular Expressions library (PCRE) is required])])
+AC_CHECK_HEADER([pcre.h],[],
+        [AC_MSG_FAILURE(
+             [Perl Compatible Regular Expressions library (PCRE) header file pcre.h is required])])
+
 dnl Check for rpcgen and XDR library.  rpcgen is optional.
 AC_CHECK_PROG([RPCGEN],[rpcgen],[rpcgen],[no])
 AM_CONDITIONAL([HAVE_RPCGEN],[test "x$RPCGEN" != "xno"])
@@ -448,6 +457,16 @@ AS_IF([test "x$with_readline" != xno],
 dnl For i18n.
 AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([0.17])
+
+dnl libmagic (required)
+AC_CHECK_LIB([magic],[magic_file],[
+        AC_SUBST([LIBMAGIC], ["-lmagic"])
+    ],[
+        AC_MSG_FAILURE([libmagic is required])
+    ])
+AC_CHECK_HEADER([magic.h],[],[
+        AC_MSG_FAILURE([magic.h header file is required])
+    ])
 
 dnl hivex library (highly recommended).
 dnl This used to be a part of libguestfs, but was spun off into its

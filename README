@@ -48,6 +48,10 @@ Requirements
 
 - XDR, rpcgen (on Linux these are provided by glibc)
 
+- pcre (Perl Compatible Regular Expressions C library)
+
+- libmagic (the library that corresponds to the 'file' command)
+
 - squashfs-tools (mksquashfs only)
 
 - genisoimage / mkisofs

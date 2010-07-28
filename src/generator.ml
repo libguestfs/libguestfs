@@ -940,6 +940,134 @@ to specify the QEMU interface emulation to use at run time.");
 This is the same as C<guestfs_add_drive_ro> but it allows you
 to specify the QEMU interface emulation to use at run time.");
 
+  ("file_architecture", (RString "arch", [Pathname "filename"]), -1, [],
+   [InitISOFS, Always, TestOutput (
+      [["file_architecture"; "/bin-i586-dynamic"]], "i386");
+    InitISOFS, Always, TestOutput (
+      [["file_architecture"; "/bin-sparc-dynamic"]], "sparc");
+    InitISOFS, Always, TestOutput (
+      [["file_architecture"; "/bin-win32.exe"]], "i386");
+    InitISOFS, Always, TestOutput (
+      [["file_architecture"; "/bin-win64.exe"]], "x86_64");
+    InitISOFS, Always, TestOutput (
+      [["file_architecture"; "/bin-x86_64-dynamic"]], "x86_64");
+    InitISOFS, Always, TestOutput (
+      [["file_architecture"; "/lib-i586.so"]], "i386");
+    InitISOFS, Always, TestOutput (
+      [["file_architecture"; "/lib-sparc.so"]], "sparc");
+    InitISOFS, Always, TestOutput (
+      [["file_architecture"; "/lib-win32.dll"]], "i386");
+    InitISOFS, Always, TestOutput (
+      [["file_architecture"; "/lib-win64.dll"]], "x86_64");
+    InitISOFS, Always, TestOutput (
+      [["file_architecture"; "/lib-x86_64.so"]], "x86_64");
+    InitISOFS, Always, TestOutput (
+      [["file_architecture"; "/initrd-x86_64.img"]], "x86_64");
+    InitISOFS, Always, TestOutput (
+      [["file_architecture"; "/initrd-x86_64.img.gz"]], "x86_64");],
+   "detect the architecture of a binary file",
+   "\
+This detects the architecture of the binary C<filename>,
+and returns it if known.
+
+Currently defined architectures are:
+
+=over 4
+
+=item \"i386\"
+
+This string is returned for all 32 bit i386, i486, i586, i686 binaries
+irrespective of the precise processor requirements of the binary.
+
+=item \"x86_64\"
+
+64 bit x86-64.
+
+=item \"sparc\"
+
+32 bit SPARC.
+
+=item \"sparc64\"
+
+64 bit SPARC V9 and above.
+
+=item \"ia64\"
+
+Intel Itanium.
+
+=item \"ppc\"
+
+32 bit Power PC.
+
+=item \"ppc64\"
+
+64 bit Power PC.
+
+=back
+
+Libguestfs may return other architecture strings in future.
+
+The function works on at least the following types of files:
+
+=over 4
+
+=item *
+
+many types of Un*x and Linux binary
+
+=item *
+
+many types of Un*x and Linux shared library
+
+=item *
+
+Windows Win32 and Win64 binaries
+
+=item *
+
+Windows Win32 and Win64 DLLs
+
+Win32 binaries and DLLs return C<i386>.
+
+Win64 binaries and DLLs return C<x86_64>.
+
+=item *
+
+Linux kernel modules
+
+=item *
+
+Linux new-style initrd images
+
+=item *
+
+some non-x86 Linux vmlinuz kernels
+
+=back
+
+What it can't do currently:
+
+=over 4
+
+=item *
+
+static libraries (libfoo.a)
+
+=item *
+
+Linux old-style initrd as compressed ext2 filesystem (RHEL 3)
+
+=item *
+
+x86 Linux vmlinuz kernels
+
+x86 vmlinuz images (bzImage format) consist of a mix of 16-, 32- and
+compressed code, and are horribly hard to unpack.  If you want to find
+the architecture of a kernel, use the architecture of the associated
+initrd or kernel module(s) instead.
+
+=back");
+
 ]
 
 (* daemon_functions are any functions which cause some action
