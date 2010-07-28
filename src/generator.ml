@@ -4952,7 +4952,9 @@ a file in the host and attach it as a device.");
 This returns the filesystem label of the filesystem on
 C<device>.
 
-If the filesystem is unlabeled, this returns the empty string.");
+If the filesystem is unlabeled, this returns the empty string.
+
+To find a filesystem from the label, use C<guestfs_findfs_label>.");
 
   ("vfs_uuid", (RString "uuid", [Device "device"]), 254, [],
    (let uuid = uuidgen () in
@@ -4964,7 +4966,9 @@ If the filesystem is unlabeled, this returns the empty string.");
 This returns the filesystem UUID of the filesystem on
 C<device>.
 
-If the filesystem does not have a UUID, this returns the empty string.");
+If the filesystem does not have a UUID, this returns the empty string.
+
+To find a filesystem from the UUID, use C<guestfs_findfs_uuid>.");
 
   ("lvm_set_filter", (RErr, [DeviceList "devices"]), 255, [Optional "lvm2"],
    (* Can't be tested with the current framework because
@@ -5090,6 +5094,26 @@ I<other> keys.");
    "\
 This command tests whether C<device> is a logical volume, and
 returns true iff this is the case.");
+
+  ("findfs_uuid", (RString "device", [String "uuid"]), 265, [],
+   [],
+   "find a filesystem by UUID",
+   "\
+This command searches the filesystems and returns the one
+which has the given UUID.  An error is returned if no such
+filesystem can be found.
+
+To find the UUID of a filesystem, use C<guestfs_vfs_uuid>.");
+
+  ("findfs_label", (RString "device", [String "label"]), 266, [],
+   [],
+   "find a filesystem by label",
+   "\
+This command searches the filesystems and returns the one
+which has the given label.  An error is returned if no such
+filesystem can be found.
+
+To find the label of a filesystem, use C<guestfs_vfs_label>.");
 
 ]
 

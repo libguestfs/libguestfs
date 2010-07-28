@@ -21,6 +21,7 @@ daemon/fallocate.c
 daemon/file.c
 daemon/fill.c
 daemon/find.c
+daemon/findfs.c
 daemon/fsck.c
 daemon/glob.c
 daemon/grep.c
