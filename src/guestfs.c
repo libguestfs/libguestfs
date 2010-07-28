@@ -184,6 +184,8 @@ guestfs_close (guestfs_h *g)
   if (g->close_cb)
     g->close_cb (g, g->close_cb_data);
 
+  guestfs___free_inspect_info (g);
+
   /* Try to sync if autosync flag is set. */
   if (g->autosync && g->state == READY) {
     guestfs_umount_all (g);

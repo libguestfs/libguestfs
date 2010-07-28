@@ -160,9 +160,10 @@ you have to find out.  Libguestfs can do that too: use
 L</guestfs_list_partitions> and L</guestfs_lvs> to list possible
 partitions and LVs, and either try mounting each to see what is
 mountable, or else examine them with L</guestfs_vfs_type> or
-L</guestfs_file>.  But you might find it easier to look at higher level
-programs built on top of libguestfs, in particular
-L<virt-inspector(1)>.
+L</guestfs_file>.  Libguestfs also has a set of APIs for inspection of
+disk images (see L</INSPECTION> below).  But you might find it easier
+to look at higher level programs built on top of libguestfs, in
+particular L<virt-inspector(1)>.
 
 To mount a disk image read-only, use L</guestfs_mount_ro>.  There are
 several other variations of the C<guestfs_mount_*> call.
@@ -481,6 +482,65 @@ Then close the mapper device by calling
 L</guestfs_luks_close> on the C</dev/mapper/mapname>
 device (I<not> the underlying encrypted block device).
 
+=head2 INSPECTION
+
+Libguestfs has APIs for inspecting an unknown disk image to find out
+if it contains operating systems.  (These APIs used to be in a
+separate Perl-only library called L<Sys::Guestfs::Lib(3)> but since
+version 1.5.3 the most frequently used part of this library has been
+rewritten in C and moved into the core code).
+
+Add all disks belonging to the unknown virtual machine and call
+L</guestfs_launch> in the usual way.
+
+Then call L</guestfs_inspect_os>.  This function uses other libguestfs
+calls and certain heuristics, and returns a list of operating systems
+that were found.  An empty list means none were found.  A single
+element is the root filesystem of the operating system.  For dual- or
+multi-boot guests, multiple roots can be returned, each one
+corresponding to a separate operating system.  (Multi-boot virtual
+machines are extremely rare in the world of virtualization, but since
+this scenario can happen, we have built libguestfs to deal with it.)
+
+For each root, you can then call various C<guestfs_inspect_get_*>
+functions to get additional details about that operating system.  For
+example, call L</guestfs_inspect_get_type> to return the string
+C<windows> or C<linux> for Windows and Linux-based operating systems
+respectively.
+
+Un*x-like and Linux-based operating systems usually consist of several
+filesystems which are mounted at boot time (for example, a separate
+boot partition mounted on C</boot>).  The inspection rules are able to
+detect how filesystems correspond to mount points.  Call
+C<guestfs_inspect_get_mountpoints> to get this mapping.  It might
+return a hash table like this example:
+
+ /boot => /dev/sda1
+ /     => /dev/vg_guest/lv_root
+ /usr  => /dev/vg_guest/lv_usr
+
+The caller can then make calls to L</guestfs_mount_options> to
+mount the filesystems as suggested.
+
+Be careful to mount filesystems in the right order (eg. C</> before
+C</usr>).  Sorting the keys of the hash by length, shortest first,
+should work.
+
+Inspection currently only works for some common operating systems.
+Contributors are welcome to send patches for other operating systems
+that we currently cannot detect.
+
+Encrypted disks must be opened before inspection.  See
+L</ENCRYPTED DISKS> for more details.  The L</guestfs_inspect_os>
+function just ignores any encrypted devices.
+
+A note on the implementation: The call L</guestfs_inspect_os> performs
+inspection and caches the results in the guest handle.  Subsequent
+calls to C<guestfs_inspect_get_*> return this cached information, but
+I<do not> re-read the disks.  If you change the content of the guest
+disks, you can redo inspection by calling L</guestfs_inspect_os>
+again.
+
 =head2 SPECIAL CONSIDERATIONS FOR WINDOWS GUESTS
 
 Libguestfs can mount NTFS partitions.  It does this using the
@@ -495,7 +555,7 @@ that directory might be referred to as C</WINDOWS/System32>.
 Drive letter mappings are outside the scope of libguestfs.  You have
 to use libguestfs to read the appropriate Windows Registry and
 configuration files, to determine yourself how drives are mapped (see
-also L<virt-inspector(1)>).
+also L<hivex(3)> and L<virt-inspector(1)>).
 
 Replacing backslash characters with forward slash characters is also
 outside the scope of libguestfs, but something that you can easily do.

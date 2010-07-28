@@ -1068,6 +1068,227 @@ initrd or kernel module(s) instead.
 
 =back");
 
+  ("inspect_os", (RStringList "roots", []), -1, [],
+   [],
+   "inspect disk and return list of operating systems found",
+   "\
+This function uses other libguestfs functions and certain
+heuristics to inspect the disk(s) (usually disks belonging to
+a virtual machine), looking for operating systems.
+
+The list returned is empty if no operating systems were found.
+
+If one operating system was found, then this returns a list with
+a single element, which is the name of the root filesystem of
+this operating system.  It is also possible for this function
+to return a list containing more than one element, indicating
+a dual-boot or multi-boot virtual machine, with each element being
+the root filesystem of one of the operating systems.
+
+You can pass the root string(s) returned to other
+C<guestfs_inspect_get_*> functions in order to query further
+information about each operating system, such as the name
+and version.
+
+This function uses other libguestfs features such as
+C<guestfs_mount_ro> and C<guestfs_umount_all> in order to mount
+and unmount filesystems and look at the contents.  This should
+be called with no disks currently mounted.  The function may also
+use Augeas, so any existing Augeas handle will be closed.
+
+This function cannot decrypt encrypted disks.  The caller
+must do that first (supplying the necessary keys) if the
+disk is encrypted.
+
+Please read L<guestfs(3)/INSPECTION> for more details.");
+
+  ("inspect_get_type", (RString "name", [Device "root"]), -1, [],
+   [],
+   "get type of inspected operating system",
+   "\
+This function should only be called with a root device string
+as returned by C<guestfs_inspect_os>.
+
+This returns the type of the inspected operating system.
+Currently defined types are:
+
+=over 4
+
+=item \"linux\"
+
+Any Linux-based operating system.
+
+=item \"windows\"
+
+Any Microsoft Windows operating system.
+
+=item \"unknown\"
+
+The operating system type could not be determined.
+
+=back
+
+Future versions of libguestfs may return other strings here.
+The caller should be prepared to handle any string.
+
+Please read L<guestfs(3)/INSPECTION> for more details.");
+
+  ("inspect_get_arch", (RString "arch", [Device "root"]), -1, [],
+   [],
+   "get architecture of inspected operating system",
+   "\
+This function should only be called with a root device string
+as returned by C<guestfs_inspect_os>.
+
+This returns the architecture of the inspected operating system.
+The possible return values are listed under
+C<guestfs_file_architecture>.
+
+If the architecture could not be determined, then the
+string C<unknown> is returned.
+
+Please read L<guestfs(3)/INSPECTION> for more details.");
+
+  ("inspect_get_distro", (RString "distro", [Device "root"]), -1, [],
+   [],
+   "get distro of inspected operating system",
+   "\
+This function should only be called with a root device string
+as returned by C<guestfs_inspect_os>.
+
+This returns the distro (distribution) of the inspected operating
+system.
+
+Currently defined distros are:
+
+=over 4
+
+=item \"debian\"
+
+Debian or a Debian-derived distro such as Ubuntu.
+
+=item \"fedora\"
+
+Fedora.
+
+=item \"redhat-based\"
+
+Some Red Hat-derived distro.
+
+=item \"rhel\"
+
+Red Hat Enterprise Linux and some derivatives.
+
+=item \"windows\"
+
+Windows does not have distributions.  This string is
+returned if the OS type is Windows.
+
+=item \"unknown\"
+
+The distro could not be determined.
+
+=back
+
+Future versions of libguestfs may return other strings here.
+The caller should be prepared to handle any string.
+
+Please read L<guestfs(3)/INSPECTION> for more details.");
+
+  ("inspect_get_major_version", (RInt "major", [Device "root"]), -1, [],
+   [],
+   "get major version of inspected operating system",
+   "\
+This function should only be called with a root device string
+as returned by C<guestfs_inspect_os>.
+
+This returns the major version number of the inspected operating
+system.
+
+Windows uses a consistent versioning scheme which is I<not>
+reflected in the popular public names used by the operating system.
+Notably the operating system known as \"Windows 7\" is really
+version 6.1 (ie. major = 6, minor = 1).  You can find out the
+real versions corresponding to releases of Windows by consulting
+Wikipedia or MSDN.
+
+If the version could not be determined, then C<0> is returned.
+
+Please read L<guestfs(3)/INSPECTION> for more details.");
+
+  ("inspect_get_minor_version", (RInt "minor", [Device "root"]), -1, [],
+   [],
+   "get minor version of inspected operating system",
+   "\
+This function should only be called with a root device string
+as returned by C<guestfs_inspect_os>.
+
+This returns the minor version number of the inspected operating
+system.
+
+If the version could not be determined, then C<0> is returned.
+
+Please read L<guestfs(3)/INSPECTION> for more details.
+See also C<guestfs_inspect_get_major_version>.");
+
+  ("inspect_get_product_name", (RString "product", [Device "root"]), -1, [],
+   [],
+   "get product name of inspected operating system",
+   "\
+This function should only be called with a root device string
+as returned by C<guestfs_inspect_os>.
+
+This returns the product name of the inspected operating
+system.  The product name is generally some freeform string
+which can be displayed to the user, but should not be
+parsed by programs.
+
+If the product name could not be determined, then the
+string C<unknown> is returned.
+
+Please read L<guestfs(3)/INSPECTION> for more details.");
+
+  ("inspect_get_mountpoints", (RHashtable "mountpoints", [Device "root"]), -1, [],
+   [],
+   "get mountpoints of inspected operating system",
+   "\
+This function should only be called with a root device string
+as returned by C<guestfs_inspect_os>.
+
+This returns a hash of where we think the filesystems
+associated with this operating system should be mounted.
+Callers should note that this is at best an educated guess
+made by reading configuration files such as C</etc/fstab>.
+
+Each element in the returned hashtable has a key which
+is the path of the mountpoint (eg. C</boot>) and a value
+which is the filesystem that would be mounted there
+(eg. C</dev/sda1>).
+
+Non-mounted devices such as swap devices are I<not>
+returned in this list.
+
+Please read L<guestfs(3)/INSPECTION> for more details.
+See also C<guestfs_inspect_get_filesystems>.");
+
+  ("inspect_get_filesystems", (RStringList "filesystems", [Device "root"]), -1, [],
+   [],
+   "get filesystems associated with inspected operating system",
+   "\
+This function should only be called with a root device string
+as returned by C<guestfs_inspect_os>.
+
+This returns a list of all the filesystems that we think
+are associated with this operating system.  This includes
+the root filesystem, other ordinary filesystems, and
+non-mounted devices like swap partitions.
+
+In the case of a multi-boot virtual machine, it is possible
+for a filesystem to be shared between operating systems.
+
+Please read L<guestfs(3)/INSPECTION> for more details.
+See also C<guestfs_inspect_get_mountpoints>.");
+
 ]
 
 (* daemon_functions are any functions which cause some action

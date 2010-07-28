@@ -131,6 +131,59 @@ struct guestfs_h
   void *                     close_cb_data;
 
   int msg_next_serial;
+
+  /* Information gathered by inspect_os.  Must be freed by calling
+   * guestfs___free_inspect_info.
+   */
+  struct inspect_fs *fses;
+  size_t nr_fses;
+};
+
+/* Per-filesystem data stored for inspect_os. */
+enum inspect_fs_content {
+  FS_CONTENT_UNKNOWN = 0,
+  FS_CONTENT_LINUX_ROOT,
+  FS_CONTENT_WINDOWS_ROOT,
+  FS_CONTENT_LINUX_BOOT,
+  FS_CONTENT_LINUX_USR,
+  FS_CONTENT_LINUX_USR_LOCAL,
+  FS_CONTENT_LINUX_VAR,
+};
+
+enum inspect_os_type {
+  OS_TYPE_UNKNOWN = 0,
+  OS_TYPE_LINUX,
+  OS_TYPE_WINDOWS,
+};
+
+enum inspect_os_distro {
+  OS_DISTRO_UNKNOWN = 0,
+  OS_DISTRO_DEBIAN,
+  OS_DISTRO_FEDORA,
+  OS_DISTRO_REDHAT_BASED,
+  OS_DISTRO_RHEL,
+  OS_DISTRO_WINDOWS,
+};
+
+struct inspect_fs {
+  int is_root;
+  char *device;
+  int is_mountable;
+  int is_swap;
+  enum inspect_fs_content content;
+  enum inspect_os_type type;
+  enum inspect_os_distro distro;
+  char *product_name;
+  int major_version;
+  int minor_version;
+  char *arch;
+  struct inspect_fstab_entry *fstab;
+  size_t nr_fstab;
+};
+
+struct inspect_fstab_entry {
+  char *device;
+  char *mountpoint;
 };
 
 struct guestfs_message_header;
@@ -143,6 +196,7 @@ extern void *guestfs_safe_realloc (guestfs_h *g, void *ptr, int nbytes);
 extern char *guestfs_safe_strdup (guestfs_h *g, const char *str);
 extern char *guestfs_safe_strndup (guestfs_h *g, const char *str, size_t n);
 extern void *guestfs_safe_memdup (guestfs_h *g, void *ptr, size_t size);
+extern void guestfs___free_inspect_info (guestfs_h *g);
 extern int guestfs___set_busy (guestfs_h *g);
 extern int guestfs___end_busy (guestfs_h *g);
 extern int guestfs___send (guestfs_h *g, int proc_nr, xdrproc_t xdrp, char *args);
