@@ -750,7 +750,7 @@ guestfs__launch (guestfs_h *g)
      * from our UID) for security reasons.
      */
     while (sock == -1) {
-      sock = guestfs__accept_from_daemon (g);
+      sock = guestfs___accept_from_daemon (g);
       if (sock == -1)
         goto cleanup1;
 
@@ -826,7 +826,7 @@ guestfs__launch (guestfs_h *g)
    */
   uint32_t size;
   void *buf = NULL;
-  r = guestfs__recv_from_daemon (g, &size, &buf);
+  r = guestfs___recv_from_daemon (g, &size, &buf);
   free (buf);
 
   if (r == -1) return -1;
