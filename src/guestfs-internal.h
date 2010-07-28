@@ -148,9 +148,9 @@ extern int guestfs___send (guestfs_h *g, int proc_nr, xdrproc_t xdrp, char *args
 extern int guestfs___recv (guestfs_h *g, const char *fn, struct guestfs_message_header *hdr, struct guestfs_message_error *err, xdrproc_t xdrp, char *ret);
 extern int guestfs___send_file (guestfs_h *g, const char *filename);
 extern int guestfs___recv_file (guestfs_h *g, const char *filename);
-extern int guestfs__send_to_daemon (guestfs_h *g, const void *v_buf, size_t n);
-extern int guestfs__recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn);
-extern int guestfs__accept_from_daemon (guestfs_h *g);
+extern int guestfs___send_to_daemon (guestfs_h *g, const void *v_buf, size_t n);
+extern int guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn);
+extern int guestfs___accept_from_daemon (guestfs_h *g);
 
 #define error guestfs_error
 #define perrorf guestfs_perrorf

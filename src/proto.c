@@ -299,7 +299,7 @@ check_for_daemon_cancellation_or_eof (guestfs_h *g, int fd)
  * child_cleanup function above.
  */
 int
-guestfs__send_to_daemon (guestfs_h *g, const void *v_buf, size_t n)
+guestfs___send_to_daemon (guestfs_h *g, const void *v_buf, size_t n)
 {
   const char *buf = v_buf;
   fd_set rset, rset2;
@@ -375,7 +375,7 @@ guestfs__send_to_daemon (guestfs_h *g, const void *v_buf, size_t n)
  * child_cleanup function above.
  */
 int
-guestfs__recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
+guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
 {
   fd_set rset, rset2;
 
@@ -533,7 +533,7 @@ guestfs__recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
  * accepted socket.
  */
 int
-guestfs__accept_from_daemon (guestfs_h *g)
+guestfs___accept_from_daemon (guestfs_h *g)
 {
   fd_set rset, rset2;
 
@@ -646,7 +646,7 @@ guestfs___send (guestfs_h *g, int proc_nr, xdrproc_t xdrp, char *args)
   xdr_uint32_t (&xdr, &len);
 
  again:
-  r = guestfs__send_to_daemon (g, msg_out, msg_out_size);
+  r = guestfs___send_to_daemon (g, msg_out, msg_out_size);
   if (r == -2)                  /* Ignore stray daemon cancellations. */
     goto again;
   if (r == -1)
@@ -790,7 +790,7 @@ send_file_chunk (guestfs_h *g, int cancel, const char *buf, size_t buflen)
   xdrmem_create (&xdr, msg_out, 4, XDR_ENCODE);
   xdr_uint32_t (&xdr, &len);
 
-  r = guestfs__send_to_daemon (g, msg_out, msg_out_size);
+  r = guestfs___send_to_daemon (g, msg_out, msg_out_size);
 
   /* Did the daemon send a cancellation message? */
   if (r == -2) {
@@ -824,7 +824,7 @@ guestfs___recv (guestfs_h *g, const char *fn,
   int r;
 
  again:
-  r = guestfs__recv_from_daemon (g, &size, &buf);
+  r = guestfs___recv_from_daemon (g, &size, &buf);
   if (r == -1)
     return -1;
 
@@ -946,7 +946,7 @@ receive_file_data (guestfs_h *g, void **buf_r)
   XDR xdr;
   guestfs_chunk chunk;
 
-  r = guestfs__recv_from_daemon (g, &len, &buf);
+  r = guestfs___recv_from_daemon (g, &len, &buf);
   if (r == -1) {
     error (g, _("receive_file_data: parse error in reply callback"));
     return -1;
