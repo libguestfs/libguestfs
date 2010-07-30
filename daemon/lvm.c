@@ -23,6 +23,7 @@
 #include <inttypes.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/stat.h>
 
 #include "daemon.h"
 #include "c-ctype.h"
@@ -660,5 +661,51 @@ do_vgscan (void)
   }
 
   free (err);
+  return 0;
+}
+
+/* Test if a device is a logical volume (RHBZ#619793).
+ *
+ * This is harder than it should be.  A LV device like /dev/VG/LV is
+ * really a symlink to a device-mapper device like /dev/dm-0.  However
+ * at the device-mapper (kernel) level, nothing is really known about
+ * LVM (a userspace concept).  Therefore we use a convoluted method to
+ * determine this, by listing out known LVs and checking whether the
+ * rdev (major/minor) of the device we are passed matches any of them.
+ *
+ * Note use of 'stat' instead of 'lstat' so that symlinks are fully
+ * resolved.
+ */
+int
+do_is_lv (const char *device)
+{
+  struct stat stat1, stat2;
+
+  int r = stat (device, &stat1);
+  if (r == -1) {
+    reply_with_perror ("stat: %s", device);
+    return -1;
+  }
+
+  char **lvs = do_lvs ();
+  if (lvs == NULL)
+    return -1;
+
+  size_t i;
+  for (i = 0; lvs[i] != NULL; ++i) {
+    r = stat (lvs[i], &stat2);
+    if (r == -1) {
+      reply_with_perror ("stat: %s", lvs[i]);
+      free_strings (lvs);
+      return -1;
+    }
+    if (stat1.st_rdev == stat2.st_rdev) { /* found it */
+      free_strings (lvs);
+      return 1;
+    }
+  }
+
+  /* not found */
+  free_strings (lvs);
   return 0;
 }

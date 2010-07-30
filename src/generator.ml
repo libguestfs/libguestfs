@@ -4953,6 +4953,16 @@ This command deletes the key in key slot C<keyslot> from the
 encrypted LUKS device C<device>.  C<key> must be one of the
 I<other> keys.");
 
+  ("is_lv", (RBool "lvflag", [Device "device"]), 264, [Optional "lvm2"],
+   [InitBasicFSonLVM, IfAvailable "lvm2", TestOutputTrue (
+      [["is_lv"; "/dev/VG/LV"]]);
+    InitBasicFSonLVM, IfAvailable "lvm2", TestOutputFalse (
+      [["is_lv"; "/dev/sda1"]])],
+   "test if device is a logical volume",
+   "\
+This command tests whether C<device> is a logical volume, and
+returns true iff this is the case.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
