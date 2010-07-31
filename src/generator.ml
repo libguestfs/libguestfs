@@ -5236,7 +5236,7 @@ let rec generate_actions_pod () =
 The string is owned by the guest handle and must I<not> be freed.\n\n"
          | RConstOptString _ ->
              pr "This function returns a string which may be NULL.
-There is way to return an error from this function.
+There is no way to return an error from this function.
 The string is owned by the guest handle and must I<not> be freed.\n\n"
          | RString _ ->
              pr "This function returns a string, or NULL on error.
