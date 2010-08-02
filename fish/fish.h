@@ -96,6 +96,10 @@ extern int do_echo (const char *cmd, int argc, char *argv[]);
 /* in edit.c */
 extern int do_edit (const char *cmd, int argc, char *argv[]);
 
+/* in inspect.c */
+extern void inspect_mount (void);
+extern void print_inspect_prompt (void);
+
 /* in lcd.c */
 extern int do_lcd (const char *cmd, int argc, char *argv[]);
 

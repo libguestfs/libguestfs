@@ -16,9 +16,9 @@ guestfish - the libguestfs Filesystem Interactive SHell
 
  guestfish -d libvirt-domain
 
- guestfish -i libvirt-domain
+ guestfish -a disk.img -i
 
- guestfish -i disk.img [disk.img ...]
+ guestfish -d libvirt-domain -i
 
 =head1 WARNING
 
@@ -75,13 +75,14 @@ Edit C</boot/grub/grub.conf> interactively:
    --mount /dev/sda1:/boot \
    edit /boot/grub/grub.conf
 
-=head2 Using virt-inspector
+=head2 Mount disks automatically
 
-Use the I<-i> option to get virt-inspector to mount
-the filesystems automatically as they would be mounted
-in the virtual machine:
+Use the I<-i> option to automatically mount the
+disks from a virtual machine:
 
- guestfish --ro -i disk.img cat /etc/group
+ guestfish --ro -a disk.img -i cat /etc/group
+
+ guestfish --ro -d libvirt-domain -i cat /etc/group
 
 =head2 As a script interpreter
 
@@ -170,28 +171,28 @@ scripts, use:
 
 =item B<-i> | B<--inspector>
 
-Run virt-inspector on the named libvirt domain or list of disk
-images.  If virt-inspector is available and if it can identify
-the domain or disk images, then partitions will be mounted
-correctly at start-up.
+Using L<virt-inspector(1)> code, inspect the disks looking for
+an operating system and mount filesystems as they would be
+mounted on the real virtual machine.
 
 Typical usage is either:
 
- guestfish -i myguest
+ guestfish -d myguest -i
 
 (for an inactive libvirt domain called I<myguest>), or:
 
- guestfish --ro -i myguest
+ guestfish --ro -d myguest -i
 
 (for active domains, readonly), or specify the block device directly:
 
- guestfish -i /dev/Guests/MyGuest
+ guestfish -a /dev/Guests/MyGuest -i
 
-You cannot use I<-a>, I<-m>, I<-N>, I<--listen>, I<--remote> or
-I<--selinux> in conjunction with this option, and options other than
-I<--ro> might not behave correctly.
+Note that the command line syntax changed slightly over older
+versions of guestfish.  You can still use the old syntax:
 
-See also: L<virt-inspector(1)>.
+ guestfish [--ro] -i disk.img
+
+ guestfish [--ro] -i libvirt-domain
 
 =item B<--keys-from-stdin>
 

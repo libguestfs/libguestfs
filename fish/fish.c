@@ -81,7 +81,6 @@ static void cleanup_readline (void);
 #ifdef HAVE_LIBREADLINE
 static void add_history_line (const char *);
 #endif
-static void print_shell_quote (FILE *stream, const char *str);
 
 /* Currently open libguestfs handle. */
 guestfs_h *g;
@@ -95,6 +94,7 @@ int exit_on_error = 1;
 int command_num = 0;
 int keys_from_stdin = 0;
 const char *libvirt_uri = NULL;
+int inspector = 0;
 
 static void __attribute__((noreturn))
 usage (int status)
@@ -126,7 +126,7 @@ usage (int status)
              "  -d|--domain guest    Add disks from libvirt guest\n"
              "  -D|--no-dest-paths   Don't tab-complete paths from guest fs\n"
              "  -f|--file file       Read commands from file\n"
-             "  -i|--inspector       Run virt-inspector to get disk mountpoints\n"
+             "  -i|--inspector       Automatically mount filesystems\n"
              "  --keys-from-stdin    Read passphrases from stdin\n"
              "  --listen             Listen for remote commands\n"
              "  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
@@ -188,7 +188,6 @@ main (int argc, char *argv[])
   struct mp *mp;
   char *p, *file = NULL;
   int c;
-  int inspector = 0;
   int option_index;
   struct sigaction sa;
   int next_prepared_drive = 1;
@@ -228,7 +227,7 @@ main (int argc, char *argv[])
    * using it just above.
    *
    * getopt_long uses argv[0], so give it the sanitized name.  Save a copy
-   * of the original, in case it's needed in virt-inspector mode, below.
+   * of the original, in case it's needed below.
    */
   char *real_argv0 = argv[0];
   argv[0] = bad_cast (program_name);
@@ -398,115 +397,46 @@ main (int argc, char *argv[])
     }
   }
 
-  /* Inspector mode invalidates most of the other arguments. */
-  if (inspector) {
-    if (drvs || mps || remote_control_listen || remote_control ||
-        guestfs_get_selinux (g)) {
-      fprintf (stderr, _("%s: cannot use -i option with -a, -m, -N, "
-                         "--listen, --remote or --selinux\n"),
-               program_name);
-      exit (EXIT_FAILURE);
-    }
-    if (optind >= argc) {
-      fprintf (stderr,
-           _("%s: -i requires a libvirt domain or path(s) to disk image(s)\n"),
-               program_name);
-      exit (EXIT_FAILURE);
-    }
-
-    char *cmd;
-    size_t cmdlen;
-    FILE *fp = open_memstream (&cmd, &cmdlen);
-    if (fp == NULL) {
-      perror ("open_memstream");
-      exit (EXIT_FAILURE);
-    }
-
-    fprintf (fp, "virt-inspector");
+  /* Old-style -i syntax?  Since -a/-d/-N and -i was disallowed
+   * previously, if we have -i without any drives but with something
+   * on the command line, it must be old-style syntax.
+   */
+  if (inspector && drvs == NULL && optind < argc) {
     while (optind < argc) {
-      fputc (' ', fp);
-      print_shell_quote (fp, argv[optind]);
+      if (strchr (argv[optind], '/') ||
+          access (argv[optind], F_OK) == 0) { /* simulate -a option */
+        drv = malloc (sizeof (struct drv));
+        if (!drv) {
+          perror ("malloc");
+          exit (EXIT_FAILURE);
+        }
+        drv->type = drv_a;
+        drv->a.filename = argv[optind];
+        drv->next = drvs;
+        drvs = drv;
+      } else {                  /* simulate -d option */
+        drv = malloc (sizeof (struct drv));
+        if (!drv) {
+          perror ("malloc");
+          exit (EXIT_FAILURE);
+        }
+        drv->type = drv_d;
+        drv->d.guest = argv[optind];
+        drv->next = drvs;
+        drvs = drv;
+      }
+
       optind++;
     }
-
-    if (read_only)
-      fprintf (fp, " --ro-fish");
-    else
-      fprintf (fp, " --fish");
-
-    if (fclose (fp) == -1) {
-      perror ("fclose");
-      exit (EXIT_FAILURE);
-    }
-
-    if (verbose)
-      fprintf (stderr,
-               "%s -i: running: %s\n", program_name, cmd);
-
-    FILE *pp = popen (cmd, "r");
-    if (pp == NULL) {
-      perror (cmd);
-      exit (EXIT_FAILURE);
-    }
-
-    char *cmd2;
-    fp = open_memstream (&cmd2, &cmdlen);
-    if (fp == NULL) {
-      perror ("open_memstream");
-      exit (EXIT_FAILURE);
-    }
-
-    fprintf (fp, "%s", real_argv0);
-
-    if (guestfs_get_verbose (g))
-      fprintf (fp, " -v");
-    if (!guestfs_get_autosync (g))
-      fprintf (fp, " -n");
-    if (guestfs_get_trace (g))
-      fprintf (fp, " -x");
-
-    char *insp = NULL;
-    size_t insplen;
-    if (getline (&insp, &insplen, pp) == -1) {
-      perror (cmd);
-      exit (EXIT_FAILURE);
-    }
-    fprintf (fp, " %s", insp);
-
-    if (pclose (pp) == -1) {
-      perror (cmd);
-      exit (EXIT_FAILURE);
-    }
-
-    if (fclose (fp) == -1) {
-      perror ("fclose");
-      exit (EXIT_FAILURE);
-    }
-
-    if (verbose)
-      fprintf (stderr,
-               "%s -i: running: %s\n", program_name, cmd2);
-
-    int r = system (cmd2);
-    if (r == -1) {
-      perror (cmd2);
-      exit (EXIT_FAILURE);
-    }
-
-    free (cmd);
-    free (cmd2);
-    free (insp);
-
-    exit (WEXITSTATUS (r));
   }
 
   /* If we've got drives to add, add them now. */
   add_drives (drvs, 'a');
 
-  /* If we've got mountpoints or prepared drives, we must launch the
-   * guest and mount them.
+  /* If we've got mountpoints or prepared drives or -i option, we must
+   * launch the guest and mount them.
    */
-  if (next_prepared_drive > 1 || mps != NULL) {
+  if (next_prepared_drive > 1 || mps != NULL || inspector) {
     /* RHBZ#612178: If --listen flag is given, then we will fork into
      * the background in rc_listen().  However you can't do this while
      * holding a libguestfs handle open because the recovery process
@@ -519,6 +449,10 @@ main (int argc, char *argv[])
       guestfs_set_recovery_proc (g, 0);
 
     if (launch () == -1) exit (EXIT_FAILURE);
+
+    if (inspector)
+      inspect_mount ();
+
     prepare_drives (drvs);
     mount_mps (mps);
   }
@@ -747,7 +681,7 @@ script (int prompt)
   int global_exit_on_error = !prompt;
   int tilde_candidate;
 
-  if (prompt)
+  if (prompt) {
     printf (_("\n"
               "Welcome to guestfish, the libguestfs filesystem interactive shell for\n"
               "editing virtual machine filesystems.\n"
@@ -756,6 +690,12 @@ script (int prompt)
               "      'man' to read the manual\n"
               "      'quit' to quit the shell\n"
               "\n"));
+
+    if (inspector) {
+      print_inspect_prompt ();
+      printf ("\n");
+    }
+  }
 
   while (!quit) {
     char *pipe = NULL;
@@ -1839,18 +1779,4 @@ read_key (const char *param)
     fclose (infp); /* outfp == infp, so this is closed also */
 
   return ret;
-}
-
-static void
-print_shell_quote (FILE *stream, const char *str)
-{
-#define SAFE(c) (c_isalnum((c)) ||					\
-                 (c) == '/' || (c) == '-' || (c) == '_' || (c) == '.')
-  int i;
-
-  for (i = 0; str[i]; ++i) {
-    if (!SAFE(str[i]))
-      putc ('\\', stream);
-    putc (str[i], stream);
-  }
 }
