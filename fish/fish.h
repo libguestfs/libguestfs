@@ -49,9 +49,11 @@
 
 /* in fish.c */
 extern guestfs_h *g;
+extern int read_only;
 extern int quit;
 extern int verbose;
 extern int command_num;
+extern const char *libvirt_uri;
 extern int issue_command (const char *cmd, char *argv[], const char *pipe);
 extern void pod2text (const char *name, const char *shortdesc, const char *body);
 extern void list_builtin_commands (void);
@@ -130,6 +132,9 @@ extern int do_time (const char *cmd, int argc, char *argv[]);
 
 /* in tilde.c */
 extern char *try_tilde_expansion (char *path);
+
+/* in virt.c */
+extern int add_libvirt_drives (const char *guest);
 
 /* This should just list all the built-in commands so they can
  * be added to the generated auto-completion code.

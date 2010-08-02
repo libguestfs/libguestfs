@@ -52,6 +52,10 @@ Requirements
 
 - libmagic (the library that corresponds to the 'file' command)
 
+- libvirt
+
+- libxml2
+
 - squashfs-tools (mksquashfs only)
 
 - genisoimage / mkisofs

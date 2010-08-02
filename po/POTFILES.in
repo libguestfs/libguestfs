@@ -85,6 +85,7 @@ fish/reopen.c
 fish/supported.c
 fish/tilde.c
 fish/time.c
+fish/virt.c
 fuse/dircache.c
 fuse/guestmount.c
 inspector/virt-inspector.pl

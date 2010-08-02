@@ -43,11 +43,23 @@
 #include "closeout.h"
 #include "progname.h"
 
+/* List of drives added via -a, -d or -N options. */
 struct drv {
   struct drv *next;
-  char *filename;               /* disk filename (for -a or -N options) */
-  prep_data *data;              /* prepared type (for -N option only) */
-  char *device;                 /* device inside the appliance */
+  enum { drv_a, drv_d, drv_N } type;
+  union {
+    struct {
+      char *filename;       /* disk filename */
+    } a;
+    struct {
+      char *guest;          /* guest name */
+    } d;
+    struct {
+      char *filename;       /* disk filename (testX.img) */
+      prep_data *data;      /* prepared type */
+      char *device;         /* device inside the appliance */
+    } N;
+  };
 };
 
 struct mp {
@@ -56,7 +68,7 @@ struct mp {
   char *mountpoint;
 };
 
-static void add_drives (struct drv *drv);
+static char add_drives (struct drv *drv, char next_drive);
 static void prepare_drives (struct drv *drv);
 static void mount_mps (struct mp *mp);
 static int launch (void);
@@ -82,6 +94,7 @@ int remote_control = 0;
 int exit_on_error = 1;
 int command_num = 0;
 int keys_from_stdin = 0;
+const char *libvirt_uri = NULL;
 
 static void __attribute__((noreturn))
 usage (int status)
@@ -109,6 +122,8 @@ usage (int status)
              "  -h|--cmd-help        List available commands\n"
              "  -h|--cmd-help cmd    Display detailed help on 'cmd'\n"
              "  -a|--add image       Add image\n"
+             "  -c|--connect uri     Specify libvirt URI for -d option\n"
+             "  -d|--domain guest    Add disks from libvirt guest\n"
              "  -D|--no-dest-paths   Don't tab-complete paths from guest fs\n"
              "  -f|--file file       Read commands from file\n"
              "  -i|--inspector       Run virt-inspector to get disk mountpoints\n"
@@ -145,10 +160,12 @@ main (int argc, char *argv[])
 
   enum { HELP_OPTION = CHAR_MAX + 1 };
 
-  static const char *options = "a:Df:h::im:nN:rv?Vx";
+  static const char *options = "a:c:d:Df:h::im:nN:rv?Vx";
   static const struct option long_options[] = {
     { "add", 1, 0, 'a' },
     { "cmd-help", 2, 0, 'h' },
+    { "connect", 1, 0, 'c' },
+    { "domain", 1, 0, 'd' },
     { "file", 1, 0, 'f' },
     { "help", 0, 0, HELP_OPTION },
     { "inspector", 0, 0, 'i' },
@@ -174,7 +191,6 @@ main (int argc, char *argv[])
   int inspector = 0;
   int option_index;
   struct sigaction sa;
-  char next_drive = 'a';
   int next_prepared_drive = 1;
 
   initialize_readline ();
@@ -262,15 +278,26 @@ main (int argc, char *argv[])
         perror ("malloc");
         exit (EXIT_FAILURE);
       }
-      drv->filename = optarg;
-      drv->data = NULL;
-      /* We could fill the device field in, but in fact we
-       * only use it for the -N option at present.
-       */
-      drv->device = NULL;
+      drv->type = drv_a;
+      drv->a.filename = optarg;
       drv->next = drvs;
       drvs = drv;
-      next_drive++;
+      break;
+
+    case 'c':
+      libvirt_uri = optarg;
+      break;
+
+    case 'd':
+      drv = malloc (sizeof (struct drv));
+      if (!drv) {
+        perror ("malloc");
+        exit (EXIT_FAILURE);
+      }
+      drv->type = drv_d;
+      drv->d.guest = optarg;
+      drv->next = drvs;
+      drvs = drv;
       break;
 
     case 'N':
@@ -283,16 +310,14 @@ main (int argc, char *argv[])
         perror ("malloc");
         exit (EXIT_FAILURE);
       }
-      if (asprintf (&drv->filename, "test%d.img",
+      drv->type = drv_N;
+      if (asprintf (&drv->N.filename, "test%d.img",
                     next_prepared_drive++) == -1) {
         perror ("asprintf");
         exit (EXIT_FAILURE);
       }
-      drv->data = create_prepared_file (optarg, drv->filename);
-      if (asprintf (&drv->device, "/dev/sd%c", next_drive++) == -1) {
-        perror ("asprintf");
-        exit (EXIT_FAILURE);
-      }
+      drv->N.data = create_prepared_file (optarg, drv->N.filename);
+      drv->N.device = NULL;     /* filled in by add_drives */
       drv->next = drvs;
       drvs = drv;
       break;
@@ -476,7 +501,7 @@ main (int argc, char *argv[])
   }
 
   /* If we've got drives to add, add them now. */
-  add_drives (drvs);
+  add_drives (drvs, 'a');
 
   /* If we've got mountpoints or prepared drives, we must launch the
    * guest and mount them.
@@ -584,21 +609,60 @@ mount_mps (struct mp *mp)
   }
 }
 
-static void
-add_drives (struct drv *drv)
+static char
+add_drives (struct drv *drv, char next_drive)
 {
   int r;
 
-  if (drv) {
-    add_drives (drv->next);
-
-    if (drv->data /* -N option is not affected by --ro */ || !read_only)
-      r = guestfs_add_drive (g, drv->filename);
-    else
-      r = guestfs_add_drive_ro (g, drv->filename);
-    if (r == -1)
-      exit (EXIT_FAILURE);
+  if (next_drive > 'z') {
+    fprintf (stderr,
+             _("guestfish: too many drives added on the command line\n"));
+    exit (EXIT_FAILURE);
   }
+
+  if (drv) {
+    next_drive = add_drives (drv->next, next_drive);
+
+    switch (drv->type) {
+    case drv_a:
+      if (!read_only)
+        r = guestfs_add_drive (g, drv->a.filename);
+      else
+        r = guestfs_add_drive_ro (g, drv->a.filename);
+      if (r == -1)
+        exit (EXIT_FAILURE);
+
+      next_drive++;
+      break;
+
+    case drv_d:
+      r = add_libvirt_drives (drv->d.guest);
+      if (r == -1)
+        exit (EXIT_FAILURE);
+
+      next_drive += r;
+      break;
+
+    case drv_N:
+      /* -N option is not affected by --ro */
+      r = guestfs_add_drive (g, drv->N.filename);
+      if (r == -1)
+        exit (EXIT_FAILURE);
+
+      if (asprintf (&drv->N.device, "/dev/sd%c", next_drive) == -1) {
+        perror ("asprintf");
+        exit (EXIT_FAILURE);
+      }
+
+      next_drive++;
+      break;
+
+    default: /* keep GCC happy */
+      abort ();
+    }
+  }
+
+  return next_drive;
 }
 
 static void
@@ -606,8 +670,8 @@ prepare_drives (struct drv *drv)
 {
   if (drv) {
     prepare_drives (drv->next);
-    if (drv->data)
-      prepare_drive (drv->filename, drv->data, drv->device);
+    if (drv->type == drv_N)
+      prepare_drive (drv->N.filename, drv->N.data, drv->N.device);
   }
 }
 

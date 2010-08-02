@@ -468,6 +468,16 @@ AC_CHECK_HEADER([magic.h],[],[
         AC_MSG_FAILURE([magic.h header file is required])
     ])
 
+dnl libvirt (required)
+PKG_CHECK_MODULES([LIBVIRT], [libvirt])
+AC_SUBST([LIBVIRT_CFLAGS])
+AC_SUBST([LIBVIRT_LIBS])
+
+dnl libxml2 (required)
+PKG_CHECK_MODULES([LIBXML2], [libxml-2.0])
+AC_SUBST([LIBXML2_CFLAGS])
+AC_SUBST([LIBXML2_LIBS])
+
 dnl hivex library (highly recommended).
 dnl This used to be a part of libguestfs, but was spun off into its
 dnl own separate upstream project in libguestfs 1.0.85.

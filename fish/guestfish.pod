@@ -14,6 +14,8 @@ guestfish - the libguestfs Filesystem Interactive SHell
 
  guestfish -a disk.img -m dev[:mountpoint]
 
+ guestfish -d libvirt-domain
+
  guestfish -i libvirt-domain
 
  guestfish -i disk.img [disk.img ...]
@@ -139,6 +141,18 @@ Displays detailed help on a single command C<cmd>.
 =item B<-a image> | B<--add image>
 
 Add a block device or virtual machine image to the shell.
+
+=item B<-c URI> | B<--connect URI>
+
+When used in conjunction with the I<-d> option, this specifies
+the libvirt URI to use.  The default is to use the default libvirt
+connection.
+
+=item B<-d libvirt-domain> | B<--domain libvirt-domain>
+
+Add disks from the named libvirt domain.  If the I<--ro> option is
+also used, then any libvirt domain can be used.  However in write
+mode, only libvirt domains which are shut down can be named here.
 
 =item B<-D> | B<--no-dest-paths>
 

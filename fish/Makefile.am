@@ -52,7 +52,8 @@ guestfish_SOURCES = \
 	reopen.c \
 	supported.c \
 	tilde.c \
-	time.c
+	time.c \
+	virt.c
 
 # This convenience library is solely to avoid compiler warnings
 # in its generated sources.
@@ -65,9 +66,12 @@ guestfish_CFLAGS = \
 	-DGUESTFS_DEFAULT_PATH='"$(libdir)/guestfs"' \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \
+	$(LIBVIRT_CFLAGS) $(LIBXML2_CFLAGS) \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 
-guestfish_LDADD = $(top_builddir)/src/libguestfs.la $(LIBREADLINE)
+guestfish_LDADD = \
+	$(LIBVIRT_LIBS) $(LIBXML2_LIBS) \
+	$(top_builddir)/src/libguestfs.la $(LIBREADLINE)
 
 # Make libguestfs use the convenience library.
 noinst_LTLIBRARIES = librc_protocol.la
