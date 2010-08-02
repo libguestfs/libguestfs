@@ -20,15 +20,12 @@ include $(top_srcdir)/subdir-rules.mk
 generator_built = \
 	guestfs.mli \
 	guestfs.ml \
-	guestfs_inspector.mli \
-	guestfs_inspector.ml \
 	guestfs_c_actions.c \
 	bindtests.ml
 
 EXTRA_DIST = \
 	$(generator_built) \
 	guestfs_c.c guestfs_c.h \
-	guestfs_inspector.mli guestfs_inspector.ml \
 	.depend META.in \
 	run-bindtests \
 	t/*.ml
@@ -45,7 +42,7 @@ if HAVE_XML_LIGHT
 
 noinst_DATA = mlguestfs.cma mlguestfs.cmxa META
 
-OBJS = guestfs_c.o guestfs_c_actions.o guestfs.cmo guestfs_inspector.cmo
+OBJS = guestfs_c.o guestfs_c_actions.o guestfs.cmo
 XOBJS = $(OBJS:.cmo=.cmx)
 
 mlguestfs.cma: $(OBJS)
@@ -67,10 +64,10 @@ TESTS_ENVIRONMENT = \
 
 TESTS = run-bindtests \
 	t/guestfs_005_load t/guestfs_010_launch t/guestfs_050_lvcreate \
-	t/guestfs_060_readdir t/guestfs_070_threads t/guestfs_500_inspect
+	t/guestfs_060_readdir t/guestfs_070_threads
 noinst_DATA += bindtests \
 	t/guestfs_005_load t/guestfs_010_launch t/guestfs_050_lvcreate \
-	t/guestfs_060_readdir t/guestfs_070_threads t/guestfs_500_inspect
+	t/guestfs_060_readdir t/guestfs_070_threads
 
 bindtests: bindtests.cmx mlguestfs.cmxa
 	mkdir -p t
@@ -95,10 +92,6 @@ t/guestfs_060_readdir: t/guestfs_060_readdir.cmx mlguestfs.cmxa
 t/guestfs_070_threads: t/guestfs_070_threads.cmx mlguestfs.cmxa
 	mkdir -p t
 	$(OCAMLFIND) ocamlopt -cclib -L$(top_builddir)/src/.libs -I . -package unix,threads -thread -linkpkg mlguestfs.cmxa $< -o $@
-
-t/guestfs_500_inspect: t/guestfs_500_inspect.cmx mlguestfs.cmxa
-	mkdir -p t
-	$(OCAMLFIND) ocamlopt -cclib -L$(top_builddir)/src/.libs -I . -package xml-light,unix -linkpkg mlguestfs.cmxa $< -o $@
 
 # Need to rebuild the tests from source if the main library has
 # changed at all, otherwise we get inconsistent assumptions.
