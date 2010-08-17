@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.0.81\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-12 10:15+0100\n"
+"POT-Creation-Date: 2010-08-17 15:51+0100\n"
 "PO-Revision-Date: 2010-01-29 13:38+0530\n"
 "Last-Translator: I. Felix <ifelix@redhat.com>\n"
 "Language-Team: ta_IN <kde-i18n-doc@kde.org>\n"
@@ -1865,47 +1865,47 @@ msgstr "guestfs_config: அளவுரு '-' எழுத்தில் த�
 msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr "guestfs_config: அளவுரு '%s' அனுமதிக்கப்படுவதில்லை"
 
-#: src/guestfs.c:797 src/guestfs.c:834 src/guestfs.c:881
+#: src/guestfs.c:797 src/guestfs.c:834 src/guestfs.c:867
 msgid "filename cannot contain ',' (comma) character"
 msgstr "கோப்புபெயர் ',' (கம்மா) எழுத்தை கொண்டிருக்கவில்லை"
 
-#: src/guestfs.c:953
+#: src/guestfs.c:939
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "நீங்கள் guestfs_add_drive ஐ guestfs_launchக்கு முன் அழைக்க வேண்டும்"
 
-#: src/guestfs.c:958
+#: src/guestfs.c:944
 #, fuzzy
 msgid "the libguestfs handle has already been launched"
 msgstr "qemu ஏற்கனவே துவங்கப்பட்டுவிட்டது"
 
-#: src/guestfs.c:978
+#: src/guestfs.c:964
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: தற்காலிக அடைவை உருவாக்க முடியவில்லை"
 
-#: src/guestfs.c:1068
+#: src/guestfs.c:1054
 #, c-format
 msgid "cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)"
 msgstr "%s அல்லது %s ஐ LIBGUESTFS_PATH (தற்போதைய பாதை = %s)ல் தேட முடியவில்லை"
 
-#: src/guestfs.c:1480
+#: src/guestfs.c:1466
 msgid "failed to connect to vmchannel socket"
 msgstr "vmசேனல் சாக்கெட்டை இணைக்க முடியவில்லை"
 
-#: src/guestfs.c:1499
+#: src/guestfs.c:1485
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch தோல்வியுற்றது, முந்தைய பிழைச் செய்தியைப் பார்"
 
-#: src/guestfs.c:1512
+#: src/guestfs.c:1498
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu டொமைனுடன் துவக்கப்பட்டு தொடர்பு கொண்டது, ஆனால் நிலையானது != READY"
 
-#: src/guestfs.c:1604
+#: src/guestfs.c:1590
 #, c-format
 msgid "external command failed: %s"
 msgstr "அகக் கட்டளை தோல்வியுற்றது: %s"
 
-#: src/guestfs.c:1677
+#: src/guestfs.c:1663
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -1914,25 +1914,25 @@ msgstr ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
 "the LIBGUESTFS_QEMU environment variable."
 
-#: src/guestfs.c:1853
+#: src/guestfs.c:1839
 msgid "qemu has not been launched yet"
 msgstr "qemu இன்னும் துவங்கப்படவில்லை"
 
-#: src/guestfs.c:1864
+#: src/guestfs.c:1850
 msgid "no subprocess to kill"
 msgstr "அழிப்பதற்கு துணைசெயல்பாடுகள் இல்லை"
 
-#: src/guestfs.c:1986
+#: src/guestfs.c:1972
 #, c-format
 msgid "guestfs_set_busy: called when in state %d != READY"
 msgstr "guestfs_set_busy: %d நிலையில் உள்ள போது அழைத்தது!= READY"
 
-#: src/guestfs.c:2009
+#: src/guestfs.c:1995
 #, c-format
 msgid "guestfs_end_busy: called when in state %d"
 msgstr "guestfs_end_busy: நிலை %dல் உள்ள போது அழைத்தது"
 
-#: src/guestfs.c:2124
+#: src/guestfs.c:2110
 #, c-format
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
@@ -1940,65 +1940,65 @@ msgstr ""
 "check_for_daemon_cancellation_or_eof: டொமைனிலிருந்து 0x%x ஐ வாசி, "
 "எதிர்பார்க்கப்பட்ட 0x%x\n"
 
-#: src/guestfs.c:2282 src/guestfs.c:2336
+#: src/guestfs.c:2268 src/guestfs.c:2322
 msgid "unexpected end of file when reading from daemon"
 msgstr "unexpected end of file when reading from daemon"
 
-#: src/guestfs.c:2298
+#: src/guestfs.c:2284
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr "received magic signature from guestfsd, but in state %d"
 
-#: src/guestfs.c:2313
+#: src/guestfs.c:2299
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "செய்தி அளவு (%u) > குறைந்தபட்ச சாத்தியமான அளவு (%d)"
 
-#: src/guestfs.c:2443
+#: src/guestfs.c:2429
 #, c-format
 msgid "guestfs___send: state %d != BUSY"
 msgstr "guestfs___send: நிலை%d != BUSY"
 
-#: src/guestfs.c:2465
+#: src/guestfs.c:2451
 msgid "xdr_guestfs_message_header failed"
 msgstr "xdr_guestfs_message_header தோல்வியுற்றது"
 
-#: src/guestfs.c:2474
+#: src/guestfs.c:2460
 msgid "dispatch failed to marshal args"
 msgstr "marshal args ஐ அனுப்ப முடியவில்லை"
 
-#: src/guestfs.c:2604
+#: src/guestfs.c:2590
 #, c-format
 msgid "send_file_chunk: state %d != READY"
 msgstr "send_file_chunk: நிலை %d != READY"
 
-#: src/guestfs.c:2620
+#: src/guestfs.c:2606
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk தோல்வியுற்றது (buf = %p, buflen = %zu)"
 
-#: src/guestfs.c:2743
+#: src/guestfs.c:2729
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: error in chunked encoding"
 
-#: src/guestfs.c:2771
+#: src/guestfs.c:2757
 msgid "write to daemon socket"
 msgstr "டொமைன் சாக்கெட்டிற்கு எழுது"
 
-#: src/guestfs.c:2794
+#: src/guestfs.c:2780
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: பதில் பின்அழைப்பில் உள்ள பிழையை பகுக்கவும்"
 
-#: src/guestfs.c:2799
+#: src/guestfs.c:2785
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr "receive_file_data: கோப்பு சங்க்கை வாசிக்கும் போது  எதிர்பாராத கொடி பெறப்பட்டது"
 
-#: src/guestfs.c:2807
+#: src/guestfs.c:2793
 msgid "failed to parse file chunk"
 msgstr "கோப்பு சங்க்கை பகுக்க முடியவில்லை"
 
-#: src/guestfs.c:2816
+#: src/guestfs.c:2802
 msgid "file receive cancelled by daemon"
 msgstr "கோப்பினை பெறுதல் டொமைனால் ரத்து செய்யப்பட்டது"
 

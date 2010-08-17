@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.0.83\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-12 10:15+0100\n"
+"POT-Creation-Date: 2010-08-17 15:51+0100\n"
 "PO-Revision-Date: 2010-02-24 11:56+0530\n"
 "Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
 "Language-Team: kn-IN <>\n"
@@ -1865,47 +1865,47 @@ msgstr "guestfs_config: ನಿಯತಾಂಕವು '-' ಚಿಹ್ನೆಯಿ
 msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr "guestfs_config: '%s' ಎಂಬ ನಿಯತಾಂಕಕ್ಕೆ ಅನುಮತಿ ಇಲ್ಲ"
 
-#: src/guestfs.c:797 src/guestfs.c:834 src/guestfs.c:881
+#: src/guestfs.c:797 src/guestfs.c:834 src/guestfs.c:867
 msgid "filename cannot contain ',' (comma) character"
 msgstr "ಕಡತದ ಹೆಸರು ',' (ವಿರಾಮ) ಚಿಹ್ನೆಯನ್ನು ಹೊಂದಿರುವಂತಿಲ್ಲ"
 
-#: src/guestfs.c:953
+#: src/guestfs.c:939
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "ನೀವು guestfs_launch ನ ಮೊದಲು guestfs_add_drive ಅನ್ನು ಕರೆಯಬೇಕು"
 
-#: src/guestfs.c:958
+#: src/guestfs.c:944
 #, fuzzy
 msgid "the libguestfs handle has already been launched"
 msgstr "qemu ಅನ್ನು ಈಗಾಗಲೆ ಆರಂಭಿಸಲಾಗಿದೆ"
 
-#: src/guestfs.c:978
+#: src/guestfs.c:964
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: ಒಂದು ತಾತ್ಕಾಲಿಕ ಕೋಶವನ್ನು ರಚಿಸಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ"
 
-#: src/guestfs.c:1068
+#: src/guestfs.c:1054
 #, c-format
 msgid "cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)"
 msgstr "%s ಅಥವ %s ವು LIBGUESTFS_PATH ನಲ್ಲಿ ಕಂಡು ಬಂದಿಲ್ಲ (ಪ್ರಸಕ್ತ ಮಾರ್ಗ = %s)"
 
-#: src/guestfs.c:1480
+#: src/guestfs.c:1466
 msgid "failed to connect to vmchannel socket"
 msgstr "vmchannel ಸಾಕೆಟ್‌ನೊಂದಿಗೆ ಸಂಪರ್ಕ ಸಾಧಿಸುವಲ್ಲಿ ವಿಫಲಗೊಂಡಿದೆ"
 
-#: src/guestfs.c:1499
+#: src/guestfs.c:1485
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch ವಿಫಲಗೊಂಡಿದೆ, ಹಿಂದಿನ ದೋಷ ಸಂದೇಶಗಳನ್ನು ನೋಡಿ"
 
-#: src/guestfs.c:1512
+#: src/guestfs.c:1498
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu ಆರಂಭಗೊಂಡಿದೆ ಹಾಗು ಡೀಮನ್ ಅನ್ನು ಸಂಪರ್ಕಿಸಿದೆ, ಆದರೆ != READY ಸ್ಥಿತಿಯಲ್ಲಿದೆ"
 
-#: src/guestfs.c:1604
+#: src/guestfs.c:1590
 #, c-format
 msgid "external command failed: %s"
 msgstr "ಬಾಹ್ಯ ಆಜ್ಞೆಯು ವಿಫಲಗೊಂಡಿದೆ: %s"
 
-#: src/guestfs.c:1677
+#: src/guestfs.c:1663
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -1914,25 +1914,25 @@ msgstr ""
 "%s: ಆಜ್ಞೆಯು ವಿಫಲಗೊಂಡಿದೆ: qemu ಒಂದು ಶಿಷ್ಟವಲ್ಲದ ಸ್ಥಳದಲ್ಲಿ ಇದ್ದಲ್ಲಿ, LIBGUESTFS_QEMU "
 "ಪರಿಸರ ವೇರಿಯೇಬಲ್ ಅನ್ನು ಹೊಂದಿಸಲು ಪ್ರಯತ್ನಿಸಿ."
 
-#: src/guestfs.c:1853
+#: src/guestfs.c:1839
 msgid "qemu has not been launched yet"
 msgstr "qemu ಅನ್ನು ಇನ್ನೂ ಸಹ ಆರಂಭಿಸಲಾಗಿಲ್ಲ"
 
-#: src/guestfs.c:1864
+#: src/guestfs.c:1850
 msgid "no subprocess to kill"
 msgstr "ಅಂತ್ಯಗೊಳಿಸಲು ಯಾವುದೆ ಉಪಪ್ರಕ್ರಿಯೆಯು ಇಲ್ಲ"
 
-#: src/guestfs.c:1986
+#: src/guestfs.c:1972
 #, c-format
 msgid "guestfs_set_busy: called when in state %d != READY"
 msgstr "guestfs_set_busy: %d != READY ಎಂಬ ಸ್ಥಿತಿಯಲ್ಲಿದ್ದಾಗ ಕರೆಯಲಾಗಿದೆ"
 
-#: src/guestfs.c:2009
+#: src/guestfs.c:1995
 #, c-format
 msgid "guestfs_end_busy: called when in state %d"
 msgstr "guestfs_end_busy: %d ಎಂಬ ಸ್ಥಿತಿಯಲ್ಲಿದ್ದಾಗ ಕರೆಯಲಾಗಿದೆ"
 
-#: src/guestfs.c:2124
+#: src/guestfs.c:2110
 #, c-format
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
@@ -1940,65 +1940,65 @@ msgstr ""
 "check_for_daemon_cancellation_or_eof: ಡೀಮನ್‌ನಿಂದ 0x%x ಅನ್ನು ಓದಲಾಗಿದೆ, ಆದರೆ 0x%x "
 "ಅನ್ನು ನಿರೀಕ್ಷಿಸಲಾಗಿತ್ತು\n"
 
-#: src/guestfs.c:2282 src/guestfs.c:2336
+#: src/guestfs.c:2268 src/guestfs.c:2322
 msgid "unexpected end of file when reading from daemon"
 msgstr "ಡೀಮನ್‌ನಿಂದ ಓದುವಾಗ ಕಡತದ ಅನಿರೀಕ್ಷಿತ ಅಂತ್ಯವು ಕಂಡುಬಂದಿಲ್ಲ"
 
-#: src/guestfs.c:2298
+#: src/guestfs.c:2284
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr "guestfsd ಇಂದ ಮ್ಯಾಜಿಕ್ ಸಹಿಯನ್ನು ಪಡೆಯಲಾಗಿದೆ, ಆದರೆ %d ಸ್ಥಿತಿಯಲ್ಲಿದೆ"
 
-#: src/guestfs.c:2313
+#: src/guestfs.c:2299
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "ಸಂದೇಶದ ಉದ್ದ (%u) > ಸಾಧ್ಯವಿರುವ ಗರಿಷ್ಟ ಉದ್ದ (%d)"
 
-#: src/guestfs.c:2443
+#: src/guestfs.c:2429
 #, c-format
 msgid "guestfs___send: state %d != BUSY"
 msgstr "guestfs___send: ಸ್ಥಿತಿ %d != BUSY"
 
-#: src/guestfs.c:2465
+#: src/guestfs.c:2451
 msgid "xdr_guestfs_message_header failed"
 msgstr "xdr_guestfs_message_header ವಿಫಲಗೊಂಡಿದೆ"
 
-#: src/guestfs.c:2474
+#: src/guestfs.c:2460
 msgid "dispatch failed to marshal args"
 msgstr "ವಿಫಲಗೊಂಡವುಗಳನ್ನು ಮಾರ್ಶಲ್ ಆರ್ಗ್ಯುಮೆಂಟ್‌ಗಳಿಗೆ ರವಾನಿಸು"
 
-#: src/guestfs.c:2604
+#: src/guestfs.c:2590
 #, c-format
 msgid "send_file_chunk: state %d != READY"
 msgstr "send_file_chunk: ಸ್ಥಿತಿ %d != READY"
 
-#: src/guestfs.c:2620
+#: src/guestfs.c:2606
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk ವಿಫಲಗೊಂಡಿದೆ (buf = %p, buflen = %zu)"
 
-#: src/guestfs.c:2743
+#: src/guestfs.c:2729
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: ತುಂಡರಿಸಲಾದ ಎನ್ಕೋಡಿಂಗ್‌ನಲ್ಲಿ ದೋಷ"
 
-#: src/guestfs.c:2771
+#: src/guestfs.c:2757
 msgid "write to daemon socket"
 msgstr "ಡೀಮನ್ ಸಾಕೆಟ್‌ಗೆ ಬರೆಯುವಲ್ಲಿ ವಿಫಲಗೊಂಡಿದೆ"
 
-#: src/guestfs.c:2794
+#: src/guestfs.c:2780
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: ಪ್ರತ್ಯುತ್ತರ ಕಾಲ್‌ಬ್ಯಾಕ್‌ನಲ್ಲಿ ಪಾರ್ಸ್ ದೋಷ"
 
-#: src/guestfs.c:2799
+#: src/guestfs.c:2785
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr "receive_file_data: ಕಡತದ ತುಣುಕಗಳು ಓದುವಾಗ ಅನಿರೀಕ್ಷಿತ ಫ್ಲಾಗ್ ಅನ್ನು ಪಡೆಯಲಾಗಿದೆ"
 
-#: src/guestfs.c:2807
+#: src/guestfs.c:2793
 msgid "failed to parse file chunk"
 msgstr "ಕಡತದ ತುಣುಕನ್ನು ಪಾರ್ಸ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ"
 
-#: src/guestfs.c:2816
+#: src/guestfs.c:2802
 msgid "file receive cancelled by daemon"
 msgstr "ಕಡತವನ್ನು ಸ್ವೀಕರಿಸುವುದನ್ನು ಡೆಮನ್ ರದ್ದುಗೊಳಿಸಿದೆ"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs.master.libguestfs.ml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-12 10:15+0100\n"
+"POT-Creation-Date: 2010-08-17 15:51+0100\n"
 "PO-Revision-Date: 2010-02-02 18:35+0530\n"
 "Last-Translator: Ani Peter | അനി പീറ്റര്‍ <apeter@redhat.com>\n"
 "Language-Team: Swathanthra Malayalam Computing | സ്വതന്ത്ര മലയാളം കമ്പ്യൂട്ടിങ് <smc-"
@@ -1864,47 +1864,47 @@ msgstr "guestfs_config: പരാമീറ്റര്‍ '-' ഉപയോഗി
 msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr "guestfs_config: പരാമീറ്റര്‍ '%s' അനുവദിച്ചിട്ടില്ല"
 
-#: src/guestfs.c:797 src/guestfs.c:834 src/guestfs.c:881
+#: src/guestfs.c:797 src/guestfs.c:834 src/guestfs.c:867
 msgid "filename cannot contain ',' (comma) character"
 msgstr "ഫയല്‍നാമത്തില്‍ ',' (കോമാ) അടങ്ങുന്നു"
 
-#: src/guestfs.c:953
+#: src/guestfs.c:939
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "guestfs_launch-നു് മുമ്പു് guestfs_add_drive വിളിക്കേണ്ടതു്"
 
-#: src/guestfs.c:958
+#: src/guestfs.c:944
 #, fuzzy
 msgid "the libguestfs handle has already been launched"
 msgstr "qemu നിലവില്‍ വിന്യസിച്ചിരിക്കുന്നു"
 
-#: src/guestfs.c:978
+#: src/guestfs.c:964
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: താല്‍ക്കാലിക ഡയറക്ടറി ഉണ്ടാക്കുവാന്‍ സാധ്യമല്ല"
 
-#: src/guestfs.c:1068
+#: src/guestfs.c:1054
 #, c-format
 msgid "cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)"
 msgstr "LIBGUESTFS_PATH-ല്‍ %s അല്ലെങ്കില്‍ %s ലഭ്യമല്ല (ഇപ്പോഴുള്ള പാഥ് = %s)"
 
-#: src/guestfs.c:1480
+#: src/guestfs.c:1466
 msgid "failed to connect to vmchannel socket"
 msgstr "vmchannel സോക്കറ്റിലേക്കു് കണക്ട് ചെയ്യുന്നതില്‍ പരാജയപ്പെട്ടു"
 
-#: src/guestfs.c:1499
+#: src/guestfs.c:1485
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch പരാജയപ്പെട്ടു, മുമ്പുള്ള പിശക് സന്ദേശങ്ങള്‍ കാണുക"
 
-#: src/guestfs.c:1512
+#: src/guestfs.c:1498
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu വിന്യസിച്ചു് ഡെമണുമായി ബന്ധപ്പെട്ടു, പക്ഷേ state != READY"
 
-#: src/guestfs.c:1604
+#: src/guestfs.c:1590
 #, c-format
 msgid "external command failed: %s"
 msgstr "എക്സ്റ്റേണല്‍ കമാന്‍ഡ് പരാജയപ്പെട്ടു: %s"
 
-#: src/guestfs.c:1677
+#: src/guestfs.c:1663
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -1913,90 +1913,90 @@ msgstr ""
 "%s: കമാന്‍ഡ് പരാജയപ്പെട്ടു: നിലവാരമില്ലാത്ത പാഥിലാണു് qemu ലഭ്യമെങ്കില്‍, LIBGUESTFS_QEMU "
 "എന്‍വയോണ്മെന്റ് വേരിയബിള്‍ സജ്ജമാക്കുവാന്‍ ശ്രമിക്കുക."
 
-#: src/guestfs.c:1853
+#: src/guestfs.c:1839
 msgid "qemu has not been launched yet"
 msgstr "qemu ഇതുവരെ വിന്യസിച്ചിട്ടില്ല"
 
-#: src/guestfs.c:1864
+#: src/guestfs.c:1850
 msgid "no subprocess to kill"
 msgstr "ഇല്ലാതാക്കുന്നതിനായി ഉപപ്രക്രിയകളില്ല"
 
-#: src/guestfs.c:1986
+#: src/guestfs.c:1972
 #, c-format
 msgid "guestfs_set_busy: called when in state %d != READY"
 msgstr "guestfs_set_busy: %d != READY അവസ്ഥയില്‍ വിളിച്ചിരിക്കുന്നു"
 
-#: src/guestfs.c:2009
+#: src/guestfs.c:1995
 #, c-format
 msgid "guestfs_end_busy: called when in state %d"
 msgstr "guestfs_end_busy: %d അവസ്ഥയില്‍ വിളിച്ചിരിക്കുന്നു"
 
-#: src/guestfs.c:2124
+#: src/guestfs.c:2110
 #, c-format
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
 msgstr ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
 
-#: src/guestfs.c:2282 src/guestfs.c:2336
+#: src/guestfs.c:2268 src/guestfs.c:2322
 msgid "unexpected end of file when reading from daemon"
 msgstr "ഡെമണില്‍ നിന്നും വായിക്കുമ്പോള്‍ അപ്രതീക്ഷിതമായി ഫയല്‍ അവസാനിച്ചിരിക്കുന്നു"
 
-#: src/guestfs.c:2298
+#: src/guestfs.c:2284
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr "guestfsd-ല്‍ നിന്നും ഒപ്പ് ലഭിച്ചു, പക്ഷേ %d അവസ്ഥയില്‍"
 
-#: src/guestfs.c:2313
+#: src/guestfs.c:2299
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "സന്ദേശത്തിന്റെ നീളം (%u) > ഏറ്റവും കൂടിയ സാധ്യമായ വ്യാപ്തി (%d)"
 
-#: src/guestfs.c:2443
+#: src/guestfs.c:2429
 #, c-format
 msgid "guestfs___send: state %d != BUSY"
 msgstr "guestfs___send: അവസ്ഥ %d != BUSY"
 
-#: src/guestfs.c:2465
+#: src/guestfs.c:2451
 msgid "xdr_guestfs_message_header failed"
 msgstr "xdr_guestfs_message_header പരാജയപ്പെട്ടു"
 
-#: src/guestfs.c:2474
+#: src/guestfs.c:2460
 msgid "dispatch failed to marshal args"
 msgstr "മാര്‍ഷല്‍ ആര്‍ഗ്യുമെന്റുകളിലേക്കു് നല്‍കുന്നതു് പരാജയപ്പെട്ടു"
 
-#: src/guestfs.c:2604
+#: src/guestfs.c:2590
 #, c-format
 msgid "send_file_chunk: state %d != READY"
 msgstr "send_file_chunk: അവസ്ഥ %d != READY"
 
-#: src/guestfs.c:2620
+#: src/guestfs.c:2606
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "xdr_guestfs_chunk പരാജയപ്പെട്ടു (buf = %p, buflen = %zu)"
 
-#: src/guestfs.c:2743
+#: src/guestfs.c:2729
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: ചങ്ക്ഡ് എന്‍കോഡിങില്‍ പിശക്"
 
-#: src/guestfs.c:2771
+#: src/guestfs.c:2757
 msgid "write to daemon socket"
 msgstr "ഡെമണ്‍ സോക്കറ്റിലേക്ക് സൂക്ഷിക്കുക"
 
-#: src/guestfs.c:2794
+#: src/guestfs.c:2780
 msgid "receive_file_data: parse error in reply callback"
 msgstr "receive_file_data: parse error in reply callback"
 
-#: src/guestfs.c:2799
+#: src/guestfs.c:2785
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr "receive_file_data: ഫയല്‍ ലഭ്യമാക്കുമ്പോള്‍ അപ്രതീക്ഷിതമായ ഫ്ലാഗ് ലഭിച്ചിരിക്കുന്നു"
 
-#: src/guestfs.c:2807
+#: src/guestfs.c:2793
 msgid "failed to parse file chunk"
 msgstr "ഫയല്‍ പാഴ്സ് ചെയ്യുന്നതില്‍ പരാജയപ്പെട്ടു"
 
-#: src/guestfs.c:2816
+#: src/guestfs.c:2802
 msgid "file receive cancelled by daemon"
 msgstr "ഫയല്‍ ലഭ്യമാക്കുന്നതു് ഡെമണ്‍ റദ്ദാക്കിയിരിക്കുന്നു"
 
