@@ -141,6 +141,7 @@ extern void guestfs_perrorf (guestfs_h *g, const char *fs, ...)
   __attribute__((format (printf,2,3)));
 extern void *guestfs_safe_realloc (guestfs_h *g, void *ptr, int nbytes);
 extern char *guestfs_safe_strdup (guestfs_h *g, const char *str);
+extern char *guestfs_safe_strndup (guestfs_h *g, const char *str, size_t n);
 extern void *guestfs_safe_memdup (guestfs_h *g, void *ptr, size_t size);
 extern int guestfs___set_busy (guestfs_h *g);
 extern int guestfs___end_busy (guestfs_h *g);
@@ -157,6 +158,7 @@ extern int guestfs___accept_from_daemon (guestfs_h *g);
 #define safe_malloc guestfs_safe_malloc
 #define safe_realloc guestfs_safe_realloc
 #define safe_strdup guestfs_safe_strdup
+#define safe_strndup guestfs_safe_strndup
 #define safe_memdup guestfs_safe_memdup
 
 #endif /* GUESTFS_INTERNAL_H_ */
