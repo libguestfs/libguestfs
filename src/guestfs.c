@@ -397,6 +397,14 @@ guestfs_safe_strdup (guestfs_h *g, const char *str)
   return s;
 }
 
+char *
+guestfs_safe_strndup (guestfs_h *g, const char *str, size_t n)
+{
+  char *s = strndup (str, n);
+  if (!s) g->abort_cb ();
+  return s;
+}
+
 void *
 guestfs_safe_memdup (guestfs_h *g, void *ptr, size_t size)
 {
