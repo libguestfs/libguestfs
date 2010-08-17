@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-07-12 10:14+0100\n"
+"POT-Creation-Date: 2010-08-17 15:51+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Héctor Daniel Cabrera <logan@fedoraproject.org>\n"
 "Language-Team: Fedora Spanish <trans-es@lists.fedoraproject.org>\n"
@@ -2270,72 +2270,72 @@ msgstr "{path} no coincide con el patrón augeas"
 msgid "{filename}: could not read initrd format"
 msgstr "{filename}: no es posible leer formato initrd"
 
-#: src/guestfs.c:292
+#: src/guestfs.c:176
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: llamado dos veces en la misma manipulación\n"
 
-#: src/guestfs.c:399
+#: src/guestfs.c:283
 #, c-format
 msgid "libguestfs: error: %s\n"
 msgstr "libguestfs: error: %s\n"
 
-#: src/guestfs.c:754
+#: src/launch.c:96
 msgid "command line cannot be altered after qemu subprocess launched"
 msgstr ""
 "la línea de comando no puede ser modificada luego de haber sido lanzado el "
 "subproceso qemu"
 
-#: src/guestfs.c:768
+#: src/launch.c:110
 msgid "guestfs_config: parameter must begin with '-' character"
 msgstr "guestfs_config: el parámetro debe comenzar con el carácter '-'"
 
-#: src/guestfs.c:782
+#: src/launch.c:124
 #, c-format
 msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr "guestfs_config: no está permitido el parámetro '%s'"
 
-#: src/guestfs.c:803 src/guestfs.c:840 src/guestfs.c:887
+#: src/launch.c:145 src/launch.c:182 src/launch.c:215
 msgid "filename cannot contain ',' (comma) character"
 msgstr "el nombre del archivo no puede contener el carácter ',' (coma)"
 
-#: src/guestfs.c:955
+#: src/launch.c:283
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "antes de guestfs_launch, debe llamar guestfs_add_drive"
 
-#: src/guestfs.c:960
+#: src/launch.c:288
 msgid "the libguestfs handle has already been launched"
 msgstr "el manipulador libguestfs ya ha sido iniciado"
 
-#: src/guestfs.c:980
+#: src/launch.c:308
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: no es posible crear directorio temporal"
 
-#: src/guestfs.c:1068
+#: src/launch.c:404
 #, c-format
 msgid "cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)"
 msgstr "no es posible encontrar %s o %s en LIBGUESTFS_PATH (ruta actual = %s)"
 
-#: src/guestfs.c:1480
+#: src/launch.c:816
 msgid "failed to connect to vmchannel socket"
 msgstr "falló al conectarse con el socket vmchannel"
 
-#: src/guestfs.c:1499
+#: src/launch.c:835
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "falló guestfs_launch, vea mensajes de errores anteriores"
 
-#: src/guestfs.c:1512
+#: src/launch.c:848
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu ha sido iniciado y contactado el demonio, pero es estado es != READY"
 
-#: src/guestfs.c:1608
+#: src/launch.c:948
 #, c-format
 msgid "external command failed: %s"
 msgstr "falló el comando externo: %s"
 
-#: src/guestfs.c:1681
+#: src/launch.c:1021
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -2344,25 +2344,25 @@ msgstr ""
 "%s: falló el comando: Si qemu se encuentra ubicado en una ruta no estándar, "
 "intente definir el entorno LIBGUESTFS_QEMU como variable"
 
-#: src/guestfs.c:1857
+#: src/launch.c:1197
 msgid "qemu has not been launched yet"
 msgstr "todavía qemu no ha sido iniciado "
 
-#: src/guestfs.c:1868
+#: src/launch.c:1208
 msgid "no subprocess to kill"
 msgstr "ningún subproceso que finalizar"
 
-#: src/guestfs.c:1998
+#: src/proto.c:143
 #, c-format
 msgid "guestfs_set_busy: called when in state %d != READY"
 msgstr "guestfs_set_busy: llamado cuando se encontraba en estado %d != READY "
 
-#: src/guestfs.c:2021
+#: src/proto.c:166
 #, c-format
 msgid "guestfs_end_busy: called when in state %d"
 msgstr "guestfs_end_busy: llamado cuando se encontraba en estado %d"
 
-#: src/guestfs.c:2136
+#: src/proto.c:281
 #, c-format
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
@@ -2370,69 +2370,69 @@ msgstr ""
 "check_for_daemon_cancellation_or_eof: se ha leído 0x%x desde el demonio, se "
 "esperaba 0x%x\n"
 
-#: src/guestfs.c:2294 src/guestfs.c:2348
+#: src/proto.c:439 src/proto.c:493
 msgid "unexpected end of file when reading from daemon"
 msgstr "fin no esperado del archivo mientras se leía desde el demonio"
 
-#: src/guestfs.c:2310
+#: src/proto.c:455
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr ""
 "se ha recibido una identificación mágica desde guestfsd, pero en estado %d"
 
-#: src/guestfs.c:2325
+#: src/proto.c:470
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "la longitud del mensaje (%u) > tamaño máximo posible (%d)"
 
-#: src/guestfs.c:2455
+#: src/proto.c:600
 #, c-format
 msgid "guestfs___send: state %d != BUSY"
 msgstr "guestfs___send: estado %d != BUSY"
 
-#: src/guestfs.c:2477
+#: src/proto.c:622
 msgid "xdr_guestfs_message_header failed"
 msgstr "falló xdr_guestfs_message_header"
 
-#: src/guestfs.c:2486
+#: src/proto.c:631
 msgid "dispatch failed to marshal args"
 msgstr "el despacho falló al presentar los argumentos"
 
-#: src/guestfs.c:2616
+#: src/proto.c:761
 #, c-format
 msgid "send_file_chunk: state %d != READY"
 msgstr "send_file_chunk: estado %d != READY"
 
-#: src/guestfs.c:2632
+#: src/proto.c:777
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "falló xdr_guestfs_chunk (buf = %p, buflen = %zu)"
 
-#: src/guestfs.c:2755
+#: src/proto.c:900
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: error en codificación fragmentada"
 
-#: src/guestfs.c:2783
+#: src/proto.c:928
 msgid "write to daemon socket"
 msgstr "escribe en el socket del demonio"
 
-#: src/guestfs.c:2806
+#: src/proto.c:951
 msgid "receive_file_data: parse error in reply callback"
 msgstr ""
 "receive_file_data: error de análisis en la respuesta de devolución de llamada"
 
-#: src/guestfs.c:2811
+#: src/proto.c:956
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr ""
 "receive_file_data: se ha recibido una marca no esperada mientras se leían "
 "porciones del archivo "
 
-#: src/guestfs.c:2819
+#: src/proto.c:964
 msgid "failed to parse file chunk"
 msgstr "falló al analizar porciones del archivo"
 
-#: src/guestfs.c:2828
+#: src/proto.c:973
 msgid "file receive cancelled by daemon"
 msgstr "el demonio ha cancelado la recepción del archivo"
 
