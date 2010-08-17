@@ -856,7 +856,7 @@ see L<guestfs(3)>.");
    "enable or disable command traces",
    "\
 If the command trace flag is set to 1, then commands are
-printed on stdout before they are executed in a format
+printed on stderr before they are executed in a format
 which is very similar to the one used by guestfish.  In
 other words, you can run a program with this enabled, and
 you will get out a script which you can feed to guestfish
@@ -6174,7 +6174,7 @@ check_state (guestfs_h *g, const char *caller)
       pr "\n"
     );
 
-    pr "    printf (\"%s\");\n" shortname;
+    pr "    fprintf (stderr, \"%s\");\n" shortname;
     List.iter (
       function
       | String n			(* strings *)
@@ -6186,27 +6186,27 @@ check_state (guestfs_h *g, const char *caller)
       | BufferIn n
       | Key n ->
           (* guestfish doesn't support string escaping, so neither do we *)
-          pr "    printf (\" \\\"%%s\\\"\", %s);\n" n
+          pr "    fprintf (stderr, \" \\\"%%s\\\"\", %s);\n" n
       | OptString n ->			(* string option *)
-          pr "    if (%s) printf (\" \\\"%%s\\\"\", %s);\n" n n;
-          pr "    else printf (\" null\");\n"
+          pr "    if (%s) fprintf (stderr, \" \\\"%%s\\\"\", %s);\n" n n;
+          pr "    else fprintf (stderr, \" null\");\n"
       | StringList n
       | DeviceList n ->			(* string list *)
-          pr "    putchar (' ');\n";
-          pr "    putchar ('\"');\n";
+          pr "    fputc (' ', stderr);\n";
+          pr "    fputc ('\"', stderr);\n";
           pr "    for (i = 0; %s[i]; ++i) {\n" n;
-          pr "      if (i > 0) putchar (' ');\n";
-          pr "      fputs (%s[i], stdout);\n" n;
+          pr "      if (i > 0) fputc (' ', stderr);\n";
+          pr "      fputs (%s[i], stderr);\n" n;
           pr "    }\n";
-          pr "    putchar ('\"');\n";
+          pr "    fputc ('\"', stderr);\n";
       | Bool n ->			(* boolean *)
-          pr "    fputs (%s ? \" true\" : \" false\", stdout);\n" n
+          pr "    fputs (%s ? \" true\" : \" false\", stderr);\n" n
       | Int n ->			(* int *)
-          pr "    printf (\" %%d\", %s);\n" n
+          pr "    fprintf (stderr, \" %%d\", %s);\n" n
       | Int64 n ->
-          pr "    printf (\" %%\" PRIi64, %s);\n" n
+          pr "    fprintf (stderr, \" %%\" PRIi64, %s);\n" n
     ) (snd style);
-    pr "    putchar ('\\n');\n";
+    pr "    fputc ('\\n', stderr);\n";
     pr "  }\n";
     pr "\n";
   in
