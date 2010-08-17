@@ -9496,25 +9496,35 @@ typedef int Py_ssize_t;
 
 #include \"guestfs.h\"
 
+#ifndef HAVE_PYCAPSULE_NEW
 typedef struct {
   PyObject_HEAD
   guestfs_h *g;
 } Pyguestfs_Object;
+#endif
 
 static guestfs_h *
 get_handle (PyObject *obj)
 {
   assert (obj);
   assert (obj != Py_None);
+#ifndef HAVE_PYCAPSULE_NEW
   return ((Pyguestfs_Object *) obj)->g;
+#else
+  return (guestfs_h*) PyCapsule_GetPointer(obj, \"guestfs_h\");
+#endif
 }
 
 static PyObject *
 put_handle (guestfs_h *g)
 {
   assert (g);
+#ifndef HAVE_PYCAPSULE_NEW
   return
     PyCObject_FromVoidPtrAndDesc ((void *) g, (char *) \"guestfs_h\", NULL);
+#else
+  return PyCapsule_New ((void *) g, \"guestfs_h\", NULL);
+#endif
 }
 
 /* This list should be freed (but not the strings) after use. */
@@ -9608,6 +9618,9 @@ py_guestfs_create (PyObject *self, PyObject *args)
     return NULL;
   }
   guestfs_set_error_handler (g, NULL, NULL);
+  /* This can return NULL, but in that case put_handle will have
+   * set the Python error string.
+   */
   return put_handle (g);
 }
 

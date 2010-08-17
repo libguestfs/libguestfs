@@ -551,6 +551,11 @@ if test "x$PYTHON" != "xno"; then
         fi
         AC_MSG_RESULT([not found])
     done
+
+    old_LIBS="$LIBS"
+    LIBS="$LIBS -lpython$PYTHON_VERSION"
+    AC_CHECK_FUNCS([PyCapsule_New])
+    LIBS="$old_LIBS"
 fi
 
 AC_SUBST(PYTHON_PREFIX)
