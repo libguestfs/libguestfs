@@ -127,37 +127,6 @@ stamp-debirf-modules:
 	done
 	touch $@
 
-#----------------------------------------------------------------------
-# Extra rules for testing the appliance.
-
-# Test-boot the appliance.
-
-test-boot: emptydisk
-	qemu-system-$(host_cpu) \
-	  -m 384 \
-	  -kernel $(VMLINUZ) -initrd $(INITRAMFSIMG) \
-	  -hda emptydisk
-
-emptydisk:
-	rm -f emptydisk
-	dd if=/dev/zero of=emptydisk bs=1024 count=1440
-	echo 0, | sfdisk -q -C 80 -H 2 -S 18 emptydisk > /dev/null
-
-# This is a more realistic test boot command line which better
-# reflects what the library does.
-
-test-boot-realistic: emptydisk
-	qemu-system-$(host_cpu) \
-	  -m 384 \
-	  -kernel $(VMLINUZ) -initrd $(INITRAMFSIMG) \
-	  -hda emptydisk \
-	  -append "console=ttyS0 guestfs=10.0.2.4:6666 guestfs_rescue=1" \
-	  -nographic \
-	  -serial stdio \
-	  -net channel,6666:unix:/tmp/sock,server,nowait \
-	  -net user,vlan=0 \
-	  -net nic,model=virtio,vlan=0
-
 # Make clean.
 
 CLEANFILES = $(APPLIANCE_FILES) packagelist kmod.whitelist supermin.incfiles
