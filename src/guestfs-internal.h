@@ -31,6 +31,7 @@
 
 struct guestfs_message_header;
 struct guestfs_message_error;
+
 extern void guestfs_error (guestfs_h *g, const char *fs, ...)
   __attribute__((format (printf,2,3)));
 extern void guestfs_perrorf (guestfs_h *g, const char *fs, ...)
