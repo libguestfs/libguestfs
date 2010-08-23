@@ -255,7 +255,6 @@ dir_contains_files (const char *dir, ...)
   return 1;
 }
 
-static void print_timestamped_message (guestfs_h *g, const char *fs, ...);
 static int build_supermin_appliance (guestfs_h *g, const char *path, char **kernel, char **initrd);
 static int is_openable (guestfs_h *g, const char *path, int flags);
 static void print_cmdline (guestfs_h *g);
@@ -400,7 +399,7 @@ guestfs__launch (guestfs_h *g)
   }
 
   if (g->verbose)
-    print_timestamped_message (g, "begin testing qemu features");
+    guestfs___print_timestamped_message (g, "begin testing qemu features");
 
   /* Get qemu help text and version. */
   if (qemu_supports (g, NULL) == -1)
@@ -463,7 +462,7 @@ guestfs__launch (guestfs_h *g)
   }
 
   if (g->verbose)
-    print_timestamped_message (g, "finished testing qemu features");
+    guestfs___print_timestamped_message (g, "finished testing qemu features");
 
   r = fork ();
   if (r == -1) {
@@ -830,7 +829,7 @@ guestfs__launch (guestfs_h *g)
   }
 
   if (g->verbose)
-    print_timestamped_message (g, "appliance is up");
+    guestfs___print_timestamped_message (g, "appliance is up");
 
   /* This is possible in some really strange situations, such as
    * guestfsd starts up OK but then qemu immediately exits.  Check for
@@ -928,7 +927,7 @@ build_supermin_appliance (guestfs_h *g, const char *path,
   int r, len;
 
   if (g->verbose)
-    print_timestamped_message (g, "begin building supermin appliance");
+    guestfs___print_timestamped_message (g, "begin building supermin appliance");
 
   len = strlen (g->tmpdir);
   *kernel = safe_malloc (g, len + 8);
@@ -951,7 +950,7 @@ build_supermin_appliance (guestfs_h *g, const char *path,
             path,
             *kernel, *initrd);
   if (g->verbose)
-    print_timestamped_message (g, "%s", cmd);
+    guestfs___print_timestamped_message (g, "%s", cmd);
 
   r = system (cmd);
   if (r == -1 || WEXITSTATUS(r) != 0) {
@@ -963,7 +962,7 @@ build_supermin_appliance (guestfs_h *g, const char *path,
   }
 
   if (g->verbose)
-    print_timestamped_message (g, "finished building supermin appliance");
+    guestfs___print_timestamped_message (g, "finished building supermin appliance");
 
   return 0;
 }
@@ -982,8 +981,8 @@ timeval_diff (const struct timeval *x, const struct timeval *y)
   return msec;
 }
 
-static void
-print_timestamped_message (guestfs_h *g, const char *fs, ...)
+void
+guestfs___print_timestamped_message (guestfs_h *g, const char *fs, ...)
 {
   va_list args;
   char *msg;

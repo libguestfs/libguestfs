@@ -144,6 +144,7 @@ extern void *guestfs_safe_realloc (guestfs_h *g, void *ptr, int nbytes);
 extern char *guestfs_safe_strdup (guestfs_h *g, const char *str);
 extern char *guestfs_safe_strndup (guestfs_h *g, const char *str, size_t n);
 extern void *guestfs_safe_memdup (guestfs_h *g, void *ptr, size_t size);
+extern void guestfs___print_timestamped_message (guestfs_h *g, const char *fs, ...);
 extern const char *guestfs___tmpdir (void);
 extern int guestfs___set_busy (guestfs_h *g);
 extern int guestfs___end_busy (guestfs_h *g);
