@@ -724,15 +724,6 @@ The error message you get from this is also a little obscure.
 This could be fixed in the generator by specially marking parameters
 and return values which take bytes or other units.
 
-=item Protocol limit of 256 characters for error messages
-
-This limit is both rather small and quite unnecessary.  We should be
-able to return error messages up to the length of the protocol message
-(2-4 MB).
-
-Note that we cannot change the protocol without some breakage, because
-there are distributions that repackage the Fedora appliance.
-
 =item Protocol should return errno with error messages.
 
 It would be a nice-to-have to be able to get the original value of

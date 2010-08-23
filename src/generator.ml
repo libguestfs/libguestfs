@@ -6324,8 +6324,12 @@ enum guestfs_message_status {
   GUESTFS_STATUS_ERROR = 1
 };
 
-const GUESTFS_ERROR_LEN = 256;
+";
 
+  pr "const GUESTFS_ERROR_LEN = %d;\n" (64 * 1024);
+  pr "\n";
+
+  pr "\
 struct guestfs_message_error {
   string error_message<GUESTFS_ERROR_LEN>;
 };
