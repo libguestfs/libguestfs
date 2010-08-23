@@ -38,12 +38,6 @@
 #define N_(str) str
 #endif
 
-#ifdef __linux__
-#define CAN_CHECK_PEER_EUID 1
-#else
-#define CAN_CHECK_PEER_EUID 0
-#endif
-
 #define UNIX_PATH_MAX 108
 
 #ifndef MAX
@@ -74,8 +68,6 @@
  */
 #define NETWORK "169.254.0.0/16"
 #define ROUTER "169.254.2.2"
-#define GUESTFWD_ADDR "169.254.2.4"
-#define GUESTFWD_PORT "6666"
 
 /* GuestFS handle and connection. */
 enum state { CONFIG, LAUNCHING, READY, BUSY, NO_HANDLE };

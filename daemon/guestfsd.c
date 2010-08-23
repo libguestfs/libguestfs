@@ -56,20 +56,6 @@
 
 static char *read_cmdline (void);
 
-/* This is the default address we connect to for very old libraries
- * which didn't specify the address and port number explicitly on the
- * kernel command line.  It's now recommended to always specify the
- * address and port number on the command line, so this will not be
- * used any more.
- */
-#define OLD_GUESTFWD_ADDR "10.0.2.4"
-#define OLD_GUESTFWD_PORT "6666"
-
-/* This is only a hint.  If not defined, ignore it. */
-#ifndef AI_ADDRCONFIG
-# define AI_ADDRCONFIG 0
-#endif
-
 #ifndef MAX
 # define MAX(a,b) ((a)>(b)?(a):(b))
 #endif
@@ -134,15 +120,14 @@ static void
 usage (void)
 {
   fprintf (stderr,
-    "guestfsd [-f|--foreground] [-c|--channel vmchannel] [-v|--verbose]\n");
+    "guestfsd [-f|--foreground] [-v|--verbose]\n");
 }
 
 int
 main (int argc, char *argv[])
 {
-  static const char *options = "fc:v?";
+  static const char *options = "fv?";
   static const struct option long_options[] = {
-    { "channel", required_argument, 0, 'c' },
     { "foreground", 0, 0, 'f' },
     { "help", 0, 0, '?' },
     { "verbose", 0, 0, 'v' },
@@ -151,7 +136,6 @@ main (int argc, char *argv[])
   int c;
   int dont_fork = 0;
   char *cmdline;
-  char *vmchannel = NULL;
 
   if (winsock_init () == -1)
     error (EXIT_FAILURE, 0, "winsock initialization failed");
@@ -178,10 +162,6 @@ main (int argc, char *argv[])
     if (c == -1) break;
 
     switch (c) {
-    case 'c':
-      vmchannel = optarg;
-      break;
-
     case 'f':
       dont_fork = 1;
       break;
@@ -256,118 +236,12 @@ main (int argc, char *argv[])
   _umask (0);
 #endif
 
-  /* Get the vmchannel string.
-   *
-   * Sources:
-   *   --channel/-c option on the command line
-   *   guestfs_vmchannel=... from the kernel command line
-   *   guestfs=... from the kernel command line
-   *   built-in default
-   *
-   * At the moment we expect this to contain "tcp:ip:port" but in
-   * future it might contain a device name, eg. "/dev/vcon4" for
-   * virtio-console vmchannel.
-   */
-  if (vmchannel == NULL && cmdline) {
-    char *p;
-    size_t len;
-
-    p = strstr (cmdline, "guestfs_vmchannel=");
-    if (p) {
-      len = strcspn (p + 18, " \t\n");
-      vmchannel = strndup (p + 18, len);
-      if (!vmchannel) {
-        perror ("strndup");
-        exit (EXIT_FAILURE);
-      }
-    }
-
-    /* Old libraries passed guestfs=host:port.  Rewrite it as tcp:host:port. */
-    if (vmchannel == NULL) {
-      /* We will rewrite it part of the "guestfs=" string with
-       *                       "tcp:"       hence p + 4 below.    */
-      p = strstr (cmdline, "guestfs=");
-      if (p) {
-        len = strcspn (p + 4, " \t\n");
-        vmchannel = strndup (p + 4, len);
-        if (!vmchannel) {
-          perror ("strndup");
-          exit (EXIT_FAILURE);
-        }
-        memcpy (vmchannel, "tcp:", 4);
-      }
-    }
-  }
-
-  /* Default vmchannel. */
-  if (vmchannel == NULL) {
-    vmchannel = strdup ("tcp:" OLD_GUESTFWD_ADDR ":" OLD_GUESTFWD_PORT);
-    if (!vmchannel) {
-      perror ("strdup");
-      exit (EXIT_FAILURE);
-    }
-  }
-
-  if (verbose)
-    printf ("vmchannel: %s\n", vmchannel);
-
-  /* Connect to vmchannel. */
-  int sock = -1;
-
-  if (STREQLEN (vmchannel, "tcp:", 4)) {
-    /* Resolve the hostname. */
-    struct addrinfo *res, *rr;
-    struct addrinfo hints;
-    int r;
-    char *host, *port;
-
-    host = vmchannel+4;
-    port = strchr (host, ':');
-    if (port) {
-      port[0] = '\0';
-      port++;
-    } else {
-      fprintf (stderr, "vmchannel: expecting \"tcp:<ip>:<port>\": %s\n",
-               vmchannel);
-      exit (EXIT_FAILURE);
-    }
-
-    memset (&hints, 0, sizeof hints);
-    hints.ai_socktype = SOCK_STREAM;
-    hints.ai_flags = AI_ADDRCONFIG;
-    r = getaddrinfo (host, port, &hints, &res);
-    if (r != 0) {
-      fprintf (stderr, "%s:%s: %s\n",
-               host, port, gai_strerror (r));
-      exit (EXIT_FAILURE);
-    }
-
-    /* Connect to the given TCP socket. */
-    for (rr = res; rr != NULL; rr = rr->ai_next) {
-      sock = socket (rr->ai_family, rr->ai_socktype, rr->ai_protocol);
-      if (sock != -1) {
-        if (connect (sock, rr->ai_addr, rr->ai_addrlen) == 0)
-          break;
-        perror ("connect");
-
-        close (sock);
-        sock = -1;
-      }
-    }
-    freeaddrinfo (res);
-  } else {
-    fprintf (stderr,
-             "unknown vmchannel connection type: %s\n"
-             "expecting \"tcp:<ip>:<port>\"\n",
-             vmchannel);
-    exit (EXIT_FAILURE);
-  }
-
+  /* Connect to virtio-serial channel. */
+  int sock = open ("/dev/virtio-ports/org.libguestfs.channel.0", O_RDWR);
   if (sock == -1) {
     fprintf (stderr,
              "\n"
-             "Failed to connect to any vmchannel implementation.\n"
-             "vmchannel: %s\n"
+             "Failed to connect to virtio-serial channel.\n"
              "\n"
              "This is a fatal error and the appliance will now exit.\n"
              "\n"
@@ -377,8 +251,7 @@ main (int argc, char *argv[])
              "'libguestfs-test-tool' and provide the complete, unedited\n"
              "output to the libguestfs developers, either in a bug report\n"
              "or on the libguestfs redhat com mailing list.\n"
-             "\n",
-             vmchannel);
+             "\n");
     exit (EXIT_FAILURE);
   }
 

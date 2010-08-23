@@ -37,8 +37,7 @@ Home page
 Requirements
 ----------------------------------------------------------------------
 
-- recent QEMU >= 0.10 with vmchannel support
-  http://lists.gnu.org/archive/html/qemu-devel/2009-02/msg01042.html
+- recent QEMU >= 0.12 with virtio-serial support
 
 - febootstrap >= 2.8
 

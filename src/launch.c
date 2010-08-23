@@ -70,7 +70,6 @@
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
-static int check_peer_euid (guestfs_h *g, int sock, uid_t *rtn);
 static int qemu_supports (guestfs_h *g, const char *option);
 
 /* Add a string to the current command line. */
@@ -233,7 +232,6 @@ guestfs__launch (guestfs_h *g)
   int r;
   int wfd[2], rfd[2];
   int tries;
-  int null_vmchannel_sock;
   char unixsock[256];
   struct sockaddr_un addr;
 
@@ -283,53 +281,35 @@ guestfs__launch (guestfs_h *g)
   if (qemu_supports (g, NULL) == -1)
     goto cleanup0;
 
-  /* Choose which vmchannel implementation to use. */
-  if (CAN_CHECK_PEER_EUID && qemu_supports (g, "-net user")) {
-    /* The "null vmchannel" implementation.  Requires SLIRP (user mode
-     * networking in qemu) but no other vmchannel support.  The daemon
-     * will connect back to a random port number on localhost.
-     */
-    struct sockaddr_in addr;
-    socklen_t addrlen = sizeof addr;
+  /* Using virtio-serial, we need to create a local Unix domain socket
+   * for qemu to connect to.
+   */
+  snprintf (unixsock, sizeof unixsock, "%s/sock", g->tmpdir);
+  unlink (unixsock);
 
-    g->sock = socket (AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    if (g->sock == -1) {
-      perrorf (g, "socket");
-      goto cleanup0;
-    }
-    addr.sin_family = AF_INET;
-    addr.sin_port = htons (0);
-    addr.sin_addr.s_addr = htonl (INADDR_LOOPBACK);
-    if (bind (g->sock, (struct sockaddr *) &addr, addrlen) == -1) {
-      perrorf (g, "bind");
-      goto cleanup0;
-    }
+  g->sock = socket (AF_UNIX, SOCK_STREAM, 0);
+  if (g->sock == -1) {
+    perrorf (g, "socket");
+    goto cleanup0;
+  }
 
-    if (listen (g->sock, 256) == -1) {
-      perrorf (g, "listen");
-      goto cleanup0;
-    }
+  if (fcntl (g->sock, F_SETFL, O_NONBLOCK) == -1) {
+    perrorf (g, "fcntl");
+    goto cleanup0;
+  }
 
-    if (getsockname (g->sock, (struct sockaddr *) &addr, &addrlen) == -1) {
-      perrorf (g, "getsockname");
-      goto cleanup0;
-    }
+  addr.sun_family = AF_UNIX;
+  strncpy (addr.sun_path, unixsock, UNIX_PATH_MAX);
+  addr.sun_path[UNIX_PATH_MAX-1] = '\0';
 
-    if (fcntl (g->sock, F_SETFL, O_NONBLOCK) == -1) {
-      perrorf (g, "fcntl");
-      goto cleanup0;
-    }
+  if (bind (g->sock, &addr, sizeof addr) == -1) {
+    perrorf (g, "bind");
+    goto cleanup0;
+  }
 
-    null_vmchannel_sock = ntohs (addr.sin_port);
-    if (g->verbose)
-      fprintf (stderr, "null_vmchannel_sock = %d\n", null_vmchannel_sock);
-  } else {
-    /* Using some vmchannel impl.  We need to create a local Unix
-     * domain socket for qemu to use.
-     */
-    snprintf (unixsock, sizeof unixsock, "%s/sock", g->tmpdir);
-    unlink (unixsock);
-    null_vmchannel_sock = 0;
+  if (listen (g->sock, 1) == -1) {
+    perrorf (g, "listen");
+    goto cleanup0;
   }
 
   if (!g->direct) {
@@ -356,7 +336,6 @@ guestfs__launch (guestfs_h *g)
 
   if (r == 0) {			/* Child (qemu). */
     char buf[256];
-    const char *vmchannel = NULL;
 
     /* Set up the full command line.  Do this in the subprocess so we
      * don't need to worry about cleaning up.
@@ -391,8 +370,6 @@ guestfs__launch (guestfs_h *g)
       add_cmdline (g, "-nodefaults");
 
     add_cmdline (g, "-nographic");
-    add_cmdline (g, "-serial");
-    add_cmdline (g, "stdio");
 
     snprintf (buf, sizeof buf, "%d", g->memsize);
     add_cmdline (g, "-m");
@@ -408,65 +385,30 @@ guestfs__launch (guestfs_h *g)
     if (qemu_supports (g, "-rtc-td-hack"))
       add_cmdline (g, "-rtc-td-hack");
 
-    /* If qemu has SLIRP (user mode network) enabled then we can get
-     * away with "no vmchannel", where we just connect back to a random
-     * host port.
+    /* Create the virtio serial bus. */
+    add_cmdline (g, "-device");
+    add_cmdline (g, "virtio-serial");
+
+#if 0
+    /* Use virtio-console (a variant form of virtio-serial) for the
+     * guest's serial console.
      */
-    if (null_vmchannel_sock) {
-      add_cmdline (g, "-net");
-      add_cmdline (g, "user,vlan=0,net=" NETWORK);
+    add_cmdline (g, "-chardev");
+    add_cmdline (g, "stdio,id=console");
+    add_cmdline (g, "-device");
+    add_cmdline (g, "virtconsole,chardev=console,name=org.libguestfs.console.0");
+#else
+    /* When the above works ...  until then: */
+    add_cmdline (g, "-serial");
+    add_cmdline (g, "stdio");
+#endif
 
-      snprintf (buf, sizeof buf,
-                "guestfs_vmchannel=tcp:" ROUTER ":%d",
-                null_vmchannel_sock);
-      vmchannel = strdup (buf);
-    }
-
-    /* New-style -net user,guestfwd=... syntax for guestfwd.  See:
-     *
-     * http://git.savannah.gnu.org/cgit/qemu.git/commit/?id=c92ef6a22d3c71538fcc48fb61ad353f7ba03b62
-     *
-     * The original suggested format doesn't work, see:
-     *
-     * http://lists.gnu.org/archive/html/qemu-devel/2009-07/msg01654.html
-     *
-     * However Gerd Hoffman privately suggested to me using -chardev
-     * instead, which does work.
-     */
-    else if (qemu_supports (g, "-chardev") && qemu_supports (g, "guestfwd")) {
-      snprintf (buf, sizeof buf,
-                "socket,id=guestfsvmc,path=%s,server,nowait", unixsock);
-
-      add_cmdline (g, "-chardev");
-      add_cmdline (g, buf);
-
-      snprintf (buf, sizeof buf,
-                "user,vlan=0,net=" NETWORK ","
-                "guestfwd=tcp:" GUESTFWD_ADDR ":" GUESTFWD_PORT
-                "-chardev:guestfsvmc");
-
-      add_cmdline (g, "-net");
-      add_cmdline (g, buf);
-
-      vmchannel = "guestfs_vmchannel=tcp:" GUESTFWD_ADDR ":" GUESTFWD_PORT;
-    }
-
-    /* Not guestfwd.  HOPEFULLY this qemu uses the older -net channel
-     * syntax, or if not then we'll get a quick failure.
-     */
-    else {
-      snprintf (buf, sizeof buf,
-                "channel," GUESTFWD_PORT ":unix:%s,server,nowait", unixsock);
-
-      add_cmdline (g, "-net");
-      add_cmdline (g, buf);
-      add_cmdline (g, "-net");
-      add_cmdline (g, "user,vlan=0,net=" NETWORK);
-
-      vmchannel = "guestfs_vmchannel=tcp:" GUESTFWD_ADDR ":" GUESTFWD_PORT;
-    }
-    add_cmdline (g, "-net");
-    add_cmdline (g, "nic,model=" NET_IF ",vlan=0");
+    /* Set up virtio-serial for the communications channel. */
+    add_cmdline (g, "-chardev");
+    snprintf (buf, sizeof buf, "socket,path=%s,id=channel0", unixsock);
+    add_cmdline (g, buf);
+    add_cmdline (g, "-device");
+    add_cmdline (g, "virtserialport,chardev=channel0,name=org.libguestfs.channel.0");
 
 #define LINUX_CMDLINE							\
     "panic=1 "         /* force kernel to panic if daemon exits */	\
@@ -481,12 +423,10 @@ guestfs__launch (guestfs_h *g)
     snprintf (buf, sizeof buf,
               LINUX_CMDLINE
               "%s "             /* (selinux) */
-              "%s "             /* (vmchannel) */
               "%s "             /* (verbose) */
               "TERM=%s "        /* (TERM environment variable) */
               "%s",             /* (append) */
               g->selinux ? "selinux=1 enforcing=0" : "selinux=0",
-              vmchannel ? vmchannel : "",
               g->verbose ? "guestfs_verbose=1" : "",
               getenv ("TERM") ? : "linux",
               g->append ? g->append : "");
@@ -627,90 +567,23 @@ guestfs__launch (guestfs_h *g)
     }
   }
 
-  if (null_vmchannel_sock) {
-    int sock = -1;
-    uid_t uid;
-
-    /* Null vmchannel implementation: We listen on g->sock for a
-     * connection.  The connection could come from any local process
-     * so we must check it comes from the appliance (or at least
-     * from our UID) for security reasons.
-     */
-    while (sock == -1) {
-      sock = guestfs___accept_from_daemon (g);
-      if (sock == -1)
-        goto cleanup1;
-
-      if (check_peer_euid (g, sock, &uid) == -1)
-        goto cleanup1;
-      if (uid != geteuid ()) {
-        fprintf (stderr,
-                 "libguestfs: warning: unexpected connection from UID %d to port %d\n",
-                 uid, null_vmchannel_sock);
-        close (sock);
-        sock = -1;
-        continue;
-      }
-    }
-
-    if (fcntl (sock, F_SETFL, O_NONBLOCK) == -1) {
-      perrorf (g, "fcntl");
-      goto cleanup1;
-    }
-
-    close (g->sock);
-    g->sock = sock;
-  } else {
-    /* Other vmchannel.  Open the Unix socket.
-     *
-     * The vmchannel implementation that got merged with qemu sucks in
-     * a number of ways.  Both ends do connect(2), which means that no
-     * one knows what, if anything, is connected to the other end, or
-     * if it becomes disconnected.  Even worse, we have to wait some
-     * indeterminate time for qemu to create the socket and connect to
-     * it (which happens very early in qemu's start-up), so any code
-     * that uses vmchannel is inherently racy.  Hence this silly loop.
-     */
-    g->sock = socket (AF_UNIX, SOCK_STREAM, 0);
-    if (g->sock == -1) {
-      perrorf (g, "socket");
-      goto cleanup1;
-    }
-
-    if (fcntl (g->sock, F_SETFL, O_NONBLOCK) == -1) {
-      perrorf (g, "fcntl");
-      goto cleanup1;
-    }
-
-    addr.sun_family = AF_UNIX;
-    strncpy (addr.sun_path, unixsock, UNIX_PATH_MAX);
-    addr.sun_path[UNIX_PATH_MAX-1] = '\0';
-
-    tries = 100;
-    /* Always sleep at least once to give qemu a small chance to start up. */
-    usleep (10000);
-    while (tries > 0) {
-      r = connect (g->sock, (struct sockaddr *) &addr, sizeof addr);
-      if ((r == -1 && errno == EINPROGRESS) || r == 0)
-        goto connected;
-
-      if (errno != ENOENT)
-        perrorf (g, "connect");
-      tries--;
-      usleep (100000);
-    }
-
-    error (g, _("failed to connect to vmchannel socket"));
-    goto cleanup1;
-
-  connected: ;
-  }
-
   g->state = LAUNCHING;
 
-  /* Wait for qemu to start and to connect back to us via vmchannel and
-   * send the GUESTFS_LAUNCH_FLAG message.
+  /* Wait for qemu to start and to connect back to us via
+   * virtio-serial and send the GUESTFS_LAUNCH_FLAG message.
    */
+  r = guestfs___accept_from_daemon (g);
+  if (r == -1)
+    goto cleanup1;
+
+  close (g->sock); /* Close the listening socket. */
+  g->sock = r; /* This is the accepted data socket. */
+
+  if (fcntl (g->sock, F_SETFL, O_NONBLOCK) == -1) {
+    perrorf (g, "fcntl");
+    goto cleanup1;
+  }
+
   uint32_t size;
   void *buf = NULL;
   r = guestfs___recv_from_daemon (g, &size, &buf);
@@ -952,90 +825,6 @@ is_openable (guestfs_h *g, const char *path, int flags)
   }
   close (fd);
   return 1;
-}
-
-/* Check the peer effective UID for a TCP socket.  Ideally we'd like
- * SO_PEERCRED for a loopback TCP socket.  This isn't possible on
- * Linux (but it is on Solaris!) so we read /proc/net/tcp instead.
- */
-static int
-check_peer_euid (guestfs_h *g, int sock, uid_t *rtn)
-{
-#if CAN_CHECK_PEER_EUID
-  struct sockaddr_in peer;
-  socklen_t addrlen = sizeof peer;
-
-  if (getpeername (sock, (struct sockaddr *) &peer, &addrlen) == -1) {
-    perrorf (g, "getpeername");
-    return -1;
-  }
-
-  if (peer.sin_family != AF_INET ||
-      ntohl (peer.sin_addr.s_addr) != INADDR_LOOPBACK) {
-    error (g, "check_peer_euid: unexpected connection from non-IPv4, non-loopback peer (family = %d, addr = %s)",
-           peer.sin_family, inet_ntoa (peer.sin_addr));
-    return -1;
-  }
-
-  struct sockaddr_in our;
-  addrlen = sizeof our;
-  if (getsockname (sock, (struct sockaddr *) &our, &addrlen) == -1) {
-    perrorf (g, "getsockname");
-    return -1;
-  }
-
-  FILE *fp = fopen ("/proc/net/tcp", "r");
-  if (fp == NULL) {
-    perrorf (g, "/proc/net/tcp");
-    return -1;
-  }
-
-  char line[256];
-  if (fgets (line, sizeof line, fp) == NULL) { /* Drop first line. */
-    error (g, "unexpected end of file in /proc/net/tcp");
-    fclose (fp);
-    return -1;
-  }
-
-  while (fgets (line, sizeof line, fp) != NULL) {
-    unsigned line_our_addr, line_our_port, line_peer_addr, line_peer_port;
-    int dummy0, dummy1, dummy2, dummy3, dummy4, dummy5, dummy6;
-    int line_uid;
-
-    if (sscanf (line, "%d:%08X:%04X %08X:%04X %02X %08X:%08X %02X:%08X %08X %d",
-                &dummy0,
-                &line_our_addr, &line_our_port,
-                &line_peer_addr, &line_peer_port,
-                &dummy1, &dummy2, &dummy3, &dummy4, &dummy5, &dummy6,
-                &line_uid) == 12) {
-      /* Note about /proc/net/tcp: local_address and rem_address are
-       * always in network byte order.  However the port part is
-       * always in host byte order.
-       *
-       * The sockname and peername that we got above are in network
-       * byte order.  So we have to byte swap the port but not the
-       * address part.
-       */
-      if (line_our_addr == our.sin_addr.s_addr &&
-          line_our_port == ntohs (our.sin_port) &&
-          line_peer_addr == peer.sin_addr.s_addr &&
-          line_peer_port == ntohs (peer.sin_port)) {
-        *rtn = line_uid;
-        fclose (fp);
-        return 0;
-      }
-    }
-  }
-
-  error (g, "check_peer_euid: no matching TCP connection found in /proc/net/tcp");
-  fclose (fp);
-  return -1;
-#else /* !CAN_CHECK_PEER_EUID */
-  /* This function exists but should never be called in this
-   * configuration.
-   */
-  abort ();
-#endif /* !CAN_CHECK_PEER_EUID */
 }
 
 /* You had to call this function after launch in versions <= 1.0.70,
