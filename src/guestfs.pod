@@ -724,13 +724,16 @@ The error message you get from this is also a little obscure.
 This could be fixed in the generator by specially marking parameters
 and return values which take bytes or other units.
 
-=item Protocol should return errno with error messages.
+=item Library should return errno with error messages.
 
 It would be a nice-to-have to be able to get the original value of
 'errno' from inside the appliance along error paths (where set).
 Currently L<guestmount(1)> goes through hoops to try to reverse the
 error message string into an errno, see the function error() in
 fuse/guestmount.c.
+
+In libguestfs 1.5.4, the protocol was changed so that the
+Linux errno is sent back from the daemon.
 
 =back
 

@@ -6331,6 +6331,7 @@ enum guestfs_message_status {
 
   pr "\
 struct guestfs_message_error {
+  int linux_errno;                   /* Linux errno if available. */
   string error_message<GUESTFS_ERROR_LEN>;
 };
 

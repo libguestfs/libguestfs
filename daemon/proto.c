@@ -179,7 +179,7 @@ main_loop (int _sock)
   }
 }
 
-static void send_error (const char *msg);
+static void send_error (int errnum, const char *msg);
 
 void
 reply_with_error (const char *fs, ...)
@@ -191,7 +191,7 @@ reply_with_error (const char *fs, ...)
   vsnprintf (err, sizeof err, fs, args);
   va_end (args);
 
-  send_error (err);
+  send_error (0, err);
 }
 
 void
@@ -207,11 +207,11 @@ reply_with_perror_errno (int err, const char *fs, ...)
 
   snprintf (buf2, sizeof buf2, "%s: %s", buf1, strerror (err));
 
-  send_error (buf2);
+  send_error (err, buf2);
 }
 
 static void
-send_error (const char *msg)
+send_error (int errnum, const char *msg)
 {
   XDR xdr;
   char buf[GUESTFS_ERROR_LEN + 200];
@@ -236,6 +236,7 @@ send_error (const char *msg)
     exit (EXIT_FAILURE);
   }
 
+  err.linux_errno = errnum;
   err.error_message = (char *) msg;
 
   if (!xdr_guestfs_message_error (&xdr, &err)) {
