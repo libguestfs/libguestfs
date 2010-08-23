@@ -74,6 +74,12 @@ static char *read_cmdline (void);
 # define MAX(a,b) ((a)>(b)?(a):(b))
 #endif
 
+/* If root device is an ext2 filesystem, this is the major and minor.
+ * This is so we can ignore this device from the point of view of the
+ * user, eg. in guestfs_list_devices and many other places.
+ */
+static dev_t root_device = 0;
+
 int verbose = 0;
 
 static int print_shell_quote (FILE *stream, const struct printf_info *info, const void *const *args);
@@ -162,6 +168,10 @@ main (int argc, char *argv[])
 #error "HAVE_REGISTER_PRINTF_{SPECIFIER|FUNCTION} not defined"
 #endif
 #endif
+
+  struct stat statbuf;
+  if (stat ("/", &statbuf) == 0)
+    root_device = statbuf.st_dev;
 
   for (;;) {
     c = getopt_long (argc, argv, options, long_options, NULL);
@@ -447,6 +457,22 @@ read_cmdline (void)
   }
 
   return r;
+}
+
+/* Return true iff device is the root device (and therefore should be
+ * ignored from the point of view of user calls).
+ */
+int
+is_root_device (const char *device)
+{
+  struct stat statbuf;
+  if (stat (device, &statbuf) == -1) {
+    perror (device);
+    return 0;
+  }
+  if (statbuf.st_rdev == root_device)
+    return 1;
+  return 0;
 }
 
 /* Turn "/path" into "/sysroot/path".

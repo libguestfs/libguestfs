@@ -60,6 +60,10 @@ foreach_block_device (block_dev_func_t func)
       char dev_path[256];
       snprintf (dev_path, sizeof dev_path, "/dev/%s", d->d_name);
 
+      /* Ignore the root device. */
+      if (is_root_device (dev_path))
+        continue;
+
       /* RHBZ#514505: Some versions of qemu <= 0.10 add a
        * CD-ROM device even though we didn't request it.  Try to
        * detect this by seeing if the device contains media.

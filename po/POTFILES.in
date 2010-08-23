@@ -103,6 +103,7 @@ regressions/test-lvm-mapping.pl
 regressions/test-noexec-stack.pl
 ruby/ext/guestfs/_guestfs.c
 src/actions.c
+src/appliance.c
 src/bindtests.c
 src/guestfs.c
 src/inspect.c

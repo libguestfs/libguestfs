@@ -37,6 +37,8 @@ extern int sysroot_len;
 
 extern char *sysroot_path (const char *path);
 
+extern int is_root_device (const char *device);
+
 extern int xwrite (int sock, const void *buf, size_t len)
   __attribute__((__warn_unused_result__));
 extern int xread (int sock, void *buf, size_t len)
@@ -198,6 +200,8 @@ extern void reply (xdrproc_t xdrp, char *ret);
         reply_with_error ("%s: %s: expecting a device name", __func__, (path)); \
       fail_stmt;							\
     }									\
+    if (is_root_device (path))                                          \
+      reply_with_error ("%s: %s: device not found", __func__, path);    \
     if (device_name_translation ((path)) == -1) {                       \
       int err = errno;                                                  \
       int r = cancel_stmt;                                              \

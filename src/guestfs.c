@@ -220,12 +220,6 @@ guestfs_close (guestfs_h *g)
     snprintf (filename, sizeof filename, "%s/sock", g->tmpdir);
     unlink (filename);
 
-    snprintf (filename, sizeof filename, "%s/initrd", g->tmpdir);
-    unlink (filename);
-
-    snprintf (filename, sizeof filename, "%s/kernel", g->tmpdir);
-    unlink (filename);
-
     rmdir (g->tmpdir);
 
     free (g->tmpdir);

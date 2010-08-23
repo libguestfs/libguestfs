@@ -224,53 +224,15 @@ guestfs__add_cdrom (guestfs_h *g, const char *filename)
   return guestfs__config (g, "-cdrom", filename);
 }
 
-/* Returns true iff file is contained in dir. */
-static int
-dir_contains_file (const char *dir, const char *file)
-{
-  int dirlen = strlen (dir);
-  int filelen = strlen (file);
-  int len = dirlen+filelen+2;
-  char path[len];
-
-  snprintf (path, len, "%s/%s", dir, file);
-  return access (path, F_OK) == 0;
-}
-
-/* Returns true iff every listed file is contained in 'dir'. */
-static int
-dir_contains_files (const char *dir, ...)
-{
-  va_list args;
-  const char *file;
-
-  va_start (args, dir);
-  while ((file = va_arg (args, const char *)) != NULL) {
-    if (!dir_contains_file (dir, file)) {
-      va_end (args);
-      return 0;
-    }
-  }
-  va_end (args);
-  return 1;
-}
-
-static int build_supermin_appliance (guestfs_h *g, const char *path, char **kernel, char **initrd);
 static int is_openable (guestfs_h *g, const char *path, int flags);
 static void print_cmdline (guestfs_h *g);
-
-static const char *kernel_name = "vmlinuz." REPO "." host_cpu;
-static const char *initrd_name = "initramfs." REPO "." host_cpu ".img";
 
 int
 guestfs__launch (guestfs_h *g)
 {
-  int r, pmore;
-  size_t len;
+  int r;
   int wfd[2], rfd[2];
   int tries;
-  char *path, *pelem, *pend;
-  char *kernel = NULL, *initrd = NULL;
   int null_vmchannel_sock;
   char unixsock[256];
   struct sockaddr_un addr;
@@ -302,101 +264,17 @@ guestfs__launch (guestfs_h *g)
     }
   }
 
-  /* Allow anyone to read the temporary directory.  There are no
-   * secrets in the kernel or initrd files.  The socket in this
+  /* Allow anyone to read the temporary directory.  The socket in this
    * directory won't be readable but anyone can see it exists if they
    * want. (RHBZ#610880).
    */
   if (chmod (g->tmpdir, 0755) == -1)
     fprintf (stderr, "chmod: %s: %m (ignored)\n", g->tmpdir);
 
-  /* First search g->path for the supermin appliance, and try to
-   * synthesize a kernel and initrd from that.  If it fails, we
-   * try the path search again looking for a backup ordinary
-   * appliance.
-   */
-  pelem = path = safe_strdup (g, g->path);
-  do {
-    pend = strchrnul (pelem, ':');
-    pmore = *pend == ':';
-    *pend = '\0';
-    len = pend - pelem;
-
-    /* Empty element of "." means cwd. */
-    if (len == 0 || (len == 1 && *pelem == '.')) {
-      if (g->verbose)
-        fprintf (stderr,
-                 "looking for supermin appliance in current directory\n");
-      if (dir_contains_files (".",
-                              "supermin.d", "kmod.whitelist", NULL)) {
-        if (build_supermin_appliance (g, ".", &kernel, &initrd) == -1)
-          return -1;
-        break;
-      }
-    }
-    /* Look at <path>/supermin* etc. */
-    else {
-      if (g->verbose)
-        fprintf (stderr, "looking for supermin appliance in %s\n", pelem);
-
-      if (dir_contains_files (pelem,
-                              "supermin.d", "kmod.whitelist", NULL)) {
-        if (build_supermin_appliance (g, pelem, &kernel, &initrd) == -1)
-          return -1;
-        break;
-      }
-    }
-
-    pelem = pend + 1;
-  } while (pmore);
-
-  free (path);
-
-  if (kernel == NULL || initrd == NULL) {
-    /* Search g->path for the kernel and initrd. */
-    pelem = path = safe_strdup (g, g->path);
-    do {
-      pend = strchrnul (pelem, ':');
-      pmore = *pend == ':';
-      *pend = '\0';
-      len = pend - pelem;
-
-      /* Empty element or "." means cwd. */
-      if (len == 0 || (len == 1 && *pelem == '.')) {
-        if (g->verbose)
-          fprintf (stderr,
-                   "looking for appliance in current directory\n");
-        if (dir_contains_files (".", kernel_name, initrd_name, NULL)) {
-          kernel = safe_strdup (g, kernel_name);
-          initrd = safe_strdup (g, initrd_name);
-          break;
-        }
-      }
-      /* Look at <path>/kernel etc. */
-      else {
-        if (g->verbose)
-          fprintf (stderr, "looking for appliance in %s\n", pelem);
-
-        if (dir_contains_files (pelem, kernel_name, initrd_name, NULL)) {
-          kernel = safe_malloc (g, len + strlen (kernel_name) + 2);
-          initrd = safe_malloc (g, len + strlen (initrd_name) + 2);
-          sprintf (kernel, "%s/%s", pelem, kernel_name);
-          sprintf (initrd, "%s/%s", pelem, initrd_name);
-          break;
-        }
-      }
-
-      pelem = pend + 1;
-    } while (pmore);
-
-    free (path);
-  }
-
-  if (kernel == NULL || initrd == NULL) {
-    error (g, _("cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)"),
-           kernel_name, initrd_name, g->path);
-    goto cleanup0;
-  }
+  /* Locate and/or build the appliance. */
+  char *kernel = NULL, *initrd = NULL, *appliance = NULL;
+  if (guestfs___build_appliance (g, &kernel, &initrd, &appliance) == -1)
+    return -1;
 
   if (g->verbose)
     guestfs___print_timestamped_message (g, "begin testing qemu features");
@@ -614,11 +492,28 @@ guestfs__launch (guestfs_h *g)
               g->append ? g->append : "");
 
     add_cmdline (g, "-kernel");
-    add_cmdline (g, (char *) kernel);
+    add_cmdline (g, kernel);
     add_cmdline (g, "-initrd");
-    add_cmdline (g, (char *) initrd);
+    add_cmdline (g, initrd);
     add_cmdline (g, "-append");
     add_cmdline (g, buf);
+
+    /* Add the ext2 appliance drive (last of all). */
+    if (appliance) {
+      const char *cachemode = "";
+      if (qemu_supports (g, "cache=")) {
+        if (qemu_supports (g, "unsafe"))
+          cachemode = ",cache=unsafe";
+        else if (qemu_supports (g, "writeback"))
+          cachemode = ",cache=writeback";
+      }
+
+      char buf2[PATH_MAX + 64];
+      add_cmdline (g, "-drive");
+      snprintf (buf2, sizeof buf2, "file=%s,snapshot=on,if=" DRIVE_IF "%s",
+                appliance, cachemode);
+      add_cmdline (g, buf2);
+    }
 
     /* Finish off the command line. */
     incr_cmdline_size (g);
@@ -866,6 +761,7 @@ guestfs__launch (guestfs_h *g)
   g->state = CONFIG;
   free (kernel);
   free (initrd);
+  free (appliance);
   return -1;
 }
 
@@ -911,60 +807,6 @@ print_cmdline (guestfs_h *g)
   }
 
   fputc ('\n', stderr);
-}
-
-/* This function does the hard work of building the supermin appliance
- * on the fly.  'path' is the directory containing the control files.
- * 'kernel' and 'initrd' are where we will return the names of the
- * kernel and initrd (only initrd is built).  The work is done by
- * an external script.  We just tell it where to put the result.
- */
-static int
-build_supermin_appliance (guestfs_h *g, const char *path,
-                          char **kernel, char **initrd)
-{
-  char cmd[4096];
-  int r, len;
-
-  if (g->verbose)
-    print_timestamped_message (g, "begin building supermin appliance");
-
-  len = strlen (g->tmpdir);
-  *kernel = safe_malloc (g, len + 8);
-  snprintf (*kernel, len+8, "%s/kernel", g->tmpdir);
-  *initrd = safe_malloc (g, len + 8);
-  snprintf (*initrd, len+8, "%s/initrd", g->tmpdir);
-
-  /* Set a sensible umask in the subprocess, so kernel and initrd
-   * output files are world-readable (RHBZ#610880).
-   */
-  snprintf (cmd, sizeof cmd,
-            "umask 0002; "
-            "febootstrap-supermin-helper%s "
-            "-k '%s/kmod.whitelist' "
-            "'%s/supermin.d' "
-            host_cpu " "
-            "%s %s",
-            g->verbose ? " --verbose" : "",
-            path,
-            path,
-            *kernel, *initrd);
-  if (g->verbose)
-    print_timestamped_message (g, "%s", cmd);
-
-  r = system (cmd);
-  if (r == -1 || WEXITSTATUS(r) != 0) {
-    error (g, _("external command failed: %s"), cmd);
-    free (*kernel);
-    free (*initrd);
-    *kernel = *initrd = NULL;
-    return -1;
-  }
-
-  if (g->verbose)
-    print_timestamped_message (g, "finished building supermin appliance");
-
-  return 0;
 }
 
 /* Compute Y - X and return the result in milliseconds.

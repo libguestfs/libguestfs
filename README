@@ -40,7 +40,7 @@ Requirements
 - recent QEMU >= 0.10 with vmchannel support
   http://lists.gnu.org/archive/html/qemu-devel/2009-02/msg01042.html
 
-- febootstrap >= 2.7
+- febootstrap >= 2.8
 
 - fakeroot
 
