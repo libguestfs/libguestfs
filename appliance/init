@@ -69,21 +69,23 @@ for f in /sys/block/vd*/queue/rotational; do echo 1 > $f; done
 # http://kbase.redhat.com/faq/docs/DOC-5428
 for f in /sys/block/[hsv]d*/queue/scheduler; do echo noop > $f; done
 
-# Keep these to enhance the usefulness of debug output.
-ls -l /dev
-cat /proc/mounts
-lvm pvs
-lvm vgs
-lvm lvs
-ifconfig
-netstat -rn
-lsmod
-#hwclock -r
-date
-#ping -n -v -c 5 10.0.2.2
-#ping -n -v -c 5 10.0.2.4
+# These are useful when debugging.
+if grep -sq guestfs_verbose=1 /proc/cmdline; then
+    ls -l /dev
+    cat /proc/mounts
+    lvm pvs
+    lvm vgs
+    lvm lvs
+    ifconfig
+    netstat -rn
+    lsmod
+    #hwclock -r
+    date
+    #ping -n -v -c 5 10.0.2.2
+    #ping -n -v -c 5 10.0.2.4
 
-echo -n "uptime: "; cat /proc/uptime
+    echo -n "uptime: "; cat /proc/uptime
+fi
 
 if ! grep -sq guestfs_rescue=1 /proc/cmdline; then
   exec guestfsd -f
