@@ -266,8 +266,6 @@ static const char *initrd_name = "initramfs." REPO "." host_cpu ".img";
 int
 guestfs__launch (guestfs_h *g)
 {
-  const char *tmpdir;
-  char dir_template[PATH_MAX];
   int r, pmore;
   size_t len;
   int wfd[2], rfd[2];
@@ -293,16 +291,11 @@ guestfs__launch (guestfs_h *g)
   gettimeofday (&g->launch_t, NULL);
 
   /* Make the temporary directory. */
-#ifdef P_tmpdir
-  tmpdir = P_tmpdir;
-#else
-  tmpdir = "/tmp";
-#endif
-
-  tmpdir = getenv ("TMPDIR") ? : tmpdir;
-  snprintf (dir_template, sizeof dir_template, "%s/libguestfsXXXXXX", tmpdir);
-
   if (!g->tmpdir) {
+    const char *tmpdir = guestfs___tmpdir ();
+    char dir_template[strlen (tmpdir) + 32];
+    sprintf (dir_template, "%s/libguestfsXXXXXX", tmpdir);
+
     g->tmpdir = safe_strdup (g, dir_template);
     if (mkdtemp (g->tmpdir) == NULL) {
       perrorf (g, _("%s: cannot create temporary directory"), dir_template);
@@ -875,6 +868,23 @@ guestfs__launch (guestfs_h *g)
   free (kernel);
   free (initrd);
   return -1;
+}
+
+const char *
+guestfs___tmpdir (void)
+{
+  const char *tmpdir;
+
+#ifdef P_tmpdir
+  tmpdir = P_tmpdir;
+#else
+  tmpdir = "/tmp";
+#endif
+
+  const char *t = getenv ("TMPDIR");
+  if (t) tmpdir = t;
+
+  return tmpdir;
 }
 
 /* This function is used to print the qemu command line before it gets
