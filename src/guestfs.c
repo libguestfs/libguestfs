@@ -1143,6 +1143,9 @@ guestfs__launch (guestfs_h *g)
      */
     g->cmdline[0] = g->qemu;
 
+    if (qemu_supports (g, "-nodefconfig"))
+      add_cmdline (g, "-nodefconfig");
+
     /* qemu sometimes needs this option to enable hardware
      * virtualization, but some versions of 'qemu-kvm' will use KVM
      * regardless (even where this option appears in the help text).
