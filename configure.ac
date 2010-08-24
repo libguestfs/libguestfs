@@ -300,14 +300,14 @@ AC_ARG_WITH([drive-if],
 AC_DEFINE_UNQUOTED([DRIVE_IF],["$with_drive_if"],[Default drive interface.])
 
 dnl Set interface used by the network.  Normally you should
-dnl leave this at the default (virtio) but you can use the
+dnl leave this at the default (virtio-net-pci) but you can use the
 dnl alternative (ne2k_pci) because of bugs in virtio networking
 dnl eg. https://bugzilla.redhat.com/show_bug.cgi?id=516022
 AC_ARG_WITH([net-if],
         [AS_HELP_STRING([--with-net-if],
-          [set default net driver (virtio|ne2k_pci) @<:@default=virtio@:>@])],
+          [set default net driver (virtio-net-pci|ne2k_pci) @<:@default=virtio-net-pci@:>@])],
         [],
-        [with_net_if=virtio])
+        [with_net_if=virtio-net-pci])
 AC_DEFINE_UNQUOTED([NET_IF],["$with_net_if"],[Default network interface.])
 
 dnl Check for febootstrap etc.

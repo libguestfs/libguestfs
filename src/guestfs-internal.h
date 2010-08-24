@@ -98,6 +98,7 @@ struct guestfs_h
   int autosync;
   int direct;
   int recovery_proc;
+  int enable_network;
 
   char *path;			/* Path to kernel, initrd. */
   char *qemu;			/* Qemu binary. */

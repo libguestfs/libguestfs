@@ -601,6 +601,19 @@ guestfs__get_recovery_proc (guestfs_h *g)
   return g->recovery_proc;
 }
 
+int
+guestfs__set_network (guestfs_h *g, int v)
+{
+  g->enable_network = !!v;
+  return 0;
+}
+
+int
+guestfs__get_network (guestfs_h *g)
+{
+  return g->enable_network;
+}
+
 void
 guestfs_set_log_message_callback (guestfs_h *g,
                                   guestfs_log_message_cb cb, void *opaque)

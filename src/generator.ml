@@ -1289,6 +1289,25 @@ for a filesystem to be shared between operating systems.
 Please read L<guestfs(3)/INSPECTION> for more details.
 See also C<guestfs_inspect_get_mountpoints>.");
 
+  ("set_network", (RErr, [Bool "network"]), -1, [FishAlias "network"],
+   [],
+   "set enable network flag",
+   "\
+If C<network> is true, then the network is enabled in the
+libguestfs appliance.  The default is false.
+
+This affects whether commands are able to access the network
+(see L<guestfs(3)/RUNNING COMMANDS>).
+
+You must call this before calling C<guestfs_launch>, otherwise
+it has no effect.");
+
+  ("get_network", (RBool "network", []), -1, [],
+   [],
+   "get enable network flag",
+   "\
+This returns the enable network flag.");
+
 ]
 
 (* daemon_functions are any functions which cause some action

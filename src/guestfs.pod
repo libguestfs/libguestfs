@@ -358,6 +358,11 @@ The command will be running in limited memory.
 
 =item *
 
+The network may not be available unless you enable it
+(see L</guestfs_set_network>).
+
+=item *
+
 Only supports Linux guests (not Windows, BSD, etc).
 
 =item *
