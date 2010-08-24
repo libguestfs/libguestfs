@@ -208,3 +208,21 @@ quickcheck:
 	LIBGUESTFS_PATH=appliance \
 	test-tool/libguestfs-test-tool \
 	  --helper test-tool/libguestfs-test-tool-helper
+
+# Binary distribution.
+# Note we remove the supermin appliance and adjust some
+# directories to make them non-Fedora-specific.
+
+BINTMPDIR = /tmp/libguestfs-bin
+bindist:
+	rm -rf $(BINTMPDIR)
+	mkdir $(BINTMPDIR)
+	$(MAKE)
+	$(MAKE) DESTDIR=$(BINTMPDIR) install
+	rm -r $(BINTMPDIR)/$(libdir)/guestfs/supermin.d
+	rm $(BINTMPDIR)/$(libdir)/guestfs/kmod.whitelist
+	mv $(BINTMPDIR)/$(prefix)/lib64/* $(BINTMPDIR)/$(libdir)
+	mv $(BINTMPDIR)/usr/lib64/* $(BINTMPDIR)/$(libdir)
+	-find $(BINTMPDIR) -type d -exec rmdir --ignore-fail-on-non-empty {} \;
+	(cd $(BINTMPDIR) && tar zcf - .) \
+	  > libguestfs-$(VERSION)-$(host_cpu).tar.gz
