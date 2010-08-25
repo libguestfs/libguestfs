@@ -16,7 +16,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-typedef string str<>;
+typedef string guestfish_str<>;
 
 struct guestfish_hello {
   /* Client and server version strings must match exactly.  We change
@@ -27,7 +27,7 @@ struct guestfish_hello {
 
 struct guestfish_call {
   string cmd<>;
-  str args<>;
+  guestfish_str args<>;
   bool exit_on_error;
 };
 
