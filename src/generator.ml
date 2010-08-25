@@ -5341,7 +5341,7 @@ and generate_xdr () =
   generate_header CStyle LGPLv2plus;
 
   (* This has to be defined to get around a limitation in Sun's rpcgen. *)
-  pr "typedef string str<>;\n";
+  pr "typedef string guestfs_str<>;\n";
   pr "\n";
 
   (* Internal structures. *)
@@ -5376,8 +5376,8 @@ and generate_xdr () =
              function
              | Pathname n | Device n | Dev_or_Path n | String n ->
                  pr "  string %s<>;\n" n
-             | OptString n -> pr "  str *%s;\n" n
-             | StringList n | DeviceList n -> pr "  str %s<>;\n" n
+             | OptString n -> pr "  guestfs_str *%s;\n" n
+             | StringList n | DeviceList n -> pr "  guestfs_str %s<>;\n" n
              | Bool n -> pr "  bool %s;\n" n
              | Int n -> pr "  int %s;\n" n
              | Int64 n -> pr "  hyper %s;\n" n
@@ -5407,7 +5407,7 @@ and generate_xdr () =
            pr "};\n\n"
        | RStringList n ->
            pr "struct %s_ret {\n" name;
-           pr "  str %s<>;\n" n;
+           pr "  guestfs_str %s<>;\n" n;
            pr "};\n\n"
        | RStruct (n, typ) ->
            pr "struct %s_ret {\n" name;
@@ -5419,7 +5419,7 @@ and generate_xdr () =
            pr "};\n\n"
        | RHashtable n ->
            pr "struct %s_ret {\n" name;
-           pr "  str %s<>;\n" n;
+           pr "  guestfs_str %s<>;\n" n;
            pr "};\n\n"
        | RBufferOut n ->
            pr "struct %s_ret {\n" name;
