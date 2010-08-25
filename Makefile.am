@@ -209,9 +209,14 @@ quickcheck:
 	test-tool/libguestfs-test-tool \
 	  --helper test-tool/libguestfs-test-tool-helper
 
-# Binary distribution.
-# Note we remove the supermin appliance and adjust some
-# directories to make them non-Fedora-specific.
+# Mostly static binary distribution.
+#
+# Some binaries are relinked partially statically.  You can make these
+# binaries "more static" by making sure that as many foo-static
+# packages are installed as possible.
+#
+# We remove the supermin appliance and adjust some directories to make
+# them non-Fedora-specific.
 
 BINTMPDIR = /tmp/libguestfs-bin
 bindist:
@@ -219,10 +224,16 @@ bindist:
 	mkdir $(BINTMPDIR)
 	$(MAKE)
 	$(MAKE) DESTDIR=$(BINTMPDIR) install
-	rm -r $(BINTMPDIR)/$(libdir)/guestfs/supermin.d
-	rm $(BINTMPDIR)/$(libdir)/guestfs/kmod.whitelist
-	mv $(BINTMPDIR)/$(prefix)/lib64/* $(BINTMPDIR)/$(libdir)
-	mv $(BINTMPDIR)/usr/lib64/* $(BINTMPDIR)/$(libdir)
+	rm -r $(BINTMPDIR)$(libdir)/guestfs/supermin.d
+	rm $(BINTMPDIR)$(libdir)/guestfs/kmod.whitelist
+	mv $(BINTMPDIR)$(prefix)/lib64/* $(BINTMPDIR)$(libdir)
+	mv $(BINTMPDIR)/usr/lib64/* $(BINTMPDIR)$(libdir)
 	-find $(BINTMPDIR) -type d -exec rmdir --ignore-fail-on-non-empty {} \;
-	(cd $(BINTMPDIR) && tar zcf - .) \
-	  > libguestfs-$(VERSION)-$(host_cpu).tar.gz
+	$(MAKE) -C fish guestfish.static
+	cp fish/guestfish.static $(BINTMPDIR)$(bindir)/guestfish
+	$(MAKE) -C fuse guestmount.static
+	cp fuse/guestmount.static $(BINTMPDIR)$(bindir)/guestmount
+	$(MAKE) -C test-tool libguestfs-test-tool.static
+	cp test-tool/libguestfs-test-tool.static $(BINTMPDIR)$(bindir)/libguestfs-test-tool
+	(cd $(BINTMPDIR) && tar cf - .) | \
+	  gzip -c -9 > libguestfs-$(VERSION)-$(host_cpu).tar.gz

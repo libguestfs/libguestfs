@@ -39,6 +39,12 @@ libguestfs_test_tool_LDADD = \
 libguestfs_test_tool_helper_SOURCES = helper.c
 libguestfs_test_tool_helper_LDFLAGS = -all-static
 
+# Build a partly-static library (for the binary distribution).
+
+libguestfs-test-tool.static$(EXEEXT): $(libguestfs_test_tool_OBJECTS) $(libguestfs_test_tool_DEPENDENCIES)
+	$(top_srcdir)/relink-static.sh \
+	$(libguestfs_test_tool_LINK) $(libguestfs_test_tool_OBJECTS) -static $(libguestfs_test_tool_LDADD) $(libguestfs_test_tool_LIBS) -lpcre -lhivex -lmagic -lz
+
 libguestfs-test-tool.1: libguestfs-test-tool.pod
 	$(POD2MAN) \
 	  --section 1 \
