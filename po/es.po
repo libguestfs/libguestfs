@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-08-17 15:51+0100\n"
+"POT-Creation-Date: 2010-08-27 00:46+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Héctor Daniel Cabrera <logan@fedoraproject.org>\n"
 "Language-Team: Fedora Spanish <trans-es@lists.fedoraproject.org>\n"
@@ -2299,43 +2299,43 @@ msgstr "guestfs_config: no está permitido el parámetro '%s'"
 msgid "filename cannot contain ',' (comma) character"
 msgstr "el nombre del archivo no puede contener el carácter ',' (coma)"
 
-#: src/launch.c:283
+#: src/launch.c:280
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "antes de guestfs_launch, debe llamar guestfs_add_drive"
 
-#: src/launch.c:288
+#: src/launch.c:285
 msgid "the libguestfs handle has already been launched"
 msgstr "el manipulador libguestfs ya ha sido iniciado"
 
-#: src/launch.c:308
+#: src/launch.c:300
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: no es posible crear directorio temporal"
 
-#: src/launch.c:404
+#: src/launch.c:396
 #, c-format
 msgid "cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)"
 msgstr "no es posible encontrar %s o %s en LIBGUESTFS_PATH (ruta actual = %s)"
 
-#: src/launch.c:816
+#: src/launch.c:811
 msgid "failed to connect to vmchannel socket"
 msgstr "falló al conectarse con el socket vmchannel"
 
-#: src/launch.c:835
+#: src/launch.c:830
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "falló guestfs_launch, vea mensajes de errores anteriores"
 
-#: src/launch.c:848
+#: src/launch.c:843
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "qemu ha sido iniciado y contactado el demonio, pero es estado es != READY"
 
-#: src/launch.c:948
+#: src/launch.c:960
 #, c-format
 msgid "external command failed: %s"
 msgstr "falló el comando externo: %s"
 
-#: src/launch.c:1021
+#: src/launch.c:1033
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -2344,11 +2344,11 @@ msgstr ""
 "%s: falló el comando: Si qemu se encuentra ubicado en una ruta no estándar, "
 "intente definir el entorno LIBGUESTFS_QEMU como variable"
 
-#: src/launch.c:1197
+#: src/launch.c:1209
 msgid "qemu has not been launched yet"
 msgstr "todavía qemu no ha sido iniciado "
 
-#: src/launch.c:1208
+#: src/launch.c:1220
 msgid "no subprocess to kill"
 msgstr "ningún subproceso que finalizar"
 

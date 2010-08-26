@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.0.81\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-08-17 15:51+0100\n"
+"POT-Creation-Date: 2010-08-27 00:46+0100\n"
 "PO-Revision-Date: 2010-01-29 13:38+0530\n"
 "Last-Translator: I. Felix <ifelix@redhat.com>\n"
 "Language-Team: ta_IN <kde-i18n-doc@kde.org>\n"
@@ -2234,43 +2234,43 @@ msgstr "guestfs_config: அளவுரு '%s' அனுமதிக்கப�
 msgid "filename cannot contain ',' (comma) character"
 msgstr "கோப்புபெயர் ',' (கம்மா) எழுத்தை கொண்டிருக்கவில்லை"
 
-#: src/launch.c:283
+#: src/launch.c:280
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "நீங்கள் guestfs_add_drive ஐ guestfs_launchக்கு முன் அழைக்க வேண்டும்"
 
-#: src/launch.c:288
+#: src/launch.c:285
 #, fuzzy
 msgid "the libguestfs handle has already been launched"
 msgstr "qemu ஏற்கனவே துவங்கப்பட்டுவிட்டது"
 
-#: src/launch.c:308
+#: src/launch.c:300
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: தற்காலிக அடைவை உருவாக்க முடியவில்லை"
 
-#: src/launch.c:404
+#: src/launch.c:396
 #, c-format
 msgid "cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)"
 msgstr "%s அல்லது %s ஐ LIBGUESTFS_PATH (தற்போதைய பாதை = %s)ல் தேட முடியவில்லை"
 
-#: src/launch.c:816
+#: src/launch.c:811
 msgid "failed to connect to vmchannel socket"
 msgstr "vmசேனல் சாக்கெட்டை இணைக்க முடியவில்லை"
 
-#: src/launch.c:835
+#: src/launch.c:830
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch தோல்வியுற்றது, முந்தைய பிழைச் செய்தியைப் பார்"
 
-#: src/launch.c:848
+#: src/launch.c:843
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu டொமைனுடன் துவக்கப்பட்டு தொடர்பு கொண்டது, ஆனால் நிலையானது != READY"
 
-#: src/launch.c:948
+#: src/launch.c:960
 #, c-format
 msgid "external command failed: %s"
 msgstr "அகக் கட்டளை தோல்வியுற்றது: %s"
 
-#: src/launch.c:1021
+#: src/launch.c:1033
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -2279,11 +2279,11 @@ msgstr ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
 "the LIBGUESTFS_QEMU environment variable."
 
-#: src/launch.c:1197
+#: src/launch.c:1209
 msgid "qemu has not been launched yet"
 msgstr "qemu இன்னும் துவங்கப்படவில்லை"
 
-#: src/launch.c:1208
+#: src/launch.c:1220
 msgid "no subprocess to kill"
 msgstr "அழிப்பதற்கு துணைசெயல்பாடுகள் இல்லை"
 

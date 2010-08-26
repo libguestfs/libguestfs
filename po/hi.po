@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master.libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-08-17 15:51+0100\n"
+"POT-Creation-Date: 2010-08-27 00:46+0100\n"
 "PO-Revision-Date: 2010-02-16 12:57+0530\n"
 "Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
 "Language-Team: Hindi <Red Hat>\n"
@@ -2229,43 +2229,43 @@ msgstr "guestfs_config: parameter '%s' isn't allowed"
 msgid "filename cannot contain ',' (comma) character"
 msgstr "फाइलनाम में ',' (comma) वर्ण नहीं होता है"
 
-#: src/launch.c:283
+#: src/launch.c:280
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "you must call guestfs_add_drive before guestfs_launch"
 
-#: src/launch.c:288
+#: src/launch.c:285
 #, fuzzy
 msgid "the libguestfs handle has already been launched"
 msgstr "qemu को पहले ही लॉन्च कर दिया गया है"
 
-#: src/launch.c:308
+#: src/launch.c:300
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: को अस्थायी निर्देशिका नहीं बना सकता है"
 
-#: src/launch.c:404
+#: src/launch.c:396
 #, c-format
 msgid "cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)"
 msgstr "cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)"
 
-#: src/launch.c:816
+#: src/launch.c:811
 msgid "failed to connect to vmchannel socket"
 msgstr "vmchannel सॉकेट कनेक्ट होने में विफल"
 
-#: src/launch.c:835
+#: src/launch.c:830
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch विफल, पहले की त्रुटि संदेश देखें"
 
-#: src/launch.c:848
+#: src/launch.c:843
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu launched and contacted daemon, but state != READY"
 
-#: src/launch.c:948
+#: src/launch.c:960
 #, c-format
 msgid "external command failed: %s"
 msgstr "बाहरी कमांड विफल: %s"
 
-#: src/launch.c:1021
+#: src/launch.c:1033
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -2274,11 +2274,11 @@ msgstr ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
 "the LIBGUESTFS_QEMU environment variable."
 
-#: src/launch.c:1197
+#: src/launch.c:1209
 msgid "qemu has not been launched yet"
 msgstr "qemu को अबतक लॉन्च नहीं किया गया है"
 
-#: src/launch.c:1208
+#: src/launch.c:1220
 msgid "no subprocess to kill"
 msgstr "किल करने के लिए कोई उपप्रक्रिया नहीं"
 

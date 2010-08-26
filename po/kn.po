@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.0.83\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-08-17 15:51+0100\n"
+"POT-Creation-Date: 2010-08-27 00:46+0100\n"
 "PO-Revision-Date: 2010-02-24 11:56+0530\n"
 "Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
 "Language-Team: kn-IN <>\n"
@@ -2233,43 +2233,43 @@ msgstr "guestfs_config: '%s' ಎಂಬ ನಿಯತಾಂಕಕ್ಕೆ ಅನ�
 msgid "filename cannot contain ',' (comma) character"
 msgstr "ಕಡತದ ಹೆಸರು ',' (ವಿರಾಮ) ಚಿಹ್ನೆಯನ್ನು ಹೊಂದಿರುವಂತಿಲ್ಲ"
 
-#: src/launch.c:283
+#: src/launch.c:280
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "ನೀವು guestfs_launch ನ ಮೊದಲು guestfs_add_drive ಅನ್ನು ಕರೆಯಬೇಕು"
 
-#: src/launch.c:288
+#: src/launch.c:285
 #, fuzzy
 msgid "the libguestfs handle has already been launched"
 msgstr "qemu ಅನ್ನು ಈಗಾಗಲೆ ಆರಂಭಿಸಲಾಗಿದೆ"
 
-#: src/launch.c:308
+#: src/launch.c:300
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: ಒಂದು ತಾತ್ಕಾಲಿಕ ಕೋಶವನ್ನು ರಚಿಸಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ"
 
-#: src/launch.c:404
+#: src/launch.c:396
 #, c-format
 msgid "cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)"
 msgstr "%s ಅಥವ %s ವು LIBGUESTFS_PATH ನಲ್ಲಿ ಕಂಡು ಬಂದಿಲ್ಲ (ಪ್ರಸಕ್ತ ಮಾರ್ಗ = %s)"
 
-#: src/launch.c:816
+#: src/launch.c:811
 msgid "failed to connect to vmchannel socket"
 msgstr "vmchannel ಸಾಕೆಟ್‌ನೊಂದಿಗೆ ಸಂಪರ್ಕ ಸಾಧಿಸುವಲ್ಲಿ ವಿಫಲಗೊಂಡಿದೆ"
 
-#: src/launch.c:835
+#: src/launch.c:830
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch ವಿಫಲಗೊಂಡಿದೆ, ಹಿಂದಿನ ದೋಷ ಸಂದೇಶಗಳನ್ನು ನೋಡಿ"
 
-#: src/launch.c:848
+#: src/launch.c:843
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu ಆರಂಭಗೊಂಡಿದೆ ಹಾಗು ಡೀಮನ್ ಅನ್ನು ಸಂಪರ್ಕಿಸಿದೆ, ಆದರೆ != READY ಸ್ಥಿತಿಯಲ್ಲಿದೆ"
 
-#: src/launch.c:948
+#: src/launch.c:960
 #, c-format
 msgid "external command failed: %s"
 msgstr "ಬಾಹ್ಯ ಆಜ್ಞೆಯು ವಿಫಲಗೊಂಡಿದೆ: %s"
 
-#: src/launch.c:1021
+#: src/launch.c:1033
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -2278,11 +2278,11 @@ msgstr ""
 "%s: ಆಜ್ಞೆಯು ವಿಫಲಗೊಂಡಿದೆ: qemu ಒಂದು ಶಿಷ್ಟವಲ್ಲದ ಸ್ಥಳದಲ್ಲಿ ಇದ್ದಲ್ಲಿ, LIBGUESTFS_QEMU "
 "ಪರಿಸರ ವೇರಿಯೇಬಲ್ ಅನ್ನು ಹೊಂದಿಸಲು ಪ್ರಯತ್ನಿಸಿ."
 
-#: src/launch.c:1197
+#: src/launch.c:1209
 msgid "qemu has not been launched yet"
 msgstr "qemu ಅನ್ನು ಇನ್ನೂ ಸಹ ಆರಂಭಿಸಲಾಗಿಲ್ಲ"
 
-#: src/launch.c:1208
+#: src/launch.c:1220
 msgid "no subprocess to kill"
 msgstr "ಅಂತ್ಯಗೊಳಿಸಲು ಯಾವುದೆ ಉಪಪ್ರಕ್ರಿಯೆಯು ಇಲ್ಲ"
 

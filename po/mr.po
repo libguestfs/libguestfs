@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: mr\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-08-17 15:51+0100\n"
+"POT-Creation-Date: 2010-08-27 00:46+0100\n"
 "PO-Revision-Date: 2010-02-03 19:10+0530\n"
 "Last-Translator: Sandeep Shedmake <sshedmak@redhat.com>\n"
 "Language-Team: Marathi <fedora-trans-mr@redhat.com>\n"
@@ -2227,43 +2227,43 @@ msgstr "guestfs_config: घटक '%s' स्वीकारले जात न
 msgid "filename cannot contain ',' (comma) character"
 msgstr "फाइलनावात ',' (स्वल्पविराम) अक्षर समाविष्टीत असणे अशक्य"
 
-#: src/launch.c:283
+#: src/launch.c:280
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "guestfs_add_drive यांस guestfs_launch च्या अगोदर कॉल करा"
 
-#: src/launch.c:288
+#: src/launch.c:285
 #, fuzzy
 msgid "the libguestfs handle has already been launched"
 msgstr "qemu आधिपासूनच सुरू आहे"
 
-#: src/launch.c:308
+#: src/launch.c:300
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: तात्पुर्ती डिरेक्ट्री निर्माण करणे अशक्य"
 
-#: src/launch.c:404
+#: src/launch.c:396
 #, c-format
 msgid "cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)"
 msgstr "%s किंवा %s LIBGUESTFS_PATH (current path = %s) येथे आढळले नाही"
 
-#: src/launch.c:816
+#: src/launch.c:811
 msgid "failed to connect to vmchannel socket"
 msgstr "vmchannel सॉकेटसह जुळवणी करणे अशक्य"
 
-#: src/launch.c:835
+#: src/launch.c:830
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch अपयशी, पूर्वीचे त्रुटी संदेश पहा"
 
-#: src/launch.c:848
+#: src/launch.c:843
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu सुरू झाले व डिमन सुरू केले, परंतु state != READY आढळले"
 
-#: src/launch.c:948
+#: src/launch.c:960
 #, c-format
 msgid "external command failed: %s"
 msgstr "बाहेरील आदेश अपयशी: %s"
 
-#: src/launch.c:1021
+#: src/launch.c:1033
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -2272,11 +2272,11 @@ msgstr ""
 "%s: आदेश अपयशी: qemu विना-मानक मार्गावर स्थीत असल्यास, LIBGUESTFS_QEMU एन्वार्यनमेंट "
 "वेरीयेबल सेट करण्याचा प्रयत्न करा."
 
-#: src/launch.c:1197
+#: src/launch.c:1209
 msgid "qemu has not been launched yet"
 msgstr "qemu अजूनही सुरू केले नाही"
 
-#: src/launch.c:1208
+#: src/launch.c:1220
 msgid "no subprocess to kill"
 msgstr "kill करीता उपकार्य उपलब्ध नाही"
 

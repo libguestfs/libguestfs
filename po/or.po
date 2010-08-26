@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master.or\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-08-17 15:51+0100\n"
+"POT-Creation-Date: 2010-08-27 00:46+0100\n"
 "PO-Revision-Date: 2010-02-01 18:17+0530\n"
 "Last-Translator: Manoj Kumar Giri <mgiri@redhat.com>\n"
 "Language-Team: Oriya <oriya-it@googlegroups.com>\n"
@@ -2234,43 +2234,43 @@ msgstr "guestfs_config: ପ୍ରାଚଳ '%s' ଟି ଅନୁମତିପ୍�
 msgid "filename cannot contain ',' (comma) character"
 msgstr "ଫାଇଲନାମରେ ',' (କମା) ବର୍ଣ୍ଣ ଧାରଣ ହୋଇନଥାଏ"
 
-#: src/launch.c:283
+#: src/launch.c:280
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "ଆପଣ ନିଶ୍ଚିତ ଭାବରେ guestfs_add_drive କୁ guestfs_launch ପୂର୍ବରୁ ଡାକିବା ଉଚିତ"
 
-#: src/launch.c:288
+#: src/launch.c:285
 #, fuzzy
 msgid "the libguestfs handle has already been launched"
 msgstr "qemu ପୂର୍ବରୁ ଆରମ୍ଭ ହୋଇସାରିଛି"
 
-#: src/launch.c:308
+#: src/launch.c:300
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: ଅସ୍ଥାୟୀ ଡିରେକ୍ଟୋରୀ ନିର୍ମାଣ କରିପାରିବେ ନାହିଁ"
 
-#: src/launch.c:404
+#: src/launch.c:396
 #, c-format
 msgid "cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)"
 msgstr "LIBGUESTFS_PATH ରେ %s କିମ୍ବା %s କୁ ପାଇ ପାରିବେ ନାହିଁ (ପ୍ରଚଳିତ ପଥ = %s)"
 
-#: src/launch.c:816
+#: src/launch.c:811
 msgid "failed to connect to vmchannel socket"
 msgstr "vmchannel ସକେଟ ସହିତ ସଂଯୁକ୍ତ ହେବାରେ ବିଫଳ ହୋଇଛି"
 
-#: src/launch.c:835
+#: src/launch.c:830
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch ବିଫଳ ହୋଇଛି, ପୂର୍ବର ତ୍ରୁଟି ସନ୍ଦେଶଗୁଡ଼ିକୁ ଦେଖନ୍ତୁ"
 
-#: src/launch.c:848
+#: src/launch.c:843
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu ଆରମ୍ଭ ହୋଇଛି ଏବଂ ଡେମନ ସହିତ ଯୋଗାଯୋଗ ଆରମ୍ଭ କରିଛି, କିନ୍ତୁ ଅବସ୍ଥା != READY"
 
-#: src/launch.c:948
+#: src/launch.c:960
 #, c-format
 msgid "external command failed: %s"
 msgstr "ବାହ୍ୟ ନିର୍ଦ୍ଦେଶ ବିଫଳ ହୋଇଛି: %s"
 
-#: src/launch.c:1021
+#: src/launch.c:1033
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -2279,11 +2279,11 @@ msgstr ""
 "%s: ନିର୍ଦ୍ଦେଶ ବିଫଳ ହୋଇଛି: ଯଦି qemu ମାନ୍ୟତା ପ୍ରାପ୍ତ ହୋଇନଥିବା ପଥରେ ଅବସ୍ଥିତ, ତେବେ "
 "LIBGUESTFS_QEMU ପରିବେଶ ପ୍ରାଚଳକୁ ସେଟ କରିବା ପାଇଁ ଚେଷ୍ଟା କରନ୍ତୁ।"
 
-#: src/launch.c:1197
+#: src/launch.c:1209
 msgid "qemu has not been launched yet"
 msgstr "qemu ଏପର୍ଯ୍ୟନ୍ତ ଆରମ୍ଭ ହୋଇନାହିଁ"
 
-#: src/launch.c:1208
+#: src/launch.c:1220
 msgid "no subprocess to kill"
 msgstr "ବନ୍ଦ କରିବା ପାଇଁ କୌଣସି ଉପ-ପଦ୍ଧତି ନାହିଁ"
 
