@@ -110,8 +110,8 @@ else
   bash -i
   echo
   echo "virt-rescue: Syncing the disk now before exiting ..."
-  echo "(Don't worry if you see a 'Kernel panic' message below)"
   echo
 fi
 
 sync
+/sbin/reboot -f
