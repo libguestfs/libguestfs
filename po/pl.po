@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-08-24 13:09+0100\n"
+"POT-Creation-Date: 2010-08-26 16:29+0100\n"
 "PO-Revision-Date: 2010-05-24 21:26+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <trans-pl@lists.fedoraproject.org>\n"
@@ -2470,18 +2470,18 @@ msgstr "program obsługi libguestfs został już uruchomiony"
 msgid "%s: cannot create temporary directory"
 msgstr "%s: nie można utworzyć katalogu tymczasowego"
 
-#: src/launch.c:603
+#: src/launch.c:606
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr ""
 "guestfs_launch nie powiodło się, proszę zobaczyć wcześniejsze komunikaty "
 "błędów"
 
-#: src/launch.c:616
+#: src/launch.c:619
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr ""
 "QEMU zostało uruchomione i skontaktowano się z demonem, ale stan != GOTOWY"
 
-#: src/launch.c:753
+#: src/launch.c:756
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -2490,11 +2490,11 @@ msgstr ""
 "%s: polecenie nie powiodło się: jeśli QEMU jest położone w niestandardowej "
 "ścieżce, należy spróbować ustawienia zmiennej środowiskowej LIBGUESTFS_QEMU."
 
-#: src/launch.c:845
+#: src/launch.c:848
 msgid "qemu has not been launched yet"
 msgstr "QEMU nie zostało jeszcze uruchomione"
 
-#: src/launch.c:856
+#: src/launch.c:859
 msgid "no subprocess to kill"
 msgstr "brak podprocesu do zniszczenia"
 
@@ -2887,7 +2887,7 @@ msgstr ""
 "Błąd w tym miejscu zwykle oznacza, że program nie oszacował poprawnie\n"
 "rozmiar systemu plików. Proszę przeczytać sekcję BUGS strony podręcznika.\n"
 
-#: tools/virt-rescue.pl:194
+#: tools/virt-rescue.pl:195
 msgid "virt-rescue: no image or VM names rescue given"
 msgstr ""
 "virt-rescue: nie podano obrazu lub nazw maszyn wirtualnych dla polecenia "

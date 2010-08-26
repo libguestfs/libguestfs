@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.0.81\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-08-24 13:09+0100\n"
+"POT-Creation-Date: 2010-08-26 16:29+0100\n"
 "PO-Revision-Date: 2010-01-29 12:50+0530\n"
 "Last-Translator: Jaswinder Singh <jsingh@redhat.com>\n"
 "Language-Team: Punjabi/Panjabi <kde-i18n-doc@kde.org>\n"
@@ -2434,15 +2434,15 @@ msgstr "qemu ਪਹਿਲਾਂ ਹੀ ਚਾਲੂ ਹੋ ਗਿਆ ਹੈ"
 msgid "%s: cannot create temporary directory"
 msgstr "%s: ਆਰਜੀ ਡਾਇਰੈਕਟਰੀ ਨਹੀਂ ਬਣਾ ਸਕਿਆ"
 
-#: src/launch.c:603
+#: src/launch.c:606
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch ਫੇਲ ਹੋਇਆ, ਪਹਿਲੇ ਗਲਤੀ ਸੁਨੇਹੇ ਵੇਖੋ"
 
-#: src/launch.c:616
+#: src/launch.c:619
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu launched and contacted daemon, but state != READY"
 
-#: src/launch.c:753
+#: src/launch.c:756
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -2451,11 +2451,11 @@ msgstr ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
 "the LIBGUESTFS_QEMU environment variable."
 
-#: src/launch.c:845
+#: src/launch.c:848
 msgid "qemu has not been launched yet"
 msgstr "qemu ਹਾਲੇ ਤੱਕ ਚਾਲੂ ਨਹੀਂ ਕੀਤਾ"
 
-#: src/launch.c:856
+#: src/launch.c:859
 msgid "no subprocess to kill"
 msgstr "ਖਤਮ ਕਰਨ ਲਈ ਕੋਈ ਅਧੀਨ-ਕਾਰਜ ਨਹੀਂ"
 
@@ -2826,7 +2826,7 @@ msgid ""
 "filesystem size correctly.  Please read the BUGS section of the manpage.\n"
 msgstr ""
 
-#: tools/virt-rescue.pl:194
+#: tools/virt-rescue.pl:195
 msgid "virt-rescue: no image or VM names rescue given"
 msgstr ""
 
