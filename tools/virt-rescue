@@ -212,7 +212,7 @@ my $str = "guestfs_rescue=1";
 $str .= " $append" if defined $append;
 $g->set_append ($str);
 
-# Run the appliance.  This won't return until the user quite the
+# Run the appliance.  This won't return until the user quits the
 # appliance.
 $g->launch ();
 
