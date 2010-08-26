@@ -26,6 +26,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <dirent.h>
+#include <sys/resource.h>
 
 #include "../src/guestfs_protocol.h"
 #include "daemon.h"
@@ -52,9 +53,11 @@ static char *debug_ls (const char *subcmd, int argc, char *const *const argv);
 static char *debug_ll (const char *subcmd, int argc, char *const *const argv);
 static char *debug_segv (const char *subcmd, int argc, char *const *const argv);
 static char *debug_sh (const char *subcmd, int argc, char *const *const argv);
+static char *debug_core_pattern (const char *subcmd, int argc, char *const *const argv);
 
 static struct cmd cmds[] = {
   { "help", debug_help },
+  { "core_pattern", debug_core_pattern },
   { "env", debug_env },
   { "fds", debug_fds },
   { "ls", debug_ls },
@@ -336,6 +339,56 @@ debug_ll (const char *subcmd, int argc, char *const *const argv)
   free (err);
 
   return out;
+}
+
+/* Enable core dumping to the given core pattern.
+ * Note that this pattern is relative to any chroot of the process which
+ * crashes. This means that if you want to write the core file to the guest's
+ * storage the pattern must start with /sysroot only if the command which
+ * crashes doesn't chroot.
+ */
+static char *
+debug_core_pattern (const char *subcmd, int argc, char *const *const argv)
+{
+  if (argc < 1) {
+    reply_with_error ("core_pattern: expecting a core pattern");
+    return NULL;
+  }
+
+  const char *pattern = argv[0];
+  const size_t pattern_len = strlen(pattern);
+
+#define CORE_PATTERN "/proc/sys/kernel/core_pattern"
+  int fd = open (CORE_PATTERN, O_WRONLY);
+  if (fd == -1) {
+    reply_with_perror ("open: " CORE_PATTERN);
+    return NULL;
+  }
+  if (write (fd, pattern, pattern_len) < (ssize_t) pattern_len) {
+    reply_with_perror ("write: " CORE_PATTERN);
+    return NULL;
+  }
+  if (close (fd) == -1) {
+    reply_with_perror ("close: " CORE_PATTERN);
+    return NULL;
+  }
+
+  struct rlimit limit = {
+    .rlim_cur = RLIM_INFINITY,
+    .rlim_max = RLIM_INFINITY
+  };
+  if (setrlimit (RLIMIT_CORE, &limit) == -1) {
+    reply_with_perror ("setrlimit (RLIMIT_CORE)");
+    return NULL;
+  }
+
+  char *ret = strdup ("ok");
+  if (NULL == ret) {
+    reply_with_perror ("strdup");
+    return NULL;
+  }
+
+  return ret;
 }
 
 #endif /* ENABLE_DEBUG_COMMAND */
