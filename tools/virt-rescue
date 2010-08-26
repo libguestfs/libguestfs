@@ -19,6 +19,7 @@
 use warnings;
 use strict;
 
+use Errno;
 use Sys::Guestfs;
 use Sys::Guestfs::Lib qw(open_guest);
 use Pod::Usage;
@@ -214,7 +215,11 @@ $g->set_append ($str);
 
 # Run the appliance.  This won't return until the user quite the
 # appliance.
-$g->launch ();
+eval { $g->launch (); };
+
+# launch() expects guestfsd to start. However, virt-rescue doesn't run guestfsd,
+# so this will always fail with ECHILD when the appliance exits unexpectedly.
+die $@ unless $!{ECHILD};
 
 exit 0;
 
