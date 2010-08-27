@@ -60,6 +60,11 @@ static char *read_cmdline (void);
 # define MAX(a,b) ((a)>(b)?(a):(b))
 #endif
 
+/* Not the end of the world if this open flag is not defined. */
+#ifndef O_CLOEXEC
+# define O_CLOEXEC 0
+#endif
+
 /* If root device is an ext2 filesystem, this is the major and minor.
  * This is so we can ignore this device from the point of view of the
  * user, eg. in guestfs_list_devices and many other places.
@@ -237,7 +242,8 @@ main (int argc, char *argv[])
 #endif
 
   /* Connect to virtio-serial channel. */
-  int sock = open ("/dev/virtio-ports/org.libguestfs.channel.0", O_RDWR);
+  int sock = open ("/dev/virtio-ports/org.libguestfs.channel.0",
+                   O_RDWR | O_CLOEXEC);
   if (sock == -1) {
     fprintf (stderr,
              "\n"
