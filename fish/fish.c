@@ -20,6 +20,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <inttypes.h>
 #include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -381,9 +382,12 @@ main (int argc, char *argv[])
       guestfs_set_verbose (g, verbose);
       break;
 
-    case 'V':
-      printf ("%s %s\n", program_name, PACKAGE_VERSION);
+    case 'V': {
+      struct guestfs_version *v = guestfs_version (g);
+      printf ("%s %"PRIi64".%"PRIi64".%"PRIi64"%s\n", program_name,
+              v->major, v->minor, v->release, v->extra);
       exit (EXIT_SUCCESS);
+    }
 
     case 'x':
       guestfs_set_trace (g, 1);

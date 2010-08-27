@@ -22,7 +22,7 @@ m4_define([libguestfs_release], [5])
 # extra can be any string
 m4_define([libguestfs_extra],   [])
 
-AC_INIT([libguestfs],libguestfs_major.libguestfs_minor.libguestfs_release[]libguestfs_extra)
+AC_INIT([libguestfs],libguestfs_major.libguestfs_minor.libguestfs_release)
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([foreign])
 
