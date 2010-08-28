@@ -42,12 +42,14 @@ do_zero (const char *device)
 
   memset (buf, 0, sizeof buf);
 
-  for (i = 0; i < 32; ++i)
+  for (i = 0; i < 32; ++i) {
     if (write (fd, buf, sizeof buf) != sizeof buf) {
       reply_with_perror ("write: %s", device);
       close (fd);
       return -1;
     }
+    notify_progress ((uint64_t) i, 32);
+  }
 
   if (close (fd) == -1) {
     reply_with_perror ("close: %s", device);

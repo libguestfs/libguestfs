@@ -2698,7 +2698,7 @@ Checking or repairing NTFS volumes is not supported
 
 This command is entirely equivalent to running C<fsck -a -t fstype device>.");
 
-  ("zero", (RErr, [Device "device"]), 85, [],
+  ("zero", (RErr, [Device "device"]), 85, [Progress],
    [InitBasicFS, Always, TestOutput (
       [["umount"; "/dev/sda1"];
        ["zero"; "/dev/sda1"];
