@@ -232,6 +232,17 @@ alternative to the I<-a> option: whereas I<-a> adds an existing disk,
 I<-N> creates a preformatted disk with a filesystem and adds it.
 See L</PREPARED DISK IMAGES> below.
 
+=item B<--progress-bars>
+
+Enable progress bars, even when guestfish is used non-interactively.
+
+Progress bars are enabled by default when guestfish is used as an
+interactive shell.
+
+=item B<--no-progress-bars>
+
+Disable progress bars.
+
 =item B<--remote[=pid]>
 
 Send remote commands to C<$GUESTFISH_PID> or C<pid>.  See section
@@ -728,6 +739,31 @@ Create a 32MB disk with a VFAT-formatted partition, and mount it:
 Create a blank 200MB disk:
 
  guestfish -N disk:200M
+
+=head1 PROGRESS BARS
+
+Some (not all) long-running commands send progress notification
+messages as they are running.  Guestfish turns these messages into
+progress bars.
+
+When a command that supports progress bars takes longer than two
+seconds to run, and if progress bars are enabled, then you will see
+one appearing below the command:
+
+ ><fs> copy-size /large-file /another-file 2048M
+ / 10% [#####-----------------------------------------] 00:30
+
+The spinner on the left hand side moves round once for every progress
+notification received from the backend.  This is a (reasonably) golden
+assurance that the command is "doing something" even if the progress
+bar is not moving, because the command is able to send the progress
+notifications.  When the bar reaches 100% and the command finishes,
+the spinner disappears.
+
+Progress bars are enabled by default when guestfish is used
+interactively.  You can enable them even for non-interactive modes
+using I<--progress-bars>, and you can disable them completely using
+I<--no-progress-bars>.
 
 =head1 GUESTFISH COMMANDS
 

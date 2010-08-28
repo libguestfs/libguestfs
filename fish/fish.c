@@ -85,6 +85,8 @@ static void cleanup_readline (void);
 static void add_history_line (const char *);
 #endif
 
+static int override_progress_bars = -1;
+
 /* Currently open libguestfs handle. */
 guestfs_h *g;
 
@@ -100,6 +102,7 @@ const char *libvirt_uri = NULL;
 int inspector = 0;
 int utf8_mode = 0;
 int have_terminfo = 0;
+int progress_bars = 0;
 
 static void __attribute__((noreturn))
 usage (int status)
@@ -137,6 +140,8 @@ usage (int status)
              "  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
              "  -n|--no-sync         Don't autosync\n"
              "  -N|--new type        Create prepared disk (test1.img, ...)\n"
+             "  --progress-bars      Enable progress bars even when not interactive\n"
+             "  --no-progress-bars   Disable progress bars\n"
              "  --remote[=pid]       Send commands to remote %s\n"
              "  -r|--ro              Mount read-only\n"
              "  --selinux            Enable SELinux support\n"
@@ -182,6 +187,8 @@ main (int argc, char *argv[])
     { "new", 1, 0, 'N' },
     { "no-dest-paths", 0, 0, 'D' },
     { "no-sync", 0, 0, 'n' },
+    { "progress-bars", 0, 0, 0 },
+    { "no-progress-bars", 0, 0, 0 },
     { "remote", 2, 0, 0 },
     { "ro", 0, 0, 'r' },
     { "selinux", 0, 0, 0 },
@@ -267,6 +274,10 @@ main (int argc, char *argv[])
         guestfs_set_selinux (g, 1);
       } else if (STREQ (long_options[option_index].name, "keys-from-stdin")) {
         keys_from_stdin = 1;
+      } else if (STREQ (long_options[option_index].name, "progress-bars")) {
+        override_progress_bars = 1;
+      } else if (STREQ (long_options[option_index].name, "no-progress-bars")) {
+        override_progress_bars = 0;
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
                  program_name, long_options[option_index].name, option_index);
@@ -499,6 +510,15 @@ main (int argc, char *argv[])
       exit (EXIT_FAILURE);
     }
   }
+
+  /* Decide if we display progress bars. */
+  progress_bars =
+    override_progress_bars >= 0
+    ? override_progress_bars
+    : (optind >= argc && isatty (0));
+
+  if (progress_bars)
+    guestfs_set_progress_callback (g, progress_callback, NULL);
 
   /* Interactive, shell script, or command(s) on the command line? */
   if (optind >= argc) {
@@ -962,6 +982,8 @@ issue_command (const char *cmd, char *argv[], const char *pipecmd)
   int stdout_saved_fd = -1;
   int pid = 0;
   int i, r;
+
+  reset_progress_bar ();
 
   /* This counts the commands issued, starting at 1. */
   command_num++;

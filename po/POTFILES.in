@@ -81,6 +81,7 @@ fish/lcd.c
 fish/man.c
 fish/more.c
 fish/prep.c
+fish/progress.c
 fish/rc.c
 fish/reopen.c
 fish/supported.c

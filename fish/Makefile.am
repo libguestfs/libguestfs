@@ -49,6 +49,7 @@ guestfish_SOURCES = \
 	man.c \
 	more.c \
 	prep.c \
+	progress.c \
 	rc.c \
 	reopen.c \
 	supported.c \
@@ -72,7 +73,7 @@ guestfish_CFLAGS = \
 
 guestfish_LDADD = \
 	$(LIBVIRT_LIBS) $(LIBXML2_LIBS) \
-	$(top_builddir)/src/libguestfs.la $(LIBREADLINE)
+	$(top_builddir)/src/libguestfs.la $(LIBREADLINE) -lm
 
 # Make libguestfs use the convenience library.
 noinst_LTLIBRARIES = librc_protocol.la

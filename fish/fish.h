@@ -55,6 +55,7 @@ extern int verbose;
 extern int command_num;
 extern int utf8_mode;
 extern int have_terminfo;
+extern int progress_bars;
 extern const char *libvirt_uri;
 extern int issue_command (const char *cmd, char *argv[], const char *pipe);
 extern void pod2text (const char *name, const char *shortdesc, const char *body);
@@ -121,6 +122,10 @@ extern prep_data *create_prepared_file (const char *type_string,
                                         const char *filename);
 extern void prepare_drive (const char *filename, prep_data *data,
                            const char *device);
+
+/* in progress.c */
+extern void reset_progress_bar (void);
+extern void progress_callback (guestfs_h *g, void *data, int proc_nr, int serial, uint64_t position, uint64_t total);
 
 /* in rc.c (remote control) */
 extern void rc_listen (void) __attribute__((noreturn));

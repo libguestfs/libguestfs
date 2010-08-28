@@ -66,6 +66,9 @@ do_reopen (const char *cmd, int argc, char *argv[])
   if (p)
     guestfs_set_path (g2, p);
 
+  if (progress_bars)
+    guestfs_set_progress_callback (g2, progress_callback, NULL);
+
   /* Close the original handle. */
   guestfs_close (g);
   g = g2;
