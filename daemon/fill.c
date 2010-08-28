@@ -113,6 +113,7 @@ do_fill_pattern (const char *pattern, int len, const char *path)
       return -1;
     }
     n += wrlen;
+    notify_progress ((uint64_t) n, (uint64_t) len_sz);
   }
 
   if (close (fd) == -1) {

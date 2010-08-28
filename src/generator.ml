@@ -5068,7 +5068,7 @@ filename is not printable, coreutils uses a special
 backslash syntax.  For more information, see the GNU
 coreutils info file.");
 
-  ("fill_pattern", (RErr, [String "pattern"; Int "len"; Pathname "path"]), 245, [],
+  ("fill_pattern", (RErr, [String "pattern"; Int "len"; Pathname "path"]), 245, [Progress],
    [InitBasicFS, Always, TestOutputBuffer (
       [["fill_pattern"; "abcdefghijklmnopqrstuvwxyz"; "28"; "/test"];
        ["read_file"; "/test"]], "abcdefghijklmnopqrstuvwxyzab")],
