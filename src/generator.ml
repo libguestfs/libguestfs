@@ -4889,7 +4889,7 @@ or file C<src> to another destination device or file C<dest>.
 Note this will fail if the source is too short or if the destination
 is not large enough.");
 
-  ("zero_device", (RErr, [Device "device"]), 228, [DangerWillRobinson],
+  ("zero_device", (RErr, [Device "device"]), 228, [DangerWillRobinson; Progress],
    [InitBasicFSonLVM, Always, TestRun (
       [["zero_device"; "/dev/VG/LV"]])],
    "write zeroes to an entire device",

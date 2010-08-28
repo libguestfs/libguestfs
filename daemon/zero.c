@@ -62,9 +62,10 @@ do_zero (const char *device)
 int
 do_zero_device (const char *device)
 {
-  int64_t size = do_blockdev_getsize64 (device);
-  if (size == -1)
+  int64_t ssize = do_blockdev_getsize64 (device);
+  if (ssize == -1)
     return -1;
+  uint64_t size = (uint64_t) ssize;
 
   int fd = open (device, O_WRONLY);
   if (fd == -1) {
@@ -75,8 +76,16 @@ do_zero_device (const char *device)
   char buf[1024*1024];
   memset (buf, 0, sizeof buf);
 
-  while (size > 0) {
-    size_t n = (size_t) size > sizeof buf ? sizeof buf : (size_t) size;
+  uint64_t pos = 0;
+
+  while (pos < size) {
+    uint64_t n64 = size - pos;
+    size_t n;
+    if (n64 > sizeof buf)
+      n = sizeof buf;
+    else
+      n = (size_t) n64; /* safe because of if condition */
+
     ssize_t r = write (fd, buf, n);
     if (r == -1) {
       reply_with_perror ("write: %s (with %" PRId64 " bytes left to write)",
@@ -84,7 +93,9 @@ do_zero_device (const char *device)
       close (fd);
       return -1;
     }
-    size -= r;
+
+    pos += r;
+    notify_progress (pos, size);
   }
 
   if (close (fd) == -1) {
