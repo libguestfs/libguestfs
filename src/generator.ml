@@ -192,6 +192,7 @@ type flags =
   | NotInDocs		  (* do not add this function to documentation *)
   | DeprecatedBy of string (* function is deprecated, use .. instead *)
   | Optional of string	  (* function is part of an optional group *)
+  | Progress              (* function can generate progress messages *)
 
 and fish_output_t =
   | FishOutputOctal       (* for int return, print in octal *)
@@ -4875,7 +4876,7 @@ calls to associate logical volumes and volume groups.
 
 See also C<guestfs_vgpvuuids>.");
 
-  ("copy_size", (RErr, [Dev_or_Path "src"; Dev_or_Path "dest"; Int64 "size"]), 227, [],
+  ("copy_size", (RErr, [Dev_or_Path "src"; Dev_or_Path "dest"; Int64 "size"]), 227, [Progress],
    [InitBasicFS, Always, TestOutputBuffer (
       [["write"; "/src"; "hello, world"];
        ["copy_size"; "/src"; "/dest"; "5"];
@@ -5799,6 +5800,12 @@ let seq_of_test = function
   | TestLastFail s -> s
 
 (* Handling for function flags. *)
+let progress_message =
+  "This long-running command can generate progress notification messages
+so that the caller can display a progress bar or indicator.
+To receive these messages, the caller must register a progress
+callback.  See L<guestfs(3)/guestfs_set_progress_callback>."
+
 let protocol_limit_warning =
   "Because of the message protocol, there is a transfer limit
 of somewhere between 2MB and 4MB.  See L<guestfs(3)/PROTOCOL LIMITS>."
@@ -6133,6 +6140,8 @@ I<The caller must free the strings and the array after use>.\n\n"
 The size of the returned buffer is written to C<*size_r>.
 I<The caller must free the returned buffer after use>.\n\n"
         );
+        if List.mem Progress flags then
+          pr "%s\n\n" progress_message;
         if List.mem ProtocolLimitWarning flags then
           pr "%s\n\n" protocol_limit_warning;
         if List.mem DangerWillRobinson flags then

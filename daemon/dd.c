@@ -73,7 +73,7 @@ do_dd (const char *src, const char *dest)
 }
 
 int
-do_copy_size (const char *src, const char *dest, int64_t size)
+do_copy_size (const char *src, const char *dest, int64_t ssize)
 {
   char *buf;
   int src_fd, dest_fd;
@@ -112,9 +112,19 @@ do_copy_size (const char *src, const char *dest, int64_t size)
     return -1;
   }
 
-  while (size > 0) {
+  uint64_t position = 0, size = (uint64_t) ssize;
+
+  while (position < size) {
     char buf[1024*1024];
-    size_t n = size > (int64_t) (sizeof buf) ? sizeof buf : (size_t) size;
+
+    /* Calculate bytes to copy. */
+    uint64_t n64 = size - position;
+    size_t n;
+    if (n64 > sizeof buf)
+      n = sizeof buf;
+    else
+      n = (size_t) n64; /* safe because of if condition */
+
     ssize_t r = read (src_fd, buf, n);
     if (r == -1) {
       reply_with_perror ("%s: read", src);
@@ -136,7 +146,8 @@ do_copy_size (const char *src, const char *dest, int64_t size)
       return -1;
     }
 
-    size -= r;
+    position += r;
+    notify_progress ((uint64_t) position, (uint64_t) size);
   }
 
   if (close (src_fd) == -1) {
