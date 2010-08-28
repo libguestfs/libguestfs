@@ -26,6 +26,7 @@
 #include <errno.h>
 #include <sys/param.h>		/* defines MIN */
 #include <sys/select.h>
+#include <sys/time.h>
 #include <rpc/types.h>
 #include <rpc/xdr.h>
 
@@ -43,6 +44,15 @@
 int proc_nr;
 int serial;
 
+/* Time at which we received the current request. */
+static struct timeval start_t;
+
+/* Time at which the last progress notification was sent. */
+static struct timeval last_progress_t;
+
+/* Counts the number of progress notifications sent during this call. */
+static int count_progress;
+
 /* The daemon communications socket. */
 static int sock;
 
@@ -54,8 +64,6 @@ main_loop (int _sock)
   char lenbuf[4];
   uint32_t len;
   struct guestfs_message_header hdr;
-  struct timeval start_t, end_t;
-  int64_t start_us, end_us, elapsed_us;
 
   sock = _sock;
 
@@ -112,9 +120,9 @@ main_loop (int _sock)
     }
 #endif
 
-    /* In verbose mode, display the time taken to run each command. */
-    if (verbose)
-      gettimeofday (&start_t, NULL);
+    gettimeofday (&start_t, NULL);
+    last_progress_t = start_t;
+    count_progress = 0;
 
     /* Decode the message header. */
     xdrmem_create (&xdr, buf, len, XDR_DECODE);
@@ -160,11 +168,14 @@ main_loop (int _sock)
 
     /* In verbose mode, display the time taken to run each command. */
     if (verbose) {
+      struct timeval end_t;
       gettimeofday (&end_t, NULL);
 
+      int64_t start_us, end_us, elapsed_us;
       start_us = (int64_t) start_t.tv_sec * 1000000 + start_t.tv_usec;
       end_us = (int64_t) end_t.tv_sec * 1000000 + end_t.tv_usec;
       elapsed_us = end_us - start_us;
+
       fprintf (stderr, "proc %d (%s) took %d.%02d seconds\n",
                proc_nr,
                proc_nr >= 0 && proc_nr < GUESTFS_PROC_NR_PROCS
@@ -532,4 +543,79 @@ send_chunk (const guestfs_chunk *chunk)
   }
 
   return err;
+}
+
+/* Initial delay before sending notification messages, and
+ * the period at which we send them thereafter.  These times
+ * are in microseconds.
+ */
+#define NOTIFICATION_INITIAL_DELAY 2000000
+#define NOTIFICATION_PERIOD         333333
+
+void
+notify_progress (uint64_t position, uint64_t total)
+{
+  struct timeval now_t;
+  gettimeofday (&now_t, NULL);
+
+  /* Always send a notification at 100%.  This simplifies callers by
+   * allowing them to 'finish' the progress bar at 100% without
+   * needing special code.
+   */
+  if (count_progress > 0 && position == total)
+    goto send;
+
+  /* Calculate time in microseconds since the last progress message
+   * was sent out (or since the start of the call).
+   */
+  int64_t last_us, now_us, elapsed_us;
+  last_us =
+    (int64_t) last_progress_t.tv_sec * 1000000 + last_progress_t.tv_usec;
+  now_us = (int64_t) now_t.tv_sec * 1000000 + now_t.tv_usec;
+  elapsed_us = now_us - last_us;
+
+  /* Rate limit. */
+  if ((count_progress == 0 && elapsed_us < NOTIFICATION_INITIAL_DELAY) ||
+      (count_progress > 0 && elapsed_us < NOTIFICATION_PERIOD))
+    return;
+
+ send:
+  /* We're going to send a message now ... */
+  count_progress++;
+  last_progress_t = now_t;
+
+  /* Send the header word. */
+  XDR xdr;
+  char buf[128];
+  uint32_t i = GUESTFS_PROGRESS_FLAG;
+  size_t len;
+  xdrmem_create (&xdr, buf, 4, XDR_ENCODE);
+  xdr_u_int (&xdr, &i);
+  xdr_destroy (&xdr);
+
+  if (xwrite (sock, buf, 4) == -1) {
+    fprintf (stderr, "xwrite failed\n");
+    exit (EXIT_FAILURE);
+  }
+
+  guestfs_progress message = {
+    .proc = proc_nr,
+    .serial = serial,
+    .position = position,
+    .total = total,
+  };
+
+  xdrmem_create (&xdr, buf, sizeof buf, XDR_ENCODE);
+  if (!xdr_guestfs_progress (&xdr, &message)) {
+    fprintf (stderr, "xdr_guestfs_progress: failed to encode message\n");
+    xdr_destroy (&xdr);
+    return;
+  }
+  len = xdr_getpos (&xdr);
+  xdr_destroy (&xdr);
+
+  if (xwrite (sock, buf, len) == -1) {
+    fprintf (stderr, "xwrite failed\n");
+    exit (EXIT_FAILURE);
+  }
 }

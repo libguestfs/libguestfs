@@ -21,6 +21,7 @@
 
 #include <stdio.h>
 #include <stdarg.h>
+#include <stdint.h>
 #include <errno.h>
 #include <unistd.h>
 
@@ -160,6 +161,12 @@ extern int send_file_end (int cancel);
 
 /* only call this if there is a FileOut parameter */
 extern void reply (xdrproc_t xdrp, char *ret);
+
+/* Notify progress to caller.  This function is self-rate-limiting so
+ * you can call it as often as necessary.  Actions which call this
+ * should add 'Progress' note in generator.
+ */
+extern void notify_progress (uint64_t position, uint64_t total);
 
 /* Helper for functions that need a root filesystem mounted.
  * NB. Cannot be used for FileIn functions.

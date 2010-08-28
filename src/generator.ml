@@ -6327,11 +6327,12 @@ and generate_xdr () =
  */
 
 const GUESTFS_PROGRAM = 0x2000F5F5;
-const GUESTFS_PROTOCOL_VERSION = 1;
+const GUESTFS_PROTOCOL_VERSION = 2;
 
 /* These constants must be larger than any possible message length. */
 const GUESTFS_LAUNCH_FLAG = 0xf5f55ff5;
 const GUESTFS_CANCEL_FLAG = 0xffffeeee;
+const GUESTFS_PROGRESS_FLAG = 0xffff5555;
 
 enum guestfs_message_direction {
   GUESTFS_DIRECTION_CALL = 0,        /* client -> daemon */
@@ -6369,6 +6370,23 @@ struct guestfs_chunk {
   int cancel;			     /* if non-zero, transfer is cancelled */
   /* data size is 0 bytes if the transfer has finished successfully */
   opaque data<GUESTFS_MAX_CHUNK_SIZE>;
+};
+
+/* Progress notifications.  Daemon self-limits these messages to
+ * at most one per second.  The daemon can send these messages
+ * at any time, and the caller should discard unexpected messages.
+ * 'position' and 'total' have undefined units; however they may
+ * have meaning for some calls.
+ *
+ * NB. guestfs___recv_from_daemon assumes the XDR-encoded
+ * structure is 24 bytes long.
+ */
+struct guestfs_progress {
+  guestfs_procedure proc;            /* @0:  GUESTFS_PROC_x */
+  unsigned serial;                   /* @4:  message serial number */
+  unsigned hyper position;           /* @8:  0 <= position <= total */
+  unsigned hyper total;              /* @16: total size of operation */
+                                     /* @24: size of structure */
 };
 "
 
@@ -6869,6 +6887,7 @@ and generate_linker_script () =
     "guestfs_set_launch_done_callback";
     "guestfs_set_log_message_callback";
     "guestfs_set_out_of_memory_handler";
+    "guestfs_set_progress_callback";
     "guestfs_set_subprocess_quit_callback";
 
     (* Unofficial parts of the API: the bindings code use these

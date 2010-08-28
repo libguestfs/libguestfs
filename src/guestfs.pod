@@ -1186,6 +1186,56 @@ languages (eg. if your HLL interpreter has already been cleaned
 up by the time this is called, and if your callback then jumps
 into some HLL function).
 
+=head2 guestfs_set_progress_callback
+
+ typedef void (*guestfs_progress_cb) (guestfs_h *g, void *opaque,
+                                      int proc_nr, int serial,
+                                      uint64_t position, uint64_t total);
+ void guestfs_set_progress_callback (guestfs_h *g,
+                                     guestfs_progress_cb cb,
+                                     void *opaque);
+
+Some long-running operations can generate progress messages.  If
+this callback is registered, then it will be called each time a
+progress message is generated (usually two seconds after the
+operation started, and three times per second thereafter until
+it completes, although the frequency may change in future versions).
+
+The callback receives two numbers: C<position> and C<total>.
+The units of C<total> are not defined, although for some
+operations C<total> may relate in some way to the amount of
+data to be transferred (eg. in bytes or megabytes), and
+C<position> may be the portion which has been transferred.
+
+The only defined and stable parts of the API are:
+
+=over 4
+
+=item *
+
+The callback can display to the user some type of progress bar or
+indicator which shows the ratio of C<position>:C<total>.
+
+=item *
+
+0 E<lt>= C<position> E<lt>= C<total>
+
+=item *
+
+If any progress notification is sent during a call, then a final
+progress notification is always sent when C<position> = C<total>.
+
+This is to simplify caller code, so callers can easily set the
+progress indicator to "100%" at the end of the operation, without
+requiring special code to detect this case.
+
+=back
+
+The callback also receives the procedure number and serial number of
+the call.  These are only useful for debugging protocol issues, and
+the callback can normally ignore them.  The callback may want to
+print these numbers in error messages or debugging messages.
+
 =head1 BLOCK DEVICE NAMING
 
 In the kernel there is now quite a profusion of schemata for naming

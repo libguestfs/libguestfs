@@ -122,6 +122,8 @@ struct guestfs_h
   void *                     launch_done_cb_data;
   guestfs_close_cb           close_cb;
   void *                     close_cb_data;
+  guestfs_progress_cb        progress_cb;
+  void *                     progress_cb_data;
 
   int msg_next_serial;
 

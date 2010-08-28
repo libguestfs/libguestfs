@@ -373,7 +373,15 @@ guestfs___send_to_daemon (guestfs_h *g, const void *v_buf, size_t n)
  *
  * It also checks for EOF (qemu died) and passes that up through the
  * child_cleanup function above.
+ *
+ * Progress notifications are handled transparently by this function.
+ * If the callback exists, it is called.  The caller of this function
+ * will not see GUESTFS_PROGRESS_FLAG.
  */
+
+/* Size of guestfs_progress message on the wire. */
+#define PROGRESS_MESSAGE_SIZE 24
+
 int
 guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
 {
@@ -400,7 +408,13 @@ guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
    */
   ssize_t nr = -4;
 
-  while (nr < (ssize_t) *size_rtn) {
+  for (;;) {
+    ssize_t message_size =
+      *size_rtn != GUESTFS_PROGRESS_FLAG ?
+      *size_rtn : PROGRESS_MESSAGE_SIZE;
+    if (nr >= message_size)
+      break;
+
     rset2 = rset;
     int r = select (max_fd+1, &rset2, NULL, NULL, NULL);
     if (r == -1) {
@@ -450,6 +464,11 @@ guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
         xdr_uint32_t (&xdr, size_rtn);
         xdr_destroy (&xdr);
 
+        /* *size_rtn changed, recalculate message_size */
+        message_size =
+          *size_rtn != GUESTFS_PROGRESS_FLAG ?
+          *size_rtn : PROGRESS_MESSAGE_SIZE;
+
         if (*size_rtn == GUESTFS_LAUNCH_FLAG) {
           if (g->state != LAUNCHING)
             error (g, _("received magic signature from guestfsd, but in state %d"),
@@ -463,6 +482,8 @@ guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
         }
         else if (*size_rtn == GUESTFS_CANCEL_FLAG)
           return 0;
+        else if (*size_rtn == GUESTFS_PROGRESS_FLAG)
+          /*FALLTHROUGH*/;
         /* If this happens, it's pretty bad and we've probably lost
          * synchronization.
          */
@@ -473,11 +494,11 @@ guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
         }
 
         /* Allocate the complete buffer, size now known. */
-        *buf_rtn = safe_malloc (g, *size_rtn);
+        *buf_rtn = safe_malloc (g, message_size);
         /*FALLTHROUGH*/
       }
 
-      size_t sizetoread = *size_rtn - nr;
+      size_t sizetoread = message_size - nr;
       if (sizetoread > BUFSIZ) sizetoread = BUFSIZ;
 
       r = read (g->sock, (char *) (*buf_rtn) + nr, sizetoread);
@@ -523,6 +544,26 @@ guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn)
     }
   }
 #endif
+
+  if (*size_rtn == GUESTFS_PROGRESS_FLAG) {
+    if (g->state == BUSY && g->progress_cb) {
+      guestfs_progress message;
+      XDR xdr;
+      xdrmem_create (&xdr, *buf_rtn, PROGRESS_MESSAGE_SIZE, XDR_DECODE);
+      xdr_guestfs_progress (&xdr, &message);
+      xdr_destroy (&xdr);
+
+      g->progress_cb (g, g->progress_cb_data,
+                      message.proc, message.serial,
+                      message.position, message.total);
+    }
+
+    free (*buf_rtn);
+    *buf_rtn = NULL;
+
+    /* Process next message. */
+    return guestfs___recv_from_daemon (g, size_rtn, buf_rtn);
+  }
 
   return 0;
 }

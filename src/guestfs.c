@@ -645,3 +645,11 @@ guestfs_set_close_callback (guestfs_h *g,
   g->close_cb = cb;
   g->close_cb_data = opaque;
 }
+
+void
+guestfs_set_progress_callback (guestfs_h *g,
+                               guestfs_progress_cb cb, void *opaque)
+{
+  g->progress_cb = cb;
+  g->progress_cb_data = opaque;
+}
