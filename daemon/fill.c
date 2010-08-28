@@ -66,6 +66,7 @@ do_fill (int c, int len, const char *path)
       return -1;
     }
     n += r;
+    notify_progress ((uint64_t) n, (uint64_t) len_sz);
   }
 
   if (close (fd) == -1) {

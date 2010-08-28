@@ -4693,7 +4693,7 @@ partition table), C<gpt> (a GPT/EFI-style partition table).  Other
 values are possible, although unusual.  See C<guestfs_part_init>
 for a full list.");
 
-  ("fill", (RErr, [Int "c"; Int "len"; Pathname "path"]), 215, [],
+  ("fill", (RErr, [Int "c"; Int "len"; Pathname "path"]), 215, [Progress],
    [InitBasicFS, Always, TestOutputBuffer (
       [["fill"; "0x63"; "10"; "/test"];
        ["read_file"; "/test"]], "cccccccccc")],
