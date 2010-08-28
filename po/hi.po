@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master.libguestfs\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-08-27 00:46+0100\n"
+"POT-Creation-Date: 2010-08-28 13:13+0100\n"
 "PO-Revision-Date: 2010-02-16 12:57+0530\n"
 "Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
 "Language-Team: Hindi <Red Hat>\n"
@@ -1334,12 +1334,12 @@ msgstr "%s: अज्ञात कमांड\n"
 msgid "use '%s filename' to edit a file\n"
 msgstr "किसी फाइल के संपादन के लिए '%s filename' का प्रयोग करें\n"
 
-#: fish/fish.c:88 fuse/guestmount.c:879
+#: fish/fish.c:89 fuse/guestmount.c:880
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "अधिक सूचना के लिए `%s --help' आजमाएँ.\n"
 
-#: fish/fish.c:92
+#: fish/fish.c:93
 #, fuzzy, c-format
 msgid ""
 "%s: guest filesystem shell\n"
@@ -1407,61 +1407,61 @@ msgstr ""
 "  -V|--version         Display version and exit\n"
 "For more information,  see the manpage %s(1).\n"
 
-#: fish/fish.c:188 fuse/guestmount.c:976
+#: fish/fish.c:189 fuse/guestmount.c:977
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: नियंत्रण बनाने में विफल\n"
 
-#: fish/fish.c:227
+#: fish/fish.c:228
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
 msgstr "%s: --listen=PID: PID was not a number: %s\n"
 
-#: fish/fish.c:234
+#: fish/fish.c:235
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 msgstr ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 
-#: fish/fish.c:243 fuse/guestmount.c:1021
+#: fish/fish.c:244 fuse/guestmount.c:1022
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: unknown long option: %s (%d)\n"
 
-#: fish/fish.c:300
+#: fish/fish.c:301
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: only one -f parameter can be given\n"
 
-#: fish/fish.c:374
+#: fish/fish.c:378
 #, fuzzy, c-format
 msgid ""
 "%s: cannot use -i option with -a, -m, -N, --listen, --remote or --selinux\n"
 msgstr ""
 "%s: cannot use -i option with -a, -m, --listen, --remote or --selinux\n"
 
-#: fish/fish.c:381
+#: fish/fish.c:385
 #, c-format
 msgid "%s: -i requires a libvirt domain or path(s) to disk image(s)\n"
 msgstr "%s: -i requires a libvirt domain or path(s) to disk image(s)\n"
 
-#: fish/fish.c:498
+#: fish/fish.c:502
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr "%s: cannot use --listen and --remote options at the same time\n"
 
-#: fish/fish.c:506
+#: fish/fish.c:510
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: extra parameters on the command line with --listen flag\n"
 
-#: fish/fish.c:512
+#: fish/fish.c:516
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: cannot use --listen and --file options at the same time\n"
 
-#: fish/fish.c:681
+#: fish/fish.c:685
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -1481,90 +1481,90 @@ msgstr ""
 "      'quit' को शेल को छोड़ने के लिए\n"
 "\n"
 
-#: fish/fish.c:762
+#: fish/fish.c:766
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: unterminated double quote\n"
 
-#: fish/fish.c:768 fish/fish.c:785
+#: fish/fish.c:772 fish/fish.c:789
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: कमांड तर्क खाली स्थान से अलग नहीं\n"
 
-#: fish/fish.c:779
+#: fish/fish.c:783
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: unterminated single quote\n"
 
-#: fish/fish.c:834
+#: fish/fish.c:838
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: internal error parsing string at '%s'\n"
 
-#: fish/fish.c:851
+#: fish/fish.c:855
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: too many arguments\n"
 
-#: fish/fish.c:880
+#: fish/fish.c:884
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: empty command on command line\n"
 
-#: fish/fish.c:1046
+#: fish/fish.c:1050
 msgid "display a list of commands or help on a command"
 msgstr "कमांड पर मदद या कमांड की सूची दिखाएँ"
 
-#: fish/fish.c:1048
+#: fish/fish.c:1052
 msgid "read the manual"
 msgstr ""
 
-#: fish/fish.c:1050
+#: fish/fish.c:1054
 msgid "quit guestfish"
 msgstr "quit guestfish"
 
-#: fish/fish.c:1053
+#: fish/fish.c:1057
 msgid "allocate an image"
 msgstr "छवि आबंटित करें"
 
-#: fish/fish.c:1055
+#: fish/fish.c:1059
 msgid "display a line of text"
 msgstr "पाठ पंक्ति दिखाएँ"
 
-#: fish/fish.c:1057
+#: fish/fish.c:1061
 msgid "edit a file in the image"
 msgstr "छवि में कोई फाइल संपादित करें"
 
-#: fish/fish.c:1059
+#: fish/fish.c:1063
 msgid "local change directory"
 msgstr "स्थानीय परिवर्तन निर्देशिका"
 
-#: fish/fish.c:1061
+#: fish/fish.c:1065
 msgid "expand wildcards in command"
 msgstr "कमांड में कमांड वाइल्डकार्ड"
 
-#: fish/fish.c:1063
+#: fish/fish.c:1067
 msgid "view a file in the pager"
 msgstr "पेजर में फाइल देखें"
 
-#: fish/fish.c:1065
+#: fish/fish.c:1069
 msgid "close and reopen libguestfs handle"
 msgstr "libguestfs नियंत्रण बंद करें और खोलें"
 
-#: fish/fish.c:1067
+#: fish/fish.c:1071
 msgid "allocate a sparse image file"
 msgstr "तनु छवि फाइल आबंटित करें"
 
-#: fish/fish.c:1069
+#: fish/fish.c:1073
 #, fuzzy
 msgid "list supported groups of commands"
 msgstr "कमांड को स्वीकार करने के लिए तैयार है"
 
-#: fish/fish.c:1071
+#: fish/fish.c:1075
 msgid "measure time taken to run command"
 msgstr "कमांड चलाने के लिए लिया गया समय"
 
-#: fish/fish.c:1083
+#: fish/fish.c:1087
 #, c-format
 msgid ""
 "alloc - allocate an image\n"
@@ -1578,7 +1578,7 @@ msgid ""
 "    Size can be specified using standard suffixes, eg. '1M'.\n"
 msgstr ""
 
-#: fish/fish.c:1096
+#: fish/fish.c:1100
 #, c-format
 msgid ""
 "echo - display a line of text\n"
@@ -1591,7 +1591,7 @@ msgstr ""
 "\n"
 "    This echos the parameters to the terminal.\n"
 
-#: fish/fish.c:1105
+#: fish/fish.c:1109
 #, fuzzy, c-format
 msgid ""
 "edit - edit a file in the image\n"
@@ -1622,7 +1622,7 @@ msgstr ""
 "    NOTE: This will not work reliably for large files\n"
 "    (> 2 MB) or binary files containing \\0 bytes.\n"
 
-#: fish/fish.c:1121
+#: fish/fish.c:1125
 #, c-format
 msgid ""
 "lcd - local change directory\n"
@@ -1639,7 +1639,7 @@ msgstr ""
 "    useful if you want to download files to a particular\n"
 "    place.\n"
 
-#: fish/fish.c:1130
+#: fish/fish.c:1134
 #, c-format
 msgid ""
 "glob - expand wildcards in command\n"
@@ -1656,7 +1656,7 @@ msgstr ""
 "    command args.  Note that the command is run repeatedly\n"
 "    once for each expanded argument.\n"
 
-#: fish/fish.c:1140
+#: fish/fish.c:1144
 #, c-format
 msgid ""
 "man - read the manual\n"
@@ -1665,7 +1665,7 @@ msgid ""
 "    Opens the manual page for guestfish.\n"
 msgstr ""
 
-#: fish/fish.c:1147
+#: fish/fish.c:1151
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -1676,7 +1676,7 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:1154
+#: fish/fish.c:1158
 #, c-format
 msgid ""
 "more - view a file in the pager\n"
@@ -1707,7 +1707,7 @@ msgstr ""
 "    NOTE: This will not work reliably for large files\n"
 "    (> 2 MB) or binary files containing \\0 bytes.\n"
 
-#: fish/fish.c:1172
+#: fish/fish.c:1176
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -1716,7 +1716,7 @@ msgstr ""
 "quit - quit guestfish\n"
 "     quit\n"
 
-#: fish/fish.c:1177
+#: fish/fish.c:1181
 #, c-format
 msgid ""
 "reopen - close and reopen the libguestfs handle\n"
@@ -1733,7 +1733,7 @@ msgstr ""
 "this normally, because the handle is closed properly when guestfish\n"
 "exits.  However this is occasionally useful for testing.\n"
 
-#: fish/fish.c:1186
+#: fish/fish.c:1190
 #, fuzzy, c-format
 msgid ""
 "sparse - allocate a sparse image file\n"
@@ -1781,7 +1781,7 @@ msgstr ""
 "    <nn>E or <nn>EB  number of exabytes\n"
 "    <nn>sects        number of 512 byte sectors\n"
 
-#: fish/fish.c:1207
+#: fish/fish.c:1211
 #, c-format
 msgid ""
 "supported - list supported groups of commands\n"
@@ -1794,7 +1794,7 @@ msgid ""
 "    See also guestfs(3) section AVAILABILITY.\n"
 msgstr ""
 
-#: fish/fish.c:1219
+#: fish/fish.c:1223
 #, c-format
 msgid ""
 "time - measure time taken to run command\n"
@@ -1809,12 +1809,12 @@ msgstr ""
 "    This runs <command> as usual, and prints the elapsed\n"
 "    time afterwards.\n"
 
-#: fish/fish.c:1227
+#: fish/fish.c:1231
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s: command not known, use -h to list all commands\n"
 
-#: fish/fish.c:1243
+#: fish/fish.c:1247
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -1822,7 +1822,7 @@ msgid ""
 "For complete documentation:         man guestfish\n"
 msgstr ""
 
-#: fish/fish.c:1400
+#: fish/fish.c:1404
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "स्ट्रिंग में \"%s\" रवअवे उद्धरण\n"
@@ -1969,7 +1969,7 @@ msgstr ""
 msgid "use 'time command [args...]'\n"
 msgstr "use 'time command [args...]'\n"
 
-#: fuse/guestmount.c:883
+#: fuse/guestmount.c:884
 #, c-format
 msgid ""
 "%s: FUSE module for libguestfs\n"
@@ -2010,12 +2010,12 @@ msgstr ""
 "  -v|--verbose         Verbose messages\n"
 "  -V|--version         Display version and exit\n"
 
-#: fuse/guestmount.c:1092
+#: fuse/guestmount.c:1096
 #, c-format
 msgid "%s: must have at least one -a and at least one -m option\n"
 msgstr "%s: must have at least one -a and at least one -m option\n"
 
-#: fuse/guestmount.c:1100
+#: fuse/guestmount.c:1104
 #, c-format
 msgid "%s: you must specify a mountpoint in the host filesystem\n"
 msgstr "%s: तुम्हें मेजबान फाइल सिस्टम में कोई माउंटप्वाइंट को जरूर निर्दिष्ट करना चाहिए\n"
