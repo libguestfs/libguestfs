@@ -53,6 +53,8 @@ extern int read_only;
 extern int quit;
 extern int verbose;
 extern int command_num;
+extern int utf8_mode;
+extern int have_terminfo;
 extern const char *libvirt_uri;
 extern int issue_command (const char *cmd, char *argv[], const char *pipe);
 extern void pod2text (const char *name, const char *shortdesc, const char *body);

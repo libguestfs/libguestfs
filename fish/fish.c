@@ -30,6 +30,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <locale.h>
+#include <langinfo.h>
 #include <termios.h>
 
 #ifdef HAVE_LIBREADLINE
@@ -69,6 +70,7 @@ struct mp {
   char *mountpoint;
 };
 
+static void set_up_terminal (void);
 static char add_drives (struct drv *drv, char next_drive);
 static void prepare_drives (struct drv *drv);
 static void mount_mps (struct mp *mp);
@@ -96,6 +98,8 @@ int command_num = 0;
 int keys_from_stdin = 0;
 const char *libvirt_uri = NULL;
 int inspector = 0;
+int utf8_mode = 0;
+int have_terminfo = 0;
 
 static void __attribute__((noreturn))
 usage (int status)
@@ -158,6 +162,8 @@ main (int argc, char *argv[])
   setlocale (LC_ALL, "");
   bindtextdomain (PACKAGE, LOCALEBASEDIR);
   textdomain (PACKAGE);
+
+  set_up_terminal ();
 
   enum { HELP_OPTION = CHAR_MAX + 1 };
 
@@ -507,6 +513,35 @@ main (int argc, char *argv[])
   cleanup_readline ();
 
   exit (EXIT_SUCCESS);
+}
+
+/* The <term.h> header file which defines this has "issues". */
+extern int tgetent (char *, const char *);
+
+static void
+set_up_terminal (void)
+{
+  /* http://www.cl.cam.ac.uk/~mgk25/unicode.html#activate */
+  utf8_mode = STREQ (nl_langinfo (CODESET), "UTF-8");
+
+  char *term = getenv ("TERM");
+  if (term == NULL) {
+    //fprintf (stderr, _("guestfish: TERM (terminal type) not defined.\n"));
+    return;
+  }
+
+  int r = tgetent (NULL, term);
+  if (r == -1) {
+    fprintf (stderr, _("guestfish: could not access termcap or terminfo database.\n"));
+    return;
+  }
+  if (r == 0) {
+    fprintf (stderr, _("guestfish: terminal type \"%s\" not defined.\n"),
+             term);
+    return;
+  }
+
+  have_terminfo = 1;
 }
 
 void
