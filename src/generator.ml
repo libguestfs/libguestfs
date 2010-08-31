@@ -8930,6 +8930,28 @@ val close : t -> unit
     unreferenced, but callers can call this in order to provide
     predictable cleanup. *)
 
+type progress_cb = int -> int -> int64 -> int64 -> unit
+
+val set_progress_callback : t -> progress_cb -> unit
+(** [set_progress_callback g f] sets [f] as the progress callback function.
+    For some long-running functions, [f] will be called repeatedly
+    during the function with progress updates.
+
+    The callback is [f proc_nr serial position total].  See
+    the description of [guestfs_set_progress_callback] in guestfs(3)
+    for the meaning of these four numbers.
+
+    Note that if the closure captures a reference to the handle,
+    this reference will prevent the handle from being
+    automatically closed by the garbage collector.  There are
+    three ways to avoid this: be careful not to capture the handle
+    in the closure, or use a weak reference, or call
+    {!Guestfs.clear_progress_callback} to remove the reference. *)
+
+val clear_progress_callback : t -> unit
+(** [clear_progress_callback g] removes any progress callback function
+    associated with the handle.  See {!Guestfs.set_progress_callback}. *)
+
 ";
   generate_ocaml_structure_decls ();
 
@@ -8953,6 +8975,13 @@ exception Handle_closed of string
 
 external create : unit -> t = \"ocaml_guestfs_create\"
 external close : t -> unit = \"ocaml_guestfs_close\"
+
+type progress_cb = int -> int -> int64 -> int64 -> unit
+
+external set_progress_callback : t -> progress_cb -> unit
+  = \"ocaml_guestfs_set_progress_callback\"
+external clear_progress_callback : t -> unit
+  = \"ocaml_guestfs_clear_progress_callback\"
 
 (* Give the exceptions names, so they can be raised from the C code. *)
 let () =

@@ -1,5 +1,5 @@
 /* libguestfs
- * Copyright (C) 2009 Red Hat Inc.
+ * Copyright (C) 2009-2010 Red Hat Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -30,8 +30,13 @@
 #include <caml/fail.h>
 #include <caml/memory.h>
 #include <caml/mlvalues.h>
+#include <caml/printexc.h>
+#include <caml/signals.h>
 
 #include "guestfs_c.h"
+
+static void clear_progress_callback (guestfs_h *g);
+static void progress_callback (guestfs_h *g, void *data, int proc_nr, int serial, uint64_t position, uint64_t total);
 
 /* This macro was added in OCaml 3.10.  Backport for earlier versions. */
 #ifndef CAMLreturnT
@@ -45,13 +50,18 @@
 /* These prototypes are solely to quiet gcc warning.  */
 CAMLprim value ocaml_guestfs_create (void);
 CAMLprim value ocaml_guestfs_close (value gv);
+CAMLprim value ocaml_guestfs_set_progress_callback (value gv, value closure);
+CAMLprim value ocaml_guestfs_clear_progress_callback (value gv);
 
 /* Allocate handles and deal with finalization. */
 static void
 guestfs_finalize (value gv)
 {
   guestfs_h *g = Guestfs_val (gv);
-  if (g) guestfs_close (g);
+  if (g) {
+    clear_progress_callback (g);
+    guestfs_close (g);
+  }
 }
 
 static struct custom_operations guestfs_custom_operations = {
@@ -161,4 +171,83 @@ ocaml_guestfs_free_strings (char **argv)
   for (i = 0; argv[i] != NULL; ++i)
     free (argv[i]);
   free (argv);
+}
+
+#define PROGRESS_ROOT_KEY "_ocaml_progress_root"
+
+/* Guestfs.set_progress_callback */
+CAMLprim value
+ocaml_guestfs_set_progress_callback (value gv, value closure)
+{
+  CAMLparam2 (gv, closure);
+
+  guestfs_h *g = Guestfs_val (gv);
+  clear_progress_callback (g);
+
+  value *root = guestfs_safe_malloc (g, sizeof *root);
+  *root = closure;
+
+  /* XXX This global root is generational, but we cannot rely on every
+   * user having the OCaml 3.11 version which supports this.
+   */
+  caml_register_global_root (root);
+
+  guestfs_set_private (g, PROGRESS_ROOT_KEY, root);
+
+  guestfs_set_progress_callback (g, progress_callback, root);
+
+  CAMLreturn (Val_unit);
+}
+
+/* Guestfs.clear_progress_callback */
+CAMLprim value
+ocaml_guestfs_clear_progress_callback (value gv)
+{
+  CAMLparam1 (gv);
+
+  guestfs_h *g = Guestfs_val (gv);
+  clear_progress_callback (g);
+
+  CAMLreturn (Val_unit);
+}
+
+static void
+clear_progress_callback (guestfs_h *g)
+{
+  guestfs_set_progress_callback (g, NULL, NULL);
+
+  value *root = guestfs_get_private (g, PROGRESS_ROOT_KEY);
+  if (root) {
+    caml_remove_global_root (root);
+    free (root);
+    guestfs_set_private (g, PROGRESS_ROOT_KEY, NULL);
+  }
+}
+
+static void
+progress_callback (guestfs_h *g, void *root,
+                   int proc_nr, int serial, uint64_t position, uint64_t total)
+{
+  CAMLparam0 ();
+  CAMLlocal5 (proc_nrv, serialv, positionv, totalv, rv);
+
+  proc_nrv = Val_int (proc_nr);
+  serialv = Val_int (serial);
+  positionv = caml_copy_int64 (position);
+  totalv = caml_copy_int64 (total);
+
+  value args[4] = { proc_nrv, serialv, positionv, totalv };
+
+  caml_leave_blocking_section ();
+  rv = caml_callbackN_exn (*(value*)root, 4, args);
+  caml_enter_blocking_section ();
+
+  /* Callbacks shouldn't throw exceptions.  There's not much we can do
+   * except to print it.
+   */
+  if (Is_exception_result (rv))
+    fprintf (stderr, "libguestfs: uncaught OCaml exception in progress callback: %s",
+             caml_format_exception (Extract_exception (rv)));
+
+  CAMLreturn0;
 }
