@@ -9430,6 +9430,46 @@ XS_unpack_charPtrPtr (SV *arg) {
   return ret;
 }
 
+#define PROGRESS_KEY \"_perl_progress_cb\"
+
+static void
+_clear_progress_callback (guestfs_h *g)
+{
+  guestfs_set_progress_callback (g, NULL, NULL);
+  SV *cb = guestfs_get_private (g, PROGRESS_KEY);
+  if (cb) {
+    guestfs_set_private (g, PROGRESS_KEY, NULL);
+    SvREFCNT_dec (cb);
+  }
+}
+
+/* http://www.perlmonks.org/?node=338857 */
+static void
+_progress_callback (guestfs_h *g, void *cb,
+                    int proc_nr, int serial, uint64_t position, uint64_t total)
+{
+  dSP;
+  ENTER;
+  SAVETMPS;
+  PUSHMARK (SP);
+  XPUSHs (sv_2mortal (newSViv (proc_nr)));
+  XPUSHs (sv_2mortal (newSViv (serial)));
+  XPUSHs (sv_2mortal (my_newSVull (position)));
+  XPUSHs (sv_2mortal (my_newSVull (total)));
+  PUTBACK;
+  call_sv ((SV *) cb, G_VOID | G_DISCARD | G_EVAL);
+  FREETMPS;
+  LEAVE;
+}
+
+static void
+_close_handle (guestfs_h *g)
+{
+  assert (g != NULL);
+  _clear_progress_callback (g);
+  guestfs_close (g);
+}
+
 MODULE = Sys::Guestfs  PACKAGE = Sys::Guestfs
 
 PROTOTYPES: ENABLE
@@ -9457,18 +9497,33 @@ DESTROY (sv)
       SV **svp = hv_fetch (hv, \"_g\", 2, 0);
       if (svp != NULL) {
         guestfs_h *g = (guestfs_h *) SvIV (*svp);
-        assert (g != NULL);
-        guestfs_close (g);
+        _close_handle (g);
       }
 
 void
 close (g)
       guestfs_h *g;
  PPCODE:
-      guestfs_close (g);
+      _close_handle (g);
       /* Avoid double-free in DESTROY method. */
       HV *hv = (HV *) SvRV (ST(0));
       (void) hv_delete (hv, \"_g\", 2, G_DISCARD);
+
+void
+set_progress_callback (g, cb)
+      guestfs_h *g;
+      SV *cb;
+ PPCODE:
+      _clear_progress_callback (g);
+      SvREFCNT_inc (cb);
+      guestfs_set_private (g, PROGRESS_KEY, cb);
+      guestfs_set_progress_callback (g, _progress_callback, cb);
+
+void
+clear_progress_callback (g)
+      guestfs_h *g;
+ PPCODE:
+      _clear_progress_callback (g);
 
 ";
 
@@ -9842,6 +9897,25 @@ really have to have the close happen right away.  After calling
 C<close> the program must not call any method (including C<close>)
 on the handle (but the implicit call to C<DESTROY> that happens
 when the final reference is cleaned up is OK).
+
+=item $h->set_progress_callback (\\&cb);
+
+Set the progress notification callback for this handle
+to the Perl closure C<cb>.
+
+C<cb> will be called whenever a long-running operation
+generates a progress notification message.  The 4 parameters
+to the function are: C<proc_nr>, C<serial>, C<position>
+and C<total>.
+
+You should carefully read the documentation for
+L<guestfs(3)/guestfs_set_progress_callback> before using
+this function.
+
+=item $h->clear_progress_callback ();
+
+This removes any progress callback function associated with
+the handle.
 
 =cut
 
