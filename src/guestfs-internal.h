@@ -132,6 +132,9 @@ struct guestfs_h
    */
   struct inspect_fs *fses;
   size_t nr_fses;
+
+  /* Private data area. */
+  struct hash_table *pda;
 };
 
 /* Per-filesystem data stored for inspect_os. */

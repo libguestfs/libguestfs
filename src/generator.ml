@@ -6890,12 +6890,14 @@ and generate_linker_script () =
     "guestfs_close";
     "guestfs_get_error_handler";
     "guestfs_get_out_of_memory_handler";
+    "guestfs_get_private";
     "guestfs_last_error";
     "guestfs_set_close_callback";
     "guestfs_set_error_handler";
     "guestfs_set_launch_done_callback";
     "guestfs_set_log_message_callback";
     "guestfs_set_out_of_memory_handler";
+    "guestfs_set_private";
     "guestfs_set_progress_callback";
     "guestfs_set_subprocess_quit_callback";
 

@@ -67,6 +67,10 @@ extern void guestfs_set_launch_done_callback (guestfs_h *g, guestfs_launch_done_
 extern void guestfs_set_close_callback (guestfs_h *g, guestfs_close_cb cb, void *opaque);
 extern void guestfs_set_progress_callback (guestfs_h *g, guestfs_progress_cb cb, void *opaque);
 
+/*--- Private data area ---*/
+extern void guestfs_set_private (guestfs_h *g, const char *key, void *data);
+extern void *guestfs_get_private (guestfs_h *g, const char *key);
+
 /*--- Structures and actions ---*/
 #include <rpc/types.h>
 #include <rpc/xdr.h>

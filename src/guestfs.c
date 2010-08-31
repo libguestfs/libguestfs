@@ -34,6 +34,7 @@
 #include <sys/select.h>
 #include <dirent.h>
 #include <signal.h>
+#include <assert.h>
 
 #include <rpc/types.h>
 #include <rpc/xdr.h>
@@ -63,6 +64,8 @@
 
 #include "c-ctype.h"
 #include "glthread/lock.h"
+#include "hash.h"
+#include "hash-pjw.h"
 #include "ignore-value.h"
 
 #include "guestfs.h"
@@ -244,6 +247,8 @@ guestfs_close (guestfs_h *g)
   }
   gl_lock_unlock (handles_lock);
 
+  if (g->pda)
+    hash_free (g->pda);
   free (g->last_error);
   free (g->path);
   free (g->qemu);
@@ -652,4 +657,80 @@ guestfs_set_progress_callback (guestfs_h *g,
 {
   g->progress_cb = cb;
   g->progress_cb_data = opaque;
+}
+
+/* Note the private data area is allocated lazily, since the vast
+ * majority of callers will never use it.  This means g->pda is
+ * likely to be NULL.
+ */
+struct pda_entry {
+  char *key;                    /* key */
+  void *data;                   /* opaque user data pointer */
+};
+
+static size_t
+hasher (void const *x, size_t table_size)
+{
+  struct pda_entry const *p = x;
+  return hash_pjw (p->key, table_size);
+}
+
+static bool
+comparator (void const *x, void const *y)
+{
+  struct pda_entry const *a = x;
+  struct pda_entry const *b = y;
+  return STREQ (a->key, b->key);
+}
+
+static void
+freer (void *x)
+{
+  if (x) {
+    struct pda_entry *p = x;
+    free (p->key);
+    free (p);
+  }
+}
+
+void
+guestfs_set_private (guestfs_h *g, const char *key, void *data)
+{
+  if (g->pda == NULL) {
+    g->pda = hash_initialize (16, NULL, hasher, comparator, freer);
+    if (g->pda == NULL)
+      g->abort_cb ();
+  }
+
+  struct pda_entry *new_entry = safe_malloc (g, sizeof *new_entry);
+  new_entry->key = safe_strdup (g, key);
+  new_entry->data = data;
+
+  struct pda_entry *old_entry = hash_delete (g->pda, new_entry);
+  freer (old_entry);
+
+  struct pda_entry *entry = hash_insert (g->pda, new_entry);
+  if (entry == NULL)
+    g->abort_cb ();
+  assert (entry == new_entry);
+}
+
+static inline char *
+bad_cast (char const *s)
+{
+  return (char *) s;
+}
+
+void *
+guestfs_get_private (guestfs_h *g, const char *key)
+{
+  if (g->pda == NULL)
+    return NULL;                /* no keys have been set */
+
+  const struct pda_entry k = { .key = bad_cast (key) };
+  struct pda_entry *entry = hash_lookup (g->pda, &k);
+  if (entry)
+    return entry->data;
+  else
+    return NULL;
 }

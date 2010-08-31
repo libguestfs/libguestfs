@@ -1236,6 +1236,44 @@ the call.  These are only useful for debugging protocol issues, and
 the callback can normally ignore them.  The callback may want to
 print these numbers in error messages or debugging messages.
 
+=head1 PRIVATE DATA AREA
+
+You can attach named pieces of private data to the libguestfs handle,
+and fetch them by name for the lifetime of the handle.  This is called
+the private data area and is only available from the C API.
+
+To attach a named piece of data, use the following call:
+
+ void guestfs_set_private (guestfs_h *g, const char *key, void *data);
+
+C<key> is the name to associate with this data, and C<data> is an
+arbitrary pointer (which can be C<NULL>).  Any previous item with the
+same name is overwritten.
+
+You can use any C<key> you want, but names beginning with an
+underscore character are reserved for internal libguestfs purposes
+(for implementing language bindings).  It is recommended to prefix the
+name with some unique string to avoid collisions with other users.
+
+To retrieve the pointer, use:
+
+ void *guestfs_get_private (guestfs_h *g, const char *key);
+
+This function returns C<NULL> if either no data is found associated
+with C<key>, or if the user previously set the C<key>'s C<data>
+pointer to C<NULL>.
+
+Libguestfs does not try to look at or interpret the C<data> pointer in
+any way.  As far as libguestfs is concerned, it need not be a valid
+pointer at all.  In particular, libguestfs does I<not> try to free the
+data when the handle is closed.  If the data must be freed, then the
+caller must either free it before calling L</guestfs_close> or must
+set up a close callback to do it (see L</guestfs_set_close_callback>,
+and note that only one callback can be registered for a handle).
+
+The private data area is implemented using a hash table, and should be
+reasonably efficient for moderate numbers of keys.
+
 =head1 BLOCK DEVICE NAMING
 
 In the kernel there is now quite a profusion of schemata for naming
