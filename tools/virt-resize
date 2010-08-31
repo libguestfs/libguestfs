@@ -33,6 +33,8 @@ $Data::Dumper::Sortkeys = 1;
 die __"virt-resize: sorry this program does not work on a 32 bit host\n"
     if ~1 == 4294967294;
 
+$| = 1;
+
 =encoding utf8
 
 =head1 NAME
@@ -583,6 +585,7 @@ sub launch_guestfs
     $g->set_trace (1) if $debug;
     $g->add_drive_ro ($infile);
     $g->add_drive ($outfile);
+    $g->set_progress_callback (\&progress_callback) unless $quiet;
     $g->launch ();
 }
 
@@ -1122,16 +1125,11 @@ sub copy_data
                 }
 
                 if (!$quiet && !$debug) {
-                    local $| = 1;
-                    print __x("Copying {p} ...", p => $part);
+                    print __x("Copying {p} ...\n", p => $part);
                 }
 
                 $g->copy_size ($part, $target,
                                $newsize < $oldsize ? $newsize : $oldsize);
-
-                if (!$quiet && !$debug) {
-                    print " ", __"done", "\n";
-                }
             }
         }
     }
@@ -1328,6 +1326,25 @@ sub canonicalize
         return "/dev/sd$1";
     }
     $_;
+}
+
+# Not as sophisticated as the guestfish progress bar, because
+# I intend to use an external library for this at some point (XXX).
+sub progress_callback
+{
+    my $proc_nr = shift;
+    my $serial = shift;
+    my $position = shift;
+    my $total = shift;
+
+    my $ratio = $position / $total;
+    if ($ratio < 0) { $ratio = 0 }
+    elsif ($ratio > 1) { $ratio = 1 }
+
+    my $dots = int ($ratio * 76);
+
+    print "[", "#"x$dots, "-"x(76-$dots), "]\r";
+    print "\n" if $ratio == 1;
 }
 
 =head1 NOTES
