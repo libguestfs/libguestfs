@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-08-27 22:00+0100\n"
+"POT-Creation-Date: 2010-09-01 17:45+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Héctor Daniel Cabrera <logan@fedoraproject.org>\n"
 "Language-Team: Fedora Spanish <trans-es@lists.fedoraproject.org>\n"
@@ -1444,13 +1444,13 @@ msgstr "%s: comando desconocido\n"
 msgid "use '%s filename' to edit a file\n"
 msgstr "utilice '%s nombre de archivo' para editar un archivo\n"
 
-#: fish/fish.c:104 fuse/guestmount.c:880
+#: fish/fish.c:111 fuse/guestmount.c:880
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Intente con `%s --help' para más información.\n"
 
-#: fish/fish.c:108
-#, c-format
+#: fish/fish.c:115
+#, fuzzy, c-format
 msgid ""
 "%s: guest filesystem shell\n"
 "%s lets you edit virtual machine filesystems\n"
@@ -1480,6 +1480,8 @@ msgid ""
 "  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
 "  -n|--no-sync         Don't autosync\n"
 "  -N|--new type        Create prepared disk (test1.img, ...)\n"
+"  --progress-bars      Enable progress bars even when not interactive\n"
+"  --no-progress-bars   Disable progress bars\n"
 "  --remote[=pid]       Send commands to remote %s\n"
 "  -r|--ro              Mount read-only\n"
 "  --selinux            Enable SELinux support\n"
@@ -1525,17 +1527,17 @@ msgstr ""
 "  -V|--version         Muestra la versión y finaliza\n"
 "Para mayor información, vea la página man %s(1).\n"
 
-#: fish/fish.c:208 fuse/guestmount.c:977
+#: fish/fish.c:221 fuse/guestmount.c:977
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: falló al crear manipulador\n"
 
-#: fish/fish.c:247
+#: fish/fish.c:260
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
 msgstr "%s: --listen=PID: PID no era un número: %s\n"
 
-#: fish/fish.c:254
+#: fish/fish.c:267
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
@@ -1543,41 +1545,51 @@ msgstr ""
 "%s: remote: $GUESTFISH_PID debe estar definido con el PID del proceso "
 "remoto\n"
 
-#: fish/fish.c:265 fuse/guestmount.c:1022
+#: fish/fish.c:282 fuse/guestmount.c:1022
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: opción extensa desconocida: %s (%d)\n"
 
-#: fish/fish.c:331
+#: fish/fish.c:348
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: sólo puede ofrecerse un parámetro -f\n"
 
-#: fish/fish.c:467
+#: fish/fish.c:484
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr ""
 "%s: no es posible utilizar al mismo tiempo las opciones --listen y --remote\n"
 
-#: fish/fish.c:475
+#: fish/fish.c:492
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: parámetros extra de la línea de comando con marca --listen\n"
 
-#: fish/fish.c:481
+#: fish/fish.c:498
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr ""
 "%s no es posible utilizar al mismo tiempo las opciones --listen y --file\n"
 
-#: fish/fish.c:557
+#: fish/fish.c:555
+#, c-format
+msgid "guestfish: could not access termcap or terminfo database.\n"
+msgstr ""
+
+#: fish/fish.c:559
+#, c-format
+msgid "guestfish: terminal type \"%s\" not defined.\n"
+msgstr ""
+
+#: fish/fish.c:612
 #, c-format
 msgid "guestfish: too many drives added on the command line\n"
 msgstr ""
 "guestfish: han sido agregados demasiados dispositivos en la línea de "
 "comando\n"
 
-#: fish/fish.c:689
+#: fish/fish.c:744
 #, c-format
 msgid ""
 "\n"
@@ -1599,90 +1611,90 @@ msgstr ""
 "      'quit' para abandonar la shell\n"
 "\n"
 
-#: fish/fish.c:776
+#: fish/fish.c:831
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: doble cuota no finalizada\n"
 
-#: fish/fish.c:782 fish/fish.c:799
+#: fish/fish.c:837 fish/fish.c:854
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr ""
 "%s: los argumentos del comando no están separados por un espacio en blanco\n"
 
-#: fish/fish.c:793
+#: fish/fish.c:848
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: cuota simple no finalizada\n"
 
-#: fish/fish.c:848
+#: fish/fish.c:903
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: error interno analizando cadena en '%s'\n"
 
-#: fish/fish.c:865
+#: fish/fish.c:920
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: demasiados argumentos\n"
 
-#: fish/fish.c:894
+#: fish/fish.c:949
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: comando vacío en la línea de comando\n"
 
-#: fish/fish.c:1060
+#: fish/fish.c:1117
 msgid "display a list of commands or help on a command"
 msgstr "muestra una lista de comandos o asistencia sobre un comando"
 
-#: fish/fish.c:1062
+#: fish/fish.c:1119
 msgid "read the manual"
 msgstr "leer el manual"
 
-#: fish/fish.c:1064
+#: fish/fish.c:1121
 msgid "quit guestfish"
 msgstr "salir de guestfish"
 
-#: fish/fish.c:1067
+#: fish/fish.c:1124
 msgid "allocate an image"
 msgstr "aloja una imagen"
 
-#: fish/fish.c:1069
+#: fish/fish.c:1126
 msgid "display a line of text"
 msgstr "muestra una línea de texto"
 
-#: fish/fish.c:1071
+#: fish/fish.c:1128
 msgid "edit a file in the image"
 msgstr "edita un archivo en la imagen"
 
-#: fish/fish.c:1073
+#: fish/fish.c:1130
 msgid "local change directory"
 msgstr "modifica directorio local"
 
-#: fish/fish.c:1075
+#: fish/fish.c:1132
 msgid "expand wildcards in command"
 msgstr "expande comodines en un comando"
 
-#: fish/fish.c:1077
+#: fish/fish.c:1134
 msgid "view a file in the pager"
 msgstr "visualiza un archivo en el paginador"
 
-#: fish/fish.c:1079
+#: fish/fish.c:1136
 msgid "close and reopen libguestfs handle"
 msgstr "cierra y vuelve a abrir el manipulador libguestfs"
 
-#: fish/fish.c:1081
+#: fish/fish.c:1138
 msgid "allocate a sparse image file"
 msgstr "aloja una imagen de archivo sparse"
 
-#: fish/fish.c:1083
+#: fish/fish.c:1140
 msgid "list supported groups of commands"
 msgstr "lista el grupo de comandos aceptados"
 
-#: fish/fish.c:1085
+#: fish/fish.c:1142
 msgid "measure time taken to run command"
 msgstr "mide el tiempo requerido para ejecutar un comando"
 
-#: fish/fish.c:1097
+#: fish/fish.c:1154
 #, c-format
 msgid ""
 "alloc - allocate an image\n"
@@ -1706,7 +1718,7 @@ msgstr ""
 "\n"
 "    El tamaño puede indicarse utilizando sufijos estándar, p.ej. '1M'.\n"
 
-#: fish/fish.c:1110
+#: fish/fish.c:1167
 #, c-format
 msgid ""
 "echo - display a line of text\n"
@@ -1719,7 +1731,7 @@ msgstr ""
 "\n"
 "    Esto muestra los parámetros en la terminal.\n"
 
-#: fish/fish.c:1119
+#: fish/fish.c:1176
 #, c-format
 msgid ""
 "edit - edit a file in the image\n"
@@ -1750,7 +1762,7 @@ msgstr ""
 "    NOTA: Esto no funcionará en forma confiable con archivos muy grandes\n"
 "    (> 2 MB) o archivos binarios que tengan \\0 bytes.\n"
 
-#: fish/fish.c:1135
+#: fish/fish.c:1192
 #, c-format
 msgid ""
 "lcd - local change directory\n"
@@ -1766,7 +1778,7 @@ msgstr ""
 "    Modificar el directorio actual de guestfish. Este comando\n"
 "    es útil si desea descargar archivos hacia un lugar en particular.\n"
 
-#: fish/fish.c:1144
+#: fish/fish.c:1201
 #, c-format
 msgid ""
 "glob - expand wildcards in command\n"
@@ -1784,7 +1796,7 @@ msgstr ""
 "reiteradamente\n"
 "    una vez por cada argumento expandido.\n"
 
-#: fish/fish.c:1154
+#: fish/fish.c:1211
 #, c-format
 msgid ""
 "man - read the manual\n"
@@ -1797,7 +1809,7 @@ msgstr ""
 "\n"
 "    Abre la página del manual de guestfish.\n"
 
-#: fish/fish.c:1161
+#: fish/fish.c:1218
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -1808,7 +1820,7 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:1168
+#: fish/fish.c:1225
 #, c-format
 msgid ""
 "more - view a file in the pager\n"
@@ -1840,7 +1852,7 @@ msgstr ""
 "grandes\n"
 "    (> 2 MB) o binarios conteniendo \\0 bytes.\n"
 
-#: fish/fish.c:1186
+#: fish/fish.c:1243
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -1849,7 +1861,7 @@ msgstr ""
 "quit - abandonar guestfish\n"
 "     quit\n"
 
-#: fish/fish.c:1191
+#: fish/fish.c:1248
 #, c-format
 msgid ""
 "reopen - close and reopen the libguestfs handle\n"
@@ -1868,7 +1880,7 @@ msgstr ""
 "finaliza\n"
 "guestfish. Sin embargo, esto es ocasionalmente útil para realizar pruebas.\n"
 
-#: fish/fish.c:1200
+#: fish/fish.c:1257
 #, c-format
 msgid ""
 "sparse - allocate a sparse image file\n"
@@ -1908,7 +1920,7 @@ msgstr ""
 "    El tamaño puede ser especificado utilizando sufijos estándar, p.ej. "
 "'1M'.\n"
 
-#: fish/fish.c:1221
+#: fish/fish.c:1278
 #, c-format
 msgid ""
 "supported - list supported groups of commands\n"
@@ -1929,7 +1941,7 @@ msgstr ""
 "\n"
 "    Consulte también la sección AVAILABILITY de guestfs(3).\n"
 
-#: fish/fish.c:1233
+#: fish/fish.c:1290
 #, c-format
 msgid ""
 "time - measure time taken to run command\n"
@@ -1944,12 +1956,12 @@ msgstr ""
 "   Esto ejecuta <comando> como siempre, e imprime luego el\n"
 "    tiempo transcurrido.\n"
 
-#: fish/fish.c:1241
+#: fish/fish.c:1298
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s comando no conocido, utilice -h para listar todos los comandos\n"
 
-#: fish/fish.c:1257
+#: fish/fish.c:1314
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -1960,12 +1972,12 @@ msgstr ""
 "Para obtener una lista de comandos:             guestfish -h\n"
 "Para obtener la documentación completa:         man guestfish\n"
 
-#: fish/fish.c:1414
+#: fish/fish.c:1471
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "Cuota problemática en la cadena \"%s\"\n"
 
-#: fish/fish.c:1749
+#: fish/fish.c:1806
 #, c-format
 msgid "Enter key or passphrase (\"%s\"): "
 msgstr "Ingrese la llave o la frase de acceso (\"%s\"): "
@@ -2454,12 +2466,12 @@ msgstr ""
 msgid "external command failed: %s"
 msgstr "falló el comando externo: %s"
 
-#: src/guestfs.c:176
+#: src/guestfs.c:179
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: llamado dos veces en la misma manipulación\n"
 
-#: src/guestfs.c:279
+#: src/guestfs.c:284
 #, c-format
 msgid "libguestfs: error: %s\n"
 msgstr "libguestfs: error: %s\n"
@@ -2558,69 +2570,69 @@ msgstr ""
 "check_for_daemon_cancellation_or_eof: se ha leído 0x%x desde el demonio, se "
 "esperaba 0x%x\n"
 
-#: src/proto.c:439 src/proto.c:493
+#: src/proto.c:453 src/proto.c:514
 msgid "unexpected end of file when reading from daemon"
 msgstr "fin no esperado del archivo mientras se leía desde el demonio"
 
-#: src/proto.c:455
+#: src/proto.c:474
 #, c-format
 msgid "received magic signature from guestfsd, but in state %d"
 msgstr ""
 "se ha recibido una identificación mágica desde guestfsd, pero en estado %d"
 
-#: src/proto.c:470
+#: src/proto.c:491
 #, c-format
 msgid "message length (%u) > maximum possible size (%d)"
 msgstr "la longitud del mensaje (%u) > tamaño máximo posible (%d)"
 
-#: src/proto.c:600
+#: src/proto.c:641
 #, c-format
 msgid "guestfs___send: state %d != BUSY"
 msgstr "guestfs___send: estado %d != BUSY"
 
-#: src/proto.c:622
+#: src/proto.c:663
 msgid "xdr_guestfs_message_header failed"
 msgstr "falló xdr_guestfs_message_header"
 
-#: src/proto.c:631
+#: src/proto.c:672
 msgid "dispatch failed to marshal args"
 msgstr "el despacho falló al presentar los argumentos"
 
-#: src/proto.c:761
+#: src/proto.c:802
 #, c-format
 msgid "send_file_chunk: state %d != READY"
 msgstr "send_file_chunk: estado %d != READY"
 
-#: src/proto.c:777
+#: src/proto.c:818
 #, c-format
 msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
 msgstr "falló xdr_guestfs_chunk (buf = %p, buflen = %zu)"
 
-#: src/proto.c:900
+#: src/proto.c:941
 #, c-format
 msgid "%s: error in chunked encoding"
 msgstr "%s: error en codificación fragmentada"
 
-#: src/proto.c:928
+#: src/proto.c:969
 msgid "write to daemon socket"
 msgstr "escribe en el socket del demonio"
 
-#: src/proto.c:951
+#: src/proto.c:992
 msgid "receive_file_data: parse error in reply callback"
 msgstr ""
 "receive_file_data: error de análisis en la respuesta de devolución de llamada"
 
-#: src/proto.c:956
+#: src/proto.c:997
 msgid "receive_file_data: unexpected flag received when reading file chunks"
 msgstr ""
 "receive_file_data: se ha recibido una marca no esperada mientras se leían "
 "porciones del archivo "
 
-#: src/proto.c:964
+#: src/proto.c:1005
 msgid "failed to parse file chunk"
 msgstr "falló al analizar porciones del archivo"
 
-#: src/proto.c:973
+#: src/proto.c:1014
 msgid "file receive cancelled by daemon"
 msgstr "el demonio ha cancelado la recepción del archivo"
 
@@ -2936,12 +2948,12 @@ msgstr ""
 "virt-resize: lo sentimos, pero este programa no funciona en un equipo de 32 "
 "bits\n"
 
-#: tools/virt-resize.pl:526
+#: tools/virt-resize.pl:528
 #, perl-brace-format
 msgid "virt-resize: {file}: does not exist or is not readable\n"
 msgstr "virt-resize: {file}: no existe o es imposible de leer\n"
 
-#: tools/virt-resize.pl:528
+#: tools/virt-resize.pl:530
 #, perl-brace-format
 msgid ""
 "virt-resize: {file}: does not exist or is not writable\n"
@@ -2953,7 +2965,7 @@ msgstr ""
 "Por favor, lea la página man de virt-resize (1) para obtener mayor "
 "información.\n"
 
-#: tools/virt-resize.pl:553 tools/virt-resize.pl:556
+#: tools/virt-resize.pl:555 tools/virt-resize.pl:558
 #, perl-brace-format
 msgid ""
 "virt-resize: {file}: file is too small to be a disk image ({sz} bytes)\n"
@@ -2961,12 +2973,12 @@ msgstr ""
 "virt-resize: {file}: el archivo es demasiado pequeño para ser una imagen de "
 "disco ({sz} bytes)\n"
 
-#: tools/virt-resize.pl:720
+#: tools/virt-resize.pl:723
 #, perl-brace-format
 msgid "virt-resize: no logical volume called {n}\n"
 msgstr "virt-resize: no existe un volúmen lógico denominado {n}\n"
 
-#: tools/virt-resize.pl:740
+#: tools/virt-resize.pl:743
 #, perl-brace-format
 msgid ""
 "{p}: partition not found in the source disk image, when using the '{opt}' "
@@ -2975,7 +2987,7 @@ msgstr ""
 "{p}: al utilizar la opción de línea de comando '{opt}', no ha sido "
 "encontrada la partición en la imagen de disco fuente\n"
 
-#: tools/virt-resize.pl:746
+#: tools/virt-resize.pl:749
 #, perl-brace-format
 msgid ""
 "{p}: partition ignored, you cannot use it in another command line argument\n"
@@ -2983,7 +2995,7 @@ msgstr ""
 "{p}: partición ignorada, no puede utilizarla en ningún otro argumento de "
 "línea de comando\n"
 
-#: tools/virt-resize.pl:750
+#: tools/virt-resize.pl:753
 #, perl-brace-format
 msgid ""
 "{p}: partition deleted, you cannot use it in another command line argument\n"
@@ -2991,27 +3003,27 @@ msgstr ""
 "{p}: partición eliminada, no puede utilizarla en ningún otro argumento de "
 "línea de comando\n"
 
-#: tools/virt-resize.pl:792
+#: tools/virt-resize.pl:795
 #, perl-brace-format
 msgid "{p}: this partition has already been marked for resizing\n"
 msgstr "{p}: esta partición ya ha sido marcada para modificar su tamaño\n"
 
-#: tools/virt-resize.pl:800
+#: tools/virt-resize.pl:803
 #, perl-brace-format
 msgid "{p}: missing size field in {o} option\n"
 msgstr "{p}: falta el campo de tamaño en la opción {o}\n"
 
-#: tools/virt-resize.pl:817
+#: tools/virt-resize.pl:820
 #, perl-brace-format
 msgid "{p}: {f}: cannot parse size field\n"
 msgstr "{p}: {f}: no es posible analizar el tamaño del campo\n"
 
-#: tools/virt-resize.pl:822
+#: tools/virt-resize.pl:825
 #, perl-brace-format
 msgid "{p}: new size is zero or negative\n"
 msgstr "{p}: el nuevo tamañoo es cero o negativo\n"
 
-#: tools/virt-resize.pl:845
+#: tools/virt-resize.pl:848
 #, perl-brace-format
 msgid ""
 "{p}: cannot make this partition smaller because it contains a\n"
@@ -3024,13 +3036,13 @@ msgstr ""
 "contenido que es mayor que el nuevo tamaño solicitado.\n"
 "Primero tiene que reducir dicho contenido, vea virt-resize (1).\n"
 
-#: tools/virt-resize.pl:861
+#: tools/virt-resize.pl:864
 msgid "virt-resize: you cannot use options --expand and --shrink together\n"
 msgstr ""
 "virt-resize: no puede utilizar al mismo tiempo las opciones --expand y --"
 "shrink\n"
 
-#: tools/virt-resize.pl:910
+#: tools/virt-resize.pl:913
 #, perl-brace-format
 msgid ""
 "virt-resize: error: cannot use --expand when there is no surplus space to\n"
@@ -3040,7 +3052,7 @@ msgstr ""
 "excedente para poder expandirse. Necesita incrementar el tamaño\n"
 "del disco de destino, por lo menos en {h}.\n"
 
-#: tools/virt-resize.pl:925
+#: tools/virt-resize.pl:928
 msgid ""
 "virt-resize: error: cannot use --shrink because there is no deficit\n"
 "(see 'deficit' in the virt-resize(1) man page)\n"
@@ -3049,56 +3061,56 @@ msgstr ""
 "déficit\n"
 "(consulte 'deficit' en la página man de virt-resize (1)\n"
 
-#: tools/virt-resize.pl:940
+#: tools/virt-resize.pl:943
 msgid "Summary of changes:\n"
 msgstr "Resumen de modificaciones:\n"
 
-#: tools/virt-resize.pl:944
+#: tools/virt-resize.pl:947
 #, perl-brace-format
 msgid "{p}: partition will be ignored\n"
 msgstr "{p}: la partición será ignorada\n"
 
-#: tools/virt-resize.pl:946
+#: tools/virt-resize.pl:949
 #, perl-brace-format
 msgid "{p}: partition will be deleted\n"
 msgstr "{p}: la partición será eliminada\n"
 
-#: tools/virt-resize.pl:948
+#: tools/virt-resize.pl:951
 #, perl-brace-format
 msgid "{p}: partition will be resized from {oldsize} to {newsize}\n"
 msgstr ""
 "{p}: el tamaño de la partición será modificado de {oldsize} a {newsize}\n"
 
-#: tools/virt-resize.pl:953
+#: tools/virt-resize.pl:956
 #, perl-brace-format
 msgid "{p}: content will be expanded using the '{meth}' method\n"
 msgstr "{p}: el contenido será expandido utilizando el método '{meth}'\n"
 
-#: tools/virt-resize.pl:958
+#: tools/virt-resize.pl:961
 #, perl-brace-format
 msgid "{p}: partition will be left alone\n"
 msgstr "{p}: la partición será dejada intacta\n"
 
-#: tools/virt-resize.pl:963
+#: tools/virt-resize.pl:966
 #, perl-brace-format
 msgid "{n}: LV will be expanded to maximum size\n"
 msgstr "{n} VL será expandido a su tamaño máximo\n"
 
-#: tools/virt-resize.pl:969
+#: tools/virt-resize.pl:972
 #, perl-brace-format
 msgid "{n}: content will be expanded using the '{meth}' method\n"
 msgstr "{n}: el contenido será expandido utilizando el método '{meth}'\n"
 
-#: tools/virt-resize.pl:976
+#: tools/virt-resize.pl:979
 #, perl-brace-format
 msgid "There is a surplus of {spl} bytes ({h}).\n"
 msgstr "Existe un espacio excedente de {spl} bytes ({h}).\n"
 
-#: tools/virt-resize.pl:981
+#: tools/virt-resize.pl:984
 msgid "An extra partition will be created for the surplus.\n"
 msgstr "Una partición extra será creada para el espacio excedente.\n"
 
-#: tools/virt-resize.pl:983
+#: tools/virt-resize.pl:986
 msgid ""
 "The surplus space is not large enough for an extra partition to be created\n"
 "and so it will just be ignored.\n"
@@ -3106,7 +3118,7 @@ msgstr ""
 "El espacio excedente no es lo suficientemente amplio para poder\n"
 "crear una partición extra, y por lo tanto será ignorado.\n"
 
-#: tools/virt-resize.pl:986
+#: tools/virt-resize.pl:989
 msgid ""
 "The surplus space will be ignored.  Run a partitioning program in the guest\n"
 "to partition this extra space if you want.\n"
@@ -3114,7 +3126,7 @@ msgstr ""
 "El espacio excedente sera ignorado. Si lo desea, ejecute un programa\n"
 "de particionamiento en el huésped, para particionar este espacio extra.\n"
 
-#: tools/virt-resize.pl:989
+#: tools/virt-resize.pl:992
 #, perl-brace-format
 msgid ""
 "virt-resize: error: there is a deficit of {def} bytes ({h}).\n"
@@ -3125,20 +3137,16 @@ msgstr ""
 "Necesita incrementar el tamaño del disco de destino al menos\n"
 "con esta cantidad, o modificar los parámetros de su petición.\n"
 
-#: tools/virt-resize.pl:1030
+#: tools/virt-resize.pl:1033
 msgid "virt-resize: source disk does not have a first partition\n"
 msgstr "virt-resize: el disco fuente no posee una partición primera\n"
 
-#: tools/virt-resize.pl:1126
-#, perl-brace-format
-msgid "Copying {p} ..."
+#: tools/virt-resize.pl:1128
+#, fuzzy, perl-brace-format
+msgid "Copying {p} ...\n"
 msgstr "Copiando {p} ..."
 
-#: tools/virt-resize.pl:1133
-msgid "done"
-msgstr "listo"
-
-#: tools/virt-resize.pl:1191 tools/virt-resize.pl:1249
+#: tools/virt-resize.pl:1189 tools/virt-resize.pl:1247
 #, perl-brace-format
 msgid "Expanding {p} using the '{meth}' method\n"
 msgstr "Expandiendo {p} utilizando el método '{meth}'\n"
@@ -3213,6 +3221,9 @@ msgstr ""
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr ""
 "virt-win-reg: {p}: no ha sido posible cargar el archivo de registro: {err}\n"
+
+#~ msgid "done"
+#~ msgstr "listo"
 
 #~ msgid "cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)"
 #~ msgstr ""
