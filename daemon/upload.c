@@ -20,8 +20,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <string.h>
 #include <fcntl.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 #include "../src/guestfs_protocol.h"
 #include "daemon.h"
@@ -98,6 +102,26 @@ do_download (const char *filename)
     return -1;
   }
 
+  /* Calculate the size of the file or device for notification messages. */
+  uint64_t total, sent = 0;
+  if (!is_dev) {
+    struct stat statbuf;
+    if (fstat (fd, &statbuf) == -1) {
+      reply_with_perror ("%s", filename);
+      close (fd);
+      return -1;
+    }
+    total = statbuf.st_size;
+  } else {
+    int64_t size = do_blockdev_getsize64 (filename);
+    if (size == -1) {
+      /* do_blockdev_getsize64 has already sent a reply. */
+      close (fd);
+      return -1;
+    }
+    total = (uint64_t) size;
+  }
+
   /* Now we must send the reply message, before the file contents.  After
    * this there is no opportunity in the protocol to send any error
    * message back.  Instead we can only cancel the transfer.
@@ -109,6 +133,9 @@ do_download (const char *filename)
       close (fd);
       return -1;
     }
+
+    sent += r;
+    notify_progress (sent, total);
   }
 
   if (r == -1) {

@@ -2338,7 +2338,7 @@ C<filename> can also be a named pipe.
 
 See also C<guestfs_download>.");
 
-  ("download", (RErr, [Dev_or_Path "remotefilename"; FileOut "filename"]), 67, [],
+  ("download", (RErr, [Dev_or_Path "remotefilename"; FileOut "filename"]), 67, [Progress],
    [InitBasicFS, Always, TestOutput (
       (* Pick a file from cwd which isn't likely to change. *)
       [["upload"; "../COPYING.LIB"; "/COPYING.LIB"];
