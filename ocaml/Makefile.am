@@ -64,10 +64,12 @@ TESTS_ENVIRONMENT = \
 
 TESTS = run-bindtests \
 	t/guestfs_005_load t/guestfs_010_launch t/guestfs_050_lvcreate \
-	t/guestfs_060_readdir t/guestfs_070_threads
+	t/guestfs_060_readdir t/guestfs_070_threads \
+	t/guestfs_400_progress
 noinst_DATA += bindtests \
 	t/guestfs_005_load t/guestfs_010_launch t/guestfs_050_lvcreate \
-	t/guestfs_060_readdir t/guestfs_070_threads
+	t/guestfs_060_readdir t/guestfs_070_threads \
+	t/guestfs_400_progress
 
 bindtests: bindtests.cmx mlguestfs.cmxa
 	mkdir -p t
@@ -92,6 +94,10 @@ t/guestfs_060_readdir: t/guestfs_060_readdir.cmx mlguestfs.cmxa
 t/guestfs_070_threads: t/guestfs_070_threads.cmx mlguestfs.cmxa
 	mkdir -p t
 	$(OCAMLFIND) ocamlopt -cclib -L$(top_builddir)/src/.libs -I . -package unix,threads -thread -linkpkg mlguestfs.cmxa $< -o $@
+
+t/guestfs_400_progress: t/guestfs_400_progress.cmx mlguestfs.cmxa
+	mkdir -p t
+	$(OCAMLFIND) ocamlopt -cclib -L$(top_builddir)/src/.libs -I . -package xml-light,unix -linkpkg mlguestfs.cmxa $< -o $@
 
 # Need to rebuild the tests from source if the main library has
 # changed at all, otherwise we get inconsistent assumptions.
