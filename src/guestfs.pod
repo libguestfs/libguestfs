@@ -716,11 +716,11 @@ largest number of results.
 =head2 guestfs_set_error_handler
 
  typedef void (*guestfs_error_handler_cb) (guestfs_h *g,
-                                           void *data,
+                                           void *opaque,
                                            const char *msg);
  void guestfs_set_error_handler (guestfs_h *g,
                                  guestfs_error_handler_cb cb,
-                                 void *data);
+                                 void *opaque);
 
 The callback C<cb> will be called if there is an error.  The
 parameters passed to the callback are an opaque data pointer and the
@@ -737,7 +737,7 @@ If you set C<cb> to C<NULL> then I<no> handler is called.
 =head2 guestfs_get_error_handler
 
  guestfs_error_handler_cb guestfs_get_error_handler (guestfs_h *g,
-                                                     void **data_rtn);
+                                                     void **opaque_rtn);
 
 Returns the current error handler callback.
 
