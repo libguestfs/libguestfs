@@ -1,5 +1,5 @@
 # libguestfs-daemon
-# Copyright (C) 2009 Red Hat Inc.
+# Copyright (C) 2009-2010 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -30,12 +30,6 @@ AC_ARG_ENABLE([32bit],
   [AS_HELP_STRING([--enable-32bit], [build 32 bit binaries (gcc -m32)])],
   [export CC="gcc -m32"],
   [enable_32bit=no])
-
-dnl Enable 'debug' command.
-AC_ARG_ENABLE([debug-command],
-  [AS_HELP_STRING([--enable-debug-command], [enable the 'debug' command])],
-  [AC_DEFINE_UNQUOTED([ENABLE_DEBUG_COMMAND],[1],[Enable the 'debug' command])],
-  [])
 
 dnl Enable packet dumps when in verbose mode.  This generates lots
 dnl of debug info, only useful for people debugging the RPC mechanism.

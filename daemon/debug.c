@@ -38,9 +38,13 @@
  * to find out what you can do.
  *
  * Commands always output a freeform string.
+ *
+ * Since libguestfs 1.5.7, the debug command has been enabled
+ * by default for all builds (previously you had to enable it
+ * in configure).  This command is not part of the stable ABI
+ * and may change at any time.
  */
 
-#if ENABLE_DEBUG_COMMAND
 struct cmd {
   const char *cmd;
   char * (*f) (const char *subcmd, int argc, char *const *const argv);
@@ -66,18 +70,10 @@ static struct cmd cmds[] = {
   { "sh", debug_sh },
   { NULL, NULL }
 };
-#endif
-
-#if ! ENABLE_DEBUG_COMMAND
-# define MAYBE_UNUSED ATTRIBUTE_UNUSED
-#else
-# define MAYBE_UNUSED /* empty */
-#endif
 
 char *
-do_debug (const char *subcmd MAYBE_UNUSED, char *const *argv MAYBE_UNUSED)
+do_debug (const char *subcmd, char *const *argv)
 {
-#if ENABLE_DEBUG_COMMAND
   int argc, i;
 
   for (i = argc = 0; argv[i] != NULL; ++i)
@@ -90,13 +86,8 @@ do_debug (const char *subcmd MAYBE_UNUSED, char *const *argv MAYBE_UNUSED)
 
   reply_with_error ("use 'debug help' to list the supported commands");
   return NULL;
-#else
-  reply_with_error ("guestfsd was not configured with --enable-debug-command");
-  return NULL;
-#endif
 }
 
-#if ENABLE_DEBUG_COMMAND
 static char *
 debug_help (const char *subcmd, int argc, char *const *const argv)
 {
@@ -391,22 +382,17 @@ debug_core_pattern (const char *subcmd, int argc, char *const *const argv)
   return ret;
 }
 
-#endif /* ENABLE_DEBUG_COMMAND */
-
-#if ENABLE_DEBUG_COMMAND
 static int
 write_cb (void *fd_ptr, const void *buf, size_t len)
 {
   int fd = *(int *)fd_ptr;
   return xwrite (fd, buf, len);
 }
-#endif
 
 /* Has one FileIn parameter. */
 int
-do_debug_upload (const char *filename MAYBE_UNUSED, int mode MAYBE_UNUSED)
+do_debug_upload (const char *filename, int mode)
 {
-#if ENABLE_DEBUG_COMMAND
   /* Not chrooted - this command lets you upload a file to anywhere
    * in the appliance.
    */
@@ -445,8 +431,4 @@ do_debug_upload (const char *filename MAYBE_UNUSED, int mode MAYBE_UNUSED)
   }
 
   return 0;
-#else
-  reply_with_error ("guestfsd was not configured with --enable-debug-command");
-  return NULL;
-#endif
 }
