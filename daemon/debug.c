@@ -51,13 +51,13 @@ struct cmd {
 };
 
 static char *debug_help (const char *subcmd, int argc, char *const *const argv);
+static char *debug_core_pattern (const char *subcmd, int argc, char *const *const argv);
 static char *debug_env (const char *subcmd, int argc, char *const *const argv);
 static char *debug_fds (const char *subcmd, int argc, char *const *const argv);
 static char *debug_ls (const char *subcmd, int argc, char *const *const argv);
 static char *debug_ll (const char *subcmd, int argc, char *const *const argv);
 static char *debug_segv (const char *subcmd, int argc, char *const *const argv);
 static char *debug_sh (const char *subcmd, int argc, char *const *const argv);
-static char *debug_core_pattern (const char *subcmd, int argc, char *const *const argv);
 
 static struct cmd cmds[] = {
   { "help", debug_help },
