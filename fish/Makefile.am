@@ -52,6 +52,7 @@ guestfish_SOURCES = \
 	progress.c \
 	rc.c \
 	reopen.c \
+	rmsd.h \
 	supported.c \
 	tilde.c \
 	time.c \
