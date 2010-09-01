@@ -56,6 +56,7 @@ static char *debug_env (const char *subcmd, int argc, char *const *const argv);
 static char *debug_fds (const char *subcmd, int argc, char *const *const argv);
 static char *debug_ls (const char *subcmd, int argc, char *const *const argv);
 static char *debug_ll (const char *subcmd, int argc, char *const *const argv);
+static char *debug_progress (const char *subcmd, int argc, char *const *const argv);
 static char *debug_segv (const char *subcmd, int argc, char *const *const argv);
 static char *debug_sh (const char *subcmd, int argc, char *const *const argv);
 
@@ -66,6 +67,7 @@ static struct cmd cmds[] = {
   { "fds", debug_fds },
   { "ls", debug_ls },
   { "ll", debug_ll },
+  { "progress", debug_progress },
   { "segv", debug_segv },
   { "sh", debug_sh },
   { NULL, NULL }
@@ -330,6 +332,37 @@ debug_ll (const char *subcmd, int argc, char *const *const argv)
   free (err);
 
   return out;
+}
+
+/* Generate progress notification messages in order to test progress bars. */
+static char *
+debug_progress (const char *subcmd, int argc, char *const *const argv)
+{
+  if (argc < 1) {
+  error:
+    reply_with_error ("progress: expecting arg (time in seconds as string)");
+    return NULL;
+  }
+
+  char *secs_str = argv[0];
+  unsigned secs;
+  if (sscanf (secs_str, "%u", &secs) != 1 || secs == 0)
+    goto error;
+
+  unsigned i;
+  unsigned tsecs = secs * 10;   /* 1/10ths of seconds */
+  for (i = 1; i <= tsecs; ++i) {
+    usleep (100000);
+    notify_progress ((uint64_t) i, (uint64_t) tsecs);
+  }
+
+  char *ret = strdup ("ok");
+  if (ret == NULL) {
+    reply_with_perror ("strdup");
+    return NULL;
+  }
+
+  return ret;
 }
 
 /* Enable core dumping to the given core pattern.
