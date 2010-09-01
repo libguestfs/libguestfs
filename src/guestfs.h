@@ -43,20 +43,20 @@ extern void guestfs_close (guestfs_h *g);
 /*--- Error handling ---*/
 extern const char *guestfs_last_error (guestfs_h *g);
 
-typedef void (*guestfs_error_handler_cb) (guestfs_h *g, void *data, const char *msg);
+typedef void (*guestfs_error_handler_cb) (guestfs_h *g, void *opaque, const char *msg);
 typedef void (*guestfs_abort_cb) (void) __attribute__((__noreturn__));
 
-extern void guestfs_set_error_handler (guestfs_h *g, guestfs_error_handler_cb cb, void *data);
-extern guestfs_error_handler_cb guestfs_get_error_handler (guestfs_h *g, void **data_rtn);
+extern void guestfs_set_error_handler (guestfs_h *g, guestfs_error_handler_cb cb, void *opaque);
+extern guestfs_error_handler_cb guestfs_get_error_handler (guestfs_h *g, void **opaque_rtn);
 
 extern void guestfs_set_out_of_memory_handler (guestfs_h *g, guestfs_abort_cb);
 extern guestfs_abort_cb guestfs_get_out_of_memory_handler (guestfs_h *g);
 
 /*--- Events ---*/
-typedef void (*guestfs_log_message_cb) (guestfs_h *g, void *data, char *buf, int len);
-typedef void (*guestfs_subprocess_quit_cb) (guestfs_h *g, void *data);
-typedef void (*guestfs_launch_done_cb) (guestfs_h *g, void *data);
-typedef void (*guestfs_close_cb) (guestfs_h *g, void *data);
+typedef void (*guestfs_log_message_cb) (guestfs_h *g, void *opaque, char *buf, int len);
+typedef void (*guestfs_subprocess_quit_cb) (guestfs_h *g, void *opaque);
+typedef void (*guestfs_launch_done_cb) (guestfs_h *g, void *opaque);
+typedef void (*guestfs_close_cb) (guestfs_h *g, void *opaque);
 
 extern void guestfs_set_log_message_callback (guestfs_h *g, guestfs_log_message_cb cb, void *opaque);
 extern void guestfs_set_subprocess_quit_callback (guestfs_h *g, guestfs_subprocess_quit_cb cb, void *opaque);
