@@ -116,7 +116,13 @@ ocaml/
         OCaml bindings.
 
 po/
-        Translations.
+        Translations of simple gettext strings.  For translations of
+        longer documents, see po-docs/.
+
+po-docs/
+        The build infrastructure and PO files for translations of
+        manpages and POD files.  Eventually this will be combined
+        with the po/ directory, but that is rather complicated.
 
 perl/
         Perl bindings.

@@ -768,6 +768,10 @@ AM_CONDITIONAL([HAVE_INSPECTOR],
 AM_CONDITIONAL([HAVE_TOOLS],
     [test "x$PERL" != "xno" -a "x$missing_perl_modules" != "xyes"])
 
+dnl po4a for translating man pages and POD files (optional).
+AC_CHECK_PROG([PO4A],[po4a],[po4a],[no])
+AM_CONDITIONAL([HAVE_PO4A], [test "x$PO4A" != "xno"])
+
 dnl Library versioning.
 MAX_PROC_NR=`cat $srcdir/src/MAX_PROC_NR`
 AC_SUBST(MAX_PROC_NR)
@@ -802,6 +806,8 @@ AC_CONFIG_FILES([Makefile
                  gnulib/lib/Makefile
                  gnulib/tests/Makefile
                  fuse/Makefile
+                 po-docs/Makefile
+                 po-docs/ja/Makefile
                  ocaml/META perl/Makefile.PL])
 AC_OUTPUT
 

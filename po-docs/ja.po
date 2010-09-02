@@ -1,0 +1,28 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
+"POT-Creation-Date: 2010-09-02 14:43+0200\n"
+"PO-Revision-Date: 2010-09-02 14:46+0100\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+# type: =head1
+#: ../src/guestfs.pod:3 ../fish/guestfish.pod:3
+#: ../test-tool/libguestfs-test-tool.pod:3 ../fuse/guestmount.pod:3
+#: ../inspector/virt-inspector.pl:38 ../tools/virt-cat.pl:32
+#: ../tools/virt-df.pl:34 ../tools/virt-edit.pl:33
+#: ../tools/virt-list-filesystems.pl:30 ../tools/virt-list-partitions.pl:30
+#: ../tools/virt-ls.pl:33 ../tools/virt-make-fs.pl:35
+#: ../tools/virt-rescue.pl:31 ../tools/virt-resize.pl:40
+#: ../tools/virt-tar.pl:32 ../tools/virt-win-reg.pl:36
+msgid "NAME"
+msgstr "名前"

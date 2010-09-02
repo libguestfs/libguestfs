@@ -197,6 +197,11 @@ po/en@quot.header
 po/insert-header.sin
 po/quot.sed
 po/remove-potcdate.sin
+po-docs/po4a.conf
+po-docs/*/*.pl
+po-docs/*/*.pod
+po-docs/*/*.1
+po-docs/*/*.3
 python/bindtests.py
 python/guestfs.py
 python/guestfs-py.c

@@ -20,7 +20,7 @@ include $(top_srcdir)/subdir-rules.mk
 ACLOCAL_AMFLAGS = -I m4
 
 # Basic source for the library.
-SUBDIRS = gnulib/lib images src examples po
+SUBDIRS = gnulib/lib images src examples po po-docs
 
 if ENABLE_DAEMON
 SUBDIRS += daemon
@@ -181,6 +181,7 @@ all-local:
 	grep -v '/guestfs_protocol.c' | \
 	grep -v '/rc_protocol.c' | \
 	grep -v 'appliance/debian/root' | \
+	grep -v '^po-docs/' | \
 	LC_ALL=C sort | \
 	sed 's,^\./,,' > po/POTFILES.in
 

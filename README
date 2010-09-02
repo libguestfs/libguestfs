@@ -94,6 +94,8 @@ in virt-inspector).
 
 - (Optional, but highly recommended) perl-libintl for translating perl code.
 
+- (Optional) po4a for translating manpages and POD files.
+
 Running ./configure will check you have all the requirements installed
 on your machine.
 
