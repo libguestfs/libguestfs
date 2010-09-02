@@ -1,0 +1,3129 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Red Hat Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# Geert Warrink <geert.warrink@onsnet.nu>, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: libguestfs 1.5.4\n"
+"Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?component=li"
+"bguestfs&product=Virtualization+Tools\n"
+"POT-Creation-Date: 2010-08-24 13:09+0100\n"
+"PO-Revision-Date: 2010-09-02 15:28+0200\n"
+"Last-Translator: Geert Warrink <geert.warrink@onsnet.nu>\n"
+"Language-Team: Fedora\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Virtaal 0.6.1\n"
+
+#: fish/alloc.c:37
+#, c-format
+msgid "use 'alloc file size' to create an image\n"
+msgstr "gebruik 'alloc file size' om een image aan te maken\n"
+
+#: fish/alloc.c:51
+#, c-format
+msgid "use 'sparse file size' to create a sparse image\n"
+msgstr "gebruik 'sparse file size' om een sparse image aan te maken\n"
+
+#: fish/alloc.c:77
+#, c-format
+msgid "can't allocate or add disks after launching\n"
+msgstr "kan schijven niet toewijzen of toevoegen na het starten\n"
+
+#: fish/alloc.c:156
+#, c-format
+msgid "%s: invalid integer parameter (%s returned %d)\n"
+msgstr "%s: ongeldige integer parameter (%s gaf %d terug)\n"
+
+#: fish/cmds.c:41
+msgid "Command"
+msgstr "Commando"
+
+#: fish/cmds.c:41
+msgid "Description"
+msgstr "Beschrijving"
+
+#: fish/cmds.c:43 fish/cmds.c:377
+msgid "add a CD-ROM disk image to examine"
+msgstr "voeg een CD-ROM schijf image toe voor onderzoek"
+
+#: fish/cmds.c:44 fish/cmds.c:372
+msgid "add an image to examine or modify"
+msgstr "voeg een image toe voor onderzoek of te veranderen"
+
+#: fish/cmds.c:45 fish/cmds.c:382
+msgid "add a drive in snapshot mode (read-only)"
+msgstr "voeg een station toe in snapshot mode (alleen-lezen)"
+
+#: fish/cmds.c:46 fish/cmds.c:532
+msgid "add a drive read-only specifying the QEMU block emulation to use"
+msgstr ""
+"voeg een station alleen-lezen toe met het specificeren van de te gebruiken "
+"QEMU blok emulatie"
+
+#: fish/cmds.c:47 fish/cmds.c:527
+msgid "add a drive specifying the QEMU block emulation to use"
+msgstr ""
+"voeg een station toe met het specificeren van de te gebruiken QEMU blok "
+"emulatie"
+
+#: fish/cmds.c:48 fish/cmds.c:1787
+msgid "clear Augeas path"
+msgstr "Augeas pad opschonen"
+
+#: fish/cmds.c:49 fish/cmds.c:677
+msgid "close the current Augeas handle"
+msgstr "sluit de huidige Augeas hendel"
+
+#: fish/cmds.c:50 fish/cmds.c:687
+msgid "define an Augeas node"
+msgstr "definieer een Augeas node"
+
+#: fish/cmds.c:51 fish/cmds.c:682
+msgid "define an Augeas variable"
+msgstr "definieer een Augeas variabele"
+
+#: fish/cmds.c:52 fish/cmds.c:692
+msgid "look up the value of an Augeas path"
+msgstr "zoek de waarde op van een Augeas pad"
+
+#: fish/cmds.c:53 fish/cmds.c:672
+msgid "create a new Augeas handle"
+msgstr "maak een nieuwe Augeas hendel aan"
+
+#: fish/cmds.c:54 fish/cmds.c:702
+msgid "insert a sibling Augeas node"
+msgstr "voeg in broer Augeas node in"
+
+#: fish/cmds.c:55 fish/cmds.c:727
+msgid "load files into the tree"
+msgstr "laad bestanden in de boom"
+
+#: fish/cmds.c:56 fish/cmds.c:732
+msgid "list Augeas nodes under augpath"
+msgstr "laat Augeas nodes onder augpath zien"
+
+#: fish/cmds.c:57 fish/cmds.c:717
+msgid "return Augeas nodes which match augpath"
+msgstr "geef Augeas nodes terug die overeenkomen met augpath"
+
+#: fish/cmds.c:58 fish/cmds.c:712
+msgid "move Augeas node"
+msgstr "verplaats Augeas node"
+
+#: fish/cmds.c:59 fish/cmds.c:707
+msgid "remove an Augeas path"
+msgstr "verwijder een Augeas pad"
+
+#: fish/cmds.c:60 fish/cmds.c:722
+msgid "write all pending Augeas changes to disk"
+msgstr "schrijf alle wachtende Augeas veranderingen naar schijf"
+
+#: fish/cmds.c:61 fish/cmds.c:697
+msgid "set Augeas path to value"
+msgstr "stel Augeas pad in op waarde"
+
+#: fish/cmds.c:62 fish/cmds.c:1672
+msgid "test availability of some parts of the API"
+msgstr "testen beschikbaarheid van bepaalde onderdelen van de API"
+
+#: fish/cmds.c:63 fish/cmds.c:1847
+msgid "return a list of all optional groups"
+msgstr "geeft een lijst terug van alle optionele groepen"
+
+#: fish/cmds.c:64 fish/cmds.c:1802
+msgid "upload base64-encoded data to file"
+msgstr "base64-gecodeerde data uploaden naar bestand"
+
+#: fish/cmds.c:65 fish/cmds.c:1807
+msgid "download file and encode as base64"
+msgstr "download bestand en codeer deze als base64"
+
+#: fish/cmds.c:66 fish/cmds.c:912
+msgid "flush device buffers"
+msgstr "maak apparaat buffers leeg"
+
+#: fish/cmds.c:67 fish/cmds.c:892
+msgid "get blocksize of block device"
+msgstr "verkrijg blok grootte van blok apparaat"
+
+#: fish/cmds.c:68 fish/cmds.c:882
+msgid "is block device set to read-only"
+msgstr "blok apparaat ingesteld op alleen-lezen"
+
+#: fish/cmds.c:69 fish/cmds.c:907
+msgid "get total size of device in bytes"
+msgstr "verkrijgen van totale grootte van apparaat in bytes"
+
+#: fish/cmds.c:70 fish/cmds.c:887
+msgid "get sectorsize of block device"
+msgstr "verkrijg sector grootte van blok apparaat"
+
+#: fish/cmds.c:71 fish/cmds.c:902
+msgid "get total size of device in 512-byte sectors"
+msgstr "verkrijg totale grootte van apparaat in 512-byte sectoren"
+
+#: fish/cmds.c:72 fish/cmds.c:917
+msgid "reread partition table"
+msgstr "herlees partitie tabel"
+
+#: fish/cmds.c:73 fish/cmds.c:897
+msgid "set blocksize of block device"
+msgstr "stel blok grootte van blok apparaat in"
+
+#: fish/cmds.c:74 fish/cmds.c:872
+msgid "set block device to read-only"
+msgstr "blok apparaat instellen op alleen-lezen"
+
+#: fish/cmds.c:75 fish/cmds.c:877
+msgid "set block device to read-write"
+msgstr "blok apparaat instellen op lezen-schrijven"
+
+#: fish/cmds.c:76 fish/cmds.c:1577
+msgid "return true path on case-insensitive filesystem"
+msgstr "geef echte pad terug voor hoofdletter-ongevoelige bestandssystemen"
+
+#: fish/cmds.c:77 fish/cmds.c:612
+msgid "list the contents of a file"
+msgstr "laat de inhoud van een bestand zien"
+
+#: fish/cmds.c:78 fish/cmds.c:932
+msgid "compute MD5, SHAx or CRC checksum of file"
+msgstr "Bereken MD5, SHAx of CRC checksum van bestand"
+
+#: fish/cmds.c:79 fish/cmds.c:1777
+msgid "compute MD5, SHAx or CRC checksum of the contents of a device"
+msgstr "Bereken MD5, SHAx of CRC checksum van de inhoud van een apparaat"
+
+#: fish/cmds.c:80 fish/cmds.c:1812
+msgid "compute MD5, SHAx or CRC checksum of files in a directory"
+msgstr "Bereken MD5, SHAx of CRC checksum van bestanden in een map"
+
+#: fish/cmds.c:81 fish/cmds.c:762
+msgid "change file mode"
+msgstr "verander bestand mode"
+
+#: fish/cmds.c:82 fish/cmds.c:169 fish/cmds.c:767 fish/cmds.c:1607
+msgid "change file owner and group"
+msgstr "verander bestand eigenaar en groep"
+
+#: fish/cmds.c:83 fish/cmds.c:842
+msgid "run a command from the guest filesystem"
+msgstr "voer een commando uit in het gast bestandssysteem"
+
+#: fish/cmds.c:84 fish/cmds.c:847
+msgid "run a command, returning lines"
+msgstr "voer een opdracht uit, regels worden teruggegeven"
+
+#: fish/cmds.c:85 fish/cmds.c:387
+msgid "add qemu parameters"
+msgstr "voeg qemu parameters toe"
+
+#: fish/cmds.c:86 fish/cmds.c:1727
+msgid "copy size bytes from source to destination using dd"
+msgstr "kopieer grootte bits van bron naar bestemming met dd"
+
+#: fish/cmds.c:87 fish/cmds.c:1027
+msgid "copy a file"
+msgstr "kopieer een bestand"
+
+#: fish/cmds.c:88 fish/cmds.c:1032
+msgid "copy a file or directory recursively"
+msgstr "kopieer een bestand of map recursief"
+
+#: fish/cmds.c:89 fish/cmds.c:1677
+msgid "copy from source to destination using dd"
+msgstr "kopieer van bron naar bestemming met dd"
+
+#: fish/cmds.c:90 fish/cmds.c:972
+msgid "debugging and internals"
+msgstr "debug en interne"
+
+#: fish/cmds.c:91 fish/cmds.c:1797
+msgid "upload a file to the appliance (internal use only)"
+msgstr "upload een bestand naar het toestel (alleen voor intern gebruik)"
+
+#: fish/cmds.c:92 fish/cmds.c:1217
+msgid "report file system disk space usage"
+msgstr "rapporteer bestandssysteem schijfruimte gebruik"
+
+#: fish/cmds.c:93 fish/cmds.c:1222
+msgid "report file system disk space usage (human readable)"
+msgstr "rapporteer bestandssysteem schijfruimte gebruik (leesbaar)"
+
+#: fish/cmds.c:94 fish/cmds.c:1047
+msgid "return kernel messages"
+msgstr "geef kernel boodschappen terug"
+
+#: fish/cmds.c:95 fish/cmds.c:927
+msgid "download a file to the local machine"
+msgstr "download een bestand naar de lokale machine"
+
+#: fish/cmds.c:96 fish/cmds.c:1042
+msgid "drop kernel page cache, dentries and inodes"
+msgstr "laag kernel pagina cache, dentries en inodes weg"
+
+#: fish/cmds.c:97 fish/cmds.c:1227
+msgid "estimate file space usage"
+msgstr "schat bestand ruimte gebruik"
+
+#: fish/cmds.c:98 fish/cmds.c:1132
+msgid "check an ext2/ext3 filesystem"
+msgstr "controleer een ext2/ext3 bestandssysteem"
+
+#: fish/cmds.c:99 fish/cmds.c:1567
+msgid "echo arguments back to the client"
+msgstr "echo argumenten terug naar de cliënt"
+
+#: fish/cmds.c:100 fish/cmds.c:101 fish/cmds.c:106 fish/cmds.c:107
+#: fish/cmds.c:137 fish/cmds.c:138 fish/cmds.c:346 fish/cmds.c:347
+#: fish/cmds.c:351 fish/cmds.c:352 fish/cmds.c:354 fish/cmds.c:355
+#: fish/cmds.c:1347 fish/cmds.c:1352 fish/cmds.c:1357 fish/cmds.c:1362
+#: fish/cmds.c:1367 fish/cmds.c:1372 fish/cmds.c:1377 fish/cmds.c:1382
+#: fish/cmds.c:1387 fish/cmds.c:1392 fish/cmds.c:1397 fish/cmds.c:1402
+msgid "return lines matching a pattern"
+msgstr "geef regels terug die overeenkomen met een patroon"
+
+#: fish/cmds.c:102 fish/cmds.c:1057
+msgid "test if two files have equal contents"
+msgstr "test of twee bestanden dezelfde inhoud hebben"
+
+#: fish/cmds.c:103 fish/cmds.c:772
+msgid "test if file or directory exists"
+msgstr "test of bestand of map bestaat"
+
+#: fish/cmds.c:104 fish/cmds.c:105 fish/cmds.c:1437 fish/cmds.c:1852
+msgid "preallocate a file in the guest filesystem"
+msgstr "pre-allocate een bestand in het gast bestandssysteem "
+
+#: fish/cmds.c:108 fish/cmds.c:837
+msgid "determine file type"
+msgstr "bepaal bestand type"
+
+#: fish/cmds.c:109 fish/cmds.c:537
+msgid "detect the architecture of a binary file"
+msgstr "detecteer de architectuur van een binair bestand"
+
+#: fish/cmds.c:110 fish/cmds.c:1682
+msgid "return the size of the file in bytes"
+msgstr "geef de grootte van het bestand terug in bytes"
+
+#: fish/cmds.c:111 fish/cmds.c:1667
+msgid "fill a file with octets"
+msgstr "vul een bestand met octetten"
+
+#: fish/cmds.c:112 fish/cmds.c:1817
+msgid "fill a file with a repeating pattern of bytes"
+msgstr "vul een bestand met een herhalend patroon van bytes"
+
+#: fish/cmds.c:113 fish/cmds.c:1127
+msgid "find all files and directories"
+msgstr "zoek alle bestanden en mappen op"
+
+#: fish/cmds.c:114 fish/cmds.c:1572
+msgid "find all files and directories, returning NUL-separated list"
+msgstr ""
+"zoek alle bestanden en mappen op, geef een door NUL gescheiden lijst terug"
+
+#: fish/cmds.c:115 fish/cmds.c:1922
+msgid "find a filesystem by label"
+msgstr "zoek een bestandssysteem op volgens label"
+
+#: fish/cmds.c:116 fish/cmds.c:1917
+msgid "find a filesystem by UUID"
+msgstr "zoek een bestandssysteem op volgens UUID"
+
+#: fish/cmds.c:117 fish/cmds.c:1012
+msgid "run the filesystem checker"
+msgstr "voer de bestandssysteem checker uit"
+
+#: fish/cmds.c:118 fish/cmds.c:417
+msgid "get the additional kernel options"
+msgstr "verkrijg de extra kernel opties"
+
+#: fish/cmds.c:119 fish/cmds.c:427
+msgid "get autosync mode"
+msgstr "verkrijg automatische synchronisatie mode"
+
+#: fish/cmds.c:120 fish/cmds.c:512
+msgid "get direct appliance mode flag"
+msgstr "verkrijg directe toepassing mode vlag"
+
+#: fish/cmds.c:121 fish/cmds.c:997
+msgid "get the ext2/3/4 filesystem label"
+msgstr "verkrijg het ext2/3/4 bestandssysteem label"
+
+#: fish/cmds.c:122 fish/cmds.c:1007
+msgid "get the ext2/3/4 filesystem UUID"
+msgstr "verkrijg het ext2/3/4 bestandssysteem UUID"
+
+#: fish/cmds.c:123 fish/cmds.c:472
+msgid "get memory allocated to the qemu subprocess"
+msgstr "verkrijg geheugen toegekend aan het qemu sub-proces"
+
+#: fish/cmds.c:124 fish/cmds.c:592
+msgid "get enable network flag"
+msgstr "verkrijg netwerk aanzetten vlag"
+
+#: fish/cmds.c:125 fish/cmds.c:407
+msgid "get the search path"
+msgstr "verkrijg het zoek pad"
+
+#: fish/cmds.c:126 fish/cmds.c:477
+msgid "get PID of qemu subprocess"
+msgstr "verkrijg PID van qemu sub-proces"
+
+#: fish/cmds.c:127 fish/cmds.c:397
+msgid "get the qemu binary"
+msgstr "verkrijg het qemu binaire bestand"
+
+#: fish/cmds.c:128 fish/cmds.c:522
+msgid "get recovery process enabled flag"
+msgstr "verkrijg herstel proces aanzetten vlag"
+
+#: fish/cmds.c:129 fish/cmds.c:492
+msgid "get SELinux enabled flag"
+msgstr "verkrijg SELinux aanzetten vlag"
+
+#: fish/cmds.c:130 fish/cmds.c:462
+msgid "get the current state"
+msgstr "verkrijg de huidige toestand"
+
+#: fish/cmds.c:131 fish/cmds.c:502
+msgid "get command trace enabled flag"
+msgstr "verkrijg commando trace aanzetten vlag"
+
+#: fish/cmds.c:132 fish/cmds.c:1792
+msgid "get the current umask"
+msgstr "verkrijg de huidige umask"
+
+#: fish/cmds.c:133 fish/cmds.c:437
+msgid "get verbose mode"
+msgstr "verkrijg breedsprakige mode"
+
+#: fish/cmds.c:134 fish/cmds.c:1522
+msgid "get SELinux security context"
+msgstr "verkrijg SELinux beveiliging context"
+
+#: fish/cmds.c:135 fish/cmds.c:170 fish/cmds.c:1297 fish/cmds.c:1302
+msgid "list extended attributes of a file or directory"
+msgstr "laat uitgebreide attributen zien van een bestand of map"
+
+#: fish/cmds.c:136 fish/cmds.c:1157
+msgid "expand a wildcard path"
+msgstr "expandeer een wildcard pad"
+
+#: fish/cmds.c:139 fish/cmds.c:1022
+msgid "install GRUB"
+msgstr "installeer GRUB"
+
+#: fish/cmds.c:140 fish/cmds.c:1197
+msgid "return first 10 lines of a file"
+msgstr "geef de eerste 10 regels van een bestand terug"
+
+#: fish/cmds.c:141 fish/cmds.c:1202
+msgid "return first N lines of a file"
+msgstr "geef de eerste N regels van een bestand terug"
+
+#: fish/cmds.c:142 fish/cmds.c:1072
+msgid "dump a file in hexadecimal"
+msgstr "dump een bestand in hexadecimaal"
+
+#: fish/cmds.c:143 fish/cmds.c:1697
+msgid "list the contents of a single file in an initrd"
+msgstr "laat de inhoud van een enkel bestand in een initrd zien"
+
+#: fish/cmds.c:144 fish/cmds.c:1232
+msgid "list files in an initrd"
+msgstr "laat bestanden in een initrd zien"
+
+#: fish/cmds.c:145 fish/cmds.c:1492
+msgid "add an inotify watch"
+msgstr "voeg een inotify bewaker toe"
+
+#: fish/cmds.c:146 fish/cmds.c:1512
+msgid "close the inotify handle"
+msgstr "sluit de inotify hendel"
+
+#: fish/cmds.c:147 fish/cmds.c:1507
+msgid "return list of watched files that had events"
+msgstr "geef lijst terug van bewaakte bestanden met gebeurtenissen"
+
+#: fish/cmds.c:148 fish/cmds.c:1487
+msgid "create an inotify handle"
+msgstr "maak een inotify hendel aan"
+
+#: fish/cmds.c:149 fish/cmds.c:1502
+msgid "return list of inotify events"
+msgstr "geef een lijst van inotify gebeurtenissen terug"
+
+#: fish/cmds.c:150 fish/cmds.c:1497
+msgid "remove an inotify watch"
+msgstr "verwijder een inotify bewaker"
+
+#: fish/cmds.c:151 fish/cmds.c:552
+msgid "get architecture of inspected operating system"
+msgstr "verkrijg architectuur van geïnspecteerd besturingssysteem"
+
+#: fish/cmds.c:152 fish/cmds.c:557
+msgid "get distro of inspected operating system"
+msgstr "verkrijg distributie van geïnspecteerd besturingssysteem"
+
+#: fish/cmds.c:153 fish/cmds.c:582
+msgid "get filesystems associated with inspected operating system"
+msgstr ""
+"verkrijg bestandssystemen geassocieerd met geïnspecteerd besturingssysteem"
+
+#: fish/cmds.c:154 fish/cmds.c:562
+msgid "get major version of inspected operating system"
+msgstr "verkrijg major versie van geïnspecteerd besturingssysteem"
+
+#: fish/cmds.c:155 fish/cmds.c:567
+msgid "get minor version of inspected operating system"
+msgstr "verkrijg minor versie van geïnspecteerd besturingssysteem"
+
+#: fish/cmds.c:156 fish/cmds.c:577
+msgid "get mountpoints of inspected operating system"
+msgstr "verkrijg aankoppel punten van geïnspecteerd besturingssysteem"
+
+#: fish/cmds.c:157 fish/cmds.c:572
+msgid "get product name of inspected operating system"
+msgstr "verkrijg prouct naam van geïnspecteerd besturingssysteem"
+
+#: fish/cmds.c:158 fish/cmds.c:547
+msgid "get type of inspected operating system"
+msgstr "verkrijg type van geïnspecteerd besturingssysteem"
+
+#: fish/cmds.c:159 fish/cmds.c:542
+msgid "inspect disk and return list of operating systems found"
+msgstr "inspecteer schijf en geef lijst van gevonden besturingssystemen terug"
+
+#: fish/cmds.c:160 fish/cmds.c:457
+msgid "is busy processing a command"
+msgstr "is bezig met het verwerken van een commando"
+
+#: fish/cmds.c:161 fish/cmds.c:447
+msgid "is in configuration state"
+msgstr "is in de configuratie toestand"
+
+#: fish/cmds.c:162 fish/cmds.c:163 fish/cmds.c:777 fish/cmds.c:782
+msgid "test if file exists"
+msgstr "test of het bestand bestaat"
+
+#: fish/cmds.c:164 fish/cmds.c:452
+msgid "is launching subprocess"
+msgstr "lanceert een sub-proces"
+
+#: fish/cmds.c:165 fish/cmds.c:1912
+msgid "test if device is a logical volume"
+msgstr "test of het apparaat een logische volume is"
+
+#: fish/cmds.c:166 fish/cmds.c:442
+msgid "is ready to accept commands"
+msgstr "is klaar om commando's te accepteren"
+
+#: fish/cmds.c:167 fish/cmds.c:367
+msgid "kill the qemu subprocess"
+msgstr "schiet de qemu sub-processen af"
+
+#: fish/cmds.c:168 fish/cmds.c:362
+msgid "launch the qemu subprocess"
+msgstr "lanceer het qemu sub-proces"
+
+#: fish/cmds.c:171 fish/cmds.c:627
+msgid "list the block devices"
+msgstr "laat de blok apparaten zien"
+
+#: fish/cmds.c:172 fish/cmds.c:632
+msgid "list the partitions"
+msgstr "laat de partities zien"
+
+#: fish/cmds.c:173 fish/cmds.c:617
+msgid "list the files in a directory (long format)"
+msgstr "laat de bestanden in een map zien (lang formaat)"
+
+#: fish/cmds.c:174 fish/cmds.c:175 fish/cmds.c:1412 fish/cmds.c:1417
+msgid "create a hard link"
+msgstr "maak een harde link aan"
+
+#: fish/cmds.c:176 fish/cmds.c:177 fish/cmds.c:1422 fish/cmds.c:1427
+msgid "create a symbolic link"
+msgstr "maak een symbolische link aan"
+
+#: fish/cmds.c:178 fish/cmds.c:262 fish/cmds.c:1317 fish/cmds.c:1322
+msgid "remove extended attribute of a file or directory"
+msgstr "verwijder uitgebreide attribuut van een bestand of map"
+
+#: fish/cmds.c:179 fish/cmds.c:622
+msgid "list the files in a directory"
+msgstr "laat de bestanden in een map zien"
+
+#: fish/cmds.c:180 fish/cmds.c:286 fish/cmds.c:1307 fish/cmds.c:1312
+msgid "set extended attribute of a file or directory"
+msgstr "stel uitgebreide attribuut van een bestand of map in"
+
+#: fish/cmds.c:181 fish/cmds.c:857
+msgid "get file information for a symbolic link"
+msgstr "verkrijg bestand informatie voor een symbolische link"
+
+#: fish/cmds.c:182 fish/cmds.c:1612
+msgid "lstat on multiple files"
+msgstr "lstat op meerdere bestanden"
+
+#: fish/cmds.c:183 fish/cmds.c:1902
+msgid "add a key on a LUKS encrypted device"
+msgstr "voeg een sleutel toe aan een LUKS versleuteld apparaat"
+
+#: fish/cmds.c:184 fish/cmds.c:1887
+msgid "close a LUKS device"
+msgstr "sluit een LUKS apparaat"
+
+#: fish/cmds.c:185 fish/cmds.c:186 fish/cmds.c:1892 fish/cmds.c:1897
+msgid "format a block device as a LUKS encrypted device"
+msgstr "formatteer een blok apparaat als een LUKS versleuteld apparaat"
+
+#: fish/cmds.c:187 fish/cmds.c:1907
+msgid "remove a key from a LUKS encrypted device"
+msgstr "verwijder een sleutel toe van een LUKS versleuteld apparaat"
+
+#: fish/cmds.c:188 fish/cmds.c:1877
+msgid "open a LUKS-encrypted block device"
+msgstr "open een LUKS versleuteld blok apparaat"
+
+#: fish/cmds.c:189 fish/cmds.c:1882
+msgid "open a LUKS-encrypted block device read-only"
+msgstr "open een LUKS versleuteld blok alleen-lezen apparaat"
+
+#: fish/cmds.c:190 fish/cmds.c:797
+msgid "create an LVM logical volume"
+msgstr "maak een LVM logische volume aan"
+
+#: fish/cmds.c:191 fish/cmds.c:1872
+msgid "clear LVM device filter"
+msgstr "wis LVM apparaat filter"
+
+#: fish/cmds.c:192 fish/cmds.c:832
+msgid "remove all LVM LVs, VGs and PVs"
+msgstr "verwijder alle LVM LV's, VG's en PV's"
+
+#: fish/cmds.c:193 fish/cmds.c:1867
+msgid "set LVM device filter"
+msgstr "stel LVM apparaat filter in"
+
+#: fish/cmds.c:194 fish/cmds.c:977
+msgid "remove an LVM logical volume"
+msgstr "verwijder een LVM logische volume"
+
+#: fish/cmds.c:195 fish/cmds.c:1687
+msgid "rename an LVM logical volume"
+msgstr "hernoem een LVM logische volume"
+
+#: fish/cmds.c:196 fish/cmds.c:1117
+msgid "resize an LVM logical volume"
+msgstr "verander grootte van een LVM logische volume"
+
+#: fish/cmds.c:197 fish/cmds.c:1782
+msgid "expand an LV to fill free space"
+msgstr "expandeer een LV om vrije ruimte te vullen"
+
+#: fish/cmds.c:198 fish/cmds.c:199 fish/cmds.c:647 fish/cmds.c:662
+msgid "list the LVM logical volumes (LVs)"
+msgstr "laat de LVM logische volumes (LV's) zien"
+
+#: fish/cmds.c:200 fish/cmds.c:1712
+msgid "get the UUID of a logical volume"
+msgstr "verkrijg de UUID van een logische volume"
+
+#: fish/cmds.c:201 fish/cmds.c:1617
+msgid "lgetxattr on multiple files"
+msgstr "lgetxattr op meerdere bestanden"
+
+#: fish/cmds.c:202 fish/cmds.c:752
+msgid "create a directory"
+msgstr "maak een map aan"
+
+#: fish/cmds.c:203 fish/cmds.c:1602
+msgid "create a directory with a particular mode"
+msgstr "maak een map aan met een bepaalde mode"
+
+#: fish/cmds.c:204 fish/cmds.c:757
+msgid "create a directory and parents"
+msgstr "maak en map en ouders aan"
+
+#: fish/cmds.c:205 fish/cmds.c:1177
+msgid "create a temporary directory"
+msgstr "maak een tijdelijke map aan"
+
+#: fish/cmds.c:206 fish/cmds.c:207 fish/cmds.c:208 fish/cmds.c:1547
+#: fish/cmds.c:1552 fish/cmds.c:1557
+msgid "make ext2/3/4 filesystem with external journal"
+msgstr "maak een ext2/3/4 bestandssysteem met extern journaal"
+
+#: fish/cmds.c:209 fish/cmds.c:1532
+msgid "make ext2/3/4 external journal"
+msgstr "maak een ext2/3/4 extern journaal"
+
+#: fish/cmds.c:210 fish/cmds.c:1537
+msgid "make ext2/3/4 external journal with label"
+msgstr "maak een ext2/3/4 extern journaal met label"
+
+#: fish/cmds.c:211 fish/cmds.c:1542
+msgid "make ext2/3/4 external journal with UUID"
+msgstr "maak een ext2/3/4 extern journaal met UUID"
+
+#: fish/cmds.c:212 fish/cmds.c:1262
+msgid "make FIFO (named pipe)"
+msgstr "maak een FIFO (benoemde pipe)"
+
+#: fish/cmds.c:213 fish/cmds.c:802
+msgid "make a filesystem"
+msgstr "maak een bestandssysteem"
+
+#: fish/cmds.c:214 fish/cmds.c:1527
+msgid "make a filesystem with block size"
+msgstr "maak een bestandssysteem met blok grootte"
+
+#: fish/cmds.c:215 fish/cmds.c:1332
+msgid "create a mountpoint"
+msgstr "maak een aankoppel punt aan"
+
+#: fish/cmds.c:216 fish/cmds.c:1257
+msgid "make block, character or FIFO devices"
+msgstr "maak blok, karakter, of FIFO apparaten"
+
+#: fish/cmds.c:217 fish/cmds.c:1267
+msgid "make block device node"
+msgstr "maak een blok apparaat node"
+
+#: fish/cmds.c:218 fish/cmds.c:1272
+msgid "make char device node"
+msgstr "maak een karakter apparaat node"
+
+#: fish/cmds.c:219 fish/cmds.c:1242
+msgid "create a swap partition"
+msgstr "maak een swap partitie aan"
+
+#: fish/cmds.c:220 fish/cmds.c:1247
+msgid "create a swap partition with a label"
+msgstr "maak een swap partitie met een label aan"
+
+#: fish/cmds.c:221 fish/cmds.c:1252
+msgid "create a swap partition with an explicit UUID"
+msgstr "maak een swap partitie met een expliciete UUID aan"
+
+#: fish/cmds.c:222 fish/cmds.c:1482
+msgid "create a swap file"
+msgstr "maak een swap bestand aan"
+
+#: fish/cmds.c:223 fish/cmds.c:1562
+msgid "load a kernel module"
+msgstr "laad een kernel module"
+
+#: fish/cmds.c:224 fish/cmds.c:597
+msgid "mount a guest disk at a position in the filesystem"
+msgstr "koppel een gast schijf aan op een plaats in het bestandssysteem"
+
+#: fish/cmds.c:225 fish/cmds.c:1237
+msgid "mount a file using the loop device"
+msgstr "koppel een bestand aan met het loop apparaat"
+
+#: fish/cmds.c:226 fish/cmds.c:962
+msgid "mount a guest disk with mount options"
+msgstr "koppel een gast schijf aan met aankoppel opties"
+
+#: fish/cmds.c:227 fish/cmds.c:957
+msgid "mount a guest disk, read-only"
+msgstr "koppel een gast schijf alleen-lezen aan"
+
+#: fish/cmds.c:228 fish/cmds.c:967
+msgid "mount a guest disk with mount options and vfstype"
+msgstr "koppel een gast schijf aan met aankoppel opties en vfstype"
+
+#: fish/cmds.c:229 fish/cmds.c:1327
+msgid "show mountpoints"
+msgstr "laat aankoppel punten zien"
+
+#: fish/cmds.c:230 fish/cmds.c:822
+msgid "show mounted filesystems"
+msgstr "laat aangekoppelde bestandssystemen zien"
+
+#: fish/cmds.c:231 fish/cmds.c:1037
+msgid "move a file"
+msgstr "verplaats een bestand"
+
+#: fish/cmds.c:232 fish/cmds.c:1142
+msgid "probe NTFS volume"
+msgstr "onderzoek NTFS volume"
+
+#: fish/cmds.c:233 fish/cmds.c:1747
+msgid "resize an NTFS filesystem"
+msgstr "verander grootte van een NTFS bestandssysteem"
+
+#: fish/cmds.c:234 fish/cmds.c:1842
+msgid "resize an NTFS filesystem (with size)"
+msgstr "verander grootte van een NTFS bestandssysteem (met grootte)"
+
+#: fish/cmds.c:235 fish/cmds.c:1637
+msgid "add a partition to the device"
+msgstr "voeg een partiie toe aan een apparaat"
+
+#: fish/cmds.c:236 fish/cmds.c:1757
+msgid "delete a partition"
+msgstr "verwijder een partitie"
+
+#: fish/cmds.c:237 fish/cmds.c:1642
+msgid "partition whole disk with a single primary partition"
+msgstr "partitioneer gehele schijf met een enkele primaire partitie"
+
+#: fish/cmds.c:238 fish/cmds.c:1762
+msgid "return true if a partition is bootable"
+msgstr "geef waar terug als een partitie opstartbaar is"
+
+#: fish/cmds.c:239 fish/cmds.c:1767
+msgid "get the MBR type byte (ID byte) from a partition"
+msgstr "verkrijg het MBR type byte (ID byte) van een partitie"
+
+#: fish/cmds.c:240 fish/cmds.c:1662
+msgid "get the partition table type"
+msgstr "verkrijg het partitie abel type"
+
+#: fish/cmds.c:241 fish/cmds.c:1632
+msgid "create an empty partition table"
+msgstr "maak een lege partitie tabel aan"
+
+#: fish/cmds.c:242 fish/cmds.c:1657
+msgid "list partitions on a device"
+msgstr "laat partities op een apparaat zien"
+
+#: fish/cmds.c:243 fish/cmds.c:1647
+msgid "make a partition bootable"
+msgstr "maak een partitie opstartbaar"
+
+#: fish/cmds.c:244 fish/cmds.c:1772
+msgid "set the MBR type byte (ID byte) of a partition"
+msgstr "stel het MBR type byte (ID byte) van een partitie in"
+
+#: fish/cmds.c:245 fish/cmds.c:1652
+msgid "set partition name"
+msgstr "stel partitie naam in"
+
+#: fish/cmds.c:246 fish/cmds.c:1052
+msgid "ping the guest daemon"
+msgstr "ping de gast daemon"
+
+#: fish/cmds.c:247 fish/cmds.c:1627
+msgid "read part of a file"
+msgstr "lees deel van een bestand"
+
+#: fish/cmds.c:248 fish/cmds.c:787
+msgid "create an LVM physical volume"
+msgstr "maak een LVM fysieke volume aan"
+
+#: fish/cmds.c:249 fish/cmds.c:987
+msgid "remove an LVM physical volume"
+msgstr "verwijder een LVM fysieke volume"
+
+#: fish/cmds.c:250 fish/cmds.c:1082
+msgid "resize an LVM physical volume"
+msgstr "verander grootte van een LVM fysieke volume"
+
+#: fish/cmds.c:251 fish/cmds.c:1837
+msgid "resize an LVM physical volume (with size)"
+msgstr "verander grootte van een LVM fysieke volume (met grootte)"
+
+#: fish/cmds.c:252 fish/cmds.c:253 fish/cmds.c:637 fish/cmds.c:652
+msgid "list the LVM physical volumes (PVs)"
+msgstr "laat de LVM fysieke (PV's) zien"
+
+#: fish/cmds.c:254 fish/cmds.c:1702
+msgid "get the UUID of a physical volume"
+msgstr "verkrijg de UUID van een fysieke volume"
+
+#: fish/cmds.c:255 fish/cmds.c:1827
+msgid "write to part of a file"
+msgstr "schrijf naar deel van een bestand"
+
+#: fish/cmds.c:256 fish/cmds.c:1342
+msgid "read a file"
+msgstr "lees een bestand"
+
+#: fish/cmds.c:257 fish/cmds.c:667
+msgid "read file as lines"
+msgstr "lees een bestand als regels"
+
+#: fish/cmds.c:258 fish/cmds.c:1282
+msgid "read directories entries"
+msgstr "lees map ingangen"
+
+#: fish/cmds.c:259 fish/cmds.c:1432
+msgid "read the target of a symbolic link"
+msgstr "lees het doel van een symbolische link"
+
+#: fish/cmds.c:260 fish/cmds.c:1622
+msgid "readlink on multiple files"
+msgstr "readlink op meerdere bestanden"
+
+#: fish/cmds.c:261 fish/cmds.c:1407
+msgid "canonicalized absolute pathname"
+msgstr "gezaghebbende absolute pad naam"
+
+#: fish/cmds.c:263 fish/cmds.c:1122
+msgid "resize an ext2, ext3 or ext4 filesystem"
+msgstr "verander grootte van een ext2, ext3 of ext4 bestandssysteem"
+
+#: fish/cmds.c:264 fish/cmds.c:1832
+msgid "resize an ext2, ext3 or ext4 filesystem (with size)"
+msgstr ""
+"verander grootte van een ext2, ext3 of ext4 bestandssysteem (met grootte)"
+
+#: fish/cmds.c:265 fish/cmds.c:737
+msgid "remove a file"
+msgstr "verwijder een bestand"
+
+#: fish/cmds.c:266 fish/cmds.c:747
+msgid "remove a file or directory recursively"
+msgstr "verwijder een bestand of map recursief"
+
+#: fish/cmds.c:267 fish/cmds.c:742
+msgid "remove a directory"
+msgstr "verwijder een map"
+
+#: fish/cmds.c:268 fish/cmds.c:1337
+msgid "remove a mountpoint"
+msgstr "verwijder een aankoppel punt"
+
+#: fish/cmds.c:269 fish/cmds.c:1162
+msgid "scrub (securely wipe) a device"
+msgstr "boen (veilig schoonmaken) een apparaat"
+
+#: fish/cmds.c:270 fish/cmds.c:1167
+msgid "scrub (securely wipe) a file"
+msgstr "boen (veilig schoonmaken) een bestand"
+
+#: fish/cmds.c:271 fish/cmds.c:1172
+msgid "scrub (securely wipe) free space"
+msgstr "boen (veilig schoonmaken) vrije ruimte"
+
+#: fish/cmds.c:272 fish/cmds.c:412
+msgid "add options to kernel command line"
+msgstr "voeg opties toe aan kernel commando regel"
+
+#: fish/cmds.c:273 fish/cmds.c:422
+msgid "set autosync mode"
+msgstr "stel autosync mode in"
+
+#: fish/cmds.c:274 fish/cmds.c:507
+msgid "enable or disable direct appliance mode"
+msgstr "zet directe apparaat mode aan of uit"
+
+#: fish/cmds.c:275 fish/cmds.c:992
+msgid "set the ext2/3/4 filesystem label"
+msgstr "stel het ext2/3/4 bestandssysteem label in"
+
+#: fish/cmds.c:276 fish/cmds.c:1002
+msgid "set the ext2/3/4 filesystem UUID"
+msgstr "stel het ext2/3/4 bestandssysteem UUID in"
+
+#: fish/cmds.c:277 fish/cmds.c:467
+msgid "set memory allocated to the qemu subprocess"
+msgstr "stel geheugen toegekend aan het qemu sub-proces in"
+
+#: fish/cmds.c:278 fish/cmds.c:587
+msgid "set enable network flag"
+msgstr "stel netwerk aanzetten vlag in"
+
+#: fish/cmds.c:279 fish/cmds.c:402
+msgid "set the search path"
+msgstr "stel het zoek pad in"
+
+#: fish/cmds.c:280 fish/cmds.c:392
+msgid "set the qemu binary"
+msgstr "stel het qemu binaire bestand in"
+
+#: fish/cmds.c:281 fish/cmds.c:517
+msgid "enable or disable the recovery process"
+msgstr "zet het herstel proces aan of uit"
+
+#: fish/cmds.c:282 fish/cmds.c:487
+msgid "set SELinux enabled or disabled at appliance boot"
+msgstr "zet SELinux aan of uit bij opstarten van het toestel"
+
+#: fish/cmds.c:283 fish/cmds.c:497
+msgid "enable or disable command traces"
+msgstr "zet commando traces aan of uit"
+
+#: fish/cmds.c:284 fish/cmds.c:432
+msgid "set verbose mode"
+msgstr "stel breedsprakige mode in"
+
+#: fish/cmds.c:285 fish/cmds.c:1517
+msgid "set SELinux security context"
+msgstr "stel SELinux beveiliging context in"
+
+#: fish/cmds.c:287 fish/cmds.c:288 fish/cmds.c:807 fish/cmds.c:1287
+msgid "create partitions on a block device"
+msgstr "maak partities aan op een blok apparaat"
+
+#: fish/cmds.c:289 fish/cmds.c:1087
+msgid "modify a single partition on a block device"
+msgstr "verander een enkele partitie op een blok apparaat"
+
+#: fish/cmds.c:290 fish/cmds.c:1102
+msgid "display the disk geometry from the partition table"
+msgstr "laat de schijf geometrie van de partitie tabel zien"
+
+#: fish/cmds.c:291 fish/cmds.c:1097
+msgid "display the kernel geometry"
+msgstr "laat de kernel geometrie zien"
+
+#: fish/cmds.c:292 fish/cmds.c:1092
+msgid "display the partition table"
+msgstr "laat de partitie tabel zien"
+
+#: fish/cmds.c:293 fish/cmds.c:1147
+msgid "run a command via the shell"
+msgstr "voer een commando uit via de shell"
+
+#: fish/cmds.c:294 fish/cmds.c:1152
+msgid "run a command via the shell returning lines"
+msgstr "voer een commando uit via de shell met het teruggeven van regels"
+
+#: fish/cmds.c:295 fish/cmds.c:1137
+msgid "sleep for some seconds"
+msgstr "slaap gedurende een paar seconden"
+
+#: fish/cmds.c:296 fish/cmds.c:852
+msgid "get file information"
+msgstr "verkrijg bestand informatie"
+
+#: fish/cmds.c:297 fish/cmds.c:862
+msgid "get file system statistics"
+msgstr "verkrijg bestandssysteem statistieken"
+
+#: fish/cmds.c:298 fish/cmds.c:299 fish/cmds.c:1062 fish/cmds.c:1067
+msgid "print the printable strings in a file"
+msgstr "druk de afdrukbare tekenreeksen ad in een bestand"
+
+#: fish/cmds.c:300 fish/cmds.c:1447
+msgid "disable swap on device"
+msgstr "zet swap op een apparaat uit"
+
+#: fish/cmds.c:301 fish/cmds.c:1457
+msgid "disable swap on file"
+msgstr "zet swap op een bestand uit"
+
+#: fish/cmds.c:302 fish/cmds.c:1467
+msgid "disable swap on labeled swap partition"
+msgstr "zet swap op een gelabelde swap partitie uit"
+
+#: fish/cmds.c:303 fish/cmds.c:1477
+msgid "disable swap on swap partition by UUID"
+msgstr "zet swap op swap partitie volgens UUID uit"
+
+#: fish/cmds.c:304 fish/cmds.c:1442
+msgid "enable swap on device"
+msgstr "zet swap op een apparaat aan"
+
+#: fish/cmds.c:305 fish/cmds.c:1452
+msgid "enable swap on file"
+msgstr "zet swap op een bestand aan"
+
+#: fish/cmds.c:306 fish/cmds.c:1462
+msgid "enable swap on labeled swap partition"
+msgstr "zet swap op een gelabelde swap partitie aan"
+
+#: fish/cmds.c:307 fish/cmds.c:1472
+msgid "enable swap on swap partition by UUID"
+msgstr "zet swap op swap partitie volgens UUID aan"
+
+#: fish/cmds.c:308 fish/cmds.c:602
+msgid "sync disks, writes are flushed through to the disk image"
+msgstr ""
+"synchroniseer schijven, schrijven wordt doorgespoeld naar het schijf image"
+
+#: fish/cmds.c:309 fish/cmds.c:1207
+msgid "return last 10 lines of a file"
+msgstr "geef de laatste 10 regels van een bestand terug"
+
+#: fish/cmds.c:310 fish/cmds.c:1212
+msgid "return last N lines of a file"
+msgstr "geef de laatste N regels van een bestand terug"
+
+#: fish/cmds.c:311 fish/cmds.c:937
+msgid "unpack tarfile to directory"
+msgstr "tar bestand uitpakken naar map"
+
+#: fish/cmds.c:312 fish/cmds.c:942
+msgid "pack directory into tarfile"
+msgstr "map inpakken in tar bestand"
+
+#: fish/cmds.c:313 fish/cmds.c:319 fish/cmds.c:947 fish/cmds.c:1737
+msgid "unpack compressed tarball to directory"
+msgstr "gecomprimeerde tar bal uitpakken naar map"
+
+#: fish/cmds.c:314 fish/cmds.c:320 fish/cmds.c:952 fish/cmds.c:1742
+msgid "pack directory into compressed tarball"
+msgstr "map inpakken in gecomprimeerde tar bal"
+
+#: fish/cmds.c:315 fish/cmds.c:607
+msgid "update file timestamps or create a new file"
+msgstr "vernieuw tijd stempels of maak een nieuw bestand aan"
+
+#: fish/cmds.c:316 fish/cmds.c:1587
+msgid "truncate a file to zero size"
+msgstr "kap een bestand af op grootte nul"
+
+#: fish/cmds.c:317 fish/cmds.c:1592
+msgid "truncate a file to a particular size"
+msgstr "kap een bestand af op een bepaalde grootte"
+
+#: fish/cmds.c:318 fish/cmds.c:867
+msgid "get ext2/ext3/ext4 superblock details"
+msgstr "verkrijg ext2/ext3/ext4 super-blok details"
+
+#: fish/cmds.c:321 fish/cmds.c:1277
+msgid "set file mode creation mask (umask)"
+msgstr "stel bestande mode aanmaak masker (umask) in"
+
+#: fish/cmds.c:322 fish/cmds.c:817
+msgid "unmount a filesystem"
+msgstr "koppel een bestandssysteem af"
+
+#: fish/cmds.c:323 fish/cmds.c:827
+msgid "unmount all filesystems"
+msgstr "koppel alle bestandssystemen af"
+
+#: fish/cmds.c:324 fish/cmds.c:922
+msgid "upload a file from the local machine"
+msgstr "upload een bestand van de lokale machine"
+
+#: fish/cmds.c:325 fish/cmds.c:1597
+msgid "set timestamp of a file with nanosecond precision"
+msgstr "stel tijd stempel van een bestand in met nanoseconde precisie"
+
+#: fish/cmds.c:326 fish/cmds.c:482
+msgid "get the library version number"
+msgstr "verkrijg het bibliotheek versie nummer"
+
+#: fish/cmds.c:327 fish/cmds.c:1857
+msgid "get the filesystem label"
+msgstr "verkrijg het bestandssysteem label"
+
+#: fish/cmds.c:328 fish/cmds.c:1582
+msgid "get the Linux VFS type corresponding to a mounted device"
+msgstr ""
+"verkrijg het Linux VFS type dat correspondeert met een aangekoppeld apparaat"
+
+#: fish/cmds.c:329 fish/cmds.c:1862
+msgid "get the filesystem UUID"
+msgstr "verkrijg het bestandssysteem UUID"
+
+#: fish/cmds.c:330 fish/cmds.c:1112
+msgid "activate or deactivate some volume groups"
+msgstr "activeer of de-activeer sommige volume groepen"
+
+#: fish/cmds.c:331 fish/cmds.c:1107
+msgid "activate or deactivate all volume groups"
+msgstr "activeer of de-activeer alle volume groepen"
+
+#: fish/cmds.c:332 fish/cmds.c:792
+msgid "create an LVM volume group"
+msgstr "maak een LVM volume groep aan"
+
+#: fish/cmds.c:333 fish/cmds.c:1722
+msgid "get the LV UUIDs of all LVs in the volume group"
+msgstr "verkrijg de LV UUID's van alle LV's in de volume groep"
+
+#: fish/cmds.c:334 fish/cmds.c:1717
+msgid "get the PV UUIDs containing the volume group"
+msgstr "verkrijg de PV UUID's die de volume groep bevatten"
+
+#: fish/cmds.c:335 fish/cmds.c:982
+msgid "remove an LVM volume group"
+msgstr "verwijder een LVM volume groep"
+
+#: fish/cmds.c:336 fish/cmds.c:1692
+msgid "rename an LVM volume group"
+msgstr "wijzig de naam van een LVM volume groep"
+
+#: fish/cmds.c:337 fish/cmds.c:338 fish/cmds.c:642 fish/cmds.c:657
+msgid "list the LVM volume groups (VGs)"
+msgstr "laat de LVM volume groepen (VG's) zien"
+
+#: fish/cmds.c:339 fish/cmds.c:1752
+msgid "rescan for LVM physical volumes, volume groups and logical volumes"
+msgstr ""
+"opnieuw scannen voor LVM fysiwkw volumes, volume groepen en logische volumes"
+
+#: fish/cmds.c:340 fish/cmds.c:1707
+msgid "get the UUID of a volume group"
+msgstr "verkrijg de UUID van een volume groep"
+
+#: fish/cmds.c:341 fish/cmds.c:1192
+msgid "count characters in a file"
+msgstr "tel aantal karakters in een bestand"
+
+#: fish/cmds.c:342 fish/cmds.c:1182
+msgid "count lines in a file"
+msgstr "tel aantal regels in een bestand"
+
+#: fish/cmds.c:343 fish/cmds.c:1187
+msgid "count words in a file"
+msgstr "tel aantal woorden in een bestand"
+
+#: fish/cmds.c:344 fish/cmds.c:1822
+msgid "create a new file"
+msgstr "maak een nieuw bestand aan"
+
+#: fish/cmds.c:345 fish/cmds.c:812
+msgid "create a file"
+msgstr "maak een bestand aan"
+
+#: fish/cmds.c:348 fish/cmds.c:1017
+msgid "write zeroes to the device"
+msgstr "schrijf nullen naar het apparaat"
+
+#: fish/cmds.c:349 fish/cmds.c:1732
+msgid "write zeroes to an entire device"
+msgstr "schrijf nullen naar een heel apparaat"
+
+#: fish/cmds.c:350 fish/cmds.c:1077
+msgid "zero unused inodes and disk blocks on ext2/3 filesystem"
+msgstr "nul ongebruikte inodes en schijf blokken op ext2/3 bestandssysteem"
+
+#: fish/cmds.c:353 fish/cmds.c:1292
+msgid "determine file type inside a compressed file"
+msgstr "bepaal bestand type in een gecomprimeerd bestand"
+
+#: fish/cmds.c:356
+msgid "Use -h <cmd> / help <cmd> to show detailed help for a command."
+msgstr ""
+"Gebruik -h <cmd> / help <cmd> om gedetailleerde hulp voor een commando te "
+"tonen."
+
+#: fish/cmds.c:2202 fish/cmds.c:2214 fish/cmds.c:2227 fish/cmds.c:2242
+#: fish/cmds.c:2257 fish/cmds.c:2273 fish/cmds.c:2290 fish/cmds.c:2305
+#: fish/cmds.c:2320 fish/cmds.c:2335 fish/cmds.c:2350 fish/cmds.c:2365
+#: fish/cmds.c:2379 fish/cmds.c:2393 fish/cmds.c:2408 fish/cmds.c:2422
+#: fish/cmds.c:2436 fish/cmds.c:2450 fish/cmds.c:2464 fish/cmds.c:2478
+#: fish/cmds.c:2492 fish/cmds.c:2507 fish/cmds.c:2539 fish/cmds.c:2553
+#: fish/cmds.c:2567 fish/cmds.c:2583 fish/cmds.c:2597 fish/cmds.c:2612
+#: fish/cmds.c:2626 fish/cmds.c:2641 fish/cmds.c:2655 fish/cmds.c:2670
+#: fish/cmds.c:2684 fish/cmds.c:2700 fish/cmds.c:2717 fish/cmds.c:2733
+#: fish/cmds.c:2752 fish/cmds.c:2768 fish/cmds.c:2786 fish/cmds.c:2804
+#: fish/cmds.c:2822 fish/cmds.c:2839 fish/cmds.c:2856 fish/cmds.c:2874
+#: fish/cmds.c:2892 fish/cmds.c:2910 fish/cmds.c:2924 fish/cmds.c:2940
+#: fish/cmds.c:2955 fish/cmds.c:2968 fish/cmds.c:2985 fish/cmds.c:3005
+#: fish/cmds.c:3025 fish/cmds.c:3044 fish/cmds.c:3059 fish/cmds.c:3074
+#: fish/cmds.c:3089 fish/cmds.c:3104 fish/cmds.c:3119 fish/cmds.c:3134
+#: fish/cmds.c:3149 fish/cmds.c:3165 fish/cmds.c:3186 fish/cmds.c:3221
+#: fish/cmds.c:3235 fish/cmds.c:3256 fish/cmds.c:3276 fish/cmds.c:3295
+#: fish/cmds.c:3313 fish/cmds.c:3330 fish/cmds.c:3348 fish/cmds.c:3364
+#: fish/cmds.c:3381 fish/cmds.c:3393 fish/cmds.c:3406 fish/cmds.c:3424
+#: fish/cmds.c:3441 fish/cmds.c:3458 fish/cmds.c:3475 fish/cmds.c:3492
+#: fish/cmds.c:3510 fish/cmds.c:3548 fish/cmds.c:3603 fish/cmds.c:3622
+#: fish/cmds.c:3641 fish/cmds.c:3660 fish/cmds.c:3676 fish/cmds.c:3696
+#: fish/cmds.c:3732 fish/cmds.c:3752 fish/cmds.c:3829 fish/cmds.c:3866
+#: fish/cmds.c:3880 fish/cmds.c:3895 fish/cmds.c:3907 fish/cmds.c:3920
+#: fish/cmds.c:3940 fish/cmds.c:3960 fish/cmds.c:3980 fish/cmds.c:4000
+#: fish/cmds.c:4020 fish/cmds.c:4040 fish/cmds.c:4058 fish/cmds.c:4073
+#: fish/cmds.c:4088 fish/cmds.c:4105 fish/cmds.c:4122 fish/cmds.c:4140
+#: fish/cmds.c:4174 fish/cmds.c:4191 fish/cmds.c:4208 fish/cmds.c:4223
+#: fish/cmds.c:4239 fish/cmds.c:4260 fish/cmds.c:4281 fish/cmds.c:4303
+#: fish/cmds.c:4324 fish/cmds.c:4343 fish/cmds.c:4364 fish/cmds.c:4385
+#: fish/cmds.c:4403 fish/cmds.c:4423 fish/cmds.c:4442 fish/cmds.c:4463
+#: fish/cmds.c:4478 fish/cmds.c:4493 fish/cmds.c:4509 fish/cmds.c:4525
+#: fish/cmds.c:4544 fish/cmds.c:4560 fish/cmds.c:4579 fish/cmds.c:4597
+#: fish/cmds.c:4613 fish/cmds.c:4632 fish/cmds.c:4653 fish/cmds.c:4674
+#: fish/cmds.c:4694 fish/cmds.c:4726 fish/cmds.c:4741 fish/cmds.c:4755
+#: fish/cmds.c:4777 fish/cmds.c:4798 fish/cmds.c:4819 fish/cmds.c:4839
+#: fish/cmds.c:4854 fish/cmds.c:4874 fish/cmds.c:4966 fish/cmds.c:4984
+#: fish/cmds.c:5002 fish/cmds.c:5020 fish/cmds.c:5036 fish/cmds.c:5055
+#: fish/cmds.c:5089 fish/cmds.c:5104 fish/cmds.c:5124 fish/cmds.c:5139
+#: fish/cmds.c:5173 fish/cmds.c:5191 fish/cmds.c:5209 fish/cmds.c:5227
+#: fish/cmds.c:5247 fish/cmds.c:5262 fish/cmds.c:5279 fish/cmds.c:5296
+#: fish/cmds.c:5316 fish/cmds.c:5335 fish/cmds.c:5354 fish/cmds.c:5373
+#: fish/cmds.c:5394 fish/cmds.c:5433 fish/cmds.c:5454 fish/cmds.c:5492
+#: fish/cmds.c:5507 fish/cmds.c:5523 fish/cmds.c:5542 fish/cmds.c:5563
+#: fish/cmds.c:5583 fish/cmds.c:5599 fish/cmds.c:5616 fish/cmds.c:5635
+#: fish/cmds.c:5710 fish/cmds.c:5749 fish/cmds.c:5826 fish/cmds.c:5900
+#: fish/cmds.c:5935 fish/cmds.c:5956 fish/cmds.c:5975 fish/cmds.c:5996
+#: fish/cmds.c:6016 fish/cmds.c:6039 fish/cmds.c:6080 fish/cmds.c:6119
+#: fish/cmds.c:6138 fish/cmds.c:6155 fish/cmds.c:6171 fish/cmds.c:6186
+#: fish/cmds.c:6202 fish/cmds.c:6227 fish/cmds.c:6249 fish/cmds.c:6271
+#: fish/cmds.c:6293 fish/cmds.c:6315 fish/cmds.c:6337 fish/cmds.c:6359
+#: fish/cmds.c:6381 fish/cmds.c:6403 fish/cmds.c:6425 fish/cmds.c:6447
+#: fish/cmds.c:6469 fish/cmds.c:6490 fish/cmds.c:6511 fish/cmds.c:6530
+#: fish/cmds.c:6549 fish/cmds.c:6568 fish/cmds.c:6586 fish/cmds.c:6607
+#: fish/cmds.c:6643 fish/cmds.c:6658 fish/cmds.c:6673 fish/cmds.c:6690
+#: fish/cmds.c:6707 fish/cmds.c:6722 fish/cmds.c:6737 fish/cmds.c:6752
+#: fish/cmds.c:6767 fish/cmds.c:6784 fish/cmds.c:6818 fish/cmds.c:6856
+#: fish/cmds.c:6888 fish/cmds.c:6903 fish/cmds.c:6918 fish/cmds.c:6931
+#: fish/cmds.c:6945 fish/cmds.c:6963 fish/cmds.c:6999 fish/cmds.c:7035
+#: fish/cmds.c:7072 fish/cmds.c:7110 fish/cmds.c:7149 fish/cmds.c:7188
+#: fish/cmds.c:7224 fish/cmds.c:7239 fish/cmds.c:7260 fish/cmds.c:7280
+#: fish/cmds.c:7300 fish/cmds.c:7318 fish/cmds.c:7336 fish/cmds.c:7370
+#: fish/cmds.c:7440 fish/cmds.c:7478 fish/cmds.c:7534 fish/cmds.c:7558
+#: fish/cmds.c:7582 fish/cmds.c:7608 fish/cmds.c:7665 fish/cmds.c:7684
+#: fish/cmds.c:7727 fish/cmds.c:7745 fish/cmds.c:7782 fish/cmds.c:7817
+#: fish/cmds.c:7835 fish/cmds.c:7855 fish/cmds.c:7910 fish/cmds.c:7928
+#: fish/cmds.c:7948 fish/cmds.c:7968 fish/cmds.c:7985 fish/cmds.c:8003
+#: fish/cmds.c:8028 fish/cmds.c:8046 fish/cmds.c:8064 fish/cmds.c:8082
+#: fish/cmds.c:8100 fish/cmds.c:8120 fish/cmds.c:8153 fish/cmds.c:8169
+#: fish/cmds.c:8190 fish/cmds.c:8210 fish/cmds.c:8224 fish/cmds.c:8238
+#: fish/cmds.c:8273 fish/cmds.c:8310 fish/cmds.c:8348 fish/cmds.c:8402
+#: fish/cmds.c:8422 fish/cmds.c:8456 fish/cmds.c:8470 fish/cmds.c:8487
+#: fish/cmds.c:8525 fish/cmds.c:8546 fish/cmds.c:8568 fish/cmds.c:8591
+#: fish/cmds.c:8630 fish/cmds.c:8653 fish/cmds.c:8689 fish/cmds.c:8718
+#: fish/cmds.c:8747 fish/cmds.c:8774 fish/cmds.c:8791 fish/cmds.c:8821
+#: fish/cmds.c:8839 fish/cmds.c:8857 fish/cmds.c:8873 fish/cmds.c:8888
+#: fish/cmds.c:8909 fish/cmds.c:8928 fish/cmds.c:8945 fish/cmds.c:8985
+#: fish/cmds.c:9026 fish/cmds.c:9068 fish/cmds.c:9105 fish/cmds.c:9122
+#: fish/cmds.c:9140
+#, c-format
+msgid "%s should have %d parameter(s)\n"
+msgstr "%s moet %d parameter(s) hebben\n"
+
+#: fish/cmds.c:2203 fish/cmds.c:2215 fish/cmds.c:2228 fish/cmds.c:2243
+#: fish/cmds.c:2258 fish/cmds.c:2274 fish/cmds.c:2291 fish/cmds.c:2306
+#: fish/cmds.c:2321 fish/cmds.c:2336 fish/cmds.c:2351 fish/cmds.c:2366
+#: fish/cmds.c:2380 fish/cmds.c:2394 fish/cmds.c:2409 fish/cmds.c:2423
+#: fish/cmds.c:2437 fish/cmds.c:2451 fish/cmds.c:2465 fish/cmds.c:2479
+#: fish/cmds.c:2493 fish/cmds.c:2508 fish/cmds.c:2540 fish/cmds.c:2554
+#: fish/cmds.c:2568 fish/cmds.c:2584 fish/cmds.c:2598 fish/cmds.c:2613
+#: fish/cmds.c:2627 fish/cmds.c:2642 fish/cmds.c:2656 fish/cmds.c:2671
+#: fish/cmds.c:2685 fish/cmds.c:2701 fish/cmds.c:2718 fish/cmds.c:2734
+#: fish/cmds.c:2753 fish/cmds.c:2769 fish/cmds.c:2787 fish/cmds.c:2805
+#: fish/cmds.c:2823 fish/cmds.c:2840 fish/cmds.c:2857 fish/cmds.c:2875
+#: fish/cmds.c:2893 fish/cmds.c:2911 fish/cmds.c:2925 fish/cmds.c:2941
+#: fish/cmds.c:2956 fish/cmds.c:2969 fish/cmds.c:2986 fish/cmds.c:3006
+#: fish/cmds.c:3026 fish/cmds.c:3045 fish/cmds.c:3060 fish/cmds.c:3075
+#: fish/cmds.c:3090 fish/cmds.c:3105 fish/cmds.c:3120 fish/cmds.c:3135
+#: fish/cmds.c:3150 fish/cmds.c:3166 fish/cmds.c:3187 fish/cmds.c:3222
+#: fish/cmds.c:3236 fish/cmds.c:3257 fish/cmds.c:3277 fish/cmds.c:3296
+#: fish/cmds.c:3314 fish/cmds.c:3331 fish/cmds.c:3349 fish/cmds.c:3365
+#: fish/cmds.c:3382 fish/cmds.c:3394 fish/cmds.c:3407 fish/cmds.c:3425
+#: fish/cmds.c:3442 fish/cmds.c:3459 fish/cmds.c:3476 fish/cmds.c:3493
+#: fish/cmds.c:3511 fish/cmds.c:3549 fish/cmds.c:3604 fish/cmds.c:3623
+#: fish/cmds.c:3642 fish/cmds.c:3661 fish/cmds.c:3677 fish/cmds.c:3697
+#: fish/cmds.c:3733 fish/cmds.c:3753 fish/cmds.c:3830 fish/cmds.c:3867
+#: fish/cmds.c:3881 fish/cmds.c:3896 fish/cmds.c:3908 fish/cmds.c:3921
+#: fish/cmds.c:3941 fish/cmds.c:3961 fish/cmds.c:3981 fish/cmds.c:4001
+#: fish/cmds.c:4021 fish/cmds.c:4041 fish/cmds.c:4059 fish/cmds.c:4074
+#: fish/cmds.c:4089 fish/cmds.c:4106 fish/cmds.c:4123 fish/cmds.c:4141
+#: fish/cmds.c:4175 fish/cmds.c:4192 fish/cmds.c:4209 fish/cmds.c:4224
+#: fish/cmds.c:4240 fish/cmds.c:4261 fish/cmds.c:4282 fish/cmds.c:4304
+#: fish/cmds.c:4325 fish/cmds.c:4344 fish/cmds.c:4365 fish/cmds.c:4386
+#: fish/cmds.c:4404 fish/cmds.c:4424 fish/cmds.c:4443 fish/cmds.c:4464
+#: fish/cmds.c:4479 fish/cmds.c:4494 fish/cmds.c:4510 fish/cmds.c:4526
+#: fish/cmds.c:4545 fish/cmds.c:4561 fish/cmds.c:4580 fish/cmds.c:4598
+#: fish/cmds.c:4614 fish/cmds.c:4633 fish/cmds.c:4654 fish/cmds.c:4675
+#: fish/cmds.c:4695 fish/cmds.c:4727 fish/cmds.c:4742 fish/cmds.c:4756
+#: fish/cmds.c:4778 fish/cmds.c:4799 fish/cmds.c:4820 fish/cmds.c:4840
+#: fish/cmds.c:4855 fish/cmds.c:4875 fish/cmds.c:4967 fish/cmds.c:4985
+#: fish/cmds.c:5003 fish/cmds.c:5021 fish/cmds.c:5037 fish/cmds.c:5056
+#: fish/cmds.c:5090 fish/cmds.c:5105 fish/cmds.c:5125 fish/cmds.c:5140
+#: fish/cmds.c:5174 fish/cmds.c:5192 fish/cmds.c:5210 fish/cmds.c:5228
+#: fish/cmds.c:5248 fish/cmds.c:5263 fish/cmds.c:5280 fish/cmds.c:5297
+#: fish/cmds.c:5317 fish/cmds.c:5336 fish/cmds.c:5355 fish/cmds.c:5374
+#: fish/cmds.c:5395 fish/cmds.c:5434 fish/cmds.c:5455 fish/cmds.c:5493
+#: fish/cmds.c:5508 fish/cmds.c:5524 fish/cmds.c:5543 fish/cmds.c:5564
+#: fish/cmds.c:5584 fish/cmds.c:5600 fish/cmds.c:5617 fish/cmds.c:5636
+#: fish/cmds.c:5711 fish/cmds.c:5750 fish/cmds.c:5827 fish/cmds.c:5901
+#: fish/cmds.c:5936 fish/cmds.c:5957 fish/cmds.c:5976 fish/cmds.c:5997
+#: fish/cmds.c:6017 fish/cmds.c:6040 fish/cmds.c:6081 fish/cmds.c:6120
+#: fish/cmds.c:6139 fish/cmds.c:6156 fish/cmds.c:6172 fish/cmds.c:6187
+#: fish/cmds.c:6203 fish/cmds.c:6228 fish/cmds.c:6250 fish/cmds.c:6272
+#: fish/cmds.c:6294 fish/cmds.c:6316 fish/cmds.c:6338 fish/cmds.c:6360
+#: fish/cmds.c:6382 fish/cmds.c:6404 fish/cmds.c:6426 fish/cmds.c:6448
+#: fish/cmds.c:6470 fish/cmds.c:6491 fish/cmds.c:6512 fish/cmds.c:6531
+#: fish/cmds.c:6550 fish/cmds.c:6569 fish/cmds.c:6587 fish/cmds.c:6608
+#: fish/cmds.c:6644 fish/cmds.c:6659 fish/cmds.c:6674 fish/cmds.c:6691
+#: fish/cmds.c:6708 fish/cmds.c:6723 fish/cmds.c:6738 fish/cmds.c:6753
+#: fish/cmds.c:6768 fish/cmds.c:6785 fish/cmds.c:6819 fish/cmds.c:6857
+#: fish/cmds.c:6889 fish/cmds.c:6904 fish/cmds.c:6919 fish/cmds.c:6932
+#: fish/cmds.c:6946 fish/cmds.c:6964 fish/cmds.c:7000 fish/cmds.c:7036
+#: fish/cmds.c:7073 fish/cmds.c:7111 fish/cmds.c:7150 fish/cmds.c:7189
+#: fish/cmds.c:7225 fish/cmds.c:7240 fish/cmds.c:7261 fish/cmds.c:7281
+#: fish/cmds.c:7301 fish/cmds.c:7319 fish/cmds.c:7337 fish/cmds.c:7371
+#: fish/cmds.c:7441 fish/cmds.c:7479 fish/cmds.c:7535 fish/cmds.c:7559
+#: fish/cmds.c:7583 fish/cmds.c:7609 fish/cmds.c:7666 fish/cmds.c:7685
+#: fish/cmds.c:7728 fish/cmds.c:7746 fish/cmds.c:7783 fish/cmds.c:7818
+#: fish/cmds.c:7836 fish/cmds.c:7856 fish/cmds.c:7911 fish/cmds.c:7929
+#: fish/cmds.c:7949 fish/cmds.c:7969 fish/cmds.c:7986 fish/cmds.c:8004
+#: fish/cmds.c:8029 fish/cmds.c:8047 fish/cmds.c:8065 fish/cmds.c:8083
+#: fish/cmds.c:8101 fish/cmds.c:8121 fish/cmds.c:8154 fish/cmds.c:8170
+#: fish/cmds.c:8191 fish/cmds.c:8211 fish/cmds.c:8225 fish/cmds.c:8239
+#: fish/cmds.c:8274 fish/cmds.c:8311 fish/cmds.c:8349 fish/cmds.c:8403
+#: fish/cmds.c:8423 fish/cmds.c:8457 fish/cmds.c:8471 fish/cmds.c:8488
+#: fish/cmds.c:8526 fish/cmds.c:8547 fish/cmds.c:8569 fish/cmds.c:8592
+#: fish/cmds.c:8631 fish/cmds.c:8654 fish/cmds.c:8690 fish/cmds.c:8719
+#: fish/cmds.c:8748 fish/cmds.c:8775 fish/cmds.c:8792 fish/cmds.c:8822
+#: fish/cmds.c:8840 fish/cmds.c:8858 fish/cmds.c:8874 fish/cmds.c:8889
+#: fish/cmds.c:8910 fish/cmds.c:8929 fish/cmds.c:8946 fish/cmds.c:8986
+#: fish/cmds.c:9027 fish/cmds.c:9069 fish/cmds.c:9106 fish/cmds.c:9123
+#: fish/cmds.c:9141
+#, c-format
+msgid "type 'help %s' for help on %s\n"
+msgstr "type 'help %s' voor hulp over %s\n"
+
+#: fish/cmds.c:2519 fish/cmds.c:3200 fish/cmds.c:3522 fish/cmds.c:3560
+#: fish/cmds.c:3579 fish/cmds.c:3710 fish/cmds.c:3765 fish/cmds.c:3784
+#: fish/cmds.c:3803 fish/cmds.c:3844 fish/cmds.c:4153 fish/cmds.c:4706
+#: fish/cmds.c:4887 fish/cmds.c:4906 fish/cmds.c:4925 fish/cmds.c:4944
+#: fish/cmds.c:5068 fish/cmds.c:5151 fish/cmds.c:5406 fish/cmds.c:5466
+#: fish/cmds.c:5647 fish/cmds.c:5666 fish/cmds.c:5685 fish/cmds.c:5722
+#: fish/cmds.c:5761 fish/cmds.c:5780 fish/cmds.c:5799 fish/cmds.c:5838
+#: fish/cmds.c:5857 fish/cmds.c:5876 fish/cmds.c:5912 fish/cmds.c:6053
+#: fish/cmds.c:6094 fish/cmds.c:6621 fish/cmds.c:6796 fish/cmds.c:6832
+#: fish/cmds.c:6868 fish/cmds.c:6976 fish/cmds.c:7011 fish/cmds.c:7047
+#: fish/cmds.c:7084 fish/cmds.c:7123 fish/cmds.c:7162 fish/cmds.c:7201
+#: fish/cmds.c:7350 fish/cmds.c:7384 fish/cmds.c:7397 fish/cmds.c:7410
+#: fish/cmds.c:7423 fish/cmds.c:7454 fish/cmds.c:7490 fish/cmds.c:7509
+#: fish/cmds.c:7622 fish/cmds.c:7641 fish/cmds.c:7698 fish/cmds.c:7711
+#: fish/cmds.c:7758 fish/cmds.c:7795 fish/cmds.c:7867 fish/cmds.c:7886
+#: fish/cmds.c:8136 fish/cmds.c:8251 fish/cmds.c:8286 fish/cmds.c:8323
+#: fish/cmds.c:8361 fish/cmds.c:8380 fish/cmds.c:8435 fish/cmds.c:8502
+#: fish/cmds.c:8604 fish/cmds.c:8670 fish/cmds.c:8702 fish/cmds.c:8731
+#: fish/cmds.c:8760 fish/cmds.c:8805 fish/cmds.c:8960 fish/cmds.c:9000
+#: fish/cmds.c:9043 fish/cmds.c:9083
+#, c-format
+msgid "%s: %s: invalid integer parameter (%s returned %d)\n"
+msgstr "%s: %s: ongeldige geheel getal paramter (%s gaf %d terug)\n"
+
+#: fish/cmds.c:2525 fish/cmds.c:3206 fish/cmds.c:3528 fish/cmds.c:3566
+#: fish/cmds.c:3585 fish/cmds.c:3716 fish/cmds.c:3771 fish/cmds.c:3790
+#: fish/cmds.c:3809 fish/cmds.c:3850 fish/cmds.c:4159 fish/cmds.c:4712
+#: fish/cmds.c:4893 fish/cmds.c:4912 fish/cmds.c:4931 fish/cmds.c:4950
+#: fish/cmds.c:5074 fish/cmds.c:5157 fish/cmds.c:5412 fish/cmds.c:5472
+#: fish/cmds.c:5653 fish/cmds.c:5672 fish/cmds.c:5691 fish/cmds.c:5728
+#: fish/cmds.c:5767 fish/cmds.c:5786 fish/cmds.c:5805 fish/cmds.c:5844
+#: fish/cmds.c:5863 fish/cmds.c:5882 fish/cmds.c:5918 fish/cmds.c:6059
+#: fish/cmds.c:6100 fish/cmds.c:6627 fish/cmds.c:6802 fish/cmds.c:6838
+#: fish/cmds.c:6874 fish/cmds.c:6982 fish/cmds.c:7017 fish/cmds.c:7053
+#: fish/cmds.c:7090 fish/cmds.c:7129 fish/cmds.c:7168 fish/cmds.c:7207
+#: fish/cmds.c:7460 fish/cmds.c:7496 fish/cmds.c:7515 fish/cmds.c:7628
+#: fish/cmds.c:7764 fish/cmds.c:7801 fish/cmds.c:7873 fish/cmds.c:7892
+#: fish/cmds.c:8257 fish/cmds.c:8292 fish/cmds.c:8329 fish/cmds.c:8367
+#: fish/cmds.c:8386 fish/cmds.c:8441 fish/cmds.c:8508 fish/cmds.c:8610
+#: fish/cmds.c:8966 fish/cmds.c:9006 fish/cmds.c:9049 fish/cmds.c:9089
+#, c-format
+msgid "%s: %s: integer out of range\n"
+msgstr "%s: %s: geheel getal ligt buiten de reeks\n"
+
+#: fish/cmds.c:10095
+#, c-format
+msgid "%s: unknown command\n"
+msgstr "%s: onbekend commando\n"
+
+#: fish/edit.c:86
+#, c-format
+msgid "use '%s filename' to edit a file\n"
+msgstr "gebruik '%s bestandsnaam' om een bestand te bewerken\n"
+
+#: fish/fish.c:103 fuse/guestmount.c:879
+#, c-format
+msgid "Try `%s --help' for more information.\n"
+msgstr "Probeer `%s --help' voor meer informatie\n"
+
+#: fish/fish.c:107
+#, c-format
+msgid ""
+"%s: guest filesystem shell\n"
+"%s lets you edit virtual machine filesystems\n"
+"Copyright (C) 2009 Red Hat Inc.\n"
+"Usage:\n"
+"  %s [--options] cmd [: cmd : cmd ...]\n"
+"  %s -i libvirt-domain\n"
+"  %s -i disk-image(s)\n"
+"or for interactive use:\n"
+"  %s\n"
+"or from a shell script:\n"
+"  %s <<EOF\n"
+"  cmd\n"
+"  ...\n"
+"  EOF\n"
+"Options:\n"
+"  -h|--cmd-help        List available commands\n"
+"  -h|--cmd-help cmd    Display detailed help on 'cmd'\n"
+"  -a|--add image       Add image\n"
+"  -c|--connect uri     Specify libvirt URI for -d option\n"
+"  -d|--domain guest    Add disks from libvirt guest\n"
+"  -D|--no-dest-paths   Don't tab-complete paths from guest fs\n"
+"  -f|--file file       Read commands from file\n"
+"  -i|--inspector       Automatically mount filesystems\n"
+"  --keys-from-stdin    Read passphrases from stdin\n"
+"  --listen             Listen for remote commands\n"
+"  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
+"  -n|--no-sync         Don't autosync\n"
+"  -N|--new type        Create prepared disk (test1.img, ...)\n"
+"  --remote[=pid]       Send commands to remote %s\n"
+"  -r|--ro              Mount read-only\n"
+"  --selinux            Enable SELinux support\n"
+"  -v|--verbose         Verbose messages\n"
+"  -x                   Echo each command before executing it\n"
+"  -V|--version         Display version and exit\n"
+"For more information,  see the manpage %s(1).\n"
+msgstr ""
+"%s: gast bestandssysteem shell\n"
+"%s laat je virtuele machine bestandssystemen bewerken\n"
+"Copyright (C) 2009 Red Hat Inc.\n"
+"Gebruik:\n"
+"  %s [--options] cmd [: cmd : cmd ...]\n"
+"  %s -i libvirt-domain\n"
+"  %s -i disk-image(s)\n"
+"of voor interactief gebruik:\n"
+"  %s\n"
+"of vanuit een shell script:\n"
+"  %s <<EOF\n"
+"  cmd\n"
+"  ...\n"
+"  EOF\n"
+"Opties:\n"
+"  -h|--cmd-help        Toon beschikbare commando's\n"
+"  -h|--cmd-help cmd    Toon gedetailleerde hulp over commando 'cmd'\n"
+"  -a|--add image       Voeg image image toe\n"
+"  -c|--connect uri     Specificeer libvirt URI voor -d optie\n"
+"  -d|--domain guest    voeg schijven toe van libvirt gast\n"
+"  -D|--no-dest-paths   Maak paden van gast fs niet compleet met tab\n"
+"  -f|--file file       Lees commando's van bestand\n"
+"  -i|--inspector       Koppel bestandssystemen automatisch aan\n"
+"  --keys-from-stdin    Lees wachtzinnen van stdin\n"
+"  --listen             Luister naar commando's op afstand\n"
+"  -m|--mount dev[:mnt] Koppel dev aan op mnt (indien weggelaten, /)\n"
+"  -n|--no-sync         Doe geen autosync\n"
+"  -N|--new type        Maak voorgekookte schijf aan (test1.img, ...)\n"
+"  --remote[=pid]       Stuur commando's naar %s op afstand\n"
+"  -r|--ro              Koppel alleen-lezen aan\n"
+"  --selinux            Zet SELinux ondersteuning aan\n"
+"  -v|--verbose         Breedsprakige boodschappen\n"
+"  -x                   Echo elk commando voor het uit te voeren\n"
+"  -V|--version         Laat versie zien en sluit af\n"
+"Voor meer informatie,  bekijk de man pagina %s(1).\n"
+
+#: fish/fish.c:207 fuse/guestmount.c:976
+#, c-format
+msgid "guestfs_create: failed to create handle\n"
+msgstr "guestfs_create: hendel aanmaken mislukte\n"
+
+#: fish/fish.c:246
+#, c-format
+msgid "%s: --listen=PID: PID was not a number: %s\n"
+msgstr "%s: --listen=PID: PID was geen getal: %s\n"
+
+#: fish/fish.c:253
+#, c-format
+msgid ""
+"%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
+msgstr "%s: remote: $GUESTFISH_PID moet ingesteld worden op de PID van het proces op "
+"afstand\n"
+
+#: fish/fish.c:264 fuse/guestmount.c:1021
+#, c-format
+msgid "%s: unknown long option: %s (%d)\n"
+msgstr "%s: onbekende lange optie: %s (%d)\n"
+
+#: fish/fish.c:330
+#, c-format
+msgid "%s: only one -f parameter can be given\n"
+msgstr "%s: er kan slechts een -f parameter opgegeven worden\n"
+
+#: fish/fish.c:463
+#, c-format
+msgid "%s: cannot use --listen and --remote options at the same time\n"
+msgstr "%s: de --listen en --remote opties kunnen niet tegelijkertijd gebruikt "
+"worden\n"
+
+#: fish/fish.c:471
+#, c-format
+msgid "%s: extra parameters on the command line with --listen flag\n"
+msgstr "%s: extra parameters op de commando regel met --listen vlag\n"
+
+#: fish/fish.c:477
+#, c-format
+msgid "%s: cannot use --listen and --file options at the same time\n"
+msgstr "%s: de --listen en --file opties kunnen niet tegelijkertijd gebruikt worden\n"
+
+#: fish/fish.c:553
+#, c-format
+msgid "guestfish: too many drives added on the command line\n"
+msgstr "guestfish: te veel schijven toegevoegd op de commando regel\n"
+
+#: fish/fish.c:685
+#, c-format
+msgid ""
+"\n"
+"Welcome to guestfish, the libguestfs filesystem interactive shell for\n"
+"editing virtual machine filesystems.\n"
+"\n"
+"Type: 'help' for a list of commands\n"
+"      'man' to read the manual\n"
+"      'quit' to quit the shell\n"
+"\n"
+msgstr ""
+"\n"
+"Welkom bij guestfish, de libguestfs bestandssysteem interactieve shell voor "
+"het\n"
+"bewerken van virtuele machine bestandssystemen.\n"
+"\n"
+"Type: 'help' voor een lijst van commando's\n"
+"      'man' om de manual te lezen\n"
+"      'quit' om de shell te verlaten\n"
+"\n"
+
+#: fish/fish.c:772
+#, c-format
+msgid "%s: unterminated double quote\n"
+msgstr "%s: niet afgesloten dubbel aanhalingsteken\n"
+
+#: fish/fish.c:778 fish/fish.c:795
+#, c-format
+msgid "%s: command arguments not separated by whitespace\n"
+msgstr "%s: commando argumenten niet gescheiden door spaties\n"
+
+#: fish/fish.c:789
+#, c-format
+msgid "%s: unterminated single quote\n"
+msgstr "%s: niet afgesloten enkel aanhalingsteken\n"
+
+#: fish/fish.c:844
+#, c-format
+msgid "%s: internal error parsing string at '%s'\n"
+msgstr "%s: interne fout bij ontleden van tekenreeks op '%s'\n"
+
+#: fish/fish.c:861
+#, c-format
+msgid "%s: too many arguments\n"
+msgstr "%s: teveel argumenten\n"
+
+#: fish/fish.c:890
+#, c-format
+msgid "%s: empty command on command line\n"
+msgstr "%s: leeg commando op commando regel\n"
+
+#: fish/fish.c:1056
+msgid "display a list of commands or help on a command"
+msgstr "laat een lijst van commando's of hulp over een commando zien"
+
+#: fish/fish.c:1058
+msgid "read the manual"
+msgstr "lees de manual"
+
+#: fish/fish.c:1060
+msgid "quit guestfish"
+msgstr "sluit guestfish af"
+
+#: fish/fish.c:1063
+msgid "allocate an image"
+msgstr "wijs een image toe"
+
+#: fish/fish.c:1065
+msgid "display a line of text"
+msgstr "laat een regel tekst zien"
+
+#: fish/fish.c:1067
+msgid "edit a file in the image"
+msgstr "bewerk een bestand in de image"
+
+#: fish/fish.c:1069
+msgid "local change directory"
+msgstr "verander locale map"
+
+#: fish/fish.c:1071
+msgid "expand wildcards in command"
+msgstr "expandeer wildcards in commando"
+
+#: fish/fish.c:1073
+msgid "view a file in the pager"
+msgstr "bekijk een bestand in de pager"
+
+#: fish/fish.c:1075
+msgid "close and reopen libguestfs handle"
+msgstr "sluit en open libguestfs hendel"
+
+#: fish/fish.c:1077
+msgid "allocate a sparse image file"
+msgstr "wijs een sparse image bestand toe"
+
+#: fish/fish.c:1079
+msgid "list supported groups of commands"
+msgstr "laat ondersteunde groep commando's zien"
+
+#: fish/fish.c:1081
+msgid "measure time taken to run command"
+msgstr "meet de tijd nodig voor uitvoeren van commando"
+
+#: fish/fish.c:1093
+#, c-format
+msgid ""
+"alloc - allocate an image\n"
+"     alloc <filename> <size>\n"
+"\n"
+"    This creates an empty (zeroed) file of the given size,\n"
+"    and then adds so it can be further examined.\n"
+"\n"
+"    For more advanced image creation, see qemu-img utility.\n"
+"\n"
+"    Size can be specified using standard suffixes, eg. '1M'.\n"
+msgstr ""
+"alloc - wijs een image toe\n"
+"     alloc <bestandsnaam> <grootte>\n"
+"\n"
+"    Dit creëert een leeg (gevuld met nullen) bestand van de gegeven grootte,\n"
+"    en voegt dan toe zodat het verder onderzocht kan worden.\n"
+"\n"
+"    Voor meer geavanceerd aanmaken van een image, bekijk je het qemu-img "
+"programma.\n"
+"\n"
+"    Grootte kan gespecificeerd worden met de standaard suffix, b.v. '1M'.\n"
+
+#: fish/fish.c:1106
+#, c-format
+msgid ""
+"echo - display a line of text\n"
+"     echo [<params> ...]\n"
+"\n"
+"    This echos the parameters to the terminal.\n"
+msgstr ""
+"echo - laat een regel tekst zien\n"
+"     echo [<params> ...]\n"
+"\n"
+"    Dit echoot de parameters naar de terminal.\n"
+
+#: fish/fish.c:1115
+#, c-format
+msgid ""
+"edit - edit a file in the image\n"
+"     edit <filename>\n"
+"\n"
+"    This is used to edit a file.\n"
+"\n"
+"    It is the equivalent of (and is implemented by)\n"
+"    running \"cat\", editing locally, and then \"write\".\n"
+"\n"
+"    Normally it uses $EDITOR, but if you use the aliases\n"
+"    \"vi\" or \"emacs\" you will get those editors.\n"
+"\n"
+"    NOTE: This will not work reliably for large files\n"
+"    (> 2 MB) or binary files containing \\0 bytes.\n"
+msgstr ""
+"edit - bewerk een bestand in de image\n"
+"     edit <bestandsnaam>\n"
+"\n"
+"    Dit wordt gebruikt om een bestand te bewerken.\n"
+"\n"
+"    Het is het equivalent van (en wordt geïmplementeerd door)\n"
+"    het draaien van \"cat\", lokaal bewerken, en daarna \"write\".\n"
+"\n"
+"    Normaal gebruikt het $EDITOR, maar je kunt de aliases\n"
+"    \"vi\" of \"emacs\" gebruiken om deze te krijgen.\n"
+"\n"
+"    OPMERKING: Dit zal niet betrouwbaar werken voor grote bestanden\n"
+"    (> 2 MB) of binaire bestanden met \\0 bytes.\n"
+
+#: fish/fish.c:1131
+#, c-format
+msgid ""
+"lcd - local change directory\n"
+"    lcd <directory>\n"
+"\n"
+"    Change guestfish's current directory. This command is\n"
+"    useful if you want to download files to a particular\n"
+"    place.\n"
+msgstr ""
+"lcd - verander locale map\n"
+"    lcd <map>\n"
+"\n"
+"    Verander de huidoge map van guestfish. Dit commando is\n"
+"    nuttig als je bestanden wilt downloaden naar een bepaalde\n"
+"    plaats.\n"
+
+#: fish/fish.c:1140
+#, c-format
+msgid ""
+"glob - expand wildcards in command\n"
+"    glob <command> [<args> ...]\n"
+"\n"
+"    Glob runs <command> with wildcards expanded in any\n"
+"    command args.  Note that the command is run repeatedly\n"
+"    once for each expanded argument.\n"
+msgstr ""
+"glob - expandeer wildcards in commando\n"
+"    glob <commando> [<args> ...]\n"
+"\n"
+"    Glob draait <commando> met geëxpandeerde wildcards voor alle\n"
+"    commando args.  Merk op dat het commando herhaaldelijk wordt\n"
+"    gedraaid, een keer voor ieder geëxpandeerd argument.\n"
+
+#: fish/fish.c:1150
+#, c-format
+msgid ""
+"man - read the manual\n"
+"    man\n"
+"\n"
+"    Opens the manual page for guestfish.\n"
+msgstr ""
+"man - lees de manual\n"
+"    man\n"
+"\n"
+"    Opent de manual pagina voor guestfish.\n"
+
+#: fish/fish.c:1157
+#, c-format
+msgid ""
+"help - display a list of commands or help on a command\n"
+"     help cmd\n"
+"     help\n"
+msgstr ""
+"help - laat een lijst van commando's of hulp over een commando zien\n"
+"     help cmd\n"
+"     help\n"
+
+#: fish/fish.c:1164
+#, c-format
+msgid ""
+"more - view a file in the pager\n"
+"     more <filename>\n"
+"\n"
+"    This is used to view a file in the pager.\n"
+"\n"
+"    It is the equivalent of (and is implemented by)\n"
+"    running \"cat\" and using the pager.\n"
+"\n"
+"    Normally it uses $PAGER, but if you use the alias\n"
+"    \"less\" then it always uses \"less\".\n"
+"\n"
+"    NOTE: This will not work reliably for large files\n"
+"    (> 2 MB) or binary files containing \\0 bytes.\n"
+msgstr ""
+"more - bekijk een bestand in de pager\n"
+"     more <bestandsnaam>\n"
+"\n"
+"    Dit wordt gebruikt om een bestand te bekijken in de pager.\n"
+"\n"
+"    Het is het equivalent van (en wordt geïmplementeerd door)\n"
+"    het draaien van \"cat\" en de pager gebruiken.\n"
+"\n"
+"    Normaal gebruikt het $PAGER, maar als je de alias\n"
+"    \"less\" gebruikt, dan gebruikt het altijd \"less\".\n"
+"\n"
+"    OPMERKINK: Dit zal niet betrouwbaar werken voor grote bestanden\n"
+"    (> 2 MB) of binaire bestanden met \\0 bytes.\n"
+
+#: fish/fish.c:1182
+#, c-format
+msgid ""
+"quit - quit guestfish\n"
+"     quit\n"
+msgstr ""
+"quit - sluit guestfish af\n"
+"     quit\n"
+
+#: fish/fish.c:1187
+#, c-format
+msgid ""
+"reopen - close and reopen the libguestfs handle\n"
+"     reopen\n"
+"\n"
+"Close and reopen the libguestfs handle.  It is not necessary to use\n"
+"this normally, because the handle is closed properly when guestfish\n"
+"exits.  However this is occasionally useful for testing.\n"
+msgstr ""
+"reopen - sluit en open de libguestfs hendel opnieuw\n"
+"     reopen\n"
+"\n"
+"Sluit en open de libguestfs hendel opnieuw.  Het is niet nodig om dit "
+"normaal\n"
+"te gebruiken, omdat de hendel correct gesloten wordt als guestfish\n"
+"afgesloten wordt.  Het is soms echter nuttig voor het testen.\n"
+
+#: fish/fish.c:1196
+#, c-format
+msgid ""
+"sparse - allocate a sparse image file\n"
+"     sparse <filename> <size>\n"
+"\n"
+"    This creates an empty sparse file of the given size,\n"
+"    and then adds so it can be further examined.\n"
+"\n"
+"    In all respects it works the same as the 'alloc'\n"
+"    command, except that the image file is allocated\n"
+"    sparsely, which means that disk blocks are not assigned\n"
+"    to the file until they are needed.  Sparse disk files\n"
+"    only use space when written to, but they are slower\n"
+"    and there is a danger you could run out of real disk\n"
+"    space during a write operation.\n"
+"\n"
+"    For more advanced image creation, see qemu-img utility.\n"
+"\n"
+"    Size can be specified using standard suffixes, eg. '1M'.\n"
+msgstr ""
+"sparse - wijs een sparse image bestand toe\n"
+"     sparse <bestandsnaam> <grootte>\n"
+"\n"
+"    dit creëert een leeg sparse bestand met de gegeven grootte,\n"
+"    en voegt het dan toe zodat het verder onderzocht kan worden.\n"
+"\n"
+"    In alle opzichten werkt dit hetzelfde als het 'alloc'\n"
+"    commando, behalve dat het image bestand sparse\n"
+"    toegewezen wordt, wat betekent dat schijf blokken niet toegekend worden\n"
+"    aan het bestand totdat ze nodig zijn.  Sparse schijf bestanden\n"
+"    gebruiken alleen ruimte als er naar geschreven wordt, maar ze zijn\n"
+"    langzamer en er is een gevaar dat je te weinig echte schijf\n"
+"    ruimte hebt tijdens een schrijf bewerking.\n"
+"\n"
+"    Voor meer geavanceerd image aanmaken, bekijk je het qemu-img programma.\n"
+"\n"
+"    Groote kan gespecificeerd worden met standaard suffix, b.v. '1M'.\n"
+
+#: fish/fish.c:1217
+#, c-format
+msgid ""
+"supported - list supported groups of commands\n"
+"     supported\n"
+"\n"
+"    This command returns a list of the optional groups\n"
+"    known to the daemon, and indicates which ones are\n"
+"    supported by this build of the libguestfs appliance.\n"
+"\n"
+"    See also guestfs(3) section AVAILABILITY.\n"
+msgstr ""
+"supported - lijst van ondersteunde groepen commando's\n"
+"     supported\n"
+"\n"
+"    Dit commando geeft een lijst van de optionele groepen\n"
+"    bekend aan de daemon terug, and geeft aan welke\n"
+"    ondersteund worden door deze versie van libguestfs.\n"
+"\n"
+"    Zie ook guestfs(3) sectie AVAILABILITY.\n"
+
+#: fish/fish.c:1229
+#, c-format
+msgid ""
+"time - measure time taken to run command\n"
+"    time <command> [<args> ...]\n"
+"\n"
+"    This runs <command> as usual, and prints the elapsed\n"
+"    time afterwards.\n"
+msgstr ""
+"time - meet de tijd nodig voor draaien van command0\n"
+"    time <commando> [<args> ...]\n"
+"\n"
+"    Dit draait <commando> zoals gewoonlijk, en geeft daarna\n"
+"    de verstreken tijd terug.\n"
+
+#: fish/fish.c:1237
+#, c-format
+msgid "%s: command not known, use -h to list all commands\n"
+msgstr "%s: commando niet bekend, gebruik -h om alle commando's te tonen\n"
+
+#: fish/fish.c:1253
+#, c-format
+msgid ""
+"Did you mean to open a disk image?  guestfish -a disk.img\n"
+"For a list of commands:             guestfish -h\n"
+"For complete documentation:         man guestfish\n"
+msgstr ""
+"Wilde je een schijf image openen?  guestfish -a disk.img\n"
+"Voor een lijst commando's:         guestfish -h\n"
+"Voor complete documentatie:        man guestfish\n"
+
+#: fish/fish.c:1410
+#, c-format
+msgid "Runaway quote in string \"%s\"\n"
+msgstr "Los aanhalingsteken in tekenreeks \"%s\"\n"
+
+#: fish/fish.c:1745
+#, c-format
+msgid "Enter key or passphrase (\"%s\"): "
+msgstr "Vul sleutel of wachtzin in (\"%s\"): "
+
+#: fish/glob.c:52
+#, c-format
+msgid "use 'glob command [args...]'\n"
+msgstr "gebruik 'glob command [args...]'\n"
+
+#: fish/glob.c:72
+#, c-format
+msgid "glob: guestfs_glob_expand call failed: %s\n"
+msgstr "glob: guestfs_glob_expand aanroep mislukte: %s\n"
+
+#: fish/inspect.c:57
+#, c-format
+msgid "guestfish: no operating system was found on this disk\n"
+msgstr "guestfish: er werd geen besturingssysteem op deze schijf gevonden\n"
+
+#: fish/inspect.c:62
+#, c-format
+msgid ""
+"guestfish: multi-boot operating systems are not supported by the -i option\n"
+msgstr "guestfish: multi-opstart besturingssystemen worden niet ondersteund door de "
+"-i optie\n"
+
+#: fish/inspect.c:101
+#, c-format
+msgid "Operating system: %s\n"
+msgstr "Besturingssysteem: %s\n"
+
+#: fish/inspect.c:114
+#, c-format
+msgid "%s mounted on %s\n"
+msgstr "%s aangekoppeld op %s\n"
+
+#: fish/lcd.c:34
+#, c-format
+msgid "use 'lcd directory' to change local directory\n"
+msgstr "gebruik 'lcd map' om de locale map te veranderen\n"
+
+#: fish/man.c:34
+#, c-format
+msgid "use 'man' without parameters to open the manual\n"
+msgstr "gebruik 'man' zonder parameters om de manual te openen\n"
+
+#: fish/man.c:53
+#, c-format
+msgid "the external 'man' program failed\n"
+msgstr "het externe 'man' programma mislukte\n"
+
+#: fish/more.c:40
+#, c-format
+msgid "use '%s filename' to page a file\n"
+msgstr "gebruik '%s bestandsnaam' voor het pagen van een bestand\n"
+
+#: fish/prep.c:114
+#, c-format
+msgid ""
+"List of available prepared disk images:\n"
+"\n"
+msgstr ""
+"Lijst van beschikbare aangemaakte schijf images:\n"
+"\n"
+
+#: fish/prep.c:117
+#, c-format
+msgid ""
+"guestfish -N %-16s %s\n"
+"\n"
+"%s\n"
+msgstr ""
+"guestfish -N %-16s %s\n"
+"\n"
+"%s\n"
+
+#: fish/prep.c:125
+#, c-format
+msgid "  Optional parameters:\n"
+msgstr "  Optionele parameters:\n"
+
+#: fish/prep.c:132
+#, c-format
+msgid "<%s> %s (default: %s)\n"
+msgstr "<%s> %s (standaard: %s)\n"
+
+#: fish/prep.c:142
+#, c-format
+msgid ""
+"Prepared disk images are written to file \"test1.img\" in the local\n"
+"directory.  (\"test2.img\" etc if -N option is given multiple times).\n"
+"For more information see the guestfish(1) manual.\n"
+msgstr ""
+"Aangemaakte schijf images worden geschreven naar bestand \"test1.img\" in de "
+"locale\n"
+"map.  (\"test2.img\" enz. als -N optie meerdere keren werd gegeven).\n"
+"Voor meer informatie bekijk je de guestfish(1) manual.\n"
+
+#: fish/prep.c:179
+#, c-format
+msgid ""
+"guestfish: -N parameter '%s': no such prepared disk image known.\n"
+"Use 'guestfish -N list' to list possible values for the -N parameter.\n"
+msgstr ""
+"guestfish: -N parameter '%s': zo'n aangemaakte schijf image is niet bekend.\n"
+"Gebruik 'guestfish -N list' om mogelijke waarden voor de -N parameter te "
+"tonen.\n"
+
+#: fish/prep.c:241
+#, c-format
+msgid "guestfish: error creating prepared disk image '%s' on '%s': "
+msgstr "guestfish: fout bij creëren van aangemaakte schijf image '%s' op '%s': "
+
+#: fish/prep.c:258 fish/prep.c:265 fish/prep.c:280
+msgid "failed to allocate disk"
+msgstr "toewijzen van schijf mislukte"
+
+#: fish/prep.c:272 fish/prep.c:287
+#, c-format
+msgid "failed to partition disk: %s"
+msgstr "schijf partitioneren mislukte:  %s"
+
+#: fish/prep.c:297
+#, c-format
+msgid "failed to create filesystem (%s): %s"
+msgstr "aanmaken van bestandssysteem (%s) mislukte: %s"
+
+#: fish/rc.c:249
+#, c-format
+msgid "guestfish: protocol error: could not read 'hello' message\n"
+msgstr "guestfish: protocol fout: kon 'hello' boodschap niet lezen\n"
+
+#: fish/rc.c:254
+#, c-format
+msgid ""
+"guestfish: protocol error: version mismatch, server version '%s' does not "
+"match client version '%s'.  The two versions must match exactly.\n"
+msgstr "guestfish: protocol fout: versie komt niet overeen, server versie '%s' komt "
+"niet overeen met cliënt versie '%s'. De twee versies moeten exact "
+"overeenkomen.\n"
+
+#: fish/rc.c:329 fish/rc.c:343
+#, c-format
+msgid "guestfish: remote: looks like the server is not running\n"
+msgstr "guestfish: remote: het lijkt erop dat de server niet draait\n"
+
+#: fish/rc.c:355 fish/rc.c:369
+#, c-format
+msgid "guestfish: protocol error: could not send initial greeting to server\n"
+msgstr "guestfish: protocol fout: kon initiële groeten niet naar de server sturen\n"
+
+#: fish/rc.c:380
+#, c-format
+msgid "guestfish: protocol error: could not decode reply from server\n"
+msgstr "guestfish: protocol fout: kon antwoord van de server niet decoderen\n"
+
+#: fish/reopen.c:36
+#, c-format
+msgid "'reopen' command takes no parameters\n"
+msgstr "'reopen' commando neemt geen parameters\n"
+
+#: fish/reopen.c:46
+#, c-format
+msgid "reopen: guestfs_create: failed to create handle\n"
+msgstr "reopen: guestfs_create: hendel aanmaken mislukte\n"
+
+#: fish/supported.c:66
+msgid "yes"
+msgstr "ja"
+
+#: fish/supported.c:68
+msgid "no"
+msgstr "nee"
+
+#: fish/time.c:35
+#, c-format
+msgid "use 'time command [args...]'\n"
+msgstr "gebruik 'time command [args...]'\n"
+
+#: fish/virt.c:72
+#, c-format
+msgid "guestfish: could not connect to libvirt (code %d, domain %d): %s\n"
+msgstr "guestfish: kon niet verbinden met libvirt (code %d, domein %d): %s\n"
+
+#: fish/virt.c:80
+#, c-format
+msgid "guestfish: no libvirt domain called '%s': %s\n"
+msgstr "guestfish: geen libvirt domein aangeroepen '%s': %s\n"
+
+#: fish/virt.c:88
+#, c-format
+msgid "guestfish: error getting domain info about '%s': %s\n"
+msgstr "guestfish: fout bij verkrijgen van domein info over '%s': %s\n"
+
+#: fish/virt.c:93
+#, c-format
+msgid ""
+"guestfish: error: '%s' is a live virtual machine.\n"
+"You must use '--ro' because write access to a running virtual machine can\n"
+"cause disk corruption.\n"
+msgstr ""
+"guestfish: error: '%s' is een live virtuele machine.\n"
+"Je moet '--ro' gebruiken omdat schrijf toegang tot een draaiende virtuele\n"
+"machine schijf beschadiging kan veroorzaken.\n"
+
+#: fish/virt.c:104
+#, c-format
+msgid "guestfish: error reading libvirt XML information about '%s': %s\n"
+msgstr "guestfish: fout bij lezen van libvirt XML informatie over '%s': %s\n"
+
+#: fish/virt.c:114
+#, c-format
+msgid "guestfish: unable to parse XML information returned by libvirt\n"
+msgstr "guestfish: kan XML informatie teruggegeven door libvirt niet ontleden\n"
+
+#: fish/virt.c:120
+#, c-format
+msgid "guestfish: unable to create new XPath context\n"
+msgstr "guestfish: kan nieuwe XPath context niet aanmaken\n"
+
+#: fish/virt.c:127 fish/virt.c:138
+#, c-format
+msgid "guestfish: unable to evaluate XPath expression\n"
+msgstr "guestfish: kan XPath expressie niet evalueren\n"
+
+#: fish/virt.c:145
+#, c-format
+msgid "guestfish: libvirt domain '%s' has no disks\n"
+msgstr "guestfish: libvirt domein '%s' heeft geen schijven\n"
+
+#: fuse/guestmount.c:883
+#, c-format
+msgid ""
+"%s: FUSE module for libguestfs\n"
+"%s lets you mount a virtual machine filesystem\n"
+"Copyright (C) 2009 Red Hat Inc.\n"
+"Usage:\n"
+"  %s [--options] [-- [--FUSE-options]] mountpoint\n"
+"Options:\n"
+"  -a|--add image       Add image\n"
+"  --dir-cache-timeout  Set readdir cache timeout (default 5 sec)\n"
+"  --fuse-help          Display extra FUSE options\n"
+"  --help               Display help message and exit\n"
+"  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
+"  -n|--no-sync         Don't autosync\n"
+"  -o|--option opt      Pass extra option to FUSE\n"
+"  -r|--ro              Mount read-only\n"
+"  --selinux            Enable SELinux support\n"
+"  --trace              Trace guestfs API calls (to stderr)\n"
+"  -v|--verbose         Verbose messages\n"
+"  -V|--version         Display version and exit\n"
+msgstr ""
+"%s: FUSE module voor libguestfs\n"
+"%s laat je een virtuele machine bestandssysteem aankoppelen\n"
+"Copyright (C) 2009 Red Hat Inc.\n"
+"Gebruik:\n"
+"  %s [--opties] [-- [--FUSE-opties]] koppelpunt\n"
+"Opties:\n"
+"  -a|--add image       Voeg image toe\n"
+"  --dir-cache-timeout  Stel readdir cache time-out in (standaard 5 sec)\n"
+"  --fuse-help          Laat extra FUSE opties zien\n"
+"  --help               Laat hulp boodschap zien en sluit af\n"
+"  -m|--mount dev[:mnt] Koppel dev aan op mnt (indien weggelaten, /)\n"
+"  -n|--no-sync         Geen autosync\n"
+"  -o|--option opt      Geeft optie door aan FUSE\n"
+"  -r|--ro              Alleez-lezen aankoppelen\n"
+"  --selinux            Zet SELinux ondersteuning aan\n"
+"  --trace              Ga guestfs API aanroepen na (naar stderr)\n"
+"  -v|--verbose         Breedsprakige boodschappen\n"
+"  -V|--version         Laat versie zien en sluit af\n"
+
+#: fuse/guestmount.c:1092
+#, c-format
+msgid "%s: must have at least one -a and at least one -m option\n"
+msgstr "%s: moet tenminste een -a en tenminste een -m optie hebben\n"
+
+#: fuse/guestmount.c:1100
+#, c-format
+msgid "%s: you must specify a mountpoint in the host filesystem\n"
+msgstr "%s: je moet een aankoppel punt in het host bestandssysteem specificeren\n"
+
+#: inspector/virt-inspector.pl:200
+msgid "virt-inspector: no image or VM names given"
+msgstr "virt-inspector: geen image of VM namen opgegeven"
+
+#: inspector/virt-inspector.pl:294
+msgid "--fish output is only possible with a single OS\n"
+msgstr "--fish output is alleen mogelijk bij een enkel OS\n"
+
+#: inspector/virt-inspector.pl:324
+msgid ""
+"virt-inspector: no YAML support, try installing perl-YAML or libyaml-perl\n"
+msgstr "virt-inspector: geen YAML ondersteuning, probeer perl-YAML of libyaml-perl "
+"te installeren\n"
+
+#: inspector/virt-inspector.pl:363
+msgid "  Mountpoints:\n"
+msgstr "  Aankoppel punten:\n"
+
+#: inspector/virt-inspector.pl:369
+msgid "  Filesystems:\n"
+msgstr "  Bestandssystemen:\n"
+
+#: inspector/virt-inspector.pl:387
+msgid "  Modprobe aliases:\n"
+msgstr "  Modprobe aliassen:\n"
+
+#: inspector/virt-inspector.pl:398
+msgid "  Initrd modules:\n"
+msgstr "  Initrd modules:\n"
+
+#: inspector/virt-inspector.pl:407
+msgid "  Applications:\n"
+msgstr "  Toepassingen:\n"
+
+#: inspector/virt-inspector.pl:414
+msgid "  Kernels:\n"
+msgstr "  Kernels:\n"
+
+#: inspector/virt-inspector.pl:426
+msgid "  Windows Registry entries:\n"
+msgstr "  Windows Registry ingangen:\n"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:152
+msgid "open_guest: first parameter must be a string or an arrayref"
+msgstr "open_guest: eerste parameter moet een tekenreeks of een arrayref zijn"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:158
+msgid "open_guest: first argument contains undefined element"
+msgstr "open_guest: eerste argument bevat niet-gedefinieerde element"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:166
+#, perl-brace-format
+msgid "guest image {imagename} does not exist or is not readable"
+msgstr "gast image {imagename} bestaat niet of is niet leesbaar"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:171
+msgid ""
+"open_guest: no libvirt support (install Sys::Virt, XML::XPath and XML::"
+"XPath::XMLParser)"
+msgstr ""
+"open_guest: geen libvirt ondersteuning (installeer Sys::Virt, XML::XPath en "
+"XML::XPath::XMLParser)"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:176
+msgid "open_guest: too many domains listed on command line"
+msgstr "open_guest: teveel domeinen weergegeven op commando regel"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:183
+msgid "open_guest: cannot connect to libvirt"
+msgstr "open_guest: kan niet verbinden met libvirt"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:202
+#, perl-brace-format
+msgid "{imagename} is not the name of an inactive libvirt domain\n"
+msgstr "{imagename} is niet de naam van een inactief libvirt domein\n"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:205
+#, perl-brace-format
+msgid "{imagename} is not the name of a libvirt domain\n"
+msgstr "{imagename} is niet de naam van een libvirt domein\n"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:217
+#, perl-brace-format
+msgid "{imagename} seems to have no disk devices\n"
+msgstr "{imagename} lijkt geen schijf apparaten te hebben\n"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:1074
+msgid ""
+"No operating system could be detected inside this disk image.\n"
+"\n"
+"This may be because the file is not a disk image, or is not a virtual "
+"machine\n"
+"image, or because the OS type is not understood by virt-inspector.\n"
+"\n"
+"If you feel this is an error, please file a bug report including as much\n"
+"information about the disk image as possible.\n"
+msgstr ""
+"Binnen deze schijf image kon geen besturingssysteem gedetecteerd worden.\n"
+"\n"
+"Dit kan zijn omdat het bestand geen schijf image is, of het is geen virtuele "
+"machine\n"
+"image, of omdat het OS type niet begrepen wordt door virt-inspector.\n"
+"\n"
+"Als je denkt dat dit een fout is, moet je een bug rapport indienen\n"
+"met inbegrip van zoveel mogelijk informatie over de schijf image.\n"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:1147
+#, perl-brace-format
+msgid "unknown filesystem label {label}\n"
+msgstr "onbekend bestandssysteem label {label}\n"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:1157
+#, perl-brace-format
+msgid "unknown filesystem UUID {uuid}\n"
+msgstr "onbekend bestandssysteem UUID {uuid}\n"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:1180
+#, perl-brace-format
+msgid "unknown filesystem {fs}\n"
+msgstr "onbekend bestandssysteem {fs}\n"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:1364
+#, perl-brace-format
+msgid "Error running rpm -qa: {error}"
+msgstr "Fout bij het draaien van rpm -qa: {error}"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:1390
+#, perl-brace-format
+msgid "Error running dpkg-query: {error}"
+msgstr "Fout bij het draaien van dpkg-query: {error}"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:1455
+msgid "Can't find grub on guest"
+msgstr "Kan grub niet op de gast vinden"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:1510
+#, perl-brace-format
+msgid "Grub entry {title} has no kernel"
+msgstr "Grub ingang {title} heeft geen kernel"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:1541
+#, perl-brace-format
+msgid "grub refers to {path}, which doesn't exist\n"
+msgstr "grub refereert naar {path}, welke niet bestaat\n"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:1564
+#, perl-brace-format
+msgid "Grub entry {title} does not specify an initrd"
+msgstr "Grub ingang {title} specificeert geen initrd"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:1635
+#, perl-brace-format
+msgid "Didn't find modules directory {modules} for kernel {path}"
+msgstr "Kon modules map {modules} niet vinden voor kernel {path}"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:1643
+#, perl-brace-format
+msgid "Couldn't guess kernel version number from path for kernel {path}"
+msgstr "Kon kernel versie nummer niet raden uit het pad voor kernel {path}"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:1697
+#, perl-brace-format
+msgid "{path} doesn't match augeas pattern"
+msgstr "{path} komt niet overeen met augeas patroon"
+
+#: perl/lib/Sys/Guestfs/Lib.pm:1736
+#, perl-brace-format
+msgid "{filename}: could not read initrd format"
+msgstr "{filename}: kon initrd formaat niet lezen"
+
+#: src/appliance.c:134
+#, c-format
+msgid ""
+"cannot find any suitable libguestfs supermin or ordinary appliance on "
+"LIBGUESTFS_PATH (search path: %s)"
+msgstr ""
+"kon geen geschikte libguestfs supermin of gewoon toestel vinden op "
+"LIBGUESTFS_PATH (zoek pad: %s)"
+
+#: src/appliance.c:362
+#, c-format
+msgid "external command failed: %s"
+msgstr "extern commando mislukte: %s"
+
+#: src/guestfs.c:176
+#, c-format
+msgid "guestfs_close: called twice on the same handle\n"
+msgstr "guestfs_close: twee keer dezelfde hendel aangeroepen\n"
+
+#: src/guestfs.c:279
+#, c-format
+msgid "libguestfs: error: %s\n"
+msgstr "libguestfs: foutr: %s\n"
+
+#: src/inspect.c:914
+#, c-format
+msgid "cannot resolve Windows %%SYSTEMROOT%%"
+msgstr "Kan Windows %%SYSTEMROOT%% niet oplossen"
+
+#: src/inspect.c:1132
+msgid "no inspection data: call guestfs_inspect_os first"
+msgstr "geen inspectie data: roep eerst guestfs_inspect_os aan"
+
+#: src/inspect.c:1144
+#, c-format
+msgid ""
+"%s: root device not found: only call this function with a root device "
+"previously returned by guestfs_inspect_os"
+msgstr ""
+"%s: root apparaat niet gevonden: roep deze functie alleen aan met een root "
+"apparaat eerder teruggegeven door guestfs_inspect_os"
+
+#: src/launch.c:95
+msgid "command line cannot be altered after qemu subprocess launched"
+msgstr ""
+"commando regel kan niet gewijzigd worden nadat een qemu sub-proces "
+"gelanceerd is"
+
+#: src/launch.c:109
+msgid "guestfs_config: parameter must begin with '-' character"
+msgstr "guestfs_config: parameter moet met '-' beginnen"
+
+#: src/launch.c:123
+#, c-format
+msgid "guestfs_config: parameter '%s' isn't allowed"
+msgstr "guestfs_config: parameter '%s' is niet toegestaan"
+
+#: src/launch.c:144 src/launch.c:181 src/launch.c:214
+msgid "filename cannot contain ',' (comma) character"
+msgstr "bestandsnaam kan geen ',' (komma) bevatten"
+
+#: src/launch.c:240
+msgid "you must call guestfs_add_drive before guestfs_launch"
+msgstr "je moet guestfs_add_drive aanroepen voor guestfs_launch"
+
+#: src/launch.c:245
+msgid "the libguestfs handle has already been launched"
+msgstr "de libguestfs hendel is al gelanceerd"
+
+#: src/launch.c:260
+#, c-format
+msgid "%s: cannot create temporary directory"
+msgstr "%s: kan geen tijdelijke map aanmaken"
+
+#: src/launch.c:603
+msgid "guestfs_launch failed, see earlier error messages"
+msgstr "guestfs_launch mislukte, bekijk de eerdere fout boodschap"
+
+#: src/launch.c:616
+msgid "qemu launched and contacted daemon, but state != READY"
+msgstr "qemu gelanceerd en contact opgenomen met daemon, maar toestand != READY"
+
+#: src/launch.c:753
+#, c-format
+msgid ""
+"%s: command failed: If qemu is located on a non-standard path, try setting "
+"the LIBGUESTFS_QEMU environment variable."
+msgstr ""
+"%s: commando mislukte: Als qemu zich op een niet standaard pad bevindt, "
+"probeer je het instellen van de LIBGUESTFS_QEMU omgevingsvariabele."
+
+#: src/launch.c:845
+msgid "qemu has not been launched yet"
+msgstr "qemu is nog niet gelanceerd"
+
+#: src/launch.c:856
+msgid "no subprocess to kill"
+msgstr "geen sub-proces om af te schieten"
+
+#: src/proto.c:143
+#, c-format
+msgid "guestfs_set_busy: called when in state %d != READY"
+msgstr "guestfs_set_busy: aangeroepen in toestand %d != READY"
+
+#: src/proto.c:166
+#, c-format
+msgid "guestfs_end_busy: called when in state %d"
+msgstr "guestfs_end_busy: aangeroepen in toestand %d"
+
+#: src/proto.c:281
+#, c-format
+msgid ""
+"check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
+msgstr "check_for_daemon_cancellation_or_eof: 0x%x gelezen van daemon, verwachte 0x%"
+"x\n"
+
+#: src/proto.c:439 src/proto.c:493
+msgid "unexpected end of file when reading from daemon"
+msgstr "onverwacht einde van bestand bij het lezen van daemon"
+
+#: src/proto.c:455
+#, c-format
+msgid "received magic signature from guestfsd, but in state %d"
+msgstr "magie ondertekening ontvangen van guestfsd, maar de toestand is %d"
+
+#: src/proto.c:470
+#, c-format
+msgid "message length (%u) > maximum possible size (%d)"
+msgstr "boodschap lengte (%u) > maximaal mogelijke grootte (%d)"
+
+#: src/proto.c:600
+#, c-format
+msgid "guestfs___send: state %d != BUSY"
+msgstr "guestfs___send: toestand %d != BUSY"
+
+#: src/proto.c:622
+msgid "xdr_guestfs_message_header failed"
+msgstr "xdr_guestfs_message_header mislukte"
+
+#: src/proto.c:631
+msgid "dispatch failed to marshal args"
+msgstr "verzending faalde om argumenten te rangschikken"
+
+#: src/proto.c:761
+#, c-format
+msgid "send_file_chunk: state %d != READY"
+msgstr "send_file_chunk: toestand %d != READY"
+
+#: src/proto.c:777
+#, c-format
+msgid "xdr_guestfs_chunk failed (buf = %p, buflen = %zu)"
+msgstr "xdr_guestfs_chunk mislukted (buf = %p, buflen = %zu)"
+
+#: src/proto.c:900
+#, c-format
+msgid "%s: error in chunked encoding"
+msgstr "%s: fout in chunk codering"
+
+#: src/proto.c:928
+msgid "write to daemon socket"
+msgstr "schrijven naar daemon socket"
+
+#: src/proto.c:951
+msgid "receive_file_data: parse error in reply callback"
+msgstr "receive_file_data: ontleed fout in antwoord callback"
+
+#: src/proto.c:956
+msgid "receive_file_data: unexpected flag received when reading file chunks"
+msgstr ""
+"receive_file_data: onverwachte vlag ontvangen bij het lezen van bestand "
+"chunks"
+
+#: src/proto.c:964
+msgid "failed to parse file chunk"
+msgstr "bestand chunk ontleden mislukte"
+
+#: src/proto.c:973
+msgid "file receive cancelled by daemon"
+msgstr "bestand ontvangen geannuleerd door daemon"
+
+#: test-tool/test-tool.c:78
+#, c-format
+msgid ""
+"libguestfs-test-tool: interactive test tool\n"
+"Copyright (C) 2009 Red Hat Inc.\n"
+"Usage:\n"
+"  libguestfs-test-tool [--options]\n"
+"Options:\n"
+"  --help         Display usage\n"
+"  --helper libguestfs-test-tool-helper\n"
+"                 Helper program (default: %s)\n"
+"  --qemudir dir  Specify QEMU source directory\n"
+"  --qemu qemu    Specify QEMU binary\n"
+"  --timeout n\n"
+"  -t n           Set launch timeout (default: %d seconds)\n"
+msgstr ""
+"libguestfs-test-tool: interactief test gereedschap\n"
+"Copyright (C) 2009 Red Hat Inc.\n"
+"Gebruik:\n"
+"  libguestfs-test-tool [--opties]\n"
+"Opties:\n"
+"  --help         Laat gebruik zien\n"
+"  --helper libguestfs-test-tool-helper\n"
+"                 Hulp programma (standaard: %s)\n"
+"  --qemudir dir  Specificeer QEMU bron map\n"
+"  --qemu qemu    Specificeer QEMU binair prog\n"
+"  --timeout n\n"
+"  -t n           Stel lanceer time-out in (standaard: %d seconden)\n"
+
+#: test-tool/test-tool.c:134
+#, c-format
+msgid "libguestfs-test-tool: unknown long option: %s (%d)\n"
+msgstr "libguestfs-test-tool: onbekende lange optie: %s (%d)\n"
+
+#: test-tool/test-tool.c:143
+#, c-format
+msgid "libguestfs-test-tool: invalid timeout: %s\n"
+msgstr "libguestfs-test-tool: ongeldige time-out: %s\n"
+
+#: test-tool/test-tool.c:155
+#, c-format
+msgid "libguestfs-test-tool: unexpected command line option 0x%x\n"
+msgstr "libguestfs-test-tool: onverwachte commando regel optie 0x%x\n"
+
+#: test-tool/test-tool.c:178
+#, c-format
+msgid "libguestfs-test-tool: failed to create libguestfs handle\n"
+msgstr "libguestfs-test-tool: libguestfs hendel aanmaken mislukte\n"
+
+#: test-tool/test-tool.c:183 test-tool/test-tool.c:189
+#, c-format
+msgid "libguestfs-test-tool: failed to add drive '%s'\n"
+msgstr "libguestfs-test-tool: station '%s' toevoegen mislukte\n"
+
+#: test-tool/test-tool.c:197
+#, c-format
+msgid "libguestfs-test-tool: guestfs_version failed\n"
+msgstr "libguestfs-test-tool: guestfs_version mislukte\n"
+
+#: test-tool/test-tool.c:219
+#, c-format
+msgid "libguestfs-test-tool: failed to launch appliance\n"
+msgstr "libguestfs-test-tool: toestel lanceren mislukte\n"
+
+#: test-tool/test-tool.c:231
+#, c-format
+msgid "libguestfs-test-tool: failed to run sfdisk\n"
+msgstr "libguestfs-test-tool: draaien van sfdisk mislukte\n"
+
+#: test-tool/test-tool.c:237
+#, c-format
+msgid "libguestfs-test-tool: failed to mkfs.ext2\n"
+msgstr "libguestfs-test-tool: mkfs.ext2 mislukte\n"
+
+#: test-tool/test-tool.c:243
+#, c-format
+msgid "libguestfs-test-tool: failed to mount /dev/sda1 on /\n"
+msgstr "libguestfs-test-tool: aankoppelen van /dev/sda1 op / mislukte\n"
+
+#: test-tool/test-tool.c:249
+#, c-format
+msgid "libguestfs-test-tool: failed to mkdir /iso\n"
+msgstr "libguestfs-test-tool: mkdir /iso mislukte\n"
+
+#: test-tool/test-tool.c:255
+#, c-format
+msgid "libguestfs-test-tool: failed to mount /dev/sdb on /iso\n"
+msgstr "libguestfs-test-tool: aankoppelen van /dev/sdb op /iso mislukte\n"
+
+#: test-tool/test-tool.c:263
+#, c-format
+msgid "libguestfs-test-tool: could not run helper program, or helper failed\n"
+msgstr "libguestfs-test-tool: kon hulp programma niet draaien, of hulp programma "
+"mislukte\n"
+
+#: test-tool/test-tool.c:294
+#, c-format
+msgid ""
+"LIBGUESTFS_QEMU environment variable is already set, so\n"
+"--qemu/--qemudir options cannot be used.\n"
+msgstr ""
+"LIBGUESTFS_QEMU omgevingsvariabele al is ingesteld, dus\n"
+"de --qemu/--qemudir opties kunnen niet gebruikt worden.\n"
+
+#: test-tool/test-tool.c:302
+#, c-format
+msgid "Binary '%s' does not exist or is not executable\n"
+msgstr "Binair programma '%s' bestaat niet of is niet uitvoerbaar\n"
+
+#: test-tool/test-tool.c:316
+#, c-format
+msgid "%s: does not look like a qemu source directory\n"
+msgstr "%s: ziet er niet uit als een qemu bron map\n"
+
+#: test-tool/test-tool.c:365
+#, c-format
+msgid ""
+"Test tool helper program 'libguestfs-test-tool-helper' is not\n"
+"available.  Expected to find it in '%s'\n"
+"\n"
+"Use the --helper option to specify the location of this program.\n"
+msgstr ""
+"Test hulp programma 'libguestfs-test-programma-helper' is niet\n"
+"beschikbaar.  Verwacht het te vinden in '%s'\n"
+"\n"
+"Gebruik de --helper optie om de locatie van dit programma te specificeren.\n"
+
+#: test-tool/test-tool.c:381
+#, c-format
+msgid "command failed: %s"
+msgstr "commando mislukte: %s"
+
+#: test-tool/test-tool.c:389
+#, c-format
+msgid ""
+"Test tool helper program %s\n"
+"is not statically linked.  This is a build error when this test tool\n"
+"was built.\n"
+msgstr ""
+"Test hulp programma %s\n"
+"is niet statisch gelinkt.  Dit is een bouw fout toen dit test\n"
+"programma werd gebouwd.\n"
+
+#: test-tool/test-tool.c:423
+#, c-format
+msgid "mkisofs command failed: %s\n"
+msgstr "mkisofs commando mislukte: %s\n"
+
+#: tools/virt-cat.pl:128
+msgid "virt-cat: no image, VM names or filenames to cat given"
+msgstr "virt-cat: geen image, VM namen of bestandsnamen aan cat gegeven"
+
+#: tools/virt-cat.pl:153
+msgid "multiboot operating systems are not supported by virt-cat"
+msgstr "multi-opstart besturingssystemen worden niet ondersteund door virt-cat"
+
+#: tools/virt-df.pl:151
+msgid "virt-df: cannot use -h and --csv options together\n"
+msgstr "virt-df: kan -h en -csv opties niet tezamen gebruiken\n"
+
+#: tools/virt-df.pl:205
+#, perl-brace-format
+msgid "{name} is not the name of a libvirt domain\n"
+msgstr "{name} is niet de naam van een libvirt domein\n"
+
+#: tools/virt-df.pl:400
+msgid "Virtual Machine"
+msgstr "Virtuele machine"
+
+#: tools/virt-df.pl:400
+msgid "Filesystem"
+msgstr "Bestandssysteem"
+
+#: tools/virt-df.pl:403
+msgid "1K-blocks"
+msgstr "1K-blokken"
+
+#: tools/virt-df.pl:405
+msgid "Size"
+msgstr "Grootte"
+
+#: tools/virt-df.pl:407
+msgid "Used"
+msgstr "Gebruikt"
+
+#: tools/virt-df.pl:408
+msgid "Available"
+msgstr "Beschikbaar"
+
+#: tools/virt-df.pl:409
+msgid "Use%"
+msgstr "Gebruik%"
+
+#: tools/virt-df.pl:411
+msgid "Inodes"
+msgstr "Inodes"
+
+#: tools/virt-df.pl:412
+msgid "IUsed"
+msgstr "IUsed"
+
+#: tools/virt-df.pl:413
+msgid "IFree"
+msgstr "IFree"
+
+#: tools/virt-df.pl:414
+msgid "IUse%"
+msgstr "IUse%"
+
+#: tools/virt-edit.pl:152
+msgid "virt-edit: no image, VM names or filenames to edit given"
+msgstr ""
+"virt-edit: geen afbeelding, VM namen of bestandsnamen gegeven om te bewerken"
+
+#: tools/virt-edit.pl:177
+msgid "multiboot operating systems are not supported by virt-edit"
+msgstr "multi-opstart besturingssystemen worden niet ondersteund door virt-edit"
+
+#: tools/virt-edit.pl:203
+msgid "File not changed.\n"
+msgstr "Bestand niet gewijzigd.\n"
+
+#: tools/virt-list-filesystems.pl:121
+msgid "virt-list-filesystems: no image or VM name given"
+msgstr "virt-list-filesystems: geen image of VM naam opgegeven"
+
+#: tools/virt-list-partitions.pl:131
+msgid "virt-list-partitions: no image or VM name given"
+msgstr "virt-list-partitions: geen image of VM naam opgegeven"
+
+#: tools/virt-ls.pl:137 tools/virt-ls.pl:143
+msgid "virt-ls: cannot combine -l and -R options\n"
+msgstr "virt-ls: kan -l en -R opties niet combineren\n"
+
+#: tools/virt-ls.pl:161
+msgid "virt-ls: no image, VM names or directory to list given"
+msgstr "virt-ls: geen image, VM namen of map opgegeven om te tonen"
+
+#: tools/virt-ls.pl:186
+msgid "multiboot operating systems are not supported by virt-ls\n"
+msgstr "multi-opstart besturingssystemen worden niet ondersteund door virt-ls\n"
+
+#: tools/virt-make-fs.pl:291
+msgid "virt-make-fs input output\n"
+msgstr "virt-make-fs input output\n"
+
+#: tools/virt-make-fs.pl:321
+msgid "unexpected output from 'du' command"
+msgstr "onverwachte output  van 'du' commando"
+
+#: tools/virt-make-fs.pl:333 tools/virt-make-fs.pl:347
+#: tools/virt-make-fs.pl:453
+#, perl-brace-format
+msgid "{f}: unknown input format: {fmt}\n"
+msgstr "{f}: onbekend invoer formaat: {fmt}\n"
+
+#: tools/virt-make-fs.pl:391
+#, perl-brace-format
+msgid "virt-make-fs: cannot parse size parameter: {sz}\n"
+msgstr "virt-make-fs: kan size parameter niet ontleden: {sz}\n"
+
+#: tools/virt-make-fs.pl:401
+msgid ""
+"qemu-img create: failed to create disk image, see earlier error messages\n"
+msgstr "qemu-img create: aanmaken schijf image mislukte, zie eerdere fout "
+"boodschappen\n"
+
+#: tools/virt-make-fs.pl:412
+msgid "virt-make-fs: NTFS support was disabled when libguestfs was compiled\n"
+msgstr "virt-make-fs: NTFS ondersteuning was uitgezet toen libguestfs gecompileerd "
+"werd\n"
+
+#: tools/virt-make-fs.pl:437
+msgid "tar: failed, see earlier messages\n"
+msgstr "tar: misluket, zie eerdere boodschappen\n"
+
+#: tools/virt-make-fs.pl:459
+msgid "uncompress command failed, see earlier messages\n"
+msgstr "decomprimeer commando mislukte, zie eerdere boodschappen\n"
+
+#: tools/virt-make-fs.pl:494
+msgid ""
+"virt-make-fs: error copying contents into filesystem\n"
+"An error here usually means that the program did not estimate the\n"
+"filesystem size correctly.  Please read the BUGS section of the manpage.\n"
+msgstr ""
+"virt-make-fs: fout bij het kopiëren van inhoud naar het bestandssysteem\n"
+"Een fout hier betekent gewoonlijk dat het programma de grootte van het\n"
+"bestandssysteem niet correct bepaald heeft. Lees de BUGS sectie van de man "
+"pagina.\n"
+
+#: tools/virt-rescue.pl:194
+msgid "virt-rescue: no image or VM names rescue given"
+msgstr "virt-rescue: geen image of VM namen redding opgegeven"
+
+#: tools/virt-resize.pl:33
+msgid "virt-resize: sorry this program does not work on a 32 bit host\n"
+msgstr "virt-resize: sorry, dit programma werkt niet op een 32-bit host\n"
+
+#: tools/virt-resize.pl:526
+#, perl-brace-format
+msgid "virt-resize: {file}: does not exist or is not readable\n"
+msgstr "virt-resize: {file}: bestaat niet of is niet leesbaar\n"
+
+#: tools/virt-resize.pl:528
+#, perl-brace-format
+msgid ""
+"virt-resize: {file}: does not exist or is not writable\n"
+"You have to create the destination disk before running this program.\n"
+"Please read the virt-resize(1) manpage for more information.\n"
+msgstr ""
+"virt-formaat: {file}: bestaat niet of is niet beschrijfbaar\n"
+"Je moet de bestemming schijf aanmaken voordat je dit programma uitvoert.\n"
+"Lees de virt-resize(1) man pagina voor meer informatie.\n"
+
+#: tools/virt-resize.pl:553 tools/virt-resize.pl:556
+#, perl-brace-format
+msgid ""
+"virt-resize: {file}: file is too small to be a disk image ({sz} bytes)\n"
+msgstr "virt-resize: {file}: bestand is te klein om een schijf image te zijn ({sz} "
+"bytes)\n"
+
+#: tools/virt-resize.pl:720
+#, perl-brace-format
+msgid "virt-resize: no logical volume called {n}\n"
+msgstr "virt-resize: geen logische gevolume aangeroepen {n}\n"
+
+#: tools/virt-resize.pl:740
+#, perl-brace-format
+msgid ""
+"{p}: partition not found in the source disk image, when using the '{opt}' "
+"command line option\n"
+msgstr "{p}: partitie niet gevonden on de bron schijf image bij gebruik van de "
+"'{opt}' commando-regel optie\n"
+
+#: tools/virt-resize.pl:746
+#, perl-brace-format
+msgid ""
+"{p}: partition ignored, you cannot use it in another command line argument\n"
+msgstr "{p}: partitie genegeerd, je kunt het niet in een ander commando-regel "
+"argument gebruiken\n"
+
+#: tools/virt-resize.pl:750
+#, perl-brace-format
+msgid ""
+"{p}: partition deleted, you cannot use it in another command line argument\n"
+msgstr "{p}: partitie verwijderd, je kunt het niet in een ander commando-regel "
+"argument gebruiken\n"
+
+#: tools/virt-resize.pl:792
+#, perl-brace-format
+msgid "{p}: this partition has already been marked for resizing\n"
+msgstr "{p}: deze partitie is al gemarkeerd voor het veranderen in grootte\n"
+
+#: tools/virt-resize.pl:800
+#, perl-brace-format
+msgid "{p}: missing size field in {o} option\n"
+msgstr "{p}: ontbrekende grootte veld in {o} optie\n"
+
+#: tools/virt-resize.pl:817
+#, perl-brace-format
+msgid "{p}: {f}: cannot parse size field\n"
+msgstr "{p}: {f}: kan size veld niet ontleden\n"
+
+#: tools/virt-resize.pl:822
+#, perl-brace-format
+msgid "{p}: new size is zero or negative\n"
+msgstr "{p}: nieuwe grootte is nul of negatief\n"
+
+#: tools/virt-resize.pl:845
+#, perl-brace-format
+msgid ""
+"{p}: cannot make this partition smaller because it contains a\n"
+"filesystem, physical volume or other content that is larger than the new "
+"size.\n"
+"You have to resize the content first, see virt-resize(1).\n"
+msgstr ""
+"{p}: kan deze partitie niet kleiner maken omdat het een bestandssysteem,\n"
+"fysieke volume, of andere inhoud bevat die groter is dan de nieuwe grootte.\n"
+"Je moet de inhoud eerst in grootte veranderen, bekijk virt-resize(1).\n"
+
+#: tools/virt-resize.pl:861
+msgid "virt-resize: you cannot use options --expand and --shrink together\n"
+msgstr "virt-resize: je kunt de opties --expand en --shrink niet tezamen gebruiken\n"
+
+#: tools/virt-resize.pl:910
+#, perl-brace-format
+msgid ""
+"virt-resize: error: cannot use --expand when there is no surplus space to\n"
+"expand into.  You need to make the target disk larger by at least {h}.\n"
+msgstr ""
+"virt-resize: fout: je kunt --expand niet gebruiken als er geen extra ruimte "
+"is\n"
+"voor het expanderen.  Je moet de doel schijf tenminste {h} groter maken.\n"
+
+#: tools/virt-resize.pl:925
+msgid ""
+"virt-resize: error: cannot use --shrink because there is no deficit\n"
+"(see 'deficit' in the virt-resize(1) man page)\n"
+msgstr ""
+"virt-resize: fout: kan --shrink niet gebruiken omdat er geen deficit is\n"
+"(zie 'deficit' in de virt-resize(1) man pagina)\n"
+
+#: tools/virt-resize.pl:940
+msgid "Summary of changes:\n"
+msgstr "Samenvatting van de veranderingen:\n"
+
+#: tools/virt-resize.pl:944
+#, perl-brace-format
+msgid "{p}: partition will be ignored\n"
+msgstr "{p}: partitie zal genegeerd worden\n"
+
+#: tools/virt-resize.pl:946
+#, perl-brace-format
+msgid "{p}: partition will be deleted\n"
+msgstr "{p}: partitie zal verwijderd worden\n"
+
+#: tools/virt-resize.pl:948
+#, perl-brace-format
+msgid "{p}: partition will be resized from {oldsize} to {newsize}\n"
+msgstr "{p}: partitie zal in grootte veranderd worden van {oldsize} naar {newsize}\n"
+
+#: tools/virt-resize.pl:953
+#, perl-brace-format
+msgid "{p}: content will be expanded using the '{meth}' method\n"
+msgstr "{p}: inhoud zal geëxpandeerd worden met de '{meth}' methode\n"
+
+#: tools/virt-resize.pl:958
+#, perl-brace-format
+msgid "{p}: partition will be left alone\n"
+msgstr "{p}: partitie zal met rust gelaten worden\n"
+
+#: tools/virt-resize.pl:963
+#, perl-brace-format
+msgid "{n}: LV will be expanded to maximum size\n"
+msgstr "{n}: LV zal geëxpandeerd worden tot de maximale grootte\n"
+
+#: tools/virt-resize.pl:969
+#, perl-brace-format
+msgid "{n}: content will be expanded using the '{meth}' method\n"
+msgstr "{n}: inhoud zal geëxpandeerd worden met de '{meth}' methode\n"
+
+#: tools/virt-resize.pl:976
+#, perl-brace-format
+msgid "There is a surplus of {spl} bytes ({h}).\n"
+msgstr "Er is een overschot van {spl} bytes ({h}).\n"
+
+#: tools/virt-resize.pl:981
+msgid "An extra partition will be created for the surplus.\n"
+msgstr "Er zal een extra partitie aangemaakt worden voor het overschot.\n"
+
+#: tools/virt-resize.pl:983
+msgid ""
+"The surplus space is not large enough for an extra partition to be created\n"
+"and so it will just be ignored.\n"
+msgstr ""
+"De overschot ruimte is niet groot genoeg om een extra partitie aan te maken\n"
+"en daarom genegeerd worden.\n"
+
+#: tools/virt-resize.pl:986
+msgid ""
+"The surplus space will be ignored.  Run a partitioning program in the guest\n"
+"to partition this extra space if you want.\n"
+msgstr ""
+"De overtollige ruimte zal genegeerd worden.  Draai een schijf indeling "
+"programma in de gast\n"
+"om deze extra ruimte te partitioneren als je dat wilt.\n"
+
+#: tools/virt-resize.pl:989
+#, perl-brace-format
+msgid ""
+"virt-resize: error: there is a deficit of {def} bytes ({h}).\n"
+"You need to make the target disk larger by at least this amount,\n"
+"or adjust your resizing requests.\n"
+msgstr ""
+"virt-resize: fout: er is een tekort van {def} bytes ({h}).\n"
+"Je moet de doel schijf tenminste deze hoeveelheid groter maken,\n"
+"of jouw in grootte verander verzoek aanpassen.\n"
+
+#: tools/virt-resize.pl:1030
+msgid "virt-resize: source disk does not have a first partition\n"
+msgstr "virt-resize: bron schijf heeft geen eerste partitie\n"
+
+#: tools/virt-resize.pl:1126
+#, perl-brace-format
+msgid "Copying {p} ..."
+msgstr "{p} kopiëren ..."
+
+#: tools/virt-resize.pl:1133
+msgid "done"
+msgstr "voltooid"
+
+#: tools/virt-resize.pl:1191 tools/virt-resize.pl:1249
+#, perl-brace-format
+msgid "Expanding {p} using the '{meth}' method\n"
+msgstr "{p} expanderen met de '{meth}' methode\n"
+
+#: tools/virt-tar.pl:162 tools/virt-tar.pl:169
+msgid "virt-tar: extract/upload mode specified twice on the command line\n"
+msgstr "virt-tar: extraheer/upload mode twee keer gespecificeerd op de commando-"
+"regel\n"
+
+#: tools/virt-tar.pl:190
+msgid "virt-tar: no image, VM names, directory or filename given"
+msgstr "virt-tar: geen image, VM namen, map of bestandsnaam opgegeven"
+
+#: tools/virt-tar.pl:193
+msgid "virt-tar: either -x or -u must be specified on the command line\n"
+msgstr "virt-tar: -x of -u  moet opgegeven worden op de commando-regel\n"
+
+#: tools/virt-tar.pl:204
+#, perl-brace-format
+msgid "virt-tar: {tarball}: file not found\n"
+msgstr "virt-tar: {tarball}: bestand niet gevonden\n"
+
+#: tools/virt-tar.pl:207
+#, perl-brace-format
+msgid "virt-tar: {dir}: directory name must start with '/' character\n"
+msgstr "virt-tar: {dir}: map naam moet beginnen met het '/' karakter\n"
+
+#: tools/virt-tar.pl:229
+msgid "multiboot operating systems are not supported by virt-tar\n"
+msgstr "multi-opstart besturingssystemen worden niet ondersteund door virt-tar\n"
+
+#: tools/virt-win-reg.pl:259
+msgid "no libvirt domain name or disk image given\n"
+msgstr "geen libvirt domein naam of schijf image gegeven\n"
+
+#: tools/virt-win-reg.pl:283
+msgid "multiboot operating systems are not supported by virt-win-reg"
+msgstr ""
+"multi-opstart besturingssystemen worden niet ondersteund door virt-win-reg"
+
+#: tools/virt-win-reg.pl:297
+msgid ""
+"expecting 1 or 2 more parameters, subkey path and optionally the value to "
+"export\n"
+msgstr "verwacht 1 of 2 extra parameters, subkey pad en optioneel de waarde om te "
+"exporteren\n"
+
+#: tools/virt-win-reg.pl:408
+#, perl-brace-format
+msgid "virt-win-reg: {p}: not a supported Windows Registry path\n"
+msgstr "virt-win-reg: {p}: geen ondersteund Windows Registry pad\n"
+
+#: tools/virt-win-reg.pl:426 tools/virt-win-reg.pl:449
+#, perl-brace-format
+msgid "virt-win-reg: {p}: file not found in guest: {err}\n"
+msgstr "virt-win-reg: {p}: bestand niet gevonden in gast: {err}\n"
+
+#: tools/virt-win-reg.pl:433
+#, perl-brace-format
+msgid "virt-win-reg: {p}: could not download registry file: {err}\n"
+msgstr "virt-win-reg: {p}: kon registry bestand niet downloaden: {err}\n"
+
+#: tools/virt-win-reg.pl:456
+#, perl-brace-format
+msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
+msgstr "virt-win-reg: {p}: kon registry bestand niet uploaden: {err}\n"
