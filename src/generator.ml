@@ -8729,6 +8729,37 @@ sub new {
 
 =back
 
+=head1 AVAILABILITY
+
+From time to time we add new libguestfs APIs.  Also some libguestfs
+APIs won't be available in all builds of libguestfs (the Fedora
+build is full-featured, but other builds may disable features).
+How do you test whether the APIs that your Perl program needs are
+available in the version of C<Sys::Guestfs> that you are using?
+
+To test if a particular function is available in the C<Sys::Guestfs>
+class, use the ordinary Perl UNIVERSAL method C<can(METHOD)>
+(see L<perlobj(1)>).  For example:
+
+ use Sys::Guestfs;
+ if (defined (Sys::Guestfs->can (\"set_verbose\"))) {
+   print \"\\$h->set_verbose is available\\n\";
+ }
+
+To test if particular features are supported by the current
+build, use the L</available> method like the example below.  Note
+that the appliance must be launched first.
+
+ $h->available ( [\"augeas\"] );
+
+Since the L</available> method croaks if the feature is not supported,
+you might also want to wrap this in an eval and return a boolean.
+In fact this has already been done for you: use
+L<Sys::Guestfs::Lib(3)/feature_available>.
+
+For further discussion on this topic, refer to
+L<guestfs(3)/AVAILABILITY>.
+
 =head1 COPYRIGHT
 
 Copyright (C) %s Red Hat Inc.
