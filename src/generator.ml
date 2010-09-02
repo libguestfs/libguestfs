@@ -9282,6 +9282,24 @@ L<Sys::Guestfs::Lib(3)/feature_available>.
 For further discussion on this topic, refer to
 L<guestfs(3)/AVAILABILITY>.
 
+=head1 STORING DATA IN THE HANDLE
+
+The handle returned from L</new> is a hash reference.  The hash
+normally contains a single element:
+
+ {
+   _g => [private data used by libguestfs]
+ }
+
+Callers can add other elements to this hash to store data for their own
+purposes.  The data lasts for the lifetime of the handle.
+
+Any fields whose names begin with an underscore are reserved
+for private use by libguestfs.  We may add more in future.
+
+It is recommended that callers prefix the name of their field(s)
+with some unique string, to avoid conflicts with other users.
+
 =head1 COPYRIGHT
 
 Copyright (C) %s Red Hat Inc.
