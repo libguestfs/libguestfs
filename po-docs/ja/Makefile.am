@@ -23,7 +23,6 @@ LINGUA = $(shell basename -- `pwd`)
 
 CLEANFILES = *.1 *.3
 
-# Ship the final translated manpages in the tarball.
 MANPAGES = \
 	guestfs.3 \
 	guestfish.1 \
@@ -31,9 +30,20 @@ MANPAGES = \
 	guestmount.1 \
 	$(patsubst %.pl,%.1,$(wildcard virt-*.pl))
 
-EXTRA_DIST = $(MANPAGES)
+# Ship the POD files and the translated manpages in the tarball.  This
+# just simplifies building from the tarball, at a small cost in extra
+# size.
+EXTRA_DIST = \
+	$(MANPAGES) \
+	guestfs.pod guestfs-actions.pod guestfs-availability.pod guestfs-structs.pod \
+	guestfish.pod guestfish-actions.pod \
+	guestmount.pod \
+	libguestfs-test-tool.pod \
+	$(wildcard virt-*.pl)
 
 all-local: $(MANPAGES)
+
+if HAVE_PO4A
 
 guestfs.3: guestfs.pod guestfs-actions.pod guestfs-availability.pod guestfs-structs.pod
 	sed \
@@ -83,6 +93,8 @@ virt-%.1: virt-%.pl
 	  -c "Virtualization Support" \
 	  --release "$(PACKAGE_NAME)-$(PACKAGE_VERSION)" \
 	  $< > $@-t && mv $@-t $@
+
+endif
 
 # XXX Can automake do this properly?
 install-data-hook:

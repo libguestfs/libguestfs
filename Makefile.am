@@ -20,7 +20,7 @@ include $(top_srcdir)/subdir-rules.mk
 ACLOCAL_AMFLAGS = -I m4
 
 # Basic source for the library.
-SUBDIRS = gnulib/lib images src examples po po-docs
+SUBDIRS = gnulib/lib images src examples po
 
 if ENABLE_DAEMON
 SUBDIRS += daemon
@@ -67,6 +67,9 @@ endif
 if HAVE_FUSE
 SUBDIRS += fuse
 endif
+
+# po-docs must come after tools, inspector.
+SUBDIRS += po-docs
 
 EXTRA_DIST = \
 	$(generator_built) \
