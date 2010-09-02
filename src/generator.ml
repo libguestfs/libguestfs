@@ -10835,6 +10835,10 @@ void Init__guestfs ()
   c_guestfs = rb_define_class_under (m_guestfs, \"Guestfs\", rb_cObject);
   e_Error = rb_define_class_under (m_guestfs, \"Error\", rb_eStandardError);
 
+#ifdef HAVE_RB_DEFINE_ALLOC_FUNC
+  rb_define_alloc_func (c_guestfs, ruby_guestfs_create);
+#endif
+
   rb_define_module_function (m_guestfs, \"create\", ruby_guestfs_create, 0);
   rb_define_method (c_guestfs, \"close\", ruby_guestfs_close, 0);
 
