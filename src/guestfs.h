@@ -64,11 +64,15 @@ typedef void (*guestfs_progress_cb) (guestfs_h *g, void *opaque, int proc_nr, in
 extern void guestfs_set_log_message_callback (guestfs_h *g, guestfs_log_message_cb cb, void *opaque);
 extern void guestfs_set_subprocess_quit_callback (guestfs_h *g, guestfs_subprocess_quit_cb cb, void *opaque);
 extern void guestfs_set_launch_done_callback (guestfs_h *g, guestfs_launch_done_cb cb, void *opaque);
+#define LIBGUESTFS_HAVE_SET_CLOSE_CALLBACK 1
 extern void guestfs_set_close_callback (guestfs_h *g, guestfs_close_cb cb, void *opaque);
+#define LIBGUESTFS_HAVE_SET_PROGRESS_CALLBACK 1
 extern void guestfs_set_progress_callback (guestfs_h *g, guestfs_progress_cb cb, void *opaque);
 
 /*--- Private data area ---*/
+#define LIBGUESTFS_HAVE_SET_PRIVATE 1
 extern void guestfs_set_private (guestfs_h *g, const char *key, void *data);
+#define LIBGUESTFS_HAVE_GET_PRIVATE 1
 extern void *guestfs_get_private (guestfs_h *g, const char *key);
 
 /*--- Structures and actions ---*/

@@ -6451,11 +6451,21 @@ and generate_structs_h () =
 and generate_actions_h () =
   generate_header CStyle LGPLv2plus;
   List.iter (
-    fun (shortname, style, _, _, _, _, _) ->
+    fun (shortname, style, _, flags, _, _, _) ->
       let name = "guestfs_" ^ shortname in
+
+      let deprecated =
+        List.exists (function DeprecatedBy _ -> true | _ -> false) flags in
+      let test0 =
+        String.length shortname >= 5 && String.sub shortname 0 5 = "test0" in
+      let debug =
+        String.length shortname >= 5 && String.sub shortname 0 5 = "debug" in
+      if not deprecated && not test0 && not debug then
+        pr "#define LIBGUESTFS_HAVE_%s 1\n" (String.uppercase shortname);
+
       generate_prototype ~single_line:true ~newline:true ~handle:"g"
         name style
-  ) all_functions
+  ) all_functions_sorted
 
 (* Generate the guestfs-internal-actions.h file. *)
 and generate_internal_actions_h () =

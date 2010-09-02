@@ -940,10 +940,17 @@ Note however that you have to do C<run> first.
 
 =head2 SINGLE CALLS AT COMPILE TIME
 
-If you need to test whether a single libguestfs function is
-available at compile time, we recommend using build tools
-such as autoconf or cmake.  For example in autotools you could
-use:
+Since version 1.5.8, C<E<lt>guestfs.hE<gt>> defines symbols
+for each C API function, such as:
+
+ #define LIBGUESTFS_HAVE_DD 1
+
+if L</guestfs_dd> is available.
+
+Before version 1.5.8, if you needed to test whether a single
+libguestfs function is available at compile time, we recommended using
+build tools such as autoconf or cmake.  For example in autotools you
+could use:
 
  AC_CHECK_LIB([guestfs],[guestfs_create])
  AC_CHECK_FUNCS([guestfs_dd])
@@ -964,8 +971,6 @@ You can use L<dlopen(3)> to test if a function is available
 at run time, as in this example program (note that you still
 need the compile time check as well):
 
- #include <config.h>
- 
  #include <stdio.h>
  #include <stdlib.h>
  #include <unistd.h>
@@ -974,7 +979,7 @@ need the compile time check as well):
  
  main ()
  {
- #ifdef HAVE_GUESTFS_DD
+ #ifdef LIBGUESTFS_HAVE_DD
    void *dl;
    int has_function;
  
