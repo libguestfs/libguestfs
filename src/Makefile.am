@@ -121,6 +121,7 @@ libguestfs_la_SOURCES = \
 	guestfs-actions.c \
 	guestfs-bindtests.c \
 	guestfs-internal.h \
+	guestfs-structs.h \
 	guestfs_protocol.h \
 	gettext.h \
 	libguestfs.syms
