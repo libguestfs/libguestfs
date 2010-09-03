@@ -43,7 +43,7 @@ FUSE.
 
 Libguestfs is a library that can be linked with C and C++ management
 programs (or management programs written in OCaml, Perl, Python, Ruby,
-Java, Haskell or C#).  You can also use it from shell scripts or the
+Java, PHP, Haskell or C#).  You can also use it from shell scripts or the
 command line.
 
 You don't need to be root to use libguestfs, although obviously you do
@@ -625,6 +625,13 @@ For documentation see the file C<guestfs.mli>.
 =item B<Perl>
 
 For documentation see L<Sys::Guestfs(3)>.
+
+=item B<PHP>
+
+For documentation see C<README-PHP> supplied with libguestfs
+sources or in the php-libguestfs package for your distribution.
+
+The PHP binding only works correctly on 64 bit machines.
 
 =item B<Python>
 

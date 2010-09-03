@@ -18,7 +18,7 @@ FUSE.
 
 Libguestfs is a library that can be linked with C and C++ management
 programs (or management programs written in OCaml, Perl, Python, Ruby,
-Java, Haskell or C#).  You can also use it from shell scripts or the
+Java, PHP, Haskell or C#).  You can also use it from shell scripts or the
 command line.
 
 Libguestfs was written by Richard W.M. Jones (rjones@redhat.com) and
@@ -95,6 +95,8 @@ in virt-inspector).
 - (Optional, but highly recommended) perl-libintl for translating perl code.
 
 - (Optional) po4a for translating manpages and POD files.
+
+- (Optional) PHP, phpize if you want to build the PHP bindings
 
 Running ./configure will check you have all the requirements installed
 on your machine.

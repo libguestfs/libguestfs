@@ -772,6 +772,11 @@ dnl po4a for translating man pages and POD files (optional).
 AC_CHECK_PROG([PO4A],[po4a],[po4a],[no])
 AM_CONDITIONAL([HAVE_PO4A], [test "x$PO4A" != "xno"])
 
+dnl PHP
+AC_CHECK_PROG([PHP],[php],[php],[no])
+AC_CHECK_PROG([PHPIZE],[phpize],[phpize],[no])
+AM_CONDITIONAL([HAVE_PHP], [test "x$PHP" != "xno" -a "x$PHPIZE" != "xno"])
+
 dnl Library versioning.
 MAX_PROC_NR=`cat $srcdir/src/MAX_PROC_NR`
 AC_SUBST(MAX_PROC_NR)
@@ -808,6 +813,7 @@ AC_CONFIG_FILES([Makefile
                  fuse/Makefile
                  po-docs/Makefile
                  po-docs/ja/Makefile
+                 php/Makefile
                  ocaml/META perl/Makefile.PL])
 AC_OUTPUT
 
@@ -834,6 +840,8 @@ echo -n "Java bindings ....................... "
 if test "x$HAVE_JAVA_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo -n "Haskell bindings .................... "
 if test "x$HAVE_HASKELL_TRUE" = "x"; then echo "yes"; else echo "no"; fi
+echo -n "PHP bindings ........................ "
+if test "x$HAVE_PHP_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo -n "virt-inspector ...................... "
 if test "x$HAVE_INSPECTOR_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo -n "virt-* tools ........................ "

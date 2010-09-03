@@ -98,6 +98,7 @@ perl/Guestfs.c
 perl/bindtests.pl
 perl/lib/Sys/Guestfs.pm
 perl/lib/Sys/Guestfs/Lib.pm
+php/extension/guestfs_php.c
 python/guestfs-py.c
 regressions/rhbz501893.c
 regressions/test-lvm-mapping.pl

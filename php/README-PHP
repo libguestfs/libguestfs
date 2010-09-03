@@ -1,0 +1,54 @@
+NOTE: The PHP API is not complete on 32 bit architectures.  PHP
+doesn't offer any convenient 64 bit type (on 32 bit).  Any 64 bit
+parameters or return values will be truncated to 32 bits on these
+platforms.  You should always use these PHP bindings on a 64 bit
+operating system.
+
+To install the extension manually, copy guestfs_php.so into the
+modules directory (eg. /usr/local/lib/php/modules/) and copy
+guestfs_php.ini into the config directory (eg. /etc/php.d/).
+[Note: On packaged Linux distributions you don't need to do this]
+
+The PHP API follows the C API.  Refer to guestfs(3) or
+http://libguestfs.org/guestfs.3.html for the details of the C API.
+
+To create a handle, use guestfs_create() like this:
+
+  <?php
+  $g = guestfs_create ();
+  if ($g == false) {
+    echo ("Failed to create guestfs_php handle.\n");
+    exit;
+  }
+  ?>
+
+Handles are closed implicitly by the PHP dtor.
+
+All of the usual functions from the C API are available.  By
+convention these return 'false' for errors, so:
+
+  <?php
+  //...
+  if (guestfs_launch ($g) == false) {
+    echo ("Error: ".guestfs_last_error ($g)."\n");
+    exit;
+  }
+  ?>
+
+or:
+
+  <?php
+  //...
+  $version = guestfs_version ($g);
+  if ($version == false) {
+    echo ("Error: ".guestfs_last_error ($g)."\n");
+    exit;
+  }
+  echo ("libguestfs version = ".
+        $version["major"].".".$version["minor"].".".$version["release"].
+        $version["extra"]."\n");
+  ?>
+
+C API structs are mapped to associative arrays.  C API lists of
+structs are mapped to arrays of associative arrays.  Other C API
+parameters and return values are mapped to natural PHP types.

@@ -54,6 +54,9 @@ endif
 if HAVE_HASKELL
 SUBDIRS += haskell
 endif
+if HAVE_PHP
+SUBDIRS += php
+endif
 
 # Virt-inspector, tools and guestmount.
 if HAVE_INSPECTOR
