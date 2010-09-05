@@ -49,8 +49,10 @@ extension/config.h: extension/config.m4 ../config.status
 
 TESTS = run-php-tests.sh
 
-clean-local:
-	$(MAKE) -C extension clean
+# Amazingly the PHP-installed extension Makefile doesn't have a
+# 'make clean' rule.
+#clean-local:
+#	$(MAKE) -C extension clean
 
 install-data-hook:
 	$(MAKE) -C extension INSTALL_ROOT=$(DESTDIR) install
