@@ -71,7 +71,7 @@ for f in /sys/block/[hsv]d*/queue/scheduler; do echo noop > $f; done
 
 # These are useful when debugging.
 if grep -sq guestfs_verbose=1 /proc/cmdline; then
-    ls -l /dev
+    ls -lR /dev
     cat /proc/mounts
     lvm pvs
     lvm vgs
