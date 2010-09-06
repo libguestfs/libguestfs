@@ -95,6 +95,8 @@ if test "$gl_gcc_warnings" = yes; then
   # ?? -Wstrict-overflow
   nw="$nw -Wunsafe-loop-optimizations" # just a warning that an optimization
                                     # was not possible, safe to ignore
+  nw="$nw -Wlong-long"              # Allow long long since it's required
+                                    # by Python, Ruby and xstrtoll.
 
   gl_MANYWARN_ALL_GCC([ws])
   gl_MANYWARN_COMPLEMENT([ws], [$ws], [$nw])
