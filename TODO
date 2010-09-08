@@ -29,6 +29,11 @@ Haskell bindings
 
 Complete the Haskell bindings (see discussion on haskell-cafe).
 
+PHP bindings
+------------
+
+Add bindtests to PHP bindings.
+
 Complete bind tests
 -------------------
 
@@ -84,11 +89,6 @@ This is mainly useful from live CDs, ie. virt-p2v.
 
 Should we bother having the daemon at all and just link the guestfsd
 code directly into libguestfs?
-
-Supermin appliance to febootstrap
----------------------------------
-
-Supermin appliance functionality should be moved into febootstrap.
 
 Ideas for extra commands
 ------------------------
@@ -279,8 +279,7 @@ http://sourceforge.net/projects/tripwire/
 -N option should be generated
 -----------------------------
 
-'-N' option should be generated code, and should generate
-documentation in guestfish(1) manpage.
+'-N' option should generate documentation in guestfish(1) manpage.
 
 Fix 'file'
 ----------
@@ -294,6 +293,9 @@ Regression test on virt-inspector
 Occasionally we break virt-inspector through some change.  We should
 add a regression test for it.  However this is hard because we'd need
 to avoid having to carry huge images.
+
+Update: I managed to fit a real-but-minimal Fedora 13 image into 6.2 MB.
+See: http://rwmj.wordpress.com/2010/09/07/tip-pack-files-into-a-new-disk-image/#content
 
 Freeze/thaw filesystems
 -----------------------
@@ -350,16 +352,6 @@ How can we solve these common user problems?
   a list of filesystems, or suggest they run the virt-list-filesystems
   command.
 
-Progress of long-running operations
------------------------------------
-
-For example, copying in virt-resize.  How can we display the progress
-of these operations?  This is a basic usability requirement, and
-frequently requested.
-
-See: https://www.redhat.com/archives/libguestfs/2010-July/msg00003.html
-and follow-ups.
-
 Better support for encrypted devices
 ------------------------------------
 
@@ -390,14 +382,3 @@ command such as:
   copy-out-recursive remotedir localdir
 
 which would hide use of tgz-in etc.
-
-Sys::Guestfs::Lib / inspector code in C
----------------------------------------
-
-This would allow us to:
-
-- use inspection from other languages
-- get rid of inspector_generator
-- don't use external virt-inspector process in guestfish
-
-See: https://www.redhat.com/archives/libguestfs/2010-July/msg00067.html
