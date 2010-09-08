@@ -58,8 +58,6 @@ do_sparse (const char *cmd, int argc, char *argv[])
   return 0;
 }
 
-static int parse_size (const char *str, off_t *size_rtn);
-
 /* This is the underlying allocation function.  It's called from
  * a few other places in guestfish.
  */
@@ -144,7 +142,7 @@ alloc_disk (const char *filename, const char *size_str, int add, int sparse)
   return 0;
 }
 
-static int
+int
 parse_size (const char *str, off_t *size_rtn)
 {
   unsigned long long size;
@@ -154,7 +152,7 @@ parse_size (const char *str, off_t *size_rtn)
   if (xerr != LONGINT_OK) {
     fprintf (stderr,
              _("%s: invalid integer parameter (%s returned %d)\n"),
-             "alloc_disk", "xstrtoull", xerr);
+             "parse_size", "xstrtoull", xerr);
     return -1;
   }
 

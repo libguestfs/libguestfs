@@ -5677,6 +5677,29 @@ let prepopts = [
   creating a 100MB disk with the VG and LV called /dev/VG/LV, with an
   ext2 filesystem.");
 
+  ("bootroot",
+   "create a boot and root filesystem",
+   [ "bootfs", "ext2", "the type of filesystem to use for boot";
+     "rootfs", "ext2", "the type of filesystem to use for root";
+     "size", "100M", "the size of the disk image";
+     "bootsize", "32M", "the size of the boot filesystem";
+     "partition", "mbr", "partition table type" ],
+   "  Create a disk with two partitions, for boot and root filesystem.
+  Format the two filesystems independently.  There are several optional
+  parameters which control the exact layout and filesystem types.");
+
+  ("bootrootlv",
+   "create a boot and root filesystem using LVM",
+   [ "name", "/dev/VG/LV", "the name of the VG and LV for root";
+     "bootfs", "ext2", "the type of filesystem to use for boot";
+     "rootfs", "ext2", "the type of filesystem to use for root";
+     "size", "100M", "the size of the disk image";
+     "bootsize", "32M", "the size of the boot filesystem";
+     "partition", "mbr", "partition table type" ],
+   "  This is the same as 'bootroot' but the root filesystem (only) is
+  placed on a logical volume, named by default '/dev/VG/LV'.  There are
+  several optional parameters which control the exact layout.");
+
 ]
 
 (* Used to memoize the result of pod2text. *)

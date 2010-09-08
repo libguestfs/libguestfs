@@ -81,6 +81,7 @@ fish/lcd.c
 fish/man.c
 fish/more.c
 fish/prep.c
+fish/prep_boot.c
 fish/prep_disk.c
 fish/prep_fs.c
 fish/prep_lv.c

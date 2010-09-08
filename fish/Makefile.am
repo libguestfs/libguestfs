@@ -55,6 +55,7 @@ guestfish_SOURCES = \
 	prep_part.c \
 	prep_fs.c \
 	prep_lv.c \
+	prep_boot.c \
 	progress.c \
 	rc.c \
 	reopen.c \

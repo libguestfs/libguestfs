@@ -92,6 +92,7 @@ extern int do_alloc (const char *cmd, int argc, char *argv[]);
 extern int do_sparse (const char *cmd, int argc, char *argv[]);
 extern int alloc_disk (const char *filename, const char *size,
                        int add, int sparse);
+extern int parse_size (const char *str, off_t *size_rtn);
 
 /* in echo.c */
 extern int do_echo (const char *cmd, int argc, char *argv[]);
@@ -128,6 +129,9 @@ extern prep_data *create_prepared_file (const char *type_string,
 extern void prepare_drive (const char *filename, prep_data *data,
                            const char *device);
 extern void prep_error (prep_data *data, const char *filename, const char *fs, ...) __attribute__((noreturn, format (printf,3,4)));
+
+/* in prep_lv.c */
+extern int vg_lv_parse (const char *device, char **vg, char **lv);
 
 /* in progress.c */
 extern void reset_progress_bar (void);

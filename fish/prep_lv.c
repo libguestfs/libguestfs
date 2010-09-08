@@ -30,7 +30,7 @@
 /* Split "/dev/VG/LV" into "VG" and "LV".  This function should
  * probably do more checks.
  */
-static int
+int
 vg_lv_parse (const char *device, char **vg, char **lv)
 {
   if (STRPREFIX (device, "/dev/"))
