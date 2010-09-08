@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.5.8\n"
+"Project-Id-Version: libguestfs 1.5.9\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2010-09-04 10:26+0200\n"
+"POT-Creation-Date: 2010-09-08 11:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14165,7 +14165,7 @@ msgstr ""
 #: ../fish/guestfish.pod:106 ../fish/guestfish.pod:720
 #, no-wrap
 msgid ""
-" guestfish -N list | less\n"
+" guestfish -N help | less\n"
 "\n"
 msgstr ""
 
@@ -14453,7 +14453,7 @@ msgstr ""
 
 # type: =item
 #: ../fish/guestfish.pod:228
-msgid "B<-N type> | B<--new type> | B<-N list>"
+msgid "B<-N type> | B<--new type> | B<-N help>"
 msgstr ""
 
 # type: textblock

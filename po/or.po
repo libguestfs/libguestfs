@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master.or\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-09-04 10:26+0100\n"
+"POT-Creation-Date: 2010-09-08 11:40+0100\n"
 "PO-Revision-Date: 2010-02-01 18:17+0530\n"
 "Last-Translator: Manoj Kumar Giri <mgiri@redhat.com>\n"
 "Language-Team: Oriya <oriya-it@googlegroups.com>\n"
@@ -31,12 +31,12 @@ msgstr "ଗୋଟିଏ ପ୍ରତିଛବି ନିର୍ମାଣ କରି
 msgid "use 'sparse file size' to create a sparse image\n"
 msgstr "ଗୋଟିଏ ସ୍ପାର୍ଶ ପ୍ରତିଛବି ନିର୍ମାଣ କରିବା ପାଇଁ 'sparse file size' କୁ ବ୍ୟବହାର କରନ୍ତୁ\n"
 
-#: fish/alloc.c:77
+#: fish/alloc.c:75
 #, c-format
 msgid "can't allocate or add disks after launching\n"
 msgstr "ଆରମ୍ଭ କରିସାରିବା ପରେ ଡିସ୍କଗୁଡ଼ିକୁ ବଣ୍ଟନ ଅଥବା ଯୋଗ କରିପାରିବେ ନାହିଁ\n"
 
-#: fish/alloc.c:156
+#: fish/alloc.c:154
 #, fuzzy, c-format
 msgid "%s: invalid integer parameter (%s returned %d)\n"
 msgstr "%s: %s: ଅବୈଧ ଗଣନ ସଂଖ୍ୟା ପ୍ରାଚଳ (%s ଫେରାଇଥାଏ %d)\n"
@@ -1548,42 +1548,42 @@ msgstr "%s: ସୁଦୂର: $GUESTFISH_PID ନିଶ୍ଚିତ ଭାବର�
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: ଅଜଣା ଲମ୍ବା ବିକଳ୍ପ: %s (%d)\n"
 
-#: fish/fish.c:348
+#: fish/fish.c:351
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: କେବଳ ଗୋଟିଏ -f ପ୍ରାଚଳ ଦିଆହୋଇଛି\n"
 
-#: fish/fish.c:484
+#: fish/fish.c:487
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr "%s: --listen ଏବଂ --remote ବିକଳ୍ପଗୁଡ଼ିକୁ ଏକ ସମୟରେ ବ୍ୟବହାର କରିପାରିବେ ନାହିଁ\n"
 
-#: fish/fish.c:492
+#: fish/fish.c:495
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: ନିର୍ଦ୍ଦେଶ ନାମାରେ --listen ସୂଚକ ସହିତ ଅତିରିକ୍ତ ପ୍ରଚଳଗୁଡ଼ିକ\n"
 
-#: fish/fish.c:498
+#: fish/fish.c:501
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: --listen ଏବଂ --file ବିକଳ୍ପଗୁଡ଼ିକୁ ଏକା ସମୟରେ ବ୍ୟବହାର କରିପାରିବେ ନାହିଁ\n"
 
-#: fish/fish.c:555
+#: fish/fish.c:558
 #, c-format
 msgid "guestfish: could not access termcap or terminfo database.\n"
 msgstr ""
 
-#: fish/fish.c:559
+#: fish/fish.c:562
 #, c-format
 msgid "guestfish: terminal type \"%s\" not defined.\n"
 msgstr ""
 
-#: fish/fish.c:612
+#: fish/fish.c:615
 #, fuzzy, c-format
 msgid "guestfish: too many drives added on the command line\n"
 msgstr "%s: ନିର୍ଦ୍ଦେଶ ନାମରେ ଖାଲି ନିର୍ଦ୍ଦେଶ\n"
 
-#: fish/fish.c:744
+#: fish/fish.c:747
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -1603,90 +1603,90 @@ msgstr ""
 "      'quit' shellରୁ ପ୍ରସ୍ଥାନ କରିବା ପାଇଁ\n"
 "\n"
 
-#: fish/fish.c:831
+#: fish/fish.c:834
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: ସମାପ୍ତ ହୋଇନଥିବା ଦ୍ୱିତୀୟ କୋଟ\n"
 
-#: fish/fish.c:837 fish/fish.c:854
+#: fish/fish.c:840 fish/fish.c:857
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: ନିର୍ଦ୍ଦେଶ ସ୍ୱତନ୍ତ୍ରଚରଗୁଡ଼ିକ ଖାଲିସ୍ଥାନ ଦ୍ୱାରା ପୃଥକ ହୋଇନାହିଁ\n"
 
-#: fish/fish.c:848
+#: fish/fish.c:851
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: ଅସମାପ୍ତ ଏକକ କୋଟ\n"
 
-#: fish/fish.c:903
+#: fish/fish.c:906
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: '%s' ରେ ଆଭ୍ୟନ୍ତରୀଣ ତ୍ରୁଟି ବିଶ୍ଳେଷଣ ବାକ୍ୟଖଣ୍ଡ\n"
 
-#: fish/fish.c:920
+#: fish/fish.c:923
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: ଅତ୍ୟଧିକ ସ୍ୱତନ୍ତ୍ରଚର\n"
 
-#: fish/fish.c:949
+#: fish/fish.c:952
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: ନିର୍ଦ୍ଦେଶ ନାମରେ ଖାଲି ନିର୍ଦ୍ଦେଶ\n"
 
-#: fish/fish.c:1117
+#: fish/fish.c:1120
 msgid "display a list of commands or help on a command"
 msgstr "ନିର୍ଦ୍ଦେଶମାନଙ୍କର ଗୋଟିଏ ତାଲିକା ଦର୍ଶାନ୍ତୁ ଅଥବା ଗୋଟିଏ ନିର୍ଦ୍ଦେଶରେ ସହାୟତା ଦେଖାନ୍ତୁ"
 
-#: fish/fish.c:1119
+#: fish/fish.c:1122
 msgid "read the manual"
 msgstr ""
 
-#: fish/fish.c:1121
+#: fish/fish.c:1124
 msgid "quit guestfish"
 msgstr "guestfish ରୁ ପ୍ରସ୍ଥାନ କରନ୍ତୁ"
 
-#: fish/fish.c:1124
+#: fish/fish.c:1127
 msgid "allocate an image"
 msgstr "ଗୋଟିଏ ପ୍ରତିଛବିକୁ ବାଣ୍ଟନ୍ତୁ"
 
-#: fish/fish.c:1126
+#: fish/fish.c:1129
 msgid "display a line of text"
 msgstr "ଗୋଟିଏ ପାଠ୍ୟ ଧାଡ଼ି ଦର୍ଶାନ୍ତୁ"
 
-#: fish/fish.c:1128
+#: fish/fish.c:1131
 msgid "edit a file in the image"
 msgstr "ପ୍ରତିଛବିରେ ଗୋଟିଏ ଫାଇଲକୁ ସମ୍ପାଦନ କରନ୍ତୁ"
 
-#: fish/fish.c:1130
+#: fish/fish.c:1133
 msgid "local change directory"
 msgstr "ସ୍ଥାନୀୟ ପରିବର୍ତ୍ତନ ଡିରେକ୍ଟୋରୀ"
 
-#: fish/fish.c:1132
+#: fish/fish.c:1135
 msgid "expand wildcards in command"
 msgstr "ନିର୍ଦ୍ଦେଶରେ ୱାଇଲ୍ଡ କାର୍ଡଗୁଡ଼ିକୁ ବିସ୍ତାର କରନ୍ତୁ"
 
-#: fish/fish.c:1134
+#: fish/fish.c:1137
 msgid "view a file in the pager"
 msgstr "ପେଜରରେ ଗୋଟିଏ ଫାଇଲକୁ ଦେଖନ୍ତୁ"
 
-#: fish/fish.c:1136
+#: fish/fish.c:1139
 msgid "close and reopen libguestfs handle"
 msgstr "libguestfs ନିୟନ୍ତ୍ରଣକୁ ବନ୍ଦ କରନ୍ତୁ ଏବଂ ପୁଣି ଖୋଲନ୍ତୁ"
 
-#: fish/fish.c:1138
+#: fish/fish.c:1141
 msgid "allocate a sparse image file"
 msgstr "ଗୋଟିଏ sparse ପ୍ରତିଛବି ଫାଇଲକୁ ବାଣ୍ଟନ୍ତୁ"
 
-#: fish/fish.c:1140
+#: fish/fish.c:1143
 #, fuzzy
 msgid "list supported groups of commands"
 msgstr "ନିର୍ଦ୍ଦେଶଗୁଡ଼ିକୁ ଗ୍ରହଣ କରିବା ପାଇଁ ପ୍ରସ୍ତୁତ"
 
-#: fish/fish.c:1142
+#: fish/fish.c:1145
 msgid "measure time taken to run command"
 msgstr "ନିର୍ଦ୍ଦେଶକୁ ଚଲାଇବା ପାଇଁ ଆବଶ୍ୟକ ସମୟକୁ ମାପନ୍ତୁ"
 
-#: fish/fish.c:1154
+#: fish/fish.c:1157
 #, c-format
 msgid ""
 "alloc - allocate an image\n"
@@ -1700,7 +1700,7 @@ msgid ""
 "    Size can be specified using standard suffixes, eg. '1M'.\n"
 msgstr ""
 
-#: fish/fish.c:1167
+#: fish/fish.c:1170
 #, c-format
 msgid ""
 "echo - display a line of text\n"
@@ -1713,7 +1713,7 @@ msgstr ""
 "\n"
 "    ଏହା ଟର୍ମିନାଲର ପ୍ରାଚଳମାନଙ୍କର ପୁନରାବୃତ୍ତି କରିଥାଏ।\n"
 
-#: fish/fish.c:1176
+#: fish/fish.c:1179
 #, fuzzy, c-format
 msgid ""
 "edit - edit a file in the image\n"
@@ -1744,7 +1744,7 @@ msgstr ""
 "    ଟିପ୍ପଣୀ: ଏହା ବୃହତ ଫାଇଲଗୁଡ଼ିକ ପାଇଁ ବିଶ୍ୱସ୍ତ ଭାବରେ କାର୍ଯ୍ୟ କରିନଥାଏ\n"
 "    (> 2 MB) ଅଥବା \\0 ବାଇଟ ଧାରଣ କରିଥିବା ଦ୍ୱିମିକ ଫାଇଲ ପାଇଁ।\n"
 
-#: fish/fish.c:1192
+#: fish/fish.c:1195
 #, c-format
 msgid ""
 "lcd - local change directory\n"
@@ -1761,7 +1761,7 @@ msgstr ""
 "    ଯଦି ଆପଣ ଫାଇଲଗୁଡ଼ିକୁ ଗୋଟିଏ ନିର୍ଦ୍ଦିଷ୍ଟ ସ୍ଥାନରେ\n"
 "    ଆହରଣ କରିବାକୁ ଚାହୁଁଥାନ୍ତି।\n"
 
-#: fish/fish.c:1201
+#: fish/fish.c:1204
 #, c-format
 msgid ""
 "glob - expand wildcards in command\n"
@@ -1779,7 +1779,7 @@ msgstr ""
 "ନିର୍ଦ୍ଦେଶଟି ବାରମ୍ବାର ଚାଲିଥାଏ\n"
 "    ପ୍ରତ୍ୟେକ ବିସ୍ତୃତ ସ୍ୱତନ୍ତ୍ରଚର ପାଇଁ ଥରେ।\n"
 
-#: fish/fish.c:1211
+#: fish/fish.c:1214
 #, c-format
 msgid ""
 "man - read the manual\n"
@@ -1788,7 +1788,7 @@ msgid ""
 "    Opens the manual page for guestfish.\n"
 msgstr ""
 
-#: fish/fish.c:1218
+#: fish/fish.c:1221
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -1799,7 +1799,7 @@ msgstr ""
 "     ସହାୟତା cmd\n"
 "     ସହାୟତା\n"
 
-#: fish/fish.c:1225
+#: fish/fish.c:1228
 #, c-format
 msgid ""
 "more - view a file in the pager\n"
@@ -1830,7 +1830,7 @@ msgstr ""
 "    ଟିପ୍ପଣୀ: ଏହା ବୃହତ ଫାଇଲ ପାଇଁ ବିଶ୍ୱସ୍ତ ଭାବରେ କାର୍ଯ୍ୟକରିନଥାଏ\n"
 "    (> 2 MB) କିମ୍ବା ଦ୍ୱମିକ ଫାଇଲଗୁଡ଼ିକ \\0 ବାଇଟ ଧାରଣ କରିଥାଏ।\n"
 
-#: fish/fish.c:1243
+#: fish/fish.c:1246
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -1839,7 +1839,7 @@ msgstr ""
 "ପ୍ରସ୍ଥାନ କରନ୍ତୁ - guestfish ରୁ ପ୍ରସ୍ଥାନ କରନ୍ତୁ\n"
 "     ପ୍ରସ୍ଥାନ କରନ୍ତୁ\n"
 
-#: fish/fish.c:1248
+#: fish/fish.c:1251
 #, c-format
 msgid ""
 "reopen - close and reopen the libguestfs handle\n"
@@ -1857,7 +1857,7 @@ msgstr ""
 ", କାରଣ ନିୟନ୍ତ୍ରଣଟି ସଠିକ ଭାବରେ ବନ୍ଦ ହୋଇନାହିଁ ଯେତେବେଳେ guestfish\n"
 "ପ୍ରସ୍ଥାନ କରିଥାଏ।  ତଥାପି ଏହା ବେଳେବେଳେ ପରୀକ୍ଷା ପାଇଁ ବ୍ୟବହାର ହୋଇଥାଏ।\n"
 
-#: fish/fish.c:1257
+#: fish/fish.c:1260
 #, fuzzy, c-format
 msgid ""
 "sparse - allocate a sparse image file\n"
@@ -1905,7 +1905,7 @@ msgstr ""
 "    <nn>E ଅଥବା <nn>EB  ଏକ୍ସାବାଇଟ ସଂଖ୍ୟା\n"
 "    <nn>sects        512 ବାଇଟ ବିଭାଗ ସଂଖ୍ୟା\n"
 
-#: fish/fish.c:1278
+#: fish/fish.c:1281
 #, c-format
 msgid ""
 "supported - list supported groups of commands\n"
@@ -1918,7 +1918,7 @@ msgid ""
 "    See also guestfs(3) section AVAILABILITY.\n"
 msgstr ""
 
-#: fish/fish.c:1290
+#: fish/fish.c:1293
 #, c-format
 msgid ""
 "time - measure time taken to run command\n"
@@ -1933,13 +1933,13 @@ msgstr ""
 "    ଏହା <command> କୁ ସେହିପରି ଚଲାଇଥାଏ, ଏବଂ ସମାପ୍ତ ହୋଇଥିବା ସମୟକୁ ପରବର୍ତ୍ତି ସମୟରେ\n"
 "    ମୁଦ୍ରଣ କରିଥାଏ।\n"
 
-#: fish/fish.c:1298
+#: fish/fish.c:1301
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""
 "%s: ନିର୍ଦ୍ଦେଶଟି ପରିଚିତ ନୁହଁ, ସମସ୍ତ ନିର୍ଦ୍ଦେଶଗୁଡ଼ିକୁ ତାଲିକାଭୁକ୍ତ କରିବା ପାଇଁ -h କୁ ବ୍ୟବହାର କରନ୍ତୁ\n"
 
-#: fish/fish.c:1314
+#: fish/fish.c:1317
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -1947,12 +1947,12 @@ msgid ""
 "For complete documentation:         man guestfish\n"
 msgstr ""
 
-#: fish/fish.c:1471
+#: fish/fish.c:1474
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "ବାକ୍ୟଖଣ୍ଡ \"%s\" ରେ ପଳାୟନ ଟିପ୍ପଣୀ\n"
 
-#: fish/fish.c:1806
+#: fish/fish.c:1809
 #, c-format
 msgid "Enter key or passphrase (\"%s\"): "
 msgstr ""
@@ -2008,32 +2008,32 @@ msgstr "ବାହ୍ୟ ନିର୍ଦ୍ଦେଶ ବିଫଳ ହୋଇଛି
 msgid "use '%s filename' to page a file\n"
 msgstr "ଗୋଟିଏ ଫାଇଲକୁ ପୃଷ୍ଠା ସଂଖ୍ୟା ଦେବା ପାଇଁ '%s filename' କୁ ବ୍ୟବହାର କରନ୍ତୁ\n"
 
-#: fish/prep.c:114
+#: fish/prep.c:37
 #, c-format
 msgid ""
 "List of available prepared disk images:\n"
 "\n"
 msgstr ""
 
-#: fish/prep.c:117
+#: fish/prep.c:40
 #, c-format
 msgid ""
-"guestfish -N %-16s %s\n"
+"guestfish -N %-8s - %s\n"
 "\n"
 "%s\n"
 msgstr ""
 
-#: fish/prep.c:125
+#: fish/prep.c:48
 #, c-format
 msgid "  Optional parameters:\n"
 msgstr ""
 
-#: fish/prep.c:132
+#: fish/prep.c:55
 #, c-format
 msgid "<%s> %s (default: %s)\n"
 msgstr ""
 
-#: fish/prep.c:142
+#: fish/prep.c:65
 #, c-format
 msgid ""
 "Prepared disk images are written to file \"test1.img\" in the local\n"
@@ -2041,29 +2041,86 @@ msgid ""
 "For more information see the guestfish(1) manual.\n"
 msgstr ""
 
-#: fish/prep.c:179
+#: fish/prep.c:96
 #, c-format
 msgid ""
 "guestfish: -N parameter '%s': no such prepared disk image known.\n"
-"Use 'guestfish -N list' to list possible values for the -N parameter.\n"
+"Use 'guestfish -N help' to list possible values for the -N parameter.\n"
 msgstr ""
 
-#: fish/prep.c:241
+#: fish/prep.c:158
 #, c-format
 msgid "guestfish: error creating prepared disk image '%s' on '%s': "
 msgstr ""
 
-#: fish/prep.c:258 fish/prep.c:265 fish/prep.c:280
+#: fish/prep_boot.c:34 fish/prep_boot.c:89 fish/prep_disk.c:34
+#: fish/prep_fs.c:34 fish/prep_lv.c:69 fish/prep_lv.c:122 fish/prep_part.c:34
 #, fuzzy
 msgid "failed to allocate disk"
 msgstr "ଫାଇଲ ମାଳାକୁ ବିଶ୍ଳେଷଣ କରିବାରେ ବିଫଳ"
 
-#: fish/prep.c:272 fish/prep.c:287
+#: fish/prep_boot.c:42 fish/prep_boot.c:97
+#, fuzzy
+msgid "could not parse boot size"
+msgstr "ଆକାର ବିଶେଷ ଦ୍ରଷ୍ଟବ୍ୟ '%s' କୁ ବିଶ୍ଳେଷଣ କରିପାରିଲା ନାହିଁ\n"
+
+#: fish/prep_boot.c:46 fish/prep_boot.c:101
+#, fuzzy, c-format
+msgid "failed to get sector size of disk: %s"
+msgstr "ଫାଇଲ ମାଳାକୁ ବିଶ୍ଳେଷଣ କରିବାରେ ବିଫଳ"
+
+#: fish/prep_boot.c:50 fish/prep_boot.c:105 fish/prep_fs.c:41
+#: fish/prep_lv.c:76 fish/prep_lv.c:129 fish/prep_part.c:41
 #, c-format
 msgid "failed to partition disk: %s"
 msgstr ""
 
-#: fish/prep.c:297
+#: fish/prep_boot.c:55 fish/prep_boot.c:110
+#, fuzzy, c-format
+msgid "failed to add boot partition: %s"
+msgstr "ଗୋଟିଏ swap ବିଭାଜନ ନିର୍ମାଣ କରନ୍ତୁ"
+
+#: fish/prep_boot.c:59 fish/prep_boot.c:114
+#, fuzzy, c-format
+msgid "failed to add root partition: %s"
+msgstr "ଗୋଟିଏ swap ବିଭାଜନ ନିର୍ମାଣ କରନ୍ତୁ"
+
+#: fish/prep_boot.c:68 fish/prep_boot.c:128
+#, c-format
+msgid "failed to create boot filesystem: %s"
+msgstr ""
+
+#: fish/prep_boot.c:77 fish/prep_boot.c:157
+#, c-format
+msgid "failed to create root filesystem: %s"
+msgstr ""
+
+#: fish/prep_boot.c:86 fish/prep_boot.c:120 fish/prep_lv.c:66
+#: fish/prep_lv.c:82 fish/prep_lv.c:119 fish/prep_lv.c:135
+msgid "incorrect format for LV name, use '/dev/VG/LV'"
+msgstr ""
+
+#: fish/prep_boot.c:137 fish/prep_lv.c:91 fish/prep_lv.c:144
+#, fuzzy, c-format
+msgid "failed to create PV: %s: %s"
+msgstr "ଫାଇଲ ମାଳାକୁ ବିଶ୍ଳେଷଣ କରିବାରେ ବିଫଳ"
+
+#: fish/prep_boot.c:142 fish/prep_lv.c:96 fish/prep_lv.c:149
+#, fuzzy, c-format
+msgid "failed to create VG: %s: %s"
+msgstr "ଫାଇଲ ମାଳାକୁ ବିଶ୍ଳେଷଣ କରିବାରେ ବିଫଳ"
+
+#: fish/prep_boot.c:149 fish/prep_lv.c:103 fish/prep_lv.c:156
+#, c-format
+msgid "failed to create LV: /dev/%s/%s: %s"
+msgstr ""
+
+#: fish/prep_boot.c:153 fish/prep_lv.c:107 fish/prep_lv.c:160
+#, c-format
+msgid "failed to resize LV to full size: %s: %s"
+msgstr ""
+
+#: fish/prep_fs.c:51 fish/prep_lv.c:165
 #, c-format
 msgid "failed to create filesystem (%s): %s"
 msgstr ""
@@ -3102,9 +3159,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "cpio command failed: {error}"
 #~ msgstr "ନିର୍ଦ୍ଦେଶ ବିଫଳ ହୋଇଛି: %s"
-
-#~ msgid "could not parse size specification '%s'\n"
-#~ msgstr "ଆକାର ବିଶେଷ ଦ୍ରଷ୍ଟବ୍ୟ '%s' କୁ ବିଶ୍ଳେଷଣ କରିପାରିଲା ନାହିଁ\n"
 
 #~ msgid ""
 #~ "alloc - allocate an image\n"
