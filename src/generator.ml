@@ -5651,6 +5651,18 @@ let prepopts = [
   DOS-style) partition table and an ext2 filesystem.
 
   These defaults can be changed by supplying optional parameters.");
+
+  ("lv",
+   "create a disk with logical volume",
+   [ "name", "/dev/VG/LV", "the name of the VG and LV to use";
+     "size", "100M", "the size of the disk image";
+     "partition", "mbr", "partition table type" ],
+   "  Create a disk with a single partition, set up the partition as an
+  LVM2 physical volume, and place a volume group and logical volume
+  on there.  This defaults to creating a 100MB disk with the VG and
+  LV called /dev/VG/LV.  You can change the name of the VG and LV
+  by supplying an alternate name as the first optional parameter.");
+
 ]
 
 (* Used to memoize the result of pod2text. *)

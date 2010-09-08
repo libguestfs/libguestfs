@@ -83,6 +83,7 @@ fish/more.c
 fish/prep.c
 fish/prep_disk.c
 fish/prep_fs.c
+fish/prep_lv.c
 fish/prep_part.c
 fish/prepopts.c
 fish/progress.c
