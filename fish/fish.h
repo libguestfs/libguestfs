@@ -106,12 +106,18 @@ extern int do_man (const char *cmd, int argc, char *argv[]);
 extern int do_more (const char *cmd, int argc, char *argv[]);
 
 /* in prep.c */
+struct prep_data {
+  const struct prep *prep;
+  const char *orig_type_string;
+  const char **params;
+};
 typedef struct prep_data prep_data;
 extern void list_prepared_drives (void);
 extern prep_data *create_prepared_file (const char *type_string,
                                         const char *filename);
 extern void prepare_drive (const char *filename, prep_data *data,
                            const char *device);
+extern void prep_error (prep_data *data, const char *filename, const char *fs, ...) __attribute__((noreturn, format (printf,3,4)));
 
 /* in rc.c (remote control) */
 extern void rc_listen (void) __attribute__((noreturn));

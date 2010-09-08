@@ -25,86 +25,9 @@
 #include <unistd.h>
 
 #include "fish.h"
+#include "prepopts.h"
 
 static prep_data *parse_type_string (const char *type_string);
-static void prep_error (prep_data *data, const char *filename, const char *fs, ...) __attribute__((noreturn, format (printf,3,4)));
-
-struct prep {
-  const char *name;             /* eg. "fs" */
-
-  size_t nr_params;             /* optional parameters */
-  struct param *params;
-
-  const char *shortdesc;        /* short description */
-  const char *longdesc;         /* long description */
-
-                                /* functions to implement it */
-  void (*prelaunch) (const char *filename, prep_data *);
-  void (*postlaunch) (const char *filename, prep_data *, const char *device);
-};
-
-struct param {
-  const char *pname;            /* parameter name */
-  const char *pdefault;         /* parameter default */
-  const char *pdesc;            /* parameter description */
-};
-
-static void prelaunch_disk (const char *filename, prep_data *data);
-static struct param disk_params[] = {
-  { "size", "100M", "the size of the disk image" },
-};
-
-static void prelaunch_part (const char *filename, prep_data *data);
-static void postlaunch_part (const char *filename, prep_data *data, const char *device);
-static struct param part_params[] = {
-  { "size", "100M", "the size of the disk image" },
-  { "partition", "mbr", "partition table type" },
-};
-
-static void prelaunch_fs (const char *filename, prep_data *data);
-static void postlaunch_fs (const char *filename, prep_data *data, const char *device);
-static struct param fs_params[] = {
-  { "filesystem", "ext2", "the type of filesystem to use" },
-  { "size", "100M", "the size of the disk image" },
-  { "partition", "mbr", "partition table type" },
-};
-
-static const struct prep preps[] = {
-  { "disk",
-    1, disk_params,
-    "create a blank disk",
-    "\
-  Create a blank disk, size 100MB (by default).\n\
-\n\
-  The default size can be changed by supplying an optional parameter.",
-    prelaunch_disk, NULL
-  },
-  { "part",
-    2, part_params,
-    "create a partitioned disk",
-    "\
-  Create a disk with a single partition.  By default the size of the disk\n\
-  is 100MB (the available space in the partition will be a tiny bit smaller)\n\
-  and the partition table will be MBR (old DOS-style).\n\
-\n\
-  These defaults can be changed by supplying optional parameters.",
-    prelaunch_part, postlaunch_part
-  },
-  { "fs",
-    3, fs_params,
-    "create a filesystem",
-    "\
-  Create a disk with a single partition, with the partition containing\n\
-  an empty filesystem.  This defaults to creating a 100MB disk (the available\n\
-  space in the filesystem will be a tiny bit smaller) with an MBR (old\n\
-  DOS-style) partition table and an ext2 filesystem.\n\
-\n\
-  These defaults can be changed by supplying optional parameters.",
-    prelaunch_fs, postlaunch_fs
-  },
-};
-
-#define nr_preps (sizeof preps / sizeof preps[0])
 
 void
 list_prepared_drives (void)
@@ -113,7 +36,7 @@ list_prepared_drives (void)
 
   printf (_("List of available prepared disk images:\n\n"));
 
-  for (i = 0; i < nr_preps; ++i) {
+  for (i = 0; i < NR_PREPS; ++i) {
     printf (_("\
 guestfish -N %-16s %s\n\
 \n\
@@ -145,12 +68,6 @@ directory.  (\"test2.img\" etc if -N option is given multiple times).\n\
 For more information see the guestfish(1) manual.\n"));
 }
 
-struct prep_data {
-  const struct prep *prep;
-  const char *orig_type_string;
-  const char **params;
-};
-
 /* Parse the type string (from the command line) and create the output
  * file 'filename'.  This is called before launch.  Return the opaque
  * prep_data which will be passed back to us in prepare_drive below.
@@ -171,11 +88,11 @@ parse_type_string (const char *type_string)
 
   /* Match on the type part (without parameters). */
   size_t len = strcspn (type_string, ":");
-  for (i = 0; i < nr_preps; ++i)
+  for (i = 0; i < NR_PREPS; ++i)
     if (STRCASEEQLEN (type_string, preps[i].name, len))
       break;
 
-  if (i == nr_preps) {
+  if (i == NR_PREPS) {
     fprintf (stderr, _("\
 guestfish: -N parameter '%s': no such prepared disk image known.\n\
 Use 'guestfish -N list' to list possible values for the -N parameter.\n"),
@@ -234,7 +151,7 @@ prepare_drive (const char *filename, prep_data *data,
     data->prep->postlaunch (filename, data, device);
 }
 
-static void
+void
 prep_error (prep_data *data, const char *filename, const char *fs, ...)
 {
   fprintf (stderr,
@@ -249,53 +166,4 @@ prep_error (prep_data *data, const char *filename, const char *fs, ...)
   fprintf (stderr, "\n");
 
   exit (EXIT_FAILURE);
-}
-
-static void
-prelaunch_disk (const char *filename, prep_data *data)
-{
-  if (alloc_disk (filename, data->params[0], 0, 1) == -1)
-    prep_error (data, filename, _("failed to allocate disk"));
-}
-
-static void
-prelaunch_part (const char *filename, prep_data *data)
-{
-  if (alloc_disk (filename, data->params[0], 0, 1) == -1)
-    prep_error (data, filename, _("failed to allocate disk"));
-}
-
-static void
-postlaunch_part (const char *filename, prep_data *data, const char *device)
-{
-  if (guestfs_part_disk (g, device, data->params[1]) == -1)
-    prep_error (data, filename, _("failed to partition disk: %s"),
-                guestfs_last_error (g));
-}
-
-static void
-prelaunch_fs (const char *filename, prep_data *data)
-{
-  if (alloc_disk (filename, data->params[1], 0, 1) == -1)
-    prep_error (data, filename, _("failed to allocate disk"));
-}
-
-static void
-postlaunch_fs (const char *filename, prep_data *data, const char *device)
-{
-  if (guestfs_part_disk (g, device, data->params[2]) == -1)
-    prep_error (data, filename, _("failed to partition disk: %s"),
-                guestfs_last_error (g));
-
-  char *part;
-  if (asprintf (&part, "%s1", device) == -1) {
-    perror ("asprintf");
-    exit (EXIT_FAILURE);
-  }
-
-  if (guestfs_mkfs (g, data->params[0], part) == -1)
-    prep_error (data, filename, _("failed to create filesystem (%s): %s"),
-                data->params[0], guestfs_last_error (g));
-
-  free (part);
 }

@@ -5093,6 +5093,40 @@ type callt =
   | CallBool of bool
   | CallBuffer of string
 
+(* Used for the guestfish -N (prepared disk images) option.
+ * Note that the longdescs are indented by 2 spaces.
+ *)
+let prepopts = [
+  ("disk",
+   "create a blank disk",
+   [ "size", "100M", "the size of the disk image" ],
+   "  Create a blank disk, size 100MB (by default).
+
+  The default size can be changed by supplying an optional parameter.");
+
+  ("part",
+   "create a partitioned disk",
+   [ "size", "100M", "the size of the disk image";
+     "partition", "mbr", "partition table type" ],
+   "  Create a disk with a single partition.  By default the size of the disk
+  is 100MB (the available space in the partition will be a tiny bit smaller)
+  and the partition table will be MBR (old DOS-style).
+
+  These defaults can be changed by supplying optional parameters.");
+
+  ("fs",
+   "create a filesystem",
+   [ "filesystem", "ext2", "the type of filesystem to use";
+     "size", "100M", "the size of the disk image";
+     "partition", "mbr", "partition table type" ],
+   "  Create a disk with a single partition, with the partition containing
+  an empty filesystem.  This defaults to creating a 100MB disk (the available
+  space in the filesystem will be a tiny bit smaller) with an MBR (old
+  DOS-style) partition table and an ext2 filesystem.
+
+  These defaults can be changed by supplying optional parameters.");
+]
+
 (* Used to memoize the result of pod2text. *)
 let pod2text_memo_filename = "src/.pod2text.data"
 let pod2text_memo : ((int * string * string), string list) Hashtbl.t =
@@ -8205,6 +8239,84 @@ and generate_fish_actions_pod () =
       | None -> ()
       | Some txt -> pr "%s\n\n" txt
   ) all_functions_sorted
+
+and generate_fish_prep_options_h () =
+  generate_header CStyle GPLv2plus;
+
+  pr "#ifndef PREPOPTS_H\n";
+  pr "\n";
+
+  pr "\
+struct prep {
+  const char *name;             /* eg. \"fs\" */
+
+  size_t nr_params;             /* optional parameters */
+  struct prep_param *params;
+
+  const char *shortdesc;        /* short description */
+  const char *longdesc;         /* long description */
+
+                                /* functions to implement it */
+  void (*prelaunch) (const char *filename, prep_data *);
+  void (*postlaunch) (const char *filename, prep_data *, const char *device);
+};
+
+struct prep_param {
+  const char *pname;            /* parameter name */
+  const char *pdefault;         /* parameter default */
+  const char *pdesc;            /* parameter description */
+};
+
+extern const struct prep preps[];
+#define NR_PREPS %d
+
+" (List.length prepopts);
+
+  List.iter (
+    fun (name, shortdesc, args, longdesc) ->
+      pr "\
+extern void prep_prelaunch_%s (const char *filename, prep_data *data);
+extern void prep_postlaunch_%s (const char *filename, prep_data *data, const char *device);
+
+" name name;
+  ) prepopts;
+
+  pr "\n";
+  pr "#endif /* PREPOPTS_H */\n"
+
+and generate_fish_prep_options_c () =
+  generate_header CStyle GPLv2plus;
+
+  pr "\
+#include \"fish.h\"
+#include \"prepopts.h\"
+
+";
+
+  List.iter (
+    fun (name, shortdesc, args, longdesc) ->
+      pr "static struct prep_param %s_args[] = {\n" name;
+      List.iter (
+        fun (n, default, desc) ->
+          pr "  { \"%s\", \"%s\", \"%s\" },\n" n default desc
+      ) args;
+      pr "};\n";
+      pr "\n";
+  ) prepopts;
+
+  pr "const struct prep preps[] = {\n";
+  List.iter (
+    fun (name, shortdesc, args, longdesc) ->
+      pr "  { \"%s\", %d, %s_args,
+    \"%s\",
+    \"%s\",
+    prep_prelaunch_%s, prep_postlaunch_%s },
+"
+        name (List.length args) name
+        (c_quote shortdesc) (c_quote longdesc)
+        name name;
+  ) prepopts;
+  pr "};\n"
 
 (* Generate a C function prototype. *)
 and generate_prototype ?(extern = true) ?(static = false) ?(semicolon = true)
@@ -12237,6 +12349,8 @@ Run it from the top source directory using the command
   output_to "fish/cmds.c" generate_fish_cmds;
   output_to "fish/completion.c" generate_fish_completion;
   output_to "fish/guestfish-actions.pod" generate_fish_actions_pod;
+  output_to "fish/prepopts.c" generate_fish_prep_options_c;
+  output_to "fish/prepopts.h" generate_fish_prep_options_h;
   output_to "ocaml/guestfs.mli" generate_ocaml_mli;
   output_to "ocaml/guestfs.ml" generate_ocaml_ml;
   output_to "ocaml/guestfs_c_actions.c" generate_ocaml_c;

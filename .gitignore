@@ -60,6 +60,8 @@ examples/to-xml
 fish/cmds.c
 fish/completion.c
 fish/guestfish
+fish/prepopts.c
+fish/prepopts.h
 fish/rc_protocol.c
 fish/rc_protocol.h
 fuse/guestmount
