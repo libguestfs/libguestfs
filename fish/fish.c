@@ -318,7 +318,10 @@ main (int argc, char *argv[])
       break;
 
     case 'N':
-      if (STRCASEEQ (optarg, "list")) {
+      if (STRCASEEQ (optarg, "list") ||
+          STRCASEEQ (optarg, "help") ||
+          STRCASEEQ (optarg, "h") ||
+          STRCASEEQ (optarg, "?")) {
         list_prepared_drives ();
         exit (EXIT_SUCCESS);
       }

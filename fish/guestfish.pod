@@ -103,7 +103,7 @@ a single ext2-formatted partition:
 
 To list what is available do:
 
- guestfish -N list | less
+ guestfish -N help | less
 
 =head2 Remote control
 
@@ -225,7 +225,7 @@ or you can use the L<virt-list-filesystems(1)> program.
 Disable autosync.  This is enabled by default.  See the discussion
 of autosync in the L<guestfs(3)> manpage.
 
-=item B<-N type> | B<--new type> | B<-N list>
+=item B<-N type> | B<--new type> | B<-N help>
 
 Prepare a fresh disk image formatted as "type".  This is an
 alternative to the I<-a> option: whereas I<-a> adds an existing disk,
@@ -717,7 +717,7 @@ for an ext4 filesystem on a 1GB disk instead.
 
 To list the available types and any extra parameters they take, run:
 
- guestfish -N list | less
+ guestfish -N help | less
 
 Note that the prepared filesystem is not mounted.  You would usually
 have to use the C<mount /dev/sda1 /> command or add the
