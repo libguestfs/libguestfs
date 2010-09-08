@@ -81,6 +81,10 @@ fish/lcd.c
 fish/man.c
 fish/more.c
 fish/prep.c
+fish/prep_disk.c
+fish/prep_fs.c
+fish/prep_part.c
+fish/prepopts.c
 fish/progress.c
 fish/rc.c
 fish/reopen.c

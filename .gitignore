@@ -61,6 +61,8 @@ fish/cmds.c
 fish/completion.c
 fish/guestfish
 fish/guestfish.static
+fish/prepopts.c
+fish/prepopts.h
 fish/rc_protocol.c
 fish/rc_protocol.h
 fuse/guestmount

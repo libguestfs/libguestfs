@@ -22,7 +22,9 @@ bin_PROGRAMS = guestfish
 generator_built = \
 	cmds.c \
 	completion.c \
-	guestfish-actions.pod
+	guestfish-actions.pod \
+	prepopts.h \
+	prepopts.c
 
 BUILT_SOURCES = \
 	$(generator_built) \
@@ -49,6 +51,9 @@ guestfish_SOURCES = \
 	man.c \
 	more.c \
 	prep.c \
+	prep_disk.c \
+	prep_part.c \
+	prep_fs.c \
 	progress.c \
 	rc.c \
 	reopen.c \
