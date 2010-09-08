@@ -5661,7 +5661,21 @@ let prepopts = [
   LVM2 physical volume, and place a volume group and logical volume
   on there.  This defaults to creating a 100MB disk with the VG and
   LV called /dev/VG/LV.  You can change the name of the VG and LV
-  by supplying an alternate name as the first optional parameter.");
+  by supplying an alternate name as the first optional parameter.
+
+  Note this does not create a filesystem.  Use 'lvfs' to do that.");
+
+  ("lvfs",
+   "create a disk with logical volume and filesystem",
+   [ "name", "/dev/VG/LV", "the name of the VG and LV to use";
+     "filesystem", "ext2", "the type of filesystem to use";
+     "size", "100M", "the size of the disk image";
+     "partition", "mbr", "partition table type" ],
+   "  Create a disk with a single partition, set up the partition as an
+  LVM2 physical volume, and place a volume group and logical volume
+  on there.  Then format the LV with a filesystem.  This defaults to
+  creating a 100MB disk with the VG and LV called /dev/VG/LV, with an
+  ext2 filesystem.");
 
 ]
 
