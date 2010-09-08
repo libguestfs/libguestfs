@@ -38,7 +38,7 @@ list_prepared_drives (void)
 
   for (i = 0; i < NR_PREPS; ++i) {
     printf (_("\
-guestfish -N %-16s %s\n\
+guestfish -N %-8s - %s\n\
 \n\
 %s\n"),
             preps[i].name, preps[i].shortdesc, preps[i].longdesc);
