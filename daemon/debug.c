@@ -394,6 +394,6 @@ do_debug_upload (const char *filename MAYBE_UNUSED, int mode MAYBE_UNUSED)
   return 0;
 #else
   reply_with_error ("guestfsd was not configured with --enable-debug-command");
-  return NULL;
+  return -1;
 #endif
 }
