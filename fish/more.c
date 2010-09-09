@@ -33,7 +33,6 @@ do_more (const char *cmd, int argc, char *argv[])
   char filename[] = "/tmp/guestfishXXXXXX";
   char buf[256];
   const char *pager;
-  char *content;
   int r, fd;
 
   if (argc != 1) {
@@ -57,20 +56,13 @@ do_more (const char *cmd, int argc, char *argv[])
     return -1;
   }
 
-  if ((content = guestfs_cat (g, argv[0])) == NULL) {
+  snprintf (buf, sizeof buf, "/dev/fd/%d", fd);
+
+  if (guestfs_download (g, argv[0], buf) == -1) {
     close (fd);
     unlink (filename);
     return -1;
   }
-
-  if (xwrite (fd, content, strlen (content)) == -1) {
-    close (fd);
-    unlink (filename);
-    free (content);
-    return -1;
-  }
-
-  free (content);
 
   if (close (fd) == -1) {
     perror (filename);
