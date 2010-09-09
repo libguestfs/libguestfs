@@ -1812,9 +1812,9 @@ See also C<guestfs_is_file>, C<guestfs_is_dir>, C<guestfs_stat>.");
       [["is_file"; "/known-1"]]);
     InitISOFS, Always, TestOutputFalse (
       [["is_file"; "/directory"]])],
-   "test if file exists",
+   "test if a regular file",
    "\
-This returns C<true> if and only if there is a file
+This returns C<true> if and only if there is a regular file
 with the given C<path> name.  Note that it returns false for
 other objects like directories.
 
