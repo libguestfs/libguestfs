@@ -1526,6 +1526,20 @@ When the daemon launches it sends an initial word
 (C<GUESTFS_LAUNCH_FLAG>) which indicates that the guest and daemon is
 alive.  This is what L</guestfs_launch> waits for.
 
+=head3 PROGRESS NOTIFICATION MESSAGES
+
+The daemon may send progress notification messages at any time.  These
+are distinguished by the normal length word being replaced by
+C<GUESTFS_PROGRESS_FLAG>, followed by a fixed size progress message.
+
+The library turns them into progress callbacks (see
+C<guestfs_set_progress_callback>) if there is a callback registered,
+or discards them if not.
+
+The daemon self-limits the frequency of progress messages it sends
+(see C<daemon/proto.c:notify_progress>).  Not all calls generate
+progress messages.
+
 =head1 MULTIPLE HANDLES AND MULTIPLE THREADS
 
 All high-level libguestfs actions are synchronous.  If you want
