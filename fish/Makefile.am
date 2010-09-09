@@ -40,6 +40,7 @@ EXTRA_DIST = \
 guestfish_SOURCES = \
 	$(generator_built) \
 	alloc.c \
+	copy.c \
 	destpaths.c \
 	echo.c \
 	edit.c \

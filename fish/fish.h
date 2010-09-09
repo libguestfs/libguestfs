@@ -94,6 +94,10 @@ extern int alloc_disk (const char *filename, const char *size,
                        int add, int sparse);
 extern int parse_size (const char *str, off_t *size_rtn);
 
+/* in copy.c */
+extern int do_copy_in (const char *cmd, int argc, char *argv[]);
+extern int do_copy_out (const char *cmd, int argc, char *argv[]);
+
 /* in echo.c */
 extern int do_echo (const char *cmd, int argc, char *argv[]);
 
@@ -164,6 +168,7 @@ extern int add_libvirt_drives (const char *guest);
   "help",				\
   "quit", "exit", "q",		        \
   "alloc", "allocate",		        \
+  "copy-in", "copy-out",                \
   "echo",				\
   "edit", "vi", "emacs",		\
   "lcd",				\

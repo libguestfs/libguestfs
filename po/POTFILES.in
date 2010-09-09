@@ -72,6 +72,7 @@ daemon/zerofree.c
 fish/alloc.c
 fish/cmds.c
 fish/completion.c
+fish/copy.c
 fish/destpaths.c
 fish/echo.c
 fish/edit.c

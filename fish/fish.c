@@ -1061,6 +1061,12 @@ issue_command (const char *cmd, char *argv[], const char *pipecmd)
   else if (STRCASEEQ (cmd, "alloc") ||
            STRCASEEQ (cmd, "allocate"))
     r = do_alloc (cmd, argc, argv);
+  else if (STRCASEEQ (cmd, "copy-in") ||
+           STRCASEEQ (cmd, "copy_in"))
+    r = do_copy_in (cmd, argc, argv);
+  else if (STRCASEEQ (cmd, "copy-out") ||
+           STRCASEEQ (cmd, "copy_out"))
+    r = do_copy_out (cmd, argc, argv);
   else if (STRCASEEQ (cmd, "echo"))
     r = do_echo (cmd, argc, argv);
   else if (STRCASEEQ (cmd, "edit") ||
@@ -1126,6 +1132,10 @@ list_builtin_commands (void)
   printf ("%-20s %s\n",
           "alloc", _("allocate an image"));
   printf ("%-20s %s\n",
+          "copy-in", _("copy files into an image"));
+  printf ("%-20s %s\n",
+          "copy-out", _("copy files out of an image"));
+  printf ("%-20s %s\n",
           "echo", _("display a line of text"));
   printf ("%-20s %s\n",
           "edit", _("edit a file in the image"));
@@ -1163,6 +1173,26 @@ display_builtin_command (const char *cmd)
               "    For more advanced image creation, see qemu-img utility.\n"
               "\n"
               "    Size can be specified using standard suffixes, eg. '1M'.\n"
+              ));
+    return 0;
+  }
+  else if (STRCASEEQ (cmd, "copy-in") ||
+           STRCASEEQ (cmd, "copy_in")) {
+    printf (_("copy-in - copy files into an image\n"
+              "     copy-in <local> [<local> ...] <remotedir>\n"
+              "\n"
+              "    Copy local files or directories recursively into the\n"
+              "    image, placing them on a remote directory.\n"
+              ));
+    return 0;
+  }
+  else if (STRCASEEQ (cmd, "copy-out") ||
+           STRCASEEQ (cmd, "copy_out")) {
+    printf (_("copy-out - copy files out of an image\n"
+              "     copy-out <remote> [<remote> ...] <localdir>\n"
+              "\n"
+              "    Copy remote files or directories recursively out of the\n"
+              "    image, placing them in a local directory.\n"
               ));
     return 0;
   }
