@@ -1549,6 +1549,9 @@ Only use the handle from a single thread.  Either use the handle
 exclusively from one thread, or provide your own mutex so that two
 threads cannot issue calls on the same handle at the same time.
 
+See the graphical program guestfs-browser for one possible
+architecture for multithreaded programs using libvirt and libguestfs.
+
 =head1 QEMU WRAPPERS
 
 If you want to compile your own qemu, run qemu from a non-standard
