@@ -811,7 +811,7 @@ current directory, use C<.> as in:
  copy-out /home .
 
 Wildcards cannot be used in the ordinary command, but you can use
-this with the help of L</glob> like this:
+them with the help of L</glob> like this:
 
  glob copy-out /home/* .
 
