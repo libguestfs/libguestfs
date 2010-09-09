@@ -5356,6 +5356,68 @@ filesystem can be found.
 
 To find the label of a filesystem, use C<guestfs_vfs_label>.");
 
+  ("is_chardev", (RBool "flag", [Pathname "path"]), 267, [],
+   [InitISOFS, Always, TestOutputFalse (
+      [["is_chardev"; "/directory"]]);
+    InitBasicFS, Always, TestOutputTrue (
+      [["mknod_c"; "0o777"; "99"; "66"; "/test"];
+       ["is_chardev"; "/test"]])],
+   "test if character device",
+   "\
+This returns C<true> if and only if there is a character device
+with the given C<path> name.
+
+See also C<guestfs_stat>.");
+
+  ("is_blockdev", (RBool "flag", [Pathname "path"]), 268, [],
+   [InitISOFS, Always, TestOutputFalse (
+      [["is_blockdev"; "/directory"]]);
+    InitBasicFS, Always, TestOutputTrue (
+      [["mknod_b"; "0o777"; "99"; "66"; "/test"];
+       ["is_blockdev"; "/test"]])],
+   "test if block device",
+   "\
+This returns C<true> if and only if there is a block device
+with the given C<path> name.
+
+See also C<guestfs_stat>.");
+
+  ("is_fifo", (RBool "flag", [Pathname "path"]), 269, [],
+   [InitISOFS, Always, TestOutputFalse (
+      [["is_fifo"; "/directory"]]);
+    InitBasicFS, Always, TestOutputTrue (
+      [["mkfifo"; "0o777"; "/test"];
+       ["is_fifo"; "/test"]])],
+   "test if FIFO (named pipe)",
+   "\
+This returns C<true> if and only if there is a FIFO (named pipe)
+with the given C<path> name.
+
+See also C<guestfs_stat>.");
+
+  ("is_symlink", (RBool "flag", [Pathname "path"]), 270, [],
+   [InitISOFS, Always, TestOutputFalse (
+      [["is_symlink"; "/directory"]]);
+    InitISOFS, Always, TestOutputTrue (
+      [["is_symlink"; "/abssymlink"]])],
+   "test if symbolic link",
+   "\
+This returns C<true> if and only if there is a symbolic link
+with the given C<path> name.
+
+See also C<guestfs_stat>.");
+
+  ("is_socket", (RBool "flag", [Pathname "path"]), 271, [],
+   (* XXX Need a positive test for sockets. *)
+   [InitISOFS, Always, TestOutputFalse (
+      [["is_socket"; "/directory"]])],
+   "test if socket",
+   "\
+This returns C<true> if and only if there is a Unix domain socket
+with the given C<path> name.
+
+See also C<guestfs_stat>.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
