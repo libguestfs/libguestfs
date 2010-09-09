@@ -334,7 +334,7 @@ files.
 
 =head2 RUNNING COMMANDS
 
-Although libguestfs is a primarily an API for manipulating files
+Although libguestfs is primarily an API for manipulating files
 inside guest images, we also provide some limited facilities for
 running commands inside guests.
 
