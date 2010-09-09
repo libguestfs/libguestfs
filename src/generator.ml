@@ -1448,7 +1448,7 @@ See also C<guestfs_stat>.");
       [["is_dir"; "/known-3"]]);
     InitISOFS, Always, TestOutputTrue (
       [["is_dir"; "/directory"]])],
-   "test if file exists",
+   "test if a directory",
    "\
 This returns C<true> if and only if there is a directory
 with the given C<path> name.  Note that it returns false for
