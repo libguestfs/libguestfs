@@ -798,9 +798,6 @@ The editor is C<$EDITOR>.  However if you use the alternate
 commands C<vi> or C<emacs> you will get those corresponding
 editors.
 
-NOTE: This will not work reliably for large files
-(> 2 MB) or binary files containing \0 bytes.
-
 =head2 glob
 
  glob command args...
