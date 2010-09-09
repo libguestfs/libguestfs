@@ -992,24 +992,21 @@ causes the state to transition back to CONFIG.
 Configuration commands for qemu such as L</guestfs_add_drive> can only
 be issued when in the CONFIG state.
 
-The high-level API offers two calls that go from CONFIG through
-LAUNCHING to READY.  L</guestfs_launch> blocks until the child process
-is READY to accept commands (or until some failure or timeout).
+The API offers one call that goes from CONFIG through LAUNCHING to
+READY.  L</guestfs_launch> blocks until the child process is READY to
+accept commands (or until some failure or timeout).
 L</guestfs_launch> internally moves the state from CONFIG to LAUNCHING
 while it is running.
 
-High-level API actions such as L</guestfs_mount> can only be issued
-when in the READY state.  These high-level API calls block waiting for
-the command to be carried out (ie. the state to transition to BUSY and
-then back to READY).  But using the low-level event API, you get
-non-blocking versions.  (But you can still only carry out one
-operation per handle at a time - that is a limitation of the
-communications protocol we use).
+API actions such as L</guestfs_mount> can only be issued when in the
+READY state.  These API calls block waiting for the command to be
+carried out (ie. the state to transition to BUSY and then back to
+READY).  There are no non-blocking versions, and no way to issue more
+than one command per handle at the same time.
 
 Finally, the child process sends asynchronous messages back to the
-main program, such as kernel log messages.  Mostly these are ignored
-by the high-level API, but using the low-level event API you can
-register to receive these messages.
+main program, such as kernel log messages.  You can register a
+callback to receive these messages.
 
 =head2 SETTING CALLBACKS TO HANDLE EVENTS
 
