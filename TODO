@@ -382,3 +382,16 @@ command such as:
   copy-out-recursive remotedir localdir
 
 which would hide use of tgz-in etc.
+
+Other thoughts on this:
+
+virt-cp or virt-rcp or virt-copy or virt-scp or ...?
+
+virt-copy *.c *.h GuestName:/tmp/
+
+virt-copy -r dir/ GuestName:/tmp/
+
+virt-copy GuestName:/tmp/foo* .
+
+virt-copy disk.img:/tmp/bar* otherdisk.img:/tmp
+( probably not because it requires multiple libguestfs connections)
