@@ -190,28 +190,6 @@ do_mkdir_p (const char *path)
   return 0;
 }
 
-int
-do_is_dir (const char *path)
-{
-  int r;
-  struct stat buf;
-
-  CHROOT_IN;
-  r = lstat (path, &buf);
-  CHROOT_OUT;
-
-  if (r == -1) {
-    if (errno != ENOENT && errno != ENOTDIR) {
-      reply_with_perror ("stat: %s", path);
-      return -1;
-    }
-    else
-      return 0;			/* Not a directory. */
-  }
-
-  return S_ISDIR (buf.st_mode);
-}
-
 char *
 do_mkdtemp (const char *template)
 {
