@@ -1522,10 +1522,9 @@ parameters, but with the roles of daemon and library reversed.
 
 =head3 INITIAL MESSAGE
 
-Because the underlying channel (QEmu -net channel) doesn't have any
-sort of connection control, when the daemon launches it sends an
-initial word (C<GUESTFS_LAUNCH_FLAG>) which indicates that the guest
-and daemon is alive.  This is what L</guestfs_launch> waits for.
+When the daemon launches it sends an initial word
+(C<GUESTFS_LAUNCH_FLAG>) which indicates that the guest and daemon is
+alive.  This is what L</guestfs_launch> waits for.
 
 =head1 MULTIPLE HANDLES AND MULTIPLE THREADS
 
