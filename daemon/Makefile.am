@@ -97,6 +97,7 @@ guestfsd_SOURCES = \
 	htonl.c \
 	initrd.c \
 	inotify.c \
+	is.c \
 	link.c \
 	ls.c \
 	luks.c \

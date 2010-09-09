@@ -270,40 +270,6 @@ do_lchown (int owner, int group, const char *path)
 }
 
 int
-do_exists (const char *path)
-{
-  int r;
-
-  CHROOT_IN;
-  r = access (path, F_OK);
-  CHROOT_OUT;
-
-  return r == 0;
-}
-
-int
-do_is_file (const char *path)
-{
-  int r;
-  struct stat buf;
-
-  CHROOT_IN;
-  r = lstat (path, &buf);
-  CHROOT_OUT;
-
-  if (r == -1) {
-    if (errno != ENOENT && errno != ENOTDIR) {
-      reply_with_perror ("stat: %s", path);
-      return -1;
-    }
-    else
-      return 0;			/* Not a file. */
-  }
-
-  return S_ISREG (buf.st_mode);
-}
-
-int
 do_write_file (const char *path, const char *content, int size)
 {
   int fd;
