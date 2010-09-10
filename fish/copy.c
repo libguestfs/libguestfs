@@ -31,7 +31,7 @@
 
 static int make_tar_from_local (const char *local);
 static int make_tar_output (const char *local, const char *basename);
-static int split_path (char *buf, size_t buf_size, const char *path, char **dirname, char **basename);
+static int split_path (char *buf, size_t buf_size, const char *path, const char **dirname, const char **basename);
 
 int
 do_copy_in (const char *cmd, int argc, char *argv[])
@@ -119,7 +119,7 @@ make_tar_from_local (const char *local)
   close (fd[1]);
 
   char buf[PATH_MAX];
-  char *dirname, *basename;
+  const char *dirname, *basename;
   if (split_path (buf, sizeof buf, local, &dirname, &basename) == -1)
     _exit (EXIT_FAILURE);
 
@@ -132,7 +132,7 @@ make_tar_from_local (const char *local)
  */
 static int
 split_path (char *buf, size_t buf_size,
-            const char *path, char **dirname, char **basename)
+            const char *path, const char **dirname, const char **basename)
 {
   size_t len = strlen (path);
   if (len == 0 || len > buf_size - 1) {
@@ -154,7 +154,7 @@ split_path (char *buf, size_t buf_size,
     if (dirname) *dirname = buf;
     if (basename) *basename = p;
   } else if (p && p == buf) {   /* "/foo" */
-    if (dirname) *dirname = bad_cast ("/");
+    if (dirname) *dirname = "/";
     if (basename) *basename = buf+1;
   } else {
     if (dirname) *dirname = NULL;
@@ -207,7 +207,7 @@ do_copy_out (const char *cmd, int argc, char *argv[])
       return -1;
     if (r == 1) {               /* is file */
       char buf[PATH_MAX];
-      char *basename;
+      const char *basename;
       if (split_path (buf, sizeof buf, argv[i], NULL, &basename) == -1)
         return -1;
 
@@ -228,7 +228,7 @@ do_copy_out (const char *cmd, int argc, char *argv[])
       }
 
       char buf[PATH_MAX];
-      char *basename;
+      const char *basename;
       if (split_path (buf, sizeof buf, argv[i], NULL, &basename) == -1)
         return -1;
 
