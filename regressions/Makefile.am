@@ -34,6 +34,7 @@ TESTS = \
 	rhbz580246.sh \
 	test-cancellation-download-librarycancels.sh \
 	test-cancellation-upload-daemoncancels.sh \
+	test-copy.sh \
 	test-find0.sh \
 	test-luks.sh \
 	test-lvm-filtering.sh \
