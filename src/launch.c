@@ -62,7 +62,6 @@
 #include <netinet/in.h>
 
 #include "glthread/lock.h"
-#include "ignore-value.h"
 
 #include "guestfs.h"
 #include "guestfs-internal.h"

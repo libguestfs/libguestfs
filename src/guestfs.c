@@ -64,7 +64,6 @@
 #include "glthread/lock.h"
 #include "hash.h"
 #include "hash-pjw.h"
-#include "ignore-value.h"
 
 #include "guestfs.h"
 #include "guestfs-internal.h"
