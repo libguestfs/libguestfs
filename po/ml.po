@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master.libguestfs.ml\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-09-09 23:24+0100\n"
+"POT-Creation-Date: 2010-09-10 10:41+0100\n"
 "PO-Revision-Date: 2010-02-02 18:35+0530\n"
 "Last-Translator: Ani Peter | അനി പീറ്റര്‍ <apeter@redhat.com>\n"
 "Language-Team: Swathanthra Malayalam Computing | സ്വതന്ത്ര മലയാളം കമ്പ്യൂട്ടിങ് <smc-"
@@ -1482,7 +1482,7 @@ msgid ""
 "use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
 msgstr ""
 
-#: fish/copy.c:54 fish/copy.c:192
+#: fish/copy.c:54 fish/copy.c:195
 #, fuzzy, c-format
 msgid "copy-in: target '%s' is not a directory\n"
 msgstr "ഒരു ഡയറക്ടറിയിലുള്ള ഫയലുകള്‍ ലഭ്യമാക്കുക"
@@ -1492,14 +1492,14 @@ msgstr "ഒരു ഡയറക്ടറിയിലുള്ള ഫയലുക�
 msgid "error: argument is zero length or longer than maximum permitted\n"
 msgstr ""
 
-#: fish/copy.c:181
+#: fish/copy.c:184
 #, c-format
 msgid ""
 "use 'copy-out <remote> [<remote>...] <localdir>' to copy files out of the "
 "image\n"
 msgstr ""
 
-#: fish/copy.c:222
+#: fish/copy.c:225
 #, fuzzy, c-format
 msgid "copy-out: '%s' is not a file or directory\n"
 msgstr "ആവര്‍ത്തിച്ചു് ഒരു ഫയല്‍ അല്ലെങ്കില്‍ ഡയറക്ടറി പകര്‍ത്തുക"

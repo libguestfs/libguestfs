@@ -6,10 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.5.10\n"
+"Project-Id-Version: libguestfs 1.5.11\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-09-09 23:24+0100\n"
+"POT-Creation-Date: 2010-09-10 10:41+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1438,7 +1438,7 @@ msgid ""
 "use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
 msgstr ""
 
-#: fish/copy.c:54 fish/copy.c:192
+#: fish/copy.c:54 fish/copy.c:195
 #, c-format
 msgid "copy-in: target '%s' is not a directory\n"
 msgstr ""
@@ -1448,14 +1448,14 @@ msgstr ""
 msgid "error: argument is zero length or longer than maximum permitted\n"
 msgstr ""
 
-#: fish/copy.c:181
+#: fish/copy.c:184
 #, c-format
 msgid ""
 "use 'copy-out <remote> [<remote>...] <localdir>' to copy files out of the "
 "image\n"
 msgstr ""
 
-#: fish/copy.c:222
+#: fish/copy.c:225
 #, c-format
 msgid "copy-out: '%s' is not a file or directory\n"
 msgstr ""
