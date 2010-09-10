@@ -3,6 +3,3 @@ bindtests.cmx: guestfs.cmx
 guestfs.cmi:
 guestfs.cmo: guestfs.cmi
 guestfs.cmx: guestfs.cmi
-guestfs_inspector.cmi:
-guestfs_inspector.cmo: guestfs_inspector.cmi
-guestfs_inspector.cmx: guestfs_inspector.cmi
