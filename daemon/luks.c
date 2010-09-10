@@ -23,7 +23,6 @@
 #include <string.h>
 
 #include "daemon.h"
-#include "c-ctype.h"
 #include "actions.h"
 #include "optgroups.h"
 

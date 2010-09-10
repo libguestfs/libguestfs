@@ -61,7 +61,6 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 
-#include "c-ctype.h"
 #include "glthread/lock.h"
 #include "ignore-value.h"
 

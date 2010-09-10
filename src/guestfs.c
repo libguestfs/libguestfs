@@ -62,7 +62,6 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 
-#include "c-ctype.h"
 #include "glthread/lock.h"
 #include "hash.h"
 #include "hash-pjw.h"
