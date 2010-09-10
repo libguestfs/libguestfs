@@ -764,7 +764,7 @@ test_qemu (guestfs_h *g)
     goto error;
 
   snprintf (cmd, sizeof cmd, "LC_ALL=C '%s' -nographic -version 2>/dev/null",
-	    g->qemu);
+            g->qemu);
 
   fp = popen (cmd, "r");
   if (fp) {

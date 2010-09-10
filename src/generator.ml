@@ -12679,12 +12679,12 @@ print_strings (char *const *argv)
       | FileOut n
       | Key n -> pr "  printf (\"%%s\\n\", %s);\n" n
       | BufferIn n ->
-	  pr "  {\n";
-	  pr "    size_t i;\n";
+          pr "  {\n";
+          pr "    size_t i;\n";
           pr "    for (i = 0; i < %s_size; ++i)\n" n;
           pr "      printf (\"<%%02x>\", %s[i]);\n" n;
           pr "    printf (\"\\n\");\n";
-	  pr "  }\n";
+          pr "  }\n";
       | OptString n -> pr "  printf (\"%%s\\n\", %s ? %s : \"null\");\n" n n
       | StringList n | DeviceList n -> pr "  print_strings (%s);\n" n
       | Bool n -> pr "  printf (\"%%s\\n\", %s ? \"true\" : \"false\");\n" n
