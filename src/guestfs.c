@@ -33,7 +33,6 @@
 #include <sys/stat.h>
 #include <sys/select.h>
 #include <dirent.h>
-#include <signal.h>
 #include <assert.h>
 
 #include <rpc/types.h>
