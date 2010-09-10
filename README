@@ -213,10 +213,8 @@ In libguestfs >= 1.0.71 we don't require any vmchannel implementation,
 as long as qemu has been compiled with support for SLIRP (user mode
 networking, or "-net user"), which is almost always the case.
 
-However we still offer the ability to use vmchannel, and in future we
-may add support for other types of qemu, which is useful in a few
-cases, specifically where qemu packagers decide to compile out support
-for SLIRP (qemu packagers: please don't do this).
+In libguestfs >= 1.5.4 we switched again to using qemu's virtio-serial
+and removed all the other vmchannels and the SLIRP channel.
 
 
 Supermin appliance
