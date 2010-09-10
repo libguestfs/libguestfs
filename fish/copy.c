@@ -148,11 +148,14 @@ split_path (char *buf, size_t buf_size,
   }
 
   char *p = strrchr (buf, '/');
-  if (p && p > buf) {
+  if (p && p > buf) {           /* "foo/bar" */
     *p = '\0';
     p++;
     if (dirname) *dirname = buf;
     if (basename) *basename = p;
+  } else if (p && p == buf) {   /* "/foo" */
+    if (dirname) *dirname = bad_cast ("/");
+    if (basename) *basename = buf+1;
   } else {
     if (dirname) *dirname = NULL;
     if (basename) *basename = buf;
