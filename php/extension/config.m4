@@ -15,10 +15,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
-PHP_ARG_ENABLE(guestfs_php, enable libguestfs PHP bindings,
+PHP_ARG_ENABLE([guestfs_php], [enable libguestfs PHP bindings],
                [ --enable-guestfs-php   Enable libguestfs support])
 
 if test "$PHP_GUESTFS_PHP" = "yes"; then
-  AC_DEFINE(HAVE_GUESTFS_PHP, 1, [Whether you have libguestfs PHP bindings])
-  PHP_NEW_EXTENSION(guestfs_php, guestfs_php.c, $ext_shared)
+  AC_DEFINE([HAVE_GUESTFS_PHP], [1], [Whether you have libguestfs PHP bindings])
+  PHP_NEW_EXTENSION([guestfs_php], [guestfs_php.c], [$ext_shared])
 fi
