@@ -46,5 +46,5 @@ main (int argc, char *argv[])
   assert (guestfs_set_qemu (g, NULL) == 0);
 
   guestfs_close (g);
-  exit (0);
+  exit (EXIT_SUCCESS);
 }
