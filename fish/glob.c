@@ -140,12 +140,14 @@ glob_issue (char *cmd, int argc,
   argv[argc] = NULL;
 
  again:
-  printf ("%s", argv[0]);
-  for (i = 1; i < argc; ++i) {
-    argv[i] = globs[i][posn[i]];
-    printf (" %s", argv[i]);
+  if (guestfs_get_trace (g)) {
+    printf ("%s", argv[0]);
+    for (i = 1; i < argc; ++i) {
+      argv[i] = globs[i][posn[i]];
+      printf (" %s", argv[i]);
+    }
+    printf ("\n");
   }
-  printf ("\n");
 
   if (issue_command (argv[0], &argv[1], NULL) == -1)
     *r = -1;			/* ... but don't exit */
