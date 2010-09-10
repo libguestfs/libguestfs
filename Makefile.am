@@ -33,7 +33,7 @@ endif
 SUBDIRS += gnulib/tests capitests regressions test-tool
 
 # Guestfish.
-SUBDIRS += fish 
+SUBDIRS += fish
 
 # Language bindings.
 if HAVE_PERL

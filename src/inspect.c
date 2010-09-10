@@ -1193,7 +1193,7 @@ guestfs__inspect_get_distro (guestfs_h *g, const char *root)
   return ret;
 }
 
-int 
+int
 guestfs__inspect_get_major_version (guestfs_h *g, const char *root)
 {
   struct inspect_fs *fs = search_for_root (g, root);
@@ -1203,7 +1203,7 @@ guestfs__inspect_get_major_version (guestfs_h *g, const char *root)
   return fs->major_version;
 }
 
-int 
+int
 guestfs__inspect_get_minor_version (guestfs_h *g, const char *root)
 {
   struct inspect_fs *fs = search_for_root (g, root);
