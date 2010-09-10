@@ -100,16 +100,16 @@ sc_avoid_ctype_macros:
 		1>&2; exit 1; } || :
 
 sc_prohibit_virBufferAdd_with_string_literal:
-	@re='\<virBufferAdd *\([^,]+, *"[^"]'				\
-	msg='use virBufferAddLit, not virBufferAdd, with a string literal' \
-	  $(_prohibit_regexp)
+	@prohibit='\<virBufferAdd *\([^,]+, *"[^"]'			\
+	halt='use virBufferAddLit, not virBufferAdd, with a string literal' \
+	  $(_sc_search_regexp)
 
 # Not only do they fail to deal well with ipv6, but the gethostby*
 # functions are also not thread-safe.
 sc_prohibit_gethostby:
-	@re='\<gethostby(addr|name2?) *\('				\
-	msg='use getaddrinfo, not gethostby*'				\
-	  $(_prohibit_regexp)
+	@prohibit='\<gethostby(addr|name2?) *\('			\
+	halt='use getaddrinfo, not gethostby*'				\
+	  $(_sc_search_regexp)
 
 # Disallow trailing blank lines.
 sc_prohibit_trailing_blank_lines:
