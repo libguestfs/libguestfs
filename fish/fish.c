@@ -26,7 +26,6 @@
 #include <fcntl.h>
 #include <getopt.h>
 #include <signal.h>
-#include <assert.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <locale.h>
