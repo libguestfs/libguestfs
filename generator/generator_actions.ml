@@ -4632,9 +4632,9 @@ You will get undefined results for other partition table
 types (see C<guestfs_part_get_parttype>).");
 
   ("checksum_device", (RString "checksum", [String "csumtype"; Device "device"]), 237, [],
-   [InitISOFS, Always, TestOutput (
+   [InitISOFS, Always, TestOutputFileMD5 (
       [["checksum_device"; "md5"; "/dev/sdd"]],
-      (Digest.to_hex (Digest.file "images/test.iso")))],
+      "../images/test.iso")],
    "compute MD5, SHAx or CRC checksum of the contents of a device",
    "\
 This call computes the MD5, SHAx or CRC checksum of the

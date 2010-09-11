@@ -56,7 +56,7 @@ OCAMLCLIBS = xml-light.cma unix.cma str.cma
 
 noinst_PROGRAM = generator
 
-generator: $(OBJECTS) ../images/test.iso
+generator: $(OBJECTS)
 	$(OCAMLC) -o generator $(OCAMLCFLAGS) $(OCAMLCLIBS) $(OBJECTS)
 
 .ml.cmo:
@@ -86,9 +86,6 @@ stamp-generator: generator
 	mkdir -p $(top_srcdir)/java/com/redhat/et/libguestfs
 	mkdir -p $(top_srcdir)/csharp
 	cd $(top_srcdir) && generator/generator
-
-../images/test.iso:
-	make -C ../images test.iso
 
 CLEANFILES = $(noinst_DATA) $(noinst_PROGRAM) *.cmi *.cmo *~
 

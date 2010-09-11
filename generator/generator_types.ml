@@ -260,9 +260,15 @@ and test =
      *)
   | TestOutputStruct of seq * test_field_compare list
 
-    (* Run the command sequence and expect the final command (only)
-     * to fail.
+    (* Run the command sequence and expect the output of the final
+     * command to be a string which is the hex MD5 of the content of
+     * the named file.
      *)
+  | TestOutputFileMD5 of seq * string
+
+  (* Run the command sequence and expect the final command (only)
+   * to fail.
+   *)
   | TestLastFail of seq
 
 and test_field_compare =

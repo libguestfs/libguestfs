@@ -239,6 +239,7 @@ let seq_of_test = function
   | TestOutputTrue s | TestOutputFalse s
   | TestOutputLength (s, _) | TestOutputBuffer (s, _)
   | TestOutputStruct (s, _)
+  | TestOutputFileMD5 (s, _)
   | TestLastFail s -> s
 
 let c_quote str =

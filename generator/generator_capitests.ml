@@ -91,6 +91,28 @@ incr (guestfs_h *g, void *iv)
   (*i)++;
 }
 
+/* Get md5sum of the named file. */
+static void
+md5sum (const char *filename, char *result)
+{
+  char cmd[256];
+  snprintf (cmd, sizeof cmd, \"md5sum %%s\", filename);
+  FILE *pp = popen (cmd, \"r\");
+  if (pp == NULL) {
+    perror (cmd);
+    exit (EXIT_FAILURE);
+  }
+  if (fread (result, 1, 32, pp) != 32) {
+    perror (\"md5sum: fread\");
+    exit (EXIT_FAILURE);
+  }
+  if (pclose (pp) == -1) {
+    perror (\"pclose\");
+    exit (EXIT_FAILURE);
+  }
+  result[32] = '\\0';
+}
+
 ";
 
   (* Generate a list of commands which are not tested anywhere. *)
@@ -647,6 +669,19 @@ and generate_one_test_body name i test_name init test =
               pr "      return -1;\n";
               pr "    }\n"
         ) checks
+      in
+      List.iter (generate_test_command_call test_name) seq;
+      generate_test_command_call ~test test_name last
+  | TestOutputFileMD5 (seq, filename) ->
+      pr "  /* TestOutputFileMD5 for %s (%d) */\n" name i;
+      pr "  char expected[33];\n";
+      pr "  md5sum (\"%s\", expected);\n" filename;
+      let seq, last = get_seq_last seq in
+      let test () =
+        pr "    if (STRNEQ (r, expected)) {\n";
+        pr "      fprintf (stderr, \"%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", expected, r);\n" test_name;
+        pr "      return -1;\n";
+        pr "    }\n"
       in
       List.iter (generate_test_command_call test_name) seq;
       generate_test_command_call ~test test_name last
