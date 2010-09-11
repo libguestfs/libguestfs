@@ -20,7 +20,7 @@ include $(top_srcdir)/subdir-rules.mk
 ACLOCAL_AMFLAGS = -I m4
 
 # Basic source for the library.
-SUBDIRS = gnulib/lib images src examples po
+SUBDIRS = gnulib/lib images generator src examples po
 
 if ENABLE_DAEMON
 SUBDIRS += daemon

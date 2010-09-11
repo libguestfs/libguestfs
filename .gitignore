@@ -68,6 +68,9 @@ fish/rc_protocol.h
 fuse/guestmount
 fuse/guestmount.1
 fuse/guestmount.static
+generator/.pod2text.data
+generator/generator
+generator/stamp-generator
 guestfish.1
 guestfish-actions.pod
 guestfs.3
@@ -248,8 +251,6 @@ src/guestfs_protocol.x
 src/guestfs-structs.h
 src/.libs/libguestfs.so
 src/libguestfs.syms
-src/.pod2text.data
-src/stamp-generator
 stamp-h1
 test1.img
 test-tool/libguestfs-test-tool

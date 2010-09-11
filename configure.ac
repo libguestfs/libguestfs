@@ -792,6 +792,7 @@ dnl http://www.mail-archive.com/automake@gnu.org/msg10204.html
 AC_CONFIG_FILES([appliance/update.sh],
                 [chmod +x appliance/update.sh])
 AC_CONFIG_FILES([Makefile
+                 generator/Makefile
                  src/Makefile fish/Makefile po/Makefile.in examples/Makefile
                  appliance/Makefile
                  appliance/debian/debirf.conf

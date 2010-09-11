@@ -7,8 +7,8 @@ Adding a new action
 All action functions are generated automatically, so there are only
 two files you need to edit:
 
-(1) src/generator.ml: Add your new action, parameters, description,
-etc. to the big list called 'functions' at the top of this file.
+(1) generator/generator_actions.ml: Add your new action, parameters,
+description, etc. to the big list at the top of this file.
 
 (2) Edit/create a C file in daemon/ subdirectory which implements your
 'do_action' function.  Take a look at one of the numerous examples
@@ -89,6 +89,11 @@ fish/
 fuse/
         FUSE (userspace filesystem) built on top of libguestfs.
 
+generator/
+        The crucially important generator, used to automatically
+        generate large amounts of boilerplate C code for things like
+        RPC and bindings.
+
 haskell/
         Haskell bindings.
 
@@ -144,7 +149,6 @@ tools/
 
 src/
         Source code to the C library.
-        Also contains the crucial generator program.
 
 test-tool/
         Interactive qemu/kernel test tool.

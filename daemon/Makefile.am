@@ -1,5 +1,5 @@
 # libguestfs-daemon
-# Copyright (C) 2009 Red Hat Inc.
+# Copyright (C) 2010 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,6 +20,7 @@ ACLOCAL_AMFLAGS = -I m4
 SUBDIRS = lib tests .
 
 libsrcdir = $(top_builddir)/../src
+generatorsrcdir = $(top_builddir)/../generator
 
 generator_built = \
 	actions.h \
@@ -28,9 +29,9 @@ generator_built = \
 
 .PHONY: force
 
-$(generator_built): $(libsrcdir)/stamp-generator
-$(libsrcdir)/stamp-generator: force
-	$(MAKE) -C $(libsrcdir) stamp-generator
+$(generator_built): $(generatorsrcdir)/stamp-generator
+$(generatorsrcdir)/stamp-generator: force
+	$(MAKE) -C $(generatorsrcdir) stamp-generator
 
 BUILT_SOURCES = \
 	$(generator_built) \

@@ -1,6 +1,6 @@
 # libguestfs generated file
 # WARNING: THIS FILE IS GENERATED FROM:
-#   src/generator.ml
+#   generator/generator_*.ml
 # ANY CHANGES YOU MAKE TO THIS FILE WILL BE LOST.
 #
 # Copyright (C) 2009-2010 Red Hat Inc.

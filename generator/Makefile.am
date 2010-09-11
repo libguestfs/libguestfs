@@ -1,0 +1,95 @@
+# libguestfs
+# Copyright (C) 2010 Red Hat Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+SOURCES = \
+	generator_types.ml \
+	generator_utils.mli \
+	generator_utils.ml \
+	generator_actions.mli \
+	generator_actions.ml \
+	generator_structs.mli \
+	generator_structs.ml \
+	generator_optgroups.ml \
+	generator_prepopts.mli \
+	generator_prepopts.ml \
+	generator_pr.mli \
+	generator_pr.ml \
+	generator_docstrings.ml \
+	generator_checks.ml \
+	generator_c.ml \
+	generator_xdr.ml \
+	generator_daemon.ml \
+	generator_capitests.ml \
+	generator_fish.ml \
+	generator_ocaml.ml \
+	generator_perl.ml \
+	generator_python.ml \
+	generator_ruby.ml \
+	generator_java.ml \
+	generator_haskell.ml \
+	generator_csharp.ml \
+	generator_php.ml \
+	generator_bindtests.ml \
+	generator_main.ml
+
+SOURCES_ML = $(filter %.ml,$(SOURCES))
+OBJECTS = $(SOURCES_ML:.ml=.cmo)
+
+EXTRA_DIST = $(SOURCES)
+
+OCAMLCFLAGS = -I +xml-light -I +../pkg-lib/xml-light
+OCAMLCLIBS = xml-light.cma unix.cma str.cma
+
+noinst_PROGRAM = generator
+
+generator: $(OBJECTS) ../images/test.iso
+	$(OCAMLC) -o generator $(OCAMLCFLAGS) $(OCAMLCLIBS) $(OBJECTS)
+
+.ml.cmo:
+	$(OCAMLC) $(OCAMLCFLAGS) -c $< -o $@
+
+.mli.cmi:
+	$(OCAMLC) $(OCAMLCFLAGS) -c $< -o $@
+
+depend: .depend
+
+.depend: $(SOURCES)
+	rm -f $@ $@-t
+	$(OCAMLDEP) $^ | sed 's/  *$$//' > $@-t
+	mv $@-t $@
+
+include .depend
+
+noinst_DATA = stamp-generator
+
+# Run the generator.
+# Git removes empty directories, so in cases where the
+# generator is creating the sole file in a directory, we
+# have to create the directory first.
+stamp-generator: generator
+	mkdir -p $(top_srcdir)/perl/lib/Sys
+	mkdir -p $(top_srcdir)/ruby/ext/guestfs
+	mkdir -p $(top_srcdir)/java/com/redhat/et/libguestfs
+	mkdir -p $(top_srcdir)/csharp
+	cd $(top_srcdir) && generator/generator
+
+../images/test.iso:
+	make -C ../images test.iso
+
+CLEANFILES = $(noinst_DATA) $(noinst_PROGRAM) *.cmi *.cmo *~
+
+SUFFIXES = .cmo .cmi .cmx .ml .mli .mll .mly

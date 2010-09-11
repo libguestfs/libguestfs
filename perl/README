@@ -6,7 +6,7 @@ This directory contains the Perl bindings for the libguestfs API.
 The basic libguestfs bindings have the name 'Sys::Guestfs'.
 
 As with all other language bindings, these bindings are generated
-automatically.  See src/generator.ml.
+automatically.  See generator/ directory.
 
 Sys::Guestfs::Lib
 -----------------

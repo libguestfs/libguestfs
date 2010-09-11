@@ -24,9 +24,9 @@ $(top_builddir)/src/libguestfs.la: force
 
 # Automatically build targets defined in generator_built
 # generator_built is defined in individual Makefiles
-$(generator_built): $(top_builddir)/src/stamp-generator
-$(top_builddir)/src/stamp-generator: force
-	$(MAKE) -C $(top_builddir)/src stamp-generator
+$(generator_built): $(top_builddir)/generator/stamp-generator
+$(top_builddir)/generator/stamp-generator: force
+	$(MAKE) -C $(top_builddir)/generator stamp-generator
 
 # The daemon
 $(top_builddir)/daemon/guestfsd: force

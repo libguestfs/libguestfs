@@ -1,0 +1,802 @@
+(* libguestfs
+ * Copyright (C) 2009-2010 Red Hat Inc.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+ *)
+
+(* Please read generator/README first. *)
+
+open Printf
+
+open Generator_types
+open Generator_utils
+open Generator_pr
+open Generator_docstrings
+open Generator_optgroups
+open Generator_actions
+open Generator_structs
+
+(* Generate the tests. *)
+let rec generate_tests () =
+  generate_header CStyle GPLv2plus;
+
+  pr "\
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <fcntl.h>
+
+#include \"guestfs.h\"
+#include \"guestfs-internal.h\"
+
+static guestfs_h *g;
+static int suppress_error = 0;
+
+static void print_error (guestfs_h *g, void *data, const char *msg)
+{
+  if (!suppress_error)
+    fprintf (stderr, \"%%s\\n\", msg);
+}
+
+/* FIXME: nearly identical code appears in fish.c */
+static void print_strings (char *const *argv)
+{
+  size_t argc;
+
+  for (argc = 0; argv[argc] != NULL; ++argc)
+    printf (\"\\t%%s\\n\", argv[argc]);
+}
+
+/*
+static void print_table (char const *const *argv)
+{
+  size_t i;
+
+  for (i = 0; argv[i] != NULL; i += 2)
+    printf (\"%%s: %%s\\n\", argv[i], argv[i+1]);
+}
+*/
+
+static int
+is_available (const char *group)
+{
+  const char *groups[] = { group, NULL };
+  int r;
+
+  suppress_error = 1;
+  r = guestfs_available (g, (char **) groups);
+  suppress_error = 0;
+
+  return r == 0;
+}
+
+static void
+incr (guestfs_h *g, void *iv)
+{
+  int *i = (int *) iv;
+  (*i)++;
+}
+
+";
+
+  (* Generate a list of commands which are not tested anywhere. *)
+  pr "static void no_test_warnings (void)\n";
+  pr "{\n";
+
+  let hash : (string, bool) Hashtbl.t = Hashtbl.create 13 in
+  List.iter (
+    fun (_, _, _, _, tests, _, _) ->
+      let tests = filter_map (
+        function
+        | (_, (Always|If _|Unless _|IfAvailable _), test) -> Some test
+        | (_, Disabled, _) -> None
+      ) tests in
+      let seq = List.concat (List.map seq_of_test tests) in
+      let cmds_tested = List.map List.hd seq in
+      List.iter (fun cmd -> Hashtbl.replace hash cmd true) cmds_tested
+  ) all_functions;
+
+  List.iter (
+    fun (name, _, _, _, _, _, _) ->
+      if not (Hashtbl.mem hash name) then
+        pr "  fprintf (stderr, \"warning: \\\"guestfs_%s\\\" has no tests\\n\");\n" name
+  ) all_functions;
+
+  pr "}\n";
+  pr "\n";
+
+  (* Generate the actual tests.  Note that we generate the tests
+   * in reverse order, deliberately, so that (in general) the
+   * newest tests run first.  This makes it quicker and easier to
+   * debug them.
+   *)
+  let test_names =
+    List.map (
+      fun (name, _, _, flags, tests, _, _) ->
+        mapi (generate_one_test name flags) tests
+    ) (List.rev all_functions) in
+  let test_names = List.concat test_names in
+  let nr_tests = List.length test_names in
+
+  pr "\
+int main (int argc, char *argv[])
+{
+  char c = 0;
+  unsigned long int n_failed = 0;
+  const char *filename;
+  int fd;
+  int nr_tests, test_num = 0;
+
+  setbuf (stdout, NULL);
+
+  no_test_warnings ();
+
+  g = guestfs_create ();
+  if (g == NULL) {
+    printf (\"guestfs_create FAILED\\n\");
+    exit (EXIT_FAILURE);
+  }
+
+  guestfs_set_error_handler (g, print_error, NULL);
+
+  guestfs_set_path (g, \"../appliance\");
+
+  filename = \"test1.img\";
+  fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_NONBLOCK|O_TRUNC, 0666);
+  if (fd == -1) {
+    perror (filename);
+    exit (EXIT_FAILURE);
+  }
+  if (lseek (fd, %d, SEEK_SET) == -1) {
+    perror (\"lseek\");
+    close (fd);
+    unlink (filename);
+    exit (EXIT_FAILURE);
+  }
+  if (write (fd, &c, 1) == -1) {
+    perror (\"write\");
+    close (fd);
+    unlink (filename);
+    exit (EXIT_FAILURE);
+  }
+  if (close (fd) == -1) {
+    perror (filename);
+    unlink (filename);
+    exit (EXIT_FAILURE);
+  }
+  if (guestfs_add_drive (g, filename) == -1) {
+    printf (\"guestfs_add_drive %%s FAILED\\n\", filename);
+    exit (EXIT_FAILURE);
+  }
+
+  filename = \"test2.img\";
+  fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_NONBLOCK|O_TRUNC, 0666);
+  if (fd == -1) {
+    perror (filename);
+    exit (EXIT_FAILURE);
+  }
+  if (lseek (fd, %d, SEEK_SET) == -1) {
+    perror (\"lseek\");
+    close (fd);
+    unlink (filename);
+    exit (EXIT_FAILURE);
+  }
+  if (write (fd, &c, 1) == -1) {
+    perror (\"write\");
+    close (fd);
+    unlink (filename);
+    exit (EXIT_FAILURE);
+  }
+  if (close (fd) == -1) {
+    perror (filename);
+    unlink (filename);
+    exit (EXIT_FAILURE);
+  }
+  if (guestfs_add_drive (g, filename) == -1) {
+    printf (\"guestfs_add_drive %%s FAILED\\n\", filename);
+    exit (EXIT_FAILURE);
+  }
+
+  filename = \"test3.img\";
+  fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_NONBLOCK|O_TRUNC, 0666);
+  if (fd == -1) {
+    perror (filename);
+    exit (EXIT_FAILURE);
+  }
+  if (lseek (fd, %d, SEEK_SET) == -1) {
+    perror (\"lseek\");
+    close (fd);
+    unlink (filename);
+    exit (EXIT_FAILURE);
+  }
+  if (write (fd, &c, 1) == -1) {
+    perror (\"write\");
+    close (fd);
+    unlink (filename);
+    exit (EXIT_FAILURE);
+  }
+  if (close (fd) == -1) {
+    perror (filename);
+    unlink (filename);
+    exit (EXIT_FAILURE);
+  }
+  if (guestfs_add_drive (g, filename) == -1) {
+    printf (\"guestfs_add_drive %%s FAILED\\n\", filename);
+    exit (EXIT_FAILURE);
+  }
+
+  if (guestfs_add_drive_ro (g, \"../images/test.iso\") == -1) {
+    printf (\"guestfs_add_drive_ro ../images/test.iso FAILED\\n\");
+    exit (EXIT_FAILURE);
+  }
+
+  /* Set a timeout in case qemu hangs during launch (RHBZ#505329). */
+  alarm (600);
+
+  if (guestfs_launch (g) == -1) {
+    printf (\"guestfs_launch FAILED\\n\");
+    exit (EXIT_FAILURE);
+  }
+
+  /* Cancel previous alarm. */
+  alarm (0);
+
+  nr_tests = %d;
+
+" (500 * 1024 * 1024) (50 * 1024 * 1024) (10 * 1024 * 1024) nr_tests;
+
+  iteri (
+    fun i test_name ->
+      pr "  test_num++;\n";
+      pr "  if (guestfs_get_verbose (g))\n";
+      pr "    printf (\"-------------------------------------------------------------------------------\\n\");\n";
+      pr "  printf (\"%%3d/%%3d %s\\n\", test_num, nr_tests);\n" test_name;
+      pr "  if (%s () == -1) {\n" test_name;
+      pr "    printf (\"%s FAILED\\n\");\n" test_name;
+      pr "    n_failed++;\n";
+      pr "  }\n";
+  ) test_names;
+  pr "\n";
+
+  pr "  /* Check close callback is called. */
+  int close_sentinel = 1;
+  guestfs_set_close_callback (g, incr, &close_sentinel);
+
+  guestfs_close (g);
+
+  if (close_sentinel != 2) {
+    fprintf (stderr, \"close callback was not called\\n\");
+    exit (EXIT_FAILURE);
+  }
+
+  unlink (\"test1.img\");
+  unlink (\"test2.img\");
+  unlink (\"test3.img\");
+
+";
+
+  pr "  if (n_failed > 0) {\n";
+  pr "    printf (\"***** %%lu / %%d tests FAILED *****\\n\", n_failed, nr_tests);\n";
+  pr "    exit (EXIT_FAILURE);\n";
+  pr "  }\n";
+  pr "\n";
+
+  pr "  exit (EXIT_SUCCESS);\n";
+  pr "}\n"
+
+and generate_one_test name flags i (init, prereq, test) =
+  let test_name = sprintf "test_%s_%d" name i in
+
+  pr "\
+static int %s_skip (void)
+{
+  const char *str;
+
+  str = getenv (\"TEST_ONLY\");
+  if (str)
+    return strstr (str, \"%s\") == NULL;
+  str = getenv (\"SKIP_%s\");
+  if (str && STREQ (str, \"1\")) return 1;
+  str = getenv (\"SKIP_TEST_%s\");
+  if (str && STREQ (str, \"1\")) return 1;
+  return 0;
+}
+
+" test_name name (String.uppercase test_name) (String.uppercase name);
+
+  (match prereq with
+   | Disabled | Always | IfAvailable _ -> ()
+   | If code | Unless code ->
+       pr "static int %s_prereq (void)\n" test_name;
+       pr "{\n";
+       pr "  %s\n" code;
+       pr "}\n";
+       pr "\n";
+  );
+
+  pr "\
+static int %s (void)
+{
+  if (%s_skip ()) {
+    printf (\"        %%s skipped (reason: environment variable set)\\n\", \"%s\");
+    return 0;
+  }
+
+" test_name test_name test_name;
+
+  (* Optional functions should only be tested if the relevant
+   * support is available in the daemon.
+   *)
+  List.iter (
+    function
+    | Optional group ->
+        pr "  if (!is_available (\"%s\")) {\n" group;
+        pr "    printf (\"        %%s skipped (reason: group %%s not available in daemon)\\n\", \"%s\", \"%s\");\n" test_name group;
+        pr "    return 0;\n";
+        pr "  }\n";
+    | _ -> ()
+  ) flags;
+
+  (match prereq with
+   | Disabled ->
+       pr "  printf (\"        %%s skipped (reason: test disabled in generator)\\n\", \"%s\");\n" test_name
+   | If _ ->
+       pr "  if (! %s_prereq ()) {\n" test_name;
+       pr "    printf (\"        %%s skipped (reason: test prerequisite)\\n\", \"%s\");\n" test_name;
+       pr "    return 0;\n";
+       pr "  }\n";
+       pr "\n";
+       generate_one_test_body name i test_name init test;
+   | Unless _ ->
+       pr "  if (%s_prereq ()) {\n" test_name;
+       pr "    printf (\"        %%s skipped (reason: test prerequisite)\\n\", \"%s\");\n" test_name;
+       pr "    return 0;\n";
+       pr "  }\n";
+       pr "\n";
+       generate_one_test_body name i test_name init test;
+   | IfAvailable group ->
+       pr "  if (!is_available (\"%s\")) {\n" group;
+       pr "    printf (\"        %%s skipped (reason: %%s not available)\\n\", \"%s\", \"%s\");\n" test_name group;
+       pr "    return 0;\n";
+       pr "  }\n";
+       pr "\n";
+       generate_one_test_body name i test_name init test;
+   | Always ->
+       generate_one_test_body name i test_name init test
+  );
+
+  pr "  return 0;\n";
+  pr "}\n";
+  pr "\n";
+  test_name
+
+and generate_one_test_body name i test_name init test =
+  (match init with
+   | InitNone (* XXX at some point, InitNone and InitEmpty became
+               * folded together as the same thing.  Really we should
+               * make InitNone do nothing at all, but the tests may
+               * need to be checked to make sure this is OK.
+               *)
+   | InitEmpty ->
+       pr "  /* InitNone|InitEmpty for %s */\n" test_name;
+       List.iter (generate_test_command_call test_name)
+         [["blockdev_setrw"; "/dev/sda"];
+          ["umount_all"];
+          ["lvm_remove_all"]]
+   | InitPartition ->
+       pr "  /* InitPartition for %s: create /dev/sda1 */\n" test_name;
+       List.iter (generate_test_command_call test_name)
+         [["blockdev_setrw"; "/dev/sda"];
+          ["umount_all"];
+          ["lvm_remove_all"];
+          ["part_disk"; "/dev/sda"; "mbr"]]
+   | InitBasicFS ->
+       pr "  /* InitBasicFS for %s: create ext2 on /dev/sda1 */\n" test_name;
+       List.iter (generate_test_command_call test_name)
+         [["blockdev_setrw"; "/dev/sda"];
+          ["umount_all"];
+          ["lvm_remove_all"];
+          ["part_disk"; "/dev/sda"; "mbr"];
+          ["mkfs"; "ext2"; "/dev/sda1"];
+          ["mount_options"; ""; "/dev/sda1"; "/"]]
+   | InitBasicFSonLVM ->
+       pr "  /* InitBasicFSonLVM for %s: create ext2 on /dev/VG/LV */\n"
+         test_name;
+       List.iter (generate_test_command_call test_name)
+         [["blockdev_setrw"; "/dev/sda"];
+          ["umount_all"];
+          ["lvm_remove_all"];
+          ["part_disk"; "/dev/sda"; "mbr"];
+          ["pvcreate"; "/dev/sda1"];
+          ["vgcreate"; "VG"; "/dev/sda1"];
+          ["lvcreate"; "LV"; "VG"; "8"];
+          ["mkfs"; "ext2"; "/dev/VG/LV"];
+          ["mount_options"; ""; "/dev/VG/LV"; "/"]]
+   | InitISOFS ->
+       pr "  /* InitISOFS for %s */\n" test_name;
+       List.iter (generate_test_command_call test_name)
+         [["blockdev_setrw"; "/dev/sda"];
+          ["umount_all"];
+          ["lvm_remove_all"];
+          ["mount_ro"; "/dev/sdd"; "/"]]
+  );
+
+  let get_seq_last = function
+    | [] ->
+        failwithf "%s: you cannot use [] (empty list) when expecting a command"
+          test_name
+    | seq ->
+        let seq = List.rev seq in
+        List.rev (List.tl seq), List.hd seq
+  in
+
+  match test with
+  | TestRun seq ->
+      pr "  /* TestRun for %s (%d) */\n" name i;
+      List.iter (generate_test_command_call test_name) seq
+  | TestOutput (seq, expected) ->
+      pr "  /* TestOutput for %s (%d) */\n" name i;
+      pr "  const char *expected = \"%s\";\n" (c_quote expected);
+      let seq, last = get_seq_last seq in
+      let test () =
+        pr "    if (STRNEQ (r, expected)) {\n";
+        pr "      fprintf (stderr, \"%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", expected, r);\n" test_name;
+        pr "      return -1;\n";
+        pr "    }\n"
+      in
+      List.iter (generate_test_command_call test_name) seq;
+      generate_test_command_call ~test test_name last
+  | TestOutputList (seq, expected) ->
+      pr "  /* TestOutputList for %s (%d) */\n" name i;
+      let seq, last = get_seq_last seq in
+      let test () =
+        iteri (
+          fun i str ->
+            pr "    if (!r[%d]) {\n" i;
+            pr "      fprintf (stderr, \"%s: short list returned from command\\n\");\n" test_name;
+            pr "      print_strings (r);\n";
+            pr "      return -1;\n";
+            pr "    }\n";
+            pr "    {\n";
+            pr "      const char *expected = \"%s\";\n" (c_quote str);
+            pr "      if (STRNEQ (r[%d], expected)) {\n" i;
+            pr "        fprintf (stderr, \"%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", expected, r[%d]);\n" test_name i;
+            pr "        return -1;\n";
+            pr "      }\n";
+            pr "    }\n"
+        ) expected;
+        pr "    if (r[%d] != NULL) {\n" (List.length expected);
+        pr "      fprintf (stderr, \"%s: extra elements returned from command\\n\");\n"
+          test_name;
+        pr "      print_strings (r);\n";
+        pr "      return -1;\n";
+        pr "    }\n"
+      in
+      List.iter (generate_test_command_call test_name) seq;
+      generate_test_command_call ~test test_name last
+  | TestOutputListOfDevices (seq, expected) ->
+      pr "  /* TestOutputListOfDevices for %s (%d) */\n" name i;
+      let seq, last = get_seq_last seq in
+      let test () =
+        iteri (
+          fun i str ->
+            pr "    if (!r[%d]) {\n" i;
+            pr "      fprintf (stderr, \"%s: short list returned from command\\n\");\n" test_name;
+            pr "      print_strings (r);\n";
+            pr "      return -1;\n";
+            pr "    }\n";
+            pr "    {\n";
+            pr "      const char *expected = \"%s\";\n" (c_quote str);
+            pr "      r[%d][5] = 's';\n" i;
+            pr "      if (STRNEQ (r[%d], expected)) {\n" i;
+            pr "        fprintf (stderr, \"%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", expected, r[%d]);\n" test_name i;
+            pr "        return -1;\n";
+            pr "      }\n";
+            pr "    }\n"
+        ) expected;
+        pr "    if (r[%d] != NULL) {\n" (List.length expected);
+        pr "      fprintf (stderr, \"%s: extra elements returned from command\\n\");\n"
+          test_name;
+        pr "      print_strings (r);\n";
+        pr "      return -1;\n";
+        pr "    }\n"
+      in
+      List.iter (generate_test_command_call test_name) seq;
+      generate_test_command_call ~test test_name last
+  | TestOutputInt (seq, expected) ->
+      pr "  /* TestOutputInt for %s (%d) */\n" name i;
+      let seq, last = get_seq_last seq in
+      let test () =
+        pr "    if (r != %d) {\n" expected;
+        pr "      fprintf (stderr, \"%s: expected %d but got %%d\\n\","
+          test_name expected;
+        pr "               (int) r);\n";
+        pr "      return -1;\n";
+        pr "    }\n"
+      in
+      List.iter (generate_test_command_call test_name) seq;
+      generate_test_command_call ~test test_name last
+  | TestOutputIntOp (seq, op, expected) ->
+      pr "  /* TestOutputIntOp for %s (%d) */\n" name i;
+      let seq, last = get_seq_last seq in
+      let test () =
+        pr "    if (! (r %s %d)) {\n" op expected;
+        pr "      fprintf (stderr, \"%s: expected %s %d but got %%d\\n\","
+          test_name op expected;
+        pr "               (int) r);\n";
+        pr "      return -1;\n";
+        pr "    }\n"
+      in
+      List.iter (generate_test_command_call test_name) seq;
+      generate_test_command_call ~test test_name last
+  | TestOutputTrue seq ->
+      pr "  /* TestOutputTrue for %s (%d) */\n" name i;
+      let seq, last = get_seq_last seq in
+      let test () =
+        pr "    if (!r) {\n";
+        pr "      fprintf (stderr, \"%s: expected true, got false\\n\");\n"
+          test_name;
+        pr "      return -1;\n";
+        pr "    }\n"
+      in
+      List.iter (generate_test_command_call test_name) seq;
+      generate_test_command_call ~test test_name last
+  | TestOutputFalse seq ->
+      pr "  /* TestOutputFalse for %s (%d) */\n" name i;
+      let seq, last = get_seq_last seq in
+      let test () =
+        pr "    if (r) {\n";
+        pr "      fprintf (stderr, \"%s: expected false, got true\\n\");\n"
+          test_name;
+        pr "      return -1;\n";
+        pr "    }\n"
+      in
+      List.iter (generate_test_command_call test_name) seq;
+      generate_test_command_call ~test test_name last
+  | TestOutputLength (seq, expected) ->
+      pr "  /* TestOutputLength for %s (%d) */\n" name i;
+      let seq, last = get_seq_last seq in
+      let test () =
+        pr "    int j;\n";
+        pr "    for (j = 0; j < %d; ++j)\n" expected;
+        pr "      if (r[j] == NULL) {\n";
+        pr "        fprintf (stderr, \"%s: short list returned\\n\");\n"
+          test_name;
+        pr "        print_strings (r);\n";
+        pr "        return -1;\n";
+        pr "      }\n";
+        pr "    if (r[j] != NULL) {\n";
+        pr "      fprintf (stderr, \"%s: long list returned\\n\");\n"
+          test_name;
+        pr "      print_strings (r);\n";
+        pr "      return -1;\n";
+        pr "    }\n"
+      in
+      List.iter (generate_test_command_call test_name) seq;
+      generate_test_command_call ~test test_name last
+  | TestOutputBuffer (seq, expected) ->
+      pr "  /* TestOutputBuffer for %s (%d) */\n" name i;
+      pr "  const char *expected = \"%s\";\n" (c_quote expected);
+      let seq, last = get_seq_last seq in
+      let len = String.length expected in
+      let test () =
+        pr "    if (size != %d) {\n" len;
+        pr "      fprintf (stderr, \"%s: returned size of buffer wrong, expected %d but got %%zu\\n\", size);\n" test_name len;
+        pr "      return -1;\n";
+        pr "    }\n";
+        pr "    if (STRNEQLEN (r, expected, size)) {\n";
+        pr "      fprintf (stderr, \"%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", expected, r);\n" test_name;
+        pr "      return -1;\n";
+        pr "    }\n"
+      in
+      List.iter (generate_test_command_call test_name) seq;
+      generate_test_command_call ~test test_name last
+  | TestOutputStruct (seq, checks) ->
+      pr "  /* TestOutputStruct for %s (%d) */\n" name i;
+      let seq, last = get_seq_last seq in
+      let test () =
+        List.iter (
+          function
+          | CompareWithInt (field, expected) ->
+              pr "    if (r->%s != %d) {\n" field expected;
+              pr "      fprintf (stderr, \"%s: %s was %%d, expected %d\\n\",\n"
+                test_name field expected;
+              pr "               (int) r->%s);\n" field;
+              pr "      return -1;\n";
+              pr "    }\n"
+          | CompareWithIntOp (field, op, expected) ->
+              pr "    if (!(r->%s %s %d)) {\n" field op expected;
+              pr "      fprintf (stderr, \"%s: %s was %%d, expected %s %d\\n\",\n"
+                test_name field op expected;
+              pr "               (int) r->%s);\n" field;
+              pr "      return -1;\n";
+              pr "    }\n"
+          | CompareWithString (field, expected) ->
+              pr "    if (STRNEQ (r->%s, \"%s\")) {\n" field expected;
+              pr "      fprintf (stderr, \"%s: %s was \"%%s\", expected \"%s\"\\n\",\n"
+                test_name field expected;
+              pr "               r->%s);\n" field;
+              pr "      return -1;\n";
+              pr "    }\n"
+          | CompareFieldsIntEq (field1, field2) ->
+              pr "    if (r->%s != r->%s) {\n" field1 field2;
+              pr "      fprintf (stderr, \"%s: %s (%%d) <> %s (%%d)\\n\",\n"
+                test_name field1 field2;
+              pr "               (int) r->%s, (int) r->%s);\n" field1 field2;
+              pr "      return -1;\n";
+              pr "    }\n"
+          | CompareFieldsStrEq (field1, field2) ->
+              pr "    if (STRNEQ (r->%s, r->%s)) {\n" field1 field2;
+              pr "      fprintf (stderr, \"%s: %s (\"%%s\") <> %s (\"%%s\")\\n\",\n"
+                test_name field1 field2;
+              pr "               r->%s, r->%s);\n" field1 field2;
+              pr "      return -1;\n";
+              pr "    }\n"
+        ) checks
+      in
+      List.iter (generate_test_command_call test_name) seq;
+      generate_test_command_call ~test test_name last
+  | TestLastFail seq ->
+      pr "  /* TestLastFail for %s (%d) */\n" name i;
+      let seq, last = get_seq_last seq in
+      List.iter (generate_test_command_call test_name) seq;
+      generate_test_command_call test_name ~expect_error:true last
+
+(* Generate the code to run a command, leaving the result in 'r'.
+ * If you expect to get an error then you should set expect_error:true.
+ *)
+and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
+  match cmd with
+  | [] -> assert false
+  | name :: args ->
+      (* Look up the command to find out what args/ret it has. *)
+      let style =
+        try
+          let _, style, _, _, _, _, _ =
+            List.find (fun (n, _, _, _, _, _, _) -> n = name) all_functions in
+          style
+        with Not_found ->
+          failwithf "%s: in test, command %s was not found" test_name name in
+
+      if List.length (snd style) <> List.length args then
+        failwithf "%s: in test, wrong number of args given to %s"
+          test_name name;
+
+      pr "  {\n";
+
+      List.iter (
+        function
+        | OptString n, "NULL" -> ()
+        | Pathname n, arg
+        | Device n, arg
+        | Dev_or_Path n, arg
+        | String n, arg
+        | OptString n, arg
+        | Key n, arg ->
+            pr "    const char *%s = \"%s\";\n" n (c_quote arg);
+        | BufferIn n, arg ->
+            pr "    const char *%s = \"%s\";\n" n (c_quote arg);
+            pr "    size_t %s_size = %d;\n" n (String.length arg)
+        | Int _, _
+        | Int64 _, _
+        | Bool _, _
+        | FileIn _, _ | FileOut _, _ -> ()
+        | StringList n, "" | DeviceList n, "" ->
+            pr "    const char *const %s[1] = { NULL };\n" n
+        | StringList n, arg | DeviceList n, arg ->
+            let strs = string_split " " arg in
+            iteri (
+              fun i str ->
+                pr "    const char *%s_%d = \"%s\";\n" n i (c_quote str);
+            ) strs;
+            pr "    const char *const %s[] = {\n" n;
+            iteri (
+              fun i _ -> pr "      %s_%d,\n" n i
+            ) strs;
+            pr "      NULL\n";
+            pr "    };\n";
+      ) (List.combine (snd style) args);
+
+      let error_code =
+        match fst style with
+        | RErr | RInt _ | RBool _ -> pr "    int r;\n"; "-1"
+        | RInt64 _ -> pr "    int64_t r;\n"; "-1"
+        | RConstString _ | RConstOptString _ ->
+            pr "    const char *r;\n"; "NULL"
+        | RString _ -> pr "    char *r;\n"; "NULL"
+        | RStringList _ | RHashtable _ ->
+            pr "    char **r;\n";
+            pr "    size_t i;\n";
+            "NULL"
+        | RStruct (_, typ) ->
+            pr "    struct guestfs_%s *r;\n" typ; "NULL"
+        | RStructList (_, typ) ->
+            pr "    struct guestfs_%s_list *r;\n" typ; "NULL"
+        | RBufferOut _ ->
+            pr "    char *r;\n";
+            pr "    size_t size;\n";
+            "NULL" in
+
+      pr "    suppress_error = %d;\n" (if expect_error then 1 else 0);
+      pr "    r = guestfs_%s (g" name;
+
+      (* Generate the parameters. *)
+      List.iter (
+        function
+        | OptString _, "NULL" -> pr ", NULL"
+        | Pathname n, _
+        | Device n, _ | Dev_or_Path n, _
+        | String n, _
+        | OptString n, _
+        | Key n, _ ->
+            pr ", %s" n
+        | BufferIn n, _ ->
+            pr ", %s, %s_size" n n
+        | FileIn _, arg | FileOut _, arg ->
+            pr ", \"%s\"" (c_quote arg)
+        | StringList n, _ | DeviceList n, _ ->
+            pr ", (char **) %s" n
+        | Int _, arg ->
+            let i =
+              try int_of_string arg
+              with Failure "int_of_string" ->
+                failwithf "%s: expecting an int, but got '%s'" test_name arg in
+            pr ", %d" i
+        | Int64 _, arg ->
+            let i =
+              try Int64.of_string arg
+              with Failure "int_of_string" ->
+                failwithf "%s: expecting an int64, but got '%s'" test_name arg in
+            pr ", %Ld" i
+        | Bool _, arg ->
+            let b = bool_of_string arg in pr ", %d" (if b then 1 else 0)
+      ) (List.combine (snd style) args);
+
+      (match fst style with
+       | RBufferOut _ -> pr ", &size"
+       | _ -> ()
+      );
+
+      pr ");\n";
+
+      if not expect_error then
+        pr "    if (r == %s)\n" error_code
+      else
+        pr "    if (r != %s)\n" error_code;
+      pr "      return -1;\n";
+
+      (* Insert the test code. *)
+      (match test with
+       | None -> ()
+       | Some f -> f ()
+      );
+
+      (match fst style with
+       | RErr | RInt _ | RInt64 _ | RBool _
+       | RConstString _ | RConstOptString _ -> ()
+       | RString _ | RBufferOut _ -> pr "    free (r);\n"
+       | RStringList _ | RHashtable _ ->
+           pr "    for (i = 0; r[i] != NULL; ++i)\n";
+           pr "      free (r[i]);\n";
+           pr "    free (r);\n"
+       | RStruct (_, typ) ->
+           pr "    guestfs_free_%s (r);\n" typ
+       | RStructList (_, typ) ->
+           pr "    guestfs_free_%s_list (r);\n" typ
+      );
+
+      pr "  }\n"

@@ -1,5 +1,5 @@
 # libguestfs
-# Copyright (C) 2009 Red Hat Inc.
+# Copyright (C) 2010 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -29,8 +29,6 @@ generator_built = \
 	guestfs-structs.pod \
 	libguestfs.syms
 
-$(generator_built): stamp-generator
-
 BUILT_SOURCES = \
   $(generator_built) \
   guestfs_protocol.c \
@@ -39,26 +37,9 @@ BUILT_SOURCES = \
 EXTRA_DIST = \
 	$(BUILT_SOURCES) \
 	MAX_PROC_NR \
-	stamp-generator \
 	generator.ml \
 	libguestfs.3 \
 	guestfs.pod
-
-# Rerun the generator if it has changed.
-# Git removes empty directories, so in cases where the
-# generator is creating the sole file in a directory, we
-# have to create the directory first.
-noinst_DATA = stamp-generator
-
-stamp-generator: generator.ml ../images/test.iso
-	mkdir -p $(top_srcdir)/perl/lib/Sys
-	mkdir -p $(top_srcdir)/ruby/ext/guestfs
-	mkdir -p $(top_srcdir)/java/com/redhat/et/libguestfs
-	mkdir -p $(top_srcdir)/csharp
-	cd $(top_srcdir) && ocaml -warn-error A src/generator.ml
-
-../images/test.iso:
-	make -C ../images test.iso
 
 include_HEADERS = guestfs.h guestfs-actions.h guestfs-structs.h
 

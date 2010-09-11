@@ -1,0 +1,34 @@
+This program generates a large amount of code and documentation for
+all the daemon actions.
+
+To add a new action there are only two files you need to change,
+'generator_actions.ml' to describe the interface, and
+daemon/<somefile>.c to write the implementation.
+
+After editing these files, build it (make -C generator) to regenerate
+all the output files.  'make' will rerun this automatically when
+necessary.
+
+IMPORTANT: This program should NOT print any warnings at compile time
+or run time.  If it prints warnings, you should treat them as errors.
+
+OCaml tips:
+
+(1) In emacs, install tuareg-mode to display and format OCaml code
+correctly.  'vim' comes with a good OCaml editing mode by default.
+
+(2) Read the resources at http://ocaml-tutorial.org/
+
+(3) A module called 'Generator_foo' is defined in one or two files
+called 'generator_foo.mli' and 'generator_foo.ml' (NB: lowercase first
+letter).  The *.mli file, if present, defines the public interface for
+the module.  The *.ml file is the implementation.  If the *.mli file
+is missing then everything is exported.
+
+Some notable files in this directory:
+
+generator_actions.ml          The libguestfs API.
+generator_structs.ml          Structures returned by the API.
+generator_c.ml                Generate C API.
+generator_<lang>.ml           Generate bindings for <lang>.
+generator_main.ml             The main generator program.
