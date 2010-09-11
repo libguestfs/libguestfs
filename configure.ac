@@ -256,7 +256,7 @@ if test "x$vmchannel_test" != "xno"; then
         vmchannel_net_user=no
     fi
 
-    if test "x$vmchannel_net_user" = "xno" -a "x$vmchannel_guestfwd" = "xno"; then
+    if test "x$vmchannel_net_user" = "xno" && test "x$vmchannel_guestfwd" = "xno"; then
         AC_MSG_FAILURE(
 [I did not find user mode network or vmchannel support in
 $QEMU.
@@ -343,8 +343,8 @@ if test "x$enable_appliance" = "xyes"; then
         AC_MSG_RESULT([$fakechroot_version])
         fakechroot_major=`echo "$fakechroot_version" | awk -F. '{print $1}'`
         fakechroot_minor=`echo "$fakechroot_version" | awk -F. '{print $2}'`
-        if test "$fakechroot_major" -lt 2 -o \
-            \( "$fakechroot_major" -eq 2 -a "$fakechroot_minor" -lt 9 \); then
+        if test "$fakechroot_major" -lt 2 || \
+          ( test "$fakechroot_major" -eq 2 && test "$fakechroot_minor" -lt 9 ); then
           AC_MSG_ERROR([fakechroot version must be >= 2.9])
         fi
       fi
@@ -470,11 +470,11 @@ AM_CONDITIONAL([HAVE_FUSE],[test "x$HAVE_FUSE" = "xyes"])
 dnl Check for OCaml (optional, for OCaml bindings).
 AC_PROG_OCAML
 AC_PROG_FINDLIB
-AM_CONDITIONAL([HAVE_OCAML],[test "x$OCAMLC" != "xno" -a "x$OCAMLFIND" != "xno"])
+AM_CONDITIONAL([HAVE_OCAML],[test "x$OCAMLC" != "xno" && test "x$OCAMLFIND" != "xno"])
 
 dnl Optional xml-light for running the generator.
 OCAML_PKG_xml_light=no
-if test "x$OCAMLC" != "xno" -a "x$OCAMLFIND" != "xno"; then
+if test "x$OCAMLC" != "xno" && test "x$OCAMLFIND" != "xno"; then
     AC_CHECK_OCAML_PKG([xml-light])
 fi
 AM_CONDITIONAL([HAVE_XML_LIGHT],[test "x$OCAML_PKG_xml_light" != "xno"])
@@ -510,7 +510,7 @@ if test "x$missing_perl_modules" = "xyes"; then
 fi
 
 AM_CONDITIONAL([HAVE_PERL],
-    [test "x$PERL" != "xno" -a "x$missing_perl_modules" != "xyes"])
+    [test "x$PERL" != "xno" && test "x$missing_perl_modules" != "xyes"])
 
 dnl Check for Python (optional, for Python bindings).
 AC_CHECK_PROG([PYTHON],[python],[python],[no])
@@ -559,14 +559,14 @@ AC_SUBST(PYTHON_INCLUDEDIR)
 AC_SUBST(PYTHON_SITE_PACKAGES)
 
 AM_CONDITIONAL([HAVE_PYTHON],
-    [test "x$PYTHON_INCLUDEDIR" != "x" -a "x$PYTHON_SITE_PACKAGES" != "x"])
+    [test "x$PYTHON_INCLUDEDIR" != "x" && test "x$PYTHON_SITE_PACKAGES" != "x"])
 
 dnl Check for Ruby and rake (optional, for Ruby bindings).
 AC_CHECK_LIB([ruby],[ruby_init],[HAVE_LIBRUBY=1],[HAVE_LIBRUBY=0])
 AC_CHECK_PROG([RAKE],[rake],[rake],[no])
 
 AM_CONDITIONAL([HAVE_RUBY],
-    [test "x$RAKE" != "xno" -a -n "$HAVE_LIBRUBY"])
+    [test "x$RAKE" != "xno" && test -n "$HAVE_LIBRUBY"])
 
 dnl Check for Java.
 AC_ARG_WITH(java_home,
@@ -576,7 +576,7 @@ AC_ARG_WITH(java_home,
     [with_java_home=check])
 
 if test "x$with_java_home" != "xno"; then
-    if test "x$with_java_home" != "xyes" -a "x$with_java_home" != "xcheck"
+    if test "x$with_java_home" != "xyes" && test "x$with_java_home" != "xcheck"
     then
         # Reject unsafe characters in $JAVA_HOME
         jh_lf='
@@ -598,7 +598,7 @@ if test "x$with_java_home" != "xno"; then
             /usr/lib/jvm/java \
             /usr/lib/jvm/java-6-openjdk
         do
-            if test -d $d -a -f $d/bin/java; then
+            if test -d $d && test -f $d/bin/java; then
                 JAVA_HOME=$d
                 break
             fi
@@ -730,9 +730,9 @@ if test "x$missing_perl_modules" = "xyes"; then
 fi
 
 AM_CONDITIONAL([HAVE_INSPECTOR],
-    [test "x$PERL" != "xno" -a "x$missing_perl_modules" != "xyes"])
+    [test "x$PERL" != "xno" && test "x$missing_perl_modules" != "xyes"])
 AM_CONDITIONAL([HAVE_TOOLS],
-    [test "x$PERL" != "xno" -a "x$missing_perl_modules" != "xyes"])
+    [test "x$PERL" != "xno" && test "x$missing_perl_modules" != "xyes"])
 
 dnl Library versioning.
 MAX_PROC_NR=`cat $srcdir/src/MAX_PROC_NR`

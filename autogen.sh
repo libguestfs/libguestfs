@@ -70,7 +70,7 @@ require_ocaml_pkg()
 
 # If no arguments were specified and configure has run before, use the previous
 # arguments
-if [ $# == 0 -a -x ./config.status ]; then
+if test $# == 0 && test -x ./config.status; then
     ./config.status --recheck
 else
     $CONFIGUREDIR/configure "$@"
