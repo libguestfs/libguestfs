@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master.or\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-09-10 10:41+0100\n"
+"POT-Creation-Date: 2010-09-11 13:13+0100\n"
 "PO-Revision-Date: 2010-02-01 18:17+0530\n"
 "Last-Translator: Manoj Kumar Giri <mgiri@redhat.com>\n"
 "Language-Team: Oriya <oriya-it@googlegroups.com>\n"
@@ -1476,30 +1476,30 @@ msgstr "%s: %s: ଗଣନସଂଖ୍ୟାଟି ପରିସର ବାହା�
 msgid "%s: unknown command\n"
 msgstr "%s: ଅଜଣା ନିର୍ଦ୍ଦେଶ\n"
 
-#: fish/copy.c:41
+#: fish/copy.c:40
 #, c-format
 msgid ""
 "use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
 msgstr ""
 
-#: fish/copy.c:54 fish/copy.c:195
+#: fish/copy.c:53 fish/copy.c:194
 #, fuzzy, c-format
 msgid "copy-in: target '%s' is not a directory\n"
 msgstr "ଫାଇଲଗୁଡ଼ିକୁ ଗୋଟିଏ ଡିରେକ୍ଟୋରୀରେ ତାଲିକାଭୁକ୍ତ କରନ୍ତୁ"
 
-#: fish/copy.c:139
+#: fish/copy.c:138
 #, c-format
 msgid "error: argument is zero length or longer than maximum permitted\n"
 msgstr ""
 
-#: fish/copy.c:184
+#: fish/copy.c:183
 #, c-format
 msgid ""
 "use 'copy-out <remote> [<remote>...] <localdir>' to copy files out of the "
 "image\n"
 msgstr ""
 
-#: fish/copy.c:225
+#: fish/copy.c:224
 #, fuzzy, c-format
 msgid "copy-out: '%s' is not a file or directory\n"
 msgstr "ଗୋଟିଏ ଫାଇଲ କିମ୍ବା ଡିରେକ୍ଟୋରୀକୁ ନକଲ କରନ୍ତୁ"
@@ -1509,12 +1509,12 @@ msgstr "ଗୋଟିଏ ଫାଇଲ କିମ୍ବା ଡିରେକ୍ଟୋ
 msgid "use '%s filename' to edit a file\n"
 msgstr "ଗୋଟିଏ ଫାଇଲକୁ ସମ୍ପାଦନ କରିବା ପାଇଁ '%s filename' କୁ ବ୍ୟବହାର କରନ୍ତୁ\n"
 
-#: fish/fish.c:111 fuse/guestmount.c:880
+#: fish/fish.c:110 fuse/guestmount.c:880
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "ଅଧିକ ସୂଚନା ପାଇଁ `%s --help' କୁ ଚେଷ୍ଟା କରନ୍ତୁ।\n"
 
-#: fish/fish.c:115
+#: fish/fish.c:114
 #, fuzzy, c-format
 msgid ""
 "%s: guest filesystem shell\n"
@@ -1587,63 +1587,63 @@ msgstr ""
 "  -V|--version         ସଂସ୍କରଣ ଦର୍ଶାନ୍ତୁ ଏବଂ ପ୍ରସ୍ଥାନ କରନ୍ତୁ\n"
 "ଅଧିକ ସୂଚନା ପାଇଁ,  man ପୃଷ୍ଠା ଦେଖନ୍ତୁ %s(1).\n"
 
-#: fish/fish.c:221 fuse/guestmount.c:977
+#: fish/fish.c:220 fuse/guestmount.c:977
 #, c-format
 msgid "guestfs_create: failed to create handle\n"
 msgstr "guestfs_create: ନିୟନ୍ତ୍ରଣ ପ୍ରସ୍ତୁତ କରିବାରେ ବିଫଳ ହୋଇଛି\n"
 
-#: fish/fish.c:260
+#: fish/fish.c:259
 #, c-format
 msgid "%s: --listen=PID: PID was not a number: %s\n"
 msgstr "%s: --listen=PID: PID ଗୋଟିଏ ସଂଖ୍ୟା ନୁହଁ: %s\n"
 
-#: fish/fish.c:267
+#: fish/fish.c:266
 #, c-format
 msgid ""
 "%s: remote: $GUESTFISH_PID must be set to the PID of the remote process\n"
 msgstr "%s: ସୁଦୂର: $GUESTFISH_PID ନିଶ୍ଚିତ ଭାବରେ PID ରେ ସୁଦୂର ପଦ୍ଧତିରେ ସେଟ ହୋଇଛି\n"
 
-#: fish/fish.c:282 fuse/guestmount.c:1022
+#: fish/fish.c:281 fuse/guestmount.c:1022
 #, c-format
 msgid "%s: unknown long option: %s (%d)\n"
 msgstr "%s: ଅଜଣା ଲମ୍ବା ବିକଳ୍ପ: %s (%d)\n"
 
-#: fish/fish.c:351
+#: fish/fish.c:350
 #, c-format
 msgid "%s: only one -f parameter can be given\n"
 msgstr "%s: କେବଳ ଗୋଟିଏ -f ପ୍ରାଚଳ ଦିଆହୋଇଛି\n"
 
-#: fish/fish.c:487
+#: fish/fish.c:486
 #, c-format
 msgid "%s: cannot use --listen and --remote options at the same time\n"
 msgstr "%s: --listen ଏବଂ --remote ବିକଳ୍ପଗୁଡ଼ିକୁ ଏକ ସମୟରେ ବ୍ୟବହାର କରିପାରିବେ ନାହିଁ\n"
 
-#: fish/fish.c:495
+#: fish/fish.c:494
 #, c-format
 msgid "%s: extra parameters on the command line with --listen flag\n"
 msgstr "%s: ନିର୍ଦ୍ଦେଶ ନାମାରେ --listen ସୂଚକ ସହିତ ଅତିରିକ୍ତ ପ୍ରଚଳଗୁଡ଼ିକ\n"
 
-#: fish/fish.c:501
+#: fish/fish.c:500
 #, c-format
 msgid "%s: cannot use --listen and --file options at the same time\n"
 msgstr "%s: --listen ଏବଂ --file ବିକଳ୍ପଗୁଡ଼ିକୁ ଏକା ସମୟରେ ବ୍ୟବହାର କରିପାରିବେ ନାହିଁ\n"
 
-#: fish/fish.c:558
+#: fish/fish.c:557
 #, c-format
 msgid "guestfish: could not access termcap or terminfo database.\n"
 msgstr ""
 
-#: fish/fish.c:562
+#: fish/fish.c:561
 #, c-format
 msgid "guestfish: terminal type \"%s\" not defined.\n"
 msgstr ""
 
-#: fish/fish.c:615
+#: fish/fish.c:614
 #, fuzzy, c-format
 msgid "guestfish: too many drives added on the command line\n"
 msgstr "%s: ନିର୍ଦ୍ଦେଶ ନାମରେ ଖାଲି ନିର୍ଦ୍ଦେଶ\n"
 
-#: fish/fish.c:747
+#: fish/fish.c:746
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -1663,99 +1663,99 @@ msgstr ""
 "      'quit' shellରୁ ପ୍ରସ୍ଥାନ କରିବା ପାଇଁ\n"
 "\n"
 
-#: fish/fish.c:834
+#: fish/fish.c:833
 #, c-format
 msgid "%s: unterminated double quote\n"
 msgstr "%s: ସମାପ୍ତ ହୋଇନଥିବା ଦ୍ୱିତୀୟ କୋଟ\n"
 
-#: fish/fish.c:840 fish/fish.c:857
+#: fish/fish.c:839 fish/fish.c:856
 #, c-format
 msgid "%s: command arguments not separated by whitespace\n"
 msgstr "%s: ନିର୍ଦ୍ଦେଶ ସ୍ୱତନ୍ତ୍ରଚରଗୁଡ଼ିକ ଖାଲିସ୍ଥାନ ଦ୍ୱାରା ପୃଥକ ହୋଇନାହିଁ\n"
 
-#: fish/fish.c:851
+#: fish/fish.c:850
 #, c-format
 msgid "%s: unterminated single quote\n"
 msgstr "%s: ଅସମାପ୍ତ ଏକକ କୋଟ\n"
 
-#: fish/fish.c:906
+#: fish/fish.c:905
 #, c-format
 msgid "%s: internal error parsing string at '%s'\n"
 msgstr "%s: '%s' ରେ ଆଭ୍ୟନ୍ତରୀଣ ତ୍ରୁଟି ବିଶ୍ଳେଷଣ ବାକ୍ୟଖଣ୍ଡ\n"
 
-#: fish/fish.c:923
+#: fish/fish.c:922
 #, c-format
 msgid "%s: too many arguments\n"
 msgstr "%s: ଅତ୍ୟଧିକ ସ୍ୱତନ୍ତ୍ରଚର\n"
 
-#: fish/fish.c:952
+#: fish/fish.c:951
 #, c-format
 msgid "%s: empty command on command line\n"
 msgstr "%s: ନିର୍ଦ୍ଦେଶ ନାମରେ ଖାଲି ନିର୍ଦ୍ଦେଶ\n"
 
-#: fish/fish.c:1126
+#: fish/fish.c:1125
 msgid "display a list of commands or help on a command"
 msgstr "ନିର୍ଦ୍ଦେଶମାନଙ୍କର ଗୋଟିଏ ତାଲିକା ଦର୍ଶାନ୍ତୁ ଅଥବା ଗୋଟିଏ ନିର୍ଦ୍ଦେଶରେ ସହାୟତା ଦେଖାନ୍ତୁ"
 
-#: fish/fish.c:1128
+#: fish/fish.c:1127
 msgid "read the manual"
 msgstr ""
 
-#: fish/fish.c:1130
+#: fish/fish.c:1129
 msgid "quit guestfish"
 msgstr "guestfish ରୁ ପ୍ରସ୍ଥାନ କରନ୍ତୁ"
 
-#: fish/fish.c:1133
+#: fish/fish.c:1132
 msgid "allocate an image"
 msgstr "ଗୋଟିଏ ପ୍ରତିଛବିକୁ ବାଣ୍ଟନ୍ତୁ"
 
-#: fish/fish.c:1135
+#: fish/fish.c:1134
 #, fuzzy
 msgid "copy files into an image"
 msgstr "ବୃକ୍ଷରେ ଫାଇଲଗୁଡ଼ିକୁ ଧାରଣ କରନ୍ତୁ"
 
-#: fish/fish.c:1137
+#: fish/fish.c:1136
 msgid "copy files out of an image"
 msgstr ""
 
-#: fish/fish.c:1139
+#: fish/fish.c:1138
 msgid "display a line of text"
 msgstr "ଗୋଟିଏ ପାଠ୍ୟ ଧାଡ଼ି ଦର୍ଶାନ୍ତୁ"
 
-#: fish/fish.c:1141
+#: fish/fish.c:1140
 msgid "edit a file in the image"
 msgstr "ପ୍ରତିଛବିରେ ଗୋଟିଏ ଫାଇଲକୁ ସମ୍ପାଦନ କରନ୍ତୁ"
 
-#: fish/fish.c:1143
+#: fish/fish.c:1142
 msgid "local change directory"
 msgstr "ସ୍ଥାନୀୟ ପରିବର୍ତ୍ତନ ଡିରେକ୍ଟୋରୀ"
 
-#: fish/fish.c:1145
+#: fish/fish.c:1144
 msgid "expand wildcards in command"
 msgstr "ନିର୍ଦ୍ଦେଶରେ ୱାଇଲ୍ଡ କାର୍ଡଗୁଡ଼ିକୁ ବିସ୍ତାର କରନ୍ତୁ"
 
-#: fish/fish.c:1147
+#: fish/fish.c:1146
 msgid "view a file in the pager"
 msgstr "ପେଜରରେ ଗୋଟିଏ ଫାଇଲକୁ ଦେଖନ୍ତୁ"
 
-#: fish/fish.c:1149
+#: fish/fish.c:1148
 msgid "close and reopen libguestfs handle"
 msgstr "libguestfs ନିୟନ୍ତ୍ରଣକୁ ବନ୍ଦ କରନ୍ତୁ ଏବଂ ପୁଣି ଖୋଲନ୍ତୁ"
 
-#: fish/fish.c:1151
+#: fish/fish.c:1150
 msgid "allocate a sparse image file"
 msgstr "ଗୋଟିଏ sparse ପ୍ରତିଛବି ଫାଇଲକୁ ବାଣ୍ଟନ୍ତୁ"
 
-#: fish/fish.c:1153
+#: fish/fish.c:1152
 #, fuzzy
 msgid "list supported groups of commands"
 msgstr "ନିର୍ଦ୍ଦେଶଗୁଡ଼ିକୁ ଗ୍ରହଣ କରିବା ପାଇଁ ପ୍ରସ୍ତୁତ"
 
-#: fish/fish.c:1155
+#: fish/fish.c:1154
 msgid "measure time taken to run command"
 msgstr "ନିର୍ଦ୍ଦେଶକୁ ଚଲାଇବା ପାଇଁ ଆବଶ୍ୟକ ସମୟକୁ ମାପନ୍ତୁ"
 
-#: fish/fish.c:1167
+#: fish/fish.c:1166
 #, c-format
 msgid ""
 "alloc - allocate an image\n"
@@ -1769,7 +1769,7 @@ msgid ""
 "    Size can be specified using standard suffixes, eg. '1M'.\n"
 msgstr ""
 
-#: fish/fish.c:1181
+#: fish/fish.c:1180
 #, c-format
 msgid ""
 "copy-in - copy files into an image\n"
@@ -1779,7 +1779,7 @@ msgid ""
 "    image, placing them on a remote directory.\n"
 msgstr ""
 
-#: fish/fish.c:1191
+#: fish/fish.c:1190
 #, c-format
 msgid ""
 "copy-out - copy files out of an image\n"
@@ -1789,7 +1789,7 @@ msgid ""
 "    image, placing them in a local directory.\n"
 msgstr ""
 
-#: fish/fish.c:1200
+#: fish/fish.c:1199
 #, c-format
 msgid ""
 "echo - display a line of text\n"
@@ -1802,7 +1802,7 @@ msgstr ""
 "\n"
 "    ଏହା ଟର୍ମିନାଲର ପ୍ରାଚଳମାନଙ୍କର ପୁନରାବୃତ୍ତି କରିଥାଏ।\n"
 
-#: fish/fish.c:1209
+#: fish/fish.c:1208
 #, fuzzy, c-format
 msgid ""
 "edit - edit a file in the image\n"
@@ -1833,7 +1833,7 @@ msgstr ""
 "    ଟିପ୍ପଣୀ: ଏହା ବୃହତ ଫାଇଲଗୁଡ଼ିକ ପାଇଁ ବିଶ୍ୱସ୍ତ ଭାବରେ କାର୍ଯ୍ୟ କରିନଥାଏ\n"
 "    (> 2 MB) ଅଥବା \\0 ବାଇଟ ଧାରଣ କରିଥିବା ଦ୍ୱିମିକ ଫାଇଲ ପାଇଁ।\n"
 
-#: fish/fish.c:1225
+#: fish/fish.c:1224
 #, c-format
 msgid ""
 "lcd - local change directory\n"
@@ -1850,7 +1850,7 @@ msgstr ""
 "    ଯଦି ଆପଣ ଫାଇଲଗୁଡ଼ିକୁ ଗୋଟିଏ ନିର୍ଦ୍ଦିଷ୍ଟ ସ୍ଥାନରେ\n"
 "    ଆହରଣ କରିବାକୁ ଚାହୁଁଥାନ୍ତି।\n"
 
-#: fish/fish.c:1234
+#: fish/fish.c:1233
 #, c-format
 msgid ""
 "glob - expand wildcards in command\n"
@@ -1868,7 +1868,7 @@ msgstr ""
 "ନିର୍ଦ୍ଦେଶଟି ବାରମ୍ବାର ଚାଲିଥାଏ\n"
 "    ପ୍ରତ୍ୟେକ ବିସ୍ତୃତ ସ୍ୱତନ୍ତ୍ରଚର ପାଇଁ ଥରେ।\n"
 
-#: fish/fish.c:1244
+#: fish/fish.c:1243
 #, c-format
 msgid ""
 "man - read the manual\n"
@@ -1877,7 +1877,7 @@ msgid ""
 "    Opens the manual page for guestfish.\n"
 msgstr ""
 
-#: fish/fish.c:1251
+#: fish/fish.c:1250
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -1888,7 +1888,7 @@ msgstr ""
 "     ସହାୟତା cmd\n"
 "     ସହାୟତା\n"
 
-#: fish/fish.c:1258
+#: fish/fish.c:1257
 #, c-format
 msgid ""
 "more - view a file in the pager\n"
@@ -1919,7 +1919,7 @@ msgstr ""
 "    ଟିପ୍ପଣୀ: ଏହା ବୃହତ ଫାଇଲ ପାଇଁ ବିଶ୍ୱସ୍ତ ଭାବରେ କାର୍ଯ୍ୟକରିନଥାଏ\n"
 "    (> 2 MB) କିମ୍ବା ଦ୍ୱମିକ ଫାଇଲଗୁଡ଼ିକ \\0 ବାଇଟ ଧାରଣ କରିଥାଏ।\n"
 
-#: fish/fish.c:1276
+#: fish/fish.c:1275
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -1928,7 +1928,7 @@ msgstr ""
 "ପ୍ରସ୍ଥାନ କରନ୍ତୁ - guestfish ରୁ ପ୍ରସ୍ଥାନ କରନ୍ତୁ\n"
 "     ପ୍ରସ୍ଥାନ କରନ୍ତୁ\n"
 
-#: fish/fish.c:1281
+#: fish/fish.c:1280
 #, c-format
 msgid ""
 "reopen - close and reopen the libguestfs handle\n"
@@ -1946,7 +1946,7 @@ msgstr ""
 ", କାରଣ ନିୟନ୍ତ୍ରଣଟି ସଠିକ ଭାବରେ ବନ୍ଦ ହୋଇନାହିଁ ଯେତେବେଳେ guestfish\n"
 "ପ୍ରସ୍ଥାନ କରିଥାଏ।  ତଥାପି ଏହା ବେଳେବେଳେ ପରୀକ୍ଷା ପାଇଁ ବ୍ୟବହାର ହୋଇଥାଏ।\n"
 
-#: fish/fish.c:1290
+#: fish/fish.c:1289
 #, fuzzy, c-format
 msgid ""
 "sparse - allocate a sparse image file\n"
@@ -1994,7 +1994,7 @@ msgstr ""
 "    <nn>E ଅଥବା <nn>EB  ଏକ୍ସାବାଇଟ ସଂଖ୍ୟା\n"
 "    <nn>sects        512 ବାଇଟ ବିଭାଗ ସଂଖ୍ୟା\n"
 
-#: fish/fish.c:1311
+#: fish/fish.c:1310
 #, c-format
 msgid ""
 "supported - list supported groups of commands\n"
@@ -2007,7 +2007,7 @@ msgid ""
 "    See also guestfs(3) section AVAILABILITY.\n"
 msgstr ""
 
-#: fish/fish.c:1323
+#: fish/fish.c:1322
 #, c-format
 msgid ""
 "time - measure time taken to run command\n"
@@ -2022,13 +2022,13 @@ msgstr ""
 "    ଏହା <command> କୁ ସେହିପରି ଚଲାଇଥାଏ, ଏବଂ ସମାପ୍ତ ହୋଇଥିବା ସମୟକୁ ପରବର୍ତ୍ତି ସମୟରେ\n"
 "    ମୁଦ୍ରଣ କରିଥାଏ।\n"
 
-#: fish/fish.c:1331
+#: fish/fish.c:1330
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""
 "%s: ନିର୍ଦ୍ଦେଶଟି ପରିଚିତ ନୁହଁ, ସମସ୍ତ ନିର୍ଦ୍ଦେଶଗୁଡ଼ିକୁ ତାଲିକାଭୁକ୍ତ କରିବା ପାଇଁ -h କୁ ବ୍ୟବହାର କରନ୍ତୁ\n"
 
-#: fish/fish.c:1347
+#: fish/fish.c:1346
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -2036,12 +2036,12 @@ msgid ""
 "For complete documentation:         man guestfish\n"
 msgstr ""
 
-#: fish/fish.c:1504
+#: fish/fish.c:1503
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "ବାକ୍ୟଖଣ୍ଡ \"%s\" ରେ ପଳାୟନ ଟିପ୍ପଣୀ\n"
 
-#: fish/fish.c:1839
+#: fish/fish.c:1838
 #, c-format
 msgid "Enter key or passphrase (\"%s\"): "
 msgstr ""
@@ -2539,12 +2539,12 @@ msgstr ""
 msgid "external command failed: %s"
 msgstr "ବାହ୍ୟ ନିର୍ଦ୍ଦେଶ ବିଫଳ ହୋଇଛି: %s"
 
-#: src/guestfs.c:179
+#: src/guestfs.c:176
 #, c-format
 msgid "guestfs_close: called twice on the same handle\n"
 msgstr "guestfs_close: ସମାନ ନିୟନ୍ତ୍ରଣରେ ଦୁଇଥର ଡ଼ାକିଥିଲା\n"
 
-#: src/guestfs.c:284
+#: src/guestfs.c:281
 #, c-format
 msgid "libguestfs: error: %s\n"
 msgstr "libguestfs: ତ୍ରୁଟି: %s\n"
@@ -2565,46 +2565,46 @@ msgid ""
 "previously returned by guestfs_inspect_os"
 msgstr ""
 
-#: src/launch.c:95
+#: src/launch.c:93
 msgid "command line cannot be altered after qemu subprocess launched"
 msgstr "qemu ଉପପଦ୍ଧତି ଆରମ୍ଭ ହେବା ପରେ ନିର୍ଦ୍ଦେଶନାମାକୁ ପରିବର୍ତ୍ତନ କରିପାରିବେ ନାହିଁ"
 
-#: src/launch.c:109
+#: src/launch.c:107
 msgid "guestfs_config: parameter must begin with '-' character"
 msgstr "guestfs_config: ପ୍ରାଚଳ ନିଶ୍ଚିତ ଭାବରେ '-' ବର୍ଣ୍ଣ ସହିତ ଆରମ୍ଭ ହେବା ଉଚିତ"
 
-#: src/launch.c:123
+#: src/launch.c:121
 #, c-format
 msgid "guestfs_config: parameter '%s' isn't allowed"
 msgstr "guestfs_config: ପ୍ରାଚଳ '%s' ଟି ଅନୁମତିପ୍ରାପ୍ତ ନୁହଁ"
 
-#: src/launch.c:144 src/launch.c:181 src/launch.c:214
+#: src/launch.c:142 src/launch.c:179 src/launch.c:212
 msgid "filename cannot contain ',' (comma) character"
 msgstr "ଫାଇଲନାମରେ ',' (କମା) ବର୍ଣ୍ଣ ଧାରଣ ହୋଇନଥାଏ"
 
-#: src/launch.c:240
+#: src/launch.c:238
 msgid "you must call guestfs_add_drive before guestfs_launch"
 msgstr "ଆପଣ ନିଶ୍ଚିତ ଭାବରେ guestfs_add_drive କୁ guestfs_launch ପୂର୍ବରୁ ଡାକିବା ଉଚିତ"
 
-#: src/launch.c:245
+#: src/launch.c:243
 #, fuzzy
 msgid "the libguestfs handle has already been launched"
 msgstr "qemu ପୂର୍ବରୁ ଆରମ୍ଭ ହୋଇସାରିଛି"
 
-#: src/launch.c:260
+#: src/launch.c:258
 #, c-format
 msgid "%s: cannot create temporary directory"
 msgstr "%s: ଅସ୍ଥାୟୀ ଡିରେକ୍ଟୋରୀ ନିର୍ମାଣ କରିପାରିବେ ନାହିଁ"
 
-#: src/launch.c:606
+#: src/launch.c:604
 msgid "guestfs_launch failed, see earlier error messages"
 msgstr "guestfs_launch ବିଫଳ ହୋଇଛି, ପୂର୍ବର ତ୍ରୁଟି ସନ୍ଦେଶଗୁଡ଼ିକୁ ଦେଖନ୍ତୁ"
 
-#: src/launch.c:619
+#: src/launch.c:617
 msgid "qemu launched and contacted daemon, but state != READY"
 msgstr "qemu ଆରମ୍ଭ ହୋଇଛି ଏବଂ ଡେମନ ସହିତ ଯୋଗାଯୋଗ ଆରମ୍ଭ କରିଛି, କିନ୍ତୁ ଅବସ୍ଥା != READY"
 
-#: src/launch.c:756
+#: src/launch.c:754
 #, c-format
 msgid ""
 "%s: command failed: If qemu is located on a non-standard path, try setting "
@@ -2613,11 +2613,11 @@ msgstr ""
 "%s: ନିର୍ଦ୍ଦେଶ ବିଫଳ ହୋଇଛି: ଯଦି qemu ମାନ୍ୟତା ପ୍ରାପ୍ତ ହୋଇନଥିବା ପଥରେ ଅବସ୍ଥିତ, ତେବେ "
 "LIBGUESTFS_QEMU ପରିବେଶ ପ୍ରାଚଳକୁ ସେଟ କରିବା ପାଇଁ ଚେଷ୍ଟା କରନ୍ତୁ।"
 
-#: src/launch.c:848
+#: src/launch.c:846
 msgid "qemu has not been launched yet"
 msgstr "qemu ଏପର୍ଯ୍ୟନ୍ତ ଆରମ୍ଭ ହୋଇନାହିଁ"
 
-#: src/launch.c:859
+#: src/launch.c:857
 msgid "no subprocess to kill"
 msgstr "ବନ୍ଦ କରିବା ପାଇଁ କୌଣସି ଉପ-ପଦ୍ଧତି ନାହିଁ"
 
