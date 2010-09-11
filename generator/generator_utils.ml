@@ -28,18 +28,23 @@ open Printf
 
 open Generator_types
 
-(* Generate a random UUID (used in tests). *)
+(* Generate a uuidgen-compatible UUID (used in tests).  However to
+ * avoid having the UUID change every time we rebuild the tests,
+ * generate it as a function of the contents of the
+ * generator_actions.ml file.
+ * 
+ * Originally I thought uuidgen was using RFC 4122, but it doesn't
+ * appear to.
+ *
+ * Note that the format must be 01234567-0123-0123-0123-0123456789ab
+ *)
 let uuidgen () =
-  let chan = open_process_in "uuidgen" in
-  let uuid = input_line chan in
-  (match close_process_in chan with
-   | WEXITED 0 -> ()
-   | WEXITED _ ->
-       failwith "uuidgen: process exited with non-zero status"
-   | WSIGNALED _ | WSTOPPED _ ->
-       failwith "uuidgen: process signalled or stopped by signal"
-  );
-  uuid
+  let s = Digest.to_hex (Digest.file "generator/generator_actions.ml") in
+  String.sub s 0 8 ^ "-"
+  ^ String.sub s 8 4 ^ "-"
+  ^ String.sub s 12 4 ^ "-"
+  ^ String.sub s 16 4 ^ "-"
+  ^ String.sub s 20 12
 
 type rstructs_used_t = RStructOnly | RStructListOnly | RStructAndList
 
