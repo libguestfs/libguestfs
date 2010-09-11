@@ -55,6 +55,8 @@ Requirements
 
 - libxml2
 
+- Augeas (http://augeas.net/)
+
 - squashfs-tools (mksquashfs only)
 
 - genisoimage / mkisofs
@@ -62,8 +64,6 @@ Requirements
 - (Optional) hivex >= 1.2.1 to build Windows Registry support
 
 - (Optional) FUSE to build the FUSE module
-
-- (Optional) Augeas (http://augeas.net/)
 
 - perldoc (pod2man, pod2text) to generate the manual pages and
   other documentation.

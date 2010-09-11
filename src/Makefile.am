@@ -113,7 +113,7 @@ libguestfs_la_SOURCES = \
 	proto.c \
 	libguestfs.syms
 
-libguestfs_la_LIBADD = $(HIVEX_LIBS) $(LIBPCRE) $(LIBMAGIC) $(LTLIBTHREAD) ../gnulib/lib/libgnu.la
+libguestfs_la_LIBADD = $(HIVEX_LIBS) $(AUGEAS_LIBS) $(LIBPCRE) $(LIBMAGIC) $(LTLIBTHREAD) ../gnulib/lib/libgnu.la
 
 # Make libguestfs include the convenience library.
 noinst_LTLIBRARIES = libprotocol.la
@@ -121,7 +121,7 @@ libguestfs_la_LIBADD += libprotocol.la
 
 libguestfs_la_CFLAGS = \
   -DGUESTFS_DEFAULT_PATH='"$(libdir)/guestfs"' \
-  $(HIVEX_CFLAGS) \
+  $(HIVEX_CFLAGS) $(AUGEAS_CFLAGS) \
   $(WARN_CFLAGS) $(WERROR_CFLAGS)
 
 libguestfs_la_CPPFLAGS = -I$(top_srcdir)/gnulib/lib
