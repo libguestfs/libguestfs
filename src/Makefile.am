@@ -37,7 +37,6 @@ BUILT_SOURCES = \
 EXTRA_DIST = \
 	$(BUILT_SOURCES) \
 	MAX_PROC_NR \
-	generator.ml \
 	libguestfs.3 \
 	guestfs.pod
 
