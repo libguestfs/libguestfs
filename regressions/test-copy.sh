@@ -55,12 +55,13 @@ mkdir copy
 copy-out /data/images copy
 EOF
 
-if [ ! -f copy/images/known-1 -o \
-     ! -f copy/images/known-3 -o \
-     ! -f copy/images/known-5 -o \
-     ! -L copy/images/abssymlink -o \
-     -f copy/known-1 -o \
-     -f known-1 ]; then
+if test ! -f copy/images/known-1 || \
+   test ! -f copy/images/known-3 || \
+   test ! -f copy/images/known-5 || \
+   test ! -L copy/images/abssymlink || \
+   test -f copy/known-1 || \
+   test -f known-1
+then
     echo "$0: error: copy-out command failed"
     exit 1
 fi
