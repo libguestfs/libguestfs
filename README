@@ -61,7 +61,7 @@ Requirements
 
 - genisoimage / mkisofs
 
-- (Optional) hivex >= 1.2.1 to build Windows Registry support
+- hivex >= 1.2.1 (http://libguestfs.org/download)
 
 - (Optional) FUSE to build the FUSE module
 

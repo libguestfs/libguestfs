@@ -483,14 +483,10 @@ PKG_CHECK_MODULES([AUGEAS], [augeas])
 AC_SUBST([AUGEAS_CFLAGS])
 AC_SUBST([AUGEAS_LIBS])
 
-dnl hivex library (highly recommended).
+dnl hivex library (required)
 dnl This used to be a part of libguestfs, but was spun off into its
 dnl own separate upstream project in libguestfs 1.0.85.
-HAVE_HIVEX=yes
-PKG_CHECK_MODULES([HIVEX], [hivex],,[
-        HAVE_HIVEX=no
-        AC_MSG_WARN([Hivex library and headers are missing, so optional Windows Registry tools won't be built])])
-AM_CONDITIONAL([HAVE_HIVEX],[test "x$HAVE_HIVEX" = "xyes"])
+PKG_CHECK_MODULES([HIVEX], [hivex])
 AC_SUBST([HIVEX_CFLAGS])
 AC_SUBST([HIVEX_LIBS])
 
