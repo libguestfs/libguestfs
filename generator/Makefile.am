@@ -56,6 +56,8 @@ OCAMLCLIBS = xml-light.cma unix.cma str.cma
 
 noinst_PROGRAM = generator
 
+if HAVE_OCAML
+
 generator: $(OBJECTS)
 	$(OCAMLC) -o generator $(OCAMLCFLAGS) $(OCAMLCLIBS) $(OBJECTS)
 
@@ -73,6 +75,20 @@ depend: .depend
 	mv $@-t $@
 
 include .depend
+
+else
+
+# No OCaml compiler.  Just replace the generator with a script that
+# touches stamp-generator and prints a warning.
+
+generator: $(SOURCES)
+	rm -f $@ $@-t
+	echo 'echo Warning: Install OCaml compiler in order to rebuild the generated files.' >> $@-t
+	echo 'touch generator/stamp-generator' >> $@-t
+	chmod +x $@-t
+	mv $@-t $@
+
+endif
 
 noinst_DATA = stamp-generator
 
