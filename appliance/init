@@ -68,7 +68,9 @@ lvm vgchange -ay --ignorelockingfailure
 for f in /sys/block/vd*/queue/rotational; do echo 1 > $f; done
 
 # http://kbase.redhat.com/faq/docs/DOC-5428
-for f in /sys/block/[hsv]d*/queue/scheduler; do echo noop > $f; done
+# Disabled this until https://bugzilla.redhat.com/show_bug.cgi?id=630583
+# is fixed (broken in Linux 2.6.36).
+#for f in /sys/block/[hsv]d*/queue/scheduler; do echo noop > $f; done
 
 # These are useful when debugging.
 if grep -sq guestfs_verbose=1 /proc/cmdline; then
