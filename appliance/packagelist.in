@@ -43,6 +43,7 @@
   hfsplus
   iproute
   libaugeas0
+  linux-image
   nilfs2-tools
   reiserfsprogs
   udev
