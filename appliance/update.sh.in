@@ -43,6 +43,7 @@ elif [ "@DIST@" = "DEBIAN" ]; then
   output=initramfs.@REPO@.@host_cpu@.img
   vmlinuz=vmlinuz.@REPO@.@host_cpu@
 
+  rm -f debian/debirf-libguestfs_@REPO@_.cgz
   ln -sf debian/debirf-libguestfs_@REPO@*.cgz $output
   ln -sf debian/vmlinuz-* $vmlinuz
 fi
