@@ -212,9 +212,7 @@ clean-local:
 # is NOT a substitute for proper testing!
 
 quickcheck:
-	LIBGUESTFS_PATH=appliance \
-	test-tool/libguestfs-test-tool \
-	  --helper test-tool/libguestfs-test-tool-helper
+	test-tool/run-test-tool-locally
 
 # Mostly static binary distribution.
 #
