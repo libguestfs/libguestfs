@@ -201,6 +201,11 @@ AC_CHECK_LIB([portablexdr],[xdrmem_create],[],[
         AC_SEARCH_LIBS([xdrmem_create],[rpc xdr nsl])
         ])
 
+dnl Check for cpio which isn't in the default Pardus install amazingly.
+AC_CHECK_PROG([CPIO],[cpio],[cpio],[no])
+test "x$CPIO" = "xno" &&
+     AC_MSG_ERROR([cpio must be installed])
+
 dnl Check for pod2man and pod2text.
 AC_CHECK_PROG([POD2MAN],[pod2man],[pod2man],[no])
 test "x$POD2MAN" = "xno" &&
