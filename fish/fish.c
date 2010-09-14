@@ -121,7 +121,7 @@ usage (int status)
              "  -v|--verbose         Verbose messages\n"
              "  -x                   Echo each command before executing it\n"
              "  -V|--version         Display version and exit\n"
-             "For more information,  see the manpage %s(1).\n"),
+             "For more information, see the manpage %s(1).\n"),
              program_name, program_name, program_name,
              program_name, program_name, program_name,
              program_name, program_name, program_name);
