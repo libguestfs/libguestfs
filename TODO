@@ -352,6 +352,10 @@ How can we solve these common user problems?
   a list of filesystems, or suggest they run the virt-list-filesystems
   command.
 
+  Related to the above: There should be an API call to list all
+  mountable / accessible devices.  Or a guestfish command to replace
+  list-devices, list-partitions, lvs, vfs-type.
+
 Better support for encrypted devices
 ------------------------------------
 
@@ -362,3 +366,8 @@ We would like to add:
   - An easier way to use this from guestfish.
   - Direct access to the /dev/mapper device (eg. if it contains
     anything apart from VGs).
+
+Display image as PS
+-------------------
+
+Display the structure of an image file as a PS.
