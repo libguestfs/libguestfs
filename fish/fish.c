@@ -99,7 +99,7 @@ usage (int status)
     fprintf (stdout,
            _("%s: guest filesystem shell\n"
              "%s lets you edit virtual machine filesystems\n"
-             "Copyright (C) 2009 Red Hat Inc.\n"
+             "Copyright (C) 2009-2010 Red Hat Inc.\n"
              "Usage:\n"
              "  %s [--options] cmd [: cmd : cmd ...]\n"
              "  %s -i libvirt-domain\n"
