@@ -599,8 +599,21 @@ mount_mps (struct mp *mp)
      */
     const char *options = read_only ? "ro" : "";
     r = guestfs_mount_options (g, options, mp->device, mp->mountpoint);
-    if (r == -1)
+    if (r == -1) {
+      /* Display possible mountpoints before exiting. */
+      char **fses = guestfs_list_filesystems (g);
+      if (fses == NULL || fses[0] == NULL)
+        goto out;
+      fprintf (stderr,
+               _("guestfish: '%s' could not be mounted.  Did you mean one of these?\n"),
+               mp->device);
+      size_t i;
+      for (i = 0; fses[i] != NULL; i += 2)
+        fprintf (stderr, "\t%s (%s)\n", fses[i], fses[i+1]);
+
+    out:
       exit (EXIT_FAILURE);
+    }
   }
 }
 

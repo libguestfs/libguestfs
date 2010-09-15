@@ -347,10 +347,7 @@ Common problems
 
 How can we solve these common user problems?
 
-- http://lists.fedoraproject.org/pipermail/users/2010-June/374931.html
-  In guestfish, specified -m non-existent filesystem.  We could suggest
-  a list of filesystems, or suggest they run the virt-list-filesystems
-  command.
+[space for common problems here]
 
 Better support for encrypted devices
 ------------------------------------
