@@ -26,6 +26,8 @@
 #include <dirent.h>
 #include <sys/stat.h>
 
+#include "c-ctype.h"
+
 #include "daemon.h"
 #include "actions.h"
 
@@ -189,4 +191,29 @@ char **
 do_list_partitions (void)
 {
   return foreach_block_device(add_partitions);
+}
+
+char *
+do_part_to_dev (const char *part)
+{
+  int err = 1;
+  size_t n = strlen (part);
+
+  while (n >= 1 && c_isdigit (part[n-1])) {
+    err = 0;
+    n--;
+  }
+
+  if (err) {
+    reply_with_error ("device name is not a partition");
+    return NULL;
+  }
+
+  char *r = strndup (part, n);
+  if (r == NULL) {
+    reply_with_perror ("strdup");
+    return NULL;
+  }
+
+  return r;
 }

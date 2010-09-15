@@ -5064,6 +5064,20 @@ with the given C<path> name.
 
 See also C<guestfs_stat>.");
 
+  ("part_to_dev", (RString "device", [Device "partition"]), 272, [],
+   [InitPartition, Always, TestOutputDevice (
+      [["part_to_dev"; "/dev/sda1"]], "/dev/sda");
+    InitEmpty, Always, TestLastFail (
+      [["part_to_dev"; "/dev/sda"]])],
+   "convert partition name to device name",
+   "\
+This function takes a partition name (eg. \"/dev/sdb1\") and
+removes the partition number, returning the device name
+(eg. \"/dev/sdb\").
+
+The named partition must exist, for example as a string returned
+from C<guestfs_list_partitions>.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions
