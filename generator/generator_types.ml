@@ -266,6 +266,12 @@ and test =
      *)
   | TestOutputFileMD5 of seq * string
 
+    (* Run the command sequence and expect the output of the final
+     * command to be a string which is a block device name (we don't
+     * check the 5th character of the string, so "/dev/sda" == "/dev/vda").
+     *)
+  | TestOutputDevice of seq * string
+
   (* Run the command sequence and expect the final command (only)
    * to fail.
    *)

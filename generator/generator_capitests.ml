@@ -685,6 +685,19 @@ and generate_one_test_body name i test_name init test =
       in
       List.iter (generate_test_command_call test_name) seq;
       generate_test_command_call ~test test_name last
+  | TestOutputDevice (seq, expected) ->
+      pr "  /* TestOutputDevice for %s (%d) */\n" name i;
+      pr "  const char *expected = \"%s\";\n" (c_quote expected);
+      let seq, last = get_seq_last seq in
+      let test () =
+        pr "    r[5] = 's';\n";
+        pr "    if (STRNEQ (r, expected)) {\n";
+        pr "      fprintf (stderr, \"%s: expected \\\"%%s\\\" but got \\\"%%s\\\"\\n\", expected, r);\n" test_name;
+        pr "      return -1;\n";
+        pr "    }\n"
+      in
+      List.iter (generate_test_command_call test_name) seq;
+      generate_test_command_call ~test test_name last
   | TestLastFail seq ->
       pr "  /* TestLastFail for %s (%d) */\n" name i;
       let seq, last = get_seq_last seq in

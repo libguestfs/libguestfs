@@ -240,6 +240,7 @@ let seq_of_test = function
   | TestOutputLength (s, _) | TestOutputBuffer (s, _)
   | TestOutputStruct (s, _)
   | TestOutputFileMD5 (s, _)
+  | TestOutputDevice (s, _)
   | TestLastFail s -> s
 
 let c_quote str =
