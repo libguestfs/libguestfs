@@ -352,10 +352,6 @@ How can we solve these common user problems?
   a list of filesystems, or suggest they run the virt-list-filesystems
   command.
 
-  Related to the above: There should be an API call to list all
-  mountable / accessible devices.  Or a guestfish command to replace
-  list-devices, list-partitions, lvs, vfs-type.
-
 Better support for encrypted devices
 ------------------------------------
 
