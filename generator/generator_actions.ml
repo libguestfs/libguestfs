@@ -747,7 +747,9 @@ This function cannot decrypt encrypted disks.  The caller
 must do that first (supplying the necessary keys) if the
 disk is encrypted.
 
-Please read L<guestfs(3)/INSPECTION> for more details.");
+Please read L<guestfs(3)/INSPECTION> for more details.
+
+See also C<guestfs_list_filesystems>.");
 
   ("inspect_get_type", (RString "name", [Device "root"]), -1, [],
    [],
@@ -955,6 +957,39 @@ it has no effect.");
    "\
 This returns the enable network flag.");
 
+  ("list_filesystems", (RHashtable "fses", []), -1, [],
+   [],
+   "list filesystems",
+   "\
+This inspection command looks for filesystems on partitions,
+block devices and logical volumes, returning a list of devices
+containing filesystems and their type.
+
+The return value is a hash, where the keys are the devices
+containing filesystems, and the values are the filesystem types.
+For example:
+
+ \"/dev/sda1\" => \"ntfs\"
+ \"/dev/sda2\" => \"ext2\"
+ \"/dev/vg_guest/lv_root\" => \"ext4\"
+ \"/dev/vg_guest/lv_swap\" => \"swap\"
+
+The value can have the special value \"unknown\", meaning the
+content of the device is undetermined or empty.
+\"swap\" means a Linux swap partition.
+
+This command runs other libguestfs commands, which might include
+C<guestfs_mount> and C<guestfs_umount>, and therefore you should
+use this soon after launch and only when nothing is mounted.
+
+Not all of the filesystems returned will be mountable.  In
+particular, swap partitions are returned in the list.  Also
+this command does not check that each filesystem
+found is valid and mountable, and some filesystems might
+be mountable but require special options.  Filesystems may
+not all belong to a single logical operating system
+(use C<guestfs_inspect_os> to look for OSes).");
+
 ]
 
 (* daemon_functions are any functions which cause some action
@@ -1064,7 +1099,9 @@ should probably use C<guestfs_readdir> instead.");
    "\
 List all the block devices.
 
-The full block device names are returned, eg. C</dev/sda>");
+The full block device names are returned, eg. C</dev/sda>.
+
+See also C<guestfs_list_filesystems>.");
 
   ("list_partitions", (RStringList "partitions", []), 8, [],
    [InitBasicFS, Always, TestOutputListOfDevices (
@@ -1079,7 +1116,9 @@ List all the partitions detected on all block devices.
 The full partition device names are returned, eg. C</dev/sda1>
 
 This does not return logical volumes.  For that you will need to
-call C<guestfs_lvs>.");
+call C<guestfs_lvs>.
+
+See also C<guestfs_list_filesystems>.");
 
   ("pvs", (RStringList "physvols", []), 9, [Optional "lvm2"],
    [InitBasicFSonLVM, Always, TestOutputListOfDevices (
@@ -1143,7 +1182,7 @@ of the L<lvs(8)> command.
 This returns a list of the logical volume device names
 (eg. C</dev/VolGroup00/LogVol00>).
 
-See also C<guestfs_lvs_full>.");
+See also C<guestfs_lvs_full>, C<guestfs_list_filesystems>.");
 
   ("pvs_full", (RStructList ("physvols", "lvm_pv"), []), 12, [Optional "lvm2"],
    [], (* XXX how to test? *)
