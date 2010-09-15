@@ -371,3 +371,15 @@ Display image as PS
 -------------------
 
 Display the structure of an image file as a PS.
+
+Greater use of blkid / libblkid
+-------------------------------
+
+guestfs_zero should use wipefs.  See wipefs(8).
+
+There are various useful functions in libblkid for listing partitions,
+devices etc which we are essentially duplicating in the daemon.  It
+would make more sense to just use libblkid for this.
+
+There are some places where we call out to the 'blkid' program.  This
+might be replaced by direct use of the library (if this is easier).
