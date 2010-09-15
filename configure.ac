@@ -396,9 +396,9 @@ fi
 dnl --with-repo to specify a Fedora repository.
 AC_ARG_WITH([repo],
         [AS_HELP_STRING([--with-repo],
-          [set name of Fedora repository @<:@default=fedora-12@:>@])],
+          [set name of Fedora repository @<:@default=fedora-13@:>@])],
         [],
-        [with_repo=fedora-12])
+        [with_repo=fedora-13])
 REPO="$with_repo"
 AC_SUBST(REPO)
 AC_DEFINE_UNQUOTED([REPO],["$REPO"],[Name of Fedora repository.])
