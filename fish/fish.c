@@ -1227,10 +1227,7 @@ display_builtin_command (const char *cmd)
               "    running \"cat\", editing locally, and then \"write\".\n"
               "\n"
               "    Normally it uses $EDITOR, but if you use the aliases\n"
-              "    \"vi\" or \"emacs\" you will get those editors.\n"
-              "\n"
-              "    NOTE: This will not work reliably for large files\n"
-              "    (> 2 MB) or binary files containing \\0 bytes.\n"));
+              "    \"vi\" or \"emacs\" you will get those editors.\n"));
     return 0;
   }
   else if (STRCASEEQ (cmd, "lcd")) {
@@ -1276,10 +1273,7 @@ display_builtin_command (const char *cmd)
               "    running \"cat\" and using the pager.\n"
               "\n"
               "    Normally it uses $PAGER, but if you use the alias\n"
-              "    \"less\" then it always uses \"less\".\n"
-              "\n"
-              "    NOTE: This will not work reliably for large files\n"
-              "    (> 2 MB) or binary files containing \\0 bytes.\n"));
+              "    \"less\" then it always uses \"less\".\n"));
     return 0;
   }
   else if (STRCASEEQ (cmd, "quit") ||
