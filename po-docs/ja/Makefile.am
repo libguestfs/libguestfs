@@ -36,7 +36,7 @@ MANPAGES = \
 EXTRA_DIST = \
 	$(MANPAGES) \
 	guestfs.pod guestfs-actions.pod guestfs-availability.pod guestfs-structs.pod \
-	guestfish.pod guestfish-actions.pod \
+	guestfish.pod guestfish-actions.pod guestfish-commands.pod \
 	guestmount.pod \
 	libguestfs-test-tool.pod \
 	$(wildcard virt-*.pl)
@@ -61,9 +61,10 @@ guestfs.3: guestfs.pod guestfs-actions.pod guestfs-availability.pod guestfs-stru
 	  --release "$(PACKAGE_NAME)-$(PACKAGE_VERSION)" \
 	  > $@-t; mv $@-t $@
 
-guestfish.1: guestfish.pod guestfish-actions.pod
+guestfish.1: guestfish.pod guestfish-actions.pod guestfish-commands.pod
 	sed \
 	  -e '/@ACTIONS@/rguestfish-actions.pod' -e 's/@ACTIONS@//' \
+	  -e '/@FISH_COMMANDS@/rguestfish-commands.pod' -e 's/@FISH_COMMANDS@//' \
 	  < $< | \
 	$(POD2MAN) -u \
 	  --section 1 \

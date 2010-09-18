@@ -38,3 +38,6 @@ val test_functions : Generator_types.action list
 val max_proc_nr : int
 (** The largest procedure number used (also saved in [src/MAX_PROC_NR] and
     used as the minor version number of the shared library). *)
+
+val fish_commands : Generator_types.action list
+(** Non-API meta-commands available only in guestfish. *)

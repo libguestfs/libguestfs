@@ -96,3 +96,6 @@ val pod2text : width:int -> string -> string -> string list
     plain ASCII lines of text.  This is the slowest part of
     autogeneration, so the results are memoized into a temporary
     file. *)
+
+val action_compare : Generator_types.action -> Generator_types.action -> int
+(** Compare the names of two actions, for sorting. *)

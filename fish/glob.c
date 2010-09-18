@@ -31,7 +31,7 @@
 static void glob_issue (char *cmd, int argc, char ***globs, int *posn, int *count, int *r);
 
 int
-do_glob (const char *cmd, int argc, char *argv[])
+run_glob (const char *cmd, int argc, char *argv[])
 {
   /* For 'glob cmd foo /s* /usr/s*' this could be:
    *

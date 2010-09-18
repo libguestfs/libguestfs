@@ -28,7 +28,7 @@
 /* guestfish lcd command (similar to the lcd command in BSD ftp) */
 
 int
-do_lcd (const char *cmd, int argc, char *argv[])
+run_lcd (const char *cmd, int argc, char *argv[])
 {
   if (argc != 1) {
     fprintf (stderr, _("use 'lcd directory' to change local directory\n"));

@@ -49,7 +49,7 @@ let () =
       if String.contains name '-' then
         failwithf "function name %s should not contain '-', use '_' instead."
           name
-  ) all_functions;
+  ) (all_functions @ fish_commands);
 
   (* Check function parameter/return names. *)
   List.iter (
@@ -120,14 +120,14 @@ let () =
       let c = shortdesc.[String.length shortdesc-1] in
       if c = '\n' || c = '.' then
         failwithf "short description of %s should not end with . or \\n." name
-  ) all_functions;
+  ) (all_functions @ fish_commands);
 
   (* Check long descriptions. *)
   List.iter (
     fun (name, _, _, _, _, _, longdesc) ->
       if longdesc.[String.length longdesc-1] = '\n' then
         failwithf "long description of %s should not end with \\n." name
-  ) all_functions;
+  ) (all_functions @ fish_commands);
 
   (* Check proc_nrs. *)
   List.iter (

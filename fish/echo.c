@@ -25,7 +25,7 @@
 #include "fish.h"
 
 int
-do_echo (const char *cmd, int argc, char *argv[])
+run_echo (const char *cmd, int argc, char *argv[])
 {
   int i;
 

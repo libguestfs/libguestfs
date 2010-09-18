@@ -73,6 +73,7 @@ generator/generator
 generator/stamp-generator
 guestfish.1
 guestfish-actions.pod
+guestfish-commands.pod
 guestfs.3
 guestfs-actions.pod
 guestfs-availability.pod

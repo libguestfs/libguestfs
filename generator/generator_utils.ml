@@ -303,3 +303,5 @@ let pod2text ~width name longdesc =
     pod2text_memo_updated ();
     lines
 
+(* Compare two actions (for sorting). *)
+let action_compare (n1,_,_,_,_,_,_) (n2,_,_,_,_,_,_) = compare n1 n2

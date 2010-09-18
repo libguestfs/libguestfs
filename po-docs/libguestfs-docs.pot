@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs 1.5.16\n"
 "Report-Msgid-Bugs-To: libguestfs@redhat.com\n"
-"POT-Creation-Date: 2010-09-15 22:12+0200\n"
+"POT-Creation-Date: 2010-09-18 09:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1887,7 +1887,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../src/guestfs.pod:924 ../fish/guestfish.pod:926
+#: ../src/guestfs.pod:924 ../fish/guestfish.pod:789
 msgid "@ACTIONS@"
 msgstr ""
 
@@ -3200,22 +3200,22 @@ msgid ""
 msgstr ""
 
 # type: =head1
-#: ../src/guestfs.pod:1645 ../fish/guestfish.pod:933 ../test-tool/libguestfs-test-tool.pod:104 ../tools/virt-edit.pl:312 ../tools/virt-rescue.pl:226
+#: ../src/guestfs.pod:1645 ../fish/guestfish.pod:796 ../test-tool/libguestfs-test-tool.pod:104 ../tools/virt-edit.pl:312 ../tools/virt-rescue.pl:226
 msgid "ENVIRONMENT VARIABLES"
 msgstr ""
 
 # type: =item
-#: ../src/guestfs.pod:1649 ../fish/guestfish.pod:953
+#: ../src/guestfs.pod:1649 ../fish/guestfish.pod:816
 msgid "LIBGUESTFS_APPEND"
 msgstr ""
 
 # type: textblock
-#: ../src/guestfs.pod:1651 ../fish/guestfish.pod:955
+#: ../src/guestfs.pod:1651 ../fish/guestfish.pod:818
 msgid "Pass additional options to the guest kernel."
 msgstr ""
 
 # type: =item
-#: ../src/guestfs.pod:1653 ../fish/guestfish.pod:957
+#: ../src/guestfs.pod:1653 ../fish/guestfish.pod:820
 msgid "LIBGUESTFS_DEBUG"
 msgstr ""
 
@@ -3227,17 +3227,17 @@ msgid ""
 msgstr ""
 
 # type: =item
-#: ../src/guestfs.pod:1658 ../fish/guestfish.pod:962
+#: ../src/guestfs.pod:1658 ../fish/guestfish.pod:825
 msgid "LIBGUESTFS_MEMSIZE"
 msgstr ""
 
 # type: textblock
-#: ../src/guestfs.pod:1660 ../fish/guestfish.pod:964
+#: ../src/guestfs.pod:1660 ../fish/guestfish.pod:827
 msgid "Set the memory allocated to the qemu process, in megabytes.  For example:"
 msgstr ""
 
 # type: verbatim
-#: ../src/guestfs.pod:1663 ../fish/guestfish.pod:967
+#: ../src/guestfs.pod:1663 ../fish/guestfish.pod:830
 #, no-wrap
 msgid ""
 " LIBGUESTFS_MEMSIZE=700\n"
@@ -3245,7 +3245,7 @@ msgid ""
 msgstr ""
 
 # type: =item
-#: ../src/guestfs.pod:1665 ../fish/guestfish.pod:969
+#: ../src/guestfs.pod:1665 ../fish/guestfish.pod:832
 msgid "LIBGUESTFS_PATH"
 msgstr ""
 
@@ -3257,12 +3257,12 @@ msgid ""
 msgstr ""
 
 # type: =item
-#: ../src/guestfs.pod:1670 ../fish/guestfish.pod:974
+#: ../src/guestfs.pod:1670 ../fish/guestfish.pod:837
 msgid "LIBGUESTFS_QEMU"
 msgstr ""
 
 # type: textblock
-#: ../src/guestfs.pod:1672 ../fish/guestfish.pod:976
+#: ../src/guestfs.pod:1672 ../fish/guestfish.pod:839
 msgid ""
 "Set the default qemu binary that libguestfs uses.  If not set, then the qemu "
 "which was found at compile time by the configure script is used."
@@ -3274,7 +3274,7 @@ msgid "See also L</QEMU WRAPPERS> above."
 msgstr ""
 
 # type: =item
-#: ../src/guestfs.pod:1678 ../fish/guestfish.pod:980
+#: ../src/guestfs.pod:1678 ../fish/guestfish.pod:843
 msgid "LIBGUESTFS_TRACE"
 msgstr ""
 
@@ -3286,17 +3286,17 @@ msgid ""
 msgstr ""
 
 # type: =item
-#: ../src/guestfs.pod:1683 ../fish/guestfish.pod:989
+#: ../src/guestfs.pod:1683 ../fish/guestfish.pod:852
 msgid "TMPDIR"
 msgstr ""
 
 # type: textblock
-#: ../src/guestfs.pod:1685 ../fish/guestfish.pod:991
+#: ../src/guestfs.pod:1685 ../fish/guestfish.pod:854
 msgid "Location of temporary directory, defaults to C</tmp>."
 msgstr ""
 
 # type: textblock
-#: ../src/guestfs.pod:1687 ../fish/guestfish.pod:993
+#: ../src/guestfs.pod:1687 ../fish/guestfish.pod:856
 msgid ""
 "If libguestfs was compiled to use the supermin appliance then each handle "
 "will require rather a large amount of space in this directory for short "
@@ -3305,7 +3305,7 @@ msgid ""
 msgstr ""
 
 # type: =head1
-#: ../src/guestfs.pod:1695 ../fish/guestfish.pod:1051 ../test-tool/libguestfs-test-tool.pod:109 ../fuse/guestmount.pod:178 ../inspector/virt-inspector.pl:846 ../tools/virt-cat.pl:163 ../tools/virt-df.pl:482 ../tools/virt-edit.pl:325 ../tools/virt-list-filesystems.pl:191 ../tools/virt-list-partitions.pl:229 ../tools/virt-ls.pl:210 ../tools/virt-make-fs.pl:527 ../tools/virt-rescue.pl:231 ../tools/virt-resize.pl:1390 ../tools/virt-tar.pl:257 ../tools/virt-win-reg.pl:461
+#: ../src/guestfs.pod:1695 ../fish/guestfish.pod:914 ../test-tool/libguestfs-test-tool.pod:109 ../fuse/guestmount.pod:178 ../inspector/virt-inspector.pl:846 ../tools/virt-cat.pl:163 ../tools/virt-df.pl:482 ../tools/virt-edit.pl:325 ../tools/virt-list-filesystems.pl:191 ../tools/virt-list-partitions.pl:229 ../tools/virt-ls.pl:210 ../tools/virt-make-fs.pl:527 ../tools/virt-rescue.pl:231 ../tools/virt-resize.pl:1390 ../tools/virt-tar.pl:257 ../tools/virt-win-reg.pl:461
 msgid "SEE ALSO"
 msgstr ""
 
@@ -3379,22 +3379,22 @@ msgid ""
 msgstr ""
 
 # type: =head1
-#: ../src/guestfs.pod:1755 ../fish/guestfish.pod:1067 ../test-tool/libguestfs-test-tool.pod:115 ../fuse/guestmount.pod:189 ../inspector/virt-inspector.pl:855
+#: ../src/guestfs.pod:1755 ../fish/guestfish.pod:930 ../test-tool/libguestfs-test-tool.pod:115 ../fuse/guestmount.pod:189 ../inspector/virt-inspector.pl:855
 msgid "AUTHORS"
 msgstr ""
 
 # type: textblock
-#: ../src/guestfs.pod:1757 ../fish/guestfish.pod:1069 ../test-tool/libguestfs-test-tool.pod:117 ../fuse/guestmount.pod:191
+#: ../src/guestfs.pod:1757 ../fish/guestfish.pod:932 ../test-tool/libguestfs-test-tool.pod:117 ../fuse/guestmount.pod:191
 msgid "Richard W.M. Jones (C<rjones at redhat dot com>)"
 msgstr ""
 
 # type: =head1
-#: ../src/guestfs.pod:1759 ../fish/guestfish.pod:1071 ../test-tool/libguestfs-test-tool.pod:119 ../fuse/guestmount.pod:193 ../inspector/virt-inspector.pl:861 ../tools/virt-cat.pl:177 ../tools/virt-df.pl:495 ../tools/virt-edit.pl:341 ../tools/virt-list-filesystems.pl:207 ../tools/virt-list-partitions.pl:244 ../tools/virt-ls.pl:225 ../tools/virt-make-fs.pl:556 ../tools/virt-rescue.pl:245 ../tools/virt-resize.pl:1411 ../tools/virt-tar.pl:272 ../tools/virt-win-reg.pl:491
+#: ../src/guestfs.pod:1759 ../fish/guestfish.pod:934 ../test-tool/libguestfs-test-tool.pod:119 ../fuse/guestmount.pod:193 ../inspector/virt-inspector.pl:861 ../tools/virt-cat.pl:177 ../tools/virt-df.pl:495 ../tools/virt-edit.pl:341 ../tools/virt-list-filesystems.pl:207 ../tools/virt-list-partitions.pl:244 ../tools/virt-ls.pl:225 ../tools/virt-make-fs.pl:556 ../tools/virt-rescue.pl:245 ../tools/virt-resize.pl:1411 ../tools/virt-tar.pl:272 ../tools/virt-win-reg.pl:491
 msgid "COPYRIGHT"
 msgstr ""
 
 # type: textblock
-#: ../src/guestfs.pod:1761 ../fish/guestfish.pod:1073
+#: ../src/guestfs.pod:1761 ../fish/guestfish.pod:936
 msgid "Copyright (C) 2009-2010 Red Hat Inc.  L<http://libguestfs.org/>"
 msgstr ""
 
@@ -15927,193 +15927,11 @@ msgstr ""
 
 # type: =head2
 #: ../fish/guestfish.pod:773
-msgid "alloc | allocate"
-msgstr ""
-
-# type: verbatim
-#: ../fish/guestfish.pod:775
-#, no-wrap
-msgid ""
-" alloc filename size\n"
-"\n"
-msgstr ""
-
-# type: textblock
-#: ../fish/guestfish.pod:777
-msgid ""
-"This creates an empty (zeroed) file of the given size, and then adds so it "
-"can be further examined."
-msgstr ""
-
-# type: textblock
-#: ../fish/guestfish.pod:780 ../fish/guestfish.pod:903
-msgid "For more advanced image creation, see L<qemu-img(1)> utility."
-msgstr ""
-
-# type: textblock
-#: ../fish/guestfish.pod:782 ../fish/guestfish.pod:905
-msgid "Size can be specified using standard suffixes, eg. C<1M>."
-msgstr ""
-
-# type: =head2
-#: ../fish/guestfish.pod:784
-msgid "copy-in"
-msgstr ""
-
-# type: verbatim
-#: ../fish/guestfish.pod:786
-#, no-wrap
-msgid ""
-" copy-in local [local ...] /remotedir\n"
-"\n"
-msgstr ""
-
-# type: textblock
-#: ../fish/guestfish.pod:788
-msgid ""
-"C<copy-in> copies local files or directories recursively into the disk "
-"image, placing them in the directory called C</remotedir> (which must "
-"exist).  This guestfish meta-command turns into a sequence of L</tar-in> and "
-"other commands as necessary."
-msgstr ""
-
-# type: textblock
-#: ../fish/guestfish.pod:793
-msgid ""
-"Multiple local files and directories can be specified, but the last "
-"parameter must always be a remote directory.  Wildcards cannot be used."
-msgstr ""
-
-# type: =head2
-#: ../fish/guestfish.pod:797
-msgid "copy-out"
-msgstr ""
-
-# type: verbatim
-#: ../fish/guestfish.pod:799
-#, no-wrap
-msgid ""
-" copy-out remote [remote ...] localdir\n"
-"\n"
-msgstr ""
-
-# type: textblock
-#: ../fish/guestfish.pod:801
-msgid ""
-"C<copy-out> copies remote files or directories recursively out of the disk "
-"image, placing them on the host disk in a local directory called C<localdir> "
-"(which must exist).  This guestfish meta-command turns into a sequence of "
-"L</download>, L</tar-out> and other commands as necessary."
-msgstr ""
-
-# type: textblock
-#: ../fish/guestfish.pod:807
-msgid ""
-"Multiple remote files and directories can be specified, but the last "
-"parameter must always be a local directory.  To download to the current "
-"directory, use C<.> as in:"
-msgstr ""
-
-# type: verbatim
-#: ../fish/guestfish.pod:811
-#, no-wrap
-msgid ""
-" copy-out /home .\n"
-"\n"
-msgstr ""
-
-# type: textblock
-#: ../fish/guestfish.pod:813
-msgid ""
-"Wildcards cannot be used in the ordinary command, but you can use them with "
-"the help of L</glob> like this:"
-msgstr ""
-
-# type: verbatim
-#: ../fish/guestfish.pod:816
-#, no-wrap
-msgid ""
-" glob copy-out /home/* .\n"
-"\n"
-msgstr ""
-
-# type: =head2
-#: ../fish/guestfish.pod:818
-msgid "echo"
-msgstr ""
-
-# type: verbatim
-#: ../fish/guestfish.pod:820
-#, no-wrap
-msgid ""
-" echo [params ...]\n"
-"\n"
-msgstr ""
-
-# type: textblock
-#: ../fish/guestfish.pod:822
-msgid "This echos the parameters to the terminal."
-msgstr ""
-
-# type: =head2
-#: ../fish/guestfish.pod:824
-msgid "edit | vi | emacs"
-msgstr ""
-
-# type: verbatim
-#: ../fish/guestfish.pod:826
-#, no-wrap
-msgid ""
-" edit filename\n"
-"\n"
-msgstr ""
-
-# type: textblock
-#: ../fish/guestfish.pod:828
-msgid ""
-"This is used to edit a file.  It downloads the file, edits it locally using "
-"your editor, then uploads the result."
-msgstr ""
-
-# type: textblock
-#: ../fish/guestfish.pod:831
-msgid ""
-"The editor is C<$EDITOR>.  However if you use the alternate commands C<vi> "
-"or C<emacs> you will get those corresponding editors."
-msgstr ""
-
-# type: =head2
-#: ../fish/guestfish.pod:835
-msgid "glob"
-msgstr ""
-
-# type: verbatim
-#: ../fish/guestfish.pod:837
-#, no-wrap
-msgid ""
-" glob command args...\n"
-"\n"
-msgstr ""
-
-# type: textblock
-#: ../fish/guestfish.pod:839
-msgid ""
-"Expand wildcards in any paths in the args list, and run C<command> "
-"repeatedly on each matching path."
-msgstr ""
-
-# type: textblock
-#: ../fish/guestfish.pod:842
-msgid "See section WILDCARDS AND GLOBBING."
-msgstr ""
-
-# type: =head2
-#: ../fish/guestfish.pod:844
 msgid "help"
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:846
+#: ../fish/guestfish.pod:775
 #, no-wrap
 msgid ""
 " help\n"
@@ -16122,306 +15940,140 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:849
+#: ../fish/guestfish.pod:778
 msgid ""
 "Without any parameter, this lists all commands.  With a C<cmd> parameter, "
 "this displays detailed help for a command."
 msgstr ""
 
 # type: =head2
-#: ../fish/guestfish.pod:852
-msgid "lcd"
-msgstr ""
-
-# type: verbatim
-#: ../fish/guestfish.pod:854
-#, no-wrap
-msgid ""
-" lcd directory\n"
-"\n"
-msgstr ""
-
-# type: textblock
-#: ../fish/guestfish.pod:856
-msgid "Change the local directory, ie. the current directory of guestfish itself."
-msgstr ""
-
-# type: textblock
-#: ../fish/guestfish.pod:859
-msgid "Note that C<!cd> won't do what you might expect."
-msgstr ""
-
-# type: =head2
-#: ../fish/guestfish.pod:861
-msgid "man | manual"
-msgstr ""
-
-# type: verbatim
-#: ../fish/guestfish.pod:863
-#, no-wrap
-msgid ""
-" man\n"
-"\n"
-msgstr ""
-
-# type: textblock
-#: ../fish/guestfish.pod:865
-msgid "Opens the manual page for guestfish."
-msgstr ""
-
-# type: =head2
-#: ../fish/guestfish.pod:867
-msgid "more | less"
-msgstr ""
-
-# type: verbatim
-#: ../fish/guestfish.pod:869
-#, no-wrap
-msgid ""
-" more filename\n"
-"\n"
-msgstr ""
-
-# type: verbatim
-#: ../fish/guestfish.pod:871
-#, no-wrap
-msgid ""
-" less filename\n"
-"\n"
-msgstr ""
-
-# type: textblock
-#: ../fish/guestfish.pod:873
-msgid "This is used to view a file."
-msgstr ""
-
-# type: textblock
-#: ../fish/guestfish.pod:875
-msgid ""
-"The default viewer is C<$PAGER>.  However if you use the alternate command "
-"C<less> you will get the C<less> command specifically."
-msgstr ""
-
-# type: =head2
-#: ../fish/guestfish.pod:878
+#: ../fish/guestfish.pod:781
 msgid "quit | exit"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:880
+#: ../fish/guestfish.pod:783
 msgid "This exits guestfish.  You can also use C<^D> key."
 msgstr ""
 
-# type: =head2
-#: ../fish/guestfish.pod:882
-msgid "reopen"
-msgstr ""
-
-# type: verbatim
-#: ../fish/guestfish.pod:884
-#, no-wrap
-msgid ""
-" reopen\n"
-"\n"
-msgstr ""
-
 # type: textblock
-#: ../fish/guestfish.pod:886
-msgid ""
-"Close and reopen the libguestfs handle.  It is not necessary to use this "
-"normally, because the handle is closed properly when guestfish exits.  "
-"However this is occasionally useful for testing."
-msgstr ""
-
-# type: =head2
-#: ../fish/guestfish.pod:890
-msgid "sparse"
-msgstr ""
-
-# type: verbatim
-#: ../fish/guestfish.pod:892
-#, no-wrap
-msgid ""
-" sparse filename size\n"
-"\n"
-msgstr ""
-
-# type: textblock
-#: ../fish/guestfish.pod:894
-msgid ""
-"This creates an empty sparse file of the given size, and then adds so it can "
-"be further examined."
-msgstr ""
-
-# type: textblock
-#: ../fish/guestfish.pod:897
-msgid ""
-"In all respects it works the same as the C<alloc> command, except that the "
-"image file is allocated sparsely, which means that disk blocks are not "
-"assigned to the file until they are needed.  Sparse disk files only use "
-"space when written to, but they are slower and there is a danger you could "
-"run out of real disk space during a write operation."
-msgstr ""
-
-# type: =head2
-#: ../fish/guestfish.pod:907
-msgid "supported"
-msgstr ""
-
-# type: verbatim
-#: ../fish/guestfish.pod:909
-#, no-wrap
-msgid ""
-" supported\n"
-"\n"
-msgstr ""
-
-# type: textblock
-#: ../fish/guestfish.pod:911
-msgid ""
-"This command returns a list of the optional groups known to the daemon, and "
-"indicates which ones are supported by this build of the libguestfs "
-"appliance."
-msgstr ""
-
-# type: textblock
-#: ../fish/guestfish.pod:915
-msgid "See also L<guestfs(3)/AVAILABILITY>."
-msgstr ""
-
-# type: =head2
-#: ../fish/guestfish.pod:917
-msgid "time"
-msgstr ""
-
-# type: verbatim
-#: ../fish/guestfish.pod:919
-#, no-wrap
-msgid ""
-" time command args...\n"
-"\n"
-msgstr ""
-
-# type: textblock
-#: ../fish/guestfish.pod:921
-msgid ""
-"Run the command as usual, but print the elapsed time afterwards.  This can "
-"be useful for benchmarking operations."
+#: ../fish/guestfish.pod:785
+msgid "@FISH_COMMANDS@"
 msgstr ""
 
 # type: =head1
-#: ../fish/guestfish.pod:924
+#: ../fish/guestfish.pod:787
 msgid "COMMANDS"
 msgstr ""
 
 # type: =head1
-#: ../fish/guestfish.pod:928 ../test-tool/libguestfs-test-tool.pod:83
+#: ../fish/guestfish.pod:791 ../test-tool/libguestfs-test-tool.pod:83
 msgid "EXIT CODE"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:930
+#: ../fish/guestfish.pod:793
 msgid ""
 "guestfish returns 0 if the commands completed without error, or 1 if there "
 "was an error."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:937
+#: ../fish/guestfish.pod:800
 msgid "EDITOR"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:939
+#: ../fish/guestfish.pod:802
 msgid ""
 "The C<edit> command uses C<$EDITOR> as the editor.  If not set, it uses "
 "C<vi>."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:942
+#: ../fish/guestfish.pod:805
 msgid "GUESTFISH_PID"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:944
+#: ../fish/guestfish.pod:807
 msgid ""
 "Used with the I<--remote> option to specify the remote guestfish process to "
 "control.  See section L</REMOTE CONTROL GUESTFISH OVER A SOCKET>."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:948
+#: ../fish/guestfish.pod:811
 msgid "HOME"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:950
+#: ../fish/guestfish.pod:813
 msgid ""
 "If compiled with GNU readline support, various files in the home directory "
 "can be used.  See L</FILES>."
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:959
+#: ../fish/guestfish.pod:822
 msgid ""
 "Set C<LIBGUESTFS_DEBUG=1> to enable verbose messages.  This has the same "
 "effect as using the B<-v> option."
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:971
+#: ../fish/guestfish.pod:834
 msgid ""
 "Set the path that guestfish uses to search for kernel and initrd.img.  See "
 "the discussion of paths in L<guestfs(3)>."
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:982
+#: ../fish/guestfish.pod:845
 msgid "Set C<LIBGUESTFS_TRACE=1> to enable command traces."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:984
+#: ../fish/guestfish.pod:847
 msgid "PAGER"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:986
+#: ../fish/guestfish.pod:849
 msgid ""
 "The C<more> command uses C<$PAGER> as the pager.  If not set, it uses "
 "C<more>."
 msgstr ""
 
 # type: =head1
-#: ../fish/guestfish.pod:1001 ../test-tool/libguestfs-test-tool.pod:88
+#: ../fish/guestfish.pod:864 ../test-tool/libguestfs-test-tool.pod:88
 msgid "FILES"
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:1005
+#: ../fish/guestfish.pod:868
 msgid "$HOME/.guestfish"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:1007
+#: ../fish/guestfish.pod:870
 msgid ""
 "If compiled with GNU readline support, then the command history is saved in "
 "this file."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:1010
+#: ../fish/guestfish.pod:873
 msgid "$HOME/.inputrc"
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:1012
+#: ../fish/guestfish.pod:875
 msgid "/etc/inputrc"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:1014
+#: ../fish/guestfish.pod:877
 msgid ""
 "If compiled with GNU readline support, then these files can be used to "
 "configure readline.  For further information, please see "
@@ -16429,12 +16081,12 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:1018
+#: ../fish/guestfish.pod:881
 msgid "To write rules which only apply to guestfish, use:"
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:1020
+#: ../fish/guestfish.pod:883
 #, no-wrap
 msgid ""
 " $if guestfish\n"
@@ -16444,26 +16096,26 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:1024
+#: ../fish/guestfish.pod:887
 msgid ""
 "Variables that you can set in inputrc that change the behaviour of guestfish "
 "in useful ways include:"
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:1029
+#: ../fish/guestfish.pod:892
 msgid "completion-ignore-case (default: on)"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:1031
+#: ../fish/guestfish.pod:894
 msgid ""
 "By default, guestfish will ignore case when tab-completing paths on the "
 "disk.  Use:"
 msgstr ""
 
 # type: verbatim
-#: ../fish/guestfish.pod:1034
+#: ../fish/guestfish.pod:897
 #, no-wrap
 msgid ""
 " set completion-ignore-case off\n"
@@ -16471,22 +16123,22 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:1036
+#: ../fish/guestfish.pod:899
 msgid "to make guestfish case sensitive."
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:1040
+#: ../fish/guestfish.pod:903
 msgid "test1.img"
 msgstr ""
 
 # type: =item
-#: ../fish/guestfish.pod:1042
+#: ../fish/guestfish.pod:905
 msgid "test2.img (etc)"
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:1044
+#: ../fish/guestfish.pod:907
 msgid ""
 "When using the C<-N> or C<--new> option, the prepared disk or filesystem "
 "will be created in the file C<test1.img> in the current directory.  The "
@@ -16495,7 +16147,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:1053
+#: ../fish/guestfish.pod:916
 msgid ""
 "L<guestfs(3)>, L<http://libguestfs.org/>, L<virt-cat(1)>, L<virt-df(1)>, "
 "L<virt-edit(1)>, L<virt-list-filesystems(1)>, L<virt-list-partitions(1)>, "
@@ -16504,7 +16156,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:1076 ../test-tool/libguestfs-test-tool.pod:124 ../fuse/guestmount.pod:198 ../inspector/virt-inspector.pl:865 ../tools/virt-cat.pl:181 ../tools/virt-df.pl:499 ../tools/virt-edit.pl:345 ../tools/virt-list-filesystems.pl:211 ../tools/virt-list-partitions.pl:248 ../tools/virt-ls.pl:229 ../tools/virt-make-fs.pl:560 ../tools/virt-rescue.pl:249 ../tools/virt-resize.pl:1415 ../tools/virt-tar.pl:276 ../tools/virt-win-reg.pl:495
+#: ../fish/guestfish.pod:939 ../test-tool/libguestfs-test-tool.pod:124 ../fuse/guestmount.pod:198 ../inspector/virt-inspector.pl:865 ../tools/virt-cat.pl:181 ../tools/virt-df.pl:499 ../tools/virt-edit.pl:345 ../tools/virt-list-filesystems.pl:211 ../tools/virt-list-partitions.pl:248 ../tools/virt-ls.pl:229 ../tools/virt-make-fs.pl:560 ../tools/virt-rescue.pl:249 ../tools/virt-resize.pl:1415 ../tools/virt-tar.pl:276 ../tools/virt-win-reg.pl:495
 msgid ""
 "This program is free software; you can redistribute it and/or modify it "
 "under the terms of the GNU General Public License as published by the Free "
@@ -16513,7 +16165,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:1081 ../test-tool/libguestfs-test-tool.pod:129 ../fuse/guestmount.pod:203 ../inspector/virt-inspector.pl:870 ../tools/virt-cat.pl:186 ../tools/virt-df.pl:504 ../tools/virt-edit.pl:350 ../tools/virt-list-filesystems.pl:216 ../tools/virt-list-partitions.pl:253 ../tools/virt-ls.pl:234 ../tools/virt-make-fs.pl:565 ../tools/virt-rescue.pl:254 ../tools/virt-resize.pl:1420 ../tools/virt-tar.pl:281 ../tools/virt-win-reg.pl:500
+#: ../fish/guestfish.pod:944 ../test-tool/libguestfs-test-tool.pod:129 ../fuse/guestmount.pod:203 ../inspector/virt-inspector.pl:870 ../tools/virt-cat.pl:186 ../tools/virt-df.pl:504 ../tools/virt-edit.pl:350 ../tools/virt-list-filesystems.pl:216 ../tools/virt-list-partitions.pl:253 ../tools/virt-ls.pl:234 ../tools/virt-make-fs.pl:565 ../tools/virt-rescue.pl:254 ../tools/virt-resize.pl:1420 ../tools/virt-tar.pl:281 ../tools/virt-win-reg.pl:500
 msgid ""
 "This program is distributed in the hope that it will be useful, but WITHOUT "
 "ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or "
@@ -16522,7 +16174,7 @@ msgid ""
 msgstr ""
 
 # type: textblock
-#: ../fish/guestfish.pod:1086 ../test-tool/libguestfs-test-tool.pod:134 ../fuse/guestmount.pod:208 ../inspector/virt-inspector.pl:875 ../tools/virt-cat.pl:191 ../tools/virt-df.pl:509 ../tools/virt-edit.pl:355 ../tools/virt-list-filesystems.pl:221 ../tools/virt-list-partitions.pl:258 ../tools/virt-ls.pl:239 ../tools/virt-make-fs.pl:570 ../tools/virt-rescue.pl:259 ../tools/virt-resize.pl:1425 ../tools/virt-tar.pl:286 ../tools/virt-win-reg.pl:505
+#: ../fish/guestfish.pod:949 ../test-tool/libguestfs-test-tool.pod:134 ../fuse/guestmount.pod:208 ../inspector/virt-inspector.pl:875 ../tools/virt-cat.pl:191 ../tools/virt-df.pl:509 ../tools/virt-edit.pl:355 ../tools/virt-list-filesystems.pl:221 ../tools/virt-list-partitions.pl:258 ../tools/virt-ls.pl:239 ../tools/virt-make-fs.pl:570 ../tools/virt-rescue.pl:259 ../tools/virt-resize.pl:1425 ../tools/virt-tar.pl:286 ../tools/virt-win-reg.pl:505
 msgid ""
 "You should have received a copy of the GNU General Public License along with "
 "this program; if not, write to the Free Software Foundation, Inc., 675 Mass "
@@ -16547,7 +16199,7 @@ msgstr ""
 msgid ""
 "This call checks for the existence of C<filename>.  This stops you from "
 "specifying other types of drive which are supported by qemu such as C<nbd:> "
-"and C<http:> URLs.  To specify those, use the general C<config> call "
+"and C<http:> URLs.  To specify those, use the general L</config> call "
 "instead."
 msgstr ""
 
@@ -16556,7 +16208,7 @@ msgstr ""
 msgid ""
 "If you just want to add an ISO file (often you use this as an efficient way "
 "to transfer large files into the guest), then you should probably use "
-"C<add-drive-ro> instead."
+"L</add-drive-ro> instead."
 msgstr ""
 
 # type: =head2
@@ -16577,7 +16229,7 @@ msgstr ""
 msgid ""
 "C<if=...> is set at compile time by the configuration option C<./configure "
 "--with-drive-if=...>.  In the rare case where you might need to change this "
-"at run time, use C<add-drive-with-if> or C<add-drive-ro-with-if>."
+"at run time, use L</add-drive-with-if> or L</add-drive-ro-with-if>."
 msgstr ""
 
 # type: textblock
@@ -16585,8 +16237,8 @@ msgstr ""
 msgid ""
 "Note that this call checks for the existence of C<filename>.  This stops you "
 "from specifying other types of drive which are supported by qemu such as "
-"C<nbd:> and C<http:> URLs.  To specify those, use the general C<config> call "
-"instead."
+"C<nbd:> and C<http:> URLs.  To specify those, use the general L</config> "
+"call instead."
 msgstr ""
 
 # type: =head2
@@ -16618,7 +16270,7 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:89
 msgid ""
-"This is the same as C<add-drive-ro> but it allows you to specify the QEMU "
+"This is the same as L</add-drive-ro> but it allows you to specify the QEMU "
 "interface emulation to use at run time."
 msgstr ""
 
@@ -16638,7 +16290,7 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:96
 msgid ""
-"This is the same as C<add-drive> but it allows you to specify the QEMU "
+"This is the same as L</add-drive> but it allows you to specify the QEMU "
 "interface emulation to use at run time."
 msgstr ""
 
@@ -16672,7 +16324,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:110
 msgid ""
 "Close the current Augeas handle and free up any resources used by it.  After "
-"calling this, you have to call C<aug-init> again before you can use any "
+"calling this, you have to call L</aug-init> again before you can use any "
 "other Augeas functions."
 msgstr ""
 
@@ -16693,7 +16345,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:122
 msgid ""
 "If C<expr> evaluates to an empty nodeset, a node is created, equivalent to "
-"calling C<aug-set> C<expr>, C<value>.  C<name> will be the nodeset "
+"calling L</aug-set> C<expr>, C<value>.  C<name> will be the nodeset "
 "containing that single node."
 msgstr ""
 
@@ -16738,17 +16390,17 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:156
-msgid "You must call this before using any other C<aug-*> commands."
+msgid "You must call this before using any other L</aug-*> commands."
 msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:191
-msgid "Do not load the tree in C<aug-init>."
+msgid "Do not load the tree in L</aug-init>."
 msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:195
-msgid "To close the handle, you can call C<aug-close>."
+msgid "To close the handle, you can call L</aug-close>."
 msgstr ""
 
 # type: =head2
@@ -16793,7 +16445,7 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:224
 msgid ""
-"This is just a shortcut for listing C<aug-match> C<path/*> and sorting the "
+"This is just a shortcut for listing L</aug-match> C<path/*> and sorting the "
 "resulting nodes into alphabetical order."
 msgstr ""
 
@@ -16852,7 +16504,7 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:256
 msgid ""
-"The flags which were passed to C<aug-init> affect exactly how files are "
+"The flags which were passed to L</aug-init> affect exactly how files are "
 "saved."
 msgstr ""
 
@@ -16874,7 +16526,7 @@ msgstr ""
 msgid ""
 "In the Augeas API, it is possible to clear a node by setting the value to "
 "NULL.  Due to an oversight in the libguestfs API you cannot do that with "
-"this call.  Instead you must use the C<aug-clear> call."
+"this call.  Instead you must use the L</aug-clear> call."
 msgstr ""
 
 # type: =head2
@@ -16895,12 +16547,12 @@ msgstr ""
 msgid ""
 "The libguestfs groups, and the functions that those groups correspond to, "
 "are listed in L<guestfs(3)/AVAILABILITY>.  You can also fetch this list at "
-"runtime by calling C<available-all-groups>."
+"runtime by calling L</available-all-groups>."
 msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:302
-msgid "You must call C<launch> before calling this function."
+msgid "You must call L</launch> before calling this function."
 msgstr ""
 
 # type: textblock
@@ -16908,7 +16560,7 @@ msgstr ""
 msgid ""
 "This call was added in version C<1.0.80>.  In previous versions of "
 "libguestfs all you could do would be to speculatively execute a command to "
-"find out if the daemon implemented it.  See also C<version>."
+"find out if the daemon implemented it.  See also L</version>."
 msgstr ""
 
 # type: =head2
@@ -16929,13 +16581,13 @@ msgstr ""
 msgid ""
 "This command returns a list of all optional groups that this daemon knows "
 "about.  Note this returns both supported and unsupported groups.  To find "
-"out which ones the daemon can actually support you have to call C<available> "
-"on each member of the returned list."
+"out which ones the daemon can actually support you have to call "
+"L</available> on each member of the returned list."
 msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:341
-msgid "See also C<available> and L<guestfs(3)/AVAILABILITY>."
+msgid "See also L</available> and L<guestfs(3)/AVAILABILITY>."
 msgstr ""
 
 # type: =head2
@@ -17023,7 +16675,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:396
-msgid "See also C<blockdev-getsz>."
+msgid "See also L</blockdev-getsz>."
 msgstr ""
 
 # type: =head2
@@ -17041,7 +16693,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:407
-msgid "(Note, this is not the size in sectors, use C<blockdev-getsz> for that)."
+msgid "(Note, this is not the size in sectors, use L</blockdev-getsz> for that)."
 msgstr ""
 
 # type: =head2
@@ -17060,8 +16712,8 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:419
 msgid ""
-"See also C<blockdev-getss> for the real sector size of the device, and "
-"C<blockdev-getsize64> for the more useful I<size in bytes>."
+"See also L</blockdev-getss> for the real sector size of the device, and "
+"L</blockdev-getsize64> for the more useful I<size in bytes>."
 msgstr ""
 
 # type: =head2
@@ -17132,14 +16784,14 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:486
 msgid ""
-"Thus C<case-sensitive-path> (\"/Windows/System32\")  might return "
+"Thus L</case-sensitive-path> (\"/Windows/System32\")  might return "
 "C<\"/WINDOWS/system32\"> (the exact return value would depend on details of "
 "how the directories were originally created under Windows)."
 msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:494
-msgid "See also C<realpath>."
+msgid "See also L</realpath>."
 msgstr ""
 
 # type: =head2
@@ -17160,8 +16812,8 @@ msgstr ""
 msgid ""
 "Note that this function cannot correctly handle binary files (specifically, "
 "files containing C<\\0> character which is treated as end of string).  For "
-"those you need to use the C<read-file> or C<download> functions which have a "
-"more complex interface."
+"those you need to use the L</read-file> or L</download> functions which have "
+"a more complex interface."
 msgstr ""
 
 # type: =head2
@@ -17179,12 +16831,12 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:555
-msgid "To get the checksum for a device, use C<checksum-device>."
+msgid "To get the checksum for a device, use L</checksum-device>."
 msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:557
-msgid "To get the checksums for many files, use C<checksums-out>."
+msgid "To get the checksums for many files, use L</checksums-out>."
 msgstr ""
 
 # type: =head2
@@ -17205,7 +16857,7 @@ msgstr ""
 msgid ""
 "This call computes the MD5, SHAx or CRC checksum of the contents of the "
 "device named C<device>.  For the types of checksums supported see the "
-"C<checksum> command."
+"L</checksum> command."
 msgstr ""
 
 # type: =head2
@@ -17266,7 +16918,7 @@ msgid ""
 "The single parameter is an argv-style list of arguments.  The first element "
 "is the name of the program to run.  Subsequent elements are parameters.  The "
 "list must be non-empty (ie. must contain a program name).  Note that the "
-"command runs directly, and is I<not> invoked via the shell (see C<sh>)."
+"command runs directly, and is I<not> invoked via the shell (see L</sh>)."
 msgstr ""
 
 # type: =head2
@@ -17284,12 +16936,12 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:649
-msgid "This is the same as C<command>, but splits the result into a list of lines."
+msgid "This is the same as L</command>, but splits the result into a list of lines."
 msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:652
-msgid "See also: C<sh-lines>"
+msgid "See also: L</sh-lines>"
 msgstr ""
 
 # type: =head2
@@ -17362,7 +17014,7 @@ msgstr ""
 msgid ""
 "If the destination is a device, it must be as large or larger than the "
 "source file or device, otherwise the copy will fail.  This command cannot do "
-"partial copies (see C<copy-size>)."
+"partial copies (see L</copy-size>)."
 msgstr ""
 
 # type: =head2
@@ -17381,7 +17033,7 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:711
 msgid ""
-"The C<debug> command exposes some internals of C<guestfsd> (the guestfs "
+"The L</debug> command exposes some internals of C<guestfsd> (the guestfs "
 "daemon) that runs inside the qemu subprocess."
 msgstr ""
 
@@ -17400,7 +17052,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:723
-msgid "The C<debug-upload> command uploads a file to the libguestfs appliance."
+msgid "The L</debug-upload> command uploads a file to the libguestfs appliance."
 msgstr ""
 
 # type: =head2
@@ -17446,7 +17098,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:761
 msgid ""
 "Another way to get the same information is to enable verbose messages with "
-"C<set-verbose> or by setting the environment variable C<LIBGUESTFS_DEBUG=1> "
+"L</set-verbose> or by setting the environment variable C<LIBGUESTFS_DEBUG=1> "
 "before running the program."
 msgstr ""
 
@@ -17465,7 +17117,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:775
-msgid "See also C<upload>, C<cat>."
+msgid "See also L</upload>, L</cat>."
 msgstr ""
 
 # type: =head2
@@ -17510,8 +17162,8 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:815
 msgid ""
-"This command is only needed because of C<resize2fs> (q.v.).  Normally you "
-"should use C<fsck>."
+"This command is only needed because of L</resize2fs> (q.v.).  Normally you "
+"should use L</fsck>."
 msgstr ""
 
 # type: =head2
@@ -17529,7 +17181,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:827
-msgid "See also C<ping-daemon>."
+msgid "See also L</ping-daemon>."
 msgstr ""
 
 # type: =head2
@@ -17586,7 +17238,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:865
-msgid "See also C<is-file>, C<is-dir>, C<stat>."
+msgid "See also L</is-file>, L</is-dir>, L</stat>."
 msgstr ""
 
 # type: =head2
@@ -17619,14 +17271,14 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:894
 msgid ""
 "Note that this call allocates disk blocks for the file.  To create a sparse "
-"file use C<truncate-size> instead."
+"file use L</truncate-size> instead."
 msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:897
 msgid ""
-"The deprecated call C<fallocate> does the same, but owing to an oversight it "
-"only allowed 30 bit lengths to be specified, effectively limiting the "
+"The deprecated call L</fallocate> does the same, but owing to an oversight "
+"it only allowed 30 bit lengths to be specified, effectively limiting the "
 "maximum size of files created through that call to 1GB."
 msgstr ""
 
@@ -17674,7 +17326,7 @@ msgstr ""
 msgid ""
 "This command can also be used on C</dev/> devices (and partitions, LV "
 "names).  You can for example use this to determine if a device contains a "
-"filesystem, although it's usually better to use C<vfs-type>."
+"filesystem, although it's usually better to use L</vfs-type>."
 msgstr ""
 
 # type: =head2
@@ -17706,9 +17358,9 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:1061
 msgid ""
-"To get other stats about a file, use C<stat>, C<lstat>, C<is-dir>, "
-"C<is-file> etc.  To get the size of block devices, use "
-"C<blockdev-getsize64>."
+"To get other stats about a file, use L</stat>, L</lstat>, L</is-dir>, "
+"L</is-file> etc.  To get the size of block devices, use "
+"L</blockdev-getsize64>."
 msgstr ""
 
 # type: =head2
@@ -17728,8 +17380,8 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:1073
 msgid ""
 "To fill a file with zero bytes (sparsely), it is much more efficient to use "
-"C<truncate-size>.  To create a file with a pattern of repeating bytes use "
-"C<fill-pattern>."
+"L</truncate-size>.  To create a file with a pattern of repeating bytes use "
+"L</fill-pattern>."
 msgstr ""
 
 # type: =head2
@@ -17748,7 +17400,7 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:1082
 msgid ""
-"This function is like C<fill> except that it creates a new file of length "
+"This function is like L</fill> except that it creates a new file of length "
 "C<len> containing the repeating pattern of bytes in C<pattern>.  The pattern "
 "is truncated if necessary to ensure the length of the file is exactly C<len> "
 "bytes."
@@ -17769,12 +17421,12 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:1103
-msgid "then the returned list from C<find> C</tmp> would be 4 elements:"
+msgid "then the returned list from L</find> C</tmp> would be 4 elements:"
 msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:1116
-msgid "See also C<find0>."
+msgid "See also L</find0>."
 msgstr ""
 
 # type: =head2
@@ -17792,7 +17444,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:1129
-msgid "This command works the same way as C<find> with the following exceptions:"
+msgid "This command works the same way as L</find> with the following exceptions:"
 msgstr ""
 
 # type: =head2
@@ -17810,7 +17462,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:1164
-msgid "To find the label of a filesystem, use C<vfs-label>."
+msgid "To find the label of a filesystem, use L</vfs-label>."
 msgstr ""
 
 # type: =head2
@@ -17828,7 +17480,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:1174
-msgid "To find the UUID of a filesystem, use C<vfs-uuid>."
+msgid "To find the UUID of a filesystem, use L</vfs-uuid>."
 msgstr ""
 
 # type: =head2
@@ -17925,7 +17577,7 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:1264
 msgid ""
-"If C<set-memsize> was not called on this handle, and if "
+"If L</set-memsize> was not called on this handle, and if "
 "C<LIBGUESTFS_MEMSIZE> was not set, then this returns the compiled-in default "
 "value for memsize."
 msgstr ""
@@ -18012,7 +17664,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:1314
 msgid ""
 "This returns the current setting of the selinux flag which is passed to the "
-"appliance at boot time.  See C<set-selinux>."
+"appliance at boot time.  See L</set-selinux>."
 msgstr ""
 
 # type: =head2
@@ -18058,7 +17710,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:1339
 msgid ""
 "Return the current umask.  By default the umask is C<022> unless it has been "
-"set by calling C<umask>."
+"set by calling L</umask>."
 msgstr ""
 
 # type: =head2
@@ -18089,7 +17741,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:1354
-msgid "See the documentation about SELINUX in L<guestfs(3)>, and C<setcon>"
+msgid "See the documentation about SELINUX in L<guestfs(3)>, and L</setcon>"
 msgstr ""
 
 # type: =head2
@@ -18107,7 +17759,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:1367
-msgid "See also: C<lgetxattrs>, L<attr(5)>."
+msgid "See also: L</lgetxattrs>, L<attr(5)>."
 msgstr ""
 
 # type: =head2
@@ -18216,7 +17868,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:1471
-msgid "See also C<initrd-list>."
+msgid "See also L</initrd-list>."
 msgstr ""
 
 # type: =head2
@@ -18274,9 +17926,9 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:1516
 msgid ""
-"This function is a helpful wrapper around C<inotify-read> which just returns "
-"a list of pathnames of objects that were touched.  The returned pathnames "
-"are sorted and deduplicated."
+"This function is a helpful wrapper around L</inotify-read> which just "
+"returns a list of pathnames of objects that were touched.  The returned "
+"pathnames are sorted and deduplicated."
 msgstr ""
 
 # type: =head2
@@ -18296,26 +17948,26 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:1528
 msgid ""
 "C<maxevents> is the maximum number of events which will be queued up between "
-"calls to C<inotify-read> or C<inotify-files>.  If this is passed as C<0>, "
+"calls to L</inotify-read> or L</inotify-files>.  If this is passed as C<0>, "
 "then the kernel (or previously set)  default is used.  For Linux 2.6.29 the "
 "default was 16384 events.  Beyond this limit, the kernel throws away events, "
 "but records the fact that it threw them away by setting a flag "
-"C<IN_Q_OVERFLOW> in the returned structure list (see C<inotify-read>)."
+"C<IN_Q_OVERFLOW> in the returned structure list (see L</inotify-read>)."
 msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:1538
 msgid ""
 "Before any events are generated, you have to add some watches to the "
-"internal watch list.  See: C<inotify-add-watch>, C<inotify-rm-watch> and "
-"C<inotify-watch-all>."
+"internal watch list.  See: L</inotify-add-watch>, L</inotify-rm-watch> and "
+"L</inotify-watch-all>."
 msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:1544
 msgid ""
-"Queued up events should be read periodically by calling C<inotify-read> (or "
-"C<inotify-files> which is just a helpful wrapper around C<inotify-read>).  "
+"Queued up events should be read periodically by calling L</inotify-read> (or "
+"L</inotify-files> which is just a helpful wrapper around L</inotify-read>).  "
 "If you don't read the events out often enough then you risk the internal "
 "queue overflowing."
 msgstr ""
@@ -18323,7 +17975,7 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:1551
 msgid ""
-"The handle should be closed after use by calling C<inotify-close>.  This "
+"The handle should be closed after use by calling L</inotify-close>.  This "
 "also removes any watches automatically."
 msgstr ""
 
@@ -18355,7 +18007,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:1579
-msgid "Remove a previously defined inotify watch.  See C<inotify-add-watch>."
+msgid "Remove a previously defined inotify watch.  See L</inotify-add-watch>."
 msgstr ""
 
 # type: =head2
@@ -18375,14 +18027,14 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:1586 ../fish/guestfish-actions.pod:1602 ../fish/guestfish-actions.pod:1648 ../fish/guestfish-actions.pod:1666 ../fish/guestfish-actions.pod:1687 ../fish/guestfish-actions.pod:1702 ../fish/guestfish-actions.pod:1725 ../fish/guestfish-actions.pod:1742
 msgid ""
 "This function should only be called with a root device string as returned by "
-"C<inspect-os>."
+"L</inspect-os>."
 msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:1589
 msgid ""
 "This returns the architecture of the inspected operating system.  The "
-"possible return values are listed under C<file-architecture>."
+"possible return values are listed under L</file-architecture>."
 msgstr ""
 
 # type: =head2
@@ -18415,7 +18067,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:1659
 msgid ""
 "Please read L<guestfs(3)/INSPECTION> for more details.  See also "
-"C<inspect-get-mountpoints>."
+"L</inspect-get-mountpoints>."
 msgstr ""
 
 # type: =head2
@@ -18448,7 +18100,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:1695
 msgid ""
 "Please read L<guestfs(3)/INSPECTION> for more details.  See also "
-"C<inspect-get-major-version>."
+"L</inspect-get-major-version>."
 msgstr ""
 
 # type: =head2
@@ -18468,7 +18120,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:1718
 msgid ""
 "Please read L<guestfs(3)/INSPECTION> for more details.  See also "
-"C<inspect-get-filesystems>."
+"L</inspect-get-filesystems>."
 msgstr ""
 
 # type: =head2
@@ -18513,23 +18165,23 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:1786
 msgid ""
-"You can pass the root string(s) returned to other C<inspect-get-*> functions "
-"in order to query further information about each operating system, such as "
-"the name and version."
+"You can pass the root string(s) returned to other L</inspect-get-*> "
+"functions in order to query further information about each operating system, "
+"such as the name and version."
 msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:1791
 msgid ""
-"This function uses other libguestfs features such as C<mount-ro> and "
-"C<umount-all> in order to mount and unmount filesystems and look at the "
+"This function uses other libguestfs features such as L</mount-ro> and "
+"L</umount-all> in order to mount and unmount filesystems and look at the "
 "contents.  This should be called with no disks currently mounted.  The "
 "function may also use Augeas, so any existing Augeas handle will be closed."
 msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:1803 ../fish/guestfish-actions.pod:1957 ../fish/guestfish-actions.pod:2003
-msgid "See also C<list-filesystems>."
+msgid "See also L</list-filesystems>."
 msgstr ""
 
 # type: =head2
@@ -18547,7 +18199,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:1812 ../fish/guestfish-actions.pod:1830 ../fish/guestfish-actions.pod:1849 ../fish/guestfish-actions.pod:1858 ../fish/guestfish-actions.pod:1868 ../fish/guestfish-actions.pod:1902 ../fish/guestfish-actions.pod:1911
-msgid "See also C<stat>."
+msgid "See also L</stat>."
 msgstr ""
 
 # type: =head2
@@ -18736,7 +18388,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:1933
 msgid ""
 "Change the file owner to C<owner> and group to C<group>.  This is like "
-"C<chown> but if C<path> is a symlink then the link itself is changed, not "
+"L</chown> but if C<path> is a symlink then the link itself is changed, not "
 "the target."
 msgstr ""
 
@@ -18756,8 +18408,8 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:1945
 msgid ""
-"This is the same as C<getxattrs>, but if C<path> is a symbolic link, then it "
-"returns the extended attributes of the link itself."
+"This is the same as L</getxattrs>, but if C<path> is a symbolic link, then "
+"it returns the extended attributes of the link itself."
 msgstr ""
 
 # type: =head2
@@ -18789,8 +18441,8 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:1980
 msgid ""
-"This command runs other libguestfs commands, which might include C<mount> "
-"and C<umount>, and therefore you should use this soon after launch and only "
+"This command runs other libguestfs commands, which might include L</mount> "
+"and L</umount>, and therefore you should use this soon after launch and only "
 "when nothing is mounted."
 msgstr ""
 
@@ -18801,7 +18453,7 @@ msgid ""
 "partitions are returned in the list.  Also this command does not check that "
 "each filesystem found is valid and mountable, and some filesystems might be "
 "mountable but require special options.  Filesystems may not all belong to a "
-"single logical operating system (use C<inspect-os> to look for OSes)."
+"single logical operating system (use L</inspect-os> to look for OSes)."
 msgstr ""
 
 # type: =head2
@@ -18821,7 +18473,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:2000
 msgid ""
 "This does not return logical volumes.  For that you will need to call "
-"C<lvs>."
+"L</lvs>."
 msgstr ""
 
 # type: =head2
@@ -18905,7 +18557,7 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:2045
 msgid ""
-"This is the same as C<removexattr>, but if C<path> is a symbolic link, then "
+"This is the same as L</removexattr>, but if C<path> is a symbolic link, then "
 "it removes an extended attribute of the link itself."
 msgstr ""
 
@@ -18926,7 +18578,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:2057
 msgid ""
 "This command is mostly useful for interactive sessions.  Programs should "
-"probably use C<readdir> instead."
+"probably use L</readdir> instead."
 msgstr ""
 
 # type: =head2
@@ -18945,7 +18597,7 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:2064
 msgid ""
-"This is the same as C<setxattr>, but if C<path> is a symbolic link, then it "
+"This is the same as L</setxattr>, but if C<path> is a symbolic link, then it "
 "sets an extended attribute of the link itself."
 msgstr ""
 
@@ -18965,7 +18617,7 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:2074
 msgid ""
-"This is the same as C<stat> except that if C<path> is a symbolic link, then "
+"This is the same as L</stat> except that if C<path> is a symbolic link, then "
 "the link is stat-ed, not the file it refers to."
 msgstr ""
 
@@ -18985,7 +18637,7 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:2084
 msgid ""
-"This call allows you to perform the C<lstat> operation on multiple files, "
+"This call allows you to perform the L</lstat> operation on multiple files, "
 "where all files are in the directory C<path>.  C<names> is the list of files "
 "from this directory."
 msgstr ""
@@ -18994,7 +18646,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:2093
 msgid ""
 "This call is intended for programs that want to efficiently list a directory "
-"contents without making many round-trips.  See also C<lxattrlist> for a "
+"contents without making many round-trips.  See also L</lxattrlist> for a "
 "similarly efficient call for getting extended attributes.  Very long "
 "directory listings might cause the protocol message size to be exceeded, "
 "causing this call to fail.  The caller must split up such requests into "
@@ -19018,7 +18670,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:2110
 msgid ""
 "Note that if C<keyslot> already contains a key, then this command will "
-"fail.  You have to use C<luks-kill-slot> first to remove that key."
+"fail.  You have to use L</luks-kill-slot> first to remove that key."
 msgstr ""
 
 # type: textblock
@@ -19044,8 +18696,8 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:2121
 msgid ""
-"This closes a LUKS device that was created earlier by C<luks-open> or "
-"C<luks-open-ro>.  The C<device> parameter must be the name of the LUKS "
+"This closes a LUKS device that was created earlier by L</luks-open> or "
+"L</luks-open-ro>.  The C<device> parameter must be the name of the LUKS "
 "mapping device (ie. C</dev/mapper/mapname>) and I<not> the name of the "
 "underlying block device."
 msgstr ""
@@ -19079,8 +18731,8 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:2146
 msgid ""
-"This command is the same as C<luks-format> but it also allows you to set the "
-"C<cipher> used."
+"This command is the same as L</luks-format> but it also allows you to set "
+"the C<cipher> used."
 msgstr ""
 
 # type: =head2
@@ -19112,8 +18764,8 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:2182
 msgid ""
-"If this block device contains LVM volume groups, then calling C<vgscan> "
-"followed by C<vg-activate-all> will make them visible."
+"If this block device contains LVM volume groups, then calling L</vgscan> "
+"followed by L</vg-activate-all> will make them visible."
 msgstr ""
 
 # type: =head2
@@ -19131,7 +18783,9 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:2193
-msgid "This is the same as C<luks-open> except that a read-only mapping is created."
+msgid ""
+"This is the same as L</luks-open> except that a read-only mapping is "
+"created."
 msgstr ""
 
 # type: =head2
@@ -19163,7 +18817,7 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:2210
 msgid ""
-"This undoes the effect of C<lvm-set-filter>.  LVM will be able to see every "
+"This undoes the effect of L</lvm-set-filter>.  LVM will be able to see every "
 "block device."
 msgstr ""
 
@@ -19260,7 +18914,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:2297
-msgid "See also C<lvs-full>, C<list-filesystems>."
+msgid "See also L</lvs-full>, L</list-filesystems>."
 msgstr ""
 
 # type: =head2
@@ -19306,7 +18960,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:2330
 msgid ""
 "This call is intended for programs that want to efficiently list a directory "
-"contents without making many round-trips.  See also C<lstatlist> for a "
+"contents without making many round-trips.  See also L</lstatlist> for a "
 "similarly efficient call for getting standard stats.  Very long directory "
 "listings might cause the protocol message size to be exceeded, causing this "
 "call to fail.  The caller must split up such requests into smaller groups of "
@@ -19341,7 +18995,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:2355
-msgid "See also C<mkdir>, C<umask>"
+msgid "See also L</mkdir>, L</umask>"
 msgstr ""
 
 # type: =head2
@@ -19385,7 +19039,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:2397
-msgid "See also C<mke2journal>."
+msgid "See also L</mke2journal>."
 msgstr ""
 
 # type: =head2
@@ -19403,7 +19057,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:2406
-msgid "See also C<mke2journal-L>."
+msgid "See also L</mke2journal-L>."
 msgstr ""
 
 # type: =head2
@@ -19421,7 +19075,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:2415
-msgid "See also C<mke2journal-U>."
+msgid "See also L</mke2journal-U>."
 msgstr ""
 
 # type: =head2
@@ -19480,7 +19134,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:2442
 msgid ""
 "This call creates a FIFO (named pipe) called C<path> with mode C<mode>.  It "
-"is just a convenient wrapper around C<mknod>."
+"is just a convenient wrapper around L</mknod>."
 msgstr ""
 
 # type: =head2
@@ -19512,9 +19166,9 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:2460
 msgid ""
-"This call is similar to C<mkfs>, but it allows you to control the block size "
-"of the resulting filesystem.  Supported block sizes depend on the filesystem "
-"type, but typically they are C<1024>, C<2048> or C<4096> only."
+"This call is similar to L</mkfs>, but it allows you to control the block "
+"size of the resulting filesystem.  Supported block sizes depend on the "
+"filesystem type, but typically they are C<1024>, C<2048> or C<4096> only."
 msgstr ""
 
 # type: =head2
@@ -19533,7 +19187,7 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:2472
 msgid ""
-"C<mkmountpoint> and C<rmmountpoint> are specialized calls that can be used "
+"L</mkmountpoint> and L</rmmountpoint> are specialized calls that can be used "
 "to create extra mountpoints before mounting the first filesystem."
 msgstr ""
 
@@ -19556,8 +19210,9 @@ msgid ""
 "Note that, just like L<mknod(2)>, the mode must be bitwise OR'd with "
 "S_IFBLK, S_IFCHR, S_IFIFO or S_IFSOCK (otherwise this call just creates a "
 "regular file).  These constants are available in the standard Linux header "
-"files, or you can use C<mknod-b>, C<mknod-c> or C<mkfifo> which are wrappers "
-"around this command which bitwise OR in the appropriate constant for you."
+"files, or you can use L</mknod-b>, L</mknod-c> or L</mkfifo> which are "
+"wrappers around this command which bitwise OR in the appropriate constant "
+"for you."
 msgstr ""
 
 # type: =head2
@@ -19578,7 +19233,7 @@ msgstr ""
 msgid ""
 "This call creates a block device node called C<path> with mode C<mode> and "
 "device major/minor C<devmajor> and C<devminor>.  It is just a convenient "
-"wrapper around C<mknod>."
+"wrapper around L</mknod>."
 msgstr ""
 
 # type: =head2
@@ -19599,7 +19254,7 @@ msgstr ""
 msgid ""
 "This call creates a char device node called C<path> with mode C<mode> and "
 "device major/minor C<devmajor> and C<devminor>.  It is just a convenient "
-"wrapper around C<mknod>."
+"wrapper around L</mknod>."
 msgstr ""
 
 # type: =head2
@@ -19658,7 +19313,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:2566
 msgid ""
 "This command just writes a swap file signature to an existing file.  To "
-"create the file itself, use something like C<fallocate>."
+"create the file itself, use something like L</fallocate>."
 msgstr ""
 
 # type: =head2
@@ -19694,8 +19349,8 @@ msgid ""
 "and C<noatime> are set implicitly.  This was originally done because we "
 "thought it would improve reliability, but it turns out that I<-o sync> has a "
 "very large negative performance impact and negligible effect on "
-"reliability.  Therefore we recommend that you avoid using C<mount> in any "
-"code that needs performance, and instead use C<mount-options> (use an empty "
+"reliability.  Therefore we recommend that you avoid using L</mount> in any "
+"code that needs performance, and instead use L</mount-options> (use an empty "
 "string for the first parameter if you don't want any options)."
 msgstr ""
 
@@ -19728,8 +19383,8 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:2618
 msgid ""
-"This is the same as the C<mount> command, but it allows you to set the mount "
-"options as for the L<mount(8)> I<-o> flag."
+"This is the same as the L</mount> command, but it allows you to set the "
+"mount options as for the L<mount(8)> I<-o> flag."
 msgstr ""
 
 # type: =head2
@@ -19748,7 +19403,7 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:2630
 msgid ""
-"This is the same as the C<mount> command, but it mounts the filesystem with "
+"This is the same as the L</mount> command, but it mounts the filesystem with "
 "the read-only (I<-o ro>) flag."
 msgstr ""
 
@@ -19768,7 +19423,7 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:2637
 msgid ""
-"This is the same as the C<mount> command, but it allows you to set both the "
+"This is the same as the L</mount> command, but it allows you to set both the "
 "mount options and the vfstype as for the L<mount(8)> I<-o> and I<-t> flags."
 msgstr ""
 
@@ -19788,7 +19443,7 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:2645
 msgid ""
-"This call is similar to C<mounts>.  That call returns a list of devices.  "
+"This call is similar to L</mounts>.  That call returns a list of devices.  "
 "This one returns a hash table (map) of device name to directory where the "
 "device is mounted."
 msgstr ""
@@ -19808,7 +19463,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:2658
-msgid "See also: C<mountpoints>"
+msgid "See also: L</mountpoints>"
 msgstr ""
 
 # type: =head2
@@ -19866,7 +19521,7 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:2695
 msgid ""
-"This command is the same as C<ntfsresize> except that it allows you to "
+"This command is the same as L</ntfsresize> except that it allows you to "
 "specify the new size (in bytes) explicitly."
 msgstr ""
 
@@ -19887,14 +19542,14 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:2702
 msgid ""
 "This command adds a partition to C<device>.  If there is no partition table "
-"on the device, call C<part-init> first."
+"on the device, call L</part-init> first."
 msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:2714
 msgid ""
 "Creating a partition which covers the whole disk is not so easy.  Use "
-"C<part-disk> to do that."
+"L</part-disk> to do that."
 msgstr ""
 
 # type: =head2
@@ -19926,15 +19581,15 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:2731
 msgid ""
-"This command is simply a combination of C<part-init> followed by C<part-add> "
-"to create a single primary partition covering the whole disk."
+"This command is simply a combination of L</part-init> followed by "
+"L</part-add> to create a single primary partition covering the whole disk."
 msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:2735
 msgid ""
 "C<parttype> is the partition table type, usually C<mbr> or C<gpt>, but other "
-"possible values are described in C<part-init>."
+"possible values are described in L</part-init>."
 msgstr ""
 
 # type: =head2
@@ -19952,7 +19607,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:2748
-msgid "See also C<part-set-bootable>."
+msgid "See also L</part-set-bootable>."
 msgstr ""
 
 # type: =head2
@@ -19973,7 +19628,7 @@ msgstr ""
 msgid ""
 "Note that only MBR (old DOS-style) partitions have type bytes.  You will get "
 "undefined results for other partition table types (see "
-"C<part-get-parttype>)."
+"L</part-get-parttype>)."
 msgstr ""
 
 # type: =head2
@@ -19994,7 +19649,7 @@ msgstr ""
 msgid ""
 "Common return values include: C<msdos> (a DOS/Windows style MBR partition "
 "table), C<gpt> (a GPT/EFI-style partition table).  Other values are "
-"possible, although unusual.  See C<part-init> for a full list."
+"possible, although unusual.  See L</part-init> for a full list."
 msgstr ""
 
 # type: =head2
@@ -20014,7 +19669,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:2781
 msgid ""
 "Initially there are no partitions.  Following this, you should call "
-"C<part-add> for each partition required."
+"L</part-add> for each partition required."
 msgstr ""
 
 # type: =head2
@@ -20034,7 +19689,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:2861
 msgid ""
 "Start of the partition I<in bytes>.  To get sectors you have to divide by "
-"the device's sector size, see C<blockdev-getss>."
+"the device's sector size, see L</blockdev-getss>."
 msgstr ""
 
 # type: =head2
@@ -20093,7 +19748,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:2917
 msgid ""
 "The named partition must exist, for example as a string returned from "
-"C<list-partitions>."
+"L</list-partitions>."
 msgstr ""
 
 # type: =head2
@@ -20124,7 +19779,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:2939
-msgid "See also C<pwrite>."
+msgid "See also L</pwrite>."
 msgstr ""
 
 # type: =head2
@@ -20182,8 +19837,8 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:2974
 msgid ""
-"This command is the same as C<pvresize> except that it allows you to specify "
-"the new size (in bytes) explicitly."
+"This command is the same as L</pvresize> except that it allows you to "
+"specify the new size (in bytes) explicitly."
 msgstr ""
 
 # type: =head2
@@ -20201,7 +19856,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:2987
-msgid "See also C<pvs-full>."
+msgid "See also L</pvs-full>."
 msgstr ""
 
 # type: =head2
@@ -20245,7 +19900,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:3015
-msgid "See also C<pread>."
+msgid "See also L</pread>."
 msgstr ""
 
 # type: =head2
@@ -20264,9 +19919,9 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:3027
 msgid ""
-"Unlike C<cat>, this function can correctly handle files that contain "
-"embedded ASCII NUL characters.  However unlike C<download>, this function is "
-"limited in the total size of file that can be handled."
+"Unlike L</cat>, this function can correctly handle files that contain "
+"embedded ASCII NUL characters.  However unlike L</download>, this function "
+"is limited in the total size of file that can be handled."
 msgstr ""
 
 # type: =head2
@@ -20287,7 +19942,7 @@ msgstr ""
 msgid ""
 "Note that this function cannot correctly handle binary files (specifically, "
 "files containing C<\\0> character which is treated as end of line).  For "
-"those you need to use the C<read-file> function which has a more complex "
+"those you need to use the L</read-file> function which has a more complex "
 "interface."
 msgstr ""
 
@@ -20308,8 +19963,8 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:3103
 msgid ""
 "This function is primarily intended for use by programs.  To get a simple "
-"list of names, use C<ls>.  To get a printable directory for human "
-"consumption, use C<ll>."
+"list of names, use L</ls>.  To get a printable directory for human "
+"consumption, use L</ll>."
 msgstr ""
 
 # type: =head2
@@ -20366,7 +20021,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:3153
-msgid "See also: C<lremovexattr>, L<attr(5)>."
+msgid "See also: L</lremovexattr>, L<attr(5)>."
 msgstr ""
 
 # type: =head2
@@ -20385,10 +20040,10 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:3162
 msgid ""
-"I<Note:> It is sometimes required that you run C<e2fsck-f> on the C<device> "
+"I<Note:> It is sometimes required that you run L</e2fsck-f> on the C<device> "
 "before calling this command.  For unknown reasons C<resize2fs> sometimes "
 "gives an error about this and sometimes not.  In any case, it is always safe "
-"to call C<e2fsck-f> before calling this function."
+"to call L</e2fsck-f> before calling this function."
 msgstr ""
 
 # type: =head2
@@ -20407,7 +20062,7 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:3172
 msgid ""
-"This command is the same as C<resize2fs> except that it allows you to "
+"This command is the same as L</resize2fs> except that it allows you to "
 "specify the new size (in bytes) explicitly."
 msgstr ""
 
@@ -20467,7 +20122,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:3199
 msgid ""
 "This calls removes a mountpoint that was previously created with "
-"C<mkmountpoint>.  See C<mkmountpoint> for full details."
+"L</mkmountpoint>.  See L</mkmountpoint> for full details."
 msgstr ""
 
 # type: =head2
@@ -20513,7 +20168,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:3232
 msgid ""
 "This command creates the directory C<dir> and then fills it with files until "
-"the filesystem is full, and scrubs the files as for C<scrub-file>, and "
+"the filesystem is full, and scrubs the files as for L</scrub-file>, and "
 "deletes them.  The intention is to scrub any free space on the partition "
 "containing C<dir>."
 msgstr ""
@@ -20548,7 +20203,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:3258
 msgid ""
 "If C<autosync> is true, this enables autosync.  Libguestfs will make a best "
-"effort attempt to run C<umount-all> followed by C<sync> when the handle is "
+"effort attempt to run L</umount-all> followed by L</sync> when the handle is "
 "closed (also if the program exits without closing handles)."
 msgstr ""
 
@@ -20569,7 +20224,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:3274
 msgid ""
 "One consequence of this is that log messages aren't caught by the library "
-"and handled by C<set-log-message-callback>, but go straight to stdout."
+"and handled by L</set-log-message-callback>, but go straight to stdout."
 msgstr ""
 
 # type: =head2
@@ -20588,7 +20243,7 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:3291
 msgid ""
-"You can use either C<tune2fs-l> or C<get-e2label> to return the existing "
+"You can use either L</tune2fs-l> or L</get-e2label> to return the existing "
 "label on a filesystem."
 msgstr ""
 
@@ -20608,8 +20263,8 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:3303
 msgid ""
-"You can use either C<tune2fs-l> or C<get-e2uuid> to return the existing UUID "
-"of a filesystem."
+"You can use either L</tune2fs-l> or L</get-e2uuid> to return the existing "
+"UUID of a filesystem."
 msgstr ""
 
 # type: =head2
@@ -20629,7 +20284,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:3310
 msgid ""
 "This sets the memory size in megabytes allocated to the qemu subprocess.  "
-"This only has any effect if called before C<launch>."
+"This only has any effect if called before L</launch>."
 msgstr ""
 
 # type: =head2
@@ -20647,7 +20302,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:3331
-msgid "You must call this before calling C<launch>, otherwise it has no effect."
+msgid "You must call this before calling L</launch>, otherwise it has no effect."
 msgstr ""
 
 # type: =head2
@@ -20692,15 +20347,15 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:3371
 msgid ""
-"If this is called with the parameter C<false> then C<launch> does not create "
-"a recovery process.  The purpose of the recovery process is to stop runaway "
-"qemu processes in the case where the main program aborts abruptly."
+"If this is called with the parameter C<false> then L</launch> does not "
+"create a recovery process.  The purpose of the recovery process is to stop "
+"runaway qemu processes in the case where the main program aborts abruptly."
 msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:3376
 msgid ""
-"This only has any effect if called before C<launch>, and the default is "
+"This only has any effect if called before L</launch>, and the default is "
 "true."
 msgstr ""
 
@@ -20771,7 +20426,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:3442
-msgid "See also: C<lsetxattr>, L<attr(5)>."
+msgid "See also: L</lsetxattr>, L<attr(5)>."
 msgstr ""
 
 # type: =head2
@@ -20789,7 +20444,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:3468
-msgid "See also: C<sfdisk-l>, C<sfdisk-N>, C<part-init>"
+msgid "See also: L</sfdisk-l>, L</sfdisk-N>, L</part-init>"
 msgstr ""
 
 # type: =head2
@@ -20808,7 +20463,7 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:3478
 msgid ""
-"This is a simplified interface to the C<sfdisk> command, where partition "
+"This is a simplified interface to the L</sfdisk> command, where partition "
 "sizes are specified in megabytes only (rounded to the nearest cylinder) and "
 "you don't need to specify the cyls, heads and sectors parameters which were "
 "rarely if ever used anyway."
@@ -20816,7 +20471,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:3484
-msgid "See also: C<sfdisk>, the L<sfdisk(8)> manpage and C<part-disk>"
+msgid "See also: L</sfdisk>, the L<sfdisk(8)> manpage and L</part-disk>"
 msgstr ""
 
 # type: =head2
@@ -20835,13 +20490,13 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:3497
 msgid ""
-"For other parameters, see C<sfdisk>.  You should usually pass C<0> for the "
+"For other parameters, see L</sfdisk>.  You should usually pass C<0> for the "
 "cyls/heads/sectors parameters."
 msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:3500
-msgid "See also: C<part-add>"
+msgid "See also: L</part-add>"
 msgstr ""
 
 # type: =head2
@@ -20863,7 +20518,7 @@ msgid ""
 "This displays the disk geometry of C<device> read from the partition table.  "
 "Especially in the case where the underlying block device has been resized, "
 "this can be different from the kernel's idea of the geometry (see "
-"C<sfdisk-kernel-geometry>)."
+"L</sfdisk-kernel-geometry>)."
 msgstr ""
 
 # type: =head2
@@ -20894,7 +20549,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:3534
-msgid "See also: C<part-list>"
+msgid "See also: L</part-list>"
 msgstr ""
 
 # type: =head2
@@ -20912,12 +20567,12 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:3543
-msgid "This is like C<command>, but passes the command to:"
+msgid "This is like L</command>, but passes the command to:"
 msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:3551
-msgid "All the provisos about C<command> apply to this call."
+msgid "All the provisos about L</command> apply to this call."
 msgstr ""
 
 # type: =head2
@@ -20935,12 +20590,12 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:3557
-msgid "This is the same as C<sh>, but splits the result into a list of lines."
+msgid "This is the same as L</sh>, but splits the result into a list of lines."
 msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:3560
-msgid "See also: C<command-lines>"
+msgid "See also: L</command-lines>"
 msgstr ""
 
 # type: =head2
@@ -21011,7 +20666,7 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:3600
 msgid ""
-"This is like the C<strings> command, but allows you to specify the encoding "
+"This is like the L</strings> command, but allows you to specify the encoding "
 "of strings that are looked for in the source file C<path>."
 msgstr ""
 
@@ -21019,7 +20674,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:3610
 msgid ""
 "Single 7-bit-byte characters like ASCII and the ASCII-compatible parts of "
-"ISO-8859-X (this is what C<strings> uses)."
+"ISO-8859-X (this is what L</strings> uses)."
 msgstr ""
 
 # type: =head2
@@ -21039,7 +20694,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:3646
 msgid ""
 "This command disables the libguestfs appliance swap device or partition "
-"named C<device>.  See C<swapon-device>."
+"named C<device>.  See L</swapon-device>."
 msgstr ""
 
 # type: =head2
@@ -21099,7 +20754,7 @@ msgstr ""
 msgid ""
 "This command enables the libguestfs appliance to use the swap device or "
 "partition named C<device>.  The increased memory is made available for all "
-"commands, for example those run using C<command> or C<sh>."
+"commands, for example those run using L</command> or L</sh>."
 msgstr ""
 
 # type: =head2
@@ -21117,7 +20772,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:3690
-msgid "This command enables swap to a file.  See C<swapon-device> for other notes."
+msgid "This command enables swap to a file.  See L</swapon-device> for other notes."
 msgstr ""
 
 # type: =head2
@@ -21136,8 +20791,8 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:3697
 msgid ""
-"This command enables swap to a labeled swap partition.  See C<swapon-device> "
-"for other notes."
+"This command enables swap to a labeled swap partition.  See "
+"L</swapon-device> for other notes."
 msgstr ""
 
 # type: =head2
@@ -21157,7 +20812,7 @@ msgstr ""
 #: ../fish/guestfish-actions.pod:3704
 msgid ""
 "This command enables swap to a swap partition with the given UUID.  See "
-"C<swapon-device> for other notes."
+"L</swapon-device> for other notes."
 msgstr ""
 
 # type: =head2
@@ -21214,7 +20869,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:3749
-msgid "To upload a compressed tarball, use C<tgz-in> or C<txz-in>."
+msgid "To upload a compressed tarball, use L</tgz-in> or L</txz-in>."
 msgstr ""
 
 # type: =head2
@@ -21232,7 +20887,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:3761
-msgid "To download a compressed tarball, use C<tgz-out> or C<txz-out>."
+msgid "To download a compressed tarball, use L</tgz-out> or L</txz-out>."
 msgstr ""
 
 # type: =head2
@@ -21250,7 +20905,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:3773
-msgid "To upload an uncompressed tarball, use C<tar-in>."
+msgid "To upload an uncompressed tarball, use L</tar-in>."
 msgstr ""
 
 # type: =head2
@@ -21268,7 +20923,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:3784
-msgid "To download an uncompressed tarball, use C<tar-out>."
+msgid "To download an uncompressed tarball, use L</tar-out>."
 msgstr ""
 
 # type: =head2
@@ -21316,7 +20971,7 @@ msgid ""
 "If the current file size is less than C<size> then the file is extended to "
 "the required size with zero bytes.  This creates a sparse file (ie. disk "
 "blocks are not allocated for the file until you write to it).  To create a "
-"non-sparse file of zeroes, use C<fallocate64> instead."
+"non-sparse file of zeroes, use L</fallocate64> instead."
 msgstr ""
 
 # type: =head2
@@ -21373,7 +21028,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:3865
-msgid "See also C<get-umask>, L<umask(2)>, C<mknod>, C<mkdir>."
+msgid "See also L</get-umask>, L<umask(2)>, L</mknod>, L</mkdir>."
 msgstr ""
 
 # type: =head2
@@ -21417,7 +21072,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:3895
-msgid "See also C<download>."
+msgid "See also L</download>."
 msgstr ""
 
 # type: =head2
@@ -21452,7 +21107,7 @@ msgid ""
 "I<Note:> Don't use this call to test for availability of features.  In "
 "enterprise distributions we backport features from later versions into "
 "earlier versions, making this an unreliable way to test for features.  Use "
-"C<available> instead."
+"L</available> instead."
 msgstr ""
 
 # type: =head2
@@ -21470,7 +21125,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:3964
-msgid "To find a filesystem from the label, use C<findfs-label>."
+msgid "To find a filesystem from the label, use L</findfs-label>."
 msgstr ""
 
 # type: =head2
@@ -21501,7 +21156,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:3987
-msgid "To find a filesystem from the UUID, use C<findfs-uuid>."
+msgid "To find a filesystem from the UUID, use L</findfs-uuid>."
 msgstr ""
 
 # type: =head2
@@ -21559,13 +21214,13 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:4030
 msgid ""
-"You can use this along with C<lvs> and C<lvuuid> calls to associate logical "
-"volumes and volume groups."
+"You can use this along with L</lvs> and L</lvuuid> calls to associate "
+"logical volumes and volume groups."
 msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:4033
-msgid "See also C<vgpvuuids>."
+msgid "See also L</vgpvuuids>."
 msgstr ""
 
 # type: =head2
@@ -21584,13 +21239,13 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:4042
 msgid ""
-"You can use this along with C<pvs> and C<pvuuid> calls to associate physical "
-"volumes and volume groups."
+"You can use this along with L</pvs> and L</pvuuid> calls to associate "
+"physical volumes and volume groups."
 msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:4045
-msgid "See also C<vglvuuids>."
+msgid "See also L</vglvuuids>."
 msgstr ""
 
 # type: =head2
@@ -21634,7 +21289,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:4072
-msgid "See also C<vgs-full>."
+msgid "See also L</vgs-full>."
 msgstr ""
 
 # type: =head2
@@ -21782,7 +21437,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:4180
-msgid "See also: C<zero-device>, C<scrub-device>."
+msgid "See also: L</zero-device>, L</scrub-device>."
 msgstr ""
 
 # type: =head2
@@ -21801,7 +21456,7 @@ msgstr ""
 # type: textblock
 #: ../fish/guestfish-actions.pod:4186
 msgid ""
-"This command writes zeroes over the entire C<device>.  Compare with C<zero> "
+"This command writes zeroes over the entire C<device>.  Compare with L</zero> "
 "which just zeroes the first few blocks of a device."
 msgstr ""
 
@@ -21859,7 +21514,7 @@ msgstr ""
 
 # type: textblock
 #: ../fish/guestfish-actions.pod:4237
-msgid "Since 1.0.63, use C<file> instead which can now process compressed files."
+msgid "Since 1.0.63, use L</file> instead which can now process compressed files."
 msgstr ""
 
 # type: =head2
@@ -21886,6 +21541,391 @@ msgstr ""
 msgid ""
 " zgrepi regex path\n"
 "\n"
+msgstr ""
+
+# type: =head2
+#: ../fish/guestfish-commands.pod:1
+msgid "alloc"
+msgstr ""
+
+# type: =head2
+#: ../fish/guestfish-commands.pod:3
+msgid "allocate"
+msgstr ""
+
+# type: verbatim
+#: ../fish/guestfish-commands.pod:5
+#, no-wrap
+msgid ""
+" alloc filename size\n"
+"\n"
+msgstr ""
+
+# type: textblock
+#: ../fish/guestfish-commands.pod:7
+msgid ""
+"This creates an empty (zeroed) file of the given size, and then adds so it "
+"can be further examined."
+msgstr ""
+
+# type: textblock
+#: ../fish/guestfish-commands.pod:10 ../fish/guestfish-commands.pod:132
+msgid "For more advanced image creation, see L<qemu-img(1)> utility."
+msgstr ""
+
+# type: textblock
+#: ../fish/guestfish-commands.pod:12 ../fish/guestfish-commands.pod:134
+msgid "Size can be specified using standard suffixes, eg. C<1M>."
+msgstr ""
+
+# type: textblock
+#: ../fish/guestfish-commands.pod:14
+msgid ""
+"To create a sparse file, use L</sparse> instead.  To create a prepared disk "
+"image, see L</PREPARED DISK IMAGES>."
+msgstr ""
+
+# type: =head2
+#: ../fish/guestfish-commands.pod:17
+msgid "copy-in"
+msgstr ""
+
+# type: verbatim
+#: ../fish/guestfish-commands.pod:19
+#, no-wrap
+msgid ""
+" copy-in local [local ...] /remotedir\n"
+"\n"
+msgstr ""
+
+# type: textblock
+#: ../fish/guestfish-commands.pod:21
+msgid ""
+"C<copy-in> copies local files or directories recursively into the disk "
+"image, placing them in the directory called C</remotedir> (which must "
+"exist).  This guestfish meta-command turns into a sequence of L</tar-in> and "
+"other commands as necessary."
+msgstr ""
+
+# type: textblock
+#: ../fish/guestfish-commands.pod:26
+msgid ""
+"Multiple local files and directories can be specified, but the last "
+"parameter must always be a remote directory.  Wildcards cannot be used."
+msgstr ""
+
+# type: =head2
+#: ../fish/guestfish-commands.pod:30
+msgid "copy-out"
+msgstr ""
+
+# type: verbatim
+#: ../fish/guestfish-commands.pod:32
+#, no-wrap
+msgid ""
+" copy-out remote [remote ...] localdir\n"
+"\n"
+msgstr ""
+
+# type: textblock
+#: ../fish/guestfish-commands.pod:34
+msgid ""
+"C<copy-out> copies remote files or directories recursively out of the disk "
+"image, placing them on the host disk in a local directory called C<localdir> "
+"(which must exist).  This guestfish meta-command turns into a sequence of "
+"L</download>, L</tar-out> and other commands as necessary."
+msgstr ""
+
+# type: textblock
+#: ../fish/guestfish-commands.pod:40
+msgid ""
+"Multiple remote files and directories can be specified, but the last "
+"parameter must always be a local directory.  To download to the current "
+"directory, use C<.> as in:"
+msgstr ""
+
+# type: verbatim
+#: ../fish/guestfish-commands.pod:44
+#, no-wrap
+msgid ""
+" copy-out /home .\n"
+"\n"
+msgstr ""
+
+# type: textblock
+#: ../fish/guestfish-commands.pod:46
+msgid ""
+"Wildcards cannot be used in the ordinary command, but you can use them with "
+"the help of L</glob> like this:"
+msgstr ""
+
+# type: verbatim
+#: ../fish/guestfish-commands.pod:49
+#, no-wrap
+msgid ""
+" glob copy-out /home/* .\n"
+"\n"
+msgstr ""
+
+# type: =head2
+#: ../fish/guestfish-commands.pod:51
+msgid "echo"
+msgstr ""
+
+# type: verbatim
+#: ../fish/guestfish-commands.pod:53
+#, no-wrap
+msgid ""
+" echo [params ...]\n"
+"\n"
+msgstr ""
+
+# type: textblock
+#: ../fish/guestfish-commands.pod:55
+msgid "This echos the parameters to the terminal."
+msgstr ""
+
+# type: =head2
+#: ../fish/guestfish-commands.pod:57
+msgid "edit"
+msgstr ""
+
+# type: =head2
+#: ../fish/guestfish-commands.pod:59
+msgid "vi"
+msgstr ""
+
+# type: =head2
+#: ../fish/guestfish-commands.pod:61
+msgid "emacs"
+msgstr ""
+
+# type: verbatim
+#: ../fish/guestfish-commands.pod:63
+#, no-wrap
+msgid ""
+" edit filename\n"
+"\n"
+msgstr ""
+
+# type: textblock
+#: ../fish/guestfish-commands.pod:65
+msgid ""
+"This is used to edit a file.  It downloads the file, edits it locally using "
+"your editor, then uploads the result."
+msgstr ""
+
+# type: textblock
+#: ../fish/guestfish-commands.pod:68
+msgid ""
+"The editor is C<$EDITOR>.  However if you use the alternate commands C<vi> "
+"or C<emacs> you will get those corresponding editors."
+msgstr ""
+
+# type: =head2
+#: ../fish/guestfish-commands.pod:72
+msgid "glob"
+msgstr ""
+
+# type: verbatim
+#: ../fish/guestfish-commands.pod:74
+#, no-wrap
+msgid ""
+" glob command args...\n"
+"\n"
+msgstr ""
+
+# type: textblock
+#: ../fish/guestfish-commands.pod:76
+msgid ""
+"Expand wildcards in any paths in the args list, and run C<command> "
+"repeatedly on each matching path."
+msgstr ""
+
+# type: textblock
+#: ../fish/guestfish-commands.pod:79
+msgid "See L</WILDCARDS AND GLOBBING>."
+msgstr ""
+
+# type: =head2
+#: ../fish/guestfish-commands.pod:81
+msgid "lcd"
+msgstr ""
+
+# type: verbatim
+#: ../fish/guestfish-commands.pod:83
+#, no-wrap
+msgid ""
+" lcd directory\n"
+"\n"
+msgstr ""
+
+# type: textblock
+#: ../fish/guestfish-commands.pod:85
+msgid "Change the local directory, ie. the current directory of guestfish itself."
+msgstr ""
+
+# type: textblock
+#: ../fish/guestfish-commands.pod:88
+msgid "Note that C<!cd> won't do what you might expect."
+msgstr ""
+
+# type: =head2
+#: ../fish/guestfish-commands.pod:90
+msgid "man"
+msgstr ""
+
+# type: =head2
+#: ../fish/guestfish-commands.pod:92
+msgid "manual"
+msgstr ""
+
+# type: verbatim
+#: ../fish/guestfish-commands.pod:94
+#, no-wrap
+msgid ""
+"  man\n"
+"\n"
+msgstr ""
+
+# type: textblock
+#: ../fish/guestfish-commands.pod:96
+msgid "Opens the manual page for guestfish."
+msgstr ""
+
+# type: =head2
+#: ../fish/guestfish-commands.pod:98
+msgid "more"
+msgstr ""
+
+# type: =head2
+#: ../fish/guestfish-commands.pod:100
+msgid "less"
+msgstr ""
+
+# type: verbatim
+#: ../fish/guestfish-commands.pod:102
+#, no-wrap
+msgid ""
+"  more filename\n"
+"\n"
+msgstr ""
+
+# type: verbatim
+#: ../fish/guestfish-commands.pod:104
+#, no-wrap
+msgid ""
+" less filename\n"
+"\n"
+msgstr ""
+
+# type: textblock
+#: ../fish/guestfish-commands.pod:106
+msgid "This is used to view a file."
+msgstr ""
+
+# type: textblock
+#: ../fish/guestfish-commands.pod:108
+msgid ""
+"The default viewer is C<$PAGER>.  However if you use the alternate command "
+"C<less> you will get the C<less> command specifically."
+msgstr ""
+
+# type: =head2
+#: ../fish/guestfish-commands.pod:111
+msgid "reopen"
+msgstr ""
+
+# type: verbatim
+#: ../fish/guestfish-commands.pod:113
+#, no-wrap
+msgid ""
+"  reopen\n"
+"\n"
+msgstr ""
+
+# type: textblock
+#: ../fish/guestfish-commands.pod:115
+msgid ""
+"Close and reopen the libguestfs handle.  It is not necessary to use this "
+"normally, because the handle is closed properly when guestfish exits.  "
+"However this is occasionally useful for testing."
+msgstr ""
+
+# type: =head2
+#: ../fish/guestfish-commands.pod:119
+msgid "sparse"
+msgstr ""
+
+# type: verbatim
+#: ../fish/guestfish-commands.pod:121
+#, no-wrap
+msgid ""
+" sparse filename size\n"
+"\n"
+msgstr ""
+
+# type: textblock
+#: ../fish/guestfish-commands.pod:123
+msgid ""
+"This creates an empty sparse file of the given size, and then adds so it can "
+"be further examined."
+msgstr ""
+
+# type: textblock
+#: ../fish/guestfish-commands.pod:126
+msgid ""
+"In all respects it works the same as the L</alloc> command, except that the "
+"image file is allocated sparsely, which means that disk blocks are not "
+"assigned to the file until they are needed.  Sparse disk files only use "
+"space when written to, but they are slower and there is a danger you could "
+"run out of real disk space during a write operation."
+msgstr ""
+
+# type: =head2
+#: ../fish/guestfish-commands.pod:136
+msgid "supported"
+msgstr ""
+
+# type: verbatim
+#: ../fish/guestfish-commands.pod:138
+#, no-wrap
+msgid ""
+" supported\n"
+"\n"
+msgstr ""
+
+# type: textblock
+#: ../fish/guestfish-commands.pod:140
+msgid ""
+"This command returns a list of the optional groups known to the daemon, and "
+"indicates which ones are supported by this build of the libguestfs "
+"appliance."
+msgstr ""
+
+# type: textblock
+#: ../fish/guestfish-commands.pod:144
+msgid "See also L<guestfs(3)/AVAILABILITY>."
+msgstr ""
+
+# type: =head2
+#: ../fish/guestfish-commands.pod:146
+msgid "time"
+msgstr ""
+
+# type: verbatim
+#: ../fish/guestfish-commands.pod:148
+#, no-wrap
+msgid ""
+" time command args...\n"
+"\n"
+msgstr ""
+
+# type: textblock
+#: ../fish/guestfish-commands.pod:150
+msgid ""
+"Run the command as usual, but print the elapsed time afterwards.  This can "
+"be useful for benchmarking operations."
 msgstr ""
 
 # type: textblock

@@ -26,7 +26,7 @@
 #include "fish.h"
 
 int
-do_time (const char *cmd, int argc, char *argv[])
+run_time (const char *cmd, int argc, char *argv[])
 {
   struct timeval start_t, end_t;
   int64_t start_us, end_us, elapsed_us;

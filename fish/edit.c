@@ -32,7 +32,7 @@
 /* guestfish edit command, suggested by Ján Ondrej, implemented by RWMJ */
 
 int
-do_edit (const char *cmd, int argc, char *argv[])
+run_edit (const char *cmd, int argc, char *argv[])
 {
   char filename[] = "/tmp/guestfishXXXXXX";
   char buf[256];

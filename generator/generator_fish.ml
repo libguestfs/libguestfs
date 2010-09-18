@@ -43,6 +43,9 @@ let generate_fish_cmds () =
       fun (_, _, _, flags, _, _, _) -> not (List.mem NotInFish flags)
     ) all_functions_sorted in
 
+  let all_functions_and_fish_commands_sorted =
+    List.sort action_compare (all_functions_sorted @ fish_commands) in
+
   pr "#include <config.h>\n";
   pr "\n";
   pr "#include <stdio.h>\n";
@@ -70,7 +73,7 @@ let generate_fish_cmds () =
       let name = replace_char name '_' '-' in
       pr "  printf (\"%%-20s %%s\\n\", \"%s\", _(\"%s\"));\n"
         name shortdesc
-  ) all_functions_sorted;
+  ) all_functions_and_fish_commands_sorted;
   pr "  printf (\"    %%s\\n\",";
   pr "          _(\"Use -h <cmd> / help <cmd> to show detailed help for a command.\"));\n";
   pr "}\n";
@@ -79,12 +82,41 @@ let generate_fish_cmds () =
   (* display_command function, which implements guestfish -h cmd *)
   pr "int display_command (const char *cmd)\n";
   pr "{\n";
+
   List.iter (
     fun (name, style, _, flags, _, shortdesc, longdesc) ->
       let name2 = replace_char name '_' '-' in
-      let alias =
-        try find_map (function FishAlias n -> Some n | _ -> None) flags
-        with Not_found -> name in
+      let aliases =
+        filter_map (function FishAlias n -> Some n | _ -> None) flags in
+      let describe_alias =
+        if aliases <> [] then
+          sprintf "\n\nYou can use %s as an alias for this command."
+            (String.concat " or " (List.map (fun s -> "'" ^ s ^ "'") aliases))
+        else "" in
+
+      pr "  if (";
+      pr "STRCASEEQ (cmd, \"%s\")" name;
+      if name <> name2 then
+        pr " || STRCASEEQ (cmd, \"%s\")" name2;
+      List.iter (
+        fun alias ->
+          pr " || STRCASEEQ (cmd, \"%s\")" alias
+      ) aliases;
+      pr ") {\n";
+      pr "    pod2text (\"%s\", _(\"%s\"), %S);\n"
+        name2 shortdesc
+        ("=head1 DESCRIPTION\n\n" ^
+         longdesc ^ describe_alias);
+      pr "    return 0;\n";
+      pr "  }\n";
+      pr "  else\n"
+  ) fish_commands;
+
+  List.iter (
+    fun (name, style, _, flags, _, shortdesc, longdesc) ->
+      let name2 = replace_char name '_' '-' in
+      let aliases =
+        filter_map (function FishAlias n -> Some n | _ -> None) flags in
       let longdesc = replace_str longdesc "C<guestfs_" "C<" in
       let synopsis =
         match snd style with
@@ -123,16 +155,19 @@ Guestfish will prompt for these separately."
           | Some txt -> "\n\n" ^ txt in
 
       let describe_alias =
-        if name <> alias then
-          sprintf "\n\nYou can use '%s' as an alias for this command." alias
+        if aliases <> [] then
+          sprintf "\n\nYou can use %s as an alias for this command."
+            (String.concat " or " (List.map (fun s -> "'" ^ s ^ "'") aliases))
         else "" in
 
       pr "  if (";
       pr "STRCASEEQ (cmd, \"%s\")" name;
       if name <> name2 then
         pr " || STRCASEEQ (cmd, \"%s\")" name2;
-      if name <> alias then
-        pr " || STRCASEEQ (cmd, \"%s\")" alias;
+      List.iter (
+        fun alias ->
+          pr " || STRCASEEQ (cmd, \"%s\")" alias
+      ) aliases;
       pr ") {\n";
       pr "    pod2text (\"%s\", _(\"%s\"), %S);\n"
         name2 shortdesc
@@ -143,6 +178,7 @@ Guestfish will prompt for these separately."
       pr "  }\n";
       pr "  else\n"
   ) all_functions;
+
   pr "    return display_builtin_command (cmd);\n";
   pr "}\n";
   pr "\n";
@@ -465,22 +501,25 @@ Guestfish will prompt for these separately."
   (* run_action function *)
   pr "int run_action (const char *cmd, int argc, char *argv[])\n";
   pr "{\n";
+
   List.iter (
     fun (name, _, _, flags, _, _, _) ->
       let name2 = replace_char name '_' '-' in
-      let alias =
-        try find_map (function FishAlias n -> Some n | _ -> None) flags
-        with Not_found -> name in
+      let aliases =
+        filter_map (function FishAlias n -> Some n | _ -> None) flags in
       pr "  if (";
       pr "STRCASEEQ (cmd, \"%s\")" name;
       if name <> name2 then
         pr " || STRCASEEQ (cmd, \"%s\")" name2;
-      if name <> alias then
-        pr " || STRCASEEQ (cmd, \"%s\")" alias;
+      List.iter (
+        fun alias ->
+          pr " || STRCASEEQ (cmd, \"%s\")" alias;
+      ) aliases;
       pr ")\n";
       pr "    return run_%s (cmd, argc, argv);\n" name;
       pr "  else\n";
-  ) all_functions;
+  ) all_functions_and_fish_commands_sorted;
+
   pr "    {\n";
   pr "      fprintf (stderr, _(\"%%s: unknown command\\n\"), cmd);\n";
   pr "      if (command_num == 1)\n";
@@ -526,12 +565,10 @@ static const char *const commands[] = {
     List.map (
       fun (name, _, _, flags, _, _, _) ->
         let name2 = replace_char name '_' '-' in
-        let alias =
-          try find_map (function FishAlias n -> Some n | _ -> None) flags
-          with Not_found -> name in
-
-        if name <> alias then [name2; alias] else [name2]
-    ) all_functions in
+        let aliases =
+          filter_map (function FishAlias n -> Some n | _ -> None) flags in
+        name2 :: aliases
+    ) (all_functions @ fish_commands) in
   let commands = List.flatten commands in
 
   List.iter (pr "  \"%s\",\n") commands;
@@ -611,15 +648,13 @@ and generate_fish_actions_pod () =
             "L</" ^ replace_char sub '_' '-' ^ ">"
         ) longdesc in
       let name = replace_char name '_' '-' in
-      let alias =
-        try find_map (function FishAlias n -> Some n | _ -> None) flags
-        with Not_found -> name in
+      let aliases =
+        filter_map (function FishAlias n -> Some n | _ -> None) flags in
 
-      pr "=head2 %s" name;
-      if name <> alias then
-        pr " | %s" alias;
-      pr "\n";
-      pr "\n";
+      List.iter (
+        fun name ->
+          pr "=head2 %s\n\n" name
+      ) (name :: aliases);
       pr " %s" name;
       List.iter (
         function
@@ -656,6 +691,21 @@ Guestfish will prompt for these separately.\n\n";
       | None -> ()
       | Some txt -> pr "%s\n\n" txt
   ) all_functions_sorted
+
+(* Generate documentation for guestfish-only commands. *)
+and generate_fish_commands_pod () =
+  List.iter (
+    fun (name, style, _, flags, _, _, longdesc) ->
+      let name = replace_char name '_' '-' in
+      let aliases =
+        filter_map (function FishAlias n -> Some n | _ -> None) flags in
+
+      List.iter (
+        fun name ->
+          pr "=head2 %s\n\n" name
+      ) (name :: aliases);
+      pr "%s\n\n" longdesc;
+  ) fish_commands
 
 and generate_fish_prep_options_h () =
   generate_header CStyle GPLv2plus;

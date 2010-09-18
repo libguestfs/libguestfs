@@ -5124,9 +5124,7 @@ let all_functions = non_daemon_functions @ daemon_functions
 (* In some places we want the functions to be displayed sorted
  * alphabetically, so this is useful:
  *)
-let all_functions_sorted =
-  List.sort (fun (n1,_,_,_,_,_,_) (n2,_,_,_,_,_,_) ->
-               compare n1 n2) all_functions
+let all_functions_sorted = List.sort action_compare all_functions
 
 (* This is used to generate the src/MAX_PROC_NR file which
  * contains the maximum procedure number, a surrogate for the
@@ -5137,3 +5135,158 @@ let max_proc_nr =
     fun (_, _, proc_nr, _, _, _, _) -> proc_nr
   ) daemon_functions in
   List.fold_left max 0 proc_nrs
+
+(* Non-API meta-commands available only in guestfish.
+ *
+ * Note (1): args/return value, proc_nr and tests fields are all
+ * meaningless.  The only fields which are actually used are the
+ * shortname, FishAlias flags, shortdesc and longdesc.
+ *
+ * Note (2): to refer to other commands, use L</shortname>.
+ *
+ * Note (3): keep this list sorted by shortname.
+ *)
+let fish_commands = [
+  ("alloc", (RErr,[]), -1, [FishAlias "allocate"], [],
+   "allocate and add a disk file",
+   " alloc filename size
+
+This creates an empty (zeroed) file of the given size, and then adds
+so it can be further examined.
+
+For more advanced image creation, see L<qemu-img(1)> utility.
+
+Size can be specified using standard suffixes, eg. C<1M>.
+
+To create a sparse file, use L</sparse> instead.  To create a
+prepared disk image, see L</PREPARED DISK IMAGES>.");
+
+  ("copy_in", (RErr,[]), -1, [], [],
+   "copy local files or directories into an image",
+   " copy-in local [local ...] /remotedir
+
+C<copy-in> copies local files or directories recursively into the disk
+image, placing them in the directory called C</remotedir> (which must
+exist).  This guestfish meta-command turns into a sequence of
+L</tar-in> and other commands as necessary.
+
+Multiple local files and directories can be specified, but the last
+parameter must always be a remote directory.  Wildcards cannot be
+used.");
+
+  ("copy_out", (RErr,[]), -1, [], [],
+   "copy remote files or directories out of an image",
+   " copy-out remote [remote ...] localdir
+
+C<copy-out> copies remote files or directories recursively out of the
+disk image, placing them on the host disk in a local directory called
+C<localdir> (which must exist).  This guestfish meta-command turns
+into a sequence of L</download>, L</tar-out> and other commands as
+necessary.
+
+Multiple remote files and directories can be specified, but the last
+parameter must always be a local directory.  To download to the
+current directory, use C<.> as in:
+
+ copy-out /home .
+
+Wildcards cannot be used in the ordinary command, but you can use
+them with the help of L</glob> like this:
+
+ glob copy-out /home/* .");
+
+  ("echo", (RErr,[]), -1, [], [],
+   "display a line of text",
+   " echo [params ...]
+
+This echos the parameters to the terminal.");
+
+  ("edit", (RErr,[]), -1, [FishAlias "vi"; FishAlias "emacs"], [],
+   "edit a file",
+   " edit filename
+
+This is used to edit a file.  It downloads the file, edits it
+locally using your editor, then uploads the result.
+
+The editor is C<$EDITOR>.  However if you use the alternate
+commands C<vi> or C<emacs> you will get those corresponding
+editors.");
+
+  ("glob", (RErr,[]), -1, [], [],
+   "expand wildcards in command",
+   " glob command args...
+
+Expand wildcards in any paths in the args list, and run C<command>
+repeatedly on each matching path.
+
+See L</WILDCARDS AND GLOBBING>.");
+
+  ("lcd", (RErr,[]), -1, [], [],
+   "change working directory",
+   " lcd directory
+
+Change the local directory, ie. the current directory of guestfish
+itself.
+
+Note that C<!cd> won't do what you might expect.");
+
+  ("man", (RErr,[]), -1, [FishAlias "manual"], [],
+   "open the manual",
+   "  man
+
+Opens the manual page for guestfish.");
+
+  ("more", (RErr,[]), -1, [FishAlias "less"], [],
+   "view a file",
+   " more filename
+
+ less filename
+
+This is used to view a file.
+
+The default viewer is C<$PAGER>.  However if you use the alternate
+command C<less> you will get the C<less> command specifically.");
+
+  ("reopen", (RErr,[]), -1, [], [],
+   "close and reopen libguestfs handle",
+   "  reopen
+
+Close and reopen the libguestfs handle.  It is not necessary to use
+this normally, because the handle is closed properly when guestfish
+exits.  However this is occasionally useful for testing.");
+
+  ("sparse", (RErr,[]), -1, [], [],
+   "create a sparse disk image and add",
+   " sparse filename size
+
+This creates an empty sparse file of the given size, and then adds
+so it can be further examined.
+
+In all respects it works the same as the L</alloc> command, except that
+the image file is allocated sparsely, which means that disk blocks are
+not assigned to the file until they are needed.  Sparse disk files
+only use space when written to, but they are slower and there is a
+danger you could run out of real disk space during a write operation.
+
+For more advanced image creation, see L<qemu-img(1)> utility.
+
+Size can be specified using standard suffixes, eg. C<1M>.");
+
+  ("supported", (RErr,[]), -1, [], [],
+   "list supported groups of commands",
+   " supported
+
+This command returns a list of the optional groups
+known to the daemon, and indicates which ones are
+supported by this build of the libguestfs appliance.
+
+See also L<guestfs(3)/AVAILABILITY>.");
+
+  ("time", (RErr,[]), -1, [], [],
+   "print elapsed time taken to run a command",
+   " time command args...
+
+Run the command as usual, but print the elapsed time afterwards.  This
+can be useful for benchmarking operations.");
+
+]

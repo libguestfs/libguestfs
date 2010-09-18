@@ -43,6 +43,7 @@ PODFILES = \
 	../src/guestfs-structs.pod \
 	../fish/guestfish.pod \
 	../fish/guestfish-actions.pod \
+	../fish/guestfish-commands.pod \
 	../test-tool/libguestfs-test-tool.pod \
 	../fuse/guestmount.pod \
 	../inspector/virt-inspector.pl \

@@ -1070,39 +1070,6 @@ issue_command (const char *cmd, char *argv[], const char *pipecmd)
     quit = 1;
     r = 0;
   }
-  else if (STRCASEEQ (cmd, "alloc") ||
-           STRCASEEQ (cmd, "allocate"))
-    r = do_alloc (cmd, argc, argv);
-  else if (STRCASEEQ (cmd, "copy-in") ||
-           STRCASEEQ (cmd, "copy_in"))
-    r = do_copy_in (cmd, argc, argv);
-  else if (STRCASEEQ (cmd, "copy-out") ||
-           STRCASEEQ (cmd, "copy_out"))
-    r = do_copy_out (cmd, argc, argv);
-  else if (STRCASEEQ (cmd, "echo"))
-    r = do_echo (cmd, argc, argv);
-  else if (STRCASEEQ (cmd, "edit") ||
-           STRCASEEQ (cmd, "vi") ||
-           STRCASEEQ (cmd, "emacs"))
-    r = do_edit (cmd, argc, argv);
-  else if (STRCASEEQ (cmd, "lcd"))
-    r = do_lcd (cmd, argc, argv);
-  else if (STRCASEEQ (cmd, "glob"))
-    r = do_glob (cmd, argc, argv);
-  else if (STRCASEEQ (cmd, "man") ||
-           STRCASEEQ (cmd, "manual"))
-    r = do_man (cmd, argc, argv);
-  else if (STRCASEEQ (cmd, "more") ||
-           STRCASEEQ (cmd, "less"))
-    r = do_more (cmd, argc, argv);
-  else if (STRCASEEQ (cmd, "reopen"))
-    r = do_reopen (cmd, argc, argv);
-  else if (STRCASEEQ (cmd, "sparse"))
-    r = do_sparse (cmd, argc, argv);
-  else if (STRCASEEQ (cmd, "supported"))
-    r = do_supported (cmd, argc, argv);
-  else if (STRCASEEQ (cmd, "time"))
-    r = do_time (cmd, argc, argv);
   else
     r = run_action (cmd, argc, argv);
 
@@ -1133,38 +1100,11 @@ issue_command (const char *cmd, char *argv[], const char *pipecmd)
 void
 list_builtin_commands (void)
 {
-  /* help, man and quit should appear at the top */
+  /* help and quit should appear at the top */
   printf ("%-20s %s\n",
           "help", _("display a list of commands or help on a command"));
   printf ("%-20s %s\n",
-          "man", _("read the manual"));
-  printf ("%-20s %s\n",
           "quit", _("quit guestfish"));
-
-  printf ("%-20s %s\n",
-          "alloc", _("allocate an image"));
-  printf ("%-20s %s\n",
-          "copy-in", _("copy files into an image"));
-  printf ("%-20s %s\n",
-          "copy-out", _("copy files out of an image"));
-  printf ("%-20s %s\n",
-          "echo", _("display a line of text"));
-  printf ("%-20s %s\n",
-          "edit", _("edit a file in the image"));
-  printf ("%-20s %s\n",
-          "lcd", _("local change directory"));
-  printf ("%-20s %s\n",
-          "glob", _("expand wildcards in command"));
-  printf ("%-20s %s\n",
-          "more", _("view a file in the pager"));
-  printf ("%-20s %s\n",
-          "reopen", _("close and reopen libguestfs handle"));
-  printf ("%-20s %s\n",
-          "sparse", _("allocate a sparse image file"));
-  printf ("%-20s %s\n",
-          "supported", _("list supported groups of commands"));
-  printf ("%-20s %s\n",
-          "time", _("measure time taken to run command"));
 
   /* actions are printed after this (see list_commands) */
 }
@@ -1174,106 +1114,10 @@ display_builtin_command (const char *cmd)
 {
   /* help for actions is auto-generated, see display_command */
 
-  if (STRCASEEQ (cmd, "alloc") ||
-      STRCASEEQ (cmd, "allocate")) {
-    printf (_("alloc - allocate an image\n"
-              "     alloc <filename> <size>\n"
-              "\n"
-              "    This creates an empty (zeroed) file of the given size,\n"
-              "    and then adds so it can be further examined.\n"
-              "\n"
-              "    For more advanced image creation, see qemu-img utility.\n"
-              "\n"
-              "    Size can be specified using standard suffixes, eg. '1M'.\n"
-              ));
-    return 0;
-  }
-  else if (STRCASEEQ (cmd, "copy-in") ||
-           STRCASEEQ (cmd, "copy_in")) {
-    printf (_("copy-in - copy files into an image\n"
-              "     copy-in <local> [<local> ...] <remotedir>\n"
-              "\n"
-              "    Copy local files or directories recursively into the\n"
-              "    image, placing them on a remote directory.\n"
-              ));
-    return 0;
-  }
-  else if (STRCASEEQ (cmd, "copy-out") ||
-           STRCASEEQ (cmd, "copy_out")) {
-    printf (_("copy-out - copy files out of an image\n"
-              "     copy-out <remote> [<remote> ...] <localdir>\n"
-              "\n"
-              "    Copy remote files or directories recursively out of the\n"
-              "    image, placing them in a local directory.\n"
-              ));
-    return 0;
-  }
-  else if (STRCASEEQ (cmd, "echo")) {
-    printf (_("echo - display a line of text\n"
-              "     echo [<params> ...]\n"
-              "\n"
-              "    This echos the parameters to the terminal.\n"));
-    return 0;
-  }
-  else if (STRCASEEQ (cmd, "edit") ||
-           STRCASEEQ (cmd, "vi") ||
-           STRCASEEQ (cmd, "emacs")) {
-    printf (_("edit - edit a file in the image\n"
-              "     edit <filename>\n"
-              "\n"
-              "    This is used to edit a file.\n"
-              "\n"
-              "    It is the equivalent of (and is implemented by)\n"
-              "    running \"cat\", editing locally, and then \"write\".\n"
-              "\n"
-              "    Normally it uses $EDITOR, but if you use the aliases\n"
-              "    \"vi\" or \"emacs\" you will get those editors.\n"));
-    return 0;
-  }
-  else if (STRCASEEQ (cmd, "lcd")) {
-    printf (_("lcd - local change directory\n"
-              "    lcd <directory>\n"
-              "\n"
-              "    Change guestfish's current directory. This command is\n"
-              "    useful if you want to download files to a particular\n"
-              "    place.\n"));
-    return 0;
-  }
-  else if (STRCASEEQ (cmd, "glob")) {
-    printf (_("glob - expand wildcards in command\n"
-              "    glob <command> [<args> ...]\n"
-              "\n"
-              "    Glob runs <command> with wildcards expanded in any\n"
-              "    command args.  Note that the command is run repeatedly\n"
-              "    once for each expanded argument.\n"));
-    return 0;
-  }
-  else if (STRCASEEQ (cmd, "man") ||
-           STRCASEEQ (cmd, "manual")) {
-    printf (_("man - read the manual\n"
-              "    man\n"
-              "\n"
-              "    Opens the manual page for guestfish.\n"));
-    return 0;
-  }
-  else if (STRCASEEQ (cmd, "help")) {
+  if (STRCASEEQ (cmd, "help")) {
     printf (_("help - display a list of commands or help on a command\n"
               "     help cmd\n"
               "     help\n"));
-    return 0;
-  }
-  else if (STRCASEEQ (cmd, "more") ||
-           STRCASEEQ (cmd, "less")) {
-    printf (_("more - view a file in the pager\n"
-              "     more <filename>\n"
-              "\n"
-              "    This is used to view a file in the pager.\n"
-              "\n"
-              "    It is the equivalent of (and is implemented by)\n"
-              "    running \"cat\" and using the pager.\n"
-              "\n"
-              "    Normally it uses $PAGER, but if you use the alias\n"
-              "    \"less\" then it always uses \"less\".\n"));
     return 0;
   }
   else if (STRCASEEQ (cmd, "quit") ||
@@ -1281,56 +1125,6 @@ display_builtin_command (const char *cmd)
            STRCASEEQ (cmd, "q")) {
     printf (_("quit - quit guestfish\n"
               "     quit\n"));
-    return 0;
-  }
-  else if (STRCASEEQ (cmd, "reopen")) {
-    printf (_("reopen - close and reopen the libguestfs handle\n"
-              "     reopen\n"
-              "\n"
-              "Close and reopen the libguestfs handle.  It is not necessary to use\n"
-              "this normally, because the handle is closed properly when guestfish\n"
-              "exits.  However this is occasionally useful for testing.\n"));
-    return 0;
-  }
-  else if (STRCASEEQ (cmd, "sparse")) {
-    printf (_("sparse - allocate a sparse image file\n"
-              "     sparse <filename> <size>\n"
-              "\n"
-              "    This creates an empty sparse file of the given size,\n"
-              "    and then adds so it can be further examined.\n"
-              "\n"
-              "    In all respects it works the same as the 'alloc'\n"
-              "    command, except that the image file is allocated\n"
-              "    sparsely, which means that disk blocks are not assigned\n"
-              "    to the file until they are needed.  Sparse disk files\n"
-              "    only use space when written to, but they are slower\n"
-              "    and there is a danger you could run out of real disk\n"
-              "    space during a write operation.\n"
-              "\n"
-              "    For more advanced image creation, see qemu-img utility.\n"
-              "\n"
-              "    Size can be specified using standard suffixes, eg. '1M'.\n"
-              ));
-    return 0;
-  }
-  else if (STRCASEEQ (cmd, "supported")) {
-    printf (_("supported - list supported groups of commands\n"
-              "     supported\n"
-              "\n"
-              "    This command returns a list of the optional groups\n"
-              "    known to the daemon, and indicates which ones are\n"
-              "    supported by this build of the libguestfs appliance.\n"
-              "\n"
-              "    See also guestfs(3) section AVAILABILITY.\n"
-              ));
-    return 0;
-  }
-  else if (STRCASEEQ (cmd, "time")) {
-    printf (_("time - measure time taken to run command\n"
-              "    time <command> [<args> ...]\n"
-              "\n"
-              "    This runs <command> as usual, and prints the elapsed\n"
-              "    time afterwards.\n"));
     return 0;
   }
   else {
