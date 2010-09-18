@@ -608,7 +608,7 @@ and generate_fish_actions_pod () =
               try Str.matched_group 1 s
               with Not_found ->
                 failwithf "error substituting C<guestfs_...> in longdesc of function %s" name in
-            "C<" ^ replace_char sub '_' '-' ^ ">"
+            "L</" ^ replace_char sub '_' '-' ^ ">"
         ) longdesc in
       let name = replace_char name '_' '-' in
       let alias =
