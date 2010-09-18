@@ -815,6 +815,12 @@ Used with the I<--remote> option to specify the remote guestfish
 process to control.  See section
 L</REMOTE CONTROL GUESTFISH OVER A SOCKET>.
 
+=item HEXEDITOR
+
+The L</hexedit> command uses C<$HEXEDITOR> as the external hex
+editor.  If not specified, the external L<hexedit(1)> program
+is used.
+
 =item HOME
 
 If compiled with GNU readline support, various files in the
@@ -932,7 +938,8 @@ L<virt-make-fs(1)>,
 L<virt-rescue(1)>,
 L<virt-resize(1)>,
 L<virt-tar(1)>,
-L<virt-win-reg(1)>.
+L<virt-win-reg(1)>,
+L<hexedit(1)>.
 
 =head1 AUTHORS
 

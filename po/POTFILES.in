@@ -78,6 +78,7 @@ fish/echo.c
 fish/edit.c
 fish/fish.c
 fish/glob.c
+fish/hexedit.c
 fish/inspect.c
 fish/lcd.c
 fish/man.c

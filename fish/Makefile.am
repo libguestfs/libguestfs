@@ -48,6 +48,7 @@ guestfish_SOURCES = \
 	fish.c \
 	fish.h \
 	glob.c \
+	hexedit.c \
 	inspect.c \
 	lcd.c \
 	man.c \

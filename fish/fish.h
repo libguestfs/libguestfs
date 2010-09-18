@@ -104,6 +104,9 @@ extern int run_echo (const char *cmd, int argc, char *argv[]);
 /* in edit.c */
 extern int run_edit (const char *cmd, int argc, char *argv[]);
 
+/* in hexedit.c */
+extern int run_hexedit (const char *cmd, int argc, char *argv[]);
+
 /* in inspect.c */
 extern void inspect_mount (void);
 extern void print_inspect_prompt (void);

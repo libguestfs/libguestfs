@@ -5270,6 +5270,42 @@ repeatedly on each matching path.
 
 See L</WILDCARDS AND GLOBBING>.");
 
+  ("hexedit", (RErr,[]), -1, [], [],
+   "edit with a hex editor",
+   " hexedit <filename|device>
+ hexedit <filename|device> <max>
+ hexedit <filename|device> <start> <max>
+
+Use hexedit (a hex editor) to edit all or part of a binary file
+or block device.
+
+This command works by downloading potentially the whole file or
+device, editing it locally, then uploading it.  If the file or
+device is large, you have to specify which part you wish to edit
+by using C<max> and/or C<start> C<max> parameters.
+C<start> and C<max> are specified in bytes, with the usual
+modifiers allowed such as C<1M> (1 megabyte).
+
+For example to edit the first few sectors of a disk you
+might do:
+
+ hexedit /dev/sda 1M
+
+which would allow you to edit anywhere within the first megabyte
+of the disk.
+
+To edit the superblock of an ext2 filesystem on C</dev/sda1>, do:
+
+ hexedit /dev/sda1 0x400 0x400
+
+(assuming the superblock is in the standard location).
+
+This command requires the external L<hexedit(1)> program.  You
+can specify another program to use by setting the C<HEXEDITOR>
+environment variable.
+
+See also L</hexdump>.");
+
   ("lcd", (RErr,[]), -1, [], [],
    "change working directory",
    " lcd directory
