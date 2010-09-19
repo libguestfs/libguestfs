@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 # virt-df
-# Copyright (C) 2009 Red Hat Inc.
+# Copyright (C) 2009-2010 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -128,6 +128,34 @@ my $inodes;
 
 Print inodes instead of blocks.
 
+=cut
+
+my $one_per_guest;
+
+=item B<--one-per-guest>
+
+Run one libguestfs appliance per guest.  Normally C<virt-df> will
+add the disks from several guests to a single libguestfs appliance.
+
+You might use this option in the following circumstances:
+
+=over 4
+
+=item *
+
+If you think an untrusted guest might actively try to exploit the
+libguestfs appliance kernel, then this prevents one guest from
+interfering with the stats printed for another guest.
+
+=item *
+
+If the kernel has a bug which stops it from accessing a
+filesystem in one guest (see for example RHBZ#635373) then
+this allows libguestfs to continue and report stats for further
+guests.
+
+=back
+
 =back
 
 =cut
@@ -138,6 +166,7 @@ GetOptions ("help|?" => \$help,
             "csv" => \$csv,
             "human-readable|human|h" => \$human,
             "inodes|i" => \$inodes,
+            "one-per-guest" => \$one_per_guest,
     ) or pod2usage (2);
 pod2usage (1) if $help;
 if ($version) {
@@ -149,6 +178,15 @@ if ($version) {
 
 # RHBZ#600977
 die __"virt-df: cannot use -h and --csv options together\n" if $human && $csv;
+
+# RHBZ#635373
+#
+# Limit the number of devices we will ever add to the appliance.  The
+# overall limit in current libguestfs is 25: 26 = number of letters in
+# the English alphabet since we are only confident that /dev/sd[a-z]
+# will work because of various limits, minus 1 because that may be
+# used by the ext2 initial filesystem.
+my $max_disks = 25;
 
 # Get the list of domains and block devices.
 #
@@ -236,66 +274,82 @@ sub get_disks_from_libvirt
 print_title ();
 
 # To minimize the number of times we have to launch the appliance,
-# shuffle as many domains together as we can, but not exceeding 26
-# disks per request.  (26 = # of letters in the English alphabet, and
-# we are only confident that /dev/sd[a-z] will work because of various
-# limits).
-my $n = 0;
-my @request = ();
-while (@domains) {
-    while (@domains) {
-        my $c = @{$domains[0]->{disks}};
-        last if $n + $c > 26;
-        push @request, shift @domains;
+# shuffle as many domains together as we can, but not exceeding
+# MAX_DISKS per request.  If --one-per-guest was requested then only
+# request disks from a single guest each time.
+if ($one_per_guest) {
+    foreach (@domains) {
+        my @request = ( $_ );
+        multi_df (@request);
     }
-    multi_df (@request);
+} else {
+    while (@domains) {
+        my $n = 0; # number of disks added so far
+        my @request = ();
+        while (@domains) {
+            my $c = @{$domains[0]->{disks}};
+            if ($c > $max_disks) {
+                warn __x("virt-df: ignoring {name}, it has too many disks ({c} > {max})",
+                         name => $domains[0]->{name},
+                         c => $c, max => $max_disks);
+                next;
+            }
+            last if $n + $c > $max_disks;
+            $n += $c;
+            push @request, shift (@domains);
+        }
+        multi_df (@request);
+    }
 }
 
 sub multi_df
 {
     local $_;
-    my $g = Sys::Guestfs->new ();
+    eval {
+        my $g = Sys::Guestfs->new ();
 
-    my ($d, $disk);
+        my ($d, $disk);
 
-    foreach $d (@_) {
-        foreach $disk (@{$d->{disks}}) {
-            $g->add_drive_ro ($disk);
-        }
-    }
-
-    $g->launch ();
-    my $has_lvm2 = feature_available ($g, "lvm2");
-
-    my @devices = $g->list_devices ();
-    my @partitions = $g->list_partitions ();
-
-    my $n = 0;
-    foreach $d (@_) {
-        my $name = $d->{name};
-        my $nr_disks = @{$d->{disks}};
-
-        # Filter LVM to only the devices applying to the original domain.
-        my @devs = @devices[$n .. $n+$nr_disks-1];
-        $g->lvm_set_filter (\@devs) if $has_lvm2;
-
-        # Find which whole devices (RHBZ#590167), partitions and LVs
-        # contain mountable filesystems.  Stat those which are
-        # mountable, and ignore the others.
-        foreach (@devs) {
-            try_df ($name, $g, $_, canonical_dev ($_, $n));
-        }
-        foreach (filter_partitions (\@devs, @partitions)) {
-            try_df ($name, $g, $_, canonical_dev ($_, $n));
-        }
-        if ($has_lvm2) {
-            foreach ($g->lvs ()) {
-                try_df ($name, $g, $_);
+        foreach $d (@_) {
+            foreach $disk (@{$d->{disks}}) {
+                $g->add_drive_ro ($disk);
             }
         }
 
-        $n += $nr_disks;
-    }
+        $g->launch ();
+        my $has_lvm2 = feature_available ($g, "lvm2");
+
+        my @devices = $g->list_devices ();
+        my @partitions = $g->list_partitions ();
+
+        my $n = 0;
+        foreach $d (@_) {
+            my $name = $d->{name};
+            my $nr_disks = @{$d->{disks}};
+
+            # Filter LVM to only the devices applying to the original domain.
+            my @devs = @devices[$n .. $n+$nr_disks-1];
+            $g->lvm_set_filter (\@devs) if $has_lvm2;
+
+            # Find which whole devices (RHBZ#590167), partitions and LVs
+            # contain mountable filesystems.  Stat those which are
+            # mountable, and ignore the others.
+            foreach (@devs) {
+                try_df ($name, $g, $_, canonical_dev ($_, $n));
+            }
+            foreach (filter_partitions (\@devs, @partitions)) {
+                try_df ($name, $g, $_, canonical_dev ($_, $n));
+            }
+            if ($has_lvm2) {
+                foreach ($g->lvs ()) {
+                    try_df ($name, $g, $_);
+                }
+            }
+
+            $n += $nr_disks;
+        }
+    };
+    warn if $@;
 }
 
 sub filter_partitions
