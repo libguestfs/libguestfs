@@ -5117,6 +5117,55 @@ removes the partition number, returning the device name
 The named partition must exist, for example as a string returned
 from C<guestfs_list_partitions>.");
 
+  ("upload_offset", (RErr, [FileIn "filename"; Dev_or_Path "remotefilename"; Int64 "offset"]), 273, [],
+   (let md5 = Digest.to_hex (Digest.file "COPYING.LIB") in
+    [InitBasicFS, Always, TestOutput (
+       [["upload_offset"; "../COPYING.LIB"; "/COPYING.LIB"; "0"];
+        ["checksum"; "md5"; "/COPYING.LIB"]], md5)]),
+   "upload a file from the local machine with offset",
+   "\
+Upload local file C<filename> to C<remotefilename> on the
+filesystem.
+
+C<remotefilename> is overwritten starting at the byte C<offset>
+specified.  The intention is to overwrite parts of existing
+files or devices, although if a non-existant file is specified
+then it is created with a \"hole\" before C<offset>.  The
+size of the data written is implicit in the size of the
+source C<filename>.
+
+Note that there is no limit on the amount of data that
+can be uploaded with this call, unlike with C<guestfs_pwrite>,
+and this call always writes the full amount unless an
+error occurs.
+
+See also C<guestfs_upload>, C<guestfs_pwrite>.");
+
+  ("download_offset", (RErr, [Dev_or_Path "remotefilename"; FileOut "filename"; Int64 "offset"; Int64 "size"]), 274, [Progress],
+   (let md5 = Digest.to_hex (Digest.file "COPYING.LIB") in
+    let offset = string_of_int 100 in
+    let size = string_of_int ((Unix.stat "COPYING.LIB").Unix.st_size - 100) in
+    [InitBasicFS, Always, TestOutput (
+       (* Pick a file from cwd which isn't likely to change. *)
+       [["upload"; "../COPYING.LIB"; "/COPYING.LIB"];
+        ["download_offset"; "/COPYING.LIB"; "testdownload.tmp"; offset; size];
+        ["upload_offset"; "testdownload.tmp"; "/COPYING.LIB"; offset];
+        ["checksum"; "md5"; "/COPYING.LIB"]], md5)]),
+   "download a file to the local machine with offset and size",
+   "\
+Download file C<remotefilename> and save it as C<filename>
+on the local machine.
+
+C<remotefilename> is read for C<size> bytes starting at C<offset>
+(this region must be within the file or device).
+
+Note that there is no limit on the amount of data that
+can be downloaded with this call, unlike with C<guestfs_pread>,
+and this call always reads the full amount unless an
+error occurs.
+
+See also C<guestfs_download>, C<guestfs_pread>.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

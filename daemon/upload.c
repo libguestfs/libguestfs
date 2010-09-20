@@ -39,15 +39,15 @@ write_cb (void *fd_ptr, const void *buf, size_t len)
 }
 
 /* Has one FileIn parameter. */
-int
-do_upload (const char *filename)
+static int
+upload (const char *filename, int flags, int64_t offset)
 {
   int err, fd, r, is_dev;
 
   is_dev = STRPREFIX (filename, "/dev/");
 
   if (!is_dev) CHROOT_IN;
-  fd = open (filename, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY, 0666);
+  fd = open (filename, flags, 0666);
   if (!is_dev) CHROOT_OUT;
   if (fd == -1) {
     err = errno;
@@ -55,6 +55,16 @@ do_upload (const char *filename)
     errno = err;
     if (r != -2) reply_with_perror ("%s", filename);
     return -1;
+  }
+
+  if (offset) {
+    if (lseek (fd, offset, SEEK_SET) == -1) {
+      err = errno;
+      r = cancel_receive ();
+      errno = err;
+      if (r != -2) reply_with_perror ("lseek: %s", filename);
+      return -1;
+    }
   }
 
   r = receive_file (write_cb, &fd);
@@ -83,6 +93,25 @@ do_upload (const char *filename)
   }
 
   return 0;
+}
+
+/* Has one FileIn parameter. */
+int
+do_upload (const char *filename)
+{
+  return upload (filename, O_WRONLY|O_CREAT|O_TRUNC|O_NOCTTY, 0);
+}
+
+/* Has one FileIn parameter. */
+int
+do_upload_offset (const char *filename, int64_t offset)
+{
+  if (offset < 0) {
+    reply_with_perror ("%s: offset in file is negative", filename);
+    return -1;
+  }
+
+  return upload (filename, O_WRONLY|O_CREAT|O_NOCTTY, offset);
 }
 
 /* Has one FileOut parameter. */
@@ -143,6 +172,86 @@ do_download (const char *filename)
     send_file_end (1);		/* Cancel. */
     close (fd);
     return -1;
+  }
+
+  if (close (fd) == -1) {
+    perror (filename);
+    send_file_end (1);		/* Cancel. */
+    return -1;
+  }
+
+  if (send_file_end (0))	/* Normal end of file. */
+    return -1;
+
+  return 0;
+}
+
+/* Has one FileOut parameter. */
+int
+do_download_offset (const char *filename, int64_t offset, int64_t size)
+{
+  int fd, r, is_dev;
+  char buf[GUESTFS_MAX_CHUNK_SIZE];
+
+  if (offset < 0) {
+    reply_with_perror ("%s: offset in file is negative", filename);
+    return -1;
+  }
+
+  if (size < 0) {
+    reply_with_perror ("%s: size is negative", filename);
+    return -1;
+  }
+  uint64_t usize = (uint64_t) size;
+
+  is_dev = STRPREFIX (filename, "/dev/");
+
+  if (!is_dev) CHROOT_IN;
+  fd = open (filename, O_RDONLY);
+  if (!is_dev) CHROOT_OUT;
+  if (fd == -1) {
+    reply_with_perror ("%s", filename);
+    return -1;
+  }
+
+  if (offset) {
+    if (lseek (fd, offset, SEEK_SET) == -1) {
+      reply_with_perror ("lseek: %s", filename);
+      return -1;
+    }
+  }
+
+  uint64_t total = usize, sent = 0;
+
+  /* Now we must send the reply message, before the file contents.  After
+   * this there is no opportunity in the protocol to send any error
+   * message back.  Instead we can only cancel the transfer.
+   */
+  reply (NULL, NULL);
+
+  while (usize > 0) {
+    r = read (fd, buf, usize > sizeof buf ? sizeof buf : usize);
+    if (r == -1) {
+      perror (filename);
+      send_file_end (1);        /* Cancel. */
+      close (fd);
+      return -1;
+    }
+
+    if (r == 0)
+      /* The documentation leaves this case undefined.  Currently we
+       * just read fewer bytes than requested.
+       */
+      break;
+
+    if (send_file_write (buf, r) < 0) {
+      close (fd);
+      return -1;
+    }
+
+    sent += r;
+    usize -= r;
+    notify_progress (sent, total);
   }
 
   if (close (fd) == -1) {
