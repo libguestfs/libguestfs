@@ -27,6 +27,7 @@
 #include <time.h>
 #include <sys/stat.h>
 #include <sys/select.h>
+#include <sys/wait.h>
 #include <utime.h>
 
 #ifdef HAVE_SYS_TYPES_H
@@ -49,6 +50,7 @@ static int contains_ordinary_appliance (guestfs_h *g, const char *path, void *da
 static char *calculate_supermin_checksum (guestfs_h *g, const char *supermin_path);
 static int check_for_cached_appliance (guestfs_h *g, const char *supermin_path, const char *checksum, char **kernel, char **initrd, char **appliance);
 static int build_supermin_appliance (guestfs_h *g, const char *supermin_path, const char *checksum, char **kernel, char **initrd, char **appliance);
+static int run_supermin_helper (guestfs_h *g, const char *supermin_path, const char *cachedir, size_t cdlen);
 
 /* Locate or build the appliance.
  *
@@ -332,36 +334,20 @@ build_supermin_appliance (guestfs_h *g,
   char cachedir[cdlen];
   snprintf (cachedir, cdlen, "%s/%s", tmpdir, checksum);
 
-  /* Don't worry about this failing, because the command below will
-   * fail if the directory doesn't exist.  Note the directory might
-   * already exist, eg. if a tmp cleaner has removed the existing
-   * appliance but not the directory itself.
+  /* Don't worry about this failing, because the
+   * febootstrap-supermin-helper command will fail if the directory
+   * doesn't exist.  Note the directory might already exist, eg. if a
+   * tmp cleaner has removed the existing appliance but not the
+   * directory itself.
    */
   (void) mkdir (cachedir, 0755);
 
-  /* Set a sensible umask in the subprocess, so kernel and initrd
-   * output files are world-readable (RHBZ#610880).
-   */
-  size_t cmdlen = 2 * strlen (supermin_path) + 3 * (cdlen + 16) + 256;
-  char cmd[cmdlen];
-  snprintf (cmd, cmdlen,
-            "umask 0022; "
-            "febootstrap-supermin-helper%s "
-            "-f ext2 "
-            "-k '%s/kmod.whitelist' "
-            "'%s/supermin.d' "
-            host_cpu " "
-            "%s/kernel %s/initrd %s/root",
-            g->verbose ? " --verbose" : "",
-            supermin_path, supermin_path,
-            cachedir, cachedir, cachedir);
   if (g->verbose)
-    guestfs___print_timestamped_message (g, "%s", cmd);
-  int r = system (cmd);
-  if (r == -1 || WEXITSTATUS (r) != 0) {
-    error (g, _("external command failed: %s"), cmd);
+    guestfs___print_timestamped_message (g, "run febootstrap-supermin-helper");
+
+  int r = run_supermin_helper (g, supermin_path, cachedir, cdlen);
+  if (r == -1)
     return -1;
-  }
 
   if (g->verbose)
     guestfs___print_timestamped_message (g, "finished building supermin appliance");
@@ -374,6 +360,103 @@ build_supermin_appliance (guestfs_h *g,
   sprintf (*appliance, "%s/root", cachedir);
 
   return 0;
+}
+
+/* Run febootstrap-supermin-helper and tell it to generate the
+ * appliance.  Note that we have to do an explicit fork/exec here.
+ * 'system' goes via the shell, and on systems that have bash, bash
+ * has a misfeature where it resets the euid to uid which breaks
+ * virt-v2v.  'posix_spawn' was also considered but that doesn't allow
+ * us to reset the umask.
+ */
+static int
+run_supermin_helper (guestfs_h *g, const char *supermin_path,
+                     const char *cachedir, size_t cdlen)
+{
+  pid_t pid = fork ();
+  if (pid == -1) {
+    perrorf (g, "fork");
+    return -1;
+  }
+
+  if (pid > 0) {                /* Parent. */
+    int status;
+    if (waitpid (pid, &status, 0) == -1) {
+      perrorf (g, "waitpid");
+      return -1;
+    }
+    if (!WIFEXITED (status) || WEXITSTATUS (status) != 0) {
+      error (g, _("external command failed, see earlier error messages"));
+      return -1;
+    }
+    return 0;
+  }
+
+  /* Child. */
+
+  /* Set a sensible umask in the subprocess, so kernel and initrd
+   * output files are world-readable (RHBZ#610880).
+   */
+  umask (0022);
+
+  /* Set uid/gid in the child.  This is a workaround for a misfeature
+   * in bash which breaks virt-v2v - see the comment at the top of
+   * this function.
+   */
+  if (getuid () == 0) {
+    int egid = getegid ();
+    int euid = geteuid ();
+
+    if (egid != 0 || euid != 0) {
+      if (seteuid (0) == -1) {
+        perror ("seteuid");
+        _exit (EXIT_FAILURE);
+      }
+
+      if (setgid (egid) == -1) {
+        perror ("setgid");
+        _exit (EXIT_FAILURE);
+      }
+
+      if (setuid (euid) == -1) {
+        perror ("setuid");
+        _exit (EXIT_FAILURE);
+      }
+    }
+  }
+
+  size_t pathlen = strlen (supermin_path);
+
+  const char *argv[30];
+  size_t i = 0;
+
+  argv[i++] = "febootstrap-supermin-helper";
+  if (g->verbose)
+    argv[i++] = "--verbose";
+  argv[i++] = "-f";
+  argv[i++] = "ext2";
+  argv[i++] = "-k";
+  char whitelist[pathlen + 32];
+  snprintf (whitelist, pathlen + 32, "%s/kmod.whitelist", supermin_path);
+  argv[i++] = whitelist;
+  char supermin_d[pathlen + 32];
+  snprintf (supermin_d, pathlen + 32, "%s/supermin.d", supermin_path);
+  argv[i++] = supermin_d;
+  argv[i++] = host_cpu;
+  char kernel[cdlen + 32];
+  snprintf (kernel, cdlen + 32, "%s/kernel", cachedir);
+  argv[i++] = kernel;
+  char initrd[cdlen + 32];
+  snprintf (initrd, cdlen + 32, "%s/initrd", cachedir);
+  argv[i++] = initrd;
+  char root[cdlen + 32];
+  snprintf (root, cdlen + 32, "%s/root", cachedir);
+  argv[i++] = root;
+  argv[i++] = NULL;
+
+  execvp ("febootstrap-supermin-helper", (char * const *) argv);
+  perror ("execvp");
+  _exit (EXIT_FAILURE);
 }
 
 /* Search elements of g->path, returning the first path element which
