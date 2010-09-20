@@ -376,3 +376,9 @@ would make more sense to just use libblkid for this.
 
 There are some places where we call out to the 'blkid' program.  This
 might be replaced by direct use of the library (if this is easier).
+
+Remove repo from appliance name
+-------------------------------
+
+There's no need to have the appliance name contain the repository name
+(ie initramfs.x86_64.img instead of initramfs.fedora-13.x86_64.img).
