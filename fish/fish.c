@@ -1436,6 +1436,7 @@ cleanup_readline (void)
 #else
     (void) write_history (histfile);
 #endif
+    clear_history ();
   }
 #endif
 }
