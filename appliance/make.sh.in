@@ -168,10 +168,6 @@ __EOF__
 
   ls -lh $koutput
 
-  # Now directly run the update script to copy/update the daemon in the
-  # initramfs.
-  cd appliance && bash update.sh
-
 elif [ "@DIST@" = "DEBIAN" ]; then
   cd @top_builddir@/appliance
   debirf make -n debian

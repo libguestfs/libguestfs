@@ -53,7 +53,7 @@ VMLINUZ = vmlinuz.$(REPO).$(host_cpu)
 # This is for building the normal appliance:
 $(INITRAMFSIMG) $(VMLINUZ): $(top_builddir)/initramfs/fakeroot.log
 
-$(top_builddir)/initramfs/fakeroot.log: make.sh kmod.whitelist packagelist $(top_builddir)/daemon/guestfsd
+$(top_builddir)/initramfs/fakeroot.log: make.sh kmod.whitelist packagelist
 	mv $(INITRAMFSIMG) $(INITRAMFSIMG).bak 2>/dev/null; :
 	mv $(VMLINUZ) $(VMLINUZ).bak 2>/dev/null; :
 	if ! bash make.sh; then rm -f $@; exit 1; fi
