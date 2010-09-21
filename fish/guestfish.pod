@@ -162,6 +162,13 @@ able to hit the tab key to complete paths on the guest filesystem, but
 this causes extra "hidden" guestfs calls to be made, so this option is
 here to allow this feature to be disabled.
 
+=item B<--echo-keys>
+
+When prompting for keys and passphrases, guestfish normally turns
+echoing off so you cannot see what you are typing.  If you are not
+worried about Tempest attacks and there is no one else in the room
+you can specify this flag to see what you are typing.
+
 =item B<-f file> | B<--file file>
 
 Read commands from C<file>.  To write pure guestfish

@@ -97,6 +97,7 @@ int remote_control = 0;
 int exit_on_error = 1;
 int command_num = 0;
 int keys_from_stdin = 0;
+int echo_keys = 0;
 const char *libvirt_uri = NULL;
 int inspector = 0;
 int utf8_mode = 0;
@@ -132,6 +133,7 @@ usage (int status)
              "  -c|--connect uri     Specify libvirt URI for -d option\n"
              "  -d|--domain guest    Add disks from libvirt guest\n"
              "  -D|--no-dest-paths   Don't tab-complete paths from guest fs\n"
+             "  --echo-keys          Don't turn off echo for passphrases\n"
              "  -f|--file file       Read commands from file\n"
              "  -i|--inspector       Automatically mount filesystems\n"
              "  --keys-from-stdin    Read passphrases from stdin\n"
@@ -177,6 +179,7 @@ main (int argc, char *argv[])
     { "cmd-help", 2, 0, 'h' },
     { "connect", 1, 0, 'c' },
     { "domain", 1, 0, 'd' },
+    { "echo-keys", 0, 0, 0 },
     { "file", 1, 0, 'f' },
     { "help", 0, 0, HELP_OPTION },
     { "inspector", 0, 0, 'i' },
@@ -277,6 +280,8 @@ main (int argc, char *argv[])
         override_progress_bars = 1;
       } else if (STREQ (long_options[option_index].name, "no-progress-bars")) {
         override_progress_bars = 0;
+      } else if (STREQ (long_options[option_index].name, "echo-keys")) {
+        echo_keys = 1;
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
                  program_name, long_options[option_index].name, option_index);
@@ -1638,15 +1643,17 @@ read_key (const char *param)
   if (tty) {
     fprintf (outfp, _("Enter key or passphrase (\"%s\"): "), param);
 
-    if (tcgetattr (fileno (infp), &orig) == -1) {
-      perror ("tcgetattr");
-      goto error;
-    }
-    memcpy (&temp, &orig, sizeof temp);
-    temp.c_lflag &= ~ECHO;
+    if (!echo_keys) {
+      if (tcgetattr (fileno (infp), &orig) == -1) {
+        perror ("tcgetattr");
+        goto error;
+      }
+      memcpy (&temp, &orig, sizeof temp);
+      temp.c_lflag &= ~ECHO;
 
-    tcsetattr (fileno (infp), TCSAFLUSH, &temp);
-    tcset = 1;
+      tcsetattr (fileno (infp), TCSAFLUSH, &temp);
+      tcset = 1;
+    }
   }
 
   size_t n = 0;
