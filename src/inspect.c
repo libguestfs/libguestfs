@@ -57,6 +57,8 @@ static pcre *re_xdev;
 static pcre *re_windows_version;
 
 static void compile_regexps (void) __attribute__((constructor));
+static void free_regexps (void) __attribute__((destructor));
+
 static void
 compile_regexps (void)
 {
@@ -86,6 +88,22 @@ compile_regexps (void)
   COMPILE (re_aug_seq, "/\\d+$", 0);
   COMPILE (re_xdev, "^/dev/(?:h|s|v|xv)d([a-z]\\d*)$", 0);
   COMPILE (re_windows_version, "^(\\d+)\\.(\\d+)", 0);
+}
+
+static void
+free_regexps (void)
+{
+  pcre_free (re_file_elf);
+  pcre_free (re_file_win64);
+  pcre_free (re_elf_ppc64);
+  pcre_free (re_fedora);
+  pcre_free (re_rhel_old);
+  pcre_free (re_rhel);
+  pcre_free (re_rhel_no_minor);
+  pcre_free (re_debian);
+  pcre_free (re_aug_seq);
+  pcre_free (re_xdev);
+  pcre_free (re_windows_version);
 }
 
 /* Match a regular expression which contains no captures.  Returns
