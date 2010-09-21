@@ -511,6 +511,8 @@ guestfs__launch (guestfs_h *g)
   kernel = NULL;
   free (initrd);
   initrd = NULL;
+  free (appliance);
+  appliance = NULL;
 
   /* Fork the recovery process off which will kill qemu if the parent
    * process fails to do so (eg. if the parent segfaults).
