@@ -73,6 +73,8 @@ static void set_up_terminal (void);
 static char add_drives (struct drv *drv, char next_drive);
 static void prepare_drives (struct drv *drv);
 static void mount_mps (struct mp *mp);
+static void free_drives (struct drv *drv);
+static void free_mps (struct mp *mp);
 static int launch (void);
 static void interactive (void);
 static void shell_script (void);
@@ -485,6 +487,10 @@ main (int argc, char *argv[])
     mount_mps (mps);
   }
 
+  /* Free up data structures, no longer needed after this point. */
+  free_drives (drvs);
+  free_mps (mps);
+
   /* Remote control? */
   if (remote_control_listen && remote_control) {
     fprintf (stderr,
@@ -686,6 +692,38 @@ prepare_drives (struct drv *drv)
     if (drv->type == drv_N)
       prepare_drive (drv->N.filename, drv->N.data, drv->N.device);
   }
+}
+
+static void
+free_drives (struct drv *drv)
+{
+  if (!drv) return;
+  free_drives (drv->next);
+
+  switch (drv->type) {
+  case drv_a: free (drv->a.filename); break;
+  case drv_d: free (drv->d.guest); break;
+  case drv_N:
+    free (drv->N.filename);
+    free (drv->N.device);
+    free_prep_data (drv->N.data);
+    break;
+  default: ;                    /* keep GCC happy */
+  }
+  free (drv);
+}
+
+static void
+free_mps (struct mp *mp)
+{
+  if (!mp) return;
+  free_mps (mp->next);
+
+  /* The drive and mountpoint fields are not allocated
+   * from the heap, so we should not free them here.
+   */
+
+  free (mp);
 }
 
 static int

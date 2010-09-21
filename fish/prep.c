@@ -116,7 +116,7 @@ Use 'guestfish -N help' to list possible values for the -N parameter.\n"),
   }
 
   for (i = 0; i < data->prep->nr_params; ++i)
-    data->params[i] = data->prep->params[i].pdefault;
+    data->params[i] = bad_cast (data->prep->params[i].pdefault);
 
   /* Parse the optional parameters. */
   const char *p = type_string + len;
@@ -166,4 +166,16 @@ prep_error (prep_data *data, const char *filename, const char *fs, ...)
   fprintf (stderr, "\n");
 
   exit (EXIT_FAILURE);
+}
+
+void
+free_prep_data (prep_data *data)
+{
+  size_t i;
+
+  for (i = 0; i < data->prep->nr_params; ++i)
+    if (data->params[i] != data->prep->params[i].pdefault)
+      free (data->params[i]);
+  free (data->params);
+  free (data);
 }

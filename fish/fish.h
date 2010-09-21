@@ -124,7 +124,7 @@ extern int run_more (const char *cmd, int argc, char *argv[]);
 struct prep_data {
   const struct prep *prep;
   const char *orig_type_string;
-  const char **params;
+  char **params;
 };
 typedef struct prep_data prep_data;
 extern void list_prepared_drives (void);
@@ -133,6 +133,7 @@ extern prep_data *create_prepared_file (const char *type_string,
 extern void prepare_drive (const char *filename, prep_data *data,
                            const char *device);
 extern void prep_error (prep_data *data, const char *filename, const char *fs, ...) __attribute__((noreturn, format (printf,3,4)));
+extern void free_prep_data (prep_data *data);
 
 /* in prep_lv.c */
 extern int vg_lv_parse (const char *device, char **vg, char **lv);
