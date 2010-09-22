@@ -105,6 +105,7 @@ if [ "@DIST@" = "REDHAT" ]; then
     /usr/sbin/groupmems \
     /sbin/unix_update \
     /usr/sbin/tcpd \
+    /usr/share/dbus-1/services/org.selinux.Restorecond.service \
     /lib/dbus-1/dbus-daemon-launch-helper \
     /lib64/dbus-1/dbus-daemon-launch-helper \
     /etc/passwd- \
