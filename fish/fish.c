@@ -701,8 +701,8 @@ free_drives (struct drv *drv)
   free_drives (drv->next);
 
   switch (drv->type) {
-  case drv_a: free (drv->a.filename); break;
-  case drv_d: free (drv->d.guest); break;
+  case drv_a: /* a.filename is optarg, don't free it */ break;
+  case drv_d: /* d.filename is optarg, don't free it */ break;
   case drv_N:
     free (drv->N.filename);
     free (drv->N.device);
