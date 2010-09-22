@@ -46,7 +46,8 @@ cat > test.xml <<EOF
 </node>
 EOF
 
-guestfish -c "test://$cwd/test.xml" --ro -d guest -x </dev/null >test.out 2>&1
+../fish/guestfish -c "test://$cwd/test.xml" --ro -d guest -x \
+  </dev/null >test.out 2>&1
 grep -sq '^add_drive_ro.*test.img' test.out
 
 rm -f test.img test.xml test.out

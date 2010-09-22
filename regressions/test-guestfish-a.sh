@@ -23,6 +23,6 @@ set -e
 rm -f test.img
 
 truncate -s 10M test.img
-guestfish -a test.img </dev/null
+../fish/guestfish -a test.img </dev/null
 
 rm -f test.img
