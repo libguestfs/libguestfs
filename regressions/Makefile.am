@@ -36,6 +36,8 @@ TESTS = \
 	test-cancellation-upload-daemoncancels.sh \
 	test-copy.sh \
 	test-find0.sh \
+	test-guestfish-a.sh \
+	test-guestfish-d.sh \
 	test-luks.sh \
 	test-lvm-filtering.sh \
 	test-lvm-mapping.pl \
