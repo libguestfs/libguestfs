@@ -91,7 +91,19 @@ sfdisk (const char *device, int n, int cyls, int heads, int sectors,
 
   udev_settle ();
 
-  return 0;
+  /* sfdisk sometimes fails on fast machines with:
+   *
+   * Re-reading the partition table ...
+   * BLKRRPART: Device or resource busy
+   * The command to re-read the partition table failed.
+   * Run partprobe(8), kpartx(8) or reboot your system now,
+   * before using mkfs
+   *
+   * Unclear if this is a bug in sfdisk or the kernel or some
+   * other component.  In any case, reread the partition table
+   * unconditionally here.
+   */
+  return do_blockdev_rereadpt (device);
 }
 
 int
