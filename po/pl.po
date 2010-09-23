@@ -7,7 +7,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2010-09-22 21:43+0100\n"
-"PO-Revision-Date: 2010-08-23 19:13+0200\n"
+"PO-Revision-Date: 2010-09-23 15:40+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <trans-pl@lists.fedoraproject.org>\n"
 "Language: pl\n"
@@ -65,9 +65,8 @@ msgid "add a drive specifying the QEMU block emulation to use"
 msgstr "dodaje napęd określając używaną emulację bloku QEMU"
 
 #: fish/cmds.c:48 fish/cmds.c:385
-#, fuzzy
 msgid "allocate and add a disk file"
-msgstr "przydziela plik rzadkiego obrazu"
+msgstr "przydziela i dodaje plik dysku"
 
 #: fish/cmds.c:49 fish/cmds.c:1885
 msgid "clear Augeas path"
@@ -223,14 +222,12 @@ msgid "add qemu parameters"
 msgstr "dodaje parametry QEMU"
 
 #: fish/cmds.c:87 fish/cmds.c:390
-#, fuzzy
 msgid "copy local files or directories into an image"
-msgstr "wczytuje pliki do drzewa"
+msgstr "kopiuje lokalne pliki lub katalogi do obrazu"
 
 #: fish/cmds.c:88 fish/cmds.c:395
-#, fuzzy
 msgid "copy remote files or directories out of an image"
-msgstr "wczytuje pliki do drzewa"
+msgstr "kopiuje zdalne pliki lub katalogi z obrazu"
 
 #: fish/cmds.c:89 fish/cmds.c:1825
 msgid "copy size bytes from source to destination using dd"
@@ -274,9 +271,8 @@ msgid "download a file to the local machine"
 msgstr "pobiera plik do lokalnej maszyny"
 
 #: fish/cmds.c:99 fish/cmds.c:2060
-#, fuzzy
 msgid "download a file to the local machine with offset and size"
-msgstr "pobiera plik do lokalnej maszyny"
+msgstr "pobiera plik do lokalnej maszyny z wyrównaniem i rozmiarem"
 
 #: fish/cmds.c:100 fish/cmds.c:1140
 msgid "drop kernel page cache, dentries and inodes"
@@ -299,9 +295,8 @@ msgid "echo arguments back to the client"
 msgstr "zwraca parametry z powrotem do klienta"
 
 #: fish/cmds.c:105 fish/cmds.c:405
-#, fuzzy
 msgid "edit a file"
-msgstr "odczytuje plik"
+msgstr "modyfikuje plik"
 
 #: fish/cmds.c:106 fish/cmds.c:107 fish/cmds.c:112 fish/cmds.c:113
 #: fish/cmds.c:144 fish/cmds.c:145 fish/cmds.c:369 fish/cmds.c:370
@@ -390,9 +385,8 @@ msgid "get memory allocated to the qemu subprocess"
 msgstr "uzyskuje pamięć przydzieloną do podprocesów QEMU"
 
 #: fish/cmds.c:130 fish/cmds.c:685
-#, fuzzy
 msgid "get enable network flag"
-msgstr "uzyskuje flagę włączenia SELinuksa"
+msgstr "uzyskuje flagę włączenia sieci"
 
 #: fish/cmds.c:131 fish/cmds.c:500
 msgid "get the search path"
@@ -464,7 +458,7 @@ msgstr "zrzuca plik w formacie szesnastkowym"
 
 #: fish/cmds.c:150 fish/cmds.c:415
 msgid "edit with a hex editor"
-msgstr ""
+msgstr "modyfikuje za pomocą edytora szesnastkowego"
 
 #: fish/cmds.c:151 fish/cmds.c:1795
 msgid "list the contents of a single file in an initrd"
@@ -535,36 +529,32 @@ msgid "inspect disk and return list of operating systems found"
 msgstr "bada dysk i zwraca listę odnalezionych systemów operacyjnych"
 
 #: fish/cmds.c:168 fish/cmds.c:2030
-#, fuzzy
 msgid "test if block device"
-msgstr "wyświetla listę urządzeń blokowych"
+msgstr "testuje, czy jest urządzeniem blokowym"
 
 #: fish/cmds.c:169 fish/cmds.c:550
 msgid "is busy processing a command"
 msgstr "jest zajęte przetwarzaniem polecenia"
 
 #: fish/cmds.c:170 fish/cmds.c:2025
-#, fuzzy
 msgid "test if character device"
-msgstr "tworzy urządzenia blokowe, znakowe lub FIFO"
+msgstr "testuje, czy jest urządzeniem znakowym"
 
 #: fish/cmds.c:171 fish/cmds.c:540
 msgid "is in configuration state"
 msgstr "jest w stanie konfiguracji"
 
 #: fish/cmds.c:172 fish/cmds.c:880
-#, fuzzy
 msgid "test if a directory"
-msgstr "tworzy katalog"
+msgstr "testuje, czy jest katalogiem"
 
 #: fish/cmds.c:173 fish/cmds.c:2035
-#, fuzzy
 msgid "test if FIFO (named pipe)"
-msgstr "tworzy FIFO (nazwany potok)"
+msgstr "testuje, czy jest FIFO (nazwanym potokiem)"
 
 #: fish/cmds.c:174 fish/cmds.c:875
 msgid "test if a regular file"
-msgstr ""
+msgstr "testuje, czy jest zwykłym plikiem"
 
 #: fish/cmds.c:175 fish/cmds.c:545
 msgid "is launching subprocess"
@@ -579,14 +569,12 @@ msgid "is ready to accept commands"
 msgstr "jest gotowe na akceptowanie poleceń"
 
 #: fish/cmds.c:178 fish/cmds.c:2045
-#, fuzzy
 msgid "test if socket"
-msgstr "zapisuje do gniazda demona"
+msgstr "testuje, czy jest gniazdem"
 
 #: fish/cmds.c:179 fish/cmds.c:2040
-#, fuzzy
 msgid "test if symbolic link"
-msgstr "tworzy dowiązanie symboliczne"
+msgstr "testuje, czy jest dowiązaniem symbolicznym"
 
 #: fish/cmds.c:180 fish/cmds.c:460
 msgid "kill the qemu subprocess"
@@ -597,18 +585,16 @@ msgid "launch the qemu subprocess"
 msgstr "uruchamia podproces QEMU"
 
 #: fish/cmds.c:182 fish/cmds.c:420
-#, fuzzy
 msgid "change working directory"
-msgstr "zmienia lokalny katalog"
+msgstr "zmienia katalog roboczy"
 
 #: fish/cmds.c:185 fish/cmds.c:725
 msgid "list the block devices"
 msgstr "wyświetla listę urządzeń blokowych"
 
 #: fish/cmds.c:186 fish/cmds.c:690
-#, fuzzy
 msgid "list filesystems"
-msgstr "  Systemy plików:\n"
+msgstr "wyświetla listę systemów plików"
 
 #: fish/cmds.c:187 fish/cmds.c:730
 msgid "list the partitions"
@@ -718,9 +704,8 @@ msgid "lgetxattr on multiple files"
 msgstr "wykonuje polecenie lgetxattr na wielu plikach"
 
 #: fish/cmds.c:217 fish/cmds.c:425
-#, fuzzy
 msgid "open the manual"
-msgstr "wyświetla podręcznik"
+msgstr "otwiera podręcznik"
 
 #: fish/cmds.c:218 fish/cmds.c:850
 msgid "create a directory"
@@ -804,9 +789,8 @@ msgid "load a kernel module"
 msgstr "wczytuje moduł jądra"
 
 #: fish/cmds.c:240 fish/cmds.c:430
-#, fuzzy
 msgid "view a file"
-msgstr "przenosi plik"
+msgstr "wyświetla plik"
 
 #: fish/cmds.c:241 fish/cmds.c:695
 msgid "mount a guest disk at a position in the filesystem"
@@ -899,9 +883,8 @@ msgid "set partition name"
 msgstr "ustawia nazwę partycji"
 
 #: fish/cmds.c:263 fish/cmds.c:2050
-#, fuzzy
 msgid "convert partition name to device name"
-msgstr "tworzy partycje na urządzeniu blokowym"
+msgstr "konwertuje nazwę partycji na nazwę urządzenia"
 
 #: fish/cmds.c:264 fish/cmds.c:1150
 msgid "ping the guest daemon"
@@ -1030,7 +1013,7 @@ msgstr "ustawia pamięć przydzieloną podprocesowi QEMU"
 
 #: fish/cmds.c:297 fish/cmds.c:680
 msgid "set enable network flag"
-msgstr ""
+msgstr "ustawia flagę włączenia sieci"
 
 #: fish/cmds.c:298 fish/cmds.c:495
 msgid "set the search path"
@@ -1094,9 +1077,8 @@ msgid "sleep for some seconds"
 msgstr "usypia na kilka sekund"
 
 #: fish/cmds.c:315 fish/cmds.c:440
-#, fuzzy
 msgid "create a sparse disk image and add"
-msgstr "przydziela plik rzadkiego obrazu"
+msgstr "tworzy rzadki obraz dysku i dodaje go"
 
 #: fish/cmds.c:316 fish/cmds.c:950
 msgid "get file information"
@@ -1175,9 +1157,8 @@ msgid "pack directory into compressed tarball"
 msgstr "pakuje katalog do skompresowanego archiwum tar"
 
 #: fish/cmds.c:336 fish/cmds.c:450
-#, fuzzy
 msgid "print elapsed time taken to run a command"
-msgstr "mierzy czas wykonania polecenia"
+msgstr "wyświetla czas wykonania polecenia"
 
 #: fish/cmds.c:337 fish/cmds.c:705
 msgid "update file timestamps or create a new file"
@@ -1212,9 +1193,8 @@ msgid "upload a file from the local machine"
 msgstr "wysyła plik z lokalnej maszyny"
 
 #: fish/cmds.c:347 fish/cmds.c:2055
-#, fuzzy
 msgid "upload a file from the local machine with offset"
-msgstr "wysyła plik z lokalnej maszyny"
+msgstr "wysyła plik z lokalnej maszyny z wyrównaniem"
 
 #: fish/cmds.c:348 fish/cmds.c:1695
 msgid "set timestamp of a file with nanosecond precision"
@@ -1547,16 +1527,19 @@ msgstr "%s: nieznane polecenie\n"
 msgid ""
 "use 'copy-in <local> [<local>...] <remotedir>' to copy files into the image\n"
 msgstr ""
+"należy użyć \"copy-in <lokalny> [<lokalny>...] <zdalny_katalog>\", aby "
+"skopiować pliki do obrazu\n"
 
 #: fish/copy.c:53 fish/copy.c:194
-#, fuzzy, c-format
+#, c-format
 msgid "copy-in: target '%s' is not a directory\n"
-msgstr "wyświetla listę plików w katalogu"
+msgstr "copy-in: cel \"%s\" nie jest katalogiem\n"
 
 #: fish/copy.c:138
 #, c-format
 msgid "error: argument is zero length or longer than maximum permitted\n"
 msgstr ""
+"błąd: parametr jest zerowej długości lub dłuższy niż dozwolone maksimum\n"
 
 #: fish/copy.c:183
 #, c-format
@@ -1564,11 +1547,13 @@ msgid ""
 "use 'copy-out <remote> [<remote>...] <localdir>' to copy files out of the "
 "image\n"
 msgstr ""
+"należy użyć \"copy-out <zdalny> [<zdalny>...] <lokalny_katalog>\", aby "
+"skopiować pliki z obrazu\n"
 
 #: fish/copy.c:224
-#, fuzzy, c-format
+#, c-format
 msgid "copy-out: '%s' is not a file or directory\n"
-msgstr "rekursywnie kopiuje plik lub katalog"
+msgstr "copy-out: \"%s\" nie jest plikiem lub katalogiem\n"
 
 #: fish/edit.c:44
 #, c-format
@@ -1581,7 +1566,7 @@ msgid "Try `%s --help' for more information.\n"
 msgstr "Należy spróbować \"%s --help\", aby uzyskać więcej informacji.\n"
 
 #: fish/fish.c:117
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: guest filesystem shell\n"
 "%s lets you edit virtual machine filesystems\n"
@@ -1624,11 +1609,11 @@ msgid ""
 msgstr ""
 "%s: powłoka systemu plików gościa\n"
 "%s umożliwia modyfikowanie systemów pliku maszyn wirtualnych\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
+"Copyright (C) 2009-2010 Red Hat Inc.\n"
 "Użycie:\n"
-"  %s [--opcje] polecenie [: polecenie : polecenie ...]\n"
-"  %s -i domena-libvirt\n"
-"  %s -i obrazy-dysków\n"
+"  %s [--options] polecenie [: polecenie : polecenie...]\n"
+"  %s [--ro] -i -a obraz-dysku\n"
+"  %s [--ro] -i -d domena-libvirt\n"
 "lub dla trybu interaktywnego:\n"
 "  %s\n"
 "lub ze skryptu powłoki:\n"
@@ -1644,6 +1629,7 @@ msgstr ""
 "  -d|--domain guest    Dodaje dyski od gościa biblioteki libvirt\n"
 "  -D|--no-dest-paths   Nie uzupełnia ścieżek z systemu plików gościa za\n"
 "                       pomocą Tab\n"
+"  --echo-keys          Bez wyłączania powtarzania dla haseł\n"
 "  -f|--file plik       Odczytuje polecenia z pliku\n"
 "  -i|--inspector       Automatycznie montuje systemy plików\n"
 "  --keys-from-stdin    Odczytuje hasła ze standardowego wejścia\n"
@@ -1651,6 +1637,9 @@ msgstr ""
 "  -m|--mount dev[:mnt] Montuje dev w mnt (jeśli pominięto, w /)\n"
 "  -n|--no-sync         Nie synchronizuje automatycznie\n"
 "  -N|--new type        Tworzy przygotowany dysk (test1.img...)\n"
+"  --progress-bars      Włącza paski postępu nawet, jeśli nie jest używany\n"
+"                       tryb interaktywny\n"
+"  --no-progress-bars   Wyłącza paski postępu\n"
 "  --remote[=PID]       Wysyła polecenia do zdalnego %s\n"
 "  -r|--ro              Montuje w trybie tylko do odczytu\n"
 "  --selinux            Włącza obsługę SELinuksa\n"
@@ -1706,16 +1695,19 @@ msgstr "%s: nie można używać opcji --listen i --file w tym samym czasie\n"
 #, c-format
 msgid "guestfish: could not access termcap or terminfo database.\n"
 msgstr ""
+"guestfish: nie można uzyskać dostępu do bazy danych termcap lub terminfo.\n"
 
 #: fish/fish.c:572
 #, c-format
 msgid "guestfish: terminal type \"%s\" not defined.\n"
-msgstr ""
+msgstr "guestfish: typ terminala \"%s\" nie jest określony.\n"
 
 #: fish/fish.c:619
 #, c-format
 msgid "guestfish: '%s' could not be mounted.  Did you mean one of these?\n"
 msgstr ""
+"guestfish: nie można zamontować \"%s\". Być może chciano użyć jednej z "
+"tych?\n"
 
 #: fish/fish.c:638
 #, c-format
@@ -1842,12 +1834,12 @@ msgstr "glob: wywołanie guestfs_glob_expand nie powiodło się: %s\n"
 #: fish/hexedit.c:41
 #, c-format
 msgid "hexedit (device|filename) [max | start max]\n"
-msgstr ""
+msgstr "hexedit (urządzenie|nazwa_pliku) [maksimum | rozpoczęcie maksimum]\n"
 
 #: fish/hexedit.c:52
 #, c-format
 msgid "hexedit: %s is a zero length file or device\n"
-msgstr ""
+msgstr "hexedit: %s jest plikiem lub urządzeniem o zerowej długości\n"
 
 #: fish/hexedit.c:63
 #, c-format
@@ -1856,11 +1848,15 @@ msgid ""
 "  'hexedit %s <max>' (eg. 'hexedit %s 1M') or a range using\n"
 "  'hexedit %s <start> <max>'.\n"
 msgstr ""
+"hexedit: %s jest dłuższe niż %s. Należy podać ograniczenie\n"
+"  używając polecenia \"hexedit %s <maksimum>\" (np.\n"
+"  \"hexedit %s 1M\") lub zakres używając polecenia\n"
+"  \"hexedit %s <rozpoczęcie> <maksymalnie>\".\n"
 
 #: fish/hexedit.c:92
 #, c-format
 msgid "hexedit: invalid range\n"
-msgstr ""
+msgstr "hexedit: nieprawidłowy zakres\n"
 
 #: fish/inspect.c:57
 #, c-format
@@ -1915,13 +1911,13 @@ msgstr ""
 "\n"
 
 #: fish/prep.c:40
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "guestfish -N %-8s - %s\n"
 "\n"
 "%s\n"
 msgstr ""
-"guestfish -N %-16s %s\n"
+"guestfish -N %-8s - %s\n"
 "\n"
 "%s\n"
 
@@ -1947,13 +1943,13 @@ msgstr ""
 "Więcej informacji można znaleźć w podręczniku guestfish(1).\n"
 
 #: fish/prep.c:96
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "guestfish: -N parameter '%s': no such prepared disk image known.\n"
 "Use 'guestfish -N help' to list possible values for the -N parameter.\n"
 msgstr ""
 "guestfish: -N parametr \"%s\": nie ma takiego przygotowanego obrazu dysku.\n"
-"Należy użyć polecenia \"guestfish -N list\", aby wyświetlić listę możliwych\n"
+"Należy użyć polecenia \"guestfish -N help\", aby wyświetlić listę możliwych\n"
 "wartości dla parametru -N.\n"
 
 #: fish/prep.c:158
@@ -1970,12 +1966,12 @@ msgstr "przydzielenie dysku nie powiodło się"
 
 #: fish/prep_boot.c:42 fish/prep_boot.c:97
 msgid "could not parse boot size"
-msgstr ""
+msgstr "nie można przetworzyć rozmiaru partycji startowej"
 
 #: fish/prep_boot.c:46 fish/prep_boot.c:101
-#, fuzzy, c-format
+#, c-format
 msgid "failed to get sector size of disk: %s"
-msgstr "partycjonowanie dysku nie powiodło się: %s"
+msgstr "uzyskanie rozmiaru sektora dysku nie powiodło się: %s"
 
 #: fish/prep_boot.c:50 fish/prep_boot.c:105 fish/prep_fs.c:41
 #: fish/prep_lv.c:76 fish/prep_lv.c:129 fish/prep_part.c:41
@@ -1984,49 +1980,52 @@ msgid "failed to partition disk: %s"
 msgstr "partycjonowanie dysku nie powiodło się: %s"
 
 #: fish/prep_boot.c:55 fish/prep_boot.c:110
-#, fuzzy, c-format
+#, c-format
 msgid "failed to add boot partition: %s"
-msgstr "partycjonowanie dysku nie powiodło się: %s"
+msgstr "dodanie partycji startowej nie powiodło się: %s"
 
 #: fish/prep_boot.c:59 fish/prep_boot.c:114
-#, fuzzy, c-format
+#, c-format
 msgid "failed to add root partition: %s"
-msgstr "partycjonowanie dysku nie powiodło się: %s"
+msgstr "dodanie partycji głównej nie powiodło się: %s"
 
 #: fish/prep_boot.c:68 fish/prep_boot.c:128
-#, fuzzy, c-format
+#, c-format
 msgid "failed to create boot filesystem: %s"
-msgstr "utworzenie systemu plików (%s) nie powiodło się: %s"
+msgstr "utworzenie startowego systemu plików nie powiodło się: %s"
 
 #: fish/prep_boot.c:77 fish/prep_boot.c:157
-#, fuzzy, c-format
+#, c-format
 msgid "failed to create root filesystem: %s"
-msgstr "utworzenie systemu plików (%s) nie powiodło się: %s"
+msgstr "utworzenie głównego systemu plików nie powiodło się: %s"
 
 #: fish/prep_boot.c:86 fish/prep_boot.c:120 fish/prep_lv.c:66
 #: fish/prep_lv.c:82 fish/prep_lv.c:119 fish/prep_lv.c:135
 msgid "incorrect format for LV name, use '/dev/VG/LV'"
 msgstr ""
+"niepoprawny format dla nazwy woluminu logicznego, należy użyć \"/dev/VG/LV\""
 
 #: fish/prep_boot.c:137 fish/prep_lv.c:91 fish/prep_lv.c:144
-#, fuzzy, c-format
+#, c-format
 msgid "failed to create PV: %s: %s"
-msgstr "utworzenie systemu plików (%s) nie powiodło się: %s"
+msgstr "utworzenie woluminu fizycznego nie powiodło się: %s: %s"
 
 #: fish/prep_boot.c:142 fish/prep_lv.c:96 fish/prep_lv.c:149
-#, fuzzy, c-format
+#, c-format
 msgid "failed to create VG: %s: %s"
-msgstr "utworzenie systemu plików (%s) nie powiodło się: %s"
+msgstr "utworzenie grupy woluminów nie powiodło się: %s: %s"
 
 #: fish/prep_boot.c:149 fish/prep_lv.c:103 fish/prep_lv.c:156
-#, fuzzy, c-format
+#, c-format
 msgid "failed to create LV: /dev/%s/%s: %s"
-msgstr "utworzenie systemu plików (%s) nie powiodło się: %s"
+msgstr "utworzenie woluminu logicznego nie powiodło się: /dev/%s/%s: %s"
 
 #: fish/prep_boot.c:153 fish/prep_lv.c:107 fish/prep_lv.c:160
-#, fuzzy, c-format
+#, c-format
 msgid "failed to resize LV to full size: %s: %s"
-msgstr "utworzenie systemu plików (%s) nie powiodło się: %s"
+msgstr ""
+"zmiana rozmiaru woluminu logicznego do pełnego rozmiaru nie powiodła się: "
+"%s: %s"
 
 #: fish/prep_fs.c:51 fish/prep_lv.c:165
 #, c-format
@@ -2375,13 +2374,14 @@ msgid ""
 "cannot find any suitable libguestfs supermin or ordinary appliance on "
 "LIBGUESTFS_PATH (search path: %s)"
 msgstr ""
+"nie można odnaleźć żadnego przyrządu biblioteki libguestfs typu \"supermin\" "
+"lub \"ordinary\" w LIBGUESTFS_PATH (ścieżka wyszukiwania: %s)"
 
 #: src/appliance.c:389
-#, fuzzy
 msgid "external command failed, see earlier error messages"
 msgstr ""
-"guestfs_launch nie powiodło się, proszę zobaczyć wcześniejsze komunikaty "
-"błędów"
+"zewnętrzne polecenie nie powiodło się, proszę zobaczyć wcześniejsze "
+"komunikaty błędów"
 
 #: src/guestfs.c:176
 #, c-format
@@ -2726,7 +2726,7 @@ msgstr "{name} nie jest nazwą domeny biblioteki libvirt\n"
 #: tools/virt-df.pl:292
 #, perl-brace-format
 msgid "virt-df: ignoring {name}, it has too many disks ({c} > {max})"
-msgstr ""
+msgstr "virt-df: ignorowanie {name}, posiada za dużo dysków ({c} > {max})"
 
 #: tools/virt-df.pl:454
 msgid "Virtual Machine"
@@ -3063,9 +3063,9 @@ msgid "virt-resize: source disk does not have a first partition\n"
 msgstr "virt-resize: dysk źródłowy nie posiada pierwszej partycji\n"
 
 #: tools/virt-resize.pl:1128
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Copying {p} ...\n"
-msgstr "Kopiowanie {p}..."
+msgstr "Kopiowanie {p}...\n"
 
 #: tools/virt-resize.pl:1189 tools/virt-resize.pl:1247
 #, perl-brace-format
@@ -3139,249 +3139,3 @@ msgstr "virt-win-reg: {p}: nie można pobrać pliku rejestru: {err}\n"
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr "virt-win-reg: {p}: nie można wysłać pliku rejestru: {err}\n"
-
-#~ msgid "allocate an image"
-#~ msgstr "przydziela obraz"
-
-#~ msgid "edit a file in the image"
-#~ msgstr "modyfikuje plik w obrazie"
-
-#~ msgid "view a file in the pager"
-#~ msgstr "wyświetla plik w pagerze"
-
-#~ msgid ""
-#~ "alloc - allocate an image\n"
-#~ "     alloc <filename> <size>\n"
-#~ "\n"
-#~ "    This creates an empty (zeroed) file of the given size,\n"
-#~ "    and then adds so it can be further examined.\n"
-#~ "\n"
-#~ "    For more advanced image creation, see qemu-img utility.\n"
-#~ "\n"
-#~ "    Size can be specified using standard suffixes, eg. '1M'.\n"
-#~ msgstr ""
-#~ "alloc - przydziela obraz\n"
-#~ "     alloc <nazwa_pliku> <rozmiar>\n"
-#~ "\n"
-#~ "    Tworzy pusty (wypełniony zerami) plik o podanym rozmiarze,\n"
-#~ "    a następnie dodaje go do dalszego badania.\n"
-#~ "\n"
-#~ "    Aby uzyskać bardziej zaawansowane tworzenie obrazu,\n"
-#~ "    proszę zobaczyć narzędzie qemu-img.\n"
-#~ "\n"
-#~ "    Rozmiar może być podawany używając standardowych\n"
-#~ "    przyrostków, np. \"1M\".\n"
-
-#~ msgid ""
-#~ "echo - display a line of text\n"
-#~ "     echo [<params> ...]\n"
-#~ "\n"
-#~ "    This echos the parameters to the terminal.\n"
-#~ msgstr ""
-#~ "echo - wyświetla wiersz tekstu\n"
-#~ "     echo [<parametry> ...]\n"
-#~ "\n"
-#~ "    Wyświetla ostatnie parametry w terminalu.\n"
-
-#~ msgid ""
-#~ "edit - edit a file in the image\n"
-#~ "     edit <filename>\n"
-#~ "\n"
-#~ "    This is used to edit a file.\n"
-#~ "\n"
-#~ "    It is the equivalent of (and is implemented by)\n"
-#~ "    running \"cat\", editing locally, and then \"write\".\n"
-#~ "\n"
-#~ "    Normally it uses $EDITOR, but if you use the aliases\n"
-#~ "    \"vi\" or \"emacs\" you will get those editors.\n"
-#~ "\n"
-#~ "    NOTE: This will not work reliably for large files\n"
-#~ "    (> 2 MB) or binary files containing \\0 bytes.\n"
-#~ msgstr ""
-#~ "edit - modyfikuje plik w obrazie\n"
-#~ "     edit <nazwa_pliku>\n"
-#~ "\n"
-#~ "    Jest używane do modyfikowania pliku.\n"
-#~ "\n"
-#~ "    Jest odpowiednikiem (i jest implementowane przez)\n"
-#~ "    wykonania polecenia \"cat\", zmodyfikowania lokalnie, a\n"
-#~ "    następnie wykonania polecenia \"write\".\n"
-#~ "\n"
-#~ "    Normalnie używa zmiennej $EDITOR, ale jeśli zostanie użyty\n"
-#~ "    alias \"vi\" lub \"emacs\", uzyskane zostaną te edytory.\n"
-#~ "\n"
-#~ "    UWAGA: nie będzie działało poprawnie dla dużych plików\n"
-#~ "    (> 2 MB) lub plików binarnych zawierających \\0 bajtów.\n"
-
-#~ msgid ""
-#~ "lcd - local change directory\n"
-#~ "    lcd <directory>\n"
-#~ "\n"
-#~ "    Change guestfish's current directory. This command is\n"
-#~ "    useful if you want to download files to a particular\n"
-#~ "    place.\n"
-#~ msgstr ""
-#~ "lcd - zmienia lokalny katalog\n"
-#~ "    lcd <katalog>\n"
-#~ "\n"
-#~ "    Zmienia bieżący katalog guestfish. Te polecenie jest\n"
-#~ "    przydatne, aby pobrać pliki do konkretnego miejsca.\n"
-
-#~ msgid ""
-#~ "glob - expand wildcards in command\n"
-#~ "    glob <command> [<args> ...]\n"
-#~ "\n"
-#~ "    Glob runs <command> with wildcards expanded in any\n"
-#~ "    command args.  Note that the command is run repeatedly\n"
-#~ "    once for each expanded argument.\n"
-#~ msgstr ""
-#~ "glob - rozwija wieloznaczniki w poleceniach\n"
-#~ "    glob <polecenie> [<parametry> ...]\n"
-#~ "\n"
-#~ "    Glob wykonuje <polecenie> z wieloznacznikami\n"
-#~ "    rozwiniętymi we wszystkie parametry polecenia.\n"
-#~ "    Proszę zauważyć, że polecenie jest wykonywane\n"
-#~ "    raz dla każdego rozwiniętego parametru.\n"
-
-#~ msgid ""
-#~ "man - read the manual\n"
-#~ "    man\n"
-#~ "\n"
-#~ "    Opens the manual page for guestfish.\n"
-#~ msgstr ""
-#~ "man - wyświetla podręcznik\n"
-#~ "    man\n"
-#~ "\n"
-#~ "    Otwiera stronę podręcznika dla programu guestfish.\n"
-
-#~ msgid ""
-#~ "more - view a file in the pager\n"
-#~ "     more <filename>\n"
-#~ "\n"
-#~ "    This is used to view a file in the pager.\n"
-#~ "\n"
-#~ "    It is the equivalent of (and is implemented by)\n"
-#~ "    running \"cat\" and using the pager.\n"
-#~ "\n"
-#~ "    Normally it uses $PAGER, but if you use the alias\n"
-#~ "    \"less\" then it always uses \"less\".\n"
-#~ "\n"
-#~ "    NOTE: This will not work reliably for large files\n"
-#~ "    (> 2 MB) or binary files containing \\0 bytes.\n"
-#~ msgstr ""
-#~ "more - wyświetla plik w pagerze\n"
-#~ "     more <nazwa_pliku>\n"
-#~ "\n"
-#~ "    Jest używane do wyświetlania pliku w pagerze.\n"
-#~ "\n"
-#~ "    Jest odpowiednikiem (i jest implementowane przez)\n"
-#~ "    wykonania polecenia \"cat\" i używanie pagera.\n"
-#~ "\n"
-#~ "    Normalnie używa zmiennej $PAGER, ale jeśli zostanie użyty\n"
-#~ "    alias \"less\", zawsze będzie używane polecenie \"less\".\n"
-#~ "\n"
-#~ "    UWAGA: nie będzie działało poprawnie dla dużych plików\n"
-#~ "    (> 2 MB) lub plików binarnych zawierających \\0 bajtów.\n"
-
-#~ msgid ""
-#~ "reopen - close and reopen the libguestfs handle\n"
-#~ "     reopen\n"
-#~ "\n"
-#~ "Close and reopen the libguestfs handle.  It is not necessary to use\n"
-#~ "this normally, because the handle is closed properly when guestfish\n"
-#~ "exits.  However this is occasionally useful for testing.\n"
-#~ msgstr ""
-#~ "reopen - zamyka i ponownie otwiera program obsługi libguestfs\n"
-#~ "     reopen\n"
-#~ "\n"
-#~ "Zamyka i ponownie otwiera program obsługi libguestfs. Zwykle użycie\n"
-#~ "tego nie jest wymagane, ponieważ program obsługi jest właściwie\n"
-#~ "zamykany, kiedy guestfish kończy działanie. Mimo to może być czasem\n"
-#~ "przydatne do testowania.\n"
-
-#~ msgid ""
-#~ "sparse - allocate a sparse image file\n"
-#~ "     sparse <filename> <size>\n"
-#~ "\n"
-#~ "    This creates an empty sparse file of the given size,\n"
-#~ "    and then adds so it can be further examined.\n"
-#~ "\n"
-#~ "    In all respects it works the same as the 'alloc'\n"
-#~ "    command, except that the image file is allocated\n"
-#~ "    sparsely, which means that disk blocks are not assigned\n"
-#~ "    to the file until they are needed.  Sparse disk files\n"
-#~ "    only use space when written to, but they are slower\n"
-#~ "    and there is a danger you could run out of real disk\n"
-#~ "    space during a write operation.\n"
-#~ "\n"
-#~ "    For more advanced image creation, see qemu-img utility.\n"
-#~ "\n"
-#~ "    Size can be specified using standard suffixes, eg. '1M'.\n"
-#~ msgstr ""
-#~ "sparse - przydziela plik rzadkiego obrazu\n"
-#~ "     sparse <nazwa_pliku> <rozmiar>\n"
-#~ "\n"
-#~ "    Tworzy pusty rzadki plik o podanym rozmiarze,\n"
-#~ "    a następnie dodaje go, aby mógł być dalej badany.\n"
-#~ "\n"
-#~ "    We wszystkich aspektach działa tak samo jak polecenie\n"
-#~ "    \"alloc\", poza tym, że plik obrazu jest przydzielany\n"
-#~ "    rzadko. Oznacza to, że bloki dysku nie są przydzielane\n"
-#~ "    do pliku, dopóki nie są potrzebne. Pliki rzadkich dysków\n"
-#~ "    używają miejsca tylko, kiedy są zapisywane, ale są\n"
-#~ "    wolniejsze i istnieje niebezpieczeństwo wyjścia poza\n"
-#~ "    realne miejsce na dysku podczas działania zapisu.\n"
-#~ "\n"
-#~ "    Aby uzyskać bardziej zaawansowane tworzenie obrazu,\n"
-#~ "    proszę zobaczyć narzędzie qemu-img.\n"
-#~ "\n"
-#~ "    Rozmiar może być podawany używając standardowych\n"
-#~ "    przyrostków, np. \"1M\".\n"
-
-#~ msgid ""
-#~ "supported - list supported groups of commands\n"
-#~ "     supported\n"
-#~ "\n"
-#~ "    This command returns a list of the optional groups\n"
-#~ "    known to the daemon, and indicates which ones are\n"
-#~ "    supported by this build of the libguestfs appliance.\n"
-#~ "\n"
-#~ "    See also guestfs(3) section AVAILABILITY.\n"
-#~ msgstr ""
-#~ "supported - wyświetla listę obsługiwanych grup poleceń\n"
-#~ "     supported\n"
-#~ "\n"
-#~ "    To polecenie zwraca listę opcjonalnych grup znanych\n"
-#~ "    demonowi, i wskazuje, które są obsługiwane przez to\n"
-#~ "    wywołanie biblioteki libguestfs.\n"
-#~ "\n"
-#~ "    Proszę zobaczyć także sekcję DOSTĘPNOŚĆ strony guestfs(3).\n"
-
-#~ msgid ""
-#~ "time - measure time taken to run command\n"
-#~ "    time <command> [<args> ...]\n"
-#~ "\n"
-#~ "    This runs <command> as usual, and prints the elapsed\n"
-#~ "    time afterwards.\n"
-#~ msgstr ""
-#~ "time - mierzy czas wykonania polecenia\n"
-#~ "    time <polecenie> [<parametry> ...]\n"
-#~ "\n"
-#~ "    Wykonuje <polecenie> i wyświetla czas, jaki upłynął.\n"
-
-#~ msgid "external command failed: %s"
-#~ msgstr "zewnętrzne polecenie nie powiodło się: %s"
-
-#~ msgid "test if file exists"
-#~ msgstr "testuje, czy plik istnieje"
-
-#~ msgid "done"
-#~ msgstr "ukończono"
-
-#~ msgid "cannot find %s or %s on LIBGUESTFS_PATH (current path = %s)"
-#~ msgstr ""
-#~ "nie można odnaleźć %s lub %s w LIBGUESTFS_PATH (bieżąca ścieżka = %s)"
-
-#~ msgid "failed to connect to vmchannel socket"
-#~ msgstr ""
-#~ "połączenie się z gniazdem kanału maszyny wirtualnej nie powiodło się"
