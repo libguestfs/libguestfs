@@ -89,8 +89,6 @@ sfdisk (const char *device, int n, int cyls, int heads, int sectors,
     return -1;
   }
 
-  udev_settle ();
-
   /* sfdisk sometimes fails on fast machines with:
    *
    * Re-reading the partition table ...
@@ -103,7 +101,12 @@ sfdisk (const char *device, int n, int cyls, int heads, int sectors,
    * other component.  In any case, reread the partition table
    * unconditionally here.
    */
-  return do_blockdev_rereadpt (device);
+  if (do_blockdev_rereadpt (device) == -1)
+    return -1;
+
+  udev_settle ();
+
+  return 0;
 }
 
 int
