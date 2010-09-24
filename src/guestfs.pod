@@ -1684,9 +1684,9 @@ has the same effect as calling C<guestfs_set_trace (g, 1)>.
 
 Location of temporary directory, defaults to C</tmp>.
 
-If libguestfs was compiled to use the supermin appliance then each
-handle will require rather a large amount of space in this directory
-for short periods of time (~ 80 MB).  You can use C<$TMPDIR> to
+If libguestfs was compiled to use the supermin appliance then the
+real appliance is cached in this directory, shared between all
+handles belonging to the same EUID.  You can use C<$TMPDIR> to
 configure another directory to use in case C</tmp> is not large
 enough.
 
