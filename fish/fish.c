@@ -1561,7 +1561,7 @@ file_in (const char *arg)
 static char *
 file_in_heredoc (const char *endmarker)
 {
-  static const char template[] = "/tmp/heredocXXXXXX";
+  TMP_TEMPLATE_ON_STACK (template);
   file_in_tmpfile = strdup (template);
   if (file_in_tmpfile == NULL) {
     perror ("strdup");

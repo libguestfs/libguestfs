@@ -34,7 +34,7 @@
 int
 run_edit (const char *cmd, int argc, char *argv[])
 {
-  char filename[] = "/tmp/guestfishXXXXXX";
+  TMP_TEMPLATE_ON_STACK (filename);
   char buf[256];
   const char *editor;
   struct stat oldstat, newstat;

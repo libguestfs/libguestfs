@@ -89,6 +89,7 @@ extern void *guestfs_get_private (guestfs_h *g, const char *key);
  */
 extern void *guestfs_safe_malloc (guestfs_h *g, size_t nbytes);
 extern void *guestfs_safe_calloc (guestfs_h *g, size_t n, size_t s);
+extern const char *guestfs_tmpdir (void);
 /* End of private functions. */
 
 #ifdef __cplusplus

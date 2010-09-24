@@ -235,7 +235,7 @@ check_for_cached_appliance (guestfs_h *g,
                             const char *supermin_path, const char *checksum,
                             char **kernel, char **initrd, char **appliance)
 {
-  const char *tmpdir = guestfs___tmpdir ();
+  const char *tmpdir = guestfs_tmpdir ();
 
   size_t len = strlen (tmpdir) + strlen (checksum) + 2;
   char cachedir[len];
@@ -329,7 +329,7 @@ build_supermin_appliance (guestfs_h *g,
   if (g->verbose)
     guestfs___print_timestamped_message (g, "begin building supermin appliance");
 
-  const char *tmpdir = guestfs___tmpdir ();
+  const char *tmpdir = guestfs_tmpdir ();
   size_t cdlen = strlen (tmpdir) + strlen (checksum) + 2;
   char cachedir[cdlen];
   snprintf (cachedir, cdlen, "%s/%s", tmpdir, checksum);

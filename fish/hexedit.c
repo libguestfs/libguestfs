@@ -100,7 +100,7 @@ run_hexedit (const char *cmd, int argc, char *argv[])
   int r;
   struct stat oldstat, newstat;
   char buf[BUFSIZ];
-  char tmp[] = "/tmp/guestfishXXXXXX";
+  TMP_TEMPLATE_ON_STACK (tmp);
   int fd = mkstemp (tmp);
   if (fd == -1) {
     perror ("mkstemp");

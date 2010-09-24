@@ -227,6 +227,15 @@ is_regular_file (const char *filename)
 static char *
 cpio_arch (guestfs_h *g, const char *file, const char *path)
 {
+  TMP_TEMPLATE_ON_STACK (dir);
+#define dir_len (strlen (dir))
+#define initrd_len (dir_len + 16)
+  char initrd[initrd_len];
+#define cmd_len (dir_len + 256)
+  char cmd[cmd_len];
+#define bin_len (dir_len + 32)
+  char bin[bin_len];
+
   char *ret = NULL;
 
   const char *method;
@@ -237,20 +246,16 @@ cpio_arch (guestfs_h *g, const char *file, const char *path)
   else
     method = "cat";
 
-  char dir[] = "/tmp/initrd.XXXXXX";
-#define dir_len (sizeof dir)
   if (mkdtemp (dir) == NULL) {
     perrorf (g, "mkdtemp");
     goto out;
   }
 
-  char dir_initrd[dir_len + 16];
-  snprintf (dir_initrd, dir_len + 16, "%s/initrd", dir);
-  if (guestfs_download (g, path, dir_initrd) == -1)
+  snprintf (initrd, initrd_len, "%s/initrd", dir);
+  if (guestfs_download (g, path, initrd) == -1)
     goto out;
 
-  char cmd[dir_len + 256];
-  snprintf (cmd, dir_len + 256,
+  snprintf (cmd, cmd_len,
             "cd %s && %s initrd | cpio --quiet -id " INITRD_BINARIES1,
             dir, method);
   int r = system (cmd);
@@ -259,11 +264,10 @@ cpio_arch (guestfs_h *g, const char *file, const char *path)
     goto out;
   }
 
-  char bin[dir_len + 32];
   const char *bins[] = INITRD_BINARIES2;
   size_t i;
   for (i = 0; i < sizeof bins / sizeof bins[0]; ++i) {
-    snprintf (bin, dir_len + 32, "%s/%s", dir, bins[i]);
+    snprintf (bin, bin_len, "%s/%s", dir, bins[i]);
 
     if (is_regular_file (bin)) {
       int flags = g->verbose ? MAGIC_DEBUG : 0;
@@ -305,11 +309,14 @@ cpio_arch (guestfs_h *g, const char *file, const char *path)
    * contain shell meta-characters because of the way it was
    * constructed above.
    */
-  snprintf (cmd, dir_len + 256, "rm -rf %s", dir);
+  snprintf (cmd, cmd_len, "rm -rf %s", dir);
   ignore_value (system (cmd));
 
   return ret;
 #undef dir_len
+#undef initrd_len
+#undef cmd_len
+#undef bin_len
 }
 
 char *
@@ -983,6 +990,13 @@ static int
 check_windows_registry (guestfs_h *g, struct inspect_fs *fs,
                         const char *systemroot)
 {
+  TMP_TEMPLATE_ON_STACK (dir);
+#define dir_len (strlen (dir))
+#define software_hive_len (dir_len + 16)
+  char software_hive[software_hive_len];
+#define cmd_len (dir_len + 16)
+  char cmd[cmd_len];
+
   size_t len = strlen (systemroot) + 64;
   char software[len];
   snprintf (software, len, "%s/system32/config/software", systemroot);
@@ -998,15 +1012,12 @@ check_windows_registry (guestfs_h *g, struct inspect_fs *fs,
   hive_h *h = NULL;
   hive_value_h *values = NULL;
 
-  char dir[] = "/tmp/winreg.XXXXXX";
-#define dir_len 18
   if (mkdtemp (dir) == NULL) {
     perrorf (g, "mkdtemp");
     goto out;
   }
 
-  char software_hive[dir_len + 16];
-  snprintf (software_hive, dir_len + 16, "%s/software", dir);
+  snprintf (software_hive, software_hive_len, "%s/software", dir);
 
   if (guestfs_download (g, software_path, software_hive) == -1)
     goto out;
@@ -1092,10 +1103,11 @@ check_windows_registry (guestfs_h *g, struct inspect_fs *fs,
    * contain shell meta-characters because of the way it was
    * constructed above.
    */
-  char cmd[dir_len + 16];
-  snprintf (cmd, dir_len + 16, "rm -rf %s", dir);
+  snprintf (cmd, cmd_len, "rm -rf %s", dir);
   ignore_value (system (cmd));
 #undef dir_len
+#undef software_hive_len
+#undef cmd_len
 
   return ret;
 }

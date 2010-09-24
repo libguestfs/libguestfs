@@ -60,12 +60,16 @@
 #define STRCASENEQLEN(a,b,n) (strncasecmp((a),(b),(n)) != 0)
 #define STRPREFIX(a,b) (strncmp((a),(b),strlen((b))) == 0)
 
+#ifndef P_tmpdir
+#define P_tmpdir "/tmp"
+#endif
+
 #define DEFAULT_TIMEOUT 120
 
 static const char *helper = DEFAULT_HELPER;
 static int timeout = DEFAULT_TIMEOUT;
-static char tmpf[] = "/tmp/libguestfs-test-tool-sda-XXXXXX";
-static char isof[] = "/tmp/libguestfs-test-tool-iso-XXXXXX";
+static char tmpf[] = P_tmpdir "/libguestfs-test-tool-sda-XXXXXX";
+static char isof[] = P_tmpdir "/libguestfs-test-tool-iso-XXXXXX";
 static guestfs_h *g;
 
 static void preruncheck (void);
@@ -269,7 +273,7 @@ main (int argc, char *argv[])
   exit (EXIT_SUCCESS);
 }
 
-static char qemuwrapper[] = "/tmp/libguestfs-test-tool-wrapper-XXXXXX";
+static char qemuwrapper[] = P_tmpdir "/libguestfs-test-tool-wrapper-XXXXXX";
 
 static void
 cleanup_wrapper (void)

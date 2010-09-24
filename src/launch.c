@@ -249,10 +249,7 @@ guestfs__launch (guestfs_h *g)
 
   /* Make the temporary directory. */
   if (!g->tmpdir) {
-    const char *tmpdir = guestfs___tmpdir ();
-    char dir_template[strlen (tmpdir) + 32];
-    sprintf (dir_template, "%s/libguestfsXXXXXX", tmpdir);
-
+    TMP_TEMPLATE_ON_STACK (dir_template);
     g->tmpdir = safe_strdup (g, dir_template);
     if (mkdtemp (g->tmpdir) == NULL) {
       perrorf (g, _("%s: cannot create temporary directory"), dir_template);
@@ -649,8 +646,11 @@ guestfs__launch (guestfs_h *g)
   return -1;
 }
 
+/* Return the location of the tmpdir (eg. "/tmp") and allow users
+ * to override it at runtime using $TMPDIR.
+ */
 const char *
-guestfs___tmpdir (void)
+guestfs_tmpdir (void)
 {
   const char *tmpdir;
 

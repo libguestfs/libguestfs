@@ -38,6 +38,11 @@
 #define N_(str) str
 #endif
 
+#define TMP_TEMPLATE_ON_STACK(var)                        \
+  const char *ttos_tmpdir = guestfs_tmpdir ();            \
+  char var[strlen (ttos_tmpdir) + 32];                    \
+  sprintf (var, "%s/libguestfsXXXXXX", ttos_tmpdir)       \
+
 #define UNIX_PATH_MAX 108
 
 #ifndef MAX
@@ -196,7 +201,6 @@ extern char *guestfs_safe_strdup (guestfs_h *g, const char *str);
 extern char *guestfs_safe_strndup (guestfs_h *g, const char *str, size_t n);
 extern void *guestfs_safe_memdup (guestfs_h *g, void *ptr, size_t size);
 extern void guestfs___print_timestamped_message (guestfs_h *g, const char *fs, ...);
-extern const char *guestfs___tmpdir (void);
 extern void guestfs___free_inspect_info (guestfs_h *g);
 extern int guestfs___set_busy (guestfs_h *g);
 extern int guestfs___end_busy (guestfs_h *g);

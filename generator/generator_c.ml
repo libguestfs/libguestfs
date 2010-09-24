@@ -759,6 +759,7 @@ and generate_linker_script () =
     "guestfs_safe_malloc";
     "guestfs_safe_strdup";
     "guestfs_safe_memdup";
+    "guestfs_tmpdir";
   ] in
   let functions =
     List.map (fun (name, _, _, _, _, _, _) -> "guestfs_" ^ name)
