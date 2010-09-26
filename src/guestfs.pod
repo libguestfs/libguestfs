@@ -747,6 +747,37 @@ fuse/guestmount.c.
 In libguestfs 1.5.4, the protocol was changed so that the
 Linux errno is sent back from the daemon.
 
+=item Ambiguity between devices and paths
+
+There is a subtle ambiguity in the API between a device name
+(eg. C</dev/sdb2>) and a similar pathname.  A file might just happen
+to be called C<sdb2> in the directory C</dev> (consider some non-Unix
+VM image).
+
+In the current API we usually resolve this ambiguity by having two
+separate calls, for example L</guestfs_checksum> and
+L</guestfs_checksum_device>.  Some API calls are ambiguous and
+(incorrectly) resolve the problem by detecting if the path supplied
+begins with C</dev/>.
+
+To avoid both the ambiguity and the need to duplicate some calls, we
+could make paths/devices into structured names.  One way to do this
+would be to use a notation like grub (C<hd(0,0)>), although nobody
+really likes this aspect of grub.  Another way would be to use a
+structured type, equivalent to this OCaml type:
+
+ type path = Path of string | Device of int | Partition of int * int
+
+which would allow you to pass arguments like:
+
+ Path "/foo/bar"
+ Device 1            (* /dev/sdb, or perhaps /dev/sda *)
+ Partition (1, 2)    (* /dev/sdb2 (or is it /dev/sda2 or /dev/sdb3?) *)
+ Path "/dev/sdb2"    (* not a device *)
+
+As you can see there are still problems to resolve even with this
+representation.  Also consider how it might work in guestfish.
+
 =back
 
 =head2 PROTOCOL LIMITS
