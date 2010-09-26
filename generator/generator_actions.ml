@@ -4812,7 +4812,7 @@ return value is the number of bytes that were actually written
 to the file.  This could even be 0, although short writes are
 unlikely for regular files in ordinary circumstances.
 
-See also C<guestfs_pread>.");
+See also C<guestfs_pread>, C<guestfs_pwrite_device>.");
 
   ("resize2fs_size", (RErr, [Device "device"; Int64 "size"]), 248, [],
    [],
@@ -5165,6 +5165,23 @@ and this call always reads the full amount unless an
 error occurs.
 
 See also C<guestfs_download>, C<guestfs_pread>.");
+
+  ("pwrite_device", (RInt "nbytes", [Device "device"; BufferIn "content"; Int64 "offset"]), 275, [ProtocolLimitWarning],
+   [InitPartition, Always, TestOutputList (
+      [["pwrite_device"; "/dev/sda"; "\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000"; "446"];
+       ["blockdev_rereadpt"; "/dev/sda"];
+       ["list_partitions"]], [])],
+   "write to part of a device",
+   "\
+This command writes to part of a device.  It writes the data
+buffer C<content> to C<device> starting at offset C<offset>.
+
+This command implements the L<pwrite(2)> system call, and like
+that system call it may not write the full data requested
+(although short writes to disk devices and partitions are
+probably impossible with standard Linux kernels).
+
+See also C<guestfs_pwrite>.");
 
 ]
 

@@ -463,11 +463,32 @@ do_pread (const char *path, int count, int64_t offset, size_t *size_r)
   return buf;
 }
 
+static int
+pwrite_fd (int fd, const char *content, size_t size, int64_t offset,
+           const char *display_path)
+{
+  ssize_t r;
+
+  r = pwrite (fd, content, size, offset);
+  if (r == -1) {
+    reply_with_perror ("pwrite: %s", display_path);
+    close (fd);
+    return -1;
+  }
+
+  if (close (fd) == -1) {
+    reply_with_perror ("close: %s", display_path);
+    close (fd);
+    return -1;
+  }
+
+  return r;
+}
+
 int
 do_pwrite (const char *path, const char *content, size_t size, int64_t offset)
 {
   int fd;
-  ssize_t r;
 
   if (offset < 0) {
     reply_with_error ("offset is negative");
@@ -483,20 +504,25 @@ do_pwrite (const char *path, const char *content, size_t size, int64_t offset)
     return -1;
   }
 
-  r = pwrite (fd, content, size, offset);
-  if (r == -1) {
-    reply_with_perror ("pwrite: %s", path);
-    close (fd);
+  return pwrite_fd (fd, content, size, offset, path);
+}
+
+int
+do_pwrite_device (const char *device, const char *content, size_t size,
+                  int64_t offset)
+{
+  if (offset < 0) {
+    reply_with_error ("offset is negative");
     return -1;
   }
 
-  if (close (fd) == -1) {
-    reply_with_perror ("close: %s", path);
-    close (fd);
+  int fd = open (device, O_WRONLY);
+  if (fd == -1) {
+    reply_with_perror ("open: %s", device);
     return -1;
   }
 
-  return r;
+  return pwrite_fd (fd, content, size, offset, device);
 }
 
 /* This runs the 'file' command. */
