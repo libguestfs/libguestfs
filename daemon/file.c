@@ -469,6 +469,11 @@ do_pwrite (const char *path, const char *content, size_t size, int64_t offset)
   int fd;
   ssize_t r;
 
+  if (offset < 0) {
+    reply_with_error ("offset is negative");
+    return -1;
+  }
+
   CHROOT_IN;
   fd = open (path, O_WRONLY);
   CHROOT_OUT;
