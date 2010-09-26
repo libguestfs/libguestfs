@@ -27,6 +27,17 @@ dangerous, potentially causing disk corruption.  Use the I<--ro>
 (read-only) option to use guestfish safely if the disk image or
 virtual machine might be live.
 
+=head1 DESCRIPTION
+
+Guestfish is a shell and command-line tool for examining and modifying
+virtual machine filesystems.  It uses libguestfs and exposes all of
+the functionality of the guestfs API, see L<guestfs(3)>.
+
+Guestfish gives you structured access to the libguestfs API, from
+shell scripts or the command line or interactively.  If you want to
+rescue a broken virtual machine image, you should look at the
+L<virt-rescue(1)> command.
+
 =head1 EXAMPLES
 
 =head2 As an interactive shell
@@ -40,11 +51,22 @@ virtual machine might be live.
        'man' to read the manual
        'quit' to quit the shell
  
- ><fs> man
+ ><fs> add-ro disk.img
+ ><fs> run
+ ><fs> list-filesystems
+ /dev/sda1: ext4
+ /dev/vg_guest/lv_root: ext4
+ /dev/vg_guest/lv_swap: swap
+ ><fs> mount /dev/vg_guest/lv_root /
+ ><fs> cat /etc/fstab
+ # /etc/fstab
+ # Created by anaconda
+ [...]
+ ><fs> exit
 
 =head2 From shell scripts
 
-Create a new C</etc/motd> file in a guest:
+Create a new C</etc/motd> file in a guest or disk image:
 
  guestfish <<_EOF_
  add disk.img
@@ -53,11 +75,18 @@ Create a new C</etc/motd> file in a guest:
  write /etc/motd "Welcome, new users"
  _EOF_
 
-List the LVM logical volumes in a guest:
+List the LVM logical volumes in a disk image:
 
  guestfish -a disk.img --ro <<_EOF_
  run
  lvs
+ _EOF_
+
+List all the filesystems in a disk image:
+
+ guestfish -a disk.img --ro <<_EOF_
+ run
+ list-filesystems
  _EOF_
 
 =head2 On one command line
@@ -84,6 +113,10 @@ disks from a virtual machine:
 
  guestfish --ro -d libvirt-domain -i cat /etc/group
 
+Another way to edit C</boot/grub/grub.conf> interactively is:
+
+ guestfish -a disk.img -i edit /boot/grub/grub.conf
+
 =head2 As a script interpreter
 
 Create a 100MB disk containing an ext2-formatted partition:
@@ -107,21 +140,10 @@ To list what is available do:
 
 =head2 Remote control
 
- eval `guestfish --listen --ro`
- guestfish --remote add disk.img
+ eval `guestfish --listen`
+ guestfish --remote add-ro disk.img
  guestfish --remote run
  guestfish --remote lvs
-
-=head1 DESCRIPTION
-
-Guestfish is a shell and command-line tool for examining and modifying
-virtual machine filesystems.  It uses libguestfs and exposes all of
-the functionality of the guestfs API, see L<guestfs(3)>.
-
-Guestfish gives you structured access to the libguestfs API, from
-shell scripts or the command line or interactively.  If you want to
-rescue a broken virtual machine image, you should look at the
-L<virt-rescue(1)> command.
 
 =head1 OPTIONS
 
@@ -334,9 +356,10 @@ any other commands
 C<run> is a synonym for C<launch>.  You must C<launch> (or C<run>)
 your guest before mounting or performing any other commands.
 
-The only exception is that if the I<-m> or I<--mount> option was
-given, the guest is automatically run for you (simply because
-guestfish can't mount the disks you asked for without doing this).
+The only exception is that if any of the I<-i>, I<-m>, I<--mount>,
+I<-N> or I<--new> options were given then C<run> is done
+automatically, simply because guestfish can't perform the action you
+asked for without doing this.
 
 =head1 QUOTING
 
@@ -475,7 +498,7 @@ following will not do what you expect:
 
  rm-rf /home/*
 
-Assuming you don't have a directory literally called C</home/*>
+Assuming you don't have a directory called literally C</home/*>
 then the above command will return an error.
 
 To perform wildcard expansion, use the C<glob> command.
@@ -492,7 +515,7 @@ the command many times), equivalent to:
 C<glob> only works on simple guest paths and not on device names.
 
 If you have several parameters, each containing a wildcard, then glob
-will perform a cartesian product.
+will perform a Cartesian product.
 
 =head1 COMMENTS
 
@@ -584,8 +607,8 @@ device-mapper device called C</dev/mapper/luksdev>.
 Finally you have to tell LVM to scan for volume groups on
 the newly created mapper device:
 
- ><fs> vgscan
- ><fs> vg-activate-all true
+ vgscan
+ vg-activate-all true
 
 The logical volume(s) can now be mounted in the usual way.
 
@@ -593,8 +616,8 @@ Before closing a LUKS device you must unmount any logical volumes on
 it and deactivate the volume groups by calling C<vg-activate false VG>
 on each one.  Then you can close the mapper device:
 
- ><fs> vg-activate false /dev/VG
- ><fs> luks-close /dev/mapper/luksdev
+ vg-activate false /dev/VG
+ luks-close /dev/mapper/luksdev
 
 =head1 WINDOWS PATHS
 
