@@ -86,6 +86,7 @@ TESTS = test-virt-cat.sh \
 	test-virt-list-filesystems.sh \
 	test-virt-ls.sh \
 	test-virt-make-fs.sh \
+	test-virt-resize.sh \
 	test-virt-tar.sh
 
 endif
