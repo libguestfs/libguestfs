@@ -408,20 +408,22 @@ do_read_file (const char *path, size_t *size_r)
   return r;
 }
 
-char *
-do_pread (const char *path, int count, int64_t offset, size_t *size_r)
+static char *
+pread_fd (int fd, int count, int64_t offset, size_t *size_r,
+          const char *display_path)
 {
-  int fd;
   ssize_t r;
   char *buf;
 
   if (count < 0) {
     reply_with_error ("count is negative");
+    close (fd);
     return NULL;
   }
 
   if (offset < 0) {
     reply_with_error ("offset is negative");
+    close (fd);
     return NULL;
   }
 
@@ -431,16 +433,8 @@ do_pread (const char *path, int count, int64_t offset, size_t *size_r)
    * will be caught later when we try to serialize the message.
    */
   if (count >= GUESTFS_MESSAGE_MAX) {
-    reply_with_error ("%s: count is too large for the protocol, use smaller reads", path);
-    return NULL;
-  }
-
-  CHROOT_IN;
-  fd = open (path, O_RDONLY);
-  CHROOT_OUT;
-
-  if (fd == -1) {
-    reply_with_perror ("open: %s", path);
+    reply_with_error ("%s: count is too large for the protocol, use smaller reads", display_path);
+    close (fd);
     return NULL;
   }
 
@@ -453,14 +447,14 @@ do_pread (const char *path, int count, int64_t offset, size_t *size_r)
 
   r = pread (fd, buf, count, offset);
   if (r == -1) {
-    reply_with_perror ("pread: %s", path);
+    reply_with_perror ("pread: %s", display_path);
     close (fd);
     free (buf);
     return NULL;
   }
 
   if (close (fd) == -1) {
-    reply_with_perror ("close: %s", path);
+    reply_with_perror ("close: %s", display_path);
     close (fd);
     free (buf);
     return NULL;
@@ -471,6 +465,35 @@ do_pread (const char *path, int count, int64_t offset, size_t *size_r)
    */
   *size_r = r;
   return buf;
+}
+
+char *
+do_pread (const char *path, int count, int64_t offset, size_t *size_r)
+{
+  int fd;
+
+  CHROOT_IN;
+  fd = open (path, O_RDONLY);
+  CHROOT_OUT;
+
+  if (fd == -1) {
+    reply_with_perror ("open: %s", path);
+    return NULL;
+  }
+
+  return pread_fd (fd, count, offset, size_r, path);
+}
+
+char *
+do_pread_device (const char *device, int count, int64_t offset, size_t *size_r)
+{
+  int fd = open (device, O_RDONLY);
+  if (fd == -1) {
+    reply_with_perror ("open: %s", device);
+    return NULL;
+  }
+
+  return pread_fd (fd, count, offset, size_r, device);
 }
 
 static int

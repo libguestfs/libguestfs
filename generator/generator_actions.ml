@@ -4190,7 +4190,7 @@ bytes of the file, starting at C<offset>, from file C<path>.
 This may read fewer bytes than requested.  For further details
 see the L<pread(2)> system call.
 
-See also C<guestfs_pwrite>.");
+See also C<guestfs_pwrite>, C<guestfs_pread_device>.");
 
   ("part_init", (RErr, [Device "device"; String "parttype"]), 208, [],
    [InitEmpty, Always, TestRun (
@@ -5182,6 +5182,19 @@ that system call it may not write the full data requested
 probably impossible with standard Linux kernels).
 
 See also C<guestfs_pwrite>.");
+
+  ("pread_device", (RBufferOut "content", [Device "device"; Int "count"; Int64 "offset"]), 276, [ProtocolLimitWarning],
+   [InitEmpty, Always, TestOutputBuffer (
+      [["pread_device"; "/dev/sdd"; "8"; "32768"]], "\001CD001\001\000")],
+   "read part of a device",
+   "\
+This command lets you read part of a file.  It reads C<count>
+bytes of C<device>, starting at C<offset>.
+
+This may read fewer bytes than requested.  For further details
+see the L<pread(2)> system call.
+
+See also C<guestfs_pread>.");
 
 ]
 
