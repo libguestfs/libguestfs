@@ -1,13 +1,80 @@
 /* CSS to make pod2html files look a little bit better. */
-@import url("http://people.redhat.com/~rjones/css/standard.css");
+
+body {
+  margin-left: 4em;
+}
+
+body p, body ul, ol, body dl {
+  margin-left: 2em;
+  width: 31em;
+}
+
+pre {
+  width: 31em;
+}
+
+li {
+  padding-bottom: 0.5em;
+}
+
+/* Code sections. */
+
+pre {
+  background-color: #f8f8f8;
+  color: rgb(204,0,0);
+  font-weight: 550;
+  border-left: 6px solid rgb(204,64,64);
+  padding: 6px;
+  margin-left: 1em;
+  font-size: 120%;
+}
+
+/* Bold, italic in man pages. */
+b, strong {
+  color: rgb(204,0,0);
+}
+
+i, em {
+  color: rgb(204,0,0);
+}
+
+/* Name heading. */
+
+body > h1:first-of-type {
+  display: none;
+}
+
+body > h1:first-of-type + p {
+  font-size: 125%;
+  font-weight: bold;
+  color: rgb(204,0,0);
+  margin-left: -32px;
+}
+
+/* Warning heading in man pages. */
+a[name="warning"] {
+  -moz-border-radius-topleft: 5px;
+  -moz-border-radius-topright: 5px;
+  border-radius-topleft: 5px;
+  border-radius-topright: 5px;
+
+  color: white;
+  background-color: rgb(204,0,0);
+}
+a[name="warning"]:before {
+  content: "\00a0\00a0\00a0";
+}
+a[name="warning"]:after {
+  content: "\00a0\00a0\00a0";
+}
 
 /* Put the index on the right hand side in a floating box. */
 div[name="index"] {
     float: right;
     width: 18em;
-    border-left: 1px solid #f0f0f0;
+    border-left: 3em solid white;
     background-color: #fcfcfc;
-    margin-top: 0px;
+    margin-top: 32px;
     padding-top: 0px;
     margin-left: 1em;
     padding-left: 1em;
@@ -25,7 +92,7 @@ div[name="index"] a[href]:hover {
 
 div[name="index"] a[href]:before {
     content: '#\00a0';
-    color: #e00;
+    color: rgb(204,0,0);
     font-size: x-small;
 }
 
@@ -70,7 +137,8 @@ hr { display: none; }
 /* Demote <h1>'s and set rest of headers relative. */
 h1 {
     font-size: 100%;
-    border-bottom: solid 1px black;
+    color: black;
+    border-bottom: solid 1px rgb(204,0,0);
 }
 
 h2 {
