@@ -415,6 +415,16 @@ do_pread (const char *path, int count, int64_t offset, size_t *size_r)
   ssize_t r;
   char *buf;
 
+  if (count < 0) {
+    reply_with_error ("count is negative");
+    return NULL;
+  }
+
+  if (offset < 0) {
+    reply_with_error ("offset is negative");
+    return NULL;
+  }
+
   /* The actual limit on messages is smaller than this.  This check
    * just limits the amount of memory we'll try and allocate in the
    * function.  If the message is larger than the real limit, that
