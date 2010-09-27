@@ -530,51 +530,6 @@ die __x("virt-resize: {file}: does not exist or is not readable\n", file => $inf
 die __x("virt-resize: {file}: does not exist or is not writable\nYou have to create the destination disk before running this program.\nPlease read the virt-resize(1) manpage for more information.\n", file => $outfile)
     unless -w $outfile;
 
-my @s;
-@s = stat $infile;
-my $insize = S_ISREG ($s[2]) ? $s[7] : host_blockdevsize ($infile);
-@s = stat $outfile;
-my $outsize = S_ISREG ($s[2]) ? $s[7] : host_blockdevsize ($outfile);
-
-if ($debug) {
-    print "$infile size $insize bytes\n";
-    print "$outfile size $outsize bytes\n";
-}
-
-# In reality the number of sectors containing boot loader data will be
-# less than this (although Windows 7 defaults to putting the first
-# partition on sector 2048, and has quite a large boot loader).
-#
-# However make this large enough to be sure that we have copied over
-# the boot loader.  We could also do this by looking for the sector
-# offset of the first partition.
-#
-# It doesn't matter if we copy too much.
-my $boot_sectors = 4096;
-
-die __x("virt-resize: {file}: file is too small to be a disk image ({sz} bytes)\n",
-        file => $infile, sz => $insize)
-    if $insize < $boot_sectors * 512;
-die __x("virt-resize: {file}: file is too small to be a disk image ({sz} bytes)\n",
-        file => $outfile, sz => $outsize)
-    if $outsize < $boot_sectors * 512;
-
-# Copy the boot loader across.
-do_copy_boot_loader () if $copy_boot_loader;
-
-sub do_copy_boot_loader
-{
-    print "copying boot loader ...\n" if $debug;
-    open IFILE, $infile or die "$infile: $!";
-    my $s;
-    my $r = sysread (IFILE, $s, $boot_sectors * 512) or die "$infile: $!";
-    die "$infile: short read" if $r < $boot_sectors * 512;
-    open OFILE, "+<$outfile" or die "$outfile: $!";
-    sysseek OFILE, 0, SEEK_SET or die "$outfile: seek: $!";
-    $r = syswrite (OFILE, $s, $boot_sectors * 512) or die "$outfile: $!";
-    die "$outfile: short write" if $r < $boot_sectors * 512;
-}
-
 # Add them to the handle and launch the appliance.
 my $g;
 launch_guestfs ();
@@ -590,6 +545,97 @@ sub launch_guestfs
 }
 
 my $sectsize = $g->blockdev_getss ("/dev/sdb");
+
+# Get the size in bytes of each disk.
+#
+# Originally we computed this by looking at the same of the host file,
+# but of course this failed for qcow2 images (RHBZ#633096).  The right
+# way to do it is with $g->blockdev_getsize64.
+my $insize = $g->blockdev_getsize64 ("/dev/sda");
+my $outsize = $g->blockdev_getsize64 ("/dev/sdb");
+
+if ($debug) {
+    print "$infile size $insize bytes\n";
+    print "$outfile size $outsize bytes\n";
+}
+
+# Create a partition table.
+#
+# We *must* do this before copying the bootloader across, and copying
+# the bootloader must be careful not to disturb this partition table
+# (RHBZ#633766).  There are two reasons for this:
+#
+# (1) The 'parted' library is stupid and broken.  In many ways.  In
+# this particular instance the stupid and broken bit is that it
+# overwrites the whole boot sector when initializating a partition
+# table.  (Upstream don't consider this obvious problem to be a bug).
+#
+# (2) GPT has a backup partition table located at the end of the disk.
+# It's non-movable, because the primary GPT contains fixed references
+# to both the size of the disk and the backup partition table at the
+# end.  This would be a problem for any resize that didn't either
+# carefully move the backup GPT (and rewrite those references) or
+# recreate the whole partition table from scratch.
+
+my $parttype;
+create_partition_table ();
+
+sub create_partition_table
+{
+    local $_;
+
+    $parttype = $g->part_get_parttype ("/dev/sda");
+    print "partition table type: $parttype\n" if $debug;
+
+    $g->part_init ("/dev/sdb", $parttype);
+}
+
+# In reality the number of sectors containing boot loader data will be
+# less than this (although Windows 7 defaults to putting the first
+# partition on sector 2048, and has quite a large boot loader).
+#
+# However make this large enough to be sure that we have copied over
+# the boot loader.  We could also do this by looking for the sector
+# offset of the first partition.
+#
+# It doesn't matter if we copy too much.
+my $max_bootloader = 4096 * 512;
+
+die __x("virt-resize: {file}: file is too small to be a disk image ({sz} bytes)\n",
+        file => $infile, sz => $insize)
+    if $insize < $max_bootloader;
+die __x("virt-resize: {file}: file is too small to be a disk image ({sz} bytes)\n",
+        file => $outfile, sz => $outsize)
+    if $outsize < $max_bootloader;
+
+# Copy the boot loader across.
+do_copy_boot_loader () if $copy_boot_loader;
+
+sub do_copy_boot_loader
+{
+    print "copying boot loader ...\n" if $debug;
+
+    # Don't disturb the partition table that we just wrote.
+    # https://secure.wikimedia.org/wikipedia/en/wiki/Master_Boot_Record
+    # https://secure.wikimedia.org/wikipedia/en/wiki/GUID_Partition_Table
+
+    my $bootsect = $g->pread_device ("/dev/sda", 446, 0);
+    die __"virt-resize: short read" if length ($bootsect) < 446;
+
+    $g->pwrite_device ("/dev/sdb", $bootsect, 0);
+
+    my $start = 512;
+    if ($parttype eq "gpt") {
+        # XXX With 4K sectors does GPT just fit more entries in a
+        # sector, or does it always use 34 sectors?
+        $start = 17408;
+    }
+
+    my $loader = $g->pread_device ("/dev/sda", $max_bootloader, $start);
+    die __"virt-resize: short read" if length ($loader) < $max_bootloader;
+
+    $g->pwrite_device ("/dev/sdb", $loader, $start);
+}
 
 my $to_be_expanded = 0;
 
@@ -888,9 +934,9 @@ sub calculate_surplus
     # EFI partitioning + massive per-partition alignment.
     my $overhead = $sectsize * (
         2 * 64 +                   # GPT start and end
-        (64 * (@partitions + 1)) + # Maximum alignment
-        ($boot_sectors - 64)       # Boot loader
-        );
+        (64 * (@partitions + 1))   # Maximum alignment
+        ) +
+        ($max_bootloader - 64 * 512); # boot loader
 
     my $required = 0;
     foreach (@partitions) {
@@ -999,35 +1045,11 @@ exit 0 if $dryrun;
 
 # Repartition the target disk.
 my $nextpart = 1;
-my $parttype;
 repartition ();
 
 sub repartition
 {
     local $_;
-
-    if ($copy_boot_loader) {
-        $parttype = $g->part_get_parttype ("/dev/sdb");
-    } else {
-        $parttype = "efi";
-    }
-    print "partition table type: $parttype\n" if $debug;
-
-    # Delete any existing partitions on the destination disk,
-    # but leave the bootloader that we copied over intact.
-    if ($copy_boot_loader) {
-        # Delete in reverse as an easy way to deal with extended
-        # partitions.
-        foreach (sort { $b cmp $a } $g->list_partitions ()) {
-            if (m{^/dev/.db(\d+)$}) {
-                $g->part_del ("/dev/sdb", $1);
-            }
-        }
-    } else {
-        # Didn't copy over the initial boot loader, so we need
-        # to make a new partition table here.
-        $g->part_init ("/dev/sdb", $parttype);
-    }
 
     # Work out where to start the first partition.
     die __"virt-resize: source disk does not have a first partition\n"
@@ -1301,19 +1323,6 @@ sub human_size
     } else {
         sprintf "%s%.1fG", $sgn, ($_ / 1024 / 1024);
     }
-}
-
-# Return the size in bytes of a HOST block device.
-sub host_blockdevsize
-{
-    local $_;
-    my $dev = shift;
-
-    open BD, "PATH=/usr/sbin:/sbin:\$PATH blockdev --getsize64 $dev |"
-        or die "blockdev: $!";
-    $_ = <BD>;
-    chomp $_;
-    $_;
 }
 
 # The reverse of device name translation, see
