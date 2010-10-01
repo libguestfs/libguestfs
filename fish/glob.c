@@ -1,5 +1,5 @@
 /* guestfish - the filesystem interactive shell
- * Copyright (C) 2009 Red Hat Inc.
+ * Copyright (C) 2009-2010 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -140,14 +140,8 @@ glob_issue (char *cmd, int argc,
   argv[argc] = NULL;
 
  again:
-  if (guestfs_get_trace (g)) {
-    printf ("%s", argv[0]);
-    for (i = 1; i < argc; ++i) {
-      argv[i] = globs[i][posn[i]];
-      printf (" %s", argv[i]);
-    }
-    printf ("\n");
-  }
+  for (i = 1; i < argc; ++i)
+    argv[i] = globs[i][posn[i]];
 
   if (issue_command (argv[0], &argv[1], NULL) == -1)
     *r = -1;			/* ... but don't exit */
