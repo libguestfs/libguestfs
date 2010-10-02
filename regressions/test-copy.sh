@@ -18,6 +18,14 @@
 
 # Test guestfish copy-in and copy-out commands.
 
+# This test fails on some versions of mock which lack /dev/fd
+# directory.  Skip this test in that case.
+
+test -d /dev/fd || {
+    echo "$0: Skipping this test because /dev/fd is missing."
+    exit 0
+}
+
 set -e
 
 rm -f test1.img
