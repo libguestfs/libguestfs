@@ -1,5 +1,12 @@
 #!/bin/bash -
 
+# virt-resize does not work on 32 bit because of limitations in Perl
+# so short-circuit this test on a 32 bit host.
+perl -e 'exit 1 if ~1 == 4294967294' || {
+    echo "$0: Skipping this test on 32 bit."
+    exit 0
+}
+
 export LANG=C
 set -e
 
