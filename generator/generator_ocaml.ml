@@ -91,7 +91,40 @@ val clear_progress_callback : t -> unit
       generate_ocaml_prototype name style;
       pr "(** %s *)\n" shortdesc;
       pr "\n"
-  ) all_functions_sorted
+  ) all_functions_sorted;
+
+  pr "\
+(** {2 Object-oriented API}
+
+    This is an alternate way of calling the API using an object-oriented
+    style, so you can use [g#add_drive filename] instead of
+    [Guestfs.add_drive g filename].  Apart from the different style,
+    it offers exactly the same functionality.
+
+    Note that methods that take no parameters (except the implicit handle)
+    get an extra unit [()] parameter.  This is so you can create a
+    closure from the method easily.  For example [g#get_verbose ()]
+    calls the method, whereas [g#get_verbose] is a function. *)
+
+class guestfs : object
+  method close : unit -> unit
+  method set_progress_callback : progress_cb -> unit
+  method clear_progress_callback : unit -> unit
+";
+
+  List.iter (
+    function
+    | name, ((_, []) as style), _, _, _, _, _ ->
+        pr "  method %s : unit -> " name;
+        generate_ocaml_function_type style;
+        pr "\n"
+    | name, style, _, _, _, _, _ ->
+        pr "  method %s : " name;
+        generate_ocaml_function_type style;
+        pr "\n"
+  ) all_functions_sorted;
+
+  pr "  end\n"
 
 (* Generate the OCaml bindings implementation. *)
 and generate_ocaml_ml () =
@@ -126,7 +159,27 @@ let () =
   List.iter (
     fun (name, style, _, _, _, shortdesc, _) ->
       generate_ocaml_prototype ~is_external:true name style;
-  ) all_functions_sorted
+  ) all_functions_sorted;
+
+  (* OO API. *)
+  pr "
+class guestfs =
+  let g = create () in
+  object
+    method close () = close g
+    method set_progress_callback = set_progress_callback g
+    method clear_progress_callback () = clear_progress_callback g
+";
+
+  List.iter (
+    function
+    | name, (_, []), _, _, _, _, _ ->   (* no params?  add explicit unit *)
+        pr "    method %s () = %s g\n" name name
+    | name, _, _, _, _, _, _ ->
+        pr "    method %s = %s g\n" name name
+  ) all_functions_sorted;
+
+  pr "  end\n"
 
 (* Generate the OCaml bindings C implementation. *)
 and generate_ocaml_c () =
@@ -457,6 +510,16 @@ and generate_ocaml_structure_decls () =
 and generate_ocaml_prototype ?(is_external = false) name style =
   if is_external then pr "external " else pr "val ";
   pr "%s : t -> " name;
+  generate_ocaml_function_type style;
+  if is_external then (
+    pr " = ";
+    if List.length (snd style) + 1 > 5 then
+      pr "\"ocaml_guestfs_%s_byte\" " name;
+    pr "\"ocaml_guestfs_%s\"" name
+  );
+  pr "\n"
+
+and generate_ocaml_function_type style =
   List.iter (
     function
     | Pathname _ | Device _ | Dev_or_Path _ | String _ | FileIn _ | FileOut _
@@ -479,11 +542,4 @@ and generate_ocaml_prototype ?(is_external = false) name style =
    | RStruct (_, typ) -> pr "%s" typ
    | RStructList (_, typ) -> pr "%s array" typ
    | RHashtable _ -> pr "(string * string) list"
-  );
-  if is_external then (
-    pr " = ";
-    if List.length (snd style) + 1 > 5 then
-      pr "\"ocaml_guestfs_%s_byte\" " name;
-    pr "\"ocaml_guestfs_%s\"" name
-  );
-  pr "\n"
+  )
