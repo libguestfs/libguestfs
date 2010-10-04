@@ -20,5 +20,5 @@ let _ = Guestfs.create
 
 (* Also try the OO style. *)
 let _ =
-  let g = new Guestfs.guestfs in
+  let g = new Guestfs.guestfs () in
   g#get_verbose ()

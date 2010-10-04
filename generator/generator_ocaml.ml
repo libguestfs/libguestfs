@@ -101,12 +101,14 @@ val clear_progress_callback : t -> unit
     [Guestfs.add_drive g filename].  Apart from the different style,
     it offers exactly the same functionality.
 
+    Calling [new guestfs ()] creates both the object and the handle.
+
     Note that methods that take no parameters (except the implicit handle)
     get an extra unit [()] parameter.  This is so you can create a
     closure from the method easily.  For example [g#get_verbose ()]
     calls the method, whereas [g#get_verbose] is a function. *)
 
-class guestfs : object
+class guestfs : unit -> object
   method close : unit -> unit
   method set_progress_callback : progress_cb -> unit
   method clear_progress_callback : unit -> unit
@@ -124,7 +126,7 @@ class guestfs : object
         pr "\n"
   ) all_functions_sorted;
 
-  pr "  end\n"
+  pr "end\n"
 
 (* Generate the OCaml bindings implementation. *)
 and generate_ocaml_ml () =
@@ -163,7 +165,7 @@ let () =
 
   (* OO API. *)
   pr "
-class guestfs =
+class guestfs () =
   let g = create () in
   object
     method close () = close g
