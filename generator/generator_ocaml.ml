@@ -102,6 +102,9 @@ val clear_progress_callback : t -> unit
     it offers exactly the same functionality.
 
     Calling [new guestfs ()] creates both the object and the handle.
+    The object and handle are closed either implicitly when the
+    object is garbage collected, or explicitly by calling the [g#close ()]
+    method.
 
     Note that methods that take no parameters (except the implicit handle)
     get an extra unit [()] parameter.  This is so you can create a
