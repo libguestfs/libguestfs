@@ -106,6 +106,8 @@ val clear_progress_callback : t -> unit
     object is garbage collected, or explicitly by calling the [g#close ()]
     method.
 
+    You can get the {!Guestfs.t} handle by calling [g#ocaml_handle].
+
     Note that methods that take no parameters (except the implicit handle)
     get an extra unit [()] parameter.  This is so you can create a
     closure from the method easily.  For example [g#get_verbose ()]
@@ -115,6 +117,7 @@ class guestfs : unit -> object
   method close : unit -> unit
   method set_progress_callback : progress_cb -> unit
   method clear_progress_callback : unit -> unit
+  method ocaml_handle : t
 ";
 
   List.iter (
@@ -174,6 +177,7 @@ class guestfs () =
     method close () = close g
     method set_progress_callback = set_progress_callback g
     method clear_progress_callback () = clear_progress_callback g
+    method ocaml_handle = g
 ";
 
   List.iter (
