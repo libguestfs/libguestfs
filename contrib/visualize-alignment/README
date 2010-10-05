@@ -3,12 +3,12 @@ patch in the current directory.
 
 - guestfish-N-fs-10M.qtr
 
-  The command 'guestfish -N fs:ext2:10' before we modified the
+  The command 'guestfish -N fs:ext2:10M' before we modified the
   part-disk API to align the partition to 64 sectors.
 
 - guestfish-N-fs-10M-aligned-part-disk.qtr
 
-  The command 'guestfish -N fs:ext2:10' after we modified the
+  The command 'guestfish -N fs:ext2:10M' after we modified the
   part-disk API to align the partition to 64 sectors.
 
 - guestfish-add-mount.qtr
