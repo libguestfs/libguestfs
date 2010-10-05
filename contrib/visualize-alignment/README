@@ -1,0 +1,19 @@
+- guestfish-N-fs-10M.qtr
+
+  The command 'guestfish -N fs:ext2:10' before we modified the
+  part-disk API to align the partition to 64 sectors.
+
+- guestfish-N-fs-10M-aligned-part-disk.qtr
+
+  The command 'guestfish -N fs:ext2:10' after we modified the
+  part-disk API to align the partition to 64 sectors.
+
+- guestfish-add-mount.qtr
+
+  $ guestfish -a test1.img -m /dev/sda1
+  where test1.img was created by the previous command.
+
+- guestfish-write-hello.qtr
+
+  $ guestfish -a test1.img -m /dev/sda1 write /hello "hello, world."
+  Note that the trace includes the adding and mounting operations.

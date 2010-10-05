@@ -1,0 +1,104 @@
+From e04ef476fd330485e5a88c7018d29c55cf411fe2 Mon Sep 17 00:00:00 2001
+From: Richard W.M. Jones <rjones@redhat.com>
+Date: Tue, 5 Oct 2010 09:54:10 +0100
+Subject: [PATCH] Trace reads and writes to qemu block devices.
+
+NB: This patch is not suitable for nor intended to go upstream in
+its current form.
+
+When qemu opens a block device, this patch creates a trace file
+in /tmp with a name related to the block device.  Reads and writes
+to the device cause lines to be written to the trace file:
+
+  S <total_sectors>
+  W <sector> <nb_sectors>
+  R <sector> <nb_sectors>
+
+'S' is the summary line, printed first which just tells you how
+many sectors are on the device.
+
+'W' and 'R' are writes and reads, for the range <sector> through
+to <sector> + <nb_sectors> - 1.
+---
+ block.c     |   29 +++++++++++++++++++++++++++++
+ block_int.h |    3 +++
+ 2 files changed, 32 insertions(+), 0 deletions(-)
+
+diff --git a/block.c b/block.c
+index ebbc376..26ead5b 100644
+--- a/block.c
++++ b/block.c
+@@ -474,6 +474,23 @@ static int bdrv_open_common(BlockDriverState *bs, const char *filename,
+         goto free_and_fail;
+     }
+ 
++    /* Open trace file in /tmp based on filename. XXX */
++    size_t len = strlen (filename);
++    char *trace_file = qemu_malloc (10 + len);
++    snprintf (trace_file, 10 + len, "/tmp/%s.qtr", filename);
++    size_t i;
++    for (i = 5; i < 5 + len; ++i) {
++        if (trace_file[i] == '/')
++            trace_file[i] = '_';
++    }
++    bs->trace_fp = fopen (trace_file, "w");
++    if (bs->trace_fp) {
++        setlinebuf (bs->trace_fp);
++        fprintf (bs->trace_fp, "S %" PRIi64 "\n", bs->total_sectors);
++    } else {
++        perror (trace_file);
++    }
++
+ #ifndef _WIN32
+     if (bs->is_temporary) {
+         unlink(filename);
+@@ -665,6 +682,10 @@ void bdrv_close(BlockDriverState *bs)
+             bdrv_close(bs->file);
+         }
+ 
++        if (bs->trace_fp)
++            fclose (bs->trace_fp);
++        bs->trace_fp = NULL;
++
+         /* call the change callback */
+         bs->media_changed = 1;
+         if (bs->change_cb)
+@@ -1995,6 +2016,10 @@ BlockDriverAIOCB *bdrv_aio_readv(BlockDriverState *bs, int64_t sector_num,
+ 	/* Update stats even though technically transfer has not happened. */
+ 	bs->rd_bytes += (unsigned) nb_sectors * BDRV_SECTOR_SIZE;
+ 	bs->rd_ops ++;
++
++        if (bs->trace_fp)
++            fprintf (bs->trace_fp,
++                     "R %" PRIi64 " %d\n", sector_num, nb_sectors);
+     }
+ 
+     return ret;
+@@ -2028,6 +2053,10 @@ BlockDriverAIOCB *bdrv_aio_writev(BlockDriverState *bs, int64_t sector_num,
+         if (bs->wr_highest_sector < sector_num + nb_sectors - 1) {
+             bs->wr_highest_sector = sector_num + nb_sectors - 1;
+         }
++
++        if (bs->trace_fp)
++            fprintf (bs->trace_fp,
++                     "W %" PRIi64 " %d\n", sector_num, nb_sectors);
+     }
+ 
+     return ret;
+diff --git a/block_int.h b/block_int.h
+index e8e7156..03e7c9b 100644
+--- a/block_int.h
++++ b/block_int.h
+@@ -178,6 +178,9 @@ struct BlockDriverState {
+     uint64_t wr_ops;
+     uint64_t wr_highest_sector;
+ 
++    /* Trace to file. */
++    FILE *trace_fp;
++
+     /* Whether the disk can expand beyond total_sectors */
+     int growable;
+ 
+-- 
+1.7.3.1
+
