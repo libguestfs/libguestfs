@@ -27,3 +27,8 @@ fedora-libguestfs.spec
 guestfsd-in-wine.sh
         Run a Windows-compiled guestfsd under Wine.  Read the
         instructions at the top of this file carefully.
+
+visualize-alignment
+        Tests for visualizing block device reads and writes and
+        alignment using a patched qemu.  See the README file in that
+        directory.

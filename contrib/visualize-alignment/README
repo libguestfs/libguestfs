@@ -1,3 +1,6 @@
+The *.qtr files are qemu trace files, produced using the unofficial
+patch in the current directory.
+
 - guestfish-N-fs-10M.qtr
 
   The command 'guestfish -N fs:ext2:10' before we modified the
