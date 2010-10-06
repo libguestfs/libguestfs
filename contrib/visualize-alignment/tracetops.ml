@@ -1,15 +1,32 @@
 #!/usr/bin/ocamlrun /usr/bin/ocaml
 
+(* Convert *.qtr (qemu block device trace) to Postscript.
+ * Copyright (C) 2009-2010 Red Hat Inc.
+ * By Richard W.M. Jones <rjones@redhat.com>.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ *)
+
+(* Note that we use ordinary OCaml ints, which means this program is
+ * limited to: ~1TB disks for 32 bit machines, or effectively unlimited
+ * for 64 bit machines.  Also we make several 512 byte sector
+ * assumptions.
+ *)
+
 #use "topfind";;
 #require "extlib";;
-
-(* Convert *.qtr (qemu block device trace) to Postscript.  By Richard
- * W.M. Jones <rjones@redhat.com>.
- * 
- * Note that we use ordinary OCaml ints, which means this program is
- * limited to: ~1TB disks for 32 bit machines, or effectively unlimited
- * for 64 bit machines.
- *)
 
 open ExtList
 open Scanf
@@ -18,7 +35,7 @@ open Printf
 type op = Read | Write
 
 (* If 'true' then print debug messages. *)
-let debug = false
+let debug = true
 
 (* Width of each row (in sectors) in the output. *)
 let row_size = 64
@@ -87,6 +104,58 @@ let nb_sectors, accesses =
   );
 
   nb_sectors, accesses
+
+(* If the accesses list contains any qtrace on/off patterns (in
+ * guestfish: debug "qtrace /dev/vda (on|off)") then filter out the
+ * things we want to display.  Otherwise leave the whole trace.
+ *)
+let accesses =
+  let contains_qtrace_patterns =
+    let rec loop = function
+      | [] -> false
+      | (Read, _, 2, 1) :: (Read, _, 21, 1) :: (Read, _, 15, 1) ::
+          (Read, _, 2, 1) :: _ -> true
+      | (Read, _, 2, 1) :: (Read, _, 15, 1) :: (Read, _, 21, 1) ::
+          (Read, _, 2, 1) :: _ -> true
+      | _ :: rest -> loop rest
+    in
+    loop accesses in
+
+  if contains_qtrace_patterns then (
+    if debug then eprintf "%s: contains qtrace on/off patterns\n%!" input;
+
+    let rec find_qtrace_on = function
+      | [] -> []
+      | (Read, _, 2, 1) :: (Read, _, 21, 1) :: (Read, _, 15, 1) ::
+          (Read, _, 2, 1) :: rest -> rest
+      | (Read, _, 2, 1) :: (Read, _, 15, 1) :: (Read, _, 21, 1) ::
+          (Read, _, 2, 1) :: rest ->
+          eprintf "ignored 'qtrace off' pattern when expecting 'qtrace on'\n";
+          find_qtrace_on rest
+      | _ :: rest -> find_qtrace_on rest
+    and split_until_qtrace_off = function
+      | [] -> [], []
+      | (Read, _, 2, 1) :: (Read, _, 15, 1) :: (Read, _, 21, 1) ::
+          (Read, _, 2, 1) :: rest -> [], rest
+      | (Read, _, 2, 1) :: (Read, _, 21, 1) :: (Read, _, 15, 1) ::
+          (Read, _, 2, 1) :: rest ->
+          eprintf "found 'qtrace on' pattern when expecting 'qtrace off'\n";
+          split_until_qtrace_off rest
+      | x :: ys ->
+          let xs, ys = split_until_qtrace_off ys in
+          x :: xs, ys
+    and filter_accesses xs =
+      let xs = find_qtrace_on xs in
+      if xs <> [] then (
+        let xs, ys = split_until_qtrace_off xs in
+        let ys = filter_accesses ys in
+        xs @ ys
+      ) else
+        []
+    in
+    filter_accesses accesses
+  ) else
+    accesses
 
 let ranges =
   (* Given the number of sectors, make the row array. *)

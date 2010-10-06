@@ -1,5 +1,15 @@
+This directory contains some experimental work for capturing traces of
+block device operations while filesystem operations are performed.
+
+You can trace any operation that libguestfs supports, including
+partitioning, mkfs, LVM operations, and filesystem operations.  You
+can enable and disable tracing in order to capture single operations
+such as a single write, or groups of operations.  You can examine the
+traces by hand (as text files) or turn them into graphical
+visualizations.
+
 The *.qtr files are qemu trace files, produced using the unofficial
-patch in the current directory.
+qemu patch in the current directory.
 
 - guestfish-N-fs-10M.qtr
 
@@ -18,5 +28,37 @@ patch in the current directory.
 
 - guestfish-write-hello.qtr
 
-  $ guestfish -a test1.img -m /dev/sda1 write /hello "hello, world."
-  Note that the trace includes the adding and mounting operations.
+  $ guestfish -a test1.img -m /dev/sda1 \
+      debug qtrace "/dev/vda on" : \
+      write /hello "hello, world." : \
+      debug qtrace "/dev/vda off"
+  where test1.img was created by the command above.
+
+  This is just the creation of a new file with a small amount of content.
+
+  Within this trace file, the qtrace on/off commands appear as patterns
+  of reads.  For on: 2, 21, 15, 2.  For off: 2, 15, 21, 2.
+
+- guestfish-lv-ext4-4k.qtr
+
+  $ guestfish \
+      alloc test1.img 40M : \
+      run : \
+      part-disk /dev/vda mbr : \
+      pvcreate /dev/vda : \
+      vgcreate VG /dev/vda : \
+      lvcreate LV VG 32 : \
+      mkfs-b ext4 4096 /dev/VG/LV
+
+  Some points to note:
+    * an ext4 filesystem, so it has a journal and extents
+    * 4K block size, so we expect writes to be aligned
+    * located inside an LV, so more realistic
+
+- guestfish-lv-ext4-4k-write-hello.qtr
+
+  $ guestfish -a test1.img -m /dev/VG/LV \
+      debug qtrace "/dev/vda on" : \
+      write /hello "hello, world." : \
+      debug qtrace "/dev/vda off"
+  where test1.img was created by the previous command.
