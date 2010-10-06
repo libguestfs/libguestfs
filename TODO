@@ -382,3 +382,11 @@ Remove repo from appliance name
 
 There's no need to have the appliance name contain the repository name
 (ie initramfs.x86_64.img instead of initramfs.fedora-13.x86_64.img).
+
+Visualization
+-------------
+
+Eric Sandeen pointed out the blktrace tool which is a better way of
+capturing traces than using patched qemu (see
+contrib/visualize-alignment).  We would still use the same
+visualization tools in conjunction with blktrace traces.
