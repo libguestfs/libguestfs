@@ -57,6 +57,7 @@ static char *debug_fds (const char *subcmd, int argc, char *const *const argv);
 static char *debug_ls (const char *subcmd, int argc, char *const *const argv);
 static char *debug_ll (const char *subcmd, int argc, char *const *const argv);
 static char *debug_progress (const char *subcmd, int argc, char *const *const argv);
+static char *debug_qtrace (const char *subcmd, int argc, char *const *const argv);
 static char *debug_segv (const char *subcmd, int argc, char *const *const argv);
 static char *debug_sh (const char *subcmd, int argc, char *const *const argv);
 
@@ -68,6 +69,7 @@ static struct cmd cmds[] = {
   { "ls", debug_ls },
   { "ll", debug_ll },
   { "progress", debug_progress },
+  { "qtrace", debug_qtrace },
   { "segv", debug_segv },
   { "sh", debug_sh },
   { NULL, NULL }
@@ -420,6 +422,95 @@ write_cb (void *fd_ptr, const void *buf, size_t len)
 {
   int fd = *(int *)fd_ptr;
   return xwrite (fd, buf, len);
+}
+
+/* This requires a non-upstream qemu patch.  See contrib/visualize-alignment/
+ * directory in the libguestfs source tree.
+ */
+static char *
+debug_qtrace (const char *subcmd, int argc, char *const *const argv)
+{
+  int enable;
+
+  if (argc != 2) {
+  bad_args:
+    reply_with_error ("qtrace <device> <on|off>");
+    return NULL;
+  }
+
+  if (STREQ (argv[1], "on"))
+    enable = 1;
+  else if (STREQ (argv[1], "off"))
+    enable = 0;
+  else
+    goto bad_args;
+
+  /* This does a sync and flushes all caches. */
+  if (do_drop_caches (3) == -1)
+    return NULL;
+
+  /* Note this doesn't do device name translation or check this is a device. */
+  int fd = open (argv[0], O_RDONLY | O_DIRECT);
+  if (fd == -1) {
+    reply_with_perror ("qtrace: %s: open", argv[0]);
+    return NULL;
+  }
+
+  /* The pattern of reads is what signals to the analysis program that
+   * tracing should be started or stopped.  Note this assumes both 512
+   * byte sectors, and that O_DIRECT will let us do 512 byte aligned
+   * reads.  We ought to read the sector size of the device and use
+   * that instead (XXX).  The analysis program currently assumes 512
+   * byte sectors anyway.
+   */
+#define QTRACE_SIZE 512
+  const int patterns[2][5] = {
+    { 2, 15, 21, 2, -1 }, /* disable trace */
+    { 2, 21, 15, 2, -1 }  /* enable trace */
+  };
+  void *buf;
+  size_t i;
+
+  /* For O_DIRECT, buffer must be aligned too (thanks Matt).
+   * Note posix_memalign has this strange errno behaviour.
+   */
+  errno = posix_memalign (&buf, QTRACE_SIZE, QTRACE_SIZE);
+  if (errno != 0) {
+    reply_with_perror ("posix_memalign");
+    close (fd);
+    return NULL;
+  }
+
+  for (i = 0; patterns[enable][i] >= 0; ++i) {
+    if (lseek (fd, patterns[enable][i]*QTRACE_SIZE, SEEK_SET) == -1) {
+      reply_with_perror ("qtrace: %s: lseek", argv[0]);
+      close (fd);
+      free (buf);
+      return NULL;
+    }
+
+    if (read (fd, buf, QTRACE_SIZE) == -1) {
+      reply_with_perror ("qtrace: %s: read", argv[0]);
+      close (fd);
+      free (buf);
+      return NULL;
+    }
+  }
+
+  close (fd);
+  free (buf);
+
+  /* This does a sync and flushes all caches. */
+  if (do_drop_caches (3) == -1)
+    return NULL;
+
+  char *ret = strdup ("ok");
+  if (NULL == ret) {
+    reply_with_perror ("strdup");
+    return NULL;
+  }
+
+  return ret;
 }
 
 /* Has one FileIn parameter. */
