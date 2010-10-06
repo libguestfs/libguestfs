@@ -178,27 +178,21 @@ do_part_del (const char *device, int partnum)
 int
 do_part_disk (const char *device, const char *parttype)
 {
-  const char *startstr;
-  const char *endstr;
-
   parttype = check_parttype (parttype);
   if (!parttype) {
     reply_with_error ("unknown partition type: common choices are \"gpt\" and \"msdos\"");
     return -1;
   }
 
-  /* Voooooodooooooooo (thanks Jim Meyering for working this out). */
-  if (STREQ (parttype, "msdos")) {
-    startstr = "1s";
-    endstr = "-1s";
-  } else if (STREQ (parttype, "gpt")) {
-    startstr = "34s";
-    endstr = "-34s";
-  } else {
-    /* untested */
-    startstr = "1s";
-    endstr = "-1s";
-  }
+  /* Align all partitions created this way to 64 sectors, and leave
+   * the last 64 sectors at the end of the disk free.  This wastes
+   * 32K+32K = 64K on 512-byte sector disks.  The rationale is:
+   *
+   * - aligned operations are faster
+   * - GPT requires at least 34 sectors at the end of the disk.
+   */
+  const char *startstr = "64s";
+  const char *endstr = "-64s";
 
   RUN_PARTED (return -1,
               device,
