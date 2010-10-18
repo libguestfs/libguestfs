@@ -1404,6 +1404,23 @@ Windows may initiate a lengthy "chkdsk" on first boot after a resize,
 if NTFS partitions have been expanded.  This is just a safety check
 and (unless it find errors) is nothing to worry about.
 
+=head2 GUEST BOOT STUCK AT "GRUB"
+
+If a Linux guest does not boot after resizing, and the boot is stuck
+after printing C<GRUB> on the console, try reinstalling grub.  This
+sometimes happens on older (RHEL 5-era) guests, for reasons we don't
+fully understand, although we think is to do with partition alignment.
+
+ guestfish -i -a newdisk
+ ><fs> cat /boot/grub/device.map
+ # check the contents of this file are sensible or
+ # edit the file if necessary
+ ><fs> grub-install / /dev/vda
+ ><fs> exit
+
+For more flexible guest reconfiguration, including if you need to
+specify other parameters to grub-install, use L<virt-rescue(1)>.
+
 =head1 ALTERNATIVE TOOLS
 
 There are several proprietary tools for resizing partitions.  We
@@ -1443,6 +1460,9 @@ L<virsh(1)>,
 L<parted(8)>,
 L<truncate(1)>,
 L<fallocate(1)>,
+L<grub(8)>,
+L<grub-install(8)>,
+L<virt-rescue(1)>,
 L<Sys::Guestfs(3)>,
 L<http://libguestfs.org/>.
 
