@@ -1396,6 +1396,13 @@ hand-calculating sector offsets, which is something that virt-resize
 was designed to avoid.  If you want to see the guestfish-equivalent
 commands that virt-resize runs, use the C<--debug> flag.
 
+=head1 SHELL QUOTING
+
+Libvirt guest names can contain arbitrary characters, some of which
+have meaning to the shell such as C<#> and space.  You may need to
+quote or escape these characters on the command line.  See the shell
+manual page L<sh(1)> for details.
+
 =head1 SEE ALSO
 
 L<virt-list-partitions(1)>,
