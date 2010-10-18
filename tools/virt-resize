@@ -1417,6 +1417,7 @@ L<resize2fs(8)>,
 L<ntfsresize(8)>,
 L<virsh(1)>,
 L<parted(8)>,
+L<truncate(1)>,
 L<Sys::Guestfs(3)>,
 L<http://libguestfs.org/>.
 
