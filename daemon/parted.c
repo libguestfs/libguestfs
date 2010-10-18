@@ -378,6 +378,14 @@ do_part_get_parttype (const char *device)
     }
 
     free_strings (lines);
+
+    /* If "loop" return an error (RHBZ#634246). */
+    if (STREQ (r, "loop")) {
+      free (r);
+      reply_with_error ("not a partitioned device");
+      return NULL;
+    }
+
     return r;
   }
   else {
@@ -403,6 +411,13 @@ do_part_get_parttype (const char *device)
     free (out);
     if (!p) {
       reply_with_perror ("strdup");
+      return NULL;
+    }
+
+    /* If "loop" return an error (RHBZ#634246). */
+    if (STREQ (p, "loop")) {
+      free (p);
+      reply_with_error ("not a partitioned device");
       return NULL;
     }
 
