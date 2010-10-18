@@ -78,6 +78,11 @@ remaining space to /dev/sda2:
 
  virt-resize --resize /dev/sda1=+200M --expand /dev/sda2 olddisk newdisk
 
+As above, but the output format will be uncompressed qcow2:
+
+ qemu-img create -f qcow2 newdisk.qcow2 15G
+ virt-resize --expand /dev/sda2 olddisk newdisk.qcow2
+
 =head1 DETAILED USAGE
 
 =head2 EXPANDING A VIRTUAL MACHINE DISK
@@ -229,6 +234,25 @@ partition speeds up the copy where you don't care about the existing
 contents of a partition.  Deleting a partition removes it completely,
 but note that it also renumbers any partitions after the one which is
 deleted, which can leave some guests unbootable.
+
+=head2 QCOW2 AND NON-SPARSE RAW FORMATS
+
+If the input disk is in qcow2 format, then you may prefer that the
+output is in qcow2 format as well.  Alternately, virt-resize can
+convert the format on the fly.  The output format is simply determined
+by the format of the empty output container that you provide.  Thus to
+create qcow2 output, use:
+
+ qemu-img create [-c] -f qcow2 outdisk [size]
+
+instead of the truncate command (use C<-c> for a compressed disk).
+
+Similarly, to get non-sparse raw output use:
+
+ fallocate -l size outdisk
+
+(on older systems that don't have the L<fallocate(1)> command use
+C<dd if=/dev/zero of=outdisk bs=1M count=..>)
 
 =head1 OPTIONS
 
@@ -1418,6 +1442,7 @@ L<ntfsresize(8)>,
 L<virsh(1)>,
 L<parted(8)>,
 L<truncate(1)>,
+L<fallocate(1)>,
 L<Sys::Guestfs(3)>,
 L<http://libguestfs.org/>.
 
