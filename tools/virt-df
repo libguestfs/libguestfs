@@ -282,6 +282,7 @@ sub print_title
         printf "%-36s%10s %10s %10s %5s\n",
           $cols[1], $cols[2], $cols[3], $cols[4], $cols[5];
     } else {
+        # Columns don't need special CSV quoting.
         print (join (",", @cols), "\n");
     }
 }
@@ -300,7 +301,11 @@ sub print_cols
 
         printf ("%10s %10s %10s %5s\n", $_[2], $_[3], $_[4], $percent);
     } else {
-        printf ("\"%s\",\"%s\",%d,%d,%d,%.1f%%\n", @_);
+        # Need to quote libvirt domain and filesystem.
+        my $dom = shift;
+        my $fs = shift;
+        print csv_quote($dom), ",", csv_quote($fs), ",";
+        printf ("%d,%d,%d,%.1f%%\n", @_);
     }
 }
 
@@ -316,6 +321,31 @@ sub human_size
     } else {
         sprintf "%.1fG", ($_ / 1024 / 1024);
     }
+}
+
+# Quote field for CSV without using an external module.
+sub csv_quote
+{
+    local $_ = shift;
+
+    my $needs_quoting = /[ ",\n\0]/;
+    return $_ unless $needs_quoting;
+
+    my $i;
+    my $out = '"';
+    for ($i = 0; $i < length; ++$i) {
+        my $c = substr $_, $i, 1;
+        if ($c eq '"') {
+            $out .= '""';
+        } elsif ($c eq '\0') {
+            $out .= '"0';
+        } else {
+            $out .= $c;
+        }
+    }
+    $out .= '"';
+
+    return $out;
 }
 
 =head1 NOTE ABOUT CSV FORMAT
