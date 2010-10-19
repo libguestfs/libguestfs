@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: libguestfs.master.libguestfs.ml\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-10-01 21:01+0100\n"
+"POT-Creation-Date: 2010-10-19 15:17+0100\n"
 "PO-Revision-Date: 2010-02-02 18:35+0530\n"
 "Last-Translator: Ani Peter | അനി പീറ്റര്‍ <apeter@redhat.com>\n"
 "Language-Team: Swathanthra Malayalam Computing | സ്വതന്ത്ര മലയാളം കമ്പ്യൂട്ടിങ് <smc-"
@@ -2831,12 +2831,12 @@ msgstr ""
 msgid "virt-resize: sorry this program does not work on a 32 bit host\n"
 msgstr ""
 
-#: tools/virt-resize.pl:528
+#: tools/virt-resize.pl:552
 #, fuzzy, perl-brace-format
 msgid "virt-resize: {file}: does not exist or is not readable\n"
 msgstr "ബൈനറി '%s' നിലവിലില്ല അല്ലെങ്കില്‍ പ്രവര്‍ത്തിക്കുന്നില്ല\n"
 
-#: tools/virt-resize.pl:530
+#: tools/virt-resize.pl:554
 #, perl-brace-format
 msgid ""
 "virt-resize: {file}: does not exist or is not writable\n"
@@ -2844,61 +2844,61 @@ msgid ""
 "Please read the virt-resize(1) manpage for more information.\n"
 msgstr ""
 
-#: tools/virt-resize.pl:604 tools/virt-resize.pl:607
+#: tools/virt-resize.pl:628 tools/virt-resize.pl:631
 #, perl-brace-format
 msgid ""
 "virt-resize: {file}: file is too small to be a disk image ({sz} bytes)\n"
 msgstr ""
 
-#: tools/virt-resize.pl:623 tools/virt-resize.pl:635
+#: tools/virt-resize.pl:647 tools/virt-resize.pl:659
 msgid "virt-resize: short read"
 msgstr ""
 
-#: tools/virt-resize.pl:769
+#: tools/virt-resize.pl:793
 #, fuzzy, perl-brace-format
 msgid "virt-resize: no logical volume called {n}\n"
 msgstr "ഒരു എല്‍വിഎം ലോജിക്കല്‍ വോള്യത്തിന്റെ വ്യാപ്തി മാറ്റുക"
 
-#: tools/virt-resize.pl:789
+#: tools/virt-resize.pl:813
 #, perl-brace-format
 msgid ""
 "{p}: partition not found in the source disk image, when using the '{opt}' "
 "command line option\n"
 msgstr ""
 
-#: tools/virt-resize.pl:795
+#: tools/virt-resize.pl:819
 #, perl-brace-format
 msgid ""
 "{p}: partition ignored, you cannot use it in another command line argument\n"
 msgstr ""
 
-#: tools/virt-resize.pl:799
+#: tools/virt-resize.pl:823
 #, perl-brace-format
 msgid ""
 "{p}: partition deleted, you cannot use it in another command line argument\n"
 msgstr ""
 
-#: tools/virt-resize.pl:841
+#: tools/virt-resize.pl:865
 #, perl-brace-format
 msgid "{p}: this partition has already been marked for resizing\n"
 msgstr ""
 
-#: tools/virt-resize.pl:849
+#: tools/virt-resize.pl:873
 #, perl-brace-format
 msgid "{p}: missing size field in {o} option\n"
 msgstr ""
 
-#: tools/virt-resize.pl:866
+#: tools/virt-resize.pl:890
 #, perl-brace-format
 msgid "{p}: {f}: cannot parse size field\n"
 msgstr ""
 
-#: tools/virt-resize.pl:871
+#: tools/virt-resize.pl:895
 #, perl-brace-format
 msgid "{p}: new size is zero or negative\n"
 msgstr ""
 
-#: tools/virt-resize.pl:894
+#: tools/virt-resize.pl:918
 #, perl-brace-format
 msgid ""
 "{p}: cannot make this partition smaller because it contains a\n"
@@ -2907,84 +2907,84 @@ msgid ""
 "You have to resize the content first, see virt-resize(1).\n"
 msgstr ""
 
-#: tools/virt-resize.pl:910
+#: tools/virt-resize.pl:934
 msgid "virt-resize: you cannot use options --expand and --shrink together\n"
 msgstr ""
 
-#: tools/virt-resize.pl:959
+#: tools/virt-resize.pl:983
 #, perl-brace-format
 msgid ""
 "virt-resize: error: cannot use --expand when there is no surplus space to\n"
 "expand into.  You need to make the target disk larger by at least {h}.\n"
 msgstr ""
 
-#: tools/virt-resize.pl:974
+#: tools/virt-resize.pl:998
 msgid ""
 "virt-resize: error: cannot use --shrink because there is no deficit\n"
 "(see 'deficit' in the virt-resize(1) man page)\n"
 msgstr ""
 
-#: tools/virt-resize.pl:989
+#: tools/virt-resize.pl:1013
 msgid "Summary of changes:\n"
 msgstr ""
 
-#: tools/virt-resize.pl:993
+#: tools/virt-resize.pl:1017
 #, perl-brace-format
 msgid "{p}: partition will be ignored\n"
 msgstr ""
 
-#: tools/virt-resize.pl:995
+#: tools/virt-resize.pl:1019
 #, perl-brace-format
 msgid "{p}: partition will be deleted\n"
 msgstr ""
 
-#: tools/virt-resize.pl:997
+#: tools/virt-resize.pl:1021
 #, perl-brace-format
 msgid "{p}: partition will be resized from {oldsize} to {newsize}\n"
 msgstr ""
 
-#: tools/virt-resize.pl:1002
+#: tools/virt-resize.pl:1026
 #, perl-brace-format
 msgid "{p}: content will be expanded using the '{meth}' method\n"
 msgstr ""
 
-#: tools/virt-resize.pl:1007
+#: tools/virt-resize.pl:1031
 #, perl-brace-format
 msgid "{p}: partition will be left alone\n"
 msgstr ""
 
-#: tools/virt-resize.pl:1012
+#: tools/virt-resize.pl:1036
 #, perl-brace-format
 msgid "{n}: LV will be expanded to maximum size\n"
 msgstr ""
 
-#: tools/virt-resize.pl:1018
+#: tools/virt-resize.pl:1042
 #, perl-brace-format
 msgid "{n}: content will be expanded using the '{meth}' method\n"
 msgstr ""
 
-#: tools/virt-resize.pl:1025
+#: tools/virt-resize.pl:1049
 #, perl-brace-format
 msgid "There is a surplus of {spl} bytes ({h}).\n"
 msgstr ""
 
-#: tools/virt-resize.pl:1030
+#: tools/virt-resize.pl:1054
 msgid "An extra partition will be created for the surplus.\n"
 msgstr ""
 
-#: tools/virt-resize.pl:1032
+#: tools/virt-resize.pl:1056
 msgid ""
 "The surplus space is not large enough for an extra partition to be created\n"
 "and so it will just be ignored.\n"
 msgstr ""
 
-#: tools/virt-resize.pl:1035
+#: tools/virt-resize.pl:1059
 msgid ""
 "The surplus space will be ignored.  Run a partitioning program in the guest\n"
 "to partition this extra space if you want.\n"
 msgstr ""
 
-#: tools/virt-resize.pl:1038
+#: tools/virt-resize.pl:1062
 #, perl-brace-format
 msgid ""
 "virt-resize: error: there is a deficit of {def} bytes ({h}).\n"
@@ -2992,16 +2992,16 @@ msgid ""
 "or adjust your resizing requests.\n"
 msgstr ""
 
-#: tools/virt-resize.pl:1055
+#: tools/virt-resize.pl:1079
 msgid "virt-resize: source disk does not have a first partition\n"
 msgstr ""
 
-#: tools/virt-resize.pl:1150
+#: tools/virt-resize.pl:1174
 #, perl-brace-format
 msgid "Copying {p} ...\n"
 msgstr ""
 
-#: tools/virt-resize.pl:1211 tools/virt-resize.pl:1269
+#: tools/virt-resize.pl:1235 tools/virt-resize.pl:1293
 #, perl-brace-format
 msgid "Expanding {p} using the '{meth}' method\n"
 msgstr ""
