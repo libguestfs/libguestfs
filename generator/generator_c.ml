@@ -30,15 +30,19 @@ open Generator_structs
 
 (* Generate C API. *)
 
+type optarg_proto = Dots | VA | Argv
+
 (* Generate a C function prototype. *)
 let rec generate_prototype ?(extern = true) ?(static = false)
     ?(semicolon = true)
     ?(single_line = false) ?(newline = false) ?(in_daemon = false)
-    ?(prefix = "")
-    ?handle name style =
+    ?(prefix = "") ?(suffix = "")
+    ?handle
+    ?(optarg_proto = Dots)
+    name (ret, args, optargs) =
   if extern then pr "extern ";
   if static then pr "static ";
-  (match fst style with
+  (match ret with
    | RErr -> pr "int "
    | RInt _ -> pr "int "
    | RInt64 _ -> pr "int64_t "
@@ -53,10 +57,10 @@ let rec generate_prototype ?(extern = true) ?(static = false)
        if not in_daemon then pr "struct guestfs_%s_list *" typ
        else pr "guestfs_int_%s_list *" typ
   );
-  let is_RBufferOut = match fst style with RBufferOut _ -> true | _ -> false in
-  pr "%s%s (" prefix name;
-  if handle = None && List.length (snd style) = 0 && not is_RBufferOut then
-    pr "void"
+  let is_RBufferOut = match ret with RBufferOut _ -> true | _ -> false in
+  pr "%s%s%s (" prefix name suffix;
+  if handle = None && args = [] && optargs = [] && not is_RBufferOut then
+      pr "void"
   else (
     let comma = ref false in
     (match handle with
@@ -92,15 +96,22 @@ let rec generate_prototype ?(extern = true) ?(static = false)
           pr "const char *%s" n;
           next ();
           pr "size_t %s_size" n
-    ) (snd style);
+    ) args;
     if is_RBufferOut then (next (); pr "size_t *size_r");
+    if optargs <> [] then (
+      next ();
+      match optarg_proto with
+      | Dots -> pr "..."
+      | VA -> pr "va_list args"
+      | Argv -> pr "const struct guestfs_%s_argv *optargs" name
+    );
   );
   pr ")";
   if semicolon then pr ";";
   if newline then pr "\n"
 
 (* Generate C call arguments, eg "(handle, foo, bar)" *)
-and generate_c_call_args ?handle style =
+and generate_c_call_args ?handle (ret, args, optargs) =
   pr "(";
   let comma = ref false in
   let next () =
@@ -119,28 +130,56 @@ and generate_c_call_args ?handle style =
     | arg ->
         next ();
         pr "%s" (name_of_argt arg)
-  ) (snd style);
+  ) args;
   (* For RBufferOut calls, add implicit &size parameter. *)
-  (match fst style with
+  (match ret with
    | RBufferOut _ ->
        next ();
        pr "&size"
    | _ -> ()
+  );
+  (* For calls with optional arguments, add implicit optargs parameter. *)
+  if optargs <> [] then (
+    next ();
+    pr "optargs"
   );
   pr ")"
 
 (* Generate the pod documentation for the C API. *)
 and generate_actions_pod () =
   List.iter (
-    fun (shortname, style, _, flags, _, _, longdesc) ->
+    fun (shortname, (ret, args, optargs as style), _, flags, _, _, longdesc) ->
       if not (List.mem NotInDocs flags) then (
         let name = "guestfs_" ^ shortname in
         pr "=head2 %s\n\n" name;
         pr " ";
         generate_prototype ~extern:false ~handle:"g" name style;
         pr "\n\n";
+
+        let uc_shortname = String.uppercase shortname in
+        if optargs <> [] then (
+          pr "You may supply a list of optional arguments to this call.\n";
+          pr "Use zero or more of the following pairs of parameters,\n";
+          pr "and terminate the list with C<-1> on its own.\n";
+          pr "See L</CALLS WITH OPTIONAL ARGUMENTS>.\n\n";
+          List.iter (
+            fun argt ->
+              let n = name_of_argt argt in
+              let uc_n = String.uppercase n in
+              pr " GUESTFS_%s_%s, " uc_shortname uc_n;
+              match argt with
+              | Bool n -> pr "int %s,\n" n
+              | Int n -> pr "int %s,\n" n
+              | Int64 n -> pr "int64_t %s,\n" n
+              | String n -> pr "const char *%s,\n" n
+              | _ -> assert false
+          ) optargs;
+          pr "\n";
+        );
+
         pr "%s\n\n" longdesc;
-        (match fst style with
+        let ret, args, optargs = style in
+        (match ret with
          | RErr ->
              pr "This function returns 0 on success or -1 on error.\n\n"
          | RInt _ ->
@@ -189,13 +228,34 @@ I<The caller must free the returned buffer after use>.\n\n"
           pr "%s\n\n" protocol_limit_warning;
         if List.mem DangerWillRobinson flags then
           pr "%s\n\n" danger_will_robinson;
-        if List.exists (function Key _ -> true | _ -> false) (snd style) then
+        if List.exists (function Key _ -> true | _ -> false) (args@optargs) then
           pr "This function takes a key or passphrase parameter which
 could contain sensitive material.  Read the section
 L</KEYS AND PASSPHRASES> for more information.\n\n";
-        match deprecation_notice flags with
-        | None -> ()
-        | Some txt -> pr "%s\n\n" txt
+        (match deprecation_notice flags with
+         | None -> ()
+         | Some txt -> pr "%s\n\n" txt
+        );
+
+        (* Handling of optional argument variants. *)
+        if optargs <> [] then (
+          pr "=head2 %s_va\n\n" name;
+          pr " ";
+          generate_prototype ~extern:false ~handle:"g"
+            ~prefix:"guestfs_" ~suffix:"_va" ~optarg_proto:VA
+            shortname style;
+          pr "\n\n";
+          pr "This is the \"va_list variant\" of L</%s>.\n\n" name;
+          pr "See L</CALLS WITH OPTIONAL ARGUMENTS>.\n\n";
+          pr "=head2 %s_argv\n\n" name;
+          pr " ";
+          generate_prototype ~extern:false ~handle:"g"
+            ~prefix:"guestfs_" ~suffix:"_argv" ~optarg_proto:Argv
+            shortname style;
+          pr "\n\n";
+          pr "This is the \"argv variant\" of L</%s>.\n\n" name;
+          pr "See L</CALLS WITH OPTIONAL ARGUMENTS>.\n\n";
+        );
       )
   ) all_functions_sorted
 
@@ -305,9 +365,7 @@ and generate_structs_h () =
 and generate_actions_h () =
   generate_header CStyle LGPLv2plus;
   List.iter (
-    fun (shortname, style, _, flags, _, _, _) ->
-      let name = "guestfs_" ^ shortname in
-
+    fun (shortname, (ret, args, optargs as style), _, flags, _, _, _) ->
       let deprecated =
         List.exists (function DeprecatedBy _ -> true | _ -> false) flags in
       let test0 =
@@ -318,7 +376,41 @@ and generate_actions_h () =
         pr "#define LIBGUESTFS_HAVE_%s 1\n" (String.uppercase shortname);
 
       generate_prototype ~single_line:true ~newline:true ~handle:"g"
-        name style
+        ~prefix:"guestfs_" shortname style;
+
+      if optargs <> [] then (
+        generate_prototype ~single_line:true ~newline:true ~handle:"g"
+          ~prefix:"guestfs_" ~suffix:"_va" ~optarg_proto:VA
+          shortname style;
+
+        pr "struct guestfs_%s_argv {\n" shortname;
+        pr "  uint64_t bitmask;\n";
+        iteri (
+          fun i argt ->
+            let c_type =
+              match argt with
+              | Bool n -> "int "
+              | Int n -> "int64_t "
+              | Int64 n -> "int "
+              | String n -> "const char *"
+              | _ -> assert false (* checked in generator_checks *) in
+            let uc_shortname = String.uppercase shortname in
+            let n = name_of_argt argt in
+            let uc_n = String.uppercase n in
+            pr "#define GUESTFS_%s_%s %d\n" uc_shortname uc_n i;
+            pr "#define GUESTFS_%s_%s_BITMASK (UINT64_C(1)<<%d)\n" uc_shortname uc_n i;
+            pr "/* The field below is only valid in this struct if the\n";
+            pr " * GUESTFS_%s_%s_BITMASK bit is set\n" uc_shortname uc_n;
+            pr " * in the bitmask above, otherwise the contents are ignored.\n";
+            pr " */\n";
+            pr "  %s%s;\n" c_type n
+        ) optargs;
+        pr "};\n";
+
+        generate_prototype ~single_line:true ~newline:true ~handle:"g"
+          ~prefix:"guestfs_" ~suffix:"_argv" ~optarg_proto:Argv
+          shortname style;
+      );
   ) all_functions_sorted
 
 (* Generate the guestfs-internal-actions.h file. *)
@@ -326,9 +418,9 @@ and generate_internal_actions_h () =
   generate_header CStyle LGPLv2plus;
   List.iter (
     fun (shortname, style, _, _, _, _, _) ->
-      let name = "guestfs__" ^ shortname in
       generate_prototype ~single_line:true ~newline:true ~handle:"g"
-        name style
+        ~prefix:"guestfs__" ~optarg_proto:Argv
+        shortname style
   ) non_daemon_functions
 
 (* Generate the client-side dispatch stubs. *)
@@ -408,7 +500,7 @@ check_state (guestfs_h *g, const char *caller)
   (* Generate code to check String-like parameters are not passed in
    * as NULL (returning an error if they are).
    *)
-  let check_null_strings shortname style =
+  let check_null_strings shortname (ret, args, optargs) =
     let pr_newline = ref false in
     List.iter (
       function
@@ -426,7 +518,7 @@ check_state (guestfs_h *g, const char *caller)
           pr "  if (%s == NULL) {\n" n;
           pr "    error (g, \"%%s: %%s: parameter cannot be NULL\",\n";
           pr "           \"%s\", \"%s\");\n" shortname n;
-          pr "    return %s;\n" (error_code_of (fst style));
+          pr "    return %s;\n" (error_code_of ret);
           pr "  }\n";
           pr_newline := true
 
@@ -437,25 +529,60 @@ check_state (guestfs_h *g, const char *caller)
       | Bool _
       | Int _
       | Int64 _ -> ()
-    ) (snd style);
+    ) args;
+
+    (* For optional arguments. *)
+    List.iter (
+      function
+      | String n ->
+          pr "  if ((optargs->bitmask & GUESTFS_%s_%s_BITMASK) &&\n"
+            (String.uppercase shortname) (String.uppercase n);
+          pr "      optargs->%s == NULL) {\n" n;
+          pr "    error (g, \"%%s: %%s: optional parameter cannot be NULL\",\n";
+          pr "           \"%s\", \"%s\");\n" shortname n;
+          pr "    return %s;\n" (error_code_of ret);
+          pr "  }\n";
+          pr_newline := true
+
+      (* not applicable *)
+      | Bool _ | Int _ | Int64 _ -> ()
+
+      | _ -> assert false
+    ) optargs;
 
     if !pr_newline then pr "\n";
   in
 
+  (* Generate code to reject optargs we don't know about. *)
+  let reject_unknown_optargs shortname = function
+    | _, _, [] -> ()
+    | ret, _, optargs ->
+        let len = List.length optargs in
+        let mask = Int64.lognot (Int64.pred (Int64.shift_left 1L len)) in
+        pr "  if (optargs->bitmask & UINT64_C(0x%Lx)) {\n" mask;
+        pr "    error (g, \"%%s: unknown option in guestfs_%%s_argv->bitmask (this can happen if a program is compiled against a newer version of libguestfs, then dynamically linked to an older version)\",\n";
+        pr "           \"%s\", \"%s\");\n" shortname shortname;
+        pr "    return %s;\n" (error_code_of ret);
+        pr "  }\n";
+        pr "\n";
+  in
+
   (* Generate code to generate guestfish call traces. *)
-  let trace_call shortname style =
+  let trace_call shortname (ret, args, optargs) =
     pr "  if (guestfs__get_trace (g)) {\n";
 
     let needs_i =
       List.exists (function
                    | StringList _ | DeviceList _ -> true
-                   | _ -> false) (snd style) in
+                   | _ -> false) args in
     if needs_i then (
       pr "    size_t i;\n";
       pr "\n"
     );
 
     pr "    fprintf (stderr, \"%s\");\n" shortname;
+
+    (* Required arguments. *)
     List.iter (
       function
       | String n			(* strings *)
@@ -486,7 +613,29 @@ check_state (guestfs_h *g, const char *caller)
           pr "    fprintf (stderr, \" %%d\", %s);\n" n
       | Int64 n ->
           pr "    fprintf (stderr, \" %%\" PRIi64, %s);\n" n
-    ) (snd style);
+    ) args;
+
+    (* Optional arguments. *)
+    List.iter (
+      fun argt ->
+        let n = name_of_argt argt in
+        let uc_shortname = String.uppercase shortname in
+        let uc_n = String.uppercase n in
+        pr "    if (optargs->bitmask & GUESTFS_%s_%s_BITMASK)\n"
+          uc_shortname uc_n;
+        (match argt with
+         | String n ->
+             pr "      fprintf (stderr, \" \\\"%%s:%%s\\\"\", \"%s\", optargs->%s);\n" n n
+         | Bool n ->
+             pr "      fprintf (stderr, \" \\\"%%s:%%s\\\"\", \"%s\", optargs->%s ? \"true\" : \"false\");\n" n n
+         | Int n ->
+             pr "      fprintf (stderr, \" \\\"%%s:%%d\\\"\", \"%s\", optargs->%s);\n" n n
+         | Int64 n ->
+             pr "      fprintf (stderr, \" \\\"%%s:%%\" PRIi64 \"\\\"\", \"%s\", optargs->%s);\n" n n
+         | _ -> assert false
+        );
+    ) optargs;
+
     pr "    fputc ('\\n', stderr);\n";
     pr "  }\n";
     pr "\n";
@@ -494,13 +643,18 @@ check_state (guestfs_h *g, const char *caller)
 
   (* For non-daemon functions, generate a wrapper around each function. *)
   List.iter (
-    fun (shortname, style, _, _, _, _, _) ->
-      let name = "guestfs_" ^ shortname in
-
-      generate_prototype ~extern:false ~semicolon:false ~newline:true
-        ~handle:"g" name style;
+    fun (shortname, (_, _, optargs as style), _, _, _, _, _) ->
+      if optargs = [] then
+        generate_prototype ~extern:false ~semicolon:false ~newline:true
+          ~handle:"g" ~prefix:"guestfs_"
+          shortname style
+      else
+        generate_prototype ~extern:false ~semicolon:false ~newline:true
+          ~handle:"g" ~prefix:"guestfs_" ~suffix:"_argv" ~optarg_proto:Argv
+          shortname style;
       pr "{\n";
       check_null_strings shortname style;
+      reject_unknown_optargs shortname style;
       trace_call shortname style;
       pr "  return guestfs__%s " shortname;
       generate_c_call_args ~handle:"g" style;
@@ -511,17 +665,24 @@ check_state (guestfs_h *g, const char *caller)
 
   (* Client-side stubs for each function. *)
   List.iter (
-    fun (shortname, style, _, _, _, _, _) ->
+    fun (shortname, (ret, args, optargs as style), _, _, _, _, _) ->
+      if optargs <> [] then
+        failwithf "optargs not yet implemented for daemon functions";
+
       let name = "guestfs_" ^ shortname in
-      let error_code = error_code_of (fst style) in
+      let error_code = error_code_of ret in
 
       (* Generate the action stub. *)
-      generate_prototype ~extern:false ~semicolon:false ~newline:true
-        ~handle:"g" name style;
+      if optargs = [] then
+        generate_prototype ~extern:false ~semicolon:false ~newline:true
+          ~handle:"g" name style
+      else
+        generate_prototype ~extern:false ~semicolon:false ~newline:true
+          ~handle:"g" ~suffix:"_argv" ~optarg_proto:Argv name style;
 
       pr "{\n";
 
-      (match snd style with
+      (match args with
        | [] -> ()
        | _ -> pr "  struct %s_args args;\n" name
       );
@@ -529,7 +690,7 @@ check_state (guestfs_h *g, const char *caller)
       pr "  guestfs_message_header hdr;\n";
       pr "  guestfs_message_error err;\n";
       let has_ret =
-        match fst style with
+        match ret with
         | RErr -> false
         | RConstString _ | RConstOptString _ ->
             failwithf "RConstString|RConstOptString cannot be used by daemon functions"
@@ -544,6 +705,7 @@ check_state (guestfs_h *g, const char *caller)
       pr "  int r;\n";
       pr "\n";
       check_null_strings shortname style;
+      reject_unknown_optargs shortname style;
       trace_call shortname style;
       pr "  if (check_state (g, \"%s\") == -1) return %s;\n"
         shortname error_code;
@@ -551,7 +713,7 @@ check_state (guestfs_h *g, const char *caller)
       pr "\n";
 
       (* Send the main header and arguments. *)
-      (match snd style with
+      (match args with
        | [] ->
            pr "  serial = guestfs___send (g, GUESTFS_PROC_%s, NULL, NULL);\n"
              (String.uppercase shortname)
@@ -609,7 +771,7 @@ check_state (guestfs_h *g, const char *caller)
             need_read_reply_label := true;
             pr "\n";
         | _ -> ()
-      ) (snd style);
+      ) args;
 
       (* Wait for the reply from the remote end. *)
       if !need_read_reply_label then pr " read_reply:\n";
@@ -655,11 +817,11 @@ check_state (guestfs_h *g, const char *caller)
             pr "  }\n";
             pr "\n";
         | _ -> ()
-      ) (snd style);
+      ) args;
 
       pr "  guestfs___end_busy (g);\n";
 
-      (match fst style with
+      (match ret with
        | RErr -> pr "  return 0;\n"
        | RInt n | RInt64 n | RBool n ->
            pr "  return ret.%s;\n" n
@@ -728,6 +890,95 @@ check_state (guestfs_h *g, const char *caller)
 
   ) structs;
 
+  (* Functions which have optional arguments have two generated variants. *)
+  List.iter (
+    function
+    | shortname, (ret, args, (_::_ as optargs) as style), _, _, _, _, _ ->
+        let uc_shortname = String.uppercase shortname in
+
+        (* Get the name of the last regular argument. *)
+        let last_arg =
+          match args with
+          | [] -> "g"
+          | args -> name_of_argt (List.hd (List.rev args)) in
+
+        let rerrcode, rtype =
+          match ret with
+          | RErr | RInt _ | RBool _ -> "-1", "int "
+          | RInt64 _ -> "-1", "int64_t "
+          | RConstString _ | RConstOptString _ -> "NULL", "const char *"
+          | RString _ | RBufferOut _ -> "NULL", "char *"
+          | RStringList _ | RHashtable _ -> "NULL", "char **"
+          | RStruct (_, typ) -> "NULL", sprintf "struct guestfs_%s *" typ
+          | RStructList (_, typ) ->
+              "NULL", sprintf "struct guestfs_%s_list *" typ in
+
+        (* The regular variable args function, just calls the _va variant. *)
+        generate_prototype ~extern:false ~semicolon:false ~newline:true
+          ~handle:"g" ~prefix:"guestfs_" shortname style;
+        pr "{\n";
+        pr "  va_list optargs;\n";
+        pr "\n";
+        pr "  va_start (optargs, %s);\n" last_arg;
+        pr "  %sr = guestfs_%s_va " rtype shortname;
+        generate_c_call_args ~handle:"g" style;
+        pr ";\n";
+        pr "  va_end (optargs);\n";
+        pr "\n";
+        pr "  return r;\n";
+        pr "}\n\n";
+
+        generate_prototype ~extern:false ~semicolon:false ~newline:true
+          ~handle:"g" ~prefix:"guestfs_" ~suffix:"_va" ~optarg_proto:VA
+          shortname style;
+        pr "{\n";
+        pr "  struct guestfs_%s_argv optargs_s;\n" shortname;
+        pr "  struct guestfs_%s_argv *optargs = &optargs_s;\n" shortname;
+        pr "  int i;\n";
+        pr "\n";
+        pr "  optargs_s.bitmask = 0;\n";
+        pr "\n";
+        pr "  while ((i = va_arg (args, int)) >= 0) {\n";
+        pr "    switch (i) {\n";
+
+        List.iter (
+          fun argt ->
+            let n = name_of_argt argt in
+            let uc_n = String.uppercase n in
+            pr "    case GUESTFS_%s_%s:\n" uc_shortname uc_n;
+            pr "      optargs_s.%s = va_arg (args, " n;
+            (match argt with
+             | Bool _ | Int _ -> pr "int"
+             | Int64 _ -> pr "int64_t"
+             | String _ -> pr "const char *"
+             | _ -> assert false
+            );
+            pr ");\n";
+            pr "      break;\n";
+        ) optargs;
+
+        pr "    default:\n";
+        pr "      error (g, \"%%s: unknown option %%d (this can happen if a program is compiled against a newer version of libguestfs, then dynamically linked to an older version)\",\n";
+        pr "             \"%s\", i);\n" shortname;
+        pr "      return %s;\n" rerrcode;
+        pr "    }\n";
+        pr "\n";
+        pr "    uint64_t i_mask = UINT64_C(1) << i;\n";
+        pr "    if (optargs_s.bitmask & i_mask) {\n";
+        pr "      error (g, \"%%s: same optional argument specified more than once\",\n";
+        pr "             \"%s\");\n" shortname;
+        pr "      return %s;\n" rerrcode;
+        pr "    }\n";
+        pr "    optargs_s.bitmask |= i_mask;\n";
+        pr "  }\n";
+        pr "\n";
+        pr "  return guestfs_%s_argv " shortname;
+        generate_c_call_args ~handle:"g" style;
+        pr ";\n";
+        pr "}\n\n"
+    | _ -> ()
+  ) all_functions_sorted
+
 (* Generate the linker script which controls the visibility of
  * symbols in the public ABI and ensures no other symbols get
  * exported accidentally.
@@ -761,8 +1012,16 @@ and generate_linker_script () =
     "guestfs_tmpdir";
   ] in
   let functions =
-    List.map (fun (name, _, _, _, _, _, _) -> "guestfs_" ^ name)
-      all_functions in
+    List.flatten (
+      List.map (
+        function
+        | name, (_, _, []), _, _, _, _, _ -> ["guestfs_" ^ name]
+        | name, (_, _, _), _, _, _, _, _ ->
+            ["guestfs_" ^ name;
+             "guestfs_" ^ name ^ "_va";
+             "guestfs_" ^ name ^ "_argv"]
+      ) all_functions
+    ) in
   let structs =
     List.concat (
       List.map (fun (typ, _) ->

@@ -63,12 +63,15 @@ and generate_daemon_actions () =
   pr "\n";
 
   List.iter (
-    fun (name, style, _, _, _, _, _) ->
+    fun (name, (ret, args, optargs), _, _, _, _, _) ->
+      if optargs <> [] then
+        failwithf "optional arguments not supported in the daemon yet";
+
       (* Generate server-side stubs. *)
       pr "static void %s_stub (XDR *xdr_in)\n" name;
       pr "{\n";
       let error_code =
-        match fst style with
+        match ret with
         | RErr | RInt _ -> pr "  int r;\n"; "-1"
         | RInt64 _ -> pr "  int64_t r;\n"; "-1"
         | RBool _ -> pr "  int r;\n"; "-1"
@@ -83,7 +86,7 @@ and generate_daemon_actions () =
             pr "  char *r;\n";
             "NULL" in
 
-      (match snd style with
+      (match args with
        | [] -> ()
        | args ->
            pr "  struct guestfs_%s_args args;\n" name;
@@ -107,9 +110,9 @@ and generate_daemon_actions () =
       pr "\n";
 
       let is_filein =
-        List.exists (function FileIn _ -> true | _ -> false) (snd style) in
+        List.exists (function FileIn _ -> true | _ -> false) args in
 
-      (match snd style with
+      (match args with
        | [] -> ()
        | args ->
            pr "  memset (&args, 0, sizeof args);\n";
@@ -176,7 +179,7 @@ and generate_daemon_actions () =
       );
 
       (* this is used at least for do_equal *)
-      if List.exists (function Pathname _ -> true | _ -> false) (snd style) then (
+      if List.exists (function Pathname _ -> true | _ -> false) args then (
         (* Emit NEED_ROOT just once, even when there are two or
            more Pathname args *)
         pr "  NEED_ROOT (%s, goto done);\n"
@@ -187,13 +190,12 @@ and generate_daemon_actions () =
        * parameters, since these go "outside" the RPC protocol.
        *)
       let args' =
-        List.filter (function FileIn _ | FileOut _ -> false | _ -> true)
-          (snd style) in
+        List.filter (function FileIn _ | FileOut _ -> false | _ -> true) args in
       pr "  r = do_%s " name;
-      generate_c_call_args (fst style, args');
+      generate_c_call_args (ret, args', optargs);
       pr ";\n";
 
-      (match fst style with
+      (match ret with
        | RErr | RInt _ | RInt64 _ | RBool _
        | RConstString _ | RConstOptString _
        | RString _ | RStringList _ | RHashtable _
@@ -216,11 +218,11 @@ and generate_daemon_actions () =
        * send its own reply.
        *)
       let no_reply =
-        List.exists (function FileOut _ -> true | _ -> false) (snd style) in
+        List.exists (function FileOut _ -> true | _ -> false) args in
       if no_reply then
         pr "  /* do_%s has already sent a reply */\n" name
       else (
-        match fst style with
+        match ret with
         | RErr -> pr "  reply (NULL, NULL);\n"
         | RInt n | RInt64 n | RBool n ->
             pr "  struct guestfs_%s_ret ret;\n" name;
@@ -267,7 +269,7 @@ and generate_daemon_actions () =
 
       (* Free the args. *)
       pr "done:\n";
-      (match snd style with
+      (match args with
        | [] -> ()
        | _ ->
            pr "  xdr_free ((xdrproc_t) xdr_guestfs_%s_args, (char *) &args);\n"
@@ -283,7 +285,7 @@ and generate_daemon_actions () =
   pr "  switch (proc_nr) {\n";
 
   List.iter (
-    fun (name, style, _, _, _, _, _) ->
+    fun (name, _, _, _, _, _, _) ->
       pr "    case GUESTFS_PROC_%s:\n" (String.uppercase name);
       pr "      %s_stub (xdr_in);\n" name;
       pr "      break;\n"

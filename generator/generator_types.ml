@@ -20,7 +20,45 @@
 
 (* Types used to describe the API. *)
 
-type style = ret * args
+type style = ret * args * args
+    (* The [style] is a tuple which describes the return value and
+     * arguments of a function.
+     * 
+     * [ret] is the return value, one of the [R*] values below.
+     * 
+     * The second element is the list of required arguments, a list of
+     * [argt]s from the list below, eg. [Bool], [String] etc.  Each has
+     * a name so that for example [Int "foo"] corresponds in the C
+     * bindings to an [int foo] parameter.
+     * 
+     * The third element is the list of optional arguments.  These are
+     * mapped to optional arguments in the language binding, eg. in
+     * Perl to:
+     *   $g->fn (required1, required2, opt1 => val, opt2 => val);
+     * As the name suggests these are optional, and the function can
+     * tell which optional parameters were supplied by the caller.
+     * 
+     * Only [Bool], [Int], [Int64], [String] may currently appear in
+     * the optional argument list (we may permit more types in future).
+     *
+     * ABI and API considerations
+     * --------------------------
+     * 
+     * The return type and required arguments may not be changed after
+     * these have been published in a stable version of libguestfs,
+     * because doing so would break the ABI.
+     * 
+     * If a published function has one or more optional arguments,
+     * then the call can be extended without breaking the ABI or API.
+     * This is in fact the only way to change an existing function.
+     * There are limitations on this:
+     *
+     * (1) you may _only_ add extra elements at the end of the list
+     * (2) you may _not_ rearrange or rename or remove existing elements
+     * (3) you may _not_ add optional arguments to a function which did
+     *     not have any before (since this breaks the C ABI).
+     *)
+
 and ret =
     (* "RErr" as a return value means an int used as a simple error
      * indication, ie. 0 or -1.
@@ -108,13 +146,6 @@ and ret =
 
 and args = argt list	(* Function parameters, guestfs handle is implicit. *)
 
-    (* Note in future we should allow a "variable args" parameter as
-     * the final parameter, to allow commands like
-     *   chmod mode file [file(s)...]
-     * This is not implemented yet, but many commands (such as chmod)
-     * are currently defined with the argument order keeping this future
-     * possibility in mind.
-     *)
 and argt =
   | Bool of string	(* boolean *)
   | Int of string	(* int (smallish ints, signed, <= 31 bits) *)

@@ -720,6 +720,13 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
         with Not_found ->
           failwithf "%s: in test, command %s was not found" test_name name in
 
+      (* If the call has optional args, fold them all together.  We cannot
+       * test partial optional args yet.
+       *)
+      let style =
+        let ret, args, optargs = style in
+        ret, args@optargs in
+
       if List.length (snd style) <> List.length args then
         failwithf "%s: in test, wrong number of args given to %s"
           test_name name;

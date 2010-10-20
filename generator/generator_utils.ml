@@ -83,8 +83,8 @@ let rstructs_used_by functions =
   in
 
   List.iter (
-    fun (_, style, _, _, _, _, _) ->
-      match fst style with
+    fun (_, (ret, _, _), _, _, _, _, _) ->
+      match ret with
       | RStruct (_, structname) -> update structname RStructOnly
       | RStructList (_, structname) -> update structname RStructListOnly
       | _ -> ()

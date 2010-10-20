@@ -199,8 +199,8 @@ clear_progress_callback (g)
 ";
 
   List.iter (
-    fun (name, style, _, _, _, _, _) ->
-      (match fst style with
+    fun (name, (ret, args, optargs as style), _, _, _, _, _) ->
+      (match ret with
        | RErr -> pr "void\n"
        | RInt _ -> pr "SV *\n"
        | RInt64 _ -> pr "SV *\n"
@@ -218,7 +218,9 @@ clear_progress_callback (g)
       pr "%s (g" name;
       List.iter (
         fun arg -> pr ", %s" (name_of_argt arg)
-      ) (snd style);
+      ) args;
+      if optargs <> [] then
+        pr ", ...";
       pr ")\n";
       pr "      guestfs_h *g;\n";
       iteri (
@@ -240,11 +242,11 @@ clear_progress_callback (g)
           | Bool n -> pr "      int %s;\n" n
           | Int n -> pr "      int %s;\n" n
           | Int64 n -> pr "      int64_t %s;\n" n
-      ) (snd style);
+      ) args;
 
       (* PREINIT section (local variable declarations). *)
       pr "PREINIT:\n";
-      (match fst style with
+      (match ret with
        | RErr ->
            pr "      int r;\n";
        | RInt _
@@ -272,11 +274,17 @@ clear_progress_callback (g)
            pr "      size_t size;\n";
       );
 
+      if optargs <> [] then (
+        pr "      struct guestfs_%s_argv optargs_s = { .bitmask = 0 };\n" name;
+        pr "      struct guestfs_%s_argv *optargs = &optargs_s;\n" name;
+        pr "      size_t items_i;\n";
+      );
+
       (* CODE or PPCODE section.  PPCODE is used where we are
        * returning void, or where we push the return value on the stack
        * ourselves.  Using CODE means we will manipulate RETVAL.
        *)
-      (match fst style with
+      (match ret with
        | RErr ->
            pr " PPCODE:\n";
        | RInt n
@@ -299,8 +307,52 @@ clear_progress_callback (g)
            pr " PPCODE:\n";
       );
 
+      (* For optional arguments, convert these from the XSUB "items"
+       * variable by hand.
+       *)
+      if optargs <> [] then (
+        let uc_name = String.uppercase name in
+        let skip = List.length args + 1 in
+        pr "      if (((items - %d) & 1) != 0)\n" skip;
+        pr "        croak (\"expecting an even number of extra parameters\");\n";
+        pr "      for (items_i = %d; items_i < items; items_i += 2) {\n" skip;
+        pr "        uint64_t this_mask;\n";
+        pr "        const char *this_arg;\n";
+        pr "\n";
+        pr "        this_arg = SvPV_nolen (ST (items_i));\n";
+        pr "        ";
+        List.iter (
+          fun argt ->
+            let n = name_of_argt argt in
+            let uc_n = String.uppercase n in
+            pr "if (strcmp (this_arg, \"%s\") == 0) {\n" n;
+            pr "          optargs_s.%s = " n;
+            (match argt with
+             | Bool _
+             | Int _
+             | Int64 _ -> pr "SvIV (ST (items_i+1))"
+             | String _ -> pr "SvPV_nolen (ST (items_i+1))"
+             | _ -> assert false
+            );
+            pr ";\n";
+            pr "          this_mask = GUESTFS_%s_%s_BITMASK;\n" uc_name uc_n;
+            pr "        }\n";
+            pr "        else ";
+        ) optargs;
+        pr "croak (\"unknown optional argument '%%s'\", this_arg);\n";
+        pr "        if (optargs_s.bitmask & this_mask)\n";
+        pr "          croak (\"optional argument '%%s' given twice\",\n";
+        pr "                 this_arg);\n";
+        pr "        optargs_s.bitmask |= this_mask;\n";
+        pr "      }\n";
+        pr "\n";
+      );
+
       (* The call to the C function. *)
-      pr "      r = guestfs_%s " name;
+      if optargs = [] then
+        pr "      r = guestfs_%s " name
+      else
+        pr "      r = guestfs_%s_argv " name;
       generate_c_call_args ~handle:"g" style;
       pr ";\n";
 
@@ -312,10 +364,10 @@ clear_progress_callback (g)
         | FileIn _ | FileOut _
         | BufferIn _ | Key _ -> ()
         | StringList n | DeviceList n -> pr "      free (%s);\n" n
-      ) (snd style);
+      ) args;
 
       (* Check return value for errors and return it if necessary. *)
-      (match fst style with
+      (match ret with
        | RErr ->
            pr "      if (r == -1)\n";
            pr "        croak (\"%%s\", guestfs_last_error (g));\n";
@@ -469,9 +521,9 @@ Sys::Guestfs - Perl bindings for libguestfs
  use Sys::Guestfs;
 
  my $h = Sys::Guestfs->new ();
- $h->add_drive ('guest.img');
+ $h->add_drive_opts ('guest.img', format => 'raw');
  $h->launch ();
- $h->mount ('/dev/sda1', '/');
+ $h->mount_options ('', '/dev/sda1', '/');
  $h->touch ('/hello');
  $h->sync ();
 
@@ -675,8 +727,8 @@ L<Sys::Guestfs::Lib(3)>.
 =cut
 " copyright_years
 
-and generate_perl_prototype name style =
-  (match fst style with
+and generate_perl_prototype name (ret, args, optargs) =
+  (match ret with
    | RErr -> ()
    | RBool n
    | RInt n
@@ -703,5 +755,12 @@ and generate_perl_prototype name style =
           pr "$%s" n
       | StringList n | DeviceList n ->
           pr "\\@%s" n
-  ) (snd style);
+  ) args;
+  List.iter (
+    fun arg ->
+      if !comma then pr " [, " else pr "[";
+      comma := true;
+      let n = name_of_argt arg in
+      pr "%s => $%s]" n n
+  ) optargs;
   pr ");"

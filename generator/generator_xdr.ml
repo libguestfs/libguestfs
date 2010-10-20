@@ -64,10 +64,13 @@ let generate_xdr () =
   ) structs;
 
   List.iter (
-    fun (shortname, style, _, _, _, _, _) ->
+    fun (shortname, (ret, args, optargs), _, _, _, _, _) ->
+      if optargs <> [] then
+        failwithf "optional arguments not supported in XDR yet";
+
       let name = "guestfs_" ^ shortname in
 
-      (match snd style with
+      (match args with
        | [] -> ()
        | args ->
            pr "struct %s_args {\n" name;
@@ -86,7 +89,7 @@ let generate_xdr () =
            ) args;
            pr "};\n\n"
       );
-      (match fst style with
+      (match ret with
        | RErr -> ()
        | RInt n ->
            pr "struct %s_ret {\n" name;

@@ -177,6 +177,7 @@ ocaml/t/guestfs_010_launch
 ocaml/t/guestfs_050_lvcreate
 ocaml/t/guestfs_060_readdir
 ocaml/t/guestfs_070_threads
+ocaml/t/guestfs_080_optargs
 ocaml/t/guestfs_400_progress
 perl/bindtests.pl
 perl/blib

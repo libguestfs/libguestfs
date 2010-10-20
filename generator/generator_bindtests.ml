@@ -69,7 +69,7 @@ print_strings (char *const *argv)
     | test0 :: tests -> test0, tests in
 
   let () =
-    let (name, style, _, _, _, _, _) = test0 in
+    let (name, (ret, args, _ as style), _, _, _, _, _) = test0 in
     generate_prototype ~extern:false ~semicolon:false ~newline:true
       ~handle:"g" ~prefix:"guestfs__" name style;
     pr "{\n";
@@ -93,7 +93,7 @@ print_strings (char *const *argv)
       | Bool n -> pr "  printf (\"%%s\\n\", %s ? \"true\" : \"false\");\n" n
       | Int n -> pr "  printf (\"%%d\\n\", %s);\n" n
       | Int64 n -> pr "  printf (\"%%\" PRIi64 \"\\n\", %s);\n" n
-    ) (snd style);
+    ) args;
     pr "  /* Java changes stdout line buffering so we need this: */\n";
     pr "  fflush (stdout);\n";
     pr "  return 0;\n";
@@ -101,13 +101,13 @@ print_strings (char *const *argv)
     pr "\n" in
 
   List.iter (
-    fun (name, style, _, _, _, _, _) ->
+    fun (name, (ret, args, _ as style), _, _, _, _, _) ->
       if String.sub name (String.length name - 3) 3 <> "err" then (
         pr "/* Test normal return. */\n";
         generate_prototype ~extern:false ~semicolon:false ~newline:true
           ~handle:"g" ~prefix:"guestfs__" name style;
         pr "{\n";
-        (match fst style with
+        (match ret with
          | RErr ->
              pr "  return 0;\n"
          | RInt _ ->
@@ -174,7 +174,7 @@ print_strings (char *const *argv)
           ~handle:"g" ~prefix:"guestfs__" name style;
         pr "{\n";
         pr "  error (g, \"error\");\n";
-        (match fst style with
+        (match ret with
          | RErr | RInt _ | RInt64 _ | RBool _ ->
              pr "  return -1;\n"
          | RConstString _ | RConstOptString _

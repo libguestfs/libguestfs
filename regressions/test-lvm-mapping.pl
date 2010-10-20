@@ -34,7 +34,7 @@ my $g = Sys::Guestfs->new ();
 #$g->set_verbose (1);
 #$g->set_trace (1);
 
-$g->add_drive ($testimg);
+$g->add_drive_opts ($testimg, format => "raw");
 $g->launch ();
 
 # Create an arrangement of PVs, VGs and LVs.

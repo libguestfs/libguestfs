@@ -36,18 +36,19 @@ let rec generate_haskell_hs () =
    *)
   let can_generate style =
     match style with
-    | RErr, _
-    | RInt _, _
-    | RInt64 _, _ -> true
-    | RBool _, _
-    | RConstString _, _
-    | RConstOptString _, _
-    | RString _, _
-    | RStringList _, _
-    | RStruct _, _
-    | RStructList _, _
-    | RHashtable _, _
-    | RBufferOut _, _ -> false in
+    | _, _, (_::_) -> false (* no optional args yet *)
+    | RErr, _, []
+    | RInt _, _, []
+    | RInt64 _, _, [] -> true
+    | RBool _, _, []
+    | RConstString _, _, []
+    | RConstOptString _, _, []
+    | RString _, _, []
+    | RStringList _, _, []
+    | RStruct _, _, []
+    | RStructList _, _, []
+    | RHashtable _, _, []
+    | RBufferOut _, _, [] -> false in
 
   pr "\
 {-# INCLUDE <guestfs.h> #-}
@@ -123,7 +124,7 @@ last_error h = do
 
   (* Generate wrappers for each foreign function. *)
   List.iter (
-    fun (name, style, _, _, _, _, _) ->
+    fun (name, (ret, args, optargs as style), _, _, _, _, _) ->
       if can_generate style then (
         pr "foreign import ccall unsafe \"guestfs_%s\" c_%s\n" name name;
         pr "  :: ";
@@ -134,7 +135,7 @@ last_error h = do
         generate_haskell_prototype ~handle:"GuestfsH" ~hs:true style;
         pr "\n";
         pr "%s %s = do\n" name
-          (String.concat " " ("h" :: List.map name_of_argt (snd style)));
+          (String.concat " " ("h" :: List.map name_of_argt args));
         pr "  r <- ";
         (* Convert pointer arguments using with* functions. *)
         List.iter (
@@ -148,7 +149,7 @@ last_error h = do
           | OptString n -> pr "maybeWith withCString %s $ \\%s -> " n n
           | StringList n | DeviceList n -> pr "withMany withCString %s $ \\%s -> withArray0 nullPtr %s $ \\%s -> " n n n n
           | Bool _ | Int _ | Int64 _ -> ()
-        ) (snd style);
+        ) args;
         (* Convert integer arguments. *)
         let args =
           List.map (
@@ -162,10 +163,10 @@ last_error h = do
             | StringList n | DeviceList n
             | Key n -> n
             | BufferIn n -> sprintf "%s (fromIntegral %s_size)" n n
-          ) (snd style) in
+          ) args in
         pr "withForeignPtr h (\\p -> c_%s %s)\n" name
           (String.concat " " ("p" :: args));
-        (match fst style with
+        (match ret with
          | RErr | RInt _ | RInt64 _ | RBool _ ->
              pr "  if (r == -1)\n";
              pr "    then do\n";
@@ -179,7 +180,7 @@ last_error h = do
              pr "      err <- last_error h\n";
              pr "      fail err\n";
         );
-        (match fst style with
+        (match ret with
          | RErr ->
              pr "    else return ()\n"
          | RInt _ ->
@@ -202,7 +203,7 @@ last_error h = do
       )
   ) all_functions
 
-and generate_haskell_prototype ~handle ?(hs = false) style =
+and generate_haskell_prototype ~handle ?(hs = false) (ret, args, optargs) =
   pr "%s -> " handle;
   let string = if hs then "String" else "CString" in
   let int = if hs then "Int" else "CInt" in
@@ -225,9 +226,9 @@ and generate_haskell_prototype ~handle ?(hs = false) style =
        | FileOut _ -> pr "%s" string
       );
       pr " -> ";
-  ) (snd style);
+  ) args;
   pr "IO (";
-  (match fst style with
+  (match ret with
    | RErr -> if not hs then pr "CInt"
    | RInt _ -> pr "%s" int
    | RInt64 _ -> pr "%s" int64

@@ -101,7 +101,9 @@ let () =
           failwithf "%s has param/ret using reserved word %s" name n;
       in
 
-      (match fst style with
+      let ret, args, optargs = style in
+
+      (match ret with
        | RErr -> ()
        | RInt n | RInt64 n | RBool n
        | RConstString n | RConstOptString n | RString n
@@ -109,7 +111,22 @@ let () =
        | RHashtable n | RBufferOut n ->
            check_arg_ret_name n
       );
-      List.iter (fun arg -> check_arg_ret_name (name_of_argt arg)) (snd style)
+      List.iter (fun arg -> check_arg_ret_name (name_of_argt arg)) args;
+      List.iter (fun arg -> check_arg_ret_name (name_of_argt arg)) optargs;
+  ) all_functions;
+
+  (* Check only certain types allowed in optargs. *)
+  List.iter (
+    fun (name, (_, _, optargs), _, _, _, _, _) ->
+      if List.length optargs > 64 then
+        failwithf "maximum of 64 optional args allowed for %s" name;
+
+      List.iter (
+        function
+        | Bool _ | Int _ | Int64 _ | String _ -> ()
+        | _ ->
+            failwithf "optional args of %s can only have type Bool|Int|Int64|String" name
+      ) optargs
   ) all_functions;
 
   (* Check short descriptions. *)

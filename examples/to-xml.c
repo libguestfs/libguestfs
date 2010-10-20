@@ -48,7 +48,9 @@ main (int argc, char *argv[])
   }
 
   for (i = 1; i < argc; ++i)
-    CALL (guestfs_add_drive (g, argv[i]), -1);
+    CALL (guestfs_add_drive_opts (g, argv[i],
+                                  GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",
+                                  -1), -1);
 
   CALL (guestfs_launch (g), -1);
 

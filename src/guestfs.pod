@@ -124,7 +124,22 @@ disk, an actual block device, or simply an empty file of zeroes that
 you have created through L<posix_fallocate(3)>.  Libguestfs lets you
 do useful things to all of these.
 
-You can add a disk read-only using L</guestfs_add_drive_ro>, in which
+The call you should use in modern code for adding drives is
+L</guestfs_add_drive_opts>.  To add a disk image, allowing writes, and
+specifying that the format is raw, do:
+
+ guestfs_add_drive_opts (g, filename,
+                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",
+                         -1);
+
+You can add a disk read-only using:
+
+ guestfs_add_drive_opts (g, filename,
+                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",
+                         GUESTFS_ADD_DRIVE_OPTS_READONLY, 1,
+                         -1);
+
+or by calling the older function L</guestfs_add_drive_ro>.  In either
 case libguestfs won't modify the file.
 
 Be extremely cautious if the disk image is in use, eg. if it is being
@@ -835,7 +850,8 @@ L</MULTIPLE HANDLES AND MULTIPLE THREADS> below.
 
 Create a connection handle.
 
-You have to call L</guestfs_add_drive> on the handle at least once.
+You have to call L</guestfs_add_drive_opts> (or one of the equivalent
+calls) on the handle at least once.
 
 This function returns a non-NULL pointer to a handle on success or
 NULL on error.
@@ -1049,6 +1065,101 @@ that this kind of incompatibility never arises, such as using
 package versioning:
 
  Requires: libguestfs >= 1.0.80
+
+=head1 CALLS WITH OPTIONAL ARGUMENTS
+
+A recent feature of the API is the introduction of calls which take
+optional arguments.  In C these are declared 3 ways.  The main way is
+as a call which takes variable arguments (ie. C<...>), as in this
+example:
+
+ int guestfs_add_drive_opts (guestfs_h *g, const char *filename, ...);
+
+Call this with a list of optional arguments, terminated by C<-1>.
+So to call with no optional arguments specified:
+
+ guestfs_add_drive_opts (g, filename, -1);
+
+With a single optional argument:
+
+ guestfs_add_drive_opts (g, filename,
+                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, "qcow2",
+                         -1);
+
+With two:
+
+ guestfs_add_drive_opts (g, filename,
+                         GUESTFS_ADD_DRIVE_OPTS_FORMAT, "qcow2",
+                         GUESTFS_ADD_DRIVE_OPTS_READONLY, 1,
+                         -1);
+
+and so forth.  Don't forget the terminating C<-1> otherwise
+Bad Things will happen!
+
+=head2 USING va_list FOR OPTIONAL ARGUMENTS
+
+The second variant has the same name with the suffix C<_va>, which
+works the same way but takes a C<va_list>.  See the C manual for
+details.  For the example function, this is declared:
+
+ int guestfs_add_drive_opts_va (guestfs_h *g, const char *filename,
+                                va_list args);
+
+=head2 CONSTRUCTING OPTIONAL ARGUMENTS
+
+The third variant is useful where you need to construct these
+calls.  You pass in a structure where you fill in the optional
+fields.  The structure has a bitmask as the first element which
+you must set to indicate which fields you have filled in.  For
+our example function the structure and call are declared:
+
+ struct guestfs_add_drive_opts_argv {
+   uint64_t bitmask;
+   int readonly;
+   const char *format;
+   /* ... */
+ };
+ int guestfs_add_drive_opts_argv (guestfs_h *g, const char *filename,
+              const struct guestfs_add_drive_opts_argv *optargs);
+
+You could call it like this:
+
+ struct guestfs_add_drive_opts_argv optargs = {
+   .bitmask = GUESTFS_ADD_DRIVE_OPTS_READONLY_BITMASK |
+              GUESTFS_ADD_DRIVE_OPTS_FORMAT_BITMASK,
+   .readonly = 1,
+   .format = "qcow2"
+ };
+ 
+ guestfs_add_drive_opts_argv (g, filename, &optargs);
+
+Notes:
+
+=over 4
+
+=item *
+
+The C<_BITMASK> suffix on each option name when specifying the
+bitmask.
+
+=item *
+
+You do not need to fill in all fields of the structure.
+
+=item *
+
+There must be a one-to-one correspondence between fields of the
+structure that are filled in, and bits set in the bitmask.
+
+=back
+
+=head2 OPTIONAL ARGUMENTS IN OTHER LANGUAGES
+
+In other languages, optional arguments are expressed in the
+way that is natural for that language.  We refer you to the
+language-specific documentation for more details on that.
+
+For guestfish, see L<guestfish(1)/OPTIONAL ARGUMENTS>.
 
 =begin html
 

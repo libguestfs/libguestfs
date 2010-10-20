@@ -279,7 +279,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
 
   (* Python wrapper functions. *)
   List.iter (
-    fun (name, style, _, _, _, _, _) ->
+    fun (name, (ret, args, optargs as style), _, _, _, _, _) ->
       pr "static PyObject *\n";
       pr "py_guestfs_%s (PyObject *self, PyObject *args)\n" name;
       pr "{\n";
@@ -288,8 +288,13 @@ py_guestfs_close (PyObject *self, PyObject *args)
       pr "  guestfs_h *g;\n";
       pr "  PyObject *py_r;\n";
 
+      if optargs <> [] then (
+        pr "  struct guestfs_%s_argv optargs_s;\n" name;
+        pr "  struct guestfs_%s_argv *optargs = &optargs_s;\n" name;
+      );
+
       let error_code =
-        match fst style with
+        match ret with
         | RErr | RInt _ | RBool _ -> pr "  int r;\n"; "-1"
         | RInt64 _ -> pr "  int64_t r;\n"; "-1"
         | RConstString _ | RConstOptString _ ->
@@ -319,11 +324,33 @@ py_guestfs_close (PyObject *self, PyObject *args)
         | Bool n -> pr "  int %s;\n" n
         | Int n -> pr "  int %s;\n" n
         | Int64 n -> pr "  long long %s;\n" n
-      ) (snd style);
+      ) args;
+
+      if optargs <> [] then (
+        (* XXX This is horrible.  We have to use sentinel values on the
+         * Python side to denote values not set.
+         *)
+        (* Since we don't know if Python types will exactly match
+         * structure types, declare some local variables here.
+         *)
+        List.iter (
+          function
+          | Bool n
+          | Int n -> pr "  int optargs_t_%s = -1;\n" n
+          | Int64 n -> pr "  long long optargs_t_%s = -1;\n" n
+          | String n -> pr "  const char *optargs_t_%s = NULL;\n" n
+          | _ -> assert false
+        ) optargs
+      );
 
       pr "\n";
 
-      (* Convert the parameters. *)
+      if optargs <> [] then (
+        pr "  optargs_s.bitmask = 0;\n";
+        pr "\n"
+      );
+
+      (* Convert the required parameters. *)
       pr "  if (!PyArg_ParseTuple (args, (char *) \"O";
       List.iter (
         function
@@ -337,7 +364,19 @@ py_guestfs_close (PyObject *self, PyObject *args)
                              * emulate C's int/long/long long in Python?
                              *)
         | BufferIn _ -> pr "s#"
-      ) (snd style);
+      ) args;
+
+      (* Optional parameters. *)
+      if optargs <> [] then (
+        List.iter (
+          function
+          | Bool _ | Int _ -> pr "i"
+          | Int64 _ -> pr "L"
+          | String _ -> pr "z" (* because we use None to mean not set *)
+          | _ -> assert false
+        ) optargs;
+      );
+
       pr ":guestfs_%s\",\n" name;
       pr "                         &py_g";
       List.iter (
@@ -350,7 +389,13 @@ py_guestfs_close (PyObject *self, PyObject *args)
         | Int n -> pr ", &%s" n
         | Int64 n -> pr ", &%s" n
         | BufferIn n -> pr ", &%s, &%s_size" n n
-      ) (snd style);
+      ) args;
+
+      List.iter (
+        function
+        | Bool n | Int n | Int64 n | String n -> pr ", &optargs_t_%s" n
+        | _ -> assert false
+      ) optargs;
 
       pr "))\n";
       pr "    return NULL;\n";
@@ -364,11 +409,34 @@ py_guestfs_close (PyObject *self, PyObject *args)
         | StringList n | DeviceList n ->
             pr "  %s = get_string_list (py_%s);\n" n n;
             pr "  if (!%s) return NULL;\n" n
-      ) (snd style);
+      ) args;
 
       pr "\n";
 
-      pr "  r = guestfs_%s " name;
+      if optargs <> [] then (
+        let uc_name = String.uppercase name in
+        List.iter (
+          fun argt ->
+            let n = name_of_argt argt in
+            let uc_n = String.uppercase n in
+            pr "  if (optargs_t_%s != " n;
+            (match argt with
+             | Bool _ | Int _ | Int64 _ -> pr "-1"
+             | String _ -> pr "NULL"
+             | _ -> assert false
+            );
+            pr ") {\n";
+            pr "    optargs_s.%s = optargs_t_%s;\n" n n;
+            pr "    optargs_s.bitmask |= GUESTFS_%s_%s_BITMASK;\n" uc_name uc_n;
+            pr "  }\n"
+        ) optargs;
+        pr "\n"
+      );
+
+      if optargs = [] then
+        pr "  r = guestfs_%s " name
+      else
+        pr "  r = guestfs_%s_argv " name;
       generate_c_call_args ~handle:"g" style;
       pr ";\n";
 
@@ -379,7 +447,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
         | BufferIn _ -> ()
         | StringList n | DeviceList n ->
             pr "  free (%s);\n" n
-      ) (snd style);
+      ) args;
 
       pr "  if (r == %s) {\n" error_code;
       pr "    PyErr_SetString (PyExc_RuntimeError, guestfs_last_error (g));\n";
@@ -387,7 +455,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
       pr "  }\n";
       pr "\n";
 
-      (match fst style with
+      (match ret with
        | RErr ->
            pr "  Py_INCREF (Py_None);\n";
            pr "  py_r = Py_None;\n"
@@ -462,7 +530,7 @@ u\"\"\"Python bindings for libguestfs
 
 import guestfs
 g = guestfs.GuestFS ()
-g.add_drive (\"guest.img\")
+g.add_drive_opts (\"guest.img\", format=\"raw\")
 g.launch ()
 parts = g.list_partitions ()
 
@@ -492,10 +560,10 @@ RuntimeError exceptions.
 To create a guestfs handle you usually have to perform the following
 sequence of calls:
 
-# Create the handle, call add_drive at least once, and possibly
+# Create the handle, call add_drive* at least once, and possibly
 # several times if the guest has multiple block devices:
 g = guestfs.GuestFS ()
-g.add_drive (\"guest.img\")
+g.add_drive_opts (\"guest.img\", format=\"raw\")
 
 # Launch the qemu subprocess and wait for it to become ready:
 g.launch ()
@@ -520,15 +588,21 @@ class GuestFS:
 ";
 
   List.iter (
-    fun (name, style, _, flags, _, _, longdesc) ->
-      pr "    def %s " name;
-      generate_py_call_args ~handle:"self" (snd style);
-      pr ":\n";
+    fun (name, (ret, args, optargs), _, flags, _, _, longdesc) ->
+      pr "    def %s (self" name;
+      List.iter (fun arg -> pr ", %s" (name_of_argt arg)) args;
+      List.iter (
+        function
+        | Bool n | Int n | Int64 n -> pr ", %s=-1" n
+        | String n -> pr ", %s=None" n
+        | _ -> assert false
+      ) optargs;
+      pr "):\n";
 
       if not (List.mem NotInDocs flags) then (
         let doc = replace_str longdesc "C<guestfs_" "C<g." in
         let doc =
-          match fst style with
+          match ret with
           | RErr | RInt _ | RInt64 _ | RBool _
           | RConstOptString _ | RConstString _
           | RString _ | RBufferOut _ -> doc
@@ -557,14 +631,7 @@ class GuestFS:
         let doc = String.concat "\n        " doc in
         pr "        u\"\"\"%s\"\"\"\n" doc;
       );
-      pr "        return libguestfsmod.%s " name;
-      generate_py_call_args ~handle:"self._o" (snd style);
-      pr "\n";
-      pr "\n";
+      pr "        return libguestfsmod.%s (self._o" name;
+      List.iter (fun arg -> pr ", %s" (name_of_argt arg)) (args@optargs);
+      pr ")\n\n";
   ) all_functions
-
-(* Generate Python call arguments, eg "(handle, foo, bar)" *)
-and generate_py_call_args ~handle args =
-  pr "(%s" handle;
-  List.iter (fun arg -> pr ", %s" (name_of_argt arg)) args;
-  pr ")"

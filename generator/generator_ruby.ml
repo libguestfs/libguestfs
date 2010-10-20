@@ -89,9 +89,18 @@ static VALUE ruby_guestfs_close (VALUE gv)
 ";
 
   List.iter (
-    fun (name, style, _, _, _, _, _) ->
+    fun (name, (ret, args, optargs as style), _, _, _, _, _) ->
       pr "static VALUE ruby_guestfs_%s (VALUE gv" name;
-      List.iter (fun arg -> pr ", VALUE %sv" (name_of_argt arg)) (snd style);
+      List.iter (fun arg -> pr ", VALUE %sv" (name_of_argt arg)) args;
+      (* XXX This makes the hash mandatory, meaning that you have
+       * to specify {} for no arguments.  We could make it so this
+       * can be omitted.  However that is a load of hassle because
+       * you have to completely change the way that arguments are
+       * passed in.  See:
+       * http://www.redhat.com/archives/libvir-list/2008-April/msg00004.html
+       *)
+      if optargs <> [] then
+        pr ", VALUE optargsv";
       pr ")\n";
       pr "{\n";
       pr "  guestfs_h *g;\n";
@@ -139,11 +148,42 @@ static VALUE ruby_guestfs_close (VALUE gv)
             pr "  int %s = NUM2INT (%sv);\n" n n
         | Int64 n ->
             pr "  long long %s = NUM2LL (%sv);\n" n n
-      ) (snd style);
+      ) args;
       pr "\n";
 
+      (* Optional arguments are passed in a final hash parameter. *)
+      if optargs <> [] then (
+        let uc_name = String.uppercase name in
+        pr "  Check_Type (optargsv, T_HASH);\n";
+        pr "  struct guestfs_%s_argv optargs_s = { .bitmask = 0 };\n" name;
+        pr "  struct guestfs_%s_argv *optargs = &optargs_s;\n" name;
+        pr "  VALUE v;\n";
+        List.iter (
+          fun argt ->
+            let n = name_of_argt argt in
+            let uc_n = String.uppercase n in
+            pr "  v = rb_hash_lookup (optargsv, ID2SYM (rb_intern (\"%s\")));\n" n;
+            pr "  if (v != Qnil) {\n";
+            (match argt with
+             | Bool n ->
+                 pr "    optargs_s.%s = RTEST (v);\n" n;
+             | Int n ->
+                 pr "    optargs_s.%s = NUM2INT (v);\n" n;
+             | Int64 n ->
+                 pr "    optargs_s.%s = NUM2LL (v);\n" n;
+             | String _ ->
+                 pr "    Check_Type (v, T_STRING);\n";
+                 pr "    optargs_s.%s = StringValueCStr (v);\n" n
+             | _ -> assert false
+            );
+            pr "    optargs_s.bitmask |= GUESTFS_%s_%s_BITMASK;\n" uc_name uc_n;
+            pr "  }\n";
+        ) optargs;
+        pr "\n";
+      );
+
       let error_code =
-        match fst style with
+        match ret with
         | RErr | RInt _ | RBool _ -> pr "  int r;\n"; "-1"
         | RInt64 _ -> pr "  int64_t r;\n"; "-1"
         | RConstString _ | RConstOptString _ ->
@@ -159,7 +199,10 @@ static VALUE ruby_guestfs_close (VALUE gv)
             "NULL" in
       pr "\n";
 
-      pr "  r = guestfs_%s " name;
+      if optargs = [] then
+        pr "  r = guestfs_%s " name
+      else
+        pr "  r = guestfs_%s_argv " name;
       generate_c_call_args ~handle:"g" style;
       pr ";\n";
 
@@ -170,13 +213,13 @@ static VALUE ruby_guestfs_close (VALUE gv)
         | BufferIn _ -> ()
         | StringList n | DeviceList n ->
             pr "  free (%s);\n" n
-      ) (snd style);
+      ) args;
 
       pr "  if (r == %s)\n" error_code;
       pr "    rb_raise (e_Error, \"%%s\", guestfs_last_error (g));\n";
       pr "\n";
 
-      (match fst style with
+      (match ret with
        | RErr ->
            pr "  return Qnil;\n"
        | RInt _ | RBool _ ->
@@ -248,9 +291,10 @@ void Init__guestfs ()
 ";
   (* Define the rest of the methods. *)
   List.iter (
-    fun (name, style, _, _, _, _, _) ->
+    fun (name, (_, args, optargs), _, _, _, _, _) ->
+      let nr_args = List.length args + if optargs <> [] then 1 else 0 in
       pr "  rb_define_method (c_guestfs, \"%s\",\n" name;
-      pr "        ruby_guestfs_%s, %d);\n" name (List.length (snd style))
+      pr "        ruby_guestfs_%s, %d);\n" name nr_args
   ) all_functions;
 
   pr "}\n"

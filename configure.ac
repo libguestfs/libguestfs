@@ -266,7 +266,7 @@ the --with-qemu option.
     fi
 fi
 
-dnl Set drive interface used by the guestfs_add_drive{,_ro} calls
+dnl Set default drive interface used by the guestfs_add_drive_opts call
 dnl ('-drive ...,if=...' option to qemu).
 dnl
 dnl If you encounter performance problems with virtio (RHBZ#509383)

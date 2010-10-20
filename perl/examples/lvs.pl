@@ -10,7 +10,7 @@ die "Usage: lvs.pl guest.img\n" if @ARGV != 1 || ! -f $ARGV[0];
 
 print "Creating the libguestfs handle\n";
 my $h = Sys::Guestfs->new ();
-$h->add_drive ($ARGV[0]);
+$h->add_drive_opts ($ARGV[0], format => "raw");
 
 print "Launching, this can take a few seconds\n";
 $h->launch ();

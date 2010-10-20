@@ -61,6 +61,7 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 
+#include "c-ctype.h"
 #include "glthread/lock.h"
 
 #include "guestfs.h"
@@ -131,64 +132,108 @@ guestfs__config (guestfs_h *g,
   return 0;
 }
 
-int
-guestfs__add_drive_with_if (guestfs_h *g, const char *filename,
-                            const char *drive_if)
+/* cache=off improves reliability in the event of a host crash.
+ *
+ * However this option causes qemu to try to open the file with
+ * O_DIRECT.  This fails on some filesystem types (notably tmpfs).
+ * So we check if we can open the file with or without O_DIRECT,
+ * and use cache=off (or not) accordingly.
+ */
+static int
+test_cache_off (guestfs_h *g, const char *filename)
 {
-  size_t len = strlen (filename) + 64;
-  char buf[len];
+  int fd = open (filename, O_RDONLY|O_DIRECT);
+  if (fd >= 0) {
+    close (fd);
+    return 1;
+  }
+
+  fd = open (filename, O_RDONLY);
+  if (fd >= 0) {
+    close (fd);
+    return 0;
+  }
+
+  perrorf (g, "%s", filename);
+  return -1;
+}
+
+/* Check string parameter matches ^[-_[:alnum:]]+$ (in C locale). */
+static int
+valid_format_iface (const char *str)
+{
+  size_t len = strlen (str);
+
+  if (len == 0)
+    return 0;
+
+  while (len > 0) {
+    char c = *str++;
+    len--;
+    if (c != '-' && c != '_' && !c_isalnum (c))
+      return 0;
+  }
+  return 1;
+}
+
+int
+guestfs__add_drive_opts (guestfs_h *g, const char *filename,
+                         const struct guestfs_add_drive_opts_argv *optargs)
+{
+  int readonly;
+  const char *format;
+  const char *iface;
 
   if (strchr (filename, ',') != NULL) {
     error (g, _("filename cannot contain ',' (comma) character"));
     return -1;
   }
 
-  /* cache=off improves reliability in the event of a host crash.
-   *
-   * However this option causes qemu to try to open the file with
-   * O_DIRECT.  This fails on some filesystem types (notably tmpfs).
-   * So we check if we can open the file with or without O_DIRECT,
-   * and use cache=off (or not) accordingly.
-   *
-   * This test also checks for the presence of the file, which
-   * is a documented semantic of this interface.
+  readonly = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_READONLY_BITMASK
+             ? optargs->readonly : 0;
+  format = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_FORMAT_BITMASK
+           ? optargs->format : NULL;
+  iface = optargs->bitmask & GUESTFS_ADD_DRIVE_OPTS_IFACE_BITMASK
+          ? optargs->iface : DRIVE_IF;
+
+  if (format && !valid_format_iface (format)) {
+    error (g, _("%s parameter is empty or contains disallowed characters"),
+           "format");
+    return -1;
+  }
+  if (!valid_format_iface (iface)) {
+    error (g, _("%s parameter is empty or contains disallowed characters"),
+           "iface");
+    return -1;
+  }
+
+  /* For writable files, see if we can use cache=off.  This also
+   * checks for the existence of the file.  For readonly we have
+   * to do the check explicitly.
    */
-  int fd = open (filename, O_RDONLY|O_DIRECT);
-  if (fd >= 0) {
-    close (fd);
-    snprintf (buf, len, "file=%s,cache=off,if=%s", filename, drive_if);
-  } else {
-    fd = open (filename, O_RDONLY);
-    if (fd >= 0) {
-      close (fd);
-      snprintf (buf, len, "file=%s,if=%s", filename, drive_if);
-    } else {
+  int use_cache_off = readonly ? 0 : test_cache_off (g, filename);
+  if (use_cache_off == -1)
+    return -1;
+
+  if (readonly) {
+    if (access (filename, F_OK) == -1) {
       perrorf (g, "%s", filename);
       return -1;
     }
   }
 
-  return guestfs__config (g, "-drive", buf);
-}
-
-int
-guestfs__add_drive_ro_with_if (guestfs_h *g, const char *filename,
-                               const char *drive_if)
-{
-  if (strchr (filename, ',') != NULL) {
-    error (g, _("filename cannot contain ',' (comma) character"));
-    return -1;
-  }
-
-  if (access (filename, F_OK) == -1) {
-    perrorf (g, "%s", filename);
-    return -1;
-  }
-
-  size_t len = strlen (filename) + 64;
+  /* Construct the final -drive parameter. */
+  size_t len = 64 + strlen (filename) + strlen (iface);
+  if (format) len += strlen (format);
   char buf[len];
 
-  snprintf (buf, len, "file=%s,snapshot=on,if=%s", filename, drive_if);
+  snprintf (buf, len, "file=%s%s%s%s%s,if=%s",
+            filename,
+            readonly ? ",snapshot=on" : "",
+            use_cache_off ? ",cache=off" : "",
+            format ? ",format=" : "",
+            format ? format : "",
+            iface);
 
   return guestfs__config (g, "-drive", buf);
 }
@@ -196,13 +241,48 @@ guestfs__add_drive_ro_with_if (guestfs_h *g, const char *filename,
 int
 guestfs__add_drive (guestfs_h *g, const char *filename)
 {
-  return guestfs__add_drive_with_if (g, filename, DRIVE_IF);
+  struct guestfs_add_drive_opts_argv optargs = {
+    .bitmask = 0,
+  };
+
+  return guestfs__add_drive_opts (g, filename, &optargs);
 }
 
 int
 guestfs__add_drive_ro (guestfs_h *g, const char *filename)
 {
-  return guestfs__add_drive_ro_with_if (g, filename, DRIVE_IF);
+  struct guestfs_add_drive_opts_argv optargs = {
+    .bitmask = GUESTFS_ADD_DRIVE_OPTS_READONLY_BITMASK,
+    .readonly = 1,
+  };
+
+  return guestfs__add_drive_opts (g, filename, &optargs);
+}
+
+int
+guestfs__add_drive_with_if (guestfs_h *g, const char *filename,
+                            const char *iface)
+{
+  struct guestfs_add_drive_opts_argv optargs = {
+    .bitmask = GUESTFS_ADD_DRIVE_OPTS_IFACE_BITMASK,
+    .iface = iface,
+  };
+
+  return guestfs__add_drive_opts (g, filename, &optargs);
+}
+
+int
+guestfs__add_drive_ro_with_if (guestfs_h *g, const char *filename,
+                               const char *iface)
+{
+  struct guestfs_add_drive_opts_argv optargs = {
+    .bitmask = GUESTFS_ADD_DRIVE_OPTS_IFACE_BITMASK
+             | GUESTFS_ADD_DRIVE_OPTS_READONLY_BITMASK,
+    .iface = iface,
+    .readonly = 1,
+  };
+
+  return guestfs__add_drive_opts (g, filename, &optargs);
 }
 
 int

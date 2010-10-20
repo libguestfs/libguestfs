@@ -182,13 +182,18 @@ main (int argc, char *argv[])
              _("libguestfs-test-tool: failed to create libguestfs handle\n"));
     exit (EXIT_FAILURE);
   }
-  if (guestfs_add_drive (g, tmpf) == -1) {
+  if (guestfs_add_drive_opts (g, tmpf,
+                              GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",
+                              -1) == -1) {
     fprintf (stderr,
              _("libguestfs-test-tool: failed to add drive '%s'\n"),
              tmpf);
     exit (EXIT_FAILURE);
   }
-  if (guestfs_add_drive (g, isof) == -1) {
+  if (guestfs_add_drive_opts (g, isof,
+                              GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",
+                              GUESTFS_ADD_DRIVE_OPTS_READONLY, 1,
+                              -1) == -1) {
     fprintf (stderr,
              _("libguestfs-test-tool: failed to add drive '%s'\n"),
              isof);

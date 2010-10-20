@@ -44,7 +44,8 @@ let rec generate_csharp () =
 // The second issue is that some calls are known to be incorrect and
 // can cause Mono to segfault.  Particularly: calls which pass or
 // return string[], or return any structure value.  This is because
-// we haven't worked out the correct way to do this from C#.
+// we haven't worked out the correct way to do this from C#.  Also
+// we don't handle functions that take optional arguments at all.
 //
 // The third issue is that when compiling you get a lot of warnings.
 // We are not sure whether the warnings are important or not.
@@ -134,9 +135,9 @@ namespace Guestfs
 
   (* Generate C# function bindings. *)
   List.iter (
-    fun (name, style, _, _, _, shortdesc, _) ->
+    fun (name, (ret, args, optargs), _, _, _, shortdesc, _) ->
       let rec csharp_return_type () =
-        match fst style with
+        match ret with
         | RErr -> "void"
         | RBool n -> "bool"
         | RInt n -> "int"
@@ -151,7 +152,7 @@ namespace Guestfs
         | RStructList (_,n) -> sprintf "_%s[]" n
 
       and c_return_type () =
-        match fst style with
+        match ret with
         | RErr
         | RBool _
         | RInt _ -> "int"
@@ -166,7 +167,7 @@ namespace Guestfs
         | RStructList (_,n) -> sprintf "_%s[]" n
 
       and c_error_comparison () =
-        match fst style with
+        match ret with
         | RErr
         | RBool _
         | RInt _
@@ -198,7 +199,7 @@ namespace Guestfs
               pr ", int %s" n
           | Int64 n ->
               pr ", long %s" n
-        ) (snd style);
+        ) args;
         pr ");\n"
 
       and generate_public_prototype () =
@@ -223,12 +224,12 @@ namespace Guestfs
               next (); pr "int %s" n
           | Int64 n ->
               next (); pr "long %s" n
-        ) (snd style);
+        ) args;
         pr ")\n"
 
       and generate_call () =
         pr "guestfs_%s (_handle" name;
-        List.iter (fun arg -> pr ", %s" (name_of_argt arg)) (snd style);
+        List.iter (fun arg -> pr ", %s" (name_of_argt arg)) args;
         pr ");\n";
       in
 
@@ -245,7 +246,7 @@ namespace Guestfs
       generate_call ();
       pr "      if (r %s)\n" (c_error_comparison ());
       pr "        throw new Error (guestfs_last_error (_handle));\n";
-      (match fst style with
+      (match ret with
        | RErr -> ()
        | RBool _ ->
            pr "      return r != 0 ? true : false;\n"

@@ -24,11 +24,14 @@ main (int argc, char *argv[])
 
   if (!(g = guestfs_create ())) exit (EXIT_FAILURE);
 
-  if (guestfs_add_drive (g, argv[1]) == -1) exit (EXIT_FAILURE);
+  if (guestfs_add_drive_opts (g, argv[1],
+                              GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",
+                              -1) == -1)
+    exit (EXIT_FAILURE);
 
   if (guestfs_launch (g) == -1) exit (EXIT_FAILURE);
 
-  if (guestfs_mount (g, argv[2], "/") == -1) exit (EXIT_FAILURE);
+  if (guestfs_mount_options (g, "", argv[2], "/") == -1) exit (EXIT_FAILURE);
 
   if (guestfs_touch (g, "/hello") == -1) exit (EXIT_FAILURE);
 

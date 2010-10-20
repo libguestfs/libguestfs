@@ -97,8 +97,8 @@ val clear_progress_callback : t -> unit
 (** {2 Object-oriented API}
 
     This is an alternate way of calling the API using an object-oriented
-    style, so you can use [g#add_drive filename] instead of
-    [Guestfs.add_drive g filename].  Apart from the different style,
+    style, so you can use [g#add_drive_opts filename] instead of
+    [Guestfs.add_drive_opts g filename].  Apart from the different style,
     it offers exactly the same functionality.
 
     Calling [new guestfs ()] creates both the object and the handle.
@@ -122,7 +122,7 @@ class guestfs : unit -> object
 
   List.iter (
     function
-    | name, ((_, []) as style), _, _, _, _, _ ->
+    | name, ((_, [], []) as style), _, _, _, _, _ ->
         pr "  method %s : unit -> " name;
         generate_ocaml_function_type style;
         pr "\n"
@@ -182,7 +182,7 @@ class guestfs () =
 
   List.iter (
     function
-    | name, (_, []), _, _, _, _, _ ->   (* no params?  add explicit unit *)
+    | name, (_, [], []), _, _, _, _, _ -> (* no params?  add explicit unit *)
         pr "    method %s () = %s g\n" name name
     | name, _, _, _, _, _, _ ->
         pr "    method %s = %s g\n" name name
@@ -323,18 +323,25 @@ copy_table (char * const * argv)
 
   (* The wrappers. *)
   List.iter (
-    fun (name, style, _, _, _, _, _) ->
+    fun (name, (ret, args, optargs as style), _, _, _, _, _) ->
       pr "/* Automatically generated wrapper for function\n";
       pr " * ";
       generate_ocaml_prototype name style;
       pr " */\n";
       pr "\n";
 
+      (* If we run into this situation, we'll need to change the
+       * bindings a little.
+       *)
+      if args = [] && optargs <> [] then
+        failwithf "ocaml bindings don't support args = [], optargs <> []";
+
       let params =
-        "gv" :: List.map (fun arg -> name_of_argt arg ^ "v") (snd style) in
+        "gv" ::
+          List.map (fun arg -> name_of_argt arg ^ "v") (optargs @ args) in
 
       let needs_extra_vs =
-        match fst style with RConstOptString _ -> true | _ -> false in
+        match ret with RConstOptString _ -> true | _ -> false in
 
       pr "/* Emit prototype to appease gcc's -Wmissing-prototypes. */\n";
       pr "CAMLprim value ocaml_guestfs_%s (value %s" name (List.hd params);
@@ -393,9 +400,35 @@ copy_table (char * const * argv)
             pr "  int %s = Int_val (%sv);\n" n n
         | Int64 n ->
             pr "  int64_t %s = Int64_val (%sv);\n" n n
-      ) (snd style);
+      ) args;
+
+      (* Optional arguments. *)
+      if optargs <> [] then (
+        pr "  struct guestfs_%s_argv optargs_s = { .bitmask = 0 };\n" name;
+        pr "  struct guestfs_%s_argv *optargs = &optargs_s;\n" name;
+        let uc_name = String.uppercase name in
+        List.iter (
+          fun argt ->
+            let n = name_of_argt argt in
+            let uc_n = String.uppercase n in
+            pr "  if (%sv != Val_int (0)) {\n" n;
+            pr "    optargs_s.bitmask |= GUESTFS_%s_%s_BITMASK;\n" uc_name uc_n;
+            pr "    optargs_s.%s = " n;
+            (match argt with
+             | Bool _ -> pr "Bool_val (Field (%sv, 0))" n
+             | Int _ -> pr "Int_val (Field (%sv, 0))" n
+             | Int64 _ -> pr "Int64_val (Field (%sv, 0))" n
+             | String _ ->
+                 pr "guestfs_safe_strdup (g, String_val (Field (%sv, 0)))" n
+             | _ -> assert false
+            );
+            pr ";\n";
+            pr "  }\n";
+        ) optargs
+      );
+
       let error_code =
-        match fst style with
+        match ret with
         | RErr -> pr "  int r;\n"; "-1"
         | RInt _ -> pr "  int r;\n"; "-1"
         | RInt64 _ -> pr "  int64_t r;\n"; "-1"
@@ -422,7 +455,10 @@ copy_table (char * const * argv)
       pr "\n";
 
       pr "  caml_enter_blocking_section ();\n";
-      pr "  r = guestfs_%s " name;
+      if optargs = [] then
+        pr "  r = guestfs_%s " name
+      else
+        pr "  r = guestfs_%s_argv " name;
       generate_c_call_args ~handle:"g" style;
       pr ";\n";
       pr "  caml_leave_blocking_section ();\n";
@@ -436,13 +472,23 @@ copy_table (char * const * argv)
         | StringList n | DeviceList n ->
             pr "  ocaml_guestfs_free_strings (%s);\n" n;
         | Bool _ | Int _ | Int64 _ -> ()
-      ) (snd style);
+      ) args;
+      List.iter (
+        function
+        | String n ->
+            pr "  if (%sv != Val_int (0))\n" n;
+            pr "    free ((char *) optargs_s.%s);\n" n
+        | Bool _ | Int _ | Int64 _
+        | Pathname _ | Device _ | Dev_or_Path _ | OptString _
+        | FileIn _ | FileOut _ | BufferIn _ | Key _
+        | StringList _ | DeviceList _ -> ()
+      ) optargs;
 
       pr "  if (r == %s)\n" error_code;
       pr "    ocaml_guestfs_raise_error (g, \"%s\");\n" name;
       pr "\n";
 
-      (match fst style with
+      (match ret with
        | RErr -> pr "  rv = Val_unit;\n"
        | RInt _ -> pr "  rv = Val_int (r);\n"
        | RInt64 _ ->
@@ -522,13 +568,22 @@ and generate_ocaml_prototype ?(is_external = false) name style =
   generate_ocaml_function_type style;
   if is_external then (
     pr " = ";
-    if List.length (snd style) + 1 > 5 then
+    let _, args, optargs = style in
+    if List.length args + List.length optargs + 1 > 5 then
       pr "\"ocaml_guestfs_%s_byte\" " name;
     pr "\"ocaml_guestfs_%s\"" name
   );
   pr "\n"
 
-and generate_ocaml_function_type style =
+and generate_ocaml_function_type (ret, args, optargs) =
+  List.iter (
+    function
+    | Bool n -> pr "?%s:bool -> " n
+    | Int n -> pr "?%s:int -> " n
+    | Int64 n -> pr "?%s:int64 -> " n
+    | String n -> pr "?%s:string -> " n
+    | _ -> assert false
+  ) optargs;
   List.iter (
     function
     | Pathname _ | Device _ | Dev_or_Path _ | String _ | FileIn _ | FileOut _
@@ -538,8 +593,8 @@ and generate_ocaml_function_type style =
     | Bool _ -> pr "bool -> "
     | Int _ -> pr "int -> "
     | Int64 _ -> pr "int64 -> "
-  ) (snd style);
-  (match fst style with
+  ) args;
+  (match ret with
    | RErr -> pr "unit" (* all errors are turned into exceptions *)
    | RInt _ -> pr "int"
    | RInt64 _ -> pr "int64"

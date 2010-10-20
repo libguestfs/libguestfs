@@ -381,6 +381,21 @@ must be escaped with a backslash.
  command "/bin/echo 'foo      bar'"
  command "/bin/echo \'foo\'"
 
+=head1 OPTIONAL ARGUMENTS
+
+Some commands take optional arguments.  These arguments appear in this
+documentation as C<[argname:..]>.  You can use them as in these
+examples:
+
+ add-drive-opts filename
+
+ add-drive-opts filename readonly:true
+
+ add-drive-opts filename format:qcow2 readonly:false
+
+Each optional argument can appear at most once.  All optional
+arguments must appear after the required ones.
+
 =head1 NUMBERS
 
 This section applies to all commands which can take integers

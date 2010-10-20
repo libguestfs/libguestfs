@@ -9,7 +9,7 @@ let () =
   );
 
   let h = Guestfs.create () in
-  Guestfs.add_drive h Sys.argv.(1);
+  Guestfs.add_drive_opts h ~format:"raw" Sys.argv.(1);
   Guestfs.launch h;
 
   let pvs = Guestfs.pvs h in

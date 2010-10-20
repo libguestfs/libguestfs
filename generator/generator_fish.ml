@@ -84,7 +84,7 @@ let generate_fish_cmds () =
   pr "{\n";
 
   List.iter (
-    fun (name, style, _, flags, _, shortdesc, longdesc) ->
+    fun (name, _, _, flags, _, shortdesc, longdesc) ->
       let name2 = replace_char name '_' '-' in
       let aliases =
         filter_map (function FishAlias n -> Some n | _ -> None) flags in
@@ -113,21 +113,25 @@ let generate_fish_cmds () =
   ) fish_commands;
 
   List.iter (
-    fun (name, style, _, flags, _, shortdesc, longdesc) ->
+    fun (name, (_, args, optargs), _, flags, _, shortdesc, longdesc) ->
       let name2 = replace_char name '_' '-' in
       let aliases =
         filter_map (function FishAlias n -> Some n | _ -> None) flags in
       let longdesc = replace_str longdesc "C<guestfs_" "C<" in
       let synopsis =
-        match snd style with
+        match args with
         | [] -> name2
         | args ->
             let args = List.filter (function Key _ -> false | _ -> true) args in
-            sprintf "%s %s"
-              name2 (String.concat " " (List.map name_of_argt args)) in
+            sprintf "%s%s%s"
+              name2
+              (String.concat ""
+                 (List.map (fun arg -> " " ^ name_of_argt arg) args))
+              (String.concat ""
+                 (List.map (fun arg -> sprintf " [%s:..]" (name_of_argt arg)) optargs)) in
 
       let warnings =
-        if List.exists (function Key _ -> true | _ -> false) (snd style) then
+        if List.exists (function Key _ -> true | _ -> false) args then
           "\n\nThis command has one or more key or passphrase parameters.
 Guestfish will prompt for these separately."
         else "" in
@@ -274,10 +278,10 @@ Guestfish will prompt for these separately."
 
   (* run_<action> actions *)
   List.iter (
-    fun (name, style, _, flags, _, _, _) ->
+    fun (name, (ret, args, optargs as style), _, flags, _, _, _) ->
       pr "static int run_%s (const char *cmd, size_t argc, char *argv[])\n" name;
       pr "{\n";
-      (match fst style with
+      (match ret with
        | RErr
        | RInt _
        | RBool _ -> pr "  int r;\n"
@@ -308,26 +312,45 @@ Guestfish will prompt for these separately."
         | Bool n -> pr "  int %s;\n" n
         | Int n -> pr "  int %s;\n" n
         | Int64 n -> pr "  int64_t %s;\n" n
-      ) (snd style);
+      ) args;
+
+      if optargs <> [] then (
+        pr "  struct guestfs_%s_argv optargs_s = { .bitmask = 0 };\n" name;
+        pr "  struct guestfs_%s_argv *optargs = &optargs_s;\n" name
+      );
+
+      if args <> [] || optargs <> [] then
+        pr "  size_t i = 0;\n";
+
+      pr "\n";
 
       (* Check and convert parameters. *)
-      let argc_expected =
+      let argc_minimum, argc_maximum =
         let args_no_keys =
-          List.filter (function Key _ -> false | _ -> true) (snd style) in
-        List.length args_no_keys in
-      pr "  if (argc != %d) {\n" argc_expected;
-      pr "    fprintf (stderr, _(\"%%s should have %%d parameter(s)\\n\"), cmd, %d);\n"
-        argc_expected;
+          List.filter (function Key _ -> false | _ -> true) args in
+        let argc_minimum = List.length args_no_keys in
+        let argc_maximum = argc_minimum + List.length optargs in
+        argc_minimum, argc_maximum in
+
+      if argc_minimum = argc_maximum then (
+        pr "  if (argc != %d) {\n" argc_minimum;
+        pr "    fprintf (stderr, _(\"%%s should have %%d parameter(s)\\n\"), cmd, %d);\n"
+          argc_minimum;
+      ) else (
+        pr "  if (argc < %d || argc > %d) {\n" argc_minimum argc_maximum;
+        pr "    fprintf (stderr, _(\"%%s should have %%d-%%d parameter(s)\\n\"), cmd, %d, %d);\n"
+          argc_minimum argc_maximum;
+      );
       pr "    fprintf (stderr, _(\"type 'help %%s' for help on %%s\\n\"), cmd, cmd);\n";
       pr "    return -1;\n";
       pr "  }\n";
 
-      let parse_integer fn fntyp rtyp range name =
+      let parse_integer expr fn fntyp rtyp range name =
         pr "  {\n";
         pr "    strtol_error xerr;\n";
         pr "    %s r;\n" fntyp;
         pr "\n";
-        pr "    xerr = %s (argv[i++], NULL, 0, &r, xstrtol_suffixes);\n" fn;
+        pr "    xerr = %s (%s, NULL, 0, &r, xstrtol_suffixes);\n" fn expr;
         pr "    if (xerr != LONGINT_OK) {\n";
         pr "      fprintf (stderr,\n";
         pr "               _(\"%%s: %%s: invalid integer parameter (%%s returned %%d)\\n\"),\n";
@@ -348,9 +371,6 @@ Guestfish will prompt for these separately."
         pr "    %s = r;\n" name;
         pr "  }\n";
       in
-
-      if snd style <> [] then
-        pr "  size_t i = 0;\n";
 
       List.iter (
         function
@@ -389,13 +409,67 @@ Guestfish will prompt for these separately."
               and comment =
                 "The Int type in the generator is a signed 31 bit int." in
               Some (min, max, comment) in
-            parse_integer "xstrtoll" "long long" "int" range name
+            parse_integer "argv[i++]" "xstrtoll" "long long" "int" range name
         | Int64 name ->
-            parse_integer "xstrtoll" "long long" "int64_t" None name
-      ) (snd style);
+            parse_integer "argv[i++]" "xstrtoll" "long long" "int64_t" None name
+      ) args;
+
+      (* Optional arguments are prefixed with <argname>:<value> and
+       * may be missing, so we need to parse those until the end of
+       * the argument list.
+       *)
+      if optargs <> [] then (
+        let uc_name = String.uppercase name in
+        pr "\n";
+        pr "  for (; i < argc; ++i) {\n";
+        pr "    uint64_t this_mask;\n";
+        pr "    const char *this_arg;\n";
+        List.iter (
+          fun argt ->
+            let n = name_of_argt argt in
+            let uc_n = String.uppercase n in
+            let len = String.length n in
+            pr "    if (STRPREFIX (argv[i], \"%s:\")) {\n" n;
+            (match argt with
+             | Bool n ->
+                 pr "      optargs_s.%s = is_true (&argv[i][%d]) ? 1 : 0;\n"
+                   n (len+1);
+             | Int n ->
+                 let range =
+                   let min = "(-(2LL<<30))"
+                   and max = "((2LL<<30)-1)"
+                   and comment =
+                     "The Int type in the generator is a signed 31 bit int." in
+                   Some (min, max, comment) in
+                 let expr = sprintf "&argv[i][%d]" (len+1) in
+                 parse_integer expr "xstrtoll" "long long" "int" range name
+             | Int64 n ->
+                 let expr = sprintf "&argv[i][%d]" (len+1) in
+                 parse_integer expr "xstrtoll" "long long" "int64_t" None name
+             | String n ->
+                 pr "      optargs_s.%s = &argv[i][%d];\n" n (len+1);
+             | _ -> assert false
+            );
+            pr "      this_mask = GUESTFS_%s_%s_BITMASK;\n" uc_name uc_n;
+            pr "      this_arg = \"%s\";\n" n;
+            pr "    }\n";
+        ) optargs;
+
+        pr "    if (optargs_s.bitmask & this_mask) {\n";
+        pr "      fprintf (stderr, _(\"%%s: optional argument %%s given twice\\n\"),\n";
+        pr "               cmd, this_arg);\n";
+        pr "      return -1;\n";
+        pr "    }\n";
+        pr "    optargs_s.bitmask |= this_mask;\n";
+        pr "  }\n";
+        pr "\n";
+      );
 
       (* Call C API function. *)
-      pr "  r = guestfs_%s " name;
+      if optargs = [] then
+        pr "  r = guestfs_%s " name
+      else
+        pr "  r = guestfs_%s_argv " name;
       generate_c_call_args ~handle:"g" style;
       pr ";\n";
 
@@ -412,7 +486,7 @@ Guestfish will prompt for these separately."
             pr "  free_file_in (%s);\n" name
         | StringList name | DeviceList name ->
             pr "  free_strings (%s);\n" name
-      ) (snd style);
+      ) args;
 
       (* Any output flags? *)
       let fish_output =
@@ -426,7 +500,7 @@ Guestfish will prompt for these separately."
             failwithf "%s: more than one FishOutput flag is not allowed" name in
 
       (* Check return value for errors and display command results. *)
-      (match fst style with
+      (match ret with
        | RErr -> pr "  return r;\n"
        | RInt _ ->
            pr "  if (r == -1) return -1;\n";
@@ -637,7 +711,7 @@ and generate_fish_actions_pod () =
   let rex = Str.regexp "C<guestfs_\\([^>]+\\)>" in
 
   List.iter (
-    fun (name, style, _, flags, _, _, longdesc) ->
+    fun (name, (_, args, optargs), _, flags, _, _, longdesc) ->
       let longdesc =
         Str.global_substitute rex (
           fun s ->
@@ -668,18 +742,26 @@ and generate_fish_actions_pod () =
         | FileIn n | FileOut n -> pr " (%s|-)" n
         | BufferIn n -> pr " %s" n
         | Key _ -> () (* keys are entered at a prompt *)
-      ) (snd style);
+      ) args;
+      List.iter (
+        function
+        | Bool n | Int n | Int64 n | String n -> pr " [%s:..]" n
+        | _ -> assert false
+      ) optargs;
       pr "\n";
       pr "\n";
       pr "%s\n\n" longdesc;
 
       if List.exists (function FileIn _ | FileOut _ -> true
-                      | _ -> false) (snd style) then
+                      | _ -> false) args then
         pr "Use C<-> instead of a filename to read/write from stdin/stdout.\n\n";
 
-      if List.exists (function Key _ -> true | _ -> false) (snd style) then
+      if List.exists (function Key _ -> true | _ -> false) args then
         pr "This command has one or more key or passphrase parameters.
 Guestfish will prompt for these separately.\n\n";
+
+      if optargs <> [] then
+        pr "This command has one or more optional arguments.  See L</OPTIONAL ARGUMENTS>.\n\n";
 
       if List.mem ProtocolLimitWarning flags then
         pr "%s\n\n" protocol_limit_warning;
@@ -695,7 +777,7 @@ Guestfish will prompt for these separately.\n\n";
 (* Generate documentation for guestfish-only commands. *)
 and generate_fish_commands_pod () =
   List.iter (
-    fun (name, style, _, flags, _, _, longdesc) ->
+    fun (name, _, _, flags, _, _, longdesc) ->
       let name = replace_char name '_' '-' in
       let aliases =
         filter_map (function FishAlias n -> Some n | _ -> None) flags in

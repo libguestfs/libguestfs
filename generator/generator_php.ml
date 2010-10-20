@@ -52,7 +52,7 @@ PHP_FUNCTION (guestfs_last_error);
 ";
 
   List.iter (
-    fun (shortname, style, _, _, _, _, _) ->
+    fun (shortname, _, _, _, _, _, _) ->
       pr "PHP_FUNCTION (guestfs_%s);\n" shortname
   ) all_functions_sorted;
 
@@ -112,7 +112,7 @@ static function_entry guestfs_php_functions[] = {
 ";
 
   List.iter (
-    fun (shortname, style, _, _, _, _, _) ->
+    fun (shortname, _, _, _, _, _, _) ->
       pr "  PHP_FE (guestfs_%s, NULL)\n" shortname
   ) all_functions_sorted;
 
@@ -180,7 +180,7 @@ PHP_FUNCTION (guestfs_last_error)
 
   (* Now generate the PHP bindings for each action. *)
   List.iter (
-    fun (shortname, style, _, _, _, _, _) ->
+    fun (shortname, (ret, args, optargs as style), _, _, _, _, _) ->
       pr "PHP_FUNCTION (guestfs_%s)\n" shortname;
       pr "{\n";
       pr "  zval *z_g;\n";
@@ -202,7 +202,28 @@ PHP_FUNCTION (guestfs_last_error)
             pr "  zend_bool %s;\n" n
         | Int n | Int64 n ->
             pr "  long %s;\n" n
-        ) (snd style);
+        ) args;
+
+      if optargs <> [] then (
+        pr "  struct guestfs_%s_argv optargs_s = { .bitmask = 0 };\n" shortname;
+        pr "  struct guestfs_%s_argv *optargs = &optargs_s;\n" shortname;
+
+        (* XXX Ugh PHP doesn't have proper optional arguments, so we
+         * have to use sentinel values.
+         *)
+        (* Since we don't know if PHP types will exactly match structure
+         * types, declare some local variables here.
+         *)
+        List.iter (
+          function
+          | Bool n -> pr "  zend_bool optargs_t_%s = -1;\n" n
+          | Int n | Int64 n -> pr "  long optargs_t_%s = -1;\n" n
+          | String n ->
+              pr "  char *optargs_t_%s = NULL;\n" n;
+              pr "  int optargs_t_%s_size = -1;\n" n
+          | _ -> assert false
+        ) optargs
+      );
 
       pr "\n";
 
@@ -216,8 +237,22 @@ PHP_FUNCTION (guestfs_last_error)
           | StringList n | DeviceList n -> "a"
           | Bool n -> "b"
           | Int n | Int64 n -> "l"
-        ) (snd style)
+        ) args
       ) in
+
+      let param_string =
+        if optargs <> [] then
+          param_string ^ "|" ^
+            String.concat "" (
+              List.map (
+                function
+                | Bool _ -> "b"
+                | Int _ | Int64 _ -> "l"
+                | String _ -> "s"
+                | _ -> assert false
+              ) optargs
+            )
+        else param_string in
 
       pr "  if (zend_parse_parameters (ZEND_NUM_ARGS() TSRMLS_CC, \"r%s\",\n"
         param_string;
@@ -234,7 +269,15 @@ PHP_FUNCTION (guestfs_last_error)
             pr ", &%s" n
         | Int n | Int64 n ->
             pr ", &%s" n
-      ) (snd style);
+      ) args;
+      List.iter (
+        function
+        | Bool n | Int n | Int64 n ->
+            pr ", &optargs_t_%s" n
+        | String n ->
+            pr ", &optargs_t_%s, &optargs_t_%s_size" n n
+        | _ -> assert false
+      ) optargs;
       pr ") == FAILURE) {\n";
       pr "    RETURN_FALSE;\n";
       pr "  }\n";
@@ -288,11 +331,34 @@ PHP_FUNCTION (guestfs_last_error)
             pr "  }\n";
             pr "\n"
         | Bool n | Int n | Int64 n -> ()
-        ) (snd style);
+        ) args;
+
+      (* Optional arguments. *)
+      if optargs <> [] then (
+        let uc_shortname = String.uppercase shortname in
+        List.iter (
+          fun argt ->
+            let n = name_of_argt argt in
+            let uc_n = String.uppercase n in
+            pr "  if (optargs_t_%s != " n;
+            (match argt with
+             | Bool _ -> pr "((zend_bool)-1)"
+             | Int _ | Int64 _ -> pr "-1"
+             | String _ -> pr "NULL"
+             | _ -> assert false
+            );
+            pr ") {\n";
+            pr "    optargs_s.%s = optargs_t_%s;\n" n n;
+            pr "    optargs_s.bitmask |= GUESTFS_%s_%s_BITMASK;\n"
+              uc_shortname uc_n;
+            pr "  }\n"
+        ) optargs;
+        pr "\n"
+      );
 
       (* Return value. *)
       let error_code =
-        match fst style with
+        match ret with
         | RErr -> pr "  int r;\n"; "-1"
         | RBool _
         | RInt _ -> pr "  int r;\n"; "-1"
@@ -315,7 +381,10 @@ PHP_FUNCTION (guestfs_last_error)
             "NULL" in
 
       (* Call the function. *)
-      pr "  r = guestfs_%s " shortname;
+      if optargs = [] then
+        pr "  r = guestfs_%s " shortname
+      else
+        pr "  r = guestfs_%s_argv " shortname;
       generate_c_call_args ~handle:"g" style;
       pr ";\n";
       pr "\n";
@@ -338,7 +407,7 @@ PHP_FUNCTION (guestfs_last_error)
             pr "  }\n";
             pr "\n"
         | Bool n | Int n | Int64 n -> ()
-        ) (snd style);
+        ) args;
 
       (* Check for errors. *)
       pr "  if (r == %s) {\n" error_code;
@@ -347,7 +416,7 @@ PHP_FUNCTION (guestfs_last_error)
       pr "\n";
 
       (* Convert the return value. *)
-      (match fst style with
+      (match ret with
        | RErr ->
            pr "  RETURN_TRUE;\n"
        | RBool _ ->

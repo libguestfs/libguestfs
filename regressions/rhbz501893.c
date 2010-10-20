@@ -39,6 +39,12 @@ main (int argc, char *argv[])
   assert (guestfs_add_drive (g, NULL) == -1);
   assert (guestfs_config (g, NULL, NULL) == -1);
 
+  /* This optional argument must not be NULL. */
+
+  assert (guestfs_add_drive_opts (g, "/dev/null",
+                                  GUESTFS_ADD_DRIVE_OPTS_FORMAT, NULL,
+                                  -1) == -1);
+
   /* These can be safely set to NULL, should be no error. */
 
   assert (guestfs_set_path (g, NULL) == 0);
