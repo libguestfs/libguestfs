@@ -100,7 +100,7 @@ let rec generate_prototype ?(extern = true) ?(static = false)
   if newline then pr "\n"
 
 (* Generate C call arguments, eg "(handle, foo, bar)" *)
-and generate_c_call_args ?handle ?(decl = false) style =
+and generate_c_call_args ?handle style =
   pr "(";
   let comma = ref false in
   let next () =
@@ -121,12 +121,11 @@ and generate_c_call_args ?handle ?(decl = false) style =
         pr "%s" (name_of_argt arg)
   ) (snd style);
   (* For RBufferOut calls, add implicit &size parameter. *)
-  if not decl then (
-    match fst style with
-    | RBufferOut _ ->
-        next ();
-        pr "&size"
-    | _ -> ()
+  (match fst style with
+   | RBufferOut _ ->
+       next ();
+       pr "&size"
+   | _ -> ()
   );
   pr ")"
 
