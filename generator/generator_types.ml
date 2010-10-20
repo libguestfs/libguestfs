@@ -116,6 +116,9 @@ and args = argt list	(* Function parameters, guestfs handle is implicit. *)
      * possibility in mind.
      *)
 and argt =
+  | Bool of string	(* boolean *)
+  | Int of string	(* int (smallish ints, signed, <= 31 bits) *)
+  | Int64 of string	(* any 64 bit int *)
   | String of string	(* const char *name, cannot be NULL *)
   | Device of string	(* /dev device name, cannot be NULL *)
   | Pathname of string	(* file name, cannot be NULL *)
@@ -123,19 +126,6 @@ and argt =
   | OptString of string	(* const char *name, may be NULL *)
   | StringList of string(* list of strings (each string cannot be NULL) *)
   | DeviceList of string(* list of Device names (each cannot be NULL) *)
-  | Bool of string	(* boolean *)
-  | Int of string	(* int (smallish ints, signed, <= 31 bits) *)
-  | Int64 of string	(* any 64 bit int *)
-    (* These are treated as filenames (simple string parameters) in
-     * the C API and bindings.  But in the RPC protocol, we transfer
-     * the actual file content up to or down from the daemon.
-     * FileIn: local machine -> daemon (in request)
-     * FileOut: daemon -> local machine (in reply)
-     * In guestfish (only), the special name "-" means read from
-     * stdin or write to stdout.
-     *)
-  | FileIn of string
-  | FileOut of string
     (* Opaque buffer which can contain arbitrary 8 bit data.
      * In the C API, this is expressed as <const char *, size_t> pair.
      * Most other languages have a string type which can contain
@@ -154,6 +144,16 @@ and argt =
      * from the user.
      *)
   | Key of string
+    (* These are treated as filenames (simple string parameters) in
+     * the C API and bindings.  But in the RPC protocol, we transfer
+     * the actual file content up to or down from the daemon.
+     * FileIn: local machine -> daemon (in request)
+     * FileOut: daemon -> local machine (in reply)
+     * In guestfish (only), the special name "-" means read from
+     * stdin or write to stdout.
+     *)
+  | FileIn of string
+  | FileOut of string
 
 type flags =
   | ProtocolLimitWarning  (* display warning about protocol size limits *)
