@@ -28,7 +28,7 @@
 #include "fish.h"
 
 int
-run_more (const char *cmd, int argc, char *argv[])
+run_more (const char *cmd, size_t argc, char *argv[])
 {
   TMP_TEMPLATE_ON_STACK (filename);
   char buf[256];

@@ -35,7 +35,7 @@
 static off_t get_size (const char *filename);
 
 int
-run_hexedit (const char *cmd, int argc, char *argv[])
+run_hexedit (const char *cmd, size_t argc, char *argv[])
 {
   if (argc < 1 || argc > 3) {
     fprintf (stderr, _("hexedit (device|filename) [max | start max]\n"));

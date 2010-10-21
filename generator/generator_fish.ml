@@ -275,7 +275,7 @@ Guestfish will prompt for these separately."
   (* run_<action> actions *)
   List.iter (
     fun (name, style, _, flags, _, _, _) ->
-      pr "static int run_%s (const char *cmd, int argc, char *argv[])\n" name;
+      pr "static int run_%s (const char *cmd, size_t argc, char *argv[])\n" name;
       pr "{\n";
       (match fst style with
        | RErr
@@ -499,7 +499,7 @@ Guestfish will prompt for these separately."
   ) all_functions;
 
   (* run_action function *)
-  pr "int run_action (const char *cmd, int argc, char *argv[])\n";
+  pr "int run_action (const char *cmd, size_t argc, char *argv[])\n";
   pr "{\n";
 
   List.iter (

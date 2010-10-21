@@ -26,7 +26,7 @@
 #include "fish.h"
 
 int
-run_reopen (const char *cmd, int argc, char *argv[])
+run_reopen (const char *cmd, size_t argc, char *argv[])
 {
   guestfs_h *g2;
   int r;

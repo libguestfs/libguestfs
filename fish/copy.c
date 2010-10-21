@@ -33,7 +33,7 @@ static int make_tar_output (const char *local, const char *basename);
 static int split_path (char *buf, size_t buf_size, const char *path, const char **dirname, const char **basename);
 
 int
-run_copy_in (const char *cmd, int argc, char *argv[])
+run_copy_in (const char *cmd, size_t argc, char *argv[])
 {
   if (argc < 2) {
     fprintf (stderr,
@@ -176,7 +176,7 @@ tar_create (const char *dir, const char *path)
 }
 
 int
-run_copy_out (const char *cmd, int argc, char *argv[])
+run_copy_out (const char *cmd, size_t argc, char *argv[])
 {
   if (argc < 2) {
     fprintf (stderr,

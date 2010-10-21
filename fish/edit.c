@@ -32,7 +32,7 @@
 /* guestfish edit command, suggested by Ján Ondrej, implemented by RWMJ */
 
 int
-run_edit (const char *cmd, int argc, char *argv[])
+run_edit (const char *cmd, size_t argc, char *argv[])
 {
   TMP_TEMPLATE_ON_STACK (filename);
   char buf[256];

@@ -177,14 +177,15 @@ rc_listen (void)
   char sockpath[128];
   pid_t pid;
   struct sockaddr_un addr;
-  int sock, s, i;
+  int sock, s;
+  size_t i;
   FILE *fp;
   XDR xdr, xdr2;
   guestfish_hello hello;
   guestfish_call call;
   guestfish_reply reply;
   char **argv;
-  int argc;
+  size_t argc;
 
   memset (&hello, 0, sizeof hello);
   memset (&call, 0, sizeof call);
@@ -307,7 +308,7 @@ rc_listen (void)
 
 /* Remote control client. */
 int
-rc_remote (int pid, const char *cmd, int argc, char *argv[],
+rc_remote (int pid, const char *cmd, size_t argc, char *argv[],
            int exit_on_error)
 {
   guestfish_hello hello;
