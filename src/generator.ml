@@ -8393,133 +8393,136 @@ DESTROY (g)
           | Int64 n -> pr "      int64_t %s;\n" n
       ) (snd style);
 
-      let do_cleanups () =
-        List.iter (
-          function
-          | Pathname _ | Device _ | Dev_or_Path _ | String _ | OptString _
-          | Bool _ | Int _ | Int64 _
-          | FileIn _ | FileOut _ -> ()
-          | StringList n | DeviceList n -> pr "      free (%s);\n" n
-        ) (snd style)
-      in
-
-      (* Code. *)
+      (* PREINIT section (local variable declarations). *)
+      pr "PREINIT:\n";
       (match fst style with
        | RErr ->
-           pr "PREINIT:\n";
            pr "      int r;\n";
+       | RInt _
+       | RBool _ ->
+           pr "      int r;\n";
+       | RInt64 _ ->
+           pr "      int64_t r;\n";
+       | RConstString _ ->
+           pr "      const char *r;\n";
+       | RConstOptString _ ->
+           pr "      const char *r;\n";
+       | RString _ ->
+           pr "      char *r;\n";
+       | RStringList _ | RHashtable _ ->
+           pr "      char **r;\n";
+           pr "      size_t i, n;\n";
+       | RStruct (_, typ) ->
+           pr "      struct guestfs_%s *r;\n" typ;
+       | RStructList (_, typ) ->
+           pr "      struct guestfs_%s_list *r;\n" typ;
+           pr "      size_t i;\n";
+           pr "      HV *hv;\n";
+       | RBufferOut _ ->
+           pr "      char *r;\n";
+           pr "      size_t size;\n";
+      );
+
+      (* CODE or PPCODE section.  PPCODE is used where we are
+       * returning void, or where we push the return value on the stack
+       * ourselves.  Using CODE means we will manipulate RETVAL.
+       *)
+      (match fst style with
+       | RErr ->
            pr " PPCODE:\n";
-           pr "      r = guestfs_%s " name;
-           generate_c_call_args ~handle:"g" style;
-           pr ";\n";
-           do_cleanups ();
+       | RInt n
+       | RBool n ->
+           pr "   CODE:\n";
+       | RInt64 n ->
+           pr "   CODE:\n";
+       | RConstString n ->
+           pr "   CODE:\n";
+       | RConstOptString n ->
+           pr "   CODE:\n";
+       | RString n ->
+           pr "   CODE:\n";
+       | RStringList n | RHashtable n ->
+           pr " PPCODE:\n";
+       | RBufferOut n ->
+           pr "   CODE:\n";
+       | RStruct _
+       | RStructList _ ->
+           pr " PPCODE:\n";
+      );
+
+      (* The call to the C function. *)
+      pr "      r = guestfs_%s " name;
+      generate_c_call_args ~handle:"g" style;
+      pr ";\n";
+
+      (* Cleanup any arguments. *)
+      List.iter (
+        function
+        | Pathname _ | Device _ | Dev_or_Path _ | String _ | OptString _
+        | Bool _ | Int _ | Int64 _
+        | FileIn _ | FileOut _ -> ()
+        | StringList n | DeviceList n -> pr "      free (%s);\n" n
+      ) (snd style);
+
+      (* Check return value for errors and return it if necessary. *)
+      (match fst style with
+       | RErr ->
            pr "      if (r == -1)\n";
            pr "        croak (\"%%s\", guestfs_last_error (g));\n";
        | RInt n
        | RBool n ->
-           pr "PREINIT:\n";
-           pr "      int %s;\n" n;
-           pr "   CODE:\n";
-           pr "      %s = guestfs_%s " n name;
-           generate_c_call_args ~handle:"g" style;
-           pr ";\n";
-           do_cleanups ();
-           pr "      if (%s == -1)\n" n;
+           pr "      if (r == -1)\n";
            pr "        croak (\"%%s\", guestfs_last_error (g));\n";
-           pr "      RETVAL = newSViv (%s);\n" n;
+           pr "      RETVAL = newSViv (r);\n";
            pr " OUTPUT:\n";
            pr "      RETVAL\n"
        | RInt64 n ->
-           pr "PREINIT:\n";
-           pr "      int64_t %s;\n" n;
-           pr "   CODE:\n";
-           pr "      %s = guestfs_%s " n name;
-           generate_c_call_args ~handle:"g" style;
-           pr ";\n";
-           do_cleanups ();
-           pr "      if (%s == -1)\n" n;
+           pr "      if (r == -1)\n";
            pr "        croak (\"%%s\", guestfs_last_error (g));\n";
-           pr "      RETVAL = my_newSVll (%s);\n" n;
+           pr "      RETVAL = my_newSVll (r);\n";
            pr " OUTPUT:\n";
            pr "      RETVAL\n"
        | RConstString n ->
-           pr "PREINIT:\n";
-           pr "      const char *%s;\n" n;
-           pr "   CODE:\n";
-           pr "      %s = guestfs_%s " n name;
-           generate_c_call_args ~handle:"g" style;
-           pr ";\n";
-           do_cleanups ();
-           pr "      if (%s == NULL)\n" n;
+           pr "      if (r == NULL)\n";
            pr "        croak (\"%%s\", guestfs_last_error (g));\n";
-           pr "      RETVAL = newSVpv (%s, 0);\n" n;
+           pr "      RETVAL = newSVpv (r, 0);\n";
            pr " OUTPUT:\n";
            pr "      RETVAL\n"
        | RConstOptString n ->
-           pr "PREINIT:\n";
-           pr "      const char *%s;\n" n;
-           pr "   CODE:\n";
-           pr "      %s = guestfs_%s " n name;
-           generate_c_call_args ~handle:"g" style;
-           pr ";\n";
-           do_cleanups ();
-           pr "      if (%s == NULL)\n" n;
+           pr "      if (r == NULL)\n";
            pr "        RETVAL = &PL_sv_undef;\n";
            pr "      else\n";
-           pr "        RETVAL = newSVpv (%s, 0);\n" n;
+           pr "        RETVAL = newSVpv (r, 0);\n";
            pr " OUTPUT:\n";
            pr "      RETVAL\n"
        | RString n ->
-           pr "PREINIT:\n";
-           pr "      char *%s;\n" n;
-           pr "   CODE:\n";
-           pr "      %s = guestfs_%s " n name;
-           generate_c_call_args ~handle:"g" style;
-           pr ";\n";
-           do_cleanups ();
-           pr "      if (%s == NULL)\n" n;
+           pr "      if (r == NULL)\n";
            pr "        croak (\"%%s\", guestfs_last_error (g));\n";
-           pr "      RETVAL = newSVpv (%s, 0);\n" n;
-           pr "      free (%s);\n" n;
+           pr "      RETVAL = newSVpv (r, 0);\n";
+           pr "      free (r);\n";
            pr " OUTPUT:\n";
            pr "      RETVAL\n"
        | RStringList n | RHashtable n ->
-           pr "PREINIT:\n";
-           pr "      char **%s;\n" n;
-           pr "      size_t i, n;\n";
-           pr " PPCODE:\n";
-           pr "      %s = guestfs_%s " n name;
-           generate_c_call_args ~handle:"g" style;
-           pr ";\n";
-           do_cleanups ();
-           pr "      if (%s == NULL)\n" n;
+           pr "      if (r == NULL)\n";
            pr "        croak (\"%%s\", guestfs_last_error (g));\n";
-           pr "      for (n = 0; %s[n] != NULL; ++n) /**/;\n" n;
+           pr "      for (n = 0; r[n] != NULL; ++n) /**/;\n";
            pr "      EXTEND (SP, n);\n";
            pr "      for (i = 0; i < n; ++i) {\n";
-           pr "        PUSHs (sv_2mortal (newSVpv (%s[i], 0)));\n" n;
-           pr "        free (%s[i]);\n" n;
+           pr "        PUSHs (sv_2mortal (newSVpv (r[i], 0)));\n";
+           pr "        free (r[i]);\n";
            pr "      }\n";
-           pr "      free (%s);\n" n;
+           pr "      free (r);\n";
        | RStruct (n, typ) ->
            let cols = cols_of_struct typ in
-           generate_perl_struct_code typ cols name style n do_cleanups
+           generate_perl_struct_code typ cols name style n
        | RStructList (n, typ) ->
            let cols = cols_of_struct typ in
-           generate_perl_struct_list_code typ cols name style n do_cleanups
+           generate_perl_struct_list_code typ cols name style n
        | RBufferOut n ->
-           pr "PREINIT:\n";
-           pr "      char *%s;\n" n;
-           pr "      size_t size;\n";
-           pr "   CODE:\n";
-           pr "      %s = guestfs_%s " n name;
-           generate_c_call_args ~handle:"g" style;
-           pr ";\n";
-           do_cleanups ();
-           pr "      if (%s == NULL)\n" n;
+           pr "      if (r == NULL)\n";
            pr "        croak (\"%%s\", guestfs_last_error (g));\n";
-           pr "      RETVAL = newSVpvn (%s, size);\n" n;
-           pr "      free (%s);\n" n;
+           pr "      RETVAL = newSVpvn (r, size);\n";
+           pr "      free (r);\n";
            pr " OUTPUT:\n";
            pr "      RETVAL\n"
       );
@@ -8527,61 +8530,45 @@ DESTROY (g)
       pr "\n"
   ) all_functions
 
-and generate_perl_struct_list_code typ cols name style n do_cleanups =
-  pr "PREINIT:\n";
-  pr "      struct guestfs_%s_list *%s;\n" typ n;
-  pr "      size_t i;\n";
-  pr "      HV *hv;\n";
-  pr " PPCODE:\n";
-  pr "      %s = guestfs_%s " n name;
-  generate_c_call_args ~handle:"g" style;
-  pr ";\n";
-  do_cleanups ();
-  pr "      if (%s == NULL)\n" n;
+and generate_perl_struct_list_code typ cols name style n =
+  pr "      if (r == NULL)\n";
   pr "        croak (\"%%s\", guestfs_last_error (g));\n";
-  pr "      EXTEND (SP, %s->len);\n" n;
-  pr "      for (i = 0; i < %s->len; ++i) {\n" n;
+  pr "      EXTEND (SP, r->len);\n";
+  pr "      for (i = 0; i < r->len; ++i) {\n";
   pr "        hv = newHV ();\n";
   List.iter (
     function
     | name, FString ->
-        pr "        (void) hv_store (hv, \"%s\", %d, newSVpv (%s->val[i].%s, 0), 0);\n"
-          name (String.length name) n name
+        pr "        (void) hv_store (hv, \"%s\", %d, newSVpv (r->val[i].%s, 0), 0);\n"
+          name (String.length name) name
     | name, FUUID ->
-        pr "        (void) hv_store (hv, \"%s\", %d, newSVpv (%s->val[i].%s, 32), 0);\n"
-          name (String.length name) n name
+        pr "        (void) hv_store (hv, \"%s\", %d, newSVpv (r->val[i].%s, 32), 0);\n"
+          name (String.length name) name
     | name, FBuffer ->
-        pr "        (void) hv_store (hv, \"%s\", %d, newSVpvn (%s->val[i].%s, %s->val[i].%s_len), 0);\n"
-          name (String.length name) n name n name
+        pr "        (void) hv_store (hv, \"%s\", %d, newSVpvn (r->val[i].%s, r->val[i].%s_len), 0);\n"
+          name (String.length name) name name
     | name, (FBytes|FUInt64) ->
-        pr "        (void) hv_store (hv, \"%s\", %d, my_newSVull (%s->val[i].%s), 0);\n"
-          name (String.length name) n name
+        pr "        (void) hv_store (hv, \"%s\", %d, my_newSVull (r->val[i].%s), 0);\n"
+          name (String.length name) name
     | name, FInt64 ->
-        pr "        (void) hv_store (hv, \"%s\", %d, my_newSVll (%s->val[i].%s), 0);\n"
-          name (String.length name) n name
+        pr "        (void) hv_store (hv, \"%s\", %d, my_newSVll (r->val[i].%s), 0);\n"
+          name (String.length name) name
     | name, (FInt32|FUInt32) ->
-        pr "        (void) hv_store (hv, \"%s\", %d, newSVnv (%s->val[i].%s), 0);\n"
-          name (String.length name) n name
+        pr "        (void) hv_store (hv, \"%s\", %d, newSVnv (r->val[i].%s), 0);\n"
+          name (String.length name) name
     | name, FChar ->
-        pr "        (void) hv_store (hv, \"%s\", %d, newSVpv (&%s->val[i].%s, 1), 0);\n"
-          name (String.length name) n name
+        pr "        (void) hv_store (hv, \"%s\", %d, newSVpv (&r->val[i].%s, 1), 0);\n"
+          name (String.length name) name
     | name, FOptPercent ->
-        pr "        (void) hv_store (hv, \"%s\", %d, newSVnv (%s->val[i].%s), 0);\n"
-          name (String.length name) n name
+        pr "        (void) hv_store (hv, \"%s\", %d, newSVnv (r->val[i].%s), 0);\n"
+          name (String.length name) name
   ) cols;
   pr "        PUSHs (sv_2mortal (newRV ((SV *) hv)));\n";
   pr "      }\n";
-  pr "      guestfs_free_%s_list (%s);\n" typ n
+  pr "      guestfs_free_%s_list (r);\n" typ
 
-and generate_perl_struct_code typ cols name style n do_cleanups =
-  pr "PREINIT:\n";
-  pr "      struct guestfs_%s *%s;\n" typ n;
-  pr " PPCODE:\n";
-  pr "      %s = guestfs_%s " n name;
-  generate_c_call_args ~handle:"g" style;
-  pr ";\n";
-  do_cleanups ();
-  pr "      if (%s == NULL)\n" n;
+and generate_perl_struct_code typ cols name style n =
+  pr "      if (r == NULL)\n";
   pr "        croak (\"%%s\", guestfs_last_error (g));\n";
   pr "      EXTEND (SP, 2 * %d);\n" (List.length cols);
   List.iter (
@@ -8590,31 +8577,31 @@ and generate_perl_struct_code typ cols name style n do_cleanups =
 
       match col with
       | name, FString ->
-          pr "      PUSHs (sv_2mortal (newSVpv (%s->%s, 0)));\n"
-            n name
+          pr "      PUSHs (sv_2mortal (newSVpv (r->%s, 0)));\n"
+            name
       | name, FBuffer ->
-          pr "      PUSHs (sv_2mortal (newSVpvn (%s->%s, %s->%s_len)));\n"
-            n name n name
+          pr "      PUSHs (sv_2mortal (newSVpvn (r->%s, r->%s_len)));\n"
+            name name
       | name, FUUID ->
-          pr "      PUSHs (sv_2mortal (newSVpv (%s->%s, 32)));\n"
-            n name
+          pr "      PUSHs (sv_2mortal (newSVpv (r->%s, 32)));\n"
+            name
       | name, (FBytes|FUInt64) ->
-          pr "      PUSHs (sv_2mortal (my_newSVull (%s->%s)));\n"
-            n name
+          pr "      PUSHs (sv_2mortal (my_newSVull (r->%s)));\n"
+            name
       | name, FInt64 ->
-          pr "      PUSHs (sv_2mortal (my_newSVll (%s->%s)));\n"
-            n name
+          pr "      PUSHs (sv_2mortal (my_newSVll (r->%s)));\n"
+            name
       | name, (FInt32|FUInt32) ->
-          pr "      PUSHs (sv_2mortal (newSVnv (%s->%s)));\n"
-            n name
+          pr "      PUSHs (sv_2mortal (newSVnv (r->%s)));\n"
+            name
       | name, FChar ->
-          pr "      PUSHs (sv_2mortal (newSVpv (&%s->%s, 1)));\n"
-            n name
+          pr "      PUSHs (sv_2mortal (newSVpv (&r->%s, 1)));\n"
+            name
       | name, FOptPercent ->
-          pr "      PUSHs (sv_2mortal (newSVnv (%s->%s)));\n"
-            n name
+          pr "      PUSHs (sv_2mortal (newSVnv (r->%s)));\n"
+            name
   ) cols;
-  pr "      free (%s);\n" n
+  pr "      free (r);\n"
 
 (* Generate Sys/Guestfs.pm. *)
 and generate_perl_pm () =
