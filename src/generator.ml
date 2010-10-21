@@ -8095,7 +8095,7 @@ copy_table (char * const * argv)
             pr "  char *%s = guestfs_safe_strdup (g, String_val (%sv));\n" n n
         | OptString n ->
             pr "  char *%s =\n" n;
-            pr "    %sv != Val_int (0) ?" n;
+            pr "    %sv != Val_int (0) ?\n" n;
             pr "      guestfs_safe_strdup (g, String_val (Field (%sv, 0))) : NULL;\n" n
         | StringList n | DeviceList n ->
             pr "  char **%s = ocaml_guestfs_strings_val (g, %sv);\n" n n
