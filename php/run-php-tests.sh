@@ -32,4 +32,7 @@ echo TESTS: $TESTS
 # the output.
 unset LIBGUESTFS_DEBUG
 
+# By the way, we're actually testing the installed version of
+# libguestfs.  But don't worry, because PHP ignores the result of the
+# tests anyway! ** Gah, PHP is written by morons ... **
 make test TESTS="$TESTS"
