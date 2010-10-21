@@ -8680,7 +8680,7 @@ copy_table (char * const * argv)
             pr "  char *%s = guestfs_safe_strdup (g, String_val (%sv));\n" n n
         | OptString n ->
             pr "  char *%s =\n" n;
-            pr "    %sv != Val_int (0) ?" n;
+            pr "    %sv != Val_int (0) ?\n" n;
             pr "      guestfs_safe_strdup (g, String_val (Field (%sv, 0))) : NULL;\n" n
         | BufferIn n ->
             pr "  size_t %s_size = caml_string_length (%sv);\n" n n;
