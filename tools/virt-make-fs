@@ -405,7 +405,7 @@ eval {
 
     # Run libguestfs.
     my $g = Sys::Guestfs->new ();
-    $g->add_drive ($output);
+    $g->add_drive_opts ($output, format => $format);
     $g->launch ();
 
     if ($type eq "ntfs" && !feature_available ($g, "ntfs3g", "ntfsprogs")) {
