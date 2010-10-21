@@ -112,6 +112,23 @@ read L</NOTE ABOUT CSV FORMAT> below.
 
 =cut
 
+my $format;
+
+=item B<--format> raw
+
+Specify the format of disk images given on the command line.  If this
+is omitted then the format is autodetected from the content of the
+disk image.
+
+If disk images are requested from libvirt, then this program asks
+libvirt for this information.  In this case, the value of the format
+parameter is ignored.
+
+If working with untrusted raw-format guest disk images, you should
+ensure the format is always specified.
+
+=cut
+
 my $human;
 
 =item B<--human-readable> | B<-h>
@@ -164,6 +181,7 @@ GetOptions ("help|?" => \$help,
             "version" => \$version,
             "connect|c=s" => \$uri,
             "csv" => \$csv,
+            "format=s" => \$format,
             "human-readable|human|h" => \$human,
             "inodes|i" => \$inodes,
             "one-per-guest" => \$one_per_guest,
@@ -229,7 +247,7 @@ if (@ARGV == 0) {               # No params, use libvirt.
 } elsif (@ARGV == 1) {          # One param, could be disk image or domname.
     if (-e $ARGV[0]) {
         push @domains, { name => basename ($ARGV[0]),
-                         disks => [ $ARGV[0] ] }
+                         disks => [ [ $ARGV[0], $format ] ] }
     } else {
         my $conn;
 
@@ -248,8 +266,9 @@ if (@ARGV == 0) {               # No params, use libvirt.
                          disks => \@disks }
     }
 } else {                        # >= 2 params, all disk images.
+    my @disks = map { [ $_, $format ] } @ARGV;
     push @domains, { name => basename ($ARGV[0]),
-                     disks => \@ARGV }
+                     disks => \@disks }
 }
 
 sub get_disks_from_libvirt
@@ -258,12 +277,29 @@ sub get_disks_from_libvirt
     my $xml = $dom->get_xml_description ();
 
     my $p = XML::XPath->new (xml => $xml);
-    my @disks = $p->findnodes ('//devices/disk/source/@dev');
-    push (@disks, $p->findnodes ('//devices/disk/source/@file'));
+    my $nodes = $p->find ('//devices/disk');
+
+    my @disks;
+    my $node;
+    foreach $node ($nodes->get_nodelist) {
+        # The filename can be in dev or file attribute, hence:
+        my $filename = $p->find ('./source/@dev', $node);
+        unless ($filename) {
+            $filename = $p->find ('./source/@file', $node);
+            next unless $filename;
+        }
+        $filename = $filename->to_literal;
+
+        # Get the disk format (may not be set).
+        my $format = $p->find ('./driver/@type', $node);
+        $format = $format->to_literal if $format;
+
+        push @disks, [ $filename, $format ];
+    }
 
     # Code in Sys::Guestfs::Lib dies here if there are no disks at all.
 
-    return map { $_->getData } @disks;
+    return @disks;
 }
 
 # Sort the domains by name for display.
@@ -312,7 +348,12 @@ sub multi_df
 
         foreach $d (@_) {
             foreach $disk (@{$d->{disks}}) {
-                $g->add_drive_ro ($disk);
+                my $filename = $disk->[0];
+                my $format = $disk->[1];
+                my @args = ($filename);
+                push @args, readonly => 1;
+                push @args, format => $format if defined $format;
+                $g->add_drive_opts (@args);
             }
         }
 
