@@ -26,7 +26,7 @@
 #include "fish.h"
 
 int
-do_supported (const char *cmd, int argc, char *argv[])
+do_supported (const char *cmd, size_t argc, char *argv[])
 {
   char **groups;
 

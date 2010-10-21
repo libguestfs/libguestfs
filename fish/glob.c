@@ -28,10 +28,10 @@
 /* A bit tricky because in the case where there are multiple
  * paths we have to perform a Cartesian product.
  */
-static void glob_issue (char *cmd, int argc, char ***globs, int *posn, int *count, int *r);
+static void glob_issue (char *cmd, size_t argc, char ***globs, int *posn, int *count, int *r);
 
 int
-do_glob (const char *cmd, int argc, char *argv[])
+do_glob (const char *cmd, size_t argc, char *argv[])
 {
   /* For 'glob cmd foo /s* /usr/s*' this could be:
    *
@@ -46,7 +46,8 @@ do_glob (const char *cmd, int argc, char *argv[])
   char **globs[argc];
   int posn[argc];
   int count[argc];
-  int i, r = 0;
+  size_t i;
+  int r = 0;
 
   if (argc < 1) {
     fprintf (stderr, _("use 'glob command [args...]'\n"));
@@ -129,11 +130,11 @@ do_glob (const char *cmd, int argc, char *argv[])
 }
 
 static void
-glob_issue (char *cmd, int argc,
+glob_issue (char *cmd, size_t argc,
             char ***globs, int *posn, int *count,
             int *r)
 {
-  int i;
+  size_t i;
   char *argv[argc+1];
 
   argv[0] = cmd;

@@ -31,7 +31,7 @@
 #include "fish.h"
 
 int
-do_alloc (const char *cmd, int argc, char *argv[])
+do_alloc (const char *cmd, size_t argc, char *argv[])
 {
   if (argc != 2) {
     fprintf (stderr, _("use 'alloc file size' to create an image\n"));
@@ -45,7 +45,7 @@ do_alloc (const char *cmd, int argc, char *argv[])
 }
 
 int
-do_sparse (const char *cmd, int argc, char *argv[])
+do_sparse (const char *cmd, size_t argc, char *argv[])
 {
   if (argc != 2) {
     fprintf (stderr, _("use 'sparse file size' to create a sparse image\n"));

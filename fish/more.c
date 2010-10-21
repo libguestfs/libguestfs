@@ -28,7 +28,7 @@
 #include "fish.h"
 
 int
-do_more (const char *cmd, int argc, char *argv[])
+do_more (const char *cmd, size_t argc, char *argv[])
 {
   char filename[] = "/tmp/guestfishXXXXXX";
   char buf[256];

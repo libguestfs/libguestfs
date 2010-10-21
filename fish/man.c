@@ -28,7 +28,7 @@
 /* guestfish man command */
 
 int
-do_man (const char *cmd, int argc, char *argv[])
+do_man (const char *cmd, size_t argc, char *argv[])
 {
   if (argc != 0) {
     fprintf (stderr, _("use 'man' without parameters to open the manual\n"));
