@@ -13,7 +13,7 @@ if ($g == false) {
 
 $tmp = dirname(__FILE__)."/test.img";
 $size = 100 * 1024 * 1024;
-if (! $fp = fopen ($tmp, 'r+')) {
+if (! $fp = fopen ($tmp, 'w+')) {
   die ("Error: cannot create file '".$tmp."'\n");
 }
 ftruncate ($fp, $size);
