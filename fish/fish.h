@@ -70,7 +70,7 @@ extern void extended_help_message (void);
 /* in cmds.c (auto-generated) */
 extern void list_commands (void);
 extern int display_command (const char *cmd);
-extern int run_action (const char *cmd, int argc, char *argv[]);
+extern int run_action (const char *cmd, size_t argc, char *argv[]);
 
 /* in completion.c (auto-generated) */
 extern char **do_completion (const char *text, int start, int end);
@@ -80,34 +80,34 @@ extern int complete_dest_paths;
 extern char *complete_dest_paths_generator (const char *text, int state);
 
 /* in alloc.c */
-extern int do_alloc (const char *cmd, int argc, char *argv[]);
-extern int do_sparse (const char *cmd, int argc, char *argv[]);
+extern int do_alloc (const char *cmd, size_t argc, char *argv[]);
+extern int do_sparse (const char *cmd, size_t argc, char *argv[]);
 
 /* in echo.c */
-extern int do_echo (const char *cmd, int argc, char *argv[]);
+extern int do_echo (const char *cmd, size_t argc, char *argv[]);
 
 /* in edit.c */
-extern int do_edit (const char *cmd, int argc, char *argv[]);
+extern int do_edit (const char *cmd, size_t argc, char *argv[]);
 
 /* in lcd.c */
-extern int do_lcd (const char *cmd, int argc, char *argv[]);
+extern int do_lcd (const char *cmd, size_t argc, char *argv[]);
 
 /* in glob.c */
-extern int do_glob (const char *cmd, int argc, char *argv[]);
+extern int do_glob (const char *cmd, size_t argc, char *argv[]);
 
 /* in more.c */
-extern int do_more (const char *cmd, int argc, char *argv[]);
+extern int do_more (const char *cmd, size_t argc, char *argv[]);
 
 /* in rc.c (remote control) */
 extern void rc_listen (void) __attribute__((noreturn));
-extern int rc_remote (int pid, const char *cmd, int argc, char *argv[],
+extern int rc_remote (int pid, const char *cmd, size_t argc, char *argv[],
                       int exit_on_error);
 
 /* in reopen.c */
-extern int do_reopen (const char *cmd, int argc, char *argv[]);
+extern int do_reopen (const char *cmd, size_t argc, char *argv[]);
 
 /* in time.c */
-extern int do_time (const char *cmd, int argc, char *argv[]);
+extern int do_time (const char *cmd, size_t argc, char *argv[]);
 
 /* in tilde.c */
 extern char *try_tilde_expansion (char *path);

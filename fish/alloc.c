@@ -31,7 +31,7 @@
 static int parse_size (const char *str, off_t *size_rtn);
 
 int
-do_alloc (const char *cmd, int argc, char *argv[])
+do_alloc (const char *cmd, size_t argc, char *argv[])
 {
   off_t size;
   int fd;
@@ -98,7 +98,7 @@ do_alloc (const char *cmd, int argc, char *argv[])
 }
 
 int
-do_sparse (const char *cmd, int argc, char *argv[])
+do_sparse (const char *cmd, size_t argc, char *argv[])
 {
   off_t size;
   int fd;

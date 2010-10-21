@@ -25,9 +25,9 @@
 #include "fish.h"
 
 int
-do_echo (const char *cmd, int argc, char *argv[])
+do_echo (const char *cmd, size_t argc, char *argv[])
 {
-  int i;
+  size_t i;
 
   for (i = 0; i < argc; ++i) {
     if (i > 0) printf (" ");
