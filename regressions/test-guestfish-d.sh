@@ -20,11 +20,11 @@
 
 set -e
 
-rm -f test.img test.xml test.out
+rm -f test1.img test2.img test3.img test.xml test.out
 
 cwd="$(pwd)"
 
-truncate -s 10M test.img
+truncate -s 1M test1.img test2.img test3.img
 
 # Libvirt test XML, see libvirt.git/examples/xml/test/testnode.xml
 cat > test.xml <<EOF
@@ -38,8 +38,18 @@ cat > test.xml <<EOF
     <memory>524288</memory>
     <devices>
       <disk type="file">
-        <source file="$cwd/test.img"/>
+        <source file="$cwd/test1.img"/>
         <target dev="hda"/>
+      </disk>
+      <disk type="file">
+        <driver name="qemu" type="raw"/>
+        <source file="$cwd/test2.img"/>
+        <target dev="hdb"/>
+      </disk>
+      <disk type="file">
+        <driver name="qemu" type="qcow2"/>
+        <source file="$cwd/test3.img"/>
+        <target dev="hdc"/>
       </disk>
     </devices>
   </domain>
@@ -48,6 +58,9 @@ EOF
 
 ../fish/guestfish -c "test://$cwd/test.xml" --ro -d guest -x \
   </dev/null >test.out 2>&1
-grep -sq '^add_drive_ro.*test.img' test.out
+grep -sq '^add_drive.*test1.img.*readonly:true' test.out
+! grep -sq '^add_drive.*test1.img.*format' test.out
+grep -sq '^add_drive.*test2.img.*readonly:true.*format:raw' test.out
+grep -sq '^add_drive.*test3.img.*readonly:true.*format:qcow2' test.out
 
-rm -f test.img test.xml test.out
+rm -f test1.img test2.img test3.img test.xml test.out

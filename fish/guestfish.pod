@@ -165,6 +165,9 @@ Displays detailed help on a single command C<cmd>.
 
 Add a block device or virtual machine image to the shell.
 
+The format of the disk image is auto-detected.  To override this and
+force a particular format use the I<--format=..> option.
+
 =item B<-c URI> | B<--connect URI>
 
 When used in conjunction with the I<-d> option, this specifies
@@ -197,6 +200,29 @@ Read commands from C<file>.  To write pure guestfish
 scripts, use:
 
  #!/usr/bin/guestfish -f
+
+=item B<--format=raw|qcow2|..> | B<--format>
+
+The default for the I<-a> option is to auto-detect the format of the
+disk image.  Using this forces the disk format for I<-a> options which
+follow on the command line.  Using I<--format> with no argument
+switches back to auto-detection for subsequent I<-a> options.
+
+For example:
+
+ guestfish --format=raw -a disk.img
+
+forces raw format (no auto-detection) for C<disk.img>.
+
+ guestfish --format=raw -a disk.img --format -a another.img
+
+forces raw format (no auto-detection) for C<disk.img> and reverts to
+auto-detection for C<another.img>.
+
+If you have untrusted raw-format guest disk images, you should use
+this option to specify the disk format.  This avoids a possible
+security problem with malicious guests (CVE-2010-3851).  See also
+L</add-drive-opts>.
 
 =item B<-i> | B<--inspector>
 

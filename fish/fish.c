@@ -51,6 +51,7 @@ struct drv {
   union {
     struct {
       char *filename;       /* disk filename */
+      const char *format;   /* format (NULL == autodetect) */
     } a;
     struct {
       char *guest;          /* guest name */
@@ -137,6 +138,7 @@ usage (int status)
              "  -D|--no-dest-paths   Don't tab-complete paths from guest fs\n"
              "  --echo-keys          Don't turn off echo for passphrases\n"
              "  -f|--file file       Read commands from file\n"
+             "  --format[=raw|..]    Force disk format for -a option\n"
              "  -i|--inspector       Automatically mount filesystems\n"
              "  --keys-from-stdin    Read passphrases from stdin\n"
              "  --listen             Listen for remote commands\n"
@@ -183,6 +185,7 @@ main (int argc, char *argv[])
     { "domain", 1, 0, 'd' },
     { "echo-keys", 0, 0, 0 },
     { "file", 1, 0, 'f' },
+    { "format", 2, 0, 0 },
     { "help", 0, 0, HELP_OPTION },
     { "inspector", 0, 0, 'i' },
     { "keys-from-stdin", 0, 0, 0 },
@@ -205,6 +208,7 @@ main (int argc, char *argv[])
   struct mp *mps = NULL;
   struct mp *mp;
   char *p, *file = NULL;
+  const char *format = NULL;
   int c;
   int option_index;
   struct sigaction sa;
@@ -284,6 +288,11 @@ main (int argc, char *argv[])
         override_progress_bars = 0;
       } else if (STREQ (long_options[option_index].name, "echo-keys")) {
         echo_keys = 1;
+      } else if (STREQ (long_options[option_index].name, "format")) {
+        if (!optarg || STREQ (optarg, ""))
+          format = NULL;
+        else
+          format = optarg;
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
                  program_name, long_options[option_index].name, option_index);
@@ -303,6 +312,7 @@ main (int argc, char *argv[])
       }
       drv->type = drv_a;
       drv->a.filename = optarg;
+      drv->a.format = format;
       drv->next = drvs;
       drvs = drv;
       break;
@@ -442,6 +452,7 @@ main (int argc, char *argv[])
         }
         drv->type = drv_a;
         drv->a.filename = argv[optind];
+        drv->a.format = NULL;
         drv->next = drvs;
         drvs = drv;
       } else {                  /* simulate -d option */
@@ -632,6 +643,7 @@ static char
 add_drives (struct drv *drv, char next_drive)
 {
   int r;
+  struct guestfs_add_drive_opts_argv ad_optargs;
 
   if (next_drive > 'z') {
     fprintf (stderr,
@@ -644,10 +656,16 @@ add_drives (struct drv *drv, char next_drive)
 
     switch (drv->type) {
     case drv_a:
-      if (!read_only)
-        r = guestfs_add_drive (g, drv->a.filename);
-      else
-        r = guestfs_add_drive_ro (g, drv->a.filename);
+      ad_optargs.bitmask = 0;
+      if (read_only) {
+        ad_optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_READONLY_BITMASK;
+        ad_optargs.readonly = 1;
+      }
+      if (drv->a.format) {
+        ad_optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_FORMAT_BITMASK;
+        ad_optargs.format = drv->a.format;
+      }
+      r = guestfs_add_drive_opts_argv (g, drv->a.filename, &ad_optargs);
       if (r == -1)
         exit (EXIT_FAILURE);
 
@@ -663,6 +681,11 @@ add_drives (struct drv *drv, char next_drive)
       break;
 
     case drv_N:
+      /* guestfs_add_drive (ie. autodetecting) should be safe here
+       * since we have just created the prepared disk.  At the moment
+       * it will always be "raw" but in a theoretical future we might
+       * create other formats.
+       */
       /* -N option is not affected by --ro */
       r = guestfs_add_drive (g, drv->N.filename);
       if (r == -1)
@@ -701,7 +724,7 @@ free_drives (struct drv *drv)
   free_drives (drv->next);
 
   switch (drv->type) {
-  case drv_a: /* a.filename is optarg, don't free it */ break;
+  case drv_a: /* a.filename and a.format are optargs, don't free them */ break;
   case drv_d: /* d.filename is optarg, don't free it */ break;
   case drv_N:
     free (drv->N.filename);

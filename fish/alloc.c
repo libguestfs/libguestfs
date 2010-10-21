@@ -133,7 +133,9 @@ alloc_disk (const char *filename, const char *size_str, int add, int sparse)
   }
 
   if (add) {
-    if (guestfs_add_drive (g, filename) == -1) {
+    if (guestfs_add_drive_opts (g, filename,
+                                GUESTFS_ADD_DRIVE_OPTS_FORMAT, "raw",
+                                -1) == -1) {
       unlink (filename);
       return -1;
     }

@@ -32,8 +32,6 @@
 
 #include "fish.h"
 
-static int add_drives_from_node_set (xmlDocPtr doc, xmlNodeSetPtr nodes);
-
 /* Implements the guts of the '-d' option.
  *
  * Note that we have to observe the '--ro' flag in two respects: by
@@ -56,7 +54,7 @@ add_libvirt_drives (const char *guest)
     LIBXML_TEST_VERSION;
   }
 
-  int r = -1, nr_added = 0;
+  int r = -1, nr_added = 0, i;
   virErrorPtr err;
   virConnectPtr conn = NULL;
   virDomainPtr dom = NULL;
@@ -121,25 +119,81 @@ add_libvirt_drives (const char *guest)
     goto cleanup;
   }
 
-  xpathObj = xmlXPathEvalExpression (BAD_CAST "//devices/disk/source/@dev",
-                                     xpathCtx);
+  /* This gives us a set of all the <disk> nodes. */
+  xpathObj = xmlXPathEvalExpression (BAD_CAST "//devices/disk", xpathCtx);
   if (xpathObj == NULL) {
     fprintf (stderr, _("guestfish: unable to evaluate XPath expression\n"));
     goto cleanup;
   }
 
-  nr_added += add_drives_from_node_set (doc, xpathObj->nodesetval);
+  xmlNodeSetPtr nodes = xpathObj->nodesetval;
+  for (i = 0; i < nodes->nodeNr; ++i) {
+    xmlXPathObjectPtr xpfilename;
+    xmlXPathObjectPtr xpformat;
 
-  xmlXPathFreeObject (xpathObj); xpathObj = NULL;
+    /* Change the context to the current <disk> node.
+     * DV advises to reset this before each search since older versions of
+     * libxml2 might overwrite it.
+     */
+    xpathCtx->node = nodes->nodeTab[i];
 
-  xpathObj = xmlXPathEvalExpression (BAD_CAST "//devices/disk/source/@file",
-                                     xpathCtx);
-  if (xpathObj == NULL) {
-    fprintf (stderr, _("guestfish: unable to evaluate XPath expression\n"));
-    goto cleanup;
+    /* Filename can be in <source dev=..> or <source file=..> attribute. */
+    xpfilename = xmlXPathEvalExpression (BAD_CAST "./source/@dev", xpathCtx);
+    if (xpfilename == NULL ||
+        xpfilename->nodesetval == NULL ||
+        xpfilename->nodesetval->nodeNr == 0) {
+      xmlXPathFreeObject (xpfilename);
+      xpathCtx->node = nodes->nodeTab[i];
+      xpfilename = xmlXPathEvalExpression (BAD_CAST "./source/@file", xpathCtx);
+      if (xpfilename == NULL ||
+          xpfilename->nodesetval == NULL ||
+          xpfilename->nodesetval->nodeNr == 0) {
+        xmlXPathFreeObject (xpfilename);
+        continue;               /* disk filename not found, skip this */
+      }
+    }
+
+    assert (xpfilename->nodesetval->nodeTab[0]);
+    assert (xpfilename->nodesetval->nodeTab[0]->type == XML_ATTRIBUTE_NODE);
+    xmlAttrPtr attr = (xmlAttrPtr) xpfilename->nodesetval->nodeTab[0];
+    char *filename = (char *) xmlNodeListGetString (doc, attr->children, 1);
+
+    /* Get the disk format (may not be set). */
+    xpathCtx->node = nodes->nodeTab[i];
+    xpformat = xmlXPathEvalExpression (BAD_CAST "./driver/@type", xpathCtx);
+    char *format = NULL;
+    if (xpformat != NULL &&
+        xpformat->nodesetval &&
+        xpformat->nodesetval->nodeNr > 0) {
+      assert (xpformat->nodesetval->nodeTab[0]);
+      assert (xpformat->nodesetval->nodeTab[0]->type == XML_ATTRIBUTE_NODE);
+      attr = (xmlAttrPtr) xpformat->nodesetval->nodeTab[0];
+      format = (char *) xmlNodeListGetString (doc, attr->children, 1);
+    }
+
+    /* Add the disk, with optional format. */
+    struct guestfs_add_drive_opts_argv optargs = { .bitmask = 0 };
+    if (read_only) {
+      optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_READONLY_BITMASK;
+      optargs.readonly = read_only;
+    }
+    if (format) {
+      optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_FORMAT_BITMASK;
+      optargs.format = format;
+    }
+
+    int t = guestfs_add_drive_opts_argv (g, filename, &optargs);
+
+    xmlFree (filename);
+    xmlFree (format);
+    xmlXPathFreeObject (xpfilename);
+    xmlXPathFreeObject (xpformat);
+
+    if (t == -1)
+      goto cleanup;
+
+    nr_added++;
   }
-
-  nr_added += add_drives_from_node_set (doc, xpathObj->nodesetval);
 
   if (nr_added == 0) {
     fprintf (stderr, _("guestfish: libvirt domain '%s' has no disks\n"),
@@ -159,33 +213,4 @@ cleanup:
   if (conn) virConnectClose (conn);
 
   return r;
-}
-
-static int
-add_drives_from_node_set (xmlDocPtr doc, xmlNodeSetPtr nodes)
-{
-  if (!nodes)
-    return 0;
-
-  int i;
-
-  for (i = 0; i < nodes->nodeNr; ++i) {
-    assert (nodes->nodeTab[i]);
-    assert (nodes->nodeTab[i]->type == XML_ATTRIBUTE_NODE);
-    xmlAttrPtr attr = (xmlAttrPtr) nodes->nodeTab[i];
-
-    char *device = (char *) xmlNodeListGetString (doc, attr->children, 1);
-
-    int r;
-    if (!read_only)
-      r = guestfs_add_drive (g, device);
-    else
-      r = guestfs_add_drive_ro (g, device);
-    if (r == -1)
-      exit (EXIT_FAILURE);
-
-    xmlFree (device);
-  }
-
-  return nodes->nodeNr;
 }
