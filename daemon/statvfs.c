@@ -28,6 +28,7 @@
 #include <sys/types.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <stdint.h>
 
 #ifdef HAVE_SYS_STATVFS_H
 #include <sys/statvfs.h>
@@ -114,13 +115,13 @@ do_statvfs (const char *path)
    * the version of Windows.  So this code assumes the disk is NTFS
    * and the version of Windows is >= Win2K.
    */
-  if (total_number_of_bytes < 16ULL * 1024 * 1024 * 1024 * 1024)
+  if (total_number_of_bytes < UINT64_C(16) * 1024 * 1024 * 1024 * 1024)
     ret->bsize = 4096;
-  else if (total_number_of_bytes < 32ULL * 1024 * 1024 * 1024 * 1024)
+  else if (total_number_of_bytes < UINT64_C(32) * 1024 * 1024 * 1024 * 1024)
     ret->bsize = 8192;
-  else if (total_number_of_bytes < 64ULL * 1024 * 1024 * 1024 * 1024)
+  else if (total_number_of_bytes < UINT64_C(64) * 1024 * 1024 * 1024 * 1024)
     ret->bsize = 16384;
-  else if (total_number_of_bytes < 128ULL * 1024 * 1024 * 1024 * 1024)
+  else if (total_number_of_bytes < UINT64_C(128) * 1024 * 1024 * 1024 * 1024)
     ret->bsize = 32768;
   else
     ret->bsize = 65536;
