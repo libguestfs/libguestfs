@@ -516,6 +516,36 @@ my $quiet;
 
 Don't print the summary.
 
+=cut
+
+my $format;
+
+=item B<--format> raw
+
+Specify the format of the input disk image.  If this flag is not
+given then it is auto-detected from the image itself.
+
+If working with untrusted raw-format guest disk images, you should
+ensure the format is always specified.
+
+Note that this option I<does not> affect the output format.
+See L</QCOW2 AND NON-SPARSE RAW FORMATS>.
+
+=cut
+
+my $output_format;
+
+=item B<--output-format> raw
+
+Specify the format of the output disk image.  If this flag is not
+given then it is auto-detected from the image itself.
+
+If working with untrusted raw-format guest disk images, you should
+ensure the format is always specified.
+
+Note that you still need to create the output disk with the right
+format.  See L</QCOW2 AND NON-SPARSE RAW FORMATS>.
+
 =back
 
 =cut
@@ -535,6 +565,8 @@ GetOptions ("help|?" => \$help,
             "d|debug" => \$debug,
             "n|dryrun|dry-run" => \$dryrun,
             "q|quiet" => \$quiet,
+            "format=s" => \$format,
+            "output-format=s" => \$output_format,
     ) or pod2usage (2);
 pod2usage (1) if $help;
 if ($version) {
@@ -562,8 +594,13 @@ sub launch_guestfs
 {
     $g = Sys::Guestfs->new ();
     $g->set_trace (1) if $debug;
-    $g->add_drive_ro ($infile);
-    $g->add_drive ($outfile);
+    my @args = ($infile);
+    push @args, readonly => 1;
+    push @args, format => $format if defined $format;
+    $g->add_drive_opts (@args);
+    @args = ($outfile);
+    push @args, format => $output_format if defined $output_format;
+    $g->add_drive_opts (@args);
     $g->set_progress_callback (\&progress_callback) unless $quiet;
     $g->launch ();
 }
@@ -1204,7 +1241,9 @@ sub restart_appliance
 
     $g = Sys::Guestfs->new ();
     $g->set_trace (1) if $debug;
-    $g->add_drive ($outfile);
+    my @args = ($outfile);
+    push @args, format => $output_format if defined $output_format;
+    $g->add_drive_opts (@args);
     $g->launch ();
 
     # Target partitions have changed from /dev/sdb to /dev/sda,
