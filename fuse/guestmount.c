@@ -854,6 +854,7 @@ static struct fuse_operations fg_operations = {
 struct drv {
   struct drv *next;
   char *filename;
+  const char *format;
 };
 
 struct mp {
@@ -889,6 +890,7 @@ usage (int status)
              "Options:\n"
              "  -a|--add image       Add image\n"
              "  --dir-cache-timeout  Set readdir cache timeout (default 5 sec)\n"
+             "  --format[=raw|..]    Force disk format for -a option\n"
              "  --fuse-help          Display extra FUSE options\n"
              "  --help               Display help message and exit\n"
              "  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
@@ -921,6 +923,7 @@ main (int argc, char *argv[])
   static const struct option long_options[] = {
     { "add", 1, 0, 'a' },
     { "dir-cache-timeout", 1, 0, 0 },
+    { "format", 2, 0, 0 },
     { "fuse-help", 0, 0, 0 },
     { "help", 0, 0, HELP_OPTION },
     { "mount", 1, 0, 'm' },
@@ -939,6 +942,7 @@ main (int argc, char *argv[])
   struct mp *mps = NULL;
   struct mp *mp;
   char *p;
+  const char *format = NULL;
   int c, r;
   int option_index;
   struct sigaction sa;
@@ -1018,6 +1022,12 @@ main (int argc, char *argv[])
         guestfs_set_trace (g, 1);
         guestfs_set_recovery_proc (g, 1);
       }
+      else if (STREQ (long_options[option_index].name, "format")) {
+        if (!optarg || STREQ (optarg, ""))
+          format = NULL;
+        else
+          format = optarg;
+      }
       else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
                  program_name, long_options[option_index].name, option_index);
@@ -1036,6 +1046,7 @@ main (int argc, char *argv[])
         exit (EXIT_FAILURE);
       }
       drv->filename = optarg;
+      drv->format = format;
       drv->next = drvs;
       drvs = drv;
       break;
@@ -1155,13 +1166,21 @@ static void
 add_drives (struct drv *drv)
 {
   int r;
+  struct guestfs_add_drive_opts_argv ad_optargs;
 
   if (drv) {
     add_drives (drv->next);
-    if (!read_only)
-      r = guestfs_add_drive (g, drv->filename);
-    else
-      r = guestfs_add_drive_ro (g, drv->filename);
+
+    ad_optargs.bitmask = 0;
+    if (read_only) {
+      ad_optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_READONLY_BITMASK;
+      ad_optargs.readonly = 1;
+    }
+    if (drv->format) {
+      ad_optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_FORMAT_BITMASK;
+      ad_optargs.format = drv->format;
+    }
+    r = guestfs_add_drive_opts_argv (g, drv->filename, &ad_optargs);
     if (r == -1)
       exit (EXIT_FAILURE);
   }
