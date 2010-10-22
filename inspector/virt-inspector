@@ -107,6 +107,23 @@ then libvirt is not used at all.
 
 =cut
 
+my $format;
+
+=item B<--format> raw
+
+Specify the format of disk images given on the command line.  If this
+is omitted then the format is autodetected from the content of the
+disk image.
+
+If disk images are requested from libvirt, then this program asks
+libvirt for this information.  In this case, the value of the format
+parameter is ignored.
+
+If working with untrusted raw-format guest disk images, you should
+ensure the format is always specified.
+
+=cut
+
 my $output = "text";
 
 =back
@@ -178,6 +195,7 @@ parse information out of the Registry for any Windows guest.
 GetOptions ("help|?" => \$help,
             "version" => \$version,
             "connect|c=s" => \$uri,
+            "format=s" => \$format,
             "text" => sub { $output = "text" },
             "none" => sub { $output = "none" },
             "xml" => sub { $output = "xml" },
@@ -214,11 +232,11 @@ my @images;
 if ($uri) {
     my ($conn, $dom);
     ($g, $conn, $dom, @images) =
-        open_guest (\@ARGV, rw => $rw, address => $uri);
+        open_guest (\@ARGV, rw => $rw, address => $uri, format => $format);
 } else {
     my ($conn, $dom);
     ($g, $conn, $dom, @images) =
-        open_guest (\@ARGV, rw => $rw);
+        open_guest (\@ARGV, rw => $rw, format => $format);
 }
 
 $g->launch ();
@@ -308,7 +326,12 @@ if ($output eq "fish" || $output eq "ro-fish") {
     }
 
     foreach (@images) {
-        printf "-a %s ", shell_quote ($_);
+        unless (defined $_->[1]) {
+            printf "-a %s ", shell_quote ($_->[0]);
+        } else {
+            printf "--format %s -a %s ",
+              shell_quote ($_->[1]), shell_quote ($_->[0]);
+        }
     }
 
     my $mounts = $oses->{$root_dev}->{mounts};

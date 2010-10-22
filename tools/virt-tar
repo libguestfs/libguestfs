@@ -130,6 +130,23 @@ at all.
 
 =cut
 
+my $format;
+
+=item B<--format> raw
+
+Specify the format of disk images given on the command line.  If this
+is omitted then the format is autodetected from the content of the
+disk image.
+
+If disk images are requested from libvirt, then this program asks
+libvirt for this information.  In this case, the value of the format
+parameter is ignored.
+
+If working with untrusted raw-format guest disk images, you should
+ensure the format is always specified.
+
+=cut
+
 my $mode;
 
 =item B<-x> | B<--extract> | B<--download>
@@ -175,6 +192,7 @@ Getopt::Long::Configure ("bundling");
 GetOptions ("help|?" => \$help,
             "version" => \$version,
             "connect|c=s" => \$uri,
+            "format=s" => \$format,
             "extract|download|x" => \&set_mode_x,
             "upload|u" => \&set_mode_u,
             "gzip|z" => \$gzip,
@@ -211,6 +229,7 @@ die __x("virt-tar: {dir}: directory name must start with '/' character\n",
 my @args = (\@ARGV);
 push @args, address => $uri if $uri;
 push @args, rw => 1 if $mode eq "u";
+push @args, format => $format if defined $format;
 
 my $g = open_guest (@args);
 $g->launch ();

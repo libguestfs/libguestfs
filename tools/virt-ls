@@ -110,6 +110,23 @@ at all.
 
 =cut
 
+my $format;
+
+=item B<--format> raw
+
+Specify the format of disk images given on the command line.  If this
+is omitted then the format is autodetected from the content of the
+disk image.
+
+If disk images are requested from libvirt, then this program asks
+libvirt for this information.  In this case, the value of the format
+parameter is ignored.
+
+If working with untrusted raw-format guest disk images, you should
+ensure the format is always specified.
+
+=cut
+
 my $mode;
 
 =item B<-l> | B<--long>
@@ -147,6 +164,7 @@ sub set_mode_R
 GetOptions ("help|?" => \$help,
             "version" => \$version,
             "connect|c=s" => \$uri,
+            "format=s" => \$format,
             "long|l" => \&set_mode_l,
             "recursive|R" => \&set_mode_R,
     ) or pod2usage (2);
@@ -165,9 +183,9 @@ my $directory = pop @ARGV;
 
 my $g;
 if ($uri) {
-    $g = open_guest (\@ARGV, address => $uri);
+    $g = open_guest (\@ARGV, address => $uri, format => $format);
 } else {
-    $g = open_guest (\@ARGV);
+    $g = open_guest (\@ARGV, format => $format);
 }
 
 $g->launch ();

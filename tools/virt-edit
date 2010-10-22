@@ -120,6 +120,23 @@ at all.
 
 =cut
 
+my $format;
+
+=item B<--format> raw
+
+Specify the format of disk images given on the command line.  If this
+is omitted then the format is autodetected from the content of the
+disk image.
+
+If disk images are requested from libvirt, then this program asks
+libvirt for this information.  In this case, the value of the format
+parameter is ignored.
+
+If working with untrusted raw-format guest disk images, you should
+ensure the format is always specified.
+
+=cut
+
 my $expr;
 
 =item B<--expr EXPR> | B<-e EXPR>
@@ -138,6 +155,7 @@ being altered by the shell.
 GetOptions ("help|?" => \$help,
             "version" => \$version,
             "connect|c=s" => \$uri,
+            "format=s" => \$format,
             "expr|e=s" => \$expr,
             "backup|b=s" => \$backup,
     ) or pod2usage (2);
@@ -156,9 +174,9 @@ my $filename = pop @ARGV;
 
 my $g;
 if ($uri) {
-    $g = open_guest (\@ARGV, address => $uri, rw => 1);
+    $g = open_guest (\@ARGV, address => $uri, rw => 1, format => $format);
 } else {
-    $g = open_guest (\@ARGV, rw => 1);
+    $g = open_guest (\@ARGV, rw => 1, format => $format);
 }
 
 $g->launch ();

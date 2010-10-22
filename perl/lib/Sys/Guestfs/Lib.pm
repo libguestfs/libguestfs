@@ -88,7 +88,7 @@ use vars qw(@EXPORT_OK @ISA);
 
  $g = open_guest ($name, address => $uri, ...);
 
- $g = open_guest ([$img1, $img2, ...], address => $uri, ...);
+ $g = open_guest ([$img1, $img2, ...], address => $uri, format => $format, ...);
 
  ($g, $conn, $dom, @images) = open_guest ($name);
 
@@ -103,7 +103,8 @@ block.
 
 The first parameter is either a string referring to a libvirt domain
 or a disk image, or (if a guest has several disk images) an arrayref
-C<[$img1, $img2, ...]>.
+C<[$img1, $img2, ...]>.  For disk images, if the C<format> parameter
+is specified then that format is forced.
 
 The handle is I<read-only> by default.  Use the optional parameter
 C<rw =E<gt> 1> to open a read-write handle.  However if you open a
@@ -120,16 +121,16 @@ The implicit libvirt handle is closed after this function, I<unless>
 you call the function in C<wantarray> context, in which case the
 function returns a tuple of: the open libguestfs handle, the open
 libvirt handle, and the open libvirt domain handle, and a list of
-images.  (This is useful if you want to do other things like pulling
-the XML description of the guest).  Note that if this is a straight
-disk image, then C<$conn> and C<$dom> will be C<undef>.
+[image,format] pairs.  (This is useful if you want to do other things
+like pulling the XML description of the guest).  Note that if this is
+a straight disk image, then C<$conn> and C<$dom> will be C<undef>.
 
 If the C<Sys::Virt> module is not available, then libvirt is bypassed,
 and this function can only open disk images.
 
-The optional C<interface> parameter can be used to open devices with
-C<add_drive{,_ro}_with_if>.  See
-L<Sys::Guestfs/guestfs_add_drive_with_if> for more details.
+The optional C<interface> parameter can be used to open devices with a
+specified qemu interface.  See L<Sys::Guestfs/guestfs_add_drive_opts>
+for more details.
 
 =cut
 
@@ -142,6 +143,7 @@ sub open_guest
     my $rw = $params{rw};
     my $address = $params{address};
     my $interface = $params{interface};
+    my $format = $params{format}; # undef == autodetect
 
     my @images = ();
     if (ref ($first) eq "ARRAY") {
@@ -167,6 +169,8 @@ sub open_guest
                     imagename => $_)
                 unless -r $_;
         }
+
+        @images = map { [ $_, $format ] } @images;
     } else {
         die __"open_guest: no libvirt support (install Sys::Virt, XML::XPath and XML::XPath::XMLParser)"
             unless exists $INC{"Sys/Virt.pm"} &&
@@ -211,32 +215,41 @@ sub open_guest
         my $xml = $dom->get_xml_description ();
 
         my $p = XML::XPath->new (xml => $xml);
-        my @disks = $p->findnodes ('//devices/disk/source/@dev');
-        push (@disks, $p->findnodes ('//devices/disk/source/@file'));
+        my $nodes = $p->find ('//devices/disk');
+
+        my @disks = ();
+        my $node;
+        foreach $node ($nodes->get_nodelist) {
+            # The filename can be in dev or file attribute, hence:
+            my $filename = $p->find ('./source/@dev', $node);
+            unless ($filename) {
+                $filename = $p->find ('./source/@file', $node);
+                next unless $filename;
+            }
+            $filename = $filename->to_literal;
+
+            # Get the disk format (may not be set).
+            my $format = $p->find ('./driver/@type', $node);
+            $format = $format->to_literal if $format;
+
+            push @disks, [ $filename, $format ];
+        }
 
         die __x("{imagename} seems to have no disk devices\n",
                 imagename => $images[0])
             unless @disks;
 
-        @images = map { $_->getData } @disks;
+        @images = @disks;
     }
 
     # We've now got the list of @images, so feed them to libguestfs.
     my $g = Sys::Guestfs->new ();
     foreach (@images) {
-        if ($rw) {
-            if ($interface) {
-                $g->add_drive_with_if ($_, $interface);
-            } else {
-                $g->add_drive ($_);
-            }
-        } else {
-            if ($interface) {
-                $g->add_drive_ro_with_if ($_, $interface);
-            } else {
-                $g->add_drive_ro ($_);
-            }
-        }
+        my @args = ($_->[0]);
+        push @args, format => $_->[1] if defined $_->[1];
+        push @args, readonly => 1 unless $rw;
+        push @args, iface => $interface if defined $interface;
+        $g->add_drive_opts (@args);
     }
 
     return wantarray ? ($g, $conn, $dom, @images) : $g

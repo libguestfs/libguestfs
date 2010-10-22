@@ -142,6 +142,23 @@ at all.
 
 =cut
 
+my $format;
+
+=item B<--format> raw
+
+Specify the format of disk images given on the command line.  If this
+is omitted then the format is autodetected from the content of the
+disk image.
+
+If disk images are requested from libvirt, then this program asks
+libvirt for this information.  In this case, the value of the format
+parameter is ignored.
+
+If working with untrusted raw-format guest disk images, you should
+ensure the format is always specified.
+
+=cut
+
 my $memsize;
 
 =item B<--memsize MB> | B<-m MB>
@@ -180,6 +197,7 @@ GetOptions ("help|?" => \$help,
             "version" => \$version,
             "append=s" => \$append,
             "connect|c=s" => \$uri,
+            "format=s" => \$format,
             "memsize|m=i" => \$memsize,
             "ro|r" => \$readonly,
             "selinux" => \$selinux,
@@ -198,6 +216,7 @@ pod2usage (__"virt-rescue: no image or VM names rescue given")
 my @args = (\@ARGV);
 push @args, address => $uri if $uri;
 push @args, rw => 1 unless $readonly;
+push @args, format => $format if defined $format;
 my $g = open_guest (@args);
 
 # Setting "direct mode" is required for the rescue appliance.

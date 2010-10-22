@@ -211,6 +211,23 @@ at all.
 
 =cut
 
+my $format;
+
+=item B<--format> raw
+
+Specify the format of disk images given on the command line.  If this
+is omitted then the format is autodetected from the content of the
+disk image.
+
+If disk images are requested from libvirt, then this program asks
+libvirt for this information.  In this case, the value of the format
+parameter is ignored.
+
+If working with untrusted raw-format guest disk images, you should
+ensure the format is always specified.
+
+=cut
+
 my $merge;
 
 =item B<--merge>
@@ -244,6 +261,7 @@ GetOptions ("help|?" => \$help,
             "version" => \$version,
             "connect|c=s" => \$uri,
             "debug|d" => \$debug,
+            "format=s" => \$format,
             "merge" => \$merge,
             "encoding=s" => \$encoding,
     ) or pod2usage (2);
@@ -264,6 +282,7 @@ warn "launching libguestfs ..." if $debug;
 my @lib_args = ([$domname_or_image]);
 push @lib_args, address => $uri if $uri;
 push @lib_args, rw => 1 if $merge;
+push @lib_args, format => $format if defined $format;
 my $g = open_guest (@lib_args);
 $g->launch ();
 
