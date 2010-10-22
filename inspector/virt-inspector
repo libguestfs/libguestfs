@@ -200,7 +200,15 @@ if ($version) {
 pod2usage (__"virt-inspector: no image or VM names given") if @ARGV == 0;
 
 my $rw = 0;
+
+# XXX This is a bug: Originally we intended to open the guest with
+# rw=>1 in order to tell Sys::Guestfs::Lib that we should disallow
+# active domains.  However this also has the effect of opening the
+# disk image in write mode, and in any case we don't use this option
+# in guestfish any more since we moved all the inspection code into
+# the core library.  We should drop the fish output modes completely.
 $rw = 1 if $output eq "fish";
+
 my $g;
 my @images;
 if ($uri) {
