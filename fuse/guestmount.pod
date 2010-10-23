@@ -75,6 +75,9 @@ If you want to debug the program, we recommend:
 
 Add a block device or virtual machine image.
 
+The format of the disk image is auto-detected.  To override this and
+force a particular format use the I<--format=..> option.
+
 =item B<--dir-cache-timeout N>
 
 Set the readdir cache timeout to I<N> seconds, the default being 60
@@ -86,6 +89,18 @@ anticipation that they will be requested soon after.
 There is also a different attribute cache implemented by FUSE
 (see the FUSE option I<-o attr_timeout>), but the FUSE cache
 does not anticipate future requests, only cache existing ones.
+
+=item B<--format=raw|qcow2|..> | B<--format>
+
+The default for the I<-a> option is to auto-detect the format of the
+disk image.  Using this forces the disk format for I<-a> options which
+follow on the command line.  Using I<--format> with no argument
+switches back to auto-detection for subsequent I<-a> options.
+
+If you have untrusted raw-format guest disk images, you should use
+this option to specify the disk format.  This avoids a possible
+security problem with malicious guests (CVE-2010-3851).  See also
+L</add-drive-opts>.
 
 =item B<--fuse-help>
 
