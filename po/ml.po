@@ -8,11 +8,12 @@ msgstr ""
 "Project-Id-Version: libguestfs.master.libguestfs.ml\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-09-08 16:31+0100\n"
+"POT-Creation-Date: 2010-10-23 16:49+0100\n"
 "PO-Revision-Date: 2010-02-02 18:35+0530\n"
 "Last-Translator: Ani Peter | അനി പീറ്റര്‍ <apeter@redhat.com>\n"
 "Language-Team: Swathanthra Malayalam Computing | സ്വതന്ത്ര മലയാളം കമ്പ്യൂട്ടിങ് <smc-"
 "discuss@googlegroups.com>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -462,9 +463,14 @@ msgstr "കമാന്‍ഡ് പ്രവര്‍ത്തിപ്പി�
 msgid "is in configuration state"
 msgstr "ക്രമീകരണ അവസ്ഥയില്‍"
 
-#: fish/cmds.c:149 fish/cmds.c:150 fish/cmds.c:693 fish/cmds.c:698
-msgid "test if file exists"
-msgstr "ഫയല്‍ നിലവിലുണ്ടെങ്കില്‍ പരീക്ഷിക്കുക"
+#: fish/cmds.c:149 fish/cmds.c:698
+#, fuzzy
+msgid "test if a directory"
+msgstr "ഒരു ഡയറക്ടറി ഉണ്ടാക്കുക"
+
+#: fish/cmds.c:150 fish/cmds.c:693
+msgid "test if a regular file"
+msgstr ""
 
 #: fish/cmds.c:151 fish/cmds.c:428
 msgid "is launching subprocess"
@@ -1331,7 +1337,7 @@ msgstr "%s: %s: ഇന്റിജര്‍ പരിധികഴിഞ്ഞി
 msgid "%s: unknown command\n"
 msgstr "%s: അപരിചിതമായ കമാന്‍ഡ്\n"
 
-#: fish/edit.c:86
+#: fish/edit.c:44
 #, c-format
 msgid "use '%s filename' to edit a file\n"
 msgstr "ഒരു ഫയല്‍ ചിട്ടപ്പെടുത്തുന്നതിനായി '%s filename' ഉപയോഗിക്കുക\n"
@@ -1346,7 +1352,7 @@ msgstr "കൂടുതല്‍ വിവരങ്ങള്‍ക്കായ�
 msgid ""
 "%s: guest filesystem shell\n"
 "%s lets you edit virtual machine filesystems\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
+"Copyright (C) 2009-2010 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options] cmd [: cmd : cmd ...]\n"
 "  %s -i libvirt-domain\n"
@@ -1375,7 +1381,7 @@ msgid ""
 "  -v|--verbose         Verbose messages\n"
 "  -x                   Echo each command before executing it\n"
 "  -V|--version         Display version and exit\n"
-"For more information,  see the manpage %s(1).\n"
+"For more information, see the manpage %s(1).\n"
 msgstr ""
 "%s: guest filesystem shell\n"
 "%s lets you edit virtual machine filesystems\n"
@@ -1607,9 +1613,6 @@ msgid ""
 "\n"
 "    Normally it uses $EDITOR, but if you use the aliases\n"
 "    \"vi\" or \"emacs\" you will get those editors.\n"
-"\n"
-"    NOTE: This will not work reliably for large files\n"
-"    (> 2 MB) or binary files containing \\0 bytes.\n"
 msgstr ""
 "edit - edit a file in the image\n"
 "     edit <filename>\n"
@@ -1625,7 +1628,7 @@ msgstr ""
 "    NOTE: This will not work reliably for large files\n"
 "    (> 2 MB) or binary files containing \\0 bytes.\n"
 
-#: fish/fish.c:1125
+#: fish/fish.c:1122
 #, c-format
 msgid ""
 "lcd - local change directory\n"
@@ -1642,7 +1645,7 @@ msgstr ""
 "    ഫയലുകള്‍ ഡൌണ്‍ലോഡ് ചെയ്യുന്നതിനായി ഈ കമാന്‍ഡ്\n"
 "    ഉപയോഗപ്പെടുന്നു.\n"
 
-#: fish/fish.c:1134
+#: fish/fish.c:1131
 #, c-format
 msgid ""
 "glob - expand wildcards in command\n"
@@ -1659,7 +1662,7 @@ msgstr ""
 "    Glob <command> പ്രവര്‍ത്തിപ്പിക്കുന്നു. ഓരോ വികസിച്ച ആര്‍ഗ്യുമെന്റിനും\n"
 "    കമാന്‍ഡ് ഓരോ തവണ ആവര്‍ത്തിക്കുന്നു.\n"
 
-#: fish/fish.c:1144
+#: fish/fish.c:1141
 #, c-format
 msgid ""
 "man - read the manual\n"
@@ -1668,7 +1671,7 @@ msgid ""
 "    Opens the manual page for guestfish.\n"
 msgstr ""
 
-#: fish/fish.c:1151
+#: fish/fish.c:1148
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -1679,8 +1682,8 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:1158
-#, c-format
+#: fish/fish.c:1155
+#, fuzzy, c-format
 msgid ""
 "more - view a file in the pager\n"
 "     more <filename>\n"
@@ -1692,9 +1695,6 @@ msgid ""
 "\n"
 "    Normally it uses $PAGER, but if you use the alias\n"
 "    \"less\" then it always uses \"less\".\n"
-"\n"
-"    NOTE: This will not work reliably for large files\n"
-"    (> 2 MB) or binary files containing \\0 bytes.\n"
 msgstr ""
 "more - view a file in the pager\n"
 "     more <filename>\n"
@@ -1710,7 +1710,7 @@ msgstr ""
 "    NOTE: This will not work reliably for large files\n"
 "    (> 2 MB) or binary files containing \\0 bytes.\n"
 
-#: fish/fish.c:1176
+#: fish/fish.c:1170
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -1719,7 +1719,7 @@ msgstr ""
 "quit - quit guestfish\n"
 "     quit\n"
 
-#: fish/fish.c:1181
+#: fish/fish.c:1175
 #, c-format
 msgid ""
 "reopen - close and reopen the libguestfs handle\n"
@@ -1736,7 +1736,7 @@ msgstr ""
 "കാരണം guestfish പുറത്തുകടക്കുമ്പോള്‍ ഹാന്‍ഡില്‍ ശരിയായി അടയ്ക്കപ്പെടുന്നു.\n"
 "എന്നിരുന്നാലും , ചില പരീക്ഷണങ്ങള്‍ക്കായി ഇതു് ഉപയോഗപ്പെടുന്നു.\n"
 
-#: fish/fish.c:1190
+#: fish/fish.c:1184
 #, fuzzy, c-format
 msgid ""
 "sparse - allocate a sparse image file\n"
@@ -1784,7 +1784,7 @@ msgstr ""
 "    <nn>E or <nn>EB  number of exabytes\n"
 "    <nn>sects        number of 512 byte sectors\n"
 
-#: fish/fish.c:1211
+#: fish/fish.c:1205
 #, c-format
 msgid ""
 "supported - list supported groups of commands\n"
@@ -1797,7 +1797,7 @@ msgid ""
 "    See also guestfs(3) section AVAILABILITY.\n"
 msgstr ""
 
-#: fish/fish.c:1223
+#: fish/fish.c:1217
 #, c-format
 msgid ""
 "time - measure time taken to run command\n"
@@ -1812,12 +1812,12 @@ msgstr ""
 "    പതിവു് പോലെ ഇതു് <command> പ്രവര്‍ത്തിപ്പിക്കുന്നു, കൂടാതെ അതിനുശേഷമുള്ള\n"
 "    സമയം പ്രിന്റ് ചെയ്യുന്നു.\n"
 
-#: fish/fish.c:1231
+#: fish/fish.c:1225
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s: കമാന്‍ഡ് അപരിചിതം, എല്ലാ കമാന്‍ഡുകളും ലഭ്യമാക്കുന്നതിനായി -h ഉപയോഗിക്കുക\n"
 
-#: fish/fish.c:1247
+#: fish/fish.c:1241
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -1825,17 +1825,17 @@ msgid ""
 "For complete documentation:         man guestfish\n"
 msgstr ""
 
-#: fish/fish.c:1404
+#: fish/fish.c:1398
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "Runaway quote in string \"%s\"\n"
 
-#: fish/glob.c:52
+#: fish/glob.c:53
 #, c-format
 msgid "use 'glob command [args...]'\n"
 msgstr "'glob command [args...]' ഉപയോഗിക്കുക\n"
 
-#: fish/glob.c:72
+#: fish/glob.c:73
 #, c-format
 msgid "glob: guestfs_glob_expand call failed: %s\n"
 msgstr "glob: guestfs_glob_expand കോള്‍ പരാജയപ്പെട്ടു: %s\n"
@@ -1855,37 +1855,37 @@ msgstr ""
 msgid "the external 'man' program failed\n"
 msgstr "എക്സ്റ്റേണല്‍ കമാന്‍ഡ് പരാജയപ്പെട്ടു: %s"
 
-#: fish/more.c:40
+#: fish/more.c:39
 #, c-format
 msgid "use '%s filename' to page a file\n"
 msgstr "ഒരു ഫയല്‍ താളിലാക്കുന്നതിനായി '%s filename' ഉപയോഗിക്കുക\n"
 
-#: fish/prep.c:114
+#: fish/prep.c:37
 #, c-format
 msgid ""
 "List of available prepared disk images:\n"
 "\n"
 msgstr ""
 
-#: fish/prep.c:117
+#: fish/prep.c:40
 #, c-format
 msgid ""
-"guestfish -N %-16s %s\n"
+"guestfish -N %-8s - %s\n"
 "\n"
 "%s\n"
 msgstr ""
 
-#: fish/prep.c:125
+#: fish/prep.c:48
 #, c-format
 msgid "  Optional parameters:\n"
 msgstr ""
 
-#: fish/prep.c:132
+#: fish/prep.c:55
 #, c-format
 msgid "<%s> %s (default: %s)\n"
 msgstr ""
 
-#: fish/prep.c:142
+#: fish/prep.c:65
 #, c-format
 msgid ""
 "Prepared disk images are written to file \"test1.img\" in the local\n"
@@ -1893,39 +1893,39 @@ msgid ""
 "For more information see the guestfish(1) manual.\n"
 msgstr ""
 
-#: fish/prep.c:179
+#: fish/prep.c:96
 #, c-format
 msgid ""
 "guestfish: -N parameter '%s': no such prepared disk image known.\n"
 "Use 'guestfish -N list' to list possible values for the -N parameter.\n"
 msgstr ""
 
-#: fish/prep.c:241
+#: fish/prep.c:158
 #, c-format
 msgid "guestfish: error creating prepared disk image '%s' on '%s': "
 msgstr ""
 
-#: fish/prep.c:258 fish/prep.c:265 fish/prep.c:280
+#: fish/prep_disk.c:34 fish/prep_fs.c:34 fish/prep_part.c:34
 #, fuzzy
 msgid "failed to allocate disk"
 msgstr "ഫയല്‍ പാഴ്സ് ചെയ്യുന്നതില്‍ പരാജയപ്പെട്ടു"
 
-#: fish/prep.c:272 fish/prep.c:287
+#: fish/prep_fs.c:41 fish/prep_part.c:41
 #, c-format
 msgid "failed to partition disk: %s"
 msgstr ""
 
-#: fish/prep.c:297
+#: fish/prep_fs.c:51
 #, c-format
 msgid "failed to create filesystem (%s): %s"
 msgstr ""
 
-#: fish/rc.c:249
+#: fish/rc.c:250
 #, c-format
 msgid "guestfish: protocol error: could not read 'hello' message\n"
 msgstr "guestfish: protocol error: 'hello' സന്ദേശം വായിക്കുവാന്‍ സാധ്യമല്ല\n"
 
-#: fish/rc.c:254
+#: fish/rc.c:255
 #, c-format
 msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
@@ -1934,18 +1934,18 @@ msgstr ""
 "guestfish: protocol error: പതിപ്പില്‍ പൊരുത്തപ്പേടു്, '%s' എന്ന സര്‍വര്‍ പതിപ്പു് ക്ലയന്റ് "
 "പതിപ്പു് '%s'-മായി പൊരുത്തപ്പെടുന്നില്ല.  രണ്ടും ഒരേപോലെ ആയിരിക്കണം.\n"
 
-#: fish/rc.c:329 fish/rc.c:343
+#: fish/rc.c:330 fish/rc.c:344
 #, c-format
 msgid "guestfish: remote: looks like the server is not running\n"
 msgstr "guestfish: remote: സര്‍വര്‍ പ്രവര്‍ത്തിക്കുന്നില്ല\n"
 
-#: fish/rc.c:355 fish/rc.c:369
+#: fish/rc.c:356 fish/rc.c:370
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
 msgstr ""
 "guestfish: protocol error: പ്രാരംഭ സന്ദേശം സര്‍വറിലേക്ക് അയയ്ക്കുവാന്‍ സാധ്യമായില്ല\n"
 
-#: fish/rc.c:380
+#: fish/rc.c:381
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
 msgstr "guestfish: protocol error:സര്‍വറില്‍ നിന്നുള്ള മറുപടി ഡീക്കോഡ് ചെയ്യുവാന്‍ സാധ്യമല്ല\n"
@@ -2028,42 +2028,42 @@ msgstr "%s: ഹോസ്റ്റ് ഫയല്‍സിസ്റ്റത്�
 msgid "virt-inspector: no image or VM names given"
 msgstr ""
 
-#: inspector/virt-inspector.pl:294
+#: inspector/virt-inspector.pl:302
 msgid "--fish output is only possible with a single OS\n"
 msgstr ""
 
-#: inspector/virt-inspector.pl:324
+#: inspector/virt-inspector.pl:332
 msgid ""
 "virt-inspector: no YAML support, try installing perl-YAML or libyaml-perl\n"
 msgstr ""
 
-#: inspector/virt-inspector.pl:363
+#: inspector/virt-inspector.pl:371
 #, fuzzy
 msgid "  Mountpoints:\n"
 msgstr "മൌണ്ട് പോയിന്റുകള്‍ കാണിക്കുക"
 
-#: inspector/virt-inspector.pl:369
+#: inspector/virt-inspector.pl:377
 #, fuzzy
 msgid "  Filesystems:\n"
 msgstr "ഒരു ഫയല്‍സിസ്റ്റം ഉണ്ടാക്കുക"
 
-#: inspector/virt-inspector.pl:387
+#: inspector/virt-inspector.pl:395
 msgid "  Modprobe aliases:\n"
 msgstr ""
 
-#: inspector/virt-inspector.pl:398
+#: inspector/virt-inspector.pl:406
 msgid "  Initrd modules:\n"
 msgstr ""
 
-#: inspector/virt-inspector.pl:407
+#: inspector/virt-inspector.pl:415
 msgid "  Applications:\n"
 msgstr ""
 
-#: inspector/virt-inspector.pl:414
+#: inspector/virt-inspector.pl:422
 msgid "  Kernels:\n"
 msgstr ""
 
-#: inspector/virt-inspector.pl:426
+#: inspector/virt-inspector.pl:434
 msgid "  Windows Registry entries:\n"
 msgstr ""
 
@@ -2892,6 +2892,9 @@ msgstr ""
 #, perl-brace-format
 msgid "virt-win-reg: {p}: could not upload registry file: {err}\n"
 msgstr ""
+
+#~ msgid "test if file exists"
+#~ msgstr "ഫയല്‍ നിലവിലുണ്ടെങ്കില്‍ പരീക്ഷിക്കുക"
 
 #~ msgid "could not parse size specification '%s'\n"
 #~ msgstr "വ്യാപ്തിയുടെ വിവരണം '%s' പാഴ്സ് ചെയ്യുവാന്‍ സാധ്യമായില്ല\n"
