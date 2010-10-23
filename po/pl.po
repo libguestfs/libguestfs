@@ -7,7 +7,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
 "POT-Creation-Date: 2010-10-22 23:11+0100\n"
-"PO-Revision-Date: 2010-09-23 15:40+0200\n"
+"PO-Revision-Date: 2010-10-23 13:41+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <trans-pl@lists.fedoraproject.org>\n"
 "Language: pl\n"
@@ -895,9 +895,8 @@ msgid "read part of a file"
 msgstr "odczytuje część pliku"
 
 #: fish/cmds.c:267 fish/cmds.c:2078
-#, fuzzy
 msgid "read part of a device"
-msgstr "odczytuje część pliku"
+msgstr "odczytuje część urządzenia"
 
 #: fish/cmds.c:268 fish/cmds.c:893
 msgid "create an LVM physical volume"
@@ -928,9 +927,8 @@ msgid "write to part of a file"
 msgstr "zapisuje do części pliku"
 
 #: fish/cmds.c:276 fish/cmds.c:2073
-#, fuzzy
 msgid "write to part of a device"
-msgstr "zapisuje do części pliku"
+msgstr "zapisuje do części urządzenia"
 
 #: fish/cmds.c:277 fish/cmds.c:1448
 msgid "read a file"
@@ -1530,14 +1528,14 @@ msgid "%s: %s: integer out of range\n"
 msgstr "%s: %s: liczba całkowita spoza zakresu\n"
 
 #: fish/cmds.c:3162
-#, fuzzy, c-format
+#, c-format
 msgid "%s should have %d-%d parameter(s)\n"
-msgstr "%s powinno posiadać %d parametry\n"
+msgstr "%s powinno posiadać %d-%d parametry\n"
 
 #: fish/cmds.c:3187
-#, fuzzy, c-format
+#, c-format
 msgid "%s: optional argument %s given twice\n"
-msgstr "%s: za dużo parametrów\n"
+msgstr "%s: opcjonalny parametr %s został podany dwa razy\n"
 
 #: fish/cmds.c:11003
 #, c-format
@@ -1588,7 +1586,7 @@ msgid "Try `%s --help' for more information.\n"
 msgstr "Należy spróbować \"%s --help\", aby uzyskać więcej informacji.\n"
 
 #: fish/fish.c:118
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: guest filesystem shell\n"
 "%s lets you edit virtual machine filesystems\n"
@@ -1647,19 +1645,20 @@ msgstr ""
 "Opcje:\n"
 "  -h|--cmd-help        Wyświetla listę dostępnych poleceń\n"
 "  -h|--cmd-help polecenie  Wyświetla szczegółową pomoc o \"poleceniu\"\n"
-"  -a|--add image       Dodaje obraz\n"
+"  -a|--add obraz       Dodaje obraz\n"
 "  -c|--connect uri     Podaje adres URI biblioteki libvirt dla opcji -d\n"
-"  -d|--domain guest    Dodaje dyski od gościa biblioteki libvirt\n"
+"  -d|--domain gość     Dodaje dyski od gościa biblioteki libvirt\n"
 "  -D|--no-dest-paths   Nie uzupełnia ścieżek z systemu plików gościa za\n"
 "                       pomocą Tab\n"
 "  --echo-keys          Bez wyłączania powtarzania dla haseł\n"
 "  -f|--file plik       Odczytuje polecenia z pliku\n"
+"  --format[=raw|..]    Wymusza format dysku dla opcji -a\n"
 "  -i|--inspector       Automatycznie montuje systemy plików\n"
 "  --keys-from-stdin    Odczytuje hasła ze standardowego wejścia\n"
 "  --listen             Nasłuchuje zdalnych poleceń\n"
 "  -m|--mount dev[:mnt] Montuje dev w mnt (jeśli pominięto, w /)\n"
 "  -n|--no-sync         Nie synchronizuje automatycznie\n"
-"  -N|--new type        Tworzy przygotowany dysk (test1.img...)\n"
+"  -N|--new typ         Tworzy przygotowany dysk (test1.img...)\n"
 "  --progress-bars      Włącza paski postępu nawet, jeśli nie jest używany\n"
 "                       tryb interaktywny\n"
 "  --no-progress-bars   Wyłącza paski postępu\n"
@@ -2169,7 +2168,7 @@ msgid "guestfish: libvirt domain '%s' has no disks\n"
 msgstr "guestfish: domena \"%s\" biblioteki libvirt nie posiada dysków\n"
 
 #: fuse/guestmount.c:885
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s: FUSE module for libguestfs\n"
 "%s lets you mount a virtual machine filesystem\n"
@@ -2200,6 +2199,8 @@ msgstr ""
 "  -a|--add image       Dodaje obraz\n"
 "  --dir-cache-timeout  Ustawia czas oczekiwania na pamięć podręczną\n"
 "                       odczytania katalogu (domyślnie pięć sekund)\n"
+"  --fuse-help          Wyświetla dodatkowe opcje FUSE\n"
+"  --format[=raw|..]    Wymusza format dysku dla opcji -a\n"
 "  --fuse-help          Wyświetla dodatkowe opcje FUSE\n"
 "  --help               Wyświetla komunikat pomocy i kończy działanie\n"
 "  -m|--mount dev[:mnt] Montuje dev w mnt (jeśli pominięto, w /)\n"
@@ -2456,7 +2457,7 @@ msgstr "nazwa pliku nie może zawierać znaku \",\" (przecinka)"
 #: src/launch.c:200 src/launch.c:205
 #, c-format
 msgid "%s parameter is empty or contains disallowed characters"
-msgstr ""
+msgstr "parametr %s jest pusty lub zawiera niedozwolone znaki"
 
 #: src/launch.c:318
 msgid "you must call guestfs_add_drive before guestfs_launch"
@@ -2928,7 +2929,7 @@ msgstr ""
 
 #: tools/virt-resize.pl:684 tools/virt-resize.pl:696
 msgid "virt-resize: short read"
-msgstr ""
+msgstr "virt-resize: krótki odczyt"
 
 #: tools/virt-resize.pl:830
 #, perl-brace-format
