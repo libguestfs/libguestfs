@@ -5,10 +5,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-08 16:10+0100\n"
+"POT-Creation-Date: 2010-10-23 14:24+0100\n"
 "PO-Revision-Date: 2010-02-28 03:02+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <trans-pl@lists.fedoraproject.org>\n"
+"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -415,9 +416,14 @@ msgstr "jest zajęte przetwarzaniem polecenia"
 msgid "is in configuration state"
 msgstr "jest w stanie konfiguracji"
 
-#: fish/cmds.c:136 fish/cmds.c:137 fish/cmds.c:667 fish/cmds.c:672
-msgid "test if file exists"
-msgstr "testuje, czy plik istnieje"
+#: fish/cmds.c:136 fish/cmds.c:672
+#, fuzzy
+msgid "test if a directory"
+msgstr "tworzy katalog"
+
+#: fish/cmds.c:137 fish/cmds.c:667
+msgid "test if a regular file"
+msgstr ""
 
 #: fish/cmds.c:138 fish/cmds.c:402
 msgid "is launching subprocess"
@@ -1223,7 +1229,7 @@ msgstr "%s: %s: liczba całkowita spoza zakresu\n"
 msgid "%s: unknown command\n"
 msgstr "%s: nieznane polecenie\n"
 
-#: fish/edit.c:86
+#: fish/edit.c:44
 #, c-format
 msgid "use '%s filename' to edit a file\n"
 msgstr "należy użyć \"%s nazwa_pliku\", aby zmodyfikować plik\n"
@@ -1234,11 +1240,11 @@ msgid "Try `%s --help' for more information.\n"
 msgstr "Należy spróbować \"%s --help\", aby uzyskać więcej informacji.\n"
 
 #: fish/fish.c:100
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "%s: guest filesystem shell\n"
 "%s lets you edit virtual machine filesystems\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
+"Copyright (C) 2009-2010 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options] cmd [: cmd : cmd ...]\n"
 "  %s -i libvirt-domain\n"
@@ -1266,7 +1272,7 @@ msgid ""
 "  -v|--verbose         Verbose messages\n"
 "  -x                   Echo each command before executing it\n"
 "  -V|--version         Display version and exit\n"
-"For more information,  see the manpage %s(1).\n"
+"For more information, see the manpage %s(1).\n"
 msgstr ""
 "%s: powłoka systemu plików gościa\n"
 "%s umożliwia modyfikowanie systemów pliku maszyn wirtualnych\n"
@@ -1511,7 +1517,7 @@ msgstr ""
 "    Wyświetla ostatnie parametry w terminalu.\n"
 
 #: fish/fish.c:1014
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "edit - edit a file in the image\n"
 "     edit <filename>\n"
@@ -1523,9 +1529,6 @@ msgid ""
 "\n"
 "    Normally it uses $EDITOR, but if you use the aliases\n"
 "    \"vi\" or \"emacs\" you will get those editors.\n"
-"\n"
-"    NOTE: This will not work reliably for large files\n"
-"    (> 2 MB) or binary files containing \\0 bytes.\n"
 msgstr ""
 "edit - modyfikuje plik w obrazie\n"
 "     edit <nazwa_pliku>\n"
@@ -1542,7 +1545,7 @@ msgstr ""
 "    UWAGA: nie będzie działało poprawnie dla dużych plików\n"
 "    (> 2 MB) lub plików binarnych zawierających \\0 bajtów.\n"
 
-#: fish/fish.c:1030
+#: fish/fish.c:1027
 #, c-format
 msgid ""
 "lcd - local change directory\n"
@@ -1558,7 +1561,7 @@ msgstr ""
 "    Zmienia bieżący katalog guestfish. Te polecenie jest\n"
 "    przydatne, aby pobrać pliki do konkretnego miejsca.\n"
 
-#: fish/fish.c:1039
+#: fish/fish.c:1036
 #, c-format
 msgid ""
 "glob - expand wildcards in command\n"
@@ -1576,7 +1579,7 @@ msgstr ""
 "    Proszę zauważyć, że polecenie jest wykonywane\n"
 "    raz dla każdego rozwiniętego parametru.\n"
 
-#: fish/fish.c:1048
+#: fish/fish.c:1045
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -1587,8 +1590,8 @@ msgstr ""
 "     help polecenie\n"
 "     help\n"
 
-#: fish/fish.c:1055
-#, c-format
+#: fish/fish.c:1052
+#, fuzzy, c-format
 msgid ""
 "more - view a file in the pager\n"
 "     more <filename>\n"
@@ -1600,9 +1603,6 @@ msgid ""
 "\n"
 "    Normally it uses $PAGER, but if you use the alias\n"
 "    \"less\" then it always uses \"less\".\n"
-"\n"
-"    NOTE: This will not work reliably for large files\n"
-"    (> 2 MB) or binary files containing \\0 bytes.\n"
 msgstr ""
 "more - wyświetla plik w pagerze\n"
 "     more <nazwa_pliku>\n"
@@ -1618,7 +1618,7 @@ msgstr ""
 "    UWAGA: nie będzie działało poprawnie dla dużych plików\n"
 "    (> 2 MB) lub plików binarnych zawierających \\0 bajtów.\n"
 
-#: fish/fish.c:1073
+#: fish/fish.c:1067
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -1627,7 +1627,7 @@ msgstr ""
 "quit - kończy działanie programu guestfish\n"
 "     quit\n"
 
-#: fish/fish.c:1078
+#: fish/fish.c:1072
 #, c-format
 msgid ""
 "reopen - close and reopen the libguestfs handle\n"
@@ -1645,7 +1645,7 @@ msgstr ""
 "zamykany, kiedy guestfish kończy działanie. Mimo to może być czasem\n"
 "przydatne do testowania.\n"
 
-#: fish/fish.c:1087
+#: fish/fish.c:1081
 #, c-format
 msgid ""
 "sparse - allocate a sparse image file\n"
@@ -1703,7 +1703,7 @@ msgstr ""
 "    <nn>E lub <nn>EB  liczba eksabajtów\n"
 "    <nn>sektory       liczba 512 bajtowych sektorów\n"
 
-#: fish/fish.c:1116
+#: fish/fish.c:1110
 #, c-format
 msgid ""
 "time - measure time taken to run command\n"
@@ -1717,14 +1717,14 @@ msgstr ""
 "\n"
 "    Wykonuje <polecenie> i wyświetla czas, jaki upłynął.\n"
 
-#: fish/fish.c:1124
+#: fish/fish.c:1118
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""
 "%s: nieznane polecenie, należy użyć -h, aby wyświetlić listę wszystkich "
 "poleceń\n"
 
-#: fish/fish.c:1140
+#: fish/fish.c:1134
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -1732,17 +1732,17 @@ msgid ""
 "For complete documentation:         man guestfish\n"
 msgstr ""
 
-#: fish/fish.c:1297
+#: fish/fish.c:1291
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "Cytat ucieczki w ciągu \"%s\"\n"
 
-#: fish/glob.c:52
+#: fish/glob.c:53
 #, c-format
 msgid "use 'glob command [args...]'\n"
 msgstr "należy użyć \"glob polecenie [parametry...]\"\n"
 
-#: fish/glob.c:72
+#: fish/glob.c:73
 #, c-format
 msgid "glob: guestfs_glob_expand call failed: %s\n"
 msgstr "glob: wywołanie guestfs_glob_expand nie powiodło się: %s\n"
@@ -1752,17 +1752,17 @@ msgstr "glob: wywołanie guestfs_glob_expand nie powiodło się: %s\n"
 msgid "use 'lcd directory' to change local directory\n"
 msgstr "należy użyć \"lcd katalog\", aby zmienić lokalny katalog\n"
 
-#: fish/more.c:40
+#: fish/more.c:39
 #, c-format
 msgid "use '%s filename' to page a file\n"
 msgstr "należy użyć \"%s nazwa_pliku\", aby wyświetlić plik\n"
 
-#: fish/rc.c:249
+#: fish/rc.c:250
 #, c-format
 msgid "guestfish: protocol error: could not read 'hello' message\n"
 msgstr "guestfish: błąd protokołu: nie można odczytać komunikatu \"hello\"\n"
 
-#: fish/rc.c:254
+#: fish/rc.c:255
 #, c-format
 msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
@@ -1772,19 +1772,19 @@ msgstr ""
 "zgadza się z wersją klienta \"%s\". Obie wersje muszą się dokładnie "
 "zgadzać.\n"
 
-#: fish/rc.c:329 fish/rc.c:343
+#: fish/rc.c:330 fish/rc.c:344
 #, c-format
 msgid "guestfish: remote: looks like the server is not running\n"
 msgstr "guestfish: zdalnie: serwer nie jest uruchomiony\n"
 
-#: fish/rc.c:355 fish/rc.c:369
+#: fish/rc.c:356 fish/rc.c:370
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
 msgstr ""
 "guestfish: błąd protokołu: nie można wysłać początkowego powitania do "
 "serwera\n"
 
-#: fish/rc.c:380
+#: fish/rc.c:381
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
 msgstr ""
@@ -1957,8 +1957,8 @@ msgstr "guestfs_end_busy: wywołano, kiedy w stanie %d"
 msgid ""
 "check_for_daemon_cancellation_or_eof: read 0x%x from daemon, expected 0x%x\n"
 msgstr ""
-"check_for_daemon_cancellation_or_eof: odczytano 0x%x z demona, oczekiwano 0x%"
-"x\n"
+"check_for_daemon_cancellation_or_eof: odczytano 0x%x z demona, oczekiwano 0x"
+"%x\n"
 
 #: src/guestfs.c:2271 src/guestfs.c:2325
 msgid "unexpected end of file when reading from daemon"
@@ -2174,3 +2174,6 @@ msgstr ""
 #, c-format
 msgid "mkisofs command failed: %s\n"
 msgstr "polecenie mkisofs nie powiodło się: %s\n"
+
+#~ msgid "test if file exists"
+#~ msgstr "testuje, czy plik istnieje"

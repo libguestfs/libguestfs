@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libguestfs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-08 16:10+0100\n"
+"POT-Creation-Date: 2010-10-23 14:24+0100\n"
 "PO-Revision-Date: 2010-02-02 13:45+0530\n"
 "Last-Translator: Sweta Kothari <swkothar@redhat.com>\n"
 "Language-Team: Gujarati\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -416,9 +417,14 @@ msgstr "આદેશને પ્રક્રિયા કરવામાં વ
 msgid "is in configuration state"
 msgstr "રૂપરેખાંકન સ્થિતિમાં છે"
 
-#: fish/cmds.c:136 fish/cmds.c:137 fish/cmds.c:667 fish/cmds.c:672
-msgid "test if file exists"
-msgstr "ચકાસો જો ફાઇલ અસ્તિત્વ ધરાવે છે"
+#: fish/cmds.c:136 fish/cmds.c:672
+#, fuzzy
+msgid "test if a directory"
+msgstr "ડિરેક્ટરીને બનાવો"
+
+#: fish/cmds.c:137 fish/cmds.c:667
+msgid "test if a regular file"
+msgstr ""
 
 #: fish/cmds.c:138 fish/cmds.c:402
 msgid "is launching subprocess"
@@ -1215,7 +1221,7 @@ msgstr "%s: %s: સીમાની બહાર ઇંટિજર\n"
 msgid "%s: unknown command\n"
 msgstr "%s: અજ્ઞાત આદેશ\n"
 
-#: fish/edit.c:86
+#: fish/edit.c:44
 #, c-format
 msgid "use '%s filename' to edit a file\n"
 msgstr "ફાઇલને સુધારવા માટે '%s filename' ને વાપરો\n"
@@ -1226,11 +1232,11 @@ msgid "Try `%s --help' for more information.\n"
 msgstr "વધારે જાણકારી માટે `%s --help' નો પ્રયત્ન કરો.\n"
 
 #: fish/fish.c:100
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "%s: guest filesystem shell\n"
 "%s lets you edit virtual machine filesystems\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
+"Copyright (C) 2009-2010 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options] cmd [: cmd : cmd ...]\n"
 "  %s -i libvirt-domain\n"
@@ -1258,7 +1264,7 @@ msgid ""
 "  -v|--verbose         Verbose messages\n"
 "  -x                   Echo each command before executing it\n"
 "  -V|--version         Display version and exit\n"
-"For more information,  see the manpage %s(1).\n"
+"For more information, see the manpage %s(1).\n"
 msgstr ""
 "%s: મહેમાન ફાઇલસિસ્ટમ શેલ\n"
 "%s ચાલે તમે વર્ચ્યુઅલ મશીન ફાઇલસિસ્ટમોને સુધારો\n"
@@ -1497,7 +1503,7 @@ msgstr ""
 "    આ ટર્મિનલમાં પરિમાણોને ઇકો કરે છે.\n"
 
 #: fish/fish.c:1014
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "edit - edit a file in the image\n"
 "     edit <filename>\n"
@@ -1509,9 +1515,6 @@ msgid ""
 "\n"
 "    Normally it uses $EDITOR, but if you use the aliases\n"
 "    \"vi\" or \"emacs\" you will get those editors.\n"
-"\n"
-"    NOTE: This will not work reliably for large files\n"
-"    (> 2 MB) or binary files containing \\0 bytes.\n"
 msgstr ""
 "edit - ઇમેજમાં ફાઇલને સુધારો\n"
 "     <filename> નો ફેરફાર કરો\n"
@@ -1527,7 +1530,7 @@ msgstr ""
 "    નોંધ: આ \\0 bytes ને સમાવતી વિશાળ ફાઇલો (> 2 MB) અથવા બાઇનરી ફાઇલો માટે "
 "ભરોસાપાત્ર કામ કરતુ નથી.\n"
 
-#: fish/fish.c:1030
+#: fish/fish.c:1027
 #, c-format
 msgid ""
 "lcd - local change directory\n"
@@ -1543,7 +1546,7 @@ msgstr ""
 "    guestfish ની હાલની ડિરેક્ટરીને બનાવો. આ આદેશ એ ઉપયોગી છે જો તમે ચોક્કસ સ્થાનેથી "
 "ફાઇલોને ડાઉનલોડ કરવા માંગો તો.\n"
 
-#: fish/fish.c:1039
+#: fish/fish.c:1036
 #, c-format
 msgid ""
 "glob - expand wildcards in command\n"
@@ -1559,7 +1562,7 @@ msgstr ""
 "    Glob એ કોઇપણ આદેશ દલીલોમાં વિસ્તરેલ વાઇલ્ડકાર્ડો સાછે <command> ને ચલાવે છે.\n"
 "    નોંધો કે આ દેશ એ દરેક વિસ્તરેલ દલીલ માટે એકવાર વારંવાર ચાલે છે.\n"
 
-#: fish/fish.c:1048
+#: fish/fish.c:1045
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -1570,8 +1573,8 @@ msgstr ""
 "     help cmd\n"
 "     મદદ\n"
 
-#: fish/fish.c:1055
-#, c-format
+#: fish/fish.c:1052
+#, fuzzy, c-format
 msgid ""
 "more - view a file in the pager\n"
 "     more <filename>\n"
@@ -1583,9 +1586,6 @@ msgid ""
 "\n"
 "    Normally it uses $PAGER, but if you use the alias\n"
 "    \"less\" then it always uses \"less\".\n"
-"\n"
-"    NOTE: This will not work reliably for large files\n"
-"    (> 2 MB) or binary files containing \\0 bytes.\n"
 msgstr ""
 "more - પેજરમાં ફાઇલને જુઓ\n"
 "     વધારે <filename>\n"
@@ -1601,7 +1601,7 @@ msgstr ""
 "    નોંધ: આ \\0 બાઇટો ને સમાવતી મોટી ફાઇલો (> 2 MB) અથવા બાઇનરી ફાઇલો માટે ે કામ "
 "કરશે નહtes.\n"
 
-#: fish/fish.c:1073
+#: fish/fish.c:1067
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -1610,7 +1610,7 @@ msgstr ""
 "quit - guestfish માંથી બહાર નીકળો\n"
 "     બહાર નીકળો\n"
 
-#: fish/fish.c:1078
+#: fish/fish.c:1072
 #, c-format
 msgid ""
 "reopen - close and reopen the libguestfs handle\n"
@@ -1627,7 +1627,7 @@ msgstr ""
 "કારણ કે હેન્ડલ એ બરાબર રીતે બંધ થયેલ છે જ્યારે guestfish એ બહાર નીકળે છે ત્યારે.  છતાંપણ આ "
 "ચકાસણી માટે અવારનવાર ઉપયોગી છે.\n"
 
-#: fish/fish.c:1087
+#: fish/fish.c:1081
 #, c-format
 msgid ""
 "sparse - allocate a sparse image file\n"
@@ -1683,7 +1683,7 @@ msgstr ""
 "    <nn>E અથવા એક્ઝાબાઇટોનો <nn>EB  નંબર\n"
 "    <nn>sects        512 બાઇટ સેક્ટરોનો નંબર\n"
 
-#: fish/fish.c:1116
+#: fish/fish.c:1110
 #, c-format
 msgid ""
 "time - measure time taken to run command\n"
@@ -1697,12 +1697,12 @@ msgstr ""
 "\n"
 "    આ સામાન્ય રીતે <command> ને ચલાવે છે, અને પછીથી પસાર થયેલ સમયને છાપે છે.\n"
 
-#: fish/fish.c:1124
+#: fish/fish.c:1118
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s: આદેશ જાણીતો નથી, બધા આદેશોની યાદી માટે -h ને વાપરો\n"
 
-#: fish/fish.c:1140
+#: fish/fish.c:1134
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -1710,17 +1710,17 @@ msgid ""
 "For complete documentation:         man guestfish\n"
 msgstr ""
 
-#: fish/fish.c:1297
+#: fish/fish.c:1291
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "શબ્દમાળા \"%s\" માં દૂર થતો અવતરણચિહ્ન\n"
 
-#: fish/glob.c:52
+#: fish/glob.c:53
 #, c-format
 msgid "use 'glob command [args...]'\n"
 msgstr "'glob command [args...]' ને વાપરો\n"
 
-#: fish/glob.c:72
+#: fish/glob.c:73
 #, c-format
 msgid "glob: guestfs_glob_expand call failed: %s\n"
 msgstr "glob: guestfs_glob_expand કોલ નિષ્ફળ: %s\n"
@@ -1730,36 +1730,36 @@ msgstr "glob: guestfs_glob_expand કોલ નિષ્ફળ: %s\n"
 msgid "use 'lcd directory' to change local directory\n"
 msgstr "સ્થાનિય ડિરેક્ટરીને બદલવા માટે 'lcd directory' ને વાપરો\n"
 
-#: fish/more.c:40
+#: fish/more.c:39
 #, c-format
 msgid "use '%s filename' to page a file\n"
 msgstr "ફાઇલ પાના માટે '%s filename' ને વાપરો\n"
 
-#: fish/rc.c:249
+#: fish/rc.c:250
 #, c-format
 msgid "guestfish: protocol error: could not read 'hello' message\n"
 msgstr "guestfish: પ્રોટોકોલ ભૂલ: 'hello' સંદેશને વાંચી શક્યા નહિં\n"
 
-#: fish/rc.c:254
+#: fish/rc.c:255
 #, c-format
 msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
 "match client version '%s'.  The two versions must match exactly.\n"
 msgstr ""
-"guestfish: પ્રોટોકોલ ભૂલ: આવૃત્તિ બંધબેસતી નથી, સર્વર આવૃત્તિ '%s' એ ક્લાઇન્ટ આવૃત્તિ '%"
-"s' સાથે બંધબેસતી નથી.  બે આવૃત્તિઓ એ બરાબર રીતે બંધબેસતી હોવી જ જોઇએ.\n"
+"guestfish: પ્રોટોકોલ ભૂલ: આવૃત્તિ બંધબેસતી નથી, સર્વર આવૃત્તિ '%s' એ ક્લાઇન્ટ આવૃત્તિ "
+"'%s' સાથે બંધબેસતી નથી.  બે આવૃત્તિઓ એ બરાબર રીતે બંધબેસતી હોવી જ જોઇએ.\n"
 
-#: fish/rc.c:329 fish/rc.c:343
+#: fish/rc.c:330 fish/rc.c:344
 #, c-format
 msgid "guestfish: remote: looks like the server is not running\n"
 msgstr "guestfish: દૂરસ્થ: એવુ લાગે છે કે સર્વર ચાલી રહ્યુ નથી\n"
 
-#: fish/rc.c:355 fish/rc.c:369
+#: fish/rc.c:356 fish/rc.c:370
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
 msgstr "guestfish: પ્રોટોકોલ ભૂલ: સર્વરમાં પ્રારંભિત ગ્રીટિંગ મોકલી શક્યા નથી\n"
 
-#: fish/rc.c:380
+#: fish/rc.c:381
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
 msgstr "guestfish: પ્રોટોકોલ ભૂલ: સર્વર માંથી જવાબને ડિકોડ કરી શક્યા નહિં\n"
@@ -2135,3 +2135,6 @@ msgstr ""
 #, c-format
 msgid "mkisofs command failed: %s\n"
 msgstr "mkisofs આદેશ નિષ્ફળ: %s\n"
+
+#~ msgid "test if file exists"
+#~ msgstr "ચકાસો જો ફાઇલ અસ્તિત્વ ધરાવે છે"

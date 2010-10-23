@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-08 16:10+0100\n"
+"POT-Creation-Date: 2010-10-23 14:24+0100\n"
 "PO-Revision-Date: 2010-02-03 19:10+0530\n"
 "Last-Translator: Sandeep Shedmake <sshedmak@redhat.com>\n"
 "Language-Team: Marathi <fedora-trans-mr@redhat.com>\n"
+"Language: mr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -416,9 +417,14 @@ msgstr "आदेश विश्लेषीत करण्यात व्य
 msgid "is in configuration state"
 msgstr "संरचना स्तरात आहे"
 
-#: fish/cmds.c:136 fish/cmds.c:137 fish/cmds.c:667 fish/cmds.c:672
-msgid "test if file exists"
-msgstr "फाइल अस्तित्वात आहे याची चाचणी करा"
+#: fish/cmds.c:136 fish/cmds.c:672
+#, fuzzy
+msgid "test if a directory"
+msgstr "डिरेक्ट्री निर्माण करा"
+
+#: fish/cmds.c:137 fish/cmds.c:667
+msgid "test if a regular file"
+msgstr ""
 
 #: fish/cmds.c:138 fish/cmds.c:402
 msgid "is launching subprocess"
@@ -1215,7 +1221,7 @@ msgstr "%s: %s: इंटीजर व्याप्तीच्या बा�
 msgid "%s: unknown command\n"
 msgstr "%s: अपरिचीत आदेश\n"
 
-#: fish/edit.c:86
+#: fish/edit.c:44
 #, c-format
 msgid "use '%s filename' to edit a file\n"
 msgstr "फाइल संपादीत करण्यासाठी '%s filename' याचा वापर करा\n"
@@ -1226,11 +1232,11 @@ msgid "Try `%s --help' for more information.\n"
 msgstr "अधिक माहितीसाठी `%s --help' वापरून पहा.\n"
 
 #: fish/fish.c:100
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "%s: guest filesystem shell\n"
 "%s lets you edit virtual machine filesystems\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
+"Copyright (C) 2009-2010 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options] cmd [: cmd : cmd ...]\n"
 "  %s -i libvirt-domain\n"
@@ -1258,7 +1264,7 @@ msgid ""
 "  -v|--verbose         Verbose messages\n"
 "  -x                   Echo each command before executing it\n"
 "  -V|--version         Display version and exit\n"
-"For more information,  see the manpage %s(1).\n"
+"For more information, see the manpage %s(1).\n"
 msgstr ""
 "%s: guest filesystem shell\n"
 "%s lets you edit virtual machine filesystems\n"
@@ -1497,7 +1503,7 @@ msgstr ""
 "    यामुळे घटके टर्मिनलवर दाखवले जातात.\n"
 
 #: fish/fish.c:1014
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "edit - edit a file in the image\n"
 "     edit <filename>\n"
@@ -1509,9 +1515,6 @@ msgid ""
 "\n"
 "    Normally it uses $EDITOR, but if you use the aliases\n"
 "    \"vi\" or \"emacs\" you will get those editors.\n"
-"\n"
-"    NOTE: This will not work reliably for large files\n"
-"    (> 2 MB) or binary files containing \\0 bytes.\n"
 msgstr ""
 "edit - प्रतिमामधील फाइल संपादीत करा\n"
 "     edit <filename>\n"
@@ -1529,7 +1532,7 @@ msgstr ""
 "    (> 2 MB) किंवा \\0 बाईट्स् समाविष्टीत बाईनरी फाइल्स् करीता यशस्वीरित्या कार्य करत "
 "नाही.\n"
 
-#: fish/fish.c:1030
+#: fish/fish.c:1027
 #, c-format
 msgid ""
 "lcd - local change directory\n"
@@ -1546,7 +1549,7 @@ msgstr ""
 "    ठराविक स्थळावर फाइल्स् डाऊनलोड करण्यासाठी\n"
 "    उपयोगी ठरतो.\n"
 
-#: fish/fish.c:1039
+#: fish/fish.c:1036
 #, c-format
 msgid ""
 "glob - expand wildcards in command\n"
@@ -1563,7 +1566,7 @@ msgstr ""
 "    चालवतो.  लक्षात ठेवा आदेश दरवेळी प्रत्येक विस्तारीत घटकासाठी पुनः\n"
 "    चालवले जाते.\n"
 
-#: fish/fish.c:1048
+#: fish/fish.c:1045
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -1574,8 +1577,8 @@ msgstr ""
 "     help cmd\n"
 "     help\n"
 
-#: fish/fish.c:1055
-#, c-format
+#: fish/fish.c:1052
+#, fuzzy, c-format
 msgid ""
 "more - view a file in the pager\n"
 "     more <filename>\n"
@@ -1587,9 +1590,6 @@ msgid ""
 "\n"
 "    Normally it uses $PAGER, but if you use the alias\n"
 "    \"less\" then it always uses \"less\".\n"
-"\n"
-"    NOTE: This will not work reliably for large files\n"
-"    (> 2 MB) or binary files containing \\0 bytes.\n"
 msgstr ""
 "more - पृष्ठ स्वरूपात फाइल पहा\n"
 "     more <filename>\n"
@@ -1606,7 +1606,7 @@ msgstr ""
 "    (> 2 MB) किंवा \\0 बाईट्स् समाविष्टीत बाईनरी फाइल्स् करीता यशस्वीपणे कार्य करत "
 "नाही.\n"
 
-#: fish/fish.c:1073
+#: fish/fish.c:1067
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
@@ -1615,7 +1615,7 @@ msgstr ""
 "quit - guestfish पासून बाहेर पडा\n"
 "     quit\n"
 
-#: fish/fish.c:1078
+#: fish/fish.c:1072
 #, c-format
 msgid ""
 "reopen - close and reopen the libguestfs handle\n"
@@ -1632,7 +1632,7 @@ msgstr ""
 ", परंतु guestfish बाहेर पडतेवेळी हँडल योग्यप्रकारे\n"
 " बंद होते.  तरी याचा वापर औपचारीकपणे चाचणीवेळी होतो.\n"
 
-#: fish/fish.c:1087
+#: fish/fish.c:1081
 #, c-format
 msgid ""
 "sparse - allocate a sparse image file\n"
@@ -1687,7 +1687,7 @@ msgstr ""
 "    <nn>E किंवा <nn>EB  एक्जाबाईट्समधील प्रमाण\n"
 "    <nn>sects        512 बाईट सेक्टरचे प्रमाण\n"
 
-#: fish/fish.c:1116
+#: fish/fish.c:1110
 #, c-format
 msgid ""
 "time - measure time taken to run command\n"
@@ -1702,12 +1702,12 @@ msgstr ""
 "    यामुळे <command> साधारणपणे चालवले जाते, व व्याप्त वेळची\n"
 "    नंतर छपाई केली जाते.\n"
 
-#: fish/fish.c:1124
+#: fish/fish.c:1118
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr "%s: आदेश परिचीत नाही, सर्व आदेश दाखवण्यासाठी -h याचा वापर करा\n"
 
-#: fish/fish.c:1140
+#: fish/fish.c:1134
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -1715,17 +1715,17 @@ msgid ""
 "For complete documentation:         man guestfish\n"
 msgstr ""
 
-#: fish/fish.c:1297
+#: fish/fish.c:1291
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr "\"%s\" अक्षरमाळामध्ये रनअव्हे शब्द आढळले\n"
 
-#: fish/glob.c:52
+#: fish/glob.c:53
 #, c-format
 msgid "use 'glob command [args...]'\n"
 msgstr "'glob command [args...]' वापर करा\n"
 
-#: fish/glob.c:72
+#: fish/glob.c:73
 #, c-format
 msgid "glob: guestfs_glob_expand call failed: %s\n"
 msgstr "glob: guestfs_glob_expand कॉल अपयशी: %s\n"
@@ -1735,17 +1735,17 @@ msgstr "glob: guestfs_glob_expand कॉल अपयशी: %s\n"
 msgid "use 'lcd directory' to change local directory\n"
 msgstr "स्थानीय डिरेक्ट्री बदलण्यासाठी 'lcd directory' याचा वापर करा\n"
 
-#: fish/more.c:40
+#: fish/more.c:39
 #, c-format
 msgid "use '%s filename' to page a file\n"
 msgstr "फाइल पेज करण्यासाठी '%s filename' याचा वापर करा\n"
 
-#: fish/rc.c:249
+#: fish/rc.c:250
 #, c-format
 msgid "guestfish: protocol error: could not read 'hello' message\n"
 msgstr "guestfish: प्रोटोकॉल त्रुटी: 'hello' संदेश वाचणे अशक्य\n"
 
-#: fish/rc.c:254
+#: fish/rc.c:255
 #, c-format
 msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
@@ -1754,17 +1754,17 @@ msgstr ""
 "guestfish: प्रोटोकॉल त्रुटी: आवृत्ती जुळली नाही, सर्व्हर आवृत्ती '%s' क्लाएंट आवृत्ती '%s' "
 "सह जुळत नाही.  दोन्ही आवृत्ती बरोबर जुळायला हवे.\n"
 
-#: fish/rc.c:329 fish/rc.c:343
+#: fish/rc.c:330 fish/rc.c:344
 #, c-format
 msgid "guestfish: remote: looks like the server is not running\n"
 msgstr "guestfish: रिमोट: सर्व्हर कार्यरत नाही असे आढळते\n"
 
-#: fish/rc.c:355 fish/rc.c:369
+#: fish/rc.c:356 fish/rc.c:370
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
 msgstr "guestfish: प्रोटोकॉल त्रुटी: प्रारंभीक ग्रिटींग सर्व्हरकडे पाठवणे अशक्य\n"
 
-#: fish/rc.c:380
+#: fish/rc.c:381
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
 msgstr "guestfish: प्रोटोकॉल त्रुटी: सर्व्हर पासून प्रतिसाद डिकोड करण्यास अशक्य\n"
@@ -2140,6 +2140,9 @@ msgstr ""
 #, c-format
 msgid "mkisofs command failed: %s\n"
 msgstr "mkisofs आदेश अपयशी: %s\n"
+
+#~ msgid "test if file exists"
+#~ msgstr "फाइल अस्तित्वात आहे याची चाचणी करा"
 
 #~ msgid "%s: failed to write XML document\n"
 #~ msgstr "%s: XML दस्तऐवज लिहण्यास अपयशी\n"

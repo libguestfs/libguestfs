@@ -6,12 +6,13 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: libguestfs 1.2.13\n"
+"Project-Id-Version: libguestfs 1.2.14\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-08 16:10+0100\n"
+"POT-Creation-Date: 2010-10-23 14:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -413,8 +414,12 @@ msgstr ""
 msgid "is in configuration state"
 msgstr ""
 
-#: fish/cmds.c:136 fish/cmds.c:137 fish/cmds.c:667 fish/cmds.c:672
-msgid "test if file exists"
+#: fish/cmds.c:136 fish/cmds.c:672
+msgid "test if a directory"
+msgstr ""
+
+#: fish/cmds.c:137 fish/cmds.c:667
+msgid "test if a regular file"
 msgstr ""
 
 #: fish/cmds.c:138 fish/cmds.c:402
@@ -1205,7 +1210,7 @@ msgstr ""
 msgid "%s: unknown command\n"
 msgstr ""
 
-#: fish/edit.c:86
+#: fish/edit.c:44
 #, c-format
 msgid "use '%s filename' to edit a file\n"
 msgstr ""
@@ -1220,7 +1225,7 @@ msgstr ""
 msgid ""
 "%s: guest filesystem shell\n"
 "%s lets you edit virtual machine filesystems\n"
-"Copyright (C) 2009 Red Hat Inc.\n"
+"Copyright (C) 2009-2010 Red Hat Inc.\n"
 "Usage:\n"
 "  %s [--options] cmd [: cmd : cmd ...]\n"
 "  %s -i libvirt-domain\n"
@@ -1248,7 +1253,7 @@ msgid ""
 "  -v|--verbose         Verbose messages\n"
 "  -x                   Echo each command before executing it\n"
 "  -V|--version         Display version and exit\n"
-"For more information,  see the manpage %s(1).\n"
+"For more information, see the manpage %s(1).\n"
 msgstr ""
 
 #: fish/fish.c:192 fuse/guestmount.c:967
@@ -1438,12 +1443,9 @@ msgid ""
 "\n"
 "    Normally it uses $EDITOR, but if you use the aliases\n"
 "    \"vi\" or \"emacs\" you will get those editors.\n"
-"\n"
-"    NOTE: This will not work reliably for large files\n"
-"    (> 2 MB) or binary files containing \\0 bytes.\n"
 msgstr ""
 
-#: fish/fish.c:1030
+#: fish/fish.c:1027
 #, c-format
 msgid ""
 "lcd - local change directory\n"
@@ -1454,7 +1456,7 @@ msgid ""
 "    place.\n"
 msgstr ""
 
-#: fish/fish.c:1039
+#: fish/fish.c:1036
 #, c-format
 msgid ""
 "glob - expand wildcards in command\n"
@@ -1465,7 +1467,7 @@ msgid ""
 "    once for each expanded argument.\n"
 msgstr ""
 
-#: fish/fish.c:1048
+#: fish/fish.c:1045
 #, c-format
 msgid ""
 "help - display a list of commands or help on a command\n"
@@ -1473,7 +1475,7 @@ msgid ""
 "     help\n"
 msgstr ""
 
-#: fish/fish.c:1055
+#: fish/fish.c:1052
 #, c-format
 msgid ""
 "more - view a file in the pager\n"
@@ -1486,19 +1488,16 @@ msgid ""
 "\n"
 "    Normally it uses $PAGER, but if you use the alias\n"
 "    \"less\" then it always uses \"less\".\n"
-"\n"
-"    NOTE: This will not work reliably for large files\n"
-"    (> 2 MB) or binary files containing \\0 bytes.\n"
 msgstr ""
 
-#: fish/fish.c:1073
+#: fish/fish.c:1067
 #, c-format
 msgid ""
 "quit - quit guestfish\n"
 "     quit\n"
 msgstr ""
 
-#: fish/fish.c:1078
+#: fish/fish.c:1072
 #, c-format
 msgid ""
 "reopen - close and reopen the libguestfs handle\n"
@@ -1509,7 +1508,7 @@ msgid ""
 "exits.  However this is occasionally useful for testing.\n"
 msgstr ""
 
-#: fish/fish.c:1087
+#: fish/fish.c:1081
 #, c-format
 msgid ""
 "sparse - allocate a sparse image file\n"
@@ -1540,7 +1539,7 @@ msgid ""
 "    <nn>sects        number of 512 byte sectors\n"
 msgstr ""
 
-#: fish/fish.c:1116
+#: fish/fish.c:1110
 #, c-format
 msgid ""
 "time - measure time taken to run command\n"
@@ -1550,12 +1549,12 @@ msgid ""
 "    time afterwards.\n"
 msgstr ""
 
-#: fish/fish.c:1124
+#: fish/fish.c:1118
 #, c-format
 msgid "%s: command not known, use -h to list all commands\n"
 msgstr ""
 
-#: fish/fish.c:1140
+#: fish/fish.c:1134
 #, c-format
 msgid ""
 "Did you mean to open a disk image?  guestfish -a disk.img\n"
@@ -1563,17 +1562,17 @@ msgid ""
 "For complete documentation:         man guestfish\n"
 msgstr ""
 
-#: fish/fish.c:1297
+#: fish/fish.c:1291
 #, c-format
 msgid "Runaway quote in string \"%s\"\n"
 msgstr ""
 
-#: fish/glob.c:52
+#: fish/glob.c:53
 #, c-format
 msgid "use 'glob command [args...]'\n"
 msgstr ""
 
-#: fish/glob.c:72
+#: fish/glob.c:73
 #, c-format
 msgid "glob: guestfs_glob_expand call failed: %s\n"
 msgstr ""
@@ -1583,34 +1582,34 @@ msgstr ""
 msgid "use 'lcd directory' to change local directory\n"
 msgstr ""
 
-#: fish/more.c:40
+#: fish/more.c:39
 #, c-format
 msgid "use '%s filename' to page a file\n"
 msgstr ""
 
-#: fish/rc.c:249
+#: fish/rc.c:250
 #, c-format
 msgid "guestfish: protocol error: could not read 'hello' message\n"
 msgstr ""
 
-#: fish/rc.c:254
+#: fish/rc.c:255
 #, c-format
 msgid ""
 "guestfish: protocol error: version mismatch, server version '%s' does not "
 "match client version '%s'.  The two versions must match exactly.\n"
 msgstr ""
 
-#: fish/rc.c:329 fish/rc.c:343
+#: fish/rc.c:330 fish/rc.c:344
 #, c-format
 msgid "guestfish: remote: looks like the server is not running\n"
 msgstr ""
 
-#: fish/rc.c:355 fish/rc.c:369
+#: fish/rc.c:356 fish/rc.c:370
 #, c-format
 msgid "guestfish: protocol error: could not send initial greeting to server\n"
 msgstr ""
 
-#: fish/rc.c:380
+#: fish/rc.c:381
 #, c-format
 msgid "guestfish: protocol error: could not decode reply from server\n"
 msgstr ""
