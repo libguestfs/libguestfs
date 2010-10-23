@@ -424,12 +424,14 @@ Guestfish will prompt for these separately."
         pr "  for (; i < argc; ++i) {\n";
         pr "    uint64_t this_mask;\n";
         pr "    const char *this_arg;\n";
+        pr "\n";
+        pr "    ";
         List.iter (
           fun argt ->
             let n = name_of_argt argt in
             let uc_n = String.uppercase n in
             let len = String.length n in
-            pr "    if (STRPREFIX (argv[i], \"%s:\")) {\n" n;
+            pr "if (STRPREFIX (argv[i], \"%s:\")) {\n" n;
             (match argt with
              | Bool n ->
                  pr "      optargs_s.%s = is_true (&argv[i][%d]) ? 1 : 0;\n"
@@ -453,8 +455,15 @@ Guestfish will prompt for these separately."
             pr "      this_mask = GUESTFS_%s_%s_BITMASK;\n" uc_name uc_n;
             pr "      this_arg = \"%s\";\n" n;
             pr "    }\n";
+            pr "    else ";
         ) optargs;
 
+        pr "{\n";
+        pr "      fprintf (stderr, _(\"%%s: unknown optional argument \\\"%%s\\\"\\n\"),\n";
+        pr "               cmd, argv[i]);\n";
+        pr "      return -1;\n";
+        pr "    }\n";
+        pr "\n";
         pr "    if (optargs_s.bitmask & this_mask) {\n";
         pr "      fprintf (stderr, _(\"%%s: optional argument %%s given twice\\n\"),\n";
         pr "               cmd, this_arg);\n";
