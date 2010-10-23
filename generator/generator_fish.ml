@@ -465,7 +465,7 @@ Guestfish will prompt for these separately."
         pr "    }\n";
         pr "\n";
         pr "    if (optargs_s.bitmask & this_mask) {\n";
-        pr "      fprintf (stderr, _(\"%%s: optional argument %%s given twice\\n\"),\n";
+        pr "      fprintf (stderr, _(\"%%s: optional argument \\\"%%s\\\" given twice\\n\"),\n";
         pr "               cmd, this_arg);\n";
         pr "      return -1;\n";
         pr "    }\n";
