@@ -85,7 +85,7 @@ expand_home (const char *append)
   home = getenv ("HOME");
   if (!home) home = "~";
 
-  len = strlen (home) + (append ? strlen (append) : 0);
+  len = strlen (home) + (append ? strlen (append) : 0) + 1;
   str = malloc (len);
   if (str == NULL) {
     perror ("malloc");
