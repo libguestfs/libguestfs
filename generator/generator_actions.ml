@@ -5208,6 +5208,22 @@ see the L<pread(2)> system call.
 
 See also C<guestfs_pread>.");
 
+  ("lvm_canonical_lv_name", (RString "lv", [Device "lvname"], []), 277, [],
+   [InitBasicFSonLVM, IfAvailable "lvm2", TestOutput (
+    [["lvm_canonical_lv_name"; "/dev/mapper/VG-LV"]], "/dev/VG/LV");
+    InitBasicFSonLVM, IfAvailable "lvm2", TestOutput (
+    [["lvm_canonical_lv_name"; "/dev/VG/LV"]], "/dev/VG/LV")],
+   "get canonical name of an LV",
+   "\
+This converts alternative naming schemes for LVs that you
+might find to the canonical name.  For example, C</dev/mapper/VG-LV>
+is converted to C</dev/VG/LV>.
+
+This command returns an error if the C<lvname> parameter does
+not refer to a logical volume.
+
+See also C<guestfs_is_lv>.");
+
 ]
 
 let all_functions = non_daemon_functions @ daemon_functions

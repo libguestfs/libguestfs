@@ -709,3 +709,45 @@ do_is_lv (const char *device)
   free_strings (lvs);
   return 0;
 }
+
+/* Similar to is_lv above (RHBZ#638899). */
+char *
+do_lvm_canonical_lv_name (const char *device)
+{
+  struct stat stat1, stat2;
+
+  int r = stat (device, &stat1);
+  if (r == -1) {
+    reply_with_perror ("stat: %s", device);
+    return NULL;
+  }
+
+  char **lvs = do_lvs ();
+  if (lvs == NULL)
+    return NULL;
+
+  size_t i;
+  for (i = 0; lvs[i] != NULL; ++i) {
+    r = stat (lvs[i], &stat2);
+    if (r == -1) {
+      reply_with_perror ("stat: %s", lvs[i]);
+      free_strings (lvs);
+      return NULL;
+    }
+    if (stat1.st_rdev == stat2.st_rdev) { /* found it */
+      char *r = strdup (lvs[i]);
+      if (r == NULL) {
+        reply_with_perror ("strdup");
+        free_strings (lvs);
+      }
+      free_strings (lvs);
+      return r;
+    }
+  }
+
+  free_strings (lvs);
+
+  /* not found */
+  reply_with_error ("%s: not a logical volume", device);
+  return NULL;
+}
