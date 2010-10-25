@@ -42,7 +42,7 @@ do_stat (const char *path)
   CHROOT_OUT;
 
   if (r == -1) {
-    reply_with_perror ("stat");
+    reply_with_perror ("%s", path);
     return NULL;
   }
 
@@ -89,7 +89,7 @@ do_lstat (const char *path)
   CHROOT_OUT;
 
   if (r == -1) {
-    reply_with_perror ("stat");
+    reply_with_perror ("%s", path);
     return NULL;
   }
 
