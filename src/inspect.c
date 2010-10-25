@@ -878,38 +878,53 @@ add_fstab_entry (guestfs_h *g, struct inspect_fs *fs,
 }
 
 /* Resolve block device name to the libguestfs device name, eg.
- * /dev/xvdb1 => /dev/vdb1.  This assumes that disks were added in the
- * same order as they appear to the real VM, which is a reasonable
- * assumption to make.  Return things like LV names unchanged (or
- * anything we don't recognize).
+ * /dev/xvdb1 => /dev/vdb1; and /dev/mapper/VG-LV => /dev/VG/LV.  This
+ * assumes that disks were added in the same order as they appear to
+ * the real VM, which is a reasonable assumption to make.  Return
+ * anything we don't recognize unchanged.
  */
 static char *
 resolve_fstab_device (guestfs_h *g, const char *spec)
 {
-  char **devices = guestfs_list_devices (g);
-  if (devices == NULL)
-    return NULL;
-
-  size_t count;
-  for (count = 0; devices[count] != NULL; count++)
-    ;
-
+  char *a1;
   char *device = NULL;
-  char *a1 = match1 (g, spec, re_xdev);
-  if (a1) {
+
+  if (STRPREFIX (spec, "/dev/mapper/")) {
+    /* LVM2 does some strange munging on /dev/mapper paths for VGs and
+     * LVs which contain '-' character:
+     *
+     * ><fs> lvcreate LV--test VG--test 32
+     * ><fs> debug ls /dev/mapper
+     * VG----test-LV----test
+     *
+     * This makes it impossible to reverse those paths directly, so
+     * we have implemented lvm_canonical_lv_name in the daemon.
+     */
+    device = guestfs_lvm_canonical_lv_name (g, spec);
+  }
+  else if ((a1 = match1 (g, spec, re_xdev)) != NULL) {
+    char **devices = guestfs_list_devices (g);
+    if (devices == NULL)
+      return NULL;
+
+    size_t count;
+    for (count = 0; devices[count] != NULL; count++)
+      ;
+
     size_t i = a1[0] - 'a'; /* a1[0] is always [a-z] because of regex. */
     if (i < count) {
       size_t len = strlen (devices[i]) + strlen (a1) + 16;
       device = safe_malloc (g, len);
       snprintf (device, len, "%s%s", devices[i], &a1[1]);
     }
-  } else {
+
+    free (a1);
+    free_string_list (devices);
+  }
+  else {
     /* Didn't match device pattern, return original spec unchanged. */
     device = safe_strdup (g, spec);
   }
-
-  free (a1);
-  free_string_list (devices);
 
   return device;
 }
