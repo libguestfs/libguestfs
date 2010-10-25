@@ -286,11 +286,11 @@ best effort attempt to run C<guestfs_umount_all> followed by
 C<guestfs_sync> when the handle is closed
 (also if the program exits without closing handles).
 
-This is disabled by default (except in guestfish where it is
-enabled by default).");
+This is enabled by default (since libguestfs 1.5.24, previously it was
+disabled by default).");
 
   ("get_autosync", (RBool "autosync", [], []), -1, [],
-   [InitNone, Always, TestRun (
+   [InitNone, Always, TestOutputTrue (
       [["get_autosync"]])],
    "get autosync mode",
    "\

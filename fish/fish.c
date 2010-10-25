@@ -230,8 +230,6 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
   }
 
-  guestfs_set_autosync (g, 1);
-
   /* If developing, add ./appliance to the path.  Note that libtools
    * interferes with this because uninstalled guestfish is a shell
    * script that runs the real program with an absolute path.  Detect

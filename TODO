@@ -181,7 +181,6 @@ To mount read-only, add C<ro =E<gt> 1> like this:
 which is equivalent to the following sequence of calls:
 
  $h = Sys::Guestfs->new ();
- $h->set_autosync (1);
  $h->add_drive_ro ($filename);
  $h->launch ();
  $h->mount_ro (\"/dev/sda1\", \"/\");

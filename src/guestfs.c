@@ -100,6 +100,7 @@ guestfs_create (void)
   g->error_cb_data = NULL;
 
   g->recovery_proc = 1;
+  g->autosync = 1;
 
   str = getenv ("LIBGUESTFS_DEBUG");
   g->verbose = str != NULL && STREQ (str, "1");

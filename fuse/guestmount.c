@@ -982,7 +982,6 @@ main (int argc, char *argv[])
     exit (EXIT_FAILURE);
   }
 
-  guestfs_set_autosync (g, 1);
   guestfs_set_recovery_proc (g, 0);
 
   ADD_FUSE_ARG (program_name);

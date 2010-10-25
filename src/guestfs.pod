@@ -701,6 +701,9 @@ Note that in L<guestfish(3)> autosync is the default.  So quick and
 dirty guestfish scripts that forget to sync will work just fine, which
 can make this very puzzling if you are trying to debug a problem.
 
+Update: Autosync is enabled by default for all API users starting from
+libguestfs 1.5.24.
+
 =item Mount option C<-o sync> should not be the default.
 
 If you use L</guestfs_mount>, then C<-o sync,noatime> are added
