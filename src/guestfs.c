@@ -61,6 +61,7 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 
+#include "c-ctype.h"
 #include "glthread/lock.h"
 #include "hash.h"
 #include "hash-pjw.h"
@@ -730,4 +731,32 @@ guestfs_get_private (guestfs_h *g, const char *key)
     return entry->data;
   else
     return NULL;
+}
+
+/* When tracing, be careful how we print BufferIn parameters which
+ * usually contain large amounts of binary data (RHBZ#646822).
+ */
+void
+guestfs___print_BufferIn (FILE *out, const char *buf, size_t buf_size)
+{
+  size_t i;
+  size_t orig_size = buf_size;
+
+  if (buf_size > 256)
+    buf_size = 256;
+
+  fputc ('"', out);
+
+  for (i = 0; i < buf_size; ++i) {
+    if (c_isprint (buf[i]))
+      fputc (buf[i], out);
+    else
+      fprintf (out, "\\x%02x", (unsigned char) buf[i]);
+  }
+
+  fputc ('"', out);
+
+  if (orig_size > buf_size)
+    fprintf (out,
+             _("<truncated, original size %zu bytes>"), orig_size);
 }

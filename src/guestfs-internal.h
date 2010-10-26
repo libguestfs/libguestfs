@@ -212,6 +212,7 @@ extern int guestfs___send_to_daemon (guestfs_h *g, const void *v_buf, size_t n);
 extern int guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **buf_rtn);
 extern int guestfs___accept_from_daemon (guestfs_h *g);
 extern int guestfs___build_appliance (guestfs_h *g, char **kernel, char **initrd, char **appliance);
+extern void guestfs___print_BufferIn (FILE *out, const char *buf, size_t buf_size);
 
 #define error guestfs_error
 #define perrorf guestfs_perrorf

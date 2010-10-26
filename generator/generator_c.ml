@@ -591,7 +591,6 @@ check_state (guestfs_h *g, const char *caller)
       | Dev_or_Path n
       | FileIn n
       | FileOut n
-      | BufferIn n
       | Key n ->
           (* guestfish doesn't support string escaping, so neither do we *)
           pr "    fprintf (stderr, \" \\\"%%s\\\"\", %s);\n" n
@@ -613,6 +612,9 @@ check_state (guestfs_h *g, const char *caller)
           pr "    fprintf (stderr, \" %%d\", %s);\n" n
       | Int64 n ->
           pr "    fprintf (stderr, \" %%\" PRIi64, %s);\n" n
+      | BufferIn n ->                   (* RHBZ#646822 *)
+          pr "    fputc (' ', stderr);\n";
+          pr "    guestfs___print_BufferIn (stderr, %s, %s_size);\n" n n
     ) args;
 
     (* Optional arguments. *)
