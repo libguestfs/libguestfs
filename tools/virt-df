@@ -173,6 +173,20 @@ guests.
 
 =back
 
+=cut
+
+my $uuid;
+
+=item B<--uuid>
+
+Print UUIDs instead of names.  This is useful for following
+a guest even when the guest is migrated or renamed, or when
+two guests happen to have the same name.
+
+Note that only domains that we fetch from libvirt come with UUIDs.
+For disk images, we still print the disk image name even when
+this option is specified.
+
 =back
 
 =cut
@@ -185,6 +199,7 @@ GetOptions ("help|?" => \$help,
             "human-readable|human|h" => \$human,
             "inodes|i" => \$inodes,
             "one-per-guest" => \$one_per_guest,
+            "uuid" => \$uuid,
     ) or pod2usage (2);
 pod2usage (1) if $help;
 if ($version) {
@@ -242,6 +257,7 @@ if (@ARGV == 0) {               # No params, use libvirt.
         my @disks = get_disks_from_libvirt ($dom);
         push @domains, { dom => $dom,
                          name => $dom->get_name (),
+                         uuid => $dom->get_uuid_string (),
                          disks => \@disks }
     }
 } elsif (@ARGV == 1) {          # One param, could be disk image or domname.
@@ -263,6 +279,7 @@ if (@ARGV == 0) {               # No params, use libvirt.
         my @disks = get_disks_from_libvirt ($dom);
         push @domains, { dom => $dom,
                          name => $dom->get_name (),
+                         uuid => $dom->get_uuid_string (),
                          disks => \@disks }
     }
 } else {                        # >= 2 params, all disk images.
@@ -366,6 +383,7 @@ sub multi_df
         my $n = 0;
         foreach $d (@_) {
             my $name = $d->{name};
+            my $uuid = $d->{uuid};
             my $nr_disks = @{$d->{disks}};
 
             # Filter LVM to only the devices applying to the original domain.
@@ -376,14 +394,14 @@ sub multi_df
             # contain mountable filesystems.  Stat those which are
             # mountable, and ignore the others.
             foreach (@devs) {
-                try_df ($name, $g, $_, canonical_dev ($_, $n));
+                try_df ($name, $uuid, $g, $_, canonical_dev ($_, $n));
             }
             foreach (filter_partitions (\@devs, @partitions)) {
-                try_df ($name, $g, $_, canonical_dev ($_, $n));
+                try_df ($name, $uuid, $g, $_, canonical_dev ($_, $n));
             }
             if ($has_lvm2) {
                 foreach ($g->lvs ()) {
-                    try_df ($name, $g, $_);
+                    try_df ($name, $uuid, $g, $_);
                 }
             }
 
@@ -433,6 +451,7 @@ sub try_df
 {
     local $_;
     my $domname = shift;
+    my $domuuid = shift;
     my $g = shift;
     my $dev = shift;
     my $display = shift || $dev;
@@ -443,7 +462,7 @@ sub try_df
         %stat = $g->statvfs ("/");
     };
     if (!$@) {
-        print_stat ($domname, $display, \%stat);
+        print_stat ($domname, $domuuid, $display, \%stat);
     }
     $g->umount_all ();
 }
@@ -451,10 +470,17 @@ sub try_df
 sub print_stat
 {
     my $domname = shift;
+    my $domuuid = shift;
     my $dev = shift;
     my $stat = shift;
 
-    my @cols = ($domname, $dev);
+    my @cols;
+    if (!$uuid || !defined $domuuid) {
+        push @cols, $domname;
+    } else {
+        push @cols, $domuuid;
+    }
+    push @cols, $dev;
 
     if (!$inodes) {
         my $bsize = $stat->{bsize};	# block size
