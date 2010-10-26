@@ -31,6 +31,7 @@
 #include <hivex.h>
 #include <augeas.h>
 
+#include "c-ctype.h"
 #include "ignore-value.h"
 #include "xstrtol.h"
 
@@ -829,6 +830,12 @@ add_fstab_entry (guestfs_h *g, struct inspect_fs *fs,
       STREQ (mp, "/selinux") ||
       STRPREFIX (mp, "/sys/") ||
       STREQ (mp, "/sys"))
+    return 0;
+
+  /* Ignore /dev/fd (floppy disks) (RHBZ#642929) and CD-ROM drives. */
+  if ((STRPREFIX (spec, "/dev/fd") && c_isdigit (spec[7])) ||
+      STREQ (spec, "/dev/floppy") ||
+      STREQ (spec, "/dev/cdrom"))
     return 0;
 
   /* Resolve UUID= and LABEL= to the actual device. */
