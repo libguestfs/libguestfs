@@ -17,13 +17,6 @@ IDs and the host.  It's not easy to automate this because you need
 extra details about the guest itself in order to get to its
 UID->username map (eg. /etc/passwd from the guest).
 
-febootstrap / debootstrap inside appliance
-------------------------------------------
-
-This was originally proposed as a way to install new operating systems
-in the appliance.  However no one has come up with a workable
-solution.
-
 Haskell bindings
 ----------------
 
@@ -241,18 +234,6 @@ However this won't work easily for VM disk images in the disk image.
 One would have to download those to the host and launch another
 libguestfs instance.
 
-List, mount filesystems by UUID and label
------------------------------------------
-
-[See related:
-http://www.redhat.com/archives/libguestfs/2009-August/msg00031.html]
-
-List filesystems by UUID or label.
-
-Mount filesystems by UUID or label.  (I'm not really sure if we can do
-this at the moment but we ought to be able to do it, and perhaps make
-it easier by having a direct command).
-
 Map filesystems to disk blocks
 ------------------------------
 
@@ -262,6 +243,8 @@ blocks they occupy.
 And vice versa.
 
 Is it even possible?
+
+See also contribs/visualize-alignment/
 
 Integration with host intrusion systems
 ---------------------------------------
@@ -274,11 +257,6 @@ http://la-samhna.de/samhain/
 http://sourceforge.net/projects/aide/
 http://osiris.shmoo.com/
 http://sourceforge.net/projects/tripwire/
-
--N option should be generated
------------------------------
-
-'-N' option should generate documentation in guestfish(1) manpage.
 
 Fix 'file'
 ----------
@@ -318,20 +296,6 @@ Tip: Use 'mount fs /' to mount a filesystem.
 ><fs> mount /dev/vda1 /
 Tip: Use 'll /' to view the filesystem or ...
 ><fs> ll /
-
-New guestfish commands
-----------------------
-
-'list-filesystems' => list mountable filesystems
-
-We could implement this as a new API call, replacing a number of areas
-of the current code where this is done already (in virt-inspector and
-elsewhere).  What we normally do to find out if a partition contains a
-mountable filesystem is to just blindly mount it, and see if that
-succeeds.  However the kernel won't let us do this if the filesystem
-is already mounted somewhere, so a naive implementation of this in the
-daemon won't work.  We would have to check if the partition was
-already mounted.
 
 Could we make guestfish interactive if commands are used without params?
 ------------------------------------------------------------------------
@@ -376,12 +340,6 @@ would make more sense to just use libblkid for this.
 There are some places where we call out to the 'blkid' program.  This
 might be replaced by direct use of the library (if this is easier).
 
-Remove repo from appliance name
--------------------------------
-
-There's no need to have the appliance name contain the repository name
-(ie initramfs.x86_64.img instead of initramfs.fedora-13.x86_64.img).
-
 Visualization
 -------------
 
@@ -389,13 +347,6 @@ Eric Sandeen pointed out the blktrace tool which is a better way of
 capturing traces than using patched qemu (see
 contrib/visualize-alignment).  We would still use the same
 visualization tools in conjunction with blktrace traces.
-
-Virt-df UUID
-------------
-
-Virt-df and any other tools with --csv output should be able to print
-UUID of domain.  This allows you to track the real domain across
-renames etc.
 
 Add-domain command
 ------------------
