@@ -3394,13 +3394,28 @@ in guestfish:
  add-ro Fedora-11-i686-Live.iso
  run
  mkmountpoint /cd
- mkmountpoint /squash
- mkmountpoint /ext3
+ mkmountpoint /sqsh
+ mkmountpoint /ext3fs
  mount /dev/sda /cd
- mount-loop /cd/LiveOS/squashfs.img /squash
- mount-loop /squash/LiveOS/ext3fs.img /ext3
+ mount-loop /cd/LiveOS/squashfs.img /sqsh
+ mount-loop /sqsh/LiveOS/ext3fs.img /ext3fs
 
-The inner filesystem is now unpacked under the /ext3 mountpoint.");
+The inner filesystem is now unpacked under the /ext3fs mountpoint.
+
+C<guestfs_mkmountpoint> is not compatible with C<guestfs_umount_all>.
+You may get unexpected errors if you try to mix these calls.  It is
+safest to manually unmount filesystems and remove mountpoints after use.
+
+C<guestfs_umount_all> unmounts filesystems by sorting the paths
+longest first, so for this to work for manual mountpoints, you
+must ensure that the innermost mountpoints have the longest
+pathnames, as in the example code above.
+
+For more details see L<https://bugzilla.redhat.com/show_bug.cgi?id=599503>
+
+Autosync [see C<guestfs_set_autosync>, this is set by default on
+handles] means that C<guestfs_umount_all> is called when the handle
+is closed which can also trigger these issues.");
 
   ("rmmountpoint", (RErr, [String "exemptpath"], []), 149, [],
    [],
