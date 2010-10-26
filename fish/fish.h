@@ -112,10 +112,6 @@ extern int run_edit (const char *cmd, size_t argc, char *argv[]);
 /* in hexedit.c */
 extern int run_hexedit (const char *cmd, size_t argc, char *argv[]);
 
-/* in inspect.c */
-extern void inspect_mount (void);
-extern void print_inspect_prompt (void);
-
 /* in lcd.c */
 extern int run_lcd (const char *cmd, size_t argc, char *argv[]);
 
@@ -141,7 +137,7 @@ extern prep_data *create_prepared_file (const char *type_string,
 extern void prepare_drive (const char *filename, prep_data *data,
                            const char *device);
 extern void prep_error (prep_data *data, const char *filename, const char *fs, ...) __attribute__((noreturn, format (printf,3,4)));
-extern void free_prep_data (prep_data *data);
+extern void free_prep_data (void *data);
 
 /* in prep_lv.c */
 extern int vg_lv_parse (const char *device, char **vg, char **lv);
@@ -166,9 +162,6 @@ extern int run_time (const char *cmd, size_t argc, char *argv[]);
 
 /* in tilde.c */
 extern char *try_tilde_expansion (char *path);
-
-/* in virt.c */
-extern int add_libvirt_drives (const char *guest);
 
 /* This should just list all the built-in commands so they can
  * be added to the generated auto-completion code.

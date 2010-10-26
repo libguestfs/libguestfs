@@ -40,42 +40,14 @@
 #include <guestfs.h>
 
 #include "fish.h"
+#include "options.h"
+
 #include "c-ctype.h"
 #include "closeout.h"
 #include "progname.h"
 
-/* List of drives added via -a, -d or -N options. */
-struct drv {
-  struct drv *next;
-  enum { drv_a, drv_d, drv_N } type;
-  union {
-    struct {
-      char *filename;       /* disk filename */
-      const char *format;   /* format (NULL == autodetect) */
-    } a;
-    struct {
-      char *guest;          /* guest name */
-    } d;
-    struct {
-      char *filename;       /* disk filename (testX.img) */
-      prep_data *data;      /* prepared type */
-      char *device;         /* device inside the appliance */
-    } N;
-  };
-};
-
-struct mp {
-  struct mp *next;
-  char *device;
-  char *mountpoint;
-};
-
 static void set_up_terminal (void);
-static char add_drives (struct drv *drv, char next_drive);
 static void prepare_drives (struct drv *drv);
-static void mount_mps (struct mp *mp);
-static void free_drives (struct drv *drv);
-static void free_mps (struct mp *mp);
 static int launch (void);
 static void interactive (void);
 static void shell_script (void);
@@ -151,8 +123,8 @@ usage (int status)
              "  -r|--ro              Mount read-only\n"
              "  --selinux            Enable SELinux support\n"
              "  -v|--verbose         Verbose messages\n"
-             "  -x                   Echo each command before executing it\n"
              "  -V|--version         Display version and exit\n"
+             "  -x                   Echo each command before executing it\n"
              "For more information, see the manpage %s(1).\n"),
              program_name, program_name, program_name,
              program_name, program_name, program_name,
@@ -299,61 +271,15 @@ main (int argc, char *argv[])
       break;
 
     case 'a':
-      if (access (optarg, R_OK) != 0) {
-        perror (optarg);
-        exit (EXIT_FAILURE);
-      }
-      drv = malloc (sizeof (struct drv));
-      if (!drv) {
-        perror ("malloc");
-        exit (EXIT_FAILURE);
-      }
-      drv->type = drv_a;
-      drv->a.filename = optarg;
-      drv->a.format = format;
-      drv->next = drvs;
-      drvs = drv;
+      OPTION_a;
       break;
 
     case 'c':
-      libvirt_uri = optarg;
+      OPTION_c;
       break;
 
     case 'd':
-      drv = malloc (sizeof (struct drv));
-      if (!drv) {
-        perror ("malloc");
-        exit (EXIT_FAILURE);
-      }
-      drv->type = drv_d;
-      drv->d.guest = optarg;
-      drv->next = drvs;
-      drvs = drv;
-      break;
-
-    case 'N':
-      if (STRCASEEQ (optarg, "list") ||
-          STRCASEEQ (optarg, "help") ||
-          STRCASEEQ (optarg, "h") ||
-          STRCASEEQ (optarg, "?")) {
-        list_prepared_drives ();
-        exit (EXIT_SUCCESS);
-      }
-      drv = malloc (sizeof (struct drv));
-      if (!drv) {
-        perror ("malloc");
-        exit (EXIT_FAILURE);
-      }
-      drv->type = drv_N;
-      if (asprintf (&drv->N.filename, "test%d.img",
-                    next_prepared_drive++) == -1) {
-        perror ("asprintf");
-        exit (EXIT_FAILURE);
-      }
-      drv->N.data = create_prepared_file (optarg, drv->N.filename);
-      drv->N.device = NULL;     /* filled in by add_drives */
-      drv->next = drvs;
-      drvs = drv;
+      OPTION_d;
       break;
 
     case 'D':
@@ -383,48 +309,57 @@ main (int argc, char *argv[])
     }
 
     case 'i':
-      inspector = 1;
+      OPTION_i;
       break;
 
     case 'm':
-      mp = malloc (sizeof (struct mp));
-      if (!mp) {
-        perror ("malloc");
-        exit (EXIT_FAILURE);
-      }
-      p = strchr (optarg, ':');
-      if (p) {
-        *p = '\0';
-        mp->mountpoint = p+1;
-      } else
-        mp->mountpoint = bad_cast ("/");
-      mp->device = optarg;
-      mp->next = mps;
-      mps = mp;
+      OPTION_m;
       break;
 
     case 'n':
-      guestfs_set_autosync (g, 0);
+      OPTION_n;
+      break;
+
+    case 'N':
+      if (STRCASEEQ (optarg, "list") ||
+          STRCASEEQ (optarg, "help") ||
+          STRCASEEQ (optarg, "h") ||
+          STRCASEEQ (optarg, "?")) {
+        list_prepared_drives ();
+        exit (EXIT_SUCCESS);
+      }
+      drv = malloc (sizeof (struct drv));
+      if (!drv) {
+        perror ("malloc");
+        exit (EXIT_FAILURE);
+      }
+      drv->type = drv_N;
+      if (asprintf (&drv->N.filename, "test%d.img",
+                    next_prepared_drive++) == -1) {
+        perror ("asprintf");
+        exit (EXIT_FAILURE);
+      }
+      drv->N.data = create_prepared_file (optarg, drv->N.filename);
+      drv->N.data_free = free_prep_data;
+      drv->N.device = NULL;     /* filled in by add_drives */
+      drv->next = drvs;
+      drvs = drv;
       break;
 
     case 'r':
-      read_only = 1;
+      OPTION_r;
       break;
 
     case 'v':
-      verbose++;
-      guestfs_set_verbose (g, verbose);
+      OPTION_v;
       break;
 
-    case 'V': {
-      struct guestfs_version *v = guestfs_version (g);
-      printf ("%s %"PRIi64".%"PRIi64".%"PRIi64"%s\n", program_name,
-              v->major, v->minor, v->release, v->extra);
-      exit (EXIT_SUCCESS);
-    }
+    case 'V':
+      OPTION_V;
+      break;
 
     case 'x':
-      guestfs_set_trace (g, 1);
+      OPTION_x;
       break;
 
     case HELP_OPTION:
@@ -604,107 +539,6 @@ pod2text (const char *name, const char *shortdesc, const char *str)
   pclose (fp);
 }
 
-/* List is built in reverse order, so mount them in reverse order. */
-static void
-mount_mps (struct mp *mp)
-{
-  int r;
-
-  if (mp) {
-    mount_mps (mp->next);
-
-    /* Don't use guestfs_mount here because that will default to mount
-     * options -o sync,noatime.  For more information, see guestfs(3)
-     * section "LIBGUESTFS GOTCHAS".
-     */
-    const char *options = read_only ? "ro" : "";
-    r = guestfs_mount_options (g, options, mp->device, mp->mountpoint);
-    if (r == -1) {
-      /* Display possible mountpoints before exiting. */
-      char **fses = guestfs_list_filesystems (g);
-      if (fses == NULL || fses[0] == NULL)
-        goto out;
-      fprintf (stderr,
-               _("guestfish: '%s' could not be mounted.  Did you mean one of these?\n"),
-               mp->device);
-      size_t i;
-      for (i = 0; fses[i] != NULL; i += 2)
-        fprintf (stderr, "\t%s (%s)\n", fses[i], fses[i+1]);
-
-    out:
-      exit (EXIT_FAILURE);
-    }
-  }
-}
-
-static char
-add_drives (struct drv *drv, char next_drive)
-{
-  int r;
-  struct guestfs_add_drive_opts_argv ad_optargs;
-
-  if (next_drive > 'z') {
-    fprintf (stderr,
-             _("guestfish: too many drives added on the command line\n"));
-    exit (EXIT_FAILURE);
-  }
-
-  if (drv) {
-    next_drive = add_drives (drv->next, next_drive);
-
-    switch (drv->type) {
-    case drv_a:
-      ad_optargs.bitmask = 0;
-      if (read_only) {
-        ad_optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_READONLY_BITMASK;
-        ad_optargs.readonly = 1;
-      }
-      if (drv->a.format) {
-        ad_optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_FORMAT_BITMASK;
-        ad_optargs.format = drv->a.format;
-      }
-      r = guestfs_add_drive_opts_argv (g, drv->a.filename, &ad_optargs);
-      if (r == -1)
-        exit (EXIT_FAILURE);
-
-      next_drive++;
-      break;
-
-    case drv_d:
-      r = add_libvirt_drives (drv->d.guest);
-      if (r == -1)
-        exit (EXIT_FAILURE);
-
-      next_drive += r;
-      break;
-
-    case drv_N:
-      /* guestfs_add_drive (ie. autodetecting) should be safe here
-       * since we have just created the prepared disk.  At the moment
-       * it will always be "raw" but in a theoretical future we might
-       * create other formats.
-       */
-      /* -N option is not affected by --ro */
-      r = guestfs_add_drive (g, drv->N.filename);
-      if (r == -1)
-        exit (EXIT_FAILURE);
-
-      if (asprintf (&drv->N.device, "/dev/sd%c", next_drive) == -1) {
-        perror ("asprintf");
-        exit (EXIT_FAILURE);
-      }
-
-      next_drive++;
-      break;
-
-    default: /* keep GCC happy */
-      abort ();
-    }
-  }
-
-  return next_drive;
-}
-
 static void
 prepare_drives (struct drv *drv)
 {
@@ -713,38 +547,6 @@ prepare_drives (struct drv *drv)
     if (drv->type == drv_N)
       prepare_drive (drv->N.filename, drv->N.data, drv->N.device);
   }
-}
-
-static void
-free_drives (struct drv *drv)
-{
-  if (!drv) return;
-  free_drives (drv->next);
-
-  switch (drv->type) {
-  case drv_a: /* a.filename and a.format are optargs, don't free them */ break;
-  case drv_d: /* d.filename is optarg, don't free it */ break;
-  case drv_N:
-    free (drv->N.filename);
-    free (drv->N.device);
-    free_prep_data (drv->N.data);
-    break;
-  default: ;                    /* keep GCC happy */
-  }
-  free (drv);
-}
-
-static void
-free_mps (struct mp *mp)
-{
-  if (!mp) return;
-  free_mps (mp->next);
-
-  /* The drive and mountpoint fields are not allocated
-   * from the heap, so we should not free them here.
-   */
-
-  free (mp);
 }
 
 static int

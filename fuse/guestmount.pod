@@ -8,6 +8,10 @@ guestmount - Mount a guest filesystem on the host using FUSE and libguestfs
 
  guestmount [--options] -a disk.img -m device [--ro] mountpoint
 
+ guestmount [--options] -a disk.img -i [--ro] mountpoint
+
+ guestmount [--options] -d Guest -i [--ro] mountpoint
+
 =head1 WARNING
 
 You must I<not> use C<guestmount> in read-write mode on live virtual
@@ -21,10 +25,10 @@ access to the guest filesystem, and FUSE (the "filesystem in
 userspace") to make it appear as a mountable device.
 
 Along with other options, you have to give at least one device (I<-a>
-option) and at least one mountpoint (I<-m> option).  How this works is
-better explained in the L<guestfish(1)> manual page, or you can use
-L<virt-inspector(1)> and/or the wrapper script
-C<guestmount-wrapper> to help you.
+option) or libvirt domain (I<-d> option), and at least one mountpoint
+(I<-m> option) or use the I<-i> inspection option.  How this works is
+better explained in the L<guestfish(1)> manual page, or by looking at
+the examples below.
 
 FUSE lets you mount filesystems as non-root.  The mountpoint must be
 owned by you, and the filesystem will not be visible to any other
@@ -44,14 +48,13 @@ partition, and the root filesystem on a logical volume:
 
  guestmount -a linux.img -m /dev/VG/LV -m /dev/sda1:/boot --ro /mnt
 
-To get L<virt-inspector(1)> to do the hard work of detecting guest
-mountpoints for you:
+To get libguestfs to detect guest mountpoints for you:
 
- guestmount $(virt-inspector --ro-fish MyGuest) /mnt
+ guestmount -a guest.img -i --ro /mnt
 
-(or use --fish if you don't want it to be a read only mount).  The
-option is called I<--ro-fish> or I<--fish> because these parameters
-are compatible with L<guestfish(1)>.
+For a libvirt guest called "Guest" you could do:
+
+ guestmount -d Guest -i --ro /mnt
 
 If you don't know what filesystems are contained in a guest or
 disk image, use L<virt-list-filesystems(1)> first:
@@ -59,13 +62,13 @@ disk image, use L<virt-list-filesystems(1)> first:
  virt-list-filesystems MyGuest
 
 If you want to trace the libguestfs calls but without excessive
-debugging, we recommend:
+debugging information, we recommend:
 
- guestmount [-a ... -m ...] --trace /mnt
+ guestmount [...] --trace /mnt
 
 If you want to debug the program, we recommend:
 
- guestmount [-a ... -m ...] --trace --verbose /mnt
+ guestmount [...] --trace --verbose /mnt
 
 =head1 OPTIONS
 
@@ -77,6 +80,18 @@ Add a block device or virtual machine image.
 
 The format of the disk image is auto-detected.  To override this and
 force a particular format use the I<--format=..> option.
+
+=item B<-c URI> | B<--connect URI>
+
+When used in conjunction with the I<-d> option, this specifies
+the libvirt URI to use.  The default is to use the default libvirt
+connection.
+
+=item B<-d libvirt-domain> | B<--domain libvirt-domain>
+
+Add disks from the named libvirt domain.  If the I<--ro> option is
+also used, then any libvirt domain can be used.  However in write
+mode, only libvirt domains which are shut down can be named here.
 
 =item B<--dir-cache-timeout N>
 
@@ -100,7 +115,7 @@ switches back to auto-detection for subsequent I<-a> options.
 If you have untrusted raw-format guest disk images, you should use
 this option to specify the disk format.  This avoids a possible
 security problem with malicious guests (CVE-2010-3851).  See also
-L</add-drive-opts>.
+L<guestfs(3)/guestfs_add_drive_opts>.
 
 =item B<--fuse-help>
 
@@ -109,6 +124,12 @@ Display help on special FUSE options (see I<-o> below).
 =item B<--help>
 
 Display brief help and exit.
+
+=item B<-i> | B<--inspector>
+
+Using L<virt-inspector(1)> code, inspect the disks looking for
+an operating system and mount filesystems as they would be
+mounted on the real virtual machine.
 
 =item B<-m dev[:mnt]> | B<--mount dev[:mnt]>
 
@@ -174,12 +195,6 @@ to prevent this from happening, but it is not always possible.
 
 Enable SELinux support for the guest.
 
-=item B<--trace>
-
-Trace libguestfs calls (to stderr).
-
-This also stops the daemon from forking into the background.
-
 =item B<-v> | B<--verbose>
 
 Enable verbose messages from underlying libguestfs.
@@ -187,6 +202,12 @@ Enable verbose messages from underlying libguestfs.
 =item B<-V> | B<--version>
 
 Display the program version and exit.
+
+=item B<-x> | B<--trace>
+
+Trace libguestfs calls.
+
+This also stops the daemon from forking into the background.
 
 =back
 
@@ -207,7 +228,7 @@ Richard W.M. Jones (C<rjones at redhat dot com>)
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Red Hat Inc.
+Copyright (C) 2009-2010 Red Hat Inc.
 L<http://libguestfs.org/>
 
 This program is free software; you can redistribute it and/or modify

@@ -38,8 +38,19 @@ EXTRA_DIST = \
 	guestfish.pod \
 	guestfish-bash-completion.sh
 
+# These source files (all related to option parsing) are shared
+# between guestfish and guestmount.  Keep a convenient list here just
+# so we know which ones are shared.  These files must not include
+# other guestfish files.
+SHARED_SOURCE_FILES = \
+	inspect.c \
+	options.h \
+	options.c \
+	virt.c
+
 guestfish_SOURCES = \
 	$(generator_built) \
+	$(SHARED_SOURCE_FILES) \
 	alloc.c \
 	copy.c \
 	destpaths.c \
@@ -49,7 +60,6 @@ guestfish_SOURCES = \
 	fish.h \
 	glob.c \
 	hexedit.c \
-	inspect.c \
 	lcd.c \
 	man.c \
 	more.c \
@@ -65,8 +75,7 @@ guestfish_SOURCES = \
 	rmsd.h \
 	supported.c \
 	tilde.c \
-	time.c \
-	virt.c
+	time.c
 
 # This convenience library is solely to avoid compiler warnings
 # in its generated sources.

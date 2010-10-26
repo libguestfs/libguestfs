@@ -83,6 +83,7 @@ fish/inspect.c
 fish/lcd.c
 fish/man.c
 fish/more.c
+fish/options.c
 fish/prep.c
 fish/prep_boot.c
 fish/prep_disk.c

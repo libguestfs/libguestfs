@@ -169,8 +169,9 @@ prep_error (prep_data *data, const char *filename, const char *fs, ...)
 }
 
 void
-free_prep_data (prep_data *data)
+free_prep_data (void *vp)
 {
+  prep_data *data = vp;
   size_t i;
 
   for (i = 0; i < data->prep->nr_params; ++i)

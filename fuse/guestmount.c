@@ -1,5 +1,5 @@
 /* guestmount - mount guests using libguestfs and FUSE
- * Copyright (C) 2009 Red Hat Inc.
+ * Copyright (C) 2009-2010 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -49,6 +49,7 @@
 #include "progname.h"
 
 #include "guestmount.h"
+#include "options.h"
 #include "dircache.h"
 
 /* See <attr/xattr.h> */
@@ -56,9 +57,11 @@
 #define ENOATTR ENODATA
 #endif
 
-static guestfs_h *g = NULL;
-static int read_only = 0;
+guestfs_h *g = NULL;
+int read_only = 0;
 int verbose = 0;
+int inspector = 0;
+const char *libvirt_uri;
 int dir_cache_timeout = 60;
 
 /* This is ugly: guestfs errors are strings, FUSE wants -errno.  We
@@ -851,21 +854,6 @@ static struct fuse_operations fg_operations = {
   .removexattr	= fg_removexattr,
 };
 
-struct drv {
-  struct drv *next;
-  char *filename;
-  const char *format;
-};
-
-struct mp {
-  struct mp *next;
-  char *device;
-  char *mountpoint;
-};
-
-static void add_drives (struct drv *);
-static void mount_mps (struct mp *);
-
 static void __attribute__((noreturn))
 fuse_help (void)
 {
@@ -884,23 +872,26 @@ usage (int status)
     fprintf (stdout,
            _("%s: FUSE module for libguestfs\n"
              "%s lets you mount a virtual machine filesystem\n"
-             "Copyright (C) 2009 Red Hat Inc.\n"
+             "Copyright (C) 2009-2010 Red Hat Inc.\n"
              "Usage:\n"
              "  %s [--options] [-- [--FUSE-options]] mountpoint\n"
              "Options:\n"
              "  -a|--add image       Add image\n"
+             "  -c|--connect uri     Specify libvirt URI for -d option\n"
              "  --dir-cache-timeout  Set readdir cache timeout (default 5 sec)\n"
+             "  -d|--domain guest    Add disks from libvirt guest\n"
              "  --format[=raw|..]    Force disk format for -a option\n"
              "  --fuse-help          Display extra FUSE options\n"
+             "  -i|--inspector       Automatically mount filesystems\n"
              "  --help               Display help message and exit\n"
              "  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
              "  -n|--no-sync         Don't autosync\n"
              "  -o|--option opt      Pass extra option to FUSE\n"
              "  -r|--ro              Mount read-only\n"
              "  --selinux            Enable SELinux support\n"
-             "  --trace              Trace guestfs API calls (to stderr)\n"
              "  -v|--verbose         Verbose messages\n"
              "  -V|--version         Display version and exit\n"
+             "  -x|--trace           Trace guestfs API calls\n"
              ),
              program_name, program_name, program_name);
   }
@@ -919,19 +910,22 @@ main (int argc, char *argv[])
   /* The command line arguments are broadly compatible with (a subset
    * of) guestfish.  Thus we have to deal mainly with -a, -m and --ro.
    */
-  static const char *options = "a:m:no:rv?V";
+  static const char *options = "a:c:d:im:no:rv?Vx";
   static const struct option long_options[] = {
     { "add", 1, 0, 'a' },
+    { "connect", 1, 0, 'c' },
     { "dir-cache-timeout", 1, 0, 0 },
+    { "domain", 1, 0, 'd' },
     { "format", 2, 0, 0 },
     { "fuse-help", 0, 0, 0 },
     { "help", 0, 0, HELP_OPTION },
+    { "inspector", 0, 0, 'i' },
     { "mount", 1, 0, 'm' },
     { "no-sync", 0, 0, 'n' },
     { "option", 1, 0, 'o' },
     { "ro", 0, 0, 'r' },
     { "selinux", 0, 0, 0 },
-    { "trace", 0, 0, 0 },
+    { "trace", 0, 0, 'x' },
     { "verbose", 0, 0, 'v' },
     { "version", 0, 0, 'V' },
     { 0, 0, 0, 0 }
@@ -1016,11 +1010,6 @@ main (int argc, char *argv[])
         fuse_help ();
       else if (STREQ (long_options[option_index].name, "selinux"))
         guestfs_set_selinux (g, 1);
-      else if (STREQ (long_options[option_index].name, "trace")) {
-        ADD_FUSE_ARG ("-f");
-        guestfs_set_trace (g, 1);
-        guestfs_set_recovery_proc (g, 1);
-      }
       else if (STREQ (long_options[option_index].name, "format")) {
         if (!optarg || STREQ (optarg, ""))
           format = NULL;
@@ -1035,40 +1024,27 @@ main (int argc, char *argv[])
       break;
 
     case 'a':
-      if (access (optarg, R_OK) != 0) {
-        perror (optarg);
-        exit (EXIT_FAILURE);
-      }
-      drv = malloc (sizeof (struct drv));
-      if (!drv) {
-        perror ("malloc");
-        exit (EXIT_FAILURE);
-      }
-      drv->filename = optarg;
-      drv->format = format;
-      drv->next = drvs;
-      drvs = drv;
+      OPTION_a;
+      break;
+
+    case 'c':
+      OPTION_c;
+      break;
+
+    case 'd':
+      OPTION_d;
+      break;
+
+    case 'i':
+      OPTION_i;
       break;
 
     case 'm':
-      mp = malloc (sizeof (struct mp));
-      if (!mp) {
-        perror ("malloc");
-        exit (EXIT_FAILURE);
-      }
-      p = strchr (optarg, ':');
-      if (p) {
-        *p = '\0';
-        mp->mountpoint = p+1;
-      } else
-        mp->mountpoint = bad_cast ("/");
-      mp->device = optarg;
-      mp->next = mps;
-      mps = mp;
+      OPTION_m;
       break;
 
     case 'n':
-      guestfs_set_autosync (g, 0);
+      OPTION_n;
       break;
 
     case 'o':
@@ -1077,20 +1053,22 @@ main (int argc, char *argv[])
       break;
 
     case 'r':
-      read_only = 1;
+      OPTION_r;
       break;
 
     case 'v':
-      verbose++;
-      guestfs_set_verbose (g, verbose);
+      OPTION_v;
       break;
 
-    case 'V': {
-      struct guestfs_version *v = guestfs_version (g);
-      printf ("%s %"PRIi64".%"PRIi64".%"PRIi64"%s\n", program_name,
-              v->major, v->minor, v->release, v->extra);
-      exit (EXIT_SUCCESS);
-    }
+    case 'V':
+      OPTION_V;
+      break;
+
+    case 'x':
+      OPTION_x;
+      ADD_FUSE_ARG ("-f");
+      guestfs_set_recovery_proc (g, 1);
+      break;
 
     case HELP_OPTION:
       usage (EXIT_SUCCESS);
@@ -1100,10 +1078,10 @@ main (int argc, char *argv[])
     }
   }
 
-  /* We must have at least one -a and at least one -m. */
-  if (!drvs || !mps) {
+  /* Check we have the right options. */
+  if (!drvs || !(mps || inspector)) {
     fprintf (stderr,
-             _("%s: must have at least one -a and at least one -m option\n"),
+             _("%s: must have at least one -a/-d and at least one -m/-i option\n"),
              program_name);
     exit (EXIT_FAILURE);
   }
@@ -1117,10 +1095,15 @@ main (int argc, char *argv[])
   }
 
   /* Do the guest drives and mountpoints. */
-  add_drives (drvs);
+  add_drives (drvs, 'a');
   if (guestfs_launch (g) == -1)
     exit (EXIT_FAILURE);
+  if (inspector)
+    inspect_mount ();
   mount_mps (mps);
+
+  free_drives (drvs);
+  free_mps (mps);
 
   /* FUSE example does this, not clear if it's necessary, but ... */
   if (guestfs_umask (g, 0) == -1)
@@ -1158,49 +1141,4 @@ main (int argc, char *argv[])
   free_dir_caches ();
 
   exit (r == -1 ? 1 : 0);
-}
-
-/* List is built in reverse order, so add them in reverse order. */
-static void
-add_drives (struct drv *drv)
-{
-  int r;
-  struct guestfs_add_drive_opts_argv ad_optargs;
-
-  if (drv) {
-    add_drives (drv->next);
-
-    ad_optargs.bitmask = 0;
-    if (read_only) {
-      ad_optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_READONLY_BITMASK;
-      ad_optargs.readonly = 1;
-    }
-    if (drv->format) {
-      ad_optargs.bitmask |= GUESTFS_ADD_DRIVE_OPTS_FORMAT_BITMASK;
-      ad_optargs.format = drv->format;
-    }
-    r = guestfs_add_drive_opts_argv (g, drv->filename, &ad_optargs);
-    if (r == -1)
-      exit (EXIT_FAILURE);
-  }
-}
-
-/* List is built in reverse order, so mount them in reverse order. */
-static void
-mount_mps (struct mp *mp)
-{
-  int r;
-
-  if (mp) {
-    mount_mps (mp->next);
-
-    /* Don't use guestfs_mount here because that will default to mount
-     * options -o sync,noatime.  For more information, see guestfs(3)
-     * section "LIBGUESTFS GOTCHAS".
-     */
-    const char *options = read_only ? "ro" : "";
-    r = guestfs_mount_options (g, options, mp->device, mp->mountpoint);
-    if (r == -1)
-      exit (EXIT_FAILURE);
-  }
 }

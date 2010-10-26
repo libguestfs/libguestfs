@@ -1,4 +1,4 @@
-/* guestfish - the filesystem interactive shell
+/* libguestfs - guestfish and guestmount shared option parsing
  * Copyright (C) 2010 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -22,12 +22,34 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "fish.h"
+#include "guestfs.h"
+
+#include "options.h"
 
 /* Global that saves the root device between inspect_mount and
  * print_inspect_prompt.
  */
 static char *root = NULL;
+
+static void
+free_strings (char **argv)
+{
+  int argc;
+
+  for (argc = 0; argv[argc] != NULL; ++argc)
+    free (argv[argc]);
+  free (argv);
+}
+
+static int
+count_strings (char *const *argv)
+{
+  int c;
+
+  for (c = 0; argv[c]; ++c)
+    ;
+  return c;
+}
 
 static int
 compare_keys_len (const void *p1, const void *p2)
@@ -54,12 +76,14 @@ inspect_mount (void)
     exit (EXIT_FAILURE);
 
   if (roots[0] == NULL) {
-    fprintf (stderr, _("guestfish: no operating system was found on this disk\n"));
+    fprintf (stderr, _("%s: no operating system was found on this disk\n"),
+             program_name);
     exit (EXIT_FAILURE);
   }
 
   if (roots[1] != NULL) {
-    fprintf (stderr, _("guestfish: multi-boot operating systems are not supported by the -i option\n"));
+    fprintf (stderr, _("%s: multi-boot operating systems are not supported by the -i option\n"),
+             program_name);
     exit (EXIT_FAILURE);
   }
 

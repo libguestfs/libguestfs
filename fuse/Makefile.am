@@ -23,7 +23,16 @@ if HAVE_FUSE
 
 bin_PROGRAMS = guestmount
 
+# These source files (all related to option parsing) are shared
+# between guestfish and guestmount.
+SHARED_SOURCE_FILES = \
+	../fish/inspect.c \
+	../fish/options.h \
+	../fish/options.c \
+	../fish/virt.c
+
 guestmount_SOURCES = \
+	$(SHARED_SOURCE_FILES) \
 	dircache.c \
 	dircache.h \
 	guestmount.c \
@@ -31,14 +40,16 @@ guestmount_SOURCES = \
 
 guestmount_CFLAGS = \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	-I$(top_srcdir)/fish \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \
 	-DGUESTFS_DEFAULT_PATH='"$(libdir)/guestfs"' \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
-	$(FUSE_CFLAGS) \
+	$(FUSE_CFLAGS) $(LIBVIRT_CFLAGS) $(LIBXML2_CFLAGS) \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 
 guestmount_LDADD = \
 	$(FUSE_LIBS) -lulockmgr \
+	$(LIBVIRT_LIBS) $(LIBXML2_LIBS) \
 	$(top_builddir)/src/libguestfs.la \
 	../gnulib/lib/libgnu.la
 

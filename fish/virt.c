@@ -1,4 +1,4 @@
-/* guestfish - the filesystem interactive shell
+/* libguestfs - guestfish and guestmount shared option parsing
  * Copyright (C) 2010 Red Hat Inc.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -30,7 +30,9 @@
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 
-#include "fish.h"
+#include "guestfs.h"
+
+#include "options.h"
 
 /* Implements the guts of the '-d' option.
  *
@@ -67,29 +69,29 @@ add_libvirt_drives (const char *guest)
   conn = virConnectOpenReadOnly (libvirt_uri);
   if (!conn) {
     err = virGetLastError ();
-    fprintf (stderr, _("guestfish: could not connect to libvirt (code %d, domain %d): %s\n"),
-             err->code, err->domain, err->message);
+    fprintf (stderr, _("%s: could not connect to libvirt (code %d, domain %d): %s\n"),
+             program_name, err->code, err->domain, err->message);
     goto cleanup;
   }
 
   dom = virDomainLookupByName (conn, guest);
   if (!dom) {
     err = virConnGetLastError (conn);
-    fprintf (stderr, _("guestfish: no libvirt domain called '%s': %s\n"),
-             guest, err->message);
+    fprintf (stderr, _("%s: no libvirt domain called '%s': %s\n"),
+             program_name, guest, err->message);
     goto cleanup;
   }
   if (!read_only) {
     virDomainInfo info;
     if (virDomainGetInfo (dom, &info) == -1) {
       err = virConnGetLastError (conn);
-      fprintf (stderr, _("guestfish: error getting domain info about '%s': %s\n"),
-               guest, err->message);
+      fprintf (stderr, _("%s: error getting domain info about '%s': %s\n"),
+               program_name, guest, err->message);
       goto cleanup;
     }
     if (info.state != VIR_DOMAIN_SHUTOFF) {
-      fprintf (stderr, _("guestfish: error: '%s' is a live virtual machine.\nYou must use '--ro' because write access to a running virtual machine can\ncause disk corruption.\n"),
-               guest);
+      fprintf (stderr, _("%s: error: '%s' is a live virtual machine.\nYou must use '--ro' because write access to a running virtual machine can\ncause disk corruption.\n"),
+               program_name, guest);
       goto cleanup;
     }
   }
@@ -99,8 +101,8 @@ add_libvirt_drives (const char *guest)
 
   if (!xml) {
     err = virConnGetLastError (conn);
-    fprintf (stderr, _("guestfish: error reading libvirt XML information about '%s': %s\n"),
-             guest, err->message);
+    fprintf (stderr, _("%s: error reading libvirt XML information about '%s': %s\n"),
+             program_name, guest, err->message);
     goto cleanup;
   }
 
@@ -109,20 +111,23 @@ add_libvirt_drives (const char *guest)
    */
   doc = xmlParseMemory (xml, strlen (xml));
   if (doc == NULL) {
-    fprintf (stderr, _("guestfish: unable to parse XML information returned by libvirt\n"));
+    fprintf (stderr, _("%s: unable to parse XML information returned by libvirt\n"),
+             program_name);
     goto cleanup;
   }
 
   xpathCtx = xmlXPathNewContext (doc);
   if (xpathCtx == NULL) {
-    fprintf (stderr, _("guestfish: unable to create new XPath context\n"));
+    fprintf (stderr, _("%s: unable to create new XPath context\n"),
+             program_name);
     goto cleanup;
   }
 
   /* This gives us a set of all the <disk> nodes. */
   xpathObj = xmlXPathEvalExpression (BAD_CAST "//devices/disk", xpathCtx);
   if (xpathObj == NULL) {
-    fprintf (stderr, _("guestfish: unable to evaluate XPath expression\n"));
+    fprintf (stderr, _("%s: unable to evaluate XPath expression\n"),
+             program_name);
     goto cleanup;
   }
 
@@ -196,8 +201,8 @@ add_libvirt_drives (const char *guest)
   }
 
   if (nr_added == 0) {
-    fprintf (stderr, _("guestfish: libvirt domain '%s' has no disks\n"),
-             guest);
+    fprintf (stderr, _("%s: libvirt domain '%s' has no disks\n"),
+             program_name, guest);
     goto cleanup;
   }
 
