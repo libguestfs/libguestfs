@@ -39,8 +39,8 @@
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
-static const char *kernel_name = "vmlinuz." REPO "." host_cpu;
-static const char *initrd_name = "initramfs." REPO "." host_cpu ".img";
+static const char *kernel_name = "vmlinuz." host_cpu;
+static const char *initrd_name = "initramfs." host_cpu ".img";
 
 static int find_path (guestfs_h *g, int (*pred) (guestfs_h *g, const char *pelem, void *data), void *data, char **pelem);
 static int dir_contains_file (const char *dir, const char *file);

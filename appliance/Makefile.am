@@ -47,8 +47,8 @@ superminfs_DATA = \
 endif
 
 # Don't change these names - they must be the same as in '*.sh' scripts.
-INITRAMFSIMG = initramfs.$(REPO).$(host_cpu).img
-VMLINUZ = vmlinuz.$(REPO).$(host_cpu)
+INITRAMFSIMG = initramfs.$(host_cpu).img
+VMLINUZ = vmlinuz.$(host_cpu)
 
 # This is for building the normal appliance:
 $(INITRAMFSIMG) $(VMLINUZ): $(top_builddir)/initramfs/fakeroot.log

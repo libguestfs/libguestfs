@@ -26,8 +26,8 @@ set -x
 if [ "@DIST@" = "REDHAT" ]; then
   cd @top_builddir@
   # Decide on names for the final output.  These have to match Makefile.am.
-  output=appliance/initramfs.@REPO@.@host_cpu@.img
-  koutput=appliance/vmlinuz.@REPO@.@host_cpu@
+  output=appliance/initramfs.@host_cpu@.img
+  koutput=appliance/vmlinuz.@host_cpu@
   rm -f $output
   rm -f $koutput
 

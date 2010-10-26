@@ -25,7 +25,7 @@ set -e
 
 if [ "@DIST@" = "REDHAT" ]; then
   cd @top_builddir@
-  output=appliance/initramfs.@REPO@.@host_cpu@.img
+  output=appliance/initramfs.@host_cpu@.img
 
   # Create the init script.
   @FEBOOTSTRAP_INSTALL@ initramfs appliance/@top_srcdir@/appliance/init /init 0755 root.root
@@ -40,8 +40,8 @@ if [ "@DIST@" = "REDHAT" ]; then
 elif [ "@DIST@" = "DEBIAN" ]; then
   cd @top_builddir@/appliance
 
-  output=initramfs.@REPO@.@host_cpu@.img
-  vmlinuz=vmlinuz.@REPO@.@host_cpu@
+  output=initramfs.@host_cpu@.img
+  vmlinuz=vmlinuz.@host_cpu@
 
   rm -f debian/debirf-libguestfs_@REPO@_.cgz
   ln -sf debian/debirf-libguestfs_@REPO@*.cgz $output
