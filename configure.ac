@@ -381,7 +381,7 @@ if test "x$enable_appliance" = "xyes"; then
     AC_SUBST(MIRROR)
 fi
 
-dnl --with-repo to specify a Fedora repository.
+dnl --with-repo to specify a repository.
 AC_ARG_WITH([repo],
         [AS_HELP_STRING([--with-repo],
           [set name of Fedora repository @<:@default=fedora-13@:>@])],
@@ -389,7 +389,7 @@ AC_ARG_WITH([repo],
         [with_repo=fedora-13])
 REPO="$with_repo"
 AC_SUBST(REPO)
-AC_DEFINE_UNQUOTED([REPO],["$REPO"],[Name of Fedora repository.])
+AC_DEFINE_UNQUOTED([REPO],["$REPO"],[Name of software repository.])
 
 dnl Build the supermin appliance?  Please see README file before
 dnl enabling this option.
