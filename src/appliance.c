@@ -162,11 +162,9 @@ calculate_supermin_checksum (guestfs_h *g, const char *supermin_path)
   snprintf (cmd, len,
             "febootstrap-supermin-helper%s "
             "-f checksum "
-            "-k '%s/kmod.whitelist' "
             "'%s/supermin.d' "
             host_cpu,
             g->verbose ? " --verbose" : "",
-            supermin_path,
             supermin_path);
 
   if (g->verbose)
@@ -435,10 +433,6 @@ run_supermin_helper (guestfs_h *g, const char *supermin_path,
     argv[i++] = "--verbose";
   argv[i++] = "-f";
   argv[i++] = "ext2";
-  argv[i++] = "-k";
-  char whitelist[pathlen + 32];
-  snprintf (whitelist, pathlen + 32, "%s/kmod.whitelist", supermin_path);
-  argv[i++] = whitelist;
   char supermin_d[pathlen + 32];
   snprintf (supermin_d, pathlen + 32, "%s/supermin.d", supermin_path);
   argv[i++] = supermin_d;
