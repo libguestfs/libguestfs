@@ -1002,6 +1002,22 @@ deprecated C<guestfs_add_drive_with_if> call (q.v.)
 
 =back");
 
+  ("inspect_get_windows_systemroot", (RString "systemroot", [Device "root"], []), -1, [],
+   [],
+   "get Windows systemroot of inspected operating system",
+   "\
+This function should only be called with a root device string
+as returned by C<guestfs_inspect_os>.
+
+This returns the Windows systemroot of the inspected guest.
+The systemroot is a directory path such as C</WINDOWS>.
+
+This call assumes that the guest is Windows and that the
+systemroot could be determined by inspection.  If this is not
+the case then an error is returned.
+
+Please read L<guestfs(3)/INSPECTION> for more details.");
+
 ]
 
 (* daemon_functions are any functions which cause some action

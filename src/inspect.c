@@ -456,6 +456,7 @@ guestfs___free_inspect_info (guestfs_h *g)
     free (g->fses[i].device);
     free (g->fses[i].product_name);
     free (g->fses[i].arch);
+    free (g->fses[i].windows_systemroot);
     size_t j;
     for (j = 0; j < g->fses[i].nr_fstab; ++j) {
       free (g->fses[i].fstab[j].device);
@@ -502,10 +503,8 @@ static int check_filesystem (guestfs_h *g, const char *device);
 static int check_linux_root (guestfs_h *g, struct inspect_fs *fs);
 static int check_fstab (guestfs_h *g, struct inspect_fs *fs);
 static int check_windows_root (guestfs_h *g, struct inspect_fs *fs);
-static int check_windows_arch (guestfs_h *g, struct inspect_fs *fs,
-                               const char *systemroot);
-static int check_windows_registry (guestfs_h *g, struct inspect_fs *fs,
-                                   const char *systemroot);
+static int check_windows_arch (guestfs_h *g, struct inspect_fs *fs);
+static int check_windows_registry (guestfs_h *g, struct inspect_fs *fs);
 static char *resolve_windows_path_silently (guestfs_h *g, const char *);
 static int extend_fses (guestfs_h *g);
 static int parse_unsigned_int (guestfs_h *g, const char *str);
@@ -962,34 +961,27 @@ check_windows_root (guestfs_h *g, struct inspect_fs *fs)
     return -1;
   }
 
-  /* XXX There is a case for exposing systemroot and many variables
-   * from the registry through the libguestfs API.
-   */
-
   if (g->verbose)
     fprintf (stderr, "windows %%SYSTEMROOT%% = %s", systemroot);
 
-  if (check_windows_arch (g, fs, systemroot) == -1) {
-    free (systemroot);
-    return -1;
-  }
+  /* Freed by guestfs___free_inspect_info. */
+  fs->windows_systemroot = systemroot;
 
-  if (check_windows_registry (g, fs, systemroot) == -1) {
-    free (systemroot);
+  if (check_windows_arch (g, fs) == -1)
     return -1;
-  }
 
-  free (systemroot);
+  if (check_windows_registry (g, fs) == -1)
+    return -1;
+
   return 0;
 }
 
 static int
-check_windows_arch (guestfs_h *g, struct inspect_fs *fs,
-                    const char *systemroot)
+check_windows_arch (guestfs_h *g, struct inspect_fs *fs)
 {
-  size_t len = strlen (systemroot) + 32;
+  size_t len = strlen (fs->windows_systemroot) + 32;
   char cmd_exe[len];
-  snprintf (cmd_exe, len, "%s/system32/cmd.exe", systemroot);
+  snprintf (cmd_exe, len, "%s/system32/cmd.exe", fs->windows_systemroot);
 
   char *cmd_exe_path = resolve_windows_path_silently (g, cmd_exe);
   if (!cmd_exe_path)
@@ -1009,8 +1001,7 @@ check_windows_arch (guestfs_h *g, struct inspect_fs *fs,
  * registry fields available to callers.
  */
 static int
-check_windows_registry (guestfs_h *g, struct inspect_fs *fs,
-                        const char *systemroot)
+check_windows_registry (guestfs_h *g, struct inspect_fs *fs)
 {
   TMP_TEMPLATE_ON_STACK (dir);
 #define dir_len (strlen (dir))
@@ -1019,9 +1010,10 @@ check_windows_registry (guestfs_h *g, struct inspect_fs *fs,
 #define cmd_len (dir_len + 16)
   char cmd[cmd_len];
 
-  size_t len = strlen (systemroot) + 64;
+  size_t len = strlen (fs->windows_systemroot) + 64;
   char software[len];
-  snprintf (software, len, "%s/system32/config/software", systemroot);
+  snprintf (software, len, "%s/system32/config/software",
+            fs->windows_systemroot);
 
   char *software_path = resolve_windows_path_silently (g, software);
   if (!software_path)
@@ -1273,6 +1265,21 @@ guestfs__inspect_get_product_name (guestfs_h *g, const char *root)
     return NULL;
 
   return safe_strdup (g, fs->product_name ? : "unknown");
+}
+
+char *
+guestfs__inspect_get_windows_systemroot (guestfs_h *g, const char *root)
+{
+  struct inspect_fs *fs = search_for_root (g, root);
+  if (!fs)
+    return NULL;
+
+  if (!fs->windows_systemroot) {
+    error (g, _("not a Windows guest, or systemroot could not be determined"));
+    return NULL;
+  }
+
+  return safe_strdup (g, fs->windows_systemroot);
 }
 
 char **
