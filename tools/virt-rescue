@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 # virt-rescue
-# Copyright (C) 2009 Red Hat Inc.
+# Copyright (C) 2009-2010 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -170,6 +170,14 @@ parameter is specified in megabytes.
 
 =cut
 
+my $network;
+
+=item B<--network MB>
+
+Enable QEMU user networking in the guest.
+
+=cut
+
 my $readonly;
 
 =item B<--ro> | B<-r>
@@ -199,6 +207,7 @@ GetOptions ("help|?" => \$help,
             "connect|c=s" => \$uri,
             "format=s" => \$format,
             "memsize|m=i" => \$memsize,
+            "network" => \$network,
             "ro|r" => \$readonly,
             "selinux" => \$selinux,
     ) or pod2usage (2);
@@ -225,6 +234,7 @@ $g->set_direct (1);
 # Set other features.
 $g->set_selinux (1) if $selinux;
 $g->set_memsize ($memsize) if defined $memsize;
+$g->set_network (1) if $network;
 
 # Set the kernel command line, which must include guestfs_rescue=1
 # (see appliance/init).
