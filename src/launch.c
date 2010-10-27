@@ -491,7 +491,7 @@ guestfs__launch (guestfs_h *g)
     /* Enable user networking. */
     if (g->enable_network) {
       add_cmdline (g, "-netdev");
-      add_cmdline (g, "user,id=usernet");
+      add_cmdline (g, "user,id=usernet,net=169.254.0.0/16");
       add_cmdline (g, "-device");
       add_cmdline (g, NET_IF ",netdev=usernet");
     }
