@@ -25,7 +25,7 @@ use warnings;
 # make a change which is not backwards compatible.  It is not related
 # to the libguestfs version number.
 use vars qw($VERSION);
-$VERSION = '0.2';
+$VERSION = '0.3';
 
 use Carp qw(croak);
 
@@ -47,13 +47,9 @@ Sys::Guestfs::Lib - Useful functions for using libguestfs from Perl
 
 =head1 SYNOPSIS
 
- use Sys::Guestfs::Lib qw(open_guest inspect_all_partitions ...);
+ use Sys::Guestfs::Lib qw(open_guest ...);
 
  $g = open_guest ($name);
-
- %fses = inspect_all_partitions ($g, \@partitions);
-
-(and many more calls - see the rest of this manpage)
 
 =head1 DESCRIPTION
 
@@ -64,6 +60,14 @@ with libvirt.
 The basic libguestfs API is not covered by this manpage.  Please refer
 instead to L<Sys::Guestfs(3)> and L<guestfs(3)>.  The libvirt API is
 also not covered.  For that, see L<Sys::Virt(3)>.
+
+=head1 DEPRECATION OF SOME FUNCTIONS
+
+This module contains functions and code to perform inspection of guest
+images.  Since libguestfs 1.5.3 this ability has moved into the core
+API (see L<guestfs(3)/INSPECTION>).  The inspection functions in this
+module are deprecated and will not be updated.  Each deprecated
+function is marked in the documentation below.
 
 =head1 BASIC FUNCTIONS
 
@@ -376,109 +380,11 @@ sub file_architecture
 
 =head1 OPERATING SYSTEM INSPECTION FUNCTIONS
 
-The functions in this section can be used to inspect the operating
-system(s) available inside a virtual machine image.  For example, you
-can find out if the VM is Linux or Windows, how the partitions are
-meant to be mounted, and what applications are installed.
-
-If you just want a simple command-line interface to this
-functionality, use the L<virt-inspector(1)> tool.  The documentation
-below covers the case where you want to access this functionality from
-a Perl program.
-
-Once you have the list of partitions (from C<get_partitions>) there
-are several steps involved:
-
-=over 4
-
-=item 1.
-
-Look at each partition separately and find out what is on it.
-
-The information you get back includes whether the partition contains a
-filesystem or swapspace, what sort of filesystem (eg. ext3, ntfs), and
-a first pass guess at the content of the filesystem (eg. Linux boot,
-Windows root).
-
-The result of this step is a C<%fs> hash of information, one hash for
-each partition.
-
-See: C<inspect_partition>, C<inspect_all_partitions>
-
-=item 2.
-
-Work out the relationship between partitions.
-
-In this step we work out how partitions are related to each other.  In
-the case of a single-boot VM, we work out how the partitions are
-mounted in respect of each other (eg. C</dev/sda1> is mounted as
-C</boot>).  In the case of a multi-boot VM where there are several
-roots, we may identify several operating system roots, and mountpoints
-can even be shared.
-
-The result of this step is a single hash called C<%oses> which is
-described in more detail below, but at the top level looks like:
-
- %oses = {
-   '/dev/VG/Root1' => \%os1,
-   '/dev/VG/Root2' => \%os2,
- }
-
- %os1 = {
-   os => 'linux',
-   mounts => {
-     '/' => '/dev/VG/Root1',
-     '/boot' => '/dev/sda1',
-   },
-   ...
- }
-
-(example shows a multi-boot VM containing two root partitions).
-
-See: C<inspect_operating_systems>
-
-=item 3.
-
-Mount up the disks.
-
-Previous to this point we've essentially been looking at each
-partition in isolation.  Now we construct a true guest filesystem by
-mounting up all of the disks.  Only once everything is mounted up can
-we run commands in the OS context to do more detailed inspection.
-
-See: C<mount_operating_system>
-
-=item 4.
-
-Check for kernels and applications.
-
-This step now does more detailed inspection, where we can look for
-kernels, applications and more installed in the guest.
-
-The result of this is an enhanced C<%os> hash.
-
-See: C<inspect_in_detail>
-
-=item 5.
-
-Generate output.
-
-This library does not contain functions for generating output based on
-the analysis steps above.  Use a command line tool such as
-L<virt-inspector(1)> to get useful output.
-
-=back
-
 =head2 inspect_all_partitions
 
- %fses = inspect_all_partitions ($g, \@partitions);
-
-This calls C<inspect_partition> for each partition in the list
-C<@partitions>.
-
-The result is a hash which maps partition name to C<\%fs> hashref.
-
-The contents of the C<%fs> hash is explained below.
+This function is deprecated.  It will not be updated in future
+versions of libguestfs.  New code should not use this function.  Use
+the core API functions instead, see L<guestfs(3)/INSPECTION>.
 
 =cut
 
@@ -503,94 +409,9 @@ sub inspect_all_partitions
 
 =head2 inspect_partition
 
- \%fs = inspect_partition ($g, $partition);
-
-This function inspects the device named C<$partition> in isolation and
-tries to determine what it is.  It returns information such as whether
-the partition is formatted, and with what, whether it is mountable,
-and what it appears to contain (eg. a Windows root, or a Linux /usr).
-
-If the Perl module L<Win::Hivex(3)> is installed, then additional
-information is made available for Windows guests, if we can locate and
-read their registries.
-
-The returned value is a hashref C<\%fs> which may contain the
-following top-level keys (any key can be missing):
-
-=over 4
-
-=item fstype
-
-Filesystem type, eg. "ext2" or "ntfs"
-
-=item fsos
-
-Apparent filesystem OS, eg. "linux" or "windows"
-
-=item is_swap
-
-If set, the partition is a swap partition.
-
-=item uuid
-
-Filesystem UUID.
-
-=item label
-
-Filesystem label.
-
-=item is_mountable
-
-If set, the partition could be mounted by libguestfs.
-
-=item content
-
-Filesystem content, if we could determine it.  One of: "linux-grub",
-"linux-root", "linux-usrlocal", "linux-usr", "windows-root".
-
-=item osdistro
-
-(For Linux root partitions only).
-Operating system distribution.  One of: "fedora", "rhel", "centos",
-"scientific", "debian".
-
-=item package_format
-
-(For Linux root partitions only)
-The package format used by the guest distribution. One of: "rpm", "deb".
-
-=item package_management
-
-(For Linux root partitions only)
-The package management tool used by the guest distribution. One of: "rhn",
-"yum", "apt".
-
-=item os_major_version
-
-(For root partitions only).
-Operating system major version number.
-
-=item os_minor_version
-
-(For root partitions only).
-Operating system minor version number.
-
-=item fstab
-
-(For Linux root partitions only).
-The contents of the C</etc/fstab> file.
-
-=item boot_ini
-
-(For Windows root partitions only).
-The contents of the C</boot.ini> (NTLDR) file.
-
-=item registry
-
-The value is an arrayref, which is a list of Windows registry
-file contents, in Windows C<.REG> format.
-
-=back
+This function is deprecated.  It will not be updated in future
+versions of libguestfs.  New code should not use this function.  Use
+the core API functions instead, see L<guestfs(3)/INSPECTION>.
 
 =cut
 
@@ -982,83 +803,9 @@ sub _check_grub
 
 =head2 inspect_operating_systems
 
- \%oses = inspect_operating_systems ($g, \%fses);
-
-This function works out how partitions are related to each other.  In
-the case of a single-boot VM, we work out how the partitions are
-mounted in respect of each other (eg. C</dev/sda1> is mounted as
-C</boot>).  In the case of a multi-boot VM where there are several
-roots, we may identify several operating system roots, and mountpoints
-can even be shared.
-
-This function returns a hashref C<\%oses> which at the top level looks
-like:
-
- %oses = {
-   '/dev/VG/Root' => \%os,
- }
-
-There can be multiple roots for a multi-boot VM, but this function
-will throw an error if no roots (ie. OSes) could be found.
-
-The C<\%os> hash contains the following keys (any can be omitted):
-
-=over 4
-
-=item os
-
-Operating system type, eg. "linux", "windows".
-
-=item arch
-
-Operating system userspace architecture, eg. "i386", "x86_64".
-
-=item distro
-
-Operating system distribution, eg. "debian".
-
-=item product_name
-
-Free text product name.
-
-=item major_version
-
-Operating system major version, eg. "4".
-
-=item minor_version
-
-Operating system minor version, eg "3".
-
-=item root
-
-The value is a reference to the root partition C<%fs> hash.
-
-=item root_device
-
-The value is the name of the root partition (as a string).
-
-=item mounts
-
-Mountpoints.
-The value is a hashref like this:
-
- mounts => {
-   '/' => '/dev/VG/Root',
-   '/boot' => '/dev/sda1',
- }
-
-=item filesystems
-
-Filesystems (including swap devices and unmounted partitions).
-The value is a hashref like this:
-
- filesystems => {
-   '/dev/sda1' => \%fs,
-   '/dev/VG/Root' => \%fs,
-   '/dev/VG/Swap' => \%fs,
- }
-
-=back
+This function is deprecated.  It will not be updated in future
+versions of libguestfs.  New code should not use this function.  Use
+the core API functions instead, see L<guestfs(3)/INSPECTION>.
 
 =cut
 
@@ -1197,17 +944,9 @@ sub _find_filesystem
 
 =head2 mount_operating_system
 
- mount_operating_system ($g, \%os, [$ro]);
-
-This function mounts the operating system described in the
-C<%os> hash according to the C<mounts> table in that hash (see
-C<inspect_operating_systems>).
-
-The partitions are mounted read-only unless the third parameter
-is specified as zero explicitly.
-
-To reverse the effect of this call, use the standard
-libguestfs API call C<$g-E<gt>umount_all ()>.
+This function is deprecated.  It will not be updated in future
+versions of libguestfs.  New code should not use this function.  Use
+the core API functions instead, see L<guestfs(3)/INSPECTION>.
 
 =cut
 
@@ -1237,107 +976,9 @@ sub mount_operating_system
 
 =head2 inspect_in_detail
 
- mount_operating_system ($g, \%os);
- inspect_in_detail ($g, \%os);
- $g->umount_all ();
-
-The C<inspect_in_detail> function inspects the mounted operating
-system for installed applications, installed kernels, kernel modules,
-system architecture, and more.
-
-It adds extra keys to the existing C<%os> hash reflecting what it
-finds.  These extra keys are:
-
-=over 4
-
-=item apps
-
-List of applications.
-
-=item boot
-
-Boot configurations. A hash containing:
-
-=over 4
-
-=item configs
-
-An array of boot configurations. Each array entry is a hash containing:
-
-=over 4
-
-=item initrd
-
-A reference to the expanded initrd structure (see below) for the initrd used by
-this boot configuration.
-
-=item kernel
-
-A reference to the expanded kernel structure (see below) for the kernel used by
-this boot configuration.
-
-=item title
-
-The human readable name of the configuration.
-
-=item cmdline
-
-The kernel command line.
-
-=back
-
-=item default
-
-The index of the default configuration in the configs array.
-
-=item grub_fs
-
-The path of the filesystem containing the grub partition.
-
-=back
-
-=item kernels
-
-List of kernels.
-
-This is a hash of kernel version =E<gt> a hash with the following keys:
-
-=over 4
-
-=item version
-
-Kernel version.
-
-=item arch
-
-Kernel architecture (eg. C<x86-64>).
-
-=item modules
-
-List of modules.
-
-=item path
-
-The path to the kernel's vmlinuz file.
-
-=item package
-
-If the kernel was installed in a package, the name of that package.
-
-=back
-
-=item modprobe_aliases
-
-(For Linux VMs).
-The contents of the modprobe configuration.
-
-=item initrd_modules
-
-(For Linux VMs).
-The kernel modules installed in the initrd.  The value is
-a hashref of kernel version to list of modules.
-
-=back
+This function is deprecated.  It will not be updated in future
+versions of libguestfs.  New code should not use this function.  Use
+the core API functions instead, see L<guestfs(3)/INSPECTION>.
 
 =cut
 
@@ -1604,11 +1245,9 @@ sub _check_for_kernels
 
 =head2 inspect_linux_kernel
 
- my $kernel_hash = inspect_linux_kernel($g, $vmlinuz_path, $package_format);
-
-inspect_linux_kernel returns a hash describing the target linux kernel. For the
-contents of the hash, see the I<kernels> structure described under
-L</inspect_in_detail>.
+This function is deprecated.  It will not be updated in future
+versions of libguestfs.  New code should not use this function.  Use
+the core API functions instead, see L<guestfs(3)/INSPECTION>.
 
 =cut
 
@@ -1762,7 +1401,7 @@ sub _inspect_initrd
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Red Hat Inc.
+Copyright (C) 2009-2010 Red Hat Inc.
 
 =head1 LICENSE
 
