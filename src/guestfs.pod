@@ -390,6 +390,22 @@ an X86 host).
 For SELinux guests, you may need to enable SELinux and load policy
 first.  See L</SELINUX> in this manpage.
 
+=item *
+
+I<Security:> It is not safe to run commands from untrusted, possibly
+malicious guests.  These commands may attempt to exploit your program
+by sending unexpected output.  They could also try to exploit the
+Linux kernel or qemu provided by the libguestfs appliance.  They could
+use the network provided by the libguestfs appliance to bypass
+ordinary network partitions and firewalls.  They could use the
+elevated privileges or different SELinux context of your program
+to their advantage.
+
+A secure alternative is to use libguestfs to install a "firstboot"
+script (a script which runs when the guest next boots normally), and
+to have this script run the commands you want in the normal context of
+the running guest, network security and so on.
+
 =back
 
 The two main API calls to run commands are L</guestfs_command> and
