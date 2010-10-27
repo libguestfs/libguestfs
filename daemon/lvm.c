@@ -664,7 +664,8 @@ do_vgscan (void)
   return 0;
 }
 
-/* Test if a device is a logical volume (RHBZ#619793).
+/* Convert a non-canonical LV path like /dev/mapper/vg-lv or /dev/dm-0
+ * to a canonical one.
  *
  * This is harder than it should be.  A LV device like /dev/VG/LV is
  * really a symlink to a device-mapper device like /dev/dm-0.  However
@@ -675,9 +676,16 @@ do_vgscan (void)
  *
  * Note use of 'stat' instead of 'lstat' so that symlinks are fully
  * resolved.
+ *
+ * Returns:
+ *   1  =  conversion was successful, path is an LV
+ *         '*ret' is set to the updated path if 'ret' is non-NULL.
+ *   0  =  path is not an LV
+ *  -1  =  error, reply_with_* has been called
+ *
  */
 int
-do_is_lv (const char *device)
+lv_canonical (const char *device, char **ret)
 {
   struct stat stat1, stat2;
 
@@ -700,6 +708,14 @@ do_is_lv (const char *device)
       return -1;
     }
     if (stat1.st_rdev == stat2.st_rdev) { /* found it */
+      if (ret) {
+        *ret = strdup (lvs[i]);
+        if (*ret == NULL) {
+          reply_with_perror ("strdup");
+          free_strings (lvs);
+          return -1;
+        }
+      }
       free_strings (lvs);
       return 1;
     }
@@ -710,44 +726,26 @@ do_is_lv (const char *device)
   return 0;
 }
 
-/* Similar to is_lv above (RHBZ#638899). */
+/* Test if a device is a logical volume (RHBZ#619793). */
+int
+do_is_lv (const char *device)
+{
+  return lv_canonical (device, NULL);
+}
+
+/* Return canonical name of LV to caller (RHBZ#638899). */
 char *
 do_lvm_canonical_lv_name (const char *device)
 {
-  struct stat stat1, stat2;
+  char *canonical;
+  int r = lv_canonical (device, &canonical);
+  if (r == -1)
+    return NULL;
 
-  int r = stat (device, &stat1);
-  if (r == -1) {
-    reply_with_perror ("stat: %s", device);
+  if (r == 0) {
+    reply_with_error ("%s: not a logical volume", device);
     return NULL;
   }
 
-  char **lvs = do_lvs ();
-  if (lvs == NULL)
-    return NULL;
-
-  size_t i;
-  for (i = 0; lvs[i] != NULL; ++i) {
-    r = stat (lvs[i], &stat2);
-    if (r == -1) {
-      reply_with_perror ("stat: %s", lvs[i]);
-      free_strings (lvs);
-      return NULL;
-    }
-    if (stat1.st_rdev == stat2.st_rdev) { /* found it */
-      char *r = strdup (lvs[i]);
-      if (r == NULL) {
-        reply_with_perror ("strdup");
-        free_strings (lvs);
-      }
-      free_strings (lvs);
-      return r;
-    }
-  }
-
-  free_strings (lvs);
-
-  /* not found */
-  reply_with_error ("%s: not a logical volume", device);
-  return NULL;
+  return canonical;             /* caller frees */
 }

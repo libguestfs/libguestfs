@@ -124,6 +124,9 @@ extern struct optgroup optgroups[];
 /* Use this as a replacement for sync(2). */
 extern int sync_disks (void);
 
+/*-- in lvm.c --*/
+extern int lv_canonical (const char *device, char **ret);
+
 /*-- in proto.c --*/
 extern void main_loop (int sock) __attribute__((noreturn));
 

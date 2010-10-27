@@ -149,6 +149,7 @@ mounts_or_mountpoints (int mp)
   char *p, *pend, *p2;
   int len;
   char matching[5 + sysroot_len];
+  size_t i;
 
   r = command (&out, &err, "mount", NULL);
   if (r == -1) {
@@ -203,6 +204,26 @@ mounts_or_mountpoints (int mp)
 
   if (add_string (&ret, &size, &alloc, NULL) == -1)
     return NULL;
+
+  /* Convert /dev/mapper LV paths into canonical paths (RHBZ#646432). */
+  for (i = 0; ret[i] != NULL; i += mp ? 2 : 1) {
+    if (STRPREFIX (ret[i], "/dev/mapper/") || STRPREFIX (ret[i], "/dev/dm-")) {
+      char *canonical;
+      r = lv_canonical (ret[i], &canonical);
+      if (r == -1) {
+        free_strings (ret);
+        return NULL;
+      }
+      if (r == 1) {
+        free (ret[i]);
+        ret[i] = canonical;
+      }
+      /* Ignore the case where r == 0.  This might happen where
+       * eg. a LUKS /dev/mapper device is mounted, but that won't
+       * correspond to any LV.
+       */
+    }
+  }
 
   return ret;
 }
