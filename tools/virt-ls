@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 # virt-ls
-# Copyright (C) 2009 Red Hat Inc.
+# Copyright (C) 2009-2010 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,13 +20,12 @@ use warnings;
 use strict;
 
 use Sys::Guestfs;
-use Sys::Guestfs::Lib qw(open_guest get_partitions resolve_windows_path
-  inspect_all_partitions inspect_partition
-  inspect_operating_systems mount_operating_system);
+use Sys::Guestfs::Lib qw(open_guest);
 use Pod::Usage;
 use Getopt::Long;
-use Locale::TextDomain 'libguestfs';
 use File::Temp qw/tempdir/;
+use File::Basename;
+use Locale::TextDomain 'libguestfs';
 
 =encoding utf8
 
@@ -190,22 +189,20 @@ if ($uri) {
 
 $g->launch ();
 
-# List of possible filesystems.
-my @partitions = get_partitions ($g);
-
-# Now query each one to build up a picture of what's in it.
-my %fses =
-    inspect_all_partitions ($g, \@partitions,
-      use_windows_registry => 0);
-
-my $oses = inspect_operating_systems ($g, \%fses);
-
-my @roots = keys %$oses;
-die __"multiboot operating systems are not supported by virt-ls\n" if @roots > 1;
-my $root_dev = $roots[0];
-
-my $os = $oses->{$root_dev};
-mount_operating_system ($g, $os);
+my @roots = $g->inspect_os ();
+if (@roots == 0) {
+    die __x("{prog}: No operating system could be detected inside this disk image.\n\nThis may be because the file is not a disk image, or is not a virtual machine\nimage, or because the OS type is not understood by libguestfs.\n\nIf you feel this is an error, please file a bug report including as much\ninformation about the disk image as possible.\n",
+            prog => basename ($0));
+}
+if (@roots > 1) {
+    die __x("{prog}: multiboot operating systems are not supported.\n",
+            prog => basename ($0))
+}
+my %fses = $g->inspect_get_mountpoints ($roots[0]);
+my @fses = sort { length $a <=> length $b } keys %fses;
+foreach (@fses) {
+    $g->mount_ro ($fses{$_}, $_);
+}
 
 unless ($mode) {
     my @r = $g->ls ($directory);
