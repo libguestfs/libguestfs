@@ -1,6 +1,6 @@
 <operatingsystems>
   <operatingsystem>
-    <root>/dev/vda1</root>
+    <root>/dev/sda1</root>
     <name>linux</name>
     <arch>x86_64</arch>
     <distro>debian</distro>
@@ -8,14 +8,14 @@
     <major_version>0</major_version>
     <minor_version>0</minor_version>
     <mountpoints>
-      <mountpoint dev="/dev/vda1">/</mountpoint>
+      <mountpoint dev="/dev/sda1">/</mountpoint>
     </mountpoints>
     <filesystems>
-      <filesystem dev="/dev/vda1">
+      <filesystem dev="/dev/sda1">
         <type>ext4</type>
         <uuid>09384d4f-df19-479b-85fc-6451e56d41aa</uuid>
       </filesystem>
-      <filesystem dev="/dev/vda5">
+      <filesystem dev="/dev/sda5">
         <type>swap</type>
         <uuid>c0d1b68f-c0f9-4497-a366-938b37532613</uuid>
       </filesystem>

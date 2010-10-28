@@ -9,7 +9,7 @@
     <minor_version>0</minor_version>
     <mountpoints>
       <mountpoint dev="/dev/vg_f13x64/lv_root">/</mountpoint>
-      <mountpoint dev="/dev/vda1">/boot</mountpoint>
+      <mountpoint dev="/dev/sda1">/boot</mountpoint>
     </mountpoints>
     <filesystems>
       <filesystem dev="/dev/vg_f13x64/lv_root">
@@ -17,7 +17,7 @@
         <label>Fedora-13-x86_64</label>
         <uuid>e6a4db1e-15c2-477b-ac2a-699181c396aa</uuid>
       </filesystem>
-      <filesystem dev="/dev/vda1">
+      <filesystem dev="/dev/sda1">
         <type>ext4</type>
         <uuid>59336587-da50-4b87-ad47-577a0fd95498</uuid>
       </filesystem>

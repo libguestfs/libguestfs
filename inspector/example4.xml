@@ -1,6 +1,6 @@
 <operatingsystems>
   <operatingsystem>
-    <root>/dev/vda2</root>
+    <root>/dev/sda2</root>
     <name>windows</name>
     <arch>i386</arch>
     <distro>windows</distro>
@@ -9,10 +9,10 @@
     <minor_version>1</minor_version>
     <windows_systemroot>/Windows</windows_systemroot>
     <mountpoints>
-      <mountpoint dev="/dev/vda2">/</mountpoint>
+      <mountpoint dev="/dev/sda2">/</mountpoint>
     </mountpoints>
     <filesystems>
-      <filesystem dev="/dev/vda2">
+      <filesystem dev="/dev/sda2">
         <type>ntfs</type>
         <uuid>F2E8996AE8992E3B</uuid>
       </filesystem>

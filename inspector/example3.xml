@@ -9,14 +9,14 @@
     <minor_version>0</minor_version>
     <mountpoints>
       <mountpoint dev="/dev/vg_rhel6brewx64/lv_root">/</mountpoint>
-      <mountpoint dev="/dev/vda1">/boot</mountpoint>
+      <mountpoint dev="/dev/sda1">/boot</mountpoint>
     </mountpoints>
     <filesystems>
       <filesystem dev="/dev/vg_rhel6brewx64/lv_root">
         <type>ext4</type>
         <uuid>acffb3a7-ace7-4398-8233-d554d4b01174</uuid>
       </filesystem>
-      <filesystem dev="/dev/vda1">
+      <filesystem dev="/dev/sda1">
         <type>ext4</type>
         <uuid>1267df04-7310-4f0e-bd53-f4c30ff2fff7</uuid>
       </filesystem>

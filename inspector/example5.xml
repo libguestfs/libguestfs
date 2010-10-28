@@ -13,14 +13,14 @@
       <mountpoint dev="/dev/debian5x64.home.annexia.org/var">/var</mountpoint>
       <mountpoint dev="/dev/debian5x64.home.annexia.org/tmp">/tmp</mountpoint>
       <mountpoint dev="/dev/debian5x64.home.annexia.org/home">/home</mountpoint>
-      <mountpoint dev="/dev/vda1">/boot</mountpoint>
+      <mountpoint dev="/dev/sda1">/boot</mountpoint>
     </mountpoints>
     <filesystems>
       <filesystem dev="/dev/debian5x64.home.annexia.org/root">
         <type>ext3</type>
         <uuid>e15bda18-deca-40d1-beb4-ff31e4068741</uuid>
       </filesystem>
-      <filesystem dev="/dev/vda1">
+      <filesystem dev="/dev/sda1">
         <type>ext2</type>
         <uuid>b6590940-dc13-4fc5-b306-7c7bdf075f17</uuid>
       </filesystem>

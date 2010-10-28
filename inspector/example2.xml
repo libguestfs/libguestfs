@@ -1,6 +1,6 @@
 <operatingsystems>
   <operatingsystem>
-    <root>/dev/vda2</root>
+    <root>/dev/sda2</root>
     <name>linux</name>
     <arch>x86_64</arch>
     <distro>rhel</distro>
@@ -8,21 +8,21 @@
     <major_version>3</major_version>
     <minor_version>9</minor_version>
     <mountpoints>
-      <mountpoint dev="/dev/vda2">/</mountpoint>
-      <mountpoint dev="/dev/vda1">/boot</mountpoint>
+      <mountpoint dev="/dev/sda2">/</mountpoint>
+      <mountpoint dev="/dev/sda1">/boot</mountpoint>
     </mountpoints>
     <filesystems>
-      <filesystem dev="/dev/vda2">
+      <filesystem dev="/dev/sda2">
         <type>ext3</type>
         <label>/</label>
         <uuid>a3dde7db-0e74-4545-9f4b-a0fe7d853702</uuid>
       </filesystem>
-      <filesystem dev="/dev/vda1">
+      <filesystem dev="/dev/sda1">
         <type>ext3</type>
         <label>/boot</label>
         <uuid>690b600c-201f-4e16-9c11-06e73e248746</uuid>
       </filesystem>
-      <filesystem dev="/dev/vda3">
+      <filesystem dev="/dev/sda3">
         <type>swap</type>
         <uuid>c53d3294-9465-456c-a9ee-1b08d270b1b6</uuid>
       </filesystem>
