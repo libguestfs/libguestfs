@@ -371,6 +371,32 @@ static int
 run_supermin_helper (guestfs_h *g, const char *supermin_path,
                      const char *cachedir, size_t cdlen)
 {
+  size_t pathlen = strlen (supermin_path);
+
+  const char *argv[30];
+  size_t i = 0;
+
+  char supermin_d[pathlen + 32];
+  snprintf (supermin_d, pathlen + 32, "%s/supermin.d", supermin_path);
+  char kernel[cdlen + 32];
+  snprintf (kernel, cdlen + 32, "%s/kernel", cachedir);
+  char initrd[cdlen + 32];
+  snprintf (initrd, cdlen + 32, "%s/initrd", cachedir);
+  char root[cdlen + 32];
+  snprintf (root, cdlen + 32, "%s/root", cachedir);
+
+  argv[i++] = "febootstrap-supermin-helper";
+  if (g->verbose)
+    argv[i++] = "--verbose";
+  argv[i++] = "-f";
+  argv[i++] = "ext2";
+  argv[i++] = supermin_d;
+  argv[i++] = host_cpu;
+  argv[i++] = kernel;
+  argv[i++] = initrd;
+  argv[i++] = root;
+  argv[i++] = NULL;
+
   pid_t pid = fork ();
   if (pid == -1) {
     perrorf (g, "fork");
@@ -378,6 +404,9 @@ run_supermin_helper (guestfs_h *g, const char *supermin_path,
   }
 
   if (pid > 0) {                /* Parent. */
+    if (g->verbose)
+      guestfs___print_timestamped_argv (g, argv);
+
     int status;
     if (waitpid (pid, &status, 0) == -1) {
       perrorf (g, "waitpid");
@@ -422,32 +451,6 @@ run_supermin_helper (guestfs_h *g, const char *supermin_path,
       }
     }
   }
-
-  size_t pathlen = strlen (supermin_path);
-
-  const char *argv[30];
-  size_t i = 0;
-
-  argv[i++] = "febootstrap-supermin-helper";
-  if (g->verbose)
-    argv[i++] = "--verbose";
-  argv[i++] = "-f";
-  argv[i++] = "ext2";
-  char supermin_d[pathlen + 32];
-  snprintf (supermin_d, pathlen + 32, "%s/supermin.d", supermin_path);
-  argv[i++] = supermin_d;
-  argv[i++] = host_cpu;
-  char kernel[cdlen + 32];
-  snprintf (kernel, cdlen + 32, "%s/kernel", cachedir);
-  argv[i++] = kernel;
-  char initrd[cdlen + 32];
-  snprintf (initrd, cdlen + 32, "%s/initrd", cachedir);
-  argv[i++] = initrd;
-  char root[cdlen + 32];
-  snprintf (root, cdlen + 32, "%s/root", cachedir);
-  argv[i++] = root;
-  argv[i++] = NULL;
-
   execvp ("febootstrap-supermin-helper", (char * const *) argv);
   perror ("execvp");
   _exit (EXIT_FAILURE);
