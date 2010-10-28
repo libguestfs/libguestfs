@@ -302,7 +302,6 @@ guestfs__add_cdrom (guestfs_h *g, const char *filename)
 }
 
 static int is_openable (guestfs_h *g, const char *path, int flags);
-static void print_cmdline (guestfs_h *g);
 
 int
 guestfs__launch (guestfs_h *g)
@@ -546,7 +545,7 @@ guestfs__launch (guestfs_h *g)
     g->cmdline[g->cmdline_size-1] = NULL;
 
     if (g->verbose)
-      print_cmdline (g);
+      guestfs___print_timestamped_argv (g, (const char **)g->cmdline);
 
     if (!g->direct) {
       /* Set up stdin, stdout. */
@@ -746,33 +745,6 @@ guestfs_tmpdir (void)
   return tmpdir;
 }
 
-/* This function is used to print the qemu command line before it gets
- * executed, when in verbose mode.
- */
-static void
-print_cmdline (guestfs_h *g)
-{
-  int i = 0;
-  int needs_quote;
-
-  while (g->cmdline[i]) {
-    if (g->cmdline[i][0] == '-') /* -option starts a new line */
-      fprintf (stderr, " \\\n   ");
-
-    if (i > 0) fputc (' ', stderr);
-
-    /* Does it need shell quoting?  This only deals with simple cases. */
-    needs_quote = strcspn (g->cmdline[i], " ") != strlen (g->cmdline[i]);
-
-    if (needs_quote) fputc ('\'', stderr);
-    fprintf (stderr, "%s", g->cmdline[i]);
-    if (needs_quote) fputc ('\'', stderr);
-    i++;
-  }
-
-  fputc ('\n', stderr);
-}
-
 /* Compute Y - X and return the result in milliseconds.
  * Approximately the same as this code:
  * http://www.mpp.mpg.de/~huber/util/timevaldiff.c
@@ -785,6 +757,34 @@ timeval_diff (const struct timeval *x, const struct timeval *y)
   msec = (y->tv_sec - x->tv_sec) * 1000;
   msec += (y->tv_usec - x->tv_usec) / 1000;
   return msec;
+}
+
+void
+guestfs___print_timestamped_argv (guestfs_h *g, const char * argv[])
+{
+  int i = 0;
+  int needs_quote;
+
+  struct timeval tv;
+  gettimeofday (&tv, NULL);
+  fprintf (stderr, "[%05" PRIi64 "ms] ", timeval_diff (&g->launch_t, &tv));
+
+  while (argv[i]) {
+    if (argv[i][0] == '-') /* -option starts a new line */
+      fprintf (stderr, " \\\n   ");
+
+    if (i > 0) fputc (' ', stderr);
+
+    /* Does it need shell quoting?  This only deals with simple cases. */
+    needs_quote = strcspn (argv[i], " ") != strlen (argv[i]);
+
+    if (needs_quote) fputc ('\'', stderr);
+    fprintf (stderr, "%s", argv[i]);
+    if (needs_quote) fputc ('\'', stderr);
+    i++;
+  }
+
+  fputc ('\n', stderr);
 }
 
 void
