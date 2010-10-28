@@ -159,13 +159,27 @@ calculate_supermin_checksum (guestfs_h *g, const char *supermin_path)
 {
   size_t len = 2 * strlen (supermin_path) + 256;
   char cmd[len];
-  snprintf (cmd, len,
-            "febootstrap-supermin-helper%s "
-            "-f checksum "
-            "'%s/supermin.d' "
-            host_cpu,
-            g->verbose ? " --verbose" : "",
-            supermin_path);
+  int pass_u_g_args = getuid () != geteuid () || getgid () != getegid ();
+
+  if (!pass_u_g_args)
+    snprintf (cmd, len,
+              "febootstrap-supermin-helper%s "
+              "-f checksum "
+              "'%s/supermin.d' "
+              host_cpu,
+              g->verbose ? " --verbose" : "",
+              supermin_path);
+  else
+    snprintf (cmd, len,
+              "febootstrap-supermin-helper%s "
+              "-u %i "
+              "-g %i "
+              "-f checksum "
+              "'%s/supermin.d' "
+              host_cpu,
+              g->verbose ? " --verbose" : "",
+              geteuid (), getegid (),
+              supermin_path);
 
   if (g->verbose)
     guestfs___print_timestamped_message (g, "%s", cmd);
@@ -361,11 +375,7 @@ build_supermin_appliance (guestfs_h *g,
 }
 
 /* Run febootstrap-supermin-helper and tell it to generate the
- * appliance.  Note that we have to do an explicit fork/exec here.
- * 'system' goes via the shell, and on systems that have bash, bash
- * has a misfeature where it resets the euid to uid which breaks
- * virt-v2v.  'posix_spawn' was also considered but that doesn't allow
- * us to reset the umask.
+ * appliance.
  */
 static int
 run_supermin_helper (guestfs_h *g, const char *supermin_path,
@@ -376,6 +386,10 @@ run_supermin_helper (guestfs_h *g, const char *supermin_path,
   const char *argv[30];
   size_t i = 0;
 
+  char uid[32];
+  snprintf (uid, sizeof uid, "%i", geteuid ());
+  char gid[32];
+  snprintf (gid, sizeof gid, "%i", getegid ());
   char supermin_d[pathlen + 32];
   snprintf (supermin_d, pathlen + 32, "%s/supermin.d", supermin_path);
   char kernel[cdlen + 32];
@@ -385,9 +399,17 @@ run_supermin_helper (guestfs_h *g, const char *supermin_path,
   char root[cdlen + 32];
   snprintf (root, cdlen + 32, "%s/root", cachedir);
 
+  int pass_u_g_args = getuid () != geteuid () || getgid () != getegid ();
+
   argv[i++] = "febootstrap-supermin-helper";
   if (g->verbose)
     argv[i++] = "--verbose";
+  if (pass_u_g_args) {
+    argv[i++] = "-u";
+    argv[i++] = uid;
+    argv[i++] = "-g";
+    argv[i++] = gid;
+  }
   argv[i++] = "-f";
   argv[i++] = "ext2";
   argv[i++] = supermin_d;
@@ -426,31 +448,6 @@ run_supermin_helper (guestfs_h *g, const char *supermin_path,
    */
   umask (0022);
 
-  /* Set uid/gid in the child.  This is a workaround for a misfeature
-   * in bash which breaks virt-v2v - see the comment at the top of
-   * this function.
-   */
-  if (getuid () == 0) {
-    int egid = getegid ();
-    int euid = geteuid ();
-
-    if (egid != 0 || euid != 0) {
-      if (seteuid (0) == -1) {
-        perror ("seteuid");
-        _exit (EXIT_FAILURE);
-      }
-
-      if (setgid (egid) == -1) {
-        perror ("setgid");
-        _exit (EXIT_FAILURE);
-      }
-
-      if (setuid (euid) == -1) {
-        perror ("setuid");
-        _exit (EXIT_FAILURE);
-      }
-    }
-  }
   execvp ("febootstrap-supermin-helper", (char * const *) argv);
   perror ("execvp");
   _exit (EXIT_FAILURE);

@@ -39,7 +39,7 @@ Requirements
 
 - recent QEMU >= 0.12 with virtio-serial support
 
-- febootstrap >= 2.9
+- febootstrap >= 2.10
 
 - fakeroot
 
