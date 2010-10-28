@@ -198,10 +198,13 @@ my $root_dev = $roots[0];
 my $os = $oses->{$root_dev};
 mount_operating_system ($g, $os, 0);
 
-my ($fh_not_used, $tempname) = tempfile (UNLINK => 1);
+my ($fh, $tempname) = tempfile (UNLINK => 1);
+my $fddev = "/dev/fd/" . fileno ($fh);
 
 # Allow this to fail in case eg. the file does not exist.
-$g->download($filename, $tempname);
+$g->download ($filename, $fddev);
+
+close $fh or die "close: $!";
 
 my $do_upload = $tempname;
 
@@ -232,7 +235,7 @@ if (!defined $expr) {
         die if $@;
         print $fh $_ or die "print: $!";
     }
-    close $fh;
+    close $fh or die "close: $!";
 
     $do_upload = $tempout;
 }
