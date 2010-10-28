@@ -285,16 +285,9 @@ sub feature_available {
 
 =head2 get_partitions
 
- @partitions = get_partitions ($g);
-
-This function takes an open libguestfs handle C<$g> and returns all
-partitions and logical volumes found on it.
-
-What is returned is everything that could contain a filesystem (or
-swap).  Physical volumes are not normally included from the list
-except if they contain a filesystem directly.  Nor are devices which
-are partitioned (eg. C</dev/sda> would not be returned if C</dev/sda1>
-exists).
+This function is deprecated.  It will not be updated in future
+versions of libguestfs.  New code should not use this function.  Use
+the core API function L<Sys::Guestfs(3)/list_filesystems> instead.
 
 =cut
 
