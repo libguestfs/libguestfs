@@ -17,6 +17,10 @@
 
 include $(top_srcdir)/subdir-rules.mk
 
+EXAMPLE_XML = \
+	example1.xml example2.xml example3.xml \
+	example4.xml example5.xml example6.xml
+
 EXTRA_DIST = \
 	run-inspector-locally \
 	virt-inspector
@@ -24,7 +28,7 @@ EXTRA_DIST = \
 docdir = @docdir@
 dist_doc_DATA = \
 	virt-inspector.rng \
-	example1.xml example2.xml example3.xml example4.xml
+	$(EXAMPLE_XML)
 
 if HAVE_INSPECTOR
 
@@ -52,7 +56,7 @@ $(top_builddir)/html/virt-inspector.1.html: virt-inspector
 
 if HAVE_XMLLINT
 
-TESTS = example1.xml example2.xml example3.xml example4.xml
+TESTS = $(EXAMPLE_XML)
 TESTS_ENVIRONMENT = $(XMLLINT) --noout --relaxng virt-inspector.rng
 
 endif

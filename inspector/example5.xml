@@ -1,0 +1,50 @@
+<operatingsystems>
+  <operatingsystem>
+    <root>/dev/debian5x64.home.annexia.org/root</root>
+    <name>linux</name>
+    <arch>x86_64</arch>
+    <distro>debian</distro>
+    <product_name>5.0.6</product_name>
+    <major_version>5</major_version>
+    <minor_version>0</minor_version>
+    <mountpoints>
+      <mountpoint dev="/dev/debian5x64.home.annexia.org/root">/</mountpoint>
+      <mountpoint dev="/dev/debian5x64.home.annexia.org/usr">/usr</mountpoint>
+      <mountpoint dev="/dev/debian5x64.home.annexia.org/var">/var</mountpoint>
+      <mountpoint dev="/dev/debian5x64.home.annexia.org/tmp">/tmp</mountpoint>
+      <mountpoint dev="/dev/debian5x64.home.annexia.org/home">/home</mountpoint>
+      <mountpoint dev="/dev/vda1">/boot</mountpoint>
+    </mountpoints>
+    <filesystems>
+      <filesystem dev="/dev/debian5x64.home.annexia.org/root">
+        <type>ext3</type>
+        <uuid>e15bda18-deca-40d1-beb4-ff31e4068741</uuid>
+      </filesystem>
+      <filesystem dev="/dev/vda1">
+        <type>ext2</type>
+        <uuid>b6590940-dc13-4fc5-b306-7c7bdf075f17</uuid>
+      </filesystem>
+      <filesystem dev="/dev/debian5x64.home.annexia.org/home">
+        <type>ext3</type>
+        <uuid>96b22229-3575-408e-8270-aeba18b3ebf1</uuid>
+      </filesystem>
+      <filesystem dev="/dev/debian5x64.home.annexia.org/tmp">
+        <type>ext3</type>
+        <uuid>241ea398-034e-4514-9854-eec667ebe9d9</uuid>
+      </filesystem>
+      <filesystem dev="/dev/debian5x64.home.annexia.org/usr">
+        <type>ext3</type>
+        <uuid>4645668c-60d1-44ea-9ad6-d283bd71e380</uuid>
+      </filesystem>
+      <filesystem dev="/dev/debian5x64.home.annexia.org/var">
+        <type>ext3</type>
+        <uuid>0eb2cef5-e765-440f-8be7-f40c46b93874</uuid>
+      </filesystem>
+      <filesystem dev="/dev/debian5x64.home.annexia.org/swap_1">
+        <type>swap</type>
+      </filesystem>
+    </filesystems>
+    <package_format>dpkg</package_format>
+    <package_management>apt</package_management>
+  </operatingsystem>
+</operatingsystems>

@@ -1,20 +1,21 @@
 <operatingsystems>
   <operatingsystem>
+    <root>/dev/vda2</root>
     <name>windows</name>
-    <product_name>Microsoft Windows Server 2003</product_name>
     <arch>i386</arch>
-    <major_version>5</major_version>
-    <minor_version>2</minor_version>
-    <root>/dev/sda1</root>
+    <distro>windows</distro>
+    <product_name>Windows 7 Enterprise</product_name>
+    <major_version>6</major_version>
+    <minor_version>1</minor_version>
+    <windows_systemroot>/Windows</windows_systemroot>
     <mountpoints>
-      <mountpoint dev="/dev/sda1">/</mountpoint>
+      <mountpoint dev="/dev/vda2">/</mountpoint>
     </mountpoints>
     <filesystems>
-      <filesystem dev="/dev/sda1">
+      <filesystem dev="/dev/vda2">
         <type>ntfs</type>
-        <content>windows-root</content>
+        <uuid>F2E8996AE8992E3B</uuid>
       </filesystem>
     </filesystems>
-    <applications></applications>
   </operatingsystem>
 </operatingsystems>
