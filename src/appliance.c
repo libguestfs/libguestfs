@@ -18,6 +18,8 @@
 
 #include <config.h>
 
+#include <errno.h>
+#include <dirent.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
@@ -249,9 +251,9 @@ check_for_cached_appliance (guestfs_h *g,
 {
   const char *tmpdir = guestfs_tmpdir ();
 
-  size_t len = strlen (tmpdir) + strlen (checksum) + 2;
+  size_t len = strlen (tmpdir) + strlen (checksum) + 10;
   char cachedir[len];
-  snprintf (cachedir, len, "%s/%s", tmpdir, checksum);
+  snprintf (cachedir, len, "%s/guestfs.%s", tmpdir, checksum);
 
   /* Touch the directory to prevent it being deleting in a rare race
    * between us doing the checks and a tmp cleaner running.  Note this
@@ -342,27 +344,104 @@ build_supermin_appliance (guestfs_h *g,
     guestfs___print_timestamped_message (g, "begin building supermin appliance");
 
   const char *tmpdir = guestfs_tmpdir ();
-  size_t cdlen = strlen (tmpdir) + strlen (checksum) + 2;
-  char cachedir[cdlen];
-  snprintf (cachedir, cdlen, "%s/%s", tmpdir, checksum);
 
-  /* Don't worry about this failing, because the
-   * febootstrap-supermin-helper command will fail if the directory
-   * doesn't exist.  Note the directory might already exist, eg. if a
-   * tmp cleaner has removed the existing appliance but not the
-   * directory itself.
-   */
-  (void) mkdir (cachedir, 0755);
+  size_t tmpcdlen = strlen (tmpdir) + 16;
+  char tmpcd[tmpcdlen];
+  snprintf (tmpcd, tmpcdlen, "%s/guestfs.XXXXXX", tmpdir);
+
+  if (NULL == mkdtemp (tmpcd)) {
+    error (g, _("failed to create temporary cache directory: %m"));
+    return -1;
+  }
 
   if (g->verbose)
     guestfs___print_timestamped_message (g, "run febootstrap-supermin-helper");
 
-  int r = run_supermin_helper (g, supermin_path, cachedir, cdlen);
+  int r = run_supermin_helper (g, supermin_path, tmpcd, tmpcdlen);
   if (r == -1)
     return -1;
 
   if (g->verbose)
     guestfs___print_timestamped_message (g, "finished building supermin appliance");
+
+  size_t cdlen = strlen (tmpdir) + strlen (checksum) + 10;
+  char cachedir[cdlen];
+  snprintf (cachedir, cdlen, "%s/guestfs.%s", tmpdir, checksum);
+
+  /* Make the temporary directory world readable */
+  if (chmod (tmpcd, 0755) == -1) {
+    error (g, "chmod %s: %m", tmpcd);
+  }
+
+  /* Try to rename the temporary directory to its non-temporary name */
+  if (rename (tmpcd, cachedir) == -1) {
+    /* If the cache directory now exists, we may have been racing with another
+     * libguestfs process. Check the new directory and use it if it's valid. */
+    if (errno == ENOTEMPTY || errno == EEXIST) {
+      /* Appliance cache consists of 2 files and a symlink in the cache
+       * directory. Delete them first. */
+      DIR *dir = opendir (tmpcd);
+      if (dir == NULL) {
+        error (g, "opendir %s: %m", tmpcd);
+        return -1;
+      }
+
+      int fd = dirfd (dir);
+      if (fd == -1) {
+        error (g, "dirfd: %m");
+        closedir (dir);
+        return -1;
+      }
+
+      struct dirent *dirent;
+      for (;;) {
+        errno = 0;
+        dirent = readdir (dir);
+
+        if (dirent == NULL) {
+          break;
+        }
+
+        /* Check that dirent is a file so we don't try to delete . and .. */
+        struct stat st;
+        if (fstatat (fd, dirent->d_name, &st, AT_SYMLINK_NOFOLLOW) == -1) {
+          error (g, "fstatat %s: %m", dirent->d_name);
+          return -1;
+        }
+
+        if (!S_ISDIR(st.st_mode)) {
+          if (unlinkat (fd, dirent->d_name, 0) == -1) {
+            error (g, "unlinkat %s: %m", dirent->d_name);
+            closedir (dir);
+            return -1;
+          }
+        }
+      }
+
+      if (errno != 0) {
+        error (g, "readdir %s: %m", tmpcd);
+        closedir (dir);
+        return -1;
+      }
+
+      closedir (dir);
+
+      /* Delete the temporary cache directory itself. */
+      if (rmdir (tmpcd) == -1) {
+        error (g, "rmdir %s: %m", tmpcd);
+        return -1;
+      }
+
+      /* Check the new cache directory, and return it if valid */
+      return check_for_cached_appliance (g, supermin_path, checksum,
+                                         kernel, initrd, appliance);
+    }
+
+    else {
+      error (g, _("error renaming temporary cache directory: %m"));
+      return -1;
+    }
+  }
 
   *kernel = safe_malloc (g, cdlen + 8 /* / + "kernel" + \0 */);
   *initrd = safe_malloc (g, cdlen + 8 /* / + "initrd" + \0 */);

@@ -38,6 +38,7 @@ TESTS = \
 	test-find0.sh \
 	test-guestfish-a.sh \
 	test-guestfish-d.sh \
+	test-launch-race.pl \
 	test-luks.sh \
 	test-lvm-filtering.sh \
 	test-lvm-mapping.pl \

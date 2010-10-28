@@ -111,6 +111,7 @@ perl/lib/Sys/Guestfs/Lib.pm
 php/extension/guestfs_php.c
 python/guestfs-py.c
 regressions/rhbz501893.c
+regressions/test-launch-race.pl
 regressions/test-lvm-mapping.pl
 regressions/test-noexec-stack.pl
 ruby/ext/guestfs/_guestfs.c
