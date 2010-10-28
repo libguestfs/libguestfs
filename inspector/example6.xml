@@ -20,7 +20,7 @@
         <uuid>c0d1b68f-c0f9-4497-a366-938b37532613</uuid>
       </filesystem>
     </filesystems>
-    <package_format>dpkg</package_format>
+    <package_format>deb</package_format>
     <package_management>apt</package_management>
   </operatingsystem>
 </operatingsystems>

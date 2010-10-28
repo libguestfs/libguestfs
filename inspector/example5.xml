@@ -44,7 +44,7 @@
         <type>swap</type>
       </filesystem>
     </filesystems>
-    <package_format>dpkg</package_format>
+    <package_format>deb</package_format>
     <package_management>apt</package_management>
   </operatingsystem>
 </operatingsystems>

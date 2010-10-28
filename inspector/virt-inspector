@@ -264,7 +264,7 @@ sub output_applications
     my ($package_format, $package_management);
     if (defined $distro) {
         if ($distro eq "debian") {
-            $package_format = "dpkg";
+            $package_format = "deb";
             $package_management = "apt";
         }
         elsif ($distro eq "fedora") {
