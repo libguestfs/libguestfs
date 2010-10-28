@@ -338,8 +338,8 @@ sub output_filesystems
 The related elements E<lt>package_formatE<gt>,
 E<lt>package_managementE<gt> and E<lt>applicationsE<gt> describe
 applications installed in the virtual machine.  At the moment we are
-only able to list RPMs installed, but in future we will support other
-Linux distros and Windows.
+only able to list RPMs and Debian packages installed, but in future we
+will support other Linux distros and Windows.
 
 E<lt>package_formatE<gt>, if present, describes the packaging
 system used.  Typical values would be C<rpm> and C<deb>.
@@ -348,7 +348,7 @@ E<lt>package_managementE<gt>, if present, describes the package
 manager.  Typical values include C<yum>, C<up2date> and C<apt>
 
 E<lt>applicationsE<gt> lists the packages or applications
-installed.  At present this simply lists them by name:
+installed.
 
  <operatingsystems>
    <operatingsystem>
@@ -356,9 +356,12 @@ installed.  At present this simply lists them by name:
      <applications>
        <application>
          <name>coreutils</name>
+         <version>8.5</version>
+         <release>1</release>
        </application>
 
-In future we will also include the version here.
+(The version and release fields may not be available for
+some package types).
 
 =cut
 
@@ -403,7 +406,9 @@ sub output_applications
         if ($package_format eq "rpm") {
             output_applications_rpm ($root);
         }
-        # else no we don't.
+        elsif ($package_format eq "deb") {
+            output_applications_deb ($root);
+        }
     }
 }
 
@@ -453,6 +458,58 @@ sub output_applications_rpm
         foreach (@applications) {
             $xml->startTag ("application");
             $xml->dataElement (name => $_);
+            $xml->endTag ("application");
+        }
+        $xml->endTag ("applications");
+    }
+}
+
+sub output_applications_deb
+{
+    local $_;
+    my $root = shift;
+
+    my @applications;
+
+    eval {
+        my ($fh, $filename) = tempfile (UNLINK => 1);
+        my $fddev = "/dev/fd/" . fileno ($fh);
+        $g->download ("/var/lib/dpkg/status", $fddev);
+        close $fh or die "close: $!";
+
+        # Read the file.  Each package is separated by a blank line.
+        open FILE, $filename or die "$filename: $!";
+        my ($name, $installed, $version, $release);
+        while (<FILE>) {
+            chomp;
+            if (/^Package: (.*)/) {
+                $name = $1;
+            } elsif (/^Status: .*\binstalled\b/) {
+                $installed = 1;
+            } elsif (/^Version: (.*?)-(.*)/) {
+                $version = $1;
+                $release = $2;
+            } elsif ($_ eq "") {
+                if ($installed &&
+                    defined $name && defined $version && defined $release) {
+                    push @applications, [ $name, $version, $release ];
+                }
+                $name = undef;
+                $installed = undef;
+                $version = undef;
+                $release = undef;
+            }
+        }
+        close FILE or die "$filename: $!";
+    };
+    if (!$@ && @applications > 0) {
+        @applications = sort { $a->[0] cmp $b->[0] } @applications;
+        $xml->startTag ("applications");
+        foreach (@applications) {
+            $xml->startTag ("application");
+            $xml->dataElement (name => $_->[0]);
+            $xml->dataElement (version => $_->[1]);
+            $xml->dataElement (release => $_->[2]);
             $xml->endTag ("application");
         }
         $xml->endTag ("applications");

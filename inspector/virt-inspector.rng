@@ -84,6 +84,8 @@
       <zeroOrMore>
         <element name="application">
           <element name="name"><text/></element>
+          <optional><element name="version"><text/></element></optional>
+          <optional><element name="release"><text/></element></optional>
         </element>
       </zeroOrMore>
     </element>
