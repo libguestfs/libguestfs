@@ -146,6 +146,42 @@ if (@roots == 0) {
             prog => basename ($0));
 }
 
+=head1 XML FORMAT
+
+The virt-inspector XML is described precisely in a RELAX NG schema
+which is supplied with libguestfs.  This section is just an overview.
+
+The top-level element is E<lt>operatingsystemsE<gt>, and it contains
+one or more E<lt>operatingsystemE<gt> elements.  You would only see
+more than one E<lt>operatingsystemE<gt> element if the virtual machine
+is multi-boot, which is vanishingly rare in real world VMs.
+
+=head2 E<lt>operatingsystemE<gt>
+
+In the E<lt>operatingsystemE<gt> tag are various optional fields that
+describe the operating system, its architecture, the descriptive
+"product name" string, the type of OS and so on, as in this example:
+
+ <operatingsystems>
+   <operatingsystem>
+     <root>/dev/sda2</root>
+     <name>windows</name>
+     <arch>i386</arch>
+     <distro>windows</distro>
+     <product_name>Windows 7 Enterprise</product_name>
+     <major_version>6</major_version>
+     <minor_version>1</minor_version>
+     <windows_systemroot>/Windows</windows_systemroot>
+
+These fields are derived from the libguestfs inspection API, and
+you can find more details in L<guestfs(3)/INSPECTION>.
+
+The E<lt>rootE<gt> element is the root filesystem device, but from the
+point of view of libguestfs (block devices may have completely
+different names inside the VM itself).
+
+=cut
+
 # Start the XML output.
 my $xml = new XML::Writer (DATA_MODE => 1, DATA_INDENT => 2);
 
@@ -201,6 +237,27 @@ foreach $root (@roots) {
 $xml->endTag ("operatingsystems");
 $xml->end ();
 
+=head2 E<lt>mountpointsE<gt>
+
+Un*x-like guests typically have multiple filesystems which are mounted
+at various mountpoints, and these are described in the
+E<lt>mountpointsE<gt> element which looks like this:
+
+ <operatingsystems>
+   <operatingsystem>
+     ...
+     <mountpoints>
+       <mountpoint dev="/dev/vg_f13x64/lv_root">/</mountpoint>
+       <mountpoint dev="/dev/sda1">/boot</mountpoint>
+     </mountpoints>
+
+As with E<lt>rootE<gt>, devices are from the point of view of
+libguestfs, and may have completely different names inside the guest.
+Only mountable filesystems appear in this list, not things like swap
+devices.
+
+=cut
+
 sub output_mountpoints
 {
     local $_;
@@ -215,6 +272,30 @@ sub output_mountpoints
     }
     $xml->endTag ("mountpoints");
 }
+
+=head2 E<lt>filesystemsE<gt>
+
+E<lt>filesystemsE<gt> is like E<lt>mountpointsE<gt> but covers I<all>
+filesystems belonging to the guest, including swap and empty
+partitions.  (In the rare case of a multi-boot guest, it covers
+filesystems belonging to this OS or shared by this OS and other OSes).
+
+You might see something like this:
+
+ <operatingsystems>
+   <operatingsystem>
+     ...
+     <filesystems>
+       <filesystem dev="/dev/vg_f13x64/lv_root">
+         <type>ext4</type>
+         <label>Fedora-13-x86_64</label>
+         <uuid>e6a4db1e-15c2-477b-ac2a-699181c396aa</uuid>
+       </filesystem>
+
+The optional elements within E<lt>filesystemE<gt> are the filesystem
+type, the label, and the UUID.
+
+=cut
 
 sub output_filesystems
 {
@@ -251,6 +332,35 @@ sub output_filesystems
 
     $xml->endTag ("filesystems");
 }
+
+=head2 E<lt>applicationsE<gt>
+
+The related elements E<lt>package_formatE<gt>,
+E<lt>package_managementE<gt> and E<lt>applicationsE<gt> describe
+applications installed in the virtual machine.  At the moment we are
+only able to list RPMs installed, but in future we will support other
+Linux distros and Windows.
+
+E<lt>package_formatE<gt>, if present, describes the packaging
+system used.  Typical values would be C<rpm> and C<deb>.
+
+E<lt>package_managementE<gt>, if present, describes the package
+manager.  Typical values include C<yum>, C<up2date> and C<apt>
+
+E<lt>applicationsE<gt> lists the packages or applications
+installed.  At present this simply lists them by name:
+
+ <operatingsystems>
+   <operatingsystem>
+     ...
+     <applications>
+       <application>
+         <name>coreutils</name>
+       </application>
+
+In future we will also include the version here.
+
+=cut
 
 sub output_applications
 {
@@ -361,6 +471,25 @@ sub canonicalize
     $_;
 }
 
+=head1 USING XPATH
+
+You can use the XPath query language, and/or the xpath tool, in order
+to select parts of the XML.
+
+For example:
+
+ $ virt-inspector Guest | xpath //filesystems
+ Found 1 nodes:
+ -- NODE --
+ <filesystems>
+      <filesystem dev="/dev/vg_f13x64/lv_root">
+        <type>ext4</type>
+ [etc]
+
+ $ virt-inspector Guest | \
+     xpath "string(//filesystem[@dev='/dev/sda1']/type)"
+ Query didn't return a nodeset. Value: ext4
+
 =head1 SHELL QUOTING
 
 Libvirt guest names can contain arbitrary characters, some of which
@@ -375,6 +504,7 @@ L<guestfish(1)>,
 L<Sys::Guestfs(3)>,
 L<Sys::Guestfs::Lib(3)>,
 L<Sys::Virt(3)>,
+L<http://www.w3.org/TR/xpath/>,
 L<http://libguestfs.org/>.
 
 =head1 AUTHORS
