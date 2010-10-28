@@ -85,5 +85,9 @@ $gnulib_tool			\
   --tests-base=gnulib/tests	\
   --import $modules
 
+# ocaml/.depend is updated automatically. However, as it's included by
+# ocaml/Makefile.am we need to bootstrap it here.
+touch ocaml/.depend
+
 # Disable autopoint and libtoolize, since they were already done above.
 AUTOPOINT=true LIBTOOLIZE=true autoreconf --verbose --install
