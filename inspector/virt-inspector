@@ -385,6 +385,10 @@ sub output_applications
             $package_format = "rpm";
             $package_management = "yum";
         }
+        elsif ($distro eq "pardus") {
+            $package_format = "pisi";
+            $package_management = "pisi";
+        }
         elsif ($distro =~ /redhat/ || $distro =~ /rhel/) {
             if ($major_version >= 5) {
                 $package_format = "rpm";

@@ -166,6 +166,7 @@ enum inspect_os_distro {
   OS_DISTRO_REDHAT_BASED,
   OS_DISTRO_RHEL,
   OS_DISTRO_WINDOWS,
+  OS_DISTRO_PARDUS,
 };
 
 struct inspect_fs {

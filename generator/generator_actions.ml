@@ -787,6 +787,10 @@ Debian or a Debian-derived distro such as Ubuntu.
 
 Fedora.
 
+=item \"pardus\"
+
+Pardus.
+
 =item \"redhat-based\"
 
 Some Red Hat-derived distro.

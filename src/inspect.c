@@ -722,6 +722,15 @@ check_linux_root (guestfs_h *g, struct inspect_fs *fs)
     if (parse_major_minor (g, fs) == -1)
       return -1;
   }
+  else if (guestfs_exists (g, "/etc/pardus-release") > 0) {
+    fs->distro = OS_DISTRO_PARDUS;
+
+    if (parse_release_file (g, fs, "/etc/pardus-release") == -1)
+      return -1;
+
+    if (parse_major_minor (g, fs) == -1)
+      return -1;
+  }
 
   /* Determine the architecture. */
   const char *binaries[] =
@@ -1238,6 +1247,7 @@ guestfs__inspect_get_distro (guestfs_h *g, const char *root)
   switch (fs->distro) {
   case OS_DISTRO_DEBIAN: ret = safe_strdup (g, "debian"); break;
   case OS_DISTRO_FEDORA: ret = safe_strdup (g, "fedora"); break;
+  case OS_DISTRO_PARDUS: ret = safe_strdup (g, "pardus"); break;
   case OS_DISTRO_REDHAT_BASED: ret = safe_strdup (g, "redhat-based"); break;
   case OS_DISTRO_RHEL: ret = safe_strdup (g, "rhel"); break;
   case OS_DISTRO_WINDOWS: ret = safe_strdup (g, "windows"); break;
