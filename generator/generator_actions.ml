@@ -779,6 +779,10 @@ Currently defined distros are:
 
 =over 4
 
+=item \"archlinux\"
+
+Arch Linux.
+
 =item \"debian\"
 
 Debian or a Debian-derived distro such as Ubuntu.

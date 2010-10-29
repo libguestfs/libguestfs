@@ -731,6 +731,13 @@ check_linux_root (guestfs_h *g, struct inspect_fs *fs)
     if (parse_major_minor (g, fs) == -1)
       return -1;
   }
+  else if (guestfs_exists (g, "/etc/arch-release") > 0) {
+    fs->distro = OS_DISTRO_ARCHLINUX;
+
+    /* /etc/arch-release file is empty and I can't see a way to
+     * determine the actual release or product string.
+     */
+  }
 
   /* Determine the architecture. */
   const char *binaries[] =
@@ -1245,6 +1252,7 @@ guestfs__inspect_get_distro (guestfs_h *g, const char *root)
 
   char *ret;
   switch (fs->distro) {
+  case OS_DISTRO_ARCHLINUX: ret = safe_strdup (g, "archlinux"); break;
   case OS_DISTRO_DEBIAN: ret = safe_strdup (g, "debian"); break;
   case OS_DISTRO_FEDORA: ret = safe_strdup (g, "fedora"); break;
   case OS_DISTRO_PARDUS: ret = safe_strdup (g, "pardus"); break;

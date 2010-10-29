@@ -377,7 +377,11 @@ sub output_applications
     # and package management.
     my ($package_format, $package_management);
     if (defined $distro) {
-        if ($distro eq "debian") {
+        if ($distro eq "archlinux") {
+            $package_format = "pacman";
+            $package_management = "pacman";
+        }
+        elsif ($distro eq "debian") {
             $package_format = "deb";
             $package_management = "apt";
         }
