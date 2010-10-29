@@ -305,6 +305,7 @@ sub output_filesystems
     $xml->startTag ("filesystems");
 
     my @fses = $g->inspect_get_filesystems ($root);
+    @fses = sort @fses;
     foreach (@fses) {
         $xml->startTag ("filesystem",
                         dev => canonicalize ($_));
