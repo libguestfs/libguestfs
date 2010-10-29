@@ -622,6 +622,29 @@ check_filesystem (guestfs_h *g, const char *device)
   return 0;
 }
 
+/* Set fs->product_name to the first line of the release file. */
+static int
+parse_release_file (guestfs_h *g, struct inspect_fs *fs,
+                    const char *release_filename)
+{
+  char **product_name = guestfs_head_n (g, 1, release_filename);
+  if (product_name == NULL)
+    return -1;
+  if (product_name[0] == NULL) {
+    error (g, "%s: file is empty", release_filename);
+    free_string_list (product_name);
+    return -1;
+  }
+
+  /* Note that this string becomes owned by the handle and will
+   * be freed by guestfs___free_inspect_info.
+   */
+  fs->product_name = product_name[0];
+  free (product_name);
+
+  return 0;
+}
+
 /* The currently mounted device is known to be a Linux root.  Try to
  * determine from this the distro, version, etc.  Also parse
  * /etc/fstab to determine the arrangement of mountpoints and
@@ -635,20 +658,8 @@ check_linux_root (guestfs_h *g, struct inspect_fs *fs)
   if (guestfs_exists (g, "/etc/redhat-release") > 0) {
     fs->distro = OS_DISTRO_REDHAT_BASED; /* Something generic Red Hat-like. */
 
-    char **product_name = guestfs_head_n (g, 1, "/etc/redhat-release");
-    if (product_name == NULL)
+    if (parse_release_file (g, fs, "/etc/redhat-release") == -1)
       return -1;
-    if (product_name[0] == NULL) {
-      error (g, "/etc/redhat-release file is empty");
-      free_string_list (product_name);
-      return -1;
-    }
-
-    /* Note that this string becomes owned by the handle and will
-     * be freed by guestfs___free_inspect_info.
-     */
-    fs->product_name = product_name[0];
-    free (product_name);
 
     char *major, *minor;
     if ((major = match1 (g, fs->product_name, re_fedora)) != NULL) {
@@ -684,20 +695,8 @@ check_linux_root (guestfs_h *g, struct inspect_fs *fs)
   else if (guestfs_exists (g, "/etc/debian_version") > 0) {
     fs->distro = OS_DISTRO_DEBIAN;
 
-    char **product_name = guestfs_head_n (g, 1, "/etc/debian_version");
-    if (product_name == NULL)
+    if (parse_release_file (g, fs, "/etc/debian_version") == -1)
       return -1;
-    if (product_name[0] == NULL) {
-      error (g, "/etc/debian_version file is empty");
-      free_string_list (product_name);
-      return -1;
-    }
-
-    /* Note that this string becomes owned by the handle and will
-     * be freed by guestfs___free_inspect_info.
-     */
-    fs->product_name = product_name[0];
-    free (product_name);
 
     char *major, *minor;
     if (match2 (g, fs->product_name, re_debian, &major, &minor)) {
