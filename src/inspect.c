@@ -52,7 +52,7 @@ static pcre *re_fedora;
 static pcre *re_rhel_old;
 static pcre *re_rhel;
 static pcre *re_rhel_no_minor;
-static pcre *re_debian;
+static pcre *re_major_minor;
 static pcre *re_aug_seq;
 static pcre *re_xdev;
 static pcre *re_windows_version;
@@ -85,7 +85,7 @@ compile_regexps (void)
            "(?:Red Hat Enterprise Linux|CentOS|Scientific Linux).*release (\\d+)\\.(\\d+)", 0);
   COMPILE (re_rhel_no_minor,
            "(?:Red Hat Enterprise Linux|CentOS|Scientific Linux).*release (\\d+)", 0);
-  COMPILE (re_debian, "(\\d+)\\.(\\d+)", 0);
+  COMPILE (re_major_minor, "(\\d+)\\.(\\d+)", 0);
   COMPILE (re_aug_seq, "/\\d+$", 0);
   COMPILE (re_xdev, "^/dev/(?:h|s|v|xv)d([a-z]\\d*)$", 0);
   COMPILE (re_windows_version, "^(\\d+)\\.(\\d+)", 0);
@@ -101,7 +101,7 @@ free_regexps (void)
   pcre_free (re_rhel_old);
   pcre_free (re_rhel);
   pcre_free (re_rhel_no_minor);
-  pcre_free (re_debian);
+  pcre_free (re_major_minor);
   pcre_free (re_aug_seq);
   pcre_free (re_xdev);
   pcre_free (re_windows_version);
@@ -645,6 +645,27 @@ parse_release_file (guestfs_h *g, struct inspect_fs *fs,
   return 0;
 }
 
+/* Parse generic MAJOR.MINOR from the fs->product_name string. */
+static int
+parse_major_minor (guestfs_h *g, struct inspect_fs *fs)
+{
+  char *major, *minor;
+
+  if (match2 (g, fs->product_name, re_major_minor, &major, &minor)) {
+    fs->major_version = parse_unsigned_int (g, major);
+    free (major);
+    if (fs->major_version == -1) {
+      free (minor);
+      return -1;
+    }
+    fs->minor_version = parse_unsigned_int (g, minor);
+    free (minor);
+    if (fs->minor_version == -1)
+      return -1;
+  }
+  return 0;
+}
+
 /* The currently mounted device is known to be a Linux root.  Try to
  * determine from this the distro, version, etc.  Also parse
  * /etc/fstab to determine the arrangement of mountpoints and
@@ -698,19 +719,8 @@ check_linux_root (guestfs_h *g, struct inspect_fs *fs)
     if (parse_release_file (g, fs, "/etc/debian_version") == -1)
       return -1;
 
-    char *major, *minor;
-    if (match2 (g, fs->product_name, re_debian, &major, &minor)) {
-      fs->major_version = parse_unsigned_int (g, major);
-      free (major);
-      if (fs->major_version == -1) {
-        free (minor);
-        return -1;
-      }
-      fs->minor_version = parse_unsigned_int (g, minor);
-      free (minor);
-      if (fs->minor_version == -1)
-        return -1;
-    }
+    if (parse_major_minor (g, fs) == -1)
+      return -1;
   }
 
   /* Determine the architecture. */
