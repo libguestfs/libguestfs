@@ -791,6 +791,10 @@ Debian or a Debian-derived distro such as Ubuntu.
 
 Fedora.
 
+=item \"gentoo\"
+
+Gentoo.
+
 =item \"pardus\"
 
 Pardus.

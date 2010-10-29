@@ -389,6 +389,10 @@ sub output_applications
             $package_format = "rpm";
             $package_management = "yum";
         }
+        elsif ($distro eq "gentoo") {
+            $package_format = "ebuild";
+            $package_management = "portage";
+        }
         elsif ($distro eq "pardus") {
             $package_format = "pisi";
             $package_management = "pisi";

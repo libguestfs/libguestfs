@@ -168,6 +168,7 @@ enum inspect_os_distro {
   OS_DISTRO_WINDOWS,
   OS_DISTRO_PARDUS,
   OS_DISTRO_ARCHLINUX,
+  OS_DISTRO_GENTOO,
 };
 
 struct inspect_fs {
