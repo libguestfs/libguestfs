@@ -21,6 +21,10 @@
 set -e
 set -v
 
+# ocaml/.depend is updated automatically. However, as it's included by
+# ocaml/Makefile.am we need to bootstrap it here.
+touch ocaml/.depend
+
 # Ensure that whenever we pull in a gnulib update or otherwise change to a
 # different version (i.e., when switching branches), we also rerun ./bootstrap.
 curr_status=.git-module-status
