@@ -843,11 +843,12 @@ add_fstab_entry (guestfs_h *g, struct inspect_fs *fs,
     device = guestfs_findfs_uuid (g, &spec[5]);
   else if (STRPREFIX (spec, "LABEL="))
     device = guestfs_findfs_label (g, &spec[6]);
-  /* Resolve guest block device names. */
-  else if (spec[0] == '/')
+  /* Ignore "/.swap" (Pardus) and pseudo-devices like "tmpfs". */
+  else if (STRPREFIX (spec, "/dev/"))
+    /* Resolve guest block device names. */
     device = resolve_fstab_device (g, spec);
-  /* Also ignore pseudo-devices completely, like spec == "tmpfs".
-   * If we haven't resolved the device successfully by this point,
+
+  /* If we haven't resolved the device successfully by this point,
    * we don't care, just ignore it.
    */
   if (device == NULL)
