@@ -666,6 +666,67 @@ parse_major_minor (guestfs_h *g, struct inspect_fs *fs)
   return 0;
 }
 
+/* Ubuntu has /etc/lsb-release containing:
+ *   DISTRIB_ID=Ubuntu                                # Distro
+ *   DISTRIB_RELEASE=10.04                            # Version
+ *   DISTRIB_CODENAME=lucid
+ *   DISTRIB_DESCRIPTION="Ubuntu 10.04.1 LTS"         # Product name
+ * In theory other distros could have this LSB file, but none do.
+ */
+static int
+parse_lsb_release (guestfs_h *g, struct inspect_fs *fs)
+{
+  char **lines;
+  size_t i;
+  int r = 0;
+
+  lines = guestfs_head_n (g, 10, "/etc/lsb-release");
+  if (lines == NULL)
+    return -1;
+
+  for (i = 0; lines[i] != NULL; ++i) {
+    if (fs->distro == 0 &&
+        STREQ (lines[i], "DISTRIB_ID=Ubuntu")) {
+      fs->distro = OS_DISTRO_UBUNTU;
+      r = 1;
+    }
+    else if (STRPREFIX (lines[i], "DISTRIB_RELEASE=")) {
+      char *major, *minor;
+      if (match2 (g, &lines[i][16], re_major_minor, &major, &minor)) {
+        fs->major_version = parse_unsigned_int (g, major);
+        free (major);
+        if (fs->major_version == -1) {
+          free (minor);
+          free_string_list (lines);
+          return -1;
+        }
+        fs->minor_version = parse_unsigned_int (g, minor);
+        free (minor);
+        if (fs->minor_version == -1) {
+          free_string_list (lines);
+          return -1;
+        }
+      }
+    }
+    else if (fs->product_name == NULL &&
+             (STRPREFIX (lines[i], "DISTRIB_DESCRIPTION=\"") ||
+              STRPREFIX (lines[i], "DISTRIB_DESCRIPTION='"))) {
+      size_t len = strlen (lines[i]) - 21 - 1;
+      fs->product_name = safe_strndup (g, &lines[i][21], len);
+      r = 1;
+    }
+    else if (fs->product_name == NULL &&
+             STRPREFIX (lines[i], "DISTRIB_DESCRIPTION=")) {
+      size_t len = strlen (lines[i]) - 20;
+      fs->product_name = safe_strndup (g, &lines[i][20], len);
+      r = 1;
+    }
+  }
+
+  free_string_list (lines);
+  return r;
+}
+
 /* The currently mounted device is known to be a Linux root.  Try to
  * determine from this the distro, version, etc.  Also parse
  * /etc/fstab to determine the arrangement of mountpoints and
@@ -674,7 +735,17 @@ parse_major_minor (guestfs_h *g, struct inspect_fs *fs)
 static int
 check_linux_root (guestfs_h *g, struct inspect_fs *fs)
 {
+  int r;
+
   fs->type = OS_TYPE_LINUX;
+
+  if (guestfs_exists (g, "/etc/lsb-release") > 0) {
+    r = parse_lsb_release (g, fs);
+    if (r == -1)        /* error */
+      return -1;
+    if (r == 1)         /* ok - detected the release from this file */
+      goto skip_release_checks;
+  }
 
   if (guestfs_exists (g, "/etc/redhat-release") > 0) {
     fs->distro = OS_DISTRO_REDHAT_BASED; /* Something generic Red Hat-like. */
@@ -748,6 +819,8 @@ check_linux_root (guestfs_h *g, struct inspect_fs *fs)
       return -1;
   }
 
+ skip_release_checks:;
+
   /* Determine the architecture. */
   const char *binaries[] =
     { "/bin/bash", "/bin/ls", "/bin/echo", "/bin/rm", "/bin/sh" };
@@ -783,7 +856,7 @@ check_linux_root (guestfs_h *g, struct inspect_fs *fs)
   guestfs_aug_rm (g, "/augeas/load//incl[. != \"/etc/fstab\"]");
   guestfs_aug_load (g);
 
-  int r = check_fstab (g, fs);
+  r = check_fstab (g, fs);
   guestfs_aug_close (g);
   if (r == -1)
     return -1;
@@ -1269,6 +1342,7 @@ guestfs__inspect_get_distro (guestfs_h *g, const char *root)
   case OS_DISTRO_REDHAT_BASED: ret = safe_strdup (g, "redhat-based"); break;
   case OS_DISTRO_RHEL: ret = safe_strdup (g, "rhel"); break;
   case OS_DISTRO_WINDOWS: ret = safe_strdup (g, "windows"); break;
+  case OS_DISTRO_UBUNTU: ret = safe_strdup (g, "ubuntu"); break;
   case OS_DISTRO_UNKNOWN: default: ret = safe_strdup (g, "unknown"); break;
   }
 

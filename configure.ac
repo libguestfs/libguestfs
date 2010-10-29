@@ -129,6 +129,9 @@ if test "$gl_gcc_warnings" = yes; then
   # gcc 4.5.0 20090517, and it provokes warnings in cat.c, dd.c, truncate.c
   gl_WARN_ADD([-Wno-logical-op])
 
+  # Work around warning in src/inspect.c.  This seems to be a bug in gcc 4.5.1.
+  gl_WARN_ADD([-Wno-strict-overflow])
+
   gl_WARN_ADD([-fdiagnostics-show-option])
 
   AC_SUBST([WARN_CFLAGS])

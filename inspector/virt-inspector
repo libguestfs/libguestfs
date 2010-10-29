@@ -381,7 +381,7 @@ sub output_applications
             $package_format = "pacman";
             $package_management = "pacman";
         }
-        elsif ($distro eq "debian") {
+        elsif ($distro eq "debian" || $distro eq "ubuntu") {
             $package_format = "deb";
             $package_management = "apt";
         }
