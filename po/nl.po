@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.5.4\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-10-29 15:47+0100\n"
+"POT-Creation-Date: 2010-11-02 16:23+0000\n"
 "PO-Revision-Date: 2010-09-02 15:28+0200\n"
 "Last-Translator: Geert Warrink <geert.warrink@onsnet.nu>\n"
 "Language-Team: Fedora\n"
@@ -2424,16 +2424,16 @@ msgstr "libguestfs: foutr: %s\n"
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
 
-#: src/inspect.c:1068
+#: src/inspect.c:1077
 #, c-format
 msgid "cannot resolve Windows %%SYSTEMROOT%%"
 msgstr "Kan Windows %%SYSTEMROOT%% niet oplossen"
 
-#: src/inspect.c:1284
+#: src/inspect.c:1293
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr "geen inspectie data: roep eerst guestfs_inspect_os aan"
 
-#: src/inspect.c:1296
+#: src/inspect.c:1305
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
@@ -2442,7 +2442,7 @@ msgstr ""
 "%s: root apparaat niet gevonden: roep deze functie alleen aan met een root "
 "apparaat eerder teruggegeven door guestfs_inspect_os"
 
-#: src/inspect.c:1390
+#: src/inspect.c:1400
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr ""
 
