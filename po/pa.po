@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libguestfs 1.0.81\n"
 "Report-Msgid-Bugs-To: https://bugzilla.redhat.com/enter_bug.cgi?"
 "component=libguestfs&product=Virtualization+Tools\n"
-"POT-Creation-Date: 2010-10-29 15:47+0100\n"
+"POT-Creation-Date: 2010-11-02 16:25+0000\n"
 "PO-Revision-Date: 2010-01-29 12:50+0530\n"
 "Last-Translator: Jaswinder Singh <jsingh@redhat.com>\n"
 "Language-Team: Punjabi/Panjabi <kde-i18n-doc@kde.org>\n"
@@ -2395,23 +2395,23 @@ msgstr "libguestfs: error: %s\n"
 msgid "<truncated, original size %zu bytes>"
 msgstr ""
 
-#: src/inspect.c:1068
+#: src/inspect.c:1077
 #, c-format
 msgid "cannot resolve Windows %%SYSTEMROOT%%"
 msgstr ""
 
-#: src/inspect.c:1284
+#: src/inspect.c:1293
 msgid "no inspection data: call guestfs_inspect_os first"
 msgstr ""
 
-#: src/inspect.c:1296
+#: src/inspect.c:1305
 #, c-format
 msgid ""
 "%s: root device not found: only call this function with a root device "
 "previously returned by guestfs_inspect_os"
 msgstr ""
 
-#: src/inspect.c:1390
+#: src/inspect.c:1400
 msgid "not a Windows guest, or systemroot could not be determined"
 msgstr ""
 
