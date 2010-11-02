@@ -795,6 +795,10 @@ Fedora.
 
 Gentoo.
 
+=item \"meego\"
+
+MeeGo.
+
 =item \"pardus\"
 
 Pardus.

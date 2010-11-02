@@ -170,6 +170,7 @@ enum inspect_os_distro {
   OS_DISTRO_ARCHLINUX,
   OS_DISTRO_GENTOO,
   OS_DISTRO_UBUNTU,
+  OS_DISTRO_MEEGO,
 };
 
 struct inspect_fs {

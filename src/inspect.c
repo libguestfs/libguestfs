@@ -818,6 +818,15 @@ check_linux_root (guestfs_h *g, struct inspect_fs *fs)
     if (parse_major_minor (g, fs) == -1)
       return -1;
   }
+  else if (guestfs_exists (g, "/etc/meego-release") > 0) {
+    fs->distro = OS_DISTRO_MEEGO;
+
+    if (parse_release_file (g, fs, "/etc/meego-release") == -1)
+      return -1;
+
+    if (parse_major_minor (g, fs) == -1)
+      return -1;
+  }
 
  skip_release_checks:;
 
@@ -1338,6 +1347,7 @@ guestfs__inspect_get_distro (guestfs_h *g, const char *root)
   case OS_DISTRO_DEBIAN: ret = safe_strdup (g, "debian"); break;
   case OS_DISTRO_FEDORA: ret = safe_strdup (g, "fedora"); break;
   case OS_DISTRO_GENTOO: ret = safe_strdup (g, "gentoo"); break;
+  case OS_DISTRO_MEEGO: ret = safe_strdup (g, "meego"); break;
   case OS_DISTRO_PARDUS: ret = safe_strdup (g, "pardus"); break;
   case OS_DISTRO_REDHAT_BASED: ret = safe_strdup (g, "redhat-based"); break;
   case OS_DISTRO_RHEL: ret = safe_strdup (g, "rhel"); break;

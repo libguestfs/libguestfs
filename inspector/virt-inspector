@@ -385,7 +385,7 @@ sub output_applications
             $package_format = "deb";
             $package_management = "apt";
         }
-        elsif ($distro eq "fedora") {
+        elsif ($distro eq "fedora" || $distro eq "meego") {
             $package_format = "rpm";
             $package_management = "yum";
         }
