@@ -152,7 +152,7 @@ HTMLFILES = \
 	html/recipes.html \
 	html/pod.css html/recipes.css
 
-TEXTFILES = README TODO HACKING
+TEXTFILES = BUGS HACKING README RELEASE-NOTES TODO
 
 WEBSITEDIR = $(HOME)/d/redhat/websites/libguestfs
 
