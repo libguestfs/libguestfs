@@ -1155,7 +1155,10 @@ See also C<guestfs_list_filesystems>.");
    [InitBasicFS, Always, TestOutputListOfDevices (
       [["list_partitions"]], ["/dev/sda1"]);
     InitEmpty, Always, TestOutputListOfDevices (
-      [["sfdiskM"; "/dev/sda"; ",100 ,200 ,"];
+      [["part_init"; "/dev/sda"; "mbr"];
+       ["part_add"; "/dev/sda"; "p"; "64"; "204799"];
+       ["part_add"; "/dev/sda"; "p"; "204800"; "409599"];
+       ["part_add"; "/dev/sda"; "p"; "409600"; "-64"];
        ["list_partitions"]], ["/dev/sda1"; "/dev/sda2"; "/dev/sda3"])],
    "list the partitions",
    "\
@@ -1172,7 +1175,10 @@ See also C<guestfs_list_filesystems>.");
    [InitBasicFSonLVM, Always, TestOutputListOfDevices (
       [["pvs"]], ["/dev/sda1"]);
     InitEmpty, Always, TestOutputListOfDevices (
-      [["sfdiskM"; "/dev/sda"; ",100 ,200 ,"];
+      [["part_init"; "/dev/sda"; "mbr"];
+       ["part_add"; "/dev/sda"; "p"; "64"; "204799"];
+       ["part_add"; "/dev/sda"; "p"; "204800"; "409599"];
+       ["part_add"; "/dev/sda"; "p"; "409600"; "-64"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
        ["pvcreate"; "/dev/sda3"];
@@ -1191,7 +1197,10 @@ See also C<guestfs_pvs_full>.");
    [InitBasicFSonLVM, Always, TestOutputList (
       [["vgs"]], ["VG"]);
     InitEmpty, Always, TestOutputList (
-      [["sfdiskM"; "/dev/sda"; ",100 ,200 ,"];
+      [["part_init"; "/dev/sda"; "mbr"];
+       ["part_add"; "/dev/sda"; "p"; "64"; "204799"];
+       ["part_add"; "/dev/sda"; "p"; "204800"; "409599"];
+       ["part_add"; "/dev/sda"; "p"; "409600"; "-64"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
        ["pvcreate"; "/dev/sda3"];
@@ -1212,7 +1221,10 @@ See also C<guestfs_vgs_full>.");
    [InitBasicFSonLVM, Always, TestOutputList (
       [["lvs"]], ["/dev/VG/LV"]);
     InitEmpty, Always, TestOutputList (
-      [["sfdiskM"; "/dev/sda"; ",100 ,200 ,"];
+      [["part_init"; "/dev/sda"; "mbr"];
+       ["part_add"; "/dev/sda"; "p"; "64"; "204799"];
+       ["part_add"; "/dev/sda"; "p"; "204800"; "409599"];
+       ["part_add"; "/dev/sda"; "p"; "409600"; "-64"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
        ["pvcreate"; "/dev/sda3"];
@@ -1568,7 +1580,10 @@ See also C<guestfs_stat>.");
 
   ("pvcreate", (RErr, [Device "device"], []), 39, [Optional "lvm2"],
    [InitEmpty, Always, TestOutputListOfDevices (
-      [["sfdiskM"; "/dev/sda"; ",100 ,200 ,"];
+      [["part_init"; "/dev/sda"; "mbr"];
+       ["part_add"; "/dev/sda"; "p"; "64"; "204799"];
+       ["part_add"; "/dev/sda"; "p"; "204800"; "409599"];
+       ["part_add"; "/dev/sda"; "p"; "409600"; "-64"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
        ["pvcreate"; "/dev/sda3"];
@@ -1581,7 +1596,10 @@ as C</dev/sda1>.");
 
   ("vgcreate", (RErr, [String "volgroup"; DeviceList "physvols"], []), 40, [Optional "lvm2"],
    [InitEmpty, Always, TestOutputList (
-      [["sfdiskM"; "/dev/sda"; ",100 ,200 ,"];
+      [["part_init"; "/dev/sda"; "mbr"];
+       ["part_add"; "/dev/sda"; "p"; "64"; "204799"];
+       ["part_add"; "/dev/sda"; "p"; "204800"; "409599"];
+       ["part_add"; "/dev/sda"; "p"; "409600"; "-64"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
        ["pvcreate"; "/dev/sda3"];
@@ -1595,7 +1613,10 @@ from the non-empty list of physical volumes C<physvols>.");
 
   ("lvcreate", (RErr, [String "logvol"; String "volgroup"; Int "mbytes"], []), 41, [Optional "lvm2"],
    [InitEmpty, Always, TestOutputList (
-      [["sfdiskM"; "/dev/sda"; ",100 ,200 ,"];
+      [["part_init"; "/dev/sda"; "mbr"];
+       ["part_add"; "/dev/sda"; "p"; "64"; "204799"];
+       ["part_add"; "/dev/sda"; "p"; "204800"; "409599"];
+       ["part_add"; "/dev/sda"; "p"; "409600"; "-64"];
        ["pvcreate"; "/dev/sda1"];
        ["pvcreate"; "/dev/sda2"];
        ["pvcreate"; "/dev/sda3"];
@@ -1709,7 +1730,10 @@ See also: C<guestfs_mountpoints>");
        ["mounts"]], []);
     (* check that umount_all can unmount nested mounts correctly: *)
     InitEmpty, Always, TestOutputList (
-      [["sfdiskM"; "/dev/sda"; ",100 ,200 ,"];
+      [["part_init"; "/dev/sda"; "mbr"];
+       ["part_add"; "/dev/sda"; "p"; "64"; "204799"];
+       ["part_add"; "/dev/sda"; "p"; "204800"; "409599"];
+       ["part_add"; "/dev/sda"; "p"; "409600"; "-64"];
        ["mkfs"; "ext2"; "/dev/sda1"];
        ["mkfs"; "ext2"; "/dev/sda2"];
        ["mkfs"; "ext2"; "/dev/sda3"];
@@ -3896,7 +3920,9 @@ the requested cluster size.");
 
   ("mke2journal", (RErr, [Int "blocksize"; Device "device"], []), 188, [],
    [InitEmpty, Always, TestOutput (
-      [["sfdiskM"; "/dev/sda"; ",100 ,"];
+      [["part_init"; "/dev/sda"; "mbr"];
+       ["part_add"; "/dev/sda"; "p"; "64"; "204799"];
+       ["part_add"; "/dev/sda"; "p"; "204800"; "-64"];
        ["mke2journal"; "4096"; "/dev/sda1"];
        ["mke2fs_J"; "ext2"; "4096"; "/dev/sda2"; "/dev/sda1"];
        ["mount_options"; ""; "/dev/sda2"; "/"];
@@ -3911,7 +3937,9 @@ to the command:
 
   ("mke2journal_L", (RErr, [Int "blocksize"; String "label"; Device "device"], []), 189, [],
    [InitEmpty, Always, TestOutput (
-      [["sfdiskM"; "/dev/sda"; ",100 ,"];
+      [["part_init"; "/dev/sda"; "mbr"];
+       ["part_add"; "/dev/sda"; "p"; "64"; "204799"];
+       ["part_add"; "/dev/sda"; "p"; "204800"; "-64"];
        ["mke2journal_L"; "4096"; "JOURNAL"; "/dev/sda1"];
        ["mke2fs_JL"; "ext2"; "4096"; "/dev/sda2"; "JOURNAL"];
        ["mount_options"; ""; "/dev/sda2"; "/"];
@@ -3924,7 +3952,9 @@ This creates an ext2 external journal on C<device> with label C<label>.");
   ("mke2journal_U", (RErr, [Int "blocksize"; String "uuid"; Device "device"], []), 190, [Optional "linuxfsuuid"],
    (let uuid = uuidgen () in
     [InitEmpty, Always, TestOutput (
-       [["sfdiskM"; "/dev/sda"; ",100 ,"];
+       [["part_init"; "/dev/sda"; "mbr"];
+        ["part_add"; "/dev/sda"; "p"; "64"; "204799"];
+        ["part_add"; "/dev/sda"; "p"; "204800"; "-64"];
         ["mke2journal_U"; "4096"; uuid; "/dev/sda1"];
         ["mke2fs_JU"; "ext2"; "4096"; "/dev/sda2"; uuid];
         ["mount_options"; ""; "/dev/sda2"; "/"];
