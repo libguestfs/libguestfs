@@ -163,7 +163,7 @@ to find out is to look at the C<HKLM\SYSTEM\Select> key:
  "Failed"=dword:00000000
  "LastKnownGood"=dword:00000002
 
-"Default" is the one which Windows will choose when it boots.
+"Current" is the one which Windows will choose when it boots.
 
 Similarly, other C<Current...> keys in the path may need to
 be replaced.
