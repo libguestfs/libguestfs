@@ -44,6 +44,8 @@ extern void guestfs_close (guestfs_h *g);
 
 /*--- Error handling ---*/
 extern const char *guestfs_last_error (guestfs_h *g);
+#define LIBGUESTFS_HAVE_LAST_ERRNO 1
+extern int guestfs_last_errno (guestfs_h *g);
 
 typedef void (*guestfs_error_handler_cb) (guestfs_h *g, void *opaque, const char *msg);
 typedef void (*guestfs_abort_cb) (void) __attribute__((__noreturn__));

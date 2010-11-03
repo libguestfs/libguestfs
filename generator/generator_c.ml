@@ -438,6 +438,7 @@ and generate_client_actions () =
 #include \"guestfs-internal.h\"
 #include \"guestfs-internal-actions.h\"
 #include \"guestfs_protocol.h\"
+#include \"errnostring.h\"
 
 /* Check the return message from a call for validity. */
 static int
@@ -802,7 +803,16 @@ check_state (guestfs_h *g, const char *caller)
       pr "\n";
 
       pr "  if (hdr.status == GUESTFS_STATUS_ERROR) {\n";
-      pr "    error (g, \"%%s: %%s\", \"%s\", err.error_message);\n" shortname;
+      pr "    int errnum = 0;\n";
+      pr "    if (err.errno_string[0] != '\\0')\n";
+      pr "      errnum = guestfs___string_to_errno (err.errno_string);\n";
+      pr "    if (errnum <= 0)\n";
+      pr "      error (g, \"%%s: %%s\", \"%s\", err.error_message);\n"
+        shortname;
+      pr "    else\n";
+      pr "      guestfs_error_errno (g, errnum, \"%%s: %%s\", \"%s\",\n"
+        shortname;
+      pr "                           err.error_message);\n";
       pr "    free (err.error_message);\n";
       pr "    free (err.errno_string);\n";
       pr "    guestfs___end_busy (g);\n";
@@ -995,6 +1005,7 @@ and generate_linker_script () =
     "guestfs_get_error_handler";
     "guestfs_get_out_of_memory_handler";
     "guestfs_get_private";
+    "guestfs_last_errno";
     "guestfs_last_error";
     "guestfs_set_close_callback";
     "guestfs_set_error_handler";

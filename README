@@ -55,6 +55,8 @@ Requirements
 
 - libxml2
 
+- gperf
+
 - Augeas (http://augeas.net/)
 
 - squashfs-tools (mksquashfs only)

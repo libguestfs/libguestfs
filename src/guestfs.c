@@ -270,11 +270,18 @@ guestfs_last_error (guestfs_h *g)
   return g->last_error;
 }
 
+int
+guestfs_last_errno (guestfs_h *g)
+{
+  return g->last_errnum;
+}
+
 static void
-set_last_error (guestfs_h *g, const char *msg)
+set_last_error (guestfs_h *g, int errnum, const char *msg)
 {
   free (g->last_error);
   g->last_error = strdup (msg);
+  g->last_errnum = errnum;
 }
 
 static void
@@ -284,7 +291,7 @@ default_error_cb (guestfs_h *g, void *data, const char *msg)
 }
 
 void
-guestfs_error (guestfs_h *g, const char *fs, ...)
+guestfs_error_errno (guestfs_h *g, int errnum, const char *fs, ...)
 {
   va_list args;
   char *msg;
@@ -295,8 +302,11 @@ guestfs_error (guestfs_h *g, const char *fs, ...)
 
   if (err < 0) return;
 
+  /* set_last_error first so that the callback can access the error
+   * message and errno through the handle if it wishes.
+   */
+  set_last_error (g, errnum, msg);
   if (g->error_cb) g->error_cb (g, g->error_cb_data, msg);
-  set_last_error (g, msg);
 
   free (msg);
 }
@@ -327,8 +337,11 @@ guestfs_perrorf (guestfs_h *g, const char *fs, ...)
   strcat (msg, ": ");
   strcat (msg, buf);
 
+  /* set_last_error first so that the callback can access the error
+   * message and errno through the handle if it wishes.
+   */
+  set_last_error (g, errnum, msg);
   if (g->error_cb) g->error_cb (g, g->error_cb_data, msg);
-  set_last_error (g, msg);
 
   free (msg);
 }

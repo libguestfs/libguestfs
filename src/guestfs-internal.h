@@ -114,6 +114,7 @@ struct guestfs_h
   int selinux;                  /* selinux enabled? */
 
   char *last_error;
+  int last_errnum;              /* errno, or 0 if there was no errno */
 
   /* Callbacks. */
   guestfs_abort_cb           abort_cb;
@@ -200,6 +201,8 @@ struct guestfs_message_error;
 
 extern void guestfs_error (guestfs_h *g, const char *fs, ...)
   __attribute__((format (printf,2,3)));
+extern void guestfs_error_errno (guestfs_h *g, int errnum, const char *fs, ...)
+  __attribute__((format (printf,3,4)));
 extern void guestfs_perrorf (guestfs_h *g, const char *fs, ...)
   __attribute__((format (printf,2,3)));
 extern void *guestfs_safe_realloc (guestfs_h *g, void *ptr, int nbytes);
@@ -221,7 +224,7 @@ extern int guestfs___accept_from_daemon (guestfs_h *g);
 extern int guestfs___build_appliance (guestfs_h *g, char **kernel, char **initrd, char **appliance);
 extern void guestfs___print_BufferIn (FILE *out, const char *buf, size_t buf_size);
 
-#define error guestfs_error
+#define error(g,...) guestfs_error_errno((g),0,__VA_ARGS__)
 #define perrorf guestfs_perrorf
 #define safe_calloc guestfs_safe_calloc
 #define safe_malloc guestfs_safe_malloc

@@ -24,15 +24,19 @@ generator_built = \
 	guestfs-internal-actions.h \
 	actions.c \
 	bindtests.c \
+	errnostring_gperf.gperf \
+	errnostring.c \
+	errnostring.h
 	guestfs-actions.pod \
 	guestfs-availability.pod \
 	guestfs-structs.pod \
 	libguestfs.syms
 
 BUILT_SOURCES = \
-  $(generator_built) \
-  guestfs_protocol.c \
-  guestfs_protocol.h
+	$(generator_built) \
+	guestfs_protocol.c \
+	guestfs_protocol.h \
+	errnostring_gperf.c
 
 EXTRA_DIST = \
 	$(BUILT_SOURCES) \
@@ -51,6 +55,19 @@ libprotocol_la_SOURCES = \
   guestfs_protocol.h
 
 libprotocol_la_CFLAGS =
+
+# Build the errnostring perfect hash code.  The generated code has lots
+# of warnings so we must compile it in a separate mini-library.
+liberrnostring_la_SOURCES = \
+	errnostring_gperf.c \
+	errnostring.h \
+	errnostring.c
+liberrnostring_la_CFLAGS =
+
+errnostring_gperf.c: errnostring_gperf.gperf
+	rm -f $@
+	$(GPERF) -t $< > $@-t
+	mv $@-t $@
 
 # From the libtool info file, with comments:
 #
@@ -115,9 +132,9 @@ libguestfs_la_SOURCES = \
 
 libguestfs_la_LIBADD = $(HIVEX_LIBS) $(AUGEAS_LIBS) $(LIBPCRE) $(LIBMAGIC) $(LTLIBTHREAD) ../gnulib/lib/libgnu.la
 
-# Make libguestfs include the convenience library.
-noinst_LTLIBRARIES = libprotocol.la
-libguestfs_la_LIBADD += libprotocol.la
+# Make libguestfs include the convenience libraries.
+noinst_LTLIBRARIES = liberrnostring.la libprotocol.la
+libguestfs_la_LIBADD += liberrnostring.la libprotocol.la
 
 libguestfs_la_CFLAGS = \
   -DGUESTFS_DEFAULT_PATH='"$(libdir)/guestfs"' \

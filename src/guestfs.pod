@@ -770,20 +770,6 @@ The error message you get from this is also a little obscure.
 This could be fixed in the generator by specially marking parameters
 and return values which take bytes or other units.
 
-=item Library should return errno with error messages.
-
-It would be a nice-to-have to be able to get the original value of
-'errno' from inside the appliance along error paths (where set).
-Currently L<guestmount(1)> goes through hoops to try to reverse the
-error message string into an errno, see the function error() in
-fuse/guestmount.c.
-
-In libguestfs 1.5.4, the protocol was changed so that the
-Linux errno is sent back from the daemon.
-
-In libguestfs 1.7.1, the protocol was changed again to send the
-errno back as a string (for portability between differing Un*xes).
-
 =item Ambiguity between devices and paths
 
 There is a subtle ambiguity in the API between a device name
@@ -892,9 +878,16 @@ This closes the connection handle and frees up all resources used.
 =head1 ERROR HANDLING
 
 The convention in all functions that return C<int> is that they return
-C<-1> to indicate an error.  You can get additional information on
-errors by calling L</guestfs_last_error> and/or by setting up an error
-handler with L</guestfs_set_error_handler>.
+C<-1> to indicate an error.
+
+Additional information is available for errors: an error message
+string and optionally an error number (errno) if the thing that failed
+was a system call.
+
+You can get at the additional information about the last error on the
+handle by calling L</guestfs_last_error>, L</guestfs_last_errno>,
+and/or by setting up an error handler with
+L</guestfs_set_error_handler>.
 
 The default error handler prints the information string to C<stderr>.
 
@@ -917,6 +910,45 @@ The error string is not localized (ie. is always in English), because
 this makes searching for error messages in search engines give the
 largest number of results.
 
+=head2 guestfs_last_errno
+
+ int guestfs_last_errno (guestfs_h *g);
+
+This returns the last error number (errno) that happened on C<g>.
+
+If successful, an errno integer not equal to zero is returned.
+
+If no error, this returns 0.  This call can return 0 in three
+situations:
+
+=over 4
+
+=item 1.
+
+There has not been any error on the handle.
+
+=item 2.
+
+There has been an error but the errno was meaningless.  This
+corresponds to the case where the error did not come from a
+failed system call, but for some other reason.
+
+=item 3.
+
+There was an error from a failed system call, but for some
+reason the errno was not captured and returned.  This usually
+indicates a bug in libguestfs.
+
+=back
+
+Libguestfs tries to convert the errno from inside the applicance into
+a corresponding errno for the caller (not entirely trivial: the
+appliance might be running a completely different operating system
+from the library and error numbers are not standardized across
+Un*xen).  If this could not be done, then the error is translated to
+C<EINVAL>.  In practice this should only happen in very rare
+circumstances.
+
 =head2 guestfs_set_error_handler
 
  typedef void (*guestfs_error_handler_cb) (guestfs_h *g,
@@ -929,6 +961,9 @@ largest number of results.
 The callback C<cb> will be called if there is an error.  The
 parameters passed to the callback are an opaque data pointer and the
 error message string.
+
+C<errno> is not passed to the callback.  To get that the callback must
+call L</guestfs_last_errno>.
 
 Note that the message string C<msg> is freed as soon as the callback
 function returns, so if you want to stash it somewhere you must make

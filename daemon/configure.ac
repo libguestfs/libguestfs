@@ -137,6 +137,11 @@ AC_STRUCT_ST_BLOCKS
 AC_CHECK_MEMBER([struct stat.st_blksize],[
         AC_DEFINE([HAVE_STRUCT_STAT_ST_BLKSIZE],[1],[Define to 1 if 'st_blksize' is a member of 'struct stat'])])
 
+dnl Check for gperf.
+AC_CHECK_PROG([GPERF],[gperf],[gperf],[no])
+test "x$GPERF" = "xno" &&
+     AC_MSG_ERROR([gperf must be installed])
+
 dnl Check for Augeas (now optional).
 AC_CHECK_LIB([augeas],[aug_match],[
         LIBS="-laugeas $LIBS"

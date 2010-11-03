@@ -224,7 +224,11 @@ extern const char *guestfs___errno_to_string (int errnum);
  * system, EINVAL is returned (all POSIX-conforming systems must
  * support EINVAL).
  */
-//extern int guestfs___string_to_errno (const char *errnostr);
+extern int guestfs___string_to_errno (const char *errnostr);
+
+/* Private structure and function used by the perfect hash implementation. */
+struct errnostring_entry { char *name; int errnum; };
+extern const struct errnostring_entry *guestfs___string_to_errno_lookup (register const char *str, register unsigned int len);
 
 #endif /* GUESTFS_ERRNOSTRING_H_ */
 "
@@ -236,6 +240,7 @@ let generate_errnostring_c () =
 #include <config.h>
 
 #include <stdlib.h>
+#include <string.h>
 #include <errno.h>
 
 #include \"errnostring.h\"
@@ -270,4 +275,63 @@ guestfs___errno_to_string (int errnum)
     return errno_to_string[errnum];
 }
 
+int
+guestfs___string_to_errno (const char *errnostr)
+{
+  const struct errnostring_entry *v =
+    guestfs___string_to_errno_lookup (errnostr, strlen (errnostr));
+  if (v /* not necessary to check v->name != NULL here */)
+    return v->errnum;
+  else
+    return EINVAL;
+}
 "
+
+let generate_errnostring_gperf () =
+  generate_header CStyle LGPLv2plus;
+
+  pr "\
+%%language=ANSI-C
+%%define lookup-function-name guestfs___string_to_errno_lookup
+%%readonly-tables
+%%null-strings
+
+%%{
+
+#include <config.h>
+
+#include <stdlib.h>
+#include <string.h>
+#include <errno.h>
+
+#include \"errnostring.h\"
+
+";
+
+  (* Some of these errnos might not exist on the target platform, but
+   * we are going to include E_ macros directly in the C output of
+   * gperf.  To avoid this causing errors, we include macros to define
+   * unknown errors as EINVAL (see specification of
+   * guestfs___string_to_errno above).  Note this only affects the
+   * single output file containing gperf-generated code.
+   *)
+  List.iter (
+    fun e ->
+      pr "#ifndef %s\n" e;
+      pr "#define %s EINVAL\n" e;
+      pr "#endif\n";
+  ) errnos;
+
+  pr "\
+
+%%}
+
+struct errnostring_entry;
+
+%%%%
+";
+
+  List.iter (
+    fun e ->
+      pr "%s, %s\n" e e
+  ) errnos

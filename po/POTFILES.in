@@ -17,6 +17,7 @@ daemon/dropcaches.c
 daemon/du.c
 daemon/echo_daemon.c
 daemon/errnostring.c
+daemon/errnostring_gperf.c
 daemon/ext2.c
 daemon/fallocate.c
 daemon/file.c
@@ -120,6 +121,7 @@ src/actions.c
 src/appliance.c
 src/bindtests.c
 src/errnostring.c
+src/errnostring_gperf.c
 src/guestfs.c
 src/inspect.c
 src/launch.c

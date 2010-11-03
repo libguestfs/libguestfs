@@ -37,6 +37,8 @@ BUILT_SOURCES = \
 	$(generator_built) \
 	guestfs_protocol.c \
 	guestfs_protocol.h \
+	errnostring_gperf.c \
+	errnostring_gperf.gperf \
 	errnostring.c \
 	errnostring.h
 
@@ -62,6 +64,22 @@ $(libsrcdir)/guestfs_protocol.c: force
 $(libsrcdir)/guestfs_protocol.h: force
 	$(MAKE) -C $(libsrcdir) guestfs_protocol.h
 
+# Build the errnostring perfect hash code.  The generated code has lots
+# of warnings so we must compile it in a separate mini-library.
+noinst_LIBRARIES += liberrnostring.a
+liberrnostring_a_SOURCES = \
+	errnostring_gperf.c \
+	errnostring.h \
+	errnostring.c
+liberrnostring_a_CFLAGS =
+
+errnostring_gperf.c: errnostring_gperf.gperf
+	rm -f $@
+	$(GPERF) -t $< > $@-t
+	mv $@-t $@
+errnostring_gperf.gperf: $(libsrcdir)/errnostring_gperf.gperf
+	rm -f $@
+	ln $< $@
 errnostring.c: $(libsrcdir)/errnostring.c
 	rm -f $@
 	ln $< $@
@@ -91,8 +109,6 @@ guestfsd_SOURCES = \
 	dropcaches.c \
 	du.c \
 	echo_daemon.c \
-	errnostring.h \
-	errnostring.c \
 	ext2.c \
 	fallocate.c \
 	file.c \
@@ -148,6 +164,7 @@ guestfsd_SOURCES = \
 	zero.c \
 	zerofree.c
 guestfsd_LDADD = \
+	liberrnostring.a \
 	libprotocol.a \
 	lib/libgnu.a \
 	$(GETADDRINFO_LIB) \
