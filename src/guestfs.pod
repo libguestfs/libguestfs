@@ -924,6 +924,12 @@ Out of memory errors are handled differently.  The default action is
 to call L<abort(3)>.  If this is undesirable, then you can set a
 handler using L</guestfs_set_out_of_memory_handler>.
 
+L</guestfs_create> returns C<NULL> if the handle cannot be created,
+and because there is no handle if this happens there is no way to get
+additional error information.  However L</guestfs_create> is supposed
+to be a lightweight operation which can only fail because of
+insufficient memory (it returns NULL in this case).
+
 =head2 guestfs_last_error
 
  const char *guestfs_last_error (guestfs_h *g);
