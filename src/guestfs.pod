@@ -911,10 +911,6 @@ returns C<NULL>.
 The lifetime of the returned string is until the next error occurs, or
 L</guestfs_close> is called.
 
-The error string is not localized (ie. is always in English), because
-this makes searching for error messages in search engines give the
-largest number of results.
-
 =head2 guestfs_set_error_handler
 
  typedef void (*guestfs_error_handler_cb) (guestfs_h *g,
