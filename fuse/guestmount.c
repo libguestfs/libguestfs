@@ -64,40 +64,10 @@ int inspector = 0;
 const char *libvirt_uri;
 int dir_cache_timeout = 60;
 
-/* This is ugly: guestfs errors are strings, FUSE wants -errno.  We
- * have to do the conversion as best we can.
- */
-#define MAX_ERRNO 256
-
 static int
 error (void)
 {
-  int i;
-  const char *err = guestfs_last_error (g);
-
-  if (!err)
-    return -EINVAL;
-
-  if (verbose)
-    fprintf (stderr, "%s\n", err);
-
-  /* Add a few of our own ... */
-
-  /* This indicates guestfsd died.  Translate into a hard EIO error.
-   * Arguably we could relaunch the guest if we hit this error.
-   */
-  if (strstr (err, "call launch before using this function"))
-    return -EIO;
-
-  /* See if it matches an errno string in the host. */
-  for (i = 0; i < MAX_ERRNO; ++i) {
-    const char *e = strerror (i);
-    if (e && strstr (err, e) != NULL)
-      return -i;
-  }
-
-  /* Too bad, return a generic error. */
-  return -EINVAL;
+  return -guestfs_last_errno (g);
 }
 
 static struct guestfs_xattr_list *
