@@ -781,6 +781,9 @@ fuse/guestmount.c.
 In libguestfs 1.5.4, the protocol was changed so that the
 Linux errno is sent back from the daemon.
 
+In libguestfs 1.7.1, the protocol was changed again to send the
+errno back as a string (for portability between differing Un*xes).
+
 =item Ambiguity between devices and paths
 
 There is a subtle ambiguity in the API between a device name

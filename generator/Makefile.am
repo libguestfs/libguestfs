@@ -44,6 +44,7 @@ SOURCES = \
 	generator_csharp.ml \
 	generator_php.ml \
 	generator_bindtests.ml \
+	generator_errnostring.ml \
 	generator_main.ml
 
 SOURCES_ML = $(filter %.ml,$(SOURCES))

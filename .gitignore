@@ -46,6 +46,8 @@ configure
 cscope.out
 csharp/
 daemon/actions.h
+daemon/errnostring.c
+daemon/errnostring.h
 daemon/guestfsd
 daemon/guestfsd.exe
 daemon/guestfs_protocol.c
@@ -250,6 +252,8 @@ ruby/ext/guestfs/mkmf.log
 ruby/Rakefile
 src/actions.c
 src/bindtests.c
+src/errnostring.c
+src/errnostring.h
 src/guestfs-actions.h
 src/guestfs-internal-actions.h
 src/guestfs_protocol.c

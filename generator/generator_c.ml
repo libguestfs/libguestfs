@@ -804,6 +804,7 @@ check_state (guestfs_h *g, const char *caller)
       pr "  if (hdr.status == GUESTFS_STATUS_ERROR) {\n";
       pr "    error (g, \"%%s: %%s\", \"%s\", err.error_message);\n" shortname;
       pr "    free (err.error_message);\n";
+      pr "    free (err.errno_string);\n";
       pr "    guestfs___end_busy (g);\n";
       pr "    return %s;\n" error_code;
       pr "  }\n";

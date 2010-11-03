@@ -157,7 +157,7 @@ let generate_xdr () =
  */
 
 const GUESTFS_PROGRAM = 0x2000F5F5;
-const GUESTFS_PROTOCOL_VERSION = 2;
+const GUESTFS_PROTOCOL_VERSION = 3;
 
 /* These constants must be larger than any possible message length. */
 const GUESTFS_LAUNCH_FLAG = 0xf5f55ff5;
@@ -181,7 +181,8 @@ enum guestfs_message_status {
 
   pr "\
 struct guestfs_message_error {
-  int linux_errno;                   /* Linux errno if available. */
+  string errno_string<32>;           /* errno eg. \"EINVAL\", empty string
+                                        if errno not available */
   string error_message<GUESTFS_ERROR_LEN>;
 };
 

@@ -36,7 +36,9 @@ $(generatorsrcdir)/stamp-generator: force
 BUILT_SOURCES = \
 	$(generator_built) \
 	guestfs_protocol.c \
-	guestfs_protocol.h
+	guestfs_protocol.h \
+	errnostring.c \
+	errnostring.h
 
 EXTRA_DIST = $(BUILT_SOURCES) \
 	.gitignore
@@ -60,6 +62,13 @@ $(libsrcdir)/guestfs_protocol.c: force
 $(libsrcdir)/guestfs_protocol.h: force
 	$(MAKE) -C $(libsrcdir) guestfs_protocol.h
 
+errnostring.c: $(libsrcdir)/errnostring.c
+	rm -f $@
+	ln $< $@
+errnostring.h: $(libsrcdir)/errnostring.h
+	rm -f $@
+	ln $< $@
+
 noinst_PROGRAMS = guestfsd
 guestfsd_SOURCES = \
 	actions.h \
@@ -82,6 +91,8 @@ guestfsd_SOURCES = \
 	dropcaches.c \
 	du.c \
 	echo_daemon.c \
+	errnostring.h \
+	errnostring.c \
 	ext2.c \
 	fallocate.c \
 	file.c \

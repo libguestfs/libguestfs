@@ -38,6 +38,7 @@ open Generator_haskell
 open Generator_csharp
 open Generator_php
 open Generator_bindtests
+open Generator_errnostring
 
 let perror msg = function
   | Unix_error (err, _, _) ->
@@ -80,6 +81,8 @@ Run it from the top source directory using the command
   output_to "src/guestfs-structs.pod" generate_structs_pod;
   output_to "src/guestfs-actions.pod" generate_actions_pod;
   output_to "src/guestfs-availability.pod" generate_availability_pod;
+  output_to "src/errnostring.c" generate_errnostring_c;
+  output_to "src/errnostring.h" generate_errnostring_h;
   output_to "src/MAX_PROC_NR" generate_max_proc_nr;
   output_to "src/libguestfs.syms" generate_linker_script;
   output_to "daemon/actions.h" generate_daemon_actions_h;

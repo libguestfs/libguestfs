@@ -16,6 +16,7 @@ daemon/dmesg.c
 daemon/dropcaches.c
 daemon/du.c
 daemon/echo_daemon.c
+daemon/errnostring.c
 daemon/ext2.c
 daemon/fallocate.c
 daemon/file.c
@@ -118,6 +119,7 @@ ruby/ext/guestfs/_guestfs.c
 src/actions.c
 src/appliance.c
 src/bindtests.c
+src/errnostring.c
 src/guestfs.c
 src/inspect.c
 src/launch.c

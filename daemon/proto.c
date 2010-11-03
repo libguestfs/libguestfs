@@ -39,6 +39,7 @@
 
 #include "daemon.h"
 #include "guestfs_protocol.h"
+#include "errnostring.h"
 
 /* The message currently being processed. */
 int proc_nr;
@@ -247,7 +248,11 @@ send_error (int errnum, const char *msg)
     exit (EXIT_FAILURE);
   }
 
-  err.linux_errno = errnum;
+  /* These strings are not going to be freed.  We just cast them
+   * to (char *) because they are defined that way in the XDR structs.
+   */
+  err.errno_string =
+    (char *) (errnum > 0 ? guestfs___errno_to_string (errnum) : "");
   err.error_message = (char *) msg;
 
   if (!xdr_guestfs_message_error (&xdr, &err)) {
