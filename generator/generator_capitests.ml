@@ -176,7 +176,7 @@ int main (int argc, char *argv[])
   guestfs_set_error_handler (g, print_error, NULL);
 
   filename = \"test1.img\";
-  fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_NONBLOCK|O_TRUNC, 0666);
+  fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_TRUNC, 0666);
   if (fd == -1) {
     perror (filename);
     exit (EXIT_FAILURE);
@@ -204,7 +204,7 @@ int main (int argc, char *argv[])
   }
 
   filename = \"test2.img\";
-  fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_NONBLOCK|O_TRUNC, 0666);
+  fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_TRUNC, 0666);
   if (fd == -1) {
     perror (filename);
     exit (EXIT_FAILURE);
@@ -232,7 +232,7 @@ int main (int argc, char *argv[])
   }
 
   filename = \"test3.img\";
-  fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_NONBLOCK|O_TRUNC, 0666);
+  fd = open (filename, O_WRONLY|O_CREAT|O_NOCTTY|O_TRUNC, 0666);
   if (fd == -1) {
     perror (filename);
     exit (EXIT_FAILURE);
