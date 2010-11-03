@@ -43,10 +43,6 @@ let rec generate_bindtests () =
 #include \"guestfs-internal-actions.h\"
 #include \"guestfs_protocol.h\"
 
-#define error guestfs_error
-#define safe_calloc guestfs_safe_calloc
-#define safe_malloc guestfs_safe_malloc
-
 static void
 print_strings (char *const *argv)
 {
