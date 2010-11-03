@@ -35,27 +35,41 @@ type optarg_proto = Dots | VA | Argv
 (* Generate a C function prototype. *)
 let rec generate_prototype ?(extern = true) ?(static = false)
     ?(semicolon = true)
-    ?(single_line = false) ?(newline = false) ?(in_daemon = false)
+    ?(single_line = false) ?(indent = "") ?(newline = false)
+    ?(in_daemon = false)
     ?(prefix = "") ?(suffix = "")
     ?handle
     ?(optarg_proto = Dots)
     name (ret, args, optargs) =
+  pr "%s" indent;
   if extern then pr "extern ";
   if static then pr "static ";
   (match ret with
-   | RErr -> pr "int "
-   | RInt _ -> pr "int "
-   | RInt64 _ -> pr "int64_t "
-   | RBool _ -> pr "int "
-   | RConstString _ | RConstOptString _ -> pr "const char *"
-   | RString _ | RBufferOut _ -> pr "char *"
-   | RStringList _ | RHashtable _ -> pr "char **"
+   | RErr
+   | RInt _
+   | RBool _ ->
+       pr "int";
+       if single_line then pr " " else pr "\n%s" indent
+   | RInt64 _ ->
+       pr "int64_t";
+       if single_line then pr " " else pr "\n%s" indent
+   | RConstString _ | RConstOptString _ ->
+       pr "const char *";
+       if not single_line then pr "\n%s" indent
+   | RString _ | RBufferOut _ ->
+       pr "char *";
+       if not single_line then pr "\n%s" indent
+   | RStringList _ | RHashtable _ ->
+       pr "char **";
+       if not single_line then pr "\n%s" indent
    | RStruct (_, typ) ->
        if not in_daemon then pr "struct guestfs_%s *" typ
-       else pr "guestfs_int_%s *" typ
+       else pr "guestfs_int_%s *" typ;
+       if not single_line then pr "\n%s" indent
    | RStructList (_, typ) ->
        if not in_daemon then pr "struct guestfs_%s_list *" typ
-       else pr "guestfs_int_%s_list *" typ
+       else pr "guestfs_int_%s_list *" typ;
+       if not single_line then pr "\n%s" indent
   );
   let is_RBufferOut = match ret with RBufferOut _ -> true | _ -> false in
   pr "%s%s%s (" prefix name suffix;
@@ -69,7 +83,10 @@ let rec generate_prototype ?(extern = true) ?(static = false)
     );
     let next () =
       if !comma then (
-        if single_line then pr ", " else pr ",\n\t\t"
+        if single_line then pr ", "
+        else
+          pr ",\n%s%s"
+            indent (spaces (String.length prefix + String.length name + 2))
       );
       comma := true
     in
@@ -152,8 +169,7 @@ and generate_actions_pod () =
       if not (List.mem NotInDocs flags) then (
         let name = "guestfs_" ^ shortname in
         pr "=head2 %s\n\n" name;
-        pr " ";
-        generate_prototype ~extern:false ~handle:"g" name style;
+        generate_prototype ~extern:false ~indent:" " ~handle:"g" name style;
         pr "\n\n";
 
         let uc_shortname = String.uppercase shortname in
