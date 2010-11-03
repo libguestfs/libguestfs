@@ -894,7 +894,31 @@ get additional information on
 errors by calling L</guestfs_last_error> and/or by setting up an error
 handler with L</guestfs_set_error_handler>.
 
-The default error handler prints the information string to C<stderr>.
+When the handle is created, a default error handler is installed which
+prints the error message string to C<stderr>.  For small short-running
+command line programs it is sufficient to do:
+
+ if (guestfs_launch (g) == -1)
+   exit (EXIT_FAILURE);
+
+since the default error handler will ensure that an error message has
+been printed to C<stderr> before the program exits.
+
+For other programs the caller will almost certainly want to install an
+alternate error handler or do error handling in-line like this:
+
+ g = guestfs_create ();
+ 
+ /* This disables the default behaviour of printing errors
+    on stderr. */
+ guestfs_set_error_handler (g, NULL, NULL);
+ 
+ if (guestfs_launch (g) == -1) {
+   /* Examine the error message and print it etc. */
+   char *msg = guestfs_last_error (g);
+   fprintf (stderr, "%s\n", msg);
+   /* ... */
+  }
 
 Out of memory errors are handled differently.  The default action is
 to call L<abort(3)>.  If this is undesirable, then you can set a
