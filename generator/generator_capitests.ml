@@ -181,14 +181,8 @@ int main (int argc, char *argv[])
     perror (filename);
     exit (EXIT_FAILURE);
   }
-  if (lseek (fd, %d, SEEK_SET) == -1) {
-    perror (\"lseek\");
-    close (fd);
-    unlink (filename);
-    exit (EXIT_FAILURE);
-  }
-  if (write (fd, &c, 1) == -1) {
-    perror (\"write\");
+  if (ftruncate (fd, %d) == -1) {
+    perror (\"ftruncate\");
     close (fd);
     unlink (filename);
     exit (EXIT_FAILURE);
@@ -209,14 +203,8 @@ int main (int argc, char *argv[])
     perror (filename);
     exit (EXIT_FAILURE);
   }
-  if (lseek (fd, %d, SEEK_SET) == -1) {
-    perror (\"lseek\");
-    close (fd);
-    unlink (filename);
-    exit (EXIT_FAILURE);
-  }
-  if (write (fd, &c, 1) == -1) {
-    perror (\"write\");
+  if (ftruncate (fd, %d) == -1) {
+    perror (\"ftruncate\");
     close (fd);
     unlink (filename);
     exit (EXIT_FAILURE);
@@ -237,14 +225,8 @@ int main (int argc, char *argv[])
     perror (filename);
     exit (EXIT_FAILURE);
   }
-  if (lseek (fd, %d, SEEK_SET) == -1) {
-    perror (\"lseek\");
-    close (fd);
-    unlink (filename);
-    exit (EXIT_FAILURE);
-  }
-  if (write (fd, &c, 1) == -1) {
-    perror (\"write\");
+  if (ftruncate (fd, %d) == -1) {
+    perror (\"ftruncate\");
     close (fd);
     unlink (filename);
     exit (EXIT_FAILURE);
