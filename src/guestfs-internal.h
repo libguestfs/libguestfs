@@ -223,6 +223,7 @@ extern void guestfs___print_BufferIn (FILE *out, const char *buf, size_t buf_siz
 
 #define error guestfs_error
 #define perrorf guestfs_perrorf
+#define safe_calloc guestfs_safe_calloc
 #define safe_malloc guestfs_safe_malloc
 #define safe_realloc guestfs_safe_realloc
 #define safe_strdup guestfs_safe_strdup
