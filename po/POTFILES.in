@@ -73,6 +73,7 @@ daemon/zero.c
 daemon/zerofree.c
 fish/alloc.c
 fish/cmds.c
+fish/cmds_gperf.c
 fish/completion.c
 fish/copy.c
 fish/destpaths.c

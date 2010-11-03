@@ -58,34 +58,28 @@ let generate_fish_cmds () =
   pr "#include \"full-write.h\"\n";
   pr "#include \"xstrtol.h\"\n";
   pr "#include \"fish.h\"\n";
+  pr "#include \"cmds_gperf.h\"\n";
   pr "\n";
   pr "/* Valid suffixes allowed for numbers.  See Gnulib xstrtol function. */\n";
   pr "static const char *xstrtol_suffixes = \"0kKMGTPEZY\";\n";
   pr "\n";
 
-  (* list_commands function, which implements guestfish -h *)
-  pr "void list_commands (void)\n";
-  pr "{\n";
-  pr "  printf (\"    %%-16s     %%s\\n\", _(\"Command\"), _(\"Description\"));\n";
-  pr "  list_builtin_commands ();\n";
   List.iter (
-    fun (name, _, _, flags, _, shortdesc, _) ->
-      let name = replace_char name '_' '-' in
-      pr "  printf (\"%%-20s %%s\\n\", \"%s\", _(\"%s\"));\n"
-        name shortdesc
-  ) all_functions_and_fish_commands_sorted;
-  pr "  printf (\"    %%s\\n\",";
-  pr "          _(\"Use -h <cmd> / help <cmd> to show detailed help for a command.\"));\n";
-  pr "}\n";
+    fun (name, _, _, _, _, _, _) ->
+      pr "static int run_%s (const char *cmd, size_t argc, char *argv[]);\n"
+        name
+  ) all_functions;
+
   pr "\n";
 
-  (* display_command function, which implements guestfish -h cmd *)
-  pr "int display_command (const char *cmd)\n";
-  pr "{\n";
-
+  (* List of command_entry structs. *)
   List.iter (
     fun (name, _, _, flags, _, shortdesc, longdesc) ->
+      pr "struct command_entry %s_cmd_entry = {\n" name;
+
       let name2 = replace_char name '_' '-' in
+      pr "  .name = \"%s\",\n" name2;
+
       let aliases =
         filter_map (function FishAlias n -> Some n | _ -> None) flags in
       let describe_alias =
@@ -94,29 +88,25 @@ let generate_fish_cmds () =
             (String.concat " or " (List.map (fun s -> "'" ^ s ^ "'") aliases))
         else "" in
 
-      pr "  if (";
-      pr "STRCASEEQ (cmd, \"%s\")" name;
-      if name <> name2 then
-        pr " || STRCASEEQ (cmd, \"%s\")" name2;
-      List.iter (
-        fun alias ->
-          pr " || STRCASEEQ (cmd, \"%s\")" alias
-      ) aliases;
-      pr ") {\n";
-      pr "    pod2text (\"%s\", _(\"%s\"), %S);\n"
-        name2 shortdesc
-        ("=head1 DESCRIPTION\n\n" ^
-         longdesc ^ describe_alias);
-      pr "    return 0;\n";
-      pr "  }\n";
-      pr "  else\n"
+      pr "  .shortdesc = \"%s\",\n" shortdesc;
+      pr "  .podbody = %S,\n"
+        ("=head1 DESCRIPTION\n\n" ^ longdesc ^ describe_alias);
+
+      pr "  .run = run_%s\n" name;
+      pr "};\n";
+      pr "\n";
   ) fish_commands;
 
   List.iter (
     fun (name, (_, args, optargs), _, flags, _, shortdesc, longdesc) ->
+      pr "struct command_entry %s_cmd_entry = {\n" name;
+
       let name2 = replace_char name '_' '-' in
+      pr "  .name = \"%s\",\n" name2;
+
       let aliases =
         filter_map (function FishAlias n -> Some n | _ -> None) flags in
+
       let longdesc = replace_str longdesc "C<guestfs_" "C<" in
       let synopsis =
         match args with
@@ -164,25 +154,44 @@ Guestfish will prompt for these separately."
             (String.concat " or " (List.map (fun s -> "'" ^ s ^ "'") aliases))
         else "" in
 
-      pr "  if (";
-      pr "STRCASEEQ (cmd, \"%s\")" name;
-      if name <> name2 then
-        pr " || STRCASEEQ (cmd, \"%s\")" name2;
-      List.iter (
-        fun alias ->
-          pr " || STRCASEEQ (cmd, \"%s\")" alias
-      ) aliases;
-      pr ") {\n";
-      pr "    pod2text (\"%s\", _(\"%s\"), %S);\n"
-        name2 shortdesc
+      pr "  .shortdesc = \"%s\",\n" shortdesc;
+      pr "  .podbody = %S,\n"
         ("=head1 SYNOPSIS\n\n " ^ synopsis ^ "\n\n" ^
          "=head1 DESCRIPTION\n\n" ^
          longdesc ^ warnings ^ describe_alias);
-      pr "    return 0;\n";
-      pr "  }\n";
-      pr "  else\n"
+
+      pr "  .run = run_%s\n" name;
+      pr "};\n";
+      pr "\n";
   ) all_functions;
 
+  (* list_commands function, which implements guestfish -h *)
+  pr "void list_commands (void)\n";
+  pr "{\n";
+  pr "  printf (\"    %%-16s     %%s\\n\", _(\"Command\"), _(\"Description\"));\n";
+  pr "  list_builtin_commands ();\n";
+  List.iter (
+    fun (name, _, _, flags, _, shortdesc, _) ->
+      let name = replace_char name '_' '-' in
+      pr "  printf (\"%%-20s %%s\\n\", \"%s\", _(\"%s\"));\n"
+        name shortdesc
+  ) all_functions_and_fish_commands_sorted;
+  pr "  printf (\"    %%s\\n\",";
+  pr "          _(\"Use -h <cmd> / help <cmd> to show detailed help for a command.\"));\n";
+  pr "}\n";
+  pr "\n";
+
+  (* display_command function, which implements guestfish -h cmd *)
+  pr "int display_command (const char *cmd)\n";
+  pr "{\n";
+  pr "  const struct command_table *ct;\n";
+  pr "\n";
+  pr "  ct = lookup_fish_command (cmd, strlen (cmd));\n";
+  pr "  if (ct) {\n";
+  pr "    pod2text (ct->entry->name, ct->entry->shortdesc, ct->entry->podbody);\n";
+  pr "    return 0;\n";
+  pr "  }\n";
+  pr "  else\n";
   pr "    return display_builtin_command (cmd);\n";
   pr "}\n";
   pr "\n";
@@ -279,7 +288,8 @@ Guestfish will prompt for these separately."
   (* run_<action> actions *)
   List.iter (
     fun (name, (ret, args, optargs as style), _, flags, _, _, _) ->
-      pr "static int run_%s (const char *cmd, size_t argc, char *argv[])\n" name;
+      pr "static int\n";
+      pr "run_%s (const char *cmd, size_t argc, char *argv[])\n" name;
       pr "{\n";
       (match ret with
        | RErr
@@ -582,36 +592,84 @@ Guestfish will prompt for these separately."
   ) all_functions;
 
   (* run_action function *)
-  pr "int run_action (const char *cmd, size_t argc, char *argv[])\n";
+  pr "int\n";
+  pr "run_action (const char *cmd, size_t argc, char *argv[])\n";
   pr "{\n";
+  pr "  const struct command_table *ct;\n";
+  pr "\n";
+  pr "  ct = lookup_fish_command (cmd, strlen (cmd));\n";
+  pr "  if (ct)\n";
+  pr "    return ct->entry->run (cmd, argc, argv);\n";
+  pr "  else {\n";
+  pr "    fprintf (stderr, _(\"%%s: unknown command\\n\"), cmd);\n";
+  pr "    if (command_num == 1)\n";
+  pr "      extended_help_message ();\n";
+  pr "    return -1;\n";
+  pr "  }\n";
+  pr "}\n"
+
+(* gperf code to do fast lookups of commands. *)
+and generate_fish_cmds_gperf () =
+  generate_header CStyle GPLv2plus;
+
+  let all_functions_sorted =
+    List.filter (
+      fun (_, _, _, flags, _, _, _) -> not (List.mem NotInFish flags)
+    ) all_functions_sorted in
+
+  let all_functions_and_fish_commands_sorted =
+    List.sort action_compare (all_functions_sorted @ fish_commands) in
+
+  pr "\
+%%language=ANSI-C
+%%define lookup-function-name lookup_fish_command
+%%ignore-case
+%%readonly-tables
+%%null-strings
+
+%%{
+
+#include <config.h>
+
+#include <stdlib.h>
+#include <string.h>
+
+#include \"cmds_gperf.h\"
+
+";
+
+  List.iter (
+    fun (name, _, _, _, _, _, _) ->
+      pr "extern struct command_entry %s_cmd_entry;\n" name
+  ) all_functions_and_fish_commands_sorted;
+
+  pr "\
+%%}
+
+struct command_table;
+
+%%%%
+";
 
   List.iter (
     fun (name, _, _, flags, _, _, _) ->
       let name2 = replace_char name '_' '-' in
       let aliases =
         filter_map (function FishAlias n -> Some n | _ -> None) flags in
-      pr "  if (";
-      pr "STRCASEEQ (cmd, \"%s\")" name;
+
+      (* The basic command. *)
+      pr "%s, &%s_cmd_entry\n" name name;
+
+      (* Command with dashes instead of underscores. *)
       if name <> name2 then
-        pr " || STRCASEEQ (cmd, \"%s\")" name2;
+        pr "%s, &%s_cmd_entry\n" name2 name;
+
+      (* Aliases for the command. *)
       List.iter (
         fun alias ->
-          pr " || STRCASEEQ (cmd, \"%s\")" alias;
+          pr "%s, &%s_cmd_entry\n" alias name;
       ) aliases;
-      pr ")\n";
-      pr "    return run_%s (cmd, argc, argv);\n" name;
-      pr "  else\n";
-  ) all_functions_and_fish_commands_sorted;
-
-  pr "    {\n";
-  pr "      fprintf (stderr, _(\"%%s: unknown command\\n\"), cmd);\n";
-  pr "      if (command_num == 1)\n";
-  pr "        extended_help_message ();\n";
-  pr "      return -1;\n";
-  pr "    }\n";
-  pr "  return 0;\n";
-  pr "}\n";
-  pr "\n"
+  ) all_functions_and_fish_commands_sorted
 
 (* Readline completion for guestfish. *)
 and generate_fish_completion () =

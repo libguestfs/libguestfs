@@ -21,6 +21,7 @@ bin_PROGRAMS = guestfish
 
 generator_built = \
 	cmds.c \
+	cmds_gperf.gperf \
 	completion.c \
 	guestfish-actions.pod \
 	guestfish-commands.pod \
@@ -29,6 +30,7 @@ generator_built = \
 
 BUILT_SOURCES = \
 	$(generator_built) \
+	cmds_gperf.c \
 	rc_protocol.h \
 	rc_protocol.c
 
@@ -52,6 +54,7 @@ guestfish_SOURCES = \
 	$(generator_built) \
 	$(SHARED_SOURCE_FILES) \
 	alloc.c \
+	cmds_gperf.h \
 	copy.c \
 	destpaths.c \
 	echo.c \
@@ -82,6 +85,16 @@ guestfish_SOURCES = \
 librc_protocol_la_SOURCES = rc_protocol.c
 librc_protocol_la_CFLAGS = -Wall -Wno-unused
 
+# Build the command lookup perfect hash code.  The generated code has
+# lots of warnings so we must compile it in a separate mini-library.
+libcmds_la_SOURCES = cmds_gperf.c
+libcmds_la_CFLAGS =
+
+cmds_gperf.c: cmds_gperf.gperf
+	rm -f $@
+	$(GPERF) -t $< > $@-t
+	mv $@-t $@
+
 guestfish_CFLAGS = \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	-I$(top_srcdir)/fish -I$(top_builddir)/fish \
@@ -95,9 +108,9 @@ guestfish_LDADD = \
 	$(LIBVIRT_LIBS) $(LIBXML2_LIBS) \
 	$(top_builddir)/src/libguestfs.la $(LIBREADLINE) -lm
 
-# Make libguestfs use the convenience library.
-noinst_LTLIBRARIES = librc_protocol.la
-guestfish_LDADD += librc_protocol.la ../gnulib/lib/libgnu.la
+# Make guestfish use the convenience libraries.
+noinst_LTLIBRARIES = libcmds.la librc_protocol.la
+guestfish_LDADD += libcmds.la librc_protocol.la ../gnulib/lib/libgnu.la
 
 if HAVE_RPCGEN
 rc_protocol.c: rc_protocol.x
