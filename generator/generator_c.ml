@@ -84,9 +84,11 @@ let rec generate_prototype ?(extern = true) ?(static = false)
     let next () =
       if !comma then (
         if single_line then pr ", "
-        else
-          pr ",\n%s%s"
-            indent (spaces (String.length prefix + String.length name + 2))
+        else (
+          let namelen = String.length prefix + String.length name +
+                        String.length suffix + 2 in
+          pr ",\n%s%s" indent (spaces namelen)
+        )
       );
       comma := true
     in
@@ -256,16 +258,14 @@ L</KEYS AND PASSPHRASES> for more information.\n\n";
         (* Handling of optional argument variants. *)
         if optargs <> [] then (
           pr "=head2 %s_va\n\n" name;
-          pr " ";
-          generate_prototype ~extern:false ~handle:"g"
+          generate_prototype ~extern:false ~indent:" " ~handle:"g"
             ~prefix:"guestfs_" ~suffix:"_va" ~optarg_proto:VA
             shortname style;
           pr "\n\n";
           pr "This is the \"va_list variant\" of L</%s>.\n\n" name;
           pr "See L</CALLS WITH OPTIONAL ARGUMENTS>.\n\n";
           pr "=head2 %s_argv\n\n" name;
-          pr " ";
-          generate_prototype ~extern:false ~handle:"g"
+          generate_prototype ~extern:false ~indent:" " ~handle:"g"
             ~prefix:"guestfs_" ~suffix:"_argv" ~optarg_proto:Argv
             shortname style;
           pr "\n\n";
