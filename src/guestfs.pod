@@ -888,8 +888,9 @@ This closes the connection handle and frees up all resources used.
 
 =head1 ERROR HANDLING
 
-The convention in all functions that return C<int> is that they return
-C<-1> to indicate an error.  You can get additional information on
+API functions can return errors.  For example, almost all functions
+that return C<int> will return C<-1> to indicate an error.  You can
+get additional information on
 errors by calling L</guestfs_last_error> and/or by setting up an error
 handler with L</guestfs_set_error_handler>.
 
