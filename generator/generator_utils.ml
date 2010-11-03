@@ -305,3 +305,12 @@ let pod2text ~width name longdesc =
 
 (* Compare two actions (for sorting). *)
 let action_compare (n1,_,_,_,_,_,_) (n2,_,_,_,_,_,_) = compare n1 n2
+
+let chars c n =
+  let str = String.create n in
+  for i = 0 to n-1 do
+    String.unsafe_set str i c
+  done;
+  str
+
+let spaces n = chars ' ' n
