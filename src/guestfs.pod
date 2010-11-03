@@ -906,10 +906,6 @@ returns C<NULL>.
 The lifetime of the returned string is until the next error occurs, or
 L</guestfs_close> is called.
 
-The error string is not localized (ie. is always in English), because
-this makes searching for error messages in search engines give the
-largest number of results.
-
 =head2 guestfs_last_errno
 
  int guestfs_last_errno (guestfs_h *g);
