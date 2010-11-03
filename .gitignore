@@ -21,6 +21,8 @@ autom4te.cache
 *.bak
 bindtests.tmp
 capitests/test-command
+capitests/test-config
+capitests/test-create-handle
 capitests/test*.img
 capitests/tests
 capitests/tests.c

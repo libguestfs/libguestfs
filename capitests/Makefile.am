@@ -1,5 +1,5 @@
 # libguestfs
-# Copyright (C) 2009 Red Hat Inc.
+# Copyright (C) 2009-2010 Red Hat Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,17 +23,16 @@ BUILT_SOURCES = $(generator_built)
 
 EXTRA_DIST = $(BUILT_SOURCES)
 
-# Tests.  These are auto-generated from the test descriptions
-# in the generator.
+check_PROGRAMS = \
+	tests \
+	test-command \
+	test-create-handle \
+	test-config
 
-check_PROGRAMS = tests test-command
-
-tests_SOURCES = tests.c
-tests_CFLAGS = -I$(top_srcdir)/src -I$(top_builddir)/src \
-  $(WARN_CFLAGS) $(WERROR_CFLAGS)
-tests_LDADD = $(top_builddir)/src/libguestfs.la
-
-TESTS = tests
+TESTS = \
+	tests \
+	test-create-handle \
+	test-config
 TESTS_ENVIRONMENT = \
 	SKIP_TEST_COMMAND=$(shell ldd test-command | grep -sq 'not a dynamic executable' || echo 1) \
 	SKIP_TEST_COMMAND_LINES=$(shell ldd test-command | grep -sq 'not a dynamic executable' || echo 1) \
@@ -41,13 +40,34 @@ TESTS_ENVIRONMENT = \
 	LIBGUESTFS_PATH=$(top_builddir)/appliance \
 	$(VG)
 
-# Run the tests under valgrind.
-
-valgrind:
-	$(MAKE) check VG="valgrind --quiet --leak-check=full"
+tests_SOURCES = tests.c
+tests_CFLAGS = -I$(top_srcdir)/src -I$(top_builddir)/src \
+  $(WARN_CFLAGS) $(WERROR_CFLAGS)
+tests_LDADD = $(top_builddir)/src/libguestfs.la
 
 # This binary must be statically linked.  It is used for testing
 # the "guestfs_command" and "guestfs_command_lines" functions.
 
 test_command_SOURCES = test-command.c
 test_command_LDFLAGS = -all-static
+
+# Hand-written C API tests.
+
+test_create_handle_SOURCES = test-create-handle.c
+test_create_handle_CFLAGS = \
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+test_create_handle_LDADD = \
+	$(top_builddir)/src/libguestfs.la
+
+test_config_SOURCES = test-config.c
+test_config_CFLAGS = \
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+test_config_LDADD = \
+	$(top_builddir)/src/libguestfs.la
+
+# Run the tests under valgrind.
+
+valgrind:
+	$(MAKE) check VG="valgrind --quiet --leak-check=full"
