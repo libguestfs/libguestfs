@@ -28,7 +28,7 @@
 #include <rpc/types.h>
 #include <rpc/xdr.h>
 
-#include "../src/guestfs_protocol.h"
+#include "guestfs_protocol.h"
 
 /*-- in guestfsd.c --*/
 extern int verbose;

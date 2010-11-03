@@ -33,7 +33,7 @@ open Generator_c
 let generate_daemon_actions_h () =
   generate_header CStyle GPLv2plus;
 
-  pr "#include \"../src/guestfs_protocol.h\"\n";
+  pr "#include \"guestfs_protocol.h\"\n";
   pr "\n";
 
   List.iter (
@@ -58,7 +58,7 @@ and generate_daemon_actions () =
   pr "\n";
   pr "#include \"daemon.h\"\n";
   pr "#include \"c-ctype.h\"\n";
-  pr "#include \"../src/guestfs_protocol.h\"\n";
+  pr "#include \"guestfs_protocol.h\"\n";
   pr "#include \"actions.h\"\n";
   pr "\n";
 
