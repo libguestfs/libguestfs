@@ -120,6 +120,9 @@ m4/
 ocaml/
         OCaml bindings.
 
+php/
+        PHP bindings.
+
 po/
         Translations of simple gettext strings.  For translations of
         longer documents, see po-docs/.
