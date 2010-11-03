@@ -28,13 +28,15 @@ check_PROGRAMS = \
 	test-command \
 	test-create-handle \
 	test-config \
-	test-add-drive-opts
+	test-add-drive-opts \
+	test-last-errno
 
 TESTS = \
 	tests \
 	test-create-handle \
 	test-config \
-	test-add-drive-opts
+	test-add-drive-opts \
+	test-last-errno
 TESTS_ENVIRONMENT = \
 	SKIP_TEST_COMMAND=$(shell ldd test-command | grep -sq 'not a dynamic executable' || echo 1) \
 	SKIP_TEST_COMMAND_LINES=$(shell ldd test-command | grep -sq 'not a dynamic executable' || echo 1) \
@@ -74,6 +76,13 @@ test_add_drive_opts_CFLAGS = \
 	-I$(top_srcdir)/src -I$(top_builddir)/src \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 test_add_drive_opts_LDADD = \
+	$(top_builddir)/src/libguestfs.la
+
+test_last_errno_SOURCES = test-last-errno.c
+test_last_errno_CFLAGS = \
+	-I$(top_srcdir)/src -I$(top_builddir)/src \
+	$(WARN_CFLAGS) $(WERROR_CFLAGS)
+test_last_errno_LDADD = \
 	$(top_builddir)/src/libguestfs.la
 
 # Run the tests under valgrind.

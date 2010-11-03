@@ -24,6 +24,7 @@ capitests/test-add-drive-opts
 capitests/test-command
 capitests/test-config
 capitests/test-create-handle
+capitests/test-last-errno
 capitests/test*.img
 capitests/tests
 capitests/tests.c
