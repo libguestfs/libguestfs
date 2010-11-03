@@ -88,6 +88,7 @@ Run it from the top source directory using the command
   output_to "daemon/optgroups.c" generate_daemon_optgroups_c;
   output_to "daemon/optgroups.h" generate_daemon_optgroups_h;
   output_to "capitests/tests.c" generate_tests;
+  output_to "fish/cmds_gperf.gperf" generate_fish_cmds_gperf;
   output_to "fish/cmds.c" generate_fish_cmds;
   output_to "fish/completion.c" generate_fish_completion;
   output_to "fish/guestfish-commands.pod" generate_fish_commands_pod;

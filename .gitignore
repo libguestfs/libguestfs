@@ -62,6 +62,8 @@ emptydisk
 examples/hello
 examples/to-xml
 fish/cmds.c
+fish/cmds_gperf.c
+fish/cmds_gperf.gperf
 fish/completion.c
 fish/guestfish
 fish/guestfish.static

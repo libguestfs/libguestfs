@@ -209,6 +209,11 @@ AC_CHECK_PROG([CPIO],[cpio],[cpio],[no])
 test "x$CPIO" = "xno" &&
      AC_MSG_ERROR([cpio must be installed])
 
+dnl Check for gperf.
+AC_CHECK_PROG([GPERF],[gperf],[gperf],[no])
+test "x$GPERF" = "xno" &&
+     AC_MSG_ERROR([gperf must be installed])
+
 dnl Check for pod2man and pod2text.
 AC_CHECK_PROG([POD2MAN],[pod2man],[pod2man],[no])
 test "x$POD2MAN" = "xno" &&
