@@ -28,7 +28,7 @@
 #include <sys/inotify.h>
 #endif
 
-#include "../src/guestfs_protocol.h"
+#include "guestfs_protocol.h"
 #include "daemon.h"
 #include "actions.h"
 #include "optgroups.h"

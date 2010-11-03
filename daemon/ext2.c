@@ -24,7 +24,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "../src/guestfs_protocol.h"
+#include "guestfs_protocol.h"
 #include "daemon.h"
 #include "c-ctype.h"
 #include "actions.h"

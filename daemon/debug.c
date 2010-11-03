@@ -28,7 +28,7 @@
 #include <dirent.h>
 #include <sys/resource.h>
 
-#include "../src/guestfs_protocol.h"
+#include "guestfs_protocol.h"
 #include "daemon.h"
 #include "actions.h"
 

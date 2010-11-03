@@ -38,7 +38,7 @@
 #include "ignore-value.h"
 
 #include "daemon.h"
-#include "../src/guestfs_protocol.h"
+#include "guestfs_protocol.h"
 
 /* The message currently being processed. */
 int proc_nr;
