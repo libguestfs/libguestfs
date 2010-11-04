@@ -846,8 +846,9 @@ other words, they are not part of the L<guestfs(3)> API.
  help
  help cmd
 
-Without any parameter, this lists all commands.  With a C<cmd>
-parameter, this displays detailed help for a command.
+Without any parameter, this provides general help.
+
+With a C<cmd> parameter, this displays detailed help for that command.
 
 =head2 quit | exit
 

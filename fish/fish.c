@@ -626,7 +626,7 @@ script (int prompt)
               "Welcome to guestfish, the libguestfs filesystem interactive shell for\n"
               "editing virtual machine filesystems.\n"
               "\n"
-              "Type: 'help' for a list of commands\n"
+              "Type: 'help' for help on commands\n"
               "      'man' to read the manual\n"
               "      'quit' to quit the shell\n"
               "\n"));
@@ -925,7 +925,7 @@ issue_command (const char *cmd, char *argv[], const char *pipecmd)
   /* Otherwise execute it locally. */
   else if (STRCASEEQ (cmd, "help")) {
     if (argc == 0) {
-      list_commands ();
+      display_help ();
       r = 0;
     } else
       r = display_command (argv[0]);

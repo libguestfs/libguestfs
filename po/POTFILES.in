@@ -81,6 +81,7 @@ fish/echo.c
 fish/edit.c
 fish/fish.c
 fish/glob.c
+fish/help.c
 fish/hexedit.c
 fish/inspect.c
 fish/lcd.c
