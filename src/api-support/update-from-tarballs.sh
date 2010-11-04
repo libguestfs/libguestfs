@@ -39,7 +39,9 @@ for t in $tarballs; do
     if [ $v != "1.2.0" -a $v != "1.3.0" -a ! -f $v ]; then
         rm -rf "$tmpdir/*"
         tar -C "$tmpdir" \
-            -zxf $t $p/src/guestfs-actions.c $p/src/actions.c 2>/dev/null ||:
+            -zxf $t $p/src/guestfs-actions.c $p/src/actions.c \
+            $p/src/guestfs.c \
+            2>/dev/null ||:
 
         f="$tmpdir/$p/src/guestfs-actions.c"
         if [ ! -f "$f" ]; then
@@ -50,7 +52,8 @@ for t in $tarballs; do
             fi
         fi
 
-        grep -Eo 'guestfs_[a-z0-9][_A-Za-z0-9]+' "$f" |
+        grep -Eoh 'guestfs_[a-z0-9][_A-Za-z0-9]+' \
+                "$f" $tmpdir/$p/src/guestfs.c |
             sort -u |
             grep -v '_ret$' |
             grep -v '_args$' |

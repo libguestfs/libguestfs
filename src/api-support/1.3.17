@@ -1,3 +1,4 @@
+guestfs_abort_cb
 guestfs_add_cdrom
 guestfs_add_drive
 guestfs_add_drive_ro
@@ -38,12 +39,15 @@ guestfs_checksum_device
 guestfs_checksums_out
 guestfs_chmod
 guestfs_chown
+guestfs_chunk
+guestfs_close
 guestfs_command
 guestfs_command_lines
 guestfs_config
 guestfs_copy_size
 guestfs_cp
 guestfs_cp_a
+guestfs_create
 guestfs_dd
 guestfs_debug
 guestfs_debug_upload
@@ -59,8 +63,10 @@ guestfs_e2fsck_f
 guestfs_echo_daemon
 guestfs_egrep
 guestfs_egrepi
+guestfs_end_busy
 guestfs_equal
 guestfs_error
+guestfs_error_handler_cb
 guestfs_exists
 guestfs_fallocate
 guestfs_fallocate64
@@ -79,7 +85,9 @@ guestfs_getcon
 guestfs_get_direct
 guestfs_get_e2label
 guestfs_get_e2uuid
+guestfs_get_error_handler
 guestfs_get_memsize
+guestfs_get_out_of_memory_handler
 guestfs_get_path
 guestfs_get_pid
 guestfs_get_qemu
@@ -138,7 +146,9 @@ guestfs_is_file
 guestfs_is_launching
 guestfs_is_ready
 guestfs_kill_subprocess
+guestfs_last_error
 guestfs_launch
+guestfs_launch_done_cb
 guestfs_lchown
 guestfs_lgetxattrs
 guestfs_list_devices
@@ -148,6 +158,7 @@ guestfs_ln
 guestfs_ln_f
 guestfs_ln_s
 guestfs_ln_sf
+guestfs_log_message_cb
 guestfs_lremovexattr
 guestfs_ls
 guestfs_lsetxattr
@@ -240,6 +251,7 @@ guestfs_rm
 guestfs_rmdir
 guestfs_rmmountpoint
 guestfs_rm_rf
+guestfs_safe_calloc
 guestfs_safe_malloc
 guestfs_safe_memdup
 guestfs_safe_realloc
@@ -249,15 +261,21 @@ guestfs_scrub_file
 guestfs_scrub_freespace
 guestfs_set_append
 guestfs_set_autosync
+guestfs_set_busy
 guestfs_setcon
 guestfs_set_direct
 guestfs_set_e2label
 guestfs_set_e2uuid
+guestfs_set_error_handler
+guestfs_set_launch_done_callback
+guestfs_set_log_message_callback
 guestfs_set_memsize
+guestfs_set_out_of_memory_handler
 guestfs_set_path
 guestfs_set_qemu
 guestfs_set_recovery_proc
 guestfs_set_selinux
+guestfs_set_subprocess_quit_callback
 guestfs_set_trace
 guestfs_set_verbose
 guestfs_setxattr
@@ -276,6 +294,7 @@ guestfs_statvfs
 guestfs_statvfs_list
 guestfs_strings
 guestfs_strings_e
+guestfs_subprocess_quit_cb
 guestfs_swapoff_device
 guestfs_swapoff_file
 guestfs_swapoff_label
@@ -302,6 +321,7 @@ guestfs_umount
 guestfs_umount_all
 guestfs_upload
 guestfs_utimens
+guestfs_verbose
 guestfs_version
 guestfs_version_list
 guestfs_vfs_type
@@ -316,6 +336,7 @@ guestfs_vgs
 guestfs_vgscan
 guestfs_vgs_full
 guestfs_vguuid
+guestfs_vmchannel
 guestfs_wait_ready
 guestfs_wc_c
 guestfs_wc_l
