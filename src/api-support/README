@@ -1,0 +1,3 @@
+This directory records which versions of libguestfs added which API
+calls.  Since we don't record this information explicitly, we have to
+extract it manually from the tarballs.

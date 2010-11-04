@@ -23,6 +23,7 @@ open Printf
 
 open Generator_pr
 open Generator_structs
+open Generator_api_versions
 
 open Generator_c
 open Generator_xdr
@@ -71,6 +72,9 @@ Run it from the top source directory using the command
    with exn ->
      perror "lock: HACKING" exn;
      exit 1);
+
+  (* Read the API versions file. *)
+  load_api_versions "src/api-support/added";
 
   output_to "src/guestfs_protocol.x" generate_xdr;
   output_to "src/guestfs-structs.h" generate_structs_h;

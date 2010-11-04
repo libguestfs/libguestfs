@@ -42,7 +42,10 @@ EXTRA_DIST = \
 	$(BUILT_SOURCES) \
 	MAX_PROC_NR \
 	libguestfs.3 \
-	guestfs.pod
+	guestfs.pod \
+	api-support/added \
+	api-support/README \
+	api-support/update-from-tarballs.sh
 
 include_HEADERS = guestfs.h guestfs-actions.h guestfs-structs.h
 

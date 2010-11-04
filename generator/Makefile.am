@@ -23,6 +23,8 @@ SOURCES = \
 	generator_actions.ml \
 	generator_structs.mli \
 	generator_structs.ml \
+	generator_api_versions.mli \
+	generator_api_versions.ml \
 	generator_optgroups.ml \
 	generator_prepopts.mli \
 	generator_prepopts.ml \
