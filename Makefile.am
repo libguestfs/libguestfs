@@ -118,7 +118,7 @@ html/guestfish.1.html: fish/guestfish.pod fish/guestfish-actions.pod fish/guestf
 	mkdir -p html
 	sed \
 	  -e '/@ACTIONS@/rfish/guestfish-actions.pod' -e 's/@ACTIONS@//' \
-	  -e '/@FISH_COMMANDS@/rguestfish-commands.pod' -e 's/@FISH_COMMANDS@//' \
+	  -e '/@FISH_COMMANDS@/rfish/guestfish-commands.pod' -e 's/@FISH_COMMANDS@//' \
 	  < $< | \
 	pod2html \
 	  --css 'pod.css' \
