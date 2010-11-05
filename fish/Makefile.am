@@ -46,6 +46,7 @@ EXTRA_DIST = \
 # other guestfish files.
 SHARED_SOURCE_FILES = \
 	inspect.c \
+	keys.c \
 	options.h \
 	options.c \
 	virt.c

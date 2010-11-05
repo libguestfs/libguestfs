@@ -69,6 +69,8 @@ extern guestfs_h *g;
 extern int read_only;
 extern int verbose;
 extern int inspector;
+extern int keys_from_stdin;
+extern int echo_keys;
 extern const char *libvirt_uri;
 extern const char *program_name;
 
@@ -102,6 +104,9 @@ struct mp {
 /* in inspect.c */
 extern void inspect_mount (void);
 extern void print_inspect_prompt (void);
+
+/* in key.c */
+extern char *read_key (const char *param);
 
 /* in options.c */
 extern char add_drives (struct drv *drv, char next_drive);

@@ -61,6 +61,8 @@ guestfs_h *g = NULL;
 int read_only = 0;
 int verbose = 0;
 int inspector = 0;
+int keys_from_stdin = 0;
+int echo_keys = 0;
 const char *libvirt_uri;
 int dir_cache_timeout = 60;
 
@@ -850,10 +852,12 @@ usage (int status)
              "  -c|--connect uri     Specify libvirt URI for -d option\n"
              "  --dir-cache-timeout  Set readdir cache timeout (default 5 sec)\n"
              "  -d|--domain guest    Add disks from libvirt guest\n"
+             "  --echo-keys          Don't turn off echo for passphrases\n"
              "  --format[=raw|..]    Force disk format for -a option\n"
              "  --fuse-help          Display extra FUSE options\n"
              "  -i|--inspector       Automatically mount filesystems\n"
              "  --help               Display help message and exit\n"
+             "  --keys-from-stdin    Read passphrases from stdin\n"
              "  -m|--mount dev[:mnt] Mount dev on mnt (if omitted, /)\n"
              "  -n|--no-sync         Don't autosync\n"
              "  -o|--option opt      Pass extra option to FUSE\n"
@@ -886,10 +890,12 @@ main (int argc, char *argv[])
     { "connect", 1, 0, 'c' },
     { "dir-cache-timeout", 1, 0, 0 },
     { "domain", 1, 0, 'd' },
+    { "echo-keys", 0, 0, 0 },
     { "format", 2, 0, 0 },
     { "fuse-help", 0, 0, 0 },
     { "help", 0, 0, HELP_OPTION },
     { "inspector", 0, 0, 'i' },
+    { "keys-from-stdin", 0, 0, 0 },
     { "mount", 1, 0, 'm' },
     { "no-sync", 0, 0, 'n' },
     { "option", 1, 0, 'o' },
@@ -985,8 +991,11 @@ main (int argc, char *argv[])
           format = NULL;
         else
           format = optarg;
-      }
-      else {
+      } else if (STREQ (long_options[option_index].name, "keys-from-stdin")) {
+        keys_from_stdin = 1;
+      } else if (STREQ (long_options[option_index].name, "echo-keys")) {
+        echo_keys = 1;
+      } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
                  program_name, long_options[option_index].name, option_index);
         exit (EXIT_FAILURE);

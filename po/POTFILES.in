@@ -84,6 +84,7 @@ fish/glob.c
 fish/help.c
 fish/hexedit.c
 fish/inspect.c
+fish/keys.c
 fish/lcd.c
 fish/man.c
 fish/more.c

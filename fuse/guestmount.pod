@@ -105,6 +105,13 @@ There is also a different attribute cache implemented by FUSE
 (see the FUSE option I<-o attr_timeout>), but the FUSE cache
 does not anticipate future requests, only cache existing ones.
 
+=item B<--echo-keys>
+
+When prompting for keys and passphrases, guestfish normally turns
+echoing off so you cannot see what you are typing.  If you are not
+worried about Tempest attacks and there is no one else in the room
+you can specify this flag to see what you are typing.
+
 =item B<--format=raw|qcow2|..> | B<--format>
 
 The default for the I<-a> option is to auto-detect the format of the
@@ -130,6 +137,11 @@ Display brief help and exit.
 Using L<virt-inspector(1)> code, inspect the disks looking for
 an operating system and mount filesystems as they would be
 mounted on the real virtual machine.
+
+=item B<--keys-from-stdin>
+
+Read key or passphrase parameters from stdin.  The default is
+to try to read passphrases from the user by opening C</dev/tty>.
 
 =item B<-m dev[:mnt]> | B<--mount dev[:mnt]>
 

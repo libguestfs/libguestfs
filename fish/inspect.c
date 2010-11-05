@@ -22,9 +22,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "c-ctype.h"
+
 #include "guestfs.h"
 
 #include "options.h"
+
+static void do_decrypt (void);
 
 /* Global that saves the root device between inspect_mount and
  * print_inspect_prompt.
@@ -71,6 +75,8 @@ compare_keys (const void *p1, const void *p2)
 void
 inspect_mount (void)
 {
+  do_decrypt ();
+
   char **roots = guestfs_inspect_os (g);
   if (roots == NULL)
     exit (EXIT_FAILURE);
@@ -138,4 +144,74 @@ print_inspect_prompt (void)
     printf (_("%s mounted on %s\n"), mountpoints[i+1], mountpoints[i]);
 
   free_strings (mountpoints);
+}
+
+/* Make a LUKS map name from the partition name,
+ * eg "/dev/vda2" => "luksvda2"
+ */
+static void
+make_mapname (const char *device, char *mapname, size_t len)
+{
+  size_t i = 0;
+
+  if (len < 5)
+    abort ();
+  strcpy (mapname, "luks");
+  mapname += 4;
+  len -= 4;
+
+  if (STRPREFIX (device, "/dev/"))
+    i = 5;
+
+  for (; device[i] != '\0' && len >= 1; ++i) {
+    if (c_isalnum (device[i])) {
+      *mapname++ = device[i];
+      len--;
+    }
+  }
+
+  *mapname = '\0';
+}
+
+/* Simple implementation of decryption: look for any crypto_LUKS
+ * partitions and decrypt them, then rescan for VGs.  This only works
+ * for Fedora whole-disk encryption.  WIP to make this work for other
+ * encryption schemes.
+ */
+static void
+do_decrypt (void)
+{
+  char **partitions = guestfs_list_partitions (g);
+  if (partitions == NULL)
+    exit (EXIT_FAILURE);
+
+  int need_rescan = 0;
+  size_t i;
+  for (i = 0; partitions[i] != NULL; ++i) {
+    char *type = guestfs_vfs_type (g, partitions[i]);
+    if (type && STREQ (type, "crypto_LUKS")) {
+      char mapname[32];
+      make_mapname (partitions[i], mapname, sizeof mapname);
+
+      char *key = read_key (partitions[i]);
+      /* XXX Should we call guestfs_luks_open_ro if readonly flag
+       * is set?  This might break 'mount_ro'.
+       */
+      if (guestfs_luks_open (g, partitions[i], key, mapname) == -1)
+        exit (EXIT_FAILURE);
+
+      free (key);
+
+      need_rescan = 1;
+    }
+  }
+
+  free_strings (partitions);
+
+  if (need_rescan) {
+    if (guestfs_vgscan (g) == -1)
+      exit (EXIT_FAILURE);
+    if (guestfs_vg_activate_all (g, 1) == -1)
+      exit (EXIT_FAILURE);
+  }
 }

@@ -58,6 +58,7 @@ let generate_fish_cmds () =
   pr "#include \"full-write.h\"\n";
   pr "#include \"xstrtol.h\"\n";
   pr "#include \"fish.h\"\n";
+  pr "#include \"options.h\"\n";
   pr "#include \"cmds_gperf.h\"\n";
   pr "\n";
   pr "/* Valid suffixes allowed for numbers.  See Gnulib xstrtol function. */\n";
