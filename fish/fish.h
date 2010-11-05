@@ -61,6 +61,7 @@ extern int command_num;
 extern int utf8_mode;
 extern int have_terminfo;
 extern int progress_bars;
+extern int remote_control_csh;
 extern const char *libvirt_uri;
 extern int issue_command (const char *cmd, char *argv[], const char *pipe);
 extern void pod2text (const char *name, const char *shortdesc, const char *body);

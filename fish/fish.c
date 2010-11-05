@@ -67,6 +67,7 @@ int read_only = 0;
 int quit = 0;
 int verbose = 0;
 int remote_control_listen = 0;
+int remote_control_csh = 0;
 int remote_control = 0;
 int exit_on_error = 1;
 int command_num = 0;
@@ -105,6 +106,7 @@ usage (int status)
              "  -h|--cmd-help cmd    Display detailed help on 'cmd'\n"
              "  -a|--add image       Add image\n"
              "  -c|--connect uri     Specify libvirt URI for -d option\n"
+             "  --csh                Make --listen csh-compatible\n"
              "  -d|--domain guest    Add disks from libvirt guest\n"
              "  -D|--no-dest-paths   Don't tab-complete paths from guest fs\n"
              "  --echo-keys          Don't turn off echo for passphrases\n"
@@ -153,6 +155,7 @@ main (int argc, char *argv[])
     { "add", 1, 0, 'a' },
     { "cmd-help", 2, 0, 'h' },
     { "connect", 1, 0, 'c' },
+    { "csh", 0, 0, 0 },
     { "domain", 1, 0, 'd' },
     { "echo-keys", 0, 0, 0 },
     { "file", 1, 0, 'f' },
@@ -262,6 +265,8 @@ main (int argc, char *argv[])
           format = NULL;
         else
           format = optarg;
+      } else if (STREQ (long_options[option_index].name, "csh")) {
+        remote_control_csh = 1;
       } else {
         fprintf (stderr, _("%s: unknown long option: %s (%d)\n"),
                  program_name, long_options[option_index].name, option_index);

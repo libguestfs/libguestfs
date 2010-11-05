@@ -174,6 +174,11 @@ When used in conjunction with the I<-d> option, this specifies
 the libvirt URI to use.  The default is to use the default libvirt
 connection.
 
+=item B<--csh>
+
+If using the I<--listen> option and a csh-like shell, use this option.
+See section L</REMOTE CONTROL AND CSH> below.
+
 =item B<-d libvirt-domain> | B<--domain libvirt-domain>
 
 Add disks from the named libvirt domain.  If the I<--ro> option is
@@ -757,6 +762,13 @@ You can have several guestfish listener processes running using:
  ...
  guestfish --remote=$pid1 cmd
  guestfish --remote=$pid2 cmd
+
+=head2 REMOTE CONTROL AND CSH
+
+When using csh-like shells (csh, tcsh etc) you have to add the
+I<--csh> option:
+
+ eval "`guestfish --listen --csh`"
 
 =head2 REMOTE CONTROL DETAILS
 

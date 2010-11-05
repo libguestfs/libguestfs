@@ -198,7 +198,12 @@ rc_listen (void)
 
   if (pid > 0) {
     /* Parent process. */
-    printf ("GUESTFISH_PID=%d; export GUESTFISH_PID\n", pid);
+
+    if (!remote_control_csh)
+      printf ("GUESTFISH_PID=%d; export GUESTFISH_PID\n", pid);
+    else
+      printf ("setenv GUESTFISH_PID %d\n", pid);
+
     fflush (stdout);
     _exit (0);
   }
