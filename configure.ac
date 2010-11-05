@@ -233,7 +233,7 @@ AM_CONDITIONAL([HAVE_XMLLINT],[test "x$XMLLINT" != "xno"])
 
 dnl Check for QEMU for running binaries on this $host_cpu, fall
 dnl back to basic 'qemu'.  Allow the user to override it.
-default_qemu="qemu-kvm qemu-system-$host_cpu qemu"
+default_qemu="qemu-kvm kvm qemu-system-$host_cpu qemu"
 AC_ARG_WITH([qemu],
         [AS_HELP_STRING([--with-qemu],
           [set default QEMU binary @<:@default=[qemu-kvm] qemu-system-<host> qemu@:>@])],
