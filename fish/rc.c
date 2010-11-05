@@ -198,7 +198,7 @@ rc_listen (void)
 
   if (pid > 0) {
     /* Parent process. */
-    printf ("export GUESTFISH_PID=%d\n", pid);
+    printf ("GUESTFISH_PID=%d; export GUESTFISH_PID\n", pid);
     fflush (stdout);
     _exit (0);
   }
