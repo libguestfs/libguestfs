@@ -203,6 +203,8 @@ disk.  If the guest is running and this option is I<not> supplied,
 then there is a strong risk of disk corruption in the guest.  We try
 to prevent this from happening, but it is not always possible.
 
+See also L<guestfish(1)/OPENING DISKS FOR READ AND WRITE>.
+
 =item B<--selinux>
 
 Enable SELinux support for the guest.
@@ -214,6 +216,11 @@ Enable verbose messages from underlying libguestfs.
 =item B<-V> | B<--version>
 
 Display the program version and exit.
+
+=item B<-w> | B<--rw>
+
+This option does nothing at the moment.
+See L<guestfish(1)/OPENING DISKS FOR READ AND WRITE>.
 
 =item B<-x> | B<--trace>
 

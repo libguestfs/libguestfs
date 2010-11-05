@@ -185,6 +185,13 @@ extern int add_libvirt_drives (const char *guest);
     exit (EXIT_SUCCESS);                                                \
   }
 
+#define OPTION_w                                                        \
+  if (read_only) {                                                      \
+    fprintf (stderr, _("%s: cannot mix --ro and --rw options\n"),       \
+             program_name);                                             \
+    exit (EXIT_FAILURE);                                                \
+  }
+
 #define OPTION_x                                \
   guestfs_set_trace (g, 1)
 

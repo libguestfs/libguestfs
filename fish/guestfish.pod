@@ -10,13 +10,13 @@ guestfish - the libguestfs Filesystem Interactive SHell
 
  guestfish
 
- guestfish -a disk.img
+ guestfish [--ro|--rw] -a disk.img
 
- guestfish -a disk.img -m dev[:mountpoint]
+ guestfish [--ro|--rw] -a disk.img -m dev[:mountpoint]
 
  guestfish -d libvirt-domain
 
- guestfish -a disk.img -i
+ guestfish [--ro|--rw] -a disk.img -i
 
  guestfish -d libvirt-domain -i
 
@@ -99,7 +99,7 @@ Update C</etc/resolv.conf> in a guest:
 
 Edit C</boot/grub/grub.conf> interactively:
 
- guestfish --add disk.img \
+ guestfish --rw --add disk.img \
    --mount /dev/vg_guest/lv_root \
    --mount /dev/sda1:/boot \
    edit /boot/grub/grub.conf
@@ -115,7 +115,7 @@ disks from a virtual machine:
 
 Another way to edit C</boot/grub/grub.conf> interactively is:
 
- guestfish -a disk.img -i edit /boot/grub/grub.conf
+ guestfish --rw -a disk.img -i edit /boot/grub/grub.conf
 
 =head2 As a script interpreter
 
@@ -245,7 +245,7 @@ Typical usage is either:
 
 (for active domains, readonly), or specify the block device directly:
 
- guestfish -a /dev/Guests/MyGuest -i
+ guestfish --rw -a /dev/Guests/MyGuest -i
 
 Note that the command line syntax changed slightly over older
 versions of guestfish.  You can still use the old syntax:
@@ -320,6 +320,8 @@ don't need write access to the disk.
 Note that prepared disk images created with I<-N> are not affected by
 the I<--ro> option.
 
+See also L</OPENING DISKS FOR READ AND WRITE> below.
+
 =item B<--selinux>
 
 Enable SELinux support for the guest.  See L<guestfs(3)/SELINUX>.
@@ -332,6 +334,11 @@ a bug.
 =item B<-V> | B<--version>
 
 Display the guestfish / libguestfs version number and exit.
+
+=item B<-w> | B<--rw>
+
+This option does nothing at the moment.
+See L</OPENING DISKS FOR READ AND WRITE> below.
 
 =item B<-x>
 
@@ -391,6 +398,33 @@ The only exception is that if any of the I<-i>, I<-m>, I<--mount>,
 I<-N> or I<--new> options were given then C<run> is done
 automatically, simply because guestfish can't perform the action you
 asked for without doing this.
+
+=head1 OPENING DISKS FOR READ AND WRITE
+
+The guestfish (and L<guestmount(1)>) options I<--ro> and I<--rw>
+affect whether the other command line options I<-a>, I<-c>, I<-d>,
+I<-i> and I<-m> open disk images read-only or for writing.
+
+In libguestfs E<lt> 1.6.2, guestfish and guestmount defaulted to
+opening disk images supplied on the command line for write.  To open a
+disk image read-only you have to do I<-a image --ro>.
+
+This matters: If you accidentally open a live VM disk image writable
+then you will cause irreversible disk corruption.
+
+By libguestfs 1.8 we intend to change the default the other way.  Disk
+images will be opened read-only.  You will have to either specify
+I<guestfish --rw> or change a configuration file in order to get write
+access for disk images specified by those other command line options.
+
+This version of guestfish has a I<--rw> option which does nothing (it
+is already the default).  However it is highly recommended that you
+use this option to indicate that guestfish needs write access, and to
+prepare your scripts for the day when this option will be required for
+write access.
+
+B<Note:> This does I<not> affect commands like L</add> and L</mount>,
+or any other libguestfs program apart from guestfish and guestmount.
 
 =head1 QUOTING
 
