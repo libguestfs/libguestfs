@@ -35,6 +35,7 @@ extern "C" {
 #endif
 
 #include <stdint.h>
+#include <stdarg.h>
 
 typedef struct guestfs_h guestfs_h;
 
