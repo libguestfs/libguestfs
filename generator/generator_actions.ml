@@ -1038,6 +1038,19 @@ the case then an error is returned.
 
 Please read L<guestfs(3)/INSPECTION> for more details.");
 
+  ("inspect_get_roots", (RStringList "roots", [], []), -1, [],
+   [],
+   "return list of operating systems found by last inspection",
+   "\
+This function is a convenient way to get the list of root
+devices, as returned from a previous call to C<guestfs_inspect_os>,
+but without redoing the whole inspection process.
+
+This returns an empty list if either no root devices were
+found or the caller has not called C<guestfs_inspect_os>.
+
+Please read L<guestfs(3)/INSPECTION> for more details.");
+
 ]
 
 (* daemon_functions are any functions which cause some action

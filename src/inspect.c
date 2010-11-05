@@ -423,28 +423,11 @@ guestfs__inspect_os (guestfs_h *g)
   /* At this point we have, in the handle, a list of all filesystems
    * found and data about each one.  Now we assemble the list of
    * filesystems which are root devices and return that to the user.
+   * Fall through to guestfs__inspect_get_roots to do that.
    */
-  size_t count = 0;
-  for (i = 0; i < g->nr_fses; ++i)
-    if (g->fses[i].is_root)
-      count++;
-
-  char **ret = calloc (count+1, sizeof (char *));
-  if (ret == NULL) {
-    perrorf (g, "calloc");
+  char **ret = guestfs__inspect_get_roots (g);
+  if (ret == NULL)
     guestfs___free_inspect_info (g);
-    return NULL;
-  }
-
-  count = 0;
-  for (i = 0; i < g->nr_fses; ++i) {
-    if (g->fses[i].is_root) {
-      ret[count] = safe_strdup (g, g->fses[i].device);
-      count++;
-    }
-  }
-  ret[count] = NULL;
-
   return ret;
 }
 
@@ -1305,6 +1288,37 @@ search_for_root (guestfs_h *g, const char *root)
   error (g, _("%s: root device not found: only call this function with a root device previously returned by guestfs_inspect_os"),
          root);
   return NULL;
+}
+
+char **
+guestfs__inspect_get_roots (guestfs_h *g)
+{
+  /* NB. Doesn't matter if g->nr_fses == 0.  We just return an empty
+   * list in this case.
+   */
+
+  size_t i;
+  size_t count = 0;
+  for (i = 0; i < g->nr_fses; ++i)
+    if (g->fses[i].is_root)
+      count++;
+
+  char **ret = calloc (count+1, sizeof (char *));
+  if (ret == NULL) {
+    perrorf (g, "calloc");
+    return NULL;
+  }
+
+  count = 0;
+  for (i = 0; i < g->nr_fses; ++i) {
+    if (g->fses[i].is_root) {
+      ret[count] = safe_strdup (g, g->fses[i].device);
+      count++;
+    }
+  }
+  ret[count] = NULL;
+
+  return ret;
 }
 
 char *
