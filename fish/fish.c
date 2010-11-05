@@ -149,7 +149,7 @@ main (int argc, char *argv[])
 
   enum { HELP_OPTION = CHAR_MAX + 1 };
 
-  static const char *options = "a:c:d:Df:h::im:nN:rv?Vx";
+  static const char *options = "a:c:d:Df:h::im:nN:rv?Vwx";
   static const struct option long_options[] = {
     { "add", 1, 0, 'a' },
     { "cmd-help", 2, 0, 'h' },
@@ -170,6 +170,7 @@ main (int argc, char *argv[])
     { "no-progress-bars", 0, 0, 0 },
     { "remote", 2, 0, 0 },
     { "ro", 0, 0, 'r' },
+    { "rw", 0, 0, 'w' },
     { "selinux", 0, 0, 0 },
     { "verbose", 0, 0, 'v' },
     { "version", 0, 0, 'V' },
@@ -356,6 +357,10 @@ main (int argc, char *argv[])
 
     case 'V':
       OPTION_V;
+      break;
+
+    case 'w':
+      OPTION_w;
       break;
 
     case 'x':

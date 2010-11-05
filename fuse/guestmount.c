@@ -910,7 +910,7 @@ main (int argc, char *argv[])
   /* The command line arguments are broadly compatible with (a subset
    * of) guestfish.  Thus we have to deal mainly with -a, -m and --ro.
    */
-  static const char *options = "a:c:d:im:no:rv?Vx";
+  static const char *options = "a:c:d:im:no:rv?Vwx";
   static const struct option long_options[] = {
     { "add", 1, 0, 'a' },
     { "connect", 1, 0, 'c' },
@@ -924,6 +924,7 @@ main (int argc, char *argv[])
     { "no-sync", 0, 0, 'n' },
     { "option", 1, 0, 'o' },
     { "ro", 0, 0, 'r' },
+    { "rw", 0, 0, 'w' },
     { "selinux", 0, 0, 0 },
     { "trace", 0, 0, 'x' },
     { "verbose", 0, 0, 'v' },
@@ -1062,6 +1063,10 @@ main (int argc, char *argv[])
 
     case 'V':
       OPTION_V;
+      break;
+
+    case 'w':
+      OPTION_w;
       break;
 
     case 'x':
