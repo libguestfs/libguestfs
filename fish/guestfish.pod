@@ -140,7 +140,7 @@ To list what is available do:
 
 =head2 Remote control
 
- eval `guestfish --listen`
+ eval "`guestfish --listen`"
  guestfish --remote add-ro disk.img
  guestfish --remote run
  guestfish --remote lvs
@@ -730,7 +730,7 @@ up a guestfish process each time.
 
 Start a guestfish server process using:
 
- eval `guestfish --listen`
+ eval "`guestfish --listen`"
 
 and then send it commands by doing:
 
@@ -750,9 +750,9 @@ The C<eval> statement sets the environment variable C<$GUESTFISH_PID>,
 which is how the I<--remote> option knows where to send the commands.
 You can have several guestfish listener processes running using:
 
- eval `guestfish --listen`
+ eval "`guestfish --listen`"
  pid1=$GUESTFISH_PID
- eval `guestfish --listen`
+ eval "`guestfish --listen`"
  pid2=$GUESTFISH_PID
  ...
  guestfish --remote=$pid1 cmd
