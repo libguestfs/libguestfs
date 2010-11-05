@@ -606,10 +606,12 @@ check_state (guestfs_h *g, const char *caller)
       | Pathname n
       | Dev_or_Path n
       | FileIn n
-      | FileOut n
-      | Key n ->
+      | FileOut n ->
           (* guestfish doesn't support string escaping, so neither do we *)
           pr "    fprintf (stderr, \" \\\"%%s\\\"\", %s);\n" n
+      | Key n ->
+          (* don't print keys *)
+          pr "    fprintf (stderr, \" \\\"***\\\"\");\n"
       | OptString n ->			(* string option *)
           pr "    if (%s) fprintf (stderr, \" \\\"%%s\\\"\", %s);\n" n n;
           pr "    else fprintf (stderr, \" null\");\n"
