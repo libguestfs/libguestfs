@@ -25,7 +25,8 @@
 val load_api_versions : string -> unit
 (** Load the data from the named file. *)
 
-val lookup_api_version : string -> string
+val lookup_api_version : string -> string option
 (** [lookup_api_version c_api] looks up the version that the C API call
     (which must be the full C name, eg. ["guestfs_launch"]) was
-    added.  This returns the version string, eg. ["0.3"]. *)
+    added.  This returns the version string, eg. [Some "0.3"], or
+    [None] if no version could be found. *)

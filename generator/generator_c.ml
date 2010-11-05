@@ -255,8 +255,10 @@ L</KEYS AND PASSPHRASES> for more information.\n\n";
          | None -> ()
          | Some txt -> pr "%s\n\n" txt
         );
-        let version = lookup_api_version name in
-        pr "(Added in %s)\n\n" version;
+        (match lookup_api_version name with
+         | Some version -> pr "(Added in %s)\n\n" version
+         | None -> ()
+        );
 
         (* Handling of optional argument variants. *)
         if optargs <> [] then (

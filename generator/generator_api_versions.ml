@@ -39,6 +39,5 @@ let load_api_versions filename =
   close_in chan
 
 let lookup_api_version sym =
-  try Hashtbl.find hash sym
-  with Not_found ->
-    failwithf "API symbol \"%s\" not found in API versions file" sym
+  try Some (Hashtbl.find hash sym)
+  with Not_found -> None
