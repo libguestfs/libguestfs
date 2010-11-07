@@ -45,7 +45,7 @@ config.status
 config.sub
 configure
 cscope.out
-csharp/
+csharp/Libguestfs.cs
 daemon/actions.h
 daemon/errnostring_gperf.c
 daemon/errnostring_gperf.gperf

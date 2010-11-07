@@ -26,7 +26,7 @@ generator_built = \
 	bindtests.c \
 	errnostring_gperf.gperf \
 	errnostring.c \
-	errnostring.h
+	errnostring.h \
 	guestfs-actions.pod \
 	guestfs-availability.pod \
 	guestfs-structs.pod \

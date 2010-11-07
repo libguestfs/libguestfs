@@ -58,6 +58,9 @@ if HAVE_PHP
 SUBDIRS += php
 endif
 
+# Unconditional because nothing is built yet.
+SUBDIRS += csharp
+
 # Virt-inspector, tools and guestmount.
 if HAVE_INSPECTOR
 SUBDIRS += inspector
