@@ -572,6 +572,9 @@ AS_IF([test "x$enable_python" != "xno"],
                 fi
                 AC_MSG_RESULT([not found])
             done
+            if test "x$PYTHON_INCLUDEDIR" = "x"; then
+                AC_MSG_WARN([Python include directory not found])
+            fi
 
             for d in \
                 $PYTHON_PREFIX/lib64/python$PYTHON_VERSION/site-packages \
@@ -588,6 +591,9 @@ AS_IF([test "x$enable_python" != "xno"],
                 fi
                 AC_MSG_RESULT([not found])
             done
+            if test "x$PYTHON_SITE_PACKAGES" = "x"; then
+                AC_MSG_WARN([Python site-packages directory not found])
+            fi
 
             old_LIBS="$LIBS"
             LIBS="$LIBS -lpython$PYTHON_VERSION"
