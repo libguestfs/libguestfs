@@ -4,10 +4,6 @@ Guestfs bindings to the libguestfs API.
 As they are examples, these are licensed so they can be freely copied
 and used without any restrictions.
 
-Note that 'viewer' needs some OCaml packages which aren't checked for
-by default by the ./configure script.  Read the comments at the top of
-the source for more details.
-
 Tips:
 
 (1) To enable verbose messages, set environment variable LIBGUESTFS_DEBUG=1
