@@ -404,7 +404,7 @@ dnl enabling this option.
 AC_ARG_ENABLE([supermin],
         [AS_HELP_STRING([--enable-supermin],
           [enable supermin appliance (see README) @<:@default=no@:>@])],
-        [],
+        [AC_DEFINE([ENABLE_SUPERMIN],[1],[Supermin appliance enabled.])],
         [enable_supermin=no])
 AM_CONDITIONAL([SUPERMIN],[test "x$enable_supermin" = "xyes"])
 
