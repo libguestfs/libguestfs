@@ -777,19 +777,22 @@ AM_CONDITIONAL([HAVE_HASKELL],
     [test "x$GHC" != "xno"])
 
 dnl Check for Perl modules needed by virt-df, inspector, etc.
-missing_perl_modules=no
-for pm in Pod::Usage Getopt::Long Sys::Virt Data::Dumper XML::Writer Locale::TextDomain Win::Hivex Win::Hivex::Regedit; do
-    AC_MSG_CHECKING([for $pm])
-    if ! perl -M$pm -e1 >/dev/null 2>&1; then
-        AC_MSG_RESULT([no])
-        missing_perl_modules=yes
-    else
-        AC_MSG_RESULT([yes])
-    fi
-done
-if test "x$missing_perl_modules" = "xyes"; then
-    AC_MSG_WARN([some Perl modules required to compile virt-inspector and the other virt-* tools are missing])
-fi
+AS_IF([test "x$PERL" != "xno"],
+        [
+        missing_perl_modules=no
+        for pm in Pod::Usage Getopt::Long Sys::Virt Data::Dumper XML::Writer Locale::TextDomain Win::Hivex Win::Hivex::Regedit; do
+            AC_MSG_CHECKING([for $pm])
+            if ! $PERL -M$pm -e1 >/dev/null 2>&1; then
+                AC_MSG_RESULT([no])
+                missing_perl_modules=yes
+            else
+                AC_MSG_RESULT([yes])
+            fi
+        done
+        if test "x$missing_perl_modules" = "xyes"; then
+            AC_MSG_WARN([some Perl modules required to compile virt-inspector and the other virt-* tools are missing])
+        fi
+        ])
 
 AM_CONDITIONAL([HAVE_INSPECTOR],
     [test "x$PERL" != "xno" && test "x$missing_perl_modules" != "xyes"])
