@@ -776,6 +776,20 @@ AS_IF([test "x$enable_haskell" != "xno"],
 AM_CONDITIONAL([HAVE_HASKELL],
     [test "x$GHC" != "xno"])
 
+dnl PHP
+PHP=no
+AC_ARG_ENABLE([php],
+        AS_HELP_STRING([--disable-php], [Disable PHP language bindings]),
+        [],
+        [enable_php=yes])
+AS_IF([test "x$enable_php" != "xno"],
+        [
+        PHP=
+        AC_CHECK_PROG([PHP],[php],[php],[no])
+        AC_CHECK_PROG([PHPIZE],[phpize],[phpize],[no])
+        ])
+AM_CONDITIONAL([HAVE_PHP], [test "x$PHP" != "xno" && test "x$PHPIZE" != "xno"])
+
 dnl Check for Perl modules needed by virt-df, inspector, etc.
 AS_IF([test "x$PERL" != "xno"],
         [
@@ -802,11 +816,6 @@ AM_CONDITIONAL([HAVE_TOOLS],
 dnl po4a for translating man pages and POD files (optional).
 AC_CHECK_PROG([PO4A],[po4a],[po4a],[no])
 AM_CONDITIONAL([HAVE_PO4A], [test "x$PO4A" != "xno"])
-
-dnl PHP
-AC_CHECK_PROG([PHP],[php],[php],[no])
-AC_CHECK_PROG([PHPIZE],[phpize],[phpize],[no])
-AM_CONDITIONAL([HAVE_PHP], [test "x$PHP" != "xno" && test "x$PHPIZE" != "xno"])
 
 dnl Library versioning.
 MAX_PROC_NR=`cat $srcdir/src/MAX_PROC_NR`
