@@ -41,9 +41,9 @@ EXTRA_DIST = \
 	libguestfs-test-tool.pod \
 	$(wildcard virt-*.pl)
 
-all-local: $(MANPAGES)
-
 if HAVE_PO4A
+
+all-local: $(MANPAGES)
 
 guestfs.3: guestfs.pod guestfs-actions.pod guestfs-availability.pod guestfs-structs.pod
 	sed \
@@ -94,6 +94,10 @@ virt-%.1: virt-%.pl
 	  -c "Virtualization Support" \
 	  --release "$(PACKAGE_NAME)-$(PACKAGE_VERSION)" \
 	  $< > $@-t && mv $@-t $@
+
+else
+
+all-local:
 
 endif
 
