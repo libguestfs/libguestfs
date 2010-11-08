@@ -175,6 +175,12 @@ dist-hook:
 	$(top_srcdir)/update-bugs > BUGS-t
 	mv BUGS-t BUGS
 	cp BUGS $(distdir)/BUGS
+	git log --pretty="format:%an" | sort -u | \
+		grep -v rjones | \
+		grep -v "Richard Jones" \
+		> AUTHORS-t
+	mv AUTHORS-t AUTHORS
+	cp AUTHORS $(distdir)/AUTHORS
 
 # Update the list of translatable files in po/POTFILES.in.
 all-local:
