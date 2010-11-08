@@ -489,15 +489,27 @@ AS_IF([test "x$enable_fuse" != "xno"],
 AM_CONDITIONAL([HAVE_FUSE],[test "x$enable_fuse" != "xno"])
 
 dnl Check for OCaml (optional, for OCaml bindings).
-AC_PROG_OCAML
-AC_PROG_FINDLIB
-AM_CONDITIONAL([HAVE_OCAML],[test "x$OCAMLC" != "xno" && test "x$OCAMLFIND" != "xno"])
-
-dnl Optional xml-light for running the generator.
+OCAMLC=no
+OCAMLFIND=no
 OCAML_PKG_xml_light=no
-if test "x$OCAMLC" != "xno" && test "x$OCAMLFIND" != "xno"; then
-    AC_CHECK_OCAML_PKG([xml-light])
-fi
+AC_ARG_ENABLE([ocaml],
+        AS_HELP_STRING([--disable-ocaml], [Disable OCaml language bindings]),
+        [],
+        [enable_ocaml=yes])
+AS_IF([test "x$enable_ocaml" != "xno"],
+        [dnl OCAMLC and OCAMLFIND have to be unset first, otherwise
+         dnl AC_CHECK_TOOL (inside AC_PROG_OCAML) will not look.
+         OCAMLC=
+         OCAMLFIND=
+         AC_PROG_OCAML
+         AC_PROG_FINDLIB
+
+         dnl Optional xml-light for running the generator.
+         if test "x$OCAMLC" != "xno" && test "x$OCAMLFIND" != "xno"; then
+             AC_CHECK_OCAML_PKG([xml-light])
+         fi])
+AM_CONDITIONAL([HAVE_OCAML],
+               [test "x$OCAMLC" != "xno" && test "x$OCAMLFIND" != "xno"])
 AM_CONDITIONAL([HAVE_XML_LIGHT],[test "x$OCAML_PKG_xml_light" != "xno"])
 
 dnl Build the OCaml viewer example.  This has a lengthy list of
