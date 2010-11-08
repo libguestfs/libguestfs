@@ -47,12 +47,14 @@ static const char *initrd_name = "initramfs." host_cpu ".img";
 static int find_path (guestfs_h *g, int (*pred) (guestfs_h *g, const char *pelem, void *data), void *data, char **pelem);
 static int dir_contains_file (const char *dir, const char *file);
 static int dir_contains_files (const char *dir, ...);
-static int contains_supermin_appliance (guestfs_h *g, const char *path, void *data);
 static int contains_ordinary_appliance (guestfs_h *g, const char *path, void *data);
+#if ENABLE_SUPERMIN
+static int contains_supermin_appliance (guestfs_h *g, const char *path, void *data);
 static char *calculate_supermin_checksum (guestfs_h *g, const char *supermin_path);
 static int check_for_cached_appliance (guestfs_h *g, const char *supermin_path, const char *checksum, char **kernel, char **initrd, char **appliance);
 static int build_supermin_appliance (guestfs_h *g, const char *supermin_path, const char *checksum, char **kernel, char **initrd, char **appliance);
 static int run_supermin_helper (guestfs_h *g, const char *supermin_path, const char *cachedir, size_t cdlen);
+#endif
 
 /* Locate or build the appliance.
  *
@@ -88,6 +90,7 @@ guestfs___build_appliance (guestfs_h *g,
 {
   int r;
 
+#if ENABLE_SUPERMIN
   /* Step (1). */
   char *supermin_path;
   r = find_path (g, contains_supermin_appliance, NULL, &supermin_path);
@@ -116,6 +119,7 @@ guestfs___build_appliance (guestfs_h *g,
     }
     free (supermin_path);
   }
+#endif
 
   /* Step (5). */
   char *path;
@@ -141,15 +145,16 @@ guestfs___build_appliance (guestfs_h *g,
 }
 
 static int
-contains_supermin_appliance (guestfs_h *g, const char *path, void *data)
-{
-  return dir_contains_files (path, "supermin.d", "kmod.whitelist", NULL);
-}
-
-static int
 contains_ordinary_appliance (guestfs_h *g, const char *path, void *data)
 {
   return dir_contains_files (path, kernel_name, initrd_name, NULL);
+}
+
+#if ENABLE_SUPERMIN
+static int
+contains_supermin_appliance (guestfs_h *g, const char *path, void *data)
+{
+  return dir_contains_files (path, "supermin.d", "kmod.whitelist", NULL);
 }
 
 /* supermin_path is a path which is known to contain a supermin
@@ -531,6 +536,7 @@ run_supermin_helper (guestfs_h *g, const char *supermin_path,
   perror ("execvp");
   _exit (EXIT_FAILURE);
 }
+#endif
 
 /* Search elements of g->path, returning the first path element which
  * matches the predicate function 'pred'.
