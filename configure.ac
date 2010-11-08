@@ -478,11 +478,15 @@ AC_SUBST([HIVEX_CFLAGS])
 AC_SUBST([HIVEX_LIBS])
 
 dnl FUSE is optional to build the FUSE module.
-HAVE_FUSE=yes
-PKG_CHECK_MODULES([FUSE],[fuse],,[
-        HAVE_FUSE=no
-        AC_MSG_WARN([FUSE library and headers are missing, so optional FUSE module won't be built])])
-AM_CONDITIONAL([HAVE_FUSE],[test "x$HAVE_FUSE" = "xyes"])
+AC_ARG_ENABLE([fuse],
+        AS_HELP_STRING([--disable-fuse], [Disable FUSE (guestmount) support]),
+        [],
+        [enable_fuse=yes])
+AS_IF([test "x$enable_fuse" != "xno"],
+        [PKG_CHECK_MODULES([FUSE],[fuse],,[
+                enable_fuse=no
+                AC_MSG_WARN([FUSE library and headers are missing, so optional FUSE module won't be built])])])
+AM_CONDITIONAL([HAVE_FUSE],[test "x$enable_fuse" != "xno"])
 
 dnl Check for OCaml (optional, for OCaml bindings).
 AC_PROG_OCAML
@@ -837,7 +841,7 @@ if test "x$HAVE_INSPECTOR_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo -n "virt-* tools ........................ "
 if test "x$HAVE_TOOLS_TRUE" = "x"; then echo "yes"; else echo "no"; fi
 echo "supermin appliance .................. $enable_supermin"
-echo "FUSE filesystem ..................... $HAVE_FUSE"
+echo "FUSE filesystem ..................... $enable_fuse"
 echo
 echo "If any optional component is configured 'no' when you expected 'yes'"
 echo "then you should check the preceeding messages."
