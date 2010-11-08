@@ -610,9 +610,15 @@ AM_CONDITIONAL([HAVE_PYTHON],
     [test "x$PYTHON_INCLUDEDIR" != "x" && test "x$PYTHON_SITE_PACKAGES" != "x"])
 
 dnl Check for Ruby and rake (optional, for Ruby bindings).
-AC_CHECK_LIB([ruby],[ruby_init],[HAVE_LIBRUBY=1],[HAVE_LIBRUBY=0])
-AC_CHECK_PROG([RAKE],[rake],[rake],[no])
-
+AC_ARG_ENABLE([ruby],
+        AS_HELP_STRING([--disable-ruby], [Disable Ruby language bindings]),
+        [],
+        [enable_ruby=yes])
+AS_IF([test "x$enable_ruby" != "xno"],
+        [
+        AC_CHECK_LIB([ruby],[ruby_init],[HAVE_LIBRUBY=1],[HAVE_LIBRUBY=0])
+        AC_CHECK_PROG([RAKE],[rake],[rake],[no])
+        ])
 AM_CONDITIONAL([HAVE_RUBY],
     [test "x$RAKE" != "xno" && test -n "$HAVE_LIBRUBY"])
 
