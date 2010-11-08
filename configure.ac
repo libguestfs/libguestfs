@@ -512,16 +512,6 @@ AM_CONDITIONAL([HAVE_OCAML],
                [test "x$OCAMLC" != "xno" && test "x$OCAMLFIND" != "xno"])
 AM_CONDITIONAL([HAVE_XML_LIGHT],[test "x$OCAML_PKG_xml_light" != "xno"])
 
-dnl Build the OCaml viewer example.  This has a lengthy list of
-dnl dependencies and we don't attempt to detect them all.  Read
-dnl the top of ocaml/examples/viewer.ml before enabling this.
-AC_ARG_ENABLE([ocaml-viewer],
-        [AS_HELP_STRING([--enable-ocaml-viewer],
-          [enable OCaml viewer (see ocaml/examples) @<:@default=no@:>@])],
-        [],
-        [enable_ocaml_viewer=no])
-AM_CONDITIONAL([BUILD_OCAML_VIEWER],[test "x$enable_ocaml_viewer" = "xyes"])
-
 dnl Check for Perl (optional, for Perl bindings).
 dnl XXX This isn't quite right, we should check for Perl devel library.
 AC_CHECK_PROG([PERL],[perl],[perl],[no])
