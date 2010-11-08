@@ -513,25 +513,32 @@ AM_CONDITIONAL([HAVE_OCAML],
 AM_CONDITIONAL([HAVE_XML_LIGHT],[test "x$OCAML_PKG_xml_light" != "xno"])
 
 dnl Check for Perl (optional, for Perl bindings).
-dnl XXX This isn't quite right, we should check for Perl devel library.
-AC_CHECK_PROG([PERL],[perl],[perl],[no])
+PERL=no
+AC_ARG_ENABLE([perl],
+        AS_HELP_STRING([--disable-perl], [Disable Perl language bindings]),
+        [],
+        [enable_perl=yes])
+AS_IF([test "x$enable_perl" != "xno"],
+        [
+        PERL=
+        AC_CHECK_PROG([PERL],[perl],[perl],[no])
 
-dnl Check for Perl modules that must be present to compile and
-dnl test the Perl bindings.
-missing_perl_modules=no
-for pm in Test::More ExtUtils::MakeMaker; do
-    AC_MSG_CHECKING([for $pm])
-    if ! perl -M$pm -e1 >/dev/null 2>&1; then
-        AC_MSG_RESULT([no])
-        missing_perl_modules=yes
-    else
-        AC_MSG_RESULT([yes])
-    fi
-done
-if test "x$missing_perl_modules" = "xyes"; then
-    AC_MSG_WARN([some Perl modules required to compile or test the Perl bindings are missing])
-fi
-
+        dnl Check for Perl modules that must be present to compile and
+        dnl test the Perl bindings.
+        missing_perl_modules=no
+        for pm in Test::More ExtUtils::MakeMaker; do
+            AC_MSG_CHECKING([for $pm])
+            if ! perl -M$pm -e1 >/dev/null 2>&1; then
+                AC_MSG_RESULT([no])
+                missing_perl_modules=yes
+            else
+                AC_MSG_RESULT([yes])
+            fi
+        done
+        if test "x$missing_perl_modules" = "xyes"; then
+            AC_MSG_WARN([some Perl modules required to compile or test the Perl bindings are missing])
+        fi
+        ])
 AM_CONDITIONAL([HAVE_PERL],
     [test "x$PERL" != "xno" && test "x$missing_perl_modules" != "xyes"])
 
