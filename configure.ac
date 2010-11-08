@@ -763,8 +763,16 @@ AC_SUBST(JNI_VERSION_INFO)
 AM_CONDITIONAL([HAVE_JAVA],[test -n "$JAVAC"])
 
 dnl Check for Haskell (GHC).
-AC_CHECK_PROG([GHC],[ghc],[ghc],[no])
-
+GHC=no
+AC_ARG_ENABLE([haskell],
+        AS_HELP_STRING([--disable-haskell], [Disable Haskell language bindings]),
+        [],
+        [enable_haskell=yes])
+AS_IF([test "x$enable_haskell" != "xno"],
+        [
+        GHC=
+        AC_CHECK_PROG([GHC],[ghc],[ghc],[no])
+        ])
 AM_CONDITIONAL([HAVE_HASKELL],
     [test "x$GHC" != "xno"])
 
