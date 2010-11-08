@@ -170,7 +170,6 @@ Makefile
 Makefile.in
 missing
 *.o
-ocaml/.depend
 ocaml/bindtests
 ocaml/bindtests.ml
 ocaml/dllmlguestfs.so
