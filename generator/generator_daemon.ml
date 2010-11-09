@@ -105,6 +105,7 @@ and generate_daemon_actions () =
              | BufferIn n ->
                  pr "  const char *%s;\n" n;
                  pr "  size_t %s_size;\n" n
+             | Pointer _ -> assert false
            ) args
       );
       pr "\n";
@@ -174,6 +175,7 @@ and generate_daemon_actions () =
              | BufferIn n ->
                  pr "  %s = args.%s.%s_val;\n" n n n;
                  pr "  %s_size = args.%s.%s_len;\n" n n n
+             | Pointer _ -> assert false
            ) args;
            pr "\n"
       );

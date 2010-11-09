@@ -323,6 +323,7 @@ Guestfish will prompt for these separately."
         | Bool n -> pr "  int %s;\n" n
         | Int n -> pr "  int %s;\n" n
         | Int64 n -> pr "  int64_t %s;\n" n
+        | Pointer _ -> assert false
       ) args;
 
       if optargs <> [] then (
@@ -423,6 +424,7 @@ Guestfish will prompt for these separately."
             parse_integer "argv[i++]" "xstrtoll" "long long" "int" range name
         | Int64 name ->
             parse_integer "argv[i++]" "xstrtoll" "long long" "int64_t" None name
+        | Pointer _ -> assert false
       ) args;
 
       (* Optional arguments are prefixed with <argname>:<value> and
@@ -506,6 +508,7 @@ Guestfish will prompt for these separately."
             pr "  free_file_in (%s);\n" name
         | StringList name | DeviceList name ->
             pr "  free_strings (%s);\n" name
+        | Pointer _ -> assert false
       ) args;
 
       (* Any output flags? *)
@@ -810,6 +813,7 @@ and generate_fish_actions_pod () =
         | FileIn n | FileOut n -> pr " (%s|-)" n
         | BufferIn n -> pr " %s" n
         | Key _ -> () (* keys are entered at a prompt *)
+        | Pointer _ -> assert false
       ) args;
       List.iter (
         function

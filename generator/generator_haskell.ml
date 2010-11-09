@@ -148,7 +148,7 @@ last_error h = do
               pr "withCStringLen %s $ \\(%s, %s_size) -> " n n n
           | OptString n -> pr "maybeWith withCString %s $ \\%s -> " n n
           | StringList n | DeviceList n -> pr "withMany withCString %s $ \\%s -> withArray0 nullPtr %s $ \\%s -> " n n n n
-          | Bool _ | Int _ | Int64 _ -> ()
+          | Bool _ | Int _ | Int64 _ | Pointer _ -> ()
         ) args;
         (* Convert integer arguments. *)
         let args =
@@ -156,7 +156,7 @@ last_error h = do
             function
             | Bool n -> sprintf "(fromBool %s)" n
             | Int n -> sprintf "(fromIntegral %s)" n
-            | Int64 n -> sprintf "(fromIntegral %s)" n
+            | Int64 n | Pointer (_, n) -> sprintf "(fromIntegral %s)" n
             | FileIn n | FileOut n
             | Pathname n | Device n | Dev_or_Path n
             | String n | OptString n
@@ -222,6 +222,7 @@ and generate_haskell_prototype ~handle ?(hs = false) (ret, args, optargs) =
        | Bool _ -> pr "%s" bool
        | Int _ -> pr "%s" int
        | Int64 _ -> pr "%s" int
+       | Pointer _ -> pr "%s" int
        | FileIn _ -> pr "%s" string
        | FileOut _ -> pr "%s" string
       );

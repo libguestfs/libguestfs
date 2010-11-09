@@ -197,7 +197,7 @@ namespace Guestfs
               pr ", bool %s" n
           | Int n ->
               pr ", int %s" n
-          | Int64 n ->
+          | Int64 n | Pointer (_, n) ->
               pr ", long %s" n
         ) args;
         pr ");\n"
@@ -222,7 +222,7 @@ namespace Guestfs
               next (); pr "bool %s" n
           | Int n ->
               next (); pr "int %s" n
-          | Int64 n ->
+          | Int64 n | Pointer (_, n) ->
               next (); pr "long %s" n
         ) args;
         pr ")\n"

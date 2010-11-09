@@ -198,6 +198,7 @@ and generate_ocaml_c () =
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
 
 #include <caml/config.h>
 #include <caml/alloc.h>
@@ -400,6 +401,8 @@ copy_table (char * const * argv)
             pr "  int %s = Int_val (%sv);\n" n n
         | Int64 n ->
             pr "  int64_t %s = Int64_val (%sv);\n" n n
+        | Pointer (t, n) ->
+            pr "  %s %s = (%s) (intptr_t) Int64_val (%sv);\n" t n t n
       ) args;
 
       (* Optional arguments. *)
@@ -471,7 +474,7 @@ copy_table (char * const * argv)
             pr "  free (%s);\n" n
         | StringList n | DeviceList n ->
             pr "  ocaml_guestfs_free_strings (%s);\n" n;
-        | Bool _ | Int _ | Int64 _ -> ()
+        | Bool _ | Int _ | Int64 _ | Pointer _ -> ()
       ) args;
       List.iter (
         function
@@ -481,7 +484,7 @@ copy_table (char * const * argv)
         | Bool _ | Int _ | Int64 _
         | Pathname _ | Device _ | Dev_or_Path _ | OptString _
         | FileIn _ | FileOut _ | BufferIn _ | Key _
-        | StringList _ | DeviceList _ -> ()
+        | StringList _ | DeviceList _ | Pointer _ -> ()
       ) optargs;
 
       pr "  if (r == %s)\n" error_code;
@@ -592,7 +595,7 @@ and generate_ocaml_function_type (ret, args, optargs) =
     | StringList _ | DeviceList _ -> pr "string array -> "
     | Bool _ -> pr "bool -> "
     | Int _ -> pr "int -> "
-    | Int64 _ -> pr "int64 -> "
+    | Int64 _ | Pointer _ -> pr "int64 -> "
   ) args;
   (match ret with
    | RErr -> pr "unit" (* all errors are turned into exceptions *)

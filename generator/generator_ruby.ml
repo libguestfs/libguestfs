@@ -148,6 +148,8 @@ static VALUE ruby_guestfs_close (VALUE gv)
             pr "  int %s = NUM2INT (%sv);\n" n n
         | Int64 n ->
             pr "  long long %s = NUM2LL (%sv);\n" n n
+        | Pointer (t, n) ->
+            pr "  %s %s = (%s) (intptr_t) NUM2LL (%sv);\n" t n t n
       ) args;
       pr "\n";
 
@@ -210,7 +212,7 @@ static VALUE ruby_guestfs_close (VALUE gv)
         function
         | Pathname _ | Device _ | Dev_or_Path _ | String _ | Key _
         | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ | Int64 _
-        | BufferIn _ -> ()
+        | BufferIn _ | Pointer _ -> ()
         | StringList n | DeviceList n ->
             pr "  free (%s);\n" n
       ) args;

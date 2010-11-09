@@ -116,6 +116,9 @@ let rec generate_prototype ?(extern = true) ?(static = false)
           pr "const char *%s" n;
           next ();
           pr "size_t %s_size" n
+      | Pointer (t, n) ->
+          next ();
+          pr "%s %s" t n
     ) args;
     if is_RBufferOut then (next (); pr "size_t *size_r");
     if optargs <> [] then (
@@ -536,7 +539,8 @@ check_state (guestfs_h *g, const char *caller)
       | BufferIn n
       | StringList n
       | DeviceList n
-      | Key n ->
+      | Key n
+      | Pointer (_, n) ->
           pr "  if (%s == NULL) {\n" n;
           pr "    error (g, \"%%s: %%s: parameter cannot be NULL\",\n";
           pr "           \"%s\", \"%s\");\n" shortname n;
@@ -639,6 +643,8 @@ check_state (guestfs_h *g, const char *caller)
       | BufferIn n ->                   (* RHBZ#646822 *)
           pr "    fputc (' ', stderr);\n";
           pr "    guestfs___print_BufferIn (stderr, %s, %s_size);\n" n n
+      | Pointer (t, n) ->
+          pr "    fprintf (stderr, \" (%s)%%p\", %s);\n" t n
     ) args;
 
     (* Optional arguments. *)
@@ -770,6 +776,7 @@ check_state (guestfs_h *g, const char *caller)
                  pr "  }\n";
                  pr "  args.%s.%s_val = (char *) %s;\n" n n n;
                  pr "  args.%s.%s_len = %s_size;\n" n n n
+             | Pointer _ -> assert false
            ) args;
            pr "  serial = guestfs___send (g, GUESTFS_PROC_%s,\n"
              (String.uppercase shortname);

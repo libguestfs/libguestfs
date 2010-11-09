@@ -200,7 +200,7 @@ PHP_FUNCTION (guestfs_last_error)
             pr "  char **%s;\n" n;
         | Bool n ->
             pr "  zend_bool %s;\n" n
-        | Int n | Int64 n ->
+        | Int n | Int64 n | Pointer (_, n) ->
             pr "  long %s;\n" n
         ) args;
 
@@ -236,7 +236,7 @@ PHP_FUNCTION (guestfs_last_error)
           | OptString n -> "s!"
           | StringList n | DeviceList n -> "a"
           | Bool n -> "b"
-          | Int n | Int64 n -> "l"
+          | Int n | Int64 n | Pointer (_, n) -> "l"
         ) args
       ) in
 
@@ -267,7 +267,7 @@ PHP_FUNCTION (guestfs_last_error)
             pr ", &z_%s" n
         | Bool n ->
             pr ", &%s" n
-        | Int n | Int64 n ->
+        | Int n | Int64 n | Pointer (_, n) ->
             pr ", &%s" n
       ) args;
       List.iter (
@@ -330,7 +330,7 @@ PHP_FUNCTION (guestfs_last_error)
             pr "    %s[c] = NULL;\n" n;
             pr "  }\n";
             pr "\n"
-        | Bool n | Int n | Int64 n -> ()
+        | Bool _ | Int _ | Int64 _ | Pointer _ -> ()
         ) args;
 
       (* Optional arguments. *)
@@ -406,7 +406,7 @@ PHP_FUNCTION (guestfs_last_error)
             pr "    efree (%s);\n" n;
             pr "  }\n";
             pr "\n"
-        | Bool n | Int n | Int64 n -> ()
+        | Bool _ | Int _ | Int64 _ | Pointer _ -> ()
         ) args;
 
       (* Check for errors. *)

@@ -217,7 +217,7 @@ and generate_java_prototype ?(public=false) ?(privat=false) ?(native=false)
           pr "boolean %s" n
       | Int n ->
           pr "int %s" n
-      | Int64 n ->
+      | Int64 n | Pointer (_, n) ->
           pr "long %s" n
   ) args;
 
@@ -347,7 +347,7 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
             pr ", jboolean j%s" n
         | Int n ->
             pr ", jint j%s" n
-        | Int64 n ->
+        | Int64 n | Pointer (_, n) ->
             pr ", jlong j%s" n
       ) args;
       if optargs <> [] then
@@ -410,6 +410,8 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
             pr "  int %s;\n" n
         | Int64 n ->
             pr "  int64_t %s;\n" n
+        | Pointer (t, n) ->
+            pr "  %s %s;\n" t n
       ) args;
 
       let needs_i =
@@ -458,6 +460,8 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
         | Int n
         | Int64 n ->
             pr "  %s = j%s;\n" n n
+        | Pointer (t, n) ->
+            pr "  %s = (%s) j%s;\n" n t n
       ) args;
 
       if optargs <> [] then (
@@ -497,9 +501,10 @@ Java_com_redhat_et_libguestfs_GuestFS__1close
             pr "    (*env)->ReleaseStringUTFChars (env, o, %s[i]);\n" n;
             pr "  }\n";
             pr "  free (%s);\n" n
-        | Bool n
-        | Int n
-        | Int64 n -> ()
+        | Bool _
+        | Int _
+        | Int64 _
+        | Pointer _ -> ()
       ) args;
 
       (* Check for errors. *)
