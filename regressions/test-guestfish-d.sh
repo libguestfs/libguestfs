@@ -56,11 +56,11 @@ cat > test.xml <<EOF
 </node>
 EOF
 
-../fish/guestfish -c "test://$cwd/test.xml" --ro -d guest -x \
-  </dev/null >test.out 2>&1
-grep -sq '^add_drive.*test1.img.*readonly:true' test.out
-! grep -sq '^add_drive.*test1.img.*format' test.out
-grep -sq '^add_drive.*test2.img.*readonly:true.*format:raw' test.out
-grep -sq '^add_drive.*test3.img.*readonly:true.*format:qcow2' test.out
+../fish/guestfish -c "test://$cwd/test.xml" --ro -d guest \
+  debug-cmdline </dev/null >test.out
+grep -sq "test1.img.*snapshot=on" test.out
+! grep -sq "test1.img.*format" test.out
+grep -sq "test2.img.*snapshot=on.*format=raw" test.out
+grep -sq "test3.img.*snapshot=on.*format=qcow2" test.out
 
 rm -f test1.img test2.img test3.img test.xml test.out

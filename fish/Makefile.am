@@ -103,11 +103,9 @@ guestfish_CFLAGS = \
 	-DGUESTFS_DEFAULT_PATH='"$(libdir)/guestfs"' \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \
-	$(LIBVIRT_CFLAGS) $(LIBXML2_CFLAGS) \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 
 guestfish_LDADD = \
-	$(LIBVIRT_LIBS) $(LIBXML2_LIBS) \
 	$(top_builddir)/src/libguestfs.la $(LIBREADLINE) -lm
 
 # Make guestfish use the convenience libraries.

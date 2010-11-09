@@ -51,9 +51,9 @@ Requirements
 
 - libmagic (the library that corresponds to the 'file' command) (optional)
 
-- libvirt
+- libvirt (optional)
 
-- libxml2
+- libxml2 (optional)
 
 - Augeas (http://augeas.net/) (optional)
 

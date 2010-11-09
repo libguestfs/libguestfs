@@ -445,11 +445,6 @@ AC_CHECK_LIB([magic],[magic_file],
         ],
         [AC_MSG_WARN([libmagic not found, some core features will be disabled])])
 
-dnl libvirt (required)
-PKG_CHECK_MODULES([LIBVIRT], [libvirt])
-AC_SUBST([LIBVIRT_CFLAGS])
-AC_SUBST([LIBVIRT_LIBS])
-
 dnl Check for PCRE (highly recommended)
 PKG_CHECK_MODULES([PCRE], [libpcre],
         [AC_SUBST([PCRE_CFLAGS])
@@ -458,11 +453,21 @@ PKG_CHECK_MODULES([PCRE], [libpcre],
         ],
         [AC_MSG_WARN([PCRE not found, some core features will be disabled])])
 
-dnl libxml2 (required)
-PKG_CHECK_MODULES([LIBXML2], [libxml-2.0])
-AC_SUBST([LIBXML2_CFLAGS])
-AC_SUBST([LIBXML2_LIBS])
+dnl libvirt (highly recommended)
+PKG_CHECK_MODULES([LIBVIRT], [libvirt],
+        [AC_SUBST([LIBVIRT_CFLAGS])
+         AC_SUBST([LIBVIRT_LIBS])
+         AC_DEFINE([HAVE_LIBVIRT],[1],[libvirt found at compile time.])
+        ],
+        [AC_MSG_WARN([libvirt not found, some core features will be disabled])])
 
+dnl libxml2 (highly recommended)
+PKG_CHECK_MODULES([LIBXML2], [libxml-2.0],
+        [AC_SUBST([LIBXML2_CFLAGS])
+         AC_SUBST([LIBXML2_LIBS])
+         AC_DEFINE([HAVE_LIBXML2],[1],[libxml2 found at compile time.])
+        ],
+        [AC_MSG_WARN([libxml2 not found, some core features will be disabled])])
 
 dnl hivex library (highly recommended)
 dnl This used to be a part of libguestfs, but was spun off into its

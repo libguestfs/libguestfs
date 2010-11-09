@@ -45,12 +45,11 @@ guestmount_CFLAGS = \
 	-I$(srcdir)/../gnulib/lib -I../gnulib/lib \
 	-DGUESTFS_DEFAULT_PATH='"$(libdir)/guestfs"' \
 	-DLOCALEBASEDIR=\""$(datadir)/locale"\" \
-	$(FUSE_CFLAGS) $(LIBVIRT_CFLAGS) $(LIBXML2_CFLAGS) \
+	$(FUSE_CFLAGS) \
 	$(WARN_CFLAGS) $(WERROR_CFLAGS)
 
 guestmount_LDADD = \
 	$(FUSE_LIBS) -lulockmgr \
-	$(LIBVIRT_LIBS) $(LIBXML2_LIBS) \
 	$(top_builddir)/src/libguestfs.la \
 	../gnulib/lib/libgnu.la
 
