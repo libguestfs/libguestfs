@@ -19,6 +19,10 @@
 #ifndef GUESTFS_INTERNAL_H_
 #define GUESTFS_INTERNAL_H_
 
+#ifdef HAVE_PCRE
+#include <pcre.h>
+#endif
+
 #define STREQ(a,b) (strcmp((a),(b)) == 0)
 #define STRCASEEQ(a,b) (strcasecmp((a),(b)) == 0)
 #define STRNEQ(a,b) (strcmp((a),(b)) != 0)
@@ -223,6 +227,13 @@ extern int guestfs___recv_from_daemon (guestfs_h *g, uint32_t *size_rtn, void **
 extern int guestfs___accept_from_daemon (guestfs_h *g);
 extern int guestfs___build_appliance (guestfs_h *g, char **kernel, char **initrd, char **appliance);
 extern void guestfs___print_BufferIn (FILE *out, const char *buf, size_t buf_size);
+#ifdef HAVE_PCRE
+extern int guestfs___match (guestfs_h *g, const char *str, const pcre *re);
+extern char *guestfs___match1 (guestfs_h *g, const char *str, const pcre *re);
+extern int guestfs___match2 (guestfs_h *g, const char *str, const pcre *re, char **ret1, char **ret2);
+#endif
+extern int guestfs___feature_available (guestfs_h *g, const char *feature);
+extern void guestfs___free_string_list (char **);
 
 #define error(g,...) guestfs_error_errno((g),0,__VA_ARGS__)
 #define perrorf guestfs_perrorf
@@ -232,5 +243,10 @@ extern void guestfs___print_BufferIn (FILE *out, const char *buf, size_t buf_siz
 #define safe_strdup guestfs_safe_strdup
 #define safe_strndup guestfs_safe_strndup
 #define safe_memdup guestfs_safe_memdup
+#ifdef HAVE_PCRE
+#define match guestfs___match
+#define match1 guestfs___match1
+#define match2 guestfs___match2
+#endif
 
 #endif /* GUESTFS_INTERNAL_H_ */

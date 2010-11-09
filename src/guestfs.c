@@ -774,3 +774,12 @@ guestfs___print_BufferIn (FILE *out, const char *buf, size_t buf_size)
     fprintf (out,
              _("<truncated, original size %zu bytes>"), orig_size);
 }
+
+void
+guestfs___free_string_list (char **argv)
+{
+  size_t i;
+  for (i = 0; argv[i] != NULL; ++i)
+    free (argv[i]);
+  free (argv);
+}
