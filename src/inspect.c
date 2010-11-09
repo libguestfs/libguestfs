@@ -29,7 +29,6 @@
 #include <pcre.h>
 #include <magic.h>
 #include <hivex.h>
-#include <augeas.h>
 
 #include "c-ctype.h"
 #include "ignore-value.h"
@@ -858,7 +857,7 @@ check_linux_root (guestfs_h *g, struct inspect_fs *fs)
    * are mounted.
    * XXX What if !feature_available (g, "augeas")?
    */
-  if (guestfs_aug_init (g, "/", AUG_NO_LOAD|AUG_SAVE_NOOP) == -1)
+  if (guestfs_aug_init (g, "/", 16|32) == -1)
     return -1;
 
   /* Tell Augeas to only load /etc/fstab (thanks Raphaël Pinson). */

@@ -55,7 +55,7 @@ Requirements
 
 - libxml2
 
-- Augeas (http://augeas.net/)
+- Augeas (http://augeas.net/) (optional)
 
 - squashfs-tools (mksquashfs only)
 

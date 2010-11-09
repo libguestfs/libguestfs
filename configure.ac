@@ -465,10 +465,6 @@ PKG_CHECK_MODULES([LIBXML2], [libxml-2.0])
 AC_SUBST([LIBXML2_CFLAGS])
 AC_SUBST([LIBXML2_LIBS])
 
-dnl Augeas (required)
-PKG_CHECK_MODULES([AUGEAS], [augeas])
-AC_SUBST([AUGEAS_CFLAGS])
-AC_SUBST([AUGEAS_LIBS])
 
 dnl hivex library (required)
 dnl This used to be a part of libguestfs, but was spun off into its
