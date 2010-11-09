@@ -86,6 +86,7 @@ let generate_xdr () =
              | BufferIn n ->
                  pr "  opaque %s<>;\n" n
              | FileIn _ | FileOut _ -> ()
+             | Pointer _ -> assert false
            ) args;
            pr "};\n\n"
       );

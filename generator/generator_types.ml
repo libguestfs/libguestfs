@@ -185,6 +185,23 @@ and argt =
      *)
   | FileIn of string
   | FileOut of string
+    (* This specifies an opaque pointer that is passed through
+     * untouched.  Only non-daemon functions are supported.
+     *
+     * Pointer ("foo *", "bar") translates to "foo *bar" in the
+     * C API.  The pointer ("bar") cannot be NULL.
+     *
+     * This is less well supported in other language bindings:
+     * if the pointer type is known then we may be able to produce
+     * a suitable binding, otherwise this is translated into a 64
+     * bit int.
+     *
+     * Functions with this parameter type are not supported at all
+     * in guestfish (the function must be declared "NotInFish" else
+     * you will get an error).  Also the function cannot contain
+     * tests, although we should fix this in future.
+     *)
+  | Pointer of (string * string)
 
 type flags =
   | ProtocolLimitWarning  (* display warning about protocol size limits *)

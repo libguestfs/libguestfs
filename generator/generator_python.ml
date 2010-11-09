@@ -324,6 +324,9 @@ py_guestfs_close (PyObject *self, PyObject *args)
         | Bool n -> pr "  int %s;\n" n
         | Int n -> pr "  int %s;\n" n
         | Int64 n -> pr "  long long %s;\n" n
+        | Pointer (t, n) ->
+            pr "  long long %s_int64;\n" n;
+            pr "  %s %s;\n" t n
       ) args;
 
       if optargs <> [] then (
@@ -360,9 +363,11 @@ py_guestfs_close (PyObject *self, PyObject *args)
         | StringList _ | DeviceList _ -> pr "O"
         | Bool _ -> pr "i" (* XXX Python has booleans? *)
         | Int _ -> pr "i"
-        | Int64 _ -> pr "L" (* XXX Whoever thought it was a good idea to
-                             * emulate C's int/long/long long in Python?
-                             *)
+        | Int64 _ | Pointer _ ->
+            (* XXX Whoever thought it was a good idea to
+             * emulate C's int/long/long long in Python?
+             *)
+            pr "L"
         | BufferIn _ -> pr "s#"
       ) args;
 
@@ -388,6 +393,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
         | Bool n -> pr ", &%s" n
         | Int n -> pr ", &%s" n
         | Int64 n -> pr ", &%s" n
+        | Pointer (_, n) -> pr ", &%s_int64" n
         | BufferIn n -> pr ", &%s, &%s_size" n n
       ) args;
 
@@ -409,6 +415,8 @@ py_guestfs_close (PyObject *self, PyObject *args)
         | StringList n | DeviceList n ->
             pr "  %s = get_string_list (py_%s);\n" n n;
             pr "  if (!%s) return NULL;\n" n
+        | Pointer (t, n) ->
+            pr "  %s = (%s) (intptr_t) %s_int64;\n" n t n
       ) args;
 
       pr "\n";
@@ -444,7 +452,7 @@ py_guestfs_close (PyObject *self, PyObject *args)
         function
         | Pathname _ | Device _ | Dev_or_Path _ | String _ | Key _
         | FileIn _ | FileOut _ | OptString _ | Bool _ | Int _ | Int64 _
-        | BufferIn _ -> ()
+        | BufferIn _ | Pointer _ -> ()
         | StringList n | DeviceList n ->
             pr "  free (%s);\n" n
       ) args;

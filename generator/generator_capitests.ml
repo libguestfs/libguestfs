@@ -744,6 +744,9 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
             ) strs;
             pr "      NULL\n";
             pr "    };\n";
+        | Pointer _, _ ->
+            (* Difficult to make these pointers in order to run a test. *)
+            assert false
       ) (List.combine (snd style) args);
 
       let error_code =
@@ -799,6 +802,7 @@ and generate_test_command_call ?(expect_error = false) ?test test_name cmd =
             pr ", %Ld" i
         | Bool _, arg ->
             let b = bool_of_string arg in pr ", %d" (if b then 1 else 0)
+        | Pointer _, _ -> assert false
       ) (List.combine (snd style) args);
 
       (match fst style with

@@ -242,6 +242,7 @@ clear_progress_callback (g)
           | Bool n -> pr "      int %s;\n" n
           | Int n -> pr "      int %s;\n" n
           | Int64 n -> pr "      int64_t %s;\n" n
+          | Pointer (t, n) -> pr "      %s %s;\n" t n
       ) args;
 
       (* PREINIT section (local variable declarations). *)
@@ -362,7 +363,7 @@ clear_progress_callback (g)
         | Pathname _ | Device _ | Dev_or_Path _ | String _ | OptString _
         | Bool _ | Int _ | Int64 _
         | FileIn _ | FileOut _
-        | BufferIn _ | Key _ -> ()
+        | BufferIn _ | Key _ | Pointer _ -> ()
         | StringList n | DeviceList n -> pr "      free (%s);\n" n
       ) args;
 
@@ -751,7 +752,7 @@ and generate_perl_prototype name (ret, args, optargs) =
       match arg with
       | Pathname n | Device n | Dev_or_Path n | String n
       | OptString n | Bool n | Int n | Int64 n | FileIn n | FileOut n
-      | BufferIn n | Key n ->
+      | BufferIn n | Key n | Pointer (_, n) ->
           pr "$%s" n
       | StringList n | DeviceList n ->
           pr "\\@%s" n

@@ -129,6 +129,19 @@ let () =
       ) optargs
   ) all_functions;
 
+  (* Some parameter types not supported for daemon functions. *)
+  List.iter (
+    fun (name, (_, args, optargs), _, _, _, _, _) ->
+      let check_arg_type = function
+        | Pointer _ ->
+            failwithf "Pointer is not supported for daemon function %s."
+              name
+        | _ -> ()
+      in
+      List.iter check_arg_type args;
+      List.iter check_arg_type optargs;
+  ) daemon_functions;
+
   (* Check short descriptions. *)
   List.iter (
     fun (name, _, _, _, _, shortdesc, _) ->

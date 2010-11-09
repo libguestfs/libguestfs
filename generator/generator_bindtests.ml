@@ -89,6 +89,7 @@ print_strings (char *const *argv)
       | Bool n -> pr "  printf (\"%%s\\n\", %s ? \"true\" : \"false\");\n" n
       | Int n -> pr "  printf (\"%%d\\n\", %s);\n" n
       | Int64 n -> pr "  printf (\"%%\" PRIi64 \"\\n\", %s);\n" n
+      | Pointer _ -> assert false
     ) args;
     pr "  /* Java changes stdout line buffering so we need this: */\n";
     pr "  fflush (stdout);\n";
