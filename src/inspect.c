@@ -45,7 +45,6 @@
  * simultaneously.
  */
 static pcre *re_file_elf;
-static pcre *re_file_win64;
 static pcre *re_elf_ppc64;
 static pcre *re_fedora;
 static pcre *re_rhel_old;
@@ -94,7 +93,6 @@ static void
 free_regexps (void)
 {
   pcre_free (re_file_elf);
-  pcre_free (re_file_win64);
   pcre_free (re_elf_ppc64);
   pcre_free (re_fedora);
   pcre_free (re_rhel_old);
