@@ -34,6 +34,7 @@
 #include <sys/select.h>
 #include <dirent.h>
 #include <signal.h>
+#include <assert.h>
 
 #include <rpc/types.h>
 #include <rpc/xdr.h>
@@ -98,6 +99,25 @@ add_cmdline (guestfs_h *g, const char *str)
   incr_cmdline_size (g);
   g->cmdline[g->cmdline_size-1] = safe_strdup (g, str);
   return 0;
+}
+
+int
+guestfs___checkpoint_cmdline (guestfs_h *g)
+{
+  return g->cmdline_size;
+}
+
+void
+guestfs___rollback_cmdline (guestfs_h *g, int pos)
+{
+  int i;
+
+  assert (g->cmdline_size >= pos);
+
+  for (i = g->cmdline_size - 1; i >= pos; --i)
+    free (g->cmdline[i]);
+
+  g->cmdline_size = pos;
 }
 
 int

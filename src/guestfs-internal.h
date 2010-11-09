@@ -234,6 +234,8 @@ extern int guestfs___match2 (guestfs_h *g, const char *str, const pcre *re, char
 #endif
 extern int guestfs___feature_available (guestfs_h *g, const char *feature);
 extern void guestfs___free_string_list (char **);
+extern int guestfs___checkpoint_cmdline (guestfs_h *g);
+extern void guestfs___rollback_cmdline (guestfs_h *g, int pos);
 
 #define error(g,...) guestfs_error_errno((g),0,__VA_ARGS__)
 #define perrorf guestfs_perrorf
