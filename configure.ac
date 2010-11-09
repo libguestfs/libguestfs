@@ -188,15 +188,6 @@ AC_ARG_ENABLE([appliance],
 AM_CONDITIONAL([ENABLE_APPLIANCE],[test "x$enable_appliance" = "xyes"])
 AC_MSG_RESULT([$enable_appliance])
 
-dnl Check for PCRE.
-AC_CHECK_LIB([pcre],[pcre_compile],
-        [AC_SUBST([LIBPCRE], ["-lpcre"])],
-        [AC_MSG_FAILURE(
-             [Perl Compatible Regular Expressions library (PCRE) is required])])
-AC_CHECK_HEADER([pcre.h],[],
-        [AC_MSG_FAILURE(
-             [Perl Compatible Regular Expressions library (PCRE) header file pcre.h is required])])
-
 dnl Check for rpcgen and XDR library.  rpcgen is optional.
 AC_CHECK_PROG([RPCGEN],[rpcgen],[rpcgen],[no])
 AM_CONDITIONAL([HAVE_RPCGEN],[test "x$RPCGEN" != "xno"])
@@ -445,20 +436,27 @@ dnl For i18n.
 AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([0.17])
 
-dnl libmagic (required)
-AC_CHECK_LIB([magic],[magic_file],[
-        AC_SUBST([LIBMAGIC], ["-lmagic"])
-    ],[
-        AC_MSG_FAILURE([libmagic is required])
-    ])
-AC_CHECK_HEADER([magic.h],[],[
-        AC_MSG_FAILURE([magic.h header file is required])
-    ])
+dnl libmagic (highly recommended)
+AC_CHECK_LIB([magic],[magic_file],
+        [AC_CHECK_HEADER([magic.h],
+                [AC_SUBST([MAGIC_LIBS], ["-lmagic"])
+                 AC_DEFINE([HAVE_LIBMAGIC],[1],[libmagic found at compile time.])
+                ], [])
+        ],
+        [AC_MSG_WARN([libmagic not found, some core features will be disabled])])
 
 dnl libvirt (required)
 PKG_CHECK_MODULES([LIBVIRT], [libvirt])
 AC_SUBST([LIBVIRT_CFLAGS])
 AC_SUBST([LIBVIRT_LIBS])
+
+dnl Check for PCRE (highly recommended)
+PKG_CHECK_MODULES([PCRE], [libpcre],
+        [AC_SUBST([PCRE_CFLAGS])
+         AC_SUBST([PCRE_LIBS])
+         AC_DEFINE([HAVE_PCRE],[1],[PCRE found at compile time.])
+        ],
+        [AC_MSG_WARN([PCRE not found, some core features will be disabled])])
 
 dnl libxml2 (required)
 PKG_CHECK_MODULES([LIBXML2], [libxml-2.0])
@@ -466,12 +464,15 @@ AC_SUBST([LIBXML2_CFLAGS])
 AC_SUBST([LIBXML2_LIBS])
 
 
-dnl hivex library (required)
+dnl hivex library (highly recommended)
 dnl This used to be a part of libguestfs, but was spun off into its
 dnl own separate upstream project in libguestfs 1.0.85.
-PKG_CHECK_MODULES([HIVEX], [hivex])
-AC_SUBST([HIVEX_CFLAGS])
-AC_SUBST([HIVEX_LIBS])
+PKG_CHECK_MODULES([HIVEX], [hivex],
+        [AC_SUBST([HIVEX_CFLAGS])
+         AC_SUBST([HIVEX_LIBS])
+         AC_DEFINE([HAVE_HIVEX],[1],[hivex library found at compile time.])
+        ],
+        [AC_MSG_WARN([hivex not found, some core features will be disabled])])
 
 dnl FUSE is optional to build the FUSE module.
 AC_ARG_ENABLE([fuse],

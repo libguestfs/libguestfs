@@ -47,9 +47,9 @@ Requirements
 
 - XDR, rpcgen (on Linux these are provided by glibc)
 
-- pcre (Perl Compatible Regular Expressions C library)
+- pcre (Perl Compatible Regular Expressions C library) (optional)
 
-- libmagic (the library that corresponds to the 'file' command)
+- libmagic (the library that corresponds to the 'file' command) (optional)
 
 - libvirt
 

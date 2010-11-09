@@ -26,9 +26,13 @@
 #include <string.h>
 #include <sys/stat.h>
 
+#ifdef HAVE_PCRE
 #include <pcre.h>
-#include <magic.h>
+#endif
+
+#ifdef HAVE_HIVEX
 #include <hivex.h>
+#endif
 
 #include "c-ctype.h"
 #include "ignore-value.h"
@@ -39,13 +43,13 @@
 #include "guestfs-internal-actions.h"
 #include "guestfs_protocol.h"
 
+#if defined(HAVE_PCRE) && defined(HAVE_HIVEX)
+
 /* Compile all the regular expressions once when the shared library is
  * loaded.  PCRE is thread safe so we're supposedly OK here if
  * multiple threads call into the libguestfs API functions below
  * simultaneously.
  */
-static pcre *re_file_elf;
-static pcre *re_elf_ppc64;
 static pcre *re_fedora;
 static pcre *re_rhel_old;
 static pcre *re_rhel;
@@ -73,9 +77,6 @@ compile_regexps (void)
     }                                                                   \
   } while (0)
 
-  COMPILE (re_file_elf,
-           "ELF.*(?:executable|shared object|relocatable), (.+?),", 0);
-  COMPILE (re_elf_ppc64, "64.*PowerPC", 0);
   COMPILE (re_fedora, "Fedora release (\\d+)", 0);
   COMPILE (re_rhel_old,
            "(?:Red Hat Enterprise Linux|CentOS|Scientific Linux).*release (\\d+).*Update (\\d+)", 0);
@@ -92,8 +93,6 @@ compile_regexps (void)
 static void
 free_regexps (void)
 {
-  pcre_free (re_file_elf);
-  pcre_free (re_elf_ppc64);
   pcre_free (re_fedora);
   pcre_free (re_rhel_old);
   pcre_free (re_rhel);
@@ -104,252 +103,7 @@ free_regexps (void)
   pcre_free (re_windows_version);
 }
 
-/* Match a regular expression which contains no captures.  Returns
- * true if it matches or false if it doesn't.
- */
-static int
-match (guestfs_h *g, const char *str, const pcre *re)
-{
-  size_t len = strlen (str);
-  int vec[30], r;
-
-  r = pcre_exec (re, NULL, str, len, 0, 0, vec, sizeof vec / sizeof vec[0]);
-  if (r == PCRE_ERROR_NOMATCH)
-    return 0;
-  if (r != 1) {
-    /* Internal error -- should not happen. */
-    fprintf (stderr, "libguestfs: %s: %s: internal error: pcre_exec returned unexpected error code %d when matching against the string \"%s\"\n",
-             __FILE__, __func__, r, str);
-    return 0;
-  }
-
-  return 1;
-}
-
-/* Match a regular expression which contains exactly one capture.  If
- * the string matches, return the capture, otherwise return NULL.  The
- * caller must free the result.
- */
-static char *
-match1 (guestfs_h *g, const char *str, const pcre *re)
-{
-  size_t len = strlen (str);
-  int vec[30], r;
-
-  r = pcre_exec (re, NULL, str, len, 0, 0, vec, sizeof vec / sizeof vec[0]);
-  if (r == PCRE_ERROR_NOMATCH)
-    return NULL;
-  if (r != 2) {
-    /* Internal error -- should not happen. */
-    fprintf (stderr, "libguestfs: %s: %s: internal error: pcre_exec returned unexpected error code %d when matching against the string \"%s\"\n",
-             __FILE__, __func__, r, str);
-    return NULL;
-  }
-
-  return safe_strndup (g, &str[vec[2]], vec[3]-vec[2]);
-}
-
-/* Match a regular expression which contains exactly two captures. */
-static int
-match2 (guestfs_h *g, const char *str, const pcre *re, char **ret1, char **ret2)
-{
-  size_t len = strlen (str);
-  int vec[30], r;
-
-  r = pcre_exec (re, NULL, str, len, 0, 0, vec, 30);
-  if (r == PCRE_ERROR_NOMATCH)
-    return 0;
-  if (r != 3) {
-    /* Internal error -- should not happen. */
-    fprintf (stderr, "libguestfs: %s: %s: internal error: pcre_exec returned unexpected error code %d when matching against the string \"%s\"\n",
-             __FILE__, __func__, r, str);
-    return 0;
-  }
-
-  *ret1 = safe_strndup (g, &str[vec[2]], vec[3]-vec[2]);
-  *ret2 = safe_strndup (g, &str[vec[4]], vec[5]-vec[4]);
-
-  return 1;
-}
-
-/* Convert output from 'file' command on ELF files to the canonical
- * architecture string.  Caller must free the result.
- */
-static char *
-canonical_elf_arch (guestfs_h *g, const char *elf_arch)
-{
-  const char *r;
-
-  if (strstr (elf_arch, "Intel 80386"))
-    r = "i386";
-  else if (strstr (elf_arch, "Intel 80486"))
-    r = "i486";
-  else if (strstr (elf_arch, "x86-64"))
-    r = "x86_64";
-  else if (strstr (elf_arch, "AMD x86-64"))
-    r = "x86_64";
-  else if (strstr (elf_arch, "SPARC32"))
-    r = "sparc";
-  else if (strstr (elf_arch, "SPARC V9"))
-    r = "sparc64";
-  else if (strstr (elf_arch, "IA-64"))
-    r = "ia64";
-  else if (match (g, elf_arch, re_elf_ppc64))
-    r = "ppc64";
-  else if (strstr (elf_arch, "PowerPC"))
-    r = "ppc";
-  else
-    r = elf_arch;
-
-  char *ret = safe_strdup (g, r);
-  return ret;
-}
-
-static int
-is_regular_file (const char *filename)
-{
-  struct stat statbuf;
-
-  return lstat (filename, &statbuf) == 0 && S_ISREG (statbuf.st_mode);
-}
-
-/* Download and uncompress the cpio file to find binaries within.
- * Notes:
- * (1) Two lists must be identical.
- * (2) Implicit limit of 31 bytes for length of each element (see code
- * below).
- */
-#define INITRD_BINARIES1 "bin/ls bin/rm bin/modprobe sbin/modprobe bin/sh bin/bash bin/dash bin/nash"
-#define INITRD_BINARIES2 {"bin/ls", "bin/rm", "bin/modprobe", "sbin/modprobe", "bin/sh", "bin/bash", "bin/dash", "bin/nash"}
-
-static char *
-cpio_arch (guestfs_h *g, const char *file, const char *path)
-{
-  TMP_TEMPLATE_ON_STACK (dir);
-#define dir_len (strlen (dir))
-#define initrd_len (dir_len + 16)
-  char initrd[initrd_len];
-#define cmd_len (dir_len + 256)
-  char cmd[cmd_len];
-#define bin_len (dir_len + 32)
-  char bin[bin_len];
-
-  char *ret = NULL;
-
-  const char *method;
-  if (strstr (file, "gzip"))
-    method = "zcat";
-  else if (strstr (file, "bzip2"))
-    method = "bzcat";
-  else
-    method = "cat";
-
-  if (mkdtemp (dir) == NULL) {
-    perrorf (g, "mkdtemp");
-    goto out;
-  }
-
-  snprintf (initrd, initrd_len, "%s/initrd", dir);
-  if (guestfs_download (g, path, initrd) == -1)
-    goto out;
-
-  snprintf (cmd, cmd_len,
-            "cd %s && %s initrd | cpio --quiet -id " INITRD_BINARIES1,
-            dir, method);
-  int r = system (cmd);
-  if (r == -1 || WEXITSTATUS (r) != 0) {
-    perrorf (g, "cpio command failed");
-    goto out;
-  }
-
-  const char *bins[] = INITRD_BINARIES2;
-  size_t i;
-  for (i = 0; i < sizeof bins / sizeof bins[0]; ++i) {
-    snprintf (bin, bin_len, "%s/%s", dir, bins[i]);
-
-    if (is_regular_file (bin)) {
-      int flags = g->verbose ? MAGIC_DEBUG : 0;
-      flags |= MAGIC_ERROR | MAGIC_RAW;
-
-      magic_t m = magic_open (flags);
-      if (m == NULL) {
-        perrorf (g, "magic_open");
-        goto out;
-      }
-
-      if (magic_load (m, NULL) == -1) {
-        perrorf (g, "magic_load: default magic database file");
-        magic_close (m);
-        goto out;
-      }
-
-      const char *line = magic_file (m, bin);
-      if (line == NULL) {
-        perrorf (g, "magic_file: %s", bin);
-        magic_close (m);
-        goto out;
-      }
-
-      char *elf_arch;
-      if ((elf_arch = match1 (g, line, re_file_elf)) != NULL) {
-        ret = canonical_elf_arch (g, elf_arch);
-        free (elf_arch);
-        magic_close (m);
-        goto out;
-      }
-      magic_close (m);
-    }
-  }
-  error (g, "file_architecture: could not determine architecture of cpio archive");
-
- out:
-  /* Free up the temporary directory.  Note the directory name cannot
-   * contain shell meta-characters because of the way it was
-   * constructed above.
-   */
-  snprintf (cmd, cmd_len, "rm -rf %s", dir);
-  ignore_value (system (cmd));
-
-  return ret;
-#undef dir_len
-#undef initrd_len
-#undef cmd_len
-#undef bin_len
-}
-
-char *
-guestfs__file_architecture (guestfs_h *g, const char *path)
-{
-  char *file = NULL;
-  char *elf_arch = NULL;
-  char *ret = NULL;
-
-  /* Get the output of the "file" command.  Note that because this
-   * runs in the daemon, LANG=C so it's in English.
-   */
-  file = guestfs_file (g, path);
-  if (file == NULL)
-    return NULL;
-
-  if ((elf_arch = match1 (g, file, re_file_elf)) != NULL)
-    ret = canonical_elf_arch (g, elf_arch);
-  else if (strstr (file, "PE32 executable"))
-    ret = safe_strdup (g, "i386");
-  else if (strstr (file, "PE32+ executable"))
-    ret = safe_strdup (g, "x86_64");
-  else if (strstr (file, "cpio archive"))
-    ret = cpio_arch (g, file, path);
-  else
-    error (g, "file_architecture: unknown architecture: %s", path);
-
-  free (file);
-  free (elf_arch);
-  return ret;                   /* caller frees */
-}
-
 /* The main inspection code. */
-static int feature_available (guestfs_h *g, const char *feature);
-static void free_string_list (char **);
 static int check_for_filesystem_on (guestfs_h *g, const char *device);
 
 char **
@@ -374,12 +128,12 @@ guestfs__inspect_os (guestfs_h *g)
   size_t i;
   for (i = 0; devices[i] != NULL; ++i) {
     if (check_for_filesystem_on (g, devices[i]) == -1) {
-      free_string_list (devices);
+      guestfs___free_string_list (devices);
       guestfs___free_inspect_info (g);
       return NULL;
     }
   }
-  free_string_list (devices);
+  guestfs___free_string_list (devices);
 
   /* Look at all partitions. */
   char **partitions;
@@ -391,15 +145,15 @@ guestfs__inspect_os (guestfs_h *g)
 
   for (i = 0; partitions[i] != NULL; ++i) {
     if (check_for_filesystem_on (g, partitions[i]) == -1) {
-      free_string_list (partitions);
+      guestfs___free_string_list (partitions);
       guestfs___free_inspect_info (g);
       return NULL;
     }
   }
-  free_string_list (partitions);
+  guestfs___free_string_list (partitions);
 
   /* Look at all LVs. */
-  if (feature_available (g, "lvm2")) {
+  if (guestfs___feature_available (g, "lvm2")) {
     char **lvs;
     lvs = guestfs_lvs (g);
     if (lvs == NULL) {
@@ -409,12 +163,12 @@ guestfs__inspect_os (guestfs_h *g)
 
     for (i = 0; lvs[i] != NULL; ++i) {
       if (check_for_filesystem_on (g, lvs[i]) == -1) {
-        free_string_list (lvs);
+        guestfs___free_string_list (lvs);
         guestfs___free_inspect_info (g);
         return NULL;
       }
     }
-    free_string_list (lvs);
+    guestfs___free_string_list (lvs);
   }
 
   /* At this point we have, in the handle, a list of all filesystems
@@ -443,54 +197,6 @@ guestfs__inspect_os (guestfs_h *g)
   ret[count] = NULL;
 
   return ret;
-}
-
-void
-guestfs___free_inspect_info (guestfs_h *g)
-{
-  size_t i;
-  for (i = 0; i < g->nr_fses; ++i) {
-    free (g->fses[i].device);
-    free (g->fses[i].product_name);
-    free (g->fses[i].arch);
-    free (g->fses[i].windows_systemroot);
-    size_t j;
-    for (j = 0; j < g->fses[i].nr_fstab; ++j) {
-      free (g->fses[i].fstab[j].device);
-      free (g->fses[i].fstab[j].mountpoint);
-    }
-    free (g->fses[i].fstab);
-  }
-  free (g->fses);
-  g->nr_fses = 0;
-  g->fses = NULL;
-}
-
-static void
-free_string_list (char **argv)
-{
-  size_t i;
-  for (i = 0; argv[i] != NULL; ++i)
-    free (argv[i]);
-  free (argv);
-}
-
-/* In the Perl code this is a public function. */
-static int
-feature_available (guestfs_h *g, const char *feature)
-{
-  /* If there's an error we should ignore it, so to do that we have to
-   * temporarily replace the error handler with a null one.
-   */
-  guestfs_error_handler_cb old_error_cb = g->error_cb;
-  g->error_cb = NULL;
-
-  const char *groups[] = { feature, NULL };
-  int r = guestfs_available (g, (char * const *) groups);
-
-  g->error_cb = old_error_cb;
-
-  return r == 0 ? 1 : 0;
 }
 
 /* Find out if 'device' contains a filesystem.  If it does, add
@@ -629,7 +335,7 @@ parse_release_file (guestfs_h *g, struct inspect_fs *fs,
     return -1;
   if (product_name[0] == NULL) {
     error (g, "%s: file is empty", release_filename);
-    free_string_list (product_name);
+    guestfs___free_string_list (product_name);
     return -1;
   }
 
@@ -694,13 +400,13 @@ parse_lsb_release (guestfs_h *g, struct inspect_fs *fs)
         free (major);
         if (fs->major_version == -1) {
           free (minor);
-          free_string_list (lines);
+          guestfs___free_string_list (lines);
           return -1;
         }
         fs->minor_version = parse_unsigned_int (g, minor);
         free (minor);
         if (fs->minor_version == -1) {
-          free_string_list (lines);
+          guestfs___free_string_list (lines);
           return -1;
         }
       }
@@ -720,7 +426,7 @@ parse_lsb_release (guestfs_h *g, struct inspect_fs *fs)
     }
   }
 
-  free_string_list (lines);
+  guestfs___free_string_list (lines);
   return r;
 }
 
@@ -879,7 +585,7 @@ check_fstab (guestfs_h *g, struct inspect_fs *fs)
 
   if (lines[0] == NULL) {
     error (g, "could not parse /etc/fstab or empty file");
-    free_string_list (lines);
+    guestfs___free_string_list (lines);
     return -1;
   }
 
@@ -893,14 +599,14 @@ check_fstab (guestfs_h *g, struct inspect_fs *fs)
       snprintf (augpath, sizeof augpath, "%s/spec", lines[i]);
       char *spec = guestfs_aug_get (g, augpath);
       if (spec == NULL) {
-        free_string_list (lines);
+        guestfs___free_string_list (lines);
         return -1;
       }
 
       snprintf (augpath, sizeof augpath, "%s/file", lines[i]);
       char *mp = guestfs_aug_get (g, augpath);
       if (mp == NULL) {
-        free_string_list (lines);
+        guestfs___free_string_list (lines);
         free (spec);
         return -1;
       }
@@ -910,13 +616,13 @@ check_fstab (guestfs_h *g, struct inspect_fs *fs)
       free (mp);
 
       if (r == -1) {
-        free_string_list (lines);
+        guestfs___free_string_list (lines);
         return -1;
       }
     }
   }
 
-  free_string_list (lines);
+  guestfs___free_string_list (lines);
   return 0;
 }
 
@@ -1039,7 +745,7 @@ resolve_fstab_device (guestfs_h *g, const char *spec)
     }
 
     free (a1);
-    free_string_list (devices);
+    guestfs___free_string_list (devices);
   }
   else {
     /* Didn't match device pattern, return original spec unchanged. */
@@ -1474,139 +1180,190 @@ guestfs__inspect_get_filesystems (guestfs_h *g, const char *root)
   return ret;
 }
 
-/* List filesystems.
- *
- * The current implementation just uses guestfs_vfs_type and doesn't
- * try mounting anything, but we reserve the right in future to try
- * mounting filesystems.
- */
+#else /* no PCRE or hivex at compile time */
 
-static void remove_from_list (char **list, const char *item);
-static void check_with_vfs_type (guestfs_h *g, const char *dev, char ***ret, size_t *ret_size);
+/* XXX These functions should be in an optgroup. */
+
+#define NOT_IMPL(r)                                                     \
+  error (g, _("inspection API not available since this version of libguestfs was compiled without PCRE or hivex libraries")); \
+  return r
 
 char **
-guestfs__list_filesystems (guestfs_h *g)
+guestfs__inspect_os (guestfs_h *g)
+{
+  NOT_IMPL(NULL);
+}
+
+char **
+guestfs__inspect_get_roots (guestfs_h *g)
+{
+  NOT_IMPL(NULL);
+}
+
+char *
+guestfs__inspect_get_type (guestfs_h *g, const char *root)
+{
+  NOT_IMPL(NULL);
+}
+
+char *
+guestfs__inspect_get_arch (guestfs_h *g, const char *root)
+{
+  NOT_IMPL(NULL);
+}
+
+char *
+guestfs__inspect_get_distro (guestfs_h *g, const char *root)
+{
+  NOT_IMPL(NULL);
+}
+
+int
+guestfs__inspect_get_major_version (guestfs_h *g, const char *root)
+{
+  NOT_IMPL(-1);
+}
+
+int
+guestfs__inspect_get_minor_version (guestfs_h *g, const char *root)
+{
+  NOT_IMPL(-1);
+}
+
+char *
+guestfs__inspect_get_product_name (guestfs_h *g, const char *root)
+{
+  NOT_IMPL(NULL);
+}
+
+char *
+guestfs__inspect_get_windows_systemroot (guestfs_h *g, const char *root)
+{
+  NOT_IMPL(NULL);
+}
+
+char **
+guestfs__inspect_get_mountpoints (guestfs_h *g, const char *root)
+{
+  NOT_IMPL(NULL);
+}
+
+char **
+guestfs__inspect_get_filesystems (guestfs_h *g, const char *root)
+{
+  NOT_IMPL(NULL);
+}
+
+#endif /* no PCRE or hivex at compile time */
+
+void
+guestfs___free_inspect_info (guestfs_h *g)
 {
   size_t i;
-  char **ret;
-  size_t ret_size;
+  for (i = 0; i < g->nr_fses; ++i) {
+    free (g->fses[i].device);
+    free (g->fses[i].product_name);
+    free (g->fses[i].arch);
+    free (g->fses[i].windows_systemroot);
+    size_t j;
+    for (j = 0; j < g->fses[i].nr_fstab; ++j) {
+      free (g->fses[i].fstab[j].device);
+      free (g->fses[i].fstab[j].mountpoint);
+    }
+    free (g->fses[i].fstab);
+  }
+  free (g->fses);
+  g->nr_fses = 0;
+  g->fses = NULL;
+}
 
-  ret = safe_malloc (g, sizeof (char *));
-  ret[0] = NULL;
-  ret_size = 0;
-
-  /* Look to see if any devices directly contain filesystems
-   * (RHBZ#590167).  However vfs-type will fail to tell us anything
-   * useful about devices which just contain partitions, so we also
-   * get the list of partitions and exclude the corresponding devices
-   * by using part-to-dev.
+/* In the Perl code this is a public function. */
+int
+guestfs___feature_available (guestfs_h *g, const char *feature)
+{
+  /* If there's an error we should ignore it, so to do that we have to
+   * temporarily replace the error handler with a null one.
    */
-  char **devices;
-  devices = guestfs_list_devices (g);
-  if (devices == NULL) {
-    free_string_list (ret);
-    return NULL;
-  }
-  char **partitions;
-  partitions = guestfs_list_partitions (g);
-  if (partitions == NULL) {
-    free_string_list (devices);
-    free_string_list (ret);
-    return NULL;
-  }
-
-  for (i = 0; partitions[i] != NULL; ++i) {
-    char *dev = guestfs_part_to_dev (g, partitions[i]);
-    if (dev)
-      remove_from_list (devices, dev);
-    free (dev);
-  }
-
-  /* Use vfs-type to check for filesystems on devices. */
-  for (i = 0; devices[i] != NULL; ++i)
-    check_with_vfs_type (g, devices[i], &ret, &ret_size);
-  free_string_list (devices);
-
-  /* Use vfs-type to check for filesystems on partitions. */
-  for (i = 0; partitions[i] != NULL; ++i)
-    check_with_vfs_type (g, partitions[i], &ret, &ret_size);
-  free_string_list (partitions);
-
-  if (feature_available (g, "lvm2")) {
-    /* Use vfs-type to check for filesystems on LVs. */
-    char **lvs;
-    lvs = guestfs_lvs (g);
-    if (lvs == NULL) {
-      free_string_list (ret);
-      return NULL;
-    }
-
-    for (i = 0; lvs[i] != NULL; ++i)
-      check_with_vfs_type (g, lvs[i], &ret, &ret_size);
-    free_string_list (lvs);
-  }
-
-  return ret;
-}
-
-/* If 'item' occurs in 'list', remove and free it. */
-static void
-remove_from_list (char **list, const char *item)
-{
-  size_t i;
-
-  for (i = 0; list[i] != NULL; ++i)
-    if (STREQ (list[i], item)) {
-      free (list[i]);
-      for (; list[i+1] != NULL; ++i)
-        list[i] = list[i+1];
-      list[i] = NULL;
-      return;
-    }
-}
-
-/* Use vfs-type to look for a filesystem of some sort on 'dev'.
- * Apart from some types which we ignore, add the result to the
- * 'ret' string list.
- */
-static void
-check_with_vfs_type (guestfs_h *g, const char *device,
-                     char ***ret, size_t *ret_size)
-{
-  char *v;
-
   guestfs_error_handler_cb old_error_cb = g->error_cb;
   g->error_cb = NULL;
-  char *vfs_type = guestfs_vfs_type (g, device);
+
+  const char *groups[] = { feature, NULL };
+  int r = guestfs_available (g, (char * const *) groups);
+
   g->error_cb = old_error_cb;
 
-  if (!vfs_type)
-    v = safe_strdup (g, "unknown");
-  else {
-    /* Ignore all "*_member" strings.  In libblkid these are returned
-     * for things which are members of some RAID or LVM set, most
-     * importantly "LVM2_member" which is a PV.
-     */
-    size_t n = strlen (vfs_type);
-    if (n >= 7 && STREQ (&vfs_type[n-7], "_member")) {
-      free (vfs_type);
-      return;
-    }
+  return r == 0 ? 1 : 0;
+}
 
-    /* Ignore LUKS-encrypted partitions.  These are also containers. */
-    if (STREQ (vfs_type, "crypto_LUKS")) {
-      free (vfs_type);
-      return;
-    }
+#ifdef HAVE_PCRE
 
-    v = vfs_type;
+/* Match a regular expression which contains no captures.  Returns
+ * true if it matches or false if it doesn't.
+ */
+int
+guestfs___match (guestfs_h *g, const char *str, const pcre *re)
+{
+  size_t len = strlen (str);
+  int vec[30], r;
+
+  r = pcre_exec (re, NULL, str, len, 0, 0, vec, sizeof vec / sizeof vec[0]);
+  if (r == PCRE_ERROR_NOMATCH)
+    return 0;
+  if (r != 1) {
+    /* Internal error -- should not happen. */
+    fprintf (stderr, "libguestfs: %s: %s: internal error: pcre_exec returned unexpected error code %d when matching against the string \"%s\"\n",
+             __FILE__, __func__, r, str);
+    return 0;
   }
 
-  /* Extend the return array. */
-  size_t i = *ret_size;
-  *ret_size += 2;
-  *ret = safe_realloc (g, *ret, (*ret_size + 1) * sizeof (char *));
-  (*ret)[i] = safe_strdup (g, device);
-  (*ret)[i+1] = v;
-  (*ret)[i+2] = NULL;
+  return 1;
 }
+
+/* Match a regular expression which contains exactly one capture.  If
+ * the string matches, return the capture, otherwise return NULL.  The
+ * caller must free the result.
+ */
+char *
+guestfs___match1 (guestfs_h *g, const char *str, const pcre *re)
+{
+  size_t len = strlen (str);
+  int vec[30], r;
+
+  r = pcre_exec (re, NULL, str, len, 0, 0, vec, sizeof vec / sizeof vec[0]);
+  if (r == PCRE_ERROR_NOMATCH)
+    return NULL;
+  if (r != 2) {
+    /* Internal error -- should not happen. */
+    fprintf (stderr, "libguestfs: %s: %s: internal error: pcre_exec returned unexpected error code %d when matching against the string \"%s\"\n",
+             __FILE__, __func__, r, str);
+    return NULL;
+  }
+
+  return safe_strndup (g, &str[vec[2]], vec[3]-vec[2]);
+}
+
+/* Match a regular expression which contains exactly two captures. */
+int
+guestfs___match2 (guestfs_h *g, const char *str, const pcre *re,
+                  char **ret1, char **ret2)
+{
+  size_t len = strlen (str);
+  int vec[30], r;
+
+  r = pcre_exec (re, NULL, str, len, 0, 0, vec, 30);
+  if (r == PCRE_ERROR_NOMATCH)
+    return 0;
+  if (r != 3) {
+    /* Internal error -- should not happen. */
+    fprintf (stderr, "libguestfs: %s: %s: internal error: pcre_exec returned unexpected error code %d when matching against the string \"%s\"\n",
+             __FILE__, __func__, r, str);
+    return 0;
+  }
+
+  *ret1 = safe_strndup (g, &str[vec[2]], vec[3]-vec[2]);
+  *ret2 = safe_strndup (g, &str[vec[4]], vec[5]-vec[4]);
+
+  return 1;
+}
+
+#endif /* HAVE_PCRE */
